@@ -79,7 +79,7 @@ test("graduation example is a genuine six-block hand", () => {
 });
 
 test("printable visual references exist", () => {
-  for (const file of ["effective-tiles.html", "glossary.html", "decision-model.html", "shapes.html"]) {
+  for (const file of ["effective-tiles.html", "glossary.html", "decision-model.html", "shapes.html", "probability-model.html"]) {
     const referencePath = path.join(root, "reference", file);
     assert.ok(fs.existsSync(referencePath), `${file} is missing`);
     const html = fs.readFileSync(referencePath, "utf8");
@@ -120,7 +120,7 @@ test("all relative HTML, script, stylesheet and image links resolve", () => {
     path.join(root, "analyzer.html"),
     path.join(root, "trainer.html"),
     ...lessonSlugs.map((slug) => path.join(root, "lessons", `${slug}.html`)),
-    ...["effective-tiles.html", "glossary.html", "decision-model.html", "shapes.html"].map((file) => path.join(root, "reference", file))
+    ...["effective-tiles.html", "glossary.html", "decision-model.html", "shapes.html", "probability-model.html"].map((file) => path.join(root, "reference", file))
   ];
   for (const htmlPath of htmlFiles) {
     assert.ok(fs.existsSync(htmlPath), `${htmlPath} is missing`);
