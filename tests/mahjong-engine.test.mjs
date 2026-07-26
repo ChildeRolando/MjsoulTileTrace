@@ -30,6 +30,18 @@ test("effective tiles are exactly draws that reduce standard shanten", () => {
   assert.deepEqual(ids, ["1p", "4p", "5s", "8s"]);
 });
 
+test("edge-wait ukeire does not double-count a tile already used elsewhere", () => {
+  const counts = parseCompactHand("123m123p123s12s55z");
+  assert.equal(standardShanten(counts), 0);
+  assert.deepEqual(effectiveTiles(counts).map((item) => [item.id, item.remaining]), [["3s", 3]]);
+});
+
+test("a single honor waiting to become the pair has three live copies", () => {
+  const counts = parseCompactHand("123m123p123s111z2z");
+  assert.equal(standardShanten(counts), 0);
+  assert.deepEqual(effectiveTiles(counts).map((item) => [item.id, item.remaining]), [["2z", 3]]);
+});
+
 test("remaining copies subtract hand and visible tiles", () => {
   const hand = parseCompactHand("33s");
   const visible = parseCompactHand("3s");
