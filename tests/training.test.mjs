@@ -29,6 +29,8 @@ const baseHands = [
 test("twenty base hands expand to two hundred forty valid variants", () => {
   const variants = generateTrainingVariants(baseHands);
   assert.equal(variants.length, 240);
+  assert.deepEqual(variants.slice(0,20).map((variant) => variant.baseIndex), Array.from({length:20},(_,index) => index));
+  assert.equal(variants[20].baseIndex, 0, "same structure should return after twenty interleaved questions");
   for (const variant of variants) {
     assert.equal(variant.counts.reduce((sum,count) => sum + count, 0), 14);
     assert.equal(parseCompactHand(variant.compact).reduce((sum,count) => sum + count, 0), 14);
