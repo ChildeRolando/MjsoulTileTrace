@@ -26,6 +26,14 @@ assert.ok(/https:\/\/[^"' <]+/.test(lesson), "lesson must cite an external prima
 const scriptMatch = lesson.match(/<script>([\s\S]*?)<\/script>/);
 assert.ok(scriptMatch, "lesson must contain inline interaction script");
 
+const questions = [...lesson.matchAll(/<button[^>]+data-question="(q[1-3])"/g)].map((match) => match[1]);
+assert.equal(new Set(questions).size, 3, "lesson must contain three question groups");
+for (const id of new Set(questions)) {
+  const optionCount = questions.filter((question) => question === id).length;
+  assert.ok(optionCount >= 3, `${id} must offer at least three choices`);
+}
+assert.ok(lesson.includes('localStorage.setItem("riichi-lesson-0001"'), "progress must persist locally");
+
 const saved = new Map();
 const elements = new Map();
 const document = {

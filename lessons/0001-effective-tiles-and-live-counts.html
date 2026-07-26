@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第一课：有效牌与剩余枚数</title>
+  <style>
+    :root { color-scheme:light; --ink:#18201c; --muted:#667069; --paper:#fbfcfa; --card:#fff; --line:#dce2dd; --accent:#08755b; --soft:#eaf5f0; --wrong:#9b3e35; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--paper); color:var(--ink); font:17px/1.7 system-ui,"Microsoft YaHei",sans-serif; }
+    main { width:min(920px,calc(100% - 32px)); margin:0 auto; padding:32px 0 80px; }
+    .mission { display:flex; justify-content:space-between; gap:16px; padding:12px 0; color:var(--muted); border-bottom:1px solid var(--line); font-size:.88rem; }
+    .status { color:var(--accent); font-weight:750; white-space:nowrap; }
+    header { padding:72px 0 48px; border-bottom:3px solid var(--ink); }
+    .kicker { color:var(--accent); font-weight:800; letter-spacing:.13em; }
+    h1 { max-width:780px; margin:.15em 0; font-size:clamp(2.6rem,8vw,6.6rem); line-height:.95; letter-spacing:-.06em; }
+    .lead { max-width:680px; color:var(--muted); font-size:1.2rem; }
+    section { padding:48px 0; border-bottom:1px solid var(--line); }
+    h2 { margin:0 0 16px; font-size:clamp(1.6rem,4vw,2.5rem); letter-spacing:-.03em; }
+    h3 { margin:0 0 10px; }
+    .rule { display:grid; grid-template-columns:repeat(2,1fr); gap:1px; margin:24px 0; background:var(--line); border:1px solid var(--line); }
+    .rule article { padding:24px; background:var(--card); }
+    .rule strong { display:block; color:var(--accent); font-size:1.8rem; }
+    .mantra { padding:22px 24px; background:var(--ink); color:#fff; font-size:clamp(1.3rem,4vw,2rem); font-weight:750; }
+    .tiles { font:750 1.18rem/1.7 ui-monospace,"Cascadia Mono",monospace; word-spacing:.12em; }
+    .flow { display:grid; grid-template-columns:repeat(5,1fr); gap:8px; margin:22px 0; }
+    .flow div { padding:14px 10px; background:var(--soft); text-align:center; font-size:.9rem; }
+    .math { overflow-x:auto; padding:20px; background:#f4f7f4; border-left:5px solid var(--accent); font-family:ui-monospace,"Cascadia Mono",monospace; }
+    .practice { padding:30px; margin:24px 0; background:var(--card); border:1px solid var(--line); }
+    .choices { display:grid; gap:10px; margin-top:18px; }
+    button { width:100%; padding:14px 16px; border:1px solid var(--line); background:#fff; color:var(--ink); text-align:left; font:inherit; cursor:pointer; }
+    button:hover { border-color:var(--accent); background:var(--soft); }
+    button:focus-visible, a:focus-visible { outline:3px solid #31a789; outline-offset:3px; }
+    button.correct { border-color:var(--accent); background:var(--soft); }
+    button.wrong { border-color:var(--wrong); }
+    .feedback { min-height:1.7em; margin:14px 0 0; color:var(--muted); }
+    .feedback[data-state="correct"] { color:var(--accent); font-weight:700; }
+    .feedback[data-state="wrong"] { color:var(--wrong); }
+    .next { display:grid; grid-template-columns:1fr auto; align-items:end; gap:28px; }
+    a { color:var(--accent); text-underline-offset:3px; }
+    @media (max-width:700px) { .rule,.flow,.next { grid-template-columns:1fr; } header { padding:48px 0 36px; } .flow div { text-align:left; } .mission { align-items:flex-start; } }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="mission">
+      <span>目标：把牌感变成可复核、可压缩的计算</span>
+      <span class="status" id="lesson-status">已掌握 0 / 3</span>
+    </div>
+
+    <header>
+      <div class="kicker">LESSON 0001 · 约 8 分钟</div>
+      <h1>有效牌，不只是“有几种”</h1>
+      <p class="lead">今天只取得一个胜利：面对候选舍牌，先保留最低向听，再把有效牌的“种类”换算成牌山中实际可能摸到的“剩余枚数”。</p>
+    </header>
+
+    <section>
+      <h2>两个量，两个问题</h2>
+      <div class="rule">
+        <article><strong>有效牌种</strong>哪些牌摸入后会让向听数下降？这是一个不重复的集合。</article>
+        <article><strong>剩余枚数</strong>这些牌在未知区域最多还有几枚？这是实际进张机会。</article>
+      </div>
+      <div class="mantra">先向听，后枚数；先列牌种，再扣已知牌。</div>
+      <p>向听数是第一层筛选。某一打即使留下很多看似相关的牌，只要它让手牌从二向听退成三向听，就不应和保持二向听的候选直接比枚数。</p>
+    </section>
+
+    <section id="worked-example">
+      <h2>完整手算一次</h2>
+      <p>手牌为 <span class="tiles">123m 456m 789p 23s 55z 9s</span>。其中 <span class="tiles">m/p/s/z</span> 分别表示万、筒、索、字牌。</p>
+      <div class="flow" aria-label="计算顺序">
+        <div>候选舍牌</div><div>舍牌后向听数</div><div>有效牌集合</div><div>扣除已知牌</div><div>总剩余枚数</div>
+      </div>
+      <p>切 <strong>9s</strong> 后保留三个完成面子、一个雀头和 <span class="tiles">23s</span> 搭子，仍是一向听。完成最后面子的牌为 <span class="tiles">{1s, 4s}</span>。</p>
+      <div class="math">1s：4 − 0 − 0 = 4枚<br>4s：4 − 0 − 0 = 4枚<br>合计：2种、8枚</div>
+      <p>若切掉 <strong>2s</strong> 或 <strong>3s</strong>，现成搭子被破坏，手牌退为二向听。即使剩余孤立牌存在大量“将来可能有用”的邻接牌，也不能在本层胜过切 9s。</p>
+    </section>
+
+    <section>
+      <h2>轮到你：三次检索</h2>
+      <p>不要凭“看起来多”作答。每题都说出自己正在比较的是向听数、有效牌种，还是剩余枚数。</p>
+
+      <article class="practice" id="practice-1">
+        <h3>01｜种类不等于枚数</h3>
+        <p>某候选舍牌保持最低向听，有效牌为 <span class="tiles">{2m, 5m, 8p}</span>；未知区域分别还剩 3、4、3 枚。正确描述是？</p>
+        <div class="choices">
+          <button data-question="q1" data-answer="a" data-correct="true" data-explanation="集合有三种牌；剩余机会是 3＋4＋3＝10 枚。">三种有效牌，共十枚</button>
+          <button data-question="q1" data-answer="b" data-correct="false" data-explanation="“种”只数不同牌名，不能把十枚实体牌说成十种。">十种有效牌，共十枚</button>
+          <button data-question="q1" data-answer="c" data-correct="false" data-explanation="三是牌种数，不是总剩余枚数；总数要把 3、4、3 相加。">三种有效牌，共三枚</button>
+        </div>
+        <p class="feedback" id="feedback-q1" aria-live="polite"></p>
+      </article>
+
+      <article class="practice" id="practice-2">
+        <h3>02｜先扣手里的牌</h3>
+        <p><span class="tiles">3s</span> 是有效牌；你手中已经有两枚，牌河与副露区没有出现。它最多还剩几枚？</p>
+        <div class="choices">
+          <button data-question="q2" data-answer="a" data-correct="false" data-explanation="每种牌总共只有四枚；手里已知的两枚必须扣除。">最多还剩四枚牌</button>
+          <button data-question="q2" data-answer="b" data-correct="true" data-explanation="4 − 手牌2枚 − 公开0枚＝2枚。">最多还剩两枚牌</button>
+          <button data-question="q2" data-answer="c" data-correct="false" data-explanation="持有两枚不会让牌种消失；未知区域仍可能有另外两枚。">最多还剩零枚牌</button>
+        </div>
+        <p class="feedback" id="feedback-q2" aria-live="polite"></p>
+      </article>
+
+      <article class="practice" id="practice-3">
+        <h3>03｜向听优先于枚数</h3>
+        <p>候选 A 保持一向听，有效牌 8 枚；候选 B 退成二向听，但有 15 枚牌能改善牌形。纯牌效率下先选哪一个？</p>
+        <div class="choices">
+          <button data-question="q3" data-answer="a" data-correct="true" data-explanation="先比较向听数。A 保持一向听；B 的15枚只是改善二向听，不能跨层胜出。">先选择候选 A 打法</button>
+          <button data-question="q3" data-answer="b" data-correct="false" data-explanation="15枚并不都能让手牌从二向听直接降到一向听；你把改善牌当成有效牌了。">先选择候选 B 打法</button>
+          <button data-question="q3" data-answer="c" data-correct="false" data-explanation="这不是平手：候选 A 的舍牌后向听数严格更低。">两个候选完全相同</button>
+        </div>
+        <p class="feedback" id="feedback-q3" aria-live="polite"></p>
+      </article>
+    </section>
+
+    <section class="next">
+      <div>
+        <h2>把今天压缩成四步</h2>
+        <p>枚举候选舍牌 → 保持最低向听 → 列出不重复的有效牌 → 扣掉手牌和公开牌。</p>
+        <p>下一课才加入二次改良，用它解释为什么直接进张同为四枚时，<span class="tiles">13</span> 往往仍比 <span class="tiles">12</span> 更有弹性。</p>
+      </div>
+      <div>
+        <a href="../reference/effective-tiles.html">打开打印速查表</a><br>
+        <a href="https://github.com/MahjongRepository/mahjong">查看可审查的向听实现</a>
+      </div>
+    </section>
+
+    <footer>
+      <p>有任何一步不清楚，继续追问你的教师。完成三题后，把答案与理由告诉我；只有表现出掌握，才会写入学习记录。</p>
+    </footer>
+  </main>
+
+  <script>
+    const storageKey = "riichi-lesson-0001";
+    let completed = new Set();
+
+    try {
+      completed = new Set(JSON.parse(localStorage.getItem(storageKey) || "[]"));
+    } catch {
+      completed = new Set();
+    }
+
+    function updateStatus() {
+      document.getElementById("lesson-status").textContent = `已掌握 ${completed.size} / 3`;
+    }
+
+    document.querySelectorAll("[data-question]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const question = button.dataset.question;
+        const correct = button.dataset.correct === "true";
+        const feedback = document.getElementById(`feedback-${question}`);
+
+        document.querySelectorAll(`[data-question="${question}"]`).forEach((option) => {
+          option.classList.remove("correct", "wrong");
+        });
+
+        button.classList.add(correct ? "correct" : "wrong");
+        feedback.textContent = `${correct ? "正确。" : "再算一次。"}${button.dataset.explanation}`;
+        feedback.dataset.state = correct ? "correct" : "wrong";
+
+        if (correct) {
+          completed.add(question);
+          localStorage.setItem("riichi-lesson-0001", JSON.stringify([...completed]));
+          updateStatus();
+        }
+      });
+    });
+
+    updateStatus();
+  </script>
+</body>
+</html>
