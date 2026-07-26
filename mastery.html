@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>何切掌握仪表板</title>
+  <link rel="stylesheet" href="assets/course.css">
+</head>
+<body>
+  <main class="page">
+    <nav class="topbar"><a href="index.html">← 课程首页</a><a href="trainer.html">继续训练 →</a></nav>
+    <header class="hero"><div><p class="eyebrow">MASTERY DASHBOARD</p><h1>用数据证明，不凭感觉毕业</h1><p class="lead">课程完成度衡量知识接触；近百手正确率衡量稳定性；近五十手中位时间衡量实战检索速度。</p></div><div class="hero-number">证</div></header>
+    <section class="lesson-section">
+      <h2>当前状态</h2>
+      <div class="stats-grid">
+        <article class="stat-card"><strong id="stat-lessons">0 / 18</strong><span>完成课程</span></article>
+        <article class="stat-card"><strong id="stat-attempts">0</strong><span>累计训练手数</span></article>
+        <article class="stat-card"><strong id="stat-accuracy">0%</strong><span>最近一百手正确率</span></article>
+        <article class="stat-card"><strong id="stat-speed">—</strong><span>最近五十手中位时间</span></article>
+      </div>
+      <div class="meter" aria-label="总体毕业进度"><span id="mastery-meter"></span></div>
+      <p id="mastery-verdict" class="principle">尚未达到数据毕业线。</p>
+    </section>
+    <section class="lesson-section">
+      <h2>四道毕业门</h2>
+      <div class="criteria">
+        <article class="criterion" id="criterion-lessons"><strong>知识门：</strong>十八课全部完成。</article>
+        <article class="criterion" id="criterion-volume"><strong>样本门：</strong>至少完成一百手综合色训练。</article>
+        <article class="criterion" id="criterion-accuracy"><strong>稳定门：</strong>最近一百手正确率至少九成。</article>
+        <article class="criterion" id="criterion-speed"><strong>速度门：</strong>最近五十手中位作答时间不超过五秒。</article>
+      </div>
+    </section>
+    <section class="lesson-section">
+      <h2>错误画像</h2>
+      <div class="concept-grid">
+        <article class="concept"><strong id="error-shanten">0 次</strong>退向听或向听识别错误</article>
+        <article class="concept"><strong id="error-ukeire">0 次</strong>有效牌集合或剩余枚数错误</article>
+      </div>
+      <p class="note">训练器只自动判定向听与直接枚数。牌形质量与二次改良的错因，需要在真实牌谱复盘中由你口述并交给教师校正。</p>
+    </section>
+  </main>
+  <script type="module" src="assets/mastery.js"></script>
+</body>
+</html>

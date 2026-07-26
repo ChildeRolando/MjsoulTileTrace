@@ -107,6 +107,7 @@ test("visual analyzer and mixed drill trainer are complete", () => {
   assert.ok(analyzer.includes("id=\"analysis-results\""));
   assert.ok(trainer.includes("id=\"drill-hand\""));
   assert.ok(trainer.includes("id=\"drill-feedback\""));
+  assert.ok(indexOfLink(fs.readFileSync(path.join(root, "index.html"), "utf8"), "mastery.html"));
   const trainerScript = fs.readFileSync(path.join(root, "assets", "trainer.js"), "utf8");
   const drillHands = [...trainerScript.matchAll(/\bhand:\s*"([^"]+)"/g)].map((match) => match[1]);
   assert.equal(drillHands.length, 20, "trainer must contain twenty fixed hands");
@@ -121,11 +122,16 @@ test("visual analyzer and mixed drill trainer are complete", () => {
   }
 });
 
+function indexOfLink(html, href) {
+  return html.includes(`href="${href}"`);
+}
+
 test("all relative HTML, script, stylesheet and image links resolve", () => {
   const htmlFiles = [
     path.join(root, "index.html"),
     path.join(root, "analyzer.html"),
     path.join(root, "trainer.html"),
+    path.join(root, "mastery.html"),
     ...lessonSlugs.map((slug) => path.join(root, "lessons", `${slug}.html`)),
     ...["effective-tiles.html", "glossary.html", "decision-model.html", "shapes.html", "probability-model.html"].map((file) => path.join(root, "reference", file))
   ];

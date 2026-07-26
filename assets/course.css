@@ -302,12 +302,22 @@ h1 {
 .drill-meta { display: flex; justify-content: space-between; gap: 16px; color: var(--muted); }
 .drill-hand { display: flex; gap: 3px; align-items: flex-end; overflow-x: auto; padding: 22px 4px; }
 .drill-hand .tile-button { flex: 0 0 auto; width: clamp(44px, 6vw, 58px); }
+.stats-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:24px 0; }
+.stat-card { padding:22px; background:var(--card); border:1px solid var(--line); }
+.stat-card strong { display:block; font-size:clamp(1.7rem,4vw,2.8rem); line-height:1.1; }
+.stat-card span { color:var(--muted); font-size:.88rem; }
+.meter { height:12px; overflow:hidden; border-radius:99px; background:#dfe4df; }
+.meter > span { display:block; height:100%; width:var(--progress,0%); background:var(--green); }
+.criteria { display:grid; gap:12px; }
+.criterion { padding:18px; border:1px solid var(--line); background:var(--card); }
+.criterion.passed { border-color:var(--green); background:var(--green-soft); }
 
 @media (max-width: 760px) {
   .hero { grid-template-columns: 1fr; }
   .hero-number { display: none; }
   .concept-grid, .lesson-grid, .reference-links { grid-template-columns: 1fr; }
   .tile-palette { grid-template-columns: repeat(7, minmax(38px, 1fr)); }
+  .stats-grid { grid-template-columns:repeat(2,1fr); }
   .lesson-nav { grid-template-columns: 1fr; }
   .lesson-nav a:last-child { text-align: left; }
   .topbar { align-items: flex-start; }

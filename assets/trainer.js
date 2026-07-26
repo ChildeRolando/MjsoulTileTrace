@@ -1,4 +1,5 @@
-import { analyzeDiscards, parseCompactHand, TILE_IDS } from "../lib/mahjong.mjs";
+import { analyzeDiscards } from "../lib/mahjong.mjs";
+import { generateTrainingVariants, summarizeMastery } from "../lib/training.mjs";
 
 const NAMES = {
   "1m":"一万","2m":"二万","3m":"三万","4m":"四万","5m":"五万","6m":"六万","7m":"七万","8m":"八万","9m":"九万",
@@ -29,6 +30,7 @@ const drills = [
   { hand:"1345m24567p789s66z" },
   { hand:"1456m13678p123s55z" }
 ];
+const variants = generateTrainingVariants(drills.map((drill) => drill.hand));
 
 const handElement = document.getElementById("drill-hand");
 const feedback = document.getElementById("drill-feedback");
@@ -36,23 +38,31 @@ const nextButton = document.getElementById("next-drill");
 const numberElement = document.getElementById("drill-number");
 const scoreElement = document.getElementById("drill-score");
 const timerElement = document.getElementById("drill-timer");
+const lifetimeElement = document.getElementById("lifetime-stats");
 let current = 0;
 let correctCount = 0;
 let answeredCount = 0;
 let locked = false;
 let startedAt = Date.now();
 let timerHandle;
+let lifetimeAttempts = [];
+
+try {
+  lifetimeAttempts = JSON.parse(localStorage.getItem("riichi-trainer-attempts") || "[]");
+  if (!Array.isArray(lifetimeAttempts)) lifetimeAttempts = [];
+} catch {
+  lifetimeAttempts = [];
+}
 
 function image(id) {
   return `<img class="tile" src="assets/tiles/${id}.svg" alt="${NAMES[id]}">`;
 }
 
-function idsFromHand(text) {
-  const counts = parseCompactHand(text);
-  const ids = [];
-  counts.forEach((count,index) => { for (let copy = 0; copy < count; copy += 1) ids.push(TILE_IDS[index]); });
-  if (ids.length !== 14) throw new Error(`drill hand must contain fourteen tiles: ${text}`);
-  return { counts, ids };
+function updateLifetime() {
+  const summary = summarizeMastery(lifetimeAttempts);
+  const accuracy = Math.round(summary.last100Accuracy * 100);
+  const speed = summary.last50MedianMs === null ? "—" : `${(summary.last50MedianMs / 1000).toFixed(1)} 秒`;
+  lifetimeElement.textContent = `累计 ${summary.attempts} 手｜近百手 ${accuracy}%｜近五十手中位 ${speed}${summary.graduated ? "｜已达毕业线" : ""}`;
 }
 
 function renderDrill() {
@@ -60,8 +70,8 @@ function renderDrill() {
   nextButton.disabled = true;
   feedback.textContent = "点击一张牌作答。";
   feedback.dataset.state = "";
-  numberElement.textContent = `第 ${current + 1} / ${drills.length} 题`;
-  const { ids } = idsFromHand(drills[current].hand);
+  numberElement.textContent = `变体 ${current + 1} / ${variants.length}`;
+  const { ids } = variants[current];
   handElement.innerHTML = ids.map((id,index) => `<button class="tile-button" data-index="${index}" data-id="${id}" aria-label="舍${NAMES[id]}">${image(id)}</button>`).join("");
   handElement.querySelectorAll("[data-index]").forEach((button) => button.addEventListener("click", () => answer(button.dataset.id)));
   startedAt = Date.now();
@@ -75,13 +85,14 @@ function answer(discardId) {
   if (locked) return;
   locked = true;
   clearInterval(timerHandle);
-  const { counts } = idsFromHand(drills[current].hand);
+  const { counts } = variants[current];
   const analysis = analyzeDiscards(counts);
   const bestShanten = analysis[0].shanten;
   const bestUkeire = analysis[0].ukeire;
   const best = analysis.filter((item) => item.shanten === bestShanten && item.ukeire === bestUkeire);
   const chosen = analysis.find((item) => item.discard === discardId);
   const correct = best.some((item) => item.discard === discardId);
+  const elapsedMs = Date.now() - startedAt;
   answeredCount += 1;
   if (correct) correctCount += 1;
   scoreElement.textContent = `正确 ${correctCount} / ${answeredCount}`;
@@ -90,10 +101,22 @@ function answer(discardId) {
   feedback.textContent = `${correct ? "正确。" : "错误。"}你选择${NAMES[discardId]}：${chosenText}。本题直接层最优舍牌：${bestNames}；最优进张 ${bestUkeire} 枚。`;
   feedback.dataset.state = correct ? "correct" : "wrong";
   nextButton.disabled = false;
+  lifetimeAttempts.push({
+    correct,
+    elapsedMs,
+    baseIndex: variants[current].baseIndex,
+    permutationIndex: variants[current].permutationIndex,
+    mirrored: variants[current].mirrored,
+    reason: !chosen || chosen.shanten > bestShanten ? "shanten" : chosen.ukeire < bestUkeire ? "ukeire" : "direct",
+    at: Date.now()
+  });
+  lifetimeAttempts = lifetimeAttempts.slice(-500);
+  localStorage.setItem("riichi-trainer-attempts", JSON.stringify(lifetimeAttempts));
+  updateLifetime();
 }
 
 nextButton.addEventListener("click", () => {
-  current = (current + 1) % drills.length;
+  current = (current + 1) % variants.length;
   renderDrill();
 });
 document.getElementById("restart-drills").addEventListener("click", () => {
@@ -105,3 +128,4 @@ document.getElementById("restart-drills").addEventListener("click", () => {
 });
 
 renderDrill();
+updateLifetime();
