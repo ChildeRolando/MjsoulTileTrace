@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>有效牌与剩余枚数｜实战速查</title>
+  <style>
+    :root { color-scheme: light; --ink:#17201c; --muted:#5c6862; --line:#d8ded9; --accent:#08755b; --paper:#fff; --wash:#f3f7f4; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--wash); color:var(--ink); font:17px/1.65 system-ui,"Microsoft YaHei",sans-serif; }
+    main { width:min(900px,calc(100% - 32px)); margin:36px auto; padding:clamp(24px,5vw,56px); background:var(--paper); border:1px solid var(--line); }
+    header { border-bottom:3px solid var(--ink); padding-bottom:24px; }
+    .eyebrow { color:var(--accent); font-weight:750; letter-spacing:.12em; text-transform:uppercase; }
+    h1 { margin:.2em 0; font-size:clamp(2rem,6vw,4.2rem); line-height:1.05; letter-spacing:-.04em; }
+    h2 { margin:0; font-size:1.16rem; }
+    .step { display:grid; grid-template-columns:3rem 1fr; gap:16px; padding:26px 0; border-bottom:1px solid var(--line); }
+    .number { color:var(--accent); font:700 1.4rem/1 ui-monospace,monospace; }
+    .formula { margin:24px 0; padding:18px 20px; border-left:5px solid var(--accent); background:var(--wash); font-weight:750; }
+    table { width:100%; border-collapse:collapse; margin:18px 0; }
+    th,td { padding:12px; text-align:left; border-bottom:1px solid var(--line); }
+    th { color:var(--muted); font-size:.84rem; text-transform:uppercase; letter-spacing:.08em; }
+    .warning { padding:16px 18px; border:1px solid #cabf91; background:#fffbed; }
+    nav { margin-top:28px; }
+    a { color:var(--accent); text-underline-offset:3px; }
+    @media (max-width:560px) { main { width:100%; margin:0; border:0; } .step { grid-template-columns:2.2rem 1fr; } }
+    @media print { body { background:#fff; font-size:11pt; } main { width:100%; margin:0; padding:0; border:0; } nav { display:none; } .step { break-inside:avoid; } }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div class="eyebrow">Riichi · Efficiency 01</div>
+      <h1>有效牌与剩余枚数</h1>
+      <p>何切的第一层：先向听，后枚数。每次只比较仍处于最低向听数的候选。</p>
+    </header>
+
+    <section class="step">
+      <div class="number">01</div>
+      <div><h2>第一步：枚举候选舍牌</h2><p>优先检查牌块边界、孤立牌与重复功能牌，不必机械地把十四种舍牌全部展开。</p></div>
+    </section>
+    <section class="step">
+      <div class="number">02</div>
+      <div><h2>第二步：保持最低向听</h2><p>舍牌后重新看距离和牌还差几次。凡是增加向听数的候选，通常直接退出本轮效率比较。</p></div>
+    </section>
+    <section class="step">
+      <div class="number">03</div>
+      <div><h2>第三步：列出有效牌</h2><p>有效牌是摸入后能让向听数下降的牌。先写“牌种集合”，重叠牌块产生的同一种牌只写一次。</p></div>
+    </section>
+    <section class="step">
+      <div class="number">04</div>
+      <div><h2>第四步：扣除已知牌</h2><p>再把每一种有效牌换成牌山中至多还剩多少枚，并求和。</p></div>
+    </section>
+
+    <div class="formula">剩余枚数 = 4 − 手牌中的同种牌 − 已公开的同种牌</div>
+
+    <table>
+      <thead><tr><th>有效牌</th><th>手中</th><th>公开</th><th>最多剩余</th></tr></thead>
+      <tbody><tr><td>3索</td><td>2枚</td><td>0枚</td><td>4 − 2 − 0 = 2枚</td></tr></tbody>
+    </table>
+
+    <p class="warning"><strong>不要混淆：</strong>“3种有效牌”描述集合大小；“10枚剩余牌”描述真实摸入机会。何切比较最终看剩余枚数，但列牌种能防止漏算与重复计算。</p>
+
+    <nav><a href="../lessons/0001-effective-tiles-and-live-counts.html">返回第一课：有效牌与剩余枚数</a></nav>
+  </main>
+</body>
+</html>
