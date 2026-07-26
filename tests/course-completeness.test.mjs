@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 import test from "node:test";
+import { analyzeDiscards, parseCompactHand } from "../lib/mahjong.mjs";
 
 const root = process.cwd();
 const tileIds = [
@@ -78,9 +79,38 @@ test("printable visual references exist", () => {
   }
 });
 
+test("visual analyzer and mixed drill trainer are complete", () => {
+  const analyzerPath = path.join(root, "analyzer.html");
+  const trainerPath = path.join(root, "trainer.html");
+  assert.ok(fs.existsSync(analyzerPath), "visual analyzer is missing");
+  assert.ok(fs.existsSync(trainerPath), "mixed drill trainer is missing");
+  const analyzer = fs.readFileSync(analyzerPath, "utf8");
+  const trainer = fs.readFileSync(trainerPath, "utf8");
+  assert.ok(analyzer.includes("assets/analyzer.js"));
+  assert.ok(trainer.includes("assets/trainer.js"));
+  assert.ok(analyzer.includes("id=\"tile-palette\""));
+  assert.ok(analyzer.includes("id=\"analysis-results\""));
+  assert.ok(trainer.includes("id=\"drill-hand\""));
+  assert.ok(trainer.includes("id=\"drill-feedback\""));
+  const trainerScript = fs.readFileSync(path.join(root, "assets", "trainer.js"), "utf8");
+  const drillHands = [...trainerScript.matchAll(/\bhand:\s*"([^"]+)"/g)].map((match) => match[1]);
+  assert.equal(drillHands.length, 20, "trainer must contain twenty fixed hands");
+  for (const hand of drillHands) {
+    const counts = parseCompactHand(hand);
+    assert.equal(counts.reduce((sum,count) => sum + count, 0), 14, `${hand} is not a fourteen-tile hand`);
+    assert.ok(analyzeDiscards(counts).length > 0, `${hand} has no discard analysis`);
+  }
+  for (const file of ["assets/analyzer.js", "assets/trainer.js"]) {
+    const script = fs.readFileSync(path.join(root, file), "utf8");
+    assert.ok(script.includes("../lib/mahjong.mjs"), `${file} must use the exact engine`);
+  }
+});
+
 test("all relative HTML, script, stylesheet and image links resolve", () => {
   const htmlFiles = [
     path.join(root, "index.html"),
+    path.join(root, "analyzer.html"),
+    path.join(root, "trainer.html"),
     ...lessonSlugs.map((slug) => path.join(root, "lessons", `${slug}.html`)),
     ...["effective-tiles.html", "glossary.html", "decision-model.html", "shapes.html"].map((file) => path.join(root, "reference", file))
   ];

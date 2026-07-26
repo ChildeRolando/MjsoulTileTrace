@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>综合色何切训练｜科学日麻牌效率</title>
+  <link rel="stylesheet" href="assets/course.css">
+</head>
+<body>
+  <main class="page">
+    <nav class="topbar"><a href="index.html">← 课程首页</a><span id="drill-score">正确 0 / 0</span></nav>
+    <header class="hero"><div><p class="eyebrow">MIXED DRILLS · 20 HANDS</p><h1>看牌，点舍牌</h1><p class="lead">每题先在三秒内作答，再阅读精确向听与有效牌反馈。并列最优时，反馈会提醒你进入牌形质量与改良层。</p></div><div class="hero-number">练</div></header>
+    <section class="lesson-section">
+      <div class="tool-panel">
+        <div class="drill-meta"><strong id="drill-number">第 1 / 20 题</strong><span id="drill-timer">0.0 秒</span></div>
+        <div id="drill-hand" class="drill-hand" aria-label="请选择要舍弃的牌"></div>
+        <div id="drill-feedback" class="feedback" aria-live="polite">点击一张牌作答。</div>
+        <div class="action-row"><button class="action" id="next-drill" disabled>下一题</button><button class="action secondary" id="restart-drills">重新开始</button></div>
+      </div>
+    </section>
+    <section class="lesson-section">
+      <h2>训练规则</h2>
+      <ol>
+        <li>系统只判定向听数与直接剩余枚数两层。</li>
+        <li>多个舍牌同为最优时全部算正确；再用课程中的牌形质量、二次改良破平。</li>
+        <li>答错不要连点改答案。先口述自己漏掉的有效牌，再进入下一题。</li>
+      </ol>
+    </section>
+  </main>
+  <script type="module" src="assets/trainer.js"></script>
+</body>
+</html>
