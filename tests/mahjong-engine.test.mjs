@@ -55,3 +55,31 @@ test("discard analysis prioritizes lower shanten before live ukeire", () => {
   assert.equal(analysis[0].shanten, 0);
   assert.equal(analysis[0].ukeire, 8);
 });
+
+test("advanced one-shanten families have the documented effective sets", () => {
+  const standard = parseCompactHand("123m456m23p67s55z9p");
+  assert.equal(standardShanten(standard), 1);
+  assert.deepEqual(effectiveTiles(standard).map((tile) => tile.id), ["1p","4p","5s","8s"]);
+
+  const headless = parseCompactHand("123m456m789p23s67s");
+  assert.equal(standardShanten(headless), 1);
+  assert.deepEqual(effectiveTiles(headless).map((tile) => tile.id), ["1s","2s","3s","4s","5s","6s","7s","8s"]);
+
+  const kuttsuki = parseCompactHand("123m456m789p55z3s7s");
+  assert.equal(standardShanten(kuttsuki), 1);
+  assert.deepEqual(effectiveTiles(kuttsuki).map((tile) => tile.id), ["1s","2s","3s","4s","5s","6s","7s","8s","9s","5z"]);
+});
+
+test("complex wait examples enumerate all legal standard-hand waits", () => {
+  const nobetan = parseCompactHand("123p456p789s3456m");
+  assert.equal(standardShanten(nobetan), 0);
+  assert.deepEqual(effectiveTiles(nobetan).map((tile) => tile.id), ["3m","6m"]);
+
+  const sanmenchan = parseCompactHand("123m456p55z23456s");
+  assert.equal(standardShanten(sanmenchan), 0);
+  assert.deepEqual(effectiveTiles(sanmenchan).map((tile) => tile.id), ["1s","4s","7s"]);
+
+  const entotsu = parseCompactHand("123m456p789s2333m");
+  assert.equal(standardShanten(entotsu), 0);
+  assert.deepEqual(effectiveTiles(entotsu).map((tile) => tile.id), ["1m","2m","4m"]);
+});

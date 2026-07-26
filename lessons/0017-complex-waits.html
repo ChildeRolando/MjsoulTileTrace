@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第17课｜复杂听牌：从牌图反推所有拆法</title>
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body data-lesson="lesson-0017">
+  <main class="page">
+    <nav class="topbar"><a href="../index.html">科学日麻牌效率</a><span class="lesson-status" id="lesson-status">已掌握 0 / 3</span></nav>
+    <header class="hero">
+      <div>
+        <p class="eyebrow">LESSON 17 · 普通四面子一雀头</p>
+        <h1>复杂听牌：从牌图反推所有拆法</h1>
+        <p class="lead">识别延单骑、三面听与烟囱形，避免只看到最显眼的一种和牌。</p>
+      </div>
+      <div class="hero-number">17</div>
+    </header>
+    <section class="lesson-section">
+      <h2>本课只记一条</h2>
+      <div class="principle">复杂听牌的答案，是所有合法“面子加雀头”拆法产生的等待牌并集。</div>
+      <div class="concept-grid"><article class="concept"><strong>延单骑与三面听</strong>连续四张可在两端留下单骑；连续五张可由多种双顺子拆法产生三面等待。</article><article class="concept"><strong>烟囱形</strong>顺子方向、刻子方向与对子方向重叠，等待牌常超过肉眼第一反应。</article></div>
+    </section>
+    <section class="lesson-section" id="worked-example">
+      <h2>三种高频复杂等待</h2>
+      <div class="worked">
+        <div class="tile-rack" role="img" aria-label="三个完成面子与三四五六万延单骑"><span class="tile-group"><span class="tile-wrap"><img class="tile" src="../assets/tiles/1p.svg" alt="一筒"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/2p.svg" alt="二筒"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/3p.svg" alt="三筒"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/4p.svg" alt="四筒"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/5p.svg" alt="五筒"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/6p.svg" alt="六筒"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/7s.svg" alt="七索"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/8s.svg" alt="八索"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/9s.svg" alt="九索"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/3m.svg" alt="三万"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/4m.svg" alt="四万"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/5m.svg" alt="五万"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/6m.svg" alt="六万"></span></span></div>
+        <div class="tile-rack" role="img" aria-label="三四五六万延单骑等待三万与六万"><span class="tile-group"><span class="tile-wrap effective"><span class="tile-badge">进</span><img class="tile" src="../assets/tiles/3m.svg" alt="三万"></span><span class="tile-wrap effective"><span class="tile-badge">进</span><img class="tile" src="../assets/tiles/6m.svg" alt="六万"></span></span></div>
+      <p>三四五万成顺子可留下六万单骑；四五六万成顺子可留下三万单骑。</p>
+      <div class="tile-rack" role="img" aria-label="二三四五六索三面听等待一索四索七索"><span class="tile-group"><span class="tile-wrap"><img class="tile" src="../assets/tiles/2s.svg" alt="二索"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/3s.svg" alt="三索"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/4s.svg" alt="四索"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/5s.svg" alt="五索"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/6s.svg" alt="六索"></span><span class="tile-wrap effective"><span class="tile-badge">进</span><img class="tile" src="../assets/tiles/1s.svg" alt="一索"></span><span class="tile-wrap effective"><span class="tile-badge">进</span><img class="tile" src="../assets/tiles/4s.svg" alt="四索"></span><span class="tile-wrap effective"><span class="tile-badge">进</span><img class="tile" src="../assets/tiles/7s.svg" alt="七索"></span></span></div>
+      <p>连续五张需要组成两个顺子时，等待来自左、中、右三种补法；手中已有的同种牌要从四张扣除。</p>
+      <div class="tile-rack" role="img" aria-label="二三三三筒烟囱形等待一筒二筒四筒"><span class="tile-group"><span class="tile-wrap"><img class="tile" src="../assets/tiles/2p.svg" alt="二筒"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/3p.svg" alt="三筒"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/3p.svg" alt="三筒"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/3p.svg" alt="三筒"></span><span class="tile-wrap effective"><span class="tile-badge">进</span><img class="tile" src="../assets/tiles/1p.svg" alt="一筒"></span><span class="tile-wrap effective"><span class="tile-badge">进</span><img class="tile" src="../assets/tiles/2p.svg" alt="二筒"></span><span class="tile-wrap effective"><span class="tile-badge">进</span><img class="tile" src="../assets/tiles/4p.svg" alt="四筒"></span></span></div>
+      </div>
+    </section>
+    <section class="lesson-section">
+      <h2>主动检索</h2>
+      <p>复杂等待不靠眼熟；枚举每一种面子与雀头拆法，再取并集。</p>
+      <article class="practice" id="practice-1">
+    <div class="practice-index">RETRIEVAL 01</div>
+    <div class="question-prompt"><div class="tile-rack" role="img" aria-label="三四五六索延单骑"><span class="tile-group"><span class="tile-wrap"><img class="tile" src="../assets/tiles/3s.svg" alt="三索"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/4s.svg" alt="四索"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/5s.svg" alt="五索"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/6s.svg" alt="六索"></span></span></div>这组牌与三个完成面子组合时等待什么？</div>
+    <div class="choices"><button class="choice" data-question="l17q1" data-correct="true" data-explanation="可分别留下两端牌作单骑。">等待三索以及六索</button>
+<button class="choice" data-question="l17q1" data-correct="false" data-explanation="那是把中间两张误当普通两面。">只等待二索和七索</button>
+<button class="choice" data-question="l17q1" data-correct="false" data-explanation="中间牌不是延单骑的两端。">只等待四索和五索</button></div>
+    <p class="feedback" id="feedback-l17q1" aria-live="polite"></p>
+  </article><article class="practice" id="practice-2">
+    <div class="practice-index">RETRIEVAL 02</div>
+    <div class="question-prompt"><div class="tile-rack" role="img" aria-label="二三四五六万连续五张"><span class="tile-group"><span class="tile-wrap"><img class="tile" src="../assets/tiles/2m.svg" alt="二万"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/3m.svg" alt="三万"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/4m.svg" alt="四万"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/5m.svg" alt="五万"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/6m.svg" alt="六万"></span></span></div>组成两个顺子时等待哪组？</div>
+    <div class="choices"><button class="choice" data-question="l17q2" data-correct="true" data-explanation="分别补成一二三、三四五或五六七方向。">等待一万四万七万</button>
+<button class="choice" data-question="l17q2" data-correct="false" data-explanation="这些补牌不能对应三种双顺子拆法。">等待二万五万八万</button>
+<button class="choice" data-question="l17q2" data-correct="false" data-explanation="遗漏了左右两端的合法完成。">只等待四万一种牌</button></div>
+    <p class="feedback" id="feedback-l17q2" aria-live="polite"></p>
+  </article><article class="practice" id="practice-3">
+    <div class="practice-index">RETRIEVAL 03</div>
+    <div class="question-prompt">复杂听牌枚数为什么不能只用“种数乘四”？</div>
+    <div class="choices"><button class="choice" data-question="l17q3" data-correct="true" data-explanation="复杂形往往自身含有等待牌，剩余副本少于四张。">手中已经占用同种牌</button>
+<button class="choice" data-question="l17q3" data-correct="false" data-explanation="日麻每种牌仍只有四张。">每种牌实际都有五张</button>
+<button class="choice" data-question="l17q3" data-correct="false" data-explanation="仍应逐种扣除已知牌。">复杂形完全不计算枚数</button></div>
+    <p class="feedback" id="feedback-l17q3" aria-live="polite"></p>
+  </article>
+    </section>
+    <section class="lesson-section source">
+      <p>主要来源：<a href="https://dainachiba.github.io/RiichiBooks/">Daina Chiba《Riichi Book I》</a>。资料提供定义与策略背景；课内具体枚数按四张同种牌和已知牌扣除复核。</p>
+      <p><a href="../reference/decision-model.html">打开完整何切决策树</a> · <a href="../reference/effective-tiles.html">打开有效牌速查表</a></p>
+      <p>有任何一步不清楚，继续追问你的教师。不要只报答案，请说明自己比较到哪一层。</p>
+    </section>
+    <nav class="lesson-nav"><a href="0016-kuttsuki-one-shanten.html">← 上一课：黏着一向听：浮牌就是进张发动机</a><a href="0018-mastery-protocol.html">下一课：何切仙人的训练协议 →</a></nav>
+  </main>
+  <script type="module" src="../assets/course.js"></script>
+</body>
+</html>

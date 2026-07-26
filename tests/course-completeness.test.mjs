@@ -23,7 +23,13 @@ const lessonSlugs = [
   "0009-six-block-theory",
   "0010-visible-tile-interference",
   "0011-lexicographic-discard-model",
-  "0012-speed-drills-and-exam"
+  "0012-speed-drills-and-exam",
+  "0013-one-shanten-families",
+  "0014-standard-one-shanten",
+  "0015-headless-one-shanten",
+  "0016-kuttsuki-one-shanten",
+  "0017-complex-waits",
+  "0018-mastery-protocol"
 ];
 
 test("manifest maps all thirty-four unique tiles to local SVG files", () => {
@@ -43,10 +49,11 @@ test("manifest maps all thirty-four unique tiles to local SVG files", () => {
   }
 });
 
-test("course contains a linked index and twelve complete visual lessons", () => {
+test("course contains a linked index and eighteen complete visual lessons", () => {
   const indexPath = path.join(root, "index.html");
   assert.ok(fs.existsSync(indexPath), "course index is missing");
   const index = fs.readFileSync(indexPath, "utf8");
+  assert.ok(index.includes("已完成 0 / 18 课"));
   for (const slug of lessonSlugs) {
     const relative = `lessons/${slug}.html`;
     assert.ok(index.includes(relative), `index does not link ${relative}`);
