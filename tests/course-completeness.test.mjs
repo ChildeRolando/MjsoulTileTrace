@@ -70,6 +70,14 @@ test("course contains a linked index and twelve complete visual lessons", () => 
   }
 });
 
+test("graduation example is a genuine six-block hand", () => {
+  const graduation = fs.readFileSync(path.join(root, "lessons", "0012-speed-drills-and-exam.html"), "utf8");
+  assert.ok(graduation.includes("六个功能块"));
+  assert.ok(graduation.includes("边张"));
+  assert.ok(graduation.includes("嵌张"));
+  assert.ok(!graduation.includes("两张孤立牌"));
+});
+
 test("printable visual references exist", () => {
   for (const file of ["effective-tiles.html", "glossary.html", "decision-model.html", "shapes.html"]) {
     const referencePath = path.join(root, "reference", file);
