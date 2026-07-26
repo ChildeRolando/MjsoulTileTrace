@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第9课｜六牌块：主动淘汰最弱块</title>
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body data-lesson="lesson-0009">
+  <main class="page">
+    <nav class="topbar"><a href="../index.html">科学日麻牌效率</a><span class="lesson-status" id="lesson-status">已掌握 0 / 3</span></nav>
+    <header class="hero">
+      <div>
+        <p class="eyebrow">LESSON 09 · 普通四面子一雀头</p>
+        <h1>六牌块：主动淘汰最弱块</h1>
+        <p class="lead">当手牌有六个候选块时，用损失最小原则决定拆哪块。</p>
+      </div>
+      <div class="hero-number">09</div>
+    </header>
+    <section class="lesson-section">
+      <h2>本课只记一条</h2>
+      <div class="principle">六块手最终必弃一块；现在比较的是每次删除造成的边际损失。</div>
+      <div class="concept-grid"><article class="concept"><strong>保留六块的代价</strong>短期看似进张多，但块之间争夺有限张数，常造成有效牌重复和最终愚形。</article><article class="concept"><strong>淘汰顺序</strong>先向听，再直接枚数，再好形率与改良；弱边张、死枚多的搭子常优先退出。</article></div>
+    </section>
+    <section class="lesson-section" id="worked-example">
+      <h2>五个槽，六个候选</h2>
+      <div class="worked">
+        <div class="tile-rack" role="img" aria-label="两个完成面子、三个搭子和一个对子共六块"><span class="tile-group"><span class="tile-wrap"><img class="tile" src="../assets/tiles/1m.svg" alt="一万"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/2m.svg" alt="二万"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/3m.svg" alt="三万"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/4m.svg" alt="四万"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/5m.svg" alt="五万"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/6m.svg" alt="六万"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/1p.svg" alt="一筒"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/2p.svg" alt="二筒"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/3s.svg" alt="三索"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/4s.svg" alt="四索"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/6s.svg" alt="六索"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/7s.svg" alt="七索"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/5z.svg" alt="白"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/5z.svg" alt="白"></span></span></div>
+        <div class="tile-rack" role="img" aria-label="两个完成面子"><span class="tile-group"><span class="tile-wrap"><img class="tile" src="../assets/tiles/1m.svg" alt="一万"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/2m.svg" alt="二万"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/3m.svg" alt="三万"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/4m.svg" alt="四万"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/5m.svg" alt="五万"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/6m.svg" alt="六万"></span></span></div>
+      <div class="tile-rack" role="img" aria-label="一个边张与两个两面"><span class="tile-group"><span class="tile-wrap"><img class="tile" src="../assets/tiles/1p.svg" alt="一筒"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/2p.svg" alt="二筒"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/3s.svg" alt="三索"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/4s.svg" alt="四索"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/6s.svg" alt="六索"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/7s.svg" alt="七索"></span></span></div>
+      <div class="tile-rack" role="img" aria-label="白牌对子"><span class="tile-group"><span class="tile-wrap"><img class="tile" src="../assets/tiles/5z.svg" alt="白"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/5z.svg" alt="白"></span></span></div>
+      <p>总计六块，而最终只需五块。若相关牌均未见，边张直接四枚，两个两面各八枚；拆边张的直接损失最小。</p>
+      <div class="calculation">候选删除损失：边张四枚　＜　两面八枚</div>
+      <p class="note">若边张有效牌全活，而某两面两端已大量见牌，必须用实际剩余枚数重算，不能机械背结论。</p>
+      </div>
+    </section>
+    <section class="lesson-section">
+      <h2>主动检索</h2>
+      <p>六块不是越多越好；说出删除候选的比较层次。</p>
+      <article class="practice" id="practice-1">
+    <div class="practice-index">RETRIEVAL 01</div>
+    <div class="question-prompt">六牌块手为什么必须主动比较拆块？</div>
+    <div class="choices"><button class="choice" data-question="l09q1" data-correct="true" data-explanation="普通和牌是四面子加一雀头。">最终结构只容纳五块</button>
+<button class="choice" data-question="l09q1" data-correct="false" data-explanation="牌块数量与宝牌无关。">第六块会自动变成宝牌</button>
+<button class="choice" data-question="l09q1" data-correct="false" data-explanation="六块是候选结构过剩，不是完成。">六块一定已经完成和牌</button></div>
+    <p class="feedback" id="feedback-l09q1" aria-live="polite"></p>
+  </article><article class="practice" id="practice-2">
+    <div class="practice-index">RETRIEVAL 02</div>
+    <div class="question-prompt"><div class="tile-rack" role="img" aria-label="一二筒边张与四五索两面"><span class="tile-group"><span class="tile-wrap"><img class="tile" src="../assets/tiles/1p.svg" alt="一筒"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/2p.svg" alt="二筒"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/4s.svg" alt="四索"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/5s.svg" alt="五索"></span></span></div>相关牌全活且其他条件相同，通常拆哪组？</div>
+    <div class="choices"><button class="choice" data-question="l09q2" data-correct="true" data-explanation="边张直接四枚，两面直接八枚，删除边张损失较小。">优先拆一二筒边张</button>
+<button class="choice" data-question="l09q2" data-correct="false" data-explanation="这会丢掉更宽的直接进张。">优先拆四五索两面</button>
+<button class="choice" data-question="l09q2" data-correct="false" data-explanation="直接剩余枚数已经给出排序依据。">两组必须随机选择</button></div>
+    <p class="feedback" id="feedback-l09q2" aria-live="polite"></p>
+  </article><article class="practice" id="practice-3">
+    <div class="practice-index">RETRIEVAL 03</div>
+    <div class="question-prompt">什么情况可能推翻“先拆边张”的默认结论？</div>
+    <div class="choices"><button class="choice" data-question="l09q3" data-correct="true" data-explanation="牌山剩余枚数比形状标签更具体。">可见牌令实际枚数反转</button>
+<button class="choice" data-question="l09q3" data-correct="false" data-explanation="视觉偏好不参与效率计算。">边张牌面颜色较好看</button>
+<button class="choice" data-question="l09q3" data-correct="false" data-explanation="术语长度与成牌概率无关。">两面名称听起来更长</button></div>
+    <p class="feedback" id="feedback-l09q3" aria-live="polite"></p>
+  </article>
+    </section>
+    <section class="lesson-section source">
+      <p>主要来源：<a href="https://dainachiba.github.io/RiichiBooks/">Daina Chiba《Riichi Book I》</a>。资料提供定义与策略背景；课内具体枚数按四张同种牌和已知牌扣除复核。</p>
+      <p><a href="../reference/decision-model.html">打开完整何切决策树</a> · <a href="../reference/effective-tiles.html">打开有效牌速查表</a></p>
+      <p>有任何一步不清楚，继续追问你的教师。不要只报答案，请说明自己比较到哪一层。</p>
+    </section>
+    <nav class="lesson-nav"><a href="0008-pair-selection.html">← 上一课：对子既是雀头，也是未完成块</a><a href="0010-visible-tile-interference.html">下一课：可见牌会让形状排名反转 →</a></nav>
+  </main>
+  <script type="module" src="../assets/course.js"></script>
+</body>
+</html>

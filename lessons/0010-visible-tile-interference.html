@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第10课｜可见牌会让形状排名反转</title>
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body data-lesson="lesson-0010">
+  <main class="page">
+    <nav class="topbar"><a href="../index.html">科学日麻牌效率</a><span class="lesson-status" id="lesson-status">已掌握 0 / 3</span></nav>
+    <header class="hero">
+      <div>
+        <p class="eyebrow">LESSON 10 · 普通四面子一雀头</p>
+        <h1>可见牌会让形状排名反转</h1>
+        <p class="lead">把手牌、牌河与副露中的已知牌全部扣除，处理重复有效牌和死枚。</p>
+      </div>
+      <div class="hero-number">10</div>
+    </header>
+    <section class="lesson-section">
+      <h2>本课只记一条</h2>
+      <div class="principle">牌形给出候选集合；可见牌决定真实剩余枚数。</div>
+      <div class="concept-grid"><article class="concept"><strong>已知牌</strong>手牌、所有牌河、副露与明杠中的牌都不在未知摸牌池中。王牌未知，不能擅自扣除。</article><article class="concept"><strong>枚数干涉</strong>同一种有效牌可能被其他牌块占用，也可能已经公开；每种实体牌最多只有四张。</article></div>
+    </section>
+    <section class="lesson-section" id="worked-example">
+      <h2>八枚两面也可能只剩五枚</h2>
+      <div class="worked">
+        <div class="tile-rack" role="img" aria-label="二三索两面，一索已见一张，四索已见两张"><span class="tile-group"><span class="tile-wrap"><img class="tile" src="../assets/tiles/2s.svg" alt="二索"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/3s.svg" alt="三索"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/1s.svg" alt="一索"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/4s.svg" alt="四索"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/4s.svg" alt="四索"></span></span></div>
+        <div class="tile-rack" role="img" aria-label="二三索两面"><span class="tile-group"><span class="tile-wrap"><img class="tile" src="../assets/tiles/2s.svg" alt="二索"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/3s.svg" alt="三索"></span></span></div>
+      <p>理论有效牌是两端各四枚；现在把已知牌划掉：</p>
+      <div class="tile-rack" role="img" aria-label="四张一索中一张已知"><span class="tile-group"><span class="tile-wrap known"><img class="tile" src="../assets/tiles/1s.svg" alt="一索"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/1s.svg" alt="一索"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/1s.svg" alt="一索"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/1s.svg" alt="一索"></span></span></div>
+      <div class="tile-rack" role="img" aria-label="四张四索中两张已知"><span class="tile-group"><span class="tile-wrap known"><img class="tile" src="../assets/tiles/4s.svg" alt="四索"></span><span class="tile-wrap known"><img class="tile" src="../assets/tiles/4s.svg" alt="四索"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/4s.svg" alt="四索"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/4s.svg" alt="四索"></span></span></div>
+      <div class="calculation">一索剩 3 枚　＋　四索剩 2 枚　＝　实际 5 枚</div>
+      <p>如果另一个嵌张仍有四枚全活，这个受损两面只领先一枚；后续改良与最终听牌质量就可能决定取舍。</p>
+      </div>
+    </section>
+    <section class="lesson-section">
+      <h2>主动检索</h2>
+      <p>口述剩余枚数公式，并指出哪些区域属于已知牌。</p>
+      <article class="practice" id="practice-1">
+    <div class="practice-index">RETRIEVAL 01</div>
+    <div class="question-prompt"><div class="tile-rack" role="img" aria-label="手中已有三张三万"><span class="tile-group"><span class="tile-wrap"><img class="tile" src="../assets/tiles/3m.svg" alt="三万"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/3m.svg" alt="三万"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/3m.svg" alt="三万"></span></span></div>三万是某候选的有效牌，外部未见。还剩几张？</div>
+    <div class="choices"><button class="choice" data-question="l10q1" data-correct="true" data-explanation="四张总数减去手中三张，剩一张。">未知区域只剩一张牌</button>
+<button class="choice" data-question="l10q1" data-correct="false" data-explanation="手里的三张不能继续从牌山摸到。">未知区域仍剩三张牌</button>
+<button class="choice" data-question="l10q1" data-correct="false" data-explanation="忽略手牌会高估三张。">未知区域仍剩四张牌</button></div>
+    <p class="feedback" id="feedback-l10q1" aria-live="polite"></p>
+  </article><article class="practice" id="practice-2">
+    <div class="practice-index">RETRIEVAL 02</div>
+    <div class="question-prompt">同一张五筒同时完成两个重叠牌块时，应怎样计数？</div>
+    <div class="choices"><button class="choice" data-question="l10q2" data-correct="true" data-explanation="同一实体牌不能因为两种解释而复制。">牌种并集只计算一次</button>
+<button class="choice" data-question="l10q2" data-correct="false" data-explanation="这会把最多四张牌虚增为八张。">每个牌块各计算四次</button>
+<button class="choice" data-question="l10q2" data-correct="false" data-explanation="重叠不代表无效，只代表不能重复相加。">直接从有效牌中删除</button></div>
+    <p class="feedback" id="feedback-l10q2" aria-live="polite"></p>
+  </article><article class="practice" id="practice-3">
+    <div class="practice-index">RETRIEVAL 03</div>
+    <div class="question-prompt">王牌中的未知牌是否应在普通可见牌计算里提前扣除？</div>
+    <div class="choices"><button class="choice" data-question="l10q3" data-correct="true" data-explanation="你不知道具体哪些牌在王牌中，只能基于已知信息计算。">未知位置不能直接扣除</button>
+<button class="choice" data-question="l10q3" data-correct="false" data-explanation="王牌组成不是每种牌各一张。">固定扣除每种一张牌</button>
+<button class="choice" data-question="l10q3" data-correct="false" data-explanation="这会让任何进张都错误归零。">固定扣除全部有效牌</button></div>
+    <p class="feedback" id="feedback-l10q3" aria-live="polite"></p>
+  </article>
+    </section>
+    <section class="lesson-section source">
+      <p>主要来源：<a href="https://dainachiba.github.io/RiichiBooks/">Daina Chiba《Riichi Book I》</a>。资料提供定义与策略背景；课内具体枚数按四张同种牌和已知牌扣除复核。</p>
+      <p><a href="../reference/decision-model.html">打开完整何切决策树</a> · <a href="../reference/effective-tiles.html">打开有效牌速查表</a></p>
+      <p>有任何一步不清楚，继续追问你的教师。不要只报答案，请说明自己比较到哪一层。</p>
+    </section>
+    <nav class="lesson-nav"><a href="0009-six-block-theory.html">← 上一课：六牌块：主动淘汰最弱块</a><a href="0011-lexicographic-discard-model.html">下一课：完整何切：用词典序，不用万能分 →</a></nav>
+  </main>
+  <script type="module" src="../assets/course.js"></script>
+</body>
+</html>

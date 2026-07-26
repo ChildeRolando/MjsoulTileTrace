@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>完整何切决策树</title>
+  <link rel="stylesheet" href="../assets/course.css">
+  <style>@media print { .reference-jump { display:none } }.rank{counter-reset:rank}.rank article{counter-increment:rank}.rank article strong::before{content:counter(rank) " · "}</style>
+</head>
+<body>
+  <main class="page">
+    <nav class="topbar reference-jump"><a href="../index.html">← 课程首页</a><span>可打印决策树</span></nav>
+    <header class="hero"><div><p class="eyebrow">REFERENCE 03</p><h1>何切词典序</h1><p class="lead">理论精算五层，实战压缩三眼。</p></div><div class="hero-number">03</div></header>
+    <section class="lesson-section">
+      <h2>精确比较</h2>
+      <div class="concept-grid rank">
+        <article class="concept"><strong>向听数</strong>排除退向听候选。</article>
+        <article class="concept"><strong>直接剩余枚数</strong>同向听时，求有效牌并扣已知牌。</article>
+        <article class="concept"><strong>进张质量</strong>比较进张后形成两面、愚形或双碰。</article>
+        <article class="concept"><strong>二次改良</strong>直接层接近时，比较转好形和扩张路径。</article>
+        <article class="concept"><strong>最终形</strong>仍接近时，保留更好的听牌与结构弹性。</article>
+      </div>
+      <div class="principle">严格优势在上层出现，就停止；只有打平或接近，才进入下一层。</div>
+    </section>
+    <section class="lesson-section">
+      <h2>桌上三眼</h2>
+      <ol>
+        <li><strong>第一眼：</strong>完成面子、雀头、牌块数；找出明显浮牌和弱块。</li>
+        <li><strong>第二眼：</strong>有没有退向听；同向听谁的直接有效牌更多。</li>
+        <li><strong>第三眼：</strong>数量接近时，谁更容易转两面、留下好听牌。</li>
+      </ol>
+      <div class="tile-rack" role="img" aria-label="舍牌候选与有效牌示意"><span class="tile-group"><span class="tile-wrap discard"><span class="tile-badge">舍</span><img class="tile" src="../assets/tiles/9p.svg" alt="候选舍牌九筒"></span><span class="tile-wrap effective"><span class="tile-badge">进</span><img class="tile" src="../assets/tiles/1s.svg" alt="有效牌一索"></span><span class="tile-wrap effective"><span class="tile-badge">进</span><img class="tile" src="../assets/tiles/4s.svg" alt="有效牌四索"></span></span></div>
+    </section>
+  </main>
+</body>
+</html>

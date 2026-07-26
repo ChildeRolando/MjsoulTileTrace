@@ -1,6 +1,5 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
-import vm from "node:vm";
 
 const lessonPath = "lessons/0001-effective-tiles-and-live-counts.html";
 const referencePath = "reference/effective-tiles.html";
@@ -22,38 +21,15 @@ for (const text of ["第一步：枚举候选舍牌", "第二步：保持最低�
 }
 assert.ok(lesson.includes("../reference/effective-tiles.html"), "lesson must link to reference");
 assert.ok(/https:\/\/[^"' <]+/.test(lesson), "lesson must cite an external primary source");
+assert.ok(lesson.includes("../assets/course.css"), "lesson must use shared course styles");
+assert.ok(lesson.includes("../assets/course.js"), "lesson must use shared course interactions");
+assert.ok(lesson.includes("../assets/tiles/"), "lesson must use vector tile images");
 
-const scriptMatch = lesson.match(/<script>([\s\S]*?)<\/script>/);
-assert.ok(scriptMatch, "lesson must contain inline interaction script");
-
-const questions = [...lesson.matchAll(/<button[^>]+data-question="(q[1-3])"/g)].map((match) => match[1]);
+const questions = [...lesson.matchAll(/<button[^>]+data-question="(l01q[1-3])"/g)].map((match) => match[1]);
 assert.equal(new Set(questions).size, 3, "lesson must contain three question groups");
 for (const id of new Set(questions)) {
   const optionCount = questions.filter((question) => question === id).length;
   assert.ok(optionCount >= 3, `${id} must offer at least three choices`);
 }
-assert.ok(lesson.includes('localStorage.setItem("riichi-lesson-0001"'), "progress must persist locally");
-
-const saved = new Map();
-const elements = new Map();
-const document = {
-  querySelectorAll: () => [],
-  getElementById: (id) => {
-    if (!elements.has(id)) {
-      elements.set(id, {
-        textContent: "",
-        dataset: {},
-        classList: { add() {}, remove() {} },
-        addEventListener() {}
-      });
-    }
-    return elements.get(id);
-  }
-};
-const localStorage = {
-  getItem: (key) => saved.get(key) ?? null,
-  setItem: (key, value) => saved.set(key, String(value))
-};
-vm.runInNewContext(scriptMatch[1], { document, localStorage, console });
 
 console.log("lesson 0001 smoke test passed");

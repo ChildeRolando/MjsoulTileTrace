@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第12课｜从精算到三秒扫描</title>
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body data-lesson="lesson-0012">
+  <main class="page">
+    <nav class="topbar"><a href="../index.html">科学日麻牌效率</a><span class="lesson-status" id="lesson-status">已掌握 0 / 3</span></nav>
+    <header class="hero">
+      <div>
+        <p class="eyebrow">LESSON 12 · 普通四面子一雀头</p>
+        <h1>从精算到三秒扫描</h1>
+        <p class="lead">把完整模型压缩成实战扫描，并用混合题验证迁移而非背题。</p>
+      </div>
+      <div class="hero-number">12</div>
+    </header>
+    <section class="lesson-section">
+      <h2>本课只记一条</h2>
+      <div class="principle">第一眼数块与向听，第二眼比直接枚数，第三眼才看改良。</div>
+      <div class="concept-grid"><article class="concept"><strong>三秒扫描</strong>零至一秒找完成面子、雀头与牌块数；一至二秒排除退向听；二至三秒比较最接近候选。</article><article class="concept"><strong>慢算复盘</strong>牌桌先用模式缓存，牌后再精确枚举。发现错例就更新模式，不用错口诀保护自尊。</article></div>
+    </section>
+    <section class="lesson-section" id="worked-example">
+      <h2>速度来自分层，不来自跳步</h2>
+      <div class="worked">
+        <div class="tile-rack" role="img" aria-label="综合色训练手牌"><span class="tile-group"><span class="tile-wrap"><img class="tile" src="../assets/tiles/1m.svg" alt="一万"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/2m.svg" alt="二万"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/3m.svg" alt="三万"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/3m.svg" alt="三万"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/4m.svg" alt="四万"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/5m.svg" alt="五万"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/6p.svg" alt="六筒"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/7p.svg" alt="七筒"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/2s.svg" alt="二索"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/4s.svg" alt="四索"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/5z.svg" alt="白"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/5z.svg" alt="白"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/9p.svg" alt="九筒"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/1s.svg" alt="一索"></span></span></div>
+        <p><strong>第一扫：</strong>识别一二三万完成面子、三四五万完成面子、六七筒两面、二四索嵌张、白牌对子；牌块已经超过五个。</p>
+      <div class="tile-rack" role="img" aria-label="六七筒两面"><span class="tile-group"><span class="tile-wrap"><img class="tile" src="../assets/tiles/6p.svg" alt="六筒"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/7p.svg" alt="七筒"></span></span></div>
+      <div class="tile-rack" role="img" aria-label="二四索嵌张"><span class="tile-group"><span class="tile-wrap"><img class="tile" src="../assets/tiles/2s.svg" alt="二索"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/4s.svg" alt="四索"></span></span></div>
+      <p><strong>第二扫：</strong>两面八枚、嵌张四枚；若实际可见牌不反转，优先让更弱块退出。</p>
+      <p><strong>第三扫：</strong>检查孤立牌是否只是多余牌，以及拆块后最终听牌质量。</p>
+      <div class="calculation">快判断 ＝ 已验证模式的检索；不是省略向听检查</div>
+      </div>
+    </section>
+    <section class="lesson-section">
+      <h2>主动检索</h2>
+      <p>毕业口令：数块与向听、直接枚数、形与改良。</p>
+      <article class="practice" id="practice-1">
+    <div class="practice-index">RETRIEVAL 01</div>
+    <div class="question-prompt"><div class="tile-rack" role="img" aria-label="一二筒边张与五六索两面"><span class="tile-group"><span class="tile-wrap"><img class="tile" src="../assets/tiles/1p.svg" alt="一筒"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/2p.svg" alt="二筒"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/5s.svg" alt="五索"></span><span class="tile-wrap"><img class="tile" src="../assets/tiles/6s.svg" alt="六索"></span></span></div>六块手、相关牌全活，三秒内先标记哪组为弱候选？</div>
+    <div class="choices"><button class="choice" data-question="l12q1" data-correct="true" data-explanation="直接四枚低于两面八枚，是明显弱块。">先标记一二筒边张</button>
+<button class="choice" data-question="l12q1" data-correct="false" data-explanation="两面直接进张更宽。">先标记五六索两面</button>
+<button class="choice" data-question="l12q1" data-correct="false" data-explanation="这通常会退向听。">先拆掉已经完成面子</button></div>
+    <p class="feedback" id="feedback-l12q1" aria-live="polite"></p>
+  </article><article class="practice" id="practice-2">
+    <div class="practice-index">RETRIEVAL 02</div>
+    <div class="question-prompt">某题你三秒内无法区分两个同向听、同枚数候选，实战最佳处理是什么？</div>
+    <div class="choices"><button class="choice" data-question="l12q2" data-correct="true" data-explanation="进入词典序下一层，并在牌后精算复盘。">用改良与最终形破平</button>
+<button class="choice" data-question="l12q2" data-correct="false" data-explanation="不确定不等于放弃第一原则。">故意选择退向听方案</button>
+<button class="choice" data-question="l12q2" data-correct="false" data-explanation="每巡只能舍一张牌。">把两候选都同时舍掉</button></div>
+    <p class="feedback" id="feedback-l12q2" aria-live="polite"></p>
+  </article><article class="practice" id="practice-3">
+    <div class="practice-index">RETRIEVAL 03</div>
+    <div class="question-prompt">毕业后的正确训练循环是什么？</div>
+    <div class="choices"><button class="choice" data-question="l12q3" data-correct="true" data-explanation="速度训练与精确反馈结合，才能同时提高流畅度和储存强度。">限时作答再慢算复盘</button>
+<button class="choice" data-question="l12q3" data-correct="false" data-explanation="遇到新复合形会失去迁移能力。">只背答案从不算枚数</button>
+<button class="choice" data-question="l12q3" data-correct="false" data-explanation="这无法建立牌桌上的检索速度。">只做慢题从不加计时</button></div>
+    <p class="feedback" id="feedback-l12q3" aria-live="polite"></p>
+  </article>
+    </section>
+    <section class="lesson-section source">
+      <p>主要来源：<a href="https://dainachiba.github.io/RiichiBooks/">Daina Chiba《Riichi Book I》</a>。资料提供定义与策略背景；课内具体枚数按四张同种牌和已知牌扣除复核。</p>
+      <p><a href="../reference/decision-model.html">打开完整何切决策树</a> · <a href="../reference/effective-tiles.html">打开有效牌速查表</a></p>
+      <p>有任何一步不清楚，继续追问你的教师。不要只报答案，请说明自己比较到哪一层。</p>
+    </section>
+    <nav class="lesson-nav"><a href="0011-lexicographic-discard-model.html">← 上一课：完整何切：用词典序，不用万能分</a><a href="../index.html">完成课程，返回总览 →</a></nav>
+  </main>
+  <script type="module" src="../assets/course.js"></script>
+</body>
+</html>
