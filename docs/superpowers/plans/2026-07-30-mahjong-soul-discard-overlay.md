@@ -628,10 +628,13 @@ public enum ConfirmationRequirement
 }
 
 public sealed record LocalEventCandidate(
+    Guid Id,
     TableEventKind Kind,
     Seat Actor,
     double Confidence,
-    ConfirmationRequirement ConfirmationRequirement);
+    ConfirmationRequirement ConfirmationRequirement,
+    DateTimeOffset StartedAt,
+    DateTimeOffset ObservedAt);
 
 public sealed class EventClassifier
 {
@@ -647,6 +650,12 @@ Validate `minimumConfidence` within `[0, 1]`. Keep the production rule set
 immutable. An internal constructor may accept an immutable rule list for the
 single ambiguity-resolution contract test; it is not part of application
 composition.
+
+Candidate IDs must be stable across identical replay runs. Derive the `Guid`
+deterministically from the actor, transaction start/completion timestamps, and
+the complete ordered delta payload; do not use `Guid.NewGuid()`. `StartedAt` and
+`ObservedAt` copy the transaction timestamps and are the authoritative
+correlation/audit times.
 
 `previousConfirmedEvent` must come from the engine's formal event history. A draw
 can become `RinshanDraw` only when that event is a confirmed `Daiminkan`, `Ankan`,
@@ -669,6 +678,8 @@ Write RED tests for:
 - `ChiOrPon` and `Daiminkan` use
   `ConfirmationRequirement.SourceRiverRemoval`; all other kinds, including
   `Ankan` and `Kakan`, use `None`.
+- Identical transactions produce identical candidate IDs and timestamps; a
+  changed actor, timestamp, or ordered delta payload changes the ID.
 - Rinshan classification with a same-actor confirmed kan, and rejection when
   the prior event is unconfirmed, non-kan, or belongs to another actor.
 
@@ -894,25 +905,55 @@ Feed a four-seat baseline, a bottom draw, a bottom tsumogiri, a right draw, a ri
 2. One gray bottom layer after tsumogiri.
 3. One gold right layer after tedashi.
 4. A right `ChiOrPon` local candidate does not enter formal history before a
-   bottom river removal is observed.
+   bottom river removal is observed, regardless of which evidence arrives first.
 5. The uniquely correlated bottom removal confirms the right call, emits the
    formal event with `SourceSeat.Bottom`, and removes the bottom layer while the
    right layer retains its ID.
-6. A same-seat removal, no removal, multiple possible removals, or an expired
-   association window produces no formal call event and no new overlay.
-7. All layers and pending candidates are cleared on result screen.
+6. Candidate-before-removal and removal-before-candidate both confirm; a pair
+   separated by exactly the association window confirms.
+7. A pair just outside the window expires. Multiple eligible removals or
+   candidates resolve ambiguous. No removal tile can confirm two candidates.
+8. All layers and internal pending evidence are cleared on result screen.
 
 Use an output contract:
 
 ```csharp
 public sealed record OverlayLayer(Guid TileId, Seat Seat, NormalizedQuad Quad, DiscardKind Kind);
+
+public enum CandidateResolutionStatus
+{
+    Confirmed,
+    Expired,
+    Ambiguous,
+    Rejected
+}
+
+public sealed record CandidateResolution(
+    Guid CandidateId,
+    Seat Actor,
+    TableEventKind CandidateKind,
+    TableEventKind OutcomeKind,
+    CandidateResolutionStatus Status,
+    DateTimeOffset ResolvedAt,
+    string Reason,
+    Seat? SourceSeat,
+    Guid? SourceTileId);
+
 public sealed record EngineOutput(
     LifecycleState Lifecycle,
     IReadOnlyList<OverlayLayer> Layers,
     IReadOnlyList<TableEvent> Events,
-    IReadOnlyList<LocalEventCandidate> PendingCandidates,
+    IReadOnlyList<CandidateResolution> CandidateResolutions,
     bool ShouldHideOverlay);
 ```
+
+`CandidateResolution` is an immutable audit record. `OutcomeKind` equals the
+candidate kind only for `Confirmed`; it is `Unknown` for `Expired`,
+`Ambiguous`, and `Rejected`. `Reason` is a stable machine-readable value such as
+`unique-source-removal`, `association-window-expired`,
+`multiple-eligible-removals`, `multiple-eligible-candidates`, or
+`classifier-rejected`. Optional source fields are populated only for a unique
+confirmed match.
 
 - [ ] **Step 2: Verify failure**
 
@@ -935,16 +976,36 @@ Expected: FAIL because `OverlayEngine` does not exist.
 7. Immediately formalize candidates whose confirmation requirement is `None`;
    associate only formal `Tsumogiri` or `Tedashi` events with the same seat's
    unmatched new river detection.
-8. Keep each `SourceRiverRemoval` candidate pending only for the configured
-   association window. Confirm it only when exactly one unmatched removed river
-   tile from another seat occurs in that window.
-9. On confirmation, emit the call/daiminkan `TableEvent` with the removed tile's
+8. Buffer both `SourceRiverRemoval` candidates and recent unmatched river
+   removals. A removal record contains its stable tile ID, seat, and observed
+   timestamp. Process all evidence from a frame before running correlation.
+9. Correlate in either arrival order. An edge is eligible only when seats differ
+   and the absolute timestamp difference is less than or equal to the
+   association window. Sort evidence by timestamp and then stable ID so frame
+   batching cannot change the result.
+10. Build connected components of the eligible candidate/removal bipartite
+    graph, including isolated candidates. A component remains open through
+    `max(evidence.ObservedAt) + associationWindow`; evidence arriving exactly at
+    that boundary is included and can extend the deadline. Resolve only after a
+    full window of component quiescence, which makes candidate-first and
+    removal-first streams equivalent:
+    - No removal edge: resolve candidate nodes `Expired` with
+      `OutcomeKind.Unknown`.
+    - Exactly one candidate, one removal, and one edge: emit `Confirmed`.
+    - Any component with multiple eligible candidates or removals: resolve all
+      candidate nodes `Ambiguous` with `OutcomeKind.Unknown`.
+    Consume every resolved component record. Confirmed removals are additionally
+    tombstoned for the hand and can never be reused; unmatched isolated removals
+    age out silently after their own inclusive window.
+11. On confirmation, emit the call/daiminkan `TableEvent` with the removed tile's
    seat as `SourceSeat`, emit the called-discard river update, and only then add
    the event to formal history. A pending candidate never enters history.
-10. Expire unconfirmed or ambiguous candidates as diagnostic `Unknown` results:
-    do not create a formal event, do not alter kan context, and do not add an
-    overlay.
-11. Return immutable snapshots of formal events, pending candidates, and layers.
+12. Convert classifier `Unknown` output to a `Rejected` resolution. Expired,
+    ambiguous, and rejected resolutions never create a formal event, alter kan
+    context, reuse river evidence, or add an overlay.
+13. Return immutable snapshots of formal events, candidate resolutions, and
+    layers. Pending candidate/removal buffers use immutable internal snapshots
+    and are exposed only through optional diagnostic-region rendering.
 
 Rinshan context comes only from the latest formal, confirmed kan event for the
 same actor. `Ankan` and `Kakan` become formal immediately; `Daiminkan` becomes
@@ -952,6 +1013,13 @@ context only after cross-seat source-river confirmation. Clear context on that
 actor's discard, hand reset, or lifecycle reset. Inject lifecycle, classifier,
 the association-window duration, four aggregators, and four river trackers
 through the constructor so tests can use deterministic short thresholds.
+
+Add focused deterministic tests for candidate-before-removal,
+removal-before-candidate, an exact-boundary match, a just-outside expiry,
+multiple eligible removals, multiple eligible candidates, and attempted evidence
+reuse. Assert every terminal candidate emits exactly one resolution diagnostic,
+only `Confirmed` emits a formal event, and all non-confirmed outcomes serialize
+as `OutcomeKind.Unknown`.
 
 - [ ] **Step 4: Run the complete deterministic suite**
 
@@ -1188,7 +1256,8 @@ Set the frame pool to two buffers and BGRA8. Drop a frame when processing is sti
 `DiagnosticRecorder` is disabled by default. When enabled, it writes:
 
 - One PNG per selected key frame.
-- A JSONL line containing timestamp, window dimensions, four observations, classified events, and lifecycle state.
+- A JSONL line containing timestamp, window dimensions, four observations,
+  formal events, candidate-resolution diagnostics, layers, and lifecycle state.
 - Files under `overlay/diagnostics/<UTC timestamp>/`.
 
 It must never start from detection errors alone; only the tray command enables it.
@@ -1288,7 +1357,10 @@ On each accepted frame:
 3. Push the result into `OverlayEngine`.
 4. Marshal immutable layers to the UI thread.
 5. Render or hide based on `EngineOutput`.
-6. Send the same frame and output to `DiagnosticRecorder` only when explicitly enabled.
+6. Send the same frame and complete `EngineOutput`—including formal events and
+   candidate-resolution diagnostics—to `DiagnosticRecorder` only when explicitly
+   enabled. Preserve candidate IDs, source tile IDs, resolution timestamps,
+   outcome kinds, statuses, and reason strings verbatim in JSONL.
 
 Use a single-capacity channel between capture and detection. `TryWrite` replaces a stale frame rather than growing memory.
 
@@ -1338,7 +1410,10 @@ Use OpenCvSharp `VideoCapture` and the source frame rate. For every frame:
 
 - Detect observations.
 - Push the engine.
-- Write one JSONL record with frame number, timestamp, observations, events, and layers.
+- Write one JSONL record with frame number, timestamp, observations, lifecycle,
+  formal events, candidate-resolution diagnostics, and layers. Resolution
+  records preserve candidate/source IDs, actor, candidate and outcome kinds,
+  status, resolved timestamp, reason, and optional source seat/tile.
 - Optionally draw seat regions, tile quads, confidence, and scheme-A layers into an annotated video.
 
 Never skip event processing when annotated output is disabled.
@@ -1361,6 +1436,15 @@ For a checked-in synthetic frame sequence, assert the replay JSONL:
 - Contains exactly four observations per frame.
 - Contains no layer before `HandActive`.
 - Contains no unknown layer.
+- Produces stable candidate IDs across two identical replay runs.
+- Confirms candidate-before-removal and removal-before-candidate traces,
+  including equality at the inclusive association-window boundary.
+- Emits `Expired` with `OutcomeKind.Unknown` just outside the window.
+- Emits `Ambiguous` with `OutcomeKind.Unknown` for multiple eligible removals
+  or candidates, with no corresponding formal event or overlay.
+- Never repeats a non-null source tile ID across confirmed resolutions.
+- Emits exactly one terminal resolution per candidate ID and never emits a
+  formal call/daiminkan before its `Confirmed` resolution.
 - Clears layers at the hand boundary.
 
 - [ ] **Step 5: Run and commit**
@@ -1399,15 +1483,22 @@ Keep every numeric calibration value in the JSON profile, not in detector code.
 Create a hand-labeled JSON file beside each ignored recording with frame ranges and expected events. Add a replay comparison command that reports:
 
 ```text
-confirmed correct
-confirmed incorrect
-expected but unknown
-unexpected classified
+formal confirmed correct
+formal confirmed incorrect
+expected but expired
+ambiguous resolutions
+rejected resolutions
+unexpected formal events
+source evidence reuse
 river tracking mismatches
 lifecycle mismatches
 ```
 
-Release acceptance requires zero `confirmed incorrect`, zero unexpected classified events, zero retained overlays after hand end, and zero shifted IDs after a called discard. Unknown events are reported but do not fail the safety-first acceptance rule.
+Release acceptance requires zero `formal confirmed incorrect`, zero unexpected
+formal events, zero source-evidence reuse, exactly one terminal resolution per
+candidate ID, zero retained overlays after hand end, and zero shifted IDs after
+a called discard. Expired, ambiguous, and rejected `Unknown` outcomes are
+reported but do not fail the safety-first acceptance rule.
 
 - [ ] **Step 4: Verify runtime behavior**
 
