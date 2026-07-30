@@ -27,4 +27,9 @@
     <ProjectReference Include="..\..\src\MahjongSoulOverlay.Vision\MahjongSoulOverlay.Vision.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Fixtures\GenerateFixtures\**\*.cs" />
+    <None Include="Fixtures\*.png" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
 </Project>
