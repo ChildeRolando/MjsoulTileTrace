@@ -23,8 +23,8 @@ Their SHA-256 hashes record exactly which inputs were used:
 | Frame | Original SHA-256 | Padded working-copy SHA-256 | Calibration use |
 |---|---|---|---|
 | Early hand | `0CC04A800FB3CF422E2CCD4FAF0D9F8285225246544A4275665AD9E8EDEE8F4F` | `87D84F6A159AC868F70F13456EF534D4E6B96E42D84F4283D70DFD229EB3F0B5` | Four concealed hands, 13 main slots, and the visible Bottom drawn tile |
-| Populated rivers | `F89E677BAA782E8C190057C3A3E6A5F6FC883EE5DE7731BF077E00EB726461D0` | `CA05D232162C9CD6988DBEFC8B17F4856E85E33AA3240E199A2D51720AB7A49D` | All four river regions and the visible Bottom meld region |
-| All opponent melds | `DA5AA7E7875CF152425A2E0190D0C839B45A6D58E231F98EA41953B32BB9CF31` | `E915D959E811BF93527E58EEF88E0893011E64FDEF3149B7006F5EB60E228EDE` | Direct validation of Right, Top, and Left meld regions |
+| Populated rivers | `F89E677BAA782E8C190057C3A3E6A5F6FC883EE5DE7731BF077E00EB726461D0` | `CA05D232162C9CD6988DBEFC8B17F4856E85E33AA3240E199A2D51720AB7A49D` | All four river regions; Bottom and 下家 (`Right`) meld regions |
+| All opponent melds | `DA5AA7E7875CF152425A2E0190D0C839B45A6D58E231F98EA41953B32BB9CF31` | `E915D959E811BF93527E58EEF88E0893011E64FDEF3149B7006F5EB60E228EDE` | Repeat validation of Right plus direct validation of Top and Left meld regions |
 
 Each clipboard frame was 1919×1079, 32-bit ARGB. The working copy was padded
 to 1920×1080 by copying source column 1918 to column 1919 and source row 1078
@@ -34,12 +34,12 @@ was resized, stretched, cropped further, or synthesized.
 Seat names follow the domain model, not image-quadrant shorthand:
 
 - `Bottom`: viewer.
-- `Right`: opponent shown on the screen right; their melds appear at the
-  lower-left edge of the table.
-- `Top`: opponent shown at the screen top; their melds appear at the
+- `Right`: 下家, shown on the screen right; their melds appear at the
   upper-right edge.
-- `Left`: opponent shown on the screen left; their melds appear at the
+- `Top`: opposite player, shown on the screen top; their melds appear at the
   upper-left edge.
+- `Left`: 上家, shown on the screen left; their melds appear at the
+  lower-left edge.
 
 The uncommitted verification renders use yellow for main-hand envelopes,
 green for main slots, cyan for drawn slots, red for rivers, and magenta for
@@ -53,8 +53,8 @@ visible meld lie inside the corresponding normalized region.
   Right, Top, and Left drawn locations are inferred from the independently
   oriented end of each full 13-tile hand and its expected separation gap.
   The inferred Right and Top quads retain only a safe evidence strip within
-  the expected tile footprint so they cannot overlap the directly observed
-  Top and Left meld regions. Their `ExpectedTileScale` values preserve the
+  the expected tile footprint so they cannot overlap their directly observed
+  Right and Top meld regions. Their `ExpectedTileScale` values preserve the
   inferred full-tile dimensions. Left does not collide with another seat and
   retains its full inferred quad.
 - After a call, a separated drawn tile moves with the shortened concealed

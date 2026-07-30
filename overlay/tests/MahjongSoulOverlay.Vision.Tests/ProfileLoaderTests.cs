@@ -107,12 +107,6 @@ public sealed class ProfileLoaderTests
 
         AssertContainsPixels(profile.Seats[Seat.Bottom].MeldRegion,
             (1339, 948), (1819, 1038));
-        AssertContainsPixels(profile.Seats[Seat.Right].MeldRegion,
-            (68, 760), (205, 965));
-        AssertContainsPixels(profile.Seats[Seat.Top].MeldRegion,
-            (1510, 44), (1588, 153));
-        AssertContainsPixels(profile.Seats[Seat.Left].MeldRegion,
-            (395, 33), (710, 88));
 
         var allRegions = profile.Seats.Values.SelectMany(EnumerateSeatRegions).ToArray();
         Assert.Equal(allRegions.Length, allRegions.Distinct().Count());
@@ -145,6 +139,34 @@ public sealed class ProfileLoaderTests
             profile.Seats[Seat.Right].ExpectedTileScale);
         Assert.Equal(new TileScale(52d / 1920d, 66d / 1080d),
             profile.Seats[Seat.Top].ExpectedTileScale);
+    }
+
+    [Fact]
+    public void Standard_profile_maps_melds_by_player_orientation_not_screen_quadrant()
+    {
+        var profile = ProfileLoader.Load(StandardProfilePath());
+
+        // Screenshot 2: viewer (Bottom) and 下家 (Core Right) have called.
+        AssertContainsPixels(profile.Seats[Seat.Bottom].MeldRegion,
+            (1339, 948), (1819, 1038));
+        AssertContainsPixels(profile.Seats[Seat.Right].MeldRegion,
+            (1510, 44), (1588, 153));
+
+        // Screenshot 3: opposite player (Core Top) is upper-left; screen-left
+        // opponent (Core Left) is lower-left after rotating by player view.
+        AssertContainsPixels(profile.Seats[Seat.Top].MeldRegion,
+            (395, 33), (710, 88));
+        AssertContainsPixels(profile.Seats[Seat.Left].MeldRegion,
+            (68, 760), (205, 965));
+
+        Assert.Equal(LayoutDirection.RightToLeft,
+            profile.Seats[Seat.Bottom].MeldExpansionDirection);
+        Assert.Equal(LayoutDirection.TopToBottom,
+            profile.Seats[Seat.Right].MeldExpansionDirection);
+        Assert.Equal(LayoutDirection.LeftToRight,
+            profile.Seats[Seat.Top].MeldExpansionDirection);
+        Assert.Equal(LayoutDirection.BottomToTop,
+            profile.Seats[Seat.Left].MeldExpansionDirection);
     }
 
     [Theory]
