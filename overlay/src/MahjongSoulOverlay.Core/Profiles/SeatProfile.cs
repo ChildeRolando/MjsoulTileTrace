@@ -77,12 +77,38 @@ public sealed record SeatProfile
         RegionThresholds meldThresholds,
         double minimumTileConfidence)
     {
+        ArgumentNullException.ThrowIfNull(mainHandRegion);
         ArgumentNullException.ThrowIfNull(mainSlots);
+        ArgumentNullException.ThrowIfNull(drawnSlot);
+        ArgumentNullException.ThrowIfNull(riverRegion);
+        ArgumentNullException.ThrowIfNull(meldRegion);
+        ArgumentNullException.ThrowIfNull(expectedTileScale);
+        ArgumentNullException.ThrowIfNull(mainHandThresholds);
+        ArgumentNullException.ThrowIfNull(drawnSlotThresholds);
+        ArgumentNullException.ThrowIfNull(riverThresholds);
+        ArgumentNullException.ThrowIfNull(meldThresholds);
 
-        if (!double.IsFinite(perspectiveTolerance) || perspectiveTolerance is < 0d or > 1d)
+        if (!double.IsFinite(minimumTileAspect) || minimumTileAspect <= 0d)
+            throw new ArgumentOutOfRangeException(
+                nameof(minimumTileAspect), minimumTileAspect,
+                "Minimum tile aspect must be finite and positive.");
+        if (!double.IsFinite(maximumTileAspect) ||
+            maximumTileAspect <= 0d ||
+            maximumTileAspect < minimumTileAspect)
+            throw new ArgumentOutOfRangeException(
+                nameof(maximumTileAspect), maximumTileAspect,
+                "Maximum tile aspect must be finite, positive, and at least the minimum.");
+        if (!double.IsFinite(minimumAngle))
+            throw new ArgumentOutOfRangeException(
+                nameof(minimumAngle), minimumAngle, "Minimum angle must be finite.");
+        if (!double.IsFinite(maximumAngle) || maximumAngle < minimumAngle)
+            throw new ArgumentOutOfRangeException(
+                nameof(maximumAngle), maximumAngle,
+                "Maximum angle must be finite and at least the minimum.");
+        if (!double.IsFinite(perspectiveTolerance) || perspectiveTolerance < 0d)
             throw new ArgumentOutOfRangeException(
                 nameof(perspectiveTolerance), perspectiveTolerance,
-                "Perspective tolerance must be within [0, 1].");
+                "Perspective tolerance must be finite and non-negative.");
         if (!double.IsFinite(minimumTileConfidence) || minimumTileConfidence is < 0d or > 1d)
             throw new ArgumentOutOfRangeException(
                 nameof(minimumTileConfidence), minimumTileConfidence,

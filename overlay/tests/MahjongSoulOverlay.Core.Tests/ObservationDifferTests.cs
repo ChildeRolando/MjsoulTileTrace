@@ -89,6 +89,21 @@ public sealed class ObservationDifferTests
         Assert.True(delta.IsStable);
     }
 
+    [Fact]
+    public void Diff_reports_negative_structural_deltas()
+    {
+        var before = Observation(Seat.Bottom, [true, true, true], true, 2, 7, 3);
+        var after = Observation(Seat.Bottom, [true], false, 1, 3, 1);
+
+        var delta = ObservationDiffer.Diff(before, after);
+
+        Assert.Equal(-2, delta.MainHandDelta);
+        Assert.Equal(-1, delta.DrawnSlotDelta);
+        Assert.Equal(-1, delta.MeldGroupDelta);
+        Assert.Equal(-4, delta.MeldTileDelta);
+        Assert.Equal(-2, delta.RiverDelta);
+    }
+
     private static SeatObservation Observation(
         Seat seat,
         IReadOnlyList<bool> mainSlots,

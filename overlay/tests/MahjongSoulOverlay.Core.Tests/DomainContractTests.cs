@@ -41,6 +41,16 @@ public sealed class DomainContractTests
     }
 
     [Theory]
+    [InlineData(-1, 0)]
+    [InlineData(0, -1)]
+    public void Seat_observation_rejects_negative_meld_counts(int meldGroups, int meldTiles)
+    {
+        Assert.Throws<ArgumentOutOfRangeException>(() => new SeatObservation(
+            Seat.Bottom, 1, [true], false, meldGroups, meldTiles, [], true, 1d,
+            DateTimeOffset.UnixEpoch));
+    }
+
+    [Theory]
     [InlineData(-0.01, 0.5)]
     [InlineData(1.01, 0.5)]
     [InlineData(0.5, -0.01)]
@@ -62,6 +72,23 @@ public sealed class DomainContractTests
     {
         Assert.Throws<ArgumentOutOfRangeException>(
             () => new DetectedTile("tile", Quad(), confidence));
+    }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData("  ")]
+    public void Detected_tile_rejects_missing_detection_id(string? detectionId)
+    {
+        Assert.Throws<ArgumentException>(
+            () => new DetectedTile(detectionId!, Quad(), 1d));
+    }
+
+    [Fact]
+    public void Detected_tile_rejects_a_null_quad()
+    {
+        Assert.Throws<ArgumentNullException>(
+            () => new DetectedTile("tile", null!, 1d));
     }
 
     [Theory]

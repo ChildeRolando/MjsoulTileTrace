@@ -26,6 +26,12 @@ public sealed record SeatObservation
             throw new ArgumentException(
                 "Main hand count must equal the number of occupied main slots.",
                 nameof(mainHandCount));
+        if (meldGroups < 0)
+            throw new ArgumentOutOfRangeException(
+                nameof(meldGroups), meldGroups, "Meld group count cannot be negative.");
+        if (meldTiles < 0)
+            throw new ArgumentOutOfRangeException(
+                nameof(meldTiles), meldTiles, "Meld tile count cannot be negative.");
         if (!double.IsFinite(confidence) || confidence is < 0d or > 1d)
             throw new ArgumentOutOfRangeException(
                 nameof(confidence), confidence, "Confidence must be within [0, 1].");

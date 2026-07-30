@@ -31,6 +31,10 @@ public sealed record DetectedTile
 {
     public DetectedTile(string detectionId, NormalizedQuad quad, double confidence)
     {
+        if (string.IsNullOrWhiteSpace(detectionId))
+            throw new ArgumentException("Detection ID is required.", nameof(detectionId));
+        ArgumentNullException.ThrowIfNull(quad);
+
         DetectionId = detectionId;
         Quad = quad;
         Confidence = RequireConfidence(confidence);
