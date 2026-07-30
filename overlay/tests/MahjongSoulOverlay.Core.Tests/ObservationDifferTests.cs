@@ -22,6 +22,8 @@ public sealed class ObservationDifferTests
         Assert.Equal(2, delta.RiverDelta);
         Assert.True(delta.MainSlotRemoved);
         Assert.True(delta.IsStable);
+        Assert.True(delta.HasStructuralChange);
+        Assert.Equal(1d, delta.Confidence);
         Assert.Equal(timestamp, delta.Timestamp);
     }
 
@@ -87,6 +89,18 @@ public sealed class ObservationDifferTests
         Assert.Equal(0, delta.RiverDelta);
         Assert.False(delta.MainSlotRemoved);
         Assert.True(delta.IsStable);
+        Assert.False(delta.HasStructuralChange);
+    }
+
+    [Fact]
+    public void Diff_uses_the_lower_endpoint_confidence()
+    {
+        var before = Observation(Seat.Bottom, [true], confidence: 0.45);
+        var after = Observation(Seat.Bottom, [true, true], confidence: 0.8);
+
+        var delta = ObservationDiffer.Diff(before, after);
+
+        Assert.Equal(0.45, delta.Confidence);
     }
 
     [Fact]
@@ -112,7 +126,8 @@ public sealed class ObservationDifferTests
         int meldTiles = 0,
         int riverCount = 0,
         bool stable = true,
-        DateTimeOffset? timestamp = null)
+        DateTimeOffset? timestamp = null,
+        double confidence = 1d)
     {
         var river = Enumerable.Range(0, riverCount)
             .Select(index => new DetectedTile(index.ToString(), Quad(), 1d))
@@ -127,7 +142,7 @@ public sealed class ObservationDifferTests
             meldTiles,
             river,
             stable,
-            1d,
+            confidence,
             timestamp ?? DateTimeOffset.UnixEpoch);
     }
 

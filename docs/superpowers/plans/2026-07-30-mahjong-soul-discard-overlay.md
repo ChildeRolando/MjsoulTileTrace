@@ -469,16 +469,26 @@ using MahjongSoulOverlay.Core.Domain;
 
 namespace MahjongSoulOverlay.Core.Events;
 
-public sealed record ObservationDelta(
-    Seat Seat,
-    int MainHandDelta,
-    int DrawnSlotDelta,
-    int MeldGroupDelta,
-    int MeldTileDelta,
-    int RiverDelta,
-    bool MainSlotRemoved,
-    bool IsStable,
-    DateTimeOffset Timestamp);
+public sealed record ObservationDelta
+{
+    public ObservationDelta(
+        Seat seat, int mainHandDelta, int drawnSlotDelta,
+        int meldGroupDelta, int meldTileDelta, int riverDelta,
+        bool mainSlotRemoved, bool isStable, double confidence,
+        DateTimeOffset timestamp);
+
+    public Seat Seat { get; }
+    public int MainHandDelta { get; }
+    public int DrawnSlotDelta { get; }
+    public int MeldGroupDelta { get; }
+    public int MeldTileDelta { get; }
+    public int RiverDelta { get; }
+    public bool MainSlotRemoved { get; }
+    public bool IsStable { get; }
+    public double Confidence { get; }
+    public DateTimeOffset Timestamp { get; }
+    public bool HasStructuralChange { get; }
+}
 
 public static class ObservationDiffer
 {
@@ -500,6 +510,7 @@ public static class ObservationDiffer
             after.RiverTiles.Count - before.RiverTiles.Count,
             removed,
             before.IsStable && after.IsStable,
+            Math.Min(before.Confidence, after.Confidence),
             after.Timestamp);
     }
 }
@@ -526,53 +537,18 @@ git commit -m "feat: define overlay observation model"
 - Create: `overlay/src/MahjongSoulOverlay.Core/Events/TransactionAggregator.cs`
 - Test: `overlay/tests/MahjongSoulOverlay.Core.Tests/TransactionAggregatorTests.cs`
 
-- [ ] **Step 1: Write failing tests for stability and timeout**
+- [ ] **Step 1: Write failing stream tests for stability, timeout, and bounds**
 
-Create `TransactionAggregatorTests.cs` with two facts:
+Create `TransactionAggregatorTests.cs` with realistic ordered streams covering:
 
-```csharp
-using MahjongSoulOverlay.Core.Domain;
-using MahjongSoulOverlay.Core.Events;
-
-namespace MahjongSoulOverlay.Core.Tests;
-
-public sealed class TransactionAggregatorTests
-{
-    [Fact]
-    public void Emits_one_transaction_after_two_stable_frames()
-    {
-        var aggregator = new TransactionAggregator(TimeSpan.FromMilliseconds(800), stableFramesRequired: 2);
-        aggregator.Add(new ObservationDelta(Seat.Bottom, 0, 1, 0, 0, 0, false, false,
-            DateTimeOffset.UnixEpoch.AddMilliseconds(10)));
-        aggregator.Add(new ObservationDelta(Seat.Bottom, 0, 0, 0, 0, 1, false, true,
-            DateTimeOffset.UnixEpoch.AddMilliseconds(100)));
-
-        Assert.Null(aggregator.TryComplete());
-
-        aggregator.Add(new ObservationDelta(Seat.Bottom, 0, 0, 0, 0, 0, false, true,
-            DateTimeOffset.UnixEpoch.AddMilliseconds(140)));
-        var transaction = aggregator.TryComplete();
-
-        Assert.NotNull(transaction);
-        Assert.Equal(1, transaction.DrawnSlotDelta);
-        Assert.Equal(1, transaction.RiverDelta);
-    }
-
-    [Fact]
-    public void Timeout_returns_conflicted_transaction()
-    {
-        var aggregator = new TransactionAggregator(TimeSpan.FromMilliseconds(100), stableFramesRequired: 2);
-        aggregator.Add(new ObservationDelta(Seat.Left, -1, 0, 0, 0, 0, true, false,
-            DateTimeOffset.UnixEpoch));
-        aggregator.AdvanceClock(DateTimeOffset.UnixEpoch.AddMilliseconds(101));
-
-        var transaction = aggregator.TryComplete();
-
-        Assert.NotNull(transaction);
-        Assert.True(transaction.IsConflicted);
-    }
-}
-```
+- Zero-change stable frames while idle do not open a transaction or count toward later stability.
+- Once a structural delta opens a transaction, consecutive stable zero-change frames confirm it; an unstable frame resets that count.
+- Timeout is inclusive (`elapsed >= timeout`) and is evaluated by both `Add` and `AdvanceClock`.
+- Mixed-seat input preserves its complete ordered payload and produces a conflicted transaction without waiting for stability.
+- The transaction exposes an immutable ordered delta snapshot, minimum confidence, every summed field, removal state, and `long` totals.
+- Timestamps remain monotonic across completed transactions; `Reset()` clears that history and `Reset(baseline)` reseeds it.
+- `maxDeltas` is positive, bounds retained storage, and reaching it completes a conflict without waiting for stable frames.
+- Conflict completion clears all in-flight state so the aggregator can be reused.
 
 - [ ] **Step 2: Verify the tests fail**
 
@@ -580,77 +556,47 @@ public sealed class TransactionAggregatorTests
 .\.tools\dotnet\dotnet.exe test overlay/tests/MahjongSoulOverlay.Core.Tests --filter TransactionAggregatorTests
 ```
 
-Expected: FAIL because transaction types do not exist.
+Expected: FAIL because the bounded stream and immutable transaction contracts do not exist.
 
 - [ ] **Step 3: Implement the aggregator**
 
-Create `TransactionAggregator.cs`:
+Create `TransactionAggregator.cs` with these public contracts:
 
 ```csharp
-using MahjongSoulOverlay.Core.Domain;
-
-namespace MahjongSoulOverlay.Core.Events;
-
-public sealed record ObservationTransaction(
-    Seat Seat,
-    int MainHandDelta,
-    int DrawnSlotDelta,
-    int MeldGroupDelta,
-    int MeldTileDelta,
-    int RiverDelta,
-    bool MainSlotRemoved,
-    bool IsConflicted,
-    DateTimeOffset StartedAt,
-    DateTimeOffset CompletedAt)
+public sealed class ObservationTransaction
 {
-    public int ConcealedDelta => MainHandDelta + DrawnSlotDelta;
+    public ObservationTransaction(
+        IReadOnlyList<ObservationDelta> deltas,
+        bool isConflicted,
+        DateTimeOffset completedAt);
+
+    public Seat Seat { get; }
+    public long MainHandDelta { get; }
+    public long DrawnSlotDelta { get; }
+    public long MeldGroupDelta { get; }
+    public long MeldTileDelta { get; }
+    public long RiverDelta { get; }
+    public bool MainSlotRemoved { get; }
+    public bool IsConflicted { get; }
+    public DateTimeOffset StartedAt { get; }
+    public DateTimeOffset CompletedAt { get; }
+    public IReadOnlyList<ObservationDelta> Deltas { get; }
+    public double Confidence { get; }
+    public long ConcealedDelta { get; }
 }
 
-public sealed class TransactionAggregator(TimeSpan timeout, int stableFramesRequired)
+public sealed class TransactionAggregator
 {
-    private readonly List<ObservationDelta> _deltas = [];
-    private DateTimeOffset _clock;
-    private int _stableFrames;
-    private bool _timedOut;
-
-    public void Add(ObservationDelta delta)
-    {
-        _deltas.Add(delta);
-        _clock = delta.Timestamp;
-        _stableFrames = delta.IsStable ? _stableFrames + 1 : 0;
-    }
-
-    public void AdvanceClock(DateTimeOffset now)
-    {
-        _clock = now;
-        _timedOut = _deltas.Count > 0 && now - _deltas[0].Timestamp > timeout;
-    }
-
-    public ObservationTransaction? TryComplete()
-    {
-        if (_deltas.Count == 0 || (!_timedOut && _stableFrames < stableFramesRequired))
-            return null;
-
-        var first = _deltas[0];
-        var transaction = new ObservationTransaction(
-            first.Seat,
-            _deltas.Sum(item => item.MainHandDelta),
-            _deltas.Sum(item => item.DrawnSlotDelta),
-            _deltas.Sum(item => item.MeldGroupDelta),
-            _deltas.Sum(item => item.MeldTileDelta),
-            _deltas.Sum(item => item.RiverDelta),
-            _deltas.Any(item => item.MainSlotRemoved),
-            _timedOut || _deltas.Any(item => item.Seat != first.Seat),
-            first.Timestamp,
-            _clock);
-
-        _deltas.Clear();
-        _stableFrames = 0;
-        _timedOut = false;
-        return transaction;
-    }
+    public TransactionAggregator(
+        TimeSpan timeout, int stableFramesRequired, int maxDeltas = 512);
+    public void Add(ObservationDelta delta);
+    public void AdvanceClock(DateTimeOffset now);
+    public ObservationTransaction? TryComplete();
+    public void Reset(DateTimeOffset? baselineTimestamp = null);
 }
 ```
+
+`ObservationTransaction` defensively copies deltas and derives every aggregate from that snapshot using `long` accumulation. The aggregator ignores zero-change frames while idle except for advancing its global monotonic timestamp. After a structural change, all frames participate in stability. Mixed-seat input, reaching the inclusive timeout, or reaching the delta limit marks conflict and permits immediate completion; no further payloads are retained after overflow. `TryComplete` clears in-flight state in a `finally` path while preserving the global timestamp until an explicit lifecycle reset.
 
 - [ ] **Step 4: Run and commit**
 
@@ -660,7 +606,7 @@ git add overlay/src/MahjongSoulOverlay.Core/Events overlay/tests/MahjongSoulOver
 git commit -m "feat: aggregate structural table changes"
 ```
 
-Expected: both tests PASS before commit.
+Expected: all transaction stream and contract tests PASS before commit.
 
 ### Task 4: Classify draws, discards, calls, and kans
 
@@ -701,10 +647,8 @@ public sealed class EventClassifierTests
     [Fact]
     public void Conflict_is_unknown()
     {
-        var eventResult = new EventClassifier().Classify(Tx(0, 0, 0, 0, 1, false) with
-        {
-            IsConflicted = true
-        });
+        var eventResult = new EventClassifier().Classify(
+            Tx(0, 0, 0, 0, 1, false, isConflicted: true));
         Assert.Equal(TableEventKind.Unknown, eventResult.Kind);
     }
 
@@ -717,9 +661,15 @@ public sealed class EventClassifierTests
     }
 
     private static ObservationTransaction Tx(
-        int hand, int drawn, int meldGroups, int meldTiles, int river, bool removed) =>
-        new(Seat.Bottom, hand, drawn, meldGroups, meldTiles, river, removed, false,
-            DateTimeOffset.UnixEpoch, DateTimeOffset.UnixEpoch.AddMilliseconds(100));
+        int hand, int drawn, int meldGroups, int meldTiles, int river, bool removed,
+        bool isConflicted = false)
+    {
+        var delta = new ObservationDelta(
+            Seat.Bottom, hand, drawn, meldGroups, meldTiles, river, removed, true, 1d,
+            DateTimeOffset.UnixEpoch);
+        return new ObservationTransaction(
+            [delta], isConflicted, DateTimeOffset.UnixEpoch.AddMilliseconds(100));
+    }
 }
 ```
 
@@ -770,7 +720,7 @@ public sealed class EventClassifier
         };
 
         return new TableEvent(kind, transaction.Seat, null, transaction.CompletedAt,
-            kind == TableEventKind.Unknown ? 0d : 1d);
+            kind == TableEventKind.Unknown ? 0d : transaction.Confidence);
     }
 }
 ```
