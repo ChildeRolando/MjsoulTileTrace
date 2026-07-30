@@ -227,6 +227,8 @@ type DecisionWindow =
 4. 生成 `action:v1:<encoded-canonical-tuple>`；
 5. 结构化候选 Schema 从动作重算引用并拒绝错绑。
 
+权威 codec 必须位于 `contracts` 包，因为结构化 Schema 需要在解析边界调用它；`reasoning` 只能导入该实现，不能维护第二套编码规则。
+
 业务逻辑只能：
 
 - 比较 `ActionRef` 是否相等；
@@ -485,8 +487,9 @@ type KnownActionFacts = {
 建议文件：
 
 - `contracts/src/actions.ts`：动作、窗口、结构候选和结果契约；
+- `contracts/src/action-codec.ts`：canonical tuple 与 `ActionRef` 重算；
 - `contracts/tests/actions.test.ts`：动作与窗口不变量；
-- `reasoning/src/candidate/action-codec.ts`：canonical identity 与 legacy bridge；
+- `reasoning/src/candidate/legacy-action-bridge.ts`：legacy `ActionId` 显式桥接；
 - `reasoning/src/candidate/candidate-normalizer.ts`：统一规范化、事实检查和集合构建；
 - `reasoning/src/import/mjai-action.ts`：MJAI/牌谱适配；
 - `reasoning/tests/action-codec.test.ts`；
