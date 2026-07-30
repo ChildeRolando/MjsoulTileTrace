@@ -16,6 +16,11 @@ Implemented:
 - replay evidence registry, trusted recomputation, and structural validation;
 - emitted JavaScript packages for ordinary Node/Electron imports;
 - deterministic Chinese explanations for the East 1 turn 6 and 7 regressions.
+- unified comparison-request, analysis-frame, candidate-reference, model-evaluation,
+  and preference-set contracts;
+- replayable Mortal probability and Akagi Native softmax selection scores with a
+  frozen per-evaluation detail threshold;
+- a fixed agreement truth table for model and coach preference sets;
 
 Both current regression scenes remain incomplete. Full value, placement outcome
 paths, option-value analysis, calibrated deal-in probability, structural river
@@ -24,13 +29,15 @@ missing-data dimensions. Therefore both packages correctly return
 `coachJudgement: null`.
 
 PF-03 is registered for audit but deliberately not activated in this milestone.
-Activation requires complete legal-action, value, placement, calibrated-risk,
-multi-threat, and option-value analyzers under a separately approved plan.
+Activation requires scored-candidate normalization plus value, placement,
+calibrated-risk, multi-threat, and option-value analyzers under separately
+approved plans. The coach does not claim to enumerate every legal action.
 
 Outside this milestone:
 
-- production Mortal and Akagi Native adapters;
-- complete meld, furiten, legal-action, remaining-tile, and called-discard state;
+- production Mortal and Akagi Native report integration;
+- structured chi, pon, kan, win, abortive-draw, and pass action normalization;
+- complete meld, furiten, remaining-tile, and called-discard state;
 - full value, placement, option-value, river, wait, and calibrated-risk analyzers;
 - persistence, LLM dialogue orchestration, and the three-column UI.
 
