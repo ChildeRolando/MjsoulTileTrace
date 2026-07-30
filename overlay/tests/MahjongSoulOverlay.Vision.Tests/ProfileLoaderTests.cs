@@ -51,6 +51,81 @@ public sealed class ProfileLoaderTests
         }
     }
 
+    [Fact]
+    public void Standard_profile_round_trips_every_calibrated_value()
+    {
+        var expected = ProfileLoader.Load(StandardProfilePath());
+
+        var actual = ProfileLoader.LoadJson(ProfileLoader.Serialize(expected));
+
+        Assert.Equal(expected.Id, actual.Id);
+        Assert.Equal(expected.Width, actual.Width);
+        Assert.Equal(expected.Height, actual.Height);
+        Assert.Equal(expected.DisplayScale, actual.DisplayScale);
+        foreach (var seat in Enum.GetValues<Seat>())
+            AssertSeatProfileEqual(expected.Seats[seat], actual.Seats[seat]);
+    }
+
+    [Fact]
+    public void Standard_profile_regions_enclose_reference_features_without_duplicate_geometry()
+    {
+        var profile = ProfileLoader.Load(StandardProfilePath());
+
+        AssertContainsPixels(profile.Seats[Seat.Bottom].MainHandRegion,
+            (223, 922), (1453, 1072));
+        AssertContainsPixels(profile.Seats[Seat.Bottom].DrawnSlot,
+            (1486, 922), (1576, 1072));
+        AssertContainsPixels(profile.Seats[Seat.Top].MainHandRegion,
+            (730, 8), (1340, 69));
+        AssertContainsPixels(profile.Seats[Seat.Left].MainHandRegion,
+            (322, 90), (180, 605));
+        AssertContainsPixels(profile.Seats[Seat.Right].MainHandRegion,
+            (1600, 222), (1808, 765), (1758, 808));
+        AssertContainsPixels(profile.Seats[Seat.Bottom].MainSlots[0], (230, 930));
+        AssertContainsPixels(profile.Seats[Seat.Bottom].MainSlots[12], (1440, 930));
+        AssertContainsPixels(profile.Seats[Seat.Right].MainSlots[0], (1770, 780));
+        AssertContainsPixels(profile.Seats[Seat.Right].MainSlots[12], (1610, 230));
+        AssertContainsPixels(profile.Seats[Seat.Top].MainSlots[0], (1335, 20));
+        AssertContainsPixels(profile.Seats[Seat.Top].MainSlots[12], (730, 20));
+        AssertContainsPixels(profile.Seats[Seat.Left].MainSlots[0], (330, 100));
+        AssertContainsPixels(profile.Seats[Seat.Left].MainSlots[12], (185, 590));
+
+        AssertContainsPixels(profile.Seats[Seat.Bottom].RiverRegion,
+            (767, 543), (1135, 680));
+        AssertContainsPixels(profile.Seats[Seat.Right].RiverRegion,
+            (1140, 296), (1308, 546));
+        AssertContainsPixels(profile.Seats[Seat.Top].RiverRegion,
+            (800, 198), (1118, 303));
+        AssertContainsPixels(profile.Seats[Seat.Left].RiverRegion,
+            (633, 291), (755, 544));
+
+        AssertContainsPixels(profile.Seats[Seat.Bottom].MeldRegion,
+            (1339, 948), (1819, 1038));
+        AssertContainsPixels(profile.Seats[Seat.Right].MeldRegion,
+            (68, 760), (205, 965));
+        AssertContainsPixels(profile.Seats[Seat.Top].MeldRegion,
+            (1510, 44), (1588, 153));
+        AssertContainsPixels(profile.Seats[Seat.Left].MeldRegion,
+            (395, 33), (710, 88));
+
+        var allRegions = profile.Seats.Values.SelectMany(EnumerateSeatRegions).ToArray();
+        Assert.Equal(allRegions.Length, allRegions.Distinct().Count());
+        AssertPairwiseNoBoundingBoxOverlap(
+            profile.Seats.Values.Select(seat => seat.MainHandRegion));
+        AssertPairwiseNoBoundingBoxOverlap(
+            profile.Seats.Values.Select(seat => seat.DrawnSlot));
+        AssertPairwiseNoBoundingBoxOverlap(
+            profile.Seats.Values.Select(seat => seat.RiverRegion));
+        AssertPairwiseNoBoundingBoxOverlap(
+            profile.Seats.Values.Select(seat => seat.MeldRegion));
+        Assert.All(profile.Seats.Values, seat =>
+        {
+            Assert.Equal(13, seat.MainSlots.Count);
+            Assert.False(HasPositiveBoundingBoxOverlap(seat.MainHandRegion, seat.DrawnSlot));
+            Assert.False(HasPositiveBoundingBoxOverlap(seat.MainHandRegion, seat.RiverRegion));
+        });
+    }
+
     [Theory]
     [InlineData("width", "1919")]
     [InlineData("height", "1079")]
@@ -231,6 +306,101 @@ public sealed class ProfileLoaderTests
 
     private static JsonObject ValidNode() =>
         JsonNode.Parse(JsonSerializer.Serialize(ValidProfile(), JsonOptions))!.AsObject();
+
+    private static string StandardProfilePath()
+    {
+        var directory = new DirectoryInfo(AppContext.BaseDirectory);
+        while (directory is not null &&
+               !File.Exists(Path.Combine(directory.FullName, "MahjongSoulOverlay.sln")))
+        {
+            directory = directory.Parent;
+        }
+
+        Assert.NotNull(directory);
+        return Path.Combine(
+            directory.FullName,
+            "src",
+            "MahjongSoulOverlay.Vision",
+            "Profiles",
+            "yonma-1920x1080.standard.json");
+    }
+
+    private static IEnumerable<NormalizedQuad> EnumerateSeatRegions(SeatProfile seat)
+    {
+        yield return seat.MainHandRegion;
+        foreach (var slot in seat.MainSlots)
+            yield return slot;
+        yield return seat.DrawnSlot;
+        yield return seat.RiverRegion;
+        yield return seat.MeldRegion;
+    }
+
+    private static void AssertContainsPixels(
+        NormalizedQuad quad,
+        params (int X, int Y)[] pixels)
+    {
+        foreach (var (x, y) in pixels)
+        {
+            var point = new NormalizedPoint(x / 1920d, y / 1080d);
+            Assert.True(
+                Contains(quad, point),
+                $"Expected region to contain reference pixel ({x}, {y}).");
+        }
+    }
+
+    private static bool Contains(NormalizedQuad quad, NormalizedPoint point)
+    {
+        var vertices = new[]
+        {
+            quad.TopLeft, quad.TopRight, quad.BottomRight, quad.BottomLeft
+        };
+        const double epsilon = 1e-12;
+        var crossProducts = vertices.Select((current, index) =>
+        {
+            var next = vertices[(index + 1) % vertices.Length];
+            return (next.X - current.X) * (point.Y - current.Y) -
+                   (next.Y - current.Y) * (point.X - current.X);
+        }).ToArray();
+        return crossProducts.All(value => value >= -epsilon) ||
+               crossProducts.All(value => value <= epsilon);
+    }
+
+    private static bool HasPositiveBoundingBoxOverlap(
+        NormalizedQuad first,
+        NormalizedQuad second)
+    {
+        var firstBounds = Bounds(first);
+        var secondBounds = Bounds(second);
+        return Math.Min(firstBounds.Right, secondBounds.Right) >
+               Math.Max(firstBounds.Left, secondBounds.Left) &&
+               Math.Min(firstBounds.Bottom, secondBounds.Bottom) >
+               Math.Max(firstBounds.Top, secondBounds.Top);
+    }
+
+    private static void AssertPairwiseNoBoundingBoxOverlap(
+        IEnumerable<NormalizedQuad> source)
+    {
+        var quads = source.ToArray();
+        for (var first = 0; first < quads.Length; first++)
+        {
+            for (var second = first + 1; second < quads.Length; second++)
+                Assert.False(HasPositiveBoundingBoxOverlap(quads[first], quads[second]));
+        }
+    }
+
+    private static (double Left, double Top, double Right, double Bottom) Bounds(
+        NormalizedQuad quad)
+    {
+        var points = new[]
+        {
+            quad.TopLeft, quad.TopRight, quad.BottomRight, quad.BottomLeft
+        };
+        return (
+            points.Min(point => point.X),
+            points.Min(point => point.Y),
+            points.Max(point => point.X),
+            points.Max(point => point.Y));
+    }
 
     private static JsonObject ZeroAreaQuadNode() =>
         JsonNode.Parse("""{"topLeft":{"x":0.1,"y":0.1},"topRight":{"x":0.2,"y":0.1},"bottomRight":{"x":0.2,"y":0.1},"bottomLeft":{"x":0.1,"y":0.1}}""")!.AsObject();
