@@ -1,4 +1,3 @@
-using System.Globalization;
 using System.Text;
 using MahjongSoulOverlay.Core.Domain;
 using MahjongSoulOverlay.Core.Profiles;
@@ -47,9 +46,13 @@ public sealed class OpenCvSeatDetector : IDisposable
 
         var tableColor = DominantTableColor(mat);
         var seats = new Dictionary<Seat, SeatObservation>();
+        var anchorVisibility = new Dictionary<Seat, bool>();
         foreach (var seat in Enum.GetValues<Seat>())
         {
             var profile = _profile.Seats[seat];
+            var anchorScore = SlotScore(mat, profile.MainHandRegion, tableColor);
+            anchorVisibility.Add(
+                seat, anchorScore >= profile.MainHandThresholds.Stable);
             var mainScores = profile.MainSlots
                 .Select(slot => SlotScore(mat, slot, tableColor))
                 .ToArray();
@@ -57,20 +60,50 @@ public sealed class OpenCvSeatDetector : IDisposable
                 .Select(score => score >= profile.MainHandThresholds.Occupancy)
                 .ToArray();
             var drawnScore = SlotScore(mat, profile.DrawnSlot, tableColor);
-            var drawn = drawnScore >= profile.DrawnSlotThresholds.Occupancy;
+            var rawDrawn = drawnScore >= profile.DrawnSlotThresholds.Occupancy;
 
             var river = DetectTiles(
-                mat, profile, profile.RiverRegion, [], tableColor, isRiver: true);
+                mat,
+                profile,
+                profile.RiverRegion,
+                [],
+                tableColor,
+                profile.RiverThresholds,
+                profile.RiverTileScale,
+                isRiver: true);
             var excludedMeldAreas = profile.MainSlots
                 .Zip(mainSlots)
                 .Where(pair => pair.Second)
                 .Select(pair => pair.First)
-                .Concat(drawn ? [profile.DrawnSlot] : [])
+                .Concat(rawDrawn && mainSlots.All(value => value)
+                    ? [profile.DrawnSlot]
+                    : [])
                 .ToArray();
             var meld = DetectTiles(
-                mat, profile, profile.MeldRegion, excludedMeldAreas, tableColor, isRiver: false);
-            var meldGroups = CountGroups(meld, profile);
-            var signature = Signature(mainSlots, drawn, meldGroups, meld.Count, river);
+                mat,
+                profile,
+                profile.MeldRegion,
+                excludedMeldAreas,
+                tableColor,
+                profile.MeldThresholds,
+                profile.MeldTileScale,
+                isRiver: false);
+            var meldTopology = AnalyzeMeldTopology(
+                mat, profile, excludedMeldAreas, tableColor);
+            var contourGroups = CountGroups(meld, profile, profile.MeldTileScale);
+            var meldGroups = meld.Count == 0
+                ? 0
+                : Math.Max(meldTopology.Groups, contourGroups);
+            var meldTiles = meldGroups == 0
+                ? 0
+                : meld.Count == meldGroups * 4
+                    ? meldGroups * 4
+                    : meldGroups * 3;
+            var drawn = rawDrawn &&
+                (mainSlots.All(value => value) ||
+                 meldTiles == 0 ||
+                 !BoundingBoxesOverlap(profile.DrawnSlot, profile.MeldRegion));
+            var signature = Signature(mainSlots, drawn, meldGroups, meldTiles, river);
             var stable = UpdateStability(seat, signature);
             var confidence = ObservationConfidence(
                 mainScores, mainSlots, drawnScore, drawn,
@@ -82,17 +115,20 @@ public sealed class OpenCvSeatDetector : IDisposable
                 mainSlots,
                 drawn,
                 meldGroups,
-                meld.Count,
+                meldTiles,
                 river.Select(candidate => candidate.Tile).ToArray(),
                 stable,
                 confidence,
                 timestamp));
         }
 
-        var tableVisible = seats.Values.All(seat => seat.MainHandCount > 0);
+        var tableVisible = anchorVisibility.Values.All(value => value);
         var baselineVisible =
             tableVisible &&
-            seats.Values.All(seat => seat.IsStable && seat.RiverTiles.Count == 0);
+            seats.Values.All(seat =>
+                seat.MainHandCount > 0 &&
+                seat.IsStable &&
+                seat.RiverTiles.Count == 0);
         if (!tableVisible && HasLargeCentralForeground(mat))
             _resultFrames++;
         else
@@ -148,13 +184,6 @@ public sealed class OpenCvSeatDetector : IDisposable
             .Append('|').Append(meldGroups)
             .Append('|').Append(meldTiles)
             .Append('|').Append(river.Count);
-        foreach (var candidate in river)
-        {
-            builder.Append(':')
-                .Append(Math.Round(candidate.Center.X, 3).ToString(CultureInfo.InvariantCulture))
-                .Append(',')
-                .Append(Math.Round(candidate.Center.Y, 3).ToString(CultureInfo.InvariantCulture));
-        }
         return builder.ToString();
     }
 
@@ -252,6 +281,8 @@ public sealed class OpenCvSeatDetector : IDisposable
         NormalizedQuad region,
         IReadOnlyList<NormalizedQuad> excluded,
         Scalar tableColor,
+        RegionThresholds thresholds,
+        TileScale tileScale,
         bool isRiver)
     {
         using var grayscale = ToGrayscale(frame);
@@ -273,7 +304,10 @@ public sealed class OpenCvSeatDetector : IDisposable
         }
 
         Cv2.GaussianBlur(grayscale, blurred, new Size(3, 3), 0);
-        Cv2.Canny(blurred, edges, 35, 110);
+        var lowEdgeThreshold = Math.Max(1d, thresholds.Occupancy * 255d);
+        var highEdgeThreshold = Math.Max(
+            lowEdgeThreshold + 1d, thresholds.Stable * 255d);
+        Cv2.Canny(blurred, edges, lowEdgeThreshold, highEdgeThreshold);
         Cv2.BitwiseAnd(edges, mask, edges);
         using var kernel = Cv2.GetStructuringElement(MorphShapes.Rect, new Size(2, 2));
         Cv2.MorphologyEx(edges, edges, MorphTypes.Close, kernel);
@@ -281,34 +315,12 @@ public sealed class OpenCvSeatDetector : IDisposable
             edges, out var contours, out _, RetrievalModes.List,
             ContourApproximationModes.ApproxSimple);
 
-        using var table = new Mat(frame.Size(), frame.Type(), tableColor);
-        using var difference = new Mat();
-        Cv2.Absdiff(frame, table, difference);
-        var differenceChannels = Cv2.Split(difference);
+        using var foreground = CreateForegroundMask(frame, tableColor, thresholds);
         Point[][] foregroundContours;
-        try
-        {
-            using var maximumDifference = new Mat();
-            Cv2.Max(differenceChannels[0], differenceChannels[1], maximumDifference);
-            if (differenceChannels.Length > 2)
-                Cv2.Max(maximumDifference, differenceChannels[2], maximumDifference);
-            using var foreground = new Mat();
-            Cv2.Threshold(
-                maximumDifference,
-                foreground,
-                profile.MinimumTileConfidence * 255d * 0.6d,
-                255,
-                ThresholdTypes.Binary);
-            Cv2.BitwiseAnd(foreground, mask, foreground);
-            Cv2.FindContours(
-                foreground, out foregroundContours, out _, RetrievalModes.External,
-                ContourApproximationModes.ApproxSimple);
-        }
-        finally
-        {
-            foreach (var channel in differenceChannels)
-                channel.Dispose();
-        }
+        Cv2.BitwiseAnd(foreground, mask, foreground);
+        Cv2.FindContours(
+            foreground, out foregroundContours, out _, RetrievalModes.External,
+            ContourApproximationModes.ApproxSimple);
 
         var candidates = new List<TileCandidate>();
         foreach (var contour in contours.Concat(foregroundContours))
@@ -316,7 +328,13 @@ public sealed class OpenCvSeatDetector : IDisposable
             if (contour.Length < 4)
                 continue;
             var rectangle = Cv2.MinAreaRect(contour);
-            if (!TryConfidence(rectangle, profile, frame.Width, frame.Height, out var confidence))
+            if (!TryConfidence(
+                    rectangle,
+                    profile,
+                    tileScale,
+                    frame.Width,
+                    frame.Height,
+                    out var confidence))
                 continue;
 
             var points = rectangle.Points();
@@ -331,17 +349,285 @@ public sealed class OpenCvSeatDetector : IDisposable
                 new DetectedTile(id, quad, confidence), center));
         }
 
-        var deduplicated = Deduplicate(candidates, profile);
+        var deduplicated = Deduplicate(candidates, tileScale);
+        if (isRiver &&
+            deduplicated.Count > 0 &&
+            IsFullRiverRegion(region, tileScale))
+        {
+            var gridCandidates = DetectRiverGrid(
+                frame, profile, region, tableColor, thresholds, tileScale);
+            if (gridCandidates.Count > deduplicated.Count)
+                deduplicated = gridCandidates;
+        }
         return Order(
             deduplicated,
             isRiver ? profile.RiverFlowDirection : profile.MeldExpansionDirection);
     }
 
+    private static bool IsFullRiverRegion(
+        NormalizedQuad region, TileScale tileScale)
+    {
+        var points = Points(region).ToArray();
+        var boundingArea =
+            (points.Max(point => point.X) - points.Min(point => point.X)) *
+            (points.Max(point => point.Y) - points.Min(point => point.Y));
+        return boundingArea / (tileScale.Width * tileScale.Height) >= 12d;
+    }
+
+    private static IReadOnlyList<TileCandidate> DetectRiverGrid(
+        Mat frame,
+        SeatProfile profile,
+        NormalizedQuad region,
+        Scalar tableColor,
+        RegionThresholds thresholds,
+        TileScale tileScale)
+    {
+        var candidates = new List<TileCandidate>();
+        var cells = RiverGrid(region, profile.Seat, profile.RiverFlowDirection);
+        for (var index = 0; index < cells.Count; index++)
+        {
+            var evidenceCell = RiverEvidenceCell(cells[index], profile.Seat);
+            var score = SlotScore(frame, evidenceCell, tableColor);
+            if (score < thresholds.Occupancy)
+                continue;
+
+            var center = Center(cells[index]);
+            var quad = ExpectedQuad(center, tileScale);
+            var confidence = ClassificationConfidence(
+                score, thresholds.Occupancy, occupied: true);
+            var id = FormattableString.Invariant(
+                $"{profile.Seat.ToString().ToLowerInvariant()}-river-grid-{index:D2}");
+            candidates.Add(new TileCandidate(
+                new DetectedTile(id, quad, confidence), center));
+        }
+        if (candidates.Count <= 1 &&
+            candidates.All(candidate =>
+                candidate.Center != Center(cells[0])))
+        {
+            candidates.Clear();
+        }
+        return candidates;
+    }
+
+    private static IReadOnlyList<NormalizedQuad> RiverGrid(
+        NormalizedQuad region, Seat seat, LayoutDirection direction)
+    {
+        var horizontal =
+            direction is LayoutDirection.LeftToRight or LayoutDirection.RightToLeft;
+        var cells = new List<NormalizedQuad>(18);
+        for (var crossIndex = 0; crossIndex < 3; crossIndex++)
+        {
+            var cross = seat is Seat.Top or Seat.Left
+                ? 2 - crossIndex
+                : crossIndex;
+            for (var along = 0; along < 6; along++)
+            {
+                var flowIndex = direction is LayoutDirection.RightToLeft or
+                    LayoutDirection.BottomToTop
+                    ? 5 - along
+                    : along;
+                var column = horizontal ? flowIndex : cross;
+                var row = horizontal ? cross : flowIndex;
+                var columns = horizontal ? 6d : 3d;
+                var rows = horizontal ? 3d : 6d;
+                cells.Add(Subdivide(
+                    region,
+                    column / columns,
+                    row / rows,
+                    (column + 1) / columns,
+                    (row + 1) / rows));
+            }
+        }
+        return cells;
+    }
+
+    private static NormalizedQuad RiverEvidenceCell(
+        NormalizedQuad cell, Seat seat) =>
+        seat switch
+        {
+            Seat.Bottom => Subdivide(cell, 0.15, 0.4, 0.85, 0.95),
+            Seat.Right => Subdivide(cell, 0.4, 0.15, 0.95, 0.85),
+            Seat.Top => Subdivide(cell, 0.15, 0.05, 0.85, 0.6),
+            Seat.Left => Subdivide(cell, 0.05, 0.15, 0.6, 0.85),
+            _ => throw new ArgumentOutOfRangeException(nameof(seat))
+        };
+
+    private static NormalizedQuad Subdivide(
+        NormalizedQuad region, double left, double top, double right, double bottom) =>
+        new(
+            Bilinear(region, left, top),
+            Bilinear(region, right, top),
+            Bilinear(region, right, bottom),
+            Bilinear(region, left, bottom));
+
+    private static NormalizedPoint Bilinear(
+        NormalizedQuad region, double x, double y)
+    {
+        var topX = region.TopLeft.X + (region.TopRight.X - region.TopLeft.X) * x;
+        var topY = region.TopLeft.Y + (region.TopRight.Y - region.TopLeft.Y) * x;
+        var bottomX =
+            region.BottomLeft.X + (region.BottomRight.X - region.BottomLeft.X) * x;
+        var bottomY =
+            region.BottomLeft.Y + (region.BottomRight.Y - region.BottomLeft.Y) * x;
+        return new NormalizedPoint(
+            topX + (bottomX - topX) * y,
+            topY + (bottomY - topY) * y);
+    }
+
+    private static NormalizedPoint Center(NormalizedQuad quad) =>
+        new(
+            Points(quad).Average(point => point.X),
+            Points(quad).Average(point => point.Y));
+
+    private static NormalizedQuad ExpectedQuad(
+        NormalizedPoint center, TileScale scale)
+    {
+        var halfWidth = scale.Width / 2d;
+        var halfHeight = scale.Height / 2d;
+        var left = Math.Clamp(center.X - halfWidth, 0d, 1d);
+        var right = Math.Clamp(center.X + halfWidth, 0d, 1d);
+        var top = Math.Clamp(center.Y - halfHeight, 0d, 1d);
+        var bottom = Math.Clamp(center.Y + halfHeight, 0d, 1d);
+        return new NormalizedQuad(
+            new(left, top), new(right, top),
+            new(right, bottom), new(left, bottom));
+    }
+
+    private static MeldTopology AnalyzeMeldTopology(
+        Mat frame,
+        SeatProfile profile,
+        IReadOnlyList<NormalizedQuad> excluded,
+        Scalar tableColor)
+    {
+        using var foreground =
+            CreateForegroundMask(frame, tableColor, profile.MeldThresholds);
+        using var regionMask = Mat.Zeros(frame.Size(), MatType.CV_8UC1).ToMat();
+        Cv2.FillConvexPoly(
+            regionMask,
+            ToPixels(profile.MeldRegion, frame.Width, frame.Height),
+            Scalar.White);
+        if (excluded.Count > 0)
+        {
+            using var exclusion = Mat.Zeros(frame.Size(), MatType.CV_8UC1).ToMat();
+            foreach (var quad in excluded)
+                Cv2.FillConvexPoly(
+                    exclusion, ToPixels(quad, frame.Width, frame.Height), Scalar.White);
+            using var kernel = Cv2.GetStructuringElement(MorphShapes.Rect, new Size(5, 5));
+            Cv2.Dilate(exclusion, exclusion, kernel);
+            Cv2.BitwiseNot(exclusion, exclusion);
+            Cv2.BitwiseAnd(regionMask, exclusion, regionMask);
+        }
+        Cv2.BitwiseAnd(foreground, regionMask, foreground);
+
+        var bounds = Cv2.BoundingRect(
+            ToPixels(profile.MeldRegion, frame.Width, frame.Height));
+        bounds = bounds.Intersect(new Rect(0, 0, frame.Width, frame.Height));
+        if (bounds.Width <= 0 || bounds.Height <= 0)
+            return new MeldTopology(0, 0);
+
+        using var roi = new Mat(foreground, bounds);
+        var horizontal =
+            profile.MeldExpansionDirection is LayoutDirection.LeftToRight or
+                LayoutDirection.RightToLeft;
+        var axisLength = horizontal ? roi.Width : roi.Height;
+        var expectedAxisSpan = horizontal
+            ? profile.MeldTileScale.Width * frame.Width
+            : profile.MeldTileScale.Height * frame.Height;
+        var expectedPerpendicularSpan = horizontal
+            ? profile.MeldTileScale.Height * frame.Height
+            : profile.MeldTileScale.Width * frame.Width;
+        var minimumProjection = Math.Max(1, expectedPerpendicularSpan * 0.18d);
+        var occupied = new bool[axisLength];
+        for (var index = 0; index < axisLength; index++)
+        {
+            using var slice = horizontal
+                ? new Mat(roi, new Rect(index, 0, 1, roi.Height))
+                : new Mat(roi, new Rect(0, index, roi.Width, 1));
+            occupied[index] = Cv2.CountNonZero(slice) >= minimumProjection;
+        }
+
+        var minimumRun = Math.Max(
+            2,
+            expectedAxisSpan * (1d - profile.PerspectiveTolerance) * 0.3d);
+        var runs = FindRuns(occupied)
+            .Where(run => run.End - run.Start + 1 >= minimumRun)
+            .ToArray();
+        if (runs.Length == 0)
+            return new MeldTopology(0, 0);
+
+        var gapGroups = 1;
+        var groupGap = Math.Max(3d, expectedAxisSpan * 0.12d);
+        for (var index = 1; index < runs.Length; index++)
+        {
+            if (runs[index].Start - runs[index - 1].End - 1 > groupGap)
+                gapGroups++;
+        }
+        var groups = Math.Max(gapGroups, (int)Math.Ceiling(runs.Length / 4d));
+        return new MeldTopology(groups, runs.Length);
+    }
+
+    private static IEnumerable<(int Start, int End)> FindRuns(
+        IReadOnlyList<bool> occupied)
+    {
+        var start = -1;
+        for (var index = 0; index < occupied.Count; index++)
+        {
+            if (occupied[index] && start < 0)
+                start = index;
+            if (!occupied[index] && start >= 0)
+            {
+                yield return (start, index - 1);
+                start = -1;
+            }
+        }
+        if (start >= 0)
+            yield return (start, occupied.Count - 1);
+    }
+
+    private static Mat CreateForegroundMask(
+        Mat frame, Scalar tableColor, RegionThresholds thresholds)
+    {
+        using var table = new Mat(frame.Size(), frame.Type(), tableColor);
+        using var difference = new Mat();
+        Cv2.Absdiff(frame, table, difference);
+        var channels = Cv2.Split(difference);
+        try
+        {
+            var maximumDifference = new Mat();
+            Cv2.Max(channels[0], channels[1], maximumDifference);
+            if (channels.Length > 2)
+                Cv2.Max(maximumDifference, channels[2], maximumDifference);
+            Cv2.Threshold(
+                maximumDifference,
+                maximumDifference,
+                thresholds.Occupancy * 255d,
+                255,
+                ThresholdTypes.Binary);
+            return maximumDifference;
+        }
+        finally
+        {
+            foreach (var channel in channels)
+                channel.Dispose();
+        }
+    }
+
+    private static bool BoundingBoxesOverlap(
+        NormalizedQuad first, NormalizedQuad second)
+    {
+        var firstPoints = Points(first).ToArray();
+        var secondPoints = Points(second).ToArray();
+        return Math.Min(firstPoints.Max(point => point.X), secondPoints.Max(point => point.X)) >
+               Math.Max(firstPoints.Min(point => point.X), secondPoints.Min(point => point.X)) &&
+               Math.Min(firstPoints.Max(point => point.Y), secondPoints.Max(point => point.Y)) >
+               Math.Max(firstPoints.Min(point => point.Y), secondPoints.Min(point => point.Y));
+    }
+
     private static IReadOnlyList<TileCandidate> Deduplicate(
-        IReadOnlyList<TileCandidate> candidates, SeatProfile profile)
+        IReadOnlyList<TileCandidate> candidates, TileScale tileScale)
     {
         var minimumSeparation =
-            Math.Min(profile.ExpectedTileScale.Width, profile.ExpectedTileScale.Height) * 0.35d;
+            Math.Min(tileScale.Width, tileScale.Height) * 0.35d;
         var accepted = new List<TileCandidate>();
         foreach (var candidate in candidates
                      .OrderByDescending(value => value.Tile.Confidence)
@@ -362,6 +648,7 @@ public sealed class OpenCvSeatDetector : IDisposable
     private static bool TryConfidence(
         RotatedRect rectangle,
         SeatProfile profile,
+        TileScale tileScale,
         int frameWidth,
         int frameHeight,
         out double confidence)
@@ -388,11 +675,11 @@ public sealed class OpenCvSeatDetector : IDisposable
             return false;
         }
 
-        var expectedWidth = profile.ExpectedTileScale.Width * frameWidth;
-        var expectedHeight = profile.ExpectedTileScale.Height * frameHeight;
+        var expectedWidth = tileScale.Width * frameWidth;
+        var expectedHeight = tileScale.Height * frameHeight;
         var actual = new[] { width, height }.OrderBy(value => value).ToArray();
         var expected = new[] { expectedWidth, expectedHeight }.OrderBy(value => value).ToArray();
-        var tolerance = Math.Clamp(profile.PerspectiveTolerance + 0.35d, 0.35d, 0.9d);
+        var tolerance = profile.PerspectiveTolerance;
         var firstRatio = actual[0] / expected[0];
         var secondRatio = actual[1] / expected[1];
         if (firstRatio < 1d - tolerance || firstRatio > 1d + tolerance ||
@@ -402,11 +689,14 @@ public sealed class OpenCvSeatDetector : IDisposable
         }
 
         var sizeError = (Math.Abs(1d - firstRatio) + Math.Abs(1d - secondRatio)) / 2d;
-        confidence = Math.Clamp(1d - sizeError, profile.MinimumTileConfidence, 1d);
+        confidence = Math.Clamp(1d - sizeError, 0d, 1d);
         return confidence >= profile.MinimumTileConfidence;
     }
 
-    private static int CountGroups(IReadOnlyList<TileCandidate> candidates, SeatProfile profile)
+    private static int CountGroups(
+        IReadOnlyList<TileCandidate> candidates,
+        SeatProfile profile,
+        TileScale tileScale)
     {
         if (candidates.Count == 0)
             return 0;
@@ -414,8 +704,8 @@ public sealed class OpenCvSeatDetector : IDisposable
         var horizontal =
             profile.MeldExpansionDirection is LayoutDirection.LeftToRight or LayoutDirection.RightToLeft;
         var expectedSpan = horizontal
-            ? profile.ExpectedTileScale.Width
-            : profile.ExpectedTileScale.Height;
+            ? tileScale.Width
+            : tileScale.Height;
         var orderedValues = candidates
             .Select(candidate => horizontal ? candidate.Center.X : candidate.Center.Y)
             .OrderBy(value => value)
@@ -528,4 +818,6 @@ public sealed class OpenCvSeatDetector : IDisposable
     private sealed record StabilityState(string Signature, int Count);
 
     private sealed record TileCandidate(DetectedTile Tile, NormalizedPoint Center);
+
+    private readonly record struct MeldTopology(int Groups, int Tiles);
 }

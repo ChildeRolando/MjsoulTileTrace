@@ -81,7 +81,7 @@ public sealed class OpenCvSeatDetectorTests
         var profile = CreateProfile(overlapBottomMeldAndHand: true);
         using var image = EmptyFrame(profile);
         foreach (var seat in Enum.GetValues<Seat>())
-            DrawMain(image, profile.Seats[seat], 1);
+            DrawMain(image, profile.Seats[seat], seat == Seat.Bottom ? 3 : 1);
         Fill(image, profile.Seats[Seat.Bottom].DrawnSlot);
         DrawTiles(image, profile.Seats[Seat.Left].MeldRegion, columns: 6, groupBreakAfter: 3);
         using var frame = new PixelFrame(image);
@@ -92,6 +92,46 @@ public sealed class OpenCvSeatDetectorTests
         Assert.Equal(6, observation.Seats[Seat.Left].MeldTiles);
         Assert.Equal(2, observation.Seats[Seat.Left].MeldGroups);
         Assert.Equal(0, observation.Seats[Seat.Bottom].MeldTiles);
+    }
+
+    [Fact]
+    public void Shortened_hand_does_not_treat_overlapping_meld_as_fixed_draw_slot()
+    {
+        var original = CreateProfile();
+        var profile = ReplaceSeats(original, seat => seat.Seat == Seat.Bottom
+            ? CopySeat(seat, meldRegion: Q(150, 250, 240, 295))
+            : seat);
+        using var image = EmptyFrame(profile);
+        foreach (var seat in Enum.GetValues<Seat>())
+            DrawMain(image, profile.Seats[seat], seat == Seat.Bottom ? 2 : 1);
+        DrawTiles(image, profile.Seats[Seat.Bottom].MeldRegion, columns: 3);
+        using var frame = new PixelFrame(image);
+        using var detector = new OpenCvSeatDetector(profile, 1);
+
+        var bottom = detector.Detect(frame, DateTimeOffset.UnixEpoch)
+            .Seats[Seat.Bottom];
+
+        Assert.Equal(2, bottom.MainHandCount);
+        Assert.False(bottom.DrawnSlotOccupied);
+        Assert.Equal(1, bottom.MeldGroups);
+        Assert.Equal(3, bottom.MeldTiles);
+    }
+
+    [Fact]
+    public void Four_contiguous_meld_tiles_are_one_kan_group()
+    {
+        var profile = CreateProfile();
+        using var image = EmptyFrame(profile);
+        foreach (var seat in Enum.GetValues<Seat>())
+            DrawMain(image, profile.Seats[seat], 1);
+        DrawTiles(image, profile.Seats[Seat.Left].MeldRegion, columns: 4);
+        using var frame = new PixelFrame(image);
+        using var detector = new OpenCvSeatDetector(profile, 1);
+
+        var left = detector.Detect(frame, DateTimeOffset.UnixEpoch).Seats[Seat.Left];
+
+        Assert.Equal(4, left.MeldTiles);
+        Assert.Equal(1, left.MeldGroups);
     }
 
     [Fact]
@@ -222,6 +262,166 @@ public sealed class OpenCvSeatDetectorTests
     }
 
     [Fact]
+    public void Table_visibility_uses_independent_anchor_regions_not_hand_counts()
+    {
+        var original = CreateProfile();
+        var anchors = new Dictionary<Seat, NormalizedQuad>
+        {
+            [Seat.Bottom] = Q(180, 260, 200, 280),
+            [Seat.Right] = Q(370, 140, 390, 160),
+            [Seat.Top] = Q(180, 20, 200, 40),
+            [Seat.Left] = Q(10, 140, 30, 160)
+        };
+        var profile = ReplaceSeats(
+            original, seat => CopySeat(seat, mainHandRegion: anchors[seat.Seat]));
+        using var detector = new OpenCvSeatDetector(profile, 1);
+        using (var handsOnlyImage = EmptyFrame(profile))
+        {
+            foreach (var seat in Enum.GetValues<Seat>())
+                DrawMain(handsOnlyImage, profile.Seats[seat], 1);
+            using var handsOnly = new PixelFrame(handsOnlyImage);
+            Assert.False(detector.Detect(handsOnly, DateTimeOffset.UnixEpoch)
+                .TableStructureVisible);
+        }
+
+        using var anchorsOnlyImage = EmptyFrame(profile);
+        foreach (var anchor in anchors.Values)
+            Fill(anchorsOnlyImage, anchor);
+        using var anchorsOnly = new PixelFrame(anchorsOnlyImage);
+
+        var result = detector.Detect(anchorsOnly, DateTimeOffset.UnixEpoch.AddSeconds(1));
+
+        Assert.True(result.TableStructureVisible);
+        Assert.False(result.HandBaselineVisible);
+    }
+
+    [Fact]
+    public void River_detection_honors_each_seats_region_thresholds_and_exact_tolerance()
+    {
+        var original = CreateProfile();
+        var profile = ReplaceSeats(original, seat => seat.Seat switch
+        {
+            Seat.Bottom => CopySeat(
+                seat,
+                riverThresholds: new RegionThresholds(0.95, 0.98),
+                perspectiveTolerance: 0.05),
+            Seat.Top => CopySeat(
+                seat,
+                riverThresholds: new RegionThresholds(0.01, 0.02),
+                perspectiveTolerance: 0.45),
+            _ => seat
+        });
+        using var image = EmptyFrame(profile);
+        foreach (var seat in Enum.GetValues<Seat>())
+            DrawMain(image, profile.Seats[seat], 1);
+        DrawTiles(image, profile.Seats[Seat.Bottom].RiverRegion, columns: 1);
+        DrawTiles(image, profile.Seats[Seat.Top].RiverRegion, columns: 1);
+        using var frame = new PixelFrame(image);
+        using var detector = new OpenCvSeatDetector(profile, 1);
+
+        var result = detector.Detect(frame, DateTimeOffset.UnixEpoch);
+
+        Assert.Empty(result.Seats[Seat.Bottom].RiverTiles);
+        Assert.Single(result.Seats[Seat.Top].RiverTiles);
+    }
+
+    [Fact]
+    public void Smaller_river_and_meld_scales_are_independent_of_main_hand_scale()
+    {
+        var original = CreateProfile();
+        var oversizedHand = new TileScale(60d / 400d, 80d / 300d);
+        var actualTile = new TileScale(20d / 400d, 28d / 300d);
+        var profile = ReplaceSeats(original, seat => CopySeat(
+            seat,
+            mainTileScale: oversizedHand,
+            riverTileScale: actualTile,
+            meldTileScale: actualTile,
+            perspectiveTolerance: 0.2));
+        using var image = EmptyFrame(profile);
+        foreach (var seat in Enum.GetValues<Seat>())
+            DrawMain(image, profile.Seats[seat], 1);
+        DrawTiles(image, profile.Seats[Seat.Bottom].RiverRegion, columns: 1);
+        DrawTiles(image, profile.Seats[Seat.Left].MeldRegion, columns: 3);
+        using var frame = new PixelFrame(image);
+        using var detector = new OpenCvSeatDetector(profile, 1);
+
+        var result = detector.Detect(frame, DateTimeOffset.UnixEpoch);
+
+        Assert.Single(result.Seats[Seat.Bottom].RiverTiles);
+        Assert.Equal(1, result.Seats[Seat.Left].MeldGroups);
+        Assert.Equal(3, result.Seats[Seat.Left].MeldTiles);
+    }
+
+    [Fact]
+    public void Full_river_grid_recovers_tiles_whose_visible_interiors_are_smaller_than_scale()
+    {
+        var original = CreateProfile();
+        var fullRiver = Q(240, 55, 360, 235);
+        var profile = ReplaceSeats(original, seat => seat.Seat == Seat.Right
+            ? CopySeat(
+                seat,
+                riverRegion: fullRiver,
+                riverTileScale: new TileScale(30d / 400d, 30d / 300d),
+                riverThresholds: new RegionThresholds(0.1, 0.15),
+                perspectiveTolerance: 0.2)
+            : seat);
+        using var image = EmptyFrame(profile);
+        foreach (var seat in Enum.GetValues<Seat>())
+            DrawMain(image, profile.Seats[seat], 1);
+        var occupiedCells =
+            RiverGrid(fullRiver, LayoutDirection.BottomToTop).Take(10).ToArray();
+        for (var index = 0; index < occupiedCells.Length; index++)
+        {
+            var bounds = PixelBounds(occupiedCells[index]);
+            var insetX = index == 0 ? 5 : 11;
+            var width = index == 0 ? 30 : 18;
+            Cv2.Rectangle(
+                image,
+                new Rect(bounds.X + insetX, bounds.Y + 1, width, 28),
+                Scalar.White,
+                -1);
+        }
+        using var frame = new PixelFrame(image);
+        using var detector = new OpenCvSeatDetector(profile, 1);
+
+        var river = detector.Detect(frame, DateTimeOffset.UnixEpoch)
+            .Seats[Seat.Right].RiverTiles;
+
+        Assert.Equal(10, river.Count);
+        Assert.Equal(10, river.Select(tile => tile.DetectionId).Distinct().Count());
+    }
+
+    [Fact]
+    public void One_pixel_river_jitter_keeps_equal_discrete_observations_stable()
+    {
+        var profile = CreateProfile();
+        using var detector = new OpenCvSeatDetector(profile, 3);
+        TableObservation? last = null;
+        for (var offset = 0; offset < 3; offset++)
+        {
+            using var image = BaselineFrame(profile);
+            var region = profile.Seats[Seat.Bottom].RiverRegion;
+            var bounds = PixelBounds(region);
+            Cv2.Rectangle(
+                image,
+                new Rect(bounds.X + 2 + offset, bounds.Y + 2, 18, 28),
+                Scalar.White,
+                -1);
+            Cv2.Rectangle(
+                image,
+                new Rect(bounds.X + 2 + offset, bounds.Y + 2, 18, 28),
+                Scalar.Black,
+                1);
+            using var frame = new PixelFrame(image);
+            last = detector.Detect(frame, DateTimeOffset.UnixEpoch.AddMilliseconds(offset));
+        }
+
+        Assert.NotNull(last);
+        Assert.True(last.Seats[Seat.Bottom].IsStable);
+        Assert.Single(last.Seats[Seat.Bottom].RiverTiles);
+    }
+
+    [Fact]
     public void Detect_validates_frame_ownership_dimensions_and_disposal()
     {
         var profile = CreateProfile();
@@ -282,9 +482,54 @@ public sealed class OpenCvSeatDetectorTests
         return new SeatProfile(
             seat, Bounding(slots), slots, flow, drawn, river, flow, meld, meldFlow,
             new TileScale(20d / 400d, 28d / 300d),
+            new TileScale(20d / 400d, 28d / 300d),
+            new TileScale(20d / 400d, 28d / 300d),
             0.45, 2.2, -180, 180, 0.45,
             occupied, occupied, occupied, occupied, 0.35);
     }
+
+    private static TableProfile ReplaceSeats(
+        TableProfile profile, Func<SeatProfile, SeatProfile> replace) =>
+        new(
+            profile.Id,
+            profile.Width,
+            profile.Height,
+            profile.DisplayScale,
+            profile.Seats.ToDictionary(pair => pair.Key, pair => replace(pair.Value)));
+
+    private static SeatProfile CopySeat(
+        SeatProfile source,
+        NormalizedQuad? mainHandRegion = null,
+        NormalizedQuad? riverRegion = null,
+        NormalizedQuad? meldRegion = null,
+        RegionThresholds? riverThresholds = null,
+        TileScale? mainTileScale = null,
+        TileScale? riverTileScale = null,
+        TileScale? meldTileScale = null,
+        double? perspectiveTolerance = null) =>
+        new(
+            source.Seat,
+            mainHandRegion ?? source.MainHandRegion,
+            source.MainSlots,
+            source.MainHandDirection,
+            source.DrawnSlot,
+            riverRegion ?? source.RiverRegion,
+            source.RiverFlowDirection,
+            meldRegion ?? source.MeldRegion,
+            source.MeldExpansionDirection,
+            mainTileScale ?? source.MainTileScale,
+            riverTileScale ?? source.RiverTileScale,
+            meldTileScale ?? source.MeldTileScale,
+            source.MinimumTileAspect,
+            source.MaximumTileAspect,
+            source.MinimumAngle,
+            source.MaximumAngle,
+            perspectiveTolerance ?? source.PerspectiveTolerance,
+            source.MainHandThresholds,
+            source.DrawnSlotThresholds,
+            riverThresholds ?? source.RiverThresholds,
+            source.MeldThresholds,
+            source.MinimumTileConfidence);
 
     private static Mat BaselineFrame(TableProfile profile)
     {
@@ -364,6 +609,53 @@ public sealed class OpenCvSeatDetectorTests
         var right = (int)Math.Round(points.Max(point => point.X) * 400);
         var bottom = (int)Math.Round(points.Max(point => point.Y) * 300);
         return new Rect(left, top, right - left, bottom - top);
+    }
+
+    private static IReadOnlyList<NormalizedQuad> RiverGrid(
+        NormalizedQuad region, LayoutDirection direction)
+    {
+        var horizontal =
+            direction is LayoutDirection.LeftToRight or LayoutDirection.RightToLeft;
+        var cells = new List<NormalizedQuad>(18);
+        for (var cross = 0; cross < 3; cross++)
+        {
+            for (var along = 0; along < 6; along++)
+            {
+                var first = direction is LayoutDirection.RightToLeft or
+                    LayoutDirection.BottomToTop
+                    ? 5 - along
+                    : along;
+                var column = horizontal ? first : cross;
+                var row = horizontal ? cross : first;
+                var columns = horizontal ? 6d : 3d;
+                var rows = horizontal ? 3d : 6d;
+                cells.Add(Subdivide(region, column / columns, row / rows,
+                    (column + 1) / columns, (row + 1) / rows));
+            }
+        }
+        return cells;
+    }
+
+    private static NormalizedQuad Subdivide(
+        NormalizedQuad region, double left, double top, double right, double bottom) =>
+        new(
+            Bilinear(region, left, top),
+            Bilinear(region, right, top),
+            Bilinear(region, right, bottom),
+            Bilinear(region, left, bottom));
+
+    private static NormalizedPoint Bilinear(
+        NormalizedQuad region, double x, double y)
+    {
+        var top = new NormalizedPoint(
+            region.TopLeft.X + (region.TopRight.X - region.TopLeft.X) * x,
+            region.TopLeft.Y + (region.TopRight.Y - region.TopLeft.Y) * x);
+        var bottom = new NormalizedPoint(
+            region.BottomLeft.X + (region.BottomRight.X - region.BottomLeft.X) * x,
+            region.BottomLeft.Y + (region.BottomRight.Y - region.BottomLeft.Y) * x);
+        return new NormalizedPoint(
+            top.X + (bottom.X - top.X) * y,
+            top.Y + (bottom.Y - top.Y) * y);
     }
 
     private static NormalizedPoint Center(NormalizedQuad quad) =>
