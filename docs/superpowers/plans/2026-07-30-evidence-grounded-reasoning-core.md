@@ -30,9 +30,9 @@ all deterministic outputs rather than trusting package-supplied rules or text.
 - Safety is stored separately for every riichi actor.
 - Teaching rules cannot receive raw scenes, model/actual labels, model scores,
   or report identifiers.
-- PF-03@1 is the only registered rule. It fails closed unless complete value,
-  placement, calibrated risk, option-value, ippatsu, shanten, and all-threat
-  safety prerequisites are explicit.
+- PF-03@1 is the only registered rule. It remains explicitly inactive until
+  complete legal-action, value, placement, calibrated risk, option-value,
+  ippatsu, shanten, and all-threat safety analyzers have an approved milestone.
 - PF-04 is not specified and does not exist.
 - Both East 1 regressions return `coachJudgement: null`.
 - Core validation uses structured recomputation, never free-text regexes.
@@ -105,9 +105,10 @@ coach/
 
 ### Task 5: Versioned five-axis candidate ledgers
 
-- [x] Define the `1.1.0` dimension catalog across efficiency, value, defense,
+- [x] Define the `1.2.0` dimension catalog across efficiency, value, defense,
   placement, and option value.
 - [x] Include calibrated deal-in probability explicitly as unsupported.
+- [x] Include proof of legal-action completeness explicitly as unsupported.
 - [x] Give every candidate real efficiency and per-threat defense consequences.
 - [x] Keep unimplemented value, placement, and option-value consequences as
   `unsupported + null`.
@@ -118,6 +119,7 @@ coach/
 
 - [x] Register PF-03@1 with sources, prerequisites, counterconditions, and
   limitations.
+- [x] Keep PF-03@1 inactive until its complete analyzer milestone is approved.
 - [x] Restrict policy input to factors, candidate ledgers, coverage, and the
   versioned registry.
 - [x] Prove that swapping attached model/actual labels cannot change policy
@@ -130,10 +132,13 @@ coach/
 ### Task 7: Evidence graph and public analysis package
 
 - [x] Resolve every factor evidence ID to a visible normalized replay event.
+- [x] Bind standard-hand shanten to the full hand-reconstruction event prefix
+  and bind ippatsu state to the declaration-through-decision event slice.
 - [x] Reject duplicate, missing, future, and dangling evidence.
 - [x] Return full factor objects, candidate ledgers, coverage, rule
   evaluations, primary axes, visible events, and deterministic text.
-- [x] Derive primary axes from directional factors.
+- [x] Derive primary axes from the highest-confidence, highest-provenance
+  directional factors so lower-quality heuristics cannot promote themselves.
 - [x] Render the exact East 1 efficiency/safety tradeoff in Chinese, including
   the standard-hand scope and ippatsu state.
 - [x] Preserve red-five identity and render safety advantages symmetrically.
@@ -150,6 +155,7 @@ coach/
   forged rules, forged advice, altered prose, unknown fields, hidden-information
   smuggling, and scene/event disagreement.
 - [x] Validate JSON serialization round trips through the public pipeline.
+- [x] Emit `dist` packages and smoke-test ordinary Node imports.
 - [x] Commit as `dd23649`.
 
 ## Regression truths
