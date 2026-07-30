@@ -14,8 +14,8 @@ async function load() {
 
 describe("scene replayer", () => {
   it("freezes turn 6 after the draw with actor 2 riichi and ippatsu alive", async () => {
-    const { events, decisions } = await load();
-    const scene = replayToDecision(events, decisions[0]!);
+    const { selfActor, events, decisions } = await load();
+    const scene = replayToDecision(events, decisions[0]!, selfActor);
 
     expect(scene.currentDraw).toMatchObject({ id: "6s" });
     expect(scene.selfHand.map((tile) => tile.id)).toContain("2p");
@@ -40,8 +40,8 @@ describe("scene replayer", () => {
   });
 
   it("keeps riichi but cancels ippatsu after the intervening pon at turn 7", async () => {
-    const { events, decisions } = await load();
-    const scene = replayToDecision(events, decisions[1]!);
+    const { selfActor, events, decisions } = await load();
+    const scene = replayToDecision(events, decisions[1]!, selfActor);
 
     expect(scene.currentDraw).toMatchObject({ id: "8p" });
     expect(scene.threats[2]).toMatchObject({ riichi: true, ippatsuAlive: false });

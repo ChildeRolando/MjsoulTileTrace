@@ -34,7 +34,7 @@ function isCall(
 export function replayToDecision(
   events: NormalizedEvent[],
   decision: NormalizedDecision,
-  selfActor = 3,
+  selfActor: number,
 ): SceneSnapshot {
   let round: MutableRound | null = null;
   const eventIds: string[] = [];

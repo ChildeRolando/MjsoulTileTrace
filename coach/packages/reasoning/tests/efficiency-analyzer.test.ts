@@ -24,8 +24,8 @@ describe("efficiency analyzer", () => {
   ] as const)(
     "records lower standard-hand shanten as the efficiency factor in regression %s",
     async (index, actualShanten, modelShanten, actualAction, modelAction) => {
-      const { events, decisions } = await loadRegression();
-      const scene = replayToDecision(events, decisions[index]!);
+      const { selfActor, events, decisions } = await loadRegression();
+      const scene = replayToDecision(events, decisions[index]!, selfActor);
       const result = compareDiscardEfficiency(scene, actualAction, modelAction);
 
       expect(result.metrics[actualAction]?.shanten).toBe(actualShanten);
@@ -45,8 +45,8 @@ describe("efficiency analyzer", () => {
   );
 
   it("keeps unadjusted ukeire as a diagnostic and never uses it to rank equal-shanten actions", async () => {
-    const { events, decisions } = await loadRegression();
-    const scene = replayToDecision(events, decisions[1]!);
+    const { selfActor, events, decisions } = await loadRegression();
+    const scene = replayToDecision(events, decisions[1]!, selfActor);
     const diagnostics = analyzeAllDiscardEfficiency(scene);
 
     expect(diagnostics["6m"]).toMatchObject({

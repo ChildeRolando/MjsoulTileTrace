@@ -12,6 +12,7 @@ describe("Mortal report importer", () => {
     const fixture = JSON.parse(await readFile(fixtureUrl, "utf8"));
     const imported = importRegressionFixture(fixture);
 
+    expect(imported.selfActor).toBe(3);
     expect(imported.decisions).toHaveLength(2);
     expect(imported.decisions[0]).toMatchObject({
       decisionId: "east1-turn6",

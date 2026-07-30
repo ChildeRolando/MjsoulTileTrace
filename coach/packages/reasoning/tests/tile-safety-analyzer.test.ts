@@ -17,8 +17,8 @@ describe("tile safety analyzer", () => {
     "proves model action genbutsu against actor 2 in regression %s",
     async (index, safeAction, otherAction, sourceEvent) => {
       const raw = JSON.parse(await readFile(fixtureUrl, "utf8"));
-      const { events, decisions } = importRegressionFixture(raw);
-      const scene = replayToDecision(events, decisions[index]!);
+      const { selfActor, events, decisions } = importRegressionFixture(raw);
+      const scene = replayToDecision(events, decisions[index]!, selfActor);
       const factor = compareDeterministicSafety(scene, safeAction, otherAction);
 
       expect(factor).not.toBeNull();
@@ -35,8 +35,8 @@ describe("tile safety analyzer", () => {
 
   it("does not describe one-player genbutsu as table-wide safety", async () => {
     const raw = JSON.parse(await readFile(fixtureUrl, "utf8"));
-    const { events, decisions } = importRegressionFixture(raw);
-    const scene = replayToDecision(events, decisions[0]!);
+    const { selfActor, events, decisions } = importRegressionFixture(raw);
+    const scene = replayToDecision(events, decisions[0]!, selfActor);
     const factor = compareDeterministicSafety(
       scene,
       "discard:6s:tsumogiri",

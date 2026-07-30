@@ -135,7 +135,11 @@ export type RegressionFixture = {
 
 export function importRegressionFixture(
   raw: RegressionFixture,
-): { events: NormalizedEvent[]; decisions: NormalizedDecision[] } {
+): {
+  selfActor: number;
+  events: NormalizedEvent[];
+  decisions: NormalizedDecision[];
+} {
   const events = raw.mjaiLog.map(
     (event, index) => normalizeEvent(event, index, raw.source.playerId),
   );
@@ -171,5 +175,5 @@ export function importRegressionFixture(
     });
   });
 
-  return { events, decisions };
+  return { selfActor: raw.source.playerId, events, decisions };
 }
