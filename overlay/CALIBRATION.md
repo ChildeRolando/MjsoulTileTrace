@@ -53,6 +53,27 @@ to 1920×1080 by copying source column 1918 to column 1919 and source row 1078
 to row 1079; the bottom-right pixel was copied from `(1918, 1078)`. No image
 was resized, stretched, cropped further, or synthesized.
 
+## User-labelled tsumogiri stills
+
+Four additional private screenshots are user-labelled as one tsumogiri
+observation for each seat. They are stored under the ignored
+`fixtures/private-stills/` directory using stable seat-based names. These
+single frames are detector and occlusion fixtures, not complete event
+sequences: confirming a formal tsumogiri still requires the preceding stable
+draw and following stable river-growth frames.
+
+| Seat / fixture | Original SHA-256 | Padded working-copy SHA-256 | Expected use |
+|---|---|---|---|
+| Top / `top-tsumogiri` | `A7412BCDE0032E2E729C2D20B310B4CC5B5A94B6C03F33671D52329A618F591B` | `F7C4139F1DC07C4DD81DD9F3B436E5B51FCE3369FBA429224017EC84818A12C0` | Direct evidence for Top's separated draw end and right-to-left hand orientation |
+| Right / `right-tsumogiri` | `A8271FCF9B816A63C3D43B059A76E69F51B42C2F897C01E1D2280DFC3B40A9DB` | `14F4B52F2263FB433842022E034758AA8B09E2AB9ACCCFAE27789D7DF18A15C9` | Direct evidence for Right's separated draw end and bottom-to-top hand orientation |
+| Bottom / `bottom-tsumogiri-transient` | `5BC3884536EA968022D8EC317737B0FC652D256F8A415708DA10FBFD178B29E1` | `57CE077D7FA55AD031D903D08EEA631869DC13C54263A7B6C2B24229B9A3F266` | Transient hand/arm occlusion; detector must retain the prior stable observation rather than treating the animation as tiles |
+| Left / `left-tsumogiri` | `3931EB1EF797B748CB5984764051311129950F19CBEEE7A825E9FC4C032629D1` | `257417A9386906F3FE1EA3CC2C8423146FF2A321F41229C2B0276F6358094A73` | Direct evidence for Left's separated draw end and top-to-bottom hand orientation |
+
+Like the earlier calibration inputs, all four originals are 1919×1079 and
+their 1920×1080 working copies use replicated final-row/final-column padding
+only. The seat labels are user-provided ground truth; the visual orientation
+mapping follows the domain seat names below.
+
 Seat names follow the domain model, not image-quadrant shorthand:
 
 - `Bottom`: viewer.
