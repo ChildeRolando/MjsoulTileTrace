@@ -57,6 +57,51 @@ describe("strict reasoning contracts", () => {
     expect(parsed.success).toBe(false);
   });
 
+  it("rejects provenance and confidence combinations that overstate evidence", () => {
+    const base = {
+      factorId: "factor:test",
+      axis: "defense",
+      dimension: "heuristic_risk",
+      subjectAction: "discard:6s:tsumogiri",
+      comparisonAction: "discard:2p:tedashi",
+      direction: "supports_subject",
+      magnitude: { kind: "ordinal", value: "small" },
+      statement: "A heuristic risk tier differs",
+      provenance: "derived_heuristic",
+      confidence: "medium",
+      evidenceIds: ["scene:test"],
+      limitations: ["This is not a calibrated deal-in probability"],
+    };
+
+    expect(() => FactorEvidenceSchema.parse({ ...base, confidence: "certain" })).toThrow();
+    expect(() => FactorEvidenceSchema.parse({
+      ...base,
+      provenance: "unknown",
+      magnitude: { kind: "ordinal", value: "decisive" },
+    })).toThrow();
+    expect(() => FactorEvidenceSchema.parse({
+      ...base,
+      provenance: "derived_heuristic",
+      magnitude: { kind: "probability", value: 0.12 },
+    })).toThrow();
+    expect(() => FactorEvidenceSchema.parse({
+      ...base,
+      provenance: "calibrated_statistic",
+      magnitude: { kind: "probability", value: 0.12 },
+    })).toThrow();
+    expect(FactorEvidenceSchema.parse({
+      ...base,
+      provenance: "calibrated_statistic",
+      magnitude: { kind: "probability", value: 0.12 },
+      calibration: {
+        dataset: "tenhou-houou-2025",
+        modelVersion: "risk-1.0.0",
+        population: "four-player red-five hanchan",
+        metric: "deal-in probability conditioned on declared riichi",
+      },
+    }).calibration?.modelVersion).toBe("risk-1.0.0");
+  });
+
   it("does not allow opponent concealed hands in a scene snapshot", () => {
     const keys = Object.keys(SceneSnapshotSchema.shape);
     expect(keys).not.toContain("opponentHands");

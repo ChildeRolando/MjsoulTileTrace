@@ -35,7 +35,52 @@ export const FactorEvidenceSchema = z.object({
   provenance: ProvenanceSchema,
   confidence: z.enum(["certain", "high", "medium", "low", "unknown"]),
   evidenceIds: z.array(z.string()).min(1),
-  limitations: z.array(z.string()),
+  limitations: z.array(z.string()).min(1),
+  calibration: z.object({
+    dataset: z.string().min(1),
+    modelVersion: z.string().min(1),
+    population: z.string().min(1),
+    metric: z.string().min(1),
+  }).optional(),
+}).superRefine((factor, context) => {
+  if (factor.provenance === "derived_heuristic" && factor.confidence === "certain") {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Derived heuristics cannot have certain confidence",
+      path: ["confidence"],
+    });
+  }
+  if (
+    factor.provenance === "unknown" &&
+    (
+      factor.direction !== "neutral" ||
+      factor.confidence !== "unknown" ||
+      factor.magnitude.value === "decisive"
+    )
+  ) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Unknown evidence cannot express a directional decisive claim",
+      path: ["provenance"],
+    });
+  }
+  if (
+    factor.magnitude.kind === "probability" &&
+    factor.provenance !== "calibrated_statistic"
+  ) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Probability magnitudes require calibrated statistics",
+      path: ["magnitude", "kind"],
+    });
+  }
+  if (factor.provenance === "calibrated_statistic" && !factor.calibration) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Calibrated statistics require dataset and metric metadata",
+      path: ["calibration"],
+    });
+  }
 });
 export type FactorEvidence = z.infer<typeof FactorEvidenceSchema>;
 
