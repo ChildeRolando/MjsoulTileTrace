@@ -439,18 +439,18 @@ public sealed class ProfileLoaderTests
         var centers = seat.MainSlots.Select(Center).ToArray();
         if (xAscending.HasValue)
         {
-            Assert.Equal(
-                xAscending.Value,
-                centers.Zip(centers.Skip(1)).All(pair =>
-                    pair.First.X < pair.Second.X));
+            Assert.True(centers.Zip(centers.Skip(1)).All(pair =>
+                xAscending.Value
+                    ? pair.First.X < pair.Second.X
+                    : pair.First.X > pair.Second.X));
         }
 
         if (yAscending.HasValue)
         {
-            Assert.Equal(
-                yAscending.Value,
-                centers.Zip(centers.Skip(1)).All(pair =>
-                    pair.First.Y < pair.Second.Y));
+            Assert.True(centers.Zip(centers.Skip(1)).All(pair =>
+                yAscending.Value
+                    ? pair.First.Y < pair.Second.Y
+                    : pair.First.Y > pair.Second.Y));
         }
     }
 

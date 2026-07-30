@@ -1,11 +1,19 @@
 # Standard profile calibration provenance
 
+The geometry in
 `src/MahjongSoulOverlay.Vision/Profiles/yonma-1920x1080.standard.json`
-was generated with `CalibrationSession` in its fixed
-Bottom → Right → Top → Left order. Each seat contains a main-hand region,
-13 ordered main slots, a drawn slot, a river region, and a meld region.
-Every quadrilateral was entered as Top Left → Top Right → Bottom Right →
-Bottom Left and normalized against a 1920×1080 image.
+was generated with `CalibrationSession` in its fixed Bottom → Right → Top →
+Left order. Each seat contains a main-hand region, 13 ordered main slots, a
+drawn slot, a river region, and a meld region. Every quadrilateral was entered
+as Top Left → Top Right → Bottom Right → Bottom Left and normalized against a
+1920×1080 image.
+
+After generation, Right and Top `ExpectedTileScale` were set to the full
+inferred tile footprints (`70×62` and `52×66` pixels). This is an explicit
+profile post-processing step: those two `DrawnSlot` quads were intentionally
+clipped to smaller, non-overlapping evidence strips, so their bounding boxes
+must not replace full-tile scale metadata. The adjusted profile was serialized
+and reloaded through `ProfileLoader` validation.
 
 ## Source frames
 
