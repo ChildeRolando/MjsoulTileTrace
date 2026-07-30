@@ -115,7 +115,18 @@ function validateEvidence(result: StrictAnalysisPackage): void {
     ) {
       throw new Error(`Malformed evidence node: ${evidenceId}`);
     }
-    NormalizedEventSchema.parse(node.event);
+    if (
+      !isDeepStrictEqual(
+        Object.keys(node).sort(),
+        ["evidenceId", "event", "kind", "provenance"].sort(),
+      )
+    ) {
+      throw new Error(`Evidence node has unknown fields: ${evidenceId}`);
+    }
+    const parsedEvent = NormalizedEventSchema.parse(node.event);
+    if (!isDeepStrictEqual(parsedEvent, node.event)) {
+      throw new Error(`Evidence event has unknown fields: ${evidenceId}`);
+    }
     if (!isDeepStrictEqual(node.event, visibleEvents.get(evidenceId))) {
       throw new Error(
         `Evidence node does not match the visible replay event: ${evidenceId}`,
@@ -207,10 +218,39 @@ function validateRules(
 export function validateStrictAnalysisPackage(
   result: StrictAnalysisPackage,
 ): void {
+  const expectedPackageKeys = [
+    "blockedRules",
+    "candidateLedgers",
+    "coachJudgement",
+    "coverage",
+    "coverageCatalogVersion",
+    "decision",
+    "deterministicExplanation",
+    "evidenceRegistry",
+    "factors",
+    "primaryAxes",
+    "ruleRegistry",
+    "scene",
+    "visibleEvents",
+  ].sort();
+  if (
+    !isDeepStrictEqual(
+      Object.keys(result as unknown as Record<string, unknown>).sort(),
+      expectedPackageKeys,
+    )
+  ) {
+    throw new Error("Package contains unknown package fields");
+  }
   const decision = NormalizedDecisionSchema.parse(result.decision);
+  if (!isDeepStrictEqual(decision, result.decision)) {
+    throw new Error("Decision contains unknown decision fields");
+  }
   const scene = SceneSnapshotSchema.parse(result.scene);
   for (const event of result.visibleEvents) {
-    NormalizedEventSchema.parse(event);
+    const parsedEvent = NormalizedEventSchema.parse(event);
+    if (!isDeepStrictEqual(parsedEvent, event)) {
+      throw new Error("Visible replay contains unknown visible-event fields");
+    }
   }
   if (
     new Set(result.visibleEvents.map((event) => event.eventId)).size !==

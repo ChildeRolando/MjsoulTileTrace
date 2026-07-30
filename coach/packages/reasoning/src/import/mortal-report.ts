@@ -71,7 +71,10 @@ function normalizeEvent(raw: RawEvent, index: number, selfActor: number): Normal
       type: "tsumo",
       eventId,
       actor: raw.actor,
-      tile: parseMjaiTile(raw.pai as string),
+      tile:
+        raw.actor === selfActor
+          ? parseMjaiTile(raw.pai as string)
+          : null,
     });
   }
   if (raw.type === "dahai") {
@@ -153,6 +156,7 @@ export function importRegressionFixture(
         event.eventId === sceneEventId &&
         event.type === "tsumo" &&
         event.actor === raw.source.playerId &&
+        event.tile !== null &&
         event.tile.id === parseMjaiTile(entry.tile).id,
     );
     if (!sceneEvent) {

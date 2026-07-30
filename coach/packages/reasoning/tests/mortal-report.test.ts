@@ -30,4 +30,21 @@ describe("Mortal report importer", () => {
       modelReason: "unknown",
     });
   });
+
+  it("redacts every opponent concealed draw at the import boundary", async () => {
+    const fixture = JSON.parse(await readFile(fixtureUrl, "utf8"));
+    const imported = importRegressionFixture(fixture);
+    const draws = imported.events.filter((event) => event.type === "tsumo");
+    const opponentDraws = draws.filter(
+      (event) => event.actor !== imported.selfActor,
+    );
+    const selfDraws = draws.filter(
+      (event) => event.actor === imported.selfActor,
+    );
+
+    expect(opponentDraws.length).toBeGreaterThan(0);
+    expect(opponentDraws.every((event) => event.tile === null)).toBe(true);
+    expect(selfDraws.length).toBeGreaterThan(0);
+    expect(selfDraws.every((event) => event.tile !== null)).toBe(true);
+  });
 });

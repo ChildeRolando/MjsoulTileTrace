@@ -95,6 +95,11 @@ export function replayToDecision(
       }
     } else if (event.type === "tsumo") {
       if (event.actor === selfActor) {
+        if (event.tile === null) {
+          throw new Error(
+            `Self draw ${event.eventId} cannot have a redacted tile`,
+          );
+        }
         round.selfHand.push(event.tile);
         round.currentDraw = event.tile;
       }

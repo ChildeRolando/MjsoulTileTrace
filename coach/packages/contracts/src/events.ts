@@ -22,7 +22,7 @@ export const NormalizedEventSchema = z.union([
   BaseEventSchema.extend({
     type: z.literal("tsumo"),
     actor: z.number().int().min(0).max(3),
-    tile: TileSchema,
+    tile: TileSchema.nullable(),
   }),
   BaseEventSchema.extend({
     type: z.literal("dahai"),

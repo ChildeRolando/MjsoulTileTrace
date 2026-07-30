@@ -216,6 +216,32 @@ describe("strict public analysis package", () => {
     ).toThrow(/scene does not match visible replay/);
   });
 
+  it("rejects unknown fields that could smuggle hidden information", async () => {
+    const hiddenEvent = clonePackage(await buildRegression(0));
+    Object.assign(hiddenEvent.visibleEvents[1]!, {
+      opponentHands: [["1m"]],
+    });
+    expect(() => validateStrictAnalysisPackage(hiddenEvent)).toThrow(
+      /unknown visible-event fields/,
+    );
+
+    const hiddenDecision = clonePackage(await buildRegression(0));
+    Object.assign(hiddenDecision.decision, {
+      modelInternalReason: "defense",
+    });
+    expect(() => validateStrictAnalysisPackage(hiddenDecision)).toThrow(
+      /unknown decision fields/,
+    );
+
+    const hiddenPackage = clonePackage(await buildRegression(0));
+    Object.assign(hiddenPackage, {
+      opponentHands: [["1m"]],
+    });
+    expect(() => validateStrictAnalysisPackage(hiddenPackage)).toThrow(
+      /unknown package fields/,
+    );
+  });
+
   it("rejects a model action that is not the highest-probability candidate", async () => {
     const result = clonePackage(await buildRegression(0));
     result.decision.modelAction = result.decision.candidates[1]!.actionId;

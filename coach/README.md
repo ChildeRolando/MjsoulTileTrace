@@ -6,6 +6,7 @@ the local LLM riichi coach.
 Implemented:
 
 - Mortal report facts normalized with `modelReason: "unknown"`;
+- opponent concealed draws redacted at the import boundary;
 - decision-boundary replay using only information visible to the player;
 - standard-hand shanten, with unadjusted ukeire kept as a non-ranking diagnostic;
 - per-riichi-player genbutsu and ippatsu evidence;
