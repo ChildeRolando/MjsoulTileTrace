@@ -34,5 +34,6 @@ export * from "./model/model-evaluation-builder.js";
 export * from "./package/build-strict-analysis-package.js";
 export * from "./policy/detail-policy.js";
 export * from "./policy/teaching-policy.js";
+export * from "./preference/preference-agreement.js";
 export * from "./replay/scene-replayer.js";
 export * from "./validate/package-validator.js";
