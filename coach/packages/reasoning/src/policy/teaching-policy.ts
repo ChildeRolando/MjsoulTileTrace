@@ -31,6 +31,7 @@ export const TEACHING_RULE_REGISTRY: readonly TeachingRuleDefinition[] = [
       "defense.riichi_threat_state",
       "defense.per_threat_genbutsu",
       "defense.multi_threat_per_opponent",
+      "defense.calibrated_dealin_probability",
       "defense.multi_threat_risk_combination",
       "placement.strategic_objective",
       "placement.outcome_path_rank_impact",

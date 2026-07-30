@@ -66,6 +66,7 @@ describe("versioned five-axis dimension coverage", () => {
     expect(new Set(ledger.coverage.map((entry) => entry.axis))).toEqual(
       new Set(["efficiency", "value", "defense", "placement", "option_value"]),
     );
+    expect(catalogIds).toContain("defense.calibrated_dealin_probability");
   });
 
   it("uses stable catalog dimension IDs for every unknown or unmeasured item", async () => {

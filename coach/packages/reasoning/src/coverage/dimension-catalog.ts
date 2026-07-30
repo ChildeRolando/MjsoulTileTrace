@@ -4,7 +4,7 @@ import type {
   SceneSnapshot,
 } from "@riichi-coach/contracts";
 
-export const DIMENSION_CATALOG_VERSION = "1.0.0";
+export const DIMENSION_CATALOG_VERSION = "1.1.0";
 
 type MissingSceneData = SceneSnapshot["missingData"][number];
 
@@ -179,6 +179,13 @@ export const DIMENSION_CATALOG: readonly DimensionDefinition[] = [
     axis: "defense",
     implementation: "unsupported",
     summary: "Wait heuristics such as matagi, urasuji, and aida yon ken",
+  },
+  {
+    id: "defense.calibrated_dealin_probability",
+    axis: "defense",
+    implementation: "unsupported",
+    summary:
+      "Calibrated per-opponent deal-in probability with dataset and metric metadata",
   },
   {
     id: "defense.dealin_consequence",
