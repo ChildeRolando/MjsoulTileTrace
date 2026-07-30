@@ -97,13 +97,13 @@ public sealed class ProfileLoaderTests
         AssertContainsPixels(profile.Seats[Seat.Left].MainSlots[12], (185, 590));
 
         AssertContainsPixels(profile.Seats[Seat.Bottom].RiverRegion,
-            (767, 543), (1135, 680));
+            (767, 543), (1135, 680), (800, 748), (1160, 740));
         AssertContainsPixels(profile.Seats[Seat.Right].RiverRegion,
-            (1140, 296), (1308, 546));
+            (1140, 296), (1308, 546), (1385, 540));
         AssertContainsPixels(profile.Seats[Seat.Top].RiverRegion,
-            (800, 198), (1118, 303));
+            (800, 198), (1118, 303), (805, 158));
         AssertContainsPixels(profile.Seats[Seat.Left].RiverRegion,
-            (633, 291), (755, 544));
+            (633, 291), (755, 544), (535, 540), (770, 300));
 
         AssertContainsPixels(profile.Seats[Seat.Bottom].MeldRegion,
             (1339, 948), (1819, 1038));
@@ -114,7 +114,7 @@ public sealed class ProfileLoaderTests
             profile.Seats.Values.Select(seat => seat.MainHandRegion));
         AssertPairwiseNoBoundingBoxOverlap(
             profile.Seats.Values.Select(seat => seat.DrawnSlot));
-        AssertPairwiseNoBoundingBoxOverlap(
+        AssertPairwiseNoPositivePolygonOverlap(
             profile.Seats.Values.Select(seat => seat.RiverRegion));
         AssertPairwiseNoBoundingBoxOverlap(
             profile.Seats.Values.Select(seat => seat.MeldRegion));
@@ -135,10 +135,18 @@ public sealed class ProfileLoaderTests
         AssertDirectionsAndSlotOrder(profile.Seats[Seat.Left],
             LayoutDirection.TopToBottom, LayoutDirection.BottomToTop, yAscending: true);
 
-        Assert.Equal(new TileScale(70d / 1920d, 62d / 1080d),
-            profile.Seats[Seat.Right].MainTileScale);
-        Assert.Equal(new TileScale(52d / 1920d, 66d / 1080d),
-            profile.Seats[Seat.Top].MainTileScale);
+        AssertScale(profile.Seats[Seat.Bottom].MainTileScale, 92, 152);
+        AssertScale(profile.Seats[Seat.Bottom].RiverTileScale, 59, 77);
+        AssertScale(profile.Seats[Seat.Bottom].MeldTileScale, 82, 100);
+        AssertScale(profile.Seats[Seat.Right].MainTileScale, 899d / 13d, 906d / 13d);
+        AssertScale(profile.Seats[Seat.Right].RiverTileScale, 67, 52);
+        AssertScale(profile.Seats[Seat.Right].MeldTileScale, 74, 68);
+        AssertScale(profile.Seats[Seat.Top].MainTileScale, 615d / 13d, 64);
+        AssertScale(profile.Seats[Seat.Top].RiverTileScale, 50, 62);
+        AssertScale(profile.Seats[Seat.Top].MeldTileScale, 57, 59);
+        AssertScale(profile.Seats[Seat.Left].MainTileScale, 65, 526d / 13d);
+        AssertScale(profile.Seats[Seat.Left].RiverTileScale, 69, 55);
+        AssertScale(profile.Seats[Seat.Left].MeldTileScale, 79, 92);
     }
 
     [Fact]
@@ -434,6 +442,51 @@ public sealed class ProfileLoaderTests
         }
     }
 
+    private static void AssertPairwiseNoPositivePolygonOverlap(
+        IEnumerable<NormalizedQuad> source)
+    {
+        var quads = source.ToArray();
+        for (var first = 0; first < quads.Length; first++)
+        {
+            for (var second = first + 1; second < quads.Length; second++)
+                Assert.False(HasPositivePolygonOverlap(quads[first], quads[second]));
+        }
+    }
+
+    private static bool HasPositivePolygonOverlap(
+        NormalizedQuad first,
+        NormalizedQuad second)
+    {
+        var firstPoints = Points(first);
+        var secondPoints = Points(second);
+        return Axes(firstPoints).Concat(Axes(secondPoints)).All(axis =>
+        {
+            var firstProjection = firstPoints.Select(point => Dot(point, axis)).ToArray();
+            var secondProjection = secondPoints.Select(point => Dot(point, axis)).ToArray();
+            return Math.Min(firstProjection.Max(), secondProjection.Max()) -
+                Math.Max(firstProjection.Min(), secondProjection.Min()) > 1e-12;
+        });
+    }
+
+    private static IEnumerable<(double X, double Y)> Axes(
+        IReadOnlyList<NormalizedPoint> points)
+    {
+        for (var index = 0; index < points.Count; index++)
+        {
+            var start = points[index];
+            var end = points[(index + 1) % points.Count];
+            yield return (-(end.Y - start.Y), end.X - start.X);
+        }
+    }
+
+    private static double Dot(
+        NormalizedPoint point,
+        (double X, double Y) axis) =>
+        point.X * axis.X + point.Y * axis.Y;
+
+    private static NormalizedPoint[] Points(NormalizedQuad quad) =>
+        [quad.TopLeft, quad.TopRight, quad.BottomRight, quad.BottomLeft];
+
     private static void AssertNoCrossSeatRegionOverlap(TableProfile profile)
     {
         var seats = Enum.GetValues<Seat>();
@@ -445,7 +498,7 @@ public sealed class ProfileLoaderTests
                 var secondRegions = EnumerateSeatRegions(profile.Seats[seats[second]]).ToArray();
                 Assert.All(firstRegions, firstRegion =>
                     Assert.All(secondRegions, secondRegion =>
-                        Assert.False(HasPositiveBoundingBoxOverlap(firstRegion, secondRegion))));
+                        Assert.False(HasPositivePolygonOverlap(firstRegion, secondRegion))));
             }
         }
     }
@@ -483,6 +536,12 @@ public sealed class ProfileLoaderTests
         new(
             (quad.TopLeft.X + quad.TopRight.X + quad.BottomRight.X + quad.BottomLeft.X) / 4d,
             (quad.TopLeft.Y + quad.TopRight.Y + quad.BottomRight.Y + quad.BottomLeft.Y) / 4d);
+
+    private static void AssertScale(TileScale actual, double pixelWidth, double pixelHeight)
+    {
+        Assert.Equal(pixelWidth / 1920d, actual.Width, precision: 12);
+        Assert.Equal(pixelHeight / 1080d, actual.Height, precision: 12);
+    }
 
     private static (double Left, double Top, double Right, double Bottom) Bounds(
         NormalizedQuad quad)

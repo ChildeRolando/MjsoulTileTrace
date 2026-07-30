@@ -178,9 +178,9 @@ public sealed class CalibrationSessionTests
 
         var seat = session.BuildProfile("scales").Seats[Seat.Bottom];
 
-        Assert.Equal(new TileScale(10d / 1920d, 10d / 1080d), seat.MainTileScale);
-        Assert.Equal(new TileScale(20d / 1920d, 30d / 1080d), seat.RiverTileScale);
-        Assert.Equal(new TileScale(30d / 1920d, 40d / 1080d), seat.MeldTileScale);
+        AssertScale(seat.MainTileScale, 10d / 1920d, 10d / 1080d);
+        AssertScale(seat.RiverTileScale, 20d / 1920d, 30d / 1080d);
+        AssertScale(seat.MeldTileScale, 30d / 1920d, 40d / 1080d);
     }
 
     [Fact]
@@ -249,6 +249,12 @@ public sealed class CalibrationSessionTests
     private static bool IsScaleSample(CalibrationTarget target) =>
         target.RegionKind is CalibrationRegionKind.RiverTileSample or
             CalibrationRegionKind.MeldTileSample;
+
+    private static void AssertScale(TileScale actual, double width, double height)
+    {
+        Assert.Equal(width, actual.Width, precision: 12);
+        Assert.Equal(height, actual.Height, precision: 12);
+    }
 
     private static void AddQuad(
         CalibrationSession session,
