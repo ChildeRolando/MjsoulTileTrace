@@ -11,7 +11,7 @@ export type TileId = z.infer<typeof TileIdSchema>;
 export const TileSchema = z.object({
   id: TileIdSchema,
   red: z.boolean(),
-}).superRefine((tile, context) => {
+}).strict().superRefine((tile, context) => {
   if (tile.red && !["5m", "5p", "5s"].includes(tile.id)) {
     context.addIssue({
       code: z.ZodIssueCode.custom,

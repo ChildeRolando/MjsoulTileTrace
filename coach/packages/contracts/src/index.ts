@@ -8,3 +8,4 @@ export * from "./analysis-frame.js";
 export * from "./preference.js";
 export * from "./model-evaluation.js";
 export * from "./analysis-request.js";
+export * from "./actions.js";
