@@ -38,3 +38,4 @@ export * from "./preference/preference-agreement.js";
 export * from "./replay/scene-replayer.js";
 export * from "./validate/package-validator.js";
 export * from "./candidate/user-action-draft.js";
+export * from "./candidate/candidate-normalizer.js";
