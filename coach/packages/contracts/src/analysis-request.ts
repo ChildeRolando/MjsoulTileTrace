@@ -6,7 +6,7 @@ import {
 import { ComparisonSetSchema } from "./comparison.js";
 import { ModelEvaluationSchema } from "./model-evaluation.js";
 
-export const ComparisonAnalysisRequestSchema = z.object({
+const ComparisonAnalysisRequestObjectSchema = z.object({
   kind: z.literal("comparison_request"),
   requestId: z.string().min(1),
   frame: ComparisonAnalysisFrameSchema,
@@ -14,19 +14,14 @@ export const ComparisonAnalysisRequestSchema = z.object({
   modelEvaluation: ModelEvaluationSchema.optional(),
 }).strict();
 
-export const ConceptualAnalysisRequestSchema = z.object({
-  kind: z.literal("conceptual_request"),
-  requestId: z.string().min(1),
-  frame: ConceptualFrameSchema,
-}).strict();
+type ComparisonAnalysisRequest = z.infer<
+  typeof ComparisonAnalysisRequestObjectSchema
+>;
 
-export const AnalysisRequestSchema = z.discriminatedUnion("kind", [
-  ComparisonAnalysisRequestSchema,
-  ConceptualAnalysisRequestSchema,
-]).superRefine((request, context) => {
-  if (request.kind !== "comparison_request") {
-    return;
-  }
+function validateComparisonAnalysisRequest(
+  request: ComparisonAnalysisRequest,
+  context: z.RefinementCtx,
+): void {
   if (
     request.comparisonSet.origin === "automatic_review" &&
     request.modelEvaluation === undefined
@@ -100,5 +95,26 @@ export const AnalysisRequestSchema = z.discriminatedUnion("kind", [
       path: ["modelEvaluation", "actualActionRef"],
     });
   }
+}
+
+export const ComparisonAnalysisRequestSchema =
+  ComparisonAnalysisRequestObjectSchema.superRefine(
+    validateComparisonAnalysisRequest,
+  );
+
+export const ConceptualAnalysisRequestSchema = z.object({
+  kind: z.literal("conceptual_request"),
+  requestId: z.string().min(1),
+  frame: ConceptualFrameSchema,
+}).strict();
+
+export const AnalysisRequestSchema = z.discriminatedUnion("kind", [
+  ComparisonAnalysisRequestObjectSchema,
+  ConceptualAnalysisRequestSchema,
+]).superRefine((request, context) => {
+  if (request.kind !== "comparison_request") {
+    return;
+  }
+  validateComparisonAnalysisRequest(request, context);
 });
 export type AnalysisRequest = z.infer<typeof AnalysisRequestSchema>;

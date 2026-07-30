@@ -1,5 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { AnalysisRequestSchema } from "../src/index.js";
+import {
+  AnalysisRequestSchema,
+  ComparisonAnalysisRequestSchema,
+} from "../src/index.js";
 
 const comparisonSet = {
   comparisonSetId: "comparison:user:1",
@@ -378,5 +381,126 @@ describe("analysis request contract", () => {
         modelReason: "unknown",
       },
     }).kind).toBe("comparison_request");
+  });
+});
+
+describe("public comparison analysis request contract", () => {
+  const automaticSet = {
+    comparisonSetId: "comparison:auto:direct",
+    origin: "automatic_review",
+    decisionLayerRef: "decision-layer:auto:direct",
+    candidates: [
+      { actionRef: "action:a", origins: ["model"] },
+      { actionRef: "action:b", origins: ["model", "actual"] },
+      { actionRef: "action:c", origins: ["model"] },
+    ],
+  } as const;
+
+  const automaticFrame = {
+    kind: "current_scene",
+    frameId: "frame:auto:direct",
+    scope: { kind: "applied_decision" },
+    sceneRef: "scene:auto:direct",
+    facts: [{ factId: "event-1", provenance: "raw_replay" }],
+  } as const;
+
+  const automaticEvaluation = {
+    ...modelEvaluation,
+    evaluationId: "evaluation:auto:direct",
+    comparisonSetId: "comparison:auto:direct",
+    decisionLayerRef: "decision-layer:auto:direct",
+    candidates: [
+      {
+        actionRef: "action:a",
+        rawValues: [{ metric: "probability", value: 0.6 }],
+        modelSelectionScore: 60,
+      },
+      {
+        actionRef: "action:b",
+        rawValues: [{ metric: "probability", value: 0.4 }],
+        modelSelectionScore: 40,
+      },
+    ],
+  } as const;
+
+  it("rejects automatic review without model evidence when parsed directly", () => {
+    expect(() => ComparisonAnalysisRequestSchema.parse({
+      kind: "comparison_request",
+      requestId: "request:auto:direct:missing-evaluation",
+      frame: automaticFrame,
+      comparisonSet: automaticSet,
+    })).toThrow();
+  });
+
+  it("rejects incorrectly bound model evidence when parsed directly", () => {
+    expect(() => ComparisonAnalysisRequestSchema.parse({
+      kind: "comparison_request",
+      requestId: "request:direct:wrong-comparison-binding",
+      frame: {
+        kind: "standalone_hypothesis",
+        frameId: "frame:direct:wrong-comparison-binding",
+        scope: { kind: "flat_discard" },
+        facts: [
+          { factId: "user-fact:hand", provenance: "user_asserted" },
+        ],
+      },
+      comparisonSet: modelComparisonSet,
+      modelEvaluation: {
+        ...modelEvaluation,
+        comparisonSetId: "comparison:other",
+      },
+    })).toThrow();
+
+    expect(() => ComparisonAnalysisRequestSchema.parse({
+      kind: "comparison_request",
+      requestId: "request:direct:wrong-decision-layer-binding",
+      frame: {
+        kind: "standalone_hypothesis",
+        frameId: "frame:direct:wrong-decision-layer-binding",
+        scope: { kind: "flat_discard" },
+        facts: [
+          { factId: "user-fact:hand", provenance: "user_asserted" },
+        ],
+      },
+      comparisonSet: modelComparisonSet,
+      modelEvaluation: {
+        ...modelEvaluation,
+        decisionLayerRef: "decision-layer:other",
+      },
+    })).toThrow();
+  });
+
+  it("rejects incomplete automatic score coverage when parsed directly", () => {
+    expect(() => ComparisonAnalysisRequestSchema.parse({
+      kind: "comparison_request",
+      requestId: "request:auto:direct:partial-evaluation",
+      frame: automaticFrame,
+      comparisonSet: automaticSet,
+      modelEvaluation: automaticEvaluation,
+    })).toThrow();
+  });
+
+  it("rejects an actual marker mismatch when parsed directly", () => {
+    expect(() => ComparisonAnalysisRequestSchema.parse({
+      kind: "comparison_request",
+      requestId: "request:direct:wrong-actual-marker",
+      frame: {
+        kind: "standalone_hypothesis",
+        frameId: "frame:direct:wrong-actual-marker",
+        scope: { kind: "flat_discard" },
+        facts: [
+          { factId: "user-fact:hand", provenance: "user_asserted" },
+        ],
+      },
+      comparisonSet: {
+        ...modelComparisonSet,
+        candidates: [
+          { actionRef: "action:a", origins: ["model", "actual"] },
+          { actionRef: "action:b", origins: ["model"] },
+          { actionRef: "action:c", origins: ["user"] },
+        ],
+      },
+      modelEvaluation,
+    })).toThrow();
   });
 });
