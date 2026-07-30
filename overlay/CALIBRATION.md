@@ -42,8 +42,13 @@ visible meld lie inside the corresponding normalized region.
 ## Known calibration limits
 
 - Only Bottom has a directly visible separated draw in the early frame.
-  Right, Top, and Left drawn-slot quads are inferred from the independently
+  Right, Top, and Left drawn locations are inferred from the independently
   oriented end of each full 13-tile hand and its expected separation gap.
+  The inferred Right and Top quads retain only a safe evidence strip within
+  the expected tile footprint so they cannot overlap the directly observed
+  Top and Left meld regions. Their `ExpectedTileScale` values preserve the
+  inferred full-tile dimensions. Left does not collide with another seat and
+  retains its full inferred quad.
 - After a call, a separated drawn tile moves with the shortened concealed
   hand. The single `DrawnSlot` field records the full-hand location. Detection
   for called hands must also use the ordered `MainSlots` occupancy and gap

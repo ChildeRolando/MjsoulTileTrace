@@ -75,6 +75,12 @@ public sealed class ProfileLoaderTests
             (223, 922), (1453, 1072));
         AssertContainsPixels(profile.Seats[Seat.Bottom].DrawnSlot,
             (1486, 922), (1576, 1072));
+        AssertContainsPixels(profile.Seats[Seat.Right].DrawnSlot,
+            (1610, 175), (1630, 200));
+        AssertContainsPixels(profile.Seats[Seat.Top].DrawnSlot,
+            (670, 10), (710, 18));
+        AssertContainsPixels(profile.Seats[Seat.Left].DrawnSlot,
+            (170, 640), (205, 690));
         AssertContainsPixels(profile.Seats[Seat.Top].MainHandRegion,
             (730, 8), (1340, 69));
         AssertContainsPixels(profile.Seats[Seat.Left].MainHandRegion,
@@ -118,12 +124,27 @@ public sealed class ProfileLoaderTests
             profile.Seats.Values.Select(seat => seat.RiverRegion));
         AssertPairwiseNoBoundingBoxOverlap(
             profile.Seats.Values.Select(seat => seat.MeldRegion));
+        AssertNoCrossSeatRegionOverlap(profile);
         Assert.All(profile.Seats.Values, seat =>
         {
             Assert.Equal(13, seat.MainSlots.Count);
             Assert.False(HasPositiveBoundingBoxOverlap(seat.MainHandRegion, seat.DrawnSlot));
             Assert.False(HasPositiveBoundingBoxOverlap(seat.MainHandRegion, seat.RiverRegion));
         });
+
+        AssertDirectionsAndSlotOrder(profile.Seats[Seat.Bottom],
+            LayoutDirection.LeftToRight, LayoutDirection.RightToLeft, xAscending: true);
+        AssertDirectionsAndSlotOrder(profile.Seats[Seat.Right],
+            LayoutDirection.BottomToTop, LayoutDirection.TopToBottom, yAscending: false);
+        AssertDirectionsAndSlotOrder(profile.Seats[Seat.Top],
+            LayoutDirection.RightToLeft, LayoutDirection.LeftToRight, xAscending: false);
+        AssertDirectionsAndSlotOrder(profile.Seats[Seat.Left],
+            LayoutDirection.TopToBottom, LayoutDirection.BottomToTop, yAscending: true);
+
+        Assert.Equal(new TileScale(70d / 1920d, 62d / 1080d),
+            profile.Seats[Seat.Right].ExpectedTileScale);
+        Assert.Equal(new TileScale(52d / 1920d, 66d / 1080d),
+            profile.Seats[Seat.Top].ExpectedTileScale);
     }
 
     [Theory]
@@ -387,6 +408,56 @@ public sealed class ProfileLoaderTests
                 Assert.False(HasPositiveBoundingBoxOverlap(quads[first], quads[second]));
         }
     }
+
+    private static void AssertNoCrossSeatRegionOverlap(TableProfile profile)
+    {
+        var seats = Enum.GetValues<Seat>();
+        for (var first = 0; first < seats.Length; first++)
+        {
+            var firstRegions = EnumerateSeatRegions(profile.Seats[seats[first]]).ToArray();
+            for (var second = first + 1; second < seats.Length; second++)
+            {
+                var secondRegions = EnumerateSeatRegions(profile.Seats[seats[second]]).ToArray();
+                Assert.All(firstRegions, firstRegion =>
+                    Assert.All(secondRegions, secondRegion =>
+                        Assert.False(HasPositiveBoundingBoxOverlap(firstRegion, secondRegion))));
+            }
+        }
+    }
+
+    private static void AssertDirectionsAndSlotOrder(
+        SeatProfile seat,
+        LayoutDirection handAndRiverDirection,
+        LayoutDirection meldDirection,
+        bool? xAscending = null,
+        bool? yAscending = null)
+    {
+        Assert.Equal(handAndRiverDirection, seat.MainHandDirection);
+        Assert.Equal(handAndRiverDirection, seat.RiverFlowDirection);
+        Assert.Equal(meldDirection, seat.MeldExpansionDirection);
+
+        var centers = seat.MainSlots.Select(Center).ToArray();
+        if (xAscending.HasValue)
+        {
+            Assert.Equal(
+                xAscending.Value,
+                centers.Zip(centers.Skip(1)).All(pair =>
+                    pair.First.X < pair.Second.X));
+        }
+
+        if (yAscending.HasValue)
+        {
+            Assert.Equal(
+                yAscending.Value,
+                centers.Zip(centers.Skip(1)).All(pair =>
+                    pair.First.Y < pair.Second.Y));
+        }
+    }
+
+    private static NormalizedPoint Center(NormalizedQuad quad) =>
+        new(
+            (quad.TopLeft.X + quad.TopRight.X + quad.BottomRight.X + quad.BottomLeft.X) / 4d,
+            (quad.TopLeft.Y + quad.TopRight.Y + quad.BottomRight.Y + quad.BottomLeft.Y) / 4d);
 
     private static (double Left, double Top, double Right, double Bottom) Bounds(
         NormalizedQuad quad)
