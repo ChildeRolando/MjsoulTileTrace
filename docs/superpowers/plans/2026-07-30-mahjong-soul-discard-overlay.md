@@ -970,8 +970,8 @@ The final assertion enforces independent visual geometry rather than a shared pa
 For each of the four seats, load a distinct quad from an in-memory `SeatProfile`, run the scorer on the synthetic fixtures, and assert:
 
 ```csharp
-Assert.True(occupiedScore >= profile.Thresholds.Occupancy);
-Assert.True(emptyScore < profile.Thresholds.Occupancy);
+Assert.True(occupiedScore >= profile.MainHandThresholds.Occupancy);
+Assert.True(emptyScore < profile.MainHandThresholds.Occupancy);
 ```
 
 - [ ] **Step 4: Implement frame ownership and profile loading**
