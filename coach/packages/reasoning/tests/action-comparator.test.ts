@@ -153,6 +153,12 @@ describe("candidate ledgers", () => {
       });
       expect(threatFactors[0]?.statement).toContain("actor 2");
       expect(threatFactors[0]?.evidenceIds).toContain("event-47");
+      expect(threatFactors[0]?.evidenceIds.at(-1)).toBe(
+        scene.decisionEventId,
+      );
+      if (index === 1) {
+        expect(threatFactors[0]?.evidenceIds).toContain("event-58");
+      }
     },
   );
 });
@@ -190,6 +196,11 @@ describe("bilateral per-threat comparison", () => {
     };
     const multiThreatScene: SceneSnapshot = {
       ...scene,
+      eventIds: [
+        ...scene.eventIds.slice(0, -1),
+        "event-actor1-reach",
+        scene.decisionEventId,
+      ],
       threats: scene.threats.map((threat) =>
         threat.actor === 1
           ? {

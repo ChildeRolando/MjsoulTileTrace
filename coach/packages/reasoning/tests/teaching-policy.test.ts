@@ -62,6 +62,12 @@ describe("fail-closed teaching policy", () => {
       expect(result.coachJudgement).toBeNull();
       expect(TEACHING_RULE_REGISTRY.map((rule) => rule.id)).toEqual(["PF-03@1"]);
       expect(pf03?.status).toBe("blocked");
+      expect(pf03?.missingRequirements).toContainEqual(
+        expect.objectContaining({
+          kind: "rule",
+          code: "rule_activation_pending",
+        }),
+      );
       expect(pf03?.missingRequirements).toEqual(
         expect.arrayContaining([
           expect.objectContaining({

@@ -4,6 +4,7 @@ import type { Axis } from "@riichi-coach/contracts";
 import { importRegressionFixture } from "../src/import/mortal-report.js";
 import {
   buildStrictAnalysisPackage,
+  derivePrimaryAxes,
   type StrictAnalysisPackage,
 } from "../src/package/build-strict-analysis-package.js";
 import { replayToDecision } from "../src/replay/scene-replayer.js";
@@ -121,6 +122,31 @@ describe("strict public analysis package", () => {
     expect(() => validateStrictAnalysisPackage(result)).toThrow(
       /primary axes/,
     );
+  });
+
+  it("does not promote lower-confidence heuristic evidence to a primary axis", async () => {
+    const result = await buildRegression(0);
+    const withHeuristic = {
+      ...result.factors,
+      supportsModelAction: [
+        ...result.factors.supportsModelAction,
+        {
+          ...result.factors.supportsModelAction[0]!,
+          factorId: "factor:heuristic:value",
+          axis: "value" as const,
+          dimension: "value.speed_safety_option_tradeoff",
+          provenance: "derived_heuristic" as const,
+          confidence: "medium" as const,
+          evidenceIds: ["event-50"],
+          statement: "A lower-confidence value heuristic",
+        },
+      ],
+    };
+
+    expect(derivePrimaryAxes(withHeuristic)).toEqual([
+      "defense",
+      "efficiency",
+    ]);
   });
 
   it("rejects unknown rule references and forged judgements", async () => {

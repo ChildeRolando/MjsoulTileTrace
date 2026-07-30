@@ -4,7 +4,7 @@ import type {
   SceneSnapshot,
 } from "@riichi-coach/contracts";
 
-export const DIMENSION_CATALOG_VERSION = "1.1.0";
+export const DIMENSION_CATALOG_VERSION = "1.2.0";
 
 type MissingSceneData = SceneSnapshot["missingData"][number];
 
@@ -61,6 +61,14 @@ export const DIMENSION_CATALOG: readonly DimensionDefinition[] = [
     implementation: "unsupported",
     summary: "Chi, pon, and kan effects on shanten, ukeire, and legal yaku",
     requiredSceneData: ["meld_state", "legal_actions"],
+  },
+  {
+    id: "efficiency.legal_action_completeness",
+    axis: "efficiency",
+    implementation: "unsupported",
+    summary:
+      "Proof that every legal action at the decision is represented and analyzed",
+    requiredSceneData: ["legal_actions"],
   },
   {
     id: "efficiency.tenpai_win_draw_speed_value",

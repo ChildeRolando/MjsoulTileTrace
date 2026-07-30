@@ -38,7 +38,7 @@ describe("efficiency analyzer", () => {
         comparisonAction: modelAction,
         provenance: "deterministic",
         confidence: "certain",
-        evidenceIds: [scene.decisionEventId],
+        evidenceIds: scene.eventIds,
       });
       expect(result.factor.statement).toContain("lower standard-hand shanten");
     },

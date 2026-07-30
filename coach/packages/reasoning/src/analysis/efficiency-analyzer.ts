@@ -100,7 +100,7 @@ export function compareDiscardEfficiency(
           : `${subjectAction} and ${comparisonAction} have equal standard-hand shanten; live ukeire is not compared`,
       provenance: "deterministic",
       confidence: "certain",
-      evidenceIds: [scene.decisionEventId],
+      evidenceIds: scene.eventIds,
       limitations: [
         "Standard-hand shanten only; chiitoitsu and kokushi are excluded",
         "Unadjusted ukeire does not subtract public visible tiles and cannot rank equal-shanten actions",

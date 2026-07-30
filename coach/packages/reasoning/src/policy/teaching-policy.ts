@@ -8,6 +8,7 @@ import type { CandidateLedger } from "../compare/action-comparator.js";
 export type TeachingRuleDefinition = {
   id: string;
   title: string;
+  activation: "pending_complete_analyzers";
   requiredCoverage: readonly string[];
   requiredFactors: readonly {
     dimension: string;
@@ -24,8 +25,10 @@ export const TEACHING_RULE_REGISTRY: readonly TeachingRuleDefinition[] = [
   {
     id: "PF-03@1",
     title: "Far-from-tenpai defense during a riichi ippatsu window",
+    activation: "pending_complete_analyzers",
     requiredCoverage: [
       "efficiency.standard_hand_shanten",
+      "efficiency.legal_action_completeness",
       "value.confirmed_and_potential_yaku",
       "value.fu_han_and_point_range",
       "defense.riichi_threat_state",
@@ -78,7 +81,7 @@ export const TEACHING_RULE_REGISTRY: readonly TeachingRuleDefinition[] = [
 ] as const;
 
 export type MissingRuleRequirement = {
-  kind: "coverage" | "factor" | "candidate";
+  kind: "coverage" | "factor" | "candidate" | "rule";
   code: string;
   dimension: string | null;
   detail: string;
@@ -200,7 +203,7 @@ function candidateRequirements(
       code: "best_candidate_two_shanten_or_farther",
       dimension: "efficiency.standard_hand_shanten",
       detail:
-        "Every legal discard needs standard-hand shanten and the best result must be two-shanten or farther",
+        "Every analyzed discard candidate needs standard-hand shanten and the best result must be two-shanten or farther",
     });
   }
 
@@ -220,21 +223,6 @@ function candidateRequirements(
   return { missing, safeCandidates };
 }
 
-function chooseSafestEfficientCandidate(
-  candidates: readonly CandidateLedger[],
-): CandidateLedger | null {
-  return [...candidates].sort((left, right) => {
-    const leftShanten =
-      left.axes.efficiency.consequence?.shanten ?? Number.POSITIVE_INFINITY;
-    const rightShanten =
-      right.axes.efficiency.consequence?.shanten ?? Number.POSITIVE_INFINITY;
-    return (
-      leftShanten - rightShanten ||
-      left.actionId.localeCompare(right.actionId)
-    );
-  })[0] ?? null;
-}
-
 export function judgeDecision(input: TeachingPolicyInput): TeachingPolicyResult {
   const {
     factors,
@@ -245,6 +233,13 @@ export function judgeDecision(input: TeachingPolicyInput): TeachingPolicyResult 
   const evaluations = ruleRegistry.map((rule) => {
     const candidateResult = candidateRequirements(factors, candidateLedgers);
     const missingRequirements = [
+      {
+        kind: "rule" as const,
+        code: "rule_activation_pending",
+        dimension: null,
+        detail:
+          "This rule is registered for audit but cannot activate until complete analyzers have their own approved milestone",
+      },
       ...coverageRequirements(rule, coverage),
       ...factorRequirements(rule, factors),
       ...candidateResult.missing,
@@ -260,31 +255,8 @@ export function judgeDecision(input: TeachingPolicyInput): TeachingPolicyResult 
       safeCandidates: candidateResult.safeCandidates,
     };
   });
-  const applicable = evaluations.filter(
-    (item) => item.evaluation.status === "applicable",
-  );
-  if (applicable.length !== 1) {
-    return {
-      coachJudgement: null,
-      blockedRules: evaluations.map((item) => item.evaluation),
-    };
-  }
-
-  const selected = chooseSafestEfficientCandidate(
-    applicable[0]!.safeCandidates,
-  );
-  if (!selected) {
-    return {
-      coachJudgement: null,
-      blockedRules: evaluations.map((item) => item.evaluation),
-    };
-  }
   return {
-    coachJudgement: {
-      recommendedAction: selected.actionId,
-      ruleIds: [applicable[0]!.evaluation.ruleId],
-      confidence: "high",
-    },
+    coachJudgement: null,
     blockedRules: evaluations.map((item) => item.evaluation),
   };
 }

@@ -177,7 +177,14 @@ function threatStateFactors(
   subjectAction: ActionId,
   comparisonAction: ActionId,
 ): FactorEvidence[] {
-  return riichiThreats(scene).map((threat) => ({
+  return riichiThreats(scene).map((threat) => {
+    const declarationIndex = scene.eventIds.indexOf(threat.declarationEventId);
+    if (declarationIndex < 0) {
+      throw new Error(
+        `Riichi declaration ${threat.declarationEventId} is outside the scene`,
+      );
+    }
+    return {
     factorId:
       `factor:${scene.decisionEventId}:defense:actor${threat.actor}:riichi-state`,
     axis: "defense",
@@ -196,12 +203,13 @@ function threatStateFactors(
       `${threat.ippatsuAlive ? "alive" : "not alive"}`,
     provenance: "raw_replay",
     confidence: "certain",
-    evidenceIds: [threat.declarationEventId],
+    evidenceIds: scene.eventIds.slice(declarationIndex),
     actors: [threat.actor],
     limitations: [
       "Threat state alone does not estimate hand value or deal-in probability",
     ],
-  }));
+    };
+  });
 }
 
 export function compareDecision(

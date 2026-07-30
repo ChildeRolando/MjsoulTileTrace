@@ -14,6 +14,7 @@ Implemented:
 - bilateral factor accounts that preserve evidence for model and actual actions;
 - a fail-closed PF-03 policy gate that cannot read model/actual labels;
 - replay evidence registry, trusted recomputation, and structural validation;
+- emitted JavaScript packages for ordinary Node/Electron imports;
 - deterministic Chinese explanations for the East 1 turn 6 and 7 regressions.
 
 Both current regression scenes remain incomplete. Full value, placement outcome
@@ -21,6 +22,10 @@ paths, option-value analysis, calibrated deal-in probability, structural river
 safety, and behavioral/wait inference are explicit unsupported or
 missing-data dimensions. Therefore both packages correctly return
 `coachJudgement: null`.
+
+PF-03 is registered for audit but deliberately not activated in this milestone.
+Activation requires complete legal-action, value, placement, calibrated-risk,
+multi-threat, and option-value analyzers under a separately approved plan.
 
 Outside this milestone:
 

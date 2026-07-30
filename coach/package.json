@@ -4,7 +4,9 @@
   "type": "module",
   "workspaces": ["packages/*"],
   "scripts": {
-    "test": "vitest run",
+    "build": "npm run build -w @riichi-coach/contracts && npm run build -w @riichi-coach/reasoning",
+    "test": "npm run build && vitest run",
+    "test:package-import": "npm run build && node --test smoke/package-import-smoke.mjs",
     "typecheck": "tsc --noEmit -p packages/contracts/tsconfig.json && tsc --noEmit -p packages/reasoning/tsconfig.json"
   },
   "devDependencies": {

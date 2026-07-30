@@ -53,9 +53,32 @@ export function derivePrimaryAxes(factors: FactorBuckets): Axis[] {
   const directional = [
     ...factors.supportsModelAction,
     ...factors.supportsActualAction,
-  ].sort((left, right) => left.factorId.localeCompare(right.factorId));
+  ];
+  const confidenceRank = {
+    unknown: 0,
+    low: 1,
+    medium: 2,
+    high: 3,
+    certain: 4,
+  } as const;
+  const provenanceRank = {
+    unknown: 0,
+    raw_model: 1,
+    derived_heuristic: 2,
+    teaching_rule: 3,
+    calibrated_statistic: 4,
+    raw_replay: 5,
+    deterministic: 5,
+  } as const;
+  const quality = (factor: FactorEvidence): number =>
+    confidenceRank[factor.confidence] * 10 +
+    provenanceRank[factor.provenance];
+  const bestQuality = Math.max(...directional.map(quality));
+  const primary = directional
+    .filter((factor) => quality(factor) === bestQuality)
+    .sort((left, right) => left.factorId.localeCompare(right.factorId));
   const axes: Axis[] = [];
-  for (const factor of directional) {
+  for (const factor of primary) {
     if (!axes.includes(factor.axis)) {
       axes.push(factor.axis);
     }
