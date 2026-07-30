@@ -1,0 +1,394 @@
+import {
+  SourceActionAdaptationResultSchema,
+  SourceAdapterContextSchema,
+  TileSchema,
+  sortTilesCanonical,
+  type SourceActionAdaptationResult,
+  type SourceAdapterContext,
+  type Tile,
+} from "@riichi-coach/contracts";
+
+const honors: Record<string, Tile["id"]> = {
+  E: "1z",
+  S: "2z",
+  W: "3z",
+  N: "4z",
+  P: "5z",
+  F: "6z",
+  C: "7z",
+};
+
+export type MjaiActionEnvelope = {
+  eventRef: string;
+  action: Record<string, unknown> & { type: string };
+};
+
+function ready(
+  draft: unknown,
+  factRefs: string[],
+): SourceActionAdaptationResult {
+  return SourceActionAdaptationResultSchema.parse({
+    status: "ready",
+    sourceType: "mjai",
+    draft,
+    factRefs,
+  });
+}
+
+function actor(action: Record<string, unknown>): number {
+  if (
+    typeof action.actor !== "number" ||
+    !Number.isInteger(action.actor) ||
+    action.actor < 0 ||
+    action.actor > 3
+  ) {
+    throw new Error("MJAI action requires actor 0..3");
+  }
+  return action.actor;
+}
+
+function stringField(
+  action: Record<string, unknown>,
+  field: string,
+): string {
+  const value = action[field];
+  if (typeof value !== "string" || value.length === 0) {
+    throw new Error(`MJAI action requires ${field}`);
+  }
+  return value;
+}
+
+function booleanField(
+  action: Record<string, unknown>,
+  field: string,
+): boolean {
+  const value = action[field];
+  if (typeof value !== "boolean") {
+    throw new Error(`MJAI action requires boolean ${field}`);
+  }
+  return value;
+}
+
+function tile(value: string): Tile {
+  const red = value.endsWith("r");
+  const base = red ? value.slice(0, -1) : value;
+  const id = honors[base] ?? base;
+  return TileSchema.parse({
+    id,
+    red,
+  });
+}
+
+function tileArray(
+  action: Record<string, unknown>,
+  expectedLength: number,
+): Tile[] {
+  const values = action.consumed;
+  if (!Array.isArray(values) || values.length !== expectedLength) {
+    throw new Error(
+      `MJAI ${action.type as string} requires ${expectedLength} consumed tiles`,
+    );
+  }
+  return sortTilesCanonical(
+    values.map((value) => {
+      if (typeof value !== "string") {
+        throw new Error("MJAI consumed tiles must be strings");
+      }
+      return tile(value);
+    }),
+  );
+}
+
+function target(action: Record<string, unknown>): number {
+  const value = action.target;
+  if (
+    typeof value !== "number" ||
+    !Number.isInteger(value) ||
+    value < 0 ||
+    value > 3
+  ) {
+    throw new Error("MJAI action requires target 0..3");
+  }
+  return value;
+}
+
+function requiredFields(type: string): string[] {
+  switch (type) {
+    case "reach":
+    case "none":
+      return ["actor"];
+    case "dahai":
+      return ["actor", "pai", "tsumogiri"];
+    case "chi":
+    case "pon":
+    case "daiminkan":
+      return ["actor", "target", "pai", "consumed"];
+    case "ankan":
+      return ["actor", "consumed"];
+    case "kakan":
+      return ["actor", "pai"];
+    case "hora":
+      return ["actor", "target", "pai"];
+    case "ryukyoku":
+      return ["actor", "reason"];
+    default:
+      return [];
+  }
+}
+
+function fieldPresent(
+  action: Record<string, unknown>,
+  field: string,
+): boolean {
+  const value = action[field];
+  if (field === "actor" || field === "target") {
+    return typeof value === "number" &&
+      Number.isInteger(value) &&
+      value >= 0 &&
+      value <= 3;
+  }
+  if (field === "tsumogiri") {
+    return typeof value === "boolean";
+  }
+  if (field === "consumed") {
+    const expectedLength =
+      action.type === "chi" || action.type === "pon"
+        ? 2
+        : action.type === "daiminkan"
+          ? 3
+          : action.type === "ankan"
+            ? 4
+            : 0;
+    return Array.isArray(value) &&
+      value.length === expectedLength &&
+      value.every((item) => typeof item === "string" && item.length > 0);
+  }
+  return typeof value === "string" && value.length > 0;
+}
+
+function missingFields(action: Record<string, unknown>): string[] {
+  return requiredFields(action.type as string)
+    .filter((field) => !fieldPresent(action, field));
+}
+
+function incompleteFields(
+  sequence: readonly MjaiActionEnvelope[],
+  fields: string[],
+): SourceActionAdaptationResult {
+  return SourceActionAdaptationResultSchema.parse({
+    status: "incomplete",
+    sourceType: "mjai",
+    diagnosticCode: "missing_action_fields",
+    missingFields: fields,
+    factRefs: sequence.map((entry) => entry.eventRef),
+  });
+}
+
+function unsupported(sourceType: string): SourceActionAdaptationResult {
+  return SourceActionAdaptationResultSchema.parse({
+    status: "unsupported",
+    sourceType,
+  });
+}
+
+export function adaptMjaiActionSequence(
+  rawSequence: readonly MjaiActionEnvelope[],
+  rawContext: SourceAdapterContext,
+): SourceActionAdaptationResult {
+  const context = SourceAdapterContextSchema.parse(rawContext);
+  if (rawSequence.length === 0) {
+    return unsupported("empty_mjai_sequence");
+  }
+  const first = rawSequence[0]!;
+  const action = first.action;
+  const firstMissing = missingFields(action);
+  if (firstMissing.length > 0) {
+    return incompleteFields(rawSequence, firstMissing);
+  }
+
+  if (action.type === "reach") {
+    const reachActor = actor(action);
+    if (
+      context.decisionWindow.actor !== null &&
+      reachActor !== context.decisionWindow.actor
+    ) {
+      return unsupported("mjai_actor_mismatch");
+    }
+    const second = rawSequence[1];
+    if (second === undefined || second.action.type !== "dahai") {
+      return SourceActionAdaptationResultSchema.parse({
+        status: "incomplete",
+        sourceType: "mjai",
+        diagnosticCode: "reach_without_dahai",
+        missingFields: ["tile", "discardMode"],
+        factRefs: rawSequence.map((entry) => entry.eventRef),
+      });
+    }
+    if (rawSequence.length !== 2) {
+      return unsupported("mjai_sequence");
+    }
+    const secondMissing = missingFields(second.action);
+    if (secondMissing.length > 0) {
+      return incompleteFields(rawSequence, secondMissing);
+    }
+    const dahaiActor = actor(second.action);
+    if (
+      context.decisionWindow.actor !== null &&
+      dahaiActor !== context.decisionWindow.actor
+    ) {
+      return unsupported("mjai_actor_mismatch");
+    }
+    if (dahaiActor !== reachActor) {
+      return SourceActionAdaptationResultSchema.parse({
+        status: "incomplete",
+        sourceType: "mjai",
+        diagnosticCode: "reach_without_dahai",
+        missingFields: ["tile", "discardMode"],
+        factRefs: rawSequence.map((entry) => entry.eventRef),
+      });
+    }
+    return ready({
+      kind: "riichi_discard",
+      tile: tile(stringField(second.action, "pai")),
+      discardMode: booleanField(second.action, "tsumogiri")
+        ? "tsumogiri"
+        : "tedashi",
+    }, [first.eventRef, second.eventRef]);
+  }
+  if (rawSequence.length !== 1) {
+    return unsupported("mjai_sequence");
+  }
+
+  const knownTypes = new Set([
+    "dahai",
+    "chi",
+    "pon",
+    "daiminkan",
+    "ankan",
+    "kakan",
+    "hora",
+    "ryukyoku",
+    "none",
+  ]);
+  if (!knownTypes.has(action.type)) {
+    return unsupported(action.type);
+  }
+  const actionActor = actor(action);
+  if (
+    context.decisionWindow.actor !== null &&
+    actionActor !== context.decisionWindow.actor
+  ) {
+    return unsupported("mjai_actor_mismatch");
+  }
+  switch (action.type) {
+    case "dahai":
+      return ready({
+        kind: "discard",
+        tile: tile(stringField(action, "pai")),
+        discardMode: booleanField(action, "tsumogiri")
+          ? "tsumogiri"
+          : "tedashi",
+      }, [first.eventRef]);
+    case "chi":
+    case "pon": {
+      const targetActor = target(action);
+      if (targetActor === actionActor) {
+        return unsupported("mjai_target_mismatch");
+      }
+      return ready({
+        kind: action.type,
+        calledTile: tile(stringField(action, "pai")),
+        consumedTiles: tileArray(action, 2),
+        targetActor,
+        responseEventRef: context.decisionWindow.triggerEventRef,
+      }, [first.eventRef, context.decisionWindow.triggerEventRef]);
+    }
+    case "daiminkan": {
+      const targetActor = target(action);
+      if (targetActor === actionActor) {
+        return unsupported("mjai_target_mismatch");
+      }
+      return ready({
+        kind: "daiminkan",
+        calledTile: tile(stringField(action, "pai")),
+        consumedTiles: tileArray(action, 3),
+        targetActor,
+        responseEventRef: context.decisionWindow.triggerEventRef,
+      }, [first.eventRef, context.decisionWindow.triggerEventRef]);
+    }
+    case "ankan":
+      return ready({
+        kind: "ankan",
+        tiles: tileArray(action, 4),
+      }, [first.eventRef]);
+    case "kakan":
+      return ready({
+        kind: "kakan",
+        addedTile: tile(stringField(action, "pai")),
+        ...(typeof action.existingMeldRef === "string"
+          ? { existingMeldRef: action.existingMeldRef }
+          : context.existingMeldRef === undefined
+            ? {}
+            : { existingMeldRef: context.existingMeldRef }),
+      }, [first.eventRef]);
+    case "hora": {
+      const targetActor = target(action);
+      if (context.decisionWindow.kind === "self_turn") {
+        if (targetActor !== actionActor) {
+          return unsupported("hora_context_mismatch");
+        }
+        return ready({
+          kind: "tsumo",
+          winningTile: tile(stringField(action, "pai")),
+          drawEventRef: context.decisionWindow.triggerEventRef,
+        }, [first.eventRef, context.decisionWindow.triggerEventRef]);
+      }
+      if (
+        context.decisionWindow.kind === "discard_response" ||
+        context.decisionWindow.kind === "kan_response"
+      ) {
+        if (targetActor === actionActor) {
+          return unsupported("hora_context_mismatch");
+        }
+        return ready({
+          kind: "ron",
+          winningTile: tile(stringField(action, "pai")),
+          targetActor,
+          responseEventRef: context.decisionWindow.triggerEventRef,
+          winContext: context.decisionWindow.kind === "discard_response"
+            ? "discard"
+            : context.decisionWindow.kanKind,
+        }, [first.eventRef, context.decisionWindow.triggerEventRef]);
+      }
+      return unsupported("hora_in_post_call_discard");
+    }
+    case "ryukyoku": {
+      const reason = stringField(action, "reason");
+      if (reason !== "kyuushu_kyuuhai" && reason !== "kyushukyuhai") {
+        return unsupported(`ryukyoku:${reason}`);
+      }
+      return ready({
+        kind: "kyuushu_kyuuhai",
+        drawEventRef: context.decisionWindow.triggerEventRef,
+      }, [first.eventRef, context.decisionWindow.triggerEventRef]);
+    }
+    case "none":
+      if (context.decisionWindow.kind === "discard_response") {
+        return ready({
+          kind: "pass",
+          responseEventRef: context.decisionWindow.triggerEventRef,
+          responseKind: "discard",
+        }, [first.eventRef, context.decisionWindow.triggerEventRef]);
+      }
+      if (context.decisionWindow.kind === "kan_response") {
+        return ready({
+          kind: "pass",
+          responseEventRef: context.decisionWindow.triggerEventRef,
+          responseKind: context.decisionWindow.kanKind,
+        }, [first.eventRef, context.decisionWindow.triggerEventRef]);
+      }
+      return unsupported("none_outside_response");
+    default:
+      return unsupported(action.type);
+  }
+}
