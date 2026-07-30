@@ -1,3 +1,4 @@
+import { isDeepStrictEqual } from "node:util";
 import type {
   Axis,
   FactorEvidence,
@@ -24,6 +25,7 @@ import {
   type RuleEvaluation,
   type TeachingRuleDefinition,
 } from "../policy/teaching-policy.js";
+import { replayToDecision } from "../replay/scene-replayer.js";
 
 export type FactorBuckets = {
   supportsModelAction: FactorEvidence[];
@@ -34,6 +36,7 @@ export type FactorBuckets = {
 export type StrictAnalysisPackage = {
   decision: NormalizedDecision;
   scene: SceneSnapshot;
+  visibleEvents: NormalizedEvent[];
   candidateLedgers: CandidateLedger[];
   factors: FactorBuckets;
   evidenceRegistry: ReplayEvidenceRegistry;
@@ -65,6 +68,27 @@ export function buildStrictAnalysisPackage(input: {
   decision: NormalizedDecision;
   scene: SceneSnapshot;
 }): StrictAnalysisPackage {
+  const visible = new Set(input.scene.eventIds);
+  const visibleEvents = input.events.filter((event) =>
+    visible.has(event.eventId),
+  );
+  if (
+    !isDeepStrictEqual(
+      visibleEvents.map((event) => event.eventId),
+      input.scene.eventIds,
+    )
+  ) {
+    throw new Error("Scene event IDs do not match the visible replay prefix");
+  }
+  const replayedScene = replayToDecision(
+    visibleEvents,
+    input.decision,
+    input.scene.selfActor,
+  );
+  if (!isDeepStrictEqual(replayedScene, input.scene)) {
+    throw new Error("Provided scene does not match visible replay");
+  }
+
   const ledger = compareDecision(input.scene, input.decision);
   const factors: FactorBuckets = {
     supportsModelAction: ledger.supportsModelAction,
@@ -86,10 +110,11 @@ export function buildStrictAnalysisPackage(input: {
   return {
     decision: input.decision,
     scene: input.scene,
+    visibleEvents,
     candidateLedgers: ledger.candidateLedgers,
     factors,
     evidenceRegistry: buildReplayEvidenceRegistry({
-      events: input.events,
+      events: visibleEvents,
       visibleEventIds: input.scene.eventIds,
       factors: allFactors,
     }),

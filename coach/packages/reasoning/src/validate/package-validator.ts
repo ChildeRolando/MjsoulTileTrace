@@ -8,15 +8,24 @@ import {
   type FactorEvidence,
 } from "@riichi-coach/contracts";
 import {
+  compareDecision,
+  type DecisionLedger,
+} from "../compare/action-comparator.js";
+import {
   DIMENSION_CATALOG,
   DIMENSION_CATALOG_VERSION,
 } from "../coverage/dimension-catalog.js";
+import { renderDeterministicExplanation } from "../explain/deterministic-explanation.js";
 import {
   derivePrimaryAxes,
   type FactorBuckets,
   type StrictAnalysisPackage,
 } from "../package/build-strict-analysis-package.js";
-import { judgeDecision } from "../policy/teaching-policy.js";
+import {
+  judgeDecision,
+  TEACHING_RULE_REGISTRY,
+} from "../policy/teaching-policy.js";
+import { replayToDecision } from "../replay/scene-replayer.js";
 
 function actionSupportedBy(
   factor: FactorEvidence,
@@ -90,6 +99,9 @@ function validateEvidence(result: StrictAnalysisPackage): void {
     allFactors(result.factors).flatMap((factor) => factor.evidenceIds),
   );
   const visible = new Set(result.scene.eventIds);
+  const visibleEvents = new Map(
+    result.visibleEvents.map((event) => [event.eventId, event]),
+  );
   for (const evidenceId of referenced) {
     const node = result.evidenceRegistry[evidenceId];
     if (!node) {
@@ -104,6 +116,11 @@ function validateEvidence(result: StrictAnalysisPackage): void {
       throw new Error(`Malformed evidence node: ${evidenceId}`);
     }
     NormalizedEventSchema.parse(node.event);
+    if (!isDeepStrictEqual(node.event, visibleEvents.get(evidenceId))) {
+      throw new Error(
+        `Evidence node does not match the visible replay event: ${evidenceId}`,
+      );
+    }
     if (!visible.has(evidenceId)) {
       throw new Error(`Evidence is outside the decision boundary: ${evidenceId}`);
     }
@@ -115,7 +132,10 @@ function validateEvidence(result: StrictAnalysisPackage): void {
   }
 }
 
-function validateCoverage(result: StrictAnalysisPackage): void {
+function validateCoverage(
+  result: StrictAnalysisPackage,
+  trustedLedger: DecisionLedger,
+): void {
   if (result.coverageCatalogVersion !== DIMENSION_CATALOG_VERSION) {
     throw new Error("Coverage catalog version does not match runtime");
   }
@@ -127,9 +147,18 @@ function validateCoverage(result: StrictAnalysisPackage): void {
   ) {
     throw new Error("Coverage does not contain every catalog dimension once");
   }
+  if (!isDeepStrictEqual(result.coverage, trustedLedger.coverage)) {
+    throw new Error("Coverage states do not match trusted analyzer output");
+  }
 }
 
-function validateRules(result: StrictAnalysisPackage): void {
+function validateRules(
+  result: StrictAnalysisPackage,
+  trustedLedger: DecisionLedger,
+): ReturnType<typeof judgeDecision> {
+  if (!isDeepStrictEqual(result.ruleRegistry, TEACHING_RULE_REGISTRY)) {
+    throw new Error("Package has a trusted rule registry mismatch");
+  }
   const ruleIds = result.ruleRegistry.map((rule) => rule.id);
   if (new Set(ruleIds).size !== ruleIds.length) {
     throw new Error("Teaching rule registry contains duplicate IDs");
@@ -151,7 +180,7 @@ function validateRules(result: StrictAnalysisPackage): void {
     factors,
     candidateLedgers: result.candidateLedgers,
     coverage: result.coverage,
-    ruleRegistry: result.ruleRegistry,
+    ruleRegistry: TEACHING_RULE_REGISTRY,
   });
   const expectedBlocked = expected.blockedRules.filter(
     (rule) => rule.status === "blocked",
@@ -162,6 +191,17 @@ function validateRules(result: StrictAnalysisPackage): void {
   if (!isDeepStrictEqual(result.coachJudgement, expected.coachJudgement)) {
     throw new Error("Coach judgement is not supported by policy evidence");
   }
+  const expectedExplanation = renderDeterministicExplanation({
+    decision: result.decision,
+    ledger: trustedLedger,
+    policy: expected,
+  });
+  if (result.deterministicExplanation !== expectedExplanation) {
+    throw new Error(
+      "Package deterministic explanation does not match trusted rendering",
+    );
+  }
+  return expected;
 }
 
 export function validateStrictAnalysisPackage(
@@ -169,6 +209,23 @@ export function validateStrictAnalysisPackage(
 ): void {
   const decision = NormalizedDecisionSchema.parse(result.decision);
   const scene = SceneSnapshotSchema.parse(result.scene);
+  for (const event of result.visibleEvents) {
+    NormalizedEventSchema.parse(event);
+  }
+  if (
+    new Set(result.visibleEvents.map((event) => event.eventId)).size !==
+    result.visibleEvents.length
+  ) {
+    throw new Error("Visible replay contains duplicate event IDs");
+  }
+  const replayedScene = replayToDecision(
+    result.visibleEvents,
+    decision,
+    scene.selfActor,
+  );
+  if (!isDeepStrictEqual(replayedScene, scene)) {
+    throw new Error("Package scene does not match visible replay");
+  }
   if (decision.sceneEventId !== scene.decisionEventId) {
     throw new Error("Decision and scene event IDs do not match");
   }
@@ -181,25 +238,44 @@ export function validateStrictAnalysisPackage(
   if (!candidateActions.includes(decision.actualAction)) {
     throw new Error("Trusted actual action is absent from candidates");
   }
+  const modelCandidate = decision.candidates.find(
+    (candidate) => candidate.actionId === decision.modelAction,
+  )!;
+  const highestProbability = Math.max(
+    ...decision.candidates.map((candidate) => candidate.probability),
+  );
+  if (modelCandidate.probability < highestProbability) {
+    throw new Error(
+      "Trusted model action is not a highest-probability candidate",
+    );
+  }
   if (new Set(candidateActions).size !== candidateActions.length) {
     throw new Error("Decision candidates contain duplicate actions");
-  }
-  const ledgerActions = result.candidateLedgers.map(
-    (candidate) => candidate.actionId,
-  );
-  if (!isDeepStrictEqual(new Set(ledgerActions), new Set(candidateActions))) {
-    throw new Error("Candidate ledgers do not match trusted model candidates");
   }
 
   validateFactorBuckets(result);
   validateEvidence(result);
-  validateCoverage(result);
+  const trustedLedger = compareDecision(scene, decision);
+  if (
+    !isDeepStrictEqual(
+      result.candidateLedgers,
+      trustedLedger.candidateLedgers,
+    )
+  ) {
+    throw new Error("Package candidate ledgers do not match trusted analyzers");
+  }
+  const trustedFactors: FactorBuckets = {
+    supportsModelAction: trustedLedger.supportsModelAction,
+    supportsActualAction: trustedLedger.supportsActualAction,
+    neutralFactors: trustedLedger.neutralFactors,
+  };
+  if (!isDeepStrictEqual(result.factors, trustedFactors)) {
+    throw new Error("Package factor account does not match trusted analyzers");
+  }
+  validateCoverage(result, trustedLedger);
   const expectedAxes = derivePrimaryAxes(result.factors);
   if (!isDeepStrictEqual(result.primaryAxes, expectedAxes)) {
     throw new Error("Package primary axes were not derived from its factors");
   }
-  validateRules(result);
-  if (result.deterministicExplanation.length === 0) {
-    throw new Error("Deterministic explanation is empty");
-  }
+  validateRules(result, trustedLedger);
 }

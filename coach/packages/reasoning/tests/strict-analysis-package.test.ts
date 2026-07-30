@@ -14,12 +14,16 @@ const fixtureUrl = new URL(
   import.meta.url,
 );
 
-async function buildRegression(index: 0 | 1): Promise<StrictAnalysisPackage> {
+async function loadRegressionInput(index: 0 | 1) {
   const raw = JSON.parse(await readFile(fixtureUrl, "utf8"));
   const { events, decisions, selfActor } = importRegressionFixture(raw);
   const decision = decisions[index]!;
   const scene = replayToDecision(events, decision, selfActor);
-  return buildStrictAnalysisPackage({ events, decision, scene });
+  return { events, decision, scene };
+}
+
+async function buildRegression(index: 0 | 1): Promise<StrictAnalysisPackage> {
+  return buildStrictAnalysisPackage(await loadRegressionInput(index));
 }
 
 function clonePackage(value: StrictAnalysisPackage): StrictAnalysisPackage {
@@ -71,6 +75,9 @@ describe("strict public analysis package", () => {
       ).toBe(true);
       expect(result.deterministicExplanation).toContain(actualEfficiency);
       expect(result.deterministicExplanation).toContain(modelEfficiency);
+      expect(result.deterministicExplanation).toContain(
+        "仅按当前标准形向听计算",
+      );
       expect(result.deterministicExplanation).toContain(safety);
       expect(result.deterministicExplanation).toContain(ippatsuState);
       expect(result.deterministicExplanation).toContain(
@@ -134,12 +141,87 @@ describe("strict public analysis package", () => {
     );
   });
 
+  it("rejects a package-supplied rule that removes trusted prerequisites", async () => {
+    const result = clonePackage(await buildRegression(0));
+    result.ruleRegistry = [{
+      ...result.ruleRegistry[0]!,
+      requiredCoverage: [],
+      requiredFactors: [],
+    }];
+    result.blockedRules = [];
+    result.coachJudgement = {
+      recommendedAction: result.decision.modelAction,
+      ruleIds: ["PF-03@1"],
+      confidence: "high",
+    };
+
+    expect(() => validateStrictAnalysisPackage(result)).toThrow(
+      /trusted rule registry mismatch/,
+    );
+  });
+
+  it("rejects altered candidate consequences and factor claims", async () => {
+    const changedCandidate = clonePackage(await buildRegression(0));
+    changedCandidate.candidateLedgers[0]!.axes.efficiency.consequence!.shanten =
+      0;
+    expect(() => validateStrictAnalysisPackage(changedCandidate)).toThrow(
+      /candidate ledgers/,
+    );
+
+    const changedFactor = clonePackage(await buildRegression(0));
+    changedFactor.factors.supportsActualAction[0]!.magnitude.value = 0;
+    expect(() => validateStrictAnalysisPackage(changedFactor)).toThrow(
+      /factor account/,
+    );
+  });
+
+  it("rejects deterministic wording that was not rendered from the package", async () => {
+    const result = clonePackage(await buildRegression(0));
+    result.deterministicExplanation =
+      "Mortal因为6索牌效更好所以选择了6索。";
+
+    expect(() => validateStrictAnalysisPackage(result)).toThrow(
+      /deterministic explanation/,
+    );
+  });
+
   it("rejects model facts that no longer match the candidate table", async () => {
     const result = clonePackage(await buildRegression(0));
     result.decision.modelAction = "discard:1z:tedashi";
 
     expect(() => validateStrictAnalysisPackage(result)).toThrow(
       /model action is absent from candidates/,
+    );
+  });
+
+  it("rejects a scene whose event contents disagree with the replay", async () => {
+    const { events, decision, scene } = await loadRegressionInput(0);
+    const inconsistentScene = {
+      ...scene,
+      rivers: scene.rivers.map((river, actor) =>
+        river.map((discard) =>
+          actor === 2 && discard.eventId === "event-48"
+            ? { ...discard, tile: { id: "2p" as const, red: false } }
+            : discard,
+        ),
+      ),
+    };
+
+    expect(() =>
+      buildStrictAnalysisPackage({
+        events,
+        decision,
+        scene: inconsistentScene,
+      }),
+    ).toThrow(/scene does not match visible replay/);
+  });
+
+  it("rejects a model action that is not the highest-probability candidate", async () => {
+    const result = clonePackage(await buildRegression(0));
+    result.decision.modelAction = result.decision.candidates[1]!.actionId;
+
+    expect(() => validateStrictAnalysisPackage(result)).toThrow(
+      /highest-probability candidate/,
     );
   });
 });

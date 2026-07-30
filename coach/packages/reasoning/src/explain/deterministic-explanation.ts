@@ -18,11 +18,12 @@ const honorNames: Record<string, string> = {
   "7z": "中",
 };
 
-function actionLabel(actionId: ActionId): string {
+export function formatActionLabel(actionId: ActionId): string {
   const [, encodedTile, mode] = actionId.split(":");
+  const red = encodedTile!.endsWith("r");
   const tile = encodedTile!.replace(/r$/, "");
   const suit = tile[1];
-  const tileName =
+  const baseName =
     suit === "m"
       ? `${tile[0]}万`
       : suit === "p"
@@ -30,6 +31,7 @@ function actionLabel(actionId: ActionId): string {
         : suit === "s"
           ? `${tile[0]}索`
           : honorNames[tile] ?? tile;
+  const tileName = red ? `赤${baseName}` : baseName;
   return mode === "tsumogiri" ? `摸切${tileName}` : `切${tileName}`;
 }
 
@@ -69,18 +71,23 @@ export function renderDeterministicExplanation(input: {
   if (actualShanten !== undefined && modelShanten !== undefined) {
     const efficiencySide =
       actualShanten < modelShanten
-        ? `因此纯牌效支持${actionLabel(decision.actualAction)}`
+        ? `因此标准形向听支持${formatActionLabel(decision.actualAction)}`
         : modelShanten < actualShanten
-          ? `因此纯牌效支持${actionLabel(decision.modelAction)}`
+          ? `因此标准形向听支持${formatActionLabel(decision.modelAction)}`
           : "两者的标准形向听数相同，未校正进张不能用于同向听排序";
     sentences.push(
-      `牌效：${actionLabel(decision.actualAction)}后为${actualShanten}向听，` +
-      `${actionLabel(decision.modelAction)}后为${modelShanten}向听，${efficiencySide}。`,
+      "牌效（仅按当前标准形向听计算）：" +
+      `${formatActionLabel(decision.actualAction)}后为${actualShanten}向听，` +
+      `${formatActionLabel(decision.modelAction)}后为${modelShanten}向听，` +
+      `${efficiencySide}。`,
     );
   }
 
   const actualByActor = new Map(
     actual.axes.defense.byThreat.map((item) => [item.actor, item]),
+  );
+  const modelByActor = new Map(
+    model.axes.defense.byThreat.map((item) => [item.actor, item]),
   );
   const modelAdvantages = model.axes.defense.byThreat.filter(
     (item) =>
@@ -89,8 +96,19 @@ export function renderDeterministicExplanation(input: {
   );
   for (const advantage of modelAdvantages) {
     sentences.push(
-      `防守：${actionLabel(decision.modelAction)}对actor ${advantage.actor}是现物，` +
-      `${actionLabel(decision.actualAction)}没有针对该玩家的确定安全证据。`,
+      `防守：${formatActionLabel(decision.modelAction)}对actor ${advantage.actor}是现物，` +
+      `${formatActionLabel(decision.actualAction)}没有针对该玩家的确定安全证据。`,
+    );
+  }
+  const actualAdvantages = actual.axes.defense.byThreat.filter(
+    (item) =>
+      item.classification === "genbutsu" &&
+      modelByActor.get(item.actor)?.classification !== "genbutsu",
+  );
+  for (const advantage of actualAdvantages) {
+    sentences.push(
+      `防守：${formatActionLabel(decision.actualAction)}对actor ${advantage.actor}是现物，` +
+      `${formatActionLabel(decision.modelAction)}没有针对该玩家的确定安全证据。`,
     );
   }
 
@@ -134,7 +152,7 @@ export function renderDeterministicExplanation(input: {
   } else {
     sentences.push(
       `教练依据${policy.coachJudgement.ruleIds.join("、")}建议` +
-      `${actionLabel(policy.coachJudgement.recommendedAction)}。`,
+      `${formatActionLabel(policy.coachJudgement.recommendedAction)}。`,
     );
   }
   return sentences.join("");
