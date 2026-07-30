@@ -7,3 +7,4 @@ export * from "./comparison.js";
 export * from "./analysis-frame.js";
 export * from "./preference.js";
 export * from "./model-evaluation.js";
+export * from "./analysis-request.js";
