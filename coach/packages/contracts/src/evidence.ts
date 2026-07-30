@@ -35,6 +35,7 @@ export const FactorEvidenceSchema = z.object({
   provenance: ProvenanceSchema,
   confidence: z.enum(["certain", "high", "medium", "low", "unknown"]),
   evidenceIds: z.array(z.string()).min(1),
+  actors: z.array(z.number().int().min(0).max(3)).min(1).max(4).optional(),
   limitations: z.array(z.string()).min(1),
   calibration: z.object({
     dataset: z.string().min(1),

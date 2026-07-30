@@ -128,6 +128,32 @@ describe("candidate ledgers", () => {
       }
     },
   );
+
+  it.each([
+    [0, "riichi_ippatsu_alive"],
+    [1, "riichi_established"],
+  ] as const)(
+    "emits replay-grounded neutral riichi state for regression %s",
+    async (index, expectedState) => {
+      const { decision, scene } = await loadRegression(index);
+      const ledger = compareDecision(scene, decision);
+      const threatFactors = ledger.neutralFactors.filter(
+        (factor) => factor.dimension === "defense.riichi_threat_state",
+      );
+
+      expect(threatFactors).toHaveLength(1);
+      expect(threatFactors[0]).toMatchObject({
+        axis: "defense",
+        direction: "neutral",
+        magnitude: { kind: "ordinal", value: expectedState },
+        provenance: "raw_replay",
+        confidence: "certain",
+        actors: [2],
+      });
+      expect(threatFactors[0]?.statement).toContain("actor 2");
+      expect(threatFactors[0]?.evidenceIds).toContain("event-47");
+    },
+  );
 });
 
 describe("bilateral per-threat comparison", () => {

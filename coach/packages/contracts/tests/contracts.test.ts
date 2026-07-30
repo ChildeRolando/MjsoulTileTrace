@@ -31,6 +31,26 @@ describe("strict reasoning contracts", () => {
     );
   });
 
+  it("preserves structured actor references instead of requiring ID parsing", () => {
+    const factor = FactorEvidenceSchema.parse({
+      factorId: "opaque-factor-id",
+      axis: "defense",
+      dimension: "defense.riichi_threat_state",
+      subjectAction: "discard:6s:tsumogiri",
+      comparisonAction: "discard:2p:tedashi",
+      direction: "neutral",
+      magnitude: { kind: "ordinal", value: "riichi_ippatsu_alive" },
+      statement: "actor 2 has declared riichi and ippatsu is alive",
+      provenance: "raw_replay",
+      confidence: "certain",
+      evidenceIds: ["event-47"],
+      actors: [2],
+      limitations: ["Threat state alone does not estimate hand value"],
+    });
+
+    expect(factor.actors).toEqual([2]);
+  });
+
   it("requires modelReason to remain unknown", () => {
     const parsed = DecisionExplanationSchema.safeParse({
       decisionId: "e1-turn6",

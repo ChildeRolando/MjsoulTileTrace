@@ -14,6 +14,7 @@ import {
   deterministicSafetyForAction,
   type ThreatSafety,
 } from "../analysis/tile-safety-analyzer.js";
+import { riichiThreats } from "../analysis/threat-analyzer.js";
 import { coverageForDecision } from "../coverage/dimension-catalog.js";
 
 export type UnsupportedAxisConsequence = {
@@ -127,6 +128,7 @@ function perThreatSafetyFactors(
           ...evidenceForThreat(scene, actor, actual),
           ...evidenceForThreat(scene, actor, model),
         ].filter((eventId, index, all) => all.indexOf(eventId) === index),
+        actors: [actor],
         limitations: [`Comparison applies to actor ${actor} only`],
       });
       continue;
@@ -153,6 +155,7 @@ function perThreatSafetyFactors(
       provenance: "deterministic",
       confidence: "certain",
       evidenceIds: evidenceForThreat(scene, actor, subjectSafety),
+      actors: [actor],
       limitations: [`Safety comparison applies to actor ${actor} only`],
     };
     if (actualIsSafer) {
@@ -167,6 +170,38 @@ function perThreatSafetyFactors(
     supportsActualAction,
     neutralFactors,
   };
+}
+
+function threatStateFactors(
+  scene: SceneSnapshot,
+  subjectAction: ActionId,
+  comparisonAction: ActionId,
+): FactorEvidence[] {
+  return riichiThreats(scene).map((threat) => ({
+    factorId:
+      `factor:${scene.decisionEventId}:defense:actor${threat.actor}:riichi-state`,
+    axis: "defense",
+    dimension: "defense.riichi_threat_state",
+    subjectAction,
+    comparisonAction,
+    direction: "neutral",
+    magnitude: {
+      kind: "ordinal",
+      value: threat.ippatsuAlive
+        ? "riichi_ippatsu_alive"
+        : "riichi_established",
+    },
+    statement:
+      `actor ${threat.actor} has declared riichi; ippatsu is ` +
+      `${threat.ippatsuAlive ? "alive" : "not alive"}`,
+    provenance: "raw_replay",
+    confidence: "certain",
+    evidenceIds: [threat.declarationEventId],
+    actors: [threat.actor],
+    limitations: [
+      "Threat state alone does not estimate hand value or deal-in probability",
+    ],
+  }));
 }
 
 export function compareDecision(
@@ -229,6 +264,13 @@ export function compareDecision(
   supportsModelAction.push(...defense.supportsModelAction);
   supportsActualAction.push(...defense.supportsActualAction);
   neutralFactors.push(...defense.neutralFactors);
+  neutralFactors.push(
+    ...threatStateFactors(
+      scene,
+      decision.actualAction,
+      decision.modelAction,
+    ),
+  );
 
   const coverage = coverageForDecision(scene);
   return {
