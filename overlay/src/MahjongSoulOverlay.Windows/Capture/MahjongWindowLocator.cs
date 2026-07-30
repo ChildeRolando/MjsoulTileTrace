@@ -1,5 +1,6 @@
 using System.Runtime.InteropServices;
 using System.Text;
+using MahjongSoulOverlay.Windows.Shell;
 
 namespace MahjongSoulOverlay.Windows.Capture;
 
@@ -23,7 +24,7 @@ public interface IWindowEnumerator
     ScreenRect GetClientBounds(nint windowHandle);
 }
 
-public sealed class MahjongWindowLocator : IAsyncDisposable
+public sealed class MahjongWindowLocator : IWindowTargetMonitor
 {
     private readonly IWindowEnumerator _windows;
     private readonly TimeSpan _pollInterval;
@@ -166,17 +167,17 @@ public sealed class MahjongWindowLocator : IAsyncDisposable
     internal void PollOnce()
     {
         var all = _windows.Enumerate();
-        var eligible = all.Where(MahjongWindowEligibility.IsEligible).ToArray();
-        if (eligible.Length > 1)
+        var candidates = all.Where(MahjongWindowEligibility.IsVisibleTarget).ToArray();
+        if (candidates.Length > 1)
         {
             if (_state != LocatorState.Ambiguous)
                 SetTarget(null, null, TargetWindowChange.Ambiguous, LocatorState.Ambiguous);
             return;
         }
 
-        if (eligible.Length == 1)
+        if (candidates.Length == 1)
         {
-            var next = eligible[0];
+            var next = candidates[0];
             ScreenRect bounds;
             try
             {

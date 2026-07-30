@@ -44,11 +44,15 @@ public static class MahjongWindowEligibility
         };
 
     public static bool IsEligible(WindowSnapshot snapshot) =>
-        snapshot.Visible
-        && !snapshot.Minimized
+        IsVisibleTarget(snapshot)
         && snapshot.ClientWidth == 1920
         && snapshot.ClientHeight == 1080
         && snapshot.Dpi == 96
+        ;
+
+    internal static bool IsVisibleTarget(WindowSnapshot snapshot) =>
+        snapshot.Visible
+        && !snapshot.Minimized
         && (AllowedTitles.Any(
                 title => string.Equals(
                     snapshot.Title.Trim(),

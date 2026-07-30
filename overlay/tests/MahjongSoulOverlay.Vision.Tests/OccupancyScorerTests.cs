@@ -8,6 +8,18 @@ namespace MahjongSoulOverlay.Vision.Tests;
 public sealed class OccupancyScorerTests
 {
     [Fact]
+    public void Pixel_frame_copies_bgra_input_and_owns_the_copy()
+    {
+        var source = new byte[] { 1, 2, 3, 4, 9, 8, 7, 6 };
+
+        using var frame = PixelFrame.CopyFromBgra(2, 1, 8, source);
+        source[0] = 99;
+
+        Assert.Equal(1, frame.Mat.At<Vec4b>(0, 0).Item0);
+        Assert.Equal(9, frame.Mat.At<Vec4b>(0, 1).Item0);
+    }
+
+    [Fact]
     public void Synthetic_fixture_pngs_are_deterministic_and_have_expected_dimensions()
     {
         using var expectedEmpty = SyntheticFixtureCatalog.CreateEmpty();

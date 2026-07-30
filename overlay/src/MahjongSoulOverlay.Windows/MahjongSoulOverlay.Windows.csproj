@@ -17,4 +17,11 @@
     <InternalsVisibleTo Include="MahjongSoulOverlay.Windows.Tests" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="..\MahjongSoulOverlay.Vision\Profiles\yonma-1920x1080.standard.json"
+          Link="Profiles\yonma-1920x1080.standard.json"
+          CopyToOutputDirectory="PreserveNewest"
+          CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+
 </Project>

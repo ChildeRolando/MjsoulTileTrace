@@ -181,6 +181,24 @@ public sealed class WindowGeometryTests
     }
 
     [Fact]
+    public void Locator_reports_an_initial_unsupported_target_for_status_display()
+    {
+        var windows = new FakeWindowEnumerator
+        {
+            Snapshots = [Snapshot(handle: 7, width: 1600, height: 900)],
+            Bounds = new ScreenRect(0, 0, 1600, 900),
+        };
+        var locator = new MahjongWindowLocator(windows);
+        TargetWindowChangedEventArgs? received = null;
+        locator.TargetChanged += (_, change) => received = change;
+
+        locator.PollOnce();
+
+        Assert.Equal(TargetWindowChange.Found, received?.Change);
+        Assert.Equal(1600, received?.Window?.ClientWidth);
+    }
+
+    [Fact]
     public async Task Locator_concurrent_stop_and_dispose_are_idempotent()
     {
         var locator = new MahjongWindowLocator(
