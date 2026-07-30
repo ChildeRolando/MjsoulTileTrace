@@ -30,6 +30,7 @@ export * from "./coverage/dimension-catalog.js";
 export * from "./evidence/evidence-registry.js";
 export * from "./explain/deterministic-explanation.js";
 export * from "./import/mortal-report.js";
+export * from "./model/model-evaluation-builder.js";
 export * from "./package/build-strict-analysis-package.js";
 export * from "./policy/teaching-policy.js";
 export * from "./replay/scene-replayer.js";
