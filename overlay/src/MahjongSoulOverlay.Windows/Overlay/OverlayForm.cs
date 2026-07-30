@@ -18,9 +18,11 @@ internal static class OverlayWindowContract
     private const int WsExTransparent = 0x00000020;
     private const int WsExNoActivate = 0x08000000;
     private const int WsExToolWindow = 0x00000080;
+    private const int WsExTopmost = 0x00000008;
 
     internal static int ExtendedStyle(int baseStyle) =>
-        baseStyle | WsExLayered | WsExTransparent | WsExNoActivate | WsExToolWindow;
+        baseStyle | WsExLayered | WsExTransparent | WsExNoActivate |
+        WsExToolWindow | WsExTopmost;
 }
 
 internal interface ITargetClientGeometry
@@ -39,8 +41,9 @@ internal interface IOverlaySurface
     nint WindowHandle { get; }
     bool Visible { get; }
     bool IsDisposed { get; }
-    void SetBounds(ScreenRect bounds);
-    void SetLayers(IReadOnlyList<OverlayLayer> layers);
+    void ApplyFrame(
+        ScreenRect? bounds,
+        IReadOnlyList<OverlayLayer>? layers);
     void ShowInactive();
     void HideOverlay();
 }
@@ -116,18 +119,21 @@ internal sealed class OverlayController : IDisposable
             return;
         }
 
-        if (_bounds != bounds)
+        var boundsChanged = _bounds != bounds;
+        if (boundsChanged)
         {
             _bounds = bounds;
-            _surface.SetBounds(bounds);
         }
 
         var layers = CanonicalCopy(update.Layers);
-        if (!_layers.SequenceEqual(layers))
+        var layersChanged = !_layers.SequenceEqual(layers);
+        if (layersChanged)
         {
             _layers = layers;
-            _surface.SetLayers(_layers);
         }
+
+        if (boundsChanged || layersChanged)
+            _surface.ApplyFrame(boundsChanged ? bounds : null, layersChanged ? _layers : null);
 
         if (!_surface.Visible)
             _surface.ShowInactive();
@@ -150,7 +156,7 @@ internal sealed class OverlayController : IDisposable
         if (_layers.Length != 0)
         {
             _layers = [];
-            _surface.SetLayers(_layers);
+            _surface.ApplyFrame(null, _layers);
         }
 
         if (_surface.Visible)
@@ -214,15 +220,14 @@ public sealed class OverlayForm : Form, IOverlaySurface
 
     bool IOverlaySurface.IsDisposed => IsDisposed || Disposing;
 
-    void IOverlaySurface.SetBounds(ScreenRect bounds)
+    void IOverlaySurface.ApplyFrame(
+        ScreenRect? bounds,
+        IReadOnlyList<OverlayLayer>? layers)
     {
-        SetBounds(bounds.X, bounds.Y, bounds.Width, bounds.Height);
-        Present();
-    }
-
-    void IOverlaySurface.SetLayers(IReadOnlyList<OverlayLayer> layers)
-    {
-        _layers = layers.ToArray();
+        if (bounds is { } geometry)
+            SetBounds(geometry.X, geometry.Y, geometry.Width, geometry.Height);
+        if (layers is not null)
+            _layers = layers.ToArray();
         Present();
     }
 
@@ -382,41 +387,61 @@ public sealed class OverlayForm : Form, IOverlaySurface
             Point screenLocation,
             Bitmap bitmap)
         {
-            var screenDc = GetDC(nint.Zero);
-            var memoryDc = CreateCompatibleDC(screenDc);
-            var bitmapHandle = bitmap.GetHbitmap(Color.FromArgb(0));
-            var previous = SelectObject(memoryDc, bitmapHandle);
-            try
+            LayeredWindowResourceGuard.Use(
+                Win32LayeredWindowResources.Instance,
+                () => bitmap.GetHbitmap(Color.FromArgb(0)),
+                (screenDc, memoryDc) =>
+                {
+                    var destination = new NativePoint(screenLocation.X, screenLocation.Y);
+                    var source = new NativePoint(0, 0);
+                    var size = new NativeSize(bitmap.Width, bitmap.Height);
+                    var blend = new BlendFunction
+                    {
+                        BlendOp = AcSrcOver,
+                        SourceConstantAlpha = 255,
+                        AlphaFormat = AcSrcAlpha,
+                    };
+                    if (!UpdateLayeredWindow(
+                            windowHandle,
+                            screenDc,
+                            ref destination,
+                            ref size,
+                            memoryDc,
+                            ref source,
+                            0,
+                            ref blend,
+                            UlwAlpha))
+                    {
+                        throw new InvalidOperationException(
+                            "Unable to update the overlay window.");
+                    }
+                });
+        }
+
+        private sealed class Win32LayeredWindowResources : ILayeredWindowResources
+        {
+            internal static Win32LayeredWindowResources Instance { get; } = new();
+
+            public nint AcquireScreen() => GetDC(nint.Zero);
+
+            public nint CreateMemory(nint screen) => CreateCompatibleDC(screen);
+
+            public nint Select(nint memory, nint drawingObject) =>
+                SelectObject(memory, drawingObject);
+
+            public void ReleaseScreen(nint screen)
             {
-                var destination = new NativePoint(screenLocation.X, screenLocation.Y);
-                var source = new NativePoint(0, 0);
-                var size = new NativeSize(bitmap.Width, bitmap.Height);
-                var blend = new BlendFunction
-                {
-                    BlendOp = AcSrcOver,
-                    SourceConstantAlpha = 255,
-                    AlphaFormat = AcSrcAlpha,
-                };
-                if (!UpdateLayeredWindow(
-                        windowHandle,
-                        screenDc,
-                        ref destination,
-                        ref size,
-                        memoryDc,
-                        ref source,
-                        0,
-                        ref blend,
-                        UlwAlpha))
-                {
-                    throw new InvalidOperationException("Unable to update the overlay window.");
-                }
+                _ = ReleaseDC(nint.Zero, screen);
             }
-            finally
+
+            public void DeleteMemory(nint memory)
             {
-                _ = SelectObject(memoryDc, previous);
-                _ = DeleteObject(bitmapHandle);
-                _ = DeleteDC(memoryDc);
-                _ = ReleaseDC(nint.Zero, screenDc);
+                _ = DeleteDC(memory);
+            }
+
+            public void DeleteObject(nint drawingObject)
+            {
+                _ = NativeMethods.DeleteObject(drawingObject);
             }
         }
 
@@ -480,5 +505,61 @@ public sealed class OverlayForm : Form, IOverlaySurface
             int colourKey,
             ref BlendFunction blend,
             int flags);
+    }
+}
+
+internal interface ILayeredWindowResources
+{
+    nint AcquireScreen();
+    nint CreateMemory(nint screen);
+    nint Select(nint memory, nint drawingObject);
+    void ReleaseScreen(nint screen);
+    void DeleteMemory(nint memory);
+    void DeleteObject(nint drawingObject);
+}
+
+internal static class LayeredWindowResourceGuard
+{
+    internal static void Use(
+        ILayeredWindowResources resources,
+        Func<nint> bitmapHandleFactory,
+        Action<nint, nint> present)
+    {
+        ArgumentNullException.ThrowIfNull(resources);
+        ArgumentNullException.ThrowIfNull(bitmapHandleFactory);
+        ArgumentNullException.ThrowIfNull(present);
+
+        nint screen = 0;
+        nint memory = 0;
+        nint bitmap = 0;
+        nint previous = 0;
+        try
+        {
+            screen = resources.AcquireScreen();
+            if (screen == nint.Zero)
+                throw new InvalidOperationException("Unable to acquire the screen device context.");
+            memory = resources.CreateMemory(screen);
+            if (memory == nint.Zero)
+                throw new InvalidOperationException("Unable to create a memory device context.");
+            bitmap = bitmapHandleFactory();
+            if (bitmap == nint.Zero)
+                throw new InvalidOperationException("Unable to create the overlay bitmap handle.");
+            previous = resources.Select(memory, bitmap);
+            if (previous == nint.Zero || previous == new nint(-1))
+                throw new InvalidOperationException("Unable to select the overlay bitmap.");
+
+            present(screen, memory);
+        }
+        finally
+        {
+            if (previous != nint.Zero && previous != new nint(-1) && memory != nint.Zero)
+                _ = resources.Select(memory, previous);
+            if (bitmap != nint.Zero)
+                resources.DeleteObject(bitmap);
+            if (memory != nint.Zero)
+                resources.DeleteMemory(memory);
+            if (screen != nint.Zero)
+                resources.ReleaseScreen(screen);
+        }
     }
 }

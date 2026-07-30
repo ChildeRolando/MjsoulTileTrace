@@ -1,6 +1,8 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
 using MahjongSoulOverlay.Core.Domain;
 using MahjongSoulOverlay.Core.Pipeline;
 using MahjongSoulOverlay.Windows.Capture;
@@ -121,7 +123,9 @@ public sealed class OverlayRendererTests
         GC.Collect();
         GC.WaitForPendingFinalizers();
         var after = GetGuiResources(process.Handle, 0);
-        Assert.InRange(after - before, 0, 4);
+        Assert.True(
+            after - before <= 4,
+            $"GDI handle count grew from {before} to {after}.");
     }
 
     private static Bitmap Canvas() => new(200, 200, PixelFormat.Format32bppArgb);
@@ -165,6 +169,37 @@ public sealed class OverlayRendererTests
 
 public sealed class OverlayFormContractTests
 {
+    [Fact]
+    public void Real_hwnd_is_borderless_topmost_layered_click_through_and_nonactivating()
+    {
+        RunSta(() =>
+        {
+            using var target = new Form
+            {
+                FormBorderStyle = FormBorderStyle.FixedSingle,
+                StartPosition = FormStartPosition.Manual,
+                Bounds = new Rectangle(40, 40, 240, 160),
+            };
+            using var overlay = new OverlayForm();
+            target.Show();
+            _ = SetForegroundWindow(target.Handle);
+            Application.DoEvents();
+            var foreground = GetForegroundWindow();
+
+            overlay.UpdateOverlay(new OverlayUpdate(target.Handle, true, false, []));
+            Application.DoEvents();
+
+            var extended = GetWindowLong(overlay.Handle, -20);
+            var style = GetWindowLong(overlay.Handle, -16);
+            Assert.Equal(0x080800A8, extended & 0x080800A8);
+            Assert.Equal(0, style & 0x00C00000);
+            Assert.Equal(-1, SendMessage(overlay.Handle, 0x0084, 0, 0).ToInt32());
+            Assert.Equal(foreground, GetForegroundWindow());
+            Assert.True(overlay.TopMost);
+            Assert.False(overlay.ShowInTaskbar);
+        });
+    }
+
     [Fact]
     public void Extended_style_contains_every_click_through_nonactivating_flag()
     {
@@ -217,6 +252,23 @@ public sealed class OverlayFormContractTests
         Assert.Equal(1, surface.LayerChanges);
         Assert.Equal(1, surface.ShowCalls);
         Assert.Equal(1, surface.Invalidations);
+    }
+
+    [Fact]
+    public void Geometry_and_layers_are_applied_in_one_presentation()
+    {
+        var geometry = new FakeGeometry();
+        var controller = Controller(geometry, out var surface, out _);
+
+        controller.Update(new OverlayUpdate(
+            42,
+            true,
+            false,
+            [Layer(DiscardKind.Tsumogiri)]));
+
+        Assert.Equal(1, surface.Presentations);
+        Assert.Equal(1, surface.BoundsChanges);
+        Assert.Equal(1, surface.LayerChanges);
     }
 
     [Theory]
@@ -285,6 +337,39 @@ public sealed class OverlayFormContractTests
         Assert.Equal(0, surface.HideCalls);
     }
 
+    [Fact]
+    public void Real_form_tolerates_queued_worker_update_racing_with_disposal()
+    {
+        RunSta(() =>
+        {
+            var overlay = new OverlayForm();
+            var update = new OverlayUpdate(123, true, false, []);
+            var worker = Task.Run(() => overlay.UpdateOverlay(update));
+            Assert.True(worker.Wait(TimeSpan.FromSeconds(5)));
+
+            overlay.Dispose();
+            Application.DoEvents();
+
+            Assert.True(overlay.IsDisposed);
+        });
+    }
+
+    [Fact]
+    public void Partial_native_resource_acquisition_is_cleaned_when_bitmap_creation_throws()
+    {
+        var resources = new FakeLayeredResources();
+
+        Assert.Throws<ExternalException>(() =>
+            LayeredWindowResourceGuard.Use(
+                resources,
+                () => throw new ExternalException("GetHbitmap failed"),
+                (_, _) => throw new InvalidOperationException("must not present")));
+
+        Assert.Equal(1, resources.ReleaseScreenCalls);
+        Assert.Equal(1, resources.DeleteMemoryCalls);
+        Assert.Equal(0, resources.DeleteObjectCalls);
+    }
+
     private static OverlayController Controller(
         FakeGeometry geometry,
         out FakeSurface surface,
@@ -294,6 +379,27 @@ public sealed class OverlayFormContractTests
         surface = new FakeSurface();
         dispatcher = suppliedDispatcher ?? new FakeDispatcher();
         return new OverlayController(surface, geometry, dispatcher);
+    }
+
+    private static void RunSta(Action action)
+    {
+        Exception? failure = null;
+        var thread = new Thread(() =>
+        {
+            try
+            {
+                action();
+            }
+            catch (Exception exception)
+            {
+                failure = exception;
+            }
+        });
+        thread.SetApartmentState(ApartmentState.STA);
+        thread.Start();
+        Assert.True(thread.Join(TimeSpan.FromSeconds(10)));
+        if (failure is not null)
+            throw new Xunit.Sdk.XunitException(failure.ToString());
     }
 
     private static OverlayLayer Layer(DiscardKind kind) =>
@@ -329,17 +435,23 @@ public sealed class OverlayFormContractTests
         public int ShowCalls { get; private set; }
         public int HideCalls { get; private set; }
         public int Invalidations { get; private set; }
+        public int Presentations { get; private set; }
 
-        public void SetBounds(ScreenRect bounds)
+        public void ApplyFrame(
+            ScreenRect? bounds,
+            IReadOnlyList<OverlayLayer>? layers)
         {
-            Bounds = bounds;
-            BoundsChanges++;
-        }
-
-        public void SetLayers(IReadOnlyList<OverlayLayer> layers)
-        {
-            Layers = layers.ToArray();
-            LayerChanges++;
+            if (bounds is { } geometry)
+            {
+                Bounds = geometry;
+                BoundsChanges++;
+            }
+            if (layers is not null)
+            {
+                Layers = layers.ToArray();
+                LayerChanges++;
+            }
+            Presentations++;
             Invalidations++;
         }
 
@@ -374,4 +486,32 @@ public sealed class OverlayFormContractTests
                 action();
         }
     }
+
+    private sealed class FakeLayeredResources : ILayeredWindowResources
+    {
+        public int ReleaseScreenCalls { get; private set; }
+        public int DeleteMemoryCalls { get; private set; }
+        public int DeleteObjectCalls { get; private set; }
+
+        public nint AcquireScreen() => 1;
+        public nint CreateMemory(nint screen) => 2;
+        public nint Select(nint memory, nint drawingObject) => 3;
+        public void ReleaseScreen(nint screen) => ReleaseScreenCalls++;
+        public void DeleteMemory(nint memory) => DeleteMemoryCalls++;
+        public void DeleteObject(nint drawingObject) => DeleteObjectCalls++;
+    }
+
+    [DllImport("user32.dll")]
+    private static extern int GetWindowLong(nint windowHandle, int index);
+
+    [DllImport("user32.dll")]
+    private static extern nint SendMessage(
+        nint windowHandle, int message, nint word, nint longValue);
+
+    [DllImport("user32.dll")]
+    private static extern nint GetForegroundWindow();
+
+    [DllImport("user32.dll")]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static extern bool SetForegroundWindow(nint windowHandle);
 }
