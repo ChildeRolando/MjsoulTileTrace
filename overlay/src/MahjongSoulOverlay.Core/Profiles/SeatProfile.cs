@@ -65,7 +65,9 @@ public sealed record SeatProfile
         LayoutDirection riverFlowDirection,
         NormalizedQuad meldRegion,
         LayoutDirection meldExpansionDirection,
-        TileScale expectedTileScale,
+        TileScale mainTileScale,
+        TileScale riverTileScale,
+        TileScale meldTileScale,
         double minimumTileAspect,
         double maximumTileAspect,
         double minimumAngle,
@@ -82,7 +84,9 @@ public sealed record SeatProfile
         ArgumentNullException.ThrowIfNull(drawnSlot);
         ArgumentNullException.ThrowIfNull(riverRegion);
         ArgumentNullException.ThrowIfNull(meldRegion);
-        ArgumentNullException.ThrowIfNull(expectedTileScale);
+        ArgumentNullException.ThrowIfNull(mainTileScale);
+        ArgumentNullException.ThrowIfNull(riverTileScale);
+        ArgumentNullException.ThrowIfNull(meldTileScale);
         ArgumentNullException.ThrowIfNull(mainHandThresholds);
         ArgumentNullException.ThrowIfNull(drawnSlotThresholds);
         ArgumentNullException.ThrowIfNull(riverThresholds);
@@ -123,7 +127,9 @@ public sealed record SeatProfile
         RiverFlowDirection = riverFlowDirection;
         MeldRegion = meldRegion;
         MeldExpansionDirection = meldExpansionDirection;
-        ExpectedTileScale = expectedTileScale;
+        MainTileScale = mainTileScale;
+        RiverTileScale = riverTileScale;
+        MeldTileScale = meldTileScale;
         MinimumTileAspect = minimumTileAspect;
         MaximumTileAspect = maximumTileAspect;
         MinimumAngle = minimumAngle;
@@ -154,7 +160,11 @@ public sealed record SeatProfile
 
     public LayoutDirection MeldExpansionDirection { get; }
 
-    public TileScale ExpectedTileScale { get; }
+    public TileScale MainTileScale { get; }
+
+    public TileScale RiverTileScale { get; }
+
+    public TileScale MeldTileScale { get; }
 
     public double MinimumTileAspect { get; }
 

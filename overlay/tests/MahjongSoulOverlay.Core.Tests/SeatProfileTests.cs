@@ -6,14 +6,16 @@ namespace MahjongSoulOverlay.Core.Tests;
 public sealed class SeatProfileTests
 {
     [Fact]
-    public void Profile_exposes_independent_directions_scale_perspective_and_region_thresholds()
+    public void Profile_exposes_independent_directions_scales_perspective_and_region_thresholds()
     {
         var profile = CreateProfile();
 
         Assert.Equal(LayoutDirection.LeftToRight, profile.MainHandDirection);
         Assert.Equal(LayoutDirection.TopToBottom, profile.RiverFlowDirection);
         Assert.Equal(LayoutDirection.RightToLeft, profile.MeldExpansionDirection);
-        Assert.Equal(new TileScale(0.02, 0.04), profile.ExpectedTileScale);
+        Assert.Equal(new TileScale(0.02, 0.04), profile.MainTileScale);
+        Assert.Equal(new TileScale(0.03, 0.05), profile.RiverTileScale);
+        Assert.Equal(new TileScale(0.04, 0.06), profile.MeldTileScale);
         Assert.Equal(0.15, profile.PerspectiveTolerance);
         Assert.NotEqual(profile.MainHandThresholds, profile.DrawnSlotThresholds);
         Assert.NotEqual(profile.RiverThresholds, profile.MeldThresholds);
@@ -50,7 +52,7 @@ public sealed class SeatProfileTests
     public void Profile_rejects_invalid_scale(double width, double height)
     {
         Assert.Throws<ArgumentOutOfRangeException>(
-            () => CreateProfile(expectedTileScale: new TileScale(width, height)));
+            () => CreateProfile(mainTileScale: new TileScale(width, height)));
     }
 
     [Theory]
@@ -97,28 +99,46 @@ public sealed class SeatProfileTests
     {
         var quad = Quad();
         var thresholds = new RegionThresholds(0.5, 0.6);
-        var scale = new TileScale(0.02, 0.04);
+        var mainScale = new TileScale(0.02, 0.04);
+        var riverScale = new TileScale(0.03, 0.05);
+        var meldScale = new TileScale(0.04, 0.06);
         Func<SeatProfile>[] invalidFactories =
         [
-            () => NewProfile(null!, [quad], quad, quad, quad, scale,
+            () => NewProfile(null!, [quad], quad, quad, quad,
+                mainScale, riverScale, meldScale,
                 thresholds, thresholds, thresholds, thresholds),
-            () => NewProfile(quad, null!, quad, quad, quad, scale,
+            () => NewProfile(quad, null!, quad, quad, quad,
+                mainScale, riverScale, meldScale,
                 thresholds, thresholds, thresholds, thresholds),
-            () => NewProfile(quad, [quad], null!, quad, quad, scale,
+            () => NewProfile(quad, [quad], null!, quad, quad,
+                mainScale, riverScale, meldScale,
                 thresholds, thresholds, thresholds, thresholds),
-            () => NewProfile(quad, [quad], quad, null!, quad, scale,
+            () => NewProfile(quad, [quad], quad, null!, quad,
+                mainScale, riverScale, meldScale,
                 thresholds, thresholds, thresholds, thresholds),
-            () => NewProfile(quad, [quad], quad, quad, null!, scale,
+            () => NewProfile(quad, [quad], quad, quad, null!,
+                mainScale, riverScale, meldScale,
                 thresholds, thresholds, thresholds, thresholds),
-            () => NewProfile(quad, [quad], quad, quad, quad, null!,
+            () => NewProfile(quad, [quad], quad, quad, quad,
+                null!, riverScale, meldScale,
                 thresholds, thresholds, thresholds, thresholds),
-            () => NewProfile(quad, [quad], quad, quad, quad, scale,
+            () => NewProfile(quad, [quad], quad, quad, quad,
+                mainScale, null!, meldScale,
+                thresholds, thresholds, thresholds, thresholds),
+            () => NewProfile(quad, [quad], quad, quad, quad,
+                mainScale, riverScale, null!,
+                thresholds, thresholds, thresholds, thresholds),
+            () => NewProfile(quad, [quad], quad, quad, quad,
+                mainScale, riverScale, meldScale,
                 null!, thresholds, thresholds, thresholds),
-            () => NewProfile(quad, [quad], quad, quad, quad, scale,
+            () => NewProfile(quad, [quad], quad, quad, quad,
+                mainScale, riverScale, meldScale,
                 thresholds, null!, thresholds, thresholds),
-            () => NewProfile(quad, [quad], quad, quad, quad, scale,
+            () => NewProfile(quad, [quad], quad, quad, quad,
+                mainScale, riverScale, meldScale,
                 thresholds, thresholds, null!, thresholds),
-            () => NewProfile(quad, [quad], quad, quad, quad, scale,
+            () => NewProfile(quad, [quad], quad, quad, quad,
+                mainScale, riverScale, meldScale,
                 thresholds, thresholds, thresholds, null!)
         ];
 
@@ -139,7 +159,9 @@ public sealed class SeatProfileTests
 
     private static SeatProfile CreateProfile(
         IReadOnlyList<NormalizedQuad>? slots = null,
-        TileScale? expectedTileScale = null,
+        TileScale? mainTileScale = null,
+        TileScale? riverTileScale = null,
+        TileScale? meldTileScale = null,
         double perspectiveTolerance = 0.15,
         double minimumTileAspect = 0.5,
         double maximumTileAspect = 2.0,
@@ -151,7 +173,9 @@ public sealed class SeatProfileTests
             Quad(),
             Quad(),
             Quad(),
-            expectedTileScale ?? new TileScale(0.02, 0.04),
+            mainTileScale ?? new TileScale(0.02, 0.04),
+            riverTileScale ?? new TileScale(0.03, 0.05),
+            meldTileScale ?? new TileScale(0.04, 0.06),
             new RegionThresholds(0.7, 0.8),
             new RegionThresholds(0.6, 0.8),
             new RegionThresholds(0.5, 0.7),
@@ -168,7 +192,9 @@ public sealed class SeatProfileTests
         NormalizedQuad drawnSlot,
         NormalizedQuad riverRegion,
         NormalizedQuad meldRegion,
-        TileScale expectedTileScale,
+        TileScale mainTileScale,
+        TileScale riverTileScale,
+        TileScale meldTileScale,
         RegionThresholds mainHandThresholds,
         RegionThresholds drawnSlotThresholds,
         RegionThresholds riverThresholds,
@@ -188,7 +214,9 @@ public sealed class SeatProfileTests
             LayoutDirection.TopToBottom,
             meldRegion,
             LayoutDirection.RightToLeft,
-            expectedTileScale,
+            mainTileScale,
+            riverTileScale,
+            meldTileScale,
             minimumTileAspect,
             maximumTileAspect,
             minimumAngle,

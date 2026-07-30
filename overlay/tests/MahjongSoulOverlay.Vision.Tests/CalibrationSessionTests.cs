@@ -22,21 +22,23 @@ public sealed class CalibrationSessionTests
     }
 
     [Fact]
-    public void Every_seat_uses_main_region_thirteen_slots_drawn_river_meld_order()
+    public void Every_seat_uses_regions_and_independent_scale_samples_in_fixed_order()
     {
         var session = new CalibrationSession(1920, 1080);
 
         foreach (var seat in new[] { Seat.Bottom, Seat.Right, Seat.Top, Seat.Left })
         {
             var targets = session.Targets.Where(target => target.Seat == seat).ToArray();
-            Assert.Equal(17, targets.Length);
+            Assert.Equal(19, targets.Length);
             Assert.Equal(CalibrationRegionKind.MainHandRegion, targets[0].RegionKind);
             Assert.Equal(
                 Enumerable.Range(0, 13),
                 targets.Skip(1).Take(13).Select(target => target.MainSlotIndex!.Value));
             Assert.Equal(CalibrationRegionKind.DrawnSlot, targets[14].RegionKind);
             Assert.Equal(CalibrationRegionKind.RiverRegion, targets[15].RegionKind);
-            Assert.Equal(CalibrationRegionKind.MeldRegion, targets[16].RegionKind);
+            Assert.Equal(CalibrationRegionKind.RiverTileSample, targets[16].RegionKind);
+            Assert.Equal(CalibrationRegionKind.MeldRegion, targets[17].RegionKind);
+            Assert.Equal(CalibrationRegionKind.MeldTileSample, targets[18].RegionKind);
         }
     }
 
@@ -152,16 +154,33 @@ public sealed class CalibrationSessionTests
             Assert.Equal(4, secondReload.Seats.Count);
             Assert.All(secondReload.Seats.Values, seat => Assert.Equal(13, seat.MainSlots.Count));
             Assert.Equal(
-                session.CompletedQuads.Select(item => item.Quad),
+                session.CompletedQuads
+                    .Where(item => !IsScaleSample(item.Target))
+                    .Select(item => item.Quad),
                 CalibrationProfileGeometry.Enumerate(secondReload).Select(item => item.Quad));
             Assert.Equal(
-                session.CompletedQuads.Select(item => item.Target),
+                session.CompletedQuads
+                    .Where(item => !IsScaleSample(item.Target))
+                    .Select(item => item.Target),
                 CalibrationProfileGeometry.Enumerate(secondReload).Select(item => item.Target));
         }
         finally
         {
             File.Delete(path);
         }
+    }
+
+    [Fact]
+    public void Built_profile_uses_independent_main_river_and_meld_tile_scales()
+    {
+        var session = new CalibrationSession(1920, 1080);
+        CompleteAll(session);
+
+        var seat = session.BuildProfile("scales").Seats[Seat.Bottom];
+
+        Assert.Equal(new TileScale(10d / 1920d, 10d / 1080d), seat.MainTileScale);
+        Assert.Equal(new TileScale(20d / 1920d, 30d / 1080d), seat.RiverTileScale);
+        Assert.Equal(new TileScale(30d / 1920d, 40d / 1080d), seat.MeldTileScale);
     }
 
     [Fact]
@@ -205,7 +224,18 @@ public sealed class CalibrationSessionTests
         {
             var seatOffset = (int)session.CurrentTarget!.Seat * 350;
             var regionOffset = sequence++ * 2;
-            AddQuad(session, 50 + seatOffset + regionOffset, 50 + regionOffset);
+            var (width, height) = session.CurrentTarget.RegionKind switch
+            {
+                CalibrationRegionKind.RiverTileSample => (20d, 30d),
+                CalibrationRegionKind.MeldTileSample => (30d, 40d),
+                _ => (10d, 10d)
+            };
+            AddQuad(
+                session,
+                50 + seatOffset + regionOffset,
+                50 + regionOffset,
+                width,
+                height);
         }
     }
 
@@ -216,11 +246,20 @@ public sealed class CalibrationSessionTests
             AddQuad(session, 50 + ((int)seat * 350) + sequence++, 50 + sequence);
     }
 
-    private static void AddQuad(CalibrationSession session, double left, double top)
+    private static bool IsScaleSample(CalibrationTarget target) =>
+        target.RegionKind is CalibrationRegionKind.RiverTileSample or
+            CalibrationRegionKind.MeldTileSample;
+
+    private static void AddQuad(
+        CalibrationSession session,
+        double left,
+        double top,
+        double width = 10,
+        double height = 10)
     {
         session.AddPoint(left, top);
-        session.AddPoint(left + 10, top);
-        session.AddPoint(left + 10, top + 10);
-        session.AddPoint(left, top + 10);
+        session.AddPoint(left + width, top);
+        session.AddPoint(left + width, top + height);
+        session.AddPoint(left, top + height);
     }
 }

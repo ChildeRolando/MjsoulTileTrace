@@ -11,7 +11,9 @@ public enum CalibrationRegionKind
     MainSlot,
     DrawnSlot,
     RiverRegion,
-    MeldRegion
+    RiverTileSample,
+    MeldRegion,
+    MeldTileSample
 }
 
 public enum CalibrationCorner
@@ -216,7 +218,9 @@ public sealed class CalibrationSession
                         seat, CalibrationRegionKind.MainSlot, index)))
                 .Append(new CalibrationTarget(seat, CalibrationRegionKind.DrawnSlot))
                 .Append(new CalibrationTarget(seat, CalibrationRegionKind.RiverRegion))
-                .Append(new CalibrationTarget(seat, CalibrationRegionKind.MeldRegion)))
+                .Append(new CalibrationTarget(seat, CalibrationRegionKind.RiverTileSample))
+                .Append(new CalibrationTarget(seat, CalibrationRegionKind.MeldRegion))
+                .Append(new CalibrationTarget(seat, CalibrationRegionKind.MeldTileSample)))
     ];
 
     private static SeatProfile BuildSeatProfile(
@@ -241,39 +245,29 @@ public sealed class CalibrationSession
         };
         var drawnSlot = completed[new CalibrationTarget(
             seat, CalibrationRegionKind.DrawnSlot)];
-        var tileWidth = new[]
-        {
-            drawnSlot.TopLeft.X, drawnSlot.TopRight.X,
-            drawnSlot.BottomRight.X, drawnSlot.BottomLeft.X
-        }.Max() - new[]
-        {
-            drawnSlot.TopLeft.X, drawnSlot.TopRight.X,
-            drawnSlot.BottomRight.X, drawnSlot.BottomLeft.X
-        }.Min();
-        var tileHeight = new[]
-        {
-            drawnSlot.TopLeft.Y, drawnSlot.TopRight.Y,
-            drawnSlot.BottomRight.Y, drawnSlot.BottomLeft.Y
-        }.Max() - new[]
-        {
-            drawnSlot.TopLeft.Y, drawnSlot.TopRight.Y,
-            drawnSlot.BottomRight.Y, drawnSlot.BottomLeft.Y
-        }.Min();
+        var mainSlots = Enumerable.Range(0, MainSlotCount)
+            .Select(index => completed[new CalibrationTarget(
+                seat, CalibrationRegionKind.MainSlot, index)])
+            .ToArray();
+        var mainTileScale = MedianScale(mainSlots);
+        var riverTileScale = Scale(completed[new CalibrationTarget(
+            seat, CalibrationRegionKind.RiverTileSample)]);
+        var meldTileScale = Scale(completed[new CalibrationTarget(
+            seat, CalibrationRegionKind.MeldTileSample)]);
 
         return new SeatProfile(
             seat,
             completed[new CalibrationTarget(seat, CalibrationRegionKind.MainHandRegion)],
-            Enumerable.Range(0, MainSlotCount)
-                .Select(index => completed[new CalibrationTarget(
-                    seat, CalibrationRegionKind.MainSlot, index)])
-                .ToArray(),
+            mainSlots,
             direction,
             drawnSlot,
             completed[new CalibrationTarget(seat, CalibrationRegionKind.RiverRegion)],
             direction,
             completed[new CalibrationTarget(seat, CalibrationRegionKind.MeldRegion)],
             meldDirection,
-            new TileScale(tileWidth, tileHeight),
+            mainTileScale,
+            riverTileScale,
+            meldTileScale,
             0.25d,
             4d,
             -180d,
@@ -284,6 +278,36 @@ public sealed class CalibrationSession
             new RegionThresholds(0.15d, 0.25d),
             new RegionThresholds(0.15d, 0.25d),
             0.4d);
+    }
+
+    private static TileScale MedianScale(IReadOnlyList<NormalizedQuad> quads)
+    {
+        var scales = quads.Select(Scale).ToArray();
+        return new TileScale(
+            Median(scales.Select(scale => scale.Width)),
+            Median(scales.Select(scale => scale.Height)));
+    }
+
+    private static double Median(IEnumerable<double> source)
+    {
+        var values = source.Order().ToArray();
+        var middle = values.Length / 2;
+        return values.Length % 2 == 0
+            ? (values[middle - 1] + values[middle]) / 2d
+            : values[middle];
+    }
+
+    private static TileScale Scale(NormalizedQuad quad)
+    {
+        var x = new[]
+        {
+            quad.TopLeft.X, quad.TopRight.X, quad.BottomRight.X, quad.BottomLeft.X
+        };
+        var y = new[]
+        {
+            quad.TopLeft.Y, quad.TopRight.Y, quad.BottomRight.Y, quad.BottomLeft.Y
+        };
+        return new TileScale(x.Max() - x.Min(), y.Max() - y.Min());
     }
 }
 

@@ -136,9 +136,9 @@ public sealed class ProfileLoaderTests
             LayoutDirection.TopToBottom, LayoutDirection.BottomToTop, yAscending: true);
 
         Assert.Equal(new TileScale(70d / 1920d, 62d / 1080d),
-            profile.Seats[Seat.Right].ExpectedTileScale);
+            profile.Seats[Seat.Right].MainTileScale);
         Assert.Equal(new TileScale(52d / 1920d, 66d / 1080d),
-            profile.Seats[Seat.Top].ExpectedTileScale);
+            profile.Seats[Seat.Top].MainTileScale);
     }
 
     [Fact]
@@ -289,7 +289,9 @@ public sealed class ProfileLoaderTests
     [InlineData("drawnSlot")]
     [InlineData("riverRegion")]
     [InlineData("meldRegion")]
-    [InlineData("expectedTileScale")]
+    [InlineData("mainTileScale")]
+    [InlineData("riverTileScale")]
+    [InlineData("meldTileScale")]
     [InlineData("mainHandThresholds")]
     [InlineData("drawnSlotThresholds")]
     [InlineData("riverThresholds")]
@@ -315,8 +317,9 @@ public sealed class ProfileLoaderTests
     }
 
     [Theory]
-    [InlineData("expectedTileScale", "width", "0")]
-    [InlineData("expectedTileScale", "height", "1.1")]
+    [InlineData("mainTileScale", "width", "0")]
+    [InlineData("riverTileScale", "height", "1.1")]
+    [InlineData("meldTileScale", "width", "-0.1")]
     [InlineData("", "minimumTileAspect", "0")]
     [InlineData("", "maximumTileAspect", "0.1")]
     [InlineData("", "minimumAngle", "100")]
@@ -537,6 +540,8 @@ public sealed class ProfileLoaderTests
             slot,
             direction,
             new TileScale(0.04, 0.08),
+            new TileScale(0.03, 0.05),
+            new TileScale(0.02, 0.04),
             0.4,
             2.5,
             -90,
@@ -563,7 +568,9 @@ public sealed class ProfileLoaderTests
         Assert.Equal(expected.RiverFlowDirection, actual.RiverFlowDirection);
         Assert.Equal(expected.MeldRegion, actual.MeldRegion);
         Assert.Equal(expected.MeldExpansionDirection, actual.MeldExpansionDirection);
-        Assert.Equal(expected.ExpectedTileScale, actual.ExpectedTileScale);
+        Assert.Equal(expected.MainTileScale, actual.MainTileScale);
+        Assert.Equal(expected.RiverTileScale, actual.RiverTileScale);
+        Assert.Equal(expected.MeldTileScale, actual.MeldTileScale);
         Assert.Equal(expected.MinimumTileAspect, actual.MinimumTileAspect);
         Assert.Equal(expected.MaximumTileAspect, actual.MaximumTileAspect);
         Assert.Equal(expected.MinimumAngle, actual.MinimumAngle);

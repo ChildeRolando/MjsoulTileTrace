@@ -409,7 +409,9 @@ public sealed record SeatProfile
         LayoutDirection riverFlowDirection,
         NormalizedQuad meldRegion,
         LayoutDirection meldExpansionDirection,
-        TileScale expectedTileScale,
+        TileScale mainTileScale,
+        TileScale riverTileScale,
+        TileScale meldTileScale,
         double minimumTileAspect,
         double maximumTileAspect,
         double minimumAngle,
@@ -430,7 +432,9 @@ public sealed record SeatProfile
     public LayoutDirection RiverFlowDirection { get; }
     public NormalizedQuad MeldRegion { get; }
     public LayoutDirection MeldExpansionDirection { get; }
-    public TileScale ExpectedTileScale { get; }
+    public TileScale MainTileScale { get; }
+    public TileScale RiverTileScale { get; }
+    public TileScale MeldTileScale { get; }
     public double MinimumTileAspect { get; }
     public double MaximumTileAspect { get; }
     public double MinimumAngle { get; }
@@ -1107,7 +1111,7 @@ git commit -m "feat: load seat profiles and score occupancy"
 
 - [ ] **Step 1: Implement the calibration workflow**
 
-The form opens one 1920×1080 PNG and guides the operator through this fixed order for each seat: main-hand region, each main slot, drawn slot, river region, and meld region. Four clicks define each quadrilateral. Seat order is Bottom, Right, Top, Left.
+The form opens one 1920×1080 PNG and guides the operator through this fixed order for each seat: main-hand region, each main slot, drawn slot, river region, one representative river tile, meld region, and one representative meld tile. Four clicks define each quadrilateral. Seat order is Bottom, Right, Top, Left. `MainTileScale` is the median bounding-box scale of the thirteen main slots; the two representative tile samples independently produce `RiverTileScale` and `MeldTileScale`.
 
 The form must:
 
@@ -1120,7 +1124,7 @@ The form must:
 
 - [ ] **Step 2: Add a profile round-trip test**
 
-Load the saved JSON, serialize it, reload it, and assert every normalized point, threshold, seat, and slot count is unchanged.
+Load the saved JSON, serialize it, reload it, and assert every normalized point, all three tile scales, threshold, seat, and slot count is unchanged.
 
 - [ ] **Step 3: Acquire one clean calibration frame**
 
