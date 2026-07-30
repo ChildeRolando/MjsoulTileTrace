@@ -40,5 +40,6 @@ export * from "./validate/package-validator.js";
 export * from "./candidate/user-action-draft.js";
 export * from "./candidate/candidate-normalizer.js";
 export * from "./candidate/comparison-set-builder.js";
+export * from "./candidate/legacy-action-bridge.js";
 export * from "./import/action-adapter-port.js";
 export * from "./import/mjai-action.js";
