@@ -61,5 +61,30 @@ describe("strict reasoning contracts", () => {
     const keys = Object.keys(SceneSnapshotSchema.shape);
     expect(keys).not.toContain("opponentHands");
     expect(keys).not.toContain("allHands");
+
+    const sceneWithHiddenInformation = {
+      decisionEventId: "event-1",
+      selfActor: 3,
+      bakaze: "E",
+      kyoku: 1,
+      honba: 0,
+      kyotaku: 0,
+      oya: 0,
+      scores: [25000, 25000, 25000, 25000],
+      doraMarkers: [{ id: "2s", red: false }],
+      selfHand: [],
+      currentDraw: null,
+      rivers: [[], [], [], []],
+      threats: [0, 1, 2, 3].map((actor) => ({
+        actor,
+        riichi: false,
+        declarationEventId: null,
+        ippatsuAlive: false,
+      })),
+      eventIds: ["event-1"],
+      complete: true,
+      opponentHands: [[], [], []],
+    };
+    expect(SceneSnapshotSchema.safeParse(sceneWithHiddenInformation).success).toBe(false);
   });
 });

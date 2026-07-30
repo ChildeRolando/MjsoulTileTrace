@@ -32,5 +32,5 @@ export const SceneSnapshotSchema = z.object({
   threats: z.array(ThreatStateSchema).length(4),
   eventIds: z.array(z.string()),
   complete: z.boolean(),
-});
+}).strict();
 export type SceneSnapshot = z.infer<typeof SceneSnapshotSchema>;
