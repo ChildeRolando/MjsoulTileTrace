@@ -30,6 +30,13 @@ describe("scene replayer", () => {
     );
     expect(scene.scores).toEqual([25000, 25000, 24000, 25000]);
     expect(scene.kyotaku).toBe(1);
+    expect(scene.complete).toBe(false);
+    expect(scene.missingData).toEqual(expect.arrayContaining([
+      "meld_state",
+      "furiten_state",
+      "legal_actions",
+      "remaining_tiles",
+    ]));
   });
 
   it("keeps riichi but cancels ippatsu after the intervening pon at turn 7", async () => {

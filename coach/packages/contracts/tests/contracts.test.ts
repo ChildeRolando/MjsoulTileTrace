@@ -83,6 +83,7 @@ describe("strict reasoning contracts", () => {
       })),
       eventIds: ["event-1"],
       complete: true,
+      missingData: [],
       opponentHands: [[], [], []],
     };
     expect(SceneSnapshotSchema.safeParse(sceneWithHiddenInformation).success).toBe(false);

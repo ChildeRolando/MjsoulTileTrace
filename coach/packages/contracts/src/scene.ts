@@ -16,6 +16,15 @@ export const ThreatStateSchema = z.object({
   ippatsuAlive: z.boolean(),
 });
 
+export const MissingSceneDataSchema = z.enum([
+  "meld_state",
+  "furiten_state",
+  "legal_actions",
+  "remaining_tiles",
+  "called_discard_markers",
+  "kan_dora_state",
+]);
+
 export const SceneSnapshotSchema = z.object({
   decisionEventId: z.string(),
   selfActor: z.number().int().min(0).max(3),
@@ -32,5 +41,6 @@ export const SceneSnapshotSchema = z.object({
   threats: z.array(ThreatStateSchema).length(4),
   eventIds: z.array(z.string()),
   complete: z.boolean(),
+  missingData: z.array(MissingSceneDataSchema),
 }).strict();
 export type SceneSnapshot = z.infer<typeof SceneSnapshotSchema>;

@@ -8,7 +8,7 @@ import {
 
 type MutableRound = Omit<
   SceneSnapshot,
-  "decisionEventId" | "eventIds" | "complete"
+  "decisionEventId" | "eventIds" | "complete" | "missingData"
 >;
 
 function removeOne(hand: Tile[], tile: Tile): void {
@@ -128,7 +128,15 @@ export function replayToDecision(
         ...round,
         decisionEventId: event.eventId,
         eventIds,
-        complete: true,
+        complete: false,
+        missingData: [
+          "meld_state",
+          "furiten_state",
+          "legal_actions",
+          "remaining_tiles",
+          "called_discard_markers",
+          "kan_dora_state",
+        ],
       });
     }
   }
