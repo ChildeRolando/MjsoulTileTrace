@@ -118,6 +118,43 @@ public sealed class OpenCvSeatDetectorTests
     }
 
     [Fact]
+    public void Shortened_hand_keeps_a_spatially_separated_draw_beside_an_existing_pon()
+    {
+        var original = CreateProfile();
+        var broadMeld = Q(145, 245, 260, 295);
+        var profile = ReplaceSeats(original, seat => seat.Seat == Seat.Bottom
+            ? CopySeat(seat, meldRegion: broadMeld)
+            : seat);
+        using var image = EmptyFrame(profile);
+        foreach (var seat in Enum.GetValues<Seat>())
+            DrawMain(image, profile.Seats[seat], seat == Seat.Bottom ? 2 : 1);
+        Fill(image, profile.Seats[Seat.Bottom].DrawnSlot);
+        for (var index = 0; index < 3; index++)
+        {
+            Cv2.Rectangle(
+                image,
+                new Rect(195 + index * 21, 255, 18, 28),
+                Scalar.White,
+                -1);
+            Cv2.Rectangle(
+                image,
+                new Rect(195 + index * 21, 255, 18, 28),
+                Scalar.Black,
+                1);
+        }
+        using var frame = new PixelFrame(image);
+        using var detector = new OpenCvSeatDetector(profile, 1);
+
+        var bottom = detector.Detect(frame, DateTimeOffset.UnixEpoch)
+            .Seats[Seat.Bottom];
+
+        Assert.Equal(2, bottom.MainHandCount);
+        Assert.True(bottom.DrawnSlotOccupied);
+        Assert.Equal(1, bottom.MeldGroups);
+        Assert.Equal(3, bottom.MeldTiles);
+    }
+
+    [Fact]
     public void Four_contiguous_meld_tiles_are_one_kan_group()
     {
         var profile = CreateProfile();
@@ -132,6 +169,34 @@ public sealed class OpenCvSeatDetectorTests
 
         Assert.Equal(4, left.MeldTiles);
         Assert.Equal(1, left.MeldGroups);
+    }
+
+    [Theory]
+    [InlineData(7, 3, 2, 7)]
+    [InlineData(8, 4, 2, 8)]
+    public void Meld_groups_sum_each_pon_or_kan_exactly(
+        int columns, int groupBreakAfter, int expectedGroups, int expectedTiles)
+    {
+        var original = CreateProfile();
+        var profile = ReplaceSeats(original, seat => seat.Seat == Seat.Bottom
+            ? CopySeat(seat, meldRegion: Q(185, 245, 390, 295))
+            : seat);
+        using var image = EmptyFrame(profile);
+        foreach (var seat in Enum.GetValues<Seat>())
+            DrawMain(image, profile.Seats[seat], 1);
+        DrawTiles(
+            image,
+            profile.Seats[Seat.Bottom].MeldRegion,
+            columns,
+            groupBreakAfter);
+        using var frame = new PixelFrame(image);
+        using var detector = new OpenCvSeatDetector(profile, 1);
+
+        var bottom = detector.Detect(frame, DateTimeOffset.UnixEpoch)
+            .Seats[Seat.Bottom];
+
+        Assert.Equal(expectedGroups, bottom.MeldGroups);
+        Assert.Equal(expectedTiles, bottom.MeldTiles);
     }
 
     [Fact]

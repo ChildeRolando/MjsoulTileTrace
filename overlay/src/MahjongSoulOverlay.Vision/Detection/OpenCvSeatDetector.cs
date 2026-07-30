@@ -71,13 +71,14 @@ public sealed class OpenCvSeatDetector : IDisposable
                 profile.RiverThresholds,
                 profile.RiverTileScale,
                 isRiver: true);
-            var excludedMeldAreas = profile.MainSlots
+            var occupiedMainAreas = profile.MainSlots
                 .Zip(mainSlots)
                 .Where(pair => pair.Second)
                 .Select(pair => pair.First)
-                .Concat(rawDrawn && mainSlots.All(value => value)
-                    ? [profile.DrawnSlot]
-                    : [])
+                .ToArray();
+            var fullMainHand = mainSlots.All(value => value);
+            var excludedMeldAreas = occupiedMainAreas
+                .Concat(rawDrawn && fullMainHand ? [profile.DrawnSlot] : [])
                 .ToArray();
             var meld = DetectTiles(
                 mat,
@@ -90,19 +91,33 @@ public sealed class OpenCvSeatDetector : IDisposable
                 isRiver: false);
             var meldTopology = AnalyzeMeldTopology(
                 mat, profile, excludedMeldAreas, tableColor);
+            var drawn = IsSpatiallySeparatedDraw(
+                rawDrawn, fullMainHand, meld, profile);
+            if (drawn &&
+                !fullMainHand &&
+                BoundingBoxesOverlap(profile.DrawnSlot, profile.MeldRegion))
+            {
+                excludedMeldAreas = occupiedMainAreas
+                    .Append(profile.DrawnSlot)
+                    .ToArray();
+                meld = DetectTiles(
+                    mat,
+                    profile,
+                    profile.MeldRegion,
+                    excludedMeldAreas,
+                    tableColor,
+                    profile.MeldThresholds,
+                    profile.MeldTileScale,
+                    isRiver: false);
+                meldTopology = AnalyzeMeldTopology(
+                    mat, profile, excludedMeldAreas, tableColor);
+            }
             var contourGroups = CountGroups(meld, profile, profile.MeldTileScale);
             var meldGroups = meld.Count == 0
                 ? 0
                 : Math.Max(meldTopology.Groups, contourGroups);
-            var meldTiles = meldGroups == 0
-                ? 0
-                : meld.Count == meldGroups * 4
-                    ? meldGroups * 4
-                    : meldGroups * 3;
-            var drawn = rawDrawn &&
-                (mainSlots.All(value => value) ||
-                 meldTiles == 0 ||
-                 !BoundingBoxesOverlap(profile.DrawnSlot, profile.MeldRegion));
+            var meldTiles = InferMeldTileCount(
+                meld, profile, meldGroups, meldTopology.Tiles);
             var signature = Signature(mainSlots, drawn, meldGroups, meldTiles, river);
             var stable = UpdateStability(seat, signature);
             var confidence = ObservationConfidence(
@@ -718,6 +733,116 @@ public sealed class OpenCvSeatDetector : IDisposable
         }
         return groups;
     }
+
+    private static bool IsSpatiallySeparatedDraw(
+        bool rawDrawn,
+        bool fullMainHand,
+        IReadOnlyList<TileCandidate> meld,
+        SeatProfile profile)
+    {
+        if (!rawDrawn)
+            return false;
+        if (fullMainHand ||
+            !BoundingBoxesOverlap(profile.DrawnSlot, profile.MeldRegion))
+        {
+            return true;
+        }
+
+        var drawnCenter = Center(profile.DrawnSlot);
+        var overlapping = meld
+            .Where(candidate => PointInside(candidate.Center, profile.DrawnSlot))
+            .OrderBy(candidate => Distance(candidate.Center, drawnCenter))
+            .FirstOrDefault();
+        if (overlapping is null)
+            return false;
+
+        var nearestOther = meld
+            .Where(candidate => !ReferenceEquals(candidate, overlapping))
+            .Select(candidate => Distance(candidate.Center, overlapping.Center))
+            .DefaultIfEmpty(double.PositiveInfinity)
+            .Min();
+        var expectedAdvance =
+            profile.MeldExpansionDirection is LayoutDirection.LeftToRight or
+                LayoutDirection.RightToLeft
+                ? profile.MeldTileScale.Width
+                : profile.MeldTileScale.Height;
+        return nearestOther > expectedAdvance * 1.75d;
+    }
+
+    private static int InferMeldTileCount(
+        IReadOnlyList<TileCandidate> candidates,
+        SeatProfile profile,
+        int expectedGroups,
+        int projectedTiles)
+    {
+        if (expectedGroups == 0)
+            return 0;
+
+        var groups = SegmentMeldCandidates(candidates, profile);
+        if (groups.Count == expectedGroups &&
+            groups.All(group => group.Count is 3 or 4))
+        {
+            return groups.Sum(group => group.Count);
+        }
+
+        if (projectedTiles >= expectedGroups * 3 &&
+            projectedTiles <= expectedGroups * 4)
+        {
+            return projectedTiles;
+        }
+
+        return expectedGroups * 3;
+    }
+
+    private static IReadOnlyList<IReadOnlyList<TileCandidate>> SegmentMeldCandidates(
+        IReadOnlyList<TileCandidate> candidates, SeatProfile profile)
+    {
+        if (candidates.Count == 0)
+            return [];
+
+        var horizontal =
+            profile.MeldExpansionDirection is LayoutDirection.LeftToRight or
+                LayoutDirection.RightToLeft;
+        var expectedSpan = horizontal
+            ? profile.MeldTileScale.Width
+            : profile.MeldTileScale.Height;
+        var ordered = candidates
+            .OrderBy(candidate => horizontal ? candidate.Center.X : candidate.Center.Y)
+            .ToArray();
+        var groups = new List<IReadOnlyList<TileCandidate>>();
+        var current = new List<TileCandidate> { ordered[0] };
+        for (var index = 1; index < ordered.Length; index++)
+        {
+            var previous = horizontal
+                ? ordered[index - 1].Center.X
+                : ordered[index - 1].Center.Y;
+            var value = horizontal
+                ? ordered[index].Center.X
+                : ordered[index].Center.Y;
+            if (value - previous > expectedSpan * 1.65d)
+            {
+                groups.Add(current);
+                current = [];
+            }
+            current.Add(ordered[index]);
+        }
+        groups.Add(current);
+        return groups;
+    }
+
+    private static bool PointInside(NormalizedPoint point, NormalizedQuad quad)
+    {
+        var points = Points(quad).ToArray();
+        return point.X >= points.Min(value => value.X) &&
+               point.X <= points.Max(value => value.X) &&
+               point.Y >= points.Min(value => value.Y) &&
+               point.Y <= points.Max(value => value.Y);
+    }
+
+    private static double Distance(NormalizedPoint first, NormalizedPoint second) =>
+        Math.Sqrt(
+            Math.Pow(first.X - second.X, 2) +
+            Math.Pow(first.Y - second.Y, 2));
 
     private bool HasLargeCentralForeground(Mat frame)
     {
