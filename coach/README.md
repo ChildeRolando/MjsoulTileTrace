@@ -21,6 +21,14 @@ Implemented:
 - replayable Mortal probability and Akagi Native softmax selection scores with a
   frozen per-evaluation detail threshold;
 - a fixed agreement truth table for model and coach preference sets;
+- strict structured contracts for discard, riichi discard, chi, pon, three
+  kans, tsumo, ron, nine-terminals abort, and pass;
+- canonical action references, four decision windows, and explicit projection
+  to the legacy comparison view;
+- shared user/MJAI/typed-engine candidate normalization with ambiguity,
+  known-fact conflict, and missing-fact states;
+- same-action origin merging, cross-window rejection, and an isolated
+  discard-only legacy bridge;
 
 Both current regression scenes remain incomplete. Full value, placement outcome
 paths, option-value analysis, calibrated deal-in probability, structural river
@@ -36,10 +44,17 @@ approved plans. The coach does not claim to enumerate every legal action.
 Outside this milestone:
 
 - production Mortal and Akagi Native report integration;
-- structured chi, pon, kan, win, abortive-draw, and pass action normalization;
+- production Akagi Native private-format parsing;
+- complete legal-action enumeration and call-follow-up branch search;
 - complete meld, furiten, remaining-tile, and called-discard state;
 - full value, placement, option-value, river, wait, and calibrated-risk analyzers;
 - persistence, LLM dialogue orchestration, and the three-column UI.
+
+The structured path checks only contradictions supported by `KnownActionFacts`.
+Missing facts remain `unknown_due_to_missing_facts`; they are not described as
+illegal. “Whether to call” and “what to discard after calling” are separate
+decision windows. The old discard-only strict analysis remains the active
+regression pipeline until the later factor-pipeline migration.
 
 The LLM consumes the validated package. It is not allowed to create factors,
 change model facts, infer an engine motive, or provide a recommendation when the
