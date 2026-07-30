@@ -1,4 +1,5 @@
 using MahjongSoulOverlay.Core.Domain;
+using MahjongSoulOverlay.Core.Profiles;
 using MahjongSoulOverlay.Vision.Calibration;
 using MahjongSoulOverlay.Vision.Profiles;
 
@@ -161,6 +162,24 @@ public sealed class CalibrationSessionTests
         {
             File.Delete(path);
         }
+    }
+
+    [Fact]
+    public void Built_profile_uses_seat_specific_opposing_meld_expansion_directions()
+    {
+        var session = new CalibrationSession(1920, 1080);
+        CompleteAll(session);
+
+        var profile = session.BuildProfile("directions");
+
+        Assert.Equal(LayoutDirection.RightToLeft,
+            profile.Seats[Seat.Bottom].MeldExpansionDirection);
+        Assert.Equal(LayoutDirection.TopToBottom,
+            profile.Seats[Seat.Right].MeldExpansionDirection);
+        Assert.Equal(LayoutDirection.LeftToRight,
+            profile.Seats[Seat.Top].MeldExpansionDirection);
+        Assert.Equal(LayoutDirection.BottomToTop,
+            profile.Seats[Seat.Left].MeldExpansionDirection);
     }
 
     [Fact]

@@ -231,6 +231,14 @@ public sealed class CalibrationSession
             Seat.Left => LayoutDirection.TopToBottom,
             _ => throw new ArgumentOutOfRangeException(nameof(seat))
         };
+        var meldDirection = seat switch
+        {
+            Seat.Bottom => LayoutDirection.RightToLeft,
+            Seat.Right => LayoutDirection.TopToBottom,
+            Seat.Top => LayoutDirection.LeftToRight,
+            Seat.Left => LayoutDirection.BottomToTop,
+            _ => throw new ArgumentOutOfRangeException(nameof(seat))
+        };
         var drawnSlot = completed[new CalibrationTarget(
             seat, CalibrationRegionKind.DrawnSlot)];
         var tileWidth = new[]
@@ -264,7 +272,7 @@ public sealed class CalibrationSession
             completed[new CalibrationTarget(seat, CalibrationRegionKind.RiverRegion)],
             direction,
             completed[new CalibrationTarget(seat, CalibrationRegionKind.MeldRegion)],
-            direction,
+            meldDirection,
             new TileScale(tileWidth, tileHeight),
             0.25d,
             4d,
