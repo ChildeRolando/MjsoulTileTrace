@@ -193,6 +193,20 @@ public sealed class TransactionAggregatorTests
     }
 
     [Fact]
+    public void Observation_transaction_rejects_a_null_delta_element_explicitly()
+    {
+        var delta = Delta(Seat.Bottom, drawn: 1, timestampMilliseconds: 10);
+
+        var exception = Assert.Throws<ArgumentException>(() =>
+            new ObservationTransaction(
+                [delta, null!],
+                isConflicted: false,
+                DateTimeOffset.UnixEpoch.AddMilliseconds(20)));
+
+        Assert.Equal("deltas", exception.ParamName);
+    }
+
+    [Fact]
     public void Long_totals_do_not_overflow_when_int_deltas_accumulate()
     {
         var aggregator = Aggregator(stableFramesRequired: 2);

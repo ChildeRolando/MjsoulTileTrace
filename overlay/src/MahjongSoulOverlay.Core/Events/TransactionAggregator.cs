@@ -14,6 +14,10 @@ public sealed class ObservationTransaction
             throw new ArgumentException("A transaction must contain at least one delta.", nameof(deltas));
 
         var copiedDeltas = deltas.ToArray();
+        if (copiedDeltas.Any(item => item is null))
+            throw new ArgumentException(
+                "Transaction deltas cannot contain null elements.",
+                nameof(deltas));
         if (copiedDeltas.Zip(copiedDeltas.Skip(1))
             .Any(pair => pair.Second.Timestamp < pair.First.Timestamp))
         {

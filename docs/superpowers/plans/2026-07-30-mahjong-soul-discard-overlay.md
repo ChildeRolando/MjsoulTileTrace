@@ -615,65 +615,98 @@ Expected: all transaction stream and contract tests PASS before commit.
 - Test: `overlay/tests/MahjongSoulOverlay.Core.Tests/EventClassifierTests.cs`
 - Create: `overlay/fixtures/traces/*.json`
 
-- [ ] **Step 1: Add fixture-driven failing cases**
+- [ ] **Step 1: Define the local-candidate boundary**
 
-Create `EventClassifierTests.cs`:
+`EventClassifier` does not emit a final `TableEvent`. It returns an immutable local
+candidate based only on one actor's transaction:
 
 ```csharp
-using MahjongSoulOverlay.Core.Domain;
-using MahjongSoulOverlay.Core.Events;
-
-namespace MahjongSoulOverlay.Core.Tests;
-
-public sealed class EventClassifierTests
+public enum ConfirmationRequirement
 {
-    public static TheoryData<ObservationTransaction, TableEventKind> Cases => new()
-    {
-        { Tx(0, -1, 0, 0, 1, false), TableEventKind.Tsumogiri },
-        { Tx(0, -1, 0, 0, 1, true), TableEventKind.Tedashi },
-        { Tx(-2, 0, 1, 3, 0, false), TableEventKind.ChiOrPon },
-        { Tx(-3, 0, 1, 4, 0, false), TableEventKind.Daiminkan },
-        { Tx(-4, 0, 1, 4, 0, false), TableEventKind.Ankan },
-        { Tx(-1, 0, 0, 1, 0, false), TableEventKind.Kakan }
-    };
+    None,
+    SourceRiverRemoval
+}
 
-    [Theory]
-    [MemberData(nameof(Cases))]
-    public void Classifies_stable_net_changes(ObservationTransaction transaction, TableEventKind expected)
-    {
-        Assert.Equal(expected, new EventClassifier().Classify(transaction).Kind);
-    }
+public sealed record LocalEventCandidate(
+    TableEventKind Kind,
+    Seat Actor,
+    double Confidence,
+    ConfirmationRequirement ConfirmationRequirement);
 
-    [Fact]
-    public void Conflict_is_unknown()
-    {
-        var eventResult = new EventClassifier().Classify(
-            Tx(0, 0, 0, 0, 1, false, isConflicted: true));
-        Assert.Equal(TableEventKind.Unknown, eventResult.Kind);
-    }
+public sealed class EventClassifier
+{
+    public EventClassifier(double minimumConfidence = 0.75);
 
-    [Fact]
-    public void Draw_after_kan_is_rinshan_draw()
-    {
-        var transaction = Tx(0, 1, 0, 0, 0, false);
-        var eventResult = new EventClassifier().Classify(transaction, TableEventKind.Ankan);
-        Assert.Equal(TableEventKind.RinshanDraw, eventResult.Kind);
-    }
-
-    private static ObservationTransaction Tx(
-        int hand, int drawn, int meldGroups, int meldTiles, int river, bool removed,
-        bool isConflicted = false)
-    {
-        var delta = new ObservationDelta(
-            Seat.Bottom, hand, drawn, meldGroups, meldTiles, river, removed, true, 1d,
-            DateTimeOffset.UnixEpoch);
-        return new ObservationTransaction(
-            [delta], isConflicted, DateTimeOffset.UnixEpoch.AddMilliseconds(100));
-    }
+    public LocalEventCandidate Classify(
+        ObservationTransaction transaction,
+        TableEvent? previousConfirmedEvent = null);
 }
 ```
 
-- [ ] **Step 2: Verify the tests fail**
+Validate `minimumConfidence` within `[0, 1]`. Keep the production rule set
+immutable. An internal constructor may accept an immutable rule list for the
+single ambiguity-resolution contract test; it is not part of application
+composition.
+
+`previousConfirmedEvent` must come from the engine's formal event history. A draw
+can become `RinshanDraw` only when that event is a confirmed `Daiminkan`, `Ankan`,
+or `Kakan` by the same actor. A prior local candidate is never sufficient context.
+
+- [ ] **Step 2: Add ordered, fixture-driven failing cases**
+
+Write RED tests for:
+
+- Valid single-delta and valid multi-delta draw, tsumogiri, tedashi, chi/pon,
+  daiminkan, ankan, and kakan streams.
+- Stable zero-change confirmation deltas interleaved between evidence steps;
+  these are ignored for evidence ordering.
+- Reversed evidence and non-permitted intermediate structural deltas.
+- Exact totals with one incomplete required total or any unrelated nonzero total.
+- Conflicted transactions and transactions below configurable minimum confidence.
+- A synthetic ambiguous transaction evaluated against two matching test rules:
+  collecting more than one match must return `Unknown`; classification must
+  never depend on rule order.
+- `ChiOrPon` and `Daiminkan` use
+  `ConfirmationRequirement.SourceRiverRemoval`; all other kinds, including
+  `Ankan` and `Kakan`, use `None`.
+- Rinshan classification with a same-actor confirmed kan, and rejection when
+  the prior event is unconfirmed, non-kan, or belongs to another actor.
+
+Every recognized rule requires exact totals. Fields not named by a rule must be
+zero and `MainSlotRemoved` must have the exact required value:
+
+| Candidate | Main | Drawn | Meld groups | Meld tiles | River | Removed | Confirmation |
+|---|---:|---:|---:|---:|---:|---|---|
+| Draw | 0 | +1 | 0 | 0 | 0 | false | None |
+| Tsumogiri | 0 | −1 | 0 | 0 | +1 | false | None |
+| Tedashi | 0 | −1 | 0 | 0 | +1 | true | None |
+| ChiOrPon | −2 | 0 | +1 | +3 | 0 | false | SourceRiverRemoval |
+| Daiminkan | −3 | 0 | +1 | +4 | 0 | false | SourceRiverRemoval |
+| Ankan | −4 | 0 | +1 | +4 | 0 | false | None |
+| Kakan | −1 | 0 | 0 | +1 | 0 | false | None |
+
+After removing stable zero-change deltas, permitted ordered evidence is:
+
+- Draw: one `DrawnSlotDelta +1` step.
+- Tsumogiri: drawn-slot removal before river addition, or both in one delta.
+- Tedashi: a removed main slot first; any `MainHandDelta -1` must be balanced by
+  a later `MainHandDelta +1` that also clears the drawn slot; river addition is
+  last. The compact form may combine the removal, drawn-slot clear, and river
+  addition in one delta.
+- Chi/pon and every kan: concealed-hand contraction precedes meld growth, or
+  both occur in one delta. Splitting meld-group and meld-tile growth is allowed
+  only in that order. No actor-river change is permitted.
+
+Within nonzero evidence, a field may change only in a step explicitly permitted
+above. Opposite deltas that merely cancel to an exact aggregate still invalidate
+the candidate. An unstable zero-change delta is also not a confirmation and
+invalidates the ordered evidence.
+
+The test helper builds `ObservationTransaction` from an ordered
+`IReadOnlyList<ObservationDelta>`; it must not bypass ordering by constructing
+only aggregate totals.
+
+- [ ] **Step 3: Verify the tests fail**
 
 ```powershell
 .\.tools\dotnet\dotnet.exe test overlay/tests/MahjongSoulOverlay.Core.Tests --filter EventClassifierTests
@@ -681,51 +714,18 @@ public sealed class EventClassifierTests
 
 Expected: FAIL because `EventClassifier` does not exist.
 
-- [ ] **Step 3: Implement explicit, ordered rules**
+- [ ] **Step 4: Implement exact, ordered, ambiguity-safe rules**
 
-Create `EventClassifier.cs`:
+Reject conflicted or low-confidence transactions before evaluating rules. Each
+rule checks both exact aggregate totals and the filtered ordered delta sequence.
+Evaluate every rule and collect matches; return a zero-confidence `Unknown`
+candidate with requirement `None` when the match count is not exactly one.
+Otherwise return the sole candidate with `transaction.Confidence`.
 
-```csharp
-using MahjongSoulOverlay.Core.Domain;
+Rule evaluation remains pure. It does not inspect another seat, mutate event
+history, remove river tiles, or convert a candidate into `TableEvent`.
 
-namespace MahjongSoulOverlay.Core.Events;
-
-public sealed class EventClassifier
-{
-    public TableEvent Classify(
-        ObservationTransaction transaction,
-        TableEventKind? previousEventKind = null)
-    {
-        var kind = transaction switch
-        {
-            { IsConflicted: true } => TableEventKind.Unknown,
-            { MainHandDelta: 0, DrawnSlotDelta: 1, RiverDelta: 0 }
-                when previousEventKind is TableEventKind.Daiminkan
-                    or TableEventKind.Ankan or TableEventKind.Kakan
-                => TableEventKind.RinshanDraw,
-            { MainHandDelta: 0, DrawnSlotDelta: 1, RiverDelta: 0 } => TableEventKind.Draw,
-            { ConcealedDelta: -1, RiverDelta: 1, MainSlotRemoved: false }
-                => TableEventKind.Tsumogiri,
-            { ConcealedDelta: -1, RiverDelta: 1, MainSlotRemoved: true }
-                => TableEventKind.Tedashi,
-            { ConcealedDelta: -2, MeldGroupDelta: 1, MeldTileDelta: 3 }
-                => TableEventKind.ChiOrPon,
-            { ConcealedDelta: -3, MeldGroupDelta: 1, MeldTileDelta: 4 }
-                => TableEventKind.Daiminkan,
-            { ConcealedDelta: -4, MeldGroupDelta: 1, MeldTileDelta: 4 }
-                => TableEventKind.Ankan,
-            { ConcealedDelta: -1, MeldGroupDelta: 0, MeldTileDelta: 1 }
-                => TableEventKind.Kakan,
-            _ => TableEventKind.Unknown
-        };
-
-        return new TableEvent(kind, transaction.Seat, null, transaction.CompletedAt,
-            kind == TableEventKind.Unknown ? 0d : transaction.Confidence);
-    }
-}
-```
-
-- [ ] **Step 4: Add complete observation-trace fixtures**
+- [ ] **Step 5: Add complete observation-trace fixtures**
 
 Each file under `overlay/fixtures/traces/` is a JSON array of `SeatObservation` values. Use ISO-8601 timestamps and all four seats. `tsumogiri.json` must contain: stable 13-tile baseline, drawn slot occupied, drawn slot cleared, and one new bottom river quad. `tedashi.json` must contain: stable baseline, drawn slot occupied, one main slot cleared, compacted main hand, drawn slot cleared, and one new river quad. Call and kan files must encode the exact net changes listed in the classifier test.
 
@@ -739,12 +739,12 @@ Get-ChildItem overlay/fixtures/traces/*.json | ForEach-Object {
 
 Expected: no parse errors.
 
-- [ ] **Step 5: Run and commit**
+- [ ] **Step 6: Run and commit**
 
 ```powershell
 .\.tools\dotnet\dotnet.exe test overlay/tests/MahjongSoulOverlay.Core.Tests --filter EventClassifierTests
 git add overlay/src/MahjongSoulOverlay.Core/Events overlay/tests/MahjongSoulOverlay.Core.Tests overlay/fixtures/traces
-git commit -m "feat: classify Mahjong table events"
+git commit -m "feat: classify local Mahjong event candidates"
 ```
 
 ### Task 5: Track physical river tiles without reflow errors
@@ -893,8 +893,14 @@ Feed a four-seat baseline, a bottom draw, a bottom tsumogiri, a right draw, a ri
 1. No layers before `HandActive`.
 2. One gray bottom layer after tsumogiri.
 3. One gold right layer after tedashi.
-4. Bottom layer removed after confirmed call while right layer retains its ID.
-5. All layers cleared on result screen.
+4. A right `ChiOrPon` local candidate does not enter formal history before a
+   bottom river removal is observed.
+5. The uniquely correlated bottom removal confirms the right call, emits the
+   formal event with `SourceSeat.Bottom`, and removes the bottom layer while the
+   right layer retains its ID.
+6. A same-seat removal, no removal, multiple possible removals, or an expired
+   association window produces no formal call event and no new overlay.
+7. All layers and pending candidates are cleared on result screen.
 
 Use an output contract:
 
@@ -904,6 +910,7 @@ public sealed record EngineOutput(
     LifecycleState Lifecycle,
     IReadOnlyList<OverlayLayer> Layers,
     IReadOnlyList<TableEvent> Events,
+    IReadOnlyList<LocalEventCandidate> PendingCandidates,
     bool ShouldHideOverlay);
 ```
 
@@ -924,12 +931,27 @@ Expected: FAIL because `OverlayEngine` does not exist.
 3. Return no layers unless state is `HandActive`.
 4. Diff each seat against its previous stable observation.
 5. Aggregate deltas independently per seat.
-6. Classify completed transactions.
-7. Associate only `Tsumogiri` or `Tedashi` with the same seat's unmatched new river detection.
-8. Use call/kan events plus another seat's disappeared river tile to confirm a called discard.
-9. Return immutable snapshots of events and overlay layers.
+6. Classify completed transactions into `LocalEventCandidate` values.
+7. Immediately formalize candidates whose confirmation requirement is `None`;
+   associate only formal `Tsumogiri` or `Tedashi` events with the same seat's
+   unmatched new river detection.
+8. Keep each `SourceRiverRemoval` candidate pending only for the configured
+   association window. Confirm it only when exactly one unmatched removed river
+   tile from another seat occurs in that window.
+9. On confirmation, emit the call/daiminkan `TableEvent` with the removed tile's
+   seat as `SourceSeat`, emit the called-discard river update, and only then add
+   the event to formal history. A pending candidate never enters history.
+10. Expire unconfirmed or ambiguous candidates as diagnostic `Unknown` results:
+    do not create a formal event, do not alter kan context, and do not add an
+    overlay.
+11. Return immutable snapshots of formal events, pending candidates, and layers.
 
-Retain each seat's last non-unknown event so a draw after any kan is classified as `RinshanDraw`. Clear that context when a discard, hand reset, or lifecycle reset completes. Inject lifecycle, classifier, four aggregators, and four river trackers through the constructor so tests use short debounce thresholds.
+Rinshan context comes only from the latest formal, confirmed kan event for the
+same actor. `Ankan` and `Kakan` become formal immediately; `Daiminkan` becomes
+context only after cross-seat source-river confirmation. Clear context on that
+actor's discard, hand reset, or lifecycle reset. Inject lifecycle, classifier,
+the association-window duration, four aggregators, and four river trackers
+through the constructor so tests can use deterministic short thresholds.
 
 - [ ] **Step 4: Run the complete deterministic suite**
 
