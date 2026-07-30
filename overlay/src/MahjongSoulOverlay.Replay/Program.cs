@@ -7,11 +7,16 @@ public static class ReplayCli
     public static int Run(string[] args)
     {
         ArgumentNullException.ThrowIfNull(args);
+        if (TryParseComparison(args, out var comparison))
+            return new AcceptanceComparer().Run(comparison);
+
         if (!TryParse(args, out var options))
         {
             Console.Error.WriteLine(
                 "Usage: MahjongSoulOverlay.Replay --input <video> --profile <json> " +
-                "--events <jsonl> [--annotated <video>]");
+                "--events <jsonl> [--annotated <video>]\n" +
+                "   or: MahjongSoulOverlay.Replay --compare-events <jsonl> " +
+                "--labels <json> --report <json>");
             return 2;
         }
 
@@ -45,6 +50,36 @@ public static class ReplayCli
 
         values.TryGetValue("--annotated", out var annotated);
         options = new ReplayOptions(input, profile, events, annotated);
+        return true;
+    }
+
+    private static bool TryParseComparison(
+        string[] args,
+        out AcceptanceComparisonOptions options)
+    {
+        options = new AcceptanceComparisonOptions(string.Empty, string.Empty, string.Empty);
+        if (args.Length != 6)
+            return false;
+
+        var values = new Dictionary<string, string>(StringComparer.Ordinal);
+        for (var index = 0; index < args.Length; index += 2)
+        {
+            if (args[index] is not ("--compare-events" or "--labels" or "--report") ||
+                string.IsNullOrWhiteSpace(args[index + 1]) ||
+                !values.TryAdd(args[index], args[index + 1]))
+            {
+                return false;
+            }
+        }
+
+        if (!values.TryGetValue("--compare-events", out var audit) ||
+            !values.TryGetValue("--labels", out var labels) ||
+            !values.TryGetValue("--report", out var report))
+        {
+            return false;
+        }
+
+        options = new AcceptanceComparisonOptions(audit, labels, report);
         return true;
     }
 }

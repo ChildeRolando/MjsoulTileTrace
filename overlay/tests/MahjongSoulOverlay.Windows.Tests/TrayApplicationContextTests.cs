@@ -308,7 +308,8 @@ public sealed class TrayApplicationContextTests
                 Overlay,
                 Diagnostics,
                 Tray,
-                Ui);
+                Ui,
+                minFrameInterval: TimeSpan.Zero);
         }
 
         public FakeTargetMonitor Target { get; } = new();

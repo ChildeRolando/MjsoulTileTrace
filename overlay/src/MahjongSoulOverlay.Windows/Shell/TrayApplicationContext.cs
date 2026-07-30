@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Threading.Channels;
 using MahjongSoulOverlay.Core.Domain;
 using MahjongSoulOverlay.Core.Lifecycle;
@@ -110,6 +111,7 @@ public sealed class TrayApplicationContext : ApplicationContext, IAsyncDisposabl
     private readonly CancellationTokenSource _shutdown = new();
     private readonly SemaphoreSlim _stateGate = new(1, 1);
     private readonly SemaphoreSlim _pipelineGate = new(1, 1);
+    private readonly TimeSpan _minFrameInterval;
     private Task? _worker;
     private Task? _exitTask;
     private nint _targetHandle;
@@ -118,6 +120,7 @@ public sealed class TrayApplicationContext : ApplicationContext, IAsyncDisposabl
     private volatile bool _exiting;
     private volatile bool _saveNextKeyFrame;
     private long _generation;
+    private long _lastAcceptedQpc;
 
     internal TrayApplicationContext(
         IWindowTargetMonitor targetMonitor,
@@ -127,8 +130,10 @@ public sealed class TrayApplicationContext : ApplicationContext, IAsyncDisposabl
         IOverlayView overlay,
         IDiagnosticSession diagnostics,
         ITrayView tray,
-        IUiDispatcher ui)
+        IUiDispatcher ui,
+        TimeSpan? minFrameInterval = null)
     {
+        _minFrameInterval = minFrameInterval ?? TimeSpan.FromMilliseconds(200);
         _targetMonitor = targetMonitor ?? throw new ArgumentNullException(nameof(targetMonitor));
         _capture = capture ?? throw new ArgumentNullException(nameof(capture));
         _detector = detector ?? throw new ArgumentNullException(nameof(detector));
@@ -185,6 +190,11 @@ public sealed class TrayApplicationContext : ApplicationContext, IAsyncDisposabl
         if (_paused || _exiting || _targetHandle == nint.Zero)
             return;
 
+        var nowQpc = Stopwatch.GetTimestamp();
+        var minTicks = (long)(_minFrameInterval.TotalSeconds * Stopwatch.Frequency);
+        if (nowQpc - Interlocked.Read(ref _lastAcceptedQpc) < minTicks)
+            return;
+
         lock (_frameWriteSync)
         {
             var queued = new QueuedFrame(
@@ -192,10 +202,14 @@ public sealed class TrayApplicationContext : ApplicationContext, IAsyncDisposabl
                 Interlocked.Read(ref _generation),
                 _targetHandle);
             if (_frames.Writer.TryWrite(queued))
+            {
+                _lastAcceptedQpc = nowQpc;
                 return;
+            }
 
             _frames.Reader.TryRead(out _);
             _frames.Writer.TryWrite(queued);
+            _lastAcceptedQpc = nowQpc;
         }
     }
 

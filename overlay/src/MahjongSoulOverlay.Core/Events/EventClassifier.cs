@@ -52,7 +52,7 @@ public sealed class EventClassifier
     private readonly double _minimumConfidence;
     private readonly ImmutableArray<EventClassificationRule> _rules;
 
-    public EventClassifier(double minimumConfidence = 0.75)
+    public EventClassifier(double minimumConfidence = 0.40)
         : this(minimumConfidence, ProductionRules)
     {
     }

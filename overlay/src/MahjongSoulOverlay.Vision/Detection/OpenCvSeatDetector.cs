@@ -10,16 +10,31 @@ public sealed class OpenCvSeatDetector : IDisposable
 {
     private readonly TableProfile _profile;
     private readonly int _stableFramesRequired;
+    private readonly double _secondaryOccupancyScale;
     private readonly Dictionary<Seat, StabilityState> _stability = [];
     private int _resultFrames;
     private bool _disposed;
 
     public OpenCvSeatDetector(TableProfile profile, int stableFramesRequired = 3)
+        : this(profile, stableFramesRequired, 0.67)
+    {
+    }
+
+    internal OpenCvSeatDetector(
+        TableProfile profile,
+        int stableFramesRequired,
+        double secondaryOccupancyScale)
     {
         ArgumentNullException.ThrowIfNull(profile);
         if (stableFramesRequired <= 0)
             throw new ArgumentOutOfRangeException(
                 nameof(stableFramesRequired), "Stable frame count must be positive.");
+        if (!double.IsFinite(secondaryOccupancyScale) ||
+            secondaryOccupancyScale is <= 0d or > 1d)
+            throw new ArgumentOutOfRangeException(
+                nameof(secondaryOccupancyScale),
+                secondaryOccupancyScale,
+                "Secondary occupancy scale must be within (0, 1].");
 
         var expectedSeats = Enum.GetValues<Seat>();
         if (profile.Seats.Count != expectedSeats.Length ||
@@ -31,6 +46,7 @@ public sealed class OpenCvSeatDetector : IDisposable
 
         _profile = profile;
         _stableFramesRequired = stableFramesRequired;
+        _secondaryOccupancyScale = secondaryOccupancyScale;
     }
 
     public TableObservation Detect(PixelFrame frame, DateTimeOffset timestamp)
@@ -60,15 +76,17 @@ public sealed class OpenCvSeatDetector : IDisposable
                 .Select(score => score >= profile.MainHandThresholds.Occupancy)
                 .ToArray();
             var drawnScore = SlotScore(mat, profile.DrawnSlot, tableColor);
-            var rawDrawn = drawnScore >= profile.DrawnSlotThresholds.Occupancy;
+            var drawnThreshold = ScaleThresholds(profile.DrawnSlotThresholds);
+            var rawDrawn = drawnScore >= drawnThreshold.Occupancy;
 
+            var riverThresholds = ScaleThresholds(profile.RiverThresholds);
             var river = DetectTiles(
                 mat,
                 profile,
                 profile.RiverRegion,
                 [],
                 tableColor,
-                profile.RiverThresholds,
+                riverThresholds,
                 profile.RiverTileScale,
                 isRiver: true);
             var occupiedMainAreas = profile.MainSlots
@@ -80,17 +98,18 @@ public sealed class OpenCvSeatDetector : IDisposable
             var excludedMeldAreas = occupiedMainAreas
                 .Concat(rawDrawn && fullMainHand ? [profile.DrawnSlot] : [])
                 .ToArray();
+            var meldThresholds = ScaleThresholds(profile.MeldThresholds);
             var meld = DetectTiles(
                 mat,
                 profile,
                 profile.MeldRegion,
                 excludedMeldAreas,
                 tableColor,
-                profile.MeldThresholds,
+                meldThresholds,
                 profile.MeldTileScale,
                 isRiver: false);
             var meldTopology = AnalyzeMeldTopology(
-                mat, profile, excludedMeldAreas, tableColor);
+                mat, profile, excludedMeldAreas, tableColor, meldThresholds);
             var drawn = IsSpatiallySeparatedDraw(
                 rawDrawn, fullMainHand, meld, profile);
             if (drawn &&
@@ -106,11 +125,11 @@ public sealed class OpenCvSeatDetector : IDisposable
                     profile.MeldRegion,
                     excludedMeldAreas,
                     tableColor,
-                    profile.MeldThresholds,
+                    meldThresholds,
                     profile.MeldTileScale,
                     isRiver: false);
                 meldTopology = AnalyzeMeldTopology(
-                    mat, profile, excludedMeldAreas, tableColor);
+                    mat, profile, excludedMeldAreas, tableColor, meldThresholds);
             }
             var contourGroups = CountGroups(meld, profile, profile.MeldTileScale);
             var meldGroups = meld.Count == 0
@@ -512,10 +531,12 @@ public sealed class OpenCvSeatDetector : IDisposable
         Mat frame,
         SeatProfile profile,
         IReadOnlyList<NormalizedQuad> excluded,
-        Scalar tableColor)
+        Scalar tableColor,
+        RegionThresholds? meldThresholds = null)
     {
+        var thresholds = meldThresholds ?? profile.MeldThresholds;
         using var foreground =
-            CreateForegroundMask(frame, tableColor, profile.MeldThresholds);
+            CreateForegroundMask(frame, tableColor, thresholds);
         using var regionMask = Mat.Zeros(frame.Size(), MatType.CV_8UC1).ToMat();
         Cv2.FillConvexPoly(
             regionMask,
@@ -939,6 +960,10 @@ public sealed class OpenCvSeatDetector : IDisposable
             angle += 360d;
         return angle;
     }
+
+    private RegionThresholds ScaleThresholds(RegionThresholds source) =>
+        new(source.Occupancy * _secondaryOccupancyScale,
+            source.Stable * _secondaryOccupancyScale);
 
     private sealed record StabilityState(string Signature, int Count);
 
