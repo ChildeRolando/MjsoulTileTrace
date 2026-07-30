@@ -6,3 +6,4 @@ export * from "./decisions.js";
 export * from "./comparison.js";
 export * from "./analysis-frame.js";
 export * from "./preference.js";
+export * from "./model-evaluation.js";
