@@ -163,15 +163,31 @@ public sealed class EventClassifierTests
         var actorObservations = LoadFixture(fixtureName)
             .Where(item => item.Seat == actor)
             .ToArray();
-        var discard = Transaction(
-            ObservationDiffer.Diff(actorObservations[2], actorObservations[3]),
-            ObservationDiffer.Diff(actorObservations[3], actorObservations[5]),
-            ObservationDiffer.Diff(actorObservations[5], actorObservations[6]));
+        var discard = Transaction(actorObservations
+            .Skip(2)
+            .Zip(actorObservations.Skip(3), ObservationDiffer.Diff)
+            .ToArray());
 
         var candidate = new EventClassifier().Classify(discard);
 
         Assert.Equal(TableEventKind.Tedashi, candidate.Kind);
         Assert.Equal(ConfirmationRequirement.None, candidate.ConfirmationRequirement);
+    }
+
+    [Fact]
+    public void Tedashi_fixture_classifies_from_every_consecutive_observation()
+    {
+        var observations = LoadFixture("tedashi.json")
+            .Where(item => item.Seat == Seat.Bottom)
+            .ToArray();
+        var transaction = Transaction(observations
+            .Skip(1)
+            .Zip(observations.Skip(2), ObservationDiffer.Diff)
+            .ToArray());
+
+        var candidate = new EventClassifier().Classify(transaction);
+
+        Assert.Equal(TableEventKind.Tedashi, candidate.Kind);
     }
 
     [Theory]
