@@ -6,6 +6,20 @@ namespace MahjongSoulOverlay.Core.Tests;
 public sealed class ObservationDifferTests
 {
     [Fact]
+    public void Trailing_hand_contraction_is_not_an_interior_slot_removal()
+    {
+        var before = SeatObservation.Stable(
+            Seat.Bottom, 13, false, 0, 0, []);
+        var after = SeatObservation.Stable(
+            Seat.Bottom, 11, false, 1, 3, []);
+
+        var delta = ObservationDiffer.Diff(before, after);
+
+        Assert.Equal(-2, delta.MainHandDelta);
+        Assert.False(delta.MainSlotRemoved);
+    }
+
+    [Fact]
     public void Diff_reports_every_structural_change()
     {
         var timestamp = DateTimeOffset.FromUnixTimeSeconds(42);
@@ -37,12 +51,12 @@ public sealed class ObservationDifferTests
     }
 
     [Fact]
-    public void Diff_detects_a_removed_tail_slot()
+    public void Diff_treats_a_shortened_occupied_tail_as_contraction()
     {
         var before = Observation(Seat.Top, [true, true, true]);
         var after = Observation(Seat.Top, [true, true]);
 
-        Assert.True(ObservationDiffer.Diff(before, after).MainSlotRemoved);
+        Assert.False(ObservationDiffer.Diff(before, after).MainSlotRemoved);
     }
 
     [Fact]

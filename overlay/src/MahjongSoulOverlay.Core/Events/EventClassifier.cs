@@ -165,6 +165,26 @@ public sealed class EventClassifier
                 HasOnly(contraction, hand: -1, removed: true) &&
                 HasOnly(rebalance, hand: 1, drawn: -1) &&
                 HasOnly(river, river: 1),
+            [
+                { MainHandDelta: -1, MainSlotRemoved: true } contraction,
+                { MainHandDelta: 1, DrawnSlotDelta: -1, RiverDelta: 1 } final
+            ] =>
+                HasOnly(contraction, hand: -1, removed: true) &&
+                HasOnly(final, hand: 1, drawn: -1, river: 1),
+            [
+                { MainSlotRemoved: true } removal,
+                { DrawnSlotDelta: -1 } clear,
+                { RiverDelta: 1 } river
+            ] =>
+                HasOnly(removal, removed: true) &&
+                HasOnly(clear, drawn: -1) &&
+                HasOnly(river, river: 1),
+            [
+                { MainSlotRemoved: true } removal,
+                { DrawnSlotDelta: -1, RiverDelta: 1 } final
+            ] =>
+                HasOnly(removal, removed: true) &&
+                HasOnly(final, drawn: -1, river: 1),
             _ => false,
         };
     }
@@ -197,7 +217,11 @@ public sealed class EventClassifier
                 meldTiles: meldTiles);
         }
 
-        if (!HasOnly(evidence[0], hand: hand))
+        var contractionOnly = HasOnly(evidence[0], hand: hand);
+        var contractionWithGroup =
+            meldGroups == 1 &&
+            HasOnly(evidence[0], hand: hand, meldGroups: 1);
+        if (!contractionOnly && !contractionWithGroup)
             return false;
 
         return meldGroups switch
@@ -207,8 +231,12 @@ public sealed class EventClassifier
                 HasOnly(evidence[1], meldTiles: meldTiles),
             1 =>
                 evidence.Count == 2 &&
-                    HasOnly(evidence[1], meldGroups: 1, meldTiles: meldTiles) ||
+                    (contractionOnly &&
+                        HasOnly(evidence[1], meldGroups: 1, meldTiles: meldTiles) ||
+                    contractionWithGroup &&
+                    HasOnly(evidence[1], meldTiles: meldTiles)) ||
                 evidence.Count == 3 &&
+                    contractionOnly &&
                     HasOnly(evidence[1], meldGroups: 1) &&
                     HasOnly(evidence[2], meldTiles: meldTiles),
             _ => false,

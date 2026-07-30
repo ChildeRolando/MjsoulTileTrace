@@ -68,9 +68,9 @@ public static class ObservationDiffer
         if (before.Seat != after.Seat)
             throw new ArgumentException("Observations must belong to the same seat.");
 
-        var removed = Enumerable.Range(0, before.MainSlots.Count)
+        var removed = Enumerable.Range(0, Math.Min(before.MainSlots.Count, after.MainSlots.Count))
             .Any(index => before.MainSlots[index] &&
-                (index >= after.MainSlots.Count || !after.MainSlots[index]));
+                !after.MainSlots[index]);
 
         return new ObservationDelta(
             after.Seat,

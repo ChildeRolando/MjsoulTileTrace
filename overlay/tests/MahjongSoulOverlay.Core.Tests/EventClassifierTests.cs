@@ -1,5 +1,6 @@
 using MahjongSoulOverlay.Core.Domain;
 using MahjongSoulOverlay.Core.Events;
+using System.Text.Json;
 
 namespace MahjongSoulOverlay.Core.Tests;
 
@@ -85,6 +86,106 @@ public sealed class EventClassifierTests
         ObservationDelta[] deltas)
     {
         var candidate = new EventClassifier().Classify(Transaction(deltas));
+
+        Assert.Equal(expected, candidate.Kind);
+    }
+
+    [Fact]
+    public void Tedashi_allows_the_rebalance_and_final_river_addition_in_one_step()
+    {
+        var candidate = new EventClassifier().Classify(Transaction(
+            Delta(hand: -1, removed: true),
+            Delta(hand: 1, drawn: -1, river: 1, milliseconds: 1)));
+
+        Assert.Equal(TableEventKind.Tedashi, candidate.Kind);
+    }
+
+    [Fact]
+    public void Tedashi_allows_removed_only_then_drawn_clear_then_river()
+    {
+        var candidate = new EventClassifier().Classify(Transaction(
+            Delta(removed: true),
+            Delta(drawn: -1, milliseconds: 1),
+            Delta(river: 1, milliseconds: 2)));
+
+        Assert.Equal(TableEventKind.Tedashi, candidate.Kind);
+    }
+
+    [Fact]
+    public void Tedashi_allows_removed_only_then_combined_drawn_clear_and_river()
+    {
+        var candidate = new EventClassifier().Classify(Transaction(
+            Delta(removed: true),
+            Delta(drawn: -1, river: 1, milliseconds: 1)));
+
+        Assert.Equal(TableEventKind.Tedashi, candidate.Kind);
+    }
+
+    [Theory]
+    [InlineData("chi-then-discard.json", Seat.Right, TableEventKind.ChiOrPon)]
+    [InlineData("pon-then-discard.json", Seat.Top, TableEventKind.ChiOrPon)]
+    [InlineData("daiminkan.json", Seat.Left, TableEventKind.Daiminkan)]
+    [InlineData("ankan.json", Seat.Bottom, TableEventKind.Ankan)]
+    [InlineData("kakan.json", Seat.Bottom, TableEventKind.Kakan)]
+    public void Meld_fixtures_diff_into_recognized_local_candidates(
+        string fixtureName,
+        Seat actor,
+        TableEventKind expected)
+    {
+        var observations = LoadFixture(fixtureName);
+        Assert.Equal([Seat.Bottom, Seat.Right, Seat.Top, Seat.Left],
+            observations.Select(item => item.Seat).Distinct().Order().ToArray());
+        Assert.True(observations.Zip(observations.Skip(1))
+            .All(pair => pair.Second.Timestamp >= pair.First.Timestamp));
+        var actorObservations = observations.Where(item => item.Seat == actor).ToArray();
+        var delta = ObservationDiffer.Diff(actorObservations[0], actorObservations[1]);
+
+        var candidate = new EventClassifier().Classify(Transaction(delta));
+
+        Assert.False(delta.MainSlotRemoved);
+        Assert.Equal(expected, candidate.Kind);
+        Assert.Equal(actorObservations[1].Timestamp, candidate.StartedAt);
+        Assert.Equal(actorObservations[1].Timestamp, candidate.ObservedAt);
+        Assert.Equal(
+            expected is TableEventKind.ChiOrPon or TableEventKind.Daiminkan
+                ? ConfirmationRequirement.SourceRiverRemoval
+                : ConfirmationRequirement.None,
+            candidate.ConfirmationRequirement);
+    }
+
+    [Theory]
+    [InlineData("chi-then-discard.json", Seat.Right)]
+    [InlineData("pon-then-discard.json", Seat.Top)]
+    public void Call_fixtures_include_an_independently_classified_post_call_discard(
+        string fixtureName,
+        Seat actor)
+    {
+        var actorObservations = LoadFixture(fixtureName)
+            .Where(item => item.Seat == actor)
+            .ToArray();
+        var discard = Transaction(
+            ObservationDiffer.Diff(actorObservations[2], actorObservations[3]),
+            ObservationDiffer.Diff(actorObservations[3], actorObservations[5]),
+            ObservationDiffer.Diff(actorObservations[5], actorObservations[6]));
+
+        var candidate = new EventClassifier().Classify(discard);
+
+        Assert.Equal(TableEventKind.Tedashi, candidate.Kind);
+        Assert.Equal(ConfirmationRequirement.None, candidate.ConfirmationRequirement);
+    }
+
+    [Theory]
+    [InlineData(TableEventKind.ChiOrPon, -2, 3)]
+    [InlineData(TableEventKind.Daiminkan, -3, 4)]
+    [InlineData(TableEventKind.Ankan, -4, 4)]
+    public void Meld_rules_allow_contraction_and_group_growth_before_separate_tile_growth(
+        TableEventKind expected,
+        int hand,
+        int meldTiles)
+    {
+        var candidate = new EventClassifier().Classify(Transaction(
+            Delta(hand: hand, meldGroups: 1),
+            Delta(meldTiles: meldTiles, milliseconds: 1)));
 
         Assert.Equal(expected, candidate.Kind);
     }
@@ -405,6 +506,21 @@ public sealed class EventClassifierTests
 
     private static ObservationDelta StableZero(int milliseconds) =>
         Delta(stable: true, milliseconds: milliseconds);
+
+    private static SeatObservation[] LoadFixture(string name)
+    {
+        var directory = new DirectoryInfo(AppContext.BaseDirectory);
+        while (directory is not null &&
+            !Directory.Exists(Path.Combine(directory.FullName, "fixtures", "traces")))
+        {
+            directory = directory.Parent;
+        }
+
+        Assert.NotNull(directory);
+        var json = File.ReadAllText(Path.Combine(directory!.FullName, "fixtures", "traces", name));
+        return JsonSerializer.Deserialize<SeatObservation[]>(json)
+            ?? throw new InvalidOperationException($"Fixture {name} was empty.");
+    }
 
     private static ObservationDelta Delta(
         int hand = 0,
