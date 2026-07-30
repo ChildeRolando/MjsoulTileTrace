@@ -9,3 +9,5 @@ export * from "./preference.js";
 export * from "./model-evaluation.js";
 export * from "./analysis-request.js";
 export * from "./actions.js";
+export * from "./action-codec.js";
+export * from "./structured-comparison.js";
