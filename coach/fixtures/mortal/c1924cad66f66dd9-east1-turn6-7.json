@@ -1,0 +1,774 @@
+{
+  "source": {
+    "reportId": "c1924cad66f66dd9",
+    "modelTag": "4.1b",
+    "playerId": 3
+  },
+  "mjaiLog": [
+    {
+      "type": "start_game",
+      "names": [
+        "Aさん",
+        "Bさん",
+        "Cさん",
+        "Dさん"
+      ],
+      "kyoku_first": 0,
+      "aka_flag": true
+    },
+    {
+      "type": "start_kyoku",
+      "bakaze": "E",
+      "dora_marker": "2s",
+      "kyoku": 1,
+      "honba": 0,
+      "kyotaku": 0,
+      "oya": 0,
+      "scores": [
+        25000,
+        25000,
+        25000,
+        25000
+      ],
+      "tehais": [
+        [
+          "4p",
+          "3s",
+          "1p",
+          "E",
+          "F",
+          "4p",
+          "5sr",
+          "9m",
+          "6p",
+          "2s",
+          "9m",
+          "9p",
+          "2m"
+        ],
+        [
+          "2s",
+          "2m",
+          "S",
+          "C",
+          "5s",
+          "4s",
+          "6p",
+          "S",
+          "1m",
+          "3s",
+          "2s",
+          "1s",
+          "7m"
+        ],
+        [
+          "C",
+          "6m",
+          "6m",
+          "4m",
+          "5p",
+          "6s",
+          "3p",
+          "5m",
+          "W",
+          "5m",
+          "7m",
+          "8m",
+          "F"
+        ],
+        [
+          "3m",
+          "9p",
+          "5s",
+          "2p",
+          "6m",
+          "9s",
+          "8m",
+          "W",
+          "6p",
+          "N",
+          "7s",
+          "7p",
+          "P"
+        ]
+      ]
+    },
+    {
+      "type": "tsumo",
+      "actor": 0,
+      "pai": "1p"
+    },
+    {
+      "type": "dahai",
+      "actor": 0,
+      "pai": "9p",
+      "tsumogiri": false
+    },
+    {
+      "type": "tsumo",
+      "actor": 1,
+      "pai": "9m"
+    },
+    {
+      "type": "dahai",
+      "actor": 1,
+      "pai": "9m",
+      "tsumogiri": true
+    },
+    {
+      "type": "tsumo",
+      "actor": 2,
+      "pai": "8p"
+    },
+    {
+      "type": "dahai",
+      "actor": 2,
+      "pai": "F",
+      "tsumogiri": false
+    },
+    {
+      "type": "tsumo",
+      "actor": 3,
+      "pai": "7s"
+    },
+    {
+      "type": "dahai",
+      "actor": 3,
+      "pai": "W",
+      "tsumogiri": false
+    },
+    {
+      "type": "tsumo",
+      "actor": 0,
+      "pai": "6m"
+    },
+    {
+      "type": "dahai",
+      "actor": 0,
+      "pai": "F",
+      "tsumogiri": false
+    },
+    {
+      "type": "tsumo",
+      "actor": 1,
+      "pai": "6p"
+    },
+    {
+      "type": "dahai",
+      "actor": 1,
+      "pai": "7m",
+      "tsumogiri": false
+    },
+    {
+      "type": "tsumo",
+      "actor": 2,
+      "pai": "4p"
+    },
+    {
+      "type": "dahai",
+      "actor": 2,
+      "pai": "W",
+      "tsumogiri": false
+    },
+    {
+      "type": "tsumo",
+      "actor": 3,
+      "pai": "7p"
+    },
+    {
+      "type": "dahai",
+      "actor": 3,
+      "pai": "P",
+      "tsumogiri": false
+    },
+    {
+      "type": "tsumo",
+      "actor": 0,
+      "pai": "3p"
+    },
+    {
+      "type": "dahai",
+      "actor": 0,
+      "pai": "E",
+      "tsumogiri": false
+    },
+    {
+      "type": "tsumo",
+      "actor": 1,
+      "pai": "3s"
+    },
+    {
+      "type": "dahai",
+      "actor": 1,
+      "pai": "1m",
+      "tsumogiri": false
+    },
+    {
+      "type": "tsumo",
+      "actor": 2,
+      "pai": "E"
+    },
+    {
+      "type": "dahai",
+      "actor": 2,
+      "pai": "E",
+      "tsumogiri": true
+    },
+    {
+      "type": "tsumo",
+      "actor": 3,
+      "pai": "4s"
+    },
+    {
+      "type": "dahai",
+      "actor": 3,
+      "pai": "N",
+      "tsumogiri": false
+    },
+    {
+      "type": "tsumo",
+      "actor": 0,
+      "pai": "4p"
+    },
+    {
+      "type": "dahai",
+      "actor": 0,
+      "pai": "2m",
+      "tsumogiri": false
+    },
+    {
+      "type": "tsumo",
+      "actor": 1,
+      "pai": "2p"
+    },
+    {
+      "type": "dahai",
+      "actor": 1,
+      "pai": "2m",
+      "tsumogiri": false
+    },
+    {
+      "type": "tsumo",
+      "actor": 2,
+      "pai": "3m"
+    },
+    {
+      "type": "dahai",
+      "actor": 2,
+      "pai": "C",
+      "tsumogiri": false
+    },
+    {
+      "type": "tsumo",
+      "actor": 3,
+      "pai": "8s"
+    },
+    {
+      "type": "dahai",
+      "actor": 3,
+      "pai": "7s",
+      "tsumogiri": false
+    },
+    {
+      "type": "tsumo",
+      "actor": 0,
+      "pai": "4m"
+    },
+    {
+      "type": "dahai",
+      "actor": 0,
+      "pai": "4m",
+      "tsumogiri": true
+    },
+    {
+      "type": "tsumo",
+      "actor": 1,
+      "pai": "F"
+    },
+    {
+      "type": "dahai",
+      "actor": 1,
+      "pai": "2p",
+      "tsumogiri": false
+    },
+    {
+      "type": "tsumo",
+      "actor": 2,
+      "pai": "3m"
+    },
+    {
+      "type": "dahai",
+      "actor": 2,
+      "pai": "8p",
+      "tsumogiri": false
+    },
+    {
+      "type": "tsumo",
+      "actor": 3,
+      "pai": "8m"
+    },
+    {
+      "type": "dahai",
+      "actor": 3,
+      "pai": "9p",
+      "tsumogiri": false
+    },
+    {
+      "type": "tsumo",
+      "actor": 0,
+      "pai": "6s"
+    },
+    {
+      "type": "dahai",
+      "actor": 0,
+      "pai": "6m",
+      "tsumogiri": false
+    },
+    {
+      "type": "tsumo",
+      "actor": 1,
+      "pai": "4m"
+    },
+    {
+      "type": "dahai",
+      "actor": 1,
+      "pai": "F",
+      "tsumogiri": false
+    },
+    {
+      "type": "tsumo",
+      "actor": 2,
+      "pai": "4m"
+    },
+    {
+      "type": "reach",
+      "actor": 2
+    },
+    {
+      "type": "dahai",
+      "actor": 2,
+      "pai": "6s",
+      "tsumogiri": false
+    },
+    {
+      "type": "reach_accepted",
+      "actor": 2
+    },
+    {
+      "type": "tsumo",
+      "actor": 3,
+      "pai": "6s"
+    },
+    {
+      "type": "dahai",
+      "actor": 3,
+      "pai": "2p",
+      "tsumogiri": false
+    },
+    {
+      "type": "tsumo",
+      "actor": 0,
+      "pai": "9s"
+    },
+    {
+      "type": "dahai",
+      "actor": 0,
+      "pai": "1p",
+      "tsumogiri": false
+    },
+    {
+      "type": "tsumo",
+      "actor": 1,
+      "pai": "3p"
+    },
+    {
+      "type": "dahai",
+      "actor": 1,
+      "pai": "3p",
+      "tsumogiri": true
+    },
+    {
+      "type": "tsumo",
+      "actor": 2,
+      "pai": "S"
+    },
+    {
+      "type": "dahai",
+      "actor": 2,
+      "pai": "S",
+      "tsumogiri": true
+    },
+    {
+      "type": "pon",
+      "actor": 1,
+      "target": 2,
+      "pai": "S",
+      "consumed": [
+        "S",
+        "S"
+      ]
+    },
+    {
+      "type": "dahai",
+      "actor": 1,
+      "pai": "C",
+      "tsumogiri": false
+    },
+    {
+      "type": "tsumo",
+      "actor": 2,
+      "pai": "9p"
+    },
+    {
+      "type": "dahai",
+      "actor": 2,
+      "pai": "9p",
+      "tsumogiri": true
+    },
+    {
+      "type": "tsumo",
+      "actor": 3,
+      "pai": "8p"
+    },
+    {
+      "type": "dahai",
+      "actor": 3,
+      "pai": "7p",
+      "tsumogiri": false
+    }
+  ],
+  "decisions": [
+    {
+      "junme": 6,
+      "tiles_left": 46,
+      "last_actor": 3,
+      "tile": "6s",
+      "state": {
+        "tehai": [
+          "3m",
+          "6m",
+          "8m",
+          "8m",
+          "2p",
+          "6p",
+          "7p",
+          "7p",
+          "4s",
+          "5s",
+          "7s",
+          "8s",
+          "9s",
+          "6s"
+        ],
+        "fuuros": []
+      },
+      "at_self_chi_pon": false,
+      "at_self_riichi": false,
+      "at_opponent_kakan": false,
+      "expected": {
+        "type": "dahai",
+        "actor": 3,
+        "pai": "6s",
+        "tsumogiri": true
+      },
+      "actual": {
+        "type": "dahai",
+        "actor": 3,
+        "pai": "2p",
+        "tsumogiri": false
+      },
+      "is_equal": false,
+      "details": [
+        {
+          "action": {
+            "type": "dahai",
+            "actor": 3,
+            "pai": "6s",
+            "tsumogiri": true
+          },
+          "q_value": -0.14325705,
+          "prob": 0.99282277
+        },
+        {
+          "action": {
+            "type": "dahai",
+            "actor": 3,
+            "pai": "9s",
+            "tsumogiri": false
+          },
+          "q_value": -0.6390368,
+          "prob": 0.0069779498
+        },
+        {
+          "action": {
+            "type": "dahai",
+            "actor": 3,
+            "pai": "2p",
+            "tsumogiri": false
+          },
+          "q_value": -1.0603329,
+          "prob": 0.00010329089
+        },
+        {
+          "action": {
+            "type": "dahai",
+            "actor": 3,
+            "pai": "7p",
+            "tsumogiri": false
+          },
+          "q_value": -1.1612225,
+          "prob": 0.000037662063
+        },
+        {
+          "action": {
+            "type": "dahai",
+            "actor": 3,
+            "pai": "7s",
+            "tsumogiri": false
+          },
+          "q_value": -1.2654759,
+          "prob": 0.000013278145
+        },
+        {
+          "action": {
+            "type": "dahai",
+            "actor": 3,
+            "pai": "3m",
+            "tsumogiri": false
+          },
+          "q_value": -1.267547,
+          "prob": 0.000013005958
+        },
+        {
+          "action": {
+            "type": "dahai",
+            "actor": 3,
+            "pai": "8m",
+            "tsumogiri": false
+          },
+          "q_value": -1.2747568,
+          "prob": 0.000012101263
+        },
+        {
+          "action": {
+            "type": "dahai",
+            "actor": 3,
+            "pai": "5s",
+            "tsumogiri": false
+          },
+          "q_value": -1.3402692,
+          "prob": 0.0000062851273
+        },
+        {
+          "action": {
+            "type": "dahai",
+            "actor": 3,
+            "pai": "8s",
+            "tsumogiri": false
+          },
+          "q_value": -1.3595793,
+          "prob": 0.000005181451
+        },
+        {
+          "action": {
+            "type": "dahai",
+            "actor": 3,
+            "pai": "6m",
+            "tsumogiri": false
+          },
+          "q_value": -1.373718,
+          "prob": 0.000004498294
+        },
+        {
+          "action": {
+            "type": "dahai",
+            "actor": 3,
+            "pai": "6p",
+            "tsumogiri": false
+          },
+          "q_value": -1.4447236,
+          "prob": 0.0000022114355
+        },
+        {
+          "action": {
+            "type": "dahai",
+            "actor": 3,
+            "pai": "4s",
+            "tsumogiri": false
+          },
+          "q_value": -1.4674281,
+          "prob": 0.0000017622596
+        }
+      ],
+      "shanten": 3,
+      "at_furiten": false,
+      "actual_index": 2
+    },
+    {
+      "junme": 7,
+      "tiles_left": 41,
+      "last_actor": 3,
+      "tile": "8p",
+      "state": {
+        "tehai": [
+          "3m",
+          "6m",
+          "8m",
+          "8m",
+          "6p",
+          "7p",
+          "7p",
+          "4s",
+          "5s",
+          "6s",
+          "7s",
+          "8s",
+          "9s",
+          "8p"
+        ],
+        "fuuros": []
+      },
+      "at_self_chi_pon": false,
+      "at_self_riichi": false,
+      "at_opponent_kakan": false,
+      "expected": {
+        "type": "dahai",
+        "actor": 3,
+        "pai": "8p",
+        "tsumogiri": true
+      },
+      "actual": {
+        "type": "dahai",
+        "actor": 3,
+        "pai": "7p",
+        "tsumogiri": false
+      },
+      "is_equal": false,
+      "details": [
+        {
+          "action": {
+            "type": "dahai",
+            "actor": 3,
+            "pai": "8p",
+            "tsumogiri": true
+          },
+          "q_value": -0.132999,
+          "prob": 0.98138154
+        },
+        {
+          "action": {
+            "type": "dahai",
+            "actor": 3,
+            "pai": "3m",
+            "tsumogiri": false
+          },
+          "q_value": -0.6098111,
+          "prob": 0.008338142
+        },
+        {
+          "action": {
+            "type": "dahai",
+            "actor": 3,
+            "pai": "7p",
+            "tsumogiri": false
+          },
+          "q_value": -0.62509096,
+          "prob": 0.0071566487
+        },
+        {
+          "action": {
+            "type": "dahai",
+            "actor": 3,
+            "pai": "6p",
+            "tsumogiri": false
+          },
+          "q_value": -0.7719322,
+          "prob": 0.0016481103
+        },
+        {
+          "action": {
+            "type": "dahai",
+            "actor": 3,
+            "pai": "9s",
+            "tsumogiri": false
+          },
+          "q_value": -0.81725246,
+          "prob": 0.0010475217
+        },
+        {
+          "action": {
+            "type": "dahai",
+            "actor": 3,
+            "pai": "8m",
+            "tsumogiri": false
+          },
+          "q_value": -1.0238749,
+          "prob": 0.0001326824
+        },
+        {
+          "action": {
+            "type": "dahai",
+            "actor": 3,
+            "pai": "6s",
+            "tsumogiri": false
+          },
+          "q_value": -1.031684,
+          "prob": 0.00012271525
+        },
+        {
+          "action": {
+            "type": "dahai",
+            "actor": 3,
+            "pai": "6m",
+            "tsumogiri": false
+          },
+          "q_value": -1.0458434,
+          "prob": 0.00010651371
+        },
+        {
+          "action": {
+            "type": "dahai",
+            "actor": 3,
+            "pai": "8s",
+            "tsumogiri": false
+          },
+          "q_value": -1.1417335,
+          "prob": 0.000040828134
+        },
+        {
+          "action": {
+            "type": "dahai",
+            "actor": 3,
+            "pai": "7s",
+            "tsumogiri": false
+          },
+          "q_value": -1.26152,
+          "prob": 0.000012323486
+        },
+        {
+          "action": {
+            "type": "dahai",
+            "actor": 3,
+            "pai": "5s",
+            "tsumogiri": false
+          },
+          "q_value": -1.3139641,
+          "prob": 0.000007294102
+        },
+        {
+          "action": {
+            "type": "dahai",
+            "actor": 3,
+            "pai": "4s",
+            "tsumogiri": false
+          },
+          "q_value": -1.3379433,
+          "prob": 0.0000057389384
+        }
+      ],
+      "shanten": 2,
+      "at_furiten": false,
+      "actual_index": 2
+    }
+  ]
+}
