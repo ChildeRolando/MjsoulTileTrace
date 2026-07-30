@@ -1,4 +1,6 @@
 using System.Collections.ObjectModel;
+using System.Security.Cryptography;
+using System.Text;
 using MahjongSoulOverlay.Core.Domain;
 
 namespace MahjongSoulOverlay.Core.River;
@@ -130,7 +132,8 @@ public sealed class RiverTracker
 
                 var detection = detections[detectionIndex];
                 var tile = new RiverTile(
-                    Guid.NewGuid(),
+                    CreateDeterministicId(
+                        seat, detection, timestamp, detectionIndex),
                     seat,
                     detection.Quad,
                     suppliedKind,
@@ -143,6 +146,38 @@ public sealed class RiverTracker
         }
 
         return new RiverUpdateResult(added, updated, removed);
+    }
+
+    private static Guid CreateDeterministicId(
+        Seat seat,
+        DetectedTile detection,
+        DateTimeOffset timestamp,
+        int detectionIndex)
+    {
+        using var stream = new MemoryStream();
+        using (var writer = new BinaryWriter(stream, Encoding.UTF8, leaveOpen: true))
+        {
+            writer.Write((int)seat);
+            writer.Write(timestamp.Ticks);
+            writer.Write((short)timestamp.Offset.TotalMinutes);
+            writer.Write(detectionIndex);
+            writer.Write(detection.DetectionId);
+            foreach (var point in new[]
+                     {
+                         detection.Quad.TopLeft,
+                         detection.Quad.TopRight,
+                         detection.Quad.BottomRight,
+                         detection.Quad.BottomLeft
+                     })
+            {
+                writer.Write(point.X);
+                writer.Write(point.Y);
+            }
+        }
+
+        var hash = SHA256.HashData(
+            stream.GetBuffer().AsSpan(0, checked((int)stream.Length)));
+        return new Guid(hash.AsSpan(0, 16));
     }
 
     private static IReadOnlyList<RiverTile> Snapshot(IEnumerable<RiverTile> tiles) =>

@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\MahjongSoulOverlay.Core\MahjongSoulOverlay.Core.csproj" />
+    <ProjectReference Include="..\..\src\MahjongSoulOverlay.Replay\MahjongSoulOverlay.Replay.csproj" />
     <ProjectReference Include="..\..\src\MahjongSoulOverlay.Vision\MahjongSoulOverlay.Vision.csproj" />
   </ItemGroup>
 

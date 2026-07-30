@@ -27,6 +27,22 @@ public sealed class RiverTrackerTests
     }
 
     [Fact]
+    public void Identical_inputs_create_identical_runtime_ids()
+    {
+        var first = new RiverTracker(0.45);
+        var second = new RiverTracker(0.45);
+        var detection = Tile("river-bottom-0", 0.10, 0.10, confidence: 0.82);
+        var timestamp = DateTimeOffset.UnixEpoch.AddMilliseconds(250);
+
+        var firstId = Assert.Single(first.Update(
+            Seat.Bottom, [detection], DiscardKind.Tsumogiri, timestamp).Added).Id;
+        var secondId = Assert.Single(second.Update(
+            Seat.Bottom, [detection], DiscardKind.Tsumogiri, timestamp).Added).Id;
+
+        Assert.Equal(firstId, secondId);
+    }
+
+    [Fact]
     public void Widened_horizontal_quad_with_sufficient_overlap_retains_identity_and_kind()
     {
         var tracker = new RiverTracker(0.45);
