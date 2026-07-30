@@ -11,3 +11,4 @@ export * from "./analysis-request.js";
 export * from "./actions.js";
 export * from "./action-codec.js";
 export * from "./structured-comparison.js";
+export * from "./candidate-contracts.js";
