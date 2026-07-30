@@ -230,6 +230,17 @@ export const ModelEvaluationSchema = z.object({
         path: ["errorGap"],
       });
     }
+    if (
+      (expectedGap >= evaluation.detailPolicy.threshold) !==
+        (evaluation.errorGap >= evaluation.detailPolicy.threshold)
+    ) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message:
+          "Error gap must stay on the canonical side of the detail threshold",
+        path: ["errorGap"],
+      });
+    }
   }
 });
 export type ModelEvaluation = z.infer<typeof ModelEvaluationSchema>;

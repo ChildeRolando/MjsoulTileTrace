@@ -222,4 +222,88 @@ describe("model evaluation contract", () => {
       modelReason: "unknown",
     })).toThrow();
   });
+
+  it("rejects a tolerated error gap that crosses the frozen detail threshold", () => {
+    expect(() => ModelEvaluationSchema.parse({
+      ...mortalEvaluation,
+      candidates: [
+        {
+          ...mortalEvaluation.candidates[0],
+          rawValues: [{ metric: "probability", value: 0.6 }],
+          modelSelectionScore: 60,
+        },
+        {
+          ...mortalEvaluation.candidates[1],
+          rawValues: [
+            { metric: "probability", value: 0.500000000005 },
+          ],
+          modelSelectionScore: 50.0000000005,
+        },
+      ],
+      errorGap: 10,
+    })).toThrow();
+  });
+
+  it("accepts a tolerated error gap on the canonical threshold side", () => {
+    expect(ModelEvaluationSchema.parse({
+      ...mortalEvaluation,
+      candidates: [
+        {
+          ...mortalEvaluation.candidates[0],
+          rawValues: [{ metric: "probability", value: 0.6 }],
+          modelSelectionScore: 60,
+        },
+        {
+          ...mortalEvaluation.candidates[1],
+          rawValues: [
+            { metric: "probability", value: 0.500000000005 },
+          ],
+          modelSelectionScore: 50.0000000005,
+        },
+      ],
+      errorGap: 9.9999999997,
+    }).errorGap).toBe(9.9999999997);
+  });
+
+  it("rejects a tolerated error gap that crosses below the frozen detail threshold", () => {
+    expect(() => ModelEvaluationSchema.parse({
+      ...mortalEvaluation,
+      candidates: [
+        {
+          ...mortalEvaluation.candidates[0],
+          rawValues: [{ metric: "probability", value: 0.6 }],
+          modelSelectionScore: 60,
+        },
+        {
+          ...mortalEvaluation.candidates[1],
+          rawValues: [
+            { metric: "probability", value: 0.499999999995 },
+          ],
+          modelSelectionScore: 49.9999999995,
+        },
+      ],
+      errorGap: 9.9999999998,
+    })).toThrow();
+  });
+
+  it("accepts threshold-side tolerance for a canonical detailed gap", () => {
+    expect(ModelEvaluationSchema.parse({
+      ...mortalEvaluation,
+      candidates: [
+        {
+          ...mortalEvaluation.candidates[0],
+          rawValues: [{ metric: "probability", value: 0.6 }],
+          modelSelectionScore: 60,
+        },
+        {
+          ...mortalEvaluation.candidates[1],
+          rawValues: [
+            { metric: "probability", value: 0.499999999995 },
+          ],
+          modelSelectionScore: 49.9999999995,
+        },
+      ],
+      errorGap: 10.0000000007,
+    }).errorGap).toBe(10.0000000007);
+  });
 });
