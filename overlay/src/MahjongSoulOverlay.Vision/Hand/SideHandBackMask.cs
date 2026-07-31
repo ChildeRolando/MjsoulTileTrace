@@ -38,7 +38,7 @@ public sealed class SideHandBackMask
     /// <summary>
     /// Whether the back colour range has been auto-calibrated from the image.
     /// </summary>
-    public bool IsCalibrated { get; private set; }
+    public bool IsCalibrated { get; set; }
 
     /// <summary>
     /// Auto-calibrates the HSV range from the centre of the rotated ROI.

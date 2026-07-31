@@ -71,35 +71,106 @@ public sealed class OpenCvSeatDetector : IDisposable
             anchorVisibility.Add(
                 seat, anchorScore >= profile.MainHandThresholds.Stable);
 
-            // --- Hand lattice estimation ---
-            Mat homography = HandRectifier.GetTransform(profile, mat.Width, mat.Height);
-            using Mat handStrip = HandRectifier.Warp(mat, profile);
-            HandLatticeEstimate lattice = HandLatticeEstimator.Estimate(handStrip);
+            // ── Hand detection ─────────────────────────────────────────
+            // Left / Right use the new side-hand calibration + topology pipeline.
+            // Bottom / Top keep the existing lattice-estimator path.
+            // Only use the side-hand calibration pipeline when the profile
+            // has 13 main slots (1920×1080 production profile).  Test profiles
+            // with fewer slots use the lattice estimator for all seats.
+            bool isSide = (seat is Seat.Left or Seat.Right)
+                && profile.MainSlots.Count == 13;
 
-            // --- Motion source detection ---
-            MotionSource motionSource = state.MotionDetector.Detect(handStrip, lattice);
-            state.MotionDetector.StoreFrame(handStrip);
+            int mainHandCount;
+            IReadOnlyList<bool> mainSlots;
+            bool drawnOccupied;
+            NormalizedQuad? dynamicDraw = null;
+            double handConfidence;
+            bool handAnimating = false;
+            MotionSource motionSource = MotionSource.Unknown;
+            NormalizedQuad[] occupiedMainAreas;
+            int mainSlotCount;
+            bool mainSlotRemoved = false;
 
-            // Only accept the lattice if the hand region is not animating.
-            bool handAnimating = state.Stability.IsAnimating(handStrip);
-            state.Stability.StoreFrame(handStrip);
-
-            if (!handAnimating && lattice.MainTileCount > 0)
+            if (isSide)
             {
-                state.LastStableLattice = lattice;
+                bool calibrated = state.SideCalibration is not null;
+                SideHandTopology? topology = null;
+
+                if (calibrated)
+                {
+                    // Runtime: sample raw mask with frozen calibration.
+                    using Mat? sideRawMask = ExtractSideRawMask(mat, profile, state);
+                    if (sideRawMask is not null && state.SideCalibration is { } cal)
+                    {
+                        topology = SideHandTopologyDetector.Detect(
+                            sideRawMask, cal,
+                            state.LastTopology, mat.Width, mat.Height);
+                        state.LastTopology = topology;
+                    }
+                }
+                else
+                {
+                    // Try to calibrate from a stable frame.
+                    TryCalibrateSideHand(mat, profile, seat, state);
+                    calibrated = state.SideCalibration is not null;
+                }
+
+                if (calibrated && topology is not null)
+                {
+                    mainHandCount = topology.OccupiedCount;
+                    mainSlots = topology.MainSlotStates
+                        .Select(s => s == SlotState.Occupied).ToArray();
+                    mainSlotCount = state.SideCalibration!.TileCount;
+                    drawnOccupied = topology.DrawPresent;
+                    dynamicDraw = topology.DrawQuad;
+                    handConfidence = topology.Confidence;
+                    occupiedMainAreas = topology.OccupiedMainQuads.ToArray();
+                    mainSlotRemoved = topology.InternalHoleIndex is not null;
+                }
+                else
+                {
+                    // Not yet calibrated — return unknown for this seat.
+                    mainHandCount = 0;
+                    mainSlots = Array.Empty<bool>();
+                    mainSlotCount = 13;
+                    drawnOccupied = false;
+                    handConfidence = 0;
+                    occupiedMainAreas = [];
+                }
             }
+            else
+            {
+                // ── Bottom / Top: existing lattice-based path ──────────
+                Mat homography = HandRectifier.GetTransform(profile, mat.Width, mat.Height);
+                using Mat handStrip = HandRectifier.Warp(mat, profile);
+                HandLatticeEstimate lattice = HandLatticeEstimator.Estimate(handStrip);
 
-            HandLatticeEstimate effectiveLattice =
-                handAnimating && state.LastStableLattice is { } lastLattice
-                    ? lastLattice
-                    : lattice;
+                motionSource = state.MotionDetector.Detect(handStrip, lattice);
+                state.MotionDetector.StoreFrame(handStrip);
 
-            // Dynamic draw quad (replaces the fixed DrawnSlot).
-            NormalizedQuad? dynamicDraw = DynamicDrawEstimator.EstimateDrawQuad(
-                effectiveLattice, homography, mat.Width, mat.Height,
-                profile.MainTileScale);
+                handAnimating = state.Stability.IsAnimating(handStrip);
+                state.Stability.StoreFrame(handStrip);
 
-            bool drawnOccupied = effectiveLattice.DrawPresent;
+                if (!handAnimating && lattice.MainTileCount > 0)
+                    state.LastStableLattice = lattice;
+
+                HandLatticeEstimate effectiveLattice =
+                    handAnimating && state.LastStableLattice is { } ll ? ll : lattice;
+
+                dynamicDraw = DynamicDrawEstimator.EstimateDrawQuad(
+                    effectiveLattice, homography, mat.Width, mat.Height,
+                    profile.MainTileScale);
+
+                drawnOccupied = effectiveLattice.DrawPresent;
+                mainHandCount = effectiveLattice.MainTileCount;
+                mainSlots = Enumerable.Repeat(true, effectiveLattice.MainTileCount).ToArray();
+                mainSlotCount = effectiveLattice.MainTileCount;
+                handConfidence = effectiveLattice.Confidence;
+
+                occupiedMainAreas = profile.MainSlots
+                    .Take(Math.Min(effectiveLattice.MainTileCount, profile.MainSlots.Count))
+                    .ToArray();
+            }
 
             // --- River detection via fixed logical grid ---
             IReadOnlyList<RiverSlotClassifier.RiverCellObservation> riverObservations =
@@ -124,12 +195,7 @@ public sealed class OpenCvSeatDetector : IDisposable
             }
 
             // --- Meld detection (keep existing approach) ---
-            // Use calibrated main slots (first N = lattice count) for meld exclusion.
-            NormalizedQuad[] occupiedMainAreas = profile.MainSlots
-                .Take(Math.Min(effectiveLattice.MainTileCount, profile.MainSlots.Count))
-                .ToArray();
-
-            bool fullMainHand = effectiveLattice.MainTileCount >= 13;
+            bool fullMainHand = mainHandCount >= 13;
             NormalizedQuad[] excludedMeldAreas = occupiedMainAreas
                 .Concat(drawnOccupied && dynamicDraw is { } draw && fullMainHand
                     ? [draw]
@@ -158,25 +224,52 @@ public sealed class OpenCvSeatDetector : IDisposable
                     meld, profile, meldGroups, meldTopology.Tiles);
             }
 
-            // --- Stability signature (now includes 18-bit river occupancy) ---
-            string signature = Signature(
-                effectiveLattice, drawnOccupied, meldGroups, meldTiles,
-                riverObservations);
+            // --- Stability signature (includes 18-bit river occupancy) ---
+            string sigMain = isSide
+                ? string.Join("", mainSlots.Take(mainSlotCount).Select(b => b ? '1' : '0'))
+                : new string('1', mainHandCount);
+            string signature = $"{sigMain}|{drawnOccupied}|{meldGroups}|{meldTiles}|" +
+                string.Join("", riverObservations.Select(
+                    o => o.State is RiverCellState.NormalTile or RiverCellState.RiichiRotatedTile ? '1' : '0'));
             bool isStable = state.Stability.UpdateStability(
                 signature, _stableFramesRequired);
 
-            // --- Confidence computation ---
-            double confidence = ObservationConfidence(
-                effectiveLattice, drawnOccupied, profile,
-                riverObservations, meld, tableColor);
+            // --- Confidence ---
+            double confidence;
+            if (isSide)
+            {
+                double riverConf = riverObservations.Count > 0
+                    ? riverObservations.Average(o => o.Confidence)
+                    : 1;
+                confidence = Math.Clamp(handConfidence * 0.7 + riverConf * 0.3, 0, 1);
+            }
+            else
+            {
+                var lattice = new HandLatticeEstimate(mainHandCount, drawnOccupied, 60,
+                    Enumerable.Range(0, mainHandCount).Select(i => (double)i * 60).ToArray(),
+                    null, 1, 900, 900);
+                confidence = ObservationConfidence(
+                    lattice, drawnOccupied, profile, riverObservations, meld, tableColor);
+            }
 
-            IReadOnlyList<bool> mainSlots =
-                Enumerable.Repeat(true, effectiveLattice.MainTileCount).ToArray();
+            // Always pad to 13 slots for side hands.
+            IReadOnlyList<bool> finalMainSlots;
+            if (isSide)
+            {
+                bool[] padded = new bool[13];
+                for (int i = 0; i < 13; i++)
+                    padded[i] = i < mainSlots.Count && mainSlots[i];
+                finalMainSlots = padded;
+            }
+            else
+            {
+                finalMainSlots = mainSlots;
+            }
 
             seats.Add(seat, new SeatObservation(
                 seat,
-                effectiveLattice.MainTileCount,
-                mainSlots,
+                mainHandCount,
+                finalMainSlots,
                 drawnOccupied,
                 meldGroups,
                 meldTiles,
@@ -216,8 +309,75 @@ public sealed class OpenCvSeatDetector : IDisposable
             state.Stability.Reset();
             state.Background.Reset();
             state.LastStableLattice = null;
+            state.SideCalibration = null;
+            state.LastTopology = null;
+            state.SideCalibStableCount = 0;
         }
         _resultFrames = 0;
+    }
+
+    // ─── Side-hand calibration ────────────────────────────────────────
+
+    private void TryCalibrateSideHand(
+        Mat frame, SeatProfile profile, Seat seat, PerSeatState state)
+    {
+        // Expand coarse ROI.
+        int fw = frame.Width, fh = frame.Height;
+        Point Px(double x, double y) => new((int)(x * fw), (int)(y * fh));
+        Point PxN(NormalizedPoint p) => Px(p.X, p.Y);
+        var quad = profile.MainHandRegion;
+        var pts = new[] { PxN(quad.TopLeft), PxN(quad.TopRight), PxN(quad.BottomRight), PxN(quad.BottomLeft) };
+        Rect cropRect = Cv2.BoundingRect(pts);
+        int alongPad = (int)(cropRect.Height * 0.12);
+        int crossPad = (int)(cropRect.Width * 0.22);
+        cropRect = new Rect(
+            Math.Max(0, cropRect.X - crossPad), Math.Max(0, cropRect.Y - alongPad),
+            Math.Min(fw - Math.Max(0, cropRect.X - crossPad), cropRect.Width + 2 * crossPad),
+            Math.Min(fh - Math.Max(0, cropRect.Y - alongPad), cropRect.Height + 2 * alongPad));
+        if (cropRect.Width < 10 || cropRect.Height < 10) return;
+
+        RotateFlags rot = seat == Seat.Right ? RotateFlags.Rotate90Clockwise : RotateFlags.Rotate90Counterclockwise;
+        using Mat cropped = new Mat(frame, cropRect);
+        using Mat rotated = new Mat();
+        Cv2.Rotate(cropped, rotated, rot);
+
+        // Calibrate HSV and extract masks.
+        var masker = new SideHandBackMask();
+        masker.Calibrate(rotated);
+        using Mat rawMask = masker.Extract(rotated);
+        if (Cv2.CountNonZero(rawMask) < 500) return;
+
+        using Mat cK = Cv2.GetStructuringElement(MorphShapes.Rect, new Size(17, 9));
+        using Mat closed = new Mat(); Cv2.MorphologyEx(rawMask, closed, MorphTypes.Close, cK);
+        using Mat vK = Cv2.GetStructuringElement(MorphShapes.Rect, new Size(1, 3));
+        using Mat cleanMask = new Mat(); Cv2.MorphologyEx(closed, cleanMask, MorphTypes.Open, vK);
+
+        var plane = SideHandPlaneFitter.Fit(rawMask, cleanMask);
+        if (plane is null) return;
+
+        var calib = HandSeamDetector.BuildCalibration(
+            rotated, rawMask, plane, cropRect, seat, rot, masker,
+            profile.DrawnSlot, fw, fh);
+        if (calib is null) return;
+
+        state.SideCalibStableCount++;
+        if (state.SideCalibStableCount >= _stableFramesRequired)
+            state.SideCalibration = calib;
+    }
+
+    private static Mat? ExtractSideRawMask(Mat frame, SeatProfile profile, PerSeatState state)
+    {
+        if (state.SideCalibration is not { } calib) return null;
+        var masker = calib.CreateMaskExtractor();
+        Rect cr = calib.CoarseRoi;
+        if (cr.X < 0 || cr.Y < 0 || cr.Width <= 0 || cr.Height <= 0) return null;
+        using Mat cropped = new Mat(frame, cr);
+        Mat rotated = new Mat();
+        Cv2.Rotate(cropped, rotated, calib.Rotation);
+        Mat rawMask = masker.Extract(rotated);
+        rotated.Dispose();
+        cropped.Dispose(); // Mat(frame, cr) doesn't own — doesn't need dispose
+        return rawMask;
     }
 
     public void Dispose()
@@ -870,6 +1030,10 @@ public sealed class OpenCvSeatDetector : IDisposable
         public StabilityGate Stability { get; } = new();
         public RiverBackgroundModel Background { get; } = new();
         public HandLatticeEstimate? LastStableLattice { get; set; }
+        // Side-hand calibration + topology (Left/Right only).
+        public SideHandCalibration? SideCalibration { get; set; }
+        public SideHandTopology? LastTopology { get; set; }
+        public int SideCalibStableCount { get; set; }
     }
 
     private sealed record TileCandidate(DetectedTile Tile, NormalizedPoint Center);
