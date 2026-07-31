@@ -365,10 +365,11 @@ public sealed class OpenCvSeatDetector : IDisposable
         var plane = SideHandPlaneFitter.Fit(rawMask, cleanMask);
         if (plane is null) return null;
 
-        // ── 5. Detect back-surface geometry (ridge + rail) ───────
-        var geometry = BackSurfaceGeometryDetector.Detect(
+        // ── 5. Detect back-surface geometry + corridor mask ──────
+        var detection = BackSurfaceGeometryDetector.Detect(
             rotated, rawMask, plane, state.SideStableGeometry);
-        if (geometry is null) return null;
+        if (detection is null) return null;
+        var geometry = detection.Geometry;
 
         // ── 6. Update stable geometry from tracker consensus ─────
         if (state.SideTracker is null)
@@ -382,29 +383,42 @@ public sealed class OpenCvSeatDetector : IDisposable
         }
 
         // ── 7. Detect tile-back instances ────────────────────────
-        var instances = BackTileInstanceDetector.Detect(
-            rawMask, geometry, plane, cropRect, seat, fw, fh);
-        if (instances.Count < 1) return null;
+        var candidateInstances = BackTileInstanceDetector.Detect(
+            detection, plane, cropRect, seat, fw, fh);
+        if (candidateInstances.Count < 1) return null;
 
-        // ── 8. Fit projective sequence ───────────────────────────
-        var projModel = ProjectiveTileSequenceFitter.Fit(instances);
+        // ── 8. Jointly select instances + fit projective model ───
+        var selection = ProjectiveTileSequenceFitter.SelectAndFit(candidateInstances);
+        IReadOnlyList<BackTileInstance> selectedInstances;
+        ProjectiveTileSequenceModel? projModel;
+
+        if (selection is { } sel)
+        {
+            selectedInstances = sel.SelectedInstances;
+            projModel = sel.Model;
+        }
+        else
+        {
+            selectedInstances = candidateInstances;
+            projModel = ProjectiveTileSequenceFitter.Fit(candidateInstances);
+        }
 
         // ── 9. Parse topology ────────────────────────────────────
         SideHandInstanceTopology topology;
         if (projModel is not null)
         {
             topology = ProjectiveTileSequenceFitter.ParseTopology(
-                instances, projModel, new TemporalTrackerOptions())
+                selectedInstances, projModel, new TemporalTrackerOptions())
                 ?? new SideHandInstanceTopology(
-                    instances, [instances], null, null, projModel,
-                    instances.Average(i => i.Confidence), TopologyStatus.Valid);
+                    selectedInstances, [selectedInstances], null, null, projModel,
+                    selectedInstances.Average(i => i.Confidence), TopologyStatus.Valid);
         }
         else
         {
             topology = new SideHandInstanceTopology(
-                instances, [instances], null, null, null,
-                instances.Average(i => i.Confidence),
-                instances.Count >= 5 ? TopologyStatus.LowConfidence : TopologyStatus.GeometryFailure);
+                selectedInstances, [selectedInstances], null, null, null,
+                selectedInstances.Average(i => i.Confidence),
+                selectedInstances.Count >= 5 ? TopologyStatus.LowConfidence : TopologyStatus.GeometryFailure);
         }
 
         state.LastTopology = topology;

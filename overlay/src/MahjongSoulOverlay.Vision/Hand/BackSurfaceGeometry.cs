@@ -214,6 +214,89 @@ public sealed record ProjectiveTileSequenceModel
     public double PredictedWidthAt(int zeroBasedOrdinal) => PredictedWidth(K0 + zeroBasedOrdinal);
 }
 
+/// <summary>A ridge candidate point detected from local luminance contrast.</summary>
+public sealed record RidgeCandidate
+{
+    /// <summary>Column x in rotated-ROI coordinates.</summary>
+    public int X { get; init; }
+
+    /// <summary>Candidate ridge y in rotated-ROI coordinates.</summary>
+    public int Y { get; init; }
+
+    /// <summary>Signed normalised contrast (L_above - L_below) / (MAD + ε).</summary>
+    public double SignedContrast { get; init; }
+
+    /// <summary>Fraction of the window above the candidate that is orange.</summary>
+    public double OrangeSupportAbove { get; init; }
+
+    /// <summary>Fraction of the window below the candidate that is orange.</summary>
+    public double OrangeSupportBelow { get; init; }
+
+    /// <summary>Whether this candidate was accepted for the ridge fit.</summary>
+    public bool Accepted { get; init; }
+
+    /// <summary>Reason for rejection, or null if accepted.</summary>
+    public string? RejectionReason { get; init; }
+}
+
+/// <summary>Which side of the detected ridge is the orange back surface.</summary>
+public enum BackSurfaceSide
+{
+    /// <summary>The region above the ridge (in rotated coords) is the back surface.</summary>
+    TopOfRidge,
+
+    /// <summary>The region below the ridge (in rotated coords) is the back surface.</summary>
+    BottomOfRidge,
+}
+
+/// <summary>
+/// Complete back-surface detection result combining geometry, masks, and
+/// diagnostic candidate information.
+/// </summary>
+public sealed record BackSurfaceDetectionResult
+{
+    /// <summary>The detected back-surface geometry.</summary>
+    public BackSurfaceGeometry Geometry { get; }
+
+    /// <summary>Inner corridor mask (CV_8UC1, rotated-ROI coords).</summary>
+    public Mat CorridorMask { get; }
+
+    /// <summary>Back-only orange mask = rawMask AND selected inner corridor (CV_8UC1).</summary>
+    public Mat BackOnlyMask { get; }
+
+    /// <summary>All ridge candidates examined (accepted and rejected).</summary>
+    public IReadOnlyList<RidgeCandidate> RidgeCandidates { get; }
+
+    /// <summary>Which side of the ridge was selected as the back surface.</summary>
+    public BackSurfaceSide SelectedSide { get; }
+
+    /// <summary>Overall detection confidence [0, 1].</summary>
+    public double Confidence { get; }
+
+    public BackSurfaceDetectionResult(
+        BackSurfaceGeometry geometry,
+        Mat corridorMask,
+        Mat backOnlyMask,
+        IReadOnlyList<RidgeCandidate> ridgeCandidates,
+        BackSurfaceSide selectedSide,
+        double confidence)
+    {
+        ArgumentNullException.ThrowIfNull(geometry);
+        ArgumentNullException.ThrowIfNull(corridorMask);
+        ArgumentNullException.ThrowIfNull(backOnlyMask);
+        ArgumentNullException.ThrowIfNull(ridgeCandidates);
+        if (confidence is < 0 or > 1)
+            throw new ArgumentOutOfRangeException(nameof(confidence));
+
+        Geometry = geometry;
+        CorridorMask = corridorMask;
+        BackOnlyMask = backOnlyMask;
+        RidgeCandidates = ridgeCandidates;
+        SelectedSide = selectedSide;
+        Confidence = confidence;
+    }
+}
+
 /// <summary>Overall topology status for a frame.</summary>
 public enum TopologyStatus
 {
@@ -391,8 +474,9 @@ public sealed record BackSurfaceGeometryOptions
     /// <summary>Epsilon added to MAD denominator for numerical stability.</summary>
     public double ContrastMadEpsilon { get; init; } = 5.0;
 
-    /// <summary>Minimum absolute contrast for a ridge candidate point.</summary>
-    public double MinContrast { get; init; } = 8.0;
+    /// <summary>Minimum absolute normalised contrast for a ridge candidate point.
+    /// Contrast is (L_above - L_below) / (MAD + epsilon), typical values 0.3-3.0.</summary>
+    public double MinContrast { get; init; } = 0.5;
 
     /// <summary>Minimum fraction of cross-section height that must have orange
     /// support on each side of the candidate ridge.</summary>
@@ -408,10 +492,10 @@ public sealed record BackSurfaceGeometryOptions
     public double MinInlierFraction { get; init; } = 0.35;
 
     /// <summary>Minimum number of candidate points required.</summary>
-    public int MinCandidatePoints { get; init; } = 15;
+    public int MinCandidatePoints { get; init; } = 10;
 
     /// <summary>Maximum absolute line slope |dy/dx| for valid ridge/rail.</summary>
-    public double MaxSlope { get; init; } = 0.8;
+    public double MaxSlope { get; init; } = 1.2;
 
     /// <summary>Minimum back-surface height as fraction of ROI height.</summary>
     public double MinBackHeightFraction { get; init; } = 0.04;
@@ -427,10 +511,10 @@ public sealed record BackSurfaceGeometryOptions
 public sealed record BackTileInstanceOptions
 {
     /// <summary>Fraction inset from ridge toward lower rail.</summary>
-    public double CorridorInsetTop { get; init; } = 0.10;
+    public double CorridorInsetTop { get; init; } = 0.05;
 
     /// <summary>Fraction inset from lower rail toward ridge.</summary>
-    public double CorridorInsetBottom { get; init; } = 0.10;
+    public double CorridorInsetBottom { get; init; } = 0.05;
 
     /// <summary>Minimum fraction of corridor height an instance must span.</summary>
     public double MinCorridorSpanFraction { get; init; } = 0.60;
@@ -495,8 +579,9 @@ public sealed record TemporalTrackerOptions
     /// <summary>Maximum u-offset for matching an instance to a tracked ordinal.</summary>
     public double OrdinalMatchTolerance { get; init; } = 0.03;
 
-    /// <summary>Fraction of projected tile width for gap classification as normal adjacency.</summary>
-    public double NormalGapMaxWidth { get; init; } = 0.45;
+    /// <summary>Fraction of projected tile width for gap classification as normal adjacency.
+    /// Seam gaps up to this fraction of local tile width are considered normal inter-tile seams.</summary>
+    public double NormalGapMaxWidth { get; init; } = 0.55;
 
     /// <summary>Fraction of projected tile width for gap classification as missing one tile.
     /// Gaps between NormalGapMaxWidth and MissingGapMinWidth are ambiguous.</summary>
