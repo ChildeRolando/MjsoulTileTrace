@@ -231,6 +231,7 @@ public sealed class OpenCvSeatDetector : IDisposable
             {
                 state.SideCalibration = null;
                 state.SideCalibStableCount = 0;
+                state.SideCalibCandidateTileCount = 0;
                 state.LastTopology = null;
             }
             state.PreviousMeldGroups = meldGroups;
@@ -322,6 +323,7 @@ public sealed class OpenCvSeatDetector : IDisposable
             state.SideCalibration = null;
             state.LastTopology = null;
             state.SideCalibStableCount = 0;
+            state.SideCalibCandidateTileCount = 0;
             state.PreviousMeldGroups = 0;
         }
         _resultFrames = 0;
@@ -370,6 +372,15 @@ public sealed class OpenCvSeatDetector : IDisposable
             rotated, rawMask, plane, cropRect, seat, rot, masker,
             profile.DrawnSlot, fw, fh);
         if (calib is null) return;
+
+        // Require the same tile count across consecutive calibration frames
+        // so jitter doesn't commit a spuriously short calibration.
+        if (state.SideCalibCandidateTileCount > 0 &&
+            calib.TileCount != state.SideCalibCandidateTileCount)
+        {
+            state.SideCalibStableCount = 0;
+        }
+        state.SideCalibCandidateTileCount = calib.TileCount;
 
         state.SideCalibStableCount++;
         if (state.SideCalibStableCount >= _stableFramesRequired)
@@ -1045,6 +1056,7 @@ public sealed class OpenCvSeatDetector : IDisposable
         public SideHandCalibration? SideCalibration { get; set; }
         public SideHandTopology? LastTopology { get; set; }
         public int SideCalibStableCount { get; set; }
+        public int SideCalibCandidateTileCount { get; set; }
         public int PreviousMeldGroups { get; set; }
     }
 

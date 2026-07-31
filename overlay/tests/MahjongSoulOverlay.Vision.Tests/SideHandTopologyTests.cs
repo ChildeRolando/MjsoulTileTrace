@@ -15,30 +15,44 @@ public sealed class SideHandTopologyTests
     }
 
     [Fact]
-    public void Calibration_allows_10_11_or_13_slots()
+    public void Calibration_allows_9_to_13_slots()
     {
         var plane = new SideHandPlaneFitter.PlaneFitResult(0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
         // 13: initial hand — ok.
         var slots13 = new SideHandSlotGeometry[13];
         for (int i = 0; i < 13; i++)
-            slots13[i] = new SideHandSlotGeometry(i * 0.07, (i + 1) * 0.07, default, default, default, default);
+            slots13[i] = new(i * 0.07, (i + 1) * 0.07, default, default, default, default);
         _ = new SideHandCalibration(Seat.Left, default, default, plane,
             0, 0, 0, 0, 0, 0, 0, 0, slots13, SideHandEnd.Unknown, 0.5);
 
-        // 11: post-pon/pung — ok.
+        // 12: post-add-a-kan — ok.
+        var slots12 = new SideHandSlotGeometry[12];
+        for (int i = 0; i < 12; i++)
+            slots12[i] = new(i * 0.08, (i + 1) * 0.08, default, default, default, default);
+        _ = new SideHandCalibration(Seat.Right, default, default, plane,
+            0, 0, 0, 0, 0, 0, 0, 0, slots12, SideHandEnd.NearStart, 0.3);
+
+        // 11: post-pon — ok.
         var slots11 = new SideHandSlotGeometry[11];
         for (int i = 0; i < 11; i++)
-            slots11[i] = new SideHandSlotGeometry(i * 0.08, (i + 1) * 0.08, default, default, default, default);
+            slots11[i] = new(i * 0.08, (i + 1) * 0.08, default, default, default, default);
         _ = new SideHandCalibration(Seat.Right, default, default, plane,
             0, 0, 0, 0, 0, 0, 0, 0, slots11, SideHandEnd.NearStart, 0.8);
 
-        // 10: post-chi — ok.
+        // 10: post-chi or open-kan — ok.
         var slots10 = new SideHandSlotGeometry[10];
         for (int i = 0; i < 10; i++)
-            slots10[i] = new SideHandSlotGeometry(i * 0.09, (i + 1) * 0.09, default, default, default, default);
+            slots10[i] = new(i * 0.09, (i + 1) * 0.09, default, default, default, default);
         _ = new SideHandCalibration(Seat.Left, default, default, plane,
             0, 0, 0, 0, 0, 0, 0, 0, slots10, SideHandEnd.FarEnd, 1.0);
+
+        // 9: post-closed-kan — ok.
+        var slots9 = new SideHandSlotGeometry[9];
+        for (int i = 0; i < 9; i++)
+            slots9[i] = new(i * 0.10, (i + 1) * 0.10, default, default, default, default);
+        _ = new SideHandCalibration(Seat.Left, default, default, plane,
+            0, 0, 0, 0, 0, 0, 0, 0, slots9, SideHandEnd.NearStart, 0.45);
     }
 
     [Fact]
@@ -46,13 +60,13 @@ public sealed class SideHandTopologyTests
     {
         var plane = new SideHandPlaneFitter.PlaneFitResult(0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
-        // 9 tiles (not a valid post-call state — chi leaves 10, pon 11, initial 13)
-        var slots9 = new SideHandSlotGeometry[9];
-        for (int i = 0; i < 9; i++)
-            slots9[i] = new SideHandSlotGeometry(i * 0.1, (i + 1) * 0.1, default, default, default, default);
+        // 8 tiles — cannot happen (minimum is 9 for closed kan).
+        var slots8 = new SideHandSlotGeometry[8];
+        for (int i = 0; i < 8; i++)
+            slots8[i] = new(i * 0.1, (i + 1) * 0.1, default, default, default, default);
         Assert.Throws<ArgumentException>(() =>
             new SideHandCalibration(Seat.Left, default, default, plane,
-                0, 0, 0, 0, 0, 0, 0, 0, slots9, SideHandEnd.Unknown, 0.5));
+                0, 0, 0, 0, 0, 0, 0, 0, slots8, SideHandEnd.Unknown, 0.5));
 
         // 14 tiles (impossible)
         Assert.Throws<ArgumentException>(() =>

@@ -187,10 +187,15 @@ public static class HandSeamDetector
             gaps.Add(seams.SeamU[i] - seams.SeamU[i - 1]);
         double medianGap = Median(gaps);
         double mad = Median(gaps.Select(g => Math.Abs(g - medianGap)).ToList());
-        if (mad > medianGap * 0.12) // too much variation
+        // MAD > 25% of median gap → reject as too irregular.
+        if (mad > medianGap * 0.25)
             return null;
 
         pitchU = medianGap;
+        // Pitch reasonableness: for 9–13 tiles, pitch should be ~0.07–0.12 u-units.
+        // Very small pitch means peaks clumped incorrectly; very large means missed seams.
+        if (pitchU < 0.035 || pitchU > 0.18)
+            return null;
         double[] offsets = new double[nSeams];
         for (int i = 0; i < nSeams; i++)
             offsets[i] = seams.SeamU[i] - (i + 1) * pitchU;
