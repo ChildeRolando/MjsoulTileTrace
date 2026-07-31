@@ -15,12 +15,49 @@ public sealed class SideHandTopologyTests
     }
 
     [Fact]
-    public void Calibration_requires_exactly_13_slots()
+    public void Calibration_allows_10_11_or_13_slots()
     {
         var plane = new SideHandPlaneFitter.PlaneFitResult(0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+
+        // 13: initial hand — ok.
+        var slots13 = new SideHandSlotGeometry[13];
+        for (int i = 0; i < 13; i++)
+            slots13[i] = new SideHandSlotGeometry(i * 0.07, (i + 1) * 0.07, default, default, default, default);
+        _ = new SideHandCalibration(Seat.Left, default, default, plane,
+            0, 0, 0, 0, 0, 0, 0, 0, slots13, SideHandEnd.Unknown, 0.5);
+
+        // 11: post-pon/pung — ok.
+        var slots11 = new SideHandSlotGeometry[11];
+        for (int i = 0; i < 11; i++)
+            slots11[i] = new SideHandSlotGeometry(i * 0.08, (i + 1) * 0.08, default, default, default, default);
+        _ = new SideHandCalibration(Seat.Right, default, default, plane,
+            0, 0, 0, 0, 0, 0, 0, 0, slots11, SideHandEnd.NearStart, 0.8);
+
+        // 10: post-chi — ok.
+        var slots10 = new SideHandSlotGeometry[10];
+        for (int i = 0; i < 10; i++)
+            slots10[i] = new SideHandSlotGeometry(i * 0.09, (i + 1) * 0.09, default, default, default, default);
+        _ = new SideHandCalibration(Seat.Left, default, default, plane,
+            0, 0, 0, 0, 0, 0, 0, 0, slots10, SideHandEnd.FarEnd, 1.0);
+    }
+
+    [Fact]
+    public void Calibration_rejects_invalid_slot_counts()
+    {
+        var plane = new SideHandPlaneFitter.PlaneFitResult(0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+
+        // 9 tiles (not a valid post-call state — chi leaves 10, pon 11, initial 13)
+        var slots9 = new SideHandSlotGeometry[9];
+        for (int i = 0; i < 9; i++)
+            slots9[i] = new SideHandSlotGeometry(i * 0.1, (i + 1) * 0.1, default, default, default, default);
         Assert.Throws<ArgumentException>(() =>
             new SideHandCalibration(Seat.Left, default, default, plane,
-                0, 0, 0, 0, 0, 0, 0, 0, [], SideHandEnd.Unknown, 0));
+                0, 0, 0, 0, 0, 0, 0, 0, slots9, SideHandEnd.Unknown, 0.5));
+
+        // 14 tiles (impossible)
+        Assert.Throws<ArgumentException>(() =>
+            new SideHandCalibration(Seat.Left, default, default, plane,
+                0, 0, 0, 0, 0, 0, 0, 0, [], SideHandEnd.Unknown, 0.5));
     }
 
     [Fact]

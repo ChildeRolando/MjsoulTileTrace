@@ -51,8 +51,11 @@ public sealed record SideHandCalibration
     {
         if (seat is not (Seat.Left or Seat.Right))
             throw new ArgumentException("SideHandCalibration only supports Left and Right.", nameof(seat));
-        if (mainSlots.Count != 13)
-            throw new ArgumentException("Calibration requires exactly 13 main slots.", nameof(mainSlots));
+        // After calls (chi/pon/kan) the hand shortens to 10 or 11 tiles;
+        // the initial hand has 13.
+        if (mainSlots.Count is not (10 or 11 or 13))
+            throw new ArgumentException(
+                $"Calibration requires 10, 11, or 13 main slots, got {mainSlots.Count}.", nameof(mainSlots));
         if (confidence is < 0 or > 1)
             throw new ArgumentOutOfRangeException(nameof(confidence));
 

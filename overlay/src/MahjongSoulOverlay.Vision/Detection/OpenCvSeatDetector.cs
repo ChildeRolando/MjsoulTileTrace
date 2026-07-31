@@ -225,6 +225,16 @@ public sealed class OpenCvSeatDetector : IDisposable
             }
 
             // --- Stability signature (includes 18-bit river occupancy) ---
+
+            // Trigger side-hand recalibration when a meld first appears.
+            if (isSide && meldGroups > 0 && state.PreviousMeldGroups == 0)
+            {
+                state.SideCalibration = null;
+                state.SideCalibStableCount = 0;
+                state.LastTopology = null;
+            }
+            state.PreviousMeldGroups = meldGroups;
+
             string sigMain = isSide
                 ? string.Join("", mainSlots.Take(mainSlotCount).Select(b => b ? '1' : '0'))
                 : new string('1', mainHandCount);
@@ -312,6 +322,7 @@ public sealed class OpenCvSeatDetector : IDisposable
             state.SideCalibration = null;
             state.LastTopology = null;
             state.SideCalibStableCount = 0;
+            state.PreviousMeldGroups = 0;
         }
         _resultFrames = 0;
     }
@@ -1034,6 +1045,7 @@ public sealed class OpenCvSeatDetector : IDisposable
         public SideHandCalibration? SideCalibration { get; set; }
         public SideHandTopology? LastTopology { get; set; }
         public int SideCalibStableCount { get; set; }
+        public int PreviousMeldGroups { get; set; }
     }
 
     private sealed record TileCandidate(DetectedTile Tile, NormalizedPoint Center);

@@ -171,7 +171,9 @@ public static class HandSeamDetector
         int frameHeight)
     {
         var seams = Detect(rawMask, plane);
-        if (seams is null || seams.SeamU.Count < 11)
+        // Accept 8+ seams (9–13 tiles) to support post-call recalibration
+        // where chi leaves 10 tiles (9 seams) and pon leaves 11 tiles (10 seams).
+        if (seams is null || seams.SeamU.Count < 8)
             return null;
 
         // Fit regular lattice: seam_i ≈ outerStartU + i * pitchU
@@ -194,8 +196,10 @@ public static class HandSeamDetector
             offsets[i] = seams.SeamU[i] - (i + 1) * pitchU;
         double outerStartU = Median(offsets.ToList());
 
-        // Build 13 slot intervals: slot 0 = [outerStartU, outerStartU + pitchU], etc.
-        int tileCount = 13;
+        // Build slot intervals: slot count = detected seams + 1, capped at 13.
+        // After calls (chi 10, pon 11) we detect fewer seams and produce
+        // a shorter calibration.
+        int tileCount = Math.Min(nSeams + 1, 13);
         List<SideHandSlotGeometry> slots = new(tileCount);
         for (int i = 0; i < tileCount; i++)
         {
