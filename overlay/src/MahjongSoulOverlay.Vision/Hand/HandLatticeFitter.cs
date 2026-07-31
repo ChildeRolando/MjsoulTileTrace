@@ -1,16 +1,20 @@
 namespace MahjongSoulOverlay.Vision.Hand;
 
 /// <summary>
-/// Fits a tile-seam lattice to an edge signal by first estimating pitch
-/// via autocorrelation, predicting seam positions, then SNAPPING each
-/// predicted position to the nearest actual peak in the edge signal.
-/// The lattice provides the search window; the peaks provide the final
-/// coordinates.
+/// Fits a tile-seam lattice to an edge signal.
+///
+/// The edge signal E(x) peaks at vertical boundaries:
+///   peak 0         = left edge of tile 0
+///   peaks 1..12    = 12 internal seams between tiles
+///   peak 13        = right edge of tile 12
+///
+/// We want the 12 INTERNAL seams (peaks 1..12).  The lattice provides
+/// the search window; the actual peak positions come from snapping.
 /// </summary>
 public static class HandLatticeFitter
 {
-    private const double SearchRadiusFraction = 0.20;
-    private const double MinSeamGapFraction = 0.55;
+    private const double SearchRadiusFraction = 0.22;
+    private const double MinSeamGapFraction = 0.50;
     private const int MaxIterations = 2;
 
     public sealed record LatticeFitResult(
@@ -35,32 +39,41 @@ public static class HandLatticeFitter
             return null;
 
         int n = edgeSignal.Length;
-        int seamCount = tileCount - 1;
+        int seamCount = tileCount - 1; // 12 internal seams for 13 tiles
 
-        // ── 1. Estimate coarse x0 from the strongest edge in the left quarter ──
-        int leftQuarter = Math.Min(n / 4, (int)(initialPitch * 2));
-        int bestEdge = 0;
-        double bestVal = 0;
-        for (int x = 5; x < leftQuarter; x++)
+        // ── 1. Find ALL candidate edge peaks ──────────────────────────
+        List<int> allPeaks = FindAllEdgePeaks(edgeSignal, (int)(initialPitch * 0.35));
+
+        if (allPeaks.Count < seamCount)
+            return null;
+
+        // ── 2. The first strong peak is usually the left boundary of tile 0.
+        //    The first internal seam is roughly initialPitch pixels to the right.
+        //    Estimate x0 so that (x0 + initialPitch) ≈ position of first internal seam.
+        int firstBoundaryPeak = allPeaks[0];
+        // Find the first peak that's at least 0.6*pitch from the left boundary
+        // — that's the first internal seam.
+        int firstSeamIdx = -1;
+        for (int i = 1; i < allPeaks.Count; i++)
         {
-            if (edgeSignal[x] > edgeSignal[x - 1] &&
-                edgeSignal[x] >= edgeSignal[x + 1] &&
-                edgeSignal[x] > bestVal)
+            if (allPeaks[i] - firstBoundaryPeak >= initialPitch * 0.6)
             {
-                bestVal = edgeSignal[x];
-                bestEdge = x;
+                firstSeamIdx = i;
+                break;
             }
         }
-        double pitch = initialPitch;
-        double x0 = bestEdge > 0 ? bestEdge - pitch : pitch * 0.5;
+        if (firstSeamIdx < 0) return null;
 
-        // ── 2. Iterate: snap → refine pitch → snap again ───────────────
+        double pitch = initialPitch;
+        double x0 = allPeaks[firstSeamIdx] - pitch; // so x0 + pitch ≈ first internal seam
+
+        // ── 3. Iterate: snap → refine pitch → snap again ───────────────
         List<int> snapped = [];
         for (int iter = 0; iter < MaxIterations; iter++)
         {
-            snapped = SnapAll(edgeSignal, x0, pitch, seamCount, n);
-            if (snapped.Count < seamCount / 2)
-                return null;
+            snapped = SnapSeams(edgeSignal, x0, pitch, seamCount, n);
+            if (snapped.Count < seamCount * 0.7)
+                break;
 
             // Refine pitch from median gap.
             List<double> gaps = [];
@@ -68,7 +81,7 @@ public static class HandLatticeFitter
                 gaps.Add(snapped[i] - snapped[i - 1]);
             pitch = Median(gaps);
 
-            // Refine x0 so that predicted positions are centred on snapped peaks.
+            // Refine x0.
             double offsetSum = 0;
             for (int i = 0; i < snapped.Count; i++)
                 offsetSum += snapped[i] - (i + 1) * pitch;
@@ -82,13 +95,53 @@ public static class HandLatticeFitter
         return new LatticeFitResult(tileCount, x0, pitch, score, snapped);
     }
 
-    // ── Snap all seams ────────────────────────────────────────────────
+    // ── Find all edge peaks ─────────────────────────────────────────
 
-    private static List<int> SnapAll(
+    private static List<int> FindAllEdgePeaks(double[] signal, int minDistance)
+    {
+        int n = signal.Length;
+        // Estimate noise floor as median signal value.
+        double[] sorted = (double[])signal.Clone();
+        Array.Sort(sorted);
+        double noiseFloor = sorted[n / 2];
+        double threshold = noiseFloor + (sorted.Max() - noiseFloor) * 0.08;
+
+        List<(int pos, double val)> raw = [];
+        for (int x = 1; x < n - 1; x++)
+        {
+            if (signal[x] > threshold &&
+                signal[x] > signal[x - 1] &&
+                signal[x] >= signal[x + 1])
+            {
+                raw.Add((x, signal[x]));
+            }
+        }
+
+        // Non-maximum suppression: sort by strength, keep strongest,
+        // enforce minimum distance.
+        bool[] suppressed = new bool[n];
+        List<int> selected = [];
+        foreach (var (pos, _) in raw.OrderByDescending(p => p.val))
+        {
+            if (suppressed[pos]) continue;
+            selected.Add(pos);
+            // Mark neighbours within minDistance as suppressed.
+            for (int x = Math.Max(0, pos - minDistance);
+                 x <= Math.Min(n - 1, pos + minDistance); x++)
+                suppressed[x] = true;
+        }
+
+        selected.Sort();
+        return selected;
+    }
+
+    // ── Snap seams ──────────────────────────────────────────────────
+
+    private static List<int> SnapSeams(
         double[] signal, double x0, double pitch, int seamCount, int n)
     {
         double radius = pitch * SearchRadiusFraction;
-        int minGap = Math.Max(1, (int)(pitch * MinSeamGapFraction));
+        int minGap = Math.Max(2, (int)(pitch * MinSeamGapFraction));
 
         List<int> snapped = [];
         int? prevX = null;
@@ -100,21 +153,21 @@ public static class HandLatticeFitter
             int right = Math.Min(n - 2, (int)(predicted + radius));
             if (right - left < 2) continue;
 
-            // Find the strongest local maximum in the search window.
+            // Find the strongest LOCAL MAXIMUM in the window.
             int bestX = -1;
             double bestVal = double.MinValue;
             for (int x = left; x <= right; x++)
             {
-                if (signal[x] > signal[x - 1] &&
-                    signal[x] >= signal[x + 1] &&
-                    signal[x] > bestVal)
+                // Must be a genuine local maximum.
+                if (signal[x] <= signal[x - 1] || signal[x] < signal[x + 1])
+                    continue;
+                // Must not be too close to the previous snapped seam.
+                if (prevX.HasValue && x - prevX.Value < minGap)
+                    continue;
+                if (signal[x] > bestVal)
                 {
-                    // Enforce minimum gap from previous seam.
-                    if (!prevX.HasValue || x - prevX.Value >= minGap)
-                    {
-                        bestVal = signal[x];
-                        bestX = x;
-                    }
+                    bestVal = signal[x];
+                    bestX = x;
                 }
             }
 

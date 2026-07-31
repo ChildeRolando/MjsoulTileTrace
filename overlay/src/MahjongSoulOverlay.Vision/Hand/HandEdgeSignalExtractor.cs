@@ -56,14 +56,17 @@ public static class HandEdgeSignalExtractor
         // Scharr X gradient (stronger response to vertical edges than Sobel).
         using Mat gradX = new Mat();
         Cv2.Scharr(roi, gradX, MatType.CV_32F, 1, 0);
-        // gradX is CV_32F with negative and positive values.
+        // gradX is CV_32F with signed values.
 
-        // Absolute value → vertical edge magnitude per pixel.
-        // Then sum along y to get a 1-D edge signal.
+        // Take absolute value, then sum along y to get 1-D edge signal.
+        using Mat absGradX = new Mat();
+        Cv2.ConvertScaleAbs(gradX, absGradX);
+        // absGradX is CV_8U.
+
         double[] edgeSignal = new double[w];
         for (int x = 0; x < w; x++)
         {
-            using Mat col = new Mat(gradX, new Rect(x, 0, 1, gradX.Rows));
+            using Mat col = new Mat(absGradX, new Rect(x, 0, 1, absGradX.Rows));
             edgeSignal[x] = Cv2.Sum(col).Val0;
         }
 
