@@ -93,60 +93,27 @@ public sealed class OpenCvSeatDetector : IDisposable
 
             if (isSide)
             {
-                bool calibrated = state.SideCalibration is not null;
-                SideHandTopology? topology = null;
-
-                if (calibrated)
+                // ── New instance-based side-hand pipeline ─────────
+                var sideResult = ProcessSideHand(mat, profile, seat, state, timestamp);
+                if (sideResult is { } output)
                 {
-                    // Runtime: sample raw mask with frozen calibration.
-                    using Mat? sideRawMask = ExtractSideRawMask(mat, profile, state);
-                    if (sideRawMask is not null && state.SideCalibration is { } cal)
-                    {
-                        topology = SideHandTopologyDetector.Detect(
-                            sideRawMask, cal,
-                            state.LastTopology, mat.Width, mat.Height);
-                        state.LastTopology = topology;
-                    }
+                    mainHandCount = output.MainHandCount;
+                    mainSlots = output.MainSlots;
+                    mainSlotCount = SideHandObservationAdapter.MaxMainSlots;
+                    drawnOccupied = output.DrawnSlotOccupied;
+                    handConfidence = output.Confidence;
+                    occupiedMainAreas = output.OccupiedMainQuads.ToArray();
+                    mainSlotRemoved = output.MainSlotRemoved;
+                    if (sideResult.ExtraQuad is { } eq)
+                        dynamicDraw = eq;
+                    state.PreviousResolvedMainSlots = output.ResolvedSlots;
                 }
                 else
                 {
-                    // Try to calibrate from a stable frame.
-                    TryCalibrateSideHand(mat, profile, seat, state);
-                    calibrated = state.SideCalibration is not null;
-                }
-
-                if (calibrated && topology is not null)
-                {
-                    // F: Unknown → resolve from previous observation.
-                    bool[] resolved = new bool[13];
-                    for (int i = 0; i < 13; i++)
-                    {
-                        resolved[i] = topology.MainSlotStates[i] switch
-                        {
-                            SlotState.Occupied => true,
-                            SlotState.Empty => false,
-                            SlotState.Unknown => state.PreviousResolvedMainSlots is { } prev
-                                && i < prev.Count && prev[i],
-                            _ => false
-                        };
-                    }
-                    state.PreviousResolvedMainSlots = resolved;
-                    mainHandCount = resolved.Count(b => b);
-                    mainSlots = resolved;
-                    mainSlotCount = 13;
-                    drawnOccupied = topology.DrawPresent;
-                    dynamicDraw = topology.DrawQuad;
-                    handConfidence = topology.Confidence;
-                    occupiedMainAreas = topology.OccupiedMainQuads.ToArray();
-                    // Only a confidently Empty slot between two Occupied segments.
-                    mainSlotRemoved = topology.InternalHoleIndex is not null;
-                }
-                else
-                {
-                    // Not yet calibrated — return unknown for this seat.
+                    // Pipeline returned nothing — unknown for this seat.
                     mainHandCount = 0;
                     mainSlots = Array.Empty<bool>();
-                    mainSlotCount = 13;
+                    mainSlotCount = SideHandObservationAdapter.MaxMainSlots;
                     drawnOccupied = false;
                     handConfidence = 0;
                     occupiedMainAreas = [];
@@ -241,15 +208,16 @@ public sealed class OpenCvSeatDetector : IDisposable
             // --- Stability signature (includes 18-bit river occupancy) ---
 
             // Trigger side-hand recalibration when a meld first appears.
-            if (isSide && meldGroups > 0 && state.PreviousMeldGroups == 0)
+            if (isSide && meldGroups > 0 && state.SideTracker is not null)
             {
-                state.SideCalibration = null;
-                state.SideCalibStableCount = 0;
-                state.SideCalibCandidate = null;
+                state.SideTracker.Reset();
+                state.SideStableGeometry = null;
+                state.SideStableInstances = [];
+                state.SideStableModel = null;
                 state.LastTopology = null;
                 state.PreviousResolvedMainSlots = null;
+                state.SideMasker = null;
             }
-            state.PreviousMeldGroups = meldGroups;
 
             string sigMain = isSide
                 ? string.Join("", mainSlots.Take(mainSlotCount).Select(b => b ? '1' : '0'))
@@ -325,23 +293,36 @@ public sealed class OpenCvSeatDetector : IDisposable
             state.Stability.Reset();
             state.Background.Reset();
             state.LastStableLattice = null;
-            state.SideCalibration = null;
+            state.SideTracker?.Reset();
+            state.SideStableGeometry = null;
+            state.SideStableInstances = [];
+            state.SideStableModel = null;
             state.LastTopology = null;
-            state.SideCalibStableCount = 0;
-            state.SideCalibCandidate = null;
-            state.PreviousMeldGroups = 0;
             state.PreviousResolvedMainSlots = null;
+            state.SideMasker = null;
         }
         _resultFrames = 0;
     }
 
-    // ─── Side-hand calibration ────────────────────────────────────────
+    // ─── Side-hand instance-based pipeline ────────────────────────────
 
-    private void TryCalibrateSideHand(
-        Mat frame, SeatProfile profile, Seat seat, PerSeatState state)
+    private sealed record SideHandOutput(
+        int MainHandCount,
+        IReadOnlyList<bool> MainSlots,
+        bool DrawnSlotOccupied,
+        IReadOnlyList<NormalizedQuad> OccupiedMainQuads,
+        bool MainSlotRemoved,
+        double Confidence,
+        IReadOnlyList<bool> ResolvedSlots,
+        NormalizedQuad? ExtraQuad);
+
+    private SideHandOutput? ProcessSideHand(
+        Mat frame, SeatProfile profile, Seat seat, PerSeatState state,
+        DateTimeOffset timestamp)
     {
-        // Expand coarse ROI.
         int fw = frame.Width, fh = frame.Height;
+
+        // ── 1. Crop coarse ROI + rotate ──────────────────────────
         Point Px(double x, double y) => new((int)(x * fw), (int)(y * fh));
         Point PxN(NormalizedPoint p) => Px(p.X, p.Y);
         var quad = profile.MainHandRegion;
@@ -353,100 +334,96 @@ public sealed class OpenCvSeatDetector : IDisposable
             Math.Max(0, cropRect.X - crossPad), Math.Max(0, cropRect.Y - alongPad),
             Math.Min(fw - Math.Max(0, cropRect.X - crossPad), cropRect.Width + 2 * crossPad),
             Math.Min(fh - Math.Max(0, cropRect.Y - alongPad), cropRect.Height + 2 * alongPad));
-        if (cropRect.Width < 10 || cropRect.Height < 10) return;
+        if (cropRect.Width < 10 || cropRect.Height < 10) return null;
 
-        RotateFlags rot = seat == Seat.Right ? RotateFlags.Rotate90Clockwise : RotateFlags.Rotate90Counterclockwise;
+        RotateFlags rot = seat == Seat.Right
+            ? RotateFlags.Rotate90Clockwise
+            : RotateFlags.Rotate90Counterclockwise;
         using Mat cropped = new Mat(frame, cropRect);
         using Mat rotated = new Mat();
         Cv2.Rotate(cropped, rotated, rot);
 
-        // Calibrate HSV and extract masks.
-        var masker = new SideHandBackMask();
-        masker.Calibrate(rotated);
-        using Mat rawMask = masker.Extract(rotated);
-        if (Cv2.CountNonZero(rawMask) < 500) return;
+        // ── 2. Calibrate HSV on first frame ──────────────────────
+        if (state.SideMasker is null || !state.SideMasker.IsCalibrated)
+        {
+            var masker = new SideHandBackMask();
+            masker.Calibrate(rotated);
+            state.SideMasker = masker;
+        }
 
+        // ── 3. Extract broad orange mask ─────────────────────────
+        using Mat rawMask = state.SideMasker.Extract(rotated);
+        if (Cv2.CountNonZero(rawMask) < 500) return null;
+
+        // Clean mask for plane fitting.
         using Mat cK = Cv2.GetStructuringElement(MorphShapes.Rect, new Size(17, 9));
         using Mat closed = new Mat(); Cv2.MorphologyEx(rawMask, closed, MorphTypes.Close, cK);
         using Mat vK = Cv2.GetStructuringElement(MorphShapes.Rect, new Size(1, 3));
         using Mat cleanMask = new Mat(); Cv2.MorphologyEx(closed, cleanMask, MorphTypes.Open, vK);
 
+        // ── 4. Coarse plane fit ───────────────────────────────────
         var plane = SideHandPlaneFitter.Fit(rawMask, cleanMask);
-        if (plane is null) return;
+        if (plane is null) return null;
 
-        var calib = HandSeamDetector.BuildCalibration(
-            rotated, rawMask, plane, cropRect, seat, rot, masker,
-            profile.DrawnSlot, fw, fh);
-        if (calib is null) return;
+        // ── 5. Detect back-surface geometry (ridge + rail) ───────
+        var geometry = BackSurfaceGeometryDetector.Detect(
+            rotated, rawMask, plane, state.SideStableGeometry);
+        if (geometry is null) return null;
 
-        // ── C: Multi-frame geometry consensus ────────────────────────
-        // Require N consecutive candidates whose seam positions, plane
-        // corners, and start/end u agree within small tolerances.
-        // Reject any candidate that would change the expected count.
+        // ── 6. Update stable geometry from tracker consensus ─────
+        if (state.SideTracker is null)
+            state.SideTracker = new SideHandTemporalTracker();
 
-        if (calib.TileCount != 13 || calib.BaselineSlotScores.Any(s => s < 0.30))
+        bool isAnimating = false; // TODO: integrate stability gate
+        if (!isAnimating && geometry.Confidence >= 0.55)
         {
-            state.SideCalibStableCount = 0;
-            state.SideCalibCandidate = null;
-            return;
+            state.SideStableGeometry = geometry;
+            state.SideTracker.SetStableGeometry(geometry);
         }
 
-        if (state.SideCalibCandidate is { } pending)
+        // ── 7. Detect tile-back instances ────────────────────────
+        var instances = BackTileInstanceDetector.Detect(
+            rawMask, geometry, plane, cropRect, seat, fw, fh);
+        if (instances.Count < 1) return null;
+
+        // ── 8. Fit projective sequence ───────────────────────────
+        var projModel = ProjectiveTileSequenceFitter.Fit(instances);
+
+        // ── 9. Parse topology ────────────────────────────────────
+        SideHandInstanceTopology topology;
+        if (projModel is not null)
         {
-            // Check geometry agreement with the pending candidate.
-            const double uTol = 0.012; // ~1% of u-range
-            bool seamsAgree = true;
-            for (int i = 0; i < 13; i++)
-            {
-                double du = Math.Abs(calib.MainSlots[i].UStart - pending.MainSlots[i].UStart);
-                if (du > uTol) { seamsAgree = false; break; }
-            }
-            double endDu = Math.Abs(calib.MainSlots[12].UEnd - pending.MainSlots[12].UEnd);
-            if (endDu > uTol) seamsAgree = false;
-
-            // Plane corner column positions must agree.
-            bool planeAgrees =
-                Math.Abs(calib.Plane.ColStart - pending.Plane.ColStart) < 5 &&
-                Math.Abs(calib.Plane.ColEnd - pending.Plane.ColEnd) < 5;
-
-            if (seamsAgree && planeAgrees)
-            {
-                state.SideCalibStableCount++;
-            }
-            else
-            {
-                // Geometry changed — restart with the new candidate.
-                state.SideCalibStableCount = 1;
-                state.SideCalibCandidate = calib;
-            }
+            topology = ProjectiveTileSequenceFitter.ParseTopology(
+                instances, projModel, new TemporalTrackerOptions())
+                ?? new SideHandInstanceTopology(
+                    instances, [instances], null, null, projModel,
+                    instances.Average(i => i.Confidence), TopologyStatus.Valid);
         }
         else
         {
-            state.SideCalibStableCount = 1;
-            state.SideCalibCandidate = calib;
+            topology = new SideHandInstanceTopology(
+                instances, [instances], null, null, null,
+                instances.Average(i => i.Confidence),
+                instances.Count >= 5 ? TopologyStatus.LowConfidence : TopologyStatus.GeometryFailure);
         }
 
-        if (state.SideCalibStableCount >= _stableFramesRequired)
-        {
-            // Commit: use the latest candidate (which agrees with pending).
-            state.SideCalibration = calib;
-            state.SideCalibCandidate = null;
-        }
-    }
+        state.LastTopology = topology;
 
-    private static Mat? ExtractSideRawMask(Mat frame, SeatProfile profile, PerSeatState state)
-    {
-        if (state.SideCalibration is not { } calib) return null;
-        var masker = calib.CreateMaskExtractor();
-        Rect cr = calib.CoarseRoi;
-        if (cr.X < 0 || cr.Y < 0 || cr.Width <= 0 || cr.Height <= 0) return null;
-        using Mat cropped = new Mat(frame, cr);
-        Mat rotated = new Mat();
-        Cv2.Rotate(cropped, rotated, calib.Rotation);
-        Mat rawMask = masker.Extract(rotated);
-        rotated.Dispose();
-        cropped.Dispose(); // Mat(frame, cr) doesn't own — doesn't need dispose
-        return rawMask;
+        // ── 10. Temporal tracking ────────────────────────────────
+        double motionScore = 0; // TODO: integrate motion detection
+        var tracking = state.SideTracker.Update(topology, timestamp, motionScore);
+
+        // ── 11. Adapt to Core API ────────────────────────────────
+        var adapted = SideHandObservationAdapter.Adapt(
+            topology, tracking, state.PreviousResolvedMainSlots,
+            fw, fh, cropRect, seat);
+
+        NormalizedQuad? extraQuad = tracking.ExtraInstance?.Quad;
+
+        return new SideHandOutput(
+            adapted.MainHandCount, adapted.MainSlots, adapted.DrawnSlotOccupied,
+            adapted.OccupiedMainQuads, adapted.MainSlotRemoved,
+            adapted.Confidence, adapted.ResolvedSlots, extraQuad);
     }
 
     public void Dispose()
@@ -1099,15 +1076,16 @@ public sealed class OpenCvSeatDetector : IDisposable
         public StabilityGate Stability { get; } = new();
         public RiverBackgroundModel Background { get; } = new();
         public HandLatticeEstimate? LastStableLattice { get; set; }
-        // Side-hand calibration + topology (Left/Right only).
-        public SideHandCalibration? SideCalibration { get; set; }
-        public SideHandTopology? LastTopology { get; set; }
-        public int SideCalibStableCount { get; set; }
-        // C: pending calibration candidate for geometry consensus.
-        public SideHandCalibration? SideCalibCandidate { get; set; }
-        public int PreviousMeldGroups { get; set; }
-        // F: previous frame's resolved slot occupancy for Unknown resolution.
+        // Side-hand instance-based pipeline (Left/Right only).
+        public SideHandTemporalTracker? SideTracker { get; set; }
+        public BackSurfaceGeometry? SideStableGeometry { get; set; }
+        public IReadOnlyList<BackTileInstance> SideStableInstances { get; set; } = [];
+        public ProjectiveTileSequenceModel? SideStableModel { get; set; }
+        public SideHandInstanceTopology? LastTopology { get; set; }
+        // Previous frame's resolved slot occupancy for occlusion/unknown fallback.
         public IReadOnlyList<bool>? PreviousResolvedMainSlots { get; set; }
+        // HSV calibration frozen from first successful frame.
+        public SideHandBackMask? SideMasker { get; set; }
     }
 
     private sealed record TileCandidate(DetectedTile Tile, NormalizedPoint Center);

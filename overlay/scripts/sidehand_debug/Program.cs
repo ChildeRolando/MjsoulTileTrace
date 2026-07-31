@@ -70,7 +70,7 @@ void ProcessSide(string name, Seat seat, RotateFlags rot)
     using Mat rawMask = rawM, hsvImg = hsv;
     Console.WriteLine($"  HSV: H=[{masker.HueMin},{masker.HueMax}] S>={masker.SaturationMin} V>={masker.ValueMin}");
 
-    // Clean mask: close + vertical open.
+    // Clean mask.
     using Mat cK = Cv2.GetStructuringElement(MorphShapes.Rect, new Size(17, 9));
     using Mat closed = new Mat(); Cv2.MorphologyEx(rawMask, closed, MorphTypes.Close, cK);
     using Mat vK = Cv2.GetStructuringElement(MorphShapes.Rect, new Size(1, 3));
@@ -81,220 +81,352 @@ void ProcessSide(string name, Seat seat, RotateFlags rot)
     if (plane is null) { Console.WriteLine("  Plane REJECTED."); return; }
     Console.WriteLine($"  Plane: cols=[{plane.ColStart},{plane.ColEnd}] conf={plane.Confidence:F2}");
 
-    // ── 3. Seam detection (production class) ─────────────────────────
-    var seams = HandSeamDetector.Detect(rawMask, plane);
-    int tileCount = 0;
-    if (seams is not null)
+    // ── 3. Back-surface geometry (NEW) ──────────────────────────────
+    // Diagnostic: count orange columns and rough back height.
+    int orangeCols = 0;
+    double totalOrangeH = 0;
+    for (int x = plane.ColStart; x <= plane.ColEnd; x++)
     {
-        tileCount = seams.SeamU.Count >= 8 ? seams.SeamU.Count + 1 : 0;
-        Console.WriteLine($"  Seams: nSeams={seams.SeamU.Count} pitchU={seams.PitchU:F4} conf={seams.Confidence:F2} -> {tileCount} tiles");
+        int topO = -1, botO = -1;
+        for (int y = 0; y < rawMask.Rows; y++)
+        {
+            if (rawMask.At<byte>(y, x) > 0) { if (topO < 0) topO = y; botO = y; }
+        }
+        if (topO >= 0) { orangeCols++; totalOrangeH += botO - topO + 1; }
+    }
+    double avgOrangeH = orangeCols > 0 ? totalOrangeH / orangeCols : 0;
+    Console.WriteLine($"  Diag: {orangeCols}/{plane.ColEnd-plane.ColStart+1} cols have orange, avg orangeH={avgOrangeH:F1}px");
+
+    // Deep diag: trace ridge candidate collection manually.
+    using Mat diagLab = new Mat(); Cv2.CvtColor(rotated, diagLab, ColorConversionCodes.BGR2Lab);
+    using Mat diagL = new Mat(); Cv2.ExtractChannel(diagLab, diagL, 0);
+    int w = rawMask.Cols, h = rawMask.Rows;
+    int candCount = 0, skippedOrange = 0, skippedContrast = 0;
+    double maxContrastSeen = 0;
+    for (int x = plane.ColStart; x <= plane.ColEnd; x++)
+    {
+        int orangePx = 0;
+        for (int y = 0; y < h; y++) if (rawMask.At<byte>(y, x) > 0) orangePx++;
+        if (orangePx < h * 0.08) { skippedOrange++; continue; }
+
+        int topOrange = -1, botOrange = -1;
+        for (int y = 0; y < h; y++) { if (rawMask.At<byte>(y, x) > 0) { if (topOrange < 0) topOrange = y; botOrange = y; } }
+        int orangeHt = botOrange - topOrange + 1;
+        if (orangeHt < h * 0.04) { skippedOrange++; continue; }
+
+        int searchStart = topOrange + Math.Max(1, (int)(orangeHt * 0.08));
+        int searchEnd = topOrange + Math.Min(orangeHt - 1, (int)(orangeHt * 0.55));
+        double bestContrast = 0;
+        for (int t = searchStart; t <= searchEnd; t++)
+        {
+            int halfWin = 5;
+            int aS = Math.Max(0, t - halfWin), aE = t - 1;
+            int bS = t, bE = Math.Min(h - 1, t + halfWin - 1);
+            if (aE - aS < 2 || bE - bS < 2) continue;
+
+            int aboveO = 0, belowO = 0;
+            for (int y = aS; y <= aE; y++) if (rawMask.At<byte>(y, x) > 0) aboveO++;
+            for (int y = bS; y <= bE; y++) if (rawMask.At<byte>(y, x) > 0) belowO++;
+            double aF = (double)aboveO / (aE - aS + 1), bF = (double)belowO / (bE - bS + 1);
+            if (aF < 0.15 || bF < 0.15) continue;
+
+            // Local median L
+            byte[] vals = new byte[aE - aS + 1 + bE - bS + 1];
+            int vi = 0;
+            for (int y = aS; y <= aE; y++) vals[vi++] = diagL.At<byte>(y, x);
+            int aboveLen = vi;
+            for (int y = bS; y <= bE; y++) vals[vi++] = diagL.At<byte>(y, x);
+            Array.Sort(vals, 0, aboveLen);
+            double aboveMed = aboveLen % 2 == 1 ? vals[aboveLen/2] : (vals[aboveLen/2-1] + vals[aboveLen/2]) * 0.5;
+            Array.Sort(vals, aboveLen, vi - aboveLen);
+            int belowLen = vi - aboveLen;
+            double belowMed = belowLen % 2 == 1 ? vals[aboveLen + belowLen/2] : (vals[aboveLen + belowLen/2 - 1] + vals[aboveLen + belowLen/2]) * 0.5;
+
+            double contrast = (aboveMed - belowMed) / 5.0; // simplified MAD=5
+            if (Math.Abs(contrast) > Math.Abs(bestContrast)) bestContrast = contrast;
+        }
+
+        if (Math.Abs(bestContrast) > maxContrastSeen) maxContrastSeen = Math.Abs(bestContrast);
+        if (Math.Abs(bestContrast) >= 4.0) candCount++;
+        else skippedContrast++;
+    }
+    Console.WriteLine($"  Diag: candCount={candCount} skippedOrange={skippedOrange} skippedContrast={skippedContrast} maxContrast={maxContrastSeen:F2}");
+
+    // Relaxed options for static screenshot.
+    var geomOpts = new BackSurfaceGeometryOptions
+    {
+        MinContrast = 2.0,
+        MinCandidatePoints = 8,
+        MinOrangeSupportFraction = 0.12,
+        MinInlierFraction = 0.20,
+        MaxBackHeightFraction = 0.95,
+        MinBackHeightFraction = 0.02,
+    };
+    var geometry = BackSurfaceGeometryDetector.Detect(rotated, rawMask, plane, null, geomOpts);
+    if (geometry is null) { Console.WriteLine("  Geometry REJECTED."); return; }
+    Console.WriteLine($"  Geometry: ridge inliers={geometry.RidgeInliers} rail inliers={geometry.LowerRailInliers} backH={geometry.MeanBackHeight:F1} conf={geometry.Confidence:F2}");
+
+    // ── 4. Detect tile-back instances (NEW) ─────────────────────────
+    var instOpts = new BackTileInstanceOptions
+    {
+        MinOrangeCoverage = 0.20,
+        MinCorridorSpanFraction = 0.40,
+        BoundaryMinProminence = 0.04,
+    };
+    var instances = BackTileInstanceDetector.Detect(
+        rawMask, geometry, plane, cropRect, seat, FW, FH, instOpts);
+    Console.WriteLine($"  Instances: {instances.Count} detected");
+    for (int i = 0; i < instances.Count; i++)
+    {
+        var inst = instances[i];
+        Console.WriteLine($"    [{i}] u=[{inst.ULeft:F4},{inst.URight:F4}] w={inst.Width:F4} cov={inst.OrangeCoverage:F2} ridge={inst.RidgeSupport} rail={inst.LowerRailSupport} conf={inst.Confidence:F2}");
+    }
+
+    // ── 5. Projective sequence fit (NEW) ────────────────────────────
+    var projModel = ProjectiveTileSequenceFitter.Fit(instances);
+    if (projModel is not null)
+    {
+        Console.WriteLine($"  Projective: A={projModel.A:F4} B={projModel.B:F4} C={projModel.C:F4} resid={projModel.Residual:F4} monotonic={projModel.IsMonotonic} inliers={projModel.InlierCount} conf={projModel.Confidence:F2}");
+        for (int i = 0; i < instances.Count; i++)
+        {
+            double pred = projModel.PredictedUAt(i);
+            double obs = instances[i].UCenter;
+            Console.WriteLine($"    k={i}: obs={obs:F4} pred={pred:F4} err={Math.Abs(pred-obs):F4}");
+        }
+
+        var topology = ProjectiveTileSequenceFitter.ParseTopology(
+            instances, projModel, new TemporalTrackerOptions());
+        if (topology is not null)
+        {
+            Console.WriteLine($"  Topology: main={topology.MainCount} extra={topology.ExtraInstance is not null} missing={topology.MissingMainOrdinal} status={topology.Status}");
+        }
     }
     else
     {
-        Console.WriteLine("  Seam detection FAILED.");
+        Console.WriteLine("  Projective fit FAILED.");
     }
 
-    // ── 4. Build calibration (production factory) ────────────────────
-    var calib = HandSeamDetector.BuildCalibration(
-        rotated, rawMask, plane, cropRect, seat, rot, masker,
-        drawnSlot, FW, FH);
-    SideHandTopology? topology = null;
-    if (calib is not null)
-    {
-        Console.WriteLine($"  Calibration: seat={calib.Seat} slots={calib.TileCount} drawSide={calib.DrawSide} pitchU={calib.PitchU:F4} outerStartU={calib.OuterStartU:F4} conf={calib.Confidence:F2}");
-        Console.WriteLine($"    Slots U range: [{calib.MainSlots[0].UStart:F4}, {calib.MainSlots[12].UEnd:F4}]");
-        Console.WriteLine($"    Baseline scores: min={calib.BaselineSlotScores.Min():F3} med={calib.TileScoreMedian:F3} emptyRef={calib.EmptyReference:F3}");
-        Console.WriteLine($"    Slot widths: {string.Join(", ", calib.MainSlots.Select(s => $"{s.UEnd - s.UStart:F4}"))}");
-
-        // ── 5. Runtime topology (production class) ────────────────────
-        using Mat frozenMask = masker.Extract(rotated);
-        topology = SideHandTopologyDetector.Detect(
-            frozenMask, calib, previous: null, FW, FH);
-
-        var stateStr = string.Join("", topology.MainSlotStates.Select(s =>
-            s == SlotState.Occupied ? 'O' : s == SlotState.Empty ? 'E' : '?'));
-        Console.WriteLine($"  Topology: slots=[{stateStr}] occupied={topology.OccupiedCount} holeIdx={topology.InternalHoleIndex} draw={topology.DrawPresent} conf={topology.Confidence:F2}");
-
-        // ── 6. Draw topology overlay on frame (E: all 13 logical slots) ──
-        using var topoViz = img.Clone();
-        for (int i = 0; i < topology.MainSlotQuads.Count; i++)
-        {
-            var q = topology.MainSlotQuads[i];
-            Point2f[] quadPx = [
-                new((float)(q.TopLeft.X * FW), (float)(q.TopLeft.Y * FH)),
-                new((float)(q.TopRight.X * FW), (float)(q.TopRight.Y * FH)),
-                new((float)(q.BottomRight.X * FW), (float)(q.BottomRight.Y * FH)),
-                new((float)(q.BottomLeft.X * FW), (float)(q.BottomLeft.Y * FH))
-            ];
-            var color = topology.MainSlotStates[i] switch
-            {
-                SlotState.Occupied => new Scalar(0, 255, 0),
-                SlotState.Empty => new Scalar(0, 0, 255),
-                SlotState.Unknown => new Scalar(0, 255, 255),
-                _ => new Scalar(128, 128, 128)
-            };
-            DrawQuadPx(topoViz, quadPx, color, 1);
-            // Label logical slot index
-            var center = new Point(
-                (int)(quadPx.Average(p => p.X)),
-                (int)(quadPx.Average(p => p.Y)));
-            Cv2.PutText(topoViz, $"{i}", center, HersheyFonts.HersheySimplex, 0.3, Scalar.White, 1);
-        }
-        if (topology.InternalHoleIndex is { } hole)
-        {
-            var hq = topology.MainSlotQuads[hole];
-            Point2f[] hPx = [
-                new((float)(hq.TopLeft.X * FW), (float)(hq.TopLeft.Y * FH)),
-                new((float)(hq.TopRight.X * FW), (float)(hq.TopRight.Y * FH)),
-                new((float)(hq.BottomRight.X * FW), (float)(hq.BottomRight.Y * FH)),
-                new((float)(hq.BottomLeft.X * FW), (float)(hq.BottomLeft.Y * FH))
-            ];
-            DrawQuadPx(topoViz, hPx, new Scalar(255, 0, 255), 2);
-        }
-        string topoOutPath = $@"E:\文档\日麻教学\overlay\artifacts\replay\{name}-topology-v4.png";
-        Cv2.ImWrite(topoOutPath, topoViz);
-        Console.WriteLine($"  -> {topoOutPath}");
-    }
-    else
-    {
-        Console.WriteLine("  Calibration FAILED.");
-    }
-
-    // ── 7. Map plane corners to frame (production class) ─────────────────
-    Point2f[] frameCorners = SideHandRectifier.MapToFrame(plane, cropRect, seat);
-    NormalizedQuad refinedQuad = SideHandRectifier.ToNormalizedQuad(frameCorners, FW, FH);
-
-    // ── 8. Build 9-panel debug display ───────────────────────────────
+    // ── 6. Build 11-panel debug display ───────────────────────────────
     int pH = 260, pW = Math.Max(rotated.Cols, 350);
-    int rows = 3, cols = 3;
-    using var dbg = new Mat(rows * pH + 40, cols * pW + 40, MatType.CV_8UC3, new Scalar(40, 40, 40));
+    int rows = 4, cols = 3;
+    using var dbg = new Mat(rows * pH + 50, cols * pW + 40, MatType.CV_8UC3, new Scalar(40, 40, 40));
 
     // Row 0: rotated+plane, raw mask, clean mask
-    Point2f[] rotCorners = {
+    Point2f[] planeCorners = {
         new(plane.ColStart, (float)plane.TopStartY),
         new(plane.ColEnd, (float)plane.TopEndY),
         new(plane.ColEnd, (float)plane.BottomEndY),
         new(plane.ColStart, (float)plane.BottomStartY)
     };
-    using var rotViz = rotated.Clone(); DrawQuadPx(rotViz, rotCorners, new Scalar(0, 255, 0), 2);
-    Place(rotViz, 0, 0, pW, pH, dbg, "A: Rotated + plane (green)");
-    Place(rawMask, 0, 1, pW, pH, dbg, "B: Raw mask (no close)");
-    Place(cleanMask, 0, 2, pW, pH, dbg, "C: Clean mask (close+open)");
+    using var rotViz = rotated.Clone(); DrawQuadPx(rotViz, planeCorners, new Scalar(0, 255, 0), 2);
+    Place(rotViz, 0, 0, pW, pH, dbg, "A: Rotated + plane");
+    Place(rawMask, 0, 1, pW, pH, dbg, "B: Raw orange mask");
+    Place(cleanMask, 0, 2, pW, pH, dbg, "C: Clean mask");
 
-    // Row 1: crop+inv-rot, frame+ROIs, raw mask+seams
-    Point2f[] cropCorners = SideHandRectifier.MapToFrame(rotCorners, cropRect, seat);
-    // Adjust for display in crop coords
-    Point2f[] cropLocal = cropCorners.Select(p => new Point2f(p.X - cropRect.X, p.Y - cropRect.Y)).ToArray();
-    using var cropViz = cropped.Clone(); DrawQuadPx(cropViz, cropLocal, new Scalar(255, 0, 0), 2);
-    Place(cropViz, 1, 0, pW, pH, dbg, "D: Crop + inv-rot (blue)");
-    using var frameViz = img.Clone();
-    DrawQuadPx(frameViz, frameCorners, new Scalar(0, 255, 255), 2);
-    Cv2.Rectangle(frameViz, cropRect, new Scalar(0, 0, 255), 2);
-    Place(frameViz, 1, 1, pW, pH, dbg, "E: Frame (red=coarse yellow=refined)");
-
-    // Raw mask + red seam lines
-    using var seamViz = new Mat(); Cv2.CvtColor(rawMask, seamViz, ColorConversionCodes.GRAY2BGR);
-    if (seams is not null)
+    // Row 1: Lab-L + ridge candidates, ridge+rail lines, back corridor
+    using Mat lab = new Mat(); Cv2.CvtColor(rotated, lab, ColorConversionCodes.BGR2Lab);
+    using Mat lCh = new Mat(); Cv2.ExtractChannel(lab, lCh, 0);
+    using var labViz = new Mat(); Cv2.CvtColor(lCh, labViz, ColorConversionCodes.GRAY2BGR);
+    // Draw ridge line.
+    for (int x = geometry.ValidStart; x <= geometry.ValidEnd; x += 2)
     {
-        for (int i = 0; i < seams.SeamU.Count; i++)
-        {
-            var t = seams.SeamTop[i]; var b = seams.SeamBottom[i];
-            Cv2.Line(seamViz, new Point((int)t.X, (int)t.Y), new Point((int)b.X, (int)b.Y),
-                new Scalar(0, 0, 255), 1);
-        }
-        Cv2.PutText(seamViz, $"{seams.SeamU.Count} seams ({tileCount} tiles)",
-            new Point(5, 12), HersheyFonts.HersheySimplex, 0.35, Scalar.White, 1);
+        double ry = geometry.RidgeY(x);
+        int yi = Math.Clamp((int)ry, 0, rotated.Rows - 1);
+        Cv2.Circle(labViz, new Point(x, yi), 1, new Scalar(0, 255, 0), -1);
     }
-    else
+    for (int x = geometry.ValidStart; x <= geometry.ValidEnd; x += 2)
     {
-        Cv2.PutText(seamViz, "DETECTION FAILED", new Point(5, 12),
-            HersheyFonts.HersheySimplex, 0.35, new Scalar(0, 0, 255), 1);
+        double ly = geometry.LowerRailY(x);
+        int yi = Math.Clamp((int)ly, 0, rotated.Rows - 1);
+        Cv2.Circle(labViz, new Point(x, yi), 1, new Scalar(0, 0, 255), -1);
     }
-    Place(seamViz, 1, 2, pW, pH, dbg, "F: Raw mask + seams (red diagonals)");
+    Place(labViz, 1, 0, pW, pH, dbg, "D: Lab-L + ridge(green) + rail(red)");
 
-    // Row 2: gap signal, warped band, topology overview
+    // Ridge+rail on rotated.
+    using var rrViz = rotated.Clone();
+    for (int x = geometry.ValidStart; x <= geometry.ValidEnd; x += 2)
+    {
+        double ry = geometry.RidgeY(x);
+        double ly = geometry.LowerRailY(x);
+        Cv2.Circle(rrViz, new Point(x, Math.Clamp((int)ry, 0, rotated.Rows - 1)), 1, new Scalar(0, 255, 0), -1);
+        Cv2.Circle(rrViz, new Point(x, Math.Clamp((int)ly, 0, rotated.Rows - 1)), 1, new Scalar(0, 0, 255), -1);
+    }
+    Place(rrViz, 1, 1, pW, pH, dbg, "E: Rotated + ridge/rail");
+
+    // Instance quads on rotated.
+    using var instViz = rotated.Clone();
+    foreach (var inst in instances)
+    {
+        double xL = plane.ColStart + inst.ULeft * (plane.ColEnd - plane.ColStart);
+        double xR = plane.ColStart + inst.URight * (plane.ColEnd - plane.ColStart);
+        double rYL = geometry.RidgeY(xL), rYR = geometry.RidgeY(xR);
+        double lYL = geometry.LowerRailY(xL), lYR = geometry.LowerRailY(xR);
+        Point2f[] q =
+        [
+            new((float)xL, (float)rYL), new((float)xR, (float)rYR),
+            new((float)xR, (float)lYR), new((float)xL, (float)lYL)
+        ];
+        var color = inst.Confidence > 0.5
+            ? new Scalar(0, 255, 0)
+            : new Scalar(0, 255, 255);
+        DrawQuadPx(instViz, q, color, 1);
+        Cv2.PutText(instViz, $"{inst.Confidence:F1}",
+            new Point((int)xL + 2, (int)rYL + 14),
+            HersheyFonts.HersheySimplex, 0.3, Scalar.White, 1);
+    }
+    Place(instViz, 1, 2, pW, pH, dbg, "F: Instances (green=high conf)");
+
+    // Row 2: occupancy signal, frame overlay, projective model
     int sigW = 900;
     using var sigImg = new Mat(pH, sigW, MatType.CV_8UC3, Scalar.Black);
-    if (seams is not null && seams.GapSignal.Length > 0)
+    // Build occupancy signal manually.
+    int nOcc = 900;
+    double[] occ = new double[nOcc];
+    for (int i = 0; i < nOcc; i++)
     {
-        double[] gapSig = seams.GapSignal;
-        double m = gapSig.Max();
-        if (m > 1e-9)
+        double u = (i + 0.5) / nOcc;
+        double x = plane.ColStart + u * (plane.ColEnd - plane.ColStart);
+        int xi = Math.Clamp((int)Math.Round(x), 0, rawMask.Cols - 1);
+        double rY = geometry.RidgeY(xi);
+        double lY = geometry.LowerRailY(xi);
+        int top = Math.Clamp((int)(rY + 2), 0, rawMask.Rows - 1);
+        int bot = Math.Clamp((int)(lY - 2), top + 1, rawMask.Rows - 1);
+        int fg = 0, tot = 0;
+        for (int y = top; y <= bot; y++)
         {
-            for (int x = 1; x < Math.Min(sigW, gapSig.Length); x++)
-            {
-                int y0 = pH - 1 - (int)(gapSig[x - 1] / m * (pH - 1));
-                int y1 = pH - 1 - (int)(gapSig[x] / m * (pH - 1));
-                Cv2.Line(sigImg, new Point(x - 1, y0), new Point(x, y1), new Scalar(200, 200, 200), 1);
-            }
+            tot++;
+            if (rawMask.At<byte>(y, xi) > 0) fg++;
         }
-        int gs = seams.GapSignal.Length;
-        foreach (double u in seams.SeamU)
-        {
-            int sx = (int)(u * sigW);
-            if (sx >= 0 && sx < sigW)
-                Cv2.Line(sigImg, new Point(sx, 0), new Point(sx, pH), new Scalar(0, 255, 0), 2);
-        }
-        Cv2.PutText(sigImg, $"Gap signal + {seams.SeamU.Count} seams (green)",
-            new Point(5, 15), HersheyFonts.HersheySimplex, 0.35, Scalar.White, 1);
+        occ[i] = tot > 0 ? 1.0 - (double)fg / tot : 0.5;
     }
-    else
+    double occMax = occ.Max();
+    if (occMax > 1e-9)
     {
-        Cv2.PutText(sigImg, "No gap signal (detection failed)",
-            new Point(5, 15), HersheyFonts.HersheySimplex, 0.35, new Scalar(0, 0, 255), 1);
+        for (int x = 1; x < Math.Min(sigW, occ.Length); x++)
+        {
+            int y0 = pH - 1 - (int)(occ[x - 1] / occMax * (pH - 1));
+            int y1 = pH - 1 - (int)(occ[x] / occMax * (pH - 1));
+            Cv2.Line(sigImg, new Point(x - 1, y0), new Point(x, y1), new Scalar(200, 200, 200), 1);
+        }
     }
-    Place(sigImg, 2, 0, Math.Min(sigW, pW), pH, dbg, "G: Gap signal (HandSeamDetector)");
+    // Mark instance boundaries.
+    foreach (var inst in instances)
+    {
+        int bx = (int)(inst.ULeft * sigW);
+        Cv2.Line(sigImg, new Point(bx, 0), new Point(bx, pH), new Scalar(0, 255, 0), 1);
+    }
+    if (projModel is not null)
+    {
+        for (int k = 0; k <= instances.Count; k++)
+        {
+            double pu = projModel.PredictedUAt(k);
+            int px = Math.Clamp((int)(pu * sigW), 0, sigW - 1);
+            Cv2.Circle(sigImg, new Point(px, pH / 2), 3, new Scalar(0, 0, 255), -1);
+        }
+    }
+    Place(sigImg, 2, 0, Math.Min(sigW, pW), pH, dbg, "G: Occupancy + boundaries(green) + model(red)");
 
-    // Warped band
-    using var backStrip = SideHandRectifier.Warp(rotated, plane);
-    using var bandViz = new Mat(); Cv2.CvtColor(backStrip, bandViz, ColorConversionCodes.GRAY2BGR);
-    string bandLabel = calib is not null
-        ? $"Warped band | {calib.TileCount} slots | conf={calib.Confidence:F2}"
-        : $"Warped band | {tileCount} tiles (no calib)";
-    Cv2.PutText(bandViz, bandLabel, new Point(5, 12), HersheyFonts.HersheySimplex, 0.35, Scalar.White, 1);
-    Place(bandViz, 2, 1, pW, pH, dbg, "H: Warped band (ref)");
+    // Frame overlay with instances mapped back.
+    using var frameViz = img.Clone();
+    foreach (var inst in instances)
+    {
+        double xL = plane.ColStart + inst.ULeft * (plane.ColEnd - plane.ColStart);
+        double xR = plane.ColStart + inst.URight * (plane.ColEnd - plane.ColStart);
+        double rYL = geometry.RidgeY(xL), rYR = geometry.RidgeY(xR);
+        double lYL = geometry.LowerRailY(xL), lYR = geometry.LowerRailY(xR);
+        Point2f[] rotQ =
+        [
+            new((float)xL, (float)rYL), new((float)xR, (float)rYR),
+            new((float)xR, (float)lYR), new((float)xL, (float)lYL)
+        ];
+        Point2f[] frameQ = SideHandRectifier.MapToFrame(rotQ, cropRect, seat);
+        var pts = frameQ.Select(p => new Point((int)p.X, (int)p.Y)).ToArray();
+        Cv2.Polylines(frameViz, new[] { pts }, true, new Scalar(0, 255, 0), 1);
+    }
+    Place(frameViz, 2, 1, pW, pH, dbg, $"H: Frame overlay ({instances.Count} instances)");
 
-    // Topology summary panel
+    // Extra info panel.
+    using var infoPanel = new Mat(pH, pW, MatType.CV_8UC3, new Scalar(40, 40, 40));
+    string info = $"Seat: {name}\nInstances: {instances.Count}\n";
+    if (projModel is not null)
+    {
+        info += $"Model: u(k)=({projModel.A:F3}k+{projModel.B:F3})/({projModel.C:F3}k+1)\n";
+        info += $"Residual: {projModel.Residual:F4}  Monotonic: {projModel.IsMonotonic}\n";
+    }
+    info += $"Geometry conf: {geometry.Confidence:F2}\n";
+    info += $"Ridge inliers: {geometry.RidgeInliers}\n";
+    info += $"Rail inliers: {geometry.LowerRailInliers}\n";
+    info += $"Back height: {geometry.MeanBackHeight:F1}px";
+    var infoLines = info.Split('\n');
+    for (int li = 0; li < infoLines.Length; li++)
+        Cv2.PutText(infoPanel, infoLines[li], new Point(10, 25 + li * 22),
+            HersheyFonts.HersheySimplex, 0.45, Scalar.White, 1);
+    Place(infoPanel, 2, 2, pW, pH, dbg, "I: Info");
+
+    // Row 3: topo bar
     using var topoPanel = new Mat(pH, pW, MatType.CV_8UC3, new Scalar(40, 40, 40));
-    if (topology is not null)
+    for (int i = 0; i < instances.Count; i++)
     {
-        for (int i = 0; i < topology.MainSlotStates.Count; i++)
-        {
-            int bx = 10 + i * 24, bw = 22, by = 30, bh = pH - 60;
-            var color = topology.MainSlotStates[i] switch
-            {
-                SlotState.Occupied => new Scalar(0, 200, 0),
-                SlotState.Empty => new Scalar(50, 50, 200),
-                _ => new Scalar(80, 80, 80)
-            };
-            Cv2.Rectangle(topoPanel, new Rect(bx, by, bw, bh), color, -1);
-            Cv2.PutText(topoPanel, $"{i}", new Point(bx + 3, by + bh + 16),
-                HersheyFonts.HersheySimplex, 0.28, Scalar.White, 1);
-            // Score bar
-            double score = topology.MainSlotScores[i];
-            int scoreH = (int)(score * bh);
-            Cv2.Rectangle(topoPanel, new Rect(bx + 2, by + bh - scoreH, bw - 4, scoreH),
-                new Scalar(255, 255, 255), 1);
-        }
-        string topoLabel = $"Topology: {topology.OccupiedCount}/13 tiles";
-        if (topology.InternalHoleIndex is { } hi)
-            topoLabel += $" | hole@{hi}";
-        if (topology.DrawPresent)
-            topoLabel += $" | draw";
-        Cv2.PutText(topoPanel, topoLabel, new Point(5, 18),
-            HersheyFonts.HersheySimplex, 0.4, Scalar.White, 1);
+        int bx = 10 + i * 24, bw = 22, by = 30, bh = pH - 60;
+        var color = instances[i].Confidence > 0.5
+            ? new Scalar(0, 200, 0) : new Scalar(80, 80, 200);
+        Cv2.Rectangle(topoPanel, new Rect(bx, by, bw, bh), color, -1);
+        Cv2.PutText(topoPanel, $"{i}", new Point(bx + 3, by + bh + 16),
+            HersheyFonts.HersheySimplex, 0.28, Scalar.White, 1);
     }
-    else
-    {
-        Cv2.PutText(topoPanel, "No topology (calibration failed)",
-            new Point(10, 100), HersheyFonts.HersheySimplex, 0.5, new Scalar(0, 0, 255), 1);
-    }
-    Place(topoPanel, 2, 2, pW, pH, dbg, "I: Slot occupancy (SideHandTopologyDetector)");
+    string topoLabel = $"Topology: {instances.Count} instances";
+    if (projModel is not null)
+        topoLabel += $" | model resid={projModel.Residual:F4}";
+    Cv2.PutText(topoPanel, topoLabel, new Point(5, 18),
+        HersheyFonts.HersheySimplex, 0.4, Scalar.White, 1);
+    Place(topoPanel, 3, 0, pW, pH, dbg, "J: Instance bar chart");
 
-    string outPath = $@"E:\文档\日麻教学\overlay\artifacts\replay\{name}-debug-v4.png";
+    // Crop + inv-rot region.
+    Point2f[] refinedCorners = SideHandRectifier.MapToFrame(planeCorners, cropRect, seat);
+    using var cropViz = cropped.Clone();
+    Point2f[] cropLocal = planeCorners.Select(p =>
+        new Point2f(p.X, p.Y)).ToArray();
+    // Actually cropLocal should be the plane corners mapped to crop coords.
+    Point2f[] planeInCrop = new Point2f[4];
+    for (int i = 0; i < 4; i++)
+    {
+        Point2f cp = seat switch
+        {
+            Seat.Right => new Point2f(planeCorners[i].Y, cropped.Height - 1 - planeCorners[i].X),
+            Seat.Left => new Point2f(cropped.Width - 1 - planeCorners[i].Y, planeCorners[i].X),
+            _ => planeCorners[i]
+        };
+        planeInCrop[i] = cp;
+    }
+    DrawQuadPx(cropViz, planeInCrop, new Scalar(255, 0, 0), 2);
+    Place(cropViz, 3, 1, pW, pH, dbg, "K: Crop + inv-rot plane");
+
+    // Save.
+    string outPath = $@"E:\文档\日麻教学\overlay\artifacts\replay\{name}-debug-v10.png";
     Cv2.ImWrite(outPath, dbg);
     Console.WriteLine($"  -> {outPath}");
-    Console.WriteLine($"  Refined quad norm: TL({refinedQuad.TopLeft.X:F4},{refinedQuad.TopLeft.Y:F4}) TR({refinedQuad.TopRight.X:F4},{refinedQuad.TopRight.Y:F4}) BR({refinedQuad.BottomRight.X:F4},{refinedQuad.BottomRight.Y:F4}) BL({refinedQuad.BottomLeft.X:F4},{refinedQuad.BottomLeft.Y:F4})");
+
+    // ── CSV output ──────────────────────────────────────────────────
+    string csvPath = $@"E:\文档\日麻教学\overlay\artifacts\replay\{name}-diagnostics-v10.csv";
+    using var csv = new StreamWriter(csvPath);
+    csv.WriteLine("timestamp,seat,ridgeConf,railConf,instanceCount,mainCount,extraPresent,missingOrdinal,sequenceResidual,topologyConf,trackerState");
+    double mainCount = instances.Count;
+    bool extraPresent = false;
+    if (projModel is not null)
+    {
+        var topo = ProjectiveTileSequenceFitter.ParseTopology(
+            instances, projModel, new TemporalTrackerOptions());
+        if (topo is not null)
+        {
+            mainCount = topo.MainCount;
+            extraPresent = topo.ExtraInstance is not null;
+        }
+    }
+    double railConf = geometry.LowerRailInliers > 0 ? 0.85 : 0;
+    string missingOrd = projModel is not null ? "-1" : "";
+    double seqResidual = projModel?.Residual ?? 0;
+    csv.WriteLine($",{name},{geometry.Confidence:F2},{railConf:F2},{instances.Count},{mainCount:F0},{extraPresent},{missingOrd},{seqResidual:F4},{geometry.Confidence:F2},Static");
+    Console.WriteLine($"  -> {csvPath}");
 }
 
 ProcessSide("right", Seat.Right, RotateFlags.Rotate90Clockwise);
