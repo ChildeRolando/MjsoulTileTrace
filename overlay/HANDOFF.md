@@ -227,6 +227,68 @@ detections, which makes the stability counter advance reliably and allows the
 confidence gate stops the blanket "classifier-rejected" outcome observed in the
 first replay (107 candidates, 0 formal events).
 
+## CV rewrite (2026-07-31)
+
+Per expert review, the original detection model had two fundamental flaws:
+
+1. **Fixed DrawnSlot**: the drawn tile position was a single calibrated quad. After
+   calls (chi/pon/kan), the concealed hand shortens and the draw position moves
+   with it, invalidating the fixed quad.
+2. **River as contours**: Canny + findContours + MinAreaRect treats 3D tiles as
+   flat 2D rectangles and switches between contour-based and grid-based
+   representations frame-to-frame, causing unstable observations.
+
+### New architecture
+
+```
+原始画面
+  ├── 手牌透视归一化 → 一维牌列拟合 → 动态摸牌位置
+  │                                   └── 出牌动作源位置
+  ├── 河牌透视归一化 → 固定逻辑格状态 → 新增/移除河牌
+  └── 副露区域检测 → 鸣牌数量先验 → 时序状态机确认摸切/手切
+```
+
+**Hand subsystem** (`Vision/Hand/`):
+- `HandRectifier` – homography that warps each seat's main-hand region into a
+  900×120 horizontal grayscale strip, normalising all four orientations.
+- `HandLatticeEstimator` – detects tiles via per-column foreground/background
+  contrast (margin-based background estimation), groups foreground columns into
+  runs, and identifies a draw gap (>1.5× median inter-tile gap).
+- `DynamicDrawEstimator` – maps the draw position back from strip coordinates
+  to the original frame using the inverse homography, replacing the fixed
+  `DrawnSlot` quad.
+- `HandMotionSourceDetector` – frame-difference-based motion centroid
+  classification (Draw/MainHand/Unknown).
+
+**River subsystem** (`Vision/River/`):
+- `RiverSlotLayout` – fixed 3×6 logical grid (18 cells) with canonical IDs
+  (e.g. `bottom-river-05`), original quadrilaterals preserved (not axis-aligned).
+- `RiverRectifier` – warps each cell's evidence quad to a 48×64 canonical
+  grayscale patch.
+- `RiverBackgroundModel` – per-cell background capture with EMA update.
+- `RiverSlotClassifier` – feature-based cell classification (background MAE,
+  central-region Canny edge density, brightness, Sobel edge orientation ratio
+  for riichi detection). States: Empty, NormalTile, RiichiRotatedTile,
+  Occluded, Unknown.
+
+**Motion gating** (`Vision/Motion/`):
+- `StabilityGate` – per-ROI and per-cell frame-difference motion detection;
+  temporal stability counters for state signatures (including 18-bit river
+  occupancy).
+
+**Rewritten detector** (`Vision/Detection/OpenCvSeatDetector.cs`):
+- Composes Hand + River + Motion subsystems.
+- Meld detection preserved from the original contour-based approach.
+- Stability signature now encodes: main tile count | drawn | meld groups |
+  meld tiles | 18-bit river occupancy.
+
+### Test results
+
+- Core: 208 passed, 0 failed
+- Vision: 113 passed, 0 failed
+- Windows: 67 passed, 0 failed
+- Total: 388 passed, 0 failed
+
 ## Remaining work
 
 1. Re-run replay with updated detector and classifier; verify that formal
