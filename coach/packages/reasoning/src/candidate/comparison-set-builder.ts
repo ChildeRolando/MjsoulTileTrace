@@ -9,10 +9,7 @@ import {
   type StructuredComparisonCandidate,
 } from "@riichi-coach/contracts";
 
-export type ComparisonBuildCandidate = {
-  result: CandidateNormalizationResult;
-  decisionWindow: DecisionWindow;
-};
+export type ComparisonBuildCandidate = CandidateNormalizationResult;
 
 const originRank = {
   model: 0,
@@ -31,16 +28,13 @@ export function buildStructuredComparisonSet(input: {
   candidates: ComparisonBuildCandidate[];
 }): StructuredComparisonBuildResult {
   const parsed = input.candidates.map((entry) => {
-    const result = CandidateNormalizationResultSchema.parse(entry.result);
+    const result = CandidateNormalizationResultSchema.parse(entry);
     if (result.status !== "ready") {
       throw new Error(
         `Only ready candidates can enter comparison building: ${result.status}`,
       );
     }
-    return {
-      result,
-      decisionWindow: DecisionWindowSchema.parse(entry.decisionWindow),
-    };
+    return result;
   });
   if (parsed.length === 0) {
     return StructuredComparisonBuildResultSchema.parse({
@@ -52,13 +46,13 @@ export function buildStructuredComparisonSet(input: {
   }
 
   const windowKeys = new Set(
-    parsed.map((entry) => windowKey(entry.decisionWindow)),
+    parsed.map((result) => windowKey(result.decisionWindow)),
   );
   const actionRefs = parsed.map(
-    (entry) => entry.result.candidate.actionRef,
+    (result) => result.candidate.actionRef,
   );
   const windowKinds = [
-    ...new Set(parsed.map((entry) => entry.decisionWindow.kind)),
+    ...new Set(parsed.map((result) => result.decisionWindow.kind)),
   ];
   if (windowKeys.size !== 1) {
     return StructuredComparisonBuildResultSchema.parse({
@@ -70,8 +64,8 @@ export function buildStructuredComparisonSet(input: {
   }
 
   const merged = new Map<string, StructuredComparisonCandidate>();
-  for (const entry of parsed) {
-    const incoming = entry.result.candidate;
+  for (const result of parsed) {
+    const incoming = result.candidate;
     const current = merged.get(incoming.actionRef);
     if (current === undefined) {
       merged.set(incoming.actionRef, incoming);

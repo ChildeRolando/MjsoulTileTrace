@@ -218,7 +218,21 @@ export const DecisionWindowSchema = z.discriminatedUnion("kind", [
   DiscardResponseWindowSchema,
   KanResponseWindowSchema,
   PostCallDiscardWindowSchema,
-]);
+]).superRefine((window, context) => {
+  if (
+    (window.kind === "discard_response" ||
+      window.kind === "kan_response") &&
+    window.actor !== null &&
+    window.sourceActor !== null &&
+    window.actor === window.sourceActor
+  ) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Response window actor cannot equal source actor",
+      path: ["sourceActor"],
+    });
+  }
+});
 export type DecisionWindow = z.infer<typeof DecisionWindowSchema>;
 
 const allowedKinds: Record<DecisionWindow["kind"], readonly RiichiActionKind[]> = {
@@ -240,6 +254,7 @@ export type ActionWindowConflictCode =
   | "post_call_discard_requires_tedashi"
   | "response_event_mismatch"
   | "response_kind_mismatch"
+  | "response_target_self"
   | "response_source_actor_mismatch"
   | "response_tile_mismatch"
   | "draw_event_mismatch";
@@ -284,6 +299,9 @@ export function actionWindowConflictCodes(
       action.kind === "daiminkan" ||
       action.kind === "ron")
   ) {
+    if (window.actor !== null && action.targetActor === window.actor) {
+      conflicts.push("response_target_self");
+    }
     if (
       window.sourceActor !== null &&
       action.targetActor !== window.sourceActor

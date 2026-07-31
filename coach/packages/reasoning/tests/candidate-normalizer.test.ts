@@ -111,6 +111,110 @@ describe("CandidateNormalizer ambiguity", () => {
 });
 
 describe("CandidateNormalizer direct-known-fact consistency", () => {
+  const structurallyInvalidCalls: Array<{
+    name: string;
+    draft: ActionDraft & {
+      kind: "chi" | "pon";
+      consumedTiles: [
+        { id: "2m" | "3m" | "4m" | "5m"; red: false },
+        { id: "2m" | "3m" | "4m" | "5m"; red: false },
+      ];
+    };
+    issueCode: string;
+    offeredTile: { id: "2m"; red: false };
+  }> = [
+    {
+      name: "non-sequential chi",
+      draft: {
+        kind: "chi" as const,
+        calledTile: { id: "2m" as const, red: false },
+        consumedTiles: [
+          { id: "4m" as const, red: false },
+          { id: "5m" as const, red: false },
+        ],
+        targetActor: 1,
+        responseEventRef: "event:discard",
+      },
+      issueCode: "chi_not_sequence",
+      offeredTile: { id: "2m" as const, red: false },
+    },
+    {
+      name: "mixed-tile pon",
+      draft: {
+        kind: "pon" as const,
+        calledTile: { id: "2m" as const, red: false },
+        consumedTiles: [
+          { id: "2m" as const, red: false },
+          { id: "3m" as const, red: false },
+        ],
+        targetActor: 1,
+        responseEventRef: "event:discard",
+      },
+      issueCode: "pon_tile_id_mismatch",
+      offeredTile: { id: "2m" as const, red: false },
+    },
+  ];
+
+  it.each(structurallyInvalidCalls)(
+    "returns a structural diagnostic for a fully specified $name",
+    ({
+    draft,
+    issueCode,
+    offeredTile,
+  }) => {
+    expect(normalizeCandidate({
+      draft,
+      origin: "user",
+      facts: {
+        decisionWindow: {
+          kind: "discard_response",
+          actor: 0,
+          triggerEventRef: "event:discard",
+          sourceActor: 1,
+          offeredTile,
+        },
+        concealedTiles: [...draft.consumedTiles],
+      },
+    })).toEqual({
+      status: "structurally_invalid_action",
+      issueCodes: [issueCode],
+    });
+  });
+
+  it("returns a structural diagnostic for a mixed-tile ankan", () => {
+    expect(normalizeCandidate({
+      draft: {
+        kind: "ankan",
+        tiles: [
+          { id: "6s", red: false },
+          { id: "6s", red: false },
+          { id: "6s", red: false },
+          { id: "7s", red: false },
+        ],
+      },
+      origin: "user",
+      facts: {
+        decisionWindow: {
+          kind: "self_turn",
+          actor: 0,
+          triggerEventRef: "event:draw",
+        },
+        concealedTiles: [
+          { id: "6s", red: false },
+          { id: "6s", red: false },
+          { id: "6s", red: false },
+        ],
+        currentDraw: {
+          tile: { id: "7s", red: false },
+          eventRef: "event:draw",
+        },
+      },
+    })).toEqual({
+      status: "structurally_invalid_action",
+      issueCodes: ["ankan_tile_id_mismatch"],
+    });
+  });
+
   it("reports direct conflicts before asking for irrelevant completion fields", () => {
     expect(normalizeCandidate({
       draft: { kind: "pass" },
@@ -171,6 +275,29 @@ describe("CandidateNormalizer direct-known-fact consistency", () => {
         "response_source_actor_mismatch",
         "response_tile_mismatch",
       ],
+      evidenceRefs: ["event:discard"],
+    });
+  });
+
+  it("reports a self-target response before asking for call composition", () => {
+    expect(normalizeCandidate({
+      draft: {
+        kind: "pon",
+        targetActor: 0,
+      },
+      origin: "user",
+      facts: {
+        decisionWindow: {
+          kind: "discard_response",
+          actor: 0,
+          triggerEventRef: "event:discard",
+          sourceActor: null,
+          offeredTile: { id: "2m", red: false },
+        },
+      },
+    })).toEqual({
+      status: "inconsistent_with_known_facts",
+      conflictCodes: ["response_target_self"],
       evidenceRefs: ["event:discard"],
     });
   });
@@ -519,6 +646,49 @@ describe("CandidateNormalizer direct-known-fact consistency", () => {
     },
   );
 
+  it.each([
+    {
+      name: "chi",
+      kind: "chi" as const,
+      offeredTile: { id: "5m" as const, red: false },
+      concealedTiles: [
+        { id: "1p" as const, red: false },
+        { id: "2p" as const, red: false },
+      ],
+    },
+    {
+      name: "pon",
+      kind: "pon" as const,
+      offeredTile: { id: "2m" as const, red: false },
+      concealedTiles: [
+        { id: "3m" as const, red: false },
+        { id: "3m" as const, red: false },
+      ],
+    },
+  ])(
+    "rejects omitted $name composition when known tiles cannot form it",
+    ({ kind, offeredTile, concealedTiles }) => {
+      expect(normalizeCandidate({
+        draft: { kind },
+        origin: "user",
+        facts: {
+          decisionWindow: {
+            kind: "discard_response",
+            actor: 0,
+            triggerEventRef: "event:discard",
+            sourceActor: 1,
+            offeredTile,
+          },
+          concealedTiles,
+        },
+      })).toEqual({
+        status: "inconsistent_with_known_facts",
+        conflictCodes: ["consumed_tiles_missing"],
+        evidenceRefs: [],
+      });
+    },
+  );
+
   it("rejects an incomplete ankan with fewer than four known tiles", () => {
     expect(normalizeCandidate({
       draft: { kind: "ankan" },
@@ -536,6 +706,79 @@ describe("CandidateNormalizer direct-known-fact consistency", () => {
       status: "inconsistent_with_known_facts",
       conflictCodes: ["ankan_tiles_missing"],
       evidenceRefs: [],
+    });
+  });
+
+  it.each([
+    {
+      name: "explicit tiles",
+      draft: {
+        kind: "ankan" as const,
+        tiles: [sixSou, sixSou, sixSou, sixSou] as [
+          typeof sixSou,
+          typeof sixSou,
+          typeof sixSou,
+          typeof sixSou,
+        ],
+      },
+      concealedTiles: [] as typeof sixSou[],
+    },
+    {
+      name: "omitted tiles",
+      draft: { kind: "ankan" as const },
+      concealedTiles: [
+        sixSou,
+        sixSou,
+        { id: "7s" as const, red: false },
+      ],
+    },
+  ])(
+    "rejects an ankan with $name when one unknown draw cannot make four",
+    ({ draft, concealedTiles }) => {
+      expect(normalizeCandidate({
+        draft,
+        origin: "user",
+        facts: {
+          decisionWindow: {
+            kind: "self_turn",
+            actor: 0,
+            triggerEventRef: "event:draw",
+          },
+          concealedTiles,
+        },
+      })).toEqual({
+        status: "inconsistent_with_known_facts",
+        conflictCodes: ["ankan_tiles_missing"],
+        evidenceRefs: [],
+      });
+    },
+  );
+
+  it("rejects an omitted kakan meld when no known pon matches its tile", () => {
+    expect(normalizeCandidate({
+      draft: {
+        kind: "kakan",
+        addedTile: { id: "6s", red: false },
+      },
+      origin: "user",
+      facts: {
+        decisionWindow: {
+          kind: "self_turn",
+          actor: 0,
+          triggerEventRef: "event:draw",
+        },
+        concealedTiles: [{ id: "6s", red: false }],
+        currentDraw: null,
+        melds: [{
+          meldRef: "meld:5p",
+          kind: "pon",
+          tiles: [fiveNormal, fiveNormal, fiveNormal],
+        }],
+      },
+    })).toEqual({
+      status: "inconsistent_with_known_facts",
+      conflictCodes: ["kakan_tile_mismatch"],
+      evidenceRefs: ["meld:5p"],
     });
   });
 

@@ -246,4 +246,43 @@ describe("decision windows", () => {
       "response_tile_mismatch",
     ]);
   });
+
+  it("rejects self-target responses even when the source actor is unknown", () => {
+    const responseWindow = DecisionWindowSchema.parse({
+      kind: "discard_response",
+      actor: 0,
+      triggerEventRef: "event:discard",
+      sourceActor: null,
+      offeredTile: tile("2m"),
+    });
+
+    expect(actionWindowConflictCodes(
+      {
+        kind: "pon",
+        calledTile: tile("2m"),
+        consumedTiles: [tile("2m"), tile("2m")],
+        targetActor: 0,
+        responseEventRef: "event:discard",
+      },
+      responseWindow,
+    )).toContain("response_target_self");
+  });
+
+  it("rejects response windows whose actor is also the known source", () => {
+    expect(() => DecisionWindowSchema.parse({
+      kind: "discard_response",
+      actor: 0,
+      triggerEventRef: "event:discard",
+      sourceActor: 0,
+      offeredTile: tile("2m"),
+    })).toThrow(/Response window actor cannot equal source actor/);
+    expect(() => DecisionWindowSchema.parse({
+      kind: "kan_response",
+      actor: 2,
+      triggerEventRef: "event:kakan",
+      sourceActor: 2,
+      offeredTile: tile("5p"),
+      kanKind: "kakan",
+    })).toThrow(/Response window actor cannot equal source actor/);
+  });
 });

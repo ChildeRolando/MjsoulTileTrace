@@ -84,6 +84,10 @@ describe("candidate boundary contracts", () => {
 
   it("parses every single-candidate result state", () => {
     expect(CandidateNormalizationResultSchema.parse({
+      status: "structurally_invalid_action",
+      issueCodes: ["chi_not_sequence"],
+    }).status).toBe("structurally_invalid_action");
+    expect(CandidateNormalizationResultSchema.parse({
       status: "needs_clarification",
       ambiguousFields: ["tile.red"],
     }).status).toBe("needs_clarification");
@@ -113,33 +117,87 @@ describe("candidate boundary contracts", () => {
     expect(CandidateNormalizationResultSchema.parse({
       status: "ready",
       candidate,
+      decisionWindow: {
+        kind: "self_turn",
+        actor: 0,
+        triggerEventRef: "event:draw",
+      },
       consistency: "consistent",
       skippedChecks: [],
     }).status).toBe("ready");
     expect(CandidateNormalizationResultSchema.parse({
       status: "ready",
       candidate,
+      decisionWindow: {
+        kind: "self_turn",
+        actor: 0,
+        triggerEventRef: "event:draw",
+      },
       consistency: "unknown_due_to_missing_facts",
       skippedChecks: ["concealed_tiles"],
     }).status).toBe("ready");
     expect(() => CandidateNormalizationResultSchema.parse({
       status: "ready",
       candidate,
+      decisionWindow: {
+        kind: "self_turn",
+        actor: 0,
+        triggerEventRef: "event:draw",
+      },
       consistency: "consistent",
       skippedChecks: ["concealed_tiles"],
     })).toThrow(/Consistent normalization cannot skip checks/);
     expect(() => CandidateNormalizationResultSchema.parse({
       status: "ready",
       candidate,
+      decisionWindow: {
+        kind: "self_turn",
+        actor: 0,
+        triggerEventRef: "event:draw",
+      },
       consistency: "unknown_due_to_missing_facts",
       skippedChecks: [],
     })).toThrow(/Missing-fact normalization must name skipped checks/);
     expect(() => CandidateNormalizationResultSchema.parse({
       status: "ready",
       candidate,
+      decisionWindow: {
+        kind: "self_turn",
+        actor: 0,
+        triggerEventRef: "event:draw",
+      },
       consistency: "unknown_due_to_missing_facts",
       skippedChecks: ["concealed_tiles", "concealed_tiles"],
     })).toThrow(/Skipped checks must be unique/);
+  });
+
+  it("binds every ready candidate to its normalization decision window", () => {
+    const action = {
+      kind: "discard",
+      tile: { id: "2p", red: false },
+      discardMode: "tedashi",
+    } as const;
+
+    expect(CandidateNormalizationResultSchema.parse({
+      status: "ready",
+      candidate: {
+        actionRef: canonicalActionRef(action),
+        action,
+        origins: ["user"],
+      },
+      decisionWindow: {
+        kind: "self_turn",
+        actor: 0,
+        triggerEventRef: "event:draw",
+      },
+      consistency: "consistent",
+      skippedChecks: [],
+    })).toMatchObject({
+      status: "ready",
+      decisionWindow: {
+        triggerEventRef: "event:draw",
+      },
+    });
   });
 
   it("keeps source-import and set-build diagnostics explicit", () => {

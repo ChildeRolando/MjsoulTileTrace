@@ -7,7 +7,6 @@ import {
 } from "../src/candidate/candidate-normalizer.js";
 import type {
   CandidateNormalizationResult,
-  DecisionWindow,
 } from "@riichi-coach/contracts";
 
 const selfTurn = {
@@ -19,6 +18,7 @@ const selfTurn = {
 function discard(
   id: "2p" | "6s",
   origin: "model" | "actual" | "user",
+  decisionWindow = selfTurn,
 ) {
   const result = normalizeCandidate({
     draft: {
@@ -28,7 +28,7 @@ function discard(
     },
     origin,
     facts: {
-      decisionWindow: selfTurn,
+      decisionWindow,
       concealedTiles: [
         { id: "2p", red: false },
         { id: "6s", red: false },
@@ -39,7 +39,7 @@ function discard(
   if (result.status !== "ready") {
     throw new Error(`fixture did not normalize: ${result.status}`);
   }
-  return { result, decisionWindow: selfTurn };
+  return result;
 }
 
 describe("structured comparison set builder", () => {
@@ -86,8 +86,8 @@ describe("structured comparison set builder", () => {
       expect(
         built.comparisonSet.candidates.map((candidate) => candidate.actionRef),
       ).toEqual([
-        discard("6s", "user").result.candidate.actionRef,
-        discard("2p", "model").result.candidate.actionRef,
+        discard("6s", "user").candidate.actionRef,
+        discard("2p", "model").candidate.actionRef,
       ]);
       expect(built.comparisonSet.candidates[0]?.origins).toEqual([
         "actual",
@@ -126,11 +126,54 @@ describe("structured comparison set builder", () => {
       decisionLayerRef: "decision-layer:self-turn",
       candidates: [
         discard("2p", "user"),
-        {
-          ...discard("6s", "model"),
-          decisionWindow: differentDraw,
-        },
+        discard("6s", "model", differentDraw),
       ],
+    })).toMatchObject({
+      status: "not_comparable",
+      code: "cross_decision_window",
+      windowKinds: ["self_turn"],
+    });
+  });
+
+  it("uses only each ready result's bound normalization window", () => {
+    const first = normalizeCandidate({
+      draft: {
+        kind: "discard",
+        tile: { id: "2p", red: false },
+        discardMode: "tedashi",
+      },
+      origin: "user",
+      facts: {
+        decisionWindow: selfTurn,
+        concealedTiles: [{ id: "2p", red: false }],
+        currentDraw: null,
+      },
+    });
+    const second = normalizeCandidate({
+      draft: {
+        kind: "discard",
+        tile: { id: "6s", red: false },
+        discardMode: "tedashi",
+      },
+      origin: "model",
+      facts: {
+        decisionWindow: {
+          ...selfTurn,
+          triggerEventRef: "event:other-draw",
+        },
+        concealedTiles: [{ id: "6s", red: false }],
+        currentDraw: null,
+      },
+    });
+    if (first.status !== "ready" || second.status !== "ready") {
+      throw new Error("comparison fixtures did not normalize");
+    }
+
+    expect(buildStructuredComparisonSet({
+      comparisonSetId: "comparison:bound-window",
+      origin: "user_comparison",
+      decisionLayerRef: "decision-layer:self-turn",
+      candidates: [first, second],
     })).toMatchObject({
       status: "not_comparable",
       code: "cross_decision_window",
@@ -190,8 +233,8 @@ describe("structured comparison set builder", () => {
       origin: "user_comparison",
       decisionLayerRef: "decision-layer:cross-layer",
       candidates: [
-        { result: pon, decisionWindow: responseWindow },
-        { result: afterPonDiscard, decisionWindow: postCallWindow },
+        pon,
+        afterPonDiscard,
       ],
     })).toMatchObject({
       status: "not_comparable",
@@ -212,10 +255,7 @@ describe("structured comparison set builder", () => {
       decisionLayerRef: "decision-layer:self-turn",
       candidates: [
         discard("2p", "user"),
-        {
-          result: notReady,
-          decisionWindow: selfTurn as DecisionWindow,
-        },
+        notReady,
       ],
     })).toThrow(
       "Only ready candidates can enter comparison building: needs_clarification",

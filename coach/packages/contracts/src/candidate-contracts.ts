@@ -290,11 +290,31 @@ export const CandidateNormalizationResultSchema = z.discriminatedUnion(
     z.object({
       status: z.literal("ready"),
       candidate: StructuredComparisonCandidateSchema,
+      decisionWindow: DecisionWindowSchema,
       consistency: z.enum([
         "consistent",
         "unknown_due_to_missing_facts",
       ]),
       skippedChecks: z.array(z.string().min(1)),
+    }).strict(),
+    z.object({
+      status: z.literal("structurally_invalid_action"),
+      issueCodes: z.array(z.enum([
+        "chi_not_sequence",
+        "pon_tile_id_mismatch",
+        "daiminkan_tile_id_mismatch",
+        "ankan_tile_id_mismatch",
+        "consumed_tiles_not_canonical",
+        "ankan_tiles_not_canonical",
+        "invalid_completed_action",
+      ])).min(1).superRefine((values, context) => {
+        if (new Set(values).size !== values.length) {
+          context.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: "Structural issue codes must be unique",
+          });
+        }
+      }),
     }).strict(),
     z.object({
       status: z.literal("needs_clarification"),

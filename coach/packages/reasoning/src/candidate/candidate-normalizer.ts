@@ -21,13 +21,25 @@ import {
 type Completion = {
   action?: RiichiAction;
   ambiguousFields: string[];
+  structuralIssueCodes?: Array<
+    | "chi_not_sequence"
+    | "pon_tile_id_mismatch"
+    | "daiminkan_tile_id_mismatch"
+    | "ankan_tile_id_mismatch"
+    | "consumed_tiles_not_canonical"
+    | "ankan_tiles_not_canonical"
+    | "invalid_completed_action"
+  >;
 };
+type StructuralIssueCode = NonNullable<
+  Completion["structuralIssueCodes"]
+>[number];
 
 function sameTile(left: Tile, right: Tile): boolean {
   return left.id === right.id && left.red === right.red;
 }
 
-function unique(values: readonly string[]): string[] {
+function unique<T extends string>(values: readonly T[]): T[] {
   return [...new Set(values)];
 }
 
@@ -416,8 +428,42 @@ function completeAction(
   if (ambiguousFields.length > 0) {
     return { ambiguousFields: unique(ambiguousFields) };
   }
+  const parsed = RiichiActionSchema.safeParse(candidate);
+  if (!parsed.success) {
+    const issueCodes = parsed.error.issues.map(
+      (issue): StructuralIssueCode => {
+      if (draft.kind === "chi" && issue.path[0] === "consumedTiles") {
+        return issue.message.includes("canonical")
+          ? "consumed_tiles_not_canonical"
+          : "chi_not_sequence";
+      }
+      if (draft.kind === "pon" && issue.path[0] === "consumedTiles") {
+        return issue.message.includes("canonical")
+          ? "consumed_tiles_not_canonical"
+          : "pon_tile_id_mismatch";
+      }
+      if (
+        draft.kind === "daiminkan" &&
+        issue.path[0] === "consumedTiles"
+      ) {
+        return issue.message.includes("canonical")
+          ? "consumed_tiles_not_canonical"
+          : "daiminkan_tile_id_mismatch";
+      }
+      if (draft.kind === "ankan" && issue.path[0] === "tiles") {
+        return issue.message.includes("canonical")
+          ? "ankan_tiles_not_canonical"
+          : "ankan_tile_id_mismatch";
+      }
+      return "invalid_completed_action";
+    });
+    return {
+      ambiguousFields: [],
+      structuralIssueCodes: unique(issueCodes),
+    };
+  }
   return {
-    action: RiichiActionSchema.parse(candidate),
+    action: parsed.data,
     ambiguousFields: [],
   };
 }
@@ -466,6 +512,91 @@ function containsDraftMultiset(
   }
 
   return search(0, available);
+}
+
+function missingDraftTileCount(
+  available: readonly Tile[],
+  required: readonly DraftTile[],
+): number {
+  const ordered = [...required].sort(
+    (left, right) =>
+      Number(right.red !== undefined) - Number(left.red !== undefined),
+  );
+  let minimumMissing = ordered.length;
+
+  function search(
+    index: number,
+    remaining: readonly Tile[],
+    missing: number,
+  ): void {
+    if (missing >= minimumMissing) {
+      return;
+    }
+    if (index === ordered.length) {
+      minimumMissing = missing;
+      return;
+    }
+    const draft = ordered[index]!;
+    let matched = false;
+    remaining.forEach((tile, tileIndex) => {
+      if (
+        tile.id !== draft.id ||
+        (draft.red !== undefined && tile.red !== draft.red)
+      ) {
+        return;
+      }
+      matched = true;
+      search(index + 1, [
+        ...remaining.slice(0, tileIndex),
+        ...remaining.slice(tileIndex + 1),
+      ], missing);
+    });
+    if (!matched || missing + 1 < minimumMissing) {
+      search(index + 1, remaining, missing + 1);
+    }
+  }
+
+  search(0, available, 0);
+  return minimumMissing;
+}
+
+function canFormOmittedCall(
+  kind: "chi" | "pon" | "daiminkan",
+  offered: Tile,
+  concealedTiles: readonly Tile[],
+): boolean {
+  if (kind === "pon" || kind === "daiminkan") {
+    const requiredCount = kind === "pon" ? 2 : 3;
+    return concealedTiles.filter((tile) => tile.id === offered.id).length >=
+      requiredCount;
+  }
+  if (offered.id.endsWith("z")) {
+    return false;
+  }
+  const rank = Number(offered.id[0]);
+  const suit = offered.id[1]!;
+  for (
+    let start = Math.max(1, rank - 2);
+    start <= Math.min(7, rank);
+    start += 1
+  ) {
+    const requiredIds = [start, start + 1, start + 2]
+      .filter((candidateRank) => candidateRank !== rank)
+      .map((candidateRank) => `${candidateRank}${suit}`);
+    const remaining = [...concealedTiles];
+    const possible = requiredIds.every((id) => {
+      const index = remaining.findIndex((tile) => tile.id === id);
+      if (index < 0) {
+        return false;
+      }
+      remaining.splice(index, 1);
+      return true;
+    });
+    if (possible) {
+      return true;
+    }
+  }
+  return false;
 }
 
 function checkConsistency(
@@ -666,6 +797,19 @@ function directDraftConflicts(
       draft.kind === "daiminkan" ||
       draft.kind === "ron") &&
     draft.targetActor !== undefined &&
+    responseWindow.actor !== null &&
+    draft.targetActor === responseWindow.actor
+  ) {
+    conflictCodes.push("response_target_self");
+    evidenceRefs.push(responseWindow.triggerEventRef);
+  }
+  if (
+    responseWindow !== null &&
+    (draft.kind === "chi" ||
+      draft.kind === "pon" ||
+      draft.kind === "daiminkan" ||
+      draft.kind === "ron") &&
+    draft.targetActor !== undefined &&
     responseWindow.sourceActor !== null &&
     draft.targetActor !== responseWindow.sourceActor
   ) {
@@ -734,10 +878,17 @@ function directDraftConflicts(
     draft.kind === "daiminkan"
   ) {
     const requiredCount = draft.kind === "daiminkan" ? 3 : 2;
+    const offered = responseWindow?.offeredTile;
     if (
       facts.concealedTiles !== undefined &&
       (draft.consumedTiles === undefined
-        ? facts.concealedTiles.length < requiredCount
+        ? facts.concealedTiles.length < requiredCount ||
+          (offered !== undefined &&
+            !canFormOmittedCall(
+              draft.kind,
+              offered,
+              facts.concealedTiles,
+            ))
         : !containsDraftMultiset(
           facts.concealedTiles,
           draft.consumedTiles,
@@ -747,14 +898,25 @@ function directDraftConflicts(
     }
   }
   if (draft.kind === "ankan") {
-    const available = knownAvailableTiles(facts);
+    const knownTiles = facts.concealedTiles === undefined
+      ? undefined
+      : [
+        ...facts.concealedTiles,
+        ...(facts.currentDraw === undefined || facts.currentDraw === null
+          ? []
+          : [facts.currentDraw.tile]),
+      ];
+    const unknownDrawAllowance = facts.currentDraw === undefined ? 1 : 0;
     if (
-      available !== undefined &&
+      knownTiles !== undefined &&
       (draft.tiles === undefined
-        ? ![...new Set(available.map((tile) => tile.id))].some(
-          (id) => available.filter((tile) => tile.id === id).length >= 4,
+        ? ![...new Set(knownTiles.map((tile) => tile.id))].some(
+          (id) =>
+            knownTiles.filter((tile) => tile.id === id).length +
+              unknownDrawAllowance >= 4,
         )
-        : !containsDraftMultiset(available, draft.tiles))
+        : missingDraftTileCount(knownTiles, draft.tiles) >
+          unknownDrawAllowance)
     ) {
       conflictCodes.push("ankan_tiles_missing");
     }
@@ -800,6 +962,22 @@ function directDraftConflicts(
       !facts.melds.some((meld) => meld.kind === "pon")
     ) {
       conflictCodes.push("existing_meld_missing");
+    }
+    if (
+      draft.existingMeldRef === undefined &&
+      draft.addedTile !== undefined &&
+      facts.melds !== undefined
+    ) {
+      const knownPons = facts.melds.filter((meld) => meld.kind === "pon");
+      if (
+        knownPons.length > 0 &&
+        !knownPons.some(
+          (meld) => meld.tiles[0]!.id === draft.addedTile!.id,
+        )
+      ) {
+        conflictCodes.push("kakan_tile_mismatch");
+        evidenceRefs.push(...knownPons.map((meld) => meld.meldRef));
+      }
     }
 
     if (draft.addedTile === undefined && available !== undefined) {
@@ -870,6 +1048,12 @@ export function normalizeCandidate(input: {
     });
   }
   const completion = completeAction(draft, facts);
+  if (completion.structuralIssueCodes !== undefined) {
+    return CandidateNormalizationResultSchema.parse({
+      status: "structurally_invalid_action",
+      issueCodes: completion.structuralIssueCodes,
+    });
+  }
   if (completion.action === undefined) {
     return CandidateNormalizationResultSchema.parse({
       status: "needs_clarification",
@@ -892,6 +1076,7 @@ export function normalizeCandidate(input: {
   return CandidateNormalizationResultSchema.parse({
     status: "ready",
     candidate,
+    decisionWindow: facts.decisionWindow,
     consistency: consistency.skippedChecks.length > 0
       ? "unknown_due_to_missing_facts"
       : "consistent",

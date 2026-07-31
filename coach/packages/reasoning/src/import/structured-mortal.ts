@@ -125,7 +125,9 @@ export function importStructuredMortalComparison(input: {
     });
     if (normalized.status !== "ready") {
       diagnostics.push(
-        normalized.status === "needs_clarification"
+        normalized.status === "structurally_invalid_action"
+          ? `structurally_invalid_action:${normalized.issueCodes.join(",")}`
+          : normalized.status === "needs_clarification"
           ? `needs_clarification:${normalized.ambiguousFields.join(",")}`
           : normalized.status === "inconsistent_with_known_facts"
             ? `inconsistent:${normalized.conflictCodes.join(",")}`
@@ -166,7 +168,9 @@ export function importStructuredMortalComparison(input: {
     facts,
   });
   if (actual.status !== "ready") {
-    const detail = actual.status === "needs_clarification"
+    const detail = actual.status === "structurally_invalid_action"
+      ? `structurally_invalid_action:${actual.issueCodes.join(",")}`
+      : actual.status === "needs_clarification"
       ? `needs_clarification:${actual.ambiguousFields.join(",")}`
       : actual.status === "inconsistent_with_known_facts"
         ? `inconsistent:${actual.conflictCodes.join(",")}`
@@ -195,14 +199,8 @@ export function importStructuredMortalComparison(input: {
     origin: "automatic_review",
     decisionLayerRef: input.decisionLayerRef,
     candidates: [
-      ...modelRows.map((row) => ({
-        result: row.normalized,
-        decisionWindow: facts.decisionWindow,
-      })),
-      {
-        result: actual,
-        decisionWindow: facts.decisionWindow,
-      },
+      ...modelRows.map((row) => row.normalized),
+      actual,
     ],
   });
   if (built.status !== "ready") {

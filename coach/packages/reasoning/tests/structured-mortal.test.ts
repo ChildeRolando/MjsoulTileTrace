@@ -55,6 +55,86 @@ const actualTwoPin = {
 };
 
 describe("generic structured Mortal importer", () => {
+  it("maps malformed MJAI calls to a structural import diagnostic", () => {
+    const responseFacts = {
+      decisionWindow: {
+        kind: "discard_response" as const,
+        actor: 0,
+        triggerEventRef: "event:discard",
+        sourceActor: 1,
+        offeredTile: { id: "2m" as const, red: false },
+      },
+      concealedTiles: [
+        { id: "4m" as const, red: false },
+        { id: "5m" as const, red: false },
+      ],
+    };
+    const malformedChi = {
+      actions: [{
+        eventRef: "model:chi",
+        action: {
+          type: "chi",
+          actor: 0,
+          target: 1,
+          pai: "2m",
+          consumed: ["4m", "5m"],
+        },
+      }],
+      probability: 0.5,
+    };
+
+    expect(importStructuredMortalComparison({
+      comparisonSetId: "comparison:malformed-chi",
+      decisionLayerRef: "decision-layer:malformed-chi",
+      facts: responseFacts,
+      modelCandidates: [malformedChi],
+      actual: { actions: malformedChi.actions },
+    })).toEqual({
+      status: "incomplete",
+      diagnostics: ["structurally_invalid_action:chi_not_sequence"],
+    });
+  });
+
+  it("maps malformed MJAI kans to a structural import diagnostic", () => {
+    const malformedAnkan = {
+      actions: [{
+        eventRef: "model:ankan",
+        action: {
+          type: "ankan",
+          actor: 3,
+          consumed: ["6s", "6s", "6s", "7s"],
+        },
+      }],
+      probability: 0.5,
+    };
+
+    expect(importStructuredMortalComparison({
+      comparisonSetId: "comparison:malformed-ankan",
+      decisionLayerRef: "decision-layer:malformed-ankan",
+      facts: {
+        decisionWindow: {
+          kind: "self_turn",
+          actor: 3,
+          triggerEventRef: "event:draw",
+        },
+        concealedTiles: [
+          { id: "6s", red: false },
+          { id: "6s", red: false },
+          { id: "6s", red: false },
+        ],
+        currentDraw: {
+          tile: { id: "7s", red: false },
+          eventRef: "event:draw",
+        },
+      },
+      modelCandidates: [malformedAnkan],
+      actual: { actions: malformedAnkan.actions },
+    })).toEqual({
+      status: "incomplete",
+      diagnostics: ["structurally_invalid_action:ankan_tile_id_mismatch"],
+    });
+  });
+
   it("returns a StructuredComparisonSet and action-bound score mapping", () => {
     const result = importStructuredMortalComparison({
       comparisonSetId: "comparison:e1:t6:structured",
