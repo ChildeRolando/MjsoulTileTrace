@@ -101,7 +101,10 @@ void ProcessSide(string name, Seat seat, RotateFlags rot)
     SideHandTopology? topology = null;
     if (calib is not null)
     {
-        Console.WriteLine($"  Calibration: seat={calib.Seat} drawSide={calib.DrawSide} pitchU={calib.PitchU:F4} outerStartU={calib.OuterStartU:F4} conf={calib.Confidence:F2}");
+        Console.WriteLine($"  Calibration: seat={calib.Seat} slots={calib.TileCount} drawSide={calib.DrawSide} pitchU={calib.PitchU:F4} outerStartU={calib.OuterStartU:F4} conf={calib.Confidence:F2}");
+        Console.WriteLine($"    Slots U range: [{calib.MainSlots[0].UStart:F4}, {calib.MainSlots[12].UEnd:F4}]");
+        Console.WriteLine($"    Baseline scores: min={calib.BaselineSlotScores.Min():F3} med={calib.TileScoreMedian:F3} emptyRef={calib.EmptyReference:F3}");
+        Console.WriteLine($"    Slot widths: {string.Join(", ", calib.MainSlots.Select(s => $"{s.UEnd - s.UStart:F4}"))}");
 
         // ── 5. Runtime topology (production class) ────────────────────
         using Mat frozenMask = masker.Extract(rotated);
@@ -112,31 +115,34 @@ void ProcessSide(string name, Seat seat, RotateFlags rot)
             s == SlotState.Occupied ? 'O' : s == SlotState.Empty ? 'E' : '?'));
         Console.WriteLine($"  Topology: slots=[{stateStr}] occupied={topology.OccupiedCount} holeIdx={topology.InternalHoleIndex} draw={topology.DrawPresent} conf={topology.Confidence:F2}");
 
-        // ── 6. Draw topology overlay on frame ─────────────────────────
+        // ── 6. Draw topology overlay on frame (E: all 13 logical slots) ──
         using var topoViz = img.Clone();
-        for (int i = 0; i < topology.MainSlotStates.Count; i++)
+        for (int i = 0; i < topology.MainSlotQuads.Count; i++)
         {
-            if (i >= topology.OccupiedMainQuads.Count) break;
-            var q = topology.OccupiedMainQuads[i];
+            var q = topology.MainSlotQuads[i];
             Point2f[] quadPx = [
                 new((float)(q.TopLeft.X * FW), (float)(q.TopLeft.Y * FH)),
                 new((float)(q.TopRight.X * FW), (float)(q.TopRight.Y * FH)),
                 new((float)(q.BottomRight.X * FW), (float)(q.BottomRight.Y * FH)),
                 new((float)(q.BottomLeft.X * FW), (float)(q.BottomLeft.Y * FH))
             ];
-            var color = topology.MainSlotStates[i] == SlotState.Occupied
-                ? new Scalar(0, 255, 0)
-                : new Scalar(0, 0, 255);
+            var color = topology.MainSlotStates[i] switch
+            {
+                SlotState.Occupied => new Scalar(0, 255, 0),
+                SlotState.Empty => new Scalar(0, 0, 255),
+                SlotState.Unknown => new Scalar(0, 255, 255),
+                _ => new Scalar(128, 128, 128)
+            };
             DrawQuadPx(topoViz, quadPx, color, 1);
-            // Label slot index
+            // Label logical slot index
             var center = new Point(
                 (int)(quadPx.Average(p => p.X)),
                 (int)(quadPx.Average(p => p.Y)));
             Cv2.PutText(topoViz, $"{i}", center, HersheyFonts.HersheySimplex, 0.3, Scalar.White, 1);
         }
-        if (topology.InternalHoleIndex is { } hole && hole < topology.OccupiedMainQuads.Count)
+        if (topology.InternalHoleIndex is { } hole)
         {
-            var hq = topology.OccupiedMainQuads[hole];
+            var hq = topology.MainSlotQuads[hole];
             Point2f[] hPx = [
                 new((float)(hq.TopLeft.X * FW), (float)(hq.TopLeft.Y * FH)),
                 new((float)(hq.TopRight.X * FW), (float)(hq.TopRight.Y * FH)),

@@ -117,14 +117,28 @@ public sealed class OpenCvSeatDetector : IDisposable
 
                 if (calibrated && topology is not null)
                 {
-                    mainHandCount = topology.OccupiedCount;
-                    mainSlots = topology.MainSlotStates
-                        .Select(s => s == SlotState.Occupied).ToArray();
-                    mainSlotCount = state.SideCalibration!.TileCount;
+                    // F: Unknown → resolve from previous observation.
+                    bool[] resolved = new bool[13];
+                    for (int i = 0; i < 13; i++)
+                    {
+                        resolved[i] = topology.MainSlotStates[i] switch
+                        {
+                            SlotState.Occupied => true,
+                            SlotState.Empty => false,
+                            SlotState.Unknown => state.PreviousResolvedMainSlots is { } prev
+                                && i < prev.Count && prev[i],
+                            _ => false
+                        };
+                    }
+                    state.PreviousResolvedMainSlots = resolved;
+                    mainHandCount = resolved.Count(b => b);
+                    mainSlots = resolved;
+                    mainSlotCount = 13;
                     drawnOccupied = topology.DrawPresent;
                     dynamicDraw = topology.DrawQuad;
                     handConfidence = topology.Confidence;
                     occupiedMainAreas = topology.OccupiedMainQuads.ToArray();
+                    // Only a confidently Empty slot between two Occupied segments.
                     mainSlotRemoved = topology.InternalHoleIndex is not null;
                 }
                 else
@@ -231,8 +245,9 @@ public sealed class OpenCvSeatDetector : IDisposable
             {
                 state.SideCalibration = null;
                 state.SideCalibStableCount = 0;
-                state.SideCalibCandidateTileCount = 0;
+                state.SideCalibCandidate = null;
                 state.LastTopology = null;
+                state.PreviousResolvedMainSlots = null;
             }
             state.PreviousMeldGroups = meldGroups;
 
@@ -263,19 +278,9 @@ public sealed class OpenCvSeatDetector : IDisposable
                     lattice, drawnOccupied, profile, riverObservations, meld, tableColor);
             }
 
-            // Always pad to 13 slots for side hands.
-            IReadOnlyList<bool> finalMainSlots;
-            if (isSide)
-            {
-                bool[] padded = new bool[13];
-                for (int i = 0; i < 13; i++)
-                    padded[i] = i < mainSlots.Count && mainSlots[i];
-                finalMainSlots = padded;
-            }
-            else
-            {
-                finalMainSlots = mainSlots;
-            }
+            // Side-hand topology always produces 13 aligned slots.
+            // Bottom/Top pass through as-is.
+            IReadOnlyList<bool> finalMainSlots = mainSlots;
 
             seats.Add(seat, new SeatObservation(
                 seat,
@@ -323,8 +328,9 @@ public sealed class OpenCvSeatDetector : IDisposable
             state.SideCalibration = null;
             state.LastTopology = null;
             state.SideCalibStableCount = 0;
-            state.SideCalibCandidateTileCount = 0;
+            state.SideCalibCandidate = null;
             state.PreviousMeldGroups = 0;
+            state.PreviousResolvedMainSlots = null;
         }
         _resultFrames = 0;
     }
@@ -373,18 +379,59 @@ public sealed class OpenCvSeatDetector : IDisposable
             profile.DrawnSlot, fw, fh);
         if (calib is null) return;
 
-        // Require the same tile count across consecutive calibration frames
-        // so jitter doesn't commit a spuriously short calibration.
-        if (state.SideCalibCandidateTileCount > 0 &&
-            calib.TileCount != state.SideCalibCandidateTileCount)
+        // ── C: Multi-frame geometry consensus ────────────────────────
+        // Require N consecutive candidates whose seam positions, plane
+        // corners, and start/end u agree within small tolerances.
+        // Reject any candidate that would change the expected count.
+
+        if (calib.TileCount != 13 || calib.BaselineSlotScores.Any(s => s < 0.30))
         {
             state.SideCalibStableCount = 0;
+            state.SideCalibCandidate = null;
+            return;
         }
-        state.SideCalibCandidateTileCount = calib.TileCount;
 
-        state.SideCalibStableCount++;
+        if (state.SideCalibCandidate is { } pending)
+        {
+            // Check geometry agreement with the pending candidate.
+            const double uTol = 0.012; // ~1% of u-range
+            bool seamsAgree = true;
+            for (int i = 0; i < 13; i++)
+            {
+                double du = Math.Abs(calib.MainSlots[i].UStart - pending.MainSlots[i].UStart);
+                if (du > uTol) { seamsAgree = false; break; }
+            }
+            double endDu = Math.Abs(calib.MainSlots[12].UEnd - pending.MainSlots[12].UEnd);
+            if (endDu > uTol) seamsAgree = false;
+
+            // Plane corner column positions must agree.
+            bool planeAgrees =
+                Math.Abs(calib.Plane.ColStart - pending.Plane.ColStart) < 5 &&
+                Math.Abs(calib.Plane.ColEnd - pending.Plane.ColEnd) < 5;
+
+            if (seamsAgree && planeAgrees)
+            {
+                state.SideCalibStableCount++;
+            }
+            else
+            {
+                // Geometry changed — restart with the new candidate.
+                state.SideCalibStableCount = 1;
+                state.SideCalibCandidate = calib;
+            }
+        }
+        else
+        {
+            state.SideCalibStableCount = 1;
+            state.SideCalibCandidate = calib;
+        }
+
         if (state.SideCalibStableCount >= _stableFramesRequired)
+        {
+            // Commit: use the latest candidate (which agrees with pending).
             state.SideCalibration = calib;
+            state.SideCalibCandidate = null;
+        }
     }
 
     private static Mat? ExtractSideRawMask(Mat frame, SeatProfile profile, PerSeatState state)
@@ -1056,8 +1103,11 @@ public sealed class OpenCvSeatDetector : IDisposable
         public SideHandCalibration? SideCalibration { get; set; }
         public SideHandTopology? LastTopology { get; set; }
         public int SideCalibStableCount { get; set; }
-        public int SideCalibCandidateTileCount { get; set; }
+        // C: pending calibration candidate for geometry consensus.
+        public SideHandCalibration? SideCalibCandidate { get; set; }
         public int PreviousMeldGroups { get; set; }
+        // F: previous frame's resolved slot occupancy for Unknown resolution.
+        public IReadOnlyList<bool>? PreviousResolvedMainSlots { get; set; }
     }
 
     private sealed record TileCandidate(DetectedTile Tile, NormalizedPoint Center);

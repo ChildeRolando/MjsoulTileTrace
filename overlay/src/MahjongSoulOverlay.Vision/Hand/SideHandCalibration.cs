@@ -32,6 +32,12 @@ public sealed record SideHandCalibration
     public double OuterStartU { get; }
     public double PitchU { get; }
     public IReadOnlyList<SideHandSlotGeometry> MainSlots { get; }
+    /// <summary>Per-slot raw-mask occupancy scores at calibration time.</summary>
+    public IReadOnlyList<double> BaselineSlotScores { get; }
+    /// <summary>Median baseline score across all 13 slots.</summary>
+    public double TileScoreMedian { get; }
+    /// <summary>Reference low score from a true gap, for thresholding.</summary>
+    public double EmptyReference { get; }
     public SideHandEnd DrawSide { get; }
     public double Confidence { get; }
 
@@ -46,17 +52,21 @@ public sealed record SideHandCalibration
         double outerStartU,
         double pitchU,
         IReadOnlyList<SideHandSlotGeometry> mainSlots,
+        IReadOnlyList<double> baselineSlotScores,
+        double tileScoreMedian,
+        double emptyReference,
         SideHandEnd drawSide,
         double confidence)
     {
         if (seat is not (Seat.Left or Seat.Right))
             throw new ArgumentException("SideHandCalibration only supports Left and Right.", nameof(seat));
-        // After calls the hand shortens: chi→10, pon→11, closed-kan→9,
-        // open-kan→10, add-a-kan→12, initial→13.  Accept 9–13 so seam-detection
-        // jitter (e.g. 8 seams from a 10-tile hand) doesn't reject calibration.
-        if (mainSlots.Count is < 9 or > 13)
+        // Initial calibration requires exactly 13 slots.
+        if (mainSlots.Count != 13)
             throw new ArgumentException(
-                $"Calibration requires 9–13 main slots, got {mainSlots.Count}.", nameof(mainSlots));
+                $"Calibration requires exactly 13 main slots, got {mainSlots.Count}.", nameof(mainSlots));
+        if (baselineSlotScores.Count != 13)
+            throw new ArgumentException(
+                $"BaselineSlotScores must have 13 entries, got {baselineSlotScores.Count}.", nameof(baselineSlotScores));
         if (confidence is < 0 or > 1)
             throw new ArgumentOutOfRangeException(nameof(confidence));
 
@@ -70,6 +80,9 @@ public sealed record SideHandCalibration
         OuterStartU = outerStartU;
         PitchU = pitchU;
         MainSlots = mainSlots;
+        BaselineSlotScores = baselineSlotScores;
+        TileScoreMedian = tileScoreMedian;
+        EmptyReference = emptyReference;
         DrawSide = drawSide;
         Confidence = confidence;
     }

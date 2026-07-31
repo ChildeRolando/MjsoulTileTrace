@@ -153,10 +153,11 @@ public static class HandSeamDetector
     }
 
     /// <summary>
-    /// Builds a <see cref="SideHandCalibration"/> from seam detection on a
-    /// stable baseline frame.  Fits a regular lattice to the seams and
-    /// derives 13 slot intervals.  Rejects the calibration if seam spacing
-    /// variation is too large.
+    /// Builds a <see cref="SideHandCalibration"/> from a stable baseline frame.
+    /// Uses actual detected seam positions as slot boundaries (not an equal-pitch
+    /// lattice) so that perspective-shortened tiles get proportionally narrower slots.
+    ///
+    /// Initial calibration requires exactly 12 internal seams (13 slots).
     /// </summary>
     public static SideHandCalibration? BuildCalibration(
         Mat rotatedRoi,
@@ -171,45 +172,66 @@ public static class HandSeamDetector
         int frameHeight)
     {
         var seams = Detect(rawMask, plane);
-        // Accept 8+ seams (9–13 tiles) to support post-call recalibration
-        // where chi leaves 10 tiles (9 seams) and pon leaves 11 tiles (10 seams).
-        if (seams is null || seams.SeamU.Count < 8)
+        if (seams is null)
             return null;
 
-        // Fit regular lattice: seam_i ≈ outerStartU + i * pitchU
-        // Use median of seam positions minus i*pitch to get outerStartU.
-        int nSeams = seams.SeamU.Count;
+        // ── B: initial calibration requires exactly 12 seams → 13 slots ─
+        if (seams.SeamU.Count != 12)
+            return null;
+
+        int nSeams = 12;
+        double[] seamU = [.. seams.SeamU]; // 12 values, monotonically increasing
         double pitchU = seams.PitchU;
 
-        // Refine pitch from median inter-seam gap.
+        // ── Validate seam monotonicity and smooth perspective progression ─
         List<double> gaps = [];
         for (int i = 1; i < nSeams; i++)
-            gaps.Add(seams.SeamU[i] - seams.SeamU[i - 1]);
+            gaps.Add(seamU[i] - seamU[i - 1]);
         double medianGap = Median(gaps);
         double mad = Median(gaps.Select(g => Math.Abs(g - medianGap)).ToList());
-        // MAD > 25% of median gap → reject as too irregular.
-        if (mad > medianGap * 0.25)
+        // Allow up to 30% MAD for perspective taper.
+        if (mad > medianGap * 0.30)
             return null;
-
-        pitchU = medianGap;
-        // Pitch reasonableness: for 9–13 tiles, pitch should be ~0.07–0.12 u-units.
-        // Very small pitch means peaks clumped incorrectly; very large means missed seams.
         if (pitchU < 0.035 || pitchU > 0.18)
             return null;
-        double[] offsets = new double[nSeams];
-        for (int i = 0; i < nSeams; i++)
-            offsets[i] = seams.SeamU[i] - (i + 1) * pitchU;
-        double outerStartU = Median(offsets.ToList());
 
-        // Build slot intervals: slot count = detected seams + 1, capped at 13.
-        // After calls (chi 10, pon 11) we detect fewer seams and produce
-        // a shorter calibration.
-        int tileCount = Math.Min(nSeams + 1, 13);
-        List<SideHandSlotGeometry> slots = new(tileCount);
-        for (int i = 0; i < tileCount; i++)
+        // ── A: hand extents from the fitted plane ────────────────────────
+        // The u-parameter runs from 0 (plane.ColStart) to 1 (plane.ColEnd).
+        // The plane fit already recovers the true hand extents from the raw
+        // mask (RecoverEndpoints).  The outer tile boundaries are simply 0
+        // and 1 — no gap-signal re-derivation is needed.
+        double handStartU = 0.0;
+        double handEndU = 1.0;
+
+        // ── Build 13 slots from 14 boundaries ────────────────────────────
+        // boundaries[0] = hand start, boundaries[1..12] = seams, boundaries[13] = hand end
+        double[] boundaries = new double[14];
+        boundaries[0] = handStartU;
+        for (int i = 0; i < 12; i++)
+            boundaries[i + 1] = seamU[i];
+        boundaries[13] = handEndU;
+
+        List<SideHandSlotGeometry> slots = new(13);
+        for (int i = 0; i < 13; i++)
         {
-            double u0 = outerStartU + i * pitchU;
-            double u1 = outerStartU + (i + 1) * pitchU;
+            double u0 = boundaries[i];
+            double u1 = boundaries[i + 1];
+            double width = u1 - u0;
+
+            // Validate slot
+            if (width <= 0)
+                return null;
+            if (width > pitchU * 2.5)
+                return null; // abnormally wide
+            if (i > 0 && i < 12)
+            {
+                double leftW = boundaries[i] - boundaries[i - 1];
+                double rightW = boundaries[i + 2] - boundaries[i + 1];
+                double avgNeighbor = (leftW + rightW) * 0.5;
+                if (width > avgNeighbor * 2.0 || width < avgNeighbor * 0.3)
+                    return null; // width out of proportion with neighbours
+            }
+
             slots.Add(new SideHandSlotGeometry(
                 u0, u1,
                 new Point2f((float)(plane.ColStart + u0 * (plane.ColEnd - plane.ColStart)),
@@ -222,27 +244,74 @@ public static class HandSeamDetector
                             (float)(plane.BottomStartY + u1 * (plane.BottomEndY - plane.BottomStartY)))));
         }
 
-        // Determine draw side from profile DrawnSlot centre, mapped into rotated ROI.
+        // ── D: sample baseline per-slot occupancy scores ─────────────────
+        double[] baselineScores = new double[13];
+        int w = rawMask.Cols, h = rawMask.Rows;
+        for (int i = 0; i < 13; i++)
+        {
+            var geo = slots[i];
+            double uMid = (geo.UStart + geo.UEnd) * 0.5;
+            double uWidth = (geo.UEnd - geo.UStart) * 0.60;
+            double u0 = uMid - uWidth * 0.5;
+            double u1 = uMid + uWidth * 0.5;
+            int fg = 0, total = 0;
+            for (int j = 0; j < 30; j++)
+            {
+                double u = u0 + uWidth * (j + 0.5) / 30;
+                Point2f top = new(
+                    (float)(plane.ColStart + u * (plane.ColEnd - plane.ColStart)),
+                    (float)(plane.TopStartY + u * (plane.TopEndY - plane.TopStartY)));
+                Point2f bot = new(
+                    (float)(plane.ColStart + u * (plane.ColEnd - plane.ColStart)),
+                    (float)(plane.BottomStartY + u * (plane.BottomEndY - plane.BottomStartY)));
+                for (int k = 0; k < 5; k++)
+                {
+                    double t = 0.18 + 0.64 * (k + 0.5) / 5;
+                    int px = (int)Math.Round(top.X + (bot.X - top.X) * t);
+                    int py = (int)Math.Round(top.Y + (bot.Y - top.Y) * t);
+                    if (px >= 0 && px < w && py >= 0 && py < h)
+                    {
+                        if (rawMask.At<byte>(py, px) > 0) fg++;
+                        total++;
+                    }
+                }
+            }
+            baselineScores[i] = total > 0 ? fg / (double)total : 0;
+        }
+
+        double tileScoreMedian = Median([.. baselineScores]);
+        // All 13 baseline slots must be Occupied (score well above zero).
+        if (baselineScores.Any(s => s < 0.30))
+            return null; // at least one slot has insufficient mask coverage
+
+        // Empty reference: score of the darkest intra-seam gap.
+        double emptyRef = 0;
+        double[] gapSig = seams.GapSignal;
+        int gsLen = gapSig.Length;
+        for (int i = 0; i < 12; i++)
+        {
+            double seamUScore = gapSig[(int)Math.Round(seamU[i] * gsLen)];
+            if (seamUScore > emptyRef) emptyRef = seamUScore;
+        }
+        emptyRef = Math.Max(0.05, emptyRef);
+
+        // ── Draw side ────────────────────────────────────────────────────
         SideHandEnd drawSide = SideHandEnd.Unknown;
         double drawnNormX = (profileDrawnSlot.TopLeft.X + profileDrawnSlot.TopRight.X +
                              profileDrawnSlot.BottomRight.X + profileDrawnSlot.BottomLeft.X) / 4;
         double drawnNormY = (profileDrawnSlot.TopLeft.Y + profileDrawnSlot.TopRight.Y +
                              profileDrawnSlot.BottomRight.Y + profileDrawnSlot.BottomLeft.Y) / 4;
-
-        // Map drawn slot centre to rotated ROI coords by first going to frame px, then to crop, then rotate.
         int dfx = (int)(drawnNormX * frameWidth);
         int dfy = (int)(drawnNormY * frameHeight);
         int dcx = dfx - coarseRoi.X;
         int dcy = dfy - coarseRoi.Y;
-        // Forward rotation (same as what we do to the crop).
         Point2f rotDrawn = seat switch
         {
             Seat.Right => new Point2f(coarseRoi.Height - 1 - dcy, dcx),
             Seat.Left => new Point2f(dcy, coarseRoi.Width - 1 - dcx),
             _ => new Point2f(dcx, dcy)
         };
-        // Determine which side of the hand the drawn slot is on.
-        double midU = outerStartU + tileCount * pitchU * 0.5;
+        double midU = handStartU + 13 * pitchU * 0.5;
         double rotDrawnX = rotDrawn.X;
         double planeMidX = plane.ColStart + midU * (plane.ColEnd - plane.ColStart);
         drawSide = rotDrawnX > planeMidX ? SideHandEnd.FarEnd : SideHandEnd.NearStart;
@@ -254,7 +323,9 @@ public static class HandSeamDetector
             masker.HueMin, masker.HueMax,
             masker.SaturationMin, masker.SaturationMax,
             masker.ValueMin, masker.ValueMax,
-            outerStartU, pitchU, slots, drawSide, confidence);
+            handStartU, pitchU, slots,
+            baselineScores, tileScoreMedian, emptyRef,
+            drawSide, confidence);
     }
 
     // ── Helpers ────────────────────────────────────────────────────
