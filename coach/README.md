@@ -25,8 +25,8 @@ Implemented:
   kans, tsumo, ron, nine-terminals abort, and pass;
 - canonical action references, four decision windows, and explicit projection
   to the legacy comparison view;
-- shared user/MJAI/typed-engine candidate normalization with ambiguity,
-  known-fact conflict, and missing-fact states;
+- shared user/MJAI/typed-engine candidate normalization with structural-invalid,
+  ambiguity, known-fact conflict, and missing-fact states;
 - same-action origin merging, cross-window rejection, and an isolated
   discard-only legacy bridge;
 

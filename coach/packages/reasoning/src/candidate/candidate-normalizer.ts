@@ -1039,19 +1039,19 @@ export function normalizeCandidate(input: {
   const facts = KnownActionFactsSchema.parse(input.facts);
   const origin = CandidateOriginSchema.parse(input.origin);
   const draft = ActionDraftSchema.parse(input.draft);
+  const completion = completeAction(draft, facts);
+  if (completion.structuralIssueCodes !== undefined) {
+    return CandidateNormalizationResultSchema.parse({
+      status: "structurally_invalid_action",
+      issueCodes: completion.structuralIssueCodes,
+    });
+  }
   const directConflicts = directDraftConflicts(draft, facts);
   if (directConflicts.conflictCodes.length > 0) {
     return CandidateNormalizationResultSchema.parse({
       status: "inconsistent_with_known_facts",
       conflictCodes: directConflicts.conflictCodes,
       evidenceRefs: directConflicts.evidenceRefs,
-    });
-  }
-  const completion = completeAction(draft, facts);
-  if (completion.structuralIssueCodes !== undefined) {
-    return CandidateNormalizationResultSchema.parse({
-      status: "structurally_invalid_action",
-      issueCodes: completion.structuralIssueCodes,
     });
   }
   if (completion.action === undefined) {

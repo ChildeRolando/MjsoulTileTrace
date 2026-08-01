@@ -298,10 +298,15 @@ type CandidateNormalizationResult =
   | {
       status: "ready";
       candidate: StructuredComparisonCandidate;
+      decisionWindow: DecisionWindow;
       consistency:
         | "consistent"
         | "unknown_due_to_missing_facts";
       skippedChecks: string[];
+    }
+  | {
+      status: "structurally_invalid_action";
+      issueCodes: string[];
     }
   | {
       status: "needs_clarification";
@@ -317,6 +322,10 @@ type CandidateNormalizationResult =
       sourceType: string;
     };
 ```
+
+`ready` 结果冻结产生候选时使用的 `DecisionWindow`。集合构建器只能读取这个绑定窗口，不能接受调用者另外提供的窗口并重新标记候选。
+
+结构完整但违反动作本身不变量的草稿（例如混牌碰、非顺子吃、混牌暗杠）返回 `structurally_invalid_action`；它不能抛出未声明的 Schema 异常，也不能伪装成缺事实或已知事实冲突。
 
 集合构建另行返回 `not_comparable` 诊断，不能把跨窗口动作包装成普通 Schema 错误后继续分析。
 
@@ -393,6 +402,8 @@ type KnownActionFacts = {
 - 加杠引用的副露是否存在、是否为碰、牌面是否匹配；
 - 自摸牌是否匹配已知当前摸牌；
 - 荣和牌是否匹配已知响应牌。
+
+只要现有字段已经足以证明矛盾，冲突必须优先于补全提问或 `unknown_due_to_missing_facts`。这包括：已知暗手无法组成省略的吃碰杠组合、缺失摸牌最多只能补一张时仍无法暗杠、以及已知副露中不存在与加杠牌匹配的碰。响应动作也不得把 `targetActor` 指向窗口中的行动者本人；当窗口同时知道行动者和来源玩家时，两者必须不同。
 
 本切片明确不检查：
 

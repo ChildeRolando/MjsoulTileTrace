@@ -135,6 +135,28 @@ describe("generic structured Mortal importer", () => {
     });
   });
 
+  it("maps a malformed actual action after valid model rows", () => {
+    expect(importStructuredMortalComparison({
+      comparisonSetId: "comparison:malformed-actual",
+      decisionLayerRef: "decision-layer:malformed-actual",
+      facts,
+      modelCandidates: [modelSixSou],
+      actual: {
+        actions: [{
+          eventRef: "actual:ankan",
+          action: {
+            type: "ankan",
+            actor: 3,
+            consumed: ["6s", "6s", "6s", "7s"],
+          },
+        }],
+      },
+    })).toEqual({
+      status: "incomplete",
+      diagnostics: ["structurally_invalid_action:ankan_tile_id_mismatch"],
+    });
+  });
+
   it("returns a StructuredComparisonSet and action-bound score mapping", () => {
     const result = importStructuredMortalComparison({
       comparisonSetId: "comparison:e1:t6:structured",

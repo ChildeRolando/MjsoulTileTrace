@@ -215,6 +215,35 @@ describe("CandidateNormalizer direct-known-fact consistency", () => {
     });
   });
 
+  it("reports structural invalidity before a simultaneous fact conflict", () => {
+    expect(normalizeCandidate({
+      draft: {
+        kind: "pon",
+        calledTile: { id: "5p", red: false },
+        consumedTiles: [
+          { id: "5p", red: false },
+          { id: "6p", red: false },
+        ],
+        targetActor: 1,
+        responseEventRef: "event:discard",
+      },
+      origin: "user",
+      facts: {
+        decisionWindow: {
+          kind: "discard_response",
+          actor: 0,
+          triggerEventRef: "event:discard",
+          sourceActor: 1,
+          offeredTile: { id: "5p", red: false },
+        },
+        concealedTiles: [],
+      },
+    })).toEqual({
+      status: "structurally_invalid_action",
+      issueCodes: ["pon_tile_id_mismatch"],
+    });
+  });
+
   it("reports direct conflicts before asking for irrelevant completion fields", () => {
     expect(normalizeCandidate({
       draft: { kind: "pass" },
@@ -753,6 +782,24 @@ describe("CandidateNormalizer direct-known-fact consistency", () => {
       });
     },
   );
+
+  it("does not reject an ankan when an unknown draw could be the fourth tile", () => {
+    expect(normalizeCandidate({
+      draft: { kind: "ankan" },
+      origin: "user",
+      facts: {
+        decisionWindow: {
+          kind: "self_turn",
+          actor: 0,
+          triggerEventRef: "event:draw",
+        },
+        concealedTiles: [sixSou, sixSou, sixSou],
+      },
+    })).toEqual({
+      status: "needs_clarification",
+      ambiguousFields: ["tiles"],
+    });
+  });
 
   it("rejects an omitted kakan meld when no known pon matches its tile", () => {
     expect(normalizeCandidate({
