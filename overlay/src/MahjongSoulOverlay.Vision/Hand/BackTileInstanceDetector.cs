@@ -378,10 +378,30 @@ public static class BackTileInstanceDetector
                     best = candidates[k];
             }
 
-            // Use the median index (observed gap centre) as the final coordinate.
-            var medianIdx = SignalHelpers.Median(
-                candidates.Skip(i).Take(j - i).Select(c => (double)c.Index).ToList());
-            int finalIdx = (int)Math.Round(medianIdx);
+            // Decide the final index.  Two peaks from the SAME physical seam
+            // (a double-edge) have comparable prominence and should be merged to
+            // their median.  A real seam plus a faint noise peak has one dominant
+            // member; the median would pull the boundary off the seam, so keep
+            // the dominant member's own position.
+            double secondBest = 0;
+            for (int k = i; k < j; k++)
+            {
+                if (ReferenceEquals(candidates[k], best)) continue;
+                if (candidates[k].Prominence > secondBest)
+                    secondBest = candidates[k].Prominence;
+            }
+            int finalIdx;
+            if (secondBest <= 0 ||
+                best.Prominence >= secondBest * 3.0 + 0.10)
+            {
+                finalIdx = best.Index;
+            }
+            else
+            {
+                var medianIdx = SignalHelpers.Median(
+                    candidates.Skip(i).Take(j - i).Select(c => (double)c.Index).ToList());
+                finalIdx = (int)Math.Round(medianIdx);
+            }
 
             grouped.Add(best with { Index = finalIdx });
             i = j;
