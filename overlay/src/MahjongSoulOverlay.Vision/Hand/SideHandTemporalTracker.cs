@@ -136,6 +136,23 @@ public sealed class SideHandTemporalTracker
             }
         }
 
+        // ── Detect ordinal explosion and rebase ──────────────────
+        // During hand-deal animation each new frame's instances drift out of
+        // the match tolerance, so the tracker accumulates stale ordinals and
+        // marks them confirmed-missing.  Once the hand is stable again, rebase
+        // the tracked set to the current instances so stale holes don't persist.
+        // Rebase only on ordinal ACCUMULATION (stale ordinals from deal
+        // animation), not on a single confirmed removal (genuine tedashi keeps
+        // exactly one extra tracked ordinal).
+        bool trackedExploded = _tracked.Count >= instances.Count + 3;
+        bool handStable = !isAnimating && !isLowConfidence &&
+            topology.Status == TopologyStatus.Valid;
+        if (trackedExploded && handStable && instances.Count > 0)
+        {
+            RebaseOrdinals(instances, now);
+            return RebaseResult(topology, now);
+        }
+
         // ── Add new ordinals for unmatched instances ─────────────
         int nextOrdinal = _tracked.Count > 0 ? _tracked.Keys.Max() + 1 : 0;
         foreach (var inst in instances)
@@ -290,6 +307,36 @@ public sealed class SideHandTemporalTracker
     }
 
     // ── Helpers ──────────────────────────────────────────────────
+
+    /// <summary>Rebuild tracked ordinals from the current stable instances.</summary>
+    private void RebaseOrdinals(IReadOnlyList<BackTileInstance> instances, DateTimeOffset now)
+    {
+        _tracked.Clear();
+        for (int i = 0; i < instances.Count; i++)
+        {
+            _tracked[i] = new TrackedOrdinal
+            {
+                Ordinal = i,
+                LastSeenAt = now,
+                LastU = instances[i].UCenter,
+                State = TrackState.Tracking,
+                Confidence = instances[i].Confidence,
+            };
+        }
+        _geometryConsensusCount = 0;
+    }
+
+    private TrackingResult RebaseResult(
+        SideHandInstanceTopology topology, DateTimeOffset now) =>
+        new(
+            topology.OrderedMainInstances,
+            topology.ExtraInstance,
+            null,
+            isOccluded: false,
+            tsumogiriEvidence: false,
+            tedashiEvidence: false,
+            topology.Confidence,
+            "Rebased");
 
     private Dictionary<int, BackTileInstance> MatchInstances(
         IReadOnlyList<BackTileInstance> instances,
