@@ -82,6 +82,15 @@ public sealed class SideHandTemporalTracker
                     tracked.State = TrackState.Tracking;
                     tracked.MissingSince = null;
                 }
+                // A tile that is visibly present again cannot be confirmed
+                // removed.  Spurious confirmations happen when detection briefly
+                // glitches (deal animation, motion) with motionScore hardcoded
+                // to 0; without this the hole persists on every later frame.
+                else if (tracked.State == TrackState.ConfirmedMissing)
+                {
+                    tracked.State = TrackState.Tracking;
+                    tracked.MissingSince = null;
+                }
             }
             else
             {
