@@ -141,13 +141,20 @@ public sealed class SideHandTemporalTracker
         // the match tolerance, so the tracker accumulates stale ordinals and
         // marks them confirmed-missing.  Once the hand is stable again, rebase
         // the tracked set to the current instances so stale holes don't persist.
-        // Rebase only on ordinal ACCUMULATION (stale ordinals from deal
-        // animation), not on a single confirmed removal (genuine tedashi keeps
-        // exactly one extra tracked ordinal).
-        bool trackedExploded = _tracked.Count >= instances.Count + 3;
+        //
+        // Two situations justify a rebase on a stable, confident, valid frame:
+        //   1. Ordinal accumulation — many more tracked ordinals than instances
+        //      (stale ordinals from deal animation).
+        //   2. A full hand with a confirmed hole — if every tile is detected
+        //      (instances.Count == 13) a confirmed-missing ordinal cannot be a
+        //      genuine removal (tedashi always leaves 12 detected instances),
+        //      so the hole is a stale artifact and is cleared.
         bool handStable = !isAnimating && !isLowConfidence &&
             topology.Status == TopologyStatus.Valid;
-        if (trackedExploded && handStable && instances.Count > 0)
+        bool fullHandWithHole = instances.Count >= 13 &&
+            _tracked.Values.Any(t => t.State == TrackState.ConfirmedMissing);
+        bool trackedExploded = _tracked.Count >= instances.Count + 3;
+        if ((trackedExploded || fullHandWithHole) && handStable && instances.Count > 0)
         {
             RebaseOrdinals(instances, now);
             return RebaseResult(topology, now);
