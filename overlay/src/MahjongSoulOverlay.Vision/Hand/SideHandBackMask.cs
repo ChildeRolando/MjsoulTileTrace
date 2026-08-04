@@ -14,26 +14,47 @@ public sealed class SideHandBackMask
 {
     // ── HSV thresholds for orange tile back ────────────────────────────
 
+    /// <summary>Default hue lower bound (orange-yellow range in OpenCV HSV, 0-179).</summary>
+    public const int DefaultHueMin = 5;
+
+    /// <summary>Default hue upper bound.</summary>
+    public const int DefaultHueMax = 35;
+
+    /// <summary>
+    /// Default saturation minimum.  White/grey side faces have very low
+    /// saturation; raising this threshold excludes them.
+    /// </summary>
+    public const int DefaultSaturationMin = 85;
+
+    /// <summary>Default saturation maximum.</summary>
+    public const int DefaultSaturationMax = 255;
+
+    /// <summary>Default value (brightness) minimum.</summary>
+    public const int DefaultValueMin = 70;
+
+    /// <summary>Default value maximum.</summary>
+    public const int DefaultValueMax = 255;
+
     /// <summary>Hue lower bound (orange-yellow range in OpenCV HSV, 0-179).</summary>
-    public int HueMin { get; set; } = 5;
+    public int HueMin { get; set; } = DefaultHueMin;
 
     /// <summary>Hue upper bound.</summary>
-    public int HueMax { get; set; } = 35;
+    public int HueMax { get; set; } = DefaultHueMax;
 
     /// <summary>
     /// Saturation minimum.  White/grey side faces have very low saturation;
     /// raising this threshold excludes them.
     /// </summary>
-    public int SaturationMin { get; set; } = 85;
+    public int SaturationMin { get; set; } = DefaultSaturationMin;
 
     /// <summary>Saturation maximum.</summary>
-    public int SaturationMax { get; set; } = 255;
+    public int SaturationMax { get; set; } = DefaultSaturationMax;
 
     /// <summary>Value (brightness) minimum.</summary>
-    public int ValueMin { get; set; } = 70;
+    public int ValueMin { get; set; } = DefaultValueMin;
 
     /// <summary>Value maximum.</summary>
-    public int ValueMax { get; set; } = 255;
+    public int ValueMax { get; set; } = DefaultValueMax;
 
     /// <summary>
     /// Whether the back colour range has been auto-calibrated from the image.
@@ -44,6 +65,11 @@ public sealed class SideHandBackMask
     /// Auto-calibrates the HSV range from the centre of the rotated ROI.
     /// Samples the middle 20 % and computes per-channel medians, then sets
     /// ranges as ±delta around those medians.
+    ///
+    /// The calibration is validated against the same ROI: if the derived range
+    /// fails to extract a meaningful orange mask (e.g. the ROI centre is empty
+    /// on an early frame before the hand is dealt), the default range is kept
+    /// so the masker still works once the hand appears.
     /// </summary>
     public void Calibrate(Mat rotatedRoiBgr)
     {
@@ -91,6 +117,21 @@ public sealed class SideHandBackMask
         ValueMax = 255;
 
         IsCalibrated = true;
+
+        // Validation: the calibrated range must actually isolate the orange
+        // tile backs.  If it yields almost nothing, the sample region was not
+        // on the hand — keep the default range rather than poisoning the
+        // persistent masker used across replay frames.
+        using Mat probe = Extract(rotatedRoiBgr);
+        if (Cv2.CountNonZero(probe) < 500)
+        {
+            HueMin = DefaultHueMin;
+            HueMax = DefaultHueMax;
+            SaturationMin = DefaultSaturationMin;
+            SaturationMax = DefaultSaturationMax;
+            ValueMin = DefaultValueMin;
+            ValueMax = DefaultValueMax;
+        }
     }
 
     /// <summary>

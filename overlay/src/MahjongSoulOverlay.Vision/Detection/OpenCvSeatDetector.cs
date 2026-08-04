@@ -343,16 +343,26 @@ public sealed class OpenCvSeatDetector : IDisposable
         using Mat rotated = new Mat();
         Cv2.Rotate(cropped, rotated, rot);
 
-        // ── 2. Calibrate HSV on first frame ──────────────────────
-        if (state.SideMasker is null || !state.SideMasker.IsCalibrated)
-        {
-            var masker = new SideHandBackMask();
-            masker.Calibrate(rotated);
-            state.SideMasker = masker;
-        }
+        // ── 2. Calibrate HSV range for this frame ────────────────
+        // Adaptive per-frame calibration: lighting and game state drift across
+        // the video, and a one-time calibration from an early empty frame
+        // poisons every later frame.  Calibrate may keep the default range when
+        // the ROI centre is not yet on the hand (validated inside Calibrate).
+        var masker = new SideHandBackMask();
+        masker.Calibrate(rotated);
+        state.SideMasker = masker;
 
         // ── 3. Extract broad orange mask ─────────────────────────
-        using Mat rawMask = state.SideMasker.Extract(rotated);
+        // If the persistent calibrated range yields almost nothing on a frame
+        // where the hand is present (lighting drift, calibration from an early
+        // empty frame), fall back to the default range for this extraction.
+        Mat? candidate = state.SideMasker!.Extract(rotated);
+        if (Cv2.CountNonZero(candidate) < 500)
+        {
+            candidate.Dispose();
+            candidate = new SideHandBackMask().Extract(rotated); // default range
+        }
+        using Mat rawMask = candidate;
         if (Cv2.CountNonZero(rawMask) < 500) return null;
 
         // Clean mask for plane fitting.

@@ -82,6 +82,7 @@ public sealed class ReplayRunner
             exception is OpenCvSharpException or IOException or
             UnauthorizedAccessException or ArgumentException)
         {
+            Console.Error.WriteLine($"REPLAY FAILED: {exception}");
             return 1;
         }
     }
