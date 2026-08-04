@@ -424,16 +424,18 @@ public static class BackSurfaceGeometryDetector
             double planeTopY = plane.TopStartY + ux * (plane.TopEndY - plane.TopStartY);
             double planeBotY = plane.BottomStartY + ux * (plane.BottomEndY - plane.BottomStartY);
 
+            // The plane or ridge can fall outside the ROI on degenerate
+            // frames; clamp each bound independently and bail on empty bands.
             int top, bot;
             if (isAbove)
             {
-                top = Math.Clamp((int)planeTopY, 0, h - 1);
-                bot = Math.Clamp((int)ridgeY, top + 2, h - 1);
+                top = Math.Max(0, (int)planeTopY);
+                bot = Math.Min(h - 1, (int)ridgeY);
             }
             else
             {
-                top = Math.Clamp((int)ridgeY, 0, h - 1);
-                bot = Math.Clamp((int)planeBotY, top + 2, h - 1);
+                top = Math.Max(0, (int)ridgeY);
+                bot = Math.Min(h - 1, (int)planeBotY);
             }
 
             if (bot - top < 5) continue;
@@ -572,9 +574,10 @@ public static class BackSurfaceGeometryDetector
             if (selectedSide == BackSurfaceSide.BottomOfRidge)
             {
                 // Search near the plane bottom for the lowest orange pixel.
+                // Guard against degenerate geometry where the plane sits off-ROI.
                 int bottomY = -1;
-                int searchStart = Math.Min(h - 1, (int)(planeBotY + h * 0.08));
-                int searchEnd = Math.Max((int)rY + 2, (int)(planeBotY - h * 0.25));
+                int searchStart = Math.Clamp((int)(planeBotY + h * 0.08), 0, h - 1);
+                int searchEnd = Math.Clamp((int)(planeBotY - h * 0.25), 0, h - 1);
                 for (int y = searchStart; y >= searchEnd; y--)
                 {
                     if (rawOrangeMask.At<byte>(y, x) > 0)

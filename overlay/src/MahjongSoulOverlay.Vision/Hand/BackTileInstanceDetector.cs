@@ -323,8 +323,11 @@ public static class BackTileInstanceDetector
         double height = railY - ridgeY;
         if (height < 5) return 0;
 
-        int top = Math.Clamp((int)(ridgeY + height * 0.1), 0, h - 1);
-        int bot = Math.Clamp((int)(railY - height * 0.1), top + 1, h - 1);
+        // The geometry lines can fall outside the ROI on degenerate frames;
+        // clamp each bound independently and bail when the band is empty.
+        int top = Math.Max(0, (int)(ridgeY + height * 0.1));
+        int bot = Math.Min(h - 1, (int)(railY - height * 0.1));
+        if (bot <= top) return 0;
 
         int orange = 0, total = 0;
         // Check a few columns around the peak.
@@ -701,29 +704,33 @@ public static class BackTileInstanceDetector
             double height = railY - ridgeY;
             if (height <= 0) continue;
 
+            // The detected ridge/rail lines can fall outside the ROI on
+            // degenerate frames (hand animating, partial occlusion).  Skip the
+            // column when the sample band has no overlap with the image.
+            int bandTop, bandBot;
             if (isRidge)
             {
                 // Sample the upper portion of the corridor, starting just
                 // inside the ridge boundary (past the corridor inset).
-                int y0 = Math.Clamp((int)ridgeY + 2, 0, h - 1);
-                int y1 = Math.Clamp((int)(ridgeY + height * 0.30), y0 + 1, h - 1);
-                for (int y = y0; y <= y1; y++)
-                {
-                    total++;
-                    if (backOnlyMask.At<byte>(y, xi) > 0) orange++;
-                }
+                bandTop = (int)ridgeY + 2;
+                bandBot = (int)(ridgeY + height * 0.30);
             }
             else
             {
                 // Sample the lower portion of the corridor, ending just
                 // inside the rail boundary.
-                int y0 = Math.Clamp((int)(railY - height * 0.30), 0, h - 1);
-                int y1 = Math.Clamp((int)railY - 2, y0 + 1, h - 1);
-                for (int y = y0; y <= y1; y++)
-                {
-                    total++;
-                    if (backOnlyMask.At<byte>(y, xi) > 0) orange++;
-                }
+                bandTop = (int)(railY - height * 0.30);
+                bandBot = (int)railY - 2;
+            }
+
+            if (bandBot <= bandTop) continue;
+            int y0 = Math.Max(0, bandTop);
+            int y1 = Math.Min(h - 1, bandBot);
+            if (y1 <= y0) continue; // band lies entirely outside the image
+            for (int y = y0; y <= y1; y++)
+            {
+                total++;
+                if (backOnlyMask.At<byte>(y, xi) > 0) orange++;
             }
         }
 
