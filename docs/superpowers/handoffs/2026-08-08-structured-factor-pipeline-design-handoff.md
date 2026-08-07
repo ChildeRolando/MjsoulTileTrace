@@ -34,11 +34,13 @@
 3. 固定上游提交 `514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0`，保留 MIT 许可证；
 4. 不解析 helper CLI 文本，不采用 helper 最终推荐、综合排名或黑箱分数；
 5. Akagi 的 Rust 分析移植只作为交叉校验与未来替换候选，不绑定完整 Tauri 应用；
-6. Slice 3 外部白名单只纳入向听、有效/改善牌、可验证剩余枚数等确定性牌效事实；
-7. 立直、一发、逐家现物继续由本项目事件重放计算；
-8. 打点、启发式危险度、顺位和选择权留给 M2；
-9. 多轴冲突不使用任意权重解决；缺事实或未支持不能伪装成相等；
-10. 用户无需设置 sidecar 路径或 Go 运行时。
+6. Slice 3 接入向听、有效/改善牌、完成手牌点数等确定值；
+7. 一并接入 helper 已有的役种集合、默听/立直平均打点、局收支、速度与和率字段，但标记为版本化上游估算；
+8. 立直、一发、逐家现物继续由本项目事件重放计算；同时接入 helper 的筋、壁、NC/OC、早外和逐威胁风险刻度；
+9. 上游估算可以展示并形成启发式差异，但不能进入 `DeterministicPreference`，也不能改名为 Mortal 铳率或本项目校准 EV；
+10. helper `util` 未提供的染手/手切序列读牌，以及公共结果未暴露的精确符番明细，留给 M2；
+11. 多轴冲突不使用任意权重解决；缺事实或未支持不能伪装成相等；
+12. 用户无需设置 sidecar 路径或 Go 运行时。
 
 ## 4. 必须保持的回归
 
@@ -78,7 +80,10 @@ git diff --cached --check
 
 ## 7. 外部调研摘要
 
-- `mahjong-helper` 是 Go module，`util/shanten_improve.go` 有公开结构化分析函数；根 CLI 不适合机器解析；
+- `mahjong-helper` 是 Go module，`util/shanten_improve.go` 公开 `YakuTypes`、`DoraCount`、`DamaPoint`、`RiichiPoint`、`MixedRoundPoint` 等结构化字段；
+- `util/point.go` 公开完成手牌点数计算，但固定版本的 `PointResult` 只公开点数，精确 `han/fu/yaku/winTile` 仍为包内字段；不得解析显示字符串补造；
+- `util/risk_base.go` 与 `util/risk_wall.go` 公开逐牌风险、剩余无筋、壁、NC/DNC、OC/DOC 和早外修正；这些是版本化启发式，不是 Mortal 铳率；
+- 根 CLI 仍不适合机器解析；
 - 本机当前没有系统 Go 工具链，实施时应使用固定、可重复的开发构建方式，但不能把这变成普通用户配置；
 - Akagi 当前分析模块包含 Rust 移植和可序列化结果，但完整应用依赖较重，没有发现适合作为稳定任意局面批处理协议的独立 CLI；
 - 不允许以 helper/Akagi 推荐代替本项目的 `DeterministicPreference`。

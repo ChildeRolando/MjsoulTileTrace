@@ -39,8 +39,9 @@ CandidateFactorLedger[] + FactorDifferences + DeterministicPreference
 
 - 所有候选来源使用同一条事实计算管线，并以 canonical `actionRef` 为唯一动作键；
 - 对每个候选生成同构、带状态和来源的五轴账本；
-- 首版迁移可靠的牌效事实，以及基于事件重放的立直/现物防守事实；
+- 首版迁移可靠的牌效事实、上游已有的役/打点分析，以及基于事件重放和上游风险函数的防守事实；
 - 只比较已计算且口径相同的事实，不把缺失、未支持或启发式当成相等；
+- 每项事实区分确定值、条件确定值和版本化上游估算；启发式可以展示和比较，但不能冒充确定性支配；
 - 分离单轴确定性偏好、跨轴冲突和总体无法取舍；
 - 删除 `ModelEvaluation` 后，事实、差异和教练确定性偏好逐字段不变；
 - 保持东一局 6/7 巡严格回归：牌效与防守可以分别支持相反动作；
@@ -52,14 +53,15 @@ CandidateFactorLedger[] + FactorDifferences + DeterministicPreference
 
 - 完整日麻合法动作枚举或全局最优动作搜索；
 - `mahjong-helper` 或 Akagi 的最终推荐、综合排名或黑箱分数复述；
-- 完整役种、符番、期待打点和点棒 EV；
-- 筋牌、壁、one-chance、染手、手切序列等启发式危险度；
+- 超出固定上游实现的完整规则覆盖，例如包牌、所有规则变体以及上游公共结果未暴露的精确符番明细；
+- 把上游的期待打点、局收支或风险刻度重新命名为本项目校准过的 EV、胜率或精确放铳率；
+- 上游 `util` 尚未提供的染手推断、对对倾向和手切序列读牌；
 - 顺位、局收支和选择权的完整取舍；
 - 教材/MCP 经验规则；
 - LLM Prompt、自然语言解释或 UI；
 - 用旧 TypeScript 计算器作为生产环境的静默降级。
 
-这些能力分别留给 M2–M4。Slice 3 只建立稳定扩展边界，并诚实标记尚未实现的轴。
+Slice 3 会接入上游已经存在的价值与危险度能力；M2 再补足上游缺口、校准统计口径并扩展对手模型。任何尚未实现的字段都保留明确状态，不能由 LLM 补写。
 
 ## 4. 外部算法方案
 
@@ -111,7 +113,11 @@ FactorPipeline 的输入固定为：
 4. 生成事实引擎需要的 13 张/14 张手牌计数、副露和可见牌计数；
 5. 不修改原始 `AnalysisFrame` 或其他候选状态。
 
-首版牌效投影支持 `discard` 与 `riichi_discard`。其他动作仍必须得到一份账本，但相关轴标记为 `unsupported_action_in_slice`，不得伪造弃牌后的 13 张手牌。
+首版投影支持：
+
+- `discard` 与 `riichi_discard`：生成动作后的 13 张手牌分析、价值估算和候选弃牌危险度；
+- `tsumo` 与 `ron`：已知完整和牌上下文时生成完成手牌点数分析；
+- 其他动作：仍得到一份账本，但相关轴标记为 `unsupported_action_in_slice`，不得伪造弃牌后的 13 张手牌。
 
 ## 6. 事实引擎协议
 
@@ -122,7 +128,9 @@ FactorPipeline 的输入固定为：
 ```text
 MahjongFactEnginePort
   engineIdentity() -> engine/version/protocol/upstream commit
-  analyze(request: MahjongFactRequest) -> MahjongFactResult
+  analyzeHand13(request) -> Hand13FactResult
+  analyzeCompletedHand(request) -> CompletedHandFactResult
+  analyzeThreatRisk(request) -> ThreatRiskFactResult
   close() -> void
 ```
 
@@ -135,6 +143,9 @@ MahjongFactEnginePort
 - Tile34 手牌计数；
 - 已完成副露；
 - 按 Tile34 聚合的可见牌计数及其完整性；
+- 宝牌、赤牌、场风、自风、亲子、门清/副露、立直状态和自摸/荣和上下文；
+- 自家牌河、剩余摸牌数；
+- 风险分析时逐威胁者的巡目、现物/立直后通过牌、座风和牌河；
 - 规则标识与计算模式。
 
 响应至少携带：
@@ -157,9 +168,9 @@ MahjongFactEnginePort
 - 重试仍失败则标记 `blocked_engine_failure`，不切换到另一算法；
 - 上层保存诊断，但不把堆栈或进程路径送给 LLM。
 
-## 7. 事实分类与白名单
+## 7. 事实分类与可信契约
 
-第三方输出不能因为“是数字”就自动成为可信事实。所有字段分为三类：
+第三方输出不能因为“是数字”就自动成为确定事实。每项输出必须携带 `evidenceClass`、算法版本、输入完整性和限制。字段分为四类：
 
 ### 7.1 `deterministic_allowlisted`
 
@@ -169,9 +180,15 @@ Slice 3 可进入账本和比较的外部事实：
 - 有效/改善牌的 Tile34 身份；
 - 在可见牌计数完整时，每种有效牌的理论剩余枚数和合计；
 - 改善路径中可重算的向听变化；
-- 算法明确区分且测试覆盖的普通形、七对子、国士结果。
+- 算法明确区分且测试覆盖的普通形、七对子、国士结果；
+- 宝牌与赤牌数量；
+- 在完整和牌上下文下由 `CalcPoint` 得到的荣和/自摸点数。
 
 若某项需要完整可见牌而题面只给手牌，则只阻塞“剩余枚数”，不能连带否定可由手牌计算的向听或牌种集合。
+
+完成手牌点数使用 `deterministic_under_assumptions`：它是固定规则和完整输入下的可重算结果，但必须声明上游未处理的包牌等规则边界，也不能自动加上题面没有确认的一发、里宝或其他偶然项。
+
+上游 `PointResult` 的公共字段能提供点数，但其精确 `han`、`fu`、和牌牌和役种明细在固定版本中不是公共字段。sidecar 不使用反射或不安全访问伪造这些明细；无法从公共 API 严格取得时分别标记 `unsupported_upstream_api`。未来若引入经审计的最小上游补丁，必须提升协议版本并增加逐和牌形黄金测试。
 
 ### 7.2 `deterministic_local_replay`
 
@@ -183,20 +200,40 @@ Slice 3 可进入账本和比较的外部事实：
 - 形成现物判断的具体牌河事件 ID；
 - 候选动作是否打出赤牌、是否摸切/手切。
 
-这些事实保留原始事件证据，不依赖 mahjong-helper 的危险度百分比。
+这些事实保留原始事件证据，不依赖 mahjong-helper 的危险度刻度。
 
-### 7.3 `heuristic_or_out_of_scope`
+### 7.3 `versioned_upstream_estimate`
 
-Slice 3 不进入确定性偏好的输出包括但不限于：
+以下是上游已经提供、Slice 3 一并接入的派生值或启发式：
 
-- helper 的最终推荐或弃牌排序；
-- `MixedWaitsScore`、`MixedRoundPoint`；
-- `AvgAgariRate`、`FuritenRate` 等统计或混合指标；
-- 未冻结口径的风险百分比；
-- 期待打点、立直/默听综合分和未来局收支；
-- 无来源的牌形质量标签。
+- `YakuTypes`：上游在当前手牌与进张路径中识别到的役种集合，保留数字 ID 和版本化名称映射；
+- `DamaPoint`、`RiichiPoint`：上游默听/副露与立直平均打点估算；
+- `MixedWaitsScore`、`AvgAgariRate`、`FuritenRate`：上游速度、和率与振听相关估算；
+- `MixedRoundPoint`：上游局收支估算，不命名为本项目点棒 EV；
+- `CalculateRiskTiles34` 的逐威胁者 Tile34 风险刻度；
+- 筋/无筋、壁、No Chance、Double No Chance、One Chance、Double One Chance 和早外修正；
+- 剩余无筋牌集合、宝牌危险度修正和字牌枚数分类。
 
-Slice 3 的 sidecar 响应 schema 不包含这些字段；若上游适配器意外返回，严格 schema 直接拒绝整份响应。未来确需保存隔离指标时，必须提升协议版本并增加显式 quarantine 契约；在进入白名单前，它们仍不能出现在差异、偏好或 LLM 输入中。
+这些值进入账本和 `FactorDifference`，因此教练以后可以明确说“按 mahjong-helper 固定版本的估算，A 的默听平均打点更高”或“B 在该启发式中属于筋/One Chance”。每个值必须同时携带：
+
+- `source = mahjong-helper`、固定提交和函数/表版本；
+- 原始字段名与原始数值，不转换成 Mortal 铳率；
+- 输入前提，例如巡目、剩余牌、现物、宝牌、场风和自风；
+- `limitations`，包括上游源码中的适用范围和未完成 TODO；
+- `preferenceEligibility = heuristic_only`。
+
+它们可以形成“启发式支持 A/B”的可观察差异，但不能进入 `DeterministicPreference`。后续 M3 的版本化教学规则可以显式采用某项启发式；在那之前，多轴总体结论仍允许为空。
+
+### 7.4 `prohibited_upstream_opinion`
+
+以下字段仍禁止进入账本：
+
+- helper 的最终推荐、最佳弃牌或候选排序；
+- Akagi/Mortal 的偏好或评分；
+- 未记录算法版本和前置输入的裸风险百分比；
+- 无来源的自然语言牌形评价。
+
+Slice 3 的 sidecar 响应 schema 不包含这些观点字段；若上游适配器意外返回，严格 schema 直接拒绝整份响应。
 
 ## 8. CandidateFactorLedger
 
@@ -224,13 +261,15 @@ CandidateFactorLedger
 - `unsupported_action_in_slice`：动作类型本切片尚不能投影；
 - `unsupported_dimension`：题意相关，但对应算法尚未实现。
 
-轴状态与轴内单项事实状态分开。一个轴可以已计算向听，同时将剩余枚数标记为缺可见牌。账本只保存事实，不保存“模型选了谁”或未经解析的自然语言理由。
+每项账本条目同时保存 `evidenceClass` 和 `preferenceEligibility`。轴状态与轴内单项事实状态分开：一个轴可以已计算向听，同时将剩余枚数标记为缺可见牌；也可以同时含确定值与启发式估算。账本不保存“模型选了谁”或未经解析的自然语言理由。
 
 Slice 3 的轴覆盖：
 
 - `efficiency`：弃牌/立直弃牌的向听、有效牌与可验证改善；
-- `defense`：逐立直者现物、一发和威胁存在事实；
-- `value`、`placement`、`optionality`：按题意标记跳过或未支持，不产生虚假中性值。
+- `value`：宝牌、上游役种集合、完成手牌点数，以及带限制的默听/立直平均打点估算；
+- `defense`：逐立直者现物、一发、威胁存在、筋/壁/one-chance 分类和上游风险刻度；
+- `placement`：只保存 `MixedRoundPoint` 原始上游估算，不产生本项目顺位/局收支偏好；
+- `optionality`：按题意标记跳过或未支持，不产生虚假中性值。
 
 ## 9. 差异与确定性偏好
 
@@ -242,6 +281,8 @@ Slice 3 的轴覆盖：
 - provenance 允许用于确定性判断的事实。
 
 缺失、阻塞、未支持和启发式不能转换为零，也不能产生“双方相同”。
+
+启发式字段可以生成独立的 `heuristic_difference`，但必须使用完全相同的上游版本和输入口径。它与确定性差异分桶存放，resolver 不得把它混入下述支配计算。
 
 ### 9.1 单轴支配
 
@@ -271,7 +312,7 @@ mahjong-helper 的牌效计算按 Tile34 聚合同种牌，因此赤五与普通
 - 每个精确候选分别投影和分析；
 - 外部结果绑定原始 `actionRef`，不得用 Tile34 重新生成动作身份；
 - 本地账本保存弃出/保留赤牌事实；
-- Slice 3 不据此计算打点偏好；该差异在 M2-B 进入价值轴；
+- Slice 3 将赤牌计入确定性的宝牌数量，并允许它影响同口径的完成手牌点数或上游平均打点估算；它不影响向听和牌种进张；
 - 两个只在红五身份上不同的候选，不能因为牌效结果相同而被全局合并。
 
 ## 11. 模型与 LLM 隔离
@@ -281,7 +322,7 @@ mahjong-helper 的牌效计算按 Tile34 聚合同种牌，因此赤五与普通
 1. 对相同 `AnalysisFrame + StructuredComparisonSet + KnownGameFacts`，加入、删除或改变 `ModelEvaluation`，账本、差异和 `DeterministicPreference` 必须完全相同；
 2. 改变候选 origins（model/actual/user）而不改变动作及事实，结果必须相同；
 3. 颠倒输入候选顺序，只允许输出排序规范化，不得改变方向性结论；
-4. 外部引擎返回额外推荐/排名字段时，严格 schema 必须拒绝该响应，不能让字段悄悄进入结果；
+4. 外部引擎返回额外推荐/排名字段时，严格 schema 必须拒绝该响应，不能让字段悄悄进入结果；改变任何 `heuristic_only` 数值也不能改变 `DeterministicPreference`；
 5. LLM 永远不接触 sidecar 原始响应，只读取已验证账本、差异和后续证据结构。
 
 ## 12. 错误处理
@@ -307,6 +348,9 @@ mahjong-helper 的牌效计算按 Tile34 聚合同种牌，因此赤五与普通
 ### 13.2 sidecar
 
 - 以固定手牌验证向听、有效牌、改善和剩余枚数；
+- 以固定听牌/和牌夹具验证役种 ID、宝牌、完成手牌点数、默听/立直平均打点和局收支原始值；
+- 以固定牌河验证筋、无筋、壁、NC/DNC、OC/DOC、早外和逐威胁者风险刻度；
+- 上游公共 API 未暴露的精确符番字段返回 unsupported，不得从显示字符串反向解析；
 - JSONL stdout 纯净，诊断只写 stderr；
 - 协议版本、请求 ID、状态哈希和 actionRef 往返一致；
 - 固定上游提交和第三方许可证清单可自动检查；
@@ -315,10 +359,11 @@ mahjong-helper 的牌效计算按 Tile34 聚合同种牌，因此赤五与普通
 ### 13.3 adapter 与 FactorPipeline
 
 - sidecar fixture 到账本的字段白名单测试；
-- helper 的推荐、综合分、风险和统计字段不会进入账本；
+- helper 的推荐和排序不会进入账本；价值、风险和统计字段按 `versioned_upstream_estimate` 进入独立分桶；
+- 上游估算可产生启发式差异，但无论数值如何变化都不能改变 `DeterministicPreference`；
 - 不完整可见牌只阻塞剩余枚数，不阻塞可计算向听；
 - 结构化 discard/riichi discard 结果一致时共享牌效事实，但保留动作身份；
-- 非弃牌动作产生明确 unsupported 状态；
+- tsumo/ron 在完整上下文中生成完成手牌点数；其余非弃牌动作产生明确 unsupported 状态；
 - 引擎失败时本地现物事实仍可用，但不凭空产生效率偏好；
 - 候选次序、origin 和模型评分变形测试。
 
@@ -362,7 +407,7 @@ mahjong-helper 的牌效计算按 Tile34 聚合同种牌，因此赤五与普通
 Slice 3 只有同时满足以下条件才完成：
 
 1. 结构化候选经同一端口生成同构账本；
-2. 牌效与本地防守事实均有明确 provenance 和状态；
+2. 牌效、价值、本地防守事实和上游防守启发式均有明确 provenance、证据分类和状态；
 3. helper/Akagi 的推荐、模型评分和 LLM 不可能进入事实偏好；
 4. 单轴支配、跨轴冲突和缺事实无法取舍均按本规格工作；
 5. 东一局 6/7 巡回归正确；
@@ -370,4 +415,4 @@ Slice 3 只有同时满足以下条件才完成：
 7. 新旧等价、变形测试、全量测试和类型检查通过；
 8. 完整代码复审无 Critical 或 Important 问题。
 
-完成后进入 M2：继续通过相同端口扩充牌形、打点、防守读牌、顺位和选择权事实，而不是扩大 LLM 自由推理范围。
+完成后进入 M2：继续通过相同端口补足上游未覆盖的牌形/符番细节、染手与手切序列读牌、统计校准、顺位和选择权事实，而不是扩大 LLM 自由推理范围。
