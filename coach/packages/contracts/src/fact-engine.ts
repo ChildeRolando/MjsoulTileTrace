@@ -160,7 +160,7 @@ export const ThreatRiskFactRequestSchema = z.object({
   ...RequestIdentityShape,
   kind: z.literal("threat_risk"),
   threatActor: z.number().int().min(0).max(3),
-  turns: z.number().int().nonnegative(),
+  turns: z.number().int().min(1).max(19),
   safeTiles34: z.array(z.boolean()).length(34),
   leftTiles34: Tile34CountsSchema,
   doraTiles34: z.array(Tile34IndexSchema),
@@ -269,6 +269,8 @@ export type CompletedHandFactResult = z.infer<
 const StructuralRiskKindSchema = z.enum([
   "genbutsu",
   "suji",
+  "half_suji",
+  "double_suji",
   "no_suji",
   "wall",
   "no_chance",

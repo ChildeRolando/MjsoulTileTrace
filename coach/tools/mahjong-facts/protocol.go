@@ -163,6 +163,44 @@ func handleLine(line []byte) (response []byte) {
 			return errorResponse(header.RequestID, "invalid_request", err.Error())
 		}
 		return marshalResponse(result)
+	case "completed_hand":
+		var request CompletedHandRequest
+		if err := strictDecode(line, &request); err != nil {
+			return errorResponse(header.RequestID, "invalid_request", err.Error())
+		}
+		if err := requireJSONFields(
+			line,
+			"requestId", "protocolVersion", "actionRef", "stateHash",
+			"melds", "doraTiles34", "redFiveCounts", "roundWindTile34",
+			"selfWindTile34", "dealer", "riichi", "selfDiscards34",
+			"completedHandTiles34", "tsumo", "winTile34",
+		); err != nil {
+			return errorResponse(header.RequestID, "invalid_request", err.Error())
+		}
+		result, err := analyzeCompletedHand(request)
+		if err != nil {
+			return errorResponse(header.RequestID, "invalid_request", err.Error())
+		}
+		return marshalResponse(result)
+	case "threat_risk":
+		var request ThreatRiskRequest
+		if err := strictDecode(line, &request); err != nil {
+			return errorResponse(header.RequestID, "invalid_request", err.Error())
+		}
+		if err := requireJSONFields(
+			line,
+			"requestId", "protocolVersion", "actionRef", "stateHash",
+			"threatActor", "turns", "safeTiles34", "leftTiles34",
+			"doraTiles34", "roundWindTile34", "threatWindTile34",
+			"earlyOutsideTiles34", "evidenceIds",
+		); err != nil {
+			return errorResponse(header.RequestID, "invalid_request", err.Error())
+		}
+		result, err := analyzeThreatRisk(request)
+		if err != nil {
+			return errorResponse(header.RequestID, "invalid_request", err.Error())
+		}
+		return marshalResponse(result)
 	case "":
 		return errorResponse(header.RequestID, "invalid_request", "kind is required")
 	default:

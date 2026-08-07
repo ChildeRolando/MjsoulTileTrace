@@ -200,4 +200,25 @@ describe("fact engine contracts", () => {
 
     expect(parsed.riskScale).toHaveLength(34);
   });
+
+  it("bounds threat turns to the pinned helper risk table", () => {
+    const request = {
+      requestId: "req-1",
+      protocolVersion: "mahjong-facts/v1",
+      actionRef: "action:v1:test",
+      stateHash: "sha256:test",
+      kind: "threat_risk",
+      threatActor: 2,
+      turns: 8,
+      safeTiles34: Array(34).fill(false),
+      leftTiles34: Array(34).fill(4),
+      doraTiles34: [],
+      roundWindTile34: 27,
+      threatWindTile34: 29,
+      earlyOutsideTiles34: [],
+      evidenceIds: ["event-riichi"],
+    };
+    expect(() => ThreatRiskFactRequestSchema.parse({ ...request, turns: 0 })).toThrow();
+    expect(() => ThreatRiskFactRequestSchema.parse({ ...request, turns: 20 })).toThrow();
+  });
 });
