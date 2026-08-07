@@ -24,6 +24,19 @@ type requestHeader struct {
 	ProtocolVersion string `json:"protocolVersion"`
 }
 
+func requireJSONFields(line []byte, fields ...string) error {
+	var object map[string]json.RawMessage
+	if err := json.Unmarshal(line, &object); err != nil {
+		return err
+	}
+	for _, field := range fields {
+		if _, exists := object[field]; !exists {
+			return fmt.Errorf("%s is required", field)
+		}
+	}
+	return nil
+}
+
 type IdentityRequest struct {
 	Kind            string `json:"kind"`
 	RequestID       string `json:"requestId"`
@@ -131,6 +144,25 @@ func handleLine(line []byte) (response []byte) {
 			ProtocolVersion: protocolVersion,
 			Identity:        engineIdentity(),
 		})
+	case "hand13":
+		var request Hand13Request
+		if err := strictDecode(line, &request); err != nil {
+			return errorResponse(header.RequestID, "invalid_request", err.Error())
+		}
+		if err := requireJSONFields(
+			line,
+			"requestId", "protocolVersion", "actionRef", "stateHash",
+			"melds", "doraTiles34", "redFiveCounts", "roundWindTile34",
+			"selfWindTile34", "dealer", "riichi", "selfDiscards34",
+			"handTiles34", "leftTiles34", "visibleCountsComplete", "remainingDraws",
+		); err != nil {
+			return errorResponse(header.RequestID, "invalid_request", err.Error())
+		}
+		result, err := analyzeHand13(request)
+		if err != nil {
+			return errorResponse(header.RequestID, "invalid_request", err.Error())
+		}
+		return marshalResponse(result)
 	case "":
 		return errorResponse(header.RequestID, "invalid_request", "kind is required")
 	default:
