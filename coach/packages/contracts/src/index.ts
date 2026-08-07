@@ -12,3 +12,5 @@ export * from "./actions.js";
 export * from "./action-codec.js";
 export * from "./structured-comparison.js";
 export * from "./candidate-contracts.js";
+export * from "./known-game-facts.js";
+export * from "./fact-engine.js";

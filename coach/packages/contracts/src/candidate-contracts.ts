@@ -202,7 +202,7 @@ export type UserActionDraft = z.infer<typeof UserActionDraftSchema>;
 
 export const KnownMeldSchema = z.object({
   meldRef: z.string().min(1),
-  kind: z.enum(["chi", "pon", "daiminkan", "ankan"]),
+  kind: z.enum(["chi", "pon", "daiminkan", "ankan", "kakan"]),
   tiles: z.array(TileSchema).min(3).max(4),
 }).strict().superRefine((meld, context) => {
   const expectedLength = meld.kind === "chi" || meld.kind === "pon" ? 3 : 4;
