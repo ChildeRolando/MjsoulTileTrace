@@ -14,3 +14,4 @@ export * from "./structured-comparison.js";
 export * from "./candidate-contracts.js";
 export * from "./known-game-facts.js";
 export * from "./fact-engine.js";
+export * from "./factor-ledger.js";
