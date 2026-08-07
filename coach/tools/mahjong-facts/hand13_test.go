@@ -40,6 +40,8 @@ func goldenHand13Request() Hand13Request {
 		HandTiles34:           hand,
 		LeftTiles34:           left,
 		VisibleCountsComplete: true,
+		DoraTilesComplete:     true,
+		SelfDiscardsComplete:  true,
 		RemainingDraws:        &remainingDraws,
 	}
 }
@@ -72,12 +74,33 @@ func TestHand13GoldenFacts(t *testing.T) {
 	if yaku == nil || yaku.IntegerValues == nil || !reflect.DeepEqual(*yaku.IntegerValues, []int{0, 4, 6, 7}) {
 		t.Fatalf("yaku IDs = %v, want [0 4 6 7]", yaku)
 	}
-	if result.DoraCount != 1 {
-		t.Fatalf("dora count = %d, want 1", result.DoraCount)
+	if result.DoraCount == nil || *result.DoraCount != 1 {
+		t.Fatalf("dora count = %v, want 1", result.DoraCount)
 	}
 	dama := estimateByField(result.Estimates, "dama_point")
 	if dama == nil || dama.NumericValue == nil {
 		t.Fatalf("dama point estimate missing: %v", result.Estimates)
+	}
+}
+
+func TestHand13BlocksOnlyDoraDependentFactsWhenIndicatorsIncomplete(t *testing.T) {
+	request := goldenHand13Request()
+	request.DoraTilesComplete = false
+	result, err := analyzeHand13(request)
+	if err != nil {
+		t.Fatalf("analyze hand13: %v", err)
+	}
+	if result.Shanten != 0 {
+		t.Fatalf("shanten = %d, want 0", result.Shanten)
+	}
+	if result.DoraCount != nil || result.DoraCountStatus != "blocked_missing_facts" {
+		t.Fatalf("dora result = %v/%q, want blocked null", result.DoraCount, result.DoraCountStatus)
+	}
+	if estimateByField(result.Estimates, "dama_point") != nil {
+		t.Fatal("dora-dependent point estimate must be omitted")
+	}
+	if estimateByField(result.Estimates, "mixed_waits_score") == nil {
+		t.Fatal("dora-independent wait score should remain available")
 	}
 }
 

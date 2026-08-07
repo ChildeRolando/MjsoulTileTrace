@@ -41,6 +41,8 @@ function validHand13Request(): Hand13FactRequest {
     handTiles34: Array(34).fill(0) as number[],
     leftTiles34: null,
     visibleCountsComplete: false,
+    doraTilesComplete: true,
+    selfDiscardsComplete: true,
     remainingDraws: null,
   };
 }
@@ -58,6 +60,7 @@ function validHand13Result() {
     waitsRemainingStatus: "blocked_missing_facts" as const,
     waitsRemaining: [],
     improves: [],
+    doraCountStatus: "calculated" as const,
     doraCount: 0,
     estimates: [],
     diagnostics: [],

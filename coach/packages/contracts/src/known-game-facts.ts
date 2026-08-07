@@ -13,12 +13,14 @@ const KnownFactsCompletenessSchema = z.object({
   doraIndicators: z.boolean(),
   rivers: z.boolean(),
   remainingDraws: z.boolean(),
+  calledDiscardMarkers: z.boolean(),
 }).strict();
 
 export const KnownGameFactsSchema = z.object({
   factSetId: z.string().min(1),
   provenance: z.enum(["raw_replay", "user_asserted", "mixed"]),
   actor: ActorSchema,
+  selfRiichi: z.boolean(),
   decisionEventRef: z.string().min(1),
   decisionWindow: DecisionWindowSchema,
   concealedTiles: z.array(TileSchema),
@@ -69,6 +71,60 @@ export const KnownGameFactsSchema = z.object({
       message: "Dealer status must agree with east seat wind",
       path: ["dealer"],
     });
+  }
+
+  facts.melds.forEach((meld, index) => {
+    if (facts.completeness.melds && meld.actor === undefined) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Complete public meld state requires meld actors",
+        path: ["melds", index, "actor"],
+      });
+    }
+  });
+
+  if (facts.completeness.calledDiscardMarkers) {
+    const riverEventIds = new Set(
+      facts.rivers.flatMap((river) => river.map((discard) => discard.eventId)),
+    );
+    const calledEventIds: string[] = [];
+    facts.melds.forEach((meld, index) => {
+      if (meld.kind === "ankan") {
+        if (meld.calledDiscardEventRef !== undefined &&
+          meld.calledDiscardEventRef !== null) {
+          context.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: "Ankan cannot reference a called discard",
+            path: ["melds", index, "calledDiscardEventRef"],
+          });
+        }
+        return;
+      }
+      if (meld.calledDiscardEventRef === undefined ||
+        meld.calledDiscardEventRef === null) {
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Complete called-discard markers require open meld references",
+          path: ["melds", index, "calledDiscardEventRef"],
+        });
+        return;
+      }
+      calledEventIds.push(meld.calledDiscardEventRef);
+      if (!riverEventIds.has(meld.calledDiscardEventRef)) {
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Called discard reference must exist in a river",
+          path: ["melds", index, "calledDiscardEventRef"],
+        });
+      }
+    });
+    if (new Set(calledEventIds).size !== calledEventIds.length) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Called discard references must be unique",
+        path: ["melds"],
+      });
+    }
   }
 });
 

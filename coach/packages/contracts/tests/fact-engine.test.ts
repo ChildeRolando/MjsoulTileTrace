@@ -71,6 +71,8 @@ describe("fact engine contracts", () => {
       handTiles34: Array(34).fill(0),
       leftTiles34: null,
       visibleCountsComplete: false,
+      doraTilesComplete: true,
+      selfDiscardsComplete: true,
       remainingDraws: null,
     }).kind).toBe("hand13");
     expect(CompletedHandFactRequestSchema.parse({
@@ -105,6 +107,7 @@ describe("fact engine contracts", () => {
       waitsRemainingStatus: "calculated",
       waitsRemaining: [{ tile34: 2, count: 4 }],
       improves: [],
+      doraCountStatus: "calculated",
       doraCount: 0,
       estimates: [{
         field: "dama_point",
@@ -126,6 +129,7 @@ describe("fact engine contracts", () => {
       waitsRemainingStatus: "blocked_missing_facts",
       waitsRemaining: [],
       improves: [],
+      doraCountStatus: "calculated",
       doraCount: 0,
       estimates: [],
       diagnostics: ["missing_left_tile_counts"],
@@ -147,6 +151,7 @@ describe("fact engine contracts", () => {
       waitsRemainingStatus: "calculated",
       waitsRemaining: [],
       improves: [],
+      doraCountStatus: "calculated",
       doraCount: 0,
       estimates: [],
       diagnostics: [],
@@ -163,10 +168,32 @@ describe("fact engine contracts", () => {
       waitsRemainingStatus: "calculated",
       waitsRemaining: [{ tile34: 2, count: 4 }],
       improves: [],
+      doraCountStatus: "calculated",
       doraCount: 0,
       estimates: [],
       diagnostics: [],
       recommendedDiscard: 2,
+    })).toThrow();
+  });
+
+  it("blocks dora count independently without inventing zero", () => {
+    const parsed = Hand13FactResultSchema.parse({
+      ...resultIdentity,
+      kind: "hand13_result",
+      shanten: 1,
+      effectiveTile34: [2],
+      waitsRemainingStatus: "blocked_missing_facts",
+      waitsRemaining: [],
+      improves: [],
+      doraCountStatus: "blocked_missing_facts",
+      doraCount: null,
+      estimates: [],
+      diagnostics: ["dora_count_blocked_missing_facts"],
+    });
+    expect(parsed.doraCount).toBeNull();
+    expect(() => Hand13FactResultSchema.parse({
+      ...parsed,
+      doraCount: 0,
     })).toThrow();
   });
 

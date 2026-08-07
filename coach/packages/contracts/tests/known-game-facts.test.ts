@@ -11,6 +11,7 @@ function baseFacts() {
     factSetId: "facts:e1:t6",
     provenance: "raw_replay" as const,
     actor: 3,
+    selfRiichi: false,
     decisionEventRef: "event-58",
     decisionWindow: {
       kind: "self_turn" as const,
@@ -33,6 +34,7 @@ function baseFacts() {
       doraIndicators: true,
       rivers: true,
       remainingDraws: true,
+      calledDiscardMarkers: true,
     },
     evidenceIds: ["event-58"],
   };
@@ -64,6 +66,7 @@ describe("KnownGameFactsSchema", () => {
       melds: [{
         meldRef: "meld-1",
         kind: "kakan",
+        actor: 0,
         tiles: [tile("1m"), tile("1m"), tile("1m"), tile("1m")],
       }],
       seatWind: "E",
@@ -75,6 +78,7 @@ describe("KnownGameFactsSchema", () => {
         doraIndicators: true,
         rivers: true,
         remainingDraws: false,
+        calledDiscardMarkers: false,
       },
       evidenceIds: ["event-kakan"],
     });
@@ -107,5 +111,16 @@ describe("KnownGameFactsSchema", () => {
       seatWind: "E",
       dealer: false,
     })).toThrow("Dealer status must agree with east seat wind");
+  });
+
+  it("requires meld actors when public meld state is complete", () => {
+    expect(() => KnownGameFactsSchema.parse({
+      ...baseFacts(),
+      melds: [{
+        meldRef: "meld-public",
+        kind: "pon",
+        tiles: [tile("1m"), tile("1m"), tile("1m")],
+      }],
+    })).toThrow("Complete public meld state requires meld actors");
   });
 });

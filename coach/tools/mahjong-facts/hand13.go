@@ -22,6 +22,8 @@ type Hand13Request struct {
 	HandTiles34           []int `json:"handTiles34"`
 	LeftTiles34           []int `json:"leftTiles34"`
 	VisibleCountsComplete bool  `json:"visibleCountsComplete"`
+	DoraTilesComplete     bool  `json:"doraTilesComplete"`
+	SelfDiscardsComplete  bool  `json:"selfDiscardsComplete"`
 	RemainingDraws        *int  `json:"remainingDraws"`
 }
 
@@ -54,7 +56,8 @@ type Hand13Result struct {
 	WaitsRemainingStatus string             `json:"waitsRemainingStatus"`
 	WaitsRemaining       []TileCount        `json:"waitsRemaining"`
 	Improves             []ImproveResult    `json:"improves"`
-	DoraCount            int                `json:"doraCount"`
+	DoraCountStatus      string             `json:"doraCountStatus"`
+	DoraCount            *int               `json:"doraCount"`
 	Estimates            []UpstreamEstimate `json:"estimates"`
 	Diagnostics          []string           `json:"diagnostics"`
 }
@@ -104,7 +107,7 @@ func numericEstimate(field string, value float64, limitation string) (UpstreamEs
 	}, true
 }
 
-func normalizeEstimates(result *util.Hand13AnalysisResult) ([]UpstreamEstimate, []string) {
+func normalizeEstimates(result *util.Hand13AnalysisResult, request Hand13Request) ([]UpstreamEstimate, []string) {
 	yakuIDs := make([]int, 0, len(result.YakuTypes))
 	for yakuID := range result.YakuTypes {
 		yakuIDs = append(yakuIDs, yakuID)
@@ -121,15 +124,20 @@ func normalizeEstimates(result *util.Hand13AnalysisResult) ([]UpstreamEstimate, 
 		field      string
 		value      float64
 		limitation string
+		available  bool
 	}{
-		{"dama_point", result.DamaPoint, "Pinned mahjong-helper average dama/open-hand point estimate"},
-		{"riichi_point", result.RiichiPoint, "Pinned mahjong-helper average riichi point estimate"},
-		{"mixed_waits_score", result.MixedWaitsScore, "Pinned mahjong-helper composite wait-speed heuristic"},
-		{"avg_agari_rate", result.AvgAgariRate, "Pinned mahjong-helper estimated win rate, not a calibrated project probability"},
-		{"furiten_rate", result.FuritenRate, "Pinned mahjong-helper furiten heuristic"},
-		{"mixed_round_point", result.MixedRoundPoint, "Pinned mahjong-helper round-point estimate, not project placement EV"},
+		{"dama_point", result.DamaPoint, "Pinned mahjong-helper average dama/open-hand point estimate", request.DoraTilesComplete},
+		{"riichi_point", result.RiichiPoint, "Pinned mahjong-helper average riichi point estimate", request.DoraTilesComplete},
+		{"mixed_waits_score", result.MixedWaitsScore, "Pinned mahjong-helper composite wait-speed heuristic", true},
+		{"avg_agari_rate", result.AvgAgariRate, "Pinned mahjong-helper estimated win rate, not a calibrated project probability", request.SelfDiscardsComplete && request.RemainingDraws != nil},
+		{"furiten_rate", result.FuritenRate, "Pinned mahjong-helper furiten heuristic", request.SelfDiscardsComplete},
+		{"mixed_round_point", result.MixedRoundPoint, "Pinned mahjong-helper round-point estimate, not project placement EV", request.DoraTilesComplete && request.SelfDiscardsComplete && request.RemainingDraws != nil},
 	}
 	for _, item := range numeric {
+		if !item.available {
+			diagnostics = append(diagnostics, "estimate_blocked_missing_facts:"+item.field)
+			continue
+		}
 		estimate, ok := numericEstimate(item.field, item.value, item.limitation)
 		if !ok {
 			diagnostics = append(diagnostics, "non_finite_upstream_estimate:"+item.field)
@@ -202,7 +210,16 @@ func analyzeHand13(request Hand13Request) (Hand13Result, error) {
 			})
 		}
 	}
-	estimates, diagnostics := normalizeEstimates(analysis)
+	estimates, diagnostics := normalizeEstimates(analysis, request)
+	var doraCount *int
+	doraCountStatus := "blocked_missing_facts"
+	if request.DoraTilesComplete {
+		count := analysis.DoraCount
+		doraCount = &count
+		doraCountStatus = "calculated"
+	} else {
+		diagnostics = append(diagnostics, "dora_count_blocked_missing_facts")
+	}
 	return Hand13Result{
 		Kind:                 "hand13_result",
 		RequestID:            request.RequestID,
@@ -215,7 +232,8 @@ func analyzeHand13(request Hand13Request) (Hand13Result, error) {
 		WaitsRemainingStatus: waitsStatus,
 		WaitsRemaining:       waitsRemaining,
 		Improves:             normalizeImproves(analysis.Improves),
-		DoraCount:            analysis.DoraCount,
+		DoraCountStatus:      doraCountStatus,
+		DoraCount:            doraCount,
 		Estimates:            estimates,
 		Diagnostics:          diagnostics,
 	}, nil

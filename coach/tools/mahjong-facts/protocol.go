@@ -154,7 +154,8 @@ func handleLine(line []byte) (response []byte) {
 			"requestId", "protocolVersion", "actionRef", "stateHash",
 			"melds", "doraTiles34", "redFiveCounts", "roundWindTile34",
 			"selfWindTile34", "dealer", "riichi", "selfDiscards34",
-			"handTiles34", "leftTiles34", "visibleCountsComplete", "remainingDraws",
+			"handTiles34", "leftTiles34", "visibleCountsComplete",
+			"doraTilesComplete", "selfDiscardsComplete", "remainingDraws",
 		); err != nil {
 			return errorResponse(header.RequestID, "invalid_request", err.Error())
 		}

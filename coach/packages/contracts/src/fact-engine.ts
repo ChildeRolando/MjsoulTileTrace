@@ -132,6 +132,8 @@ export const Hand13FactRequestSchema = z.object({
   handTiles34: Tile34CountsSchema,
   leftTiles34: Tile34CountsSchema.nullable(),
   visibleCountsComplete: z.boolean(),
+  doraTilesComplete: z.boolean(),
+  selfDiscardsComplete: z.boolean(),
   remainingDraws: z.number().int().nonnegative().nullable(),
 }).strict().superRefine((request, context) => {
   if (request.visibleCountsComplete && request.leftTiles34 === null) {
@@ -227,7 +229,8 @@ export const Hand13FactResultSchema = z.object({
   ]),
   waitsRemaining: SortedTile34CountsSchema,
   improves: z.array(ImproveSchema),
-  doraCount: z.number().int().nonnegative(),
+  doraCountStatus: z.enum(["calculated", "blocked_missing_facts"]),
+  doraCount: z.number().int().nonnegative().nullable(),
   estimates: z.array(UpstreamEstimateSchema),
   diagnostics: UniqueStringsSchema,
 }).strict().superRefine((result, context) => {
@@ -239,6 +242,16 @@ export const Hand13FactResultSchema = z.object({
       code: z.ZodIssueCode.custom,
       message: "Blocked remaining counts must be empty",
       path: ["waitsRemaining"],
+    });
+  }
+  if (
+    (result.doraCountStatus === "calculated") !==
+      (result.doraCount !== null)
+  ) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Dora count status must agree with nullable dora count",
+      path: ["doraCount"],
     });
   }
   const fields = result.estimates.map((estimate) => estimate.field);
