@@ -370,6 +370,10 @@ func analyzeHandStructure(request HandStructureRequestV2) (HandStructureResultV2
 		families,
 		overall,
 	))
+	waits, err := deriveWaits(request, families, decompositions)
+	if err != nil {
+		return HandStructureResultV2{}, err
+	}
 	return HandStructureResultV2{
 		Kind:            "hand_structure_result",
 		SchemaVersion:   handStructureSchemaVersion,
@@ -382,7 +386,7 @@ func analyzeHandStructure(request HandStructureRequestV2) (HandStructureResultV2
 		BestFamilies:    best,
 		Families:        families,
 		Decompositions:  decompositions,
-		Waits:           []WaitV2{},
-		Diagnostics:     decompositionDiagnostics(decompositions),
+		Waits:           waits,
+		Diagnostics:     handStructureDiagnostics(decompositions, waits),
 	}, nil
 }
