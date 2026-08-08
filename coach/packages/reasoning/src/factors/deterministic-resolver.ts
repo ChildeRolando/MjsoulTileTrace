@@ -87,13 +87,29 @@ function hasCompleteScopedCoverage(
   result: FactorDifferenceBuildResult,
 ): boolean {
   const axes = relevantAxes(frame);
-  return result.candidateRefs.every((actionRef) => axes.every((axis) =>
-    result.coverage.some((entry) =>
-      entry.actionRef === actionRef &&
-      entry.axis === axis &&
-      entry.status === "calculated"
-    )
-  ));
+  for (const axis of axes) {
+    let expectedDimensions: string | null = null;
+    for (const actionRef of result.candidateRefs) {
+      const entries = result.deterministicCoverage.filter((entry) =>
+        entry.actionRef === actionRef &&
+        entry.axis === axis &&
+        (frame.scope.kind !== "single_axis" ||
+          frame.scope.dimension === undefined ||
+          entry.dimension === frame.scope.dimension)
+      );
+      if (entries.length === 0 || entries.some((entry) =>
+        entry.status !== "calculated" ||
+        entry.preferenceEligibility !== "deterministic"
+      )) return false;
+      const dimensions = entries
+        .map((entry) => `${entry.dimension}:${entry.comparisonSignature}`)
+        .sort()
+        .join("|");
+      if (expectedDimensions === null) expectedDimensions = dimensions;
+      else if (dimensions !== expectedDimensions) return false;
+    }
+  }
+  return true;
 }
 
 export function resolveDeterministicPreference(

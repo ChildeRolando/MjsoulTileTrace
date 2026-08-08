@@ -7,7 +7,9 @@ import {
   type EngineIdentity,
   type FactorDifference,
   type FactorFact,
+  type FactorStatus,
   type FactorValue,
+  type PreferenceEligibility,
 } from "@riichi-coach/contracts";
 
 export interface DifferenceCoverageEntry {
@@ -21,6 +23,16 @@ export interface FactorDifferenceBuildResult {
   deterministic: FactorDifference[];
   heuristic: FactorDifference[];
   coverage: DifferenceCoverageEntry[];
+  deterministicCoverage: DeterministicCoverageEntry[];
+}
+
+export interface DeterministicCoverageEntry {
+  actionRef: ActionRef;
+  axis: Axis;
+  dimension: string;
+  status: FactorStatus;
+  preferenceEligibility: PreferenceEligibility;
+  comparisonSignature: string;
 }
 
 const deterministicDirection = {
@@ -41,6 +53,20 @@ function stableJson(value: unknown): string {
       .join(",")}}`;
   }
   return JSON.stringify(value);
+}
+
+function deterministicComparisonSignature(fact: FactorFact): string {
+  const valueShape = fact.value === undefined
+    ? null
+    : fact.value.kind === "number"
+    ? { kind: fact.value.kind, unit: fact.value.unit }
+    : { kind: fact.value.kind };
+  return stableJson({
+    evidenceClass: fact.evidenceClass,
+    engineIdentity: fact.engineIdentity,
+    limitations: [...fact.limitations].sort(),
+    valueShape,
+  });
 }
 
 function sameEngine(
@@ -264,5 +290,20 @@ export function buildFactorDifferences(
       axis: axis.axis,
       status: axis.status,
     }))),
+    deterministicCoverage: ledgers.flatMap((ledger) => ledger.axes.flatMap(
+      (axis) => axis.facts
+        .filter((fact) =>
+          fact.evidenceClass !== "versioned_upstream_estimate" &&
+          deterministicPreference(fact.dimension) !== undefined
+        )
+        .map((fact) => ({
+          actionRef: ledger.actionRef,
+          axis: axis.axis,
+          dimension: fact.dimension,
+          status: fact.status,
+          preferenceEligibility: fact.preferenceEligibility,
+          comparisonSignature: deterministicComparisonSignature(fact),
+        })),
+    )),
   };
 }

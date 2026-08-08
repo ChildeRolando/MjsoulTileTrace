@@ -79,6 +79,32 @@ function helperRisk(value: number): FactorFact {
   };
 }
 
+function blockedDora(): FactorFact {
+  return {
+    factorKey: "value.dora_count",
+    dimension: "dora_count",
+    status: "blocked_missing_facts",
+    evidenceClass: "deterministic_allowlisted",
+    preferenceEligibility: "ineligible",
+    evidenceIds: ["request:hand13"],
+    limitations: ["dora indicators incomplete"],
+  };
+}
+
+function helperYaku(values: number[]): FactorFact {
+  return {
+    factorKey: "value.yaku_types",
+    dimension: "yaku_types",
+    status: "calculated",
+    evidenceClass: "versioned_upstream_estimate",
+    preferenceEligibility: "heuristic_only",
+    engineIdentity: identity,
+    value: { kind: "integer_ids", values },
+    evidenceIds: ["request:hand13"],
+    limitations: ["Heuristic only"],
+  };
+}
+
 function ledger(
   actionRef: ActionRef,
   efficiency: FactorFact[],
@@ -129,5 +155,38 @@ describe("deterministic preference resolver", () => {
       buildFactorDifferences(eastOneLedgers(99, 1)),
     );
     expect(first).toEqual(reversed);
+  });
+
+  it("does not let heuristic value facts conceal blocked deterministic value", () => {
+    const ledgers = [
+      CandidateFactorLedgerSchema.parse({
+        actionRef: twoPin,
+        projectedStateRef: "state:2p",
+        axes: [
+          { axis: "efficiency", status: "calculated", facts: [shanten(1)] },
+          { axis: "value", status: "calculated", facts: [blockedDora(), helperYaku([1])] },
+        ],
+        diagnostics: [],
+      }),
+      CandidateFactorLedgerSchema.parse({
+        actionRef: sixSou,
+        projectedStateRef: "state:6s",
+        axes: [
+          { axis: "efficiency", status: "calculated", facts: [shanten(2)] },
+          { axis: "value", status: "calculated", facts: [blockedDora(), helperYaku([2])] },
+        ],
+        diagnostics: [],
+      }),
+    ];
+    const differences = buildFactorDifferences(ledgers);
+
+    expect(resolveDeterministicPreference(
+      frame({ kind: "flat_discard" }),
+      differences,
+    )).toBeNull();
+    expect(resolveDeterministicPreference(
+      frame({ kind: "single_axis", axis: "efficiency" }),
+      differences,
+    )?.actionRefs).toEqual([twoPin]);
   });
 });
