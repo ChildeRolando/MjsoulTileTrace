@@ -17,3 +17,4 @@ export * from "./fact-engine.js";
 export * from "./factor-ledger.js";
 export * from "./event-stream.js";
 export * from "./round-state.js";
+export * from "./hand-structure.js";
