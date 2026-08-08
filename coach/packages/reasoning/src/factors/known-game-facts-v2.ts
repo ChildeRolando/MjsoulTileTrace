@@ -12,6 +12,11 @@ import {
 } from "@riichi-coach/contracts";
 import { freezeDecisionSnapshot } from "../replay/decision-snapshot.js";
 import { CanonicalReplayError } from "../replay/round-reducer.js";
+import type { HandStructureFactEnginePort } from "../fact-engine/port.js";
+import {
+  deriveResponseFuriten,
+  type ResponseFuritenAnalysis,
+} from "../replay/response-furiten.js";
 
 export interface KnownGameFactsV2ProjectionInput {
   stream: CanonicalEventStream;
@@ -176,4 +181,20 @@ export function projectKnownGameFactsV2(
     },
     evidenceIds: [...snapshot.evidenceIds],
   });
+}
+
+export async function projectAnalyzedKnownGameFactsV2(
+  input: KnownGameFactsV2ProjectionInput,
+  engine: HandStructureFactEnginePort,
+): Promise<{
+  facts: KnownGameFacts;
+  responseFuriten: ResponseFuritenAnalysis;
+}> {
+  const facts = projectKnownGameFactsV2(input);
+  const responseFuriten = await deriveResponseFuriten(
+    input.stream,
+    facts.decisionEventRef,
+    engine,
+  );
+  return { facts, responseFuriten };
 }
