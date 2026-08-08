@@ -1,17 +1,23 @@
 import { describe, expect, it } from "vitest";
 import {
+  CandidateDiscardEvidenceV2Schema,
   HAND_STRUCTURE_SCHEMA_VERSION,
   HandStructureRequestV2Schema,
   HandStructureResultV2Schema,
+  MergedHandFuritenV2Schema,
   type HandStructureRequestV2,
   type HandStructureResultV2,
 } from "../src/hand-structure.js";
+import { canonicalActionRef } from "../src/action-codec.js";
 import { ActionRefSchema } from "../src/comparison.js";
 
 const zeroes = Array<number>(34).fill(0);
-const actionRef = ActionRefSchema.parse(
-  "action:v1:discard:9s:normal:tedashi",
-);
+const handAction = {
+  kind: "discard" as const,
+  tile: { id: "9s" as const, red: false },
+  discardMode: "tedashi" as const,
+};
+const actionRef = ActionRefSchema.parse("scene:shape");
 
 function request(): HandStructureRequestV2 {
   const hand = [...zeroes];
@@ -115,6 +121,197 @@ function result(): HandStructureResultV2 {
 }
 
 describe("hand-structure/v2 contracts", () => {
+  it("keeps hypothetical candidate discards separate from canonical events", () => {
+    const action = {
+      kind: "discard" as const,
+      tile: { id: "5p" as const, red: true },
+      discardMode: "tedashi" as const,
+    };
+    const evidence = {
+      actor: 0,
+      action,
+      actionRef: canonicalActionRef(action),
+      stateHash: "sha256:candidate-hand",
+      tile: action.tile,
+      discardMode: action.discardMode,
+    };
+    expect(CandidateDiscardEvidenceV2Schema.parse(evidence)).toEqual(evidence);
+    expect(CandidateDiscardEvidenceV2Schema.safeParse({
+      ...evidence,
+      actionRef: actionRef,
+    }).success).toBe(false);
+    expect(CandidateDiscardEvidenceV2Schema.safeParse({
+      ...evidence,
+      tile: { id: "5p", red: false },
+    }).success).toBe(false);
+    expect(CandidateDiscardEvidenceV2Schema.safeParse({
+      ...evidence,
+      discardMode: "tsumogiri",
+    }).success).toBe(false);
+  });
+
+  it("requires exact merged furiten truth and separated evidence namespaces", () => {
+    const hand = result();
+    hand.waits[0]!.baseRonEligibility = "eligible";
+    hand.diagnostics = [];
+    const clear = {
+      hand,
+      furiten: {
+        discard: {
+          status: "clear" as const,
+          source: "current_scene" as const,
+          selfActor: 0,
+          selfRiver: [],
+          selfRiverComplete: true,
+          candidateDiscard: null,
+          canonicalEventRefs: [],
+          candidateActionRefs: [],
+        },
+        temporary: { status: "clear" as const, evidenceIds: [] },
+        riichi: { status: "clear" as const, evidenceIds: [] },
+      },
+      ronEligibilityStatus: "calculated" as const,
+      ronEligibleWaits34: [23],
+    };
+    expect(MergedHandFuritenV2Schema.parse(clear).ronEligibleWaits34)
+      .toEqual([23]);
+    expect(MergedHandFuritenV2Schema.safeParse({
+      ...clear,
+      hand: { ...hand, actionRef: canonicalActionRef(handAction) },
+    }).success).toBe(false);
+
+    for (const invalid of [
+      { ...clear, ronEligibleWaits34: [] },
+      { ...clear, ronEligibleWaits34: [23, 23] },
+      { ...clear, ronEligibilityStatus: "unknown_missing_facts" },
+      {
+        ...clear,
+        furiten: {
+          ...clear.furiten,
+          discard: {
+            status: "confirmed",
+            canonicalEventRefs: [],
+            candidateActionRefs: [actionRef],
+          },
+        },
+      },
+    ]) {
+      expect(MergedHandFuritenV2Schema.safeParse(invalid).success).toBe(false);
+    }
+
+    const validCanonicalConfirmation = {
+      ...clear,
+      furiten: {
+        ...clear.furiten,
+        discard: {
+          status: "confirmed" as const,
+          source: "current_scene" as const,
+          selfActor: 0,
+          selfRiver: [{
+            eventRef: "event:self-discard",
+            actor: 0,
+            tile: { id: "6s" as const, red: false },
+            discardMode: "tedashi" as const,
+            riichiDeclarationEventRef: null,
+            calledByEventRef: null,
+          }],
+          selfRiverComplete: true,
+          candidateDiscard: null,
+          canonicalEventRefs: ["event:self-discard"],
+          candidateActionRefs: [],
+        },
+      },
+      ronEligibleWaits34: [],
+    };
+    expect(MergedHandFuritenV2Schema.parse(validCanonicalConfirmation)
+      .ronEligibleWaits34).toEqual([]);
+    const forgedCanonicalConfirmation = {
+      ...validCanonicalConfirmation,
+      furiten: {
+        ...validCanonicalConfirmation.furiten,
+        discard: {
+          ...validCanonicalConfirmation.furiten.discard,
+          selfRiver: [{
+            ...validCanonicalConfirmation.furiten.discard.selfRiver[0]!,
+            tile: { id: "1m" as const, red: false },
+          }],
+        },
+      },
+    };
+    expect(MergedHandFuritenV2Schema.safeParse(forgedCanonicalConfirmation).success)
+      .toBe(false);
+    const candidateActionRef = canonicalActionRef(handAction);
+    const candidateHand = { ...hand, actionRef: candidateActionRef };
+    const candidateDiscard = {
+      actor: 0,
+      action: handAction,
+      actionRef: candidateActionRef,
+      stateHash: hand.stateHash,
+      tile: handAction.tile,
+      discardMode: handAction.discardMode,
+    };
+    const forgedCandidateConfirmation = {
+      ...clear,
+      hand: candidateHand,
+      furiten: {
+        ...clear.furiten,
+        discard: {
+          status: "confirmed" as const,
+          source: "candidate_discard" as const,
+          selfActor: 0,
+          selfRiver: [],
+          selfRiverComplete: true,
+          candidateDiscard,
+          canonicalEventRefs: [],
+          candidateActionRefs: [candidateActionRef],
+        },
+      },
+      ronEligibleWaits34: [],
+    };
+    expect(MergedHandFuritenV2Schema.safeParse(forgedCandidateConfirmation).success)
+      .toBe(false);
+    expect(MergedHandFuritenV2Schema.safeParse({
+      ...forgedCanonicalConfirmation,
+      furiten: {
+        ...forgedCanonicalConfirmation.furiten,
+        discard: {
+          status: "confirmed",
+          canonicalEventRefs: ["event:self-discard"],
+          candidateActionRefs: ["event:not-an-action"],
+        },
+      },
+    }).success).toBe(false);
+    expect(MergedHandFuritenV2Schema.safeParse({
+      ...forgedCanonicalConfirmation,
+      furiten: {
+        ...forgedCanonicalConfirmation.furiten,
+        discard: {
+          status: "confirmed",
+          canonicalEventRefs: [],
+          candidateActionRefs: [canonicalActionRef({
+            kind: "discard",
+            tile: { id: "1m", red: false },
+            discardMode: "tedashi",
+          })],
+        },
+      },
+    }).success).toBe(false);
+    expect(MergedHandFuritenV2Schema.safeParse({
+      ...forgedCanonicalConfirmation,
+      furiten: {
+        ...forgedCanonicalConfirmation.furiten,
+        temporary: {
+          status: "confirmed",
+          evidenceIds: [canonicalActionRef({
+            kind: "discard",
+            tile: { id: "1m", red: false },
+            discardMode: "tedashi",
+          })],
+        },
+      },
+    }).success).toBe(false);
+  });
+
   it("accepts a strict independent request", () => {
     expect(HandStructureRequestV2Schema.parse(request()).schemaVersion)
       .toBe("hand-structure/v2");

@@ -2,6 +2,7 @@ import {
   KnownGameFactsSchema,
   StructuredComparisonCandidateSchema,
   type ActionRef,
+  type CandidateDiscardEvidenceV2,
   type CompletedHandFactRequest,
   type Hand13FactRequest,
   type HandStructureRequestV2,
@@ -28,6 +29,7 @@ export type CandidateProjection =
       projectedStateRef: string;
       hand13Request?: Hand13FactRequest;
       handStructureRequest?: HandStructureRequestV2;
+      candidateDiscard?: CandidateDiscardEvidenceV2;
       completedHandRequest?: CompletedHandFactRequest;
       threatRiskRequests: ThreatRiskFactRequest[];
       localEvidenceIds: string[];
@@ -346,12 +348,21 @@ function projectDiscard(
       : baseYakuContext,
   });
   const diagnostics: string[] = [];
+  const candidateDiscard: CandidateDiscardEvidenceV2 = {
+    actor: facts.actor,
+    action: candidate.action,
+    actionRef: candidate.actionRef,
+    stateHash: handStructureRequest.stateHash,
+    tile: { ...candidate.action.tile },
+    discardMode: candidate.action.discardMode,
+  };
   return {
     status: "ready",
     actionRef: candidate.actionRef,
     projectedStateRef: stateHash,
     hand13Request,
     handStructureRequest,
+    candidateDiscard,
     threatRiskRequests: threatRiskRequests(
       facts,
       candidate.actionRef,

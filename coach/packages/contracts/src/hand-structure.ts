@@ -1,11 +1,20 @@
 import { z } from "zod";
+import { canonicalActionRef } from "./action-codec.js";
+import {
+  RiichiActionSchema,
+  type RiichiAction,
+} from "./actions.js";
 import { ActionRefSchema } from "./comparison.js";
 import {
   EngineIdentitySchema,
   FACT_ENGINE_PROTOCOL_VERSION,
   Tile34CountsSchema,
 } from "./fact-engine.js";
-import { FuritenStateV2Schema } from "./round-state.js";
+import {
+  FuritenStateV2Schema,
+  RiverDiscardV2Schema,
+} from "./round-state.js";
+import { TileSchema } from "./tiles.js";
 
 export const HAND_STRUCTURE_SCHEMA_VERSION = "hand-structure/v2" as const;
 export const MAX_NON_DOMINATED_DECOMPOSITIONS = 64 as const;
@@ -488,19 +497,304 @@ export type HandStructureResultV2 = z.infer<
   typeof HandStructureResultV2Schema
 >;
 
+type CandidateDiscardAction = Extract<
+  RiichiAction,
+  { kind: "discard" | "riichi_discard" }
+>;
+
+const CandidateDiscardActionSchema = RiichiActionSchema.refine(
+  (action): action is CandidateDiscardAction =>
+    action.kind === "discard" || action.kind === "riichi_discard",
+  { message: "Candidate discard evidence requires a discard action" },
+);
+
+function samePhysicalTile(
+  left: { id: string; red: boolean },
+  right: { id: string; red: boolean },
+): boolean {
+  return left.id === right.id && left.red === right.red;
+}
+
+export const CandidateDiscardEvidenceV2Schema = z.object({
+  actor: z.number().int().min(0).max(3),
+  action: CandidateDiscardActionSchema,
+  actionRef: ActionRefSchema,
+  stateHash: z.string().min(1),
+  tile: TileSchema,
+  discardMode: z.enum(["tsumogiri", "tedashi"]),
+}).strict().superRefine((evidence, context) => {
+  if (evidence.actionRef !== canonicalActionRef(evidence.action)) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Candidate discard actionRef must equal the canonical action codec",
+      path: ["actionRef"],
+    });
+  }
+  if (!samePhysicalTile(evidence.tile, evidence.action.tile)) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Candidate discard tile must equal its action tile",
+      path: ["tile"],
+    });
+  }
+  if (evidence.discardMode !== evidence.action.discardMode) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Candidate discard mode must equal its action mode",
+      path: ["discardMode"],
+    });
+  }
+});
+export type CandidateDiscardEvidenceV2 = z.infer<
+  typeof CandidateDiscardEvidenceV2Schema
+>;
+
+const CanonicalEventEvidenceRefSchema = z.string().min(1).refine(
+  (reference) => !reference.startsWith("action:v1:"),
+  { message: "Canonical event evidence cannot use an ActionRef" },
+);
+const CandidateActionEvidenceRefSchema = ActionRefSchema.refine(
+  (reference) => reference.startsWith("action:v1:"),
+  { message: "Candidate evidence must use a canonical ActionRef" },
+);
+
+export const MergedDiscardFuritenComponentV2Schema = z.object({
+  status: z.enum(["clear", "confirmed", "unknown"]),
+  source: z.enum(["current_scene", "candidate_discard"]),
+  selfActor: z.number().int().min(0).max(3),
+  selfRiver: z.array(RiverDiscardV2Schema),
+  selfRiverComplete: z.boolean(),
+  candidateDiscard: CandidateDiscardEvidenceV2Schema.nullable(),
+  canonicalEventRefs: z.array(CanonicalEventEvidenceRefSchema),
+  candidateActionRefs: z.array(CandidateActionEvidenceRefSchema).max(1),
+}).strict().superRefine((component, context) => {
+  if (
+    component.source === "current_scene" &&
+      component.candidateDiscard !== null ||
+    component.source === "candidate_discard" &&
+      component.candidateDiscard === null
+  ) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Discard analysis source must agree with candidate evidence",
+      path: ["candidateDiscard"],
+    });
+  }
+  const riverRefs = new Set<string>();
+  component.selfRiver.forEach((discard, index) => {
+    if (discard.actor !== component.selfActor) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Discard proof river actor must equal self actor",
+        path: ["selfRiver", index, "actor"],
+      });
+    }
+    if (discard.eventRef.startsWith("action:v1:")) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Discard proof river must use canonical EventRefs",
+        path: ["selfRiver", index, "eventRef"],
+      });
+    }
+    if (riverRefs.has(discard.eventRef)) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Discard proof river event refs must be unique",
+        path: ["selfRiver", index, "eventRef"],
+      });
+    }
+    riverRefs.add(discard.eventRef);
+  });
+  if (
+    new Set(component.canonicalEventRefs).size !==
+      component.canonicalEventRefs.length
+  ) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Canonical discard evidence refs must be unique",
+      path: ["canonicalEventRefs"],
+    });
+  }
+  if (
+    new Set(component.candidateActionRefs).size !==
+      component.candidateActionRefs.length
+  ) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Candidate discard evidence refs must be unique",
+      path: ["candidateActionRefs"],
+    });
+  }
+  const evidenceCount = component.canonicalEventRefs.length +
+    component.candidateActionRefs.length;
+  if (component.status === "confirmed" && evidenceCount === 0) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Confirmed discard furiten requires evidence",
+    });
+  }
+  if (component.status !== "confirmed" && evidenceCount > 0) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Unconfirmed discard furiten cannot claim evidence",
+    });
+  }
+});
+export type MergedDiscardFuritenComponentV2 = z.infer<
+  typeof MergedDiscardFuritenComponentV2Schema
+>;
+
+const MergedFuritenStateV2Schema = z.object({
+  discard: MergedDiscardFuritenComponentV2Schema,
+  temporary: FuritenStateV2Schema.shape.temporary,
+  riichi: FuritenStateV2Schema.shape.riichi,
+}).strict();
+
 export const MergedHandFuritenV2Schema = z.object({
   hand: HandStructureResultV2Schema,
-  furiten: FuritenStateV2Schema,
+  furiten: MergedFuritenStateV2Schema,
   ronEligibilityStatus: z.enum(["calculated", "unknown_missing_facts"]),
   ronEligibleWaits34: z.array(Tile34Schema),
 }).strict().superRefine((value, context) => {
   if (
-    value.ronEligibilityStatus === "unknown_missing_facts" &&
-    value.ronEligibleWaits34.length > 0
+    value.furiten.discard.source === "current_scene" &&
+    value.hand.actionRef.startsWith("action:v1:")
   ) {
     context.addIssue({
       code: z.ZodIssueCode.custom,
-      message: "Unknown final ron eligibility cannot claim eligible waits",
+      message: "Current-scene analysis cannot use a candidate ActionRef",
+      path: ["hand", "actionRef"],
+    });
+  }
+  if (
+    value.furiten.discard.source === "candidate_discard" &&
+    !value.hand.actionRef.startsWith("action:v1:")
+  ) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Candidate-discard analysis requires a canonical ActionRef",
+      path: ["hand", "actionRef"],
+    });
+  }
+  for (const component of ["temporary", "riichi"] as const) {
+    if (value.furiten[component].evidenceIds.some((reference) =>
+      reference.startsWith("action:v1:")
+    )) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Response furiten evidence must use canonical EventRefs",
+        path: ["furiten", component, "evidenceIds"],
+      });
+    }
+  }
+  if (value.furiten.discard.candidateActionRefs.some((reference) =>
+    reference !== value.hand.actionRef
+  )) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Candidate discard evidence must bind to the analyzed hand action",
+      path: ["furiten", "discard", "candidateActionRefs"],
+    });
+  }
+  const discard = value.furiten.discard;
+  if (
+    discard.candidateDiscard !== null &&
+    (discard.candidateDiscard.actor !== discard.selfActor ||
+      discard.candidateDiscard.actionRef !== value.hand.actionRef ||
+      discard.candidateDiscard.stateHash !== value.hand.stateHash)
+  ) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Candidate discard proof must bind to the analyzed hand",
+      path: ["furiten", "discard", "candidateDiscard"],
+    });
+  }
+  const structuralWaits = new Set(value.hand.waits.map((wait) => wait.tile34));
+  const tileTo34 = (tile: { id: string }): number => {
+    const suit = tile.id[1] as "m" | "p" | "s" | "z";
+    return ({ m: 0, p: 9, s: 18, z: 27 }[suit]) +
+      Number(tile.id[0]) - 1;
+  };
+  const expectedCanonicalRefs = discard.selfRiver
+    .filter((riverDiscard) =>
+      structuralWaits.has(tileTo34(riverDiscard.tile))
+    )
+    .map((riverDiscard) => riverDiscard.eventRef);
+  const expectedCandidateRefs = discard.candidateDiscard !== null &&
+      structuralWaits.has(tileTo34(discard.candidateDiscard.tile))
+    ? [discard.candidateDiscard.actionRef]
+    : [];
+  if (
+    discard.canonicalEventRefs.length !== expectedCanonicalRefs.length ||
+    discard.canonicalEventRefs.some((reference, index) =>
+      reference !== expectedCanonicalRefs[index]
+    ) ||
+    discard.candidateActionRefs.length !== expectedCandidateRefs.length ||
+    discard.candidateActionRefs.some((reference, index) =>
+      reference !== expectedCandidateRefs[index]
+    )
+  ) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Discard furiten evidence refs must exactly match typed proof",
+      path: ["furiten", "discard"],
+    });
+  }
+  const hasDiscardMatch = expectedCanonicalRefs.length > 0 ||
+    expectedCandidateRefs.length > 0;
+  const expectedDiscardStatus = hasDiscardMatch
+    ? "confirmed"
+    : discard.selfRiverComplete
+      ? "clear"
+      : "unknown";
+  if (discard.status !== expectedDiscardStatus) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Discard furiten status must exactly match typed proof",
+      path: ["furiten", "discard", "status"],
+    });
+  }
+  const components = [
+    value.furiten.discard,
+    value.furiten.temporary,
+    value.furiten.riichi,
+  ];
+  const anyConfirmed = components.some((component) =>
+    component.status === "confirmed"
+  );
+  const noPotentialRonWait = value.hand.waits.length === 0 ||
+    value.hand.waits.every((wait) => wait.baseRonEligibility === "ineligible");
+  const hasUnknownDependency = components.some((component) =>
+    component.status === "unknown"
+  ) || value.hand.waits.some((wait) =>
+    wait.baseRonEligibility === "unknown_missing_situational_yaku_context"
+  );
+  const expectedStatus = anyConfirmed || noPotentialRonWait ||
+      !hasUnknownDependency
+    ? "calculated"
+    : "unknown_missing_facts";
+  const expectedWaits = expectedStatus === "calculated" &&
+      !anyConfirmed && !noPotentialRonWait
+    ? value.hand.waits
+        .filter((wait) => wait.baseRonEligibility === "eligible")
+        .map((wait) => wait.tile34)
+        .sort((left, right) => left - right)
+    : [];
+  if (value.ronEligibilityStatus !== expectedStatus) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Final ron eligibility status must match waits and furiten",
+      path: ["ronEligibilityStatus"],
+    });
+  }
+  if (
+    value.ronEligibleWaits34.length !== expectedWaits.length ||
+    value.ronEligibleWaits34.some((wait, index) => wait !== expectedWaits[index])
+  ) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Final ron-eligible waits must exactly match proven eligible waits",
+      path: ["ronEligibleWaits34"],
     });
   }
 });
