@@ -95,6 +95,53 @@ class RestartCountingTransport implements FactEngineTransport {
   async close(): Promise<void> {}
 }
 
+class ConcurrentIdentityTransport implements FactEngineTransport {
+  active = 0;
+  closeWhileActive: number | null = null;
+  closed = false;
+  generation: number;
+  maxActive = 0;
+  restartCount = 0;
+
+  constructor(generation = 1) {
+    this.generation = generation;
+  }
+
+  async request(line: string): Promise<string> {
+    if (this.closed) {
+      throw new Error("transport closed");
+    }
+    this.active++;
+    this.maxActive = Math.max(this.maxActive, this.active);
+    const observedGeneration = this.generation;
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 5));
+      if (observedGeneration === 0) {
+        throw new Error("generation crashed");
+      }
+      const request = JSON.parse(line) as { requestId: string };
+      return JSON.stringify({
+        kind: "identity_result",
+        requestId: request.requestId,
+        protocolVersion: "mahjong-facts/v1",
+        identity,
+      });
+    } finally {
+      this.active--;
+    }
+  }
+
+  async restart(): Promise<void> {
+    this.restartCount++;
+    this.generation++;
+  }
+
+  async close(): Promise<void> {
+    this.closeWhileActive = this.active;
+    this.closed = true;
+  }
+}
+
 describe("JSONL fact engine client", () => {
   it("validates result bindings", async () => {
     const client = new JsonlFactEngineClient(
@@ -123,6 +170,37 @@ describe("JSONL fact engine client", () => {
       .analyzeHand13(validHand13Request()))
       .rejects.toThrow("fact_engine_unavailable");
     expect(transport.restartCount).toBe(1);
+  });
+
+  it("serializes requests to the synchronous sidecar", async () => {
+    const transport = new ConcurrentIdentityTransport();
+    const client = new JsonlFactEngineClient(transport);
+
+    await Promise.all([client.identity(), client.identity()]);
+
+    expect(transport.maxActive).toBe(1);
+  });
+
+  it("performs one managed restart for concurrent callers", async () => {
+    const transport = new ConcurrentIdentityTransport(0);
+    const client = new JsonlFactEngineClient(transport);
+
+    await expect(Promise.all([client.identity(), client.identity()]))
+      .resolves.toHaveLength(2);
+
+    expect(transport.restartCount).toBe(1);
+    expect(transport.maxActive).toBe(1);
+  });
+
+  it("waits for queued requests before closing the transport", async () => {
+    const transport = new ConcurrentIdentityTransport();
+    const client = new JsonlFactEngineClient(transport);
+    const first = client.identity();
+    const second = client.identity();
+
+    await Promise.all([first, second, client.close()]);
+
+    expect(transport.closeWhileActive).toBe(0);
   });
 
   it("rejects prohibited extra result fields without restarting", async () => {

@@ -98,7 +98,9 @@ function validateBindings(request: BoundRequest, result: BoundResult): void {
 }
 
 export class JsonlFactEngineClient implements MahjongFactEnginePort {
+  private closePromise: Promise<void> | null = null;
   private identityRequestSequence = 0;
+  private operationTail: Promise<void> = Promise.resolve();
 
   constructor(
     private readonly transport: FactEngineTransport,
@@ -109,7 +111,16 @@ export class JsonlFactEngineClient implements MahjongFactEnginePort {
     }
   }
 
-  private async requestLine(payload: unknown): Promise<string> {
+  private enqueue<T>(operation: () => Promise<T>): Promise<T> {
+    const result = this.operationTail.then(operation, operation);
+    this.operationTail = result.then(
+      () => undefined,
+      () => undefined,
+    );
+    return result;
+  }
+
+  private async requestLineUnqueued(payload: unknown): Promise<string> {
     const line = JSON.stringify(payload);
     try {
       return await this.transport.request(line, this.timeoutMs);
@@ -125,6 +136,16 @@ export class JsonlFactEngineClient implements MahjongFactEnginePort {
         );
       }
     }
+  }
+
+  private async requestLine(payload: unknown): Promise<string> {
+    if (this.closePromise !== null) {
+      throw new FactEngineClientError(
+        "fact_engine_closed",
+        "client is already closing or closed",
+      );
+    }
+    return await this.enqueue(() => this.requestLineUnqueued(payload));
   }
 
   async identity(): Promise<EngineIdentity> {
@@ -199,6 +220,9 @@ export class JsonlFactEngineClient implements MahjongFactEnginePort {
   }
 
   async close(): Promise<void> {
-    await this.transport.close();
+    if (this.closePromise === null) {
+      this.closePromise = this.enqueue(() => this.transport.close());
+    }
+    await this.closePromise;
   }
 }
