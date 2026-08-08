@@ -28,16 +28,28 @@ describe("fixture-only legacy event stream bridge", () => {
     expect(bridged.status).toBe("ready");
     if (bridged.status !== "ready") return;
     expect(bridged.provenance).toBe("legacy_regression_bridge_only");
+    expect(bridged.legacyEventRefToCanonicalEventRefs["event-50"]).toEqual([
+      "fixture:c1924cad66f66dd9/0/50/0",
+    ]);
+    expect(bridged.stream.events.every((event) =>
+      event.eventId.startsWith("fixture:c1924cad66f66dd9/0/")
+    )).toBe(true);
+
+    const turn6Ref = bridged.legacyEventRefToCanonicalEventRefs["event-50"]?.[0];
+    const turn7Ref = bridged.legacyEventRefToCanonicalEventRefs["event-62"]?.[0];
+    if (turn6Ref === undefined || turn7Ref === undefined) {
+      throw new Error("fixture decision refs missing");
+    }
 
     const turn6 = freezeDecisionSnapshot(bridged.stream, {
       kind: "self_turn",
       actor: imported.selfActor,
-      triggerEventRef: "event-50",
+      triggerEventRef: turn6Ref,
     });
     const turn7 = freezeDecisionSnapshot(bridged.stream, {
       kind: "self_turn",
       actor: imported.selfActor,
-      triggerEventRef: "event-62",
+      triggerEventRef: turn7Ref,
     });
 
     expect(turn6.privateState.currentDraw?.tile.id).toBe("6s");

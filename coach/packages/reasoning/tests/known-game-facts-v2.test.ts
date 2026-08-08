@@ -31,10 +31,13 @@ describe("V2 snapshot to KnownGameFacts projection", () => {
     if (bridged.status !== "ready") return;
 
     for (const decision of decisions) {
+      const triggerEventRef = bridged
+        .legacyEventRefToCanonicalEventRefs[decision.sceneEventId]?.[0];
+      if (triggerEventRef === undefined) throw new Error("decision ref missing");
       const snapshot = freezeDecisionSnapshot(bridged.stream, {
         kind: "self_turn",
         actor: selfActor,
-        triggerEventRef: decision.sceneEventId,
+        triggerEventRef,
       });
       const projected = projectKnownGameFactsV2({
         stream: bridged.stream,
@@ -47,22 +50,47 @@ describe("V2 snapshot to KnownGameFacts projection", () => {
         replayToDecision(events, decision, selfActor),
         { kind: "applied_decision" },
       ).facts;
+      const canonicalRef = (legacyRef: string): string => {
+        const eventRef = bridged
+          .legacyEventRefToCanonicalEventRefs[legacyRef]?.[0];
+        if (eventRef === undefined) throw new Error(`legacy ref missing: ${legacyRef}`);
+        return eventRef;
+      };
 
       expect(projected).toMatchObject({
         provenance: "legacy_regression_bridge_only",
         actor: legacy.actor,
         selfRiichi: legacy.selfRiichi,
-        decisionEventRef: legacy.decisionEventRef,
-        decisionWindow: legacy.decisionWindow,
+        decisionEventRef: canonicalRef(legacy.decisionEventRef),
+        decisionWindow: {
+          ...legacy.decisionWindow,
+          triggerEventRef: canonicalRef(legacy.decisionWindow.triggerEventRef),
+        },
         concealedTiles: legacy.concealedTiles,
-        currentDraw: legacy.currentDraw,
+        currentDraw: legacy.currentDraw === null ? null : {
+          ...legacy.currentDraw,
+          eventRef: canonicalRef(legacy.currentDraw.eventRef),
+        },
         melds: legacy.melds.map((meld, index) => ({
           ...meld,
           meldRef: snapshot.publicState.melds[index]?.meldRef,
+          calledDiscardEventRef: meld.calledDiscardEventRef === null ||
+              meld.calledDiscardEventRef === undefined
+            ? meld.calledDiscardEventRef
+            : canonicalRef(meld.calledDiscardEventRef),
         })),
         doraIndicators: legacy.doraIndicators,
-        rivers: legacy.rivers,
-        threats: legacy.threats,
+        rivers: legacy.rivers.map((river) => river.map((discard) => ({
+          ...discard,
+          eventId: canonicalRef(discard.eventId),
+          afterRiichiEventIds: discard.afterRiichiEventIds.map(canonicalRef),
+        }))),
+        threats: legacy.threats.map((threat) => ({
+          ...threat,
+          declarationEventId: threat.declarationEventId === null
+            ? null
+            : canonicalRef(threat.declarationEventId),
+        })),
         roundWind: legacy.roundWind,
         seatWind: legacy.seatWind,
         dealer: legacy.dealer,
@@ -72,7 +100,9 @@ describe("V2 snapshot to KnownGameFacts projection", () => {
       expect(projected.evidenceIds).toEqual(snapshot.evidenceIds);
       expect(projected.factSetId).toContain(snapshot.streamPrefixHash);
       if (decision.decisionId === "east1-turn7") {
-        expect(projected.melds[0]?.meldRef).toBe("event-58");
+        expect(projected.melds[0]?.meldRef).toBe(
+          bridged.legacyEventRefToCanonicalEventRefs["event-58"]?.[0],
+        );
       }
     }
   });
@@ -85,10 +115,13 @@ describe("V2 snapshot to KnownGameFacts projection", () => {
       gameId: "fixture:c1924cad66f66dd9",
     });
     if (bridged.status !== "ready") throw new Error(bridged.code);
+    const triggerEventRef = bridged
+      .legacyEventRefToCanonicalEventRefs["event-50"]?.[0];
+    if (triggerEventRef === undefined) throw new Error("decision ref missing");
     const window = {
       kind: "self_turn" as const,
       actor: selfActor,
-      triggerEventRef: "event-50",
+      triggerEventRef,
     };
     const frozen = freezeDecisionSnapshot(bridged.stream, window);
     const mutations = [

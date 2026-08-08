@@ -447,7 +447,11 @@ describe("canonical event semantic validator", () => {
       scores: [25000, 25000, 25000, 25000], settlementEventRef: "game:fixture/0/2/0",
     };
     expect(validateCanonicalEventStream(canonicalStream([
-      ...terminal, once, { ...once, eventId: "game:fixture/0/4/0" },
+      ...terminal, once, {
+        ...once,
+        eventId: "game:fixture/0/4/0",
+        sourceRecordRef: "record:4",
+      },
     ]))).toMatchObject({ status: "invalid", code: "settlement_binding_invalid" });
 
     const win: CanonicalGameEvent[] = [

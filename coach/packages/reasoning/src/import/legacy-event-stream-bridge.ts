@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 import {
   CanonicalEventStreamSchema,
+  canonicalEventId,
   type CanonicalEventStream,
   type CanonicalGameEvent,
   type CanonicalSourceKind,
@@ -27,6 +28,9 @@ export type LegacyEventStreamBridgeResult =
       status: "ready";
       stream: CanonicalEventStream;
       provenance: "legacy_regression_bridge_only";
+      legacyEventRefToCanonicalEventRefs: Readonly<
+        Record<string, readonly string[]>
+      >;
     }
   | { status: "invalid_source"; code: LegacyBridgeDiagnosticCode };
 
@@ -43,9 +47,9 @@ function sameTile(left: Tile, right: Tile): boolean {
   return left.id === right.id && left.red === right.red;
 }
 
-function base(event: NormalizedEvent) {
+function base(event: NormalizedEvent, eventId: string) {
   return {
-    eventId: event.eventId,
+    eventId,
     sourceRecordRef: `legacy:${event.eventId}`,
   };
 }
@@ -98,17 +102,28 @@ export function bridgeLegacyRegressionEvents(
   const pendingRiichi = new Map<number, string>();
   const consumedDiscards = new Set<string>();
   const activePonByActorAndTile = new Map<string, string>();
+  const legacyEventRefToCanonicalEventRefs: Record<string, string[]> = {};
   let hasKan = false;
+  let currentRoundOrdinal = 0;
 
-  for (const event of events) {
+  for (const [sourceRecordOrdinal, event] of events.entries()) {
+    if (event.type === "start_kyoku") {
+      currentRoundOrdinal = roundOrdinal(event.bakaze, event.kyoku);
+    }
+    const eventId = canonicalEventId(options.gameId, {
+      roundOrdinal: currentRoundOrdinal,
+      sourceRecordOrdinal,
+      subEventOrdinal: 0,
+    });
+    (legacyEventRefToCanonicalEventRefs[event.eventId] ??= []).push(eventId);
     if (event.type === "start_game") {
-      canonical.push({ ...base(event), type: "game_started" });
+      canonical.push({ ...base(event, eventId), type: "game_started" });
       continue;
     }
     if (event.type === "start_kyoku") {
       if (event.scores.length !== 4) return invalid("legacy_stream_invalid_round");
       canonical.push({
-        ...base(event),
+        ...base(event, eventId),
         type: "round_started",
         roundOrdinal: roundOrdinal(event.bakaze, event.kyoku),
         roundWind: event.bakaze,
@@ -134,7 +149,7 @@ export function bridgeLegacyRegressionEvents(
         return invalid("legacy_stream_schema_invalid");
       }
       canonical.push({
-        ...base(event),
+        ...base(event, eventId),
         type: "tile_drawn",
         actor: event.actor,
         tile: event.actor === selfActor
@@ -145,13 +160,13 @@ export function bridgeLegacyRegressionEvents(
       continue;
     }
     if (event.type === "reach") {
-      pendingRiichi.set(event.actor, event.eventId);
-      canonical.push({ ...base(event), type: "riichi_declared", actor: event.actor });
+      pendingRiichi.set(event.actor, eventId);
+      canonical.push({ ...base(event, eventId), type: "riichi_declared", actor: event.actor });
       continue;
     }
     if (event.type === "dahai") {
       canonical.push({
-        ...base(event),
+        ...base(event, eventId),
         type: "tile_discarded",
         actor: event.actor,
         tile: { ...event.tile },
@@ -166,7 +181,7 @@ export function bridgeLegacyRegressionEvents(
         return invalid("legacy_stream_schema_invalid");
       }
       canonical.push({
-        ...base(event),
+        ...base(event, eventId),
         type: "riichi_accepted",
         actor: event.actor,
         declarationEventRef,
@@ -190,7 +205,7 @@ export function bridgeLegacyRegressionEvents(
         const consumedTiles = tuple2(event.consumed);
         if (consumedTiles === null) return invalid("legacy_stream_invalid_meld_tiles");
         canonical.push({
-          ...base(event), type: "chi_called", actor: event.actor,
+          ...base(event, eventId), type: "chi_called", actor: event.actor,
           targetActor: event.target, calledTile: { ...event.tile },
           consumedTiles, calledDiscardEventRef: discard.eventId,
         });
@@ -198,17 +213,17 @@ export function bridgeLegacyRegressionEvents(
         const consumedTiles = tuple2(event.consumed);
         if (consumedTiles === null) return invalid("legacy_stream_invalid_meld_tiles");
         canonical.push({
-          ...base(event), type: "pon_called", actor: event.actor,
+          ...base(event, eventId), type: "pon_called", actor: event.actor,
           targetActor: event.target, calledTile: { ...event.tile },
           consumedTiles, calledDiscardEventRef: discard.eventId,
         });
-        activePonByActorAndTile.set(`${event.actor}:${event.tile.id}`, event.eventId);
+        activePonByActorAndTile.set(`${event.actor}:${event.tile.id}`, eventId);
       } else {
         hasKan = true;
         const consumedTiles = tuple3(event.consumed);
         if (consumedTiles === null) return invalid("legacy_stream_invalid_meld_tiles");
         canonical.push({
-          ...base(event), type: "daiminkan_called", actor: event.actor,
+          ...base(event, eventId), type: "daiminkan_called", actor: event.actor,
           targetActor: event.target, calledTile: { ...event.tile },
           consumedTiles, calledDiscardEventRef: discard.eventId,
         });
@@ -219,7 +234,7 @@ export function bridgeLegacyRegressionEvents(
       hasKan = true;
       const tiles = tuple4(event.consumed);
       if (tiles === null) return invalid("legacy_stream_invalid_meld_tiles");
-      canonical.push({ ...base(event), type: "ankan_declared", actor: event.actor, tiles });
+      canonical.push({ ...base(event, eventId), type: "ankan_declared", actor: event.actor, tiles });
       continue;
     }
     if (event.type === "kakan") {
@@ -231,7 +246,7 @@ export function bridgeLegacyRegressionEvents(
         return invalid("legacy_stream_kakan_parent_missing");
       }
       canonical.push({
-        ...base(event), type: "kakan_declared", actor: event.actor,
+        ...base(event, eventId), type: "kakan_declared", actor: event.actor,
         addedTile: { ...event.tile }, upgradedPonEventRef,
       });
       activePonByActorAndTile.delete(`${event.actor}:${event.tile.id}`);
@@ -278,5 +293,6 @@ export function bridgeLegacyRegressionEvents(
     status: "ready",
     stream: parsed.data,
     provenance: "legacy_regression_bridge_only",
+    legacyEventRefToCanonicalEventRefs,
   };
 }

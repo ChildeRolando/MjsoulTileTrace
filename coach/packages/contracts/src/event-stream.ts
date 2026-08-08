@@ -14,6 +14,48 @@ const ScoresSchema = z.tuple([
   z.number().int(),
   z.number().int(),
 ]);
+
+export interface CanonicalEventPosition {
+  roundOrdinal: number;
+  sourceRecordOrdinal: number;
+  subEventOrdinal: number;
+}
+
+export function canonicalEventId(
+  gameId: string,
+  position: CanonicalEventPosition,
+): string {
+  return `${gameId}/${position.roundOrdinal}/${position.sourceRecordOrdinal}/${position.subEventOrdinal}`;
+}
+
+function parseCanonicalEventPosition(
+  eventId: string,
+  gameId: string,
+): CanonicalEventPosition | null {
+  const prefix = `${gameId}/`;
+  if (!eventId.startsWith(prefix)) return null;
+  const match = /^(0|[1-9]\d*)\/(0|[1-9]\d*)\/(0|[1-9]\d*)$/
+    .exec(eventId.slice(prefix.length));
+  if (match === null) return null;
+  const roundOrdinal = Number(match[1]!);
+  const sourceRecordOrdinal = Number(match[2]!);
+  const subEventOrdinal = Number(match[3]!);
+  if (
+    !Number.isSafeInteger(roundOrdinal) ||
+    !Number.isSafeInteger(sourceRecordOrdinal) ||
+    !Number.isSafeInteger(subEventOrdinal)
+  ) return null;
+  return { roundOrdinal, sourceRecordOrdinal, subEventOrdinal };
+}
+
+function compareEventPositions(
+  left: CanonicalEventPosition,
+  right: CanonicalEventPosition,
+): number {
+  return left.roundOrdinal - right.roundOrdinal ||
+    left.sourceRecordOrdinal - right.sourceRecordOrdinal ||
+    left.subEventOrdinal - right.subEventOrdinal;
+}
 const KnownBooleanSchema = z.union([z.boolean(), z.literal("unknown")]);
 const KnownRedCountSchema = z.union([
   z.number().int().min(0).max(1),
@@ -378,7 +420,91 @@ export const CanonicalEventStreamSchema = z.object({
       path: ["events"],
     });
   }
+  let activeRoundOrdinal = 0;
+  let previousPosition: CanonicalEventPosition | null = null;
+  let previousSourceRecordRef: string | null = null;
+  const sourceRefPositions = new Map<string, string>();
+  const positionSourceRefs = new Map<string, string>();
   stream.events.forEach((event, index) => {
+    const position = parseCanonicalEventPosition(event.eventId, stream.gameId);
+    if (position === null) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Canonical event ID must bind to stream gameId and use gameId/round/source/sub ordinals",
+        path: ["events", index, "eventId"],
+      });
+    } else {
+      const eventRoundOrdinal = event.type === "round_started"
+        ? event.roundOrdinal
+        : activeRoundOrdinal;
+      if (position.roundOrdinal !== eventRoundOrdinal) {
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Canonical event ID round must match its event round",
+          path: ["events", index, "eventId"],
+        });
+      }
+      if (
+        previousPosition !== null &&
+        compareEventPositions(previousPosition, position) >= 0
+      ) {
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Canonical event positions must be strictly ordered",
+          path: ["events", index, "eventId"],
+        });
+      }
+      const previous = previousPosition;
+      const sameSourcePosition = previous !== null &&
+        previous.roundOrdinal === position.roundOrdinal &&
+        previous.sourceRecordOrdinal === position.sourceRecordOrdinal;
+      if (sameSourcePosition && previous !== null) {
+        if (position.subEventOrdinal !== previous.subEventOrdinal + 1) {
+          context.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: "Canonical sub-event ordinals must be contiguous",
+            path: ["events", index, "eventId"],
+          });
+        }
+        if (event.sourceRecordRef !== previousSourceRecordRef) {
+          context.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: "Canonical source position must bind one sourceRecordRef",
+            path: ["events", index, "sourceRecordRef"],
+          });
+        }
+      } else if (position.subEventOrdinal !== 0) {
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Canonical source record must start at sub-event ordinal 0",
+          path: ["events", index, "eventId"],
+        });
+      }
+      const positionKey = `${position.roundOrdinal}/${position.sourceRecordOrdinal}`;
+      const knownPosition = sourceRefPositions.get(event.sourceRecordRef);
+      if (knownPosition !== undefined && knownPosition !== positionKey) {
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Canonical sourceRecordRef must bind one source position",
+          path: ["events", index, "sourceRecordRef"],
+        });
+      }
+      const knownRef = positionSourceRefs.get(positionKey);
+      if (knownRef !== undefined && knownRef !== event.sourceRecordRef) {
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Canonical source position must bind one sourceRecordRef",
+          path: ["events", index, "sourceRecordRef"],
+        });
+      }
+      sourceRefPositions.set(event.sourceRecordRef, positionKey);
+      positionSourceRefs.set(positionKey, event.sourceRecordRef);
+      previousPosition = position;
+      previousSourceRecordRef = event.sourceRecordRef;
+      if (event.type === "round_started") {
+        activeRoundOrdinal = event.roundOrdinal;
+      }
+    }
     if (event.type !== "tile_drawn") return;
     if (event.actor !== stream.selfActor && event.tile.visibility === "visible") {
       context.addIssue({

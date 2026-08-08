@@ -73,6 +73,72 @@ describe("canonical event stream", () => {
     expect(CanonicalEventStreamSchema.parse(baseStream()).events).toHaveLength(2);
   });
 
+  it("binds every event ID to the stream game and active round", () => {
+    const stream = baseStream();
+    expect(() => CanonicalEventStreamSchema.parse({
+      ...stream,
+      events: [
+        { ...stream.events[0]!, eventId: "other-game/0/0/0" },
+        stream.events[1]!,
+      ],
+    })).toThrow("Canonical event ID must bind to stream gameId");
+    expect(() => CanonicalEventStreamSchema.parse({
+      ...stream,
+      events: [
+        stream.events[0]!,
+        { ...stream.events[1]!, eventId: "game:fixture/1/1/0" },
+      ],
+    })).toThrow("Canonical event ID round must match its event round");
+  });
+
+  it("requires ordered source-record and sub-event positions", () => {
+    const stream = baseStream();
+    const declaration = {
+      type: "riichi_declared" as const,
+      eventId: "game:fixture/0/2/0",
+      sourceRecordRef: "record:2",
+      actor: 0,
+    };
+    const discard = {
+      type: "tile_discarded" as const,
+      eventId: "game:fixture/0/2/1",
+      sourceRecordRef: "record:2",
+      actor: 0,
+      tile: tile("1m"),
+      discardMode: "tedashi" as const,
+      riichiDeclarationEventRef: declaration.eventId,
+    };
+    expect(CanonicalEventStreamSchema.parse({
+      ...stream,
+      events: [...stream.events, declaration, discard],
+    }).events).toHaveLength(4);
+    expect(() => CanonicalEventStreamSchema.parse({
+      ...stream,
+      events: [...stream.events, { ...declaration, eventId: "game:fixture/0/2/1" }],
+    })).toThrow("Canonical source record must start at sub-event ordinal 0");
+    expect(() => CanonicalEventStreamSchema.parse({
+      ...stream,
+      events: [...stream.events, declaration, {
+        ...discard,
+        eventId: "game:fixture/0/2/2",
+      }],
+    })).toThrow("Canonical sub-event ordinals must be contiguous");
+    expect(() => CanonicalEventStreamSchema.parse({
+      ...stream,
+      events: [...stream.events, declaration, {
+        ...discard,
+        sourceRecordRef: "record:other",
+      }],
+    })).toThrow("Canonical source position must bind one sourceRecordRef");
+    expect(() => CanonicalEventStreamSchema.parse({
+      ...stream,
+      events: [...stream.events, {
+        ...declaration,
+        eventId: "game:fixture/0/0/0",
+      }],
+    })).toThrow("Canonical event positions must be strictly ordered");
+  });
+
   it("distinguishes an opponent hidden draw from missing data", () => {
     const event = CanonicalGameEventSchema.parse({
       type: "tile_drawn",

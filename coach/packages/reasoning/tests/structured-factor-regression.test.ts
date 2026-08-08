@@ -169,12 +169,15 @@ describe("East 1 turn 6/7 structured factor regression", () => {
     ];
 
     for (const [index, decision] of decisions.entries()) {
+      const triggerEventRef = bridged
+        .legacyEventRefToCanonicalEventRefs[decision.sceneEventId]?.[0];
+      if (triggerEventRef === undefined) throw new Error("decision ref missing");
       const scene = replayToDecision(events, decision, selfActor);
       const legacy = analyzeAllDiscardEfficiency(scene);
       const snapshot = freezeDecisionSnapshot(bridged.stream, {
         kind: "self_turn",
         actor: selfActor,
-        triggerEventRef: decision.sceneEventId,
+        triggerEventRef,
       });
       const facts = projectKnownGameFactsV2({
         stream: bridged.stream,
