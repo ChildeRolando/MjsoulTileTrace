@@ -39,6 +39,53 @@ export const KnownGameFactsSchema = z.object({
   completeness: KnownFactsCompletenessSchema,
   evidenceIds: z.array(z.string().min(1)).min(1),
 }).strict().superRefine((facts, context) => {
+  if (facts.decisionWindow.actor !== facts.actor) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Decision window actor must equal known self actor",
+      path: ["decisionWindow", "actor"],
+    });
+  }
+  if (facts.decisionWindow.triggerEventRef !== facts.decisionEventRef) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Decision event must equal the window trigger event",
+      path: ["decisionWindow", "triggerEventRef"],
+    });
+  }
+  if (
+    facts.decisionWindow.kind === "self_turn" &&
+    facts.currentDraw !== null &&
+    facts.currentDraw.eventRef !== facts.decisionEventRef
+  ) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Self-turn draw must equal the decision event",
+      path: ["currentDraw", "eventRef"],
+    });
+  }
+
+  const riverEventIds: string[] = [];
+  facts.rivers.forEach((river, actor) => {
+    river.forEach((discard, discardIndex) => {
+      riverEventIds.push(discard.eventId);
+      if (discard.actor !== actor) {
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "River discard actor must match its river index",
+          path: ["rivers", actor, discardIndex, "actor"],
+        });
+      }
+    });
+  });
+  if (new Set(riverEventIds).size !== riverEventIds.length) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "River discard event IDs must be globally unique",
+      path: ["rivers"],
+    });
+  }
+
   if (new Set(facts.evidenceIds).size !== facts.evidenceIds.length) {
     context.addIssue({
       code: z.ZodIssueCode.custom,
@@ -84,7 +131,7 @@ export const KnownGameFactsSchema = z.object({
   });
 
   if (facts.completeness.calledDiscardMarkers) {
-    const riverEventIds = new Set(
+    const riverEventIdSet = new Set(
       facts.rivers.flatMap((river) => river.map((discard) => discard.eventId)),
     );
     const calledEventIds: string[] = [];
@@ -110,7 +157,7 @@ export const KnownGameFactsSchema = z.object({
         return;
       }
       calledEventIds.push(meld.calledDiscardEventRef);
-      if (!riverEventIds.has(meld.calledDiscardEventRef)) {
+      if (!riverEventIdSet.has(meld.calledDiscardEventRef)) {
         context.addIssue({
           code: z.ZodIssueCode.custom,
           message: "Called discard reference must exist in a river",

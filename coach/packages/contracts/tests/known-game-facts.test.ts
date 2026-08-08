@@ -123,4 +123,45 @@ describe("KnownGameFactsSchema", () => {
       }],
     })).toThrow("Complete public meld state requires meld actors");
   });
+
+  it("binds the decision actor and event to the decision window", () => {
+    expect(() => KnownGameFactsSchema.parse({
+      ...baseFacts(),
+      decisionWindow: { ...baseFacts().decisionWindow, actor: 2 },
+    })).toThrow("Decision window actor must equal known self actor");
+    expect(() => KnownGameFactsSchema.parse({
+      ...baseFacts(),
+      decisionWindow: {
+        ...baseFacts().decisionWindow,
+        triggerEventRef: "event-other",
+      },
+    })).toThrow("Decision event must equal the window trigger event");
+    expect(() => KnownGameFactsSchema.parse({
+      ...baseFacts(),
+      currentDraw: { tile: tile("6s"), eventRef: "event-other" },
+    })).toThrow("Self-turn draw must equal the decision event");
+  });
+
+  it("binds each unique river event to its actor bucket", () => {
+    const discard = {
+      tile: tile("1m"),
+      actor: 1,
+      tsumogiri: false,
+      eventId: "event-river",
+      afterRiichiEventIds: [],
+    };
+    expect(() => KnownGameFactsSchema.parse({
+      ...baseFacts(),
+      rivers: [[discard], [], [], []],
+    })).toThrow("River discard actor must match its river index");
+    expect(() => KnownGameFactsSchema.parse({
+      ...baseFacts(),
+      rivers: [
+        [{ ...discard, actor: 0 }],
+        [{ ...discard, actor: 1 }],
+        [],
+        [],
+      ],
+    })).toThrow("River discard event IDs must be globally unique");
+  });
 });
