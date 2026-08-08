@@ -5,6 +5,9 @@ import {
   HandStructureRequestV2Schema,
   HandStructureResultV2Schema,
   MergedHandFuritenV2Schema,
+  ResponseFuritenAnalysisRefV2Schema,
+  ResponseFuritenAnalysisV2Schema,
+  ResponseFuritenComponentV2Schema,
   type HandStructureRequestV2,
   type HandStructureResultV2,
 } from "../src/hand-structure.js";
@@ -121,6 +124,232 @@ function result(): HandStructureResultV2 {
 }
 
 describe("hand-structure/v2 contracts", () => {
+  it("requires canonical engine-bound proof for confirmed response furiten", () => {
+    const proof = {
+      requestId: "request:response:5",
+      stateHash: "sha256:response:5",
+      actionRef: "response:game:fixture/0/5/0",
+      engineIdentity: result().identity,
+      sourceEventRef: "game:fixture/0/5/0",
+      closingEventRef: "game:fixture/0/6/0",
+    };
+    expect(ResponseFuritenAnalysisRefV2Schema.parse(proof)).toEqual(proof);
+    const confirmedTemporary = {
+      status: "confirmed",
+      evidenceIds: [proof.sourceEventRef, proof.closingEventRef],
+      analysisRefs: [proof],
+      riichiAcceptanceEventRef: null,
+    };
+    expect(ResponseFuritenComponentV2Schema.parse(confirmedTemporary)
+      .analysisRefs).toEqual([proof]);
+    const missingAcceptanceField = { ...confirmedTemporary } as Record<
+      string,
+      unknown
+    >;
+    delete missingAcceptanceField.riichiAcceptanceEventRef;
+    expect(ResponseFuritenComponentV2Schema.safeParse(missingAcceptanceField)
+      .success).toBe(false);
+    expect(ResponseFuritenComponentV2Schema.safeParse({
+      ...confirmedTemporary,
+      evidenceIds: [
+        proof.sourceEventRef,
+        proof.closingEventRef,
+        "game:fixture/0/7/0",
+      ],
+    }).success).toBe(false);
+    expect(ResponseFuritenComponentV2Schema.safeParse({
+      ...confirmedTemporary,
+      evidenceIds: [
+        proof.sourceEventRef,
+        proof.closingEventRef,
+        "game:fixture/0/7/0",
+      ],
+      analysisRefs: [proof, {
+        ...proof,
+        requestId: "request:response:5:forged-second-closure",
+        stateHash: "sha256:response:5:forged-second-closure",
+        closingEventRef: "game:fixture/0/7/0",
+      }],
+    }).success).toBe(false);
+    const riichiConfirmed = {
+      ...confirmedTemporary,
+      evidenceIds: [
+        "game:fixture/0/4/0",
+        proof.sourceEventRef,
+        proof.closingEventRef,
+      ],
+      riichiAcceptanceEventRef: "game:fixture/0/4/0",
+    };
+    expect(ResponseFuritenAnalysisV2Schema.safeParse({
+      temporary: {
+        status: "clear",
+        evidenceIds: [],
+        analysisRefs: [],
+        riichiAcceptanceEventRef: null,
+      },
+      riichi: riichiConfirmed,
+    }).success).toBe(true);
+    expect(ResponseFuritenAnalysisV2Schema.safeParse({
+      temporary: confirmedTemporary,
+      riichi: {
+        status: "clear",
+        evidenceIds: [],
+        analysisRefs: [],
+        riichiAcceptanceEventRef: "game:fixture/0/4/0",
+      },
+    }).success).toBe(false);
+    expect(ResponseFuritenAnalysisV2Schema.safeParse({
+      temporary: {
+        status: "clear",
+        evidenceIds: [],
+        analysisRefs: [],
+        riichiAcceptanceEventRef: null,
+      },
+      riichi: {
+        ...confirmedTemporary,
+        evidenceIds: [proof.sourceEventRef, proof.closingEventRef],
+        riichiAcceptanceEventRef: proof.sourceEventRef,
+      },
+    }).success).toBe(false);
+    for (const closingEventRef of [
+      "game:fixture/1/6/0",
+      "game:other/0/6/0",
+    ]) {
+      expect(ResponseFuritenComponentV2Schema.safeParse({
+        ...confirmedTemporary,
+        evidenceIds: [proof.sourceEventRef, closingEventRef],
+        analysisRefs: [{ ...proof, closingEventRef }],
+      }).success).toBe(false);
+    }
+    expect(ResponseFuritenAnalysisV2Schema.safeParse({
+      temporary: {
+        ...confirmedTemporary,
+        riichiAcceptanceEventRef: "game:fixture/0/4/0",
+        evidenceIds: [
+          "game:fixture/0/4/0",
+          proof.sourceEventRef,
+          proof.closingEventRef,
+        ],
+      },
+      riichi: riichiConfirmed,
+    }).success).toBe(false);
+
+    for (const invalid of ([
+      { status: "confirmed", evidenceIds: [proof.sourceEventRef], analysisRefs: [] },
+      { status: "clear", evidenceIds: [], analysisRefs: [proof] },
+      { status: "unknown", evidenceIds: [], analysisRefs: [proof] },
+      {
+        status: "confirmed",
+        evidenceIds: [proof.sourceEventRef],
+        analysisRefs: [proof],
+      },
+      {
+        status: "confirmed",
+        evidenceIds: [proof.sourceEventRef, proof.closingEventRef],
+        analysisRefs: [proof, proof],
+      },
+      {
+        status: "confirmed",
+        evidenceIds: [
+          proof.sourceEventRef, proof.closingEventRef,
+          "game:fixture/0/7/0", "game:fixture/0/8/0",
+        ],
+        analysisRefs: [{
+          ...proof,
+          requestId: "request:response:7",
+          actionRef: "response:game:fixture/0/7/0",
+          stateHash: "sha256:response:7",
+          sourceEventRef: "game:fixture/0/7/0",
+          closingEventRef: "game:fixture/0/8/0",
+        }, proof],
+      },
+      {
+        status: "confirmed",
+        evidenceIds: [proof.sourceEventRef, proof.closingEventRef],
+        analysisRefs: [{
+          ...proof,
+          engineIdentity: { ...proof.engineIdentity, adapterVersion: "9.9.9" },
+        }],
+      },
+      {
+        status: "confirmed",
+        evidenceIds: [proof.sourceEventRef, proof.closingEventRef],
+        analysisRefs: [{ ...proof, decompositionRef: "standard:forged" }],
+      },
+      {
+        status: "confirmed",
+        evidenceIds: [proof.sourceEventRef, proof.closingEventRef],
+        analysisRefs: [{ ...proof, diagnostic: "sidecar said this was a wait" }],
+      },
+      {
+        status: "confirmed",
+        evidenceIds: [proof.sourceEventRef, proof.closingEventRef],
+        analysisRefs: [{
+          ...proof,
+          sourceEventRef: canonicalActionRef(handAction),
+        }],
+      },
+      {
+        status: "confirmed",
+        evidenceIds: [proof.sourceEventRef, proof.closingEventRef],
+        analysisRefs: [{
+          ...proof,
+          actionRef: canonicalActionRef(handAction),
+        }],
+      },
+      {
+        status: "confirmed",
+        evidenceIds: [proof.sourceEventRef, proof.closingEventRef],
+        analysisRefs: [{
+          ...proof,
+          actionRef: "response:game:fixture/0/99/0",
+        }],
+      },
+    ].map((component) => ({
+      riichiAcceptanceEventRef: null,
+      ...component,
+    })))) {
+      expect(ResponseFuritenComponentV2Schema.safeParse(invalid).success)
+        .toBe(false);
+    }
+
+    const ordinalProof = (ordinal: number) => ({
+      ...proof,
+      requestId: `request:response:${ordinal}`,
+      actionRef: `response:game:fixture/0/${ordinal}/0`,
+      stateHash: `sha256:response:${ordinal}`,
+      sourceEventRef: `game:fixture/0/${ordinal}/0`,
+      closingEventRef: `game:fixture/0/${ordinal + 1}/0`,
+    });
+    expect(ResponseFuritenComponentV2Schema.safeParse({
+      status: "confirmed",
+      evidenceIds: [
+        "game:fixture/0/2/0", "game:fixture/0/3/0",
+        "game:fixture/0/10/0", "game:fixture/0/11/0",
+      ],
+      analysisRefs: [ordinalProof(2), ordinalProof(10)],
+      riichiAcceptanceEventRef: null,
+    }).success).toBe(true);
+    expect(ResponseFuritenComponentV2Schema.safeParse({
+      status: "confirmed",
+      evidenceIds: [
+        "game:fixture/0/2/0", "game:fixture/0/3/0",
+        "game:fixture/0/10/0", "game:fixture/0/11/0",
+      ],
+      analysisRefs: [ordinalProof(10), ordinalProof(2)],
+      riichiAcceptanceEventRef: null,
+    }).success).toBe(false);
+    expect(ResponseFuritenComponentV2Schema.safeParse({
+      status: "confirmed",
+      evidenceIds: [
+        "game:fixture/0/10/0", "game:fixture/0/11/0",
+        "game:fixture/0/2/0", "game:fixture/0/3/0",
+      ],
+      analysisRefs: [ordinalProof(10), ordinalProof(2)],
+      riichiAcceptanceEventRef: null,
+    }).success).toBe(false);
+  });
+
   it("keeps hypothetical candidate discards separate from canonical events", () => {
     const action = {
       kind: "discard" as const,
@@ -167,8 +396,18 @@ describe("hand-structure/v2 contracts", () => {
           canonicalEventRefs: [],
           candidateActionRefs: [],
         },
-        temporary: { status: "clear" as const, evidenceIds: [] },
-        riichi: { status: "clear" as const, evidenceIds: [] },
+        temporary: {
+          status: "clear" as const,
+          evidenceIds: [],
+          analysisRefs: [],
+          riichiAcceptanceEventRef: null,
+        },
+        riichi: {
+          status: "clear" as const,
+          evidenceIds: [],
+          analysisRefs: [],
+          riichiAcceptanceEventRef: null,
+        },
       },
       ronEligibilityStatus: "calculated" as const,
       ronEligibleWaits34: [23],

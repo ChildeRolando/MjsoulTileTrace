@@ -2,6 +2,8 @@ import { describe, expect, it } from "vitest";
 import {
   CanonicalEventStreamSchema,
   CanonicalGameEventSchema,
+  compareCanonicalEventPositions,
+  parseCanonicalEventRef,
 } from "../src/index.js";
 
 const tile = (id:
@@ -13,6 +15,20 @@ const selfHand = [
   tile("6m"), tile("7m"), tile("8m"), tile("9m"), tile("1p"),
   tile("2p"), tile("3p"), tile("4p"),
 ];
+
+it("parses and compares canonical event refs by numeric position", () => {
+  const second = parseCanonicalEventRef("game:fixture/0/2/0");
+  const tenth = parseCanonicalEventRef("game:fixture/0/10/0");
+  expect(second).toEqual({
+    gameId: "game:fixture",
+    position: { roundOrdinal: 0, sourceRecordOrdinal: 2, subEventOrdinal: 0 },
+  });
+  expect(tenth).not.toBeNull();
+  expect(compareCanonicalEventPositions(second!.position, tenth!.position))
+    .toBeLessThan(0);
+  expect(parseCanonicalEventRef("game:fixture/00/2/0")).toBeNull();
+  expect(parseCanonicalEventRef("event:not-canonical")).toBeNull();
+});
 
 function baseStream() {
   return {

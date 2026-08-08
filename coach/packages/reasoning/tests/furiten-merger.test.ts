@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   HandStructureResultV2Schema,
+  ResponseFuritenAnalysisV2Schema,
   StructuredComparisonCandidateSchema,
   canonicalActionRef,
   type CandidateDiscardEvidenceV2,
@@ -119,14 +120,48 @@ function discard(
 const response = (
   temporary: "clear" | "confirmed" | "unknown" = "clear",
   riichi: "clear" | "confirmed" | "unknown" = "clear",
-) => ({
+) => ResponseFuritenAnalysisV2Schema.parse({
   temporary: {
     status: temporary,
-    evidenceIds: temporary === "confirmed" ? ["event:temporary"] : [],
+    evidenceIds: temporary === "confirmed"
+      ? ["game:proof/0/1/0", "game:proof/0/2/0"]
+      : [],
+    analysisRefs: temporary === "confirmed" ? [{
+      requestId: "request:temporary",
+      actionRef: "response:game:proof/0/1/0",
+      stateHash: "sha256:temporary",
+      engineIdentity: {
+        engine: "mahjong-helper" as const,
+        upstreamCommit: "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0" as const,
+        adapterVersion: "0.1.0" as const,
+        protocolVersion: "mahjong-facts/v1" as const,
+      },
+      sourceEventRef: "game:proof/0/1/0",
+      closingEventRef: "game:proof/0/2/0",
+    }] : [],
+    riichiAcceptanceEventRef: null,
   },
   riichi: {
     status: riichi,
-    evidenceIds: riichi === "confirmed" ? ["event:riichi"] : [],
+    evidenceIds: riichi === "confirmed"
+      ? ["game:proof/0/1/0", "game:proof/0/2/0", "game:proof/0/3/0"]
+      : [],
+    analysisRefs: riichi === "confirmed" ? [{
+      requestId: "request:riichi",
+      actionRef: "response:game:proof/0/2/0",
+      stateHash: "sha256:riichi",
+      engineIdentity: {
+        engine: "mahjong-helper" as const,
+        upstreamCommit: "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0" as const,
+        adapterVersion: "0.1.0" as const,
+        protocolVersion: "mahjong-facts/v1" as const,
+      },
+      sourceEventRef: "game:proof/0/2/0",
+      closingEventRef: "game:proof/0/3/0",
+    }] : [],
+    riichiAcceptanceEventRef: riichi === "confirmed"
+      ? "game:proof/0/1/0"
+      : null,
   },
 });
 
@@ -206,6 +241,21 @@ describe("furiten merger", () => {
     }
   });
 
+  it("preserves historical response proof without rebinding it to the candidate hand", () => {
+    const historical = response("confirmed");
+    const merged = merge({ response: historical });
+    expect(merged.furiten.temporary.analysisRefs).toEqual(
+      historical.temporary.analysisRefs,
+    );
+    expect(merged.furiten.temporary.analysisRefs[0]).toMatchObject({
+      requestId: "request:temporary",
+      actionRef: "response:game:proof/0/1/0",
+      stateHash: "sha256:temporary",
+    });
+    expect(merged.furiten.temporary.analysisRefs[0]?.stateHash)
+      .not.toBe(merged.hand.stateHash);
+  });
+
   it("lets confirmed evidence dominate incomplete or unknown components", () => {
     const merged = merge({
       selfRiverComplete: false,
@@ -217,19 +267,36 @@ describe("furiten merger", () => {
   });
 
   it("reports incomplete no-match evidence as unknown without reordering response evidence", () => {
-    const rawResponse = {
+    const rawResponse = ResponseFuritenAnalysisV2Schema.parse({
       temporary: {
         status: "confirmed" as const,
-        evidenceIds: ["event:z", "event:a"],
+        evidenceIds: ["game:proof/0/2/0", "game:proof/0/10/0"],
+        analysisRefs: [{
+          ...response("confirmed").temporary.analysisRefs[0]!,
+          actionRef: "response:game:proof/0/2/0",
+          sourceEventRef: "game:proof/0/2/0",
+          closingEventRef: "game:proof/0/10/0",
+        }],
+        riichiAcceptanceEventRef: null,
       },
-      riichi: { status: "clear" as const, evidenceIds: [] },
-    };
+      riichi: {
+        status: "clear" as const,
+        evidenceIds: [],
+        analysisRefs: [],
+        riichiAcceptanceEventRef: null,
+      },
+    });
     const merged = merge({
       hand: hand([wait(4, "ineligible")]),
       selfRiverComplete: false,
       response: rawResponse,
     });
-    expect(merged.furiten.temporary.evidenceIds).toEqual(["event:z", "event:a"]);
+    expect(merged.furiten.temporary.evidenceIds).toEqual([
+      "game:proof/0/2/0", "game:proof/0/10/0",
+    ]);
+    expect(merged.furiten.temporary.analysisRefs).toEqual(
+      rawResponse.temporary.analysisRefs,
+    );
     expect(merge({
       hand: hand([wait(4)]),
       selfRiver: [discard("event:1m", tile("1m"))],
@@ -336,6 +403,59 @@ describe("furiten merger", () => {
         candidateDiscard: invalid,
       }))
         .toThrow(/candidate|hand_structure/i);
+    }
+  });
+
+  it("rejects direct response-proof bypasses before merging", () => {
+    const confirmed = response("confirmed");
+    const proof = confirmed.temporary.analysisRefs[0]!;
+    for (const temporary of [
+      {
+        status: "confirmed",
+        evidenceIds: ["game:proof/0/1/0", "game:proof/0/2/0"],
+        analysisRefs: [],
+        riichiAcceptanceEventRef: null,
+      },
+      {
+        status: "clear",
+        evidenceIds: [],
+        analysisRefs: [proof],
+        riichiAcceptanceEventRef: null,
+      },
+      {
+        status: "confirmed",
+        evidenceIds: ["game:proof/0/1/0", "game:proof/0/2/0"],
+        analysisRefs: [{ ...proof, closingEventRef: "game:proof/0/99/0" }],
+        riichiAcceptanceEventRef: null,
+      },
+      {
+        status: "confirmed",
+        evidenceIds: ["game:proof/0/1/0", "game:proof/0/2/0"],
+        analysisRefs: [{ ...proof, diagnostic: "untrusted sidecar prose" }],
+        riichiAcceptanceEventRef: null,
+      },
+      {
+        status: "confirmed",
+        evidenceIds: [
+          "game:proof/0/1/0",
+          "game:proof/0/2/0",
+          "game:proof/0/3/0",
+        ],
+        analysisRefs: [proof, {
+          ...proof,
+          requestId: "request:temporary:forged-second-closure",
+          stateHash: "sha256:temporary:forged-second-closure",
+          closingEventRef: "game:proof/0/3/0",
+        }],
+        riichiAcceptanceEventRef: null,
+      },
+    ]) {
+      expect(() => merge({
+        response: {
+          temporary,
+          riichi: response().riichi,
+        } as Parameters<typeof mergeHandStructureFuriten>[0]["response"],
+      })).toThrow();
     }
   });
 

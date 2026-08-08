@@ -21,6 +21,11 @@ export interface CanonicalEventPosition {
   subEventOrdinal: number;
 }
 
+export interface ParsedCanonicalEventRef {
+  gameId: string;
+  position: CanonicalEventPosition;
+}
+
 export function canonicalEventId(
   gameId: string,
   position: CanonicalEventPosition,
@@ -28,27 +33,35 @@ export function canonicalEventId(
   return `${gameId}/${position.roundOrdinal}/${position.sourceRecordOrdinal}/${position.subEventOrdinal}`;
 }
 
-function parseCanonicalEventPosition(
+export function parseCanonicalEventRef(
   eventId: string,
-  gameId: string,
-): CanonicalEventPosition | null {
-  const prefix = `${gameId}/`;
-  if (!eventId.startsWith(prefix)) return null;
-  const match = /^(0|[1-9]\d*)\/(0|[1-9]\d*)\/(0|[1-9]\d*)$/
-    .exec(eventId.slice(prefix.length));
+): ParsedCanonicalEventRef | null {
+  const match = /^(.*\S)\/(0|[1-9]\d*)\/(0|[1-9]\d*)\/(0|[1-9]\d*)$/
+    .exec(eventId);
   if (match === null) return null;
-  const roundOrdinal = Number(match[1]!);
-  const sourceRecordOrdinal = Number(match[2]!);
-  const subEventOrdinal = Number(match[3]!);
+  const roundOrdinal = Number(match[2]!);
+  const sourceRecordOrdinal = Number(match[3]!);
+  const subEventOrdinal = Number(match[4]!);
   if (
     !Number.isSafeInteger(roundOrdinal) ||
     !Number.isSafeInteger(sourceRecordOrdinal) ||
     !Number.isSafeInteger(subEventOrdinal)
   ) return null;
-  return { roundOrdinal, sourceRecordOrdinal, subEventOrdinal };
+  return {
+    gameId: match[1]!,
+    position: { roundOrdinal, sourceRecordOrdinal, subEventOrdinal },
+  };
 }
 
-function compareEventPositions(
+export function parseCanonicalEventPosition(
+  eventId: string,
+  gameId: string,
+): CanonicalEventPosition | null {
+  const parsed = parseCanonicalEventRef(eventId);
+  return parsed?.gameId === gameId ? parsed.position : null;
+}
+
+export function compareCanonicalEventPositions(
   left: CanonicalEventPosition,
   right: CanonicalEventPosition,
 ): number {
@@ -457,7 +470,7 @@ export const CanonicalEventStreamSchema = z.object({
       }
       if (
         previousPosition !== null &&
-        compareEventPositions(previousPosition, position) >= 0
+        compareCanonicalEventPositions(previousPosition, position) >= 0
       ) {
         context.addIssue({
           code: z.ZodIssueCode.custom,

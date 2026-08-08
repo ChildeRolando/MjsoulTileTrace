@@ -2,13 +2,16 @@ import {
   ActionRefSchema,
   CanonicalEventStreamSchema,
   HandStructureResultV2Schema,
+  ResponseFuritenAnalysisV2Schema,
+  ResponseFuritenComponentV2Schema,
   type CanonicalEventStream,
   type CanonicalGameEvent,
   type CanonicalMeldV2,
-  type FuritenStateV2,
   type HandStructureRequestV2,
   type HandStructureResultV2,
   type KnownMeld,
+  type ResponseFuritenAnalysisRefV2,
+  type ResponseFuritenAnalysisV2,
   type YakuContextV2,
 } from "@riichi-coach/contracts";
 import type { HandStructureFactEnginePort } from "../fact-engine/port.js";
@@ -20,12 +23,8 @@ import {
   type ReducedCanonicalState,
 } from "./round-reducer.js";
 
-type FuritenComponent = FuritenStateV2["temporary"];
-
-export interface ResponseFuritenAnalysis {
-  temporary: FuritenComponent;
-  riichi: FuritenComponent;
-}
+export type ResponseFuritenAnalysis = ResponseFuritenAnalysisV2;
+type FuritenComponent = ResponseFuritenAnalysis["temporary"];
 
 type SourceEvent = Extract<CanonicalGameEvent, {
   type: "tile_discarded" | "kakan_declared" | "ankan_declared";
@@ -43,16 +42,30 @@ interface DerivedUpdate {
   component: "temporary" | "riichi";
   status: "confirmed" | "unknown";
   evidenceIds: string[];
+  analysisRefs: ResponseFuritenAnalysisRefV2[];
+  riichiAcceptanceEventRef: string | null;
 }
 
 interface MutableComponent {
   status: "clear" | "unknown" | "confirmed";
   evidenceIds: Set<string>;
+  analysisRefs: Map<string, ResponseFuritenAnalysisRefV2>;
+  riichiAcceptanceEventRef: string | null;
 }
 
 const unknownAnalysis = (): ResponseFuritenAnalysis => ({
-  temporary: { status: "unknown", evidenceIds: [] },
-  riichi: { status: "unknown", evidenceIds: [] },
+  temporary: {
+    status: "unknown",
+    evidenceIds: [],
+    analysisRefs: [],
+    riichiAcceptanceEventRef: null,
+  },
+  riichi: {
+    status: "unknown",
+    evidenceIds: [],
+    analysisRefs: [],
+    riichiAcceptanceEventRef: null,
+  },
 });
 
 function cloneKnownMeld(meld: CanonicalMeldV2): KnownMeld {
@@ -323,6 +336,15 @@ function applyUpdate(
     for (const eventRef of update.evidenceIds) {
       component.evidenceIds.add(eventRef);
     }
+    for (const reference of update.analysisRefs) {
+      component.analysisRefs.set(
+        reference.sourceEventRef,
+        reference,
+      );
+    }
+    if (update.riichiAcceptanceEventRef !== null) {
+      component.riichiAcceptanceEventRef = update.riichiAcceptanceEventRef;
+    }
   } else if (component.status === "clear") {
     component.status = "unknown";
   }
@@ -332,12 +354,28 @@ function finalizeComponent(
   component: MutableComponent,
   eventOrder: ReadonlyMap<string, number>,
 ): FuritenComponent {
-  return component.status === "confirmed"
+  const finalized = component.status === "confirmed"
     ? {
         status: "confirmed",
         evidenceIds: sortEvidence(component.evidenceIds, eventOrder),
+        analysisRefs: [...component.analysisRefs.values()].sort((left, right) =>
+          (eventOrder.get(left.sourceEventRef) ?? Number.MAX_SAFE_INTEGER) -
+            (eventOrder.get(right.sourceEventRef) ?? Number.MAX_SAFE_INTEGER) ||
+          (eventOrder.get(left.closingEventRef) ?? Number.MAX_SAFE_INTEGER) -
+            (eventOrder.get(right.closingEventRef) ?? Number.MAX_SAFE_INTEGER) ||
+          left.requestId.localeCompare(right.requestId) ||
+          left.actionRef.localeCompare(right.actionRef) ||
+          left.stateHash.localeCompare(right.stateHash)
+        ),
+        riichiAcceptanceEventRef: component.riichiAcceptanceEventRef,
       }
-    : { status: component.status, evidenceIds: [] };
+    : {
+        status: component.status,
+        evidenceIds: [],
+        analysisRefs: [],
+        riichiAcceptanceEventRef: null,
+      };
+  return ResponseFuritenComponentV2Schema.parse(finalized);
 }
 
 export async function deriveResponseFuriten(
@@ -414,6 +452,8 @@ export async function deriveResponseFuriten(
         component,
         status: "unknown",
         evidenceIds: [],
+        analysisRefs: [],
+        riichiAcceptanceEventRef: null,
       });
       continue;
     }
@@ -434,6 +474,8 @@ export async function deriveResponseFuriten(
         component,
         status: "unknown",
         evidenceIds: [],
+        analysisRefs: [],
+        riichiAcceptanceEventRef: null,
       });
       continue;
     }
@@ -451,6 +493,8 @@ export async function deriveResponseFuriten(
         component,
         status: "unknown",
         evidenceIds: [],
+        analysisRefs: [],
+        riichiAcceptanceEventRef: null,
       });
       continue;
     }
@@ -463,16 +507,29 @@ export async function deriveResponseFuriten(
         source.eventId,
         closure.closingEventRef,
       ],
+      analysisRefs: [{
+        requestId: request.requestId,
+        actionRef: request.actionRef,
+        stateHash: request.stateHash,
+        engineIdentity: result.identity,
+        sourceEventRef: source.eventId,
+        closingEventRef: closure.closingEventRef,
+      }],
+      riichiAcceptanceEventRef: acceptedRiichiRef,
     });
   }
 
   const temporary: MutableComponent = {
     status: "clear",
     evidenceIds: new Set(),
+    analysisRefs: new Map(),
+    riichiAcceptanceEventRef: null,
   };
   const riichi: MutableComponent = {
     status: "clear",
     evidenceIds: new Set(),
+    analysisRefs: new Map(),
+    riichiAcceptanceEventRef: null,
   };
   const updatesByIndex = new Map<number, DerivedUpdate[]>();
   for (const update of updates) {
@@ -488,11 +545,13 @@ export async function deriveResponseFuriten(
     if (event.type === "tile_drawn" && event.actor === stream.selfActor) {
       temporary.status = "clear";
       temporary.evidenceIds.clear();
+      temporary.analysisRefs.clear();
+      temporary.riichiAcceptanceEventRef = null;
     }
   }
   const eventOrder = new Map(prefix.map((event, index) => [event.eventId, index]));
-  return {
+  return ResponseFuritenAnalysisV2Schema.parse({
     temporary: finalizeComponent(temporary, eventOrder),
     riichi: finalizeComponent(riichi, eventOrder),
-  };
+  });
 }

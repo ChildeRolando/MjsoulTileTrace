@@ -6,12 +6,16 @@ import {
 } from "./actions.js";
 import { ActionRefSchema } from "./comparison.js";
 import {
+  compareCanonicalEventPositions,
+  parseCanonicalEventRef,
+  type ParsedCanonicalEventRef,
+} from "./event-stream.js";
+import {
   EngineIdentitySchema,
   FACT_ENGINE_PROTOCOL_VERSION,
   Tile34CountsSchema,
 } from "./fact-engine.js";
 import {
-  FuritenStateV2Schema,
   RiverDiscardV2Schema,
 } from "./round-state.js";
 import { TileSchema } from "./tiles.js";
@@ -558,6 +562,264 @@ const CandidateActionEvidenceRefSchema = ActionRefSchema.refine(
   { message: "Candidate evidence must use a canonical ActionRef" },
 );
 
+const ResponseCanonicalEventRefSchema = CanonicalEventEvidenceRefSchema.refine(
+  (reference) => parseCanonicalEventRef(reference) !== null,
+  { message: "Response proof must use a canonical EventRef" },
+);
+
+export const ResponseFuritenAnalysisRefV2Schema = z.object({
+  requestId: z.string().min(1),
+  stateHash: z.string().min(1),
+  actionRef: ActionRefSchema,
+  engineIdentity: EngineIdentitySchema,
+  sourceEventRef: ResponseCanonicalEventRefSchema,
+  closingEventRef: ResponseCanonicalEventRefSchema,
+}).strict().superRefine((reference, context) => {
+  if (reference.actionRef !== `response:${reference.sourceEventRef}`) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Response analysis actionRef must bind to its source event",
+      path: ["actionRef"],
+    });
+  }
+});
+export type ResponseFuritenAnalysisRefV2 = z.infer<
+  typeof ResponseFuritenAnalysisRefV2Schema
+>;
+
+function responseAnalysisRefKey(
+  reference: ResponseFuritenAnalysisRefV2,
+): string {
+  return [
+    reference.sourceEventRef,
+    reference.closingEventRef,
+    reference.requestId,
+    reference.actionRef,
+    reference.stateHash,
+  ].join("\u0000");
+}
+
+export const ResponseFuritenComponentV2Schema = z.object({
+  status: z.enum(["clear", "confirmed", "unknown"]),
+  evidenceIds: z.array(ResponseCanonicalEventRefSchema),
+  analysisRefs: z.array(ResponseFuritenAnalysisRefV2Schema),
+  riichiAcceptanceEventRef: ResponseCanonicalEventRefSchema.nullable(),
+}).strict().superRefine((component, context) => {
+  if (new Set(component.evidenceIds).size !== component.evidenceIds.length) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Response furiten evidence refs must be unique",
+      path: ["evidenceIds"],
+    });
+  }
+  if (component.status === "confirmed" && component.analysisRefs.length === 0) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Confirmed response furiten requires analysis proof",
+      path: ["analysisRefs"],
+    });
+  }
+  if (component.status !== "confirmed" && component.analysisRefs.length > 0) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Unconfirmed response furiten cannot claim analysis proof",
+      path: ["analysisRefs"],
+    });
+  }
+  if (component.status !== "confirmed" && component.evidenceIds.length > 0) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Unconfirmed response furiten cannot claim evidence",
+      path: ["evidenceIds"],
+    });
+  }
+  if (
+    component.status !== "confirmed" &&
+    component.riichiAcceptanceEventRef !== null
+  ) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Unconfirmed response furiten cannot bind riichi acceptance",
+      path: ["riichiAcceptanceEventRef"],
+    });
+  }
+  const parsedEvidence = component.evidenceIds.map((reference) =>
+    parseCanonicalEventRef(reference)
+  ).filter((parsed): parsed is ParsedCanonicalEventRef => parsed !== null);
+  const firstEvidence = parsedEvidence[0] ?? null;
+  if (firstEvidence !== null && parsedEvidence.some((parsed) =>
+    parsed.gameId !== firstEvidence.gameId ||
+    parsed.position.roundOrdinal !== firstEvidence.position.roundOrdinal
+  )) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Response proof evidence must belong to one game round",
+      path: ["evidenceIds"],
+    });
+  }
+  if (parsedEvidence.some((parsed, index) => index > 0 &&
+    compareCanonicalEventPositions(
+      parsedEvidence[index - 1]!.position,
+      parsed.position,
+    ) >= 0
+  )) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Response proof evidence must use canonical event order",
+      path: ["evidenceIds"],
+    });
+  }
+  const expectedEvidence = new Set<string>();
+  if (component.riichiAcceptanceEventRef !== null) {
+    expectedEvidence.add(component.riichiAcceptanceEventRef);
+  }
+  const proofKeys = new Set<string>();
+  const sourceKeys = new Set<string>();
+  const closingKeys = new Set<string>();
+  let previousOrder: readonly [
+    ParsedCanonicalEventRef,
+    ParsedCanonicalEventRef,
+    string,
+    string,
+    string,
+  ] | null = null;
+  component.analysisRefs.forEach((reference, index) => {
+    expectedEvidence.add(reference.sourceEventRef);
+    expectedEvidence.add(reference.closingEventRef);
+    const source = parseCanonicalEventRef(reference.sourceEventRef);
+    const closing = parseCanonicalEventRef(reference.closingEventRef);
+    if (source === null || closing === null) return;
+    if (
+      source.gameId !== closing.gameId ||
+      source.position.roundOrdinal !== closing.position.roundOrdinal ||
+      compareCanonicalEventPositions(source.position, closing.position) >= 0
+    ) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Response analysis source must precede its window closure",
+        path: ["analysisRefs", index],
+      });
+    }
+    const key = responseAnalysisRefKey(reference);
+    if (
+      proofKeys.has(key) ||
+      sourceKeys.has(reference.sourceEventRef) ||
+      closingKeys.has(reference.closingEventRef)
+    ) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Response analysis proofs must be unique",
+        path: ["analysisRefs", index],
+      });
+    }
+    proofKeys.add(key);
+    sourceKeys.add(reference.sourceEventRef);
+    closingKeys.add(reference.closingEventRef);
+    const order = [
+      source,
+      closing,
+      reference.requestId,
+      reference.actionRef,
+      reference.stateHash,
+    ] as const;
+    if (previousOrder !== null) {
+      const comparison = compareCanonicalEventPositions(
+        order[0].position,
+        previousOrder[0].position,
+      ) || compareCanonicalEventPositions(
+        order[1].position,
+        previousOrder[1].position,
+      ) ||
+        order[2].localeCompare(previousOrder[2]) ||
+        order[3].localeCompare(previousOrder[3]) ||
+        order[4].localeCompare(previousOrder[4]);
+      if (comparison <= 0) {
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Response analysis proofs must use canonical evidence order",
+          path: ["analysisRefs", index],
+        });
+      }
+    }
+    previousOrder = order;
+  });
+  const expectedCanonicalEvidence = [...expectedEvidence].sort((left, right) =>
+    (() => {
+      const parsedLeft = parseCanonicalEventRef(left);
+      const parsedRight = parseCanonicalEventRef(right);
+      return parsedLeft === null || parsedRight === null
+        ? left.localeCompare(right)
+        : compareCanonicalEventPositions(
+            parsedLeft.position,
+            parsedRight.position,
+          );
+    })()
+  );
+  if (
+    component.evidenceIds.length !== expectedCanonicalEvidence.length ||
+    component.evidenceIds.some((reference, index) =>
+      reference !== expectedCanonicalEvidence[index]
+    )
+  ) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Response evidence must exactly match typed proof refs",
+      path: ["evidenceIds"],
+    });
+  }
+  if (component.riichiAcceptanceEventRef !== null) {
+    const acceptance = parseCanonicalEventRef(
+      component.riichiAcceptanceEventRef,
+    );
+    if (acceptance === null) return;
+    if (component.analysisRefs.some((reference) => {
+      const source = parseCanonicalEventRef(reference.sourceEventRef);
+      if (source === null) return true;
+      return acceptance.gameId !== source.gameId ||
+        acceptance.position.roundOrdinal !== source.position.roundOrdinal ||
+        compareCanonicalEventPositions(
+          acceptance.position,
+          source.position,
+        ) >= 0;
+    })) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Riichi acceptance must precede every passed response",
+        path: ["riichiAcceptanceEventRef"],
+      });
+    }
+  }
+});
+export type ResponseFuritenComponentV2 = z.infer<
+  typeof ResponseFuritenComponentV2Schema
+>;
+
+export const ResponseFuritenAnalysisV2Schema = z.object({
+  temporary: ResponseFuritenComponentV2Schema,
+  riichi: ResponseFuritenComponentV2Schema,
+}).strict().superRefine((analysis, context) => {
+  if (analysis.temporary.riichiAcceptanceEventRef !== null) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Temporary furiten cannot bind riichi acceptance",
+      path: ["temporary", "riichiAcceptanceEventRef"],
+    });
+  }
+  if (
+    analysis.riichi.status === "confirmed" &&
+    analysis.riichi.riichiAcceptanceEventRef === null
+  ) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Confirmed riichi furiten requires acceptance evidence",
+      path: ["riichi", "riichiAcceptanceEventRef"],
+    });
+  }
+});
+export type ResponseFuritenAnalysisV2 = z.infer<
+  typeof ResponseFuritenAnalysisV2Schema
+>;
+
 export const MergedDiscardFuritenComponentV2Schema = z.object({
   status: z.enum(["clear", "confirmed", "unknown"]),
   source: z.enum(["current_scene", "candidate_discard"]),
@@ -646,8 +908,8 @@ export type MergedDiscardFuritenComponentV2 = z.infer<
 
 const MergedFuritenStateV2Schema = z.object({
   discard: MergedDiscardFuritenComponentV2Schema,
-  temporary: FuritenStateV2Schema.shape.temporary,
-  riichi: FuritenStateV2Schema.shape.riichi,
+  temporary: ResponseFuritenComponentV2Schema,
+  riichi: ResponseFuritenComponentV2Schema,
 }).strict();
 
 export const MergedHandFuritenV2Schema = z.object({

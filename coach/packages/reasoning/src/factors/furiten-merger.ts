@@ -1,8 +1,8 @@
 import {
   CandidateDiscardEvidenceV2Schema,
-  FuritenStateV2Schema,
   HandStructureResultV2Schema,
   MergedHandFuritenV2Schema,
+  ResponseFuritenAnalysisV2Schema,
   RiverDiscardV2Schema,
   type CandidateDiscardEvidenceV2,
   type HandStructureResultV2,
@@ -50,11 +50,7 @@ function validateSelfRiver(
 }
 
 function validateResponse(raw: ResponseFuritenAnalysis): ResponseFuritenAnalysis {
-  const parsed = FuritenStateV2Schema.parse({
-    discard: { status: "clear", evidenceIds: [] },
-    temporary: raw.temporary,
-    riichi: raw.riichi,
-  });
+  const parsed = ResponseFuritenAnalysisV2Schema.parse(raw);
   for (const component of [parsed.temporary, parsed.riichi]) {
     if (component.evidenceIds.some((reference) =>
       reference.startsWith("action:v1:")
