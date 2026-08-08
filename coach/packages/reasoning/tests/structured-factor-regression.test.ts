@@ -2,7 +2,10 @@ import { readFile } from "node:fs/promises";
 import { describe, expect, it } from "vitest";
 import {
   canonicalActionRef,
+  CurrentSceneFrameSchema,
   Hand13FactResultSchema,
+  StructuredComparisonSetSchema,
+  type ComparisonScope,
   type CompletedHandFactRequest,
   type CompletedHandFactResult,
   type EngineIdentity,
@@ -10,13 +13,18 @@ import {
   type Hand13FactResult,
   type ThreatRiskFactRequest,
   type ThreatRiskFactResult,
+  type KnownGameFacts,
+  type NormalizedDecision,
 } from "@riichi-coach/contracts";
 import type { MahjongFactEnginePort } from "../src/fact-engine/port.js";
 import { analyzeAllDiscardEfficiency } from "../src/analysis/efficiency-analyzer.js";
 import { importRegressionFixture } from "../src/import/mortal-report.js";
 import { replayToDecision } from "../src/replay/scene-replayer.js";
-import { buildLegacyRegressionPipelineInput } from "../src/factors/legacy-facts-bridge.js";
 import { runStructuredFactorPipeline } from "../src/factors/structured-factor-pipeline.js";
+import { legacyDiscardActionIdToAction } from "../src/candidate/legacy-action-bridge.js";
+import { bridgeLegacyRegressionEvents } from "../src/import/legacy-event-stream-bridge.js";
+import { freezeDecisionSnapshot } from "../src/replay/decision-snapshot.js";
+import { projectKnownGameFactsV2 } from "../src/factors/known-game-facts-v2.js";
 
 const fixtureUrl = new URL(
   "../../../fixtures/mortal/c1924cad66f66dd9-east1-turn6-7.json",
@@ -50,8 +58,12 @@ class RegressionFactEngine implements MahjongFactEnginePort {
   async analyzeHand13(request: Hand13FactRequest): Promise<Hand13FactResult> {
     const golden = this.cases.find((entry) => entry.actionRef === request.actionRef);
     if (golden === undefined) throw new Error("missing real sidecar golden case");
-    expect(request).toEqual(golden.request);
-    return Hand13FactResultSchema.parse(golden.result);
+    expect({ ...request, requestId: golden.request.requestId })
+      .toEqual(golden.request);
+    return Hand13FactResultSchema.parse({
+      ...golden.result,
+      requestId: request.requestId,
+    });
   }
 
   async analyzeCompletedHand(
@@ -67,6 +79,46 @@ class RegressionFactEngine implements MahjongFactEnginePort {
   }
 
   async close(): Promise<void> {}
+}
+
+function v2RegressionInput(
+  decision: NormalizedDecision,
+  facts: KnownGameFacts,
+  legacy: ReturnType<typeof analyzeAllDiscardEfficiency>,
+  scope: ComparisonScope,
+) {
+  const actualAction = legacyDiscardActionIdToAction(decision.actualAction);
+  const modelAction = legacyDiscardActionIdToAction(decision.modelAction);
+  const actualRef = canonicalActionRef(actualAction);
+  const modelRef = canonicalActionRef(modelAction);
+  const comparisonSet = StructuredComparisonSetSchema.parse({
+    comparisonSetId: `canonical-v2:${decision.decisionId}`,
+    origin: "automatic_review",
+    decisionLayerRef: `canonical-v2:${decision.decisionId}:decision-layer`,
+    decisionWindow: facts.decisionWindow,
+    candidates: [
+      { actionRef: actualRef, action: actualAction, origins: ["actual", "model"] },
+      { actionRef: modelRef, action: modelAction, origins: ["model"] },
+    ],
+  });
+  const frame = CurrentSceneFrameSchema.parse({
+    kind: "current_scene",
+    frameId: `canonical-v2:${decision.decisionId}:frame`,
+    scope,
+    sceneRef: facts.decisionEventRef,
+    facts: [{ factId: facts.factSetId, provenance: "raw_replay" }],
+  });
+  const legacyEfficiencyByActionRef = Object.fromEntries(
+    comparisonSet.candidates.map((candidate) => {
+      if (candidate.action.kind !== "discard") {
+        throw new Error("East 1 regression candidate must be a discard");
+      }
+      const metric = legacy[candidate.action.tile.id];
+      if (metric === undefined) throw new Error("legacy efficiency metric missing");
+      return [candidate.actionRef, metric];
+    }),
+  );
+  return { frame, comparisonSet, facts, legacyEfficiencyByActionRef };
 }
 
 function preferenceForAxis(
@@ -91,6 +143,12 @@ describe("East 1 turn 6/7 structured factor regression", () => {
       cases: GoldenCase[];
     };
     const { selfActor, events, decisions } = importRegressionFixture(raw);
+    const bridged = bridgeLegacyRegressionEvents(events, selfActor, {
+      sourceKind: "fixture",
+      gameId: "fixture:c1924cad66f66dd9",
+    });
+    expect(bridged.status).toBe("ready");
+    if (bridged.status !== "ready") return;
     const expected = [
       {
         actual: canonicalActionRef({
@@ -113,23 +171,20 @@ describe("East 1 turn 6/7 structured factor regression", () => {
     for (const [index, decision] of decisions.entries()) {
       const scene = replayToDecision(events, decision, selfActor);
       const legacy = analyzeAllDiscardEfficiency(scene);
-      const applied = buildLegacyRegressionPipelineInput(
-        events,
-        decision,
-        scene,
-        { kind: "applied_decision" },
+      const snapshot = freezeDecisionSnapshot(bridged.stream, {
+        kind: "self_turn",
+        actor: selfActor,
+        triggerEventRef: decision.sceneEventId,
+      });
+      const facts = projectKnownGameFactsV2(snapshot);
+      const applied = v2RegressionInput(
+        decision, facts, legacy, { kind: "applied_decision" },
       );
-      const efficiency = buildLegacyRegressionPipelineInput(
-        events,
-        decision,
-        scene,
-        { kind: "single_axis", axis: "efficiency" },
+      const efficiency = v2RegressionInput(
+        decision, facts, legacy, { kind: "single_axis", axis: "efficiency" },
       );
-      const defense = buildLegacyRegressionPipelineInput(
-        events,
-        decision,
-        scene,
-        { kind: "single_axis", axis: "defense" },
+      const defense = v2RegressionInput(
+        decision, facts, legacy, { kind: "single_axis", axis: "defense" },
       );
       const turnCases = golden.cases.filter((entry) =>
         entry.decisionId === decision.decisionId
@@ -148,7 +203,7 @@ describe("East 1 turn 6/7 structured factor regression", () => {
       expect(preferenceForAxis(appliedResult, "efficiency")).toEqual([pair.actual]);
       expect(preferenceForAxis(appliedResult, "defense")).toEqual([pair.safe]);
       expect(appliedResult.deterministicPreference).toBeNull();
-      expect(applied.diagnosticCodes).toContain("legacy_regression_bridge_only");
+      expect(bridged.provenance).toBe("legacy_regression_bridge_only");
 
       for (const ledger of appliedResult.ledgers) {
         const actionMetric = applied.legacyEfficiencyByActionRef[ledger.actionRef];
