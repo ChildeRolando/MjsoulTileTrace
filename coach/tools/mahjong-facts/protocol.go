@@ -128,6 +128,9 @@ func handleLine(line []byte) (response []byte) {
 		return errorResponse("", "invalid_request", err.Error())
 	}
 	if header.ProtocolVersion != protocolVersion {
+		if header.Kind == "hand_structure" && header.ProtocolVersion == "" {
+			return errorResponse(header.RequestID, "invalid_request", "protocolVersion is required")
+		}
 		return errorResponse(header.RequestID, "protocol_mismatch", "unsupported protocol version")
 	}
 
@@ -162,6 +165,23 @@ func handleLine(line []byte) (response []byte) {
 			return errorResponse(header.RequestID, "invalid_request", err.Error())
 		}
 		result, err := analyzeHand13(request)
+		if err != nil {
+			return errorResponse(header.RequestID, "invalid_request", err.Error())
+		}
+		return marshalResponse(result)
+	case "hand_structure":
+		var request HandStructureRequestV2
+		if err := strictDecode(line, &request); err != nil {
+			return errorResponse(header.RequestID, "invalid_request", err.Error())
+		}
+		if err := requireJSONFields(
+			line,
+			"schemaVersion", "requestId", "protocolVersion", "actionRef", "stateHash",
+			"handTiles34", "melds", "leftTiles34", "visibleCountsComplete", "ronContext", "yakuContext",
+		); err != nil {
+			return errorResponse(header.RequestID, "invalid_request", err.Error())
+		}
+		result, err := analyzeHandStructure(request)
 		if err != nil {
 			return errorResponse(header.RequestID, "invalid_request", err.Error())
 		}
