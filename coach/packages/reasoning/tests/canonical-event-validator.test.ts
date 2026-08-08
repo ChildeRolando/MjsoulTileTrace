@@ -336,6 +336,19 @@ describe("canonical event semantic validator", () => {
     ];
     expect(validateCanonicalEventStream(canonicalStream(missingDora)))
       .toMatchObject({ status: "invalid", code: "dora_kan_mismatch" });
+
+    const daiminkanMissingDora: CanonicalGameEvent[] = [
+      ...canonicalSelfDrawDiscardEvents(),
+      {
+        type: "daiminkan_called", eventId: "game:fixture/0/4/0", sourceRecordRef: "record:4",
+        actor: 1, targetActor: 0, calledTile: canonicalTile("5p"),
+        consumedTiles: [canonicalTile("5p"), canonicalTile("5p"), canonicalTile("5p")],
+        calledDiscardEventRef: "game:fixture/0/3/0",
+      },
+      { type: "tile_drawn", eventId: "game:fixture/0/5/0", sourceRecordRef: "record:5", actor: 1, tile: { visibility: "hidden" }, from: "rinshan" },
+    ];
+    expect(validateCanonicalEventStream(canonicalStream(daiminkanMissingDora)))
+      .toMatchObject({ status: "invalid", code: "dora_kan_mismatch" });
   });
 
   it("binds tsumo to the current actor, draw event, and visible tile", () => {
@@ -450,5 +463,20 @@ describe("canonical event semantic validator", () => {
       ...terminal,
       { type: "round_ended", eventId: "game:fixture/0/3/0", sourceRecordRef: "record:3", terminalEventRef: "event:wrong" },
     ]))).toMatchObject({ status: "invalid", code: "settlement_binding_invalid" });
+
+    expect(validateCanonicalEventStream(canonicalStream([
+      ...terminal,
+      { type: "scores_updated", eventId: "game:fixture/0/3/0", sourceRecordRef: "record:3", scores: [25000, 25000, 25000, 25000], settlementEventRef: "game:fixture/0/2/0" },
+      { type: "round_ended", eventId: "game:fixture/0/4/0", sourceRecordRef: "record:4", terminalEventRef: "game:fixture/0/2/0" },
+    ]))).toEqual({ status: "valid" });
+
+    const ronBase: CanonicalGameEvent[] = [
+      ...canonicalSelfDrawDiscardEvents(),
+      { type: "win_declared", eventId: "game:fixture/0/4/0", sourceRecordRef: "record:4", winnerActor: 1, targetActor: 0, method: "ron", winningTile: canonicalTile("5p"), winSourceEventRef: "game:fixture/0/3/0", scoreDeltas: null },
+      { type: "scores_updated", eventId: "game:fixture/0/5/0", sourceRecordRef: "record:5", scores: [23000, 27000, 25000, 25000], settlementEventRef: "game:fixture/0/4/0" },
+      { type: "win_declared", eventId: "game:fixture/0/6/0", sourceRecordRef: "record:6", winnerActor: 2, targetActor: 0, method: "ron", winningTile: canonicalTile("5p"), winSourceEventRef: "game:fixture/0/3/0", scoreDeltas: null },
+    ];
+    expect(validateCanonicalEventStream(canonicalStream(ronBase)))
+      .toMatchObject({ status: "invalid", code: "settlement_binding_invalid" });
   });
 });

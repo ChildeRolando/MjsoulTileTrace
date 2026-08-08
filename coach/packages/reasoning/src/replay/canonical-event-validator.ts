@@ -328,7 +328,7 @@ function validateRoundEvent(
         return invalid("draw_source_mismatch", event);
       }
       if (
-        state.phase === "awaiting_kan_resolution" &&
+        state.pendingKan !== null &&
         state.doraIndicatorsComplete
       ) return invalid("dora_kan_mismatch", event);
       if (event.actor === state.selfActor) {
@@ -509,6 +509,9 @@ function validateRoundEvent(
 
     case "win_declared":
       if (state.phase === "terminal") {
+        if (state.settlementApplied) {
+          return invalid("settlement_binding_invalid", event);
+        }
         if (
           state.terminalWinSourceRef === null ||
           state.atamahane === true ||
@@ -582,6 +585,8 @@ function validateRoundEvent(
         return invalid("unexpected_event_for_phase", event);
       }
       state.phase = "terminal";
+      state.terminalEventRef = event.eventId;
+      state.terminalScoreDeltas = null;
       state.expectedActor = null;
       return null;
 
