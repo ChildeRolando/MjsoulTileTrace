@@ -125,6 +125,50 @@ const HandContextShape = {
   selfDiscards34: z.array(Tile34IndexSchema),
 };
 
+type PhysicalHandContext = {
+  melds: Array<{ tiles34: number[] }>;
+  redFiveCounts: [number, number, number];
+  selfDiscards34: number[];
+};
+
+function ownedTileCounts(
+  hand: readonly number[],
+  context: PhysicalHandContext,
+): number[] {
+  const owned = [...hand];
+  for (const meld of context.melds) {
+    for (const tile of meld.tiles34) owned[tile] = owned[tile]! + 1;
+  }
+  return owned;
+}
+
+function validatePhysicalOwnership(
+  hand: readonly number[],
+  context: PhysicalHandContext,
+  refinement: z.RefinementCtx,
+): number[] {
+  const owned = ownedTileCounts(hand, context);
+  owned.forEach((count, tile34) => {
+    if (count > 4) {
+      refinement.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Owned tile count cannot exceed four",
+        path: ["melds", tile34],
+      });
+    }
+  });
+  context.redFiveCounts.forEach((count, suit) => {
+    if (count > owned[suit * 9 + 4]!) {
+      refinement.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Red-five count cannot exceed owned five tiles",
+        path: ["redFiveCounts", suit],
+      });
+    }
+  });
+  return owned;
+}
+
 export const Hand13FactRequestSchema = z.object({
   ...RequestIdentityShape,
   ...HandContextShape,
@@ -136,11 +180,27 @@ export const Hand13FactRequestSchema = z.object({
   selfDiscardsComplete: z.boolean(),
   remainingDraws: z.number().int().nonnegative().nullable(),
 }).strict().superRefine((request, context) => {
+  const owned = validatePhysicalOwnership(request.handTiles34, request, context);
   if (request.visibleCountsComplete && request.leftTiles34 === null) {
     context.addIssue({
       code: z.ZodIssueCode.custom,
       message: "Complete visibility requires left tile counts",
       path: ["leftTiles34"],
+    });
+  }
+  if (request.visibleCountsComplete && request.leftTiles34 !== null) {
+    const unavailable = [...owned];
+    for (const tile of request.selfDiscards34) {
+      unavailable[tile] = unavailable[tile]! + 1;
+    }
+    request.leftTiles34.forEach((left, tile34) => {
+      if (left + unavailable[tile34]! > 4) {
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Live-left count conflicts with known owned or discarded tiles",
+          path: ["leftTiles34", tile34],
+        });
+      }
     });
   }
 });
@@ -153,7 +213,9 @@ export const CompletedHandFactRequestSchema = z.object({
   completedHandTiles34: Tile34CountsSchema,
   tsumo: z.boolean(),
   winTile34: Tile34IndexSchema,
-}).strict();
+}).strict().superRefine((request, context) => {
+  validatePhysicalOwnership(request.completedHandTiles34, request, context);
+});
 export type CompletedHandFactRequest = z.infer<
   typeof CompletedHandFactRequestSchema
 >;

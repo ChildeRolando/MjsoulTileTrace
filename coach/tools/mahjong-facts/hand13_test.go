@@ -149,6 +149,28 @@ func TestHand13RejectsInvalidCountVector(t *testing.T) {
 	}
 }
 
+func TestHand13RejectsImpossibleCrossZoneCounts(t *testing.T) {
+	request := goldenHand13Request()
+	request.Melds = []MeldInput{{Kind: "pon", Tiles34: []int{0, 0, 0}}}
+	request.HandTiles34 = make([]int, 34)
+	for _, tile := range []int{0, 0, 0, 0, 1, 2, 3, 9, 10, 11} {
+		request.HandTiles34[tile]++
+	}
+	request.VisibleCountsComplete = false
+	request.LeftTiles34 = nil
+	if _, err := analyzeHand13(request); err == nil {
+		t.Fatal("expected impossible hand-plus-meld ownership to fail")
+	}
+}
+
+func TestHand13RejectsLiveCountsThatConflictWithOwnedTiles(t *testing.T) {
+	request := goldenHand13Request()
+	request.LeftTiles34[3] = 4
+	if _, err := analyzeHand13(request); err == nil {
+		t.Fatal("expected live counts plus owned tiles above four to fail")
+	}
+}
+
 func TestHand13ProtocolRejectsRecommendationField(t *testing.T) {
 	requestJSON, err := json.Marshal(goldenHand13Request())
 	if err != nil {

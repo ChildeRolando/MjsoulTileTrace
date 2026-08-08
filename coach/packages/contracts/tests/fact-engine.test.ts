@@ -248,4 +248,84 @@ describe("fact engine contracts", () => {
     expect(() => ThreatRiskFactRequestSchema.parse({ ...request, turns: 0 })).toThrow();
     expect(() => ThreatRiskFactRequestSchema.parse({ ...request, turns: 20 })).toThrow();
   });
+
+  it("rejects impossible physical ownership across a hand and melds", () => {
+    const requestBase = {
+      requestId: "req-impossible",
+      protocolVersion: "mahjong-facts/v1",
+      actionRef: "action:v1:test",
+      stateHash: "sha256:impossible",
+      melds: [{ kind: "pon", tiles34: [0, 0, 0] }],
+      doraTiles34: [],
+      redFiveCounts: [0, 0, 0],
+      roundWindTile34: 27,
+      selfWindTile34: 28,
+      dealer: false,
+      riichi: false,
+      selfDiscards34: [],
+    } as const;
+    const completed = Array<number>(34).fill(0);
+    for (const tile of [0, 0, 0, 0, 1, 2, 3, 9, 10, 11, 18]) {
+      completed[tile] = completed[tile]! + 1;
+    }
+    expect(() => CompletedHandFactRequestSchema.parse({
+      ...requestBase,
+      kind: "completed_hand",
+      completedHandTiles34: completed,
+      tsumo: false,
+      winTile34: 0,
+    })).toThrow("Owned tile count cannot exceed four");
+
+    const hand13 = [...completed];
+    hand13[18] = 0;
+    expect(() => Hand13FactRequestSchema.parse({
+      ...requestBase,
+      kind: "hand13",
+      handTiles34: hand13,
+      leftTiles34: null,
+      visibleCountsComplete: false,
+      doraTilesComplete: true,
+      selfDiscardsComplete: true,
+      remainingDraws: null,
+    })).toThrow("Owned tile count cannot exceed four");
+  });
+
+  it("rejects red-five and live-left counts that exceed physical copies", () => {
+    const hand = Array<number>(34).fill(0);
+    for (const tile of [0, 1, 2, 3, 9, 10, 11, 18, 19, 20, 27, 28, 29]) {
+      hand[tile] = hand[tile]! + 1;
+    }
+    const base = {
+      requestId: "req-consistency",
+      protocolVersion: "mahjong-facts/v1",
+      actionRef: "action:v1:test",
+      stateHash: "sha256:consistency",
+      kind: "hand13",
+      melds: [],
+      doraTiles34: [],
+      roundWindTile34: 27,
+      selfWindTile34: 28,
+      dealer: false,
+      riichi: false,
+      selfDiscards34: [],
+      handTiles34: hand,
+      doraTilesComplete: true,
+      selfDiscardsComplete: true,
+      remainingDraws: null,
+    } as const;
+    expect(() => Hand13FactRequestSchema.parse({
+      ...base,
+      redFiveCounts: [1, 0, 0],
+      leftTiles34: null,
+      visibleCountsComplete: false,
+    })).toThrow("Red-five count cannot exceed owned five tiles");
+
+    const left = Array<number>(34).fill(4);
+    expect(() => Hand13FactRequestSchema.parse({
+      ...base,
+      redFiveCounts: [0, 0, 0],
+      leftTiles34: left,
+      visibleCountsComplete: true,
+    })).toThrow("Live-left count conflicts with known owned or discarded tiles");
+  });
 });

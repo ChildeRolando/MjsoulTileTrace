@@ -177,8 +177,21 @@ func validateHand13Request(request Hand13Request) error {
 	if request.RemainingDraws != nil && *request.RemainingDraws < 0 {
 		return fmt.Errorf("remainingDraws must not be negative")
 	}
-	_, err := validateHandContext(request.HandContext, request.HandTiles34)
-	return err
+	if _, err := validateHandContext(request.HandContext, request.HandTiles34); err != nil {
+		return err
+	}
+	if request.VisibleCountsComplete {
+		knownUnavailable := ownedTileCounts34(request.HandTiles34, request.Melds)
+		for _, tile := range request.SelfDiscards34 {
+			knownUnavailable[tile]++
+		}
+		for tile, left := range request.LeftTiles34 {
+			if left+knownUnavailable[tile] > 4 {
+				return fmt.Errorf("leftTiles34[%d] conflicts with known owned or discarded tiles", tile)
+			}
+		}
+	}
+	return nil
 }
 
 func analyzeHand13(request Hand13Request) (Hand13Result, error) {

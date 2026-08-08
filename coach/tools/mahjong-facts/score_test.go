@@ -63,3 +63,16 @@ func TestCompletedHandRejectsMissingWinTile(t *testing.T) {
 		t.Fatal("expected a win tile absent from the hand to fail")
 	}
 }
+
+func TestCompletedHandRejectsMoreThanFourOwnedCopiesAcrossMelds(t *testing.T) {
+	request := completePinfuRonRequest()
+	request.Melds = []MeldInput{{Kind: "pon", Tiles34: []int{0, 0, 0}}}
+	request.CompletedHandTiles34 = make([]int, 34)
+	for _, tile := range []int{0, 0, 0, 0, 1, 2, 3, 9, 10, 11, 18} {
+		request.CompletedHandTiles34[tile]++
+	}
+	request.WinTile34 = 0
+	if _, err := analyzeCompletedHand(request); err == nil {
+		t.Fatal("expected impossible hand-plus-meld ownership to fail")
+	}
+}

@@ -136,6 +136,18 @@ func theoreticalLeftTiles34(hand []int, melds []MeldInput) []int {
 	return left
 }
 
+func ownedTileCounts34(hand []int, melds []MeldInput) []int {
+	owned := cloneInts(hand)
+	for _, meld := range melds {
+		for _, tile := range meld.Tiles34 {
+			if tile >= 0 && tile < len(owned) {
+				owned[tile]++
+			}
+		}
+	}
+	return owned
+}
+
 func validateHandContext(context HandContext, hand []int) ([]model.Meld, error) {
 	melds, err := convertMelds(context.Melds)
 	if err != nil {
@@ -165,10 +177,10 @@ func validateHandContext(context HandContext, hand []int) ([]model.Meld, error) 
 		return nil, err
 	}
 
-	ownedCounts := cloneInts(hand)
-	for _, meld := range context.Melds {
-		for _, tile := range meld.Tiles34 {
-			ownedCounts[tile]++
+	ownedCounts := ownedTileCounts34(hand, context.Melds)
+	for tile, count := range ownedCounts {
+		if count > 4 {
+			return nil, fmt.Errorf("owned tile count for tile %d cannot exceed four", tile)
 		}
 	}
 	for suit, count := range context.RedFiveCounts {
