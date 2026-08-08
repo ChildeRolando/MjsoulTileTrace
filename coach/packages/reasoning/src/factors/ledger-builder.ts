@@ -52,7 +52,6 @@ const axes = [
 type LedgerAxis = typeof axes[number];
 
 const estimateDimensions = {
-  yaku_types: ["value", "yaku_types"],
   dama_point: ["value", "dama_point"],
   riichi_point: ["value", "riichi_point"],
   mixed_waits_score: ["efficiency", "mixed_waits_score"],
@@ -62,7 +61,6 @@ const estimateDimensions = {
 } as const satisfies Record<string, readonly [LedgerAxis, string]>;
 
 const estimateUnits: Record<keyof typeof estimateDimensions, string> = {
-  yaku_types: "yaku_ids",
   dama_point: "points",
   riichi_point: "points",
   mixed_waits_score: "helper_mixed_waits_score",
@@ -272,11 +270,47 @@ function mapHand13(
     estimate.field,
     estimate,
   ]));
+  const yakuEstimate = estimates.get("yaku_types");
+  if (yakuEstimate?.field === "yaku_types") {
+    const yakuLimitations = [
+      ...yakuEstimate.limitations,
+      `Pinned mahjong-helper commit ${result.identity.upstreamCommit}`,
+    ];
+    byAxis.get("value")!.push(heuristicFact(
+      "value.yaku_ids",
+      "yaku_ids",
+      { kind: "integer_ids", values: yakuEstimate.yakuValues.map((yaku) => yaku.id) },
+      resultIds,
+      yakuLimitations,
+      result.identity,
+    ));
+    byAxis.get("value")!.push(heuristicFact(
+      "value.yaku_names",
+      "yaku_names",
+      {
+        kind: "string_set",
+        values: yakuEstimate.yakuValues.map((yaku) => yaku.name).sort(),
+      },
+      resultIds,
+      yakuLimitations,
+      result.identity,
+    ));
+  } else {
+    for (const dimension of ["yaku_ids", "yaku_names"] as const) {
+      byAxis.get("value")!.push(blockedHeuristicFact(
+        `value.${dimension}`,
+        dimension,
+        "blocked_missing_facts",
+        resultIds,
+        ["Required inputs for yaku_types were not complete"],
+      ));
+    }
+  }
   for (const [field, [axis, dimension]] of Object.entries(
     estimateDimensions,
   ) as Array<[keyof typeof estimateDimensions, readonly [LedgerAxis, string]]>) {
     const estimate = estimates.get(field);
-    if (estimate === undefined) {
+    if (estimate === undefined || !("numericValue" in estimate)) {
       byAxis.get(axis)!.push(blockedHeuristicFact(
         `${axis}.${dimension}`,
         dimension,
@@ -286,16 +320,11 @@ function mapHand13(
       ));
       continue;
     }
-    const value = "numericValue" in estimate
-      ? {
-          kind: "number" as const,
-          value: estimate.numericValue,
-          unit: estimateUnits[field],
-        }
-      : {
-          kind: "integer_ids" as const,
-          values: [...(estimate.integerValues ?? [])],
-        };
+    const value = {
+      kind: "number" as const,
+      value: estimate.numericValue,
+      unit: estimateUnits[field],
+    };
     byAxis.get(axis)!.push(heuristicFact(
       `${axis}.${dimension}`,
       dimension,
@@ -412,6 +441,23 @@ function mapThreatRisk(
         `defense.helper_classifications.actor${result.threatActor}`,
         `helper_classifications:actor${result.threatActor}`,
         { kind: "string_set", values: classifications },
+        evidence,
+        [...result.limitations],
+        result.identity,
+      ));
+    }
+    const honor = result.honorClassifications.find(
+      (classification) => classification.tile34 === tile34,
+    );
+    if (honor !== undefined) {
+      byAxis.get("defense")!.push(heuristicFact(
+        `defense.helper_honor.actor${result.threatActor}`,
+        `helper_honor:actor${result.threatActor}`,
+        {
+          kind: "honor_safety",
+          remainingCount: honor.remainingCount,
+          category: honor.category,
+        },
         evidence,
         [...result.limitations],
         result.identity,

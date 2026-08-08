@@ -26,20 +26,27 @@ type StructuralRisk struct {
 	Kind   string `json:"kind"`
 }
 
+type HonorClassification struct {
+	Tile34         int    `json:"tile34"`
+	RemainingCount int    `json:"remainingCount"`
+	Category       string `json:"category"`
+}
+
 type ThreatRiskResult struct {
-	Kind             string           `json:"kind"`
-	RequestID        string           `json:"requestId"`
-	ProtocolVersion  string           `json:"protocolVersion"`
-	ActionRef        string           `json:"actionRef"`
-	StateHash        string           `json:"stateHash"`
-	Identity         EngineIdentity   `json:"identity"`
-	ThreatActor      int              `json:"threatActor"`
-	RiskScale        []float64        `json:"riskScale"`
-	Classifications  []StructuralRisk `json:"classifications"`
-	LeftNoSujiTile34 []int            `json:"leftNoSujiTile34"`
-	EvidenceIDs      []string         `json:"evidenceIds"`
-	Limitations      []string         `json:"limitations"`
-	Diagnostics      []string         `json:"diagnostics"`
+	Kind                 string                `json:"kind"`
+	RequestID            string                `json:"requestId"`
+	ProtocolVersion      string                `json:"protocolVersion"`
+	ActionRef            string                `json:"actionRef"`
+	StateHash            string                `json:"stateHash"`
+	Identity             EngineIdentity        `json:"identity"`
+	ThreatActor          int                   `json:"threatActor"`
+	RiskScale            []float64             `json:"riskScale"`
+	Classifications      []StructuralRisk      `json:"classifications"`
+	HonorClassifications []HonorClassification `json:"honorClassifications"`
+	LeftNoSujiTile34     []int                 `json:"leftNoSujiTile34"`
+	EvidenceIDs          []string              `json:"evidenceIds"`
+	Limitations          []string              `json:"limitations"`
+	Diagnostics          []string              `json:"diagnostics"`
 }
 
 func validateStrictAscendingTiles(values []int, field string) error {
@@ -198,6 +205,20 @@ func sortedStructuralRisks(values map[StructuralRisk]struct{}) []StructuralRisk 
 	return result
 }
 
+func honorClassifications(request ThreatRiskRequest) []HonorClassification {
+	result := make([]HonorClassification, 0, 7)
+	for tile := 27; tile < 34; tile++ {
+		category := "guest_wind"
+		if tile >= 31 || tile == request.RoundWindTile34 || tile == request.ThreatWindTile34 {
+			category = "yakuhai"
+		}
+		result = append(result, HonorClassification{
+			Tile34: tile, RemainingCount: request.LeftTiles34[tile], Category: category,
+		})
+	}
+	return result
+}
+
 func analyzeThreatRisk(request ThreatRiskRequest) (ThreatRiskResult, error) {
 	if err := validateThreatRiskRequest(request); err != nil {
 		return ThreatRiskResult{}, err
@@ -226,17 +247,18 @@ func analyzeThreatRisk(request ThreatRiskRequest) (ThreatRiskResult, error) {
 	leftNoSuji := util.CalculateLeftNoSujiTiles(request.SafeTiles34, request.LeftTiles34)
 	sort.Ints(leftNoSuji)
 	return ThreatRiskResult{
-		Kind:             "threat_risk_result",
-		RequestID:        request.RequestID,
-		ProtocolVersion:  protocolVersion,
-		ActionRef:        request.ActionRef,
-		StateHash:        request.StateHash,
-		Identity:         engineIdentity(),
-		ThreatActor:      request.ThreatActor,
-		RiskScale:        append([]float64(nil), riskScale...),
-		Classifications:  sortedStructuralRisks(classifications),
-		LeftNoSujiTile34: cloneInts(leftNoSuji),
-		EvidenceIDs:      append([]string(nil), request.EvidenceIDs...),
+		Kind:                 "threat_risk_result",
+		RequestID:            request.RequestID,
+		ProtocolVersion:      protocolVersion,
+		ActionRef:            request.ActionRef,
+		StateHash:            request.StateHash,
+		Identity:             engineIdentity(),
+		ThreatActor:          request.ThreatActor,
+		RiskScale:            append([]float64(nil), riskScale...),
+		Classifications:      sortedStructuralRisks(classifications),
+		HonorClassifications: honorClassifications(request),
+		LeftNoSujiTile34:     cloneInts(leftNoSuji),
+		EvidenceIDs:          append([]string(nil), request.EvidenceIDs...),
 		Limitations: []string{
 			"Pinned mahjong-helper risk scale is a versioned heuristic, not a calibrated Mortal deal-in probability",
 			"Each threat is analyzed independently; values are never merged into one probability",

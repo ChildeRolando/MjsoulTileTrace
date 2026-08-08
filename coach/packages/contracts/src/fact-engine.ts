@@ -248,11 +248,32 @@ const EstimateLimitationsShape = {
   limitations: z.array(z.string().min(1)).min(1),
 };
 
+export const PINNED_HELPER_YAKU_NAMES = [
+  "立直", "七对", "自摸", "w立", "平和", "两杯口", "一杯口", "三色", "一通",
+  "对对", "三暗刻", "三色同刻", "三杠子", "断幺", "役牌", "混全", "纯全", "混老头", "小三元",
+  "混一色", "清一色", "四暗刻", "四暗刻单骑", "大三元", "小四喜", "大四喜", "字一色", "清老头",
+  "绿一色", "九莲", "纯正九莲", "四杠子", "十二落抬", "五门齐", "三连刻", "一色三顺",
+  "大数邻", "大车轮", "大竹林", "大七星",
+] as const;
+
+const YakuValueSchema = z.object({
+  id: z.number().int().min(0).max(PINNED_HELPER_YAKU_NAMES.length - 1),
+  name: z.enum(PINNED_HELPER_YAKU_NAMES),
+}).strict().superRefine((value, context) => {
+  if (PINNED_HELPER_YAKU_NAMES[value.id] !== value.name) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Yaku name must match the pinned helper ID mapping",
+      path: ["name"],
+    });
+  }
+});
+
 const YakuTypesEstimateSchema = z.object({
   field: z.literal("yaku_types"),
-  integerValues: z.array(z.number().int()).superRefine((values, context) => {
+  yakuValues: z.array(YakuValueSchema).superRefine((values, context) => {
     for (let index = 1; index < values.length; index++) {
-      if (values[index]! <= values[index - 1]!) {
+      if (values[index]!.id <= values[index - 1]!.id) {
         context.addIssue({
           code: z.ZodIssueCode.custom,
           message: "Yaku IDs must use strict ascending order",
@@ -376,6 +397,25 @@ const StructuralRiskKindSchema = z.enum([
   "honor_count",
 ]);
 
+const HonorClassificationSchema = z.object({
+  tile34: z.number().int().min(27).max(33),
+  remainingCount: z.number().int().min(0).max(4),
+  category: z.enum(["yakuhai", "guest_wind"]),
+}).strict();
+
+const HonorClassificationsSchema = z.array(HonorClassificationSchema)
+  .length(7).superRefine((values, context) => {
+    values.forEach((value, index) => {
+      if (value.tile34 !== 27 + index) {
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Honor classifications must cover tiles 27 through 33 in order",
+          path: [index, "tile34"],
+        });
+      }
+    });
+  });
+
 export const ThreatRiskFactResultSchema = z.object({
   ...ResultIdentityShape,
   kind: z.literal("threat_risk_result"),
@@ -385,6 +425,7 @@ export const ThreatRiskFactResultSchema = z.object({
     tile34: Tile34IndexSchema,
     kind: StructuralRiskKindSchema,
   }).strict()),
+  honorClassifications: HonorClassificationsSchema,
   leftNoSujiTile34: StrictTile34IndexesSchema,
   evidenceIds: uniqueStringsSchema(1),
   limitations: z.array(z.string().min(1)).min(1),

@@ -65,6 +65,17 @@ func TestThreatRiskKeepsGenbutsuAndWallClasses(t *testing.T) {
 	if len(result.Limitations) == 0 {
 		t.Fatal("expected risk limitations")
 	}
+	if len(result.HonorClassifications) != 7 {
+		t.Fatalf("honor classifications = %v, want seven honors", result.HonorClassifications)
+	}
+	if result.HonorClassifications[0].Tile34 != 27 ||
+		result.HonorClassifications[0].RemainingCount != 4 ||
+		result.HonorClassifications[0].Category != "yakuhai" {
+		t.Fatalf("east honor classification = %+v", result.HonorClassifications[0])
+	}
+	if result.HonorClassifications[1].Category != "guest_wind" {
+		t.Fatalf("south honor classification = %+v", result.HonorClassifications[1])
+	}
 }
 
 func TestThreatRiskRejectsTurnsOutsidePinnedTable(t *testing.T) {

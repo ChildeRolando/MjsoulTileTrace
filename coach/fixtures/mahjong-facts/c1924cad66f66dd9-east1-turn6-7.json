@@ -1093,13 +1093,22 @@
         "estimates": [
           {
             "field": "yaku_types",
-            "integerValues": [
-              0,
-              4,
-              6
+            "yakuValues": [
+              {
+                "id": 0,
+                "name": "立直"
+              },
+              {
+                "id": 4,
+                "name": "平和"
+              },
+              {
+                "id": 6,
+                "name": "一杯口"
+              }
             ],
             "limitations": [
-              "Possible yaku IDs reported by the pinned mahjong-helper analysis"
+              "Possible yaku IDs and pinned names reported by the mahjong-helper analysis"
             ]
           },
           {
@@ -1939,9 +1948,9 @@
         "estimates": [
           {
             "field": "yaku_types",
-            "integerValues": [],
+            "yakuValues": [],
             "limitations": [
-              "Possible yaku IDs reported by the pinned mahjong-helper analysis"
+              "Possible yaku IDs and pinned names reported by the mahjong-helper analysis"
             ]
           },
           {
@@ -3074,12 +3083,18 @@
         "estimates": [
           {
             "field": "yaku_types",
-            "integerValues": [
-              0,
-              4
+            "yakuValues": [
+              {
+                "id": 0,
+                "name": "立直"
+              },
+              {
+                "id": 4,
+                "name": "平和"
+              }
             ],
             "limitations": [
-              "Possible yaku IDs reported by the pinned mahjong-helper analysis"
+              "Possible yaku IDs and pinned names reported by the mahjong-helper analysis"
             ]
           },
           {
@@ -4079,13 +4094,22 @@
         "estimates": [
           {
             "field": "yaku_types",
-            "integerValues": [
-              0,
-              4,
-              6
+            "yakuValues": [
+              {
+                "id": 0,
+                "name": "立直"
+              },
+              {
+                "id": 4,
+                "name": "平和"
+              },
+              {
+                "id": 6,
+                "name": "一杯口"
+              }
             ],
             "limitations": [
-              "Possible yaku IDs reported by the pinned mahjong-helper analysis"
+              "Possible yaku IDs and pinned names reported by the mahjong-helper analysis"
             ]
           },
           {

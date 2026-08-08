@@ -88,11 +88,21 @@ function handResult(overrides: Partial<Hand13FactResult> = {}): Hand13FactResult
     improves: [],
     doraCountStatus: "calculated",
     doraCount: 1,
-    estimates: [{
-      field: "dama_point",
-      numericValue: 3900,
-      limitations: ["Pinned helper estimate"],
-    }],
+    estimates: [
+      {
+        field: "yaku_types",
+        yakuValues: [
+          { id: 0, name: "立直" },
+          { id: 7, name: "三色" },
+        ],
+        limitations: ["Pinned helper yaku mapping"],
+      },
+      {
+        field: "dama_point",
+        numericValue: 3900,
+        limitations: ["Pinned helper estimate"],
+      },
+    ],
     diagnostics: [],
     ...overrides,
   };
@@ -148,6 +158,11 @@ function baseInput(): CandidateLedgerBuildInput {
           { tile34: 23, kind: "genbutsu" },
           { tile34: 23, kind: "suji" },
         ],
+        honorClassifications: Array.from({ length: 7 }, (_, index) => ({
+          tile34: 27 + index,
+          remainingCount: 4,
+          category: index === 1 ? "guest_wind" as const : "yakuhai" as const,
+        })),
         leftNoSujiTile34: [0, 8],
         evidenceIds: ["event-riichi-2", "event-safe-6s"],
         limitations: ["Not a calibrated Mortal deal-in probability"],
@@ -193,6 +208,58 @@ describe("structured ledger builder", () => {
     expect(fact(ledger, "value.dama_point").preferenceEligibility)
       .toBe("heuristic_only");
     expect(JSON.stringify(ledger)).not.toContain("recommended");
+    expect(fact(ledger, "value.yaku_ids").value)
+      .toEqual({ kind: "integer_ids", values: [0, 7] });
+    expect(fact(ledger, "value.yaku_names").value)
+      .toEqual({ kind: "string_set", values: ["三色", "立直"] });
+  });
+
+  it("maps honor remaining count and role as one typed heuristic fact", () => {
+    const input = baseInput();
+    const honorAction = {
+      kind: "discard" as const,
+      tile: tile("1z"),
+      discardMode: "tedashi" as const,
+    };
+    const honorRef = canonicalActionRef(honorAction);
+    input.candidate = StructuredComparisonCandidateSchema.parse({
+      action: honorAction,
+      actionRef: honorRef,
+      origins: ["user"],
+    });
+    input.projection = {
+      ...input.projection,
+      actionRef: honorRef,
+      hand13Request: {
+        ...input.projection.hand13Request!,
+        actionRef: honorRef,
+      },
+    };
+    if (input.hand13Outcome?.status === "calculated") {
+      input.hand13Outcome.result = {
+        ...input.hand13Outcome.result,
+        actionRef: honorRef,
+      };
+    }
+    input.threatRiskOutcomes = input.threatRiskOutcomes.map((outcome) =>
+      outcome.status === "calculated"
+        ? {
+            ...outcome,
+            result: { ...outcome.result, actionRef: honorRef },
+          }
+        : outcome
+    );
+
+    const ledger = buildCandidateLedger(input);
+    expect(fact(ledger, "defense.helper_honor.actor2")).toMatchObject({
+      dimension: "helper_honor:actor2",
+      value: {
+        kind: "honor_safety",
+        remainingCount: 4,
+        category: "yakuhai",
+      },
+      preferenceEligibility: "heuristic_only",
+    });
   });
 
   it("preserves completed-hand scoring assumptions on both score outputs", () => {

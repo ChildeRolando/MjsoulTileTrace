@@ -155,6 +155,11 @@ class FixtureEngine implements MahjongFactEnginePort {
       threatActor: request.threatActor,
       riskScale: Array(34).fill(5),
       classifications: [],
+      honorClassifications: Array.from({ length: 7 }, (_, index) => ({
+        tile34: 27 + index,
+        remainingCount: request.leftTiles34[27 + index]!,
+        category: index === 1 ? "guest_wind" as const : "yakuhai" as const,
+      })),
       leftNoSujiTile34: [],
       evidenceIds: request.evidenceIds,
       limitations: ["Helper structural risk only"],

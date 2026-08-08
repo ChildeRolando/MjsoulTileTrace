@@ -98,6 +98,12 @@ const StringSetFactorValueSchema = z.object({
   }
 });
 
+const HonorSafetyFactorValueSchema = z.object({
+  kind: z.literal("honor_safety"),
+  remainingCount: z.number().int().min(0).max(4),
+  category: z.enum(["yakuhai", "guest_wind"]),
+}).strict();
+
 export const FactorValueSchema = z.union([
   NumberFactorValueSchema,
   BooleanFactorValueSchema,
@@ -105,6 +111,7 @@ export const FactorValueSchema = z.union([
   TileCountsFactorValueSchema,
   IntegerIdsFactorValueSchema,
   StringSetFactorValueSchema,
+  HonorSafetyFactorValueSchema,
 ]);
 export type FactorValue = z.infer<typeof FactorValueSchema>;
 

@@ -102,6 +102,11 @@ function validThreatRiskResult() {
     threatActor: request.threatActor,
     riskScale: Array(34).fill(0),
     classifications: [],
+    honorClassifications: Array.from({ length: 7 }, (_, index) => ({
+      tile34: 27 + index,
+      remainingCount: 4,
+      category: index === 1 ? "guest_wind" : "yakuhai",
+    })),
     leftNoSujiTile34: [],
     evidenceIds: [...request.evidenceIds],
     limitations: ["versioned upstream risk scale"],

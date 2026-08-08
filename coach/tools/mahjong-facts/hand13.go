@@ -38,10 +38,23 @@ type ImproveResult struct {
 }
 
 type UpstreamEstimate struct {
-	Field         string   `json:"field"`
-	NumericValue  *float64 `json:"numericValue,omitempty"`
-	IntegerValues *[]int   `json:"integerValues,omitempty"`
-	Limitations   []string `json:"limitations"`
+	Field        string       `json:"field"`
+	NumericValue *float64     `json:"numericValue,omitempty"`
+	YakuValues   *[]YakuValue `json:"yakuValues,omitempty"`
+	Limitations  []string     `json:"limitations"`
+}
+
+type YakuValue struct {
+	ID   int    `json:"id"`
+	Name string `json:"name"`
+}
+
+var pinnedYakuNames = [...]string{
+	"立直", "七对", "自摸", "w立", "平和", "两杯口", "一杯口", "三色", "一通",
+	"对对", "三暗刻", "三色同刻", "三杠子", "断幺", "役牌", "混全", "纯全", "混老头", "小三元",
+	"混一色", "清一色", "四暗刻", "四暗刻单骑", "大三元", "小四喜", "大四喜", "字一色", "清老头",
+	"绿一色", "九莲", "纯正九莲", "四杠子", "十二落抬", "五门齐", "三连刻", "一色三顺",
+	"大数邻", "大车轮", "大竹林", "大七星",
 }
 
 type Hand13Result struct {
@@ -131,11 +144,17 @@ func normalizeEstimates(result *util.Hand13AnalysisResult, request Hand13Request
 		yakuIDs = append(yakuIDs, yakuID)
 	}
 	sort.Ints(yakuIDs)
-	yakuValues := yakuIDs
+	yakuValues := make([]YakuValue, 0, len(yakuIDs))
+	for _, yakuID := range yakuIDs {
+		if yakuID < 0 || yakuID >= len(pinnedYakuNames) {
+			continue
+		}
+		yakuValues = append(yakuValues, YakuValue{ID: yakuID, Name: pinnedYakuNames[yakuID]})
+	}
 	estimates := []UpstreamEstimate{{
-		Field:         "yaku_types",
-		IntegerValues: &yakuValues,
-		Limitations:   []string{"Possible yaku IDs reported by the pinned mahjong-helper analysis"},
+		Field:       "yaku_types",
+		YakuValues:  &yakuValues,
+		Limitations: []string{"Possible yaku IDs and pinned names reported by the mahjong-helper analysis"},
 	}}
 	diagnostics := []string{}
 	numeric := []struct {

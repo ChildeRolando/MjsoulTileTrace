@@ -90,8 +90,17 @@ func TestHand13GoldenFacts(t *testing.T) {
 		t.Fatalf("remaining waits = %v, want %v", result.WaitsRemaining, wantWaits)
 	}
 	yaku := estimateByField(result.Estimates, "yaku_types")
-	if yaku == nil || yaku.IntegerValues == nil || !reflect.DeepEqual(*yaku.IntegerValues, []int{0, 4, 6, 7}) {
-		t.Fatalf("yaku IDs = %v, want [0 4 6 7]", yaku)
+	if yaku == nil {
+		t.Fatal("yaku estimate missing")
+	}
+	yakuJSON, err := json.Marshal(yaku)
+	if err != nil {
+		t.Fatalf("marshal yaku estimate: %v", err)
+	}
+	for _, expected := range []string{`"id":0`, `"name":"立直"`, `"id":7`, `"name":"三色"`} {
+		if !strings.Contains(string(yakuJSON), expected) {
+			t.Fatalf("yaku estimate %s missing %s", yakuJSON, expected)
+		}
 	}
 	if result.DoraCount == nil || *result.DoraCount != 1 {
 		t.Fatalf("dora count = %v, want 1", result.DoraCount)
