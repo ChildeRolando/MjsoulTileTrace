@@ -60,6 +60,21 @@ function removeExactTile(tiles: Tile[], wanted: Tile): void {
   tiles.splice(index, 1);
 }
 
+function mergeCurrentDraw(privateState: SelfPrivateRoundState): void {
+  if (privateState.currentDraw !== null) {
+    privateState.concealedTiles.push(privateState.currentDraw.tile);
+    privateState.currentDraw = null;
+  }
+}
+
+function removeSelfTiles(
+  privateState: SelfPrivateRoundState,
+  tiles: readonly Tile[],
+): void {
+  mergeCurrentDraw(privateState);
+  for (const tile of tiles) removeExactTile(privateState.concealedTiles, tile);
+}
+
 function seatWinds(dealer: number): ["E" | "S" | "W" | "N", "E" | "S" | "W" | "N", "E" | "S" | "W" | "N", "E" | "S" | "W" | "N"] {
   const winds = ["E", "S", "W", "N"] as const;
   return [0, 1, 2, 3].map((actor) =>
@@ -184,10 +199,7 @@ function applyDiscard(
       privateState.currentDraw = null;
     } else {
       removeExactTile(privateState.concealedTiles, event.tile);
-      if (privateState.currentDraw !== null) {
-        privateState.concealedTiles.push(privateState.currentDraw.tile);
-        privateState.currentDraw = null;
-      }
+      mergeCurrentDraw(privateState);
     }
     privateState.evidenceIds.push(event.eventId);
   }
@@ -201,6 +213,126 @@ function applyDiscard(
   });
   publicState.phase = "awaiting_discard_responses";
   publicState.expectedActor = (event.actor + 1) % 4;
+}
+
+function findRiverDiscard(
+  publicState: PublicRoundState,
+  eventRef: string,
+): PublicRoundState["rivers"][number][number] {
+  const discard = publicState.rivers.flat()
+    .find((entry) => entry.eventRef === eventRef);
+  if (discard === undefined) {
+    throw new CanonicalReplayError("called_discard_not_found");
+  }
+  return discard;
+}
+
+function applyOpenCall(
+  stream: CanonicalEventStream,
+  event: Extract<CanonicalGameEvent, {
+    type: "chi_called" | "pon_called" | "daiminkan_called";
+  }>,
+  publicState: PublicRoundState,
+  privateState: SelfPrivateRoundState,
+): void {
+  const discard = findRiverDiscard(publicState, event.calledDiscardEventRef);
+  discard.calledByEventRef = event.eventId;
+  if (event.actor === stream.selfActor) {
+    removeSelfTiles(privateState, event.consumedTiles);
+    privateState.selfMeldRefs.push(event.eventId);
+    privateState.evidenceIds.push(event.eventId);
+  }
+  const base = {
+    meldRef: event.eventId,
+    actor: event.actor,
+    createdEventRef: event.eventId,
+    latestEventRef: event.eventId,
+    targetActor: event.targetActor,
+    calledTile: clone(event.calledTile),
+    calledDiscardEventRef: event.calledDiscardEventRef,
+  };
+  if (event.type === "chi_called") {
+    publicState.melds.push({
+      ...base,
+      kind: "chi",
+      consumedTiles: clone(event.consumedTiles),
+    });
+  } else if (event.type === "pon_called") {
+    publicState.melds.push({
+      ...base,
+      kind: "pon",
+      consumedTiles: clone(event.consumedTiles),
+    });
+  } else {
+    publicState.melds.push({
+      ...base,
+      kind: "daiminkan",
+      consumedTiles: clone(event.consumedTiles),
+    });
+  }
+  publicState.expectedActor = event.actor;
+  publicState.phase = event.type === "daiminkan_called"
+    ? "awaiting_rinshan_draw"
+    : "awaiting_post_call_discard";
+}
+
+function applyAnkan(
+  stream: CanonicalEventStream,
+  event: Extract<CanonicalGameEvent, { type: "ankan_declared" }>,
+  publicState: PublicRoundState,
+  privateState: SelfPrivateRoundState,
+): void {
+  if (event.actor === stream.selfActor) {
+    removeSelfTiles(privateState, event.tiles);
+    privateState.selfMeldRefs.push(event.eventId);
+    privateState.evidenceIds.push(event.eventId);
+  }
+  publicState.melds.push({
+    meldRef: event.eventId,
+    kind: "ankan",
+    actor: event.actor,
+    createdEventRef: event.eventId,
+    latestEventRef: event.eventId,
+    tiles: clone(event.tiles),
+  });
+  publicState.expectedActor = event.actor;
+  publicState.phase = "awaiting_rinshan_draw";
+}
+
+function applyKakan(
+  stream: CanonicalEventStream,
+  event: Extract<CanonicalGameEvent, { type: "kakan_declared" }>,
+  publicState: PublicRoundState,
+  privateState: SelfPrivateRoundState,
+): void {
+  const meldIndex = publicState.melds.findIndex((meld) =>
+    meld.kind === "pon" &&
+    meld.actor === event.actor &&
+    meld.createdEventRef === event.upgradedPonEventRef &&
+    meld.calledTile.id === event.addedTile.id
+  );
+  if (meldIndex < 0) throw new CanonicalReplayError("kakan_pon_not_found");
+  const pon = publicState.melds[meldIndex]!;
+  if (pon.kind !== "pon") throw new CanonicalReplayError("kakan_pon_not_found");
+  if (event.actor === stream.selfActor) {
+    removeSelfTiles(privateState, [event.addedTile]);
+    privateState.evidenceIds.push(event.eventId);
+  }
+  publicState.melds[meldIndex] = {
+    meldRef: pon.meldRef,
+    kind: "kakan",
+    actor: pon.actor,
+    createdEventRef: pon.createdEventRef,
+    latestEventRef: event.eventId,
+    targetActor: pon.targetActor,
+    calledTile: clone(pon.calledTile),
+    consumedTiles: clone(pon.consumedTiles),
+    addedTile: clone(event.addedTile),
+    calledDiscardEventRef: pon.calledDiscardEventRef,
+    upgradedPonEventRef: event.upgradedPonEventRef,
+  };
+  publicState.expectedActor = event.actor;
+  publicState.phase = "awaiting_kan_responses";
 }
 
 function applyCoreEvent(
@@ -224,6 +356,16 @@ function applyCoreEvent(
     applyDraw(stream, event, publicState, privateState);
   } else if (event.type === "tile_discarded") {
     applyDiscard(stream, event, publicState, privateState);
+  } else if (
+    event.type === "chi_called" ||
+    event.type === "pon_called" ||
+    event.type === "daiminkan_called"
+  ) {
+    applyOpenCall(stream, event, publicState, privateState);
+  } else if (event.type === "ankan_declared") {
+    applyAnkan(stream, event, publicState, privateState);
+  } else if (event.type === "kakan_declared") {
+    applyKakan(stream, event, publicState, privateState);
   } else {
     throw new CanonicalReplayError(`canonical_reducer_event_not_implemented:${event.type}`);
   }
