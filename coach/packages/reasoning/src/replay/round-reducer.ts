@@ -489,7 +489,11 @@ function applyCoreEvent(
 export function reduceCanonicalEventStream(
   raw: CanonicalEventStream,
 ): readonly ReducedCanonicalState[] {
-  const stream = CanonicalEventStreamSchema.parse(raw);
+  const parsedStream = CanonicalEventStreamSchema.safeParse(raw);
+  if (!parsedStream.success) {
+    throw new CanonicalReplayError("canonical_stream_schema_invalid");
+  }
+  const stream = parsedStream.data;
   const validation = validateCanonicalEventStream(stream);
   if (validation.status === "invalid") {
     throw new CanonicalReplayError(validation.code);

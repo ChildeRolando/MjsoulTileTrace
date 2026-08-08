@@ -1,12 +1,22 @@
+import { isDeepStrictEqual } from "node:util";
 import {
   DecisionSnapshotV2Schema,
   KnownGameFactsSchema,
+  type CanonicalEventStream,
   type CanonicalMeldV2,
   type DecisionSnapshotV2,
+  type DecisionWindow,
   type KnownGameFacts,
   type KnownMeld,
 } from "@riichi-coach/contracts";
+import { freezeDecisionSnapshot } from "../replay/decision-snapshot.js";
 import { CanonicalReplayError } from "../replay/round-reducer.js";
+
+export interface KnownGameFactsV2ProjectionInput {
+  stream: CanonicalEventStream;
+  decisionWindow: DecisionWindow;
+  cachedSnapshot?: DecisionSnapshotV2;
+}
 
 function knownMeld(meld: CanonicalMeldV2): KnownMeld {
   const meldRef = meld.meldRef;
@@ -45,9 +55,15 @@ function knownMeld(meld: CanonicalMeldV2): KnownMeld {
 }
 
 export function projectKnownGameFactsV2(
-  rawSnapshot: DecisionSnapshotV2,
+  input: KnownGameFactsV2ProjectionInput,
 ): KnownGameFacts {
-  const snapshot = DecisionSnapshotV2Schema.parse(rawSnapshot);
+  const snapshot = freezeDecisionSnapshot(input.stream, input.decisionWindow);
+  if (input.cachedSnapshot !== undefined) {
+    const cached = DecisionSnapshotV2Schema.safeParse(input.cachedSnapshot);
+    if (!cached.success || !isDeepStrictEqual(cached.data, snapshot)) {
+      throw new CanonicalReplayError("decision_snapshot_verification_failed");
+    }
+  }
   if (snapshot.publicState.roundWind === "W") {
     throw new CanonicalReplayError("known_facts_v2_unsupported_round_wind");
   }
@@ -73,9 +89,14 @@ export function projectKnownGameFactsV2(
     });
   const privateState = snapshot.privateState;
   const publicState = snapshot.publicState;
+  const provenance = input.stream.sourceKind === "user_asserted"
+    ? "user_asserted"
+    : input.stream.sourceKind === "fixture"
+      ? "legacy_regression_bridge_only"
+      : "raw_replay";
   return KnownGameFactsSchema.parse({
     factSetId: `canonical-v2:${snapshot.streamPrefixHash}`,
-    provenance: "raw_replay",
+    provenance,
     actor: snapshot.selfActor,
     selfRiichi: publicState.riichiStates[snapshot.selfActor]!.status !== "none",
     decisionEventRef: snapshot.decisionEventRef,
@@ -115,6 +136,8 @@ export function projectKnownGameFactsV2(
       rivers: publicState.fields.rivers === "complete",
       remainingDraws: publicState.fields.remainingDraws === "complete",
       calledDiscardMarkers: publicState.fields.calledDiscardMarkers === "complete",
+      responseOpportunities:
+        privateState.fields.responseOpportunities === "complete",
     },
     evidenceIds: [...snapshot.evidenceIds],
   });

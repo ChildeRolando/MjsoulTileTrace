@@ -83,6 +83,10 @@ export function buildLocalDefenseFacts(
       });
       continue;
     }
+    const ownSafeDiscards = facts.rivers[threat.actor] ?? [];
+    const ownMatching = ownSafeDiscards.filter((discard) =>
+      sameTileType(discard.tile, candidateTile)
+    );
     const safeDiscards = facts.rivers.flat().filter((discard) =>
       discard.actor === threat.actor ||
       discard.afterRiichiEventIds.includes(threat.declarationEventId!)
@@ -90,6 +94,24 @@ export function buildLocalDefenseFacts(
     const matching = safeDiscards.filter((discard) =>
       sameTileType(discard.tile, candidateTile)
     );
+    if (
+      !facts.completeness.responseOpportunities &&
+      ownMatching.length === 0 &&
+      matching.length > 0
+    ) {
+      result.push({
+        factorKey: `defense.genbutsu.actor${threat.actor}`,
+        dimension: `genbutsu:actor${threat.actor}`,
+        status: "blocked_missing_facts",
+        evidenceClass: "deterministic_local_replay",
+        preferenceEligibility: "ineligible",
+        evidenceIds: threatEvidence,
+        limitations: [
+          "Complete response opportunities are required for cross-player post-riichi genbutsu",
+        ],
+      });
+      continue;
+    }
     result.push({
       factorKey: `defense.genbutsu.actor${threat.actor}`,
       dimension: `genbutsu:actor${threat.actor}`,

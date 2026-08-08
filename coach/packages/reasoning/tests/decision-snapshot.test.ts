@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { CanonicalGameEvent, DecisionWindow } from "@riichi-coach/contracts";
-import { freezeDecisionSnapshot } from "../src/index.js";
+import { freezeDecisionSnapshot, reduceCanonicalEventStream } from "../src/index.js";
 import {
   canonicalSelfDrawDiscardEvents,
   canonicalStartEvents,
@@ -57,6 +57,21 @@ function postPonEvents(): CanonicalGameEvent[] {
 }
 
 describe("canonical decision snapshots", () => {
+  it("converts malformed stream and window schemas into stable replay codes", () => {
+    const stream = canonicalStream(canonicalSelfDrawDiscardEvents());
+    expect(() => reduceCanonicalEventStream({
+      ...stream,
+      unexpected: "hostile detail",
+    } as typeof stream)).toThrow("canonical_replay_failed:canonical_stream_schema_invalid");
+    expect(() => freezeDecisionSnapshot(stream, {
+      kind: "self_turn",
+      actor: 0,
+      triggerEventRef: "game:fixture/0/2/0",
+      unexpected: "hostile detail",
+    } as DecisionWindow)).toThrow(
+      "canonical_replay_failed:decision_window_schema_invalid",
+    );
+  });
   it("freezes a self turn after its draw and before its discard", () => {
     const snapshot = freezeDecisionSnapshot(
       canonicalStream(canonicalSelfDrawDiscardEvents()),

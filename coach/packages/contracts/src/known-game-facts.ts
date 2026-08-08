@@ -14,11 +14,17 @@ const KnownFactsCompletenessSchema = z.object({
   rivers: z.boolean(),
   remainingDraws: z.boolean(),
   calledDiscardMarkers: z.boolean(),
+  responseOpportunities: z.boolean().default(false),
 }).strict();
 
 export const KnownGameFactsSchema = z.object({
   factSetId: z.string().min(1),
-  provenance: z.enum(["raw_replay", "user_asserted", "mixed"]),
+  provenance: z.enum([
+    "raw_replay",
+    "user_asserted",
+    "mixed",
+    "legacy_regression_bridge_only",
+  ]),
   actor: ActorSchema,
   selfRiichi: z.boolean(),
   decisionEventRef: z.string().min(1),

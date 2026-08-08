@@ -44,4 +44,5 @@ test("workspace packages import as emitted JavaScript", async () => {
     typeof reasoning.actionToLegacyDiscardActionId,
     "function",
   );
+  assert.equal(reasoning.bridgeLegacyRegressionEvents, undefined);
 });

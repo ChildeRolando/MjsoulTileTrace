@@ -6,12 +6,12 @@ import type {
 } from "@riichi-coach/contracts";
 import type { RegressionFixture } from "../src/import/mortal-report.js";
 import {
-  bridgeLegacyRegressionEvents,
   freezeDecisionSnapshot,
   importRegressionFixture,
   projectKnownGameFactsV2,
   reduceCanonicalEventStream,
 } from "../src/index.js";
+import { bridgeLegacyRegressionEvents } from "../src/import/legacy-event-stream-bridge.js";
 
 const fixtureUrl = new URL(
   "../../../fixtures/mortal/c1924cad66f66dd9-east1-turn6-7.json",
@@ -50,16 +50,16 @@ function withoutActorTwoRiichi(stream: CanonicalEventStream): CanonicalEventStre
   return copy;
 }
 
-function moveRiichiToActorOne(stream: CanonicalEventStream): CanonicalEventStream {
+function moveRiichiToActorZero(stream: CanonicalEventStream): CanonicalEventStream {
   const copy = withoutActorTwoRiichi(stream);
   const events: CanonicalGameEvent[] = [];
   for (const event of copy.events) {
-    if (event.eventId === "event-45" && event.type === "tile_discarded") {
+    if (event.eventId === "event-43" && event.type === "tile_discarded") {
       events.push({
         type: "riichi_declared",
         eventId: "transform-riichi-declared",
         sourceRecordRef: "transform:riichi-declared",
-        actor: 1,
+        actor: 0,
       });
       events.push({
         ...event,
@@ -69,14 +69,15 @@ function moveRiichiToActorOne(stream: CanonicalEventStream): CanonicalEventStrea
         type: "riichi_accepted",
         eventId: "transform-riichi-accepted",
         sourceRecordRef: "transform:riichi-accepted",
-        actor: 1,
+        actor: 0,
         declarationEventRef: "transform-riichi-declared",
       });
     } else {
       events.push(event);
     }
   }
-  copy.events = events;
+  const decisionIndex = events.findIndex((event) => event.eventId === "event-50");
+  copy.events = events.slice(0, decisionIndex + 1);
   return copy;
 }
 
@@ -89,8 +90,13 @@ describe("canonical replay invariants", () => {
 
   it("does not let model evaluation data alter replay facts", async () => {
     const frozen = snapshot(await fixtureStream());
+    const stream = await fixtureStream();
     const factsFrom = (input: { snapshot: typeof frozen; modelEvaluation?: unknown }) =>
-      projectKnownGameFactsV2(input.snapshot);
+      projectKnownGameFactsV2({
+        stream,
+        decisionWindow: input.snapshot.privateState.decisionWindow,
+        cachedSnapshot: input.snapshot,
+      });
     const withoutModel = factsFrom({ snapshot: frozen });
     const withModel = factsFrom({
       snapshot: frozen,
@@ -105,10 +111,10 @@ describe("canonical replay invariants", () => {
   it("derives riichi threats only from transformed replay events", async () => {
     const stream = await fixtureStream();
     const removed = snapshot(withoutActorTwoRiichi(stream));
-    const changed = snapshot(moveRiichiToActorOne(stream));
+    const changed = snapshot(moveRiichiToActorZero(stream));
 
     expect(removed.publicState.riichiStates[2]?.status).toBe("none");
-    expect(changed.publicState.riichiStates[1]?.status).toBe("accepted");
+    expect(changed.publicState.riichiStates[0]?.status).toBe("accepted");
     expect(changed.publicState.riichiStates[2]?.status).toBe("none");
   });
 

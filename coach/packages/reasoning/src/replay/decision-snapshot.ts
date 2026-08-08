@@ -92,8 +92,16 @@ export function freezeDecisionSnapshot(
   rawStream: CanonicalEventStream,
   rawWindow: DecisionWindow,
 ): DecisionSnapshotV2 {
-  const stream = CanonicalEventStreamSchema.parse(rawStream);
-  const window = DecisionWindowSchema.parse(rawWindow);
+  const parsedStream = CanonicalEventStreamSchema.safeParse(rawStream);
+  if (!parsedStream.success) {
+    throw new CanonicalReplayError("canonical_stream_schema_invalid");
+  }
+  const stream = parsedStream.data;
+  const parsedWindow = DecisionWindowSchema.safeParse(rawWindow);
+  if (!parsedWindow.success) {
+    throw new CanonicalReplayError("decision_window_schema_invalid");
+  }
+  const window = parsedWindow.data;
   if (stream.selfActor === null || window.actor !== stream.selfActor) mismatch();
 
   const event = stream.events.find((entry) =>

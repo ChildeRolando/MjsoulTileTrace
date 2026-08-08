@@ -176,7 +176,11 @@ describe("East 1 turn 6/7 structured factor regression", () => {
         actor: selfActor,
         triggerEventRef: decision.sceneEventId,
       });
-      const facts = projectKnownGameFactsV2(snapshot);
+      const facts = projectKnownGameFactsV2({
+        stream: bridged.stream,
+        decisionWindow: snapshot.privateState.decisionWindow,
+        cachedSnapshot: snapshot,
+      });
       const applied = v2RegressionInput(
         decision, facts, legacy, { kind: "applied_decision" },
       );

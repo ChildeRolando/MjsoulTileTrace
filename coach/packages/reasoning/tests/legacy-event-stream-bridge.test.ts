@@ -2,10 +2,10 @@ import { readFile } from "node:fs/promises";
 import { describe, expect, it } from "vitest";
 import type { RegressionFixture } from "../src/import/mortal-report.js";
 import {
-  bridgeLegacyRegressionEvents,
   freezeDecisionSnapshot,
   importRegressionFixture,
 } from "../src/index.js";
+import { bridgeLegacyRegressionEvents } from "../src/import/legacy-event-stream-bridge.js";
 
 const fixtureUrl = new URL(
   "../../../fixtures/mortal/c1924cad66f66dd9-east1-turn6-7.json",

@@ -2,13 +2,17 @@ import { readFile } from "node:fs/promises";
 import { describe, expect, it } from "vitest";
 import type { RegressionFixture } from "../src/import/mortal-report.js";
 import {
-  bridgeLegacyRegressionEvents,
+  canonicalSelfDrawDiscardEvents,
+  canonicalStream,
+} from "./fixtures/canonical-stream.js";
+import {
   buildLegacyRegressionPipelineInput,
   freezeDecisionSnapshot,
   importRegressionFixture,
   projectKnownGameFactsV2,
   replayToDecision,
 } from "../src/index.js";
+import { bridgeLegacyRegressionEvents } from "../src/import/legacy-event-stream-bridge.js";
 
 const fixtureUrl = new URL(
   "../../../fixtures/mortal/c1924cad66f66dd9-east1-turn6-7.json",
@@ -32,7 +36,11 @@ describe("V2 snapshot to KnownGameFacts projection", () => {
         actor: selfActor,
         triggerEventRef: decision.sceneEventId,
       });
-      const projected = projectKnownGameFactsV2(snapshot);
+      const projected = projectKnownGameFactsV2({
+        stream: bridged.stream,
+        decisionWindow: snapshot.privateState.decisionWindow,
+        cachedSnapshot: snapshot,
+      });
       const legacy = buildLegacyRegressionPipelineInput(
         events,
         decision,
@@ -41,7 +49,7 @@ describe("V2 snapshot to KnownGameFacts projection", () => {
       ).facts;
 
       expect(projected).toMatchObject({
-        provenance: "raw_replay",
+        provenance: "legacy_regression_bridge_only",
         actor: legacy.actor,
         selfRiichi: legacy.selfRiichi,
         decisionEventRef: legacy.decisionEventRef,
@@ -67,5 +75,58 @@ describe("V2 snapshot to KnownGameFacts projection", () => {
         expect(projected.melds[0]?.meldRef).toBe("event-58");
       }
     }
+  });
+
+  it("rejects cached snapshots whose state, hash, or evidence was tampered", async () => {
+    const raw = JSON.parse(await readFile(fixtureUrl, "utf8")) as RegressionFixture;
+    const { selfActor, events } = importRegressionFixture(raw);
+    const bridged = bridgeLegacyRegressionEvents(events, selfActor, {
+      sourceKind: "fixture",
+      gameId: "fixture:c1924cad66f66dd9",
+    });
+    if (bridged.status !== "ready") throw new Error(bridged.code);
+    const window = {
+      kind: "self_turn" as const,
+      actor: selfActor,
+      triggerEventRef: "event-50",
+    };
+    const frozen = freezeDecisionSnapshot(bridged.stream, window);
+    const mutations = [
+      {
+        ...frozen,
+        streamPrefixHash: "sha256:forged",
+      },
+      {
+        ...frozen,
+        privateState: {
+          ...frozen.privateState,
+          concealedTiles: frozen.privateState.concealedTiles.slice(1),
+        },
+      },
+      {
+        ...frozen,
+        evidenceIds: frozen.evidenceIds.slice(0, -1),
+      },
+    ];
+
+    for (const cachedSnapshot of mutations) {
+      expect(() => projectKnownGameFactsV2({
+        stream: bridged.stream,
+        decisionWindow: window,
+        cachedSnapshot,
+      })).toThrow("decision_snapshot_verification_failed");
+    }
+  });
+
+  it("preserves user-asserted provenance instead of upgrading it to replay", () => {
+    const stream = canonicalStream(canonicalSelfDrawDiscardEvents());
+    const asserted = { ...stream, sourceKind: "user_asserted" as const };
+    const decisionWindow = {
+      kind: "self_turn" as const,
+      actor: 0,
+      triggerEventRef: "game:fixture/0/2/0",
+    };
+    expect(projectKnownGameFactsV2({ stream: asserted, decisionWindow }))
+      .toMatchObject({ provenance: "user_asserted" });
   });
 });

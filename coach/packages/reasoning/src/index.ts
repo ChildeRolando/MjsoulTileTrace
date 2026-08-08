@@ -44,7 +44,6 @@ export * from "./candidate/legacy-action-bridge.js";
 export * from "./import/action-adapter-port.js";
 export * from "./import/mjai-action.js";
 export * from "./import/structured-mortal.js";
-export * from "./import/legacy-event-stream-bridge.js";
 export * from "./fact-engine/port.js";
 export * from "./fact-engine/jsonl-client.js";
 export * from "./fact-engine/managed-sidecar.js";
