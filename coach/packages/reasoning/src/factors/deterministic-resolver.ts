@@ -27,6 +27,7 @@ function relevantDifferences(
 ): FactorDifference[] {
   const axes = new Set(relevantAxes(frame));
   return result.deterministic.filter((difference) =>
+    difference.preferenceEligibility === "deterministic" &&
     axes.has(difference.axis) &&
     (frame.scope.kind !== "single_axis" ||
       frame.scope.dimension === undefined ||

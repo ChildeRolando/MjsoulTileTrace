@@ -10,6 +10,7 @@ import {
   type FactorFact,
 } from "@riichi-coach/contracts";
 import { buildFactorDifferences } from "../src/factors/difference-builder.js";
+import type { FactorDifferenceBuildResult } from "../src/factors/difference-builder.js";
 import { resolveDeterministicPreference } from "../src/factors/deterministic-resolver.js";
 
 const identity: EngineIdentity = {
@@ -27,6 +28,11 @@ const sixSou = canonicalActionRef({
   kind: "discard",
   tile: { id: "6s", red: false },
   discardMode: "tsumogiri",
+});
+const eightPin = canonicalActionRef({
+  kind: "discard",
+  tile: { id: "8p", red: false },
+  discardMode: "tedashi",
 });
 
 function frame(scope: ComparisonAnalysisFrame["scope"]): ComparisonAnalysisFrame {
@@ -116,7 +122,11 @@ function ledger(
     axes: [
       { axis: "efficiency", status: "calculated", facts: efficiency },
       { axis: "value", status: "unsupported_dimension", facts: [] },
-      { axis: "defense", status: "calculated", facts: defense },
+      {
+        axis: "defense",
+        status: defense.length > 0 ? "calculated" : "unsupported_dimension",
+        facts: defense,
+      },
       { axis: "placement", status: "unsupported_dimension", facts: [] },
       { axis: "option_value", status: "unsupported_dimension", facts: [] },
     ],
@@ -197,5 +207,108 @@ describe("deterministic preference resolver", () => {
       frame({ kind: "single_axis", axis: "efficiency" }),
       differences,
     )?.actionRefs).toEqual([twoPin]);
+  });
+
+  it("uses registered equal deterministic differences as a winner tie", () => {
+    const differences = buildFactorDifferences([
+      ledger(twoPin, [shanten(1)], []),
+      ledger(sixSou, [shanten(1)], []),
+      ledger(eightPin, [shanten(2)], []),
+    ]);
+    const preference = resolveDeterministicPreference(
+      frame({ kind: "single_axis", axis: "efficiency" }),
+      differences,
+    );
+    expect(preference?.actionRefs).toEqual([twoPin, sixSou]);
+    expect(preference?.decisiveDifferenceIds.every((id) =>
+      id.includes(":shanten:")
+    )).toBe(true);
+  });
+
+  it("ignores an ineligible difference even if malformed input gives it direction", () => {
+    const signature = JSON.stringify({
+      evidenceClass: "deterministic_local_replay",
+      limitations: [],
+      valueShape: { kind: "number", unit: "shanten" },
+    });
+    const malformed = {
+      candidateRefs: [twoPin, sixSou],
+      deterministic: [{
+        differenceId: "difference:malicious",
+        kind: "deterministic_difference",
+        preferenceEligibility: "ineligible",
+        axis: "efficiency",
+        dimension: "overall_shanten",
+        leftActionRef: twoPin,
+        rightActionRef: sixSou,
+        direction: "supports_left",
+        valueRelation: "ordered",
+        leftValue: { kind: "number", value: 1, unit: "shanten" },
+        rightValue: { kind: "number", value: 2, unit: "shanten" },
+        evidenceClass: "deterministic_local_replay",
+        evidenceIds: ["state:1"],
+        limitations: [],
+      }],
+      heuristic: [],
+      coverage: [],
+      deterministicCoverage: [twoPin, sixSou].map((actionRef) => ({
+        actionRef,
+        axis: "efficiency",
+        dimension: "overall_shanten",
+        status: "calculated",
+        preferenceEligibility: "deterministic",
+        comparisonSignature: signature,
+      })),
+    } as FactorDifferenceBuildResult;
+
+    expect(resolveDeterministicPreference(
+      frame({ kind: "single_axis", axis: "efficiency" }),
+      malformed,
+    )).toBeNull();
+  });
+
+  it.each([
+    [
+      "wrong unit",
+      { kind: "number", value: 2, unit: "points" },
+      { kind: "number", value: 1, unit: "points" },
+    ],
+    [
+      "wrong value kind",
+      { kind: "classification", value: "two" },
+      { kind: "classification", value: "one" },
+    ],
+  ] as const)("does not resolve overall shanten with the same %s on both sides", (
+    _case,
+    leftValue,
+    rightValue,
+  ) => {
+    const invalidOverall = (value: typeof leftValue | typeof rightValue): FactorFact => ({
+      factorKey: "efficiency.overall_shanten",
+      dimension: "overall_shanten",
+      status: "calculated",
+      evidenceClass: "deterministic_local_replay",
+      preferenceEligibility: "deterministic",
+      value: value as FactorFact["value"],
+      evidenceIds: ["state:1"],
+      limitations: [],
+    });
+    const differences = buildFactorDifferences([
+      ledger(twoPin, [invalidOverall(leftValue)], []),
+      ledger(sixSou, [invalidOverall(rightValue)], []),
+    ]);
+
+    expect(differences.deterministic[0]).toMatchObject({
+      preferenceEligibility: "ineligible",
+      direction: "neutral",
+      valueRelation: "different",
+    });
+    expect(differences.deterministicCoverage.every((entry) =>
+      entry.preferenceEligibility === "ineligible"
+    )).toBe(true);
+    expect(resolveDeterministicPreference(
+      frame({ kind: "single_axis", axis: "efficiency" }),
+      differences,
+    )).toBeNull();
   });
 });

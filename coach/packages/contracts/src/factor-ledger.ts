@@ -129,6 +129,17 @@ function requireUniqueStrings(
   }
 }
 
+function stableJson(value: unknown): string {
+  if (Array.isArray(value)) return `[${value.map(stableJson).join(",")}]`;
+  if (value !== null && typeof value === "object") {
+    return `{${Object.entries(value as Record<string, unknown>)
+      .sort(([left], [right]) => left.localeCompare(right))
+      .map(([key, entry]) => `${JSON.stringify(key)}:${stableJson(entry)}`)
+      .join(",")}}`;
+  }
+  return JSON.stringify(value);
+}
+
 export const FactorFactSchema = z.object({
   factorKey: z.string().min(1),
   dimension: z.string().min(1),
@@ -209,6 +220,14 @@ export const FactorAxisLedgerSchema = z.object({
 }).strict().superRefine((axisLedger, context) => {
   const keys = axisLedger.facts.map((fact) => fact.factorKey);
   requireUniqueStrings(keys, context, ["facts"]);
+  const dimensions = axisLedger.facts.map((fact) => fact.dimension);
+  if (new Set(dimensions).size !== dimensions.length) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Factor dimensions must be unique within an axis",
+      path: ["facts"],
+    });
+  }
   if (
     axisLedger.status === "calculated" &&
     !axisLedger.facts.some((fact) => fact.status === "calculated")
@@ -282,6 +301,7 @@ const DifferenceBaseShape = {
 const DeterministicDifferenceSchema = z.object({
   ...DifferenceBaseShape,
   kind: z.literal("deterministic_difference"),
+  preferenceEligibility: z.enum(["deterministic", "ineligible"]),
   evidenceClass: z.enum([
     "deterministic_allowlisted",
     "deterministic_under_assumptions",
@@ -293,6 +313,7 @@ const DeterministicDifferenceSchema = z.object({
 const HeuristicDifferenceSchema = z.object({
   ...DifferenceBaseShape,
   kind: z.literal("heuristic_difference"),
+  preferenceEligibility: z.literal("heuristic_only"),
   evidenceClass: z.literal("versioned_upstream_estimate"),
   engineIdentity: EngineIdentitySchema,
 }).strict();
@@ -301,6 +322,8 @@ export const FactorDifferenceSchema = z.discriminatedUnion("kind", [
   DeterministicDifferenceSchema,
   HeuristicDifferenceSchema,
 ]).superRefine((difference, context) => {
+  const valuesEqual = stableJson(difference.leftValue) ===
+    stableJson(difference.rightValue);
   requireUniqueStrings(difference.evidenceIds, context, ["evidenceIds"]);
   if (difference.leftActionRef === difference.rightActionRef) {
     context.addIssue({
@@ -329,6 +352,101 @@ export const FactorDifferenceSchema = z.discriminatedUnion("kind", [
       code: z.ZodIssueCode.custom,
       message: "Local replay differences must not claim an upstream engine identity",
       path: ["engineIdentity"],
+    });
+  }
+  if (
+    difference.kind === "deterministic_difference" &&
+    difference.preferenceEligibility === "ineligible" &&
+    difference.direction !== "neutral"
+  ) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Ineligible deterministic differences must be neutral",
+      path: ["direction"],
+    });
+  }
+  if (
+    difference.kind === "deterministic_difference" &&
+    difference.preferenceEligibility === "ineligible" &&
+    difference.valueRelation === "ordered"
+  ) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Ineligible deterministic differences cannot order values",
+      path: ["valueRelation"],
+    });
+  }
+  if (
+    difference.kind === "deterministic_difference" &&
+    difference.preferenceEligibility === "deterministic" &&
+    difference.direction === "neutral" &&
+    difference.valueRelation !== "equal"
+  ) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Eligible neutral differences must represent equal values",
+      path: ["valueRelation"],
+    });
+  }
+  if (
+    difference.kind === "deterministic_difference" &&
+    difference.preferenceEligibility === "deterministic" &&
+    difference.direction !== "neutral" &&
+    difference.valueRelation !== "ordered"
+  ) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Eligible directional differences must order values",
+      path: ["valueRelation"],
+    });
+  }
+  if (
+    difference.direction === "neutral" &&
+    difference.valueRelation === "ordered"
+  ) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Neutral differences cannot order values",
+      path: ["valueRelation"],
+    });
+  }
+  if (
+    difference.direction !== "neutral" &&
+    difference.valueRelation !== "ordered"
+  ) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Directional differences must order values",
+      path: ["valueRelation"],
+    });
+  }
+  if (difference.direction !== "neutral" && valuesEqual) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Directional differences require unequal factor values",
+      path: ["direction"],
+    });
+  }
+  if (
+    difference.direction === "neutral" &&
+    valuesEqual &&
+    difference.valueRelation !== "equal"
+  ) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Equal factor values require an equal relation",
+      path: ["valueRelation"],
+    });
+  }
+  if (
+    difference.direction === "neutral" &&
+    !valuesEqual &&
+    difference.valueRelation !== "different"
+  ) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Unequal factor values require a different relation",
+      path: ["valueRelation"],
     });
   }
 });

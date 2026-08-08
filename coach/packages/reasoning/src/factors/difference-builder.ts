@@ -35,14 +35,34 @@ export interface DeterministicCoverageEntry {
   comparisonSignature: string;
 }
 
-const deterministicDirection = {
-  shanten: "lower",
-  ukeire_remaining: "higher",
-  dora_count: "higher",
-  completed_hand_point: "higher",
-} as const;
-
 type NumericPreference = "lower" | "higher" | "true";
+
+interface DeterministicDirectionSpec {
+  preference: NumericPreference;
+  valueKind: FactorValue["kind"];
+  unit?: string;
+}
+
+const deterministicDirectionRegistry = new Map<string, DeterministicDirectionSpec>([
+  ["efficiency\u0000shanten", {
+    preference: "lower", valueKind: "number", unit: "shanten",
+  }],
+  ["efficiency\u0000ukeire_remaining", {
+    preference: "higher", valueKind: "tile_counts",
+  }],
+  ["efficiency\u0000overall_shanten", {
+    preference: "lower", valueKind: "number", unit: "shanten",
+  }],
+  ["efficiency\u0000overall_effective_tiles_remaining", {
+    preference: "higher", valueKind: "tile_counts",
+  }],
+  ["value\u0000dora_count", {
+    preference: "higher", valueKind: "number", unit: "dora_count",
+  }],
+  ["value\u0000completed_hand_point", {
+    preference: "higher", valueKind: "number", unit: "points",
+  }],
+]);
 
 function stableJson(value: unknown): string {
   if (Array.isArray(value)) return `[${value.map(stableJson).join(",")}]`;
@@ -120,9 +140,23 @@ function compareNumbers(
   return left > right ? "supports_left" : "supports_right";
 }
 
-function deterministicPreference(dimension: string): NumericPreference | undefined {
-  if (dimension.startsWith("genbutsu:actor")) return "true";
-  return deterministicDirection[dimension as keyof typeof deterministicDirection];
+function deterministicSpec(
+  axis: Axis,
+  dimension: string,
+): DeterministicDirectionSpec | undefined {
+  if (axis === "defense" && dimension.startsWith("genbutsu:actor")) {
+    return { preference: "true", valueKind: "boolean" };
+  }
+  return deterministicDirectionRegistry.get(`${axis}\u0000${dimension}`);
+}
+
+function valueMatchesSpec(
+  value: FactorValue | undefined,
+  spec: DeterministicDirectionSpec,
+): value is FactorValue {
+  if (value === undefined || value.kind !== spec.valueKind) return false;
+  if (value.kind === "number") return value.unit === spec.unit;
+  return spec.unit === undefined;
 }
 
 function deterministicValueDirection(
@@ -171,22 +205,51 @@ function factMap(ledger: CandidateFactorLedger): Map<string, { axis: Axis; fact:
   const result = new Map<string, { axis: Axis; fact: FactorFact }>();
   for (const axis of ledger.axes) {
     for (const fact of axis.facts) {
-      result.set(`${axis.axis}\u0000${fact.dimension}`, { axis: axis.axis, fact });
+      const key = `${axis.axis}\u0000${fact.dimension}`;
+      if (result.has(key)) {
+        throw new Error(
+          `Duplicate factor dimension within axis: ${axis.axis}/${fact.dimension}`,
+        );
+      }
+      result.set(key, { axis: axis.axis, fact });
     }
   }
   return result;
 }
 
-function equalShanten(
+function equalRegisteredNumber(
+  leftFacts: Map<string, { axis: Axis; fact: FactorFact }>,
+  rightFacts: Map<string, { axis: Axis; fact: FactorFact }>,
+  dimension: "shanten" | "overall_shanten",
+): boolean {
+  const left = leftFacts.get(`efficiency\u0000${dimension}`)?.fact;
+  const right = rightFacts.get(`efficiency\u0000${dimension}`)?.fact;
+  const spec = deterministicSpec("efficiency", dimension);
+  return left !== undefined && right !== undefined &&
+    spec !== undefined &&
+    factsComparable(left, right) &&
+    left.preferenceEligibility === "deterministic" &&
+    right.preferenceEligibility === "deterministic" &&
+    valueMatchesSpec(left.value, spec) &&
+    valueMatchesSpec(right.value, spec) &&
+    left.value?.kind === "number" && right.value?.kind === "number" &&
+    left.value.value === right.value.value;
+}
+
+function registeredComparisonAllowed(
+  axis: Axis,
+  dimension: string,
   leftFacts: Map<string, { axis: Axis; fact: FactorFact }>,
   rightFacts: Map<string, { axis: Axis; fact: FactorFact }>,
 ): boolean {
-  const left = leftFacts.get("efficiency\u0000shanten")?.fact;
-  const right = rightFacts.get("efficiency\u0000shanten")?.fact;
-  return left !== undefined && right !== undefined &&
-    factsComparable(left, right) &&
-    left.value?.kind === "number" && right.value?.kind === "number" &&
-    left.value.value === right.value.value;
+  if (axis !== "efficiency") return true;
+  if (dimension === "ukeire_remaining") {
+    return equalRegisteredNumber(leftFacts, rightFacts, "shanten");
+  }
+  if (dimension === "overall_effective_tiles_remaining") {
+    return equalRegisteredNumber(leftFacts, rightFacts, "overall_shanten");
+  }
+  return true;
 }
 
 function buildDifference(
@@ -196,19 +259,23 @@ function buildDifference(
   left: FactorFact,
   right: FactorFact,
   kind: "deterministic_difference" | "heuristic_difference",
+  preferenceEligibility: PreferenceEligibility,
   direction: "supports_left" | "supports_right" | "neutral",
-  valueRelation: "ordered" | "equal" | "different" =
-    direction === "neutral" ? "equal" : "ordered",
+  valueRelation?: "ordered" | "equal" | "different",
 ): FactorDifference {
+  const resolvedValueRelation = valueRelation ?? (direction === "neutral"
+    ? (stableJson(left.value) === stableJson(right.value) ? "equal" : "different")
+    : "ordered");
   const base = {
     differenceId: `difference:v1:${axis}:${left.dimension}:${leftLedger.actionRef}:${rightLedger.actionRef}`,
     kind,
+    preferenceEligibility,
     axis,
     dimension: left.dimension,
     leftActionRef: leftLedger.actionRef,
     rightActionRef: rightLedger.actionRef,
     direction,
-    valueRelation,
+    valueRelation: resolvedValueRelation,
     leftValue: left.value,
     rightValue: right.value,
     evidenceClass: left.evidenceClass,
@@ -227,6 +294,7 @@ export function buildFactorDifferences(
   const ledgers = [...rawLedgers].sort((left, right) =>
     left.actionRef.localeCompare(right.actionRef)
   );
+  const factsByLedger = ledgers.map((ledger) => factMap(ledger));
   const deterministic: FactorDifference[] = [];
   const heuristic: FactorDifference[] = [];
 
@@ -234,8 +302,8 @@ export function buildFactorDifferences(
     for (let rightIndex = leftIndex + 1; rightIndex < ledgers.length; rightIndex += 1) {
       const leftLedger = ledgers[leftIndex]!;
       const rightLedger = ledgers[rightIndex]!;
-      const leftFacts = factMap(leftLedger);
-      const rightFacts = factMap(rightLedger);
+      const leftFacts = factsByLedger[leftIndex]!;
+      const rightFacts = factsByLedger[rightIndex]!;
       for (const [key, leftEntry] of [...leftFacts.entries()].sort(([left], [right]) =>
         left.localeCompare(right)
       )) {
@@ -248,13 +316,27 @@ export function buildFactorDifferences(
         }
 
         if (left.preferenceEligibility === "deterministic") {
-          const preference = deterministicPreference(left.dimension);
-          if (preference === undefined) continue;
-          if (left.dimension === "ukeire_remaining" && !equalShanten(leftFacts, rightFacts)) {
-            continue;
-          }
-          const direction = deterministicValueDirection(left.value, right.value, preference);
-          if (direction === undefined) continue;
+          const spec = deterministicSpec(leftEntry.axis, left.dimension);
+          const direction = spec === undefined ||
+              !valueMatchesSpec(left.value, spec) ||
+              !valueMatchesSpec(right.value, spec) ||
+              !registeredComparisonAllowed(
+                leftEntry.axis,
+                left.dimension,
+                leftFacts,
+                rightFacts,
+            )
+            ? undefined
+            : deterministicValueDirection(
+              left.value,
+              right.value,
+              spec.preference,
+            );
+          const rawValuesEqual = stableJson(left.value) === stableJson(right.value);
+          const preferenceEligibility = direction === undefined ||
+              (direction === "neutral" && !rawValuesEqual)
+            ? "ineligible"
+            : "deterministic";
           deterministic.push(buildDifference(
             leftEntry.axis,
             leftLedger,
@@ -262,7 +344,30 @@ export function buildFactorDifferences(
             left,
             right,
             "deterministic_difference",
-            direction,
+            preferenceEligibility,
+            preferenceEligibility === "deterministic"
+              ? direction!
+              : "neutral",
+            preferenceEligibility === "deterministic"
+              ? undefined
+              : (rawValuesEqual ? "equal" : "different"),
+          ));
+          continue;
+        }
+
+        if (left.preferenceEligibility === "ineligible") {
+          deterministic.push(buildDifference(
+            leftEntry.axis,
+            leftLedger,
+            rightLedger,
+            left,
+            right,
+            "deterministic_difference",
+            "ineligible",
+            "neutral",
+            stableJson(left.value) === stableJson(right.value)
+              ? "equal"
+              : "different",
           ));
           continue;
         }
@@ -277,6 +382,7 @@ export function buildFactorDifferences(
               left,
               right,
               "heuristic_difference",
+              "heuristic_only",
               "neutral",
               "different",
             ));
@@ -289,6 +395,7 @@ export function buildFactorDifferences(
             left,
             right,
             "heuristic_difference",
+            "heuristic_only",
             direction,
           ));
         }
@@ -309,16 +416,22 @@ export function buildFactorDifferences(
       (axis) => axis.facts
         .filter((fact) =>
           fact.evidenceClass !== "versioned_upstream_estimate" &&
-          deterministicPreference(fact.dimension) !== undefined
+          deterministicSpec(axis.axis, fact.dimension) !== undefined
         )
-        .map((fact) => ({
-          actionRef: ledger.actionRef,
-          axis: axis.axis,
-          dimension: fact.dimension,
-          status: fact.status,
-          preferenceEligibility: fact.preferenceEligibility,
-          comparisonSignature: deterministicComparisonSignature(fact),
-        })),
+        .map((fact) => {
+          const spec = deterministicSpec(axis.axis, fact.dimension)!;
+          const eligible = fact.status === "calculated" &&
+            fact.preferenceEligibility === "deterministic" &&
+            valueMatchesSpec(fact.value, spec);
+          return {
+            actionRef: ledger.actionRef,
+            axis: axis.axis,
+            dimension: fact.dimension,
+            status: fact.status,
+            preferenceEligibility: eligible ? "deterministic" : "ineligible",
+            comparisonSignature: deterministicComparisonSignature(fact),
+          };
+        }),
     )),
   };
 }

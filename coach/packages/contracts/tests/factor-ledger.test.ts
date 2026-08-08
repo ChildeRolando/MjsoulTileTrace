@@ -126,6 +126,7 @@ describe("structured factor ledger", () => {
       valueRelation: "ordered",
       leftValue: { kind: "number", value: 2.1, unit: "helper_risk_scale" },
       rightValue: { kind: "number", value: 8, unit: "helper_risk_scale" },
+      preferenceEligibility: "heuristic_only",
       evidenceClass: "versioned_upstream_estimate",
       engineIdentity: {
         engine: "mahjong-helper",
@@ -136,6 +137,213 @@ describe("structured factor ledger", () => {
       evidenceIds: ["event-riichi"],
       limitations: ["Same pinned helper version"],
     }).kind).toBe("heuristic_difference");
+  });
+
+  it("rejects duplicate dimensions within one axis even when factor keys differ", () => {
+    const fact = {
+      dimension: "overall_shanten",
+      status: "calculated",
+      evidenceClass: "deterministic_local_replay",
+      preferenceEligibility: "deterministic",
+      value: { kind: "number", value: 1, unit: "shanten" },
+      evidenceIds: ["state:1"],
+      limitations: [],
+    } as const;
+    expect(() => CandidateFactorLedgerSchema.parse({
+      actionRef: left,
+      projectedStateRef: "state:duplicate-dimension",
+      axes: completeAxes({
+        axis: "efficiency",
+        status: "calculated",
+        facts: [
+          { ...fact, factorKey: "efficiency.overall_shanten" },
+          { ...fact, factorKey: "efficiency.alias_shanten" },
+        ],
+      }),
+      diagnostics: [],
+    })).toThrow("dimensions must be unique");
+  });
+
+  it("requires explicit preference eligibility on every difference kind", () => {
+    const base = {
+      differenceId: "difference:shape",
+      axis: "efficiency",
+      dimension: "wait_shape",
+      leftActionRef: left,
+      rightActionRef: right,
+      direction: "neutral",
+      valueRelation: "different",
+      leftValue: { kind: "classification", value: "ryanmen" },
+      rightValue: { kind: "classification", value: "kanchan" },
+      evidenceIds: ["state:1"],
+      limitations: [],
+    } as const;
+
+    expect(FactorDifferenceSchema.parse({
+      ...base,
+      kind: "deterministic_difference",
+      preferenceEligibility: "ineligible",
+      evidenceClass: "deterministic_local_replay",
+    }).preferenceEligibility).toBe("ineligible");
+    expect(() => FactorDifferenceSchema.parse({
+      ...base,
+      kind: "deterministic_difference",
+      preferenceEligibility: "heuristic_only",
+      evidenceClass: "deterministic_local_replay",
+    })).toThrow();
+    expect(() => FactorDifferenceSchema.parse({
+      ...base,
+      kind: "heuristic_difference",
+      preferenceEligibility: "deterministic",
+      evidenceClass: "versioned_upstream_estimate",
+      engineIdentity: {
+        engine: "mahjong-helper",
+        upstreamCommit: "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+        adapterVersion: "0.1.0",
+        protocolVersion: "mahjong-facts/v1",
+      },
+    })).toThrow();
+  });
+
+  it("forces ineligible deterministic differences to remain descriptive", () => {
+    const base = {
+      differenceId: "difference:shape",
+      kind: "deterministic_difference",
+      preferenceEligibility: "ineligible",
+      axis: "efficiency",
+      dimension: "wait_shape",
+      leftActionRef: left,
+      rightActionRef: right,
+      leftValue: { kind: "classification", value: "ryanmen" },
+      rightValue: { kind: "classification", value: "kanchan" },
+      evidenceClass: "deterministic_local_replay",
+      evidenceIds: ["state:1"],
+      limitations: [],
+    } as const;
+
+    expect(() => FactorDifferenceSchema.parse({
+      ...base,
+      direction: "supports_left",
+      valueRelation: "ordered",
+    })).toThrow("Ineligible deterministic differences must be neutral");
+    expect(FactorDifferenceSchema.parse({
+      ...base,
+      direction: "neutral",
+      valueRelation: "different",
+    }).valueRelation).toBe("different");
+    expect(() => FactorDifferenceSchema.parse({
+      ...base,
+      direction: "neutral",
+      valueRelation: "equal",
+    })).toThrow("Unequal factor values require a different relation");
+    expect(() => FactorDifferenceSchema.parse({
+      ...base,
+      rightValue: base.leftValue,
+      direction: "neutral",
+      valueRelation: "different",
+    })).toThrow("Equal factor values require an equal relation");
+    expect(FactorDifferenceSchema.parse({
+      ...base,
+      rightValue: base.leftValue,
+      direction: "neutral",
+      valueRelation: "equal",
+    }).valueRelation).toBe("equal");
+  });
+
+  it("requires eligible deterministic direction and value relation to agree", () => {
+    const base = {
+      differenceId: "difference:shanten",
+      kind: "deterministic_difference",
+      preferenceEligibility: "deterministic",
+      axis: "efficiency",
+      dimension: "overall_shanten",
+      leftActionRef: left,
+      rightActionRef: right,
+      leftValue: { kind: "number", value: 1, unit: "shanten" },
+      rightValue: { kind: "number", value: 2, unit: "shanten" },
+      evidenceClass: "deterministic_local_replay",
+      evidenceIds: ["state:1"],
+      limitations: [],
+    } as const;
+
+    expect(() => FactorDifferenceSchema.parse({
+      ...base,
+      direction: "neutral",
+      valueRelation: "different",
+    })).toThrow("Eligible neutral differences must represent equal values");
+    expect(() => FactorDifferenceSchema.parse({
+      ...base,
+      direction: "supports_left",
+      valueRelation: "equal",
+    })).toThrow("Eligible directional differences must order values");
+    expect(() => FactorDifferenceSchema.parse({
+      ...base,
+      rightValue: base.leftValue,
+      direction: "supports_left",
+      valueRelation: "ordered",
+    })).toThrow("Directional differences require unequal factor values");
+    expect(FactorDifferenceSchema.parse({
+      ...base,
+      rightValue: base.leftValue,
+      direction: "neutral",
+      valueRelation: "equal",
+    }).direction).toBe("neutral");
+    expect(FactorDifferenceSchema.parse({
+      ...base,
+      direction: "supports_left",
+      valueRelation: "ordered",
+    }).direction).toBe("supports_left");
+  });
+
+  it("requires heuristic direction, relation, and canonical values to agree", () => {
+    const base = {
+      differenceId: "difference:risk",
+      kind: "heuristic_difference",
+      preferenceEligibility: "heuristic_only",
+      axis: "defense",
+      dimension: "helper_risk_scale:actor2",
+      leftActionRef: left,
+      rightActionRef: right,
+      leftValue: { kind: "number", value: 2, unit: "helper_risk_scale" },
+      rightValue: { kind: "number", value: 8, unit: "helper_risk_scale" },
+      evidenceClass: "versioned_upstream_estimate",
+      engineIdentity: {
+        engine: "mahjong-helper",
+        upstreamCommit: "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+        adapterVersion: "0.1.0",
+        protocolVersion: "mahjong-facts/v1",
+      },
+      evidenceIds: ["request:risk"],
+      limitations: [],
+    } as const;
+
+    expect(() => FactorDifferenceSchema.parse({
+      ...base,
+      direction: "supports_left",
+      valueRelation: "different",
+    })).toThrow("Directional differences must order values");
+    expect(() => FactorDifferenceSchema.parse({
+      ...base,
+      rightValue: base.leftValue,
+      direction: "supports_left",
+      valueRelation: "ordered",
+    })).toThrow("Directional differences require unequal factor values");
+    expect(() => FactorDifferenceSchema.parse({
+      ...base,
+      direction: "neutral",
+      valueRelation: "ordered",
+    })).toThrow("Neutral differences cannot order values");
+    expect(() => FactorDifferenceSchema.parse({
+      ...base,
+      direction: "neutral",
+      valueRelation: "equal",
+    })).toThrow("Unequal factor values require a different relation");
+    expect(() => FactorDifferenceSchema.parse({
+      ...base,
+      rightValue: base.leftValue,
+      direction: "neutral",
+      valueRelation: "different",
+    })).toThrow("Equal factor values require an equal relation");
   });
 
   it("requires the exact canonical five-axis ledger shape", () => {

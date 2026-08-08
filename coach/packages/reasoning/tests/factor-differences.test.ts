@@ -6,6 +6,7 @@ import {
   type CandidateFactorLedger,
   type EngineIdentity,
   type FactorFact,
+  type FactorValue,
 } from "@riichi-coach/contracts";
 import { buildFactorDifferences } from "../src/factors/difference-builder.js";
 
@@ -44,6 +45,10 @@ function engineNumber(
     evidenceIds: ["request:hand13"],
     limitations: [],
   };
+}
+
+function shantenFact(value: number): FactorFact {
+  return engineNumber("efficiency.shanten", "shanten", value, "shanten");
 }
 
 function ukeire(entries: Array<{ tile34: number; count: number }>): FactorFact {
@@ -141,6 +146,42 @@ function ledger(
   });
 }
 
+function localFact(
+  key: string,
+  dimension: string,
+  value: FactorValue,
+  preferenceEligibility: FactorFact["preferenceEligibility"] = "deterministic",
+): FactorFact {
+  return {
+    factorKey: key,
+    dimension,
+    status: "calculated",
+    evidenceClass: "deterministic_local_replay",
+    preferenceEligibility,
+    value,
+    evidenceIds: ["state:canonical"],
+    limitations: [],
+  };
+}
+
+function ledgerWithAxis(
+  actionRef: ActionRef,
+  axis: "efficiency" | "value" | "defense",
+  facts: FactorFact[],
+  status: "calculated" | "blocked_missing_facts" = "calculated",
+): CandidateFactorLedger {
+  return CandidateFactorLedgerSchema.parse({
+    actionRef,
+    projectedStateRef: `state:${actionRef}`,
+    axes: ["efficiency", "value", "defense", "placement", "option_value"].map(
+      (entry) => entry === axis
+        ? { axis: entry, status, facts }
+        : { axis: entry, status: "unsupported_dimension", facts: [] },
+    ),
+    diagnostics: [],
+  });
+}
+
 describe("factor difference builder", () => {
   it("compares equal-shanten ukeire while preserving tile counts", () => {
     const result = buildFactorDifferences([
@@ -177,9 +218,13 @@ describe("factor difference builder", () => {
 
     expect(result.deterministic.find((entry) => entry.dimension === "shanten"))
       .toMatchObject({ direction: "supports_left" });
-    expect(result.deterministic.some(
+    expect(result.deterministic.find(
       (entry) => entry.dimension === "ukeire_remaining",
-    )).toBe(false);
+    )).toMatchObject({
+      preferenceEligibility: "ineligible",
+      direction: "neutral",
+      valueRelation: "different",
+    });
   });
 
   it("stores helper risk only as a heuristic difference", () => {
@@ -229,5 +274,259 @@ describe("factor difference builder", () => {
       ledger(twoPin, [], [helperClassification("suji")]),
       ledger(sixSou, [], [helperClassification("no_suji")]),
     ]).deterministic).toEqual([]);
+  });
+
+  it("keys deterministic direction by both axis and dimension", () => {
+    const misplaced = buildFactorDifferences([
+      ledgerWithAxis(twoPin, "efficiency", [
+        localFact("efficiency.fake_dora", "dora_count", {
+          kind: "number", value: 3, unit: "count",
+        }),
+      ]),
+      ledgerWithAxis(sixSou, "efficiency", [
+        localFact("efficiency.fake_dora", "dora_count", {
+          kind: "number", value: 1, unit: "count",
+        }),
+      ]),
+    ]).deterministic[0];
+    expect(misplaced).toMatchObject({
+      axis: "efficiency",
+      dimension: "dora_count",
+      preferenceEligibility: "ineligible",
+      direction: "neutral",
+      valueRelation: "different",
+    });
+
+    const registered = buildFactorDifferences([
+      ledgerWithAxis(twoPin, "value", [
+        localFact("value.dora", "dora_count", {
+          kind: "number", value: 3, unit: "dora_count",
+        }),
+      ]),
+      ledgerWithAxis(sixSou, "value", [
+        localFact("value.dora", "dora_count", {
+          kind: "number", value: 1, unit: "dora_count",
+        }),
+      ]),
+    ]).deterministic[0];
+    expect(registered).toMatchObject({
+      axis: "value",
+      preferenceEligibility: "deterministic",
+      direction: "supports_left",
+      valueRelation: "ordered",
+    });
+  });
+
+  it("compares only registered V2 overall efficiency dimensions", () => {
+    const result = buildFactorDifferences([
+      ledgerWithAxis(twoPin, "efficiency", [
+        engineNumber("efficiency.overall_shanten", "overall_shanten", 1, "shanten"),
+        localFact("efficiency.overall_effective", "overall_effective_tiles_remaining", {
+          kind: "tile_counts", value: [{ tile34: 3, count: 2 }, { tile34: 6, count: 4 }],
+        }),
+        engineNumber("efficiency.standard_shanten", "standard_shanten", 2, "shanten"),
+      ]),
+      ledgerWithAxis(sixSou, "efficiency", [
+        engineNumber("efficiency.overall_shanten", "overall_shanten", 1, "shanten"),
+        localFact("efficiency.overall_effective", "overall_effective_tiles_remaining", {
+          kind: "tile_counts", value: [{ tile34: 3, count: 2 }],
+        }),
+        engineNumber("efficiency.standard_shanten", "standard_shanten", 1, "shanten"),
+      ]),
+    ]);
+
+    expect(result.deterministic.find((entry) =>
+      entry.dimension === "overall_effective_tiles_remaining"
+    )).toMatchObject({
+      preferenceEligibility: "deterministic",
+      direction: "supports_left",
+    });
+    expect(result.deterministic.find((entry) =>
+      entry.dimension === "standard_shanten"
+    )).toMatchObject({
+      preferenceEligibility: "ineligible",
+      direction: "neutral",
+      valueRelation: "different",
+    });
+    expect(result.deterministicCoverage.map((entry) => entry.dimension).sort())
+      .toEqual([
+        "overall_effective_tiles_remaining",
+        "overall_effective_tiles_remaining",
+        "overall_shanten",
+        "overall_shanten",
+      ]);
+  });
+
+  it.each([
+    [
+      "classification",
+      { kind: "classification", value: "ryanmen" },
+      { kind: "classification", value: "kanchan" },
+    ],
+    [
+      "string_set",
+      { kind: "string_set", values: ["pinfu"] },
+      { kind: "string_set", values: ["tanyao"] },
+    ],
+    [
+      "boolean",
+      { kind: "boolean", value: true },
+      { kind: "boolean", value: false },
+    ],
+    [
+      "integer_ids",
+      { kind: "integer_ids", values: [1, 3] },
+      { kind: "integer_ids", values: [2] },
+    ],
+    [
+      "tile_counts",
+      { kind: "tile_counts", value: [{ tile34: 1, count: 2 }] },
+      { kind: "tile_counts", value: [{ tile34: 2, count: 2 }] },
+    ],
+  ] as const)("preserves deterministic descriptive %s changes", (_kind, left, right) => {
+    const difference = buildFactorDifferences([
+      ledgerWithAxis(twoPin, "efficiency", [
+        localFact(
+          "efficiency.description",
+          "descriptive_shape",
+          left as FactorValue,
+        ),
+      ]),
+      ledgerWithAxis(sixSou, "efficiency", [
+        localFact(
+          "efficiency.description",
+          "descriptive_shape",
+          right as FactorValue,
+        ),
+      ]),
+    ]).deterministic[0];
+    expect(difference).toMatchObject({
+      preferenceEligibility: "ineligible",
+      direction: "neutral",
+      valueRelation: "different",
+      leftValue: left,
+      rightValue: right,
+    });
+  });
+
+  it("fail-fasts when an unparsed ledger repeats an axis dimension", () => {
+    const duplicate = ledgerWithAxis(twoPin, "efficiency", [shantenFact(1)]);
+    const firstAxis = duplicate.axes.find((axis) => axis.axis === "efficiency")!;
+    const malformed = {
+      ...duplicate,
+      axes: duplicate.axes.map((axis) => axis.axis === "efficiency"
+        ? {
+          ...firstAxis,
+          facts: [
+            ...firstAxis.facts,
+            { ...firstAxis.facts[0]!, factorKey: "efficiency.alias" },
+          ],
+        }
+        : axis),
+    } as CandidateFactorLedger;
+    expect(() => buildFactorDifferences([malformed]))
+      .toThrow("Duplicate factor dimension");
+  });
+
+  it("does not compare mixed evidence identity, units, or limitations", () => {
+    const variants: FactorFact[] = [
+      { ...engineNumber("efficiency.shanten", "shanten", 2, "shanten"),
+        evidenceClass: "deterministic_under_assumptions" },
+      engineNumber("efficiency.shanten", "shanten", 2, "tiles"),
+      { ...engineNumber("efficiency.shanten", "shanten", 2, "shanten"),
+        limitations: ["Different assumption"] },
+    ];
+    for (const variant of variants) {
+      const result = buildFactorDifferences([
+        ledgerWithAxis(twoPin, "efficiency", [shantenFact(1)]),
+        ledgerWithAxis(sixSou, "efficiency", [variant]),
+      ]);
+      expect(result.deterministic).toEqual([]);
+    }
+
+    const changedIdentity = ledgerWithAxis(
+      sixSou, "efficiency", [shantenFact(2)],
+    );
+    const changedFact = changedIdentity.axes[0]!.facts[0]!;
+    const malformedIdentity = {
+      ...changedIdentity,
+      axes: changedIdentity.axes.map((axis, index) => index === 0
+        ? {
+          ...axis,
+          facts: [{
+            ...changedFact,
+            engineIdentity: {
+              ...changedFact.engineIdentity!,
+              upstreamCommit: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            },
+          }],
+        }
+        : axis),
+    } as CandidateFactorLedger;
+    expect(buildFactorDifferences([
+      ledgerWithAxis(twoPin, "efficiency", [shantenFact(1)]),
+      malformedIdentity,
+    ]).deterministic).toEqual([]);
+  });
+
+  it("keeps blocked registry facts out of differences without inventing zero", () => {
+    const blocked = {
+      ...engineNumber("efficiency.overall_shanten", "overall_shanten", 0, "shanten"),
+      status: "blocked_missing_facts",
+      preferenceEligibility: "ineligible",
+      value: undefined,
+    } as unknown as FactorFact;
+    const left = ledgerWithAxis(
+      twoPin, "efficiency", [blocked], "blocked_missing_facts",
+    );
+    const right = ledgerWithAxis(
+      sixSou, "efficiency", [blocked], "blocked_missing_facts",
+    );
+    const result = buildFactorDifferences([left, right]);
+    expect(result.deterministic).toEqual([]);
+    expect(result.deterministicCoverage).toMatchObject([
+      { status: "blocked_missing_facts", preferenceEligibility: "ineligible" },
+      { status: "blocked_missing_facts", preferenceEligibility: "ineligible" },
+    ]);
+  });
+
+  it("never promotes malicious heuristic or explicitly ineligible registered facts", () => {
+    const malicious = {
+      ...helperRisk(1),
+      factorKey: "efficiency.overall_shanten",
+      dimension: "overall_shanten",
+      value: { kind: "number", value: 1, unit: "shanten" },
+    } as FactorFact;
+    const explicitlyIneligible = localFact(
+      "efficiency.overall_shanten",
+      "overall_shanten",
+      { kind: "number", value: 1, unit: "shanten" },
+      "ineligible",
+    );
+    const counterpart = localFact(
+      "efficiency.overall_shanten",
+      "overall_shanten",
+      { kind: "number", value: 2, unit: "shanten" },
+      "ineligible",
+    );
+    const heuristic = buildFactorDifferences([
+      ledgerWithAxis(twoPin, "efficiency", [malicious]),
+      ledgerWithAxis(sixSou, "efficiency", [{ ...malicious,
+        value: { kind: "number", value: 2, unit: "shanten" } }]),
+    ]);
+    expect(heuristic.deterministic).toEqual([]);
+    expect(heuristic.deterministicCoverage).toEqual([]);
+    expect(heuristic.heuristic[0]).toMatchObject({
+      preferenceEligibility: "heuristic_only",
+    });
+
+    const ineligible = buildFactorDifferences([
+      ledgerWithAxis(twoPin, "efficiency", [explicitlyIneligible]),
+      ledgerWithAxis(sixSou, "efficiency", [counterpart]),
+    ]);
+    expect(ineligible.deterministic[0]).toMatchObject({
+      preferenceEligibility: "ineligible",
+      direction: "neutral",
+    });
   });
 });
