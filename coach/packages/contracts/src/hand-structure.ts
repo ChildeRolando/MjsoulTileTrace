@@ -14,6 +14,32 @@ const Tile34Schema = z.number().int().min(0).max(33);
 const FamilySchema = z.enum(["standard", "chiitoitsu", "kokushi"]);
 export type HandFamily = z.infer<typeof FamilySchema>;
 
+export const YakuContextV2Schema = z.object({
+  windsStatus: z.enum(["known", "unknown"]),
+  roundWindTile34: z.number().int().min(27).max(29).nullable(),
+  selfWindTile34: z.number().int().min(27).max(30).nullable(),
+  riichiStatus: z.enum(["accepted", "inactive", "unknown"]),
+  openTanyaoStatus: z.enum(["enabled", "disabled", "unknown"]),
+}).strict().superRefine((yakuContext, context) => {
+  const hasRoundWind = yakuContext.roundWindTile34 !== null;
+  const hasSelfWind = yakuContext.selfWindTile34 !== null;
+  if (yakuContext.windsStatus === "known" && (!hasRoundWind || !hasSelfWind)) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Known winds require both roundWindTile34 and selfWindTile34",
+      path: ["windsStatus"],
+    });
+  }
+  if (yakuContext.windsStatus === "unknown" && (hasRoundWind || hasSelfWind)) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Unknown winds require null roundWindTile34 and selfWindTile34",
+      path: ["windsStatus"],
+    });
+  }
+});
+export type YakuContextV2 = z.infer<typeof YakuContextV2Schema>;
+
 const MeldSchema = z.object({
   kind: z.enum(["chi", "pon", "daiminkan", "ankan", "kakan"]),
   tiles34: z.array(Tile34Schema).min(3).max(4),
@@ -60,10 +86,12 @@ export const HandStructureRequestV2Schema = z.object({
   visibleCountsComplete: z.boolean(),
   ronContext: z.enum([
     "complete_none",
-    "known_chankan",
+    "known_kakan_chankan",
+    "known_ankan_chankan",
     "known_houtei",
     "unknown_future",
   ]),
+  yakuContext: YakuContextV2Schema,
 }).strict().superRefine((request, context) => {
   const concealed = request.handTiles34.reduce((sum, count) => sum + count, 0);
   const expected = 13 - request.melds.length * 3;
@@ -103,6 +131,16 @@ export const HandStructureRequestV2Schema = z.object({
           path: ["leftTiles34", tile34],
         });
       }
+    });
+  }
+  if (
+    request.yakuContext.riichiStatus === "accepted" &&
+    request.melds.some((meld) => meld.kind !== "ankan")
+  ) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Accepted riichi is incompatible with an open meld",
+      path: ["yakuContext", "riichiStatus"],
     });
   }
 });

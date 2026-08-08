@@ -15,6 +15,10 @@ func counts34(tiles ...int) []int {
 	return counts
 }
 
+func intPointer(value int) *int {
+	return &value
+}
+
 func goldenHandStructureRequest() HandStructureRequestV2 {
 	hand := counts34(0, 1, 2, 9, 10, 11, 18, 19, 20, 24, 25, 27, 27)
 	return HandStructureRequestV2{
@@ -31,6 +35,13 @@ func goldenHandStructureRequest() HandStructureRequestV2 {
 		LeftTiles34:           theoreticalLeftTiles34(hand, nil),
 		VisibleCountsComplete: true,
 		RonContext:            "complete_none",
+		YakuContext: YakuContextV2{
+			WindsStatus:      "known",
+			RoundWindTile34:  intPointer(27),
+			SelfWindTile34:   intPointer(28),
+			RiichiStatus:     "inactive",
+			OpenTanyaoStatus: "enabled",
+		},
 	}
 }
 
@@ -123,6 +134,174 @@ func TestEffectiveTilesSkipPhysicallyExhaustedOwnedKind(t *testing.T) {
 func TestValidateHandStructureAcceptsStrictClosedRequest(t *testing.T) {
 	if err := validateHandStructureRequest(goldenHandStructureRequest()); err != nil {
 		t.Fatalf("valid hand-structure request rejected: %v", err)
+	}
+}
+
+func handStructureRequestJSON(t *testing.T) map[string]any {
+	t.Helper()
+	encoded, err := json.Marshal(goldenHandStructureRequest())
+	if err != nil {
+		t.Fatalf("marshal hand-structure request: %v", err)
+	}
+	var raw map[string]any
+	if err := json.Unmarshal(encoded, &raw); err != nil {
+		t.Fatalf("decode hand-structure request map: %v", err)
+	}
+	raw["yakuContext"] = map[string]any{
+		"windsStatus":      "known",
+		"roundWindTile34":  27,
+		"selfWindTile34":   28,
+		"riichiStatus":     "inactive",
+		"openTanyaoStatus": "enabled",
+	}
+	return raw
+}
+
+func decodeAndValidateHandStructureRequest(raw map[string]any) error {
+	encoded, err := json.Marshal(raw)
+	if err != nil {
+		return err
+	}
+	var request HandStructureRequestV2
+	if err := strictDecode(encoded, &request); err != nil {
+		return err
+	}
+	return validateHandStructureRequest(request)
+}
+
+func TestHandStructureYakuContextRequiresEveryStrictJSONField(t *testing.T) {
+	t.Run("missing yakuContext", func(t *testing.T) {
+		raw := handStructureRequestJSON(t)
+		delete(raw, "yakuContext")
+		if err := decodeAndValidateHandStructureRequest(raw); err == nil || !strings.Contains(err.Error(), "yakuContext") {
+			t.Fatalf("validation error = %v, want yakuContext", err)
+		}
+	})
+
+	for _, field := range []string{
+		"windsStatus", "roundWindTile34", "selfWindTile34", "riichiStatus", "openTanyaoStatus",
+	} {
+		t.Run("missing "+field, func(t *testing.T) {
+			raw := handStructureRequestJSON(t)
+			delete(raw["yakuContext"].(map[string]any), field)
+			if err := decodeAndValidateHandStructureRequest(raw); err == nil || !strings.Contains(err.Error(), field) {
+				t.Fatalf("decode error = %v, want %s", err, field)
+			}
+		})
+	}
+
+	t.Run("unknown nested field", func(t *testing.T) {
+		raw := handStructureRequestJSON(t)
+		raw["yakuContext"].(map[string]any)["extra"] = true
+		if err := decodeAndValidateHandStructureRequest(raw); err == nil || !strings.Contains(err.Error(), "extra") {
+			t.Fatalf("decode error = %v, want unknown extra field", err)
+		}
+	})
+}
+
+func TestValidateHandStructureBindsYakuContextSemantics(t *testing.T) {
+	t.Run("wind status and values", func(t *testing.T) {
+		for _, edit := range []func(map[string]any){
+			func(context map[string]any) { context["windsStatus"] = "known"; context["roundWindTile34"] = nil },
+			func(context map[string]any) { context["windsStatus"] = "unknown" },
+			func(context map[string]any) { context["windsStatus"] = "unknown"; context["roundWindTile34"] = nil },
+			func(context map[string]any) { context["roundWindTile34"] = 30 },
+			func(context map[string]any) { context["selfWindTile34"] = 31 },
+		} {
+			raw := handStructureRequestJSON(t)
+			edit(raw["yakuContext"].(map[string]any))
+			if err := decodeAndValidateHandStructureRequest(raw); err == nil {
+				t.Fatalf("invalid wind context accepted: %#v", raw["yakuContext"])
+			}
+		}
+
+		raw := handStructureRequestJSON(t)
+		context := raw["yakuContext"].(map[string]any)
+		context["windsStatus"] = "unknown"
+		context["roundWindTile34"] = nil
+		context["selfWindTile34"] = nil
+		if err := decodeAndValidateHandStructureRequest(raw); err != nil {
+			t.Fatalf("valid unknown winds rejected: %v", err)
+		}
+	})
+
+	t.Run("open tanyao states", func(t *testing.T) {
+		for _, status := range []string{"enabled", "disabled", "unknown"} {
+			raw := handStructureRequestJSON(t)
+			raw["yakuContext"].(map[string]any)["openTanyaoStatus"] = status
+			if err := decodeAndValidateHandStructureRequest(raw); err != nil {
+				t.Fatalf("openTanyaoStatus %s rejected: %v", status, err)
+			}
+		}
+	})
+
+	t.Run("invalid status values", func(t *testing.T) {
+		for field, value := range map[string]any{
+			"riichiStatus":     "declared",
+			"openTanyaoStatus": "optional",
+		} {
+			raw := handStructureRequestJSON(t)
+			raw["yakuContext"].(map[string]any)[field] = value
+			if err := decodeAndValidateHandStructureRequest(raw); err == nil || !strings.Contains(err.Error(), field) {
+				t.Fatalf("validation error = %v, want %s", err, field)
+			}
+		}
+	})
+}
+
+func TestValidateHandStructureRejectsZeroYakuContextDirectly(t *testing.T) {
+	request := goldenHandStructureRequest()
+	request.YakuContext = YakuContextV2{}
+	if err := validateHandStructureRequest(request); err == nil || !strings.Contains(err.Error(), "yakuContext") {
+		t.Fatalf("validation error = %v, want direct yakuContext error", err)
+	}
+}
+
+func TestValidateHandStructureRejectsAcceptedRiichiWithOpenMelds(t *testing.T) {
+	for _, meld := range []MeldInput{
+		{Kind: "chi", Tiles34: []int{0, 1, 2}},
+		{Kind: "pon", Tiles34: []int{27, 27, 27}},
+		{Kind: "daiminkan", Tiles34: []int{27, 27, 27, 27}},
+		{Kind: "kakan", Tiles34: []int{27, 27, 27, 27}},
+	} {
+		t.Run(meld.Kind, func(t *testing.T) {
+			raw := handStructureRequestJSON(t)
+			raw["handTiles34"] = counts34(3, 4, 5, 9, 10, 11, 18, 19, 20, 31)
+			raw["melds"] = []MeldInput{meld}
+			raw["visibleCountsComplete"] = false
+			raw["leftTiles34"] = nil
+			raw["yakuContext"].(map[string]any)["riichiStatus"] = "accepted"
+			if err := decodeAndValidateHandStructureRequest(raw); err == nil || !strings.Contains(err.Error(), "riichiStatus") {
+				t.Fatalf("validation error = %v, want riichiStatus conflict", err)
+			}
+		})
+	}
+
+	raw := handStructureRequestJSON(t)
+	raw["handTiles34"] = counts34(3, 4, 5, 9, 10, 11, 18, 19, 20, 31)
+	raw["melds"] = []MeldInput{{Kind: "ankan", Tiles34: []int{27, 27, 27, 27}}}
+	raw["visibleCountsComplete"] = false
+	raw["leftTiles34"] = nil
+	raw["yakuContext"].(map[string]any)["riichiStatus"] = "accepted"
+	if err := decodeAndValidateHandStructureRequest(raw); err != nil {
+		t.Fatalf("accepted riichi with ankan rejected: %v", err)
+	}
+}
+
+func TestValidateHandStructureUsesPreciseRonContexts(t *testing.T) {
+	for _, ronContext := range []string{
+		"complete_none", "known_kakan_chankan", "known_ankan_chankan", "known_houtei", "unknown_future",
+	} {
+		raw := handStructureRequestJSON(t)
+		raw["ronContext"] = ronContext
+		if err := decodeAndValidateHandStructureRequest(raw); err != nil {
+			t.Fatalf("ronContext %s rejected: %v", ronContext, err)
+		}
+	}
+	raw := handStructureRequestJSON(t)
+	raw["ronContext"] = "known_chankan"
+	if err := decodeAndValidateHandStructureRequest(raw); err == nil || !strings.Contains(err.Error(), "ronContext") {
+		t.Fatalf("legacy ron context error = %v", err)
 	}
 }
 

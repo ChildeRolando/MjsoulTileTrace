@@ -31,6 +31,13 @@ function request(): HandStructureRequestV2 {
     leftTiles34: null,
     visibleCountsComplete: false,
     ronContext: "unknown_future" as const,
+    yakuContext: {
+      windsStatus: "known" as const,
+      roundWindTile34: 27,
+      selfWindTile34: 28,
+      riichiStatus: "inactive" as const,
+      openTanyaoStatus: "enabled" as const,
+    },
   };
 }
 
@@ -113,6 +120,153 @@ describe("hand-structure/v2 contracts", () => {
       .toBe("hand-structure/v2");
     expect(() => HandStructureRequestV2Schema.parse({ ...request(), extra: true }))
       .toThrow();
+  });
+
+  it("requires a strict, stable yaku context shape", () => {
+    const missingContext = { ...request() } as Record<string, unknown>;
+    delete missingContext.yakuContext;
+    expect(() => HandStructureRequestV2Schema.parse(missingContext)).toThrow();
+
+    for (const field of [
+      "windsStatus",
+      "roundWindTile34",
+      "selfWindTile34",
+      "riichiStatus",
+      "openTanyaoStatus",
+    ] as const) {
+      const missing = request() as unknown as {
+        yakuContext: Record<string, unknown>;
+      };
+      delete missing.yakuContext[field];
+      expect(() => HandStructureRequestV2Schema.parse(missing)).toThrow();
+    }
+
+    const unknownNested = request() as unknown as {
+      yakuContext: Record<string, unknown>;
+    };
+    unknownNested.yakuContext.extra = true;
+    expect(() => HandStructureRequestV2Schema.parse(unknownNested)).toThrow();
+  });
+
+  it("binds wind status to known wind values and their ranges", () => {
+    const cases = [
+      {
+        ...request(),
+        yakuContext: {
+          ...request().yakuContext,
+          windsStatus: "known",
+          roundWindTile34: null,
+        },
+      },
+      {
+        ...request(),
+        yakuContext: {
+          ...request().yakuContext,
+          windsStatus: "unknown",
+        },
+      },
+      {
+        ...request(),
+        yakuContext: {
+          ...request().yakuContext,
+          windsStatus: "unknown",
+          roundWindTile34: null,
+          selfWindTile34: 28,
+        },
+      },
+      {
+        ...request(),
+        yakuContext: {
+          ...request().yakuContext,
+          roundWindTile34: 30,
+        },
+      },
+      {
+        ...request(),
+        yakuContext: {
+          ...request().yakuContext,
+          selfWindTile34: 31,
+        },
+      },
+    ];
+    for (const invalid of cases) {
+      expect(HandStructureRequestV2Schema.safeParse(invalid).success).toBe(false);
+    }
+
+    const unknown = request();
+    unknown.yakuContext = {
+      ...unknown.yakuContext,
+      windsStatus: "unknown",
+      roundWindTile34: null,
+      selfWindTile34: null,
+    };
+    expect(HandStructureRequestV2Schema.parse(unknown).yakuContext.windsStatus)
+      .toBe("unknown");
+  });
+
+  it("accepts every explicit open-tanyao state", () => {
+    for (const openTanyaoStatus of ["enabled", "disabled", "unknown"] as const) {
+      const candidate = request();
+      candidate.yakuContext.openTanyaoStatus = openTanyaoStatus;
+      expect(HandStructureRequestV2Schema.parse(candidate).yakuContext.openTanyaoStatus)
+        .toBe(openTanyaoStatus);
+    }
+  });
+
+  it("rejects unknown riichi and open-tanyao status values", () => {
+    const badRiichi = request() as unknown as {
+      yakuContext: Record<string, unknown>;
+    };
+    badRiichi.yakuContext.riichiStatus = "declared";
+    expect(HandStructureRequestV2Schema.safeParse(badRiichi).success).toBe(false);
+
+    const badOpenTanyao = request() as unknown as {
+      yakuContext: Record<string, unknown>;
+    };
+    badOpenTanyao.yakuContext.openTanyaoStatus = "optional";
+    expect(HandStructureRequestV2Schema.safeParse(badOpenTanyao).success).toBe(false);
+  });
+
+  it("rejects accepted riichi with open melds but permits ankan", () => {
+    const concealed = [...zeroes];
+    [3, 4, 5, 9, 10, 11, 18, 19, 20, 31].forEach((tile) => {
+      concealed[tile] = concealed[tile]! + 1;
+    });
+    for (const meld of [
+      { kind: "chi" as const, tiles34: [0, 1, 2] },
+      { kind: "pon" as const, tiles34: [27, 27, 27] },
+      { kind: "daiminkan" as const, tiles34: [27, 27, 27, 27] },
+      { kind: "kakan" as const, tiles34: [27, 27, 27, 27] },
+    ]) {
+      const open = request();
+      open.handTiles34 = concealed;
+      open.melds = [meld];
+      open.yakuContext.riichiStatus = "accepted";
+      expect(HandStructureRequestV2Schema.safeParse(open).success).toBe(false);
+    }
+
+    const closedKan = request();
+    closedKan.handTiles34 = concealed;
+    closedKan.melds = [{ kind: "ankan", tiles34: [27, 27, 27, 27] }];
+    closedKan.yakuContext.riichiStatus = "accepted";
+    expect(HandStructureRequestV2Schema.safeParse(closedKan).success).toBe(true);
+  });
+
+  it("uses precise ron-context variants and rejects the ambiguous legacy value", () => {
+    for (const ronContext of [
+      "complete_none",
+      "known_kakan_chankan",
+      "known_ankan_chankan",
+      "known_houtei",
+      "unknown_future",
+    ] as const) {
+      expect(HandStructureRequestV2Schema.parse({ ...request(), ronContext }).ronContext)
+        .toBe(ronContext);
+    }
+    expect(HandStructureRequestV2Schema.safeParse({
+      ...request(),
+      ronContext: "known_chankan",
+    }).success).toBe(false);
   });
 
   it("requires family order and exact best-family minima", () => {

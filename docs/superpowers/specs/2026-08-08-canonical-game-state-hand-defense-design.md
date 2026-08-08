@@ -262,7 +262,9 @@ reducer 同时跟踪预期 actor 和阶段：摸牌、自摸后弃牌、他家�
 - `DivideTiles34` 只用于完成手普通形/七对分解；未完成手的非劣分解由本项目实现穷举、稳定去重和 Pareto 去劣；
 - helper 不公开等待类型；系统从每张等待牌加入后的全部完成分解派生两面、嵌张、边张、双碰、单骑及复合标签；
 - helper 的 `IsFuriten` 只等价于舍牌振听交集，临时和立直后振听必须由 canonical response-opportunity 事件推导；
-- `CalcPoint` 只能提供 helper 支持范围内的基线役资格，缺少场况役或国士上下文时返回 unknown，不得断言无役。
+- `hand_structure/v2` 输入必须携带稳定形状的 `yakuContext`：场风/自风完整性及牌值、立直状态、食断规则状态；缺失事实显式使用 `unknown`，不得省略字段或代入默认规则；
+- 抢杠上下文精确区分加杠抢杠与暗杠抢杠；前者可提供抢杠役，后者只允许已证明的国士路线，不使用含混的通用 `known_chankan`；
+- `CalcPoint` 只能作为 helper 支持范围内的基线役资格证明。对 `unknown` 上下文枚举所有兼容补全：全部补全有役才返回 `eligible`，全部补全无役才返回 `ineligible`，结果分歧或存在 helper 未覆盖的场况时返回 `unknown_missing_situational_yaku_context`。不得由宝牌或模型分数推断役资格。
 
 为避免破坏已发布的 `hand13/v1`，这些能力进入独立严格 `hand_structure` request/result；旧协议继续服务现有回归，直到所有消费者迁移完成。
 
@@ -304,6 +306,10 @@ reducer 同时跟踪预期 actor 和阶段：摸牌、自摸后弃牌、他家�
 - 结构证据。
 
 一个和牌牌可能因不同分解具有多个等待类型；不得强行选一个标签。
+
+役资格计算使用独立的严格上下文账本：`windsStatus` 只有在场风和自风同时已知时为 `known`；`riichiStatus` 区分已接受、未立直和未知；`openTanyaoStatus` 区分启用、禁用和未知。已接受立直与吃、碰、大明杠、加杠等开放副露冲突，暗杠仍保持门清。`ronContext` 仅允许 `complete_none | known_kakan_chankan | known_ankan_chankan | known_houtei | unknown_future`。
+
+这些字段必须由权威 `KnownGameFacts V2` 的分项 completeness 投影。当前最小 `KnownGameFacts` 会丢失一部分“已知/未知”来源，投影层不得提前猜值；该 missingness 边界在 M2-A Task 6 随共享 request builder 一并修复。
 
 ### 8.5 候选动作边界
 

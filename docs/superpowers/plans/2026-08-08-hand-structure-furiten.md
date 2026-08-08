@@ -23,7 +23,7 @@ The following boundaries are mandatory:
 - Use `util.DivideTiles34` only after adding a winning tile. It supports completed standard and chiitoitsu hands, but not kokushi and not incomplete-hand decomposition.
 - Enumerate incomplete standard-hand decompositions locally, retain exact-minimum-shanten non-dominated decompositions, sort/deduplicate them stably, and cap returned decompositions at 64. Return claims shared by all retained decompositions separately from conditional claims.
 - Derive normal wait types from every completed division; retain every applicable label. Chiitoitsu is `tanki`; kokushi is `kokushi_single` or `kokushi_thirteen_sided`.
-- Treat helper `CalcPoint` only as a baseline proof of a known yaku. Ron eligibility is exactly `eligible | ineligible | unknown_missing_situational_yaku_context`; it is never inferred from dora or from a model score.
+- Require strict `yakuContext` on every V2 request: known/unknown winds with nullable values, accepted/inactive/unknown riichi, and enabled/disabled/unknown open tanyao. Treat helper `CalcPoint` only as a baseline proof. Evaluate every admissible completion of unknown context: unanimous positive is `eligible`, unanimous zero is `ineligible`, and disagreement or unsupported situational context is `unknown_missing_situational_yaku_context`. Never infer yaku from dora or a model score.
 - Derive temporary and riichi furiten only when `responseOpportunities === complete`, the historical self hand is reconstructable, V2 proves the offered tile is a ron-eligible wait, and canonical events prove that response window closed without self ron. A self draw clears temporary furiten; riichi furiten survives until round end.
 - Derive discard furiten by intersecting the current wait set with the self river. It is whole-hand furiten: one matching wait makes ron unavailable on every wait.
 - Missing facts block only the dependent component. They do not erase calculated shanten or trigger a broad clarification request.
@@ -111,6 +111,13 @@ function request(): HandStructureRequestV2 {
     leftTiles34: null,
     visibleCountsComplete: false,
     ronContext: "unknown_future" as const,
+    yakuContext: {
+      windsStatus: "known" as const,
+      roundWindTile34: 27,
+      selfWindTile34: 28,
+      riichiStatus: "inactive" as const,
+      openTanyaoStatus: "enabled" as const,
+    },
   };
 }
 
@@ -259,6 +266,23 @@ const Tile34Schema = z.number().int().min(0).max(33);
 const FamilySchema = z.enum(["standard", "chiitoitsu", "kokushi"]);
 export type HandFamily = z.infer<typeof FamilySchema>;
 
+export const YakuContextV2Schema = z.object({
+  windsStatus: z.enum(["known", "unknown"]),
+  roundWindTile34: z.number().int().min(27).max(29).nullable(),
+  selfWindTile34: z.number().int().min(27).max(30).nullable(),
+  riichiStatus: z.enum(["accepted", "inactive", "unknown"]),
+  openTanyaoStatus: z.enum(["enabled", "disabled", "unknown"]),
+}).strict().superRefine((value, context) => {
+  const bothKnown = value.roundWindTile34 !== null && value.selfWindTile34 !== null;
+  const bothNull = value.roundWindTile34 === null && value.selfWindTile34 === null;
+  if (value.windsStatus === "known" && !bothKnown) {
+    context.addIssue({ code: z.ZodIssueCode.custom, message: "Known winds require both values" });
+  }
+  if (value.windsStatus === "unknown" && !bothNull) {
+    context.addIssue({ code: z.ZodIssueCode.custom, message: "Unknown winds require null values" });
+  }
+});
+
 const MeldSchema = z.object({
   kind: z.enum(["chi", "pon", "daiminkan", "ankan", "kakan"]),
   tiles34: z.array(Tile34Schema).min(3).max(4),
@@ -296,10 +320,12 @@ export const HandStructureRequestV2Schema = z.object({
   visibleCountsComplete: z.boolean(),
   ronContext: z.enum([
     "complete_none",
-    "known_chankan",
+    "known_kakan_chankan",
+    "known_ankan_chankan",
     "known_houtei",
     "unknown_future",
   ]),
+  yakuContext: YakuContextV2Schema,
 }).strict().superRefine((request, context) => {
   const concealed = request.handTiles34.reduce((sum, count) => sum + count, 0);
   const expected = 13 - request.melds.length * 3;
@@ -330,6 +356,16 @@ export const HandStructureRequestV2Schema = z.object({
       });
     }
   });
+  if (
+    request.yakuContext.riichiStatus === "accepted" &&
+    request.melds.some((meld) => meld.kind !== "ankan")
+  ) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Accepted riichi is incompatible with an open meld",
+      path: ["yakuContext", "riichiStatus"],
+    });
+  }
 });
 export type HandStructureRequestV2 = z.infer<typeof HandStructureRequestV2Schema>;
 
@@ -641,6 +677,15 @@ type HandStructureRequestV2 struct {
 	LeftTiles34 []int `json:"leftTiles34"`
 	VisibleCountsComplete bool `json:"visibleCountsComplete"`
 	RonContext string `json:"ronContext"`
+	YakuContext YakuContextV2 `json:"yakuContext"`
+}
+
+type YakuContextV2 struct {
+	WindsStatus string `json:"windsStatus"`
+	RoundWindTile34 *int `json:"roundWindTile34"`
+	SelfWindTile34 *int `json:"selfWindTile34"`
+	RiichiStatus string `json:"riichiStatus"`
+	OpenTanyaoStatus string `json:"openTanyaoStatus"`
 }
 
 type EffectiveTileV2 struct {
@@ -710,7 +755,9 @@ type HandStructureResultV2 struct {
 }
 ```
 
-`validateHandStructureRequest` must reject wrong kind/schema, nil meld array, wrong concealed count, impossible ownership, inconsistent visibility, and any `ronContext` outside the four contract values. `analyzeHandStructure` must always return family entries in `standard, chiitoitsu, kokushi` order and effective tiles in ascending Tile34 order. Remaining counts come from `LeftTiles34` only when visibility is complete; otherwise use `blocked_missing_facts` and JSON `null`.
+`YakuContextV2.UnmarshalJSON` must use a no-method alias through `strictDecode` plus `requireJSONFields`, so nested unknown fields and every missing subfield fail before analysis. Direct struct validation must enforce the same invariants: known winds require both non-null values, unknown winds require both null, wind ranges are exact, status values are closed, and `riichiStatus: accepted` conflicts with every open meld except `ankan`.
+
+`validateHandStructureRequest` must reject wrong kind/schema, nil meld array, wrong concealed count, impossible ownership, inconsistent visibility, missing/invalid `yakuContext`, and any `ronContext` outside the five contract values. `analyzeHandStructure` must always return family entries in `standard, chiitoitsu, kokushi` order and effective tiles in ascending Tile34 order. Remaining counts come from `LeftTiles34` only when visibility is complete; otherwise use `blocked_missing_facts` and JSON `null`.
 
 - [ ] **Step 4: Run focused Go tests to verify GREEN**
 
@@ -980,19 +1027,28 @@ Add eligibility cases:
 
 ```go
 func TestRonEligibilityIsConservative(t *testing.T) {
-	if got := baseRonEligibility(yakuHandPlayer(), "complete_none", false); got != "eligible" {
+	known := knownNoYakuContext()
+	if got := baseRonEligibility(yakuHandPlayer(), known, "complete_none", false); got != "eligible" {
 		t.Fatalf("known yaku = %q", got)
 	}
-	if got := baseRonEligibility(noYakuPlayer(), "complete_none", false); got != "ineligible" {
+	if got := baseRonEligibility(noYakuPlayer(), known, "complete_none", false); got != "ineligible" {
 		t.Fatalf("complete no-yaku context = %q", got)
 	}
-	if got := baseRonEligibility(noYakuPlayer(), "unknown_future", false); got != "unknown_missing_situational_yaku_context" {
+	unknown := known
+	unknown.RiichiStatus = "unknown"
+	if got := baseRonEligibility(noYakuPlayer(), unknown, "complete_none", false); got != "unknown_missing_situational_yaku_context" {
+		t.Fatalf("unknown riichi context = %q", got)
+	}
+	if got := baseRonEligibility(noYakuPlayer(), known, "unknown_future", false); got != "unknown_missing_situational_yaku_context" {
 		t.Fatalf("future context = %q", got)
 	}
-	if got := baseRonEligibility(noYakuPlayer(), "known_chankan", false); got != "eligible" {
-		t.Fatalf("chankan supplies yaku = %q", got)
+	if got := baseRonEligibility(noYakuPlayer(), known, "known_kakan_chankan", false); got != "eligible" {
+		t.Fatalf("kakan chankan supplies yaku = %q", got)
 	}
-	if got := baseRonEligibility(nil, "complete_none", true); got != "eligible" {
+	if got := baseRonEligibility(noYakuPlayer(), known, "known_ankan_chankan", false); got != "ineligible" {
+		t.Fatalf("ankan cannot supply generic chankan = %q", got)
+	}
+	if got := baseRonEligibility(nil, known, "known_ankan_chankan", true); got != "eligible" {
 		t.Fatalf("kokushi proves yakuman = %q", got)
 	}
 }
@@ -1028,7 +1084,9 @@ func sequenceWaitType(first, win int) string {
 
 Union every label from every division and never select one preferred label.
 
-Construct a `model.PlayerInfo` for normal/chiitoitsu completed hands and call `util.CalcPoint`. `Point > 0` proves `eligible`. Kokushi proves `eligible` locally. If no baseline yaku is proven: `known_chankan` and `known_houtei` are `eligible`, `complete_none` is `ineligible`, and `unknown_future` is `unknown_missing_situational_yaku_context`. Dora alone must not change eligibility.
+Construct a `model.PlayerInfo` for normal/chiitoitsu completed hands and call `util.CalcPoint`, but never fill missing request facts with one preferred default. Expand `windsStatus: unknown`, `riichiStatus: unknown`, and `openTanyaoStatus: unknown` into every compatible finite context accepted by helper. Evaluate each completion with the same completed hand: all positive results prove `eligible`; all zero results prove `ineligible`; mixed results are `unknown_missing_situational_yaku_context`. A known baseline yaku may prove eligibility even if an unrelated field is unknown, but uncertainty that can change the outcome must remain unknown.
+
+Kokushi proves `eligible` locally. `known_kakan_chankan` and `known_houtei` supply a situational yaku. `known_ankan_chankan` never supplies a generic chankan yaku and is eligible only for the already-proven kokushi path. `complete_none` supplies no situational yaku; `unknown_future` remains unknown unless the hand already has a context-independent proven yaku. Dora alone must not change eligibility. Tests must include unknown wind, unknown riichi, unknown open-tanyao, accepted riichi, disabled open tanyao, and a context-independent yaku so both unanimous and mixed completion cases are locked down.
 
 - [ ] **Step 4: Run all Go hand-analysis tests to verify GREEN**
 
@@ -1086,7 +1144,7 @@ case "hand_structure":
 	}
 	if err := requireJSONFields(line,
 		"schemaVersion", "requestId", "protocolVersion", "actionRef", "stateHash",
-		"handTiles34", "melds", "leftTiles34", "visibleCountsComplete", "ronContext",
+		"handTiles34", "melds", "leftTiles34", "visibleCountsComplete", "ronContext", "yakuContext",
 	); err != nil {
 		return errorResponse(header.RequestID, "invalid_request", err.Error())
 	}
@@ -1141,7 +1199,9 @@ Tests must cover:
 - full visible facts produce exact `leftTiles34`; incomplete rivers produce `null` and do not block the request;
 - future candidate waits use `ronContext: "unknown_future"`;
 - a current discard-response uses `complete_none` or `known_houtei` from exact remaining-draw completeness;
-- kakan response uses `known_chankan`; ankan is projected for kokushi-only qualification in Task 7;
+- kakan response uses `known_kakan_chankan`; ankan uses `known_ankan_chankan` and is projected for kokushi-only qualification in Task 7;
+- `yakuContext` preserves KnownGameFacts missingness exactly: winds are known only when both values are authoritative, and riichi/open-tanyao use `unknown` instead of defaults when their source fact is partial or unknown;
+- accepted riichi plus a non-ankan open meld fails projection rather than being silently normalized;
 - candidate projection never mutates `KnownGameFacts`.
 
 - [ ] **Step 2: Run tests to verify RED**
@@ -1165,6 +1225,7 @@ export interface HandStructureProjectionInput {
   selfMelds: readonly KnownMeld[];
   leftTiles34: readonly number[] | null;
   ronContext: HandStructureRequestV2["ronContext"];
+  yakuContext: HandStructureRequestV2["yakuContext"];
 }
 
 export function buildHandStructureRequestV2(
@@ -1179,6 +1240,7 @@ export function buildHandStructureRequestV2(
     leftTiles34: input.leftTiles34 === null ? null : [...input.leftTiles34],
     visibleCountsComplete: input.leftTiles34 !== null,
     ronContext: input.ronContext,
+    yakuContext: { ...input.yakuContext },
   };
   const stateHash = stableProjectedStateHash(payload);
   return HandStructureRequestV2Schema.parse({
@@ -1194,6 +1256,8 @@ export function buildHandStructureRequestV2(
 ```
 
 Add `handStructureRequest?: HandStructureRequestV2` to the ready projection. For discard and riichi-discard, build it from the already validated `projectedHand`, self melds and `leftTiles34`; keep the old `hand13Request` unchanged because V1 estimates still consume it.
+
+Task 6 must first repair the `KnownGameFacts` projection boundary that currently collapses some component missingness. Add explicit wind, accepted-riichi and open-tanyao source statuses (or a typed derivation with equivalent information) before calling the builder. Do not derive `inactive` from absence of a riichi event when event completeness is not proven, do not assume kuitan enabled when rules are partial, and do not label winds known when either wind value is missing. This is the planned missingness fix; Tasks 1–5 only establish and enforce the strict request boundary.
 
 - [ ] **Step 4: Run projection tests and typecheck to verify GREEN**
 
@@ -1231,7 +1295,7 @@ Build minimal canonical streams and a fixture engine. Assert:
 4. a tile that completes shape but has `ineligible` base ron eligibility does not create furiten;
 5. incomplete response opportunities return `unknown` with no evidence;
 6. a self `win_declared` from the source event is not a pass;
-7. an opponent kakan uses `known_chankan` and can establish furiten;
+7. an opponent kakan uses `known_kakan_chankan` and can establish furiten;
 8. an ankan only counts when the V2 wait family includes kokushi;
 9. when another actor wins and `atamahane` is unknown, the affected component becomes unknown; when atamahane is known, seat priority decides whether self had an opportunity.
 

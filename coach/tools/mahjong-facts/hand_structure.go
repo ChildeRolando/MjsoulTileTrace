@@ -12,12 +12,37 @@ var kokushiTiles34 = [...]int{0, 8, 9, 17, 18, 26, 27, 28, 29, 30, 31, 32, 33}
 
 type HandStructureRequestV2 struct {
 	RequestBase
-	SchemaVersion         string      `json:"schemaVersion"`
-	HandTiles34           []int       `json:"handTiles34"`
-	Melds                 []MeldInput `json:"melds"`
-	LeftTiles34           []int       `json:"leftTiles34"`
-	VisibleCountsComplete bool        `json:"visibleCountsComplete"`
-	RonContext            string      `json:"ronContext"`
+	SchemaVersion         string        `json:"schemaVersion"`
+	HandTiles34           []int         `json:"handTiles34"`
+	Melds                 []MeldInput   `json:"melds"`
+	LeftTiles34           []int         `json:"leftTiles34"`
+	VisibleCountsComplete bool          `json:"visibleCountsComplete"`
+	RonContext            string        `json:"ronContext"`
+	YakuContext           YakuContextV2 `json:"yakuContext"`
+}
+
+type YakuContextV2 struct {
+	WindsStatus      string `json:"windsStatus"`
+	RoundWindTile34  *int   `json:"roundWindTile34"`
+	SelfWindTile34   *int   `json:"selfWindTile34"`
+	RiichiStatus     string `json:"riichiStatus"`
+	OpenTanyaoStatus string `json:"openTanyaoStatus"`
+}
+
+func (context *YakuContextV2) UnmarshalJSON(data []byte) error {
+	type yakuContextAlias YakuContextV2
+	var decoded yakuContextAlias
+	if err := strictDecode(data, &decoded); err != nil {
+		return err
+	}
+	if err := requireJSONFields(
+		data,
+		"windsStatus", "roundWindTile34", "selfWindTile34", "riichiStatus", "openTanyaoStatus",
+	); err != nil {
+		return err
+	}
+	*context = YakuContextV2(decoded)
+	return nil
 }
 
 type EffectiveTileV2 struct {
@@ -162,6 +187,38 @@ func effectiveTilesForFamily(tiles []int, meldCount int, family string) []int {
 	return result
 }
 
+func validateYakuContext(context YakuContextV2) error {
+	switch context.WindsStatus {
+	case "known":
+		if context.RoundWindTile34 == nil || context.SelfWindTile34 == nil {
+			return fmt.Errorf("yakuContext known winds require roundWindTile34 and selfWindTile34")
+		}
+	case "unknown":
+		if context.RoundWindTile34 != nil || context.SelfWindTile34 != nil {
+			return fmt.Errorf("yakuContext unknown winds require null roundWindTile34 and selfWindTile34")
+		}
+	default:
+		return fmt.Errorf("yakuContext windsStatus is invalid")
+	}
+	if context.RoundWindTile34 != nil && (*context.RoundWindTile34 < 27 || *context.RoundWindTile34 > 29) {
+		return fmt.Errorf("yakuContext roundWindTile34 must be between 27 and 29")
+	}
+	if context.SelfWindTile34 != nil && (*context.SelfWindTile34 < 27 || *context.SelfWindTile34 > 30) {
+		return fmt.Errorf("yakuContext selfWindTile34 must be between 27 and 30")
+	}
+	switch context.RiichiStatus {
+	case "accepted", "inactive", "unknown":
+	default:
+		return fmt.Errorf("yakuContext riichiStatus is invalid")
+	}
+	switch context.OpenTanyaoStatus {
+	case "enabled", "disabled", "unknown":
+	default:
+		return fmt.Errorf("yakuContext openTanyaoStatus is invalid")
+	}
+	return nil
+}
+
 func validateHandStructureRequest(request HandStructureRequestV2) error {
 	if request.Kind != "hand_structure" {
 		return fmt.Errorf("kind must be hand_structure")
@@ -186,6 +243,16 @@ func validateHandStructureRequest(request HandStructureRequestV2) error {
 	}
 	if _, err := convertMelds(request.Melds); err != nil {
 		return err
+	}
+	if err := validateYakuContext(request.YakuContext); err != nil {
+		return err
+	}
+	if request.YakuContext.RiichiStatus == "accepted" {
+		for _, meld := range request.Melds {
+			if meld.Kind != "ankan" {
+				return fmt.Errorf("yakuContext riichiStatus accepted is incompatible with open meld %s", meld.Kind)
+			}
+		}
 	}
 	expectedConcealed := 13 - 3*len(request.Melds)
 	if countTiles(request.HandTiles34) != expectedConcealed {
@@ -213,7 +280,7 @@ func validateHandStructureRequest(request HandStructureRequestV2) error {
 		return fmt.Errorf("leftTiles34 must be null when visible counts are incomplete")
 	}
 	switch request.RonContext {
-	case "complete_none", "known_chankan", "known_houtei", "unknown_future":
+	case "complete_none", "known_kakan_chankan", "known_ankan_chankan", "known_houtei", "unknown_future":
 	default:
 		return fmt.Errorf("ronContext is invalid")
 	}
