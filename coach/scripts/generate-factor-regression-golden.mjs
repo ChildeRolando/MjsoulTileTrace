@@ -11,7 +11,6 @@ import {
 } from "@riichi-coach/reasoning";
 
 const coachRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const repoRoot = path.resolve(coachRoot, "..");
 const sourcePath = path.join(
   coachRoot,
   "fixtures",
@@ -27,7 +26,7 @@ const outputPath = path.join(
 const raw = JSON.parse(await readFile(sourcePath, "utf8"));
 const { selfActor, events, decisions } = importRegressionFixture(raw);
 const client = new JsonlFactEngineClient(
-  new ManagedFactEngineTransport(path.join(repoRoot, ".tools")),
+  new ManagedFactEngineTransport(path.join(coachRoot, "resources")),
 );
 const cases = [];
 try {
