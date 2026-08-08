@@ -53,3 +53,4 @@ export * from "./factors/difference-builder.js";
 export * from "./factors/deterministic-resolver.js";
 export * from "./factors/structured-factor-pipeline.js";
 export * from "./factors/legacy-facts-bridge.js";
+export * from "./replay/canonical-event-validator.js";

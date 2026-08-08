@@ -113,4 +113,18 @@ describe("canonical event stream", () => {
       events: stream.events.slice(1),
     })).toThrow("Canonical stream must begin with game_started");
   });
+
+  it("binds a win to the draw, discard, or kan event it resolves", () => {
+    expect(CanonicalGameEventSchema.parse({
+      type: "win_declared",
+      eventId: "game:fixture/0/4/0",
+      sourceRecordRef: "record:4",
+      winnerActor: 1,
+      targetActor: 0,
+      method: "ron",
+      winningTile: tile("1m"),
+      winSourceEventRef: "game:fixture/0/3/0",
+      scoreDeltas: null,
+    })).toMatchObject({ winSourceEventRef: "game:fixture/0/3/0" });
+  });
 });

@@ -169,6 +169,7 @@ const WinDeclaredEventSchema = z.object({
   targetActor: ActorSchema.nullable(),
   method: z.enum(["ron", "tsumo"]),
   winningTile: TileSchema,
+  winSourceEventRef: EventRefSchema,
   scoreDeltas: ScoresSchema.nullable(),
 }).strict();
 
