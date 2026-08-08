@@ -16,3 +16,4 @@ export * from "./known-game-facts.js";
 export * from "./fact-engine.js";
 export * from "./factor-ledger.js";
 export * from "./event-stream.js";
+export * from "./round-state.js";
