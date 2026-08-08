@@ -43,6 +43,18 @@ Implemented:
   conflict or required coverage is missing;
 - real East 1 turn 6/7 regressions proving that 2p/7p are efficiency choices
   while 6s/8p are per-threat genbutsu defense choices.
+- a strict `canonical-riichi-events/v2` event stream covering draws, discards,
+  riichi declaration/acceptance, calls, three kan forms, dora, wins, draws,
+  score settlement, and round/game boundaries;
+- immutable public round state separated from self-only private hand state,
+  stable stream/prefix hashes, and `decision-snapshot/v2` decision freezes;
+- event-sequence validation for actor/phase identity, call and kan references,
+  physical tile counts, multiple ron, riichi/ippatsu flow, and terminal order;
+- projection from canonical snapshots into the existing `KnownGameFacts`
+  pipeline, including melds, called discards, rivers, dora, winds, scores,
+  riichi threats, evidence IDs, and field completeness;
+- the East 1 turn 6/7 factor gate now consumes V2 decision snapshots while
+  retaining the same packaged-sidecar golden calculations.
 
 Both current regression scenes remain incomplete. Exact public han/fu details,
 calibrated deal-in probability, placement EV, option-value branch search,
@@ -58,10 +70,12 @@ approved plans. The coach does not claim to enumerate every legal action.
 
 Outside this milestone:
 
+- production Mahjong Soul URL download and record-to-canonical-event mapping;
 - production Mortal and Akagi Native report integration;
 - production Akagi Native private-format parsing;
 - complete legal-action enumeration and call-follow-up branch search;
-- complete meld, furiten, remaining-tile, and called-discard state;
+- hand-family decomposition, furiten derivation, legal-action enumeration, and
+  production remaining-draw completeness;
 - calibrated placement, option-value, opponent-hand, and statistical-risk analyzers;
 - persistence, LLM dialogue orchestration, and the three-column UI.
 
@@ -70,6 +84,19 @@ Missing facts remain `unknown_due_to_missing_facts`; they are not described as
 illegal. “Whether to call” and “what to discard after calling” are separate
 decision windows. The old discard-only strict analysis remains only as an
 explicit regression oracle; production code must not silently fall back to it.
+
+The canonical event stream is authoritative for all new replay work. Source
+adapters may map source records into events but may not compute coach factors or
+mutate a frozen decision. Public state contains only table-visible information;
+self private state contains the user's concealed hand and current draw.
+Opponent draws are hidden events and no opponent-hand field exists in a
+decision snapshot.
+
+`legacy_regression_bridge_only` is a fixture-only migration tool. It rejects
+every non-fixture source kind and invalid event sequence, and is never a runtime
+fallback for Mahjong Soul or MJAI. This event foundation does not infer waits,
+flush plans, opponent hand composition, or behavior from discard order; those
+remain later analyzers with explicit heuristic provenance.
 
 The fact engine is bundled below application resources; users do not configure
 a Go runtime, executable path, model path, or mahjong-helper checkout. Its
