@@ -54,10 +54,6 @@ function base(event: NormalizedEvent, eventId: string) {
   };
 }
 
-function roundOrdinal(wind: "E" | "S", hand: number): number {
-  return (wind === "E" ? 0 : 4) + hand - 1;
-}
-
 function sourceHash(events: readonly NormalizedEvent[]): string {
   return `sha256:${createHash("sha256")
     .update(JSON.stringify(events))
@@ -105,10 +101,11 @@ export function bridgeLegacyRegressionEvents(
   const legacyEventRefToCanonicalEventRefs: Record<string, string[]> = {};
   let hasKan = false;
   let currentRoundOrdinal = 0;
+  let nextRoundOrdinal = 0;
 
   for (const [sourceRecordOrdinal, event] of events.entries()) {
     if (event.type === "start_kyoku") {
-      currentRoundOrdinal = roundOrdinal(event.bakaze, event.kyoku);
+      currentRoundOrdinal = nextRoundOrdinal++;
     }
     const eventId = canonicalEventId(options.gameId, {
       roundOrdinal: currentRoundOrdinal,
@@ -125,7 +122,7 @@ export function bridgeLegacyRegressionEvents(
       canonical.push({
         ...base(event, eventId),
         type: "round_started",
-        roundOrdinal: roundOrdinal(event.bakaze, event.kyoku),
+        roundOrdinal: currentRoundOrdinal,
         roundWind: event.bakaze,
         hand: event.kyoku,
         honba: event.honba,
@@ -257,7 +254,7 @@ export function bridgeLegacyRegressionEvents(
 
   const parsed = CanonicalEventStreamSchema.safeParse({
     schemaVersion: "canonical-riichi-events/v2",
-    mapperVersion: "legacy-regression-bridge/v1",
+    mapperVersion: "legacy-regression-bridge/v2",
     gameId: options.gameId,
     sourceKind: "fixture",
     sourceRecordHash: sourceHash(events),

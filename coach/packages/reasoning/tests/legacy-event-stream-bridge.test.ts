@@ -28,6 +28,7 @@ describe("fixture-only legacy event stream bridge", () => {
     expect(bridged.status).toBe("ready");
     if (bridged.status !== "ready") return;
     expect(bridged.provenance).toBe("legacy_regression_bridge_only");
+    expect(bridged.stream.mapperVersion).toBe("legacy-regression-bridge/v2");
     expect(bridged.legacyEventRefToCanonicalEventRefs["event-50"]).toEqual([
       "fixture:c1924cad66f66dd9/0/50/0",
     ]);
@@ -93,5 +94,33 @@ describe("fixture-only legacy event stream bridge", () => {
       status: "invalid_source",
       code: "legacy_stream_sequence_invalid",
     });
+  });
+
+  it("numbers rounds by occurrence rather than wind and hand labels", async () => {
+    const imported = await fixture();
+    const events = structuredClone(imported.events);
+    const start = events.find((event) => event.type === "start_kyoku");
+    if (start?.type !== "start_kyoku") throw new Error("round start missing");
+    start.bakaze = "S";
+    start.kyoku = 4;
+    start.honba = 3;
+
+    const bridged = bridgeLegacyRegressionEvents(events, imported.selfActor, {
+      sourceKind: "fixture",
+      gameId: "fixture:shifted-round-label",
+    });
+    expect(bridged.status).toBe("ready");
+    if (bridged.status !== "ready") return;
+    const roundStart = bridged.stream.events.find((event) =>
+      event.type === "round_started"
+    );
+    expect(roundStart).toMatchObject({
+      roundOrdinal: 0,
+      roundWind: "S",
+      hand: 4,
+      honba: 3,
+    });
+    expect(bridged.legacyEventRefToCanonicalEventRefs["event-50"]?.[0])
+      .toBe("fixture:shifted-round-label/0/50/0");
   });
 });

@@ -139,6 +139,29 @@ describe("canonical event stream", () => {
     })).toThrow("Canonical event positions must be strictly ordered");
   });
 
+  it("uses occurrence ordinals for rounds, including repeated hands", () => {
+    const stream = baseStream();
+    const repeatedHand = {
+      ...stream.events[1]!,
+      eventId: "game:fixture/1/2/0",
+      sourceRecordRef: "record:2",
+      roundOrdinal: 1,
+      honba: 1,
+    };
+    expect(CanonicalEventStreamSchema.parse({
+      ...stream,
+      events: [...stream.events, repeatedHand],
+    }).events[2]).toMatchObject({ roundOrdinal: 1, honba: 1 });
+    expect(() => CanonicalEventStreamSchema.parse({
+      ...stream,
+      events: [...stream.events, {
+        ...repeatedHand,
+        eventId: "game:fixture/0/2/0",
+        roundOrdinal: 0,
+      }],
+    })).toThrow("Round occurrence ordinals must increase by one");
+  });
+
   it("distinguishes an opponent hidden draw from missing data", () => {
     const event = CanonicalGameEventSchema.parse({
       type: "tile_drawn",

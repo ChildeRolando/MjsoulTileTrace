@@ -421,11 +421,22 @@ export const CanonicalEventStreamSchema = z.object({
     });
   }
   let activeRoundOrdinal = 0;
+  let nextRoundOccurrenceOrdinal = 0;
   let previousPosition: CanonicalEventPosition | null = null;
   let previousSourceRecordRef: string | null = null;
   const sourceRefPositions = new Map<string, string>();
   const positionSourceRefs = new Map<string, string>();
   stream.events.forEach((event, index) => {
+    if (event.type === "round_started") {
+      if (event.roundOrdinal !== nextRoundOccurrenceOrdinal) {
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Round occurrence ordinals must increase by one",
+          path: ["events", index, "roundOrdinal"],
+        });
+      }
+      nextRoundOccurrenceOrdinal++;
+    }
     const position = parseCanonicalEventPosition(event.eventId, stream.gameId);
     if (position === null) {
       context.addIssue({
