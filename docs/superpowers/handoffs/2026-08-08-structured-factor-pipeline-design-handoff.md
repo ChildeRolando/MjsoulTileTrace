@@ -1,93 +1,74 @@
-# Slice 3 结构化事实引擎设计交接
+# Slice 3 结构化事实引擎交接
 
 更新时间：2026-08-08
 
-当前阶段：书面规格已落盘，等待用户复核
+当前阶段：实现完成，等待全量回归与最终代码审查
 
-## 1. 当前目标
+## 1. 已交付
 
-开发统一架构 Slice 3：让 `AnalysisFrame + StructuredComparisonSet + KnownGameFacts` 经过可审计事实计算，输出 `CandidateFactorLedger[] + FactorDifferences + DeterministicPreference`。
+统一的 `AnalysisFrame + StructuredComparisonSet + KnownGameFacts` 管线已经实现。每个 canonical candidate 独立投影、调用事实引擎、生成五轴账本；随后仅在证据类别、单位、引擎版本和假设条件相同的事实之间建立差异，并以无权重 Pareto 规则生成 `DeterministicPreference | null`。
 
-事实计算不读取 Mortal/Akagi 评分，不读取模型首选，也不使用 LLM。它既服务有模型复盘，也服务用户指定的无模型动作比较。
+主要提交：
 
-## 2. 已完成基础
+- `0e2e1f3`：事实引擎协议契约；
+- `385116e`：Factor ledger/difference/preference 契约；
+- `1f50788`：固定 mahjong-helper 上游源码与许可证；
+- `a94f85d`：手牌事实 sidecar；
+- `1d2101a`：完成手牌点数与结构危险度；
+- `06c12a7`：托管 sidecar 生命周期；
+- `c9e63c4`：候选状态投影；
+- `6095524`：可审计候选账本；
+- `71379ed`：同口径差异与确定性 dominance；
+- `ce394d7`：端到端结构化 FactorPipeline。
 
-- Slice 1：分析帧、模型评分、默认阈值 10、偏好集合与一致性契约；
-- Slice 2：11 种结构化动作、四种决策窗口、canonical action codec、CandidateNormalizer、Mortal 结构化导入和 legacy bridge；
-- coach 基线：30 个测试文件、209/209 测试通过；
-- Slice 2 最终复审：Critical 0、Important 0；
-- 产品总 roadmap 已提交：`0ba0c26`；
-- Slice 2 交接已提交：`861d686`。
+## 2. 可信边界
 
-本轮同时更新 roadmap 的 M1 描述，使其与“复用外部事实引擎、拒绝外部推荐”的新边界一致。
+- 确定事实：向听、有效牌种、完整可见信息下的剩余张、改善路线、宝牌数、完成手牌点数、立直/一发、逐威胁现物；
+- 版本化启发式：役种 ID、默听/立直平均打点、等待速度、和率/振听、局收支，以及筋、壁、NC/OC、早外和 helper 风险刻度；
+- 启发式差异永远不能进入 `DeterministicPreference`；
+- helper 的推荐、排序和综合评分不进入协议；未知响应字段由严格 schema 拒绝；
+- 每条上游计算事实携带 engine、commit、adapter、protocol 四元身份；本地事件重放事实不得伪造上游身份；
+- 某个候选或某个威胁的 sidecar 失败只生成窄范围 blocked fact，本地防守事实继续保留；
+- 不完整可见信息下的上游估算明确标注使用理论未见张。
 
-## 3. 本轮设计结论
+## 3. 已验证的东一局边界
 
-书面规格：
+真实 fixture：`coach/fixtures/mortal/c1924cad66f66dd9-east1-turn6-7.json`。
 
-`docs/superpowers/specs/2026-08-08-structured-factor-pipeline-design.md`
+- 6 巡：效率轴支持切 2筒；防守轴支持摸切 actor 2 的现物 6索；
+- 7 巡：效率轴支持切 7筒；防守轴支持摸切现物 8筒；
+- 两手 applied decision 均为 `null`，不以任意权重解决攻守冲突；
+- 不存在“效率支持 6索/8筒”的差异；
+- `modelReason` 继续固定为 `unknown`。
 
-核心决定：
+真实 fixture 通过 `legacy_regression_bridge_only` 测试桥进入新管线。此桥只用于共享维度回归，不是生产 fallback。
 
-1. Slice 3 不是重写麻将算法，而是“麻将事实引擎 → 可审计账本”的适配层；
-2. 首个事实引擎是应用托管的 Go JSONL sidecar，直接复用 `EndlessCheng/mahjong-helper/util`；
-3. 固定上游提交 `514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0`，保留 MIT 许可证；
-4. 不解析 helper CLI 文本，不采用 helper 最终推荐、综合排名或黑箱分数；
-5. Akagi 的 Rust 分析移植只作为交叉校验与未来替换候选，不绑定完整 Tauri 应用；
-6. Slice 3 接入向听、有效/改善牌、完成手牌点数等确定值；
-7. 一并接入 helper 已有的役种集合、默听/立直平均打点、局收支、速度与和率字段，但标记为版本化上游估算；
-8. 立直、一发、逐家现物继续由本项目事件重放计算；同时接入 helper 的筋、壁、NC/OC、早外和逐威胁风险刻度；
-9. 上游估算可以展示并形成启发式差异，但不能进入 `DeterministicPreference`，也不能改名为 Mortal 铳率或本项目校准 EV；
-10. helper `util` 未提供的染手/手切序列读牌，以及公共结果未暴露的精确符番明细，留给 M2；
-11. 多轴冲突不使用任意权重解决；缺事实或未支持不能伪装成相等；
-12. 用户无需设置 sidecar 路径或 Go 运行时。
+## 4. 当前测试状态
 
-## 4. 必须保持的回归
+Task 8–10 聚焦回归均已通过；东一局新回归已通过；TypeScript typecheck 已通过。仍需执行 Task 12：
 
-牌谱 `260730-8649addb-b4cb-48e1-ba8e-c6c3ffbb9166_a62115198`：
+1. `npm test`；
+2. `npm run typecheck`；
+3. `npm run test:package-import`；
+4. Go sidecar 全测与 release build；
+5. 根目录 legacy 测试；
+6. 按 `requesting-code-review` skill 审查整个 Slice 3，并以失败测试修复全部 Critical/Important；
+7. 更新产品 roadmap 状态。
 
-- 东一局 6 巡：牌效支持切 2 筒；防守支持摸切上家立直现物 6 索；
-- 东一局 7 巡：牌效支持切 7 筒；防守支持现物 8 筒；
-- 不得把这两处模型偏好解释成牌效；
-- `modelReason` 始终为 `unknown`。
+## 5. 后续产品开发
 
-## 5. 下一步
-
-当前必须先通过用户对书面规格的复核。获批后：
-
-1. 完整读取 `writing-plans` skill；
-2. 写逐文件、逐测试的 TDD 实施计划；
-3. 计划至少拆分 contracts、Go sidecar、runtime adapter、candidate projector、fact adapter、FactorPipeline、comparison/resolver、legacy regression、exports/docs；
-4. 每个任务 RED → GREEN，限制提交文件范围；
-5. 完整实现后读取并执行 `requesting-code-review` skill；
-6. 最终运行聚焦测试、209 项基线回归、typecheck、包导入和依赖/许可证检查。
+Slice 3 只是可审计麻将事实层，不是可发行教练产品的终点。完成审查后，应直接进入 roadmap 的 M2–M9：更完整的价值/牌河/对手模型、牌谱服务与任务队列、教练提示与对话编排、三栏桌面 UI、历史牌谱会话、模型选择与分发打包。下一次真正需要用户介入的节点应是能用真实雀魂南风牌谱跑通的可视化教练验收，而不是 sidecar 路径或工程参数。
 
 ## 6. 工作区保护
 
-当前存在用户/其他任务的改动，不属于教练 Slice 3：
+下列文件属于用户/其他任务，不得修改、暂存或提交：
 
-- `overlay/cv重做.md`（modified）
-- `overlay/prompt.md`（untracked）
+- `overlay/cv重做.md`（modified）；
+- `overlay/prompt.md`（untracked）。
 
-不得修改、暂存或提交这些文件。每次提交前运行：
+每次提交前继续运行：
 
 ```powershell
 git diff --cached --name-only
 git diff --cached --check
 ```
-
-只提交当前 Slice 3 指定文件。不要整理或回滚其他人的工作树。
-
-## 7. 外部调研摘要
-
-- `mahjong-helper` 是 Go module，`util/shanten_improve.go` 公开 `YakuTypes`、`DoraCount`、`DamaPoint`、`RiichiPoint`、`MixedRoundPoint` 等结构化字段；
-- `util/point.go` 公开完成手牌点数计算，但固定版本的 `PointResult` 只公开点数，精确 `han/fu/yaku/winTile` 仍为包内字段；不得解析显示字符串补造；
-- `util/risk_base.go` 与 `util/risk_wall.go` 公开逐牌风险、剩余无筋、壁、NC/DNC、OC/DOC 和早外修正；这些是版本化启发式，不是 Mortal 铳率；
-- 根 CLI 仍不适合机器解析；
-- 本机当前没有系统 Go 工具链，实施时应使用固定、可重复的开发构建方式，但不能把这变成普通用户配置；
-- Akagi 当前分析模块包含 Rust 移植和可序列化结果，但完整应用依赖较重，没有发现适合作为稳定任意局面批处理协议的独立 CLI；
-- 不允许以 helper/Akagi 推荐代替本项目的 `DeterministicPreference`。
-
-## 8. 停止点
-
-本交接落盘后，应把规格与交接作为独立文档提交，并请用户进行书面复核。用户批准前不得进入实施代码。
