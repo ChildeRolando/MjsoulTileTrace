@@ -58,21 +58,21 @@ var pinnedYakuNames = [...]string{
 }
 
 type Hand13Result struct {
-	Kind                 string             `json:"kind"`
-	RequestID            string             `json:"requestId"`
-	ProtocolVersion      string             `json:"protocolVersion"`
-	ActionRef            string             `json:"actionRef"`
-	StateHash            string             `json:"stateHash"`
-	Identity             EngineIdentity     `json:"identity"`
-	Shanten              int                `json:"shanten"`
-	EffectiveTile34      []int              `json:"effectiveTile34"`
-	WaitsRemainingStatus string             `json:"waitsRemainingStatus"`
-	WaitsRemaining       []TileCount        `json:"waitsRemaining"`
-	Improves             []ImproveResult    `json:"improves"`
-	DoraCountStatus      string             `json:"doraCountStatus"`
-	DoraCount            *int               `json:"doraCount"`
-	Estimates            []UpstreamEstimate `json:"estimates"`
-	Diagnostics          []string           `json:"diagnostics"`
+	Kind                 string                 `json:"kind"`
+	RequestID            string                 `json:"requestId"`
+	ProtocolVersion      string                 `json:"protocolVersion"`
+	ActionRef            string                 `json:"actionRef"`
+	StateHash            string                 `json:"stateHash"`
+	Identity             EngineIdentity         `json:"identity"`
+	Shanten              int                    `json:"shanten"`
+	EffectiveTile34      []int                  `json:"effectiveTile34"`
+	WaitsRemainingStatus string                 `json:"waitsRemainingStatus"`
+	WaitsRemaining       []TileCount            `json:"waitsRemaining"`
+	Improves             []ImproveResult        `json:"improves"`
+	DoraCountStatus      string                 `json:"doraCountStatus"`
+	DoraCount            *int                   `json:"doraCount"`
+	Estimates            []UpstreamEstimate     `json:"estimates"`
+	Diagnostics          []FactEngineDiagnostic `json:"diagnostics"`
 }
 
 func sortedWaitIndexes(waits util.Waits) []int {
@@ -138,7 +138,7 @@ func numericEstimate(field string, value float64, limitation string) (UpstreamEs
 	}, true
 }
 
-func normalizeEstimates(result *util.Hand13AnalysisResult, request Hand13Request) ([]UpstreamEstimate, []string) {
+func normalizeEstimates(result *util.Hand13AnalysisResult, request Hand13Request) ([]UpstreamEstimate, []FactEngineDiagnostic) {
 	yakuIDs := make([]int, 0, len(result.YakuTypes))
 	for yakuID := range result.YakuTypes {
 		yakuIDs = append(yakuIDs, yakuID)
@@ -154,36 +154,36 @@ func normalizeEstimates(result *util.Hand13AnalysisResult, request Hand13Request
 	estimates := []UpstreamEstimate{{
 		Field:       "yaku_types",
 		YakuValues:  &yakuValues,
-		Limitations: []string{"Possible yaku IDs and pinned names reported by the mahjong-helper analysis"},
+		Limitations: []string{"helper_yaku_mapping_versioned"},
 	}}
-	diagnostics := []string{}
+	diagnostics := []FactEngineDiagnostic{}
 	numeric := []struct {
 		field      string
 		value      float64
 		limitation string
 		available  bool
 	}{
-		{"dama_point", result.DamaPoint, "Pinned mahjong-helper average dama/open-hand point estimate", request.DoraTilesComplete},
-		{"riichi_point", result.RiichiPoint, "Pinned mahjong-helper average riichi point estimate", request.DoraTilesComplete},
-		{"mixed_waits_score", result.MixedWaitsScore, "Pinned mahjong-helper composite wait-speed heuristic", true},
-		{"avg_agari_rate", result.AvgAgariRate, "Pinned mahjong-helper estimated win rate, not a calibrated project probability", request.SelfDiscardsComplete && request.RemainingDraws != nil},
-		{"furiten_rate", result.FuritenRate, "Pinned mahjong-helper furiten heuristic", request.SelfDiscardsComplete},
-		{"mixed_round_point", result.MixedRoundPoint, "Pinned mahjong-helper round-point estimate, not project placement EV", request.DoraTilesComplete && request.SelfDiscardsComplete && request.RemainingDraws != nil},
+		{"dama_point", result.DamaPoint, "helper_dama_point_estimate", request.DoraTilesComplete},
+		{"riichi_point", result.RiichiPoint, "helper_riichi_point_estimate", request.DoraTilesComplete},
+		{"mixed_waits_score", result.MixedWaitsScore, "helper_mixed_waits_score", true},
+		{"avg_agari_rate", result.AvgAgariRate, "helper_avg_agari_rate_not_calibrated", request.SelfDiscardsComplete && request.RemainingDraws != nil},
+		{"furiten_rate", result.FuritenRate, "helper_furiten_rate", request.SelfDiscardsComplete},
+		{"mixed_round_point", result.MixedRoundPoint, "helper_mixed_round_point_not_placement_ev", request.DoraTilesComplete && request.SelfDiscardsComplete && request.RemainingDraws != nil},
 	}
 	for _, item := range numeric {
 		if !item.available {
-			diagnostics = append(diagnostics, "estimate_blocked_missing_facts:"+item.field)
+			diagnostics = append(diagnostics, FactEngineDiagnostic{Code: "estimate_blocked_missing_facts", Field: item.field})
 			continue
 		}
 		estimate, ok := numericEstimate(item.field, item.value, item.limitation)
 		if !ok {
-			diagnostics = append(diagnostics, "non_finite_upstream_estimate:"+item.field)
+			diagnostics = append(diagnostics, FactEngineDiagnostic{Code: "invalid_upstream_estimate", Field: item.field})
 			continue
 		}
 		estimates = append(estimates, estimate)
 	}
 	if !request.VisibleCountsComplete {
-		const limitation = "Uses theoretical unseen counts because public visibility is incomplete"
+		const limitation = "theoretical_visibility"
 		for index := range estimates {
 			estimates[index].Limitations = append(estimates[index].Limitations, limitation)
 		}
@@ -274,7 +274,7 @@ func analyzeHand13(request Hand13Request) (Hand13Result, error) {
 		doraCount = &count
 		doraCountStatus = "calculated"
 	} else {
-		diagnostics = append(diagnostics, "dora_count_blocked_missing_facts")
+		diagnostics = append(diagnostics, FactEngineDiagnostic{Code: "dora_count_blocked_missing_facts"})
 	}
 	return Hand13Result{
 		Kind:                 "hand13_result",

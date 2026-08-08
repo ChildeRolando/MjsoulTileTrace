@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"testing"
 )
@@ -27,6 +28,9 @@ func TestUnknownFieldFailsClosed(t *testing.T) {
 	}
 	if result.Code != "invalid_request" {
 		t.Fatalf("error code = %q, want invalid_request", result.Code)
+	}
+	if bytes.Contains(got, []byte(`"message"`)) {
+		t.Fatalf("public error response must not expose private parser prose: %s", got)
 	}
 }
 

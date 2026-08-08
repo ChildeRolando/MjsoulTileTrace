@@ -244,8 +244,72 @@ export const FactEngineRequestSchema = z.union([
 ]);
 export type FactEngineRequest = z.infer<typeof FactEngineRequestSchema>;
 
+export const FactEngineLimitationCodeSchema = z.enum([
+  "helper_yaku_mapping_versioned",
+  "helper_dama_point_estimate",
+  "helper_riichi_point_estimate",
+  "helper_mixed_waits_score",
+  "helper_avg_agari_rate_not_calibrated",
+  "helper_furiten_rate",
+  "helper_mixed_round_point_not_placement_ev",
+  "theoretical_visibility",
+  "completed_hand_han_fu_unavailable",
+  "completed_hand_context_limited",
+  "helper_risk_not_mortal_probability",
+  "threats_analyzed_independently",
+  "structural_labels_separate",
+]);
+export type FactEngineLimitationCode = z.infer<
+  typeof FactEngineLimitationCodeSchema
+>;
+
+const FactEngineLimitationsSchema = z.array(FactEngineLimitationCodeSchema)
+  .min(1).superRefine((values, context) => {
+    if (new Set(values).size !== values.length) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Fact engine limitation codes must be unique",
+      });
+    }
+  });
+
+const EstimateFieldSchema = z.enum([
+  "dama_point",
+  "riichi_point",
+  "mixed_waits_score",
+  "avg_agari_rate",
+  "furiten_rate",
+  "mixed_round_point",
+]);
+
+export const FactEngineDiagnosticSchema = z.discriminatedUnion("code", [
+  z.object({
+    code: z.literal("estimate_blocked_missing_facts"),
+    field: EstimateFieldSchema,
+  }).strict(),
+  z.object({
+    code: z.literal("invalid_upstream_estimate"),
+    field: EstimateFieldSchema,
+  }).strict(),
+  z.object({
+    code: z.literal("dora_count_blocked_missing_facts"),
+  }).strict(),
+]);
+export type FactEngineDiagnostic = z.infer<typeof FactEngineDiagnosticSchema>;
+
+const FactEngineDiagnosticsSchema = z.array(FactEngineDiagnosticSchema)
+  .superRefine((values, context) => {
+    const keys = values.map((value) => JSON.stringify(value));
+    if (new Set(keys).size !== keys.length) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Fact engine diagnostics must be unique",
+      });
+    }
+  });
+
 const EstimateLimitationsShape = {
-  limitations: z.array(z.string().min(1)).min(1),
+  limitations: FactEngineLimitationsSchema,
 };
 
 export const PINNED_HELPER_YAKU_NAMES = [
@@ -334,7 +398,7 @@ export const Hand13FactResultSchema = z.object({
   doraCountStatus: z.enum(["calculated", "blocked_missing_facts"]),
   doraCount: z.number().int().nonnegative().nullable(),
   estimates: z.array(UpstreamEstimateSchema),
-  diagnostics: UniqueStringsSchema,
+  diagnostics: FactEngineDiagnosticsSchema,
 }).strict().superRefine((result, context) => {
   if (
     result.waitsRemainingStatus === "blocked_missing_facts" &&
@@ -374,8 +438,8 @@ export const CompletedHandFactResultSchema = z.object({
   fixedPoint: z.number().finite().nonnegative(),
   hanStatus: z.literal("unsupported_upstream_api"),
   fuStatus: z.literal("unsupported_upstream_api"),
-  limitations: z.array(z.string().min(1)).min(1),
-  diagnostics: UniqueStringsSchema,
+  limitations: FactEngineLimitationsSchema,
+  diagnostics: FactEngineDiagnosticsSchema,
 }).strict();
 export type CompletedHandFactResult = z.infer<
   typeof CompletedHandFactResultSchema
@@ -428,8 +492,8 @@ export const ThreatRiskFactResultSchema = z.object({
   honorClassifications: HonorClassificationsSchema,
   leftNoSujiTile34: StrictTile34IndexesSchema,
   evidenceIds: uniqueStringsSchema(1),
-  limitations: z.array(z.string().min(1)).min(1),
-  diagnostics: UniqueStringsSchema,
+  limitations: FactEngineLimitationsSchema,
+  diagnostics: FactEngineDiagnosticsSchema,
 }).strict();
 export type ThreatRiskFactResult = z.infer<
   typeof ThreatRiskFactResultSchema

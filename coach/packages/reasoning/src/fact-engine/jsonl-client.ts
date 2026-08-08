@@ -22,9 +22,20 @@ const FactEngineErrorResultSchema = z.object({
   kind: z.literal("error"),
   requestId: z.string().optional(),
   protocolVersion: z.literal(FACT_ENGINE_PROTOCOL_VERSION),
-  code: z.string().min(1),
-  message: z.string().min(1),
+  code: z.enum([
+    "invalid_request",
+    "protocol_mismatch",
+    "internal_error",
+    "unknown_kind",
+  ]),
 }).strict();
+
+const engineErrorMessages = {
+  invalid_request: "fact engine rejected the structured request",
+  protocol_mismatch: "fact engine protocol version does not match",
+  internal_error: "fact engine failed internally",
+  unknown_kind: "fact engine does not support this request kind",
+} as const;
 
 const IdentityResultSchema = z.object({
   kind: z.literal("identity_result"),
@@ -71,7 +82,7 @@ function rejectStructuredEngineError(value: unknown): void {
   if (parsed.success) {
     throw new FactEngineClientError(
       `fact_engine_${parsed.data.code}`,
-      parsed.data.message,
+      engineErrorMessages[parsed.data.code],
     );
   }
 }

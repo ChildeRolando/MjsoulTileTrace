@@ -63,9 +63,8 @@ function axisInScope(axis: Axis, frame: ComparisonAnalysisFrame): boolean {
   return true;
 }
 
-function errorDetail(error: unknown): string {
-  if (error instanceof Error && error.message.length > 0) return error.message;
-  return String(error);
+function errorDetail(_error: unknown): string {
+  return "fact engine request failed";
 }
 
 function blockedProjectionLedger(

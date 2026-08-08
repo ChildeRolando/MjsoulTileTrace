@@ -1108,41 +1108,47 @@
               }
             ],
             "limitations": [
-              "Possible yaku IDs and pinned names reported by the mahjong-helper analysis"
+              "helper_yaku_mapping_versioned"
             ]
           },
           {
             "field": "dama_point",
             "numericValue": 0,
             "limitations": [
-              "Pinned mahjong-helper average dama/open-hand point estimate"
+              "helper_dama_point_estimate"
             ]
           },
           {
             "field": "riichi_point",
             "numericValue": 0,
             "limitations": [
-              "Pinned mahjong-helper average riichi point estimate"
+              "helper_riichi_point_estimate"
             ]
           },
           {
             "field": "mixed_waits_score",
             "numericValue": 20.916742719326713,
             "limitations": [
-              "Pinned mahjong-helper composite wait-speed heuristic"
+              "helper_mixed_waits_score"
             ]
           },
           {
             "field": "furiten_rate",
             "numericValue": 0,
             "limitations": [
-              "Pinned mahjong-helper furiten heuristic"
+              "helper_furiten_rate"
             ]
           }
         ],
         "diagnostics": [
-          "estimate_blocked_missing_facts:avg_agari_rate",
-          "estimate_blocked_missing_facts:mixed_round_point"
+          {
+            "code": "estimate_blocked_missing_facts",
+            "field": "avg_agari_rate"
+          },
+          {
+            "code": "estimate_blocked_missing_facts",
+            "field": "mixed_round_point"
+          }
         ]
       }
     },
@@ -1950,41 +1956,47 @@
             "field": "yaku_types",
             "yakuValues": [],
             "limitations": [
-              "Possible yaku IDs and pinned names reported by the mahjong-helper analysis"
+              "helper_yaku_mapping_versioned"
             ]
           },
           {
             "field": "dama_point",
             "numericValue": 0,
             "limitations": [
-              "Pinned mahjong-helper average dama/open-hand point estimate"
+              "helper_dama_point_estimate"
             ]
           },
           {
             "field": "riichi_point",
             "numericValue": 0,
             "limitations": [
-              "Pinned mahjong-helper average riichi point estimate"
+              "helper_riichi_point_estimate"
             ]
           },
           {
             "field": "mixed_waits_score",
             "numericValue": 96.66939312964719,
             "limitations": [
-              "Pinned mahjong-helper composite wait-speed heuristic"
+              "helper_mixed_waits_score"
             ]
           },
           {
             "field": "furiten_rate",
             "numericValue": 0,
             "limitations": [
-              "Pinned mahjong-helper furiten heuristic"
+              "helper_furiten_rate"
             ]
           }
         ],
         "diagnostics": [
-          "estimate_blocked_missing_facts:avg_agari_rate",
-          "estimate_blocked_missing_facts:mixed_round_point"
+          {
+            "code": "estimate_blocked_missing_facts",
+            "field": "avg_agari_rate"
+          },
+          {
+            "code": "estimate_blocked_missing_facts",
+            "field": "mixed_round_point"
+          }
         ]
       }
     },
@@ -3094,41 +3106,47 @@
               }
             ],
             "limitations": [
-              "Possible yaku IDs and pinned names reported by the mahjong-helper analysis"
+              "helper_yaku_mapping_versioned"
             ]
           },
           {
             "field": "dama_point",
             "numericValue": 0,
             "limitations": [
-              "Pinned mahjong-helper average dama/open-hand point estimate"
+              "helper_dama_point_estimate"
             ]
           },
           {
             "field": "riichi_point",
             "numericValue": 0,
             "limitations": [
-              "Pinned mahjong-helper average riichi point estimate"
+              "helper_riichi_point_estimate"
             ]
           },
           {
             "field": "mixed_waits_score",
             "numericValue": 31.38054785935796,
             "limitations": [
-              "Pinned mahjong-helper composite wait-speed heuristic"
+              "helper_mixed_waits_score"
             ]
           },
           {
             "field": "furiten_rate",
             "numericValue": 0,
             "limitations": [
-              "Pinned mahjong-helper furiten heuristic"
+              "helper_furiten_rate"
             ]
           }
         ],
         "diagnostics": [
-          "estimate_blocked_missing_facts:avg_agari_rate",
-          "estimate_blocked_missing_facts:mixed_round_point"
+          {
+            "code": "estimate_blocked_missing_facts",
+            "field": "avg_agari_rate"
+          },
+          {
+            "code": "estimate_blocked_missing_facts",
+            "field": "mixed_round_point"
+          }
         ]
       }
     },
@@ -4109,41 +4127,47 @@
               }
             ],
             "limitations": [
-              "Possible yaku IDs and pinned names reported by the mahjong-helper analysis"
+              "helper_yaku_mapping_versioned"
             ]
           },
           {
             "field": "dama_point",
             "numericValue": 0,
             "limitations": [
-              "Pinned mahjong-helper average dama/open-hand point estimate"
+              "helper_dama_point_estimate"
             ]
           },
           {
             "field": "riichi_point",
             "numericValue": 0,
             "limitations": [
-              "Pinned mahjong-helper average riichi point estimate"
+              "helper_riichi_point_estimate"
             ]
           },
           {
             "field": "mixed_waits_score",
             "numericValue": 21.287562280990485,
             "limitations": [
-              "Pinned mahjong-helper composite wait-speed heuristic"
+              "helper_mixed_waits_score"
             ]
           },
           {
             "field": "furiten_rate",
             "numericValue": 0,
             "limitations": [
-              "Pinned mahjong-helper furiten heuristic"
+              "helper_furiten_rate"
             ]
           }
         ],
         "diagnostics": [
-          "estimate_blocked_missing_facts:avg_agari_rate",
-          "estimate_blocked_missing_facts:mixed_round_point"
+          {
+            "code": "estimate_blocked_missing_facts",
+            "field": "avg_agari_rate"
+          },
+          {
+            "code": "estimate_blocked_missing_facts",
+            "field": "mixed_round_point"
+          }
         ]
       }
     }

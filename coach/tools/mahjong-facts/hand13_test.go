@@ -157,7 +157,7 @@ func TestHand13IncompleteVisibilityKeepsStructuralFacts(t *testing.T) {
 	for _, estimate := range result.Estimates {
 		found := false
 		for _, limitation := range estimate.Limitations {
-			if strings.Contains(limitation, "theoretical unseen counts") {
+			if limitation == "theoretical_visibility" {
 				found = true
 				break
 			}

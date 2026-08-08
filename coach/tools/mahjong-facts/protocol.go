@@ -62,7 +62,11 @@ type ErrorResult struct {
 	RequestID       string `json:"requestId,omitempty"`
 	ProtocolVersion string `json:"protocolVersion"`
 	Code            string `json:"code"`
-	Message         string `json:"message"`
+}
+
+type FactEngineDiagnostic struct {
+	Code  string `json:"code"`
+	Field string `json:"field,omitempty"`
 }
 
 func engineIdentity() EngineIdentity {
@@ -99,18 +103,16 @@ func marshalResponse(value any) []byte {
 		Kind:            "error",
 		ProtocolVersion: protocolVersion,
 		Code:            "internal_error",
-		Message:         "failed to encode response",
 	})
 	return fallback
 }
 
-func errorResponse(requestID, code, message string) []byte {
+func errorResponse(requestID, code, _privateMessage string) []byte {
 	return marshalResponse(ErrorResult{
 		Kind:            "error",
 		RequestID:       requestID,
 		ProtocolVersion: protocolVersion,
 		Code:            code,
-		Message:         message,
 	})
 }
 

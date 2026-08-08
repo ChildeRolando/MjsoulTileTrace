@@ -17,18 +17,18 @@ type CompletedHandRequest struct {
 }
 
 type CompletedHandResult struct {
-	Kind            string         `json:"kind"`
-	RequestID       string         `json:"requestId"`
-	ProtocolVersion string         `json:"protocolVersion"`
-	ActionRef       string         `json:"actionRef"`
-	StateHash       string         `json:"stateHash"`
-	Identity        EngineIdentity `json:"identity"`
-	Point           int            `json:"point"`
-	FixedPoint      float64        `json:"fixedPoint"`
-	HanStatus       string         `json:"hanStatus"`
-	FuStatus        string         `json:"fuStatus"`
-	Limitations     []string       `json:"limitations"`
-	Diagnostics     []string       `json:"diagnostics"`
+	Kind            string                 `json:"kind"`
+	RequestID       string                 `json:"requestId"`
+	ProtocolVersion string                 `json:"protocolVersion"`
+	ActionRef       string                 `json:"actionRef"`
+	StateHash       string                 `json:"stateHash"`
+	Identity        EngineIdentity         `json:"identity"`
+	Point           int                    `json:"point"`
+	FixedPoint      float64                `json:"fixedPoint"`
+	HanStatus       string                 `json:"hanStatus"`
+	FuStatus        string                 `json:"fuStatus"`
+	Limitations     []string               `json:"limitations"`
+	Diagnostics     []FactEngineDiagnostic `json:"diagnostics"`
 }
 
 func validateCompletedHandRequest(request CompletedHandRequest) ([]model.Meld, error) {
@@ -99,9 +99,9 @@ func analyzeCompletedHand(request CompletedHandRequest) (CompletedHandResult, er
 		HanStatus:       "unsupported_upstream_api",
 		FuStatus:        "unsupported_upstream_api",
 		Limitations: []string{
-			"Pinned mahjong-helper public PointResult does not expose han or fu",
-			"Pao and situational yaku not represented in the request are not inferred",
+			"completed_hand_han_fu_unavailable",
+			"completed_hand_context_limited",
 		},
-		Diagnostics: []string{},
+		Diagnostics: []FactEngineDiagnostic{},
 	}, nil
 }

@@ -9,6 +9,8 @@ import {
   type EngineIdentity,
   type FactorAxisLedger,
   type FactorFact,
+  type FactEngineDiagnostic,
+  type FactEngineLimitationCode,
   type Hand13FactResult,
   type KnownGameFacts,
   type StructuredComparisonCandidate,
@@ -71,6 +73,38 @@ const estimateUnits: Record<keyof typeof estimateDimensions, string> = {
 
 function unique(values: readonly string[]): string[] {
   return [...new Set(values)];
+}
+
+const limitationMessages: Record<FactEngineLimitationCode, string> = {
+  helper_yaku_mapping_versioned: "役种 ID 与名称来自固定版本 mahjong-helper",
+  helper_dama_point_estimate: "默听或副露打点是固定版本 mahjong-helper 的估算",
+  helper_riichi_point_estimate: "立直打点是固定版本 mahjong-helper 的估算",
+  helper_mixed_waits_score: "综合待牌速度是固定版本 mahjong-helper 的启发式指标",
+  helper_avg_agari_rate_not_calibrated: "和率是上游估算，不是本项目校准概率",
+  helper_furiten_rate: "振听率是固定版本 mahjong-helper 的启发式指标",
+  helper_mixed_round_point_not_placement_ev: "局收支是上游估算，不是本项目的顺位 EV",
+  theoretical_visibility: "公共可见信息不完整，使用理论剩余枚数",
+  completed_hand_han_fu_unavailable: "上游公开接口不提供番数与符数",
+  completed_hand_context_limited: "未提供的包牌和场况役不会被推断",
+  helper_risk_not_mortal_probability: "危险度是固定版本启发式量，不是 Mortal 放铳概率",
+  threats_analyzed_independently: "各威胁者独立分析，不能合并为单一概率",
+  structural_labels_separate: "筋、壁与 one-chance 标签分别保留",
+};
+
+function mapLimitations(codes: readonly FactEngineLimitationCode[]): string[] {
+  return codes.map((code) => limitationMessages[code]);
+}
+
+function mapDiagnostics(diagnostics: readonly FactEngineDiagnostic[]): string[] {
+  return diagnostics.map((diagnostic) => {
+    if (diagnostic.code === "dora_count_blocked_missing_facts") {
+      return "宝牌指示牌信息不完整，宝牌数未计算";
+    }
+    if (diagnostic.code === "estimate_blocked_missing_facts") {
+      return `计算 ${diagnostic.field} 所需事实不完整`;
+    }
+    return `上游返回的 ${diagnostic.field} 超出约定范围`;
+  });
 }
 
 function resultEvidence(
@@ -273,7 +307,7 @@ function mapHand13(
   const yakuEstimate = estimates.get("yaku_types");
   if (yakuEstimate?.field === "yaku_types") {
     const yakuLimitations = [
-      ...yakuEstimate.limitations,
+      ...mapLimitations(yakuEstimate.limitations),
       `Pinned mahjong-helper commit ${result.identity.upstreamCommit}`,
     ];
     byAxis.get("value")!.push(heuristicFact(
@@ -331,13 +365,13 @@ function mapHand13(
       value,
       resultIds,
       [
-        ...estimate.limitations,
+        ...mapLimitations(estimate.limitations),
         `Pinned mahjong-helper commit ${result.identity.upstreamCommit}`,
       ],
       result.identity,
     ));
   }
-  diagnostics.push(...result.diagnostics);
+  diagnostics.push(...mapDiagnostics(result.diagnostics));
 }
 
 function mapCompletedHand(
@@ -368,7 +402,7 @@ function mapCompletedHand(
     resultIds,
     result.identity,
     "deterministic_under_assumptions",
-    [...result.limitations],
+    mapLimitations(result.limitations),
   ));
   byAxis.get("value")!.push(deterministicFact(
     "value.completed_hand_fixed_point",
@@ -377,7 +411,7 @@ function mapCompletedHand(
     resultIds,
     result.identity,
     "deterministic_under_assumptions",
-    [...result.limitations],
+    mapLimitations(result.limitations),
   ));
   for (const dimension of ["han", "fu"] as const) {
     byAxis.get("value")!.push(blockedDeterministicFact(
@@ -385,10 +419,10 @@ function mapCompletedHand(
       dimension,
       "unsupported_upstream_api",
       resultIds,
-      [...result.limitations],
+      mapLimitations(result.limitations),
     ));
   }
-  diagnostics.push(...result.diagnostics);
+  diagnostics.push(...mapDiagnostics(result.diagnostics));
 }
 
 function mapThreatRisk(
@@ -429,7 +463,7 @@ function mapThreatRisk(
         unit: "helper_risk_scale",
       },
       evidence,
-      [...result.limitations],
+      mapLimitations(result.limitations),
       result.identity,
     ));
     const classifications = unique(result.classifications
@@ -442,7 +476,7 @@ function mapThreatRisk(
         `helper_classifications:actor${result.threatActor}`,
         { kind: "string_set", values: classifications },
         evidence,
-        [...result.limitations],
+        mapLimitations(result.limitations),
         result.identity,
       ));
     }
@@ -459,7 +493,7 @@ function mapThreatRisk(
           category: honor.category,
         },
         evidence,
-        [...result.limitations],
+        mapLimitations(result.limitations),
         result.identity,
       ));
     }
@@ -468,10 +502,10 @@ function mapThreatRisk(
       `helper_left_no_suji:actor${result.threatActor}`,
       { kind: "boolean", value: result.leftNoSujiTile34.includes(tile34) },
       evidence,
-      [...result.limitations],
+      mapLimitations(result.limitations),
       result.identity,
     ));
-    diagnostics.push(...result.diagnostics);
+    diagnostics.push(...mapDiagnostics(result.diagnostics));
   }
 }
 

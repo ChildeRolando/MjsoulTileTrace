@@ -33,20 +33,20 @@ type HonorClassification struct {
 }
 
 type ThreatRiskResult struct {
-	Kind                 string                `json:"kind"`
-	RequestID            string                `json:"requestId"`
-	ProtocolVersion      string                `json:"protocolVersion"`
-	ActionRef            string                `json:"actionRef"`
-	StateHash            string                `json:"stateHash"`
-	Identity             EngineIdentity        `json:"identity"`
-	ThreatActor          int                   `json:"threatActor"`
-	RiskScale            []float64             `json:"riskScale"`
-	Classifications      []StructuralRisk      `json:"classifications"`
-	HonorClassifications []HonorClassification `json:"honorClassifications"`
-	LeftNoSujiTile34     []int                 `json:"leftNoSujiTile34"`
-	EvidenceIDs          []string              `json:"evidenceIds"`
-	Limitations          []string              `json:"limitations"`
-	Diagnostics          []string              `json:"diagnostics"`
+	Kind                 string                 `json:"kind"`
+	RequestID            string                 `json:"requestId"`
+	ProtocolVersion      string                 `json:"protocolVersion"`
+	ActionRef            string                 `json:"actionRef"`
+	StateHash            string                 `json:"stateHash"`
+	Identity             EngineIdentity         `json:"identity"`
+	ThreatActor          int                    `json:"threatActor"`
+	RiskScale            []float64              `json:"riskScale"`
+	Classifications      []StructuralRisk       `json:"classifications"`
+	HonorClassifications []HonorClassification  `json:"honorClassifications"`
+	LeftNoSujiTile34     []int                  `json:"leftNoSujiTile34"`
+	EvidenceIDs          []string               `json:"evidenceIds"`
+	Limitations          []string               `json:"limitations"`
+	Diagnostics          []FactEngineDiagnostic `json:"diagnostics"`
 }
 
 func validateStrictAscendingTiles(values []int, field string) error {
@@ -260,10 +260,10 @@ func analyzeThreatRisk(request ThreatRiskRequest) (ThreatRiskResult, error) {
 		LeftNoSujiTile34:     cloneInts(leftNoSuji),
 		EvidenceIDs:          append([]string(nil), request.EvidenceIDs...),
 		Limitations: []string{
-			"Pinned mahjong-helper risk scale is a versioned heuristic, not a calibrated Mortal deal-in probability",
-			"Each threat is analyzed independently; values are never merged into one probability",
-			"Suji labels use replay-provided safe tiles while wall and one-chance labels remain separate",
+			"helper_risk_not_mortal_probability",
+			"threats_analyzed_independently",
+			"structural_labels_separate",
 		},
-		Diagnostics: []string{},
+		Diagnostics: []FactEngineDiagnostic{},
 	}, nil
 }

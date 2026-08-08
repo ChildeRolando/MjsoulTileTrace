@@ -95,12 +95,12 @@ function handResult(overrides: Partial<Hand13FactResult> = {}): Hand13FactResult
           { id: 0, name: "立直" },
           { id: 7, name: "三色" },
         ],
-        limitations: ["Pinned helper yaku mapping"],
+        limitations: ["helper_yaku_mapping_versioned"],
       },
       {
         field: "dama_point",
         numericValue: 3900,
-        limitations: ["Pinned helper estimate"],
+        limitations: ["helper_dama_point_estimate"],
       },
     ],
     diagnostics: [],
@@ -165,7 +165,11 @@ function baseInput(): CandidateLedgerBuildInput {
         })),
         leftNoSujiTile34: [0, 8],
         evidenceIds: ["event-riichi-2", "event-safe-6s"],
-        limitations: ["Not a calibrated Mortal deal-in probability"],
+        limitations: [
+          "helper_risk_not_mortal_probability",
+          "threats_analyzed_independently",
+          "structural_labels_separate",
+        ],
         diagnostics: [],
       },
     }],
@@ -264,7 +268,14 @@ describe("structured ledger builder", () => {
 
   it("preserves completed-hand scoring assumptions on both score outputs", () => {
     const input = baseInput();
-    const limitations = ["score assumes the supplied win context is complete"];
+    const resultLimitations = [
+      "completed_hand_han_fu_unavailable" as const,
+      "completed_hand_context_limited" as const,
+    ];
+    const limitations = [
+      "上游公开接口不提供番数与符数",
+      "未提供的包牌和场况役不会被推断",
+    ];
     const { hand13Request: _hand13Request, ...projection } = input.projection;
     input.projection = {
       ...projection,
@@ -301,7 +312,7 @@ describe("structured ledger builder", () => {
         fixedPoint: 8100,
         hanStatus: "unsupported_upstream_api",
         fuStatus: "unsupported_upstream_api",
-        limitations,
+        limitations: resultLimitations,
         diagnostics: [],
       },
     };
