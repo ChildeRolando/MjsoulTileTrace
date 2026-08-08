@@ -3,6 +3,7 @@ import {
   CandidateFactorLedgerSchema,
   DeterministicPreferenceSchema,
   FactorDifferenceSchema,
+  FactorValueSchema,
   canonicalActionRef,
 } from "../src/index.js";
 
@@ -27,6 +28,134 @@ function completeAxes(
 }
 
 describe("structured factor ledger", () => {
+  it("parses canonical typed shape claims without exposing decomposition refs", () => {
+    expect(FactorValueSchema.parse({
+      kind: "shape_claims",
+      claims: [{
+        certainty: "invariant",
+        group: { kind: "sequence", tiles34: [0, 1, 2], occurrence: 1 },
+        decompositionOrdinals: [0, 2],
+      }],
+    })).toEqual({
+      kind: "shape_claims",
+      claims: [{
+        certainty: "invariant",
+        group: { kind: "sequence", tiles34: [0, 1, 2], occurrence: 1 },
+        decompositionOrdinals: [0, 2],
+      }],
+    });
+  });
+
+  it("rejects non-canonical shape claims, duplicate ordinals, and raw fields", () => {
+    const claim = {
+      certainty: "alternative",
+      group: { kind: "pair_candidate", tiles34: [4, 4], occurrence: 1 },
+      decompositionOrdinals: [0, 1],
+    } as const;
+    expect(() => FactorValueSchema.parse({
+      kind: "shape_claims",
+      claims: [claim, claim],
+    })).toThrow();
+    expect(() => FactorValueSchema.parse({
+      kind: "shape_claims",
+      claims: [{ ...claim, decompositionOrdinals: [1, 1] }],
+    })).toThrow();
+    expect(() => FactorValueSchema.parse({
+      kind: "shape_claims",
+      claims: [{ ...claim, decompositionRef: "raw:forbidden" }],
+    })).toThrow();
+  });
+
+  it("rejects zero-based occurrences, empty proof, invalid shapes, and duplicate identities", () => {
+    const base = {
+      certainty: "invariant" as const,
+      group: { kind: "sequence" as const, tiles34: [0, 1, 2], occurrence: 1 },
+      decompositionOrdinals: [0],
+    };
+    for (const invalid of [
+      { ...base, group: { ...base.group, occurrence: 0 } },
+      { ...base, decompositionOrdinals: [] },
+      { ...base, group: { ...base.group, tiles34: [0, 1, 3] } },
+      { ...base, group: { ...base.group, tiles34: [2, 1, 0] } },
+      {
+        ...base,
+        group: { kind: "pair_candidate", tiles34: [4, 5], occurrence: 1 },
+      },
+    ]) {
+      expect(() => FactorValueSchema.parse({
+        kind: "shape_claims",
+        claims: [invalid],
+      })).toThrow();
+    }
+    expect(() => FactorValueSchema.parse({
+      kind: "shape_claims",
+      claims: [base, { ...base, decompositionOrdinals: [1] }],
+    })).toThrow();
+    expect(() => FactorValueSchema.parse({
+      kind: "shape_claims",
+      claims: [{ ...base, group: { ...base.group, occurrence: 2 } }],
+    })).toThrow();
+    expect(() => FactorValueSchema.parse({
+      kind: "shape_claims",
+      claims: [base, {
+        ...base,
+        group: { ...base.group, occurrence: 3 },
+        decompositionOrdinals: [1],
+      }],
+    })).toThrow();
+  });
+
+  it("parses canonical typed wait details and rejects wrong ordering", () => {
+    const waits = [{
+      tile34: 2,
+      families: ["standard"],
+      waitTypes: ["ryanmen", "shanpon"],
+      remainingStatus: "calculated",
+      remaining: 3,
+      baseRonEligibility: "eligible",
+      decompositionOrdinals: [0, 1],
+    }, {
+      tile34: 5,
+      families: ["standard", "chiitoitsu"],
+      waitTypes: ["tanki"],
+      remainingStatus: "blocked_missing_facts",
+      remaining: null,
+      baseRonEligibility: "unknown_missing_situational_yaku_context",
+      decompositionOrdinals: [],
+    }] as const;
+    expect(FactorValueSchema.parse({ kind: "wait_details", waits })).toEqual({
+      kind: "wait_details",
+      waits,
+    });
+    expect(() => FactorValueSchema.parse({
+      kind: "wait_details",
+      waits: [...waits].reverse(),
+    })).toThrow();
+    expect(() => FactorValueSchema.parse({
+      kind: "wait_details",
+      waits: [{ ...waits[0], waitTypes: ["shanpon", "ryanmen"] }],
+    })).toThrow();
+    expect(() => FactorValueSchema.parse({
+      kind: "wait_details",
+      waits: [{ ...waits[0], decompositionRef: "raw:forbidden" }],
+    })).toThrow();
+  });
+
+  it("requires integer ID sets to use strict ascending canonical order", () => {
+    expect(FactorValueSchema.parse({
+      kind: "integer_ids",
+      values: [1, 3, 8],
+    })).toEqual({ kind: "integer_ids", values: [1, 3, 8] });
+    expect(() => FactorValueSchema.parse({
+      kind: "integer_ids",
+      values: [3, 1],
+    })).toThrow();
+    expect(() => FactorValueSchema.parse({
+      kind: "integer_ids",
+      values: [1, 1],
+    })).toThrow();
+  });
+
   it("exports the ledger, difference, and preference schemas", () => {
     expect(CandidateFactorLedgerSchema).toBeDefined();
     expect(FactorDifferenceSchema).toBeDefined();

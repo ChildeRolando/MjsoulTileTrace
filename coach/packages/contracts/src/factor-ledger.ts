@@ -74,10 +74,12 @@ const IntegerIdsFactorValueSchema = z.object({
   kind: z.literal("integer_ids"),
   values: z.array(z.number().int()),
 }).strict().superRefine((factorValue, context) => {
-  if (new Set(factorValue.values).size !== factorValue.values.length) {
+  if (factorValue.values.some((value, index) =>
+    index > 0 && value <= factorValue.values[index - 1]!
+  )) {
     context.addIssue({
       code: z.ZodIssueCode.custom,
-      message: "Integer factor IDs must be unique",
+      message: "Integer factor IDs must be unique and strictly sorted",
       path: ["values"],
     });
   }
@@ -104,6 +106,202 @@ const HonorSafetyFactorValueSchema = z.object({
   category: z.enum(["yakuhai", "guest_wind"]),
 }).strict();
 
+const ShapeKindSchema = z.enum([
+  "sequence",
+  "triplet",
+  "pair_candidate",
+  "ryanmen_taatsu",
+  "kanchan_taatsu",
+  "penchan_taatsu",
+  "floating",
+]);
+
+const FamilySchema = z.enum(["standard", "chiitoitsu", "kokushi"]);
+const WaitTypeSchema = z.enum([
+  "ryanmen",
+  "kanchan",
+  "penchan",
+  "shanpon",
+  "tanki",
+  "kokushi_single",
+  "kokushi_thirteen_sided",
+]);
+
+function strictOrdinalList(minimum: number) {
+  return z.array(z.number().int().nonnegative()).min(minimum)
+  .superRefine((values, context) => {
+    if (values.some((value, index) =>
+      index > 0 && value <= values[index - 1]!
+    )) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Decomposition ordinals must be strictly increasing",
+      });
+    }
+  });
+}
+const StrictOrdinalListSchema = strictOrdinalList(0);
+const NonEmptyStrictOrdinalListSchema = strictOrdinalList(1);
+
+const LedgerShapeGroupSchema = z.object({
+  kind: ShapeKindSchema,
+  tiles34: z.array(z.number().int().min(0).max(33)).min(1).max(3),
+  occurrence: z.number().int().min(1),
+}).strict().superRefine((group, context) => {
+  const tiles = group.tiles34;
+  if (tiles.some((tile, index) => index > 0 && tile < tiles[index - 1]!)) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Shape tiles must be sorted",
+      path: ["tiles34"],
+    });
+    return;
+  }
+  const same = tiles.every((tile) => tile === tiles[0]);
+  const sameSuit = tiles.every((tile) =>
+    tile < 27 && Math.floor(tile / 9) === Math.floor(tiles[0]! / 9)
+  );
+  const firstRank = tiles[0]! % 9 + 1;
+  const valid = group.kind === "sequence"
+    ? tiles.length === 3 && sameSuit && tiles[1] === tiles[0]! + 1 &&
+      tiles[2] === tiles[1]! + 1
+    : group.kind === "triplet"
+      ? tiles.length === 3 && same
+      : group.kind === "pair_candidate"
+        ? tiles.length === 2 && same
+        : group.kind === "ryanmen_taatsu"
+          ? tiles.length === 2 && sameSuit && tiles[1] === tiles[0]! + 1 &&
+            firstRank >= 2 && firstRank <= 7
+          : group.kind === "kanchan_taatsu"
+            ? tiles.length === 2 && sameSuit && tiles[1] === tiles[0]! + 2
+            : group.kind === "penchan_taatsu"
+              ? tiles.length === 2 && sameSuit && tiles[1] === tiles[0]! + 1 &&
+                (firstRank === 1 || firstRank === 8)
+              : tiles.length === 1;
+  if (!valid) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: `Tiles do not form ${group.kind}`,
+      path: ["tiles34"],
+    });
+  }
+});
+
+const ShapeClaimSchema = z.object({
+  certainty: z.enum(["invariant", "alternative"]),
+  group: LedgerShapeGroupSchema,
+  decompositionOrdinals: NonEmptyStrictOrdinalListSchema,
+}).strict();
+
+function compareNumberLists(left: readonly number[], right: readonly number[]): number {
+  for (let index = 0; index < Math.min(left.length, right.length); index += 1) {
+    const difference = left[index]! - right[index]!;
+    if (difference !== 0) return difference;
+  }
+  return left.length - right.length;
+}
+
+const shapeKindOrder = ShapeKindSchema.options;
+function compareShapeClaims(
+  left: z.infer<typeof ShapeClaimSchema>,
+  right: z.infer<typeof ShapeClaimSchema>,
+): number {
+  return ["invariant", "alternative"].indexOf(left.certainty) -
+      ["invariant", "alternative"].indexOf(right.certainty) ||
+    shapeKindOrder.indexOf(left.group.kind) -
+      shapeKindOrder.indexOf(right.group.kind) ||
+    compareNumberLists(left.group.tiles34, right.group.tiles34) ||
+    left.group.occurrence - right.group.occurrence;
+}
+
+const ShapeClaimsFactorValueSchema = z.object({
+  kind: z.literal("shape_claims"),
+  claims: z.array(ShapeClaimSchema),
+}).strict().superRefine((factorValue, context) => {
+  if (factorValue.claims.some((claim, index) =>
+    index > 0 && compareShapeClaims(factorValue.claims[index - 1]!, claim) >= 0
+  )) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Shape claims must be unique and canonically sorted",
+      path: ["claims"],
+    });
+  }
+  const occurrenceByIdentity = new Map<string, number>();
+  factorValue.claims.forEach((claim, index) => {
+    const identity = [
+      claim.certainty,
+      claim.group.kind,
+      claim.group.tiles34.join(","),
+    ].join(":");
+    const expected = (occurrenceByIdentity.get(identity) ?? 0) + 1;
+    if (claim.group.occurrence !== expected) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Shape claim occurrences must be contiguous and one-based",
+        path: ["claims", index, "group", "occurrence"],
+      });
+    }
+    occurrenceByIdentity.set(identity, claim.group.occurrence);
+  });
+});
+
+const WaitDetailSchema = z.object({
+  tile34: z.number().int().min(0).max(33),
+  families: z.array(FamilySchema).min(1),
+  waitTypes: z.array(WaitTypeSchema).min(1),
+  remainingStatus: z.enum(["calculated", "blocked_missing_facts"]),
+  remaining: z.number().int().min(0).max(4).nullable(),
+  baseRonEligibility: z.enum([
+    "eligible",
+    "ineligible",
+    "unknown_missing_situational_yaku_context",
+  ]),
+  decompositionOrdinals: StrictOrdinalListSchema,
+}).strict().superRefine((wait, context) => {
+  if ((wait.remainingStatus === "calculated") !== (wait.remaining !== null)) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Wait remaining status/value mismatch",
+    });
+  }
+  if (wait.families.some((family, index) =>
+    index > 0 && FamilySchema.options.indexOf(family) <=
+      FamilySchema.options.indexOf(wait.families[index - 1]!)
+  )) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Wait families must be unique and canonical",
+      path: ["families"],
+    });
+  }
+  if (wait.waitTypes.some((waitType, index) =>
+    index > 0 && WaitTypeSchema.options.indexOf(waitType) <=
+      WaitTypeSchema.options.indexOf(wait.waitTypes[index - 1]!)
+  )) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Wait types must be unique and canonical",
+      path: ["waitTypes"],
+    });
+  }
+});
+
+const WaitDetailsFactorValueSchema = z.object({
+  kind: z.literal("wait_details"),
+  waits: z.array(WaitDetailSchema),
+}).strict().superRefine((factorValue, context) => {
+  if (factorValue.waits.some((wait, index) =>
+    index > 0 && wait.tile34 <= factorValue.waits[index - 1]!.tile34
+  )) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Wait details must be unique and strictly sorted by tile",
+      path: ["waits"],
+    });
+  }
+});
+
 export const FactorValueSchema = z.union([
   NumberFactorValueSchema,
   BooleanFactorValueSchema,
@@ -112,6 +310,8 @@ export const FactorValueSchema = z.union([
   IntegerIdsFactorValueSchema,
   StringSetFactorValueSchema,
   HonorSafetyFactorValueSchema,
+  ShapeClaimsFactorValueSchema,
+  WaitDetailsFactorValueSchema,
 ]);
 export type FactorValue = z.infer<typeof FactorValueSchema>;
 
