@@ -155,7 +155,7 @@ describe("canonical call and kan reduction", () => {
       kind: "ankan",
       actor: 0,
     });
-    expect(afterKan.publicState?.phase).toBe("awaiting_rinshan_draw");
+    expect(afterKan.publicState?.phase).toBe("awaiting_kan_responses");
     expect(afterKan.privateState?.concealedTiles.filter((tile) => tile.id === "5p"))
       .toHaveLength(0);
   });

@@ -333,7 +333,7 @@ function validateRoundEvent(
         kind: "other",
         tileId: event.tiles[0].id,
       });
-      state.phase = "awaiting_rinshan_draw";
+      state.phase = "awaiting_kan_resolution";
       return null;
 
     case "kakan_declared": {
@@ -374,6 +374,9 @@ function validateRoundEvent(
       }
       if (!addPublicTile(state, event.indicator)) {
         return invalid("physical_tile_overflow", event);
+      }
+      if (state.phase === "awaiting_kan_resolution") {
+        state.phase = "awaiting_rinshan_draw";
       }
       return null;
 

@@ -55,3 +55,4 @@ export * from "./factors/structured-factor-pipeline.js";
 export * from "./factors/legacy-facts-bridge.js";
 export * from "./replay/canonical-event-validator.js";
 export * from "./replay/round-reducer.js";
+export * from "./replay/decision-snapshot.js";

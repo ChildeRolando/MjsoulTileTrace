@@ -313,7 +313,7 @@ function applyAnkan(
     tiles: clone(event.tiles),
   });
   publicState.expectedActor = event.actor;
-  publicState.phase = "awaiting_rinshan_draw";
+  publicState.phase = "awaiting_kan_responses";
   const rule = stream.ruleSet.ippatsuCancelledByAnkan;
   if (rule === true) cancelIppatsu(publicState, false);
   if (rule === "unknown") cancelIppatsu(publicState, null);
@@ -462,6 +462,9 @@ function applyCoreEvent(
     applyRiichiAccepted(stream, event, publicState, privateState);
   } else if (event.type === "dora_revealed") {
     publicState.doraIndicators.push(clone(event.indicator));
+    if (publicState.phase === "awaiting_kan_responses") {
+      publicState.phase = "awaiting_rinshan_draw";
+    }
   } else if (event.type === "win_declared") {
     applyWin(event, publicState);
   } else if (event.type === "round_drawn") {
