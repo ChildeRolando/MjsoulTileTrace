@@ -4,11 +4,15 @@ import {
   type ActionRef,
   type CompletedHandFactRequest,
   type Hand13FactRequest,
+  type HandStructureRequestV2,
   type KnownGameFacts,
   type StructuredComparisonCandidate,
   type ThreatRiskFactRequest,
   type Tile,
 } from "@riichi-coach/contracts";
+import {
+  buildHandStructureRequestV2,
+} from "./hand-structure-projector.js";
 import {
   doraFromIndicator,
   redFiveCounts,
@@ -23,6 +27,7 @@ export type CandidateProjection =
       actionRef: ActionRef;
       projectedStateRef: string;
       hand13Request?: Hand13FactRequest;
+      handStructureRequest?: HandStructureRequestV2;
       completedHandRequest?: CompletedHandFactRequest;
       threatRiskRequests: ThreatRiskFactRequest[];
       localEvidenceIds: string[];
@@ -91,21 +96,23 @@ function deriveLeftTiles34(
 ): number[] | null {
   if (!visibleCountsComplete(facts)) return null;
   const visible = Array<number>(34).fill(0);
-  const add = (tile: Tile): boolean => {
+  const add = (tile: Tile): void => {
     const index = tileIdTo34(tile.id);
     visible[index] = visible[index]! + 1;
-    return visible[index]! <= 4;
+    if (visible[index]! > 4) {
+      throw new Error("candidate_projection_visible_tile_count_exceeds_four");
+    }
   };
   for (const tile of projectedHand) {
-    if (!add(tile)) return null;
+    add(tile);
   }
   for (const meld of facts.melds) {
     for (const tile of meld.tiles) {
-      if (!add(tile)) return null;
+      add(tile);
     }
   }
   for (const indicator of facts.doraIndicators) {
-    if (!add(indicator)) return null;
+    add(indicator);
   }
   const calledEvents = new Set(
     facts.melds.flatMap((meld) =>
@@ -116,9 +123,9 @@ function deriveLeftTiles34(
     ),
   );
   for (const discard of facts.rivers.flat()) {
-    if (!calledEvents.has(discard.eventId) && !add(discard.tile)) return null;
+    if (!calledEvents.has(discard.eventId)) add(discard.tile);
   }
-  if (candidateDiscard !== null && !add(candidateDiscard)) return null;
+  if (candidateDiscard !== null) add(candidateDiscard);
   return visible.map((count) => 4 - count);
 }
 
@@ -320,12 +327,31 @@ function projectDiscard(
     selfDiscardsComplete: facts.completeness.rivers,
     remainingDraws: projectedState.remainingDraws,
   };
+  const baseYakuContext = facts.handStructureYakuContext ?? {
+    windsStatus: "unknown" as const,
+    roundWindTile34: null,
+    selfWindTile34: null,
+    riichiStatus: "unknown" as const,
+    openTanyaoStatus: "unknown" as const,
+  };
+  const handStructureRequest = buildHandStructureRequestV2({
+    actionRef: candidate.actionRef,
+    factSetId: facts.factSetId,
+    projectedHand,
+    selfMelds: selfMelds(facts),
+    leftTiles34,
+    ronContext: "unknown_future",
+    yakuContext: candidate.action.kind === "riichi_discard"
+      ? { ...baseYakuContext, riichiStatus: "accepted" }
+      : baseYakuContext,
+  });
   const diagnostics: string[] = [];
   return {
     status: "ready",
     actionRef: candidate.actionRef,
     projectedStateRef: stateHash,
     hand13Request,
+    handStructureRequest,
     threatRiskRequests: threatRiskRequests(
       facts,
       candidate.actionRef,

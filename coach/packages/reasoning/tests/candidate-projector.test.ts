@@ -70,6 +70,13 @@ describe("candidate projector", () => {
     expect(projected.status).toBe("ready");
     if (projected.status !== "ready") throw new Error("expected ready");
     expect(projected.hand13Request?.redFiveCounts).toEqual([0, 0, 0]);
+    expect(projected.handStructureRequest?.yakuContext).toEqual({
+      windsStatus: "unknown",
+      roundWindTile34: null,
+      selfWindTile34: null,
+      riichiStatus: "unknown",
+      openTanyaoStatus: "unknown",
+    });
     expect(projected.actionRef).toBe(redDiscard.actionRef);
   });
 

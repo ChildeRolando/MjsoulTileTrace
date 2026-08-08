@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { DecisionWindowSchema } from "./actions.js";
 import { KnownMeldSchema } from "./candidate-contracts.js";
+import { YakuContextV2Schema } from "./hand-structure.js";
 import { RiverDiscardSchema, ThreatStateSchema } from "./scene.js";
 import { TileSchema } from "./tiles.js";
 
@@ -27,6 +28,7 @@ export const KnownGameFactsSchema = z.object({
   ]),
   actor: ActorSchema,
   selfRiichi: z.boolean(),
+  handStructureYakuContext: YakuContextV2Schema.optional(),
   decisionEventRef: z.string().min(1),
   decisionWindow: DecisionWindowSchema,
   concealedTiles: z.array(TileSchema),
@@ -124,6 +126,54 @@ export const KnownGameFactsSchema = z.object({
       message: "Dealer status must agree with east seat wind",
       path: ["dealer"],
     });
+  }
+
+  if (facts.completeness.remainingDraws && facts.remainingDraws === null) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Complete remaining draws require a known value",
+      path: ["remainingDraws"],
+    });
+  }
+
+  const yakuContext = facts.handStructureYakuContext;
+  if (yakuContext !== undefined) {
+    const windTile34 = (wind: "E" | "S" | "W" | "N"): number =>
+      27 + ["E", "S", "W", "N"].indexOf(wind);
+    if (
+      yakuContext.windsStatus === "known" &&
+      yakuContext.roundWindTile34 !== windTile34(facts.roundWind)
+    ) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Known yaku round wind must equal the round wind fact",
+        path: ["handStructureYakuContext", "roundWindTile34"],
+      });
+    }
+    if (
+      yakuContext.windsStatus === "known" &&
+      yakuContext.selfWindTile34 !== windTile34(facts.seatWind)
+    ) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Known yaku self wind must equal the seat wind fact",
+        path: ["handStructureYakuContext", "selfWindTile34"],
+      });
+    }
+    if (yakuContext.riichiStatus === "accepted" && !facts.selfRiichi) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Accepted yaku riichi requires known self riichi",
+        path: ["handStructureYakuContext", "riichiStatus"],
+      });
+    }
+    if (yakuContext.riichiStatus === "inactive" && facts.selfRiichi) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Inactive yaku riichi requires known non-riichi self state",
+        path: ["handStructureYakuContext", "riichiStatus"],
+      });
+    }
   }
 
   facts.melds.forEach((meld, index) => {

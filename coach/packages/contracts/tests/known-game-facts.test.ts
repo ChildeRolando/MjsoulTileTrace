@@ -41,6 +41,75 @@ function baseFacts() {
 }
 
 describe("KnownGameFactsSchema", () => {
+  it("binds known hand-structure yaku context to the legacy fact fields", () => {
+    const known = {
+      windsStatus: "known" as const,
+      roundWindTile34: 27,
+      selfWindTile34: 30,
+      riichiStatus: "inactive" as const,
+      openTanyaoStatus: "enabled" as const,
+    };
+    expect(KnownGameFactsSchema.parse({
+      ...baseFacts(),
+      handStructureYakuContext: known,
+    }).handStructureYakuContext).toEqual(known);
+
+    expect(() => KnownGameFactsSchema.parse({
+      ...baseFacts(),
+      handStructureYakuContext: { ...known, roundWindTile34: 28 },
+    })).toThrow("Known yaku round wind must equal the round wind fact");
+    expect(() => KnownGameFactsSchema.parse({
+      ...baseFacts(),
+      handStructureYakuContext: { ...known, selfWindTile34: 27 },
+    })).toThrow("Known yaku self wind must equal the seat wind fact");
+    expect(() => KnownGameFactsSchema.parse({
+      ...baseFacts(),
+      handStructureYakuContext: { ...known, riichiStatus: "accepted" },
+    })).toThrow("Accepted yaku riichi requires known self riichi");
+    expect(() => KnownGameFactsSchema.parse({
+      ...baseFacts(),
+      selfRiichi: true,
+      handStructureYakuContext: known,
+    })).toThrow("Inactive yaku riichi requires known non-riichi self state");
+  });
+
+  it("allows unknown yaku context for a declared or incomplete riichi state", () => {
+    expect(() => KnownGameFactsSchema.parse({
+      ...baseFacts(),
+      selfRiichi: true,
+      handStructureYakuContext: {
+        windsStatus: "unknown",
+        roundWindTile34: null,
+        selfWindTile34: null,
+        riichiStatus: "unknown",
+        openTanyaoStatus: "unknown",
+      },
+    })).not.toThrow();
+  });
+
+  it("requires a remaining-draw value when that source is complete", () => {
+    expect(() => KnownGameFactsSchema.parse({
+      ...baseFacts(),
+      remainingDraws: null,
+    })).toThrow("Complete remaining draws require a known value");
+    expect(() => KnownGameFactsSchema.parse({
+      ...baseFacts(),
+      remainingDraws: null,
+      completeness: {
+        ...baseFacts().completeness,
+        remainingDraws: false,
+      },
+    })).not.toThrow();
+    expect(() => KnownGameFactsSchema.parse({
+      ...baseFacts(),
+      remainingDraws: 12,
+      completeness: {
+        ...baseFacts().completeness,
+        remainingDraws: false,
+      },
+    })).not.toThrow();
+  });
+
   it("keeps exact red identity and per-field completeness", () => {
     const parsed = KnownGameFactsSchema.parse(baseFacts());
 

@@ -2,8 +2,10 @@ import { readFile } from "node:fs/promises";
 import { describe, expect, it } from "vitest";
 import type { RegressionFixture } from "../src/import/mortal-report.js";
 import {
+  canonicalStartEvents,
   canonicalSelfDrawDiscardEvents,
   canonicalStream,
+  canonicalTile,
 } from "./fixtures/canonical-stream.js";
 import {
   buildLegacyRegressionPipelineInput,
@@ -20,6 +22,141 @@ const fixtureUrl = new URL(
 );
 
 describe("V2 snapshot to KnownGameFacts projection", () => {
+  it("maps only complete canonical wind, riichi, and kuitan sources to known yaku context", () => {
+    const complete = canonicalStream(canonicalSelfDrawDiscardEvents());
+    const decisionWindow = {
+      kind: "self_turn" as const,
+      actor: 0,
+      triggerEventRef: "game:fixture/0/2/0",
+    };
+    expect(projectKnownGameFactsV2({ stream: complete, decisionWindow }))
+      .toMatchObject({
+        handStructureYakuContext: {
+          windsStatus: "known",
+          roundWindTile34: 27,
+          selfWindTile34: 27,
+          riichiStatus: "inactive",
+          openTanyaoStatus: "enabled",
+        },
+      });
+
+    const incomplete = {
+      ...complete,
+      completeness: {
+        ...complete.completeness,
+        eventSequence: "partial" as const,
+        ruleSet: "partial" as const,
+      },
+      ruleSet: {
+        ...complete.ruleSet,
+        openTanyao: "unknown" as const,
+      },
+    };
+    expect(projectKnownGameFactsV2({ stream: incomplete, decisionWindow }))
+      .toMatchObject({
+        selfRiichi: false,
+        handStructureYakuContext: {
+          windsStatus: "unknown",
+          roundWindTile34: null,
+          selfWindTile34: null,
+          riichiStatus: "unknown",
+          openTanyaoStatus: "unknown",
+        },
+      });
+
+    const disabled = {
+      ...complete,
+      ruleSet: { ...complete.ruleSet, openTanyao: false as const },
+    };
+    expect(projectKnownGameFactsV2({ stream: disabled, decisionWindow }))
+      .toMatchObject({
+        handStructureYakuContext: { openTanyaoStatus: "disabled" },
+      });
+  });
+
+  it("keeps an explicit accepted riichi known when event sequence completeness is partial", () => {
+    const stream = canonicalStream([
+      ...canonicalStartEvents(),
+      {
+        type: "tile_drawn",
+        eventId: "game:fixture/0/2/0",
+        sourceRecordRef: "record:2",
+        actor: 0,
+        tile: { visibility: "visible", tile: canonicalTile("5p") },
+        from: "live_wall",
+      },
+      {
+        type: "riichi_declared",
+        eventId: "game:fixture/0/3/0",
+        sourceRecordRef: "record:3",
+        actor: 0,
+      },
+      {
+        type: "tile_discarded",
+        eventId: "game:fixture/0/4/0",
+        sourceRecordRef: "record:4",
+        actor: 0,
+        tile: canonicalTile("5p"),
+        discardMode: "tsumogiri",
+        riichiDeclarationEventRef: "game:fixture/0/3/0",
+      },
+      {
+        type: "riichi_accepted",
+        eventId: "game:fixture/0/5/0",
+        sourceRecordRef: "record:5",
+        actor: 0,
+        declarationEventRef: "game:fixture/0/3/0",
+      },
+      ...[1, 2, 3].flatMap((actor, index) => [{
+        type: "tile_drawn" as const,
+        eventId: `game:fixture/0/${6 + index * 2}/0`,
+        sourceRecordRef: `record:${6 + index * 2}`,
+        actor,
+        tile: { visibility: "hidden" as const },
+        from: "live_wall" as const,
+      }, {
+        type: "tile_discarded" as const,
+        eventId: `game:fixture/0/${7 + index * 2}/0`,
+        sourceRecordRef: `record:${7 + index * 2}`,
+        actor,
+        tile: canonicalTile(`${actor}z` as "1z" | "2z" | "3z"),
+        discardMode: "tedashi" as const,
+        riichiDeclarationEventRef: null,
+      }]),
+      {
+        type: "tile_drawn",
+        eventId: "game:fixture/0/12/0",
+        sourceRecordRef: "record:12",
+        actor: 0,
+        tile: { visibility: "visible", tile: canonicalTile("6p") },
+        from: "live_wall",
+      },
+    ]);
+    const partial = {
+      ...stream,
+      completeness: {
+        ...stream.completeness,
+        eventSequence: "partial" as const,
+      },
+    };
+    const projected = projectKnownGameFactsV2({
+      stream: partial,
+      decisionWindow: {
+        kind: "self_turn",
+        actor: 0,
+        triggerEventRef: "game:fixture/0/12/0",
+      },
+    });
+
+    expect(projected).toMatchObject({
+      selfRiichi: true,
+      handStructureYakuContext: {
+        windsStatus: "unknown",
+        riichiStatus: "accepted",
+      },
+    });
+  });
+
   it("preserves the East 1 hand, river, threat and completeness facts", async () => {
     const raw = JSON.parse(await readFile(fixtureUrl, "utf8")) as RegressionFixture;
     const { selfActor, events, decisions } = importRegressionFixture(raw);

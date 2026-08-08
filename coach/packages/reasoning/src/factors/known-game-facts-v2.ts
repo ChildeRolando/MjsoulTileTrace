@@ -8,6 +8,7 @@ import {
   type DecisionWindow,
   type KnownGameFacts,
   type KnownMeld,
+  type YakuContextV2,
 } from "@riichi-coach/contracts";
 import { freezeDecisionSnapshot } from "../replay/decision-snapshot.js";
 import { CanonicalReplayError } from "../replay/round-reducer.js";
@@ -51,6 +52,39 @@ function knownMeld(meld: CanonicalMeldV2): KnownMeld {
       { ...meld.calledTile },
       ...meld.consumedTiles.map((tile) => ({ ...tile })),
     ],
+  };
+}
+
+function windTile(wind: "E" | "S" | "W" | "N"): number {
+  return 27 + ["E", "S", "W", "N"].indexOf(wind);
+}
+
+function handStructureYakuContext(
+  snapshot: DecisionSnapshotV2,
+): YakuContextV2 {
+  const { publicState } = snapshot;
+  const windsKnown = publicState.fields.roundContext === "complete";
+  const selfRiichi = publicState.riichiStates[snapshot.selfActor]!;
+  const riichiStatus = selfRiichi.status === "accepted"
+    ? "accepted" as const
+    : selfRiichi.status === "none" &&
+        publicState.fields.roundContext === "complete"
+      ? "inactive" as const
+      : "unknown" as const;
+  const openTanyaoStatus = publicState.fields.ruleSet === "complete" &&
+      publicState.ruleSet.openTanyao !== "unknown"
+    ? publicState.ruleSet.openTanyao
+      ? "enabled" as const
+      : "disabled" as const
+    : "unknown" as const;
+  return {
+    windsStatus: windsKnown ? "known" : "unknown",
+    roundWindTile34: windsKnown ? windTile(publicState.roundWind) : null,
+    selfWindTile34: windsKnown
+      ? windTile(publicState.seatWinds[snapshot.selfActor]!)
+      : null,
+    riichiStatus,
+    openTanyaoStatus,
   };
 }
 
@@ -99,6 +133,7 @@ export function projectKnownGameFactsV2(
     provenance,
     actor: snapshot.selfActor,
     selfRiichi: publicState.riichiStates[snapshot.selfActor]!.status !== "none",
+    handStructureYakuContext: handStructureYakuContext(snapshot),
     decisionEventRef: snapshot.decisionEventRef,
     decisionWindow: privateState.decisionWindow,
     concealedTiles: privateState.concealedTiles.map((tile) => ({ ...tile })),
