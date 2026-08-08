@@ -1,7 +1,10 @@
 import { spawn, type ChildProcessWithoutNullStreams } from "node:child_process";
+import { createHash } from "node:crypto";
+import { readFileSync, statSync } from "node:fs";
 import path from "node:path";
 import readline, { type Interface as ReadlineInterface } from "node:readline";
 import type { FactEngineTransport } from "./port.js";
+import { PACKAGED_FACT_ENGINE_MANIFEST } from "./packaged-manifest.js";
 
 interface PendingRequest {
   resolve(line: string): void;
@@ -22,6 +25,48 @@ export function resolveManagedFactEngineBinary(
   const relative = path.relative(resourcesRoot, binary);
   if (relative.startsWith("..") || path.isAbsolute(relative)) {
     throw new Error("managed fact engine binary escaped app resources");
+  }
+  return binary;
+}
+
+export function verifyManagedFactEngineBinary(
+  appResourcesDir: string,
+): string {
+  const binary = resolveManagedFactEngineBinary(appResourcesDir);
+  const manifestPath = path.join(path.dirname(binary), "manifest.json");
+  let packagedManifest: unknown;
+  try {
+    packagedManifest = JSON.parse(readFileSync(manifestPath, "utf8")) as unknown;
+  } catch {
+    throw new Error("managed fact engine integrity check failed: manifest unavailable");
+  }
+  if (packagedManifest === null || typeof packagedManifest !== "object" ||
+    Array.isArray(packagedManifest)) {
+    throw new Error("managed fact engine integrity check failed: invalid manifest");
+  }
+  const actualManifest = packagedManifest as Record<string, unknown>;
+  const expectedManifest = PACKAGED_FACT_ENGINE_MANIFEST as Record<string, unknown>;
+  const actualKeys = Object.keys(actualManifest).sort();
+  const expectedKeys = Object.keys(expectedManifest).sort();
+  if (
+    actualKeys.length !== expectedKeys.length ||
+    actualKeys.some((key, index) => key !== expectedKeys[index] ||
+      actualManifest[key] !== expectedManifest[key])
+  ) {
+    throw new Error("managed fact engine integrity check failed: manifest mismatch");
+  }
+  try {
+    if (statSync(binary).size !== PACKAGED_FACT_ENGINE_MANIFEST.size) {
+      throw new Error("size mismatch");
+    }
+    const digest = createHash("sha256")
+      .update(readFileSync(binary))
+      .digest("hex");
+    if (digest !== PACKAGED_FACT_ENGINE_MANIFEST.sha256) {
+      throw new Error("digest mismatch");
+    }
+  } catch {
+    throw new Error("managed fact engine integrity check failed: binary mismatch");
   }
   return binary;
 }
@@ -74,7 +119,7 @@ export class ManagedFactEngineTransport implements FactEngineTransport {
     }
 
     this.stderrTail.length = 0;
-    const child = spawn(resolveManagedFactEngineBinary(this.appResourcesDir), [], {
+    const child = spawn(verifyManagedFactEngineBinary(this.appResourcesDir), [], {
       stdio: "pipe",
       windowsHide: true,
     });

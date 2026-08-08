@@ -14,7 +14,7 @@ import {
 const identity = {
   engine: "mahjong-helper",
   upstreamCommit: "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
-  adapterVersion: "1.0.0",
+  adapterVersion: "0.1.0",
   protocolVersion: "mahjong-facts/v1",
 } as const;
 

@@ -1,4 +1,8 @@
 import { describe, expect, it } from "vitest";
+import { appendFile, cp, mkdtemp, rm } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import {
   canonicalActionRef,
   type Hand13FactRequest,
@@ -11,7 +15,9 @@ import {
   JsonlFactEngineClient,
 } from "../src/fact-engine/jsonl-client.js";
 import {
+  ManagedFactEngineTransport,
   resolveManagedFactEngineBinary,
+  verifyManagedFactEngineBinary,
 } from "../src/fact-engine/managed-sidecar.js";
 
 const identity = {
@@ -305,5 +311,38 @@ describe("JSONL fact engine client", () => {
     expect(resolved).toMatch(
       /resources[\\/]mahjong-facts[\\/]windows-x64[\\/]mahjong-facts\.exe$/,
     );
+  });
+
+  it("starts the packaged sidecar without Go or a caller-supplied binary path", async () => {
+    const packageRoot = path.resolve(
+      path.dirname(fileURLToPath(import.meta.url)),
+      "../../..",
+    );
+    const resources = path.join(packageRoot, "resources");
+    expect(verifyManagedFactEngineBinary(resources)).toMatch(
+      /mahjong-facts\.exe$/,
+    );
+    const client = new JsonlFactEngineClient(
+      new ManagedFactEngineTransport(resources),
+    );
+    await expect(client.identity()).resolves.toEqual(identity);
+    await client.close();
+  });
+
+  it("rejects a packaged sidecar whose bytes do not match the trusted manifest", async () => {
+    const packageRoot = path.resolve(
+      path.dirname(fileURLToPath(import.meta.url)),
+      "../../..",
+    );
+    const source = path.join(packageRoot, "resources");
+    const temporary = await mkdtemp(path.join(tmpdir(), "riichi-facts-"));
+    try {
+      await cp(source, temporary, { recursive: true });
+      await appendFile(resolveManagedFactEngineBinary(temporary), "tampered");
+      expect(() => verifyManagedFactEngineBinary(temporary))
+        .toThrow("integrity check failed");
+    } finally {
+      await rm(temporary, { recursive: true, force: true });
+    }
   });
 });

@@ -186,13 +186,8 @@ describe("factor difference builder", () => {
     const changed = {
       ...helperRisk(8),
       engineIdentity: changedIdentity,
-    } satisfies FactorFact;
-    const result = buildFactorDifferences([
-      ledger(twoPin, [], [helperRisk(2)]),
-      ledger(sixSou, [], [changed]),
-    ]);
-
-    expect(result.heuristic).toEqual([]);
+    } as unknown as FactorFact;
+    expect(() => ledger(sixSou, [], [changed])).toThrow();
   });
 
   it("preserves non-preferential heuristic set and class differences", () => {

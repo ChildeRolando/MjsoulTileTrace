@@ -7,6 +7,7 @@
     "build": "npm run build -w @riichi-coach/contracts && npm run build -w @riichi-coach/reasoning",
     "test": "npm run build && vitest run",
     "build:fact-engine": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build-fact-engine.ps1",
+    "package:fact-engine": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-fact-engine.ps1",
     "generate:factor-regression-golden": "node scripts/generate-factor-regression-golden.mjs",
     "test:fact-engine": "cd tools/mahjong-facts && go test ./...",
     "test:package-import": "npm run build && node --test smoke/package-import-smoke.mjs",

@@ -9,7 +9,7 @@ New-Item -ItemType Directory -Force -Path $outputDirectory | Out-Null
 
 Push-Location (Join-Path $coachRoot "tools\mahjong-facts")
 try {
-  go build -trimpath -ldflags "-s -w" -o $output .
+  go build -trimpath -buildvcs=false -ldflags "-s -w" -o $output .
 }
 finally {
   Pop-Location

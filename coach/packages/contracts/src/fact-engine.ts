@@ -4,6 +4,7 @@ import { ActionRefSchema } from "./comparison.js";
 export const FACT_ENGINE_PROTOCOL_VERSION = "mahjong-facts/v1" as const;
 export const MAHJONG_HELPER_COMMIT =
   "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0" as const;
+export const FACT_ENGINE_ADAPTER_VERSION = "0.1.0" as const;
 
 const Tile34IndexSchema = z.number().int().min(0).max(33);
 const CountSchema = z.number().int().min(0).max(4);
@@ -59,7 +60,7 @@ const UniqueStringsSchema = uniqueStringsSchema();
 export const EngineIdentitySchema = z.object({
   engine: z.literal("mahjong-helper"),
   upstreamCommit: z.literal(MAHJONG_HELPER_COMMIT),
-  adapterVersion: z.string().min(1),
+  adapterVersion: z.literal(FACT_ENGINE_ADAPTER_VERSION),
   protocolVersion: z.literal(FACT_ENGINE_PROTOCOL_VERSION),
 }).strict();
 export type EngineIdentity = z.infer<typeof EngineIdentitySchema>;
