@@ -2,17 +2,22 @@ import {
   CandidateDiscardEvidenceV2Schema,
   HandStructureResultV2Schema,
   MergedHandFuritenV2Schema,
+  compareCanonicalEventPositions,
+  parseCanonicalEventRef,
   ResponseFuritenAnalysisV2Schema,
   RiverDiscardV2Schema,
   type CandidateDiscardEvidenceV2,
   type HandStructureResultV2,
   type MergedHandFuritenV2,
   type RiverDiscardV2,
+  type ResponseSceneBindingV2,
 } from "@riichi-coach/contracts";
 import type { ResponseFuritenAnalysis } from "../replay/response-furiten.js";
 import { tileIdTo34 } from "./tile34.js";
 
 interface FuritenMergeBase {
+  factSetId: string;
+  decisionEventRef: string;
   hand: HandStructureResultV2;
   selfActor: number;
   selfRiver: readonly RiverDiscardV2[];
@@ -31,6 +36,7 @@ export type FuritenMergeInput = FuritenMergeBase & (
 function validateSelfRiver(
   rawRiver: readonly RiverDiscardV2[],
   selfActor: number,
+  binding: ResponseSceneBindingV2,
 ): RiverDiscardV2[] {
   const river = rawRiver.map((discard) => RiverDiscardV2Schema.parse(discard));
   const refs = new Set<string>();
@@ -45,12 +51,46 @@ function validateSelfRiver(
       throw new Error("furiten_merge_duplicate_canonical_event_ref");
     }
     refs.add(discard.eventRef);
+    if (binding.source === "canonical_replay") {
+      const decision = parseCanonicalEventRef(binding.decisionEventRef);
+      const event = parseCanonicalEventRef(discard.eventRef);
+      if (
+        decision === null || event === null ||
+        event.gameId !== decision.gameId ||
+        event.position.roundOrdinal !== decision.position.roundOrdinal ||
+        compareCanonicalEventPositions(event.position, decision.position) > 0
+      ) {
+        throw new Error("furiten_merge_self_river_scene_mismatch");
+      }
+    }
   }
   return river;
 }
 
-function validateResponse(raw: ResponseFuritenAnalysis): ResponseFuritenAnalysis {
+function validateResponse(
+  raw: ResponseFuritenAnalysis,
+  factSetId: string,
+  decisionEventRef: string,
+  selfActor: number,
+  hand: HandStructureResultV2,
+): ResponseFuritenAnalysis {
   const parsed = ResponseFuritenAnalysisV2Schema.parse(raw);
+  if (parsed.binding.factSetId !== factSetId) {
+    throw new Error("furiten_merge_response_fact_set_mismatch");
+  }
+  if (parsed.binding.decisionEventRef !== decisionEventRef) {
+    throw new Error("furiten_merge_response_decision_event_mismatch");
+  }
+  if (parsed.binding.selfActor !== selfActor) {
+    throw new Error("furiten_merge_response_self_actor_mismatch");
+  }
+  if (
+    parsed.binding.source === "canonical_replay" &&
+    parsed.binding.engineIdentityStatus === "known" &&
+    JSON.stringify(parsed.binding.engineIdentity) !== JSON.stringify(hand.identity)
+  ) {
+    throw new Error("furiten_merge_engine_identity_mismatch");
+  }
   for (const component of [parsed.temporary, parsed.riichi]) {
     if (component.evidenceIds.some((reference) =>
       reference.startsWith("action:v1:")
@@ -58,10 +98,7 @@ function validateResponse(raw: ResponseFuritenAnalysis): ResponseFuritenAnalysis
       throw new Error("furiten_merge_response_event_ref_is_action_ref");
     }
   }
-  return {
-    temporary: parsed.temporary,
-    riichi: parsed.riichi,
-  };
+  return parsed;
 }
 
 function validateCandidate(
@@ -87,6 +124,20 @@ export function mergeHandStructureFuriten(
   raw: FuritenMergeInput,
 ): MergedHandFuritenV2 {
   const hand = HandStructureResultV2Schema.parse(raw.hand);
+  if (typeof raw.factSetId !== "string" || raw.factSetId.length === 0) {
+    throw new Error("furiten_merge_invalid_fact_set_id");
+  }
+  if (
+    typeof raw.decisionEventRef !== "string" ||
+    raw.decisionEventRef.length === 0
+  ) {
+    throw new Error("furiten_merge_invalid_decision_event_ref");
+  }
+  if (
+    hand.requestId !== `${raw.factSetId}:hand-structure:${hand.stateHash}`
+  ) {
+    throw new Error("furiten_merge_hand_request_mismatch");
+  }
   if (!Number.isInteger(raw.selfActor) || raw.selfActor < 0 || raw.selfActor > 3) {
     throw new Error("furiten_merge_invalid_self_actor");
   }
@@ -111,8 +162,18 @@ export function mergeHandStructureFuriten(
   ) {
     throw new Error("furiten_merge_candidate_source_requires_action_ref");
   }
-  const selfRiver = validateSelfRiver(raw.selfRiver, raw.selfActor);
-  const response = validateResponse(raw.response);
+  const response = validateResponse(
+    raw.response,
+    raw.factSetId,
+    raw.decisionEventRef,
+    raw.selfActor,
+    hand,
+  );
+  const selfRiver = validateSelfRiver(
+    raw.selfRiver,
+    raw.selfActor,
+    response.binding,
+  );
   const candidate = validateCandidate(raw.candidateDiscard, hand, raw.selfActor);
   const structuralWaits = new Set(hand.waits.map((wait) => wait.tile34));
   const canonicalEventRefs = selfRiver
@@ -179,6 +240,7 @@ export function mergeHandStructureFuriten(
         .sort((left, right) => left - right)
     : [];
   return MergedHandFuritenV2Schema.parse({
+    binding: response.binding,
     hand,
     furiten: {
       discard,

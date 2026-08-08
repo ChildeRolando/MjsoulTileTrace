@@ -309,19 +309,77 @@ class FixtureHandStructureEngine implements HandStructureFactEnginePort {
 }
 
 describe("response-opportunity furiten", () => {
+  it("binds the analysis and every historical proof to exact replay prefixes", async () => {
+    const engine = new FixtureHandStructureEngine();
+    const analysis = await deriveResponseFuriten(
+      streamWith(closedByNextDraw()), eventRef(6), engine,
+    );
+    expect(analysis.binding).toMatchObject({
+      source: "canonical_replay",
+      factSetId: expect.stringMatching(/^canonical-v2:/),
+      streamPrefixHash: expect.any(String),
+      decisionEventRef: eventRef(6),
+      selfActor: 0,
+      engineIdentityStatus: "known",
+      engineIdentity: identity,
+    });
+    if (analysis.binding.source !== "canonical_replay") {
+      throw new Error("expected canonical replay binding");
+    }
+    expect(analysis.binding.factSetId).toBe(
+      `canonical-v2:${analysis.binding.streamPrefixHash}`,
+    );
+    const proof = analysis.temporary.analysisRefs[0]!;
+    expect(proof.sourceStreamPrefixHash).toEqual(expect.any(String));
+    expect(proof.requestId).toBe(
+      `canonical-response:${proof.sourceStreamPrefixHash}:hand-structure:${proof.stateHash}`,
+    );
+    expect(proof.engineIdentity).toEqual(analysis.binding.engineIdentity);
+  });
+
+  it("fails both components closed with a bound project-owned reason when identity fails", async () => {
+    const engine = new FixtureHandStructureEngine();
+    engine.identity = async () => {
+      throw new Error("untrusted engine text must not cross");
+    };
+    const analysis = await deriveResponseFuriten(
+      streamWith(closedByNextDraw()), eventRef(6), engine,
+    );
+    expect(analysis).toMatchObject({
+      binding: {
+        source: "canonical_replay",
+        factSetId: expect.stringMatching(/^canonical-v2:/),
+        decisionEventRef: eventRef(6),
+        selfActor: 0,
+        engineIdentityStatus: "unknown",
+        engineIdentity: null,
+      },
+      temporary: {
+        status: "unknown",
+        unknownReason: "response_engine_identity_failure",
+      },
+      riichi: {
+        status: "unknown",
+        unknownReason: "response_engine_identity_failure",
+      },
+    });
+    expect(engine.requests).toEqual([]);
+    expect(JSON.stringify(analysis)).not.toContain("untrusted engine text");
+  });
+
   it("confirms a passed eligible discard only after the exact next legal draw", async () => {
     const events = closedByNextDraw();
     const engine = new FixtureHandStructureEngine();
 
     await expect(deriveResponseFuriten(
       streamWith(events), eventRef(5), engine,
-    )).resolves.toEqual({
+    )).resolves.toMatchObject({
       temporary: { status: "clear", evidenceIds: [], analysisRefs: [], riichiAcceptanceEventRef: null },
       riichi: { status: "clear", evidenceIds: [], analysisRefs: [], riichiAcceptanceEventRef: null },
     });
     await expect(deriveResponseFuriten(
       streamWith(events), eventRef(6), engine,
-    )).resolves.toEqual({
+    )).resolves.toMatchObject({
       temporary: {
         status: "confirmed",
         evidenceIds: [eventRef(5), eventRef(6)],
@@ -343,6 +401,8 @@ describe("response-opportunity furiten", () => {
       actionRef: request.actionRef,
       stateHash: request.stateHash,
       engineIdentity: identity,
+      sourceStreamPrefixHash: request.requestId.split(":hand-structure:")[0]!
+        .replace("canonical-response:", ""),
       sourceEventRef: eventRef(5),
       closingEventRef: eventRef(6),
     }]);
@@ -355,7 +415,7 @@ describe("response-opportunity furiten", () => {
     const events = continuedToSelfDraw();
     await expect(deriveResponseFuriten(
       streamWith(events), eventRef(10), new FixtureHandStructureEngine(),
-    )).resolves.toEqual({
+    )).resolves.toMatchObject({
       temporary: { status: "clear", evidenceIds: [], analysisRefs: [], riichiAcceptanceEventRef: null },
       riichi: { status: "clear", evidenceIds: [], analysisRefs: [], riichiAcceptanceEventRef: null },
     });
@@ -366,7 +426,7 @@ describe("response-opportunity furiten", () => {
     const analysis = await deriveResponseFuriten(
       streamWith(events), eventRef(12), new FixtureHandStructureEngine(),
     );
-    expect(analysis).toEqual({
+    expect(analysis).toMatchObject({
       temporary: { status: "clear", evidenceIds: [], analysisRefs: [], riichiAcceptanceEventRef: null },
       riichi: {
         status: "confirmed",
@@ -391,12 +451,14 @@ describe("response-opportunity furiten", () => {
     );
     expect(ineligible.temporary).toEqual({
       status: "confirmed",
+      unknownReason: null,
       evidenceIds: [eventRef(5), eventRef(6)],
       analysisRefs: expect.any(Array),
       riichiAcceptanceEventRef: null,
     });
     expect(unknown.temporary).toEqual({
       status: "confirmed",
+      unknownReason: null,
       evidenceIds: [eventRef(5), eventRef(6)],
       analysisRefs: expect.any(Array),
       riichiAcceptanceEventRef: null,
@@ -404,7 +466,7 @@ describe("response-opportunity furiten", () => {
     expect((await deriveResponseFuriten(
       streamWith(events), eventRef(6),
       new FixtureHandStructureEngine("ineligible", "standard", false, false),
-    )).temporary).toEqual({ status: "clear", evidenceIds: [], analysisRefs: [], riichiAcceptanceEventRef: null });
+    )).temporary).toEqual({ status: "clear", unknownReason: null, evidenceIds: [], analysisRefs: [], riichiAcceptanceEventRef: null });
   });
 
   it("fails dependent components closed when replay facts or the engine are incomplete", async () => {
@@ -416,7 +478,7 @@ describe("response-opportunity furiten", () => {
     ]) {
       await expect(deriveResponseFuriten(
         stream, eventRef(6), new FixtureHandStructureEngine(),
-      )).resolves.toEqual({
+      )).resolves.toMatchObject({
         temporary: { status: "unknown", evidenceIds: [], analysisRefs: [], riichiAcceptanceEventRef: null },
         riichi: { status: "unknown", evidenceIds: [], analysisRefs: [], riichiAcceptanceEventRef: null },
       });
@@ -424,7 +486,7 @@ describe("response-opportunity furiten", () => {
     await expect(deriveResponseFuriten(
       streamWith(events), eventRef(6),
       new FixtureHandStructureEngine("eligible", "standard", true),
-    )).resolves.toEqual({
+    )).resolves.toMatchObject({
       temporary: { status: "unknown", evidenceIds: [], analysisRefs: [], riichiAcceptanceEventRef: null },
       riichi: { status: "clear", evidenceIds: [], analysisRefs: [], riichiAcceptanceEventRef: null },
     });
@@ -434,7 +496,7 @@ describe("response-opportunity furiten", () => {
     }) as HandStructureFactEnginePort["analyzeHandStructure"];
     await expect(deriveResponseFuriten(
       streamWith(events), eventRef(6), synchronousFailure,
-    )).resolves.toEqual({
+    )).resolves.toMatchObject({
       temporary: { status: "unknown", evidenceIds: [], analysisRefs: [], riichiAcceptanceEventRef: null },
       riichi: { status: "clear", evidenceIds: [], analysisRefs: [], riichiAcceptanceEventRef: null },
     });
@@ -442,7 +504,7 @@ describe("response-opportunity furiten", () => {
       streamWith(continuedToSelfDraw(true)), eventRef(12),
       new FixtureHandStructureEngine("eligible", "standard", true),
     );
-    expect(riichiFailure).toEqual({
+    expect(riichiFailure).toMatchObject({
       temporary: { status: "clear", evidenceIds: [], analysisRefs: [], riichiAcceptanceEventRef: null },
       riichi: { status: "unknown", evidenceIds: [], analysisRefs: [], riichiAcceptanceEventRef: null },
     });
@@ -455,7 +517,7 @@ describe("response-opportunity furiten", () => {
     });
     expect((await deriveResponseFuriten(
       streamWith(events), eventRef(6), misboundResult,
-    )).temporary).toEqual({ status: "unknown", evidenceIds: [], analysisRefs: [], riichiAcceptanceEventRef: null });
+    )).temporary).toEqual({ status: "unknown", unknownReason: "response_hand_structure_unavailable", evidenceIds: [], analysisRefs: [], riichiAcceptanceEventRef: null });
   });
 
   it("does not infer a pass from absence of self ron or from round_drawn", async () => {
@@ -480,13 +542,13 @@ describe("response-opportunity furiten", () => {
     }];
     await expect(deriveResponseFuriten(
       streamWith(selfRon), eventRef(6), new FixtureHandStructureEngine(),
-    )).resolves.toEqual({
+    )).resolves.toMatchObject({
       temporary: { status: "clear", evidenceIds: [], analysisRefs: [], riichiAcceptanceEventRef: null },
       riichi: { status: "clear", evidenceIds: [], analysisRefs: [], riichiAcceptanceEventRef: null },
     });
     expect((await deriveResponseFuriten(
       streamWith(drawn), eventRef(6), new FixtureHandStructureEngine(),
-    )).temporary).toEqual({ status: "unknown", evidenceIds: [], analysisRefs: [], riichiAcceptanceEventRef: null });
+    )).temporary).toEqual({ status: "unknown", unknownReason: "response_window_uncertain", evidenceIds: [], analysisRefs: [], riichiAcceptanceEventRef: null });
   });
 
   it("requires the complete multi-ron winner sequence before confirming a pass", async () => {
@@ -525,11 +587,12 @@ describe("response-opportunity furiten", () => {
     ];
     expect((await deriveResponseFuriten(
       streamWith(events), eventRef(6), new FixtureHandStructureEngine(),
-    )).temporary).toEqual({ status: "unknown", evidenceIds: [], analysisRefs: [], riichiAcceptanceEventRef: null });
+    )).temporary).toEqual({ status: "unknown", unknownReason: "response_window_uncertain", evidenceIds: [], analysisRefs: [], riichiAcceptanceEventRef: null });
     expect((await deriveResponseFuriten(
       streamWith(events), eventRef(7), new FixtureHandStructureEngine(),
     )).temporary).toEqual({
       status: "confirmed",
+      unknownReason: null,
       evidenceIds: [eventRef(5), eventRef(7)],
       analysisRefs: expect.any(Array),
       riichiAcceptanceEventRef: null,
@@ -552,6 +615,7 @@ describe("response-opportunity furiten", () => {
       streamWith(called), eventRef(6), new FixtureHandStructureEngine(),
     )).temporary).toEqual({
       status: "confirmed",
+      unknownReason: null,
       evidenceIds: [eventRef(5), eventRef(6)],
       analysisRefs: expect.any(Array),
       riichiAcceptanceEventRef: null,
@@ -563,6 +627,7 @@ describe("response-opportunity furiten", () => {
       streamWith(kakan), eventRef(14), kakanEngine,
     )).temporary).toEqual({
       status: "confirmed",
+      unknownReason: null,
       evidenceIds: [eventRef(13), eventRef(14)],
       analysisRefs: expect.any(Array),
       riichiAcceptanceEventRef: null,
@@ -582,6 +647,7 @@ describe("response-opportunity furiten", () => {
       streamWith(ankan), eventRef(6), kokushiEngine,
     )).temporary).toEqual({
       status: "confirmed",
+      unknownReason: null,
       evidenceIds: [eventRef(5), eventRef(6)],
       analysisRefs: expect.any(Array),
       riichiAcceptanceEventRef: null,
@@ -596,11 +662,11 @@ describe("response-opportunity furiten", () => {
     expect((await deriveResponseFuriten(
       streamWith(blocked, { atamahane: true }), eventRef(7),
       new FixtureHandStructureEngine(),
-    )).temporary).toEqual({ status: "clear", evidenceIds: [], analysisRefs: [], riichiAcceptanceEventRef: null });
+    )).temporary).toEqual({ status: "clear", unknownReason: null, evidenceIds: [], analysisRefs: [], riichiAcceptanceEventRef: null });
     expect((await deriveResponseFuriten(
       streamWith(blocked, { atamahane: "unknown" }), eventRef(7),
       new FixtureHandStructureEngine(),
-    )).temporary).toEqual({ status: "unknown", evidenceIds: [], analysisRefs: [], riichiAcceptanceEventRef: null });
+    )).temporary).toEqual({ status: "unknown", unknownReason: "response_window_uncertain", evidenceIds: [], analysisRefs: [], riichiAcceptanceEventRef: null });
 
     const selfHadPriority = ronClosedOpportunity(3, 1);
     expect((await deriveResponseFuriten(
@@ -608,6 +674,7 @@ describe("response-opportunity furiten", () => {
       new FixtureHandStructureEngine(),
     )).temporary).toEqual({
       status: "confirmed",
+      unknownReason: null,
       evidenceIds: [eventRef(9), eventRef(11)],
       analysisRefs: expect.any(Array),
       riichiAcceptanceEventRef: null,
@@ -673,6 +740,7 @@ describe("response-opportunity furiten", () => {
       streamWith(events), eventRef(8), partialFailure,
     )).temporary).toEqual({
       status: "confirmed",
+      unknownReason: null,
       evidenceIds: [eventRef(5), eventRef(6)],
       analysisRefs: expect.any(Array),
       riichiAcceptanceEventRef: null,

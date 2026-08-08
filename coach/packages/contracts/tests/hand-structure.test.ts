@@ -124,18 +124,142 @@ function result(): HandStructureResultV2 {
 }
 
 describe("hand-structure/v2 contracts", () => {
-  it("requires canonical engine-bound proof for confirmed response furiten", () => {
+  it("strictly binds response and merged furiten to one canonical scene", () => {
+    const engineIdentity = result().identity;
+    const sourceStreamPrefixHash = "sha256:source-prefix";
+    const binding = {
+      source: "canonical_replay" as const,
+      factSetId: "canonical-v2:sha256:decision-prefix",
+      streamPrefixHash: "sha256:decision-prefix",
+      decisionEventRef: "game:fixture/0/6/0",
+      selfActor: 0,
+      engineIdentityStatus: "known" as const,
+      engineIdentity,
+    };
     const proof = {
-      requestId: "request:response:5",
+      requestId:
+        `canonical-response:${sourceStreamPrefixHash}:hand-structure:sha256:response:5`,
+      stateHash: "sha256:response:5",
+      actionRef: "response:game:fixture/0/5/0",
+      engineIdentity,
+      sourceStreamPrefixHash,
+      sourceEventRef: "game:fixture/0/5/0",
+      closingEventRef: "game:fixture/0/6/0",
+    };
+    const response = {
+      binding,
+      temporary: {
+        status: "confirmed" as const,
+        unknownReason: null,
+        evidenceIds: [proof.sourceEventRef, proof.closingEventRef],
+        analysisRefs: [proof],
+        riichiAcceptanceEventRef: null,
+      },
+      riichi: {
+        status: "clear" as const,
+        unknownReason: null,
+        evidenceIds: [],
+        analysisRefs: [],
+        riichiAcceptanceEventRef: null,
+      },
+    };
+    expect(ResponseFuritenAnalysisV2Schema.parse(response).binding)
+      .toEqual(binding);
+
+    for (const invalid of [
+      {
+        ...response,
+        binding: { ...binding, factSetId: "canonical-v2:sha256:other" },
+      },
+      {
+        ...response,
+        binding: { ...binding, decisionEventRef: "game:other/0/6/0" },
+      },
+      {
+        ...response,
+        temporary: {
+          ...response.temporary,
+          analysisRefs: [{ ...proof, sourceStreamPrefixHash: "sha256:other" }],
+        },
+      },
+      {
+        ...response,
+        temporary: {
+          ...response.temporary,
+          analysisRefs: [{ ...proof, engineIdentity: { ...engineIdentity, adapterVersion: "forged" } }],
+        },
+      },
+      {
+        ...response,
+        binding: { ...binding, decisionEventRef: "game:fixture/0/4/0" },
+      },
+    ]) {
+      expect(ResponseFuritenAnalysisV2Schema.safeParse(invalid).success)
+        .toBe(false);
+    }
+  });
+
+  it("permits unavailable response facts only as fixed-reason unknowns", () => {
+    for (const [reason, unknownReason] of [
+      ["no_canonical_stream", "response_no_canonical_stream"],
+      ["response_history_not_provided", "response_history_not_provided"],
+      ["unsupported_source", "response_unsupported_source"],
+    ] as const) {
+      const unavailable = {
+        binding: {
+          source: "unavailable" as const,
+          factSetId: "hypothetical:scene",
+          decisionEventRef: "hypothetical:decision",
+          selfActor: 0,
+          reason,
+          engineIdentityStatus: "unknown" as const,
+          engineIdentity: null,
+        },
+        temporary: {
+          status: "unknown" as const,
+          unknownReason,
+          evidenceIds: [],
+          analysisRefs: [],
+          riichiAcceptanceEventRef: null,
+        },
+        riichi: {
+          status: "unknown" as const,
+          unknownReason,
+          evidenceIds: [],
+          analysisRefs: [],
+          riichiAcceptanceEventRef: null,
+        },
+      };
+      expect(ResponseFuritenAnalysisV2Schema.parse(unavailable)).toEqual(
+        unavailable,
+      );
+      expect(ResponseFuritenAnalysisV2Schema.safeParse({
+        ...unavailable,
+        temporary: {
+          ...unavailable.temporary,
+          status: "clear",
+          unknownReason: null,
+        },
+      }).success).toBe(false);
+    }
+  });
+
+  it("requires canonical engine-bound proof for confirmed response furiten", () => {
+    const sourceStreamPrefixHash = "sha256:response-prefix:5";
+    const proof = {
+      requestId:
+        `canonical-response:${sourceStreamPrefixHash}:hand-structure:sha256:response:5`,
       stateHash: "sha256:response:5",
       actionRef: "response:game:fixture/0/5/0",
       engineIdentity: result().identity,
+      sourceStreamPrefixHash,
       sourceEventRef: "game:fixture/0/5/0",
       closingEventRef: "game:fixture/0/6/0",
     };
     expect(ResponseFuritenAnalysisRefV2Schema.parse(proof)).toEqual(proof);
     const confirmedTemporary = {
       status: "confirmed",
+      unknownReason: null,
       evidenceIds: [proof.sourceEventRef, proof.closingEventRef],
       analysisRefs: [proof],
       riichiAcceptanceEventRef: null,
@@ -181,8 +305,18 @@ describe("hand-structure/v2 contracts", () => {
       riichiAcceptanceEventRef: "game:fixture/0/4/0",
     };
     expect(ResponseFuritenAnalysisV2Schema.safeParse({
+      binding: {
+        source: "canonical_replay",
+        factSetId: "canonical-v2:sha256:decision-prefix",
+        streamPrefixHash: "sha256:decision-prefix",
+        decisionEventRef: "game:fixture/0/6/0",
+        selfActor: 0,
+        engineIdentityStatus: "known",
+        engineIdentity: proof.engineIdentity,
+      },
       temporary: {
         status: "clear",
+        unknownReason: null,
         evidenceIds: [],
         analysisRefs: [],
         riichiAcceptanceEventRef: null,
@@ -190,17 +324,37 @@ describe("hand-structure/v2 contracts", () => {
       riichi: riichiConfirmed,
     }).success).toBe(true);
     expect(ResponseFuritenAnalysisV2Schema.safeParse({
+      binding: {
+        source: "canonical_replay",
+        factSetId: "canonical-v2:sha256:decision-prefix",
+        streamPrefixHash: "sha256:decision-prefix",
+        decisionEventRef: "game:fixture/0/6/0",
+        selfActor: 0,
+        engineIdentityStatus: "known",
+        engineIdentity: proof.engineIdentity,
+      },
       temporary: confirmedTemporary,
       riichi: {
         status: "clear",
+        unknownReason: null,
         evidenceIds: [],
         analysisRefs: [],
         riichiAcceptanceEventRef: "game:fixture/0/4/0",
       },
     }).success).toBe(false);
     expect(ResponseFuritenAnalysisV2Schema.safeParse({
+      binding: {
+        source: "canonical_replay",
+        factSetId: "canonical-v2:sha256:decision-prefix",
+        streamPrefixHash: "sha256:decision-prefix",
+        decisionEventRef: "game:fixture/0/6/0",
+        selfActor: 0,
+        engineIdentityStatus: "known",
+        engineIdentity: proof.engineIdentity,
+      },
       temporary: {
         status: "clear",
+        unknownReason: null,
         evidenceIds: [],
         analysisRefs: [],
         riichiAcceptanceEventRef: null,
@@ -222,6 +376,15 @@ describe("hand-structure/v2 contracts", () => {
       }).success).toBe(false);
     }
     expect(ResponseFuritenAnalysisV2Schema.safeParse({
+      binding: {
+        source: "canonical_replay",
+        factSetId: "canonical-v2:sha256:decision-prefix",
+        streamPrefixHash: "sha256:decision-prefix",
+        decisionEventRef: "game:fixture/0/6/0",
+        selfActor: 0,
+        engineIdentityStatus: "known",
+        engineIdentity: proof.engineIdentity,
+      },
       temporary: {
         ...confirmedTemporary,
         riichiAcceptanceEventRef: "game:fixture/0/4/0",
@@ -315,7 +478,8 @@ describe("hand-structure/v2 contracts", () => {
 
     const ordinalProof = (ordinal: number) => ({
       ...proof,
-      requestId: `request:response:${ordinal}`,
+      requestId:
+        `canonical-response:${sourceStreamPrefixHash}:hand-structure:sha256:response:${ordinal}`,
       actionRef: `response:game:fixture/0/${ordinal}/0`,
       stateHash: `sha256:response:${ordinal}`,
       sourceEventRef: `game:fixture/0/${ordinal}/0`,
@@ -323,6 +487,7 @@ describe("hand-structure/v2 contracts", () => {
     });
     expect(ResponseFuritenComponentV2Schema.safeParse({
       status: "confirmed",
+      unknownReason: null,
       evidenceIds: [
         "game:fixture/0/2/0", "game:fixture/0/3/0",
         "game:fixture/0/10/0", "game:fixture/0/11/0",
@@ -332,6 +497,7 @@ describe("hand-structure/v2 contracts", () => {
     }).success).toBe(true);
     expect(ResponseFuritenComponentV2Schema.safeParse({
       status: "confirmed",
+      unknownReason: null,
       evidenceIds: [
         "game:fixture/0/2/0", "game:fixture/0/3/0",
         "game:fixture/0/10/0", "game:fixture/0/11/0",
@@ -341,6 +507,7 @@ describe("hand-structure/v2 contracts", () => {
     }).success).toBe(false);
     expect(ResponseFuritenComponentV2Schema.safeParse({
       status: "confirmed",
+      unknownReason: null,
       evidenceIds: [
         "game:fixture/0/10/0", "game:fixture/0/11/0",
         "game:fixture/0/2/0", "game:fixture/0/3/0",
@@ -381,9 +548,20 @@ describe("hand-structure/v2 contracts", () => {
 
   it("requires exact merged furiten truth and separated evidence namespaces", () => {
     const hand = result();
+    const factSetId = "canonical-v2:sha256:merged-prefix";
+    hand.requestId = `${factSetId}:hand-structure:${hand.stateHash}`;
     hand.waits[0]!.baseRonEligibility = "eligible";
     hand.diagnostics = [];
     const clear = {
+      binding: {
+        source: "canonical_replay" as const,
+        factSetId,
+        streamPrefixHash: "sha256:merged-prefix",
+        decisionEventRef: "game:fixture/0/99/0",
+        selfActor: 0,
+        engineIdentityStatus: "known" as const,
+        engineIdentity: hand.identity,
+      },
       hand,
       furiten: {
         discard: {
@@ -398,12 +576,14 @@ describe("hand-structure/v2 contracts", () => {
         },
         temporary: {
           status: "clear" as const,
+          unknownReason: null,
           evidenceIds: [],
           analysisRefs: [],
           riichiAcceptanceEventRef: null,
         },
         riichi: {
           status: "clear" as const,
+          unknownReason: null,
           evidenceIds: [],
           analysisRefs: [],
           riichiAcceptanceEventRef: null,
@@ -447,7 +627,7 @@ describe("hand-structure/v2 contracts", () => {
           source: "current_scene" as const,
           selfActor: 0,
           selfRiver: [{
-            eventRef: "event:self-discard",
+            eventRef: "game:fixture/0/1/0",
             actor: 0,
             tile: { id: "6s" as const, red: false },
             discardMode: "tedashi" as const,
@@ -456,7 +636,7 @@ describe("hand-structure/v2 contracts", () => {
           }],
           selfRiverComplete: true,
           candidateDiscard: null,
-          canonicalEventRefs: ["event:self-discard"],
+          canonicalEventRefs: ["game:fixture/0/1/0"],
           candidateActionRefs: [],
         },
       },
@@ -515,7 +695,7 @@ describe("hand-structure/v2 contracts", () => {
         ...forgedCanonicalConfirmation.furiten,
         discard: {
           status: "confirmed",
-          canonicalEventRefs: ["event:self-discard"],
+          canonicalEventRefs: ["game:fixture/0/1/0"],
           candidateActionRefs: ["event:not-an-action"],
         },
       },

@@ -1,17 +1,21 @@
 import {
   ActionRefSchema,
   CanonicalEventStreamSchema,
+  EngineIdentitySchema,
   HandStructureResultV2Schema,
   ResponseFuritenAnalysisV2Schema,
   ResponseFuritenComponentV2Schema,
   type CanonicalEventStream,
   type CanonicalGameEvent,
   type CanonicalMeldV2,
+  type EngineIdentity,
   type HandStructureRequestV2,
   type HandStructureResultV2,
   type KnownMeld,
   type ResponseFuritenAnalysisRefV2,
   type ResponseFuritenAnalysisV2,
+  type ResponseFuritenUnknownReasonV2,
+  type ResponseSceneBindingV2,
   type YakuContextV2,
 } from "@riichi-coach/contracts";
 import type { HandStructureFactEnginePort } from "../fact-engine/port.js";
@@ -41,6 +45,7 @@ interface DerivedUpdate {
   eventIndex: number;
   component: "temporary" | "riichi";
   status: "confirmed" | "unknown";
+  unknownReason: ResponseFuritenUnknownReasonV2 | null;
   evidenceIds: string[];
   analysisRefs: ResponseFuritenAnalysisRefV2[];
   riichiAcceptanceEventRef: string | null;
@@ -48,20 +53,27 @@ interface DerivedUpdate {
 
 interface MutableComponent {
   status: "clear" | "unknown" | "confirmed";
+  unknownReason: ResponseFuritenUnknownReasonV2 | null;
   evidenceIds: Set<string>;
   analysisRefs: Map<string, ResponseFuritenAnalysisRefV2>;
   riichiAcceptanceEventRef: string | null;
 }
 
-const unknownAnalysis = (): ResponseFuritenAnalysis => ({
+const unknownAnalysis = (
+  binding: ResponseSceneBindingV2,
+  reason: ResponseFuritenUnknownReasonV2,
+): ResponseFuritenAnalysis => ResponseFuritenAnalysisV2Schema.parse({
+  binding,
   temporary: {
     status: "unknown",
+    unknownReason: reason,
     evidenceIds: [],
     analysisRefs: [],
     riichiAcceptanceEventRef: null,
   },
   riichi: {
     status: "unknown",
+    unknownReason: reason,
     evidenceIds: [],
     analysisRefs: [],
     riichiAcceptanceEventRef: null,
@@ -306,12 +318,14 @@ function requestCacheKey(request: HandStructureRequestV2): string {
 function bindResultToRequest(
   request: HandStructureRequestV2,
   rawResult: unknown,
+  engineIdentity: EngineIdentity,
 ): HandStructureResultV2 {
   const result = HandStructureResultV2Schema.parse(rawResult);
   if (
     result.requestId !== request.requestId ||
     result.actionRef !== request.actionRef ||
-    result.stateHash !== request.stateHash
+    result.stateHash !== request.stateHash ||
+    JSON.stringify(result.identity) !== JSON.stringify(engineIdentity)
   ) throw new Error("response_furiten_hand_structure_result_mismatch");
   return result;
 }
@@ -333,6 +347,7 @@ function applyUpdate(
 ): void {
   if (update.status === "confirmed") {
     component.status = "confirmed";
+    component.unknownReason = null;
     for (const eventRef of update.evidenceIds) {
       component.evidenceIds.add(eventRef);
     }
@@ -347,6 +362,7 @@ function applyUpdate(
     }
   } else if (component.status === "clear") {
     component.status = "unknown";
+    component.unknownReason = update.unknownReason;
   }
 }
 
@@ -355,8 +371,9 @@ function finalizeComponent(
   eventOrder: ReadonlyMap<string, number>,
 ): FuritenComponent {
   const finalized = component.status === "confirmed"
-    ? {
+      ? {
         status: "confirmed",
+        unknownReason: null,
         evidenceIds: sortEvidence(component.evidenceIds, eventOrder),
         analysisRefs: [...component.analysisRefs.values()].sort((left, right) =>
           (eventOrder.get(left.sourceEventRef) ?? Number.MAX_SAFE_INTEGER) -
@@ -369,8 +386,11 @@ function finalizeComponent(
         ),
         riichiAcceptanceEventRef: component.riichiAcceptanceEventRef,
       }
-    : {
+      : {
         status: component.status,
+        unknownReason: component.status === "unknown"
+          ? component.unknownReason
+          : null,
         evidenceIds: [],
         analysisRefs: [],
         riichiAcceptanceEventRef: null,
@@ -403,6 +423,33 @@ export async function deriveResponseFuriten(
   }
   const stream = parsed.data;
   const prefix = stream.events;
+  const reduced = reduceCanonicalEventStream(stream);
+  const targetState = reduced[targetIndex];
+  if (targetState === undefined) {
+    throw new CanonicalReplayError("response_furiten_decision_state_not_found");
+  }
+  const baseBinding = {
+    source: "canonical_replay" as const,
+    factSetId: `canonical-v2:${targetState.streamPrefixHash}`,
+    streamPrefixHash: targetState.streamPrefixHash,
+    decisionEventRef,
+    selfActor: stream.selfActor,
+  };
+  let engineIdentity: EngineIdentity;
+  try {
+    engineIdentity = EngineIdentitySchema.parse(await engine.identity());
+  } catch {
+    return unknownAnalysis({
+      ...baseBinding,
+      engineIdentityStatus: "unknown",
+      engineIdentity: null,
+    }, "response_engine_identity_failure");
+  }
+  const binding: ResponseSceneBindingV2 = {
+    ...baseBinding,
+    engineIdentityStatus: "known",
+    engineIdentity,
+  };
   const activeRoundStart = prefix.findLastIndex((event) =>
     event.type === "round_started"
   );
@@ -411,18 +458,15 @@ export async function deriveResponseFuriten(
     stream.completeness.eventSequence !== "complete" ||
     stream.completeness.responseOpportunities !== "complete" ||
     stream.completeness.melds !== "complete"
-  ) return unknownAnalysis();
+  ) return unknownAnalysis(binding, "response_replay_facts_incomplete");
 
-  const reduced = reduceCanonicalEventStream(stream);
-  const targetState = reduced[targetIndex];
   if (
-    targetState?.privateState === null ||
-    targetState?.privateState === undefined ||
+    targetState.privateState === null ||
     targetState.publicState === null ||
     targetState.privateState.fields.concealedTiles !== "complete" ||
     targetState.publicState.fields.melds !== "complete" ||
     targetState.privateState.fields.responseOpportunities !== "complete"
-  ) return unknownAnalysis();
+  ) return unknownAnalysis(binding, "response_replay_facts_incomplete");
 
   const cache = new Map<string, Promise<HandStructureResultV2>>();
   const updates: DerivedUpdate[] = [];
@@ -441,7 +485,9 @@ export async function deriveResponseFuriten(
       closure.kind === "blocked"
     ) continue;
     const state = reduced[sourceIndex];
-    if (state === undefined) return unknownAnalysis();
+    if (state === undefined) {
+      return unknownAnalysis(binding, "response_replay_facts_incomplete");
+    }
     const acceptedRiichiRef = state.publicState
       ?.riichiStates[stream.selfActor]?.acceptanceEventRef ?? null;
     const component = acceptedRiichiRef === null ? "temporary" : "riichi";
@@ -451,6 +497,7 @@ export async function deriveResponseFuriten(
         eventIndex: closure.eventIndex,
         component,
         status: "unknown",
+        unknownReason: "response_replay_facts_incomplete",
         evidenceIds: [],
         analysisRefs: [],
         riichiAcceptanceEventRef: null,
@@ -462,7 +509,11 @@ export async function deriveResponseFuriten(
     if (pending === undefined) {
       pending = Promise.resolve()
         .then(() => engine.analyzeHandStructure(request))
-        .then((result) => bindResultToRequest(request, result));
+        .then((result) => bindResultToRequest(
+          request,
+          result,
+          engineIdentity,
+        ));
       cache.set(key, pending);
     }
     let result: HandStructureResultV2;
@@ -473,6 +524,7 @@ export async function deriveResponseFuriten(
         eventIndex: closure.eventIndex,
         component,
         status: "unknown",
+        unknownReason: "response_hand_structure_unavailable",
         evidenceIds: [],
         analysisRefs: [],
         riichiAcceptanceEventRef: null,
@@ -492,6 +544,7 @@ export async function deriveResponseFuriten(
         eventIndex: closure.eventIndex,
         component,
         status: "unknown",
+        unknownReason: "response_window_uncertain",
         evidenceIds: [],
         analysisRefs: [],
         riichiAcceptanceEventRef: null,
@@ -502,6 +555,7 @@ export async function deriveResponseFuriten(
       eventIndex: closure.eventIndex,
       component,
       status: "confirmed",
+      unknownReason: null,
       evidenceIds: [
         ...(acceptedRiichiRef === null ? [] : [acceptedRiichiRef]),
         source.eventId,
@@ -511,7 +565,8 @@ export async function deriveResponseFuriten(
         requestId: request.requestId,
         actionRef: request.actionRef,
         stateHash: request.stateHash,
-        engineIdentity: result.identity,
+        engineIdentity,
+        sourceStreamPrefixHash: state.streamPrefixHash,
         sourceEventRef: source.eventId,
         closingEventRef: closure.closingEventRef,
       }],
@@ -521,12 +576,14 @@ export async function deriveResponseFuriten(
 
   const temporary: MutableComponent = {
     status: "clear",
+    unknownReason: null,
     evidenceIds: new Set(),
     analysisRefs: new Map(),
     riichiAcceptanceEventRef: null,
   };
   const riichi: MutableComponent = {
     status: "clear",
+    unknownReason: null,
     evidenceIds: new Set(),
     analysisRefs: new Map(),
     riichiAcceptanceEventRef: null,
@@ -544,6 +601,7 @@ export async function deriveResponseFuriten(
     const event = prefix[index]!;
     if (event.type === "tile_drawn" && event.actor === stream.selfActor) {
       temporary.status = "clear";
+      temporary.unknownReason = null;
       temporary.evidenceIds.clear();
       temporary.analysisRefs.clear();
       temporary.riichiAcceptanceEventRef = null;
@@ -551,6 +609,7 @@ export async function deriveResponseFuriten(
   }
   const eventOrder = new Map(prefix.map((event, index) => [event.eventId, index]));
   return ResponseFuritenAnalysisV2Schema.parse({
+    binding,
     temporary: finalizeComponent(temporary, eventOrder),
     riichi: finalizeComponent(riichi, eventOrder),
   });

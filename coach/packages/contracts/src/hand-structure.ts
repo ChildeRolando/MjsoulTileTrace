@@ -572,6 +572,7 @@ export const ResponseFuritenAnalysisRefV2Schema = z.object({
   stateHash: z.string().min(1),
   actionRef: ActionRefSchema,
   engineIdentity: EngineIdentitySchema,
+  sourceStreamPrefixHash: z.string().min(1),
   sourceEventRef: ResponseCanonicalEventRefSchema,
   closingEventRef: ResponseCanonicalEventRefSchema,
 }).strict().superRefine((reference, context) => {
@@ -580,6 +581,16 @@ export const ResponseFuritenAnalysisRefV2Schema = z.object({
       code: z.ZodIssueCode.custom,
       message: "Response analysis actionRef must bind to its source event",
       path: ["actionRef"],
+    });
+  }
+  if (
+    reference.requestId !==
+      `canonical-response:${reference.sourceStreamPrefixHash}:hand-structure:${reference.stateHash}`
+  ) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Response analysis requestId must bind its source prefix and state",
+      path: ["requestId"],
     });
   }
 });
@@ -596,15 +607,87 @@ function responseAnalysisRefKey(
     reference.requestId,
     reference.actionRef,
     reference.stateHash,
+    reference.sourceStreamPrefixHash,
   ].join("\u0000");
 }
 
+export const ResponseFuritenUnknownReasonV2Schema = z.enum([
+  "response_no_canonical_stream",
+  "response_history_not_provided",
+  "response_unsupported_source",
+  "response_replay_facts_incomplete",
+  "response_engine_identity_failure",
+  "response_hand_structure_unavailable",
+  "response_window_uncertain",
+]);
+export type ResponseFuritenUnknownReasonV2 = z.infer<
+  typeof ResponseFuritenUnknownReasonV2Schema
+>;
+
+const CanonicalResponseSceneBindingV2Schema = z.object({
+  source: z.literal("canonical_replay"),
+  factSetId: z.string().min(1),
+  streamPrefixHash: z.string().min(1),
+  decisionEventRef: ResponseCanonicalEventRefSchema,
+  selfActor: z.number().int().min(0).max(3),
+  engineIdentityStatus: z.enum(["known", "unknown"]),
+  engineIdentity: EngineIdentitySchema.nullable(),
+}).strict().superRefine((binding, context) => {
+  if (binding.factSetId !== `canonical-v2:${binding.streamPrefixHash}`) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Canonical response factSetId must bind the decision prefix",
+      path: ["factSetId"],
+    });
+  }
+  const identityKnown = binding.engineIdentity !== null;
+  if ((binding.engineIdentityStatus === "known") !== identityKnown) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Response engine identity status must match its value",
+      path: ["engineIdentityStatus"],
+    });
+  }
+});
+
+const UnavailableResponseSceneBindingV2Schema = z.object({
+  source: z.literal("unavailable"),
+  factSetId: z.string().min(1),
+  decisionEventRef: z.string().min(1),
+  selfActor: z.number().int().min(0).max(3),
+  reason: z.enum([
+    "no_canonical_stream",
+    "response_history_not_provided",
+    "unsupported_source",
+  ]),
+  engineIdentityStatus: z.literal("unknown"),
+  engineIdentity: z.null(),
+}).strict();
+
+export const ResponseSceneBindingV2Schema = z.union([
+  CanonicalResponseSceneBindingV2Schema,
+  UnavailableResponseSceneBindingV2Schema,
+]);
+export type ResponseSceneBindingV2 = z.infer<
+  typeof ResponseSceneBindingV2Schema
+>;
+
 export const ResponseFuritenComponentV2Schema = z.object({
   status: z.enum(["clear", "confirmed", "unknown"]),
+  unknownReason: ResponseFuritenUnknownReasonV2Schema.nullable(),
   evidenceIds: z.array(ResponseCanonicalEventRefSchema),
   analysisRefs: z.array(ResponseFuritenAnalysisRefV2Schema),
   riichiAcceptanceEventRef: ResponseCanonicalEventRefSchema.nullable(),
 }).strict().superRefine((component, context) => {
+  if (
+    (component.status === "unknown") !== (component.unknownReason !== null)
+  ) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Response unknown reason must exist exactly for unknown status",
+      path: ["unknownReason"],
+    });
+  }
   if (new Set(component.evidenceIds).size !== component.evidenceIds.length) {
     context.addIssue({
       code: z.ZodIssueCode.custom,
@@ -794,10 +877,108 @@ export type ResponseFuritenComponentV2 = z.infer<
   typeof ResponseFuritenComponentV2Schema
 >;
 
+function sameEngineIdentity(
+  left: z.infer<typeof EngineIdentitySchema>,
+  right: z.infer<typeof EngineIdentitySchema>,
+): boolean {
+  return left.engine === right.engine &&
+    left.upstreamCommit === right.upstreamCommit &&
+    left.adapterVersion === right.adapterVersion &&
+    left.protocolVersion === right.protocolVersion;
+}
+
+function validateResponseSceneBinding(
+  binding: ResponseSceneBindingV2,
+  temporary: ResponseFuritenComponentV2,
+  riichi: ResponseFuritenComponentV2,
+  context: z.RefinementCtx,
+  pathPrefix: Array<string | number> = [],
+): void {
+  const components = [temporary, riichi] as const;
+  if (binding.source === "unavailable") {
+    const expectedReason = {
+      no_canonical_stream: "response_no_canonical_stream",
+      response_history_not_provided: "response_history_not_provided",
+      unsupported_source: "response_unsupported_source",
+    }[binding.reason];
+    components.forEach((component, index) => {
+      if (
+        component.status !== "unknown" ||
+        component.unknownReason !== expectedReason
+      ) {
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Unavailable replay requires fixed-reason unknown response facts",
+          path: [...pathPrefix, index === 0 ? "temporary" : "riichi"],
+        });
+      }
+    });
+    return;
+  }
+  if (binding.engineIdentityStatus === "unknown") {
+    components.forEach((component, index) => {
+      if (
+        component.status !== "unknown" ||
+        component.unknownReason !== "response_engine_identity_failure"
+      ) {
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Unknown engine identity requires blocked response facts",
+          path: [...pathPrefix, index === 0 ? "temporary" : "riichi"],
+        });
+      }
+    });
+    return;
+  }
+  const decision = parseCanonicalEventRef(binding.decisionEventRef);
+  if (decision === null || binding.engineIdentity === null) return;
+  components.forEach((component, componentIndex) => {
+    component.analysisRefs.forEach((reference, referenceIndex) => {
+      const source = parseCanonicalEventRef(reference.sourceEventRef);
+      const closing = parseCanonicalEventRef(reference.closingEventRef);
+      const path = [
+        ...pathPrefix,
+        componentIndex === 0 ? "temporary" : "riichi",
+        "analysisRefs",
+        referenceIndex,
+      ];
+      if (
+        source === null || closing === null ||
+        source.gameId !== decision.gameId ||
+        closing.gameId !== decision.gameId ||
+        source.position.roundOrdinal !== decision.position.roundOrdinal ||
+        closing.position.roundOrdinal !== decision.position.roundOrdinal ||
+        compareCanonicalEventPositions(source.position, decision.position) > 0 ||
+        compareCanonicalEventPositions(closing.position, decision.position) > 0
+      ) {
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Response proof must belong to the bound decision prefix",
+          path,
+        });
+      }
+      if (!sameEngineIdentity(reference.engineIdentity, binding.engineIdentity!)) {
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Response proof engine must equal the bound engine",
+          path: [...path, "engineIdentity"],
+        });
+      }
+    });
+  });
+}
+
 export const ResponseFuritenAnalysisV2Schema = z.object({
+  binding: ResponseSceneBindingV2Schema,
   temporary: ResponseFuritenComponentV2Schema,
   riichi: ResponseFuritenComponentV2Schema,
 }).strict().superRefine((analysis, context) => {
+  validateResponseSceneBinding(
+    analysis.binding,
+    analysis.temporary,
+    analysis.riichi,
+    context,
+  );
   if (analysis.temporary.riichiAcceptanceEventRef !== null) {
     context.addIssue({
       code: z.ZodIssueCode.custom,
@@ -913,11 +1094,41 @@ const MergedFuritenStateV2Schema = z.object({
 }).strict();
 
 export const MergedHandFuritenV2Schema = z.object({
+  binding: ResponseSceneBindingV2Schema,
   hand: HandStructureResultV2Schema,
   furiten: MergedFuritenStateV2Schema,
   ronEligibilityStatus: z.enum(["calculated", "unknown_missing_facts"]),
   ronEligibleWaits34: z.array(Tile34Schema),
 }).strict().superRefine((value, context) => {
+  if (
+    value.hand.requestId !==
+      `${value.binding.factSetId}:hand-structure:${value.hand.stateHash}`
+  ) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Merged hand request must bind the exact scene fact set",
+      path: ["hand", "requestId"],
+    });
+  }
+  validateResponseSceneBinding(
+    value.binding,
+    value.furiten.temporary,
+    value.furiten.riichi,
+    context,
+    ["furiten"],
+  );
+  if (
+    value.binding.source === "canonical_replay" &&
+    value.binding.engineIdentityStatus === "known" &&
+    value.binding.engineIdentity !== null &&
+    !sameEngineIdentity(value.binding.engineIdentity, value.hand.identity)
+  ) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Merged response and hand engines must match",
+      path: ["binding", "engineIdentity"],
+    });
+  }
   if (
     value.furiten.discard.source === "current_scene" &&
     value.hand.actionRef.startsWith("action:v1:")
@@ -959,6 +1170,24 @@ export const MergedHandFuritenV2Schema = z.object({
     });
   }
   const discard = value.furiten.discard;
+  if (value.binding.source === "canonical_replay") {
+    const decision = parseCanonicalEventRef(value.binding.decisionEventRef);
+    discard.selfRiver.forEach((riverDiscard, index) => {
+      const event = parseCanonicalEventRef(riverDiscard.eventRef);
+      if (
+        decision === null || event === null ||
+        event.gameId !== decision.gameId ||
+        event.position.roundOrdinal !== decision.position.roundOrdinal ||
+        compareCanonicalEventPositions(event.position, decision.position) > 0
+      ) {
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Discard proof must belong to the bound decision prefix",
+          path: ["furiten", "discard", "selfRiver", index, "eventRef"],
+        });
+      }
+    });
+  }
   if (
     discard.candidateDiscard !== null &&
     (discard.candidateDiscard.actor !== discard.selfActor ||

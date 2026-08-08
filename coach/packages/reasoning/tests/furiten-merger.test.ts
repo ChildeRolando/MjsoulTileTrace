@@ -15,6 +15,9 @@ import { mergeHandStructureFuriten } from "../src/factors/furiten-merger.js";
 import { KnownGameFactsSchema } from "@riichi-coach/contracts";
 
 const tile = (id: Tile["id"], red = false): Tile => ({ id, red });
+const fixtureFactSetId = "canonical-v2:sha256:fixture-prefix";
+const fixtureDecisionEventRef = "game:proof/0/99/0";
+const fixtureSourceStreamPrefixHash = "sha256:source-prefix";
 
 function wait(
   tile34: number,
@@ -47,7 +50,7 @@ function hand(
   return HandStructureResultV2Schema.parse({
     kind: "hand_structure_result",
     schemaVersion: "hand-structure/v2",
-    requestId: "request:furiten",
+    requestId: `${fixtureFactSetId}:hand-structure:sha256:furiten`,
     protocolVersion: "mahjong-facts/v1",
     actionRef: action === null ? "scene:furiten" : canonicalActionRef(action),
     stateHash: "sha256:furiten",
@@ -121,13 +124,26 @@ const response = (
   temporary: "clear" | "confirmed" | "unknown" = "clear",
   riichi: "clear" | "confirmed" | "unknown" = "clear",
 ) => ResponseFuritenAnalysisV2Schema.parse({
+  binding: {
+    source: "canonical_replay",
+    factSetId: fixtureFactSetId,
+    streamPrefixHash: "sha256:fixture-prefix",
+    decisionEventRef: fixtureDecisionEventRef,
+    selfActor: 0,
+    engineIdentityStatus: "known",
+    engineIdentity: hand([]).identity,
+  },
   temporary: {
     status: temporary,
+    unknownReason: temporary === "unknown"
+      ? "response_window_uncertain"
+      : null,
     evidenceIds: temporary === "confirmed"
       ? ["game:proof/0/1/0", "game:proof/0/2/0"]
       : [],
     analysisRefs: temporary === "confirmed" ? [{
-      requestId: "request:temporary",
+      requestId:
+        `canonical-response:${fixtureSourceStreamPrefixHash}:hand-structure:sha256:temporary`,
       actionRef: "response:game:proof/0/1/0",
       stateHash: "sha256:temporary",
       engineIdentity: {
@@ -136,6 +152,7 @@ const response = (
         adapterVersion: "0.1.0" as const,
         protocolVersion: "mahjong-facts/v1" as const,
       },
+      sourceStreamPrefixHash: fixtureSourceStreamPrefixHash,
       sourceEventRef: "game:proof/0/1/0",
       closingEventRef: "game:proof/0/2/0",
     }] : [],
@@ -143,11 +160,15 @@ const response = (
   },
   riichi: {
     status: riichi,
+    unknownReason: riichi === "unknown"
+      ? "response_window_uncertain"
+      : null,
     evidenceIds: riichi === "confirmed"
       ? ["game:proof/0/1/0", "game:proof/0/2/0", "game:proof/0/3/0"]
       : [],
     analysisRefs: riichi === "confirmed" ? [{
-      requestId: "request:riichi",
+      requestId:
+        `canonical-response:${fixtureSourceStreamPrefixHash}:hand-structure:sha256:riichi`,
       actionRef: "response:game:proof/0/2/0",
       stateHash: "sha256:riichi",
       engineIdentity: {
@@ -156,6 +177,7 @@ const response = (
         adapterVersion: "0.1.0" as const,
         protocolVersion: "mahjong-facts/v1" as const,
       },
+      sourceStreamPrefixHash: fixtureSourceStreamPrefixHash,
       sourceEventRef: "game:proof/0/2/0",
       closingEventRef: "game:proof/0/3/0",
     }] : [],
@@ -167,6 +189,8 @@ const response = (
 
 function merge(overrides: Partial<Parameters<typeof mergeHandStructureFuriten>[0]> = {}) {
   return mergeHandStructureFuriten({
+    factSetId: fixtureFactSetId,
+    decisionEventRef: fixtureDecisionEventRef,
     hand: hand([wait(4), wait(5)]),
     selfActor: 0,
     selfRiver: [],
@@ -194,9 +218,87 @@ function candidateEvidence(
 }
 
 describe("furiten merger", () => {
+  it("rejects cross-scene response and hand facts and preserves an exact binding", () => {
+    const factSetId = "canonical-v2:sha256:decision-prefix";
+    const decisionEventRef = "game:proof/0/3/0";
+    const boundHand = {
+      ...hand([wait(4), wait(5)]),
+      requestId: `${factSetId}:hand-structure:sha256:furiten`,
+    };
+    const binding = {
+      source: "canonical_replay" as const,
+      factSetId,
+      streamPrefixHash: "sha256:decision-prefix",
+      decisionEventRef,
+      selfActor: 0,
+      engineIdentityStatus: "known" as const,
+      engineIdentity: boundHand.identity,
+    };
+    const boundResponse = {
+      binding,
+      temporary: {
+        status: "clear" as const,
+        unknownReason: null,
+        evidenceIds: [],
+        analysisRefs: [],
+        riichiAcceptanceEventRef: null,
+      },
+      riichi: {
+        status: "clear" as const,
+        unknownReason: null,
+        evidenceIds: [],
+        analysisRefs: [],
+        riichiAcceptanceEventRef: null,
+      },
+    };
+    const input = {
+      factSetId,
+      decisionEventRef,
+      hand: boundHand,
+      selfActor: 0,
+      selfRiver: [],
+      selfRiverComplete: true,
+      response: boundResponse,
+      source: "current_scene" as const,
+      candidateDiscard: null,
+    };
+    expect(mergeHandStructureFuriten(input).binding).toEqual(binding);
+    for (const mismatch of [
+      { ...input, factSetId: "canonical-v2:sha256:other" },
+      { ...input, decisionEventRef: "game:proof/0/2/0" },
+      { ...input, selfActor: 1 },
+    ]) {
+      expect(() => mergeHandStructureFuriten(
+        mismatch as Parameters<typeof mergeHandStructureFuriten>[0],
+      )).toThrow(/furiten_merge/);
+    }
+    expect(() => mergeHandStructureFuriten({
+      ...input,
+      response: {
+        ...boundResponse,
+        binding: {
+          ...binding,
+          engineIdentity: null,
+          engineIdentityStatus: "unknown",
+        },
+      },
+    } as Parameters<typeof mergeHandStructureFuriten>[0])).toThrow();
+
+    for (const eventRef of [
+      "game:other/0/1/0",
+      "game:proof/1/1/0",
+      "game:proof/0/100/0",
+    ]) {
+      expect(() => mergeHandStructureFuriten({
+        ...input,
+        selfRiver: [discard(eventRef, tile("5m"))],
+      })).toThrow("furiten_merge_self_river_scene_mismatch");
+    }
+  });
+
   it("clears discard furiten for a complete river with no structural wait match", () => {
     expect(merge({
-      selfRiver: [discard("event:1m", tile("1m"))],
+      selfRiver: [discard("game:proof/0/1/0", tile("1m"))],
     }).furiten.discard).toMatchObject({
       status: "clear",
       canonicalEventRefs: [],
@@ -212,7 +314,7 @@ describe("furiten merger", () => {
     ] as const) {
       const merged = merge({
         hand: hand([wait(4, eligibility)]),
-        selfRiver: [discard(`event:${eligibility}`, tile("5m"))],
+        selfRiver: [discard("game:proof/0/1/0", tile("5m"))],
       });
       expect(merged.furiten.discard.status).toBe("confirmed");
       expect(merged.ronEligibilityStatus).toBe("calculated");
@@ -224,12 +326,12 @@ describe("furiten merger", () => {
     const merged = merge({
       hand: hand([wait(4)]),
       selfRiver: [
-        discard("event:red", tile("5m", true)),
-        discard("event:called", tile("5m"), { calledByEventRef: "event:pon" }),
+        discard("game:proof/0/1/0", tile("5m", true)),
+        discard("game:proof/0/2/0", tile("5m"), { calledByEventRef: "game:proof/0/3/0" }),
       ],
     });
     expect(merged.furiten.discard.canonicalEventRefs)
-      .toEqual(["event:red", "event:called"]);
+      .toEqual(["game:proof/0/1/0", "game:proof/0/2/0"]);
   });
 
   it("makes confirmed temporary or riichi furiten whole-hand", () => {
@@ -248,7 +350,8 @@ describe("furiten merger", () => {
       historical.temporary.analysisRefs,
     );
     expect(merged.furiten.temporary.analysisRefs[0]).toMatchObject({
-      requestId: "request:temporary",
+      requestId:
+        `canonical-response:${fixtureSourceStreamPrefixHash}:hand-structure:sha256:temporary`,
       actionRef: "response:game:proof/0/1/0",
       stateHash: "sha256:temporary",
     });
@@ -268,8 +371,10 @@ describe("furiten merger", () => {
 
   it("reports incomplete no-match evidence as unknown without reordering response evidence", () => {
     const rawResponse = ResponseFuritenAnalysisV2Schema.parse({
+      binding: response().binding,
       temporary: {
         status: "confirmed" as const,
+        unknownReason: null,
         evidenceIds: ["game:proof/0/2/0", "game:proof/0/10/0"],
         analysisRefs: [{
           ...response("confirmed").temporary.analysisRefs[0]!,
@@ -281,6 +386,7 @@ describe("furiten merger", () => {
       },
       riichi: {
         status: "clear" as const,
+        unknownReason: null,
         evidenceIds: [],
         analysisRefs: [],
         riichiAcceptanceEventRef: null,
@@ -299,7 +405,7 @@ describe("furiten merger", () => {
     );
     expect(merge({
       hand: hand([wait(4)]),
-      selfRiver: [discard("event:1m", tile("1m"))],
+      selfRiver: [discard("game:proof/0/1/0", tile("1m"))],
       selfRiverComplete: false,
       response: response(),
     })).toMatchObject({
@@ -339,11 +445,11 @@ describe("furiten merger", () => {
     });
     const multiFamilyDiscard = merge({
       hand: hand([wait(6, "eligible", ["standard", "chiitoitsu"])]),
-      selfRiver: [discard("event:multi-family", tile("7m"))],
+      selfRiver: [discard("game:proof/0/1/0", tile("7m"))],
     });
     expect(multiFamilyDiscard.furiten.discard).toMatchObject({
       status: "confirmed",
-      canonicalEventRefs: ["event:multi-family"],
+      canonicalEventRefs: ["game:proof/0/1/0"],
       candidateActionRefs: [],
     });
   });
@@ -369,10 +475,10 @@ describe("furiten merger", () => {
 
   it("rejects malformed canonical river and every candidate binding mismatch", () => {
     expect(() => merge({
-      selfRiver: [discard("event:other", tile("1m"), { actor: 1 })],
+      selfRiver: [discard("game:proof/0/1/0", tile("1m"), { actor: 1 })],
     })).toThrow("furiten_merge_self_river_actor_mismatch");
     expect(() => merge({
-      selfRiver: [discard("event:dup", tile("1m")), discard("event:dup", tile("2m"))],
+      selfRiver: [discard("game:proof/0/1/0", tile("1m")), discard("game:proof/0/1/0", tile("2m"))],
     })).toThrow("furiten_merge_duplicate_canonical_event_ref");
 
     const action = {
@@ -518,6 +624,8 @@ describe("furiten merger", () => {
 
   it("rejects a candidate-discard source when its candidate proof is omitted", () => {
     expect(() => mergeHandStructureFuriten({
+      factSetId: fixtureFactSetId,
+      decisionEventRef: fixtureDecisionEventRef,
       hand: hand([wait(4)]),
       selfActor: 0,
       selfRiver: [],
@@ -536,6 +644,8 @@ describe("furiten merger", () => {
       discardMode: "tedashi" as const,
     };
     expect(() => mergeHandStructureFuriten({
+      factSetId: fixtureFactSetId,
+      decisionEventRef: fixtureDecisionEventRef,
       hand: hand([wait(4)], action),
       selfActor: 0,
       selfRiver: [],
