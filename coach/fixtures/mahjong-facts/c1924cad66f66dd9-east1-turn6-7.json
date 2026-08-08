@@ -1,0 +1,4127 @@
+{
+  "generatedBy": "pinned mahjong-facts sidecar",
+  "sourceReportId": "c1924cad66f66dd9",
+  "cases": [
+    {
+      "decisionId": "east1-turn6",
+      "actionRef": "action:v1:%5B%22discard%22%2C%5B%222p%22%2Cfalse%5D%2C%22tedashi%22%5D",
+      "request": {
+        "kind": "hand13",
+        "requestId": "legacy-regression:east1-turn6:hand13:sha256:ac0522678a889ea2950a7ff2efe1548e0002727971be91351ac2eff882c902c8",
+        "protocolVersion": "mahjong-facts/v1",
+        "actionRef": "action:v1:%5B%22discard%22%2C%5B%222p%22%2Cfalse%5D%2C%22tedashi%22%5D",
+        "stateHash": "sha256:ac0522678a889ea2950a7ff2efe1548e0002727971be91351ac2eff882c902c8",
+        "melds": [],
+        "doraTiles34": [
+          20
+        ],
+        "redFiveCounts": [
+          0,
+          0,
+          0
+        ],
+        "roundWindTile34": 27,
+        "selfWindTile34": 30,
+        "dealer": false,
+        "riichi": false,
+        "selfDiscards34": [
+          29,
+          31,
+          30,
+          24,
+          17,
+          10
+        ],
+        "handTiles34": [
+          0,
+          0,
+          1,
+          0,
+          0,
+          1,
+          0,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "leftTiles34": [
+          3,
+          2,
+          3,
+          3,
+          4,
+          2,
+          3,
+          2,
+          3,
+          4,
+          2,
+          4,
+          4,
+          4,
+          3,
+          2,
+          3,
+          2,
+          4,
+          3,
+          4,
+          3,
+          3,
+          2,
+          2,
+          3,
+          3,
+          2,
+          4,
+          2,
+          3,
+          3,
+          1,
+          3
+        ],
+        "visibleCountsComplete": true,
+        "doraTilesComplete": true,
+        "selfDiscardsComplete": true,
+        "remainingDraws": null
+      },
+      "result": {
+        "requestId": "legacy-regression:east1-turn6:hand13:sha256:ac0522678a889ea2950a7ff2efe1548e0002727971be91351ac2eff882c902c8",
+        "protocolVersion": "mahjong-facts/v1",
+        "actionRef": "action:v1:%5B%22discard%22%2C%5B%222p%22%2Cfalse%5D%2C%22tedashi%22%5D",
+        "stateHash": "sha256:ac0522678a889ea2950a7ff2efe1548e0002727971be91351ac2eff882c902c8",
+        "identity": {
+          "engine": "mahjong-helper",
+          "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+          "adapterVersion": "0.1.0",
+          "protocolVersion": "mahjong-facts/v1"
+        },
+        "kind": "hand13_result",
+        "shanten": 2,
+        "effectiveTile34": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17
+        ],
+        "waitsRemainingStatus": "calculated",
+        "waitsRemaining": [
+          {
+            "tile34": 0,
+            "count": 3
+          },
+          {
+            "tile34": 1,
+            "count": 2
+          },
+          {
+            "tile34": 2,
+            "count": 3
+          },
+          {
+            "tile34": 3,
+            "count": 3
+          },
+          {
+            "tile34": 4,
+            "count": 4
+          },
+          {
+            "tile34": 5,
+            "count": 2
+          },
+          {
+            "tile34": 6,
+            "count": 3
+          },
+          {
+            "tile34": 7,
+            "count": 2
+          },
+          {
+            "tile34": 8,
+            "count": 3
+          },
+          {
+            "tile34": 12,
+            "count": 4
+          },
+          {
+            "tile34": 13,
+            "count": 4
+          },
+          {
+            "tile34": 14,
+            "count": 3
+          },
+          {
+            "tile34": 15,
+            "count": 2
+          },
+          {
+            "tile34": 16,
+            "count": 3
+          },
+          {
+            "tile34": 17,
+            "count": 2
+          }
+        ],
+        "improves": [
+          {
+            "drawTile34": 9,
+            "bestWaits": [
+              {
+                "tile34": 3,
+                "count": 3
+              },
+              {
+                "tile34": 4,
+                "count": 4
+              },
+              {
+                "tile34": 5,
+                "count": 2
+              },
+              {
+                "tile34": 6,
+                "count": 3
+              },
+              {
+                "tile34": 7,
+                "count": 2
+              },
+              {
+                "tile34": 8,
+                "count": 3
+              },
+              {
+                "tile34": 9,
+                "count": 3
+              },
+              {
+                "tile34": 10,
+                "count": 2
+              },
+              {
+                "tile34": 11,
+                "count": 4
+              },
+              {
+                "tile34": 12,
+                "count": 4
+              },
+              {
+                "tile34": 13,
+                "count": 4
+              },
+              {
+                "tile34": 14,
+                "count": 3
+              },
+              {
+                "tile34": 15,
+                "count": 2
+              },
+              {
+                "tile34": 16,
+                "count": 3
+              },
+              {
+                "tile34": 17,
+                "count": 2
+              }
+            ]
+          },
+          {
+            "drawTile34": 10,
+            "bestWaits": [
+              {
+                "tile34": 3,
+                "count": 3
+              },
+              {
+                "tile34": 4,
+                "count": 4
+              },
+              {
+                "tile34": 5,
+                "count": 2
+              },
+              {
+                "tile34": 6,
+                "count": 3
+              },
+              {
+                "tile34": 7,
+                "count": 2
+              },
+              {
+                "tile34": 8,
+                "count": 3
+              },
+              {
+                "tile34": 9,
+                "count": 4
+              },
+              {
+                "tile34": 10,
+                "count": 1
+              },
+              {
+                "tile34": 11,
+                "count": 4
+              },
+              {
+                "tile34": 12,
+                "count": 4
+              },
+              {
+                "tile34": 13,
+                "count": 4
+              },
+              {
+                "tile34": 14,
+                "count": 3
+              },
+              {
+                "tile34": 15,
+                "count": 2
+              },
+              {
+                "tile34": 16,
+                "count": 3
+              },
+              {
+                "tile34": 17,
+                "count": 2
+              }
+            ]
+          },
+          {
+            "drawTile34": 11,
+            "bestWaits": [
+              {
+                "tile34": 3,
+                "count": 3
+              },
+              {
+                "tile34": 4,
+                "count": 4
+              },
+              {
+                "tile34": 5,
+                "count": 2
+              },
+              {
+                "tile34": 6,
+                "count": 3
+              },
+              {
+                "tile34": 7,
+                "count": 2
+              },
+              {
+                "tile34": 8,
+                "count": 3
+              },
+              {
+                "tile34": 9,
+                "count": 4
+              },
+              {
+                "tile34": 10,
+                "count": 2
+              },
+              {
+                "tile34": 11,
+                "count": 3
+              },
+              {
+                "tile34": 12,
+                "count": 4
+              },
+              {
+                "tile34": 13,
+                "count": 4
+              },
+              {
+                "tile34": 14,
+                "count": 3
+              },
+              {
+                "tile34": 15,
+                "count": 2
+              },
+              {
+                "tile34": 16,
+                "count": 3
+              },
+              {
+                "tile34": 17,
+                "count": 2
+              }
+            ]
+          },
+          {
+            "drawTile34": 18,
+            "bestWaits": [
+              {
+                "tile34": 3,
+                "count": 3
+              },
+              {
+                "tile34": 4,
+                "count": 4
+              },
+              {
+                "tile34": 5,
+                "count": 2
+              },
+              {
+                "tile34": 6,
+                "count": 3
+              },
+              {
+                "tile34": 7,
+                "count": 2
+              },
+              {
+                "tile34": 8,
+                "count": 3
+              },
+              {
+                "tile34": 12,
+                "count": 4
+              },
+              {
+                "tile34": 13,
+                "count": 4
+              },
+              {
+                "tile34": 14,
+                "count": 3
+              },
+              {
+                "tile34": 15,
+                "count": 2
+              },
+              {
+                "tile34": 16,
+                "count": 3
+              },
+              {
+                "tile34": 17,
+                "count": 2
+              },
+              {
+                "tile34": 18,
+                "count": 3
+              },
+              {
+                "tile34": 19,
+                "count": 3
+              },
+              {
+                "tile34": 20,
+                "count": 4
+              }
+            ]
+          },
+          {
+            "drawTile34": 19,
+            "bestWaits": [
+              {
+                "tile34": 3,
+                "count": 3
+              },
+              {
+                "tile34": 4,
+                "count": 4
+              },
+              {
+                "tile34": 5,
+                "count": 2
+              },
+              {
+                "tile34": 6,
+                "count": 3
+              },
+              {
+                "tile34": 7,
+                "count": 2
+              },
+              {
+                "tile34": 8,
+                "count": 3
+              },
+              {
+                "tile34": 12,
+                "count": 4
+              },
+              {
+                "tile34": 13,
+                "count": 4
+              },
+              {
+                "tile34": 14,
+                "count": 3
+              },
+              {
+                "tile34": 15,
+                "count": 2
+              },
+              {
+                "tile34": 16,
+                "count": 3
+              },
+              {
+                "tile34": 17,
+                "count": 2
+              },
+              {
+                "tile34": 18,
+                "count": 4
+              },
+              {
+                "tile34": 19,
+                "count": 2
+              },
+              {
+                "tile34": 20,
+                "count": 4
+              },
+              {
+                "tile34": 21,
+                "count": 3
+              },
+              {
+                "tile34": 24,
+                "count": 2
+              }
+            ]
+          },
+          {
+            "drawTile34": 20,
+            "bestWaits": [
+              {
+                "tile34": 3,
+                "count": 3
+              },
+              {
+                "tile34": 4,
+                "count": 4
+              },
+              {
+                "tile34": 5,
+                "count": 2
+              },
+              {
+                "tile34": 6,
+                "count": 3
+              },
+              {
+                "tile34": 7,
+                "count": 2
+              },
+              {
+                "tile34": 8,
+                "count": 3
+              },
+              {
+                "tile34": 12,
+                "count": 4
+              },
+              {
+                "tile34": 13,
+                "count": 4
+              },
+              {
+                "tile34": 14,
+                "count": 3
+              },
+              {
+                "tile34": 15,
+                "count": 2
+              },
+              {
+                "tile34": 16,
+                "count": 3
+              },
+              {
+                "tile34": 17,
+                "count": 2
+              },
+              {
+                "tile34": 18,
+                "count": 4
+              },
+              {
+                "tile34": 19,
+                "count": 3
+              },
+              {
+                "tile34": 20,
+                "count": 3
+              },
+              {
+                "tile34": 21,
+                "count": 3
+              },
+              {
+                "tile34": 22,
+                "count": 3
+              },
+              {
+                "tile34": 23,
+                "count": 2
+              },
+              {
+                "tile34": 24,
+                "count": 2
+              },
+              {
+                "tile34": 25,
+                "count": 3
+              },
+              {
+                "tile34": 26,
+                "count": 3
+              }
+            ]
+          },
+          {
+            "drawTile34": 21,
+            "bestWaits": [
+              {
+                "tile34": 3,
+                "count": 3
+              },
+              {
+                "tile34": 4,
+                "count": 4
+              },
+              {
+                "tile34": 5,
+                "count": 2
+              },
+              {
+                "tile34": 6,
+                "count": 3
+              },
+              {
+                "tile34": 7,
+                "count": 2
+              },
+              {
+                "tile34": 8,
+                "count": 3
+              },
+              {
+                "tile34": 12,
+                "count": 4
+              },
+              {
+                "tile34": 13,
+                "count": 4
+              },
+              {
+                "tile34": 14,
+                "count": 3
+              },
+              {
+                "tile34": 15,
+                "count": 2
+              },
+              {
+                "tile34": 16,
+                "count": 3
+              },
+              {
+                "tile34": 17,
+                "count": 2
+              },
+              {
+                "tile34": 19,
+                "count": 3
+              },
+              {
+                "tile34": 20,
+                "count": 4
+              },
+              {
+                "tile34": 21,
+                "count": 2
+              },
+              {
+                "tile34": 22,
+                "count": 3
+              },
+              {
+                "tile34": 23,
+                "count": 2
+              },
+              {
+                "tile34": 24,
+                "count": 2
+              }
+            ]
+          },
+          {
+            "drawTile34": 22,
+            "bestWaits": [
+              {
+                "tile34": 3,
+                "count": 3
+              },
+              {
+                "tile34": 4,
+                "count": 4
+              },
+              {
+                "tile34": 5,
+                "count": 2
+              },
+              {
+                "tile34": 6,
+                "count": 3
+              },
+              {
+                "tile34": 7,
+                "count": 2
+              },
+              {
+                "tile34": 8,
+                "count": 3
+              },
+              {
+                "tile34": 12,
+                "count": 4
+              },
+              {
+                "tile34": 13,
+                "count": 4
+              },
+              {
+                "tile34": 14,
+                "count": 3
+              },
+              {
+                "tile34": 15,
+                "count": 2
+              },
+              {
+                "tile34": 16,
+                "count": 3
+              },
+              {
+                "tile34": 17,
+                "count": 2
+              },
+              {
+                "tile34": 20,
+                "count": 4
+              },
+              {
+                "tile34": 21,
+                "count": 3
+              },
+              {
+                "tile34": 22,
+                "count": 2
+              },
+              {
+                "tile34": 23,
+                "count": 2
+              },
+              {
+                "tile34": 24,
+                "count": 2
+              }
+            ]
+          },
+          {
+            "drawTile34": 23,
+            "bestWaits": [
+              {
+                "tile34": 3,
+                "count": 3
+              },
+              {
+                "tile34": 4,
+                "count": 4
+              },
+              {
+                "tile34": 5,
+                "count": 2
+              },
+              {
+                "tile34": 6,
+                "count": 3
+              },
+              {
+                "tile34": 7,
+                "count": 2
+              },
+              {
+                "tile34": 8,
+                "count": 3
+              },
+              {
+                "tile34": 12,
+                "count": 4
+              },
+              {
+                "tile34": 13,
+                "count": 4
+              },
+              {
+                "tile34": 14,
+                "count": 3
+              },
+              {
+                "tile34": 15,
+                "count": 2
+              },
+              {
+                "tile34": 16,
+                "count": 3
+              },
+              {
+                "tile34": 17,
+                "count": 2
+              },
+              {
+                "tile34": 20,
+                "count": 4
+              },
+              {
+                "tile34": 21,
+                "count": 3
+              },
+              {
+                "tile34": 22,
+                "count": 3
+              },
+              {
+                "tile34": 23,
+                "count": 1
+              },
+              {
+                "tile34": 24,
+                "count": 2
+              },
+              {
+                "tile34": 25,
+                "count": 3
+              },
+              {
+                "tile34": 26,
+                "count": 3
+              }
+            ]
+          },
+          {
+            "drawTile34": 24,
+            "bestWaits": [
+              {
+                "tile34": 3,
+                "count": 3
+              },
+              {
+                "tile34": 4,
+                "count": 4
+              },
+              {
+                "tile34": 5,
+                "count": 2
+              },
+              {
+                "tile34": 6,
+                "count": 3
+              },
+              {
+                "tile34": 7,
+                "count": 2
+              },
+              {
+                "tile34": 8,
+                "count": 3
+              },
+              {
+                "tile34": 12,
+                "count": 4
+              },
+              {
+                "tile34": 13,
+                "count": 4
+              },
+              {
+                "tile34": 14,
+                "count": 3
+              },
+              {
+                "tile34": 15,
+                "count": 2
+              },
+              {
+                "tile34": 16,
+                "count": 3
+              },
+              {
+                "tile34": 17,
+                "count": 2
+              },
+              {
+                "tile34": 19,
+                "count": 3
+              },
+              {
+                "tile34": 20,
+                "count": 4
+              },
+              {
+                "tile34": 21,
+                "count": 3
+              },
+              {
+                "tile34": 22,
+                "count": 3
+              },
+              {
+                "tile34": 23,
+                "count": 2
+              },
+              {
+                "tile34": 24,
+                "count": 1
+              },
+              {
+                "tile34": 25,
+                "count": 3
+              },
+              {
+                "tile34": 26,
+                "count": 3
+              }
+            ]
+          },
+          {
+            "drawTile34": 25,
+            "bestWaits": [
+              {
+                "tile34": 3,
+                "count": 3
+              },
+              {
+                "tile34": 4,
+                "count": 4
+              },
+              {
+                "tile34": 5,
+                "count": 2
+              },
+              {
+                "tile34": 6,
+                "count": 3
+              },
+              {
+                "tile34": 7,
+                "count": 2
+              },
+              {
+                "tile34": 8,
+                "count": 3
+              },
+              {
+                "tile34": 12,
+                "count": 4
+              },
+              {
+                "tile34": 13,
+                "count": 4
+              },
+              {
+                "tile34": 14,
+                "count": 3
+              },
+              {
+                "tile34": 15,
+                "count": 2
+              },
+              {
+                "tile34": 16,
+                "count": 3
+              },
+              {
+                "tile34": 17,
+                "count": 2
+              },
+              {
+                "tile34": 20,
+                "count": 4
+              },
+              {
+                "tile34": 23,
+                "count": 2
+              },
+              {
+                "tile34": 24,
+                "count": 2
+              },
+              {
+                "tile34": 25,
+                "count": 2
+              },
+              {
+                "tile34": 26,
+                "count": 3
+              }
+            ]
+          },
+          {
+            "drawTile34": 26,
+            "bestWaits": [
+              {
+                "tile34": 3,
+                "count": 3
+              },
+              {
+                "tile34": 4,
+                "count": 4
+              },
+              {
+                "tile34": 5,
+                "count": 2
+              },
+              {
+                "tile34": 6,
+                "count": 3
+              },
+              {
+                "tile34": 7,
+                "count": 2
+              },
+              {
+                "tile34": 8,
+                "count": 3
+              },
+              {
+                "tile34": 12,
+                "count": 4
+              },
+              {
+                "tile34": 13,
+                "count": 4
+              },
+              {
+                "tile34": 14,
+                "count": 3
+              },
+              {
+                "tile34": 15,
+                "count": 2
+              },
+              {
+                "tile34": 16,
+                "count": 3
+              },
+              {
+                "tile34": 17,
+                "count": 2
+              },
+              {
+                "tile34": 20,
+                "count": 4
+              },
+              {
+                "tile34": 23,
+                "count": 2
+              },
+              {
+                "tile34": 24,
+                "count": 2
+              },
+              {
+                "tile34": 25,
+                "count": 3
+              },
+              {
+                "tile34": 26,
+                "count": 2
+              }
+            ]
+          }
+        ],
+        "doraCountStatus": "calculated",
+        "doraCount": 0,
+        "estimates": [
+          {
+            "field": "yaku_types",
+            "integerValues": [
+              0,
+              4,
+              6
+            ],
+            "limitations": [
+              "Possible yaku IDs reported by the pinned mahjong-helper analysis"
+            ]
+          },
+          {
+            "field": "dama_point",
+            "numericValue": 0,
+            "limitations": [
+              "Pinned mahjong-helper average dama/open-hand point estimate"
+            ]
+          },
+          {
+            "field": "riichi_point",
+            "numericValue": 0,
+            "limitations": [
+              "Pinned mahjong-helper average riichi point estimate"
+            ]
+          },
+          {
+            "field": "mixed_waits_score",
+            "numericValue": 20.916742719326713,
+            "limitations": [
+              "Pinned mahjong-helper composite wait-speed heuristic"
+            ]
+          },
+          {
+            "field": "furiten_rate",
+            "numericValue": 0,
+            "limitations": [
+              "Pinned mahjong-helper furiten heuristic"
+            ]
+          }
+        ],
+        "diagnostics": [
+          "estimate_blocked_missing_facts:avg_agari_rate",
+          "estimate_blocked_missing_facts:mixed_round_point"
+        ]
+      }
+    },
+    {
+      "decisionId": "east1-turn6",
+      "actionRef": "action:v1:%5B%22discard%22%2C%5B%226s%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
+      "request": {
+        "kind": "hand13",
+        "requestId": "legacy-regression:east1-turn6:hand13:sha256:5aca7e3bc1210f7ea6d3a0487f1fa926f81796d0986dba0fe6057ed1127280b7",
+        "protocolVersion": "mahjong-facts/v1",
+        "actionRef": "action:v1:%5B%22discard%22%2C%5B%226s%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
+        "stateHash": "sha256:5aca7e3bc1210f7ea6d3a0487f1fa926f81796d0986dba0fe6057ed1127280b7",
+        "melds": [],
+        "doraTiles34": [
+          20
+        ],
+        "redFiveCounts": [
+          0,
+          0,
+          0
+        ],
+        "roundWindTile34": 27,
+        "selfWindTile34": 30,
+        "dealer": false,
+        "riichi": false,
+        "selfDiscards34": [
+          29,
+          31,
+          30,
+          24,
+          17,
+          23
+        ],
+        "handTiles34": [
+          0,
+          0,
+          1,
+          0,
+          0,
+          1,
+          0,
+          2,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "leftTiles34": [
+          3,
+          2,
+          3,
+          3,
+          4,
+          2,
+          3,
+          2,
+          3,
+          4,
+          2,
+          4,
+          4,
+          4,
+          3,
+          2,
+          3,
+          2,
+          4,
+          3,
+          4,
+          3,
+          3,
+          2,
+          2,
+          3,
+          3,
+          2,
+          4,
+          2,
+          3,
+          3,
+          1,
+          3
+        ],
+        "visibleCountsComplete": true,
+        "doraTilesComplete": true,
+        "selfDiscardsComplete": true,
+        "remainingDraws": null
+      },
+      "result": {
+        "requestId": "legacy-regression:east1-turn6:hand13:sha256:5aca7e3bc1210f7ea6d3a0487f1fa926f81796d0986dba0fe6057ed1127280b7",
+        "protocolVersion": "mahjong-facts/v1",
+        "actionRef": "action:v1:%5B%22discard%22%2C%5B%226s%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
+        "stateHash": "sha256:5aca7e3bc1210f7ea6d3a0487f1fa926f81796d0986dba0fe6057ed1127280b7",
+        "identity": {
+          "engine": "mahjong-helper",
+          "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+          "adapterVersion": "0.1.0",
+          "protocolVersion": "mahjong-facts/v1"
+        },
+        "kind": "hand13_result",
+        "shanten": 3,
+        "effectiveTile34": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          20,
+          23
+        ],
+        "waitsRemainingStatus": "calculated",
+        "waitsRemaining": [
+          {
+            "tile34": 0,
+            "count": 3
+          },
+          {
+            "tile34": 1,
+            "count": 2
+          },
+          {
+            "tile34": 2,
+            "count": 3
+          },
+          {
+            "tile34": 3,
+            "count": 3
+          },
+          {
+            "tile34": 4,
+            "count": 4
+          },
+          {
+            "tile34": 5,
+            "count": 2
+          },
+          {
+            "tile34": 6,
+            "count": 3
+          },
+          {
+            "tile34": 7,
+            "count": 2
+          },
+          {
+            "tile34": 8,
+            "count": 3
+          },
+          {
+            "tile34": 9,
+            "count": 4
+          },
+          {
+            "tile34": 10,
+            "count": 2
+          },
+          {
+            "tile34": 11,
+            "count": 4
+          },
+          {
+            "tile34": 12,
+            "count": 4
+          },
+          {
+            "tile34": 13,
+            "count": 4
+          },
+          {
+            "tile34": 14,
+            "count": 3
+          },
+          {
+            "tile34": 15,
+            "count": 2
+          },
+          {
+            "tile34": 16,
+            "count": 3
+          },
+          {
+            "tile34": 17,
+            "count": 2
+          },
+          {
+            "tile34": 20,
+            "count": 4
+          },
+          {
+            "tile34": 23,
+            "count": 2
+          }
+        ],
+        "improves": [
+          {
+            "drawTile34": 19,
+            "bestWaits": [
+              {
+                "tile34": 3,
+                "count": 3
+              },
+              {
+                "tile34": 4,
+                "count": 4
+              },
+              {
+                "tile34": 5,
+                "count": 2
+              },
+              {
+                "tile34": 6,
+                "count": 3
+              },
+              {
+                "tile34": 7,
+                "count": 2
+              },
+              {
+                "tile34": 8,
+                "count": 3
+              },
+              {
+                "tile34": 9,
+                "count": 4
+              },
+              {
+                "tile34": 10,
+                "count": 2
+              },
+              {
+                "tile34": 11,
+                "count": 4
+              },
+              {
+                "tile34": 12,
+                "count": 4
+              },
+              {
+                "tile34": 13,
+                "count": 4
+              },
+              {
+                "tile34": 14,
+                "count": 3
+              },
+              {
+                "tile34": 15,
+                "count": 2
+              },
+              {
+                "tile34": 16,
+                "count": 3
+              },
+              {
+                "tile34": 17,
+                "count": 2
+              },
+              {
+                "tile34": 18,
+                "count": 4
+              },
+              {
+                "tile34": 19,
+                "count": 2
+              },
+              {
+                "tile34": 20,
+                "count": 4
+              },
+              {
+                "tile34": 21,
+                "count": 3
+              },
+              {
+                "tile34": 22,
+                "count": 3
+              },
+              {
+                "tile34": 23,
+                "count": 2
+              },
+              {
+                "tile34": 24,
+                "count": 2
+              }
+            ]
+          },
+          {
+            "drawTile34": 21,
+            "bestWaits": [
+              {
+                "tile34": 3,
+                "count": 3
+              },
+              {
+                "tile34": 4,
+                "count": 4
+              },
+              {
+                "tile34": 5,
+                "count": 2
+              },
+              {
+                "tile34": 6,
+                "count": 3
+              },
+              {
+                "tile34": 7,
+                "count": 2
+              },
+              {
+                "tile34": 8,
+                "count": 3
+              },
+              {
+                "tile34": 9,
+                "count": 4
+              },
+              {
+                "tile34": 10,
+                "count": 2
+              },
+              {
+                "tile34": 11,
+                "count": 4
+              },
+              {
+                "tile34": 12,
+                "count": 4
+              },
+              {
+                "tile34": 13,
+                "count": 4
+              },
+              {
+                "tile34": 14,
+                "count": 3
+              },
+              {
+                "tile34": 15,
+                "count": 2
+              },
+              {
+                "tile34": 16,
+                "count": 3
+              },
+              {
+                "tile34": 17,
+                "count": 2
+              },
+              {
+                "tile34": 19,
+                "count": 3
+              },
+              {
+                "tile34": 20,
+                "count": 4
+              },
+              {
+                "tile34": 21,
+                "count": 2
+              },
+              {
+                "tile34": 22,
+                "count": 3
+              },
+              {
+                "tile34": 23,
+                "count": 2
+              },
+              {
+                "tile34": 24,
+                "count": 2
+              },
+              {
+                "tile34": 25,
+                "count": 3
+              },
+              {
+                "tile34": 26,
+                "count": 3
+              }
+            ]
+          },
+          {
+            "drawTile34": 22,
+            "bestWaits": [
+              {
+                "tile34": 3,
+                "count": 3
+              },
+              {
+                "tile34": 4,
+                "count": 4
+              },
+              {
+                "tile34": 5,
+                "count": 2
+              },
+              {
+                "tile34": 6,
+                "count": 3
+              },
+              {
+                "tile34": 7,
+                "count": 2
+              },
+              {
+                "tile34": 8,
+                "count": 3
+              },
+              {
+                "tile34": 9,
+                "count": 4
+              },
+              {
+                "tile34": 10,
+                "count": 2
+              },
+              {
+                "tile34": 11,
+                "count": 4
+              },
+              {
+                "tile34": 12,
+                "count": 4
+              },
+              {
+                "tile34": 13,
+                "count": 4
+              },
+              {
+                "tile34": 14,
+                "count": 3
+              },
+              {
+                "tile34": 15,
+                "count": 2
+              },
+              {
+                "tile34": 16,
+                "count": 3
+              },
+              {
+                "tile34": 17,
+                "count": 2
+              },
+              {
+                "tile34": 19,
+                "count": 3
+              },
+              {
+                "tile34": 20,
+                "count": 4
+              },
+              {
+                "tile34": 21,
+                "count": 3
+              },
+              {
+                "tile34": 22,
+                "count": 2
+              },
+              {
+                "tile34": 23,
+                "count": 2
+              },
+              {
+                "tile34": 24,
+                "count": 2
+              },
+              {
+                "tile34": 25,
+                "count": 3
+              },
+              {
+                "tile34": 26,
+                "count": 3
+              }
+            ]
+          },
+          {
+            "drawTile34": 24,
+            "bestWaits": [
+              {
+                "tile34": 3,
+                "count": 3
+              },
+              {
+                "tile34": 4,
+                "count": 4
+              },
+              {
+                "tile34": 5,
+                "count": 2
+              },
+              {
+                "tile34": 6,
+                "count": 3
+              },
+              {
+                "tile34": 7,
+                "count": 2
+              },
+              {
+                "tile34": 8,
+                "count": 3
+              },
+              {
+                "tile34": 9,
+                "count": 4
+              },
+              {
+                "tile34": 10,
+                "count": 2
+              },
+              {
+                "tile34": 11,
+                "count": 4
+              },
+              {
+                "tile34": 12,
+                "count": 4
+              },
+              {
+                "tile34": 13,
+                "count": 4
+              },
+              {
+                "tile34": 14,
+                "count": 3
+              },
+              {
+                "tile34": 15,
+                "count": 2
+              },
+              {
+                "tile34": 16,
+                "count": 3
+              },
+              {
+                "tile34": 17,
+                "count": 2
+              },
+              {
+                "tile34": 19,
+                "count": 3
+              },
+              {
+                "tile34": 20,
+                "count": 4
+              },
+              {
+                "tile34": 21,
+                "count": 3
+              },
+              {
+                "tile34": 22,
+                "count": 3
+              },
+              {
+                "tile34": 23,
+                "count": 2
+              },
+              {
+                "tile34": 24,
+                "count": 1
+              },
+              {
+                "tile34": 25,
+                "count": 3
+              },
+              {
+                "tile34": 26,
+                "count": 3
+              }
+            ]
+          },
+          {
+            "drawTile34": 25,
+            "bestWaits": [
+              {
+                "tile34": 3,
+                "count": 3
+              },
+              {
+                "tile34": 4,
+                "count": 4
+              },
+              {
+                "tile34": 5,
+                "count": 2
+              },
+              {
+                "tile34": 6,
+                "count": 3
+              },
+              {
+                "tile34": 7,
+                "count": 2
+              },
+              {
+                "tile34": 8,
+                "count": 3
+              },
+              {
+                "tile34": 9,
+                "count": 4
+              },
+              {
+                "tile34": 10,
+                "count": 2
+              },
+              {
+                "tile34": 11,
+                "count": 4
+              },
+              {
+                "tile34": 12,
+                "count": 4
+              },
+              {
+                "tile34": 13,
+                "count": 4
+              },
+              {
+                "tile34": 14,
+                "count": 3
+              },
+              {
+                "tile34": 15,
+                "count": 2
+              },
+              {
+                "tile34": 16,
+                "count": 3
+              },
+              {
+                "tile34": 17,
+                "count": 2
+              },
+              {
+                "tile34": 20,
+                "count": 4
+              },
+              {
+                "tile34": 21,
+                "count": 3
+              },
+              {
+                "tile34": 22,
+                "count": 3
+              },
+              {
+                "tile34": 23,
+                "count": 2
+              },
+              {
+                "tile34": 24,
+                "count": 2
+              },
+              {
+                "tile34": 25,
+                "count": 2
+              },
+              {
+                "tile34": 26,
+                "count": 3
+              }
+            ]
+          },
+          {
+            "drawTile34": 26,
+            "bestWaits": [
+              {
+                "tile34": 3,
+                "count": 3
+              },
+              {
+                "tile34": 4,
+                "count": 4
+              },
+              {
+                "tile34": 5,
+                "count": 2
+              },
+              {
+                "tile34": 6,
+                "count": 3
+              },
+              {
+                "tile34": 7,
+                "count": 2
+              },
+              {
+                "tile34": 8,
+                "count": 3
+              },
+              {
+                "tile34": 9,
+                "count": 4
+              },
+              {
+                "tile34": 10,
+                "count": 2
+              },
+              {
+                "tile34": 11,
+                "count": 4
+              },
+              {
+                "tile34": 12,
+                "count": 4
+              },
+              {
+                "tile34": 13,
+                "count": 4
+              },
+              {
+                "tile34": 14,
+                "count": 3
+              },
+              {
+                "tile34": 15,
+                "count": 2
+              },
+              {
+                "tile34": 16,
+                "count": 3
+              },
+              {
+                "tile34": 17,
+                "count": 2
+              },
+              {
+                "tile34": 20,
+                "count": 4
+              },
+              {
+                "tile34": 21,
+                "count": 3
+              },
+              {
+                "tile34": 22,
+                "count": 3
+              },
+              {
+                "tile34": 23,
+                "count": 2
+              },
+              {
+                "tile34": 24,
+                "count": 2
+              },
+              {
+                "tile34": 25,
+                "count": 3
+              },
+              {
+                "tile34": 26,
+                "count": 2
+              }
+            ]
+          }
+        ],
+        "doraCountStatus": "calculated",
+        "doraCount": 0,
+        "estimates": [
+          {
+            "field": "yaku_types",
+            "integerValues": [],
+            "limitations": [
+              "Possible yaku IDs reported by the pinned mahjong-helper analysis"
+            ]
+          },
+          {
+            "field": "dama_point",
+            "numericValue": 0,
+            "limitations": [
+              "Pinned mahjong-helper average dama/open-hand point estimate"
+            ]
+          },
+          {
+            "field": "riichi_point",
+            "numericValue": 0,
+            "limitations": [
+              "Pinned mahjong-helper average riichi point estimate"
+            ]
+          },
+          {
+            "field": "mixed_waits_score",
+            "numericValue": 96.66939312964719,
+            "limitations": [
+              "Pinned mahjong-helper composite wait-speed heuristic"
+            ]
+          },
+          {
+            "field": "furiten_rate",
+            "numericValue": 0,
+            "limitations": [
+              "Pinned mahjong-helper furiten heuristic"
+            ]
+          }
+        ],
+        "diagnostics": [
+          "estimate_blocked_missing_facts:avg_agari_rate",
+          "estimate_blocked_missing_facts:mixed_round_point"
+        ]
+      }
+    },
+    {
+      "decisionId": "east1-turn7",
+      "actionRef": "action:v1:%5B%22discard%22%2C%5B%227p%22%2Cfalse%5D%2C%22tedashi%22%5D",
+      "request": {
+        "kind": "hand13",
+        "requestId": "legacy-regression:east1-turn7:hand13:sha256:de47dd8a97da4e0cea726869b29faf4e90114fe9dc077765ced4f4e769be0910",
+        "protocolVersion": "mahjong-facts/v1",
+        "actionRef": "action:v1:%5B%22discard%22%2C%5B%227p%22%2Cfalse%5D%2C%22tedashi%22%5D",
+        "stateHash": "sha256:de47dd8a97da4e0cea726869b29faf4e90114fe9dc077765ced4f4e769be0910",
+        "melds": [],
+        "doraTiles34": [
+          20
+        ],
+        "redFiveCounts": [
+          0,
+          0,
+          0
+        ],
+        "roundWindTile34": 27,
+        "selfWindTile34": 30,
+        "dealer": false,
+        "riichi": false,
+        "selfDiscards34": [
+          29,
+          31,
+          30,
+          24,
+          17,
+          10,
+          15
+        ],
+        "handTiles34": [
+          0,
+          0,
+          1,
+          0,
+          0,
+          1,
+          0,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "leftTiles34": [
+          3,
+          2,
+          3,
+          3,
+          4,
+          2,
+          3,
+          2,
+          3,
+          3,
+          2,
+          3,
+          4,
+          4,
+          3,
+          2,
+          2,
+          1,
+          4,
+          3,
+          4,
+          3,
+          3,
+          2,
+          2,
+          3,
+          3,
+          2,
+          1,
+          2,
+          3,
+          3,
+          1,
+          2
+        ],
+        "visibleCountsComplete": true,
+        "doraTilesComplete": true,
+        "selfDiscardsComplete": true,
+        "remainingDraws": null
+      },
+      "result": {
+        "requestId": "legacy-regression:east1-turn7:hand13:sha256:de47dd8a97da4e0cea726869b29faf4e90114fe9dc077765ced4f4e769be0910",
+        "protocolVersion": "mahjong-facts/v1",
+        "actionRef": "action:v1:%5B%22discard%22%2C%5B%227p%22%2Cfalse%5D%2C%22tedashi%22%5D",
+        "stateHash": "sha256:de47dd8a97da4e0cea726869b29faf4e90114fe9dc077765ced4f4e769be0910",
+        "identity": {
+          "engine": "mahjong-helper",
+          "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+          "adapterVersion": "0.1.0",
+          "protocolVersion": "mahjong-facts/v1"
+        },
+        "kind": "hand13_result",
+        "shanten": 1,
+        "effectiveTile34": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "waitsRemainingStatus": "calculated",
+        "waitsRemaining": [
+          {
+            "tile34": 0,
+            "count": 3
+          },
+          {
+            "tile34": 1,
+            "count": 2
+          },
+          {
+            "tile34": 2,
+            "count": 3
+          },
+          {
+            "tile34": 3,
+            "count": 3
+          },
+          {
+            "tile34": 4,
+            "count": 4
+          },
+          {
+            "tile34": 5,
+            "count": 2
+          },
+          {
+            "tile34": 6,
+            "count": 3
+          },
+          {
+            "tile34": 7,
+            "count": 2
+          }
+        ],
+        "improves": [
+          {
+            "drawTile34": 9,
+            "bestWaits": [
+              {
+                "tile34": 0,
+                "count": 3
+              },
+              {
+                "tile34": 1,
+                "count": 2
+              },
+              {
+                "tile34": 2,
+                "count": 3
+              },
+              {
+                "tile34": 3,
+                "count": 3
+              },
+              {
+                "tile34": 4,
+                "count": 4
+              },
+              {
+                "tile34": 7,
+                "count": 2
+              },
+              {
+                "tile34": 9,
+                "count": 2
+              },
+              {
+                "tile34": 10,
+                "count": 2
+              },
+              {
+                "tile34": 11,
+                "count": 3
+              }
+            ]
+          },
+          {
+            "drawTile34": 10,
+            "bestWaits": [
+              {
+                "tile34": 0,
+                "count": 3
+              },
+              {
+                "tile34": 1,
+                "count": 2
+              },
+              {
+                "tile34": 2,
+                "count": 3
+              },
+              {
+                "tile34": 3,
+                "count": 3
+              },
+              {
+                "tile34": 4,
+                "count": 4
+              },
+              {
+                "tile34": 7,
+                "count": 2
+              },
+              {
+                "tile34": 9,
+                "count": 3
+              },
+              {
+                "tile34": 10,
+                "count": 1
+              },
+              {
+                "tile34": 11,
+                "count": 3
+              },
+              {
+                "tile34": 12,
+                "count": 4
+              }
+            ]
+          },
+          {
+            "drawTile34": 11,
+            "bestWaits": [
+              {
+                "tile34": 0,
+                "count": 3
+              },
+              {
+                "tile34": 1,
+                "count": 2
+              },
+              {
+                "tile34": 2,
+                "count": 3
+              },
+              {
+                "tile34": 3,
+                "count": 3
+              },
+              {
+                "tile34": 4,
+                "count": 4
+              },
+              {
+                "tile34": 7,
+                "count": 2
+              },
+              {
+                "tile34": 9,
+                "count": 3
+              },
+              {
+                "tile34": 10,
+                "count": 2
+              },
+              {
+                "tile34": 11,
+                "count": 2
+              },
+              {
+                "tile34": 12,
+                "count": 4
+              },
+              {
+                "tile34": 13,
+                "count": 4
+              }
+            ]
+          },
+          {
+            "drawTile34": 12,
+            "bestWaits": [
+              {
+                "tile34": 0,
+                "count": 3
+              },
+              {
+                "tile34": 1,
+                "count": 2
+              },
+              {
+                "tile34": 2,
+                "count": 3
+              },
+              {
+                "tile34": 3,
+                "count": 3
+              },
+              {
+                "tile34": 4,
+                "count": 4
+              },
+              {
+                "tile34": 7,
+                "count": 2
+              },
+              {
+                "tile34": 10,
+                "count": 2
+              },
+              {
+                "tile34": 11,
+                "count": 3
+              },
+              {
+                "tile34": 12,
+                "count": 3
+              },
+              {
+                "tile34": 13,
+                "count": 4
+              },
+              {
+                "tile34": 14,
+                "count": 3
+              },
+              {
+                "tile34": 17,
+                "count": 1
+              }
+            ]
+          },
+          {
+            "drawTile34": 13,
+            "bestWaits": [
+              {
+                "tile34": 0,
+                "count": 3
+              },
+              {
+                "tile34": 1,
+                "count": 2
+              },
+              {
+                "tile34": 2,
+                "count": 3
+              },
+              {
+                "tile34": 3,
+                "count": 3
+              },
+              {
+                "tile34": 4,
+                "count": 4
+              },
+              {
+                "tile34": 7,
+                "count": 2
+              },
+              {
+                "tile34": 11,
+                "count": 3
+              },
+              {
+                "tile34": 12,
+                "count": 4
+              },
+              {
+                "tile34": 13,
+                "count": 3
+              },
+              {
+                "tile34": 14,
+                "count": 3
+              },
+              {
+                "tile34": 15,
+                "count": 2
+              },
+              {
+                "tile34": 16,
+                "count": 2
+              },
+              {
+                "tile34": 17,
+                "count": 1
+              }
+            ]
+          },
+          {
+            "drawTile34": 14,
+            "bestWaits": [
+              {
+                "tile34": 0,
+                "count": 3
+              },
+              {
+                "tile34": 1,
+                "count": 2
+              },
+              {
+                "tile34": 2,
+                "count": 3
+              },
+              {
+                "tile34": 3,
+                "count": 3
+              },
+              {
+                "tile34": 4,
+                "count": 4
+              },
+              {
+                "tile34": 7,
+                "count": 2
+              },
+              {
+                "tile34": 12,
+                "count": 4
+              },
+              {
+                "tile34": 13,
+                "count": 4
+              },
+              {
+                "tile34": 14,
+                "count": 2
+              },
+              {
+                "tile34": 15,
+                "count": 2
+              },
+              {
+                "tile34": 16,
+                "count": 2
+              },
+              {
+                "tile34": 17,
+                "count": 1
+              }
+            ]
+          },
+          {
+            "drawTile34": 15,
+            "bestWaits": [
+              {
+                "tile34": 0,
+                "count": 3
+              },
+              {
+                "tile34": 1,
+                "count": 2
+              },
+              {
+                "tile34": 2,
+                "count": 3
+              },
+              {
+                "tile34": 3,
+                "count": 3
+              },
+              {
+                "tile34": 4,
+                "count": 4
+              },
+              {
+                "tile34": 7,
+                "count": 2
+              },
+              {
+                "tile34": 13,
+                "count": 4
+              },
+              {
+                "tile34": 14,
+                "count": 3
+              },
+              {
+                "tile34": 15,
+                "count": 1
+              },
+              {
+                "tile34": 16,
+                "count": 2
+              },
+              {
+                "tile34": 17,
+                "count": 1
+              }
+            ]
+          },
+          {
+            "drawTile34": 16,
+            "bestWaits": [
+              {
+                "tile34": 0,
+                "count": 3
+              },
+              {
+                "tile34": 1,
+                "count": 2
+              },
+              {
+                "tile34": 2,
+                "count": 3
+              },
+              {
+                "tile34": 3,
+                "count": 3
+              },
+              {
+                "tile34": 4,
+                "count": 4
+              },
+              {
+                "tile34": 7,
+                "count": 2
+              },
+              {
+                "tile34": 13,
+                "count": 4
+              },
+              {
+                "tile34": 14,
+                "count": 3
+              },
+              {
+                "tile34": 15,
+                "count": 2
+              },
+              {
+                "tile34": 16,
+                "count": 1
+              },
+              {
+                "tile34": 17,
+                "count": 1
+              }
+            ]
+          },
+          {
+            "drawTile34": 17,
+            "bestWaits": [
+              {
+                "tile34": 0,
+                "count": 3
+              },
+              {
+                "tile34": 1,
+                "count": 2
+              },
+              {
+                "tile34": 2,
+                "count": 3
+              },
+              {
+                "tile34": 3,
+                "count": 3
+              },
+              {
+                "tile34": 4,
+                "count": 4
+              },
+              {
+                "tile34": 7,
+                "count": 2
+              },
+              {
+                "tile34": 12,
+                "count": 4
+              },
+              {
+                "tile34": 13,
+                "count": 4
+              },
+              {
+                "tile34": 14,
+                "count": 3
+              },
+              {
+                "tile34": 15,
+                "count": 2
+              },
+              {
+                "tile34": 16,
+                "count": 2
+              },
+              {
+                "tile34": 17,
+                "count": 0
+              }
+            ]
+          },
+          {
+            "drawTile34": 18,
+            "bestWaits": [
+              {
+                "tile34": 0,
+                "count": 3
+              },
+              {
+                "tile34": 1,
+                "count": 2
+              },
+              {
+                "tile34": 2,
+                "count": 3
+              },
+              {
+                "tile34": 3,
+                "count": 3
+              },
+              {
+                "tile34": 4,
+                "count": 4
+              },
+              {
+                "tile34": 7,
+                "count": 2
+              },
+              {
+                "tile34": 18,
+                "count": 3
+              },
+              {
+                "tile34": 19,
+                "count": 3
+              },
+              {
+                "tile34": 20,
+                "count": 4
+              }
+            ]
+          },
+          {
+            "drawTile34": 19,
+            "bestWaits": [
+              {
+                "tile34": 0,
+                "count": 3
+              },
+              {
+                "tile34": 1,
+                "count": 2
+              },
+              {
+                "tile34": 2,
+                "count": 3
+              },
+              {
+                "tile34": 3,
+                "count": 3
+              },
+              {
+                "tile34": 4,
+                "count": 4
+              },
+              {
+                "tile34": 7,
+                "count": 2
+              },
+              {
+                "tile34": 18,
+                "count": 4
+              },
+              {
+                "tile34": 19,
+                "count": 2
+              },
+              {
+                "tile34": 20,
+                "count": 4
+              },
+              {
+                "tile34": 21,
+                "count": 3
+              },
+              {
+                "tile34": 24,
+                "count": 2
+              }
+            ]
+          },
+          {
+            "drawTile34": 20,
+            "bestWaits": [
+              {
+                "tile34": 0,
+                "count": 3
+              },
+              {
+                "tile34": 1,
+                "count": 2
+              },
+              {
+                "tile34": 2,
+                "count": 3
+              },
+              {
+                "tile34": 3,
+                "count": 3
+              },
+              {
+                "tile34": 4,
+                "count": 4
+              },
+              {
+                "tile34": 7,
+                "count": 2
+              },
+              {
+                "tile34": 18,
+                "count": 4
+              },
+              {
+                "tile34": 19,
+                "count": 3
+              },
+              {
+                "tile34": 20,
+                "count": 3
+              },
+              {
+                "tile34": 21,
+                "count": 3
+              },
+              {
+                "tile34": 22,
+                "count": 3
+              },
+              {
+                "tile34": 23,
+                "count": 2
+              },
+              {
+                "tile34": 24,
+                "count": 2
+              },
+              {
+                "tile34": 25,
+                "count": 3
+              },
+              {
+                "tile34": 26,
+                "count": 3
+              }
+            ]
+          },
+          {
+            "drawTile34": 21,
+            "bestWaits": [
+              {
+                "tile34": 0,
+                "count": 3
+              },
+              {
+                "tile34": 1,
+                "count": 2
+              },
+              {
+                "tile34": 2,
+                "count": 3
+              },
+              {
+                "tile34": 3,
+                "count": 3
+              },
+              {
+                "tile34": 4,
+                "count": 4
+              },
+              {
+                "tile34": 7,
+                "count": 2
+              },
+              {
+                "tile34": 19,
+                "count": 3
+              },
+              {
+                "tile34": 20,
+                "count": 4
+              },
+              {
+                "tile34": 21,
+                "count": 2
+              },
+              {
+                "tile34": 22,
+                "count": 3
+              },
+              {
+                "tile34": 23,
+                "count": 2
+              },
+              {
+                "tile34": 24,
+                "count": 2
+              }
+            ]
+          },
+          {
+            "drawTile34": 22,
+            "bestWaits": [
+              {
+                "tile34": 0,
+                "count": 3
+              },
+              {
+                "tile34": 1,
+                "count": 2
+              },
+              {
+                "tile34": 2,
+                "count": 3
+              },
+              {
+                "tile34": 3,
+                "count": 3
+              },
+              {
+                "tile34": 4,
+                "count": 4
+              },
+              {
+                "tile34": 7,
+                "count": 2
+              },
+              {
+                "tile34": 20,
+                "count": 4
+              },
+              {
+                "tile34": 21,
+                "count": 3
+              },
+              {
+                "tile34": 22,
+                "count": 2
+              },
+              {
+                "tile34": 23,
+                "count": 2
+              },
+              {
+                "tile34": 24,
+                "count": 2
+              }
+            ]
+          },
+          {
+            "drawTile34": 23,
+            "bestWaits": [
+              {
+                "tile34": 0,
+                "count": 3
+              },
+              {
+                "tile34": 1,
+                "count": 2
+              },
+              {
+                "tile34": 2,
+                "count": 3
+              },
+              {
+                "tile34": 3,
+                "count": 3
+              },
+              {
+                "tile34": 4,
+                "count": 4
+              },
+              {
+                "tile34": 7,
+                "count": 2
+              },
+              {
+                "tile34": 20,
+                "count": 4
+              },
+              {
+                "tile34": 21,
+                "count": 3
+              },
+              {
+                "tile34": 22,
+                "count": 3
+              },
+              {
+                "tile34": 23,
+                "count": 1
+              },
+              {
+                "tile34": 24,
+                "count": 2
+              },
+              {
+                "tile34": 25,
+                "count": 3
+              },
+              {
+                "tile34": 26,
+                "count": 3
+              }
+            ]
+          },
+          {
+            "drawTile34": 24,
+            "bestWaits": [
+              {
+                "tile34": 0,
+                "count": 3
+              },
+              {
+                "tile34": 1,
+                "count": 2
+              },
+              {
+                "tile34": 2,
+                "count": 3
+              },
+              {
+                "tile34": 3,
+                "count": 3
+              },
+              {
+                "tile34": 4,
+                "count": 4
+              },
+              {
+                "tile34": 7,
+                "count": 2
+              },
+              {
+                "tile34": 19,
+                "count": 3
+              },
+              {
+                "tile34": 20,
+                "count": 4
+              },
+              {
+                "tile34": 21,
+                "count": 3
+              },
+              {
+                "tile34": 22,
+                "count": 3
+              },
+              {
+                "tile34": 23,
+                "count": 2
+              },
+              {
+                "tile34": 24,
+                "count": 1
+              },
+              {
+                "tile34": 25,
+                "count": 3
+              },
+              {
+                "tile34": 26,
+                "count": 3
+              }
+            ]
+          },
+          {
+            "drawTile34": 25,
+            "bestWaits": [
+              {
+                "tile34": 0,
+                "count": 3
+              },
+              {
+                "tile34": 1,
+                "count": 2
+              },
+              {
+                "tile34": 2,
+                "count": 3
+              },
+              {
+                "tile34": 3,
+                "count": 3
+              },
+              {
+                "tile34": 4,
+                "count": 4
+              },
+              {
+                "tile34": 7,
+                "count": 2
+              },
+              {
+                "tile34": 20,
+                "count": 4
+              },
+              {
+                "tile34": 23,
+                "count": 2
+              },
+              {
+                "tile34": 24,
+                "count": 2
+              },
+              {
+                "tile34": 25,
+                "count": 2
+              },
+              {
+                "tile34": 26,
+                "count": 3
+              }
+            ]
+          },
+          {
+            "drawTile34": 26,
+            "bestWaits": [
+              {
+                "tile34": 0,
+                "count": 3
+              },
+              {
+                "tile34": 1,
+                "count": 2
+              },
+              {
+                "tile34": 2,
+                "count": 3
+              },
+              {
+                "tile34": 3,
+                "count": 3
+              },
+              {
+                "tile34": 4,
+                "count": 4
+              },
+              {
+                "tile34": 7,
+                "count": 2
+              },
+              {
+                "tile34": 20,
+                "count": 4
+              },
+              {
+                "tile34": 23,
+                "count": 2
+              },
+              {
+                "tile34": 24,
+                "count": 2
+              },
+              {
+                "tile34": 25,
+                "count": 3
+              },
+              {
+                "tile34": 26,
+                "count": 2
+              }
+            ]
+          }
+        ],
+        "doraCountStatus": "calculated",
+        "doraCount": 0,
+        "estimates": [
+          {
+            "field": "yaku_types",
+            "integerValues": [
+              0,
+              4
+            ],
+            "limitations": [
+              "Possible yaku IDs reported by the pinned mahjong-helper analysis"
+            ]
+          },
+          {
+            "field": "dama_point",
+            "numericValue": 0,
+            "limitations": [
+              "Pinned mahjong-helper average dama/open-hand point estimate"
+            ]
+          },
+          {
+            "field": "riichi_point",
+            "numericValue": 0,
+            "limitations": [
+              "Pinned mahjong-helper average riichi point estimate"
+            ]
+          },
+          {
+            "field": "mixed_waits_score",
+            "numericValue": 31.38054785935796,
+            "limitations": [
+              "Pinned mahjong-helper composite wait-speed heuristic"
+            ]
+          },
+          {
+            "field": "furiten_rate",
+            "numericValue": 0,
+            "limitations": [
+              "Pinned mahjong-helper furiten heuristic"
+            ]
+          }
+        ],
+        "diagnostics": [
+          "estimate_blocked_missing_facts:avg_agari_rate",
+          "estimate_blocked_missing_facts:mixed_round_point"
+        ]
+      }
+    },
+    {
+      "decisionId": "east1-turn7",
+      "actionRef": "action:v1:%5B%22discard%22%2C%5B%228p%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
+      "request": {
+        "kind": "hand13",
+        "requestId": "legacy-regression:east1-turn7:hand13:sha256:3270c30f07bd5dc1486d2b3d9a937002fc1f434701356dd95712113d0be79e63",
+        "protocolVersion": "mahjong-facts/v1",
+        "actionRef": "action:v1:%5B%22discard%22%2C%5B%228p%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
+        "stateHash": "sha256:3270c30f07bd5dc1486d2b3d9a937002fc1f434701356dd95712113d0be79e63",
+        "melds": [],
+        "doraTiles34": [
+          20
+        ],
+        "redFiveCounts": [
+          0,
+          0,
+          0
+        ],
+        "roundWindTile34": 27,
+        "selfWindTile34": 30,
+        "dealer": false,
+        "riichi": false,
+        "selfDiscards34": [
+          29,
+          31,
+          30,
+          24,
+          17,
+          10,
+          16
+        ],
+        "handTiles34": [
+          0,
+          0,
+          1,
+          0,
+          0,
+          1,
+          0,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "leftTiles34": [
+          3,
+          2,
+          3,
+          3,
+          4,
+          2,
+          3,
+          2,
+          3,
+          3,
+          2,
+          3,
+          4,
+          4,
+          3,
+          2,
+          2,
+          1,
+          4,
+          3,
+          4,
+          3,
+          3,
+          2,
+          2,
+          3,
+          3,
+          2,
+          1,
+          2,
+          3,
+          3,
+          1,
+          2
+        ],
+        "visibleCountsComplete": true,
+        "doraTilesComplete": true,
+        "selfDiscardsComplete": true,
+        "remainingDraws": null
+      },
+      "result": {
+        "requestId": "legacy-regression:east1-turn7:hand13:sha256:3270c30f07bd5dc1486d2b3d9a937002fc1f434701356dd95712113d0be79e63",
+        "protocolVersion": "mahjong-facts/v1",
+        "actionRef": "action:v1:%5B%22discard%22%2C%5B%228p%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
+        "stateHash": "sha256:3270c30f07bd5dc1486d2b3d9a937002fc1f434701356dd95712113d0be79e63",
+        "identity": {
+          "engine": "mahjong-helper",
+          "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+          "adapterVersion": "0.1.0",
+          "protocolVersion": "mahjong-facts/v1"
+        },
+        "kind": "hand13_result",
+        "shanten": 2,
+        "effectiveTile34": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17
+        ],
+        "waitsRemainingStatus": "calculated",
+        "waitsRemaining": [
+          {
+            "tile34": 0,
+            "count": 3
+          },
+          {
+            "tile34": 1,
+            "count": 2
+          },
+          {
+            "tile34": 2,
+            "count": 3
+          },
+          {
+            "tile34": 3,
+            "count": 3
+          },
+          {
+            "tile34": 4,
+            "count": 4
+          },
+          {
+            "tile34": 5,
+            "count": 2
+          },
+          {
+            "tile34": 6,
+            "count": 3
+          },
+          {
+            "tile34": 7,
+            "count": 2
+          },
+          {
+            "tile34": 8,
+            "count": 3
+          },
+          {
+            "tile34": 12,
+            "count": 4
+          },
+          {
+            "tile34": 13,
+            "count": 4
+          },
+          {
+            "tile34": 14,
+            "count": 3
+          },
+          {
+            "tile34": 15,
+            "count": 2
+          },
+          {
+            "tile34": 16,
+            "count": 2
+          },
+          {
+            "tile34": 17,
+            "count": 1
+          }
+        ],
+        "improves": [
+          {
+            "drawTile34": 11,
+            "bestWaits": [
+              {
+                "tile34": 0,
+                "count": 3
+              },
+              {
+                "tile34": 1,
+                "count": 2
+              },
+              {
+                "tile34": 2,
+                "count": 3
+              },
+              {
+                "tile34": 3,
+                "count": 3
+              },
+              {
+                "tile34": 4,
+                "count": 4
+              },
+              {
+                "tile34": 5,
+                "count": 2
+              },
+              {
+                "tile34": 6,
+                "count": 3
+              },
+              {
+                "tile34": 7,
+                "count": 2
+              },
+              {
+                "tile34": 8,
+                "count": 3
+              },
+              {
+                "tile34": 9,
+                "count": 3
+              },
+              {
+                "tile34": 10,
+                "count": 2
+              },
+              {
+                "tile34": 11,
+                "count": 2
+              },
+              {
+                "tile34": 12,
+                "count": 4
+              },
+              {
+                "tile34": 13,
+                "count": 4
+              },
+              {
+                "tile34": 15,
+                "count": 2
+              }
+            ]
+          },
+          {
+            "drawTile34": 18,
+            "bestWaits": [
+              {
+                "tile34": 3,
+                "count": 3
+              },
+              {
+                "tile34": 4,
+                "count": 4
+              },
+              {
+                "tile34": 5,
+                "count": 2
+              },
+              {
+                "tile34": 6,
+                "count": 3
+              },
+              {
+                "tile34": 7,
+                "count": 2
+              },
+              {
+                "tile34": 8,
+                "count": 3
+              },
+              {
+                "tile34": 12,
+                "count": 4
+              },
+              {
+                "tile34": 13,
+                "count": 4
+              },
+              {
+                "tile34": 14,
+                "count": 3
+              },
+              {
+                "tile34": 15,
+                "count": 2
+              },
+              {
+                "tile34": 16,
+                "count": 2
+              },
+              {
+                "tile34": 17,
+                "count": 1
+              },
+              {
+                "tile34": 18,
+                "count": 3
+              },
+              {
+                "tile34": 19,
+                "count": 3
+              },
+              {
+                "tile34": 20,
+                "count": 4
+              }
+            ]
+          },
+          {
+            "drawTile34": 19,
+            "bestWaits": [
+              {
+                "tile34": 3,
+                "count": 3
+              },
+              {
+                "tile34": 4,
+                "count": 4
+              },
+              {
+                "tile34": 5,
+                "count": 2
+              },
+              {
+                "tile34": 6,
+                "count": 3
+              },
+              {
+                "tile34": 7,
+                "count": 2
+              },
+              {
+                "tile34": 8,
+                "count": 3
+              },
+              {
+                "tile34": 12,
+                "count": 4
+              },
+              {
+                "tile34": 13,
+                "count": 4
+              },
+              {
+                "tile34": 14,
+                "count": 3
+              },
+              {
+                "tile34": 15,
+                "count": 2
+              },
+              {
+                "tile34": 16,
+                "count": 2
+              },
+              {
+                "tile34": 17,
+                "count": 1
+              },
+              {
+                "tile34": 18,
+                "count": 4
+              },
+              {
+                "tile34": 19,
+                "count": 2
+              },
+              {
+                "tile34": 20,
+                "count": 4
+              },
+              {
+                "tile34": 21,
+                "count": 3
+              },
+              {
+                "tile34": 24,
+                "count": 2
+              }
+            ]
+          },
+          {
+            "drawTile34": 20,
+            "bestWaits": [
+              {
+                "tile34": 3,
+                "count": 3
+              },
+              {
+                "tile34": 4,
+                "count": 4
+              },
+              {
+                "tile34": 5,
+                "count": 2
+              },
+              {
+                "tile34": 6,
+                "count": 3
+              },
+              {
+                "tile34": 7,
+                "count": 2
+              },
+              {
+                "tile34": 8,
+                "count": 3
+              },
+              {
+                "tile34": 12,
+                "count": 4
+              },
+              {
+                "tile34": 13,
+                "count": 4
+              },
+              {
+                "tile34": 14,
+                "count": 3
+              },
+              {
+                "tile34": 15,
+                "count": 2
+              },
+              {
+                "tile34": 16,
+                "count": 2
+              },
+              {
+                "tile34": 17,
+                "count": 1
+              },
+              {
+                "tile34": 18,
+                "count": 4
+              },
+              {
+                "tile34": 19,
+                "count": 3
+              },
+              {
+                "tile34": 20,
+                "count": 3
+              },
+              {
+                "tile34": 21,
+                "count": 3
+              },
+              {
+                "tile34": 22,
+                "count": 3
+              },
+              {
+                "tile34": 23,
+                "count": 2
+              },
+              {
+                "tile34": 24,
+                "count": 2
+              },
+              {
+                "tile34": 25,
+                "count": 3
+              },
+              {
+                "tile34": 26,
+                "count": 3
+              }
+            ]
+          },
+          {
+            "drawTile34": 21,
+            "bestWaits": [
+              {
+                "tile34": 3,
+                "count": 3
+              },
+              {
+                "tile34": 4,
+                "count": 4
+              },
+              {
+                "tile34": 5,
+                "count": 2
+              },
+              {
+                "tile34": 6,
+                "count": 3
+              },
+              {
+                "tile34": 7,
+                "count": 2
+              },
+              {
+                "tile34": 8,
+                "count": 3
+              },
+              {
+                "tile34": 12,
+                "count": 4
+              },
+              {
+                "tile34": 13,
+                "count": 4
+              },
+              {
+                "tile34": 14,
+                "count": 3
+              },
+              {
+                "tile34": 15,
+                "count": 2
+              },
+              {
+                "tile34": 16,
+                "count": 2
+              },
+              {
+                "tile34": 17,
+                "count": 1
+              },
+              {
+                "tile34": 19,
+                "count": 3
+              },
+              {
+                "tile34": 20,
+                "count": 4
+              },
+              {
+                "tile34": 21,
+                "count": 2
+              },
+              {
+                "tile34": 22,
+                "count": 3
+              },
+              {
+                "tile34": 23,
+                "count": 2
+              },
+              {
+                "tile34": 24,
+                "count": 2
+              }
+            ]
+          },
+          {
+            "drawTile34": 22,
+            "bestWaits": [
+              {
+                "tile34": 3,
+                "count": 3
+              },
+              {
+                "tile34": 4,
+                "count": 4
+              },
+              {
+                "tile34": 5,
+                "count": 2
+              },
+              {
+                "tile34": 6,
+                "count": 3
+              },
+              {
+                "tile34": 7,
+                "count": 2
+              },
+              {
+                "tile34": 8,
+                "count": 3
+              },
+              {
+                "tile34": 12,
+                "count": 4
+              },
+              {
+                "tile34": 13,
+                "count": 4
+              },
+              {
+                "tile34": 14,
+                "count": 3
+              },
+              {
+                "tile34": 15,
+                "count": 2
+              },
+              {
+                "tile34": 16,
+                "count": 2
+              },
+              {
+                "tile34": 17,
+                "count": 1
+              },
+              {
+                "tile34": 20,
+                "count": 4
+              },
+              {
+                "tile34": 21,
+                "count": 3
+              },
+              {
+                "tile34": 22,
+                "count": 2
+              },
+              {
+                "tile34": 23,
+                "count": 2
+              },
+              {
+                "tile34": 24,
+                "count": 2
+              }
+            ]
+          },
+          {
+            "drawTile34": 23,
+            "bestWaits": [
+              {
+                "tile34": 3,
+                "count": 3
+              },
+              {
+                "tile34": 4,
+                "count": 4
+              },
+              {
+                "tile34": 5,
+                "count": 2
+              },
+              {
+                "tile34": 6,
+                "count": 3
+              },
+              {
+                "tile34": 7,
+                "count": 2
+              },
+              {
+                "tile34": 8,
+                "count": 3
+              },
+              {
+                "tile34": 12,
+                "count": 4
+              },
+              {
+                "tile34": 13,
+                "count": 4
+              },
+              {
+                "tile34": 14,
+                "count": 3
+              },
+              {
+                "tile34": 15,
+                "count": 2
+              },
+              {
+                "tile34": 16,
+                "count": 2
+              },
+              {
+                "tile34": 17,
+                "count": 1
+              },
+              {
+                "tile34": 20,
+                "count": 4
+              },
+              {
+                "tile34": 21,
+                "count": 3
+              },
+              {
+                "tile34": 22,
+                "count": 3
+              },
+              {
+                "tile34": 23,
+                "count": 1
+              },
+              {
+                "tile34": 24,
+                "count": 2
+              },
+              {
+                "tile34": 25,
+                "count": 3
+              },
+              {
+                "tile34": 26,
+                "count": 3
+              }
+            ]
+          },
+          {
+            "drawTile34": 24,
+            "bestWaits": [
+              {
+                "tile34": 3,
+                "count": 3
+              },
+              {
+                "tile34": 4,
+                "count": 4
+              },
+              {
+                "tile34": 5,
+                "count": 2
+              },
+              {
+                "tile34": 6,
+                "count": 3
+              },
+              {
+                "tile34": 7,
+                "count": 2
+              },
+              {
+                "tile34": 8,
+                "count": 3
+              },
+              {
+                "tile34": 12,
+                "count": 4
+              },
+              {
+                "tile34": 13,
+                "count": 4
+              },
+              {
+                "tile34": 14,
+                "count": 3
+              },
+              {
+                "tile34": 15,
+                "count": 2
+              },
+              {
+                "tile34": 16,
+                "count": 2
+              },
+              {
+                "tile34": 17,
+                "count": 1
+              },
+              {
+                "tile34": 19,
+                "count": 3
+              },
+              {
+                "tile34": 20,
+                "count": 4
+              },
+              {
+                "tile34": 21,
+                "count": 3
+              },
+              {
+                "tile34": 22,
+                "count": 3
+              },
+              {
+                "tile34": 23,
+                "count": 2
+              },
+              {
+                "tile34": 24,
+                "count": 1
+              },
+              {
+                "tile34": 25,
+                "count": 3
+              },
+              {
+                "tile34": 26,
+                "count": 3
+              }
+            ]
+          },
+          {
+            "drawTile34": 25,
+            "bestWaits": [
+              {
+                "tile34": 3,
+                "count": 3
+              },
+              {
+                "tile34": 4,
+                "count": 4
+              },
+              {
+                "tile34": 5,
+                "count": 2
+              },
+              {
+                "tile34": 6,
+                "count": 3
+              },
+              {
+                "tile34": 7,
+                "count": 2
+              },
+              {
+                "tile34": 8,
+                "count": 3
+              },
+              {
+                "tile34": 12,
+                "count": 4
+              },
+              {
+                "tile34": 13,
+                "count": 4
+              },
+              {
+                "tile34": 14,
+                "count": 3
+              },
+              {
+                "tile34": 15,
+                "count": 2
+              },
+              {
+                "tile34": 16,
+                "count": 2
+              },
+              {
+                "tile34": 17,
+                "count": 1
+              },
+              {
+                "tile34": 20,
+                "count": 4
+              },
+              {
+                "tile34": 23,
+                "count": 2
+              },
+              {
+                "tile34": 24,
+                "count": 2
+              },
+              {
+                "tile34": 25,
+                "count": 2
+              },
+              {
+                "tile34": 26,
+                "count": 3
+              }
+            ]
+          },
+          {
+            "drawTile34": 26,
+            "bestWaits": [
+              {
+                "tile34": 3,
+                "count": 3
+              },
+              {
+                "tile34": 4,
+                "count": 4
+              },
+              {
+                "tile34": 5,
+                "count": 2
+              },
+              {
+                "tile34": 6,
+                "count": 3
+              },
+              {
+                "tile34": 7,
+                "count": 2
+              },
+              {
+                "tile34": 8,
+                "count": 3
+              },
+              {
+                "tile34": 12,
+                "count": 4
+              },
+              {
+                "tile34": 13,
+                "count": 4
+              },
+              {
+                "tile34": 14,
+                "count": 3
+              },
+              {
+                "tile34": 15,
+                "count": 2
+              },
+              {
+                "tile34": 16,
+                "count": 2
+              },
+              {
+                "tile34": 17,
+                "count": 1
+              },
+              {
+                "tile34": 20,
+                "count": 4
+              },
+              {
+                "tile34": 23,
+                "count": 2
+              },
+              {
+                "tile34": 24,
+                "count": 2
+              },
+              {
+                "tile34": 25,
+                "count": 3
+              },
+              {
+                "tile34": 26,
+                "count": 2
+              }
+            ]
+          }
+        ],
+        "doraCountStatus": "calculated",
+        "doraCount": 0,
+        "estimates": [
+          {
+            "field": "yaku_types",
+            "integerValues": [
+              0,
+              4,
+              6
+            ],
+            "limitations": [
+              "Possible yaku IDs reported by the pinned mahjong-helper analysis"
+            ]
+          },
+          {
+            "field": "dama_point",
+            "numericValue": 0,
+            "limitations": [
+              "Pinned mahjong-helper average dama/open-hand point estimate"
+            ]
+          },
+          {
+            "field": "riichi_point",
+            "numericValue": 0,
+            "limitations": [
+              "Pinned mahjong-helper average riichi point estimate"
+            ]
+          },
+          {
+            "field": "mixed_waits_score",
+            "numericValue": 21.287562280990485,
+            "limitations": [
+              "Pinned mahjong-helper composite wait-speed heuristic"
+            ]
+          },
+          {
+            "field": "furiten_rate",
+            "numericValue": 0,
+            "limitations": [
+              "Pinned mahjong-helper furiten heuristic"
+            ]
+          }
+        ],
+        "diagnostics": [
+          "estimate_blocked_missing_facts:avg_agari_rate",
+          "estimate_blocked_missing_facts:mixed_round_point"
+        ]
+      }
+    }
+  ]
+}
