@@ -244,30 +244,49 @@ export const FactEngineRequestSchema = z.union([
 ]);
 export type FactEngineRequest = z.infer<typeof FactEngineRequestSchema>;
 
-export const UpstreamEstimateSchema = z.object({
-  field: z.enum([
-    "yaku_types",
-    "dama_point",
-    "riichi_point",
-    "mixed_waits_score",
-    "avg_agari_rate",
-    "furiten_rate",
-    "mixed_round_point",
-  ]),
-  numericValue: z.number().finite().optional(),
-  integerValues: z.array(z.number().int()).optional(),
+const EstimateLimitationsShape = {
   limitations: z.array(z.string().min(1)).min(1),
-}).strict().superRefine((estimate, context) => {
-  if (
-    (estimate.numericValue === undefined) ===
-      (estimate.integerValues === undefined)
-  ) {
-    context.addIssue({
-      code: z.ZodIssueCode.custom,
-      message: "Estimate requires exactly one value representation",
-    });
-  }
-});
+};
+
+const YakuTypesEstimateSchema = z.object({
+  field: z.literal("yaku_types"),
+  integerValues: z.array(z.number().int()).superRefine((values, context) => {
+    for (let index = 1; index < values.length; index++) {
+      if (values[index]! <= values[index - 1]!) {
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Yaku IDs must use strict ascending order",
+        });
+        return;
+      }
+    }
+  }),
+  ...EstimateLimitationsShape,
+}).strict();
+
+function numericEstimateSchema<const Field extends
+  "dama_point" | "riichi_point" | "mixed_waits_score" |
+    "avg_agari_rate" | "furiten_rate" | "mixed_round_point",
+>(
+  field: Field,
+  valueSchema: z.ZodNumber = z.number().finite(),
+) {
+  return z.object({
+    field: z.literal(field),
+    numericValue: valueSchema,
+    ...EstimateLimitationsShape,
+  }).strict();
+}
+
+export const UpstreamEstimateSchema = z.discriminatedUnion("field", [
+  YakuTypesEstimateSchema,
+  numericEstimateSchema("dama_point", z.number().finite().nonnegative()),
+  numericEstimateSchema("riichi_point", z.number().finite().nonnegative()),
+  numericEstimateSchema("mixed_waits_score"),
+  numericEstimateSchema("avg_agari_rate", z.number().finite().min(0).max(100)),
+  numericEstimateSchema("furiten_rate", z.number().finite().min(0).max(1)),
+  numericEstimateSchema("mixed_round_point"),
+]);
 export type UpstreamEstimate = z.infer<typeof UpstreamEstimateSchema>;
 
 const ResultIdentityShape = {
@@ -283,7 +302,7 @@ const ImproveSchema = z.object({
 export const Hand13FactResultSchema = z.object({
   ...ResultIdentityShape,
   kind: z.literal("hand13_result"),
-  shanten: z.number().int().min(-1),
+  shanten: z.number().int().min(-1).max(8),
   effectiveTile34: StrictTile34IndexesSchema,
   waitsRemainingStatus: z.enum([
     "calculated",

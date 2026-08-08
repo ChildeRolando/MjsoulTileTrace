@@ -56,6 +56,24 @@ func estimateByField(estimates []UpstreamEstimate, field string) *UpstreamEstima
 	return nil
 }
 
+func TestNumericEstimateRejectsOutOfDomainRates(t *testing.T) {
+	for _, test := range []struct {
+		field string
+		value float64
+	}{
+		{"avg_agari_rate", -0.01},
+		{"avg_agari_rate", 100.01},
+		{"furiten_rate", -0.01},
+		{"furiten_rate", 1.01},
+		{"dama_point", -1},
+		{"riichi_point", -1},
+	} {
+		if _, ok := numericEstimate(test.field, test.value, "test"); ok {
+			t.Fatalf("numericEstimate(%q, %v) accepted an out-of-domain value", test.field, test.value)
+		}
+	}
+}
+
 func TestHand13GoldenFacts(t *testing.T) {
 	result, err := analyzeHand13(goldenHand13Request())
 	if err != nil {

@@ -8,6 +8,7 @@ import {
   ThreatRiskFactRequestSchema,
   ThreatRiskFactResultSchema,
   Tile34CountsSchema,
+  UpstreamEstimateSchema,
 } from "../src/index.js";
 
 const identity = {
@@ -118,6 +119,55 @@ describe("fact engine contracts", () => {
     });
 
     expect(parsed.waitsRemaining[0]).toEqual({ tile34: 2, count: 4 });
+  });
+
+  it("binds each upstream estimate field to its value representation", () => {
+    expect(UpstreamEstimateSchema.parse({
+      field: "yaku_types",
+      integerValues: [1, 3, 7],
+      limitations: ["versioned upstream output"],
+    }).field).toBe("yaku_types");
+    expect(() => UpstreamEstimateSchema.parse({
+      field: "yaku_types",
+      numericValue: 999,
+      limitations: ["hostile field swap"],
+    })).toThrow();
+    expect(() => UpstreamEstimateSchema.parse({
+      field: "dama_point",
+      integerValues: [3900],
+      limitations: ["hostile field swap"],
+    })).toThrow();
+    expect(() => UpstreamEstimateSchema.parse({
+      field: "yaku_types",
+      integerValues: [3, 1, 1],
+      limitations: ["unordered duplicate IDs"],
+    })).toThrow();
+  });
+
+  it("rejects impossible shanten and rate domains", () => {
+    expect(() => Hand13FactResultSchema.parse({
+      ...resultIdentity,
+      kind: "hand13_result",
+      shanten: 999,
+      effectiveTile34: [],
+      waitsRemainingStatus: "calculated",
+      waitsRemaining: [],
+      improves: [],
+      doraCountStatus: "calculated",
+      doraCount: 0,
+      estimates: [],
+      diagnostics: [],
+    })).toThrow();
+    for (const estimate of [
+      { field: "avg_agari_rate", numericValue: 101 },
+      { field: "furiten_rate", numericValue: -0.01 },
+      { field: "furiten_rate", numericValue: 1.01 },
+    ]) {
+      expect(() => UpstreamEstimateSchema.parse({
+        ...estimate,
+        limitations: ["out of range"],
+      })).toThrow();
+    }
   });
 
   it("allows structural effective tiles while live counts are blocked", () => {

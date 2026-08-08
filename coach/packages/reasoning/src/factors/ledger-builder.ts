@@ -286,7 +286,7 @@ function mapHand13(
       ));
       continue;
     }
-    const value = estimate.numericValue !== undefined
+    const value = "numericValue" in estimate
       ? {
           kind: "number" as const,
           value: estimate.numericValue,

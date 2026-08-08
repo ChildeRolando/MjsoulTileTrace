@@ -100,6 +100,24 @@ func numericEstimate(field string, value float64, limitation string) (UpstreamEs
 	if math.IsNaN(value) || math.IsInf(value, 0) {
 		return UpstreamEstimate{}, false
 	}
+	switch field {
+	case "dama_point", "riichi_point":
+		if value < 0 {
+			return UpstreamEstimate{}, false
+		}
+	case "avg_agari_rate":
+		if value < 0 || value > 100 {
+			return UpstreamEstimate{}, false
+		}
+	case "furiten_rate":
+		if value < 0 || value > 1 {
+			return UpstreamEstimate{}, false
+		}
+	case "mixed_waits_score", "mixed_round_point":
+		// The pinned helper does not publish tighter stable domains.
+	default:
+		return UpstreamEstimate{}, false
+	}
 	return UpstreamEstimate{
 		Field:        field,
 		NumericValue: &value,
