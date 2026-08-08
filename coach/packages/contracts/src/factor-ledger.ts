@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { ActionRefSchema } from "./comparison.js";
 import { AxisSchema } from "./evidence.js";
-import { Tile34CountSchema } from "./fact-engine.js";
+import { EngineIdentitySchema, Tile34CountSchema } from "./fact-engine.js";
 
 export const FactorEvidenceClassSchema = z.enum([
   "deterministic_allowlisted",
@@ -112,6 +112,7 @@ export const FactorFactSchema = z.object({
   status: FactorStatusSchema,
   evidenceClass: FactorEvidenceClassSchema,
   preferenceEligibility: PreferenceEligibilitySchema,
+  engineIdentity: EngineIdentitySchema.optional(),
   value: FactorValueSchema.optional(),
   evidenceIds: z.array(z.string().min(1)).min(1),
   limitations: z.array(z.string().min(1)),
@@ -130,6 +131,28 @@ export const FactorFactSchema = z.object({
       code: z.ZodIssueCode.custom,
       message: "Non-calculated factor facts must not contain a value",
       path: ["value"],
+    });
+  }
+
+  if (
+    fact.status === "calculated" &&
+    fact.evidenceClass !== "deterministic_local_replay" &&
+    fact.engineIdentity === undefined
+  ) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Calculated engine evidence requires structured engine identity",
+      path: ["engineIdentity"],
+    });
+  }
+  if (
+    fact.evidenceClass === "deterministic_local_replay" &&
+    fact.engineIdentity !== undefined
+  ) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Local replay evidence must not claim an upstream engine identity",
+      path: ["engineIdentity"],
     });
   }
 
@@ -223,12 +246,14 @@ const DeterministicDifferenceSchema = z.object({
     "deterministic_under_assumptions",
     "deterministic_local_replay",
   ]),
+  engineIdentity: EngineIdentitySchema.optional(),
 }).strict();
 
 const HeuristicDifferenceSchema = z.object({
   ...DifferenceBaseShape,
   kind: z.literal("heuristic_difference"),
   evidenceClass: z.literal("versioned_upstream_estimate"),
+  engineIdentity: EngineIdentitySchema,
 }).strict();
 
 export const FactorDifferenceSchema = z.discriminatedUnion("kind", [
@@ -241,6 +266,28 @@ export const FactorDifferenceSchema = z.discriminatedUnion("kind", [
       code: z.ZodIssueCode.custom,
       message: "Factor differences require two distinct actions",
       path: ["rightActionRef"],
+    });
+  }
+  if (
+    difference.kind === "deterministic_difference" &&
+    difference.evidenceClass !== "deterministic_local_replay" &&
+    difference.engineIdentity === undefined
+  ) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Engine-derived deterministic differences require structured engine identity",
+      path: ["engineIdentity"],
+    });
+  }
+  if (
+    difference.kind === "deterministic_difference" &&
+    difference.evidenceClass === "deterministic_local_replay" &&
+    difference.engineIdentity !== undefined
+  ) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Local replay differences must not claim an upstream engine identity",
+      path: ["engineIdentity"],
     });
   }
 });

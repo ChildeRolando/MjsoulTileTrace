@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"reflect"
+	"strings"
 	"testing"
 )
 
@@ -125,6 +126,18 @@ func TestHand13IncompleteVisibilityKeepsStructuralFacts(t *testing.T) {
 	}
 	if len(result.WaitsRemaining) != 0 {
 		t.Fatalf("blocked remaining waits must be empty: %v", result.WaitsRemaining)
+	}
+	for _, estimate := range result.Estimates {
+		found := false
+		for _, limitation := range estimate.Limitations {
+			if strings.Contains(limitation, "theoretical unseen counts") {
+				found = true
+				break
+			}
+		}
+		if !found {
+			t.Fatalf("estimate %q must disclose theoretical visibility: %v", estimate.Field, estimate.Limitations)
+		}
 	}
 }
 

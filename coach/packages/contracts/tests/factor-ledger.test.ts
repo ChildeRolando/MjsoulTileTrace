@@ -46,6 +46,28 @@ describe("structured factor ledger", () => {
     })).toThrow();
   });
 
+  it("requires structured engine identity for calculated upstream facts", () => {
+    expect(() => CandidateFactorLedgerSchema.parse({
+      actionRef: left,
+      projectedStateRef: "state:1",
+      axes: [{
+        axis: "value",
+        status: "calculated",
+        facts: [{
+          factorKey: "value.dama_point",
+          dimension: "dama_point",
+          status: "calculated",
+          evidenceClass: "versioned_upstream_estimate",
+          preferenceEligibility: "heuristic_only",
+          value: { kind: "number", value: 3900, unit: "points" },
+          evidenceIds: ["request:1"],
+          limitations: ["Pinned helper estimate"],
+        }],
+      }],
+      diagnostics: [],
+    })).toThrow("Calculated engine evidence requires structured engine identity");
+  });
+
   it("requires calculated facts to contain values and blocked facts to omit them", () => {
     const baseFact = {
       factorKey: "efficiency.shanten",
@@ -95,6 +117,12 @@ describe("structured factor ledger", () => {
       leftValue: { kind: "number", value: 2.1, unit: "helper_risk_scale" },
       rightValue: { kind: "number", value: 8, unit: "helper_risk_scale" },
       evidenceClass: "versioned_upstream_estimate",
+      engineIdentity: {
+        engine: "mahjong-helper",
+        upstreamCommit: "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+        adapterVersion: "0.1.0",
+        protocolVersion: "mahjong-facts/v1",
+      },
       evidenceIds: ["event-riichi"],
       limitations: ["Same pinned helper version"],
     }).kind).toBe("heuristic_difference");

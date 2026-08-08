@@ -145,6 +145,12 @@ func normalizeEstimates(result *util.Hand13AnalysisResult, request Hand13Request
 		}
 		estimates = append(estimates, estimate)
 	}
+	if !request.VisibleCountsComplete {
+		const limitation = "Uses theoretical unseen counts because public visibility is incomplete"
+		for index := range estimates {
+			estimates[index].Limitations = append(estimates[index].Limitations, limitation)
+		}
+	}
 	return estimates, diagnostics
 }
 
