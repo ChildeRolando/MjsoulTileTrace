@@ -50,6 +50,8 @@ Implemented:
   stable stream/prefix hashes, and `decision-snapshot/v2` decision freezes;
 - event-sequence validation for actor/phase identity, call and kan references,
   physical tile counts, multiple ron, riichi/ippatsu flow, and terminal order;
+- canonical event identities bound to game, round occurrence, source record,
+  and sub-event position, with explicit legacy-to-canonical reference maps;
 - projection from canonical snapshots into the existing `KnownGameFacts`
   pipeline, including melds, called discards, rivers, dora, winds, scores,
   riichi threats, evidence IDs, and field completeness;

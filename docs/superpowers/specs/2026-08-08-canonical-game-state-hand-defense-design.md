@@ -2,7 +2,7 @@
 
 日期：2026-08-08
 
-状态：待书面复核
+状态：已批准；canonical 事件基础已实现，牌形/振听与逐威胁防守矩阵待继续实现
 
 上位规格：
 
@@ -253,6 +253,18 @@ reducer 同时跟踪预期 actor 和阶段：摸牌、自摸后弃牌、他家�
 ### 8.1 复用事实引擎
 
 向听、有效牌、改善、三种和牌家族和完成手点数继续由 Slice 3 固定 sidecar 提供。本切片扩展协议或本地适配，只获取现有上游公共 API 能证明的结构，不读取 helper 的最终推荐。
+
+固定版本能力审计后的实现边界如下：
+
+- 直接复用 `CalculateShantenOfNormal` 与 `CalculateShantenOfChiitoi`；有副露时七对子为 `not_applicable`；
+- helper 的合并向听明确不含国士，国士向听和有效牌由本地确定性公式计算；
+- 家族有效牌以逐牌加一后重算该家族的方式求得，不把 helper 的合并 waits 冒充分家结果；
+- `DivideTiles34` 只用于完成手普通形/七对分解；未完成手的非劣分解由本项目实现穷举、稳定去重和 Pareto 去劣；
+- helper 不公开等待类型；系统从每张等待牌加入后的全部完成分解派生两面、嵌张、边张、双碰、单骑及复合标签；
+- helper 的 `IsFuriten` 只等价于舍牌振听交集，临时和立直后振听必须由 canonical response-opportunity 事件推导；
+- `CalcPoint` 只能提供 helper 支持范围内的基线役资格，缺少场况役或国士上下文时返回 unknown，不得断言无役。
+
+为避免破坏已发布的 `hand13/v1`，这些能力进入独立严格 `hand_structure` request/result；旧协议继续服务现有回归，直到所有消费者迁移完成。
 
 ### 8.2 多家族结果
 

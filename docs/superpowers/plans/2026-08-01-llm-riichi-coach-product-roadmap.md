@@ -112,7 +112,7 @@
 
 最终验证：30 个测试文件、209/209 测试通过；类型检查、编译后包导入和依赖审计通过；两轮独立复审最终为 Critical 0、Important 0。
 
-### 3.6 🟡 M2-A 基础：canonical 事件流、轮局归约与决策快照
+### 3.6 ✅ M2-A 基础：canonical 事件流、轮局归约与决策快照
 
 已完成 M2-A 与 M5 共用的牌局事实地基：
 
@@ -124,7 +124,7 @@
 - V2 快照可投影到统一五轴 `KnownGameFacts`，东一局 6/7 巡已从旧 replay projector 迁移；
 - fixture-only legacy bridge 明确拒绝生产来源和非法序列，不作为运行时 fallback。
 
-本批次实现与主要信任边界加固已完成；当前 51 个 TypeScript 测试文件、346/346，typecheck 与编译包导入通过。终审尚余 canonical event ID 的跨牌谱/跨局身份绑定和 legacy ref map，关闭后才转为完成。生产雀魂 URL mapper、振听、牌形分解、合法动作和牌河牌型推断仍在后续 M2/M5 批次。
+本批次已完成并通过终审：51 个 TypeScript 测试文件、350/350，typecheck、编译包导入、依赖审计和根目录 19/19 通过，独立复审 Critical 0、Important 0。canonical event ID 已跨牌谱/跨局绑定，连庄局序和 legacy ref map 均有回归。生产雀魂 URL mapper、振听、牌形分解、合法动作和牌河牌型推断仍在后续 M2/M5 批次。
 
 ### 3.7 🟡 雀魂实时手摸切遮罩（独立旁支，不阻塞教练）
 

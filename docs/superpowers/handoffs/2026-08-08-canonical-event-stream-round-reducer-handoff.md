@@ -2,7 +2,7 @@
 
 更新时间：2026-08-08
 
-当前阶段：M2-A/M5 共用事件事实地基已实现并进入终审加固；canonical event ID 重绑定仍待关闭
+当前阶段：M2-A/M5 共用事件事实地基已完成并通过终审；下一阶段进入牌形/振听事实层
 
 ## 1. 本批次交付
 
@@ -42,6 +42,8 @@
 - `2c2e04b`：canonical 重放不变量与东一局 V2 门禁；
 - `f6148c3`：快照重算、来源保真、赤牌守恒、立直状态机、杠/和牌/结算绑定、稳定错误码和防守完整性加固。
 - `822fb55`：补齐流局结算、明杠宝牌完整性与结算后多家荣和顺序边界。
+- `7d94cbd`：四元 canonical event ID、旧→新引用映射与全部 fixture 调用方迁移；
+- `dc42aeb`：按实际局发生顺序编号（连庄亦递增）并提升 legacy mapper 至 v2。
 
 设计规格：`docs/superpowers/specs/2026-08-08-canonical-game-state-hand-defense-design.md`。
 
@@ -61,15 +63,13 @@
 
 ## 5. 当前验收证据
 
-- `npm test`：51 个测试文件，346/346 通过（`f6148c3` 后最终回归）；
+- `npm test`：51 个测试文件，350/350 通过；
 - `npm run typecheck`：通过；
 - `npm run test:package-import`：1/1 通过；
 - `npm audit --omit=dev`：0 vulnerabilities；
 - 根目录 `node --test tests/*.mjs`：19/19 通过。
 
-完整切片复审已执行，初审为 Critical 0、Important 11、Minor 1。`f6148c3` 已关闭其中快照伪造、杠宝牌/和牌来源、来源升级、赤五、立直/开手状态、鸣牌后摸切、结算引用、schema 错误泄露、response-opportunity 防守门控及 fixture bridge 公共导出问题。复核仍在进行。
-
-尚未关闭的 Important：事件 ID 目前只保证流内唯一，仍未强制绑定 `gameId / roundOrdinal / sourceRecordOrdinal / subEventOrdinal`；legacy bridge 也尚未返回旧引用到 canonical 引用的显式映射。这是下一次实现的第一项，未关闭前本基础不得标为终审完成。
+完整切片复审已执行，初审为 Critical 0、Important 11、Minor 1；全部 Critical/Important 已按先红后绿方式关闭。event ID 现在严格绑定 `gameId / roundOrdinal / sourceRecordOrdinal / subEventOrdinal`，同源子事件连续、源引用与位置双向唯一；连庄使用新的局发生序号，legacy bridge 显式返回旧→canonical 引用数组。最终独立复审为 Critical 0、Important 0。
 
 ## 6. 明确未实现
 
@@ -80,7 +80,6 @@
 - 舍牌振听、同巡振听、立直振听及 response-opportunity 归约；
 - 合法动作枚举、国士抢暗杠的实际资格判定；
 - 精确剩余摸牌（legacy fixture 没有壁牌信息）；
-- canonical event ID 的跨牌谱/跨局身份约束与 legacy ref map；
 - 对手等待、染手、对对/役牌、宝牌周边和手切序列等牌河阅读；
 - calibrated deal-in probability、顺位 EV 和未来选择权。
 
