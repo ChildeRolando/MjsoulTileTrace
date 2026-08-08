@@ -103,7 +103,7 @@ function result(): HandStructureResultV2 {
         decompositionRefs: ["standard:abc"],
       },
     ],
-    diagnostics: [],
+    diagnostics: ["ron_eligibility_missing_situational_context"],
   };
 }
 
@@ -143,5 +143,66 @@ describe("hand-structure/v2 contracts", () => {
     const falseTruncation = result();
     falseTruncation.decompositions.truncated = true;
     expect(() => HandStructureResultV2Schema.parse(falseTruncation)).toThrow();
+  });
+
+  it("rejects physical-left contradictions and malformed shape groups", () => {
+    const impossibleLeft = request();
+    impossibleLeft.visibleCountsComplete = true;
+    impossibleLeft.leftTiles34 = [...zeroes];
+    impossibleLeft.leftTiles34[27] = 3;
+    expect(() => HandStructureRequestV2Schema.parse(impossibleLeft)).toThrow();
+
+    const malformed = result();
+    malformed.decompositions.items[0]!.groups[0] = {
+      kind: "sequence",
+      tiles34: [0, 1, 3],
+    };
+    expect(() => HandStructureResultV2Schema.parse(malformed)).toThrow();
+  });
+
+  it("binds blocked payloads and every decomposition reference", () => {
+    const blocked = result();
+    blocked.decompositions.status = "blocked_engine_failure";
+    expect(() => HandStructureResultV2Schema.parse(blocked)).toThrow();
+
+    const impossibleCount = result();
+    impossibleCount.decompositions.totalNonDominated = 0;
+    expect(() => HandStructureResultV2Schema.parse(impossibleCount)).toThrow();
+
+    const danglingAlternative = result();
+    danglingAlternative.decompositions.alternativeClaims = [{
+      kind: "floating",
+      tiles34: [8],
+      decompositionRefs: ["standard:missing"],
+    }];
+    expect(() => HandStructureResultV2Schema.parse(danglingAlternative)).toThrow();
+
+    const danglingWait = result();
+    danglingWait.waits[0]!.decompositionRefs = ["standard:missing"];
+    expect(() => HandStructureResultV2Schema.parse(danglingWait)).toThrow();
+  });
+
+  it("requires wait/family/diagnostic semantics to agree", () => {
+    const notTenpai = result();
+    notTenpai.families[0].shanten = 1;
+    notTenpai.overallShanten = 1;
+    expect(() => HandStructureResultV2Schema.parse(notTenpai)).toThrow();
+
+    const duplicateWaitFamily = result();
+    duplicateWaitFamily.waits[0]!.families = ["standard", "standard"];
+    expect(() => HandStructureResultV2Schema.parse(duplicateWaitFamily)).toThrow();
+
+    const missingDiagnostic = result();
+    missingDiagnostic.waits[0]!.baseRonEligibility =
+      "unknown_missing_situational_yaku_context";
+    missingDiagnostic.diagnostics = [];
+    expect(() => HandStructureResultV2Schema.parse(missingDiagnostic)).toThrow();
+
+    const strayDiagnostic = result();
+    strayDiagnostic.waits[0]!.baseRonEligibility = "eligible";
+    strayDiagnostic.diagnostics = [
+      "ron_eligibility_missing_situational_context",
+    ];
+    expect(() => HandStructureResultV2Schema.parse(strayDiagnostic)).toThrow();
   });
 });
