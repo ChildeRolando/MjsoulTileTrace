@@ -41,6 +41,7 @@
 - `e33c408`：fixture bridge 与 V2 五轴事实投影。
 - `2c2e04b`：canonical 重放不变量与东一局 V2 门禁；
 - `f6148c3`：快照重算、来源保真、赤牌守恒、立直状态机、杠/和牌/结算绑定、稳定错误码和防守完整性加固。
+- `822fb55`：补齐流局结算、明杠宝牌完整性与结算后多家荣和顺序边界。
 
 设计规格：`docs/superpowers/specs/2026-08-08-canonical-game-state-hand-defense-design.md`。
 
