@@ -122,13 +122,13 @@ export const RiichiStateV2Schema = z.object({
   status: z.enum(["none", "declared", "accepted"]),
   declarationEventRef: EventRefSchema.nullable(),
   acceptanceEventRef: EventRefSchema.nullable(),
-  ippatsuAlive: z.boolean(),
+  ippatsuAlive: z.boolean().nullable(),
 }).strict().superRefine((state, context) => {
   if (state.status === "none") {
     if (
       state.declarationEventRef !== null ||
       state.acceptanceEventRef !== null ||
-      state.ippatsuAlive
+      state.ippatsuAlive !== false
     ) {
       context.addIssue({
         code: z.ZodIssueCode.custom,

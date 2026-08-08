@@ -4,6 +4,7 @@ import {
   DecisionSnapshotV2Schema,
   PublicRoundStateSchema,
   SelfPrivateRoundStateSchema,
+  RiichiStateV2Schema,
 } from "../src/index.js";
 
 const tile = (id:
@@ -197,5 +198,15 @@ describe("canonical round state", () => {
       ...publicState(),
       remainingDraws: null,
     })).toThrow("Remaining draw completeness must agree with its value");
+  });
+
+  it("represents ippatsu as unknown when its cancellation rule is unknown", () => {
+    expect(RiichiStateV2Schema.parse({
+      actor: 1,
+      status: "accepted",
+      declarationEventRef: "event:riichi",
+      acceptanceEventRef: "event:accepted",
+      ippatsuAlive: null,
+    }).ippatsuAlive).toBeNull();
   });
 });

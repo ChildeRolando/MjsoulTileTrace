@@ -213,6 +213,13 @@ function applyDiscard(
   });
   publicState.phase = "awaiting_discard_responses";
   publicState.expectedActor = (event.actor + 1) % 4;
+  const riichi = publicState.riichiStates[event.actor]!;
+  if (
+    riichi.status === "accepted" &&
+    event.riichiDeclarationEventRef === null
+  ) {
+    riichi.ippatsuAlive = false;
+  }
 }
 
 function findRiverDiscard(
@@ -274,6 +281,16 @@ function applyOpenCall(
   publicState.phase = event.type === "daiminkan_called"
     ? "awaiting_rinshan_draw"
     : "awaiting_post_call_discard";
+  cancelIppatsu(publicState, false);
+}
+
+function cancelIppatsu(
+  publicState: PublicRoundState,
+  value: false | null,
+): void {
+  for (const riichi of publicState.riichiStates) {
+    if (riichi.ippatsuAlive === true) riichi.ippatsuAlive = value;
+  }
 }
 
 function applyAnkan(
@@ -297,6 +314,9 @@ function applyAnkan(
   });
   publicState.expectedActor = event.actor;
   publicState.phase = "awaiting_rinshan_draw";
+  const rule = stream.ruleSet.ippatsuCancelledByAnkan;
+  if (rule === true) cancelIppatsu(publicState, false);
+  if (rule === "unknown") cancelIppatsu(publicState, null);
 }
 
 function applyKakan(
@@ -333,6 +353,76 @@ function applyKakan(
   };
   publicState.expectedActor = event.actor;
   publicState.phase = "awaiting_kan_responses";
+  cancelIppatsu(publicState, false);
+}
+
+function applyRiichiDeclared(
+  stream: CanonicalEventStream,
+  event: Extract<CanonicalGameEvent, { type: "riichi_declared" }>,
+  publicState: PublicRoundState,
+  privateState: SelfPrivateRoundState,
+): void {
+  publicState.riichiStates[event.actor] = {
+    actor: event.actor,
+    status: "declared",
+    declarationEventRef: event.eventId,
+    acceptanceEventRef: null,
+    ippatsuAlive: false,
+  };
+  if (event.actor === stream.selfActor) {
+    privateState.evidenceIds.push(event.eventId);
+  }
+}
+
+function applyRiichiAccepted(
+  stream: CanonicalEventStream,
+  event: Extract<CanonicalGameEvent, { type: "riichi_accepted" }>,
+  publicState: PublicRoundState,
+  privateState: SelfPrivateRoundState,
+): void {
+  const state = publicState.riichiStates[event.actor]!;
+  if (
+    state.status !== "declared" ||
+    state.declarationEventRef !== event.declarationEventRef
+  ) {
+    throw new CanonicalReplayError("riichi_declaration_not_found");
+  }
+  state.status = "accepted";
+  state.acceptanceEventRef = event.eventId;
+  state.ippatsuAlive = true;
+  publicState.scores[event.actor] = publicState.scores[event.actor]! - 1000;
+  publicState.riichiSticks += 1;
+  if (event.actor === stream.selfActor) {
+    privateState.evidenceIds.push(event.eventId);
+  }
+}
+
+function applyWin(
+  event: Extract<CanonicalGameEvent, { type: "win_declared" }>,
+  publicState: PublicRoundState,
+): void {
+  if (publicState.terminal?.kind === "win") {
+    publicState.terminal.eventRefs.push(event.eventId);
+  } else {
+    publicState.terminal = { kind: "win", eventRefs: [event.eventId] };
+  }
+  publicState.phase = "round_ended";
+  publicState.expectedActor = null;
+  cancelIppatsu(publicState, false);
+}
+
+function applyRoundDrawn(
+  event: Extract<CanonicalGameEvent, { type: "round_drawn" }>,
+  publicState: PublicRoundState,
+): void {
+  publicState.terminal = {
+    kind: "draw",
+    eventRef: event.eventId,
+    reason: event.reason,
+  };
+  publicState.phase = "round_ended";
+  publicState.expectedActor = null;
+  cancelIppatsu(publicState, false);
 }
 
 function applyCoreEvent(
@@ -366,8 +456,28 @@ function applyCoreEvent(
     applyAnkan(stream, event, publicState, privateState);
   } else if (event.type === "kakan_declared") {
     applyKakan(stream, event, publicState, privateState);
+  } else if (event.type === "riichi_declared") {
+    applyRiichiDeclared(stream, event, publicState, privateState);
+  } else if (event.type === "riichi_accepted") {
+    applyRiichiAccepted(stream, event, publicState, privateState);
+  } else if (event.type === "dora_revealed") {
+    publicState.doraIndicators.push(clone(event.indicator));
+  } else if (event.type === "win_declared") {
+    applyWin(event, publicState);
+  } else if (event.type === "round_drawn") {
+    applyRoundDrawn(event, publicState);
+  } else if (event.type === "scores_updated") {
+    publicState.scores = clone(event.scores);
+  } else if (event.type === "round_ended") {
+    publicState.phase = "round_ended";
+    publicState.expectedActor = null;
+  } else if (event.type === "game_ended") {
+    publicState.phase = "game_ended";
+    publicState.expectedActor = null;
+    publicState.scores = clone(event.scores);
   } else {
-    throw new CanonicalReplayError(`canonical_reducer_event_not_implemented:${event.type}`);
+    const exhaustive: never = event;
+    throw new CanonicalReplayError(`canonical_reducer_event_not_implemented:${String(exhaustive)}`);
   }
   publicState.appliedEventRefs = [...appliedEventRefs];
   return { publicState, privateState };
