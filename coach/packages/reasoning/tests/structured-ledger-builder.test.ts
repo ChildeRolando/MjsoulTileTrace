@@ -187,6 +187,65 @@ describe("structured ledger builder", () => {
     expect(JSON.stringify(ledger)).not.toContain("recommended");
   });
 
+  it("preserves completed-hand scoring assumptions on both score outputs", () => {
+    const input = baseInput();
+    const limitations = ["score assumes the supplied win context is complete"];
+    const { hand13Request: _hand13Request, ...projection } = input.projection;
+    input.projection = {
+      ...projection,
+      completedHandRequest: {
+        kind: "completed_hand",
+        requestId: "request:completed",
+        protocolVersion: "mahjong-facts/v1",
+        actionRef,
+        stateHash: "sha256:projected",
+        melds: [],
+        doraTiles34: [4],
+        redFiveCounts: [0, 0, 0],
+        roundWindTile34: 27,
+        selfWindTile34: 27,
+        dealer: true,
+        riichi: false,
+        selfDiscards34: [23],
+        completedHandTiles34: Array(34).fill(0),
+        winTile34: 23,
+        tsumo: true,
+      },
+    };
+    delete input.hand13Outcome;
+    input.completedHandOutcome = {
+      status: "calculated",
+      result: {
+        kind: "completed_hand_result",
+        requestId: "request:completed",
+        protocolVersion: "mahjong-facts/v1",
+        actionRef,
+        stateHash: "sha256:projected",
+        identity: handResult().identity,
+        point: 8000,
+        fixedPoint: 8100,
+        hanStatus: "unsupported_upstream_api",
+        fuStatus: "unsupported_upstream_api",
+        limitations,
+        diagnostics: [],
+      },
+    };
+
+    const ledger = buildCandidateLedger(input);
+    for (const factorKey of [
+      "value.completed_hand_point",
+      "value.completed_hand_fixed_point",
+    ]) {
+      expect(fact(ledger, factorKey)).toMatchObject({
+        status: "calculated",
+        evidenceClass: "deterministic_under_assumptions",
+        preferenceEligibility: "deterministic",
+        limitations,
+        engineIdentity: handResult().identity,
+      });
+    }
+  });
+
   it("blocks only remaining counts for incomplete visibility", () => {
     const input = baseInput();
     input.hand13Outcome = {

@@ -338,14 +338,17 @@ function mapCompletedHand(
     { kind: "number", value: result.point, unit: "points" },
     resultIds,
     result.identity,
+    "deterministic_under_assumptions",
+    [...result.limitations],
   ));
-  byAxis.get("value")!.push(heuristicFact(
+  byAxis.get("value")!.push(deterministicFact(
     "value.completed_hand_fixed_point",
     "completed_hand_fixed_point",
     { kind: "number", value: result.fixedPoint, unit: "points" },
     resultIds,
-    [...result.limitations],
     result.identity,
+    "deterministic_under_assumptions",
+    [...result.limitations],
   ));
   for (const dimension of ["han", "fu"] as const) {
     byAxis.get("value")!.push(blockedDeterministicFact(
