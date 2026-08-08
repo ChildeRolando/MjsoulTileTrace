@@ -297,6 +297,12 @@ func analyzeHandStructure(request HandStructureRequestV2) (HandStructureResultV2
 			best = append(best, family.Family)
 		}
 	}
+	decompositions := buildDecompositionSet(bestFamilyDecompositions(
+		request.HandTiles34,
+		len(request.Melds),
+		families,
+		overall,
+	))
 	return HandStructureResultV2{
 		Kind:            "hand_structure_result",
 		SchemaVersion:   handStructureSchemaVersion,
@@ -308,15 +314,8 @@ func analyzeHandStructure(request HandStructureRequestV2) (HandStructureResultV2
 		OverallShanten:  overall,
 		BestFamilies:    best,
 		Families:        families,
-		Decompositions: DecompositionSetV2{
-			Status:            "blocked_engine_failure",
-			TotalNonDominated: 0,
-			Truncated:         false,
-			Items:             []DecompositionV2{},
-			InvariantClaims:   []ShapeGroup{},
-			AlternativeClaims: []AlternativeClaimV2{},
-		},
-		Waits:       []WaitV2{},
-		Diagnostics: []string{},
+		Decompositions:  decompositions,
+		Waits:           []WaitV2{},
+		Diagnostics:     decompositionDiagnostics(decompositions),
 	}, nil
 }
