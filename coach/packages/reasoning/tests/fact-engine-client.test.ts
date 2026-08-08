@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { canonicalActionRef, type Hand13FactRequest } from "@riichi-coach/contracts";
+import {
+  canonicalActionRef,
+  type Hand13FactRequest,
+  type ThreatRiskFactRequest,
+} from "@riichi-coach/contracts";
 import type {
   FactEngineTransport,
 } from "../src/fact-engine/port.js";
@@ -63,6 +67,44 @@ function validHand13Result() {
     doraCountStatus: "calculated" as const,
     doraCount: 0,
     estimates: [],
+    diagnostics: [],
+  };
+}
+
+function validThreatRiskRequest(): ThreatRiskFactRequest {
+  return {
+    kind: "threat_risk",
+    requestId: "risk-1",
+    protocolVersion: "mahjong-facts/v1",
+    actionRef,
+    stateHash: "sha256:risk",
+    threatActor: 2,
+    turns: 6,
+    safeTiles34: Array(34).fill(false) as boolean[],
+    leftTiles34: Array(34).fill(4) as number[],
+    doraTiles34: [4],
+    roundWindTile34: 27,
+    threatWindTile34: 29,
+    earlyOutsideTiles34: [0, 1],
+    evidenceIds: ["event-riichi", "event-safe"],
+  };
+}
+
+function validThreatRiskResult() {
+  const request = validThreatRiskRequest();
+  return {
+    kind: "threat_risk_result" as const,
+    requestId: request.requestId,
+    protocolVersion: "mahjong-facts/v1" as const,
+    actionRef,
+    stateHash: request.stateHash,
+    identity,
+    threatActor: request.threatActor,
+    riskScale: Array(34).fill(0),
+    classifications: [],
+    leftNoSujiTile34: [],
+    evidenceIds: [...request.evidenceIds],
+    limitations: ["versioned upstream risk scale"],
     diagnostics: [],
   };
 }
@@ -210,6 +252,19 @@ describe("JSONL fact engine client", () => {
     }));
     await expect(client.analyzeHand13(validHand13Request()))
       .rejects.toThrow("invalid_fact_engine_response");
+  });
+
+  it("rejects a threat actor or evidence binding mismatch", async () => {
+    await expect(new JsonlFactEngineClient(new FixtureTransport({
+      ...validThreatRiskResult(),
+      threatActor: 1,
+    })).analyzeThreatRisk(validThreatRiskRequest()))
+      .rejects.toThrow("threat_actor_mismatch");
+    await expect(new JsonlFactEngineClient(new FixtureTransport({
+      ...validThreatRiskResult(),
+      evidenceIds: ["event-riichi", "event-other"],
+    })).analyzeThreatRisk(validThreatRiskRequest()))
+      .rejects.toThrow("evidence_ids_mismatch");
   });
 
   it("resolves only the managed binary below app resources", () => {

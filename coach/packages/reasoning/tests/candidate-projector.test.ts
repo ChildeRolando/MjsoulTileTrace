@@ -220,5 +220,20 @@ describe("candidate projector", () => {
     });
     expect(projected.threatRiskRequests[0]?.safeTiles34[23]).toBe(true);
     expect(projected.threatRiskRequests[0]?.safeTiles34[9]).toBe(true);
+
+    const changedFacts = KnownGameFactsSchema.parse({
+      ...facts,
+      rivers: facts.rivers.map((river) => river.map((riverDiscard) =>
+        riverDiscard.eventId === "event-after"
+          ? { ...riverDiscard, afterRiichiEventIds: [] }
+          : riverDiscard
+      )),
+    });
+    const changed = projectCandidate(discard, changedFacts);
+    expect(changed.status).toBe("ready");
+    if (changed.status !== "ready") throw new Error("expected ready");
+    expect(changed.projectedStateRef).toBe(projected.projectedStateRef);
+    expect(changed.threatRiskRequests[0]?.stateHash)
+      .not.toBe(projected.threatRiskRequests[0]?.stateHash);
   });
 });

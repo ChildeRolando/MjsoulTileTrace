@@ -97,6 +97,27 @@ function validateBindings(request: BoundRequest, result: BoundResult): void {
   }
 }
 
+function validateThreatBindings(
+  request: ThreatRiskFactRequest,
+  result: ThreatRiskFactResult,
+): void {
+  if (result.threatActor !== request.threatActor) {
+    throw new FactEngineClientError(
+      "threat_actor_mismatch",
+      `expected ${request.threatActor}, received ${result.threatActor}`,
+    );
+  }
+  if (
+    result.evidenceIds.length !== request.evidenceIds.length ||
+    result.evidenceIds.some((id, index) => id !== request.evidenceIds[index])
+  ) {
+    throw new FactEngineClientError(
+      "evidence_ids_mismatch",
+      "threat result evidence IDs do not match the bound request",
+    );
+  }
+}
+
 export class JsonlFactEngineClient implements MahjongFactEnginePort {
   private closePromise: Promise<void> | null = null;
   private identityRequestSequence = 0;
@@ -216,6 +237,7 @@ export class JsonlFactEngineClient implements MahjongFactEnginePort {
       );
     }
     validateBindings(request, parsed.data);
+    validateThreatBindings(request, parsed.data);
     return parsed.data;
   }
 

@@ -175,12 +175,8 @@ function threatRiskRequests(
       }
       evidenceIds.add(discard.eventId);
     }
-    requests.push({
-      kind: "threat_risk",
-      requestId: `${facts.factSetId}:risk:${threat.actor}:${stateHash}`,
-      protocolVersion: "mahjong-facts/v1",
+    const threatInputs = {
       actionRef,
-      stateHash,
       threatActor: threat.actor,
       turns: threatRiver.length,
       safeTiles34,
@@ -190,6 +186,17 @@ function threatRiskRequests(
       threatWindTile34: threatWindTile(facts, threat.actor),
       earlyOutsideTiles34: [...earlyOutside].sort((left, right) => left - right),
       evidenceIds: [...evidenceIds],
+    };
+    const threatStateHash = stableProjectedStateHash({
+      parentStateHash: stateHash,
+      ...threatInputs,
+    });
+    requests.push({
+      kind: "threat_risk",
+      requestId: `${facts.factSetId}:risk:${threat.actor}:${threatStateHash}`,
+      protocolVersion: "mahjong-facts/v1",
+      stateHash: threatStateHash,
+      ...threatInputs,
     });
   }
   return requests;
