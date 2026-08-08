@@ -144,7 +144,10 @@ function baseInput(): CandidateLedgerBuildInput {
         identity: handResult().identity,
         threatActor: 2,
         riskScale: Array(34).fill(5).map((value, index) => index === 23 ? 0 : value),
-        classifications: [{ tile34: 23, kind: "genbutsu" }],
+        classifications: [
+          { tile34: 23, kind: "genbutsu" },
+          { tile34: 23, kind: "suji" },
+        ],
         leftNoSujiTile34: [0, 8],
         evidenceIds: ["event-riichi-2", "event-safe-6s"],
         limitations: ["Not a calibrated Mortal deal-in probability"],
@@ -173,6 +176,11 @@ describe("structured ledger builder", () => {
       evidenceClass: "versioned_upstream_estimate",
       preferenceEligibility: "heuristic_only",
       engineIdentity: handResult().identity,
+    });
+    expect(fact(ledger, "defense.helper_classifications.actor2")).toMatchObject({
+      dimension: "helper_classifications:actor2",
+      value: { kind: "string_set", values: ["genbutsu", "suji"] },
+      preferenceEligibility: "heuristic_only",
     });
     expect(fact(ledger, "efficiency.shanten").engineIdentity)
       .toEqual(handResult().identity);

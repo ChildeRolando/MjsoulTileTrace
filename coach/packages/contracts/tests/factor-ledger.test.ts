@@ -114,6 +114,7 @@ describe("structured factor ledger", () => {
       leftActionRef: left,
       rightActionRef: right,
       direction: "supports_left",
+      valueRelation: "ordered",
       leftValue: { kind: "number", value: 2.1, unit: "helper_risk_scale" },
       rightValue: { kind: "number", value: 8, unit: "helper_risk_scale" },
       evidenceClass: "versioned_upstream_estimate",

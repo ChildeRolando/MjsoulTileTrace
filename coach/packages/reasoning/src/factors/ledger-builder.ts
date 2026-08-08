@@ -403,13 +403,15 @@ function mapThreatRisk(
       [...result.limitations],
       result.identity,
     ));
-    for (const classification of result.classifications.filter(
-      (classification) => classification.tile34 === tile34,
-    )) {
+    const classifications = unique(result.classifications
+      .filter((classification) => classification.tile34 === tile34)
+      .map((classification) => classification.kind))
+      .sort();
+    if (classifications.length > 0) {
       byAxis.get("defense")!.push(heuristicFact(
-        `defense.helper_classification.actor${result.threatActor}.${classification.kind}`,
-        `helper_classification:actor${result.threatActor}:${classification.kind}`,
-        { kind: "classification", value: classification.kind },
+        `defense.helper_classifications.actor${result.threatActor}`,
+        `helper_classifications:actor${result.threatActor}`,
+        { kind: "string_set", values: classifications },
         evidence,
         [...result.limitations],
         result.identity,

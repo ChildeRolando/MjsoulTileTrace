@@ -83,12 +83,28 @@ const IntegerIdsFactorValueSchema = z.object({
   }
 });
 
+const StringSetFactorValueSchema = z.object({
+  kind: z.literal("string_set"),
+  values: z.array(z.string().min(1)),
+}).strict().superRefine((factorValue, context) => {
+  if (factorValue.values.some((value, index) =>
+    index > 0 && value <= factorValue.values[index - 1]!
+  )) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "String-set factor values must use strict ascending order",
+      path: ["values"],
+    });
+  }
+});
+
 export const FactorValueSchema = z.union([
   NumberFactorValueSchema,
   BooleanFactorValueSchema,
   ClassificationFactorValueSchema,
   TileCountsFactorValueSchema,
   IntegerIdsFactorValueSchema,
+  StringSetFactorValueSchema,
 ]);
 export type FactorValue = z.infer<typeof FactorValueSchema>;
 
@@ -232,6 +248,7 @@ const DifferenceBaseShape = {
   leftActionRef: ActionRefSchema,
   rightActionRef: ActionRefSchema,
   direction: DifferenceDirectionSchema,
+  valueRelation: z.enum(["ordered", "equal", "different"]),
   leftValue: FactorValueSchema,
   rightValue: FactorValueSchema,
   evidenceIds: z.array(z.string().min(1)).min(1),

@@ -197,6 +197,8 @@ function buildDifference(
   right: FactorFact,
   kind: "deterministic_difference" | "heuristic_difference",
   direction: "supports_left" | "supports_right" | "neutral",
+  valueRelation: "ordered" | "equal" | "different" =
+    direction === "neutral" ? "equal" : "ordered",
 ): FactorDifference {
   const base = {
     differenceId: `difference:v1:${axis}:${left.dimension}:${leftLedger.actionRef}:${rightLedger.actionRef}`,
@@ -206,6 +208,7 @@ function buildDifference(
     leftActionRef: leftLedger.actionRef,
     rightActionRef: rightLedger.actionRef,
     direction,
+    valueRelation,
     leftValue: left.value,
     rightValue: right.value,
     evidenceClass: left.evidenceClass,
@@ -266,7 +269,19 @@ export function buildFactorDifferences(
 
         if (left.preferenceEligibility === "heuristic_only") {
           const direction = heuristicValueDirection(left.dimension, left.value, right.value);
-          if (direction === undefined) continue;
+          if (direction === undefined) {
+            heuristic.push(buildDifference(
+              leftEntry.axis,
+              leftLedger,
+              rightLedger,
+              left,
+              right,
+              "heuristic_difference",
+              "neutral",
+              "different",
+            ));
+            continue;
+          }
           heuristic.push(buildDifference(
             leftEntry.axis,
             leftLedger,

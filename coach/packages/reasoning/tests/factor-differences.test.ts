@@ -74,6 +74,34 @@ function helperRisk(value: number): FactorFact {
   };
 }
 
+function helperYaku(values: number[]): FactorFact {
+  return {
+    factorKey: "value.yaku_types",
+    dimension: "yaku_types",
+    status: "calculated",
+    evidenceClass: "versioned_upstream_estimate",
+    preferenceEligibility: "heuristic_only",
+    engineIdentity: identity,
+    value: { kind: "integer_ids", values },
+    evidenceIds: ["request:hand13"],
+    limitations: ["Pinned yaku IDs"],
+  };
+}
+
+function helperClassification(value: string): FactorFact {
+  return {
+    factorKey: "defense.helper_classification.actor2",
+    dimension: "helper_classification:actor2",
+    status: "calculated",
+    evidenceClass: "versioned_upstream_estimate",
+    preferenceEligibility: "heuristic_only",
+    engineIdentity: identity,
+    value: { kind: "classification", value },
+    evidenceIds: ["request:risk:2"],
+    limitations: ["Pinned structural classification"],
+  };
+}
+
 function ledger(
   actionRef: ActionRef,
   efficiencyFacts: FactorFact[],
@@ -165,5 +193,31 @@ describe("factor difference builder", () => {
     ]);
 
     expect(result.heuristic).toEqual([]);
+  });
+
+  it("preserves non-preferential heuristic set and class differences", () => {
+    const yaku = buildFactorDifferences([
+      ledger(twoPin, [], [helperYaku([1, 3])]),
+      ledger(sixSou, [], [helperYaku([2])]),
+    ]).heuristic[0];
+    expect(yaku).toMatchObject({
+      dimension: "yaku_types",
+      direction: "neutral",
+      valueRelation: "different",
+    });
+
+    const classification = buildFactorDifferences([
+      ledger(twoPin, [], [helperClassification("suji")]),
+      ledger(sixSou, [], [helperClassification("no_suji")]),
+    ]).heuristic[0];
+    expect(classification).toMatchObject({
+      dimension: "helper_classification:actor2",
+      direction: "neutral",
+      valueRelation: "different",
+    });
+    expect(buildFactorDifferences([
+      ledger(twoPin, [], [helperClassification("suji")]),
+      ledger(sixSou, [], [helperClassification("no_suji")]),
+    ]).deterministic).toEqual([]);
   });
 });
