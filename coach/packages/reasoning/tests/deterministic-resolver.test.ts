@@ -115,7 +115,10 @@ function ledger(
     projectedStateRef: `state:${actionRef}`,
     axes: [
       { axis: "efficiency", status: "calculated", facts: efficiency },
+      { axis: "value", status: "unsupported_dimension", facts: [] },
       { axis: "defense", status: "calculated", facts: defense },
+      { axis: "placement", status: "unsupported_dimension", facts: [] },
+      { axis: "option_value", status: "unsupported_dimension", facts: [] },
     ],
     diagnostics: [],
   });
@@ -165,6 +168,9 @@ describe("deterministic preference resolver", () => {
         axes: [
           { axis: "efficiency", status: "calculated", facts: [shanten(1)] },
           { axis: "value", status: "calculated", facts: [blockedDora(), helperYaku([1])] },
+          { axis: "defense", status: "unsupported_dimension", facts: [] },
+          { axis: "placement", status: "unsupported_dimension", facts: [] },
+          { axis: "option_value", status: "unsupported_dimension", facts: [] },
         ],
         diagnostics: [],
       }),
@@ -174,6 +180,9 @@ describe("deterministic preference resolver", () => {
         axes: [
           { axis: "efficiency", status: "calculated", facts: [shanten(2)] },
           { axis: "value", status: "calculated", facts: [blockedDora(), helperYaku([2])] },
+          { axis: "defense", status: "unsupported_dimension", facts: [] },
+          { axis: "placement", status: "unsupported_dimension", facts: [] },
+          { axis: "option_value", status: "unsupported_dimension", facts: [] },
         ],
         diagnostics: [],
       }),

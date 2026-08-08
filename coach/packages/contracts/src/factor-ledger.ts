@@ -229,6 +229,23 @@ export const CandidateFactorLedgerSchema = z.object({
   diagnostics: z.array(z.string().min(1)),
 }).strict().superRefine((ledger, context) => {
   const axes = ledger.axes.map((axis) => axis.axis);
+  const canonicalAxes = [
+    "efficiency",
+    "value",
+    "defense",
+    "placement",
+    "option_value",
+  ] as const;
+  if (
+    axes.length !== canonicalAxes.length ||
+    canonicalAxes.some((axis) => !axes.includes(axis))
+  ) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Candidate ledgers must contain the canonical five axes",
+      path: ["axes"],
+    });
+  }
   if (new Set(axes).size !== axes.length) {
     context.addIssue({
       code: z.ZodIssueCode.custom,

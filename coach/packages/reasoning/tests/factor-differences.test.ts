@@ -117,9 +117,24 @@ function ledger(
         facts: efficiencyFacts,
       },
       {
+        axis: "value",
+        status: "unsupported_dimension",
+        facts: [],
+      },
+      {
         axis: "defense",
         status: defenseFacts.length > 0 ? "calculated" : "unsupported_dimension",
         facts: defenseFacts,
+      },
+      {
+        axis: "placement",
+        status: "unsupported_dimension",
+        facts: [],
+      },
+      {
+        axis: "option_value",
+        status: "unsupported_dimension",
+        facts: [],
       },
     ],
     diagnostics: [],

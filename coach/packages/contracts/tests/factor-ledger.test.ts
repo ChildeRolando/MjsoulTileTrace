@@ -17,6 +17,15 @@ const right = canonicalActionRef({
   discardMode: "tedashi",
 });
 
+const allAxes = ["efficiency", "value", "defense", "placement", "option_value"] as const;
+function completeAxes(
+  entry: { axis: typeof allAxes[number]; status: string; facts: unknown[] },
+) {
+  return allAxes.map((axis) => axis === entry.axis
+    ? entry
+    : { axis, status: "unsupported_dimension", facts: [] });
+}
+
 describe("structured factor ledger", () => {
   it("exports the ledger, difference, and preference schemas", () => {
     expect(CandidateFactorLedgerSchema).toBeDefined();
@@ -28,7 +37,7 @@ describe("structured factor ledger", () => {
     expect(() => CandidateFactorLedgerSchema.parse({
       actionRef: left,
       projectedStateRef: "state:1",
-      axes: [{
+      axes: completeAxes({
         axis: "defense",
         status: "calculated",
         facts: [{
@@ -41,7 +50,7 @@ describe("structured factor ledger", () => {
           evidenceIds: ["event-riichi"],
           limitations: ["Not a calibrated Mortal deal-in probability"],
         }],
-      }],
+      }),
       diagnostics: [],
     })).toThrow();
   });
@@ -50,7 +59,7 @@ describe("structured factor ledger", () => {
     expect(() => CandidateFactorLedgerSchema.parse({
       actionRef: left,
       projectedStateRef: "state:1",
-      axes: [{
+      axes: completeAxes({
         axis: "value",
         status: "calculated",
         facts: [{
@@ -63,7 +72,7 @@ describe("structured factor ledger", () => {
           evidenceIds: ["request:1"],
           limitations: ["Pinned helper estimate"],
         }],
-      }],
+      }),
       diagnostics: [],
     })).toThrow("Calculated engine evidence requires structured engine identity");
   });
@@ -81,18 +90,18 @@ describe("structured factor ledger", () => {
     expect(() => CandidateFactorLedgerSchema.parse({
       actionRef: left,
       projectedStateRef: "state:1",
-      axes: [{
+      axes: completeAxes({
         axis: "efficiency",
         status: "calculated",
         facts: [{ ...baseFact, status: "calculated" }],
-      }],
+      }),
       diagnostics: [],
     })).toThrow();
 
     expect(() => CandidateFactorLedgerSchema.parse({
       actionRef: left,
       projectedStateRef: "state:1",
-      axes: [{
+      axes: completeAxes({
         axis: "efficiency",
         status: "blocked_missing_facts",
         facts: [{
@@ -100,7 +109,7 @@ describe("structured factor ledger", () => {
           status: "blocked_missing_facts",
           value: { kind: "number", value: 1, unit: "shanten" },
         }],
-      }],
+      }),
       diagnostics: [],
     })).toThrow();
   });
@@ -127,6 +136,26 @@ describe("structured factor ledger", () => {
       evidenceIds: ["event-riichi"],
       limitations: ["Same pinned helper version"],
     }).kind).toBe("heuristic_difference");
+  });
+
+  it("requires the exact canonical five-axis ledger shape", () => {
+    const axes = allAxes.map((axis) => ({
+      axis,
+      status: "unsupported_dimension",
+      facts: [],
+    }));
+    expect(CandidateFactorLedgerSchema.parse({
+      actionRef: left,
+      projectedStateRef: "state:complete",
+      axes,
+      diagnostics: [],
+    }).axes).toHaveLength(5);
+    expect(() => CandidateFactorLedgerSchema.parse({
+      actionRef: left,
+      projectedStateRef: "state:missing",
+      axes: axes.slice(0, 4),
+      diagnostics: [],
+    })).toThrow("canonical five axes");
   });
 
   it("rejects a deterministic preference with duplicate actions", () => {
