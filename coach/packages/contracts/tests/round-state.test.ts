@@ -3,6 +3,7 @@ import {
   DecisionPrivateStateSchema,
   DecisionSnapshotV2Schema,
   PublicRoundStateSchema,
+  SelfPrivateRoundStateSchema,
 } from "../src/index.js";
 
 const tile = (id:
@@ -158,6 +159,15 @@ describe("canonical round state", () => {
       ...privateState(),
       evidenceIds: ["game:fixture/0/2/0", "game:fixture/0/2/0"],
     })).toThrow("Private state evidence IDs must be unique");
+  });
+
+  it("represents a known absence of a current draw", () => {
+    const { decisionWindow: _window, ...state } = privateState();
+    expect(SelfPrivateRoundStateSchema.parse({
+      ...state,
+      currentDraw: null,
+      fields: { ...state.fields, currentDraw: "complete" },
+    }).currentDraw).toBeNull();
   });
 
   it("rejects a river discard stored under another actor", () => {

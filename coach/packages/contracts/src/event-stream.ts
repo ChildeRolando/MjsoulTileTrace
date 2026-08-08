@@ -42,6 +42,27 @@ export const RuleSetV2Schema = z.object({
 }).strict();
 export type RuleSetV2 = z.infer<typeof RuleSetV2Schema>;
 
+const SourceCompletenessValueSchema = z.enum([
+  "complete",
+  "partial",
+  "unknown",
+]);
+export const EventStreamCompletenessSchema = z.object({
+  eventSequence: SourceCompletenessValueSchema,
+  ruleSet: SourceCompletenessValueSchema,
+  scores: SourceCompletenessValueSchema,
+  doraIndicators: SourceCompletenessValueSchema,
+  rivers: SourceCompletenessValueSchema,
+  calledDiscardMarkers: SourceCompletenessValueSchema,
+  melds: SourceCompletenessValueSchema,
+  remainingDraws: SourceCompletenessValueSchema,
+  settlement: SourceCompletenessValueSchema,
+  responseOpportunities: SourceCompletenessValueSchema,
+}).strict();
+export type EventStreamCompleteness = z.infer<
+  typeof EventStreamCompletenessSchema
+>;
+
 const BaseEventShape = {
   eventId: EventRefSchema,
   sourceRecordRef: NonEmptyRefSchema,
@@ -338,6 +359,7 @@ export const CanonicalEventStreamSchema = z.object({
   sourceRecordHash: z.string().min(1),
   playerCount: z.literal(4),
   selfActor: ActorSchema,
+  completeness: EventStreamCompletenessSchema,
   ruleSet: RuleSetV2Schema,
   events: z.array(CanonicalGameEventSchema).min(1),
 }).strict().superRefine((stream, context) => {
@@ -373,5 +395,33 @@ export const CanonicalEventStreamSchema = z.object({
       });
     }
   });
+  if (stream.completeness.ruleSet === "complete") {
+    const rules = stream.ruleSet;
+    if (
+      rules.length === "unknown" ||
+      rules.openTanyao === "unknown" ||
+      rules.atamahane === "unknown" ||
+      rules.westExtension === "unknown" ||
+      rules.ippatsuCancelledByAnkan === "unknown" ||
+      Object.values(rules.redFives).some((value) => value === "unknown")
+    ) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Complete rule metadata cannot contain unknown values",
+        path: ["ruleSet"],
+      });
+    }
+  }
+  if (stream.completeness.remainingDraws === "complete") {
+    stream.events.forEach((event, index) => {
+      if (event.type === "round_started" && event.remainingDraws === null) {
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Complete remaining draws require a round-start count",
+          path: ["events", index, "remainingDraws"],
+        });
+      }
+    });
+  }
 });
 export type CanonicalEventStream = z.infer<typeof CanonicalEventStreamSchema>;

@@ -23,6 +23,18 @@ function baseStream() {
     sourceRecordHash: "sha256:source",
     playerCount: 4 as const,
     selfActor: 0,
+    completeness: {
+      eventSequence: "complete" as const,
+      ruleSet: "complete" as const,
+      scores: "complete" as const,
+      doraIndicators: "complete" as const,
+      rivers: "complete" as const,
+      calledDiscardMarkers: "complete" as const,
+      melds: "complete" as const,
+      remainingDraws: "complete" as const,
+      settlement: "complete" as const,
+      responseOpportunities: "complete" as const,
+    },
     ruleSet: {
       length: "south" as const,
       redFives: { man: 1, pin: 1, sou: 1 },
@@ -112,6 +124,11 @@ describe("canonical event stream", () => {
       ...stream,
       events: stream.events.slice(1),
     })).toThrow("Canonical stream must begin with game_started");
+  });
+
+  it("requires explicit source completeness instead of inferring it", () => {
+    const { completeness: _completeness, ...stream } = baseStream();
+    expect(() => CanonicalEventStreamSchema.parse(stream)).toThrow();
   });
 
   it("binds a win to the draw, discard, or kan event it resolves", () => {

@@ -55,6 +55,18 @@ export function canonicalStream(
     sourceRecordHash: "sha256:source",
     playerCount: 4,
     selfActor: 0,
+    completeness: {
+      eventSequence: "complete",
+      ruleSet: "complete",
+      scores: "complete",
+      doraIndicators: "complete",
+      rivers: "complete",
+      calledDiscardMarkers: "complete",
+      melds: "complete",
+      remainingDraws: "complete",
+      settlement: "complete",
+      responseOpportunities: "complete",
+    },
     ruleSet: {
       length: "south",
       redFives: { man: 1, pin: 1, sou: 1 },

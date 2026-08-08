@@ -390,8 +390,8 @@ function refineSelfPrivateState(
     ["evidenceIds"],
   );
   if (
-    (state.fields.currentDraw === "complete") !==
-      (state.currentDraw !== null)
+    state.fields.currentDraw === "unknown" &&
+    state.currentDraw !== null
   ) {
     context.addIssue({
       code: z.ZodIssueCode.custom,
