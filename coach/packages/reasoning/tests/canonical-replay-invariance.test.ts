@@ -8,7 +8,6 @@ import type { RegressionFixture } from "../src/import/mortal-report.js";
 import {
   freezeDecisionSnapshot,
   importRegressionFixture,
-  projectKnownGameFactsV2,
   reduceCanonicalEventStream,
 } from "../src/index.js";
 import { bridgeLegacyRegressionEvents } from "../src/import/legacy-event-stream-bridge.js";
@@ -123,27 +122,6 @@ describe("canonical replay invariants", () => {
     const stream = await fixtureStream();
     expect(reduceCanonicalEventStream(JSON.parse(JSON.stringify(stream))))
       .toEqual(reduceCanonicalEventStream(stream));
-  });
-
-  it("does not let model evaluation data alter replay facts", async () => {
-    const replay = await fixtureReplay();
-    const frozen = snapshot(replay);
-    const stream = replay.stream;
-    const factsFrom = (input: { snapshot: typeof frozen; modelEvaluation?: unknown }) =>
-      projectKnownGameFactsV2({
-        stream,
-        decisionWindow: input.snapshot.privateState.decisionWindow,
-        cachedSnapshot: input.snapshot,
-      });
-    const withoutModel = factsFrom({ snapshot: frozen });
-    const withModel = factsFrom({
-      snapshot: frozen,
-      modelEvaluation: {
-        engineId: "mortal",
-        preferredActionRef: "untrusted:model-choice",
-      },
-    });
-    expect(withModel).toEqual(withoutModel);
   });
 
   it("derives riichi threats only from transformed replay events", async () => {

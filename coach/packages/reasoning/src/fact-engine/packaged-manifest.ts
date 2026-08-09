@@ -1,8 +1,8 @@
 export const PACKAGED_FACT_ENGINE_MANIFEST = {
   schemaVersion: 1,
   artifact: "mahjong-facts.exe",
-  sha256: "d0b57b55bc69d64d751d806f7818d85ab23e2034c850d194adbcfeab383d2df5",
-  size: 2_565_120,
+  sha256: "9f00640888e1cc2301bed363174bf81f49fd759cfff396353219b227c8e76696",
+  size: 2_878_976,
   target: "windows-x64",
   goVersion: "go1.24.13",
   protocolVersion: "mahjong-facts/v1",

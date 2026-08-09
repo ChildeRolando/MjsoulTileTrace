@@ -4,6 +4,7 @@ import {
   canonicalActionRef,
   CurrentSceneFrameSchema,
   Hand13FactResultSchema,
+  HandStructureResultV2Schema,
   ResponseFuritenAnalysisV2Schema,
   StructuredComparisonSetSchema,
   type ComparisonScope,
@@ -17,6 +18,7 @@ import {
   type ThreatRiskFactRequest,
   type ThreatRiskFactResult,
   type KnownGameFacts,
+  type ModelEvaluation,
   type NormalizedDecision,
 } from "@riichi-coach/contracts";
 import type { HandStructureFactEnginePort } from "../src/fact-engine/port.js";
@@ -28,6 +30,10 @@ import { legacyDiscardActionIdToAction } from "../src/candidate/legacy-action-br
 import { bridgeLegacyRegressionEvents } from "../src/import/legacy-event-stream-bridge.js";
 import { freezeDecisionSnapshot } from "../src/replay/decision-snapshot.js";
 import { projectKnownGameFactsV2 } from "../src/factors/known-game-facts-v2.js";
+import { buildMortalModelEvaluation } from
+  "../src/model/model-evaluation-builder.js";
+import { runStructuredAnalysisAssembly } from
+  "../src/analysis/structured-analysis-assembly.js";
 
 const fixtureUrl = new URL(
   "../../../fixtures/mortal/c1924cad66f66dd9-east1-turn6-7.json",
@@ -49,6 +55,8 @@ type GoldenCase = {
   actionRef: string;
   request: Hand13FactRequest;
   result: Hand13FactResult;
+  handStructureRequest: HandStructureRequestV2;
+  handStructureResult: HandStructureResultV2;
 };
 
 class RegressionFactEngine implements HandStructureFactEnginePort {
@@ -76,9 +84,16 @@ class RegressionFactEngine implements HandStructureFactEnginePort {
   }
 
   async analyzeHandStructure(
-    _request: HandStructureRequestV2,
+    request: HandStructureRequestV2,
   ): Promise<HandStructureResultV2> {
-    throw new Error("V2 golden is intentionally deferred to Task 10");
+    const golden = this.cases.find((entry) => entry.actionRef === request.actionRef);
+    if (golden === undefined) throw new Error("missing real V2 sidecar golden case");
+    expect({ ...request, requestId: golden.handStructureRequest.requestId })
+      .toEqual(golden.handStructureRequest);
+    return HandStructureResultV2Schema.parse({
+      ...golden.handStructureResult,
+      requestId: request.requestId,
+    });
   }
 
   async analyzeThreatRisk(
@@ -176,6 +191,60 @@ function preferenceForAxis(
   return [...new Set(preference)];
 }
 
+function factValue(
+  result: Awaited<ReturnType<typeof runStructuredFactorPipeline>>,
+  actionRef: string,
+  dimension: string,
+) {
+  return result.ledgers.find((ledger) => ledger.actionRef === actionRef)
+    ?.axes.flatMap((axis) => axis.facts)
+    .find((fact) => fact.dimension === dimension)?.value;
+}
+
+function scoredEvaluation(
+  input: ReturnType<typeof v2RegressionInput>,
+  decisionId: string,
+  probabilities: readonly [number, number],
+): ModelEvaluation {
+  const actual = input.comparisonSet.candidates.find((candidate) =>
+    candidate.origins.includes("actual")
+  );
+  if (actual === undefined) throw new Error("actual candidate missing");
+  const built = buildMortalModelEvaluation({
+    evaluationId: `evaluation:${decisionId}:${probabilities.join("-")}`,
+    comparisonSetId: input.comparisonSet.comparisonSetId,
+    decisionLayerRef: input.comparisonSet.decisionLayerRef,
+    engineVersion: "4.1b",
+    adapterVersion: "regression-v1",
+    actualActionRef: actual.actionRef,
+    detailPolicy: {
+      threshold: 10,
+      unit: "model_selection_score_points",
+      boundary: "greater_than_or_equal_is_detailed",
+      policyVersion: "detail-v1",
+      frozenAt: "2026-08-09T00:00:00.000Z",
+    },
+    candidates: input.comparisonSet.candidates.map((candidate, index) => ({
+      actionRef: candidate.actionRef,
+      probability: probabilities[index]!,
+    })),
+  });
+  if (built.status !== "ready") throw new Error(built.reason);
+  return built.evaluation;
+}
+
+async function runAtAnalysisAssembly(
+  input: ReturnType<typeof v2RegressionInput>,
+  engine: HandStructureFactEnginePort,
+  modelEvaluation: ModelEvaluation | null,
+) {
+  return await runStructuredAnalysisAssembly({
+    ...input,
+    engine,
+    modelEvaluation,
+  });
+}
+
 describe("East 1 turn 6/7 structured factor regression", () => {
   it("keeps efficiency and defense on their correct axes", async () => {
     const raw = JSON.parse(await readFile(fixtureUrl, "utf8"));
@@ -238,10 +307,28 @@ describe("East 1 turn 6/7 structured factor regression", () => {
       );
       expect(turnCases).toHaveLength(2);
       const engine = new RegressionFactEngine(turnCases);
-      const appliedResult = await runStructuredFactorPipeline({ ...applied, engine });
+      const unscoredAssembly = await runAtAnalysisAssembly(applied, engine, null);
+      const appliedResult = unscoredAssembly.factorResult;
       const efficiencyResult = await runStructuredFactorPipeline({ ...efficiency, engine });
       const defenseResult = await runStructuredFactorPipeline({ ...defense, engine });
+      const scoredAssembly = await runAtAnalysisAssembly(
+        applied,
+        engine,
+        scoredEvaluation(applied, decision.decisionId, [0.9, 0.1]),
+      );
+      const perturbedScoreAssembly = await runAtAnalysisAssembly(
+        applied,
+        engine,
+        scoredEvaluation(applied, decision.decisionId, [0.1, 0.9]),
+      );
       const pair = expected[index]!;
+
+      expect(scoredAssembly.modelEvaluation).not.toBeNull();
+      expect(perturbedScoreAssembly.modelEvaluation).not.toEqual(
+        scoredAssembly.modelEvaluation,
+      );
+      expect(scoredAssembly.factorResult).toEqual(appliedResult);
+      expect(perturbedScoreAssembly.factorResult).toEqual(appliedResult);
 
       expect(efficiencyResult.deterministicPreference?.actionRefs)
         .toEqual([pair.actual]);
@@ -252,23 +339,32 @@ describe("East 1 turn 6/7 structured factor regression", () => {
       expect(appliedResult.deterministicPreference).toBeNull();
       expect(bridged.provenance).toBe("legacy_regression_bridge_only");
 
+      const actualOverall = factValue(
+        appliedResult,
+        pair.actual,
+        "overall_shanten",
+      );
+      const safeOverall = factValue(
+        appliedResult,
+        pair.safe,
+        "overall_shanten",
+      );
+      expect(actualOverall).toMatchObject({ kind: "number", unit: "shanten" });
+      expect(safeOverall).toMatchObject({ kind: "number", unit: "shanten" });
+
       for (const ledger of appliedResult.ledgers) {
-        const actionMetric = applied.legacyEfficiencyByActionRef[ledger.actionRef];
         const goldenCase = turnCases.find((entry) =>
           entry.actionRef === ledger.actionRef
         );
-        const shanten = ledger.axes.flatMap((axis) => axis.facts)
-          .find((fact) => fact.dimension === "shanten");
-        const ukeire = ledger.axes.flatMap((axis) => axis.facts)
-          .find((fact) => fact.dimension === "ukeire_remaining");
-        expect(shanten?.value).toMatchObject({
+        const overall = ledger.axes.flatMap((axis) => axis.facts)
+          .find((fact) => fact.dimension === "overall_shanten");
+        expect(overall?.value).toEqual({
           kind: "number",
-          value: actionMetric?.shanten,
+          value: goldenCase?.handStructureResult.overallShanten,
+          unit: "shanten",
         });
-        expect(ukeire?.value).toEqual({
-          kind: "tile_counts",
-          value: goldenCase?.result.waitsRemaining,
-        });
+        expect(ledger.axes.flatMap((axis) => axis.facts)
+          .some((fact) => fact.dimension === "shanten")).toBe(false);
       }
       expect(Object.values(applied.legacyEfficiencyByActionRef).map(
         (metric) => metric.shanten,

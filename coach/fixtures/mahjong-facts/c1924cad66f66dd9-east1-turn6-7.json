@@ -1,5 +1,6 @@
 {
   "generatedBy": "pinned mahjong-facts sidecar",
+  "generatedProtocol": "hand-structure/v2",
   "sourceReportId": "c1924cad66f66dd9",
   "cases": [
     {
@@ -7,7 +8,7 @@
       "actionRef": "action:v1:%5B%22discard%22%2C%5B%222p%22%2Cfalse%5D%2C%22tedashi%22%5D",
       "request": {
         "kind": "hand13",
-        "requestId": "legacy-regression:east1-turn6:hand13:sha256:ac0522678a889ea2950a7ff2efe1548e0002727971be91351ac2eff882c902c8",
+        "requestId": "canonical-v2:sha256:7fdcc0e3f08c3812257f6071e2881bb70394e127bda44d741ce62849e167ad38:hand13:sha256:ac0522678a889ea2950a7ff2efe1548e0002727971be91351ac2eff882c902c8",
         "protocolVersion": "mahjong-facts/v1",
         "actionRef": "action:v1:%5B%22discard%22%2C%5B%222p%22%2Cfalse%5D%2C%22tedashi%22%5D",
         "stateHash": "sha256:ac0522678a889ea2950a7ff2efe1548e0002727971be91351ac2eff882c902c8",
@@ -110,7 +111,7 @@
         "remainingDraws": null
       },
       "result": {
-        "requestId": "legacy-regression:east1-turn6:hand13:sha256:ac0522678a889ea2950a7ff2efe1548e0002727971be91351ac2eff882c902c8",
+        "requestId": "canonical-v2:sha256:7fdcc0e3f08c3812257f6071e2881bb70394e127bda44d741ce62849e167ad38:hand13:sha256:ac0522678a889ea2950a7ff2efe1548e0002727971be91351ac2eff882c902c8",
         "protocolVersion": "mahjong-facts/v1",
         "actionRef": "action:v1:%5B%22discard%22%2C%5B%222p%22%2Cfalse%5D%2C%22tedashi%22%5D",
         "stateHash": "sha256:ac0522678a889ea2950a7ff2efe1548e0002727971be91351ac2eff882c902c8",
@@ -1150,6 +1151,661 @@
             "field": "mixed_round_point"
           }
         ]
+      },
+      "handStructureRequest": {
+        "kind": "hand_structure",
+        "schemaVersion": "hand-structure/v2",
+        "requestId": "canonical-v2:sha256:7fdcc0e3f08c3812257f6071e2881bb70394e127bda44d741ce62849e167ad38:hand-structure:sha256:2f3703d2df4cd316375984abbc9579a05742ee3cbd65f4fb5fa725b70d54e2b7",
+        "protocolVersion": "mahjong-facts/v1",
+        "actionRef": "action:v1:%5B%22discard%22%2C%5B%222p%22%2Cfalse%5D%2C%22tedashi%22%5D",
+        "stateHash": "sha256:2f3703d2df4cd316375984abbc9579a05742ee3cbd65f4fb5fa725b70d54e2b7",
+        "handTiles34": [
+          0,
+          0,
+          1,
+          0,
+          0,
+          1,
+          0,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "melds": [],
+        "leftTiles34": [
+          3,
+          2,
+          3,
+          3,
+          4,
+          2,
+          3,
+          2,
+          3,
+          4,
+          2,
+          4,
+          4,
+          4,
+          3,
+          2,
+          3,
+          2,
+          4,
+          3,
+          4,
+          3,
+          3,
+          2,
+          2,
+          3,
+          3,
+          2,
+          4,
+          2,
+          3,
+          3,
+          1,
+          3
+        ],
+        "visibleCountsComplete": true,
+        "ronContext": "unknown_future",
+        "yakuContext": {
+          "windsStatus": "known",
+          "roundWindTile34": 27,
+          "selfWindTile34": 30,
+          "riichiStatus": "inactive",
+          "openTanyaoStatus": "unknown"
+        }
+      },
+      "handStructureResult": {
+        "kind": "hand_structure_result",
+        "schemaVersion": "hand-structure/v2",
+        "requestId": "canonical-v2:sha256:7fdcc0e3f08c3812257f6071e2881bb70394e127bda44d741ce62849e167ad38:hand-structure:sha256:2f3703d2df4cd316375984abbc9579a05742ee3cbd65f4fb5fa725b70d54e2b7",
+        "protocolVersion": "mahjong-facts/v1",
+        "actionRef": "action:v1:%5B%22discard%22%2C%5B%222p%22%2Cfalse%5D%2C%22tedashi%22%5D",
+        "stateHash": "sha256:2f3703d2df4cd316375984abbc9579a05742ee3cbd65f4fb5fa725b70d54e2b7",
+        "identity": {
+          "engine": "mahjong-helper",
+          "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+          "adapterVersion": "0.1.0",
+          "protocolVersion": "mahjong-facts/v1"
+        },
+        "overallShanten": 2,
+        "bestFamilies": [
+          "standard"
+        ],
+        "families": [
+          {
+            "family": "standard",
+            "applicability": "applicable",
+            "shanten": 2,
+            "effectiveTiles": [
+              {
+                "tile34": 0,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 1,
+                "remainingStatus": "calculated",
+                "remaining": 2
+              },
+              {
+                "tile34": 2,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 3,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 4,
+                "remainingStatus": "calculated",
+                "remaining": 4
+              },
+              {
+                "tile34": 5,
+                "remainingStatus": "calculated",
+                "remaining": 2
+              },
+              {
+                "tile34": 6,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 7,
+                "remainingStatus": "calculated",
+                "remaining": 2
+              },
+              {
+                "tile34": 8,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 12,
+                "remainingStatus": "calculated",
+                "remaining": 4
+              },
+              {
+                "tile34": 13,
+                "remainingStatus": "calculated",
+                "remaining": 4
+              },
+              {
+                "tile34": 14,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 15,
+                "remainingStatus": "calculated",
+                "remaining": 2
+              },
+              {
+                "tile34": 16,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 17,
+                "remainingStatus": "calculated",
+                "remaining": 2
+              }
+            ]
+          },
+          {
+            "family": "chiitoitsu",
+            "applicability": "applicable",
+            "shanten": 4,
+            "effectiveTiles": [
+              {
+                "tile34": 2,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 5,
+                "remainingStatus": "calculated",
+                "remaining": 2
+              },
+              {
+                "tile34": 14,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 21,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 22,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 23,
+                "remainingStatus": "calculated",
+                "remaining": 2
+              },
+              {
+                "tile34": 24,
+                "remainingStatus": "calculated",
+                "remaining": 2
+              },
+              {
+                "tile34": 25,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 26,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              }
+            ]
+          },
+          {
+            "family": "kokushi",
+            "applicability": "applicable",
+            "shanten": 12,
+            "effectiveTiles": [
+              {
+                "tile34": 0,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 8,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 9,
+                "remainingStatus": "calculated",
+                "remaining": 4
+              },
+              {
+                "tile34": 17,
+                "remainingStatus": "calculated",
+                "remaining": 2
+              },
+              {
+                "tile34": 18,
+                "remainingStatus": "calculated",
+                "remaining": 4
+              },
+              {
+                "tile34": 26,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 27,
+                "remainingStatus": "calculated",
+                "remaining": 2
+              },
+              {
+                "tile34": 28,
+                "remainingStatus": "calculated",
+                "remaining": 4
+              },
+              {
+                "tile34": 29,
+                "remainingStatus": "calculated",
+                "remaining": 2
+              },
+              {
+                "tile34": 30,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 31,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 32,
+                "remainingStatus": "calculated",
+                "remaining": 1
+              },
+              {
+                "tile34": 33,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              }
+            ]
+          }
+        ],
+        "decompositions": {
+          "status": "calculated",
+          "totalNonDominated": 4,
+          "truncated": false,
+          "items": [
+            {
+              "decompositionRef": "standard:85c1fac43f4ca0ccd28786a092e70fa4c739599cc574ce028d624956ffaa7b1c",
+              "family": "standard",
+              "shanten": 2,
+              "groups": [
+                {
+                  "kind": "floating",
+                  "tiles34": [
+                    14
+                  ]
+                },
+                {
+                  "kind": "floating",
+                  "tiles34": [
+                    2
+                  ]
+                },
+                {
+                  "kind": "floating",
+                  "tiles34": [
+                    5
+                  ]
+                },
+                {
+                  "kind": "pair_candidate",
+                  "tiles34": [
+                    15,
+                    15
+                  ]
+                },
+                {
+                  "kind": "pair_candidate",
+                  "tiles34": [
+                    7,
+                    7
+                  ]
+                },
+                {
+                  "kind": "sequence",
+                  "tiles34": [
+                    21,
+                    22,
+                    23
+                  ]
+                },
+                {
+                  "kind": "sequence",
+                  "tiles34": [
+                    24,
+                    25,
+                    26
+                  ]
+                }
+              ]
+            },
+            {
+              "decompositionRef": "standard:57574deefc4f1d52ff38be3d5d8e6fa213d4d58dfa844e0005afa7bede6b7eee",
+              "family": "standard",
+              "shanten": 2,
+              "groups": [
+                {
+                  "kind": "floating",
+                  "tiles34": [
+                    14
+                  ]
+                },
+                {
+                  "kind": "floating",
+                  "tiles34": [
+                    2
+                  ]
+                },
+                {
+                  "kind": "floating",
+                  "tiles34": [
+                    7
+                  ]
+                },
+                {
+                  "kind": "kanchan_taatsu",
+                  "tiles34": [
+                    5,
+                    7
+                  ]
+                },
+                {
+                  "kind": "pair_candidate",
+                  "tiles34": [
+                    15,
+                    15
+                  ]
+                },
+                {
+                  "kind": "sequence",
+                  "tiles34": [
+                    21,
+                    22,
+                    23
+                  ]
+                },
+                {
+                  "kind": "sequence",
+                  "tiles34": [
+                    24,
+                    25,
+                    26
+                  ]
+                }
+              ]
+            },
+            {
+              "decompositionRef": "standard:6255480421c18f68bfb3814496a594cb249b143a48ad59001226ee62c071baf9",
+              "family": "standard",
+              "shanten": 2,
+              "groups": [
+                {
+                  "kind": "floating",
+                  "tiles34": [
+                    15
+                  ]
+                },
+                {
+                  "kind": "floating",
+                  "tiles34": [
+                    2
+                  ]
+                },
+                {
+                  "kind": "floating",
+                  "tiles34": [
+                    5
+                  ]
+                },
+                {
+                  "kind": "pair_candidate",
+                  "tiles34": [
+                    7,
+                    7
+                  ]
+                },
+                {
+                  "kind": "ryanmen_taatsu",
+                  "tiles34": [
+                    14,
+                    15
+                  ]
+                },
+                {
+                  "kind": "sequence",
+                  "tiles34": [
+                    21,
+                    22,
+                    23
+                  ]
+                },
+                {
+                  "kind": "sequence",
+                  "tiles34": [
+                    24,
+                    25,
+                    26
+                  ]
+                }
+              ]
+            },
+            {
+              "decompositionRef": "standard:3875fe7fb02c868c5abbafde137751d7a2ff87a8673fbc880f2e0169f3ac0d1c",
+              "family": "standard",
+              "shanten": 2,
+              "groups": [
+                {
+                  "kind": "floating",
+                  "tiles34": [
+                    15
+                  ]
+                },
+                {
+                  "kind": "floating",
+                  "tiles34": [
+                    2
+                  ]
+                },
+                {
+                  "kind": "floating",
+                  "tiles34": [
+                    7
+                  ]
+                },
+                {
+                  "kind": "kanchan_taatsu",
+                  "tiles34": [
+                    5,
+                    7
+                  ]
+                },
+                {
+                  "kind": "ryanmen_taatsu",
+                  "tiles34": [
+                    14,
+                    15
+                  ]
+                },
+                {
+                  "kind": "sequence",
+                  "tiles34": [
+                    21,
+                    22,
+                    23
+                  ]
+                },
+                {
+                  "kind": "sequence",
+                  "tiles34": [
+                    24,
+                    25,
+                    26
+                  ]
+                }
+              ]
+            }
+          ],
+          "invariantClaims": [
+            {
+              "kind": "floating",
+              "tiles34": [
+                2
+              ]
+            },
+            {
+              "kind": "sequence",
+              "tiles34": [
+                21,
+                22,
+                23
+              ]
+            },
+            {
+              "kind": "sequence",
+              "tiles34": [
+                24,
+                25,
+                26
+              ]
+            }
+          ],
+          "alternativeClaims": [
+            {
+              "kind": "floating",
+              "tiles34": [
+                14
+              ],
+              "decompositionRefs": [
+                "standard:57574deefc4f1d52ff38be3d5d8e6fa213d4d58dfa844e0005afa7bede6b7eee",
+                "standard:85c1fac43f4ca0ccd28786a092e70fa4c739599cc574ce028d624956ffaa7b1c"
+              ]
+            },
+            {
+              "kind": "floating",
+              "tiles34": [
+                15
+              ],
+              "decompositionRefs": [
+                "standard:3875fe7fb02c868c5abbafde137751d7a2ff87a8673fbc880f2e0169f3ac0d1c",
+                "standard:6255480421c18f68bfb3814496a594cb249b143a48ad59001226ee62c071baf9"
+              ]
+            },
+            {
+              "kind": "floating",
+              "tiles34": [
+                5
+              ],
+              "decompositionRefs": [
+                "standard:6255480421c18f68bfb3814496a594cb249b143a48ad59001226ee62c071baf9",
+                "standard:85c1fac43f4ca0ccd28786a092e70fa4c739599cc574ce028d624956ffaa7b1c"
+              ]
+            },
+            {
+              "kind": "floating",
+              "tiles34": [
+                7
+              ],
+              "decompositionRefs": [
+                "standard:3875fe7fb02c868c5abbafde137751d7a2ff87a8673fbc880f2e0169f3ac0d1c",
+                "standard:57574deefc4f1d52ff38be3d5d8e6fa213d4d58dfa844e0005afa7bede6b7eee"
+              ]
+            },
+            {
+              "kind": "kanchan_taatsu",
+              "tiles34": [
+                5,
+                7
+              ],
+              "decompositionRefs": [
+                "standard:3875fe7fb02c868c5abbafde137751d7a2ff87a8673fbc880f2e0169f3ac0d1c",
+                "standard:57574deefc4f1d52ff38be3d5d8e6fa213d4d58dfa844e0005afa7bede6b7eee"
+              ]
+            },
+            {
+              "kind": "pair_candidate",
+              "tiles34": [
+                15,
+                15
+              ],
+              "decompositionRefs": [
+                "standard:57574deefc4f1d52ff38be3d5d8e6fa213d4d58dfa844e0005afa7bede6b7eee",
+                "standard:85c1fac43f4ca0ccd28786a092e70fa4c739599cc574ce028d624956ffaa7b1c"
+              ]
+            },
+            {
+              "kind": "pair_candidate",
+              "tiles34": [
+                7,
+                7
+              ],
+              "decompositionRefs": [
+                "standard:6255480421c18f68bfb3814496a594cb249b143a48ad59001226ee62c071baf9",
+                "standard:85c1fac43f4ca0ccd28786a092e70fa4c739599cc574ce028d624956ffaa7b1c"
+              ]
+            },
+            {
+              "kind": "ryanmen_taatsu",
+              "tiles34": [
+                14,
+                15
+              ],
+              "decompositionRefs": [
+                "standard:3875fe7fb02c868c5abbafde137751d7a2ff87a8673fbc880f2e0169f3ac0d1c",
+                "standard:6255480421c18f68bfb3814496a594cb249b143a48ad59001226ee62c071baf9"
+              ]
+            }
+          ]
+        },
+        "waits": [],
+        "diagnostics": []
       }
     },
     {
@@ -1157,7 +1813,7 @@
       "actionRef": "action:v1:%5B%22discard%22%2C%5B%226s%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
       "request": {
         "kind": "hand13",
-        "requestId": "legacy-regression:east1-turn6:hand13:sha256:5aca7e3bc1210f7ea6d3a0487f1fa926f81796d0986dba0fe6057ed1127280b7",
+        "requestId": "canonical-v2:sha256:7fdcc0e3f08c3812257f6071e2881bb70394e127bda44d741ce62849e167ad38:hand13:sha256:5aca7e3bc1210f7ea6d3a0487f1fa926f81796d0986dba0fe6057ed1127280b7",
         "protocolVersion": "mahjong-facts/v1",
         "actionRef": "action:v1:%5B%22discard%22%2C%5B%226s%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
         "stateHash": "sha256:5aca7e3bc1210f7ea6d3a0487f1fa926f81796d0986dba0fe6057ed1127280b7",
@@ -1260,7 +1916,7 @@
         "remainingDraws": null
       },
       "result": {
-        "requestId": "legacy-regression:east1-turn6:hand13:sha256:5aca7e3bc1210f7ea6d3a0487f1fa926f81796d0986dba0fe6057ed1127280b7",
+        "requestId": "canonical-v2:sha256:7fdcc0e3f08c3812257f6071e2881bb70394e127bda44d741ce62849e167ad38:hand13:sha256:5aca7e3bc1210f7ea6d3a0487f1fa926f81796d0986dba0fe6057ed1127280b7",
         "protocolVersion": "mahjong-facts/v1",
         "actionRef": "action:v1:%5B%22discard%22%2C%5B%226s%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
         "stateHash": "sha256:5aca7e3bc1210f7ea6d3a0487f1fa926f81796d0986dba0fe6057ed1127280b7",
@@ -1998,6 +2654,711 @@
             "field": "mixed_round_point"
           }
         ]
+      },
+      "handStructureRequest": {
+        "kind": "hand_structure",
+        "schemaVersion": "hand-structure/v2",
+        "requestId": "canonical-v2:sha256:7fdcc0e3f08c3812257f6071e2881bb70394e127bda44d741ce62849e167ad38:hand-structure:sha256:6b896943afe4bba94bc5de671dfbf2322d14546b34fc97b3d52eff13e0c3459b",
+        "protocolVersion": "mahjong-facts/v1",
+        "actionRef": "action:v1:%5B%22discard%22%2C%5B%226s%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
+        "stateHash": "sha256:6b896943afe4bba94bc5de671dfbf2322d14546b34fc97b3d52eff13e0c3459b",
+        "handTiles34": [
+          0,
+          0,
+          1,
+          0,
+          0,
+          1,
+          0,
+          2,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "melds": [],
+        "leftTiles34": [
+          3,
+          2,
+          3,
+          3,
+          4,
+          2,
+          3,
+          2,
+          3,
+          4,
+          2,
+          4,
+          4,
+          4,
+          3,
+          2,
+          3,
+          2,
+          4,
+          3,
+          4,
+          3,
+          3,
+          2,
+          2,
+          3,
+          3,
+          2,
+          4,
+          2,
+          3,
+          3,
+          1,
+          3
+        ],
+        "visibleCountsComplete": true,
+        "ronContext": "unknown_future",
+        "yakuContext": {
+          "windsStatus": "known",
+          "roundWindTile34": 27,
+          "selfWindTile34": 30,
+          "riichiStatus": "inactive",
+          "openTanyaoStatus": "unknown"
+        }
+      },
+      "handStructureResult": {
+        "kind": "hand_structure_result",
+        "schemaVersion": "hand-structure/v2",
+        "requestId": "canonical-v2:sha256:7fdcc0e3f08c3812257f6071e2881bb70394e127bda44d741ce62849e167ad38:hand-structure:sha256:6b896943afe4bba94bc5de671dfbf2322d14546b34fc97b3d52eff13e0c3459b",
+        "protocolVersion": "mahjong-facts/v1",
+        "actionRef": "action:v1:%5B%22discard%22%2C%5B%226s%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
+        "stateHash": "sha256:6b896943afe4bba94bc5de671dfbf2322d14546b34fc97b3d52eff13e0c3459b",
+        "identity": {
+          "engine": "mahjong-helper",
+          "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+          "adapterVersion": "0.1.0",
+          "protocolVersion": "mahjong-facts/v1"
+        },
+        "overallShanten": 3,
+        "bestFamilies": [
+          "standard"
+        ],
+        "families": [
+          {
+            "family": "standard",
+            "applicability": "applicable",
+            "shanten": 3,
+            "effectiveTiles": [
+              {
+                "tile34": 0,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 1,
+                "remainingStatus": "calculated",
+                "remaining": 2
+              },
+              {
+                "tile34": 2,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 3,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 4,
+                "remainingStatus": "calculated",
+                "remaining": 4
+              },
+              {
+                "tile34": 5,
+                "remainingStatus": "calculated",
+                "remaining": 2
+              },
+              {
+                "tile34": 6,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 7,
+                "remainingStatus": "calculated",
+                "remaining": 2
+              },
+              {
+                "tile34": 8,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 9,
+                "remainingStatus": "calculated",
+                "remaining": 4
+              },
+              {
+                "tile34": 10,
+                "remainingStatus": "calculated",
+                "remaining": 2
+              },
+              {
+                "tile34": 11,
+                "remainingStatus": "calculated",
+                "remaining": 4
+              },
+              {
+                "tile34": 12,
+                "remainingStatus": "calculated",
+                "remaining": 4
+              },
+              {
+                "tile34": 13,
+                "remainingStatus": "calculated",
+                "remaining": 4
+              },
+              {
+                "tile34": 14,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 15,
+                "remainingStatus": "calculated",
+                "remaining": 2
+              },
+              {
+                "tile34": 16,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 17,
+                "remainingStatus": "calculated",
+                "remaining": 2
+              },
+              {
+                "tile34": 20,
+                "remainingStatus": "calculated",
+                "remaining": 4
+              },
+              {
+                "tile34": 23,
+                "remainingStatus": "calculated",
+                "remaining": 2
+              }
+            ]
+          },
+          {
+            "family": "chiitoitsu",
+            "applicability": "applicable",
+            "shanten": 4,
+            "effectiveTiles": [
+              {
+                "tile34": 2,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 5,
+                "remainingStatus": "calculated",
+                "remaining": 2
+              },
+              {
+                "tile34": 10,
+                "remainingStatus": "calculated",
+                "remaining": 2
+              },
+              {
+                "tile34": 14,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 21,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 22,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 24,
+                "remainingStatus": "calculated",
+                "remaining": 2
+              },
+              {
+                "tile34": 25,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 26,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              }
+            ]
+          },
+          {
+            "family": "kokushi",
+            "applicability": "applicable",
+            "shanten": 12,
+            "effectiveTiles": [
+              {
+                "tile34": 0,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 8,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 9,
+                "remainingStatus": "calculated",
+                "remaining": 4
+              },
+              {
+                "tile34": 17,
+                "remainingStatus": "calculated",
+                "remaining": 2
+              },
+              {
+                "tile34": 18,
+                "remainingStatus": "calculated",
+                "remaining": 4
+              },
+              {
+                "tile34": 26,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 27,
+                "remainingStatus": "calculated",
+                "remaining": 2
+              },
+              {
+                "tile34": 28,
+                "remainingStatus": "calculated",
+                "remaining": 4
+              },
+              {
+                "tile34": 29,
+                "remainingStatus": "calculated",
+                "remaining": 2
+              },
+              {
+                "tile34": 30,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 31,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 32,
+                "remainingStatus": "calculated",
+                "remaining": 1
+              },
+              {
+                "tile34": 33,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              }
+            ]
+          }
+        ],
+        "decompositions": {
+          "status": "calculated",
+          "totalNonDominated": 4,
+          "truncated": false,
+          "items": [
+            {
+              "decompositionRef": "standard:cc6a37a1d58924daf683e5cc8009995ae6a964b15fa033baebd7bdbd70bb102b",
+              "family": "standard",
+              "shanten": 3,
+              "groups": [
+                {
+                  "kind": "floating",
+                  "tiles34": [
+                    10
+                  ]
+                },
+                {
+                  "kind": "floating",
+                  "tiles34": [
+                    14
+                  ]
+                },
+                {
+                  "kind": "floating",
+                  "tiles34": [
+                    2
+                  ]
+                },
+                {
+                  "kind": "floating",
+                  "tiles34": [
+                    5
+                  ]
+                },
+                {
+                  "kind": "pair_candidate",
+                  "tiles34": [
+                    15,
+                    15
+                  ]
+                },
+                {
+                  "kind": "pair_candidate",
+                  "tiles34": [
+                    7,
+                    7
+                  ]
+                },
+                {
+                  "kind": "ryanmen_taatsu",
+                  "tiles34": [
+                    21,
+                    22
+                  ]
+                },
+                {
+                  "kind": "sequence",
+                  "tiles34": [
+                    24,
+                    25,
+                    26
+                  ]
+                }
+              ]
+            },
+            {
+              "decompositionRef": "standard:1243f1d5333df2f3fc7e21a174b8fa10a9d671ee12d4a3119d918f4ed6550594",
+              "family": "standard",
+              "shanten": 3,
+              "groups": [
+                {
+                  "kind": "floating",
+                  "tiles34": [
+                    10
+                  ]
+                },
+                {
+                  "kind": "floating",
+                  "tiles34": [
+                    14
+                  ]
+                },
+                {
+                  "kind": "floating",
+                  "tiles34": [
+                    2
+                  ]
+                },
+                {
+                  "kind": "floating",
+                  "tiles34": [
+                    7
+                  ]
+                },
+                {
+                  "kind": "kanchan_taatsu",
+                  "tiles34": [
+                    5,
+                    7
+                  ]
+                },
+                {
+                  "kind": "pair_candidate",
+                  "tiles34": [
+                    15,
+                    15
+                  ]
+                },
+                {
+                  "kind": "ryanmen_taatsu",
+                  "tiles34": [
+                    21,
+                    22
+                  ]
+                },
+                {
+                  "kind": "sequence",
+                  "tiles34": [
+                    24,
+                    25,
+                    26
+                  ]
+                }
+              ]
+            },
+            {
+              "decompositionRef": "standard:95cdda2affd231e1ea84b6bd9cd0a07f837d877b8b66686d2d46815a96f7513e",
+              "family": "standard",
+              "shanten": 3,
+              "groups": [
+                {
+                  "kind": "floating",
+                  "tiles34": [
+                    10
+                  ]
+                },
+                {
+                  "kind": "floating",
+                  "tiles34": [
+                    15
+                  ]
+                },
+                {
+                  "kind": "floating",
+                  "tiles34": [
+                    2
+                  ]
+                },
+                {
+                  "kind": "floating",
+                  "tiles34": [
+                    5
+                  ]
+                },
+                {
+                  "kind": "pair_candidate",
+                  "tiles34": [
+                    7,
+                    7
+                  ]
+                },
+                {
+                  "kind": "ryanmen_taatsu",
+                  "tiles34": [
+                    14,
+                    15
+                  ]
+                },
+                {
+                  "kind": "ryanmen_taatsu",
+                  "tiles34": [
+                    21,
+                    22
+                  ]
+                },
+                {
+                  "kind": "sequence",
+                  "tiles34": [
+                    24,
+                    25,
+                    26
+                  ]
+                }
+              ]
+            },
+            {
+              "decompositionRef": "standard:c041bd6e0f5c487d7f499c7d429c1574583ade087d553ab52a3c26ab5e3194ef",
+              "family": "standard",
+              "shanten": 3,
+              "groups": [
+                {
+                  "kind": "floating",
+                  "tiles34": [
+                    10
+                  ]
+                },
+                {
+                  "kind": "floating",
+                  "tiles34": [
+                    15
+                  ]
+                },
+                {
+                  "kind": "floating",
+                  "tiles34": [
+                    2
+                  ]
+                },
+                {
+                  "kind": "floating",
+                  "tiles34": [
+                    7
+                  ]
+                },
+                {
+                  "kind": "kanchan_taatsu",
+                  "tiles34": [
+                    5,
+                    7
+                  ]
+                },
+                {
+                  "kind": "ryanmen_taatsu",
+                  "tiles34": [
+                    14,
+                    15
+                  ]
+                },
+                {
+                  "kind": "ryanmen_taatsu",
+                  "tiles34": [
+                    21,
+                    22
+                  ]
+                },
+                {
+                  "kind": "sequence",
+                  "tiles34": [
+                    24,
+                    25,
+                    26
+                  ]
+                }
+              ]
+            }
+          ],
+          "invariantClaims": [
+            {
+              "kind": "floating",
+              "tiles34": [
+                10
+              ]
+            },
+            {
+              "kind": "floating",
+              "tiles34": [
+                2
+              ]
+            },
+            {
+              "kind": "ryanmen_taatsu",
+              "tiles34": [
+                21,
+                22
+              ]
+            },
+            {
+              "kind": "sequence",
+              "tiles34": [
+                24,
+                25,
+                26
+              ]
+            }
+          ],
+          "alternativeClaims": [
+            {
+              "kind": "floating",
+              "tiles34": [
+                14
+              ],
+              "decompositionRefs": [
+                "standard:1243f1d5333df2f3fc7e21a174b8fa10a9d671ee12d4a3119d918f4ed6550594",
+                "standard:cc6a37a1d58924daf683e5cc8009995ae6a964b15fa033baebd7bdbd70bb102b"
+              ]
+            },
+            {
+              "kind": "floating",
+              "tiles34": [
+                15
+              ],
+              "decompositionRefs": [
+                "standard:95cdda2affd231e1ea84b6bd9cd0a07f837d877b8b66686d2d46815a96f7513e",
+                "standard:c041bd6e0f5c487d7f499c7d429c1574583ade087d553ab52a3c26ab5e3194ef"
+              ]
+            },
+            {
+              "kind": "floating",
+              "tiles34": [
+                5
+              ],
+              "decompositionRefs": [
+                "standard:95cdda2affd231e1ea84b6bd9cd0a07f837d877b8b66686d2d46815a96f7513e",
+                "standard:cc6a37a1d58924daf683e5cc8009995ae6a964b15fa033baebd7bdbd70bb102b"
+              ]
+            },
+            {
+              "kind": "floating",
+              "tiles34": [
+                7
+              ],
+              "decompositionRefs": [
+                "standard:1243f1d5333df2f3fc7e21a174b8fa10a9d671ee12d4a3119d918f4ed6550594",
+                "standard:c041bd6e0f5c487d7f499c7d429c1574583ade087d553ab52a3c26ab5e3194ef"
+              ]
+            },
+            {
+              "kind": "kanchan_taatsu",
+              "tiles34": [
+                5,
+                7
+              ],
+              "decompositionRefs": [
+                "standard:1243f1d5333df2f3fc7e21a174b8fa10a9d671ee12d4a3119d918f4ed6550594",
+                "standard:c041bd6e0f5c487d7f499c7d429c1574583ade087d553ab52a3c26ab5e3194ef"
+              ]
+            },
+            {
+              "kind": "pair_candidate",
+              "tiles34": [
+                15,
+                15
+              ],
+              "decompositionRefs": [
+                "standard:1243f1d5333df2f3fc7e21a174b8fa10a9d671ee12d4a3119d918f4ed6550594",
+                "standard:cc6a37a1d58924daf683e5cc8009995ae6a964b15fa033baebd7bdbd70bb102b"
+              ]
+            },
+            {
+              "kind": "pair_candidate",
+              "tiles34": [
+                7,
+                7
+              ],
+              "decompositionRefs": [
+                "standard:95cdda2affd231e1ea84b6bd9cd0a07f837d877b8b66686d2d46815a96f7513e",
+                "standard:cc6a37a1d58924daf683e5cc8009995ae6a964b15fa033baebd7bdbd70bb102b"
+              ]
+            },
+            {
+              "kind": "ryanmen_taatsu",
+              "tiles34": [
+                14,
+                15
+              ],
+              "decompositionRefs": [
+                "standard:95cdda2affd231e1ea84b6bd9cd0a07f837d877b8b66686d2d46815a96f7513e",
+                "standard:c041bd6e0f5c487d7f499c7d429c1574583ade087d553ab52a3c26ab5e3194ef"
+              ]
+            }
+          ]
+        },
+        "waits": [],
+        "diagnostics": []
       }
     },
     {
@@ -2005,7 +3366,7 @@
       "actionRef": "action:v1:%5B%22discard%22%2C%5B%227p%22%2Cfalse%5D%2C%22tedashi%22%5D",
       "request": {
         "kind": "hand13",
-        "requestId": "legacy-regression:east1-turn7:hand13:sha256:de47dd8a97da4e0cea726869b29faf4e90114fe9dc077765ced4f4e769be0910",
+        "requestId": "canonical-v2:sha256:c9f33c5df839c1bc5a677847e2446d26918d9fae5733a2932adf4e55846fb798:hand13:sha256:de47dd8a97da4e0cea726869b29faf4e90114fe9dc077765ced4f4e769be0910",
         "protocolVersion": "mahjong-facts/v1",
         "actionRef": "action:v1:%5B%22discard%22%2C%5B%227p%22%2Cfalse%5D%2C%22tedashi%22%5D",
         "stateHash": "sha256:de47dd8a97da4e0cea726869b29faf4e90114fe9dc077765ced4f4e769be0910",
@@ -2109,7 +3470,7 @@
         "remainingDraws": null
       },
       "result": {
-        "requestId": "legacy-regression:east1-turn7:hand13:sha256:de47dd8a97da4e0cea726869b29faf4e90114fe9dc077765ced4f4e769be0910",
+        "requestId": "canonical-v2:sha256:c9f33c5df839c1bc5a677847e2446d26918d9fae5733a2932adf4e55846fb798:hand13:sha256:de47dd8a97da4e0cea726869b29faf4e90114fe9dc077765ced4f4e769be0910",
         "protocolVersion": "mahjong-facts/v1",
         "actionRef": "action:v1:%5B%22discard%22%2C%5B%227p%22%2Cfalse%5D%2C%22tedashi%22%5D",
         "stateHash": "sha256:de47dd8a97da4e0cea726869b29faf4e90114fe9dc077765ced4f4e769be0910",
@@ -3148,6 +4509,478 @@
             "field": "mixed_round_point"
           }
         ]
+      },
+      "handStructureRequest": {
+        "kind": "hand_structure",
+        "schemaVersion": "hand-structure/v2",
+        "requestId": "canonical-v2:sha256:c9f33c5df839c1bc5a677847e2446d26918d9fae5733a2932adf4e55846fb798:hand-structure:sha256:774d19ac7785f41e2fa9aef28c05fb52af6c809e2f2546a8e6da936919ee2e33",
+        "protocolVersion": "mahjong-facts/v1",
+        "actionRef": "action:v1:%5B%22discard%22%2C%5B%227p%22%2Cfalse%5D%2C%22tedashi%22%5D",
+        "stateHash": "sha256:774d19ac7785f41e2fa9aef28c05fb52af6c809e2f2546a8e6da936919ee2e33",
+        "handTiles34": [
+          0,
+          0,
+          1,
+          0,
+          0,
+          1,
+          0,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "melds": [],
+        "leftTiles34": [
+          3,
+          2,
+          3,
+          3,
+          4,
+          2,
+          3,
+          2,
+          3,
+          3,
+          2,
+          3,
+          4,
+          4,
+          3,
+          2,
+          2,
+          1,
+          4,
+          3,
+          4,
+          3,
+          3,
+          2,
+          2,
+          3,
+          3,
+          2,
+          1,
+          2,
+          3,
+          3,
+          1,
+          2
+        ],
+        "visibleCountsComplete": true,
+        "ronContext": "unknown_future",
+        "yakuContext": {
+          "windsStatus": "known",
+          "roundWindTile34": 27,
+          "selfWindTile34": 30,
+          "riichiStatus": "inactive",
+          "openTanyaoStatus": "unknown"
+        }
+      },
+      "handStructureResult": {
+        "kind": "hand_structure_result",
+        "schemaVersion": "hand-structure/v2",
+        "requestId": "canonical-v2:sha256:c9f33c5df839c1bc5a677847e2446d26918d9fae5733a2932adf4e55846fb798:hand-structure:sha256:774d19ac7785f41e2fa9aef28c05fb52af6c809e2f2546a8e6da936919ee2e33",
+        "protocolVersion": "mahjong-facts/v1",
+        "actionRef": "action:v1:%5B%22discard%22%2C%5B%227p%22%2Cfalse%5D%2C%22tedashi%22%5D",
+        "stateHash": "sha256:774d19ac7785f41e2fa9aef28c05fb52af6c809e2f2546a8e6da936919ee2e33",
+        "identity": {
+          "engine": "mahjong-helper",
+          "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+          "adapterVersion": "0.1.0",
+          "protocolVersion": "mahjong-facts/v1"
+        },
+        "overallShanten": 1,
+        "bestFamilies": [
+          "standard"
+        ],
+        "families": [
+          {
+            "family": "standard",
+            "applicability": "applicable",
+            "shanten": 1,
+            "effectiveTiles": [
+              {
+                "tile34": 0,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 1,
+                "remainingStatus": "calculated",
+                "remaining": 2
+              },
+              {
+                "tile34": 2,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 3,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 4,
+                "remainingStatus": "calculated",
+                "remaining": 4
+              },
+              {
+                "tile34": 5,
+                "remainingStatus": "calculated",
+                "remaining": 2
+              },
+              {
+                "tile34": 6,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 7,
+                "remainingStatus": "calculated",
+                "remaining": 2
+              }
+            ]
+          },
+          {
+            "family": "chiitoitsu",
+            "applicability": "applicable",
+            "shanten": 5,
+            "effectiveTiles": [
+              {
+                "tile34": 2,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 5,
+                "remainingStatus": "calculated",
+                "remaining": 2
+              },
+              {
+                "tile34": 14,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 15,
+                "remainingStatus": "calculated",
+                "remaining": 2
+              },
+              {
+                "tile34": 16,
+                "remainingStatus": "calculated",
+                "remaining": 2
+              },
+              {
+                "tile34": 21,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 22,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 23,
+                "remainingStatus": "calculated",
+                "remaining": 2
+              },
+              {
+                "tile34": 24,
+                "remainingStatus": "calculated",
+                "remaining": 2
+              },
+              {
+                "tile34": 25,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 26,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              }
+            ]
+          },
+          {
+            "family": "kokushi",
+            "applicability": "applicable",
+            "shanten": 12,
+            "effectiveTiles": [
+              {
+                "tile34": 0,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 8,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 9,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 17,
+                "remainingStatus": "calculated",
+                "remaining": 1
+              },
+              {
+                "tile34": 18,
+                "remainingStatus": "calculated",
+                "remaining": 4
+              },
+              {
+                "tile34": 26,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 27,
+                "remainingStatus": "calculated",
+                "remaining": 2
+              },
+              {
+                "tile34": 28,
+                "remainingStatus": "calculated",
+                "remaining": 1
+              },
+              {
+                "tile34": 29,
+                "remainingStatus": "calculated",
+                "remaining": 2
+              },
+              {
+                "tile34": 30,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 31,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 32,
+                "remainingStatus": "calculated",
+                "remaining": 1
+              },
+              {
+                "tile34": 33,
+                "remainingStatus": "calculated",
+                "remaining": 2
+              }
+            ]
+          }
+        ],
+        "decompositions": {
+          "status": "calculated",
+          "totalNonDominated": 2,
+          "truncated": false,
+          "items": [
+            {
+              "decompositionRef": "standard:d68a96eb0f15c12ae0476c5478e56379053886511fa235101f922082904befb1",
+              "family": "standard",
+              "shanten": 1,
+              "groups": [
+                {
+                  "kind": "floating",
+                  "tiles34": [
+                    2
+                  ]
+                },
+                {
+                  "kind": "floating",
+                  "tiles34": [
+                    5
+                  ]
+                },
+                {
+                  "kind": "pair_candidate",
+                  "tiles34": [
+                    7,
+                    7
+                  ]
+                },
+                {
+                  "kind": "sequence",
+                  "tiles34": [
+                    14,
+                    15,
+                    16
+                  ]
+                },
+                {
+                  "kind": "sequence",
+                  "tiles34": [
+                    21,
+                    22,
+                    23
+                  ]
+                },
+                {
+                  "kind": "sequence",
+                  "tiles34": [
+                    24,
+                    25,
+                    26
+                  ]
+                }
+              ]
+            },
+            {
+              "decompositionRef": "standard:0b8852b3a1f4c71ccac4ba8b92571e8b0f12449b1807fb761e6e8b574beb0525",
+              "family": "standard",
+              "shanten": 1,
+              "groups": [
+                {
+                  "kind": "floating",
+                  "tiles34": [
+                    2
+                  ]
+                },
+                {
+                  "kind": "floating",
+                  "tiles34": [
+                    7
+                  ]
+                },
+                {
+                  "kind": "kanchan_taatsu",
+                  "tiles34": [
+                    5,
+                    7
+                  ]
+                },
+                {
+                  "kind": "sequence",
+                  "tiles34": [
+                    14,
+                    15,
+                    16
+                  ]
+                },
+                {
+                  "kind": "sequence",
+                  "tiles34": [
+                    21,
+                    22,
+                    23
+                  ]
+                },
+                {
+                  "kind": "sequence",
+                  "tiles34": [
+                    24,
+                    25,
+                    26
+                  ]
+                }
+              ]
+            }
+          ],
+          "invariantClaims": [
+            {
+              "kind": "floating",
+              "tiles34": [
+                2
+              ]
+            },
+            {
+              "kind": "sequence",
+              "tiles34": [
+                14,
+                15,
+                16
+              ]
+            },
+            {
+              "kind": "sequence",
+              "tiles34": [
+                21,
+                22,
+                23
+              ]
+            },
+            {
+              "kind": "sequence",
+              "tiles34": [
+                24,
+                25,
+                26
+              ]
+            }
+          ],
+          "alternativeClaims": [
+            {
+              "kind": "floating",
+              "tiles34": [
+                5
+              ],
+              "decompositionRefs": [
+                "standard:d68a96eb0f15c12ae0476c5478e56379053886511fa235101f922082904befb1"
+              ]
+            },
+            {
+              "kind": "floating",
+              "tiles34": [
+                7
+              ],
+              "decompositionRefs": [
+                "standard:0b8852b3a1f4c71ccac4ba8b92571e8b0f12449b1807fb761e6e8b574beb0525"
+              ]
+            },
+            {
+              "kind": "kanchan_taatsu",
+              "tiles34": [
+                5,
+                7
+              ],
+              "decompositionRefs": [
+                "standard:0b8852b3a1f4c71ccac4ba8b92571e8b0f12449b1807fb761e6e8b574beb0525"
+              ]
+            },
+            {
+              "kind": "pair_candidate",
+              "tiles34": [
+                7,
+                7
+              ],
+              "decompositionRefs": [
+                "standard:d68a96eb0f15c12ae0476c5478e56379053886511fa235101f922082904befb1"
+              ]
+            }
+          ]
+        },
+        "waits": [],
+        "diagnostics": []
       }
     },
     {
@@ -3155,7 +4988,7 @@
       "actionRef": "action:v1:%5B%22discard%22%2C%5B%228p%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
       "request": {
         "kind": "hand13",
-        "requestId": "legacy-regression:east1-turn7:hand13:sha256:3270c30f07bd5dc1486d2b3d9a937002fc1f434701356dd95712113d0be79e63",
+        "requestId": "canonical-v2:sha256:c9f33c5df839c1bc5a677847e2446d26918d9fae5733a2932adf4e55846fb798:hand13:sha256:3270c30f07bd5dc1486d2b3d9a937002fc1f434701356dd95712113d0be79e63",
         "protocolVersion": "mahjong-facts/v1",
         "actionRef": "action:v1:%5B%22discard%22%2C%5B%228p%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
         "stateHash": "sha256:3270c30f07bd5dc1486d2b3d9a937002fc1f434701356dd95712113d0be79e63",
@@ -3259,7 +5092,7 @@
         "remainingDraws": null
       },
       "result": {
-        "requestId": "legacy-regression:east1-turn7:hand13:sha256:3270c30f07bd5dc1486d2b3d9a937002fc1f434701356dd95712113d0be79e63",
+        "requestId": "canonical-v2:sha256:c9f33c5df839c1bc5a677847e2446d26918d9fae5733a2932adf4e55846fb798:hand13:sha256:3270c30f07bd5dc1486d2b3d9a937002fc1f434701356dd95712113d0be79e63",
         "protocolVersion": "mahjong-facts/v1",
         "actionRef": "action:v1:%5B%22discard%22%2C%5B%228p%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
         "stateHash": "sha256:3270c30f07bd5dc1486d2b3d9a937002fc1f434701356dd95712113d0be79e63",
@@ -4169,6 +6002,661 @@
             "field": "mixed_round_point"
           }
         ]
+      },
+      "handStructureRequest": {
+        "kind": "hand_structure",
+        "schemaVersion": "hand-structure/v2",
+        "requestId": "canonical-v2:sha256:c9f33c5df839c1bc5a677847e2446d26918d9fae5733a2932adf4e55846fb798:hand-structure:sha256:d4037af80f2d877f03becb6bafc479d1065186fe26b89dfb5ea99a66c4ba4bb8",
+        "protocolVersion": "mahjong-facts/v1",
+        "actionRef": "action:v1:%5B%22discard%22%2C%5B%228p%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
+        "stateHash": "sha256:d4037af80f2d877f03becb6bafc479d1065186fe26b89dfb5ea99a66c4ba4bb8",
+        "handTiles34": [
+          0,
+          0,
+          1,
+          0,
+          0,
+          1,
+          0,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "melds": [],
+        "leftTiles34": [
+          3,
+          2,
+          3,
+          3,
+          4,
+          2,
+          3,
+          2,
+          3,
+          3,
+          2,
+          3,
+          4,
+          4,
+          3,
+          2,
+          2,
+          1,
+          4,
+          3,
+          4,
+          3,
+          3,
+          2,
+          2,
+          3,
+          3,
+          2,
+          1,
+          2,
+          3,
+          3,
+          1,
+          2
+        ],
+        "visibleCountsComplete": true,
+        "ronContext": "unknown_future",
+        "yakuContext": {
+          "windsStatus": "known",
+          "roundWindTile34": 27,
+          "selfWindTile34": 30,
+          "riichiStatus": "inactive",
+          "openTanyaoStatus": "unknown"
+        }
+      },
+      "handStructureResult": {
+        "kind": "hand_structure_result",
+        "schemaVersion": "hand-structure/v2",
+        "requestId": "canonical-v2:sha256:c9f33c5df839c1bc5a677847e2446d26918d9fae5733a2932adf4e55846fb798:hand-structure:sha256:d4037af80f2d877f03becb6bafc479d1065186fe26b89dfb5ea99a66c4ba4bb8",
+        "protocolVersion": "mahjong-facts/v1",
+        "actionRef": "action:v1:%5B%22discard%22%2C%5B%228p%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
+        "stateHash": "sha256:d4037af80f2d877f03becb6bafc479d1065186fe26b89dfb5ea99a66c4ba4bb8",
+        "identity": {
+          "engine": "mahjong-helper",
+          "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+          "adapterVersion": "0.1.0",
+          "protocolVersion": "mahjong-facts/v1"
+        },
+        "overallShanten": 2,
+        "bestFamilies": [
+          "standard"
+        ],
+        "families": [
+          {
+            "family": "standard",
+            "applicability": "applicable",
+            "shanten": 2,
+            "effectiveTiles": [
+              {
+                "tile34": 0,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 1,
+                "remainingStatus": "calculated",
+                "remaining": 2
+              },
+              {
+                "tile34": 2,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 3,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 4,
+                "remainingStatus": "calculated",
+                "remaining": 4
+              },
+              {
+                "tile34": 5,
+                "remainingStatus": "calculated",
+                "remaining": 2
+              },
+              {
+                "tile34": 6,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 7,
+                "remainingStatus": "calculated",
+                "remaining": 2
+              },
+              {
+                "tile34": 8,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 12,
+                "remainingStatus": "calculated",
+                "remaining": 4
+              },
+              {
+                "tile34": 13,
+                "remainingStatus": "calculated",
+                "remaining": 4
+              },
+              {
+                "tile34": 14,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 15,
+                "remainingStatus": "calculated",
+                "remaining": 2
+              },
+              {
+                "tile34": 16,
+                "remainingStatus": "calculated",
+                "remaining": 2
+              },
+              {
+                "tile34": 17,
+                "remainingStatus": "calculated",
+                "remaining": 1
+              }
+            ]
+          },
+          {
+            "family": "chiitoitsu",
+            "applicability": "applicable",
+            "shanten": 4,
+            "effectiveTiles": [
+              {
+                "tile34": 2,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 5,
+                "remainingStatus": "calculated",
+                "remaining": 2
+              },
+              {
+                "tile34": 14,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 21,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 22,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 23,
+                "remainingStatus": "calculated",
+                "remaining": 2
+              },
+              {
+                "tile34": 24,
+                "remainingStatus": "calculated",
+                "remaining": 2
+              },
+              {
+                "tile34": 25,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 26,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              }
+            ]
+          },
+          {
+            "family": "kokushi",
+            "applicability": "applicable",
+            "shanten": 12,
+            "effectiveTiles": [
+              {
+                "tile34": 0,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 8,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 9,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 17,
+                "remainingStatus": "calculated",
+                "remaining": 1
+              },
+              {
+                "tile34": 18,
+                "remainingStatus": "calculated",
+                "remaining": 4
+              },
+              {
+                "tile34": 26,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 27,
+                "remainingStatus": "calculated",
+                "remaining": 2
+              },
+              {
+                "tile34": 28,
+                "remainingStatus": "calculated",
+                "remaining": 1
+              },
+              {
+                "tile34": 29,
+                "remainingStatus": "calculated",
+                "remaining": 2
+              },
+              {
+                "tile34": 30,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 31,
+                "remainingStatus": "calculated",
+                "remaining": 3
+              },
+              {
+                "tile34": 32,
+                "remainingStatus": "calculated",
+                "remaining": 1
+              },
+              {
+                "tile34": 33,
+                "remainingStatus": "calculated",
+                "remaining": 2
+              }
+            ]
+          }
+        ],
+        "decompositions": {
+          "status": "calculated",
+          "totalNonDominated": 4,
+          "truncated": false,
+          "items": [
+            {
+              "decompositionRef": "standard:85c1fac43f4ca0ccd28786a092e70fa4c739599cc574ce028d624956ffaa7b1c",
+              "family": "standard",
+              "shanten": 2,
+              "groups": [
+                {
+                  "kind": "floating",
+                  "tiles34": [
+                    14
+                  ]
+                },
+                {
+                  "kind": "floating",
+                  "tiles34": [
+                    2
+                  ]
+                },
+                {
+                  "kind": "floating",
+                  "tiles34": [
+                    5
+                  ]
+                },
+                {
+                  "kind": "pair_candidate",
+                  "tiles34": [
+                    15,
+                    15
+                  ]
+                },
+                {
+                  "kind": "pair_candidate",
+                  "tiles34": [
+                    7,
+                    7
+                  ]
+                },
+                {
+                  "kind": "sequence",
+                  "tiles34": [
+                    21,
+                    22,
+                    23
+                  ]
+                },
+                {
+                  "kind": "sequence",
+                  "tiles34": [
+                    24,
+                    25,
+                    26
+                  ]
+                }
+              ]
+            },
+            {
+              "decompositionRef": "standard:57574deefc4f1d52ff38be3d5d8e6fa213d4d58dfa844e0005afa7bede6b7eee",
+              "family": "standard",
+              "shanten": 2,
+              "groups": [
+                {
+                  "kind": "floating",
+                  "tiles34": [
+                    14
+                  ]
+                },
+                {
+                  "kind": "floating",
+                  "tiles34": [
+                    2
+                  ]
+                },
+                {
+                  "kind": "floating",
+                  "tiles34": [
+                    7
+                  ]
+                },
+                {
+                  "kind": "kanchan_taatsu",
+                  "tiles34": [
+                    5,
+                    7
+                  ]
+                },
+                {
+                  "kind": "pair_candidate",
+                  "tiles34": [
+                    15,
+                    15
+                  ]
+                },
+                {
+                  "kind": "sequence",
+                  "tiles34": [
+                    21,
+                    22,
+                    23
+                  ]
+                },
+                {
+                  "kind": "sequence",
+                  "tiles34": [
+                    24,
+                    25,
+                    26
+                  ]
+                }
+              ]
+            },
+            {
+              "decompositionRef": "standard:6255480421c18f68bfb3814496a594cb249b143a48ad59001226ee62c071baf9",
+              "family": "standard",
+              "shanten": 2,
+              "groups": [
+                {
+                  "kind": "floating",
+                  "tiles34": [
+                    15
+                  ]
+                },
+                {
+                  "kind": "floating",
+                  "tiles34": [
+                    2
+                  ]
+                },
+                {
+                  "kind": "floating",
+                  "tiles34": [
+                    5
+                  ]
+                },
+                {
+                  "kind": "pair_candidate",
+                  "tiles34": [
+                    7,
+                    7
+                  ]
+                },
+                {
+                  "kind": "ryanmen_taatsu",
+                  "tiles34": [
+                    14,
+                    15
+                  ]
+                },
+                {
+                  "kind": "sequence",
+                  "tiles34": [
+                    21,
+                    22,
+                    23
+                  ]
+                },
+                {
+                  "kind": "sequence",
+                  "tiles34": [
+                    24,
+                    25,
+                    26
+                  ]
+                }
+              ]
+            },
+            {
+              "decompositionRef": "standard:3875fe7fb02c868c5abbafde137751d7a2ff87a8673fbc880f2e0169f3ac0d1c",
+              "family": "standard",
+              "shanten": 2,
+              "groups": [
+                {
+                  "kind": "floating",
+                  "tiles34": [
+                    15
+                  ]
+                },
+                {
+                  "kind": "floating",
+                  "tiles34": [
+                    2
+                  ]
+                },
+                {
+                  "kind": "floating",
+                  "tiles34": [
+                    7
+                  ]
+                },
+                {
+                  "kind": "kanchan_taatsu",
+                  "tiles34": [
+                    5,
+                    7
+                  ]
+                },
+                {
+                  "kind": "ryanmen_taatsu",
+                  "tiles34": [
+                    14,
+                    15
+                  ]
+                },
+                {
+                  "kind": "sequence",
+                  "tiles34": [
+                    21,
+                    22,
+                    23
+                  ]
+                },
+                {
+                  "kind": "sequence",
+                  "tiles34": [
+                    24,
+                    25,
+                    26
+                  ]
+                }
+              ]
+            }
+          ],
+          "invariantClaims": [
+            {
+              "kind": "floating",
+              "tiles34": [
+                2
+              ]
+            },
+            {
+              "kind": "sequence",
+              "tiles34": [
+                21,
+                22,
+                23
+              ]
+            },
+            {
+              "kind": "sequence",
+              "tiles34": [
+                24,
+                25,
+                26
+              ]
+            }
+          ],
+          "alternativeClaims": [
+            {
+              "kind": "floating",
+              "tiles34": [
+                14
+              ],
+              "decompositionRefs": [
+                "standard:57574deefc4f1d52ff38be3d5d8e6fa213d4d58dfa844e0005afa7bede6b7eee",
+                "standard:85c1fac43f4ca0ccd28786a092e70fa4c739599cc574ce028d624956ffaa7b1c"
+              ]
+            },
+            {
+              "kind": "floating",
+              "tiles34": [
+                15
+              ],
+              "decompositionRefs": [
+                "standard:3875fe7fb02c868c5abbafde137751d7a2ff87a8673fbc880f2e0169f3ac0d1c",
+                "standard:6255480421c18f68bfb3814496a594cb249b143a48ad59001226ee62c071baf9"
+              ]
+            },
+            {
+              "kind": "floating",
+              "tiles34": [
+                5
+              ],
+              "decompositionRefs": [
+                "standard:6255480421c18f68bfb3814496a594cb249b143a48ad59001226ee62c071baf9",
+                "standard:85c1fac43f4ca0ccd28786a092e70fa4c739599cc574ce028d624956ffaa7b1c"
+              ]
+            },
+            {
+              "kind": "floating",
+              "tiles34": [
+                7
+              ],
+              "decompositionRefs": [
+                "standard:3875fe7fb02c868c5abbafde137751d7a2ff87a8673fbc880f2e0169f3ac0d1c",
+                "standard:57574deefc4f1d52ff38be3d5d8e6fa213d4d58dfa844e0005afa7bede6b7eee"
+              ]
+            },
+            {
+              "kind": "kanchan_taatsu",
+              "tiles34": [
+                5,
+                7
+              ],
+              "decompositionRefs": [
+                "standard:3875fe7fb02c868c5abbafde137751d7a2ff87a8673fbc880f2e0169f3ac0d1c",
+                "standard:57574deefc4f1d52ff38be3d5d8e6fa213d4d58dfa844e0005afa7bede6b7eee"
+              ]
+            },
+            {
+              "kind": "pair_candidate",
+              "tiles34": [
+                15,
+                15
+              ],
+              "decompositionRefs": [
+                "standard:57574deefc4f1d52ff38be3d5d8e6fa213d4d58dfa844e0005afa7bede6b7eee",
+                "standard:85c1fac43f4ca0ccd28786a092e70fa4c739599cc574ce028d624956ffaa7b1c"
+              ]
+            },
+            {
+              "kind": "pair_candidate",
+              "tiles34": [
+                7,
+                7
+              ],
+              "decompositionRefs": [
+                "standard:6255480421c18f68bfb3814496a594cb249b143a48ad59001226ee62c071baf9",
+                "standard:85c1fac43f4ca0ccd28786a092e70fa4c739599cc574ce028d624956ffaa7b1c"
+              ]
+            },
+            {
+              "kind": "ryanmen_taatsu",
+              "tiles34": [
+                14,
+                15
+              ],
+              "decompositionRefs": [
+                "standard:3875fe7fb02c868c5abbafde137751d7a2ff87a8673fbc880f2e0169f3ac0d1c",
+                "standard:6255480421c18f68bfb3814496a594cb249b143a48ad59001226ee62c071baf9"
+              ]
+            }
+          ]
+        },
+        "waits": [],
+        "diagnostics": []
       }
     }
   ]

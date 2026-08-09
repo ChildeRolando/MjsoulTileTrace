@@ -160,13 +160,13 @@ export class JsonlFactEngineClient implements MahjongFactEnginePort {
     if (!parsed.success) {
       throw new FactEngineClientError(
         "invalid_fact_engine_response",
-        parsed.error.issues.map((issue) => issue.message).join("; "),
+        "fact engine identity response failed schema validation",
       );
     }
     if (parsed.data.requestId !== requestId) {
       throw new FactEngineClientError(
         "request_id_mismatch",
-        `expected ${requestId}, received ${parsed.data.requestId}`,
+        "fact engine identity response is not bound to the request",
       );
     }
     return parsed.data.identity;

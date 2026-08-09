@@ -8,12 +8,13 @@ import {
   canonicalTile,
 } from "./fixtures/canonical-stream.js";
 import {
-  buildLegacyRegressionPipelineInput,
   freezeDecisionSnapshot,
   importRegressionFixture,
   projectKnownGameFactsV2,
   replayToDecision,
 } from "../src/index.js";
+import { buildLegacyRegressionPipelineInput } from
+  "../src/factors/legacy-facts-bridge.js";
 import { bridgeLegacyRegressionEvents } from "../src/import/legacy-event-stream-bridge.js";
 
 const fixtureUrl = new URL(
