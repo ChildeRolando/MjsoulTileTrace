@@ -524,15 +524,20 @@ function validateCanonicalPositionOrder(
 }
 
 function validateReplayEvidence(
+  matrixSource: DefenseMatrixV1Shape["source"],
   cell: DefenseMatrixCellV1,
   context: z.RefinementCtx,
   index: number,
   decision: ParsedCanonicalEventRef | null,
 ): void {
-  if (cell.threat.source === "user_asserted") return;
+  if (matrixSource === "user_asserted") return;
   const base = ["cells", index] as Array<string | number>;
   const expectedSourceRefs = cell.threat.kind === "riichi_declared" ? 1 : 2;
-  if (cell.threat.sourceEventRefs.length !== expectedSourceRefs) {
+  const genericThreatSource = cell.threat.source === "user_asserted";
+  if (
+    !genericThreatSource &&
+    cell.threat.sourceEventRefs.length !== expectedSourceRefs
+  ) {
     context.addIssue({
       code: z.ZodIssueCode.custom,
       message: `${cell.threat.kind} requires exactly ${expectedSourceRefs} source event reference(s)`,
@@ -540,11 +545,13 @@ function validateReplayEvidence(
     });
   }
 
-  const source = parseCanonicalRefs(
-    cell.threat.sourceEventRefs,
-    context,
-    [...base, "threat", "sourceEventRefs"],
-  );
+  const source = genericThreatSource
+    ? []
+    : parseCanonicalRefs(
+      cell.threat.sourceEventRefs,
+      context,
+      [...base, "threat", "sourceEventRefs"],
+    );
   const deterministic = cell.deterministicSafety.status === "calculated"
     ? parseCanonicalRefs(
       cell.deterministicSafety.evidenceRefs.map((ref) => ref.eventRef),
@@ -618,7 +625,7 @@ function validateReplayEvidence(
 
   if (source === null || deterministic === null || structural === null) return;
   const all = [...source, ...deterministic, ...structural];
-  const anchor = source[0];
+  const anchor = source[0] ?? deterministic[0] ?? structural[0];
   if (anchor === undefined) return;
   for (const value of all) {
     if (
@@ -803,7 +810,7 @@ function validateUniqueActorsAndBindings(
       });
     }
     validateThreatSemantics(cell, context, index);
-    validateReplayEvidence(cell, context, index, decision);
+    validateReplayEvidence(value.source, cell, context, index, decision);
     validateSafetyBindings(value, cell, context, index);
     validateHonorBinding(value, cell, context, index);
   });

@@ -52,6 +52,7 @@ export * from "./fact-engine/managed-sidecar.js";
 export * from "./factors/candidate-projector.js";
 export * from "./factors/hand-structure-projector.js";
 export * from "./factors/furiten-merger.js";
+export * from "./factors/defense-matrix.js";
 export * from "./factors/hand-structure-ledger.js";
 export * from "./factors/ledger-builder.js";
 export * from "./factors/difference-builder.js";

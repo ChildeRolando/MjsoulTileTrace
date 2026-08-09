@@ -6,6 +6,7 @@ import {
   type Tile,
 } from "@riichi-coach/contracts";
 import { buildLocalDefenseFacts } from "../src/factors/local-defense.js";
+import { projectCandidate } from "../src/factors/candidate-projector.js";
 
 const tile = (id: Tile["id"]): Tile => ({ id, red: false });
 const action = {
@@ -94,5 +95,25 @@ describe("local defense response-opportunity completeness", () => {
         status: "blocked_missing_facts",
         preferenceEligibility: "ineligible",
       });
+  });
+
+  it("keeps non-discard actions outside the Slice 3 projection boundary", () => {
+    const chi = {
+      kind: "chi" as const,
+      calledTile: tile("2m"),
+      consumedTiles: [tile("1m"), tile("3m")] as [Tile, Tile],
+      targetActor: 3,
+      responseEventRef: "event:discard",
+    };
+    const chiCandidate = StructuredComparisonCandidateSchema.parse({
+      action: chi,
+      actionRef: canonicalActionRef(chi),
+      origins: ["user"],
+    });
+
+    expect(projectCandidate(chiCandidate, facts(2))).toMatchObject({
+      status: "unsupported_action_in_slice",
+      actionRef: chiCandidate.actionRef,
+    });
   });
 });

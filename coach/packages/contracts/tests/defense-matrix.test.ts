@@ -537,6 +537,56 @@ describe("DefenseMatrixV1Schema", () => {
       .not.toThrow();
   });
 
+  it("binds derived replay evidence even when a canonical cell threat is user asserted", () => {
+    const noncanonical = calculatedCell();
+    noncanonical.threat = {
+      ...noncanonical.threat,
+      source: "user_asserted",
+      sourceEventRefs: ["user/threat/2"],
+    };
+    noncanonical.deterministicSafety.evidenceRefs = [{
+      role: "threat_own_discard",
+      eventRef: "user/claimed-own-discard",
+    }];
+    noncanonical.structural = {
+      status: "blocked_missing_facts",
+      missing: ["visibility"],
+    };
+    expect(() => DefenseMatrixV1Schema.parse(matrix([noncanonical])))
+      .toThrow("Replay evidence requires a canonical event reference");
+
+    const future = calculatedCell();
+    future.threat = {
+      ...future.threat,
+      source: "user_asserted",
+      sourceEventRefs: ["user/threat/2"],
+    };
+    future.deterministicSafety.evidenceRefs = [{
+      role: "post_riichi_pass",
+      eventRef: "game/0/51/0",
+    }];
+    future.structural = {
+      status: "blocked_missing_facts",
+      missing: ["visibility"],
+    };
+    expect(() => DefenseMatrixV1Schema.parse(matrix([future])))
+      .toThrow("Replay evidence cannot occur after the decision");
+
+    const futureStructural = calculatedCell();
+    futureStructural.threat = {
+      ...futureStructural.threat,
+      source: "user_asserted",
+      sourceEventRefs: ["user/threat/2"],
+    };
+    futureStructural.structural.evidenceIds = [
+      "game/0/48/0",
+      "game/0/51/0",
+    ];
+    rebindStructural(futureStructural);
+    expect(() => DefenseMatrixV1Schema.parse(matrix([futureStructural])))
+      .toThrow("Replay evidence cannot occur after the decision");
+  });
+
   it("rejects open meld evidence on every riichi threat source", () => {
 
     const openMeld = calculatedCell();
