@@ -5,7 +5,11 @@ import {
   canonicalActionRef,
   type Tile,
 } from "@riichi-coach/contracts";
-import { buildLocalDefenseFacts } from "../src/factors/local-defense.js";
+import {
+  assembleDefenseMatrix,
+  buildDeterministicDefenseMatrix,
+} from "../src/factors/defense-matrix.js";
+import { buildCandidateLedger } from "../src/factors/ledger-builder.js";
 import { projectCandidate } from "../src/factors/candidate-projector.js";
 
 const tile = (id: Tile["id"]): Tile => ({ id, red: false });
@@ -22,8 +26,8 @@ const candidate = StructuredComparisonCandidateSchema.parse({
 
 function facts(discardActor: number, ippatsuAlive: boolean | null = false) {
   return KnownGameFactsSchema.parse({
-    factSetId: "legacy-regression:defense-completeness",
-    provenance: "raw_replay",
+    factSetId: "user-asserted:defense-completeness",
+    provenance: "user_asserted",
     actor: 0,
     selfRiichi: false,
     decisionEventRef: "event:draw",
@@ -44,7 +48,7 @@ function facts(discardActor: number, ippatsuAlive: boolean | null = false) {
     defenseThreats: [{
       actor: 2,
       kind: "riichi_accepted",
-      source: "legacy_regression_bridge_only",
+      source: "user_asserted",
       sourceEventRefs: ["event:riichi", "event:accepted"],
       openMeldRefs: [],
       dealerStatus: "non_dealer",
@@ -67,15 +71,44 @@ function facts(discardActor: number, ippatsuAlive: boolean | null = false) {
   });
 }
 
+function defenseFacts(sourceFacts: ReturnType<typeof facts>) {
+  const threatRiskProjections = [{
+    threatActor: 2,
+    status: "blocked_missing_facts" as const,
+    missing: ["visibility"],
+  }];
+  const defenseMatrix = assembleDefenseMatrix({
+    deterministic: buildDeterministicDefenseMatrix({
+      candidate,
+      facts: sourceFacts,
+    }),
+    threatRiskProjections,
+    threatRiskOutcomes: [],
+  });
+  return buildCandidateLedger({
+    candidate,
+    defenseMatrix,
+    scope: { kind: "applied_decision" },
+    projection: {
+      status: "ready",
+      actionRef: candidate.actionRef,
+      projectedStateRef: "sha256:defense-completeness",
+      threatRiskProjections,
+      localEvidenceIds: [...sourceFacts.evidenceIds],
+      diagnostics: [],
+    },
+  }).axes.find((axis) => axis.axis === "defense")!.facts;
+}
+
 describe("local defense response-opportunity completeness", () => {
   it("blocks cross-player post-riichi genbutsu when ron opportunities are incomplete", () => {
-    const result = buildLocalDefenseFacts(candidate, facts(1));
+    const result = defenseFacts(facts(1));
     expect(result.find((fact) => fact.dimension === "genbutsu:actor2"))
       .toMatchObject({ status: "blocked_missing_facts", preferenceEligibility: "ineligible" });
   });
 
   it("keeps the threat actor's own discard deterministic", () => {
-    const result = buildLocalDefenseFacts(candidate, facts(2));
+    const result = defenseFacts(facts(2));
     expect(result.find((fact) => fact.dimension === "genbutsu:actor2"))
       .toMatchObject({
         status: "calculated",
@@ -85,7 +118,7 @@ describe("local defense response-opportunity completeness", () => {
   });
 
   it("blocks ippatsu instead of converting an unknown state to false", () => {
-    const result = buildLocalDefenseFacts(candidate, facts(2, null));
+    const result = defenseFacts(facts(2, null));
     expect(result.find((fact) => fact.dimension === "riichi_threat:actor2"))
       .toMatchObject({ status: "calculated", value: { kind: "boolean", value: true } });
     expect(result.find((fact) => fact.dimension === "genbutsu:actor2"))

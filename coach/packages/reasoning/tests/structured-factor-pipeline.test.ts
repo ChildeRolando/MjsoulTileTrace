@@ -41,8 +41,8 @@ const twoPinRef = canonicalActionRef(twoPinAction);
 const sixSouRef = canonicalActionRef(sixSouAction);
 
 const facts = KnownGameFactsSchema.parse({
-  factSetId: "legacy-regression:pipeline",
-  provenance: "raw_replay",
+  factSetId: "user-asserted:pipeline",
+  provenance: "user_asserted",
   actor: 0,
   selfRiichi: false,
   decisionEventRef: "event:draw",
@@ -74,7 +74,7 @@ const facts = KnownGameFactsSchema.parse({
   defenseThreats: [{
     actor: 2,
     kind: "riichi_accepted",
-    source: "legacy_regression_bridge_only",
+    source: "user_asserted",
     sourceEventRefs: ["event:riichi:2", "event:riichi:accepted:2"],
     openMeldRefs: [],
     dealerStatus: "non_dealer",
@@ -366,6 +366,7 @@ function canonicalPipelineFacts(withSelfDiscard = false) {
   return KnownGameFactsSchema.parse({
     ...facts,
     factSetId: "canonical-v2:sha256:pipeline-prefix",
+    provenance: "raw_replay",
     decisionEventRef: "game:pipeline/0/20/0",
     decisionWindow: {
       kind: "self_turn",
@@ -461,6 +462,12 @@ describe("structured factor pipeline", () => {
     });
     expect(result.ledgers.map((ledger) => ledger.actionRef).sort())
       .toEqual(comparison().candidates.map((candidate) => candidate.actionRef).sort());
+    expect(result.defenseMatrices.map((matrix) => matrix.actionRef))
+      .toEqual([sixSouRef, twoPinRef].sort());
+    expect(new Set(result.defenseMatrices.map((matrix) => matrix.actionRef)).size)
+      .toBe(result.defenseMatrices.length);
+    expect(result.defenseMatrices.map((matrix) => matrix.actionRef))
+      .toEqual(result.ledgers.map((ledger) => ledger.actionRef));
   });
 
   it("fans out only ready structural-risk projections", async () => {
@@ -523,7 +530,7 @@ describe("structured factor pipeline", () => {
       ...comparison(),
       decisionWindow: canonicalFacts.decisionWindow,
     });
-    await runStructuredFactorPipeline({
+    const result = await runStructuredFactorPipeline({
       frame,
       comparisonSet: canonicalComparison,
       facts: canonicalFacts,
@@ -546,6 +553,14 @@ describe("structured factor pipeline", () => {
     )).toBe(true);
     expect(engine.riskRequests.flatMap((request) => request.evidenceIds))
       .not.toContain("user:threat:3");
+    for (const matrix of result.defenseMatrices) {
+      expect(matrix.cells.map((cell) => cell.threat.actor)).toEqual([2, 3]);
+      expect(matrix.cells.find((cell) => cell.threat.actor === 3)?.structural)
+        .toEqual({
+          status: "unsupported_threat_kind",
+          kind: "user_marked_open",
+        });
+    }
   });
 
   it("is invariant to candidate origins and order", async () => {
@@ -578,6 +593,65 @@ describe("structured factor pipeline", () => {
       .toBe("calculated");
     expect(findFact(result, sixSouRef, "efficiency.shanten").status)
       .toBe("blocked_engine_failure");
+    expect(result.defenseMatrices.find((matrix) =>
+      matrix.actionRef === sixSouRef
+    )?.cells[0]).toMatchObject({
+      deterministicSafety: { status: "calculated", genbutsu: true },
+      structural: {
+        status: "blocked_engine_failure",
+        failureCode: "engine_execution_failed",
+      },
+    });
+  });
+
+  it("does not forge a defense matrix for a win candidate", async () => {
+    const winAction = {
+      kind: "tsumo" as const,
+      winningTile: tile("6s"),
+      drawEventRef: facts.currentDraw!.eventRef,
+    };
+    const winRef = canonicalActionRef(winAction);
+    const withWin = StructuredComparisonSetSchema.parse({
+      ...comparison(),
+      candidates: [
+        ...comparison().candidates,
+        { action: winAction, actionRef: winRef, origins: ["model"] },
+      ],
+    });
+    const result = await runStructuredFactorPipeline({
+      frame,
+      comparisonSet: withWin,
+      facts,
+      responseFuriten: unavailableResponse(),
+      engine: new FixtureEngine(),
+    });
+    expect(result.ledgers.some((ledger) => ledger.actionRef === winRef)).toBe(true);
+    expect(result.ledgers.find((ledger) => ledger.actionRef === winRef)?.axes
+      .find((axis) => axis.axis === "defense")?.status)
+      .toBe("unsupported_action_in_slice");
+    expect(result.defenseMatrices.some((matrix) => matrix.actionRef === winRef))
+      .toBe(false);
+    expect(result.defenseMatrices.map((matrix) => matrix.actionRef))
+      .toEqual([sixSouRef, twoPinRef].sort());
+  });
+
+  it("reports a blocked discard projection without claiming a matrix", async () => {
+    const incompleteFacts = KnownGameFactsSchema.parse({
+      ...facts,
+      completeness: { ...facts.completeness, concealedTiles: false },
+    });
+    const result = await runStructuredFactorPipeline({
+      frame,
+      comparisonSet: comparison(),
+      facts: incompleteFacts,
+      responseFuriten: unavailableResponse(),
+      engine: new FixtureEngine(),
+    });
+    expect(result.defenseMatrices).toEqual([]);
+    expect(result.diagnostics).toContainEqual(expect.objectContaining({
+      stage: "projection",
+      status: "blocked_missing_facts",
+    }));
   });
 
   it("does not copy arbitrary engine prose into the LLM-facing result", async () => {

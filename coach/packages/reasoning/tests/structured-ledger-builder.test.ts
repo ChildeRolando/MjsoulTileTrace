@@ -1,12 +1,20 @@
 import { describe, expect, it } from "vitest";
 import {
+  DefenseMatrixV1Schema,
+  STRUCTURAL_RISK_SCALE_VERSION,
   KnownGameFactsSchema,
   StructuredComparisonCandidateSchema,
   canonicalActionRef,
+  defenseStructuralStateHash,
   type CandidateFactorLedger,
+  type DefenseMatrixV1,
   type Hand13FactResult,
   type Tile,
 } from "@riichi-coach/contracts";
+import {
+  assembleDefenseMatrix,
+  buildDeterministicDefenseMatrix,
+} from "../src/factors/defense-matrix.js";
 import {
   buildCandidateLedger,
   type CandidateLedgerBuildInput,
@@ -26,8 +34,8 @@ const candidate = StructuredComparisonCandidateSchema.parse({
 });
 
 const facts = KnownGameFactsSchema.parse({
-  factSetId: "legacy-regression:e1:t6",
-  provenance: "raw_replay",
+  factSetId: "user-asserted:e1:t6",
+  provenance: "user_asserted",
   actor: 0,
   selfRiichi: false,
   decisionEventRef: "event-draw",
@@ -56,7 +64,7 @@ const facts = KnownGameFactsSchema.parse({
   defenseThreats: [{
     actor: 2,
     kind: "riichi_accepted",
-    source: "legacy_regression_bridge_only",
+    source: "user_asserted",
     sourceEventRefs: ["event-riichi-2", "event-riichi-accepted-2"],
     openMeldRefs: [],
     dealerStatus: "non_dealer",
@@ -119,10 +127,147 @@ function handResult(overrides: Partial<Hand13FactResult> = {}): Hand13FactResult
   };
 }
 
+function validClassifications(safeTiles34: readonly boolean[]) {
+  return Array.from({ length: 27 }, (_, tile34) => {
+    if (safeTiles34[tile34]) {
+      return { tile34, kind: "genbutsu" as const };
+    }
+    const rank = tile34 % 9;
+    const safeCount = rank <= 2
+      ? Number(safeTiles34[tile34 + 3])
+      : rank >= 6
+      ? Number(safeTiles34[tile34 - 3])
+      : Number(safeTiles34[tile34 - 3]) +
+        Number(safeTiles34[tile34 + 3]);
+    const kind = rank >= 3 && rank <= 5
+      ? safeCount === 0 ? "no_suji" as const
+      : safeCount === 1 ? "half_suji" as const : "double_suji" as const
+      : safeCount === 0 ? "no_suji" as const : "suji" as const;
+    return { tile34, kind };
+  }).concat(safeTiles34.slice(27).flatMap((safe, index) =>
+    safe ? [{ tile34: 27 + index, kind: "genbutsu" as const }] : []
+  ));
+}
+
+function validLeftNoSuji(safeTiles34: readonly boolean[]): number[] {
+  const values = Array<boolean>(27).fill(false);
+  for (let suit = 0; suit < 3; suit++) {
+    const base = suit * 9;
+    for (let rank = 3; rank < 6; rank++) {
+      if (!safeTiles34[base + rank]) {
+        values[base + rank - 3] = true;
+        values[base + rank + 3] = true;
+      }
+    }
+  }
+  return values.flatMap((value, tile34) =>
+    value && !safeTiles34[tile34] ? [tile34] : []
+  );
+}
+
+function defenseMatrixFor(
+  selected = candidate,
+  outcomeStatus: "calculated" | "blocked_engine_failure" = "calculated",
+  sourceFacts = facts,
+): DefenseMatrixV1 {
+  const deterministic = buildDeterministicDefenseMatrix({
+    candidate: selected,
+    facts: sourceFacts,
+  });
+  if (deterministic.cells.length === 0) {
+    return assembleDefenseMatrix({
+      deterministic,
+      threatRiskProjections: [],
+      threatRiskOutcomes: [],
+    });
+  }
+  const candidateTile34 = deterministic.candidateTile34;
+  const safeTiles34 = Array<boolean>(34).fill(false);
+  safeTiles34[candidateTile34] = deterministic.cells[0]!.deterministicSafety
+      .status === "calculated" &&
+    deterministic.cells[0]!.deterministicSafety.genbutsu;
+  const visibility = {
+    turns: 1,
+    safeTiles34,
+    leftTiles34: Array<number>(34).fill(4),
+    doraTiles34: [4],
+    roundWindTile34: 27,
+    threatWindTile34: 29,
+    earlyOutsideTiles34: [] as number[],
+  };
+  const evidenceIds = ["event-riichi-2", "event-safe-6s"];
+  const stateHash = defenseStructuralStateHash({
+    sourceStateHash: deterministic.sourceStateHash,
+    factSetId: deterministic.factSetId,
+    actionRef: selected.actionRef,
+    threatActor: 2,
+    visibility,
+    evidenceIds,
+  });
+  const request = {
+    kind: "threat_risk" as const,
+    requestId: `${deterministic.factSetId}:risk:2:${stateHash}`,
+    protocolVersion: "mahjong-facts/v1" as const,
+    actionRef: selected.actionRef,
+    stateHash,
+    threatActor: 2,
+    scaleVersion: STRUCTURAL_RISK_SCALE_VERSION,
+    ...visibility,
+    evidenceIds,
+  };
+  const projection = [{
+    threatActor: 2,
+    status: "ready" as const,
+    request,
+  }];
+  return assembleDefenseMatrix({
+    deterministic,
+    threatRiskProjections: projection,
+    threatRiskOutcomes: outcomeStatus === "blocked_engine_failure"
+      ? [{
+          status: "blocked_engine_failure",
+          threatActor: 2,
+          diagnostic: "risk sidecar exited",
+        }]
+      : [{
+          status: "calculated",
+          result: {
+            kind: "threat_risk_result",
+            requestId: request.requestId,
+            protocolVersion: request.protocolVersion,
+            actionRef: request.actionRef,
+            stateHash: request.stateHash,
+            identity: handResult().identity,
+            threatActor: 2,
+            scaleVersion: request.scaleVersion,
+            riskScale: request.safeTiles34.map((safe) => safe ? 0 : 5),
+            classifications: validClassifications(request.safeTiles34),
+            honorClassifications: Array.from({ length: 7 }, (_, index) => ({
+              tile34: 27 + index,
+              remainingCount: 4,
+              category: 27 + index >= 31 ||
+                  27 + index === request.roundWindTile34 ||
+                  27 + index === request.threatWindTile34
+                ? "yakuhai" as const
+                : "guest_wind" as const,
+            })),
+            leftNoSujiTile34: validLeftNoSuji(request.safeTiles34),
+            evidenceIds: request.evidenceIds,
+            limitations: [
+              "helper_risk_not_mortal_probability",
+              "threats_analyzed_independently",
+              "structural_labels_separate",
+            ],
+            diagnostics: [],
+          },
+        }],
+  });
+}
+
 function baseInput(): CandidateLedgerBuildInput {
   return {
     candidate,
-    facts,
+    defenseMatrix: defenseMatrixFor(),
     scope: { kind: "applied_decision" },
     projection: {
       status: "ready",
@@ -154,38 +299,6 @@ function baseInput(): CandidateLedgerBuildInput {
       diagnostics: [],
     },
     hand13Outcome: { status: "calculated", result: handResult() },
-    threatRiskOutcomes: [{
-      status: "calculated",
-      result: {
-        kind: "threat_risk_result",
-        requestId: "request:risk:2",
-        protocolVersion: "mahjong-facts/v1",
-        actionRef,
-        stateHash: "sha256:projected",
-        identity: handResult().identity,
-        threatActor: 2,
-        scaleVersion:
-          "mahjong-helper-risk/514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0/v1",
-        riskScale: Array(34).fill(5).map((value, index) => index === 23 ? 0 : value),
-        classifications: [
-          { tile34: 23, kind: "genbutsu" },
-          { tile34: 23, kind: "suji" },
-        ],
-        honorClassifications: Array.from({ length: 7 }, (_, index) => ({
-          tile34: 27 + index,
-          remainingCount: 4,
-          category: index === 1 ? "guest_wind" as const : "yakuhai" as const,
-        })),
-        leftNoSujiTile34: [0, 8],
-        evidenceIds: ["event-riichi-2", "event-safe-6s"],
-        limitations: [
-          "helper_risk_not_mortal_probability",
-          "threats_analyzed_independently",
-          "structural_labels_separate",
-        ],
-        diagnostics: [],
-      },
-    }],
   };
 }
 
@@ -209,15 +322,31 @@ describe("structured ledger builder", () => {
       preferenceEligibility: "heuristic_only",
       engineIdentity: handResult().identity,
     });
-    expect(fact(ledger, "defense.helper_classifications.actor2")).toMatchObject({
-      dimension: "helper_classifications:actor2",
-      value: { kind: "string_set", values: ["genbutsu", "suji"] },
-      preferenceEligibility: "heuristic_only",
-    });
+    expect(JSON.stringify(ledger)).not.toContain("helper_classifications:actor2");
     expect(fact(ledger, "efficiency.shanten").engineIdentity)
       .toEqual(handResult().identity);
     expect(fact(ledger, "defense.genbutsu.actor2").engineIdentity)
       .toBeUndefined();
+  });
+
+  it("sorts structural classifications for the ledger string-set contract", () => {
+    const input = baseInput();
+    const matrix = input.defenseMatrix!;
+    input.defenseMatrix = DefenseMatrixV1Schema.parse({
+      ...matrix,
+      cells: matrix.cells.map((cell) => cell.structural.status === "calculated"
+        ? {
+            ...cell,
+            structural: {
+              ...cell.structural,
+              classifications: ["wall", "no_chance"],
+            },
+          }
+        : cell),
+    });
+    const ledger = buildCandidateLedger(input);
+    expect(fact(ledger, "defense.helper_classifications.actor2").value)
+      .toEqual({ kind: "string_set", values: ["no_chance", "wall"] });
   });
 
   it("maps helper value estimates but never recommendation order", () => {
@@ -244,6 +373,7 @@ describe("structured ledger builder", () => {
       actionRef: honorRef,
       origins: ["user"],
     });
+    input.defenseMatrix = defenseMatrixFor(input.candidate);
     input.projection = {
       ...input.projection,
       actionRef: honorRef,
@@ -258,15 +388,6 @@ describe("structured ledger builder", () => {
         actionRef: honorRef,
       };
     }
-    input.threatRiskOutcomes = input.threatRiskOutcomes.map((outcome) =>
-      outcome.status === "calculated"
-        ? {
-            ...outcome,
-            result: { ...outcome.result, actionRef: honorRef },
-          }
-        : outcome
-    );
-
     const ledger = buildCandidateLedger(input);
     expect(fact(ledger, "defense.helper_honor.actor2")).toMatchObject({
       dimension: "helper_honor:actor2",
@@ -378,17 +499,38 @@ describe("structured ledger builder", () => {
 
   it("records a threat-specific blocked fact when the risk engine fails", () => {
     const input = baseInput();
-    input.threatRiskOutcomes = [{
-      status: "blocked_engine_failure",
-      threatActor: 2,
-      diagnostic: "risk sidecar exited",
-    }];
+    input.defenseMatrix = defenseMatrixFor(
+      input.candidate,
+      "blocked_engine_failure",
+    );
 
     const ledger = buildCandidateLedger(input);
     expect(fact(ledger, "defense.helper_risk.actor2")).toMatchObject({
       status: "blocked_engine_failure",
       preferenceEligibility: "heuristic_only",
-      limitations: ["risk sidecar exited"],
+      limitations: ["Threat risk engine execution failed"],
     });
+  });
+
+  it("leaves defense unsupported when the scene has no threats", () => {
+    const noThreatFacts = KnownGameFactsSchema.parse({
+      ...facts,
+      threats: [],
+      defenseThreats: [],
+    });
+    const input = baseInput();
+    input.defenseMatrix = defenseMatrixFor(
+      input.candidate,
+      "calculated",
+      noThreatFacts,
+    );
+    const ledger = buildCandidateLedger(input);
+    const defense = ledger.axes.find((axis) => axis.axis === "defense")!;
+    expect(defense).toEqual({
+      axis: "defense",
+      status: "unsupported_dimension",
+      facts: [],
+    });
+    expect(JSON.stringify(ledger)).not.toContain("active_riichi_count");
   });
 });

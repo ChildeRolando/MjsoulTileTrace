@@ -1,43 +1,34 @@
 import {
   CandidateFactorLedgerSchema,
   CompletedHandFactResultSchema,
+  DefenseMatrixV1Schema,
   Hand13FactResultSchema,
-  ThreatRiskFactResultSchema,
   type CandidateFactorLedger,
   type ComparisonScope,
   type CompletedHandFactResult,
+  type DefenseMatrixV1,
   type EngineIdentity,
   type FactorAxisLedger,
   type FactorFact,
   type FactEngineDiagnostic,
   type FactEngineLimitationCode,
   type Hand13FactResult,
-  type KnownGameFacts,
   type StructuredComparisonCandidate,
-  type ThreatRiskFactResult,
 } from "@riichi-coach/contracts";
 import type { CandidateProjection } from "./candidate-projector.js";
-import { tileIdTo34 } from "./tile34.js";
-import { buildLocalDefenseFacts } from "./local-defense.js";
 import type { HandStructureLedgerMapping } from "./hand-structure-ledger.js";
+
+export type { ThreatRiskEngineOutcome } from "./defense-matrix.js";
 
 export type FactEngineOutcome<T> =
   | { status: "calculated"; result: T }
   | { status: "blocked_engine_failure"; diagnostic: string };
 
-export type ThreatRiskEngineOutcome =
-  | { status: "calculated"; result: ThreatRiskFactResult }
-  | {
-      status: "blocked_engine_failure";
-      threatActor: number;
-      diagnostic: string;
-    };
-
 type ReadyProjection = Extract<CandidateProjection, { status: "ready" }>;
 
 export interface CandidateLedgerBuildInput {
   candidate: StructuredComparisonCandidate;
-  facts: KnownGameFacts;
+  defenseMatrix?: DefenseMatrixV1;
   scope: ComparisonScope;
   projection: ReadyProjection;
   hand13Outcome?: FactEngineOutcome<Hand13FactResult>;
@@ -48,7 +39,6 @@ export interface CandidateLedgerBuildInput {
         status: "blocked_engine_failure" | "blocked_missing_facts";
         mapping: HandStructureLedgerMapping;
       };
-  threatRiskOutcomes: ThreatRiskEngineOutcome[];
 }
 
 const axes = [
@@ -189,7 +179,8 @@ function heuristicFact(
 function blockedHeuristicFact(
   factorKey: string,
   dimension: string,
-  status: "blocked_missing_facts" | "blocked_engine_failure",
+  status: "blocked_missing_facts" | "blocked_engine_failure" |
+    "unsupported_dimension",
   evidenceIds: string[],
   limitations: string[],
 ): FactorFact {
@@ -438,87 +429,155 @@ function mapCompletedHand(
   diagnostics.push(...mapDiagnostics(result.diagnostics));
 }
 
-function mapThreatRisk(
-  input: CandidateLedgerBuildInput,
+function mapDefenseMatrixToLedger(
+  rawMatrix: DefenseMatrixV1,
   byAxis: Map<LedgerAxis, FactorFact[]>,
-  diagnostics: string[],
 ): void {
-  if (
-    input.candidate.action.kind !== "discard" &&
-    input.candidate.action.kind !== "riichi_discard"
-  ) {
-    return;
-  }
-  const tile34 = tileIdTo34(input.candidate.action.tile.id);
-  for (const outcome of input.threatRiskOutcomes) {
-    if (outcome.status === "blocked_engine_failure") {
-      diagnostics.push(outcome.diagnostic);
+  const matrix = DefenseMatrixV1Schema.parse(rawMatrix);
+  for (const cell of matrix.cells) {
+    const actor = cell.threat.actor;
+    const threatEvidence = [...cell.threat.sourceEventRefs];
+    if (cell.threat.kind !== "user_marked_open") {
+      byAxis.get("defense")!.push({
+        factorKey: `defense.threat.actor${actor}`,
+        dimension: `riichi_threat:actor${actor}`,
+        status: "calculated",
+        evidenceClass: "deterministic_local_replay",
+        preferenceEligibility: "deterministic",
+        value: { kind: "boolean", value: true },
+        evidenceIds: threatEvidence,
+        limitations: [],
+      });
+      if (cell.threat.ippatsu.status === "calculated") {
+        byAxis.get("defense")!.push({
+          factorKey: `defense.ippatsu.actor${actor}`,
+          dimension: `ippatsu_alive:actor${actor}`,
+          status: "calculated",
+          evidenceClass: "deterministic_local_replay",
+          preferenceEligibility: "deterministic",
+          value: { kind: "boolean", value: cell.threat.ippatsu.value },
+          evidenceIds: threatEvidence,
+          limitations: [],
+        });
+      } else {
+        byAxis.get("defense")!.push({
+          factorKey: `defense.ippatsu.actor${actor}`,
+          dimension: `ippatsu_alive:actor${actor}`,
+          status: "blocked_missing_facts",
+          evidenceClass: "deterministic_local_replay",
+          preferenceEligibility: "ineligible",
+          evidenceIds: threatEvidence,
+          limitations: ["Ippatsu state is unavailable from the source"],
+        });
+      }
+      if (cell.deterministicSafety.status === "calculated") {
+        byAxis.get("defense")!.push({
+          factorKey: `defense.genbutsu.actor${actor}`,
+          dimension: `genbutsu:actor${actor}`,
+          status: "calculated",
+          evidenceClass: "deterministic_local_replay",
+          preferenceEligibility: "deterministic",
+          value: {
+            kind: "boolean",
+            value: cell.deterministicSafety.genbutsu,
+          },
+          evidenceIds: unique([
+            ...threatEvidence,
+            ...cell.deterministicSafety.evidenceRefs.map((entry) =>
+              entry.eventRef
+            ),
+          ]),
+          limitations: [],
+        });
+      } else {
+        byAxis.get("defense")!.push({
+          factorKey: `defense.genbutsu.actor${actor}`,
+          dimension: `genbutsu:actor${actor}`,
+          status: "blocked_missing_facts",
+          evidenceClass: "deterministic_local_replay",
+          preferenceEligibility: "ineligible",
+          evidenceIds: threatEvidence,
+          limitations: ["Complete replay visibility is required for genbutsu"],
+        });
+      }
+    }
+
+    const structural = cell.structural;
+    if (structural.status === "blocked_missing_facts") {
       byAxis.get("defense")!.push(blockedHeuristicFact(
-        `defense.helper_risk.actor${outcome.threatActor}`,
-        `helper_risk_scale:actor${outcome.threatActor}`,
-        "blocked_engine_failure",
-        [...input.projection.localEvidenceIds],
-        [outcome.diagnostic],
+        `defense.helper_risk.actor${actor}`,
+        `helper_risk_scale:actor${actor}`,
+        "blocked_missing_facts",
+        threatEvidence,
+        [`Missing structural facts: ${structural.missing.join(", ")}`],
       ));
       continue;
     }
-    const result = ThreatRiskFactResultSchema.parse(outcome.result);
+    if (structural.status === "blocked_engine_failure") {
+      byAxis.get("defense")!.push(blockedHeuristicFact(
+        `defense.helper_risk.actor${actor}`,
+        `helper_risk_scale:actor${actor}`,
+        "blocked_engine_failure",
+        threatEvidence,
+        ["Threat risk engine execution failed"],
+      ));
+      continue;
+    }
+    if (structural.status === "unsupported_threat_kind") {
+      byAxis.get("defense")!.push(blockedHeuristicFact(
+        `defense.helper_risk.actor${actor}`,
+        `helper_risk_scale:actor${actor}`,
+        "unsupported_dimension",
+        threatEvidence,
+        ["Structural risk is unsupported for user-marked open threats in V1"],
+      ));
+      continue;
+    }
+    if (structural.status !== "calculated") continue;
     const evidence = resultEvidence(
-      result.requestId,
-      unique([...input.projection.localEvidenceIds, ...result.evidenceIds]),
+      structural.requestId,
+      structural.evidenceIds,
     );
+    const limitations = mapLimitations(structural.limitations);
     byAxis.get("defense")!.push(heuristicFact(
-      `defense.helper_risk.actor${result.threatActor}`,
-      `helper_risk_scale:actor${result.threatActor}`,
+      `defense.helper_risk.actor${actor}`,
+      `helper_risk_scale:actor${actor}`,
       {
         kind: "number",
-        value: result.riskScale[tile34]!,
+        value: structural.helperRiskScale,
         unit: "helper_risk_scale",
       },
       evidence,
-      mapLimitations(result.limitations),
-      result.identity,
+      limitations,
+      structural.engineIdentity,
     ));
-    const classifications = unique(result.classifications
-      .filter((classification) => classification.tile34 === tile34)
-      .map((classification) => classification.kind))
-      .sort();
-    if (classifications.length > 0) {
+    if (structural.classifications.length > 0) {
       byAxis.get("defense")!.push(heuristicFact(
-        `defense.helper_classifications.actor${result.threatActor}`,
-        `helper_classifications:actor${result.threatActor}`,
-        { kind: "string_set", values: classifications },
-        evidence,
-        mapLimitations(result.limitations),
-        result.identity,
-      ));
-    }
-    const honor = result.honorClassifications.find(
-      (classification) => classification.tile34 === tile34,
-    );
-    if (honor !== undefined) {
-      byAxis.get("defense")!.push(heuristicFact(
-        `defense.helper_honor.actor${result.threatActor}`,
-        `helper_honor:actor${result.threatActor}`,
+        `defense.helper_classifications.actor${actor}`,
+        `helper_classifications:actor${actor}`,
         {
-          kind: "honor_safety",
-          remainingCount: honor.remainingCount,
-          category: honor.category,
+          kind: "string_set",
+          values: [...structural.classifications].sort(),
         },
         evidence,
-        mapLimitations(result.limitations),
-        result.identity,
+        limitations,
+        structural.engineIdentity,
       ));
     }
-    byAxis.get("defense")!.push(heuristicFact(
-      `defense.helper_left_no_suji.actor${result.threatActor}`,
-      `helper_left_no_suji:actor${result.threatActor}`,
-      { kind: "boolean", value: result.leftNoSujiTile34.includes(tile34) },
-      evidence,
-      mapLimitations(result.limitations),
-      result.identity,
-    ));
-    diagnostics.push(...mapDiagnostics(result.diagnostics));
+    if (structural.honor !== null) {
+      byAxis.get("defense")!.push(heuristicFact(
+        `defense.helper_honor.actor${actor}`,
+        `helper_honor:actor${actor}`,
+        {
+          kind: "honor_safety",
+          remainingCount: structural.honor.remainingCount,
+          category: structural.honor.category,
+        },
+        evidence,
+        limitations,
+        structural.engineIdentity,
+      ));
+    }
   }
 }
 
@@ -561,14 +620,25 @@ export function buildCandidateLedger(
     byAxis.get("efficiency")!.push(...input.handStructureOutcome.mapping.facts);
     diagnostics.push(...input.handStructureOutcome.mapping.diagnostics);
   }
-  byAxis.get("defense")!.push(
-    ...buildLocalDefenseFacts(input.candidate, input.facts),
-  );
-  mapThreatRisk(input, byAxis, diagnostics);
+  if (input.defenseMatrix !== undefined) {
+    const defenseMatrix = DefenseMatrixV1Schema.parse(input.defenseMatrix);
+    if (defenseMatrix.actionRef !== input.candidate.actionRef) {
+      throw new Error("candidate ledger defense matrix action mismatch");
+    }
+    mapDefenseMatrixToLedger(defenseMatrix, byAxis);
+  }
 
   const ledgers: FactorAxisLedger[] = axes.map((axis) => {
     if (!axisInScope(axis, input.scope)) {
       return { axis, status: "skipped_out_of_scope", facts: [] };
+    }
+    if (
+      axis === "defense" &&
+      input.defenseMatrix === undefined &&
+      input.candidate.action.kind !== "discard" &&
+      input.candidate.action.kind !== "riichi_discard"
+    ) {
+      return { axis, status: "unsupported_action_in_slice", facts: [] };
     }
     let facts = byAxis.get(axis)!;
     if (

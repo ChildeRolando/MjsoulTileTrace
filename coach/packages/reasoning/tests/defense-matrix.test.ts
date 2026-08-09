@@ -2,15 +2,29 @@ import { describe, expect, it } from "vitest";
 import {
   DefenseMatrixV1Schema,
   KnownGameFactsSchema,
+  STRUCTURAL_RISK_SCALE_VERSION,
   StructuredComparisonCandidateSchema,
   canonicalActionRef,
+  defenseStructuralStateHash,
+  type EngineIdentity,
   type KnownGameFacts,
   type StructuredComparisonCandidate,
+  type ThreatRiskProjection,
   type Tile,
 } from "@riichi-coach/contracts";
-import { buildDeterministicDefenseMatrix } from "../src/factors/defense-matrix.js";
+import {
+  assembleDefenseMatrix,
+  buildDeterministicDefenseMatrix,
+  type ThreatRiskEngineOutcome,
+} from "../src/factors/defense-matrix.js";
 
 const tile = (id: Tile["id"]): Tile => ({ id, red: false });
+const identity: EngineIdentity = {
+  engine: "mahjong-helper",
+  upstreamCommit: "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+  adapterVersion: "0.2.0",
+  protocolVersion: "mahjong-facts/v1",
+};
 
 function discardCandidate(
   id: Tile["id"],
@@ -147,6 +161,132 @@ function cellFor(
   const cell = matrix.cells.find((entry) => entry.threat.actor === actor);
   if (cell === undefined) throw new Error(`missing actor ${actor}`);
   return cell;
+}
+
+function threeThreatFacts(): KnownGameFacts {
+  const base = canonicalFacts();
+  return KnownGameFactsSchema.parse({
+    ...base,
+    provenance: "mixed",
+    defenseThreats: [
+      ...base.defenseThreats,
+      {
+        actor: 3,
+        kind: "user_marked_open",
+        source: "user_asserted",
+        sourceEventRefs: ["user:threat:3"],
+        openMeldRefs: ["user:meld:3"],
+        dealerStatus: "non_dealer",
+        riichiTurn: { status: "not_applicable" },
+        ippatsu: { status: "not_applicable" },
+      },
+    ],
+  });
+}
+
+function assemblyFixture() {
+  const candidate = discardCandidate("6s");
+  const deterministic = buildDeterministicDefenseMatrix({
+    candidate,
+    facts: threeThreatFacts(),
+  });
+  const safeTiles34 = Array<boolean>(34).fill(false);
+  safeTiles34[23] = true;
+  const visibility = {
+    turns: 4,
+    safeTiles34,
+    leftTiles34: Array<number>(34).fill(4),
+    doraTiles34: [8],
+    roundWindTile34: 27,
+    threatWindTile34: 29,
+    earlyOutsideTiles34: [],
+  };
+  const evidenceIds = [refs.threat2, refs.accepted2];
+  const stateHash = defenseStructuralStateHash({
+    sourceStateHash: deterministic.sourceStateHash,
+    factSetId: deterministic.factSetId,
+    actionRef: candidate.actionRef,
+    threatActor: 2,
+    visibility,
+    evidenceIds,
+  });
+  const request = {
+    kind: "threat_risk" as const,
+    requestId: `${deterministic.factSetId}:risk:2:${stateHash}`,
+    protocolVersion: "mahjong-facts/v1" as const,
+    actionRef: candidate.actionRef,
+    stateHash,
+    threatActor: 2,
+    scaleVersion: STRUCTURAL_RISK_SCALE_VERSION,
+    ...visibility,
+    evidenceIds,
+  };
+  const projections: ThreatRiskProjection[] = [{
+    threatActor: 1,
+    status: "blocked_missing_facts",
+    missing: ["visibility"],
+  }, {
+    threatActor: 2,
+    status: "ready",
+    request,
+  }, {
+    threatActor: 3,
+    status: "unsupported_threat_kind",
+    kind: "user_marked_open",
+  }];
+  const outcomes: ThreatRiskEngineOutcome[] = [{
+    status: "calculated",
+    result: {
+      kind: "threat_risk_result",
+      requestId: request.requestId,
+      protocolVersion: request.protocolVersion,
+      actionRef: request.actionRef,
+      stateHash: request.stateHash,
+      identity,
+      threatActor: 2,
+      scaleVersion: request.scaleVersion,
+      riskScale: request.safeTiles34.map((safe) => safe ? 0 : 5),
+      classifications: Array.from({ length: 27 }, (_, tile34) => {
+        if (request.safeTiles34[tile34]) {
+          return { tile34, kind: "genbutsu" as const };
+        }
+        const rank = tile34 % 9;
+        const safeCount = rank <= 2
+          ? Number(request.safeTiles34[tile34 + 3])
+          : rank >= 6
+          ? Number(request.safeTiles34[tile34 - 3])
+          : Number(request.safeTiles34[tile34 - 3]) +
+            Number(request.safeTiles34[tile34 + 3]);
+        const kind = rank >= 3 && rank <= 5
+          ? safeCount === 0 ? "no_suji" as const
+          : safeCount === 1 ? "half_suji" as const : "double_suji" as const
+          : safeCount === 0 ? "no_suji" as const : "suji" as const;
+        return { tile34, kind };
+      }),
+      honorClassifications: Array.from({ length: 7 }, (_, index) => ({
+        tile34: 27 + index,
+        remainingCount: request.leftTiles34[27 + index]!,
+        category: 27 + index >= 31 ||
+            27 + index === request.roundWindTile34 ||
+            27 + index === request.threatWindTile34
+          ? "yakuhai" as const
+          : "guest_wind" as const,
+      })),
+      leftNoSujiTile34: [
+        0, 1, 2, 6, 7, 8,
+        9, 10, 11, 15, 16, 17,
+        18, 19, 24, 25,
+      ],
+      evidenceIds: request.evidenceIds,
+      limitations: [
+        "helper_risk_not_mortal_probability",
+        "threats_analyzed_independently",
+        "structural_labels_separate",
+      ],
+      diagnostics: [],
+    },
+  }];
+  return { deterministic, projections, outcomes, request };
 }
 
 describe("deterministic per-threat defense matrix", () => {
@@ -510,5 +650,148 @@ describe("deterministic per-threat defense matrix", () => {
       candidate: discardCandidate("6s"),
       facts: temporallyInvalid,
     }), "defense_matrix_invalid_output");
+  });
+
+  it("assembles one structural row per threat without duplicating deterministic genbutsu", () => {
+    const fixture = assemblyFixture();
+    const matrix = assembleDefenseMatrix({
+      deterministic: fixture.deterministic,
+      threatRiskProjections: fixture.projections,
+      threatRiskOutcomes: fixture.outcomes,
+    });
+
+    expect(DefenseMatrixV1Schema.parse(matrix)).toEqual(matrix);
+    expect(matrix.cells.map((cell) => cell.threat.actor)).toEqual([1, 2, 3]);
+    expect(cellFor(matrix, 1).structural).toEqual({
+      status: "blocked_missing_facts",
+      missing: ["visibility"],
+    });
+    expect(cellFor(matrix, 2).structural).toMatchObject({
+      status: "calculated",
+      visibility: {
+        turns: fixture.request.turns,
+        safeTiles34: fixture.request.safeTiles34,
+        leftTiles34: fixture.request.leftTiles34,
+      },
+      helperRiskScale: 0,
+      classifications: [],
+      limitations: ["helper_risk_not_mortal_probability"],
+      engineIdentity: identity,
+    });
+    expect(cellFor(matrix, 3).structural).toEqual({
+      status: "unsupported_threat_kind",
+      kind: "user_marked_open",
+    });
+    expect(JSON.stringify(cellFor(matrix, 2).structural))
+      .not.toContain("genbutsu");
+  });
+
+  it("rejects a schema-valid semantic liar in an ignored noncandidate label", () => {
+    const fixture = assemblyFixture();
+    const calculated = fixture.outcomes[0]!;
+    if (calculated.status !== "calculated") throw new Error("fixture mismatch");
+    const classifications = calculated.result.classifications.slice(1);
+    expect(() => assembleDefenseMatrix({
+      deterministic: fixture.deterministic,
+      threatRiskProjections: fixture.projections,
+      threatRiskOutcomes: [{
+        ...calculated,
+        result: { ...calculated.result, classifications },
+      }],
+    })).toThrow("defense_matrix_invalid_ready_outcome_semantics");
+  });
+
+  it("rejects a schema-valid result with an unpinned engine identity", () => {
+    const fixture = assemblyFixture();
+    const calculated = fixture.outcomes[0]!;
+    if (calculated.status !== "calculated") throw new Error("fixture mismatch");
+    expect(() => assembleDefenseMatrix({
+      deterministic: fixture.deterministic,
+      threatRiskProjections: fixture.projections,
+      threatRiskOutcomes: [{
+        ...calculated,
+        result: {
+          ...calculated.result,
+          identity: {
+            ...calculated.result.identity,
+            adapterVersion: "9.9.9",
+          } as unknown as EngineIdentity,
+        },
+      }],
+    })).toThrow("defense_matrix_invalid_ready_outcome_identity");
+  });
+
+  it("converts a missing result identity to the same fixed boundary code", () => {
+    const fixture = assemblyFixture();
+    const calculated = fixture.outcomes[0]!;
+    if (calculated.status !== "calculated") throw new Error("fixture mismatch");
+    expect(() => assembleDefenseMatrix({
+      deterministic: fixture.deterministic,
+      threatRiskProjections: fixture.projections,
+      threatRiskOutcomes: [{
+        ...calculated,
+        result: {
+          ...calculated.result,
+          identity: undefined,
+        } as unknown as typeof calculated.result,
+      }],
+    })).toThrow("defense_matrix_invalid_ready_outcome_identity");
+  });
+
+  it.each([
+    {
+      name: "duplicate projection",
+      mutate: (fixture: ReturnType<typeof assemblyFixture>) => ({
+        projections: [...fixture.projections, fixture.projections[0]!],
+        outcomes: fixture.outcomes,
+      }),
+      code: "defense_matrix_duplicate_projection_actor",
+    },
+    {
+      name: "foreign projection",
+      mutate: (fixture: ReturnType<typeof assemblyFixture>) => ({
+        projections: fixture.projections.map((projection, index) => index === 0
+          ? { ...projection, threatActor: 0 }
+          : projection) as ThreatRiskProjection[],
+        outcomes: fixture.outcomes,
+      }),
+      code: "defense_matrix_foreign_projection_actor",
+    },
+    {
+      name: "missing ready outcome",
+      mutate: (fixture: ReturnType<typeof assemblyFixture>) => ({
+        projections: fixture.projections,
+        outcomes: [],
+      }),
+      code: "defense_matrix_missing_ready_outcome",
+    },
+    {
+      name: "duplicate outcome",
+      mutate: (fixture: ReturnType<typeof assemblyFixture>) => ({
+        projections: fixture.projections,
+        outcomes: [...fixture.outcomes, fixture.outcomes[0]!],
+      }),
+      code: "defense_matrix_duplicate_outcome_actor",
+    },
+    {
+      name: "foreign outcome",
+      mutate: (fixture: ReturnType<typeof assemblyFixture>) => ({
+        projections: fixture.projections,
+        outcomes: [{
+          status: "blocked_engine_failure" as const,
+          threatActor: 0,
+          diagnostic: "unavailable",
+        }],
+      }),
+      code: "defense_matrix_foreign_outcome_actor",
+    },
+  ])("rejects $name instead of guessing actor bindings", ({ mutate, code }) => {
+    const fixture = assemblyFixture();
+    const changed = mutate(fixture);
+    expect(() => assembleDefenseMatrix({
+      deterministic: fixture.deterministic,
+      threatRiskProjections: changed.projections,
+      threatRiskOutcomes: changed.outcomes,
+    })).toThrow(code);
   });
 });

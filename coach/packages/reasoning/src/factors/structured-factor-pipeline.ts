@@ -7,6 +7,7 @@ import {
   type Axis,
   type CandidateFactorLedger,
   type ComparisonAnalysisFrame,
+  type DefenseMatrixV1,
   type DeterministicPreference,
   type KnownGameFacts,
   type ResponseFuritenAnalysisV2,
@@ -27,6 +28,10 @@ import {
   type CandidateLedgerBuildInput,
   type ThreatRiskEngineOutcome,
 } from "./ledger-builder.js";
+import {
+  assembleDefenseMatrix,
+  buildDeterministicDefenseMatrix,
+} from "./defense-matrix.js";
 import {
   buildFactorDifferences,
   type FactorDifferenceBuildResult,
@@ -59,6 +64,7 @@ export interface StructuredPipelineDiagnostic {
 export interface StructuredFactorPipelineResult {
   analysisMode: "v2" | "legacy_v1_fallback" | "v2_mixed_unresolved";
   ledgers: CandidateFactorLedger[];
+  defenseMatrices: DefenseMatrixV1[];
   differences: FactorDifferenceBuildResult;
   deterministicPreference: DeterministicPreference | null;
   diagnostics: StructuredPipelineDiagnostic[];
@@ -112,6 +118,7 @@ async function analyzeReadyCandidate(
   engine: HandStructureFactEnginePort,
 ): Promise<{
   ledger: CandidateFactorLedger;
+  defenseMatrix: DefenseMatrixV1 | null;
   diagnostics: StructuredPipelineDiagnostic[];
   v2Status: "calculated" | "failed" | "not_applicable";
 }> {
@@ -242,17 +249,46 @@ async function analyzeReadyCandidate(
     }),
   );
 
+  let defenseMatrix: DefenseMatrixV1 | null = null;
+  if (
+    candidate.action.kind === "discard" ||
+    candidate.action.kind === "riichi_discard"
+  ) {
+    let deterministic: DefenseMatrixV1 | null = null;
+    try {
+      deterministic = buildDeterministicDefenseMatrix({ candidate, facts });
+    } catch {
+      diagnostics.push({
+        actionRef: candidate.actionRef,
+        stage: "projection",
+        status: "blocked_missing_facts",
+        detail: "defense matrix requires bound replay evidence",
+      });
+    }
+    if (deterministic !== null) {
+      defenseMatrix = assembleDefenseMatrix({
+        deterministic,
+        threatRiskProjections: projection.threatRiskProjections,
+        threatRiskOutcomes,
+      });
+    }
+  }
+
   const input: CandidateLedgerBuildInput = {
     candidate,
-    facts,
     scope: frame.scope,
     projection,
-    threatRiskOutcomes,
+    ...(defenseMatrix === null ? {} : { defenseMatrix }),
     ...(hand13Outcome === undefined ? {} : { hand13Outcome }),
     ...(completedHandOutcome === undefined ? {} : { completedHandOutcome }),
     ...(handStructureOutcome === undefined ? {} : { handStructureOutcome }),
   };
-  return { ledger: buildCandidateLedger(input), diagnostics, v2Status };
+  return {
+    ledger: buildCandidateLedger(input),
+    defenseMatrix,
+    diagnostics,
+    v2Status,
+  };
 }
 
 function sameDecisionWindow(
@@ -307,6 +343,7 @@ export async function runStructuredFactorPipeline(
     if (projection.status !== "ready") {
       return {
         ledger: blockedProjectionLedger(candidate, projection, frame),
+        defenseMatrix: null,
         diagnostics: [{
           actionRef: candidate.actionRef,
           stage: "projection" as const,
@@ -328,6 +365,9 @@ export async function runStructuredFactorPipeline(
 
   const ledgers = analyzed.map((entry) => entry.ledger)
     .sort((left, right) => left.actionRef.localeCompare(right.actionRef));
+  const defenseMatrices = analyzed.flatMap((entry) =>
+    entry.defenseMatrix === null ? [] : [entry.defenseMatrix]
+  ).sort((left, right) => left.actionRef.localeCompare(right.actionRef));
   const differences = buildFactorDifferences(ledgers);
   const comparableV2Statuses = analyzed
     .map((entry) => entry.v2Status)
@@ -347,6 +387,7 @@ export async function runStructuredFactorPipeline(
   return {
     analysisMode,
     ledgers,
+    defenseMatrices,
     differences: preferenceDifferences,
     deterministicPreference: mixedV2Availability
       ? null
