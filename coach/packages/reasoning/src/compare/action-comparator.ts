@@ -177,7 +177,8 @@ function threatStateFactors(
   subjectAction: ActionId,
   comparisonAction: ActionId,
 ): FactorEvidence[] {
-  return riichiThreats(scene).map((threat) => {
+  return riichiThreats(scene).flatMap((threat) => {
+    if (threat.ippatsuAlive === null) return [];
     const declarationIndex = scene.eventIds.indexOf(threat.declarationEventId);
     if (declarationIndex < 0) {
       throw new Error(

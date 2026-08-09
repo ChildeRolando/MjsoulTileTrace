@@ -2,6 +2,8 @@ import { z } from "zod";
 import { DecisionWindowSchema } from "./actions.js";
 import { KnownMeldSchema } from "./candidate-contracts.js";
 import { YakuContextV2Schema } from "./hand-structure.js";
+import { DefenseThreatV1Schema } from "./defense-matrix.js";
+import { parseCanonicalEventRef } from "./event-stream.js";
 import { RiverDiscardV2Schema } from "./round-state.js";
 import { RiverDiscardSchema, ThreatStateSchema } from "./scene.js";
 import { TileSchema } from "./tiles.js";
@@ -44,6 +46,7 @@ export const KnownGameFactsSchema = z.object({
   rivers: z.array(z.array(RiverDiscardSchema)).length(4),
   furitenSelfRiver: z.array(RiverDiscardV2Schema).optional(),
   threats: z.array(ThreatStateSchema),
+  defenseThreats: z.array(DefenseThreatV1Schema),
   roundWind: z.enum(["E", "S"]),
   seatWind: WindSchema,
   dealer: z.boolean(),
@@ -165,6 +168,238 @@ export const KnownGameFactsSchema = z.object({
       });
     }
   });
+
+  const defenseThreatActors = facts.defenseThreats.map((threat) => threat.actor);
+  if (new Set(defenseThreatActors).size !== defenseThreatActors.length) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Defense threat actors must be unique",
+      path: ["defenseThreats"],
+    });
+  }
+  facts.defenseThreats.forEach((threat, index) => {
+    const path = ["defenseThreats", index] as Array<string | number>;
+    if (threat.actor === facts.actor) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Defense threat actor cannot equal self actor",
+        path: [...path, "actor"],
+      });
+    }
+    if (threat.kind === "user_marked_open") {
+      if (threat.source !== "user_asserted") {
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "User-marked open threats require user-asserted provenance",
+          path: [...path, "source"],
+        });
+      }
+      if (threat.openMeldRefs.length === 0) {
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "User-marked open threats require open meld evidence",
+          path: [...path, "openMeldRefs"],
+        });
+      }
+      if (threat.riichiTurn.status !== "not_applicable" ||
+        threat.ippatsu.status !== "not_applicable") {
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "User-marked open threats cannot carry riichi datum",
+          path,
+        });
+      }
+      return;
+    }
+
+    if (threat.openMeldRefs.length > 0) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Riichi threats cannot carry open meld evidence",
+        path: [...path, "openMeldRefs"],
+      });
+    }
+    if (threat.riichiTurn.status === "not_applicable" ||
+      threat.ippatsu.status === "not_applicable") {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Riichi threats cannot mark riichi datum not applicable",
+        path,
+      });
+    }
+    if (threat.source === "canonical_replay" &&
+      threat.sourceEventRefs.some((ref) => parseCanonicalEventRef(ref) === null)) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Replay defense threat evidence must use canonical event references",
+        path: [...path, "sourceEventRefs"],
+      });
+    }
+    const expectedRefs = threat.source === "user_asserted"
+      ? null
+      : threat.kind === "riichi_accepted" ? 2 : 1;
+    if (expectedRefs !== null && threat.sourceEventRefs.length !== expectedRefs) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: threat.kind === "riichi_declared"
+          ? "Declared riichi requires exactly one source event reference"
+          : "Accepted riichi requires exactly two source event references",
+        path: [...path, "sourceEventRefs"],
+      });
+    }
+  });
+
+  const activeLegacyThreats = facts.threats.filter((threat) => threat.riichi);
+  activeLegacyThreats.forEach((legacy, index) => {
+    const matching = facts.defenseThreats.filter((threat) =>
+      threat.actor === legacy.actor && threat.kind !== "user_marked_open"
+    );
+    if (matching.length !== 1) {
+      const openOnly = facts.defenseThreats.some((threat) =>
+        threat.actor === legacy.actor && threat.kind === "user_marked_open"
+      );
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: openOnly
+          ? "User-marked open threat cannot satisfy legacy riichi state"
+          : "Active legacy riichi requires exactly one matching defense threat",
+        path: ["threats", index],
+      });
+      return;
+    }
+    const rich = matching[0]!;
+    if (legacy.declarationEventId !== rich.sourceEventRefs[0]) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Legacy and rich riichi declaration evidence must match",
+        path: ["defenseThreats", facts.defenseThreats.indexOf(rich), "sourceEventRefs", 0],
+      });
+    }
+    const expectedIppatsu = legacy.ippatsuAlive === null
+      ? "blocked_missing_facts"
+      : "calculated";
+    if (rich.ippatsu.status !== expectedIppatsu ||
+      (legacy.ippatsuAlive !== null && rich.ippatsu.status === "calculated" &&
+        rich.ippatsu.value !== legacy.ippatsuAlive)) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Legacy and rich ippatsu state must match without inventing a boolean",
+        path: ["defenseThreats", facts.defenseThreats.indexOf(rich), "ippatsu"],
+      });
+    }
+  });
+  facts.defenseThreats.forEach((rich, index) => {
+    if (rich.kind === "user_marked_open") return;
+    const activeLegacy = activeLegacyThreats.filter((legacy) =>
+      legacy.actor === rich.actor
+    );
+    if (activeLegacy.length !== 1) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Replay riichi defense threat requires an active legacy riichi",
+        path: ["defenseThreats", index],
+      });
+    }
+  });
+
+  const threatSources = new Set(
+    facts.defenseThreats.map((threat) => threat.source),
+  );
+  if (facts.factSetId.startsWith("canonical-v2:")) {
+    if (!["raw_replay", "mixed"].includes(facts.provenance)) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Canonical fact sets require replay or mixed fact provenance",
+        path: ["provenance"],
+      });
+    }
+    if (threatSources.has("legacy_regression_bridge_only")) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Canonical fact sets cannot carry legacy threat provenance",
+        path: ["defenseThreats"],
+      });
+    }
+    const hasUserAssertion = threatSources.has("user_asserted");
+    if (facts.provenance === "raw_replay" && hasUserAssertion) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Canonical facts with user assertions require mixed provenance",
+        path: ["provenance"],
+      });
+    }
+    if (facts.provenance === "mixed" && !hasUserAssertion) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Mixed canonical fact sets require at least one user assertion",
+        path: ["provenance"],
+      });
+    }
+  } else if (facts.factSetId.startsWith("legacy-regression:")) {
+    if (!["raw_replay", "legacy_regression_bridge_only"]
+      .includes(facts.provenance)) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Legacy fact sets require replay or legacy fact provenance",
+        path: ["provenance"],
+      });
+    }
+    if ([...threatSources].some((source) =>
+      source !== "legacy_regression_bridge_only"
+    )) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Legacy fact sets require legacy threat provenance",
+        path: ["defenseThreats"],
+      });
+    }
+  } else if (facts.factSetId.startsWith("user-asserted:")) {
+    if (facts.provenance !== "user_asserted") {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "User-asserted fact sets require user-asserted fact provenance",
+        path: ["provenance"],
+      });
+    }
+    if ([...threatSources].some((source) => source !== "user_asserted")) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "User-asserted fact sets require user-asserted threat provenance",
+        path: ["defenseThreats"],
+      });
+    }
+  } else if (facts.defenseThreats.length > 0) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Rich defense threats require a reserved fact-set namespace",
+      path: ["factSetId"],
+    });
+  }
+
+  if (facts.completeness.roundContext) {
+    const seatOffset = ["E", "S", "W", "N"].indexOf(facts.seatWind);
+    const dealerActor = (facts.actor - seatOffset + 4) % 4;
+    facts.defenseThreats.forEach((threat, index) => {
+      const expected = threat.actor === dealerActor ? "dealer" : "non_dealer";
+      if (threat.dealerStatus !== expected) {
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Defense threat dealer status conflicts with known round context",
+          path: ["defenseThreats", index, "dealerStatus"],
+        });
+      }
+    });
+  } else {
+    facts.defenseThreats.forEach((threat, index) => {
+      if (threat.dealerStatus !== "unknown") {
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Incomplete round context requires unknown threat dealer status",
+          path: ["defenseThreats", index, "dealerStatus"],
+        });
+      }
+    });
+  }
 
   if (facts.dealer !== (facts.seatWind === "E")) {
     context.addIssue({

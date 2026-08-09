@@ -118,6 +118,53 @@ function knownFacts(
   const currentDraw = scene.currentDraw === null
     ? null
     : { tile: { ...scene.currentDraw }, eventRef: scene.decisionEventId };
+  // This bridge deliberately preserves normalized legacy event IDs for old
+  // regression facts. These rows are not canonical DefenseMatrix evidence;
+  // matrix assembly must use the canonical V2 fixture projection instead.
+  const defenseThreats = scene.threats.flatMap((threat) => {
+    if (!threat.riichi || threat.actor === scene.selfActor ||
+      threat.declarationEventId === null) return [];
+    const declarationIndex = relevantEvents.findIndex((event) =>
+      event.eventId === threat.declarationEventId
+    );
+    if (declarationIndex < 0) {
+      throw new Error("legacy regression riichi declaration is absent");
+    }
+    const acceptance = relevantEvents.slice(declarationIndex + 1).find((event) =>
+      event.type === "reach_accepted" && event.actor === threat.actor
+    );
+    const declaringDiscardIndex = relevantEvents.findIndex((event, index) =>
+      index > declarationIndex && event.type === "dahai" &&
+      event.actor === threat.actor
+    );
+    const riichiTurn = declaringDiscardIndex < 0
+      ? { status: "blocked_missing_facts" as const }
+      : {
+          status: "calculated" as const,
+          value: relevantEvents.slice(0, declaringDiscardIndex + 1)
+            .filter((event) => event.type === "dahai" &&
+              event.actor === threat.actor).length,
+        };
+    return [{
+      actor: threat.actor,
+      kind: acceptance === undefined
+        ? "riichi_declared" as const
+        : "riichi_accepted" as const,
+      source: "legacy_regression_bridge_only" as const,
+      sourceEventRefs: [
+        threat.declarationEventId,
+        ...(acceptance === undefined ? [] : [acceptance.eventId]),
+      ],
+      openMeldRefs: [],
+      dealerStatus: scene.oya === threat.actor
+        ? "dealer" as const
+        : "non_dealer" as const,
+      riichiTurn,
+      ippatsu: threat.ippatsuAlive === null
+        ? { status: "blocked_missing_facts" as const }
+        : { status: "calculated" as const, value: threat.ippatsuAlive },
+    }];
+  });
   return KnownGameFactsSchema.parse({
     factSetId: `legacy-regression:${decision.decisionId}`,
     provenance: "raw_replay",
@@ -140,6 +187,7 @@ function knownFacts(
     }))),
     threats: scene.threats.filter((threat) => threat.actor !== scene.selfActor)
       .map((threat) => ({ ...threat })),
+    defenseThreats,
     roundWind: scene.bakaze,
     seatWind: seatWind(scene.selfActor, scene.oya),
     dealer: scene.selfActor === scene.oya,
@@ -151,6 +199,7 @@ function knownFacts(
       rivers: true,
       remainingDraws: false,
       calledDiscardMarkers: replayed.calledDiscardMarkersComplete,
+      roundContext: true,
     },
     evidenceIds: [...scene.eventIds],
   });

@@ -43,6 +43,7 @@ function selfTurnFacts() {
     doraIndicators: [tile("4m")],
     rivers: [[], [], [], []],
     threats: [],
+    defenseThreats: [],
     roundWind: "E",
     seatWind: "E",
     dealer: true,
@@ -184,7 +185,7 @@ describe("candidate projector", () => {
     const reachEvent = "event-reach-2";
     const facts = KnownGameFactsSchema.parse({
       ...selfTurnFacts(),
-      factSetId: "facts:risk",
+      factSetId: "legacy-regression:risk",
       rivers: [
         [{
           tile: tile("1p"), actor: 0, tsumogiri: false,
@@ -210,6 +211,20 @@ describe("candidate projector", () => {
         declarationEventId: reachEvent,
         ippatsuAlive: true,
       }],
+      defenseThreats: [{
+        actor: 2,
+        kind: "riichi_accepted",
+        source: "legacy_regression_bridge_only",
+        sourceEventRefs: [reachEvent, "event-reach-accepted-2"],
+        openMeldRefs: [],
+        dealerStatus: "non_dealer",
+        riichiTurn: { status: "calculated", value: 2 },
+        ippatsu: { status: "calculated", value: true },
+      }],
+      completeness: {
+        ...selfTurnFacts().completeness,
+        roundContext: true,
+      },
       evidenceIds: ["event-draw", reachEvent, "event-before", "event-after"],
     });
     const discard = candidate({

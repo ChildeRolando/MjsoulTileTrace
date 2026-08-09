@@ -152,5 +152,20 @@ describe("strict reasoning contracts", () => {
       opponentHands: [[], [], []],
     };
     expect(SceneSnapshotSchema.safeParse(sceneWithHiddenInformation).success).toBe(false);
+
+    const { opponentHands: _hidden, ...publicScene } = sceneWithHiddenInformation;
+    const sceneWithUnknownIppatsu = {
+      ...publicScene,
+      threats: publicScene.threats.map((threat) => threat.actor === 2
+        ? {
+            actor: 2,
+            riichi: true,
+            declarationEventId: "event-reach-2",
+            ippatsuAlive: null,
+          }
+        : threat),
+    };
+    expect(SceneSnapshotSchema.parse(sceneWithUnknownIppatsu).threats[2])
+      .toMatchObject({ ippatsuAlive: null });
   });
 });

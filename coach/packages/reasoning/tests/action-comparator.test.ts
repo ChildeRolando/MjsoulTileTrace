@@ -161,6 +161,32 @@ describe("candidate ledgers", () => {
       }
     },
   );
+
+  it("keeps an unknown-ippatsu riichi threat without inventing a not-alive statement", async () => {
+    const { decision, scene } = await loadRegression(0);
+    const unknownIppatsu: SceneSnapshot = {
+      ...scene,
+      threats: scene.threats.map((threat) => threat.actor === 2
+        ? { ...threat, ippatsuAlive: null }
+        : threat),
+    };
+    const ledger = compareDecision(unknownIppatsu, decision);
+
+    expect(ledger.candidateLedgers.every((candidate) =>
+      candidate.axes.defense.byThreat.some((threat) => threat.actor === 2)
+    )).toBe(true);
+    expect([
+      ...ledger.supportsModelAction,
+      ...ledger.supportsActualAction,
+    ].some((factor) => factor.dimension === "defense.per_threat_genbutsu"))
+      .toBe(true);
+    expect(ledger.neutralFactors.some((factor) =>
+      factor.dimension === "defense.riichi_threat_state"
+    )).toBe(false);
+    expect(ledger.neutralFactors.some((factor) =>
+      factor.statement.includes("not alive")
+    )).toBe(false);
+  });
 });
 
 describe("bilateral per-threat comparison", () => {

@@ -24,6 +24,7 @@ function baseFacts() {
     doraIndicators: [tile("1m")],
     rivers: [[], [], [], []],
     threats: [],
+    defenseThreats: [],
     roundWind: "E" as const,
     seatWind: "N" as const,
     dealer: false,
@@ -35,6 +36,7 @@ function baseFacts() {
       rivers: true,
       remainingDraws: true,
       calledDiscardMarkers: true,
+      roundContext: true,
     },
     evidenceIds: ["event-58"],
   };
@@ -172,6 +174,242 @@ describe("KnownGameFactsSchema", () => {
         ippatsuAlive: true,
       }],
     })).toThrow("Known threat actor cannot equal self actor");
+  });
+
+  it("requires a lossless defense threat for every active legacy riichi", () => {
+    const acceptedThreat = {
+      actor: 2,
+      kind: "riichi_accepted" as const,
+      source: "canonical_replay" as const,
+      sourceEventRefs: ["game/0/47/0", "game/0/49/0"],
+      openMeldRefs: [],
+      dealerStatus: "non_dealer" as const,
+      riichiTurn: { status: "calculated" as const, value: 6 },
+      ippatsu: { status: "calculated" as const, value: true },
+    };
+    const legacyThreat = {
+      actor: 2,
+      riichi: true,
+      declarationEventId: "game/0/47/0",
+      ippatsuAlive: true,
+    };
+
+    expect(KnownGameFactsSchema.parse({
+      ...baseFacts(),
+      factSetId: "canonical-v2:sha256:accepted-threat",
+      threats: [legacyThreat],
+      defenseThreats: [acceptedThreat],
+    }).defenseThreats).toEqual([acceptedThreat]);
+    expect(() => KnownGameFactsSchema.parse({
+      ...baseFacts(),
+      threats: [legacyThreat],
+      defenseThreats: [],
+    })).toThrow("Active legacy riichi requires exactly one matching defense threat");
+    expect(() => KnownGameFactsSchema.parse({
+      ...baseFacts(),
+      threats: [],
+      defenseThreats: [acceptedThreat],
+    })).toThrow("Replay riichi defense threat requires an active legacy riichi");
+  });
+
+  it("rejects self, contradictory, or evidence-free rich threats", () => {
+    const legacyThreat = {
+      actor: 2,
+      riichi: true,
+      declarationEventId: "game/0/47/0",
+      ippatsuAlive: true,
+    };
+    const acceptedThreat = {
+      actor: 2,
+      kind: "riichi_accepted" as const,
+      source: "canonical_replay" as const,
+      sourceEventRefs: ["game/0/47/0", "game/0/49/0"],
+      openMeldRefs: [],
+      dealerStatus: "non_dealer" as const,
+      riichiTurn: { status: "calculated" as const, value: 6 },
+      ippatsu: { status: "calculated" as const, value: true },
+    };
+
+    expect(() => KnownGameFactsSchema.parse({
+      ...baseFacts(),
+      actor: 2,
+      decisionWindow: { ...baseFacts().decisionWindow, actor: 2 },
+      threats: [],
+      defenseThreats: [acceptedThreat],
+    })).toThrow("Defense threat actor cannot equal self actor");
+    expect(() => KnownGameFactsSchema.parse({
+      ...baseFacts(),
+      threats: [legacyThreat],
+      defenseThreats: [{
+        ...acceptedThreat,
+        kind: "riichi_declared",
+      }],
+    })).toThrow("Declared riichi requires exactly one source event reference");
+    expect(() => KnownGameFactsSchema.parse({
+      ...baseFacts(),
+      threats: [legacyThreat],
+      defenseThreats: [{
+        ...acceptedThreat,
+        sourceEventRefs: ["event-riichi", "event-accepted"],
+      }],
+    })).toThrow("Replay defense threat evidence must use canonical event references");
+  });
+
+  it("keeps user asserted open threats out of the legacy riichi projection", () => {
+    const openThreat = {
+      actor: 1,
+      kind: "user_marked_open" as const,
+      source: "user_asserted" as const,
+      sourceEventRefs: ["user:threat:1"],
+      openMeldRefs: ["user:meld:1"],
+      dealerStatus: "non_dealer" as const,
+      riichiTurn: { status: "not_applicable" as const },
+      ippatsu: { status: "not_applicable" as const },
+    };
+    expect(KnownGameFactsSchema.parse({
+      ...baseFacts(),
+      provenance: "user_asserted",
+      factSetId: "user-asserted:sha256:user-scene",
+      defenseThreats: [openThreat],
+    }).defenseThreats).toEqual([openThreat]);
+    expect(() => KnownGameFactsSchema.parse({
+      ...baseFacts(),
+      threats: [{
+        actor: 1,
+        riichi: true,
+        declarationEventId: "user:threat:1",
+        ippatsuAlive: null,
+      }],
+      defenseThreats: [openThreat],
+    })).toThrow("User-marked open threat cannot satisfy legacy riichi state");
+  });
+
+  it("binds reserved fact-set identity to fact and threat provenance", () => {
+    const legacyThreat = {
+      actor: 2,
+      riichi: true,
+      declarationEventId: "game/0/47/0",
+      ippatsuAlive: true,
+    };
+    const rich = {
+      actor: 2,
+      kind: "riichi_accepted" as const,
+      source: "canonical_replay" as const,
+      sourceEventRefs: ["game/0/47/0", "game/0/49/0"],
+      openMeldRefs: [],
+      dealerStatus: "non_dealer" as const,
+      riichiTurn: { status: "calculated" as const, value: 6 },
+      ippatsu: { status: "calculated" as const, value: true },
+    };
+    expect(() => KnownGameFactsSchema.parse({
+      ...baseFacts(),
+      factSetId: "canonical-v2:sha256:scene",
+      threats: [legacyThreat],
+      defenseThreats: [{
+        ...rich,
+        source: "legacy_regression_bridge_only",
+      }],
+    })).toThrow("Canonical fact sets cannot carry legacy threat provenance");
+    expect(() => KnownGameFactsSchema.parse({
+      ...baseFacts(),
+      factSetId: "legacy-regression:scene",
+      provenance: "legacy_regression_bridge_only",
+      threats: [legacyThreat],
+      defenseThreats: [rich],
+    })).toThrow("Legacy fact sets require legacy threat provenance");
+    expect(() => KnownGameFactsSchema.parse({
+      ...baseFacts(),
+      factSetId: "user-asserted:sha256:scene",
+      provenance: "raw_replay",
+    })).toThrow("User-asserted fact sets require user-asserted fact provenance");
+    expect(() => KnownGameFactsSchema.parse({
+      ...baseFacts(),
+      factSetId: "canonical-v2:sha256:scene",
+      provenance: "raw_replay",
+      threats: [{ ...legacyThreat, declarationEventId: "user:threat:2" }],
+      defenseThreats: [{
+        ...rich,
+        source: "user_asserted",
+        sourceEventRefs: ["user:threat:2"],
+      }],
+    })).toThrow("Canonical facts with user assertions require mixed provenance");
+    expect(() => KnownGameFactsSchema.parse({
+      ...baseFacts(),
+      factSetId: "canonical-v2:sha256:scene",
+      provenance: "mixed",
+      threats: [legacyThreat],
+      defenseThreats: [rich],
+    })).toThrow("Mixed canonical fact sets require at least one user assertion");
+    expect(KnownGameFactsSchema.parse({
+      ...baseFacts(),
+      factSetId: "canonical-v2:sha256:scene",
+      provenance: "mixed",
+      threats: [{ ...legacyThreat, declarationEventId: "user:threat:2" }],
+      defenseThreats: [{
+        ...rich,
+        source: "user_asserted",
+        sourceEventRefs: ["user:threat:2"],
+      }],
+    }).provenance).toBe("mixed");
+    expect(KnownGameFactsSchema.parse({
+      ...baseFacts(),
+      factSetId: "canonical-v2:sha256:scene",
+      provenance: "mixed",
+      threats: [
+        { ...legacyThreat, actor: 1, declarationEventId: "user:threat:1" },
+        legacyThreat,
+      ],
+      defenseThreats: [{
+        ...rich,
+        actor: 1,
+        source: "user_asserted",
+        sourceEventRefs: ["user:threat:1"],
+      }, rich],
+    }).provenance).toBe("mixed");
+    expect(() => KnownGameFactsSchema.parse({
+      ...baseFacts(),
+      threats: [legacyThreat],
+      defenseThreats: [rich],
+    })).toThrow("Rich defense threats require a reserved fact-set namespace");
+  });
+
+  it("binds rich threat dealer status when round context is complete", () => {
+    const legacyThreat = {
+      actor: 2,
+      riichi: true,
+      declarationEventId: "game/0/47/0",
+      ippatsuAlive: true,
+    };
+    expect(() => KnownGameFactsSchema.parse({
+      ...baseFacts(),
+      threats: [legacyThreat],
+      defenseThreats: [{
+        actor: 2,
+        kind: "riichi_accepted",
+        source: "canonical_replay",
+        sourceEventRefs: ["game/0/47/0", "game/0/49/0"],
+        openMeldRefs: [],
+        dealerStatus: "dealer",
+        riichiTurn: { status: "calculated", value: 6 },
+        ippatsu: { status: "calculated", value: true },
+      }],
+      completeness: { ...baseFacts().completeness, roundContext: true },
+    })).toThrow("Defense threat dealer status conflicts with known round context");
+    expect(() => KnownGameFactsSchema.parse({
+      ...baseFacts(),
+      threats: [legacyThreat],
+      defenseThreats: [{
+        actor: 2,
+        kind: "riichi_accepted",
+        source: "canonical_replay",
+        sourceEventRefs: ["game/0/47/0", "game/0/49/0"],
+        openMeldRefs: [],
+        dealerStatus: "non_dealer",
+        riichiTurn: { status: "calculated", value: 6 },
+        ippatsu: { status: "calculated", value: true },
+      }],
+      completeness: { ...baseFacts().completeness, roundContext: false },
+    })).toThrow("Incomplete round context requires unknown threat dealer status");
   });
 
   it("requires dealer and east seat wind to agree", () => {

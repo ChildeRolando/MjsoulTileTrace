@@ -382,13 +382,11 @@ function validateThreatSemantics(
     return;
   }
 
-  if (
-    cell.threat.source !== "canonical_replay" &&
-    cell.threat.source !== "legacy_regression_bridge_only"
-  ) {
+  if (!["canonical_replay", "legacy_regression_bridge_only", "user_asserted"]
+    .includes(cell.threat.source)) {
     context.addIssue({
       code: z.ZodIssueCode.custom,
-      message: "Riichi threats require replay provenance",
+      message: "Riichi threats require replay or user-asserted provenance",
       path: [...path, "threat", "source"],
     });
   }

@@ -588,6 +588,7 @@ describe("furiten merger", () => {
       doraIndicators: [],
       rivers: [[], [], [], []],
       threats: [],
+      defenseThreats: [],
       roundWind: "E",
       seatWind: "E",
       dealer: true,

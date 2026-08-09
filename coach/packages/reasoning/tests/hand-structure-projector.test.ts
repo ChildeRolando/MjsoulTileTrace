@@ -60,6 +60,7 @@ function baseFacts(overrides: Record<string, unknown> = {}) {
     doraIndicators: [tile("4m")],
     rivers: [[], [], [], []],
     threats: [],
+    defenseThreats: [],
     roundWind: "E",
     seatWind: "E",
     dealer: true,

@@ -41,7 +41,7 @@ const twoPinRef = canonicalActionRef(twoPinAction);
 const sixSouRef = canonicalActionRef(sixSouAction);
 
 const facts = KnownGameFactsSchema.parse({
-  factSetId: "facts:pipeline",
+  factSetId: "legacy-regression:pipeline",
   provenance: "raw_replay",
   actor: 0,
   selfRiichi: false,
@@ -71,6 +71,16 @@ const facts = KnownGameFactsSchema.parse({
     declarationEventId: "event:riichi:2",
     ippatsuAlive: true,
   }],
+  defenseThreats: [{
+    actor: 2,
+    kind: "riichi_accepted",
+    source: "legacy_regression_bridge_only",
+    sourceEventRefs: ["event:riichi:2", "event:riichi:accepted:2"],
+    openMeldRefs: [],
+    dealerStatus: "non_dealer",
+    riichiTurn: { status: "calculated", value: 1 },
+    ippatsu: { status: "calculated", value: true },
+  }],
   roundWind: "E",
   seatWind: "E",
   dealer: true,
@@ -82,6 +92,7 @@ const facts = KnownGameFactsSchema.parse({
     rivers: true,
     remainingDraws: true,
     calledDiscardMarkers: true,
+    roundContext: true,
   },
   evidenceIds: ["event:draw", "event:safe:6s", "event:riichi:2"],
 });
@@ -355,6 +366,15 @@ function canonicalPipelineFacts(withSelfDiscard = false) {
       triggerEventRef: "game:pipeline/0/20/0",
     },
     currentDraw: { tile: tile("6s"), eventRef: "game:pipeline/0/20/0" },
+    threats: [{
+      ...facts.threats[0]!,
+      declarationEventId: "game:pipeline/0/15/0",
+    }],
+    defenseThreats: [{
+      ...facts.defenseThreats[0]!,
+      source: "canonical_replay",
+      sourceEventRefs: ["game:pipeline/0/15/0", "game:pipeline/0/16/0"],
+    }],
     rivers: [withSelfDiscard ? [legacyDiscard] : [], [], facts.rivers[2], []],
     furitenSelfRiver: withSelfDiscard ? [{
       eventRef: legacyDiscard.eventId,

@@ -113,28 +113,66 @@ export function projectKnownGameFactsV2(
     .filter((riichi) => riichi.status !== "none")
     .map((riichi) => riichi.declarationEventRef)
     .filter((eventRef): eventRef is string => eventRef !== null);
-  const threats = snapshot.publicState.riichiStates
-    .filter((riichi) => riichi.actor !== snapshot.selfActor)
-    .map((riichi) => {
-      if (riichi.ippatsuAlive === null) {
-        throw new CanonicalReplayError("known_facts_v2_unknown_ippatsu");
-      }
-      return {
-        actor: riichi.actor,
-        riichi: riichi.status !== "none",
-        declarationEventId: riichi.declarationEventRef,
-        ippatsuAlive: riichi.ippatsuAlive,
-      };
-    });
-  const privateState = snapshot.privateState;
   const publicState = snapshot.publicState;
+  const threats = publicState.riichiStates
+    .filter((riichi) => riichi.actor !== snapshot.selfActor)
+    .map((riichi) => ({
+      actor: riichi.actor,
+      riichi: riichi.status !== "none",
+      declarationEventId: riichi.declarationEventRef,
+      ippatsuAlive: riichi.ippatsuAlive,
+    }));
+  const threatSource = input.stream.sourceKind === "fixture"
+    ? "legacy_regression_bridge_only" as const
+    : input.stream.sourceKind === "user_asserted"
+      ? "user_asserted" as const
+      : "canonical_replay" as const;
+  const defenseThreats = publicState.riichiStates.flatMap((riichi) => {
+    if (riichi.status === "none" || riichi.actor === snapshot.selfActor) return [];
+    if (riichi.declarationEventRef === null) {
+      throw new CanonicalReplayError("known_facts_v2_missing_riichi_declaration");
+    }
+    const river = publicState.rivers[riichi.actor]!;
+    const declaringIndex = river.findIndex((discard) =>
+      discard.riichiDeclarationEventRef === riichi.declarationEventRef
+    );
+    return [{
+      actor: riichi.actor,
+      kind: riichi.status === "accepted"
+        ? "riichi_accepted" as const
+        : "riichi_declared" as const,
+      source: threatSource,
+      sourceEventRefs: [
+        riichi.declarationEventRef,
+        ...(riichi.acceptanceEventRef === null ? [] : [riichi.acceptanceEventRef]),
+      ],
+      openMeldRefs: [],
+      dealerStatus: publicState.fields.roundContext === "complete"
+        ? publicState.dealer === riichi.actor
+          ? "dealer" as const
+          : "non_dealer" as const
+        : "unknown" as const,
+      riichiTurn: publicState.fields.rivers === "complete" && declaringIndex >= 0
+        ? { status: "calculated" as const, value: declaringIndex + 1 }
+        : { status: "blocked_missing_facts" as const },
+      ippatsu: riichi.ippatsuAlive === null
+        ? { status: "blocked_missing_facts" as const }
+        : { status: "calculated" as const, value: riichi.ippatsuAlive },
+    }];
+  });
+  const privateState = snapshot.privateState;
   const provenance = input.stream.sourceKind === "user_asserted"
     ? "user_asserted"
     : input.stream.sourceKind === "fixture"
       ? "legacy_regression_bridge_only"
       : "raw_replay";
+  const factSetPrefix = input.stream.sourceKind === "fixture"
+    ? "legacy-regression"
+    : input.stream.sourceKind === "user_asserted"
+      ? "user-asserted"
+      : "canonical-v2";
   return KnownGameFactsSchema.parse({
-    factSetId: `canonical-v2:${snapshot.streamPrefixHash}`,
+    factSetId: `${factSetPrefix}:${snapshot.streamPrefixHash}`,
     provenance,
     actor: snapshot.selfActor,
     selfRiichi: publicState.riichiStates[snapshot.selfActor]!.status !== "none",
@@ -180,6 +218,7 @@ export function projectKnownGameFactsV2(
         }
       : {}),
     threats,
+    defenseThreats,
     roundWind: publicState.roundWind,
     seatWind: publicState.seatWinds[snapshot.selfActor],
     dealer: publicState.dealer === snapshot.selfActor,

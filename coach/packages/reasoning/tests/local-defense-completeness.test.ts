@@ -19,9 +19,9 @@ const candidate = StructuredComparisonCandidateSchema.parse({
   origins: ["user"],
 });
 
-function facts(discardActor: number) {
+function facts(discardActor: number, ippatsuAlive: boolean | null = false) {
   return KnownGameFactsSchema.parse({
-    factSetId: "facts:defense-completeness",
+    factSetId: "legacy-regression:defense-completeness",
     provenance: "raw_replay",
     actor: 0,
     selfRiichi: false,
@@ -38,7 +38,19 @@ function facts(discardActor: number) {
         }]
       : river),
     threats: [{
-      actor: 2, riichi: true, declarationEventId: "event:riichi", ippatsuAlive: false,
+      actor: 2, riichi: true, declarationEventId: "event:riichi", ippatsuAlive,
+    }],
+    defenseThreats: [{
+      actor: 2,
+      kind: "riichi_accepted",
+      source: "legacy_regression_bridge_only",
+      sourceEventRefs: ["event:riichi", "event:accepted"],
+      openMeldRefs: [],
+      dealerStatus: "non_dealer",
+      riichiTurn: { status: "calculated", value: 1 },
+      ippatsu: ippatsuAlive === null
+        ? { status: "blocked_missing_facts" }
+        : { status: "calculated", value: ippatsuAlive },
     }],
     roundWind: "E",
     seatWind: "E",
@@ -48,6 +60,7 @@ function facts(discardActor: number) {
       concealedTiles: true, melds: true, doraIndicators: true,
       rivers: true, remainingDraws: false, calledDiscardMarkers: true,
       responseOpportunities: false,
+      roundContext: true,
     },
     evidenceIds: ["event:draw", "event:riichi", "event:6s"],
   });
@@ -67,6 +80,19 @@ describe("local defense response-opportunity completeness", () => {
         status: "calculated",
         preferenceEligibility: "deterministic",
         value: { kind: "boolean", value: true },
+      });
+  });
+
+  it("blocks ippatsu instead of converting an unknown state to false", () => {
+    const result = buildLocalDefenseFacts(candidate, facts(2, null));
+    expect(result.find((fact) => fact.dimension === "riichi_threat:actor2"))
+      .toMatchObject({ status: "calculated", value: { kind: "boolean", value: true } });
+    expect(result.find((fact) => fact.dimension === "genbutsu:actor2"))
+      .toMatchObject({ status: "calculated", value: { kind: "boolean", value: true } });
+    expect(result.find((fact) => fact.dimension === "ippatsu_alive:actor2"))
+      .toMatchObject({
+        status: "blocked_missing_facts",
+        preferenceEligibility: "ineligible",
       });
   });
 });

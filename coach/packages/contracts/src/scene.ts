@@ -13,7 +13,7 @@ export const ThreatStateSchema = z.object({
   actor: z.number().int().min(0).max(3),
   riichi: z.boolean(),
   declarationEventId: z.string().nullable(),
-  ippatsuAlive: z.boolean(),
+  ippatsuAlive: z.boolean().nullable(),
 });
 
 export const MissingSceneDataSchema = z.enum([

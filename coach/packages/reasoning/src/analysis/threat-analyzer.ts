@@ -3,7 +3,7 @@ import type { SceneSnapshot } from "@riichi-coach/contracts";
 export type RiichiThreat = {
   actor: number;
   declarationEventId: string;
-  ippatsuAlive: boolean;
+  ippatsuAlive: boolean | null;
 };
 
 export function riichiThreats(scene: SceneSnapshot): RiichiThreat[] {

@@ -26,7 +26,7 @@ const candidate = StructuredComparisonCandidateSchema.parse({
 });
 
 const facts = KnownGameFactsSchema.parse({
-  factSetId: "facts:e1:t6",
+  factSetId: "legacy-regression:e1:t6",
   provenance: "raw_replay",
   actor: 0,
   selfRiichi: false,
@@ -53,6 +53,16 @@ const facts = KnownGameFactsSchema.parse({
     declarationEventId: "event-riichi-2",
     ippatsuAlive: true,
   }],
+  defenseThreats: [{
+    actor: 2,
+    kind: "riichi_accepted",
+    source: "legacy_regression_bridge_only",
+    sourceEventRefs: ["event-riichi-2", "event-riichi-accepted-2"],
+    openMeldRefs: [],
+    dealerStatus: "non_dealer",
+    riichiTurn: { status: "calculated", value: 1 },
+    ippatsu: { status: "calculated", value: true },
+  }],
   roundWind: "E",
   seatWind: "E",
   dealer: true,
@@ -64,6 +74,7 @@ const facts = KnownGameFactsSchema.parse({
     rivers: true,
     remainingDraws: true,
     calledDiscardMarkers: true,
+    roundContext: true,
   },
   evidenceIds: ["event-draw", "event-safe-6s", "event-riichi-2"],
 });

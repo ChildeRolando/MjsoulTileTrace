@@ -221,6 +221,20 @@ describe("DefenseMatrixV1Schema", () => {
     })).not.toThrow();
   });
 
+  it("does not admit legacy normalized event IDs as matrix replay evidence", () => {
+    const legacy = calculatedCell();
+    legacy.threat.source = "legacy_regression_bridge_only";
+    legacy.threat.sourceEventRefs = ["event-47", "event-49"];
+    legacy.structural.factSetId = "legacy-regression:e1:t6";
+    rebindStructural(legacy);
+
+    expect(() => DefenseMatrixV1Schema.parse({
+      ...matrix([legacy]),
+      source: "legacy_regression_bridge_only",
+      factSetId: "legacy-regression:e1:t6",
+    })).toThrow("Replay evidence requires a canonical event reference");
+  });
+
   it("accepts a strictly bound per-threat defense matrix", () => {
     const parsed = DefenseMatrixV1Schema.parse(matrix());
 
@@ -497,10 +511,33 @@ describe("DefenseMatrixV1Schema", () => {
     expect(() => DefenseMatrixV1Schema.parse(matrix([missingMeld]))).toThrow();
   });
 
-  it("rejects riichi threats backed by user assertions or open melds", () => {
+  it("accepts typed user-asserted riichi without upgrading its provenance", () => {
     const userSource = calculatedCell();
-    userSource.threat.source = "user_asserted" as never;
-    expect(() => DefenseMatrixV1Schema.parse(matrix([userSource]))).toThrow();
+    userSource.threat = {
+      ...userSource.threat,
+      source: "user_asserted",
+      sourceEventRefs: ["user/threat/2"],
+    };
+    userSource.deterministicSafety = {
+      status: "blocked_missing_facts",
+      evidenceRefs: [],
+    };
+    userSource.structural = {
+      status: "blocked_missing_facts",
+      missing: ["visibility"],
+    };
+    expect(() => DefenseMatrixV1Schema.parse({
+      ...matrix([userSource]),
+      source: "user_asserted",
+      factSetId: "user-asserted:sha256:source",
+      decisionEventRef: "user/question/1",
+    })).not.toThrow();
+
+    expect(() => DefenseMatrixV1Schema.parse(matrix([userSource])))
+      .not.toThrow();
+  });
+
+  it("rejects open meld evidence on every riichi threat source", () => {
 
     const openMeld = calculatedCell();
     openMeld.threat.openMeldRefs = ["game/0/32/0"];

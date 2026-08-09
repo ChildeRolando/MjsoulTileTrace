@@ -56,12 +56,20 @@ export function buildLocalDefenseFacts(
     result.push({
       factorKey: `defense.ippatsu.actor${threat.actor}`,
       dimension: `ippatsu_alive:actor${threat.actor}`,
-      status: "calculated",
+      status: threat.ippatsuAlive === null
+        ? "blocked_missing_facts"
+        : "calculated",
       evidenceClass: "deterministic_local_replay",
-      preferenceEligibility: "deterministic",
-      value: { kind: "boolean", value: threat.ippatsuAlive },
+      preferenceEligibility: threat.ippatsuAlive === null
+        ? "ineligible"
+        : "deterministic",
+      ...(threat.ippatsuAlive === null
+        ? {}
+        : { value: { kind: "boolean" as const, value: threat.ippatsuAlive } }),
       evidenceIds: threatEvidence,
-      limitations: [],
+      limitations: threat.ippatsuAlive === null
+        ? ["Ippatsu state is unavailable from the source"]
+        : [],
     });
 
     if (
