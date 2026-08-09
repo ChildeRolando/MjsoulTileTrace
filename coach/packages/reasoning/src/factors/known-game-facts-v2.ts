@@ -162,6 +162,23 @@ export function projectKnownGameFactsV2(
         ),
       };
     })),
+    ...(publicState.fields.rivers === "complete" &&
+        publicState.fields.calledDiscardMarkers === "complete" &&
+        publicState.fields.roundContext === "complete" &&
+        input.stream.completeness.eventSequence === "complete"
+      ? {
+          furitenSelfRiver: publicState.rivers[snapshot.selfActor]!.map(
+            (discard) => ({
+              eventRef: discard.eventRef,
+              actor: discard.actor,
+              tile: { ...discard.tile },
+              discardMode: discard.discardMode,
+              riichiDeclarationEventRef: discard.riichiDeclarationEventRef,
+              calledByEventRef: discard.calledByEventRef,
+            }),
+          ),
+        }
+      : {}),
     threats,
     roundWind: publicState.roundWind,
     seatWind: publicState.seatWinds[snapshot.selfActor],
@@ -178,6 +195,8 @@ export function projectKnownGameFactsV2(
       calledDiscardMarkers: publicState.fields.calledDiscardMarkers === "complete",
       responseOpportunities:
         privateState.fields.responseOpportunities === "complete",
+      eventSequence: input.stream.completeness.eventSequence === "complete",
+      roundContext: publicState.fields.roundContext === "complete",
     },
     evidenceIds: [...snapshot.evidenceIds],
   });

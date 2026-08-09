@@ -233,4 +233,73 @@ describe("KnownGameFactsSchema", () => {
       ],
     })).toThrow("River discard event IDs must be globally unique");
   });
+
+  it("accepts only an exact complete self river for furiten", () => {
+    const legacyDiscard = {
+      tile: tile("1m"),
+      actor: 3,
+      tsumogiri: false,
+      eventId: "event-river",
+      afterRiichiEventIds: [],
+    };
+    const exactDiscard = {
+      eventRef: "event-river",
+      actor: 3,
+      tile: tile("1m"),
+      discardMode: "tedashi" as const,
+      riichiDeclarationEventRef: null,
+      calledByEventRef: null,
+    };
+    expect(KnownGameFactsSchema.parse({
+      ...baseFacts(),
+      rivers: [[], [], [], [legacyDiscard]],
+      furitenSelfRiver: [exactDiscard],
+      completeness: {
+        ...baseFacts().completeness,
+        eventSequence: true,
+        roundContext: true,
+      },
+    }).furitenSelfRiver).toEqual([exactDiscard]);
+
+    for (const furitenSelfRiver of [
+      [{ ...exactDiscard, actor: 2 }],
+      [{ ...exactDiscard, eventRef: "event-other" }],
+      [{ ...exactDiscard, tile: tile("6s") }],
+      [{ ...exactDiscard, discardMode: "tsumogiri" as const }],
+      [exactDiscard, { ...exactDiscard, eventRef: "event-extra" }],
+    ]) {
+      expect(() => KnownGameFactsSchema.parse({
+        ...baseFacts(),
+        rivers: [[], [], [], [legacyDiscard]],
+        furitenSelfRiver,
+        completeness: {
+          ...baseFacts().completeness,
+          eventSequence: true,
+          roundContext: true,
+        },
+      })).toThrow();
+    }
+    expect(() => KnownGameFactsSchema.parse({
+      ...baseFacts(),
+      rivers: [[], [], [], [legacyDiscard]],
+      furitenSelfRiver: [exactDiscard],
+      completeness: {
+        ...baseFacts().completeness,
+        calledDiscardMarkers: false,
+      },
+    })).toThrow("Exact furiten self river requires complete river and called-discard facts");
+    for (const incompleteField of ["eventSequence", "roundContext"] as const) {
+      expect(() => KnownGameFactsSchema.parse({
+        ...baseFacts(),
+        rivers: [[], [], [], [legacyDiscard]],
+        furitenSelfRiver: [exactDiscard],
+        completeness: {
+          ...baseFacts().completeness,
+          eventSequence: true,
+          roundContext: true,
+          [incompleteField]: false,
+        },
+      })).toThrow("Exact furiten self river requires complete event sequence and round context");
+    }
+  });
 });

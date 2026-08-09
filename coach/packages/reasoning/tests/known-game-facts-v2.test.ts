@@ -232,7 +232,11 @@ describe("V2 snapshot to KnownGameFacts projection", () => {
         seatWind: legacy.seatWind,
         dealer: legacy.dealer,
         remainingDraws: legacy.remainingDraws,
-        completeness: legacy.completeness,
+        completeness: {
+          ...legacy.completeness,
+          eventSequence: true,
+          roundContext: true,
+        },
       });
       expect(projected.evidenceIds).toEqual(snapshot.evidenceIds);
       expect(projected.factSetId).toContain(snapshot.streamPrefixHash);
@@ -298,5 +302,38 @@ describe("V2 snapshot to KnownGameFacts projection", () => {
     };
     expect(projectKnownGameFactsV2({ stream: asserted, decisionWindow }))
       .toMatchObject({ provenance: "user_asserted" });
+  });
+
+  it("projects the exact canonical self river only when river markers are complete", () => {
+    const stream = canonicalStream(canonicalSelfDrawDiscardEvents());
+    const decisionWindow = {
+      kind: "self_turn" as const,
+      actor: 0,
+      triggerEventRef: "game:fixture/0/2/0",
+    };
+    expect(projectKnownGameFactsV2({ stream, decisionWindow }).furitenSelfRiver)
+      .toEqual([]);
+
+    const incomplete = {
+      ...stream,
+      completeness: {
+        ...stream.completeness,
+        calledDiscardMarkers: "partial" as const,
+      },
+    };
+    expect(projectKnownGameFactsV2({ stream: incomplete, decisionWindow }))
+      .not.toHaveProperty("furitenSelfRiver");
+
+    const incompleteSequence = {
+      ...stream,
+      completeness: {
+        ...stream.completeness,
+        eventSequence: "partial" as const,
+      },
+    };
+    expect(projectKnownGameFactsV2({
+      stream: incompleteSequence,
+      decisionWindow,
+    })).not.toHaveProperty("furitenSelfRiver");
   });
 });

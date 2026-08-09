@@ -4,6 +4,7 @@ import {
   canonicalActionRef,
   CurrentSceneFrameSchema,
   Hand13FactResultSchema,
+  ResponseFuritenAnalysisV2Schema,
   StructuredComparisonSetSchema,
   type ComparisonScope,
   type CompletedHandFactRequest,
@@ -11,12 +12,14 @@ import {
   type EngineIdentity,
   type Hand13FactRequest,
   type Hand13FactResult,
+  type HandStructureRequestV2,
+  type HandStructureResultV2,
   type ThreatRiskFactRequest,
   type ThreatRiskFactResult,
   type KnownGameFacts,
   type NormalizedDecision,
 } from "@riichi-coach/contracts";
-import type { MahjongFactEnginePort } from "../src/fact-engine/port.js";
+import type { HandStructureFactEnginePort } from "../src/fact-engine/port.js";
 import { analyzeAllDiscardEfficiency } from "../src/analysis/efficiency-analyzer.js";
 import { importRegressionFixture } from "../src/import/mortal-report.js";
 import { replayToDecision } from "../src/replay/scene-replayer.js";
@@ -48,7 +51,7 @@ type GoldenCase = {
   result: Hand13FactResult;
 };
 
-class RegressionFactEngine implements MahjongFactEnginePort {
+class RegressionFactEngine implements HandStructureFactEnginePort {
   constructor(private readonly cases: GoldenCase[]) {}
 
   async identity(): Promise<EngineIdentity> {
@@ -70,6 +73,12 @@ class RegressionFactEngine implements MahjongFactEnginePort {
     _request: CompletedHandFactRequest,
   ): Promise<CompletedHandFactResult> {
     throw new Error("not used by discard regression");
+  }
+
+  async analyzeHandStructure(
+    _request: HandStructureRequestV2,
+  ): Promise<HandStructureResultV2> {
+    throw new Error("V2 golden is intentionally deferred to Task 10");
   }
 
   async analyzeThreatRisk(
@@ -118,7 +127,38 @@ function v2RegressionInput(
       return [candidate.actionRef, metric];
     }),
   );
-  return { frame, comparisonSet, facts, legacyEfficiencyByActionRef };
+  const responseFuriten = ResponseFuritenAnalysisV2Schema.parse({
+    binding: {
+      source: "unavailable",
+      factSetId: facts.factSetId,
+      decisionEventRef: facts.decisionEventRef,
+      selfActor: facts.actor,
+      reason: "response_history_not_provided",
+      engineIdentityStatus: "unknown",
+      engineIdentity: null,
+    },
+    temporary: {
+      status: "unknown",
+      unknownReason: "response_history_not_provided",
+      evidenceIds: [],
+      analysisRefs: [],
+      riichiAcceptanceEventRef: null,
+    },
+    riichi: {
+      status: "unknown",
+      unknownReason: "response_history_not_provided",
+      evidenceIds: [],
+      analysisRefs: [],
+      riichiAcceptanceEventRef: null,
+    },
+  });
+  return {
+    frame,
+    comparisonSet,
+    facts,
+    responseFuriten,
+    legacyEfficiencyByActionRef,
+  };
 }
 
 function preferenceForAxis(

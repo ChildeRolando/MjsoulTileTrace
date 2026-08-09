@@ -2,7 +2,6 @@ import {
   ActionRefSchema,
   CanonicalEventStreamSchema,
   EngineIdentitySchema,
-  HandStructureResultV2Schema,
   ResponseFuritenAnalysisV2Schema,
   ResponseFuritenComponentV2Schema,
   type CanonicalEventStream,
@@ -19,6 +18,8 @@ import {
   type YakuContextV2,
 } from "@riichi-coach/contracts";
 import type { HandStructureFactEnginePort } from "../fact-engine/port.js";
+import { validateHandStructureResult } from
+  "../fact-engine/hand-structure-validator.js";
 import { buildHandStructureRequestV2 } from "../factors/hand-structure-projector.js";
 import { tileIdTo34 } from "../factors/tile34.js";
 import {
@@ -320,13 +321,10 @@ function bindResultToRequest(
   rawResult: unknown,
   engineIdentity: EngineIdentity,
 ): HandStructureResultV2 {
-  const result = HandStructureResultV2Schema.parse(rawResult);
-  if (
-    result.requestId !== request.requestId ||
-    result.actionRef !== request.actionRef ||
-    result.stateHash !== request.stateHash ||
-    JSON.stringify(result.identity) !== JSON.stringify(engineIdentity)
-  ) throw new Error("response_furiten_hand_structure_result_mismatch");
+  const result = validateHandStructureResult(request, rawResult);
+  if (JSON.stringify(result.identity) !== JSON.stringify(engineIdentity)) {
+    throw new Error("response_furiten_hand_structure_result_mismatch");
+  }
   return result;
 }
 

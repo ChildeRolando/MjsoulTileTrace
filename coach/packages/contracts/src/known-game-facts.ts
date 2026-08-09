@@ -2,6 +2,7 @@ import { z } from "zod";
 import { DecisionWindowSchema } from "./actions.js";
 import { KnownMeldSchema } from "./candidate-contracts.js";
 import { YakuContextV2Schema } from "./hand-structure.js";
+import { RiverDiscardV2Schema } from "./round-state.js";
 import { RiverDiscardSchema, ThreatStateSchema } from "./scene.js";
 import { TileSchema } from "./tiles.js";
 
@@ -16,6 +17,8 @@ const KnownFactsCompletenessSchema = z.object({
   remainingDraws: z.boolean(),
   calledDiscardMarkers: z.boolean(),
   responseOpportunities: z.boolean().default(false),
+  eventSequence: z.boolean().default(false),
+  roundContext: z.boolean().default(false),
 }).strict();
 
 export const KnownGameFactsSchema = z.object({
@@ -39,6 +42,7 @@ export const KnownGameFactsSchema = z.object({
   melds: z.array(KnownMeldSchema),
   doraIndicators: z.array(TileSchema),
   rivers: z.array(z.array(RiverDiscardSchema)).length(4),
+  furitenSelfRiver: z.array(RiverDiscardV2Schema).optional(),
   threats: z.array(ThreatStateSchema),
   roundWind: z.enum(["E", "S"]),
   seatWind: WindSchema,
@@ -91,6 +95,48 @@ export const KnownGameFactsSchema = z.object({
       code: z.ZodIssueCode.custom,
       message: "River discard event IDs must be globally unique",
       path: ["rivers"],
+    });
+  }
+
+  if (facts.furitenSelfRiver !== undefined) {
+    if (!facts.completeness.rivers || !facts.completeness.calledDiscardMarkers) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Exact furiten self river requires complete river and called-discard facts",
+        path: ["furitenSelfRiver"],
+      });
+    }
+    if (!facts.completeness.eventSequence || !facts.completeness.roundContext) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Exact furiten self river requires complete event sequence and round context",
+        path: ["furitenSelfRiver"],
+      });
+    }
+    const legacySelfRiver = facts.rivers[facts.actor]!;
+    if (facts.furitenSelfRiver.length !== legacySelfRiver.length) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Exact furiten self river must match the public self river",
+        path: ["furitenSelfRiver"],
+      });
+    }
+    facts.furitenSelfRiver.forEach((discard, index) => {
+      const legacy = legacySelfRiver[index];
+      if (
+        discard.actor !== facts.actor ||
+        legacy === undefined ||
+        discard.eventRef !== legacy.eventId ||
+        discard.tile.id !== legacy.tile.id ||
+        discard.tile.red !== legacy.tile.red ||
+        (discard.discardMode === "tsumogiri") !== legacy.tsumogiri
+      ) {
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Exact furiten self river must match actor, event, tile, and discard mode",
+          path: ["furitenSelfRiver", index],
+        });
+      }
     });
   }
 

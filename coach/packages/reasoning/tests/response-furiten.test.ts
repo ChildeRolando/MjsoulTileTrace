@@ -226,6 +226,18 @@ class FixtureHandStructureEngine implements HandStructureFactEnginePort {
       ? this.hasWait ? 0 : 1
       : 1;
     const kokushiShanten = this.family === "kokushi" ? 0 : 8;
+    const decompositionGroups = this.family === "standard" ? [
+      { kind: "sequence" as const, tiles34: [0, 1, 2] },
+      { kind: "sequence" as const, tiles34: [9, 10, 11] },
+      { kind: "sequence" as const, tiles34: [18, 19, 20] },
+      { kind: "ryanmen_taatsu" as const, tiles34: [21, 22] },
+      { kind: "pair_candidate" as const, tiles34: [27, 27] },
+    ] : request.handTiles34.flatMap((count, tile34) =>
+      Array.from({ length: count }, () => ({
+        kind: "floating" as const,
+        tiles34: [tile34],
+      }))
+    );
     const result = {
       kind: "hand_structure_result" as const,
       schemaVersion: "hand-structure/v2" as const,
@@ -272,20 +284,9 @@ class FixtureHandStructureEngine implements HandStructureFactEnginePort {
           decompositionRef,
           family: this.family,
           shanten: this.hasWait ? 0 : 1,
-          groups: this.family === "standard" ? [
-            { kind: "sequence" as const, tiles34: [0, 1, 2] },
-            { kind: "sequence" as const, tiles34: [9, 10, 11] },
-            { kind: "sequence" as const, tiles34: [18, 19, 20] },
-            { kind: "ryanmen_taatsu" as const, tiles34: [21, 22] },
-            { kind: "pair_candidate" as const, tiles34: [27, 27] },
-          ] : request.handTiles34.flatMap((count, tile34) =>
-            Array.from({ length: count }, () => ({
-              kind: "floating" as const,
-              tiles34: [tile34],
-            }))
-          ),
+          groups: decompositionGroups,
         }],
-        invariantClaims: [],
+        invariantClaims: decompositionGroups,
         alternativeClaims: [],
       },
       waits: this.hasWait ? [{
@@ -517,6 +518,25 @@ describe("response-opportunity furiten", () => {
     });
     expect((await deriveResponseFuriten(
       streamWith(events), eventRef(6), misboundResult,
+    )).temporary).toEqual({ status: "unknown", unknownReason: "response_hand_structure_unavailable", evidenceIds: [], analysisRefs: [], riichiAcceptanceEventRef: null });
+
+    const semanticLiar = new FixtureHandStructureEngine();
+    const analyzeLiar = semanticLiar.analyzeHandStructure.bind(semanticLiar);
+    semanticLiar.analyzeHandStructure = async (request) => {
+      const result = await analyzeLiar(request);
+      return {
+        ...result,
+        decompositions: {
+          ...result.decompositions,
+          items: result.decompositions.items.map((item) => ({
+            ...item,
+            groups: item.groups.slice(1),
+          })),
+        },
+      };
+    };
+    expect((await deriveResponseFuriten(
+      streamWith(events), eventRef(6), semanticLiar,
     )).temporary).toEqual({ status: "unknown", unknownReason: "response_hand_structure_unavailable", evidenceIds: [], analysisRefs: [], riichiAcceptanceEventRef: null });
   });
 

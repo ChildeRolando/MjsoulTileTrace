@@ -14,6 +14,62 @@ export interface HandStructureLedgerMapping {
   diagnostics: string[];
 }
 
+const blockedDimensions = [
+  "overall_shanten",
+  "family_applicability:standard",
+  "family_shanten:standard",
+  "family_effective_tile_types:standard",
+  "family_effective_tiles_remaining:standard",
+  "family_applicability:chiitoitsu",
+  "family_shanten:chiitoitsu",
+  "family_effective_tile_types:chiitoitsu",
+  "family_effective_tiles_remaining:chiitoitsu",
+  "family_applicability:kokushi",
+  "family_shanten:kokushi",
+  "family_effective_tile_types:kokushi",
+  "family_effective_tiles_remaining:kokushi",
+  "best_families",
+  "overall_effective_tile_types",
+  "overall_effective_tiles_remaining",
+  "non_dominated_decomposition_count",
+  "shape_claims",
+  "decomposition_truncated",
+  "wait_tiles",
+  "wait_details",
+  "wait_tiles_remaining",
+  "base_ron_eligibility",
+  "discard_furiten",
+  "temporary_furiten",
+  "riichi_furiten",
+  "final_ron_eligibility_status",
+  "ron_eligible_wait_tiles",
+  "ron_eligible_wait_count",
+] as const;
+
+export function blockedHandStructureEfficiencyFacts(
+  status: "blocked_missing_facts" | "blocked_engine_failure",
+  evidenceIds: readonly string[],
+): HandStructureLedgerMapping {
+  const limitation = status === "blocked_engine_failure"
+    ? "手牌结构引擎请求失败，V2 事实不可用"
+    : "缺少计算手牌结构与振听所需的绑定事实";
+  return {
+    axis: "efficiency",
+    facts: blockedDimensions.map((dimension) => FactorFactSchema.parse({
+      factorKey: `efficiency.v2.${dimension}`,
+      dimension,
+      status,
+      evidenceClass: "deterministic_allowlisted",
+      preferenceEligibility: "ineligible",
+      evidenceIds: unique(evidenceIds),
+      limitations: [limitation],
+    })),
+    diagnostics: [status === "blocked_engine_failure"
+      ? "hand_structure_engine_failure_v1_fallback"
+      : "hand_structure_missing_facts_v1_fallback"],
+  };
+}
+
 export function mapMergedHandFuritenToEfficiencyFacts(
   rawMerged: MergedHandFuritenV2,
 ): HandStructureLedgerMapping {

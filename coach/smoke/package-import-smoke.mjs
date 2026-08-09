@@ -44,5 +44,13 @@ test("workspace packages import as emitted JavaScript", async () => {
     typeof reasoning.actionToLegacyDiscardActionId,
     "function",
   );
+  assert.equal(typeof reasoning.buildHandStructureRequestV2, "function");
+  assert.equal(typeof reasoning.mergeHandStructureFuriten, "function");
+  assert.equal(
+    typeof reasoning.mapMergedHandFuritenToEfficiencyFacts,
+    "function",
+  );
+  assert.equal(typeof reasoning.deriveResponseFuriten, "function");
+  assert.equal(typeof reasoning.validateHandStructureResult, "function");
   assert.equal(reasoning.bridgeLegacyRegressionEvents, undefined);
 });

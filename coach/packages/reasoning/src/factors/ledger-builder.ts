@@ -19,6 +19,7 @@ import {
 import type { CandidateProjection } from "./candidate-projector.js";
 import { tileIdTo34 } from "./tile34.js";
 import { buildLocalDefenseFacts } from "./local-defense.js";
+import type { HandStructureLedgerMapping } from "./hand-structure-ledger.js";
 
 export type FactEngineOutcome<T> =
   | { status: "calculated"; result: T }
@@ -41,6 +42,12 @@ export interface CandidateLedgerBuildInput {
   projection: ReadyProjection;
   hand13Outcome?: FactEngineOutcome<Hand13FactResult>;
   completedHandOutcome?: FactEngineOutcome<CompletedHandFactResult>;
+  handStructureOutcome?:
+    | { status: "calculated"; mapping: HandStructureLedgerMapping }
+    | {
+        status: "blocked_engine_failure" | "blocked_missing_facts";
+        mapping: HandStructureLedgerMapping;
+      };
   threatRiskOutcomes: ThreatRiskEngineOutcome[];
 }
 
@@ -207,11 +214,15 @@ function mapHand13(
   if (outcome === undefined || outcome.status === "blocked_engine_failure") {
     const diagnostic = outcome?.diagnostic ?? "hand13 result is missing";
     diagnostics.push(diagnostic);
-    for (const [axis, dimension] of [
-      ["efficiency", "shanten"],
-      ["efficiency", "ukeire_remaining"],
-      ["value", "dora_count"],
-    ] as const) {
+    const blockedAuthorityDimensions = input.handStructureOutcome?.status ===
+        "calculated"
+      ? [["value", "dora_count"]] as const
+      : [
+          ["efficiency", "shanten"],
+          ["efficiency", "ukeire_remaining"],
+          ["value", "dora_count"],
+        ] as const;
+    for (const [axis, dimension] of blockedAuthorityDimensions) {
       byAxis.get(axis)!.push(blockedDeterministicFact(
         `${axis}.${dimension}`,
         dimension,
@@ -236,37 +247,39 @@ function mapHand13(
 
   const result = Hand13FactResultSchema.parse(outcome.result);
   const resultIds = resultEvidence(result.requestId, evidence);
-  byAxis.get("efficiency")!.push(deterministicFact(
-    "efficiency.shanten",
-    "shanten",
-    { kind: "number", value: result.shanten, unit: "shanten" },
-    resultIds,
-    result.identity,
-  ));
-  byAxis.get("efficiency")!.push(deterministicFact(
-    "efficiency.effective_tile_types",
-    "effective_tile_types",
-    { kind: "integer_ids", values: [...result.effectiveTile34] },
-    resultIds,
-    result.identity,
-  ));
-  if (result.waitsRemainingStatus === "calculated") {
+  if (input.handStructureOutcome?.status !== "calculated") {
     byAxis.get("efficiency")!.push(deterministicFact(
-      "efficiency.ukeire_remaining",
-      "ukeire_remaining",
-      { kind: "tile_counts", value: result.waitsRemaining.map((entry) => ({ ...entry })) },
+      "efficiency.shanten",
+      "shanten",
+      { kind: "number", value: result.shanten, unit: "shanten" },
       resultIds,
       result.identity,
-      "deterministic_under_assumptions",
     ));
-  } else {
-    byAxis.get("efficiency")!.push(blockedDeterministicFact(
-      "efficiency.ukeire_remaining",
-      "ukeire_remaining",
-      "blocked_missing_facts",
+    byAxis.get("efficiency")!.push(deterministicFact(
+      "efficiency.effective_tile_types",
+      "effective_tile_types",
+      { kind: "integer_ids", values: [...result.effectiveTile34] },
       resultIds,
-      ["Complete public visibility is required for live remaining counts"],
+      result.identity,
     ));
+    if (result.waitsRemainingStatus === "calculated") {
+      byAxis.get("efficiency")!.push(deterministicFact(
+        "efficiency.ukeire_remaining",
+        "ukeire_remaining",
+        { kind: "tile_counts", value: result.waitsRemaining.map((entry) => ({ ...entry })) },
+        resultIds,
+        result.identity,
+        "deterministic_under_assumptions",
+      ));
+    } else {
+      byAxis.get("efficiency")!.push(blockedDeterministicFact(
+        "efficiency.ukeire_remaining",
+        "ukeire_remaining",
+        "blocked_missing_facts",
+        resultIds,
+        ["Complete public visibility is required for live remaining counts"],
+      ));
+    }
   }
   for (const improve of result.improves) {
     byAxis.get("efficiency")!.push(deterministicFact(
@@ -543,6 +556,10 @@ export function buildCandidateLedger(
   }
   if (input.projection.completedHandRequest !== undefined) {
     mapCompletedHand(input, byAxis, diagnostics);
+  }
+  if (input.handStructureOutcome !== undefined) {
+    byAxis.get("efficiency")!.push(...input.handStructureOutcome.mapping.facts);
+    diagnostics.push(...input.handStructureOutcome.mapping.diagnostics);
   }
   byAxis.get("defense")!.push(
     ...buildLocalDefenseFacts(input.candidate, input.facts),
