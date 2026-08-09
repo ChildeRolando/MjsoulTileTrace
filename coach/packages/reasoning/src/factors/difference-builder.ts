@@ -41,7 +41,11 @@ interface DeterministicDirectionSpec {
   preference: NumericPreference;
   valueKind: FactorValue["kind"];
   unit?: string;
+  evidenceClass?: FactorFact["evidenceClass"];
 }
+
+const GENBUTSU_DIMENSION = /^genbutsu:actor[0-3]$/u;
+const HELPER_RISK_DIMENSION = /^helper_risk_scale:actor[0-3]$/u;
 
 const deterministicDirectionRegistry = new Map<string, DeterministicDirectionSpec>([
   ["efficiency\u0000shanten", {
@@ -144,8 +148,12 @@ function deterministicSpec(
   axis: Axis,
   dimension: string,
 ): DeterministicDirectionSpec | undefined {
-  if (axis === "defense" && dimension.startsWith("genbutsu:actor")) {
-    return { preference: "true", valueKind: "boolean" };
+  if (axis === "defense" && GENBUTSU_DIMENSION.test(dimension)) {
+    return {
+      preference: "true",
+      valueKind: "boolean",
+      evidenceClass: "deterministic_local_replay",
+    };
   }
   return deterministicDirectionRegistry.get(`${axis}\u0000${dimension}`);
 }
@@ -157,6 +165,14 @@ function valueMatchesSpec(
   if (value === undefined || value.kind !== spec.valueKind) return false;
   if (value.kind === "number") return value.unit === spec.unit;
   return spec.unit === undefined;
+}
+
+function factMatchesSpec(
+  fact: FactorFact,
+  spec: DeterministicDirectionSpec,
+): boolean {
+  return valueMatchesSpec(fact.value, spec) &&
+    (spec.evidenceClass === undefined || fact.evidenceClass === spec.evidenceClass);
 }
 
 function deterministicValueDirection(
@@ -181,6 +197,7 @@ function deterministicValueDirection(
 }
 
 function heuristicValueDirection(
+  axis: Axis,
   dimension: string,
   left: FactorValue,
   right: FactorValue,
@@ -188,13 +205,47 @@ function heuristicValueDirection(
   if (left.kind !== "number" || right.kind !== "number") {
     return stableJson(left) === stableJson(right) ? "neutral" : undefined;
   }
-  const lowerIsBetter = dimension.startsWith("helper_risk_scale:") ||
+  if (
+    (axis === "defense" && !HELPER_RISK_DIMENSION.test(dimension)) ||
+    (axis !== "defense" && HELPER_RISK_DIMENSION.test(dimension))
+  ) {
+    return stableJson(left) === stableJson(right) ? "neutral" : undefined;
+  }
+  if (
+    axis === "defense" &&
+    HELPER_RISK_DIMENSION.test(dimension) &&
+    (left.unit !== "helper_risk_scale" || right.unit !== "helper_risk_scale")
+  ) return stableJson(left) === stableJson(right) ? "neutral" : undefined;
+  const lowerIsBetter = (axis === "defense" &&
+      HELPER_RISK_DIMENSION.test(dimension)) ||
     dimension === "furiten_rate";
   return compareNumbers(
     left.value,
     right.value,
     lowerIsBetter ? "lower" : "higher",
   );
+}
+
+export function isRegisteredDeterministicDifference(
+  difference: FactorDifference,
+): boolean {
+  if (
+    difference.kind !== "deterministic_difference" ||
+    difference.preferenceEligibility !== "deterministic"
+  ) return false;
+  const spec = deterministicSpec(difference.axis, difference.dimension);
+  if (
+    spec === undefined ||
+    (spec.evidenceClass !== undefined &&
+      difference.evidenceClass !== spec.evidenceClass) ||
+    !valueMatchesSpec(difference.leftValue, spec) ||
+    !valueMatchesSpec(difference.rightValue, spec)
+  ) return false;
+  return deterministicValueDirection(
+    difference.leftValue,
+    difference.rightValue,
+    spec.preference,
+  ) === difference.direction;
 }
 
 function unique(values: readonly string[]): string[] {
@@ -318,8 +369,8 @@ export function buildFactorDifferences(
         if (left.preferenceEligibility === "deterministic") {
           const spec = deterministicSpec(leftEntry.axis, left.dimension);
           const direction = spec === undefined ||
-              !valueMatchesSpec(left.value, spec) ||
-              !valueMatchesSpec(right.value, spec) ||
+              !factMatchesSpec(left, spec) ||
+              !factMatchesSpec(right, spec) ||
               !registeredComparisonAllowed(
                 leftEntry.axis,
                 left.dimension,
@@ -373,7 +424,12 @@ export function buildFactorDifferences(
         }
 
         if (left.preferenceEligibility === "heuristic_only") {
-          const direction = heuristicValueDirection(left.dimension, left.value, right.value);
+          const direction = heuristicValueDirection(
+            leftEntry.axis,
+            left.dimension,
+            left.value,
+            right.value,
+          );
           if (direction === undefined) {
             heuristic.push(buildDifference(
               leftEntry.axis,
@@ -422,7 +478,7 @@ export function buildFactorDifferences(
           const spec = deterministicSpec(axis.axis, fact.dimension)!;
           const eligible = fact.status === "calculated" &&
             fact.preferenceEligibility === "deterministic" &&
-            valueMatchesSpec(fact.value, spec);
+            factMatchesSpec(fact, spec);
           return {
             actionRef: ledger.actionRef,
             axis: axis.axis,

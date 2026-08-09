@@ -6,7 +6,10 @@ import {
   type DeterministicPreference,
   type FactorDifference,
 } from "@riichi-coach/contracts";
-import type { FactorDifferenceBuildResult } from "./difference-builder.js";
+import {
+  isRegisteredDeterministicDifference,
+  type FactorDifferenceBuildResult,
+} from "./difference-builder.js";
 
 function relevantAxes(frame: ComparisonAnalysisFrame): Axis[] {
   if (frame.scope.kind === "single_axis") return [frame.scope.axis];
@@ -28,6 +31,7 @@ function relevantDifferences(
   const axes = new Set(relevantAxes(frame));
   return result.deterministic.filter((difference) =>
     difference.preferenceEligibility === "deterministic" &&
+    isRegisteredDeterministicDifference(difference) &&
     axes.has(difference.axis) &&
     (frame.scope.kind !== "single_axis" ||
       frame.scope.dimension === undefined ||

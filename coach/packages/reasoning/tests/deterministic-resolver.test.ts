@@ -58,15 +58,15 @@ function shanten(value: number): FactorFact {
   };
 }
 
-function genbutsu(value: boolean): FactorFact {
+function genbutsu(value: boolean, actor = 2): FactorFact {
   return {
-    factorKey: "defense.genbutsu.actor2",
-    dimension: "genbutsu:actor2",
+    factorKey: `defense.genbutsu.actor${actor}`,
+    dimension: `genbutsu:actor${actor}`,
     status: "calculated",
     evidenceClass: "deterministic_local_replay",
     preferenceEligibility: "deterministic",
     value: { kind: "boolean", value },
-    evidenceIds: ["event:riichi:2"],
+    evidenceIds: [`event:riichi:${actor}`],
     limitations: [],
   };
 }
@@ -168,6 +168,74 @@ describe("deterministic preference resolver", () => {
       buildFactorDifferences(eastOneLedgers(99, 1)),
     );
     expect(first).toEqual(reversed);
+  });
+
+  it("returns null when per-threat genbutsu directions trade off", () => {
+    const differences = buildFactorDifferences([
+      ledger(twoPin, [shanten(1)], [genbutsu(true, 1), genbutsu(false, 2)]),
+      ledger(sixSou, [shanten(1)], [genbutsu(false, 1), genbutsu(true, 2)]),
+    ]);
+
+    expect(differences.deterministic.filter((entry) => entry.axis === "defense"))
+      .toHaveLength(2);
+    expect(resolveDeterministicPreference(
+      frame({ kind: "single_axis", axis: "defense" }),
+      differences,
+    )).toBeNull();
+  });
+
+  it("keeps a defense preference when every threat row supports the same action", () => {
+    const differences = buildFactorDifferences([
+      ledger(twoPin, [shanten(1)], [genbutsu(true, 1), genbutsu(true, 2)]),
+      ledger(sixSou, [shanten(1)], [genbutsu(false, 1), genbutsu(false, 2)]),
+    ]);
+
+    expect(resolveDeterministicPreference(
+      frame({ kind: "single_axis", axis: "defense" }),
+      differences,
+    )?.actionRefs).toEqual([twoPin]);
+  });
+
+  it("rejects an externally forged eligible spoofed genbutsu difference", () => {
+    const signature = JSON.stringify({
+      evidenceClass: "deterministic_local_replay",
+      limitations: [],
+      valueShape: { kind: "boolean" },
+    });
+    const forged = {
+      candidateRefs: [twoPin, sixSou],
+      deterministic: [{
+        differenceId: "difference:forged-genbutsu",
+        kind: "deterministic_difference",
+        preferenceEligibility: "deterministic",
+        axis: "defense",
+        dimension: "genbutsu:actor2:spoof",
+        leftActionRef: twoPin,
+        rightActionRef: sixSou,
+        direction: "supports_left",
+        valueRelation: "ordered",
+        leftValue: { kind: "boolean", value: true },
+        rightValue: { kind: "boolean", value: false },
+        evidenceClass: "deterministic_local_replay",
+        evidenceIds: ["event:riichi:2"],
+        limitations: [],
+      }],
+      heuristic: [],
+      coverage: [],
+      deterministicCoverage: [twoPin, sixSou].map((actionRef) => ({
+        actionRef,
+        axis: "defense",
+        dimension: "genbutsu:actor2:spoof",
+        status: "calculated",
+        preferenceEligibility: "deterministic",
+        comparisonSignature: signature,
+      })),
+    } as FactorDifferenceBuildResult;
+
+    expect(resolveDeterministicPreference(
+      frame({ kind: "single_axis", axis: "defense" }),
+      forged,
+    )).toBeNull();
   });
 
   it("does not let heuristic value facts conceal blocked deterministic value", () => {

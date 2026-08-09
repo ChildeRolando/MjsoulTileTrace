@@ -65,15 +65,19 @@ function ukeire(entries: Array<{ tile34: number; count: number }>): FactorFact {
   };
 }
 
-function helperRisk(value: number): FactorFact {
+function helperRisk(
+  value: number,
+  dimension = "helper_risk_scale:actor2",
+  unit = "helper_risk_scale",
+): FactorFact {
   return {
     factorKey: "defense.helper_risk.actor2",
-    dimension: "helper_risk_scale:actor2",
+    dimension,
     status: "calculated",
     evidenceClass: "versioned_upstream_estimate",
     preferenceEligibility: "heuristic_only",
     engineIdentity: identity,
-    value: { kind: "number", value, unit: "helper_risk_scale" },
+    value: { kind: "number", value, unit },
     evidenceIds: ["request:risk:2"],
     limitations: ["Not a calibrated Mortal deal-in probability"],
   };
@@ -104,6 +108,23 @@ function helperClassification(value: string): FactorFact {
     value: { kind: "classification", value },
     evidenceIds: ["request:risk:2"],
     limitations: ["Pinned structural classification"],
+  };
+}
+
+function genbutsu(
+  actor: number,
+  value: boolean,
+  dimension = `genbutsu:actor${actor}`,
+): FactorFact {
+  return {
+    factorKey: `defense.genbutsu.actor${actor}`,
+    dimension,
+    status: "calculated",
+    evidenceClass: "deterministic_local_replay",
+    preferenceEligibility: "deterministic",
+    value: { kind: "boolean", value },
+    evidenceIds: [`event:riichi:${actor}`],
+    limitations: [],
   };
 }
 
@@ -239,6 +260,101 @@ describe("factor difference builder", () => {
     expect(result.deterministic.some(
       (entry) => entry.dimension === "helper_risk_scale:actor2",
     )).toBe(false);
+    expect(result.heuristic[0]).toMatchObject({
+      direction: "supports_left",
+      preferenceEligibility: "heuristic_only",
+    });
+
+    const spoofed = buildFactorDifferences([
+      ledger(twoPin, [], [helperRisk(2, "helper_risk_scale:actor2:spoof")]),
+      ledger(sixSou, [], [helperRisk(8, "helper_risk_scale:actor2:spoof")]),
+    ]).heuristic[0];
+    expect(spoofed).toMatchObject({
+      direction: "neutral",
+      preferenceEligibility: "heuristic_only",
+      valueRelation: "different",
+    });
+
+    const misplaced = buildFactorDifferences([
+      ledgerWithAxis(twoPin, "efficiency", [helperRisk(2)]),
+      ledgerWithAxis(sixSou, "efficiency", [helperRisk(8)]),
+    ]).heuristic[0];
+    expect(misplaced).toMatchObject({
+      axis: "efficiency",
+      direction: "neutral",
+      preferenceEligibility: "heuristic_only",
+      valueRelation: "different",
+    });
+
+    const wrongUnit = buildFactorDifferences([
+      ledger(twoPin, [], [helperRisk(2, "helper_risk_scale:actor2", "points")]),
+      ledger(sixSou, [], [helperRisk(8, "helper_risk_scale:actor2", "points")]),
+    ]).heuristic[0];
+    expect(wrongUnit).toMatchObject({
+      axis: "defense",
+      direction: "neutral",
+      preferenceEligibility: "heuristic_only",
+      valueRelation: "different",
+    });
+  });
+
+  it("orders only exact actor-keyed genbutsu boolean dimensions", () => {
+    const exact = buildFactorDifferences([
+      ledger(twoPin, [], [genbutsu(2, true)]),
+      ledger(sixSou, [], [genbutsu(2, false)]),
+    ]).deterministic[0];
+    expect(exact).toMatchObject({
+      axis: "defense",
+      dimension: "genbutsu:actor2",
+      direction: "supports_left",
+      preferenceEligibility: "deterministic",
+    });
+
+    for (const dimension of [
+      "genbutsu:actor2:spoof",
+      "genbutsu:actor4",
+      "genbutsu:actor2:actor2",
+    ]) {
+      const spoofed = buildFactorDifferences([
+        ledger(twoPin, [], [genbutsu(2, true, dimension)]),
+        ledger(sixSou, [], [genbutsu(2, false, dimension)]),
+      ]).deterministic[0];
+      expect(spoofed).toMatchObject({
+        axis: "defense",
+        dimension,
+        direction: "neutral",
+        valueRelation: "different",
+        preferenceEligibility: "ineligible",
+      });
+    }
+  });
+
+  it("never compares one threat actor's genbutsu cell with another actor", () => {
+    const result = buildFactorDifferences([
+      ledger(twoPin, [], [genbutsu(1, true)]),
+      ledger(sixSou, [], [genbutsu(2, false)]),
+    ]);
+
+    expect(result.deterministic).toEqual([]);
+  });
+
+  it("requires local replay evidence for deterministic genbutsu", () => {
+    const upstreamGenbutsu = (value: boolean): FactorFact => ({
+      ...genbutsu(2, value),
+      evidenceClass: "deterministic_allowlisted",
+      engineIdentity: identity,
+    });
+    const difference = buildFactorDifferences([
+      ledger(twoPin, [], [upstreamGenbutsu(true)]),
+      ledger(sixSou, [], [upstreamGenbutsu(false)]),
+    ]).deterministic[0];
+
+    expect(difference).toMatchObject({
+      dimension: "genbutsu:actor2",
+      direction: "neutral",
+      valueRelation: "different",
+      preferenceEligibility: "ineligible",
+    });
   });
 
   it("refuses to compare facts from different engine versions", () => {
@@ -274,6 +390,24 @@ describe("factor difference builder", () => {
       ledger(twoPin, [], [helperClassification("suji")]),
       ledger(sixSou, [], [helperClassification("no_suji")]),
     ]).deterministic).toEqual([]);
+
+    const classificationSet = buildFactorDifferences([
+      ledger(twoPin, [], [{
+        ...helperClassification("suji"),
+        dimension: "helper_classifications:actor2",
+        value: { kind: "string_set", values: ["suji", "wall"] },
+      }]),
+      ledger(sixSou, [], [{
+        ...helperClassification("no_suji"),
+        dimension: "helper_classifications:actor2",
+        value: { kind: "string_set", values: ["no_suji"] },
+      }]),
+    ]).heuristic[0];
+    expect(classificationSet).toMatchObject({
+      direction: "neutral",
+      preferenceEligibility: "heuristic_only",
+      valueRelation: "different",
+    });
   });
 
   it("keys deterministic direction by both axis and dimension", () => {
