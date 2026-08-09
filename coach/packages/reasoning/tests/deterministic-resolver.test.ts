@@ -16,7 +16,7 @@ import { resolveDeterministicPreference } from "../src/factors/deterministic-res
 const identity: EngineIdentity = {
   engine: "mahjong-helper",
   upstreamCommit: "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
-  adapterVersion: "0.1.0",
+  adapterVersion: "0.2.0",
   protocolVersion: "mahjong-facts/v1",
 };
 const twoPin = canonicalActionRef({

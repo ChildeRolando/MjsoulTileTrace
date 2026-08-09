@@ -23,7 +23,7 @@ import { runStructuredFactorPipeline } from "../src/factors/structured-factor-pi
 const identity: EngineIdentity = {
   engine: "mahjong-helper",
   upstreamCommit: "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
-  adapterVersion: "0.1.0",
+  adapterVersion: "0.2.0",
   protocolVersion: "mahjong-facts/v1",
 };
 const tile = (id: Tile["id"]): Tile => ({ id, red: false });
@@ -262,12 +262,19 @@ class FixtureEngine implements HandStructureFactEnginePort {
       stateHash: request.stateHash,
       identity,
       threatActor: request.threatActor,
-      riskScale: Array(34).fill(5),
-      classifications: [],
+      scaleVersion: request.scaleVersion,
+      riskScale: request.safeTiles34.map((safe) => safe ? 0 : 5),
+      classifications: request.safeTiles34.flatMap((safe, tile34) =>
+        safe ? [{ tile34, kind: "genbutsu" as const }] : []
+      ),
       honorClassifications: Array.from({ length: 7 }, (_, index) => ({
         tile34: 27 + index,
         remainingCount: request.leftTiles34[27 + index]!,
-        category: index === 1 ? "guest_wind" as const : "yakuhai" as const,
+        category: 27 + index >= 31 ||
+            27 + index === request.roundWindTile34 ||
+            27 + index === request.threatWindTile34
+          ? "yakuhai" as const
+          : "guest_wind" as const,
       })),
       leftNoSujiTile34: [],
       evidenceIds: request.evidenceIds,
@@ -720,7 +727,7 @@ describe("structured factor pipeline", () => {
       override async analyzeHandStructure(request: HandStructureRequestV2) {
         return {
           ...await super.analyzeHandStructure(request),
-          identity: { ...identity, adapterVersion: "0.2.0" },
+          identity: { ...identity, adapterVersion: "9.9.9" },
         } as unknown as HandStructureResultV2;
       }
     }

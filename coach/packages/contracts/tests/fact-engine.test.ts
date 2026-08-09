@@ -15,7 +15,7 @@ import {
 const identity = {
   engine: "mahjong-helper",
   upstreamCommit: "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
-  adapterVersion: "0.1.0",
+  adapterVersion: "0.2.0",
   protocolVersion: "mahjong-facts/v1",
 } as const;
 
@@ -338,6 +338,7 @@ describe("fact engine contracts", () => {
       ...resultIdentity,
       kind: "threat_risk_result",
       threatActor: 2,
+      scaleVersion: STRUCTURAL_RISK_SCALE_VERSION,
       riskScale: Array(34).fill(0),
       classifications: [{ tile34: 2, kind: "one_chance" }],
       honorClassifications: Array.from({ length: 7 }, (_, index) => ({
@@ -361,6 +362,41 @@ describe("fact engine contracts", () => {
       remainingCount: 4,
       category: "guest_wind",
     });
+  });
+
+  it("requires a finite structural-risk result with an echoed scale version", () => {
+    const base = {
+      ...resultIdentity,
+      kind: "threat_risk_result" as const,
+      threatActor: 2,
+      scaleVersion: STRUCTURAL_RISK_SCALE_VERSION,
+      riskScale: Array(34).fill(0),
+      classifications: [
+        { tile34: 2, kind: "one_chance" as const },
+        { tile34: 3, kind: "genbutsu" as const },
+      ],
+      honorClassifications: Array.from({ length: 7 }, (_, index) => ({
+        tile34: 27 + index,
+        remainingCount: 4,
+        category: index === 1 ? "guest_wind" as const : "yakuhai" as const,
+      })),
+      leftNoSujiTile34: [3, 4],
+      evidenceIds: ["event-riichi"],
+      limitations: [
+        "helper_risk_not_mortal_probability" as const,
+        "threats_analyzed_independently" as const,
+        "structural_labels_separate" as const,
+      ],
+      diagnostics: [],
+    };
+    expect(ThreatRiskFactResultSchema.parse(base).scaleVersion)
+      .toBe(STRUCTURAL_RISK_SCALE_VERSION);
+    const { scaleVersion: _omitted, ...withoutVersion } = base;
+    expect(() => ThreatRiskFactResultSchema.parse(withoutVersion)).toThrow();
+    expect(() => ThreatRiskFactResultSchema.parse({
+      ...base,
+      riskScale: [...Array(33).fill(0), Number.NaN],
+    })).toThrow();
   });
 
   it("bounds threat turns to the pinned helper risk table", () => {

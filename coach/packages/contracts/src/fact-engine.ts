@@ -4,7 +4,7 @@ import { ActionRefSchema } from "./comparison.js";
 export const FACT_ENGINE_PROTOCOL_VERSION = "mahjong-facts/v1" as const;
 export const MAHJONG_HELPER_COMMIT =
   "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0" as const;
-export const FACT_ENGINE_ADAPTER_VERSION = "0.1.0" as const;
+export const FACT_ENGINE_ADAPTER_VERSION = "0.2.0" as const;
 
 const Tile34IndexSchema = z.number().int().min(0).max(33);
 const CountSchema = z.number().int().min(0).max(4);
@@ -505,6 +505,7 @@ export const ThreatRiskFactResultSchema = z.object({
   ...ResultIdentityShape,
   kind: z.literal("threat_risk_result"),
   threatActor: z.number().int().min(0).max(3),
+  scaleVersion: z.string().min(1),
   riskScale: z.array(z.number().finite().nonnegative()).length(34),
   classifications: z.array(z.object({
     tile34: Tile34IndexSchema,

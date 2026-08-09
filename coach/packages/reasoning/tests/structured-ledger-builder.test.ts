@@ -89,7 +89,7 @@ function handResult(overrides: Partial<Hand13FactResult> = {}): Hand13FactResult
     identity: {
       engine: "mahjong-helper",
       upstreamCommit: "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
-      adapterVersion: "0.1.0",
+      adapterVersion: "0.2.0",
       protocolVersion: "mahjong-facts/v1",
     },
     shanten: 2,
@@ -164,6 +164,8 @@ function baseInput(): CandidateLedgerBuildInput {
         stateHash: "sha256:projected",
         identity: handResult().identity,
         threatActor: 2,
+        scaleVersion:
+          "mahjong-helper-risk/514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0/v1",
         riskScale: Array(34).fill(5).map((value, index) => index === 23 ? 0 : value),
         classifications: [
           { tile34: 23, kind: "genbutsu" },

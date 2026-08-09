@@ -57,7 +57,7 @@ function hand(
     identity: {
       engine: "mahjong-helper",
       upstreamCommit: "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
-      adapterVersion: "0.1.0",
+      adapterVersion: "0.2.0",
       protocolVersion: "mahjong-facts/v1",
     },
     overallShanten: tenpai ? 0 : 1,
@@ -149,7 +149,7 @@ const response = (
       engineIdentity: {
         engine: "mahjong-helper" as const,
         upstreamCommit: "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0" as const,
-        adapterVersion: "0.1.0" as const,
+        adapterVersion: "0.2.0" as const,
         protocolVersion: "mahjong-facts/v1" as const,
       },
       sourceStreamPrefixHash: fixtureSourceStreamPrefixHash,
@@ -174,7 +174,7 @@ const response = (
       engineIdentity: {
         engine: "mahjong-helper" as const,
         upstreamCommit: "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0" as const,
-        adapterVersion: "0.1.0" as const,
+        adapterVersion: "0.2.0" as const,
         protocolVersion: "mahjong-facts/v1" as const,
       },
       sourceStreamPrefixHash: fixtureSourceStreamPrefixHash,

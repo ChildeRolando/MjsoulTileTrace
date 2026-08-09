@@ -12,7 +12,7 @@ import (
 const (
 	protocolVersion = "mahjong-facts/v1"
 	helperCommit    = "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0"
-	adapterVersion  = "0.1.0"
+	adapterVersion  = "0.2.0"
 )
 
 // Keep the dependency pinned before the first analysis handler lands.
@@ -213,7 +213,7 @@ func handleLine(line []byte) (response []byte) {
 		if err := requireJSONFields(
 			line,
 			"requestId", "protocolVersion", "actionRef", "stateHash",
-			"threatActor", "turns", "safeTiles34", "leftTiles34",
+			"threatActor", "scaleVersion", "turns", "safeTiles34", "leftTiles34",
 			"doraTiles34", "roundWindTile34", "threatWindTile34",
 			"earlyOutsideTiles34", "evidenceIds",
 		); err != nil {

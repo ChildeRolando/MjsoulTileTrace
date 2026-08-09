@@ -11,6 +11,7 @@ import (
 type ThreatRiskRequest struct {
 	RequestBase
 	ThreatActor         int      `json:"threatActor"`
+	ScaleVersion        string   `json:"scaleVersion"`
 	Turns               int      `json:"turns"`
 	SafeTiles34         []bool   `json:"safeTiles34"`
 	LeftTiles34         []int    `json:"leftTiles34"`
@@ -40,6 +41,7 @@ type ThreatRiskResult struct {
 	StateHash            string                 `json:"stateHash"`
 	Identity             EngineIdentity         `json:"identity"`
 	ThreatActor          int                    `json:"threatActor"`
+	ScaleVersion         string                 `json:"scaleVersion"`
 	RiskScale            []float64              `json:"riskScale"`
 	Classifications      []StructuralRisk       `json:"classifications"`
 	HonorClassifications []HonorClassification  `json:"honorClassifications"`
@@ -48,6 +50,8 @@ type ThreatRiskResult struct {
 	Limitations          []string               `json:"limitations"`
 	Diagnostics          []FactEngineDiagnostic `json:"diagnostics"`
 }
+
+const structuralRiskScaleVersion = "mahjong-helper-risk/514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0/v1"
 
 func validateStrictAscendingTiles(values []int, field string) error {
 	if values == nil {
@@ -76,6 +80,9 @@ func validateThreatRiskRequest(request ThreatRiskRequest) error {
 	}
 	if request.ThreatActor < 0 || request.ThreatActor > 3 {
 		return fmt.Errorf("threatActor must be between 0 and 3")
+	}
+	if request.ScaleVersion != structuralRiskScaleVersion {
+		return fmt.Errorf("unsupported structural risk scale version")
 	}
 	if request.Turns < 1 || request.Turns > util.MaxTurns {
 		return fmt.Errorf("turns must be between 1 and %d", util.MaxTurns)
@@ -232,6 +239,11 @@ func analyzeThreatRisk(request ThreatRiskRequest) (ThreatRiskResult, error) {
 		request.ThreatWindTile34,
 	)
 	riskScale.FixWithEarlyOutside(cloneInts(request.EarlyOutsideTiles34))
+	for tile, safe := range request.SafeTiles34 {
+		if safe {
+			riskScale[tile] = 0
+		}
+	}
 	for tile, value := range riskScale {
 		if value < 0 || math.IsNaN(value) || math.IsInf(value, 0) {
 			return ThreatRiskResult{}, fmt.Errorf("mahjong-helper returned invalid risk for tile %d", tile)
@@ -254,6 +266,7 @@ func analyzeThreatRisk(request ThreatRiskRequest) (ThreatRiskResult, error) {
 		StateHash:            request.StateHash,
 		Identity:             engineIdentity(),
 		ThreatActor:          request.ThreatActor,
+		ScaleVersion:         request.ScaleVersion,
 		RiskScale:            append([]float64(nil), riskScale...),
 		Classifications:      sortedStructuralRisks(classifications),
 		HonorClassifications: honorClassifications(request),

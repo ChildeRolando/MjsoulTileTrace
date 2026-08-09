@@ -8,7 +8,7 @@
       "actionRef": "action:v1:%5B%22discard%22%2C%5B%222p%22%2Cfalse%5D%2C%22tedashi%22%5D",
       "request": {
         "kind": "hand13",
-        "requestId": "canonical-v2:sha256:7fdcc0e3f08c3812257f6071e2881bb70394e127bda44d741ce62849e167ad38:hand13:sha256:ac0522678a889ea2950a7ff2efe1548e0002727971be91351ac2eff882c902c8",
+        "requestId": "legacy-regression:sha256:7fdcc0e3f08c3812257f6071e2881bb70394e127bda44d741ce62849e167ad38:hand13:sha256:ac0522678a889ea2950a7ff2efe1548e0002727971be91351ac2eff882c902c8",
         "protocolVersion": "mahjong-facts/v1",
         "actionRef": "action:v1:%5B%22discard%22%2C%5B%222p%22%2Cfalse%5D%2C%22tedashi%22%5D",
         "stateHash": "sha256:ac0522678a889ea2950a7ff2efe1548e0002727971be91351ac2eff882c902c8",
@@ -111,14 +111,14 @@
         "remainingDraws": null
       },
       "result": {
-        "requestId": "canonical-v2:sha256:7fdcc0e3f08c3812257f6071e2881bb70394e127bda44d741ce62849e167ad38:hand13:sha256:ac0522678a889ea2950a7ff2efe1548e0002727971be91351ac2eff882c902c8",
+        "requestId": "legacy-regression:sha256:7fdcc0e3f08c3812257f6071e2881bb70394e127bda44d741ce62849e167ad38:hand13:sha256:ac0522678a889ea2950a7ff2efe1548e0002727971be91351ac2eff882c902c8",
         "protocolVersion": "mahjong-facts/v1",
         "actionRef": "action:v1:%5B%22discard%22%2C%5B%222p%22%2Cfalse%5D%2C%22tedashi%22%5D",
         "stateHash": "sha256:ac0522678a889ea2950a7ff2efe1548e0002727971be91351ac2eff882c902c8",
         "identity": {
           "engine": "mahjong-helper",
           "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
-          "adapterVersion": "0.1.0",
+          "adapterVersion": "0.2.0",
           "protocolVersion": "mahjong-facts/v1"
         },
         "kind": "hand13_result",
@@ -1155,7 +1155,7 @@
       "handStructureRequest": {
         "kind": "hand_structure",
         "schemaVersion": "hand-structure/v2",
-        "requestId": "canonical-v2:sha256:7fdcc0e3f08c3812257f6071e2881bb70394e127bda44d741ce62849e167ad38:hand-structure:sha256:2f3703d2df4cd316375984abbc9579a05742ee3cbd65f4fb5fa725b70d54e2b7",
+        "requestId": "legacy-regression:sha256:7fdcc0e3f08c3812257f6071e2881bb70394e127bda44d741ce62849e167ad38:hand-structure:sha256:2f3703d2df4cd316375984abbc9579a05742ee3cbd65f4fb5fa725b70d54e2b7",
         "protocolVersion": "mahjong-facts/v1",
         "actionRef": "action:v1:%5B%22discard%22%2C%5B%222p%22%2Cfalse%5D%2C%22tedashi%22%5D",
         "stateHash": "sha256:2f3703d2df4cd316375984abbc9579a05742ee3cbd65f4fb5fa725b70d54e2b7",
@@ -1245,14 +1245,14 @@
       "handStructureResult": {
         "kind": "hand_structure_result",
         "schemaVersion": "hand-structure/v2",
-        "requestId": "canonical-v2:sha256:7fdcc0e3f08c3812257f6071e2881bb70394e127bda44d741ce62849e167ad38:hand-structure:sha256:2f3703d2df4cd316375984abbc9579a05742ee3cbd65f4fb5fa725b70d54e2b7",
+        "requestId": "legacy-regression:sha256:7fdcc0e3f08c3812257f6071e2881bb70394e127bda44d741ce62849e167ad38:hand-structure:sha256:2f3703d2df4cd316375984abbc9579a05742ee3cbd65f4fb5fa725b70d54e2b7",
         "protocolVersion": "mahjong-facts/v1",
         "actionRef": "action:v1:%5B%22discard%22%2C%5B%222p%22%2Cfalse%5D%2C%22tedashi%22%5D",
         "stateHash": "sha256:2f3703d2df4cd316375984abbc9579a05742ee3cbd65f4fb5fa725b70d54e2b7",
         "identity": {
           "engine": "mahjong-helper",
           "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
-          "adapterVersion": "0.1.0",
+          "adapterVersion": "0.2.0",
           "protocolVersion": "mahjong-facts/v1"
         },
         "overallShanten": 2,
@@ -1813,7 +1813,7 @@
       "actionRef": "action:v1:%5B%22discard%22%2C%5B%226s%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
       "request": {
         "kind": "hand13",
-        "requestId": "canonical-v2:sha256:7fdcc0e3f08c3812257f6071e2881bb70394e127bda44d741ce62849e167ad38:hand13:sha256:5aca7e3bc1210f7ea6d3a0487f1fa926f81796d0986dba0fe6057ed1127280b7",
+        "requestId": "legacy-regression:sha256:7fdcc0e3f08c3812257f6071e2881bb70394e127bda44d741ce62849e167ad38:hand13:sha256:5aca7e3bc1210f7ea6d3a0487f1fa926f81796d0986dba0fe6057ed1127280b7",
         "protocolVersion": "mahjong-facts/v1",
         "actionRef": "action:v1:%5B%22discard%22%2C%5B%226s%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
         "stateHash": "sha256:5aca7e3bc1210f7ea6d3a0487f1fa926f81796d0986dba0fe6057ed1127280b7",
@@ -1916,14 +1916,14 @@
         "remainingDraws": null
       },
       "result": {
-        "requestId": "canonical-v2:sha256:7fdcc0e3f08c3812257f6071e2881bb70394e127bda44d741ce62849e167ad38:hand13:sha256:5aca7e3bc1210f7ea6d3a0487f1fa926f81796d0986dba0fe6057ed1127280b7",
+        "requestId": "legacy-regression:sha256:7fdcc0e3f08c3812257f6071e2881bb70394e127bda44d741ce62849e167ad38:hand13:sha256:5aca7e3bc1210f7ea6d3a0487f1fa926f81796d0986dba0fe6057ed1127280b7",
         "protocolVersion": "mahjong-facts/v1",
         "actionRef": "action:v1:%5B%22discard%22%2C%5B%226s%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
         "stateHash": "sha256:5aca7e3bc1210f7ea6d3a0487f1fa926f81796d0986dba0fe6057ed1127280b7",
         "identity": {
           "engine": "mahjong-helper",
           "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
-          "adapterVersion": "0.1.0",
+          "adapterVersion": "0.2.0",
           "protocolVersion": "mahjong-facts/v1"
         },
         "kind": "hand13_result",
@@ -2658,7 +2658,7 @@
       "handStructureRequest": {
         "kind": "hand_structure",
         "schemaVersion": "hand-structure/v2",
-        "requestId": "canonical-v2:sha256:7fdcc0e3f08c3812257f6071e2881bb70394e127bda44d741ce62849e167ad38:hand-structure:sha256:6b896943afe4bba94bc5de671dfbf2322d14546b34fc97b3d52eff13e0c3459b",
+        "requestId": "legacy-regression:sha256:7fdcc0e3f08c3812257f6071e2881bb70394e127bda44d741ce62849e167ad38:hand-structure:sha256:6b896943afe4bba94bc5de671dfbf2322d14546b34fc97b3d52eff13e0c3459b",
         "protocolVersion": "mahjong-facts/v1",
         "actionRef": "action:v1:%5B%22discard%22%2C%5B%226s%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
         "stateHash": "sha256:6b896943afe4bba94bc5de671dfbf2322d14546b34fc97b3d52eff13e0c3459b",
@@ -2748,14 +2748,14 @@
       "handStructureResult": {
         "kind": "hand_structure_result",
         "schemaVersion": "hand-structure/v2",
-        "requestId": "canonical-v2:sha256:7fdcc0e3f08c3812257f6071e2881bb70394e127bda44d741ce62849e167ad38:hand-structure:sha256:6b896943afe4bba94bc5de671dfbf2322d14546b34fc97b3d52eff13e0c3459b",
+        "requestId": "legacy-regression:sha256:7fdcc0e3f08c3812257f6071e2881bb70394e127bda44d741ce62849e167ad38:hand-structure:sha256:6b896943afe4bba94bc5de671dfbf2322d14546b34fc97b3d52eff13e0c3459b",
         "protocolVersion": "mahjong-facts/v1",
         "actionRef": "action:v1:%5B%22discard%22%2C%5B%226s%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
         "stateHash": "sha256:6b896943afe4bba94bc5de671dfbf2322d14546b34fc97b3d52eff13e0c3459b",
         "identity": {
           "engine": "mahjong-helper",
           "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
-          "adapterVersion": "0.1.0",
+          "adapterVersion": "0.2.0",
           "protocolVersion": "mahjong-facts/v1"
         },
         "overallShanten": 3,
@@ -3366,7 +3366,7 @@
       "actionRef": "action:v1:%5B%22discard%22%2C%5B%227p%22%2Cfalse%5D%2C%22tedashi%22%5D",
       "request": {
         "kind": "hand13",
-        "requestId": "canonical-v2:sha256:c9f33c5df839c1bc5a677847e2446d26918d9fae5733a2932adf4e55846fb798:hand13:sha256:de47dd8a97da4e0cea726869b29faf4e90114fe9dc077765ced4f4e769be0910",
+        "requestId": "legacy-regression:sha256:c9f33c5df839c1bc5a677847e2446d26918d9fae5733a2932adf4e55846fb798:hand13:sha256:de47dd8a97da4e0cea726869b29faf4e90114fe9dc077765ced4f4e769be0910",
         "protocolVersion": "mahjong-facts/v1",
         "actionRef": "action:v1:%5B%22discard%22%2C%5B%227p%22%2Cfalse%5D%2C%22tedashi%22%5D",
         "stateHash": "sha256:de47dd8a97da4e0cea726869b29faf4e90114fe9dc077765ced4f4e769be0910",
@@ -3470,14 +3470,14 @@
         "remainingDraws": null
       },
       "result": {
-        "requestId": "canonical-v2:sha256:c9f33c5df839c1bc5a677847e2446d26918d9fae5733a2932adf4e55846fb798:hand13:sha256:de47dd8a97da4e0cea726869b29faf4e90114fe9dc077765ced4f4e769be0910",
+        "requestId": "legacy-regression:sha256:c9f33c5df839c1bc5a677847e2446d26918d9fae5733a2932adf4e55846fb798:hand13:sha256:de47dd8a97da4e0cea726869b29faf4e90114fe9dc077765ced4f4e769be0910",
         "protocolVersion": "mahjong-facts/v1",
         "actionRef": "action:v1:%5B%22discard%22%2C%5B%227p%22%2Cfalse%5D%2C%22tedashi%22%5D",
         "stateHash": "sha256:de47dd8a97da4e0cea726869b29faf4e90114fe9dc077765ced4f4e769be0910",
         "identity": {
           "engine": "mahjong-helper",
           "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
-          "adapterVersion": "0.1.0",
+          "adapterVersion": "0.2.0",
           "protocolVersion": "mahjong-facts/v1"
         },
         "kind": "hand13_result",
@@ -4513,7 +4513,7 @@
       "handStructureRequest": {
         "kind": "hand_structure",
         "schemaVersion": "hand-structure/v2",
-        "requestId": "canonical-v2:sha256:c9f33c5df839c1bc5a677847e2446d26918d9fae5733a2932adf4e55846fb798:hand-structure:sha256:774d19ac7785f41e2fa9aef28c05fb52af6c809e2f2546a8e6da936919ee2e33",
+        "requestId": "legacy-regression:sha256:c9f33c5df839c1bc5a677847e2446d26918d9fae5733a2932adf4e55846fb798:hand-structure:sha256:774d19ac7785f41e2fa9aef28c05fb52af6c809e2f2546a8e6da936919ee2e33",
         "protocolVersion": "mahjong-facts/v1",
         "actionRef": "action:v1:%5B%22discard%22%2C%5B%227p%22%2Cfalse%5D%2C%22tedashi%22%5D",
         "stateHash": "sha256:774d19ac7785f41e2fa9aef28c05fb52af6c809e2f2546a8e6da936919ee2e33",
@@ -4603,14 +4603,14 @@
       "handStructureResult": {
         "kind": "hand_structure_result",
         "schemaVersion": "hand-structure/v2",
-        "requestId": "canonical-v2:sha256:c9f33c5df839c1bc5a677847e2446d26918d9fae5733a2932adf4e55846fb798:hand-structure:sha256:774d19ac7785f41e2fa9aef28c05fb52af6c809e2f2546a8e6da936919ee2e33",
+        "requestId": "legacy-regression:sha256:c9f33c5df839c1bc5a677847e2446d26918d9fae5733a2932adf4e55846fb798:hand-structure:sha256:774d19ac7785f41e2fa9aef28c05fb52af6c809e2f2546a8e6da936919ee2e33",
         "protocolVersion": "mahjong-facts/v1",
         "actionRef": "action:v1:%5B%22discard%22%2C%5B%227p%22%2Cfalse%5D%2C%22tedashi%22%5D",
         "stateHash": "sha256:774d19ac7785f41e2fa9aef28c05fb52af6c809e2f2546a8e6da936919ee2e33",
         "identity": {
           "engine": "mahjong-helper",
           "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
-          "adapterVersion": "0.1.0",
+          "adapterVersion": "0.2.0",
           "protocolVersion": "mahjong-facts/v1"
         },
         "overallShanten": 1,
@@ -4988,7 +4988,7 @@
       "actionRef": "action:v1:%5B%22discard%22%2C%5B%228p%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
       "request": {
         "kind": "hand13",
-        "requestId": "canonical-v2:sha256:c9f33c5df839c1bc5a677847e2446d26918d9fae5733a2932adf4e55846fb798:hand13:sha256:3270c30f07bd5dc1486d2b3d9a937002fc1f434701356dd95712113d0be79e63",
+        "requestId": "legacy-regression:sha256:c9f33c5df839c1bc5a677847e2446d26918d9fae5733a2932adf4e55846fb798:hand13:sha256:3270c30f07bd5dc1486d2b3d9a937002fc1f434701356dd95712113d0be79e63",
         "protocolVersion": "mahjong-facts/v1",
         "actionRef": "action:v1:%5B%22discard%22%2C%5B%228p%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
         "stateHash": "sha256:3270c30f07bd5dc1486d2b3d9a937002fc1f434701356dd95712113d0be79e63",
@@ -5092,14 +5092,14 @@
         "remainingDraws": null
       },
       "result": {
-        "requestId": "canonical-v2:sha256:c9f33c5df839c1bc5a677847e2446d26918d9fae5733a2932adf4e55846fb798:hand13:sha256:3270c30f07bd5dc1486d2b3d9a937002fc1f434701356dd95712113d0be79e63",
+        "requestId": "legacy-regression:sha256:c9f33c5df839c1bc5a677847e2446d26918d9fae5733a2932adf4e55846fb798:hand13:sha256:3270c30f07bd5dc1486d2b3d9a937002fc1f434701356dd95712113d0be79e63",
         "protocolVersion": "mahjong-facts/v1",
         "actionRef": "action:v1:%5B%22discard%22%2C%5B%228p%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
         "stateHash": "sha256:3270c30f07bd5dc1486d2b3d9a937002fc1f434701356dd95712113d0be79e63",
         "identity": {
           "engine": "mahjong-helper",
           "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
-          "adapterVersion": "0.1.0",
+          "adapterVersion": "0.2.0",
           "protocolVersion": "mahjong-facts/v1"
         },
         "kind": "hand13_result",
@@ -6006,7 +6006,7 @@
       "handStructureRequest": {
         "kind": "hand_structure",
         "schemaVersion": "hand-structure/v2",
-        "requestId": "canonical-v2:sha256:c9f33c5df839c1bc5a677847e2446d26918d9fae5733a2932adf4e55846fb798:hand-structure:sha256:d4037af80f2d877f03becb6bafc479d1065186fe26b89dfb5ea99a66c4ba4bb8",
+        "requestId": "legacy-regression:sha256:c9f33c5df839c1bc5a677847e2446d26918d9fae5733a2932adf4e55846fb798:hand-structure:sha256:d4037af80f2d877f03becb6bafc479d1065186fe26b89dfb5ea99a66c4ba4bb8",
         "protocolVersion": "mahjong-facts/v1",
         "actionRef": "action:v1:%5B%22discard%22%2C%5B%228p%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
         "stateHash": "sha256:d4037af80f2d877f03becb6bafc479d1065186fe26b89dfb5ea99a66c4ba4bb8",
@@ -6096,14 +6096,14 @@
       "handStructureResult": {
         "kind": "hand_structure_result",
         "schemaVersion": "hand-structure/v2",
-        "requestId": "canonical-v2:sha256:c9f33c5df839c1bc5a677847e2446d26918d9fae5733a2932adf4e55846fb798:hand-structure:sha256:d4037af80f2d877f03becb6bafc479d1065186fe26b89dfb5ea99a66c4ba4bb8",
+        "requestId": "legacy-regression:sha256:c9f33c5df839c1bc5a677847e2446d26918d9fae5733a2932adf4e55846fb798:hand-structure:sha256:d4037af80f2d877f03becb6bafc479d1065186fe26b89dfb5ea99a66c4ba4bb8",
         "protocolVersion": "mahjong-facts/v1",
         "actionRef": "action:v1:%5B%22discard%22%2C%5B%228p%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
         "stateHash": "sha256:d4037af80f2d877f03becb6bafc479d1065186fe26b89dfb5ea99a66c4ba4bb8",
         "identity": {
           "engine": "mahjong-helper",
           "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
-          "adapterVersion": "0.1.0",
+          "adapterVersion": "0.2.0",
           "protocolVersion": "mahjong-facts/v1"
         },
         "overallShanten": 2,

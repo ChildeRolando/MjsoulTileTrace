@@ -260,7 +260,7 @@ describe("structured factor ledger", () => {
       engineIdentity: {
         engine: "mahjong-helper",
         upstreamCommit: "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
-        adapterVersion: "0.1.0",
+        adapterVersion: "0.2.0",
         protocolVersion: "mahjong-facts/v1",
       },
       evidenceIds: ["event-riichi"],
@@ -328,7 +328,7 @@ describe("structured factor ledger", () => {
       engineIdentity: {
         engine: "mahjong-helper",
         upstreamCommit: "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
-        adapterVersion: "0.1.0",
+        adapterVersion: "0.2.0",
         protocolVersion: "mahjong-facts/v1",
       },
     })).toThrow();
@@ -439,7 +439,7 @@ describe("structured factor ledger", () => {
       engineIdentity: {
         engine: "mahjong-helper",
         upstreamCommit: "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
-        adapterVersion: "0.1.0",
+        adapterVersion: "0.2.0",
         protocolVersion: "mahjong-facts/v1",
       },
       evidenceIds: ["request:risk"],

@@ -13,7 +13,7 @@ import { buildFactorDifferences } from
 const identity = {
   engine: "mahjong-helper" as const,
   upstreamCommit: "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0" as const,
-  adapterVersion: "0.1.0" as const,
+  adapterVersion: "0.2.0" as const,
   protocolVersion: "mahjong-facts/v1" as const,
 };
 const factSetId = "canonical-v2:sha256:ledger-prefix";

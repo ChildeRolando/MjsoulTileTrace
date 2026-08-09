@@ -21,12 +21,20 @@ export class HandStructureResultValidationError extends Error {
       "action_ref_mismatch" |
       "state_hash_mismatch" |
       "threat_actor_mismatch" |
-      "evidence_ids_mismatch",
+      "evidence_ids_mismatch" |
+      "threat_risk_semantic_mismatch",
     message: string,
   ) {
     super(`${code}: ${message}`);
     this.name = "HandStructureResultValidationError";
   }
+}
+
+function rejectThreatRiskSemanticMismatch(): never {
+  throw new HandStructureResultValidationError(
+    "threat_risk_semantic_mismatch",
+    "fact engine threat result failed semantic validation",
+  );
 }
 
 function rejectInvalidResponse(): never {
@@ -41,6 +49,244 @@ function rejectMismatch(): never {
     "hand_structure_result_mismatch",
     "hand structure result does not match the bound request",
   );
+}
+
+type StructuralRiskClassification =
+  ThreatRiskFactResult["classifications"][number];
+
+function structuralRiskKey(value: StructuralRiskClassification): string {
+  return `${value.tile34}:${value.kind}`;
+}
+
+function addStructuralRisk(
+  values: Map<string, StructuralRiskClassification>,
+  tile34: number,
+  kind: StructuralRiskClassification["kind"],
+): void {
+  const value = { tile34, kind };
+  values.set(structuralRiskKey(value), value);
+}
+
+function addExpectedSujiClassifications(
+  values: Map<string, StructuralRiskClassification>,
+  safeTiles34: readonly boolean[],
+): void {
+  for (let tile34 = 0; tile34 < 27; tile34++) {
+    if (safeTiles34[tile34]) {
+      addStructuralRisk(values, tile34, "genbutsu");
+      continue;
+    }
+    const rank = tile34 % 9;
+    let safeCount = 0;
+    if (rank <= 2) {
+      if (safeTiles34[tile34 + 3]) safeCount++;
+    } else if (rank >= 6) {
+      if (safeTiles34[tile34 - 3]) safeCount++;
+    } else {
+      if (safeTiles34[tile34 - 3]) safeCount++;
+      if (safeTiles34[tile34 + 3]) safeCount++;
+    }
+    if (rank >= 3 && rank <= 5) {
+      addStructuralRisk(
+        values,
+        tile34,
+        safeCount === 0 ? "no_suji" : safeCount === 1
+          ? "half_suji"
+          : "double_suji",
+      );
+    } else {
+      addStructuralRisk(values, tile34, safeCount === 0 ? "no_suji" : "suji");
+    }
+  }
+  for (let tile34 = 27; tile34 < 34; tile34++) {
+    if (safeTiles34[tile34]) addStructuralRisk(values, tile34, "genbutsu");
+  }
+}
+
+function noChanceTiles(leftTiles34: readonly number[]): number[] {
+  const result: number[] = [];
+  const zero = (tile34: number) => leftTiles34[tile34] === 0;
+  for (let suit = 0; suit < 3; suit++) {
+    const base = suit * 9;
+    for (let rank = 0; rank < 3; rank++) {
+      const tile34 = base + rank;
+      if (zero(tile34 + 1) || zero(tile34 + 2)) result.push(tile34);
+    }
+    for (let rank = 3; rank < 6; rank++) {
+      const tile34 = base + rank;
+      if (
+        (zero(tile34 - 2) || zero(tile34 - 1)) &&
+        (zero(tile34 + 1) || zero(tile34 + 2))
+      ) result.push(tile34);
+    }
+    for (let rank = 6; rank < 9; rank++) {
+      const tile34 = base + rank;
+      if (zero(tile34 - 2) || zero(tile34 - 1)) result.push(tile34);
+    }
+  }
+  return result;
+}
+
+function doubleNoChanceTiles(
+  leftTiles34: readonly number[],
+  safeTiles34: readonly boolean[],
+): number[] {
+  const result: number[] = [];
+  const zero = (tile34: number) => leftTiles34[tile34] === 0;
+  const allZero = (...tiles: number[]) => tiles.every(zero);
+  for (let suit = 0; suit < 3; suit++) {
+    const base = suit * 9;
+    if (zero(base + 1) || zero(base + 2)) result.push(base);
+    if (zero(base + 2) || allZero(base, base + 3)) result.push(base + 1);
+    for (let rank = 2; rank <= 6; rank++) {
+      const tile34 = base + rank;
+      if (
+        allZero(tile34 - 2, tile34 + 1) ||
+        allZero(tile34 - 1, tile34 + 1) ||
+        allZero(tile34 - 1, tile34 + 2)
+      ) result.push(tile34);
+    }
+    if (zero(base + 6) || allZero(base + 5, base + 8)) result.push(base + 7);
+    if (zero(base + 6) || zero(base + 7)) result.push(base + 8);
+
+    for (let rank = 1; rank < 3; rank++) {
+      const tile34 = base + rank;
+      if (zero(tile34 - 1) && safeTiles34[tile34 + 3]) result.push(tile34);
+    }
+    for (let rank = 3; rank < 6; rank++) {
+      const tile34 = base + rank;
+      if (
+        (zero(tile34 - 1) && safeTiles34[tile34 + 3]) ||
+        (zero(tile34 + 1) && safeTiles34[tile34 - 3])
+      ) result.push(tile34);
+    }
+    for (let rank = 6; rank < 8; rank++) {
+      const tile34 = base + rank;
+      if (zero(tile34 + 1) && safeTiles34[tile34 - 3]) result.push(tile34);
+    }
+  }
+  return result;
+}
+
+function oneChanceClassifications(
+  leftTiles34: readonly number[],
+): StructuralRiskClassification[] {
+  const result: StructuralRiskClassification[] = [];
+  const one = (tile34: number) => leftTiles34[tile34] === 1;
+  const anyOne = (...tiles: number[]) => tiles.some(one);
+  const allOne = (...tiles: number[]) => tiles.every(one);
+  for (let suit = 0; suit < 3; suit++) {
+    const base = suit * 9;
+    for (let rank = 0; rank < 3; rank++) {
+      const tile34 = base + rank;
+      if (allOne(tile34 + 1, tile34 + 2)) {
+        result.push({ tile34, kind: "double_one_chance" });
+      } else if (anyOne(tile34 + 1, tile34 + 2)) {
+        result.push({ tile34, kind: "one_chance" });
+      }
+    }
+    for (let rank = 3; rank < 6; rank++) {
+      const tile34 = base + rank;
+      const left = [tile34 - 2, tile34 - 1];
+      const right = [tile34 + 1, tile34 + 2];
+      if (anyOne(...left) && anyOne(...right)) {
+        const kind = allOne(...left, ...right)
+          ? "double_one_chance"
+          : allOne(...left) || allOne(...right)
+          ? "mixed_one_chance"
+          : "one_chance";
+        result.push({ tile34, kind });
+      }
+    }
+    for (let rank = 6; rank < 9; rank++) {
+      const tile34 = base + rank;
+      if (allOne(tile34 - 2, tile34 - 1)) {
+        result.push({ tile34, kind: "double_one_chance" });
+      } else if (anyOne(tile34 - 2, tile34 - 1)) {
+        result.push({ tile34, kind: "one_chance" });
+      }
+    }
+  }
+  return result;
+}
+
+function expectedStructuralClassifications(
+  request: ThreatRiskFactRequest,
+): StructuralRiskClassification[] {
+  const values = new Map<string, StructuralRiskClassification>();
+  addExpectedSujiClassifications(values, request.safeTiles34);
+  const noChance = noChanceTiles(request.leftTiles34);
+  const oneChance = oneChanceClassifications(request.leftTiles34);
+  for (const tile34 of noChance) {
+    addStructuralRisk(values, tile34, "wall");
+    addStructuralRisk(values, tile34, "no_chance");
+  }
+  for (const classification of oneChance) {
+    addStructuralRisk(values, classification.tile34, "wall");
+    addStructuralRisk(values, classification.tile34, classification.kind);
+  }
+  for (const tile34 of doubleNoChanceTiles(
+    request.leftTiles34,
+    request.safeTiles34,
+  )) addStructuralRisk(values, tile34, "double_no_chance");
+  for (const tile34 of request.earlyOutsideTiles34) {
+    addStructuralRisk(values, tile34, "early_outside");
+  }
+  return [...values.values()].sort((left, right) =>
+    left.tile34 - right.tile34 || (left.kind < right.kind ? -1 : 1)
+  );
+}
+
+function expectedLeftNoSujiTiles(
+  request: ThreatRiskFactRequest,
+): number[] {
+  const noSuji = Array<boolean>(27).fill(false);
+  for (let suit = 0; suit < 3; suit++) {
+    const base = suit * 9;
+    for (let rank = 3; rank < 6; rank++) {
+      if (!request.safeTiles34[base + rank]) {
+        noSuji[base + rank - 3] = true;
+        noSuji[base + rank + 3] = true;
+      }
+    }
+    if (request.leftTiles34[base + 4] === 0) {
+      noSuji[base + 2] = false;
+      noSuji[base + 6] = false;
+    }
+  }
+  request.leftTiles34.slice(0, 27).forEach((left, tile34) => {
+    if (left === 0) noSuji[tile34] = false;
+  });
+  const lowRisk = request.safeTiles34.slice(0, 27);
+  for (let suit = 0; suit < 3; suit++) {
+    const base = suit * 9;
+    if (request.leftTiles34[base + 1] === 0) lowRisk[base] = true;
+    if (request.leftTiles34[base + 2] === 0) {
+      lowRisk[base] = true;
+      lowRisk[base + 1] = true;
+    }
+    if (request.leftTiles34[base + 3] === 0) {
+      lowRisk[base + 1] = true;
+      lowRisk[base + 2] = true;
+    }
+    if (request.leftTiles34[base + 5] === 0) {
+      lowRisk[base + 6] = true;
+      lowRisk[base + 7] = true;
+    }
+    if (request.leftTiles34[base + 6] === 0) {
+      lowRisk[base + 7] = true;
+      lowRisk[base + 8] = true;
+    }
+    if (request.leftTiles34[base + 7] === 0) lowRisk[base + 8] = true;
+  }
+  return noSuji.flatMap((value, tile34) =>
+    value && !lowRisk[tile34] ? [tile34] : []
+  );
+}
+
+function exactArrayEqual<T>(left: readonly T[], right: readonly T[]): boolean {
+  return left.length === right.length &&
+    left.every((value, index) => JSON.stringify(value) === JSON.stringify(right[index]));
 }
 
 interface ResultShapeGroup {
@@ -129,6 +375,34 @@ export function validateThreatRiskResult(
       "fact engine response evidence IDs do not match the bound request",
     );
   }
+  if (result.scaleVersion !== request.scaleVersion) {
+    rejectThreatRiskSemanticMismatch();
+  }
+  if (!exactArrayEqual(
+    result.classifications,
+    expectedStructuralClassifications(request),
+  )) rejectThreatRiskSemanticMismatch();
+  for (let tile34 = 0; tile34 < 34; tile34++) {
+    const safe = request.safeTiles34[tile34]!;
+    if (safe && result.riskScale[tile34] !== 0) {
+      rejectThreatRiskSemanticMismatch();
+    }
+  }
+  for (const honor of result.honorClassifications) {
+    const expectedCategory = honor.tile34 >= 31 ||
+        honor.tile34 === request.roundWindTile34 ||
+        honor.tile34 === request.threatWindTile34
+      ? "yakuhai"
+      : "guest_wind";
+    if (
+      honor.remainingCount !== request.leftTiles34[honor.tile34] ||
+      honor.category !== expectedCategory
+    ) rejectThreatRiskSemanticMismatch();
+  }
+  if (!exactArrayEqual(
+    result.leftNoSujiTile34,
+    expectedLeftNoSujiTiles(request),
+  )) rejectThreatRiskSemanticMismatch();
   return result;
 }
 

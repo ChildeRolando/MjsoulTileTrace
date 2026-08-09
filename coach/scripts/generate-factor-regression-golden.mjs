@@ -1,9 +1,9 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { spawn } from "node:child_process";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import {
   JsonlFactEngineClient,
-  ManagedFactEngineTransport,
   freezeDecisionSnapshot,
   importRegressionFixture,
   projectCandidate,
@@ -15,6 +15,60 @@ import { bridgeLegacyRegressionEvents } from
   "../packages/reasoning/dist/import/legacy-event-stream-bridge.js";
 
 const coachRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const repoRoot = path.resolve(coachRoot, "..");
+const buildArtifact = path.join(
+  repoRoot,
+  ".tools",
+  "mahjong-facts",
+  "windows-x64",
+  "mahjong-facts.exe",
+);
+
+class BuildArtifactFactEngineTransport {
+  async request(line, timeoutMs) {
+    if (line.includes("\n") || line.includes("\r")) {
+      throw new Error("fact engine request must be one JSONL line");
+    }
+    return await new Promise((resolve, reject) => {
+      const child = spawn(buildArtifact, [], {
+        stdio: "pipe",
+        windowsHide: true,
+      });
+      let stdout = "";
+      let settled = false;
+      const finish = (operation) => {
+        if (settled) return;
+        settled = true;
+        clearTimeout(timer);
+        operation();
+      };
+      const timer = setTimeout(() => {
+        child.kill();
+        finish(() => reject(new Error("build artifact fact engine timed out")));
+      }, timeoutMs);
+      child.stdout.setEncoding("utf8");
+      child.stdout.on("data", (chunk) => {
+        stdout += chunk;
+      });
+      child.on("error", () => {
+        finish(() => reject(new Error("build artifact fact engine failed")));
+      });
+      child.on("close", (code) => {
+        const lines = stdout.trim().split(/\r?\n/u).filter(Boolean);
+        if (code !== 0 || lines.length !== 1) {
+          finish(() => reject(new Error("build artifact fact engine failed")));
+          return;
+        }
+        finish(() => resolve(lines[0]));
+      });
+      child.stdin.end(`${line}\n`, "utf8");
+    });
+  }
+
+  async restart() {}
+
+  async close() {}
+}
 const sourcePath = path.join(
   coachRoot,
   "fixtures",
@@ -35,7 +89,7 @@ const bridged = bridgeLegacyRegressionEvents(events, selfActor, {
 });
 if (bridged.status !== "ready") throw new Error(bridged.code);
 const client = new JsonlFactEngineClient(
-  new ManagedFactEngineTransport(path.join(coachRoot, "resources")),
+  new BuildArtifactFactEngineTransport(),
 );
 const cases = [];
 try {

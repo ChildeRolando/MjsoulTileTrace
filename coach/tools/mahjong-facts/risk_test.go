@@ -20,6 +20,7 @@ func wallAndSujiRequest() ThreatRiskRequest {
 			StateHash:       "sha256:risk",
 		},
 		ThreatActor:         2,
+		ScaleVersion:        structuralRiskScaleVersion,
 		Turns:               8,
 		SafeTiles34:         safe,
 		LeftTiles34:         left,
@@ -28,6 +29,49 @@ func wallAndSujiRequest() ThreatRiskRequest {
 		ThreatWindTile34:    29,
 		EarlyOutsideTiles34: []int{8},
 		EvidenceIDs:         []string{"event-riichi", "event-4m"},
+	}
+}
+
+func TestThreatRiskSemanticBinding(t *testing.T) {
+	request := wallAndSujiRequest()
+	result, err := analyzeThreatRisk(request)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if result.ScaleVersion != structuralRiskScaleVersion {
+		t.Fatalf("scale version = %q", result.ScaleVersion)
+	}
+	for tile, safe := range request.SafeTiles34 {
+		if !safe {
+			continue
+		}
+		if result.RiskScale[tile] != 0 {
+			t.Fatalf("safe tile %d risk = %v", tile, result.RiskScale[tile])
+		}
+		if !hasStructuralRisk(result.Classifications, tile, "genbutsu") {
+			t.Fatalf("safe tile %d lacks genbutsu classification", tile)
+		}
+	}
+	for index, classification := range result.Classifications {
+		if index == 0 {
+			continue
+		}
+		previous := result.Classifications[index-1]
+		if classification.Tile34 < previous.Tile34 ||
+			(classification.Tile34 == previous.Tile34 && classification.Kind <= previous.Kind) {
+			t.Fatalf("classifications not strict canonical order: %v", result.Classifications)
+		}
+	}
+	if len(result.HonorClassifications) != 7 {
+		t.Fatalf("honor classifications = %d", len(result.HonorClassifications))
+	}
+	for index, honor := range result.HonorClassifications {
+		if honor.Tile34 != 27+index {
+			t.Fatalf("honor %d tile = %d", index, honor.Tile34)
+		}
+		if honor.RemainingCount != request.LeftTiles34[honor.Tile34] {
+			t.Fatalf("honor %d remaining = %d", honor.Tile34, honor.RemainingCount)
+		}
 	}
 }
 

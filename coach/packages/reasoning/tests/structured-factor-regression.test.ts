@@ -46,7 +46,7 @@ const factEngineGoldenUrl = new URL(
 const identity: EngineIdentity = {
   engine: "mahjong-helper",
   upstreamCommit: "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
-  adapterVersion: "0.1.0",
+  adapterVersion: "0.2.0",
   protocolVersion: "mahjong-facts/v1",
 };
 
@@ -251,6 +251,10 @@ describe("East 1 turn 6/7 structured factor regression", () => {
     const golden = JSON.parse(await readFile(factEngineGoldenUrl, "utf8")) as {
       cases: GoldenCase[];
     };
+    expect(golden.cases.every((entry) =>
+      entry.result.identity.adapterVersion === "0.2.0" &&
+      entry.handStructureResult.identity.adapterVersion === "0.2.0"
+    )).toBe(true);
     const { selfActor, events, decisions } = importRegressionFixture(raw);
     const bridged = bridgeLegacyRegressionEvents(events, selfActor, {
       sourceKind: "fixture",
