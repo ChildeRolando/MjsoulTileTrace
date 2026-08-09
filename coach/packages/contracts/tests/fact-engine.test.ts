@@ -5,6 +5,7 @@ import {
   EngineIdentitySchema,
   Hand13FactRequestSchema,
   Hand13FactResultSchema,
+  STRUCTURAL_RISK_SCALE_VERSION,
   ThreatRiskFactRequestSchema,
   ThreatRiskFactResultSchema,
   Tile34CountsSchema,
@@ -88,6 +89,7 @@ describe("fact engine contracts", () => {
       ...requestBase,
       kind: "threat_risk",
       threatActor: 2,
+      scaleVersion: STRUCTURAL_RISK_SCALE_VERSION,
       turns: 8,
       safeTiles34: Array(34).fill(false),
       leftTiles34: Array(34).fill(4),
@@ -97,6 +99,34 @@ describe("fact engine contracts", () => {
       earlyOutsideTiles34: [0],
       evidenceIds: ["event-riichi"],
     }).kind).toBe("threat_risk");
+  });
+
+  it("requires the pinned structural-risk scale on every threat request", () => {
+    const request = {
+      requestId: "req-risk",
+      protocolVersion: "mahjong-facts/v1",
+      actionRef: "action:v1:test",
+      stateHash: "sha256:test",
+      kind: "threat_risk",
+      threatActor: 2,
+      scaleVersion: STRUCTURAL_RISK_SCALE_VERSION,
+      turns: 8,
+      safeTiles34: Array(34).fill(false),
+      leftTiles34: Array(34).fill(4),
+      doraTiles34: [4],
+      roundWindTile34: 27,
+      threatWindTile34: 29,
+      earlyOutsideTiles34: [0],
+      evidenceIds: ["event-riichi"],
+    };
+    expect(ThreatRiskFactRequestSchema.parse(request).scaleVersion)
+      .toBe(STRUCTURAL_RISK_SCALE_VERSION);
+    const { scaleVersion: _omitted, ...withoutVersion } = request;
+    expect(() => ThreatRiskFactRequestSchema.parse(withoutVersion)).toThrow();
+    expect(() => ThreatRiskFactRequestSchema.parse({
+      ...request,
+      scaleVersion: "latest",
+    })).toThrow();
   });
 
   it("parses hand13 facts while keeping remaining counts independently statused", () => {

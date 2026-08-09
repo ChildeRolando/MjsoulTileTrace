@@ -213,7 +213,9 @@ async function analyzeReadyCandidate(
   }
 
   const threatRiskOutcomes: ThreatRiskEngineOutcome[] = await Promise.all(
-    projection.threatRiskRequests.map(async (request) => {
+    projection.threatRiskProjections
+      .filter((projected) => projected.status === "ready")
+      .map(async ({ request }) => {
       try {
         return {
           status: "calculated" as const,

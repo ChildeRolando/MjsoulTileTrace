@@ -225,6 +225,9 @@ export const ThreatRiskFactRequestSchema = z.object({
   ...RequestIdentityShape,
   kind: z.literal("threat_risk"),
   threatActor: z.number().int().min(0).max(3),
+  scaleVersion: z.literal(
+    "mahjong-helper-risk/514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0/v1",
+  ),
   turns: z.number().int().min(1).max(19),
   safeTiles34: z.array(z.boolean()).length(34),
   leftTiles34: Tile34CountsSchema,
@@ -237,6 +240,23 @@ export const ThreatRiskFactRequestSchema = z.object({
 export type ThreatRiskFactRequest = z.infer<
   typeof ThreatRiskFactRequestSchema
 >;
+
+export type ThreatRiskProjection =
+  | {
+      threatActor: number;
+      status: "ready";
+      request: ThreatRiskFactRequest;
+    }
+  | {
+      threatActor: number;
+      status: "blocked_missing_facts";
+      missing: string[];
+    }
+  | {
+      threatActor: number;
+      status: "unsupported_threat_kind";
+      kind: "user_marked_open";
+    };
 
 export const FactEngineRequestSchema = z.union([
   Hand13FactRequestSchema,

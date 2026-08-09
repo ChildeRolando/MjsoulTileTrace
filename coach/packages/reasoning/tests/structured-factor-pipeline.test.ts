@@ -456,6 +456,91 @@ describe("structured factor pipeline", () => {
       .toEqual(comparison().candidates.map((candidate) => candidate.actionRef).sort());
   });
 
+  it("fans out only ready structural-risk projections", async () => {
+    class RecordingEngine extends FixtureEngine {
+      readonly riskRequests: ThreatRiskFactRequest[] = [];
+
+      override async analyzeThreatRisk(
+        request: ThreatRiskFactRequest,
+      ): Promise<ThreatRiskFactResult> {
+        this.riskRequests.push(request);
+        return super.analyzeThreatRisk(request);
+      }
+    }
+    const canonicalFacts = KnownGameFactsSchema.parse({
+      ...facts,
+      factSetId: "canonical-v2:pipeline-risk",
+      provenance: "mixed",
+      decisionEventRef: "game/0/70/0",
+      decisionWindow: {
+        ...facts.decisionWindow,
+        triggerEventRef: "game/0/70/0",
+      },
+      currentDraw: { tile: tile("6s"), eventRef: "game/0/70/0" },
+      rivers: [[], [], [{
+        tile: tile("6s"),
+        actor: 2,
+        tsumogiri: false,
+        eventId: "game/0/32/0",
+        afterRiichiEventIds: ["game/0/30/0"],
+      }], []],
+      threats: [{
+        actor: 2,
+        riichi: true,
+        declarationEventId: "game/0/30/0",
+        ippatsuAlive: true,
+      }],
+      defenseThreats: [{
+        actor: 2,
+        kind: "riichi_accepted",
+        source: "canonical_replay",
+        sourceEventRefs: ["game/0/30/0", "game/0/31/0"],
+        openMeldRefs: [],
+        dealerStatus: "non_dealer",
+        riichiTurn: { status: "calculated", value: 1 },
+        ippatsu: { status: "calculated", value: true },
+      }, {
+        actor: 3,
+        kind: "user_marked_open",
+        source: "user_asserted",
+        sourceEventRefs: ["user:threat:3"],
+        openMeldRefs: ["user:meld:3:0"],
+        dealerStatus: "non_dealer",
+        riichiTurn: { status: "not_applicable" },
+        ippatsu: { status: "not_applicable" },
+      }],
+      evidenceIds: ["game/0/30/0", "game/0/31/0", "game/0/32/0", "game/0/70/0"],
+    });
+    const engine = new RecordingEngine();
+    const canonicalComparison = StructuredComparisonSetSchema.parse({
+      ...comparison(),
+      decisionWindow: canonicalFacts.decisionWindow,
+    });
+    await runStructuredFactorPipeline({
+      frame,
+      comparisonSet: canonicalComparison,
+      facts: canonicalFacts,
+      responseFuriten: ResponseFuritenAnalysisV2Schema.parse({
+        ...unavailableResponse(),
+        binding: {
+          ...unavailableResponse().binding,
+          factSetId: canonicalFacts.factSetId,
+          decisionEventRef: canonicalFacts.decisionEventRef,
+        },
+      }),
+      engine,
+    });
+    expect(engine.riskRequests).toHaveLength(2);
+    expect(engine.riskRequests.map((request) => request.threatActor))
+      .toEqual([2, 2]);
+    expect(engine.riskRequests.every((request) =>
+      request.scaleVersion ===
+        "mahjong-helper-risk/514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0/v1"
+    )).toBe(true);
+    expect(engine.riskRequests.flatMap((request) => request.evidenceIds))
+      .not.toContain("user:threat:3");
+  });
+
   it("is invariant to candidate origins and order", async () => {
     const normal = await runStructuredFactorPipeline({
       frame,

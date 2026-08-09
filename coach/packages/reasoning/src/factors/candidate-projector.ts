@@ -1,6 +1,10 @@
 import {
   KnownGameFactsSchema,
+  STRUCTURAL_RISK_SCALE_VERSION,
   StructuredComparisonCandidateSchema,
+  compareCanonicalEventPositions,
+  defenseStructuralStateHash,
+  parseCanonicalEventRef,
   type ActionRef,
   type CandidateDiscardEvidenceV2,
   type CompletedHandFactRequest,
@@ -8,7 +12,7 @@ import {
   type HandStructureRequestV2,
   type KnownGameFacts,
   type StructuredComparisonCandidate,
-  type ThreatRiskFactRequest,
+  type ThreatRiskProjection,
   type Tile,
 } from "@riichi-coach/contracts";
 import {
@@ -31,7 +35,7 @@ export type CandidateProjection =
       handStructureRequest?: HandStructureRequestV2;
       candidateDiscard?: CandidateDiscardEvidenceV2;
       completedHandRequest?: CompletedHandFactRequest;
-      threatRiskRequests: ThreatRiskFactRequest[];
+      threatRiskProjections: ThreatRiskProjection[];
       localEvidenceIds: string[];
       diagnostics: string[];
     }
@@ -146,69 +150,139 @@ function outsideTiles(tile34: number): number[] {
   );
 }
 
-function threatRiskRequests(
+function canonicalEvidenceOrder(left: string, right: string): number {
+  const parsedLeft = parseCanonicalEventRef(left);
+  const parsedRight = parseCanonicalEventRef(right);
+  if (parsedLeft !== null && parsedRight !== null) {
+    return compareCanonicalEventPositions(parsedLeft.position, parsedRight.position);
+  }
+  return left.localeCompare(right);
+}
+
+function sourceStateHash(factSetId: string): string {
+  for (const prefix of [
+    "canonical-v2:",
+    "legacy-regression:",
+    "user-asserted:",
+  ]) {
+    if (factSetId.startsWith(prefix)) return factSetId.slice(prefix.length);
+  }
+  throw new Error("threat_risk_requires_reserved_fact_set");
+}
+
+function structuralEvidenceIds(
+  facts: KnownGameFacts,
+  threatActor: number,
+  threatSource: "canonical_replay" | "user_asserted" |
+    "legacy_regression_bridge_only",
+  sourceEventRefs: readonly string[],
+): string[] {
+  const matrixUsesCanonicalEvidence = facts.factSetId.startsWith("canonical-v2:");
+  const riverRefs = facts.rivers.flat().map((discard) => discard.eventId);
+  const threatRefs = matrixUsesCanonicalEvidence && threatSource === "user_asserted"
+    ? []
+    : sourceEventRefs;
+  const refs = [...new Set([...threatRefs, ...riverRefs])]
+    .filter((eventRef) =>
+      !matrixUsesCanonicalEvidence || parseCanonicalEventRef(eventRef) !== null
+    )
+    .sort(canonicalEvidenceOrder);
+  if (refs.length === 0) {
+    throw new Error(`threat_risk_missing_evidence:actor${threatActor}`);
+  }
+  return refs;
+}
+
+function threatRiskProjections(
   facts: KnownGameFacts,
   actionRef: ActionRef,
-  stateHash: string,
   leftTiles34: number[] | null,
   doraTiles34: number[],
-  diagnostics: string[],
-): ThreatRiskFactRequest[] {
-  if (leftTiles34 === null || !facts.completeness.rivers) return [];
-  const requests: ThreatRiskFactRequest[] = [];
-  for (const threat of facts.threats) {
-    if (!threat.riichi || threat.declarationEventId === null) continue;
+): ThreatRiskProjection[] {
+  return [...facts.defenseThreats]
+    .sort((left, right) => left.actor - right.actor)
+    .map((threat): ThreatRiskProjection => {
+    if (threat.kind === "user_marked_open") {
+      return {
+        threatActor: threat.actor,
+        status: "unsupported_threat_kind",
+        kind: "user_marked_open",
+      };
+    }
+    if (leftTiles34 === null || !facts.completeness.rivers) {
+      return {
+        threatActor: threat.actor,
+        status: "blocked_missing_facts",
+        missing: ["visibility"],
+      };
+    }
     const threatRiver = facts.rivers[threat.actor]!;
     if (threatRiver.length < 1 || threatRiver.length > 19) {
-      diagnostics.push(`threat_risk_turns_out_of_range:actor${threat.actor}`);
-      continue;
+      return {
+        threatActor: threat.actor,
+        status: "blocked_missing_facts",
+        missing: ["turns"],
+      };
     }
     const safeTiles34 = Array<boolean>(34).fill(false);
-    const evidenceIds = new Set<string>([threat.declarationEventId]);
+    const declarationEventId = threat.sourceEventRefs[0]!;
     for (const river of facts.rivers) {
       for (const discard of river) {
         if (
           discard.actor === threat.actor ||
-          discard.afterRiichiEventIds.includes(threat.declarationEventId)
+          (facts.completeness.responseOpportunities &&
+            discard.afterRiichiEventIds.includes(declarationEventId))
         ) {
           safeTiles34[tileIdTo34(discard.tile.id)] = true;
-          evidenceIds.add(discard.eventId);
         }
       }
     }
     const earlyOutside = new Set<number>();
     for (const discard of threatRiver.slice(0, 5)) {
-      if (discard.afterRiichiEventIds.includes(threat.declarationEventId)) break;
+      if (discard.afterRiichiEventIds.includes(declarationEventId)) break;
       for (const tile of outsideTiles(tileIdTo34(discard.tile.id))) {
         earlyOutside.add(tile);
       }
-      evidenceIds.add(discard.eventId);
     }
-    const threatInputs = {
-      actionRef,
-      threatActor: threat.actor,
+    const evidenceIds = structuralEvidenceIds(
+      facts,
+      threat.actor,
+      threat.source,
+      threat.sourceEventRefs,
+    );
+    const visibility = {
       turns: threatRiver.length,
       safeTiles34,
       leftTiles34: [...leftTiles34],
-      doraTiles34: [...doraTiles34],
+      doraTiles34: [...doraTiles34].sort((left, right) => left - right),
       roundWindTile34: windTile(facts.roundWind),
       threatWindTile34: threatWindTile(facts, threat.actor),
       earlyOutsideTiles34: [...earlyOutside].sort((left, right) => left - right),
-      evidenceIds: [...evidenceIds],
     };
-    const threatStateHash = stableProjectedStateHash({
-      parentStateHash: stateHash,
-      ...threatInputs,
+    const threatStateHash = defenseStructuralStateHash({
+      sourceStateHash: sourceStateHash(facts.factSetId),
+      factSetId: facts.factSetId,
+      actionRef,
+      threatActor: threat.actor,
+      visibility,
+      evidenceIds,
     });
-    requests.push({
-      kind: "threat_risk",
-      requestId: `${facts.factSetId}:risk:${threat.actor}:${threatStateHash}`,
-      protocolVersion: "mahjong-facts/v1",
-      stateHash: threatStateHash,
-      ...threatInputs,
-    });
-  }
-  return requests;
+    return {
+      threatActor: threat.actor,
+      status: "ready",
+      request: {
+        kind: "threat_risk",
+        requestId: `${facts.factSetId}:risk:${threat.actor}:${threatStateHash}`,
+        protocolVersion: "mahjong-facts/v1",
+        actionRef,
+        stateHash: threatStateHash,
+        threatActor: threat.actor,
+        scaleVersion: STRUCTURAL_RISK_SCALE_VERSION,
+        ...visibility,
+        evidenceIds,
+      },
+    };
+  });
 }
 
 function requireCoreFacts(
@@ -363,13 +437,11 @@ function projectDiscard(
     hand13Request,
     handStructureRequest,
     candidateDiscard,
-    threatRiskRequests: threatRiskRequests(
+    threatRiskProjections: threatRiskProjections(
       facts,
       candidate.actionRef,
-      stateHash,
       leftTiles34,
       context.doraTiles34,
-      diagnostics,
     ),
     localEvidenceIds: [...facts.evidenceIds],
     diagnostics,
@@ -452,7 +524,7 @@ function projectWin(
     actionRef: candidate.actionRef,
     projectedStateRef: stateHash,
     completedHandRequest,
-    threatRiskRequests: [],
+    threatRiskProjections: [],
     localEvidenceIds: [...facts.evidenceIds],
     diagnostics: [],
   };

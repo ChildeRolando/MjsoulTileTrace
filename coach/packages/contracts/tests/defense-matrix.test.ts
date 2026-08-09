@@ -177,6 +177,19 @@ describe("DefenseMatrixV1Schema", () => {
     })).not.toBe(hash);
   });
 
+  it("domain-separates the structural hash by request protocol and risk scale", () => {
+    expect(defenseStructuralStateHash({
+      sourceStateHash: "sha256:source",
+      factSetId: "canonical-v2:sha256:source",
+      actionRef,
+      threatActor: 2,
+      visibility: calculatedCell().structural.visibility,
+      evidenceIds: ["game/0/48/0", "game/0/48/1"],
+    })).toBe(
+      "sha256:b70e589e3c6dab03db88fe9a39fdb363018a0aa0297028a152535785697c525c",
+    );
+  });
+
   it("requires a canonical decision ref and source-state scene binding", () => {
     const unbound = matrix() as Record<string, unknown>;
     delete unbound.decisionEventRef;

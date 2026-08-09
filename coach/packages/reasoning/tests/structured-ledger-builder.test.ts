@@ -149,7 +149,7 @@ function baseInput(): CandidateLedgerBuildInput {
         selfDiscardsComplete: true,
         remainingDraws: 50,
       },
-      threatRiskRequests: [],
+      threatRiskProjections: [],
       localEvidenceIds: [...facts.evidenceIds],
       diagnostics: [],
     },

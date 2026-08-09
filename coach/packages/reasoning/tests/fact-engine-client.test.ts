@@ -197,6 +197,8 @@ function validThreatRiskRequest(): ThreatRiskFactRequest {
     actionRef,
     stateHash: "sha256:risk",
     threatActor: 2,
+    scaleVersion:
+      "mahjong-helper-risk/514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0/v1",
     turns: 6,
     safeTiles34: Array(34).fill(false) as boolean[],
     leftTiles34: Array(34).fill(4) as number[],

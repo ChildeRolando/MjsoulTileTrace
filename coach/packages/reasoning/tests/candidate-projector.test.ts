@@ -1,8 +1,10 @@
 import { describe, expect, it } from "vitest";
 import {
   KnownGameFactsSchema,
+  STRUCTURAL_RISK_SCALE_VERSION,
   StructuredComparisonCandidateSchema,
   canonicalActionRef,
+  defenseStructuralStateHash,
   type RiichiAction,
   type Tile,
 } from "@riichi-coach/contracts";
@@ -224,6 +226,7 @@ describe("candidate projector", () => {
       completeness: {
         ...selfTurnFacts().completeness,
         roundContext: true,
+        responseOpportunities: true,
       },
       evidenceIds: ["event-draw", reachEvent, "event-before", "event-after"],
     });
@@ -235,13 +238,50 @@ describe("candidate projector", () => {
     const projected = projectCandidate(discard, facts);
     expect(projected.status).toBe("ready");
     if (projected.status !== "ready") throw new Error("expected ready");
-    expect(projected.threatRiskRequests).toHaveLength(1);
-    expect(projected.threatRiskRequests[0]).toMatchObject({
+    expect(projected.threatRiskProjections).toHaveLength(1);
+    expect(projected.threatRiskProjections[0]).toMatchObject({
       threatActor: 2,
-      earlyOutsideTiles34: [0, 1, 2],
+      status: "ready",
+      request: {
+        scaleVersion: STRUCTURAL_RISK_SCALE_VERSION,
+        threatActor: 2,
+        earlyOutsideTiles34: [0, 1, 2],
+      },
     });
-    expect(projected.threatRiskRequests[0]?.safeTiles34[23]).toBe(true);
-    expect(projected.threatRiskRequests[0]?.safeTiles34[9]).toBe(true);
+    const risk = projected.threatRiskProjections[0];
+    if (risk?.status !== "ready") throw new Error("expected ready risk");
+    expect(risk.request.safeTiles34[23]).toBe(true);
+    expect(risk.request.safeTiles34[9]).toBe(true);
+    expect(risk.request.stateHash).toBe(defenseStructuralStateHash({
+      sourceStateHash: "risk",
+      factSetId: facts.factSetId,
+      actionRef: discard.actionRef,
+      threatActor: 2,
+      visibility: {
+        turns: risk.request.turns,
+        safeTiles34: risk.request.safeTiles34,
+        leftTiles34: risk.request.leftTiles34,
+        doraTiles34: risk.request.doraTiles34,
+        roundWindTile34: risk.request.roundWindTile34,
+        threatWindTile34: risk.request.threatWindTile34,
+        earlyOutsideTiles34: risk.request.earlyOutsideTiles34,
+      },
+      evidenceIds: risk.request.evidenceIds,
+    }));
+
+    const incompleteResponses = projectCandidate(discard, KnownGameFactsSchema.parse({
+      ...facts,
+      completeness: {
+        ...facts.completeness,
+        responseOpportunities: false,
+      },
+    }));
+    expect(incompleteResponses.status).toBe("ready");
+    if (incompleteResponses.status !== "ready") throw new Error("expected ready");
+    const incompleteRisk = incompleteResponses.threatRiskProjections[0];
+    if (incompleteRisk?.status !== "ready") throw new Error("expected ready risk");
+    expect(incompleteRisk.request.safeTiles34[23]).toBe(true);
+    expect(incompleteRisk.request.safeTiles34[9]).toBe(false);
 
     const changedFacts = KnownGameFactsSchema.parse({
       ...facts,
@@ -255,7 +295,188 @@ describe("candidate projector", () => {
     expect(changed.status).toBe("ready");
     if (changed.status !== "ready") throw new Error("expected ready");
     expect(changed.projectedStateRef).toBe(projected.projectedStateRef);
-    expect(changed.threatRiskRequests[0]?.stateHash)
-      .not.toBe(projected.threatRiskRequests[0]?.stateHash);
+    const changedRisk = changed.threatRiskProjections[0];
+    if (changedRisk?.status !== "ready") throw new Error("expected ready risk");
+    expect(changedRisk.request.stateHash).not.toBe(risk.request.stateHash);
+  });
+
+  it("keeps one explicit blocked or unsupported projection per defense threat", () => {
+    const base = selfTurnFacts();
+    const openFacts = KnownGameFactsSchema.parse({
+      ...base,
+      factSetId: "user-asserted:open-risk",
+      provenance: "user_asserted",
+      defenseThreats: [{
+        actor: 3,
+        kind: "user_marked_open",
+        source: "user_asserted",
+        sourceEventRefs: ["user:threat:3"],
+        openMeldRefs: ["user:meld:3:0"],
+        dealerStatus: "unknown",
+        riichiTurn: { status: "not_applicable" },
+        ippatsu: { status: "not_applicable" },
+      }],
+    });
+    const discard = candidate({
+      kind: "discard",
+      tile: tile("6s"),
+      discardMode: "tsumogiri",
+    });
+    const unsupported = projectCandidate(discard, openFacts);
+    expect(unsupported.status).toBe("ready");
+    if (unsupported.status !== "ready") throw new Error("expected ready");
+    expect(unsupported.threatRiskProjections).toEqual([{
+      threatActor: 3,
+      status: "unsupported_threat_kind",
+      kind: "user_marked_open",
+    }]);
+
+    const riichiFacts = KnownGameFactsSchema.parse({
+      ...base,
+      factSetId: "legacy-regression:blocked-risk",
+      threats: [{
+        actor: 2,
+        riichi: true,
+        declarationEventId: "event:riichi:2",
+        ippatsuAlive: null,
+      }],
+      defenseThreats: [{
+        actor: 2,
+        kind: "riichi_declared",
+        source: "legacy_regression_bridge_only",
+        sourceEventRefs: ["event:riichi:2"],
+        openMeldRefs: [],
+        dealerStatus: "unknown",
+        riichiTurn: { status: "blocked_missing_facts" },
+        ippatsu: { status: "blocked_missing_facts" },
+      }],
+      completeness: { ...base.completeness, rivers: false },
+    });
+    const blocked = projectCandidate(discard, riichiFacts);
+    expect(blocked.status).toBe("ready");
+    if (blocked.status !== "ready") throw new Error("expected ready");
+    expect(blocked.threatRiskProjections).toEqual([{
+      threatActor: 2,
+      status: "blocked_missing_facts",
+      missing: ["visibility"],
+    }]);
+  });
+
+  it("keeps user-asserted riichi identity out of canonical helper evidence", () => {
+    const declaration = "user:riichi:2";
+    const base = selfTurnFacts();
+    const mixed = KnownGameFactsSchema.parse({
+      ...base,
+      factSetId: "canonical-v2:mixed-risk",
+      provenance: "mixed",
+      decisionEventRef: "game/0/70/0",
+      decisionWindow: {
+        ...base.decisionWindow,
+        triggerEventRef: "game/0/70/0",
+      },
+      currentDraw: { tile: tile("6s"), eventRef: "game/0/70/0" },
+      rivers: [[], [], [{
+        tile: tile("4m"),
+        actor: 2,
+        tsumogiri: false,
+        eventId: "game/0/40/0",
+        afterRiichiEventIds: [],
+      }], []],
+      threats: [{
+        actor: 2,
+        riichi: true,
+        declarationEventId: declaration,
+        ippatsuAlive: false,
+      }],
+      defenseThreats: [{
+        actor: 2,
+        kind: "riichi_accepted",
+        source: "user_asserted",
+        sourceEventRefs: [declaration],
+        openMeldRefs: [],
+        dealerStatus: "unknown",
+        riichiTurn: { status: "calculated", value: 1 },
+        ippatsu: { status: "calculated", value: false },
+      }],
+      evidenceIds: ["game/0/40/0", "game/0/70/0"],
+    });
+    const discard = candidate({
+      kind: "discard",
+      tile: tile("6s"),
+      discardMode: "tsumogiri",
+    });
+    const projected = projectCandidate(discard, mixed);
+    expect(projected.status).toBe("ready");
+    if (projected.status !== "ready") throw new Error("expected ready");
+    const risk = projected.threatRiskProjections[0];
+    if (risk?.status !== "ready") throw new Error("expected ready risk");
+    expect(risk.request.evidenceIds).toEqual(["game/0/40/0"]);
+    expect(risk.request.evidenceIds).not.toContain(declaration);
+    expect(risk.request.safeTiles34[3]).toBe(true);
+  });
+
+  it("does not cross-bind safe tiles or threat source evidence", () => {
+    const base = selfTurnFacts();
+    const actorOneReach = "event:riichi:1";
+    const actorTwoReach = "event:riichi:2";
+    const facts = KnownGameFactsSchema.parse({
+      ...base,
+      factSetId: "legacy-regression:two-threat-risk",
+      rivers: [[], [{
+        tile: tile("1m"), actor: 1, tsumogiri: false,
+        eventId: "event:actor1:1m", afterRiichiEventIds: [],
+      }], [{
+        tile: tile("9p"), actor: 2, tsumogiri: false,
+        eventId: "event:actor2:9p", afterRiichiEventIds: [],
+      }], []],
+      threats: [{
+        actor: 1, riichi: true,
+        declarationEventId: actorOneReach, ippatsuAlive: false,
+      }, {
+        actor: 2, riichi: true,
+        declarationEventId: actorTwoReach, ippatsuAlive: false,
+      }],
+      defenseThreats: [{
+        actor: 1,
+        kind: "riichi_declared",
+        source: "legacy_regression_bridge_only",
+        sourceEventRefs: [actorOneReach],
+        openMeldRefs: [],
+        dealerStatus: "unknown",
+        riichiTurn: { status: "calculated", value: 1 },
+        ippatsu: { status: "calculated", value: false },
+      }, {
+        actor: 2,
+        kind: "riichi_declared",
+        source: "legacy_regression_bridge_only",
+        sourceEventRefs: [actorTwoReach],
+        openMeldRefs: [],
+        dealerStatus: "unknown",
+        riichiTurn: { status: "calculated", value: 1 },
+        ippatsu: { status: "calculated", value: false },
+      }],
+      evidenceIds: [
+        "event-draw", actorOneReach, actorTwoReach,
+        "event:actor1:1m", "event:actor2:9p",
+      ],
+    });
+    const projected = projectCandidate(candidate({
+      kind: "discard",
+      tile: tile("6s"),
+      discardMode: "tsumogiri",
+    }), facts);
+    expect(projected.status).toBe("ready");
+    if (projected.status !== "ready") throw new Error("expected ready");
+    const actorOne = projected.threatRiskProjections[0];
+    const actorTwo = projected.threatRiskProjections[1];
+    if (actorOne?.status !== "ready" || actorTwo?.status !== "ready") {
+      throw new Error("expected ready risks");
+    }
+    expect(actorOne.request.safeTiles34[0]).toBe(true);
+    expect(actorOne.request.safeTiles34[17]).toBe(false);
+    expect(actorTwo.request.safeTiles34[0]).toBe(false);
+    expect(actorTwo.request.safeTiles34[17]).toBe(true);
+    expect(actorOne.request.evidenceIds).not.toContain(actorTwoReach);
+    expect(actorTwo.request.evidenceIds).not.toContain(actorOneReach);
   });
 });

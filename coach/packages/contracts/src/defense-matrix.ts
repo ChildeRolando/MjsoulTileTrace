@@ -6,7 +6,10 @@ import {
   parseCanonicalEventRef,
   type ParsedCanonicalEventRef,
 } from "./event-stream.js";
-import { EngineIdentitySchema } from "./fact-engine.js";
+import {
+  EngineIdentitySchema,
+  FACT_ENGINE_PROTOCOL_VERSION,
+} from "./fact-engine.js";
 
 export const DEFENSE_MATRIX_SCHEMA_VERSION = "defense-matrix/v1" as const;
 export const STRUCTURAL_RISK_SCALE_VERSION =
@@ -241,7 +244,12 @@ export function defenseStructuralStateHash(
   input: DefenseStructuralStateHashInput,
 ): string {
   return `sha256:${createHash("sha256")
-    .update(stableCanonicalJson(input))
+    .update(stableCanonicalJson({
+      kind: "threat_risk",
+      protocolVersion: FACT_ENGINE_PROTOCOL_VERSION,
+      scaleVersion: STRUCTURAL_RISK_SCALE_VERSION,
+      ...input,
+    }))
     .digest("hex")}`;
 }
 
