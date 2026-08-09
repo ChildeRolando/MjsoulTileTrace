@@ -8,7 +8,7 @@ Implemented:
 - Mortal report facts normalized with `modelReason: "unknown"`;
 - opponent concealed draws redacted at the import boundary;
 - decision-boundary replay using only information visible to the player;
-- standard-hand shanten, with unadjusted ukeire kept as a non-ranking diagnostic;
+- standard, chiitoitsu, and kokushi shanten with family-specific effective tiles;
 - per-riichi-player genbutsu and ippatsu evidence;
 - a versioned five-axis coverage catalog and isomorphic candidate ledgers;
 - bilateral factor accounts that preserve evidence for model and actual actions;
@@ -56,14 +56,30 @@ Implemented:
   pipeline, including melds, called discards, rivers, dora, winds, scores,
   riichi threats, evidence IDs, and field completeness;
 - the East 1 turn 6/7 factor gate now consumes V2 decision snapshots while
-  retaining the same packaged-sidecar golden calculations.
+  retaining the same packaged-sidecar golden calculations;
+- strict `hand-structure/v2` facts for all three hand families, non-dominated
+  structural decompositions, invariant/conditional shape claims, composite
+  wait labels, and baseline ron eligibility;
+- a deterministic 64-item cap for returned non-dominated decompositions; when
+  the full set is larger, invariant claims remain exhaustive while conditional
+  claims refer only to returned representatives and carry an explicit
+  truncation limitation;
+- separately evidenced discard, temporary, and riichi furiten, including
+  response-window closure, atamahane, self-draw clearing, riichi persistence,
+  and a candidate discard that creates its own furiten;
+- one shared consumer-side validator for every fact-engine result kind, so a
+  typed adapter cannot bypass request/action/state/threat/evidence binding or
+  inject schema error prose;
+- a packaged Windows sidecar and trusted manifest that include V2 analysis,
+  plus real V2 golden outputs for both East 1 turn 6/7 candidates.
 
 Both current regression scenes remain incomplete. Exact public han/fu details,
 calibrated deal-in probability, placement EV, option-value branch search,
 flush/hand-composition inference, and discard-sequence behavioral inference are
-explicit unsupported or missing-data dimensions. Therefore the applied East 1
-decisions correctly keep `deterministicPreference: null` even though their
-efficiency-only and defense-only preferences are available.
+explicit unsupported or missing-data dimensions. The per-threat defense matrix
+is the next M2-C slice. Therefore the applied East 1 decisions correctly keep
+`deterministicPreference: null` even though their efficiency-only and
+defense-only preferences are available.
 
 PF-03 is registered for audit but deliberately not activated in this milestone.
 Activation requires scored-candidate normalization plus value, placement,
@@ -76,16 +92,26 @@ Outside this milestone:
 - production Mortal and Akagi Native report integration;
 - production Akagi Native private-format parsing;
 - complete legal-action enumeration and call-follow-up branch search;
-- hand-family decomposition, furiten derivation, legal-action enumeration, and
-  production remaining-draw completeness;
+- legal-action enumeration, call-follow-up branch search, and production
+  remaining-draw/response-opportunity completeness;
 - calibrated placement, option-value, opponent-hand, and statistical-risk analyzers;
 - persistence, LLM dialogue orchestration, and the three-column UI.
 
 The structured path checks only contradictions supported by `KnownActionFacts`.
 Missing facts remain `unknown_due_to_missing_facts`; they are not described as
 illegal. “Whether to call” and “what to discard after calling” are separate
-decision windows. The old discard-only strict analysis remains only as an
-explicit regression oracle; production code must not silently fall back to it.
+decision windows. When V2 fails for every comparable candidate, the pipeline
+may use the older V1 efficiency facts only under explicit
+`analysisMode: "legacy_v1_fallback"`; mixed V1/V2 availability never produces a
+preference. Fixture bridges remain regression-only and are absent from the
+public package surface.
+
+`baseRonEligibility` has three meanings: `eligible` proves a baseline ron path,
+`ineligible` proves no baseline yaku in the fully known supported context, and
+`unknown_missing_situational_yaku_context` means missing wind/riichi/kuitan or
+winning-event context could change the answer. Temporary and riichi furiten
+require complete response opportunities; missing history stays unknown rather
+than being converted to “not furiten.”
 
 The canonical event stream is authoritative for all new replay work. Source
 adapters may map source records into events but may not compute coach factors or
@@ -114,6 +140,7 @@ npm run test
 npm run typecheck
 npm run test:package-import
 npm run build:fact-engine
+npm run package:fact-engine
 npm run test:fact-engine
 ```
 
