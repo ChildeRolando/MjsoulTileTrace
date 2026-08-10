@@ -258,6 +258,15 @@ describe("East 1 defense matrix replay invariants", () => {
       genbutsu: false,
       evidenceRefs: [],
     });
+    // The threat row itself and the structural status are unchanged; only the
+    // evidence that pointed at the rewritten discard disappears.
+    expect(matrix.cells[0]?.threat).toMatchObject({
+      actor: 2,
+      kind: "riichi_accepted",
+      source: "legacy_regression_bridge_only",
+    });
+    expect(matrix.cells[0]?.structural.status).toBe("blocked_missing_facts");
+    expect(JSON.stringify(matrix)).not.toContain(mappedRef(current, "event-39"));
   });
 
   it("relocates the matrix row when the riichi moves to another actor without stale evidence", async () => {

@@ -442,6 +442,15 @@ describe("East 1 turn 6/7 structured factor regression", () => {
       });
       expect(perturbedDefense.deterministicPreference?.actionRefs)
         .toEqual([pair.safe]);
+      // The perturbed structural result still passed semantic validation:
+      // the non-safe candidate's cell stays calculated, not blocked_engine_failure.
+      const perturbedActualMatrix = perturbedDefense.defenseMatrices.find(
+        (matrix) => matrix.actionRef === pair.actual,
+      );
+      expect(
+        perturbedActualMatrix?.cells.find((cell) => cell.threat.actor === 2)
+          ?.structural.status,
+      ).toBe("calculated");
       const baseRisk = factValue(
         defenseResult,
         pair.actual,
