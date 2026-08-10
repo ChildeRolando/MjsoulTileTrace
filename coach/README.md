@@ -71,13 +71,23 @@ Implemented:
   typed adapter cannot bypass request/action/state/threat/evidence binding or
   inject schema error prose;
 - a packaged Windows sidecar and trusted manifest that include V2 analysis,
-  plus real V2 golden outputs for both East 1 turn 6/7 candidates.
+  plus real V2 golden outputs for both East 1 turn 6/7 candidates;
+- a per-threat `defense-matrix/v1` for every discard candidate: one typed row
+  per riichi/open threat with deterministic genbutsu safety bound to the exact
+  supporting river event, plus request-bound structural cells (suji, wall,
+  no/one-chance, early-outside, honor, versioned helper risk scale) that are
+  heuristic-only and never enter deterministic preference.
 
-Both current regression scenes remain incomplete. Exact public han/fu details,
-calibrated deal-in probability, placement EV, option-value branch search,
-flush/hand-composition inference, and discard-sequence behavioral inference are
-explicit unsupported or missing-data dimensions. The per-threat defense matrix
-is the next M2-C slice. Therefore the applied East 1 decisions correctly keep
+The per-threat defense matrix M2-C slice is complete for deterministic genbutsu
+safety and structural riichi analysis. Deterministic safety is per-object: a tile
+safe against one threat is never generalized to another, threat rows are never
+aggregated into a synthetic total, and helper risk is a versioned heuristic scale
+that is never presented as Mortal/Akagi deal-in probability. `user_marked_open`
+threats keep a typed row but their structural risk remains explicitly unsupported
+in V1. Exact public han/fu details, calibrated deal-in probability, placement EV,
+option-value branch search, flush/hand-composition inference, and
+discard-sequence behavioral inference remain explicit unsupported or
+missing-data dimensions. Therefore the applied East 1 decisions correctly keep
 `deterministicPreference: null` even though their efficiency-only and
 defense-only preferences are available.
 
@@ -152,3 +162,31 @@ preference.
 The LLM consumes the validated package. It is not allowed to create factors,
 change model facts, infer an engine motive, or provide a recommendation when the
 policy gate is closed.
+
+## 可运行原型：命令行教练
+
+`bin/riichi-coach.mjs` 是本机可运行的原型入口。它把一份
+`source + mjaiLog + decisions` 牌谱转成 canonical 事件流，对每个自我回合决策
+运行同一五轴 FactorPipeline（含逐威胁防守矩阵），并输出结构化 JSON 报告与
+可读 Markdown 报告。
+
+```powershell
+npm run coach                       # 用内置东一局 6/7 巡 fixture 演示
+npm run coach -- <report.json>      # 分析自定义牌谱
+npm run coach -- <report.json> --out <dir>
+```
+
+原型复用打包 sidecar，终端用户无需配置 Go 或可执行文件路径。报告明确标注
+`legacy_regression_bridge_only` 数据来源：这是本地文件回归桥，不是生产雀魂
+牌谱映射。原型只报告可审计的确定事实与版本化启发式，未覆盖精确符番、放铳
+概率、顺位 EV、对手手牌推断与模型内部原因。
+
+主要导出（`@riichi-coach/reasoning`）：
+
+- `analyzePrototypeGame(raw, engine)`：生成整份 `CoachGameReport`；
+- `renderCoachGameMarkdown(report)`：渲染可读 Markdown；
+- `importPrototypeGame(raw)`：通用 MJAI 事件归一化与决策→回放事件映射。
+
+原型在 `packages/reasoning/tests/coach-report.test.ts` 中通过真实打包 sidecar
+验证东一局 6/7 巡：6 巡牌效支持切 2筒、防守支持摸切 6索（玩家 2 现物）；
+7 巡牌效支持切 7筒、防守支持摸切 8筒；综合偏好保持 `null`。
