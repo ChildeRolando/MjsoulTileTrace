@@ -160,7 +160,7 @@ await writeFile(
   outputPath,
   `${JSON.stringify({
     generatedBy: "pinned mahjong-facts sidecar",
-    generatedProtocol: "hand-structure/v2",
+    generatedProtocol: "hand-structure/v2;threat-risk/v1",
     sourceReportId: "c1924cad66f66dd9",
     cases,
   }, null, 2)}\n`,
