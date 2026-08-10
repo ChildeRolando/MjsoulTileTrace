@@ -7,6 +7,7 @@ import {
   HandStructureResultV2Schema,
   ResponseFuritenAnalysisV2Schema,
   StructuredComparisonSetSchema,
+  ThreatRiskFactResultSchema,
   type ComparisonScope,
   type CompletedHandFactRequest,
   type CompletedHandFactResult,
@@ -50,6 +51,12 @@ const identity: EngineIdentity = {
   protocolVersion: "mahjong-facts/v1",
 };
 
+type GoldenThreatRisk = {
+  threatActor: number;
+  request: ThreatRiskFactRequest;
+  result: ThreatRiskFactResult;
+};
+
 type GoldenCase = {
   decisionId: string;
   actionRef: string;
@@ -57,10 +64,27 @@ type GoldenCase = {
   result: Hand13FactResult;
   handStructureRequest: HandStructureRequestV2;
   handStructureResult: HandStructureResultV2;
+  threatRisk: GoldenThreatRisk[];
 };
 
 class RegressionFactEngine implements HandStructureFactEnginePort {
   constructor(private readonly cases: GoldenCase[]) {}
+
+  protected threatRiskGolden(
+    request: ThreatRiskFactRequest,
+  ): GoldenThreatRisk {
+    const golden = this.cases
+      .flatMap((entry) => entry.threatRisk)
+      .find((entry) =>
+        entry.threatActor === request.threatActor &&
+        entry.request.actionRef === request.actionRef &&
+        entry.request.stateHash === request.stateHash
+      );
+    if (golden === undefined) {
+      throw new Error("missing real threat risk golden case");
+    }
+    return golden;
+  }
 
   async identity(): Promise<EngineIdentity> {
     return identity;
@@ -97,12 +121,41 @@ class RegressionFactEngine implements HandStructureFactEnginePort {
   }
 
   async analyzeThreatRisk(
-    _request: ThreatRiskFactRequest,
+    request: ThreatRiskFactRequest,
   ): Promise<ThreatRiskFactResult> {
-    throw new Error("legacy regression intentionally uses local defense only");
+    const golden = this.threatRiskGolden(request);
+    expect({ ...request, requestId: golden.request.requestId })
+      .toEqual(golden.request);
+    return ThreatRiskFactResultSchema.parse({
+      ...golden.result,
+      requestId: request.requestId,
+    });
   }
 
   async close(): Promise<void> {}
+}
+
+class PerturbingRiskEngine extends RegressionFactEngine {
+  constructor(cases: GoldenCase[]) {
+    super(cases);
+  }
+
+  override async analyzeThreatRisk(
+    request: ThreatRiskFactRequest,
+  ): Promise<ThreatRiskFactResult> {
+    const golden = this.threatRiskGolden(request);
+    const result = ThreatRiskFactResultSchema.parse({
+      ...golden.result,
+      requestId: request.requestId,
+    });
+    const riskScale = [...result.riskScale];
+    for (const tile34 of [10, 15]) {
+      if (!request.safeTiles34[tile34]) {
+        riskScale[tile34] = riskScale[tile34]! + 1;
+      }
+    }
+    return { ...result, riskScale };
+  }
 }
 
 function v2RegressionInput(
@@ -342,6 +395,70 @@ describe("East 1 turn 6/7 structured factor regression", () => {
       expect(preferenceForAxis(appliedResult, "defense")).toEqual([pair.safe]);
       expect(appliedResult.deterministicPreference).toBeNull();
       expect(bridged.provenance).toBe("legacy_regression_bridge_only");
+
+      const safeMatrix = appliedResult.defenseMatrices.find((matrix) =>
+        matrix.actionRef === pair.safe
+      );
+      const actualMatrix = appliedResult.defenseMatrices.find((matrix) =>
+        matrix.actionRef === pair.actual
+      );
+      expect(safeMatrix).toBeDefined();
+      expect(actualMatrix).toBeDefined();
+      const safeActor2 = safeMatrix!.cells.find((cell) =>
+        cell.threat.actor === 2
+      );
+      const actualActor2 = actualMatrix!.cells.find((cell) =>
+        cell.threat.actor === 2
+      );
+      const genbutsuEventRef = index === 0
+        ? bridged.legacyEventRefToCanonicalEventRefs["event-48"]?.[0]
+        : bridged.legacyEventRefToCanonicalEventRefs["event-39"]?.[0];
+      expect(safeActor2?.deterministicSafety).toEqual({
+        status: "calculated",
+        genbutsu: true,
+        evidenceRefs: [{
+          role: "threat_own_discard",
+          eventRef: genbutsuEventRef,
+        }],
+      });
+      expect(actualActor2?.deterministicSafety).toMatchObject({
+        status: "calculated",
+        genbutsu: false,
+      });
+      const structural = safeActor2?.structural;
+      expect(structural?.status).toBe("calculated");
+      if (structural?.status === "calculated") {
+        expect(structural.requestId).toBe(
+          `${facts.factSetId}:risk:2:${structural.stateHash}`,
+        );
+        expect(structural.actionRef).toBe(pair.safe);
+        expect(structural.threatActor).toBe(2);
+        expect(structural.engineIdentity).toEqual(identity);
+      }
+
+      const perturbedDefense = await runStructuredFactorPipeline({
+        ...defense,
+        engine: new PerturbingRiskEngine(turnCases),
+      });
+      expect(perturbedDefense.deterministicPreference?.actionRefs)
+        .toEqual([pair.safe]);
+      const baseRisk = factValue(
+        defenseResult,
+        pair.actual,
+        `helper_risk_scale:actor2`,
+      );
+      const perturbedRisk = factValue(
+        perturbedDefense,
+        pair.actual,
+        `helper_risk_scale:actor2`,
+      );
+      expect(baseRisk).toMatchObject({
+        kind: "number",
+        unit: "helper_risk_scale",
+      });
+      expect(perturbedRisk).not.toEqual(baseRisk);
+      expect(scoredAssembly.factorResult.defenseMatrices)
+        .toEqual(appliedResult.defenseMatrices);
 
       const actualOverall = factValue(
         appliedResult,

@@ -124,6 +124,15 @@ try {
           `candidate ${candidate.actionRef} did not produce both hand requests`,
         );
       }
+      const threatRisk = [];
+      for (const projected of projection.threatRiskProjections) {
+        if (projected.status !== "ready") continue;
+        threatRisk.push({
+          threatActor: projected.threatActor,
+          request: projected.request,
+          result: await client.analyzeThreatRisk(projected.request),
+        });
+      }
       cases.push({
         decisionId: decision.decisionId,
         actionRef: candidate.actionRef,
@@ -133,6 +142,7 @@ try {
         handStructureResult: await client.analyzeHandStructure(
           projection.handStructureRequest,
         ),
+        threatRisk,
       });
     }
   }

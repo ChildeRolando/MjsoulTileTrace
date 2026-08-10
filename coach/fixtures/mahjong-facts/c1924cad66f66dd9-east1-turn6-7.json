@@ -1806,7 +1806,397 @@
         },
         "waits": [],
         "diagnostics": []
-      }
+      },
+      "threatRisk": [
+        {
+          "threatActor": 2,
+          "request": {
+            "kind": "threat_risk",
+            "requestId": "legacy-regression:sha256:7fdcc0e3f08c3812257f6071e2881bb70394e127bda44d741ce62849e167ad38:risk:2:sha256:2ccbedc92b66e8e34b27671ad094d999d3aa43cc307b3df511521c6a094aa047",
+            "protocolVersion": "mahjong-facts/v1",
+            "actionRef": "action:v1:%5B%22discard%22%2C%5B%222p%22%2Cfalse%5D%2C%22tedashi%22%5D",
+            "stateHash": "sha256:2ccbedc92b66e8e34b27671ad094d999d3aa43cc307b3df511521c6a094aa047",
+            "threatActor": 2,
+            "scaleVersion": "mahjong-helper-risk/514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0/v1",
+            "turns": 6,
+            "safeTiles34": [
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              true,
+              false,
+              true,
+              false,
+              false,
+              true,
+              true
+            ],
+            "leftTiles34": [
+              3,
+              2,
+              3,
+              3,
+              4,
+              2,
+              3,
+              2,
+              3,
+              4,
+              2,
+              4,
+              4,
+              4,
+              3,
+              2,
+              3,
+              2,
+              4,
+              3,
+              4,
+              3,
+              3,
+              2,
+              2,
+              3,
+              3,
+              2,
+              4,
+              2,
+              3,
+              3,
+              1,
+              3
+            ],
+            "doraTiles34": [
+              20
+            ],
+            "roundWindTile34": 27,
+            "threatWindTile34": 29,
+            "earlyOutsideTiles34": [
+              17
+            ],
+            "evidenceIds": [
+              "fixture:c1924cad66f66dd9/0/3/0",
+              "fixture:c1924cad66f66dd9/0/5/0",
+              "fixture:c1924cad66f66dd9/0/7/0",
+              "fixture:c1924cad66f66dd9/0/9/0",
+              "fixture:c1924cad66f66dd9/0/11/0",
+              "fixture:c1924cad66f66dd9/0/13/0",
+              "fixture:c1924cad66f66dd9/0/15/0",
+              "fixture:c1924cad66f66dd9/0/17/0",
+              "fixture:c1924cad66f66dd9/0/19/0",
+              "fixture:c1924cad66f66dd9/0/21/0",
+              "fixture:c1924cad66f66dd9/0/23/0",
+              "fixture:c1924cad66f66dd9/0/25/0",
+              "fixture:c1924cad66f66dd9/0/27/0",
+              "fixture:c1924cad66f66dd9/0/29/0",
+              "fixture:c1924cad66f66dd9/0/31/0",
+              "fixture:c1924cad66f66dd9/0/33/0",
+              "fixture:c1924cad66f66dd9/0/35/0",
+              "fixture:c1924cad66f66dd9/0/37/0",
+              "fixture:c1924cad66f66dd9/0/39/0",
+              "fixture:c1924cad66f66dd9/0/41/0",
+              "fixture:c1924cad66f66dd9/0/43/0",
+              "fixture:c1924cad66f66dd9/0/45/0",
+              "fixture:c1924cad66f66dd9/0/47/0",
+              "fixture:c1924cad66f66dd9/0/48/0",
+              "fixture:c1924cad66f66dd9/0/49/0"
+            ]
+          },
+          "result": {
+            "requestId": "legacy-regression:sha256:7fdcc0e3f08c3812257f6071e2881bb70394e127bda44d741ce62849e167ad38:risk:2:sha256:2ccbedc92b66e8e34b27671ad094d999d3aa43cc307b3df511521c6a094aa047",
+            "protocolVersion": "mahjong-facts/v1",
+            "actionRef": "action:v1:%5B%22discard%22%2C%5B%222p%22%2Cfalse%5D%2C%22tedashi%22%5D",
+            "stateHash": "sha256:2ccbedc92b66e8e34b27671ad094d999d3aa43cc307b3df511521c6a094aa047",
+            "identity": {
+              "engine": "mahjong-helper",
+              "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+              "adapterVersion": "0.2.0",
+              "protocolVersion": "mahjong-facts/v1"
+            },
+            "kind": "threat_risk_result",
+            "threatActor": 2,
+            "scaleVersion": "mahjong-helper-risk/514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0/v1",
+            "riskScale": [
+              5.9,
+              7.1,
+              7.9,
+              10.5,
+              10.2,
+              10.5,
+              7.9,
+              7.1,
+              5.9,
+              5.9,
+              7.1,
+              7.9,
+              10.5,
+              5.8,
+              10.5,
+              7.9,
+              0,
+              2.3600000000000003,
+              5.9,
+              7.1,
+              10.12987012987013,
+              10.5,
+              10.2,
+              0,
+              7.9,
+              7.1,
+              1.7,
+              0,
+              2.9,
+              0,
+              2.9,
+              3.2,
+              0,
+              0
+            ],
+            "classifications": [
+              {
+                "tile34": 0,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 1,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 2,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 3,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 4,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 5,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 6,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 7,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 8,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 9,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 10,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 11,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 12,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 13,
+                "kind": "half_suji"
+              },
+              {
+                "tile34": 14,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 15,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 16,
+                "kind": "genbutsu"
+              },
+              {
+                "tile34": 17,
+                "kind": "early_outside"
+              },
+              {
+                "tile34": 17,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 18,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 19,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 20,
+                "kind": "suji"
+              },
+              {
+                "tile34": 21,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 22,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 23,
+                "kind": "genbutsu"
+              },
+              {
+                "tile34": 24,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 25,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 26,
+                "kind": "suji"
+              },
+              {
+                "tile34": 27,
+                "kind": "genbutsu"
+              },
+              {
+                "tile34": 29,
+                "kind": "genbutsu"
+              },
+              {
+                "tile34": 32,
+                "kind": "genbutsu"
+              },
+              {
+                "tile34": 33,
+                "kind": "genbutsu"
+              }
+            ],
+            "honorClassifications": [
+              {
+                "tile34": 27,
+                "remainingCount": 2,
+                "category": "yakuhai"
+              },
+              {
+                "tile34": 28,
+                "remainingCount": 4,
+                "category": "guest_wind"
+              },
+              {
+                "tile34": 29,
+                "remainingCount": 2,
+                "category": "yakuhai"
+              },
+              {
+                "tile34": 30,
+                "remainingCount": 3,
+                "category": "guest_wind"
+              },
+              {
+                "tile34": 31,
+                "remainingCount": 3,
+                "category": "yakuhai"
+              },
+              {
+                "tile34": 32,
+                "remainingCount": 1,
+                "category": "yakuhai"
+              },
+              {
+                "tile34": 33,
+                "remainingCount": 3,
+                "category": "yakuhai"
+              }
+            ],
+            "leftNoSujiTile34": [
+              0,
+              1,
+              2,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              15,
+              17,
+              18,
+              19,
+              24,
+              25
+            ],
+            "evidenceIds": [
+              "fixture:c1924cad66f66dd9/0/3/0",
+              "fixture:c1924cad66f66dd9/0/5/0",
+              "fixture:c1924cad66f66dd9/0/7/0",
+              "fixture:c1924cad66f66dd9/0/9/0",
+              "fixture:c1924cad66f66dd9/0/11/0",
+              "fixture:c1924cad66f66dd9/0/13/0",
+              "fixture:c1924cad66f66dd9/0/15/0",
+              "fixture:c1924cad66f66dd9/0/17/0",
+              "fixture:c1924cad66f66dd9/0/19/0",
+              "fixture:c1924cad66f66dd9/0/21/0",
+              "fixture:c1924cad66f66dd9/0/23/0",
+              "fixture:c1924cad66f66dd9/0/25/0",
+              "fixture:c1924cad66f66dd9/0/27/0",
+              "fixture:c1924cad66f66dd9/0/29/0",
+              "fixture:c1924cad66f66dd9/0/31/0",
+              "fixture:c1924cad66f66dd9/0/33/0",
+              "fixture:c1924cad66f66dd9/0/35/0",
+              "fixture:c1924cad66f66dd9/0/37/0",
+              "fixture:c1924cad66f66dd9/0/39/0",
+              "fixture:c1924cad66f66dd9/0/41/0",
+              "fixture:c1924cad66f66dd9/0/43/0",
+              "fixture:c1924cad66f66dd9/0/45/0",
+              "fixture:c1924cad66f66dd9/0/47/0",
+              "fixture:c1924cad66f66dd9/0/48/0",
+              "fixture:c1924cad66f66dd9/0/49/0"
+            ],
+            "limitations": [
+              "helper_risk_not_mortal_probability",
+              "threats_analyzed_independently",
+              "structural_labels_separate"
+            ],
+            "diagnostics": []
+          }
+        }
+      ]
     },
     {
       "decisionId": "east1-turn6",
@@ -3359,7 +3749,397 @@
         },
         "waits": [],
         "diagnostics": []
-      }
+      },
+      "threatRisk": [
+        {
+          "threatActor": 2,
+          "request": {
+            "kind": "threat_risk",
+            "requestId": "legacy-regression:sha256:7fdcc0e3f08c3812257f6071e2881bb70394e127bda44d741ce62849e167ad38:risk:2:sha256:a6bfd7b355d302fb6de1194cb62fa0db1cf1e8365d37ec4a76e27af1bd916286",
+            "protocolVersion": "mahjong-facts/v1",
+            "actionRef": "action:v1:%5B%22discard%22%2C%5B%226s%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
+            "stateHash": "sha256:a6bfd7b355d302fb6de1194cb62fa0db1cf1e8365d37ec4a76e27af1bd916286",
+            "threatActor": 2,
+            "scaleVersion": "mahjong-helper-risk/514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0/v1",
+            "turns": 6,
+            "safeTiles34": [
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              true,
+              false,
+              true,
+              false,
+              false,
+              true,
+              true
+            ],
+            "leftTiles34": [
+              3,
+              2,
+              3,
+              3,
+              4,
+              2,
+              3,
+              2,
+              3,
+              4,
+              2,
+              4,
+              4,
+              4,
+              3,
+              2,
+              3,
+              2,
+              4,
+              3,
+              4,
+              3,
+              3,
+              2,
+              2,
+              3,
+              3,
+              2,
+              4,
+              2,
+              3,
+              3,
+              1,
+              3
+            ],
+            "doraTiles34": [
+              20
+            ],
+            "roundWindTile34": 27,
+            "threatWindTile34": 29,
+            "earlyOutsideTiles34": [
+              17
+            ],
+            "evidenceIds": [
+              "fixture:c1924cad66f66dd9/0/3/0",
+              "fixture:c1924cad66f66dd9/0/5/0",
+              "fixture:c1924cad66f66dd9/0/7/0",
+              "fixture:c1924cad66f66dd9/0/9/0",
+              "fixture:c1924cad66f66dd9/0/11/0",
+              "fixture:c1924cad66f66dd9/0/13/0",
+              "fixture:c1924cad66f66dd9/0/15/0",
+              "fixture:c1924cad66f66dd9/0/17/0",
+              "fixture:c1924cad66f66dd9/0/19/0",
+              "fixture:c1924cad66f66dd9/0/21/0",
+              "fixture:c1924cad66f66dd9/0/23/0",
+              "fixture:c1924cad66f66dd9/0/25/0",
+              "fixture:c1924cad66f66dd9/0/27/0",
+              "fixture:c1924cad66f66dd9/0/29/0",
+              "fixture:c1924cad66f66dd9/0/31/0",
+              "fixture:c1924cad66f66dd9/0/33/0",
+              "fixture:c1924cad66f66dd9/0/35/0",
+              "fixture:c1924cad66f66dd9/0/37/0",
+              "fixture:c1924cad66f66dd9/0/39/0",
+              "fixture:c1924cad66f66dd9/0/41/0",
+              "fixture:c1924cad66f66dd9/0/43/0",
+              "fixture:c1924cad66f66dd9/0/45/0",
+              "fixture:c1924cad66f66dd9/0/47/0",
+              "fixture:c1924cad66f66dd9/0/48/0",
+              "fixture:c1924cad66f66dd9/0/49/0"
+            ]
+          },
+          "result": {
+            "requestId": "legacy-regression:sha256:7fdcc0e3f08c3812257f6071e2881bb70394e127bda44d741ce62849e167ad38:risk:2:sha256:a6bfd7b355d302fb6de1194cb62fa0db1cf1e8365d37ec4a76e27af1bd916286",
+            "protocolVersion": "mahjong-facts/v1",
+            "actionRef": "action:v1:%5B%22discard%22%2C%5B%226s%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
+            "stateHash": "sha256:a6bfd7b355d302fb6de1194cb62fa0db1cf1e8365d37ec4a76e27af1bd916286",
+            "identity": {
+              "engine": "mahjong-helper",
+              "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+              "adapterVersion": "0.2.0",
+              "protocolVersion": "mahjong-facts/v1"
+            },
+            "kind": "threat_risk_result",
+            "threatActor": 2,
+            "scaleVersion": "mahjong-helper-risk/514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0/v1",
+            "riskScale": [
+              5.9,
+              7.1,
+              7.9,
+              10.5,
+              10.2,
+              10.5,
+              7.9,
+              7.1,
+              5.9,
+              5.9,
+              7.1,
+              7.9,
+              10.5,
+              5.8,
+              10.5,
+              7.9,
+              0,
+              2.3600000000000003,
+              5.9,
+              7.1,
+              10.12987012987013,
+              10.5,
+              10.2,
+              0,
+              7.9,
+              7.1,
+              1.7,
+              0,
+              2.9,
+              0,
+              2.9,
+              3.2,
+              0,
+              0
+            ],
+            "classifications": [
+              {
+                "tile34": 0,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 1,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 2,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 3,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 4,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 5,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 6,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 7,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 8,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 9,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 10,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 11,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 12,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 13,
+                "kind": "half_suji"
+              },
+              {
+                "tile34": 14,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 15,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 16,
+                "kind": "genbutsu"
+              },
+              {
+                "tile34": 17,
+                "kind": "early_outside"
+              },
+              {
+                "tile34": 17,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 18,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 19,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 20,
+                "kind": "suji"
+              },
+              {
+                "tile34": 21,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 22,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 23,
+                "kind": "genbutsu"
+              },
+              {
+                "tile34": 24,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 25,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 26,
+                "kind": "suji"
+              },
+              {
+                "tile34": 27,
+                "kind": "genbutsu"
+              },
+              {
+                "tile34": 29,
+                "kind": "genbutsu"
+              },
+              {
+                "tile34": 32,
+                "kind": "genbutsu"
+              },
+              {
+                "tile34": 33,
+                "kind": "genbutsu"
+              }
+            ],
+            "honorClassifications": [
+              {
+                "tile34": 27,
+                "remainingCount": 2,
+                "category": "yakuhai"
+              },
+              {
+                "tile34": 28,
+                "remainingCount": 4,
+                "category": "guest_wind"
+              },
+              {
+                "tile34": 29,
+                "remainingCount": 2,
+                "category": "yakuhai"
+              },
+              {
+                "tile34": 30,
+                "remainingCount": 3,
+                "category": "guest_wind"
+              },
+              {
+                "tile34": 31,
+                "remainingCount": 3,
+                "category": "yakuhai"
+              },
+              {
+                "tile34": 32,
+                "remainingCount": 1,
+                "category": "yakuhai"
+              },
+              {
+                "tile34": 33,
+                "remainingCount": 3,
+                "category": "yakuhai"
+              }
+            ],
+            "leftNoSujiTile34": [
+              0,
+              1,
+              2,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              15,
+              17,
+              18,
+              19,
+              24,
+              25
+            ],
+            "evidenceIds": [
+              "fixture:c1924cad66f66dd9/0/3/0",
+              "fixture:c1924cad66f66dd9/0/5/0",
+              "fixture:c1924cad66f66dd9/0/7/0",
+              "fixture:c1924cad66f66dd9/0/9/0",
+              "fixture:c1924cad66f66dd9/0/11/0",
+              "fixture:c1924cad66f66dd9/0/13/0",
+              "fixture:c1924cad66f66dd9/0/15/0",
+              "fixture:c1924cad66f66dd9/0/17/0",
+              "fixture:c1924cad66f66dd9/0/19/0",
+              "fixture:c1924cad66f66dd9/0/21/0",
+              "fixture:c1924cad66f66dd9/0/23/0",
+              "fixture:c1924cad66f66dd9/0/25/0",
+              "fixture:c1924cad66f66dd9/0/27/0",
+              "fixture:c1924cad66f66dd9/0/29/0",
+              "fixture:c1924cad66f66dd9/0/31/0",
+              "fixture:c1924cad66f66dd9/0/33/0",
+              "fixture:c1924cad66f66dd9/0/35/0",
+              "fixture:c1924cad66f66dd9/0/37/0",
+              "fixture:c1924cad66f66dd9/0/39/0",
+              "fixture:c1924cad66f66dd9/0/41/0",
+              "fixture:c1924cad66f66dd9/0/43/0",
+              "fixture:c1924cad66f66dd9/0/45/0",
+              "fixture:c1924cad66f66dd9/0/47/0",
+              "fixture:c1924cad66f66dd9/0/48/0",
+              "fixture:c1924cad66f66dd9/0/49/0"
+            ],
+            "limitations": [
+              "helper_risk_not_mortal_probability",
+              "threats_analyzed_independently",
+              "structural_labels_separate"
+            ],
+            "diagnostics": []
+          }
+        }
+      ]
     },
     {
       "decisionId": "east1-turn7",
@@ -4981,7 +5761,412 @@
         },
         "waits": [],
         "diagnostics": []
-      }
+      },
+      "threatRisk": [
+        {
+          "threatActor": 2,
+          "request": {
+            "kind": "threat_risk",
+            "requestId": "legacy-regression:sha256:c9f33c5df839c1bc5a677847e2446d26918d9fae5733a2932adf4e55846fb798:risk:2:sha256:8594f01c4330e842869a8363ff60dcf8ec11a27945f684008170b973cb8e9257",
+            "protocolVersion": "mahjong-facts/v1",
+            "actionRef": "action:v1:%5B%22discard%22%2C%5B%227p%22%2Cfalse%5D%2C%22tedashi%22%5D",
+            "stateHash": "sha256:8594f01c4330e842869a8363ff60dcf8ec11a27945f684008170b973cb8e9257",
+            "threatActor": 2,
+            "scaleVersion": "mahjong-helper-risk/514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0/v1",
+            "turns": 8,
+            "safeTiles34": [
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              true,
+              true,
+              true,
+              false,
+              false,
+              true,
+              true
+            ],
+            "leftTiles34": [
+              3,
+              2,
+              3,
+              3,
+              4,
+              2,
+              3,
+              2,
+              3,
+              3,
+              2,
+              3,
+              4,
+              4,
+              3,
+              2,
+              2,
+              1,
+              4,
+              3,
+              4,
+              3,
+              3,
+              2,
+              2,
+              3,
+              3,
+              2,
+              1,
+              2,
+              3,
+              3,
+              1,
+              2
+            ],
+            "doraTiles34": [
+              20
+            ],
+            "roundWindTile34": 27,
+            "threatWindTile34": 29,
+            "earlyOutsideTiles34": [
+              17
+            ],
+            "evidenceIds": [
+              "fixture:c1924cad66f66dd9/0/3/0",
+              "fixture:c1924cad66f66dd9/0/5/0",
+              "fixture:c1924cad66f66dd9/0/7/0",
+              "fixture:c1924cad66f66dd9/0/9/0",
+              "fixture:c1924cad66f66dd9/0/11/0",
+              "fixture:c1924cad66f66dd9/0/13/0",
+              "fixture:c1924cad66f66dd9/0/15/0",
+              "fixture:c1924cad66f66dd9/0/17/0",
+              "fixture:c1924cad66f66dd9/0/19/0",
+              "fixture:c1924cad66f66dd9/0/21/0",
+              "fixture:c1924cad66f66dd9/0/23/0",
+              "fixture:c1924cad66f66dd9/0/25/0",
+              "fixture:c1924cad66f66dd9/0/27/0",
+              "fixture:c1924cad66f66dd9/0/29/0",
+              "fixture:c1924cad66f66dd9/0/31/0",
+              "fixture:c1924cad66f66dd9/0/33/0",
+              "fixture:c1924cad66f66dd9/0/35/0",
+              "fixture:c1924cad66f66dd9/0/37/0",
+              "fixture:c1924cad66f66dd9/0/39/0",
+              "fixture:c1924cad66f66dd9/0/41/0",
+              "fixture:c1924cad66f66dd9/0/43/0",
+              "fixture:c1924cad66f66dd9/0/45/0",
+              "fixture:c1924cad66f66dd9/0/47/0",
+              "fixture:c1924cad66f66dd9/0/48/0",
+              "fixture:c1924cad66f66dd9/0/49/0",
+              "fixture:c1924cad66f66dd9/0/51/0",
+              "fixture:c1924cad66f66dd9/0/53/0",
+              "fixture:c1924cad66f66dd9/0/55/0",
+              "fixture:c1924cad66f66dd9/0/57/0",
+              "fixture:c1924cad66f66dd9/0/59/0",
+              "fixture:c1924cad66f66dd9/0/61/0"
+            ]
+          },
+          "result": {
+            "requestId": "legacy-regression:sha256:c9f33c5df839c1bc5a677847e2446d26918d9fae5733a2932adf4e55846fb798:risk:2:sha256:8594f01c4330e842869a8363ff60dcf8ec11a27945f684008170b973cb8e9257",
+            "protocolVersion": "mahjong-facts/v1",
+            "actionRef": "action:v1:%5B%22discard%22%2C%5B%227p%22%2Cfalse%5D%2C%22tedashi%22%5D",
+            "stateHash": "sha256:8594f01c4330e842869a8363ff60dcf8ec11a27945f684008170b973cb8e9257",
+            "identity": {
+              "engine": "mahjong-helper",
+              "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+              "adapterVersion": "0.2.0",
+              "protocolVersion": "mahjong-facts/v1"
+            },
+            "kind": "threat_risk_result",
+            "threatActor": 2,
+            "scaleVersion": "mahjong-helper-risk/514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0/v1",
+            "riskScale": [
+              6.8,
+              8,
+              8.9,
+              12.2,
+              11.9,
+              12.2,
+              8.9,
+              8,
+              6.8,
+              6.8,
+              8,
+              8.9,
+              12.2,
+              6.9,
+              6.6,
+              8.9,
+              0,
+              0,
+              6.8,
+              8,
+              10.324675324675324,
+              12.2,
+              11.9,
+              0,
+              8.9,
+              8,
+              1.7,
+              0,
+              0,
+              0,
+              3.5,
+              4,
+              0,
+              0
+            ],
+            "classifications": [
+              {
+                "tile34": 0,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 1,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 2,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 3,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 4,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 5,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 6,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 7,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 8,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 9,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 10,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 11,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 12,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 13,
+                "kind": "half_suji"
+              },
+              {
+                "tile34": 14,
+                "kind": "half_suji"
+              },
+              {
+                "tile34": 15,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 16,
+                "kind": "genbutsu"
+              },
+              {
+                "tile34": 17,
+                "kind": "early_outside"
+              },
+              {
+                "tile34": 17,
+                "kind": "genbutsu"
+              },
+              {
+                "tile34": 18,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 19,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 20,
+                "kind": "suji"
+              },
+              {
+                "tile34": 21,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 22,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 23,
+                "kind": "genbutsu"
+              },
+              {
+                "tile34": 24,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 25,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 26,
+                "kind": "suji"
+              },
+              {
+                "tile34": 27,
+                "kind": "genbutsu"
+              },
+              {
+                "tile34": 28,
+                "kind": "genbutsu"
+              },
+              {
+                "tile34": 29,
+                "kind": "genbutsu"
+              },
+              {
+                "tile34": 32,
+                "kind": "genbutsu"
+              },
+              {
+                "tile34": 33,
+                "kind": "genbutsu"
+              }
+            ],
+            "honorClassifications": [
+              {
+                "tile34": 27,
+                "remainingCount": 2,
+                "category": "yakuhai"
+              },
+              {
+                "tile34": 28,
+                "remainingCount": 1,
+                "category": "guest_wind"
+              },
+              {
+                "tile34": 29,
+                "remainingCount": 2,
+                "category": "yakuhai"
+              },
+              {
+                "tile34": 30,
+                "remainingCount": 3,
+                "category": "guest_wind"
+              },
+              {
+                "tile34": 31,
+                "remainingCount": 3,
+                "category": "yakuhai"
+              },
+              {
+                "tile34": 32,
+                "remainingCount": 1,
+                "category": "yakuhai"
+              },
+              {
+                "tile34": 33,
+                "remainingCount": 2,
+                "category": "yakuhai"
+              }
+            ],
+            "leftNoSujiTile34": [
+              0,
+              1,
+              2,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              15,
+              18,
+              19,
+              24,
+              25
+            ],
+            "evidenceIds": [
+              "fixture:c1924cad66f66dd9/0/3/0",
+              "fixture:c1924cad66f66dd9/0/5/0",
+              "fixture:c1924cad66f66dd9/0/7/0",
+              "fixture:c1924cad66f66dd9/0/9/0",
+              "fixture:c1924cad66f66dd9/0/11/0",
+              "fixture:c1924cad66f66dd9/0/13/0",
+              "fixture:c1924cad66f66dd9/0/15/0",
+              "fixture:c1924cad66f66dd9/0/17/0",
+              "fixture:c1924cad66f66dd9/0/19/0",
+              "fixture:c1924cad66f66dd9/0/21/0",
+              "fixture:c1924cad66f66dd9/0/23/0",
+              "fixture:c1924cad66f66dd9/0/25/0",
+              "fixture:c1924cad66f66dd9/0/27/0",
+              "fixture:c1924cad66f66dd9/0/29/0",
+              "fixture:c1924cad66f66dd9/0/31/0",
+              "fixture:c1924cad66f66dd9/0/33/0",
+              "fixture:c1924cad66f66dd9/0/35/0",
+              "fixture:c1924cad66f66dd9/0/37/0",
+              "fixture:c1924cad66f66dd9/0/39/0",
+              "fixture:c1924cad66f66dd9/0/41/0",
+              "fixture:c1924cad66f66dd9/0/43/0",
+              "fixture:c1924cad66f66dd9/0/45/0",
+              "fixture:c1924cad66f66dd9/0/47/0",
+              "fixture:c1924cad66f66dd9/0/48/0",
+              "fixture:c1924cad66f66dd9/0/49/0",
+              "fixture:c1924cad66f66dd9/0/51/0",
+              "fixture:c1924cad66f66dd9/0/53/0",
+              "fixture:c1924cad66f66dd9/0/55/0",
+              "fixture:c1924cad66f66dd9/0/57/0",
+              "fixture:c1924cad66f66dd9/0/59/0",
+              "fixture:c1924cad66f66dd9/0/61/0"
+            ],
+            "limitations": [
+              "helper_risk_not_mortal_probability",
+              "threats_analyzed_independently",
+              "structural_labels_separate"
+            ],
+            "diagnostics": []
+          }
+        }
+      ]
     },
     {
       "decisionId": "east1-turn7",
@@ -6657,7 +7842,412 @@
         },
         "waits": [],
         "diagnostics": []
-      }
+      },
+      "threatRisk": [
+        {
+          "threatActor": 2,
+          "request": {
+            "kind": "threat_risk",
+            "requestId": "legacy-regression:sha256:c9f33c5df839c1bc5a677847e2446d26918d9fae5733a2932adf4e55846fb798:risk:2:sha256:3ea990673c21c01bae86fc2110f31f592870a75e71801f20a40be3c3f423982d",
+            "protocolVersion": "mahjong-facts/v1",
+            "actionRef": "action:v1:%5B%22discard%22%2C%5B%228p%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
+            "stateHash": "sha256:3ea990673c21c01bae86fc2110f31f592870a75e71801f20a40be3c3f423982d",
+            "threatActor": 2,
+            "scaleVersion": "mahjong-helper-risk/514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0/v1",
+            "turns": 8,
+            "safeTiles34": [
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              true,
+              true,
+              true,
+              false,
+              false,
+              true,
+              true
+            ],
+            "leftTiles34": [
+              3,
+              2,
+              3,
+              3,
+              4,
+              2,
+              3,
+              2,
+              3,
+              3,
+              2,
+              3,
+              4,
+              4,
+              3,
+              2,
+              2,
+              1,
+              4,
+              3,
+              4,
+              3,
+              3,
+              2,
+              2,
+              3,
+              3,
+              2,
+              1,
+              2,
+              3,
+              3,
+              1,
+              2
+            ],
+            "doraTiles34": [
+              20
+            ],
+            "roundWindTile34": 27,
+            "threatWindTile34": 29,
+            "earlyOutsideTiles34": [
+              17
+            ],
+            "evidenceIds": [
+              "fixture:c1924cad66f66dd9/0/3/0",
+              "fixture:c1924cad66f66dd9/0/5/0",
+              "fixture:c1924cad66f66dd9/0/7/0",
+              "fixture:c1924cad66f66dd9/0/9/0",
+              "fixture:c1924cad66f66dd9/0/11/0",
+              "fixture:c1924cad66f66dd9/0/13/0",
+              "fixture:c1924cad66f66dd9/0/15/0",
+              "fixture:c1924cad66f66dd9/0/17/0",
+              "fixture:c1924cad66f66dd9/0/19/0",
+              "fixture:c1924cad66f66dd9/0/21/0",
+              "fixture:c1924cad66f66dd9/0/23/0",
+              "fixture:c1924cad66f66dd9/0/25/0",
+              "fixture:c1924cad66f66dd9/0/27/0",
+              "fixture:c1924cad66f66dd9/0/29/0",
+              "fixture:c1924cad66f66dd9/0/31/0",
+              "fixture:c1924cad66f66dd9/0/33/0",
+              "fixture:c1924cad66f66dd9/0/35/0",
+              "fixture:c1924cad66f66dd9/0/37/0",
+              "fixture:c1924cad66f66dd9/0/39/0",
+              "fixture:c1924cad66f66dd9/0/41/0",
+              "fixture:c1924cad66f66dd9/0/43/0",
+              "fixture:c1924cad66f66dd9/0/45/0",
+              "fixture:c1924cad66f66dd9/0/47/0",
+              "fixture:c1924cad66f66dd9/0/48/0",
+              "fixture:c1924cad66f66dd9/0/49/0",
+              "fixture:c1924cad66f66dd9/0/51/0",
+              "fixture:c1924cad66f66dd9/0/53/0",
+              "fixture:c1924cad66f66dd9/0/55/0",
+              "fixture:c1924cad66f66dd9/0/57/0",
+              "fixture:c1924cad66f66dd9/0/59/0",
+              "fixture:c1924cad66f66dd9/0/61/0"
+            ]
+          },
+          "result": {
+            "requestId": "legacy-regression:sha256:c9f33c5df839c1bc5a677847e2446d26918d9fae5733a2932adf4e55846fb798:risk:2:sha256:3ea990673c21c01bae86fc2110f31f592870a75e71801f20a40be3c3f423982d",
+            "protocolVersion": "mahjong-facts/v1",
+            "actionRef": "action:v1:%5B%22discard%22%2C%5B%228p%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
+            "stateHash": "sha256:3ea990673c21c01bae86fc2110f31f592870a75e71801f20a40be3c3f423982d",
+            "identity": {
+              "engine": "mahjong-helper",
+              "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+              "adapterVersion": "0.2.0",
+              "protocolVersion": "mahjong-facts/v1"
+            },
+            "kind": "threat_risk_result",
+            "threatActor": 2,
+            "scaleVersion": "mahjong-helper-risk/514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0/v1",
+            "riskScale": [
+              6.8,
+              8,
+              8.9,
+              12.2,
+              11.9,
+              12.2,
+              8.9,
+              8,
+              6.8,
+              6.8,
+              8,
+              8.9,
+              12.2,
+              6.9,
+              6.6,
+              8.9,
+              0,
+              0,
+              6.8,
+              8,
+              10.324675324675324,
+              12.2,
+              11.9,
+              0,
+              8.9,
+              8,
+              1.7,
+              0,
+              0,
+              0,
+              3.5,
+              4,
+              0,
+              0
+            ],
+            "classifications": [
+              {
+                "tile34": 0,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 1,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 2,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 3,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 4,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 5,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 6,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 7,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 8,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 9,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 10,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 11,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 12,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 13,
+                "kind": "half_suji"
+              },
+              {
+                "tile34": 14,
+                "kind": "half_suji"
+              },
+              {
+                "tile34": 15,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 16,
+                "kind": "genbutsu"
+              },
+              {
+                "tile34": 17,
+                "kind": "early_outside"
+              },
+              {
+                "tile34": 17,
+                "kind": "genbutsu"
+              },
+              {
+                "tile34": 18,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 19,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 20,
+                "kind": "suji"
+              },
+              {
+                "tile34": 21,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 22,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 23,
+                "kind": "genbutsu"
+              },
+              {
+                "tile34": 24,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 25,
+                "kind": "no_suji"
+              },
+              {
+                "tile34": 26,
+                "kind": "suji"
+              },
+              {
+                "tile34": 27,
+                "kind": "genbutsu"
+              },
+              {
+                "tile34": 28,
+                "kind": "genbutsu"
+              },
+              {
+                "tile34": 29,
+                "kind": "genbutsu"
+              },
+              {
+                "tile34": 32,
+                "kind": "genbutsu"
+              },
+              {
+                "tile34": 33,
+                "kind": "genbutsu"
+              }
+            ],
+            "honorClassifications": [
+              {
+                "tile34": 27,
+                "remainingCount": 2,
+                "category": "yakuhai"
+              },
+              {
+                "tile34": 28,
+                "remainingCount": 1,
+                "category": "guest_wind"
+              },
+              {
+                "tile34": 29,
+                "remainingCount": 2,
+                "category": "yakuhai"
+              },
+              {
+                "tile34": 30,
+                "remainingCount": 3,
+                "category": "guest_wind"
+              },
+              {
+                "tile34": 31,
+                "remainingCount": 3,
+                "category": "yakuhai"
+              },
+              {
+                "tile34": 32,
+                "remainingCount": 1,
+                "category": "yakuhai"
+              },
+              {
+                "tile34": 33,
+                "remainingCount": 2,
+                "category": "yakuhai"
+              }
+            ],
+            "leftNoSujiTile34": [
+              0,
+              1,
+              2,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              15,
+              18,
+              19,
+              24,
+              25
+            ],
+            "evidenceIds": [
+              "fixture:c1924cad66f66dd9/0/3/0",
+              "fixture:c1924cad66f66dd9/0/5/0",
+              "fixture:c1924cad66f66dd9/0/7/0",
+              "fixture:c1924cad66f66dd9/0/9/0",
+              "fixture:c1924cad66f66dd9/0/11/0",
+              "fixture:c1924cad66f66dd9/0/13/0",
+              "fixture:c1924cad66f66dd9/0/15/0",
+              "fixture:c1924cad66f66dd9/0/17/0",
+              "fixture:c1924cad66f66dd9/0/19/0",
+              "fixture:c1924cad66f66dd9/0/21/0",
+              "fixture:c1924cad66f66dd9/0/23/0",
+              "fixture:c1924cad66f66dd9/0/25/0",
+              "fixture:c1924cad66f66dd9/0/27/0",
+              "fixture:c1924cad66f66dd9/0/29/0",
+              "fixture:c1924cad66f66dd9/0/31/0",
+              "fixture:c1924cad66f66dd9/0/33/0",
+              "fixture:c1924cad66f66dd9/0/35/0",
+              "fixture:c1924cad66f66dd9/0/37/0",
+              "fixture:c1924cad66f66dd9/0/39/0",
+              "fixture:c1924cad66f66dd9/0/41/0",
+              "fixture:c1924cad66f66dd9/0/43/0",
+              "fixture:c1924cad66f66dd9/0/45/0",
+              "fixture:c1924cad66f66dd9/0/47/0",
+              "fixture:c1924cad66f66dd9/0/48/0",
+              "fixture:c1924cad66f66dd9/0/49/0",
+              "fixture:c1924cad66f66dd9/0/51/0",
+              "fixture:c1924cad66f66dd9/0/53/0",
+              "fixture:c1924cad66f66dd9/0/55/0",
+              "fixture:c1924cad66f66dd9/0/57/0",
+              "fixture:c1924cad66f66dd9/0/59/0",
+              "fixture:c1924cad66f66dd9/0/61/0"
+            ],
+            "limitations": [
+              "helper_risk_not_mortal_probability",
+              "threats_analyzed_independently",
+              "structural_labels_separate"
+            ],
+            "diagnostics": []
+          }
+        }
+      ]
     }
   ]
 }
