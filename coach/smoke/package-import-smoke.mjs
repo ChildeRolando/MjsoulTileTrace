@@ -17,6 +17,8 @@ test("workspace packages import as emitted JavaScript", async () => {
   assert.equal(typeof contracts.toComparisonSet, "function");
   assert.equal(contracts.HAND_STRUCTURE_SCHEMA_VERSION, "hand-structure/v2");
   assert.equal(typeof contracts.HandStructureResultV2Schema.parse, "function");
+  assert.equal(contracts.DEFENSE_MATRIX_SCHEMA_VERSION, "defense-matrix/v1");
+  assert.equal(typeof contracts.DefenseMatrixV1Schema.parse, "function");
   assert.equal(
     typeof contracts.CandidateNormalizationResultSchema.parse,
     "function",
@@ -56,6 +58,8 @@ test("workspace packages import as emitted JavaScript", async () => {
   assert.equal(typeof reasoning.projectAnalyzedKnownGameFactsV2, "function");
   assert.equal(typeof reasoning.runStructuredAnalysisAssembly, "function");
   assert.equal(typeof reasoning.validateHandStructureResult, "function");
+  assert.equal(typeof reasoning.buildDeterministicDefenseMatrix, "function");
+  assert.equal(typeof reasoning.assembleDefenseMatrix, "function");
   assert.equal(reasoning.bridgeLegacyRegressionEvents, undefined);
   assert.equal(reasoning.buildLegacyRegressionPipelineInput, undefined);
 });
