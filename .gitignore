@@ -1,9 +1,11 @@
 .superpowers/
 .tools/
 **/bin/
+!coach/bin/
 **/obj/
 *.csproj.user
 TestResults/
+coach/reports/
 overlay/fixtures/recordings/*.mp4
 overlay/fixtures/recordings/*.mkv
 overlay/fixtures/recordings/*.jsonl

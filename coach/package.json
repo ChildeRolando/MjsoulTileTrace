@@ -11,6 +11,8 @@
     "generate:factor-regression-golden": "node scripts/generate-factor-regression-golden.mjs",
     "test:fact-engine": "cd tools/mahjong-facts && go test ./...",
     "test:package-import": "npm run build && node --test smoke/package-import-smoke.mjs",
+    "coach": "npm run build && node bin/riichi-coach.mjs",
+    "coach:demo": "npm run coach",
     "typecheck": "tsc --noEmit -p packages/contracts/tsconfig.json && tsc --noEmit -p packages/reasoning/tsconfig.json"
   },
   "devDependencies": {

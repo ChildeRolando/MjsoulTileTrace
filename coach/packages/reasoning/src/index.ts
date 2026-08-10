@@ -63,3 +63,4 @@ export * from "./replay/canonical-event-validator.js";
 export * from "./replay/round-reducer.js";
 export * from "./replay/decision-snapshot.js";
 export * from "./replay/response-furiten.js";
+export * from "./prototype/coach-report.js";
