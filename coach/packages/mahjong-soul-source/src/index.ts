@@ -23,3 +23,10 @@ export {
   type MahjongSoulProtocolManifest,
 } from "./protocol-manifest.js";
 export { SecretString } from "./secret-string.js";
+export {
+  createMahjongSoulSessionVault,
+  type MahjongSoulSessionVault,
+  type SessionKeyProtector,
+  type SessionVaultStore,
+  type StoredMahjongSoulSession,
+} from "./session-vault.js";
