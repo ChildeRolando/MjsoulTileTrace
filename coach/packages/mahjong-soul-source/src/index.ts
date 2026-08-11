@@ -1,5 +1,13 @@
 export { MahjongSoulSourceError } from "./errors.js";
 export {
+  MAHJONG_SOUL_OBSERVED_LOGIN_METHODS,
+  MAHJONG_SOUL_SAFE_DIRECT_CALL_METHODS,
+  MAHJONG_SOUL_SURFACED_NOTIFICATION_TYPES,
+  createLiqiCodec,
+  type DecodedLiqiMessage,
+  type LiqiCodec,
+} from "./liqi-codec.js";
+export {
   loadMahjongSoulProtocolBundle,
   type MahjongSoulProtocolBundle,
 } from "./protocol-bundle.js";
