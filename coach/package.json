@@ -4,7 +4,7 @@
   "type": "module",
   "workspaces": ["packages/*"],
   "scripts": {
-    "build": "npm run build -w @riichi-coach/contracts && npm run build -w @riichi-coach/reasoning",
+    "build": "npm run build -w @riichi-coach/contracts && npm run build -w @riichi-coach/mahjong-soul-source && npm run build -w @riichi-coach/reasoning",
     "test": "npm run build && vitest run",
     "build:fact-engine": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build-fact-engine.ps1",
     "package:fact-engine": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-fact-engine.ps1",
@@ -13,10 +13,11 @@
     "test:package-import": "npm run build && node --test smoke/package-import-smoke.mjs",
     "coach": "npm run build && node bin/riichi-coach.mjs",
     "coach:demo": "npm run coach",
-    "typecheck": "tsc --noEmit -p packages/contracts/tsconfig.json && tsc --noEmit -p packages/reasoning/tsconfig.json"
+    "typecheck": "tsc --noEmit -p packages/contracts/tsconfig.json && tsc --noEmit -p packages/mahjong-soul-source/tsconfig.json && tsc --noEmit -p packages/reasoning/tsconfig.json"
   },
   "devDependencies": {
     "@types/node": "22.15.30",
+    "protobufjs": "8.7.2",
     "typescript": "5.9.2",
     "vitest": "3.2.7"
   }
