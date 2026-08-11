@@ -81,6 +81,10 @@ Implemented:
   redacting secret wrappers, a source-locked and hash-verified protocol bundle,
   a narrow CN endpoint policy, bounded Liqi request/response correlation, and a
   six-field login-result projection that never exposes raw decoded payloads.
+- an M5-B Electron session boundary: an isolated official CN login window,
+  correlated login observation, OS-backed encrypted persistence across restarts,
+  conservative restore/logout semantics, and a renderer/IPC surface that exposes
+  only safe session status.
 
 The per-threat defense matrix M2-C slice is complete for deterministic genbutsu
 safety and structural riichi analysis. Deterministic safety is per-object: a tile
@@ -100,9 +104,10 @@ Activation requires scored-candidate normalization plus value, placement,
 calibrated-risk, multi-threat, and option-value analyzers under separately
 approved plans. The coach does not claim to enumerate every legal action.
 
-Outside this milestone:
+Outside the completed M5-A/M5-B slices:
 
-- production Mahjong Soul URL download and record-to-canonical-event mapping;
+- recent-30 Mahjong Soul catalog synchronization, analyzable-entry filtering,
+  production record download, and record-to-canonical-event mapping;
 - production Mortal and Akagi Native report integration;
 - production Akagi Native private-format parsing;
 - complete legal-action enumeration and call-follow-up branch search;
@@ -111,12 +116,18 @@ Outside this milestone:
 - calibrated placement, option-value, opponent-hand, and statistical-risk analyzers;
 - persistence, LLM dialogue orchestration, and the three-column UI.
 
-## M5-A 雀魂国区协议与契约地基
+## M5-A/M5-B 雀魂国区协议与本机会话
 
-M5-A 只建立后续账号同步所需的受信边界；它尚未执行真实登录、网络连接、
-令牌持久化、牌谱目录同步或完整牌谱下载。现有命令行教练仍是 fixture-only
-回归原型，不能用作生产雀魂导入器。下一切片 M5-B 才会实现隔离 Electron
-官方登录窗口与本机加密令牌保险库。
+M5-A 建立了账号同步所需的协议受信边界；M5-B 已实现隔离 Electron 官方登录
+窗口、相关登录帧捕获、操作系统安全后端包裹的本机加密令牌保险库、跨重启保守
+恢复、注销清理，以及不暴露令牌或账号 ID 的 IPC/renderer 表面。自动化测试只用
+假令牌与假账号；M5-B 真人登录冒烟仍需用户本人在官方页面完成。目前本机
+Electron 43.3.0 可执行文件因官方下载未完成而尚未启动该冒烟。总规格 H1 是
+M5-E 的登录→目录→下载→重放全链路人工验收，不在 M5-B 宣称完成。
+
+M5-B 不同步近期目录，也不下载或转换完整牌谱。现有命令行教练仍是 fixture-only
+回归原型，不能用作生产雀魂导入器。下一切片 M5-C 才会同步最近 30 场元数据，
+并只向界面提供可分析的四人南风标准规则条目。
 
 协议资源固定到雀魂国区客户端 `0.11.252.w`，并使用 Akagi commit
 `27e994ad8bacd87833856b3b36b146ebb7cccbbc` 的 Apache-2.0 `liqi.proto`、
