@@ -566,7 +566,8 @@ The CLI must:
 5. parse official Liqi JSON and vendored RPC map without maintaining a required
    route/type list in the updater; Task 7's compatibility module owns that list;
 6. write to a unique sibling staging directory;
-7. atomically replace only the exact vendor target after all checks pass;
+7. transactionally switch only the exact vendor target after all checks pass,
+   with startup recovery for an interrupted backup/staging rename;
 8. emit a strict generated manifest containing identities and asset hashes,
    not downloaded payloads or response prose;
 9. in `--check` mode, build the same output in a temporary sibling, compare the
@@ -1097,7 +1098,7 @@ compatibility report with project-owned identifiers only:
   officialSchemaSha256: "f2955c3d10cf2d42bee9309f672c062540941ea0cffe1bd62e3f436c7afc404c",
   vendorProtoSha256: "ccfa3f7b39c205e9d4690f61bc1b333df415edfdf8d1e325cd5fc8a5ac30cbb7",
   vendorRpcMapSha256: "15f44eecb654e3b5cfca7682cf00f3a0a16ae3c76d0450b0257a9e89aa44be80",
-  requiredSurfaceVersion: "mahjong-soul-required-surface/v1",
+  requiredSurfaceVersion: "mahjong-soul-required-surface/v2",
 }
 ```
 
@@ -1285,7 +1286,7 @@ git commit -m "docs: hand off Mahjong Soul protocol contracts"
 - Every approved M5-A responsibility maps to a task.
 - No task claims Electron login, persistence, catalog sync, record download, or
   canonical mapping before its later slice.
-- Protocol update is source-locked, hash-verified, atomic, and reproducible.
+- Protocol update is source-locked, hash-verified, crash-recoverable, and reproducible.
 - Official current schema is used as compatibility evidence; Apache-2.0 Akagi
   assets provide redistributable proto/RPC inputs with LICENSE and NOTICE.
 - Secret-bearing decoded payloads remain inside the privileged package and are

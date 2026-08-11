@@ -1,5 +1,7 @@
 import assert from "node:assert/strict";
+import { spawn } from "node:child_process";
 import { createHash } from "node:crypto";
+import { once } from "node:events";
 import { mkdtemp, mkdir, readFile, readdir, rename, rm, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
@@ -313,7 +315,7 @@ registerTest("vendors only pinned assets and emits the narrow CN endpoint policy
     officialSchemaSha256: input.lock.official.liqiSha256,
     vendorProtoSha256: input.lock.vendor.files[2].sha256,
     vendorRpcMapSha256: input.lock.vendor.files[3].sha256,
-    requiredSurfaceVersion: "mahjong-soul-required-surface/v1",
+    requiredSurfaceVersion: "mahjong-soul-required-surface/v2",
   });
   const files = [...(await tree(input.outputDir)).keys()].sort();
   assert.deepEqual(files, [
@@ -374,6 +376,77 @@ registerTest("generation is byte-identical across independent runs", async (t) =
   assertSameTree(await tree(first), await tree(second));
 });
 
+registerTest("retries only bounded transport failures", async (t) => {
+  const recovered = await setup();
+  registerCleanup(t, () => rm(recovered.root, { recursive: true, force: true }));
+  const recoveredCalls = [];
+  const normalFetch = fetchFixture(recovered.urls, recoveredCalls);
+  let transientFailures = 0;
+  await updateMahjongSoulProtocol({
+    lockPath: recovered.lockPath,
+    outputDir: recovered.outputDir,
+    fetchImpl: async (...args) => {
+      if (transientFailures === 0) {
+        transientFailures += 1;
+        throw new TypeError("fetch failed", {
+          cause: Object.assign(new Error("upstream secret transport prose"), {
+            code: "ECONNRESET",
+          }),
+        });
+      }
+      return normalFetch(...args);
+    },
+  });
+  assert.equal(transientFailures, 1);
+  assert.equal(recoveredCalls.length, recovered.urls.size - 1);
+
+  const exhausted = await setup();
+  registerCleanup(t, () => rm(exhausted.root, { recursive: true, force: true }));
+  let exhaustedCalls = 0;
+  await assert.rejects(
+    updateMahjongSoulProtocol({
+      lockPath: exhausted.lockPath,
+      outputDir: exhausted.outputDir,
+      fetchImpl: async () => {
+        exhaustedCalls += 1;
+        throw Object.assign(new Error("upstream secret transport prose"), { code: "ECONNRESET" });
+      },
+    }),
+    (error) => {
+      assert.ok(error instanceof ProtocolUpdateError);
+      assert.equal(error.code, "mahjong_soul_protocol_update_failed");
+      assert.equal(error.message, error.code);
+      assert.doesNotMatch(error.message, /upstream|ECONNRESET/u);
+      return true;
+    },
+  );
+  assert.equal(exhaustedCalls, 3);
+
+  for (const [name, makeError] of [
+    ["abort", () => new DOMException("upstream secret abort prose", "AbortError")],
+    ["plain error", () => new Error("upstream secret programmer prose")],
+    ["unclassified type error", () => new TypeError("upstream secret type prose")],
+  ]) {
+    const rejected = await setup();
+    registerCleanup(t, () => rm(rejected.root, { recursive: true, force: true }));
+    let rejectedCalls = 0;
+    await assert.rejects(
+      updateMahjongSoulProtocol({
+        lockPath: rejected.lockPath,
+        outputDir: rejected.outputDir,
+        fetchImpl: async () => {
+          rejectedCalls += 1;
+          throw makeError();
+        },
+      }),
+      (error) => error instanceof ProtocolUpdateError &&
+        error.code === "mahjong_soul_protocol_update_failed",
+      name,
+    );
+    assert.equal(rejectedCalls, 1, name);
+  }
+});
+
 registerTest("rejects bad bytes before replacing an existing bundle", async (t) => {
   const input = await setup();
   registerCleanup(t, () => rm(input.root, { recursive: true, force: true }));
@@ -403,11 +476,12 @@ registerTest("rejects same-length hash mismatches and redirected responses", asy
   const original = hashInput.urls.get(hashInput.lock.official.liqiUrl);
   const sameLength = Buffer.from(original);
   sameLength[0] ^= 1;
+  const hashCalls = [];
   await assert.rejects(
     updateMahjongSoulProtocol({
       lockPath: hashInput.lockPath,
       outputDir: hashInput.outputDir,
-      fetchImpl: fetchFixture(hashInput.urls, [], new Map([[
+      fetchImpl: fetchFixture(hashInput.urls, hashCalls, new Map([[
         hashInput.lock.official.liqiUrl,
         sameLength,
       ]])),
@@ -415,14 +489,20 @@ registerTest("rejects same-length hash mismatches and redirected responses", asy
     (error) => error instanceof ProtocolUpdateError &&
       error.code === "mahjong_soul_protocol_update_failed",
   );
+  assert.equal(
+    hashCalls.filter(({ url }) => url === hashInput.lock.official.liqiUrl).length,
+    1,
+  );
 
   const redirectInput = await setup();
   registerCleanup(t, () => rm(redirectInput.root, { recursive: true, force: true }));
+  let redirectCalls = 0;
   await assert.rejects(
     updateMahjongSoulProtocol({
       lockPath: redirectInput.lockPath,
       outputDir: redirectInput.outputDir,
       fetchImpl: async (url, init) => {
+        redirectCalls += 1;
         assert.equal(init.redirect, "error");
         return {
           ok: true,
@@ -434,6 +514,33 @@ registerTest("rejects same-length hash mismatches and redirected responses", asy
     (error) => error instanceof ProtocolUpdateError &&
       error.code === "mahjong_soul_protocol_update_failed",
   );
+  assert.equal(redirectCalls, 1);
+
+  const oversizedInput = await setup();
+  registerCleanup(t, () => rm(oversizedInput.root, { recursive: true, force: true }));
+  let oversizedCalls = 0;
+  await assert.rejects(
+    updateMahjongSoulProtocol({
+      lockPath: oversizedInput.lockPath,
+      outputDir: oversizedInput.outputDir,
+      fetchImpl: async (url) => {
+        oversizedCalls += 1;
+        const expected = oversizedInput.urls.get(String(url));
+        return {
+          ok: true,
+          body: new ReadableStream({
+            start(controller) {
+              controller.enqueue(new Uint8Array(expected.length + 1));
+              controller.close();
+            },
+          }),
+        };
+      },
+    }),
+    (error) => error instanceof ProtocolUpdateError &&
+      error.code === "mahjong_soul_protocol_update_failed",
+  );
+  assert.equal(oversizedCalls, 1);
 });
 
 registerTest("rejects checkout-style CRLF conversion of pinned raw Git bytes", async (t) => {
@@ -585,15 +692,17 @@ registerTest("fails closed when pinned official or RPC source structure is incom
     mutation.setLock(mutation.bytes);
     input.urls.set(mutation.url, mutation.bytes);
     await writeFile(input.lockPath, `${JSON.stringify(input.lock, null, 2)}\n`);
+    const calls = [];
     await assert.rejects(
       updateMahjongSoulProtocol({
         lockPath: input.lockPath,
         outputDir: input.outputDir,
-        fetchImpl: fetchFixture(input.urls, []),
+        fetchImpl: fetchFixture(input.urls, calls),
       }),
       (error) => error instanceof ProtocolUpdateError &&
         error.code === "mahjong_soul_protocol_update_failed",
     );
+    assert.equal(calls.filter(({ url }) => url === mutation.url).length, 1);
   }
 });
 
@@ -692,6 +801,225 @@ registerTest("does not report failure after a committed switch if backup cleanup
   );
 });
 
+registerTest("recovers an interrupted directory switch before reading the in-bundle lock", async (t) => {
+  const input = await setup();
+  registerCleanup(t, () => rm(input.root, { recursive: true, force: true }));
+  await updateMahjongSoulProtocol({
+    lockPath: input.lockPath,
+    outputDir: input.outputDir,
+    fetchImpl: fetchFixture(input.urls, []),
+  });
+  const inBundleLock = path.join(input.outputDir, "source-lock.json");
+  const backup = `${input.outputDir}.backup-999-00000000-0000-4000-8000-000000000001`;
+  const staging = path.join(
+    input.root,
+    ".bundle.staging-999-00000000-0000-4000-8000-000000000002",
+  );
+  await rename(input.outputDir, backup);
+  await mkdir(staging);
+  await writeFile(path.join(staging, "incomplete"), "new");
+
+  await updateMahjongSoulProtocol({
+    lockPath: inBundleLock,
+    outputDir: input.outputDir,
+    fetchImpl: fetchFixture(input.urls, []),
+    mode: "check",
+  });
+
+  assert.equal(JSON.parse(await readFile(inBundleLock, "utf8")).region, "cn");
+  assert.deepEqual(
+    (await readdir(input.root)).filter((name) => /\.staging-|\.backup-/u.test(name)),
+    [],
+  );
+});
+
+registerTest("cleans a committed switch backup on the next invocation", async (t) => {
+  const input = await setup();
+  registerCleanup(t, () => rm(input.root, { recursive: true, force: true }));
+  await updateMahjongSoulProtocol({
+    lockPath: input.lockPath,
+    outputDir: input.outputDir,
+    fetchImpl: fetchFixture(input.urls, []),
+  });
+  const backup = `${input.outputDir}.backup-999-00000000-0000-4000-8000-000000000003`;
+  await mkdir(backup);
+  await writeFile(path.join(backup, "old"), "old");
+
+  await updateMahjongSoulProtocol({
+    lockPath: path.join(input.outputDir, "source-lock.json"),
+    outputDir: input.outputDir,
+    fetchImpl: fetchFixture(input.urls, []),
+    mode: "check",
+  });
+
+  assert.equal((await readdir(input.root)).some((name) => name.includes(".backup-")), false);
+});
+
+registerTest("fails closed instead of guessing between multiple interrupted backups", async (t) => {
+  const input = await setup();
+  registerCleanup(t, () => rm(input.root, { recursive: true, force: true }));
+  const backups = [
+    `${input.outputDir}.backup-999-00000000-0000-4000-8000-000000000004`,
+    `${input.outputDir}.backup-999-00000000-0000-4000-8000-000000000005`,
+  ];
+  for (const backup of backups) {
+    await mkdir(backup);
+    await writeFile(path.join(backup, "old"), "old");
+  }
+
+  await assert.rejects(
+    updateMahjongSoulProtocol({
+      lockPath: input.lockPath,
+      outputDir: input.outputDir,
+      fetchImpl: fetchFixture(input.urls, []),
+    }),
+    (error) => error instanceof ProtocolUpdateError
+      && error.code === "mahjong_soul_protocol_update_failed",
+  );
+  assert.deepEqual(
+    (await readdir(input.root)).filter((name) => name.includes(".backup-")).sort(),
+    backups.map((backup) => path.basename(backup)).sort(),
+  );
+});
+
+registerTest("an exclusive update lock keeps concurrent invocations from deleting live artifacts", async (t) => {
+  const input = await setup();
+  registerCleanup(t, () => rm(input.root, { recursive: true, force: true }));
+  let enterFirstFetch;
+  let releaseFirstFetch;
+  const firstFetchEntered = new Promise((resolve) => { enterFirstFetch = resolve; });
+  const firstFetchRelease = new Promise((resolve) => { releaseFirstFetch = resolve; });
+  const normalFetch = fetchFixture(input.urls, []);
+  let firstCall = true;
+  const first = updateMahjongSoulProtocol({
+    lockPath: input.lockPath,
+    outputDir: input.outputDir,
+    fetchImpl: async (...args) => {
+      if (firstCall) {
+        firstCall = false;
+        enterFirstFetch();
+        await firstFetchRelease;
+      }
+      return normalFetch(...args);
+    },
+  });
+  await firstFetchEntered;
+
+  let secondFetchCalls = 0;
+  await assert.rejects(
+    updateMahjongSoulProtocol({
+      lockPath: input.lockPath,
+      outputDir: input.outputDir,
+      fetchImpl: async (...args) => {
+        secondFetchCalls += 1;
+        return normalFetch(...args);
+      },
+    }),
+    (error) => error instanceof ProtocolUpdateError
+      && error.code === "mahjong_soul_protocol_update_failed",
+  );
+  assert.equal(secondFetchCalls, 0);
+
+  releaseFirstFetch();
+  await first;
+  assert.equal(JSON.parse(await readFile(
+    path.join(input.outputDir, "manifest.json"),
+    "utf8",
+  )).region, "cn");
+  assert.deepEqual(
+    (await readdir(input.root)).filter((name) =>
+      /\.staging-|\.backup-|\.update-lock/u.test(name)),
+    [],
+  );
+});
+
+registerTest("a failed release-quarantine cleanup does not leave the updater locked", async (t) => {
+  const input = await setup();
+  registerCleanup(t, () => rm(input.root, { recursive: true, force: true }));
+  let cleanupAttempted = false;
+  const lockOperations = {
+    rename,
+    rm: async (target, options) => {
+      if (String(target).includes(".update-lock-released-")) {
+        cleanupAttempted = true;
+        throw new Error("injected release cleanup failure");
+      }
+      return rm(target, options);
+    },
+  };
+  await updateMahjongSoulProtocol({
+    lockPath: input.lockPath,
+    outputDir: input.outputDir,
+    fetchImpl: fetchFixture(input.urls, []),
+    lockOperations,
+  });
+  assert.equal(cleanupAttempted, true);
+
+  await updateMahjongSoulProtocol({
+    lockPath: path.join(input.outputDir, "source-lock.json"),
+    outputDir: input.outputDir,
+    fetchImpl: fetchFixture(input.urls, []),
+    mode: "check",
+  });
+  assert.equal(
+    (await readdir(input.root)).some((name) => name === ".bundle.update-lock"),
+    false,
+  );
+});
+
+registerTest("reclaims a well-formed lock owned by an exited process", async (t) => {
+  const input = await setup();
+  registerCleanup(t, () => rm(input.root, { recursive: true, force: true }));
+  const child = spawn(process.execPath, ["-e", ""], { stdio: "ignore" });
+  const deadPid = child.pid;
+  assert.equal(typeof deadPid, "number");
+  await once(child, "exit");
+  const lockDir = path.join(input.root, ".bundle.update-lock");
+  await mkdir(lockDir);
+  await writeFile(path.join(lockDir, "owner.json"), `${JSON.stringify({
+    pid: deadPid,
+    token: "00000000-0000-4000-8000-000000000006",
+  })}\n`);
+
+  await updateMahjongSoulProtocol({
+    lockPath: input.lockPath,
+    outputDir: input.outputDir,
+    fetchImpl: fetchFixture(input.urls, []),
+  });
+  assert.equal(JSON.parse(await readFile(
+    path.join(input.outputDir, "manifest.json"),
+    "utf8",
+  )).region, "cn");
+  assert.equal(
+    (await readdir(input.root)).some((name) => name === ".bundle.update-lock"),
+    false,
+  );
+});
+
+registerTest("reports a fixed failure when the atomic unlock rename fails", async (t) => {
+  const input = await setup();
+  registerCleanup(t, () => rm(input.root, { recursive: true, force: true }));
+  await assert.rejects(
+    updateMahjongSoulProtocol({
+      lockPath: input.lockPath,
+      outputDir: input.outputDir,
+      fetchImpl: fetchFixture(input.urls, []),
+      lockOperations: {
+        rename: async (source, target) => {
+          if (String(target).includes(".update-lock-released-")) {
+            throw new Error("injected unlock failure");
+          }
+          return rename(source, target);
+        },
+        rm,
+      },
+    }),
+    (error) => error instanceof ProtocolUpdateError
+      && error.code === "mahjong_soul_protocol_update_failed"
+      && !error.message.includes("injected"),
+  );
+});
+
 registerTest("fails closed on unexpected source-lock keys", async (t) => {
   const input = await setup();
   registerCleanup(t, () => rm(input.root, { recursive: true, force: true }));
@@ -776,18 +1104,23 @@ registerTest("check-current is the only mode that fetches mutable version metada
 registerTest("rejects failed upstream responses without exposing URL or response prose", async (t) => {
   const input = await setup();
   registerCleanup(t, () => rm(input.root, { recursive: true, force: true }));
+  let calls = 0;
   await assert.rejects(
     updateMahjongSoulProtocol({
       lockPath: input.lockPath,
       outputDir: input.outputDir,
-      fetchImpl: async () => ({
-        ok: false,
-        status: 500,
-        arrayBuffer: async () => encode("private upstream prose"),
-      }),
+      fetchImpl: async () => {
+        calls += 1;
+        return {
+          ok: false,
+          status: 500,
+          arrayBuffer: async () => encode("private upstream prose"),
+        };
+      },
     }),
     (error) => error instanceof ProtocolUpdateError &&
       error.message === "mahjong_soul_protocol_update_failed" &&
       !/private|https?:|500/u.test(error.message),
   );
+  assert.equal(calls, 1);
 });

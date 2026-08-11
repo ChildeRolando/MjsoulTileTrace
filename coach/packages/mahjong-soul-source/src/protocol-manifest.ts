@@ -75,7 +75,7 @@ export const MahjongSoulProtocolManifestSchema = z.object({
       "15f44eecb654e3b5cfca7682cf00f3a0a16ae3c76d0450b0257a9e89aa44be80",
     ),
     requiredSurfaceVersion: z.literal(
-      "mahjong-soul-required-surface/v1",
+      "mahjong-soul-required-surface/v2",
     ),
   }).strict(),
   assets: z.tuple([

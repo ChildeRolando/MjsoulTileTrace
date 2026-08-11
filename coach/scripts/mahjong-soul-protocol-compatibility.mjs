@@ -3,7 +3,7 @@ import { createHash } from "node:crypto";
 import protobuf from "protobufjs";
 
 const FAILURE = "mahjong_soul_protocol_compatibility_failed";
-const SURFACE_VERSION = "mahjong-soul-required-surface/v1";
+const SURFACE_VERSION = "mahjong-soul-required-surface/v2";
 
 const REQUIRED_ROUTES = Object.freeze({
   ".lq.Lobby.login": Object.freeze({ req: ".lq.ReqLogin", resp: ".lq.ResLogin" }),
@@ -51,6 +51,12 @@ const REQUIRED_MESSAGES = Object.freeze([
 ]);
 
 const CRITICAL_FIELDS = Object.freeze({
+  ".lq.Error": Object.freeze({
+    code: Object.freeze({ id: 1, type: "uint32", repeated: false }),
+  }),
+  ".lq.Account": Object.freeze({
+    nickname: Object.freeze({ id: 2, type: "string", repeated: false }),
+  }),
   ".lq.Wrapper": Object.freeze({
     name: Object.freeze({ id: 1, type: "string", repeated: false }),
     data: Object.freeze({ id: 2, type: "bytes", repeated: false }),

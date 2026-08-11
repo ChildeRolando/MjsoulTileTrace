@@ -193,17 +193,18 @@ describe("Mahjong Soul protocol bundle", () => {
       (manifest) => { manifest.assets.push({ ...manifest.assets[0] }); },
     ];
 
-    for (const mutate of mutations) {
-      await usingBundle(async (root) => {
-        const manifest = await readManifest(root);
+    await usingBundle(async (root) => {
+      const originalManifest = await readManifest(root);
+      for (const mutate of mutations) {
+        const manifest = structuredClone(originalManifest);
         mutate(manifest);
         await writeManifest(root, manifest);
         await expectFixedFailure(
           () => loadMahjongSoulProtocolBundle(root),
           ["server-token-prose", "attacker.invalid", root],
         );
-      });
-    }
+      }
+    });
   });
 
   it("requires the exact compatibility report and binds its three hashes", async () => {
@@ -212,7 +213,7 @@ describe("Mahjong Soul protocol bundle", () => {
       (manifest) => { manifest.compatibility.status = "unchecked"; },
       (manifest) => {
         manifest.compatibility.requiredSurfaceVersion =
-          "mahjong-soul-required-surface/v2";
+          "mahjong-soul-required-surface/v3";
       },
       (manifest) => {
         manifest.compatibility.officialSchemaSha256 = "0".repeat(64);

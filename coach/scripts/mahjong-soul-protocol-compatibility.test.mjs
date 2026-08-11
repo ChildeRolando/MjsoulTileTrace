@@ -16,7 +16,7 @@ syntax = "proto3";
 package lq;
 
 message Error { uint32 code = 1; }
-message Account { string nickname = 1; }
+message Account { uint32 account_id = 1; string nickname = 2; }
 message ClientDeviceInfo {}
 message ClientVersionInfo {}
 message GameConnectInfo {}
@@ -228,7 +228,7 @@ registerTest("returns a frozen six-field report bound to all three byte sources"
     officialSchemaSha256: hash(input.officialSchemaBytes),
     vendorProtoSha256: hash(input.vendorProtoBytes),
     vendorRpcMapSha256: hash(input.vendorRpcMapBytes),
-    requiredSurfaceVersion: "mahjong-soul-required-surface/v1",
+    requiredSurfaceVersion: "mahjong-soul-required-surface/v2",
   });
   assert.equal(Object.isFrozen(report), true);
 });
@@ -241,6 +241,26 @@ registerTest("rejects independent official, proto, and runtime-map surface drift
     },
     (input) => {
       input.vendorProtoBytes = bytes(SURFACE_PROTO.replace("bytes data = 2", "string data = 2"));
+    },
+    (input) => {
+      input.official.nested.lq.nested.Error.fields.code.id = 17;
+      input.officialSchemaBytes = bytes(JSON.stringify(input.official));
+    },
+    (input) => {
+      input.vendorProtoBytes = bytes(SURFACE_PROTO.replace(
+        "message Error { uint32 code = 1; }",
+        "message Error { string code = 1; }",
+      ));
+    },
+    (input) => {
+      input.official.nested.lq.nested.Account.fields.nickname.type = "uint32";
+      input.officialSchemaBytes = bytes(JSON.stringify(input.official));
+    },
+    (input) => {
+      input.vendorProtoBytes = bytes(SURFACE_PROTO.replace(
+        "message Account { uint32 account_id = 1; string nickname = 2; }",
+        "message Account { uint32 account_id = 1; string nickname = 9; }",
+      ));
     },
     (input) => {
       input.vendorProtoBytes = bytes(SURFACE_PROTO.replace(

@@ -38,6 +38,19 @@ const MAXIMUM_SOURCE_SIZES = Object.freeze({
   rpcMap: 2 * 1024 * 1024,
 });
 
+const RETRYABLE_TRANSPORT_ERROR_CODES = new Set([
+  "EAI_AGAIN",
+  "ECONNREFUSED",
+  "ECONNRESET",
+  "EHOSTUNREACH",
+  "ENETUNREACH",
+  "ETIMEDOUT",
+  "UND_ERR_BODY_TIMEOUT",
+  "UND_ERR_CONNECT_TIMEOUT",
+  "UND_ERR_HEADERS_TIMEOUT",
+  "UND_ERR_SOCKET",
+]);
+
 const VENDOR_FILES = Object.freeze([
   Object.freeze({ source: "LICENSE.txt", target: "LICENSE.txt", kind: "license" }),
   Object.freeze({ source: "NOTICE", target: "NOTICE", kind: "notice" }),
@@ -76,6 +89,15 @@ export class ProtocolUpdateError extends Error {
 
 function isRecord(value) {
   return value !== null && typeof value === "object" && !Array.isArray(value);
+}
+
+function isRetryableTransportError(error) {
+  if (!isRecord(error)) return false;
+  const cause = isRecord(error.cause) ? error.cause : undefined;
+  return (typeof error.code === "string" &&
+      RETRYABLE_TRANSPORT_ERROR_CODES.has(error.code)) ||
+    (typeof cause?.code === "string" &&
+      RETRYABLE_TRANSPORT_ERROR_CODES.has(cause.code));
 }
 
 function exactKeys(value, expected) {
@@ -211,7 +233,18 @@ async function responseBytes(response, maximumSize) {
 }
 
 async function fetchLocked(fetchImpl, url, size, sha256) {
-  const response = await fetchImpl(url, { redirect: "error" });
+  let response;
+  let transportError;
+  for (let attempt = 0; attempt < 3; attempt += 1) {
+    try {
+      response = await fetchImpl(url, { redirect: "error" });
+      break;
+    } catch (error) {
+      if (!isRetryableTransportError(error)) throw error;
+      transportError = error;
+    }
+  }
+  if (response === undefined) throw transportError;
   const bytes = await responseBytes(response, size);
   if (bytes.length !== size || hash(bytes) !== sha256) throw new Error();
   return bytes;
@@ -414,6 +447,158 @@ async function treesEqual(leftRoot, rightRoot) {
 }
 
 const DEFAULT_SWAP_OPERATIONS = Object.freeze({ rename, rm });
+const DEFAULT_LOCK_OPERATIONS = Object.freeze({ rename, rm });
+const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/u;
+
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&");
+}
+
+async function strictDirectoryExists(target) {
+  try {
+    const state = await lstat(target);
+    if (!state.isDirectory() || state.isSymbolicLink()) throw new Error();
+    return true;
+  } catch (error) {
+    if (error?.code === "ENOENT") return false;
+    throw error;
+  }
+}
+
+function parseLockOwner(bytes) {
+  const owner = JSON.parse(bytes.toString("utf8"));
+  if (
+    !exactKeys(owner, ["pid", "token"])
+    || !Number.isSafeInteger(owner.pid)
+    || owner.pid <= 0
+    || typeof owner.token !== "string"
+    || !UUID_PATTERN.test(owner.token)
+  ) throw new Error();
+  return owner;
+}
+
+function processIsAlive(pid) {
+  try {
+    process.kill(pid, 0);
+    return true;
+  } catch (error) {
+    if (error?.code === "ESRCH") return false;
+    return true;
+  }
+}
+
+async function acquireUpdateLock(outputDir, operations) {
+  const parent = path.dirname(outputDir);
+  const base = path.basename(outputDir);
+  const token = randomUUID();
+  const lockDir = path.join(parent, `.${base}.update-lock`);
+  const candidate = path.join(
+    parent,
+    `.${base}.update-lock-candidate-${process.pid}-${token}`,
+  );
+  await mkdir(candidate, { recursive: false });
+  await writeFile(
+    path.join(candidate, "owner.json"),
+    `${JSON.stringify({ pid: process.pid, token })}\n`,
+  );
+  let acquired = false;
+  try {
+    for (let attempt = 0; attempt < 3; attempt += 1) {
+      try {
+        await operations.rename(candidate, lockDir);
+        acquired = true;
+        return { lockDir, token };
+      } catch {
+        if (!await strictDirectoryExists(lockDir)) continue;
+      }
+      let owner;
+      try {
+        owner = parseLockOwner(await readFile(path.join(lockDir, "owner.json")));
+      } catch {
+        if (!await strictDirectoryExists(lockDir)) continue;
+        throw new Error();
+      }
+      if (processIsAlive(owner.pid)) throw new Error();
+      const quarantine = path.join(
+        parent,
+        `.${base}.update-lock-stale-${process.pid}-${randomUUID()}`,
+      );
+      try {
+        await operations.rename(lockDir, quarantine);
+      } catch {
+        if (!await strictDirectoryExists(lockDir)) continue;
+        throw new Error();
+      }
+      await operations.rm(quarantine, { recursive: true, force: true });
+    }
+    throw new Error();
+  } finally {
+    if (!acquired) {
+      await operations.rm(candidate, { recursive: true, force: true }).catch(() => {});
+    }
+  }
+}
+
+async function releaseUpdateLock(lock, operations) {
+  const owner = parseLockOwner(await readFile(path.join(lock.lockDir, "owner.json")));
+  if (owner.pid !== process.pid || owner.token !== lock.token) throw new Error();
+  const quarantine = `${lock.lockDir}-released-${process.pid}-${randomUUID()}`;
+  await operations.rename(lock.lockDir, quarantine);
+  await operations.rm(quarantine, { recursive: true, force: true }).catch(() => {});
+}
+
+async function swapArtifacts(outputDir) {
+  const parent = path.dirname(outputDir);
+  const base = escapeRegExp(path.basename(outputDir));
+  const uuid = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}";
+  const backupPattern = new RegExp(`^${base}\\.backup-[1-9][0-9]*-${uuid}$`, "u");
+  const stagingPattern = new RegExp(`^\\.${base}\\.staging-[1-9][0-9]*-${uuid}$`, "u");
+  let entries;
+  try {
+    entries = await readdir(parent, { withFileTypes: true });
+  } catch (error) {
+    if (error?.code === "ENOENT") return { backups: [], stagings: [] };
+    throw error;
+  }
+  const backups = [];
+  const stagings = [];
+  for (const entry of entries) {
+    const destination = backupPattern.test(entry.name)
+      ? backups
+      : stagingPattern.test(entry.name)
+        ? stagings
+        : null;
+    if (destination === null) continue;
+    const absolute = path.join(parent, entry.name);
+    if (!await strictDirectoryExists(absolute)) throw new Error();
+    destination.push(absolute);
+  }
+  backups.sort();
+  stagings.sort();
+  return { backups, stagings };
+}
+
+async function recoverInterruptedSwap(outputDir) {
+  let outputExists = await strictDirectoryExists(outputDir);
+  const { backups, stagings } = await swapArtifacts(outputDir);
+  if (!outputExists && backups.length > 1) throw new Error();
+  if (!outputExists && backups.length === 1) {
+    await rename(backups[0], outputDir);
+    outputExists = true;
+  }
+  if (outputExists) {
+    for (const backup of backups) {
+      if (await strictDirectoryExists(backup)) {
+        await rm(backup, { recursive: true, force: true });
+      }
+    }
+  }
+  for (const staging of stagings) {
+    if (await strictDirectoryExists(staging)) {
+      await rm(staging, { recursive: true, force: true });
+    }
+  }
+}
 
 async function replaceDirectory(stagingDir, outputDir, operations) {
   const backupDir = `${outputDir}.backup-${process.pid}-${randomUUID()}`;
@@ -466,18 +651,26 @@ export async function updateMahjongSoulProtocol({
   fetchImpl = globalThis.fetch,
   mode = "write",
   swapOperations = DEFAULT_SWAP_OPERATIONS,
+  lockOperations = DEFAULT_LOCK_OPERATIONS,
 }) {
   const code = mode === "check" ? CHECK_FAILED
     : mode === "check-current" ? CURRENT_DRIFT
       : UPDATE_FAILED;
   let stagingDir;
+  let updateLock;
   try {
     if (!new Set(["write", "check", "check-current"]).has(mode) ||
       typeof lockPath !== "string" || typeof outputDir !== "string" ||
       typeof fetchImpl !== "function" ||
       !exactKeys(swapOperations, ["rename", "rm"]) ||
       typeof swapOperations.rename !== "function" ||
-      typeof swapOperations.rm !== "function") throw new Error();
+      typeof swapOperations.rm !== "function" ||
+      !exactKeys(lockOperations, ["rename", "rm"]) ||
+      typeof lockOperations.rename !== "function" ||
+      typeof lockOperations.rm !== "function") throw new Error();
+    await mkdir(path.dirname(outputDir), { recursive: true });
+    updateLock = await acquireUpdateLock(outputDir, lockOperations);
+    await recoverInterruptedSwap(outputDir);
     const lockBytes = await readFile(lockPath);
     const lock = parseSourceLock(lockBytes);
     if (mode === "check-current") {
@@ -500,6 +693,14 @@ export async function updateMahjongSoulProtocol({
       await rm(stagingDir, { recursive: true, force: true }).catch(() => {});
     }
     throw new ProtocolUpdateError(code);
+  } finally {
+    if (updateLock !== undefined) {
+      try {
+        await releaseUpdateLock(updateLock, lockOperations);
+      } catch {
+        throw new ProtocolUpdateError(code);
+      }
+    }
   }
 }
 
