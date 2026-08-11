@@ -89,6 +89,7 @@ export interface ElectronMahjongSoulLoginProvider {
       readonly accountId: number;
     };
   }): Promise<ElectronLoginProviderResult>;
+  cancelActive(): void;
 }
 
 interface TimerPort {
@@ -220,6 +221,7 @@ class StatefulElectronLoginProvider implements ElectronMahjongSoulLoginProvider 
   readonly #timer: TimerPort;
   readonly #restoreTimeoutMs: number;
   #active = false;
+  #cancelActive: (() => void) | null = null;
 
   constructor(
     bundle: MahjongSoulProtocolBundle,
@@ -303,9 +305,14 @@ class StatefulElectronLoginProvider implements ElectronMahjongSoulLoginProvider 
         settled = true;
         cleanup();
         this.#active = false;
+        if (this.#cancelActive === cancellation) this.#cancelActive = null;
         if (closeWindow && window !== null && !window.isDestroyed()) window.close();
         resolve(result);
       };
+      const cancellation = (): void => {
+        settle(fixedStatus(input.mode === "interactive" ? "cancelled" : "unverified"), true);
+      };
+      this.#cancelActive = cancellation;
 
       const urlPolicy = createUrlPolicy(this.#bundle);
       void (async () => {
@@ -361,6 +368,10 @@ class StatefulElectronLoginProvider implements ElectronMahjongSoulLoginProvider 
         }
       })();
     });
+  }
+
+  cancelActive(): void {
+    this.#cancelActive?.();
   }
 }
 

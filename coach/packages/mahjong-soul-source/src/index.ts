@@ -35,3 +35,9 @@ export {
   type SessionVaultStore,
   type StoredMahjongSoulSession,
 } from "./session-vault.js";
+export {
+  createMahjongSoulSessionController,
+  type MahjongSoulLoginProvider,
+  type MahjongSoulLoginProviderResult,
+  type MahjongSoulSessionController,
+} from "./session-controller.js";

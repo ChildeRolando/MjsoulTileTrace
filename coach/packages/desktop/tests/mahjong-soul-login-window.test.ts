@@ -344,4 +344,20 @@ describe("isolated Mahjong Soul login window", () => {
     await flush();
     expect(windows.windows[0]!.loadedUrls).toEqual([]);
   });
+
+  it("allows logout to cancel the active window without exposing a handle", async () => {
+    const windows = new FakeWindows();
+    const provider = createElectronMahjongSoulLoginProvider({
+      bundle,
+      createWindow: windows.create,
+    });
+    const pending = provider.run({ mode: "interactive" });
+    await flush();
+
+    provider.cancelActive();
+
+    await expect(pending).resolves.toEqual({ status: "cancelled" });
+    expect(windows.windows[0]!.destroyed).toBe(true);
+    expect(windows.windows[0]!.webContents.debugger.detachCalls).toBe(1);
+  });
 });
