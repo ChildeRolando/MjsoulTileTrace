@@ -12,6 +12,11 @@ export {
   type CapturedMahjongSoulCredential,
 } from "./login-result.js";
 export {
+  createMahjongSoulLoginCapture,
+  type LoginCaptureResult,
+  type MahjongSoulLoginCapture,
+} from "./login-capture.js";
+export {
   loadMahjongSoulProtocolBundle,
   type MahjongSoulProtocolBundle,
 } from "./protocol-bundle.js";
