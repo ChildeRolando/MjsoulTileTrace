@@ -5,6 +5,7 @@ test("workspace packages import as emitted JavaScript", async () => {
   const contracts = await import("@riichi-coach/contracts");
   const source = await import("@riichi-coach/mahjong-soul-source");
   const reasoning = await import("@riichi-coach/reasoning");
+  const desktop = await import("@riichi-coach/desktop/session-api");
 
   assert.equal(typeof contracts.AnalysisRequestSchema.parse, "function");
   assert.equal(typeof contracts.ModelEvaluationSchema.parse, "function");
@@ -69,6 +70,9 @@ test("workspace packages import as emitted JavaScript", async () => {
   assert.equal(typeof source.loadMahjongSoulProtocolBundle, "function");
   assert.equal(typeof source.createLiqiCodec, "function");
   assert.equal(typeof source.extractCapturedLoginCredential, "function");
+  assert.equal(typeof source.createMahjongSoulLoginCapture, "function");
+  assert.equal(typeof source.createMahjongSoulSessionController, "function");
+  assert.equal(typeof desktop.parseMahjongSoulSessionStatus, "function");
   assert.equal(reasoning.bridgeLegacyRegressionEvents, undefined);
   assert.equal(reasoning.buildLegacyRegressionPipelineInput, undefined);
 });
