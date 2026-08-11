@@ -62,6 +62,22 @@ export const MahjongSoulProtocolManifestSchema = z.object({
     commit: z.literal(AKAGI_COMMIT),
     license: z.literal("Apache-2.0"),
   }).strict(),
+  compatibility: z.object({
+    status: z.literal("compatible"),
+    clientVersion: z.literal(MAHJONG_SOUL_CN_CLIENT_VERSION),
+    officialSchemaSha256: z.literal(
+      "f2955c3d10cf2d42bee9309f672c062540941ea0cffe1bd62e3f436c7afc404c",
+    ),
+    vendorProtoSha256: z.literal(
+      "ccfa3f7b39c205e9d4690f61bc1b333df415edfdf8d1e325cd5fc8a5ac30cbb7",
+    ),
+    vendorRpcMapSha256: z.literal(
+      "15f44eecb654e3b5cfca7682cf00f3a0a16ae3c76d0450b0257a9e89aa44be80",
+    ),
+    requiredSurfaceVersion: z.literal(
+      "mahjong-soul-required-surface/v1",
+    ),
+  }).strict(),
   assets: z.tuple([
     ExactBundleAssetSchema(
       "license",

@@ -5,8 +5,9 @@
   "workspaces": ["packages/*"],
   "scripts": {
     "build": "npm run build -w @riichi-coach/contracts && npm run build -w @riichi-coach/mahjong-soul-source && npm run build -w @riichi-coach/reasoning",
-    "test": "npm run build && vitest run && npm run test:mahjong-soul-protocol-updater",
+    "test": "npm run build && vitest run && npm run test:mahjong-soul-protocol-updater && npm run test:mahjong-soul-protocol-compatibility",
     "test:mahjong-soul-protocol-updater": "node --test scripts/update-mahjong-soul-protocol.test.mjs",
+    "test:mahjong-soul-protocol-compatibility": "node --test scripts/mahjong-soul-protocol-compatibility.test.mjs",
     "build:fact-engine": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build-fact-engine.ps1",
     "package:fact-engine": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-fact-engine.ps1",
     "generate:factor-regression-golden": "node scripts/generate-factor-regression-golden.mjs",

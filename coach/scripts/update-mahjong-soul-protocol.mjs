@@ -11,6 +11,10 @@ import {
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
+import {
+  verifyMahjongSoulProtocolCompatibility,
+} from "./mahjong-soul-protocol-compatibility.mjs";
+
 const UPDATE_FAILED = "mahjong_soul_protocol_update_failed";
 const CHECK_FAILED = "mahjong_soul_protocol_check_failed";
 const CURRENT_DRIFT = "mahjong_soul_protocol_current_drift";
@@ -268,7 +272,13 @@ function stableJson(value) {
   return Buffer.from(`${JSON.stringify(value, null, 2)}\n`, "utf8");
 }
 
-async function writeBundle(stagingDir, lock, lockBytes, vendorBytes) {
+async function writeBundle(
+  stagingDir,
+  lock,
+  lockBytes,
+  vendorBytes,
+  compatibility,
+) {
   const commitRoot = `akagi-v3/${lock.vendor.commit}`;
   const endpointsBytes = stableJson(endpointPolicy());
   const assets = lock.vendor.files.map((file, index) => ({
@@ -312,6 +322,7 @@ async function writeBundle(stagingDir, lock, lockBytes, vendorBytes) {
       commit: lock.vendor.commit,
       license: lock.vendor.license,
     },
+    compatibility,
     assets,
   };
   await mkdir(path.join(stagingDir, commitRoot), { recursive: true });
@@ -358,7 +369,19 @@ async function buildStaging(lock, lockBytes, stagingDir, fetchImpl) {
     ));
   }
   validateRpcMap(vendorBytes[3]);
-  await writeBundle(stagingDir, lock, lockBytes, vendorBytes);
+  const compatibility = verifyMahjongSoulProtocolCompatibility({
+    clientVersion: lock.official.clientVersion,
+    officialSchemaBytes: liqiBytes,
+    vendorProtoBytes: vendorBytes[2],
+    vendorRpcMapBytes: vendorBytes[3],
+  });
+  await writeBundle(
+    stagingDir,
+    lock,
+    lockBytes,
+    vendorBytes,
+    compatibility,
+  );
 }
 
 async function readTree(root) {

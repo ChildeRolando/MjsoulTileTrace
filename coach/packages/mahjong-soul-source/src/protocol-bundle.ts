@@ -212,6 +212,24 @@ function projectEndpoints(policy: EndpointPolicy): MahjongSoulProtocolBundle["en
   };
 }
 
+function verifyCompatibilityHashBinding(
+  manifest: MahjongSoulProtocolManifest,
+): void {
+  const proto = manifest.assets.find((asset) => asset.kind === "proto");
+  const rpcMap = manifest.assets.find((asset) => asset.kind === "rpc_map");
+  if (
+    proto === undefined
+    || rpcMap === undefined
+    || manifest.compatibility.clientVersion !== manifest.official.clientVersion
+    || manifest.compatibility.officialSchemaSha256
+      !== manifest.official.liqi.sha256
+    || manifest.compatibility.vendorProtoSha256 !== proto.sha256
+    || manifest.compatibility.vendorRpcMapSha256 !== rpcMap.sha256
+  ) {
+    throw unsupported();
+  }
+}
+
 export function parseVerifiedProto(protoText: string): void {
   try {
     if (typeof protoText !== "string") throw unsupported();
@@ -260,6 +278,7 @@ export async function loadMahjongSoulProtocolBundle(
     const manifest = MahjongSoulProtocolManifestSchema.parse(
       JSON.parse(decodeUtf8(manifestBytes)),
     );
+    verifyCompatibilityHashBinding(manifest);
 
     const assetBytes = new Map<ManifestAsset["kind"], Buffer>();
     for (const asset of manifest.assets) {

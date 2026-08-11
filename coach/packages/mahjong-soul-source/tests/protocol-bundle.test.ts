@@ -206,6 +206,35 @@ describe("Mahjong Soul protocol bundle", () => {
     }
   });
 
+  it("requires the exact compatibility report and binds its three hashes", async () => {
+    const mutations: Array<(manifest: Record<string, any>) => void> = [
+      (manifest) => { delete manifest.compatibility; },
+      (manifest) => { manifest.compatibility.status = "unchecked"; },
+      (manifest) => {
+        manifest.compatibility.requiredSurfaceVersion =
+          "mahjong-soul-required-surface/v2";
+      },
+      (manifest) => {
+        manifest.compatibility.officialSchemaSha256 = "0".repeat(64);
+      },
+      (manifest) => {
+        manifest.compatibility.vendorProtoSha256 = "0".repeat(64);
+      },
+      (manifest) => {
+        manifest.compatibility.vendorRpcMapSha256 = "0".repeat(64);
+      },
+    ];
+
+    for (const mutate of mutations) {
+      await usingBundle(async (root) => {
+        const manifest = await readManifest(root) as Record<string, any>;
+        mutate(manifest);
+        await writeManifest(root, manifest);
+        await expectFixedFailure(() => loadMahjongSoulProtocolBundle(root));
+      });
+    }
+  });
+
   it("rejects modified or missing upstream and generated assets", async () => {
     const assets = [
       `akagi-v3/${commit}/LICENSE.txt`,

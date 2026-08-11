@@ -4,6 +4,7 @@ import { mkdtemp, mkdir, readFile, readdir, rename, rm, writeFile } from "node:f
 import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import protobuf from "protobufjs";
 
 import {
   ProtocolUpdateError,
@@ -46,6 +47,15 @@ const ENDPOINTS = {
 const encode = (value) => Buffer.from(value, "utf8");
 const json = (value) => encode(JSON.stringify(value));
 const digest = (bytes) => createHash("sha256").update(bytes).digest("hex");
+const fixtureVendorRoot = new URL(
+  "../vendor/mahjong-soul-protocol/akagi-v3/27e994ad8bacd87833856b3b36b146ebb7cccbbc/",
+  import.meta.url,
+);
+const fixtureProto = await readFile(new URL("liqi.proto", fixtureVendorRoot));
+const fixtureRpcMap = await readFile(new URL("rpc-map.json", fixtureVendorRoot));
+const fixtureOfficialSchema = json(
+  protobuf.parse(fixtureProto.toString("utf8"), { keepCase: true }).root.toJSON(),
+);
 
 function fixture() {
   const commit = "1".repeat(40);
@@ -53,7 +63,7 @@ function fixture() {
     resource: json({
       res: { "res/proto/liqi.json": { prefix: "v0.test.1.w" } },
     }),
-    liqi: json({ nested: { lq: {} } }),
+    liqi: fixtureOfficialSchema,
     config: json({
       ip: [{
         name: "player",
@@ -76,11 +86,8 @@ function fixture() {
   const vendor = new Map([
     ["LICENSE.txt", encode("Apache fixture\n")],
     ["NOTICE", encode("Notice fixture\n")],
-    ["src/bridge/majsoul/proto/liqi.proto", encode('syntax = "proto3";\n')],
-    ["src/bridge/majsoul/liqi.json", json({ ".lq.Lobby.login": {
-      req: ".lq.ReqLogin",
-      resp: ".lq.ResLogin",
-    } })],
+    ["src/bridge/majsoul/proto/liqi.proto", fixtureProto],
+    ["src/bridge/majsoul/liqi.json", fixtureRpcMap],
   ]);
   const lock = {
     lockVersion: "mahjong-soul-protocol-source/v1",
@@ -296,6 +303,18 @@ registerTest("vendors only pinned assets and emits the narrow CN endpoint policy
     JSON.parse(await readFile(path.join(input.outputDir, "endpoints.json"), "utf8")),
     ENDPOINTS,
   );
+  const manifest = JSON.parse(await readFile(
+    path.join(input.outputDir, "manifest.json"),
+    "utf8",
+  ));
+  assert.deepEqual(manifest.compatibility, {
+    status: "compatible",
+    clientVersion: input.lock.official.clientVersion,
+    officialSchemaSha256: input.lock.official.liqiSha256,
+    vendorProtoSha256: input.lock.vendor.files[2].sha256,
+    vendorRpcMapSha256: input.lock.vendor.files[3].sha256,
+    requiredSurfaceVersion: "mahjong-soul-required-surface/v1",
+  });
   const files = [...(await tree(input.outputDir)).keys()].sort();
   assert.deepEqual(files, [
     `akagi-v3/${input.lock.vendor.commit}/LICENSE.txt`,
@@ -310,6 +329,31 @@ registerTest("vendors only pinned assets and emits the narrow CN endpoint policy
   for (const forbidden of ["tracker", "payment", "contest", "chat", "arbitrary"]) {
     assert.equal(emitted.includes(`must-not-be-emitted.invalid/${forbidden}`), false);
   }
+});
+
+registerTest("check rejects a tampered compatibility report/hash association", async (t) => {
+  const input = await setup();
+  registerCleanup(t, () => rm(input.root, { recursive: true, force: true }));
+  await updateMahjongSoulProtocol({
+    lockPath: input.lockPath,
+    outputDir: input.outputDir,
+    fetchImpl: fetchFixture(input.urls, []),
+  });
+  const manifestPath = path.join(input.outputDir, "manifest.json");
+  const manifest = JSON.parse(await readFile(manifestPath, "utf8"));
+  manifest.compatibility.officialSchemaSha256 = "0".repeat(64);
+  await writeFile(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
+
+  await assert.rejects(
+    updateMahjongSoulProtocol({
+      lockPath: input.lockPath,
+      outputDir: input.outputDir,
+      fetchImpl: fetchFixture(input.urls, []),
+      mode: "check",
+    }),
+    (error) => error instanceof ProtocolUpdateError
+      && error.code === "mahjong_soul_protocol_check_failed",
+  );
 });
 
 registerTest("generation is byte-identical across independent runs", async (t) => {
