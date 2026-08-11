@@ -165,27 +165,31 @@ policy gate is closed.
 
 ## 可运行原型：命令行教练
 
-`bin/riichi-coach.mjs` 是本机可运行的原型入口。它把一份
-`source + mjaiLog + decisions` 牌谱转成 canonical 事件流，对每个自我回合决策
+`bin/riichi-coach.mjs` 是本机可运行的 M2-C 回归原型入口。它把一份
+`source + 截断 mjaiLog + decisions` 原型夹具转成 canonical 事件流，对受支持的
+自摸后弃牌决策
 运行同一五轴 FactorPipeline（含逐威胁防守矩阵），并输出结构化 JSON 报告与
 可读 Markdown 报告。
 
 ```powershell
 npm run coach                       # 用内置东一局 6/7 巡 fixture 演示
-npm run coach -- <report.json>      # 分析自定义牌谱
+npm run coach -- <report.json>      # 分析兼容的原型回归夹具
 npm run coach -- <report.json> --out <dir>
 ```
 
 原型复用打包 sidecar，终端用户无需配置 Go 或可执行文件路径。报告明确标注
 `legacy_regression_bridge_only` 数据来源：这是本地文件回归桥，不是生产雀魂
-牌谱映射。原型只报告可审计的确定事实与版本化启发式，未覆盖精确符番、放铳
-概率、顺位 EV、对手手牌推断与模型内部原因。
+牌谱映射，也不是通用 Mortal/MJAI 导入器。输入只允许当前原型已映射的截断
+事件集合与自摸后弃牌决策；含 `hora`、`ryukyoku`、`dora` 等未映射事件的完整
+日志会明确失败。生产雀魂 URL 获取与完整事件映射仍属于 M5。原型只报告可
+审计的确定事实与版本化启发式，未覆盖精确符番、放铳概率、顺位 EV、对手手牌
+推断与模型内部原因。
 
 主要导出（`@riichi-coach/reasoning`）：
 
 - `analyzePrototypeGame(raw, engine)`：生成整份 `CoachGameReport`；
 - `renderCoachGameMarkdown(report)`：渲染可读 Markdown；
-- `importPrototypeGame(raw)`：通用 MJAI 事件归一化与决策→回放事件映射。
+- `importPrototypeGame(raw)`：原型回归夹具的受限事件归一化与决策→回放事件映射。
 
 原型在 `packages/reasoning/tests/coach-report.test.ts` 中通过真实打包 sidecar
 验证东一局 6/7 巡：6 巡牌效支持切 2筒、防守支持摸切 6索（玩家 2 现物）；

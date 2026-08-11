@@ -25,8 +25,10 @@ function usage() {
   node bin/riichi-coach.mjs [报告.json] [--out 输出目录]
 
 参数：
-  报告.json   Mortal 牌谱（source + mjaiLog + decisions 格式）路径；默认使用
-              fixtures/mortal/c1924cad66f66dd9-east1-turn6-7.json 演示。
+  报告.json   M2-C 原型回归夹具（source + 截断 mjaiLog + decisions）路径；
+              默认使用 fixtures/mortal/c1924cad66f66dd9-east1-turn6-7.json。
+              这不是通用 Mortal/MJAI 导入器，不接受完整牌谱中的 hora、
+              ryukyoku、dora 等尚未映射事件。
   --out <目录> 输出 JSON 报告与 Markdown 报告到该目录；默认 coach/reports。
 
 输出：

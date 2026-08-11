@@ -1,6 +1,6 @@
 # M2-C V1 逐威胁防守矩阵交接
 
-更新时间：2026-08-09
+更新时间：2026-08-11
 
 当前阶段：M2-C V1 逐威胁防守矩阵完成并通过全量验收；下一步为 M5 生产雀魂匿名获取/事件映射与首个 M6 引擎贯通。
 
@@ -20,9 +20,10 @@
 - `26e28c3`：东一局 6/7 巡端到端与变形防守回归。
 
 另交付了本机可运行原型（`feat: prototype coach CLI`）：`coach/bin/riichi-coach.mjs`
-把 `source + mjaiLog + decisions` 牌谱转成 canonical 事件流，对每个自我回合
+把 `source + 截断 mjaiLog + decisions` 回归夹具转成 canonical 事件流，对受支持的自摸后弃牌
 决策运行同一五轴 FactorPipeline 并输出 JSON + Markdown 报告。报告复用打包
-sidecar，无 Go 配置；`npm run coach` 即可运行东一局 6/7 演示。
+sidecar，无 Go 配置；`npm run coach` 即可运行东一局 6/7 演示。这不是通用
+Mortal/MJAI 导入器；生产雀魂 URL 与完整事件映射仍属于 M5。
 
 ## 2. 可信边界
 
@@ -54,7 +55,7 @@ sidecar，无 Go 配置；`npm run coach` 即可运行东一局 6/7 演示。
 - `go test ./...`：通过；
 - `go vet ./...`：通过；
 - `npm run package:fact-engine`：通过（0.2.0 信任边界未改写）；
-- `npm test`：59 个文件、575/575 通过；
+- `npm test`：60 个文件、590/590 通过；
 - `npm run typecheck`：通过；
 - `npm run test:package-import`：通过（含 `DEFENSE_MATRIX_SCHEMA_VERSION` / `DefenseMatrixV1Schema` / `buildDeterministicDefenseMatrix` / `assembleDefenseMatrix`）；
 - 根目录 `node --test tests/*.mjs`：19/19 通过；
