@@ -19,3 +19,4 @@ export * from "./event-stream.js";
 export * from "./round-state.js";
 export * from "./hand-structure.js";
 export * from "./defense-matrix.js";
+export * from "./mahjong-soul.js";
