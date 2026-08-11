@@ -1,0 +1,23 @@
+{
+  "name": "@riichi-coach/desktop",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./session-api": {
+      "types": "./src/session-api.ts",
+      "import": "./dist/session-api.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json"
+  },
+  "dependencies": {
+    "@riichi-coach/contracts": "0.1.0",
+    "@riichi-coach/mahjong-soul-source": "0.1.0",
+    "zod": "3.25.76"
+  },
+  "devDependencies": {
+    "electron": "43.3.0"
+  }
+}
