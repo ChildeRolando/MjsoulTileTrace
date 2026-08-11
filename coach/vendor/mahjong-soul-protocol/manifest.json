@@ -1,0 +1,65 @@
+{
+  "bundleVersion": "mahjong-soul-cn-protocol/v1",
+  "adapterVersion": "0.1.0",
+  "region": "cn",
+  "official": {
+    "clientVersion": "0.11.252.w",
+    "resourceIndex": {
+      "sourceUrl": "https://game.maj-soul.com/1/resversion0.11.252.w.json",
+      "size": 12688057,
+      "sha256": "91accb83474e4a530ff9c5e7b9471e7156cdc30410a11dbc223d9f637babcd2f"
+    },
+    "liqi": {
+      "sourceUrl": "https://game.maj-soul.com/1/v0.11.243.w/res/proto/liqi.json",
+      "size": 286815,
+      "sha256": "f2955c3d10cf2d42bee9309f672c062540941ea0cffe1bd62e3f436c7afc404c"
+    },
+    "config": {
+      "sourceUrl": "https://game.maj-soul.com/1/v0.11.252.w/config.json",
+      "size": 1173,
+      "sha256": "56d077557335d457e4c961ae752965c5944236287069cb716111ef30e73abca1"
+    }
+  },
+  "vendor": {
+    "repository": "https://github.com/shinkuan/Akagi",
+    "commit": "27e994ad8bacd87833856b3b36b146ebb7cccbbc",
+    "license": "Apache-2.0"
+  },
+  "assets": [
+    {
+      "kind": "license",
+      "path": "akagi-v3/27e994ad8bacd87833856b3b36b146ebb7cccbbc/LICENSE.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/shinkuan/Akagi/27e994ad8bacd87833856b3b36b146ebb7cccbbc/LICENSE.txt",
+      "size": 10752,
+      "sha256": "aa0e11e4740a0ae88ea797258500d9b066a68042be2f6036bfe49460b72405f0"
+    },
+    {
+      "kind": "notice",
+      "path": "akagi-v3/27e994ad8bacd87833856b3b36b146ebb7cccbbc/NOTICE",
+      "sourceUrl": "https://raw.githubusercontent.com/shinkuan/Akagi/27e994ad8bacd87833856b3b36b146ebb7cccbbc/NOTICE",
+      "size": 5414,
+      "sha256": "2ffcce0e8bae52171dfdacd28ff9637334a2cc21d250deb4f30e315e65a3c421"
+    },
+    {
+      "kind": "proto",
+      "path": "akagi-v3/27e994ad8bacd87833856b3b36b146ebb7cccbbc/liqi.proto",
+      "sourceUrl": "https://raw.githubusercontent.com/shinkuan/Akagi/27e994ad8bacd87833856b3b36b146ebb7cccbbc/src/bridge/majsoul/proto/liqi.proto",
+      "size": 240793,
+      "sha256": "ccfa3f7b39c205e9d4690f61bc1b333df415edfdf8d1e325cd5fc8a5ac30cbb7"
+    },
+    {
+      "kind": "rpc_map",
+      "path": "akagi-v3/27e994ad8bacd87833856b3b36b146ebb7cccbbc/rpc-map.json",
+      "sourceUrl": "https://raw.githubusercontent.com/shinkuan/Akagi/27e994ad8bacd87833856b3b36b146ebb7cccbbc/src/bridge/majsoul/liqi.json",
+      "size": 42178,
+      "sha256": "15f44eecb654e3b5cfca7682cf00f3a0a16ae3c76d0450b0257a9e89aa44be80"
+    },
+    {
+      "kind": "endpoint_policy",
+      "path": "endpoints.json",
+      "sourceUrl": "https://game.maj-soul.com/1/v0.11.252.w/config.json",
+      "size": 700,
+      "sha256": "0da6d77d2978ced65f7de441d48f62a148eb444522aa0b63f5e15ea9a0a0a224"
+    }
+  ]
+}

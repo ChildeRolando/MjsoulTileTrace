@@ -1,0 +1,26 @@
+{
+  "policyVersion": "mahjong-soul-cn-endpoints/v1",
+  "loginPageOrigins": [
+    "https://game.maj-soul.com"
+  ],
+  "staticAssetOrigins": [
+    "https://game.maj-soul.com"
+  ],
+  "gatewayDiscoveryOrigins": [
+    "https://route-2.maj-soul.com",
+    "https://route-3.maj-soul.com:8443",
+    "https://route-4.maj-soul.com",
+    "https://route-5.maj-soul.com",
+    "https://route-6.maj-soul.com"
+  ],
+  "lobbyWebSocketOrigins": [
+    "wss://route-2.maj-soul.com",
+    "wss://route-3.maj-soul.com:8443",
+    "wss://route-4.maj-soul.com",
+    "wss://route-5.maj-soul.com",
+    "wss://route-6.maj-soul.com"
+  ],
+  "recordDataPrefixes": [
+    "https://record-old.maj-soul.com:9443/majsoul/game_record"
+  ]
+}
