@@ -226,10 +226,13 @@ Inject a minimal adapter rather than mocking the Electron module globally:
 
 ```ts
 interface SafeStoragePort {
-  isEncryptionAvailable(): boolean;
+  isAsyncEncryptionAvailable(): Promise<boolean>;
   getSelectedStorageBackend(): string;
   encryptStringAsync(value: string): Promise<Buffer>;
-  decryptStringAsync(value: Buffer): Promise<string>;
+  decryptStringAsync(value: Buffer): Promise<{
+    readonly result: string;
+    readonly shouldReEncrypt: boolean;
+  }>;
 }
 ```
 
@@ -258,7 +261,7 @@ npx vitest run packages/desktop/tests/electron-safe-storage.test.ts packages/des
 
 - [ ] **Step 4: Implement adapters**
 
-Use the async Electron APIs. The protector wraps only the random session key encoded as canonical base64. `RecoverableSessionFile` owns `<userData>/mahjong-soul/session/`; no caller-provided path or filename enters its operations.
+Use the async Electron APIs. A `shouldReEncrypt` restore remains usable only long enough for successful session validation; `markValidated` then generates and wraps a fresh session key. The protector wraps only the random session key encoded as canonical base64. `RecoverableSessionFile` owns `<userData>/mahjong-soul/session/`; no caller-provided path or filename enters its operations.
 
 - [ ] **Step 5: Run GREEN and commit**
 
