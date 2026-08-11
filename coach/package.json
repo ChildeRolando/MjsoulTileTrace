@@ -16,7 +16,7 @@
     "test:package-import": "npm run build && node --test smoke/package-import-smoke.mjs",
     "coach": "npm run build && node bin/riichi-coach.mjs",
     "coach:demo": "npm run coach",
-    "desktop": "npm run build && electron packages/desktop/dist/main.js",
+    "desktop": "npm run build && electron packages/desktop/dist/electron-entry.js",
     "typecheck": "tsc --noEmit -p packages/contracts/tsconfig.json && tsc --noEmit -p packages/mahjong-soul-source/tsconfig.json && tsc --noEmit -p packages/reasoning/tsconfig.json && tsc --noEmit -p packages/desktop/tsconfig.json"
   },
   "devDependencies": {

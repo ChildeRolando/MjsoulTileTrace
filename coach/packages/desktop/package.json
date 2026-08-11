@@ -9,8 +9,9 @@
       "import": "./dist/session-api.js"
     }
   },
+  "main": "./dist/electron-entry.js",
   "scripts": {
-    "build": "tsc -p tsconfig.build.json"
+    "build": "tsc -p tsconfig.build.json && node scripts/copy-renderer.mjs"
   },
   "dependencies": {
     "@riichi-coach/contracts": "0.1.0",
