@@ -25,8 +25,12 @@
 - Official Liqi SHA-256: `f2955c3d10cf2d42bee9309f672c062540941ea0cffe1bd62e3f436c7afc404c`
 - Protocol source: `https://github.com/shinkuan/Akagi`, commit `27e994ad8bacd87833856b3b36b146ebb7cccbbc`
 - Protocol source license: Apache-2.0, including upstream `LICENSE.txt` and `NOTICE`
-- `liqi.proto` SHA-256: `8f08a80c33f3fcdb4fb9e19320d374d746f1f795f0ae73be94af86efa8c391d4`
-- RPC map SHA-256: `08fb5552e8c9b620cb8600243c46987a9fd39812c934a39f7583f6239eddbfdc`
+- `liqi.proto` raw-blob SHA-256: `ccfa3f7b39c205e9d4690f61bc1b333df415edfdf8d1e325cd5fc8a5ac30cbb7`
+- RPC map raw-blob SHA-256: `15f44eecb654e3b5cfca7682cf00f3a0a16ae3c76d0450b0257a9e89aa44be80`
+
+All vendored size/hash values are over the commit-specific raw Git blob bytes,
+not a local checkout after `core.autocrlf` conversion. Tests must include at
+least one LF→CRLF mutation proving platform line-ending conversion is rejected.
 
 **Explicit non-goals:** Electron/Chromium/CDP, real credentials, WebSocket connection establishment, recent-record business filtering, record downloads, record-to-canonical mapping, renderer UI, and H1. Those begin in M5-B–M5-E. The package created here must not make an unauthenticated `fetchGameRecord` request and must not accept the old fixture bridge as a source.
 
@@ -499,10 +503,10 @@ The strict JSON file contains exact URLs, sizes, and hashes:
     "commit": "27e994ad8bacd87833856b3b36b146ebb7cccbbc",
     "license": "Apache-2.0",
     "files": [
-      { "source": "LICENSE.txt", "target": "LICENSE.txt", "size": 10941, "sha256": "80565d6fb6a10024eae8ff129dd59bb752cec76b5653d6fc019066f8e4b59e90" },
-      { "source": "NOTICE", "target": "NOTICE", "size": 5537, "sha256": "1d084efd46374349492889c8659de874a0813de13a4f6455d66946c8b720b516" },
-      { "source": "src/bridge/majsoul/proto/liqi.proto", "target": "liqi.proto", "size": 249861, "sha256": "8f08a80c33f3fcdb4fb9e19320d374d746f1f795f0ae73be94af86efa8c391d4" },
-      { "source": "src/bridge/majsoul/liqi.json", "target": "rpc-map.json", "size": 42179, "sha256": "08fb5552e8c9b620cb8600243c46987a9fd39812c934a39f7583f6239eddbfdc" }
+      { "source": "LICENSE.txt", "target": "LICENSE.txt", "size": 10752, "sha256": "aa0e11e4740a0ae88ea797258500d9b066a68042be2f6036bfe49460b72405f0" },
+      { "source": "NOTICE", "target": "NOTICE", "size": 5414, "sha256": "2ffcce0e8bae52171dfdacd28ff9637334a2cc21d250deb4f30e315e65a3c421" },
+      { "source": "src/bridge/majsoul/proto/liqi.proto", "target": "liqi.proto", "size": 240793, "sha256": "ccfa3f7b39c205e9d4690f61bc1b333df415edfdf8d1e325cd5fc8a5ac30cbb7" },
+      { "source": "src/bridge/majsoul/liqi.json", "target": "rpc-map.json", "size": 42178, "sha256": "15f44eecb654e3b5cfca7682cf00f3a0a16ae3c76d0450b0257a9e89aa44be80" }
     ]
   }
 }
@@ -1072,8 +1076,8 @@ compatibility report with project-owned identifiers only:
   status: "compatible",
   clientVersion: "0.11.252.w",
   officialSchemaSha256: "f2955c3d10cf2d42bee9309f672c062540941ea0cffe1bd62e3f436c7afc404c",
-  vendorProtoSha256: "8f08a80c33f3fcdb4fb9e19320d374d746f1f795f0ae73be94af86efa8c391d4",
-  vendorRpcMapSha256: "08fb5552e8c9b620cb8600243c46987a9fd39812c934a39f7583f6239eddbfdc",
+  vendorProtoSha256: "ccfa3f7b39c205e9d4690f61bc1b333df415edfdf8d1e325cd5fc8a5ac30cbb7",
+  vendorRpcMapSha256: "15f44eecb654e3b5cfca7682cf00f3a0a16ae3c76d0450b0257a9e89aa44be80",
   requiredSurfaceVersion: "mahjong-soul-required-surface/v1",
 }
 ```
