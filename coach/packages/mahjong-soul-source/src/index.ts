@@ -8,6 +8,10 @@ export {
   type LiqiCodec,
 } from "./liqi-codec.js";
 export {
+  extractCapturedLoginCredential,
+  type CapturedMahjongSoulCredential,
+} from "./login-result.js";
+export {
   loadMahjongSoulProtocolBundle,
   type MahjongSoulProtocolBundle,
 } from "./protocol-bundle.js";
