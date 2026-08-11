@@ -64,6 +64,14 @@ function actionIdFromRaw(action: { type: string; pai?: string; tsumogiri?: boole
   return `discard:${tileKey}:${action.tsumogiri ? "tsumogiri" : "tedashi"}`;
 }
 
+function actionRefFromRaw(
+  action: { type: string; pai?: string; tsumogiri?: boolean },
+): ActionRef {
+  return canonicalActionRef(
+    legacyDiscardActionIdToAction(actionIdFromRaw(action)),
+  );
+}
+
 function normalizeEvent(
   raw: Record<string, unknown> & { type: string },
   index: number,
@@ -151,34 +159,57 @@ export interface PrototypeGame {
   events: NormalizedEvent[];
 }
 
+function sameTile(left: Tile, right: Tile): boolean {
+  return left.id === right.id && left.red === right.red;
+}
+
 export function importPrototypeGame(raw: RegressionFixture): PrototypeGame {
   const selfActor = raw.source.playerId;
   const events = raw.mjaiLog.map(
     (event, index) => normalizeEvent(event, index, selfActor),
   );
   const decisions: PrototypeDecision[] = [];
-  let cursor = -1;
   for (const entry of raw.decisions) {
+    const decisionContext = entry as typeof entry & Record<string, unknown>;
+    if (
+      decisionContext.at_self_chi_pon === true ||
+      decisionContext.at_self_riichi === true ||
+      decisionContext.at_opponent_kakan === true
+    ) {
+      throw new Error("prototype_decision_window_unsupported");
+    }
     const drawn = parseMjaiTile(entry.tile);
-    let sceneIndex = -1;
-    for (let index = cursor + 1; index < events.length; index++) {
+    const matchingSceneIndexes: number[] = [];
+    let selfDrawOrdinal = 0;
+    for (let index = 0; index < events.length; index++) {
       const event = events[index]!;
+      if (event.type === "start_kyoku") selfDrawOrdinal = 0;
       if (
         event.type === "tsumo" &&
         event.actor === selfActor &&
-        event.tile !== null &&
-        event.tile.id === drawn.id
+        event.tile !== null
       ) {
-        sceneIndex = index;
-        break;
+        selfDrawOrdinal += 1;
+        if (selfDrawOrdinal === entry.junme && sameTile(event.tile, drawn)) {
+          matchingSceneIndexes.push(index);
+        }
       }
     }
-    if (sceneIndex < 0) {
-      throw new Error(
-        `Cannot map decision ${entry.junme} (drawn ${entry.tile}) to a replay event`,
-      );
+    if (matchingSceneIndexes.length !== 1) {
+      throw new Error("prototype_decision_scene_mismatch");
     }
-    cursor = sceneIndex;
+    const actualActionRef = actionRefFromRaw(entry.actual);
+    const modelActionRef = actionRefFromRaw(entry.expected);
+    const modelScoredActionRefs = new Set(
+      entry.details.map((detail) => actionRefFromRaw(detail.action)),
+    );
+    if (!modelScoredActionRefs.has(actualActionRef)) {
+      throw new Error("prototype_actual_action_not_model_scored");
+    }
+    if (!modelScoredActionRefs.has(modelActionRef)) {
+      throw new Error("prototype_model_action_not_model_scored");
+    }
+    const sceneIndex = matchingSceneIndexes[0]!;
     decisions.push({
       decisionId: `turn${entry.junme}`,
       sceneEventRef: `event-${sceneIndex}`,
@@ -227,6 +258,7 @@ export interface CoachCandidateReport {
   actionRef: ActionRef;
   label: string;
   isActual: boolean;
+  origins: Array<"actual" | "model">;
   shanten: number | null;
   effectiveTypes: number | null;
   effectiveRemaining: number | null;
@@ -243,7 +275,7 @@ function candidateAnalysis(
   actionRef: ActionRef,
   ledger: CandidateFactorLedger | undefined,
   matrix: DefenseMatrixV1 | undefined,
-  isActual: boolean,
+  origins: Array<"actual" | "model">,
 ): CoachCandidateReport {
   const defense = (matrix?.cells ?? []).map((cell) => {
     const genbutsu = cell.deterministicSafety.status === "calculated"
@@ -274,7 +306,8 @@ function candidateAnalysis(
   return {
     actionRef,
     label: actionLabel(action),
-    isActual,
+    isActual: origins.includes("actual"),
+    origins,
     shanten: ledger === undefined ? null : factNumber(ledger, "overall_shanten"),
     effectiveTypes: ledger === undefined
       ? null
@@ -340,16 +373,13 @@ function explanation(prefs: {
   efficiency: string[];
   defense: string[];
   applied: string[] | null;
-}, genbutsuLabels: string[]): string {
+}, defenseReasons: string[]): string {
   const parts: string[] = [];
   if (prefs.efficiency.length > 0) {
     parts.push(`牌效支持${prefs.efficiency.join("、")}`);
   }
   if (prefs.defense.length > 0) {
-    const detail = genbutsuLabels.length > 0
-      ? `（对 ${genbutsuLabels.join("、")} 现物）`
-      : "";
-    parts.push(`防守支持${prefs.defense.join("、")}${detail}`);
+    parts.push(`防守支持${defenseReasons.join("、")}`);
   }
   if (prefs.applied === null && parts.length > 0) {
     parts.push("综合攻守冲突，未给出唯一确定偏好");
@@ -368,14 +398,48 @@ function renderChineseExplanation(
     candidates.map((entry) => [entry.actionRef, entry.label]),
   );
   const prefs = preferences(assembly, labelsByRef);
-  const genbutsuLabels = [...new Set(
-    candidates.flatMap((candidate) =>
-      candidate.defense
-        .filter((cell) => cell.genbutsu === "genbutsu")
-        .map((cell) => `玩家${cell.actor}`)
-    ),
-  )];
-  return explanation(prefs, genbutsuLabels);
+  const candidateByRef = new Map(
+    candidates.map((candidate) => [candidate.actionRef, candidate]),
+  );
+  const actorsBySupportedAction = new Map<ActionRef, Set<number>>();
+  for (const difference of assembly.factorResult.differences.deterministic) {
+    const match = /^genbutsu:actor([0-3])$/u.exec(difference.dimension);
+    if (
+      difference.axis !== "defense" ||
+      difference.preferenceEligibility !== "deterministic" ||
+      difference.direction === "neutral" ||
+      match === null
+    ) continue;
+    const supportedActionRef = difference.direction === "supports_left"
+      ? difference.leftActionRef
+      : difference.rightActionRef;
+    const actor = Number(match[1]);
+    const candidate = candidateByRef.get(supportedActionRef);
+    if (
+      candidate?.defense.some((cell) =>
+        cell.actor === actor && cell.genbutsu === "genbutsu"
+      ) !== true
+    ) continue;
+    const actors = actorsBySupportedAction.get(supportedActionRef) ?? new Set();
+    actors.add(actor);
+    actorsBySupportedAction.set(supportedActionRef, actors);
+  }
+  const defenseReasons = assembly.factorResult.differences.deterministic
+    .filter((difference) =>
+      difference.axis === "defense" && difference.direction !== "neutral"
+    )
+    .map((difference) => difference.direction === "supports_left"
+      ? difference.leftActionRef
+      : difference.rightActionRef)
+    .filter((ref, index, refs) => refs.indexOf(ref) === index)
+    .map((ref) => {
+      const label = labelsByRef.get(ref) ?? ref;
+      const actors = [...(actorsBySupportedAction.get(ref) ?? [])].sort();
+      return actors.length === 0
+        ? label
+        : `${label}（对 ${actors.map((actor) => `玩家${actor}`).join("、")} 现物）`;
+    });
+  return explanation(prefs, defenseReasons);
 }
 
 function handTiles(facts: KnownGameFacts): string[] {
@@ -419,9 +483,7 @@ export async function analyzePrototypeGame(
       facts.currentDraw !== null &&
       facts.currentDraw.tile.id !== decision.drawnTile.id
     ) {
-      throw new Error(
-        `scene mapping mismatch for ${decision.decisionId}: drew ${facts.currentDraw.tile.id}, expected ${decision.drawnTile.id}`,
-      );
+      throw new Error("prototype_decision_scene_mismatch");
     }
     const threats: CoachDecisionReport["threats"] = facts.defenseThreats.map(
       (threat) => ({
@@ -441,22 +503,63 @@ export async function analyzePrototypeGame(
       threats,
     };
 
-    const actions = [decision.actualActionId, decision.modelActionId].map(
-      (actionId) => {
-        try {
-          return legacyDiscardActionIdToAction(actionId);
-        } catch {
-          return null;
+    const candidateByRef = new Map<ActionRef, {
+      action: ReturnType<typeof legacyDiscardActionIdToAction>;
+      actionRef: ActionRef;
+      origins: Array<"actual" | "model">;
+    }>();
+    for (const [actionId, origin] of [
+      [decision.actualActionId, "actual"],
+      [decision.modelActionId, "model"],
+    ] as const) {
+      let action: ReturnType<typeof legacyDiscardActionIdToAction> | null;
+      try {
+        action = legacyDiscardActionIdToAction(actionId);
+      } catch {
+        action = null;
+      }
+      if (action !== null) {
+        const actionRef = canonicalActionRef(action);
+        const existing = candidateByRef.get(actionRef);
+        if (existing === undefined) {
+          candidateByRef.set(actionRef, {
+            action,
+            actionRef,
+            origins: ["model", ...(origin === "actual" ? ["actual" as const] : [])],
+          });
+        } else if (origin === "actual" && !existing.origins.includes("actual")) {
+          existing.origins.push("actual");
         }
-      },
-    );
-    const discardActions = actions.filter((action) => action !== null);
-    if (discardActions.length === 0) {
+      }
+    }
+    const discardCandidates = [...candidateByRef.values()];
+    if (discardCandidates.length === 0) {
       decisions.push({
         ...common,
         candidates: [],
         preferences: { efficiency: [], defense: [], applied: null },
         explanation: "该动作不在本原型支持范围内（仅处理弃牌/立直弃牌）",
+        diagnostics: [],
+      });
+      continue;
+    }
+    if (discardCandidates.length === 1) {
+      const only = discardCandidates[0]!;
+      const sameActualAndModel = only.origins.includes("actual") &&
+        only.origins.includes("model");
+      decisions.push({
+        ...common,
+        candidates: [candidateAnalysis(
+          only.action,
+          only.actionRef,
+          undefined,
+          undefined,
+          only.origins,
+        )],
+        preferences: { efficiency: [], defense: [], applied: null },
+        explanation: sameActualAndModel
+          ? `实战与模型均选择${actionLabel(only.action)}，无候选间差异可比较`
+          : "仅有一个受支持候选，无法进行候选间比较",
         diagnostics: [],
       });
       continue;
@@ -467,10 +570,10 @@ export async function analyzePrototypeGame(
       origin: "automatic_review",
       decisionLayerRef: `prototype:${decision.decisionId}:layer`,
       decisionWindow: facts.decisionWindow,
-      candidates: discardActions.map((action, index) => ({
-        actionRef: canonicalActionRef(action),
+      candidates: discardCandidates.map(({ action, actionRef, origins }) => ({
+        actionRef,
         action,
-        origins: index === 0 ? ["actual", "model"] : ["model"],
+        origins,
       })),
     });
     const frame = CurrentSceneFrameSchema.parse({
@@ -514,13 +617,12 @@ export async function analyzePrototypeGame(
       modelEvaluation: null,
     });
     const result = assembly.factorResult;
-    const analyzed = discardActions.map((action, index) => {
-      const actionRef = canonicalActionRef(action);
+    const analyzed = discardCandidates.map(({ action, actionRef, origins }) => {
       const ledger = result.ledgers.find((entry) => entry.actionRef === actionRef);
       const matrix = result.defenseMatrices.find(
         (entry) => entry.actionRef === actionRef,
       );
-      return candidateAnalysis(action, actionRef, ledger, matrix, index === 0);
+      return candidateAnalysis(action, actionRef, ledger, matrix, origins);
     });
     const labelsByRef = new Map(
       analyzed.map((entry) => [entry.actionRef, entry.label]),
