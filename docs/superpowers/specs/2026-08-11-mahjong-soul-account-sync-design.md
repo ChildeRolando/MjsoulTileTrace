@@ -137,6 +137,8 @@ IPC 结果不得包含 token、Cookie、授权头、原始 RPC 帧或完整原�
 
 - region：固定 `cn`；
 - account ID；
+- 登录方法（`login` 或 `oauth2Login`）与该方法的认证类型：从已关联登录请求中
+  只提取的非秘密判别量，不得为取得它们而保留完整登录请求；
 - opaque session token；
 - 协议适配器版本；
 - 首次取得时间和最近验证时间；
@@ -144,6 +146,11 @@ IPC 结果不得包含 token、Cookie、授权头、原始 RPC 帧或完整原�
 - 非秘密的账号显示摘要。
 
 不保存密码、验证码答案、登录表单内容或完整网络流量。
+
+两种登录方法取得的 token 不默认等价。M5-B 必须按持久化的登录方法选择对应的
+恢复适配器，并分别用协议证据证明恢复路径；若某种 token 无法安全恢复，则该方法
+只能用于当前进程，会话跨重启状态必须明确降级为重新登录，不能猜测改走
+`oauth2Login`。
 
 ### 6.2 启动恢复
 
@@ -473,7 +480,7 @@ M5 只有在以下条件同时满足时才完成：
    哈希与本地资产仓库；仍可用 fixture transport 验收。
 4. **M5-D 完整记录 decoder 与 mapper**：所有支持事件到
    `CanonicalEventStreamV2`、可见性、决策窗口、actual action 和 golden 回放。
-5. **M5-E 产品贯通与 H1**：真实国区 endpoint manifest、跨平台打包 smoke、
+5. **M5-E 产品贯通与 H1**：使用 M5-A 固定的国区 endpoint manifest 做真实端点贯通、跨平台打包 smoke、
    登录→目录→下载→重放全链路，以及唯一需要用户实际登录的 H1。
 
 每个切片都必须先有独立实施计划、严格 RED→GREEN、只读复审和完整回归；任何
