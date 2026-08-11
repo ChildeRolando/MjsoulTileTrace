@@ -77,6 +77,10 @@ Implemented:
   supporting river event, plus request-bound structural cells (suji, wall,
   no/one-chance, early-outside, honor, versioned helper risk scale) that are
   heuristic-only and never enter deterministic preference.
+- an M5-A privileged Mahjong Soul CN protocol foundation: renderer-safe DTOs,
+  redacting secret wrappers, a source-locked and hash-verified protocol bundle,
+  a narrow CN endpoint policy, bounded Liqi request/response correlation, and a
+  six-field login-result projection that never exposes raw decoded payloads.
 
 The per-threat defense matrix M2-C slice is complete for deterministic genbutsu
 safety and structural riichi analysis. Deterministic safety is per-object: a tile
@@ -106,6 +110,33 @@ Outside this milestone:
   remaining-draw/response-opportunity completeness;
 - calibrated placement, option-value, opponent-hand, and statistical-risk analyzers;
 - persistence, LLM dialogue orchestration, and the three-column UI.
+
+## M5-A 雀魂国区协议与契约地基
+
+M5-A 只建立后续账号同步所需的受信边界；它尚未执行真实登录、网络连接、
+令牌持久化、牌谱目录同步或完整牌谱下载。现有命令行教练仍是 fixture-only
+回归原型，不能用作生产雀魂导入器。下一切片 M5-B 才会实现隔离 Electron
+官方登录窗口与本机加密令牌保险库。
+
+协议资源固定到雀魂国区客户端 `0.11.252.w`，并使用 Akagi commit
+`27e994ad8bacd87833856b3b36b146ebb7cccbbc` 的 Apache-2.0 `liqi.proto`、
+RPC map、LICENSE 与 NOTICE。manifest 同时绑定官方 schema、vendored proto、
+RPC map、端点策略及必需路由/消息的三方兼容报告。运行时只接受生成的窄端点
+策略：官方登录/静态站点、固定 route-2…6 网关与对应 WSS authority、固定旧
+牌谱数据前缀；tracker、支付、聊天、广告和任意配置 URL 都不在信任面内。
+
+更新与验证：
+
+```powershell
+node scripts/update-mahjong-soul-protocol.mjs
+node scripts/update-mahjong-soul-protocol.mjs --check
+node scripts/update-mahjong-soul-protocol.mjs --check-current
+node --test scripts/mahjong-soul-protocol-compatibility.test.mjs
+```
+
+默认生成与 `--check` 只依赖已固定的版本化资源，因此可复现；
+`--check-current` 才联网检查国区当前客户端版本是否仍等于固定版本。任何协议、
+哈希、路由、字段或端点漂移都会以固定项目错误失败，不会猜测或退回宽松解析。
 
 The structured path checks only contradictions supported by `KnownActionFacts`.
 Missing facts remain `unknown_due_to_missing_facts`; they are not described as

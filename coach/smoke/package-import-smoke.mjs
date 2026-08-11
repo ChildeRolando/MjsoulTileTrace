@@ -3,6 +3,7 @@ import test from "node:test";
 
 test("workspace packages import as emitted JavaScript", async () => {
   const contracts = await import("@riichi-coach/contracts");
+  const source = await import("@riichi-coach/mahjong-soul-source");
   const reasoning = await import("@riichi-coach/reasoning");
 
   assert.equal(typeof contracts.AnalysisRequestSchema.parse, "function");
@@ -19,6 +20,7 @@ test("workspace packages import as emitted JavaScript", async () => {
   assert.equal(typeof contracts.HandStructureResultV2Schema.parse, "function");
   assert.equal(contracts.DEFENSE_MATRIX_SCHEMA_VERSION, "defense-matrix/v1");
   assert.equal(typeof contracts.DefenseMatrixV1Schema.parse, "function");
+  assert.equal(contracts.MahjongSoulRegionSchema.parse("cn"), "cn");
   assert.equal(
     typeof contracts.CandidateNormalizationResultSchema.parse,
     "function",
@@ -60,6 +62,13 @@ test("workspace packages import as emitted JavaScript", async () => {
   assert.equal(typeof reasoning.validateHandStructureResult, "function");
   assert.equal(typeof reasoning.buildDeterministicDefenseMatrix, "function");
   assert.equal(typeof reasoning.assembleDefenseMatrix, "function");
+  assert.equal(
+    source.MAHJONG_SOUL_PROTOCOL_BUNDLE_VERSION,
+    "mahjong-soul-cn-protocol/v1",
+  );
+  assert.equal(typeof source.loadMahjongSoulProtocolBundle, "function");
+  assert.equal(typeof source.createLiqiCodec, "function");
+  assert.equal(typeof source.extractCapturedLoginCredential, "function");
   assert.equal(reasoning.bridgeLegacyRegressionEvents, undefined);
   assert.equal(reasoning.buildLegacyRegressionPipelineInput, undefined);
 });
