@@ -985,8 +985,11 @@ only the already-sanitized `requestContext.loginMethod`,
 `requestContext.authType`, `error.code`, `account_id`,
 `account.nickname`, and `access_token`; discard every other field. Do not pass
 the input object through a permissive schema and do not copy it into output.
-An absent protobuf `error` field is success; an object with code `0` is also
-success; any nonzero or non-integer code is the fixed protocol error.
+An absent protobuf `error` field is success. Because the approved codec uses
+`toObject({ defaults: true })`, protobuf absence is represented as `null`; treat
+only `undefined`/missing and `null` as the same absent sentinel. A strict object
+with integer code `0` is also success; any other value, nonzero code, or
+non-integer code is the fixed protocol error.
 Preserving `loginMethod` is mandatory: M5-B must select and prove the correct
 session-resume adapter for each credential kind instead of assuming tokens from
 the two RPCs are interchangeable.
