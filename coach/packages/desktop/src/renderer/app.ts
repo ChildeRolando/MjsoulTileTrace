@@ -1,7 +1,11 @@
 import type { MahjongSoulDesktopApi } from "../session-api.js";
+import type { MahjongSoulCatalogApi } from "../catalog-api.js";
 
 declare global {
-  interface Window { readonly riichiCoach: MahjongSoulDesktopApi; }
+  interface Window {
+    readonly riichiCoach: MahjongSoulDesktopApi;
+    readonly riichiCoachCatalog: MahjongSoulCatalogApi;
+  }
 }
 
 const statusElement = document.querySelector<HTMLElement>("#status")!;
@@ -9,10 +13,50 @@ const detailElement = document.querySelector<HTMLElement>("#detail")!;
 const loginButton = document.querySelector<HTMLButtonElement>("#login")!;
 const logoutButton = document.querySelector<HTMLButtonElement>("#logout")!;
 const refreshButton = document.querySelector<HTMLButtonElement>("#refresh")!;
-const buttons = [loginButton, logoutButton, refreshButton];
+const syncButton = document.querySelector<HTMLButtonElement>("#sync")!;
+const catalogDetailElement = document.querySelector<HTMLElement>("#catalog-detail")!;
+const catalogListElement = document.querySelector<HTMLElement>("#catalog-list")!;
+const buttons = [loginButton, logoutButton, refreshButton, syncButton];
 
 function setPending(pending: boolean): void {
   for (const button of buttons) button.disabled = pending;
+}
+
+function formatStartedAt(startedAt: number): string {
+  const date = new Date(startedAt * 1000);
+  const pad = (value: number) => String(value).padStart(2, "0");
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}`;
+}
+
+function renderCatalog(
+  summaries: ReturnType<MahjongSoulCatalogApi["listAnalyzableRecords"]> extends Promise<infer T> ? T : never,
+): void {
+  catalogListElement.textContent = "";
+  if (summaries.length === 0) {
+    catalogDetailElement.textContent = "暂无可分析的四人南风对局。";
+    return;
+  }
+  catalogDetailElement.textContent = `共 ${summaries.length} 场可分析对局。`;
+  for (const entry of summaries) {
+    const item = document.createElement("li");
+    const scores = entry.players.map((player) => player.displayName).join(" / ");
+    const self = entry.players[entry.selfSeat];
+    const label = `${formatStartedAt(entry.startedAt)} · 你为 ${self?.displayName ?? "?"}（${scores}）`;
+    item.textContent = label;
+    item.title = entry.shareUrl;
+    catalogListElement.appendChild(item);
+  }
+}
+
+async function runCatalog(operation: () => ReturnType<MahjongSoulCatalogApi["listAnalyzableRecords"]>): Promise<void> {
+  setPending(true);
+  try {
+    renderCatalog(await operation());
+  } catch {
+    catalogDetailElement.textContent = "无法同步牌谱，请确认已登录雀魂。";
+  } finally {
+    setPending(false);
+  }
 }
 
 async function run(operation: () => ReturnType<MahjongSoulDesktopApi["getSessionStatus"]>): Promise<void> {
@@ -41,4 +85,6 @@ async function run(operation: () => ReturnType<MahjongSoulDesktopApi["getSession
 loginButton.addEventListener("click", () => void run(() => window.riichiCoach.openMahjongSoulLogin()));
 logoutButton.addEventListener("click", () => void run(() => window.riichiCoach.logoutMahjongSoul()));
 refreshButton.addEventListener("click", () => void run(() => window.riichiCoach.getSessionStatus()));
+syncButton.addEventListener("click", () => void runCatalog(() => window.riichiCoachCatalog.syncAnalyzableRecords()));
 void run(() => window.riichiCoach.getSessionStatus());
+void runCatalog(() => window.riichiCoachCatalog.listAnalyzableRecords());

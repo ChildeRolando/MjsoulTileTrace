@@ -3,7 +3,14 @@ import {
   parseMahjongSoulSessionStatus,
   type MahjongSoulDesktopApi,
 } from "./session-api.js";
-import { MAHJONG_SOUL_IPC_CHANNELS } from "./ipc.js";
+import {
+  parseAnalyzableRecordSummaries,
+  type MahjongSoulCatalogApi,
+} from "./catalog-api.js";
+import {
+  MAHJONG_SOUL_CATALOG_IPC_CHANNELS,
+  MAHJONG_SOUL_IPC_CHANNELS,
+} from "./ipc.js";
 
 const PROTOCOL_ERROR = "mahjong_soul_login_protocol_unsupported" as const;
 
@@ -44,5 +51,32 @@ export function createMahjongSoulPreloadApi(
     getSessionStatus: () => invoke(MAHJONG_SOUL_IPC_CHANNELS.getStatus),
     openMahjongSoulLogin: () => invoke(MAHJONG_SOUL_IPC_CHANNELS.openLogin),
     logoutMahjongSoul: () => invoke(MAHJONG_SOUL_IPC_CHANNELS.logout),
+  });
+}
+
+export function createMahjongSoulCatalogPreloadApi(
+  ipcRenderer: IpcRendererInvokePort,
+): MahjongSoulCatalogApi {
+  const rawInvoke = ipcRenderer !== null && typeof ipcRenderer === "object"
+    ? ipcRenderer.invoke
+    : undefined;
+  if (typeof rawInvoke !== "function") {
+    throw fixedError();
+  }
+  const invokePort = rawInvoke.bind(ipcRenderer) as IpcRendererInvokePort["invoke"];
+  const invokeCatalog = async (channel: string): Promise<
+    ReturnType<typeof parseAnalyzableRecordSummaries>
+  > => {
+    try {
+      return parseAnalyzableRecordSummaries(await invokePort(channel));
+    } catch (error) {
+      throw fixedError(error);
+    }
+  };
+  return Object.freeze({
+    syncAnalyzableRecords: () =>
+      invokeCatalog(MAHJONG_SOUL_CATALOG_IPC_CHANNELS.syncAnalyzableRecords),
+    listAnalyzableRecords: () =>
+      invokeCatalog(MAHJONG_SOUL_CATALOG_IPC_CHANNELS.listAnalyzableRecords),
   });
 }
