@@ -37,6 +37,12 @@ export {
   type RawRecordPlayerResult,
 } from "./record-filter.js";
 export {
+  createMahjongSoulLobbySession,
+  type LobbyDirectCallMethod,
+  type LobbyTransport,
+  type MahjongSoulLobbySession,
+} from "./lobby-session.js";
+export {
   createMahjongSoulSessionVault,
   type MahjongSoulSessionVault,
   type SessionKeyProtector,
