@@ -40,6 +40,16 @@ function catalogFailed(): MahjongSoulSourceError {
   return new MahjongSoulSourceError(CATALOG_SYNC_FAILED);
 }
 
+// A non-zero `.lq.Error.code` means the lobby rejected the call; an absent error
+// or a zero code is success. Exact code → session-invalid mapping is pinned in
+// M5-E, so every non-zero code here fails closed as a catalog error.
+function hasServerError(value: Record<string, unknown>): boolean {
+  const error = value.error;
+  if (!isRecord(error)) return false;
+  const code = error.code;
+  return isUint32(code) && code !== 0;
+}
+
 // The sync only needs a stable UUID for dedupe; full analyzable filtering happens
 // later in `filterAnalyzableRecord`. This light check still rejects malformed
 // entries so a hostile payload cannot corrupt the local catalog.
@@ -74,6 +84,7 @@ export async function syncRecentCatalog(
   const listResult = await session.call(".lq.Lobby.fetchGameRecordListV2", {});
   if (
     !isRecord(listResult)
+    || hasServerError(listResult)
     || typeof listResult.iterator !== "string"
     || listResult.iterator.length === 0
   ) {
@@ -88,7 +99,11 @@ export async function syncRecentCatalog(
       iterator,
       count: pageSize,
     });
-    if (!isRecord(nextResult) || !Array.isArray(nextResult.entries)) {
+    if (
+      !isRecord(nextResult)
+      || hasServerError(nextResult)
+      || !Array.isArray(nextResult.entries)
+    ) {
       throw catalogFailed();
     }
     for (const raw of nextResult.entries) {

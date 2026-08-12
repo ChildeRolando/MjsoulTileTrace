@@ -151,6 +151,20 @@ describe("Mahjong Soul catalog service", () => {
     expect(listed.map((entry) => entry.recordId)).toEqual([firstId]);
   });
 
+  it("maps a session-factory failure to a fixed code", async () => {
+    const store = new FakeCatalogStore();
+    const service = createMahjongSoulCatalogService({
+      vault: vaultReturning(storedSession),
+      catalogStore: store,
+      sessionFactory: async () => {
+        throw new Error("transport not wired");
+      },
+      clock: () => 5_000,
+    });
+    await expect(service.syncAnalyzableRecords())
+      .rejects.toThrow("mahjong_soul_catalog_sync_failed");
+  });
+
   it("never exposes the token or account id in results", async () => {
     const store = new FakeCatalogStore();
     const { lobby } = lobbyReturning([rawEntry(firstId)]);

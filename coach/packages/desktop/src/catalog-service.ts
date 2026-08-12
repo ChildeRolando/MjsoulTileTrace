@@ -56,8 +56,9 @@ export function createMahjongSoulCatalogService(
     async syncAnalyzableRecords() {
       const stored = await vault.restore();
       if (stored === null) throw invalid();
-      const lobby = await sessionFactory(stored);
+      let lobby: MahjongSoulLobbySession | null = null;
       try {
+        lobby = await sessionFactory(stored);
         const { entries } = await syncRecentCatalog({ session: lobby });
         const now = clock();
         if (typeof now !== "number" || !Number.isSafeInteger(now) || now < 0) {
@@ -68,12 +69,12 @@ export function createMahjongSoulCatalogService(
           return result.status === "analyzable" ? [result.summary] : [];
         });
         await catalogStore.mergeSummaries(summaries);
-        return summaries;
+        return await catalogStore.list();
       } catch (error) {
         if (error instanceof MahjongSoulSourceError) throw error;
         throw new MahjongSoulSourceError("mahjong_soul_catalog_sync_failed");
       } finally {
-        await lobby.close();
+        if (lobby !== null) await lobby.close();
       }
     },
     async listAnalyzableRecords() {

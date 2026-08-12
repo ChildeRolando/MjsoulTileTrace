@@ -13,6 +13,9 @@ import { MahjongSoulSourceError } from "./errors.js";
 const VAULT_VERSION = "mahjong-soul-catalog-vault/v1" as const;
 const SESSION_INVALID = "mahjong_soul_session_invalid" as const;
 const STORAGE_UNAVAILABLE = "mahjong_soul_session_storage_unavailable" as const;
+// The product only exposes "recent 30" (spec §8.1). Capping the persisted catalog
+// both honors that scope and bounds the serialized envelope against the read cap.
+export const MAX_CATALOG_ENTRIES = 30;
 const ENVELOPE_KEYS = Object.freeze([
   "version",
   "wrappedKey",
@@ -139,9 +142,13 @@ function mergeByRecordId(
   const byRecordId = new Map<string, AnalyzableRecordSummary>();
   for (const summary of existing) byRecordId.set(summary.recordId, summary);
   for (const summary of incoming) byRecordId.set(summary.recordId, summary);
-  return [...byRecordId.values()].sort((left, right) =>
-    left.recordId.localeCompare(right.recordId)
-  );
+  return [...byRecordId.values()]
+    .sort((left, right) =>
+      right.startedAt - left.startedAt ||
+      left.recordId.localeCompare(right.recordId)
+    )
+    .slice(0, MAX_CATALOG_ENTRIES)
+    .sort((left, right) => left.recordId.localeCompare(right.recordId));
 }
 
 function isSummary(value: unknown): value is AnalyzableRecordSummary {

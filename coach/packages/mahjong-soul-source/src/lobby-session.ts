@@ -1,7 +1,6 @@
 import { MahjongSoulSourceError } from "./errors.js";
 import {
   createLiqiCodec,
-  MAHJONG_SOUL_SAFE_DIRECT_CALL_METHODS,
   type DecodedLiqiMessage,
   type LiqiCodec,
 } from "./liqi-codec.js";
@@ -96,7 +95,7 @@ export function createMahjongSoulLobbySession(input: {
   let codec: LiqiCodec;
   try {
     codec = createLiqiCodec(bundle, {
-      directCallMethods: [...MAHJONG_SOUL_SAFE_DIRECT_CALL_METHODS],
+      directCallMethods: [...LOBBY_DIRECT_CALL_METHODS],
       surfacedNotifications: [],
     });
   } catch {

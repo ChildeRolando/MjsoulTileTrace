@@ -10,11 +10,18 @@ import {
   type BrowserWindowConstructorOptions,
 } from "electron";
 import {
+  MahjongSoulSourceError,
+  createMahjongSoulCatalogStore,
   createMahjongSoulSessionVault,
   loadMahjongSoulProtocolBundle,
 } from "@riichi-coach/mahjong-soul-source";
+import { createMahjongSoulCatalogService } from "./catalog-service.js";
 import { createElectronSessionKeyProtector, type SafeStoragePort } from "./electron-safe-storage.js";
-import { registerMahjongSoulIpc, type IpcMainPort } from "./ipc.js";
+import {
+  registerMahjongSoulCatalogIpc,
+  registerMahjongSoulIpc,
+  type IpcMainPort,
+} from "./ipc.js";
 import {
   createElectronMahjongSoulLoginProvider,
   type ElectronLoginWindowPort,
@@ -35,6 +42,7 @@ const rendererUrl = pathToFileURL(
 
 let mainWindow: BrowserWindow | null = null;
 let ipcRegistration: Readonly<{ dispose(): void }> | null = null;
+let catalogIpcRegistration: Readonly<{ dispose(): void }> | null = null;
 
 function hardenLocalWindow(window: BrowserWindow): void {
   window.webContents.setWindowOpenHandler(() => ({ action: "deny" }));
@@ -95,6 +103,22 @@ async function start(): Promise<void> {
     browserSession: partitionSession,
     clock: Date.now,
   });
+  const catalogService = createMahjongSoulCatalogService({
+    vault,
+    catalogStore: createMahjongSoulCatalogStore({
+      protector,
+      store: createRecoverableSessionFile({
+        root: join(app.getPath("userData"), "mahjong-soul-catalog"),
+      }),
+    }),
+    // The real lobby transport (WebSocket discovery + authenticated restore) is
+    // M5-E. Until then sync fails closed; listAnalyzableRecords still reads the
+    // persisted encrypted catalog.
+    sessionFactory: async () => {
+      throw new MahjongSoulSourceError("mahjong_soul_catalog_sync_failed");
+    },
+    clock: Date.now,
+  });
   await service.initialize();
 
   const createMainWindow = async (): Promise<void> => {
@@ -106,15 +130,23 @@ async function start(): Promise<void> {
     mainWindow = window;
     hardenLocalWindow(window);
     ipcRegistration?.dispose();
+    catalogIpcRegistration?.dispose();
     ipcRegistration = registerMahjongSoulIpc({
       ipcMain: ipcMain as unknown as IpcMainPort,
       service,
+      trustedSenderId: window.webContents.id,
+    });
+    catalogIpcRegistration = registerMahjongSoulCatalogIpc({
+      ipcMain: ipcMain as unknown as IpcMainPort,
+      service: catalogService,
       trustedSenderId: window.webContents.id,
     });
     window.on("closed", () => {
       if (mainWindow === window) mainWindow = null;
       ipcRegistration?.dispose();
       ipcRegistration = null;
+      catalogIpcRegistration?.dispose();
+      catalogIpcRegistration = null;
     });
     await window.loadURL(rendererUrl);
   };

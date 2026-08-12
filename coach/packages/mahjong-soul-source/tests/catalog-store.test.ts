@@ -140,4 +140,23 @@ describe("encrypted Mahjong Soul catalog store", () => {
     ])).rejects.toThrow("mahjong_soul_session_invalid");
     expect(store.value).toBeNull();
   });
+
+  it("caps the catalog at the most recent entries instead of growing unbounded", async () => {
+    const store = new FakeStore();
+    const catalog = createMahjongSoulCatalogStore({
+      protector: identityProtector,
+      store,
+    });
+
+    const ids = Array.from({ length: 40 }, (_, index) =>
+      `260811-00000000-0000-0000-0000-${String(index).padStart(12, "0")}`
+    );
+    await catalog.mergeSummaries(ids.map((id, index) => summary(id, 1_000 + index)));
+
+    const listed = await catalog.list();
+    expect(listed).toHaveLength(30);
+    // The 30 newest survive; the 10 oldest are pruned.
+    expect(listed.every((entry) => entry.startedAt >= 1_010)).toBe(true);
+    expect(listed.some((entry) => entry.startedAt < 1_010)).toBe(false);
+  });
 });

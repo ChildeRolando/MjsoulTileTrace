@@ -139,6 +139,21 @@ describe("recent Mahjong Soul catalog sync", () => {
       .rejects.toThrow("mahjong_soul_catalog_sync_failed");
   });
 
+  it("rejects a server-side error response", async () => {
+    const session: MahjongSoulLobbySession = {
+      async authenticate() {},
+      async call(method) {
+        if (method === ".lq.Lobby.fetchGameRecordListV2") {
+          return { iterator: "x", error: { code: 1005 } };
+        }
+        return { next: false, entries: [] };
+      },
+      async close() {},
+    };
+    await expect(syncRecentCatalog({ session }))
+      .rejects.toThrow("mahjong_soul_catalog_sync_failed");
+  });
+
   it("rejects out-of-range page size and page count", async () => {
     const { session } = fakeSession([]);
     await expect(syncRecentCatalog({ session, pageSize: 0 }))
