@@ -24,8 +24,6 @@ const summary = {
   rule: {
     playerCount: 4,
     length: "south",
-    modeId: 16,
-    detailRuleHash: `sha256:${"a".repeat(64)}`,
     displayLabel: "四人南风",
   },
   analysisStatus: "not_analyzed",

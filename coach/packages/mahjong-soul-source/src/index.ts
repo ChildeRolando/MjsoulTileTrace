@@ -29,6 +29,14 @@ export {
 } from "./protocol-manifest.js";
 export { SecretString } from "./secret-string.js";
 export {
+  filterAnalyzableRecord,
+  SUPPORTED_RECORD_VERSIONS,
+  SUPPORTED_STANDARD_RULES,
+  type FilterResult,
+  type RawRecordListEntry,
+  type RawRecordPlayerResult,
+} from "./record-filter.js";
+export {
   createMahjongSoulSessionVault,
   type MahjongSoulSessionVault,
   type SessionKeyProtector,

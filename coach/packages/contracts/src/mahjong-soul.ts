@@ -80,8 +80,6 @@ export const AnalyzableRecordSummarySchema = z.object({
   rule: z.object({
     playerCount: z.literal(4),
     length: z.literal("south"),
-    modeId: z.number().int().nonnegative(),
-    detailRuleHash: MahjongSoulSha256Schema,
     displayLabel: z.literal("四人南风"),
   }).strict(),
   analysisStatus: z.enum([
