@@ -48,6 +48,12 @@ export {
   type CatalogSyncResult,
 } from "./catalog-sync.js";
 export {
+  createMahjongSoulCatalogStore,
+  type CatalogKeyProtector,
+  type CatalogVaultStore,
+  type MahjongSoulCatalogStore,
+} from "./catalog-store.js";
+export {
   createMahjongSoulSessionVault,
   type MahjongSoulSessionVault,
   type SessionKeyProtector,
