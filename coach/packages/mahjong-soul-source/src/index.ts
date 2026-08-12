@@ -43,6 +43,11 @@ export {
   type MahjongSoulLobbySession,
 } from "./lobby-session.js";
 export {
+  syncRecentCatalog,
+  type CatalogSyncInput,
+  type CatalogSyncResult,
+} from "./catalog-sync.js";
+export {
   createMahjongSoulSessionVault,
   type MahjongSoulSessionVault,
   type SessionKeyProtector,
