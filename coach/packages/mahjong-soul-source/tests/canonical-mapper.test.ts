@@ -140,6 +140,112 @@ describe("Mahjong Soul canonical record mapper", () => {
     expect(discard.riichiDeclarationEventRef).toBe("game:test/0/2/0");
   });
 
+  it("maps a chi call with its target discard", async () => {
+    const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
+    const recordBytes = encodeRecord(bundle, [
+      {
+        name: "ActionNewRound",
+        data: {
+          chang: 0, ju: 0, ben: 0, tiles: selfHand, dora: "1z",
+          scores: [25000, 25000, 25000, 25000], liqibang: 0,
+        },
+      },
+      { name: "ActionDiscardTile", data: { seat: 0, tile: "4m", moqie: false } },
+      {
+        name: "ActionChiPengGang",
+        data: { seat: 1, type: 0, tiles: ["4m", "2m", "3m"], froms: [0, 1, 1] },
+      },
+    ]);
+    const result = mapMahjongSoulRecord({
+      gameId: "game:test", selfActor: 1,
+      recordId: "260811-00000000-0000-0000-0000-000000000001",
+      recordBytes, bundle,
+    });
+    expect(result.status).toBe("ready");
+    if (result.status !== "ready") return;
+    const types = result.stream.events.map((event) => event.type);
+    expect(types).toEqual(["game_started", "round_started", "tile_discarded", "chi_called"]);
+    const chi = result.stream.events[3]!;
+    if (chi.type !== "chi_called") throw new Error("expected chi");
+    expect(chi.targetActor).toBe(0);
+    expect(chi.calledDiscardEventRef).toBe("game:test/0/2/0");
+  });
+
+  it("maps a pon call", async () => {
+    const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
+    const recordBytes = encodeRecord(bundle, [
+      {
+        name: "ActionNewRound",
+        data: {
+          chang: 0, ju: 0, ben: 0, tiles: selfHand, dora: "1z",
+          scores: [25000, 25000, 25000, 25000], liqibang: 0,
+        },
+      },
+      { name: "ActionDiscardTile", data: { seat: 0, tile: "5m", moqie: false } },
+      {
+        name: "ActionChiPengGang",
+        data: { seat: 2, type: 1, tiles: ["5m", "5m", "5m"], froms: [0, 2, 2] },
+      },
+    ]);
+    const result = mapMahjongSoulRecord({
+      gameId: "game:test", selfActor: 1,
+      recordId: "260811-00000000-0000-0000-0000-000000000001",
+      recordBytes, bundle,
+    });
+    expect(result.status).toBe("ready");
+    if (result.status !== "ready") return;
+    const types = result.stream.events.map((event) => event.type);
+    expect(types).toEqual(["game_started", "round_started", "tile_discarded", "pon_called"]);
+  });
+
+  it("maps a tsumo win and an exhaustive draw", async () => {
+    const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
+    const winBytes = encodeRecord(bundle, [
+      {
+        name: "ActionNewRound",
+        data: {
+          chang: 0, ju: 0, ben: 0, tiles: selfHand, dora: "1z",
+          scores: [25000, 25000, 25000, 25000], liqibang: 0,
+        },
+      },
+      { name: "ActionDealTile", data: { seat: 1, tile: "5m" } },
+      {
+        name: "ActionHule",
+        data: {
+          hules: [{ seat: 1, zimo: true, hu_tile: "5m" }],
+          delta_scores: [3000, -1000, -1000, -1000],
+        },
+      },
+    ]);
+    const win = mapMahjongSoulRecord({
+      gameId: "game:test", selfActor: 1,
+      recordId: "260811-00000000-0000-0000-0000-000000000001",
+      recordBytes: winBytes, bundle,
+    });
+    expect(win.status).toBe("ready");
+    if (win.status !== "ready") return;
+    expect(win.stream.events.at(-1)?.type).toBe("win_declared");
+
+    const drawBytes = encodeRecord(bundle, [
+      {
+        name: "ActionNewRound",
+        data: {
+          chang: 0, ju: 0, ben: 0, tiles: selfHand, dora: "1z",
+          scores: [25000, 25000, 25000, 25000], liqibang: 0,
+        },
+      },
+      { name: "ActionNoTile", data: { liujumanguan: false } },
+    ]);
+    const draw = mapMahjongSoulRecord({
+      gameId: "game:test", selfActor: 1,
+      recordId: "260811-00000000-0000-0000-0000-000000000001",
+      recordBytes: drawBytes, bundle,
+    });
+    expect(draw.status).toBe("ready");
+    if (draw.status !== "ready") return;
+    expect(draw.stream.events.at(-1)?.type).toBe("round_drawn");
+  });
+
   it("rejects an empty or unknown action record", async () => {
     const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
     const empty = encodeRecord(bundle, []);

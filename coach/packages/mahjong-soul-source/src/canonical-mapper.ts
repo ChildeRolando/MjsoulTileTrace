@@ -126,6 +126,8 @@ export function mapMahjongSoulRecord(input: {
     let roundWind: "E" | "S" | "W" = "E";
     let roundDealer = 0;
     const pendingRiichi = new Map<number, string>();
+    const consumedDiscards = new Set<string>();
+    const activePonByActorAndTile = new Map<string, string>();
 
     const push = (
       sourceRecordOrdinal: number,
@@ -225,6 +227,139 @@ export function mapMahjongSoulRecord(input: {
           riichiDeclarationEventRef: isRiichi
             ? pendingRiichi.get(actor) ?? null
             : null,
+        });
+        return;
+      }
+      if (action.name === "ActionChiPengGang") {
+        const data = decodeData(root, action);
+        const actor = typeof data.seat === "number" ? data.seat : -1;
+        const type = typeof data.type === "number" ? data.type : -1;
+        const tiles = Array.isArray(data.tiles)
+          ? data.tiles.map((tile) => parseMajsoulTile(tile))
+          : [];
+        const froms = Array.isArray(data.froms)
+          ? data.froms.filter((from): from is number => typeof from === "number")
+          : [];
+        const target = froms[0] ?? -1;
+        const calledTile = tiles[0];
+        if (calledTile === undefined || target < 0 || target > 3) {
+          throw mappingFailed();
+        }
+        const discard = [...events].reverse().find((candidate) =>
+          candidate.type === "tile_discarded"
+          && candidate.actor === target
+          && candidate.tile.id === calledTile.id
+          && candidate.tile.red === calledTile.red
+          && !consumedDiscards.has(candidate.eventId)
+        );
+        if (discard === undefined || discard.type !== "tile_discarded") {
+          throw mappingFailed();
+        }
+        consumedDiscards.add(discard.eventId);
+        if (type === 0) {
+          const consumedTiles: [Tile, Tile] = [tiles[1]!, tiles[2]!];
+          push(sourceRecordOrdinal, 0, {
+            type: "chi_called", actor, targetActor: target,
+            calledTile, consumedTiles, calledDiscardEventRef: discard.eventId,
+          });
+        } else if (type === 1) {
+          const consumedTiles: [Tile, Tile] = [tiles[1]!, tiles[2]!];
+          push(sourceRecordOrdinal, 0, {
+            type: "pon_called", actor, targetActor: target,
+            calledTile, consumedTiles, calledDiscardEventRef: discard.eventId,
+          });
+          activePonByActorAndTile.set(`${actor}:${calledTile.id}`, events.at(-1)!.eventId);
+        } else if (type === 2) {
+          const consumedTiles: [Tile, Tile, Tile] = [tiles[1]!, tiles[2]!, tiles[3]!];
+          push(sourceRecordOrdinal, 0, {
+            type: "daiminkan_called", actor, targetActor: target,
+            calledTile, consumedTiles, calledDiscardEventRef: discard.eventId,
+          });
+        } else {
+          throw mappingFailed();
+        }
+        return;
+      }
+      if (action.name === "ActionAnGangAddGang") {
+        const data = decodeData(root, action);
+        const actor = typeof data.seat === "number" ? data.seat : -1;
+        const type = typeof data.type === "number" ? data.type : -1;
+        const tiles = Array.isArray(data.tiles)
+          ? data.tiles.map((tile) => parseMajsoulTile(tile))
+          : [];
+        if (type === 0 || type === 2) {
+          // ankan (暗杠) — four self tiles.
+          const ankanTiles: [Tile, Tile, Tile, Tile] = [
+            tiles[0]!, tiles[1]!, tiles[2]!, tiles[3]!,
+          ];
+          push(sourceRecordOrdinal, 0, {
+            type: "ankan_declared", actor, tiles: ankanTiles,
+          });
+        } else if (type === 1) {
+          // kakan (加杠) — one added tile over an existing pon.
+          const addedTile = tiles[0];
+          if (addedTile === undefined) throw mappingFailed();
+          const ponRef = activePonByActorAndTile.get(`${actor}:${addedTile.id}`);
+          if (ponRef === undefined) throw mappingFailed();
+          push(sourceRecordOrdinal, 0, {
+            type: "kakan_declared", actor, addedTile, upgradedPonEventRef: ponRef,
+          });
+          activePonByActorAndTile.delete(`${actor}:${addedTile.id}`);
+        } else {
+          throw mappingFailed();
+        }
+        return;
+      }
+      if (action.name === "ActionHule") {
+        const data = decodeData(root, action);
+        const hules = Array.isArray(data.hules) ? data.hules : [];
+        const delta = Array.isArray(data.delta_scores) && data.delta_scores.length === 4
+          ? [data.delta_scores[0], data.delta_scores[1], data.delta_scores[2], data.delta_scores[3]]
+          : null;
+        let subEvent = 0;
+        for (const raw of hules) {
+          if (!isRecord(raw) || typeof raw.seat !== "number") throw mappingFailed();
+          const winner = raw.seat;
+          const zimo = raw.zimo === true;
+          const tile = parseMajsoulTile(raw.hu_tile);
+          const source = [...events].reverse().find((candidate): boolean =>
+            zimo
+              ? candidate.type === "tile_drawn" && candidate.actor === winner
+              : candidate.type === "tile_discarded" &&
+                candidate.tile.id === tile.id && candidate.tile.red === tile.red
+          );
+          if (source === undefined) throw mappingFailed();
+          const targetActor = !zimo && source.type === "tile_discarded"
+            ? source.actor
+            : null;
+          push(sourceRecordOrdinal, subEvent++, {
+            type: "win_declared",
+            winnerActor: winner,
+            targetActor,
+            method: zimo ? "tsumo" : "ron",
+            winningTile: tile,
+            winSourceEventRef: source.eventId,
+            scoreDeltas: delta as [number, number, number, number] | null,
+          });
+        }
+        if (subEvent === 0) throw mappingFailed();
+        return;
+      }
+      if (action.name === "ActionLiuJu") {
+        const data = decodeData(root, action);
+        const seat = typeof data.seat === "number" ? data.seat : -1;
+        push(sourceRecordOrdinal, 0, {
+          type: "round_drawn",
+          reason: "kyuushu_kyuuhai",
+          tenpaiActors: seat >= 0 ? [seat] : [],
+        });
+        return;
+      }
+      if (action.name === "ActionNoTile") {
+        push(sourceRecordOrdinal, 0, {
+          type: "round_drawn",
+          reason: "exhaustive",
+          tenpaiActors: [],
         });
         return;
       }
