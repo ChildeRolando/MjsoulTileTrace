@@ -14,7 +14,7 @@
 
 Implement only slice 2 from:
 
-- `docs/superpowers/specs/2026-07-30-structured-actions-candidate-normalizer-design.md`
+- `coach/docs/specs/2026-07-30-structured-actions-candidate-normalizer-design.md`
 
 In scope:
 

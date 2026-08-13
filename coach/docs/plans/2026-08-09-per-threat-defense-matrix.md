@@ -8,7 +8,7 @@
 
 **Tech Stack:** TypeScript、Zod、Vitest、Node.js、Go 1.24、固定 `EndlessCheng/mahjong-helper` sidecar、canonical event replay。
 
-**Approved scope:** `docs/superpowers/specs/2026-08-08-canonical-game-state-hand-defense-design.md` 第 9、13.4、15 节。明确排除染手、对对、役牌/宝牌周边手切推断、跨筋/里筋/间四间、校准放铳概率、M5、LLM 和 UI。
+**Approved scope:** `coach/docs/specs/2026-08-08-canonical-game-state-hand-defense-design.md` 第 9、13.4、15 节。明确排除染手、对对、役牌/宝牌周边手切推断、跨筋/里筋/间四间、校准放铳概率、M5、LLM 和 UI。
 
 ---
 
@@ -862,8 +862,8 @@ If the fixture did not change, do not stage it.
 - Verify: `coach/scripts/update-packaged-fact-engine-manifest.mjs`
 - Test: `coach/scripts/update-packaged-fact-engine-manifest.test.mjs`
 - Modify: `coach/README.md`
-- Create: `docs/superpowers/handoffs/2026-08-09-per-threat-defense-matrix-handoff.md`
-- Modify: `docs/superpowers/plans/2026-08-01-llm-riichi-coach-product-roadmap.md`
+- Create: `coach/docs/handoffs/2026-08-09-per-threat-defense-matrix-handoff.md`
+- Modify: `coach/docs/plans/2026-08-01-llm-riichi-coach-product-roadmap.md`
 - Test: `coach/smoke/package-import-smoke.mjs`
 
 - [ ] **Step 1: Rebuild deterministically twice and verify identical hashes**
@@ -936,7 +936,7 @@ git diff --cached --name-only
 git diff --cached --check
 git commit -m "chore: package per-threat defense matrix"
 
-git add -- coach/README.md docs/superpowers/handoffs/2026-08-09-per-threat-defense-matrix-handoff.md docs/superpowers/plans/2026-08-01-llm-riichi-coach-product-roadmap.md
+git add -- coach/README.md coach/docs/handoffs/2026-08-09-per-threat-defense-matrix-handoff.md coach/docs/plans/2026-08-01-llm-riichi-coach-product-roadmap.md
 git diff --cached --name-only
 git diff --cached --check
 git commit -m "docs: hand off per-threat defense matrix"
@@ -944,7 +944,7 @@ git commit -m "docs: hand off per-threat defense matrix"
 
 Never stage:
 
-- `docs/superpowers/plans/2026-08-08-hand-structure-furiten.md`
+- `coach/docs/plans/2026-08-08-hand-structure-furiten.md`
 - `overlay/cv重做.md`
 - `overlay/prompt.md`
 

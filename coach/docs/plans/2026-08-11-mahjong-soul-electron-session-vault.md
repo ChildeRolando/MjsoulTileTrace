@@ -8,9 +8,9 @@
 
 **Tech Stack:** Electron 43.3.0, TypeScript 5.9, Node.js crypto/fs, Zod 3.25, protobufjs 8.7 via the existing privileged package, Vitest 3.2, Electron `safeStorage`, isolated `session` partitions, and `webContents.debugger` CDP events.
 
-**Approved design:** `docs/superpowers/specs/2026-08-11-mahjong-soul-account-sync-design.md`
+**Approved design:** `coach/docs/specs/2026-08-11-mahjong-soul-account-sync-design.md`
 
-**M5-A handoff:** `docs/superpowers/handoffs/2026-08-11-mahjong-soul-protocol-contracts-handoff.md`
+**M5-A handoff:** `coach/docs/handoffs/2026-08-11-mahjong-soul-protocol-contracts-handoff.md`
 
 **Official Electron references:**
 
@@ -557,8 +557,8 @@ git commit -m "test: verify secure Mahjong Soul session restart"
 **Files:**
 
 - Modify: `coach/README.md`
-- Modify: `docs/superpowers/plans/2026-08-01-llm-riichi-coach-product-roadmap.md`
-- Create: `docs/superpowers/handoffs/2026-08-11-mahjong-soul-electron-session-handoff.md`
+- Modify: `coach/docs/plans/2026-08-01-llm-riichi-coach-product-roadmap.md`
+- Create: `coach/docs/handoffs/2026-08-11-mahjong-soul-electron-session-handoff.md`
 
 - [ ] **Step 1: Run pre-H1 characterization**
 
@@ -593,8 +593,8 @@ npm test
 npm run typecheck
 npm run test:package-import
 npm audit --omit=dev
-git diff --check -- coach/README.md docs/superpowers/plans/2026-08-01-llm-riichi-coach-product-roadmap.md docs/superpowers/handoffs/2026-08-11-mahjong-soul-electron-session-handoff.md
-git add -- coach/README.md docs/superpowers/plans/2026-08-01-llm-riichi-coach-product-roadmap.md docs/superpowers/handoffs/2026-08-11-mahjong-soul-electron-session-handoff.md
+git diff --check -- coach/README.md coach/docs/plans/2026-08-01-llm-riichi-coach-product-roadmap.md coach/docs/handoffs/2026-08-11-mahjong-soul-electron-session-handoff.md
+git add -- coach/README.md coach/docs/plans/2026-08-01-llm-riichi-coach-product-roadmap.md coach/docs/handoffs/2026-08-11-mahjong-soul-electron-session-handoff.md
 git commit -m "docs: hand off Mahjong Soul Electron sessions"
 ```
 

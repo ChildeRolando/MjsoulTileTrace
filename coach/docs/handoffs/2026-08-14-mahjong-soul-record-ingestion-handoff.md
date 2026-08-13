@@ -37,7 +37,7 @@
 - `coach/packages/desktop/src/electron-entry.ts`：生产依赖接线。
 - `coach/packages/desktop/src/ipc.ts`、`preload-entry.ts`：renderer 安全边界。
 - `coach/packages/desktop/src/renderer/app.ts`：可分析列表与“分析”按钮。
-- `docs/superpowers/plans/2026-08-14-mahjong-soul-record-ingestion.md`：后续执行计划。
+- `coach/docs/plans/2026-08-14-mahjong-soul-record-ingestion.md`：后续执行计划。
 
 ## 已锁定的不变量
 

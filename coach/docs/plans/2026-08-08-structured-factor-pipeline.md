@@ -1019,7 +1019,7 @@ git commit -m "feat: orchestrate structured factor analysis"
 - Create: `coach/packages/reasoning/tests/structured-factor-regression.test.ts`
 - Modify: `coach/packages/reasoning/src/index.ts`
 - Modify: `coach/README.md`
-- Modify: `docs/superpowers/handoffs/2026-08-08-structured-factor-pipeline-design-handoff.md`
+- Modify: `coach/docs/handoffs/2026-08-08-structured-factor-pipeline-design-handoff.md`
 
 - [ ] **Step 1: Write RED real-fixture regression**
 
@@ -1086,7 +1086,7 @@ git commit -m "feat: complete structured factor pipeline"
 
 **Files:**
 - Modify only files identified by review findings.
-- Update: `docs/superpowers/handoffs/2026-08-08-structured-factor-pipeline-design-handoff.md`
+- Update: `coach/docs/handoffs/2026-08-08-structured-factor-pipeline-design-handoff.md`
 
 - [ ] **Step 1: Run all verification**
 

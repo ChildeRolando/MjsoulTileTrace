@@ -53,8 +53,8 @@
 
 ## 3. 规格、计划与主要代码入口
 
-- 规格：`docs/superpowers/specs/2026-07-30-structured-actions-candidate-normalizer-design.md`
-- 实施计划：`docs/superpowers/plans/2026-07-30-structured-actions-candidate-normalizer.md`
+- 规格：`coach/docs/specs/2026-07-30-structured-actions-candidate-normalizer-design.md`
+- 实施计划：`coach/docs/plans/2026-07-30-structured-actions-candidate-normalizer.md`
 - 动作、窗口与约束：`coach/packages/contracts/src/actions.ts`
 - canonical codec：`coach/packages/contracts/src/action-codec.ts`
 - 候选/结果 contracts：`coach/packages/contracts/src/candidate-contracts.ts`

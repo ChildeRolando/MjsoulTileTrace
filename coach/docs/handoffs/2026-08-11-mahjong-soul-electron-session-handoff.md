@@ -44,7 +44,7 @@ M5-B 不是完整账号同步功能，当前没有：
 - `9ad4137`：IPC、preload、Electron main 与最小 renderer；
 - `85baebb`：跨重启与安全边界集成门禁。
 
-M5-A 的协议身份和可信资源仍以 `docs/superpowers/handoffs/2026-08-11-mahjong-soul-protocol-contracts-handoff.md` 为准。
+M5-A 的协议身份和可信资源仍以 `coach/docs/handoffs/2026-08-11-mahjong-soul-protocol-contracts-handoff.md` 为准。
 
 ## 4. 自动化验收
 
@@ -103,7 +103,7 @@ M5-C 不必等待真人登录冒烟，可以按总规格用 fixture transport �
 以下均是用户或其他任务的既有改动，M5-B 没有暂存或提交：
 
 - `.gitignore`；
-- `docs/superpowers/plans/2026-08-08-hand-structure-furiten.md`；
+- `coach/docs/plans/2026-08-08-hand-structure-furiten.md`；
 - `overlay/HANDOFF.md`；
 - 删除的 `overlay/cv重做.md`；
 - untracked `overlay/.ai-bridge/`、`overlay/bridge/`。

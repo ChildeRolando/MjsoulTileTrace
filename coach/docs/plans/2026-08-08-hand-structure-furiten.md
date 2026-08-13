@@ -67,8 +67,8 @@ Modify:
 - `coach/packages/reasoning/tests/structured-factor-pipeline.test.ts` — V2 success/failure isolation.
 - `coach/packages/reasoning/tests/structured-factor-regression.test.ts` — East 1 non-regression and score-deletion invariance.
 - `coach/README.md` — document V2 and its unsupported boundaries.
-- `docs/superpowers/plans/2026-08-01-llm-riichi-coach-product-roadmap.md` — mark M2-A complete only after all gates pass.
-- `docs/superpowers/handoffs/2026-08-08-canonical-event-stream-round-reducer-handoff.md` — replace the M2-A entry point with delivered versions and evidence.
+- `coach/docs/plans/2026-08-01-llm-riichi-coach-product-roadmap.md` — mark M2-A complete only after all gates pass.
+- `coach/docs/handoffs/2026-08-08-canonical-event-stream-round-reducer-handoff.md` — replace the M2-A entry point with delivered versions and evidence.
 
 Protected unrelated workspace files must never be staged: `overlay/cv重做.md` and `overlay/prompt.md`.
 
@@ -1585,8 +1585,8 @@ git commit -m "feat: integrate structured hand and furiten facts"
 - Modify: `coach/packages/reasoning/tests/structured-factor-regression.test.ts`
 - Modify: `coach/smoke/package-import-smoke.mjs`
 - Modify: `coach/README.md`
-- Modify: `docs/superpowers/plans/2026-08-01-llm-riichi-coach-product-roadmap.md`
-- Modify: `docs/superpowers/handoffs/2026-08-08-canonical-event-stream-round-reducer-handoff.md`
+- Modify: `coach/docs/plans/2026-08-01-llm-riichi-coach-product-roadmap.md`
+- Modify: `coach/docs/handoffs/2026-08-08-canonical-event-stream-round-reducer-handoff.md`
 
 - [ ] **Step 1: Write failing end-to-end regressions**
 
@@ -1693,7 +1693,7 @@ For each Critical or Important finding, first add a focused failing test, then f
 - [ ] **Step 6: Commit regressions and handoff**
 
 ```powershell
-git add coach/packages/reasoning/tests/structured-factor-regression.test.ts coach/smoke/package-import-smoke.mjs coach/README.md docs/superpowers/plans/2026-08-01-llm-riichi-coach-product-roadmap.md docs/superpowers/handoffs/2026-08-08-canonical-event-stream-round-reducer-handoff.md
+git add coach/packages/reasoning/tests/structured-factor-regression.test.ts coach/smoke/package-import-smoke.mjs coach/README.md coach/docs/plans/2026-08-01-llm-riichi-coach-product-roadmap.md coach/docs/handoffs/2026-08-08-canonical-event-stream-round-reducer-handoff.md
 git diff --cached --name-only
 git diff --cached --check
 git commit -m "docs: hand off hand structure and furiten v2"

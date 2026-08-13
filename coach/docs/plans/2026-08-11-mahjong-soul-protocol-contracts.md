@@ -12,7 +12,7 @@
 
 **Tech Stack:** TypeScript 5.9, Zod 3.25, Vitest 3.2, Node.js crypto/fs, protobufjs 8.7.2, npm workspaces, Node test runner.
 
-**Approved design:** `docs/superpowers/specs/2026-08-11-mahjong-soul-account-sync-design.md`, especially sections 3, 5, 6, 8, 10, 13, 15, and M5-A in section 18.
+**Approved design:** `coach/docs/specs/2026-08-11-mahjong-soul-account-sync-design.md`, especially sections 3, 5, 6, 8, 10, 13, 15, and M5-A in section 18.
 
 **Pinned research inputs (2026-08-11):**
 
@@ -1167,8 +1167,8 @@ git commit -m "test: bind the Mahjong Soul protocol surface"
 
 - Modify: `coach/smoke/package-import-smoke.mjs`
 - Modify: `coach/README.md`
-- Modify: `docs/superpowers/plans/2026-08-01-llm-riichi-coach-product-roadmap.md`
-- Create: `docs/superpowers/handoffs/2026-08-11-mahjong-soul-protocol-contracts-handoff.md`
+- Modify: `coach/docs/plans/2026-08-01-llm-riichi-coach-product-roadmap.md`
+- Create: `coach/docs/handoffs/2026-08-11-mahjong-soul-protocol-contracts-handoff.md`
 
 - [ ] **Step 1: Add emitted-package characterization assertions**
 
@@ -1273,7 +1273,7 @@ Record actual test counts and commit hashes, not planned values. Protect the
 user's unrelated dirty files.
 
 ```powershell
-git add -- smoke/package-import-smoke.mjs README.md ../docs/superpowers/plans/2026-08-01-llm-riichi-coach-product-roadmap.md ../docs/superpowers/handoffs/2026-08-11-mahjong-soul-protocol-contracts-handoff.md
+git add -- smoke/package-import-smoke.mjs README.md ../coach/docs/plans/2026-08-01-llm-riichi-coach-product-roadmap.md ../coach/docs/handoffs/2026-08-11-mahjong-soul-protocol-contracts-handoff.md
 git diff --cached --name-only
 git diff --cached --check
 git commit -m "docs: hand off Mahjong Soul protocol contracts"
@@ -1296,5 +1296,5 @@ git commit -m "docs: hand off Mahjong Soul protocol contracts"
 - All code-changing steps have a preceding RED and a focused GREEN command.
 - Every commit stages an explicit path list and checks the cached diff.
 - The protected existing changes in `.gitignore`,
-  `docs/superpowers/plans/2026-08-08-hand-structure-furiten.md`, and `overlay/**`
+  `coach/docs/plans/2026-08-08-hand-structure-furiten.md`, and `overlay/**`
   are never staged or modified.

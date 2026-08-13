@@ -105,7 +105,7 @@ M5-B 应只消费本交接中的公开特权包边界，不复制协议解析或
 以下均为用户或其他任务的既有改动，本阶段没有暂存或提交：
 
 - `.gitignore`；
-- `docs/superpowers/plans/2026-08-08-hand-structure-furiten.md`；
+- `coach/docs/plans/2026-08-08-hand-structure-furiten.md`；
 - `overlay/HANDOFF.md`；
 - 删除的 `overlay/cv重做.md`；
 - untracked `overlay/.ai-bridge/`、`overlay/bridge/`。

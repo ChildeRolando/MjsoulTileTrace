@@ -70,7 +70,7 @@
 ### Task 5: Verify automatically, then run the one-time human diagnostic
 
 **Files:**
-- Create after the run: `docs/superpowers/handoffs/2026-08-13-mahjong-soul-oauth2-restore-result.md`
+- Create after the run: `coach/docs/handoffs/2026-08-13-mahjong-soul-oauth2-restore-result.md`
 
 - [ ] Run focused tests, full `npm test`, typecheck, package-import and production audit.
 - [x] Run the Electron diagnostic. The user enters account/password/CAPTCHA only inside the official CN window if reauthentication is required.

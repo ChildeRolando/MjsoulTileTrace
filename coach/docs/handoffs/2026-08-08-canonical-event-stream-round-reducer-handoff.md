@@ -135,7 +135,7 @@ Windows x64 sidecar：
 
 以下为用户/其他任务改动，不属于本批次，禁止修改、暂存或提交：
 
-- `docs/superpowers/plans/2026-08-08-hand-structure-furiten.md`（modified）；
+- `coach/docs/plans/2026-08-08-hand-structure-furiten.md`（modified）；
 - `overlay/cv重做.md`（modified）；
 - `overlay/prompt.md`（untracked）。
 

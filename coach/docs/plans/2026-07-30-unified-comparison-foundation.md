@@ -14,7 +14,7 @@
 
 Implement only slice 1 from:
 
-- `docs/superpowers/specs/2026-07-30-unified-comparison-analysis-design.md`
+- `coach/docs/specs/2026-07-30-unified-comparison-analysis-design.md`
 
 In scope:
 

@@ -74,7 +74,7 @@ Mortal/MJAI 导入器；生产雀魂 URL 与完整事件映射仍属于 M5。
 
 ## 5. 后续产品开发
 
-M2-C V1 只覆盖确定性现物与结构启发式，不覆盖行为/等待启发式、染手/对对/役牌宝牌周边推断、手切序列推测，也不覆盖校准放铳概率。下一步直接进入 roadmap 的 M5 雀魂国区账号同步/完整记录映射，随后贯通首个 M6 引擎。M5 使用产品内 Electron 官方登录页、由本机加密持有令牌，并只显示近期可分析牌谱；详细边界见 `docs/superpowers/specs/2026-08-11-mahjong-soul-account-sync-design.md`。下一次计划中的用户节点仍是 H1：能用真实雀魂南风牌谱跑通后，核对主视角、局面、动作、候选和分数。
+M2-C V1 只覆盖确定性现物与结构启发式，不覆盖行为/等待启发式、染手/对对/役牌宝牌周边推断、手切序列推测，也不覆盖校准放铳概率。下一步直接进入 roadmap 的 M5 雀魂国区账号同步/完整记录映射，随后贯通首个 M6 引擎。M5 使用产品内 Electron 官方登录页、由本机加密持有令牌，并只显示近期可分析牌谱；详细边界见 `coach/docs/specs/2026-08-11-mahjong-soul-account-sync-design.md`。下一次计划中的用户节点仍是 H1：能用真实雀魂南风牌谱跑通后，核对主视角、局面、动作、候选和分数。
 
 继续开发时首先检查：
 
@@ -88,7 +88,7 @@ M2-C V1 只覆盖确定性现物与结构启发式，不覆盖行为/等待启�
 
 下列文件属于用户/其他任务，不得修改、暂存或提交：
 
-- `docs/superpowers/plans/2026-08-08-hand-structure-furiten.md`（modified）；
+- `coach/docs/plans/2026-08-08-hand-structure-furiten.md`（modified）；
 - `overlay/cv重做.md`（deleted）；
 - `overlay/**`（`.ai-bridge/`、`bridge/` 等 untracked）。
 

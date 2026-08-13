@@ -1,6 +1,6 @@
 # LLM 日麻教练完整开发路线图
 
-> **历史路线图：** 本文件保留最初的完整产品拆解与决策背景，其中状态、测试数量和部分缺口已过时。当前开发顺序与完成状态请以 [`docs/development/ROADMAP.md`](../../development/ROADMAP.md) 为准。
+> **历史路线图：** 本文件保留最初的完整产品拆解与决策背景，其中状态、测试数量和部分缺口已过时。当前开发顺序与完成状态请以 [`docs/development/ROADMAP.md`](../../docs/development/ROADMAP.md) 为准。
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
@@ -291,7 +291,7 @@ M5-E 登录→目录→下载→重放全链路人工验收。M5 整体仍未完
 8. 为每个主视角决策建立决策窗口与实战动作；
 9. 登录、下载或协议变化时明确失败，不用 LLM 猜数据。
 
-**完成判据：** 用户登录后能看到近期可分析牌谱；关闭并重开应用后会话可安全恢复；选中的真实牌谱可以离线重放到每个原子事件，并且主视角、局数、手牌、牌河、点数和实战动作与雀魂回放一致。详细边界见 `docs/superpowers/specs/2026-08-11-mahjong-soul-account-sync-design.md`。
+**完成判据：** 用户登录后能看到近期可分析牌谱；关闭并重开应用后会话可安全恢复；选中的真实牌谱可以离线重放到每个原子事件，并且主视角、局数、手牌、牌河、点数和实战动作与雀魂回放一致。详细边界见 `coach/docs/specs/2026-08-11-mahjong-soul-account-sync-design.md`。
 
 ### M6 ⬜ 双引擎生产接入
 
@@ -482,12 +482,12 @@ M8 首个完整界面出来后，确认牌桌视觉中心、热力显示、导�
 
 ## 11. 参考文档
 
-- 总产品规格：`docs/superpowers/specs/2026-07-30-mortal-llm-coach-design.md`
-- 证据约束推理：`docs/superpowers/specs/2026-07-30-evidence-grounded-coach-reasoning-design.md`
-- 统一比较架构：`docs/superpowers/specs/2026-07-30-unified-comparison-analysis-design.md`
-- 结构化动作规格：`docs/superpowers/specs/2026-07-30-structured-actions-candidate-normalizer-design.md`
-- Slice 2 交接：`docs/superpowers/handoffs/2026-08-01-structured-actions-candidate-normalizer-handoff.md`
-- Slice 3 交接：`docs/superpowers/handoffs/2026-08-08-structured-factor-pipeline-design-handoff.md`
-- canonical 重放交接：`docs/superpowers/handoffs/2026-08-08-canonical-event-stream-round-reducer-handoff.md`
+- 总产品规格：`coach/docs/specs/2026-07-30-mortal-llm-coach-design.md`
+- 证据约束推理：`coach/docs/specs/2026-07-30-evidence-grounded-coach-reasoning-design.md`
+- 统一比较架构：`coach/docs/specs/2026-07-30-unified-comparison-analysis-design.md`
+- 结构化动作规格：`coach/docs/specs/2026-07-30-structured-actions-candidate-normalizer-design.md`
+- Slice 2 交接：`coach/docs/handoffs/2026-08-01-structured-actions-candidate-normalizer-handoff.md`
+- Slice 3 交接：`coach/docs/handoffs/2026-08-08-structured-factor-pipeline-design-handoff.md`
+- canonical 重放交接：`coach/docs/handoffs/2026-08-08-canonical-event-stream-round-reducer-handoff.md`
 - 当前内核说明：`coach/README.md`
-- 遮罩独立规格：`docs/superpowers/specs/2026-07-30-mahjong-soul-discard-overlay-design.md`
+- 遮罩独立规格：`overlay/docs/specs/2026-07-30-mahjong-soul-discard-overlay-design.md`

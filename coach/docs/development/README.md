@@ -19,9 +19,9 @@
 ## 文档分层
 
 - 本目录：living docs，随当前实现更新。
-- `docs/superpowers/specs/`：批准的设计规格，解释某个切片要解决什么。
-- `docs/superpowers/plans/`：逐文件实施计划，是执行时的历史快照。
-- `docs/superpowers/handoffs/`：每次接力的事实记录、已知限制和验证结果。
+- `coach/docs/specs/`：批准的设计规格，解释某个切片要解决什么。
+- `coach/docs/plans/`：逐文件实施计划，是执行时的历史快照。
+- `coach/docs/handoffs/`：每次接力的事实记录、已知限制和验证结果。
 - `coach/README.md`：推理核心的详细能力清单与命令行原型说明；内容较长，部分里程碑描述可能落后于本目录。
 - `COMPLETION-AUDIT.md`：根目录静态课程的完成审计。
 

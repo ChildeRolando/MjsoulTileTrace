@@ -746,7 +746,7 @@ git commit -m "feat: project canonical replay facts"
 - Modify: `coach/packages/reasoning/tests/structured-factor-regression.test.ts`
 - Create: `coach/packages/reasoning/tests/canonical-replay-invariance.test.ts`
 - Modify: `coach/README.md`
-- Create: `docs/superpowers/handoffs/2026-08-08-canonical-event-stream-round-reducer-handoff.md`
+- Create: `coach/docs/handoffs/2026-08-08-canonical-event-stream-round-reducer-handoff.md`
 
 - [ ] **Step 1: Write failing transformation tests**
 
@@ -806,7 +806,7 @@ Use the `requesting-code-review` skill against the diff from the plan’s starti
 - [ ] **Step 6: Commit final docs and handoff**
 
 ```powershell
-git add -- coach/packages/reasoning/tests/structured-factor-regression.test.ts coach/packages/reasoning/tests/canonical-replay-invariance.test.ts coach/README.md docs/superpowers/handoffs/2026-08-08-canonical-event-stream-round-reducer-handoff.md
+git add -- coach/packages/reasoning/tests/structured-factor-regression.test.ts coach/packages/reasoning/tests/canonical-replay-invariance.test.ts coach/README.md coach/docs/handoffs/2026-08-08-canonical-event-stream-round-reducer-handoff.md
 git diff --cached --name-only
 git diff --cached --check
 git commit -m "docs: hand off canonical round replay"
