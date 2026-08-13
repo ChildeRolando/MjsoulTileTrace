@@ -11,7 +11,7 @@
   },
   "main": "./dist/electron-entry.js",
   "scripts": {
-    "build": "tsc -p tsconfig.build.json && node scripts/copy-renderer.mjs"
+    "build": "tsc -p tsconfig.build.json && node scripts/copy-renderer.mjs && node scripts/bundle-preload.mjs"
   },
   "dependencies": {
     "@riichi-coach/contracts": "0.1.0",

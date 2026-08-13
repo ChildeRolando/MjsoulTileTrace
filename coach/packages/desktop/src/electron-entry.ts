@@ -35,7 +35,7 @@ import { createRecoverableSessionFile } from "./recoverable-session-file.js";
 
 const PARTITION = "persist:riichi-coach-mahjong-soul-cn";
 const bundleRoot = fileURLToPath(new URL("../../../vendor/mahjong-soul-protocol/", import.meta.url));
-const preloadPath = fileURLToPath(new URL("./preload-entry.js", import.meta.url));
+const preloadPath = fileURLToPath(new URL("./preload.bundle.cjs", import.meta.url));
 const rendererUrl = pathToFileURL(
   fileURLToPath(new URL("./renderer/index.html", import.meta.url)),
 ).href;
