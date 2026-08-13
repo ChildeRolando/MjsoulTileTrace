@@ -39,9 +39,24 @@
 2. 生成真实分析结果后，才把按钮成功态从 `record_fetched` 升级为分析完成/报告页。
 3. 用一份脱敏真实牌谱做 golden 反证上面三个"待核实项"。
 
+## 追加：canonical 重放已接通
+
+在 mapper 之上又完成了"重放"层，证明映射后的牌谱可离线重放到可审计事实层（M5 的"冻结/重放/审计"判据）：
+
+- `reasoning/src/replay/stream-replayer.ts`：`replayCanonicalStream(stream)`，对每个可见的本人摸牌事件冻结 `DecisionSnapshotV2` 并投影 `KnownGameFacts`，同时捕获该巡的实际舍牌（`actualDiscard`）。
+- `desktop/src/electron-entry.ts`：取回后 map → replay，结果暂存主进程 `replayedRecords`；`@riichi-coach/reasoning` 已加入 desktop 依赖。
+
+**关键结论（避免后来者重踩）**：模型无关的"单候选比较"不可行——`StructuredComparisonSetSchema` 要求 `candidates.min(2)`，且 `automatic_review` 要求每候选含 `model` origin。因此结构化比较（候选间差异）**必须等 M6 模型候选**。M5 交付物是重放（决策快照 + 实际动作），不是比较。
+
+## 下一步
+
+1. M6 模型候选（Mortal/Akagi 生产接入）——解析适配器已在 M1/Slice 1 就绪，但生产下载/运行时需外部资源（Mortal Turnstile、Akagi 权重）。
+2. 拿到模型候选后，把 `replayedRecords` 的每个决策与模型候选拼成 `StructuredComparisonSet`，接入 `runStructuredAnalysisAssembly`。
+3. M5 H1 真人验收：用户登录→选真实牌谱→对照雀魂回放核对重放。
+
 ## 验收
 
-- 全量 vitest：101 文件 / 1043 测试通过（本交接前 codex 为 99/1022，本轮 +2 文件 +21 测试）；
+- 全量 vitest：102 文件 / 1045 测试通过（本轮 mapper + 重放共新增测试）；
 - typecheck、package-import、audit（0 漏洞）、Go、根目录测试均通过。
 
 ## 工作区保护
