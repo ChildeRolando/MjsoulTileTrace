@@ -7,7 +7,7 @@ import type {
 import {
   analyzeDiscards,
   parseCompactHand,
-} from "../../../../../lib/mahjong.mjs";
+} from "../../../../../course/lib/mahjong.mjs";
 
 type LegacyDiscard = {
   discard: TileId;
