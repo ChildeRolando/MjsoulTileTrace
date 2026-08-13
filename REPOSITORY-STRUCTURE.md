@@ -2,7 +2,16 @@
 
 日期：2026-08-14
 
-状态：等待实施计划
+状态：已实施
+
+## 实施记录
+
+按 [REPOSITORY-MIGRATION-PLAN.md](REPOSITORY-MIGRATION-PLAN.md) 分阶段迁移，各阶段提交：
+
+- `2f54cfd` chore: move the course into its project directory
+- `63530c8` fix: retarget the reasoning analyzer to the course engine
+- `669d3c6` docs: move coach documentation into the coach project
+- `68381d6` docs: consolidate overlay documentation
 
 ## 目标
 
