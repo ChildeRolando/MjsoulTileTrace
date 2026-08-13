@@ -50,7 +50,7 @@ function boundedString(value: unknown, maximum: number): value is string {
   return typeof value === "string" && value.length <= maximum;
 }
 
-function snapshotRecoveryContext(
+export function snapshotMahjongSoulRecoveryContext(
   value: unknown,
 ): MahjongSoulOAuth2RecoveryContext {
   if (!isRecord(value)) throw unsupported();
@@ -204,7 +204,7 @@ function projectCredential(
     accountId,
     displayName,
     accessToken: SecretString.from(accessToken),
-    recoveryContext: snapshotRecoveryContext(recoveryContext),
+    recoveryContext: snapshotMahjongSoulRecoveryContext(recoveryContext),
   });
 }
 

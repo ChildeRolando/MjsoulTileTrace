@@ -6,7 +6,7 @@ import { describe, expect, it } from "vitest";
 import {
   SecretString,
   createMahjongSoulSessionVault,
-  type CapturedMahjongSoulCredential,
+  type CapturedMahjongSoulRestoreCandidate,
   type MahjongSoulLoginProviderResult,
   type SessionKeyProtector,
 } from "@riichi-coach/mahjong-soul-source";
@@ -14,13 +14,19 @@ import { createMahjongSoulSessionService } from "../src/mahjong-soul-session-ser
 import { createRecoverableSessionFile } from "../src/recoverable-session-file.js";
 
 const TOKEN = "restart-fixture-token-never-real";
-const credential: CapturedMahjongSoulCredential = Object.freeze({
+const credential: CapturedMahjongSoulRestoreCandidate = Object.freeze({
   region: "cn",
   loginMethod: "login",
   authType: 0,
   accountId: 123_456_789,
   displayName: "重启测试",
   accessToken: SecretString.from(TOKEN),
+  recoveryContext: Object.freeze({
+    device: Object.freeze({ platform: "pc", hardware: "pc", os: "windows", osVersion: "10", isBrowser: true, software: "Chrome", salePlatform: "web", hardwareVendor: "fixture", modelNumber: "fixture", screenWidth: 1, screenHeight: 1, userAgent: "fixture", screenType: 0 }),
+    clientVersion: Object.freeze({ resource: "0.11.252.w", package: "" }),
+    currencyPlatforms: Object.freeze([2]), version: 1,
+    clientVersionString: "web-0.11.252.w", tag: "chs_t",
+  }),
 });
 
 const protector: SessionKeyProtector = Object.freeze({

@@ -6,12 +6,25 @@ import {
   createMahjongSoulSessionVault,
   MahjongSoulSourceError,
   SecretString,
-  type CapturedMahjongSoulCredential,
+  type CapturedMahjongSoulRestoreCandidate,
   type SessionKeyProtector,
   type SessionVaultStore,
 } from "../src/index.js";
 
 const TOKEN = "fake-session-token-never-log";
+const RECOVERY = Object.freeze({
+  device: Object.freeze({
+    platform: "pc", hardware: "pc", os: "windows", osVersion: "10",
+    isBrowser: true, software: "Chrome", salePlatform: "web",
+    hardwareVendor: "fixture", modelNumber: "fixture", screenWidth: 1,
+    screenHeight: 1, userAgent: "fixture", screenType: 0,
+  }),
+  clientVersion: Object.freeze({ resource: "0.11.252.w", package: "" }),
+  currencyPlatforms: Object.freeze([2]),
+  version: 1,
+  clientVersionString: "web-0.11.252.w",
+  tag: "chs_t",
+});
 
 class MemoryStore implements SessionVaultStore {
   value: string | null = null;
@@ -45,7 +58,7 @@ function protector(): SessionKeyProtector {
   };
 }
 
-function credential(token = TOKEN): CapturedMahjongSoulCredential {
+function credential(token = TOKEN): CapturedMahjongSoulRestoreCandidate {
   return Object.freeze({
     region: "cn",
     loginMethod: "oauth2Login",
@@ -53,6 +66,7 @@ function credential(token = TOKEN): CapturedMahjongSoulCredential {
     accountId: 123_456,
     displayName: "测试用户",
     accessToken: SecretString.from(token),
+    recoveryContext: RECOVERY,
   });
 }
 
@@ -75,7 +89,7 @@ function rewriteAuthenticatedPayload(
   const key = Buffer.from(envelope.wrappedKey!.slice("wrapped:".length), "base64");
   const nonce = Buffer.from(envelope.nonce!, "base64");
   const decipher = createDecipheriv("aes-256-gcm", key, nonce);
-  decipher.setAAD(Buffer.from("mahjong-soul-session-vault/v1", "utf8"));
+  decipher.setAAD(Buffer.from(envelope.version!, "utf8"));
   decipher.setAuthTag(Buffer.from(envelope.authenticationTag!, "base64"));
   const plaintext = Buffer.concat([
     decipher.update(Buffer.from(envelope.ciphertext!, "base64")),
@@ -84,7 +98,7 @@ function rewriteAuthenticatedPayload(
   const payload = JSON.parse(plaintext.toString("utf8")) as Record<string, unknown>;
   mutate(payload);
   const cipher = createCipheriv("aes-256-gcm", key, nonce);
-  cipher.setAAD(Buffer.from("mahjong-soul-session-vault/v1", "utf8"));
+  cipher.setAAD(Buffer.from(envelope.version!, "utf8"));
   const ciphertext = Buffer.concat([
     cipher.update(Buffer.from(JSON.stringify(payload), "utf8")),
     cipher.final(),
@@ -115,6 +129,7 @@ describe("Mahjong Soul encrypted session vault", () => {
       lastValidatedAt: 1_786_377_600_000,
     });
     expect(restored?.accessToken.reveal()).toBe(TOKEN);
+    expect(restored?.recoveryContext).toEqual(RECOVERY);
     expect(Object.isFrozen(restored)).toBe(true);
     expect(store.value).not.toContain(TOKEN);
     expect(JSON.stringify(restored)).not.toContain(TOKEN);
@@ -131,7 +146,7 @@ describe("Mahjong Soul encrypted session vault", () => {
 
     expect(second).not.toBe(first);
     expect(JSON.parse(second ?? "null")).toEqual(expect.objectContaining({
-      version: "mahjong-soul-session-vault/v1",
+      version: "mahjong-soul-session-vault/v2",
       wrappedKey: expect.any(String),
       nonce: expect.any(String),
       ciphertext: expect.any(String),

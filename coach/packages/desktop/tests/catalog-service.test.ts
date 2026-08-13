@@ -43,6 +43,11 @@ const storedSession: StoredMahjongSoulSession = {
   accountId: 103,
   displayName: "C",
   accessToken: SecretString.from("fake-access-token"),
+  recoveryContext: {
+    device: { platform: "pc", hardware: "pc", os: "windows", osVersion: "10", isBrowser: true, software: "Chrome", salePlatform: "web", hardwareVendor: "fixture", modelNumber: "fixture", screenWidth: 1, screenHeight: 1, userAgent: "fixture", screenType: 0 },
+    clientVersion: { resource: "0.11.252.w", package: "" }, currencyPlatforms: [2],
+    version: 1, clientVersionString: "web-0.11.252.w", tag: "chs_t",
+  },
   adapterVersion: MAHJONG_SOUL_PROTOCOL_ADAPTER_VERSION,
   clientVersion: MAHJONG_SOUL_CN_CLIENT_VERSION,
   createdAt: 1,

@@ -1,7 +1,10 @@
 import type { MahjongSoulSessionStatus } from "@riichi-coach/contracts";
 
 import { MahjongSoulSourceError } from "./errors.js";
-import type { CapturedMahjongSoulCredential } from "./login-result.js";
+import {
+  snapshotMahjongSoulRecoveryContext,
+  type CapturedMahjongSoulRestoreCandidate,
+} from "./login-result.js";
 import { SecretString } from "./secret-string.js";
 import type {
   MahjongSoulSessionVault,
@@ -16,7 +19,7 @@ const PROTOCOL_ERROR = "mahjong_soul_login_protocol_unsupported" as const;
 const STORAGE_ERROR = "mahjong_soul_session_storage_unavailable" as const;
 
 export type MahjongSoulLoginProviderResult = Readonly<
-  | { status: "authenticated"; credential: CapturedMahjongSoulCredential }
+  | { status: "authenticated"; credential: CapturedMahjongSoulRestoreCandidate }
   | { status: "rejected" }
   | { status: "unverified" }
   | { status: "cancelled" }
@@ -82,7 +85,7 @@ function offline(session: StoredMahjongSoulSession): MahjongSoulSessionStatus {
   });
 }
 
-function snapshotCredential(value: unknown): CapturedMahjongSoulCredential {
+function snapshotCredential(value: unknown): CapturedMahjongSoulRestoreCandidate {
   if (!isRecord(value)) throw protocolFailure();
   const region = value.region;
   const loginMethod = value.loginMethod;
@@ -90,6 +93,7 @@ function snapshotCredential(value: unknown): CapturedMahjongSoulCredential {
   const accountId = value.accountId;
   const displayName = value.displayName;
   const accessToken = value.accessToken;
+  const recoveryContext = snapshotMahjongSoulRecoveryContext(value.recoveryContext);
   if (
     region !== "cn"
     || (loginMethod !== "login" && loginMethod !== "oauth2Login")
@@ -115,6 +119,7 @@ function snapshotCredential(value: unknown): CapturedMahjongSoulCredential {
     accountId,
     displayName,
     accessToken,
+    recoveryContext,
   });
 }
 
@@ -165,6 +170,7 @@ function snapshotStored(value: StoredMahjongSoulSession): StoredMahjongSoulSessi
   }
   return Object.freeze({
     ...captured,
+    recoveryContext: snapshotMahjongSoulRecoveryContext(value.recoveryContext),
     adapterVersion,
     clientVersion,
     createdAt,

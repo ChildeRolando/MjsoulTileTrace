@@ -5,18 +5,31 @@ import {
   MAHJONG_SOUL_PROTOCOL_ADAPTER_VERSION,
   SecretString,
   createMahjongSoulSessionController,
-  type CapturedMahjongSoulCredential,
+  type CapturedMahjongSoulRestoreCandidate,
   type MahjongSoulSessionVault,
   type StoredMahjongSoulSession,
 } from "../src/index.js";
 
-const credential = (overrides: Partial<CapturedMahjongSoulCredential> = {}) => Object.freeze({
+const recoveryContext = Object.freeze({
+  device: Object.freeze({
+    platform: "pc", hardware: "pc", os: "windows", osVersion: "10",
+    isBrowser: true, software: "Chrome", salePlatform: "web",
+    hardwareVendor: "fixture", modelNumber: "fixture", screenWidth: 1,
+    screenHeight: 1, userAgent: "fixture", screenType: 0,
+  }),
+  clientVersion: Object.freeze({ resource: "0.11.252.w", package: "" }),
+  currencyPlatforms: Object.freeze([2]), version: 1,
+  clientVersionString: "web-0.11.252.w", tag: "chs_t",
+});
+
+const credential = (overrides: Partial<CapturedMahjongSoulRestoreCandidate> = {}) => Object.freeze({
   region: "cn" as const,
   loginMethod: "login" as const,
   authType: 0,
   accountId: 123,
   displayName: "测试用户",
   accessToken: SecretString.from("fixture-token"),
+  recoveryContext,
   ...overrides,
 });
 
@@ -34,7 +47,7 @@ class FakeVault implements MahjongSoulSessionVault {
   readonly operations: string[] = [];
   failSave = false;
   constructor(value: StoredMahjongSoulSession | null = null) { this.value = value; }
-  async save(value: CapturedMahjongSoulCredential): Promise<void> {
+  async save(value: CapturedMahjongSoulRestoreCandidate): Promise<void> {
     this.operations.push("save");
     if (this.failSave) throw new Error("hostile token prose");
     this.value = stored({
@@ -56,7 +69,7 @@ class FakeVault implements MahjongSoulSessionVault {
 }
 
 type LoginResult =
-  | { readonly status: "authenticated"; readonly credential: CapturedMahjongSoulCredential }
+  | { readonly status: "authenticated"; readonly credential: CapturedMahjongSoulRestoreCandidate }
   | { readonly status: "rejected" | "unverified" | "cancelled" };
 
 class FakeLoginProvider {

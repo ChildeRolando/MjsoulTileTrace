@@ -5,14 +5,18 @@ import {
 } from "node:crypto";
 
 import { MahjongSoulSourceError } from "./errors.js";
-import type { CapturedMahjongSoulCredential } from "./login-result.js";
+import {
+  snapshotMahjongSoulRecoveryContext,
+  type CapturedMahjongSoulRestoreCandidate,
+} from "./login-result.js";
+import type { MahjongSoulOAuth2RecoveryContext } from "./liqi-codec.js";
 import {
   MAHJONG_SOUL_CN_CLIENT_VERSION,
   MAHJONG_SOUL_PROTOCOL_ADAPTER_VERSION,
 } from "./protocol-manifest.js";
 import { SecretString } from "./secret-string.js";
 
-const VAULT_VERSION = "mahjong-soul-session-vault/v1" as const;
+const VAULT_VERSION = "mahjong-soul-session-vault/v2" as const;
 const SESSION_INVALID = "mahjong_soul_session_invalid" as const;
 const STORAGE_UNAVAILABLE = "mahjong_soul_session_storage_unavailable" as const;
 const ENVELOPE_KEYS = Object.freeze([
@@ -29,6 +33,7 @@ const PAYLOAD_KEYS = Object.freeze([
   "accountId",
   "displayName",
   "accessToken",
+  "recoveryContext",
   "adapterVersion",
   "clientVersion",
   "createdAt",
@@ -46,7 +51,7 @@ export interface SessionVaultStore {
   clear(): Promise<void>;
 }
 
-export interface StoredMahjongSoulSession extends CapturedMahjongSoulCredential {
+export interface StoredMahjongSoulSession extends CapturedMahjongSoulRestoreCandidate {
   readonly adapterVersion: typeof MAHJONG_SOUL_PROTOCOL_ADAPTER_VERSION;
   readonly clientVersion: typeof MAHJONG_SOUL_CN_CLIENT_VERSION;
   readonly createdAt: number;
@@ -54,7 +59,7 @@ export interface StoredMahjongSoulSession extends CapturedMahjongSoulCredential 
 }
 
 export interface MahjongSoulSessionVault {
-  save(credential: CapturedMahjongSoulCredential): Promise<void>;
+  save(credential: CapturedMahjongSoulRestoreCandidate): Promise<void>;
   restore(): Promise<StoredMahjongSoulSession | null>;
   markValidated(at: number): Promise<void>;
   clear(): Promise<void>;
@@ -75,6 +80,7 @@ interface PlainSessionPayload {
   readonly accountId: number;
   readonly displayName: string;
   readonly accessToken: string;
+  readonly recoveryContext: MahjongSoulOAuth2RecoveryContext;
   readonly adapterVersion: typeof MAHJONG_SOUL_PROTOCOL_ADAPTER_VERSION;
   readonly clientVersion: typeof MAHJONG_SOUL_CN_CLIENT_VERSION;
   readonly createdAt: number;
@@ -182,6 +188,7 @@ function parsePayload(value: Buffer): PlainSessionPayload {
   const accountId = parsed.accountId;
   const displayName = parsed.displayName;
   const accessToken = parsed.accessToken;
+  const recoveryContext = snapshotMahjongSoulRecoveryContext(parsed.recoveryContext);
   const adapterVersion = parsed.adapterVersion;
   const clientVersion = parsed.clientVersion;
   const createdAt = parsed.createdAt;
@@ -212,6 +219,7 @@ function parsePayload(value: Buffer): PlainSessionPayload {
     accountId,
     displayName,
     accessToken,
+    recoveryContext,
     adapterVersion,
     clientVersion,
     createdAt,
@@ -220,7 +228,7 @@ function parsePayload(value: Buffer): PlainSessionPayload {
 }
 
 function snapshotCredential(
-  value: CapturedMahjongSoulCredential,
+  value: CapturedMahjongSoulRestoreCandidate,
 ): Omit<PlainSessionPayload, "adapterVersion" | "clientVersion" | "createdAt" | "lastValidatedAt"> {
   if (!isRecord(value)) throw invalid();
   const region = value.region;
@@ -229,6 +237,7 @@ function snapshotCredential(
   const accountId = value.accountId;
   const displayName = value.displayName;
   const accessToken = value.accessToken;
+  const recoveryContext = snapshotMahjongSoulRecoveryContext(value.recoveryContext);
   if (
     region !== "cn"
     || (loginMethod !== "login" && loginMethod !== "oauth2Login")
@@ -248,6 +257,7 @@ function snapshotCredential(
     accountId,
     displayName,
     accessToken: accessToken.reveal(),
+    recoveryContext,
   };
 }
 
@@ -259,6 +269,7 @@ function toStoredSession(payload: PlainSessionPayload): StoredMahjongSoulSession
     accountId: payload.accountId,
     displayName: payload.displayName,
     accessToken: SecretString.from(payload.accessToken),
+    recoveryContext: snapshotMahjongSoulRecoveryContext(payload.recoveryContext),
     adapterVersion: payload.adapterVersion,
     clientVersion: payload.clientVersion,
     createdAt: payload.createdAt,
@@ -374,7 +385,7 @@ export function createMahjongSoulSessionVault(input: {
   }
 
   return Object.freeze({
-    async save(credential: CapturedMahjongSoulCredential) {
+    async save(credential: CapturedMahjongSoulRestoreCandidate) {
       const captured = snapshotCredential(credential);
       let timestamp: number;
       try {
@@ -403,6 +414,7 @@ export function createMahjongSoulSessionVault(input: {
         accountId: existing.accountId,
         displayName: existing.displayName,
         accessToken: existing.accessToken.reveal(),
+        recoveryContext: existing.recoveryContext,
         adapterVersion: existing.adapterVersion,
         clientVersion: existing.clientVersion,
         createdAt: existing.createdAt,
