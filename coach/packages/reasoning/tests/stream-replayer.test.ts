@@ -18,6 +18,12 @@ describe("canonical stream replayer", () => {
     expect(decision.facts.factSetId).toBeTruthy();
     expect(decision.facts.currentDraw?.tile.id).toBe("5p");
     expect(decision.facts.concealedTiles).toHaveLength(13);
+    expect(decision.actualDiscard).toMatchObject({
+      type: "tile_discarded",
+      actor: 0,
+      tile: { id: "5p", red: false },
+      discardMode: "tsumogiri",
+    });
   });
 
   it("skips non-self draws and hidden draws", () => {
