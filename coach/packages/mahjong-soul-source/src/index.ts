@@ -87,3 +87,7 @@ export {
   authenticateStoredMahjongSoulSession,
   createMahjongSoulOAuth2SessionRestorer,
 } from "./session-restorer.js";
+export {
+  fetchMahjongSoulRecord,
+  type MahjongSoulFetchedRecord,
+} from "./record-fetcher.js";
