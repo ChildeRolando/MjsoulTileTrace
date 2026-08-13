@@ -91,3 +91,12 @@ export {
   fetchMahjongSoulRecord,
   type MahjongSoulFetchedRecord,
 } from "./record-fetcher.js";
+export {
+  mapMahjongSoulRecord,
+  type MahjongSoulCanonicalMapperResult,
+  type MahjongSoulMapperDiagnostic,
+} from "./canonical-mapper.js";
+export {
+  parseMajsoulRoundWind,
+  parseMajsoulTile,
+} from "./majsoul-tile.js";
