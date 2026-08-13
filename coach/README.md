@@ -1,5 +1,8 @@
 # Riichi Coach strict reasoning core
 
+> 当前面向开发人员的统一入口见
+> [`docs/development/README.md`](../docs/development/README.md)。本文件保留推理核心的详细能力清单和原型说明；路线图、架构、开发流程与验收门禁以统一开发文档为准。
+
 This workspace currently contains the evidence-grounded reasoning milestone for
 the local LLM riichi coach.
 

@@ -1,5 +1,7 @@
 # LLM 日麻教练完整开发路线图
 
+> **历史路线图：** 本文件保留最初的完整产品拆解与决策背景，其中状态、测试数量和部分缺口已过时。当前开发顺序与完成状态请以 [`docs/development/ROADMAP.md`](../../development/ROADMAP.md) 为准。
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** 交付一个本机运行的类 Agent 应用：用户完成一次 LLM 设置并通过产品内的雀魂国区官方页面登录后，从近期可分析牌谱中选择四人南风对局，选择 Mortal 4.1b 或 Akagi Native，得到可回放、可审计、可追问并可恢复的整盘教练会话。
