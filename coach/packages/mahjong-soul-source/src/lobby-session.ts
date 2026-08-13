@@ -19,6 +19,7 @@ export interface LobbyTransport {
 }
 
 export type LobbyDirectCallMethod =
+  | ".lq.Lobby.oauth2Check"
   | ".lq.Lobby.oauth2Login"
   | ".lq.Lobby.fetchInfo"
   | ".lq.Lobby.fetchGameRecordListV2"
@@ -27,6 +28,7 @@ export type LobbyDirectCallMethod =
   | ".lq.Lobby.loginBeat";
 
 const LOBBY_DIRECT_CALL_METHODS: readonly LobbyDirectCallMethod[] = Object.freeze([
+  ".lq.Lobby.oauth2Check",
   ".lq.Lobby.oauth2Login",
   ".lq.Lobby.fetchInfo",
   ".lq.Lobby.fetchGameRecordListV2",

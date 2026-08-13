@@ -13,6 +13,11 @@ export {
   type CapturedMahjongSoulRestoreCandidate,
 } from "./login-result.js";
 export {
+  diagnoseMahjongSoulIndependentRestore,
+  type MahjongSoulRestoreDiagnosticResult,
+  type MahjongSoulRestoreDiagnosticStatus,
+} from "./restore-diagnostic.js";
+export {
   createMahjongSoulLoginCapture,
   type LoginCaptureResult,
   type MahjongSoulLoginCapture,
