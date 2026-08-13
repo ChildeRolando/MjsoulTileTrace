@@ -20,6 +20,10 @@ import {
   mapMahjongSoulRecord,
 } from "@riichi-coach/mahjong-soul-source";
 import type { CanonicalEventStream } from "@riichi-coach/contracts";
+import {
+  replayCanonicalStream,
+  type ReplayedDecision,
+} from "@riichi-coach/reasoning";
 import { createMahjongSoulCatalogService } from "./catalog-service.js";
 import { createElectronSessionKeyProtector, type SafeStoragePort } from "./electron-safe-storage.js";
 import {
@@ -140,6 +144,7 @@ async function start(): Promise<void> {
     clock: Date.now,
   });
   const mappedRecords = new Map<string, CanonicalEventStream>();
+  const replayedRecords = new Map<string, ReplayedDecision[]>();
   const recordIngestionService = createMahjongSoulRecordIngestionService({
     vault,
     catalogStore,
@@ -166,6 +171,7 @@ async function start(): Promise<void> {
         throw new MahjongSoulSourceError("mahjong_soul_canonical_validation_failed");
       }
       mappedRecords.set(recordId, mapped.stream);
+      replayedRecords.set(recordId, replayCanonicalStream(mapped.stream));
       return fetched;
     },
   });
