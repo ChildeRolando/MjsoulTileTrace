@@ -28,7 +28,8 @@ unexpected visible layer.
 Latest command:
 
 ```powershell
-.\.tools\dotnet\dotnet.exe test overlay/MahjongSoulOverlay.sln -c Release
+cd overlay
+& ..\.tools\dotnet\dotnet.exe test .\MahjongSoulOverlay.sln -c Release
 ```
 
 ## Real evidence
@@ -42,7 +43,7 @@ Private screenshots (not committed) cover:
 - Bottom's transient hand/arm discard animation.
 
 Their source and padded-copy SHA-256 hashes are recorded in
-`CALIBRATION.md`.
+`docs/CALIBRATION.md`.
 
 The private full recording `E:\视频\雀魂测试1.mp4` is 1920×1080, 30 FPS,
 3346 frames, and approximately 111.5 seconds. Deterministic replay and

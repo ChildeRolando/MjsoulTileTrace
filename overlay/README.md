@@ -26,7 +26,8 @@ alternate geometry are rejected rather than guessed.
 Install the .NET 8 Desktop Runtime, then launch:
 
 ```powershell
-overlay/artifacts/win-x64/MahjongSoulOverlay.Windows.exe
+cd overlay
+artifacts/win-x64/MahjongSoulOverlay.Windows.exe
 ```
 
 The program lives in the notification area. Its menu provides status,
@@ -42,23 +43,24 @@ operator explicitly enables it.
 ## Build
 
 ```powershell
-.\.tools\dotnet\dotnet.exe test overlay/MahjongSoulOverlay.sln -c Release
+cd overlay
+& ..\.tools\dotnet\dotnet.exe test .\MahjongSoulOverlay.sln -c Release
 
-.\.tools\dotnet\dotnet.exe publish `
-  overlay/src/MahjongSoulOverlay.Windows `
+& ..\.tools\dotnet\dotnet.exe publish `
+  .\src\MahjongSoulOverlay.Windows `
   -c Release -r win-x64 --self-contained false `
   -p:PublishSingleFile=true `
-  -o overlay/artifacts/win-x64
+  -o .\artifacts\win-x64
 ```
 
 The deterministic replay/audit tool is published separately:
 
 ```powershell
-.\.tools\dotnet\dotnet.exe publish `
-  overlay/src/MahjongSoulOverlay.Replay `
+& ..\.tools\dotnet\dotnet.exe publish `
+  .\src\MahjongSoulOverlay.Replay `
   -c Release -r win-x64 --self-contained false `
   -p:PublishSingleFile=true `
-  -o overlay/artifacts/replay-win-x64
+  -o .\artifacts\replay-win-x64
 ```
 
 Replay output paths must not already exist. This prevents any input, profile,
@@ -89,6 +91,14 @@ for another player's called discard, cross-seat river-removal evidence.
 - Never submit private diagnostic recordings to Git; recording and artifact
   directories are ignored.
 
-Calibration provenance is documented in [CALIBRATION.md](CALIBRATION.md).
+Calibration provenance is documented in [docs/CALIBRATION.md](docs/CALIBRATION.md).
 Release evidence and known limits are documented in
-[ACCEPTANCE.md](ACCEPTANCE.md).
+[docs/ACCEPTANCE.md](docs/ACCEPTANCE.md).
+
+## 文档
+
+- [验收状态](docs/ACCEPTANCE.md)
+- [校准说明](docs/CALIBRATION.md)
+- [当前交接](docs/handoffs/HANDOFF.md)
+- [设计规格](docs/specs/2026-07-30-mahjong-soul-discard-overlay-design.md)
+- [实施计划](docs/plans/2026-07-30-mahjong-soul-discard-overlay.md)

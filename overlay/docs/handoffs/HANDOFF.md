@@ -51,7 +51,7 @@ cross-seat river-removal evidence.
 - `0247c8f feat: replay and audit recognition sessions`
 
 Earlier detector/capture/overlay commits and calibration provenance are listed
-in Git history and `CALIBRATION.md`.
+in Git history and `docs/CALIBRATION.md`.
 
 ## Current verification
 
@@ -67,7 +67,7 @@ in Git history and `CALIBRATION.md`.
 ## Private evidence
 
 Private stills are under ignored `fixtures/private-stills/`; original and
-1920×1080 padded hashes are recorded in `CALIBRATION.md`.
+1920×1080 padded hashes are recorded in `docs/CALIBRATION.md`.
 
 User-provided continuous recording:
 
@@ -98,44 +98,45 @@ Progress check:
 
 ```powershell
 Get-Process -Id 43140 -ErrorAction SilentlyContinue
-Get-ChildItem overlay/artifacts/replay -Filter '雀魂测试1.v2*' -Force
+Get-ChildItem artifacts/replay -Filter '雀魂测试1.v2*' -Force
 ```
 
 ## Resume commands
 
 ```powershell
-.\.tools\dotnet\dotnet.exe test overlay/MahjongSoulOverlay.sln -c Release
+cd overlay
+& ..\.tools\dotnet\dotnet.exe test .\MahjongSoulOverlay.sln -c Release
 
-.\.tools\dotnet\dotnet.exe publish `
-  overlay/src/MahjongSoulOverlay.Windows `
+& ..\.tools\dotnet\dotnet.exe publish `
+  .\src\MahjongSoulOverlay.Windows `
   -c Release -r win-x64 --self-contained false `
   -p:PublishSingleFile=true `
-  -o overlay/artifacts/win-x64
+  -o .\artifacts\win-x64
 
-.\.tools\dotnet\dotnet.exe publish `
-  overlay/src/MahjongSoulOverlay.Replay `
+& ..\.tools\dotnet\dotnet.exe publish `
+  .\src\MahjongSoulOverlay.Replay `
   -c Release -r win-x64 --self-contained false `
   -p:PublishSingleFile=true `
-  -o overlay/artifacts/replay-win-x64
+  -o .\artifacts\replay-win-x64
 ```
 
 Replay (output path must not already exist):
 
 ```powershell
-overlay/artifacts/replay-win-x64/MahjongSoulOverlay.Replay.exe `
+artifacts/replay-win-x64/MahjongSoulOverlay.Replay.exe `
   --input 'E:\视频\雀魂测试1.mp4' `
-  --profile overlay/src/MahjongSoulOverlay.Vision/Profiles/yonma-1920x1080.standard.json `
-  --events overlay/artifacts/replay/雀魂测试1.events.jsonl `
-  --annotated overlay/artifacts/replay/雀魂测试1.annotated.mp4
+  --profile src/MahjongSoulOverlay.Vision/Profiles/yonma-1920x1080.standard.json `
+  --events artifacts/replay/雀魂测试1.events.jsonl `
+  --annotated artifacts/replay/雀魂测试1.annotated.mp4
 ```
 
 Acceptance comparison:
 
 ```powershell
-overlay/artifacts/replay-win-x64/MahjongSoulOverlay.Replay.exe `
-  --compare-events overlay/artifacts/replay/雀魂测试1.events.jsonl `
-  --labels overlay/fixtures/recordings/雀魂测试1.labels.json `
-  --report overlay/artifacts/replay/雀魂测试1.acceptance.json
+artifacts/replay-win-x64/MahjongSoulOverlay.Replay.exe `
+  --compare-events artifacts/replay/雀魂测试1.events.jsonl `
+  --labels fixtures/recordings/雀魂测试1.labels.json `
+  --report artifacts/replay/雀魂测试1.acceptance.json
 ```
 
 ## Frame throttle (2026-07-31)
@@ -301,7 +302,7 @@ Per expert review, the original detection model had two fundamental flaws:
 6. Investigate Left-seat low confidence (may be a region-alignment issue in
    the profile).
 7. Resolve Task 15 acceptance comparer review findings.
-8. Update `ACCEPTANCE.md` pending metrics with measured results.
+8. Update `docs/ACCEPTANCE.md` pending metrics with measured results.
 9. Publish final Windows and replay builds.
 10. Run final independent review and full Release suite.
 11. Update this handoff to the final commit/test/artifact state.

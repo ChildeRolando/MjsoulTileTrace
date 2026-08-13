@@ -23,11 +23,12 @@ Required files:
 Run a recording with:
 
 ```powershell
-MahjongSoulOverlay.Replay.exe `
-  --input overlay/fixtures/recordings/normal-discard.mp4 `
-  --profile overlay/src/MahjongSoulOverlay.Vision/Profiles/yonma-1920x1080.standard.json `
-  --events overlay/artifacts/replay/normal-discard.events.jsonl `
-  --annotated overlay/artifacts/replay/normal-discard.annotated.mp4
+cd overlay
+artifacts/replay-win-x64/MahjongSoulOverlay.Replay.exe `
+  --input fixtures/recordings/normal-discard.mp4 `
+  --profile src/MahjongSoulOverlay.Vision/Profiles/yonma-1920x1080.standard.json `
+  --events artifacts/replay/normal-discard.events.jsonl `
+  --annotated artifacts/replay/normal-discard.annotated.mp4
 ```
 
 The JSONL audit is authoritative. Annotated video is optional and never
