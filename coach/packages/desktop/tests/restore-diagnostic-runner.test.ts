@@ -90,7 +90,7 @@ describe("diagnostic-only Electron orchestration", () => {
   test.each([
     ["rejected", "login_rejected"],
     ["cancelled", "login_cancelled"],
-    ["unverified", "inconclusive"],
+    ["unverified", "login_capture_unverified"],
   ] as const)("maps %s capture to fixed %s without opening lobby", async (captureStatus, status) => {
     let created = false;
     const result = await runMahjongSoulRestoreDiagnostic({
@@ -105,7 +105,7 @@ describe("diagnostic-only Electron orchestration", () => {
     expect(created).toBe(false);
   });
 
-  test("maps hostile provider failures to a fixed inconclusive result", async () => {
+  test("maps hostile provider failures to a fixed capture failure", async () => {
     const hostile = "hostile-provider-prose";
     const result = await runMahjongSoulRestoreDiagnostic({
       loginProvider: {
@@ -115,7 +115,7 @@ describe("diagnostic-only Electron orchestration", () => {
       createSession: async () => lobby(),
       now: () => 10_000,
     });
-    expect(result).toEqual({ status: "inconclusive" });
+    expect(result).toEqual({ status: "login_capture_failed" });
     expect(JSON.stringify(result)).not.toContain(hostile);
   });
 });

@@ -167,9 +167,31 @@ describe("Mahjong Soul independent restore diagnostic", () => {
       createSession: async () => fake.value,
       now: () => 10_000_000,
     });
-    expect(result).toEqual({ status: "inconclusive" });
+    expect(result).toEqual({ status: "oauth2_login_transport_failed" });
     expect(fake.closeCount()).toBe(1);
     expectSafe(result);
+  });
+
+  test("distinguishes session creation and each transport stage without prose", async () => {
+    const creation = await diagnoseMahjongSoulIndependentRestore({
+      credential: candidate(),
+      createSession: async () => { throw new Error("hostile creation prose"); },
+      now: () => 10_000_000,
+    });
+    expect(creation).toEqual({ status: "session_open_failed" });
+
+    for (const [throwAt, status] of [
+      [1, "oauth2_check_transport_failed"],
+      [3, "fetch_info_transport_failed"],
+      [4, "catalog_probe_transport_failed"],
+    ] as const) {
+      const fake = session({ throwAt });
+      const value = await diagnoseMahjongSoulIndependentRestore({
+        credential: candidate(), createSession: async () => fake.value, now: () => 10_000_000,
+      });
+      expect(value).toEqual({ status });
+      expectSafe(value);
+    }
   });
 
   test("does not open a session for malformed candidate input", async () => {

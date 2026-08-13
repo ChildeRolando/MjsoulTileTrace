@@ -13,6 +13,11 @@ export type MahjongSoulRestoreDiagnosticStatus =
   | "oauth2_login_rejected"
   | "identity_mismatch"
   | "catalog_probe_rejected"
+  | "session_open_failed"
+  | "oauth2_check_transport_failed"
+  | "oauth2_login_transport_failed"
+  | "fetch_info_transport_failed"
+  | "catalog_probe_transport_failed"
   | "inconclusive";
 
 export type MahjongSoulRestoreDiagnosticResult = Readonly<{
@@ -213,25 +218,44 @@ export async function diagnoseMahjongSoulIndependentRestore(input: {
 
   let session: MahjongSoulLobbySession | null = null;
   try {
-    session = await input.createSession();
-    const check = await session.call(".lq.Lobby.oauth2Check", {
-      type: credential.authType,
-      access_token: credential.accessToken.reveal(),
-    });
+    try {
+      session = await input.createSession();
+    } catch {
+      return result("session_open_failed");
+    }
+    let check: Readonly<Record<string, unknown>>;
+    try {
+      check = await session.call(".lq.Lobby.oauth2Check", {
+        type: credential.authType,
+        access_token: credential.accessToken.reveal(),
+      });
+    } catch {
+      return result("oauth2_check_transport_failed");
+    }
     if (!hasSuccessfulError(check) || check.has_account !== true) {
       return result("oauth2_check_rejected");
     }
 
-    const login = await session.call(
-      ".lq.Lobby.oauth2Login",
-      oauth2LoginPayload(credential),
-    );
+    let login: Readonly<Record<string, unknown>>;
+    try {
+      login = await session.call(
+        ".lq.Lobby.oauth2Login",
+        oauth2LoginPayload(credential),
+      );
+    } catch {
+      return result("oauth2_login_transport_failed");
+    }
     if (!hasSuccessfulError(login)) return result("oauth2_login_rejected");
     if (!isUint32(login.account_id) || login.account_id !== credential.accountId) {
       return result("identity_mismatch");
     }
 
-    const info = await session.call(".lq.Lobby.fetchInfo", {});
+    let info: Readonly<Record<string, unknown>>;
+    try {
+      info = await session.call(".lq.Lobby.fetchInfo", {});
+    } catch {
+      return result("fetch_info_transport_failed");
+    }
     if (!hasSuccessfulError(info)) return result("inconclusive");
 
     const now = input.now();
@@ -239,11 +263,16 @@ export async function diagnoseMahjongSoulIndependentRestore(input: {
     const endTime = Math.floor(now / 1000);
     if (!isUint32(endTime) || endTime === 0) return result("inconclusive");
     const beginTime = endTime - 1;
-    const catalog = await session.call(".lq.Lobby.fetchGameRecordListV2", {
-      tag: 0,
-      begin_time: beginTime,
-      end_time: endTime,
-    });
+    let catalog: Readonly<Record<string, unknown>>;
+    try {
+      catalog = await session.call(".lq.Lobby.fetchGameRecordListV2", {
+        tag: 0,
+        begin_time: beginTime,
+        end_time: endTime,
+      });
+    } catch {
+      return result("catalog_probe_transport_failed");
+    }
     if (!hasSuccessfulError(catalog)) return result("catalog_probe_rejected");
     if (
       typeof catalog.iterator !== "string"
