@@ -31,6 +31,23 @@ export function parseMahjongSoulCnShareUrl(value: string): {
   });
 }
 
+export function formatMahjongSoulCnShareUrl(
+  recordId: string,
+  view: number,
+): string {
+  if (
+    typeof recordId !== "string"
+    || !MahjongSoulRecordIdSchema.safeParse(recordId).success
+    || typeof view !== "number"
+    || !Number.isInteger(view)
+    || view < 1
+    || view > 4_294_967_295
+  ) {
+    throw new Error("mahjong_soul_record_identity_mismatch");
+  }
+  return `https://game.maj-soul.com/1/?paipu=${recordId}_a${view}`;
+}
+
 export const MahjongSoulSourceErrorCodeSchema = z.enum([
   "mahjong_soul_login_protocol_unsupported",
   "mahjong_soul_session_invalid",
@@ -63,7 +80,7 @@ export const AnalyzableRecordSummarySchema = z.object({
   rule: z.object({
     playerCount: z.literal(4),
     length: z.literal("south"),
-    modeId: z.number().int().nonnegative(),
+    modeId: z.literal(2),
     detailRuleHash: MahjongSoulSha256Schema,
     displayLabel: z.literal("四人南风"),
   }).strict(),

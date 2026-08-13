@@ -213,7 +213,7 @@ describe("Mahjong Soul protocol bundle", () => {
       (manifest) => { manifest.compatibility.status = "unchecked"; },
       (manifest) => {
         manifest.compatibility.requiredSurfaceVersion =
-          "mahjong-soul-required-surface/v3";
+          "mahjong-soul-required-surface/v2";
       },
       (manifest) => {
         manifest.compatibility.officialSchemaSha256 = "0".repeat(64);

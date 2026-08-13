@@ -3,6 +3,7 @@ import {
   AnalyzableRecordSummarySchema,
   MahjongSoulSessionStatusSchema,
   MahjongSoulSourceErrorCodeSchema,
+  formatMahjongSoulCnShareUrl,
   parseMahjongSoulCnShareUrl,
 } from "../src/mahjong-soul.js";
 
@@ -23,8 +24,8 @@ const summary = {
   rule: {
     playerCount: 4,
     length: "south",
-    modeId: 16,
-    detailRuleHash: `sha256:${"a".repeat(64)}`,
+    modeId: 2,
+    detailRuleHash: "sha256:7a53cc5deb60512f3dacacc7695dd5072077c6f4984dbedbff76e27092393b1c",
     displayLabel: "四人南风",
   },
   analysisStatus: "not_analyzed",
@@ -163,6 +164,43 @@ describe("Mahjong Soul renderer-safe contracts", () => {
     expect(() => parseMahjongSoulCnShareUrl(42 as unknown as string)).toThrow(
       "mahjong_soul_record_identity_mismatch",
     );
+    expect(coerced).toBe(false);
+  });
+
+  it("round-trips a formatted share URL through the strict parser", () => {
+    const formatted = formatMahjongSoulCnShareUrl(recordId, 123456789);
+    expect(formatted).toBe(
+      `https://game.maj-soul.com/1/?paipu=${recordId}_a123456789`,
+    );
+    expect(parseMahjongSoulCnShareUrl(formatted)).toEqual({ recordId });
+  });
+
+  it.each([
+    ["not-a-record-id", 1],
+    ["260811-00000000-0000-0000-0000-00000000000G", 1],
+    [recordId, 0],
+    [recordId, -1],
+    [recordId, 1.5],
+    [recordId, 4_294_967_296],
+    [`${recordId}_a1`, 1],
+    [`${recordId}#fragment`, 1],
+  ])("rejects non-canonical share URL input %#", (recordIdValue, view) => {
+    expect(() =>
+      formatMahjongSoulCnShareUrl(recordIdValue as string, view as number)
+    ).toThrow("mahjong_soul_record_identity_mismatch");
+  });
+
+  it("rejects a coercible recordId object without invoking toString", () => {
+    let coerced = false;
+    const value = {
+      toString() {
+        coerced = true;
+        return recordId;
+      },
+    };
+    expect(() =>
+      formatMahjongSoulCnShareUrl(value as unknown as string, 1)
+    ).toThrow("mahjong_soul_record_identity_mismatch");
     expect(coerced).toBe(false);
   });
 });

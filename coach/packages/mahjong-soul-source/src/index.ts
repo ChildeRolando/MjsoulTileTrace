@@ -29,6 +29,31 @@ export {
 } from "./protocol-manifest.js";
 export { SecretString } from "./secret-string.js";
 export {
+  filterAnalyzableRecord,
+  SUPPORTED_RECORD_VERSIONS,
+  SUPPORTED_STANDARD_RULES,
+  type FilterResult,
+  type RawRecordListEntry,
+  type RawRecordPlayerResult,
+} from "./record-filter.js";
+export {
+  createMahjongSoulLobbySession,
+  type LobbyDirectCallMethod,
+  type LobbyTransport,
+  type MahjongSoulLobbySession,
+} from "./lobby-session.js";
+export {
+  syncRecentCatalog,
+  type CatalogSyncInput,
+  type CatalogSyncResult,
+} from "./catalog-sync.js";
+export {
+  createMahjongSoulCatalogStore,
+  type CatalogKeyProtector,
+  type CatalogVaultStore,
+  type MahjongSoulCatalogStore,
+} from "./catalog-store.js";
+export {
   createMahjongSoulSessionVault,
   type MahjongSoulSessionVault,
   type SessionKeyProtector,

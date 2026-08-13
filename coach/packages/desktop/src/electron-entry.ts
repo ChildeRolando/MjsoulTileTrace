@@ -10,11 +10,18 @@ import {
   type BrowserWindowConstructorOptions,
 } from "electron";
 import {
+  MahjongSoulSourceError,
+  createMahjongSoulCatalogStore,
   createMahjongSoulSessionVault,
   loadMahjongSoulProtocolBundle,
 } from "@riichi-coach/mahjong-soul-source";
+import { createMahjongSoulCatalogService } from "./catalog-service.js";
 import { createElectronSessionKeyProtector, type SafeStoragePort } from "./electron-safe-storage.js";
-import { registerMahjongSoulIpc, type IpcMainPort } from "./ipc.js";
+import {
+  registerMahjongSoulCatalogIpc,
+  registerMahjongSoulIpc,
+  type IpcMainPort,
+} from "./ipc.js";
 import {
   createElectronMahjongSoulLoginProvider,
   type ElectronLoginWindowPort,
@@ -28,13 +35,14 @@ import { createRecoverableSessionFile } from "./recoverable-session-file.js";
 
 const PARTITION = "persist:riichi-coach-mahjong-soul-cn";
 const bundleRoot = fileURLToPath(new URL("../../../vendor/mahjong-soul-protocol/", import.meta.url));
-const preloadPath = fileURLToPath(new URL("./preload-entry.js", import.meta.url));
+const preloadPath = fileURLToPath(new URL("./preload.bundle.cjs", import.meta.url));
 const rendererUrl = pathToFileURL(
   fileURLToPath(new URL("./renderer/index.html", import.meta.url)),
 ).href;
 
 let mainWindow: BrowserWindow | null = null;
 let ipcRegistration: Readonly<{ dispose(): void }> | null = null;
+let catalogIpcRegistration: Readonly<{ dispose(): void }> | null = null;
 
 function hardenLocalWindow(window: BrowserWindow): void {
   window.webContents.setWindowOpenHandler(() => ({ action: "deny" }));
@@ -78,6 +86,12 @@ async function start(): Promise<void> {
     store,
     now: Date.now,
   });
+  const catalogStore = createMahjongSoulCatalogStore({
+    protector,
+    store: createRecoverableSessionFile({
+      root: join(app.getPath("userData"), "mahjong-soul-catalog"),
+    }),
+  });
   const loginProvider = createElectronMahjongSoulLoginProvider({
     bundle,
     createWindow: (options) => new BrowserWindow(
@@ -89,10 +103,24 @@ async function start(): Promise<void> {
       } as BrowserWindowConstructorOptions,
     ) as unknown as ElectronLoginWindowPort,
   });
+  const catalogService = createMahjongSoulCatalogService({
+    vault,
+    catalogStore,
+    // The real lobby transport (WebSocket discovery + authenticated restore) is
+    // M5-E. Until then sync fails closed; listAnalyzableRecords still reads the
+    // persisted encrypted catalog.
+    sessionFactory: async () => {
+      throw new MahjongSoulSourceError("mahjong_soul_catalog_sync_failed");
+    },
+    clock: Date.now,
+  });
   const service = createMahjongSoulSessionService({
     vault,
     loginProvider,
     browserSession: partitionSession,
+    cancelCatalogSync: () => catalogService.cancelAndDrain(),
+    resumeCatalogSync: () => catalogService.resume(),
+    clearCatalog: () => catalogStore.clear(),
     clock: Date.now,
   });
   await service.initialize();
@@ -106,15 +134,23 @@ async function start(): Promise<void> {
     mainWindow = window;
     hardenLocalWindow(window);
     ipcRegistration?.dispose();
+    catalogIpcRegistration?.dispose();
     ipcRegistration = registerMahjongSoulIpc({
       ipcMain: ipcMain as unknown as IpcMainPort,
       service,
+      trustedSenderId: window.webContents.id,
+    });
+    catalogIpcRegistration = registerMahjongSoulCatalogIpc({
+      ipcMain: ipcMain as unknown as IpcMainPort,
+      service: catalogService,
       trustedSenderId: window.webContents.id,
     });
     window.on("closed", () => {
       if (mainWindow === window) mainWindow = null;
       ipcRegistration?.dispose();
       ipcRegistration = null;
+      catalogIpcRegistration?.dispose();
+      catalogIpcRegistration = null;
     });
     await window.loadURL(rendererUrl);
   };

@@ -5,6 +5,7 @@
   ".lq.Lobby.fetchInfo": { "req": ".lq.ReqEmpty", "resp": ".lq.ResEmpty" },
   ".lq.Lobby.fetchGameRecordListV2": { "req": ".lq.ReqEmpty", "resp": ".lq.ResEmpty" },
   ".lq.Lobby.fetchNextGameRecordList": { "req": ".lq.ReqEmpty", "resp": ".lq.ResEmpty" },
+  ".lq.Lobby.fetchGameRecordsDetail": { "req": ".lq.ReqEmpty", "resp": ".lq.ResEmpty" },
   ".lq.Lobby.fetchGameRecord": { "req": ".lq.ReqGameRecord", "resp": ".lq.ResGameRecord" },
   ".lq.Lobby.loginBeat": { "req": ".lq.ReqEmpty", "resp": ".lq.ResEmpty" },
   ".lq.Lobby.logout": { "req": ".lq.ReqEmpty", "resp": ".lq.ResEmpty" },

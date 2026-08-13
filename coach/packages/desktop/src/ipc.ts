@@ -4,6 +4,8 @@ import {
 } from "@riichi-coach/contracts";
 import type { MahjongSoulSessionController } from "@riichi-coach/mahjong-soul-source";
 import { parseMahjongSoulSessionStatus } from "./session-api.js";
+import { parseAnalyzableRecordSummaries } from "./catalog-api.js";
+import type { MahjongSoulCatalogService } from "./catalog-service.js";
 
 const PROTOCOL_ERROR = "mahjong_soul_login_protocol_unsupported" as const;
 
@@ -11,6 +13,11 @@ export const MAHJONG_SOUL_IPC_CHANNELS = Object.freeze({
   getStatus: "mahjong-soul:get-session-status",
   openLogin: "mahjong-soul:open-login",
   logout: "mahjong-soul:logout",
+} as const);
+
+export const MAHJONG_SOUL_CATALOG_IPC_CHANNELS = Object.freeze({
+  syncAnalyzableRecords: "mahjong-soul:sync-analyzable-records",
+  listAnalyzableRecords: "mahjong-soul:list-analyzable-records",
 } as const);
 
 export interface IpcMainPort {
@@ -92,6 +99,71 @@ export function registerMahjongSoulIpc(input: {
   return Object.freeze({
     dispose(): void {
       for (const channel of Object.values(MAHJONG_SOUL_IPC_CHANNELS)) {
+        ipcMain.removeHandler(channel);
+      }
+    },
+  });
+}
+
+export function registerMahjongSoulCatalogIpc(input: {
+  readonly ipcMain: IpcMainPort;
+  readonly service: Pick<
+    MahjongSoulCatalogService,
+    "syncAnalyzableRecords" | "listAnalyzableRecords"
+  >;
+  readonly trustedSenderId: number;
+}): Readonly<{ dispose(): void }> {
+  const { ipcMain, service, trustedSenderId } = input;
+  const syncAnalyzableRecords = service?.syncAnalyzableRecords;
+  const listAnalyzableRecords = service?.listAnalyzableRecords;
+  if (
+    ipcMain === null
+    || typeof ipcMain !== "object"
+    || typeof ipcMain.handle !== "function"
+    || typeof ipcMain.removeHandler !== "function"
+    || service === null
+    || typeof service !== "object"
+    || typeof syncAnalyzableRecords !== "function"
+    || typeof listAnalyzableRecords !== "function"
+    || !Number.isInteger(trustedSenderId)
+    || trustedSenderId < 0
+  ) {
+    throw fixedError();
+  }
+
+  const operations = Object.freeze({
+    syncAnalyzableRecords: syncAnalyzableRecords.bind(service) as typeof syncAnalyzableRecords,
+    listAnalyzableRecords: listAnalyzableRecords.bind(service) as typeof listAnalyzableRecords,
+  });
+
+  const register = (
+    channel: string,
+    operation: () => Promise<unknown>,
+  ): void => {
+    ipcMain.handle(channel, async (event, ...args) => {
+      try {
+        if (args.length !== 0 || senderId(event) !== trustedSenderId) {
+          throw fixedError();
+        }
+        return parseAnalyzableRecordSummaries(await operation());
+      } catch (error) {
+        throw fixedError(error);
+      }
+    });
+  };
+
+  register(
+    MAHJONG_SOUL_CATALOG_IPC_CHANNELS.syncAnalyzableRecords,
+    operations.syncAnalyzableRecords,
+  );
+  register(
+    MAHJONG_SOUL_CATALOG_IPC_CHANNELS.listAnalyzableRecords,
+    operations.listAnalyzableRecords,
+  );
+
+  return Object.freeze({
+    dispose(): void {
+      for (const channel of Object.values(MAHJONG_SOUL_CATALOG_IPC_CHANNELS)) {
         ipcMain.removeHandler(channel);
       }
     },

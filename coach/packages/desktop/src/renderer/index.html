@@ -15,9 +15,17 @@
       <p id="detail" class="detail">令牌仅加密保存在这台设备上。</p>
       <div class="actions">
         <button id="login" type="button">登录雀魂</button>
-        <button id="logout" type="button" class="secondary">退出账号</button>
+        <button id="logout" type="button" class="secondary" hidden>退出账号</button>
         <button id="refresh" type="button" class="quiet">刷新状态</button>
       </div>
+      <section class="catalog" hidden>
+        <div class="catalog-head">
+          <h2>可分析牌谱</h2>
+          <button id="sync" type="button" class="quiet">同步最近牌谱</button>
+        </div>
+        <p id="catalog-detail" class="detail">仅显示四人南风标准规则的可分析对局。</p>
+        <ul id="catalog-list" class="catalog-list"></ul>
+      </section>
     </main>
     <script type="module" src="./app.js"></script>
   </body>

@@ -12,7 +12,7 @@ const MAX_FRAME_BYTES = 4 * 1024 * 1024;
 const MAX_BASE64_LENGTH = Math.ceil(MAX_FRAME_BYTES / 3) * 4;
 
 export interface CdpDebuggerPort {
-  attach(version?: string): void;
+  attach(version?: string): void | Promise<void>;
   detach(): void;
   isAttached(): boolean;
   sendCommand(
@@ -133,7 +133,7 @@ class StatefulCdpLoginObserver implements CdpLoginObserver {
     if (this.#started || this.#closed) throw unsupported();
     this.#started = true;
     try {
-      this.#debugger.attach("1.3");
+      await this.#debugger.attach("1.3");
       await this.#debugger.sendCommand("Network.enable");
     } catch {
       this.#fail();

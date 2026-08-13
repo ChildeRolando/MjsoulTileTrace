@@ -17,6 +17,7 @@ export const MAHJONG_SOUL_SAFE_DIRECT_CALL_METHODS = Object.freeze([
   ".lq.Lobby.fetchInfo",
   ".lq.Lobby.fetchGameRecordListV2",
   ".lq.Lobby.fetchNextGameRecordList",
+  ".lq.Lobby.fetchGameRecordsDetail",
   ".lq.Lobby.fetchGameRecord",
   ".lq.Lobby.loginBeat",
   ".lq.Lobby.logout",

@@ -315,7 +315,7 @@ registerTest("vendors only pinned assets and emits the narrow CN endpoint policy
     officialSchemaSha256: input.lock.official.liqiSha256,
     vendorProtoSha256: input.lock.vendor.files[2].sha256,
     vendorRpcMapSha256: input.lock.vendor.files[3].sha256,
-    requiredSurfaceVersion: "mahjong-soul-required-surface/v2",
+    requiredSurfaceVersion: "mahjong-soul-required-surface/v3",
   });
   const files = [...(await tree(input.outputDir)).keys()].sort();
   assert.deepEqual(files, [

@@ -21,7 +21,9 @@ message ClientDeviceInfo {}
 message ClientVersionInfo {}
 message GameConnectInfo {}
 message AccountLevel {}
-message RecordGame {}
+message RecordGame {
+  string uuid = 1; GameConfig config = 5; uint32 standard_rule = 14;
+}
 message GameUserInput {}
 message GameUserEvent {}
 message TingPai {}
@@ -78,6 +80,16 @@ message ReqNextGameRecordList { string iterator = 1; uint32 count = 2; }
 message ResNextGameRecordList {
   Error error = 1; bool next = 2; repeated RecordListEntry entries = 3;
   uint32 iterator_expire = 4; uint32 next_end_time = 5;
+}
+message ReqGameRecordsDetail { repeated string uuid_list = 1; }
+message GameDetailRule { uint32 time_fixed = 1; }
+message GameMode {
+  uint32 mode = 1; bool ai = 4; string extendinfo = 5;
+  GameDetailRule detail_rule = 6;
+}
+message GameConfig { uint32 category = 1; GameMode mode = 2; }
+message ResGameRecordsDetail {
+  Error error = 1; repeated RecordGame record_list = 2;
 }
 message RecordListEntry {
   uint32 version = 1; string uuid = 2; uint32 start_time = 3;
@@ -175,6 +187,7 @@ service Lobby {
   rpc fetchInfo(ReqCommon) returns (ResFetchInfo);
   rpc fetchGameRecordListV2(ReqGameRecordListV2) returns (ResGameRecordListV2);
   rpc fetchNextGameRecordList(ReqNextGameRecordList) returns (ResNextGameRecordList);
+  rpc fetchGameRecordsDetail(ReqGameRecordsDetail) returns (ResGameRecordsDetail);
   rpc fetchGameRecord(ReqGameRecord) returns (ResGameRecord);
   rpc loginBeat(ReqLoginBeat) returns (ResCommon);
   rpc logout(ReqLogout) returns (ResLogout);
@@ -188,6 +201,7 @@ const ROUTES = Object.freeze({
   ".lq.Lobby.fetchInfo": { req: ".lq.ReqCommon", resp: ".lq.ResFetchInfo" },
   ".lq.Lobby.fetchGameRecordListV2": { req: ".lq.ReqGameRecordListV2", resp: ".lq.ResGameRecordListV2" },
   ".lq.Lobby.fetchNextGameRecordList": { req: ".lq.ReqNextGameRecordList", resp: ".lq.ResNextGameRecordList" },
+  ".lq.Lobby.fetchGameRecordsDetail": { req: ".lq.ReqGameRecordsDetail", resp: ".lq.ResGameRecordsDetail" },
   ".lq.Lobby.fetchGameRecord": { req: ".lq.ReqGameRecord", resp: ".lq.ResGameRecord" },
   ".lq.Lobby.loginBeat": { req: ".lq.ReqLoginBeat", resp: ".lq.ResCommon" },
   ".lq.Lobby.logout": { req: ".lq.ReqLogout", resp: ".lq.ResLogout" },
@@ -228,7 +242,7 @@ registerTest("returns a frozen six-field report bound to all three byte sources"
     officialSchemaSha256: hash(input.officialSchemaBytes),
     vendorProtoSha256: hash(input.vendorProtoBytes),
     vendorRpcMapSha256: hash(input.vendorRpcMapBytes),
-    requiredSurfaceVersion: "mahjong-soul-required-surface/v2",
+    requiredSurfaceVersion: "mahjong-soul-required-surface/v3",
   });
   assert.equal(Object.isFrozen(report), true);
 });
@@ -241,6 +255,33 @@ registerTest("rejects independent official, proto, and runtime-map surface drift
     },
     (input) => {
       input.vendorProtoBytes = bytes(SURFACE_PROTO.replace("bytes data = 2", "string data = 2"));
+    },
+    (input) => {
+      input.vendorProtoBytes = bytes(SURFACE_PROTO.replace("uint32 mode = 1", "uint32 mode = 17"));
+    },
+    (input) => {
+      input.official.nested.lq.nested.ResGameRecordListV2.fields.iterator_expire.id = 17;
+      input.officialSchemaBytes = bytes(JSON.stringify(input.official));
+    },
+    (input) => {
+      input.official.nested.lq.nested.ResNextGameRecordList.fields.error.id = 17;
+      input.officialSchemaBytes = bytes(JSON.stringify(input.official));
+    },
+    (input) => {
+      input.vendorProtoBytes = bytes(SURFACE_PROTO.replace(
+        "message ResGameRecordsDetail {\n  Error error = 1",
+        "message ResGameRecordsDetail {\n  Error error = 17",
+      ));
+    },
+    (input) => {
+      input.vendorProtoBytes = bytes(SURFACE_PROTO.replace(
+        "repeated RecordPlayerResult players = 7",
+        "repeated RecordPlayerResult players = 17",
+      ));
+    },
+    (input) => {
+      input.official.nested.lq.nested.GameMode.fields.detail_rule.type = "string";
+      input.officialSchemaBytes = bytes(JSON.stringify(input.official));
     },
     (input) => {
       input.official.nested.lq.nested.Error.fields.code.id = 17;
