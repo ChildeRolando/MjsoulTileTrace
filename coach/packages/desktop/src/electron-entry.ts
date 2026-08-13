@@ -13,6 +13,8 @@ import {
   MahjongSoulSourceError,
   createMahjongSoulCatalogStore,
   createMahjongSoulSessionVault,
+  createMahjongSoulOAuth2SessionRestorer,
+  authenticateStoredMahjongSoulSession,
   loadMahjongSoulProtocolBundle,
 } from "@riichi-coach/mahjong-soul-source";
 import { createMahjongSoulCatalogService } from "./catalog-service.js";
@@ -122,17 +124,23 @@ async function start(): Promise<void> {
   const catalogService = createMahjongSoulCatalogService({
     vault,
     catalogStore,
-    // The real lobby transport (WebSocket discovery + authenticated restore) is
-    // M5-E. Until then sync fails closed; listAnalyzableRecords still reads the
-    // persisted encrypted catalog.
-    sessionFactory: async () => {
-      throw new MahjongSoulSourceError("mahjong_soul_catalog_sync_failed");
+    sessionFactory: async (stored) => {
+      const lobby = await createLobbySessionFactory({ bundle })();
+      const restored = await authenticateStoredMahjongSoulSession(lobby, stored);
+      if (restored !== "authenticated") {
+        await lobby.close();
+        throw new MahjongSoulSourceError("mahjong_soul_catalog_sync_failed");
+      }
+      return lobby;
     },
     clock: Date.now,
   });
   const service = createMahjongSoulSessionService({
     vault,
     loginProvider,
+    sessionRestorer: createMahjongSoulOAuth2SessionRestorer({
+      createSession: createLobbySessionFactory({ bundle }),
+    }),
     browserSession: partitionSession,
     cancelCatalogSync: () => catalogService.cancelAndDrain(),
     resumeCatalogSync: () => catalogService.resume(),

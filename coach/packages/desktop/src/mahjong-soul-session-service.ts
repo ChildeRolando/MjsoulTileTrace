@@ -3,6 +3,7 @@ import {
   createMahjongSoulSessionController,
   type MahjongSoulLoginProvider,
   type MahjongSoulSessionController,
+  type MahjongSoulSessionRestorer,
   type MahjongSoulSessionVault,
 } from "@riichi-coach/mahjong-soul-source";
 import type { MahjongSoulSessionStatus } from "@riichi-coach/contracts";
@@ -39,6 +40,7 @@ function snapshotBrowserSession(value: unknown): BrowserSessionClearPort {
 export function createMahjongSoulSessionService(input: {
   readonly vault: MahjongSoulSessionVault;
   readonly loginProvider: MahjongSoulLoginProvider;
+  readonly sessionRestorer: MahjongSoulSessionRestorer;
   readonly browserSession: BrowserSessionClearPort;
   readonly cancelCatalogSync: () => Promise<void>;
   readonly resumeCatalogSync: () => void;
@@ -56,6 +58,7 @@ export function createMahjongSoulSessionService(input: {
     const controller = createMahjongSoulSessionController({
       vault: input.vault,
       loginProvider: input.loginProvider,
+      sessionRestorer: input.sessionRestorer,
       clock: input.clock,
       clearBrowserSession: async () => {
         try {

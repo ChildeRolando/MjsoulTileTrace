@@ -58,6 +58,7 @@ describe("cross-restart encrypted Mahjong Soul session", () => {
       const first = createMahjongSoulSessionService({
         vault: firstVault,
         loginProvider: firstProvider,
+        sessionRestorer: { restore: async () => ({ status: "unverified" }) },
         browserSession: { clearStorageData: async () => {}, clearCache: async () => {} },
         cancelCatalogSync: async () => {},
         resumeCatalogSync: () => {},
@@ -82,6 +83,7 @@ describe("cross-restart encrypted Mahjong Soul session", () => {
       const second = createMahjongSoulSessionService({
         vault: secondVault,
         loginProvider: secondProvider,
+        sessionRestorer: { restore: async () => ({ status: "authenticated", credential }) },
         browserSession: { clearStorageData: async () => {}, clearCache: async () => {} },
         cancelCatalogSync: async () => {},
         resumeCatalogSync: () => {},
@@ -94,10 +96,7 @@ describe("cross-restart encrypted Mahjong Soul session", () => {
         displayName: "重启测试",
         lastValidatedAt: 200,
       });
-      expect(secondProvider.calls).toEqual([{
-        mode: "restore",
-        expected: { loginMethod: "login", accountId: 123_456_789 },
-      }]);
+      expect(secondProvider.calls).toEqual([]);
       await second.logout();
       expect(await readdir(root)).not.toContain("session.vault.json");
     } finally {

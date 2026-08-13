@@ -84,22 +84,34 @@ class FakeLoginProvider {
   cancelActive(): void { this.cancelCalls += 1; }
 }
 
+class FakeSessionRestorer {
+  readonly calls: StoredMahjongSoulSession[] = [];
+  next: LoginResult = { status: "unverified" };
+  async restore(session: StoredMahjongSoulSession): Promise<LoginResult> {
+    this.calls.push(session);
+    return this.next;
+  }
+}
+
 const create = (input: {
   vault?: FakeVault;
   login?: FakeLoginProvider;
+  restorer?: FakeSessionRestorer;
   clear?: () => Promise<void>;
   now?: () => number;
 } = {}) => {
   const vault = input.vault ?? new FakeVault();
   const login = input.login ?? new FakeLoginProvider();
+  const restorer = input.restorer ?? new FakeSessionRestorer();
   const clears: string[] = [];
   const controller = createMahjongSoulSessionController({
     vault,
     loginProvider: login,
+    sessionRestorer: restorer,
     clearBrowserSession: input.clear ?? (async () => { clears.push("browser"); }),
     clock: input.now ?? (() => 300),
   });
-  return { controller, vault, login, clears };
+  return { controller, vault, login, restorer, clears };
 };
 
 describe("Mahjong Soul session lifecycle", () => {
@@ -130,7 +142,9 @@ describe("Mahjong Soul session lifecycle", () => {
     const vault = new FakeVault(stored());
     const login = new FakeLoginProvider();
     login.next = { status: "authenticated", credential: credential() };
-    const { controller } = create({ vault, login });
+    const restorer = new FakeSessionRestorer();
+    restorer.next = { status: "authenticated", credential: credential() };
+    const { controller } = create({ vault, login, restorer });
 
     const pending = controller.initialize();
     expect(controller.getStatus().status).toBe("session_validating");
@@ -140,10 +154,8 @@ describe("Mahjong Soul session lifecycle", () => {
       displayName: "测试用户",
       lastValidatedAt: 300,
     });
-    expect(login.calls).toEqual([{
-      mode: "restore",
-      expected: { loginMethod: "login", accountId: 123 },
-    }]);
+    expect(login.calls).toEqual([]);
+    expect(restorer.calls).toEqual([stored()]);
     expect(vault.operations).toEqual(["restore", "markValidated"]);
   });
 
@@ -151,7 +163,9 @@ describe("Mahjong Soul session lifecycle", () => {
     const vault = new FakeVault(stored());
     const login = new FakeLoginProvider();
     login.next = { status: "unverified" };
-    const { controller } = create({ vault, login });
+    const restorer = new FakeSessionRestorer();
+    restorer.next = { status: "unverified" };
+    const { controller } = create({ vault, login, restorer });
 
     await expect(controller.initialize()).resolves.toEqual({
       region: "cn",
@@ -169,7 +183,9 @@ describe("Mahjong Soul session lifecycle", () => {
     const vault = new FakeVault(stored());
     const login = new FakeLoginProvider();
     login.next = result;
-    const { controller } = create({ vault, login });
+    const restorer = new FakeSessionRestorer();
+    restorer.next = result;
+    const { controller } = create({ vault, login, restorer });
 
     await expect(controller.initialize()).resolves.toEqual({
       region: "cn",
@@ -270,6 +286,7 @@ describe("Mahjong Soul session lifecycle", () => {
     const controller = createMahjongSoulSessionController({
       vault,
       loginProvider: login,
+      sessionRestorer: new FakeSessionRestorer(),
       clearBrowserSession: async () => {},
       clock: () => 300,
     });

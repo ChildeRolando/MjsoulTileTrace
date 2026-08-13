@@ -81,4 +81,9 @@ export {
   type MahjongSoulLoginProvider,
   type MahjongSoulLoginProviderResult,
   type MahjongSoulSessionController,
+  type MahjongSoulSessionRestorer,
 } from "./session-controller.js";
+export {
+  authenticateStoredMahjongSoulSession,
+  createMahjongSoulOAuth2SessionRestorer,
+} from "./session-restorer.js";

@@ -36,6 +36,10 @@ export interface MahjongSoulLoginProvider {
   cancelActive(): void;
 }
 
+export interface MahjongSoulSessionRestorer {
+  restore(session: StoredMahjongSoulSession): Promise<MahjongSoulLoginProviderResult>;
+}
+
 export interface MahjongSoulSessionController {
   initialize(): Promise<MahjongSoulSessionStatus>;
   getStatus(): MahjongSoulSessionStatus;
@@ -201,6 +205,7 @@ async function storageOperation<T>(operation: () => Promise<T>): Promise<T> {
 class StatefulSessionController implements MahjongSoulSessionController {
   readonly #vault: MahjongSoulSessionVault;
   readonly #loginProvider: MahjongSoulLoginProvider;
+  readonly #sessionRestorer: MahjongSoulSessionRestorer;
   readonly #clearBrowserSession: () => Promise<void>;
   readonly #clock: () => number;
   #status: MahjongSoulSessionStatus = LOGGED_OUT;
@@ -211,11 +216,13 @@ class StatefulSessionController implements MahjongSoulSessionController {
   constructor(
     vault: MahjongSoulSessionVault,
     loginProvider: MahjongSoulLoginProvider,
+    sessionRestorer: MahjongSoulSessionRestorer,
     clearBrowserSession: () => Promise<void>,
     clock: () => number,
   ) {
     this.#vault = vault;
     this.#loginProvider = loginProvider;
+    this.#sessionRestorer = sessionRestorer;
     this.#clearBrowserSession = clearBrowserSession;
     this.#clock = clock;
   }
@@ -246,13 +253,7 @@ class StatefulSessionController implements MahjongSoulSessionController {
     const session = snapshotStored(rawSession);
     let result: MahjongSoulLoginProviderResult;
     try {
-      result = parseLoginResult(await this.#loginProvider.run({
-        mode: "restore",
-        expected: {
-          loginMethod: session.loginMethod,
-          accountId: session.accountId,
-        },
-      }));
+      result = parseLoginResult(await this.#sessionRestorer.restore(session));
     } catch (error) {
       this.#status = offline(session);
       this.#stableStatus = this.#status;
@@ -426,15 +427,26 @@ function snapshotLoginProvider(value: unknown): MahjongSoulLoginProvider {
   });
 }
 
+function snapshotSessionRestorer(value: unknown): MahjongSoulSessionRestorer {
+  if (!isObjectLike(value)) throw storageFailure();
+  const restore = (value as { restore?: unknown }).restore;
+  if (typeof restore !== "function") throw storageFailure();
+  return Object.freeze({
+    restore: restore.bind(value) as MahjongSoulSessionRestorer["restore"],
+  });
+}
+
 export function createMahjongSoulSessionController(input: {
   readonly vault: MahjongSoulSessionVault;
   readonly loginProvider: MahjongSoulLoginProvider;
+  readonly sessionRestorer: MahjongSoulSessionRestorer;
   readonly clearBrowserSession: () => Promise<void>;
   readonly clock: () => number;
 }): MahjongSoulSessionController {
   if (!isRecord(input)) throw storageFailure();
   const vault = snapshotVaultPort(input.vault);
   const loginProvider = snapshotLoginProvider(input.loginProvider);
+  const sessionRestorer = snapshotSessionRestorer(input.sessionRestorer);
   const clearBrowserSession = input.clearBrowserSession;
   const clock = input.clock;
   if (
@@ -446,6 +458,7 @@ export function createMahjongSoulSessionController(input: {
   return new StatefulSessionController(
     vault,
     loginProvider,
+    sessionRestorer,
     clearBrowserSession,
     clock,
   );
