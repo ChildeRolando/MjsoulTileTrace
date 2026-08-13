@@ -37,6 +37,8 @@ WebSocket 上按官方客户端的自动登录序列重新建立已认证会话�
 - 任一步失败立即关闭新 Lobby、codec 和 transport；不得尝试 `prepareLogin`、密码重放
   或另一种猜测性登录；
 - 诊断成功前不写入“可独立恢复”能力、不开放目录同步按钮。
+- 本次一次性诊断始终要求一次新的可见官方登录；既有 v1 保险库不含恢复上下文，
+  不读取它并伪称可恢复，也不在结论未知时迁移保险库格式。
 
 ## 4. 数据流
 
@@ -48,7 +50,9 @@ WebSocket 上按官方客户端的自动登录序列重新建立已认证会话�
 5. 发送 `oauth2Check {type, access_token}`，要求无错误且账号存在；
 6. 发送与固定客户端版本匹配的 `oauth2Login`，要求无错误且 `account_id` 与捕获值
    相同；
-7. 调用 `fetchInfo`，要求无错误并再次绑定账号身份；
+7. 调用 `fetchInfo`，要求无错误，用于证明登录后的 Lobby 只读能力；账号身份只由
+   `oauth2Login.account_id` 与捕获账号的精确比较绑定，因为固定协议中的
+   `ResFetchInfo` 不返回账号 ID；
 8. 调用一个有明确时间窗、最多一条记录的 `fetchGameRecordListV2`，只证明目录权限，
    不保存目录内容；
 9. 关闭诊断连接；成功返回固定 `independent_restore_verified`，失败返回固定阶段码；

@@ -31,7 +31,7 @@
 - Modify: `coach/packages/mahjong-soul-source/src/lobby-session.ts`
 - Modify: `coach/packages/mahjong-soul-source/src/index.ts`
 
-- [ ] Add RED tests for the exact sequence `oauth2Check`, `oauth2Login`, `fetchInfo`, `fetchGameRecordListV2`; bind `has_account`, login account ID and fetchInfo identity to the captured account.
+- [ ] Add RED tests for the exact sequence `oauth2Check`, `oauth2Login`, `fetchInfo`, `fetchGameRecordListV2`; bind `has_account` and login account ID to the captured account, while treating `fetchInfo` only as an authenticated capability probe because its response has no account ID.
 - [ ] Add RED tests for each fixed result: `oauth2_check_rejected`, `oauth2_login_rejected`, `identity_mismatch`, `catalog_probe_rejected`, and `inconclusive`; every path closes once and never reflects payload prose.
 - [ ] Extend the package-owned Lobby allowlist with `oauth2Check`. Add a strict session method that sends full recovery context and rejects server errors using fixed codes.
 - [ ] Implement `diagnoseMahjongSoulIndependentRestore` with a one-record, bounded-time catalog probe and unconditional close.
@@ -61,10 +61,10 @@
 - Create: `coach/packages/desktop/tests/restore-diagnostic-runner.test.ts`
 - Modify: `coach/packages/desktop/package.json`
 
-- [ ] Add RED tests proving the runner reads a locally restored vault credential, executes one fresh-session diagnostic, emits only a fixed stage code, and cannot write the vault/catalog or enable renderer sync.
-- [ ] Add RED tests for missing vault, unsupported old session envelopes and hostile thrown values; no secret or upstream prose may appear.
+- [ ] Add RED tests proving the runner requires one fresh visible login capture, executes one fresh-session diagnostic, emits only a fixed stage code, and has no vault/catalog write port or renderer capability.
+- [ ] Add RED tests for rejected/cancelled/unverified capture and hostile thrown values; no secret or upstream prose may appear. Existing v1 vault sessions are deliberately not used because they lack the recovery context being tested.
 - [ ] Implement an explicit diagnostic launch flag handled only in Electron main. Keep normal production `sessionFactory` fail-closed and the renderer sync capability hidden.
-- [ ] Add `desktop:diagnose-mahjong-soul-restore`; it opens the official window only when no current credential exists, otherwise tests the existing encrypted credential.
+- [ ] Add `desktop:diagnose-mahjong-soul-restore`; it always opens one visible official window and never migrates or reads the existing encrypted v1 credential during this one-time capability diagnostic.
 - [ ] Re-run focused tests and commit `feat: run Mahjong Soul restore diagnostic`.
 
 ### Task 5: Verify automatically, then run the one-time human diagnostic

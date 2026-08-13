@@ -16,8 +16,12 @@ class FakeSocket implements LobbyWebSocketLike {
   onmessage: ((event: { readonly data: unknown }) => void) | null = null;
   sent: Uint8Array[] = [];
   closeCalls = 0;
+  throwOnSend = false;
   constructor(readonly url: string) {}
-  send(data: Uint8Array): void { this.sent.push(new Uint8Array(data)); }
+  send(data: Uint8Array): void {
+    if (this.throwOnSend) throw new Error("hostile send prose");
+    this.sent.push(new Uint8Array(data));
+  }
   close(): void { this.closeCalls += 1; this.readyState = 3; }
 }
 
@@ -73,12 +77,60 @@ describe("bounded Lobby WebSocket transport", () => {
         constructor(url: string) { super(url); socket = this; }
       },
     });
+    const onClose = vi.fn();
+    transport.onClose(onClose);
     const pending = transport.sendFrame(Uint8Array.of(1));
     socket.readyState = 3;
     socket.onclose?.({ hostile: "upstream prose" });
     await expect(pending).rejects.toThrow(fixedCode);
+    expect(onClose).toHaveBeenCalledTimes(1);
     await expect(transport.sendFrame(Uint8Array.of(2))).rejects.toThrow(fixedCode);
   });
+
+  test("fails the whole established transport when socket.send throws", async () => {
+    let socket!: FakeSocket;
+    const transport = createWebSocketLobbyTransport({
+      url: "wss://route-2.maj-soul.com/gateway",
+      WebSocketImpl: class extends FakeSocket {
+        constructor(url: string) { super(url); socket = this; }
+      },
+    });
+    const onClose = vi.fn();
+    transport.onClose(onClose);
+    socket.readyState = 1;
+    socket.onopen?.({});
+    socket.throwOnSend = true;
+
+    await expect(transport.sendFrame(Uint8Array.of(1))).rejects.toThrow(fixedCode);
+    expect(onClose).toHaveBeenCalledTimes(1);
+    await expect(transport.sendFrame(Uint8Array.of(2))).rejects.toThrow(fixedCode);
+  });
+
+  test.each(["close", "error", "invalid-message"] as const)(
+    "fails an established transport immediately on %s",
+    async (failure) => {
+      let socket!: FakeSocket;
+      const transport = createWebSocketLobbyTransport({
+        url: "wss://route-2.maj-soul.com/gateway",
+        WebSocketImpl: class extends FakeSocket {
+          constructor(url: string) { super(url); socket = this; }
+        },
+      });
+      const onClose = vi.fn();
+      transport.onFrame(() => undefined);
+      transport.onClose(onClose);
+      socket.readyState = 1;
+      socket.onopen?.({});
+      await transport.sendFrame(Uint8Array.of(1));
+
+      if (failure === "close") socket.onclose?.({ hostile: "upstream prose" });
+      else if (failure === "error") socket.onerror?.({ hostile: "upstream prose" });
+      else socket.onmessage?.({ data: "not-binary" });
+
+      expect(onClose).toHaveBeenCalledTimes(1);
+      await expect(transport.sendFrame(Uint8Array.of(2))).rejects.toThrow(fixedCode);
+    },
+  );
 
   test.each([
     "ws://route-2.maj-soul.com/gateway",

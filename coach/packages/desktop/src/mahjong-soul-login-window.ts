@@ -1,6 +1,6 @@
 import {
   MahjongSoulSourceError,
-  type CapturedMahjongSoulCredential,
+  type CapturedMahjongSoulRestoreCandidate,
   type LoginCaptureResult,
   type MahjongSoulProtocolBundle,
 } from "@riichi-coach/mahjong-soul-source";
@@ -13,6 +13,7 @@ import {
 const PROTOCOL_ERROR = "mahjong_soul_login_protocol_unsupported" as const;
 const LOGIN_URL = "https://game.maj-soul.com/1/";
 const PARTITION = "persist:riichi-coach-mahjong-soul-cn";
+const DIAGNOSTIC_PARTITION = "riichi-coach-mahjong-soul-diagnostic";
 const DEFAULT_RESTORE_TIMEOUT_MS = 30_000;
 
 type Listener = (...args: unknown[]) => void;
@@ -22,7 +23,7 @@ type RequestCallback = (result: { readonly cancel: boolean }) => void;
 export interface ElectronLoginWindowOptions {
   readonly show: boolean;
   readonly webPreferences: Readonly<{
-    partition: typeof PARTITION;
+    partition: string;
     contextIsolation: true;
     sandbox: true;
     nodeIntegration: false;
@@ -55,6 +56,8 @@ interface ElectronSessionPort {
   ): void;
   on(event: "will-download", listener: Listener): void;
   off(event: "will-download", listener: Listener): void;
+  clearStorageData(): Promise<void>;
+  clearCache(): Promise<void>;
 }
 
 interface ElectronLoginWebContentsPort {
@@ -75,7 +78,7 @@ export interface ElectronLoginWindowPort {
 }
 
 export type ElectronLoginProviderResult = Readonly<
-  | { status: "authenticated"; credential: CapturedMahjongSoulCredential }
+  | { status: "authenticated"; credential: CapturedMahjongSoulRestoreCandidate }
   | { status: "rejected" }
   | { status: "unverified" }
   | { status: "cancelled" }
@@ -83,7 +86,7 @@ export type ElectronLoginProviderResult = Readonly<
 
 export interface ElectronMahjongSoulLoginProvider {
   run(input: {
-    readonly mode: "interactive" | "restore";
+    readonly mode: "interactive" | "restore" | "diagnostic";
     readonly expected?: {
       readonly loginMethod: "login" | "oauth2Login";
       readonly accountId: number;
@@ -110,7 +113,7 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 }
 
 function parseRunInput(value: unknown): {
-  readonly mode: "interactive" | "restore";
+  readonly mode: "interactive" | "restore" | "diagnostic";
   readonly expected?: {
     readonly loginMethod: "login" | "oauth2Login";
     readonly accountId: number;
@@ -120,7 +123,7 @@ function parseRunInput(value: unknown): {
   const keys = Object.keys(value);
   const mode = value.mode;
   if (
-    (mode !== "interactive" && mode !== "restore")
+    (mode !== "interactive" && mode !== "restore" && mode !== "diagnostic")
     || !keys.includes("mode")
     || keys.some((key) => key !== "mode" && key !== "expected")
   ) {
@@ -236,7 +239,7 @@ class StatefulElectronLoginProvider implements ElectronMahjongSoulLoginProvider 
   }
 
   async run(rawInput: {
-    readonly mode: "interactive" | "restore";
+    readonly mode: "interactive" | "restore" | "diagnostic";
     readonly expected?: {
       readonly loginMethod: "login" | "oauth2Login";
       readonly accountId: number;
@@ -263,7 +266,7 @@ class StatefulElectronLoginProvider implements ElectronMahjongSoulLoginProvider 
         }
       };
       const onClosed: Listener = () => {
-        settle(fixedStatus(input.mode === "interactive" ? "cancelled" : "unverified"), false);
+        settle(fixedStatus(input.mode === "restore" ? "unverified" : "cancelled"), false);
       };
       const onLoadFailure: Listener = () => {
         settle(fixedStatus("unverified"), true);
@@ -285,7 +288,7 @@ class StatefulElectronLoginProvider implements ElectronMahjongSoulLoginProvider 
         }
       };
 
-      const cleanup = (): void => {
+      const cleanup = async (): Promise<void> => {
         if (timerHandle !== undefined) this.#timer.clear(timerHandle);
         if (window !== null) {
           window.off("closed", onClosed);
@@ -296,6 +299,15 @@ class StatefulElectronLoginProvider implements ElectronMahjongSoulLoginProvider 
         }
         session?.off("will-download", onWillDownload);
         observer?.close();
+        if (input.mode === "diagnostic" && session !== null) {
+          try {
+            await session.clearStorageData();
+            await session.clearCache();
+          } catch {
+            // Diagnostic cleanup failure changes the result to unverified below.
+            throw unsupported();
+          }
+        }
       };
       const settle = (
         result: LoginCaptureResult | ElectronLoginProviderResult,
@@ -303,14 +315,21 @@ class StatefulElectronLoginProvider implements ElectronMahjongSoulLoginProvider 
       ): void => {
         if (settled) return;
         settled = true;
-        cleanup();
-        this.#active = false;
-        if (this.#cancelActive === cancellation) this.#cancelActive = null;
-        if (closeWindow && window !== null && !window.isDestroyed()) window.close();
-        resolve(result);
+        void (async () => {
+          let safeResult = result;
+          try {
+            await cleanup();
+          } catch {
+            safeResult = fixedStatus("unverified");
+          }
+          this.#active = false;
+          if (this.#cancelActive === cancellation) this.#cancelActive = null;
+          if (closeWindow && window !== null && !window.isDestroyed()) window.close();
+          resolve(safeResult);
+        })();
       };
       const cancellation = (): void => {
-        settle(fixedStatus(input.mode === "interactive" ? "cancelled" : "unverified"), true);
+        settle(fixedStatus(input.mode === "restore" ? "unverified" : "cancelled"), true);
       };
       this.#cancelActive = cancellation;
 
@@ -318,9 +337,9 @@ class StatefulElectronLoginProvider implements ElectronMahjongSoulLoginProvider 
       void (async () => {
         try {
           const options: ElectronLoginWindowOptions = Object.freeze({
-            show: input.mode === "interactive",
+            show: input.mode !== "restore",
             webPreferences: Object.freeze({
-              partition: PARTITION,
+              partition: input.mode === "diagnostic" ? DIAGNOSTIC_PARTITION : PARTITION,
               contextIsolation: true,
               sandbox: true,
               nodeIntegration: false,

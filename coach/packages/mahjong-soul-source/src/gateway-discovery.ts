@@ -4,6 +4,7 @@ import type { MahjongSoulProtocolBundle } from "./protocol-bundle.js";
 const CATALOG_SYNC_FAILED = "mahjong_soul_catalog_sync_failed" as const;
 const MAX_DISCOVERY_BYTES = 64 * 1024;
 const DISCOVERY_PATH = "/api/clientgate/routes?platform=Web&version=4.0.46&lang=chs_t";
+const DEFAULT_TIMEOUT_MS = 15_000;
 
 export interface GatewayDiscoveryResponse {
   readonly ok: boolean;
@@ -32,12 +33,19 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 
 async function readBoundedJson(
   body: ReadableStream<Uint8Array> | null,
+  signal: AbortSignal,
 ): Promise<unknown> {
   if (body === null || typeof body.getReader !== "function") throw failed();
   const reader = body.getReader();
   const parts: Uint8Array[] = [];
   let length = 0;
+  const cancel = () => { void reader.cancel().catch(() => undefined); };
+  signal.addEventListener("abort", cancel, { once: true });
   try {
+    if (signal.aborted) {
+      await reader.cancel();
+      throw failed();
+    }
     while (true) {
       const next = await reader.read();
       if (next.done) break;
@@ -47,7 +55,8 @@ async function readBoundedJson(
       parts.push(new Uint8Array(next.value));
     }
   } finally {
-    reader.releaseLock();
+    signal.removeEventListener("abort", cancel);
+    try { reader.releaseLock(); } catch { /* reader may already be cancelled */ }
   }
   const bytes = new Uint8Array(length);
   let offset = 0;
@@ -100,18 +109,40 @@ function exactWebSocketUrl(
 export async function discoverMahjongSoulCnLobbyUrl(input: {
   readonly bundle: MahjongSoulProtocolBundle;
   readonly fetchImpl: GatewayDiscoveryFetch;
+  readonly timeoutMs?: number;
 }): Promise<string> {
+  let body: ReadableStream<Uint8Array> | null = null;
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const controller = new AbortController();
   try {
     if (!isRecord(input) || typeof input.fetchImpl !== "function") throw failed();
+    const timeoutMs = input.timeoutMs ?? DEFAULT_TIMEOUT_MS;
+    if (
+      !Number.isInteger(timeoutMs)
+      || timeoutMs < 1
+      || timeoutMs > 120_000
+    ) {
+      throw failed();
+    }
     const origin = input.bundle.endpoints.gatewayDiscoveryOrigins[0];
     if (origin !== "https://route-2.maj-soul.com") throw failed();
     const requestUrl = `${origin}${DISCOVERY_PATH}`;
-    const response = await input.fetchImpl(requestUrl, Object.freeze({
-      method: "GET",
-      redirect: "error",
-      credentials: "omit",
-      cache: "no-store",
-    }));
+    const timeout = new Promise<never>((_resolve, reject) => {
+      timer = setTimeout(() => {
+        controller.abort();
+        reject(failed());
+      }, timeoutMs);
+    });
+    const response = await Promise.race([
+      input.fetchImpl(requestUrl, Object.freeze({
+        method: "GET",
+        redirect: "error",
+        credentials: "omit",
+        cache: "no-store",
+        signal: controller.signal,
+      })),
+      timeout,
+    ]);
     if (
       !isRecord(response)
       || response.ok !== true
@@ -121,7 +152,8 @@ export async function discoverMahjongSoulCnLobbyUrl(input: {
     ) {
       throw failed();
     }
-    const decoded = await readBoundedJson(response.body);
+    body = response.body;
+    const decoded = await Promise.race([readBoundedJson(body, controller.signal), timeout]);
     if (!isRecord(decoded) || !isRecord(decoded.data)) throw failed();
     const routes = decoded.data.routes;
     if (!Array.isArray(routes) || routes.length < 1 || routes.length > 64) {
@@ -135,5 +167,7 @@ export async function discoverMahjongSoulCnLobbyUrl(input: {
     throw failed();
   } catch {
     throw failed();
+  } finally {
+    if (timer !== undefined) clearTimeout(timer);
   }
 }

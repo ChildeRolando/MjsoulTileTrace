@@ -1,4 +1,4 @@
-import { describe, expect, test } from "vitest";
+import { describe, expect, test, vi } from "vitest";
 
 import {
   discoverMahjongSoulCnLobbyUrl,
@@ -119,5 +119,46 @@ describe("restricted Mahjong Soul CN gateway discovery", () => {
     }
     expect((caught as Error).message).toBe(fixedCode);
     expect(String(caught)).not.toContain(hostile);
+  });
+
+  test("times out a discovery fetch that never settles", async () => {
+    vi.useFakeTimers();
+    const pending = discoverMahjongSoulCnLobbyUrl({
+      bundle: bundle(),
+      fetchImpl: async () => await new Promise<never>(() => undefined),
+      timeoutMs: 20,
+    });
+    const assertion = expect(pending).rejects.toThrow(fixedCode);
+    await vi.advanceTimersByTimeAsync(20);
+    await assertion;
+    vi.useRealTimers();
+  });
+
+  test("times out and aborts a discovery response body that never settles", async () => {
+    vi.useFakeTimers();
+    let capturedSignal: AbortSignal | null = null;
+    const cancel = vi.fn();
+    const hanging = response({});
+    const pending = discoverMahjongSoulCnLobbyUrl({
+      bundle: bundle(),
+      fetchImpl: async (_url, init) => {
+        capturedSignal = init?.signal as AbortSignal;
+        return {
+          ...hanging,
+          body: new ReadableStream<Uint8Array>({
+            pull: async () => await new Promise<never>(() => undefined),
+            cancel,
+          }),
+        };
+      },
+      timeoutMs: 20,
+    });
+    const assertion = expect(pending).rejects.toThrow(fixedCode);
+    await vi.advanceTimersByTimeAsync(20);
+    await assertion;
+    expect(capturedSignal).not.toBeNull();
+    expect((capturedSignal as AbortSignal | null)?.aborted).toBe(true);
+    expect(cancel).toHaveBeenCalledTimes(1);
+    vi.useRealTimers();
   });
 });

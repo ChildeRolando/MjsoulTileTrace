@@ -26,6 +26,8 @@ import {
   createElectronMahjongSoulLoginProvider,
   type ElectronLoginWindowPort,
 } from "./mahjong-soul-login-window.js";
+import { createLobbySessionFactory } from "./lobby-session-factory.js";
+import { runMahjongSoulRestoreDiagnostic } from "./restore-diagnostic-runner.js";
 import { createMahjongSoulSessionService } from "./mahjong-soul-session-service.js";
 import {
   createMainWindowOptions,
@@ -73,6 +75,27 @@ function hardenLocalWindow(window: BrowserWindow): void {
 
 async function start(): Promise<void> {
   const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
+  const loginProvider = createElectronMahjongSoulLoginProvider({
+    bundle,
+    createWindow: (options) => new BrowserWindow(
+      {
+        ...options,
+        width: 1180,
+        height: 820,
+        autoHideMenuBar: true,
+      } as BrowserWindowConstructorOptions,
+    ) as unknown as ElectronLoginWindowPort,
+  });
+  if (process.argv.includes("--diagnose-mahjong-soul-restore")) {
+    const result = await runMahjongSoulRestoreDiagnostic({
+      loginProvider,
+      createSession: createLobbySessionFactory({ bundle }),
+      now: Date.now,
+    });
+    console.log(`[riichi-coach] mahjong-soul-restore:${result.status}`);
+    app.exit(result.status === "independent_restore_verified" ? 0 : 2);
+    return;
+  }
   const partitionSession = session.fromPartition(PARTITION, { cache: true });
   const protector = createElectronSessionKeyProtector({
     safeStorage: safeStorage as unknown as SafeStoragePort,
@@ -91,17 +114,6 @@ async function start(): Promise<void> {
     store: createRecoverableSessionFile({
       root: join(app.getPath("userData"), "mahjong-soul-catalog"),
     }),
-  });
-  const loginProvider = createElectronMahjongSoulLoginProvider({
-    bundle,
-    createWindow: (options) => new BrowserWindow(
-      {
-        ...options,
-        width: 1180,
-        height: 820,
-        autoHideMenuBar: true,
-      } as BrowserWindowConstructorOptions,
-    ) as unknown as ElectronLoginWindowPort,
   });
   const catalogService = createMahjongSoulCatalogService({
     vault,

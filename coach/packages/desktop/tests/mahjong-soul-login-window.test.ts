@@ -54,6 +54,8 @@ class FakeSession {
   permissionRequest: ((webContents: unknown, permission: string, callback: (allowed: boolean) => void) => void) | null = null;
   permissionCheck: ((webContents: unknown, permission: string) => boolean) | null = null;
   readonly downloadListeners = new Set<Listener>();
+  clearStorageCalls = 0;
+  clearCacheCalls = 0;
   readonly webRequest = {
     onBeforeRequest: (
       _filter: { urls: string[] },
@@ -73,6 +75,8 @@ class FakeSession {
   off(event: "will-download", listener: Listener): void {
     if (event === "will-download") this.downloadListeners.delete(listener);
   }
+  async clearStorageData(): Promise<void> { this.clearStorageCalls += 1; }
+  async clearCache(): Promise<void> { this.clearCacheCalls += 1; }
   request(url: string): boolean {
     let cancelled = true;
     this.beforeRequest?.({ url }, (result) => { cancelled = result.cancel; });
@@ -189,6 +193,23 @@ describe("isolated Mahjong Soul login window", () => {
     expect(windows.windows[0]!.loadedUrls).toEqual(["https://game.maj-soul.com/1/"]);
     windows.windows[0]!.close();
     await expect(pending).resolves.toEqual({ status });
+  });
+
+  it("uses and clears a non-persistent partition in diagnostic mode", async () => {
+    const windows = new FakeWindows();
+    const provider = createElectronMahjongSoulLoginProvider({
+      bundle,
+      createWindow: windows.create,
+    });
+    const pending = provider.run({ mode: "diagnostic" });
+    await flush();
+    const window = windows.windows[0]!;
+    expect(windows.options[0]!.show).toBe(true);
+    expect(windows.options[0]!.webPreferences.partition.startsWith("persist:")).toBe(false);
+    window.close();
+    await expect(pending).resolves.toEqual({ status: "cancelled" });
+    expect(window.webContents.session.clearStorageCalls).toBe(1);
+    expect(window.webContents.session.clearCacheCalls).toBe(1);
   });
 
   it("allows only manifest-owned resource origins and official blobs", async () => {

@@ -17,6 +17,7 @@
     "coach": "npm run build && node bin/riichi-coach.mjs",
     "coach:demo": "npm run coach",
     "desktop": "npm run build && electron packages/desktop/dist/electron-entry.js",
+    "desktop:diagnose-mahjong-soul-restore": "npm run build && electron packages/desktop/dist/electron-entry.js --diagnose-mahjong-soul-restore",
     "typecheck": "tsc --noEmit -p packages/contracts/tsconfig.json && tsc --noEmit -p packages/mahjong-soul-source/tsconfig.json && tsc --noEmit -p packages/reasoning/tsconfig.json && tsc --noEmit -p packages/desktop/tsconfig.json"
   },
   "devDependencies": {

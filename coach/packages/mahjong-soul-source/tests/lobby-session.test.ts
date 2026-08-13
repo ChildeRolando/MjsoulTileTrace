@@ -53,6 +53,7 @@ function decodeClientFrame(frame: Uint8Array): {
 
 class FakeTransport implements LobbyTransport {
   handler: ((frame: Uint8Array) => void) | null = null;
+  closeHandler: (() => void) | null = null;
   sent: Uint8Array[] = [];
   closed = false;
 
@@ -64,6 +65,10 @@ class FakeTransport implements LobbyTransport {
     this.handler = handler;
   }
 
+  onClose(handler: () => void): void {
+    this.closeHandler = handler;
+  }
+
   async close(): Promise<void> {
     this.closed = true;
   }
@@ -71,6 +76,11 @@ class FakeTransport implements LobbyTransport {
   deliver(frame: Uint8Array): void {
     if (this.handler === null) throw new Error("no handler");
     this.handler(frame);
+  }
+
+
+  disconnect(): void {
+    this.closeHandler?.();
   }
 }
 
@@ -112,6 +122,20 @@ describe("restricted Mahjong Soul lobby session", () => {
     timers.shift()?.();
 
     await expect(pending).rejects.toThrow("mahjong_soul_catalog_sync_failed");
+    await expect(session.call(".lq.Lobby.fetchInfo", {}))
+      .rejects.toThrow("mahjong_soul_catalog_sync_failed");
+  });
+
+  it("immediately rejects pending and future calls when the open transport disconnects", async () => {
+    const transport = new FakeTransport();
+    const session = createMahjongSoulLobbySession({ bundle, transport });
+    const pending = session.call(".lq.Lobby.fetchInfo", {});
+    const second = session.call(".lq.Lobby.fetchGameRecordListV2", {});
+
+    transport.disconnect();
+
+    await expect(pending).rejects.toThrow("mahjong_soul_catalog_sync_failed");
+    await expect(second).rejects.toThrow("mahjong_soul_catalog_sync_failed");
     await expect(session.call(".lq.Lobby.fetchInfo", {}))
       .rejects.toThrow("mahjong_soul_catalog_sync_failed");
   });

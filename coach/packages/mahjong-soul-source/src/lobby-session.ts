@@ -15,6 +15,7 @@ const DEFAULT_REQUEST_TIMEOUT_MS = 15_000;
 export interface LobbyTransport {
   sendFrame(frame: Uint8Array): Promise<void>;
   onFrame(handler: (frame: Uint8Array) => void): void;
+  onClose(handler: () => void): void;
   close(): Promise<void>;
 }
 
@@ -99,6 +100,7 @@ export function createMahjongSoulLobbySession(input: {
     !isObjectLike(transport)
     || typeof transport.sendFrame !== "function"
     || typeof transport.onFrame !== "function"
+    || typeof transport.onClose !== "function"
     || typeof transport.close !== "function"
     || !Number.isInteger(requestTimeoutMs)
     || requestTimeoutMs < 1
@@ -158,6 +160,9 @@ export function createMahjongSoulLobbySession(input: {
     } catch {
       close();
     }
+  });
+  transport.onClose(() => {
+    void close();
   });
 
   async function callInternal(

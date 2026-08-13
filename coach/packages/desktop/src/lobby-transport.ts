@@ -74,33 +74,38 @@ export function createWebSocketLobbyTransport(input: {
     const socket = new WebSocketImpl(url);
     socket.binaryType = "arraybuffer";
     let handler: ((frame: Uint8Array) => void) | null = null;
+    let closeHandler: (() => void) | null = null;
     let closed = false;
     let settled = false;
     let rejectOpen: ((error: Error) => void) | null = null;
+    let connectTimer: ReturnType<typeof setTimeout> | undefined;
+    const failTransport = () => {
+      if (closed) return;
+      closed = true;
+      if (connectTimer !== undefined) clearTimeout(connectTimer);
+      if (!settled) {
+        settled = true;
+        rejectOpen?.(failed());
+      }
+      handler = null;
+      socket.onopen = null;
+      socket.onerror = null;
+      socket.onclose = null;
+      socket.onmessage = null;
+      try { socket.close(); } catch { /* failure remains fixed */ }
+      closeHandler?.();
+    };
     const opened = new Promise<void>((resolve, reject) => {
       rejectOpen = reject;
-      const timer = setTimeout(() => {
-        if (settled) return;
-        settled = true;
-        closed = true;
-        try { socket.close(); } catch { /* fixed failure below */ }
-        reject(failed());
-      }, connectTimeoutMs);
+      connectTimer = setTimeout(failTransport, connectTimeoutMs);
       socket.onopen = () => {
         if (settled || closed) return;
         settled = true;
-        clearTimeout(timer);
+        if (connectTimer !== undefined) clearTimeout(connectTimer);
         resolve();
       };
-      const rejectBeforeOpen = () => {
-        if (settled) return;
-        settled = true;
-        closed = true;
-        clearTimeout(timer);
-        reject(failed());
-      };
-      socket.onerror = rejectBeforeOpen;
-      socket.onclose = rejectBeforeOpen;
+      socket.onerror = failTransport;
+      socket.onclose = failTransport;
     });
     void opened.catch(() => undefined);
     socket.onmessage = (event) => {
@@ -110,6 +115,8 @@ export function createWebSocketLobbyTransport(input: {
         handler(new Uint8Array(data.slice(0)));
       } else if (data instanceof Uint8Array) {
         handler(new Uint8Array(data));
+      } else {
+        failTransport();
       }
     };
     return Object.freeze({
@@ -120,12 +127,21 @@ export function createWebSocketLobbyTransport(input: {
           if (closed || socket.readyState !== 1) throw failed();
           socket.send(new Uint8Array(frame));
         } catch {
+          failTransport();
           throw failed();
         }
       },
       onFrame(next: (frame: Uint8Array) => void) {
         if (closed || typeof next !== "function" || handler !== null) throw failed();
         handler = next;
+      },
+      onClose(next: () => void) {
+        if (typeof next !== "function" || closeHandler !== null) throw failed();
+        if (closed) {
+          next();
+          return;
+        }
+        closeHandler = next;
       },
       async close() {
         if (closed) return;
@@ -135,6 +151,7 @@ export function createWebSocketLobbyTransport(input: {
           rejectOpen?.(failed());
         }
         handler = null;
+        closeHandler = null;
         socket.onopen = null;
         socket.onerror = null;
         socket.onclose = null;
