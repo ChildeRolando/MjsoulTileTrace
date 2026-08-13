@@ -58,6 +58,18 @@ function response(body: unknown, overrides: Partial<{
 }
 
 describe("restricted Mahjong Soul CN gateway discovery", () => {
+  test("accepts the native fetch Response shape without trusting its prototype", async () => {
+    const requestUrl = "https://route-2.maj-soul.com/api/clientgate/routes?platform=Web&version=4.0.46&lang=chs_t";
+    const native = new Response(JSON.stringify({
+      data: { routes: [{ domain: "route-2.maj-soul.com:443", ssl: true, state: "idle" }] },
+    }), { status: 200 });
+    Object.defineProperty(native, "url", { value: requestUrl });
+
+    await expect(discoverMahjongSoulCnLobbyUrl({
+      bundle: bundle(),
+      fetchImpl: async () => native,
+    })).resolves.toBe("wss://route-2.maj-soul.com/gateway");
+  });
   test("uses only the manifest-owned discovery origin and narrows to an allowed wss URL", async () => {
     const calls: string[] = [];
     const fetchImpl: GatewayDiscoveryFetch = async (url) => {

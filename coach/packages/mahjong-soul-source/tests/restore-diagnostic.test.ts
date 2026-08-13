@@ -160,6 +160,21 @@ describe("Mahjong Soul independent restore diagnostic", () => {
     expectSafe(result);
   });
 
+  test.each([
+    [[{ error: {} }], "oauth2Check"],
+    [[{ error: null, has_account: true }, { error: "bad" }], "oauth2Login"],
+    [[{ error: null, has_account: true }, { error: null, account_id: 123_456_789 }, { error: null }, { error: { message: "bad" } }], "catalog"],
+    [[{ error: null }], "missing has_account"],
+    [[{ error: null, has_account: true }, { error: null }], "missing account_id"],
+  ] as const)("keeps malformed %s responses inconclusive", async (responses, _label) => {
+    const fake = session({ responses });
+    const value = await diagnoseMahjongSoulIndependentRestore({
+      credential: candidate(), createSession: async () => fake.value, now: () => 10_000_000,
+    });
+    expect(value).toEqual({ status: "inconclusive" });
+    expectSafe(value);
+  });
+
   test("maps thrown transport values to inconclusive and closes", async () => {
     const fake = session({ throwAt: 2 });
     const result = await diagnoseMahjongSoulIndependentRestore({
@@ -167,7 +182,7 @@ describe("Mahjong Soul independent restore diagnostic", () => {
       createSession: async () => fake.value,
       now: () => 10_000_000,
     });
-    expect(result).toEqual({ status: "oauth2_login_transport_failed" });
+    expect(result).toEqual({ status: "oauth2_login_call_failed" });
     expect(fake.closeCount()).toBe(1);
     expectSafe(result);
   });
@@ -178,12 +193,12 @@ describe("Mahjong Soul independent restore diagnostic", () => {
       createSession: async () => { throw new Error("hostile creation prose"); },
       now: () => 10_000_000,
     });
-    expect(creation).toEqual({ status: "session_open_failed" });
+    expect(creation).toEqual({ status: "session_create_failed" });
 
     for (const [throwAt, status] of [
-      [1, "oauth2_check_transport_failed"],
-      [3, "fetch_info_transport_failed"],
-      [4, "catalog_probe_transport_failed"],
+      [1, "oauth2_check_call_failed"],
+      [3, "fetch_info_call_failed"],
+      [4, "catalog_probe_call_failed"],
     ] as const) {
       const fake = session({ throwAt });
       const value = await diagnoseMahjongSoulIndependentRestore({

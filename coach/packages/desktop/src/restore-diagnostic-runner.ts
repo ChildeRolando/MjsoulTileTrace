@@ -22,6 +22,26 @@ function result(status: ElectronRestoreDiagnosticStatus): ElectronRestoreDiagnos
   return Object.freeze({ status });
 }
 
+export function restoreDiagnosticExitCode(status: ElectronRestoreDiagnosticStatus): number {
+  switch (status) {
+    case "independent_restore_verified": return 0;
+    case "login_cancelled": return 10;
+    case "login_rejected": return 11;
+    case "login_capture_unverified": return 12;
+    case "login_capture_failed": return 13;
+    case "session_create_failed": return 20;
+    case "oauth2_check_call_failed": return 21;
+    case "oauth2_check_rejected": return 22;
+    case "oauth2_login_call_failed": return 23;
+    case "oauth2_login_rejected": return 24;
+    case "identity_mismatch": return 25;
+    case "fetch_info_call_failed": return 26;
+    case "catalog_probe_call_failed": return 27;
+    case "catalog_probe_rejected": return 28;
+    case "inconclusive": return 29;
+  }
+}
+
 export async function runMahjongSoulRestoreDiagnostic(input: {
   readonly loginProvider: ElectronMahjongSoulLoginProvider;
   readonly createSession: () => Promise<MahjongSoulLobbySession>;

@@ -27,7 +27,10 @@ import {
   type ElectronLoginWindowPort,
 } from "./mahjong-soul-login-window.js";
 import { createLobbySessionFactory } from "./lobby-session-factory.js";
-import { runMahjongSoulRestoreDiagnostic } from "./restore-diagnostic-runner.js";
+import {
+  restoreDiagnosticExitCode,
+  runMahjongSoulRestoreDiagnostic,
+} from "./restore-diagnostic-runner.js";
 import { createMahjongSoulSessionService } from "./mahjong-soul-session-service.js";
 import {
   createMainWindowOptions,
@@ -93,7 +96,7 @@ async function start(): Promise<void> {
       now: Date.now,
     });
     console.log(`[riichi-coach] mahjong-soul-restore:${result.status}`);
-    app.exit(result.status === "independent_restore_verified" ? 0 : 2);
+    app.exit(restoreDiagnosticExitCode(result.status));
     return;
   }
   const partitionSession = session.fromPartition(PARTITION, { cache: true });

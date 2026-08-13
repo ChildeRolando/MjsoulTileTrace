@@ -143,16 +143,22 @@ export async function discoverMahjongSoulCnLobbyUrl(input: {
       })),
       timeout,
     ]);
+    const responseOk = response?.ok;
+    const responseStatus = response?.status;
+    const responseRedirected = response?.redirected;
+    const responseUrl = response?.url;
+    const responseBody = response?.body;
     if (
-      !isRecord(response)
-      || response.ok !== true
-      || response.status !== 200
-      || response.redirected !== false
-      || response.url !== requestUrl
+      response === null
+      || (typeof response !== "object" && typeof response !== "function")
+      || responseOk !== true
+      || responseStatus !== 200
+      || responseRedirected !== false
+      || responseUrl !== requestUrl
     ) {
       throw failed();
     }
-    body = response.body;
+    body = responseBody;
     const decoded = await Promise.race([readBoundedJson(body, controller.signal), timeout]);
     if (!isRecord(decoded) || !isRecord(decoded.data)) throw failed();
     const routes = decoded.data.routes;

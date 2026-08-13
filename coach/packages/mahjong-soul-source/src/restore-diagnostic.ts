@@ -13,11 +13,11 @@ export type MahjongSoulRestoreDiagnosticStatus =
   | "oauth2_login_rejected"
   | "identity_mismatch"
   | "catalog_probe_rejected"
-  | "session_open_failed"
-  | "oauth2_check_transport_failed"
-  | "oauth2_login_transport_failed"
-  | "fetch_info_transport_failed"
-  | "catalog_probe_transport_failed"
+  | "session_create_failed"
+  | "oauth2_check_call_failed"
+  | "oauth2_login_call_failed"
+  | "fetch_info_call_failed"
+  | "catalog_probe_call_failed"
   | "inconclusive";
 
 export type MahjongSoulRestoreDiagnosticResult = Readonly<{
@@ -45,10 +45,13 @@ function isUint32(value: unknown): value is number {
     && value <= MAX_UINT32;
 }
 
-function hasSuccessfulError(value: Readonly<Record<string, unknown>>): boolean {
+function classifyError(
+  value: Readonly<Record<string, unknown>>,
+): "success" | "rejected" | "invalid" {
   const error = value.error;
-  if (error === undefined || error === null) return true;
-  return isRecord(error) && error.code === 0;
+  if (error === undefined || error === null) return "success";
+  if (!isRecord(error) || !Number.isInteger(error.code)) return "invalid";
+  return error.code === 0 ? "success" : "rejected";
 }
 
 function snapshotCandidate(
@@ -221,7 +224,7 @@ export async function diagnoseMahjongSoulIndependentRestore(input: {
     try {
       session = await input.createSession();
     } catch {
-      return result("session_open_failed");
+      return result("session_create_failed");
     }
     let check: Readonly<Record<string, unknown>>;
     try {
@@ -230,11 +233,14 @@ export async function diagnoseMahjongSoulIndependentRestore(input: {
         access_token: credential.accessToken.reveal(),
       });
     } catch {
-      return result("oauth2_check_transport_failed");
+      return result("oauth2_check_call_failed");
     }
-    if (!hasSuccessfulError(check) || check.has_account !== true) {
+    const checkError = classifyError(check);
+    if (checkError === "invalid") return result("inconclusive");
+    if (checkError === "rejected" || check.has_account === false) {
       return result("oauth2_check_rejected");
     }
+    if (check.has_account !== true) return result("inconclusive");
 
     let login: Readonly<Record<string, unknown>>;
     try {
@@ -243,10 +249,13 @@ export async function diagnoseMahjongSoulIndependentRestore(input: {
         oauth2LoginPayload(credential),
       );
     } catch {
-      return result("oauth2_login_transport_failed");
+      return result("oauth2_login_call_failed");
     }
-    if (!hasSuccessfulError(login)) return result("oauth2_login_rejected");
-    if (!isUint32(login.account_id) || login.account_id !== credential.accountId) {
+    const loginError = classifyError(login);
+    if (loginError === "invalid") return result("inconclusive");
+    if (loginError === "rejected") return result("oauth2_login_rejected");
+    if (!isUint32(login.account_id)) return result("inconclusive");
+    if (login.account_id !== credential.accountId) {
       return result("identity_mismatch");
     }
 
@@ -254,9 +263,9 @@ export async function diagnoseMahjongSoulIndependentRestore(input: {
     try {
       info = await session.call(".lq.Lobby.fetchInfo", {});
     } catch {
-      return result("fetch_info_transport_failed");
+      return result("fetch_info_call_failed");
     }
-    if (!hasSuccessfulError(info)) return result("inconclusive");
+    if (classifyError(info) !== "success") return result("inconclusive");
 
     const now = input.now();
     if (!Number.isSafeInteger(now) || now < 1000) return result("inconclusive");
@@ -271,9 +280,11 @@ export async function diagnoseMahjongSoulIndependentRestore(input: {
         end_time: endTime,
       });
     } catch {
-      return result("catalog_probe_transport_failed");
+      return result("catalog_probe_call_failed");
     }
-    if (!hasSuccessfulError(catalog)) return result("catalog_probe_rejected");
+    const catalogError = classifyError(catalog);
+    if (catalogError === "invalid") return result("inconclusive");
+    if (catalogError === "rejected") return result("catalog_probe_rejected");
     if (
       typeof catalog.iterator !== "string"
       || catalog.iterator.length === 0
