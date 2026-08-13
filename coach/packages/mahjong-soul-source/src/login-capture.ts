@@ -6,7 +6,7 @@ import {
 } from "./liqi-codec.js";
 import {
   extractCapturedLoginCredential,
-  type CapturedMahjongSoulCredential,
+  type CapturedMahjongSoulRestoreCandidate,
 } from "./login-result.js";
 import type { MahjongSoulProtocolBundle } from "./protocol-bundle.js";
 
@@ -15,7 +15,7 @@ const PROTOCOL_ERROR = "mahjong_soul_login_protocol_unsupported" as const;
 export type LoginCaptureResult = Readonly<
   | {
     status: "authenticated";
-    credential: CapturedMahjongSoulCredential;
+    credential: CapturedMahjongSoulRestoreCandidate;
   }
   | {
     status: "rejected";

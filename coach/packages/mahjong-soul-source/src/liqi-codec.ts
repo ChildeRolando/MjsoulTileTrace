@@ -39,6 +39,32 @@ type ObservedLoginMethod =
 
 type DecodedPayload = Readonly<Record<string, unknown>>;
 
+export interface MahjongSoulOAuth2RecoveryContext {
+  readonly device: Readonly<{
+    readonly platform: string;
+    readonly hardware: string;
+    readonly os: string;
+    readonly osVersion: string;
+    readonly isBrowser: boolean;
+    readonly software: string;
+    readonly salePlatform: string;
+    readonly hardwareVendor: string;
+    readonly modelNumber: string;
+    readonly screenWidth: number;
+    readonly screenHeight: number;
+    readonly userAgent: string;
+    readonly screenType: number;
+  }>;
+  readonly clientVersion: Readonly<{
+    readonly resource: string;
+    readonly package: string;
+  }>;
+  readonly currencyPlatforms: readonly number[];
+  readonly version: number;
+  readonly clientVersionString: string;
+  readonly tag: string;
+}
+
 export type DecodedLiqiMessage =
   | Readonly<{
     kind: "request_observed";
@@ -54,6 +80,7 @@ export type DecodedLiqiMessage =
       source: "observed_login";
       loginMethod: ObservedLoginMethod;
       authType: number;
+      recovery: MahjongSoulOAuth2RecoveryContext;
     }>;
   }>
   | Readonly<{
@@ -83,6 +110,7 @@ interface PendingRequest {
   origin: "observed_login" | "observed_ignored" | "direct_call";
   loginMethod: ObservedLoginMethod | null;
   loginAuthType: number | null;
+  loginRecovery: MahjongSoulOAuth2RecoveryContext | null;
 }
 
 interface WrapperValue {
@@ -114,6 +142,88 @@ function isRequestId(value: unknown): value is number {
     && typeof value === "number"
     && value >= 0
     && value <= 0xffff;
+}
+
+function boundedString(value: unknown, maximum: number): value is string {
+  return typeof value === "string" && value.length <= maximum;
+}
+
+function snapshotRecoveryContext(
+  payload: Readonly<Record<string, unknown>>,
+): MahjongSoulOAuth2RecoveryContext {
+  const device = payload.device;
+  const clientVersion = payload.client_version;
+  const currencyPlatforms = payload.currency_platforms;
+  const version = payload.version;
+  const clientVersionString = payload.client_version_string;
+  const tag = payload.tag;
+  if (
+    !isRecord(device)
+    || !isRecord(clientVersion)
+    || !Array.isArray(currencyPlatforms)
+    || currencyPlatforms.some((entry) => !isUint32(entry))
+    || !isUint32(version)
+    || !boundedString(clientVersionString, 128)
+    || !boundedString(tag, 64)
+  ) {
+    throw unsupported();
+  }
+  const platform = device.platform;
+  const hardware = device.hardware;
+  const os = device.os;
+  const osVersion = device.os_version;
+  const isBrowser = device.is_browser;
+  const software = device.software;
+  const salePlatform = device.sale_platform;
+  const hardwareVendor = device.hardware_vendor;
+  const modelNumber = device.model_number;
+  const screenWidth = device.screen_width;
+  const screenHeight = device.screen_height;
+  const userAgent = device.user_agent;
+  const screenType = device.screen_type;
+  const resource = clientVersion.resource;
+  const packageVersion = clientVersion.package;
+  if (
+    !boundedString(platform, 64)
+    || !boundedString(hardware, 128)
+    || !boundedString(os, 64)
+    || !boundedString(osVersion, 64)
+    || typeof isBrowser !== "boolean"
+    || !boundedString(software, 128)
+    || !boundedString(salePlatform, 64)
+    || !boundedString(hardwareVendor, 128)
+    || !boundedString(modelNumber, 128)
+    || !isUint32(screenWidth)
+    || !isUint32(screenHeight)
+    || !boundedString(userAgent, 2048)
+    || !isUint32(screenType)
+    || !boundedString(resource, 128)
+    || !boundedString(packageVersion, 128)
+  ) {
+    throw unsupported();
+  }
+  return Object.freeze({
+    device: Object.freeze({
+      platform,
+      hardware,
+      os,
+      osVersion,
+      isBrowser,
+      software,
+      salePlatform,
+      hardwareVendor,
+      modelNumber,
+      screenWidth,
+      screenHeight,
+      userAgent,
+      screenType,
+    }),
+    clientVersion: Object.freeze({ resource, package: packageVersion }),
+    currencyPlatforms: Object.freeze([...currencyPlatforms]),
+    version,
+    clientVersionString,
+    tag,
+  });
 }
 
 function assertExactMessageInput(type: Type, value: unknown): asserts value is Record<string, unknown> {
@@ -343,6 +453,7 @@ class StatefulLiqiCodec implements LiqiCodec {
       const request = route.requestType.decode(wrapper.data);
       const loginMethod = observedLoginMethod(wrapper.name);
       let loginAuthType: number | null = null;
+      let loginRecovery: MahjongSoulOAuth2RecoveryContext | null = null;
       if (loginMethod !== null) {
         const authTypeField = route.requestType.fields.type;
         if (authTypeField === undefined) throw unsupported();
@@ -356,6 +467,7 @@ class StatefulLiqiCodec implements LiqiCodec {
           throw unsupported();
         }
         loginAuthType = rawAuthType;
+        loginRecovery = snapshotRecoveryContext(payload);
       }
 
       this.#register(requestId, {
@@ -365,6 +477,7 @@ class StatefulLiqiCodec implements LiqiCodec {
         origin: loginMethod === null ? "observed_ignored" : "observed_login",
         loginMethod,
         loginAuthType,
+        loginRecovery,
       });
       return loginMethod === null
         ? { kind: "ignored" }
@@ -414,6 +527,7 @@ class StatefulLiqiCodec implements LiqiCodec {
       if (
         pending.loginMethod === null
         || pending.loginAuthType === null
+        || pending.loginRecovery === null
       ) {
         throw unsupported();
       }
@@ -423,6 +537,7 @@ class StatefulLiqiCodec implements LiqiCodec {
           source: "observed_login" as const,
           loginMethod: pending.loginMethod,
           authType: pending.loginAuthType,
+          recovery: pending.loginRecovery,
         },
       };
     });
@@ -470,6 +585,7 @@ class StatefulLiqiCodec implements LiqiCodec {
         origin: "direct_call",
         loginMethod: null,
         loginAuthType: null,
+        loginRecovery: null,
       });
       return frame;
     });

@@ -1,5 +1,8 @@
 import { MahjongSoulSourceError } from "./errors.js";
-import type { DecodedLiqiMessage } from "./liqi-codec.js";
+import type {
+  DecodedLiqiMessage,
+  MahjongSoulOAuth2RecoveryContext,
+} from "./liqi-codec.js";
 import { SecretString } from "./secret-string.js";
 
 const PROTOCOL_ERROR = "mahjong_soul_login_protocol_unsupported" as const;
@@ -13,6 +16,11 @@ export interface CapturedMahjongSoulCredential {
   readonly accountId: number;
   readonly displayName: string;
   readonly accessToken: SecretString;
+}
+
+export interface CapturedMahjongSoulRestoreCandidate
+  extends CapturedMahjongSoulCredential {
+  readonly recoveryContext: MahjongSoulOAuth2RecoveryContext;
 }
 
 function unsupported(): MahjongSoulSourceError {
@@ -38,9 +46,95 @@ function isPositiveUint32(value: unknown): value is number {
   return isUint32(value) && value > 0;
 }
 
+function boundedString(value: unknown, maximum: number): value is string {
+  return typeof value === "string" && value.length <= maximum;
+}
+
+function snapshotRecoveryContext(
+  value: unknown,
+): MahjongSoulOAuth2RecoveryContext {
+  if (!isRecord(value)) throw unsupported();
+  const deviceValue = value.device;
+  const clientVersionValue = value.clientVersion;
+  const currencyPlatformsValue = value.currencyPlatforms;
+  const version = value.version;
+  const clientVersionString = value.clientVersionString;
+  const tag = value.tag;
+  if (
+    !isRecord(deviceValue)
+    || !isRecord(clientVersionValue)
+    || !Array.isArray(currencyPlatformsValue)
+    || !isUint32(version)
+    || !boundedString(clientVersionString, 128)
+    || !boundedString(tag, 64)
+  ) {
+    throw unsupported();
+  }
+
+  const platform = deviceValue.platform;
+  const hardware = deviceValue.hardware;
+  const os = deviceValue.os;
+  const osVersion = deviceValue.osVersion;
+  const isBrowser = deviceValue.isBrowser;
+  const software = deviceValue.software;
+  const salePlatform = deviceValue.salePlatform;
+  const hardwareVendor = deviceValue.hardwareVendor;
+  const modelNumber = deviceValue.modelNumber;
+  const screenWidth = deviceValue.screenWidth;
+  const screenHeight = deviceValue.screenHeight;
+  const userAgent = deviceValue.userAgent;
+  const screenType = deviceValue.screenType;
+  const resource = clientVersionValue.resource;
+  const packageVersion = clientVersionValue.package;
+  const currencyPlatforms = [...currencyPlatformsValue];
+  if (
+    !boundedString(platform, 64)
+    || !boundedString(hardware, 128)
+    || !boundedString(os, 64)
+    || !boundedString(osVersion, 64)
+    || typeof isBrowser !== "boolean"
+    || !boundedString(software, 128)
+    || !boundedString(salePlatform, 64)
+    || !boundedString(hardwareVendor, 128)
+    || !boundedString(modelNumber, 128)
+    || !isUint32(screenWidth)
+    || !isUint32(screenHeight)
+    || !boundedString(userAgent, 2048)
+    || !isUint32(screenType)
+    || !boundedString(resource, 128)
+    || !boundedString(packageVersion, 128)
+    || currencyPlatforms.some((entry) => !isUint32(entry))
+  ) {
+    throw unsupported();
+  }
+
+  return Object.freeze({
+    device: Object.freeze({
+      platform,
+      hardware,
+      os,
+      osVersion,
+      isBrowser,
+      software,
+      salePlatform,
+      hardwareVendor,
+      modelNumber,
+      screenWidth,
+      screenHeight,
+      userAgent,
+      screenType,
+    }),
+    clientVersion: Object.freeze({ resource, package: packageVersion }),
+    currencyPlatforms: Object.freeze(currencyPlatforms),
+    version,
+    clientVersionString,
+    tag,
+  });
+}
+
 function projectCredential(
   message: DecodedLiqiMessage,
-): CapturedMahjongSoulCredential {
+): CapturedMahjongSoulRestoreCandidate {
   if (!isRecord(message) || message.kind !== "response") {
     throw unsupported();
   }
@@ -60,6 +154,7 @@ function projectCredential(
   const requestSource = requestContext.source;
   const contextLoginMethod = requestContext.loginMethod;
   const authType = requestContext.authType;
+  const recoveryContext = requestContext.recovery;
   if (
     requestSource !== "observed_login"
     || contextLoginMethod !== loginMethod
@@ -109,12 +204,13 @@ function projectCredential(
     accountId,
     displayName,
     accessToken: SecretString.from(accessToken),
+    recoveryContext: snapshotRecoveryContext(recoveryContext),
   });
 }
 
 export function extractCapturedLoginCredential(
   message: DecodedLiqiMessage,
-): CapturedMahjongSoulCredential {
+): CapturedMahjongSoulRestoreCandidate {
   try {
     return projectCredential(message);
   } catch {

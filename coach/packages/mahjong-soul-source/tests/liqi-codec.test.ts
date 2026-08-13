@@ -183,10 +183,38 @@ describe("Liqi wire codec", () => {
   test("observes login metadata but discards all request secrets", () => {
     const subject = codec([]);
     const secret = "password-never-surface";
+    const randomKey = "captcha-random-key-never-surface";
     const observed = subject.decodeClientFrame(requestFrame(
       9,
       ".lq.Lobby.login",
-      { account: "private@example.test", password: secret, type: 7 },
+      {
+        account: "private@example.test",
+        password: secret,
+        reconnect: false,
+        device: {
+          platform: "pc",
+          hardware: "pc",
+          os: "windows",
+          os_version: "10",
+          is_browser: true,
+          software: "Chrome",
+          sale_platform: "web",
+          hardware_vendor: "fixture",
+          model_number: "fixture",
+          screen_width: 1920,
+          screen_height: 1080,
+          user_agent: "fixture-agent",
+          screen_type: 0,
+        },
+        random_key: randomKey,
+        client_version: { resource: "0.11.252.w", package: "" },
+        gen_access_token: true,
+        currency_platforms: [2, 6],
+        type: 7,
+        version: 123,
+        client_version_string: "web-0.11.252.w",
+        tag: "chs_t",
+      },
     ));
     expect(observed).toEqual({
       kind: "request_observed",
@@ -201,6 +229,8 @@ describe("Liqi wire codec", () => {
       ".lq.ResLogin",
       { account_id: "42", access_token: "response-token", proof: [1] },
     ));
+    expect(response.kind).toBe("response");
+    if (response.kind !== "response") throw new Error("fixture response missing");
     expect(response).toEqual({
       kind: "response",
       requestId: 9,
@@ -214,10 +244,36 @@ describe("Liqi wire codec", () => {
         source: "observed_login",
         loginMethod: "login",
         authType: 7,
+        recovery: {
+          device: {
+            platform: "pc",
+            hardware: "pc",
+            os: "windows",
+            osVersion: "10",
+            isBrowser: true,
+            software: "Chrome",
+            salePlatform: "web",
+            hardwareVendor: "fixture",
+            modelNumber: "fixture",
+            screenWidth: 1920,
+            screenHeight: 1080,
+            userAgent: "fixture-agent",
+            screenType: 0,
+          },
+          clientVersion: { resource: "0.11.252.w", package: "" },
+          currencyPlatforms: [2, 6],
+          version: 123,
+          clientVersionString: "web-0.11.252.w",
+          tag: "chs_t",
+        },
       },
     });
     expect(JSON.stringify(response)).not.toContain(secret);
     expect(JSON.stringify(response)).not.toContain("private@example.test");
+    expect(JSON.stringify(response)).not.toContain(randomKey);
+    expect(Object.isFrozen(response.requestContext?.recovery)).toBe(true);
+    expect(Object.isFrozen(response.requestContext?.recovery?.device)).toBe(true);
+    expect(Object.isFrozen(response.requestContext?.recovery?.currencyPlatforms)).toBe(true);
   });
 
   test("normalizes omitted oauth login auth type to zero", () => {
@@ -225,7 +281,29 @@ describe("Liqi wire codec", () => {
     expect(subject.decodeClientFrame(requestFrame(
       11,
       ".lq.Lobby.oauth2Login",
-      { access_token: "request-token-never-surface" },
+      {
+        access_token: "request-token-never-surface",
+        device: {
+          platform: "pc",
+          hardware: "pc",
+          os: "windows",
+          os_version: "10",
+          is_browser: true,
+          software: "Chrome",
+          sale_platform: "web",
+          hardware_vendor: "fixture",
+          model_number: "fixture",
+          screen_width: 1920,
+          screen_height: 1080,
+          user_agent: "fixture-agent",
+          screen_type: 0,
+        },
+        client_version: { resource: "0.11.252.w", package: "" },
+        currency_platforms: [2, 6],
+        version: 123,
+        client_version_string: "web-0.11.252.w",
+        tag: "chs_t",
+      },
     ))).toEqual({
       kind: "request_observed",
       requestId: 11,
@@ -247,7 +325,7 @@ describe("Liqi wire codec", () => {
   test("rejects an observed login auth varint larger than uint32", () => {
     const subject = codec([]);
     const typeFieldWithTwoToThe32 = Uint8Array.of(
-      0x18,
+      0x48,
       0x80,
       0x80,
       0x80,

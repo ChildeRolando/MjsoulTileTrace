@@ -10,6 +10,7 @@ export {
 export {
   extractCapturedLoginCredential,
   type CapturedMahjongSoulCredential,
+  type CapturedMahjongSoulRestoreCandidate,
 } from "./login-result.js";
 export {
   createMahjongSoulLoginCapture,

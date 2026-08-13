@@ -10,12 +10,51 @@ message Wrapper {
 message ReqLogin {
   string account = 1;
   string password = 2;
-  uint32 type = 3;
+  bool reconnect = 3;
+  ClientDeviceInfo device = 4;
+  string random_key = 5;
+  ClientVersionInfo client_version = 6;
+  bool gen_access_token = 7;
+  repeated uint32 currency_platforms = 8;
+  uint32 type = 9;
+  uint32 version = 10;
+  string client_version_string = 11;
+  string tag = 12;
 }
 
 message ReqOauth2Login {
-  string access_token = 1;
-  uint32 type = 2;
+  uint32 type = 1;
+  string access_token = 2;
+  bool reconnect = 3;
+  ClientDeviceInfo device = 4;
+  string random_key = 5;
+  ClientVersionInfo client_version = 6;
+  bool gen_access_token = 7;
+  repeated uint32 currency_platforms = 8;
+  uint32 version = 9;
+  string client_version_string = 10;
+  string tag = 11;
+}
+
+message ClientDeviceInfo {
+  string platform = 1;
+  string hardware = 2;
+  string os = 3;
+  string os_version = 4;
+  bool is_browser = 5;
+  string software = 6;
+  string sale_platform = 7;
+  string hardware_vendor = 8;
+  string model_number = 9;
+  uint32 screen_width = 10;
+  uint32 screen_height = 11;
+  string user_agent = 12;
+  uint32 screen_type = 13;
+}
+
+message ClientVersionInfo {
+  string resource = 1;
+  string package = 2;
 }
 
 message ResLogin {

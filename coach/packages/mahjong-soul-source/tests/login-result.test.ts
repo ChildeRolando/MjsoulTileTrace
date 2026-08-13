@@ -4,12 +4,37 @@ import { MahjongSoulSourceError } from "../src/errors.js";
 import type { DecodedLiqiMessage } from "../src/liqi-codec.js";
 import {
   extractCapturedLoginCredential,
-  type CapturedMahjongSoulCredential,
+  type CapturedMahjongSoulRestoreCandidate,
 } from "../src/login-result.js";
 import { SecretString } from "../src/secret-string.js";
 
 const fixedCode = "mahjong_soul_login_protocol_unsupported";
 const fakeToken = "fixture-access-token-never-real";
+
+function recoveryContext() {
+  return {
+    device: {
+      platform: "pc",
+      hardware: "pc",
+      os: "windows",
+      osVersion: "10",
+      isBrowser: true,
+      software: "Chrome",
+      salePlatform: "web",
+      hardwareVendor: "fixture",
+      modelNumber: "fixture",
+      screenWidth: 1920,
+      screenHeight: 1080,
+      userAgent: "fixture-agent",
+      screenType: 0,
+    },
+    clientVersion: { resource: "0.11.252.w", package: "" },
+    currencyPlatforms: [2, 6],
+    version: 123,
+    clientVersionString: "web-0.11.252.w",
+    tag: "chs_t",
+  };
+}
 
 function decodedLogin(overrides: {
   readonly method?: unknown;
@@ -26,6 +51,7 @@ function decodedLogin(overrides: {
       source: "observed_login",
       loginMethod: "login",
       authType: 7,
+      recovery: recoveryContext(),
     },
     payload: has("payload") ? overrides.payload : {
       account_id: 123_456_789,
@@ -55,7 +81,7 @@ function expectFixedFailure(
 }
 
 function assertSafeCredential(
-  credential: CapturedMahjongSoulCredential,
+  credential: CapturedMahjongSoulRestoreCandidate,
   expected: {
     readonly loginMethod: "login" | "oauth2Login";
     readonly authType: number;
@@ -68,6 +94,7 @@ function assertSafeCredential(
     "accountId",
     "displayName",
     "accessToken",
+    "recoveryContext",
   ]);
   expect(credential).toMatchObject({
     region: "cn",
@@ -78,6 +105,12 @@ function assertSafeCredential(
   });
   expect(credential.accessToken).toBeInstanceOf(SecretString);
   expect(credential.accessToken.reveal()).toBe(fakeToken);
+  expect(credential.recoveryContext).toMatchObject({
+    clientVersionString: "web-0.11.252.w",
+    version: 123,
+    tag: "chs_t",
+  });
+  expect(Object.isFrozen(credential.recoveryContext)).toBe(true);
   expect(Object.isFrozen(credential)).toBe(true);
 
   expect(String(credential)).not.toContain(fakeToken);
@@ -96,6 +129,7 @@ describe("captured Mahjong Soul login projection", () => {
         source: "observed_login",
         loginMethod: "oauth2Login",
         authType: 0,
+        recovery: recoveryContext(),
       },
       payload: {
         error: null,
@@ -172,8 +206,9 @@ describe("captured Mahjong Soul login projection", () => {
       source: "observed_login",
       loginMethod: "login",
       authType: 7,
+      recovery: recoveryContext(),
       request_private: unknownSecret,
-    }, ["source", "loginMethod", "authType"], "requestContext");
+    }, ["source", "loginMethod", "authType", "recovery"], "requestContext");
     const message = guarded({
       kind: "response",
       requestId: 17,
@@ -214,6 +249,7 @@ describe("captured Mahjong Soul login projection", () => {
         source: "observed_login" as const,
         loginMethod: "login" as const,
         authType: 7,
+        recovery: Object.freeze(recoveryContext()),
       }),
       payload: Object.freeze({
         error: Object.freeze({ code: 0 }),
@@ -244,6 +280,7 @@ describe("captured Mahjong Soul login projection", () => {
         authTypeReads += 1;
         return authTypeReads === 1 ? 7 : hostileValue;
       },
+      recovery: recoveryContext(),
     };
     const account = {
       get nickname(): unknown {
