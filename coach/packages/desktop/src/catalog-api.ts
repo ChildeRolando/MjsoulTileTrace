@@ -8,14 +8,20 @@ const CatalogMethodSchema = z.function()
   .args()
   .returns(z.promise(z.array(AnalyzableRecordSummarySchema)));
 
+const StartRecordAnalysisMethodSchema = z.function()
+  .args(z.string())
+  .returns(z.promise(z.object({ status: z.literal("record_fetched") }).strict()));
+
 export const MahjongSoulCatalogApiSchema = z.object({
   syncAnalyzableRecords: CatalogMethodSchema,
   listAnalyzableRecords: CatalogMethodSchema,
+  startRecordAnalysis: StartRecordAnalysisMethodSchema,
 }).strict();
 
 export interface MahjongSoulCatalogApi {
   syncAnalyzableRecords(): Promise<AnalyzableRecordSummary[]>;
   listAnalyzableRecords(): Promise<AnalyzableRecordSummary[]>;
+  startRecordAnalysis(recordId: string): Promise<Readonly<{ status: "record_fetched" }>>;
 }
 
 export function parseAnalyzableRecordSummaries(

@@ -12,6 +12,7 @@ export const PRELOAD_CHANNELS = Object.freeze({
   logout: "mahjong-soul:logout",
   syncRecords: "mahjong-soul:sync-analyzable-records",
   listRecords: "mahjong-soul:list-analyzable-records",
+  startAnalysis: "mahjong-soul:start-record-analysis",
 } as const);
 
 const ERROR_CODES: ReadonlySet<string> = new Set([
@@ -111,4 +112,10 @@ contextBridge.exposeInMainWorld("riichiCoach", Object.freeze({
 contextBridge.exposeInMainWorld("riichiCoachCatalog", Object.freeze({
   syncAnalyzableRecords: () => invokeCatalog(PRELOAD_CHANNELS.syncRecords),
   listAnalyzableRecords: () => invokeCatalog(PRELOAD_CHANNELS.listRecords),
+  startRecordAnalysis: async (recordId: string) => {
+    if (typeof recordId !== "string") throw new Error(PROTOCOL_ERROR);
+    const value = await ipcRenderer.invoke(PRELOAD_CHANNELS.startAnalysis, recordId);
+    if (!isRecord(value) || value.status !== "record_fetched" || Object.keys(value).length !== 1) throw new Error(PROTOCOL_ERROR);
+    return Object.freeze({ status: "record_fetched" as const });
+  },
 }));

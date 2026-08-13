@@ -6,6 +6,7 @@ import type { MahjongSoulSessionController } from "@riichi-coach/mahjong-soul-so
 import { parseMahjongSoulSessionStatus } from "./session-api.js";
 import { parseAnalyzableRecordSummaries } from "./catalog-api.js";
 import type { MahjongSoulCatalogService } from "./catalog-service.js";
+import type { MahjongSoulRecordIngestionService } from "./record-ingestion-service.js";
 
 const PROTOCOL_ERROR = "mahjong_soul_login_protocol_unsupported" as const;
 
@@ -18,6 +19,7 @@ export const MAHJONG_SOUL_IPC_CHANNELS = Object.freeze({
 export const MAHJONG_SOUL_CATALOG_IPC_CHANNELS = Object.freeze({
   syncAnalyzableRecords: "mahjong-soul:sync-analyzable-records",
   listAnalyzableRecords: "mahjong-soul:list-analyzable-records",
+  startRecordAnalysis: "mahjong-soul:start-record-analysis",
 } as const);
 
 export interface IpcMainPort {
@@ -110,12 +112,13 @@ export function registerMahjongSoulCatalogIpc(input: {
   readonly service: Pick<
     MahjongSoulCatalogService,
     "syncAnalyzableRecords" | "listAnalyzableRecords"
-  >;
+  > & Pick<MahjongSoulRecordIngestionService, "ingest">;
   readonly trustedSenderId: number;
 }): Readonly<{ dispose(): void }> {
   const { ipcMain, service, trustedSenderId } = input;
   const syncAnalyzableRecords = service?.syncAnalyzableRecords;
   const listAnalyzableRecords = service?.listAnalyzableRecords;
+  const ingest = service?.ingest;
   if (
     ipcMain === null
     || typeof ipcMain !== "object"
@@ -125,6 +128,7 @@ export function registerMahjongSoulCatalogIpc(input: {
     || typeof service !== "object"
     || typeof syncAnalyzableRecords !== "function"
     || typeof listAnalyzableRecords !== "function"
+    || typeof ingest !== "function"
     || !Number.isInteger(trustedSenderId)
     || trustedSenderId < 0
   ) {
@@ -160,6 +164,16 @@ export function registerMahjongSoulCatalogIpc(input: {
     MAHJONG_SOUL_CATALOG_IPC_CHANNELS.listAnalyzableRecords,
     operations.listAnalyzableRecords,
   );
+  ipcMain.handle(MAHJONG_SOUL_CATALOG_IPC_CHANNELS.startRecordAnalysis, async (event, ...args) => {
+    try {
+      if (senderId(event) !== trustedSenderId || args.length !== 1 || typeof args[0] !== "string") throw fixedError();
+      const fetched = await ingest.call(service, args[0]);
+      if (fetched.recordId !== args[0] || fetched.actionCount < 1) throw fixedError();
+      return Object.freeze({ status: "record_fetched" as const });
+    } catch (error) {
+      throw fixedError(error);
+    }
+  });
 
   return Object.freeze({
     dispose(): void {

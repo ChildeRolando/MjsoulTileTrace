@@ -15,6 +15,7 @@ import {
   createMahjongSoulSessionVault,
   createMahjongSoulOAuth2SessionRestorer,
   authenticateStoredMahjongSoulSession,
+  fetchMahjongSoulRecord,
   loadMahjongSoulProtocolBundle,
 } from "@riichi-coach/mahjong-soul-source";
 import { createMahjongSoulCatalogService } from "./catalog-service.js";
@@ -39,6 +40,7 @@ import {
   isAllowedLocalRendererNavigation,
 } from "./main.js";
 import { createRecoverableSessionFile } from "./recoverable-session-file.js";
+import { createMahjongSoulRecordIngestionService } from "./record-ingestion-service.js";
 
 const PARTITION = "persist:riichi-coach-mahjong-soul-cn";
 const bundleRoot = fileURLToPath(new URL("../../../vendor/mahjong-soul-protocol/", import.meta.url));
@@ -135,6 +137,19 @@ async function start(): Promise<void> {
     },
     clock: Date.now,
   });
+  const recordIngestionService = createMahjongSoulRecordIngestionService({
+    vault,
+    catalogStore,
+    createSession: createLobbySessionFactory({ bundle }),
+    authenticate: authenticateStoredMahjongSoulSession,
+    fetchRecord: async (lobby, stored, recordId) => await fetchMahjongSoulRecord({
+      session: lobby,
+      bundle,
+      recordId,
+      clientVersionString: stored.recoveryContext.clientVersionString,
+      fetchImpl: globalThis.fetch,
+    }),
+  });
   const service = createMahjongSoulSessionService({
     vault,
     loginProvider,
@@ -166,7 +181,11 @@ async function start(): Promise<void> {
     });
     catalogIpcRegistration = registerMahjongSoulCatalogIpc({
       ipcMain: ipcMain as unknown as IpcMainPort,
-      service: catalogService,
+      service: Object.freeze({
+        syncAnalyzableRecords: () => catalogService.syncAnalyzableRecords(),
+        listAnalyzableRecords: () => catalogService.listAnalyzableRecords(),
+        ingest: (recordId: string) => recordIngestionService.ingest(recordId),
+      }),
       trustedSenderId: window.webContents.id,
     });
     window.on("closed", () => {

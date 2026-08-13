@@ -33,17 +33,30 @@ function summary(): AnalyzableRecordSummary {
   };
 }
 
+function fetchedRecord() {
+  return {
+    recordId,
+    sha256: `sha256:${"0".repeat(64)}` as const,
+    container: "actions" as const,
+    actionCount: 1,
+    recordBytes: new Uint8Array([1]),
+  };
+}
+
 describe("Mahjong Soul renderer-safe catalog API", () => {
-  it("accepts exactly two no-argument methods returning summaries", async () => {
+  it("accepts exactly two catalog methods and one narrow analysis trigger", async () => {
     const api = MahjongSoulCatalogApiSchema.parse({
       syncAnalyzableRecords: async () => [summary()],
       listAnalyzableRecords: async () => [],
+      startRecordAnalysis: async () => ({ status: "record_fetched" as const }),
     });
     await expect(api.syncAnalyzableRecords()).resolves.toEqual([summary()]);
     await expect(api.listAnalyzableRecords()).resolves.toEqual([]);
+    await expect(api.startRecordAnalysis(recordId)).resolves.toEqual({ status: "record_fetched" });
     expect(Object.keys(api)).toEqual([
       "syncAnalyzableRecords",
       "listAnalyzableRecords",
+      "startRecordAnalysis",
     ]);
   });
 
@@ -56,6 +69,7 @@ describe("Mahjong Soul renderer-safe catalog API", () => {
     const api = MahjongSoulCatalogApiSchema.parse({
       syncAnalyzableRecords: async () => [{ ...summary(), [field]: value }],
       listAnalyzableRecords: async () => [],
+      startRecordAnalysis: async () => ({ status: "record_fetched" as const }),
     });
     await expect(api.syncAnalyzableRecords()).rejects.toThrow();
   });
@@ -64,6 +78,7 @@ describe("Mahjong Soul renderer-safe catalog API", () => {
     expect(() => MahjongSoulCatalogApiSchema.parse({
       syncAnalyzableRecords: async () => [],
       listAnalyzableRecords: async () => [],
+      startRecordAnalysis: async () => ({ status: "record_fetched" as const }),
       invoke: async () => "token",
     })).toThrow();
   });
@@ -86,11 +101,12 @@ describe("safe Mahjong Soul catalog IPC", () => {
     removeHandler(channel: string): void { this.handlers.delete(channel); }
   }
 
-  it("registers two trusted no-argument catalog operations", async () => {
+  it("registers two trusted catalog operations and one narrow analysis trigger", async () => {
     const ipc = new FakeIpcMain();
     const service = {
       syncAnalyzableRecords: async () => [summary()],
       listAnalyzableRecords: async () => [summary()],
+      ingest: async () => fetchedRecord(),
     };
     const registration = registerMahjongSoulCatalogIpc({
       ipcMain: ipc,
@@ -100,7 +116,10 @@ describe("safe Mahjong Soul catalog IPC", () => {
     expect([...ipc.handlers.keys()]).toEqual([
       "mahjong-soul:sync-analyzable-records",
       "mahjong-soul:list-analyzable-records",
+      "mahjong-soul:start-record-analysis",
     ]);
+    await expect(ipc.handlers.get("mahjong-soul:start-record-analysis")?.({ sender: { id: 7 } }, recordId))
+      .resolves.toEqual({ status: "record_fetched" });
     await expect(ipc.handlers.get("mahjong-soul:sync-analyzable-records")?.({ sender: { id: 7 } }))
       .resolves.toEqual([summary()]);
     registration.dispose();
@@ -115,6 +134,7 @@ describe("safe Mahjong Soul catalog IPC", () => {
       service: {
         syncAnalyzableRecords: async () => [summary()],
         listAnalyzableRecords: async () => [summary()],
+        ingest: async () => fetchedRecord(),
       },
     });
     const handler = ipc.handlers.get("mahjong-soul:list-analyzable-records")!;
@@ -130,6 +150,7 @@ describe("safe Mahjong Soul catalog IPC", () => {
       service: {
         syncAnalyzableRecords: async () => [summary()],
         listAnalyzableRecords: async () => [{ ...summary(), accessToken: "t" } as never],
+        ingest: async () => fetchedRecord(),
       },
     });
     await expect(unsafe.handlers.get("mahjong-soul:list-analyzable-records")?.({ sender: { id: 7 } }))
@@ -138,23 +159,28 @@ describe("safe Mahjong Soul catalog IPC", () => {
 });
 
 describe("Mahjong Soul catalog preload API", () => {
-  it("exposes exactly the two catalog channels", async () => {
+  it("exposes exactly the catalog channels", async () => {
     const calls: string[] = [];
     const api = createMahjongSoulCatalogPreloadApi({
       invoke: async (channel: string) => {
         calls.push(channel);
-        return [summary()];
+        return channel.endsWith("start-record-analysis")
+          ? { status: "record_fetched" }
+          : [summary()];
       },
     });
     await api.syncAnalyzableRecords();
     await api.listAnalyzableRecords();
+    await api.startRecordAnalysis(recordId);
     expect(calls).toEqual([
       "mahjong-soul:sync-analyzable-records",
       "mahjong-soul:list-analyzable-records",
+      "mahjong-soul:start-record-analysis",
     ]);
     expect(Object.keys(api)).toEqual([
       "syncAnalyzableRecords",
       "listAnalyzableRecords",
+      "startRecordAnalysis",
     ]);
   });
 

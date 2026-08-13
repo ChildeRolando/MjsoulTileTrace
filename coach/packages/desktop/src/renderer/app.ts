@@ -57,10 +57,26 @@ function renderCatalog(summaries: readonly import("@riichi-coach/contracts").Ana
     : `${notice} 缓存中有 ${summaries.length} 场可分析对局。`;
   for (const entry of summaries) {
     const item = document.createElement("li");
+    const button = document.createElement("button");
     const scores = entry.players.map((player) => player.displayName).join(" / ");
     const self = entry.players[entry.selfSeat];
     const label = `${formatStartedAt(entry.startedAt)} · 你为 ${self?.displayName ?? "?"}（${scores}）`;
-    item.textContent = label;
+    const text = document.createElement("span");
+    text.textContent = label;
+    button.type = "button";
+    button.textContent = "分析";
+    button.addEventListener("click", () => {
+      void (async () => {
+        setPending(true);
+        try {
+          await window.riichiCoachCatalog.startRecordAnalysis(entry.recordId);
+          catalogDetailElement.textContent = "牌谱已取得并完成基础解码。";
+        } catch {
+          catalogDetailElement.textContent = "暂时无法取得或解析这场牌谱。";
+        } finally { setPending(false); }
+      })();
+    });
+    item.append(text, button);
     item.title = entry.shareUrl;
     catalogListElement.appendChild(item);
   }
