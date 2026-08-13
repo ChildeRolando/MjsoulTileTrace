@@ -10,6 +10,7 @@ import { SecretString } from "./secret-string.js";
 const CATALOG_SYNC_FAILED = "mahjong_soul_catalog_sync_failed" as const;
 const SESSION_INVALID = "mahjong_soul_session_invalid" as const;
 const MAX_REQUEST_ID = 0xffff;
+const DEFAULT_REQUEST_TIMEOUT_MS = 15_000;
 
 export interface LobbyTransport {
   sendFrame(frame: Uint8Array): Promise<void>;
@@ -22,6 +23,7 @@ export type LobbyDirectCallMethod =
   | ".lq.Lobby.fetchInfo"
   | ".lq.Lobby.fetchGameRecordListV2"
   | ".lq.Lobby.fetchNextGameRecordList"
+  | ".lq.Lobby.fetchGameRecordsDetail"
   | ".lq.Lobby.loginBeat";
 
 const LOBBY_DIRECT_CALL_METHODS: readonly LobbyDirectCallMethod[] = Object.freeze([
@@ -29,6 +31,7 @@ const LOBBY_DIRECT_CALL_METHODS: readonly LobbyDirectCallMethod[] = Object.freez
   ".lq.Lobby.fetchInfo",
   ".lq.Lobby.fetchGameRecordListV2",
   ".lq.Lobby.fetchNextGameRecordList",
+  ".lq.Lobby.fetchGameRecordsDetail",
   ".lq.Lobby.loginBeat",
 ]);
 
@@ -48,6 +51,7 @@ export interface MahjongSoulLobbySession {
 interface PendingCall {
   resolve(payload: Readonly<Record<string, unknown>>): void;
   reject(error: Error): void;
+  timer?: unknown;
 }
 
 function isObjectLike(value: unknown): value is object {
@@ -80,14 +84,25 @@ function sessionInvalid(): MahjongSoulSourceError {
 export function createMahjongSoulLobbySession(input: {
   readonly bundle: MahjongSoulProtocolBundle;
   readonly transport: LobbyTransport;
+  readonly requestTimeoutMs?: number;
+  readonly setTimer?: (callback: () => void, milliseconds: number) => unknown;
+  readonly clearTimer?: (handle: unknown) => void;
 }): MahjongSoulLobbySession {
   const bundle = input.bundle;
   const transport = input.transport;
+  const requestTimeoutMs = input.requestTimeoutMs ?? DEFAULT_REQUEST_TIMEOUT_MS;
+  const setTimer = input.setTimer ?? ((callback, milliseconds) => setTimeout(callback, milliseconds));
+  const clearTimer = input.clearTimer ?? ((handle) => clearTimeout(handle as ReturnType<typeof setTimeout>));
   if (
     !isObjectLike(transport)
     || typeof transport.sendFrame !== "function"
     || typeof transport.onFrame !== "function"
     || typeof transport.close !== "function"
+    || !Number.isInteger(requestTimeoutMs)
+    || requestTimeoutMs < 1
+    || requestTimeoutMs > 120_000
+    || typeof setTimer !== "function"
+    || typeof clearTimer !== "function"
   ) {
     throw catalogFailed();
   }
@@ -119,6 +134,7 @@ export function createMahjongSoulLobbySession(input: {
     const entry = pending.get(requestId);
     if (entry === undefined) return;
     pending.delete(requestId);
+    if (entry.timer !== undefined) clearTimer(entry.timer);
     if (decoded.kind !== "response") {
       entry.reject(catalogFailed());
       return;
@@ -158,10 +174,22 @@ export function createMahjongSoulLobbySession(input: {
     }
     return await new Promise<Readonly<Record<string, unknown>>>(
       (resolve, reject) => {
-        pending.set(requestId, { resolve, reject });
+        const entry: PendingCall = { resolve, reject };
+        pending.set(requestId, entry);
+        const timer = setTimer(() => {
+          const entry = pending.get(requestId);
+          if (entry === undefined) return;
+          pending.delete(requestId);
+          entry.reject(catalogFailed());
+          void close();
+        }, requestTimeoutMs);
+        if (pending.has(requestId)) entry.timer = timer;
+        else clearTimer(timer);
         transport.sendFrame(frame).catch(() => {
           if (pending.has(requestId)) {
+            const entry = pending.get(requestId)!;
             pending.delete(requestId);
+            if (entry.timer !== undefined) clearTimer(entry.timer);
             reject(catalogFailed());
           }
         });
@@ -173,7 +201,10 @@ export function createMahjongSoulLobbySession(input: {
     if (closed) return;
     closed = true;
     const error = catalogFailed();
-    for (const entry of pending.values()) entry.reject(error);
+    for (const entry of pending.values()) {
+      if (entry.timer !== undefined) clearTimer(entry.timer);
+      entry.reject(error);
+    }
     pending.clear();
     try {
       codec.close();

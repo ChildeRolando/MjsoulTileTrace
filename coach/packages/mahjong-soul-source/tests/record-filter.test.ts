@@ -8,7 +8,7 @@ const recordId = "260811-00000000-0000-0000-0000-000000000001";
 const now = 1_754_887_700;
 
 const validEntry: RawRecordListEntry = {
-  version: 1,
+  version: 210715,
   uuid: recordId,
   start_time: 1_754_877_600,
   end_time: 1_754_887_600,
@@ -20,7 +20,11 @@ const validEntry: RawRecordListEntry = {
     { rank: 3, account_id: 103, nickname: "C", seat: 2, point: 23_000 },
     { rank: 4, account_id: 104, nickname: "D", seat: 3, point: 18_000 },
   ],
-  standard_rule: 0,
+  standard_rule: 2,
+  game_mode: 2,
+  game_mode_ai: false,
+  game_mode_extendinfo: "",
+  game_mode_detail_rule_present: false,
 };
 
 describe("analyzable Mahjong Soul record filter", () => {
@@ -33,7 +37,13 @@ describe("analyzable Mahjong Soul record filter", () => {
       shareUrl: `https://game.maj-soul.com/1/?paipu=${recordId}_a1`,
       startedAt: 1_754_877_600,
       selfSeat: 2,
-      rule: { playerCount: 4, length: "south", displayLabel: "四人南风" },
+      rule: {
+        playerCount: 4,
+        length: "south",
+        modeId: 2,
+        detailRuleHash: "sha256:7a53cc5deb60512f3dacacc7695dd5072077c6f4984dbedbff76e27092393b1c",
+        displayLabel: "四人南风",
+      },
       analysisStatus: "not_analyzed",
       lastSyncedAt: now,
     });
@@ -53,6 +63,20 @@ describe("analyzable Mahjong Soul record filter", () => {
   it("rejects a non-standard rule flag", () => {
     expect(filterAnalyzableRecord({ ...validEntry, standard_rule: 1 }, 103, now))
       .toEqual({ status: "not_analyzable" });
+  });
+
+  it("requires positive four-player South mode evidence", () => {
+    expect(filterAnalyzableRecord({ ...validEntry, game_mode: 1 }, 103, now))
+      .toEqual({ status: "not_analyzable" });
+    expect(filterAnalyzableRecord({ ...validEntry, game_mode: 12 }, 103, now))
+      .toEqual({ status: "not_analyzable" });
+    const withoutMode = { ...validEntry } as Record<string, unknown>;
+    delete withoutMode.game_mode;
+    expect(filterAnalyzableRecord(
+      withoutMode as unknown as RawRecordListEntry,
+      103,
+      now,
+    )).toEqual({ status: "not_analyzable" });
   });
 
   it("rejects a self account id that maps to zero or multiple seats", () => {

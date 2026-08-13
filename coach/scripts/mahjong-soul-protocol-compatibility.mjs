@@ -3,7 +3,7 @@ import { createHash } from "node:crypto";
 import protobuf from "protobufjs";
 
 const FAILURE = "mahjong_soul_protocol_compatibility_failed";
-const SURFACE_VERSION = "mahjong-soul-required-surface/v2";
+const SURFACE_VERSION = "mahjong-soul-required-surface/v3";
 
 const REQUIRED_ROUTES = Object.freeze({
   ".lq.Lobby.login": Object.freeze({ req: ".lq.ReqLogin", resp: ".lq.ResLogin" }),
@@ -12,6 +12,7 @@ const REQUIRED_ROUTES = Object.freeze({
   ".lq.Lobby.fetchInfo": Object.freeze({ req: ".lq.ReqCommon", resp: ".lq.ResFetchInfo" }),
   ".lq.Lobby.fetchGameRecordListV2": Object.freeze({ req: ".lq.ReqGameRecordListV2", resp: ".lq.ResGameRecordListV2" }),
   ".lq.Lobby.fetchNextGameRecordList": Object.freeze({ req: ".lq.ReqNextGameRecordList", resp: ".lq.ResNextGameRecordList" }),
+  ".lq.Lobby.fetchGameRecordsDetail": Object.freeze({ req: ".lq.ReqGameRecordsDetail", resp: ".lq.ResGameRecordsDetail" }),
   ".lq.Lobby.fetchGameRecord": Object.freeze({ req: ".lq.ReqGameRecord", resp: ".lq.ResGameRecord" }),
   ".lq.Lobby.loginBeat": Object.freeze({ req: ".lq.ReqLoginBeat", resp: ".lq.ResCommon" }),
   ".lq.Lobby.logout": Object.freeze({ req: ".lq.ReqLogout", resp: ".lq.ResLogout" }),
@@ -32,6 +33,12 @@ const REQUIRED_MESSAGES = Object.freeze([
   ".lq.ResNextGameRecordList",
   ".lq.RecordListEntry",
   ".lq.RecordPlayerResult",
+  ".lq.ReqGameRecordsDetail",
+  ".lq.ResGameRecordsDetail",
+  ".lq.RecordGame",
+  ".lq.GameConfig",
+  ".lq.GameMode",
+  ".lq.GameDetailRule",
   ".lq.ReqGameRecord",
   ".lq.ResGameRecord",
   ".lq.ReqLoginBeat",
@@ -73,6 +80,66 @@ const CRITICAL_FIELDS = Object.freeze({
     user_input: Object.freeze({ id: 4, type: ".lq.GameUserInput", repeated: false }),
     user_event: Object.freeze({ id: 5, type: ".lq.GameUserEvent", repeated: false }),
     game_event: Object.freeze({ id: 6, type: "uint32", repeated: false }),
+  }),
+  ".lq.ReqGameRecordsDetail": Object.freeze({
+    uuid_list: Object.freeze({ id: 1, type: "string", repeated: true }),
+  }),
+  ".lq.ReqGameRecordListV2": Object.freeze({
+    tag: Object.freeze({ id: 1, type: "uint32", repeated: false }),
+    begin_time: Object.freeze({ id: 2, type: "uint32", repeated: false }),
+    end_time: Object.freeze({ id: 3, type: "uint32", repeated: false }),
+  }),
+  ".lq.ResGameRecordListV2": Object.freeze({
+    error: Object.freeze({ id: 1, type: ".lq.Error", repeated: false }),
+    iterator: Object.freeze({ id: 2, type: "string", repeated: false }),
+    iterator_expire: Object.freeze({ id: 3, type: "uint32", repeated: false }),
+    actual_begin_time: Object.freeze({ id: 4, type: "uint32", repeated: false }),
+    actual_end_time: Object.freeze({ id: 5, type: "uint32", repeated: false }),
+  }),
+  ".lq.ReqNextGameRecordList": Object.freeze({
+    iterator: Object.freeze({ id: 1, type: "string", repeated: false }),
+    count: Object.freeze({ id: 2, type: "uint32", repeated: false }),
+  }),
+  ".lq.ResNextGameRecordList": Object.freeze({
+    error: Object.freeze({ id: 1, type: ".lq.Error", repeated: false }),
+    next: Object.freeze({ id: 2, type: "bool", repeated: false }),
+    entries: Object.freeze({ id: 3, type: ".lq.RecordListEntry", repeated: true }),
+    iterator_expire: Object.freeze({ id: 4, type: "uint32", repeated: false }),
+  }),
+  ".lq.RecordListEntry": Object.freeze({
+    version: Object.freeze({ id: 1, type: "uint32", repeated: false }),
+    uuid: Object.freeze({ id: 2, type: "string", repeated: false }),
+    start_time: Object.freeze({ id: 3, type: "uint32", repeated: false }),
+    end_time: Object.freeze({ id: 4, type: "uint32", repeated: false }),
+    tag: Object.freeze({ id: 5, type: "uint32", repeated: false }),
+    subtag: Object.freeze({ id: 6, type: "uint32", repeated: false }),
+    players: Object.freeze({ id: 7, type: ".lq.RecordPlayerResult", repeated: true }),
+    standard_rule: Object.freeze({ id: 8, type: "uint32", repeated: false }),
+  }),
+  ".lq.RecordPlayerResult": Object.freeze({
+    rank: Object.freeze({ id: 1, type: "uint32", repeated: false }),
+    account_id: Object.freeze({ id: 2, type: "uint32", repeated: false }),
+    nickname: Object.freeze({ id: 3, type: "string", repeated: false }),
+    seat: Object.freeze({ id: 6, type: "uint32", repeated: false }),
+    point: Object.freeze({ id: 8, type: "int32", repeated: false }),
+  }),
+  ".lq.ResGameRecordsDetail": Object.freeze({
+    error: Object.freeze({ id: 1, type: ".lq.Error", repeated: false }),
+    record_list: Object.freeze({ id: 2, type: ".lq.RecordGame", repeated: true }),
+  }),
+  ".lq.RecordGame": Object.freeze({
+    uuid: Object.freeze({ id: 1, type: "string", repeated: false }),
+    config: Object.freeze({ id: 5, type: ".lq.GameConfig", repeated: false }),
+    standard_rule: Object.freeze({ id: 14, type: "uint32", repeated: false }),
+  }),
+  ".lq.GameConfig": Object.freeze({
+    mode: Object.freeze({ id: 2, type: ".lq.GameMode", repeated: false }),
+  }),
+  ".lq.GameMode": Object.freeze({
+    mode: Object.freeze({ id: 1, type: "uint32", repeated: false }),
+    ai: Object.freeze({ id: 4, type: "bool", repeated: false }),
+    extendinfo: Object.freeze({ id: 5, type: "string", repeated: false }),
+    detail_rule: Object.freeze({ id: 6, type: ".lq.GameDetailRule", repeated: false }),
   }),
 });
 

@@ -86,6 +86,12 @@ async function start(): Promise<void> {
     store,
     now: Date.now,
   });
+  const catalogStore = createMahjongSoulCatalogStore({
+    protector,
+    store: createRecoverableSessionFile({
+      root: join(app.getPath("userData"), "mahjong-soul-catalog"),
+    }),
+  });
   const loginProvider = createElectronMahjongSoulLoginProvider({
     bundle,
     createWindow: (options) => new BrowserWindow(
@@ -97,26 +103,24 @@ async function start(): Promise<void> {
       } as BrowserWindowConstructorOptions,
     ) as unknown as ElectronLoginWindowPort,
   });
-  const service = createMahjongSoulSessionService({
-    vault,
-    loginProvider,
-    browserSession: partitionSession,
-    clock: Date.now,
-  });
   const catalogService = createMahjongSoulCatalogService({
     vault,
-    catalogStore: createMahjongSoulCatalogStore({
-      protector,
-      store: createRecoverableSessionFile({
-        root: join(app.getPath("userData"), "mahjong-soul-catalog"),
-      }),
-    }),
+    catalogStore,
     // The real lobby transport (WebSocket discovery + authenticated restore) is
     // M5-E. Until then sync fails closed; listAnalyzableRecords still reads the
     // persisted encrypted catalog.
     sessionFactory: async () => {
       throw new MahjongSoulSourceError("mahjong_soul_catalog_sync_failed");
     },
+    clock: Date.now,
+  });
+  const service = createMahjongSoulSessionService({
+    vault,
+    loginProvider,
+    browserSession: partitionSession,
+    cancelCatalogSync: () => catalogService.cancelAndDrain(),
+    resumeCatalogSync: () => catalogService.resume(),
+    clearCatalog: () => catalogStore.clear(),
     clock: Date.now,
   });
   await service.initialize();

@@ -354,9 +354,9 @@ class StatefulElectronLoginProvider implements ElectronMahjongSoulLoginProvider 
           session.setPermissionCheckHandler(() => false);
           session.on("will-download", onWillDownload);
 
-          await observer.start();
-          if (settled) return;
           await window.loadURL(LOGIN_URL);
+          if (settled) return;
+          await observer.start();
           if (settled) return;
           if (input.mode === "restore" && !settled) {
             timerHandle = this.#timer.set(() => {

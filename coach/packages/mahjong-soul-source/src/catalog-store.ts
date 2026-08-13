@@ -10,7 +10,7 @@ import {
 } from "@riichi-coach/contracts";
 import { MahjongSoulSourceError } from "./errors.js";
 
-const VAULT_VERSION = "mahjong-soul-catalog-vault/v1" as const;
+const VAULT_VERSION = "mahjong-soul-catalog-vault/v2" as const;
 const SESSION_INVALID = "mahjong_soul_session_invalid" as const;
 const STORAGE_UNAVAILABLE = "mahjong_soul_session_storage_unavailable" as const;
 // The product only exposes "recent 30" (spec §8.1). Capping the persisted catalog
@@ -36,8 +36,8 @@ export interface CatalogVaultStore {
 }
 
 export interface MahjongSoulCatalogStore {
-  mergeSummaries(summaries: readonly AnalyzableRecordSummary[]): Promise<void>;
-  list(): Promise<AnalyzableRecordSummary[]>;
+  replaceSummaries(accountId: number, summaries: readonly AnalyzableRecordSummary[]): Promise<void>;
+  list(accountId: number): Promise<AnalyzableRecordSummary[]>;
   clear(): Promise<void>;
 }
 
@@ -47,6 +47,11 @@ interface StoredCatalogEnvelopeV1 {
   readonly nonce: string;
   readonly ciphertext: string;
   readonly authenticationTag: string;
+}
+
+interface StoredCatalogV2 {
+  readonly accountId: number;
+  readonly summaries: readonly AnalyzableRecordSummary[];
 }
 
 function invalid(): MahjongSoulSourceError {
@@ -119,36 +124,25 @@ function parseEnvelope(value: string): StoredCatalogEnvelopeV1 {
   return { version, wrappedKey, nonce, ciphertext, authenticationTag };
 }
 
-function parseSummaries(value: Buffer): AnalyzableRecordSummary[] {
+function isAccountId(value: unknown): value is number {
+  return typeof value === "number" && Number.isInteger(value) && value >= 1 && value <= 0xffff_ffff;
+}
+
+function parseCatalog(value: Buffer): StoredCatalogV2 {
   let parsed: unknown;
   try {
     parsed = JSON.parse(value.toString("utf8"));
   } catch {
     throw invalid();
   }
-  if (!Array.isArray(parsed)) throw invalid();
-  const summaries = parsed.map((entry) => {
+  if (!isRecord(parsed) || !hasExactKeys(parsed, ["accountId", "summaries"])) throw invalid();
+  if (!isAccountId(parsed.accountId) || !Array.isArray(parsed.summaries)) throw invalid();
+  const summaries = parsed.summaries.map((entry) => {
     const result = AnalyzableRecordSummarySchema.safeParse(entry);
     if (!result.success) throw invalid();
     return Object.freeze(result.data);
   });
-  return summaries;
-}
-
-function mergeByRecordId(
-  existing: readonly AnalyzableRecordSummary[],
-  incoming: readonly AnalyzableRecordSummary[],
-): AnalyzableRecordSummary[] {
-  const byRecordId = new Map<string, AnalyzableRecordSummary>();
-  for (const summary of existing) byRecordId.set(summary.recordId, summary);
-  for (const summary of incoming) byRecordId.set(summary.recordId, summary);
-  return [...byRecordId.values()]
-    .sort((left, right) =>
-      right.startedAt - left.startedAt ||
-      left.recordId.localeCompare(right.recordId)
-    )
-    .slice(0, MAX_CATALOG_ENTRIES)
-    .sort((left, right) => left.recordId.localeCompare(right.recordId));
+  return Object.freeze({ accountId: parsed.accountId, summaries: Object.freeze(summaries) });
 }
 
 function isSummary(value: unknown): value is AnalyzableRecordSummary {
@@ -182,7 +176,7 @@ export function createMahjongSoulCatalogStore(input: {
     throw unavailable();
   }
 
-  async function replace(summaries: readonly AnalyzableRecordSummary[]): Promise<void> {
+  async function replace(catalog: StoredCatalogV2): Promise<void> {
     let key: Buffer;
     let nonce: Buffer;
     try {
@@ -210,7 +204,7 @@ export function createMahjongSoulCatalogStore(input: {
     const cipher = createCipheriv("aes-256-gcm", key, nonce);
     cipher.setAAD(Buffer.from(VAULT_VERSION, "utf8"));
     const ciphertext = Buffer.concat([
-      cipher.update(Buffer.from(JSON.stringify(summaries), "utf8")),
+      cipher.update(Buffer.from(JSON.stringify(catalog), "utf8")),
       cipher.final(),
     ]);
     const envelope: StoredCatalogEnvelopeV1 = {
@@ -227,14 +221,14 @@ export function createMahjongSoulCatalogStore(input: {
     }
   }
 
-  async function list(): Promise<AnalyzableRecordSummary[]> {
+  async function readCatalog(): Promise<StoredCatalogV2 | null> {
     let serialized: string | null;
     try {
       serialized = await store.read();
     } catch (error) {
       preserveProjectError(error);
     }
-    if (serialized === null) return [];
+    if (serialized === null) return null;
     if (typeof serialized !== "string" || serialized.length > 1_048_576) {
       throw invalid();
     }
@@ -262,18 +256,31 @@ export function createMahjongSoulCatalogStore(input: {
     } catch {
       throw invalid();
     }
-    return parseSummaries(plaintext);
+    return parseCatalog(plaintext);
   }
 
   return Object.freeze({
-    async mergeSummaries(summaries: readonly AnalyzableRecordSummary[]) {
-      if (!Array.isArray(summaries) || summaries.some((entry) => !isSummary(entry))) {
+    async replaceSummaries(
+      accountId: number,
+      summaries: readonly AnalyzableRecordSummary[],
+    ) {
+      if (!isAccountId(accountId) || !Array.isArray(summaries) || summaries.some((entry) => !isSummary(entry))) {
         throw invalid();
       }
-      const existing = await list();
-      await replace(mergeByRecordId(existing, summaries));
+      const recordIds = new Set<string>();
+      if (summaries.some((entry) => recordIds.has(entry.recordId) || !recordIds.add(entry.recordId))) {
+        throw invalid();
+      }
+      const canonical = [...summaries]
+        .sort((left, right) => right.startedAt - left.startedAt || left.recordId.localeCompare(right.recordId))
+        .slice(0, MAX_CATALOG_ENTRIES);
+      await replace(Object.freeze({ accountId, summaries: Object.freeze(canonical) }));
     },
-    list,
+    async list(accountId: number) {
+      if (!isAccountId(accountId)) throw invalid();
+      const catalog = await readCatalog();
+      return catalog === null || catalog.accountId !== accountId ? [] : [...catalog.summaries];
+    },
     async clear() {
       try {
         await store.clear();

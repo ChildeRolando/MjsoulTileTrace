@@ -77,6 +77,44 @@ class FakeTransport implements LobbyTransport {
 const token = SecretString.from("super-secret-token");
 
 describe("restricted Mahjong Soul lobby session", () => {
+
+  it("fails closed and closes the session after an unanswered call times out", async () => {
+    const timers: Array<() => void> = [];
+    const transport = new FakeTransport();
+    const session = createMahjongSoulLobbySession({
+      bundle,
+      transport,
+      requestTimeoutMs: 50,
+      setTimer: (callback) => { timers.push(callback); return callback; },
+      clearTimer: () => {},
+    });
+    const pending = session.call(".lq.Lobby.fetchInfo", {});
+    timers.shift()?.();
+    await expect(pending).rejects.toThrow("mahjong_soul_catalog_sync_failed");
+    expect(transport.closed).toBe(true);
+    await expect(session.call(".lq.Lobby.fetchInfo", {}))
+      .rejects.toThrow("mahjong_soul_catalog_sync_failed");
+  });
+
+  it("rejects at the deadline even when the transport never finishes closing", async () => {
+    const timers: Array<() => void> = [];
+    const transport = new FakeTransport();
+    transport.close = async () => await new Promise<void>(() => {});
+    const session = createMahjongSoulLobbySession({
+      bundle,
+      transport,
+      requestTimeoutMs: 50,
+      setTimer: (callback) => { timers.push(callback); return callback; },
+      clearTimer: () => {},
+    });
+
+    const pending = session.call(".lq.Lobby.fetchInfo", {});
+    timers.shift()?.();
+
+    await expect(pending).rejects.toThrow("mahjong_soul_catalog_sync_failed");
+    await expect(session.call(".lq.Lobby.fetchInfo", {}))
+      .rejects.toThrow("mahjong_soul_catalog_sync_failed");
+  });
   it("encodes a safe call and correlates the response by request id", async () => {
     const transport = new FakeTransport();
     const session = createMahjongSoulLobbySession({ bundle, transport });

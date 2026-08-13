@@ -5,6 +5,7 @@ import {
   type MahjongSoulSessionController,
   type MahjongSoulSessionVault,
 } from "@riichi-coach/mahjong-soul-source";
+import type { MahjongSoulSessionStatus } from "@riichi-coach/contracts";
 
 const STORAGE_ERROR = "mahjong_soul_session_storage_unavailable" as const;
 
@@ -39,19 +40,59 @@ export function createMahjongSoulSessionService(input: {
   readonly vault: MahjongSoulSessionVault;
   readonly loginProvider: MahjongSoulLoginProvider;
   readonly browserSession: BrowserSessionClearPort;
+  readonly cancelCatalogSync: () => Promise<void>;
+  readonly resumeCatalogSync: () => void;
+  readonly clearCatalog: () => Promise<void>;
   readonly clock: () => number;
 }): MahjongSoulSessionController {
   try {
     if (!isObjectLike(input)) throw unavailable();
     const browserSession = snapshotBrowserSession(input.browserSession);
-    return createMahjongSoulSessionController({
+    if (typeof input.cancelCatalogSync !== "function") throw unavailable();
+    if (typeof input.resumeCatalogSync !== "function") throw unavailable();
+    if (typeof input.clearCatalog !== "function") throw unavailable();
+    const cancelCatalogSync = input.cancelCatalogSync;
+    const clearCatalog = input.clearCatalog;
+    const controller = createMahjongSoulSessionController({
       vault: input.vault,
       loginProvider: input.loginProvider,
       clock: input.clock,
       clearBrowserSession: async () => {
-        await browserSession.clearStorageData();
-        await browserSession.clearCache();
+        try {
+          await cancelCatalogSync();
+          await browserSession.clearStorageData();
+          await browserSession.clearCache();
+          await clearCatalog();
+        } catch {
+          throw unavailable();
+        }
       },
+    });
+    const resumeCatalogSync = input.resumeCatalogSync;
+    let serviceOperation: Promise<MahjongSoulSessionStatus> | null = null;
+    const runExclusive = (
+      operation: () => Promise<MahjongSoulSessionStatus>,
+    ): Promise<MahjongSoulSessionStatus> => {
+      if (serviceOperation !== null) return serviceOperation;
+      const current = operation().finally(() => {
+        if (serviceOperation === current) serviceOperation = null;
+      });
+      serviceOperation = current;
+      return current;
+    };
+    return Object.freeze({
+      getStatus: () => controller.getStatus(),
+      initialize: () => runExclusive(async () => {
+        const result = await controller.initialize();
+        if (result.status === "valid") resumeCatalogSync();
+        return result;
+      }),
+      openLogin: () => runExclusive(async () => {
+        const result = await controller.openLogin();
+        if (result.status === "valid") resumeCatalogSync();
+        return result;
+      }),
+      logout: () => runExclusive(() => controller.logout()),
     });
   } catch {
     throw unavailable();

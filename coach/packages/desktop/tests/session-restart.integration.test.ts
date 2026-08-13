@@ -53,6 +53,9 @@ describe("cross-restart encrypted Mahjong Soul session", () => {
         vault: firstVault,
         loginProvider: firstProvider,
         browserSession: { clearStorageData: async () => {}, clearCache: async () => {} },
+        cancelCatalogSync: async () => {},
+        resumeCatalogSync: () => {},
+        clearCatalog: async () => {},
         clock: () => now,
       });
       await expect(first.openLogin()).resolves.toMatchObject({ status: "valid" });
@@ -74,6 +77,9 @@ describe("cross-restart encrypted Mahjong Soul session", () => {
         vault: secondVault,
         loginProvider: secondProvider,
         browserSession: { clearStorageData: async () => {}, clearCache: async () => {} },
+        cancelCatalogSync: async () => {},
+        resumeCatalogSync: () => {},
+        clearCatalog: async () => {},
         clock: () => now,
       });
       await expect(second.initialize()).resolves.toEqual({

@@ -1,6 +1,7 @@
 import type { MahjongSoulDesktopApi } from "../session-api.js";
 import type { MahjongSoulCatalogApi } from "../catalog-api.js";
 import type { MahjongSoulSessionStatus } from "@riichi-coach/contracts";
+import { sessionUiPolicy } from "./session-ui-policy.js";
 
 declare global {
   interface Window {
@@ -19,6 +20,7 @@ const catalogSection = document.querySelector<HTMLElement>(".catalog")!;
 const catalogDetailElement = document.querySelector<HTMLElement>("#catalog-detail")!;
 const catalogListElement = document.querySelector<HTMLElement>("#catalog-list")!;
 const buttons = [loginButton, logoutButton, refreshButton, syncButton];
+let currentSessionStatus: MahjongSoulSessionStatus["status"] = "logged_out";
 
 function setPending(pending: boolean): void {
   for (const button of buttons) button.disabled = pending;
@@ -27,11 +29,14 @@ function setPending(pending: boolean): void {
 function applySessionState(status: MahjongSoulSessionStatus["status"]): void {
   const loggedIn = status === "valid" || status === "offline_unverified";
   const busy = status === "authenticating" || status === "session_validating";
+  const policy = sessionUiPolicy(status);
+  currentSessionStatus = status;
   loginButton.hidden = status !== "logged_out";
   logoutButton.hidden = !loggedIn;
   refreshButton.hidden = busy;
-  syncButton.hidden = !loggedIn;
-  catalogSection.hidden = !loggedIn;
+  syncButton.hidden = !policy.allowSync;
+  catalogSection.hidden = !policy.showCatalog;
+  if (policy.catalogNotice !== null) catalogDetailElement.textContent = policy.catalogNotice;
 }
 
 function formatStartedAt(startedAt: number): string {
@@ -42,11 +47,14 @@ function formatStartedAt(startedAt: number): string {
 
 function renderCatalog(summaries: readonly import("@riichi-coach/contracts").AnalyzableRecordSummary[]): void {
   catalogListElement.textContent = "";
+  const notice = sessionUiPolicy(currentSessionStatus).catalogNotice;
   if (summaries.length === 0) {
-    catalogDetailElement.textContent = "暂无可分析的四人南风对局。";
+    catalogDetailElement.textContent = notice ?? "暂无可分析的四人南风对局。";
     return;
   }
-  catalogDetailElement.textContent = `共 ${summaries.length} 场可分析对局。`;
+  catalogDetailElement.textContent = notice === null
+    ? `共 ${summaries.length} 场可分析对局。`
+    : `${notice} 缓存中有 ${summaries.length} 场可分析对局。`;
   for (const entry of summaries) {
     const item = document.createElement("li");
     const scores = entry.players.map((player) => player.displayName).join(" / ");

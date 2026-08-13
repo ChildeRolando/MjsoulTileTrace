@@ -43,7 +43,13 @@ function summary(id: string, startedAt: number): AnalyzableRecordSummary {
       { seat: 3, displayName: "D", finalScore: 18_000, rank: 4 },
     ],
     selfSeat: 2,
-    rule: { playerCount: 4, length: "south", displayLabel: "四人南风" },
+    rule: {
+      playerCount: 4,
+      length: "south",
+      modeId: 2,
+      detailRuleHash: "sha256:7a53cc5deb60512f3dacacc7695dd5072077c6f4984dbedbff76e27092393b1c",
+      displayLabel: "四人南风",
+    },
     analysisStatus: "not_analyzed",
     lastSyncedAt: startedAt + 100,
   };
@@ -60,17 +66,17 @@ describe("encrypted Mahjong Soul catalog store", () => {
       store,
     });
 
-    await catalog.mergeSummaries([
+    await catalog.replaceSummaries(103, [
       summary(firstId, 1_000),
       summary(secondId, 2_000),
     ]);
-    const first = await catalog.list();
-    expect(first.map((entry) => entry.recordId)).toEqual([firstId, secondId]);
+    const first = await catalog.list(103);
+    expect(first.map((entry) => entry.recordId)).toEqual([secondId, firstId]);
 
     // A re-sync with a fresher timestamp replaces, never duplicates.
-    await catalog.mergeSummaries([summary(firstId, 3_000)]);
-    const merged = await catalog.list();
-    expect(merged.map((entry) => entry.recordId)).toEqual([firstId, secondId]);
+    await catalog.replaceSummaries(103, [summary(firstId, 3_000)]);
+    const merged = await catalog.list(103);
+    expect(merged.map((entry) => entry.recordId)).toEqual([firstId]);
     expect(merged.find((entry) => entry.recordId === firstId)?.startedAt).toBe(3_000);
   });
 
@@ -81,9 +87,9 @@ describe("encrypted Mahjong Soul catalog store", () => {
       store,
     });
 
-    await catalog.mergeSummaries([summary(firstId, 1_000)]);
+    await catalog.replaceSummaries(103, [summary(firstId, 1_000)]);
     const first = store.value;
-    await catalog.mergeSummaries([summary(firstId, 2_000)]);
+    await catalog.replaceSummaries(103, [summary(firstId, 2_000)]);
     const second = store.value;
     expect(first).not.toBe(second);
     expect(first).not.toContain(firstId);
@@ -96,7 +102,7 @@ describe("encrypted Mahjong Soul catalog store", () => {
       protector: identityProtector,
       store,
     });
-    await catalog.mergeSummaries([summary(firstId, 1_000)]);
+    await catalog.replaceSummaries(103, [summary(firstId, 1_000)]);
 
     const envelope = JSON.parse(store.value!) as Record<string, unknown>;
     const ciphertext = Buffer.from(envelope.ciphertext as string, "base64");
@@ -104,7 +110,7 @@ describe("encrypted Mahjong Soul catalog store", () => {
     envelope.ciphertext = ciphertext.toString("base64");
     store.value = JSON.stringify(envelope);
 
-    await expect(catalog.list()).rejects.toThrow("mahjong_soul_session_invalid");
+    await expect(catalog.list(103)).rejects.toThrow("mahjong_soul_session_invalid");
   });
 
   it("rejects malformed or unknown envelope keys", async () => {
@@ -114,7 +120,7 @@ describe("encrypted Mahjong Soul catalog store", () => {
       store,
     });
     store.value = JSON.stringify({ version: "evil", extra: "secret" });
-    await expect(catalog.list()).rejects.toThrow("mahjong_soul_session_invalid");
+    await expect(catalog.list(103)).rejects.toThrow("mahjong_soul_session_invalid");
   });
 
   it("clears the store and returns an empty catalog", async () => {
@@ -123,10 +129,10 @@ describe("encrypted Mahjong Soul catalog store", () => {
       protector: identityProtector,
       store,
     });
-    await catalog.mergeSummaries([summary(firstId, 1_000)]);
+    await catalog.replaceSummaries(103, [summary(firstId, 1_000)]);
     await catalog.clear();
     expect(store.value).toBeNull();
-    expect(await catalog.list()).toEqual([]);
+    expect(await catalog.list(103)).toEqual([]);
   });
 
   it("rejects a non-summary entry instead of persisting it", async () => {
@@ -135,7 +141,7 @@ describe("encrypted Mahjong Soul catalog store", () => {
       protector: identityProtector,
       store,
     });
-    await expect(catalog.mergeSummaries([
+    await expect(catalog.replaceSummaries(103, [
       { ...summary(firstId, 1_000), token: "secret" } as unknown as AnalyzableRecordSummary,
     ])).rejects.toThrow("mahjong_soul_session_invalid");
     expect(store.value).toBeNull();
@@ -151,12 +157,21 @@ describe("encrypted Mahjong Soul catalog store", () => {
     const ids = Array.from({ length: 40 }, (_, index) =>
       `260811-00000000-0000-0000-0000-${String(index).padStart(12, "0")}`
     );
-    await catalog.mergeSummaries(ids.map((id, index) => summary(id, 1_000 + index)));
+    await catalog.replaceSummaries(103, ids.map((id, index) => summary(id, 1_000 + index)));
 
-    const listed = await catalog.list();
+    const listed = await catalog.list(103);
     expect(listed).toHaveLength(30);
     // The 30 newest survive; the 10 oldest are pruned.
     expect(listed.every((entry) => entry.startedAt >= 1_010)).toBe(true);
     expect(listed.some((entry) => entry.startedAt < 1_010)).toBe(false);
+  });
+
+  it("binds the encrypted catalog to one account and authoritatively replaces it", async () => {
+    const store = new FakeStore();
+    const catalog = createMahjongSoulCatalogStore({ protector: identityProtector, store });
+    await catalog.replaceSummaries(103, [summary(firstId, 1_000)]);
+    expect(await catalog.list(104)).toEqual([]);
+    await catalog.replaceSummaries(103, []);
+    expect(await catalog.list(103)).toEqual([]);
   });
 });

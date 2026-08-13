@@ -3,6 +3,8 @@ import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import {
   MAHJONG_SOUL_SAFE_DIRECT_CALL_METHODS,
+  SUPPORTED_RECORD_VERSIONS,
+  SUPPORTED_STANDARD_RULES,
   createLiqiCodec,
   extractCapturedLoginCredential,
   loadMahjongSoulProtocolBundle,
@@ -127,6 +129,10 @@ describe("official Mahjong Soul bundle synthetic frames", () => {
         }],
       },
     });
+    if (next.kind !== "response") throw new Error("unexpected fixture");
+    const capturedEntry = (next.payload.entries as readonly Record<string, unknown>[])[0]!;
+    expect(SUPPORTED_RECORD_VERSIONS).toContain(capturedEntry.version);
+    expect(SUPPORTED_STANDARD_RULES).toContain(capturedEntry.standard_rule);
 
     expect(toHex(codec.encodeRequest({
       requestId: 12,

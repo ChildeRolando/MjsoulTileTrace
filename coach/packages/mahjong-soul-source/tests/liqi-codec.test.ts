@@ -290,6 +290,7 @@ describe("Liqi wire codec", () => {
       ".lq.Lobby.fetchInfo",
       ".lq.Lobby.fetchGameRecordListV2",
       ".lq.Lobby.fetchNextGameRecordList",
+      ".lq.Lobby.fetchGameRecordsDetail",
       ".lq.Lobby.fetchGameRecord",
       ".lq.Lobby.loginBeat",
       ".lq.Lobby.logout",

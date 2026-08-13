@@ -5,17 +5,22 @@ import {
   type AnalyzableRecordSummary,
 } from "@riichi-coach/contracts";
 
-// The catalog list (`RecordListEntry`) carries `version`, `uuid`, `tag`, `subtag`,
-// `players`, and `standard_rule`, but NOT the game length (east/south), the mode
-// id, or the detail-rule hash. Those live in the full `RecordGame.config` and are
-// verified only after download in M5-D. This filter therefore proves only what the
-// list carries — four players, a standard-rule flag, a supported record version, a
-// unique self seat, and a round-tripping share URL — and labels the entry with the
-// product's single supported rule target (four-player South standard). M5-D removes
-// any entry whose real mode turns out to be east or three-player (spec §8.2).
-export const SUPPORTED_RECORD_VERSIONS: readonly number[] = Object.freeze([1]);
-export const SUPPORTED_STANDARD_RULES: readonly number[] = Object.freeze([0]);
+// `game_mode` is enriched from the metadata-only `fetchGameRecordsDetail` call.
+// Independent decoder evidence pinned at Akagi commit
+// 8a96bb5faa672ffb04946a31068c18cb0bebd63a, src/history/aggregator.rs,
+// defines match mode 2 as four-player East-South. Unknown,
+// East-only, and three-player modes never enter the renderer-safe catalog.
+// The fixed official-bundle frame was generated independently from the
+// runtime codec and carries the current catalog wire values. Keep these
+// allowlists narrow until another version/rule has its own captured fixture.
+export const SUPPORTED_RECORD_VERSIONS: readonly number[] = Object.freeze([210715]);
+export const SUPPORTED_STANDARD_RULES: readonly number[] = Object.freeze([2]);
 const SHARE_URL_VIEW = 1;
+export const FOUR_PLAYER_SOUTH_MODE_ID = 2;
+export const STANDARD_EMPTY_DETAIL_RULE_HASH =
+  // SHA-256 of the canonical protobuf GameMode bytes `08 02`: mode=2 and
+  // absent ai/extendinfo/detail_rule. It is a wire fingerprint, not a guess.
+  "sha256:7a53cc5deb60512f3dacacc7695dd5072077c6f4984dbedbff76e27092393b1c";
 
 export interface RawRecordPlayerResult {
   readonly rank: number;
@@ -34,6 +39,10 @@ export interface RawRecordListEntry {
   readonly subtag: number;
   readonly players: readonly RawRecordPlayerResult[];
   readonly standard_rule: number;
+  readonly game_mode: number;
+  readonly game_mode_ai: boolean;
+  readonly game_mode_extendinfo: string;
+  readonly game_mode_detail_rule_present: boolean;
 }
 
 export type FilterResult =
@@ -108,6 +117,10 @@ function isRawEntry(value: unknown): value is RawRecordListEntry {
   if (!Array.isArray(value.players) || value.players.length !== 4) return false;
   if (!value.players.every(isRawPlayer)) return false;
   if (!isUint32(value.standard_rule)) return false;
+  if (!isUint32(value.game_mode)) return false;
+  if (typeof value.game_mode_ai !== "boolean") return false;
+  if (typeof value.game_mode_extendinfo !== "string") return false;
+  if (typeof value.game_mode_detail_rule_present !== "boolean") return false;
   return true;
 }
 
@@ -126,6 +139,12 @@ export function filterAnalyzableRecord(
   if (!SUPPORTED_STANDARD_RULES.includes(entry.standard_rule)) {
     return { status: "not_analyzable" };
   }
+  if (
+    entry.game_mode !== FOUR_PLAYER_SOUTH_MODE_ID
+    || entry.game_mode_ai
+    || entry.game_mode_extendinfo !== ""
+    || entry.game_mode_detail_rule_present
+  ) return { status: "not_analyzable" };
   if (!MahjongSoulRecordIdSchema.safeParse(entry.uuid).success) {
     return { status: "not_analyzable" };
   }
@@ -155,6 +174,8 @@ export function filterAnalyzableRecord(
     rule: {
       playerCount: 4,
       length: "south",
+      modeId: FOUR_PLAYER_SOUTH_MODE_ID,
+      detailRuleHash: STANDARD_EMPTY_DETAIL_RULE_HASH,
       displayLabel: "四人南风",
     },
     analysisStatus: "not_analyzed",

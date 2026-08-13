@@ -24,6 +24,8 @@ const summary = {
   rule: {
     playerCount: 4,
     length: "south",
+    modeId: 2,
+    detailRuleHash: "sha256:7a53cc5deb60512f3dacacc7695dd5072077c6f4984dbedbff76e27092393b1c",
     displayLabel: "四人南风",
   },
   analysisStatus: "not_analyzed",
