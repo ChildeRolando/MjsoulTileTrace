@@ -18,6 +18,11 @@ export {
   type MahjongSoulRestoreDiagnosticStatus,
 } from "./restore-diagnostic.js";
 export {
+  discoverMahjongSoulCnLobbyUrl,
+  type GatewayDiscoveryFetch,
+  type GatewayDiscoveryResponse,
+} from "./gateway-discovery.js";
+export {
   createMahjongSoulLoginCapture,
   type LoginCaptureResult,
   type MahjongSoulLoginCapture,
