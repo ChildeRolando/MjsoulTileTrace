@@ -1,6 +1,6 @@
 # Three-Project Repository Migration Implementation Plan
 
-> **For agentic workers:** Execute this plan task-by-task with strict scope checks. Each task must leave its project independently testable. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** Execute this plan task-by-task with strict scope checks. Each task must leave its project independently testable. Steps use checkbox (`- [x]`) syntax for tracking.
 
 **Goal:** Reorganize the monorepo into three explicit top-level projects—`course/`, `coach/`, and `overlay/`—with project-owned documentation and a repository-only root.
 
@@ -63,7 +63,7 @@ After these moves, delete the empty top-level `docs/` tree.
 
 **Files:** No file changes.
 
-- [ ] **Step 1: Verify the worktree starts clean**
+- [x] **Step 1: Verify the worktree starts clean**
 
 Run from repository root:
 
@@ -73,7 +73,7 @@ git status --short
 
 Expected: no output.
 
-- [ ] **Step 2: Record the three project baselines in the terminal log**
+- [x] **Step 2: Record the three project baselines in the terminal log**
 
 Run the course gate from repository root:
 
@@ -105,7 +105,7 @@ Run the overlay gate using the repository-managed SDK:
 
 Expected: all overlay tests pass. If `.tools/dotnet` is absent, check `overlay/global.json` and the installed `dotnet --info`; report the exact external runtime blocker before any move.
 
-- [ ] **Step 3: Save the tracked-path inventory for comparison**
+- [x] **Step 3: Save the tracked-path inventory for comparison**
 
 ```powershell
 git ls-files | Sort-Object | Set-Content -Encoding utf8 $env:TEMP\riichi-coach-paths-before.txt
@@ -125,13 +125,13 @@ Expected: the file is created outside the repository and no worktree files chang
 - Create: `course/README.md`
 - Move: the four course specs/plans listed above
 
-- [ ] **Step 1: Create the project and documentation directories**
+- [x] **Step 1: Create the project and documentation directories**
 
 ```powershell
 New-Item -ItemType Directory -Force course, course\docs, course\docs\specs, course\docs\plans | Out-Null
 ```
 
-- [ ] **Step 2: Move all course runtime files with Git**
+- [x] **Step 2: Move all course runtime files with Git**
 
 ```powershell
 git mv index.html analyzer.html trainer.html mastery.html course\
@@ -141,7 +141,7 @@ git mv MISSION.md NOTES.md RESOURCES.md COMPLETION-AUDIT.md course\docs\
 
 Expected: root no longer contains course HTML or course code directories.
 
-- [ ] **Step 3: Move course history documents**
+- [x] **Step 3: Move course history documents**
 
 ```powershell
 git mv docs\superpowers\specs\2026-07-27-modern-riichi-tile-efficiency-course-design.md course\docs\specs\
@@ -150,7 +150,7 @@ git mv docs\superpowers\plans\2026-07-27-complete-riichi-efficiency-course.md co
 git mv docs\superpowers\plans\2026-07-27-first-tile-efficiency-lesson.md course\docs\plans\
 ```
 
-- [ ] **Step 4: Create `course/README.md`**
+- [x] **Step 4: Create `course/README.md`**
 
 The README must contain:
 
@@ -179,7 +179,7 @@ node tests/lesson-0001-smoke.mjs
 - [历史计划](docs/plans/)
 ```
 
-- [ ] **Step 5: Run course tests from the new project root**
+- [x] **Step 5: Run course tests from the new project root**
 
 ```powershell
 cd course
@@ -190,7 +190,7 @@ cd ..
 
 Expected: the same baseline passes without changing HTML-relative asset paths.
 
-- [ ] **Step 6: Check course hard-coded root assumptions**
+- [x] **Step 6: Check course hard-coded root assumptions**
 
 ```powershell
 rg -n '(^|["''])/(assets|lessons|lib|reference)|\.\./course|docs/superpowers' course
@@ -198,7 +198,7 @@ rg -n '(^|["''])/(assets|lessons|lib|reference)|\.\./course|docs/superpowers' co
 
 Expected: no new repository-root dependency. Historical prose may name its old location only when explicitly described as history.
 
-- [ ] **Step 7: Commit the course move**
+- [x] **Step 7: Commit the course move**
 
 ```powershell
 git add -- course
@@ -219,7 +219,7 @@ git commit -m "chore: move the course into its project directory"
 - Modify: `coach/README.md`
 - Modify: all moved coach Markdown files containing old `docs/...` paths
 
-- [ ] **Step 1: Create coach documentation directories and move files**
+- [x] **Step 1: Create coach documentation directories and move files**
 
 ```powershell
 New-Item -ItemType Directory -Force coach\docs\specs, coach\docs\plans, coach\docs\handoffs | Out-Null
@@ -235,7 +235,7 @@ Get-ChildItem docs\superpowers\handoffs -File | ForEach-Object { git mv -- $_.Fu
 
 Expected: only the two overlay documents remain under the top-level `docs/superpowers` before Task 4; if they were already moved by exact classification, the directories are empty.
 
-- [ ] **Step 2: Update living documentation links**
+- [x] **Step 2: Update living documentation links**
 
 Apply these exact path rules:
 
@@ -255,7 +255,7 @@ coach/docs/plans|handoffs/*.md:
 
 Do not alter dates, prior test results, or technical conclusions while changing paths.
 
-- [ ] **Step 3: Add coach documentation navigation to `coach/README.md`**
+- [x] **Step 3: Add coach documentation navigation to `coach/README.md`**
 
 The first section must link to:
 
@@ -268,7 +268,7 @@ The first section must link to:
 - [交接档案](docs/handoffs/)
 ```
 
-- [ ] **Step 4: Verify all coach Markdown links**
+- [x] **Step 4: Verify all coach Markdown links**
 
 Run a PowerShell link checker that resolves local Markdown destinations relative to each document:
 
@@ -289,7 +289,7 @@ if ($broken.Count) { $broken; exit 1 }
 
 Expected: exit 0 with no broken links.
 
-- [ ] **Step 5: Run the coach gates**
+- [x] **Step 5: Run the coach gates**
 
 ```powershell
 cd coach
@@ -301,7 +301,7 @@ cd ..
 
 Expected: all commands exit 0; code behavior is unchanged by documentation movement.
 
-- [ ] **Step 6: Commit coach documentation ownership**
+- [x] **Step 6: Commit coach documentation ownership**
 
 ```powershell
 git add -- coach\README.md coach\docs docs
@@ -323,7 +323,7 @@ Only stage `docs` here to record deletions of moved coach paths; verify no overl
 - Modify: `overlay/fixtures/recordings/README.md`
 - Modify: moved overlay documentation command examples
 
-- [ ] **Step 1: Create overlay documentation directories and move files**
+- [x] **Step 1: Create overlay documentation directories and move files**
 
 ```powershell
 New-Item -ItemType Directory -Force overlay\docs\specs, overlay\docs\plans, overlay\docs\handoffs | Out-Null
@@ -336,7 +336,7 @@ git mv overlay\HANDOFF.md overlay\docs\handoffs\HANDOFF.md
 
 If Task 3 already left the overlay spec/plan in place, these commands succeed. If not, stop and correct the Task 3 classification before continuing.
 
-- [ ] **Step 2: Convert overlay developer commands to the overlay project root**
+- [x] **Step 2: Convert overlay developer commands to the overlay project root**
 
 Use these command forms in `overlay/README.md`, moved acceptance/handoff docs, and `fixtures/recordings/README.md`:
 
@@ -349,7 +349,7 @@ cd overlay
 
 Remove leading `overlay/` from artifact, fixture, profile, solution, and source paths in commands that now run from `overlay/`.
 
-- [ ] **Step 3: Add documentation navigation to `overlay/README.md`**
+- [x] **Step 3: Add documentation navigation to `overlay/README.md`**
 
 Add links to:
 
@@ -361,7 +361,7 @@ Add links to:
 - [实施计划](docs/plans/2026-07-30-mahjong-soul-discard-overlay.md)
 ```
 
-- [ ] **Step 4: Run overlay tests from the project root**
+- [x] **Step 4: Run overlay tests from the project root**
 
 ```powershell
 cd overlay
@@ -371,7 +371,7 @@ cd ..
 
 Expected: the baseline suite passes.
 
-- [ ] **Step 5: Verify overlay Markdown links and obsolete command prefixes**
+- [x] **Step 5: Verify overlay Markdown links and obsolete command prefixes**
 
 ```powershell
 rg -n '\.\\\.tools\\dotnet|dotnet\.exe test overlay/|overlay/(src|tests|artifacts|fixtures)' overlay -g '*.md'
@@ -379,7 +379,7 @@ rg -n '\.\\\.tools\\dotnet|dotnet\.exe test overlay/|overlay/(src|tests|artifact
 
 Expected: no obsolete root-oriented command remains. Prose may still say “overlay” as the product name.
 
-- [ ] **Step 6: Commit overlay documentation ownership**
+- [x] **Step 6: Commit overlay documentation ownership**
 
 ```powershell
 git add -- overlay docs
@@ -400,7 +400,7 @@ Expected: top-level `docs/` is now empty and removed by Git.
 - Modify: `REPOSITORY-STRUCTURE.md`
 - Retain: `.gitattributes`
 
-- [ ] **Step 1: Replace root README with repository navigation**
+- [x] **Step 1: Replace root README with repository navigation**
 
 Use this structure:
 
@@ -418,7 +418,7 @@ Use this structure:
 仓库结构和文档归属见 [REPOSITORY-STRUCTURE.md](REPOSITORY-STRUCTURE.md)。运行、测试和路线图请进入对应项目，不要从仓库根猜测命令。
 ```
 
-- [ ] **Step 2: Update ignore paths without widening them**
+- [x] **Step 2: Update ignore paths without widening them**
 
 Keep these repository-relative rules:
 
@@ -444,7 +444,7 @@ coach/coverage/
 
 Course migration requires no new generated-output ignore rule.
 
-- [ ] **Step 3: Update the structure design from future tense to implemented state**
+- [x] **Step 3: Update the structure design from future tense to implemented state**
 
 In `REPOSITORY-STRUCTURE.md`:
 
@@ -453,7 +453,7 @@ In `REPOSITORY-STRUCTURE.md`:
 - keep the target tree, boundary rationale, and gates as enduring reference;
 - remove wording that tells readers to approve the migration.
 
-- [ ] **Step 4: Assert the root contains no project-owned files**
+- [x] **Step 4: Assert the root contains no project-owned files**
 
 ```powershell
 $allowedFiles = @('.gitattributes', '.gitignore', 'README.md', 'REPOSITORY-STRUCTURE.md', 'REPOSITORY-MIGRATION-PLAN.md')
@@ -468,7 +468,7 @@ if ($unexpectedDirectories) { $unexpectedDirectories.FullName; exit 1 }
 
 Expected: exit 0.
 
-- [ ] **Step 5: Commit repository navigation**
+- [x] **Step 5: Commit repository navigation**
 
 ```powershell
 git add -- README.md .gitignore REPOSITORY-STRUCTURE.md
@@ -484,7 +484,7 @@ git commit -m "docs: define the three-project repository entry point"
 
 - Modify: `REPOSITORY-MIGRATION-PLAN.md` only to check completed boxes and record actual gate results.
 
-- [ ] **Step 1: Verify every tracked path belongs to an allowed root**
+- [x] **Step 1: Verify every tracked path belongs to an allowed root**
 
 ```powershell
 $allowedRootFiles = @('.gitattributes', '.gitignore', 'README.md', 'REPOSITORY-STRUCTURE.md', 'REPOSITORY-MIGRATION-PLAN.md')
@@ -497,13 +497,13 @@ if ($bad) { $bad; exit 1 }
 
 Expected: exit 0.
 
-- [ ] **Step 2: Verify all local Markdown links across all three projects**
+- [x] **Step 2: Verify all local Markdown links across all three projects**
 
 Run the relative-link checker from Task 3 over `README.md`, `REPOSITORY-STRUCTURE.md`, `course/`, `coach/`, and `overlay/`.
 
 Expected: no broken link.
 
-- [ ] **Step 3: Run the final course gate**
+- [x] **Step 3: Run the final course gate**
 
 ```powershell
 cd course
@@ -512,7 +512,7 @@ node tests/lesson-0001-smoke.mjs
 cd ..
 ```
 
-- [ ] **Step 4: Run the final coach gate**
+- [x] **Step 4: Run the final coach gate**
 
 ```powershell
 cd coach
@@ -523,7 +523,7 @@ npm audit --omit=dev
 cd ..
 ```
 
-- [ ] **Step 5: Run the final overlay gate**
+- [x] **Step 5: Run the final overlay gate**
 
 ```powershell
 cd overlay
@@ -531,7 +531,7 @@ cd overlay
 cd ..
 ```
 
-- [ ] **Step 6: Verify formatting and a clean worktree**
+- [x] **Step 6: Verify formatting and a clean worktree**
 
 ```powershell
 git diff --check
@@ -540,7 +540,7 @@ git status --short
 
 Expected before the final plan update: only `REPOSITORY-MIGRATION-PLAN.md` is modified.
 
-- [ ] **Step 7: Record actual results and commit the completed migration plan**
+- [x] **Step 7: Record actual results and commit the completed migration plan**
 
 Replace expected counts with the actual output from Tasks 3–5, check completed boxes, then run:
 
@@ -553,6 +553,35 @@ git commit -m "docs: record repository migration acceptance"
 Expected final state: `git status --short` produces no output.
 
 ---
+
+## 验收结果记录
+
+迁移于 2026-08-14 在独立工作树执行（分支 codex/m5e-oauth2-restore-diagnostic），各阶段独立提交：
+
+- 2f54cfd chore: move the course into its project directory
+- 63530c8 fix: retarget the reasoning analyzer to the course engine
+- 669d3c6 docs: move coach documentation into the coach project
+- 68381d6 docs: consolidate overlay documentation
+- 62a05d1 docs: define the three-project repository entry point
+
+门禁实测（迁移前基线与迁移后最终验收一致）：
+
+- 课程：node --test 18/18 通过；tests/lesson-0001-smoke.mjs 通过。
+- 教练：typecheck、npm test、test:package-import、npm audit --omit=dev（0 漏洞）全部退出 0。
+- overlay：dotnet test .\MahjongSoulOverlay.sln -c Release 409 通过（Core 208 / Vision 134 / Windows 67），0 失败。
+
+验收断言：
+
+- 根目录仅保留仓库级文件与 course/、coach/、overlay/；无遗留课程代码目录与顶级混合文档目录。
+- 全部 534 个已跟踪路径位于允许根之下；git diff --check 通过；工作树干净。
+- 59 个 Markdown 文件的本地链接全部解析成功。
+
+实施说明与偏差：
+
+- 仓库级 .tools/dotnet 为 gitignore 本地运行时，迁移工作树中不存在；overlay 门禁改用系统 SDK 8.0.423，满足 overlay/global.json（8.0.100，rollForward latestFeature）。
+- 教练 packages/reasoning/src/analysis/efficiency-analyzer.ts 原直接引用仓库根 lib/mahjong.mjs（课程共享引擎）。迁移将该文件移入 course/lib/ 后，单独提交 63530c8 将 import 重定向到 course/lib/mahjong.mjs。三项目之间仍存在这一代码级耦合，未来如需可经明确设计提升为 shared/。
+- overlay/docs/plans/2026-07-30-mahjong-soul-discard-overlay.md 为历史实施计划，其中 overlay/src|tests|artifacts|fixtures 记录路径指向未移动的代码，故保留原文；存活文档（README/ACCEPTANCE/HANDOFF/fixtures README）的命令已转换为 overlay/ 项目根视角。
+- 计划模板的 publish 示例为 --self-contained true；为不改变发布行为（README 要求安装 .NET 8 Desktop Runtime），实际保留 --self-contained false -p:PublishSingleFile=true。
 
 ## Stop conditions
 
