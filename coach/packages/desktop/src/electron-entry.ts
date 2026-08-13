@@ -93,6 +93,7 @@ async function start(): Promise<void> {
     const result = await runMahjongSoulRestoreDiagnostic({
       loginProvider,
       createSession: createLobbySessionFactory({ bundle }),
+      bundle,
       now: Date.now,
     });
     console.log(`[riichi-coach] mahjong-soul-restore:${result.status}`);

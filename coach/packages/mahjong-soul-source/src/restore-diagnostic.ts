@@ -45,7 +45,7 @@ function isUint32(value: unknown): value is number {
     && value <= MAX_UINT32;
 }
 
-function classifyError(
+export function classifyRestoreResponseError(
   value: Readonly<Record<string, unknown>>,
 ): "success" | "rejected" | "invalid" {
   const error = value.error;
@@ -54,7 +54,7 @@ function classifyError(
   return error.code === 0 ? "success" : "rejected";
 }
 
-function snapshotCandidate(
+export function snapshotRestoreCandidate(
   value: unknown,
 ): CapturedMahjongSoulRestoreCandidate | null {
   if (!isRecord(value)) return null;
@@ -167,7 +167,7 @@ function snapshotCandidate(
   });
 }
 
-function oauth2LoginPayload(
+export function createOAuth2LoginPayload(
   credential: CapturedMahjongSoulRestoreCandidate,
 ): Readonly<Record<string, unknown>> {
   const context = credential.recoveryContext;
@@ -207,7 +207,7 @@ export async function diagnoseMahjongSoulIndependentRestore(input: {
 }): Promise<MahjongSoulRestoreDiagnosticResult> {
   let credential: CapturedMahjongSoulRestoreCandidate | null;
   try {
-    credential = snapshotCandidate(input?.credential);
+    credential = snapshotRestoreCandidate(input?.credential);
   } catch {
     credential = null;
   }
@@ -235,7 +235,7 @@ export async function diagnoseMahjongSoulIndependentRestore(input: {
     } catch {
       return result("oauth2_check_call_failed");
     }
-    const checkError = classifyError(check);
+    const checkError = classifyRestoreResponseError(check);
     if (checkError === "invalid") return result("inconclusive");
     if (checkError === "rejected" || check.has_account === false) {
       return result("oauth2_check_rejected");
@@ -246,12 +246,12 @@ export async function diagnoseMahjongSoulIndependentRestore(input: {
     try {
       login = await session.call(
         ".lq.Lobby.oauth2Login",
-        oauth2LoginPayload(credential),
+        createOAuth2LoginPayload(credential),
       );
     } catch {
       return result("oauth2_login_call_failed");
     }
-    const loginError = classifyError(login);
+    const loginError = classifyRestoreResponseError(login);
     if (loginError === "invalid") return result("inconclusive");
     if (loginError === "rejected") return result("oauth2_login_rejected");
     if (!isUint32(login.account_id)) return result("inconclusive");
@@ -265,7 +265,7 @@ export async function diagnoseMahjongSoulIndependentRestore(input: {
     } catch {
       return result("fetch_info_call_failed");
     }
-    if (classifyError(info) !== "success") return result("inconclusive");
+    if (classifyRestoreResponseError(info) !== "success") return result("inconclusive");
 
     const now = input.now();
     if (!Number.isSafeInteger(now) || now < 1000) return result("inconclusive");
@@ -282,7 +282,7 @@ export async function diagnoseMahjongSoulIndependentRestore(input: {
     } catch {
       return result("catalog_probe_call_failed");
     }
-    const catalogError = classifyError(catalog);
+    const catalogError = classifyRestoreResponseError(catalog);
     if (catalogError === "invalid") return result("inconclusive");
     if (catalogError === "rejected") return result("catalog_probe_rejected");
     if (

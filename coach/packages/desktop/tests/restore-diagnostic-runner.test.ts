@@ -5,6 +5,7 @@ import {
   SecretString,
   type CapturedMahjongSoulRestoreCandidate,
   type MahjongSoulLobbySession,
+  type MahjongSoulProtocolBundle,
 } from "@riichi-coach/mahjong-soul-source";
 import {
   restoreDiagnosticExitCode,
@@ -59,21 +60,17 @@ function lobby(): MahjongSoulLobbySession {
 
 describe("diagnostic-only Electron orchestration", () => {
   test("maps every fixed diagnostic status to a stable process exit code", () => {
-    expect(restoreDiagnosticExitCode("independent_restore_verified")).toBe(0);
     expect(restoreDiagnosticExitCode("login_cancelled")).toBe(10);
     expect(restoreDiagnosticExitCode("login_rejected")).toBe(11);
     expect(restoreDiagnosticExitCode("login_capture_unverified")).toBe(12);
     expect(restoreDiagnosticExitCode("login_capture_failed")).toBe(13);
-    expect(restoreDiagnosticExitCode("session_create_failed")).toBe(20);
-    expect(restoreDiagnosticExitCode("oauth2_check_call_failed")).toBe(21);
-    expect(restoreDiagnosticExitCode("oauth2_check_rejected")).toBe(22);
-    expect(restoreDiagnosticExitCode("oauth2_login_call_failed")).toBe(23);
-    expect(restoreDiagnosticExitCode("oauth2_login_rejected")).toBe(24);
-    expect(restoreDiagnosticExitCode("identity_mismatch")).toBe(25);
-    expect(restoreDiagnosticExitCode("fetch_info_call_failed")).toBe(26);
-    expect(restoreDiagnosticExitCode("catalog_probe_call_failed")).toBe(27);
-    expect(restoreDiagnosticExitCode("catalog_probe_rejected")).toBe(28);
     expect(restoreDiagnosticExitCode("inconclusive")).toBe(29);
+    expect(restoreDiagnosticExitCode("inline_record_verified")).toBe(0);
+    expect(restoreDiagnosticExitCode("no_analyzable_record")).toBe(30);
+    expect(restoreDiagnosticExitCode("record_data_url_not_supported")).toBe(31);
+    expect(restoreDiagnosticExitCode("record_detail_rejected")).toBe(32);
+    expect(restoreDiagnosticExitCode("record_container_unsupported")).toBe(33);
+    expect(restoreDiagnosticExitCode("record_actions_empty")).toBe(34);
   });
   test("uses one interactive capture then one fresh lobby without persistence", async () => {
     const calls: unknown[] = [];
@@ -83,9 +80,11 @@ describe("diagnostic-only Electron orchestration", () => {
         cancelActive() {},
       },
       createSession: async () => lobby(),
+      bundle: {} as MahjongSoulProtocolBundle,
+      diagnose: async () => ({ status: "inline_record_verified" }),
       now: () => 10_000,
     });
-    expect(result).toEqual({ status: "independent_restore_verified" });
+    expect(result).toEqual({ status: "inline_record_verified" });
     expect(calls).toEqual([{ mode: "diagnostic" }]);
     expect(Object.isFrozen(result)).toBe(true);
     expect(JSON.stringify(result)).not.toContain(token);
@@ -100,6 +99,7 @@ describe("diagnostic-only Electron orchestration", () => {
         cancelActive() {},
       },
       createSession: async () => lobby(),
+      bundle: {} as MahjongSoulProtocolBundle,
       now: () => 10_000,
     });
     expect(inputs).toEqual([{ mode: "diagnostic" }]);
@@ -117,6 +117,7 @@ describe("diagnostic-only Electron orchestration", () => {
         cancelActive() {},
       },
       createSession: async () => { created = true; return lobby(); },
+      bundle: {} as MahjongSoulProtocolBundle,
       now: () => 10_000,
     });
     expect(result).toEqual({ status });
@@ -131,6 +132,7 @@ describe("diagnostic-only Electron orchestration", () => {
         cancelActive() {},
       },
       createSession: async () => lobby(),
+      bundle: {} as MahjongSoulProtocolBundle,
       now: () => 10_000,
     });
     expect(result).toEqual({ status: "login_capture_failed" });

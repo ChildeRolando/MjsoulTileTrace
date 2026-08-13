@@ -26,6 +26,7 @@ export type LobbyDirectCallMethod =
   | ".lq.Lobby.fetchGameRecordListV2"
   | ".lq.Lobby.fetchNextGameRecordList"
   | ".lq.Lobby.fetchGameRecordsDetail"
+  | ".lq.Lobby.fetchGameRecord"
   | ".lq.Lobby.loginBeat";
 
 const LOBBY_DIRECT_CALL_METHODS: readonly LobbyDirectCallMethod[] = Object.freeze([
@@ -35,6 +36,7 @@ const LOBBY_DIRECT_CALL_METHODS: readonly LobbyDirectCallMethod[] = Object.freez
   ".lq.Lobby.fetchGameRecordListV2",
   ".lq.Lobby.fetchNextGameRecordList",
   ".lq.Lobby.fetchGameRecordsDetail",
+  ".lq.Lobby.fetchGameRecord",
   ".lq.Lobby.loginBeat",
 ]);
 

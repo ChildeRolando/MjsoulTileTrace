@@ -1,14 +1,15 @@
 import {
-  diagnoseMahjongSoulIndependentRestore,
+  diagnoseMahjongSoulInlineRecord,
   type MahjongSoulLobbySession,
-  type MahjongSoulRestoreDiagnosticResult,
+  type MahjongSoulInlineRecordResult,
+  type MahjongSoulProtocolBundle,
 } from "@riichi-coach/mahjong-soul-source";
 import type {
   ElectronMahjongSoulLoginProvider,
 } from "./mahjong-soul-login-window.js";
 
 export type ElectronRestoreDiagnosticStatus =
-  | MahjongSoulRestoreDiagnosticResult["status"]
+  | MahjongSoulInlineRecordResult["status"]
   | "login_rejected"
   | "login_cancelled"
   | "login_capture_unverified"
@@ -24,28 +25,26 @@ function result(status: ElectronRestoreDiagnosticStatus): ElectronRestoreDiagnos
 
 export function restoreDiagnosticExitCode(status: ElectronRestoreDiagnosticStatus): number {
   switch (status) {
-    case "independent_restore_verified": return 0;
+    case "inline_record_verified": return 0;
     case "login_cancelled": return 10;
     case "login_rejected": return 11;
     case "login_capture_unverified": return 12;
     case "login_capture_failed": return 13;
-    case "session_create_failed": return 20;
-    case "oauth2_check_call_failed": return 21;
-    case "oauth2_check_rejected": return 22;
-    case "oauth2_login_call_failed": return 23;
-    case "oauth2_login_rejected": return 24;
-    case "identity_mismatch": return 25;
-    case "fetch_info_call_failed": return 26;
-    case "catalog_probe_call_failed": return 27;
-    case "catalog_probe_rejected": return 28;
     case "inconclusive": return 29;
+    case "no_analyzable_record": return 30;
+    case "record_data_url_not_supported": return 31;
+    case "record_detail_rejected": return 32;
+    case "record_container_unsupported": return 33;
+    case "record_actions_empty": return 34;
   }
 }
 
 export async function runMahjongSoulRestoreDiagnostic(input: {
   readonly loginProvider: ElectronMahjongSoulLoginProvider;
   readonly createSession: () => Promise<MahjongSoulLobbySession>;
+  readonly bundle: MahjongSoulProtocolBundle;
   readonly now: () => number;
+  readonly diagnose?: typeof diagnoseMahjongSoulInlineRecord;
 }): Promise<ElectronRestoreDiagnosticResult> {
   let captured: Awaited<ReturnType<ElectronMahjongSoulLoginProvider["run"]>>;
   try {
@@ -56,9 +55,12 @@ export async function runMahjongSoulRestoreDiagnostic(input: {
   if (captured.status === "rejected") return result("login_rejected");
   if (captured.status === "cancelled") return result("login_cancelled");
   if (captured.status !== "authenticated") return result("login_capture_unverified");
-  return await diagnoseMahjongSoulIndependentRestore({
+  const diagnose = input.diagnose ?? diagnoseMahjongSoulInlineRecord;
+  const diagnosed = await diagnose({
     credential: captured.credential,
+    bundle: input.bundle,
     createSession: input.createSession,
     now: input.now,
   });
+  return result(diagnosed.status);
 }
