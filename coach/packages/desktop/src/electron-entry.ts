@@ -17,7 +17,9 @@ import {
   authenticateStoredMahjongSoulSession,
   fetchMahjongSoulRecord,
   loadMahjongSoulProtocolBundle,
+  mapMahjongSoulRecord,
 } from "@riichi-coach/mahjong-soul-source";
+import type { CanonicalEventStream } from "@riichi-coach/contracts";
 import { createMahjongSoulCatalogService } from "./catalog-service.js";
 import { createElectronSessionKeyProtector, type SafeStoragePort } from "./electron-safe-storage.js";
 import {
@@ -137,18 +139,35 @@ async function start(): Promise<void> {
     },
     clock: Date.now,
   });
+  const mappedRecords = new Map<string, CanonicalEventStream>();
   const recordIngestionService = createMahjongSoulRecordIngestionService({
     vault,
     catalogStore,
     createSession: createLobbySessionFactory({ bundle }),
     authenticate: authenticateStoredMahjongSoulSession,
-    fetchRecord: async (lobby, stored, recordId) => await fetchMahjongSoulRecord({
-      session: lobby,
-      bundle,
-      recordId,
-      clientVersionString: stored.recoveryContext.clientVersionString,
-      fetchImpl: globalThis.fetch,
-    }),
+    fetchRecord: async (lobby, stored, recordId) => {
+      const fetched = await fetchMahjongSoulRecord({
+        session: lobby,
+        bundle,
+        recordId,
+        clientVersionString: stored.recoveryContext.clientVersionString,
+        fetchImpl: globalThis.fetch,
+      });
+      const summaries = await catalogStore.list(stored.accountId);
+      const summary = summaries.find((entry) => entry.recordId === recordId);
+      const mapped = mapMahjongSoulRecord({
+        gameId: `majsoul:${recordId}`,
+        selfActor: summary?.selfSeat ?? 0,
+        recordId,
+        recordBytes: fetched.recordBytes,
+        bundle,
+      });
+      if (mapped.status !== "ready") {
+        throw new MahjongSoulSourceError("mahjong_soul_canonical_validation_failed");
+      }
+      mappedRecords.set(recordId, mapped.stream);
+      return fetched;
+    },
   });
   const service = createMahjongSoulSessionService({
     vault,
