@@ -72,6 +72,9 @@ test("workspace packages import as emitted JavaScript", async () => {
   assert.equal(typeof source.extractCapturedLoginCredential, "function");
   assert.equal(typeof source.createMahjongSoulLoginCapture, "function");
   assert.equal(typeof source.createMahjongSoulSessionController, "function");
+  assert.equal(typeof source.fetchMahjongSoulRecord, "function");
+  assert.equal(typeof source.mapMahjongSoulRecord, "function");
+  assert.equal(typeof source.parseMajsoulTile, "function");
   assert.equal(typeof desktop.parseMahjongSoulSessionStatus, "function");
   assert.equal(reasoning.bridgeLegacyRegressionEvents, undefined);
   assert.equal(reasoning.buildLegacyRegressionPipelineInput, undefined);
