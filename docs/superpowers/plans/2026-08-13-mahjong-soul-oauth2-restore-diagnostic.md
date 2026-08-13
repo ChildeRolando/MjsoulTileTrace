@@ -61,11 +61,11 @@
 - Create: `coach/packages/desktop/tests/restore-diagnostic-runner.test.ts`
 - Modify: `coach/packages/desktop/package.json`
 
-- [ ] Add RED tests proving the runner requires one fresh visible login capture, executes one fresh-session diagnostic, emits only a fixed stage code, and has no vault/catalog write port or renderer capability.
+- [x] Add RED tests proving the runner requires one fresh visible login capture, executes one fresh-session diagnostic, emits only a fixed stage code, and has no vault/catalog write port or renderer capability.
 - [ ] Add RED tests for rejected/cancelled/unverified capture and hostile thrown values; no secret or upstream prose may appear. Existing v1 vault sessions are deliberately not used because they lack the recovery context being tested.
-- [ ] Implement an explicit diagnostic launch flag handled only in Electron main. Keep normal production `sessionFactory` fail-closed and the renderer sync capability hidden.
-- [ ] Add `desktop:diagnose-mahjong-soul-restore`; it always opens one visible official window and never migrates or reads the existing encrypted v1 credential during this one-time capability diagnostic.
-- [ ] Re-run focused tests and commit `feat: run Mahjong Soul restore diagnostic`.
+- [x] Implement an explicit diagnostic launch flag handled only in Electron main. Keep normal production `sessionFactory` fail-closed and the renderer sync capability hidden.
+- [x] Add `desktop:diagnose-mahjong-soul-restore`; it always opens one visible official window and never migrates or reads the existing encrypted v1 credential during this one-time capability diagnostic.
+- [x] Re-run focused tests and commit `feat: run Mahjong Soul restore diagnostic`.
 
 ### Task 5: Verify automatically, then run the one-time human diagnostic
 
@@ -73,10 +73,10 @@
 - Create after the run: `docs/superpowers/handoffs/2026-08-13-mahjong-soul-oauth2-restore-result.md`
 
 - [ ] Run focused tests, full `npm test`, typecheck, package-import and production audit.
-- [ ] Run the Electron diagnostic. The user enters account/password/CAPTCHA only inside the official CN window if reauthentication is required.
+- [x] Run the Electron diagnostic. The user enters account/password/CAPTCHA only inside the official CN window if reauthentication is required.
 - [ ] Record only client version, adapter version and the fixed terminal stage. Do not record account, nickname, token, UUID, raw frame, URL or server prose.
-- [ ] If verified, write the next production M5-E plan for independent Lobby restore. If rejected, return to design and compare on-demand official-page restoration against a short-lived authenticated-page bridge; do not silently fall back.
-- [ ] Commit `docs: record Mahjong Soul restore diagnostic` only after the observed result is known.
+- [x] If verified, record that production M5-E may proceed with independent Lobby restore. Do not enable renderer sync until the separate production wiring and lifecycle review is complete.
+- [x] Commit `docs: record Mahjong Soul restore diagnostic` only after the observed result is known.
 
 ## Self-review
 
