@@ -12,7 +12,9 @@ const bundleRoot = fileURLToPath(
   new URL("../../../vendor/mahjong-soul-protocol/", import.meta.url),
 );
 
-const recordId = "260810-862a740f-2741-45e3-8635-0820fc416f78";
+// Synthetic, schema-shaped id written by the fixture generator; never a real
+// replay identifier (scripts/generate-mahjong-soul-real-fixtures.mjs).
+const recordId = "000000-00000000-0000-0000-0000-000000000001";
 
 interface RealRecordFixture {
   readonly fixtureVersion: string;

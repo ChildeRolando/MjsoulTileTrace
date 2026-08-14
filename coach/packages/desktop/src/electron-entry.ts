@@ -172,13 +172,20 @@ async function start(): Promise<void> {
     return;
   }
   if (process.argv.includes("--diagnose-mahjong-soul-capture-record")) {
+    // The paipu URL must be provided explicitly; there is no fallback replay
+    // (a hardcoded real game link would keep propagating a player's identity).
     const urlIndex = process.argv.indexOf("--paipu-url");
     const urlArg = urlIndex >= 0 && urlIndex + 1 < process.argv.length
       ? process.argv[urlIndex + 1]
       : undefined;
-    const url = typeof urlArg === "string" && urlArg.length > 0
-      ? urlArg
-      : "https://game.maj-soul.com/1/?paipu=260810-862a740f-2741-45e3-8635-0820fc416f78_a62115198an";
+    const url = typeof urlArg === "string" && urlArg.length > 0 ? urlArg : undefined;
+    if (url === undefined) {
+      console.error(
+        "[riichi-coach] mahjong-soul-capture-record:error missing_required_flag --paipu-url",
+      );
+      app.exit(2);
+      return;
+    }
     const result = await runRecordCaptureDiagnostic({
       bundle,
       url,
