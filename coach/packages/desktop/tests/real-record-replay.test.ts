@@ -97,7 +97,7 @@ describe("real supported round: full map → replay → audit chain", () => {
     });
     expect(mapped.status).toBe("ready");
     if (mapped.status !== "ready") return;
-    expect(mapped.stream.events.length).toBe(1022);
+    expect(mapped.stream.events.length).toBe(1024);
     expect(validateCanonicalEventStream(mapped.stream)).toEqual({ status: "valid" });
   });
 });

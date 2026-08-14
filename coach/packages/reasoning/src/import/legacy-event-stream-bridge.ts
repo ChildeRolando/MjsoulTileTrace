@@ -283,7 +283,11 @@ export function bridgeLegacyRegressionEvents(
     events: canonical,
   });
   if (!parsed.success) return invalid("legacy_stream_schema_invalid");
-  if (validateCanonicalEventStream(parsed.data).status === "invalid") {
+  // The legacy regression fixtures are unclosed partial-game segments by
+  // design (the bridge rejects hule/terminal events), so the whole-record
+  // EOF closing invariant is explicitly waived here. Complete records flow
+  // through the Record* mapper, which must close every round.
+  if (validateCanonicalEventStream(parsed.data, { allowUnclosedStream: true }).status === "invalid") {
     return invalid("legacy_stream_sequence_invalid");
   }
   return {

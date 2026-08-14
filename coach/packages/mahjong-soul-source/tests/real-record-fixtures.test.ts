@@ -78,9 +78,13 @@ describe("sanitized real stored-record fixtures", () => {
     });
     expect(mapped.status).toBe("ready");
     if (mapped.status !== "ready") return;
+    // EOF closing invariant: every started round is closed (9/9) and the
+    // record ends with the settled game_ended, not in an active round.
     expect(mapped.stream.events.filter((event) => event.type === "round_started").length).toBe(9);
-    expect(mapped.stream.events.filter((event) => event.type === "round_ended").length).toBe(8);
+    expect(mapped.stream.events.filter((event) => event.type === "round_ended").length).toBe(9);
     expect(mapped.stream.events.filter((event) => event.type === "win_declared").length).toBe(9);
+    expect(mapped.stream.events.filter((event) => event.type === "game_ended").length).toBe(1);
+    expect(mapped.stream.events.at(-1)?.type).toBe("game_ended");
     // The two real kans map with their provenance.
     const ankan = mapped.stream.events.find((event) => event.type === "ankan_declared");
     const kakan = mapped.stream.events.find((event) => event.type === "kakan_declared");

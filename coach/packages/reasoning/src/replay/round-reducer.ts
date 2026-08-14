@@ -494,7 +494,11 @@ export function reduceCanonicalEventStream(
     throw new CanonicalReplayError("canonical_stream_schema_invalid");
   }
   const stream = parsedStream.data;
-  const validation = validateCanonicalEventStream(stream);
+  // The reducer and the decision-freeze pipeline consume event PREFIXES by
+  // design (per-event states for analysis and tests), so the whole-record EOF
+  // closing invariant is waived here. Complete records are gated by
+  // validateCanonicalEventStream's strict default at record boundaries.
+  const validation = validateCanonicalEventStream(stream, { allowUnclosedStream: true });
   if (validation.status === "invalid") {
     throw new CanonicalReplayError(validation.code);
   }

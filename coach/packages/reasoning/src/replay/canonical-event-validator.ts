@@ -22,7 +22,8 @@ export type CanonicalStreamDiagnosticCode =
   | "win_source_mismatch"
   | "settlement_binding_invalid"
   | "settlement_score_mismatch"
-  | "event_after_round_end";
+  | "event_after_round_end"
+  | "stream_ended_mid_round";
 
 export type CanonicalStreamValidation =
   | { status: "valid" }
@@ -631,8 +632,18 @@ function validateRoundEvent(
   }
 }
 
+export interface ValidateCanonicalEventStreamOptions {
+  // Whole-record contract (default): a complete stream must not stop in an
+  // active round — it ends between rounds or at game_ended, so a mapper that
+  // forgets the closing events cannot validate. Prefix validation (per-event
+  // semantics on a segment) and the legacy regression bridge's unclosed
+  // partial-game fixtures opt out explicitly.
+  readonly allowUnclosedStream?: boolean;
+}
+
 export function validateCanonicalEventStream(
   stream: CanonicalEventStream,
+  options: ValidateCanonicalEventStreamOptions = {},
 ): CanonicalStreamValidation {
   const state: ValidationState = {
     phase: "before_game",
@@ -668,6 +679,21 @@ export function validateCanonicalEventStream(
   for (const event of stream.events) {
     const result = validateRoundEvent(state, event);
     if (result !== null) return result;
+  }
+  // EOF closing invariant: only between_rounds and game_ended are legal end
+  // states. awaiting_draw/awaiting_action/awaiting_responses/terminal mean a
+  // closing event is missing (e.g. a mapper that never flushes the final
+  // round_ended) and the stream must not pass as a complete record.
+  if (
+    options.allowUnclosedStream !== true
+    && state.phase !== "between_rounds"
+    && state.phase !== "game_ended"
+  ) {
+    return {
+      status: "invalid",
+      code: "stream_ended_mid_round",
+      eventRef: stream.events.at(-1)?.eventId ?? "",
+    };
   }
   return { status: "valid" };
 }

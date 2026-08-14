@@ -170,7 +170,15 @@ describe("Mahjong Soul stored Record* mapper", () => {
     });
     expect(win.status).toBe("ready");
     if (win.status !== "ready") return;
-    expect(win.stream.events.at(-1)?.type).toBe("win_declared");
+    // EOF closing: the record ends win -> round_ended -> game_ended with the
+    // settled scores (25000 + [-1000,3000,-1000,-1000] applied once).
+    expect(win.stream.events.slice(-3).map((event) => event.type)).toEqual([
+      "win_declared", "round_ended", "game_ended",
+    ]);
+    const gameEnded = win.stream.events.at(-1);
+    if (gameEnded?.type !== "game_ended") throw new Error("expected game_ended");
+    // delta_scores are seat-indexed and applied verbatim.
+    expect(gameEnded.scores).toEqual([28000, 24000, 24000, 24000]);
 
     const drawBytes = encodeRecord(bundle, [
       { name: "RecordNewRound", data: newRound(1, 0) },
@@ -187,6 +195,10 @@ describe("Mahjong Soul stored Record* mapper", () => {
     const roundDrawn = draw.stream.events.findLast((event) => event.type === "round_drawn");
     if (roundDrawn?.type !== "round_drawn") throw new Error("expected round_drawn");
     expect(roundDrawn.tenpaiActors).toEqual([0, 2]);
+    // A drawn final carries no sanitized payment data: the round is closed
+    // but no game_ended scores are fabricated.
+    expect(draw.stream.events.at(-1)?.type).toBe("round_ended");
+    expect(draw.stream.events.some((event) => event.type === "game_ended")).toBe(false);
   });
 
   it("rejects RecordLiuJu as unsupported semantics", async () => {

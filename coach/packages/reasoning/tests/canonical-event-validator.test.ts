@@ -37,6 +37,7 @@ describe("canonical event semantic validator", () => {
   it("accepts a valid self draw and discard sequence", () => {
     expect(validateCanonicalEventStream(
       canonicalStream(canonicalSelfDrawDiscardEvents()),
+      { allowUnclosedStream: true },
     )).toEqual({ status: "valid" });
   });
 
@@ -291,7 +292,42 @@ describe("canonical event semantic validator", () => {
         scoreDeltas: null,
       },
     ];
-    expect(validateCanonicalEventStream(canonicalStream(events)))
+    expect(validateCanonicalEventStream(canonicalStream(events), { allowUnclosedStream: true }))
+      .toEqual({ status: "valid" });
+  });
+
+  // EOF closing invariant: a complete record never stops in an active round.
+  it("rejects an unclosed stream that stops mid-round (EOF invariant)", () => {
+    // ...draw+discard leaves the phase at awaiting_responses.
+    expect(validateCanonicalEventStream(
+      canonicalStream(canonicalSelfDrawDiscardEvents()),
+    )).toMatchObject({ status: "invalid", code: "stream_ended_mid_round" });
+
+    // A terminal win without round_ended also fails EOF (phase "terminal").
+    const unclosedWin: CanonicalGameEvent[] = [
+      ...canonicalSelfDrawDiscardEvents(),
+      { type: "tile_drawn", eventId: "game:fixture/0/4/0", sourceRecordRef: "record:4", actor: 1, tile: { visibility: "hidden" }, from: "live_wall" },
+      { type: "win_declared", eventId: "game:fixture/0/5/0", sourceRecordRef: "record:5", winnerActor: 1, targetActor: null, method: "tsumo", winningTile: canonicalTile("5p"), winSourceEventRef: "game:fixture/0/4/0", scoreDeltas: [-1000, 3000, -1000, -1000] },
+    ];
+    expect(validateCanonicalEventStream(canonicalStream(unclosedWin)))
+      .toMatchObject({ status: "invalid", code: "stream_ended_mid_round" });
+
+    // The prefix opt-out keeps per-event semantics testable on segments.
+    expect(validateCanonicalEventStream(
+      canonicalStream(canonicalSelfDrawDiscardEvents()),
+      { allowUnclosedStream: true },
+    )).toEqual({ status: "valid" });
+  });
+
+  it("accepts a closed record ending at game_ended", () => {
+    const closed: CanonicalGameEvent[] = [
+      ...canonicalSelfDrawDiscardEvents(),
+      { type: "tile_drawn", eventId: "game:fixture/0/4/0", sourceRecordRef: "record:4", actor: 1, tile: { visibility: "hidden" }, from: "live_wall" },
+      { type: "win_declared", eventId: "game:fixture/0/5/0", sourceRecordRef: "record:5", winnerActor: 1, targetActor: null, method: "tsumo", winningTile: canonicalTile("5p"), winSourceEventRef: "game:fixture/0/4/0", scoreDeltas: [-1000, 3000, -1000, -1000] },
+      { type: "round_ended", eventId: "game:fixture/0/5/1", sourceRecordRef: "record:5", terminalEventRef: "game:fixture/0/5/0" },
+      { type: "game_ended", eventId: "game:fixture/0/5/2", sourceRecordRef: "record:5", scores: [24000, 28000, 24000, 24000] },
+    ];
+    expect(validateCanonicalEventStream(canonicalStream(closed)))
       .toEqual({ status: "valid" });
   });
 

@@ -130,6 +130,13 @@ export function mapMahjongSoulRecord(input: {
     // schema binds each source position to exactly one sourceRecordRef.
     let lastTerminalEventRef: string | null = null;
     let terminalContinuation: { readonly ordinal: number; readonly nextSub: number } | null = null;
+    // Running seat scores (from each RecordNewRound plus every RecordHule's
+    // delta_scores, applied once per hule action) — the source for the final
+    // game_ended settlement, never fabricated.
+    let currentScores: [number, number, number, number] | null = null;
+    // Whether the current round's terminal settles scores on the wire (a
+    // hule does; a sanitized RecordNoTile carries no payment data).
+    let terminalSettlesScores = false;
 
     const push = (
       sourceRecordOrdinal: number,
@@ -152,6 +159,32 @@ export function mapMahjongSoulRecord(input: {
     // Synthesized game boundary before the first source action.
     push(0, 0, { type: "game_started" });
 
+    // Closing invariant: a round that reached its terminal is closed with a
+    // round_ended bound to the terminal's source position (contiguous
+    // sub-event, same sourceRecordRef). Called before the next round_started
+    // and once more at end of record — a complete record never stops in an
+    // active round.
+    const flushRoundEnd = (atEndOfRecord: boolean): void => {
+      if (lastTerminalEventRef === null || terminalContinuation === null) return;
+      push(terminalContinuation.ordinal, terminalContinuation.nextSub, {
+        type: "round_ended",
+        terminalEventRef: lastTerminalEventRef,
+      });
+      // game_ended only closes the RECORD, never an intermediate round, and
+      // only when the final settlement is actually derivable from the wire;
+      // a drawn final carries no sanitized payment data, so no scores are
+      // invented for it.
+      if (atEndOfRecord && terminalSettlesScores && currentScores !== null) {
+        push(terminalContinuation.ordinal, terminalContinuation.nextSub + 1, {
+          type: "game_ended",
+          scores: [...currentScores],
+        });
+      }
+      lastTerminalEventRef = null;
+      terminalContinuation = null;
+      terminalSettlesScores = false;
+    };
+
     for (const action of actions) {
       const ordinal = action.sourceRecordOrdinal;
       const data = action.data;
@@ -160,14 +193,7 @@ export function mapMahjongSoulRecord(input: {
         // Close the terminated round before opening the next one; the state
         // machine only allows round_started from between_rounds. The eventId
         // still binds to the ENDING round (currentRoundOrdinal updates below).
-        if (lastTerminalEventRef !== null && terminalContinuation !== null) {
-          push(terminalContinuation.ordinal, terminalContinuation.nextSub, {
-            type: "round_ended",
-            terminalEventRef: lastTerminalEventRef,
-          });
-          lastTerminalEventRef = null;
-          terminalContinuation = null;
-        }
+        flushRoundEnd(false);
         const chang = u32(data.chang);
         const dealer = seat(data.ju);
         const honba = u32(data.ben);
@@ -196,6 +222,7 @@ export function mapMahjongSoulRecord(input: {
         roundStartEventIndex = events.length;
         roundWind = parseMajsoulRoundWind(chang);
         roundDealer = dealer;
+        currentScores = [...scores];
         push(ordinal, 0, {
           type: "round_started",
           roundOrdinal: currentRoundOrdinal,
@@ -430,6 +457,17 @@ export function mapMahjongSoulRecord(input: {
         }
         if (subEvent === 0) throw mappingFailed();
         terminalContinuation = { ordinal, nextSub: subEvent };
+        terminalSettlesScores = true;
+        // Apply this hule's seat deltas ONCE (a double-ron shares the action's
+        // delta_scores) to keep the running settlement for game_ended honest.
+        if (currentScores !== null) {
+          currentScores = [
+            currentScores[0] + scoreDeltas[0],
+            currentScores[1] + scoreDeltas[1],
+            currentScores[2] + scoreDeltas[2],
+            currentScores[3] + scoreDeltas[3],
+          ];
+        }
         continue;
       }
 
@@ -454,11 +492,20 @@ export function mapMahjongSoulRecord(input: {
           tenpaiActors,
         });
         terminalContinuation = { ordinal, nextSub: 1 };
+        // The sanitized RecordNoTile carries no payment data, so the final
+        // settlement is not derivable — game_ended must not be fabricated.
+        terminalSettlesScores = false;
         continue;
       }
 
       throw mappingFailed();
     }
+
+    // EOF closing invariant: a complete record ends with its final round
+    // closed (round_ended for every started round), plus game_ended whenever
+    // the final settlement is derivable. The stream must never stop inside an
+    // active round.
+    flushRoundEnd(true);
 
     const parsed = CanonicalEventStreamSchema.safeParse({
       schemaVersion: "canonical-riichi-events/v2",
