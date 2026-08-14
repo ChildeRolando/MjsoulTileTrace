@@ -220,6 +220,27 @@ export type MahjongSoulRestoreRejection = Readonly<{
 // the raw server error codes (never the token) so a rejection can be told apart
 // from a CAPTCHA/rate-limit (e.g. 151) versus an expired token (has_account
 // false with no error).
+// Projects raw server error codes from already-decoded responses without issuing
+// any RPC, so a clean single-request restore can still report its rejection
+// stage. `login` is null when oauth2Check rejected before oauth2Login ran.
+export function snapshotRestoreRejection(
+  check: Readonly<Record<string, unknown>>,
+  login: Readonly<Record<string, unknown>> | null,
+): MahjongSoulRestoreRejection {
+  return Object.freeze({
+    checkErrorCode: serverErrorCodeOf(check),
+    checkHasAccount: typeof check.has_account === "boolean"
+      ? check.has_account
+      : null,
+    loginErrorCode: login === null ? null : serverErrorCodeOf(login),
+    loginAccountId: login === null
+      ? null
+      : typeof login.account_id === "number"
+        ? login.account_id
+        : null,
+  });
+}
+
 export async function readSessionRestoreRejection(
   lobby: MahjongSoulLobbySession,
   session: CapturedMahjongSoulRestoreCandidate,
@@ -232,16 +253,7 @@ export async function readSessionRestoreRejection(
     ".lq.Lobby.oauth2Login",
     createOAuth2LoginPayload(session),
   );
-  return Object.freeze({
-    checkErrorCode: serverErrorCodeOf(check),
-    checkHasAccount: typeof check.has_account === "boolean"
-      ? check.has_account
-      : null,
-    loginErrorCode: serverErrorCodeOf(login),
-    loginAccountId: typeof login.account_id === "number"
-      ? login.account_id
-      : null,
-  });
+  return snapshotRestoreRejection(check, login);
 }
 
 export async function diagnoseMahjongSoulIndependentRestore(input: {

@@ -32,8 +32,20 @@ export const MAHJONG_SOUL_OBSERVED_LOGIN_METHODS = Object.freeze([
   ".lq.Lobby.oauth2Login",
 ] as const);
 
+export const MAHJONG_SOUL_OBSERVED_RECORD_METHODS = Object.freeze([
+  ".lq.Lobby.fetchGameRecord",
+  ".lq.Lobby.fetchGameRecordListV2",
+  ".lq.Lobby.fetchNextGameRecordList",
+  ".lq.Lobby.fetchGameRecordsDetail",
+] as const);
+
 type ObservedLoginMethod =
   typeof MAHJONG_SOUL_OBSERVED_LOGIN_METHODS[number] extends `.lq.Lobby.${infer Name}`
+    ? Name
+    : never;
+
+type ObservedRecordMethod =
+  typeof MAHJONG_SOUL_OBSERVED_RECORD_METHODS[number] extends `.lq.Lobby.${infer Name}`
     ? Name
     : never;
 
@@ -107,7 +119,7 @@ interface PendingRequest {
   method: string;
   responseType: Type;
   surfaced: boolean;
-  origin: "observed_login" | "observed_ignored" | "direct_call";
+  origin: "observed_login" | "observed_record" | "observed_ignored" | "direct_call";
   loginMethod: ObservedLoginMethod | null;
   loginAuthType: number | null;
   loginRecovery: MahjongSoulOAuth2RecoveryContext | null;
@@ -361,6 +373,14 @@ function observedLoginMethod(method: string): ObservedLoginMethod | null {
   return null;
 }
 
+function observedRecordMethod(method: string): ObservedRecordMethod | null {
+  if (method === ".lq.Lobby.fetchGameRecord") return "fetchGameRecord";
+  if (method === ".lq.Lobby.fetchGameRecordListV2") return "fetchGameRecordListV2";
+  if (method === ".lq.Lobby.fetchNextGameRecordList") return "fetchNextGameRecordList";
+  if (method === ".lq.Lobby.fetchGameRecordsDetail") return "fetchGameRecordsDetail";
+  return null;
+}
+
 class StatefulLiqiCodec implements LiqiCodec {
   readonly #root: Root;
   readonly #wrapperType: Type;
@@ -452,6 +472,7 @@ class StatefulLiqiCodec implements LiqiCodec {
       const route = this.#route(wrapper.name);
       const request = route.requestType.decode(wrapper.data);
       const loginMethod = observedLoginMethod(wrapper.name);
+      const recordMethod = observedRecordMethod(wrapper.name);
       let loginAuthType: number | null = null;
       let loginRecovery: MahjongSoulOAuth2RecoveryContext | null = null;
       if (loginMethod !== null) {
@@ -473,13 +494,17 @@ class StatefulLiqiCodec implements LiqiCodec {
       this.#register(requestId, {
         method: wrapper.name,
         responseType: route.responseType,
-        surfaced: loginMethod !== null,
-        origin: loginMethod === null ? "observed_ignored" : "observed_login",
+        surfaced: loginMethod !== null || recordMethod !== null,
+        origin: loginMethod !== null
+          ? "observed_login"
+          : recordMethod !== null
+            ? "observed_record"
+            : "observed_ignored",
         loginMethod,
         loginAuthType,
         loginRecovery,
       });
-      return loginMethod === null
+      return loginMethod === null && recordMethod === null
         ? { kind: "ignored" }
         : {
             kind: "request_observed",

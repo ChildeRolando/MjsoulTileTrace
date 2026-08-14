@@ -1,6 +1,7 @@
 export { MahjongSoulSourceError } from "./errors.js";
 export {
   MAHJONG_SOUL_OBSERVED_LOGIN_METHODS,
+  MAHJONG_SOUL_OBSERVED_RECORD_METHODS,
   MAHJONG_SOUL_SAFE_DIRECT_CALL_METHODS,
   MAHJONG_SOUL_SURFACED_NOTIFICATION_TYPES,
   createLiqiCodec,
@@ -15,6 +16,7 @@ export {
 export {
   diagnoseMahjongSoulIndependentRestore,
   readSessionRestoreRejection,
+  snapshotRestoreRejection,
   type MahjongSoulRestoreDiagnosticResult,
   type MahjongSoulRestoreDiagnosticStatus,
   type MahjongSoulRestoreRejection,
@@ -34,6 +36,11 @@ export {
   type LoginCaptureResult,
   type MahjongSoulLoginCapture,
 } from "./login-capture.js";
+export {
+  createMahjongSoulRecordCapture,
+  type MahjongSoulRecordCapture,
+  type RecordCaptureResult,
+} from "./record-capture.js";
 export {
   loadMahjongSoulProtocolBundle,
   type MahjongSoulProtocolBundle,

@@ -52,6 +52,7 @@ import {
   restoreDiagnosticExitCode,
   runMahjongSoulRestoreDiagnostic,
 } from "./restore-diagnostic-runner.js";
+import { runRecordCaptureDiagnostic, type CaptureRecordWindowPort } from "./capture-record-diagnostic-runner.js";
 import { createMahjongSoulSessionService } from "./mahjong-soul-session-service.js";
 import {
   createMainWindowOptions,
@@ -162,7 +163,57 @@ async function start(): Promise<void> {
       now: Date.now,
     });
     console.log(`[riichi-coach] mahjong-soul-restore:${result.status}`);
+    if (result.restoreRejection !== undefined) {
+      console.log(
+        `[riichi-coach] restore-rejection ${JSON.stringify(result.restoreRejection)}`,
+      );
+    }
     app.exit(restoreDiagnosticExitCode(result.status));
+    return;
+  }
+  if (process.argv.includes("--diagnose-mahjong-soul-capture-record")) {
+    const urlIndex = process.argv.indexOf("--paipu-url");
+    const urlArg = urlIndex >= 0 && urlIndex + 1 < process.argv.length
+      ? process.argv[urlIndex + 1]
+      : undefined;
+    const url = typeof urlArg === "string" && urlArg.length > 0
+      ? urlArg
+      : "https://game.maj-soul.com/1/?paipu=260810-862a740f-2741-45e3-8635-0820fc416f78_a62115198an";
+    const result = await runRecordCaptureDiagnostic({
+      bundle,
+      url,
+      createWindow: () => {
+        const window = new BrowserWindow({
+          show: true,
+          width: 1180,
+          height: 820,
+          autoHideMenuBar: true,
+          webPreferences: {
+            partition: PARTITION,
+            contextIsolation: true,
+            sandbox: true,
+            nodeIntegration: false,
+            webviewTag: false,
+            navigateOnDragDrop: false,
+          },
+        });
+        window.webContents.setWindowOpenHandler(() => ({ action: "deny" }));
+        window.webContents.session.setPermissionRequestHandler((_c, _p, cb) => cb(false));
+        window.webContents.session.setPermissionCheckHandler(() => false);
+        window.webContents.session.on("will-download", (event, item) => {
+          event.preventDefault();
+          item.cancel();
+        });
+        return window as unknown as CaptureRecordWindowPort;
+      },
+      timeoutMs: 240_000,
+    });
+    const resultPath = join(app.getPath("temp"), "mahjong-soul-capture-result.json");
+    await writeFile(resultPath, JSON.stringify(result));
+    console.log(
+      `[riichi-coach] mahjong-soul-capture-record:${JSON.stringify(result)} ${resultPath}`,
+    );
+    app.exit(result.status === "record_captured" && result.error === null ? 0 : 1);
     return;
   }
   if (process.argv.includes("--diagnose-mahjong-soul-replay")) {
@@ -176,9 +227,11 @@ async function start(): Promise<void> {
       createSession: createLobbySessionFactory({ bundle }),
       authenticate: async (lobby, stored) => {
         const status = await authenticateStoredMahjongSoulSession(lobby, stored);
-        if (status !== "authenticated") {
-          // Surface the raw server error codes (never the token) so a
-          // rejection can be told apart from CAPTCHA/rate-limit vs expiry.
+        // The rejection probe is opt-in: it replays oauth2Check + oauth2Login a
+        // second time, which pollutes a clean single-restore experiment and can
+        // aggravate server-side rate-limiting. Default runs issue exactly one
+        // oauth2Check through the normal restore path above.
+        if (status !== "authenticated" && process.argv.includes("--probe-rejection")) {
           try {
             const detail = await readSessionRestoreRejection(lobby, stored);
             console.log(
@@ -327,11 +380,18 @@ async function start(): Promise<void> {
   app.on("activate", () => { void createMainWindow(); });
 }
 
+const isDiagnosticRun = process.argv.includes("--diagnose-mahjong-soul-restore")
+  || process.argv.includes("--diagnose-mahjong-soul-replay")
+  || process.argv.includes("--diagnose-mahjong-soul-capture-record");
+
 app.whenReady().then(start).catch((error) => {
   console.error("[riichi-coach] startup failed:", error);
   app.exit(1);
 });
 
 app.on("window-all-closed", () => {
-  if (process.platform !== "darwin") app.quit();
+  // Diagnostic runs exit explicitly via app.exit() after their one-shot flow.
+  // Letting the login window's close trigger app.quit() here would terminate the
+  // process before the headless restore and its status line can run.
+  if (process.platform !== "darwin" && !isDiagnosticRun) app.quit();
 });

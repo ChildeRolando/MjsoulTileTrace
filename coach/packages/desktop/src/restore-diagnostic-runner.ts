@@ -3,6 +3,7 @@ import {
   type MahjongSoulLobbySession,
   type MahjongSoulInlineRecordResult,
   type MahjongSoulProtocolBundle,
+  type MahjongSoulRestoreRejection,
 } from "@riichi-coach/mahjong-soul-source";
 import type {
   ElectronMahjongSoulLoginProvider,
@@ -17,10 +18,16 @@ export type ElectronRestoreDiagnosticStatus =
 
 export type ElectronRestoreDiagnosticResult = Readonly<{
   readonly status: ElectronRestoreDiagnosticStatus;
+  readonly restoreRejection?: MahjongSoulRestoreRejection;
 }>;
 
-function result(status: ElectronRestoreDiagnosticStatus): ElectronRestoreDiagnosticResult {
-  return Object.freeze({ status });
+function result(
+  status: ElectronRestoreDiagnosticStatus,
+  restoreRejection?: MahjongSoulRestoreRejection,
+): ElectronRestoreDiagnosticResult {
+  return restoreRejection === undefined
+    ? Object.freeze({ status })
+    : Object.freeze({ status, restoreRejection });
 }
 
 export function restoreDiagnosticExitCode(status: ElectronRestoreDiagnosticStatus): number {
@@ -36,6 +43,10 @@ export function restoreDiagnosticExitCode(status: ElectronRestoreDiagnosticStatu
     case "record_detail_rejected": return 32;
     case "record_container_unsupported": return 33;
     case "record_actions_empty": return 34;
+    case "session_create_failed": return 35;
+    case "oauth2_check_rejected": return 36;
+    case "oauth2_login_rejected": return 37;
+    case "identity_mismatch": return 38;
   }
 }
 
@@ -62,5 +73,5 @@ export async function runMahjongSoulRestoreDiagnostic(input: {
     createSession: input.createSession,
     now: input.now,
   });
-  return result(diagnosed.status);
+  return result(diagnosed.status, diagnosed.restoreRejection);
 }

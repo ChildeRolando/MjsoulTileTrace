@@ -6,6 +6,7 @@ import { describe, expect, test } from "vitest";
 import type { MahjongSoulProtocolBundle } from "../src/protocol-bundle.js";
 import {
   MAHJONG_SOUL_OBSERVED_LOGIN_METHODS,
+  MAHJONG_SOUL_OBSERVED_RECORD_METHODS,
   MAHJONG_SOUL_SAFE_DIRECT_CALL_METHODS,
   MAHJONG_SOUL_SURFACED_NOTIFICATION_TYPES,
   createLiqiCodec,
@@ -377,9 +378,16 @@ describe("Liqi wire codec", () => {
       ".lq.Lobby.login",
       ".lq.Lobby.oauth2Login",
     ]);
+    expect(MAHJONG_SOUL_OBSERVED_RECORD_METHODS).toEqual([
+      ".lq.Lobby.fetchGameRecord",
+      ".lq.Lobby.fetchGameRecordListV2",
+      ".lq.Lobby.fetchNextGameRecordList",
+      ".lq.Lobby.fetchGameRecordsDetail",
+    ]);
     expect(MAHJONG_SOUL_SURFACED_NOTIFICATION_TYPES).toEqual([]);
     expect(Object.isFrozen(MAHJONG_SOUL_SAFE_DIRECT_CALL_METHODS)).toBe(true);
     expect(Object.isFrozen(MAHJONG_SOUL_OBSERVED_LOGIN_METHODS)).toBe(true);
+    expect(Object.isFrozen(MAHJONG_SOUL_OBSERVED_RECORD_METHODS)).toBe(true);
     expect(Object.isFrozen(MAHJONG_SOUL_SURFACED_NOTIFICATION_TYPES)).toBe(true);
   });
 

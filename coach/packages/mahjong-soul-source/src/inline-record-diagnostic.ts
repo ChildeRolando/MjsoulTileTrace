@@ -5,6 +5,8 @@ import {
   classifyRestoreResponseError,
   createOAuth2LoginPayload,
   snapshotRestoreCandidate,
+  snapshotRestoreRejection,
+  type MahjongSoulRestoreRejection,
 } from "./restore-diagnostic.js";
 import { syncRecentCatalog } from "./catalog-sync.js";
 import type { MahjongSoulLobbySession } from "./lobby-session.js";
@@ -13,6 +15,10 @@ import type { MahjongSoulProtocolBundle } from "./protocol-bundle.js";
 
 export type MahjongSoulInlineRecordStatus =
   | "inline_record_verified"
+  | "session_create_failed"
+  | "oauth2_check_rejected"
+  | "oauth2_login_rejected"
+  | "identity_mismatch"
   | "no_analyzable_record"
   | "record_data_url_not_supported"
   | "record_detail_rejected"
@@ -22,14 +28,27 @@ export type MahjongSoulInlineRecordStatus =
 
 export type MahjongSoulInlineRecordResult = Readonly<{
   readonly status: MahjongSoulInlineRecordStatus;
+  readonly restoreRejection?: MahjongSoulRestoreRejection;
 }>;
 
-function result(status: MahjongSoulInlineRecordStatus): MahjongSoulInlineRecordResult {
-  return Object.freeze({ status });
+function result(
+  status: MahjongSoulInlineRecordStatus,
+  restoreRejection?: MahjongSoulRestoreRejection,
+): MahjongSoulInlineRecordResult {
+  return restoreRejection === undefined
+    ? Object.freeze({ status })
+    : Object.freeze({ status, restoreRejection });
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return value !== null && typeof value === "object" && !Array.isArray(value);
+}
+
+function isPositiveUint32(value: unknown): value is number {
+  return typeof value === "number"
+    && Number.isInteger(value)
+    && value > 0
+    && value <= 0xffff_ffff;
 }
 
 export async function diagnoseMahjongSoulInlineRecord(input: {
@@ -42,23 +61,35 @@ export async function diagnoseMahjongSoulInlineRecord(input: {
   if (credential === null) return result("inconclusive");
   let session: MahjongSoulLobbySession | null = null;
   try {
-    session = await input.createSession();
+    try {
+      session = await input.createSession();
+    } catch {
+      return result("session_create_failed");
+    }
     const check = await session.call(".lq.Lobby.oauth2Check", {
       type: credential.authType,
       access_token: credential.accessToken.reveal(),
     });
-    if (
-      classifyRestoreResponseError(check) !== "success"
-      || check.has_account !== true
-    ) return result("inconclusive");
+    const checkError = classifyRestoreResponseError(check);
+    if (checkError === "rejected" || check.has_account === false) {
+      return result("oauth2_check_rejected", snapshotRestoreRejection(check, null));
+    }
+    if (checkError !== "success" || check.has_account !== true) {
+      return result("inconclusive");
+    }
     const login = await session.call(
       ".lq.Lobby.oauth2Login",
       createOAuth2LoginPayload(credential),
     );
-    if (
-      classifyRestoreResponseError(login) !== "success"
-      || login.account_id !== credential.accountId
-    ) return result("inconclusive");
+    const loginError = classifyRestoreResponseError(login);
+    if (loginError === "rejected") {
+      return result("oauth2_login_rejected", snapshotRestoreRejection(check, login));
+    }
+    if (loginError !== "success") return result("inconclusive");
+    if (!isPositiveUint32(login.account_id)) return result("inconclusive");
+    if (login.account_id !== credential.accountId) {
+      return result("identity_mismatch", snapshotRestoreRejection(check, login));
+    }
     const now = input.now();
     if (!Number.isSafeInteger(now) || now < 1000) return result("inconclusive");
     let endTime = Math.min(0xffff_ffff, Math.floor(now / 1000));

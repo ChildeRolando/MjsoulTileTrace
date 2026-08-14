@@ -77,6 +77,22 @@ function responses(record: Readonly<Record<string, unknown>> = {
   };
 }
 
+function rejectionSession(
+  queue: Readonly<Record<string, unknown>>[],
+): { session: MahjongSoulLobbySession; calls: string[]; closed: () => boolean } {
+  const calls: string[] = [];
+  let didClose = false;
+  return {
+    session: {
+      async authenticate() {},
+      async call(method, _payload) { calls.push(method); return queue.shift()!; },
+      async close() { didClose = true; },
+    },
+    calls,
+    closed: () => didClose,
+  };
+}
+
 describe("one-time inline Mahjong Soul record smoke", () => {
   test("verifies one analyzable inline record and closes without exposing it", async () => {
     const fake = responses();
@@ -109,5 +125,72 @@ describe("one-time inline Mahjong Soul record smoke", () => {
     });
     expect(result).toEqual({ status });
     expect(fake.closed()).toBe(true);
+  });
+
+  test("distinguishes oauth2Check rejection with a single request", async () => {
+    const fake = rejectionSession([
+      { error: { code: 151 }, has_account: false },
+    ]);
+    const result = await diagnoseMahjongSoulInlineRecord({
+      credential: candidate(), bundle, createSession: async () => fake.session,
+      now: () => 100_000,
+    });
+    expect(result).toEqual({
+      status: "oauth2_check_rejected",
+      restoreRejection: {
+        checkErrorCode: 151, checkHasAccount: false,
+        loginErrorCode: null, loginAccountId: null,
+      },
+    });
+    expect(fake.calls).toEqual([".lq.Lobby.oauth2Check"]);
+    expect(fake.closed()).toBe(true);
+  });
+
+  test("distinguishes oauth2Login rejection with a single login", async () => {
+    const fake = rejectionSession([
+      { error: null, has_account: true },
+      { error: { code: 151 }, account_id: 0 },
+    ]);
+    const result = await diagnoseMahjongSoulInlineRecord({
+      credential: candidate(), bundle, createSession: async () => fake.session,
+      now: () => 100_000,
+    });
+    expect(result).toEqual({
+      status: "oauth2_login_rejected",
+      restoreRejection: {
+        checkErrorCode: null, checkHasAccount: true,
+        loginErrorCode: 151, loginAccountId: 0,
+      },
+    });
+    expect(fake.calls).toEqual([".lq.Lobby.oauth2Check", ".lq.Lobby.oauth2Login"]);
+    expect(fake.closed()).toBe(true);
+  });
+
+  test("distinguishes identity mismatch", async () => {
+    const fake = rejectionSession([
+      { error: null, has_account: true },
+      { error: null, account_id: 999 },
+    ]);
+    const result = await diagnoseMahjongSoulInlineRecord({
+      credential: candidate(), bundle, createSession: async () => fake.session,
+      now: () => 100_000,
+    });
+    expect(result).toEqual({
+      status: "identity_mismatch",
+      restoreRejection: {
+        checkErrorCode: null, checkHasAccount: true,
+        loginErrorCode: null, loginAccountId: 999,
+      },
+    });
+    expect(fake.closed()).toBe(true);
+  });
+
+  test("distinguishes session create failure", async () => {
+    const result = await diagnoseMahjongSoulInlineRecord({
+      credential: candidate(), bundle,
+      createSession: async () => { throw new Error("boom"); },
+      now: () => 100_000,
+    });
+    expect(result).toEqual({ status: "session_create_failed" });
   });
 });

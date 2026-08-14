@@ -71,6 +71,10 @@ describe("diagnostic-only Electron orchestration", () => {
     expect(restoreDiagnosticExitCode("record_detail_rejected")).toBe(32);
     expect(restoreDiagnosticExitCode("record_container_unsupported")).toBe(33);
     expect(restoreDiagnosticExitCode("record_actions_empty")).toBe(34);
+    expect(restoreDiagnosticExitCode("session_create_failed")).toBe(35);
+    expect(restoreDiagnosticExitCode("oauth2_check_rejected")).toBe(36);
+    expect(restoreDiagnosticExitCode("oauth2_login_rejected")).toBe(37);
+    expect(restoreDiagnosticExitCode("identity_mismatch")).toBe(38);
   });
   test("uses one interactive capture then one fresh lobby without persistence", async () => {
     const calls: unknown[] = [];
@@ -89,6 +93,33 @@ describe("diagnostic-only Electron orchestration", () => {
     expect(Object.isFrozen(result)).toBe(true);
     expect(JSON.stringify(result)).not.toContain(token);
     expect(inspect(result)).not.toContain(token);
+  });
+
+  test("passes a single-request restore rejection through to the caller", async () => {
+    const result = await runMahjongSoulRestoreDiagnostic({
+      loginProvider: {
+        async run() { return { status: "authenticated", credential: candidate() }; },
+        cancelActive() {},
+      },
+      createSession: async () => lobby(),
+      bundle: {} as MahjongSoulProtocolBundle,
+      diagnose: async () => ({
+        status: "oauth2_check_rejected",
+        restoreRejection: {
+          checkErrorCode: 151, checkHasAccount: false,
+          loginErrorCode: null, loginAccountId: null,
+        },
+      }),
+      now: () => 10_000,
+    });
+    expect(result).toEqual({
+      status: "oauth2_check_rejected",
+      restoreRejection: {
+        checkErrorCode: 151, checkHasAccount: false,
+        loginErrorCode: null, loginAccountId: null,
+      },
+    });
+    expect(JSON.stringify(result)).not.toContain(token);
   });
 
   test("always requires a fresh visible capture and exposes no vault port", async () => {
