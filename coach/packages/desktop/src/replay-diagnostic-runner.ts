@@ -21,6 +21,7 @@ export type MahjongSoulReplayDiagnosticStatus =
   | "replay_audit_written"
   | "login_required"
   | "session_restore_failed"
+  | "session_restore_rejected"
   | "catalog_sync_failed"
   | "no_analyzable_record"
   | "record_not_analyzable"
@@ -58,6 +59,7 @@ export function replayDiagnosticExitCode(
     case "unsupported_record_semantics": return 16;
     case "replay_validation_failed": return 17;
     case "audit_write_failed": return 18;
+    case "session_restore_rejected": return 19;
     case "inconclusive": return 29;
   }
 }
@@ -151,7 +153,11 @@ export async function runMahjongSoulReplayDiagnostic(
     } catch {
       return result("session_restore_failed");
     }
-    if (await ports.authenticate(session, stored) !== "authenticated") {
+    const auth = await ports.authenticate(session, stored);
+    if (auth === "rejected") {
+      return result("session_restore_rejected");
+    }
+    if (auth !== "authenticated") {
       return result("session_restore_failed");
     }
 

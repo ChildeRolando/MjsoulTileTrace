@@ -116,6 +116,7 @@ describe("Mahjong Soul replay H1 diagnostic", () => {
     expect(replayDiagnosticExitCode("unsupported_record_semantics")).toBe(16);
     expect(replayDiagnosticExitCode("replay_validation_failed")).toBe(17);
     expect(replayDiagnosticExitCode("audit_write_failed")).toBe(18);
+    expect(replayDiagnosticExitCode("session_restore_rejected")).toBe(19);
     expect(replayDiagnosticExitCode("inconclusive")).toBe(29);
   });
 
@@ -134,14 +135,26 @@ describe("Mahjong Soul replay H1 diagnostic", () => {
     expect(created).toBe(false);
   });
 
-  test("returns session_restore_failed and closes the lobby when auth fails", async () => {
+  test("returns session_restore_failed and closes the lobby when auth is unverified", async () => {
     let closed = false;
     const result = await runMahjongSoulReplayDiagnostic(ports({
-      authenticate: async () => "rejected",
+      authenticate: async () => "unverified",
       createSession: async () => lobby(() => { closed = true; }),
     }));
     expect(result).toEqual({ status: "session_restore_failed" });
     expect(closed).toBe(true);
+  });
+
+  test("distinguishes a server-rejected session from an unverified restore", async () => {
+    const rejected = await runMahjongSoulReplayDiagnostic(ports({
+      authenticate: async () => "rejected",
+    }));
+    expect(rejected).toEqual({ status: "session_restore_rejected" });
+
+    const unverified = await runMahjongSoulReplayDiagnostic(ports({
+      authenticate: async () => "unverified",
+    }));
+    expect(unverified).toEqual({ status: "session_restore_failed" });
   });
 
   test("returns unsupported_record_semantics for an unproven action", async () => {
