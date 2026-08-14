@@ -1,3 +1,4 @@
+import { mkdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
@@ -11,6 +12,7 @@ import {
 } from "electron";
 import {
   MahjongSoulSourceError,
+  MAHJONG_SOUL_PROTOCOL_BUNDLE_VERSION,
   createMahjongSoulCatalogStore,
   createMahjongSoulSessionVault,
   createMahjongSoulOAuth2SessionRestorer,
@@ -18,10 +20,15 @@ import {
   fetchMahjongSoulRecord,
   loadMahjongSoulProtocolBundle,
   mapMahjongSoulRecord,
+  syncRecentCatalog,
+  type MahjongSoulLobbySession,
+  type RawRecordListEntry,
 } from "@riichi-coach/mahjong-soul-source";
 import type { CanonicalEventStream } from "@riichi-coach/contracts";
 import {
+  buildMahjongSoulReplayAudit,
   replayCanonicalStream,
+  serializeMahjongSoulReplayAudit,
   type ReplayedDecision,
 } from "@riichi-coach/reasoning";
 import { createMahjongSoulCatalogService } from "./catalog-service.js";
@@ -36,6 +43,10 @@ import {
   type ElectronLoginWindowPort,
 } from "./mahjong-soul-login-window.js";
 import { createLobbySessionFactory } from "./lobby-session-factory.js";
+import {
+  replayDiagnosticExitCode,
+  runMahjongSoulReplayDiagnostic,
+} from "./replay-diagnostic-runner.js";
 import {
   restoreDiagnosticExitCode,
   runMahjongSoulRestoreDiagnostic,
@@ -86,6 +97,37 @@ function hardenLocalWindow(window: BrowserWindow): void {
   });
 }
 
+const DESKTOP_APP_VERSION = "0.1.0";
+
+async function syncRecentCatalogEntries(
+  session: MahjongSoulLobbySession,
+  now: number,
+): Promise<RawRecordListEntry[]> {
+  let endTime = Math.min(0xffff_ffff, Math.floor(now / 1000));
+  let windowSeconds = 30 * 24 * 60 * 60;
+  const entries = new Map<string, RawRecordListEntry>();
+  for (let window = 0; window < 8 && endTime >= 1 && entries.size < 30; window += 1) {
+    const beginTime = Math.max(1, endTime - windowSeconds + 1);
+    const catalog = await syncRecentCatalog({ session, beginTime, endTime });
+    for (const candidate of catalog.entries) entries.set(candidate.uuid, candidate);
+    if (beginTime === 1) break;
+    endTime = beginTime - 1;
+    windowSeconds *= 2;
+  }
+  return [...entries.values()];
+}
+
+async function writeReplayAuditFile(
+  auditDir: string,
+  recordId: string,
+  serialized: string,
+): Promise<string> {
+  await mkdir(auditDir, { recursive: true, mode: 0o700 });
+  const target = join(auditDir, `${recordId}.json`);
+  await writeFile(target, serialized, { mode: 0o600 });
+  return target;
+}
+
 async function start(): Promise<void> {
   const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
   const loginProvider = createElectronMahjongSoulLoginProvider({
@@ -99,18 +141,6 @@ async function start(): Promise<void> {
       } as BrowserWindowConstructorOptions,
     ) as unknown as ElectronLoginWindowPort,
   });
-  if (process.argv.includes("--diagnose-mahjong-soul-restore")) {
-    const result = await runMahjongSoulRestoreDiagnostic({
-      loginProvider,
-      createSession: createLobbySessionFactory({ bundle }),
-      bundle,
-      now: Date.now,
-    });
-    console.log(`[riichi-coach] mahjong-soul-restore:${result.status}`);
-    app.exit(restoreDiagnosticExitCode(result.status));
-    return;
-  }
-  const partitionSession = session.fromPartition(PARTITION, { cache: true });
   const protector = createElectronSessionKeyProtector({
     safeStorage: safeStorage as unknown as SafeStoragePort,
     platform: process.platform,
@@ -123,6 +153,60 @@ async function start(): Promise<void> {
     store,
     now: Date.now,
   });
+  if (process.argv.includes("--diagnose-mahjong-soul-restore")) {
+    const result = await runMahjongSoulRestoreDiagnostic({
+      loginProvider,
+      createSession: createLobbySessionFactory({ bundle }),
+      bundle,
+      now: Date.now,
+    });
+    console.log(`[riichi-coach] mahjong-soul-restore:${result.status}`);
+    app.exit(restoreDiagnosticExitCode(result.status));
+    return;
+  }
+  if (process.argv.includes("--diagnose-mahjong-soul-replay")) {
+    const recordIdIndex = process.argv.indexOf("--record-id");
+    const recordId = recordIdIndex >= 0 && recordIdIndex + 1 < process.argv.length
+      ? process.argv[recordIdIndex + 1]
+      : undefined;
+    const auditDir = join(app.getPath("userData"), "mahjong-soul-replay-audit");
+    const result = await runMahjongSoulReplayDiagnostic({
+      vault,
+      createSession: createLobbySessionFactory({ bundle }),
+      authenticate: authenticateStoredMahjongSoulSession,
+      syncCatalog: syncRecentCatalogEntries,
+      fetchRecord: (lobby, stored, recordId) => fetchMahjongSoulRecord({
+        session: lobby,
+        bundle,
+        recordId,
+        clientVersionString: stored.recoveryContext.clientVersionString,
+        fetchImpl: globalThis.fetch,
+      }),
+      mapRecord: (input) => mapMahjongSoulRecord({ ...input, bundle }),
+      replay: replayCanonicalStream,
+      serializeAudit: (stream, decisions, recordId) => serializeMahjongSoulReplayAudit(
+        buildMahjongSoulReplayAudit({
+          stream,
+          decisions,
+          recordId,
+          protocolVersion: MAHJONG_SOUL_PROTOCOL_BUNDLE_VERSION,
+          appVersion: DESKTOP_APP_VERSION,
+          now: Date.now,
+        }),
+      ),
+      writeAudit: (serialized, recordId) =>
+        writeReplayAuditFile(auditDir, recordId, serialized),
+      now: Date.now,
+      recordId,
+    });
+    console.log(
+      `[riichi-coach] mahjong-soul-replay:${result.status}`
+      + (result.auditPath !== undefined ? ` ${result.auditPath}` : ""),
+    );
+    app.exit(replayDiagnosticExitCode(result.status));
+    return;
+  }
+  const partitionSession = session.fromPartition(PARTITION, { cache: true });
   const catalogStore = createMahjongSoulCatalogStore({
     protector,
     store: createRecoverableSessionFile({

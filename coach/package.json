@@ -18,6 +18,7 @@
     "coach:demo": "npm run coach",
     "desktop": "npm run build && electron packages/desktop/dist/electron-entry.js",
     "desktop:diagnose-mahjong-soul-restore": "npm run build && electron packages/desktop/dist/electron-entry.js --diagnose-mahjong-soul-restore",
+    "desktop:diagnose-mahjong-soul-replay": "npm run build && electron packages/desktop/dist/electron-entry.js --diagnose-mahjong-soul-replay",
     "typecheck": "tsc --noEmit -p packages/contracts/tsconfig.json && tsc --noEmit -p packages/mahjong-soul-source/tsconfig.json && tsc --noEmit -p packages/reasoning/tsconfig.json && tsc --noEmit -p packages/desktop/tsconfig.json"
   },
   "devDependencies": {
