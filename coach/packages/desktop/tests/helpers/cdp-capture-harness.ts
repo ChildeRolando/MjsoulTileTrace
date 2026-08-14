@@ -80,22 +80,47 @@ export class FakeDebugger {
 }
 
 export class FakeWindow {
-  readonly webContents: { readonly debugger: FakeDebugger };
+  readonly webContents: {
+    readonly debugger: FakeDebugger;
+    readonly onDidNavigateCommit: (listener: () => void) => void;
+  };
   closed = false;
   loadedUrl: string | null = null;
+  /**
+   * Worst-case framing: the websocket opens inside the commit stack itself
+   * (frames DURING loadURL, before any post-commit microtask can run). Only
+   * used to demonstrate why the listener must predate navigation.
+   */
+  syncScript = false;
+  #commitListener: (() => void) | null = null;
 
   constructor(debuggerPort?: FakeDebugger) {
-    this.webContents = { debugger: debuggerPort ?? new FakeDebugger() };
+    const fake = this;
+    this.webContents = {
+      debugger: debuggerPort ?? new FakeDebugger(),
+      onDidNavigateCommit(listener: () => void) {
+        fake.#commitListener = listener;
+      },
+    };
   }
 
   loadURL(url: string): Promise<void> {
     this.loadedUrl = url;
     this.webContents.debugger.order.push("loadURL");
-    // The official client opens its Lobby WebSocket while the paipu page
-    // loads — frames can start flowing DURING navigation.
-    for (const [method, params] of this.webContents.debugger.script) {
-      this.webContents.debugger.fire(method, params);
-    }
+    // The main frame commits during navigation — this fires BEFORE any page
+    // JavaScript (and therefore before the Lobby WebSocket) can run.
+    this.#commitListener?.();
+    this.webContents.debugger.order.push("commit");
+    // The page's JavaScript (which opens the Lobby WebSocket) runs only
+    // AFTER the commit settles through the observer's enable microtasks —
+    // never synchronously inside the commit stack.
+    const fireScript = () => {
+      for (const [method, params] of this.webContents.debugger.script) {
+        this.webContents.debugger.fire(method, params);
+      }
+    };
+    if (this.syncScript) fireScript();
+    else setTimeout(fireScript, 0);
     return Promise.resolve();
   }
 

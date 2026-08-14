@@ -160,7 +160,6 @@ describe("paipu import service", () => {
   it("shares one active promise (and one window) for concurrent duplicate imports", async () => {
     const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
     const fixture = loadFixtureWire("real-supported-round");
-    const { createWindow } = scriptedCapture(bundle, { data: fixture.wire });
     let windowsCreated = 0;
     const analysis = createRecordAnalysisStore({
       mapRecord: (input) => mapMahjongSoulRecord({ ...input, bundle }),
@@ -169,9 +168,10 @@ describe("paipu import service", () => {
     const service = createMahjongSoulPaipuImportService({
       bundle,
       analysis,
+      // A fresh scripted window per creation, exactly like real Electron.
       createWindow: () => {
         windowsCreated += 1;
-        return createWindow();
+        return scriptedCapture(bundle, { data: fixture.wire }).window;
       },
       timeoutMs: 5_000,
     });

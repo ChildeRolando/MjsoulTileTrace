@@ -110,7 +110,25 @@ function createOfficialClientCaptureWindow(): CaptureRecordWindowPort {
     event.preventDefault();
     item.cancel();
   });
-  return window as unknown as CaptureRecordWindowPort;
+  // did-navigate = main-frame commit. The capture primitive dispatches
+  // Network.enable there: Electron 43's debugger sendCommand hangs forever
+  // on an uncommitted about:blank target (verified live 2026-08-15), and the
+  // commit always precedes any page JavaScript opening the Lobby WebSocket.
+  let commitListener: (() => void) | null = null;
+  (window.webContents as unknown as {
+    on(event: "did-navigate", listener: () => void): void;
+  }).on("did-navigate", () => { commitListener?.(); });
+  return {
+    webContents: {
+      debugger: window.webContents.debugger,
+      onDidNavigateCommit(listener: () => void): void {
+        commitListener = listener;
+      },
+    },
+    loadURL: (target: string) => window.loadURL(target),
+    close: () => { window.close(); },
+    isDestroyed: () => window.isDestroyed(),
+  };
 }
 
 function hardenLocalWindow(window: BrowserWindow): void {

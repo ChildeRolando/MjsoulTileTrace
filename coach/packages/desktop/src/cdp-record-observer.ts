@@ -22,7 +22,20 @@ export interface CdpDebuggerPort {
 }
 
 export interface CdpRecordObserver {
-  start(): Promise<void>;
+  /**
+   * Attaches the CDP debugger. Safe to call while the target window is still
+   * on its uncommitted about:blank document.
+   */
+  attach(): Promise<void>;
+  /**
+   * Sends Network.enable. MUST only be called after the target's main frame
+   * has committed a real navigation: Electron 43's debugger sendCommand
+   * hangs forever when Network.enable is dispatched to an uncommitted
+   * about:blank target (verified live 2026-08-15). The main-frame commit
+   * fires before any page JavaScript runs, so enabling there still beats the
+   * official client's Lobby WebSocket.
+   */
+  enableNetwork(): Promise<void>;
   accept(method: string, parameters: unknown): RecordCaptureResult | null;
   close(): void;
 }
@@ -90,7 +103,8 @@ class StatefulCdpRecordObserver implements CdpRecordObserver {
   readonly #debugger: CdpDebuggerPort;
   readonly #allowedOrigins: ReadonlySet<string>;
   readonly #captures = new Map<string, MahjongSoulRecordCapture>();
-  #started = false;
+  #attached = false;
+  #networkEnabled = false;
   #closed = false;
 
   constructor(bundle: MahjongSoulProtocolBundle, debuggerPort: CdpDebuggerPort) {
@@ -118,11 +132,20 @@ class StatefulCdpRecordObserver implements CdpRecordObserver {
     throw unsupported();
   }
 
-  async start(): Promise<void> {
-    if (this.#started || this.#closed) throw unsupported();
-    this.#started = true;
+  async attach(): Promise<void> {
+    if (this.#attached || this.#closed) throw unsupported();
+    this.#attached = true;
     try {
       await this.#debugger.attach("1.3");
+    } catch {
+      this.#fail();
+    }
+  }
+
+  async enableNetwork(): Promise<void> {
+    if (!this.#attached || this.#networkEnabled || this.#closed) throw unsupported();
+    this.#networkEnabled = true;
+    try {
       await this.#debugger.sendCommand("Network.enable");
     } catch {
       this.#fail();
@@ -130,7 +153,7 @@ class StatefulCdpRecordObserver implements CdpRecordObserver {
   }
 
   accept(method: string, parameters: unknown): RecordCaptureResult | null {
-    if (!this.#started || this.#closed || typeof method !== "string") {
+    if (!this.#attached || this.#closed || typeof method !== "string") {
       throw unsupported();
     }
     if (

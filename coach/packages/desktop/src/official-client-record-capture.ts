@@ -12,10 +12,20 @@ import { createCdpRecordObserver } from "./cdp-record-observer.js";
 //   - createMahjongSoulRecordCapture already performed the strict OUTER
 //     Wrapper unwrap, so a "captured" result carries INNER GameDetailRecords
 //     bytes — the unified recordBytes/sha256 boundary. NEVER unwrap again.
-//   - Ordering proven by accf970: the observer must be fully ready BEFORE
-//     navigation, because the official client opens its Lobby WebSocket while
-//     the paipu page loads.
-//       debugger.attach -> Network.enable -> message listener -> loadURL -> wait
+//   - Readiness ordering (the invariant behind accf970, reshaped by a live
+//     finding on 2026-08-15): the debugger is attached and the message
+//     listener registered BEFORE navigation, but Network.enable is only
+//     dispatched once the main frame has COMMITTED — Electron 43's debugger
+//     sendCommand hangs forever on an uncommitted about:blank target. The
+//     commit fires before any page JavaScript runs, so the official client
+//     cannot open its Lobby WebSocket before the observer is fully ready:
+//
+//       debugger.attach -> message listener -> loadURL -> (main-frame commit)
+//         -> Network.enable -> frames -> capture
+//
+//   - timeoutMs bounds the WHOLE capture, navigation included: a page that
+//     never commits (or a loadURL that never settles) resolves no_capture at
+//     the deadline instead of hanging forever.
 //
 // This module deliberately knows nothing about TEMP files, debug logs, the
 // canonical mapper, replay, audits, selfActor, or any catalog/vault state —
@@ -32,6 +42,12 @@ export interface CaptureRecordWindowPort {
       on(event: "message", listener: (event: unknown, method: string, params: unknown) => void): void;
       off(event: "message", listener: (event: unknown, method: string, params: unknown) => void): void;
     };
+    /**
+     * Invoked on the FIRST main-frame commit after subscription (Electron's
+     * did-navigate). Required because Network.enable must not be sent to an
+     * uncommitted about:blank target (see CdpRecordObserver.enableNetwork).
+     */
+    onDidNavigateCommit(listener: () => void): void;
   };
   loadURL(url: string): Promise<void>;
   close(): void;
@@ -116,14 +132,38 @@ export async function captureRecordViaOfficialClient(input: {
   };
 
   try {
-    // The observer must be fully ready BEFORE navigation. The official client
-    // opens its Lobby WebSocket while the paipu page loads, so attaching or
-    // listening after loadURL would miss those frames:
-    //   attach -> Network.enable -> message listener -> loadURL -> wait
-    await observer.start();
+    // Attach and register the listener BEFORE navigation so no frame can be
+    // missed — attach itself is safe on the uncommitted about:blank target.
+    await observer.attach();
     window.webContents.debugger.on("message", onMessage);
-    await window.loadURL(input.url);
-    return await done;
+
+    // The main-frame commit is the earliest moment Network.enable can be
+    // dispatched without hanging Electron 43's debugger sendCommand, and it
+    // strictly precedes any page JavaScript (which is what opens the Lobby
+    // WebSocket).
+    const committed = new Promise<void>((resolveCommit) => {
+      window.webContents.onDidNavigateCommit(() => { resolveCommit(); });
+    });
+
+    // Navigation failures fail fast, but a hanging page load must NOT block
+    // the capture deadline — timeoutMs bounds the whole operation.
+    void Promise.resolve(window.loadURL(input.url)).then(
+      () => undefined,
+      () => { fail("official_client_capture_window_failed"); },
+    );
+
+    const ready = (async () => {
+      await committed;
+      await observer.enableNetwork();
+    })();
+
+    // done settles by capture or by the deadline; `ready` only gates when we
+    // START waiting for done after full observer readiness. Racing done
+    // directly keeps the deadline authoritative even if enable were to hang.
+    return await Promise.race([
+      ready.then(() => done),
+      done,
+    ]);
   } catch (error) {
     if (error instanceof OfficialClientCaptureError) throw error;
     throw new OfficialClientCaptureError("official_client_capture_window_failed");
