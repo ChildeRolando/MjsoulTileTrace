@@ -100,6 +100,7 @@ export {
   fetchMahjongSoulRecord,
   type MahjongSoulFetchedRecord,
 } from "./record-fetcher.js";
+export { unwrapGameDetailRecords } from "./record-wire.js";
 export {
   mapMahjongSoulRecord,
   type MahjongSoulCanonicalMapperResult,

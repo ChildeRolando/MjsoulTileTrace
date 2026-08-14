@@ -26,6 +26,10 @@ function encode(type: Type, value: Record<string, unknown>): Uint8Array {
   return type.encode(message).finish();
 }
 
+function gameDetailWrapper(inner: Uint8Array): Uint8Array {
+  return encode(wrapperType, { name: ".lq.GameDetailRecords", data: inner });
+}
+
 function requestFrame(requestId: number, method: string, payload: Record<string, unknown>): Uint8Array {
   const route = rpcMap[method]!;
   const body = encode(root.lookupType(route.req), payload);
@@ -67,12 +71,23 @@ describe("passive Mahjong Soul record capture", () => {
     const result = capture.observeServerFrame(responseFrame(
       7,
       ".lq.ResGameRecord",
-      { record_id: 1, data: recordBytes },
+      { record_id: 1, data: gameDetailWrapper(recordBytes) },
     ));
     expect(result).toEqual({ status: "record_captured", recordBytes });
     if (result?.status !== "record_captured") throw new Error("unexpected");
     expect(result.recordBytes).toEqual(recordBytes);
     expect(Object.isFrozen(result)).toBe(true);
+  });
+
+  test("fails closed when the response data wrapper has the wrong name", () => {
+    const capture = createMahjongSoulRecordCapture({ bundle });
+    capture.observeClientFrame(requestFrame(9, ".lq.Lobby.fetchGameRecord", { game_uuid: "x" }));
+    const wrongData = encode(wrapperType, { name: ".lq.WrongType", data: Uint8Array.of(1) });
+    expect(() => capture.observeServerFrame(responseFrame(
+      9,
+      ".lq.ResGameRecord",
+      { record_id: 1, data: wrongData },
+    ))).toThrow("mahjong_soul_login_protocol_unsupported");
   });
 
   test("ignores a list response instead of treating it as a record", () => {

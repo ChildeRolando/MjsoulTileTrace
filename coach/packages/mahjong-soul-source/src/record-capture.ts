@@ -5,12 +5,14 @@ import {
   type LiqiCodec,
 } from "./liqi-codec.js";
 import type { MahjongSoulProtocolBundle } from "./protocol-bundle.js";
+import { unwrapGameDetailRecords } from "./record-wire.js";
 
 const PROTOCOL_ERROR = "mahjong_soul_login_protocol_unsupported" as const;
 
 // A passive capture for the official client's own `.lq.Lobby.fetchGameRecord`
-// response. It surfaces the inline `data` bytes (the `GameDetailRecords`
-// protobuf) and never touches login credentials, tokens or any request payload.
+// response. It surfaces the inner `GameDetailRecords` bytes (the unified
+// `recordBytes`, after the strict outer-Wrapper unwrap) and never touches login
+// credentials, tokens or any request payload.
 export type RecordCaptureResult = Readonly<{
   readonly status: "record_captured";
   readonly recordBytes: Uint8Array;
@@ -36,10 +38,12 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 
 class StatefulRecordCapture implements MahjongSoulRecordCapture {
   readonly #codec: LiqiCodec;
+  readonly #bundle: MahjongSoulProtocolBundle;
   #closed = false;
 
-  constructor(codec: LiqiCodec) {
+  constructor(codec: LiqiCodec, bundle: MahjongSoulProtocolBundle) {
     this.#codec = codec;
+    this.#bundle = bundle;
   }
 
   #terminate(): void {
@@ -85,10 +89,11 @@ class StatefulRecordCapture implements MahjongSoulRecordCapture {
       if (!(data instanceof Uint8Array) || data.length === 0) {
         return null;
       }
+      const recordBytes = unwrapGameDetailRecords(this.#bundle, data);
       this.#terminate();
       return Object.freeze({
         status: "record_captured" as const,
-        recordBytes: Uint8Array.from(data),
+        recordBytes: Uint8Array.from(recordBytes),
       });
     });
   }
@@ -111,7 +116,7 @@ export function createMahjongSoulRecordCapture(input: {
       directCallMethods: [],
       surfacedNotifications: [],
     });
-    return new StatefulRecordCapture(codec);
+    return new StatefulRecordCapture(codec, input.bundle);
   } catch {
     throw unsupported();
   }

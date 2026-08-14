@@ -16,10 +16,18 @@ const protoText = readFileSync(resolve(
   "../../../vendor/mahjong-soul-protocol/akagi-v3/27e994ad8bacd87833856b3b36b146ebb7cccbbc/liqi.proto",
 ), "utf8");
 const root = parse(protoText, { keepCase: true }).root;
-const bytes = root.lookupType("lq.GameDetailRecords").encode({
+const wrapperType = root.lookupType("lq.Wrapper");
+const recordsType = root.lookupType("lq.GameDetailRecords");
+
+const innerBytes = recordsType.encode({
   version: 210715,
   actions: [{ passed: 0, type: 1, result: Uint8Array.of(1, 2, 3) }],
 }).finish();
+const wrappedBytes = wrapperType.encode({
+  name: ".lq.GameDetailRecords",
+  data: innerBytes,
+}).finish();
+
 const bundle = {
   protoText,
   endpoints: { recordDataPrefixes: ["https://record-old.maj-soul.com:9443/majsoul/game_record"] },
@@ -31,15 +39,15 @@ function lobby(response: Readonly<Record<string, unknown>>): MahjongSoulLobbySes
 }
 
 describe("trusted Mahjong Soul full record fetch", () => {
-  test("decodes inline bytes and binds their digest", async () => {
+  test("unwraps the transport wrapper and binds the inner digest", async () => {
     const result = await fetchMahjongSoulRecord({
-      session: lobby({ error: null, data: bytes, data_url: "" }), bundle, recordId: uuid,
+      session: lobby({ error: null, data: wrappedBytes, data_url: "" }), bundle, recordId: uuid,
       clientVersionString: "web-0.11.252.w", fetchImpl: async () => { throw new Error("unused"); },
     });
     expect(result).toMatchObject({ recordId: uuid, container: "actions", actionCount: 1 });
-    expect(result.sha256).toBe(`sha256:${createHash("sha256").update(bytes).digest("hex")}`);
-    expect([...result.recordBytes]).toEqual([...bytes]);
-    expect(result.recordBytes).not.toBe(bytes);
+    expect(result.sha256).toBe(`sha256:${createHash("sha256").update(innerBytes).digest("hex")}`);
+    expect([...result.recordBytes]).toEqual([...innerBytes]);
+    expect(result.recordBytes).not.toBe(innerBytes);
   });
 
   test("downloads an allowlisted data URL without following redirects", async () => {
@@ -50,7 +58,7 @@ describe("trusted Mahjong Soul full record fetch", () => {
       fetchImpl: async (url, init) => {
         requested = String(url);
         expect(init?.redirect).toBe("error");
-        return new Response(Buffer.from(bytes), { status: 200 });
+        return new Response(Buffer.from(wrappedBytes), { status: 200 });
       },
     });
     expect(requested).toContain("record-old.maj-soul.com:9443");
@@ -63,16 +71,29 @@ describe("trusted Mahjong Soul full record fetch", () => {
   ])("rejects untrusted record URL $data_url", async ({ data_url }) => {
     await expect(fetchMahjongSoulRecord({
       session: lobby({ error: null, data: new Uint8Array(), data_url }), bundle, recordId: uuid,
-      clientVersionString: "web-0.11.252.w", fetchImpl: async () => new Response(Buffer.from(bytes)),
+      clientVersionString: "web-0.11.252.w", fetchImpl: async () => new Response(Buffer.from(wrappedBytes)),
     })).rejects.toThrow("mahjong_soul_record_fetch_failed");
   });
 
-  test("rejects malformed and empty decoded containers", async () => {
-    for (const data of [Uint8Array.of(255), root.lookupType("lq.GameDetailRecords").encode({ version: 210715 }).finish()]) {
-      await expect(fetchMahjongSoulRecord({
-        session: lobby({ error: null, data, data_url: "" }), bundle, recordId: uuid,
-        clientVersionString: "web-0.11.252.w", fetchImpl: async () => new Response(),
-      })).rejects.toThrow();
-    }
+  test.each([
+    Uint8Array.of(255),
+    innerBytes,
+    wrapperType.encode({ name: ".lq.WrongType", data: innerBytes }).finish(),
+  ])("fails closed on a non-wrapper or wrong-name container", async (data) => {
+    await expect(fetchMahjongSoulRecord({
+      session: lobby({ error: null, data, data_url: "" }), bundle, recordId: uuid,
+      clientVersionString: "web-0.11.252.w", fetchImpl: async () => new Response(),
+    })).rejects.toThrow("mahjong_soul_record_container_invalid");
+  });
+
+  test("rejects an empty decoded container after a valid unwrap", async () => {
+    const empty = wrapperType.encode({
+      name: ".lq.GameDetailRecords",
+      data: recordsType.encode({ version: 210715 }).finish(),
+    }).finish();
+    await expect(fetchMahjongSoulRecord({
+      session: lobby({ error: null, data: empty, data_url: "" }), bundle, recordId: uuid,
+      clientVersionString: "web-0.11.252.w", fetchImpl: async () => new Response(),
+    })).rejects.toThrow("unsupported_mahjong_soul_record_version");
   });
 });

@@ -41,6 +41,7 @@ const sourceErrorCodes = [
   "mahjong_soul_record_fetch_failed",
   "unsupported_mahjong_soul_record_version",
   "mahjong_soul_record_identity_mismatch",
+  "mahjong_soul_record_container_invalid",
   "mahjong_soul_canonical_mapping_failed",
   "mahjong_soul_canonical_validation_failed",
 ] as const;

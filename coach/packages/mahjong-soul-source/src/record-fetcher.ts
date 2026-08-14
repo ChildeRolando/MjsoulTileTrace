@@ -4,6 +4,7 @@ import { parse as parseProtobuf } from "protobufjs";
 import { MahjongSoulSourceError } from "./errors.js";
 import type { MahjongSoulLobbySession } from "./lobby-session.js";
 import type { MahjongSoulProtocolBundle } from "./protocol-bundle.js";
+import { unwrapGameDetailRecords } from "./record-wire.js";
 import { classifyRestoreResponseError } from "./restore-diagnostic.js";
 
 const MAX_RECORD_BYTES = 16 * 1024 * 1024;
@@ -65,6 +66,9 @@ export async function fetchMahjongSoulRecord(input: {
       const url = trustedRecordUrl(response.data_url, input.bundle.endpoints.recordDataPrefixes);
       bytes = await downloadedBytes(await input.fetchImpl(url, { redirect: "error" }));
     }
+    // The fetchGameRecord payload (inline data and the data_url file alike) is
+    // the outer transport Wrapper; unwrap to the unified GameDetailRecords bytes.
+    bytes = unwrapGameDetailRecords(input.bundle, bytes);
     if (bytes.length > MAX_RECORD_BYTES) throw failed();
     const root = parseProtobuf(input.bundle.protoText, { keepCase: true }).root;
     const type = root.lookupType("lq.GameDetailRecords");
