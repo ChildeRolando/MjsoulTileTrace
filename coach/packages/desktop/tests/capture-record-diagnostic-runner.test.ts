@@ -60,6 +60,7 @@ describe("capture-record diagnostic runner", () => {
       createWindow,
       timeoutMs: 5_000,
       recordBytesFile,
+      debugFile: join(workDir, "debug.log"),
       pipeline: {
         mapRecord: (input) => mapMahjongSoulRecord({ ...input, bundle }),
         replay: replayCanonicalStream,
