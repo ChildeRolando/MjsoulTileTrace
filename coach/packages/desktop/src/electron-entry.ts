@@ -20,6 +20,7 @@ import {
   fetchMahjongSoulRecord,
   loadMahjongSoulProtocolBundle,
   mapMahjongSoulRecord,
+  readSessionRestoreRejection,
   syncRecentCatalog,
   type MahjongSoulLobbySession,
   type RawRecordListEntry,
@@ -173,7 +174,22 @@ async function start(): Promise<void> {
     const result = await runMahjongSoulReplayDiagnostic({
       vault,
       createSession: createLobbySessionFactory({ bundle }),
-      authenticate: authenticateStoredMahjongSoulSession,
+      authenticate: async (lobby, stored) => {
+        const status = await authenticateStoredMahjongSoulSession(lobby, stored);
+        if (status !== "authenticated") {
+          // Surface the raw server error codes (never the token) so a
+          // rejection can be told apart from CAPTCHA/rate-limit vs expiry.
+          try {
+            const detail = await readSessionRestoreRejection(lobby, stored);
+            console.log(
+              `[riichi-coach] restore-rejection ${JSON.stringify(detail)}`,
+            );
+          } catch {
+            // Best-effort; the fixed status is still reported below.
+          }
+        }
+        return status;
+      },
       syncCatalog: syncRecentCatalogEntries,
       fetchRecord: (lobby, stored, recordId) => fetchMahjongSoulRecord({
         session: lobby,

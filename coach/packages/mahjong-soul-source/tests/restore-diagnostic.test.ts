@@ -5,6 +5,7 @@ import type { MahjongSoulLobbySession } from "../src/lobby-session.js";
 import type { CapturedMahjongSoulRestoreCandidate } from "../src/login-result.js";
 import {
   diagnoseMahjongSoulIndependentRestore,
+  readSessionRestoreRejection,
   type MahjongSoulRestoreDiagnosticResult,
 } from "../src/restore-diagnostic.js";
 import { SecretString } from "../src/secret-string.js";
@@ -222,5 +223,23 @@ describe("Mahjong Soul independent restore diagnostic", () => {
     expect(result).toEqual({ status: "inconclusive" });
     expect(created).toBe(false);
     expectSafe(result);
+  });
+
+  test("reports the raw server error codes from a rejected restore", async () => {
+    const raw = session({
+      responses: [
+        { error: { code: 151 }, has_account: false },
+        { error: { code: 151 }, account_id: 0 },
+      ],
+    });
+    const detail = await readSessionRestoreRejection(raw.value, candidate());
+    expect(detail).toEqual({
+      checkErrorCode: 151,
+      checkHasAccount: false,
+      loginErrorCode: 151,
+      loginAccountId: 0,
+    });
+    expect(JSON.stringify(detail)).not.toContain(tokenText);
+    expect(raw.closeCount()).toBe(0);
   });
 });

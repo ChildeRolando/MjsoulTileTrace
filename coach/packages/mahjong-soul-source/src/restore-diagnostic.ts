@@ -200,6 +200,50 @@ export function createOAuth2LoginPayload(
   });
 }
 
+function serverErrorCodeOf(value: unknown): number | null {
+  if (!isRecord(value)) return null;
+  const error = value.error;
+  if (!isRecord(error)) return null;
+  const code = error.code;
+  if (typeof code !== "number" || !Number.isInteger(code)) return null;
+  return code;
+}
+
+export type MahjongSoulRestoreRejection = Readonly<{
+  readonly checkErrorCode: number | null;
+  readonly checkHasAccount: boolean | null;
+  readonly loginErrorCode: number | null;
+  readonly loginAccountId: number | null;
+}>;
+
+// Replays the oauth2Check + oauth2Login restore against the lobby and reports
+// the raw server error codes (never the token) so a rejection can be told apart
+// from a CAPTCHA/rate-limit (e.g. 151) versus an expired token (has_account
+// false with no error).
+export async function readSessionRestoreRejection(
+  lobby: MahjongSoulLobbySession,
+  session: CapturedMahjongSoulRestoreCandidate,
+): Promise<MahjongSoulRestoreRejection> {
+  const check = await lobby.call(".lq.Lobby.oauth2Check", {
+    type: session.authType,
+    access_token: session.accessToken.reveal(),
+  });
+  const login = await lobby.call(
+    ".lq.Lobby.oauth2Login",
+    createOAuth2LoginPayload(session),
+  );
+  return Object.freeze({
+    checkErrorCode: serverErrorCodeOf(check),
+    checkHasAccount: typeof check.has_account === "boolean"
+      ? check.has_account
+      : null,
+    loginErrorCode: serverErrorCodeOf(login),
+    loginAccountId: typeof login.account_id === "number"
+      ? login.account_id
+      : null,
+  });
+}
+
 export async function diagnoseMahjongSoulIndependentRestore(input: {
   readonly credential: CapturedMahjongSoulCredential;
   readonly createSession: () => Promise<MahjongSoulLobbySession>;

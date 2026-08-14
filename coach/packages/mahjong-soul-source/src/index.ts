@@ -14,8 +14,10 @@ export {
 } from "./login-result.js";
 export {
   diagnoseMahjongSoulIndependentRestore,
+  readSessionRestoreRejection,
   type MahjongSoulRestoreDiagnosticResult,
   type MahjongSoulRestoreDiagnosticStatus,
+  type MahjongSoulRestoreRejection,
 } from "./restore-diagnostic.js";
 export {
   diagnoseMahjongSoulInlineRecord,
