@@ -62,3 +62,12 @@
 ## 工作区保护
 
 `E:\文档\日麻教学`（原工作树）的用户改动从未被读取、修改或提交。本工作树 `E:\文档\日麻教学-m5c-integration` 独立。
+
+## 修正（2026-08-14 晚，分支 `codex/m5-h1-replay-acceptance`）
+
+上文"本轮完成"中两处映射声明过强，已在本分支收口为 fail closed：
+
+- `ActionAnGangAddGang` 的 `type` 0/2=ankan、1=kakan 是**未经证明的猜测**（且 `tiles` 字段是单串 `string` 而非 `repeated string`，原实现根本解析不对）。现已整条返回 `mahjong_soul_canonical_unsupported_semantics`。
+- `ActionLiuJu` 一律 `kyuushu_kyuuhai` 是**占位错误**。现已整条返回 `mahjong_soul_canonical_unsupported_semantics`。
+
+`ActionHule` 也已加强（布尔 `zimo`、0..3 winner、四条整数 `delta_scores`）。真实牌谱命中这些枚举时，先补脱敏 fixture 再放宽；详见 `2026-08-14-mahjong-soul-replay-acceptance-handoff.md`。
