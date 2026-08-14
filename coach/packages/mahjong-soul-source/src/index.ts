@@ -102,6 +102,10 @@ export {
 } from "./record-fetcher.js";
 export { unwrapGameDetailRecords } from "./record-wire.js";
 export {
+  decodeStoredRecordActions,
+  type DecodedStoredAction,
+} from "./stored-actions.js";
+export {
   mapMahjongSoulRecord,
   type MahjongSoulCanonicalMapperResult,
   type MahjongSoulMapperDiagnostic,
