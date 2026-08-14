@@ -27,13 +27,11 @@ import {
 } from "@riichi-coach/mahjong-soul-source";
 import {
   parseMahjongSoulCnShareUrl,
-  type CanonicalEventStream,
 } from "@riichi-coach/contracts";
 import {
   buildMahjongSoulReplayAudit,
   replayCanonicalStream,
   serializeMahjongSoulReplayAudit,
-  type ReplayedDecision,
 } from "@riichi-coach/reasoning";
 import { createMahjongSoulCatalogService } from "./catalog-service.js";
 import { createElectronSessionKeyProtector, type SafeStoragePort } from "./electron-safe-storage.js";
@@ -67,6 +65,7 @@ import {
 } from "./main.js";
 import { createRecoverableSessionFile } from "./recoverable-session-file.js";
 import { createMahjongSoulRecordIngestionService } from "./record-ingestion-service.js";
+import { createRecordAnalysisStore } from "./record-analysis-store.js";
 import { readCliFlag } from "./diagnostic-flags.js";
 
 const PARTITION = "persist:riichi-coach-mahjong-soul-cn";
@@ -354,8 +353,10 @@ async function start(): Promise<void> {
     },
     clock: Date.now,
   });
-  const mappedRecords = new Map<string, CanonicalEventStream>();
-  const replayedRecords = new Map<string, ReplayedDecision[]>();
+  const analysisStore = createRecordAnalysisStore({
+    mapRecord: (mappedInput) => mapMahjongSoulRecord({ ...mappedInput, bundle }),
+    replay: replayCanonicalStream,
+  });
   const recordIngestionService = createMahjongSoulRecordIngestionService({
     vault,
     catalogStore,
@@ -371,18 +372,14 @@ async function start(): Promise<void> {
       });
       const summaries = await catalogStore.list(stored.accountId);
       const summary = summaries.find((entry) => entry.recordId === recordId);
-      const mapped = mapMahjongSoulRecord({
-        gameId: `majsoul:${recordId}`,
-        selfActor: summary?.selfSeat ?? 0,
+      const outcome = analysisStore.analyzeRecord({
         recordId,
+        selfActor: summary?.selfSeat ?? 0,
         recordBytes: fetched.recordBytes,
-        bundle,
       });
-      if (mapped.status !== "ready") {
+      if (outcome.status !== "analysis_ready") {
         throw new MahjongSoulSourceError("mahjong_soul_canonical_validation_failed");
       }
-      mappedRecords.set(recordId, mapped.stream);
-      replayedRecords.set(recordId, replayCanonicalStream(mapped.stream));
       return fetched;
     },
   });
