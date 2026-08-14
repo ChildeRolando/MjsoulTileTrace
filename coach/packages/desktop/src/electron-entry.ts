@@ -67,6 +67,7 @@ import {
 } from "./main.js";
 import { createRecoverableSessionFile } from "./recoverable-session-file.js";
 import { createMahjongSoulRecordIngestionService } from "./record-ingestion-service.js";
+import { readCliFlag } from "./diagnostic-flags.js";
 
 const PARTITION = "persist:riichi-coach-mahjong-soul-cn";
 const bundleRoot = fileURLToPath(new URL("../../../vendor/mahjong-soul-protocol/", import.meta.url));
@@ -181,31 +182,28 @@ async function start(): Promise<void> {
   if (process.argv.includes("--diagnose-mahjong-soul-capture-record")) {
     // The paipu URL must be provided explicitly; there is no fallback replay
     // (a hardcoded real game link would keep propagating a player's identity).
-    const urlIndex = process.argv.indexOf("--paipu-url");
-    const urlArg = urlIndex >= 0 && urlIndex + 1 < process.argv.length
-      ? process.argv[urlIndex + 1]
-      : undefined;
-    const url = typeof urlArg === "string" && urlArg.length > 0 ? urlArg : undefined;
+    // NOTE: the URL must use the attached form (--paipu-url=<url>) when other
+    // flags follow — Electron 43 on Windows dies before app code when a
+    // space-separated switch carries an http(s):// value with more args
+    // behind it (see diagnostic-flags.ts).
+    const url = readCliFlag(process.argv, "paipu-url");
     if (url === undefined) {
       console.error(
-        "[riichi-coach] mahjong-soul-capture-record:error missing_required_flag --paipu-url",
+        "[riichi-coach] mahjong-soul-capture-record:error missing_required_flag --paipu-url=<url>",
       );
       app.exit(2);
       return;
     }
     // Identity never defaults: the observed seat is required, and the record
     // id is derived strictly from the paipu URL (deterministic parse).
-    const selfActorIndex = process.argv.indexOf("--self-actor");
-    const selfActorArg = selfActorIndex >= 0 && selfActorIndex + 1 < process.argv.length
-      ? process.argv[selfActorIndex + 1]
-      : undefined;
+    const selfActorArg = readCliFlag(process.argv, "self-actor");
     const selfActor = selfActorArg === "0" || selfActorArg === "1"
       || selfActorArg === "2" || selfActorArg === "3"
       ? Number(selfActorArg)
       : undefined;
     if (selfActor === undefined) {
       console.error(
-        "[riichi-coach] mahjong-soul-capture-record:error missing_required_flag --self-actor 0|1|2|3",
+        "[riichi-coach] mahjong-soul-capture-record:error missing_required_flag --self-actor=<0|1|2|3>",
       );
       app.exit(2);
       return;
@@ -280,10 +278,7 @@ async function start(): Promise<void> {
     return;
   }
   if (process.argv.includes("--diagnose-mahjong-soul-replay")) {
-    const recordIdIndex = process.argv.indexOf("--record-id");
-    const recordId = recordIdIndex >= 0 && recordIdIndex + 1 < process.argv.length
-      ? process.argv[recordIdIndex + 1]
-      : undefined;
+    const recordId = readCliFlag(process.argv, "record-id");
     const auditDir = join(app.getPath("userData"), "mahjong-soul-replay-audit");
     const result = await runMahjongSoulReplayDiagnostic({
       vault,

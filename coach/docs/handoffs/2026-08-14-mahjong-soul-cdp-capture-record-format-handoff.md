@@ -11,8 +11,14 @@
 新增的一次性诊断命令：
 
 ```powershell
-npm run desktop:diagnose-mahjong-soul-capture-record -- --paipu-url "<paipu 链接>" --self-actor <0|1|2|3>
+npm run desktop:diagnose-mahjong-soul-capture-record -- --paipu-url=<paipu 链接> --self-actor=<0|1|2|3>
 ```
+
+**注意 URL 必须用 `--paipu-url=<链接>` 连写形式**（8/15 发现）：Electron 43 在 Windows 上，当空格传值的
+switch 带一个 `http(s)://` 值且**后面还有任何参数**时，会在应用代码执行前静默退出（exit 255、零输出，
+`--enable-logging` 也无痕迹）。URL 在最后或值不含 `://` 则正常。这是 chromium 层 argv 再分词的问题，
+已用 `packages/desktop/src/diagnostic-flags.ts`（`--name value` 与 `--name=value` 双形式解析 + 单测）
+规避，`--paipu-url`/`--self-actor`/`--record-id` 全部支持连写。
 
 它开一个 Chromium 窗口骑官方牌谱查看器（登录后），用 CDP 抓官方客户端自己的 Lobby WebSocket，捕获 `fetchGameRecord` 的内联响应并解码 `GameDetailRecords`。
 
@@ -165,4 +171,5 @@ GDR”的启发式。回归测试 `scripts/generate-mahjong-soul-real-fixtures.t
 - **P2（diagnostic 接生产链）**：`0befb6f`。legacy 探针/容器猜测全删；`runRecordCaptureDiagnostic` 要求显式 identity（`--paipu-url` REQUIRED、`--self-actor 0|1|2|3` REQUIRED、recordId 由 `parseMahjongSoulCnShareUrl` 从 URL 严格解析，gameId=`majsoul:${recordId}`，selfActor 无默认值）。新 `CaptureRecordResult` 报告 status/storedActionCount/mappingStatus+mappingCode/canonicalEventCount/replayDecisionCount/auditPath/recordBytesPath/fixed errorCode，record bytes 永不进 JSON/log。生产 catalog 路线仍用 summary.selfSeat，未动。
 - **P3（AnGangAddGang 调查 → 实现）**：`26438f0`。两个真实样本各自钉死一个 enum 值：ordinal 561（type=3，seat 2，3s）可证明手握全部 4 张暗牌、本局无副露 ⇒ **暗杠**；ordinal 1139（type=2，seat 3，7z）可证明是对 ordinal 1053 同牌碰的加牌 ⇒ **加杠**。原始 protobuf 字节手工逐字段解码确认 wire 值，方向与第三方实现一致。fixture-backed 证据测试先行，mapper 随后实现 type 3→`ankan_declared`、type 2→`kakan_declared`（加杠必须找到同局同牌碰、暗杠不得与同局碰共存）；杠后该 actor 的下一次 `RecordDealTile` 标记为 `rinshan`（canonical 状态机硬性要求）。**enum 之外的取值、以及含赤宝牌的五牌暗杠（单字符串无法定位红五位置）继续 fail closed**；`RecordLiuJu` 无样本继续 fail closed。
 - **P3 附带修复（打通全量局必然暴露的两个 mapper 缺口）**：吃/碰/大明杠的 consumed tiles 按 canonical 顺序排序（wire 顺序不保证）；每局收尾合成 `round_ended`（绑定 terminal 事件的 source position 下一 sub-event）；riichi 弃牌后合成 `riichi_accepted`（存储 wire 无 reach_accepted 等价物）。结果：**fixture A 全量 1616 actions → 978 decode → 1022 canonical events，map `ready` 且 state-machine 验证通过**；desktop 测试以真实 CDP 帧脚本驱动 capture→map→replay→audit 全链（单局），并用 synthetic 未证实 type=9 记录维持 `record_not_replayable/unsupported_semantics` 的端到端断言（无伪 complete replay）。
-- **真人 diagnostic 验收语义更新**：对含已证实杠型的 live full game，diagnostic 现在预期走通到 audit（exit 0）；对含未证实语义（RecordLiuJu、未知 AnGangAddGang type、五牌暗杠）的记录仍报 `unsupported_semantics` 且不产生 audit。8/14 那份 1616-action 牌谱现属前者——下一步真人前台跑 H1 验收时，用 `--paipu-url <自己的牌谱> --self-actor <自己的座位>` 验证 live CDP 全链。
+- **真人 diagnostic 验收语义更新**：对含已证实杠型的 live full game，diagnostic 现在预期走通到 audit（exit 0）；对含未证实语义（RecordLiuJu、未知 AnGangAddGang type、五牌暗杠）的记录仍报 `unsupported_semantics` 且不产生 audit。8/14 那份 1616-action 牌谱现属前者——下一步真人前台跑 H1 验收时，用 `--paipu-url=<自己的牌谱> --self-actor=<自己的座位>` 验证 live CDP 全链。
+- **live 全链已实跑通过（8/15 02:42）**：用 8/14 同一份真人牌谱（selfActor=3、连写形式参数）跑通 CDP 捕获 → 978 stored actions → 1022 canonical events（与脱敏 fixture 完全一致，交叉验证了 sanitizer）→ 116 个 self=3 决策 → audit 写入 userData（447KB），exit 0。TEMP 捕获文件现为 INNER bytes（86139B），直接可喂 generator（`--input-format inner` 默认）。

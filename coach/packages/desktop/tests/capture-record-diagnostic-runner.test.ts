@@ -298,6 +298,7 @@ describe("capture-record diagnostic runner", () => {
       createWindow,
       timeoutMs: 5_000,
       recordBytesFile: join(workDir, "captured-record.pb"),
+      debugFile: join(workDir, "debug.log"),
       pipeline: {
         mapRecord: (input) => mapMahjongSoulRecord({ ...input, bundle }),
         replay: replayCanonicalStream,
@@ -334,6 +335,7 @@ describe("capture-record diagnostic runner", () => {
 
   it("times out as no_capture when no record exchange is observed", async () => {
     const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
+    const workDir = await mkdtemp(join(tmpdir(), "majsoul-capture-test-"));
     const window = new FakeWindow();
     const result = await runRecordCaptureDiagnostic({
       bundle,
@@ -342,6 +344,7 @@ describe("capture-record diagnostic runner", () => {
       selfActor: 0,
       createWindow: () => window,
       timeoutMs: 100,
+      debugFile: join(workDir, "debug.log"),
       pipeline: {
         mapRecord: (): MahjongSoulCanonicalMapperResult => ({ status: "invalid", code: "mahjong_soul_canonical_mapping_failed" }),
         replay: () => [],
@@ -352,6 +355,7 @@ describe("capture-record diagnostic runner", () => {
     expect(result.status).toBe("no_capture");
     expect(window.closed).toBe(true);
     expect(captureRecordDiagnosticExitCode("no_capture")).toBe(3);
+    await rm(workDir, { recursive: true, force: true });
   });
 
   it("fails closed when the response data is not a GameDetailRecords wrapper", async () => {
@@ -362,6 +366,7 @@ describe("capture-record diagnostic runner", () => {
       data: Uint8Array.of(1),
     });
     const { createWindow } = scriptedCapture(bundle, { data: wrongData });
+    const workDir = await mkdtemp(join(tmpdir(), "majsoul-capture-test-"));
 
     const result = await runRecordCaptureDiagnostic({
       bundle,
@@ -370,6 +375,7 @@ describe("capture-record diagnostic runner", () => {
       selfActor: 0,
       createWindow,
       timeoutMs: 5_000,
+      debugFile: join(workDir, "debug.log"),
       pipeline: {
         mapRecord: (): MahjongSoulCanonicalMapperResult => ({ status: "invalid", code: "mahjong_soul_canonical_mapping_failed" }),
         replay: () => [],
@@ -379,15 +385,18 @@ describe("capture-record diagnostic runner", () => {
     });
     expect(result.status).toBe("error");
     expect(result.errorCode).toBe("capture_observe_failed");
+    await rm(workDir, { recursive: true, force: true });
   });
 
   it("rejects a missing seat or record id before opening any window", async () => {
     const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
+    const workDir = await mkdtemp(join(tmpdir(), "majsoul-capture-test-"));
     let windowsCreated = 0;
     const base = {
       bundle,
       url: "https://game.maj-soul.com/1/?paipu=000000-00000000-0000-0000-0000-000000000001_a123456",
       timeoutMs: 5_000,
+      debugFile: join(workDir, "debug.log"),
       createWindow: () => {
         windowsCreated += 1;
         return new FakeWindow();
@@ -415,5 +424,6 @@ describe("capture-record diagnostic runner", () => {
     });
     expect(badId.errorCode).toBe("capture_identity_invalid");
     expect(windowsCreated).toBe(0);
+    await rm(workDir, { recursive: true, force: true });
   });
 });

@@ -97,13 +97,15 @@ export function captureRecordDiagnosticExitCode(
   }
 }
 
-const debugPath = join(tmpdir(), "mahjong-soul-capture-debug.log");
-function debug(message: string): void {
-  try {
-    appendFileSync(debugPath, `${new Date().toISOString()} ${message}\n`);
-  } catch {
-    // diagnostic-only; never surface a write failure
-  }
+const defaultDebugPath = join(tmpdir(), "mahjong-soul-capture-debug.log");
+function makeDebug(debugFile: string): (message: string) => void {
+  return (message: string) => {
+    try {
+      appendFileSync(debugFile, `${new Date().toISOString()} ${message}\n`);
+    } catch {
+      // diagnostic-only; never surface a write failure
+    }
+  };
 }
 
 function result(fields: {
@@ -266,7 +268,9 @@ export async function runRecordCaptureDiagnostic(input: {
   readonly timeoutMs: number;
   readonly pipeline: CaptureRecordPipeline;
   readonly recordBytesFile?: string;
+  readonly debugFile?: string;
 }): Promise<CaptureRecordResult> {
+  const debug = makeDebug(input.debugFile ?? defaultDebugPath);
   debug("runner_start");
   if (
     typeof input.recordId !== "string"
