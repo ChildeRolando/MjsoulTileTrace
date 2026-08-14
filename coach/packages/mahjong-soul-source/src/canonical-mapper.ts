@@ -1,5 +1,4 @@
 import { createHash } from "node:crypto";
-import { parse as parseProtobuf, type Root } from "protobufjs";
 import {
   CanonicalEventStreamSchema,
   canonicalEventId,
@@ -13,6 +12,10 @@ import {
   parseMajsoulTile,
 } from "./majsoul-tile.js";
 import type { MahjongSoulProtocolBundle } from "./protocol-bundle.js";
+import {
+  decodeStoredRecordActions,
+  type DecodedStoredAction,
+} from "./stored-actions.js";
 
 const MAPPING_ERROR = "mahjong_soul_canonical_mapping_failed" as const;
 const VALIDATION_ERROR = "mahjong_soul_canonical_validation_failed" as const;
@@ -31,10 +34,8 @@ function mappingFailed(): MahjongSoulSourceError {
   return new MahjongSoulSourceError(MAPPING_ERROR);
 }
 
-// A structurally sound record whose action uses semantics the pinned protocol
-// does not document (and for which no sanitized fixture exists) must not be
-// half-mapped. Fail closed with a distinct code so the caller can tell an
-// unproven action apart from malformed data.
+// A structurally sound action whose semantics the pinned protocol does not
+// document must not be half-mapped. Fail closed with a distinct code.
 function unsupportedSemantics(): MahjongSoulSourceError {
   return new MahjongSoulSourceError(UNSUPPORTED_SEMANTICS);
 }
@@ -43,62 +44,40 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return value !== null && typeof value === "object" && !Array.isArray(value);
 }
 
-// The full-name lookup handles the `lq` package prefix plus the action name.
-function actionType(root: Root, name: string) {
-  const resolved = root.lookupType(`lq.${name}`);
-  return resolved;
-}
-
-interface DecodedAction {
-  readonly name: string;
-  readonly data: Uint8Array;
-}
-
-function decodeActions(
-  bundle: MahjongSoulProtocolBundle,
-  recordBytes: Uint8Array,
-): DecodedAction[] {
-  const root = parseProtobuf(bundle.protoText, { keepCase: true }).root;
-  const recordsType = root.lookupType("lq.GameDetailRecords");
-  const decoded = recordsType.toObject(recordsType.decode(recordBytes), {
-    arrays: true,
-    bytes: Uint8Array,
-    defaults: true,
-  }) as { actions?: unknown[] };
-  const actions = Array.isArray(decoded.actions) ? decoded.actions : [];
-  const result: DecodedAction[] = [];
-  const prototypeType = root.lookupType("lq.ActionPrototype");
-  for (const raw of actions) {
-    if (!isRecord(raw) || !(raw.result instanceof Uint8Array)) {
-      throw mappingFailed();
-    }
-    const prototype = prototypeType.toObject(
-      prototypeType.decode(raw.result),
-      { defaults: true, bytes: Uint8Array },
-    ) as { name?: unknown; data?: unknown };
-    if (
-      typeof prototype.name !== "string"
-      || prototype.name.length === 0
-      || !(prototype.data instanceof Uint8Array)
-    ) {
-      throw mappingFailed();
-    }
-    result.push({ name: prototype.name, data: prototype.data });
+// The stored record is decoded with defaults:false to preserve presence, so a
+// proto3 default-valued scalar (seat 0, chang 0, zimo false, ...) arrives as
+// `undefined`. Normalize those back to their default; anything else is corrupt.
+function u32(value: unknown): number {
+  if (value === undefined || value === null) return 0;
+  if (typeof value === "number" && Number.isInteger(value) && value >= 0 && value <= 0xffff_ffff) {
+    return value;
   }
-  if (result.length === 0) throw mappingFailed();
-  return result;
+  throw mappingFailed();
 }
 
-function decodeData(root: Root, action: DecodedAction): Record<string, unknown> {
-  const type = actionType(root, action.name);
-  if (type === null) throw mappingFailed();
-  const decoded = type.toObject(type.decode(action.data), {
-    arrays: true,
-    bytes: Uint8Array,
-    defaults: true,
-  });
-  if (!isRecord(decoded)) throw mappingFailed();
-  return decoded;
+function seat(value: unknown): number {
+  const n = u32(value);
+  if (n > 3) throw mappingFailed();
+  return n;
+}
+
+function tilesArray(value: unknown): string[] {
+  if (value === undefined || value === null) return [];
+  if (Array.isArray(value) && value.every((tile): tile is string => typeof tile === "string")) {
+    return value;
+  }
+  throw mappingFailed();
+}
+
+function scoreQuads(value: unknown): [number, number, number, number] {
+  if (
+    Array.isArray(value)
+    && value.length === 4
+    && value.every((n): n is number => typeof n === "number" && Number.isInteger(n))
+  ) {
+    return [value[0]!, value[1]!, value[2]!, value[3]!];
+  }
+  return [0, 0, 0, 0];
 }
 
 function sourceRef(recordId: string, sourceRecordOrdinal: number): string {
@@ -127,8 +106,8 @@ export function mapMahjongSoulRecord(input: {
       !(input.recordBytes instanceof Uint8Array)
     ) throw mappingFailed();
 
-    const root = parseProtobuf(input.bundle.protoText, { keepCase: true }).root;
-    const actions = decodeActions(input.bundle, input.recordBytes);
+    const actions = decodeStoredRecordActions(input.bundle, input.recordBytes);
+    if (actions.length === 0) throw mappingFailed();
 
     const events: CanonicalGameEvent[] = [];
     let currentRoundOrdinal = 0;
@@ -157,78 +136,96 @@ export function mapMahjongSoulRecord(input: {
     // Synthesized game boundary before the first source action.
     push(0, 0, { type: "game_started" });
 
-    actions.forEach((action, index) => {
-      const sourceRecordOrdinal = index + 1;
-      if (action.name === "ActionNewRound") {
-        const data = decodeData(root, action);
-        currentRoundOrdinal = nextRoundOrdinal++;
-        roundWind = parseMajsoulRoundWind(data.chang);
-        roundDealer = typeof data.ju === "number" ? data.ju % 4 : 0;
-        const tiles = Array.isArray(data.tiles)
-          ? data.tiles.map((tile) => parseMajsoulTile(tile))
-          : [];
-        const selfHand = tiles.slice(0, 13);
-        const dealerDraw = tiles[13];
-        const scores = Array.isArray(data.scores) && data.scores.length === 4
-          ? [data.scores[0], data.scores[1], data.scores[2], data.scores[3]]
-          : [0, 0, 0, 0];
-        push(sourceRecordOrdinal, 0, {
+    for (const action of actions) {
+      const ordinal = action.sourceRecordOrdinal;
+      const data = action.data;
+
+      if (action.name === "RecordNewRound") {
+        const chang = u32(data.chang);
+        const dealer = seat(data.ju);
+        const honba = u32(data.ben);
+        const liqibang = u32(data.liqibang);
+        const dora = parseMajsoulTile(data.dora);
+        const scores = scoreQuads(data.scores);
+        const seatTiles = [
+          tilesArray(data.tiles0),
+          tilesArray(data.tiles1),
+          tilesArray(data.tiles2),
+          tilesArray(data.tiles3),
+        ];
+        const selfHand = seatTiles[input.selfActor]!.slice(0, 13).map((tile) => parseMajsoulTile(tile));
+        const dealerDrawTile = seatTiles[dealer]![13];
+        const dealerDraw = dealerDrawTile === undefined
+          ? undefined
+          : parseMajsoulTile(dealerDrawTile);
+
+        currentRoundOrdinal = nextRoundOrdinal;
+        nextRoundOrdinal += 1;
+        roundWind = parseMajsoulRoundWind(chang);
+        roundDealer = dealer;
+        push(ordinal, 0, {
           type: "round_started",
           roundOrdinal: currentRoundOrdinal,
           roundWind,
-          hand: (roundDealer % 4) + 1,
-          honba: typeof data.ben === "number" ? data.ben : 0,
-          riichiSticks: typeof data.liqibang === "number" ? data.liqibang : 0,
-          dealer: roundDealer,
-          scores: scores as [number, number, number, number],
-          doraIndicator: parseMajsoulTile(data.dora),
+          hand: dealer + 1,
+          honba,
+          riichiSticks: liqibang,
+          dealer,
+          scores,
+          doraIndicator: dora,
           selfHand,
-          remainingDraws: typeof data.left_tile_count === "number"
-            ? data.left_tile_count
-            : null,
+          remainingDraws: u32(data.left_tile_count),
         });
         pendingRiichi.clear();
         if (dealerDraw !== undefined) {
-          push(sourceRecordOrdinal, 1, {
+          push(ordinal, 1, {
             type: "tile_drawn",
-            actor: roundDealer,
-            tile: roundDealer === input.selfActor
+            actor: dealer,
+            tile: dealer === input.selfActor
               ? { visibility: "visible", tile: dealerDraw }
               : { visibility: "hidden" },
             from: "live_wall",
           });
         }
-        return;
+        continue;
       }
-      if (action.name === "ActionDealTile") {
-        const data = decodeData(root, action);
-        const actor = typeof data.seat === "number" ? data.seat : -1;
-        const tile = parseMajsoulTile(data.tile);
-        push(sourceRecordOrdinal, 0, {
-          type: "tile_drawn",
-          actor,
-          tile: actor === input.selfActor
-            ? { visibility: "visible", tile }
-            : { visibility: "hidden" },
-          from: "live_wall",
-        });
-        return;
+
+      if (action.name === "RecordDealTile") {
+        const actor = seat(data.seat);
+        if (actor === input.selfActor) {
+          const tile = typeof data.tile === "string" ? data.tile : undefined;
+          if (tile === undefined) throw mappingFailed();
+          push(ordinal, 0, {
+            type: "tile_drawn",
+            actor,
+            tile: { visibility: "visible", tile: parseMajsoulTile(tile) },
+            from: "live_wall",
+          });
+        } else {
+          push(ordinal, 0, {
+            type: "tile_drawn",
+            actor,
+            tile: { visibility: "hidden" },
+            from: "live_wall",
+          });
+        }
+        continue;
       }
-      if (action.name === "ActionDiscardTile" || action.name === "ActionRevealTile") {
-        const data = decodeData(root, action);
-        const actor = typeof data.seat === "number" ? data.seat : -1;
+
+      if (action.name === "RecordDiscardTile") {
+        const actor = seat(data.seat);
         const tile = parseMajsoulTile(data.tile);
         const isRiichi = data.is_liqi === true;
         const moqie = data.moqie === true;
         if (isRiichi) {
-          push(sourceRecordOrdinal, 0, { type: "riichi_declared", actor });
+          push(ordinal, 0, { type: "riichi_declared", actor });
           pendingRiichi.set(actor, canonicalEventId(input.gameId, {
             roundOrdinal: currentRoundOrdinal,
-            sourceRecordOrdinal,
+            sourceRecordOrdinal: ordinal,
             subEventOrdinal: 0,
           }));
         }
-        push(sourceRecordOrdinal, isRiichi ? 1 : 0, {
+        push(ordinal, isRiichi ? 1 : 0, {
           type: "tile_discarded",
           actor,
           tile,
@@ -237,23 +234,19 @@ export function mapMahjongSoulRecord(input: {
             ? pendingRiichi.get(actor) ?? null
             : null,
         });
-        return;
+        continue;
       }
-      if (action.name === "ActionChiPengGang") {
-        const data = decodeData(root, action);
-        const actor = typeof data.seat === "number" ? data.seat : -1;
-        const type = typeof data.type === "number" ? data.type : -1;
-        const tiles = Array.isArray(data.tiles)
-          ? data.tiles.map((tile) => parseMajsoulTile(tile))
-          : [];
+
+      if (action.name === "RecordChiPengGang") {
+        const actor = seat(data.seat);
+        const type = u32(data.type);
+        const tiles = tilesArray(data.tiles).map((tile) => parseMajsoulTile(tile));
         const froms = Array.isArray(data.froms)
-          ? data.froms.filter((from): from is number => typeof from === "number")
+          ? data.froms.filter((from): from is number => typeof from === "number" && from >= 0 && from <= 3)
           : [];
         const target = froms[0] ?? -1;
         const calledTile = tiles[0];
-        if (calledTile === undefined || target < 0 || target > 3) {
-          throw mappingFailed();
-        }
+        if (calledTile === undefined || target < 0) throw mappingFailed();
         const discard = [...events].reverse().find((candidate) =>
           candidate.type === "tile_discarded"
           && candidate.actor === target
@@ -267,40 +260,38 @@ export function mapMahjongSoulRecord(input: {
         consumedDiscards.add(discard.eventId);
         if (type === 0) {
           const consumedTiles: [Tile, Tile] = [tiles[1]!, tiles[2]!];
-          push(sourceRecordOrdinal, 0, {
+          push(ordinal, 0, {
             type: "chi_called", actor, targetActor: target,
             calledTile, consumedTiles, calledDiscardEventRef: discard.eventId,
           });
         } else if (type === 1) {
           const consumedTiles: [Tile, Tile] = [tiles[1]!, tiles[2]!];
-          push(sourceRecordOrdinal, 0, {
+          push(ordinal, 0, {
             type: "pon_called", actor, targetActor: target,
             calledTile, consumedTiles, calledDiscardEventRef: discard.eventId,
           });
         } else if (type === 2) {
           const consumedTiles: [Tile, Tile, Tile] = [tiles[1]!, tiles[2]!, tiles[3]!];
-          push(sourceRecordOrdinal, 0, {
+          push(ordinal, 0, {
             type: "daiminkan_called", actor, targetActor: target,
             calledTile, consumedTiles, calledDiscardEventRef: discard.eventId,
           });
         } else {
           throw mappingFailed();
         }
-        return;
+        continue;
       }
-      if (action.name === "ActionAnGangAddGang") {
-        // The `type` discriminator between ankan and kakan is not documented
-        // in the pinned protocol and no sanitized fixture exists; the tiles
-        // field is a single concatenated string, not a repeatable tile list.
-        // Mapping 0/2 to ankan would be a guess. Fail closed.
+
+      if (action.name === "RecordAnGangAddGang") {
+        // The `type` discriminator between ankan and kakan is not documented in
+        // the pinned protocol and no sanitized fixture exists; the `tiles` field
+        // is a single concatenated string. Mapping 0/2 to ankan would be a guess.
         throw unsupportedSemantics();
       }
-      if (action.name === "ActionHule") {
-        const data = decodeData(root, action);
+
+      if (action.name === "RecordHule") {
         const hules = Array.isArray(data.hules) ? data.hules : [];
         if (hules.length === 0) throw mappingFailed();
-        // A standard four-player win always carries exactly four integer score
-        // deltas; anything else cannot be uniquely attributed to the seats.
         const deltaValues = data.delta_scores;
         if (
           !Array.isArray(deltaValues)
@@ -315,15 +306,8 @@ export function mapMahjongSoulRecord(input: {
         let subEvent = 0;
         for (const raw of hules) {
           if (!isRecord(raw)) throw mappingFailed();
-          const winner = raw.seat;
-          const zimo = raw.zimo;
-          if (
-            typeof winner !== "number"
-            || !Number.isInteger(winner) || winner < 0 || winner > 3
-            || typeof zimo !== "boolean"
-          ) {
-            throw mappingFailed();
-          }
+          const winner = seat(raw.seat);
+          const zimo = raw.zimo === true;
           const tile = parseMajsoulTile(raw.hu_tile);
           const source = [...events].reverse().find((candidate): boolean =>
             zimo
@@ -335,7 +319,7 @@ export function mapMahjongSoulRecord(input: {
           const targetActor = !zimo && source.type === "tile_discarded"
             ? source.actor
             : null;
-          push(sourceRecordOrdinal, subEvent++, {
+          push(ordinal, subEvent, {
             type: "win_declared",
             winnerActor: winner,
             targetActor,
@@ -344,28 +328,37 @@ export function mapMahjongSoulRecord(input: {
             winSourceEventRef: source.eventId,
             scoreDeltas,
           });
+          subEvent += 1;
         }
         if (subEvent === 0) throw mappingFailed();
-        return;
+        continue;
       }
-      if (action.name === "ActionLiuJu") {
-        // `ActionLiuJu.type` covers many abortive draws (kyuushu kyuhai,
-        // suufon renda, suukaikan, suucha riichi, sancha hou, nagashi mangan)
-        // but the enum values are not documented in the pinned protocol and no
-        // sanitized fixture exists. Collapsing every type to kyuushu_kyuuhai
-        // mislabels the draw; fail closed instead.
+
+      if (action.name === "RecordLiuJu") {
+        // RecordLiuJu.type covers many abortive draws but the enum values are
+        // not documented in the pinned protocol and no sanitized fixture exists.
         throw unsupportedSemantics();
       }
-      if (action.name === "ActionNoTile") {
-        push(sourceRecordOrdinal, 0, {
+
+      if (action.name === "RecordNoTile") {
+        const players = Array.isArray(data.players) ? data.players : [];
+        const tenpaiActors: number[] = [];
+        for (let seatIndex = 0; seatIndex < players.length && seatIndex < 4; seatIndex += 1) {
+          const player = players[seatIndex];
+          if (isRecord(player) && player.tingpai === true) {
+            tenpaiActors.push(seatIndex);
+          }
+        }
+        push(ordinal, 0, {
           type: "round_drawn",
           reason: "exhaustive",
-          tenpaiActors: [],
+          tenpaiActors,
         });
-        return;
+        continue;
       }
+
       throw mappingFailed();
-    });
+    }
 
     const parsed = CanonicalEventStreamSchema.safeParse({
       schemaVersion: "canonical-riichi-events/v2",
