@@ -11,13 +11,15 @@
 新增的一次性诊断命令：
 
 ```powershell
-npm run desktop:diagnose-mahjong-soul-capture-record -- --paipu-url "<paipu 链接>"
+npm run desktop:diagnose-mahjong-soul-capture-record -- --paipu-url "<paipu 链接>" --self-actor <0|1|2|3>
 ```
 
 它开一个 Chromium 窗口骑官方牌谱查看器（登录后），用 CDP 抓官方客户端自己的 Lobby WebSocket，捕获 `fetchGameRecord` 的内联响应并解码 `GameDetailRecords`。
 
 - 真人实抓成功：`{"status":"record_captured",...}`，原始字节写入
-  `%TEMP%\mahjong-soul-captured-record.pb`（86KB）。
+  `%TEMP%\mahjong-soul-captured-record.pb`。（8/15 订正：当日 23:19 落盘的是**外层 Wrapper bytes**
+  86166B，属旧格式；当前版本 capture 在落盘前已完成 unwrap，写的是 INNER bytes——真实契约见下文
+  「TEMP 捕获文件的真实契约」。）
 - 后台任务里跑不出来（Unity WebGL 在后台 Electron 窗口缺 GPU/渲染上下文，只加载资源不连网关）；必须用户**前台**跑，且需要登录态（用户自己的牌谱是非匿名片谱，看它要登录）。
 
 ## 关键发现：真实 wire 格式与 coach 假设不符
@@ -99,12 +101,33 @@ canonical mapper
 - `mahjong-soul-source/src/liqi-codec.ts`：新增 `MAHJONG_SOUL_OBSERVED_RECORD_METHODS`，让 codec 能观察 `fetchGameRecord` 及三个列表 RPC 的帧。
 - `mahjong-soul-source/src/record-capture.ts`（新）：`createMahjongSoulRecordCapture`，被动捕获 `fetchGameRecord` 响应、取出内联 `data` 字节。
 - `desktop/src/cdp-record-observer.ts`（新）：与登录观察器同构的 CDP 帧观察器，改用牌谱捕获。
-- `desktop/src/capture-record-diagnostic-runner.ts`（新）：`--diagnose-mahjong-soul-capture-record` 的编排 + 解码 + 字节落盘 + legacy 探针。
+- `desktop/src/capture-record-diagnostic-runner.ts`（新）：`--diagnose-mahjong-soul-capture-record` 的编排 + 捕获 + 字节落盘。（8/15 注：其中的 legacy `RecordGame` 探针与 records/actions 容器猜测已整体删除，诊断现在直接走 canonical replay 链，见文末 8/15 进度。）
 - `desktop/src/electron-entry.ts` / `package.json`：接入新诊断命令。
 - 测试：`record-capture.test.ts`（新）、`liqi-codec.test.ts` 能力集断言更新。
 - 附带保留：恢复/重放诊断的可复用加固（`--probe-rejection` 默认关闭、恢复阶段细分状态码、单请求拒绝码投影 `snapshotRestoreRejection`）。
 
-注意：`capture-record-diagnostic-runner.ts` 里的 `legacyRecord` 探针（按 `RecordGame` 解码）是上一轮的**误判产物**，已在本文档订正；第 1+2 步会把它替换成正确的双层 Wrapper 解码。
+注意：`capture-record-diagnostic-runner.ts` 里的 `legacyRecord` 探针（按 `RecordGame` 解码）是上一轮的**误判产物**，已在 8/15 全部删除并替换为 canonical replay 链（见文末）。
+
+## TEMP 捕获文件的真实契约（8/15 订正）
+
+`--diagnose-mahjong-soul-capture-record` 写入 `%TEMP%\mahjong-soul-captured-record.pb` 的是
+**INNER `GameDetailRecords` bytes**——`record-capture.ts` 在捕获时已经完成了外层 Wrapper 的
+strict unwrap，`result.recordBytes` 就是内层字节。因此：
+
+```text
+CDP frame -> createMahjongSoulRecordCapture（外层 unwrap 已在此完成）
+           -> result.recordBytes（INNER GameDetailRecords bytes）   ← 统一 recordBytes/sha256 边界
+           -> decodeStoredRecordActions（仅 diagnostic 计数）
+           -> mapMahjongSoulRecord（内部自行 decode，不重复造 API）
+           -> replayCanonicalStream -> build/serializeMahjongSoulReplayAudit
+```
+
+下游**绝对不要再次 unwrap**。`scripts/generate-mahjong-soul-real-fixtures.mjs` 的默认输入
+即为 INNER bytes（`--input-format inner`）；只有读取 8/14 23:19 之前产生的旧捕获文件
+（外层 Wrapper bytes，86166B）才需要显式 `--input-format outer`，没有“先试 Wrapper 再试
+GDR”的启发式。回归测试 `scripts/generate-mahjong-soul-real-fixtures.test.mjs`（已接入
+`npm test`）用仓库 fixture 证明「当前捕获输出 → generator → fixture → unwrap」可复现，
+不依赖任何历史遗留 TEMP 文件。
 
 ## 实施进度（8/14 晚）：四层边界全部落地 + 真人脱敏 fixture 全绿
 
@@ -128,6 +151,18 @@ canonical mapper
 
 ## 下一步建议
 
-1. 把 CDP 捕获诊断的出口接上生产链：`capture-record-diagnostic-runner` 落盘 bytes → `unwrapGameDetailRecords` → `decodeStoredRecordActions` → `mapMahjongSoulRecord` → replay → audit（目前诊断只验证 decode，重放诊断走的是 HTTP fetch 路线）。
-2. 用一份含 `RecordAnGangAddGang` 的真人牌谱钉死 ankan/kakan 判别（`type` enum 与 `tiles` 拼接语义），再决定 `RecordLiuJu.type` enum 映射；此前两者保持 fail closed。
+1. ~~把 CDP 捕获诊断的出口接上生产链~~（8/15 已完成，见文末）。
+2. ~~用一份含 `RecordAnGangAddGang` 的真人牌谱钉死 ankan/kakan 判别~~（8/15 已完成：type 3=暗杠、type 2=加杠，fixture 证据钉死并实现；`RecordLiuJu.type` enum 仍无真人样本，继续 fail closed）。
 3. `remainingDraws` 升 `"complete"` 需要 kan fixture 证明 `left_tile_count` 在杠后的增减语义。
+4. `replayCanonicalStream` 在全量真人牌谱（1022 canonical events）上实测约 **1 秒/decision**（121 个 decision ≈ 2 分钟），疑似随事件数超线性；自动化测试因此只在单局 fixture 上跑 decision/audit，全量局只做 map + state-machine 验证。若要支持全量牌谱分析需要先做 replay 性能剖析。
+5. 杠宝牌指示牌：真实 wire 在杠后的 `RecordDealTile.doras` / `RecordAnGangAddGang.doras` 上携带新指示牌，但脱敏 generator 目前丢弃这些字段、mapper 也不发 `dora_revealed`；`doraIndicators` 维持 `"partial"`。若要补全，先扩 sanitizer 再钉 event。
+
+## 实施进度（8/15）：P0–P3 全部落地
+
+- **P0-1（generator 输入契约）**：`5de01f8`。generator 默认接受 INNER bytes，`--input-format outer` 只用于 8/14 23:19 前的旧捕获；脱敏后仍重编码进外层 Wrapper，仓库 fixture 继续测 outer unwrap 边界。`toInnerBytes`/`deriveSanitizedFixtures` 导出为可测函数，round-trip 回归测试进 `npm test`。
+- **P0-2（真脱敏）**：同 commit。真实 recordId `260810-…` 从 generator、两个 fixture JSON、全部测试中移除，换成固定 synthetic id `000000-00000000-0000-0000-0000-000000000001`（schema-shaped，全零；wire bytes 不变）。electron-entry 的真人 paipu URL fallback 删除，`--paipu-url` 缺失即固定错误 fail fast。注意：真实 id 已存在于旧 commit 历史中；本轮只是停止传播，**没有**做 history rewrite。
+- **P1（真人结构 hardening）**：`67ec10b`。fixture A 的全部 11 个 `RecordChiPengGang` 有独立 decoder-level 断言：tiles/froms 等长、唯一非 actor 下标、被叫牌即该下标、且能回溯到 target 的最近未消费同牌 discard。真实分布：7 碰 4 吃、无大明杠样本。
+- **P2（diagnostic 接生产链）**：`0befb6f`。legacy 探针/容器猜测全删；`runRecordCaptureDiagnostic` 要求显式 identity（`--paipu-url` REQUIRED、`--self-actor 0|1|2|3` REQUIRED、recordId 由 `parseMahjongSoulCnShareUrl` 从 URL 严格解析，gameId=`majsoul:${recordId}`，selfActor 无默认值）。新 `CaptureRecordResult` 报告 status/storedActionCount/mappingStatus+mappingCode/canonicalEventCount/replayDecisionCount/auditPath/recordBytesPath/fixed errorCode，record bytes 永不进 JSON/log。生产 catalog 路线仍用 summary.selfSeat，未动。
+- **P3（AnGangAddGang 调查 → 实现）**：`26438f0`。两个真实样本各自钉死一个 enum 值：ordinal 561（type=3，seat 2，3s）可证明手握全部 4 张暗牌、本局无副露 ⇒ **暗杠**；ordinal 1139（type=2，seat 3，7z）可证明是对 ordinal 1053 同牌碰的加牌 ⇒ **加杠**。原始 protobuf 字节手工逐字段解码确认 wire 值，方向与第三方实现一致。fixture-backed 证据测试先行，mapper 随后实现 type 3→`ankan_declared`、type 2→`kakan_declared`（加杠必须找到同局同牌碰、暗杠不得与同局碰共存）；杠后该 actor 的下一次 `RecordDealTile` 标记为 `rinshan`（canonical 状态机硬性要求）。**enum 之外的取值、以及含赤宝牌的五牌暗杠（单字符串无法定位红五位置）继续 fail closed**；`RecordLiuJu` 无样本继续 fail closed。
+- **P3 附带修复（打通全量局必然暴露的两个 mapper 缺口）**：吃/碰/大明杠的 consumed tiles 按 canonical 顺序排序（wire 顺序不保证）；每局收尾合成 `round_ended`（绑定 terminal 事件的 source position 下一 sub-event）；riichi 弃牌后合成 `riichi_accepted`（存储 wire 无 reach_accepted 等价物）。结果：**fixture A 全量 1616 actions → 978 decode → 1022 canonical events，map `ready` 且 state-machine 验证通过**；desktop 测试以真实 CDP 帧脚本驱动 capture→map→replay→audit 全链（单局），并用 synthetic 未证实 type=9 记录维持 `record_not_replayable/unsupported_semantics` 的端到端断言（无伪 complete replay）。
+- **真人 diagnostic 验收语义更新**：对含已证实杠型的 live full game，diagnostic 现在预期走通到 audit（exit 0）；对含未证实语义（RecordLiuJu、未知 AnGangAddGang type、五牌暗杠）的记录仍报 `unsupported_semantics` 且不产生 audit。8/14 那份 1616-action 牌谱现属前者——下一步真人前台跑 H1 验收时，用 `--paipu-url <自己的牌谱> --self-actor <自己的座位>` 验证 live CDP 全链。
