@@ -63,6 +63,9 @@ test("workspace packages import as emitted JavaScript", async () => {
   assert.equal(typeof reasoning.validateHandStructureResult, "function");
   assert.equal(typeof reasoning.buildDeterministicDefenseMatrix, "function");
   assert.equal(typeof reasoning.assembleDefenseMatrix, "function");
+  assert.equal(typeof reasoning.replayCanonicalStream, "function");
+  assert.equal(typeof reasoning.buildMahjongSoulReplayAudit, "function");
+  assert.equal(typeof reasoning.serializeMahjongSoulReplayAudit, "function");
   assert.equal(
     source.MAHJONG_SOUL_PROTOCOL_BUNDLE_VERSION,
     "mahjong-soul-cn-protocol/v1",
