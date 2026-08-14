@@ -1,12 +1,19 @@
 import type { MahjongSoulDesktopApi } from "../session-api.js";
 import type { MahjongSoulCatalogApi } from "../catalog-api.js";
+import type { MahjongSoulPaipuApi } from "../paipu-import-api.js";
 import type { MahjongSoulSessionStatus } from "@riichi-coach/contracts";
 import { sessionUiPolicy } from "./session-ui-policy.js";
+import {
+  paipuImportStatusLabel,
+  paipuImportUiStateFromResult,
+  paipuShareUrlLooksValid,
+} from "./paipu-ui-policy.js";
 
 declare global {
   interface Window {
     readonly riichiCoach: MahjongSoulDesktopApi;
     readonly riichiCoachCatalog: MahjongSoulCatalogApi;
+    readonly riichiCoachPaipu: MahjongSoulPaipuApi;
   }
 }
 
@@ -19,7 +26,12 @@ const syncButton = document.querySelector<HTMLButtonElement>("#sync")!;
 const catalogSection = document.querySelector<HTMLElement>(".catalog")!;
 const catalogDetailElement = document.querySelector<HTMLElement>("#catalog-detail")!;
 const catalogListElement = document.querySelector<HTMLElement>("#catalog-list")!;
-const buttons = [loginButton, logoutButton, refreshButton, syncButton];
+const paipuSection = document.querySelector<HTMLElement>(".paipu-import")!;
+const paipuUrlInput = document.querySelector<HTMLInputElement>("#paipu-url")!;
+const paipuSeatSelect = document.querySelector<HTMLSelectElement>("#paipu-self-actor")!;
+const paipuImportButton = document.querySelector<HTMLButtonElement>("#paipu-import")!;
+const paipuStatusElement = document.querySelector<HTMLElement>("#paipu-status")!;
+const buttons = [loginButton, logoutButton, refreshButton, syncButton, paipuImportButton];
 let currentSessionStatus: MahjongSoulSessionStatus["status"] = "logged_out";
 
 function setPending(pending: boolean): void {
@@ -36,6 +48,7 @@ function applySessionState(status: MahjongSoulSessionStatus["status"]): void {
   refreshButton.hidden = busy;
   syncButton.hidden = !policy.allowSync;
   catalogSection.hidden = !policy.showCatalog;
+  paipuSection.hidden = !policy.showPaipuImport;
   if (policy.catalogNotice !== null) catalogDetailElement.textContent = policy.catalogNotice;
 }
 
@@ -138,6 +151,46 @@ loginButton.addEventListener("click", () => {
 logoutButton.addEventListener("click", () => void run(() => window.riichiCoach.logoutMahjongSoul()));
 refreshButton.addEventListener("click", () => void run(() => window.riichiCoach.getSessionStatus()));
 syncButton.addEventListener("click", () => void runSync());
+
+function setPaipuPending(pending: boolean): void {
+  paipuImportButton.disabled = pending;
+  paipuUrlInput.disabled = pending;
+  paipuSeatSelect.disabled = pending;
+  if (pending) {
+    paipuStatusElement.textContent = paipuImportStatusLabel({ state: "pending" });
+  }
+}
+
+paipuImportButton.addEventListener("click", () => {
+  void (async () => {
+    // Client-side pre-checks keep typos from opening a window at all; the
+    // main process re-validates everything regardless.
+    const shareUrl = paipuUrlInput.value.trim();
+    if (!paipuShareUrlLooksValid(shareUrl)) {
+      paipuStatusElement.textContent = paipuImportStatusLabel({ state: "invalid_url" });
+      return;
+    }
+    const seat = paipuSeatSelect.value;
+    const selfActor = seat === "0" || seat === "1" || seat === "2" || seat === "3"
+      ? (Number(seat) as 0 | 1 | 2 | 3)
+      : null;
+    if (selfActor === null) {
+      paipuStatusElement.textContent = paipuImportStatusLabel({ state: "invalid_self_actor" });
+      return;
+    }
+    setPaipuPending(true);
+    try {
+      const result = await window.riichiCoachPaipu.importPaipu({ shareUrl, selfActor });
+      paipuStatusElement.textContent = paipuImportStatusLabel(
+        paipuImportUiStateFromResult(result),
+      );
+    } catch {
+      paipuStatusElement.textContent = paipuImportStatusLabel({ state: "failed" });
+    } finally {
+      setPaipuPending(false);
+    }
+  })();
+});
 
 void (async () => {
   const status = await run(() => window.riichiCoach.getSessionStatus());

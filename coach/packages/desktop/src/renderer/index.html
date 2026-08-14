@@ -26,6 +26,24 @@
         <p id="catalog-detail" class="detail">仅显示四人南风标准规则的可分析对局。</p>
         <ul id="catalog-list" class="catalog-list"></ul>
       </section>
+      <section class="paipu-import" hidden>
+        <h2>通过牌谱链接分析</h2>
+        <p class="detail">粘贴雀魂牌谱分享链接并选择你的座位；应用会通过本机的雀魂客户端会话读取牌谱。</p>
+        <div class="paipu-form">
+          <input id="paipu-url" type="text" inputmode="url" autocomplete="off"
+                 placeholder="https://game.maj-soul.com/1/?paipu=…"
+                 aria-label="雀魂牌谱分享链接">
+          <select id="paipu-self-actor" aria-label="你的座位">
+            <option value="" selected>选择座位</option>
+            <option value="0">座位 0</option>
+            <option value="1">座位 1</option>
+            <option value="2">座位 2</option>
+            <option value="3">座位 3</option>
+          </select>
+          <button id="paipu-import" type="button">导入并分析</button>
+        </div>
+        <p id="paipu-status" class="detail" aria-live="polite">粘贴雀魂牌谱分享链接并选择你的座位。</p>
+      </section>
     </main>
     <script type="module" src="./app.js"></script>
   </body>
