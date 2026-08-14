@@ -55,7 +55,11 @@ in Git history and `docs/CALIBRATION.md`.
 
 ## Current verification
 
-- Latest full Release suite: 389 passed, 0 failed.
+- Latest full Release suite: 409 passed, 0 failed
+  (Core 208, Vision 134, Windows 67).
+- Vision coverage now includes hand lattice counting, side-hand
+  (Left/Right) pipeline, river logical-grid detection, meld topology,
+  stability, and side-hand temporal tracking.
 - Task 13 independent final review: no Critical/Important.
 - Task 14 independent final review: no Critical/Important.
 - Task 15 acceptance comparer review is being retried after reviewer timeout.
@@ -286,26 +290,77 @@ Per expert review, the original detection model had two fundamental flaws:
 ### Test results
 
 - Core: 208 passed, 0 failed
-- Vision: 113 passed, 0 failed
+- Vision: 134 passed, 0 failed
 - Windows: 67 passed, 0 failed
-- Total: 388 passed, 0 failed
+- Total: 409 passed, 0 failed
+
+## CV system rework (expert-guided, 2026-08-11)
+
+The detection layer was rebuilt around the principle
+"空间几何负责限定可能位置，时间序列负责判断发生了什么" —
+geometry constrains possible positions; the temporal sequence decides
+what happened. Contour/`MinAreaRect` river counting and the fixed
+`DrawnSlot` quad were retired.
+
+`MahjongSoulOverlay.Vision` now contains:
+
+- `Hand/` — hand model
+  - `HandRectifier` warps every seat's hand to a 900×120 horizontal strip
+    (all four directions normalized left-to-right).
+  - `HandLatticeEstimator` fits a 1-D lattice (mean-intensity foreground
+    runs) to count main-hand tiles and locate a separated draw.
+  - `HandPitchEstimator`, `HandEdgeSignalExtractor`, `HandLatticeFitter`
+    refine lattice/pitch estimates.
+  - `HandAutoCalibrator` auto-calibrates main-hand geometry.
+  - `HandMotionSourceDetector` classifies discard motion origin
+    (Draw / MainHand / Unknown) via frame differencing.
+  - Side-hand (Left/Right) pipeline for 3D tile geometry:
+    `SideHandRectifier`, `SideHandPlaneFitter`, `SideHandBackMask`,
+    `BackSurfaceGeometry(Detector)`, `BackTileInstanceDetector`,
+    `ProjectiveTileSequenceFitter`, `SideHandTemporalTracker`,
+    `SideHandObservationAdapter`.
+- `River/` — fixed logical grid (the ONLY river representation; no more
+  contour-vs-grid switching)
+  - `RiverSlotLayout` generates the 18 fixed cells in discard order, each
+    keeping its original quadrilateral + a per-seat evidence sub-region
+    that excludes 3D tile sides.
+  - `RiverRectifier` warps cells to canonical 48×64 patches.
+  - `RiverBackgroundModel` per-cell background capture + MAE subtraction +
+    slow EMA update.
+  - `RiverSlotClassifier` classifies each cell as Empty / NormalTile /
+    RiichiRotatedTile / Occluded / Unknown from background diff, central
+    edge density, brightness, and edge orientation.
+- `Motion/StabilityGate.cs` — ROI + per-cell animation gating (normalized
+  MAE frame diff) and temporal stability counters; structural state is
+  frozen during animations and only committed after consecutive stable
+  frames.
+- `Detection/OpenCvSeatDetector.cs` now composes the above:
+  - Left/Right use the side-hand pipeline; Bottom/Top use the lattice.
+  - River tiles are emitted only from stable occupied grid cells, with
+    logical slot IDs (`bottom-river-05` etc.).
+  - The stability signature includes the full 18-bit river occupancy
+    (plus hand count, draw, meld groups/tiles), so a river tile swap at
+    constant count is no longer invisible.
+  - Motion source is threaded through for tsumogiri/tedashi evidence.
+
+This model is skin-agnostic (homography + occupancy + background diff +
+temporal state machine). A small CNN over canonical cell patches remains
+the fallback enhancement path if skin compatibility ever needs it.
 
 ## Remaining work
 
-1. Re-run replay with updated detector and classifier; verify that formal
-   tsumogiri/tedashi events are now produced.
+1. Real-footage validation: `E:\视频\雀魂测试1.mp4` is no longer present.
+   Record a fresh 1920×1080 session and re-run the replay to confirm formal
+   tsumogiri/tedashi events against the new pipeline.
 2. Generate annotated output; review frame-by-frame to confirm overlay marks
    align with actual discards.
 3. Write hand labels (`雀魂测试1.labels.json`) for the acceptance comparer.
 4. Run acceptance comparison against labels.
-5. Tune `_secondaryOccupancyScale` per-seat if some seats still flicker.
-6. Investigate Left-seat low confidence (may be a region-alignment issue in
-   the profile).
-7. Resolve Task 15 acceptance comparer review findings.
-8. Update `docs/ACCEPTANCE.md` pending metrics with measured results.
-9. Publish final Windows and replay builds.
-10. Run final independent review and full Release suite.
-11. Update this handoff to the final commit/test/artifact state.
+5. Resolve Task 15 acceptance comparer review findings.
+6. Update `docs/ACCEPTANCE.md` pending metrics with measured results.
+7. Publish final Windows and replay builds.
+8. Run final independent review and full Release suite.
+9. Update this handoff to the final commit/test/artifact state.
 
 ## Workspace caution
 
