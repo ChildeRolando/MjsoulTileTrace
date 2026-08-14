@@ -77,7 +77,8 @@ function scoreQuads(value: unknown): [number, number, number, number] {
   ) {
     return [value[0]!, value[1]!, value[2]!, value[3]!];
   }
-  return [0, 0, 0, 0];
+  // The stream declares scores:"complete"; fabricating four zeros would lie.
+  throw mappingFailed();
 }
 
 function sourceRef(recordId: string, sourceRecordOrdinal: number): string {
@@ -145,7 +146,12 @@ export function mapMahjongSoulRecord(input: {
         const dealer = seat(data.ju);
         const honba = u32(data.ben);
         const liqibang = u32(data.liqibang);
-        const dora = parseMajsoulTile(data.dora);
+        // The stored format carries the dora indicators in `doras` (repeated);
+        // the legacy single `dora` field is absent on real wire.
+        const doras = tilesArray(data.doras);
+        const firstDora = doras[0];
+        if (firstDora === undefined) throw mappingFailed();
+        const dora = parseMajsoulTile(firstDora);
         const scores = scoreQuads(data.scores);
         const seatTiles = [
           tilesArray(data.tiles0),
@@ -174,7 +180,12 @@ export function mapMahjongSoulRecord(input: {
           scores,
           doraIndicator: dora,
           selfHand,
-          remainingDraws: u32(data.left_tile_count),
+          // The stored left_tile_count is the live wall AFTER the initial deal,
+          // while the canonical state model counts draws (including the
+          // synthetic dealer draw emitted below), so the raw value cannot be
+          // projected verbatim. Completeness stays "unknown" and the value is
+          // left null rather than guessed.
+          remainingDraws: null,
         });
         pendingRiichi.clear();
         if (dealerDraw !== undefined) {
@@ -244,9 +255,17 @@ export function mapMahjongSoulRecord(input: {
         const froms = Array.isArray(data.froms)
           ? data.froms.filter((from): from is number => typeof from === "number" && from >= 0 && from <= 3)
           : [];
-        const target = froms[0] ?? -1;
-        const calledTile = tiles[0];
-        if (calledTile === undefined || target < 0) throw mappingFailed();
+        // On real wire the called tile is the ONE entry whose `froms` seat is
+        // not the actor; the actor's own tiles come first. Never assume index 0.
+        const targetEntries = froms
+          .map((from, index) => ({ from, index }))
+          .filter(({ from }) => from !== actor);
+        if (targetEntries.length !== 1) throw mappingFailed();
+        const targetIndex = targetEntries[0]!.index;
+        const target = targetEntries[0]!.from;
+        const calledTile = tiles[targetIndex];
+        if (calledTile === undefined) throw mappingFailed();
+        const consumed = tiles.filter((_, index) => index !== targetIndex);
         const discard = [...events].reverse().find((candidate) =>
           candidate.type === "tile_discarded"
           && candidate.actor === target
@@ -258,20 +277,17 @@ export function mapMahjongSoulRecord(input: {
           throw mappingFailed();
         }
         consumedDiscards.add(discard.eventId);
-        if (type === 0) {
-          const consumedTiles: [Tile, Tile] = [tiles[1]!, tiles[2]!];
+        if (type === 0 || type === 1) {
+          if (consumed.length !== 2) throw mappingFailed();
+          const consumedTiles: [Tile, Tile] = [consumed[0]!, consumed[1]!];
           push(ordinal, 0, {
-            type: "chi_called", actor, targetActor: target,
-            calledTile, consumedTiles, calledDiscardEventRef: discard.eventId,
-          });
-        } else if (type === 1) {
-          const consumedTiles: [Tile, Tile] = [tiles[1]!, tiles[2]!];
-          push(ordinal, 0, {
-            type: "pon_called", actor, targetActor: target,
+            type: type === 0 ? "chi_called" : "pon_called",
+            actor, targetActor: target,
             calledTile, consumedTiles, calledDiscardEventRef: discard.eventId,
           });
         } else if (type === 2) {
-          const consumedTiles: [Tile, Tile, Tile] = [tiles[1]!, tiles[2]!, tiles[3]!];
+          if (consumed.length !== 3) throw mappingFailed();
+          const consumedTiles: [Tile, Tile, Tile] = [consumed[0]!, consumed[1]!, consumed[2]!];
           push(ordinal, 0, {
             type: "daiminkan_called", actor, targetActor: target,
             calledTile, consumedTiles, calledDiscardEventRef: discard.eventId,

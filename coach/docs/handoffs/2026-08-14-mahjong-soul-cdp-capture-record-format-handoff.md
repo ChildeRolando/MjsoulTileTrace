@@ -106,6 +106,28 @@ canonical mapper
 
 注意：`capture-record-diagnostic-runner.ts` 里的 `legacyRecord` 探针（按 `RecordGame` 解码）是上一轮的**误判产物**，已在本文档订正；第 1+2 步会把它替换成正确的双层 Wrapper 解码。
 
+## 实施进度（8/14 晚）：四层边界全部落地 + 真人脱敏 fixture 全绿
+
+第 1–4 步已全部完成并通过验收：
+
+- `72926ed`（handoff 四层边界修订）、`5b70eec`（`unwrapGameDetailRecords` 外层严格 unwrap，fetcher/capture 收敛到 inner bytes）、`aef21e4`（`decodeStoredRecordActions` 内层 decoder，空 result 跳过但不压紧 ordinal）、`b087d52`（`Record*` → canonical mapper）+ 后续 real-data 修正提交。
+- mapper 由真人数据驱动的三处修正：`RecordNewRound` 用 `doras`（repeated）取宝牌指示（`dora` 字段在真实 wire 上不存在）；`RecordChiPengGang` 的呼叫牌在**唯一非 actor 的 froms 下标**（真实数据 `froms=[actor,actor,target]`，不是 index 0）；`scoreQuads` 遇非 4 整数数组直接 fail closed（不再伪造 `[0,0,0,0]` 与 `scores:"complete"` 冲突）。
+- `remainingDraws` 决策：canonical 状态机按 `tile_drawn` 事件递减计数（含 mapper 合成的 dealer 第 14 张 draw），而存储的 `left_tile_count` 是发牌完成后的剩余张数，两者差恰好 1 张；不猜测偏移，保持审核过的 `remainingDraws:"unknown"` 声明、`round_started.remainingDraws` 发 `null`（否则 round-state validator 会因「completeness 与取值不一致」拒绝）。后续若有 kan fixture 再评估升 `"complete"`。
+
+### 真人脱敏 fixture（审核定的验收门）
+
+生成脚本 `scripts/generate-mahjong-soul-real-fixtures.mjs`：读取 `%TEMP%\mahjong-soul-captured-record.pb`（不在仓库），保留 wire 结构（外层 Wrapper、GameAction.result Wrapper、空 result 及其位置、ordinal）和 mapper 实际消费的字段（seat/tile/froms/scores/hules/doras/tiles0-3/left_tile_count 等），删除所有原局指纹字段（`md5`/`paishan`/`sha256`/`salt`/`opens`/`operations`/`zhenting`/`tile_states`/`muyu`/hule 完整手牌等），重编码输出：
+
+- `mahjong-soul-source/tests/fixtures/real-record-wire.json`：全量 1616 动作（638 空 + 978 `Record*`），37KB。
+- `mahjong-soul-source/tests/fixtures/real-supported-round.json`：第 0 局（源下标 9..122，114 条），不含任何不支持动作。
+
+验收（`real-record-fixtures.test.ts` + desktop 的 `real-record-replay.test.ts`，全绿）：
+
+- **fixture A（不是 GREEN-to-ready）**：unwrap ✅ → decode 978 条、首个 ordinal=10、ordinal 有空洞且单调 ✅ → 分布 `{NewRound:9, DealTile:466, DiscardTile:481, ChiPengGang:11, AnGangAddGang:2, Hule:9}` ✅ → `mapMahjongSoulRecord` 返回 `{status:"invalid", code:"mahjong_soul_canonical_unsupported_semantics"}` ✅（两个 AnGangAddGang 在源下标 560/1138，即第 3、6 局；mapper 在 fail closed 前完整映射了第 0–2 局真实数据）。
+- **fixture B（full chain）**：unwrap → decode → map → `ready` → `replayCanonicalStream`（decision 数 > 0）→ `buildMahjongSoulReplayAudit` → `serializeMahjongSoulReplayAudit` 全部通过 ✅。
+
 ## 下一步建议
 
-先做 **1+2**（解两层 Wrapper，纯 decode，不动 mapper），用 `%TEMP%\mahjong-soul-captured-record.pb` 验证能解出 1616 个 `Record*` 动作并打印动作名分布；确认后再做 **3**（`Record*` → canonical mapper，工作量最大）。
+1. 把 CDP 捕获诊断的出口接上生产链：`capture-record-diagnostic-runner` 落盘 bytes → `unwrapGameDetailRecords` → `decodeStoredRecordActions` → `mapMahjongSoulRecord` → replay → audit（目前诊断只验证 decode，重放诊断走的是 HTTP fetch 路线）。
+2. 用一份含 `RecordAnGangAddGang` 的真人牌谱钉死 ankan/kakan 判别（`type` enum 与 `tiles` 拼接语义），再决定 `RecordLiuJu.type` enum 映射；此前两者保持 fail closed。
+3. `remainingDraws` 升 `"complete"` 需要 kan fixture 证明 `left_tile_count` 在杠后的增减语义。

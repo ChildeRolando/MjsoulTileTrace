@@ -49,7 +49,7 @@ function newRound(selfActor: number, dealer: number): Record<string, unknown> {
     else tiles.push([...other]);
   }
   return {
-    chang: 0, ju: dealer, ben: 0, dora: "1z",
+    chang: 0, ju: dealer, ben: 0, doras: ["1z"],
     scores: [25000, 25000, 25000, 25000], liqibang: 0, left_tile_count: 69,
     tiles0: tiles[0], tiles1: tiles[1], tiles2: tiles[2], tiles3: tiles[3],
   };
@@ -134,9 +134,9 @@ describe("Mahjong Soul stored Record* mapper", () => {
     const recordBytes = encodeRecord(bundle, [
       { name: "RecordNewRound", data: newRound(1, 0) },
       { name: "RecordDiscardTile", data: { seat: 0, tile: "4m", moqie: false } },
-      { name: "RecordChiPengGang", data: { seat: 1, type: 0, tiles: ["4m", "2m", "3m"], froms: [0, 1, 1] } },
+      { name: "RecordChiPengGang", data: { seat: 1, type: 0, tiles: ["2m", "3m", "4m"], froms: [1, 1, 0] } },
       { name: "RecordDiscardTile", data: { seat: 0, tile: "5m", moqie: false } },
-      { name: "RecordChiPengGang", data: { seat: 2, type: 1, tiles: ["5m", "5m", "5m"], froms: [0, 2, 2] } },
+      { name: "RecordChiPengGang", data: { seat: 2, type: 1, tiles: ["5m", "5m", "5m"], froms: [2, 2, 0] } },
     ]);
     const result = mapMahjongSoulRecord({
       gameId: "game:test", selfActor: 1, recordId, recordBytes, bundle,
