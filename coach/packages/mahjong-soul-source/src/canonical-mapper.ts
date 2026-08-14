@@ -379,13 +379,6 @@ export function mapMahjongSoulRecord(input: {
           // four copies is the red five is not on the wire. Keep failing
           // closed until a real five-kan fixture pins the encoding.
           if (tile.id.startsWith("5")) throw unsupportedSemantics();
-          // An ankan can never coexist with the actor's own pon of the same
-          // tile in one round; contradiction means the wire drifted.
-          const priorPon = events.slice(roundStartEventIndex)
-            .findLast((candidate) =>
-              candidate.type === "pon_called" && candidate.actor === actor
-              && candidate.calledTile.id === tile.id);
-          if (priorPon !== undefined) throw mappingFailed();
           const kanTiles: [Tile, Tile, Tile, Tile] = [
             { ...tile }, { ...tile }, { ...tile }, { ...tile },
           ];

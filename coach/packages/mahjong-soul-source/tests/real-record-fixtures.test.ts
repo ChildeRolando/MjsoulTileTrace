@@ -85,97 +85,66 @@ describe("sanitized real stored-record fixtures", () => {
     expect(mapped.stream.events.filter((event) => event.type === "win_declared").length).toBe(9);
     expect(mapped.stream.events.filter((event) => event.type === "game_ended").length).toBe(1);
     expect(mapped.stream.events.at(-1)?.type).toBe("game_ended");
-    // The two real kans map with their provenance.
+    // The two real kans map — provenance details are pinned by the dedicated
+    // RecordAnGangAddGang test below.
+    expect(mapped.stream.events.filter((event) => event.type === "ankan_declared").length).toBe(1);
+    expect(mapped.stream.events.filter((event) => event.type === "kakan_declared").length).toBe(1);
+  });
+
+  // P0-4: the RecordAnGangAddGang enum mapping is pinned as a PROTOCOL fact,
+  // not derived from game-state reasoning. The wire says type=3 at ordinal
+  // 561 and type=2 at ordinal 1139; the mapper must turn those into
+  // ankan_declared / kakan_declared with verifiable sourceRecordRef
+  // provenance. Any other type stays unsupported_semantics (unit-tested in
+  // canonical-mapper.test.ts).
+  it("fixture A: maps both real RecordAnGangAddGang instances per the pinned type enum", async () => {
+    const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
+    const fixture = loadFixture("real-record-wire");
+    const inner = unwrapGameDetailRecords(bundle, wireBytes(fixture));
+    const actions = decodeStoredRecordActions(bundle, inner);
+
+    const kans = actions.filter((action) => action.name === "RecordAnGangAddGang");
+    expect(kans.length).toBe(2);
+    expect(kans.map((kan) => kan.sourceRecordOrdinal)).toEqual([561, 1139]);
+    // Protocol facts on the wire: { seat, type, tiles } per instance.
+    expect(kans.map((kan) => ({
+      ordinal: kan.sourceRecordOrdinal,
+      seat: kan.data.seat ?? 0,
+      type: kan.data.type,
+      tiles: kan.data.tiles,
+    }))).toEqual([
+      { ordinal: 561, seat: 2, type: 3, tiles: "3s" },
+      { ordinal: 1139, seat: 3, type: 2, tiles: "7z" },
+    ]);
+
+    const mapped = mapMahjongSoulRecord({
+      gameId: "majsoul:real-record-kan-provenance",
+      selfActor: 0,
+      recordId: fixture.recordId,
+      recordBytes: inner,
+      bundle,
+    });
+    expect(mapped.status).toBe("ready");
+    if (mapped.status !== "ready") return;
+
     const ankan = mapped.stream.events.find((event) => event.type === "ankan_declared");
-    const kakan = mapped.stream.events.find((event) => event.type === "kakan_declared");
-    if (ankan?.type !== "ankan_declared" || kakan?.type !== "kakan_declared") {
-      throw new Error("expected one ankan and one kakan");
-    }
+    if (ankan?.type !== "ankan_declared") throw new Error("expected ankan_declared");
     expect(ankan.actor).toBe(2);
-    expect(ankan.tiles.every((tile) => tile.id === "3s")).toBe(true);
-    expect(ankan.sourceRecordRef.endsWith(":action:561")).toBe(true);
+    expect(ankan.tiles).toHaveLength(4);
+    expect(ankan.tiles.every((tile) => tile.id === "3s" && tile.red === false)).toBe(true);
+    expect(ankan.sourceRecordRef).toBe(`record:${recordId}:action:561`);
+
+    const kakan = mapped.stream.events.find((event) => event.type === "kakan_declared");
+    if (kakan?.type !== "kakan_declared") throw new Error("expected kakan_declared");
     expect(kakan.actor).toBe(3);
-    expect(kakan.addedTile.id).toBe("7z");
-    expect(kakan.sourceRecordRef.endsWith(":action:1139")).toBe(true);
+    expect(kakan.addedTile).toEqual({ id: "7z", red: false });
+    // The upgraded pon must be the actor's own in-record pon of the same tile.
     const pon = mapped.stream.events.find((event) =>
       event.type === "pon_called" && event.actor === 3 && event.calledTile.id === "7z"
     );
     expect(pon).toBeDefined();
     expect(kakan.upgradedPonEventRef).toBe(pon?.eventId);
-  });
-
-  // P3 evidence: the wire facts that pin the RecordAnGangAddGang `type` enum.
-  // Both real instances are proven from full game-state reconstruction, not
-  // assumed: the type-3 kan is four concealed copies with no prior meld, the
-  // type-2 kan upgrades an in-round pon of the same tile.
-  it("fixture A: proves the ankan/kakan semantics of both real RecordAnGangAddGang instances", async () => {
-    const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
-    const fixture = loadFixture("real-record-wire");
-    const actions = decodeStoredRecordActions(
-      bundle,
-      unwrapGameDetailRecords(bundle, wireBytes(fixture)),
-    );
-    const kans = actions.filter((action) => action.name === "RecordAnGangAddGang");
-    expect(kans.length).toBe(2);
-    expect(kans.map((kan) => kan.sourceRecordOrdinal)).toEqual([561, 1139]);
-
-    const u32 = (value: unknown): number =>
-      value === undefined || value === null ? 0 : value as number;
-    const roundStarts = actions
-      .filter((action) => action.name === "RecordNewRound")
-      .map((action) => action.sourceRecordOrdinal);
-
-    for (const kan of kans) {
-      const seat = u32(kan.data.seat);
-      const type = u32(kan.data.type);
-      const tile = kan.data.tiles;
-      expect(typeof tile).toBe("string");
-      const roundStart = [...roundStarts]
-        .reverse()
-        .find((ordinal) => ordinal <= kan.sourceRecordOrdinal)!;
-      const inRound = actions.filter((action) =>
-        action.sourceRecordOrdinal >= roundStart
-        && action.sourceRecordOrdinal <= kan.sourceRecordOrdinal
-      );
-      const priorPonOfTile = inRound.filter((action) =>
-        action.name === "RecordChiPengGang"
-        && u32(action.data.seat) === seat
-        && u32(action.data.type) === 1
-        && Array.isArray(action.data.tiles)
-        && action.data.tiles.some((entry) => entry === tile)
-      );
-      if (type === 3) {
-        // Ankan: the actor held all four concealed copies.
-        expect(priorPonOfTile.length).toBe(0);
-        expect(seat).toBe(2);
-        expect(tile).toBe("3s");
-        const initialHand = inRound
-          .find((action) => action.name === "RecordNewRound")!.data[`tiles${seat}`];
-        expect(Array.isArray(initialHand)).toBe(true);
-        const initial = (initialHand as string[]).filter((entry) => entry === tile).length;
-        const draws = inRound.filter((action) =>
-          action.name === "RecordDealTile"
-          && u32(action.data.seat) === seat
-          && action.data.tile === tile
-        ).length;
-        const discards = inRound.filter((action) =>
-          action.name === "RecordDiscardTile"
-          && u32(action.data.seat) === seat
-          && action.data.tile === tile
-        ).length;
-        const meldedAway = inRound.filter((action) =>
-          action.name === "RecordChiPengGang" && u32(action.data.seat) === seat
-        ).length;
-        expect(initial + draws - discards - meldedAway).toBe(4);
-      } else if (type === 2) {
-        // Kakan: upgrades the actor's earlier pon of the same tile in-round.
-        expect(seat).toBe(3);
-        expect(tile).toBe("7z");
-        expect(priorPonOfTile.map((pon) => pon.sourceRecordOrdinal)).toEqual([1053]);
-      } else {
-        throw new Error(`unattested AnGangAddGang type ${type}`);
-      }
-    }
+    expect(kakan.sourceRecordRef).toBe(`record:${recordId}:action:1139`);
   });
 
   it("fixture B: a fully supported real round maps to a ready canonical stream", async () => {
