@@ -1,9 +1,7 @@
-import { readFileSync } from "node:fs";
 import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { fileURLToPath } from "node:url";
-import { parse, type Type } from "protobufjs";
+import { parse } from "protobufjs";
 import { describe, expect, it } from "vitest";
 import {
   decodeStoredRecordActions,
@@ -11,7 +9,6 @@ import {
   mapMahjongSoulRecord,
   unwrapGameDetailRecords,
   type MahjongSoulCanonicalMapperResult,
-  type MahjongSoulProtocolBundle,
 } from "@riichi-coach/mahjong-soul-source";
 import {
   buildMahjongSoulReplayAudit,
@@ -21,8 +18,14 @@ import {
 import {
   captureRecordDiagnosticExitCode,
   runRecordCaptureDiagnostic,
-  type CaptureRecordWindowPort,
 } from "../src/capture-record-diagnostic-runner.js";
+import {
+  bundleRoot,
+  encodeSyntheticRecord,
+  FakeWindow,
+  loadFixtureWire,
+  scriptedCapture,
+} from "./helpers/cdp-capture-harness.js";
 
 // Drives the capture diagnostic end to end with the REAL bundle, the REAL
 // canonical pipeline and scripted CDP frames carrying the sanitized fixtures.
@@ -30,201 +33,15 @@ import {
 // the INNER GameDetailRecords bytes and goes straight to the mapper — a double
 // unwrap anywhere in this chain would fail closed instead of going green.
 
-const bundleRoot = fileURLToPath(new URL(
-  "../../../vendor/mahjong-soul-protocol/",
-  import.meta.url,
-));
-const fixtureDir = fileURLToPath(new URL(
-  "../../mahjong-soul-source/tests/fixtures/",
-  import.meta.url,
-));
+const url = "https://game.maj-soul.com/1/?paipu=000000-00000000-0000-0000-0000-000000000001_a123456";
 
-function loadFixtureWire(name: string): {
-  readonly recordId: string;
-  readonly wire: Uint8Array;
-} {
-  const fixture = JSON.parse(
-    readFileSync(join(fixtureDir, `${name}.json`), "utf8"),
-  ) as { readonly recordId: string; readonly wire: string };
-  return { recordId: fixture.recordId, wire: Uint8Array.from(Buffer.from(fixture.wire, "hex")) };
-}
-
-class FakeDebugger {
-  attached = false;
-  detachCalls = 0;
-  commands: string[] = [];
-  readonly script: Array<[string, unknown]> = [];
-  readonly order: string[] = [];
-  #listener: ((event: unknown, method: string, params: unknown) => void) | null = null;
-
-  attach(): void {
-    this.attached = true;
-    this.order.push("attach");
-  }
-
-  detach(): void {
-    this.detachCalls += 1;
-    this.attached = false;
-  }
-
-  isAttached(): boolean {
-    return this.attached;
-  }
-
-  async sendCommand(method: string): Promise<unknown> {
-    this.commands.push(method);
-    this.order.push(`command:${method}`);
-    return {};
-  }
-
-  on(
-    _event: "message",
-    listener: (event: unknown, method: string, params: unknown) => void,
-  ): void {
-    this.#listener = listener;
-    this.order.push("listener");
-  }
-
-  off(): void {
-    this.#listener = null;
-  }
-
-  // Delivers a CDP event exactly like a real debugger port: the listener
-  // only hears it if it was registered beforehand.
-  fire(method: string, params: unknown): void {
-    this.order.push(`event:${method}`);
-    if (this.#listener !== null) this.#listener(undefined, method, params);
-  }
-}
-
-class FakeWindow {
-  readonly webContents: { readonly debugger: FakeDebugger };
-  closed = false;
-  loadedUrl: string | null = null;
-
-  constructor(debuggerPort?: FakeDebugger) {
-    this.webContents = { debugger: debuggerPort ?? new FakeDebugger() };
-  }
-
-  loadURL(url: string): Promise<void> {
-    this.loadedUrl = url;
-    this.webContents.debugger.order.push("loadURL");
-    // The official client opens its Lobby WebSocket while the paipu page
-    // loads — frames can start flowing DURING navigation.
-    for (const [method, params] of this.webContents.debugger.script) {
-      this.webContents.debugger.fire(method, params);
-    }
-    return Promise.resolve();
-  }
-
-  close(): void {
-    this.closed = true;
-  }
-
-  isDestroyed(): boolean {
-    return this.closed;
-  }
-}
-
-function encode(type: Type, value: Record<string, unknown>): Uint8Array {
-  const message = type.fromObject(value);
-  const error = type.verify(message);
-  if (error !== null) throw new Error(error);
-  return type.encode(message).finish();
-}
-
-interface FrameBuilders {
-  readonly request: (requestId: number, method: string, payload: Record<string, unknown>) => Uint8Array;
-  readonly response: (requestId: number, responseType: string, payload: Record<string, unknown>) => Uint8Array;
-}
-
-function frameBuilders(bundle: MahjongSoulProtocolBundle): FrameBuilders {
-  const root = parse(bundle.protoText, { keepCase: true }).root;
-  const wrapperType = root.lookupType("lq.Wrapper");
-  const wrap = (requestId: number, kind: number, name: string, body: Uint8Array): Uint8Array => {
-    const wrapped = encode(wrapperType, { name, data: body });
-    const output = new Uint8Array(3 + wrapped.length);
-    output[0] = kind;
-    output[1] = requestId & 0xff;
-    output[2] = requestId >>> 8;
-    output.set(wrapped, 3);
-    return output;
-  };
-  return {
-    request: (requestId, method, payload) => wrap(
-      requestId,
-      2,
-      method,
-      encode(root.lookupType(bundle.rpcMap[method]!.req), payload),
-    ),
-    response: (requestId, responseType, payload) => wrap(
-      requestId,
-      3,
-      "",
-      encode(root.lookupType(responseType), payload),
-    ),
-  };
-}
-
-// Builds a synthetic outer-wrapped GameDetailRecords for records the mapper
-// must refuse (unattested kan semantics): the fixture set has no such game.
-function encodeSyntheticRecord(
-  bundle: MahjongSoulProtocolBundle,
-  actions: ReadonlyArray<{ name: string; data: Record<string, unknown> }>,
-): Uint8Array {
-  const root = parse(bundle.protoText, { keepCase: true }).root;
-  const wrapperType = root.lookupType("lq.Wrapper");
-  const gameActionType = root.lookupType("lq.GameAction");
-  const recordsType = root.lookupType("lq.GameDetailRecords");
-  const gameActions = actions.map(({ name, data }) => {
-    const actionType = root.lookupType(`lq.${name}`);
-    const actionBytes = actionType.encode(actionType.fromObject(data)).finish();
-    const wrapperBytes = wrapperType.encode(
-      wrapperType.fromObject({ name: `.lq.${name}`, data: actionBytes }),
-    ).finish();
-    return gameActionType.fromObject({ result: wrapperBytes });
-  });
-  const inner = recordsType.encode(recordsType.fromObject({
-    version: 210715,
-    actions: gameActions,
-  })).finish();
-  return wrapperType.encode(
-    wrapperType.fromObject({ name: ".lq.GameDetailRecords", data: inner }),
-  ).finish();
-}
-
-const cdpCreated = { requestId: "socket-1", url: "wss://route-2.maj-soul.com/gateway" };
-const cdpFrame = (payload: Uint8Array) => ({
-  requestId: "socket-1",
-  response: { opcode: 2, mask: false, payloadData: Buffer.from(payload).toString("base64") },
-});
-
-interface ScriptedCapture {
-  readonly window: FakeWindow;
-  readonly createWindow: () => CaptureRecordWindowPort;
-}
-
-function scriptedCapture(
-  bundle: MahjongSoulProtocolBundle,
-  responsePayload: Record<string, unknown>,
-): ScriptedCapture {
-  const window = new FakeWindow();
-  const { request, response } = frameBuilders(bundle);
-  window.webContents.debugger.script.push(
-    ["Network.webSocketCreated", cdpCreated],
-    ["Network.webSocketFrameSent", cdpFrame(request(
-      7,
-      ".lq.Lobby.fetchGameRecord",
-      { game_uuid: "000000-00000000-0000-0000-0000-000000000001" },
-    ))],
-    ["Network.webSocketFrameReceived", cdpFrame(response(
-      7,
-      bundle.rpcMap[".lq.Lobby.fetchGameRecord"]!.resp,
-      responsePayload,
-    ))],
-  );
-  return { window, createWindow: () => window };
-}
+const inertPipeline = {
+  mapRecord: (): MahjongSoulCanonicalMapperResult =>
+    ({ status: "invalid", code: "mahjong_soul_canonical_mapping_failed" }),
+  replay: () => [],
+  serializeAudit: () => "",
+  writeAudit: async () => "unused",
+} as const;
 
 describe("capture-record diagnostic runner", () => {
   it("runs the supported real round through capture -> map -> replay -> audit", async () => {
@@ -237,7 +54,7 @@ describe("capture-record diagnostic runner", () => {
 
     const result = await runRecordCaptureDiagnostic({
       bundle,
-      url: "https://game.maj-soul.com/1/?paipu=000000-00000000-0000-0000-0000-000000000001_a123456",
+      url,
       recordId: fixture.recordId,
       selfActor: 0,
       createWindow,
@@ -275,20 +92,12 @@ describe("capture-record diagnostic runner", () => {
     expect(result.auditPath).toBe(auditPath);
     expect(result.errorCode).toBeNull();
 
-    // P0-1 ordering: attach + Network.enable + message listener must all be
-    // in place BEFORE navigation, so the Lobby WebSocket created while the
-    // paipu page loads cannot be missed.
+    // The ordering invariant lives in the shared production primitive; it is
+    // directly pinned in official-client-record-capture.test.ts, and here the
+    // diagnostic route inherits it (frames during loadURL were heard).
     const order = window.webContents.debugger.order;
-    const attachIndex = order.indexOf("attach");
-    const enableIndex = order.indexOf("command:Network.enable");
-    const listenerIndex = order.indexOf("listener");
-    const loadIndex = order.indexOf("loadURL");
-    expect(attachIndex).toBeGreaterThanOrEqual(0);
-    expect(enableIndex).toBeGreaterThan(attachIndex);
-    expect(listenerIndex).toBeGreaterThan(enableIndex);
-    expect(loadIndex).toBeGreaterThan(listenerIndex);
-    // ...and the frames fired during loadURL were heard.
-    expect(order.indexOf("event:Network.webSocketCreated")).toBeGreaterThan(loadIndex);
+    expect(order.indexOf("event:Network.webSocketCreated"))
+      .toBeGreaterThan(order.indexOf("loadURL"));
 
     // The TEMP file holds the INNER GameDetailRecords bytes — the exact
     // generator input contract — not another Wrapper layer.
@@ -327,7 +136,7 @@ describe("capture-record diagnostic runner", () => {
 
     const result = await runRecordCaptureDiagnostic({
       bundle,
-      url: "https://game.maj-soul.com/1/?paipu=000000-00000000-0000-0000-0000-000000000001_a123456",
+      url,
       recordId: "000000-00000000-0000-0000-0000-000000000001",
       selfActor: 0,
       createWindow,
@@ -374,18 +183,13 @@ describe("capture-record diagnostic runner", () => {
     const window = new FakeWindow();
     const result = await runRecordCaptureDiagnostic({
       bundle,
-      url: "https://game.maj-soul.com/1/?paipu=000000-00000000-0000-0000-0000-000000000001_a123456",
+      url,
       recordId: "000000-00000000-0000-0000-0000-000000000001",
       selfActor: 0,
       createWindow: () => window,
       timeoutMs: 100,
       debugFile: join(workDir, "debug.log"),
-      pipeline: {
-        mapRecord: (): MahjongSoulCanonicalMapperResult => ({ status: "invalid", code: "mahjong_soul_canonical_mapping_failed" }),
-        replay: () => [],
-        serializeAudit: () => "",
-        writeAudit: async () => "unused",
-      },
+      pipeline: inertPipeline,
     });
     expect(result.status).toBe("no_capture");
     expect(window.closed).toBe(true);
@@ -396,7 +200,7 @@ describe("capture-record diagnostic runner", () => {
   it("fails closed when the response data is not a GameDetailRecords wrapper", async () => {
     const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
     const root = parse(bundle.protoText, { keepCase: true }).root;
-    const wrongData = encode(root.lookupType("lq.Wrapper"), {
+    const wrongData = encodeWrapper(root.lookupType("lq.Wrapper"), {
       name: ".lq.WrongType",
       data: Uint8Array.of(1),
     });
@@ -405,18 +209,13 @@ describe("capture-record diagnostic runner", () => {
 
     const result = await runRecordCaptureDiagnostic({
       bundle,
-      url: "https://game.maj-soul.com/1/?paipu=000000-00000000-0000-0000-0000-000000000001_a123456",
+      url,
       recordId: "000000-00000000-0000-0000-0000-000000000001",
       selfActor: 0,
       createWindow,
       timeoutMs: 5_000,
       debugFile: join(workDir, "debug.log"),
-      pipeline: {
-        mapRecord: (): MahjongSoulCanonicalMapperResult => ({ status: "invalid", code: "mahjong_soul_canonical_mapping_failed" }),
-        replay: () => [],
-        serializeAudit: () => "",
-        writeAudit: async () => "unused",
-      },
+      pipeline: inertPipeline,
     });
     expect(result.status).toBe("error");
     expect(result.errorCode).toBe("capture_observe_failed");
@@ -429,19 +228,14 @@ describe("capture-record diagnostic runner", () => {
     let windowsCreated = 0;
     const base = {
       bundle,
-      url: "https://game.maj-soul.com/1/?paipu=000000-00000000-0000-0000-0000-000000000001_a123456",
+      url,
       timeoutMs: 5_000,
       debugFile: join(workDir, "debug.log"),
       createWindow: () => {
         windowsCreated += 1;
         return new FakeWindow();
       },
-      pipeline: {
-        mapRecord: (): MahjongSoulCanonicalMapperResult => ({ status: "invalid", code: "mahjong_soul_canonical_mapping_failed" }),
-        replay: () => [],
-        serializeAudit: () => "",
-        writeAudit: async () => "unused",
-      },
+      pipeline: inertPipeline,
     } as const;
 
     const badSeat = await runRecordCaptureDiagnostic({
@@ -462,3 +256,12 @@ describe("capture-record diagnostic runner", () => {
     await rm(workDir, { recursive: true, force: true });
   });
 });
+
+// Local helper: encode a protobuf message via fromObject (the wrong-name
+// Wrapper case needs bytes, not a validated message).
+function encodeWrapper(
+  type: import("protobufjs").Type,
+  value: Record<string, unknown>,
+): Uint8Array {
+  return type.encode(type.fromObject(value)).finish();
+}

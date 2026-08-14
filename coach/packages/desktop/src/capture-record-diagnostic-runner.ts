@@ -10,13 +10,21 @@ import {
   type MahjongSoulProtocolBundle,
 } from "@riichi-coach/mahjong-soul-source";
 import type { ReplayedDecision } from "@riichi-coach/reasoning";
-import { createCdpRecordObserver } from "./cdp-record-observer.js";
+import {
+  captureRecordViaOfficialClient,
+  OfficialClientCaptureError,
+  type CaptureRecordWindowPort,
+  type OfficialClientCaptureResult,
+} from "./official-client-record-capture.js";
+
+export type { CaptureRecordWindowPort } from "./official-client-record-capture.js";
 
 // One-shot diagnostic: open the official paipu viewer in a Chromium window,
 // ride its own Lobby WebSocket via CDP, and passively capture the inline
-// `fetchGameRecord` response. The capture ALREADY performed the strict outer
-// unwrap, so `result.recordBytes` is the INNER GameDetailRecords bytes — the
-// unified recordBytes boundary shared with the HTTP fetcher. There is no
+// `fetchGameRecord` response. The capture primitive
+// (official-client-record-capture.ts) ALREADY performed the strict outer
+// unwrap, so the captured `recordBytes` is the INNER GameDetailRecords bytes —
+// the unified recordBytes boundary shared with the HTTP fetcher. There is no
 // second unwrap here; the bytes go straight into the canonical pipeline:
 //
 //   CDP frame -> createMahjongSoulRecordCapture (outer unwrap done)
@@ -25,25 +33,11 @@ import { createCdpRecordObserver } from "./cdp-record-observer.js";
 //             -> mapMahjongSoulRecord -> replayCanonicalStream
 //             -> buildMahjongSoulReplayAudit -> serializeMahjongSoulReplayAudit
 //
-// A record the mapper cannot fully interpret (e.g. RecordAnGangAddGang /
-// RecordLiuJu) is reported as record_not_replayable with the fixed mapping
-// code; no partial stream is ever passed off as a complete replay. The result
-// object and the debug log never contain the record bytes themselves.
-export interface CaptureRecordWindowPort {
-  readonly webContents: {
-    readonly debugger: {
-      attach(version: string): void | Promise<void>;
-      detach(): void;
-      isAttached(): boolean;
-      sendCommand(method: string, params?: Record<string, unknown>): Promise<unknown>;
-      on(event: "message", listener: (event: unknown, method: string, params: unknown) => void): void;
-      off(event: "message", listener: (event: unknown, method: string, params: unknown) => void): void;
-    };
-  };
-  loadURL(url: string): Promise<void>;
-  close(): void;
-  isDestroyed(): boolean;
-}
+// A record the mapper cannot fully interpret (unsupported RecordLiuJu,
+// unknown AnGangAddGang types, unresolved five-tile ankan) is reported as
+// record_not_replayable with the fixed mapping code; no partial stream is
+// ever passed off as a complete replay. The result object and the debug log
+// never contain the record bytes themselves.
 
 export type CaptureRecordMappingStatus =
   | "ready"
@@ -286,89 +280,50 @@ export async function runRecordCaptureDiagnostic(input: {
   const recordBytesFile = input.recordBytesFile
     ?? join(tmpdir(), "mahjong-soul-captured-record.pb");
 
-  const window = input.createWindow();
-  debug("window_created");
-  const observer = createCdpRecordObserver({
-    bundle: input.bundle,
-    debuggerPort: window.webContents.debugger,
-  });
-
-  let timer: ReturnType<typeof setTimeout> | undefined;
-  let settled = false;
-  let resolveDone!: (value: CaptureRecordResult) => void;
-  const done = new Promise<CaptureRecordResult>((resolve) => {
-    resolveDone = resolve;
-    timer = setTimeout(() => {
-      debug("timer_fired");
-      if (settled) return;
-      settled = true;
-      resolveDone(result({ status: "no_capture" }));
-    }, input.timeoutMs);
-  });
-
-  const settle = (value: Promise<CaptureRecordResult> | CaptureRecordResult): void => {
-    if (settled) return;
-    settled = true;
-    if (timer !== undefined) clearTimeout(timer);
-    debug("settle_started");
-    void Promise.resolve(value).then((resolved) => {
-      debug(`settle_${resolved.status}`);
-      resolveDone(resolved);
-    });
-  };
-
-  const onMessage = (_event: unknown, method: string, params: unknown): void => {
-    debug(`cdp_${method}`);
-    try {
-      const captured = observer.accept(method, params);
-      if (captured !== null) {
-        debug("captured_record");
-        // The generator's input contract: INNER GameDetailRecords bytes. The
-        // write is best-effort; the outcome is reported via recordBytesPath.
-        let recordBytesPath: string | null = null;
-        try {
-          writeFileSync(recordBytesFile, captured.recordBytes);
-          recordBytesPath = recordBytesFile;
-          debug("record_bytes_written");
-        } catch {
-          debug("record_bytes_write_failed");
-        }
-        settle(evaluateCapturedRecord({
-          bundle: input.bundle,
-          recordBytes: captured.recordBytes,
-          recordId: input.recordId,
-          selfActor: input.selfActor,
-          pipeline: input.pipeline,
-          recordBytesPath,
-        }));
-      }
-    } catch {
-      debug("observe_error");
-      settle(result({ status: "error", errorCode: "capture_observe_failed" }));
-    }
-  };
-
+  let captured: OfficialClientCaptureResult;
   try {
-    // P0-1 ordering: the observer must be fully ready BEFORE navigation. The
-    // official client opens its Lobby WebSocket while the paipu page loads,
-    // so attaching or listening after loadURL would miss those frames.
-    //   attach -> Network.enable -> message listener -> loadURL -> wait
-    await observer.start();
-    debug("observer_started");
-    window.webContents.debugger.on("message", onMessage);
-    debug("listener_registered");
-    debug("loadURL_start");
-    await window.loadURL(input.url);
-    debug("loadURL_done");
-    return await done;
+    captured = await captureRecordViaOfficialClient({
+      bundle: input.bundle,
+      url: input.url,
+      createWindow: input.createWindow,
+      timeoutMs: input.timeoutMs,
+    });
   } catch (error) {
-    debug(`error_${error instanceof Error ? error.message : String(error)}`);
-    return result({ status: "error", errorCode: "capture_window_failed" });
-  } finally {
-    debug("finally");
-    if (timer !== undefined) clearTimeout(timer);
-    try { window.webContents.debugger.off("message", onMessage); } catch { /* best effort */ }
-    try { observer.close(); } catch { /* best effort */ }
-    try { if (!window.isDestroyed()) window.close(); } catch { /* best effort */ }
+    // Fixed fail-closed mapping from the shared primitive: an observe
+    // violation and a window/navigation failure stay distinguishable.
+    const errorCode = error instanceof OfficialClientCaptureError
+      && error.code === "official_client_capture_observe_failed"
+      ? "capture_observe_failed"
+      : "capture_window_failed";
+    debug(`capture_${errorCode}`);
+    return result({ status: "error", errorCode });
   }
+
+  if (captured.status === "no_capture") {
+    debug("settle_no_capture");
+    return result({ status: "no_capture" });
+  }
+  debug("captured_record");
+
+  // The generator's input contract: INNER GameDetailRecords bytes. The write
+  // is best-effort; the outcome is reported via recordBytesPath.
+  let recordBytesPath: string | null = null;
+  try {
+    writeFileSync(recordBytesFile, captured.recordBytes);
+    recordBytesPath = recordBytesFile;
+    debug("record_bytes_written");
+  } catch {
+    debug("record_bytes_write_failed");
+  }
+
+  const evaluated = await evaluateCapturedRecord({
+    bundle: input.bundle,
+    recordBytes: captured.recordBytes,
+    recordId: input.recordId,
+    selfActor: input.selfActor,
+    pipeline: input.pipeline,
+    recordBytesPath,
+  });
+  debug(`settle_${evaluated.status}`);
+  return evaluated;
 }
