@@ -311,7 +311,8 @@ async function start(): Promise<void> {
   app.on("activate", () => { void createMainWindow(); });
 }
 
-app.whenReady().then(start).catch(() => {
+app.whenReady().then(start).catch((error) => {
+  console.error("[riichi-coach] startup failed:", error);
   app.exit(1);
 });
 

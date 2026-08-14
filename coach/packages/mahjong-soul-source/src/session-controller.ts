@@ -243,7 +243,28 @@ class StatefulSessionController implements MahjongSoulSessionController {
   }
 
   async #initialize(generation: number): Promise<MahjongSoulSessionStatus> {
-    const rawSession = await storageOperation(() => this.#vault.restore());
+    let rawSession: StoredMahjongSoulSession | null;
+    try {
+      rawSession = await storageOperation(() => this.#vault.restore());
+    } catch (error) {
+      if (
+        error instanceof MahjongSoulSourceError
+        && error.code === "mahjong_soul_session_invalid"
+      ) {
+        // A corrupt or older-version vault must not crash startup. Drop it and
+        // fall back to a clean logged-out state so the user can log in again.
+        try {
+          await storageOperation(() => this.#vault.clear());
+        } catch {
+          // Best-effort: even if the stale vault cannot be cleared, report
+          // logged out rather than surfacing the storage error.
+        }
+        this.#status = LOGGED_OUT;
+        this.#stableStatus = this.#status;
+        return this.#status;
+      }
+      throw error;
+    }
     if (generation !== this.#generation) return this.#stableStatus;
     if (rawSession === null) {
       this.#status = LOGGED_OUT;

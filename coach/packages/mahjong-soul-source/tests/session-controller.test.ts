@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import {
   MAHJONG_SOUL_CN_CLIENT_VERSION,
   MAHJONG_SOUL_PROTOCOL_ADAPTER_VERSION,
+  MahjongSoulSourceError,
   SecretString,
   createMahjongSoulSessionController,
   type CapturedMahjongSoulRestoreCandidate,
@@ -122,6 +123,21 @@ describe("Mahjong Soul session lifecycle", () => {
       status: "logged_out",
     });
     expect(Object.isFrozen(controller.getStatus())).toBe(true);
+  });
+
+  it("drops a corrupt or older-version vault and starts logged out", async () => {
+    const vault = new FakeVault();
+    vault.restore = async () => {
+      vault.operations.push("restore");
+      throw new MahjongSoulSourceError("mahjong_soul_session_invalid");
+    };
+    const { controller } = create({ vault });
+
+    await expect(controller.initialize()).resolves.toEqual({
+      region: "cn",
+      status: "logged_out",
+    });
+    expect(vault.operations).toEqual(["restore", "clear"]);
   });
 
   it("saves one interactive capture before reporting valid", async () => {
