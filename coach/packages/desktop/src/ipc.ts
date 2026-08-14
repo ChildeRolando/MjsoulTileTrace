@@ -5,8 +5,13 @@ import {
 import type { MahjongSoulSessionController } from "@riichi-coach/mahjong-soul-source";
 import { parseMahjongSoulSessionStatus } from "./session-api.js";
 import { parseAnalyzableRecordSummaries } from "./catalog-api.js";
+import {
+  PAIPU_SHARE_URL_MAX_LENGTH,
+  parsePaipuImportResult,
+} from "./paipu-import-api.js";
 import type { MahjongSoulCatalogService } from "./catalog-service.js";
 import type { MahjongSoulRecordIngestionService } from "./record-ingestion-service.js";
+import type { MahjongSoulPaipuImportService } from "./paipu-import-service.js";
 
 const PROTOCOL_ERROR = "mahjong_soul_login_protocol_unsupported" as const;
 
@@ -20,6 +25,10 @@ export const MAHJONG_SOUL_CATALOG_IPC_CHANNELS = Object.freeze({
   syncAnalyzableRecords: "mahjong-soul:sync-analyzable-records",
   listAnalyzableRecords: "mahjong-soul:list-analyzable-records",
   startRecordAnalysis: "mahjong-soul:start-record-analysis",
+} as const);
+
+export const MAHJONG_SOUL_PAIPU_IPC_CHANNELS = Object.freeze({
+  importPaipuUrl: "mahjong-soul:import-paipu-url",
 } as const);
 
 export interface IpcMainPort {
@@ -178,6 +187,90 @@ export function registerMahjongSoulCatalogIpc(input: {
   return Object.freeze({
     dispose(): void {
       for (const channel of Object.values(MAHJONG_SOUL_CATALOG_IPC_CHANNELS)) {
+        ipcMain.removeHandler(channel);
+      }
+    },
+  });
+}
+
+// The paipu-URL import route has its own dedicated channel — it is a sibling
+// ingestion source, never an overload of catalog startRecordAnalysis. The
+// renderer's validation is not authority: the envelope is re-validated here
+// (exactly one strict object argument, no extra keys, bounded shareUrl,
+// explicit integer seat) and the service itself strict-parses the URL again
+// in the main process before any BrowserWindow exists.
+export function registerMahjongSoulPaipuImportIpc(input: {
+  readonly ipcMain: IpcMainPort;
+  readonly service: Pick<MahjongSoulPaipuImportService, "importPaipu">;
+  readonly trustedSenderId: number;
+}): Readonly<{ dispose(): void }> {
+  const { ipcMain, service, trustedSenderId } = input;
+  const importPaipu = service?.importPaipu;
+  if (
+    ipcMain === null
+    || typeof ipcMain !== "object"
+    || typeof ipcMain.handle !== "function"
+    || typeof ipcMain.removeHandler !== "function"
+    || service === null
+    || typeof service !== "object"
+    || typeof importPaipu !== "function"
+    || !Number.isInteger(trustedSenderId)
+    || trustedSenderId < 0
+  ) {
+    throw fixedError();
+  }
+  const operation = importPaipu.bind(service) as typeof importPaipu;
+
+  ipcMain.handle(MAHJONG_SOUL_PAIPU_IPC_CHANNELS.importPaipuUrl, async (event, ...args) => {
+    try {
+      if (senderId(event) !== trustedSenderId || args.length !== 1) throw fixedError();
+      const request = args[0];
+      if (
+        request === null
+        || typeof request !== "object"
+        || Array.isArray(request)
+      ) {
+        throw fixedError();
+      }
+      const keys = Object.keys(request);
+      if (
+        keys.length !== 2
+        || !keys.includes("shareUrl")
+        || !keys.includes("selfActor")
+      ) {
+        throw fixedError();
+      }
+      const shareUrl = (request as { shareUrl: unknown }).shareUrl;
+      const selfActor = (request as { selfActor: unknown }).selfActor;
+      if (
+        typeof shareUrl !== "string"
+        || shareUrl.length === 0
+        || shareUrl.length > PAIPU_SHARE_URL_MAX_LENGTH
+      ) {
+        throw fixedError();
+      }
+      if (
+        typeof selfActor !== "number"
+        || !Number.isInteger(selfActor)
+        || selfActor < 0
+        || selfActor > 3
+      ) {
+        throw fixedError();
+      }
+      // parsePaipuImportResult is the last line of defense: only the fixed
+      // safe shape (status + safe metadata, never bytes/credentials) may
+      // cross back to the renderer.
+      return parsePaipuImportResult(
+        await operation({ shareUrl, selfActor }),
+      );
+    } catch (error) {
+      throw fixedError(error);
+    }
+  });
+
+  return Object.freeze({
+    dispose(): void {
+      for (const channel of Object.values(MAHJONG_SOUL_PAIPU_IPC_CHANNELS)) {
         ipcMain.removeHandler(channel);
       }
     },

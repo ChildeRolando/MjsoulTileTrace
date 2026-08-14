@@ -56,8 +56,10 @@ import {
 import {
   captureRecordDiagnosticExitCode,
   runRecordCaptureDiagnostic,
-  type CaptureRecordWindowPort,
 } from "./capture-record-diagnostic-runner.js";
+import type { CaptureRecordWindowPort } from "./official-client-record-capture.js";
+import { createMahjongSoulPaipuImportService } from "./paipu-import-service.js";
+import { registerMahjongSoulPaipuImportIpc } from "./ipc.js";
 import { createMahjongSoulSessionService } from "./mahjong-soul-session-service.js";
 import {
   createMainWindowOptions,
@@ -78,6 +80,38 @@ const rendererUrl = pathToFileURL(
 let mainWindow: BrowserWindow | null = null;
 let ipcRegistration: Readonly<{ dispose(): void }> | null = null;
 let catalogIpcRegistration: Readonly<{ dispose(): void }> | null = null;
+let paipuIpcRegistration: Readonly<{ dispose(): void }> | null = null;
+
+// The official-client window used by BOTH record-capture routes (the paipu
+// URL import and the capture diagnostic): the app's persistent Mahjong Soul
+// partition with the full hardening set. It is shown in the foreground — the
+// Unity WebGL client needs a real render context to connect the gateway.
+// The renderer never chooses a navigation target: only a main-process
+// strict-parsed CN share URL ever reaches loadURL.
+function createOfficialClientCaptureWindow(): CaptureRecordWindowPort {
+  const window = new BrowserWindow({
+    show: true,
+    width: 1180,
+    height: 820,
+    autoHideMenuBar: true,
+    webPreferences: {
+      partition: PARTITION,
+      contextIsolation: true,
+      sandbox: true,
+      nodeIntegration: false,
+      webviewTag: false,
+      navigateOnDragDrop: false,
+    },
+  });
+  window.webContents.setWindowOpenHandler(() => ({ action: "deny" }));
+  window.webContents.session.setPermissionRequestHandler((_c, _p, cb) => cb(false));
+  window.webContents.session.setPermissionCheckHandler(() => false);
+  window.webContents.session.on("will-download", (event, item) => {
+    event.preventDefault();
+    item.cancel();
+  });
+  return window as unknown as CaptureRecordWindowPort;
+}
 
 function hardenLocalWindow(window: BrowserWindow): void {
   window.webContents.setWindowOpenHandler(() => ({ action: "deny" }));
@@ -226,30 +260,7 @@ async function start(): Promise<void> {
       url,
       recordId,
       selfActor,
-      createWindow: () => {
-        const window = new BrowserWindow({
-          show: true,
-          width: 1180,
-          height: 820,
-          autoHideMenuBar: true,
-          webPreferences: {
-            partition: PARTITION,
-            contextIsolation: true,
-            sandbox: true,
-            nodeIntegration: false,
-            webviewTag: false,
-            navigateOnDragDrop: false,
-          },
-        });
-        window.webContents.setWindowOpenHandler(() => ({ action: "deny" }));
-        window.webContents.session.setPermissionRequestHandler((_c, _p, cb) => cb(false));
-        window.webContents.session.setPermissionCheckHandler(() => false);
-        window.webContents.session.on("will-download", (event, item) => {
-          event.preventDefault();
-          item.cancel();
-        });
-        return window as unknown as CaptureRecordWindowPort;
-      },
+      createWindow: createOfficialClientCaptureWindow,
       timeoutMs: 240_000,
       pipeline: {
         mapRecord: (input) => mapMahjongSoulRecord({ ...input, bundle }),
@@ -395,6 +406,15 @@ async function start(): Promise<void> {
     clearCatalog: () => catalogStore.clear(),
     clock: Date.now,
   });
+  // The paipu-URL ingestion route: official-client capture on the app's
+  // persistent (already authenticated) Mahjong Soul session, converging on
+  // the same shared analysis store as the account/catalog route.
+  const paipuImportService = createMahjongSoulPaipuImportService({
+    bundle,
+    analysis: analysisStore,
+    createWindow: createOfficialClientCaptureWindow,
+    timeoutMs: 240_000,
+  });
   await service.initialize();
 
   const createMainWindow = async (): Promise<void> => {
@@ -407,6 +427,7 @@ async function start(): Promise<void> {
     hardenLocalWindow(window);
     ipcRegistration?.dispose();
     catalogIpcRegistration?.dispose();
+    paipuIpcRegistration?.dispose();
     ipcRegistration = registerMahjongSoulIpc({
       ipcMain: ipcMain as unknown as IpcMainPort,
       service,
@@ -421,12 +442,19 @@ async function start(): Promise<void> {
       }),
       trustedSenderId: window.webContents.id,
     });
+    paipuIpcRegistration = registerMahjongSoulPaipuImportIpc({
+      ipcMain: ipcMain as unknown as IpcMainPort,
+      service: paipuImportService,
+      trustedSenderId: window.webContents.id,
+    });
     window.on("closed", () => {
       if (mainWindow === window) mainWindow = null;
       ipcRegistration?.dispose();
       ipcRegistration = null;
       catalogIpcRegistration?.dispose();
       catalogIpcRegistration = null;
+      paipuIpcRegistration?.dispose();
+      paipuIpcRegistration = null;
     });
     await window.loadURL(rendererUrl);
   };

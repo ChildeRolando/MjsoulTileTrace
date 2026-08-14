@@ -16,19 +16,26 @@ vi.mock("electron", () => ({
 
 import {
   PRELOAD_CHANNELS,
+  assertSafePaipuImportResult,
   assertSafeSessionStatus,
   assertSafeSummaries,
 } from "../src/preload-entry.js";
 import {
   MAHJONG_SOUL_CATALOG_IPC_CHANNELS,
   MAHJONG_SOUL_IPC_CHANNELS,
+  MAHJONG_SOUL_PAIPU_IPC_CHANNELS,
 } from "../src/ipc.js";
 
 describe("self-contained sandboxed preload", () => {
-  it("exposes exactly two renderer globals with the right methods", () => {
-    expect([...exposed.keys()].sort()).toEqual(["riichiCoach", "riichiCoachCatalog"]);
+  it("exposes exactly three renderer globals with the right methods", () => {
+    expect([...exposed.keys()].sort()).toEqual([
+      "riichiCoach",
+      "riichiCoachCatalog",
+      "riichiCoachPaipu",
+    ]);
     const session = exposed.get("riichiCoach") as Record<string, unknown>;
     const catalog = exposed.get("riichiCoachCatalog") as Record<string, unknown>;
+    const paipu = exposed.get("riichiCoachPaipu") as Record<string, unknown>;
     expect(Object.keys(session).sort()).toEqual([
       "getSessionStatus",
       "logoutMahjongSoul",
@@ -39,6 +46,7 @@ describe("self-contained sandboxed preload", () => {
       "startRecordAnalysis",
       "syncAnalyzableRecords",
     ]);
+    expect(Object.keys(paipu).sort()).toEqual(["importPaipu"]);
   });
 
   it("keeps channel names in lockstep with the main-process IPC registry", () => {
@@ -51,6 +59,8 @@ describe("self-contained sandboxed preload", () => {
       .toBe(MAHJONG_SOUL_CATALOG_IPC_CHANNELS.listAnalyzableRecords);
     expect(PRELOAD_CHANNELS.startAnalysis)
       .toBe(MAHJONG_SOUL_CATALOG_IPC_CHANNELS.startRecordAnalysis);
+    expect(PRELOAD_CHANNELS.importPaipuUrl)
+      .toBe(MAHJONG_SOUL_PAIPU_IPC_CHANNELS.importPaipuUrl);
   });
 
   it("rejects a credential-bearing session status at the renderer boundary", () => {
@@ -105,5 +115,92 @@ describe("self-contained sandboxed preload", () => {
     };
     await session.getSessionStatus();
     expect(invoke).toHaveBeenCalledWith("mahjong-soul:get-session-status");
+  });
+
+  it("passes every fixed source error code through verbatim", async () => {
+    const passthrough = [
+      "mahjong_soul_record_container_invalid",
+      "mahjong_soul_canonical_unsupported_semantics",
+      "mahjong_soul_canonical_mapping_failed",
+      "mahjong_soul_canonical_validation_failed",
+      "mahjong_soul_login_protocol_unsupported",
+    ];
+    const paipu = exposed.get("riichiCoachPaipu") as {
+      importPaipu(input: unknown): Promise<unknown>;
+    };
+    const request = {
+      shareUrl: "https://game.maj-soul.com/1/?paipu=260811-00000000-0000-0000-0000-000000000001_a1",
+      selfActor: 0,
+    };
+    for (const code of passthrough) {
+      invoke.mockImplementationOnce(() => { throw new Error(code); });
+      await expect(paipu.importPaipu(request)).rejects.toThrow(code);
+    }
+  });
+
+  it("accepts only the fixed safe paipu import result shape", () => {
+    const ready = {
+      status: "analysis_ready",
+      recordId: "260811-00000000-0000-0000-0000-000000000001",
+      selfActor: 3,
+      canonicalEventCount: 1024,
+      replayDecisionCount: 116,
+    };
+    expect(assertSafePaipuImportResult(ready)).toBeDefined();
+    for (const status of ["invalid_url", "invalid_self_actor", "no_capture", "unsupported_semantics", "analysis_failed"]) {
+      expect(assertSafePaipuImportResult({ status })).toBeDefined();
+      // Exactly one key: a status plus anything else is refused.
+      expect(() => assertSafePaipuImportResult({ status, extra: 1 }))
+        .toThrow("mahjong_soul_login_protocol_unsupported");
+    }
+    // Raw bytes / credential fields can never ride along.
+    for (const key of ["recordBytes", "rawRecord", "accessToken", "token", "accountId", "endpoint", "cookies"]) {
+      expect(() => assertSafePaipuImportResult({ ...ready, [key]: "secret" }))
+        .toThrow("mahjong_soul_login_protocol_unsupported");
+    }
+    // Wrong shapes for the ready payload.
+    expect(() => assertSafePaipuImportResult({ ...ready, selfActor: 9 }))
+      .toThrow("mahjong_soul_login_protocol_unsupported");
+    expect(() => assertSafePaipuImportResult({ ...ready, canonicalEventCount: 1.5 }))
+      .toThrow("mahjong_soul_login_protocol_unsupported");
+    expect(() => assertSafePaipuImportResult({ status: "evil" }))
+      .toThrow("mahjong_soul_login_protocol_unsupported");
+    expect(() => assertSafePaipuImportResult(null))
+      .toThrow("mahjong_soul_login_protocol_unsupported");
+  });
+
+  it("validates the import envelope before invoking, and forwards the dedicated channel", async () => {
+    invoke.mockClear();
+    const paipu = exposed.get("riichiCoachPaipu") as {
+      importPaipu(input: unknown): Promise<unknown>;
+    };
+    const request = {
+      shareUrl: "https://game.maj-soul.com/1/?paipu=260811-00000000-0000-0000-0000-000000000001_a1",
+      selfActor: 2,
+    };
+    for (const bad of [
+      undefined,
+      null,
+      "url",
+      { shareUrl: "https://game.maj-soul.com/" },
+      { ...request, selfActor: "2" },
+      { ...request, extra: true },
+      { shareUrl: "", selfActor: 0 },
+      { shareUrl: "x".repeat(513), selfActor: 0 },
+    ]) {
+      await expect(paipu.importPaipu(bad)).rejects.toThrow("mahjong_soul_login_protocol_unsupported");
+    }
+    expect(invoke).not.toHaveBeenCalled();
+
+    invoke.mockResolvedValueOnce({ status: "no_capture" });
+    await expect(paipu.importPaipu(request)).resolves.toEqual({ status: "no_capture" });
+    expect(invoke).toHaveBeenCalledWith("mahjong-soul:import-paipu-url", request);
+
+    // Arbitrary error messages collapse to the fixed protocol error.
+    invoke.mockImplementationOnce(() => { throw new Error("leaky message"); });
+    await expect(paipu.importPaipu(request)).rejects.toThrow("mahjong_soul_login_protocol_unsupported");
+    // Fixed source error codes pass through.
+    invoke.mockImplementationOnce(() => { throw new Error("mahjong_soul_canonical_unsupported_semantics"); });
+    await expect(paipu.importPaipu(request)).rejects.toThrow("mahjong_soul_canonical_unsupported_semantics");
   });
 });
