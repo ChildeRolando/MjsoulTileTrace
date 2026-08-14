@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import {
   CanonicalEventStreamSchema,
   canonicalEventId,
+  sortTilesCanonical,
   type CanonicalEventStream,
   type CanonicalGameEvent,
   type Tile,
@@ -115,23 +116,37 @@ export function mapMahjongSoulRecord(input: {
     let nextRoundOrdinal = 0;
     let roundWind: "E" | "S" | "W" = "E";
     let roundDealer = 0;
-    const pendingRiichi = new Map<number, string>();
     const consumedDiscards = new Set<string>();
+    // After a kan, the kan actor's next RecordDealTile is the replacement
+    // (rinshan) draw — the canonical state machine rejects it as live_wall.
+    const rinshanDrawDue = new Map<number, number>();
+    // Events of the current round only: kan/pon provenance never crosses a
+    // round boundary.
+    let roundStartEventIndex = 0;
+    // The event that terminated the current round (last win of a hule, or the
+    // round_drawn); the follow-up round_ended binds to it before the next
+    // round_started. The synthesized round_ended continues the terminal's own
+    // source position (next contiguous sub-event ordinal) because the stream
+    // schema binds each source position to exactly one sourceRecordRef.
+    let lastTerminalEventRef: string | null = null;
+    let terminalContinuation: { readonly ordinal: number; readonly nextSub: number } | null = null;
 
     const push = (
       sourceRecordOrdinal: number,
       subEventOrdinal: number,
       event: CanonicalEventBody,
-    ): void => {
+    ): string => {
+      const eventId = canonicalEventId(input.gameId, {
+        roundOrdinal: currentRoundOrdinal,
+        sourceRecordOrdinal,
+        subEventOrdinal,
+      });
       events.push({
         ...event,
-        eventId: canonicalEventId(input.gameId, {
-          roundOrdinal: currentRoundOrdinal,
-          sourceRecordOrdinal,
-          subEventOrdinal,
-        }),
+        eventId,
         sourceRecordRef: sourceRef(input.recordId, sourceRecordOrdinal),
       } as CanonicalGameEvent);
+      return eventId;
     };
 
     // Synthesized game boundary before the first source action.
@@ -142,6 +157,17 @@ export function mapMahjongSoulRecord(input: {
       const data = action.data;
 
       if (action.name === "RecordNewRound") {
+        // Close the terminated round before opening the next one; the state
+        // machine only allows round_started from between_rounds. The eventId
+        // still binds to the ENDING round (currentRoundOrdinal updates below).
+        if (lastTerminalEventRef !== null && terminalContinuation !== null) {
+          push(terminalContinuation.ordinal, terminalContinuation.nextSub, {
+            type: "round_ended",
+            terminalEventRef: lastTerminalEventRef,
+          });
+          lastTerminalEventRef = null;
+          terminalContinuation = null;
+        }
         const chang = u32(data.chang);
         const dealer = seat(data.ju);
         const honba = u32(data.ben);
@@ -167,6 +193,7 @@ export function mapMahjongSoulRecord(input: {
 
         currentRoundOrdinal = nextRoundOrdinal;
         nextRoundOrdinal += 1;
+        roundStartEventIndex = events.length;
         roundWind = parseMajsoulRoundWind(chang);
         roundDealer = dealer;
         push(ordinal, 0, {
@@ -187,7 +214,7 @@ export function mapMahjongSoulRecord(input: {
           // left null rather than guessed.
           remainingDraws: null,
         });
-        pendingRiichi.clear();
+        rinshanDrawDue.clear();
         if (dealerDraw !== undefined) {
           push(ordinal, 1, {
             type: "tile_drawn",
@@ -203,6 +230,8 @@ export function mapMahjongSoulRecord(input: {
 
       if (action.name === "RecordDealTile") {
         const actor = seat(data.seat);
+        const from = rinshanDrawDue.has(actor) ? "rinshan" : "live_wall";
+        rinshanDrawDue.delete(actor);
         if (actor === input.selfActor) {
           const tile = typeof data.tile === "string" ? data.tile : undefined;
           if (tile === undefined) throw mappingFailed();
@@ -210,14 +239,14 @@ export function mapMahjongSoulRecord(input: {
             type: "tile_drawn",
             actor,
             tile: { visibility: "visible", tile: parseMajsoulTile(tile) },
-            from: "live_wall",
+            from,
           });
         } else {
           push(ordinal, 0, {
             type: "tile_drawn",
             actor,
             tile: { visibility: "hidden" },
-            from: "live_wall",
+            from,
           });
         }
         continue;
@@ -228,23 +257,24 @@ export function mapMahjongSoulRecord(input: {
         const tile = parseMajsoulTile(data.tile);
         const isRiichi = data.is_liqi === true;
         const moqie = data.moqie === true;
+        // The stored record marks riichi on the discard itself; the canonical
+        // model splits it into declaration → discard → acceptance. The stored
+        // wire has no reach_accepted equivalent — the stick definitively
+        // stands in the record — so acceptance is synthesized immediately.
+        let declarationEventRef: string | null = null;
         if (isRiichi) {
-          push(ordinal, 0, { type: "riichi_declared", actor });
-          pendingRiichi.set(actor, canonicalEventId(input.gameId, {
-            roundOrdinal: currentRoundOrdinal,
-            sourceRecordOrdinal: ordinal,
-            subEventOrdinal: 0,
-          }));
+          declarationEventRef = push(ordinal, 0, { type: "riichi_declared", actor });
         }
         push(ordinal, isRiichi ? 1 : 0, {
           type: "tile_discarded",
           actor,
           tile,
           discardMode: moqie ? "tsumogiri" : "tedashi",
-          riichiDeclarationEventRef: isRiichi
-            ? pendingRiichi.get(actor) ?? null
-            : null,
+          riichiDeclarationEventRef: declarationEventRef,
         });
+        if (declarationEventRef !== null) {
+          push(ordinal, 2, { type: "riichi_accepted", actor, declarationEventRef });
+        }
         continue;
       }
 
@@ -279,7 +309,10 @@ export function mapMahjongSoulRecord(input: {
         consumedDiscards.add(discard.eventId);
         if (type === 0 || type === 1) {
           if (consumed.length !== 2) throw mappingFailed();
-          const consumedTiles: [Tile, Tile] = [consumed[0]!, consumed[1]!];
+          // Wire order is not canonical (e.g. a pon consumed pair can arrive
+          // as [5p, red 5p] or the reverse); sort before emitting.
+          const sorted = sortTilesCanonical(consumed);
+          const consumedTiles: [Tile, Tile] = [sorted[0]!, sorted[1]!];
           push(ordinal, 0, {
             type: type === 0 ? "chi_called" : "pon_called",
             actor, targetActor: target,
@@ -287,7 +320,8 @@ export function mapMahjongSoulRecord(input: {
           });
         } else if (type === 2) {
           if (consumed.length !== 3) throw mappingFailed();
-          const consumedTiles: [Tile, Tile, Tile] = [consumed[0]!, consumed[1]!, consumed[2]!];
+          const sorted = sortTilesCanonical(consumed);
+          const consumedTiles: [Tile, Tile, Tile] = [sorted[0]!, sorted[1]!, sorted[2]!];
           push(ordinal, 0, {
             type: "daiminkan_called", actor, targetActor: target,
             calledTile, consumedTiles, calledDiscardEventRef: discard.eventId,
@@ -299,9 +333,57 @@ export function mapMahjongSoulRecord(input: {
       }
 
       if (action.name === "RecordAnGangAddGang") {
-        // The `type` discriminator between ankan and kakan is not documented in
-        // the pinned protocol and no sanitized fixture exists; the `tiles` field
-        // is a single concatenated string. Mapping 0/2 to ankan would be a guess.
+        // The wire carries ONE tile string naming the kan tile; the
+        // discriminator is `type`, pinned by the two real fixtures (see
+        // real-record-fixtures.test.ts): 3 = ankan — the actor provably held
+        // all four concealed copies with no prior meld (source ordinal 561);
+        // 2 = kakan — the actor provably upgrades their earlier pon of the
+        // same tile (ordinal 1139 upgrading the pon at 1053). Any other
+        // value is unattested and stays unsupported; no guessing the rest of
+        // the enum from Action* experience.
+        const actor = seat(data.seat);
+        const type = u32(data.type);
+        if (typeof data.tiles !== "string" || data.tiles.length === 0) {
+          throw mappingFailed();
+        }
+        if (type === 3) {
+          const tile = parseMajsoulTile(data.tiles);
+          // A kan of a five cannot be rebuilt from one string: which of the
+          // four copies is the red five is not on the wire. Keep failing
+          // closed until a real five-kan fixture pins the encoding.
+          if (tile.id.startsWith("5")) throw unsupportedSemantics();
+          // An ankan can never coexist with the actor's own pon of the same
+          // tile in one round; contradiction means the wire drifted.
+          const priorPon = events.slice(roundStartEventIndex)
+            .findLast((candidate) =>
+              candidate.type === "pon_called" && candidate.actor === actor
+              && candidate.calledTile.id === tile.id);
+          if (priorPon !== undefined) throw mappingFailed();
+          const kanTiles: [Tile, Tile, Tile, Tile] = [
+            { ...tile }, { ...tile }, { ...tile }, { ...tile },
+          ];
+          push(ordinal, 0, { type: "ankan_declared", actor, tiles: kanTiles });
+          rinshanDrawDue.set(actor, ordinal);
+          continue;
+        }
+        if (type === 2) {
+          const addedTile = parseMajsoulTile(data.tiles);
+          const pon = events.slice(roundStartEventIndex)
+            .findLast((candidate) =>
+              candidate.type === "pon_called" && candidate.actor === actor
+              && candidate.calledTile.id === addedTile.id);
+          if (pon === undefined || pon.type !== "pon_called") {
+            throw mappingFailed();
+          }
+          push(ordinal, 0, {
+            type: "kakan_declared",
+            actor,
+            addedTile: { ...addedTile },
+            upgradedPonEventRef: pon.eventId,
+          });
+          rinshanDrawDue.set(actor, ordinal);
+          continue;
+        }
         throw unsupportedSemantics();
       }
 
@@ -335,7 +417,7 @@ export function mapMahjongSoulRecord(input: {
           const targetActor = !zimo && source.type === "tile_discarded"
             ? source.actor
             : null;
-          push(ordinal, subEvent, {
+          lastTerminalEventRef = push(ordinal, subEvent, {
             type: "win_declared",
             winnerActor: winner,
             targetActor,
@@ -347,6 +429,7 @@ export function mapMahjongSoulRecord(input: {
           subEvent += 1;
         }
         if (subEvent === 0) throw mappingFailed();
+        terminalContinuation = { ordinal, nextSub: subEvent };
         continue;
       }
 
@@ -365,11 +448,12 @@ export function mapMahjongSoulRecord(input: {
             tenpaiActors.push(seatIndex);
           }
         }
-        push(ordinal, 0, {
+        lastTerminalEventRef = push(ordinal, 0, {
           type: "round_drawn",
           reason: "exhaustive",
           tenpaiActors,
         });
+        terminalContinuation = { ordinal, nextSub: 1 };
         continue;
       }
 

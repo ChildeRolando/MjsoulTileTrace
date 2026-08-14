@@ -146,6 +146,33 @@ function frameBuilders(bundle: MahjongSoulProtocolBundle): FrameBuilders {
   };
 }
 
+// Builds a synthetic outer-wrapped GameDetailRecords for records the mapper
+// must refuse (unattested kan semantics): the fixture set has no such game.
+function encodeSyntheticRecord(
+  bundle: MahjongSoulProtocolBundle,
+  actions: ReadonlyArray<{ name: string; data: Record<string, unknown> }>,
+): Uint8Array {
+  const root = parse(bundle.protoText, { keepCase: true }).root;
+  const wrapperType = root.lookupType("lq.Wrapper");
+  const gameActionType = root.lookupType("lq.GameAction");
+  const recordsType = root.lookupType("lq.GameDetailRecords");
+  const gameActions = actions.map(({ name, data }) => {
+    const actionType = root.lookupType(`lq.${name}`);
+    const actionBytes = actionType.encode(actionType.fromObject(data)).finish();
+    const wrapperBytes = wrapperType.encode(
+      wrapperType.fromObject({ name: `.lq.${name}`, data: actionBytes }),
+    ).finish();
+    return gameActionType.fromObject({ result: wrapperBytes });
+  });
+  const inner = recordsType.encode(recordsType.fromObject({
+    version: 210715,
+    actions: gameActions,
+  })).finish();
+  return wrapperType.encode(
+    wrapperType.fromObject({ name: ".lq.GameDetailRecords", data: inner }),
+  ).finish();
+}
+
 const cdpCreated = { requestId: "socket-1", url: "wss://route-2.maj-soul.com/gateway" };
 const cdpFrame = (payload: Uint8Array) => ({
   requestId: "socket-1",
@@ -241,17 +268,32 @@ describe("capture-record diagnostic runner", () => {
     await rm(workDir, { recursive: true, force: true });
   });
 
-  it("reports a full real game containing AnGangAddGang as unsupported, with no audit", async () => {
+  it("reports a record with unattested kan semantics as unsupported, with no audit", async () => {
     const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
-    const fixture = loadFixtureWire("real-record-wire");
+    const synthetic = encodeSyntheticRecord(bundle, [
+      {
+        name: "RecordNewRound",
+        data: {
+          chang: 0, ju: 0, ben: 0, doras: ["1z"], scores: [25000, 25000, 25000, 25000],
+          liqibang: 0, left_tile_count: 69,
+          tiles0: ["1m", "2m", "3m", "4m", "5m", "6m", "7m", "8m", "9m", "1p", "2p", "3p", "4p"],
+          tiles1: ["1m", "2m", "3m", "4m", "5m", "6m", "7m", "8m", "9m", "1p", "2p", "3p", "4p"],
+          tiles2: ["1m", "2m", "3m", "4m", "5m", "6m", "7m", "8m", "9m", "1p", "2p", "3p", "4p"],
+          tiles3: ["1m", "2m", "3m", "4m", "5m", "6m", "7m", "8m", "9m", "1p", "2p", "3p", "4p", "5p"],
+        },
+      },
+      // Type 9 is not attested by any real fixture; the mapper must refuse it
+      // instead of guessing an enum meaning.
+      { name: "RecordAnGangAddGang", data: { seat: 3, type: 9, tiles: "3s" } },
+    ]);
     const workDir = await mkdtemp(join(tmpdir(), "majsoul-capture-test-"));
     let auditsWritten = 0;
-    const { createWindow } = scriptedCapture(bundle, { data: fixture.wire });
+    const { createWindow } = scriptedCapture(bundle, { data: synthetic });
 
     const result = await runRecordCaptureDiagnostic({
       bundle,
       url: "https://game.maj-soul.com/1/?paipu=000000-00000000-0000-0000-0000-000000000001_a123456",
-      recordId: fixture.recordId,
+      recordId: "000000-00000000-0000-0000-0000-000000000001",
       selfActor: 0,
       createWindow,
       timeoutMs: 5_000,
@@ -263,7 +305,7 @@ describe("capture-record diagnostic runner", () => {
           buildMahjongSoulReplayAudit({
             stream,
             decisions,
-            recordId: fixture.recordId,
+            recordId: "000000-00000000-0000-0000-0000-000000000001",
             protocolVersion: "fixture",
             appVersion: "fixture",
             now: () => 1_700_000_000_000,
@@ -276,13 +318,12 @@ describe("capture-record diagnostic runner", () => {
       },
     });
 
-    // The honest outcome for the live full game: every action decoded, the
-    // mapper refused the ankan/kakan semantics, nothing passed off as a
-    // complete replay.
+    // The honest outcome: everything decoded, the mapper refused the
+    // unattested semantics, nothing passed off as a complete replay.
     expect(result.status).toBe("record_not_replayable");
     expect(result.mappingStatus).toBe("unsupported_semantics");
     expect(result.mappingCode).toBe("mahjong_soul_canonical_unsupported_semantics");
-    expect(result.storedActionCount).toBe(978);
+    expect(result.storedActionCount).toBe(2);
     expect(result.canonicalEventCount).toBeNull();
     expect(result.replayDecisionCount).toBeNull();
     expect(result.auditPath).toBeNull();

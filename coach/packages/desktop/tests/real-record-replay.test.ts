@@ -9,6 +9,7 @@ import {
   buildMahjongSoulReplayAudit,
   replayCanonicalStream,
   serializeMahjongSoulReplayAudit,
+  validateCanonicalEventStream,
 } from "@riichi-coach/reasoning";
 import { describe, expect, it } from "vitest";
 
@@ -71,5 +72,32 @@ describe("real supported round: full map → replay → audit chain", () => {
     expect(JSON.parse(serialized) as { recordId: string }).toEqual(
       expect.objectContaining({ recordId: fixture.recordId }),
     );
+  });
+
+  // The FULL real game (1616 actions incl. both kans) maps and passes the
+  // canonical state-machine validation. Replaying its decisions is measured
+  // at ~1s per decision (~2min for the whole game), so the decision/audit
+  // stage stays covered by the single-round test above.
+  it("maps the full real game and passes canonical stream validation", async () => {
+    const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
+    const fixture = JSON.parse(readFileSync(new URL(
+      "../../mahjong-soul-source/tests/fixtures/real-record-wire.json",
+      import.meta.url,
+    ), "utf8")) as RealSupportedRoundFixture;
+    const recordBytes = unwrapGameDetailRecords(
+      bundle,
+      Uint8Array.from(Buffer.from(fixture.wire, "hex")),
+    );
+    const mapped = mapMahjongSoulRecord({
+      gameId: "majsoul:real-record-full-game",
+      selfActor: 0,
+      recordId: fixture.recordId,
+      recordBytes,
+      bundle,
+    });
+    expect(mapped.status).toBe("ready");
+    if (mapped.status !== "ready") return;
+    expect(mapped.stream.events.length).toBe(1022);
+    expect(validateCanonicalEventStream(mapped.stream)).toEqual({ status: "valid" });
   });
 });
