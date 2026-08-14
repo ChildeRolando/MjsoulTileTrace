@@ -137,13 +137,14 @@ describe("sanitized real stored-record fixtures", () => {
       const type = u32(call.data.type);
       const tiles = call.data.tiles;
       const froms = call.data.froms;
-      expect(Array.isArray(tiles)).toBe(true);
-      expect(Array.isArray(froms)).toBe(true);
+      if (!Array.isArray(tiles) || !Array.isArray(froms)) {
+        throw new Error("bad RecordChiPengGang fixture wire");
+      }
       expect(froms.length).toBe(tiles.length);
 
       // Exactly one froms entry differs from the actor seat.
-      const nonActor = (froms as unknown[])
-        .map((from, index) => ({ from: from as number, index }))
+      const nonActor = froms
+        .map((from, index) => ({ from: u32(from), index }))
         .filter(({ from }) => from !== actor);
       expect(nonActor.length).toBe(1);
       const calledIndex = nonActor[0]!.index;

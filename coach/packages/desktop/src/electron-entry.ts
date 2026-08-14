@@ -25,7 +25,10 @@ import {
   type MahjongSoulLobbySession,
   type RawRecordListEntry,
 } from "@riichi-coach/mahjong-soul-source";
-import type { CanonicalEventStream } from "@riichi-coach/contracts";
+import {
+  parseMahjongSoulCnShareUrl,
+  type CanonicalEventStream,
+} from "@riichi-coach/contracts";
 import {
   buildMahjongSoulReplayAudit,
   replayCanonicalStream,
@@ -52,7 +55,11 @@ import {
   restoreDiagnosticExitCode,
   runMahjongSoulRestoreDiagnostic,
 } from "./restore-diagnostic-runner.js";
-import { runRecordCaptureDiagnostic, type CaptureRecordWindowPort } from "./capture-record-diagnostic-runner.js";
+import {
+  captureRecordDiagnosticExitCode,
+  runRecordCaptureDiagnostic,
+  type CaptureRecordWindowPort,
+} from "./capture-record-diagnostic-runner.js";
 import { createMahjongSoulSessionService } from "./mahjong-soul-session-service.js";
 import {
   createMainWindowOptions,
@@ -186,9 +193,42 @@ async function start(): Promise<void> {
       app.exit(2);
       return;
     }
+    // Identity never defaults: the observed seat is required, and the record
+    // id is derived strictly from the paipu URL (deterministic parse).
+    const selfActorIndex = process.argv.indexOf("--self-actor");
+    const selfActorArg = selfActorIndex >= 0 && selfActorIndex + 1 < process.argv.length
+      ? process.argv[selfActorIndex + 1]
+      : undefined;
+    const selfActor = selfActorArg === "0" || selfActorArg === "1"
+      || selfActorArg === "2" || selfActorArg === "3"
+      ? Number(selfActorArg)
+      : undefined;
+    if (selfActor === undefined) {
+      console.error(
+        "[riichi-coach] mahjong-soul-capture-record:error missing_required_flag --self-actor 0|1|2|3",
+      );
+      app.exit(2);
+      return;
+    }
+    let recordId: string;
+    try {
+      recordId = parseMahjongSoulCnShareUrl(url).recordId;
+    } catch {
+      console.error(
+        "[riichi-coach] mahjong-soul-capture-record:error invalid_paipu_url",
+      );
+      app.exit(2);
+      return;
+    }
+    const captureAuditDir = join(
+      app.getPath("userData"),
+      "mahjong-soul-replay-audit",
+    );
     const result = await runRecordCaptureDiagnostic({
       bundle,
       url,
+      recordId,
+      selfActor,
       createWindow: () => {
         const window = new BrowserWindow({
           show: true,
@@ -214,13 +254,29 @@ async function start(): Promise<void> {
         return window as unknown as CaptureRecordWindowPort;
       },
       timeoutMs: 240_000,
+      pipeline: {
+        mapRecord: (input) => mapMahjongSoulRecord({ ...input, bundle }),
+        replay: replayCanonicalStream,
+        serializeAudit: ({ stream, decisions }) => serializeMahjongSoulReplayAudit(
+          buildMahjongSoulReplayAudit({
+            stream,
+            decisions,
+            recordId,
+            protocolVersion: MAHJONG_SOUL_PROTOCOL_BUNDLE_VERSION,
+            appVersion: DESKTOP_APP_VERSION,
+            now: Date.now,
+          }),
+        ),
+        writeAudit: (serialized) =>
+          writeReplayAuditFile(captureAuditDir, recordId, serialized),
+      },
     });
     const resultPath = join(app.getPath("temp"), "mahjong-soul-capture-result.json");
     await writeFile(resultPath, JSON.stringify(result));
     console.log(
       `[riichi-coach] mahjong-soul-capture-record:${JSON.stringify(result)} ${resultPath}`,
     );
-    app.exit(result.status === "record_captured" && result.error === null ? 0 : 1);
+    app.exit(captureRecordDiagnosticExitCode(result.status));
     return;
   }
   if (process.argv.includes("--diagnose-mahjong-soul-replay")) {

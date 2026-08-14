@@ -1,14 +1,34 @@
 import { appendFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { parse as parseProtobuf } from "protobufjs";
-import type { MahjongSoulProtocolBundle } from "@riichi-coach/mahjong-soul-source";
+import type { CanonicalEventStream } from "@riichi-coach/contracts";
+import {
+  decodeStoredRecordActions,
+  MahjongSoulSourceError,
+  type MahjongSoulCanonicalMapperResult,
+  type MahjongSoulMapperDiagnostic,
+  type MahjongSoulProtocolBundle,
+} from "@riichi-coach/mahjong-soul-source";
+import type { ReplayedDecision } from "@riichi-coach/reasoning";
 import { createCdpRecordObserver } from "./cdp-record-observer.js";
 
-// One-shot prototype: open the official paipu viewer in a Chromium window, ride
-// its own Lobby WebSocket via CDP, and passively capture the inline
-// `fetchGameRecord` response. Then decode `GameDetailRecords` to prove the
-// browser-session route works. Never logs the record bytes.
+// One-shot diagnostic: open the official paipu viewer in a Chromium window,
+// ride its own Lobby WebSocket via CDP, and passively capture the inline
+// `fetchGameRecord` response. The capture ALREADY performed the strict outer
+// unwrap, so `result.recordBytes` is the INNER GameDetailRecords bytes — the
+// unified recordBytes boundary shared with the HTTP fetcher. There is no
+// second unwrap here; the bytes go straight into the canonical pipeline:
+//
+//   CDP frame -> createMahjongSoulRecordCapture (outer unwrap done)
+//             -> recordBytes (INNER GameDetailRecords)
+//             -> decodeStoredRecordActions (diagnostic counts only)
+//             -> mapMahjongSoulRecord -> replayCanonicalStream
+//             -> buildMahjongSoulReplayAudit -> serializeMahjongSoulReplayAudit
+//
+// A record the mapper cannot fully interpret (e.g. RecordAnGangAddGang /
+// RecordLiuJu) is reported as record_not_replayable with the fixed mapping
+// code; no partial stream is ever passed off as a complete replay. The result
+// object and the debug log never contain the record bytes themselves.
 export interface CaptureRecordWindowPort {
   readonly webContents: {
     readonly debugger: {
@@ -25,27 +45,56 @@ export interface CaptureRecordWindowPort {
   isDestroyed(): boolean;
 }
 
-export interface LegacyRecordProbe {
-  readonly byteLength: number;
-  readonly uuid: string | null;
-  readonly startTime: number | null;
-  readonly accountsCount: number | null;
-  readonly standardRule: number | null;
-  readonly hasResult: boolean;
-  readonly configKeys: readonly string[];
-}
+export type CaptureRecordMappingStatus =
+  | "ready"
+  | "unsupported_semantics"
+  | "mapping_failed"
+  | "validation_failed";
+
+export type CaptureRecordDiagnosticStatus =
+  | "replay_audit_written"
+  | "record_not_replayable"
+  | "record_decode_failed"
+  | "no_capture"
+  | "error";
 
 export type CaptureRecordResult = Readonly<{
-  readonly status: "record_captured" | "no_capture" | "error";
-  readonly actionCount: number | null;
-  readonly recordCount: number | null;
-  readonly container: "actions" | "records" | null;
-  readonly error: string | null;
-  readonly legacyRecord: LegacyRecordProbe | null;
+  readonly status: CaptureRecordDiagnosticStatus;
+  readonly storedActionCount: number | null;
+  readonly mappingStatus: CaptureRecordMappingStatus | null;
+  readonly mappingCode: string | null;
+  readonly canonicalEventCount: number | null;
+  readonly replayDecisionCount: number | null;
+  readonly auditPath: string | null;
+  readonly recordBytesPath: string | null;
+  readonly errorCode: string | null;
 }>;
 
-function isRecord(value: unknown): value is Record<string, unknown> {
-  return value !== null && typeof value === "object" && !Array.isArray(value);
+export interface CaptureRecordPipeline {
+  readonly mapRecord: (input: {
+    readonly gameId: string;
+    readonly selfActor: number;
+    readonly recordId: string;
+    readonly recordBytes: Uint8Array;
+  }) => MahjongSoulCanonicalMapperResult;
+  readonly replay: (stream: CanonicalEventStream) => readonly ReplayedDecision[];
+  readonly serializeAudit: (input: {
+    readonly stream: CanonicalEventStream;
+    readonly decisions: readonly ReplayedDecision[];
+  }) => string;
+  readonly writeAudit: (serialized: string) => Promise<string>;
+}
+
+export function captureRecordDiagnosticExitCode(
+  status: CaptureRecordDiagnosticStatus,
+): number {
+  switch (status) {
+    case "replay_audit_written": return 0;
+    case "record_not_replayable": return 1;
+    case "record_decode_failed": return 2;
+    case "no_capture": return 3;
+    case "error": return 4;
+  }
 }
 
 const debugPath = join(tmpdir(), "mahjong-soul-capture-debug.log");
@@ -57,94 +106,182 @@ function debug(message: string): void {
   }
 }
 
-function probeLegacyRecord(root: ReturnType<typeof parseProtobuf>["root"], blob: Uint8Array): LegacyRecordProbe {
-  try {
-    const type = root.lookupType("lq.RecordGame");
-    const decoded = type.toObject(type.decode(blob), {
-      arrays: true,
-      bytes: Uint8Array,
-      defaults: true,
-    }) as Record<string, unknown>;
-    return Object.freeze({
-      byteLength: blob.length,
-      uuid: typeof decoded.uuid === "string" ? decoded.uuid : null,
-      startTime: typeof decoded.start_time === "number" ? decoded.start_time : null,
-      accountsCount: Array.isArray(decoded.accounts) ? decoded.accounts.length : null,
-      standardRule: typeof decoded.standard_rule === "number" ? decoded.standard_rule : null,
-      hasResult: decoded.result !== undefined && decoded.result !== null,
-      configKeys: isRecord(decoded.config) ? Object.freeze(Object.keys(decoded.config)) : [],
-    });
-  } catch {
-    return Object.freeze({
-      byteLength: blob.length,
-      uuid: null,
-      startTime: null,
-      accountsCount: null,
-      standardRule: null,
-      hasResult: false,
-      configKeys: [],
-    });
+function result(fields: {
+  readonly status: CaptureRecordDiagnosticStatus;
+  readonly storedActionCount?: number | null;
+  readonly mappingStatus?: CaptureRecordMappingStatus | null;
+  readonly mappingCode?: string | null;
+  readonly canonicalEventCount?: number | null;
+  readonly replayDecisionCount?: number | null;
+  readonly auditPath?: string | null;
+  readonly recordBytesPath?: string | null;
+  readonly errorCode?: string | null;
+}): CaptureRecordResult {
+  return Object.freeze({
+    status: fields.status,
+    storedActionCount: fields.storedActionCount ?? null,
+    mappingStatus: fields.mappingStatus ?? null,
+    mappingCode: fields.mappingCode ?? null,
+    canonicalEventCount: fields.canonicalEventCount ?? null,
+    replayDecisionCount: fields.replayDecisionCount ?? null,
+    auditPath: fields.auditPath ?? null,
+    recordBytesPath: fields.recordBytesPath ?? null,
+    errorCode: fields.errorCode ?? null,
+  });
+}
+
+function mappingStatusOf(
+  code: MahjongSoulMapperDiagnostic,
+): CaptureRecordMappingStatus {
+  switch (code) {
+    case "mahjong_soul_canonical_unsupported_semantics": return "unsupported_semantics";
+    case "mahjong_soul_canonical_validation_failed": return "validation_failed";
+    default: return "mapping_failed";
   }
 }
 
-function decodeResult(
-  bundle: MahjongSoulProtocolBundle,
-  bytes: Uint8Array,
-): CaptureRecordResult {
+// The post-capture chain. `recordBytes` is the INNER GameDetailRecords bytes;
+// decodeStoredRecordActions runs only for the diagnostic counts (the mapper
+// decodes internally — this must not become a second mapper API).
+async function evaluateCapturedRecord(input: {
+  readonly bundle: MahjongSoulProtocolBundle;
+  readonly recordBytes: Uint8Array;
+  readonly recordId: string;
+  readonly selfActor: number;
+  readonly pipeline: CaptureRecordPipeline;
+  readonly recordBytesPath: string | null;
+}): Promise<CaptureRecordResult> {
+  let storedActionCount: number;
   try {
-    const root = parseProtobuf(bundle.protoText, { keepCase: true }).root;
-    const type = root.lookupType("lq.GameDetailRecords");
-    const decoded = type.toObject(type.decode(bytes), {
-      arrays: true,
-      bytes: Uint8Array,
-      defaults: true,
-    }) as Record<string, unknown>;
-    const actions = Array.isArray(decoded.actions) ? decoded.actions : [];
-    const records = Array.isArray(decoded.records) ? decoded.records : [];
-    const actionCount = actions.filter((entry) =>
-      isRecord(entry)
-      && entry.result instanceof Uint8Array
-      && entry.result.length > 0
+    storedActionCount = decodeStoredRecordActions(
+      input.bundle,
+      input.recordBytes,
     ).length;
-    const recordCount = records.filter((entry) =>
-      entry instanceof Uint8Array && entry.length > 0
-    ).length;
-    if (actionCount === 0 && recordCount === 0) {
-      return Object.freeze({
-        status: "record_captured", actionCount, recordCount, container: null,
-        error: "empty_container", legacyRecord: null,
-      });
-    }
-    const legacyBlob = records.find((entry) => entry instanceof Uint8Array && entry.length > 0);
-    return Object.freeze({
-      status: "record_captured",
-      actionCount,
-      recordCount,
-      container: actionCount > 0 ? "actions" : "records",
-      error: null,
-      legacyRecord: legacyBlob instanceof Uint8Array
-        ? probeLegacyRecord(root, legacyBlob)
-        : null,
-    });
   } catch (error) {
-    return Object.freeze({
-      status: "error",
-      actionCount: null,
-      recordCount: null,
-      container: null,
-      error: error instanceof Error ? error.message : String(error),
-      legacyRecord: null,
+    const errorCode = error instanceof MahjongSoulSourceError
+      ? error.code
+      : "mahjong_soul_record_container_invalid";
+    return result({
+      status: "record_decode_failed",
+      errorCode,
+      recordBytesPath: input.recordBytesPath,
     });
   }
+
+  let mapped: MahjongSoulCanonicalMapperResult;
+  try {
+    mapped = input.pipeline.mapRecord({
+      gameId: `majsoul:${input.recordId}`,
+      selfActor: input.selfActor,
+      recordId: input.recordId,
+      recordBytes: input.recordBytes,
+    });
+  } catch {
+    return result({
+      status: "error",
+      storedActionCount,
+      mappingStatus: "mapping_failed",
+      mappingCode: "mahjong_soul_canonical_mapping_failed",
+      errorCode: "capture_mapping_failed",
+      recordBytesPath: input.recordBytesPath,
+    });
+  }
+
+  if (mapped.status !== "ready") {
+    return result({
+      status: "record_not_replayable",
+      storedActionCount,
+      mappingStatus: mappingStatusOf(mapped.code),
+      mappingCode: mapped.code,
+      recordBytesPath: input.recordBytesPath,
+    });
+  }
+
+  const canonicalEventCount = mapped.stream.events.length;
+  let decisions: readonly ReplayedDecision[];
+  try {
+    decisions = input.pipeline.replay(mapped.stream);
+  } catch {
+    return result({
+      status: "error",
+      storedActionCount,
+      mappingStatus: "ready",
+      mappingCode: null,
+      canonicalEventCount,
+      errorCode: "capture_replay_failed",
+      recordBytesPath: input.recordBytesPath,
+    });
+  }
+
+  let serialized: string;
+  try {
+    serialized = input.pipeline.serializeAudit({
+      stream: mapped.stream,
+      decisions,
+    });
+  } catch {
+    return result({
+      status: "error",
+      storedActionCount,
+      mappingStatus: "ready",
+      canonicalEventCount,
+      replayDecisionCount: decisions.length,
+      errorCode: "capture_audit_serialize_failed",
+      recordBytesPath: input.recordBytesPath,
+    });
+  }
+
+  let auditPath: string;
+  try {
+    auditPath = await input.pipeline.writeAudit(serialized);
+  } catch {
+    return result({
+      status: "error",
+      storedActionCount,
+      mappingStatus: "ready",
+      canonicalEventCount,
+      replayDecisionCount: decisions.length,
+      errorCode: "capture_audit_write_failed",
+      recordBytesPath: input.recordBytesPath,
+    });
+  }
+
+  return result({
+    status: "replay_audit_written",
+    storedActionCount,
+    mappingStatus: "ready",
+    canonicalEventCount,
+    replayDecisionCount: decisions.length,
+    auditPath,
+    recordBytesPath: input.recordBytesPath,
+  });
 }
 
 export async function runRecordCaptureDiagnostic(input: {
   readonly bundle: MahjongSoulProtocolBundle;
   readonly url: string;
+  readonly recordId: string;
+  readonly selfActor: number;
   readonly createWindow: () => CaptureRecordWindowPort;
   readonly timeoutMs: number;
+  readonly pipeline: CaptureRecordPipeline;
+  readonly recordBytesFile?: string;
 }): Promise<CaptureRecordResult> {
   debug("runner_start");
+  if (
+    typeof input.recordId !== "string"
+    || input.recordId.length === 0
+    || !Number.isInteger(input.selfActor)
+    || input.selfActor < 0
+    || input.selfActor > 3
+  ) {
+    // Identity never defaults: a missing seat or record id would silently
+    // misattribute the whole canonical stream.
+    return result({ status: "error", errorCode: "capture_identity_invalid" });
+  }
+  const recordBytesFile = input.recordBytesFile
+    ?? join(tmpdir(), "mahjong-soul-captured-record.pb");
+
   const window = input.createWindow();
   debug("window_created");
   const observer = createCdpRecordObserver({
@@ -161,41 +298,49 @@ export async function runRecordCaptureDiagnostic(input: {
       debug("timer_fired");
       if (settled) return;
       settled = true;
-      resolve(Object.freeze({
-        status: "no_capture", actionCount: null, recordCount: null, container: null,
-        error: null, legacyRecord: null,
-      }));
+      resolveDone(result({ status: "no_capture" }));
     }, input.timeoutMs);
   });
 
-  const settle = (value: CaptureRecordResult): void => {
+  const settle = (value: Promise<CaptureRecordResult> | CaptureRecordResult): void => {
     if (settled) return;
     settled = true;
     if (timer !== undefined) clearTimeout(timer);
-    debug(`settle_${value.status}`);
-    resolveDone(value);
+    debug("settle_started");
+    void Promise.resolve(value).then((resolved) => {
+      debug(`settle_${resolved.status}`);
+      resolveDone(resolved);
+    });
   };
 
   const onMessage = (_event: unknown, method: string, params: unknown): void => {
     debug(`cdp_${method}`);
     try {
-      const result = observer.accept(method, params);
-      if (result !== null) {
+      const captured = observer.accept(method, params);
+      if (captured !== null) {
         debug("captured_record");
+        // The generator's input contract: INNER GameDetailRecords bytes. The
+        // write is best-effort; the outcome is reported via recordBytesPath.
+        let recordBytesPath: string | null = null;
         try {
-          writeFileSync(join(tmpdir(), "mahjong-soul-captured-record.pb"), result.recordBytes);
+          writeFileSync(recordBytesFile, captured.recordBytes);
+          recordBytesPath = recordBytesFile;
           debug("record_bytes_written");
         } catch {
           debug("record_bytes_write_failed");
         }
-        settle(decodeResult(input.bundle, result.recordBytes));
+        settle(evaluateCapturedRecord({
+          bundle: input.bundle,
+          recordBytes: captured.recordBytes,
+          recordId: input.recordId,
+          selfActor: input.selfActor,
+          pipeline: input.pipeline,
+          recordBytesPath,
+        }));
       }
     } catch {
       debug("observe_error");
-      settle(Object.freeze({
-        status: "error", actionCount: null, recordCount: null, container: null,
-        error: "observe_failed", legacyRecord: null,
-      }));
+      settle(result({ status: "error", errorCode: "capture_observe_failed" }));
     }
   };
 
@@ -210,10 +355,7 @@ export async function runRecordCaptureDiagnostic(input: {
     return await done;
   } catch (error) {
     debug(`error_${error instanceof Error ? error.message : String(error)}`);
-    return Object.freeze({
-      status: "error", actionCount: null, recordCount: null, container: null,
-      error: error instanceof Error ? error.message : String(error), legacyRecord: null,
-    });
+    return result({ status: "error", errorCode: "capture_window_failed" });
   } finally {
     debug("finally");
     if (timer !== undefined) clearTimeout(timer);
