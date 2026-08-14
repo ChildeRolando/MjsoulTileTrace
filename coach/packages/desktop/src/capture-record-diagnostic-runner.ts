@@ -349,13 +349,17 @@ export async function runRecordCaptureDiagnostic(input: {
   };
 
   try {
-    debug("loadURL_start");
-    await window.loadURL(input.url);
-    debug("loadURL_done");
+    // P0-1 ordering: the observer must be fully ready BEFORE navigation. The
+    // official client opens its Lobby WebSocket while the paipu page loads,
+    // so attaching or listening after loadURL would miss those frames.
+    //   attach -> Network.enable -> message listener -> loadURL -> wait
     await observer.start();
     debug("observer_started");
     window.webContents.debugger.on("message", onMessage);
     debug("listener_registered");
+    debug("loadURL_start");
+    await window.loadURL(input.url);
+    debug("loadURL_done");
     return await done;
   } catch (error) {
     debug(`error_${error instanceof Error ? error.message : String(error)}`);

@@ -54,9 +54,12 @@ class FakeDebugger {
   detachCalls = 0;
   commands: string[] = [];
   readonly script: Array<[string, unknown]> = [];
+  readonly order: string[] = [];
+  #listener: ((event: unknown, method: string, params: unknown) => void) | null = null;
 
   attach(): void {
     this.attached = true;
+    this.order.push("attach");
   }
 
   detach(): void {
@@ -70,6 +73,7 @@ class FakeDebugger {
 
   async sendCommand(method: string): Promise<unknown> {
     this.commands.push(method);
+    this.order.push(`command:${method}`);
     return {};
   }
 
@@ -77,23 +81,39 @@ class FakeDebugger {
     _event: "message",
     listener: (event: unknown, method: string, params: unknown) => void,
   ): void {
-    for (const [method, params] of this.script) {
-      listener(undefined, method, params);
-    }
+    this.#listener = listener;
+    this.order.push("listener");
   }
 
   off(): void {
-    // nothing registered beyond the run scope
+    this.#listener = null;
+  }
+
+  // Delivers a CDP event exactly like a real debugger port: the listener
+  // only hears it if it was registered beforehand.
+  fire(method: string, params: unknown): void {
+    this.order.push(`event:${method}`);
+    if (this.#listener !== null) this.#listener(undefined, method, params);
   }
 }
 
 class FakeWindow {
-  readonly webContents = { debugger: new FakeDebugger() };
+  readonly webContents: { readonly debugger: FakeDebugger };
   closed = false;
   loadedUrl: string | null = null;
 
+  constructor(debuggerPort?: FakeDebugger) {
+    this.webContents = { debugger: debuggerPort ?? new FakeDebugger() };
+  }
+
   loadURL(url: string): Promise<void> {
     this.loadedUrl = url;
+    this.webContents.debugger.order.push("loadURL");
+    // The official client opens its Lobby WebSocket while the paipu page
+    // loads — frames can start flowing DURING navigation.
+    for (const [method, params] of this.webContents.debugger.script) {
+      this.webContents.debugger.fire(method, params);
+    }
     return Promise.resolve();
   }
 
@@ -254,6 +274,21 @@ describe("capture-record diagnostic runner", () => {
     expect(result.replayDecisionCount).toBeGreaterThan(0);
     expect(result.auditPath).toBe(auditPath);
     expect(result.errorCode).toBeNull();
+
+    // P0-1 ordering: attach + Network.enable + message listener must all be
+    // in place BEFORE navigation, so the Lobby WebSocket created while the
+    // paipu page loads cannot be missed.
+    const order = window.webContents.debugger.order;
+    const attachIndex = order.indexOf("attach");
+    const enableIndex = order.indexOf("command:Network.enable");
+    const listenerIndex = order.indexOf("listener");
+    const loadIndex = order.indexOf("loadURL");
+    expect(attachIndex).toBeGreaterThanOrEqual(0);
+    expect(enableIndex).toBeGreaterThan(attachIndex);
+    expect(listenerIndex).toBeGreaterThan(enableIndex);
+    expect(loadIndex).toBeGreaterThan(listenerIndex);
+    // ...and the frames fired during loadURL were heard.
+    expect(order.indexOf("event:Network.webSocketCreated")).toBeGreaterThan(loadIndex);
 
     // The TEMP file holds the INNER GameDetailRecords bytes — the exact
     // generator input contract — not another Wrapper layer.
