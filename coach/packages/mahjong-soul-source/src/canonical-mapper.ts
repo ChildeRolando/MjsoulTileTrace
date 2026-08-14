@@ -16,10 +16,12 @@ import type { MahjongSoulProtocolBundle } from "./protocol-bundle.js";
 
 const MAPPING_ERROR = "mahjong_soul_canonical_mapping_failed" as const;
 const VALIDATION_ERROR = "mahjong_soul_canonical_validation_failed" as const;
+const UNSUPPORTED_SEMANTICS = "mahjong_soul_canonical_unsupported_semantics" as const;
 
 export type MahjongSoulMapperDiagnostic =
   | "mahjong_soul_canonical_mapping_failed"
-  | "mahjong_soul_canonical_validation_failed";
+  | "mahjong_soul_canonical_validation_failed"
+  | "mahjong_soul_canonical_unsupported_semantics";
 
 export type MahjongSoulCanonicalMapperResult =
   | { readonly status: "ready"; readonly stream: CanonicalEventStream }
@@ -27,6 +29,14 @@ export type MahjongSoulCanonicalMapperResult =
 
 function mappingFailed(): MahjongSoulSourceError {
   return new MahjongSoulSourceError(MAPPING_ERROR);
+}
+
+// A structurally sound record whose action uses semantics the pinned protocol
+// does not document (and for which no sanitized fixture exists) must not be
+// half-mapped. Fail closed with a distinct code so the caller can tell an
+// unproven action apart from malformed data.
+function unsupportedSemantics(): MahjongSoulSourceError {
+  return new MahjongSoulSourceError(UNSUPPORTED_SEMANTICS);
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -127,7 +137,6 @@ export function mapMahjongSoulRecord(input: {
     let roundDealer = 0;
     const pendingRiichi = new Map<number, string>();
     const consumedDiscards = new Set<string>();
-    const activePonByActorAndTile = new Map<string, string>();
 
     const push = (
       sourceRecordOrdinal: number,
@@ -268,7 +277,6 @@ export function mapMahjongSoulRecord(input: {
             type: "pon_called", actor, targetActor: target,
             calledTile, consumedTiles, calledDiscardEventRef: discard.eventId,
           });
-          activePonByActorAndTile.set(`${actor}:${calledTile.id}`, events.at(-1)!.eventId);
         } else if (type === 2) {
           const consumedTiles: [Tile, Tile, Tile] = [tiles[1]!, tiles[2]!, tiles[3]!];
           push(sourceRecordOrdinal, 0, {
@@ -281,46 +289,41 @@ export function mapMahjongSoulRecord(input: {
         return;
       }
       if (action.name === "ActionAnGangAddGang") {
-        const data = decodeData(root, action);
-        const actor = typeof data.seat === "number" ? data.seat : -1;
-        const type = typeof data.type === "number" ? data.type : -1;
-        const tiles = Array.isArray(data.tiles)
-          ? data.tiles.map((tile) => parseMajsoulTile(tile))
-          : [];
-        if (type === 0 || type === 2) {
-          // ankan (暗杠) — four self tiles.
-          const ankanTiles: [Tile, Tile, Tile, Tile] = [
-            tiles[0]!, tiles[1]!, tiles[2]!, tiles[3]!,
-          ];
-          push(sourceRecordOrdinal, 0, {
-            type: "ankan_declared", actor, tiles: ankanTiles,
-          });
-        } else if (type === 1) {
-          // kakan (加杠) — one added tile over an existing pon.
-          const addedTile = tiles[0];
-          if (addedTile === undefined) throw mappingFailed();
-          const ponRef = activePonByActorAndTile.get(`${actor}:${addedTile.id}`);
-          if (ponRef === undefined) throw mappingFailed();
-          push(sourceRecordOrdinal, 0, {
-            type: "kakan_declared", actor, addedTile, upgradedPonEventRef: ponRef,
-          });
-          activePonByActorAndTile.delete(`${actor}:${addedTile.id}`);
-        } else {
-          throw mappingFailed();
-        }
-        return;
+        // The `type` discriminator between ankan and kakan is not documented
+        // in the pinned protocol and no sanitized fixture exists; the tiles
+        // field is a single concatenated string, not a repeatable tile list.
+        // Mapping 0/2 to ankan would be a guess. Fail closed.
+        throw unsupportedSemantics();
       }
       if (action.name === "ActionHule") {
         const data = decodeData(root, action);
         const hules = Array.isArray(data.hules) ? data.hules : [];
-        const delta = Array.isArray(data.delta_scores) && data.delta_scores.length === 4
-          ? [data.delta_scores[0], data.delta_scores[1], data.delta_scores[2], data.delta_scores[3]]
-          : null;
+        if (hules.length === 0) throw mappingFailed();
+        // A standard four-player win always carries exactly four integer score
+        // deltas; anything else cannot be uniquely attributed to the seats.
+        const deltaValues = data.delta_scores;
+        if (
+          !Array.isArray(deltaValues)
+          || deltaValues.length !== 4
+          || deltaValues.some((score) => !Number.isInteger(score))
+        ) {
+          throw mappingFailed();
+        }
+        const scoreDeltas = [
+          deltaValues[0], deltaValues[1], deltaValues[2], deltaValues[3],
+        ] as [number, number, number, number];
         let subEvent = 0;
         for (const raw of hules) {
-          if (!isRecord(raw) || typeof raw.seat !== "number") throw mappingFailed();
+          if (!isRecord(raw)) throw mappingFailed();
           const winner = raw.seat;
-          const zimo = raw.zimo === true;
+          const zimo = raw.zimo;
+          if (
+            typeof winner !== "number"
+            || !Number.isInteger(winner) || winner < 0 || winner > 3
+            || typeof zimo !== "boolean"
+          ) {
+            throw mappingFailed();
+          }
           const tile = parseMajsoulTile(raw.hu_tile);
           const source = [...events].reverse().find((candidate): boolean =>
             zimo
@@ -339,21 +342,19 @@ export function mapMahjongSoulRecord(input: {
             method: zimo ? "tsumo" : "ron",
             winningTile: tile,
             winSourceEventRef: source.eventId,
-            scoreDeltas: delta as [number, number, number, number] | null,
+            scoreDeltas,
           });
         }
         if (subEvent === 0) throw mappingFailed();
         return;
       }
       if (action.name === "ActionLiuJu") {
-        const data = decodeData(root, action);
-        const seat = typeof data.seat === "number" ? data.seat : -1;
-        push(sourceRecordOrdinal, 0, {
-          type: "round_drawn",
-          reason: "kyuushu_kyuuhai",
-          tenpaiActors: seat >= 0 ? [seat] : [],
-        });
-        return;
+        // `ActionLiuJu.type` covers many abortive draws (kyuushu kyuhai,
+        // suufon renda, suukaikan, suucha riichi, sancha hou, nagashi mangan)
+        // but the enum values are not documented in the pinned protocol and no
+        // sanitized fixture exists. Collapsing every type to kyuushu_kyuuhai
+        // mislabels the draw; fail closed instead.
+        throw unsupportedSemantics();
       }
       if (action.name === "ActionNoTile") {
         push(sourceRecordOrdinal, 0, {
@@ -402,8 +403,11 @@ export function mapMahjongSoulRecord(input: {
     }
     return { status: "ready", stream: parsed.data };
   } catch (error) {
-    if (error instanceof MahjongSoulSourceError) {
-      return { status: "invalid", code: MAPPING_ERROR };
+    if (
+      error instanceof MahjongSoulSourceError
+      && error.code === UNSUPPORTED_SEMANTICS
+    ) {
+      return { status: "invalid", code: UNSUPPORTED_SEMANTICS };
     }
     return { status: "invalid", code: MAPPING_ERROR };
   }

@@ -257,6 +257,108 @@ describe("Mahjong Soul canonical record mapper", () => {
     expect(result.status).toBe("invalid");
   });
 
+  it("rejects ActionLiuJu as unsupported semantics instead of guessing a draw reason", async () => {
+    const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
+    const recordBytes = encodeRecord(bundle, [
+      {
+        name: "ActionNewRound",
+        data: {
+          chang: 0, ju: 0, ben: 0, tiles: selfHand, dora: "1z",
+          scores: [25000, 25000, 25000, 25000], liqibang: 0,
+        },
+      },
+      { name: "ActionLiuJu", data: { type: 0, seat: 0 } },
+    ]);
+    const result = mapMahjongSoulRecord({
+      gameId: "game:test", selfActor: 1,
+      recordId: "260811-00000000-0000-0000-0000-000000000001",
+      recordBytes, bundle,
+    });
+    expect(result.status).toBe("invalid");
+    if (result.status !== "invalid") return;
+    expect(result.code).toBe("mahjong_soul_canonical_unsupported_semantics");
+  });
+
+  it("rejects ActionAnGangAddGang instead of guessing ankan from type 0/2", async () => {
+    const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
+    const recordBytes = encodeRecord(bundle, [
+      {
+        name: "ActionNewRound",
+        data: {
+          chang: 0, ju: 0, ben: 0, tiles: selfHand, dora: "1z",
+          scores: [25000, 25000, 25000, 25000], liqibang: 0,
+        },
+      },
+      { name: "ActionAnGangAddGang", data: { seat: 0, type: 0, tiles: "1m1m1m1m" } },
+    ]);
+    const result = mapMahjongSoulRecord({
+      gameId: "game:test", selfActor: 1,
+      recordId: "260811-00000000-0000-0000-0000-000000000001",
+      recordBytes, bundle,
+    });
+    expect(result.status).toBe("invalid");
+    if (result.status !== "invalid") return;
+    expect(result.code).toBe("mahjong_soul_canonical_unsupported_semantics");
+  });
+
+  it("rejects ActionHule with malformed score deltas", async () => {
+    const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
+    const recordBytes = encodeRecord(bundle, [
+      {
+        name: "ActionNewRound",
+        data: {
+          chang: 0, ju: 0, ben: 0, tiles: selfHand, dora: "1z",
+          scores: [25000, 25000, 25000, 25000], liqibang: 0,
+        },
+      },
+      { name: "ActionDealTile", data: { seat: 1, tile: "5m" } },
+      {
+        name: "ActionHule",
+        data: {
+          hules: [{ seat: 1, zimo: true, hu_tile: "5m" }],
+          delta_scores: [3000, -1000, -1000],
+        },
+      },
+    ]);
+    const result = mapMahjongSoulRecord({
+      gameId: "game:test", selfActor: 1,
+      recordId: "260811-00000000-0000-0000-0000-000000000001",
+      recordBytes, bundle,
+    });
+    expect(result.status).toBe("invalid");
+    if (result.status !== "invalid") return;
+    expect(result.code).toBe("mahjong_soul_canonical_mapping_failed");
+  });
+
+  it("rejects ActionHule with an out-of-range winner seat", async () => {
+    const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
+    const recordBytes = encodeRecord(bundle, [
+      {
+        name: "ActionNewRound",
+        data: {
+          chang: 0, ju: 0, ben: 0, tiles: selfHand, dora: "1z",
+          scores: [25000, 25000, 25000, 25000], liqibang: 0,
+        },
+      },
+      { name: "ActionDealTile", data: { seat: 1, tile: "5m" } },
+      {
+        name: "ActionHule",
+        data: {
+          hules: [{ seat: 5, zimo: true, hu_tile: "5m" }],
+          delta_scores: [3000, -1000, -1000, -1000],
+        },
+      },
+    ]);
+    const result = mapMahjongSoulRecord({
+      gameId: "game:test", selfActor: 1,
+      recordId: "260811-00000000-0000-0000-0000-000000000001",
+      recordBytes, bundle,
+    });
+    expect(result.status).toBe("invalid");
+    if (result.status !== "invalid") return;
+    expect(result.code).toBe("mahjong_soul_canonical_mapping_failed");
+  });
+
   it("rejects an unknown action name", async () => {
     const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
     const root = parseProtobuf(bundle.protoText, { keepCase: true }).root;

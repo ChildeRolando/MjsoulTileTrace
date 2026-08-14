@@ -4,6 +4,8 @@ import {
 } from "@riichi-coach/contracts";
 
 export class MahjongSoulSourceError extends Error {
+  readonly code: MahjongSoulSourceErrorCode;
+
   constructor(code: MahjongSoulSourceErrorCode) {
     if (
       arguments.length !== 1
@@ -13,6 +15,7 @@ export class MahjongSoulSourceError extends Error {
     }
     super(code);
     this.name = "MahjongSoulSourceError";
+    this.code = code;
     Object.freeze(this);
   }
 }

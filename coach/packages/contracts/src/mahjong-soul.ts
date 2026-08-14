@@ -59,6 +59,7 @@ export const MahjongSoulSourceErrorCodeSchema = z.enum([
   "mahjong_soul_record_identity_mismatch",
   "mahjong_soul_canonical_mapping_failed",
   "mahjong_soul_canonical_validation_failed",
+  "mahjong_soul_canonical_unsupported_semantics",
 ]);
 export type MahjongSoulSourceErrorCode = z.infer<
   typeof MahjongSoulSourceErrorCodeSchema
