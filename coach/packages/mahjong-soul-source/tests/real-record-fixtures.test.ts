@@ -110,4 +110,67 @@ describe("sanitized real stored-record fixtures", () => {
     });
     expect(mapped.status).toBe("ready");
   });
+
+  // Decoder-level real-wire facts for EVERY RecordChiPengGang in fixture A.
+  // The full mapper fails closed at the first RecordAnGangAddGang (source
+  // ordinal 561), which is after 3 of these calls, so the evidence for the
+  // other 8 must not depend on the mapper reaching them.
+  it("all 11 real RecordChiPengGang call the tile at the unique non-actor froms index", async () => {
+    const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
+    const fixture = loadFixture("real-record-wire");
+    const actions = decodeStoredRecordActions(
+      bundle,
+      unwrapGameDetailRecords(bundle, wireBytes(fixture)),
+    );
+
+    // proto3 default normalization: an absent seat/type decodes as undefined.
+    const u32 = (value: unknown): number =>
+      value === undefined || value === null ? 0 : value as number;
+
+    const calls = actions.filter((action) => action.name === "RecordChiPengGang");
+    expect(calls.length).toBe(11);
+
+    const typeDistribution: Record<string, number> = {};
+    const consumedDiscards = new Set<string>();
+    for (const call of calls) {
+      const actor = u32(call.data.seat);
+      const type = u32(call.data.type);
+      const tiles = call.data.tiles;
+      const froms = call.data.froms;
+      expect(Array.isArray(tiles)).toBe(true);
+      expect(Array.isArray(froms)).toBe(true);
+      expect(froms.length).toBe(tiles.length);
+
+      // Exactly one froms entry differs from the actor seat.
+      const nonActor = (froms as unknown[])
+        .map((from, index) => ({ from: from as number, index }))
+        .filter(({ from }) => from !== actor);
+      expect(nonActor.length).toBe(1);
+      const calledIndex = nonActor[0]!.index;
+      const target = nonActor[0]!.from;
+      expect(calledIndex).toBeGreaterThanOrEqual(0);
+      expect(calledIndex).toBeLessThan(tiles.length);
+
+      // The called tile really is a discard the target made earlier in the
+      // same record: find the latest unconsumed matching discard.
+      const calledTile = tiles[calledIndex];
+      const discard = [...actions]
+        .filter((candidate) => candidate.sourceRecordOrdinal < call.sourceRecordOrdinal)
+        .reverse()
+        .find((candidate) =>
+          candidate.name === "RecordDiscardTile"
+          && u32(candidate.data.seat) === target
+          && candidate.data.tile === calledTile
+          && !consumedDiscards.has(`${candidate.sourceRecordOrdinal}`)
+        );
+      expect(discard).toBeDefined();
+      consumedDiscards.add(`${discard!.sourceRecordOrdinal}`);
+
+      const label = type === 0 ? "chi" : type === 1 ? "pon" : type === 2 ? "daiminkan" : `type${type}`;
+      typeDistribution[label] = (typeDistribution[label] ?? 0) + 1;
+    }
+
+    // Real distribution for this record: 7 pon, 4 chi, no daiminkan sample.
+    expect(typeDistribution).toEqual({ pon: 7, chi: 4 });
+  });
 });
