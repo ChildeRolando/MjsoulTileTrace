@@ -101,8 +101,18 @@ function createOfficialClientCaptureWindow(): CaptureRecordWindowPort {
       nodeIntegration: false,
       webviewTag: false,
       navigateOnDragDrop: false,
+      // The Unity WebGL client drives its resource loading off rAF; a
+      // throttled (occluded/backgrounded) window stalls at "正在初始化遊戲資源
+      // 0%" and never connects the gateway — the record is then never fetched.
+      // The capture window must keep rendering regardless of focus.
+      backgroundThrottling: false,
     },
   });
+  // Bring it to the front: in the product app the main window already holds
+  // focus, and an occluded capture window is exactly the stall above even
+  // with throttling disabled.
+  window.moveTop();
+  window.focus();
   window.webContents.setWindowOpenHandler(() => ({ action: "deny" }));
   window.webContents.session.setPermissionRequestHandler((_c, _p, cb) => cb(false));
   window.webContents.session.setPermissionCheckHandler(() => false);
