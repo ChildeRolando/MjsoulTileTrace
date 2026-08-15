@@ -1,9 +1,9 @@
 {
   "fixtureVersion": "paipu-identity/v1",
-  "description": "Sanitized identity-join fixture derived from the live-pinned real sample (2026-08-15): the URL perspective account sits at seat 3 among four accounts, in shuffled order. All account ids are synthetic; no real ids, nicknames, URLs or record ids.",
+  "description": "SYNTHETIC SPEC fixture for the perspective-join resolver: documents the exact join shape any future URL-id-space mapping must satisfy. All ids synthetic. NOTE (live evidence 2026-08-15): the real `_a` suffix has never matched any captured accounts[].account_id across three live samples, so this shape is a spec, not an observed real-wire fact; real links currently fail closed by design.",
   "parsed": {
     "recordId": "260811-00000000-0000-0000-0000-000000000001",
-    "perspectiveAccountId": 100003
+    "perspectiveId": 100003
   },
   "captured": {
     "recordId": "260811-00000000-0000-0000-0000-000000000001",

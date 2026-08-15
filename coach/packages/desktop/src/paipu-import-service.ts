@@ -17,18 +17,21 @@ import type { RecordAnalysisStore } from "./record-analysis-store.js";
 // post-ingestion analysis as the account catalog route:
 //
 //   strict parseMahjongSoulCnShareUrl (BEFORE any BrowserWindow)
-//     -> { recordId, perspectiveAccountId }
+//     -> { recordId, perspectiveId }
 //     -> captureRecordViaOfficialClient (original validated URL; INNER bytes
 //        + record identity from the SAME fetchGameRecord response)
-//     -> resolveMahjongSoulPaipuPerspective (URL account JOIN record
-//        accounts -> exactly one seat; any mismatch fails closed)
+//     -> resolveMahjongSoulPaipuPerspective (URL perspective id JOIN record
+//        accounts -> exactly one seat; any mismatch fails closed — live
+//        evidence shows real `_a` suffixes never match the captured account
+//        space, so real links currently resolve to identity_mismatch by
+//        design until that id space is mapped)
 //     -> shared record-analysis-store (map + strict replay)
 //     -> safe metadata only
 //
 // There is NO manual seat: the user never chooses or knows a seat. There is
 // no catalog membership requirement either (URL import is a sibling
 // ingestion source, not catalog ingest). Concurrent duplicate imports for
-// the same immutable request identity (recordId + perspectiveAccountId)
+// the same immutable request identity (recordId + perspectiveId)
 // share one active promise.
 
 export type PaipuImportResult = Readonly<
@@ -72,7 +75,7 @@ export function createMahjongSoulPaipuImportService(input: {
       // 1. The share URL is strictly parsed BEFORE any BrowserWindow exists:
       //    an invalid URL must never open a window. The perspective account
       //    id comes from the URL itself — never a seat.
-      let parsed: { readonly recordId: string; readonly perspectiveAccountId: number };
+      let parsed: { readonly recordId: string; readonly perspectiveId: number };
       try {
         parsed = parseMahjongSoulCnShareUrl(request?.shareUrl);
       } catch {
@@ -81,7 +84,7 @@ export function createMahjongSoulPaipuImportService(input: {
 
       // 2. Concurrent duplicate imports for the same immutable request
       //    identity resolve together; only one window is opened.
-      const key = `${parsed.recordId}#${parsed.perspectiveAccountId}`;
+      const key = `${parsed.recordId}#${parsed.perspectiveId}`;
       const existing = active.get(key);
       if (existing !== undefined) return existing;
 

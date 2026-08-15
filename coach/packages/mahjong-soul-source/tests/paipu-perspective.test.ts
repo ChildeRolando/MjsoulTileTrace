@@ -9,7 +9,7 @@ const fixture = JSON.parse(readFileSync(resolve(
   dirname(fileURLToPath(import.meta.url)),
   "fixtures/paipu-identity.json",
 ), "utf8")) as {
-  readonly parsed: { readonly recordId: string; readonly perspectiveAccountId: number };
+  readonly parsed: { readonly recordId: string; readonly perspectiveId: number };
   readonly captured: MahjongSoulCapturedRecordIdentity;
   readonly expected: { readonly selfActor: number };
 };
@@ -26,14 +26,14 @@ function identity(
   overrides?: Partial<{
     recordId: string;
     capturedRecordId: string;
-    perspectiveAccountId: number;
+    perspectiveId: number;
     accounts: readonly { accountId: number; seat: number }[];
   }>,
 ) {
   return {
     parsedUrl: {
       recordId: overrides?.recordId ?? recordId,
-      perspectiveAccountId: overrides?.perspectiveAccountId ?? 100003,
+      perspectiveId: overrides?.perspectiveId ?? 100003,
     },
     capturedIdentity: {
       recordId: overrides?.capturedRecordId ?? overrides?.recordId ?? recordId,
@@ -53,38 +53,38 @@ describe("paipu perspective identity join", () => {
   });
 
   test("resolves the seat of the one matching account, order irrelevant", () => {
-    for (const perspectiveAccountId of [100001, 100002, 100003, 100004]) {
+    for (const perspectiveId of [100001, 100002, 100003, 100004]) {
       expect(resolveMahjongSoulPaipuPerspective(
-        identity({ perspectiveAccountId }),
+        identity({ perspectiveId }),
       )).toEqual({
         recordId,
-        selfActor: accounts.find((a) => a.accountId === perspectiveAccountId)!.seat,
+        selfActor: accounts.find((a) => a.accountId === perspectiveId)!.seat,
       });
     }
     // Account order on the wire is irrelevant to the join.
     expect(resolveMahjongSoulPaipuPerspective(identity({
       accounts: [...accounts].reverse(),
-      perspectiveAccountId: 100004,
+      perspectiveId: 100004,
     }))).toEqual({ recordId, selfActor: 3 });
   });
 
   test.each([
-    ["no matching account", identity({ perspectiveAccountId: 999999 })],
+    ["no matching account", identity({ perspectiveId: 999999 })],
     ["duplicate matching account", identity({
       accounts: [
         ...accounts.slice(0, 3),
         { accountId: 100003, seat: 1 },
         { accountId: 100003, seat: 2 },
       ],
-      perspectiveAccountId: 100003,
+      perspectiveId: 100003,
     })],
     ["invalid matched seat", identity({
       accounts: [{ accountId: 100003, seat: 7 }],
-      perspectiveAccountId: 100003,
+      perspectiveId: 100003,
     })],
     ["invalid matched seat (fraction)", identity({
       accounts: [{ accountId: 100003, seat: 1.5 }],
-      perspectiveAccountId: 100003,
+      perspectiveId: 100003,
     })],
     ["invalid other account seat", identity({
       accounts: [...accounts.slice(0, 3), { accountId: 100004, seat: -1 }],
@@ -99,7 +99,7 @@ describe("paipu perspective identity join", () => {
     ["missing captured identity", { parsedUrl: identity().parsedUrl } as never],
     ["missing parsed url", { capturedIdentity: identity().capturedIdentity } as never],
     ["non-integer perspective account id", {
-      parsedUrl: { recordId, perspectiveAccountId: 1.5 },
+      parsedUrl: { recordId, perspectiveId: 1.5 },
       capturedIdentity: identity().capturedIdentity,
     } as never],
   ])("fails closed on identity mismatch (%s)", (_label, bad) => {

@@ -3,6 +3,38 @@
 日期：2026-08-15
 分支：`codex/m5-h2-paipu-url-import`（基线 `codex/m5-h1-replay-acceptance` @ `52efd59`）
 
+## H2-ID 轮（同日晚些）：移除手动选座 → JOIN 前提被实测推翻 → 决定保持 fail-closed
+
+**结论先读**：`_a<number>` 后缀确实是**视角维度**的 id，但它属于一个**独立的 id 空间**，与牌谱 wire 上 `fetchGameRecord.head.accounts[].account_id` **永远对不上**（三份真人样本反证）。按任务自身铁律「join 无法证明就 fail closed」，产品现状为：粘贴链接 → 自动捕获成功 → **「无法确定这份牌谱的分析视角」**（identity_mismatch），不分析、不缓存、不猜座位。这是维护者明确选择的现状，直到 `_a` 的 id 空间被协议证据映射出来。
+
+### 交付的代码（commits 446951e / f25641b / aa9f645 / d5f2ef2 + 收尾）
+
+- **P0** contracts：`parseMahjongSoulCnShareUrl` 返回 `{recordId, perspectiveId}`（正 uint32、严格 URL 形状不变；字段按实测语义命名为**不透明** perspective id，不再声称 account id）。
+- **P1** 捕获层：同一条 fetchGameRecord 响应现在同时给出 INNER bytes + `recordIdentity{recordId: head.uuid, accounts[{accountId, seat}]}`（vendored proto 钉死：`ResGameRecord.head=3`（`lq.RecordGame`），`uuid=1`，`accounts=11`，`account_id=1`(uint32)，`seat=2`；codec keepCase 解码 → snake_case key，实测验证）。身份只有主进程可见，昵称不解析。
+- **P2** `resolveMahjongSoulPaipuPerspective`：严格 join（recordId 相等、恰好一个账号匹配、seat∈0..3），任何违例 `mahjong_soul_record_identity_mismatch`。脱敏 fixture（合成 id、乱序、视角账号在 seat 3）**文档化的是 join 的 SPEC**——注意它不是实测 wire 事实。
+- **P3-P5** 产品 API 改为 `importPaipu({shareUrl})`：座位选择器从 UI/IPC/preload 全部移除（多传 `selfActor` 按多余键拒绝）；结果联合 `analysis_ready/invalid_url/identity_mismatch/no_capture/unsupported_semantics/analysis_failed`；IPC 边界把 `analysis_ready` 投影到 status/recordId/counts——自动解析出的 seat 与任何账号数据都过不了 IPC；渲染端 identity_mismatch 文案「无法确定这份牌谱的分析视角」。
+- **P6** 账号路线 `summary?.selfSeat ?? 0` 旧债清除：`requireCatalogSelfSeat`（summary 消失或 seat 非法 → `mahjong_soul_record_not_analyzable`）。**生产路径已无任何静默 seat 0。**
+
+### 三份反证样本（2026-08-15 实测，真实 id 不入 git，此处为会话记录）
+
+1. 用户自己的牌谱链接（8/14 起的验收样本）：后缀 `62115198`（用户确认其**所有**链接同后缀 → 账号维度常量）；该局 wire 四账号 `13579442/15986753/22661781/23664228`——后缀不在其中；且用户自报 UID `63385109` ≠ 后缀 ≠ 任何玩家。
+2. 用户提供：**同一局**、两名不同玩家各自分享的两条链接，后缀 `27420298` 与 `431273470`；该局 wire 四账号 `11057701/68713665/69492993/104030367`——两个后缀**都不在其中**。
+
+可推导事实：后缀随视角变（同局两视角→两后缀）、随账号稳定、正 uint32 形状、**不属于** wire account_id 空间。结论：当前协议内不存在「URL 后缀 → 座位」的确定性路径。
+
+### P9 等效真人验收（fail-closed 路径，2026-08-15）
+
+真实 DOM 路径（真实鼠标事件点 `#paipu-import`）：已连接会话 → 区块可见 → **座位选择器已从 DOM 消失** → 点击 → 「正在通过雀魂客户端读取牌谱…」（按钮禁用）→ 官方客户端捕获成功（16.5s）→ 最终可见文案 **「无法确定这份牌谱的分析视角」**，按钮恢复，无崩溃。任务原定的「auto-resolved seat=3 + 1024/116」验收项因前提被反证而**不可达**，如实记录。
+
+### 下一阶段课题与遗留提醒
+
+1. **_a id 空间研究**（独立课题）：候选方向——登录/分享层 id（如 YOSTAR/渠道账号）到对局账号的映射是否存在于某条 wire 交换。在映射被钉死前，不要重试同一个 join。
+2. **⚠️ 历史审计座位存疑**：用户确认当年 `--self-actor=3` 是**随手选的、从未验证**。H1/H2 全部 audit（seat 3 / 116 决策）可能分析的是别人的手牌。真人对照从未发生。修正路径：用户在雀魂回放里确认自己名字所在座位（wire 上四账号+座位已可捕获），或修好 vault 恢复后走 catalog 路线拿服务器 selfSeat；`scripts/render-replay-audit-digest.mjs` 支持任意座位重跑对照。
+3. vault 被动捕获的登录凭据寿命短（当日即 session_restore_rejected，需重登）；web 分区 cookie 则长期有效——两者寿命不一致尚未排查。
+
+---
+
+
 ## 结论（一句话）
 
 「粘贴雀魂分享链接 + 选座位 → 应用骑自己的官方客户端会话抓牌谱 → 与账号目录路线汇合到同一分析」已全链落地并通过**真人产品路径验收**（renderer → IPC → 生产捕获原语 → 共享分析 → `analysis_ready`，1024 canonical events / 116 decisions）。live 验收还揪出并修复了两个只有真机才能暴露的 Electron 43 坑（见下文，后续任何 CDP 窗口工作都会踩）。
