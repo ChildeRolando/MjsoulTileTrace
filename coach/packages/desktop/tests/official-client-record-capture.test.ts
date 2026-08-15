@@ -21,8 +21,11 @@ import {
 //   1. the debugger is attached and the message listener registered BEFORE
 //      navigation, and Network.enable is dispatched at the FIRST main-frame
 //      commit — never to the uncommitted about:blank target (Electron 43's
-//      sendCommand hangs there; verified live 2026-08-15), and always before
-//      the page's JavaScript can open the Lobby WebSocket;
+//      sendCommand hangs there; verified live 2026-08-15). The commit is the
+//      earliest working enable point identified by the live probe, and the
+//      current client was verified live not to open the relevant Lobby
+//      WebSocket before Network.enable completes there — pinned here, not by
+//      an Electron-documented ordering guarantee;
 //   2. the captured bytes are the INNER GameDetailRecords — the outer
 //      Wrapper unwrap happened exactly once, inside the capture;
 //   3. timeoutMs bounds the WHOLE capture: a page that never commits (or a
@@ -86,7 +89,8 @@ describe("official-client record capture primitive", () => {
     expect(listenerIndex).toBeGreaterThan(attachIndex);
     expect(loadIndex).toBeGreaterThan(listenerIndex);
     // ...and Network.enable happens at the commit — never on about:blank
-    // (the live-verified Electron 43 hang) — still before any page JS runs.
+    // (the live-verified Electron 43 hang), which live evidence pins as
+    // still ahead of the client's Lobby WebSocket.
     expect(commitIndex).toBeGreaterThan(loadIndex);
     expect(enableIndex).toBeGreaterThan(commitIndex);
     // The frames fired during loadURL (after enable) were heard.

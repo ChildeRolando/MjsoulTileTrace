@@ -122,8 +122,11 @@ function createOfficialClientCaptureWindow(): CaptureRecordWindowPort {
   });
   // did-navigate = main-frame commit. The capture primitive dispatches
   // Network.enable there: Electron 43's debugger sendCommand hangs forever
-  // on an uncommitted about:blank target (verified live 2026-08-15), and the
-  // commit always precedes any page JavaScript opening the Lobby WebSocket.
+  // on an uncommitted about:blank target (verified live 2026-08-15). The
+  // commit is the earliest working enable point identified by that live
+  // probe — not an Electron-documented ordering guarantee; the current
+  // client was verified live not to open the relevant Lobby WebSocket before
+  // Network.enable completes at this point.
   let commitListener: (() => void) | null = null;
   (window.webContents as unknown as {
     on(event: "did-navigate", listener: () => void): void;

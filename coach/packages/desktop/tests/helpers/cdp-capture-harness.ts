@@ -107,8 +107,9 @@ export class FakeWindow {
   loadURL(url: string): Promise<void> {
     this.loadedUrl = url;
     this.webContents.debugger.order.push("loadURL");
-    // The main frame commits during navigation — this fires BEFORE any page
-    // JavaScript (and therefore before the Lobby WebSocket) can run.
+    // The main frame commits during navigation — the earliest working
+    // Network.enable point per the live probe (the current client does not
+    // open its Lobby WebSocket before enable completes there).
     this.#commitListener?.();
     this.webContents.debugger.order.push("commit");
     // The page's JavaScript (which opens the Lobby WebSocket) runs only

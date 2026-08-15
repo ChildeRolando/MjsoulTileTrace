@@ -17,8 +17,12 @@ import { createCdpRecordObserver } from "./cdp-record-observer.js";
 //     listener registered BEFORE navigation, but Network.enable is only
 //     dispatched once the main frame has COMMITTED — Electron 43's debugger
 //     sendCommand hangs forever on an uncommitted about:blank target. The
-//     commit fires before any page JavaScript runs, so the official client
-//     cannot open its Lobby WebSocket before the observer is fully ready:
+//     commit is the earliest working enable point identified by the live
+//     Electron 43 probe; the current Mahjong Soul client was verified (live,
+//     2026-08-15) not to open the relevant Lobby WebSocket before
+//     Network.enable completes there. That behavior is pinned by regression
+//     tests + live evidence, NOT by an Electron-documented ordering
+//     guarantee:
 //
 //       debugger.attach -> message listener -> loadURL -> (main-frame commit)
 //         -> Network.enable -> frames -> capture
@@ -138,9 +142,10 @@ export async function captureRecordViaOfficialClient(input: {
     window.webContents.debugger.on("message", onMessage);
 
     // The main-frame commit is the earliest moment Network.enable can be
-    // dispatched without hanging Electron 43's debugger sendCommand, and it
-    // strictly precedes any page JavaScript (which is what opens the Lobby
-    // WebSocket).
+    // dispatched without hanging Electron 43's debugger sendCommand (per the
+    // live probe, not an Electron-documented guarantee). The current client
+    // was verified live not to open the relevant Lobby WebSocket before
+    // Network.enable completes at this point.
     const committed = new Promise<void>((resolveCommit) => {
       window.webContents.onDidNavigateCommit(() => { resolveCommit(); });
     });

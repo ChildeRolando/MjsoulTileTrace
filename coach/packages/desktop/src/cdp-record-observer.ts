@@ -31,9 +31,12 @@ export interface CdpRecordObserver {
    * Sends Network.enable. MUST only be called after the target's main frame
    * has committed a real navigation: Electron 43's debugger sendCommand
    * hangs forever when Network.enable is dispatched to an uncommitted
-   * about:blank target (verified live 2026-08-15). The main-frame commit
-   * fires before any page JavaScript runs, so enabling there still beats the
-   * official client's Lobby WebSocket.
+   * about:blank target (verified live 2026-08-15). The commit is the
+   * earliest working enable point identified by that live probe — NOT an
+   * Electron-documented ordering guarantee; the current Mahjong Soul client
+   * was verified live not to open the relevant Lobby WebSocket before
+   * Network.enable completes there (pinned by regression tests + live
+   * evidence).
    */
   enableNetwork(): Promise<void>;
   accept(method: string, parameters: unknown): RecordCaptureResult | null;

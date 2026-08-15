@@ -40,17 +40,18 @@
 
 ## P7 真人验收证据（2026-08-15 06:1x，同一份真实牌谱，selfActor=3）
 
-**产品路径**（正常 renderer/IPC 路线，非诊断命令；CDP 仅用于向页面注入 `window.riichiCoachPaipu.importPaipu({shareUrl, selfActor:3})`）：
+**LIVE direct observations（真人直接观测）**
 
-```json
-{"status":"analysis_ready","recordId":"260810-…（真实 id，不入库）","selfActor":3,
- "canonicalEventCount":1024,"replayDecisionCount":116}   // 151.4s（含 ~116s replay）
-```
+- 产品路径（正常 renderer/IPC 路线，非诊断命令）：renderer 收到
+  `{"status":"analysis_ready","selfActor":3,"canonicalEventCount":1024,"replayDecisionCount":116}`（151.4s，含 ~116s replay）。
+- 诊断路径（同 URL 同座位，`--diagnose-mahjong-soul-capture-record`）：`storedActionCount=978`、`canonicalEventCount=1024`、`replayDecisionCount=116`、audit 落盘 exit 0 —— canonical/decision 计数与产品路径**逐项一致**。
+- 诊断路径 hash 链：audit `streamHash = sha256:44bdd035c352a850cc6fa1c5801b27ef0eca7a80102c3cfe8c966eb63d66dd18` = `%TEMP%\mahjong-soul-captured-record.pb`（INNER 86139 bytes）的 sha256。
 
-**诊断路径交叉核对**（同 URL 同座位，`--diagnose-mahjong-soul-capture-record`）：
+**STRUCTURAL / AUTOMATED guarantee（结构保证，非 live 暴露）**
 
-- `storedActionCount=978`、`canonicalEventCount=1024`、`replayDecisionCount=116`、audit 落盘 exit 0 —— **canonical/decision 计数与产品路径逐项一致**。
-- `sourceRecordHash` 证据链：audit `streamHash = sha256:44bdd035c352a850cc6fa1c5801b27ef0eca7a80102c3cfe8c966eb63d66dd18` = `%TEMP%\mahjong-soul-captured-record.pb`（INNER 86139 bytes）的 sha256。产品路径的 IPC 结果按设计不回传 hash；两条路线的字节→hash→分析一致性由共享原语 + 共享分析仓结构保证，并有 route-convergence 测试钉死。
+- `sourceRecordHash` **不出现在任何 renderer/IPC 结果里**（安全边界保持不变；schema 白名单无 hash 字段）。
+- 产品与诊断路径共享同一个捕获原语（`captureRecordViaOfficialClient`）与同一个分析仓；「同 INNER bytes + 同 selfActor ⇒ 同 canonical stream / 同 replay decisions」由 route-convergence 测试钉死（`paipu-import-service.test.ts`、`record-analysis-store.test.ts`）。因此两条路线的 `sourceRecordHash` 相等**由自动化收敛保证**，而非把 hash 暴露给 renderer 直接比对。若未来需要一次真人直接 hash 交叉验证，只允许 main-process 侧 diagnostic/test instrumentation，不得扩展 renderer-facing result schema。
+
 - 会话注记：验收时 vault 显示 logged_out（应用内「尚未登录」），但 URL 导入照常成功——捕获走的是持久分区的**网页会话 cookie**，与 vault 的账号令牌无关（H2 设计如此：不声称匿名，也不要求 vault 登录）。
 
 ## 测试与提交
@@ -65,9 +66,10 @@
 - `RecordAnGangAddGang` type ∉ {2,3}
 - 五牌暗杠（红五位置不在 wire 上）
 
-## 下一步建议
+## 下一步建议（含 H2 未展开的技术债）
 
-1. 真人把 audit/分析与雀魂回放对照（H1 遗留的人工验收动作，现在可以直接用 UI 的「通过牌谱链接分析」入口做）。
-2. `replayCanonicalStream` 全量局 ~1s/decision（116 决策 ≈ 2 分钟）——UI 体验前需要性能剖析（H2 非目标，未动）。
-3. M6：只接一个模型来源（Mortal 或 Akagi 二选一）。
-4. 登录窗口顺序天然安全（loadURL 先于 observer.start()，`mahjong-soul-login-window.ts:376-378`），无需改动；但若未来重构登录 CDP，先读坑 1。
+1. **[backlog] account 路线座位回退债**：`electron-entry.ts` 的 account fetch 回调仍是 `summary?.selfSeat ?? 0`（H1 旧默认，非 H2 regression）。正确行为：catalog summary 在 fetch 期间消失应 fail closed（`if (!summary) throw mahjong_soul_record_not_analyzable; selfActor: summary.selfSeat`），而不是静默按座位 0 分析。本轮**未改**：该逻辑在 electron-entry 的注入式 wiring 里、无单测挂点，改了就得补 race/regression 测试，属于下一步独立小任务（顺手把座位解析提为可测组件）。
+2. 真人把 audit/分析与雀魂回放对照（H1 遗留的人工验收动作，现在可以直接用 UI 的「通过牌谱链接分析」入口做）。
+3. `replayCanonicalStream` 全量局 ~1s/decision（116 决策 ≈ 2 分钟）——UI 体验前需要性能剖析（H2 非目标，未动）。
+4. M6：只接一个模型来源（Mortal 或 Akagi 二选一）。
+5. 登录窗口顺序天然安全（loadURL 先于 observer.start()，`mahjong-soul-login-window.ts:376-378`），无需改动；但若未来重构登录 CDP，先读坑 1。
