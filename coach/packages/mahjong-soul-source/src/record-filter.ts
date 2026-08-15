@@ -15,7 +15,7 @@ import {
 // allowlists narrow until another version/rule has its own captured fixture.
 export const SUPPORTED_RECORD_VERSIONS: readonly number[] = Object.freeze([210715]);
 export const SUPPORTED_STANDARD_RULES: readonly number[] = Object.freeze([2]);
-const SHARE_URL_VIEW = 1;
+const SHARE_URL_PERSPECTIVE_ACCOUNT_ID = 1;
 export const FOUR_PLAYER_SOUTH_MODE_ID = 2;
 export const STANDARD_EMPTY_DETAIL_RULE_HASH =
   // SHA-256 of the canonical protobuf GameMode bytes `08 02`: mode=2 and
@@ -159,7 +159,7 @@ export function filterAnalyzableRecord(
   if (selfSeats.length !== 1) return { status: "not_analyzable" };
   const selfSeat = selfSeats[0]!;
 
-  const shareUrl = formatMahjongSoulCnShareUrl(entry.uuid, SHARE_URL_VIEW);
+  const shareUrl = formatMahjongSoulCnShareUrl(entry.uuid, SHARE_URL_PERSPECTIVE_ACCOUNT_ID);
   const parsed = AnalyzableRecordSummarySchema.safeParse({
     recordId: entry.uuid,
     shareUrl,

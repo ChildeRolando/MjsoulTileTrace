@@ -15,8 +15,15 @@ export const MahjongSoulSha256Schema = z.string().regex(
 );
 export type MahjongSoulSha256 = z.infer<typeof MahjongSoulSha256Schema>;
 
+// The `_a<number>` suffix of a CN share URL carries the PERSPECTIVE ACCOUNT
+// ID of the player whose view the link was shared from — NOT a seat number
+// and NOT a "view index". The seat is resolved by joining this account id
+// against the fetchGameRecord response's record metadata (see
+// resolveMahjongSoulPaipuPerspective in mahjong-soul-source); the parser
+// itself never infers a seat.
 export function parseMahjongSoulCnShareUrl(value: string): {
-  readonly recordId: string;
+  readonly recordId: MahjongSoulRecordId;
+  readonly perspectiveAccountId: number;
 } {
   if (typeof value !== "string") {
     throw new Error("mahjong_soul_record_identity_mismatch");
@@ -27,25 +34,27 @@ export function parseMahjongSoulCnShareUrl(value: string): {
     throw new Error("mahjong_soul_record_identity_mismatch");
   }
   return Object.freeze({
-    recordId: match[1]!,
+    recordId: match[1]! as MahjongSoulRecordId,
+    // Matches lq.RecordGame.AccountInfo.account_id (uint32): 1..2^32-1.
+    perspectiveAccountId: Number(match[2]),
   });
 }
 
 export function formatMahjongSoulCnShareUrl(
   recordId: string,
-  view: number,
+  perspectiveAccountId: number,
 ): string {
   if (
     typeof recordId !== "string"
     || !MahjongSoulRecordIdSchema.safeParse(recordId).success
-    || typeof view !== "number"
-    || !Number.isInteger(view)
-    || view < 1
-    || view > 4_294_967_295
+    || typeof perspectiveAccountId !== "number"
+    || !Number.isInteger(perspectiveAccountId)
+    || perspectiveAccountId < 1
+    || perspectiveAccountId > 4_294_967_295
   ) {
     throw new Error("mahjong_soul_record_identity_mismatch");
   }
-  return `https://game.maj-soul.com/1/?paipu=${recordId}_a${view}`;
+  return `https://game.maj-soul.com/1/?paipu=${recordId}_a${perspectiveAccountId}`;
 }
 
 export const MahjongSoulSourceErrorCodeSchema = z.enum([
