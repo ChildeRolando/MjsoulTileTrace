@@ -15,8 +15,8 @@
 
 1. **候选与立直**：self-turn 面 Mortal 候选全集映射 + tile-less `declare_riichi`
    契约扩展 + 立直决策窗口比较。
-2. **新决策表面**：post_call（副露后）、post_riichi（立直受领后同巡）窗口，
-   canonical 驱动枚举。
+2. **新决策表面**：post_call（副露后）、post_riichi（立直宣言后、受领完成前的
+   宣言同巡）窗口，canonical 驱动枚举。
 3. **terminal 行动**：actualDiscard === null 的窗口按四类决策行动开窗比较。
 
 配套基础设施：天凤原文→canonical mapper 与 discovery/acceptance 语料 runner
@@ -57,7 +57,10 @@ self-turn 面封闭全集（Mortal `ACTION_SPACE` 46 格可出现于自摸面者
 ### 新窗口种类
 
 - **post_call 窗口**：自己 chi/pon 之后、舍牌之前；无摸牌，手牌为副露后暗牌。
-- **post_riichi 窗口**：立直受领后、**宣言同巡**舍牌；选择受"保持听牌形"约束。
+- **post_riichi 窗口**：立直宣言（declared）后、受领（accepted）完成前的
+  **宣言同巡**舍牌；选择受"保持听牌形"约束。语义时刻已实证钉死：见
+  `2026-08-16-m6-a3-post-riichi-semantic-moment-evidence.md`（触发事件是
+  canonical `riichi_declared`，此刻受领必然尚未发生）。
 - **terminal 窗口**：现有 self_turn 窗口中 actualDiscard === null 者，actual ∈
   `tsumo / ankan / kakan / kyuushu_kyuuhai` 四类开窗比较；**荒牌流局等纯终局
   无行动可选，不开窗、不入账本**。暗杠/加杠的岭上摸牌各自开新窗口。
@@ -76,7 +79,9 @@ multiset、立直状态、tiles_left（complete 时）；junme/序号/draw-tile 
 - self_turn（现状）：14 枚 = concealed + currentDraw，摸牌精确相等。
 - post_call：副露后暗牌 multiset（chi/pon 为 11 枚）、`fuuros` 与本地副露对齐、
   `at_self_chi_pon == true` ↔ 窗口紧随自呼 chi/pon 事件。
-- post_riichi：受领后手牌 multiset、`at_self_riichi == true` ↔ 紧随立直受领。
+- post_riichi：宣言时点手牌 multiset（concealed + 该巡摸牌，14 枚）、
+  `at_self_riichi == true` ↔ 窗口触发于 canonical `riichi_declared`（本地
+  立直状态 = declared；受领事件严格晚于该舍牌）。
 - terminal：同 self_turn，另要求 Mortal actual 类型与本地 actual 行动类型对应
   （`hora` ↔ `tsumo` 等）。
 
@@ -123,7 +128,7 @@ blocked-projection 账本），`analysis_ready` 口径不变；比较契约"至�
 | 黙听窗口含立直候选 | actual=discard，候选含 declare_riichi |
 | post_call（chi 后） | actual=discard |
 | post_call（pon 后） | actual=discard |
-| post_riichi | 立直受领后同巡弃牌 |
+| post_riichi | 立直宣言后、受领完成前的同巡弃牌 |
 | tsumo | actual=tsumo |
 | 黙和窗口含 tsumo 候选 | actual=discard，候选含 tsumo |
 | ankan | actual=ankan 或候选含 ankan |
