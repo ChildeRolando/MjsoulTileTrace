@@ -71,6 +71,11 @@ export const ModelEvaluationSchema = z.object({
   candidates: z.array(ModelCandidateScoreSchema).min(2),
   preferredActions: PreferenceSetSchema,
   actualActionRef: ActionRefSchema,
+  // M6-A3: the actual may realize a scored model alternative of a different
+  // granularity (riichi_discard realizes declare_riichi). The Mortal score
+  // carrier and the error-gap baseline are this scored alternative — the
+  // actualActionRef itself needs no model score of its own.
+  scoredActualModelActionRef: ActionRefSchema,
   errorGap: z.number().finite().min(0).max(100),
   modelReason: z.literal("unknown"),
 }).strict().superRefine((evaluation, context) => {
@@ -85,11 +90,11 @@ export const ModelEvaluationSchema = z.object({
     });
   }
 
-  if (!actionRefs.includes(evaluation.actualActionRef)) {
+  if (!actionRefs.includes(evaluation.scoredActualModelActionRef)) {
     context.addIssue({
       code: z.ZodIssueCode.custom,
-      message: "Actual action must have a model score",
-      path: ["actualActionRef"],
+      message: "Scored actual model action must have a model score",
+      path: ["scoredActualModelActionRef"],
     });
   }
 
@@ -216,7 +221,9 @@ export const ModelEvaluationSchema = z.object({
     });
   }
 
-  const actualIndex = actionRefs.indexOf(evaluation.actualActionRef);
+  const actualIndex = actionRefs.indexOf(
+    evaluation.scoredActualModelActionRef,
+  );
   if (actualIndex !== -1) {
     const expectedGap = highestScore - canonicalScores[actualIndex]!;
     if (

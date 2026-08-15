@@ -1,5 +1,6 @@
 import {
   KnownActionFactsSchema,
+  type ActualModelCorrespondence,
   type CandidateNormalizationResult,
   type KnownActionFacts,
   type StructuredComparisonSet,
@@ -189,74 +190,69 @@ export function importStructuredMortalComparison(input: {
     };
   }
 
-  // M6-A3 (ADR-0001): in a riichi window the model's riichi alternative is the
-  // tile-less declare_riichi while the actual realization is the concrete
-  // riichi_discard with the authoritative local tile. They are the SAME
-  // alternative, matched by type correspondence — never by tile equality. The
-  // declare_riichi model row becomes the scored carrier of the concrete
-  // actual; without such a row the riichi actual was not model-scored.
-  let riichiUnificationRow: StructuredMortalModelRow | undefined;
-  let comparisonCandidates: ReadyNormalization[];
+  // M6-A3 completion (ADR-0001): in a riichi window the model's riichi
+  // alternative stays the tile-less declare_riichi candidate and the actual
+  // stays the concrete riichi_discard with the authoritative local tile. The
+  // actual REALIZES the candidate — recorded as an explicit typed
+  // correspondence. The model row is never rewritten into a tile-bearing form
+  // and actionRef equality never encodes the relation; without a declare_riichi
+  // row the riichi actual was not model-scored.
+  let correspondences: ActualModelCorrespondence[] | undefined;
   if (actual.candidate.action.kind === "riichi_discard") {
-    riichiUnificationRow = modelRows.find((row) =>
+    const declareRow = modelRows.find((row) =>
       row.normalized.candidate.action.kind === "declare_riichi"
     );
-    if (riichiUnificationRow === undefined) {
+    if (declareRow === undefined) {
       return {
         status: "incomplete",
         diagnostics: ["actual_action_not_scored"],
       };
     }
-    comparisonCandidates = modelRows.map((row) =>
-      row === riichiUnificationRow
-        ? {
-          ...row.normalized,
-          candidate: {
-            actionRef: actual.candidate.actionRef,
-            action: actual.candidate.action,
-            origins: ["model" as const, "actual" as const],
-          },
-        }
-        : row.normalized,
-    );
-  } else {
-    if (!modelRefs.includes(actual.candidate.actionRef)) {
-      return {
-        status: "incomplete",
-        diagnostics: ["actual_action_not_scored"],
-      };
-    }
-    comparisonCandidates = [
-      ...modelRows.map((row) => row.normalized),
-      actual,
-    ];
+    correspondences = [{
+      actualActionRef: actual.candidate.actionRef,
+      scoredModelActionRef: declareRow.normalized.candidate.actionRef,
+      relation: "realizes",
+    }];
+  } else if (!modelRefs.includes(actual.candidate.actionRef)) {
+    return {
+      status: "incomplete",
+      diagnostics: ["actual_action_not_scored"],
+    };
   }
+  const comparisonCandidates: ReadyNormalization[] = [
+    ...modelRows.map((row) => row.normalized),
+    actual,
+  ];
 
   const built = buildStructuredComparisonSet({
     comparisonSetId: input.comparisonSetId,
     origin: "automatic_review",
     decisionLayerRef: input.decisionLayerRef,
     candidates: comparisonCandidates,
+    ...(correspondences === undefined ? {} : { correspondences }),
   });
   if (built.status !== "ready") {
     return built;
   }
   const scoreByRef = new Map(modelRows.map((row) => [
-    row === riichiUnificationRow
-      ? actual.candidate.actionRef
-      : row.normalized.candidate.actionRef,
+    row.normalized.candidate.actionRef,
     row,
   ]));
   return {
     status: "ready",
     comparisonSet: built.comparisonSet,
-    scores: built.comparisonSet.candidates.map((candidate) => {
-      const row = scoreByRef.get(candidate.actionRef)!;
-      return {
-        actionRef: candidate.actionRef,
-        probability: row.probability,
-        ...(row.qValue === undefined ? {} : { qValue: row.qValue }),
-      };
-    }),
+    // Scores cover exactly the model-scored alternatives; a different-
+    // granularity actual (the riichi case) carries no score of its own — its
+    // score carrier is the corresponding declare_riichi candidate.
+    scores: built.comparisonSet.candidates
+      .filter((candidate) => candidate.origins.includes("model"))
+      .map((candidate) => {
+        const row = scoreByRef.get(candidate.actionRef)!;
+        return {
+          actionRef: candidate.actionRef,
+          probability: row.probability,
+          ...(row.qValue === undefined ? {} : { qValue: row.qValue }),
+        };
+      }),
   };
 }

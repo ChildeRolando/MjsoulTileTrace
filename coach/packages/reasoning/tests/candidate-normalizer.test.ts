@@ -1096,3 +1096,49 @@ describe("CandidateNormalizer action and window coverage", () => {
     }
   });
 });
+
+describe("M6-A3 declare_riichi candidate-only enforcement", () => {
+  const selfTurnFacts = {
+    decisionWindow: {
+      kind: "self_turn" as const,
+      actor: 0,
+      triggerEventRef: "event:draw",
+    },
+    concealedTiles: [{ id: "2p" as const, red: false }],
+    currentDraw: {
+      tile: { id: "6s" as const, red: false },
+      eventRef: "event:draw",
+    },
+  };
+
+  it("rejects an actual declare_riichi at the origin boundary", () => {
+    // ADR-0001: declare_riichi is model-candidate-only. The actual side of a
+    // riichi is always the tile-bearing riichi_discard from canonical replay;
+    // an actual declare_riichi is a typed integrity failure, not a shape that
+    // completion or correspondence may repair.
+    expect(normalizeCandidate({
+      draft: { kind: "declare_riichi" },
+      origin: "actual",
+      facts: selfTurnFacts,
+    })).toEqual({
+      status: "inconsistent_with_known_facts",
+      conflictCodes: ["declare_riichi_actual_forbidden"],
+      evidenceRefs: [],
+    });
+  });
+
+  it("keeps declare_riichi normalizable for model and user origins", () => {
+    for (const origin of ["model", "user"] as const) {
+      const result = normalizeCandidate({
+        draft: { kind: "declare_riichi" },
+        origin,
+        facts: selfTurnFacts,
+      });
+      expect(result.status).toBe("ready");
+      if (result.status === "ready") {
+        expect(result.candidate.action).toEqual({ kind: "declare_riichi" });
+        expect(result.candidate.origins).toEqual([origin]);
+      }
+    }
+  });
+});

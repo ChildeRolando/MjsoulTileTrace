@@ -13,6 +13,11 @@ type CommonEvaluationInput = {
   engineVersion: string;
   adapterVersion: string;
   actualActionRef: string;
+  // M6-A3: the scored model alternative the actual corresponds to. Defaults
+  // to the exact actualActionRef; a different-granularity actual (riichi)
+  // passes the declare_riichi alternative's ref instead. The Mortal score and
+  // the error-gap baseline attach to this ref, never to an unscored actual.
+  scoredActualModelActionRef?: string;
   detailPolicy: DetailPolicySnapshot;
 };
 
@@ -39,7 +44,7 @@ export type AkagiCandidateInput = {
 
 function checkAutomaticEvidence(
   candidates: ReadonlyArray<{ actionRef: string }>,
-  actualActionRef: string,
+  scoredActualModelActionRef: string,
 ): ModelEvaluationBuildResult | null {
   if (candidates.length < 2) {
     return {
@@ -48,7 +53,7 @@ function checkAutomaticEvidence(
     };
   }
   if (!candidates.some(
-    (candidate) => candidate.actionRef === actualActionRef,
+    (candidate) => candidate.actionRef === scoredActualModelActionRef,
   )) {
     return {
       status: "incomplete",
@@ -77,13 +82,13 @@ function errorGap(
     actionRef: ActionRef;
     modelSelectionScore: number;
   }>,
-  actualActionRef: string,
+  scoredActualModelActionRef: string,
 ): number {
   const highest = Math.max(
     ...candidates.map((candidate) => candidate.modelSelectionScore),
   );
   const actual = candidates.find(
-    (candidate) => candidate.actionRef === actualActionRef,
+    (candidate) => candidate.actionRef === scoredActualModelActionRef,
   )!;
   return highest - actual.modelSelectionScore;
 }
@@ -95,7 +100,7 @@ export function buildMortalModelEvaluation(
 ): ModelEvaluationBuildResult {
   const incomplete = checkAutomaticEvidence(
     input.candidates,
-    input.actualActionRef,
+    input.scoredActualModelActionRef ?? input.actualActionRef,
   );
   if (incomplete) {
     return incomplete;
@@ -122,7 +127,12 @@ export function buildMortalModelEvaluation(
     candidates,
     preferredActions: preferredActions(candidates),
     actualActionRef: input.actualActionRef,
-    errorGap: errorGap(candidates, input.actualActionRef),
+    errorGap: errorGap(
+      candidates,
+      input.scoredActualModelActionRef ?? input.actualActionRef,
+    ),
+    scoredActualModelActionRef:
+      input.scoredActualModelActionRef ?? input.actualActionRef,
     modelReason: "unknown",
   });
   return { status: "ready", evaluation };
@@ -135,7 +145,7 @@ export function buildAkagiModelEvaluation(
 ): ModelEvaluationBuildResult {
   const incomplete = checkAutomaticEvidence(
     input.candidates,
-    input.actualActionRef,
+    input.scoredActualModelActionRef ?? input.actualActionRef,
   );
   if (incomplete) {
     return incomplete;
@@ -172,7 +182,12 @@ export function buildAkagiModelEvaluation(
     candidates,
     preferredActions: preferredActions(candidates),
     actualActionRef: input.actualActionRef,
-    errorGap: errorGap(candidates, input.actualActionRef),
+    errorGap: errorGap(
+      candidates,
+      input.scoredActualModelActionRef ?? input.actualActionRef,
+    ),
+    scoredActualModelActionRef:
+      input.scoredActualModelActionRef ?? input.actualActionRef,
     modelReason: "unknown",
   });
   return { status: "ready", evaluation };

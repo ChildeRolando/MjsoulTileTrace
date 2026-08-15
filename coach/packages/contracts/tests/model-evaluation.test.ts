@@ -36,6 +36,7 @@ const mortalEvaluation = {
   ],
   preferredActions: ["action:6s"],
   actualActionRef: "action:2p",
+  scoredActualModelActionRef: "action:2p",
   errorGap: 50,
   modelReason: "unknown",
 } as const;
@@ -57,8 +58,12 @@ describe("model evaluation contract", () => {
 
     expect(() => ModelEvaluationSchema.parse({
       ...mortalEvaluation,
-      actualActionRef: "action:missing",
+      scoredActualModelActionRef: "action:missing",
     })).toThrow();
+
+    const { scoredActualModelActionRef: _omitted, ...withoutScoredRef } =
+      mortalEvaluation;
+    expect(() => ModelEvaluationSchema.parse(withoutScoredRef)).toThrow();
 
     expect(() => ModelEvaluationSchema.parse({
       ...mortalEvaluation,
@@ -126,6 +131,7 @@ describe("model evaluation contract", () => {
       ],
       preferredActions: ["action:a"],
       actualActionRef: "action:b",
+      scoredActualModelActionRef: "action:b",
       errorGap: 46.21171572600097,
       modelReason: "unknown",
     }).engineId).toBe("akagi_native");
@@ -305,5 +311,75 @@ describe("model evaluation contract", () => {
       ],
       errorGap: 10.0000000007,
     }).errorGap).toBe(10.0000000007);
+  });
+});
+
+describe("M6-A3 riichi different-granularity actual scoring", () => {
+  // The actual riichi_discard carries no model score of its own: the Mortal
+  // probability stays on the tile-less declare_riichi alternative the actual
+  // realizes, and the error gap is measured against that alternative's score.
+  const riichiEvaluation = {
+    ...mortalEvaluation,
+    evaluationId: "evaluation:riichi",
+    candidates: [
+      {
+        actionRef: "action:declare-riichi",
+        rawValues: [{ metric: "probability", value: 0.6 }],
+        modelSelectionScore: 60,
+      },
+      mortalEvaluation.candidates[1],
+    ],
+    preferredActions: ["action:declare-riichi"],
+    actualActionRef: "action:riichi-discard-3m",
+    scoredActualModelActionRef: "action:declare-riichi",
+    errorGap: 0,
+  } as const;
+
+  it("scores the actual through its corresponding model alternative", () => {
+    const parsed = ModelEvaluationSchema.parse(riichiEvaluation);
+    expect(parsed.actualActionRef).toBe("action:riichi-discard-3m");
+    expect(parsed.scoredActualModelActionRef).toBe("action:declare-riichi");
+    expect(parsed.errorGap).toBe(0);
+  });
+
+  it("measures the error gap from the corresponding alternative only", () => {
+    // Highest score is the 75-point discard the player did NOT realize; the
+    // realized declare_riichi scores 60, so the gap is 15 — not 75 minus an
+    // unscored actual ref.
+    expect(ModelEvaluationSchema.parse({
+      ...riichiEvaluation,
+      candidates: [
+        {
+          actionRef: "action:declare-riichi",
+          rawValues: [{ metric: "probability", value: 0.6 }],
+          modelSelectionScore: 60,
+        },
+        {
+          actionRef: "action:6s",
+          rawValues: [{ metric: "probability", value: 0.75 }],
+          modelSelectionScore: 75,
+        },
+      ],
+      preferredActions: ["action:6s"],
+      errorGap: 15,
+    }).errorGap).toBe(15);
+
+    expect(() => ModelEvaluationSchema.parse({
+      ...riichiEvaluation,
+      candidates: [
+        {
+          actionRef: "action:declare-riichi",
+          rawValues: [{ metric: "probability", value: 0.6 }],
+          modelSelectionScore: 60,
+        },
+        {
+          actionRef: "action:6s",
+          rawValues: [{ metric: "probability", value: 0.75 }],
+          modelSelectionScore: 75,
+        },
+      ],
+      preferredActions: ["action:6s"],
+      errorGap: 0,
+    })).toThrow(/error gap/i);
   });
 });

@@ -109,8 +109,9 @@ function localActualEnvelopes(
       }];
     case "riichi_discard":
       // The full declaration: a tile-less reach plus the authoritative local
-      // discard — exactly the sequence the adapter unifies into
-      // riichi_discard and matches to the declare_riichi model row.
+      // discard — exactly the sequence the adapter pairs into riichi_discard,
+      // which then REALIZES the declare_riichi model row via the typed
+      // correspondence (never by rewriting the model row).
       return [
         { eventRef, action: { type: "reach", actor } },
         {
@@ -584,13 +585,19 @@ export async function runBoundMortalDecisionReview(input: {
       };
     }
 
-    // P9: deterministic model evaluation.
+    // P9: deterministic model evaluation. For a riichi window the actual
+    // riichi_discard realizes the tile-less declare_riichi alternative, so the
+    // scored carrier is the correspondence's model ref; ordinary actions carry
+    // their own exact ref.
     const actualCandidate = imported.comparisonSet.candidates.find(
       (candidate) => candidate.origins.includes("actual"),
     );
     if (actualCandidate === undefined) {
       throw new MortalSourceError("mortal_decision_actual_mismatch");
     }
+    const correspondence = imported.comparisonSet.correspondences?.find(
+      (item) => item.actualActionRef === actualCandidate.actionRef,
+    );
     const evaluationBuilt = buildMortalModelEvaluation({
       evaluationId: `mortal-evaluation:${reportIdHash}:${input.decision.decisionEventRef}`,
       comparisonSetId: imported.comparisonSet.comparisonSetId,
@@ -598,6 +605,8 @@ export async function runBoundMortalDecisionReview(input: {
       engineVersion: input.report.version,
       adapterVersion: MORTAL_ADAPTER_VERSION,
       actualActionRef: actualCandidate.actionRef,
+      scoredActualModelActionRef:
+        correspondence?.scoredModelActionRef ?? actualCandidate.actionRef,
       detailPolicy: freezeDetailPolicy({
         policyVersion: DECISION_DETAIL_POLICY_VERSION,
         frozenAt: input.frozenAt ?? new Date(now()).toISOString(),

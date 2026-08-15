@@ -94,6 +94,152 @@ describe("structured comparison sets", () => {
     })).toThrow(/must come from the model/);
   });
 
+  it("keeps the riichi actual separate and binds it by explicit correspondence", () => {
+    // M6-A3 completion (ADR-0001): the model's declare_riichi stays tile-less
+    // and model-only; the concrete riichi_discard actual keeps its own exact
+    // identity. The semantic relation survives as a typed correspondence —
+    // never as a rewrite of the model row and never via actionRef equality.
+    const declareRiichi: RiichiAction = { kind: "declare_riichi" };
+    const riichiDiscard: RiichiAction = {
+      kind: "riichi_discard",
+      tile: { id: "3m", red: false },
+      discardMode: "tedashi",
+    };
+    const riichiWindow = {
+      comparisonSetId: "comparison:riichi-window",
+      origin: "automatic_review",
+      decisionLayerRef: "decision-layer:riichi-window",
+      decisionWindow: {
+        kind: "self_turn",
+        actor: 3,
+        triggerEventRef: "event-50",
+      },
+      candidates: [
+        {
+          actionRef: canonicalActionRef(declareRiichi),
+          action: declareRiichi,
+          origins: ["model"],
+        },
+        {
+          actionRef: canonicalActionRef(modelAction),
+          action: modelAction,
+          origins: ["model"],
+        },
+        {
+          actionRef: canonicalActionRef(riichiDiscard),
+          action: riichiDiscard,
+          origins: ["actual"],
+        },
+      ],
+      correspondences: [{
+        actualActionRef: canonicalActionRef(riichiDiscard),
+        scoredModelActionRef: canonicalActionRef(declareRiichi),
+        relation: "realizes",
+      }],
+    } as const;
+
+    const parsed = StructuredComparisonSetSchema.parse(riichiWindow);
+    expect(parsed.candidates.map((candidate) => candidate.origins)).toEqual([
+      ["model"],
+      ["model"],
+      ["actual"],
+    ]);
+    expect(parsed.correspondences).toEqual([{
+      actualActionRef: canonicalActionRef(riichiDiscard),
+      scoredModelActionRef: canonicalActionRef(declareRiichi),
+      relation: "realizes",
+    }]);
+
+    // Without the correspondence the actual-only candidate is illegal.
+    const { correspondences: _omitted, ...withoutCorrespondence } =
+      riichiWindow;
+    expect(() => StructuredComparisonSetSchema.parse(withoutCorrespondence))
+      .toThrow(/must come from the model/);
+  });
+
+  it("rejects malformed riichi correspondences", () => {
+    const declareRiichi: RiichiAction = { kind: "declare_riichi" };
+    const riichiDiscard: RiichiAction = {
+      kind: "riichi_discard",
+      tile: { id: "3m", red: false },
+      discardMode: "tedashi",
+    };
+    const riichiWindow = {
+      comparisonSetId: "comparison:riichi-correspondence",
+      origin: "automatic_review",
+      decisionLayerRef: "decision-layer:riichi-correspondence",
+      decisionWindow: {
+        kind: "self_turn",
+        actor: 3,
+        triggerEventRef: "event-50",
+      },
+      candidates: [
+        {
+          actionRef: canonicalActionRef(declareRiichi),
+          action: declareRiichi,
+          origins: ["model"],
+        },
+        {
+          actionRef: canonicalActionRef(riichiDiscard),
+          action: riichiDiscard,
+          origins: ["actual"],
+        },
+      ],
+      correspondences: [],
+    } as const;
+
+    // Empty correspondence list leaves the actual-only candidate unbound.
+    expect(() => StructuredComparisonSetSchema.parse(riichiWindow)).toThrow(
+      /must come from the model/,
+    );
+
+    // The correspondence must point at a scored model candidate.
+    expect(() => StructuredComparisonSetSchema.parse({
+      ...riichiWindow,
+      correspondences: [{
+        actualActionRef: canonicalActionRef(riichiDiscard),
+        scoredModelActionRef: canonicalActionRef(modelAction),
+        relation: "realizes",
+      }],
+    })).toThrow(/correspondence/);
+
+    // A plain discard actual may not claim a declare_riichi correspondence.
+    expect(() => StructuredComparisonSetSchema.parse({
+      ...riichiWindow,
+      candidates: [
+        riichiWindow.candidates[0],
+        {
+          actionRef: canonicalActionRef(actualAction),
+          action: actualAction,
+          origins: ["actual"],
+        },
+      ],
+      correspondences: [{
+        actualActionRef: canonicalActionRef(actualAction),
+        scoredModelActionRef: canonicalActionRef(declareRiichi),
+        relation: "realizes",
+      }],
+    })).toThrow(/correspondence/);
+
+    // An actual that is already exactly scored needs no correspondence.
+    expect(() => StructuredComparisonSetSchema.parse({
+      ...riichiWindow,
+      candidates: [
+        riichiWindow.candidates[0],
+        {
+          actionRef: canonicalActionRef(riichiDiscard),
+          action: riichiDiscard,
+          origins: ["model", "actual"],
+        },
+      ],
+      correspondences: [{
+        actualActionRef: canonicalActionRef(riichiDiscard),
+        scoredModelActionRef: canonicalActionRef(declareRiichi),
+        relation: "realizes",
+      }],
+    })).toThrow(/correspondence/);
+  });
+
   it("rejects actions that do not belong to the frozen window", () => {
     const chi: RiichiAction = {
       kind: "chi",

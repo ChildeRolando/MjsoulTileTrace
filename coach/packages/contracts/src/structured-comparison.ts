@@ -40,12 +40,28 @@ export type StructuredComparisonCandidate = z.infer<
   typeof StructuredComparisonCandidateSchema
 >;
 
+// M6-A3 (ADR-0001): the actual riichi_discard(tile, mode) and the model's
+// tile-less declare_riichi candidate are different-granularity views of the
+// same alternative. Their relation survives as this explicit typed
+// correspondence — never as an actionRef rewrite of the model row and never
+// via actionRef equality. This milestone admits exactly one correspondence
+// pair kind: riichi_discard realizes declare_riichi.
+export const ActualModelCorrespondenceSchema = z.object({
+  actualActionRef: ActionRefSchema,
+  scoredModelActionRef: ActionRefSchema,
+  relation: z.literal("realizes"),
+}).strict();
+export type ActualModelCorrespondence = z.infer<
+  typeof ActualModelCorrespondenceSchema
+>;
+
 export const StructuredComparisonSetSchema = z.object({
   comparisonSetId: z.string().min(1),
   origin: z.enum(["automatic_review", "user_comparison"]),
   decisionLayerRef: DecisionLayerRefSchema,
   decisionWindow: DecisionWindowSchema,
   candidates: z.array(StructuredComparisonCandidateSchema).min(2),
+  correspondences: z.array(ActualModelCorrespondenceSchema).max(1).optional(),
 }).strict().superRefine((comparisonSet, context) => {
   const refs = comparisonSet.candidates.map((candidate) => candidate.actionRef);
   if (new Set(refs).size !== refs.length) {
@@ -65,6 +81,68 @@ export const StructuredComparisonSetSchema = z.object({
       path: ["candidates"],
     });
   }
+
+  // Correspondence integrity: every correspondence must bind the actual
+  // candidate to a scored model candidate of the riichi granularity pair,
+  // and only such an actual-bound candidate may skip the model origin.
+  const actualRefs = actual.map((candidate) => candidate.actionRef);
+  const correspondences = comparisonSet.correspondences ?? [];
+  const correspondedByRef = new Set(
+    correspondences.map((correspondence) => correspondence.actualActionRef),
+  );
+  correspondences.forEach((correspondence, index) => {
+    if (correspondence.actualActionRef === correspondence.scoredModelActionRef) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "correspondence must link two distinct action identities",
+        path: ["correspondences", index],
+      });
+      return;
+    }
+    if (actualRefs.length !== 1 ||
+      correspondence.actualActionRef !== actualRefs[0]) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "correspondence must bind the actual candidate",
+        path: ["correspondences", index],
+      });
+    }
+    const actualCandidate = comparisonSet.candidates.find(
+      (candidate) => candidate.actionRef === correspondence.actualActionRef,
+    );
+    if (actualCandidate?.origins.includes("model")) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message:
+          "correspondence must bind an actual without an exact scored ref",
+        path: ["correspondences", index],
+      });
+    }
+    const modelCandidate = comparisonSet.candidates.find(
+      (candidate) =>
+        candidate.actionRef === correspondence.scoredModelActionRef &&
+        candidate.origins.includes("model"),
+    );
+    if (modelCandidate === undefined) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "correspondence must point at a scored model candidate",
+        path: ["correspondences", index],
+      });
+    }
+    if (
+      actualCandidate?.action.kind !== "riichi_discard" ||
+      modelCandidate?.action.kind !== "declare_riichi"
+    ) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message:
+          "correspondence is limited to a riichi_discard actual realizing a declare_riichi model candidate",
+        path: ["correspondences", index],
+      });
+    }
+  });
+
   if (comparisonSet.origin === "automatic_review") {
     if (actual.length !== 1) {
       context.addIssue({
@@ -75,11 +153,17 @@ export const StructuredComparisonSetSchema = z.object({
     }
     comparisonSet.candidates.forEach((candidate, index) => {
       if (!candidate.origins.includes("model")) {
-        context.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: "Every automatic-review candidate must come from the model",
-          path: ["candidates", index, "origins"],
-        });
+        const boundByCorrespondence =
+          candidate.origins.includes("actual") &&
+          correspondedByRef.has(candidate.actionRef);
+        if (!boundByCorrespondence) {
+          context.addIssue({
+            code: z.ZodIssueCode.custom,
+            message:
+              "Every automatic-review candidate must come from the model",
+            path: ["candidates", index, "origins"],
+          });
+        }
       }
     });
   }

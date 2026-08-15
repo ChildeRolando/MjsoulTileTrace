@@ -3,6 +3,7 @@ import {
   DecisionWindowSchema,
   StructuredComparisonBuildResultSchema,
   StructuredComparisonSetSchema,
+  type ActualModelCorrespondence,
   type CandidateNormalizationResult,
   type DecisionWindow,
   type StructuredComparisonBuildResult,
@@ -26,6 +27,7 @@ export function buildStructuredComparisonSet(input: {
   origin: "automatic_review" | "user_comparison";
   decisionLayerRef: string;
   candidates: ComparisonBuildCandidate[];
+  correspondences?: ActualModelCorrespondence[];
 }): StructuredComparisonBuildResult {
   const parsed = input.candidates.map((entry) => {
     const result = CandidateNormalizationResultSchema.parse(entry);
@@ -96,6 +98,10 @@ export function buildStructuredComparisonSet(input: {
       decisionLayerRef: input.decisionLayerRef,
       decisionWindow: parsed[0]!.decisionWindow,
       candidates,
+      ...(input.correspondences === undefined ||
+          input.correspondences.length === 0
+        ? {}
+        : { correspondences: input.correspondences }),
     }),
   });
 }

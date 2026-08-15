@@ -250,7 +250,13 @@ describe("generic structured Mortal importer", () => {
     expect(declareRiichi).toBeDefined();
     expect(declareRiichi!.action).toEqual({ kind: "declare_riichi" });
     expect(declareRiichi!.origins).toEqual(["model"]);
-    // The concrete discard actual stays scored through its own dahai row.
+    // Test A (handoff §7): no riichi was declared, so no riichi_discard
+    // candidate and no correspondence may exist anywhere — the actual stays
+    // the exact ordinary discard with no inferred riichi tile.
+    expect(result.comparisonSet.candidates.some(
+      (candidate) => candidate.action.kind === "riichi_discard",
+    )).toBe(false);
+    expect(result.comparisonSet.correspondences ?? []).toEqual([]);
     const actual = result.comparisonSet.candidates.find(
       (candidate) => candidate.origins.includes("actual"),
     );
@@ -265,7 +271,7 @@ describe("generic structured Mortal importer", () => {
     });
   });
 
-  it("unifies the declare_riichi model row with the concrete riichi_discard actual", () => {
+  it("keeps the declare_riichi model row and the riichi_discard actual as separate exact identities", () => {
     const result = importStructuredMortalComparison({
       comparisonSetId: "comparison:riichi-window",
       decisionLayerRef: "decision-layer:riichi-window",
@@ -297,11 +303,19 @@ describe("generic structured Mortal importer", () => {
       },
     });
 
+    // Test B (handoff §7): both exact action identities survive — the
+    // tile-less declare_riichi stays model-only, the concrete riichi_discard
+    // stays actual-only, and their relation is an explicit typed
+    // correspondence rather than an actionRef rewrite.
     expect(result.status).toBe("ready");
     if (result.status !== "ready") return;
-    expect(result.comparisonSet.candidates).toHaveLength(2);
-    // Exactly one actual candidate: the concrete riichi_discard that absorbed
-    // the tile-less declare_riichi model row by type correspondence.
+    expect(result.comparisonSet.candidates).toHaveLength(3);
+    const declareRiichi = result.comparisonSet.candidates.find(
+      (candidate) => candidate.action.kind === "declare_riichi",
+    );
+    expect(declareRiichi).toBeDefined();
+    expect(declareRiichi!.action).toEqual({ kind: "declare_riichi" });
+    expect(declareRiichi!.origins).toEqual(["model"]);
     const actualCandidates = result.comparisonSet.candidates.filter(
       (candidate) => candidate.origins.includes("actual"),
     );
@@ -311,17 +325,116 @@ describe("generic structured Mortal importer", () => {
       tile: { id: "2p", red: false },
       discardMode: "tedashi",
     });
-    expect(actualCandidates[0]!.origins).toEqual(["model", "actual"]);
-    // The riichi alternative must carry the model's reach-row score.
+    expect(actualCandidates[0]!.origins).toEqual(["actual"]);
+    expect(actualCandidates[0]!.actionRef).not.toBe(
+      declareRiichi!.actionRef,
+    );
+    expect(result.comparisonSet.correspondences).toEqual([{
+      actualActionRef: actualCandidates[0]!.actionRef,
+      scoredModelActionRef: declareRiichi!.actionRef,
+      relation: "realizes",
+    }]);
+    // The Mortal probability/q-value stays attached to declare_riichi; the
+    // actual tile never becomes model-supplied data.
     expect(
       result.scores.find(
-        (score) => score.actionRef === actualCandidates[0]!.actionRef,
+        (score) => score.actionRef === declareRiichi!.actionRef,
       ),
     ).toEqual({
-      actionRef: actualCandidates[0]!.actionRef,
+      actionRef: declareRiichi!.actionRef,
       probability: 0.6,
       qValue: 0.9,
     });
+    expect(result.scores.some(
+      (score) => score.actionRef === actualCandidates[0]!.actionRef,
+    )).toBe(false);
+  });
+
+  it("never leaks the actual riichi tile into the model representation", () => {
+    // Test C (handoff §7): the same model reach row meets two different
+    // riichi actuals — the declare_riichi actionRef, score identity, and
+    // tile-less shape must stay identical while only the actual refs differ.
+    const modelReach = [{
+      actions: [{
+        eventRef: "model:reach",
+        action: { type: "reach", actor: 3 },
+      }],
+      probability: 0.6,
+      qValue: 0.9,
+    }, modelTwoPin];
+    // A hand holding every tile either actual may discard tedashi.
+    const antiLeakFacts = {
+      decisionWindow: {
+        kind: "self_turn" as const,
+        actor: 3,
+        triggerEventRef: "event:draw",
+      },
+      concealedTiles: [
+        { id: "3m" as const, red: false },
+        { id: "7s" as const, red: false },
+        { id: "2p" as const, red: false },
+      ],
+      currentDraw: {
+        tile: { id: "6s" as const, red: false },
+        eventRef: "event:draw",
+      },
+    };
+    const importFor = (pai: string) => importStructuredMortalComparison({
+      comparisonSetId: `comparison:anti-leak:${pai}`,
+      decisionLayerRef: `decision-layer:anti-leak:${pai}`,
+      facts: antiLeakFacts,
+      modelCandidates: modelReach,
+      actual: {
+        actions: [
+          {
+            eventRef: "actual:reach",
+            action: { type: "reach", actor: 3 },
+          },
+          {
+            eventRef: "actual:riichi-dahai",
+            action: {
+              type: "dahai",
+              actor: 3,
+              pai,
+              tsumogiri: false,
+            },
+          },
+        ],
+      },
+    });
+
+    const threeMan = importFor("3m");
+    const sevenSou = importFor("7s");
+    expect(threeMan.status).toBe("ready");
+    expect(sevenSou.status).toBe("ready");
+    if (threeMan.status !== "ready" || sevenSou.status !== "ready") return;
+
+    const declareOf = (result: typeof threeMan) =>
+      result.comparisonSet.candidates.find(
+        (candidate) => candidate.action.kind === "declare_riichi",
+      )!;
+    const actualOf = (result: typeof threeMan) =>
+      result.comparisonSet.candidates.find(
+        (candidate) => candidate.origins.includes("actual"),
+      )!;
+
+    expect(declareOf(threeMan).actionRef).toBe(declareOf(sevenSou).actionRef);
+    expect(declareOf(threeMan).action).toEqual({ kind: "declare_riichi" });
+    expect(declareOf(sevenSou).action).toEqual({ kind: "declare_riichi" });
+    expect(
+      JSON.stringify(threeMan.scores.find(
+        (score) => score.actionRef === declareOf(threeMan).actionRef,
+      )),
+    ).toBe(
+      JSON.stringify(sevenSou.scores.find(
+        (score) => score.actionRef === declareOf(sevenSou).actionRef,
+      )),
+    );
+    expect(actualOf(threeMan).actionRef).not.toBe(
+      actualOf(sevenSou).actionRef,
+    );
+    expect(actualOf(threeMan).action).toMatchObject({ tile: { id: "3m" } });
+    expect(actualOf(sevenSou).action).toMatchObject({ tile: { id: "7s" } });
   });
 
   it("fails closed when a riichi actual has no declare_riichi model row", () => {

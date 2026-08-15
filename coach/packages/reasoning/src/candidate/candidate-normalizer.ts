@@ -1050,6 +1050,17 @@ export function normalizeCandidate(input: {
   const facts = KnownActionFactsSchema.parse(input.facts);
   const origin = CandidateOriginSchema.parse(input.origin);
   const draft = ActionDraftSchema.parse(input.draft);
+  // ADR-0001: declare_riichi is model-candidate-only. The actual side of a
+  // riichi is always the tile-bearing riichi_discard from canonical replay, so
+  // this authoritative origin boundary rejects an actual declare_riichi
+  // outright instead of letting completion or correspondence repair it.
+  if (origin === "actual" && draft.kind === "declare_riichi") {
+    return CandidateNormalizationResultSchema.parse({
+      status: "inconsistent_with_known_facts",
+      conflictCodes: ["declare_riichi_actual_forbidden"],
+      evidenceRefs: [],
+    });
+  }
   const completion = completeAction(draft, facts);
   if (completion.structuralIssueCodes !== undefined) {
     return CandidateNormalizationResultSchema.parse({
