@@ -8,7 +8,10 @@ import {
   type MahjongSoulSessionVault,
   type StoredMahjongSoulSession,
 } from "@riichi-coach/mahjong-soul-source";
-import { createMahjongSoulRecordIngestionService } from "../src/record-ingestion-service.js";
+import {
+  createMahjongSoulRecordIngestionService,
+  requireCatalogSelfSeat,
+} from "../src/record-ingestion-service.js";
 
 const id = "260811-00000000-0000-0000-0000-000000000001";
 const secondId = "260811-00000000-0000-0000-0000-000000000002";
@@ -69,5 +72,32 @@ describe("account-bound Mahjong Soul record ingestion", () => {
     ]);
     expect([first.recordId, second.recordId]).toEqual([id, secondId]);
     expect(value.fetchCalls()).toBe(2);
+  });
+});
+
+describe("requireCatalogSelfSeat (account route seat resolution)", () => {
+  test("returns the catalog summary's seat when it exists and is valid", () => {
+    expect(requireCatalogSelfSeat([{ recordId: id, selfSeat: 2 }], id)).toBe(2);
+    expect(requireCatalogSelfSeat(
+      [{ recordId: secondId, selfSeat: 1 }, { recordId: id, selfSeat: 0 }],
+      id,
+    )).toBe(0);
+  });
+
+  test("fails closed when the summary is missing — never a silent seat 0", () => {
+    expect(() => requireCatalogSelfSeat([], id))
+      .toThrow("mahjong_soul_record_not_analyzable");
+    expect(() => requireCatalogSelfSeat([{ recordId: secondId, selfSeat: 0 }], id))
+      .toThrow("mahjong_soul_record_not_analyzable");
+  });
+
+  test.each([
+    ["negative seat", -1],
+    ["seat above 3", 4],
+    ["fractional seat", 1.5],
+    ["non-integer seat", Number.NaN],
+  ])("fails closed on an invalid summary seat (%s)", (_label, selfSeat) => {
+    expect(() => requireCatalogSelfSeat([{ recordId: id, selfSeat }], id))
+      .toThrow("mahjong_soul_record_not_analyzable");
   });
 });

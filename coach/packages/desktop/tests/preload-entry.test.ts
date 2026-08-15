@@ -123,6 +123,7 @@ describe("self-contained sandboxed preload", () => {
       "mahjong_soul_canonical_unsupported_semantics",
       "mahjong_soul_canonical_mapping_failed",
       "mahjong_soul_canonical_validation_failed",
+      "mahjong_soul_record_identity_mismatch",
       "mahjong_soul_login_protocol_unsupported",
     ];
     const paipu = exposed.get("riichiCoachPaipu") as {
@@ -130,7 +131,6 @@ describe("self-contained sandboxed preload", () => {
     };
     const request = {
       shareUrl: "https://game.maj-soul.com/1/?paipu=260811-00000000-0000-0000-0000-000000000001_a1",
-      selfActor: 0,
     };
     for (const code of passthrough) {
       invoke.mockImplementationOnce(() => { throw new Error(code); });
@@ -142,25 +142,26 @@ describe("self-contained sandboxed preload", () => {
     const ready = {
       status: "analysis_ready",
       recordId: "260811-00000000-0000-0000-0000-000000000001",
-      selfActor: 3,
       canonicalEventCount: 1024,
       replayDecisionCount: 116,
     };
     expect(assertSafePaipuImportResult(ready)).toBeDefined();
-    for (const status of ["invalid_url", "invalid_self_actor", "no_capture", "unsupported_semantics", "analysis_failed"]) {
+    for (const status of ["invalid_url", "identity_mismatch", "no_capture", "unsupported_semantics", "analysis_failed"]) {
       expect(assertSafePaipuImportResult({ status })).toBeDefined();
       // Exactly one key: a status plus anything else is refused.
       expect(() => assertSafePaipuImportResult({ status, extra: 1 }))
         .toThrow("mahjong_soul_login_protocol_unsupported");
     }
-    // Raw bytes / credential fields can never ride along.
-    for (const key of ["recordBytes", "rawRecord", "accessToken", "token", "accountId", "endpoint", "cookies"]) {
+    // Raw bytes / credential / identity fields can never ride along — and
+    // neither can the auto-resolved seat.
+    for (const key of [
+      "recordBytes", "rawRecord", "accessToken", "token", "accountId",
+      "endpoint", "cookies", "selfActor", "perspectiveAccountId", "accounts",
+    ]) {
       expect(() => assertSafePaipuImportResult({ ...ready, [key]: "secret" }))
         .toThrow("mahjong_soul_login_protocol_unsupported");
     }
     // Wrong shapes for the ready payload.
-    expect(() => assertSafePaipuImportResult({ ...ready, selfActor: 9 }))
-      .toThrow("mahjong_soul_login_protocol_unsupported");
     expect(() => assertSafePaipuImportResult({ ...ready, canonicalEventCount: 1.5 }))
       .toThrow("mahjong_soul_login_protocol_unsupported");
     expect(() => assertSafePaipuImportResult({ status: "evil" }))
@@ -169,24 +170,25 @@ describe("self-contained sandboxed preload", () => {
       .toThrow("mahjong_soul_login_protocol_unsupported");
   });
 
-  it("validates the import envelope before invoking, and forwards the dedicated channel", async () => {
+  it("validates the shareUrl-only import envelope before invoking, and forwards the dedicated channel", async () => {
     invoke.mockClear();
     const paipu = exposed.get("riichiCoachPaipu") as {
       importPaipu(input: unknown): Promise<unknown>;
     };
     const request = {
       shareUrl: "https://game.maj-soul.com/1/?paipu=260811-00000000-0000-0000-0000-000000000001_a1",
-      selfActor: 2,
     };
     for (const bad of [
       undefined,
       null,
       "url",
-      { shareUrl: "https://game.maj-soul.com/" },
-      { ...request, selfActor: "2" },
+      // The removed manual seat is an extra key and must be rejected.
+      { ...request, selfActor: 2 },
+      { ...request, seat: "2" },
       { ...request, extra: true },
-      { shareUrl: "", selfActor: 0 },
-      { shareUrl: "x".repeat(513), selfActor: 0 },
+      { shareUrl: "" },
+      { shareUrl: "x".repeat(513) },
+      {},
     ]) {
       await expect(paipu.importPaipu(bad)).rejects.toThrow("mahjong_soul_login_protocol_unsupported");
     }

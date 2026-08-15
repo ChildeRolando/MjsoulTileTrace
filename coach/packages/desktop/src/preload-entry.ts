@@ -96,16 +96,18 @@ export function assertSafeSummaries(value: unknown): unknown {
 const PAIPU_IMPORT_STATUSES: ReadonlySet<string> = new Set([
   "analysis_ready",
   "invalid_url",
-  "invalid_self_actor",
+  "identity_mismatch",
   "no_capture",
   "unsupported_semantics",
   "analysis_failed",
 ]);
 
 // The fixed safe result of a paipu-URL import: one of the fixed statuses,
-// plus exactly {recordId, selfActor, canonicalEventCount,
-// replayDecisionCount} when ready. Record bytes, credentials, endpoints and
-// raw payloads can never appear in this shape.
+// plus exactly {recordId, canonicalEventCount, replayDecisionCount} when
+// ready. Record bytes, credentials, endpoints, account/perspective ids and
+// raw payloads can never appear in this shape — and the seat never crosses
+// (it is auto-resolved in the main process and is none of the renderer's
+// business).
 export function assertSafePaipuImportResult(value: unknown): unknown {
   if (
     !isRecord(value)
@@ -119,18 +121,13 @@ export function assertSafePaipuImportResult(value: unknown): unknown {
   }
   if (value.status === "analysis_ready") {
     const keys = Object.keys(value).sort();
-    if (keys.length !== 5) throw new Error(PROTOCOL_ERROR);
+    if (keys.length !== 4) throw new Error(PROTOCOL_ERROR);
     const recordId = value.recordId;
-    const selfActor = value.selfActor;
     const counts = [value.canonicalEventCount, value.replayDecisionCount];
     if (
       typeof recordId !== "string"
       || recordId.length === 0
       || recordId.length > 64
-      || typeof selfActor !== "number"
-      || !Number.isInteger(selfActor)
-      || selfActor < 0
-      || selfActor > 3
       || counts.some((count) =>
         typeof count !== "number"
         || !Number.isInteger(count)
@@ -182,17 +179,14 @@ contextBridge.exposeInMainWorld("riichiCoachPaipu", Object.freeze({
   importPaipu: async (input: unknown) => {
     // Defense in depth: the envelope is checked here, re-checked in the main
     // IPC handler, and the URL is strict-parsed in the main service before
-    // any BrowserWindow exists.
+    // any BrowserWindow exists. The seat is never part of the request —
+    // the main process resolves it from the URL's perspective identity.
     if (
       !isRecord(input)
-      || Object.keys(input).length !== 2
+      || Object.keys(input).length !== 1
       || typeof input.shareUrl !== "string"
       || input.shareUrl.length === 0
       || input.shareUrl.length > 512
-      || typeof input.selfActor !== "number"
-      || !Number.isInteger(input.selfActor)
-      || input.selfActor < 0
-      || input.selfActor > 3
     ) {
       throw new Error(PROTOCOL_ERROR);
     }

@@ -66,7 +66,10 @@ import {
   isAllowedLocalRendererNavigation,
 } from "./main.js";
 import { createRecoverableSessionFile } from "./recoverable-session-file.js";
-import { createMahjongSoulRecordIngestionService } from "./record-ingestion-service.js";
+import {
+  createMahjongSoulRecordIngestionService,
+  requireCatalogSelfSeat,
+} from "./record-ingestion-service.js";
 import { createRecordAnalysisStore } from "./record-analysis-store.js";
 import { readCliFlag } from "./diagnostic-flags.js";
 
@@ -422,10 +425,12 @@ async function start(): Promise<void> {
         fetchImpl: globalThis.fetch,
       });
       const summaries = await catalogStore.list(stored.accountId);
-      const summary = summaries.find((entry) => entry.recordId === recordId);
+      // The account route's seat comes from the catalog summary; a summary
+      // that vanished mid-fetch fails closed — never a silent seat 0.
+      const selfActor = requireCatalogSelfSeat(summaries, recordId);
       const outcome = analysisStore.analyzeRecord({
         recordId,
-        selfActor: summary?.selfSeat ?? 0,
+        selfActor,
         recordBytes: fetched.recordBytes,
       });
       if (outcome.status !== "analysis_ready") {

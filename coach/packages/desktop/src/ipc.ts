@@ -196,9 +196,10 @@ export function registerMahjongSoulCatalogIpc(input: {
 // The paipu-URL import route has its own dedicated channel — it is a sibling
 // ingestion source, never an overload of catalog startRecordAnalysis. The
 // renderer's validation is not authority: the envelope is re-validated here
-// (exactly one strict object argument, no extra keys, bounded shareUrl,
-// explicit integer seat) and the service itself strict-parses the URL again
-// in the main process before any BrowserWindow exists.
+// (exactly one strict object with exactly { shareUrl }, bounded length) and
+// the service itself strict-parses the URL again in the main process before
+// any BrowserWindow exists. The seat is never supplied by callers — it is
+// auto-resolved in the main process from the URL identity join.
 export function registerMahjongSoulPaipuImportIpc(input: {
   readonly ipcMain: IpcMainPort;
   readonly service: Pick<MahjongSoulPaipuImportService, "importPaipu">;
@@ -233,15 +234,10 @@ export function registerMahjongSoulPaipuImportIpc(input: {
         throw fixedError();
       }
       const keys = Object.keys(request);
-      if (
-        keys.length !== 2
-        || !keys.includes("shareUrl")
-        || !keys.includes("selfActor")
-      ) {
+      if (keys.length !== 1 || !keys.includes("shareUrl")) {
         throw fixedError();
       }
       const shareUrl = (request as { shareUrl: unknown }).shareUrl;
-      const selfActor = (request as { selfActor: unknown }).selfActor;
       if (
         typeof shareUrl !== "string"
         || shareUrl.length === 0
@@ -249,19 +245,19 @@ export function registerMahjongSoulPaipuImportIpc(input: {
       ) {
         throw fixedError();
       }
-      if (
-        typeof selfActor !== "number"
-        || !Number.isInteger(selfActor)
-        || selfActor < 0
-        || selfActor > 3
-      ) {
-        throw fixedError();
-      }
-      // parsePaipuImportResult is the last line of defense: only the fixed
-      // safe shape (status + safe metadata, never bytes/credentials) may
-      // cross back to the renderer.
+      // The IPC boundary also strips the auto-resolved seat: the renderer
+      // gets status + safe counts only. parsePaipuImportResult is the last
+      // line of defense for the fixed safe shape.
+      const result = await operation({ shareUrl });
       return parsePaipuImportResult(
-        await operation({ shareUrl, selfActor }),
+        result.status === "analysis_ready"
+          ? {
+            status: result.status,
+            recordId: result.recordId,
+            canonicalEventCount: result.canonicalEventCount,
+            replayDecisionCount: result.replayDecisionCount,
+          }
+          : result,
       );
     } catch (error) {
       throw fixedError(error);

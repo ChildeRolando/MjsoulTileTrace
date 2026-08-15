@@ -28,7 +28,6 @@ const catalogDetailElement = document.querySelector<HTMLElement>("#catalog-detai
 const catalogListElement = document.querySelector<HTMLElement>("#catalog-list")!;
 const paipuSection = document.querySelector<HTMLElement>(".paipu-import")!;
 const paipuUrlInput = document.querySelector<HTMLInputElement>("#paipu-url")!;
-const paipuSeatSelect = document.querySelector<HTMLSelectElement>("#paipu-self-actor")!;
 const paipuImportButton = document.querySelector<HTMLButtonElement>("#paipu-import")!;
 const paipuStatusElement = document.querySelector<HTMLElement>("#paipu-status")!;
 const buttons = [loginButton, logoutButton, refreshButton, syncButton, paipuImportButton];
@@ -155,7 +154,6 @@ syncButton.addEventListener("click", () => void runSync());
 function setPaipuPending(pending: boolean): void {
   paipuImportButton.disabled = pending;
   paipuUrlInput.disabled = pending;
-  paipuSeatSelect.disabled = pending;
   if (pending) {
     paipuStatusElement.textContent = paipuImportStatusLabel({ state: "pending" });
   }
@@ -164,23 +162,16 @@ function setPaipuPending(pending: boolean): void {
 paipuImportButton.addEventListener("click", () => {
   void (async () => {
     // Client-side pre-checks keep typos from opening a window at all; the
-    // main process re-validates everything regardless.
+    // main process re-validates everything and resolves the perspective
+    // automatically — no seat selection anywhere in the flow.
     const shareUrl = paipuUrlInput.value.trim();
     if (!paipuShareUrlLooksValid(shareUrl)) {
       paipuStatusElement.textContent = paipuImportStatusLabel({ state: "invalid_url" });
       return;
     }
-    const seat = paipuSeatSelect.value;
-    const selfActor = seat === "0" || seat === "1" || seat === "2" || seat === "3"
-      ? (Number(seat) as 0 | 1 | 2 | 3)
-      : null;
-    if (selfActor === null) {
-      paipuStatusElement.textContent = paipuImportStatusLabel({ state: "invalid_self_actor" });
-      return;
-    }
     setPaipuPending(true);
     try {
-      const result = await window.riichiCoachPaipu.importPaipu({ shareUrl, selfActor });
+      const result = await window.riichiCoachPaipu.importPaipu({ shareUrl });
       paipuStatusElement.textContent = paipuImportStatusLabel(
         paipuImportUiStateFromResult(result),
       );

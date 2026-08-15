@@ -1,5 +1,8 @@
 import { parseMahjongSoulCnShareUrl } from "@riichi-coach/contracts";
-import type { MahjongSoulProtocolBundle } from "@riichi-coach/mahjong-soul-source";
+import {
+  resolveMahjongSoulPaipuPerspective,
+  type MahjongSoulProtocolBundle,
+} from "@riichi-coach/mahjong-soul-source";
 import {
   captureRecordViaOfficialClient,
   OfficialClientCaptureError,
@@ -8,37 +11,41 @@ import {
 } from "./official-client-record-capture.js";
 import type { RecordAnalysisStore } from "./record-analysis-store.js";
 
-// The paipu-URL ingestion route: paste a Mahjong Soul share URL + choose the
-// analysis seat, and the app rides its own official-client session to obtain
-// the record, then runs the SAME post-ingestion analysis as the account
-// catalog route:
+// The paipu-URL ingestion route: paste a Mahjong Soul share URL and the app
+// rides its own official-client session to obtain the record, resolves the
+// analysis perspective from the URL's identity, and runs the SAME
+// post-ingestion analysis as the account catalog route:
 //
 //   strict parseMahjongSoulCnShareUrl (BEFORE any BrowserWindow)
-//     -> captureRecordViaOfficialClient (original validated URL; INNER bytes)
+//     -> { recordId, perspectiveAccountId }
+//     -> captureRecordViaOfficialClient (original validated URL; INNER bytes
+//        + record identity from the SAME fetchGameRecord response)
+//     -> resolveMahjongSoulPaipuPerspective (URL account JOIN record
+//        accounts -> exactly one seat; any mismatch fails closed)
 //     -> shared record-analysis-store (map + strict replay)
 //     -> safe metadata only
 //
-// This is a sibling ingestion source, NOT a special case of catalog ingest:
-// the record is NOT required to exist in the user's catalog store, and
-// createMahjongSoulRecordIngestionService.ingest() is intentionally unused
-// (it enforces stored-session + catalog membership, which is exactly what
-// shared links do not have).
-//
-// Identity never defaults: selfActor must be provided explicitly (0..3) and
-// recordId is derived deterministically from the validated URL. Concurrent
-// duplicate imports for the same recordId + selfActor share one active
-// promise, so a double click cannot open two official-client windows.
+// There is NO manual seat: the user never chooses or knows a seat. There is
+// no catalog membership requirement either (URL import is a sibling
+// ingestion source, not catalog ingest). Concurrent duplicate imports for
+// the same immutable request identity (recordId + perspectiveAccountId)
+// share one active promise.
 
 export type PaipuImportResult = Readonly<
   | {
     readonly status: "analysis_ready";
     readonly recordId: string;
+    /**
+     * Auto-resolved from the URL identity join. Internal to the main
+     * process — the IPC boundary strips it before anything reaches the
+     * renderer.
+     */
     readonly selfActor: number;
     readonly canonicalEventCount: number;
     readonly replayDecisionCount: number;
   }
   | { readonly status: "invalid_url" }
-  | { readonly status: "invalid_self_actor" }
+  | { readonly status: "identity_mismatch" }
   | { readonly status: "no_capture" }
   | { readonly status: "unsupported_semantics" }
   | { readonly status: "analysis_failed" }
@@ -47,8 +54,6 @@ export type PaipuImportResult = Readonly<
 export interface MahjongSoulPaipuImportService {
   importPaipu(input: {
     readonly shareUrl: string;
-    /** Must be provided explicitly; there is no default seat. */
-    readonly selfActor: number;
   }): Promise<PaipuImportResult>;
 }
 
@@ -63,28 +68,20 @@ export function createMahjongSoulPaipuImportService(input: {
   return Object.freeze({
     async importPaipu(request: {
       readonly shareUrl: string;
-      readonly selfActor: number;
     }): Promise<PaipuImportResult> {
       // 1. The share URL is strictly parsed BEFORE any BrowserWindow exists:
-      //    an invalid URL must never open a window.
-      let recordId: string;
+      //    an invalid URL must never open a window. The perspective account
+      //    id comes from the URL itself — never a seat.
+      let parsed: { readonly recordId: string; readonly perspectiveAccountId: number };
       try {
-        recordId = parseMahjongSoulCnShareUrl(request?.shareUrl).recordId;
+        parsed = parseMahjongSoulCnShareUrl(request?.shareUrl);
       } catch {
         return { status: "invalid_url" };
       }
 
-      // 2. The analysis seat is explicit — never inferred from the `_a`
-      //    suffix (its relationship to the seat has not been pinned) and
-      //    never defaulted.
-      const selfActor = request?.selfActor;
-      if (!Number.isInteger(selfActor) || selfActor < 0 || selfActor > 3) {
-        return { status: "invalid_self_actor" };
-      }
-
-      // 3. Concurrent duplicate imports for the same recordId + selfActor
-      //    resolve together; only one official-client window is opened.
-      const key = `${recordId}#${selfActor}`;
+      // 2. Concurrent duplicate imports for the same immutable request
+      //    identity resolve together; only one window is opened.
+      const key = `${parsed.recordId}#${parsed.perspectiveAccountId}`;
       const existing = active.get(key);
       if (existing !== undefined) return existing;
 
@@ -93,8 +90,7 @@ export function createMahjongSoulPaipuImportService(input: {
         try {
           captured = await captureRecordViaOfficialClient({
             bundle: input.bundle,
-            // The exact validated share URL is what gets navigated; the
-            // recordId was derived from it separately.
+            // The exact validated share URL is what gets navigated.
             url: request.shareUrl,
             createWindow: input.createWindow,
             timeoutMs: input.timeoutMs,
@@ -110,19 +106,35 @@ export function createMahjongSoulPaipuImportService(input: {
           return { status: "no_capture" };
         }
 
-        // 4/5. captured.recordBytes is INNER GameDetailRecords: the shared
-        // analysis path is byte-identical to the account fetch route.
+        // 3. Resolve the perspective by the strict identity join. A
+        //    mismatch is fatal for this import: no analysis, no cache, no
+        //    guessed seat.
+        let perspective: { readonly recordId: string; readonly selfActor: number };
+        try {
+          perspective = resolveMahjongSoulPaipuPerspective({
+            parsedUrl: parsed,
+            capturedIdentity: captured.recordIdentity,
+          });
+        } catch {
+          return { status: "identity_mismatch" };
+        }
+        if (perspective.recordId !== parsed.recordId) {
+          return { status: "identity_mismatch" };
+        }
+
+        // 4. The shared analysis path is byte-identical to the account
+        //    fetch route; only the seat differs (auto-resolved).
         const outcome = input.analysis.analyzeRecord({
-          recordId,
-          selfActor,
+          recordId: parsed.recordId,
+          selfActor: perspective.selfActor,
           recordBytes: captured.recordBytes,
         });
         switch (outcome.status) {
           case "analysis_ready":
             return Object.freeze({
               status: "analysis_ready" as const,
-              recordId,
-              selfActor,
+              recordId: parsed.recordId,
+              selfActor: perspective.selfActor,
               canonicalEventCount: outcome.stream.events.length,
               replayDecisionCount: outcome.decisions.length,
             });

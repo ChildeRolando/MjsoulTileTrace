@@ -32,12 +32,13 @@ describe("paipu UI policy", () => {
 
   it("labels every UI state with fixed user-facing prose", () => {
     expect(paipuImportStatusLabel({ state: "idle" }))
-      .toBe("粘贴雀魂牌谱分享链接并选择你的座位。");
+      .toBe("粘贴雀魂牌谱分享链接。");
     expect(paipuImportStatusLabel({ state: "invalid_url" })).toBe("牌谱链接格式无效");
-    expect(paipuImportStatusLabel({ state: "invalid_self_actor" })).toBe("请先选择你的座位（0-3）。");
     expect(paipuImportStatusLabel({ state: "pending" })).toBe("正在通过雀魂客户端读取牌谱…");
     expect(paipuImportStatusLabel({ state: "analysis_ready", decisionCount: 116 }))
       .toBe("牌谱已导入，可分析 116 个决策点");
+    expect(paipuImportStatusLabel({ state: "identity_mismatch" }))
+      .toBe("无法确定这份牌谱的分析视角");
     expect(paipuImportStatusLabel({ state: "unsupported_semantics" }))
       .toBe("这场牌谱包含当前尚未支持的记录类型");
     expect(paipuImportStatusLabel({ state: "no_capture" })).toBe("未能从雀魂客户端取得牌谱");
@@ -51,6 +52,8 @@ describe("paipu UI policy", () => {
     })).toEqual({ state: "analysis_ready", decisionCount: 8 });
     expect(paipuImportUiStateFromResult({ status: "invalid_url" }))
       .toEqual({ state: "invalid_url" });
+    expect(paipuImportUiStateFromResult({ status: "identity_mismatch" }))
+      .toEqual({ state: "identity_mismatch" });
     expect(paipuImportUiStateFromResult({ status: "no_capture" }))
       .toEqual({ state: "no_capture" });
     expect(paipuImportUiStateFromResult({ status: "unsupported_semantics" }))

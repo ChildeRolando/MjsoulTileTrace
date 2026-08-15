@@ -13,6 +13,27 @@ export interface MahjongSoulRecordIngestionService {
   ingest(recordId: string): Promise<MahjongSoulFetchedRecord>;
 }
 
+// The account route's analysis seat comes from the catalog summary. If the
+// summary disappears between listing and fetching (or carries an invalid
+// seat), the import MUST fail closed — silently analyzing seat 0 would
+// misattribute the entire canonical stream. There is no default seat in any
+// production analysis path.
+export function requireCatalogSelfSeat(
+  summaries: readonly { readonly recordId: string; readonly selfSeat: number }[],
+  recordId: string,
+): number {
+  const summary = summaries.find((entry) => entry?.recordId === recordId);
+  if (
+    summary === undefined
+    || !Number.isInteger(summary.selfSeat)
+    || summary.selfSeat < 0
+    || summary.selfSeat > 3
+  ) {
+    throw new MahjongSoulSourceError("mahjong_soul_record_not_analyzable");
+  }
+  return summary.selfSeat;
+}
+
 function error(code: "mahjong_soul_record_not_analyzable" | "mahjong_soul_record_fetch_failed") {
   return new MahjongSoulSourceError(code);
 }

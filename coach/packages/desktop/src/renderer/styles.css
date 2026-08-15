@@ -21,7 +21,6 @@ button:disabled { opacity: .45; cursor: wait; }
 .paipu-import h2 { font-size: 18px; margin: 0 0 8px; }
 .paipu-form { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
 .paipu-form input[type="text"] { flex: 1 1 240px; padding: 10px 12px; font: inherit; border: 1px solid #b9b4aa; background: white; }
-.paipu-form select { padding: 10px 12px; font: inherit; border: 1px solid #b9b4aa; background: white; }
 .paipu-import .detail { margin-top: 12px; }
 
 [hidden] { display: none !important; }
