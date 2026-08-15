@@ -377,6 +377,11 @@ export type CandidateNormalizationResult = z.infer<
 export const SourceAdapterContextSchema = z.object({
   decisionWindow: DecisionWindowSchema,
   existingMeldRef: z.string().min(1).optional(),
+  // Local-authority winning tile for a self-turn window's drawn tile. Real
+  // Mortal reports serialize the win alternative (hora/agari) without a
+  // `pai` — the drawn tile is a LOCAL fact (ADR-0001 tile authority), so the
+  // adapter receives it here instead of inventing model-origin tile data.
+  currentDrawTile: TileSchema.optional(),
 }).strict();
 export type SourceAdapterContext = z.infer<
   typeof SourceAdapterContextSchema

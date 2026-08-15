@@ -669,7 +669,13 @@ export async function runMortalFullGameReview(input: {
     // Local actual authority pre-check: type-level correspondence between the
     // Mortal actual row and the locally derived actual action (ADR-0001:
     // tiles stay local-authoritative; riichi cross-checks type + actor only).
-    if (!mortalActualMatchesLocal(row.sourceEntry.actual, decision)) {
+    if (
+      !mortalActualMatchesLocal(
+        row.sourceEntry.actual,
+        decision,
+        row.sourceEntry.tile,
+      )
+    ) {
       ledger.push({
         decisionOrdinal: row.decisionOrdinal,
         roundOrdinal: row.roundOrdinal,

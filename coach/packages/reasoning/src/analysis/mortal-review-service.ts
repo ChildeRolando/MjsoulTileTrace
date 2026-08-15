@@ -179,9 +179,17 @@ function sameStringMultiset(
 // tsumo ↔ hora targeting self, ankan ↔ consumed multiset. Never tile
 // equality on the riichi side: the source cannot carry the authoritative
 // tile.
+//
+// Real-evidence pin (H2 sample report, 2026-08-15): hora actual rows in real
+// Mortal reports systematically omit `pai` — the winning tile lives on the
+// entry's `tile` field. `sourceEntryTile` carries that source-side tile so
+// the tsumo cross-check can verify the winning tile against the only place
+// the real source shape exposes it. A source that exposes neither
+// `actual.pai` nor the entry tile fails the check.
 export function mortalActualMatchesLocal(
   actual: MortalSourceAction,
   decision: ReplayedDecision,
+  sourceEntryTile?: string | null,
 ): boolean {
   const actor = decision.snapshot.selfActor;
   const local = decision.actualAction;
@@ -194,11 +202,24 @@ export function mortalActualMatchesLocal(
         && actual.tsumogiri === (local.discardMode === "tsumogiri");
     case "riichi_discard":
       return actual.type === "reach" && actual.actor === actor;
-    case "tsumo":
-      return (actual.type === "hora" || actual.type === "agari")
-        && actual.actor === actor
-        && actual.target === actor
-        && actual.pai === formatMjaiTile(local.winningTile);
+    case "tsumo": {
+      if (
+        (actual.type !== "hora" && actual.type !== "agari")
+        || actual.actor !== actor
+        || actual.target !== actor
+      ) {
+        return false;
+      }
+      // The winning tile is on `actual.pai` when the source carries it, and
+      // on the entry's `tile` in the real report shape. Neither → fail.
+      const sourceWinningTile = typeof actual.pai === "string"
+        ? actual.pai
+        : typeof sourceEntryTile === "string"
+          ? sourceEntryTile
+          : null;
+      return sourceWinningTile !== null
+        && sourceWinningTile === formatMjaiTile(local.winningTile);
+    }
     case "ankan": {
       if (actual.type !== "ankan" || actual.actor !== actor) return false;
       const consumed = asStringArray(actual.consumed);
@@ -593,7 +614,13 @@ export async function runBoundMortalDecisionReview(input: {
 
     // P6: local actual authority; the Mortal actual is a type-correspondence
     // cross-check only.
-    if (!mortalActualMatchesLocal(input.entry.actual, input.decision)) {
+    if (
+      !mortalActualMatchesLocal(
+        input.entry.actual,
+        input.decision,
+        input.entry.tile,
+      )
+    ) {
       throw new MortalSourceError("mortal_decision_actual_mismatch");
     }
 

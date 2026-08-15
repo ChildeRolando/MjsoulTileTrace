@@ -114,6 +114,9 @@ export function importStructuredMortalComparison(input: {
         ...(modelCandidate.existingMeldRef === undefined
           ? {}
           : { existingMeldRef: modelCandidate.existingMeldRef }),
+        ...(facts.currentDraw !== undefined && facts.currentDraw !== null
+          ? { currentDrawTile: facts.currentDraw.tile }
+          : {}),
       },
     );
     if (adapted.status !== "ready") {
@@ -156,6 +159,9 @@ export function importStructuredMortalComparison(input: {
       ...(input.actual.existingMeldRef === undefined
         ? {}
         : { existingMeldRef: input.actual.existingMeldRef }),
+      ...(facts.currentDraw !== undefined && facts.currentDraw !== null
+        ? { currentDrawTile: facts.currentDraw.tile }
+        : {}),
     },
   );
   if (actualAdapted.status !== "ready") {

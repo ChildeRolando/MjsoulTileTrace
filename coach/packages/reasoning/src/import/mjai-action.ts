@@ -128,7 +128,12 @@ function requiredFields(type: string): string[] {
     case "kakan":
       return ["actor", "pai"];
     case "hora":
-      return ["actor", "target", "pai"];
+    case "agari":
+      // Real Mortal reports serialize the win alternative without `pai`
+      // (actor/target only); the winning tile is locally authoritative for
+      // self-turn windows (context.currentDrawTile) and source-carried for
+      // response windows, checked in the case body below.
+      return ["actor", "target"];
     case "ryukyoku":
       return ["actor", "reason"];
     default:
@@ -344,13 +349,29 @@ export function adaptMjaiActionSequence(
     case "hora":
     case "agari": {
       const targetActor = target(action);
+      // The winning tile: `pai` when the source carries it; on self-turn the
+      // locally authoritative drawn tile otherwise (real Mortal reports omit
+      // `pai` on the win alternative; the drawn tile is a local fact).
+      const sourcePai = typeof action.pai === "string" && action.pai.length > 0
+        ? action.pai
+        : null;
       if (context.decisionWindow.kind === "self_turn") {
         if (targetActor !== actionActor) {
           return unsupported("hora_context_mismatch");
         }
+        if (sourcePai !== null) {
+          return ready({
+            kind: "tsumo",
+            winningTile: tile(sourcePai),
+            drawEventRef: context.decisionWindow.triggerEventRef,
+          }, [first.eventRef, context.decisionWindow.triggerEventRef]);
+        }
+        if (context.currentDrawTile === undefined) {
+          return incompleteFields(rawSequence, ["pai"]);
+        }
         return ready({
           kind: "tsumo",
-          winningTile: tile(stringField(action, "pai")),
+          winningTile: context.currentDrawTile,
           drawEventRef: context.decisionWindow.triggerEventRef,
         }, [first.eventRef, context.decisionWindow.triggerEventRef]);
       }
@@ -361,9 +382,14 @@ export function adaptMjaiActionSequence(
         if (targetActor === actionActor) {
           return unsupported("hora_context_mismatch");
         }
+        // Response surfaces (M6-A4): the winning tile is the claimed discard,
+        // which the source must carry explicitly.
+        if (sourcePai === null) {
+          return incompleteFields(rawSequence, ["pai"]);
+        }
         return ready({
           kind: "ron",
-          winningTile: tile(stringField(action, "pai")),
+          winningTile: tile(sourcePai),
           targetActor,
           responseEventRef: context.decisionWindow.triggerEventRef,
           winContext: context.decisionWindow.kind === "discard_response"

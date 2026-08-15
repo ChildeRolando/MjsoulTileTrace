@@ -24,6 +24,7 @@ import {
 import type { HandStructureFactEnginePort } from "../src/fact-engine/port.js";
 import {
   entryMatchesDecisionIdentity,
+  mortalActualMatchesLocal,
 } from "../src/analysis/mortal-review-service.js";
 import {
   buildMortalFullGameBindingPlan,
@@ -1477,6 +1478,83 @@ describe("M6-A3 runMortalFullGameReview new surfaces", () => {
     // Past coverage, past the type-correspondence cross-check and past the
     // hora→tsumo import; only the failing engine blocks the assembly.
     expect(lifted.decisions[0]!.outcome).toBe("analysis_blocked");
+  });
+
+  it("accepts the real Mortal hora actual shape (no pai; entry tile carries the winning tile)", async () => {
+    // Real-evidence pin (H2 sample, 2026-08-15 report): every hora row in a
+    // real Mortal report omits `pai` — the candidate is `{hora, actor, target}`
+    // and the actual adds only deltas/ura_markers. The winning tile lives on
+    // the entry's `tile` field and, for the import, in the locally
+    // authoritative draw (ADR-0001 tile authority). The correspondence
+    // cross-check must accept that shape while still verifying type, actor,
+    // target, and tile.
+    const stream = tsumoTerminalStream();
+    const decisions = replayCanonicalStream(stream);
+    const realShapedEntry = entryForDecision(decisions[0]!, {
+      actual: { type: "hora", actor: 0, target: 0, deltas: [], ura_markers: [] },
+      details: Object.freeze([{
+        action: { type: "hora", actor: 0, target: 0 },
+        probability: 0.7,
+        qValue: 1.5,
+      }, {
+        action: { type: "dahai", actor: 0, pai: "9m", tsumogiri: false },
+        probability: 0.3,
+        qValue: 0.4,
+      }]),
+    });
+    const report = makeReport([realShapedEntry], {
+      gameFingerprint: computeCanonicalGameFingerprint(stream),
+    });
+    const lifted = await runMortalFullGameReview({
+      stream,
+      decisions,
+      report,
+      engine: new FailingEngine(),
+      coverageRegistry: createMortalCoverageRegistry(["self_turn_tsumo_actual"]),
+    });
+    expect(lifted.status).toBe("coverage_ready");
+    if (lifted.status !== "coverage_ready") return;
+    // Real shape passes the cross-check: past coverage and correspondence,
+    // only the failing engine blocks the assembly (same as the pai-carrying
+    // shape above).
+    expect(lifted.decisions[0]!.outcome).toBe("analysis_blocked");
+  });
+
+  it("fails closed when the real-shape hora actual targets another player", async () => {
+    // A wrong entry.tile cannot reach this cross-check — the identity table
+    // pins entry.tile to the local draw, so it fails as no_mortal_entry. The
+    // reachable fail-closed probe for the real shape keeps the entry (and its
+    // tile) correct and violates the target invariant instead: a self-turn
+    // win's actual must target the actor itself.
+    const stream = tsumoTerminalStream();
+    const decisions = replayCanonicalStream(stream);
+    const wrongTargetEntry = entryForDecision(decisions[0]!, {
+      actual: { type: "hora", actor: 0, target: 2, deltas: [], ura_markers: [] },
+      details: Object.freeze([{
+        action: { type: "hora", actor: 0, target: 0 },
+        probability: 0.7,
+        qValue: 1.5,
+      }, {
+        action: { type: "dahai", actor: 0, pai: "9m", tsumogiri: false },
+        probability: 0.3,
+        qValue: 0.4,
+      }]),
+    });
+    const report = makeReport([wrongTargetEntry], {
+      gameFingerprint: computeCanonicalGameFingerprint(stream),
+    });
+    const review = await runMortalFullGameReview({
+      stream,
+      decisions,
+      report,
+      engine: new FailingEngine(),
+      coverageRegistry: createMortalCoverageRegistry(["self_turn_tsumo_actual"]),
+    });
+    expect(review.status).toBe("coverage_ready");
+    if (review.status !== "coverage_ready") return;
+    expect(review.decisions[0]!.binding).toBe("bound");
+    expect(review.decisions[0]!.outcome).toBe("binding_mismatch");
+    expect(review.decisions[0]!.reason).toBe("mortal_actual_mismatch");
   });
 
   it("marks a degenerate terminal candidate set as terminal_window_action_unsupported", async () => {
