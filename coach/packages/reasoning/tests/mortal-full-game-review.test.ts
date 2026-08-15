@@ -269,7 +269,7 @@ describe("buildMortalFullGameBindingPlan", () => {
     expect(plan.rows[0]!.binding).toBe("no_mortal_entry");
   });
 
-  it("marks one local ambiguous when two source entries match it", () => {
+  it("marks one local ambiguous and BOTH involved source rows ambiguous", () => {
     const report = makeReport([
       fakeEntry({ junme: 1 }),
       fakeEntry({ junme: 2 }),
@@ -277,9 +277,12 @@ describe("buildMortalFullGameBindingPlan", () => {
     const plan = buildMortalFullGameBindingPlan([fakeDecision()], report);
     expect(plan.rows[0]!.binding).toBe("ambiguous");
     expect(plan.rows[0]!.localDegree).toBe(2);
+    // Source ledger must reflect the bipartite graph, not just the local row.
+    expect(plan.sourceDegrees).toEqual([1, 1]);
+    expect(plan.ambiguousSourceOrdinals).toEqual([0, 1]);
   });
 
-  it("marks two locals ambiguous when one source entry matches both", () => {
+  it("marks two locals ambiguous and the shared source row ambiguous", () => {
     const report = makeReport([fakeEntry()]);
     const plan = buildMortalFullGameBindingPlan([
       fakeDecision(),
@@ -287,6 +290,8 @@ describe("buildMortalFullGameBindingPlan", () => {
     ], report);
     expect(plan.rows[0]!.binding).toBe("ambiguous");
     expect(plan.rows[1]!.binding).toBe("ambiguous");
+    expect(plan.sourceDegrees).toEqual([2]);
+    expect(plan.ambiguousSourceOrdinals).toEqual([0]);
   });
 
   it("never greedily tie-breaks", () => {
@@ -323,6 +328,8 @@ describe("buildMortalFullGameBindingPlan", () => {
     expect(plan.rows[0]!.binding).toBe("bound");
     expect(plan.rows[1]!.binding).toBe("ambiguous");
     expect(plan.rows[1]!.orderViolation).toBe(true);
+    // The order-violating source row must be ambiguous, not unbound.
+    expect(plan.ambiguousSourceOrdinals).toContain(0);
   });
 });
 
@@ -509,6 +516,67 @@ describe("runMortalFullGameReview", () => {
       "post_call_discard_not_replayed",
     );
     expect(review.summary.sourceUnboundReasons.post_call_discard_not_replayed).toBe(1);
+  });
+
+  it("marks both source rows ambiguous when one local matches two source rows", async () => {
+    const fixture = await legacySetup();
+    const first = legacyEntryToMortalEntry(fixture.raw.decisions[0]!);
+    const second = Object.freeze({ ...first, junme: first.junme + 1 });
+    const review = await runMortalFullGameReview({
+      stream: fixture.stream,
+      decisions: fixture.decisions,
+      report: legacyReport(fixture.raw, [first, second]),
+      engine: new FailingEngine(),
+    });
+    expect(review.status).toBe("coverage_ready");
+    if (review.status !== "coverage_ready") return;
+    expect(review.sourceCoverage.boundMortalEntryCount).toBe(0);
+    expect(review.sourceCoverage.ambiguousMortalEntryCount).toBe(2);
+    expect(review.sourceCoverage.unboundMortalEntryCount).toBe(0);
+    expect(review.sourceCoverage.entries[0]!.disposition).toBe("ambiguous");
+    expect(review.sourceCoverage.entries[1]!.disposition).toBe("ambiguous");
+  });
+
+  it("marks a degree-0 ordinary-shaped source row as identity_fact_mismatch", async () => {
+    const fixture = await legacySetup();
+    const entry = Object.freeze({
+      ...legacyEntryToMortalEntry(fixture.raw.decisions[0]!),
+      tehai: Object.freeze(Array.from({ length: 14 }, () => "1m")),
+    });
+    const review = await runMortalFullGameReview({
+      stream: fixture.stream,
+      decisions: fixture.decisions,
+      report: legacyReport(fixture.raw, [entry]),
+      engine: new FailingEngine(),
+    });
+    expect(review.status).toBe("coverage_ready");
+    if (review.status !== "coverage_ready") return;
+    expect(review.sourceCoverage.unboundMortalEntryCount).toBe(1);
+    expect(review.sourceCoverage.entries[0]!.unboundReason).toBe(
+      "identity_fact_mismatch",
+    );
+    expect(review.summary.sourceUnboundReasons.identity_fact_mismatch).toBe(1);
+  });
+
+  it("does not label an unproven atSelfRiichi dahai row as post-riichi", async () => {
+    const fixture = await legacySetup();
+    const entry = Object.freeze({
+      ...legacyEntryToMortalEntry(fixture.raw.decisions[0]!),
+      atSelfRiichi: true,
+      tehai: Object.freeze(Array.from({ length: 14 }, () => "1m")),
+    });
+    const review = await runMortalFullGameReview({
+      stream: fixture.stream,
+      decisions: fixture.decisions,
+      report: legacyReport(fixture.raw, [entry]),
+      engine: new FailingEngine(),
+    });
+    expect(review.status).toBe("coverage_ready");
+    if (review.status !== "coverage_ready") return;
+    expect(review.sourceCoverage.entries[0]!.unboundReason).toBe(
+      "source_semantics_not_understood",
+    );
+    expect(review.summary.sourceUnboundReasons.source_semantics_not_understood).toBe(1);
   });
 
   it("keeps accounting when a supported bound row hits an engine failure", async () => {

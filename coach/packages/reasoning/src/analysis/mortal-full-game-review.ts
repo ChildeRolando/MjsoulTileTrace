@@ -221,18 +221,39 @@ function validateFullGameInputs(
 
 function classifyUnboundSourceReason(
   entry: MortalReportDecisionEntry,
+  allSourceRows: readonly SourceRow[],
 ): MortalSourceUnboundReason {
-  // Current replay surface only freezes self_turn draw decisions. Source rows
-  // that sit after a call, after a riichi declaration, or on a terminal action
-  // are therefore expected to have no compatible local decision.
+  // This is ONLY called for genuine degree-0 source rows (never for rows
+  // involved in any compatibility ambiguity).
+  //
+  // Deterministic surface classes:
   if (entry.atSelfChiPon) return "post_call_discard_not_replayed";
-  if (entry.atSelfRiichi && entry.actual.type === "dahai") {
-    return "post_riichi_discard_not_replayed";
-  }
+
   if (entry.actual.type !== "dahai") {
     return "local_terminal_action_not_replayed";
   }
-  return "source_semantics_not_understood";
+
+  if (entry.atSelfRiichi) {
+    // An immediate post-reach discard is proven only by a paired `reach`
+    // entry with the same round/kyoku/honba/junme/tile. Without that proof
+    // we do NOT call it harmless replay-surface debt.
+    const pairedReach = allSourceRows.some((sourceRow) => {
+      const other = sourceRow.entry;
+      return other.actual.type === "reach"
+        && other.roundOrdinal === entry.roundOrdinal
+        && other.kyoku === entry.kyoku
+        && other.honba === entry.honba
+        && other.junme === entry.junme
+        && other.tile === entry.tile;
+    });
+    return pairedReach
+      ? "post_riichi_discard_not_replayed"
+      : "source_semantics_not_understood";
+  }
+
+  // A degree-0 ordinary self-turn-shaped dahai row has no surface exclusion;
+  // its identity facts must have failed against every local decision.
+  return "identity_fact_mismatch";
 }
 
 function localSupport(
@@ -262,6 +283,8 @@ export function buildMortalFullGameBindingPlan(
 ): {
   rows: MortalBindingPlanRow[];
   sourceDegrees: number[];
+  matchesByLocal: number[][];
+  ambiguousSourceOrdinals: number[];
 } {
   const sourceRows = flattenSourceRows(report);
   const matchesByLocal: number[][] = decisions.map((decision) => {
@@ -349,7 +372,31 @@ export function buildMortalFullGameBindingPlan(
     };
   });
 
-  return { rows, sourceDegrees };
+  // Source-side ambiguity comes from the bipartite graph itself:
+  //  - a source matched by more than one local decision,
+  //  - a source that participates in a local with localDegree > 1,
+  //  - a source that is part of an order-violation unique pair.
+  const ambiguousSourceOrdinals = new Set<number>();
+  sourceDegrees.forEach((degree, sourceOrdinal) => {
+    if (degree > 1) ambiguousSourceOrdinals.add(sourceOrdinal);
+  });
+  matchesByLocal.forEach((matches, decisionOrdinal) => {
+    if (localDegrees[decisionOrdinal]! > 1) {
+      for (const sourceOrdinal of matches) ambiguousSourceOrdinals.add(sourceOrdinal);
+    }
+  });
+  for (const pair of uniquePairs) {
+    if (orderViolationByDecision.get(pair.decisionOrdinal) === true) {
+      ambiguousSourceOrdinals.add(pair.sourceOrdinal);
+    }
+  }
+
+  return {
+    rows,
+    sourceDegrees,
+    matchesByLocal,
+    ambiguousSourceOrdinals: [...ambiguousSourceOrdinals].sort((a, b) => a - b),
+  };
 }
 
 function modelIncompleteReason(
@@ -409,10 +456,11 @@ export async function runMortalFullGameReview(input: {
     return { status: "failed", code: "mortal_full_game_input_invalid" };
   }
 
-  const { rows, sourceDegrees } = buildMortalFullGameBindingPlan(
-    input.decisions,
-    input.report,
-  );
+  const { rows, sourceDegrees, ambiguousSourceOrdinals } =
+    buildMortalFullGameBindingPlan(
+      input.decisions,
+      input.report,
+    );
   const sourceRows = flattenSourceRows(input.report);
 
   const runStartedAt = now();
@@ -712,33 +760,37 @@ export async function runMortalFullGameReview(input: {
     outcomeCounts.binding_mismatch += 1;
   }
 
-  // Source-side conservation ledger.
+  // Source-side conservation ledger. Dispositions come from the bipartite
+  // compatibility graph, not from the final local ledger: a source involved
+  // in any local ambiguity is itself ambiguous.
   const boundSourceOrdinals = new Set(
     ledger
       .filter((row) => row.binding === "bound")
       .map((row) => row.sourceOrdinal)
       .filter((value): value is number => value !== null),
   );
-  const ambiguousLocalSourceOrdinals = new Set(
-    ledger
-      .filter((row) => row.binding === "ambiguous" && row.sourceOrdinal !== null)
-      .map((row) => row.sourceOrdinal!)
-  );
+  const graphAmbiguousSourceOrdinals = new Set(ambiguousSourceOrdinals);
   const sourceUnboundReasonCounts: Partial<Record<MortalSourceUnboundReason, number>> = {};
+  for (const reason of [
+    "post_call_discard_not_replayed",
+    "post_riichi_discard_not_replayed",
+    "local_terminal_action_not_replayed",
+    "identity_fact_mismatch",
+    "source_semantics_not_understood",
+  ] as const) {
+    sourceUnboundReasonCounts[reason] = 0;
+  }
   const sourceCoverageEntries = sourceRows.map((sourceRow) => {
     let disposition: MortalSourceDisposition;
     if (boundSourceOrdinals.has(sourceRow.sourceOrdinal)) {
       disposition = "bound";
-    } else if (
-      sourceDegrees[sourceRow.sourceOrdinal]! > 1
-      || ambiguousLocalSourceOrdinals.has(sourceRow.sourceOrdinal)
-    ) {
+    } else if (graphAmbiguousSourceOrdinals.has(sourceRow.sourceOrdinal)) {
       disposition = "ambiguous";
     } else {
       disposition = "unbound";
     }
     const unboundReason = disposition === "unbound"
-      ? classifyUnboundSourceReason(sourceRow.entry)
+      ? classifyUnboundSourceReason(sourceRow.entry, sourceRows)
       : null;
     if (unboundReason !== null) {
       sourceUnboundReasonCounts[unboundReason] =
