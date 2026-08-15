@@ -43,6 +43,7 @@ export {
   type MahjongSoulRecordIdentityAccount,
   type RecordCaptureResult,
 } from "./record-capture.js";
+export { resolveMahjongSoulPaipuPerspective } from "./paipu-perspective.js";
 export {
   loadMahjongSoulProtocolBundle,
   type MahjongSoulProtocolBundle,

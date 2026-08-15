@@ -1,0 +1,18 @@
+{
+  "fixtureVersion": "paipu-identity/v1",
+  "description": "Sanitized identity-join fixture derived from the live-pinned real sample (2026-08-15): the URL perspective account sits at seat 3 among four accounts, in shuffled order. All account ids are synthetic; no real ids, nicknames, URLs or record ids.",
+  "parsed": {
+    "recordId": "260811-00000000-0000-0000-0000-000000000001",
+    "perspectiveAccountId": 100003
+  },
+  "captured": {
+    "recordId": "260811-00000000-0000-0000-0000-000000000001",
+    "accounts": [
+      { "accountId": 100004, "seat": 2 },
+      { "accountId": 100001, "seat": 0 },
+      { "accountId": 100003, "seat": 3 },
+      { "accountId": 100002, "seat": 1 }
+    ]
+  },
+  "expected": { "selfActor": 3 }
+}
