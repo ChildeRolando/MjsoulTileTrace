@@ -24,6 +24,7 @@ import {
   parseMjaiTile,
   type MortalFetchedReport,
   type MortalReportDecisionEntry,
+  type MortalReportFuuro,
   type MortalSourceAction,
   type MortalSourceErrorCode,
 } from "@riichi-coach/mortal-source";
@@ -269,10 +270,13 @@ export function entryMatchesDecisionIdentity(
 
   if (window.kind === "post_call_discard") {
     // The 11-tile concealed multiset right after the call; there is no draw
-    // in this window, so the draw-tile fact is not part of the table.
+    // in this window, so the draw-tile fact is not part of the table. The
+    // self meld state must also line up: source state.fuuros ↔ local
+    // selfMeldRefs melds, kind + tile multiset, order-canonicalized (§9).
     if (!entry.atSelfChiPon) return false;
     if (entry.atSelfRiichi) return false;
-    return sameHand(privateState.concealedTiles);
+    if (!sameHand(privateState.concealedTiles)) return false;
+    return sameFuuros(entry.fuuros, localSelfFuuros(decision));
   }
 
   if (window.kind === "post_riichi_discard") {
@@ -297,6 +301,57 @@ function entryStateTiles(entry: MortalReportDecisionEntry): Tile[] {
   // `tehai` is the reviewed player's own 14-tile hand at decision time; it is
   // the strongest 1:1 binding anchor against the canonical private snapshot.
   return entry.tehai.map(parseMjaiTile);
+}
+
+// M6-A3 §9: the local side of the fuuro identity — the self player's own
+// melds at the frozen snapshot, resolved through privateState.selfMeldRefs
+// (a kakan upgrade replaces the pon in place, keeping its ref). Each meld is
+// reduced to the same normalized shape as the source projection: kind plus
+// the full tile multiset, canonically ordered.
+function localSelfFuuros(
+  decision: ReplayedDecision,
+): MortalReportFuuro[] {
+  const { publicState, privateState } = decision.snapshot;
+  return privateState.selfMeldRefs.map((meldRef) => {
+    const meld = publicState.melds.find(
+      (candidate) => candidate.meldRef === meldRef,
+    );
+    if (meld === undefined) {
+      // Invariant: every selfMeldRef was created by a self call event that
+      // also pushed a meld. A miss means the snapshot is corrupt — fail loud,
+      // never silently under-match.
+      throw new Error("mortal_review_self_meld_missing");
+    }
+    const tiles =
+      meld.kind === "ankan"
+        ? [...meld.tiles]
+        : meld.kind === "daiminkan"
+          ? [meld.calledTile, ...meld.consumedTiles]
+          : meld.kind === "kakan"
+            ? [meld.calledTile, ...meld.consumedTiles, meld.addedTile]
+            : [meld.calledTile, ...meld.consumedTiles];
+    return {
+      kind: meld.kind,
+      tiles: sortTilesCanonical(tiles).map((tile) => ({
+        id: tile.id,
+        red: tile.red,
+      })),
+    };
+  });
+}
+
+function sameFuuros(
+  source: readonly MortalReportFuuro[],
+  local: readonly MortalReportFuuro[],
+): boolean {
+  if (source.length !== local.length) return false;
+  const fuuroKey = (fuuro: MortalReportFuuro): string =>
+    `${fuuro.kind}:${fuuro.tiles
+      .map((tile) => `${tile.id}${tile.red ? "r" : ""}`)
+      .join(",")}`;
+  const sourceKeys = source.map(fuuroKey).sort();
+  const localKeys = local.map(fuuroKey).sort();
+  return sourceKeys.every((key, index) => key === localKeys[index]);
 }
 
 function projectActionFacts(

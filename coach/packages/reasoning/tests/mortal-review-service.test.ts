@@ -104,6 +104,7 @@ function legacyEntryToMortalEntry(
     lastActor: 3,
     tile: raw.tile,
     tehai: Object.freeze([...raw.state.tehai]),
+    fuuros: Object.freeze([]),
     atSelfChiPon: false,
     atSelfRiichi: false,
     atOpponentKakan: false,

@@ -5,7 +5,9 @@ export {
 } from "./errors.js";
 export {
   MORTAL_ADAPTER_VERSION,
+  MortalFuuroSchema,
   MortalReportSchema,
+  type MortalFuuro,
   type RawMortalReport,
 } from "./report-schema.js";
 export {
@@ -22,6 +24,7 @@ export {
   type MortalFetchedReport,
   type MortalReportCandidate,
   type MortalReportDecisionEntry,
+  type MortalReportFuuro,
   type MortalReportKyoku,
   type MortalSourceAction,
 } from "./report-fetcher.js";

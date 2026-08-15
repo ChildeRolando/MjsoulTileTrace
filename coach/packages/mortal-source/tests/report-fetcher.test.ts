@@ -136,6 +136,114 @@ describe("fetchMortalReport", () => {
     expect(calls).toEqual([REPORT_URL]);
   });
 
+  it("projects fuuros as canonical meld identities with red fives preserved", async () => {
+    const result = await fetchMortalReport({
+      url: REPORT_URL,
+      fetchImpl: (async () => jsonResponse(JSON.stringify(rawReport({
+        review: {
+          model_tag: "4.1b",
+          kyokus: [{
+            kyoku: 0,
+            honba: 0,
+            end_status: [],
+            relative_scores: [],
+            entries: [
+              entry({
+                at_self_chi_pon: true,
+                state: {
+                  tehai: ["1m", "1m", "1m", "1m", "1m", "1m", "1m", "1m", "1m", "1m", "1m"],
+                  fuuros: [
+                    // Chi: called 2m, consumed 1m+3m — order must canonicalize.
+                    { type: "chi", target: 0, pai: "2m", consumed: ["3m", "1m"] },
+                    // Pon: called red 5s, consumed two normal 5s.
+                    { type: "pon", target: 2, pai: "5sr", consumed: ["5s", "5s"] },
+                    // Kakan: added 5p on a pon of 5p (one red in consumed).
+                    {
+                      type: "kakan",
+                      pai: "5p",
+                      previous_pon_target: 3,
+                      previous_pon_pai: "5p",
+                      consumed: ["5p", "5pr"],
+                    },
+                    // Ankan: four 7z.
+                    { type: "ankan", consumed: ["7z", "7z", "7z", "7z"] },
+                  ],
+                },
+              }),
+              opponentEntry(),
+            ],
+          }],
+          total_reviewed: 1,
+          total_matches: 1,
+          rating: 0,
+          temperature: 0,
+          relative_phi_matrix: [],
+        },
+      })))) as typeof fetch,
+    });
+
+    const fuuros = result.kyokus[0]!.entries[0]!.fuuros;
+    expect(fuuros.map((fuuro) => fuuro.kind)).toEqual([
+      "chi",
+      "pon",
+      "kakan",
+      "ankan",
+    ]);
+    expect(fuuros[0]!.tiles).toEqual([
+      { id: "1m", red: false },
+      { id: "2m", red: false },
+      { id: "3m", red: false },
+    ]);
+    expect(fuuros[1]!.tiles).toEqual([
+      { id: "5s", red: false },
+      { id: "5s", red: false },
+      { id: "5s", red: true },
+    ]);
+    expect(fuuros[2]!.tiles).toEqual([
+      { id: "5p", red: false },
+      { id: "5p", red: false },
+      { id: "5p", red: false },
+      { id: "5p", red: true },
+    ]);
+    expect(fuuros[3]!.tiles).toEqual([
+      { id: "7z", red: false },
+      { id: "7z", red: false },
+      { id: "7z", red: false },
+      { id: "7z", red: false },
+    ]);
+  });
+
+  it("rejects a fuuro shape outside the pinned mjai-reviewer serialization", async () => {
+    await expect(fetchMortalReport({
+      url: REPORT_URL,
+      fetchImpl: (async () => jsonResponse(JSON.stringify(rawReport({
+        review: {
+          model_tag: "4.1b",
+          kyokus: [{
+            kyoku: 0,
+            honba: 0,
+            end_status: [],
+            relative_scores: [],
+            entries: [
+              entry({
+                state: {
+                  tehai: ["1m", "1m", "1m", "1m", "1m", "1m", "1m", "1m", "1m", "1m", "1m", "1m", "1m", "1m"],
+                  fuuros: [{ type: "nuki" }],
+                },
+              }),
+              opponentEntry(),
+            ],
+          }],
+          total_reviewed: 1,
+          total_matches: 1,
+          rating: 0,
+          temperature: 0,
+          relative_phi_matrix: [],
+        },
+      })))) as typeof fetch,
+    })).rejects.toMatchObject({ code: "mortal_report_schema_unsupported" });
+  });
+
   it("follows and re-validates redirects on the approved host", async () => {
     const calls: string[] = [];
     const result = await fetchMortalReport({

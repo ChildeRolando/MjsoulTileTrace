@@ -2,6 +2,7 @@ import { readFile } from "node:fs/promises";
 import { describe, expect, it } from "vitest";
 import type {
   CanonicalEventStream,
+  CanonicalMeldV2,
   CompletedHandFactRequest,
   CompletedHandFactResult,
   EngineIdentity,
@@ -95,6 +96,7 @@ function fakeEntry(overrides: Partial<MortalReportDecisionEntry> = {}): MortalRe
     lastActor: 0,
     tile: "1m",
     tehai: Object.freeze(Array.from({ length: 14 }, () => "1m")),
+    fuuros: Object.freeze([]),
     atSelfChiPon: false,
     atSelfRiichi: false,
     atOpponentKakan: false,
@@ -263,6 +265,171 @@ describe("entryMatchesDecisionIdentity for full-game binding", () => {
   });
 });
 
+// M6-A3 §9: the post_call identity table closes with source state.fuuros ↔
+// local self meld alignment. Local base: a concealed 11×1m hand right after a
+// self pon of 5m (one red). Source base entries carry the same hand/flags.
+const postCallHand = Array.from({ length: 11 }, () => canonicalTile("1m"));
+
+const localPonMeld: CanonicalMeldV2 = {
+  meldRef: "game:test/0/2/0",
+  kind: "pon" as const,
+  actor: 0,
+  createdEventRef: "game:test/0/2/0",
+  latestEventRef: "game:test/0/2/0",
+  targetActor: 1,
+  calledTile: canonicalTile("5m"),
+  consumedTiles: [canonicalTile("5m"), canonicalTile("5m", true)],
+  calledDiscardEventRef: "game:test/0/1/9",
+};
+
+function postCallDecision(
+  overrides: Partial<ReplayedDecision> = {},
+): ReplayedDecision {
+  const base = fakeDecision();
+  return fakeDecision({
+    ...overrides,
+    snapshot: {
+      ...base.snapshot,
+      publicState: {
+        ...base.snapshot.publicState,
+        melds: [localPonMeld],
+      },
+      privateState: {
+        ...base.snapshot.privateState,
+        decisionWindow: {
+          kind: "post_call_discard",
+          actor: 0,
+          triggerEventRef: "game:test/0/2/0",
+        },
+        concealedTiles: postCallHand.map((tile) => ({ ...tile })),
+        currentDraw: null,
+        selfMeldRefs: ["game:test/0/2/0"],
+      },
+    },
+  });
+}
+
+function postCallEntry(
+  fuuros: ReadonlyArray<MortalReportDecisionEntry["fuuros"][number]>,
+): MortalReportDecisionEntry {
+  return fakeEntry({
+    atSelfChiPon: true,
+    tehai: Object.freeze(Array.from({ length: 11 }, () => "1m")),
+    fuuros: Object.freeze(fuuros),
+  });
+}
+
+const sourcePonFiveMan = [{
+  kind: "pon" as const,
+  tiles: Object.freeze([
+    { id: "5m", red: false },
+    { id: "5m", red: false },
+    { id: "5m", red: true },
+  ]),
+}];
+
+describe("post_call fuuro identity (M6-A3 §9)", () => {
+  it("E: exact fuuro + exact hand matches", () => {
+    expect(entryMatchesDecisionIdentity(
+      postCallEntry(sourcePonFiveMan),
+      postCallDecision(),
+    )).toBe(true);
+  });
+
+  it("A: same hand and flags but a different fuuro set never matches", () => {
+    // One meld vs none, and one vs two — both must fail.
+    expect(entryMatchesDecisionIdentity(
+      postCallEntry([]),
+      postCallDecision(),
+    )).toBe(false);
+    expect(entryMatchesDecisionIdentity(
+      postCallEntry([...sourcePonFiveMan, {
+        kind: "chi",
+        tiles: Object.freeze([
+          { id: "2m", red: false },
+          { id: "3m", red: false },
+          { id: "4m", red: false },
+        ]),
+      }]),
+      postCallDecision(),
+    )).toBe(false);
+  });
+
+  it("B: source chi against local pon never matches", () => {
+    expect(entryMatchesDecisionIdentity(
+      postCallEntry([{
+        kind: "chi",
+        tiles: Object.freeze([
+          { id: "2m", red: false },
+          { id: "3m", red: false },
+          { id: "4m", red: false },
+        ]),
+      }]),
+      postCallDecision(),
+    )).toBe(false);
+  });
+
+  it("C: same meld type but different tile identity never matches", () => {
+    expect(entryMatchesDecisionIdentity(
+      postCallEntry([{
+        kind: "pon",
+        tiles: Object.freeze([
+          { id: "5p", red: false },
+          { id: "5p", red: false },
+          { id: "5p", red: true },
+        ]),
+      }]),
+      postCallDecision(),
+    )).toBe(false);
+  });
+
+  it("D: red vs normal five mismatch never matches", () => {
+    expect(entryMatchesDecisionIdentity(
+      postCallEntry([{
+        kind: "pon",
+        tiles: Object.freeze([
+          { id: "5m", red: false },
+          { id: "5m", red: false },
+          { id: "5m", red: false },
+        ]),
+      }]),
+      postCallDecision(),
+    )).toBe(false);
+  });
+
+  it("matches an upgraded kakan meld on both sides", () => {
+    // The local pon was upgraded in place to kakan (ref kept); the source
+    // kakan carries the added tile plus the pon identity — same 4-tile
+    // multiset after canonicalization.
+    const kakanDecision = postCallDecision();
+    kakanDecision.snapshot.publicState.melds = [{
+      meldRef: "game:test/0/2/0",
+      kind: "kakan" as const,
+      actor: 0,
+      createdEventRef: "game:test/0/2/0",
+      latestEventRef: "game:test/0/3/0",
+      targetActor: 1,
+      calledTile: { id: "5m", red: false },
+      consumedTiles: [{ id: "5m", red: false }, { id: "5m", red: true }],
+      addedTile: { id: "5m", red: false },
+      calledDiscardEventRef: "game:test/0/1/9",
+      upgradedPonEventRef: "game:test/0/2/0",
+    }];
+    expect(entryMatchesDecisionIdentity(
+      postCallEntry([{
+        kind: "kakan",
+        tiles: Object.freeze([
+          { id: "5m", red: false },
+          { id: "5m", red: false },
+          { id: "5m", red: false },
+          { id: "5m", red: true },
+        ]),
+      }]),
+      kakanDecision,
+    )).toBe(true);
+  });
+});
+
 describe("buildMortalFullGameBindingPlan", () => {
   it("binds one local + one source exact match", () => {
     const report = makeReport([fakeEntry()]);
@@ -376,6 +543,7 @@ function legacyEntryToMortalEntry(
     lastActor: 3,
     tile: raw.tile,
     tehai: Object.freeze([...raw.state.tehai]),
+    fuuros: Object.freeze([]),
     atSelfChiPon: false,
     atSelfRiichi: false,
     atOpponentKakan: false,

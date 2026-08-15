@@ -2,10 +2,13 @@ import { MortalSourceError } from "./errors.js";
 import {
   MORTAL_ADAPTER_VERSION,
   MortalReportSchema,
+  type MortalFuuro,
   type RawMortalReport,
 } from "./report-schema.js";
 import { parseMortalReportResultUrl } from "./report-url.js";
 import { computeMortalGameFingerprint } from "./report-fingerprint.js";
+import { parseMjaiTile } from "./mjai-tile.js";
+import { sortTilesCanonical } from "@riichi-coach/contracts";
 
 // The only production download boundary for Mortal (mjai-reviewer) results.
 // It fetches the canonical JSON endpoint, re-validates every redirect hop
@@ -30,6 +33,40 @@ export type MortalReportCandidate = Readonly<{
   qValue: number;
 }>;
 
+// The minimal privacy-safe fuuro projection (M6-A3 §9): the meld kind plus
+// its full tile multiset (called + consumed [+ the upgraded pon's identity
+// for kakan]), normalized to tile identity and canonically ordered so
+// comparison is order-stable. Red-five identity is preserved. Discard-source
+// seats and raw passthrough fields are deliberately NOT projected.
+export type MortalReportFuuro = Readonly<{
+  kind: "chi" | "pon" | "daiminkan" | "ankan" | "kakan";
+  tiles: ReadonlyArray<Readonly<{ id: string; red: boolean }>>;
+}>;
+
+function projectFuuro(fuuro: MortalFuuro): MortalReportFuuro {
+  const rawTiles =
+    fuuro.type === "chi" || fuuro.type === "pon"
+      ? [fuuro.pai, fuuro.consumed[0], fuuro.consumed[1]]
+      : fuuro.type === "daiminkan"
+        ? [
+          fuuro.pai,
+          fuuro.consumed[0],
+          fuuro.consumed[1],
+          fuuro.consumed[2],
+        ]
+        : fuuro.type === "kakan"
+          ? [
+            fuuro.pai,
+            fuuro.previous_pon_pai,
+            fuuro.consumed[0],
+            fuuro.consumed[1],
+          ]
+          : [...fuuro.consumed];
+  const tiles = sortTilesCanonical(rawTiles.map(parseMjaiTile))
+    .map((tile) => ({ id: tile.id, red: tile.red }));
+  return Object.freeze({ kind: fuuro.type, tiles: Object.freeze(tiles) });
+}
+
 export type MortalReportDecisionEntry = Readonly<{
   roundOrdinal: number;
   roundWind: "E" | "S" | "W";
@@ -41,6 +78,7 @@ export type MortalReportDecisionEntry = Readonly<{
   lastActor: number;
   tile: string;
   tehai: readonly string[];
+  fuuros: readonly MortalReportFuuro[];
   atSelfChiPon: boolean;
   atSelfRiichi: boolean;
   atOpponentKakan: boolean;
@@ -199,6 +237,7 @@ function projectReport(
           lastActor: entry.last_actor,
           tile: entry.tile,
           tehai: entry.state.tehai,
+          fuuros: Object.freeze(entry.state.fuuros.map(projectFuuro)),
           atSelfChiPon: entry.at_self_chi_pon,
           atSelfRiichi: entry.at_self_riichi,
           atOpponentKakan: entry.at_opponent_kakan,

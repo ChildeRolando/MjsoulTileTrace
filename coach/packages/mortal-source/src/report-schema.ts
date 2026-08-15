@@ -25,6 +25,49 @@ const MjaiActionSchema = z.object({
   type: z.string().min(1),
 }).passthrough();
 
+// state.fuuros items: the authoritative mjai-reviewer Fuuro serialization
+// (src/state.rs, #[serde(tag = "type")] with snake_case variants, pinned
+// 2026-08-16 from the upstream source). chi/pon/daiminkan carry the discard
+// source seat plus the called tile and the tiles consumed from hand; kakan
+// carries the added tile plus the upgraded pon's identity; ankan carries only
+// its four tiles. Tiles are mjai strings — red fives serialize as "5mr"-style.
+// Anything else fails closed as report_schema_unsupported at the boundary.
+const FuuroTile = z.string().min(1);
+const FuuroSeat = z.number().int().min(0).max(3);
+
+export const MortalFuuroSchema = z.discriminatedUnion("type", [
+  z.object({
+    type: z.literal("chi"),
+    target: FuuroSeat,
+    pai: FuuroTile,
+    consumed: z.tuple([FuuroTile, FuuroTile]),
+  }).strict(),
+  z.object({
+    type: z.literal("pon"),
+    target: FuuroSeat,
+    pai: FuuroTile,
+    consumed: z.tuple([FuuroTile, FuuroTile]),
+  }).strict(),
+  z.object({
+    type: z.literal("daiminkan"),
+    target: FuuroSeat,
+    pai: FuuroTile,
+    consumed: z.tuple([FuuroTile, FuuroTile, FuuroTile]),
+  }).strict(),
+  z.object({
+    type: z.literal("kakan"),
+    pai: FuuroTile,
+    previous_pon_target: FuuroSeat,
+    previous_pon_pai: FuuroTile,
+    consumed: z.tuple([FuuroTile, FuuroTile]),
+  }).strict(),
+  z.object({
+    type: z.literal("ankan"),
+    consumed: z.tuple([FuuroTile, FuuroTile, FuuroTile, FuuroTile]),
+  }).strict(),
+]);
+export type MortalFuuro = z.infer<typeof MortalFuuroSchema>;
+
 const MortalDetailSchema = z.object({
   action: MjaiActionSchema,
   q_value: z.number().finite(),
@@ -38,9 +81,7 @@ const MortalEntrySchema = z.object({
   tile: z.string().min(1),
   state: z.object({
     tehai: z.array(z.string().min(1)),
-    fuuros: z.array(z.object({
-      type: z.string().min(1),
-    }).passthrough()),
+    fuuros: z.array(MortalFuuroSchema),
   }).strict(),
   at_self_chi_pon: z.boolean(),
   at_self_riichi: z.boolean(),
