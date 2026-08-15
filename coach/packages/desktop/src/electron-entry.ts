@@ -53,6 +53,7 @@ import {
   runMahjongSoulReplayDiagnostic,
 } from "./replay-diagnostic-runner.js";
 import {
+  buildMortalDecisionResultPath,
   mortalDecisionDiagnosticExitCode,
   runMortalDecisionDiagnostic,
 } from "./mortal-decision-diagnostic-runner.js";
@@ -436,13 +437,13 @@ async function start(): Promise<void> {
         acquisition,
         engine,
         now: Date.now,
-        writeResult: async (serialized, recordId) => {
+        writeResult: async (serialized) => {
           const resultDir = join(
             app.getPath("userData"),
             "mortal-decision-results",
           );
           await mkdir(resultDir, { recursive: true, mode: 0o700 });
-          const target = join(resultDir, `${recordId}.json`);
+          const target = buildMortalDecisionResultPath(resultDir, Date.now());
           await writeFile(target, serialized, { mode: 0o600 });
           return target;
         },

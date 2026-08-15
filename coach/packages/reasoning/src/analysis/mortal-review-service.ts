@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import {
   CanonicalEventStreamSchema,
   CurrentSceneFrameSchema,
@@ -41,7 +42,7 @@ export type MortalReviewFailureCode =
   | "mortal_review_assembly_failed";
 
 export type MortalDecisionAnchor = Readonly<{
-  reportId: string;
+  reportIdHash: string;
   kyoku: number;
   honba: number;
   junme: number;
@@ -69,6 +70,10 @@ export type MortalSingleDecisionReviewResult =
 
 const DECISION_DETAIL_POLICY_VERSION = "mortal-review/v1" as const;
 
+function hashMortalReportId(reportId: string): string {
+  return `sha256:${createHash("sha256").update(reportId).digest("hex")}`;
+}
+
 function sameTile(
   left: { id: string; red: boolean },
   right: { id: string; red: boolean },
@@ -78,8 +83,14 @@ function sameTile(
 
 function localActualAction(decision: ReplayedDecision): MortalSourceAction {
   const actualDiscard = decision.actualDiscard;
-  if (actualDiscard === null) {
-    throw new MortalSourceError("mortal_decision_actual_mismatch");
+  // M6-A1 does NOT support riichi discards yet. A tile_discarded event that
+  // declares riichi must fail closed before Mortal import — it must never be
+  // downgraded to an ordinary `dahai`.
+  if (
+    actualDiscard === null
+    || actualDiscard.riichiDeclarationEventRef !== null
+  ) {
+    throw new MortalSourceError("mortal_decision_unsupported_entry");
   }
   return {
     type: "dahai",
@@ -89,7 +100,7 @@ function localActualAction(decision: ReplayedDecision): MortalSourceAction {
   };
 }
 
-function entryMatchesDecision(
+function entryMatchesDecisionIdentity(
   entry: MortalReportDecisionEntry,
   decision: ReplayedDecision,
 ): boolean {
@@ -97,8 +108,7 @@ function entryMatchesDecision(
   const privateState = snapshot.privateState;
   const currentDraw = privateState.currentDraw;
   if (currentDraw === null) return false;
-  const actualDiscard = decision.actualDiscard;
-  if (actualDiscard === null) return false;
+  if (decision.actualDiscard === null) return false;
   if (privateState.decisionWindow.kind !== "self_turn") return false;
 
   const drawnTile = parseMjaiTile(entry.tile);
@@ -123,14 +133,6 @@ function entryMatchesDecision(
   for (let index = 0; index < canonicalHand.length; index += 1) {
     if (!sameTile(mortalHand[index]!, canonicalHand[index]!)) return false;
   }
-
-  const actualAction = entry.actual;
-  if (
-    actualAction.type !== "dahai" ||
-    actualAction.actor !== snapshot.selfActor ||
-    actualAction.pai !== formatMjaiTile(actualDiscard.tile) ||
-    actualAction.tsumogiri !== (actualDiscard.discardMode === "tsumogiri")
-  ) return false;
 
   return true;
 }
@@ -167,11 +169,11 @@ function projectActionFacts(
 }
 
 function candidateEventRef(
-  reportId: string,
+  reportIdHash: string,
   entry: MortalReportDecisionEntry,
   index: number,
 ): string {
-  return `mortal:${reportId}:${entry.kyoku}:${entry.junme}:detail:${index}`;
+  return `mortal:${reportIdHash}:${entry.kyoku}:${entry.junme}:detail:${index}`;
 }
 
 function actualEventRef(decision: ReplayedDecision): string {
@@ -179,13 +181,13 @@ function actualEventRef(decision: ReplayedDecision): string {
 }
 
 function buildFrame(
-  reportId: string,
+  reportIdHash: string,
   decision: ReplayedDecision,
   facts: KnownGameFacts,
 ) {
   return CurrentSceneFrameSchema.parse({
     kind: "current_scene",
-    frameId: `mortal-review:${reportId}:${decision.decisionEventRef}`,
+    frameId: `mortal-review:${reportIdHash}:${decision.decisionEventRef}`,
     scope: { kind: "applied_decision" },
     sceneRef: decision.decisionEventRef,
     facts: [{
@@ -203,6 +205,7 @@ function anchorEntry(
   anchor: MortalDecisionAnchor;
   entry: MortalReportDecisionEntry;
 } | { status: "failed"; code: MortalSourceErrorCode } {
+  const reportIdHash = hashMortalReportId(report.reportId);
   const supportedMatches: Array<{
     anchor: MortalDecisionAnchor;
     entry: MortalReportDecisionEntry;
@@ -210,9 +213,9 @@ function anchorEntry(
   for (const kyoku of report.kyokus) {
     for (const entry of kyoku.entries) {
       if (entry.lastActor !== report.playerId) continue;
-      if (!entryMatchesDecision(entry, decision)) continue;
+      if (!entryMatchesDecisionIdentity(entry, decision)) continue;
       const anchor: MortalDecisionAnchor = Object.freeze({
-        reportId: report.reportId,
+        reportIdHash,
         kyoku: entry.kyoku,
         honba: entry.honba,
         junme: entry.junme,
@@ -236,7 +239,7 @@ function anchorEntry(
   for (const kyoku of report.kyokus) {
     for (const entry of kyoku.entries) {
       if (entry.lastActor !== report.playerId) continue;
-      if (!entryMatchesDecision(entry, decision)) continue;
+      if (!entryMatchesDecisionIdentity(entry, decision)) continue;
       return { status: "failed", code: "mortal_decision_unsupported_entry" };
     }
   }
@@ -316,13 +319,16 @@ export async function runMortalSingleDecisionReview(input: {
       throw new MortalSourceError("mortal_report_perspective_mismatch");
     }
 
+    // P0-1: M6-A1 supports ordinary self-turn discards only. A null actual or
+    // a riichi-declaring discard fails closed before any Mortal import.
+    const localActual = localActualAction(input.decision);
+
     // P5/P6: exact 1:1 anchor, then local actual authority.
     const anchored = anchorEntry(input.report, input.decision);
     if (anchored.status === "failed") {
       throw new MortalSourceError(anchored.code);
     }
     const { anchor, entry } = anchored;
-    const localActual = localActualAction(input.decision);
     if (
       entry.actual.type !== "dahai" ||
       entry.actual.actor !== localActual.actor ||
@@ -332,19 +338,21 @@ export async function runMortalSingleDecisionReview(input: {
       throw new MortalSourceError("mortal_decision_actual_mismatch");
     }
 
+    const reportIdHash = anchor.reportIdHash;
+
     // P7: pure projection into the candidate normalizer's action-fact shape.
     const actionFacts = projectActionFacts(input.decision);
 
     // P8: reuse the structured Mortal import.
-    const decisionLayerRef = `mortal-review:${input.report.reportId}:${input.decision.decisionEventRef}`;
-    const comparisonSetId = `mortal-comparison:${input.report.reportId}:${input.decision.decisionEventRef}`;
+    const decisionLayerRef = `mortal-review:${reportIdHash}:${input.decision.decisionEventRef}`;
+    const comparisonSetId = `mortal-comparison:${reportIdHash}:${input.decision.decisionEventRef}`;
     const imported = importStructuredMortalComparison({
       comparisonSetId,
       decisionLayerRef,
       facts: actionFacts,
       modelCandidates: entry.details.map((detail, index) => ({
         actions: [{
-          eventRef: candidateEventRef(input.report.reportId, entry, index),
+          eventRef: candidateEventRef(reportIdHash, entry, index),
           action: detail.action,
         }],
         probability: detail.probability,
@@ -376,7 +384,7 @@ export async function runMortalSingleDecisionReview(input: {
       throw new MortalSourceError("mortal_decision_actual_mismatch");
     }
     const evaluationBuilt = buildMortalModelEvaluation({
-      evaluationId: `mortal-evaluation:${input.report.reportId}:${input.decision.decisionEventRef}`,
+      evaluationId: `mortal-evaluation:${reportIdHash}:${input.decision.decisionEventRef}`,
       comparisonSetId: imported.comparisonSet.comparisonSetId,
       decisionLayerRef: imported.comparisonSet.decisionLayerRef,
       engineVersion: input.report.version,
@@ -405,7 +413,7 @@ export async function runMortalSingleDecisionReview(input: {
         input.engine,
       );
       factorResult = await runStructuredAnalysisAssembly({
-        frame: buildFrame(input.report.reportId, input.decision, facts),
+        frame: buildFrame(reportIdHash, input.decision, facts),
         comparisonSet: imported.comparisonSet,
         facts,
         responseFuriten,

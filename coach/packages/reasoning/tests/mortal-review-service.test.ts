@@ -1,6 +1,7 @@
 import { readFile } from "node:fs/promises";
 import { describe, expect, it } from "vitest";
 import type {
+  CanonicalEventStream,
   CompletedHandFactRequest,
   CompletedHandFactResult,
   EngineIdentity,
@@ -20,7 +21,10 @@ import {
 import type { HandStructureFactEnginePort } from "../src/fact-engine/port.js";
 import { bridgeLegacyRegressionEvents } from "../src/import/legacy-event-stream-bridge.js";
 import { importRegressionFixture } from "../src/import/mortal-report.js";
-import { replayCanonicalStream } from "../src/replay/stream-replayer.js";
+import {
+  replayCanonicalStream,
+  type ReplayedDecision,
+} from "../src/replay/stream-replayer.js";
 import { runMortalSingleDecisionReview } from "../src/analysis/mortal-review-service.js";
 
 const fixtureUrl = new URL(
@@ -114,7 +118,13 @@ function legacyEntryToMortalEntry(
   });
 }
 
-function buildReport(raw: RawLegacyFixture): MortalFetchedReport {
+function makeReport(
+  raw: RawLegacyFixture,
+  entries: readonly MortalReportDecisionEntry[] = raw.decisions.map(
+    legacyEntryToMortalEntry,
+  ),
+  overrides: Partial<MortalFetchedReport> = {},
+): MortalFetchedReport {
   return Object.freeze({
     reportId: raw.source.reportId,
     adapterVersion: "mortal-source/1" as const,
@@ -126,49 +136,314 @@ function buildReport(raw: RawLegacyFixture): MortalFetchedReport {
     kyokus: Object.freeze([{
       kyoku: 0,
       honba: 0,
-      entries: Object.freeze(raw.decisions.map(legacyEntryToMortalEntry)),
+      entries: Object.freeze(entries),
     }]),
+    ...overrides,
+  });
+}
+
+function cloneEntry(
+  entry: MortalReportDecisionEntry,
+  overrides: Partial<MortalReportDecisionEntry> = {},
+): MortalReportDecisionEntry {
+  return Object.freeze({ ...entry, ...overrides });
+}
+
+async function setupFixture(): Promise<{
+  raw: RawLegacyFixture;
+  stream: CanonicalEventStream;
+  decision: ReplayedDecision;
+  firstRawDecision: RawLegacyFixture["decisions"][number];
+}> {
+  const raw = JSON.parse(await readFile(fixtureUrl, "utf8")) as RawLegacyFixture;
+  const imported = importRegressionFixture(raw as never);
+  const bridged = bridgeLegacyRegressionEvents(
+    imported.events,
+    imported.selfActor,
+    { sourceKind: "fixture", gameId: "fixture:c1924cad66f66dd9" },
+  );
+  if (bridged.status !== "ready") throw new Error("bridge failed");
+  const decisions = replayCanonicalStream(bridged.stream);
+  const firstRawDecision = raw.decisions[0]!;
+  const targetDraw = parseMjaiTile(firstRawDecision.tile);
+  const decision = decisions.find((entry) =>
+    entry.actualDiscard !== null
+    && entry.snapshot.privateState.currentDraw !== null
+    && entry.snapshot.privateState.currentDraw.tile.id === targetDraw.id
+    && entry.snapshot.privateState.currentDraw.tile.red === targetDraw.red
+  );
+  if (decision === undefined) throw new Error("decision not found");
+  return {
+    raw,
+    stream: bridged.stream,
+    decision,
+    firstRawDecision,
+  };
+}
+
+async function runReview(
+  stream: CanonicalEventStream,
+  decision: ReplayedDecision,
+  report: MortalFetchedReport,
+) {
+  return await runMortalSingleDecisionReview({
+    stream,
+    decision,
+    report,
+    engine: new FailingEngine(),
   });
 }
 
 describe("runMortalSingleDecisionReview", () => {
-  it("binds the legacy East-1 turn 6 decision and produces a full review", async () => {
-    const raw = JSON.parse(await readFile(fixtureUrl, "utf8")) as RawLegacyFixture;
-    const imported = importRegressionFixture(raw as never);
-    const bridged = bridgeLegacyRegressionEvents(
-      imported.events,
-      imported.selfActor,
-      { sourceKind: "fixture", gameId: "fixture:c1924cad66f66dd9" },
-    );
-    expect(bridged.status).toBe("ready");
-    if (bridged.status !== "ready") return;
-
-    const decisions = replayCanonicalStream(bridged.stream);
-    const targetDraw = parseMjaiTile(raw.decisions[0]!.tile);
-    const decision = decisions.find((entry) =>
-      entry.actualDiscard !== null
-      && entry.snapshot.privateState.currentDraw !== null
-      && entry.snapshot.privateState.currentDraw.tile.id === targetDraw.id
-      && entry.snapshot.privateState.currentDraw.tile.red === targetDraw.red
-    );
-    expect(decision).toBeDefined();
-    if (decision === undefined) return;
-
-    const report = buildReport(raw);
-    const review = await runMortalSingleDecisionReview({
-      stream: bridged.stream,
-      decision,
+  it("keeps an ordinary self-turn discard ready", async () => {
+    const fixture = await setupFixture();
+    const report = makeReport(fixture.raw);
+    const review = await runReview(
+      fixture.stream,
+      fixture.decision,
       report,
-      engine: new FailingEngine(),
-    });
+    );
 
     expect(review.status).toBe("ready");
     if (review.status !== "ready") return;
-    expect(review.anchor.reportId).toBe(raw.source.reportId);
+    expect(review.anchor.reportIdHash).toContain("sha256:");
+    expect(review.anchor.reportIdHash).not.toContain(fixture.raw.source.reportId);
     expect(review.anchor.junme).toBe(6);
     expect(review.modelEvaluation.engineId).toBe("mortal");
     expect(review.modelEvaluation.scoreMethod).toBe("mortal_probability_x100");
     expect(review.comparisonSet.candidates.length).toBeGreaterThanOrEqual(2);
-    expect(review.modelEvaluation.candidates.length).toBe(review.comparisonSet.candidates.length);
+    expect(review.modelEvaluation.candidates.length).toBe(
+      review.comparisonSet.candidates.length,
+    );
+  });
+
+  it("fails closed on a wrong game fingerprint", async () => {
+    const fixture = await setupFixture();
+    const report = makeReport(fixture.raw, undefined, {
+      gameFingerprint: "mortal-game-fingerprint/v2:sha256:deadbeef",
+    });
+    const review = await runReview(
+      fixture.stream,
+      fixture.decision,
+      report,
+    );
+    expect(review.status).toBe("failed");
+    if (review.status !== "failed") return;
+    expect(review.code).toBe("mortal_report_game_fingerprint_mismatch");
+  });
+
+  it("fails closed on a wrong playerId", async () => {
+    const fixture = await setupFixture();
+    const report = makeReport(fixture.raw, undefined, {
+      playerId: 0,
+    });
+    const review = await runReview(
+      fixture.stream,
+      fixture.decision,
+      report,
+    );
+    expect(review.status).toBe("failed");
+    if (review.status !== "failed") return;
+    expect(review.code).toBe("mortal_report_perspective_mismatch");
+  });
+
+  it("fails closed when no Mortal entry matches the decision", async () => {
+    const fixture = await setupFixture();
+    const report = makeReport(fixture.raw, []);
+    const review = await runReview(
+      fixture.stream,
+      fixture.decision,
+      report,
+    );
+    expect(review.status).toBe("failed");
+    if (review.status !== "failed") return;
+    expect(review.code).toBe("mortal_decision_anchor_not_found");
+  });
+
+  it("fails closed on duplicate exact decision matches", async () => {
+    const fixture = await setupFixture();
+    const first = legacyEntryToMortalEntry(fixture.firstRawDecision);
+    const report = makeReport(fixture.raw, [
+      first,
+      cloneEntry(first, { junme: first.junme + 1 }),
+    ]);
+    const review = await runReview(
+      fixture.stream,
+      fixture.decision,
+      report,
+    );
+    expect(review.status).toBe("failed");
+    if (review.status !== "failed") return;
+    expect(review.code).toBe("mortal_decision_anchor_ambiguous");
+  });
+
+  it("does not bind same junme with a different 14-tile state", async () => {
+    const fixture = await setupFixture();
+    const entry = cloneEntry(
+      legacyEntryToMortalEntry(fixture.firstRawDecision),
+      { tehai: Object.freeze(["1m", "1m", "1m", "1m", "1m", "1m", "1m", "1m", "1m", "1m", "1m", "1m", "1m", "1m"]) },
+    );
+    const report = makeReport(fixture.raw, [entry]);
+    const review = await runReview(
+      fixture.stream,
+      fixture.decision,
+      report,
+    );
+    expect(review.status).toBe("failed");
+    if (review.status !== "failed") return;
+    expect(review.code).toBe("mortal_decision_anchor_not_found");
+  });
+
+  it("does not bind on the same draw tile only", async () => {
+    const fixture = await setupFixture();
+    const base = legacyEntryToMortalEntry(fixture.firstRawDecision);
+    const entry = cloneEntry(base, {
+      tehai: Object.freeze(["1m", "1m", "1m", "1m", "1m", "1m", "1m", "1m", "1m", "1m", "1m", "1m", "1m", "1m"]),
+      actual: { type: "dahai", actor: 3, pai: "9m", tsumogiri: false },
+    });
+    const report = makeReport(fixture.raw, [entry]);
+    const review = await runReview(
+      fixture.stream,
+      fixture.decision,
+      report,
+    );
+    expect(review.status).toBe("failed");
+    if (review.status !== "failed") return;
+    expect(review.code).toBe("mortal_decision_anchor_not_found");
+  });
+
+  it("fails closed when Mortal actual differs from local actual", async () => {
+    const fixture = await setupFixture();
+    const base = legacyEntryToMortalEntry(fixture.firstRawDecision);
+    const entry = cloneEntry(base, {
+      actual: { type: "dahai", actor: 3, pai: "9m", tsumogiri: false },
+    });
+    const report = makeReport(fixture.raw, [entry]);
+    const review = await runReview(
+      fixture.stream,
+      fixture.decision,
+      report,
+    );
+    expect(review.status).toBe("failed");
+    if (review.status !== "failed") return;
+    expect(review.code).toBe("mortal_decision_actual_mismatch");
+  });
+
+  it("fails closed when the model does not score the local actual action", async () => {
+    const fixture = await setupFixture();
+    const base = legacyEntryToMortalEntry(fixture.firstRawDecision);
+    const entry = cloneEntry(base, {
+      details: Object.freeze([
+        {
+          action: { type: "dahai", actor: 3, pai: "6s", tsumogiri: true },
+          probability: 0.6,
+          qValue: 0.1,
+        },
+        {
+          action: { type: "dahai", actor: 3, pai: "1p", tsumogiri: false },
+          probability: 0.4,
+          qValue: 0.2,
+        },
+      ]),
+    });
+    const report = makeReport(fixture.raw, [entry]);
+    const review = await runReview(
+      fixture.stream,
+      fixture.decision,
+      report,
+    );
+    expect(review.status).toBe("failed");
+    if (review.status !== "failed") return;
+    expect(review.code).toBe("mortal_decision_unsupported_entry");
+  });
+
+  it("fails closed on duplicate canonical model actions", async () => {
+    const fixture = await setupFixture();
+    const base = legacyEntryToMortalEntry(fixture.firstRawDecision);
+    const entry = cloneEntry(base, {
+      details: Object.freeze([
+        {
+          action: { type: "dahai", actor: 3, pai: "6s", tsumogiri: true },
+          probability: 0.6,
+          qValue: 0.1,
+        },
+        {
+          action: { type: "dahai", actor: 3, pai: "6s", tsumogiri: true },
+          probability: 0.4,
+          qValue: 0.2,
+        },
+      ]),
+    });
+    const report = makeReport(fixture.raw, [entry]);
+    const review = await runReview(
+      fixture.stream,
+      fixture.decision,
+      report,
+    );
+    expect(review.status).toBe("failed");
+    if (review.status !== "failed") return;
+    expect(review.code).toBe("mortal_decision_unsupported_entry");
+  });
+
+  it("fails closed on an invalid model candidate", async () => {
+    const fixture = await setupFixture();
+    const base = legacyEntryToMortalEntry(fixture.firstRawDecision);
+    const entry = cloneEntry(base, {
+      details: Object.freeze([
+        {
+          action: { type: "dahai", actor: 3, pai: "6s", tsumogiri: true },
+          probability: 1.5,
+          qValue: 0.1,
+        },
+        {
+          action: { type: "dahai", actor: 3, pai: "1p", tsumogiri: false },
+          probability: 0.4,
+          qValue: 0.2,
+        },
+      ]),
+    });
+    const report = makeReport(fixture.raw, [entry]);
+    const review = await runReview(
+      fixture.stream,
+      fixture.decision,
+      report,
+    );
+    expect(review.status).toBe("failed");
+    if (review.status !== "failed") return;
+    expect(review.code).toBe("mortal_decision_unsupported_entry");
+  });
+
+  it("fails closed on a riichi local actual instead of downgrading it", async () => {
+    const fixture = await setupFixture();
+    const riichiDecision = {
+      ...fixture.decision,
+      actualDiscard: {
+        ...fixture.decision.actualDiscard!,
+        riichiDeclarationEventRef: "riichi:declared",
+      },
+    };
+    const report = makeReport(fixture.raw);
+    const review = await runReview(
+      fixture.stream,
+      riichiDecision,
+      report,
+    );
+    expect(review.status).toBe("failed");
+    if (review.status !== "failed") return;
+    expect(review.code).toBe("mortal_decision_unsupported_entry");
+  });
+
+  it("fails closed when actualDiscard is null", async () => {
+    const fixture = await setupFixture();
+    const nullDecision = { ...fixture.decision, actualDiscard: null };
+    const report = makeReport(fixture.raw);
+    const review = await runReview(
+      fixture.stream,
+      nullDecision,
+      report,
+    );
+    expect(review.status).toBe("failed");
+    if (review.status !== "failed") return;
+    expect(review.code).toBe("mortal_decision_unsupported_entry");
   });
 });

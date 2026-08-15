@@ -132,7 +132,7 @@ describe("fetchMortalReport", () => {
     expect(result.kyokus[0]!.entries).toHaveLength(1);
     expect(result.kyokus[0]!.entries[0]!.lastActor).toBe(1);
     expect(result.kyokus[0]!.entries[0]!.tehai).toHaveLength(14);
-    expect(result.gameFingerprint).toContain("mortal-game-fingerprint/v1:sha256:");
+    expect(result.gameFingerprint).toContain("mortal-game-fingerprint/v2:sha256:");
     expect(calls).toEqual([REPORT_URL]);
   });
 
@@ -224,6 +224,53 @@ describe("fetchMortalReport", () => {
         rawReport({ player_id: 4 }),
       ))) as typeof fetch,
     })).rejects.toMatchObject({ code: "mortal_report_schema_unsupported" });
+  });
+
+  it("bounds a hung fetch with the source-owned timeout when no caller signal is provided", async () => {
+    await expect(fetchMortalReport({
+      url: REPORT_URL,
+      timeoutMs: 20,
+      fetchImpl: (async (_input, init) => new Promise<Response>((_resolve, reject) => {
+        init?.signal?.addEventListener("abort", () => {
+          reject(new DOMException("Aborted", "AbortError"));
+        }, { once: true });
+      })) as typeof fetch,
+    })).rejects.toMatchObject({ code: "mortal_result_fetch_failed" });
+  });
+
+  it("lets a caller abort win over the source timeout", async () => {
+    const controller = new AbortController();
+    controller.abort();
+    await expect(fetchMortalReport({
+      url: REPORT_URL,
+      signal: controller.signal,
+      timeoutMs: 60_000,
+      fetchImpl: (async (_input, init) => {
+        if (init?.signal?.aborted === true) {
+          throw new DOMException("Aborted", "AbortError");
+        }
+        return jsonResponse(JSON.stringify(rawReport()));
+      }) as typeof fetch,
+    })).rejects.toMatchObject({ name: "AbortError" });
+  });
+
+  it("never leaks the URL or raw remote text through timeout errors", async () => {
+    const error = await fetchMortalReport({
+      url: REPORT_URL,
+      timeoutMs: 20,
+      fetchImpl: (async (_input, init) => new Promise<Response>((_resolve, reject) => {
+        init?.signal?.addEventListener("abort", () => {
+          reject(new DOMException("remote text should never surface", "AbortError"));
+        }, { once: true });
+      })) as typeof fetch,
+    }).catch((caught: unknown) => caught);
+
+    expect(error).toBeInstanceOf(MortalSourceError);
+    const message = (error as Error).message;
+    expect(message).not.toContain(REPORT_ID);
+    expect(message).not.toContain("https://");
+    expect(message).not.toContain("remote text");
+    expect(message).not.toContain("mjai_log");
   });
 
   it("never leaks the URL or raw JSON through errors", async () => {

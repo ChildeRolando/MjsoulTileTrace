@@ -1,4 +1,5 @@
 import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import {
   MORTAL_REPORT_TIMEOUT_MS,
   MortalSourceError,
@@ -6,6 +7,7 @@ import {
   type MortalFetchedReport,
 } from "@riichi-coach/mortal-source";
 import {
+  classifyModelEvaluationDetail,
   runMortalSingleDecisionReview,
   type MortalSingleDecisionReviewResult,
 } from "@riichi-coach/reasoning";
@@ -16,6 +18,25 @@ import type { MahjongSoulReplayAcquisitionResult } from "./replay-diagnostic-run
 
 export const MORTAL_DECISION_DIAGNOSTIC_RESULT_VERSION =
   "mortal-decision-diagnostic/v1" as const;
+
+export function buildMortalDecisionResultPath(
+  resultDir: string,
+  now: number,
+): string {
+  return join(resultDir, `mortal-decision-result-${now}.json`);
+}
+
+export function formatMortalDecisionConsoleLine(input: {
+  decisionKind: string;
+  candidateCount: number;
+  actualActionRef: string;
+  errorGap: number;
+}): string {
+  return `[riichi-coach] mortal-decision:kind=${input.decisionKind}`
+    + ` candidates=${input.candidateCount}`
+    + ` actual=${input.actualActionRef}`
+    + ` gap=${input.errorGap.toFixed(2)}`;
+}
 
 export type MortalDecisionDiagnosticStatus =
   | "review_ready"
@@ -39,7 +60,7 @@ export type MortalDecisionDiagnosticPorts = {
   readonly resultUrlFilePath: string;
   readonly acquisition: MahjongSoulReplayAcquisitionResult;
   readonly engine: HandStructureFactEnginePort;
-  readonly writeResult: (serialized: string, recordId: string) => Promise<string>;
+  readonly writeResult: (serialized: string) => Promise<string>;
   readonly now?: () => number;
   readonly fetchImpl?: typeof fetch;
 };
@@ -76,6 +97,7 @@ function pickReviewDecision(
 ): ReplayedDecision | null {
   for (const decision of decisions) {
     if (decision.actualDiscard === null) continue;
+    if (decision.actualDiscard.riichiDeclarationEventRef !== null) continue;
     if (decision.snapshot.privateState.decisionWindow.kind !== "self_turn") continue;
     if (decision.snapshot.privateState.currentDraw === null) continue;
     return decision;
@@ -83,44 +105,33 @@ function pickReviewDecision(
   return null;
 }
 
-function sanitizeReviewResult(
+export function serializeMortalDecisionDiagnosticResult(
   acquisition: Extract<MahjongSoulReplayAcquisitionResult, { status: "acquired" }>,
-  report: MortalFetchedReport,
+  decision: ReplayedDecision,
   review: Extract<MortalSingleDecisionReviewResult, { status: "ready" }>,
+  detailClass: ReturnType<typeof classifyModelEvaluationDetail>,
 ): string {
+  const actualCandidate = review.comparisonSet.candidates.find((candidate) =>
+    candidate.origins.includes("actual")
+  );
+  const preferredActionRefs = review.modelEvaluation.preferredActions;
+  const topModelProbability = Math.max(
+    ...review.modelEvaluation.candidates.map((candidate) =>
+      candidate.modelSelectionScore
+    ),
+  );
   return `${JSON.stringify({
     schemaVersion: MORTAL_DECISION_DIAGNOSTIC_RESULT_VERSION,
-    recordId: acquisition.recordId,
     selfSeat: acquisition.selfSeat,
-    decisionEventRef: review.anchor.decisionEventRef,
-    anchor: review.anchor,
-    comparisonCandidates: review.comparisonSet.candidates.map((candidate) => ({
-      actionRef: candidate.actionRef,
-      origins: candidate.origins,
-    })),
-    modelEvaluation: {
-      evaluationId: review.modelEvaluation.evaluationId,
-      engineId: review.modelEvaluation.engineId,
-      engineVersion: review.modelEvaluation.engineVersion,
-      adapterVersion: review.modelEvaluation.adapterVersion,
-      actualActionRef: review.modelEvaluation.actualActionRef,
-      errorGap: review.modelEvaluation.errorGap,
-      preferredActions: review.modelEvaluation.preferredActions,
-      candidates: review.modelEvaluation.candidates.map((candidate) => ({
-        actionRef: candidate.actionRef,
-        rawValues: candidate.rawValues,
-        modelSelectionScore: candidate.modelSelectionScore,
-      })),
-    },
-    factorResult: {
-      analysisMode: review.factorResult.analysisMode,
-      diagnostics: review.factorResult.diagnostics,
-    },
-    reportIdentity: {
-      reportId: report.reportId,
-      modelTag: report.modelTag,
-      version: report.version,
-    },
+    decisionKind: decision.snapshot.privateState.decisionWindow.kind,
+    candidateCount: review.comparisonSet.candidates.length,
+    localActualAction: actualCandidate?.action ?? null,
+    modelPreferredActions: preferredActionRefs,
+    topModelProbability,
+    errorGap: review.modelEvaluation.errorGap,
+    detailClass,
+    factorAnalysisMode: review.factorResult.analysisMode,
+    deterministicPreference: review.factorResult.deterministicPreference,
   }, null, 2)}\n`;
 }
 
@@ -195,18 +206,22 @@ export async function runMortalDecisionDiagnostic(
   let resultPath: string;
   try {
     resultPath = await ports.writeResult(
-      sanitizeReviewResult(acquisition, report, review),
-      acquisition.recordId,
+      serializeMortalDecisionDiagnosticResult(
+        acquisition,
+        decision,
+        review,
+        classifyModelEvaluationDetail(review.modelEvaluation),
+      ),
     );
   } catch {
     return result("result_write_failed");
   }
 
-  console.log(
-    `[riichi-coach] mortal-decision:${review.anchor.decisionEventRef}`
-    + ` report=${report.reportId} model=${report.modelTag}/${report.version}`
-    + ` actual=${review.modelEvaluation.actualActionRef}`
-    + ` gap=${review.modelEvaluation.errorGap.toFixed(2)}`,
-  );
+  console.log(formatMortalDecisionConsoleLine({
+    decisionKind: decision.snapshot.privateState.decisionWindow.kind,
+    candidateCount: review.comparisonSet.candidates.length,
+    actualActionRef: review.modelEvaluation.actualActionRef,
+    errorGap: review.modelEvaluation.errorGap,
+  }));
   return result("review_ready", resultPath);
 }

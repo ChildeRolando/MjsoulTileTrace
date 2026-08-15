@@ -182,7 +182,8 @@ function projectReport(
 export async function fetchMortalReport(input: {
   url: string;
   fetchImpl?: typeof fetch;
-  signal?: AbortSignal;
+  signal?: AbortSignal | null;
+  timeoutMs?: number;
 }): Promise<MortalFetchedReport> {
   const fetchImpl = input.fetchImpl ?? globalThis.fetch;
   if (typeof fetchImpl !== "function") {
@@ -194,53 +195,86 @@ export async function fetchMortalReport(input: {
     throw new MortalSourceError("mortal_result_url_invalid");
   }
 
-  const response = await fetchFinalResponse({
-    url: input.url,
-    fetchImpl,
-    signal: input.signal ?? null,
-  });
-  if (!response.ok) {
+  const timeoutMs = input.timeoutMs ?? MORTAL_REPORT_TIMEOUT_MS;
+  if (!Number.isFinite(timeoutMs) || timeoutMs <= 0) {
     throw failed("mortal_result_fetch_failed");
   }
-
-  const contentLength = response.headers.get("content-length");
-  if (
-    contentLength !== null
-    && (!/^\d+$/u.test(contentLength) || Number(contentLength) > MORTAL_REPORT_MAX_BYTES)
-  ) {
-    throw failed("mortal_result_size_exceeded");
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), timeoutMs);
+  const callerSignal = input.signal ?? null;
+  const onCallerAbort = () => controller.abort(callerSignal?.reason);
+  if (callerSignal !== null) {
+    if (callerSignal.aborted) {
+      controller.abort(callerSignal.reason);
+    } else {
+      callerSignal.addEventListener("abort", onCallerAbort, { once: true });
+    }
   }
-  if (!approvedContentType(response.headers.get("content-type"))) {
-    throw failed("mortal_result_content_type_rejected");
-  }
 
-  let bytes: ArrayBuffer;
   try {
-    bytes = await response.arrayBuffer();
+    const response = await fetchFinalResponse({
+      url: input.url,
+      fetchImpl,
+      signal: controller.signal,
+    });
+    if (!response.ok) {
+      throw failed("mortal_result_fetch_failed");
+    }
+
+    const contentLength = response.headers.get("content-length");
+    if (
+      contentLength !== null
+      && (!/^\d+$/u.test(contentLength) || Number(contentLength) > MORTAL_REPORT_MAX_BYTES)
+    ) {
+      throw failed("mortal_result_size_exceeded");
+    }
+    if (!approvedContentType(response.headers.get("content-type"))) {
+      throw failed("mortal_result_content_type_rejected");
+    }
+
+    let bytes: ArrayBuffer;
+    try {
+      bytes = await response.arrayBuffer();
+    } catch (error) {
+      if (callerSignal?.aborted === true) throw error;
+      if (error instanceof Error && error.name === "AbortError") {
+        throw failed("mortal_result_fetch_failed");
+      }
+      throw failed("mortal_result_fetch_failed");
+    }
+    if (bytes.byteLength === 0 || bytes.byteLength > MORTAL_REPORT_MAX_BYTES) {
+      throw failed("mortal_result_size_exceeded");
+    }
+
+    let raw: unknown;
+    try {
+      raw = JSON.parse(new TextDecoder().decode(bytes)) as unknown;
+    } catch {
+      throw failed("mortal_result_invalid_json");
+    }
+
+    const parsed = MortalReportSchema.safeParse(raw);
+    if (!parsed.success) {
+      throw failed("mortal_report_schema_unsupported");
+    }
+
+    try {
+      return projectReport(parsedUrl.reportId, parsed.data);
+    } catch (error) {
+      if (error instanceof MortalSourceError) throw error;
+      throw failed("mortal_report_schema_unsupported");
+    }
   } catch (error) {
-    if (error instanceof Error && error.name === "AbortError") throw error;
-    throw failed("mortal_result_fetch_failed");
-  }
-  if (bytes.byteLength === 0 || bytes.byteLength > MORTAL_REPORT_MAX_BYTES) {
-    throw failed("mortal_result_size_exceeded");
-  }
-
-  let raw: unknown;
-  try {
-    raw = JSON.parse(new TextDecoder().decode(bytes)) as unknown;
-  } catch {
-    throw failed("mortal_result_invalid_json");
-  }
-
-  const parsed = MortalReportSchema.safeParse(raw);
-  if (!parsed.success) {
-    throw failed("mortal_report_schema_unsupported");
-  }
-
-  try {
-    return projectReport(parsedUrl.reportId, parsed.data);
-  } catch (error) {
+    if (callerSignal?.aborted === true) throw error;
     if (error instanceof MortalSourceError) throw error;
-    throw failed("mortal_report_schema_unsupported");
+    if (error instanceof Error && error.name === "AbortError") {
+      throw failed("mortal_result_fetch_failed");
+    }
+    throw error;
+  } finally {
+    clearTimeout(timeout);
+    if (callerSignal !== null) {
+      callerSignal.removeEventListener("abort", onCallerAbort);
+    }
   }
 }
