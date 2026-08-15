@@ -871,6 +871,165 @@ function entryForDecision(
   });
 }
 
+function postCallStream(): CanonicalEventStream {
+  // Self (dealer) draws and discards 1z, the opponent draws and discards 5m,
+  // self pons (consuming 5m + red 5m) and discards 3p tedashi, then another
+  // opponent rons the 3p. Two self windows: the opening self-turn draw window
+  // and the post_call_discard window frozen at the pon (11 concealed tiles,
+  // one pon fuuro). The pre-call turns and the closing ron exist only to make
+  // the stream phase-legal; the fixture compresses everything else.
+  const hand = [
+    canonicalTile("1m"), canonicalTile("2m"), canonicalTile("3m"),
+    canonicalTile("4m"), canonicalTile("6m"), canonicalTile("7m"),
+    canonicalTile("8m"), canonicalTile("9m"), canonicalTile("1p"),
+    canonicalTile("2p"), canonicalTile("3p"), canonicalTile("5m"),
+    canonicalTile("5m", true),
+  ];
+  return canonicalStream([
+    ...canonicalStartEvents(hand),
+    {
+      type: "tile_drawn",
+      eventId: "game:fixture/0/2/0",
+      sourceRecordRef: "record:2",
+      actor: 0,
+      tile: { visibility: "visible", tile: canonicalTile("1z") },
+      from: "live_wall",
+    },
+    {
+      type: "tile_discarded",
+      eventId: "game:fixture/0/3/0",
+      sourceRecordRef: "record:3",
+      actor: 0,
+      tile: canonicalTile("1z"),
+      discardMode: "tsumogiri",
+      riichiDeclarationEventRef: null,
+    },
+    {
+      type: "tile_drawn",
+      eventId: "game:fixture/0/4/0",
+      sourceRecordRef: "record:4",
+      actor: 1,
+      tile: { visibility: "hidden" },
+      from: "live_wall",
+    },
+    {
+      type: "tile_discarded",
+      eventId: "game:fixture/0/5/0",
+      sourceRecordRef: "record:5",
+      actor: 1,
+      tile: canonicalTile("5m"),
+      discardMode: "tedashi",
+      riichiDeclarationEventRef: null,
+    },
+    {
+      type: "pon_called",
+      eventId: "game:fixture/0/6/0",
+      sourceRecordRef: "record:6",
+      actor: 0,
+      targetActor: 1,
+      calledTile: canonicalTile("5m"),
+      consumedTiles: [canonicalTile("5m"), canonicalTile("5m", true)],
+      calledDiscardEventRef: "game:fixture/0/5/0",
+    },
+    {
+      type: "tile_discarded",
+      eventId: "game:fixture/0/7/0",
+      sourceRecordRef: "record:7",
+      actor: 0,
+      tile: canonicalTile("3p"),
+      discardMode: "tedashi",
+      riichiDeclarationEventRef: null,
+    },
+    {
+      type: "win_declared",
+      eventId: "game:fixture/0/8/0",
+      sourceRecordRef: "record:8",
+      winnerActor: 2,
+      targetActor: 0,
+      method: "ron",
+      winningTile: canonicalTile("3p"),
+      winSourceEventRef: "game:fixture/0/7/0",
+      scoreDeltas: null,
+    },
+    {
+      type: "round_ended",
+      eventId: "game:fixture/0/9/0",
+      sourceRecordRef: "record:9",
+      terminalEventRef: "game:fixture/0/8/0",
+    },
+  ]);
+}
+
+function terminalRoundStream(): CanonicalEventStream {
+  // Round 1 ends in a self tsumo (one genuine decision window); round 2 ends
+  // in a pure terminal draw with no self action at all. Pure terminal events
+  // must contribute no fabricated decision window or terminal actual (§22).
+  // Round 2's pre-terminal events are compressed to the terminal pair; only
+  // the phase machine outcome matters here.
+  return canonicalStream([
+    ...canonicalStartEvents(),
+    {
+      type: "tile_drawn",
+      eventId: "game:fixture/0/2/0",
+      sourceRecordRef: "record:2",
+      actor: 0,
+      tile: { visibility: "visible", tile: canonicalTile("5p") },
+      from: "live_wall",
+    },
+    {
+      type: "win_declared",
+      eventId: "game:fixture/0/3/0",
+      sourceRecordRef: "record:3",
+      winnerActor: 0,
+      targetActor: null,
+      method: "tsumo",
+      winningTile: canonicalTile("5p"),
+      winSourceEventRef: "game:fixture/0/2/0",
+      scoreDeltas: null,
+    },
+    {
+      type: "round_ended",
+      eventId: "game:fixture/0/4/0",
+      sourceRecordRef: "record:4",
+      terminalEventRef: "game:fixture/0/3/0",
+    },
+    {
+      type: "round_started",
+      eventId: "game:fixture/1/1/0",
+      sourceRecordRef: "record:5",
+      roundOrdinal: 1,
+      roundWind: "E",
+      hand: 2,
+      honba: 0,
+      riichiSticks: 0,
+      dealer: 1,
+      scores: [25000, 25000, 25000, 25000],
+      doraIndicator: canonicalTile("1s"),
+      selfHand: [
+        canonicalTile("1m"), canonicalTile("2m"), canonicalTile("3m"),
+        canonicalTile("4m"), canonicalTile("5m"), canonicalTile("6m"),
+        canonicalTile("7m"), canonicalTile("8m"), canonicalTile("9m"),
+        canonicalTile("1p"), canonicalTile("2p"), canonicalTile("3p"),
+        canonicalTile("5p"),
+      ],
+      remainingDraws: 70,
+    },
+    {
+      type: "round_drawn",
+      eventId: "game:fixture/1/2/0",
+      sourceRecordRef: "record:6",
+      reason: "exhaustive",
+      tenpaiActors: [],
+    },
+    {
+      type: "round_ended",
+      eventId: "game:fixture/1/3/0",
+      sourceRecordRef: "record:7",
+      terminalEventRef: "game:fixture/1/2/0",
+    },
+  ]);
+}
+
 function riichiDeclarationStream(): CanonicalEventStream {
   return canonicalStream([
     ...canonicalStartEvents(),
@@ -938,6 +1097,25 @@ function tsumoTerminalStream(): CanonicalEventStream {
   ]);
 }
 
+function postCallEntryFor(
+  decision: ReplayedDecision,
+  overrides: Partial<MortalReportDecisionEntry> = {},
+): MortalReportDecisionEntry {
+  return entryForDecision(decision, {
+    atSelfChiPon: true,
+    fuuros: Object.freeze([{
+      kind: "pon" as const,
+      tiles: Object.freeze([
+        { id: "5m", red: false },
+        { id: "5m", red: false },
+        { id: "5m", red: true },
+      ]),
+    }]),
+    actual: { type: "dahai", actor: 0, pai: "3p", tsumogiri: false },
+    ...overrides,
+  });
+}
+
 function riichiPairEntries(decisions: readonly ReplayedDecision[]): MortalReportDecisionEntry[] {
   return [
     entryForDecision(decisions[0]!, {
@@ -968,6 +1146,141 @@ function riichiPairEntries(decisions: readonly ReplayedDecision[]): MortalReport
     }),
   ];
 }
+
+describe("M6-A3 §20/§21/§22 binding integrity regressions", () => {
+  function replayedPostCall(): { stream: CanonicalEventStream; postCall: ReplayedDecision } {
+    const stream = postCallStream();
+    const decisions = replayCanonicalStream(stream);
+    expect(decisions).toHaveLength(2);
+    expect(decisions[0]!.snapshot.privateState.decisionWindow.kind).toBe("self_turn");
+    expect(decisions[1]!.snapshot.privateState.decisionWindow.kind).toBe("post_call_discard");
+    return { stream, postCall: decisions[1]! };
+  }
+
+  it("§20A: one post_call local with two compatible source rows is ambiguous, and both sources are ambiguous", () => {
+    const stream = postCallStream();
+    const decisions = replayCanonicalStream(stream);
+    expect(decisions).toHaveLength(2);
+    const base = postCallEntryFor(decisions[1]!);
+    const report = makeReport([base, Object.freeze({ ...base, junme: base.junme + 1 })]);
+    const plan = buildMortalFullGameBindingPlan(decisions, report);
+    // The self-turn row matches neither source row (14-tile tehai,
+    // at_self_chi_pon false) and stays no_mortal_entry.
+    expect(plan.rows[0]!.binding).toBe("no_mortal_entry");
+    expect(plan.rows[1]!.binding).toBe("ambiguous");
+    expect(plan.rows[1]!.localDegree).toBe(2);
+    expect(plan.sourceDegrees).toEqual([1, 1]);
+    expect(plan.ambiguousSourceOrdinals).toEqual([0, 1]);
+  });
+
+  it("§20B: two post_call locals sharing one source row are all ambiguous", () => {
+    const { postCall } = replayedPostCall();
+    const second = { ...postCall, decisionEventRef: "game:fixture/0/99/0" };
+    const report = makeReport([postCallEntryFor(postCall)]);
+    const plan = buildMortalFullGameBindingPlan([postCall, second], report);
+    expect(plan.rows[0]!.binding).toBe("ambiguous");
+    expect(plan.rows[1]!.binding).toBe("ambiguous");
+    expect(plan.sourceDegrees).toEqual([2]);
+    expect(plan.ambiguousSourceOrdinals).toEqual([0]);
+  });
+
+  it("§20C: cross-surface unique matches crossing source order fail closed", () => {
+    const { postCall } = replayedPostCall();
+    const selfTurn = fakeDecision();
+    // Source order inverts canonical order: the post_call local (first) binds
+    // source ordinal 1, the self_turn local (second) binds source ordinal 0.
+    const report = makeReport([fakeEntry(), postCallEntryFor(postCall)]);
+    const plan = buildMortalFullGameBindingPlan([postCall, selfTurn], report);
+    expect(plan.rows[0]!.binding).toBe("bound");
+    expect(plan.rows[1]!.binding).toBe("ambiguous");
+    expect(plan.rows[1]!.orderViolation).toBe(true);
+    expect(plan.ambiguousSourceOrdinals).toContain(0);
+  });
+
+  it("§21: a source-less row reports no_mortal_entry even with an empty coverage registry", async () => {
+    const stream = riichiDeclarationStream();
+    const decisions = replayCanonicalStream(stream);
+    expect(decisions).toHaveLength(2);
+    // Default (empty) coverage registry: precedence 4 (no source entry) must
+    // win over unsupported_action and coverage_branch_uncovered.
+    const review = await runMortalFullGameReview({
+      stream,
+      decisions,
+      report: makeReport([], { gameFingerprint: computeCanonicalGameFingerprint(stream) }),
+      engine: new FailingEngine(),
+    });
+    expect(review.status).toBe("coverage_ready");
+    if (review.status !== "coverage_ready") return;
+    expect(review.decisions).toHaveLength(2);
+    for (const row of review.decisions) {
+      expect(row.outcome).toBe("no_mortal_entry");
+      expect(row.reason).toBeNull();
+    }
+  });
+
+  it("§21: coverage_branch_uncovered never hides an ambiguity", async () => {
+    const { stream, postCall } = replayedPostCall();
+    const decisions = replayCanonicalStream(stream);
+    const base = postCallEntryFor(postCall);
+    const report = makeReport([base, Object.freeze({ ...base, junme: base.junme + 1 })], {
+      gameFingerprint: computeCanonicalGameFingerprint(stream),
+    });
+    // Empty coverage registry: the post_call branch is uncovered, but the
+    // bipartite ambiguity must surface first.
+    const review = await runMortalFullGameReview({
+      stream,
+      decisions,
+      report,
+      engine: new FailingEngine(),
+    });
+    expect(review.status).toBe("coverage_ready");
+    if (review.status !== "coverage_ready") return;
+    expect(review.decisions[0]!.outcome).toBe("no_mortal_entry");
+    expect(review.decisions[1]!.outcome).toBe("binding_mismatch");
+    expect(review.decisions[1]!.reason).toBe("multiple_mortal_entries_for_decision");
+  });
+
+  it("§21: coverage_branch_uncovered never hides a source actual mismatch", async () => {
+    const { stream, postCall } = replayedPostCall();
+    const decisions = replayCanonicalStream(stream);
+    const mismatchedActual = postCallEntryFor(postCall, {
+      actual: { type: "hora", actor: 0, target: 0, pai: "3p" },
+    });
+    const report = makeReport([mismatchedActual], {
+      gameFingerprint: computeCanonicalGameFingerprint(stream),
+    });
+    const review = await runMortalFullGameReview({
+      stream,
+      decisions,
+      report,
+      engine: new FailingEngine(),
+    });
+    expect(review.status).toBe("coverage_ready");
+    if (review.status !== "coverage_ready") return;
+    expect(review.decisions[1]!.binding).toBe("bound");
+    expect(review.decisions[1]!.outcome).toBe("binding_mismatch");
+    expect(review.decisions[1]!.reason).toBe("mortal_actual_mismatch");
+  });
+
+  it("§22: a pure terminal round fabricates no decision window or terminal actual", async () => {
+    const stream = terminalRoundStream();
+    const decisions = replayCanonicalStream(stream);
+    // Only the round-1 tsumo window exists; the round-2 pure terminal draw
+    // contributes no row and no invented terminal actual.
+    expect(decisions).toHaveLength(1);
+    expect(decisions[0]!.snapshot.publicState.roundOrdinal).toBe(0);
+    const review = await runMortalFullGameReview({
+      stream,
+      decisions,
+      report: makeReport([], { gameFingerprint: computeCanonicalGameFingerprint(stream) }),
+      engine: new FailingEngine(),
+    });
+    expect(review.status).toBe("coverage_ready");
+    if (review.status !== "coverage_ready") return;
+    expect(review.decisions).toHaveLength(1);
+    expect(review.decisions[0]!.outcome).toBe("no_mortal_entry");
+  });
+});
 
 describe("M6-A3 per-window-kind identity tables", () => {
   it("matches a post-riichi entry only to the post-riichi window, never the same turn's self-turn window", () => {

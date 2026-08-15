@@ -579,8 +579,12 @@ export async function runMortalFullGameReview(input: {
       unsupportedReason = "mortal_candidate_action_not_supported";
     }
 
-    // Precedence: binding failure first, then unsupported action, then no
-    // source entry, then evaluation.
+    // Precedence (M6-A3 §21): binding integrity failure first, then no source
+    // entry (4), then source actual/local actual correspondence (5), then
+    // local/source action unsupported (6) — a row with no source entry never
+    // reports as an unsupported action. The coverage gate runs last among the
+    // fail-closed paths so coverage_branch_uncovered can never hide an
+    // identity, ambiguity, reuse, order, or actual mismatch.
     if (row.binding === "ambiguous") {
       let reason: MortalBindingMismatchReason;
       if (row.orderViolation) {
@@ -606,6 +610,23 @@ export async function runMortalFullGameReview(input: {
       continue;
     }
 
+    if (row.binding === "no_mortal_entry") {
+      ledger.push({
+        decisionOrdinal: row.decisionOrdinal,
+        roundOrdinal: row.roundOrdinal,
+        binding: row.binding,
+        support,
+        review: "not_attempted",
+        outcome: "no_mortal_entry",
+        reason: null,
+        sourceEntryRef: null,
+        sourceOrdinal: null,
+        modelSummary: null,
+      });
+      outcomeCounts.no_mortal_entry += 1;
+      continue;
+    }
+
     if (effectiveSupport === "unsupported") {
       ledger.push({
         decisionOrdinal: row.decisionOrdinal,
@@ -624,23 +645,6 @@ export async function runMortalFullGameReview(input: {
         unsupportedReasonCounts[unsupportedReason] =
           (unsupportedReasonCounts[unsupportedReason] ?? 0) + 1;
       }
-      continue;
-    }
-
-    if (row.binding === "no_mortal_entry") {
-      ledger.push({
-        decisionOrdinal: row.decisionOrdinal,
-        roundOrdinal: row.roundOrdinal,
-        binding: row.binding,
-        support,
-        review: "not_attempted",
-        outcome: "no_mortal_entry",
-        reason: null,
-        sourceEntryRef: null,
-        sourceOrdinal: null,
-        modelSummary: null,
-      });
-      outcomeCounts.no_mortal_entry += 1;
       continue;
     }
 
