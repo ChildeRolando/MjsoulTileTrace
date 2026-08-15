@@ -55,4 +55,7 @@ Mortal 源码 ACTION_SPACE（ADR-0001）、ROADMAP.md。
 - `coach/CONTEXT.md`（新建：账本/窗口/验收术语表）
 - `coach/docs/adr/0001-tile-less-riichi-candidate.md`
 - `coach/docs/adr/0002-coverage-driven-real-corpus-acceptance.md`
+- `coach/docs/specs/2026-08-16-m6-a3-action-support-and-real-corpus-design.md`
+  （共识的正式规格：契约变更、候选映射全集、窗口种类与身份事实表、账本口径、
+  两层语料与覆盖矩阵、隐私、明确不做、固定失败码、实施顺序、开放风险）
 - 本文档
