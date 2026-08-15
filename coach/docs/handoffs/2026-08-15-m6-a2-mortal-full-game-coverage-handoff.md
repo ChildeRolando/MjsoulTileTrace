@@ -4,7 +4,8 @@
 分支：`codex/m6-a2-mortal-full-game-coverage`
 base SHA：`5afabe29c4a1960e9f3243bb23a69692cd1acf44`
 implementation SHA：`af8981a`
-source-ledger correctness SHA：`920c9be`（本文档提交于其上；docs commit SHA 见 completion report）
+source-ledger correctness SHA：`920c9be`
+last classifier fix SHA：`da4d06e`（本文档提交于其上；docs commit SHA 见 completion report）
 
 ## 1. “full-game”在本里程碑的精确定义
 
@@ -158,7 +159,7 @@ source unbound reason counts（live）：
 ## 19. full verification counts
 
 - `npm run build` ✅
-- `npx vitest run` ✅ **126 files / 1244 tests**（其中 `protocol-bundle.test.ts` 首次因系统负载超时，单独重跑通过）
+- `npx vitest run` ✅ **126 files / 1247 tests**
 - node suites ✅ **26 + 4 + 4 = 34 tests**
 - `npm run typecheck` ✅
 
@@ -168,6 +169,7 @@ source unbound reason counts（live）：
 - `actualDiscard === null` 1 个 local：当前 replay 不暴露自摸/暗杠等 terminal 行动，固定 `local_actual_not_represented`。
 - Mortal 候选集含非 `dahai` 行动 6 个（reach+dahai / ankan / hora 候选）：固定 `mortal_candidate_action_not_supported`。
 - 3 个 Mortal source unbound：2 × `post_riichi_discard_not_replayed` + 1 × `post_call_discard_not_replayed`，均属于当前 self_turn 重放表面之外，已逐条核实，无未知语义。
+- 分类器 fail-closed 修正：degree-0 `reach` → `identity_fact_mismatch`（reach 属于当前 self_turn 重放表面，不可标为 terminal 表面债）；degree-0 `hora` → `local_terminal_action_not_replayed`；其他未证明的非 `dahai` → `source_semantics_not_understood`。
 
 ## 21. next recommended milestone
 
