@@ -11,10 +11,11 @@ import {
   bundleRoot,
   encodeSyntheticRecord,
   FakeWindow,
+  fixturePaipuUrl,
   loadFixtureWire,
   scriptedCapture,
-  syntheticRecordHead,
 } from "./helpers/cdp-capture-harness.js";
+import { encodeMahjongSoulPerspectiveAccountId } from "@riichi-coach/mahjong-soul-source";
 
 // The paipu-URL ingestion route without manual seat selection. Pins:
 //   1. the request is { shareUrl } only — no seat exists in the API;
@@ -27,9 +28,9 @@ import {
 //      as account-fetched bytes.
 
 const fixtureRecordId = "000000-00000000-0000-0000-0000-000000000001";
-// The _a suffix IS the perspective account id — it must match the scripted
-// response's head accounts for the seat to resolve.
-const fixtureUrl = `https://game.maj-soul.com/1/?paipu=${fixtureRecordId}_a62115198`;
+// The _a suffix is the OBFUSCATED token of the scripted head's seat-3
+// account (62115198) — decode + join resolves the seat automatically.
+const fixtureUrl = fixturePaipuUrl();
 
 async function makeService(overrides?: {
   readonly createWindow?: () => FakeWindow;
@@ -115,11 +116,12 @@ describe("paipu import service (automatic perspective resolution)", () => {
     expect(analysis.getMappedRecord(fixtureRecordId, 3)?.selfActor).toBe(3);
   });
 
-  it("resolves whichever account the URL names — the suffix is an account id, not a seat", async () => {
+  it("resolves whichever account the URL names — the suffix is an obfuscated token, not a seat", async () => {
     const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
     const fixture = loadFixtureWire("real-supported-round");
-    // Perspective account 100002 sits at seat 1 in the synthetic head.
-    const url = `https://game.maj-soul.com/1/?paipu=${fixtureRecordId}_a100002`;
+    // Perspective account 100002 sits at seat 1 in the synthetic head; the
+    // URL carries its encoded token.
+    const url = fixturePaipuUrl(100002);
     const { createWindow } = scriptedCapture(bundle, { data: fixture.wire });
     const analysis = createRecordAnalysisStore({
       mapRecord: (input) => mapMahjongSoulRecord({ ...input, bundle }),
@@ -138,8 +140,9 @@ describe("paipu import service (automatic perspective resolution)", () => {
   it("fails closed on identity mismatch: no analysis_ready, no replay, no cache", async () => {
     const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
     const fixture = loadFixtureWire("real-supported-round");
-    // The URL names account 999999999, which no scripted account matches.
-    const url = `https://game.maj-soul.com/1/?paipu=${fixtureRecordId}_a999999999`;
+    // The URL names account 9999999 (as its encoded token), which no
+    // scripted account matches.
+    const url = fixturePaipuUrl(9_999_999);
     const { createWindow } = scriptedCapture(bundle, { data: fixture.wire });
     const analysis = createRecordAnalysisStore({
       mapRecord: (input) => mapMahjongSoulRecord({ ...input, bundle }),
@@ -220,10 +223,10 @@ describe("paipu import service (automatic perspective resolution)", () => {
 
     const first = service.importPaipu({ shareUrl: fixtureUrl });
     const second = service.importPaipu({ shareUrl: fixtureUrl });
-    // A different perspective (different _a suffix) is a different request
-    // identity and opens its own window.
+    // A different perspective (a different account's encoded token) is a
+    // different request identity and opens its own window.
     const third = service.importPaipu({
-      shareUrl: `https://game.maj-soul.com/1/?paipu=${fixtureRecordId}_a100002`,
+      shareUrl: fixturePaipuUrl(100002),
     });
     const [a, b, c] = await Promise.all([first, second, third]);
     expect(a).toEqual(b);
@@ -347,8 +350,17 @@ describe("paipu import service (automatic perspective resolution)", () => {
     const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
     const fixture = loadFixtureWire("real-supported-round");
     // A head describing a DIFFERENT record than the URL names.
-    const head = syntheticRecordHead();
-    head.uuid = "260811-00000000-0000-0000-0000-000000000002";
+    // A structurally valid head describing a DIFFERENT record than the URL
+    // names (same accounts, different uuid).
+    const head = {
+      uuid: "260811-00000000-0000-0000-0000-000000000002",
+      accounts: [
+        { account_id: 100001, seat: 0 },
+        { account_id: 100002, seat: 1 },
+        { account_id: 100004, seat: 2 },
+        { account_id: 62_115_198, seat: 3 },
+      ],
+    };
     const { createWindow } = scriptedCapture(bundle, { data: fixture.wire }, { head });
     const analysis = createRecordAnalysisStore({
       mapRecord: (input) => mapMahjongSoulRecord({ ...input, bundle }),

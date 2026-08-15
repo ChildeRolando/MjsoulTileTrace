@@ -15,19 +15,18 @@ export const MahjongSoulSha256Schema = z.string().regex(
 );
 export type MahjongSoulSha256 = z.infer<typeof MahjongSoulSha256Schema>;
 
-// The `_a<number>` suffix of a CN share URL is a PERSPECTIVE-CORRELATED,
-// OPAQUE id — NOT a seat number and NOT a "view index". Live evidence
-// (2026-08-15, three samples incl. one game shared from two different
-// perspectives): the suffix varies with the sharing perspective and is
-// stable per account, but it is NOT the in-game account id space carried by
-// fetchGameRecord.head.accounts[].account_id — no real suffix has ever
-// matched a player entry. Until the suffix's id space is mapped to seats by
-// protocol evidence, consumers MUST treat it as opaque and fail closed (see
-// resolveMahjongSoulPaipuPerspective in mahjong-soul-source). The parser
-// itself never infers a seat.
+// The `_a<number>` suffix of a CN share URL is the OBFUSCATED
+// representation of the sharing player's account id — a perspective TOKEN,
+// NOT a seat number and NOT directly comparable to
+// fetchGameRecord.head.accounts[].account_id. The reversible transform
+// (ecosystem-pinned by tensoul/Avenshy's converter and cross-verified live
+// 2026-08-15 on three real samples incl. one game shared from two
+// perspectives: 3/3 exact single-account joins + exact round-trips) lives in
+// mahjong-soul-source (decodeMahjongSoulPerspectiveToken). The parser keeps
+// the token opaque and never infers a seat.
 export function parseMahjongSoulCnShareUrl(value: string): {
   readonly recordId: MahjongSoulRecordId;
-  readonly perspectiveId: number;
+  readonly perspectiveToken: number;
 } {
   if (typeof value !== "string") {
     throw new Error("mahjong_soul_record_identity_mismatch");
@@ -39,28 +38,27 @@ export function parseMahjongSoulCnShareUrl(value: string): {
   }
   return Object.freeze({
     recordId: match[1]! as MahjongSoulRecordId,
-    // Positive uint32-shaped, but semantically OPAQUE: which id space this
-    // belongs to is unknown (live evidence rules out the game account_id
-    // space). Bound kept in lockstep with lq uint32 fields.
-    perspectiveId: Number(match[2]),
+    // Positive uint32-shaped OBFUSCATION of the sharing account id; decode
+    // before comparing against any wire account id.
+    perspectiveToken: Number(match[2]),
   });
 }
 
 export function formatMahjongSoulCnShareUrl(
   recordId: string,
-  perspectiveId: number,
+  perspectiveToken: number,
 ): string {
   if (
     typeof recordId !== "string"
     || !MahjongSoulRecordIdSchema.safeParse(recordId).success
-    || typeof perspectiveId !== "number"
-    || !Number.isInteger(perspectiveId)
-    || perspectiveId < 1
-    || perspectiveId > 4_294_967_295
+    || typeof perspectiveToken !== "number"
+    || !Number.isInteger(perspectiveToken)
+    || perspectiveToken < 1
+    || perspectiveToken > 4_294_967_295
   ) {
     throw new Error("mahjong_soul_record_identity_mismatch");
   }
-  return `https://game.maj-soul.com/1/?paipu=${recordId}_a${perspectiveId}`;
+  return `https://game.maj-soul.com/1/?paipu=${recordId}_a${perspectiveToken}`;
 }
 
 export const MahjongSoulSourceErrorCodeSchema = z.enum([

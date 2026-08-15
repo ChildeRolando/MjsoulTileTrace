@@ -3,6 +3,22 @@
 日期：2026-08-15
 分支：`codex/m5-h2-paipu-url-import`（基线 `codex/m5-h1-replay-acceptance` @ `52efd59`）
 
+## H2-ID 轮·续（同日第三轮）：`_a` 是可逆混淆 token —— decoder 三样本 3/3 验证，自动选座全链打通
+
+上一节只反证了 **direct join**（raw `_a` ≠ `account_id`）。进一步调研（tensoul 的 `decodeAccountID`、Avenshy 牌谱主视角转换器的正反编码、2026-08 仍活跃使用同款 decoder 的项目）给出正确模型：
+
+```text
+_a<token> --decodeMahjongSoulPerspectiveToken--> account_id --精确 JOIN head.accounts--> seat
+```
+
+`decode(t) = (((t - 1358437) ^ 86216345) - 1117113) / 7`，`encode` 为其精确逆。
+
+**三份真实样本验证（全部通过；具体 token/账号数值不录入仓库，细节留在本地会话记录）**：每份 token decode 后与该局 head.accounts **恰好一个**精确匹配（自局 → seat 1；同局双视角链接 → seat 1 与 seat 3），`encode(decode(token)) === token` 三次全对。副产品修正：**用户在验收样本那局的真实座位是 1**——历史上手选 `--self-actor=3` 是另一位玩家；seat 3 = 116 决策，真实视角 seat 1 = **120 决策**。
+
+**实现**：contracts parser 字段改名 `perspectiveToken`（不透明语义）；`mahjong-soul-source` 新增 `decodeMahjongSoulPerspectiveToken` / `encodeMahjongSoulPerspectiveAccountId`（int32 护栏、不可整除/非正即 fail closed；**常量永不因样本失败而重拟合**，失败应转查 Unity 客户端分享 URL 生成）；resolver 内部 decode→精确 JOIN→seat；fixture v2 与测试 harness 全部改用 encode 派生的协议一致 token。
+
+**真人验收（fail-open 路径，2026-08-15）**：真实 DOM 路径（真实点击 `#paipu-import`，零输入零选座）粘贴原始链接 → 「正在通过雀魂客户端读取牌谱…」→ **「牌谱已导入，可分析 120 个决策点」**；诊断路线 `--self-actor=1` 交叉核对 **canonical 1024 / decisions 120 逐项一致**；磁盘上的 audit 已按真实座位 1 重写。用户真人对照（`scripts/render-replay-audit-digest.mjs`，S1=自己）自此才有效。
+
 ## H2-ID 轮（同日晚些）：移除手动选座 → JOIN 前提被实测推翻 → 决定保持 fail-closed
 
 **结论先读**：`_a<number>` 后缀确实是**视角维度**的 id，但它属于一个**独立的 id 空间**，与牌谱 wire 上 `fetchGameRecord.head.accounts[].account_id` **永远对不上**（三份真人样本反证）。按任务自身铁律「join 无法证明就 fail closed」，产品现状为：粘贴链接 → 自动捕获成功 → **「无法确定这份牌谱的分析视角」**（identity_mismatch），不分析、不缓存、不猜座位。这是维护者明确选择的现状，直到 `_a` 的 id 空间被协议证据映射出来。
@@ -17,8 +33,9 @@
 
 ### 三份反证样本（2026-08-15 实测，真实 id 不入 git，此处为会话记录）
 
-1. 用户自己的牌谱链接（8/14 起的验收样本）：后缀 `62115198`（用户确认其**所有**链接同后缀 → 账号维度常量）；该局 wire 四账号 `13579442/15986753/22661781/23664228`——后缀不在其中；且用户自报 UID `63385109` ≠ 后缀 ≠ 任何玩家。
-2. 用户提供：**同一局**、两名不同玩家各自分享的两条链接，后缀 `27420298` 与 `431273470`；该局 wire 四账号 `11057701/68713665/69492993/104030367`——两个后缀**都不在其中**。
+1. 用户自己的牌谱链接（8/14 起的验收样本）：后缀在其**所有**链接上相同（账号维度常量），但既不等于该局 wire 四账号中的任何一个，也不等于用户自报的 UID。
+2. 用户提供：**同一局**、两名不同玩家各自分享的两条链接，后缀不同；两个后缀都**不在**该局 wire 四账号中。
+（真实 token/账号/UID 数值按本轮要求不录入仓库；以上结论来自本地会话中的实测记录。）
 
 可推导事实：后缀随视角变（同局两视角→两后缀）、随账号稳定、正 uint32 形状、**不属于** wire account_id 空间。结论：当前协议内不存在「URL 后缀 → 座位」的确定性路径。
 

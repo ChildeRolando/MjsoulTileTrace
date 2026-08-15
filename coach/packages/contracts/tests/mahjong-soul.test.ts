@@ -51,7 +51,7 @@ describe("Mahjong Soul renderer-safe contracts", () => {
     expect(AnalyzableRecordSummarySchema.parse(summary)).toEqual(summary);
     expect(parseMahjongSoulCnShareUrl(summary.shareUrl)).toEqual({
       recordId: summary.recordId,
-      perspectiveId: 123456789,
+      perspectiveToken: 123456789,
     });
   });
 
@@ -59,14 +59,14 @@ describe("Mahjong Soul renderer-safe contracts", () => {
     const parsed = parseMahjongSoulCnShareUrl(
       `https://game.maj-soul.com/1/?paipu=${recordId}_a123456`,
     );
-    expect(parsed).toEqual({ recordId, perspectiveId: 123456 });
+    expect(parsed).toEqual({ recordId, perspectiveToken: 123456 });
     // Boundary values of the uint32-shaped opaque perspective id.
     expect(parseMahjongSoulCnShareUrl(
       `https://game.maj-soul.com/1/?paipu=${recordId}_a1`,
-    )).toEqual({ recordId, perspectiveId: 1 });
+    )).toEqual({ recordId, perspectiveToken: 1 });
     expect(parseMahjongSoulCnShareUrl(
       `https://game.maj-soul.com/1/?paipu=${recordId}_a4294967295`,
-    )).toEqual({ recordId, perspectiveId: 4_294_967_295 });
+    )).toEqual({ recordId, perspectiveToken: 4_294_967_295 });
     // Round-trips through the formatter under the semantic name.
     expect(formatMahjongSoulCnShareUrl(recordId, 123456))
       .toBe(`https://game.maj-soul.com/1/?paipu=${recordId}_a123456`);
@@ -196,7 +196,7 @@ describe("Mahjong Soul renderer-safe contracts", () => {
     );
     expect(parseMahjongSoulCnShareUrl(formatted)).toEqual({
       recordId,
-      perspectiveId: 123456789,
+      perspectiveToken: 123456789,
     });
   });
 

@@ -108,7 +108,7 @@ describe("paipu URL import IPC", () => {
     for (const extra of [
       { recordBytes: new Uint8Array([1, 2, 3]) },
       { recordIdentity: { recordId: "x", accounts: [{ accountId: 1, seat: 0 }] } },
-      { perspectiveId: 123 },
+      { perspectiveToken: 123 },
       { accounts: [{ accountId: 1, seat: 0 }] },
     ]) {
       const ipc = register({ importPaipu: async () => ({ ...internalReady, ...extra }) });

@@ -17,7 +17,7 @@ import type { RecordAnalysisStore } from "./record-analysis-store.js";
 // post-ingestion analysis as the account catalog route:
 //
 //   strict parseMahjongSoulCnShareUrl (BEFORE any BrowserWindow)
-//     -> { recordId, perspectiveId }
+//     -> { recordId, perspectiveToken }
 //     -> captureRecordViaOfficialClient (original validated URL; INNER bytes
 //        + record identity from the SAME fetchGameRecord response)
 //     -> resolveMahjongSoulPaipuPerspective (URL perspective id JOIN record
@@ -31,7 +31,7 @@ import type { RecordAnalysisStore } from "./record-analysis-store.js";
 // There is NO manual seat: the user never chooses or knows a seat. There is
 // no catalog membership requirement either (URL import is a sibling
 // ingestion source, not catalog ingest). Concurrent duplicate imports for
-// the same immutable request identity (recordId + perspectiveId)
+// the same immutable request identity (recordId + perspectiveToken)
 // share one active promise.
 
 export type PaipuImportResult = Readonly<
@@ -75,7 +75,7 @@ export function createMahjongSoulPaipuImportService(input: {
       // 1. The share URL is strictly parsed BEFORE any BrowserWindow exists:
       //    an invalid URL must never open a window. The perspective account
       //    id comes from the URL itself — never a seat.
-      let parsed: { readonly recordId: string; readonly perspectiveId: number };
+      let parsed: { readonly recordId: string; readonly perspectiveToken: number };
       try {
         parsed = parseMahjongSoulCnShareUrl(request?.shareUrl);
       } catch {
@@ -84,7 +84,7 @@ export function createMahjongSoulPaipuImportService(input: {
 
       // 2. Concurrent duplicate imports for the same immutable request
       //    identity resolve together; only one window is opened.
-      const key = `${parsed.recordId}#${parsed.perspectiveId}`;
+      const key = `${parsed.recordId}#${parsed.perspectiveToken}`;
       const existing = active.get(key);
       if (existing !== undefined) return existing;
 

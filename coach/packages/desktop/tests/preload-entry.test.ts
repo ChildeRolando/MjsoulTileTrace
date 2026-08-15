@@ -156,7 +156,7 @@ describe("self-contained sandboxed preload", () => {
     // neither can the auto-resolved seat.
     for (const key of [
       "recordBytes", "rawRecord", "accessToken", "token", "accountId",
-      "endpoint", "cookies", "selfActor", "perspectiveId", "accounts",
+      "endpoint", "cookies", "selfActor", "perspectiveToken", "accounts",
     ]) {
       expect(() => assertSafePaipuImportResult({ ...ready, [key]: "secret" }))
         .toThrow("mahjong_soul_login_protocol_unsupported");

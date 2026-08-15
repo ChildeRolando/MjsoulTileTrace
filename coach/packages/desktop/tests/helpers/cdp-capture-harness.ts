@@ -2,7 +2,10 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parse, type Type } from "protobufjs";
-import type { MahjongSoulProtocolBundle } from "@riichi-coach/mahjong-soul-source";
+import {
+  encodeMahjongSoulPerspectiveAccountId,
+  type MahjongSoulProtocolBundle,
+} from "@riichi-coach/mahjong-soul-source";
 import type { CaptureRecordWindowPort } from "../../src/official-client-record-capture.js";
 
 // Shared harness for driving the official-client CDP capture boundary with
@@ -208,9 +211,15 @@ const cdpFrame = (payload: Uint8Array) => ({
 });
 
 export const FIXTURE_RECORD_ID = "000000-00000000-0000-0000-0000-000000000001";
-// Mirrors the sanitized real evidence: the URL perspective account
-// 62115198 (the _a suffix used throughout these tests) sits at seat 3.
+// The synthetic head places this account at seat 3; share URLs must carry
+// its OBFUSCATED token (the ecosystem transform), never the raw account id.
 export const FIXTURE_PERSPECTIVE_ACCOUNT_ID = 62_115_198;
+
+// Builds a protocol-consistent share URL for the given head account id.
+export function fixturePaipuUrl(accountId: number = FIXTURE_PERSPECTIVE_ACCOUNT_ID): string {
+  return `https://game.maj-soul.com/1/?paipu=${FIXTURE_RECORD_ID}`
+    + `_a${encodeMahjongSoulPerspectiveAccountId(accountId)}`;
+}
 
 // A synthetic ResGameRecord.head whose perspective account resolves to the
 // requested seat (default 3, matching the live-pinned sample).
