@@ -77,6 +77,7 @@ const KnownRedCountSchema = z.union([
 
 export const CanonicalSourceKindSchema = z.enum([
   "mahjong_soul",
+  "tenhou",
   "mjai",
   "user_asserted",
   "fixture",
