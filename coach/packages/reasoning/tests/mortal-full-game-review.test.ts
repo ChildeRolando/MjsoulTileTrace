@@ -579,6 +579,66 @@ describe("runMortalFullGameReview", () => {
     expect(review.summary.sourceUnboundReasons.source_semantics_not_understood).toBe(1);
   });
 
+  it("classifies a degree-0 reach row as identity_fact_mismatch", async () => {
+    const fixture = await legacySetup();
+    const entry = Object.freeze({
+      ...legacyEntryToMortalEntry(fixture.raw.decisions[0]!),
+      actual: { type: "reach", actor: 3 },
+      tehai: Object.freeze(Array.from({ length: 14 }, () => "1m")),
+    });
+    const review = await runMortalFullGameReview({
+      stream: fixture.stream,
+      decisions: fixture.decisions,
+      report: legacyReport(fixture.raw, [entry]),
+      engine: new FailingEngine(),
+    });
+    expect(review.status).toBe("coverage_ready");
+    if (review.status !== "coverage_ready") return;
+    expect(review.sourceCoverage.entries[0]!.unboundReason).toBe(
+      "identity_fact_mismatch",
+    );
+  });
+
+  it("classifies a degree-0 hora row as local_terminal_action_not_replayed", async () => {
+    const fixture = await legacySetup();
+    const entry = Object.freeze({
+      ...legacyEntryToMortalEntry(fixture.raw.decisions[0]!),
+      actual: { type: "hora", actor: 3, target: 3 },
+      tehai: Object.freeze(Array.from({ length: 14 }, () => "1m")),
+    });
+    const review = await runMortalFullGameReview({
+      stream: fixture.stream,
+      decisions: fixture.decisions,
+      report: legacyReport(fixture.raw, [entry]),
+      engine: new FailingEngine(),
+    });
+    expect(review.status).toBe("coverage_ready");
+    if (review.status !== "coverage_ready") return;
+    expect(review.sourceCoverage.entries[0]!.unboundReason).toBe(
+      "local_terminal_action_not_replayed",
+    );
+  });
+
+  it("classifies a degree-0 unknown non-dahai row as source_semantics_not_understood", async () => {
+    const fixture = await legacySetup();
+    const entry = Object.freeze({
+      ...legacyEntryToMortalEntry(fixture.raw.decisions[0]!),
+      actual: { type: "ryukyoku", actor: 3 },
+      tehai: Object.freeze(Array.from({ length: 14 }, () => "1m")),
+    });
+    const review = await runMortalFullGameReview({
+      stream: fixture.stream,
+      decisions: fixture.decisions,
+      report: legacyReport(fixture.raw, [entry]),
+      engine: new FailingEngine(),
+    });
+    expect(review.status).toBe("coverage_ready");
+    if (review.status !== "coverage_ready") return;
+    expect(review.sourceCoverage.entries[0]!.unboundReason).toBe(
+      "source_semantics_not_understood",
+    );
+  });
+
   it("keeps accounting when a supported bound row hits an engine failure", async () => {
     const fixture = await legacySetup();
     const rawDecision = fixture.raw.decisions[0]!;

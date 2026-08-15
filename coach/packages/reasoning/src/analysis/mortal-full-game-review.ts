@@ -229,8 +229,22 @@ function classifyUnboundSourceReason(
   // Deterministic surface classes:
   if (entry.atSelfChiPon) return "post_call_discard_not_replayed";
 
-  if (entry.actual.type !== "dahai") {
+  if (entry.actual.type === "reach") {
+    // A degree-0 reach row is NOT harmless terminal debt: live semantics show
+    // actual=reach belongs to the current self_turn replay surface and should
+    // normally bind to a riichi ReplayedDecision. Degree 0 means its identity
+    // facts failed.
+    return "identity_fact_mismatch";
+  }
+
+  if (entry.actual.type === "hora") {
     return "local_terminal_action_not_replayed";
+  }
+
+  if (entry.actual.type !== "dahai") {
+    // Any other non-dahai action has no explicitly proven replay-surface
+    // semantics in this milestone.
+    return "source_semantics_not_understood";
   }
 
   if (entry.atSelfRiichi) {
