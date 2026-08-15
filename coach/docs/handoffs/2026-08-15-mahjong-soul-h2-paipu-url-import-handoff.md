@@ -23,7 +23,7 @@
 
 路线收敛不变量（有测试钉死）：同一 INNER bytes + 同一 selfActor，无论从账号 fetch 还是 URL 捕获进入，canonical stream 与 replay decisions 完全一致（`paipu-import-service.test.ts` + `record-analysis-store.test.ts`）。URL 路线**不查 catalog**、不用 `ingest(recordId)`（那是目录路线的守卫，共享链接恰恰没有）。
 
-## 真机踩出的两个 Electron 43 坑（别重踩）
+## 真机踩出的三个 Electron 43/Windows 坑（别重踩）
 
 ### 坑 1：未 commit 的 about:blank 目标上 `debugger.sendCommand` 永久挂起
 
@@ -37,6 +37,25 @@
 - 现象：产品路径（主窗口 + 捕获窗口双开）下捕获窗口停在「正在初始化遊戲資源 0.0%」（截图为证），240s 超时 `no_capture`；而单窗口的诊断进程同一分钟捕获正常。
 - 成因：主窗口持有焦点，捕获窗口在其后被遮挡；Chromium 对遮挡窗口节流 rAF，Unity 加载器停摆、网关永不连接——正是旧记忆里「后台窗口只加载资源不连网关」的机制化解释。
 - 修复（`0d6d45c`）：共享捕获窗口工厂 `backgroundThrottling: false` + `moveTop()` + `focus()`。诊断路径（无其他窗口）不受影响。
+
+### 坑 3：Windows 上未激活的新窗口纯白不渲染（native occlusion）
+
+- 现象（用户观察 + live 复现）：新 show 出来的 Electron 窗口只要从未获得 OS 激活（点任务栏图标前）就是纯白表面——任务栏悬停预览也是白的；点任务栏图标使其成为焦点后才开始加载。首轮真实 UI 验收即死于此：捕获窗口 240s 全程白屏，`no_capture`。
+- 成因：Chromium 的 `CalculateNativeWinOcclusion` 特性把未激活窗口判为 occluded，renderer 不 present，Unity WebGL 永不启动。`backgroundThrottling:false`（坑 2 的修复）管不住这条 native 判定。
+- 修复（`7c2fd63`）：main 进程 `app.commandLine.appendSwitch("disable-features", "CalculateNativeWinOcclusion")`（Electron 社区标准 workaround）。修复后同一 UI 流程**无人值守**完成捕获+分析。
+
+## 真实 DOM UI 验收（H2 收尾轮，2026-08-15 08:0x–08:2x）
+
+通过用户可见 DOM 全链完成一次（本轮要求：必须触发 `#paipu-import` 的真实 click handler，不允许直接调用 `importPaipu`）：
+
+- **session state**：vault 起始为空（logged_out）。真实点击 `#login`（CDP Input.dispatchMouseEvent 于元素实际坐标，hit-test 校验）→ 应用真实 openLogin 流程 → 登录窗口在持久分区上被动捕获凭据（零人工输入，t+220s）→ `账号已连接`（valid）。
+- **UI visible**：登录后 `.paipu-import` 区块 `hidden=false`。
+- **button click**：真实鼠标事件点击 `#paipu-import`（(665,484)，viewport 904×641，按钮 en 非禁用）→ 处理器真实运行：状态进入「正在通过雀魂客户端读取牌谱…」、导入按钮 `disabled=true`。
+- **final visible status text**：`牌谱已导入，可分析 116 个决策点`（MutationObserver 记录的完整转移链：idle → pending → ready）。
+- **replayDecisionCount = 116**（直接可见于文案）。
+- **canonicalEventCount = 1024**：产品 UI 按设计不显示该值；由同一 URL/座位的诊断 instrumentation 直接观测（1024），与本 UI 运行的 decision 数（116）逐项一致，符合上文 LIVE/STRUCTURAL 证据分层。
+- 中间教训：首轮 UI 导入因坑 3 超时；第二轮 driver 的 30s evaluate 超时在捕获窗口真正开始渲染（CPU 占用上升）后误杀 driver，但应用本身继续完成了全链（事后 DOM 探针取证成功）。
+- 真实 URL/recordId/昵称均未写入任何 git 内容；验收 driver 与截图只存在于会话临时目录。
 
 ## P7 真人验收证据（2026-08-15 06:1x，同一份真实牌谱，selfActor=3）
 
