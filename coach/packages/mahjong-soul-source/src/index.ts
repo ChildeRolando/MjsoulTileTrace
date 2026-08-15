@@ -38,7 +38,9 @@ export {
 } from "./login-capture.js";
 export {
   createMahjongSoulRecordCapture,
+  type MahjongSoulCapturedRecordIdentity,
   type MahjongSoulRecordCapture,
+  type MahjongSoulRecordIdentityAccount,
   type RecordCaptureResult,
 } from "./record-capture.js";
 export {

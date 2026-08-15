@@ -207,6 +207,23 @@ const cdpFrame = (payload: Uint8Array) => ({
   response: { opcode: 2, mask: false, payloadData: Buffer.from(payload).toString("base64") },
 });
 
+export const FIXTURE_RECORD_ID = "000000-00000000-0000-0000-0000-000000000001";
+// Mirrors the sanitized real evidence: the URL perspective account
+// 62115198 (the _a suffix used throughout these tests) sits at seat 3.
+export const FIXTURE_PERSPECTIVE_ACCOUNT_ID = 62_115_198;
+
+// A synthetic ResGameRecord.head whose perspective account resolves to the
+// requested seat (default 3, matching the live-pinned sample).
+export function syntheticRecordHead(seat = 3): Record<string, unknown> {
+  const accounts = [
+    { account_id: 100001, seat: 0 },
+    { account_id: 100002, seat: 1 },
+    { account_id: 100004, seat: 2 },
+    { account_id: FIXTURE_PERSPECTIVE_ACCOUNT_ID, seat },
+  ];
+  return { uuid: FIXTURE_RECORD_ID, accounts };
+}
+
 export interface ScriptedCapture {
   readonly window: FakeWindow;
   readonly createWindow: () => CaptureRecordWindowPort;
@@ -214,10 +231,12 @@ export interface ScriptedCapture {
 
 // Scripts the real wire shape: webSocketCreated, the client's
 // fetchGameRecord request, and the server response carrying `payload` as the
-// inline `data` bytes (an OUTER Wrapper on the real wire).
+// inline `data` bytes (an OUTER Wrapper on the real wire) plus the record
+// identity head (uuid + accounts) from the SAME response.
 export function scriptedCapture(
   bundle: MahjongSoulProtocolBundle,
   responsePayload: Record<string, unknown>,
+  options?: { readonly head?: Record<string, unknown> },
 ): ScriptedCapture {
   const window = new FakeWindow();
   const { request, response } = frameBuilders(bundle);
@@ -226,12 +245,12 @@ export function scriptedCapture(
     ["Network.webSocketFrameSent", cdpFrame(request(
       7,
       ".lq.Lobby.fetchGameRecord",
-      { game_uuid: "000000-00000000-0000-0000-0000-000000000001" },
+      { game_uuid: FIXTURE_RECORD_ID },
     ))],
     ["Network.webSocketFrameReceived", cdpFrame(response(
       7,
       bundle.rpcMap[".lq.Lobby.fetchGameRecord"]!.resp,
-      responsePayload,
+      { head: options?.head ?? syntheticRecordHead(), ...responsePayload },
     ))],
   );
   return { window, createWindow: () => window };

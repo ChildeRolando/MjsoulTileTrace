@@ -156,7 +156,7 @@ describe("Liqi wire codec", () => {
     },
   );
 
-  test("correlates responses and preserves uint64 strings and byte arrays", () => {
+  test("correlates responses and preserves record metadata and byte arrays", () => {
     const subject = codec([".lq.Lobby.fetchGameRecord"]);
     subject.encodeRequest({
       requestId: 7,
@@ -164,7 +164,7 @@ describe("Liqi wire codec", () => {
       payload: { game_uuid: "fixture" },
     });
     const input = responseFrame(7, ".lq.ResGameRecord", {
-      record_id: "18446744073709551615",
+      head: { uuid: "fixture-record", accounts: [{ account_id: 42, seat: 3 }] },
       data: Uint8Array.of(4, 5, 6),
     });
     const before = input.slice();
@@ -174,7 +174,11 @@ describe("Liqi wire codec", () => {
       requestId: 7,
       method: ".lq.Lobby.fetchGameRecord",
       payload: {
-        record_id: "18446744073709551615",
+        error: null,
+        head: {
+          uuid: "fixture-record",
+          accounts: [{ account_id: 42, seat: 3, nickname: "" }],
+        },
         data: Uint8Array.of(4, 5, 6),
       },
     });

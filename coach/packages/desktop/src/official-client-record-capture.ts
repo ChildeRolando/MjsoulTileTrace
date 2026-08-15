@@ -1,4 +1,7 @@
-import type { MahjongSoulProtocolBundle } from "@riichi-coach/mahjong-soul-source";
+import type {
+  MahjongSoulCapturedRecordIdentity,
+  MahjongSoulProtocolBundle,
+} from "@riichi-coach/mahjong-soul-source";
 import { createCdpRecordObserver } from "./cdp-record-observer.js";
 
 // The PRODUCTION capture primitive shared by every official-client record
@@ -63,6 +66,13 @@ export type OfficialClientCaptureResult =
     readonly status: "captured";
     /** INNER GameDetailRecords bytes — already unwrapped from the outer Wrapper. */
     readonly recordBytes: Uint8Array;
+    /**
+     * Minimal record identity from the SAME fetchGameRecord response
+     * (record uuid + accounts[]{accountId, seat}) — the join key for
+     * resolving the share URL's perspective account to a seat. Never leaves
+     * main-process production code.
+     */
+    readonly recordIdentity: MahjongSoulCapturedRecordIdentity;
   }
   | {
     readonly status: "no_capture";
@@ -128,6 +138,7 @@ export async function captureRecordViaOfficialClient(input: {
         settle({
           status: "captured",
           recordBytes: Uint8Array.from(captured.recordBytes),
+          recordIdentity: captured.recordIdentity,
         });
       }
     } catch {

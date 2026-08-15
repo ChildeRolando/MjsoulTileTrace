@@ -30,6 +30,25 @@ function gameDetailWrapper(inner: Uint8Array): Uint8Array {
   return encode(wrapperType, { name: ".lq.GameDetailRecords", data: inner });
 }
 
+// Mirrors the real lq.RecordGame identity shape (synthetic account ids).
+function recordHead(recordId: string, accounts: ReadonlyArray<{ accountId: number; seat: number }>) {
+  return {
+    uuid: recordId,
+    accounts: accounts.map((account) => ({
+      account_id: account.accountId,
+      seat: account.seat,
+      nickname: "redacted", // must never surface in the capture result
+    })),
+  };
+}
+
+const syntheticAccounts = [
+  { accountId: 100001, seat: 0 },
+  { accountId: 100002, seat: 1 },
+  { accountId: 100004, seat: 2 },
+  { accountId: 100003, seat: 3 },
+];
+
 function requestFrame(requestId: number, method: string, payload: Record<string, unknown>): Uint8Array {
   const route = rpcMap[method]!;
   const body = encode(root.lookupType(route.req), payload);
@@ -54,7 +73,7 @@ function responseFrame(requestId: number, responseTypeName: string, payload: Rec
 }
 
 describe("passive Mahjong Soul record capture", () => {
-  test("captures an inline fetchGameRecord response and never exposes login frames", () => {
+  test("captures an inline fetchGameRecord response with its record identity", () => {
     const capture = createMahjongSoulRecordCapture({ bundle });
     const recordBytes = Uint8Array.of(10, 20, 30, 40);
 
@@ -71,12 +90,25 @@ describe("passive Mahjong Soul record capture", () => {
     const result = capture.observeServerFrame(responseFrame(
       7,
       ".lq.ResGameRecord",
-      { record_id: 1, data: gameDetailWrapper(recordBytes) },
+      {
+        head: recordHead("fixture-record-id", syntheticAccounts),
+        data: gameDetailWrapper(recordBytes),
+      },
     ));
-    expect(result).toEqual({ status: "record_captured", recordBytes });
+    // The identity comes from the SAME response and carries ONLY the join
+    // fields — uuid + account ids + seats, never nicknames.
+    expect(result).toEqual({
+      status: "record_captured",
+      recordBytes,
+      recordIdentity: {
+        recordId: "fixture-record-id",
+        accounts: syntheticAccounts,
+      },
+    });
     if (result?.status !== "record_captured") throw new Error("unexpected");
     expect(result.recordBytes).toEqual(recordBytes);
     expect(Object.isFrozen(result)).toBe(true);
+    expect(JSON.stringify(result)).not.toContain("redacted");
   });
 
   test("fails closed when the response data wrapper has the wrong name", () => {
@@ -86,7 +118,27 @@ describe("passive Mahjong Soul record capture", () => {
     expect(() => capture.observeServerFrame(responseFrame(
       9,
       ".lq.ResGameRecord",
-      { record_id: 1, data: wrongData },
+      { head: recordHead("fixture-record-id", syntheticAccounts), data: wrongData },
+    ))).toThrow("mahjong_soul_login_protocol_unsupported");
+  });
+
+  test.each([
+    ["no head", undefined],
+    ["head without uuid", { accounts: syntheticAccounts }],
+    ["head with empty uuid", { uuid: "", accounts: syntheticAccounts }],
+    ["head without accounts", { uuid: "fixture-record-id" }],
+    ["head with empty accounts", { uuid: "fixture-record-id", accounts: [] }],
+    ["account without id", { uuid: "fixture-record-id", accounts: [{ seat: 0 }] }],
+    // (Non-integer account/seat values are unreachable through a real
+    // protobuf uint32 decode — the extraction guards stay as defense, but
+    // they cannot be driven through the wire encoder.)
+  ])("fails closed when the record metadata is malformed (%s)", (_label, head) => {
+    const capture = createMahjongSoulRecordCapture({ bundle });
+    capture.observeClientFrame(requestFrame(11, ".lq.Lobby.fetchGameRecord", { game_uuid: "x" }));
+    expect(() => capture.observeServerFrame(responseFrame(
+      11,
+      ".lq.ResGameRecord",
+      { head, data: gameDetailWrapper(Uint8Array.of(1, 2)) },
     ))).toThrow("mahjong_soul_login_protocol_unsupported");
   });
 
@@ -114,7 +166,7 @@ describe("passive Mahjong Soul record capture", () => {
     const result = capture.observeServerFrame(responseFrame(
       5,
       ".lq.ResGameRecord",
-      { record_id: 1, data: new Uint8Array() },
+      { head: recordHead("fixture-record-id", syntheticAccounts), data: new Uint8Array() },
     ));
     expect(result).toBeNull();
   });
