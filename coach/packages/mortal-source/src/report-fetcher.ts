@@ -31,6 +31,9 @@ export type MortalReportCandidate = Readonly<{
 }>;
 
 export type MortalReportDecisionEntry = Readonly<{
+  roundOrdinal: number;
+  roundWind: "E" | "S" | "W";
+  dealer: number;
   kyoku: number;
   honba: number;
   junme: number;
@@ -51,6 +54,9 @@ export type MortalReportDecisionEntry = Readonly<{
 }>;
 
 export type MortalReportKyoku = Readonly<{
+  roundOrdinal: number;
+  roundWind: "E" | "S" | "W";
+  dealer: number;
   kyoku: number;
   honba: number;
   entries: readonly MortalReportDecisionEntry[];
@@ -127,42 +133,90 @@ async function fetchFinalResponse(input: {
   throw failed("mortal_result_redirect_rejected");
 }
 
+function mjaiStartRoundContexts(report: RawMortalReport): Array<{
+  roundOrdinal: number;
+  roundWind: "E" | "S" | "W";
+  dealer: number;
+}> {
+  const rounds: Array<{
+    roundOrdinal: number;
+    roundWind: "E" | "S" | "W";
+    dealer: number;
+  }> = [];
+  let roundOrdinal = 0;
+  for (const event of report.mjai_log) {
+    if (event.type !== "start_kyoku") continue;
+    if (
+      (event.bakaze !== "E" && event.bakaze !== "S" && event.bakaze !== "W")
+      || typeof event.oya !== "number"
+      || !Number.isInteger(event.oya)
+      || event.oya < 0
+      || event.oya > 3
+    ) {
+      throw new Error("mjai_round_context_invalid");
+    }
+    rounds.push({
+      roundOrdinal: roundOrdinal++,
+      roundWind: event.bakaze,
+      dealer: event.oya,
+    });
+  }
+  // The current pinned schema does not guarantee review.kyokus carries a
+  // round-wind/dealer field, so the public context comes from mjai_log. The
+  // fingerprint v2 already proves the round-start sequence matches canonical;
+  // the roundOrdinal here is that same sequence index, not a semantic guess.
+  if (rounds.length !== report.review.kyokus.length) {
+    throw new Error("mjai_round_count_mismatch");
+  }
+  return rounds;
+}
+
 function projectReport(
   reportId: string,
   report: RawMortalReport,
 ): MortalFetchedReport {
-  const kyokus = report.review.kyokus.map((kyoku) => ({
-    kyoku: kyoku.kyoku,
-    honba: kyoku.honba,
-    entries: kyoku.entries.flatMap((entry): MortalReportDecisionEntry[] => {
-      // Opponent-perspective rows are deliberately not projected: their
-      // `state.tehai` and private context are not ours to carry around.
-      if (entry.last_actor !== report.player_id) return [];
-      return [{
-        kyoku: kyoku.kyoku,
-        honba: kyoku.honba,
-        junme: entry.junme,
-        tilesLeft: entry.tiles_left,
-        lastActor: entry.last_actor,
-        tile: entry.tile,
-        tehai: entry.state.tehai,
-        atSelfChiPon: entry.at_self_chi_pon,
-        atSelfRiichi: entry.at_self_riichi,
-        atOpponentKakan: entry.at_opponent_kakan,
-        expected: entry.expected as MortalSourceAction,
-        actual: entry.actual as MortalSourceAction,
-        isEqual: entry.is_equal,
-        details: entry.details.map((detail) => ({
-          action: detail.action as MortalSourceAction,
-          probability: detail.prob,
-          qValue: detail.q_value,
-        })),
-        shanten: entry.shanten,
-        atFuriten: entry.at_furiten,
-        actualIndex: entry.actual_index,
-      }];
-    }),
-  }));
+  const roundContexts = mjaiStartRoundContexts(report);
+  const kyokus = report.review.kyokus.map((kyoku, kyokuIndex) => {
+    const context = roundContexts[kyokuIndex]!;
+    return {
+      roundOrdinal: context.roundOrdinal,
+      roundWind: context.roundWind,
+      dealer: context.dealer,
+      kyoku: kyoku.kyoku,
+      honba: kyoku.honba,
+      entries: kyoku.entries.flatMap((entry): MortalReportDecisionEntry[] => {
+        // Opponent-perspective rows are deliberately not projected: their
+        // `state.tehai` and private context are not ours to carry around.
+        if (entry.last_actor !== report.player_id) return [];
+        return [{
+          roundOrdinal: context.roundOrdinal,
+          roundWind: context.roundWind,
+          dealer: context.dealer,
+          kyoku: kyoku.kyoku,
+          honba: kyoku.honba,
+          junme: entry.junme,
+          tilesLeft: entry.tiles_left,
+          lastActor: entry.last_actor,
+          tile: entry.tile,
+          tehai: entry.state.tehai,
+          atSelfChiPon: entry.at_self_chi_pon,
+          atSelfRiichi: entry.at_self_riichi,
+          atOpponentKakan: entry.at_opponent_kakan,
+          expected: entry.expected as MortalSourceAction,
+          actual: entry.actual as MortalSourceAction,
+          isEqual: entry.is_equal,
+          details: entry.details.map((detail) => ({
+            action: detail.action as MortalSourceAction,
+            probability: detail.prob,
+            qValue: detail.q_value,
+          })),
+          shanten: entry.shanten,
+          atFuriten: entry.at_furiten,
+          actualIndex: entry.actual_index,
+        }];
+      }),
+    };
+  });
 
   return Object.freeze({
     reportId,

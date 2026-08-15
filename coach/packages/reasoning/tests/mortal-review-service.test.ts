@@ -94,6 +94,9 @@ function legacyEntryToMortalEntry(
   raw: RawLegacyFixture["decisions"][number],
 ): MortalReportDecisionEntry {
   return Object.freeze({
+    roundOrdinal: 0,
+    roundWind: "E" as const,
+    dealer: 0,
     kyoku: 0,
     honba: 0,
     junme: raw.junme,
@@ -134,6 +137,9 @@ function makeReport(
     playerId: raw.source.playerId,
     gameFingerprint: computeMortalGameFingerprint(raw.mjaiLog),
     kyokus: Object.freeze([{
+      roundOrdinal: 0,
+      roundWind: "E" as const,
+      dealer: 0,
       kyoku: 0,
       honba: 0,
       entries: Object.freeze(entries),

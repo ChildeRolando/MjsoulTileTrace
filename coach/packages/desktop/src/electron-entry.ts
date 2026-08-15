@@ -58,6 +58,11 @@ import {
   runMortalDecisionDiagnostic,
 } from "./mortal-decision-diagnostic-runner.js";
 import {
+  buildMortalFullGameResultPath,
+  mortalFullGameDiagnosticExitCode,
+  runMortalFullGameDiagnostic,
+} from "./mortal-full-game-diagnostic-runner.js";
+import {
   restoreDiagnosticExitCode,
   runMahjongSoulRestoreDiagnostic,
 } from "./restore-diagnostic-runner.js";
@@ -458,6 +463,66 @@ async function start(): Promise<void> {
     }
     return;
   }
+  if (process.argv.includes("--diagnose-mortal-full-game")) {
+    const resultUrlFilePath = readCliFlag(process.argv, "mortal-result-url-file");
+    if (resultUrlFilePath === undefined) {
+      console.error(
+        "[riichi-coach] mortal-full-game:error missing_required_flag --mortal-result-url-file=<path>",
+      );
+      app.exit(2);
+      return;
+    }
+    const recordId = readCliFlag(process.argv, "record-id");
+    const acquisition = await acquireMahjongSoulReplay({
+      vault,
+      createSession: createLobbySessionFactory({ bundle }),
+      authenticate: authenticateStoredMahjongSoulSession,
+      syncCatalog: syncRecentCatalogEntries,
+      fetchRecord: (lobby, stored, recordId) => fetchMahjongSoulRecord({
+        session: lobby,
+        bundle,
+        recordId,
+        clientVersionString: stored.recoveryContext.clientVersionString,
+        fetchImpl: globalThis.fetch,
+      }),
+      mapRecord: (input) => mapMahjongSoulRecord({ ...input, bundle }),
+      replay: replayCanonicalStream,
+      now: Date.now,
+      recordId,
+    });
+    if (acquisition.status !== "acquired") {
+      console.log(`[riichi-coach] mortal-full-game-acquisition:${acquisition.status}`);
+    }
+    const engine = new JsonlFactEngineClient(
+      new ManagedFactEngineTransport(resourcesDir),
+    );
+    try {
+      const result = await runMortalFullGameDiagnostic({
+        resultUrlFilePath,
+        acquisition,
+        engine,
+        now: Date.now,
+        writeResult: async (serialized) => {
+          const resultDir = join(
+            app.getPath("userData"),
+            "mortal-full-game-results",
+          );
+          await mkdir(resultDir, { recursive: true, mode: 0o700 });
+          const target = buildMortalFullGameResultPath(resultDir, Date.now());
+          await writeFile(target, serialized, { mode: 0o600 });
+          return target;
+        },
+      });
+      console.log(
+        `[riichi-coach] mortal-full-game-diagnostic:${result.status}`
+        + (result.resultPath !== undefined ? ` ${result.resultPath}` : ""),
+      );
+      app.exit(mortalFullGameDiagnosticExitCode(result.status));
+    } finally {
+      await engine.close();
+    }
+    return;
+  }
   const partitionSession = session.fromPartition(PARTITION, { cache: true });
   const catalogStore = createMahjongSoulCatalogStore({
     protector,
@@ -583,7 +648,8 @@ async function start(): Promise<void> {
 const isDiagnosticRun = process.argv.includes("--diagnose-mahjong-soul-restore")
   || process.argv.includes("--diagnose-mahjong-soul-replay")
   || process.argv.includes("--diagnose-mahjong-soul-capture-record")
-  || process.argv.includes("--diagnose-mortal-decision");
+  || process.argv.includes("--diagnose-mortal-decision")
+  || process.argv.includes("--diagnose-mortal-full-game");
 
 app.whenReady().then(start).catch((error) => {
   console.error("[riichi-coach] startup failed:", error);

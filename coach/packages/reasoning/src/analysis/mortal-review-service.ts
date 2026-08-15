@@ -100,21 +100,29 @@ function localActualAction(decision: ReplayedDecision): MortalSourceAction {
   };
 }
 
-function entryMatchesDecisionIdentity(
+export function entryMatchesDecisionIdentity(
   entry: MortalReportDecisionEntry,
   decision: ReplayedDecision,
 ): boolean {
   const snapshot = decision.snapshot;
   const privateState = snapshot.privateState;
+  if (privateState.decisionWindow.kind !== "self_turn") return false;
   const currentDraw = privateState.currentDraw;
   if (currentDraw === null) return false;
-  if (decision.actualDiscard === null) return false;
-  if (privateState.decisionWindow.kind !== "self_turn") return false;
+
+  const publicState = snapshot.publicState;
+
+  // Round identity: canonical round occurrence, wind, dealer, and honba.
+  // These are public facts on both sides and are proven by fingerprint v2,
+  // so they are not "array position" guesses.
+  if (entry.roundOrdinal !== publicState.roundOrdinal) return false;
+  if (entry.roundWind !== publicState.roundWind) return false;
+  if (entry.dealer !== publicState.dealer) return false;
+  if (entry.honba !== publicState.honba) return false;
 
   const drawnTile = parseMjaiTile(entry.tile);
   if (!sameTile(drawnTile, currentDraw.tile)) return false;
 
-  const publicState = snapshot.publicState;
   if (
     publicState.fields.remainingDraws === "complete" &&
     publicState.remainingDraws !== null &&
@@ -197,6 +205,39 @@ function buildFrame(
   });
 }
 
+function isSupportedA1Entry(entry: MortalReportDecisionEntry): boolean {
+  return entry.details.length > 0 &&
+    entry.details.every((detail) => detail.action.type === "dahai");
+}
+
+function collectIdentityMatches(
+  report: MortalFetchedReport,
+  decision: ReplayedDecision,
+): MortalReportDecisionEntry[] {
+  const matches: MortalReportDecisionEntry[] = [];
+  for (const kyoku of report.kyokus) {
+    for (const entry of kyoku.entries) {
+      if (entry.lastActor !== report.playerId) continue;
+      if (entryMatchesDecisionIdentity(entry, decision)) matches.push(entry);
+    }
+  }
+  return matches;
+}
+
+function makeAnchor(
+  report: MortalFetchedReport,
+  decision: ReplayedDecision,
+  entry: MortalReportDecisionEntry,
+): MortalDecisionAnchor {
+  return Object.freeze({
+    reportIdHash: hashMortalReportId(report.reportId),
+    kyoku: entry.kyoku,
+    honba: entry.honba,
+    junme: entry.junme,
+    decisionEventRef: decision.decisionEventRef,
+  });
+}
+
 function anchorEntry(
   report: MortalFetchedReport,
   decision: ReplayedDecision,
@@ -205,45 +246,22 @@ function anchorEntry(
   anchor: MortalDecisionAnchor;
   entry: MortalReportDecisionEntry;
 } | { status: "failed"; code: MortalSourceErrorCode } {
-  const reportIdHash = hashMortalReportId(report.reportId);
-  const supportedMatches: Array<{
-    anchor: MortalDecisionAnchor;
-    entry: MortalReportDecisionEntry;
-  }> = [];
-  for (const kyoku of report.kyokus) {
-    for (const entry of kyoku.entries) {
-      if (entry.lastActor !== report.playerId) continue;
-      if (!entryMatchesDecisionIdentity(entry, decision)) continue;
-      const anchor: MortalDecisionAnchor = Object.freeze({
-        reportIdHash,
-        kyoku: entry.kyoku,
-        honba: entry.honba,
-        junme: entry.junme,
-        decisionEventRef: decision.decisionEventRef,
-      });
-      // The single-decision slice only adapts plain discard candidates.
-      const supported = entry.details.length > 0 &&
-        entry.details.every((detail) => detail.action.type === "dahai");
-      if (!supported) continue;
-      supportedMatches.push({ anchor, entry });
-    }
+  const matches = collectIdentityMatches(report, decision);
+  if (matches.length === 0) {
+    return { status: "failed", code: "mortal_decision_anchor_not_found" };
   }
-  if (supportedMatches.length === 1) {
-    return { status: "anchored", ...supportedMatches[0]! };
-  }
-  if (supportedMatches.length > 1) {
+  if (matches.length > 1) {
     return { status: "failed", code: "mortal_decision_anchor_ambiguous" };
   }
-  // Distinguish "matched a decision but its Mortal candidates are not
-  // representable in this slice" from "no self-turn discard decision exists".
-  for (const kyoku of report.kyokus) {
-    for (const entry of kyoku.entries) {
-      if (entry.lastActor !== report.playerId) continue;
-      if (!entryMatchesDecisionIdentity(entry, decision)) continue;
-      return { status: "failed", code: "mortal_decision_unsupported_entry" };
-    }
+  const entry = matches[0]!;
+  if (!isSupportedA1Entry(entry)) {
+    return { status: "failed", code: "mortal_decision_unsupported_entry" };
   }
-  return { status: "failed", code: "mortal_decision_anchor_not_found" };
+  return {
+    status: "anchored",
+    anchor: makeAnchor(report, decision, entry),
+    entry,
+  };
 }
 
 async function deriveReviewResponseFuriten(
@@ -290,12 +308,27 @@ async function deriveReviewResponseFuriten(
   });
 }
 
-export async function runMortalSingleDecisionReview(input: {
+export function validateMortalReportBinding(
+  rawStream: CanonicalEventStream,
+  report: MortalFetchedReport,
+): void {
+  const stream = CanonicalEventStreamSchema.parse(rawStream);
+  if (computeCanonicalGameFingerprint(stream) !== report.gameFingerprint) {
+    throw new MortalSourceError("mortal_report_game_fingerprint_mismatch");
+  }
+  if (report.playerId !== stream.selfActor) {
+    throw new MortalSourceError("mortal_report_perspective_mismatch");
+  }
+}
+
+export async function runBoundMortalDecisionReview(input: {
   readonly stream: CanonicalEventStream;
   readonly decision: ReplayedDecision;
   readonly report: MortalFetchedReport;
+  readonly entry: MortalReportDecisionEntry;
   readonly engine: HandStructureFactEnginePort;
   readonly now?: () => number;
+  readonly frozenAt?: string;
 }): Promise<MortalSingleDecisionReviewResult> {
   const now = input.now ?? Date.now;
   try {
@@ -309,36 +342,21 @@ export async function runMortalSingleDecisionReview(input: {
       throw new MortalSourceError("mortal_decision_anchor_not_found");
     }
 
-    // P3: game identity binding.
-    if (computeCanonicalGameFingerprint(stream) !== input.report.gameFingerprint) {
-      throw new MortalSourceError("mortal_report_game_fingerprint_mismatch");
-    }
+    const reportIdHash = hashMortalReportId(input.report.reportId);
+    const anchor = makeAnchor(input.report, input.decision, input.entry);
 
-    // P4: perspective binding.
-    if (input.report.playerId !== stream.selfActor) {
-      throw new MortalSourceError("mortal_report_perspective_mismatch");
-    }
-
-    // P0-1: M6-A1 supports ordinary self-turn discards only. A null actual or
-    // a riichi-declaring discard fails closed before any Mortal import.
+    // P0-1: ordinary self-turn discards only in this slice.
     const localActual = localActualAction(input.decision);
 
-    // P5/P6: exact 1:1 anchor, then local actual authority.
-    const anchored = anchorEntry(input.report, input.decision);
-    if (anchored.status === "failed") {
-      throw new MortalSourceError(anchored.code);
-    }
-    const { anchor, entry } = anchored;
+    // P6: local actual authority; Mortal actual is a cross-check only.
     if (
-      entry.actual.type !== "dahai" ||
-      entry.actual.actor !== localActual.actor ||
-      entry.actual.pai !== localActual.pai ||
-      entry.actual.tsumogiri !== localActual.tsumogiri
+      input.entry.actual.type !== "dahai" ||
+      input.entry.actual.actor !== localActual.actor ||
+      input.entry.actual.pai !== localActual.pai ||
+      input.entry.actual.tsumogiri !== localActual.tsumogiri
     ) {
       throw new MortalSourceError("mortal_decision_actual_mismatch");
     }
-
-    const reportIdHash = anchor.reportIdHash;
 
     // P7: pure projection into the candidate normalizer's action-fact shape.
     const actionFacts = projectActionFacts(input.decision);
@@ -350,9 +368,9 @@ export async function runMortalSingleDecisionReview(input: {
       comparisonSetId,
       decisionLayerRef,
       facts: actionFacts,
-      modelCandidates: entry.details.map((detail, index) => ({
+      modelCandidates: input.entry.details.map((detail, index) => ({
         actions: [{
-          eventRef: candidateEventRef(reportIdHash, entry, index),
+          eventRef: candidateEventRef(reportIdHash, input.entry, index),
           action: detail.action,
         }],
         probability: detail.probability,
@@ -366,7 +384,11 @@ export async function runMortalSingleDecisionReview(input: {
       },
     });
     if (imported.status === "incomplete") {
-      throw new MortalSourceError("mortal_decision_unsupported_entry");
+      return {
+        status: "failed",
+        code: "mortal_decision_unsupported_entry",
+        diagnostics: Object.freeze([...imported.diagnostics]),
+      };
     }
     if (imported.status === "not_comparable") {
       return {
@@ -392,7 +414,7 @@ export async function runMortalSingleDecisionReview(input: {
       actualActionRef: actualCandidate.actionRef,
       detailPolicy: freezeDetailPolicy({
         policyVersion: DECISION_DETAIL_POLICY_VERSION,
-        frozenAt: new Date(now()).toISOString(),
+        frozenAt: input.frozenAt ?? new Date(now()).toISOString(),
       }),
       candidates: imported.scores.map((score) => ({
         actionRef: score.actionRef,
@@ -438,6 +460,67 @@ export async function runMortalSingleDecisionReview(input: {
       modelEvaluation: evaluationBuilt.evaluation,
       factorResult,
     };
+  } catch (error) {
+    if (error instanceof MortalSourceError) {
+      return {
+        status: "failed",
+        code: error.code,
+        diagnostics: Object.freeze([]),
+      };
+    }
+    if (error instanceof Error && error.name === "AbortError") {
+      return {
+        status: "failed",
+        code: "mortal_result_fetch_failed",
+        diagnostics: Object.freeze(["aborted"]),
+      };
+    }
+    return {
+      status: "failed",
+      code: "mortal_review_engine_failed",
+      diagnostics: Object.freeze(["unexpected_review_failure"]),
+    };
+  }
+}
+
+export async function runMortalSingleDecisionReview(input: {
+  readonly stream: CanonicalEventStream;
+  readonly decision: ReplayedDecision;
+  readonly report: MortalFetchedReport;
+  readonly engine: HandStructureFactEnginePort;
+  readonly now?: () => number;
+}): Promise<MortalSingleDecisionReviewResult> {
+  try {
+    const stream = CanonicalEventStreamSchema.parse(input.stream);
+    const snapshot = DecisionSnapshotV2Schema.parse(input.decision.snapshot);
+    const facts = KnownGameFactsSchema.parse(input.decision.facts);
+    if (snapshot.decisionEventRef !== input.decision.decisionEventRef) {
+      throw new MortalSourceError("mortal_decision_anchor_not_found");
+    }
+    if (snapshot.decisionEventRef !== facts.decisionEventRef) {
+      throw new MortalSourceError("mortal_decision_anchor_not_found");
+    }
+
+    // Whole-report preflight: game identity + perspective.
+    validateMortalReportBinding(stream, input.report);
+
+    // P0-1: ordinary self-turn discards only in this slice.
+    localActualAction(input.decision);
+
+    // P5: exact 1:1 anchor.
+    const anchored = anchorEntry(input.report, input.decision);
+    if (anchored.status === "failed") {
+      throw new MortalSourceError(anchored.code);
+    }
+
+    return await runBoundMortalDecisionReview({
+      stream,
+      decision: input.decision,
+      report: input.report,
+      entry: anchored.entry,
+      engine: input.engine,
+      ...(input.now === undefined ? {} : { now: input.now }),
+    });
   } catch (error) {
     if (error instanceof MortalSourceError) {
       return {

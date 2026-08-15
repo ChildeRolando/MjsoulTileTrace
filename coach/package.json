@@ -22,6 +22,7 @@
     "desktop:diagnose-mahjong-soul-replay": "npm run build && electron packages/desktop/dist/electron-entry.js --diagnose-mahjong-soul-replay",
     "desktop:diagnose-mahjong-soul-capture-record": "npm run build && electron packages/desktop/dist/electron-entry.js --diagnose-mahjong-soul-capture-record",
     "desktop:diagnose-mortal-decision": "npm run build && electron packages/desktop/dist/electron-entry.js --diagnose-mortal-decision",
+    "desktop:diagnose-mortal-full-game": "npm run build && electron packages/desktop/dist/electron-entry.js --diagnose-mortal-full-game",
     "typecheck": "tsc --noEmit -p packages/contracts/tsconfig.json && tsc --noEmit -p packages/mahjong-soul-source/tsconfig.json && tsc --noEmit -p packages/mortal-source/tsconfig.json && tsc --noEmit -p packages/reasoning/tsconfig.json && tsc --noEmit -p packages/desktop/tsconfig.json"
   },
   "devDependencies": {

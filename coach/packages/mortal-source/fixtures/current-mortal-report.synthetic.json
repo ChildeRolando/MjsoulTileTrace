@@ -1,0 +1,77 @@
+{
+  "engine": "Mortal",
+  "version": "1.5.10",
+  "player_id": 1,
+  "review": {
+    "model_tag": "4.1b",
+    "total_reviewed": 1,
+    "total_matches": 1,
+    "rating": 0,
+    "temperature": 0,
+    "relative_phi_matrix": [],
+    "kyokus": [
+      {
+        "kyoku": 0,
+        "honba": 0,
+        "end_status": [],
+        "relative_scores": [],
+        "entries": [
+          {
+            "junme": 1,
+            "tiles_left": 70,
+            "last_actor": 1,
+            "tile": "4z",
+            "state": {
+              "tehai": [
+                "1m", "2m", "3m", "5m", "6m", "7m",
+                "2p", "3p", "4p", "5p", "6p", "7p",
+                "4z", "4z"
+              ],
+              "fuuros": []
+            },
+            "at_self_chi_pon": false,
+            "at_self_riichi": false,
+            "at_opponent_kakan": false,
+            "expected": { "type": "dahai", "actor": 1, "pai": "4z", "tsumogiri": false },
+            "actual": { "type": "dahai", "actor": 1, "pai": "4z", "tsumogiri": false },
+            "is_equal": true,
+            "details": [
+              { "action": { "type": "dahai", "actor": 1, "pai": "4z", "tsumogiri": false }, "q_value": 0.5, "prob": 0.9 },
+              { "action": { "type": "dahai", "actor": 1, "pai": "1m", "tsumogiri": false }, "q_value": 0.2, "prob": 0.1 }
+            ],
+            "shanten": 1,
+            "at_furiten": false,
+            "actual_index": 0
+          }
+        ]
+      }
+    ]
+  },
+  "mjai_log": [
+    { "type": "start_game", "names": ["Synthetic-A", "Synthetic-B", "Synthetic-C", "Synthetic-D"], "kyoku_first": 0, "aka_flag": true },
+    {
+      "type": "start_kyoku",
+      "bakaze": "E",
+      "dora_marker": "6p",
+      "kyoku": 0,
+      "honba": 0,
+      "kyotaku": 0,
+      "oya": 0,
+      "scores": [25000, 25000, 25000, 25000],
+      "tehais": [
+        ["1m", "2m", "3m", "5m", "6m", "7m", "2p", "3p", "4p", "5p", "6p", "7p", "4z"],
+        ["1m", "2m", "3m", "5m", "6m", "7m", "2p", "3p", "4p", "5p", "6p", "7p", "4z"],
+        ["1m", "2m", "3m", "5m", "6m", "7m", "2p", "3p", "4p", "5p", "6p", "7p", "4z"],
+        ["1m", "2m", "3m", "5m", "6m", "7m", "2p", "3p", "4p", "5p", "6p", "7p", "4z"]
+      ]
+    },
+    { "type": "tsumo", "actor": 0, "pai": "1p" },
+    { "type": "dahai", "actor": 0, "pai": "1p", "tsumogiri": false }
+  ],
+  "split_logs": [],
+  "lang": "zh-CN",
+  "game_length": "Hanchan",
+  "show_rating": false,
+  "loading_time": "0",
+  "review_time": "0"
+}
