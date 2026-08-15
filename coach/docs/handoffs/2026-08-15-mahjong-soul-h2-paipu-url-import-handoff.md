@@ -3,6 +3,30 @@
 日期：2026-08-15
 分支：`codex/m5-h2-paipu-url-import`（基线 `codex/m5-h1-replay-acceptance` @ `52efd59`）
 
+## ✅ 当前权威结论（AUTHORITATIVE — 以下一切以此为准）
+
+```text
+share URL → recordId + _a<token>
+         → decodeMahjongSoulPerspectiveToken(token)   // 可逆混淆，tensoul 同款
+         → account_id
+         → 与同一 fetchGameRecord 响应的 head.accounts[] 精确 JOIN（恰好一个）
+         → seat → selfActor → 共享 canonical 分析
+```
+
+- **live 证据 3/3**：三份真实样本（含同局双视角）decode 后全部恰好一个精确匹配，且 encode∘decode 全部 round-trip。
+- **验收真实样本自动解析 seat 1**：真人 DOM 路径零输入（贴链接 → 点击）→ `analysis_ready`，**canonical = 1024 / decisions = 120**；诊断路线 `--self-actor=1` 交叉核对逐项一致；磁盘 audit 已按真实座位重写。
+- 产品无座位选择器；seat/账号数据不过 IPC；join 失败（token 不解码 / 零或多个匹配 / recordId 不符 / seat 非法）fail closed 为 `identity_mismatch`。
+
+### ⚠️ 以下历史结论均已被上表取代（SUPERSEDED，仅作调查过程存档）
+
+| 历史结论 | 状态 | 为何被取代 |
+|---|---|---|
+| raw `_a` 可与 `head.accounts[].account_id` 直接 JOIN | ~~被三样本反证~~ → **SUPERSEDED** | 反证本身仍成立，但它反证的只是"直接"比较；`_a` 是 account_id 的可逆混淆，decode 后 JOIN 成立（3/3） |
+| `_a` 属未知 id 空间 → 产品保持 fail-closed（所有链接 identity_mismatch） | **SUPERSEDED** | id 空间已由 decoder 映射（tensoul/Avenshy 同款可逆变换），产品已切回自动解析 |
+| 手动选座 `--self-actor=3` 的真人验收（1024 / 116 decisions） | **SUPERSEDED** | seat 3 是随手猜的另一位玩家；真实视角为 seat 1（1024 / **120**）。历史上基于 seat 3 的一切 audit/对照无效 |
+
+---
+
 ## H2-ID 轮·续（同日第三轮）：`_a` 是可逆混淆 token —— decoder 三样本 3/3 验证，自动选座全链打通
 
 上一节只反证了 **direct join**（raw `_a` ≠ `account_id`）。进一步调研（tensoul 的 `decodeAccountID`、Avenshy 牌谱主视角转换器的正反编码、2026-08 仍活跃使用同款 decoder 的项目）给出正确模型：

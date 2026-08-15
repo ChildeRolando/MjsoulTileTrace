@@ -213,7 +213,7 @@ const cdpFrame = (payload: Uint8Array) => ({
 export const FIXTURE_RECORD_ID = "000000-00000000-0000-0000-0000-000000000001";
 // The synthetic head places this account at seat 3; share URLs must carry
 // its OBFUSCATED token (the ecosystem transform), never the raw account id.
-export const FIXTURE_PERSPECTIVE_ACCOUNT_ID = 62_115_198;
+export const FIXTURE_PERSPECTIVE_ACCOUNT_ID = 123_456_789;
 
 // Builds a protocol-consistent share URL for the given head account id.
 export function fixturePaipuUrl(accountId: number = FIXTURE_PERSPECTIVE_ACCOUNT_ID): string {

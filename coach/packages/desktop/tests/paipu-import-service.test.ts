@@ -29,7 +29,7 @@ import { encodeMahjongSoulPerspectiveAccountId } from "@riichi-coach/mahjong-sou
 
 const fixtureRecordId = "000000-00000000-0000-0000-0000-000000000001";
 // The _a suffix is the OBFUSCATED token of the scripted head's seat-3
-// account (62115198) — decode + join resolves the seat automatically.
+// account — decode + join resolves the seat automatically.
 const fixtureUrl = fixturePaipuUrl();
 
 async function makeService(overrides?: {
@@ -107,8 +107,8 @@ describe("paipu import service (automatic perspective resolution)", () => {
       recordId: fixtureRecordId,
     });
     if (result.status !== "analysis_ready") return;
-    // The scripted head pins perspective account 62115198 at seat 3 — the
-    // seat was resolved by the identity join, not chosen by anyone.
+    // The scripted head pins the synthetic perspective account at seat 3 —
+    // the seat was resolved by the identity join, not chosen by anyone.
     expect(result.selfActor).toBe(3);
     // The exact validated URL (including the _a suffix) reached the window.
     expect(window.loadedUrl).toBe(fixtureUrl);
@@ -358,7 +358,7 @@ describe("paipu import service (automatic perspective resolution)", () => {
         { account_id: 100001, seat: 0 },
         { account_id: 100002, seat: 1 },
         { account_id: 100004, seat: 2 },
-        { account_id: 62_115_198, seat: 3 },
+        { account_id: 123_456_789, seat: 3 },
       ],
     };
     const { createWindow } = scriptedCapture(bundle, { data: fixture.wire }, { head });
