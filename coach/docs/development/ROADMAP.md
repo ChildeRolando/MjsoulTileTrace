@@ -17,7 +17,7 @@
 | M3 教学证据 | 未开始 | 仅有策略边界和占位契约 | 冻结资料、引用、版本化教学规则 |
 | M4 LLM 教练 | 未开始 | 严格分析包与解释验证地基 | LLM 客户端、编排、流式输出、追问 |
 | M5 雀魂国区接入 | 接近完成 | Electron 登录、加密恢复、最近 30 场、取回、canonical mapper、重放、脱敏 replay audit、H1 诊断命令 | 真实牌谱 H1 对照验收；未覆盖流局/杠枚举的 fixture 反证 |
-| M6 模型生产接入 | 进行中 | M6-A1：Mortal 单决策切片（安全获取、指纹/视角绑定、比较集 + ModelEvaluation + assembly）；M6-A2：全量自摸面覆盖账本（全局二部绑定、120/113 无丢失、99 个支持对 analysis_ready） | `awaiting_mortal_verification` 状态；行动支持扩展（立直/自摸/杠）；Akagi（M6-B） |
+| M6 模型生产接入 | 进行中 | M6-A1：Mortal 单决策切片（安全获取、指纹/视角绑定、比较集 + ModelEvaluation + assembly）；M6-A2：全量自摸面覆盖账本（全局二部绑定、120/113 无丢失、99 个支持对 analysis_ready）；M6-A3：行动支持扩展已落地（declare_riichi 契约与 riichi_discard 实现语义、自摸/杠/九种九牌终局 actual、post_riichi/post_call 决策面、真实 hora 形态钉死、10 分支 fail-closed coverage gate + §16 evidence manifest lift 路径、Tenhou 第二生产 importer 与语料 runner、H2 连续性复跑 125/113 全绑定 0 歧义） | 真实语料验收提交（live Mortal acceptance → 10 分支矩阵补满 → manifest lift，A3 收口）；`awaiting_mortal_verification` 状态；M6-A4 响应面；Mortal 产品化工作流；Akagi（M6-B） |
 | M7 会话与工作台 | 未开始 | 安全 IPC 和最小目录 UI | SQLite 任务、报告页、回放、聊天、恢复/删除 |
 | M8 打包发布 | 未开始 | Electron 与 sidecar 构建基础 | 跨平台安装、升级、日志、发布验收 |
 
@@ -29,20 +29,27 @@
 - 未覆盖的流局/杠枚举（`ActionLiuJu`、`ActionAnGangAddGang`）继续保持 fail closed；真实牌谱命中时先补脱敏 fixture + RED/GREEN，再放宽。
 - 发现协议差异时先补 fixture 和映射测试，再改实现。
 
-### 2. 开始 M6 模型候选接入
+### 2. 收口 M6-A3 真实语料验收
 
-- 为每个 `ReplayedDecision` 获取 Mortal 或 Akagi 的合法候选与评分。
-- 把实际舍牌和模型候选归一化为至少两个 canonical candidates。
-- 构造 `StructuredComparisonSet`，再调用现有 `runStructuredAnalysisAssembly`。
-- 模型缺失或输出不可信时明确阻塞，不退回猜测式分析。
+- 用 `scripts/tenhou-acceptance.mjs` 执行选定座位的验收提交（组合 M6-A2 桌面 Mortal 管线，遵守预算/去重/断点/不重复提交策略）。
+- 目标是 10 个语义分支每个至少 1 个独立真实 E2E 接受命中；证据只进 §16 版本化 manifest，registry lift 只能由 manifest 派生。
+- 矩阵补满前，未覆盖分支保持 `coverage_branch_uncovered` fail-closed，不得手工放宽。
 
-### 3. 生成第一份真实牌谱报告
+### 3. M6-A4 响应面
 
-- 先支持一个明确决策窗口和一个模型来源。
+- 覆盖 `discard_response`/`kan_response` 决策面（荣和、过、抢杠）。
+- 沿用 A3 的真实形态钉死方法：先固定真实 Mortal 报告形态，再写适配与校验。
+
+### 4. Mortal 产品化工作流
+
+- 把全量复盘的固定报告接入 UI；UI 状态推进到“分析完成”。
 - 输出结构化分析包，再渲染固定报告；不要先做聊天。
-- 只有这一步完成后，UI 才能把“牌谱已取得”改为“分析完成”。
 
-### 4. 建立会话工作台
+### 5. M6-B Akagi 备选来源
+
+- 在 Mortal 管线稳定后评估 Akagi 作为第二模型来源，复用同一契约与绑定层。
+
+### 6. 建立会话工作台
 
 - 持久化任务状态、输入哈希、模型身份、分析包和解释版本。
 - 增加牌桌回放、候选对比与证据面板。
