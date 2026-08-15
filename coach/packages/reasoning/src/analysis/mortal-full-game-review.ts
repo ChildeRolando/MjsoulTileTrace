@@ -65,7 +65,7 @@ export type MortalFullGameReviewStatus = "coverage_ready" | "failed";
 export type MortalFullGameModelSummary = Readonly<{
   actualActionRef: string;
   preferredActions: readonly string[];
-  topModelProbability: number;
+  topModelProbabilityPercent: number;
   errorGap: number;
   detailClass: "not_error" | "concise" | "detailed";
   factorAnalysisMode: string;
@@ -92,6 +92,13 @@ export type MortalFullGameLedgerEntry = Readonly<{
 
 export type MortalSourceDisposition = "bound" | "unbound" | "ambiguous";
 
+export type MortalSourceUnboundReason =
+  | "post_call_discard_not_replayed"
+  | "post_riichi_discard_not_replayed"
+  | "local_terminal_action_not_replayed"
+  | "identity_fact_mismatch"
+  | "source_semantics_not_understood";
+
 export type MortalSourceCoverageEntry = Readonly<{
   sourceEntryRef: string;
   roundOrdinal: number;
@@ -100,6 +107,7 @@ export type MortalSourceCoverageEntry = Readonly<{
   junme: number;
   sourceOrdinal: number;
   disposition: MortalSourceDisposition;
+  unboundReason: MortalSourceUnboundReason | null;
 }>;
 
 export type MortalSourceCoverage = Readonly<{
@@ -125,6 +133,7 @@ export type MortalFullGameCoverageSummary = Readonly<{
   unsupportedReasons: Readonly<Partial<Record<MortalUnsupportedReason, number>>>;
   modelIncompleteReasons: Readonly<Partial<Record<MortalModelIncompleteReason, number>>>;
   analysisBlockedReasons: Readonly<Partial<Record<MortalAnalysisBlockedReason, number>>>;
+  sourceUnboundReasons: Readonly<Partial<Record<MortalSourceUnboundReason, number>>>;
 }>;
 
 export type MortalFullGameReviewResult =
@@ -208,6 +217,22 @@ function validateFullGameInputs(
     seenDecisionRefs.add(decision.decisionEventRef);
   }
   return null;
+}
+
+function classifyUnboundSourceReason(
+  entry: MortalReportDecisionEntry,
+): MortalSourceUnboundReason {
+  // Current replay surface only freezes self_turn draw decisions. Source rows
+  // that sit after a call, after a riichi declaration, or on a terminal action
+  // are therefore expected to have no compatible local decision.
+  if (entry.atSelfChiPon) return "post_call_discard_not_replayed";
+  if (entry.atSelfRiichi && entry.actual.type === "dahai") {
+    return "post_riichi_discard_not_replayed";
+  }
+  if (entry.actual.type !== "dahai") {
+    return "local_terminal_action_not_replayed";
+  }
+  return "source_semantics_not_understood";
 }
 
 function localSupport(
@@ -549,7 +574,7 @@ export async function runMortalFullGameReview(input: {
       const actualCandidate = result.comparisonSet.candidates.find((candidate) =>
         candidate.origins.includes("actual")
       );
-      const topModelProbability = Math.max(
+      const topModelProbabilityPercent = Math.max(
         ...result.modelEvaluation.candidates.map((candidate) =>
           candidate.modelSelectionScore
         ),
@@ -588,7 +613,7 @@ export async function runMortalFullGameReview(input: {
         modelSummary: {
           actualActionRef: result.modelEvaluation.actualActionRef,
           preferredActions: result.modelEvaluation.preferredActions,
-          topModelProbability,
+          topModelProbabilityPercent,
           errorGap: result.modelEvaluation.errorGap,
           detailClass: result.modelEvaluation.errorGap === 0
             ? "not_error"
@@ -699,6 +724,7 @@ export async function runMortalFullGameReview(input: {
       .filter((row) => row.binding === "ambiguous" && row.sourceOrdinal !== null)
       .map((row) => row.sourceOrdinal!)
   );
+  const sourceUnboundReasonCounts: Partial<Record<MortalSourceUnboundReason, number>> = {};
   const sourceCoverageEntries = sourceRows.map((sourceRow) => {
     let disposition: MortalSourceDisposition;
     if (boundSourceOrdinals.has(sourceRow.sourceOrdinal)) {
@@ -711,6 +737,13 @@ export async function runMortalFullGameReview(input: {
     } else {
       disposition = "unbound";
     }
+    const unboundReason = disposition === "unbound"
+      ? classifyUnboundSourceReason(sourceRow.entry)
+      : null;
+    if (unboundReason !== null) {
+      sourceUnboundReasonCounts[unboundReason] =
+        (sourceUnboundReasonCounts[unboundReason] ?? 0) + 1;
+    }
     return Object.freeze({
       sourceEntryRef: sourceRow.ref,
       roundOrdinal: sourceRow.entry.roundOrdinal,
@@ -719,6 +752,7 @@ export async function runMortalFullGameReview(input: {
       junme: sourceRow.entry.junme,
       sourceOrdinal: sourceRow.sourceOrdinal,
       disposition,
+      unboundReason,
     });
   });
 
@@ -742,11 +776,27 @@ export async function runMortalFullGameReview(input: {
     entries: Object.freeze(sourceCoverageEntries),
   });
 
+  // True conservation: derive the totals from the actual ledger and coverage
+  // dispositions. Never set them directly to input lengths.
+  const localOutcomeSum = Object.values(outcomeCounts).reduce(
+    (total, count) => total + count,
+    0,
+  );
+  const sourceDispositionSum = sourceCoverage.boundMortalEntryCount
+    + sourceCoverage.unboundMortalEntryCount
+    + sourceCoverage.ambiguousMortalEntryCount;
+  if (
+    localOutcomeSum !== input.decisions.length
+    || sourceDispositionSum !== sourceRows.length
+  ) {
+    return { status: "failed", code: "mortal_full_game_input_invalid" };
+  }
+
   const summary: MortalFullGameCoverageSummary = Object.freeze({
     replayDecisionCount: input.decisions.length,
     mortalSelfEntryCount: sourceRows.length,
-    localConservation: input.decisions.length,
-    sourceConservation: sourceRows.length,
+    localConservation: localOutcomeSum,
+    sourceConservation: sourceDispositionSum,
     outcomes: Object.freeze(outcomeCounts),
     binding: Object.freeze(bindingCounts),
     supportedPairCount: ledger.filter((row) =>
@@ -755,6 +805,7 @@ export async function runMortalFullGameReview(input: {
     unsupportedReasons: Object.freeze(unsupportedReasonCounts),
     modelIncompleteReasons: Object.freeze(modelIncompleteReasonCounts),
     analysisBlockedReasons: Object.freeze(analysisBlockedReasonCounts),
+    sourceUnboundReasons: Object.freeze(sourceUnboundReasonCounts),
   });
 
   return {

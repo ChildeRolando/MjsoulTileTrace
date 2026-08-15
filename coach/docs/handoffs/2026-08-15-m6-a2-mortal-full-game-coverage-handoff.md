@@ -3,7 +3,8 @@
 日期：2026-08-15
 分支：`codex/m6-a2-mortal-full-game-coverage`
 base SHA：`5afabe29c4a1960e9f3243bb23a69692cd1acf44`
-final implementation SHA：`af8981a`（本文档提交于其上）
+implementation SHA：`af8981a`
+closing SHA：见分支头（本文档提交后 branch head）
 
 ## 1. “full-game”在本里程碑的精确定义
 
@@ -26,7 +27,22 @@ M6-A2 的全量覆盖指：**当前 `replayCanonicalStream()` 已暴露的 self_
 - actual action types：`dahai` 108 / `reach` 4 / `hora` 1
 - candidate action-type signatures：`dahai-only` 102 / `reach+dahai` 9 / `ankan-containing` 1 / `hora-containing` 1
 
-120 local 与 113 Mortal 的差异已解释：7 个 local self-turn 决策在 Mortal 自视角 entry 中无对应（Mortal 只在自视角决策点产出 entry）；其中 10 个 local 在全局绑定中 `no_mortal_entry`，另 3 个 Mortal entry 与 local 不构成唯一绑定。
+120 local 与 113 Mortal 的差异不再用一句“Mortal 只在自视角决策点产出 entry”带过。精确账本如下：
+
+- 110 个 Mortal entry 与 110 个 local 唯一绑定。
+- 10 个 local 为 `no_mortal_entry`（当前 self_turn 重放表面中，Mortal 自视角没有对应 entry）。
+- 3 个 Mortal entry 为 `unbound`，逐条语义已查明（见下），无 `source_semantics_not_understood`，无 `identity_fact_mismatch`。
+
+### 3.1 三个 live unbound source rows 的确定语义
+
+| sourceOrdinal | roundOrdinal | kyoku/honba | junme | actual type | candidate signature | atSelfChiPon | atSelfRiichi | 判定 |
+|---|---|---|---|---|---|---|---|---|
+| 22 | 1 | 1/0 | 14 | dahai | dahai-only | false | true | `post_riichi_discard_not_replayed` |
+| 45 | 3 | 3/0 | 13 | dahai | dahai-only | true | false | `post_call_discard_not_replayed` |
+| 101 | 7 | 6/0 | 12 | dahai | dahai-only | false | true | `post_riichi_discard_not_replayed` |
+
+- sourceOrdinal 22/101：Mortal 在立直宣言后还有同巡 `dahai` entry（`at_self_riichi=true`）。当前 canonical replay 的 self_turn 快照冻结在摸牌时点（立直受领前），因此同一个 draw 的立直宣言 entry（`actual=reach`）能绑定，而立直后的 `dahai` entry 不在当前重放表面内。不是 mapper/binding defect。
+- sourceOrdinal 45：Mortal 在副露后产生的 `dahai` entry（`at_self_chi_pon=true`）。当前 replay surface 不生成 `post_call_discard` 窗口，因此无 local decision 与之对应。
 
 ## 4. 全局绑定算法
 
@@ -74,16 +90,23 @@ bound 对按 local canonical decision order 与 source entry order 必须严格�
 - `analysis_blocked = 0`
 - 合计 = 120 = `replayDecisionCount` ✅
 
-## 10. source conservation counts（live）
+## 10. source conservation counts（live，true conservation）
 
 - `boundMortalEntryCount = 110`
 - `unboundMortalEntryCount = 3`
 - `ambiguousMortalEntryCount = 0`
 - 合计 = 113 = `mortalSelfEntryCount` ✅
 
+source unbound reason counts（live）：
+
+- `post_riichi_discard_not_replayed = 2`
+- `post_call_discard_not_replayed = 1`
+- `source_semantics_not_understood = 0`
+- `identity_fact_mismatch = 0`
+
 ## 11. per-outcome counts
 
-见第 9 项。
+见第 9 项。localOutcomeSum 由 outcomeCounts 实际求和得到，不是直接赋值为 decisions.length。
 
 ## 12. unsupported reason counts（live）
 
@@ -107,26 +130,29 @@ bound 对按 local canonical decision order 与 source entry order 必须严格�
 
 0（live supported subset）。✅
 
-## 17. manual spot-check evidence
+## 17. UI / spot-check evidence
 
-- A1 已对同一样本第一决策做过可见 Mortal UI 人工核对：实际=4z 手切、模型首选=4z 手切、首选概率=99.91%。
-- A2 对同一真实 report JSON 做多点核对（与 Mortal UI 同源数据）：
-  - early analysis_ready（decisionOrdinal 0）：actual `discard 4z tedashi`，top `99.91077`，Mortal entry `junme=1` 完全一致。
-  - mid analysis_ready（decisionOrdinal 54）：actual `discard 3z tsumogiri`，top `99.99883`，Mortal entry `junme=5`（kyoku 4, honba 0）一致。
-  - late analysis_ready（decisionOrdinal 116）：actual `discard 4s tsumogiri`，top `99.331915`，Mortal entry `junme=10`（kyoku 7）一致。
-- 未发现 model-error 行；unsupported 行均带固定 subtype。
+- A1 visible Mortal UI check：同一真实 report 第一决策，实际=4z 手切、模型首选=4z 手切、首选概率=99.91%。
+- A2 gstack headless browser 打开 live Mortal viewer（同一 report）：确认页面报告身份为 `Engine Mortal / Model tag 4.1b / Mjai-reviewer version 1.5.10 / Matches 113/150`，并读取到一个早期 error row（Player Cut / Mortal Cut / Q -0.05 / P 99.96）。
+- early/mid/late analysis-ready rows 与 viewer 同源的 live report JSON 做精确核对：
+  - early `decisionOrdinal 0`：actual `discard 4z tedashi`，top `99.91077`，Mortal entry `junme=1` 一致。
+  - mid `decisionOrdinal 54`：actual `discard 3z tsumogiri`，top `99.99883`，Mortal entry `junme=5`（kyoku 4, honba 0）一致。
+  - late `decisionOrdinal 116`：actual `discard 4s tsumogiri`，top `99.331915`，Mortal entry `junme=10`（kyoku 7）一致。
+- unsupported row spot check：sourceOrdinal 45（`post_call_discard_not_replayed`）与 Mortal JSON `at_self_chi_pon=true` 一致；sourceOrdinal 22/101（`post_riichi_discard_not_replayed`）与 `at_self_riichi=true && actual.type=dahai` 一致。
+- model-error spot check：not applicable（live sample 无 model-error 行）。
 
 ## 18. privacy audit
 
 - full-game diagnostic 结果文件：`userData/mortal-full-game-results/mortal-full-game-result-<timestamp>.json`（0600）。
-- 序列化结果只含：selfSeat、summary、sourceCoverage aggregates、decisions（decisionOrdinal/roundOrdinal/binding/support/outcome/reason/modelSummary）。
+- 序列化结果只含：selfSeat、summary（含 sourceUnboundReasons 聚合）、sourceCoverage aggregates、decisions（decisionOrdinal/roundOrdinal/binding/support/outcome/reason/modelSummary）。
 - **不含**：raw reportId、result URL、paipu URL、record UUID、account ID、nickname、raw `mjai_log`/`split_logs`、decisionEventRef、comparisonSetId、evaluationId。
 - console 只输出 aggregate：`replay=120 mortal=113 bound=110 ready=99 unsupported=11 missing=10 bindingMismatch=0 modelIncomplete=0 blocked=0`。
+- 模型摘要字段已重命名为 `topModelProbabilityPercent`（概率×100 语义），`MortalFullGameModelSummary` 与诊断序列化一致。
 
 ## 19. full verification counts
 
 - `npm run build` ✅
-- `npx vitest run` ✅ **126 files / 1239 tests**
+- `npx vitest run` ✅ **126 files / 1241 tests**
 - node suites ✅ **26 + 4 + 4 = 34 tests**
 - `npm run typecheck` ✅
 
@@ -135,15 +161,15 @@ bound 对按 local canonical decision order 与 source entry order 必须严格�
 - 立直舍牌（riichi discard）4 个 local：A1/A2 不扩展，固定 `riichi_discard_not_supported`。
 - `actualDiscard === null` 1 个 local：当前 replay 不暴露自摸/暗杠等 terminal 行动，固定 `local_actual_not_represented`。
 - Mortal 候选集含非 `dahai` 行动 6 个（reach+dahai / ankan / hora 候选）：固定 `mortal_candidate_action_not_supported`。
-- 3 个 Mortal entry 未与任何 local 唯一绑定：需在下一轮结合源普查逐条核对语义（不视为无害，已如实计入 `unbound`）。
+- 3 个 Mortal source unbound：2 × `post_riichi_discard_not_replayed` + 1 × `post_call_discard_not_replayed`，均属于当前 self_turn 重放表面之外，已逐条核实，无未知语义。
 
 ## 21. next recommended milestone
 
-基于普查，最大可回收 coverage 是 **Mortal 候选集/实际行动扩展**（6 个候选集非 dahai + 4 个立直 + 1 个 terminal 行动）。建议：
+基于普查，最大可回收 coverage 是 **self-turn 非普通舍牌支持**（6 个候选集非 dahai + 4 个立直 + 1 个 terminal 行动 + 2 个立直后舍牌 + 1 个副露后舍牌）。建议：
 
-**M6-A3 = self-turn 非普通舍牌支持**：先扩展立直舍牌与 Mortal `reach+dahai` 候选集（A1 路径已具备 `riichi_discard` 适配器雏形），再处理 `actualDiscard === null` 的 terminal（需 replay surface 暴露自摸/杠动作）。
+**M6-A3 = self-turn 非普通舍牌支持**：先扩展立直舍牌与 Mortal `reach+dahai` 候选集，再扩展 `post_riichi` / `post_call` 决策表面，最后处理 `actualDiscard === null` 的 terminal 行动。
 
-## 22. 变更文件
+## 22. 变更文件（含 closing fix）
 
 - 新增 `coach/packages/reasoning/src/analysis/mortal-full-game-review.ts`
 - 新增 `coach/packages/reasoning/tests/mortal-full-game-review.test.ts`
@@ -151,10 +177,11 @@ bound 对按 local canonical decision order 与 source entry order 必须严格�
 - 新增 `coach/packages/desktop/tests/mortal-full-game-diagnostic-runner.test.ts`
 - 新增 `coach/packages/mortal-source/fixtures/current-mortal-report.synthetic.json`
 - 新增 `coach/packages/mortal-source/tests/report-schema.test.ts`
-- 修改 `coach/packages/reasoning/src/analysis/mortal-review-service.ts`（提取/导出 binding primitives、`runBoundMortalDecisionReview`、round identity）
-- 修改 `coach/packages/mortal-source/src/report-fetcher.ts`（投影 roundOrdinal/roundWind/dealer）
+- 修改 `coach/packages/reasoning/src/analysis/mortal-review-service.ts`
+- 修改 `coach/packages/mortal-source/src/report-fetcher.ts`
 - 修改 `coach/packages/reasoning/src/index.ts`、`coach/packages/desktop/src/electron-entry.ts`、`coach/package.json`
 - 修改 `coach/docs/development/ROADMAP.md`
+- closing fix：`mortal-full-game-review.ts`（source unbound reasons、true conservation、`topModelProbabilityPercent`）、`mortal-decision-diagnostic-runner.ts`（同字段名）、相关测试。
 
 ## 23. A2 close
 

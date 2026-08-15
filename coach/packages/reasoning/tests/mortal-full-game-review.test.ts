@@ -465,6 +465,52 @@ describe("runMortalFullGameReview", () => {
     expect(review.decisions.length).toBe(fixture.decisions.length);
   });
 
+  it("derives conservation totals from actual outcomes and source dispositions", async () => {
+    const fixture = await legacySetup();
+    const review = await runMortalFullGameReview({
+      stream: fixture.stream,
+      decisions: fixture.decisions,
+      report: legacyReport(fixture.raw, []),
+      engine: new FailingEngine(),
+    });
+    expect(review.status).toBe("coverage_ready");
+    if (review.status !== "coverage_ready") return;
+    const outcomeSum = Object.values(review.summary.outcomes).reduce(
+      (total, count) => total + count,
+      0,
+    );
+    const sourceSum = review.sourceCoverage.boundMortalEntryCount
+      + review.sourceCoverage.unboundMortalEntryCount
+      + review.sourceCoverage.ambiguousMortalEntryCount;
+    expect(outcomeSum).toBe(review.summary.localConservation);
+    expect(review.summary.localConservation).toBe(fixture.decisions.length);
+    expect(sourceSum).toBe(review.summary.sourceConservation);
+    expect(review.summary.sourceConservation).toBe(0);
+  });
+
+  it("classifies an unbound post-call source row with a fixed reason", async () => {
+    const fixture = await legacySetup();
+    const entry = legacyEntryToMortalEntry(fixture.raw.decisions[0]!);
+    const postCall = Object.freeze({
+      ...entry,
+      atSelfChiPon: true,
+      tehai: Object.freeze(Array.from({ length: 14 }, () => "1m")),
+    });
+    const review = await runMortalFullGameReview({
+      stream: fixture.stream,
+      decisions: fixture.decisions,
+      report: legacyReport(fixture.raw, [postCall]),
+      engine: new FailingEngine(),
+    });
+    expect(review.status).toBe("coverage_ready");
+    if (review.status !== "coverage_ready") return;
+    expect(review.sourceCoverage.unboundMortalEntryCount).toBe(1);
+    expect(review.sourceCoverage.entries[0]!.unboundReason).toBe(
+      "post_call_discard_not_replayed",
+    );
+    expect(review.summary.sourceUnboundReasons.post_call_discard_not_replayed).toBe(1);
+  });
+
   it("keeps accounting when a supported bound row hits an engine failure", async () => {
     const fixture = await legacySetup();
     const rawDecision = fixture.raw.decisions[0]!;

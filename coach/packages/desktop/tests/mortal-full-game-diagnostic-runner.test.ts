@@ -49,7 +49,7 @@ function fakeCoverageReview() {
       modelSummary: {
         actualActionRef: "action:v1:actual",
         preferredActions: ["action:v1:actual"],
-        topModelProbability: 100,
+        topModelProbabilityPercent: 100,
         errorGap: 0,
         detailClass: "not_error",
         factorAnalysisMode: "v2",

@@ -115,7 +115,7 @@ export function serializeMortalDecisionDiagnosticResult(
     candidate.origins.includes("actual")
   );
   const preferredActionRefs = review.modelEvaluation.preferredActions;
-  const topModelProbability = Math.max(
+  const topModelProbabilityPercent = Math.max(
     ...review.modelEvaluation.candidates.map((candidate) =>
       candidate.modelSelectionScore
     ),
@@ -127,7 +127,7 @@ export function serializeMortalDecisionDiagnosticResult(
     candidateCount: review.comparisonSet.candidates.length,
     localActualAction: actualCandidate?.action ?? null,
     modelPreferredActions: preferredActionRefs,
-    topModelProbability,
+    topModelProbabilityPercent,
     errorGap: review.modelEvaluation.errorGap,
     detailClass,
     factorAnalysisMode: review.factorResult.analysisMode,
