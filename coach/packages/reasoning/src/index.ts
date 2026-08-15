@@ -42,6 +42,7 @@ export * from "./candidate/candidate-normalizer.js";
 export * from "./candidate/comparison-set-builder.js";
 export * from "./candidate/legacy-action-bridge.js";
 export * from "./analysis/structured-analysis-assembly.js";
+export * from "./analysis/mortal-review-service.js";
 export * from "./import/action-adapter-port.js";
 export * from "./import/mjai-action.js";
 export * from "./import/structured-mortal.js";

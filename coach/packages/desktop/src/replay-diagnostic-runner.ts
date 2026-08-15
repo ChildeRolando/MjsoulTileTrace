@@ -127,6 +127,131 @@ function pickEntry(
   return { status: "not_analyzable" };
 }
 
+export type MahjongSoulReplayAcquisitionStatus =
+  | "acquired"
+  | "login_required"
+  | "session_restore_failed"
+  | "session_restore_rejected"
+  | "catalog_sync_failed"
+  | "no_analyzable_record"
+  | "record_not_analyzable"
+  | "record_fetch_failed"
+  | "unsupported_record_semantics"
+  | "replay_validation_failed"
+  | "inconclusive";
+
+export type MahjongSoulReplayAcquisitionResult =
+  | {
+      readonly status: "acquired";
+      readonly stream: CanonicalEventStream;
+      readonly decisions: readonly ReplayedDecision[];
+      readonly recordId: string;
+      readonly selfSeat: number;
+    }
+  | { readonly status: Exclude<MahjongSoulReplayAcquisitionStatus, "acquired"> };
+
+function acquisitionResult(
+  status: Exclude<MahjongSoulReplayAcquisitionStatus, "acquired">,
+): MahjongSoulReplayAcquisitionResult {
+  return Object.freeze({ status });
+}
+
+export async function acquireMahjongSoulReplay(
+  ports: Omit<MahjongSoulReplayDiagnosticPorts, "serializeAudit" | "writeAudit">,
+): Promise<MahjongSoulReplayAcquisitionResult> {
+  const requestedRecordId = ports.recordId;
+  if (
+    requestedRecordId !== undefined
+    && !MahjongSoulRecordIdSchema.safeParse(requestedRecordId).success
+  ) {
+    return acquisitionResult("record_not_analyzable");
+  }
+
+  let stored: StoredMahjongSoulSession | null;
+  try {
+    stored = await ports.vault.restore();
+  } catch {
+    return acquisitionResult("login_required");
+  }
+  if (stored === null) return acquisitionResult("login_required");
+
+  let session: MahjongSoulLobbySession | null = null;
+  try {
+    try {
+      session = await ports.createSession();
+    } catch {
+      return acquisitionResult("session_restore_failed");
+    }
+    const auth = await ports.authenticate(session, stored);
+    if (auth === "rejected") return acquisitionResult("session_restore_rejected");
+    if (auth !== "authenticated") return acquisitionResult("session_restore_failed");
+
+    const now = ports.now();
+    let entries: RawRecordListEntry[];
+    try {
+      entries = await ports.syncCatalog(session, now);
+    } catch {
+      return acquisitionResult("catalog_sync_failed");
+    }
+
+    const picked = pickEntry(entries, stored.accountId, now, requestedRecordId);
+    if (picked.status !== "analyzable") {
+      return acquisitionResult(
+        requestedRecordId === undefined
+          ? "no_analyzable_record"
+          : "record_not_analyzable",
+      );
+    }
+
+    let fetched: MahjongSoulFetchedRecord;
+    try {
+      fetched = await ports.fetchRecord(session, stored, picked.recordId);
+    } catch {
+      return acquisitionResult("record_fetch_failed");
+    }
+
+    let decisions: readonly ReplayedDecision[];
+    let stream: CanonicalEventStream;
+    try {
+      const mapped = ports.mapRecord({
+        gameId: `majsoul:${picked.recordId}`,
+        selfActor: picked.selfSeat,
+        recordId: picked.recordId,
+        recordBytes: fetched.recordBytes,
+      });
+      if (mapped.status !== "ready") {
+        return acquisitionResult(
+          mapped.code === "mahjong_soul_canonical_unsupported_semantics"
+            ? "unsupported_record_semantics"
+            : "replay_validation_failed",
+        );
+      }
+      stream = mapped.stream;
+      decisions = ports.replay(stream);
+    } catch {
+      return acquisitionResult("replay_validation_failed");
+    }
+
+    return Object.freeze({
+      status: "acquired",
+      stream,
+      decisions,
+      recordId: picked.recordId,
+      selfSeat: picked.selfSeat,
+    });
+  } catch {
+    return acquisitionResult("inconclusive");
+  } finally {
+    if (session !== null) {
+      try {
+        await session.close();
+      } catch {
+        // A diagnostic result never exposes transport shutdown details.
+      }
+    }
+  }
+}
+
 export async function runMahjongSoulReplayDiagnostic(
   ports: MahjongSoulReplayDiagnosticPorts,
 ): Promise<MahjongSoulReplayDiagnosticResult> {

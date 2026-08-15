@@ -30,6 +30,8 @@ import {
 } from "@riichi-coach/contracts";
 import {
   buildMahjongSoulReplayAudit,
+  JsonlFactEngineClient,
+  ManagedFactEngineTransport,
   replayCanonicalStream,
   serializeMahjongSoulReplayAudit,
 } from "@riichi-coach/reasoning";
@@ -46,9 +48,14 @@ import {
 } from "./mahjong-soul-login-window.js";
 import { createLobbySessionFactory } from "./lobby-session-factory.js";
 import {
+  acquireMahjongSoulReplay,
   replayDiagnosticExitCode,
   runMahjongSoulReplayDiagnostic,
 } from "./replay-diagnostic-runner.js";
+import {
+  mortalDecisionDiagnosticExitCode,
+  runMortalDecisionDiagnostic,
+} from "./mortal-decision-diagnostic-runner.js";
 import {
   restoreDiagnosticExitCode,
   runMahjongSoulRestoreDiagnostic,
@@ -75,6 +82,7 @@ import { readCliFlag } from "./diagnostic-flags.js";
 
 const PARTITION = "persist:riichi-coach-mahjong-soul-cn";
 const bundleRoot = fileURLToPath(new URL("../../../vendor/mahjong-soul-protocol/", import.meta.url));
+const resourcesDir = fileURLToPath(new URL("../../../resources/", import.meta.url));
 const preloadPath = fileURLToPath(new URL("./preload.bundle.cjs", import.meta.url));
 const rendererUrl = pathToFileURL(
   fileURLToPath(new URL("./renderer/index.html", import.meta.url)),
@@ -386,6 +394,69 @@ async function start(): Promise<void> {
     app.exit(replayDiagnosticExitCode(result.status));
     return;
   }
+  if (process.argv.includes("--diagnose-mortal-decision")) {
+    // The result URL is privacy-sensitive: it must arrive through a file,
+    // never through argv or stdout/stderr. `--mortal-result-url-file` accepts
+    // both --name=<path> and --name <path> forms; the file content is trimmed.
+    const resultUrlFilePath = readCliFlag(process.argv, "mortal-result-url-file");
+    if (resultUrlFilePath === undefined) {
+      console.error(
+        "[riichi-coach] mortal-decision:error missing_required_flag --mortal-result-url-file=<path>",
+      );
+      app.exit(2);
+      return;
+    }
+    const recordId = readCliFlag(process.argv, "record-id");
+    const acquisition = await acquireMahjongSoulReplay({
+      vault,
+      createSession: createLobbySessionFactory({ bundle }),
+      authenticate: authenticateStoredMahjongSoulSession,
+      syncCatalog: syncRecentCatalogEntries,
+      fetchRecord: (lobby, stored, recordId) => fetchMahjongSoulRecord({
+        session: lobby,
+        bundle,
+        recordId,
+        clientVersionString: stored.recoveryContext.clientVersionString,
+        fetchImpl: globalThis.fetch,
+      }),
+      mapRecord: (input) => mapMahjongSoulRecord({ ...input, bundle }),
+      replay: replayCanonicalStream,
+      now: Date.now,
+      recordId,
+    });
+    if (acquisition.status !== "acquired") {
+      console.log(`[riichi-coach] mortal-decision-acquisition:${acquisition.status}`);
+    }
+    const engine = new JsonlFactEngineClient(
+      new ManagedFactEngineTransport(resourcesDir),
+    );
+    try {
+      const result = await runMortalDecisionDiagnostic({
+        resultUrlFilePath,
+        acquisition,
+        engine,
+        now: Date.now,
+        writeResult: async (serialized, recordId) => {
+          const resultDir = join(
+            app.getPath("userData"),
+            "mortal-decision-results",
+          );
+          await mkdir(resultDir, { recursive: true, mode: 0o700 });
+          const target = join(resultDir, `${recordId}.json`);
+          await writeFile(target, serialized, { mode: 0o600 });
+          return target;
+        },
+      });
+      console.log(
+        `[riichi-coach] mortal-decision-diagnostic:${result.status}`
+        + (result.resultPath !== undefined ? ` ${result.resultPath}` : ""),
+      );
+      app.exit(mortalDecisionDiagnosticExitCode(result.status));
+    } finally {
+      await engine.close();
+    }
+    return;
+  }
   const partitionSession = session.fromPartition(PARTITION, { cache: true });
   const catalogStore = createMahjongSoulCatalogStore({
     protector,
@@ -510,7 +581,8 @@ async function start(): Promise<void> {
 
 const isDiagnosticRun = process.argv.includes("--diagnose-mahjong-soul-restore")
   || process.argv.includes("--diagnose-mahjong-soul-replay")
-  || process.argv.includes("--diagnose-mahjong-soul-capture-record");
+  || process.argv.includes("--diagnose-mahjong-soul-capture-record")
+  || process.argv.includes("--diagnose-mortal-decision");
 
 app.whenReady().then(start).catch((error) => {
   console.error("[riichi-coach] startup failed:", error);

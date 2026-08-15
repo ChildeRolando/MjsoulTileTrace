@@ -1,5 +1,5 @@
 {
-  "name": "@riichi-coach/reasoning",
+  "name": "@riichi-coach/mortal-source",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -14,7 +14,6 @@
   },
   "dependencies": {
     "@riichi-coach/contracts": "0.1.0",
-    "@riichi-coach/mortal-source": "0.1.0",
     "zod": "3.25.76"
   }
 }

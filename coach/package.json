@@ -4,7 +4,7 @@
   "type": "module",
   "workspaces": ["packages/*"],
   "scripts": {
-    "build": "npm run build -w @riichi-coach/contracts && npm run build -w @riichi-coach/mahjong-soul-source && npm run build -w @riichi-coach/reasoning && npm run build -w @riichi-coach/desktop",
+    "build": "npm run build -w @riichi-coach/contracts && npm run build -w @riichi-coach/mahjong-soul-source && npm run build -w @riichi-coach/mortal-source && npm run build -w @riichi-coach/reasoning && npm run build -w @riichi-coach/desktop",
     "test": "npm run build && vitest run && npm run test:mahjong-soul-protocol-updater && npm run test:mahjong-soul-protocol-compatibility && npm run test:generate-mahjong-soul-real-fixtures",
     "test:mahjong-soul-protocol-updater": "node --test scripts/update-mahjong-soul-protocol.test.mjs",
     "test:mahjong-soul-protocol-compatibility": "node --test scripts/mahjong-soul-protocol-compatibility.test.mjs",
@@ -21,7 +21,8 @@
     "desktop:diagnose-mahjong-soul-restore": "npm run build && electron packages/desktop/dist/electron-entry.js --diagnose-mahjong-soul-restore",
     "desktop:diagnose-mahjong-soul-replay": "npm run build && electron packages/desktop/dist/electron-entry.js --diagnose-mahjong-soul-replay",
     "desktop:diagnose-mahjong-soul-capture-record": "npm run build && electron packages/desktop/dist/electron-entry.js --diagnose-mahjong-soul-capture-record",
-    "typecheck": "tsc --noEmit -p packages/contracts/tsconfig.json && tsc --noEmit -p packages/mahjong-soul-source/tsconfig.json && tsc --noEmit -p packages/reasoning/tsconfig.json && tsc --noEmit -p packages/desktop/tsconfig.json"
+    "desktop:diagnose-mortal-decision": "npm run build && electron packages/desktop/dist/electron-entry.js --diagnose-mortal-decision",
+    "typecheck": "tsc --noEmit -p packages/contracts/tsconfig.json && tsc --noEmit -p packages/mahjong-soul-source/tsconfig.json && tsc --noEmit -p packages/mortal-source/tsconfig.json && tsc --noEmit -p packages/reasoning/tsconfig.json && tsc --noEmit -p packages/desktop/tsconfig.json"
   },
   "devDependencies": {
     "@types/node": "22.15.30",
