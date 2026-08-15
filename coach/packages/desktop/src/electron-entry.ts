@@ -77,6 +77,15 @@ const rendererUrl = pathToFileURL(
   fileURLToPath(new URL("./renderer/index.html", import.meta.url)),
 ).href;
 
+// Live-observed on Windows (2026-08-15, user report + screenshots): a newly
+// shown window that never receives OS activation stays a pure-white surface
+// (the taskbar hover preview shows white too) — Chromium's native occlusion
+// calculation marks the unactivated window occluded, so the renderer never
+// presents and the Unity WebGL client never boots. Disabling the occlusion
+// feature is the standard Electron workaround; the official-client capture
+// window is created while the main window holds focus, exactly the trigger.
+app.commandLine.appendSwitch("disable-features", "CalculateNativeWinOcclusion");
+
 let mainWindow: BrowserWindow | null = null;
 let ipcRegistration: Readonly<{ dispose(): void }> | null = null;
 let catalogIpcRegistration: Readonly<{ dispose(): void }> | null = null;
