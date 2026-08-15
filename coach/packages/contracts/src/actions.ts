@@ -78,9 +78,19 @@ const PassActionSchema = z.object({
   responseKind: z.enum(["discard", "kakan", "ankan"]),
 }).strict();
 
+// M6-A3 (ADR-0001): the MODEL-side riichi alternative is tile-less — Mortal's
+// action space has a single riichi index and the mjai reach event carries no
+// tile, so the discard realization is structurally unrecoverable. This kind is
+// candidate-only; the actual side always uses the concrete riichi_discard with
+// the tile taken from local canonical events.
+const DeclareRiichiActionSchema = z.object({
+  kind: z.literal("declare_riichi"),
+}).strict();
+
 const RiichiActionObjectSchema = z.discriminatedUnion("kind", [
   DiscardActionSchema,
   RiichiDiscardActionSchema,
+  DeclareRiichiActionSchema,
   ChiActionSchema,
   PonActionSchema,
   DaiminkanActionSchema,
@@ -213,11 +223,22 @@ const PostCallDiscardWindowSchema = z.object({
   triggerEventRef: EventRefSchema,
 }).strict();
 
+// M6-A3: the declaration turn's discard decision, frozen at the riichi
+// declaration event — before the same-turn discard. The snapshot still holds
+// the turn's draw and a declared (not yet accepted) riichi state, which is
+// the identity of Mortal's same-turn post-riichi dahai entry.
+const PostRiichiDiscardWindowSchema = z.object({
+  kind: z.literal("post_riichi_discard"),
+  actor: ActorSchema.nullable(),
+  triggerEventRef: EventRefSchema,
+}).strict();
+
 export const DecisionWindowSchema = z.discriminatedUnion("kind", [
   SelfTurnWindowSchema,
   DiscardResponseWindowSchema,
   KanResponseWindowSchema,
   PostCallDiscardWindowSchema,
+  PostRiichiDiscardWindowSchema,
 ]).superRefine((window, context) => {
   if (
     (window.kind === "discard_response" ||
@@ -239,6 +260,7 @@ const allowedKinds: Record<DecisionWindow["kind"], readonly RiichiActionKind[]> 
   self_turn: [
     "discard",
     "riichi_discard",
+    "declare_riichi",
     "ankan",
     "kakan",
     "tsumo",
@@ -246,7 +268,15 @@ const allowedKinds: Record<DecisionWindow["kind"], readonly RiichiActionKind[]> 
   ],
   discard_response: ["chi", "pon", "daiminkan", "ron", "pass"],
   kan_response: ["ron", "pass"],
+  // Riichi requires a concealed hand, and a chi/pon call opens it for the
+  // rest of the round — so no riichi action can appear in a post-call
+  // window. Only the plain discard remains, and it is always tedashi (no
+  // draw exists in this window).
   post_call_discard: ["discard"],
+  // Riichi is declared (not yet accepted) at this window: the same-turn
+  // discard is locked to the drawn/kept tile, so only the plain discard
+  // remains — the declaration itself already happened.
+  post_riichi_discard: ["discard"],
 };
 
 export type ActionWindowConflictCode =

@@ -226,8 +226,8 @@ describe("generic structured Mortal importer", () => {
     });
   });
 
-  it("preserves isolated reach as a source diagnostic", () => {
-    expect(importStructuredMortalComparison({
+  it("imports an isolated reach as the tile-less declare_riichi candidate in a dama window", () => {
+    const result = importStructuredMortalComparison({
       comparisonSetId: "comparison:isolated-reach",
       decisionLayerRef: "decision-layer:isolated-reach",
       facts,
@@ -239,9 +239,117 @@ describe("generic structured Mortal importer", () => {
         probability: 0.5,
       }, modelTwoPin],
       actual: actualTwoPin,
+    });
+
+    expect(result.status).toBe("ready");
+    if (result.status !== "ready") return;
+    expect(result.comparisonSet.candidates).toHaveLength(2);
+    const declareRiichi = result.comparisonSet.candidates.find(
+      (candidate) => candidate.action.kind === "declare_riichi",
+    );
+    expect(declareRiichi).toBeDefined();
+    expect(declareRiichi!.action).toEqual({ kind: "declare_riichi" });
+    expect(declareRiichi!.origins).toEqual(["model"]);
+    // The concrete discard actual stays scored through its own dahai row.
+    const actual = result.comparisonSet.candidates.find(
+      (candidate) => candidate.origins.includes("actual"),
+    );
+    expect(actual?.action).toMatchObject({ kind: "discard", tile: { id: "2p" } });
+    expect(
+      result.scores.find(
+        (score) => score.actionRef === declareRiichi!.actionRef,
+      ),
+    ).toEqual({
+      actionRef: declareRiichi!.actionRef,
+      probability: 0.5,
+    });
+  });
+
+  it("unifies the declare_riichi model row with the concrete riichi_discard actual", () => {
+    const result = importStructuredMortalComparison({
+      comparisonSetId: "comparison:riichi-window",
+      decisionLayerRef: "decision-layer:riichi-window",
+      facts,
+      modelCandidates: [{
+        actions: [{
+          eventRef: "model:reach",
+          action: { type: "reach", actor: 3 },
+        }],
+        probability: 0.6,
+        qValue: 0.9,
+      }, modelTwoPin],
+      actual: {
+        actions: [
+          {
+            eventRef: "actual:reach",
+            action: { type: "reach", actor: 3 },
+          },
+          {
+            eventRef: "actual:riichi-dahai",
+            action: {
+              type: "dahai",
+              actor: 3,
+              pai: "2p",
+              tsumogiri: false,
+            },
+          },
+        ],
+      },
+    });
+
+    expect(result.status).toBe("ready");
+    if (result.status !== "ready") return;
+    expect(result.comparisonSet.candidates).toHaveLength(2);
+    // Exactly one actual candidate: the concrete riichi_discard that absorbed
+    // the tile-less declare_riichi model row by type correspondence.
+    const actualCandidates = result.comparisonSet.candidates.filter(
+      (candidate) => candidate.origins.includes("actual"),
+    );
+    expect(actualCandidates).toHaveLength(1);
+    expect(actualCandidates[0]!.action).toEqual({
+      kind: "riichi_discard",
+      tile: { id: "2p", red: false },
+      discardMode: "tedashi",
+    });
+    expect(actualCandidates[0]!.origins).toEqual(["model", "actual"]);
+    // The riichi alternative must carry the model's reach-row score.
+    expect(
+      result.scores.find(
+        (score) => score.actionRef === actualCandidates[0]!.actionRef,
+      ),
+    ).toEqual({
+      actionRef: actualCandidates[0]!.actionRef,
+      probability: 0.6,
+      qValue: 0.9,
+    });
+  });
+
+  it("fails closed when a riichi actual has no declare_riichi model row", () => {
+    expect(importStructuredMortalComparison({
+      comparisonSetId: "comparison:unscored-riichi-actual",
+      decisionLayerRef: "decision-layer:unscored-riichi-actual",
+      facts,
+      modelCandidates: [modelSixSou],
+      actual: {
+        actions: [
+          {
+            eventRef: "actual:reach",
+            action: { type: "reach", actor: 3 },
+          },
+          {
+            eventRef: "actual:riichi-dahai",
+            action: {
+              type: "dahai",
+              actor: 3,
+              pai: "2p",
+              tsumogiri: false,
+            },
+          },
+        ],
+      },
     })).toEqual({
       status: "incomplete",
-      diagnostics: ["reach_without_dahai:tile,discardMode"],
+      diagnostics: ["actual_action_not_scored"],
     });
   });
 

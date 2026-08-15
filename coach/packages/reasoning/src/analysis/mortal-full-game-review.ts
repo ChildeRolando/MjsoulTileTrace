@@ -6,7 +6,6 @@ import {
   type CanonicalEventStream,
 } from "@riichi-coach/contracts";
 import {
-  formatMjaiTile,
   type MortalFetchedReport,
   type MortalReportDecisionEntry,
 } from "@riichi-coach/mortal-source";
@@ -14,10 +13,18 @@ import type { HandStructureFactEnginePort } from "../fact-engine/port.js";
 import type { ReplayedDecision } from "../replay/stream-replayer.js";
 import {
   entryMatchesDecisionIdentity,
+  mortalActualMatchesLocal,
   runBoundMortalDecisionReview,
+  supportedCandidateTypesForWindow,
   validateMortalReportBinding,
   type MortalSingleDecisionReviewResult,
 } from "./mortal-review-service.js";
+import {
+  EMPTY_MORTAL_COVERAGE_REGISTRY,
+  classifyCoverageBranches,
+  type MortalCoverageBranch,
+  type MortalCoverageRegistry,
+} from "./mortal-coverage-registry.js";
 
 export type MortalFullGameFailureCode =
   | "mortal_report_game_fingerprint_mismatch"
@@ -30,8 +37,10 @@ export type MortalSupportStatus = "supported" | "unsupported";
 
 export type MortalUnsupportedReason =
   | "local_actual_not_represented"
-  | "riichi_discard_not_supported"
-  | "mortal_candidate_action_not_supported";
+  | "mortal_candidate_action_not_supported"
+  // M6-A3: the branch's production fail-closed has not been lifted by a
+  // real E2E acceptance hit yet.
+  | "coverage_branch_uncovered";
 
 export type MortalBindingMismatchReason =
   | "multiple_mortal_entries_for_decision"
@@ -46,7 +55,11 @@ export type MortalModelIncompleteReason =
   | "invalid_model_candidate"
   | "fewer_than_two_distinct_actions"
   | "cross_decision_window"
-  | "candidate_normalization_failed";
+  | "candidate_normalization_failed"
+  // M6-A3: a terminal window whose Mortal candidate set degenerated (e.g.
+  // only the winning action) — fail closed, never fabricate a second
+  // candidate.
+  | "terminal_window_action_unsupported";
 
 export type MortalAnalysisBlockedReason =
   | "fact_engine_failure"
@@ -93,8 +106,9 @@ export type MortalFullGameLedgerEntry = Readonly<{
 export type MortalSourceDisposition = "bound" | "unbound" | "ambiguous";
 
 export type MortalSourceUnboundReason =
-  | "post_call_discard_not_replayed"
-  | "post_riichi_discard_not_replayed"
+  // M6-A3: the two "*_not_replayed" classes are gone — every self-action
+  // surface is enumerated locally now, so degree-0 rows are identity (or
+  // kyuushu mapper-coverage) debt, never enumeration debt.
   | "local_terminal_action_not_replayed"
   | "identity_fact_mismatch"
   | "source_semantics_not_understood";
@@ -134,6 +148,13 @@ export type MortalFullGameCoverageSummary = Readonly<{
   modelIncompleteReasons: Readonly<Partial<Record<MortalModelIncompleteReason, number>>>;
   analysisBlockedReasons: Readonly<Partial<Record<MortalAnalysisBlockedReason, number>>>;
   sourceUnboundReasons: Readonly<Partial<Record<MortalSourceUnboundReason, number>>>;
+  // M6-A3 coverage matrix accounting: encounters count bound rows that
+  // exercised a branch THROUGH the local-actual cross-check (a row whose
+  // Mortal actual mismatches is a data-integrity failure, not a coverage
+  // hit); uncoveredBlocks counts rows fail-closed because the branch has no
+  // recorded real E2E hit.
+  coverageBranchEncounters: Readonly<Partial<Record<MortalCoverageBranch, number>>>;
+  coverageBranchUncoveredBlocks: Readonly<Partial<Record<MortalCoverageBranch, number>>>;
 }>;
 
 export type MortalFullGameReviewResult =
@@ -226,18 +247,28 @@ function classifyUnboundSourceReason(
   // This is ONLY called for genuine degree-0 source rows (never for rows
   // involved in any compatibility ambiguity).
   //
-  // Deterministic surface classes:
-  if (entry.atSelfChiPon) return "post_call_discard_not_replayed";
+  // M6-A3: the replayer now enumerates post_call, post_riichi, and all four
+  // terminal surfaces from canonical events, so a degree-0 row in any of
+  // those shapes means its identity facts failed — not that the surface is
+  // missing from local replay.
+  if (entry.atSelfChiPon) return "identity_fact_mismatch";
 
-  if (entry.actual.type === "reach") {
-    // A degree-0 reach row is NOT harmless terminal debt: live semantics show
-    // actual=reach belongs to the current self_turn replay surface and should
-    // normally bind to a riichi ReplayedDecision. Degree 0 means its identity
-    // facts failed.
+  if (
+    entry.actual.type === "reach"
+    || entry.actual.type === "hora"
+    || entry.actual.type === "agari"
+    || entry.actual.type === "ankan"
+    || entry.actual.type === "kakan"
+  ) {
+    // Self-turn surfaces with enumerated local counterparts: degree 0 means
+    // the identity facts failed.
     return "identity_fact_mismatch";
   }
 
-  if (entry.actual.type === "hora") {
+  if (entry.actual.type === "ryukyoku") {
+    // Kyuushu attribution depends on the source mapper carrying the abort as
+    // a self round_drawn in the canonical stream; a degree-0 row is local
+    // terminal coverage debt, not an identity failure.
     return "local_terminal_action_not_replayed";
   }
 
@@ -248,9 +279,9 @@ function classifyUnboundSourceReason(
   }
 
   if (entry.atSelfRiichi) {
-    // An immediate post-reach discard is proven only by a paired `reach`
-    // entry with the same round/kyoku/honba/junme/tile. Without that proof
-    // we do NOT call it harmless replay-surface debt.
+    // The same-turn post-riichi discard shape is proven only by a paired
+    // `reach` entry with the same round/kyoku/honba/junme/tile; without that
+    // proof we do not assert its semantics.
     const pairedReach = allSourceRows.some((sourceRow) => {
       const other = sourceRow.entry;
       return other.actual.type === "reach"
@@ -261,7 +292,7 @@ function classifyUnboundSourceReason(
         && other.tile === entry.tile;
     });
     return pairedReach
-      ? "post_riichi_discard_not_replayed"
+      ? "identity_fact_mismatch"
       : "source_semantics_not_understood";
   }
 
@@ -276,19 +307,37 @@ function localSupport(
   support: MortalSupportStatus;
   reason: MortalUnsupportedReason | null;
 } {
-  if (decision.actualDiscard === null) {
+  // M6-A3: the typed actual decides support. Every represented kind
+  // (discard / riichi_discard / tsumo / ankan / kakan / kyuushu_kyuuhai)
+  // flows into the pipeline; only an unresolvable window (a pure round end
+  // with no self action — exhaustive/abortive draws the canonical stream
+  // attributes to no actor) stays fail-closed.
+  if (decision.actualAction === null) {
     return {
       support: "unsupported",
       reason: "local_actual_not_represented",
     };
   }
-  if (decision.actualDiscard.riichiDeclarationEventRef !== null) {
-    return {
-      support: "unsupported",
-      reason: "riichi_discard_not_supported",
-    };
-  }
   return { support: "supported", reason: null };
+}
+
+// The call kind for a post-call window, from its trigger event. Used only
+// for coverage-branch classification.
+function callKindForDecision(
+  stream: CanonicalEventStream,
+  decision: ReplayedDecision,
+): "chi" | "pon" | null {
+  const window = decision.snapshot.privateState.decisionWindow;
+  if (window.kind !== "post_call_discard") return null;
+  const trigger = stream.events.find(
+    (event) => event.eventId === window.triggerEventRef,
+  );
+  if (trigger === undefined) return null;
+  return trigger.type === "chi_called"
+    ? "chi"
+    : trigger.type === "pon_called"
+      ? "pon"
+      : null;
 }
 
 export function buildMortalFullGameBindingPlan(
@@ -446,8 +495,13 @@ export async function runMortalFullGameReview(input: {
   readonly report: MortalFetchedReport;
   readonly engine: HandStructureFactEnginePort;
   readonly now?: () => number;
+  // M6-A3: branches stay fail-closed until real E2E acceptance evidence is
+  // recorded. Tests and the acceptance runner inject a registry; production
+  // callers get the frozen empty default.
+  readonly coverageRegistry?: MortalCoverageRegistry;
 }): Promise<MortalFullGameReviewResult> {
   const now = input.now ?? Date.now;
+  const registry = input.coverageRegistry ?? EMPTY_MORTAL_COVERAGE_REGISTRY;
 
   const inputError = validateFullGameInputs(input.stream, input.decisions);
   if (inputError !== null) {
@@ -492,23 +546,33 @@ export async function runMortalFullGameReview(input: {
   const unsupportedReasonCounts: Partial<Record<MortalUnsupportedReason, number>> = {};
   const modelIncompleteReasonCounts: Partial<Record<MortalModelIncompleteReason, number>> = {};
   const analysisBlockedReasonCounts: Partial<Record<MortalAnalysisBlockedReason, number>> = {};
+  const coverageBranchEncounters: Partial<Record<MortalCoverageBranch, number>> = {};
+  const coverageBranchUncoveredBlocks: Partial<Record<MortalCoverageBranch, number>> = {};
 
   for (const row of rows) {
     const decision = input.decisions[row.decisionOrdinal]!;
     const local = localSupport(decision);
     const support = local.support;
 
-    // Mortal candidate set must also be A1-representable for a bound row.
+    // Mortal candidate set must be A1-representable for this window kind.
+    // M6-A3 generalizes the A2 dahai-only gate into per-kind candidate type
+    // tables (self_turn / post_call / post_riichi).
     let effectiveSupport = support;
     let unsupportedReason = local.reason;
     const boundSourceEntry = row.sourceEntry;
+    const allowedCandidateTypes = supportedCandidateTypesForWindow(
+      decision.snapshot.privateState.decisionWindow.kind,
+    );
     if (
       row.binding === "bound"
       && support === "supported"
       && boundSourceEntry !== null
-      && !(
-        boundSourceEntry.details.length > 0
-        && boundSourceEntry.details.every((detail) => detail.action.type === "dahai")
+      && (
+        allowedCandidateTypes === null
+        || boundSourceEntry.details.length === 0
+        || !boundSourceEntry.details.every((detail) =>
+          allowedCandidateTypes.has(detail.action.type)
+        )
       )
     ) {
       effectiveSupport = "unsupported";
@@ -598,14 +662,10 @@ export async function runMortalFullGameReview(input: {
       continue;
     }
 
-    // Local actual authority pre-check (exact cross-check before pipeline).
-    const localActual = decision.actualDiscard!;
-    if (
-      row.sourceEntry.actual.type !== "dahai"
-      || row.sourceEntry.actual.actor !== decision.snapshot.selfActor
-      || row.sourceEntry.actual.pai !== formatMjaiTile(localActual.tile)
-      || row.sourceEntry.actual.tsumogiri !== (localActual.discardMode === "tsumogiri")
-    ) {
+    // Local actual authority pre-check: type-level correspondence between the
+    // Mortal actual row and the locally derived actual action (ADR-0001:
+    // tiles stay local-authoritative; riichi cross-checks type + actor only).
+    if (!mortalActualMatchesLocal(row.sourceEntry.actual, decision)) {
       ledger.push({
         decisionOrdinal: row.decisionOrdinal,
         roundOrdinal: row.roundOrdinal,
@@ -619,6 +679,57 @@ export async function runMortalFullGameReview(input: {
         modelSummary: null,
       });
       outcomeCounts.binding_mismatch += 1;
+      continue;
+    }
+
+    // M6-A3 coverage gate: classify which semantic branches this bound row
+    // exercises; any branch without a recorded real E2E hit fails the row
+    // closed. Synthetic fixtures can never lift the registry.
+    const windowKind = decision.snapshot.privateState.decisionWindow.kind;
+    // Response surfaces (M6-A4) never bind in the identity matcher, so a row
+    // reaching this point is always one of the three replay kinds; narrow for
+    // the classifier's type. M6-A4 GUARD: when response identity tables land,
+    // response rows would silently bypass this gate (coverageWindowKind null
+    // → no branches → no coverage accounting) — response branches must be
+    // added to the matrix BEFORE response binding is enabled.
+    const coverageWindowKind =
+      windowKind === "self_turn"
+      || windowKind === "post_call_discard"
+      || windowKind === "post_riichi_discard"
+        ? windowKind
+        : null;
+    const coverageBranches = coverageWindowKind === null ? [] : classifyCoverageBranches({
+      windowKind: coverageWindowKind,
+      actualActionKind: decision.actualAction?.kind ?? null,
+      callKind: callKindForDecision(stream, decision),
+      candidateActionTypes: row.sourceEntry.details.map((detail) => detail.action.type),
+    });
+    for (const branch of coverageBranches) {
+      coverageBranchEncounters[branch] = (coverageBranchEncounters[branch] ?? 0) + 1;
+    }
+    const uncoveredBranches = coverageBranches.filter(
+      (branch) => !registry.isCovered(branch),
+    );
+    if (uncoveredBranches.length > 0) {
+      for (const branch of uncoveredBranches) {
+        coverageBranchUncoveredBlocks[branch] =
+          (coverageBranchUncoveredBlocks[branch] ?? 0) + 1;
+      }
+      ledger.push({
+        decisionOrdinal: row.decisionOrdinal,
+        roundOrdinal: row.roundOrdinal,
+        binding: row.binding,
+        support,
+        review: "not_attempted",
+        outcome: "unsupported_action",
+        reason: "coverage_branch_uncovered",
+        sourceEntryRef: row.sourceEntryRef,
+        sourceOrdinal: row.sourceOrdinal,
+        modelSummary: null,
+      });
+      outcomeCounts.unsupported_action += 1;
+      unsupportedReasonCounts.coverage_branch_uncovered =
+        (unsupportedReasonCounts.coverage_branch_uncovered ?? 0) + 1;
       continue;
     }
 
@@ -691,10 +802,20 @@ export async function runMortalFullGameReview(input: {
     }
 
     if (result.status === "not_comparable") {
+      // A degenerate candidate set on a terminal window (tsumo/ankan/kakan/
+      // kyuushu actual) is attributed to the M6-A3 terminal surface, not to
+      // the generic degenerate-set reason.
+      const terminalActual =
+        decision.actualAction?.kind === "tsumo"
+        || decision.actualAction?.kind === "ankan"
+        || decision.actualAction?.kind === "kakan"
+        || decision.actualAction?.kind === "kyuushu_kyuuhai";
       const reason: MortalModelIncompleteReason =
         result.code === "cross_decision_window"
           ? "cross_decision_window"
-          : "fewer_than_two_distinct_actions";
+          : terminalActual && result.code === "fewer_than_two_distinct_actions"
+            ? "terminal_window_action_unsupported"
+            : "fewer_than_two_distinct_actions";
       ledger.push({
         decisionOrdinal: row.decisionOrdinal,
         roundOrdinal: row.roundOrdinal,
@@ -786,8 +907,6 @@ export async function runMortalFullGameReview(input: {
   const graphAmbiguousSourceOrdinals = new Set(ambiguousSourceOrdinals);
   const sourceUnboundReasonCounts: Partial<Record<MortalSourceUnboundReason, number>> = {};
   for (const reason of [
-    "post_call_discard_not_replayed",
-    "post_riichi_discard_not_replayed",
     "local_terminal_action_not_replayed",
     "identity_fact_mismatch",
     "source_semantics_not_understood",
@@ -872,6 +991,8 @@ export async function runMortalFullGameReview(input: {
     modelIncompleteReasons: Object.freeze(modelIncompleteReasonCounts),
     analysisBlockedReasons: Object.freeze(analysisBlockedReasonCounts),
     sourceUnboundReasons: Object.freeze(sourceUnboundReasonCounts),
+    coverageBranchEncounters: Object.freeze(coverageBranchEncounters),
+    coverageBranchUncoveredBlocks: Object.freeze(coverageBranchUncoveredBlocks),
   });
 
   return {

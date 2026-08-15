@@ -81,23 +81,143 @@ function sameTile(
   return left.id === right.id && left.red === right.red;
 }
 
-function localActualAction(decision: ReplayedDecision): MortalSourceAction {
-  const actualDiscard = decision.actualDiscard;
-  // M6-A1 does NOT support riichi discards yet. A tile_discarded event that
-  // declares riichi must fail closed before Mortal import — it must never be
-  // downgraded to an ordinary `dahai`.
-  if (
-    actualDiscard === null
-    || actualDiscard.riichiDeclarationEventRef !== null
-  ) {
+// M6-A3: the local actual is a typed action sequence in the source's mjai
+// shape. Every tile comes from local canonical events — never from the
+// Mortal row (ADR-0001).
+function localActualEnvelopes(
+  decision: ReplayedDecision,
+): Array<{ eventRef: string; action: MortalSourceAction }> {
+  const actual = decision.actualAction;
+  if (actual === null) {
+    // No representable self action resolved the window (e.g. a pure round
+    // end). Fail closed before Mortal import.
     throw new MortalSourceError("mortal_decision_unsupported_entry");
   }
-  return {
+  const actor = decision.snapshot.selfActor;
+  const eventRef = actualEventRef(decision);
+  const dahai = (tile: Tile, tsumogiri: boolean) => ({
     type: "dahai",
-    actor: decision.snapshot.selfActor,
-    pai: formatMjaiTile(actualDiscard.tile),
-    tsumogiri: actualDiscard.discardMode === "tsumogiri",
-  };
+    actor,
+    pai: formatMjaiTile(tile),
+    tsumogiri,
+  });
+  switch (actual.kind) {
+    case "discard":
+      return [{
+        eventRef,
+        action: dahai(actual.tile, actual.discardMode === "tsumogiri"),
+      }];
+    case "riichi_discard":
+      // The full declaration: a tile-less reach plus the authoritative local
+      // discard — exactly the sequence the adapter unifies into
+      // riichi_discard and matches to the declare_riichi model row.
+      return [
+        { eventRef, action: { type: "reach", actor } },
+        {
+          eventRef,
+          action: dahai(actual.tile, actual.discardMode === "tsumogiri"),
+        },
+      ];
+    case "tsumo":
+      return [{
+        eventRef,
+        action: {
+          type: "hora",
+          actor,
+          target: actor,
+          pai: formatMjaiTile(actual.winningTile),
+        },
+      }];
+    case "ankan":
+      return [{
+        eventRef,
+        action: {
+          type: "ankan",
+          actor,
+          consumed: actual.tiles.map((tile) => formatMjaiTile(tile)),
+        },
+      }];
+    case "kakan":
+      return [{
+        eventRef,
+        action: {
+          type: "kakan",
+          actor,
+          pai: formatMjaiTile(actual.addedTile),
+          existingMeldRef: actual.existingMeldRef,
+        },
+      }];
+    case "kyuushu_kyuuhai":
+      return [{
+        eventRef,
+        action: { type: "ryukyoku", actor, reason: "kyuushu_kyuuhai" },
+      }];
+    default:
+      throw new MortalSourceError("mortal_decision_unsupported_entry");
+  }
+}
+
+function asStringArray(value: unknown): readonly string[] | null {
+  if (!Array.isArray(value)) return null;
+  return value.every((item) => typeof item === "string") ? value : null;
+}
+
+function sameStringMultiset(
+  left: readonly string[],
+  right: readonly string[],
+): boolean {
+  if (left.length !== right.length) return false;
+  const sortedLeft = [...left].sort();
+  const sortedRight = [...right].sort();
+  return sortedLeft.every((item, index) => item === sortedRight[index]);
+}
+
+// P6 (M6-A3): the local actual is authoritative; the Mortal actual row is a
+// cross-check by TYPE CORRESPONDENCE — riichi_discard ↔ tile-less reach,
+// tsumo ↔ hora targeting self, ankan ↔ consumed multiset. Never tile
+// equality on the riichi side: the source cannot carry the authoritative
+// tile.
+export function mortalActualMatchesLocal(
+  actual: MortalSourceAction,
+  decision: ReplayedDecision,
+): boolean {
+  const actor = decision.snapshot.selfActor;
+  const local = decision.actualAction;
+  if (local === null) return false;
+  switch (local.kind) {
+    case "discard":
+      return actual.type === "dahai"
+        && actual.actor === actor
+        && actual.pai === formatMjaiTile(local.tile)
+        && actual.tsumogiri === (local.discardMode === "tsumogiri");
+    case "riichi_discard":
+      return actual.type === "reach" && actual.actor === actor;
+    case "tsumo":
+      return (actual.type === "hora" || actual.type === "agari")
+        && actual.actor === actor
+        && actual.target === actor
+        && actual.pai === formatMjaiTile(local.winningTile);
+    case "ankan": {
+      if (actual.type !== "ankan" || actual.actor !== actor) return false;
+      const consumed = asStringArray(actual.consumed);
+      return consumed !== null
+        && sameStringMultiset(
+          consumed,
+          local.tiles.map((tile) => formatMjaiTile(tile)),
+        );
+    }
+    case "kakan":
+      return actual.type === "kakan"
+        && actual.actor === actor
+        && actual.pai === formatMjaiTile(local.addedTile);
+    case "kyuushu_kyuuhai":
+      return actual.type === "ryukyoku"
+        && actual.actor === actor
+        && (actual.reason === "kyuushu_kyuuhai"
+          || actual.reason === "kyushukyuhai");
+    default:
+      return false;
+  }
 }
 
 export function entryMatchesDecisionIdentity(
@@ -106,11 +226,8 @@ export function entryMatchesDecisionIdentity(
 ): boolean {
   const snapshot = decision.snapshot;
   const privateState = snapshot.privateState;
-  if (privateState.decisionWindow.kind !== "self_turn") return false;
-  const currentDraw = privateState.currentDraw;
-  if (currentDraw === null) return false;
-
   const publicState = snapshot.publicState;
+  const window = privateState.decisionWindow;
 
   // Round identity: canonical round occurrence, wind, dealer, and honba.
   // These are public facts on both sides and are proven by fingerprint v2,
@@ -120,29 +237,59 @@ export function entryMatchesDecisionIdentity(
   if (entry.dealer !== publicState.dealer) return false;
   if (entry.honba !== publicState.honba) return false;
 
-  const drawnTile = parseMjaiTile(entry.tile);
-  if (!sameTile(drawnTile, currentDraw.tile)) return false;
-
   if (
     publicState.fields.remainingDraws === "complete" &&
     publicState.remainingDraws !== null &&
     entry.tilesLeft !== publicState.remainingDraws
   ) return false;
 
-  const selfRiichi = publicState.riichiStates[snapshot.selfActor]!.status !== "none";
-  if (entry.atSelfRiichi !== selfRiichi) return false;
+  const sameHand = (handTiles: readonly Tile[]): boolean => {
+    const mortalHand = sortTilesCanonical(entryStateTiles(entry));
+    const canonicalHand = sortTilesCanonical(handTiles);
+    if (mortalHand.length !== canonicalHand.length) return false;
+    return canonicalHand.every((tile, index) =>
+      sameTile(mortalHand[index]!, tile)
+    );
+  };
 
-  const mortalHand = sortTilesCanonical(entryStateTiles(entry));
-  const canonicalHand = sortTilesCanonical([
-    ...privateState.concealedTiles,
-    currentDraw.tile,
-  ]);
-  if (mortalHand.length !== canonicalHand.length) return false;
-  for (let index = 0; index < canonicalHand.length; index += 1) {
-    if (!sameTile(mortalHand[index]!, canonicalHand[index]!)) return false;
+  if (window.kind === "self_turn") {
+    const currentDraw = privateState.currentDraw;
+    if (currentDraw === null) return false;
+    // Surface flags: a self-turn row is neither a post-call nor a
+    // post-riichi row.
+    if (entry.atSelfChiPon) return false;
+    const selfRiichi =
+      publicState.riichiStates[snapshot.selfActor]!.status !== "none";
+    if (entry.atSelfRiichi !== selfRiichi) return false;
+    const drawnTile = parseMjaiTile(entry.tile);
+    if (!sameTile(drawnTile, currentDraw.tile)) return false;
+    return sameHand([...privateState.concealedTiles, currentDraw.tile]);
   }
 
-  return true;
+  if (window.kind === "post_call_discard") {
+    // The 11-tile concealed multiset right after the call; there is no draw
+    // in this window, so the draw-tile fact is not part of the table.
+    if (!entry.atSelfChiPon) return false;
+    if (entry.atSelfRiichi) return false;
+    return sameHand(privateState.concealedTiles);
+  }
+
+  if (window.kind === "post_riichi_discard") {
+    // The declaration turn's discard window: riichi is declared (not yet
+    // accepted) and the turn's draw is still in hand. This is the identity
+    // of Mortal's same-turn at_self_riichi=true dahai row.
+    if (entry.atSelfChiPon) return false;
+    if (!entry.atSelfRiichi) return false;
+    if (
+      publicState.riichiStates[snapshot.selfActor]!.status === "none"
+    ) return false;
+    const currentDraw = privateState.currentDraw;
+    if (currentDraw === null) return false;
+    return sameHand([...privateState.concealedTiles, currentDraw.tile]);
+  }
+
+  // Response surfaces are M6-A4: no identity table here yet.
+  return false;
 }
 
 function entryStateTiles(entry: MortalReportDecisionEntry): Tile[] {
@@ -205,9 +352,48 @@ function buildFrame(
   });
 }
 
-function isSupportedA1Entry(entry: MortalReportDecisionEntry): boolean {
+// M6-A3: the candidate gate is per decision surface. Raw mjai candidate
+// types outside a surface's closed set are a defensive fail-closed path
+// (`mortal_candidate_action_not_supported`) — live reports are expected to
+// stay inside the set.
+const supportedCandidateTypesByWindowKind: Readonly<
+  Record<string, ReadonlySet<string>>
+> = {
+  // "agari" is accepted alongside "hora": Mortal's win action serialization
+  // has been seen under both vocabularies (mjai event vs ACTION_SPACE label).
+  self_turn: new Set([
+    "dahai",
+    "reach",
+    "ankan",
+    "kakan",
+    "hora",
+    "agari",
+    "ryukyoku",
+  ]),
+  // Riichi requires a concealed hand; a chi/pon call opens it, so a
+  // post-call window's candidate set is plain discards only.
+  post_call_discard: new Set(["dahai"]),
+  // Riichi is declared (not yet accepted) at this window: the same-turn
+  // discard is locked, so only the plain discard remains.
+  post_riichi_discard: new Set(["dahai"]),
+};
+
+export function supportedCandidateTypesForWindow(
+  windowKind: string,
+): ReadonlySet<string> | null {
+  return supportedCandidateTypesByWindowKind[windowKind] ?? null;
+}
+
+function isSupportedEntry(
+  entry: MortalReportDecisionEntry,
+  decision: ReplayedDecision,
+): boolean {
+  const allowed = supportedCandidateTypesForWindow(
+    decision.snapshot.privateState.decisionWindow.kind,
+  );
+  if (allowed === null) return false;
   return entry.details.length > 0 &&
-    entry.details.every((detail) => detail.action.type === "dahai");
+    entry.details.every((detail) => allowed.has(detail.action.type));
 }
 
 function collectIdentityMatches(
@@ -254,7 +440,7 @@ function anchorEntry(
     return { status: "failed", code: "mortal_decision_anchor_ambiguous" };
   }
   const entry = matches[0]!;
-  if (!isSupportedA1Entry(entry)) {
+  if (!isSupportedEntry(entry, decision)) {
     return { status: "failed", code: "mortal_decision_unsupported_entry" };
   }
   return {
@@ -345,23 +531,25 @@ export async function runBoundMortalDecisionReview(input: {
     const reportIdHash = hashMortalReportId(input.report.reportId);
     const anchor = makeAnchor(input.report, input.decision, input.entry);
 
-    // P0-1: ordinary self-turn discards only in this slice.
-    const localActual = localActualAction(input.decision);
+    // P0-1 (M6-A3): the local actual must be a typed action on this surface;
+    // every tile stays local-authoritative.
+    const localEnvelopes = localActualEnvelopes(input.decision);
 
-    // P6: local actual authority; Mortal actual is a cross-check only.
-    if (
-      input.entry.actual.type !== "dahai" ||
-      input.entry.actual.actor !== localActual.actor ||
-      input.entry.actual.pai !== localActual.pai ||
-      input.entry.actual.tsumogiri !== localActual.tsumogiri
-    ) {
+    // P6: local actual authority; the Mortal actual is a type-correspondence
+    // cross-check only.
+    if (!mortalActualMatchesLocal(input.entry.actual, input.decision)) {
       throw new MortalSourceError("mortal_decision_actual_mismatch");
     }
 
     // P7: pure projection into the candidate normalizer's action-fact shape.
     const actionFacts = projectActionFacts(input.decision);
 
-    // P8: reuse the structured Mortal import.
+    // P8: reuse the structured Mortal import. A kakan candidate needs the
+    // upgraded pon ref; the local actual owns it, so it flows in as adapter
+    // context for every model row.
+    const kakanMeldHint = input.decision.actualAction?.kind === "kakan"
+      ? input.decision.actualAction.existingMeldRef
+      : undefined;
     const decisionLayerRef = `mortal-review:${reportIdHash}:${input.decision.decisionEventRef}`;
     const comparisonSetId = `mortal-comparison:${reportIdHash}:${input.decision.decisionEventRef}`;
     const imported = importStructuredMortalComparison({
@@ -375,13 +563,11 @@ export async function runBoundMortalDecisionReview(input: {
         }],
         probability: detail.probability,
         qValue: detail.qValue,
+        ...(kakanMeldHint === undefined
+          ? {}
+          : { existingMeldRef: kakanMeldHint }),
       })),
-      actual: {
-        actions: [{
-          eventRef: actualEventRef(input.decision),
-          action: localActual,
-        }],
-      },
+      actual: { actions: localEnvelopes },
     });
     if (imported.status === "incomplete") {
       return {
@@ -504,8 +690,8 @@ export async function runMortalSingleDecisionReview(input: {
     // Whole-report preflight: game identity + perspective.
     validateMortalReportBinding(stream, input.report);
 
-    // P0-1: ordinary self-turn discards only in this slice.
-    localActualAction(input.decision);
+    // P0-1 (M6-A3): the local actual must be a typed action on this surface.
+    localActualEnvelopes(input.decision);
 
     // P5: exact 1:1 anchor.
     const anchored = anchorEntry(input.report, input.decision);

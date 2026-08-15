@@ -264,6 +264,11 @@ function completeAction(
   let candidate: unknown;
 
   switch (draft.kind) {
+    case "declare_riichi":
+      // Tile-less by contract (ADR-0001): nothing to complete, and any tile
+      // realization belongs to the actual side only.
+      candidate = { kind: "declare_riichi" };
+      break;
     case "discard":
     case "riichi_discard": {
       const inferredSourceMode =
@@ -745,6 +750,7 @@ const allowedDraftKinds: Record<
   self_turn: [
     "discard",
     "riichi_discard",
+    "declare_riichi",
     "ankan",
     "kakan",
     "tsumo",
@@ -752,7 +758,12 @@ const allowedDraftKinds: Record<
   ],
   discard_response: ["chi", "pon", "daiminkan", "ron", "pass"],
   kan_response: ["ron", "pass"],
+  // Riichi requires a concealed hand; a chi/pon call opens it, so a
+  // post-call window admits only the tedashi plain discard.
   post_call_discard: ["discard"],
+  // Riichi is declared (not yet accepted) at this window: the same-turn
+  // discard is locked, so only the plain discard remains.
+  post_riichi_discard: ["discard"],
 };
 
 function directDraftConflicts(
@@ -1005,7 +1016,7 @@ function directDraftConflicts(
   }
   if (
     window.kind === "post_call_discard" &&
-    draft.kind === "discard" &&
+    (draft.kind === "discard" || draft.kind === "riichi_discard") &&
     draft.discardMode === "tsumogiri"
   ) {
     conflictCodes.push("post_call_discard_requires_tedashi");

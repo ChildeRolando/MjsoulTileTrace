@@ -74,10 +74,11 @@ const actions: RiichiAction[] = [
     responseEventRef: "event:discard",
     responseKind: "discard",
   },
+  { kind: "declare_riichi" },
 ];
 
 describe("structured riichi actions", () => {
-  it("round-trips all eleven action variants", () => {
+  it("round-trips all twelve action variants", () => {
     expect(actions.map((action) =>
       RiichiActionSchema.parse(JSON.parse(JSON.stringify(action))).kind
     )).toEqual([
@@ -92,6 +93,7 @@ describe("structured riichi actions", () => {
       "ron",
       "kyuushu_kyuuhai",
       "pass",
+      "declare_riichi",
     ]);
   });
 
@@ -284,5 +286,91 @@ describe("decision windows", () => {
       offeredTile: tile("5p"),
       kanKind: "kakan",
     })).toThrow(/Response window actor cannot equal source actor/);
+  });
+});
+
+describe("M6-A3 tile-less declare_riichi candidate and post-riichi window", () => {
+  const declareRiichi: RiichiAction = { kind: "declare_riichi" };
+  const selfTurn = DecisionWindowSchema.parse({
+    kind: "self_turn",
+    actor: 0,
+    triggerEventRef: "event:draw",
+  });
+  const postCall = DecisionWindowSchema.parse({
+    kind: "post_call_discard",
+    actor: 0,
+    triggerEventRef: "event:chi",
+  });
+  const postRiichi = DecisionWindowSchema.parse({
+    kind: "post_riichi_discard",
+    actor: 0,
+    triggerEventRef: "event:riichi_accepted",
+  });
+
+  it("parses declare_riichi as a strict tile-less action", () => {
+    expect(RiichiActionSchema.parse(declareRiichi)).toEqual({
+      kind: "declare_riichi",
+    });
+    expect(() => RiichiActionSchema.parse({
+      kind: "declare_riichi",
+      tile: tile("5p"),
+      discardMode: "tedashi",
+    })).toThrow();
+  });
+
+  it("parses the post_riichi_discard window variant", () => {
+    expect(DecisionWindowSchema.parse({
+      kind: "post_riichi_discard",
+      actor: 2,
+      triggerEventRef: "event:riichi_accepted",
+    }).kind).toBe("post_riichi_discard");
+    expect(() => DecisionWindowSchema.parse({
+      kind: "post_riichi_discard",
+      actor: 2,
+      triggerEventRef: "event:riichi_accepted",
+      offeredTile: tile("5p"),
+    })).toThrow();
+  });
+
+  it("allows declare_riichi only in the pre-declaration self-turn window", () => {
+    expect(actionWindowConflictCodes(declareRiichi, selfTurn)).toEqual([]);
+    // Riichi requires a concealed hand: a chi/pon call opens it, so a
+    // post-call window can never carry a riichi candidate.
+    expect(actionWindowConflictCodes(declareRiichi, postCall)).toEqual([
+      "action_not_allowed_in_window",
+    ]);
+    expect(actionWindowConflictCodes(declareRiichi, postRiichi)).toEqual([
+      "action_not_allowed_in_window",
+    ]);
+  });
+
+  it("restricts the post-call window to tedashi plain discards", () => {
+    expect(actionWindowConflictCodes(
+      { kind: "discard", tile: tile("5p"), discardMode: "tedashi" },
+      postCall,
+    )).toEqual([]);
+    expect(actionWindowConflictCodes(
+      { kind: "discard", tile: tile("5p"), discardMode: "tsumogiri" },
+      postCall,
+    )).toContain("post_call_discard_requires_tedashi");
+    expect(actionWindowConflictCodes(
+      { kind: "riichi_discard", tile: tile("5p"), discardMode: "tedashi" },
+      postCall,
+    )).toEqual(["action_not_allowed_in_window"]);
+  });
+
+  it("restricts the post-riichi window to discard actions", () => {
+    expect(actionWindowConflictCodes(
+      { kind: "discard", tile: tile("5p"), discardMode: "tedashi" },
+      postRiichi,
+    )).toEqual([]);
+    expect(actionWindowConflictCodes(
+      { kind: "riichi_discard", tile: tile("5p"), discardMode: "tedashi" },
+      postRiichi,
+    )).toEqual(["action_not_allowed_in_window"]);
+    expect(actionWindowConflictCodes(
+      { kind: "ankan", tiles: [tile("5p"), tile("5p"), tile("5p"), tile("5p")] },
+      postRiichi,
+    )).toEqual(["action_not_allowed_in_window"]);
   });
 });

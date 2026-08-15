@@ -50,6 +50,8 @@ export function canonicalActionTuple(
       ];
     case "kyuushu_kyuuhai":
       return [action.kind, action.drawEventRef];
+    case "declare_riichi":
+      return [action.kind];
     case "pass":
       return [action.kind, action.responseEventRef, action.responseKind];
   }

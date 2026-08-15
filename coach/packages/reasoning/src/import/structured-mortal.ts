@@ -62,7 +62,8 @@ export type StructuredMortalImportResult =
         "self_turn" |
         "discard_response" |
         "kan_response" |
-        "post_call_discard"
+        "post_call_discard" |
+        "post_riichi_discard"
       >;
     };
 
@@ -187,27 +188,63 @@ export function importStructuredMortalComparison(input: {
       diagnostics: ["duplicate_model_action"],
     };
   }
-  if (!modelRefs.includes(actual.candidate.actionRef)) {
-    return {
-      status: "incomplete",
-      diagnostics: ["actual_action_not_scored"],
-    };
+
+  // M6-A3 (ADR-0001): in a riichi window the model's riichi alternative is the
+  // tile-less declare_riichi while the actual realization is the concrete
+  // riichi_discard with the authoritative local tile. They are the SAME
+  // alternative, matched by type correspondence — never by tile equality. The
+  // declare_riichi model row becomes the scored carrier of the concrete
+  // actual; without such a row the riichi actual was not model-scored.
+  let riichiUnificationRow: StructuredMortalModelRow | undefined;
+  let comparisonCandidates: ReadyNormalization[];
+  if (actual.candidate.action.kind === "riichi_discard") {
+    riichiUnificationRow = modelRows.find((row) =>
+      row.normalized.candidate.action.kind === "declare_riichi"
+    );
+    if (riichiUnificationRow === undefined) {
+      return {
+        status: "incomplete",
+        diagnostics: ["actual_action_not_scored"],
+      };
+    }
+    comparisonCandidates = modelRows.map((row) =>
+      row === riichiUnificationRow
+        ? {
+          ...row.normalized,
+          candidate: {
+            actionRef: actual.candidate.actionRef,
+            action: actual.candidate.action,
+            origins: ["model" as const, "actual" as const],
+          },
+        }
+        : row.normalized,
+    );
+  } else {
+    if (!modelRefs.includes(actual.candidate.actionRef)) {
+      return {
+        status: "incomplete",
+        diagnostics: ["actual_action_not_scored"],
+      };
+    }
+    comparisonCandidates = [
+      ...modelRows.map((row) => row.normalized),
+      actual,
+    ];
   }
 
   const built = buildStructuredComparisonSet({
     comparisonSetId: input.comparisonSetId,
     origin: "automatic_review",
     decisionLayerRef: input.decisionLayerRef,
-    candidates: [
-      ...modelRows.map((row) => row.normalized),
-      actual,
-    ],
+    candidates: comparisonCandidates,
   });
   if (built.status !== "ready") {
     return built;
   }
   const scoreByRef = new Map(modelRows.map((row) => [
-    row.normalized.candidate.actionRef,
+    row === riichiUnificationRow
+      ? actual.candidate.actionRef
+      : row.normalized.candidate.actionRef,
     row,
   ]));
   return {

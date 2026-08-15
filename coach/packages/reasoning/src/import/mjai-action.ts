@@ -215,14 +215,19 @@ export function adaptMjaiActionSequence(
       return unsupported("mjai_actor_mismatch");
     }
     const second = rawSequence[1];
-    if (second === undefined || second.action.type !== "dahai") {
-      return SourceActionAdaptationResultSchema.parse({
-        status: "incomplete",
-        sourceType: "mjai",
-        diagnosticCode: "reach_without_dahai",
-        missingFields: ["tile", "discardMode"],
-        factRefs: rawSequence.map((entry) => entry.eventRef),
-      });
+    if (second === undefined) {
+      // M6-A3 (ADR-0001): an isolated reach is the model-side riichi
+      // alternative. Mortal's action space has a single riichi index and the
+      // mjai reach event carries no tile, so the discard realization is
+      // structurally unrecoverable — the candidate stays tile-less wherever
+      // riichi can still be declared.
+      if (context.decisionWindow.kind === "self_turn") {
+        return ready({ kind: "declare_riichi" }, [first.eventRef]);
+      }
+      return unsupported("mjai_reach_window_mismatch");
+    }
+    if (second.action.type !== "dahai") {
+      return unsupported("mjai_sequence");
     }
     if (rawSequence.length !== 2) {
       return unsupported("mjai_sequence");
@@ -266,7 +271,12 @@ export function adaptMjaiActionSequence(
     "daiminkan",
     "ankan",
     "kakan",
+    // Mortal's serialized win action has been seen as both "hora" (mjai
+    // event vocabulary) and "agari" (ACTION_SPACE vocabulary, per the M6-A3
+    // mapping table). Both are accepted and mapped identically; live corpus
+    // data will show which serialization the reports actually carry.
     "hora",
+    "agari",
     "ryukyoku",
     "none",
   ]);
@@ -331,7 +341,8 @@ export function adaptMjaiActionSequence(
             ? {}
             : { existingMeldRef: context.existingMeldRef }),
       }, [first.eventRef]);
-    case "hora": {
+    case "hora":
+    case "agari": {
       const targetActor = target(action);
       if (context.decisionWindow.kind === "self_turn") {
         if (targetActor !== actionActor) {

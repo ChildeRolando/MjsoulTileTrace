@@ -13,7 +13,9 @@ import type {
   ThreatRiskFactResult,
 } from "@riichi-coach/contracts";
 import {
+  computeCanonicalGameFingerprint,
   computeMortalGameFingerprint,
+  formatMjaiTile,
   parseMjaiTile,
   type MortalFetchedReport,
   type MortalReportDecisionEntry,
@@ -26,6 +28,12 @@ import {
   buildMortalFullGameBindingPlan,
   runMortalFullGameReview,
 } from "../src/analysis/mortal-full-game-review.js";
+import { createMortalCoverageRegistry } from "../src/analysis/mortal-coverage-registry.js";
+import {
+  canonicalStartEvents,
+  canonicalStream,
+  canonicalTile,
+} from "./fixtures/canonical-stream.js";
 import { bridgeLegacyRegressionEvents } from "../src/import/legacy-event-stream-bridge.js";
 import { importRegressionFixture } from "../src/import/mortal-report.js";
 import {
@@ -495,7 +503,7 @@ describe("runMortalFullGameReview", () => {
     expect(review.summary.sourceConservation).toBe(0);
   });
 
-  it("classifies an unbound post-call source row with a fixed reason", async () => {
+  it("classifies an unbound post-call source row as an identity failure", async () => {
     const fixture = await legacySetup();
     const entry = legacyEntryToMortalEntry(fixture.raw.decisions[0]!);
     const postCall = Object.freeze({
@@ -511,11 +519,13 @@ describe("runMortalFullGameReview", () => {
     });
     expect(review.status).toBe("coverage_ready");
     if (review.status !== "coverage_ready") return;
+    // M6-A3: post-call windows are enumerated locally, so a degree-0 row in
+    // this shape is identity debt, not enumeration debt.
     expect(review.sourceCoverage.unboundMortalEntryCount).toBe(1);
     expect(review.sourceCoverage.entries[0]!.unboundReason).toBe(
-      "post_call_discard_not_replayed",
+      "identity_fact_mismatch",
     );
-    expect(review.summary.sourceUnboundReasons.post_call_discard_not_replayed).toBe(1);
+    expect(review.summary.sourceUnboundReasons.identity_fact_mismatch).toBe(1);
   });
 
   it("marks both source rows ambiguous when one local matches two source rows", async () => {
@@ -599,7 +609,7 @@ describe("runMortalFullGameReview", () => {
     );
   });
 
-  it("classifies a degree-0 hora row as local_terminal_action_not_replayed", async () => {
+  it("classifies a degree-0 hora row as an identity failure", async () => {
     const fixture = await legacySetup();
     const entry = Object.freeze({
       ...legacyEntryToMortalEntry(fixture.raw.decisions[0]!),
@@ -614,12 +624,14 @@ describe("runMortalFullGameReview", () => {
     });
     expect(review.status).toBe("coverage_ready");
     if (review.status !== "coverage_ready") return;
+    // M6-A3: tsumo terminal windows are enumerated locally, so a degree-0
+    // win row is identity debt.
     expect(review.sourceCoverage.entries[0]!.unboundReason).toBe(
-      "local_terminal_action_not_replayed",
+      "identity_fact_mismatch",
     );
   });
 
-  it("classifies a degree-0 unknown non-dahai row as source_semantics_not_understood", async () => {
+  it("classifies a degree-0 ryukyoku row as local terminal coverage debt", async () => {
     const fixture = await legacySetup();
     const entry = Object.freeze({
       ...legacyEntryToMortalEntry(fixture.raw.decisions[0]!),
@@ -634,8 +646,10 @@ describe("runMortalFullGameReview", () => {
     });
     expect(review.status).toBe("coverage_ready");
     if (review.status !== "coverage_ready") return;
+    // Kyuushu attribution depends on the mapper carrying the abort; a
+    // degree-0 row is local terminal coverage debt.
     expect(review.sourceCoverage.entries[0]!.unboundReason).toBe(
-      "source_semantics_not_understood",
+      "local_terminal_action_not_replayed",
     );
   });
 
@@ -664,5 +678,350 @@ describe("runMortalFullGameReview", () => {
     expect(
       review.decisions.reduce((sum, row) => sum + (row.outcome === "no_mortal_entry" ? 1 : 0), 0),
     ).toBe(decisions.length - 1);
+  });
+});
+
+function entryForDecision(
+  decision: ReplayedDecision,
+  overrides: Partial<MortalReportDecisionEntry> = {},
+): MortalReportDecisionEntry {
+  const pub = decision.snapshot.publicState;
+  const priv = decision.snapshot.privateState;
+  const draw = priv.currentDraw;
+  const hand = draw === null
+    ? [...priv.concealedTiles]
+    : [...priv.concealedTiles, draw.tile];
+  return fakeEntry({
+    roundOrdinal: pub.roundOrdinal,
+    roundWind: pub.roundWind,
+    dealer: pub.dealer,
+    honba: pub.honba,
+    tilesLeft: pub.remainingDraws ?? 70,
+    tile: draw === null ? "5p" : formatMjaiTile(draw.tile),
+    tehai: Object.freeze(hand.map(formatMjaiTile)),
+    ...overrides,
+  });
+}
+
+function riichiDeclarationStream(): CanonicalEventStream {
+  return canonicalStream([
+    ...canonicalStartEvents(),
+    {
+      type: "tile_drawn",
+      eventId: "game:fixture/0/2/0",
+      sourceRecordRef: "record:2",
+      actor: 0,
+      tile: { visibility: "visible", tile: canonicalTile("5p") },
+      from: "live_wall",
+    },
+    {
+      type: "riichi_declared",
+      eventId: "game:fixture/0/3/0",
+      sourceRecordRef: "record:3",
+      actor: 0,
+    },
+    {
+      type: "tile_discarded",
+      eventId: "game:fixture/0/4/0",
+      sourceRecordRef: "record:4",
+      actor: 0,
+      tile: canonicalTile("4p"),
+      discardMode: "tedashi",
+      riichiDeclarationEventRef: "game:fixture/0/3/0",
+    },
+    {
+      type: "riichi_accepted",
+      eventId: "game:fixture/0/5/0",
+      sourceRecordRef: "record:5",
+      actor: 0,
+      declarationEventRef: "game:fixture/0/3/0",
+    },
+  ]);
+}
+
+function tsumoTerminalStream(): CanonicalEventStream {
+  return canonicalStream([
+    ...canonicalStartEvents(),
+    {
+      type: "tile_drawn",
+      eventId: "game:fixture/0/2/0",
+      sourceRecordRef: "record:2",
+      actor: 0,
+      tile: { visibility: "visible", tile: canonicalTile("5p") },
+      from: "live_wall",
+    },
+    {
+      type: "win_declared",
+      eventId: "game:fixture/0/3/0",
+      sourceRecordRef: "record:3",
+      winnerActor: 0,
+      targetActor: null,
+      method: "tsumo",
+      winningTile: canonicalTile("5p"),
+      winSourceEventRef: "game:fixture/0/2/0",
+      scoreDeltas: null,
+    },
+    {
+      type: "round_ended",
+      eventId: "game:fixture/0/4/0",
+      sourceRecordRef: "record:4",
+      terminalEventRef: "game:fixture/0/3/0",
+    },
+  ]);
+}
+
+function riichiPairEntries(decisions: readonly ReplayedDecision[]): MortalReportDecisionEntry[] {
+  return [
+    entryForDecision(decisions[0]!, {
+      atSelfRiichi: false,
+      actual: { type: "reach", actor: 0 },
+      details: Object.freeze([{
+        action: { type: "reach", actor: 0 },
+        probability: 0.6,
+        qValue: 0.9,
+      }, {
+        action: { type: "dahai", actor: 0, pai: "9m", tsumogiri: false },
+        probability: 0.4,
+        qValue: 0.2,
+      }]),
+    }),
+    entryForDecision(decisions[1]!, {
+      atSelfRiichi: true,
+      actual: { type: "dahai", actor: 0, pai: "4p", tsumogiri: false },
+      details: Object.freeze([{
+        action: { type: "dahai", actor: 0, pai: "4p", tsumogiri: false },
+        probability: 0.9,
+        qValue: 1.1,
+      }, {
+        action: { type: "dahai", actor: 0, pai: "9m", tsumogiri: false },
+        probability: 0.1,
+        qValue: 0.05,
+      }]),
+    }),
+  ];
+}
+
+describe("M6-A3 per-window-kind identity tables", () => {
+  it("matches a post-riichi entry only to the post-riichi window, never the same turn's self-turn window", () => {
+    const stream = riichiDeclarationStream();
+    const decisions = replayCanonicalStream(stream);
+    expect(decisions).toHaveLength(2);
+    expect(decisions[0]!.snapshot.privateState.decisionWindow.kind).toBe("self_turn");
+    expect(decisions[1]!.snapshot.privateState.decisionWindow.kind).toBe("post_riichi_discard");
+
+    const [reachEntry, postRiichiEntry] = riichiPairEntries(decisions);
+    if (reachEntry === undefined || postRiichiEntry === undefined) {
+      throw new Error("riichi pair entries missing");
+    }
+
+    // The reach row binds the draw-frozen self_turn window (declaration not
+    // yet visible there), and only that window.
+    expect(entryMatchesDecisionIdentity(reachEntry, decisions[0]!)).toBe(true);
+    expect(entryMatchesDecisionIdentity(reachEntry, decisions[1]!)).toBe(false);
+    // The same-turn dahai row (at_self_riichi=true) binds only the
+    // declaration-frozen post-riichi window.
+    expect(entryMatchesDecisionIdentity(postRiichiEntry, decisions[1]!)).toBe(true);
+    expect(entryMatchesDecisionIdentity(postRiichiEntry, decisions[0]!)).toBe(false);
+  });
+
+  it("matches a post-call entry only to a post-call window by the 11-tile multiset", () => {
+    const base = fakeDecision();
+    const baseSnapshot = base.snapshot as never as {
+      publicState: Record<string, unknown>;
+      privateState: Record<string, unknown>;
+    };
+    const postCallDecision = fakeDecision({
+      snapshot: {
+        ...baseSnapshot,
+        privateState: {
+          ...baseSnapshot.privateState,
+          concealedTiles: Array.from({ length: 11 }, (_unused, index) => ({
+            id: index % 2 === 0 ? "1m" : "2m",
+            red: false,
+          })),
+          currentDraw: null,
+          decisionWindow: {
+            kind: "post_call_discard",
+            actor: 0,
+            triggerEventRef: "game:test/0/4/0",
+          },
+        },
+      } as never,
+    });
+    const postCallEntry = fakeEntry({
+      atSelfChiPon: true,
+      tile: "5p",
+      tehai: Object.freeze([
+        "1m", "1m", "1m", "1m", "1m", "1m",
+        "2m", "2m", "2m", "2m", "2m",
+      ]),
+      actual: { type: "dahai", actor: 0, pai: "1m", tsumogiri: false },
+    });
+
+    expect(entryMatchesDecisionIdentity(postCallEntry, postCallDecision)).toBe(true);
+    // A post-call row must never bind an ordinary self-turn window.
+    expect(entryMatchesDecisionIdentity(postCallEntry, fakeDecision())).toBe(false);
+    // And a self-turn row must never bind a post-call window.
+    expect(entryMatchesDecisionIdentity(fakeEntry(), postCallDecision)).toBe(false);
+  });
+});
+
+describe("M6-A3 runMortalFullGameReview new surfaces", () => {
+  it("fails the riichi and post-riichi windows closed until the coverage branches are lifted", async () => {
+    const stream = riichiDeclarationStream();
+    const decisions = replayCanonicalStream(stream);
+    const report = makeReport(riichiPairEntries(decisions), {
+      gameFingerprint: computeCanonicalGameFingerprint(stream),
+    });
+
+    const review = await runMortalFullGameReview({
+      stream,
+      decisions,
+      report,
+      engine: new FailingEngine(),
+    });
+    expect(review.status).toBe("coverage_ready");
+    if (review.status !== "coverage_ready") return;
+    // Both windows bind their entries but stay fail-closed: no real E2E hit
+    // has lifted riichi_window / post_riichi yet.
+    for (const row of review.decisions) {
+      expect(row.binding).toBe("bound");
+      expect(row.outcome).toBe("unsupported_action");
+      expect(row.reason).toBe("coverage_branch_uncovered");
+    }
+    expect(review.summary.unsupportedReasons.coverage_branch_uncovered).toBe(2);
+  });
+
+  it("runs the riichi window through the import once its coverage branch is lifted", async () => {
+    const stream = riichiDeclarationStream();
+    const decisions = replayCanonicalStream(stream);
+    const report = makeReport(riichiPairEntries(decisions), {
+      gameFingerprint: computeCanonicalGameFingerprint(stream),
+    });
+
+    const review = await runMortalFullGameReview({
+      stream,
+      decisions,
+      report,
+      engine: new FailingEngine(),
+      coverageRegistry: createMortalCoverageRegistry(["riichi_window"]),
+    });
+    expect(review.status).toBe("coverage_ready");
+    if (review.status !== "coverage_ready") return;
+    const selfTurnRow = review.decisions[0]!;
+    // Past the coverage gate and past the structured import (the riichi
+    // unification ran); only the deliberately failing engine stops analysis.
+    expect(selfTurnRow.outcome).toBe("analysis_blocked");
+    // The post-riichi branch is still uncovered: fail closed.
+    expect(review.decisions[1]!.outcome).toBe("unsupported_action");
+    expect(review.decisions[1]!.reason).toBe("coverage_branch_uncovered");
+  });
+
+  it("cross-checks the riichi actual by type correspondence, not tile equality", async () => {
+    const stream = riichiDeclarationStream();
+    const decisions = replayCanonicalStream(stream);
+    // The reach row's actual carries no tile at all; the local side owns the
+    // tile. A mismatching non-reach actual must fail the cross-check.
+    const reachEntryActualMismatch = entryForDecision(decisions[0]!, {
+      atSelfRiichi: false,
+      actual: { type: "dahai", actor: 0, pai: "9m", tsumogiri: false },
+      details: Object.freeze([{
+        action: { type: "reach", actor: 0 },
+        probability: 0.6,
+        qValue: 0.9,
+      }, {
+        action: { type: "dahai", actor: 0, pai: "9m", tsumogiri: false },
+        probability: 0.4,
+        qValue: 0.2,
+      }]),
+    });
+    const report = makeReport([reachEntryActualMismatch], {
+      gameFingerprint: computeCanonicalGameFingerprint(stream),
+    });
+    const review = await runMortalFullGameReview({
+      stream,
+      decisions,
+      report,
+      engine: new FailingEngine(),
+      coverageRegistry: createMortalCoverageRegistry(["riichi_window"]),
+    });
+    expect(review.status).toBe("coverage_ready");
+    if (review.status !== "coverage_ready") return;
+    expect(review.decisions[0]!.outcome).toBe("binding_mismatch");
+    expect(review.decisions[0]!.reason).toBe("mortal_actual_mismatch");
+  });
+
+  it("binds a tsumo terminal window and gates it on its coverage branch", async () => {
+    const stream = tsumoTerminalStream();
+    const decisions = replayCanonicalStream(stream);
+    expect(decisions).toHaveLength(1);
+    expect(decisions[0]!.actualAction?.kind).toBe("tsumo");
+    const horaEntry = entryForDecision(decisions[0]!, {
+      actual: { type: "hora", actor: 0, target: 0, pai: "5p" },
+      details: Object.freeze([{
+        action: { type: "hora", actor: 0, target: 0, pai: "5p" },
+        probability: 0.7,
+        qValue: 1.5,
+      }, {
+        action: { type: "dahai", actor: 0, pai: "9m", tsumogiri: false },
+        probability: 0.3,
+        qValue: 0.4,
+      }]),
+    });
+    const report = makeReport([horaEntry], {
+      gameFingerprint: computeCanonicalGameFingerprint(stream),
+    });
+
+    const gated = await runMortalFullGameReview({
+      stream,
+      decisions,
+      report,
+      engine: new FailingEngine(),
+    });
+    expect(gated.status).toBe("coverage_ready");
+    if (gated.status !== "coverage_ready") return;
+    expect(gated.decisions[0]!.binding).toBe("bound");
+    expect(gated.decisions[0]!.outcome).toBe("unsupported_action");
+    expect(gated.decisions[0]!.reason).toBe("coverage_branch_uncovered");
+
+    const lifted = await runMortalFullGameReview({
+      stream,
+      decisions,
+      report,
+      engine: new FailingEngine(),
+      coverageRegistry: createMortalCoverageRegistry(["self_turn_tsumo_actual"]),
+    });
+    expect(lifted.status).toBe("coverage_ready");
+    if (lifted.status !== "coverage_ready") return;
+    // Past coverage, past the type-correspondence cross-check and past the
+    // hora→tsumo import; only the failing engine blocks the assembly.
+    expect(lifted.decisions[0]!.outcome).toBe("analysis_blocked");
+  });
+
+  it("marks a degenerate terminal candidate set as terminal_window_action_unsupported", async () => {
+    const stream = tsumoTerminalStream();
+    const decisions = replayCanonicalStream(stream);
+    const degenerateEntry = entryForDecision(decisions[0]!, {
+      actual: { type: "hora", actor: 0, target: 0, pai: "5p" },
+      details: Object.freeze([{
+        action: { type: "hora", actor: 0, target: 0, pai: "5p" },
+        probability: 1,
+        qValue: 2,
+      }]),
+    });
+    const report = makeReport([degenerateEntry], {
+      gameFingerprint: computeCanonicalGameFingerprint(stream),
+    });
+    const review = await runMortalFullGameReview({
+      stream,
+      decisions,
+      report,
+      engine: new FailingEngine(),
+      coverageRegistry: createMortalCoverageRegistry(["self_turn_tsumo_actual"]),
+    });
+    expect(review.status).toBe("coverage_ready");
+    if (review.status !== "coverage_ready") return;
+    expect(review.decisions[0]!.outcome).toBe("model_output_incomplete");
+    expect(review.decisions[0]!.reason).toBe("terminal_window_action_unsupported");
   });
 });

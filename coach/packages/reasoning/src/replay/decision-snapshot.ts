@@ -71,6 +71,15 @@ function assertWindowMatchesEvent(
     return;
   }
 
+  if (window.kind === "post_riichi_discard") {
+    if (
+      event.type !== "riichi_declared" ||
+      event.actor !== window.actor ||
+      phase !== "awaiting_self_action"
+    ) mismatch();
+    return;
+  }
+
   const expectedType = window.kanKind === "ankan"
     ? "ankan_declared"
     : "kakan_declared";

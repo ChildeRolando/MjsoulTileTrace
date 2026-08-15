@@ -67,19 +67,7 @@ describe("MJAI action adapter", () => {
     });
   });
 
-  it("keeps isolated reach and missing fields as import diagnostics", () => {
-    expect(adaptMjaiActionSequence([
-      {
-        eventRef: "event:reach",
-        action: { type: "reach", actor: 3 },
-      },
-    ], selfTurn)).toEqual({
-      status: "incomplete",
-      sourceType: "mjai",
-      diagnosticCode: "reach_without_dahai",
-      missingFields: ["tile", "discardMode"],
-      factRefs: ["event:reach"],
-    });
+  it("keeps missing fields as import diagnostics", () => {
     expect(adaptMjaiActionSequence([
       {
         eventRef: "event:incomplete-dahai",
@@ -115,6 +103,64 @@ describe("MJAI action adapter", () => {
       diagnosticCode: "missing_action_fields",
       missingFields: ["actor"],
       factRefs: ["event:reach", "event:incomplete-riichi-dahai"],
+    });
+  });
+
+  it("adapts an isolated reach as the tile-less declare_riichi candidate", () => {
+    // M6-A3 (ADR-0001): Mortal's reach detail carries no tile — the model-side
+    // riichi alternative is tile-less wherever the player may still declare.
+    expect(adaptMjaiActionSequence([
+      {
+        eventRef: "event:reach",
+        action: { type: "reach", actor: 3 },
+      },
+    ], selfTurn)).toEqual({
+      status: "ready",
+      sourceType: "mjai",
+      draft: { kind: "declare_riichi" },
+      factRefs: ["event:reach"],
+    });
+    // Riichi requires a concealed hand: a chi/pon call opens it, so a
+    // post-call window rejects the reach alternative outright.
+    expect(adaptMjaiActionSequence([
+      {
+        eventRef: "event:post-call-reach",
+        action: { type: "reach", actor: 3 },
+      },
+    ], {
+      decisionWindow: {
+        kind: "post_call_discard" as const,
+        actor: 3,
+        triggerEventRef: "event:chi",
+      },
+    })).toEqual({
+      status: "unsupported",
+      sourceType: "mjai_reach_window_mismatch",
+    });
+    // Riichi cannot be declared in a response window or after acceptance.
+    expect(adaptMjaiActionSequence([
+      {
+        eventRef: "event:response-reach",
+        action: { type: "reach", actor: 3 },
+      },
+    ], discardResponse)).toEqual({
+      status: "unsupported",
+      sourceType: "mjai_reach_window_mismatch",
+    });
+    expect(adaptMjaiActionSequence([
+      {
+        eventRef: "event:post-riichi-reach",
+        action: { type: "reach", actor: 3 },
+      },
+    ], {
+      decisionWindow: {
+        kind: "post_riichi_discard" as const,
+        actor: 3,
+        triggerEventRef: "event:riichi_accepted",
+      },
+    })).toEqual({
+      status: "unsupported",
+      sourceType: "mjai_reach_window_mismatch",
     });
   });
 
@@ -351,6 +397,35 @@ describe("MJAI action adapter", () => {
         targetActor: 1,
         responseEventRef: "event:discard",
         winContext: "discard",
+      },
+    });
+  });
+
+  it("maps agari identically to hora (ACTION_SPACE win vocabulary alias)", () => {
+    expect(adaptMjaiActionSequence([
+      {
+        eventRef: "event:agari",
+        action: { type: "agari", actor: 3, target: 3, pai: "6s" },
+      },
+    ], selfTurn)).toMatchObject({
+      status: "ready",
+      draft: {
+        kind: "tsumo",
+        winningTile: { id: "6s", red: false },
+        drawEventRef: "event:draw",
+      },
+    });
+    expect(adaptMjaiActionSequence([
+      {
+        eventRef: "event:agari",
+        action: { type: "agari", actor: 3, target: 1, pai: "5pr" },
+      },
+    ], discardResponse)).toMatchObject({
+      status: "ready",
+      draft: {
+        kind: "ron",
+        winningTile: { id: "5p", red: true },
+        targetActor: 1,
       },
     });
   });

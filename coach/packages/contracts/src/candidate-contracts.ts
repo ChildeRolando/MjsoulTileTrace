@@ -47,6 +47,10 @@ export const ActionDraftSchema = z.discriminatedUnion("kind", [
     tile: DraftTileSchema.optional(),
     discardMode: DiscardModeSchema.optional(),
   }).strict(),
+  // M6-A3 (ADR-0001): tile-less model-side riichi candidate.
+  z.object({
+    kind: z.literal("declare_riichi"),
+  }).strict(),
   z.object({
     kind: z.literal("chi"),
     calledTile: DraftTileSchema.optional(),
@@ -431,6 +435,7 @@ export const StructuredComparisonBuildResultSchema = z.discriminatedUnion(
         "discard_response",
         "kan_response",
         "post_call_discard",
+        "post_riichi_discard",
       ])),
     }).strict(),
   ],

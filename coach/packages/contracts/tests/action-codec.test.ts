@@ -106,4 +106,24 @@ describe("canonical action codec", () => {
       existingMeldRef: "meld:b",
     }));
   });
+
+  it("encodes the tile-less declare_riichi candidate as its bare kind", () => {
+    expect(canonicalActionTuple({ kind: "declare_riichi" })).toEqual([
+      "declare_riichi",
+    ]);
+    const ref = canonicalActionRef({ kind: "declare_riichi" });
+    expect(ref).toMatch(/^action:v1:/);
+    // The tile-less candidate ref must never collide with any concrete
+    // riichi_discard realization.
+    expect(ref).not.toBe(canonicalActionRef({
+      kind: "riichi_discard",
+      tile: normalFive,
+      discardMode: "tedashi",
+    }));
+    expect(ref).not.toBe(canonicalActionRef({
+      kind: "riichi_discard",
+      tile: redFive,
+      discardMode: "tsumogiri",
+    }));
+  });
 });

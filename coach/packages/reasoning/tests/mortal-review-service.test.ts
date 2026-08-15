@@ -419,13 +419,18 @@ describe("runMortalSingleDecisionReview", () => {
     expect(review.code).toBe("mortal_decision_unsupported_entry");
   });
 
-  it("fails closed on a riichi local actual instead of downgrading it", async () => {
+  it("cross-checks a riichi local actual by type correspondence, not as unsupported", async () => {
     const fixture = await setupFixture();
+    // M6-A3 (ADR-0001): a riichi local actual is first-class. It no longer
+    // fails closed as unsupported; it cross-checks against Mortal's actual by
+    // type — a riichi_discard local expects a reach actual, so this report's
+    // dahai actual fails correspondence.
     const riichiDecision = {
       ...fixture.decision,
-      actualDiscard: {
-        ...fixture.decision.actualDiscard!,
-        riichiDeclarationEventRef: "riichi:declared",
+      actualAction: {
+        kind: "riichi_discard" as const,
+        tile: fixture.decision.actualDiscard!.tile,
+        discardMode: fixture.decision.actualDiscard!.discardMode,
       },
     };
     const report = makeReport(fixture.raw);
@@ -436,12 +441,12 @@ describe("runMortalSingleDecisionReview", () => {
     );
     expect(review.status).toBe("failed");
     if (review.status !== "failed") return;
-    expect(review.code).toBe("mortal_decision_unsupported_entry");
+    expect(review.code).toBe("mortal_decision_actual_mismatch");
   });
 
-  it("fails closed when actualDiscard is null", async () => {
+  it("fails closed when the window has no representable self action", async () => {
     const fixture = await setupFixture();
-    const nullDecision = { ...fixture.decision, actualDiscard: null };
+    const nullDecision = { ...fixture.decision, actualAction: null };
     const report = makeReport(fixture.raw);
     const review = await runReview(
       fixture.stream,
