@@ -17,7 +17,7 @@
 | M3 教学证据 | 未开始 | 仅有策略边界和占位契约 | 冻结资料、引用、版本化教学规则 |
 | M4 LLM 教练 | 未开始 | 严格分析包与解释验证地基 | LLM 客户端、编排、流式输出、追问 |
 | M5 雀魂国区接入 | 接近完成 | Electron 登录、加密恢复、最近 30 场、取回、canonical mapper、重放、脱敏 replay audit、H1 诊断命令 | 真实牌谱 H1 对照验收；未覆盖流局/杠枚举的 fixture 反证 |
-| M6 模型生产接入 | 进行中 | M6-A1：Mortal 4.1b 结果 URL 安全获取、schema 钉死、指纹/视角绑定、单决策比较集 + ModelEvaluation + assembly；`--diagnose-mortal-decision` 诊断 | 循环全部重放决策；`awaiting_mortal_verification` 状态；Akagi（M6-B） |
+| M6 模型生产接入 | 进行中 | M6-A1：Mortal 单决策切片（安全获取、指纹/视角绑定、比较集 + ModelEvaluation + assembly）；M6-A2：全量自摸面覆盖账本（全局二部绑定、120/113 无丢失、99 个支持对 analysis_ready） | `awaiting_mortal_verification` 状态；行动支持扩展（立直/自摸/杠）；Akagi（M6-B） |
 | M7 会话与工作台 | 未开始 | 安全 IPC 和最小目录 UI | SQLite 任务、报告页、回放、聊天、恢复/删除 |
 | M8 打包发布 | 未开始 | Electron 与 sidecar 构建基础 | 跨平台安装、升级、日志、发布验收 |
 
