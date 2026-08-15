@@ -4,7 +4,7 @@
 分支：`codex/m6-a2-mortal-full-game-coverage`
 base SHA：`5afabe29c4a1960e9f3243bb23a69692cd1acf44`
 implementation SHA：`af8981a`
-closing SHA：见分支头（本文档提交后 branch head）
+source-ledger correctness SHA：`920c9be`（本文档提交于其上；docs commit SHA 见 completion report）
 
 ## 1. “full-game”在本里程碑的精确定义
 
@@ -133,13 +133,19 @@ source unbound reason counts（live）：
 ## 17. UI / spot-check evidence
 
 - A1 visible Mortal UI check：同一真实 report 第一决策，实际=4z 手切、模型首选=4z 手切、首选概率=99.91%。
-- A2 gstack headless browser 打开 live Mortal viewer（同一 report）：确认页面报告身份为 `Engine Mortal / Model tag 4.1b / Mjai-reviewer version 1.5.10 / Matches 113/150`，并读取到一个早期 error row（Player Cut / Mortal Cut / Q -0.05 / P 99.96）。
+- A2 gstack headless browser 打开 live Mortal viewer（同一 report）：确认页面报告身份为 `Engine Mortal / Model tag 4.1b / Mjai-reviewer version 1.5.10 / Matches 113/150`，并读取到 viewer 的 **Next Error** 行：`Player Cut / Mortal Cut / Q -0.05 / P 99.96`。
+- **该 UI 行不是 `model_output_incomplete`，而是 Mortal UI 术语里的 “error”（实际非模型首选）**。它被确定性绑定到：
+  - `decisionOrdinal = 3`
+  - local actual：`discard 8p tedashi`
+  - Mortal preferred：`discard 2s tedashi`
+  - top probability percent：`99.95722`
+  - `errorGap = 99.9566`，`detailClass = detailed`
+- 三者一致：visible UI（Q -0.047 / P 99.96）== report parser（`q=-0.04718843`, `prob=0.9995722`）== local pipeline（decisionOrdinal 3, gap 99.9566）。术语矛盾已消除：我们账本中的 “model-error” 指 `model_output_incomplete`（0 行）；Mortal UI 的 “error row” 是 `analysis_ready + detailed` 的高 gap 行。
 - early/mid/late analysis-ready rows 与 viewer 同源的 live report JSON 做精确核对：
   - early `decisionOrdinal 0`：actual `discard 4z tedashi`，top `99.91077`，Mortal entry `junme=1` 一致。
   - mid `decisionOrdinal 54`：actual `discard 3z tsumogiri`，top `99.99883`，Mortal entry `junme=5`（kyoku 4, honba 0）一致。
   - late `decisionOrdinal 116`：actual `discard 4s tsumogiri`，top `99.331915`，Mortal entry `junme=10`（kyoku 7）一致。
-- unsupported row spot check：sourceOrdinal 45（`post_call_discard_not_replayed`）与 Mortal JSON `at_self_chi_pon=true` 一致；sourceOrdinal 22/101（`post_riichi_discard_not_replayed`）与 `at_self_riichi=true && actual.type=dahai` 一致。
-- model-error spot check：not applicable（live sample 无 model-error 行）。
+- unsupported row spot check：sourceOrdinal 45（`post_call_discard_not_replayed`）与 Mortal JSON `at_self_chi_pon=true` 一致；sourceOrdinal 22/101（`post_riichi_discard_not_replayed`）与 `at_self_riichi=true && actual.type=dahai` 且存在同巡 `actual.type=reach` 的配对 entry 一致。
 
 ## 18. privacy audit
 
@@ -152,7 +158,7 @@ source unbound reason counts（live）：
 ## 19. full verification counts
 
 - `npm run build` ✅
-- `npx vitest run` ✅ **126 files / 1241 tests**
+- `npx vitest run` ✅ **126 files / 1244 tests**（其中 `protocol-bundle.test.ts` 首次因系统负载超时，单独重跑通过）
 - node suites ✅ **26 + 4 + 4 = 34 tests**
 - `npm run typecheck` ✅
 
