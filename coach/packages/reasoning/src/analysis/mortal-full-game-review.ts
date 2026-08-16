@@ -89,6 +89,9 @@ export type MortalFullGameLedgerEntry = Readonly<{
   decisionOrdinal: number;
   roundOrdinal: number;
   binding: MortalBindingStatus;
+  // LOCAL actual representation support only (§21 closing round: local and
+  // source-candidate support are separate classification stages; the outcome
+  // plus reason fields carry whichever stage classified the row).
   support: MortalSupportStatus;
   review: "not_attempted" | "analysis_ready" | "model_output_incomplete" | "analysis_blocked";
   outcome: MortalDecisionOutcome;
@@ -551,40 +554,23 @@ export async function runMortalFullGameReview(input: {
 
   for (const row of rows) {
     const decision = input.decisions[row.decisionOrdinal]!;
+    // LOCAL actual representation support. Kept as its own variable — the
+    // source-candidate surface support below is a separate classification
+    // stage, and merging them obscured the §21 precedence.
     const local = localSupport(decision);
     const support = local.support;
 
-    // Mortal candidate set must be A1-representable for this window kind.
-    // M6-A3 generalizes the A2 dahai-only gate into per-kind candidate type
-    // tables (self_turn / post_call / post_riichi).
-    let effectiveSupport = support;
-    let unsupportedReason = local.reason;
-    const boundSourceEntry = row.sourceEntry;
-    const allowedCandidateTypes = supportedCandidateTypesForWindow(
-      decision.snapshot.privateState.decisionWindow.kind,
-    );
-    if (
-      row.binding === "bound"
-      && support === "supported"
-      && boundSourceEntry !== null
-      && (
-        allowedCandidateTypes === null
-        || boundSourceEntry.details.length === 0
-        || !boundSourceEntry.details.every((detail) =>
-          allowedCandidateTypes.has(detail.action.type)
-        )
-      )
-    ) {
-      effectiveSupport = "unsupported";
-      unsupportedReason = "mortal_candidate_action_not_supported";
-    }
-
-    // Precedence (M6-A3 §21): binding integrity failure first, then no source
-    // entry (4), then source actual/local actual correspondence (5), then
-    // local/source action unsupported (6) — a row with no source entry never
-    // reports as an unsupported action. The coverage gate runs last among the
-    // fail-closed paths so coverage_branch_uncovered can never hide an
-    // identity, ambiguity, reuse, order, or actual mismatch.
+    // Precedence (M6-A3 §21, closing round): (1) whole-run identity failures
+    // already returned above; per-row order is (2) binding ambiguity/order
+    // failure, (3) no source entry, (4) LOCAL actual representation support,
+    // (5) source actual ↔ local actual correspondence, (6) source/model
+    // candidate surface support, (7) real coverage gate, (8) completeness,
+    // (9) assembly, (10) analysis_ready. A row with no source entry never
+    // reports as an unsupported action; a local actual with no meaningful
+    // local action to compare may classify before the correspondence check;
+    // a source candidate surface problem may NEVER classify before the
+    // source actual ↔ local actual correspondence — support and coverage
+    // classification must not hide an integrity mismatch.
     if (row.binding === "ambiguous") {
       let reason: MortalBindingMismatchReason;
       if (row.orderViolation) {
@@ -627,28 +613,30 @@ export async function runMortalFullGameReview(input: {
       continue;
     }
 
-    if (effectiveSupport === "unsupported") {
+    // (4) LOCAL actual representation support: the local window produced no
+    // typed actual action to compare (pure round end with no self action).
+    if (support === "unsupported") {
       ledger.push({
         decisionOrdinal: row.decisionOrdinal,
         roundOrdinal: row.roundOrdinal,
         binding: row.binding,
-        support: effectiveSupport,
+        support,
         review: "not_attempted",
         outcome: "unsupported_action",
-        reason: unsupportedReason,
+        reason: local.reason,
         sourceEntryRef: row.sourceEntryRef,
         sourceOrdinal: row.sourceOrdinal,
         modelSummary: null,
       });
       outcomeCounts.unsupported_action += 1;
-      if (unsupportedReason !== null) {
-        unsupportedReasonCounts[unsupportedReason] =
-          (unsupportedReasonCounts[unsupportedReason] ?? 0) + 1;
+      if (local.reason !== null) {
+        unsupportedReasonCounts[local.reason] =
+          (unsupportedReasonCounts[local.reason] ?? 0) + 1;
       }
       continue;
     }
 
-    // Bound + supported: local ordinary discard + dahai-only Mortal set.
+    // Bound + locally supported rows must carry their bound source entry.
     if (row.sourceEntry === null) {
       ledger.push({
         decisionOrdinal: row.decisionOrdinal,
@@ -666,9 +654,11 @@ export async function runMortalFullGameReview(input: {
       continue;
     }
 
-    // Local actual authority pre-check: type-level correspondence between the
-    // Mortal actual row and the locally derived actual action (ADR-0001:
-    // tiles stay local-authoritative; riichi cross-checks type + actor only).
+    // (5) Local actual authority correspondence: type-level correspondence
+    // between the Mortal actual row and the locally derived actual action
+    // (ADR-0001: tiles stay local-authoritative; riichi cross-checks type +
+    // actor only). Classified BEFORE the source candidate surface so an
+    // actual mismatch can never be hidden by an unsupported candidate set.
     if (
       !mortalActualMatchesLocal(
         row.sourceEntry.actual,
@@ -689,6 +679,37 @@ export async function runMortalFullGameReview(input: {
         modelSummary: null,
       });
       outcomeCounts.binding_mismatch += 1;
+      continue;
+    }
+
+    // (6) SOURCE candidate surface support: the Mortal candidate set must be
+    // A1-representable for this window kind (per-kind candidate type tables:
+    // self_turn / post_call / post_riichi).
+    const allowedCandidateTypes = supportedCandidateTypesForWindow(
+      decision.snapshot.privateState.decisionWindow.kind,
+    );
+    if (
+      allowedCandidateTypes === null
+      || row.sourceEntry.details.length === 0
+      || !row.sourceEntry.details.every((detail) =>
+        allowedCandidateTypes.has(detail.action.type)
+      )
+    ) {
+      ledger.push({
+        decisionOrdinal: row.decisionOrdinal,
+        roundOrdinal: row.roundOrdinal,
+        binding: row.binding,
+        support,
+        review: "not_attempted",
+        outcome: "unsupported_action",
+        reason: "mortal_candidate_action_not_supported",
+        sourceEntryRef: row.sourceEntryRef,
+        sourceOrdinal: row.sourceOrdinal,
+        modelSummary: null,
+      });
+      outcomeCounts.unsupported_action += 1;
+      unsupportedReasonCounts.mortal_candidate_action_not_supported =
+        (unsupportedReasonCounts.mortal_candidate_action_not_supported ?? 0) + 1;
       continue;
     }
 
@@ -994,8 +1015,12 @@ export async function runMortalFullGameReview(input: {
     sourceConservation: sourceDispositionSum,
     outcomes: Object.freeze(outcomeCounts),
     binding: Object.freeze(bindingCounts),
+    // A "supported pair" is a bound row that passed every support stage —
+    // local actual representation, source actual correspondence, source
+    // candidate surface and coverage — i.e. it reached the review. The
+    // ledger's `support` field alone now records only the LOCAL side.
     supportedPairCount: ledger.filter((row) =>
-      row.binding === "bound" && row.support === "supported"
+      row.review !== "not_attempted"
     ).length,
     unsupportedReasons: Object.freeze(unsupportedReasonCounts),
     modelIncompleteReasons: Object.freeze(modelIncompleteReasonCounts),

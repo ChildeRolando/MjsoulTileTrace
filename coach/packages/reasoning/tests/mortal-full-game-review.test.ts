@@ -1283,6 +1283,145 @@ describe("M6-A3 §20/§21/§22 binding integrity regressions", () => {
   });
 });
 
+describe("M6-A3 §21 closing round: support/coverage cannot hide integrity mismatches", () => {
+  function replayedPostCall(): { stream: CanonicalEventStream; postCall: ReplayedDecision } {
+    const stream = postCallStream();
+    const decisions = replayCanonicalStream(stream);
+    expect(decisions).toHaveLength(2);
+    return { stream, postCall: decisions[1]! };
+  }
+
+  // A post_call window's candidate set is plain discards only, so a chi
+  // candidate detail is a source-candidate-surface violation; the post-call
+  // branch is also uncovered under the default empty registry — three
+  // competing failure modes on one row, resolved strictly by §21 order.
+  const chiCandidate = Object.freeze({
+    action: Object.freeze({
+      type: "chi",
+      actor: 0,
+      target: 1,
+      pai: "5m",
+      consumed: Object.freeze(["1m", "2m"]),
+    }),
+    probability: 0.5,
+    qValue: 0.5,
+  });
+  const dahaiCandidate = Object.freeze({
+    action: Object.freeze({ type: "dahai", actor: 0, pai: "3p", tsumogiri: false }),
+    probability: 0.5,
+    qValue: 0.5,
+  });
+
+  it("A: bound + local valid + source actual mismatch + unsupported source candidates -> binding_mismatch", async () => {
+    const { stream, postCall } = replayedPostCall();
+    const decisions = replayCanonicalStream(stream);
+    // The source actual discards the wrong tile (local actual is 3p tedashi)
+    // AND the candidate set contains an unsupported chi: the integrity
+    // mismatch must classify, not the candidate-surface problem.
+    const entry = postCallEntryFor(postCall, {
+      actual: { type: "dahai", actor: 0, pai: "9m", tsumogiri: false },
+      details: Object.freeze([chiCandidate, dahaiCandidate]),
+    });
+    const report = makeReport([entry], {
+      gameFingerprint: computeCanonicalGameFingerprint(stream),
+    });
+    const review = await runMortalFullGameReview({
+      stream,
+      decisions,
+      report,
+      engine: new FailingEngine(),
+    });
+    expect(review.status).toBe("coverage_ready");
+    if (review.status !== "coverage_ready") return;
+    expect(review.decisions[1]!.binding).toBe("bound");
+    expect(review.decisions[1]!.outcome).toBe("binding_mismatch");
+    expect(review.decisions[1]!.reason).toBe("mortal_actual_mismatch");
+  });
+
+  it("B: bound + local valid + source actual matches + unsupported source candidates -> mortal_candidate_action_not_supported", async () => {
+    const { stream, postCall } = replayedPostCall();
+    const decisions = replayCanonicalStream(stream);
+    const entry = postCallEntryFor(postCall, {
+      details: Object.freeze([chiCandidate, dahaiCandidate]),
+    });
+    const report = makeReport([entry], {
+      gameFingerprint: computeCanonicalGameFingerprint(stream),
+    });
+    const review = await runMortalFullGameReview({
+      stream,
+      decisions,
+      report,
+      engine: new FailingEngine(),
+    });
+    expect(review.status).toBe("coverage_ready");
+    if (review.status !== "coverage_ready") return;
+    expect(review.decisions[1]!.binding).toBe("bound");
+    expect(review.decisions[1]!.outcome).toBe("unsupported_action");
+    expect(review.decisions[1]!.reason).toBe("mortal_candidate_action_not_supported");
+  });
+
+  it("C: bound + source actual mismatch + uncovered coverage branch -> binding_mismatch", async () => {
+    const stream = tsumoTerminalStream();
+    const decisions = replayCanonicalStream(stream);
+    // Real-shape hora actual targeting another player on the default (empty)
+    // registry: the self_turn_tsumo_actual branch is uncovered, but the
+    // correspondence mismatch classifies first.
+    const entry = entryForDecision(decisions[0]!, {
+      actual: { type: "hora", actor: 0, target: 2, deltas: [], ura_markers: [] },
+      details: Object.freeze([{
+        action: { type: "hora", actor: 0, target: 0 },
+        probability: 0.7,
+        qValue: 1.5,
+      }, {
+        action: { type: "dahai", actor: 0, pai: "9m", tsumogiri: false },
+        probability: 0.3,
+        qValue: 0.4,
+      }]),
+    });
+    const report = makeReport([entry], {
+      gameFingerprint: computeCanonicalGameFingerprint(stream),
+    });
+    const review = await runMortalFullGameReview({
+      stream,
+      decisions,
+      report,
+      engine: new FailingEngine(),
+    });
+    expect(review.status).toBe("coverage_ready");
+    if (review.status !== "coverage_ready") return;
+    expect(review.decisions[0]!.binding).toBe("bound");
+    expect(review.decisions[0]!.outcome).toBe("binding_mismatch");
+    expect(review.decisions[0]!.reason).toBe("mortal_actual_mismatch");
+  });
+
+  it("D: no source entry + local actual unrepresentable -> no_mortal_entry", async () => {
+    const { stream, postCall } = replayedPostCall();
+    const decisions = replayCanonicalStream(stream);
+    // A local window with no typed actual action (pure round end with no self
+    // action) has no meaningful local action to compare — but with no bound
+    // source entry the row still classifies as no_mortal_entry first.
+    const unrepresentable: ReplayedDecision = {
+      ...postCall,
+      actualAction: null,
+    } as ReplayedDecision;
+    const report = makeReport([], {
+      gameFingerprint: computeCanonicalGameFingerprint(stream),
+    });
+    const review = await runMortalFullGameReview({
+      stream,
+      decisions: [decisions[0]!, unrepresentable],
+      report,
+      engine: new FailingEngine(),
+    });
+    expect(review.status).toBe("coverage_ready");
+    if (review.status !== "coverage_ready") return;
+    expect(review.decisions[1]!.outcome).toBe("no_mortal_entry");
+    expect(review.decisions[1]!.reason).toBeNull();
+    // The local support status is still recorded on the ledger row.
+    expect(review.decisions[1]!.support).toBe("unsupported");
+  });
+});
+
 describe("M6-A3 per-window-kind identity tables", () => {
   it("matches a post-riichi entry only to the post-riichi window, never the same turn's self-turn window", () => {
     const stream = riichiDeclarationStream();
