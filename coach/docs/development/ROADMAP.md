@@ -31,8 +31,9 @@
 
 ### 2. 收口 M6-A3 真实语料验收
 
-- 用 `scripts/tenhou-acceptance.mjs` 执行选定座位的验收提交（组合 M6-A2 桌面 Mortal 管线，遵守预算/去重/断点/不重复提交策略）。
-- 目标是 10 个语义分支每个至少 1 个独立真实 E2E 接受命中；证据只进 §16 版本化 manifest，registry lift 只能由 manifest 派生。
+- 提交通道已钉死（2026-08-16 收口轮）：mjai.ekyu.moe 无 API、表单 Turnstile 门禁；钉死语料（dnovikoff mjloggm）内嵌无天凤归档 log id，**该语料永远不能做验收提交**。验收改为 operator-assisted：操作者把**自己牌局**的可达天凤 log URL 放入 `<state-dir>/inbox/<gameId>#<seat>.url`，重跑 `scripts/tenhou-acceptance.mjs` 自动断点续跑（预算/去重/缓存复用/终态失败不烧预算自动生效），错误 URL↔pair 对会在报告绑定校验处 fail-closed。
+- 目标不变：10 个语义分支每个至少 1 个独立真实 E2E 接受命中；证据只进 §16 版本化 manifest，registry lift 只能由 manifest 派生。
+- 已钉死语料缺口（发现层实证，14 份全扫）：`dama_with_tsumo_candidate` 命中 0（需另寻样本）；`self_turn_kyuushu` 唯一候选在西局游戏，本地 replay 以 `known_facts_v2_unsupported_round_wind` fail-closed（需西局重放支持或另寻样本）。
 - 矩阵补满前，未覆盖分支保持 `coverage_branch_uncovered` fail-closed，不得手工放宽。
 
 ### 3. M6-A4 响应面
