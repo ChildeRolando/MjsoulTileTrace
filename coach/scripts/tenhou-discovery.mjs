@@ -98,9 +98,10 @@ if (damaTsumo) {
         // Per-seat fail-closed isolation: a game whose replay is not supported
         // locally (e.g. a west round) skips that seat without aborting the
         // corpus — it can simply never become an acceptance candidate.
+        // replayCanonicalStream returns ReplayedDecision[] directly.
         let decisions;
         try {
-          decisions = replayCanonicalStream(mapped.stream).decisions;
+          decisions = replayCanonicalStream(mapped.stream);
         } catch (error) {
           seatsFailed += 1;
           console.error(
@@ -113,7 +114,16 @@ if (damaTsumo) {
         const result = await collectDamaTsumoWindows(
           decisions,
           engine,
-        );
+        ).catch((error) => {
+          seatsFailed += 1;
+          console.error(
+            `dama-tsumo ${input.gameId}#${seat}: window collection failed, seat skipped (${
+              error instanceof Error ? error.message : String(error)
+            })`,
+          );
+          return null;
+        });
+        if (result === null) continue;
         seatsReplayed += 1;
         windowsClassified += result.classifiedWindows;
         engineFailures += result.engineFailures;
