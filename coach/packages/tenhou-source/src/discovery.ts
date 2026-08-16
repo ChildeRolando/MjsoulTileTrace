@@ -18,6 +18,7 @@
  * branch names, and canonical decision locators (game id + position) — never
  * raw player names, log URLs, or raw record bytes.
  */
+import type { CanonicalEventStream } from "@riichi-coach/contracts";
 import {
   censusCanonicalGame,
   TENHOU_COVERAGE_BRANCHES,
@@ -31,6 +32,13 @@ export interface DiscoveryInput {
   readonly raw: string;
   /** Opaque canonical game id (never a raw Tenhou log id/URL). */
   readonly gameId: string;
+}
+
+/** One already-mapped canonical stream — any approved importer's output. */
+export interface CanonicalStreamInput {
+  /** Opaque content-hash game id in the importer's own prefix space. */
+  readonly gameId: string;
+  readonly stream: CanonicalEventStream;
 }
 
 export interface DiscoveryOptions {
@@ -113,6 +121,17 @@ function emptyBranchCandidates(): Record<TenhouCoverageBranch, DiscoveryBranchCa
 
 function candidateKey(candidate: DiscoveryBranchCandidate): string {
   return `${candidate.gameId}#${candidate.seat}#${candidate.decisionEventRef}`;
+}
+
+function mergeFailureCounts(
+  outer: Record<string, number>,
+  inner: Readonly<Record<string, number>>,
+): Record<string, number> {
+  const merged = { ...inner };
+  for (const [code, count] of Object.entries(outer)) {
+    merged[code] = (merged[code] ?? 0) + count;
+  }
+  return merged;
 }
 
 /**
@@ -227,21 +246,45 @@ export function discoverTenhouCorpus(
   inputs: readonly DiscoveryInput[],
   options: DiscoveryOptions = {},
 ): DiscoveryReport {
-  const maxSamples = options.maxCandidateSamples ?? DEFAULT_MAX_CANDIDATE_SAMPLES;
-  const localBranchHits = {} as Record<TenhouCoverageBranch, number>;
-  for (const branch of TENHOU_COVERAGE_BRANCHES) localBranchHits[branch] = 0;
   const mapFailureCounts: Record<string, number> = {};
-  const allCandidates = emptyBranchCandidates();
-
-  let gamesScanned = 0;
+  const streams: CanonicalStreamInput[] = [];
   for (const input of inputs) {
     const mapped = mapTenhouRecord({ raw: input.raw, gameId: input.gameId, selfActor: 0 });
     if (mapped.status !== "ready") {
       mapFailureCounts[mapped.code] = (mapFailureCounts[mapped.code] ?? 0) + 1;
       continue;
     }
+    streams.push({ gameId: input.gameId, stream: mapped.stream });
+  }
+  const report = discoverCanonicalCorpus(streams, options);
+  // Re-attach THIS importer's mapping failures (canonical aggregation alone
+  // cannot know why a record never became a stream).
+  return {
+    ...report,
+    mapFailureCounts: mergeFailureCounts(mapFailureCounts, report.mapFailureCounts),
+  };
+}
+
+/**
+ * Source-agnostic §14 aggregation (closing round §4: reuse, never a second
+ * classifier): takes ALREADY-MAPPED canonical streams from any approved
+ * importer, runs the shared structural census, and builds the same report —
+ * concrete candidates, minimal selection pairs, honest dama zero. Importers
+ * keep only the mapping step; everything downstream is this one walk.
+ */
+export function discoverCanonicalCorpus(
+  streams: readonly CanonicalStreamInput[],
+  options: DiscoveryOptions = {},
+): DiscoveryReport {
+  const maxSamples = options.maxCandidateSamples ?? DEFAULT_MAX_CANDIDATE_SAMPLES;
+  const localBranchHits = {} as Record<TenhouCoverageBranch, number>;
+  for (const branch of TENHOU_COVERAGE_BRANCHES) localBranchHits[branch] = 0;
+  const allCandidates = emptyBranchCandidates();
+
+  let gamesScanned = 0;
+  for (const input of streams) {
     gamesScanned += 1;
-    const census = censusCanonicalGame(mapped.stream);
+    const census = censusCanonicalGame(input.stream);
     for (const branch of TENHOU_COVERAGE_BRANCHES) {
       localBranchHits[branch] += census.branchHits[branch]!;
     }
@@ -262,7 +305,7 @@ export function discoverTenhouCorpus(
 
   return buildReport(
     gamesScanned,
-    mapFailureCounts,
+    {},
     localBranchHits,
     allCandidates,
     maxSamples,

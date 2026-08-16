@@ -37,8 +37,10 @@ export {
   type TenhouCoverageBranch,
 } from "./census.js";
 export {
+  discoverCanonicalCorpus,
   discoverTenhouCorpus,
   mergeDamaTsumoCandidates,
+  type CanonicalStreamInput,
   type DamaTsumoPassStats,
   type DiscoveryBranchCandidate,
   type DiscoveryInput,
