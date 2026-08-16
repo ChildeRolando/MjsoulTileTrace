@@ -14,7 +14,8 @@
  * from file names or any Tenhou identifier.
  */
 import { createHash } from "node:crypto";
-import { readFileSync, writeFileSync } from "node:fs";
+import { readdirSync, readFileSync, writeFileSync } from "node:fs";
+import path from "node:path";
 import { fileURLToPath } from "node:url";
 import {
   discoverTenhouCorpus,
@@ -45,6 +46,13 @@ function parseArgs(argv) {
       maxCandidateSamples = value;
     } else if (arg === "--dama-tsumo") {
       damaTsumo = true;
+    } else if (arg === "--dir") {
+      const dir = argv[++index] ?? fail("--dir requires a path");
+      const names = readdirSync(dir).filter((name) => name.endsWith(".xml")).sort();
+      if (names.length === 0) {
+        fail(`--dir ${dir} contains no .xml files`);
+      }
+      for (const name of names) files.push(path.join(dir, name));
     } else if (arg.startsWith("--")) {
       fail(`unknown option ${arg}`);
     } else {
@@ -52,7 +60,7 @@ function parseArgs(argv) {
     }
   }
   if (files.length === 0) {
-    fail("usage: tenhou-discovery.mjs <log1.xml> [log2.xml ...] [--out report.json] [--dama-tsumo]");
+    fail("usage: tenhou-discovery.mjs <log1.xml> [log2.xml ...] [--dir <raw dir>] [--out report.json] [--dama-tsumo]");
   }
   return { files, out, maxCandidateSamples, damaTsumo };
 }
