@@ -60,6 +60,7 @@ export {
   type PlannedAcceptanceItem,
 } from "./acceptance-policy.js";
 export {
+  ACCEPTANCE_LOCAL_SOURCE_TYPES,
   canTransitionAcceptance,
   createEmptyAcceptanceCheckpoint,
   findAcceptancePair,
@@ -69,6 +70,7 @@ export {
   parseAcceptanceCheckpointFile,
   transitionAcceptanceState,
   upsertAcceptancePair,
+  type AcceptanceLocalSourceType,
   type AcceptanceTransitionEvent,
   type MortalAcceptanceCheckpointFile,
   type MortalAcceptancePairRecord,

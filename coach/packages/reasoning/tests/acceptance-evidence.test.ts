@@ -361,6 +361,7 @@ describe("buildRedactedAcceptanceArtifact (§10/§15)", () => {
     const artifact = buildRedactedAcceptanceArtifact({
       gameId: "tenhou-g:abc123",
       seat: 2,
+      localSourceType: "tenhou",
       report,
       review,
       evidence,
@@ -369,6 +370,7 @@ describe("buildRedactedAcceptanceArtifact (§10/§15)", () => {
     expect(artifact.schemaVersion).toBe("mortal-acceptance-artifact/v1");
     expect(artifact.gameId).toBe("tenhou-g:abc123");
     expect(artifact.seat).toBe(2);
+    expect(artifact.localSourceType).toBe("tenhou");
     expect(json).toContain('"modelTag":"4.1b"');
     expect(json).toContain('"modelAdapterVersion":"mortal-source/1"');
     expect(json).toContain("riichi_window");

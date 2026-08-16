@@ -69,14 +69,10 @@ import {
 import { fetchMortalReport } from "@riichi-coach/mortal-source";
 import {
   buildMortalCoverageEvidenceManifest,
-  buildRedactedAcceptanceArtifact,
-  extractAcceptedBranchEvidence,
-  createMortalCoverageRegistry,
   JsonlFactEngineClient,
   ManagedFactEngineTransport,
-  MORTAL_COVERAGE_BRANCHES,
   replayCanonicalStream,
-  runMortalFullGameReview,
+  runMortalAcceptanceEvidence,
 } from "@riichi-coach/reasoning";
 import { mapTenhouRecord } from "@riichi-coach/tenhou-source";
 
@@ -321,6 +317,7 @@ for (const pair of selection) {
     checkpoint = upsertAcceptancePair(checkpoint, {
       gameId: pair.gameId,
       seat: pair.seat,
+      sourceType: "tenhou",
       state: "local_ready",
       attempts: 0,
       failureReason: null,
@@ -351,6 +348,7 @@ const plan = planAcceptanceRun({
       .map((pair) => ({
         gameId: pair.gameId,
         seat: pair.seat,
+        sourceType: pair.sourceType ?? "tenhou",
         status: "succeeded",
         attempts: pair.attempts,
       })),
@@ -359,6 +357,7 @@ const plan = planAcceptanceRun({
       .map((pair) => ({
         gameId: pair.gameId,
         seat: pair.seat,
+        sourceType: pair.sourceType ?? "tenhou",
         status: "failed",
         attempts: pair.attempts,
         terminal: (pair.failureReason ?? "").startsWith("local_"),
@@ -560,37 +559,29 @@ for (const pair of stagePairs) {
 
   const resourcesDir = fileURLToPath(new URL("../resources/", import.meta.url));
   const engine = new JsonlFactEngineClient(new ManagedFactEngineTransport(resourcesDir));
-  let review;
-  try {
-    // Acceptance mode: the runner is the evidence PRODUCER, so the coverage
-    // gate is wide open here — production consumers lift from the evidence
-    // manifest only (createMortalCoverageRegistryFromManifest), never from
-    // this call.
-    review = await runMortalFullGameReview({
-      stream: local.stream,
-      decisions: local.decisions,
-      report: cachedReport,
-      engine,
-      coverageRegistry: createMortalCoverageRegistry(MORTAL_COVERAGE_BRANCHES),
-    });
-  } finally {
-    await engine.close();
-  }
-  if (review.status !== "coverage_ready") {
-    checkpoint = failPair(checkpoint, pair.gameId, pair.seat, `review_failed:${review.code}`);
-    console.error(`E2E FAIL ${key}: ${review.code}`);
+  // Shared acceptance core (§5 source-policy correction): review in
+  // acceptance mode (coverage gate open HERE only — production consumers
+  // lift from the evidence manifest, never from this call) → evidence →
+  // redacted artifact → hash → manifest samples. The Tenhou adapter owns
+  // only the local side (mapper → replay) and the checkpoint transitions.
+  const evidenceRun = await runMortalAcceptanceEvidence({
+    local: {
+      sourceKind: "tenhou",
+      opaqueGameId: pair.gameId,
+      selfActor: pair.seat,
+      canonicalStream: local.stream,
+      replayedDecisions: local.decisions,
+    },
+    report: cachedReport,
+    engine,
+    evidenceVersion: options.evidenceVersion,
+  }).finally(() => engine.close());
+  if (evidenceRun.status === "review_failed") {
+    checkpoint = failPair(checkpoint, pair.gameId, pair.seat, `review_failed:${evidenceRun.code}`);
+    console.error(`E2E FAIL ${key}: ${evidenceRun.code}`);
     continue;
   }
-  checkpoint = advance(checkpoint, pair.gameId, pair.seat, "review_finished");
-  record = findAcceptancePair(checkpoint, pair.gameId, pair.seat);
-
-  const evidence = extractAcceptedBranchEvidence({
-    stream: local.stream,
-    decisions: local.decisions,
-    report: cachedReport,
-    review,
-  });
-  if (evidence.analysisReadyRowCount === 0 || evidence.branches.length === 0) {
+  if (evidenceRun.status === "no_analysis_ready_branch_evidence") {
     checkpoint = failPair(
       checkpoint,
       pair.gameId,
@@ -598,31 +589,24 @@ for (const pair of stagePairs) {
       "no_analysis_ready_branch_evidence",
     );
     console.error(
-      `E2E FAIL ${key}: no analysis_ready branch evidence (${evidence.analysisReadyRowCount} rows)`,
+      `E2E FAIL ${key}: no analysis_ready branch evidence (${evidenceRun.analysisReadyRowCount} rows)`,
     );
     continue;
   }
-  const artifact = buildRedactedAcceptanceArtifact({
-    gameId: pair.gameId,
-    seat: pair.seat,
-    report: cachedReport,
-    review,
-    evidence,
-  });
-  const evidenceHash = `sha256:${createHash("sha256")
-    .update(JSON.stringify(artifact), "utf8")
-    .digest("hex")}`;
+  checkpoint = advance(checkpoint, pair.gameId, pair.seat, "review_finished");
+  record = findAcceptancePair(checkpoint, pair.gameId, pair.seat);
+
   writePrivate(
     join(artifactsDir, `${key}.json`),
-    `${JSON.stringify(artifact, null, 2)}\n`,
+    `${JSON.stringify(evidenceRun.artifact, null, 2)}\n`,
   );
   checkpoint = advance(checkpoint, pair.gameId, pair.seat, "evidence_recorded", {
-    evidenceHash,
+    evidenceHash: evidenceRun.evidenceHash,
     evidenceVersion: options.evidenceVersion,
-    branches: [...evidence.branches],
+    branches: [...evidenceRun.evidence.branches],
   });
   console.error(
-    `ACCEPTED ${key}: branches [${evidence.branches.join(", ")}] evidence ${evidenceHash.slice(0, 19)}…`,
+    `ACCEPTED ${key}: branches [${evidenceRun.evidence.branches.join(", ")}] evidence ${evidenceRun.evidenceHash.slice(0, 19)}…`,
   );
 }
 
@@ -666,7 +650,7 @@ for (const pair of checkpoint.pairs) {
       branch,
       evidenceVersion: pair.evidenceVersion ?? options.evidenceVersion,
       evidenceHash: pair.evidenceHash ?? "",
-      localSourceType: "tenhou",
+      localSourceType: pair.sourceType ?? "tenhou",
       modelAdapterVersion: report.adapterVersion,
       ...(report.modelTag !== undefined ? { modelTag: report.modelTag } : {}),
     });

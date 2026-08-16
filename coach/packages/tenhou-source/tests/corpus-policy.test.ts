@@ -253,7 +253,7 @@ describe("acceptance submission policy", () => {
       budget,
     });
     expect(plan).toEqual([
-      { gameId: "g1", seat: 2, reason: "submit", attempts: 2 },
+      { gameId: "g1", seat: 2, sourceType: "tenhou", reason: "submit", attempts: 2 },
     ]);
   });
 
@@ -304,7 +304,7 @@ describe("acceptance submission policy", () => {
     const base = [{ gameId: "g1", seat: 0, status: "in_flight" as const, attempts: 1 }];
     const next = updateCheckpoint(base, "g1", 0, "succeeded", 1);
     expect(next).toEqual([
-      { gameId: "g1", seat: 0, status: "succeeded", attempts: 1 },
+      { gameId: "g1", seat: 0, sourceType: "tenhou", status: "succeeded", attempts: 1 },
     ]);
     const added = updateCheckpoint(next, "g2", 1, "in_flight", 1);
     expect(added).toHaveLength(2);

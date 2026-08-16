@@ -29,6 +29,10 @@ import {
   type MortalCoverageBranch,
   type MortalCoverageWindowKind,
 } from "./mortal-coverage-registry.js";
+import {
+  MORTAL_COVERAGE_LOCAL_SOURCE_TYPES,
+  type MortalCoverageLocalSourceType,
+} from "./mortal-coverage-evidence-manifest.js";
 import type { ReplayedDecision } from "../replay/stream-replayer.js";
 
 export type AcceptanceReadyReview = Extract<
@@ -99,19 +103,41 @@ export const MORTAL_ACCEPTANCE_ARTIFACT_VERSION =
   "mortal-acceptance-artifact/v1" as const;
 
 /**
+ * Validate the artifact's local-source provenance. The acceptance invariant
+ * is REAL + INDEPENDENT LOCAL AUTHORITY, and the artifact must record which
+ * approved pipeline produced the canonical side ("tenhou" | "mahjong_soul").
+ * A missing or unknown source type fails closed: an artifact whose local
+ * provenance cannot be named is not evidence.
+ */
+export function assertMortalAcceptanceLocalSourceType(
+  sourceType: unknown,
+): MortalCoverageLocalSourceType {
+  if (
+    typeof sourceType !== "string"
+    || !(MORTAL_COVERAGE_LOCAL_SOURCE_TYPES as readonly string[]).includes(sourceType)
+  ) {
+    throw new Error("mortal_acceptance_artifact_source_type_invalid");
+  }
+  return sourceType as MortalCoverageLocalSourceType;
+}
+
+/**
  * Build the redacted acceptance artifact. Field allowlist only — adding a
  * field here is a privacy review (§15/§23), not a refactor. The evidence
  * hash recorded in the manifest is sha256 over JSON.stringify of this
  * object.
  */
 export function buildRedactedAcceptanceArtifact(input: {
-  /** Opaque content-hash game id — never a Tenhou log id or URL. */
+  /** Opaque content-hash game id — never a raw record id, log id, or URL. */
   readonly gameId: string;
   readonly seat: number;
+  /** Which approved local pipeline produced the canonical side (§14). */
+  readonly localSourceType: MortalCoverageLocalSourceType;
   readonly report: MortalFetchedReport;
   readonly review: AcceptanceReadyReview;
   readonly evidence: AcceptedBranchEvidence;
 }): Readonly<Record<string, unknown>> {
+  assertMortalAcceptanceLocalSourceType(input.localSourceType);
   const analysisReadyRows = input.review.decisions
     .filter((row) => row.outcome === "analysis_ready" && row.modelSummary !== null)
     .map((row) => ({
@@ -127,7 +153,7 @@ export function buildRedactedAcceptanceArtifact(input: {
     schemaVersion: MORTAL_ACCEPTANCE_ARTIFACT_VERSION,
     gameId: input.gameId,
     seat: input.seat,
-    localSourceType: "tenhou",
+    localSourceType: input.localSourceType,
     modelAdapterVersion: input.report.adapterVersion,
     modelEngine: input.report.engine,
     modelVersion: input.report.version,

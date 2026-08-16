@@ -24,6 +24,29 @@ import type { AcceptanceBudget } from "./acceptance-policy.js";
 export const MORTAL_ACCEPTANCE_CHECKPOINT_SCHEMA_VERSION =
   "mortal-acceptance-checkpoint/v1" as const;
 
+/**
+ * Local pipelines allowed to own an acceptance pair's canonical side. This
+ * MUST stay in lockstep with reasoning's MORTAL_COVERAGE_LOCAL_SOURCE_TYPES
+ * (the manifest schema's authority) — a test pins the two unions together.
+ * §13: pair identity is source-aware, so the same content digest arriving
+ * via two platforms is TWO pairs, never one colliding entry.
+ */
+export const ACCEPTANCE_LOCAL_SOURCE_TYPES = ["tenhou", "mahjong_soul"] as const;
+
+export type AcceptanceLocalSourceType =
+  (typeof ACCEPTANCE_LOCAL_SOURCE_TYPES)[number];
+
+/** Legacy normalization: checkpoints written before source-aware identity
+ *  exist only from the Tenhou runner, so a missing sourceType parses as
+ *  "tenhou" (resumability preserved; anything else fails closed). */
+function normalizeLegacyPairRecord(
+  record: MortalAcceptancePairRecord,
+): MortalAcceptancePairRecord {
+  return record.sourceType === undefined
+    ? { ...record, sourceType: "tenhou" }
+    : record;
+}
+
 export const MORTAL_ACCEPTANCE_PIPELINE_STATES = [
   "local_ready",
   "mortal_submission_pending",
@@ -110,8 +133,10 @@ export function transitionAcceptanceState(
 
 /** One (game, seat) pair's resumable state. Opaque fields only (§15). */
 export interface MortalAcceptancePairRecord {
-  /** Opaque content-hash game id — never a Tenhou log id or file name. */
+  /** Opaque content-hash game id — never a raw record id or file name. */
   readonly gameId: string;
+  /** Which local pipeline owns this pair's canonical side (§13 identity). */
+  readonly sourceType?: AcceptanceLocalSourceType;
   readonly seat: number;
   readonly state: MortalAcceptanceState;
   /** Submission attempts (new submissions + retries) charged to this pair. */
@@ -143,6 +168,12 @@ function validatePairRecord(record: MortalAcceptancePairRecord): void {
   if (record.gameId.length === 0) {
     throw new Error("acceptance_checkpoint_invalid:game_id_empty");
   }
+  if (
+    record.sourceType !== undefined
+    && !(ACCEPTANCE_LOCAL_SOURCE_TYPES as readonly string[]).includes(record.sourceType)
+  ) {
+    throw new Error("acceptance_checkpoint_invalid:source_type_unknown");
+  }
   if (!Number.isInteger(record.seat) || record.seat < 0 || record.seat > 3) {
     throw new Error("acceptance_checkpoint_invalid:seat_out_of_range");
   }
@@ -167,19 +198,36 @@ function validatePairRecord(record: MortalAcceptancePairRecord): void {
   }
 }
 
+/** §13 identity: (sourceType, gameId, seat). Absent sourceType is the
+ *  legacy Tenhou-only form; anything written after the source-policy
+ *  correction carries it explicitly. */
+function pairSource(pair: MortalAcceptancePairRecord): AcceptanceLocalSourceType {
+  return pair.sourceType ?? "tenhou";
+}
+
+function samePairIdentity(
+  a: MortalAcceptancePairRecord,
+  gameId: string,
+  seat: number,
+  sourceType: AcceptanceLocalSourceType,
+): boolean {
+  return a.gameId === gameId && a.seat === seat && pairSource(a) === sourceType;
+}
+
 /**
- * Replace (or insert) one pair record, keyed by (gameId, seat). Every record
- * is validated before it enters the checkpoint: a hand-edited or corrupt
- * checkpoint fails closed at the next write/load instead of silently
- * recording an impossible state (e.g. accepted without evidence).
+ * Replace (or insert) one pair record, keyed by (sourceType, gameId, seat).
+ * Every record is validated before it enters the checkpoint: a hand-edited
+ * or corrupt checkpoint fails closed at the next write/load instead of
+ * silently recording an impossible state (e.g. accepted without evidence).
  */
 export function upsertAcceptancePair(
   checkpoint: MortalAcceptanceCheckpointFile,
   record: MortalAcceptancePairRecord,
 ): MortalAcceptanceCheckpointFile {
   validatePairRecord(record);
+  const sourceType = pairSource(record);
   const next = checkpoint.pairs.filter(
-    (pair) => !(pair.gameId === record.gameId && pair.seat === record.seat),
+    (pair) => !samePairIdentity(pair, record.gameId, record.seat, sourceType),
   );
   next.push(record);
   return {
@@ -194,9 +242,10 @@ export function findAcceptancePair(
   checkpoint: MortalAcceptanceCheckpointFile,
   gameId: string,
   seat: number,
+  sourceType: AcceptanceLocalSourceType = "tenhou",
 ): MortalAcceptancePairRecord | null {
   return checkpoint.pairs.find(
-    (pair) => pair.gameId === gameId && pair.seat === seat,
+    (pair) => samePairIdentity(pair, gameId, seat, sourceType),
   ) ?? null;
 }
 
@@ -215,7 +264,7 @@ export function parseAcceptanceCheckpointFile(json: unknown): MortalAcceptanceCh
   const file: MortalAcceptanceCheckpointFile = {
     schemaVersion: MORTAL_ACCEPTANCE_CHECKPOINT_SCHEMA_VERSION,
     budget: candidate.budget ?? null,
-    pairs: candidate.pairs,
+    pairs: candidate.pairs.map(normalizeLegacyPairRecord),
   };
   for (const pair of file.pairs) validatePairRecord(pair);
   return file;

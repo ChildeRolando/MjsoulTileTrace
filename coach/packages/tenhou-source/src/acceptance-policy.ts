@@ -15,12 +15,20 @@
 export interface AcceptanceSelectionEntry {
   readonly gameId: string;
   readonly seat: number;
+  /**
+   * Local pipeline that owns this pair's canonical side (§13 identity).
+   * Omitted means "tenhou" (the legacy, pre-correction form); the Mahjong
+   * Soul adapter MUST set "mahjong_soul" explicitly so same-digest pairs
+   * from the two platforms never collide.
+   */
+  readonly sourceType?: "tenhou" | "mahjong_soul";
 }
 
 /** A (game, seat) pair with an existing successful Mortal report. */
 export interface AcceptanceCachedSuccess {
   readonly gameId: string;
   readonly seat: number;
+  readonly sourceType?: "tenhou" | "mahjong_soul";
 }
 
 export type AcceptanceCheckpointStatus =
@@ -32,6 +40,8 @@ export type AcceptanceCheckpointStatus =
 export interface AcceptanceCheckpointEntry {
   readonly gameId: string;
   readonly seat: number;
+  /** §13 source-aware identity; omitted = legacy "tenhou". */
+  readonly sourceType?: "tenhou" | "mahjong_soul";
   readonly status: AcceptanceCheckpointStatus;
   readonly attempts: number;
   /**
@@ -65,6 +75,8 @@ export type AcceptancePlanReason =
 export interface PlannedAcceptanceItem {
   readonly gameId: string;
   readonly seat: number;
+  /** §13 source-aware identity (spelled out on every planned item). */
+  readonly sourceType: "tenhou" | "mahjong_soul";
   readonly reason: AcceptancePlanReason;
   /** Carry-over attempt count from the checkpoint, for the next checkpoint. */
   readonly attempts: number;
@@ -77,23 +89,38 @@ export interface AcceptancePlanInput {
   readonly budget: AcceptanceBudget;
 }
 
-function pairKey(gameId: string, seat: number): string {
-  return `${gameId}#${seat}`;
+type PolicySourceType = NonNullable<AcceptanceSelectionEntry["sourceType"]>;
+
+function entrySource(
+  entry: { readonly sourceType?: PolicySourceType },
+): PolicySourceType {
+  return entry.sourceType ?? "tenhou";
+}
+
+function pairKey(
+  gameId: string,
+  seat: number,
+  sourceType: PolicySourceType = "tenhou",
+): string {
+  return `${sourceType}:${gameId}#${seat}`;
 }
 
 /**
- * Plan one acceptance run: preserve selection order, dedupe by (game, seat),
- * skip pairs whose successful report is already cached or checkpointed, and
- * cut off new submissions at the hard budget. Everything the runner must NOT
- * do is encoded here so the transport loop stays dumb.
+ * Plan one acceptance run: preserve selection order, dedupe by
+ * (sourceType, gameId, seat), skip pairs whose successful report is already
+ * cached or checkpointed, and cut off new submissions at the hard budget.
+ * Everything the runner must NOT do is encoded here so the transport loop
+ * stays dumb.
  */
 export function planAcceptanceRun(input: AcceptancePlanInput): PlannedAcceptanceItem[] {
   const cached = new Set(
-    (input.cachedSuccesses ?? []).map((entry) => pairKey(entry.gameId, entry.seat)),
+    (input.cachedSuccesses ?? []).map(
+      (entry) => pairKey(entry.gameId, entry.seat, entrySource(entry)),
+    ),
   );
   const checkpointByKey = new Map<string, AcceptanceCheckpointEntry>();
   for (const entry of input.checkpoint ?? []) {
-    checkpointByKey.set(pairKey(entry.gameId, entry.seat), entry);
+    checkpointByKey.set(pairKey(entry.gameId, entry.seat, entrySource(entry)), entry);
   }
 
   const seen = new Set<string>();
@@ -101,20 +128,22 @@ export function planAcceptanceRun(input: AcceptancePlanInput): PlannedAcceptance
   const plan: PlannedAcceptanceItem[] = [];
 
   for (const entry of input.selection) {
-    const key = pairKey(entry.gameId, entry.seat);
+    const sourceType = entrySource(entry);
+    const key = pairKey(entry.gameId, entry.seat, sourceType);
     if (seen.has(key)) {
-      plan.push({ ...entry, reason: "skip_duplicate", attempts: 0 });
+      plan.push({ ...entry, sourceType, reason: "skip_duplicate", attempts: 0 });
       continue;
     }
     seen.add(key);
     if (cached.has(key)) {
-      plan.push({ ...entry, reason: "skip_cached_success", attempts: 0 });
+      plan.push({ ...entry, sourceType, reason: "skip_cached_success", attempts: 0 });
       continue;
     }
     const checkpointEntry = checkpointByKey.get(key);
     if (checkpointEntry?.status === "succeeded") {
       plan.push({
         ...entry,
+        sourceType,
         reason: "skip_checkpoint_succeeded",
         attempts: checkpointEntry.attempts,
       });
@@ -123,6 +152,7 @@ export function planAcceptanceRun(input: AcceptancePlanInput): PlannedAcceptance
     if (checkpointEntry?.status === "failed" && checkpointEntry.terminal === true) {
       plan.push({
         ...entry,
+        sourceType,
         reason: "skip_terminal_failure",
         attempts: checkpointEntry.attempts,
       });
@@ -131,6 +161,7 @@ export function planAcceptanceRun(input: AcceptancePlanInput): PlannedAcceptance
     if (budgetRemaining <= 0) {
       plan.push({
         ...entry,
+        sourceType,
         reason: "skip_budget_exhausted",
         attempts: checkpointEntry?.attempts ?? 0,
       });
@@ -139,6 +170,7 @@ export function planAcceptanceRun(input: AcceptancePlanInput): PlannedAcceptance
     budgetRemaining -= 1;
     plan.push({
       ...entry,
+      sourceType,
       reason: "submit",
       attempts: (checkpointEntry?.attempts ?? 0) + 1,
     });
@@ -178,9 +210,12 @@ export function updateCheckpoint(
   seat: number,
   status: AcceptanceCheckpointStatus,
   attempts: number,
+  sourceType: PolicySourceType = "tenhou",
 ): AcceptanceCheckpointEntry[] {
-  const key = pairKey(gameId, seat);
-  const next = checkpoint.filter((entry) => pairKey(entry.gameId, entry.seat) !== key);
-  next.push({ gameId, seat, status, attempts });
+  const key = pairKey(gameId, seat, sourceType);
+  const next = checkpoint.filter(
+    (entry) => pairKey(entry.gameId, entry.seat, entrySource(entry)) !== key,
+  );
+  next.push({ gameId, seat, sourceType, status, attempts });
   return next;
 }
