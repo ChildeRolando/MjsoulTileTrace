@@ -59,3 +59,19 @@ export {
   type AcceptanceSelectionEntry,
   type PlannedAcceptanceItem,
 } from "./acceptance-policy.js";
+export {
+  canTransitionAcceptance,
+  createEmptyAcceptanceCheckpoint,
+  findAcceptancePair,
+  isTerminalAcceptanceState,
+  MORTAL_ACCEPTANCE_CHECKPOINT_SCHEMA_VERSION,
+  MORTAL_ACCEPTANCE_PIPELINE_STATES,
+  parseAcceptanceCheckpointFile,
+  transitionAcceptanceState,
+  upsertAcceptancePair,
+  type AcceptanceTransitionEvent,
+  type MortalAcceptanceCheckpointFile,
+  type MortalAcceptancePairRecord,
+  type MortalAcceptancePipelineState,
+  type MortalAcceptanceState,
+} from "./acceptance-state.js";

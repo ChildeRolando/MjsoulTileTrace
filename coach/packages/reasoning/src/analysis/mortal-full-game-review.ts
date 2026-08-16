@@ -325,8 +325,9 @@ function localSupport(
 }
 
 // The call kind for a post-call window, from its trigger event. Used only
-// for coverage-branch classification.
-function callKindForDecision(
+// for coverage-branch classification. Exported so the acceptance evidence
+// extractor classifies accepted rows with the same inputs the review used.
+export function callKindForDecision(
   stream: CanonicalEventStream,
   decision: ReplayedDecision,
 ): "chi" | "pon" | null {
