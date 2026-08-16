@@ -68,5 +68,6 @@ export * from "./replay/round-reducer.js";
 export * from "./replay/decision-snapshot.js";
 export * from "./replay/response-furiten.js";
 export * from "./replay/stream-replayer.js";
+export * from "./replay/dama-tsumo-discovery.js";
 export * from "./replay/replay-audit.js";
 export * from "./prototype/coach-report.js";

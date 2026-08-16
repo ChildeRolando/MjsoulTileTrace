@@ -2,22 +2,37 @@
 /**
  * M6-A3 §14 discovery corpus runner (local-only).
  *
- *   node scripts/tenhou-discovery.mjs <log1.xml> [log2.xml ...] [--out report.json]
+ *   node scripts/tenhou-discovery.mjs <log1.xml> [log2.xml ...]
+ *     [--out report.json] [--max-candidates N] [--dama-tsumo]
  *
- * Pipeline: raw logs → tenhou mapper → canonical → structural census. Mortal
- * is NEVER called here. Output is §23-compliant aggregates and selection
- * metadata only (counts, opaque game ids, seats, branch names). Game ids are
- * derived from the record content hash, never from file names or any Tenhou
- * identifier.
+ * Pipeline: raw logs → tenhou mapper → canonical → structural census, plus
+ * (with --dama-tsumo) the §7 private pass: per-seat mapping → replay →
+ * hand-structure fact engine, classifying dama_with_tsumo windows the public
+ * census cannot see. Mortal is NEVER called here. Output is §23-compliant:
+ * counts, opaque game ids, seats, branch names, and canonical decision
+ * locators only. Game ids are derived from the record content hash, never
+ * from file names or any Tenhou identifier.
  */
 import { createHash } from "node:crypto";
 import { readFileSync, writeFileSync } from "node:fs";
-import { discoverTenhouCorpus } from "@riichi-coach/tenhou-source";
+import { fileURLToPath } from "node:url";
+import {
+  discoverTenhouCorpus,
+  mapTenhouRecord,
+  mergeDamaTsumoCandidates,
+} from "@riichi-coach/tenhou-source";
+import {
+  collectDamaTsumoWindows,
+  JsonlFactEngineClient,
+  ManagedFactEngineTransport,
+  replayCanonicalStream,
+} from "@riichi-coach/reasoning";
 
 function parseArgs(argv) {
   const files = [];
   let out = null;
   let maxCandidateSamples;
+  let damaTsumo = false;
   for (let index = 0; index < argv.length; index += 1) {
     const arg = argv[index];
     if (arg === "--out") {
@@ -28,6 +43,8 @@ function parseArgs(argv) {
         fail("--max-candidates requires a positive integer");
       }
       maxCandidateSamples = value;
+    } else if (arg === "--dama-tsumo") {
+      damaTsumo = true;
     } else if (arg.startsWith("--")) {
       fail(`unknown option ${arg}`);
     } else {
@@ -35,9 +52,9 @@ function parseArgs(argv) {
     }
   }
   if (files.length === 0) {
-    fail("usage: tenhou-discovery.mjs <log1.xml> [log2.xml ...] [--out report.json]");
+    fail("usage: tenhou-discovery.mjs <log1.xml> [log2.xml ...] [--out report.json] [--dama-tsumo]");
   }
-  return { files, out, maxCandidateSamples };
+  return { files, out, maxCandidateSamples, damaTsumo };
 }
 
 function fail(message) {
@@ -45,7 +62,7 @@ function fail(message) {
   process.exit(2);
 }
 
-const { files, out, maxCandidateSamples } = parseArgs(process.argv.slice(2));
+const { files, out, maxCandidateSamples, damaTsumo } = parseArgs(process.argv.slice(2));
 
 const inputs = files.map((file) => {
   const raw = readFileSync(file, "utf8");
@@ -54,7 +71,67 @@ const inputs = files.map((file) => {
   return { raw, gameId: `tenhou-g:${digest}` };
 });
 
-const report = discoverTenhouCorpus(inputs, { maxCandidateSamples });
+let report = discoverTenhouCorpus(inputs, { maxCandidateSamples });
+
+if (damaTsumo) {
+  const resourcesDir = fileURLToPath(new URL("../resources/", import.meta.url));
+  const engine = new JsonlFactEngineClient(new ManagedFactEngineTransport(resourcesDir));
+  const candidates = [];
+  let seatsReplayed = 0;
+  let seatsFailed = 0;
+  let windowsClassified = 0;
+  let engineFailures = 0;
+  try {
+    for (const input of inputs) {
+      for (let seat = 0; seat < 4; seat += 1) {
+        // The private pass re-maps per seat: only the self actor's draws are
+        // visible in a canonical stream, so concealed tiles exist per-seat.
+        const mapped = mapTenhouRecord({
+          raw: input.raw,
+          gameId: input.gameId,
+          selfActor: seat,
+        });
+        if (mapped.status !== "ready") {
+          seatsFailed += 1;
+          continue;
+        }
+        const result = await collectDamaTsumoWindows(
+          replayCanonicalStream(mapped.stream),
+          engine,
+        );
+        seatsReplayed += 1;
+        windowsClassified += result.classifiedWindows;
+        engineFailures += result.engineFailures;
+        console.error(
+          `dama-tsumo ${input.gameId}#${seat}: ${result.windows.length} found ` +
+          `(${result.classifiedWindows} classified, ${result.skippedWindows} skipped, ` +
+          `${result.engineFailures} engine failures)`,
+        );
+        for (const window of result.windows) {
+          candidates.push({
+            gameId: input.gameId,
+            seat,
+            decisionEventRef: window.decisionEventRef,
+          });
+        }
+      }
+    }
+  } finally {
+    await engine.close();
+  }
+  report = mergeDamaTsumoCandidates(report, candidates, {
+    seatsReplayed,
+    seatsFailed,
+    windowsClassified,
+    engineFailures,
+    engineUsed: true,
+  });
+  console.error(
+    `dama-tsumo pass: ${candidates.length} windows found ` +
+    `(${seatsReplayed} seats replayed, ${seatsFailed} seat maps failed, ` +
+    `${windowsClassified} classified, ${engineFailures} engine failures)`,
+  );
+}
 
 const json = JSON.stringify(report, null, 2);
 if (out === null) {

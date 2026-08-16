@@ -31,16 +31,20 @@ export {
 export {
   TENHOU_COVERAGE_BRANCHES,
   censusCanonicalGame,
+  type BranchWindowLocators,
   type GameCensus,
   type SeatCensus,
   type TenhouCoverageBranch,
 } from "./census.js";
 export {
   discoverTenhouCorpus,
-  type DiscoveryCandidateSample,
+  mergeDamaTsumoCandidates,
+  type DamaTsumoPassStats,
+  type DiscoveryBranchCandidate,
   type DiscoveryInput,
   type DiscoveryOptions,
   type DiscoveryReport,
+  type DiscoverySelectionPair,
 } from "./discovery.js";
 export {
   delayBeforeRequestMs,

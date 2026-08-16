@@ -13,6 +13,7 @@ import {
   delayBeforeRequestMs,
   discoverTenhouCorpus,
   mapTenhouRecord,
+  mergeDamaTsumoCandidates,
   planAcceptanceRun,
   TENHOU_COVERAGE_BRANCHES,
   updateCheckpoint,
@@ -46,6 +47,18 @@ describe("census on the pinned real corpus", () => {
     for (const branch of TENHOU_COVERAGE_BRANCHES) {
       expect(Number.isInteger(census.branchHits[branch])).toBe(true);
       expect(census.branchHits[branch]!).toBeGreaterThanOrEqual(0);
+      // §6: every counted window also carries a concrete locator, and the
+      // locator count equals the hit count.
+      expect(census.seats.reduce(
+        (total, seat) => total + seat.branchWindows[branch].length,
+        0,
+      )).toBe(census.branchHits[branch]);
+      for (const seat of census.seats) {
+        for (const locator of seat.branchWindows[branch]) {
+          expect(typeof locator).toBe("string");
+          expect(locator.length).toBeGreaterThan(0);
+        }
+      }
     }
   });
 
@@ -84,20 +97,105 @@ describe("discovery policy", () => {
       tenhou_record_disconnect_unsupported: 1,
     });
     expect(report.localBranchHits.riichi_window).toBeGreaterThan(0);
-    // Dedupe by (gameId, seat): at most 2 games × 4 seats entries, capped at 3.
-    expect(report.damaRiichiCandidates.length).toBeLessThanOrEqual(3);
-    const keys = report.damaRiichiCandidates.map((sample) => `${sample.gameId}#${sample.seat}`);
-    expect(new Set(keys).size).toBe(keys.length);
-    // Sorted by descending window count.
-    const counts = report.damaRiichiCandidates.map((s) => s.damaRiichiCandidateWindows);
-    expect([...counts].sort((a, b) => b - a)).toEqual(counts);
-    // Honest-zero tsumo-candidate policy.
+    // §6: every non-zero branch carries CONCRETE candidates — (game, seat,
+    // branch, decision locator) — capped per branch, unique, and resolvable.
+    for (const branch of TENHOU_COVERAGE_BRANCHES) {
+      const candidates = report.branchCandidates[branch];
+      expect(candidates.length).toBeLessThanOrEqual(3);
+      if (report.localBranchHits[branch] > 0) {
+        expect(candidates.length).toBeGreaterThan(0);
+      }
+      const keys = candidates.map(
+        (candidate) => `${candidate.branch}|${candidate.gameId}|${candidate.seat}|${candidate.decisionEventRef}`,
+      );
+      expect(new Set(keys).size).toBe(keys.length);
+      for (const candidate of candidates) {
+        expect(candidate.branch).toBe(branch);
+        expect(candidate.decisionEventRef.startsWith("tenhou-fixture:")).toBe(true);
+      }
+    }
+    // Census-side dama_tsumo stays an honest zero pending the engine pass.
+    expect(report.branchCandidates.dama_with_tsumo_candidate).toEqual([]);
     expect(report.damaTsumoCandidateWindows).toBe(0);
     expect(report.needsHandStructureEngine).toBe(true);
     // kyuushu does not occur in these three games → honestly uncovered.
     expect(report.uncoveredLocalBranches).toContain("self_turn_kyuushu");
+    expect(report.uncoveredLocalBranches).toContain("dama_with_tsumo_candidate");
     // §23: aggregate output must not carry record content or names.
     expect(JSON.stringify(report)).not.toContain("%");
+  });
+
+  it("§8 selection pairs greedily cover branches with few (game, seat) pairs", () => {
+    const report = discoverTenhouCorpus([
+      { raw: loadRaw("bug1.xml"), gameId: "tenhou-fixture:s1" },
+      { raw: loadRaw("bug3.xml"), gameId: "tenhou-fixture:s2" },
+    ]);
+    expect(report.selectionPairs.length).toBeGreaterThan(0);
+    const covered = new Set<string>();
+    for (const pair of report.selectionPairs) {
+      expect(pair.branches.length).toBeGreaterThan(0);
+      for (const branch of pair.branches) {
+        // Each pair's branch must actually have a candidate for that pair.
+        expect(report.branchCandidates[branch].some(
+          (candidate) =>
+            candidate.gameId === pair.gameId && candidate.seat === pair.seat,
+        )).toBe(true);
+        covered.add(branch);
+      }
+    }
+    // Together the pairs cover every branch that has any candidate.
+    for (const branch of TENHOU_COVERAGE_BRANCHES) {
+      if (report.branchCandidates[branch].length > 0) {
+        expect(covered.has(branch)).toBe(true);
+      }
+    }
+    // Greedy first pick: no other single pair covers more branches.
+    const best = report.selectionPairs[0]!;
+    const maxCover = Math.max(
+      ...report.selectionPairs.map((pair) => pair.branches.length),
+    );
+    expect(best.branches.length).toBe(maxCover);
+  });
+
+  it("merging the private dama_tsumo pass fills the branch without guessing", () => {
+    const report = discoverTenhouCorpus([
+      { raw: loadRaw("bug1.xml"), gameId: "tenhou-fixture:m1" },
+    ]);
+    const merged = mergeDamaTsumoCandidates(
+      report,
+      [
+        { gameId: "tenhou-fixture:m1", seat: 2, decisionEventRef: "tenhou-fixture:m1/0/12/0" },
+        { gameId: "tenhou-fixture:m1", seat: 2, decisionEventRef: "tenhou-fixture:m1/0/12/0" },
+        { gameId: "tenhou-fixture:m1", seat: 1, decisionEventRef: "tenhou-fixture:m1/2/40/0" },
+      ],
+      {
+        seatsReplayed: 4,
+        seatsFailed: 0,
+        windowsClassified: 260,
+        engineFailures: 0,
+        engineUsed: true,
+      },
+    );
+    // Deduped merge, scan order preserved.
+    expect(merged.branchCandidates.dama_with_tsumo_candidate.map(
+      (candidate) => candidate.seat,
+    )).toEqual([2, 1]);
+    expect(merged.damaTsumoCandidateWindows).toBe(2);
+    expect(merged.needsHandStructureEngine).toBe(false);
+    expect(merged.damaTsumoPass).toEqual({
+      seatsReplayed: 4,
+      seatsFailed: 0,
+      windowsClassified: 260,
+      engineFailures: 0,
+      engineUsed: true,
+    });
+    // The merged branch participates in selection and coverage.
+    expect(merged.uncoveredLocalBranches).not.toContain("dama_with_tsumo_candidate");
+    expect(merged.selectionPairs.some((pair) =>
+      pair.branches.includes("dama_with_tsumo_candidate"),
+    )).toBe(true);
+    // Census aggregates are untouched by the merge.
+    expect(merged.localBranchHits).toEqual(report.localBranchHits);
   });
 });
 
