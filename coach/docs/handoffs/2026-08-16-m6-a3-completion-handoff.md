@@ -1,5 +1,13 @@
 # M6-A3：行动支持扩展与真实语料 — 最终收口交接
 
+> **历史标记（2026-08-16 source-policy correction）**：本页"下一步：用户从自己的
+> 天凤对局历史取回 log URL"的收口路径已被**来源政策修正**取代——验收不变量是
+> 真实 + 独立本地权威 + 全 E2E，不是"仅天凤"；雀魂官方原始牌谱为**首选**验收
+> 来源（`scripts/majsoul-acceptance.mjs`，H2 样本即雀魂来源），天凤降级为补充
+> （仅对仍缺分支使用；用户天凤牌谱只在某分支确实无其他来源时才需要）。本文的
+> 结构性事实（Turnstile 门禁、钉死语料无归档 id、西局 kyuushu 缺口）仍然成立。
+> 权威表述见 `2026-08-16-m6-a3-source-policy-correction-report.md` 与 ROADMAP §2。
+
 日期：2026-08-16（final closing round）
 分支：`codex/m6-a3-completion`
 base SHA：`0c18a1d9db47a101bde71ecf3d890070bd828210`（规划线 A3 文档与执行线 A3 实现的合并点）

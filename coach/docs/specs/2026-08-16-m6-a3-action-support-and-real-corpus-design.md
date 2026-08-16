@@ -135,12 +135,23 @@ blocked-projection 账本），`analysis_ready` 口径不变；比较契约"至�
 | kakan | actual=kakan |
 | kyuushu_kyuuhai | 候选或 actual |
 
-每分支：**≥1 真实 E2E 命中（天凤入口→canonical→绑定→装配→脱敏输出全链）才解除
-production fail-closed**；常见/高风险分支尽量 3–5 个不同 live case；稀有分支不为
-凑数无限扩样。synthetic fixture 只做 regression/边界测试，**永不解除 production
-fail-closed**（九种九牌同样适用：本地可扫千/万场寻找，只提交命中的目标 seat）。
+每分支：**≥1 真实 E2E 命中（任一获批独立本地来源入口→canonical→绑定→装配→
+脱敏输出全链）才解除 production fail-closed**；常见/高风险分支尽量 3–5 个不同
+live case；稀有分支不为凑数无限扩样。synthetic fixture 只做 regression/边界测试，
+**永不解除 production fail-closed**（九种九牌同样适用：本地可扫千/万场寻找，只
+提交命中的目标 seat）。
 
-A3 CLOSED 条件 = 目标语义覆盖矩阵无空格，不是任何 corpus 场数。
+**来源政策修正（2026-08-16 source-policy correction）**：验收不变量 = 真实 +
+独立本地权威 + 全 E2E，**不是“仅天凤”**。获批独立本地来源 = **雀魂官方原始
+牌谱（首选，最终产品入口）** 与 **天凤权威原始牌谱（补充：discovery 语料、
+稀有事件、第二验收来源）**。同一原始对局只要两侧各自独立获取与解析即合法。
+验收证据的本地来源必须是独立生产侧——**严禁**用 Mortal 报告内嵌的
+`mjai_log`/`split_logs` 或任何从被验报告重建的数据充当本地侧（同源派生会把
+交叉验证变成重言）。artifact/manifest 必须记录 `localSourceType:
+"mahjong_soul" | "tenhou"`，缺失或未知即 fail-closed 拒绝。
+
+A3 CLOSED 条件 = 目标语义覆盖矩阵无空格（来自任一获批来源），不是任何
+corpus 场数。
 
 ### 验收报告固定输出
 

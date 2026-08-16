@@ -159,6 +159,12 @@ function pairKey(gameId, seat) {
   return `${gameId}#${seat}`;
 }
 
+/** File-safe pair key: NTFS forbids ':' in file names (gameIds carry a
+ *  `tenhou-g:` prefix), so cache/artifact file names sanitize it. */
+function fileKeyOf(gameId, seat) {
+  return pairKey(gameId, seat).replaceAll(":", "-");
+}
+
 /** Atomic 0600 write — a half-written checkpoint must never be loaded. */
 function writePrivate(path, text) {
   const temp = `${path}.tmp`;
@@ -441,8 +447,8 @@ for (const pair of stagePairs) {
   if (record === null || record.state === "accepted" || record.state === "failed") {
     continue;
   }
-  const cachePath = join(cacheDir, `${key}.json`);
-  const inboxPath = join(inboxDir, `${key}.url`);
+  const cachePath = join(cacheDir, `${fileKeyOf(pair.gameId, pair.seat)}.json`);
+  const inboxPath = join(inboxDir, `${fileKeyOf(pair.gameId, pair.seat)}.url`);
 
   // Cached success short-circuits everything (never resubmit, §4).
   if (existsSync(cachePath)) {
@@ -597,7 +603,7 @@ for (const pair of stagePairs) {
   record = findAcceptancePair(checkpoint, pair.gameId, pair.seat);
 
   writePrivate(
-    join(artifactsDir, `${key}.json`),
+    join(artifactsDir, `${fileKeyOf(pair.gameId, pair.seat)}.json`),
     `${JSON.stringify(evidenceRun.artifact, null, 2)}\n`,
   );
   checkpoint = advance(checkpoint, pair.gameId, pair.seat, "evidence_recorded", {
@@ -640,7 +646,7 @@ for (const pair of checkpoint.pairs) {
 const samples = [];
 for (const pair of checkpoint.pairs) {
   if (pair.state !== "accepted") continue;
-  const cachePath = join(cacheDir, `${pairKey(pair.gameId, pair.seat)}.json`);
+  const cachePath = join(cacheDir, `${fileKeyOf(pair.gameId, pair.seat)}.json`);
   if (!existsSync(cachePath)) {
     fail(`checkpoint/cache inconsistency: accepted ${pairKey(pair.gameId, pair.seat)} has no cached report`);
   }

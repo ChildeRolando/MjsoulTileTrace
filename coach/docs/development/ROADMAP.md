@@ -17,7 +17,7 @@
 | M3 教学证据 | 未开始 | 仅有策略边界和占位契约 | 冻结资料、引用、版本化教学规则 |
 | M4 LLM 教练 | 未开始 | 严格分析包与解释验证地基 | LLM 客户端、编排、流式输出、追问 |
 | M5 雀魂国区接入 | 接近完成 | Electron 登录、加密恢复、最近 30 场、取回、canonical mapper、重放、脱敏 replay audit、H1 诊断命令 | 真实牌谱 H1 对照验收；未覆盖流局/杠枚举的 fixture 反证 |
-| M6 模型生产接入 | 进行中 | M6-A1：Mortal 单决策切片（安全获取、指纹/视角绑定、比较集 + ModelEvaluation + assembly）；M6-A2：全量自摸面覆盖账本（全局二部绑定、120/113 无丢失、99 个支持对 analysis_ready）；M6-A3：行动支持扩展已落地（declare_riichi 契约与 riichi_discard 实现语义、自摸/杠/九种九牌终局 actual、post_riichi/post_call 决策面、真实 hora 形态钉死、10 分支 fail-closed coverage gate + §16 evidence manifest lift 路径、Tenhou 第二生产 importer 与语料 runner、H2 连续性复跑 125/113 全绑定 0 歧义） | 真实语料验收提交（live Mortal acceptance → 10 分支矩阵补满 → manifest lift，A3 收口）；`awaiting_mortal_verification` 状态；M6-A4 响应面；Mortal 产品化工作流；Akagi（M6-B） |
+| M6 模型生产接入 | 进行中 | M6-A1：Mortal 单决策切片（安全获取、指纹/视角绑定、比较集 + ModelEvaluation + assembly）；M6-A2：全量自摸面覆盖账本（全局二部绑定、120/113 无丢失、99 个支持对 analysis_ready）；M6-A3：行动支持扩展已落地（declare_riichi 契约与 riichi_discard 实现语义、自摸/杠/九种九牌终局 actual、post_riichi/post_call 决策面、真实 hora 形态钉死、10 分支 fail-closed coverage gate + §16 evidence manifest lift 路径、双平台验收入口（雀魂首选 + Tenhou 补充，共享验收核心）、H2 连续性复跑 125/113 全绑定 0 歧义） | 真实独立证据验收（雀魂优先、Tenhou 补充 → 10 分支矩阵补满 → manifest lift，A3 收口）；`awaiting_mortal_verification` 状态；M6-A4 响应面；Mortal 产品化工作流；Akagi（M6-B） |
 | M7 会话与工作台 | 未开始 | 安全 IPC 和最小目录 UI | SQLite 任务、报告页、回放、聊天、恢复/删除 |
 | M8 打包发布 | 未开始 | Electron 与 sidecar 构建基础 | 跨平台安装、升级、日志、发布验收 |
 
@@ -31,9 +31,14 @@
 
 ### 2. 收口 M6-A3 真实语料验收
 
-- 提交通道已钉死（2026-08-16 收口轮）：mjai.ekyu.moe 无 API、表单 Turnstile 门禁；钉死语料（dnovikoff mjloggm）内嵌无天凤归档 log id，**该语料永远不能做验收提交**。验收改为 operator-assisted：操作者把**自己牌局**的可达天凤 log URL 放入 `<state-dir>/inbox/<gameId>#<seat>.url`，重跑 `scripts/tenhou-acceptance.mjs` 自动断点续跑（预算/去重/缓存复用/终态失败不烧预算自动生效），错误 URL↔pair 对会在报告绑定校验处 fail-closed。
-- 目标不变：10 个语义分支每个至少 1 个独立真实 E2E 接受命中；证据只进 §16 版本化 manifest，registry lift 只能由 manifest 派生。
-- 已钉死语料缺口（发现层实证，14 份全扫）：`dama_with_tsumo_candidate` 命中 0（需另寻样本）；`self_turn_kyuushu` 唯一候选在西局游戏，本地 replay 以 `known_facts_v2_unsupported_round_wind` fail-closed（需西局重放支持或另寻样本）。
+- **验收来源政策已修正（2026-08-16 source-policy correction）**：验收不变量 = 真实 + 独立本地权威 + 全 E2E，**不是“仅天凤”**。获批独立本地来源 = 雀魂官方原始牌谱（**首选**，最终产品入口）与天凤权威原始牌谱（补充：discovery/稀有事件语料/第二验收来源）。同一原始对局的两侧数据只要各自独立获取与解析即合法；严禁用 Mortal 报告内嵌的 `mjai_log`/`split_logs`/任何从报告重建的数据充当本地侧。
+- 工作流（按序）：
+  1. **固化 H2 雀魂证据**：`scripts/majsoul-acceptance.mjs`（INNER record bytes + selfActor → 既有生产 mapper → 重放 → 共享验收核心 → 脱敏 artifact → manifest）。报告可用本地缓存的真实 raw body（经注入 fetch 走完整生产解析路径，零网络）或操作者提供的 result URL（真实抓取；提交仍由操作者浏览器过 Turnstile，脚本永不自动提交）。
+  2. **扫描更多雀魂牌谱**补充分支覆盖（雀魂为产品主入口）。
+  3. 仅对仍缺的分支用 Tenhou 语料补：`scripts/tenhou-acceptance.mjs`（断点续跑；mjai.ekyu.moe 无 API、Turnstile 门禁 → operator-assisted：操作者把**自己牌局**的可达天凤 log URL 放入 `<state-dir>/inbox/<fileKey>.url`，错误 URL↔pair 对在报告绑定校验处 fail-closed；钉死语料 dnovikoff mjloggm 内嵌无归档 log id，永远不能做验收提交）。
+  4. 只有在某分支**确实无其他来源**时才要求用户提供天凤牌谱。
+- 目标不变：10 个语义分支每个至少 1 个独立真实 E2E 接受命中（来自任一获批来源）；证据只进 §16 版本化 manifest（记录 `localSourceType: "mahjong_soul" | "tenhou"`），registry lift 只能由 manifest 派生。
+- 已知语料缺口（发现层实证）：`dama_with_tsumo_candidate` 天凤钉死语料命中 0（需另寻样本，雀魂扫描优先）；`self_turn_kyuushu` 唯一候选在西局游戏，本地 replay 以 `known_facts_v2_unsupported_round_wind` fail-closed（需西局重放支持或另寻样本）。
 - 矩阵补满前，未覆盖分支保持 `coverage_branch_uncovered` fail-closed，不得手工放宽。
 
 ### 3. M6-A4 响应面

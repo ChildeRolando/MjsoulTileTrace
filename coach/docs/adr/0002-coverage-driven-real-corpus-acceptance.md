@@ -1,5 +1,13 @@
 # 验收采用 coverage-driven 两层真实语料（discovery/acceptance），本地侧新增独立的 Tenhou→canonical 入口
 
+> **2026-08-16 来源政策修正（superseding note）**：本 ADR 的核心决策——本地侧必须
+> 独立生产、绝不从 Mortal 报告内嵌 mjai_log 派生——不变且被强化。但"天凤入口"只是
+> 当时的实现载体，不是验收不变量。修正后：**雀魂官方原始牌谱为首选验收来源**
+> （最终产品入口，第一类验收入口 `scripts/majsoul-acceptance.mjs`），天凤降级为
+> 补充（discovery 语料 / 稀有事件 / 第二验收来源）。任一获批独立本地来源的真实
+> E2E 命中均可解除 fail-closed；证据 manifest 记录 `localSourceType`。详见
+> A3 spec 的来源政策修正节与 `2026-08-16-m6-a3-source-policy-correction-report.md`。
+
 A3 起的行动支持验收不依赖自有对局的有机命中，也不用 synthetic fixture 解除
 production fail-closed，而是工程化获取公开真实牌谱（如 amae-koromo 索引的天凤
 牌谱）：**Discovery corpus** 本地批量扫描 raw 牌谱（只跑 mapper/canonical/census，
