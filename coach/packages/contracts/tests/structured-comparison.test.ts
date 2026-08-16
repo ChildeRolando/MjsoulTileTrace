@@ -43,7 +43,10 @@ const validAutomaticSet = {
 describe("structured comparison sets", () => {
   it("accepts an action-bound automatic comparison and projects it explicitly", () => {
     const structured = StructuredComparisonSetSchema.parse(validAutomaticSet);
-    const legacyView = toComparisonSet(structured);
+    const legacyConversion = toComparisonSet(structured);
+    expect(legacyConversion.status).toBe("convertible");
+    if (legacyConversion.status !== "convertible") return;
+    const legacyView = legacyConversion.comparisonSet;
 
     expect(legacyView).toEqual({
       comparisonSetId: validAutomaticSet.comparisonSetId,
@@ -155,6 +158,17 @@ describe("structured comparison sets", () => {
       riichiWindow;
     expect(() => StructuredComparisonSetSchema.parse(withoutCorrespondence))
       .toThrow(/must come from the model/);
+
+    // M6-A3 closing round: this valid structured set is not expressible in
+    // the legacy language (the actual-only realization candidate has no model
+    // origin and no score of its own). The conversion must report that by
+    // type — never throw on a nominally valid input, and never silently
+    // re-add a model origin to the concrete riichi_discard.
+    const legacyConversion = toComparisonSet(parsed);
+    expect(legacyConversion).toEqual({
+      status: "unavailable",
+      reason: "actual_not_model_scored",
+    });
   });
 
   it("rejects malformed riichi correspondences", () => {

@@ -185,17 +185,39 @@ export type StructuredComparisonSet = z.infer<
   typeof StructuredComparisonSetSchema
 >;
 
+// M6-A3 closing round: the legacy ComparisonSet speaks the M0–A2 language —
+// an automatic-review actual that is itself model-scored. A structured set
+// carrying an actual-only realization candidate (riichi_discard realizing
+// declare_riichi, ADR-0001) is legal but NOT expressible in that language:
+// the legacy schema demands a model origin and an exact model score for
+// every automatic-review candidate. The conversion therefore reports
+// unavailability instead of throwing on a nominally valid input.
+export type ToComparisonSetResult =
+  | { status: "convertible"; comparisonSet: ComparisonSet }
+  | { status: "unavailable"; reason: "actual_not_model_scored" };
+
 export function toComparisonSet(
   rawStructured: StructuredComparisonSet,
-): ComparisonSet {
+): ToComparisonSetResult {
   const structured = StructuredComparisonSetSchema.parse(rawStructured);
-  return ComparisonSetSchema.parse({
-    comparisonSetId: structured.comparisonSetId,
-    origin: structured.origin,
-    decisionLayerRef: structured.decisionLayerRef,
-    candidates: structured.candidates.map(({ actionRef, origins }) => ({
-      actionRef,
-      origins,
-    })),
-  });
+  if (
+    structured.origin === "automatic_review"
+    && structured.candidates.some(
+      (candidate) => !candidate.origins.includes("model"),
+    )
+  ) {
+    return { status: "unavailable", reason: "actual_not_model_scored" };
+  }
+  return {
+    status: "convertible",
+    comparisonSet: ComparisonSetSchema.parse({
+      comparisonSetId: structured.comparisonSetId,
+      origin: structured.origin,
+      decisionLayerRef: structured.decisionLayerRef,
+      candidates: structured.candidates.map(({ actionRef, origins }) => ({
+        actionRef,
+        origins,
+      })),
+    }),
+  };
 }

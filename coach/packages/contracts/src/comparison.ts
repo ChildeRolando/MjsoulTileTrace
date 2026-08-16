@@ -26,6 +26,13 @@ export const ComparisonCandidateSchema = z.object({
 }).strict();
 export type ComparisonCandidate = z.infer<typeof ComparisonCandidateSchema>;
 
+// M0 comparison view. For `automatic_review` this schema assumes the A2-era
+// language: every candidate — including the actual — is directly model-scored.
+// M6-A3's realization semantics (an actual-only riichi_discard realizing a
+// tile-less declare_riichi, recorded as a typed correspondence in
+// StructuredComparisonSet) is intentionally NOT expressible here; use the
+// structured schema directly for those sets (toComparisonSet reports
+// unavailability instead of converting them).
 export const ComparisonSetSchema = z.object({
   comparisonSetId: z.string().min(1),
   origin: z.enum(["automatic_review", "user_comparison"]),
