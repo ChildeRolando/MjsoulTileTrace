@@ -257,6 +257,33 @@ describe("acceptance submission policy", () => {
     ]);
   });
 
+  it("terminal failures are skipped without consuming submission budget", () => {
+    const plan = planAcceptanceRun({
+      selection: [
+        { gameId: "g1", seat: 0 },
+        { gameId: "g2", seat: 1 },
+        { gameId: "g3", seat: 2 },
+      ],
+      checkpoint: [
+        // g1 failed deterministically (e.g. local replay unsupported): the
+        // runner will never retry it, so it must not take a submit slot from
+        // a viable pair.
+        { gameId: "g1", seat: 0, status: "failed", attempts: 1, terminal: true },
+        // g2 failed on transport — a retry IS allowed and does charge budget.
+        { gameId: "g2", seat: 1, status: "failed", attempts: 1 },
+      ],
+      budget,
+    });
+    expect(plan.map((item) => item.reason)).toEqual([
+      "skip_terminal_failure",
+      "submit",
+      "submit",
+    ]);
+    expect(plan[0]!.attempts).toBe(1);
+    expect(plan[1]!.attempts).toBe(2);
+    expect(plan[2]!.attempts).toBe(1);
+  });
+
   it("delays are deterministic, seeded, and conservative", () => {
     const a = delayBeforeRequestMs(1, budget);
     const b = delayBeforeRequestMs(1, budget);

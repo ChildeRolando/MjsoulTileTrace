@@ -34,6 +34,13 @@ export interface AcceptanceCheckpointEntry {
   readonly seat: number;
   readonly status: AcceptanceCheckpointStatus;
   readonly attempts: number;
+  /**
+   * A failure the runner will never retry (e.g. a deterministic local-stage
+   * failure). Terminal failures must not consume submission budget: the
+   * runner refuses to execute them, so a plan slot spent on one is a slot
+   * taken from a viable pair for nothing.
+   */
+  readonly terminal?: boolean;
 }
 
 export interface AcceptanceBudget {
@@ -52,6 +59,7 @@ export type AcceptancePlanReason =
   | "skip_duplicate"
   | "skip_cached_success"
   | "skip_checkpoint_succeeded"
+  | "skip_terminal_failure"
   | "skip_budget_exhausted";
 
 export interface PlannedAcceptanceItem {
@@ -108,6 +116,14 @@ export function planAcceptanceRun(input: AcceptancePlanInput): PlannedAcceptance
       plan.push({
         ...entry,
         reason: "skip_checkpoint_succeeded",
+        attempts: checkpointEntry.attempts,
+      });
+      continue;
+    }
+    if (checkpointEntry?.status === "failed" && checkpointEntry.terminal === true) {
+      plan.push({
+        ...entry,
+        reason: "skip_terminal_failure",
         attempts: checkpointEntry.attempts,
       });
       continue;

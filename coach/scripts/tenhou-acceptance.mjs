@@ -341,8 +341,10 @@ const plan = planAcceptanceRun({
     .filter((pair) => pair.state === "accepted")
     .map((pair) => ({ gameId: pair.gameId, seat: pair.seat })),
   // Pairs already past local_ready have a submission charged in an earlier
-  // run — they must not consume THIS run's budget. Failed pairs re-enter
-  // under the budget as retries; fresh local_ready pairs are new submissions.
+  // run — they must not consume THIS run's budget. Transport/review failures
+  // re-enter under the budget as retries; deterministic local-stage failures
+  // are terminal (the runner refuses to retry them) and must not consume a
+  // submission slot that a viable pair could use.
   checkpoint: [
     ...checkpoint.pairs
       .filter((pair) => pair.state !== "local_ready" && pair.state !== "failed")
@@ -359,12 +361,13 @@ const plan = planAcceptanceRun({
         seat: pair.seat,
         status: "failed",
         attempts: pair.attempts,
+        terminal: (pair.failureReason ?? "").startsWith("local_"),
       })),
   ],
   budget,
 });
 
-const operatorWorklist = [];
+let newSubmissionsThisRun = 0;
 for (const item of plan) {
   let record = findAcceptancePair(checkpoint, item.gameId, item.seat);
   if (record === null) continue;
@@ -392,16 +395,7 @@ for (const item of plan) {
         attempts: item.attempts,
       });
       writeCheckpoint(checkpoint);
-      const branches = discovery.selectionPairs.find(
-        (pair) => pair.gameId === item.gameId && pair.seat === item.seat,
-      )?.branches ?? [];
-      const source = rawByGameId.get(item.gameId);
-      operatorWorklist.push({
-        key: pairKey(item.gameId, item.seat),
-        contentSha256: source.sha256,
-        seat: item.seat,
-        branches,
-      });
+      newSubmissionsThisRun += 1;
     }
   } else if (item.reason.startsWith("skip_")) {
     // Budget/dedupe/cache skips leave the pair exactly where it is.
@@ -412,7 +406,6 @@ for (const item of plan) {
 
 let fetchOrdinal = 0;
 let fetchesThisRun = 0;
-let newSubmissionsThisRun = operatorWorklist.length;
 
 async function fetchWithSchedule(url, onWait) {
   fetchOrdinal += 1;
@@ -423,7 +416,27 @@ async function fetchWithSchedule(url, onWait) {
   return fetchMortalReport({ url, timeoutMs: 30_000 });
 }
 
+// Stage 3 advances ANY live pair — including pairs selected in an earlier
+// run whose discovery selection has since changed. A pair waiting on its
+// inbox URL must not be orphaned just because this run's selection moved on.
+const stagePairs = [];
+const stageSeen = new Set();
 for (const pair of selection) {
+  stagePairs.push(pair);
+  stageSeen.add(pairKey(pair.gameId, pair.seat));
+}
+for (const pair of checkpoint.pairs) {
+  const key = pairKey(pair.gameId, pair.seat);
+  // local_ready pairs outside the selection were never planned for
+  // submission this run; everything past local_ready still consumes its
+  // inbox URL / cache / poll state.
+  if (stageSeen.has(key) || pair.state === "local_ready") continue;
+  if (pair.state === "accepted" || pair.state === "failed") continue;
+  stagePairs.push({ gameId: pair.gameId, seat: pair.seat });
+  stageSeen.add(key);
+}
+
+for (const pair of stagePairs) {
   const key = pairKey(pair.gameId, pair.seat);
   let record = findAcceptancePair(checkpoint, pair.gameId, pair.seat);
   if (record === null || record.state === "accepted" || record.state === "failed") {
@@ -523,6 +536,7 @@ for (const pair of selection) {
     ?? (() => {
       // Pairs from a previous run re-derive the local side deterministically.
       const source = rawByGameId.get(pair.gameId);
+      if (source === undefined) return null; // raw not passed this run
       const mapped = mapTenhouRecord({
         raw: source.raw,
         gameId: pair.gameId,
@@ -610,6 +624,31 @@ for (const pair of selection) {
   console.error(
     `ACCEPTED ${key}: branches [${evidence.branches.join(", ")}] evidence ${evidenceHash.slice(0, 19)}…`,
   );
+}
+
+// --- §4 operator worklist: EVERY pair currently awaiting an operator
+// submission — including pairs selected in earlier runs — not just this
+// run's fresh selects. Opaque ids + content hashes + branches only (§15).
+
+const operatorWorklist = [];
+for (const pair of checkpoint.pairs) {
+  if (pair.state !== "mortal_submission_pending") continue;
+  const key = pairKey(pair.gameId, pair.seat);
+  const source = rawByGameId.get(pair.gameId);
+  const branches = discovery.selectionPairs.find(
+    (entry) => entry.gameId === pair.gameId && entry.seat === pair.seat,
+  )?.branches ?? [];
+  operatorWorklist.push({
+    key,
+    ...(source === undefined
+      ? {
+          contentSha256: null,
+          note: "raw log not passed this run — include it on the next run",
+        }
+      : { contentSha256: source.sha256 }),
+    seat: pair.seat,
+    branches,
+  });
 }
 
 // --- Stage 5 (MANIFEST): rebuild from every accepted sample, write. ---
