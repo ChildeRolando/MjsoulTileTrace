@@ -20,6 +20,15 @@ import {
   type MortalCoverageEvidenceSample,
 } from "../src/analysis/mortal-coverage-evidence-manifest.js";
 import { MORTAL_COVERAGE_BRANCHES } from "../src/analysis/mortal-coverage-registry.js";
+import {
+  runMortalAcceptanceEvidence,
+  validateAcceptanceLocalSource,
+  type AcceptanceLocalSource,
+} from "../src/analysis/acceptance-core.js";
+import type { CanonicalEventStream } from "@riichi-coach/contracts";
+import { CanonicalEventStreamSchema } from "@riichi-coach/contracts";
+import type { ReplayedDecision } from "../src/replay/stream-replayer.js";
+import type { HandStructureFactEnginePort } from "../src/fact-engine/port.js";
 
 function makeReport(): MortalFetchedReport {
   return Object.freeze({
@@ -226,5 +235,144 @@ describe("source-policy tests E/F (§20): provenance is named or rejected", () =
     expect(() => createMortalCoverageRegistryFromManifest(manifest)).toThrowError(
       "mortal_coverage_evidence_manifest_invalid",
     );
+  });
+});
+
+describe("final-closing §2: wrapper/stream provenance coherence fails closed", () => {
+  // Schema-valid synthetic stream — the guard runs before binding/review, so
+  // the engine is never touched for the mismatch cases (stub is enough).
+  function coherenceStream(overrides: {
+    sourceKind?: "mahjong_soul" | "tenhou";
+    gameId?: string;
+    selfActor?: 0 | 1 | 2 | 3;
+  }): CanonicalEventStream {
+    const gameId = overrides.gameId ?? "majsoul-g:coherence01";
+    return CanonicalEventStreamSchema.parse({
+      schemaVersion: "canonical-riichi-events/v2",
+      mapperVersion: "coherence-fixture/v1",
+      gameId,
+      sourceKind: overrides.sourceKind ?? "mahjong_soul",
+      sourceRecordHash: "sha256:coherence",
+      playerCount: 4,
+      selfActor: overrides.selfActor ?? 1,
+      completeness: {
+        eventSequence: "complete",
+        ruleSet: "complete",
+        scores: "complete",
+        doraIndicators: "complete",
+        rivers: "complete",
+        calledDiscardMarkers: "complete",
+        melds: "complete",
+        remainingDraws: "complete",
+        settlement: "complete",
+        responseOpportunities: "complete",
+      },
+      ruleSet: {
+        length: "south",
+        redFives: { man: 1, pin: 1, sou: 1 },
+        openTanyao: true,
+        atamahane: false,
+        westExtension: "sudden_death",
+        ippatsuCancelledByAnkan: true,
+      },
+      events: [
+        {
+          type: "game_started",
+          eventId: `${gameId}/0/0/0`,
+          sourceRecordRef: "record:0",
+        },
+      ],
+    });
+  }
+
+  function coherentLocal(): AcceptanceLocalSource {
+    return {
+      sourceKind: "mahjong_soul",
+      opaqueGameId: "majsoul-g:coherence01",
+      selfActor: 1,
+      canonicalStream: coherenceStream({}),
+      replayedDecisions: [] as readonly ReplayedDecision[],
+    };
+  }
+
+  const stubEngine = {} as HandStructureFactEnginePort;
+
+  it("A: mahjong_soul wrapper over a tenhou stream → acceptance_local_source_kind_mismatch", async () => {
+    const local: AcceptanceLocalSource = {
+      ...coherentLocal(),
+      canonicalStream: coherenceStream({ sourceKind: "tenhou" }),
+    };
+    expect(() => validateAcceptanceLocalSource(local)).toThrowError(
+      "acceptance_local_source_kind_mismatch",
+    );
+    const run = await runMortalAcceptanceEvidence({
+      local,
+      report: makeReport(),
+      engine: stubEngine,
+      evidenceVersion: "m6-a3-acceptance/v1",
+    });
+    expect(run).toEqual({
+      status: "local_source_incoherent",
+      code: "acceptance_local_source_kind_mismatch",
+    });
+  });
+
+  it("B: opaqueGameId mismatch → acceptance_local_game_id_mismatch", async () => {
+    const local: AcceptanceLocalSource = {
+      ...coherentLocal(),
+      canonicalStream: coherenceStream({ gameId: "majsoul-g:someother" }),
+    };
+    expect(() => validateAcceptanceLocalSource(local)).toThrowError(
+      "acceptance_local_game_id_mismatch",
+    );
+    const run = await runMortalAcceptanceEvidence({
+      local,
+      report: makeReport(),
+      engine: stubEngine,
+      evidenceVersion: "m6-a3-acceptance/v1",
+    });
+    expect(run).toEqual({
+      status: "local_source_incoherent",
+      code: "acceptance_local_game_id_mismatch",
+    });
+  });
+
+  it("C: selfActor mismatch → acceptance_local_self_actor_mismatch", async () => {
+    const local: AcceptanceLocalSource = {
+      ...coherentLocal(),
+      canonicalStream: coherenceStream({ selfActor: 2 }),
+    };
+    expect(() => validateAcceptanceLocalSource(local)).toThrowError(
+      "acceptance_local_self_actor_mismatch",
+    );
+    const run = await runMortalAcceptanceEvidence({
+      local,
+      report: makeReport(),
+      engine: stubEngine,
+      evidenceVersion: "m6-a3-acceptance/v1",
+    });
+    expect(run).toEqual({
+      status: "local_source_incoherent",
+      code: "acceptance_local_self_actor_mismatch",
+    });
+  });
+
+  it("D: exact wrapper/stream match proceeds past the guard into review", async () => {
+    // Coherent input flows through to the full-game review — which then fails
+    // on its own semantics (the synthetic fixture carries no replayed
+    // decisions, so validateFullGameInputs rejects it), NOT on provenance.
+    // Identical pre-hardening behavior is exactly what "proceeds normally"
+    // means here: the guard only ever blocks incoherent wrappers.
+    const run = await runMortalAcceptanceEvidence({
+      local: coherentLocal(),
+      report: makeReport(),
+      engine: stubEngine,
+      evidenceVersion: "m6-a3-acceptance/v1",
+    });
+    expect(run.status).not.toBe("local_source_incoherent");
+    expect(run.status).toBe("review_failed");
+    if (run.status === "review_failed") {
+      expect(run.code).toBe("mortal_full_game_input_invalid");
+    }
   });
 });

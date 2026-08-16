@@ -582,6 +582,12 @@ for (const pair of stagePairs) {
     engine,
     evidenceVersion: options.evidenceVersion,
   }).finally(() => engine.close());
+  if (evidenceRun.status === "local_source_incoherent") {
+    // Adapter bug (wrapper ≠ stream): terminal local failure, no retry.
+    checkpoint = failPair(checkpoint, pair.gameId, pair.seat, `local_source_incoherent:${evidenceRun.code}`);
+    console.error(`E2E FAIL ${key}: ${evidenceRun.code}`);
+    continue;
+  }
   if (evidenceRun.status === "review_failed") {
     checkpoint = failPair(checkpoint, pair.gameId, pair.seat, `review_failed:${evidenceRun.code}`);
     console.error(`E2E FAIL ${key}: ${evidenceRun.code}`);

@@ -74,11 +74,40 @@ export interface AcceptanceEvidenceRun {
 
 export type AcceptanceEvidenceRunResult =
   | ({ readonly status: "accepted" } & AcceptanceEvidenceRun)
+  | { readonly status: "local_source_incoherent"; readonly code: string }
   | { readonly status: "review_failed"; readonly code: string }
   | {
       readonly status: "no_analysis_ready_branch_evidence";
       readonly analysisReadyRowCount: number;
     };
+
+/**
+ * P1 provenance coherence (final evidence-closing round §2): the adapter's
+ * wrapper metadata must agree with the canonical stream it claims to
+ * represent. The stream independently carries its own sourceKind, gameId,
+ * and selfActor — an adapter that mismatches any of them is either buggy or
+ * misrepresenting its local authority, and NO Mortal acceptance logic may
+ * run on it. Fail closed BEFORE binding, review, artifact, or manifest
+ * sample creation. Neither side is rewritten silently.
+ *
+ * Typed diagnostic codes (stable, one per invariant):
+ *   acceptance_local_source_kind_mismatch
+ *   acceptance_local_game_id_mismatch
+ *   acceptance_local_self_actor_mismatch
+ */
+export function validateAcceptanceLocalSource(
+  local: AcceptanceLocalSource,
+): void {
+  if (local.sourceKind !== local.canonicalStream.sourceKind) {
+    throw new Error("acceptance_local_source_kind_mismatch");
+  }
+  if (local.opaqueGameId !== local.canonicalStream.gameId) {
+    throw new Error("acceptance_local_game_id_mismatch");
+  }
+  if (local.selfActor !== local.canonicalStream.selfActor) {
+    throw new Error("acceptance_local_self_actor_mismatch");
+  }
+}
 
 /**
  * Run the shared Mortal acceptance E2E for one local source + one real
@@ -93,7 +122,21 @@ export async function runMortalAcceptanceEvidence(input: {
   readonly evidenceVersion: string;
   readonly now?: () => number;
 }): Promise<AcceptanceEvidenceRunResult> {
+  // Unknown provenance kinds are structurally impossible inputs and throw
+  // (schema-level); wrapper/stream INCOHERENCE is a typed, recordable
+  // adapter failure. Both happen before any Mortal acceptance logic runs.
   assertMortalAcceptanceLocalSourceType(input.local.sourceKind);
+  try {
+    validateAcceptanceLocalSource(input.local);
+  } catch (error) {
+    if (
+      error instanceof Error
+      && error.message.startsWith("acceptance_local_")
+    ) {
+      return { status: "local_source_incoherent", code: error.message };
+    }
+    throw error;
+  }
 
   // Acceptance mode: this core is the evidence PRODUCER, so the coverage
   // gate is wide open HERE ONLY. Production consumers lift from the §16
