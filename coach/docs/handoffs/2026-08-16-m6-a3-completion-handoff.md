@@ -185,3 +185,15 @@ riichi_window、dama_with_riichi_candidate、post_call_chi、post_call_pon、pos
 **§9 隐私不变**：终产物仍只含不透明哈希/座位/序号/分支/证据哈希；雀魂报告 ID（09d54c…）与 URL 只存在于 0600 私有 state 目录，不入 repo。
 
 下一步（A3 收口，M6-A4 之前）：用户从自己的天凤对局历史取回 log URL → 放入 inbox → 重跑 `scripts/tenhou-acceptance.mjs`（断点续跑，缓存/预算/去重自动生效）→ 补满矩阵 → 生成 §16 manifest → 派生 lift → 届时才可宣布 M6-A3 CLOSED。
+
+## 13. 2026-08-17 kyuushu 收口（final truth，代码 HEAD `588c8cc`）
+
+用户 operator-assisted 提交 `8ffcebe9788bdaee#3`（seat 3）后 run7 ACCEPTED 但 `self_turn_kyuushu` 未 lift——第三个真实序列化根因：
+
+**根因**：ekyu 把九九候选**和**九九 actual 都序列化成裸 `{"type":"ryukyoku"}`（无 actor、无 reason、deltas 全零）。而代码两处假设 actor+reason 必在：`mortalActualMatchesLocal` kyuushu 分支（死因 `mortal_actual_mismatch`）与 adapter（`requiredFields("ryukyoku")=["actor","reason"]` + 全局 actor 门 → 模型行死 incomplete）。诊断路径与 kakan 相同：artifact outcomes（binding_mismatch=1、round 0 零 ready 行）→ 复现脚本对比两侧身份事实 → 绑定其实是 `bound`（14 张手牌+摸牌全等），死因在绑定之后的 actual 交叉检查。
+
+**修复**（fail-closed 边界收缩，不放宽语义）：裸形状仅在 `self_turn` 窗口被承认为九九（鸣牌后/他家回合的流局不是玩家选择，仍 unsupported）；携带的 actor/reason 若存在必须一致；显式非零 deltas 与流局矛盾即拒。两侧归一到同一 canonical `kyuushu_kyuuhai` 身份 → actual 经 builder 合并进被评分的模型行（origins `["model","actual"]`），**无需** realizes 对应（与 riichi/kakan 不同，这次是精确匹配）。
+
+**验证**：mjai-action/structured-mortal 新增 5 测试（含 3 fail-closed：裸形状他家回合拒、有 actor 无 reason 拒、非九九 reason 拒、未评分拒）；reasoning 全量 530/530 绿、typecheck 6 包绿。checkpoint 该 pair 手动重置 `mortal_submission_pending`（缓存保留，reportFetches=0 复用真实报告）→ 复跑 **ACCEPTED，`self_turn_kyuushu` lift**，矩阵 **9/10**。manifest 该分支 1 条真实证据（哈希 b4fc3e4f…）。
+
+**仅余 1 分支**：`dama_with_tsumo_candidate`——4 worker 后台扫描中（互不相交段 [281,3000)，断点 json `m6a3-dama-w{1..4}.json`）；有候选→inbox 验收；全扫 0 命中→§11 STOP 报告+降级需用户批准。
