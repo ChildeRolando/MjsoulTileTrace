@@ -223,3 +223,32 @@ riichi_window、dama_with_riichi_candidate、post_call_chi、post_call_pon、pos
 **收口最后一步（operator，与 9/10 相同流程）**：任选 ≥1 对在 https://mjai.ekyu.moe/ 提交（engine Mortal，Turnstile 须人工）→ 报告 URL 存 `<state-dir>/inbox/<gameId>#<seat>.url` → 重跑
 `node scripts/tenhou-acceptance.mjs <对应 raw xml> --discovery m6a3-discovery-dama-final.json --state-dir m6a3-tenhou-acceptance-state`
 → ACCEPTED 后 `dama_with_tsumo_candidate` lift，矩阵 **10/10**，重生成 §16 manifest（复用缓存报告，0 新请求也成立）。
+
+## 15. 2026-08-17 矩阵 10/10 — M6-A3 真实语料验收 CLOSED
+
+Operator（用户）提交 3 份报告 URL，**2 对全链路 ACCEPTED**（run：reportFetches=2，exit 0）：
+
+| pair | 命中分支 | 证据哈希 |
+|---|---|---|
+| tenhou-g:d91fdd402a94dc48#0 | riichi_window, dama_with_riichi_candidate, post_call_chi, post_call_pon, post_riichi, self_turn_tsumo_actual, **dama_with_tsumo_candidate** | sha256:ce2a2a5267d5… |
+| tenhou-g:f91cc7d8e3d63004#0 | riichi_window, dama_with_riichi_candidate, post_call_chi, post_call_pon, post_riichi, **dama_with_tsumo_candidate** | sha256:e93649c0ca2d… |
+
+`dama_with_tsumo_candidate` 获 **2 个独立真实 E2E 样本**（>要求的 ≥1）。
+
+**报告↔pair 预匹配方法（inbox 投放前，防 fail-closed 污染状态）**：报告 JSON 无玩家名，用终局分指纹——四家终局分向量（报告帧 reviewed seat→0，XML 帧 rotate 对齐）+ 局数。两处坑钉死：
+1. mjai-reviewer 游戏结束把**未回收立直棒退回宜言者**（每根 +1000），天凤 `owari` 不退 → 报告终局分可比 XML 多出 N×1000（sum>100000）。这是站点记账差异，非 mapper 缺陷；按差值模式对齐即可（f91cc7d8 对恰差 3 根，9 局数 9=9 吻合）。
+2. 报告 `relative_scores`/end_status deltas 行含立直供托进出，**非逐行零和**——手工累加终局分必须走"最后局 rs + 末 deltas"并以供托差异容差核对。
+
+**第 3 对（1733834247a789b2#2）按用户指示放弃**：operator 的报告仅存 `/report/<id>.html` 渲染页，规范 `.json` 数据 URL 持续 404（多次重试）；HTML 无内嵌原始 JSON，从渲染 DOM 重建报告字节=伪造证据（政策禁止）。该对停留 `mortal_submission_pending`（无害——矩阵已满，operator worklist 仅剩它）。
+
+**合并矩阵（majsoul + tenhou 两 state 目录 §16 manifest 并集，2026-08-17）**：
+
+| 分支 | accepted 样本数 | | 分支 | accepted 样本数 |
+|---|---|---|---|---|
+| riichi_window | 7 | | post_riichi | 5 |
+| dama_with_riichi_candidate | 5 | | self_turn_ankan | 2 |
+| **dama_with_tsumo_candidate** | **2** | | self_turn_kakan | 1 |
+| post_call_chi | 5 | | self_turn_kyuushu | 1 |
+| post_call_pon | 6 | | self_turn_tsumo_actual | 2 |
+
+**10/10，每分支 ≥1 独立真实 E2E 命中**（来源=雀魂官方原始牌谱 + 天凤权威原始牌谱，均为获批独立本地来源）。A3 真实语料验收目标达成；下一步 = M6-A4 响应面（discard_response/kan_response）。
