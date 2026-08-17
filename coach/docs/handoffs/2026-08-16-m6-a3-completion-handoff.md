@@ -164,4 +164,24 @@ policy 选定 4 对（selectionPairs），覆盖 9/10 分支的候选（除 dama
 
 已交付且可复查：行动支持扩展客户端语义全部落地并被真实 H2 样本复跑证实无损（125/113 全绑定、0 歧义、§13 逐项命中、5 提交零回归）；§21 两级支持判定 + ComparisonSet 作用域如实化；发现层全语料 concrete 候选 + dama_tsumo 私有扫描；验收 runner = 全 E2E 责任主体 + §5 断点状态机 + §10/§15 证据链；§16 manifest lift 路径就绪。
 
+## 12. 2026-08-17 补证终局（final truth，代码 HEAD `35dde0a`）
+
+§11 结论的三个阻塞项当天全部部分解除：真实语料扩至 2438 局天凤归档（`tenhou-corpus/`，3003 XML）+ 用户自有雀魂对局，live 报告经 operator-assisted inbox 流程真实取回验收。§7 矩阵当前状态：
+
+**8/10 分支已有接受的真实 E2E 命中**（manifest 有证据哈希）：
+riichi_window、dama_with_riichi_candidate、post_call_chi、post_call_pon、post_riichi、self_turn_tsumo_actual、self_turn_ankan、self_turn_kakan。
+来源：雀魂 H2 样本 seat1（6 分支）+ seat3 复跑（7 分支，含 kakan）；天凤 `02720fd2#0`（5 分支）+ `f7138da5#0`。
+
+**两个根因修复（当天实证，勿重查）：**
+1. **指纹 v3**（`ee3e3c6`）：v2 把供托分差语义差异当身份差异——canonical 胜和分差是回合折叠零和，mjai hora deltas 把供托归集赢家，凡带供托的胜和局 v2 必挂。v3 胜和事件只绑 (winner,target)，分数由下一 round_start 绑定。修复后天凤两盘本地↔真实报告事件级全等、全 ACCEPTED。
+2. **加杠桥接**（`35dde0a`）：ekyu 评分分布把加杠候选序列化成 `ankan(四张)`（副露3+摸1合并），actual 是 `kakan` 形状 → 行死于 ankan_tiles_missing + actual_action_not_scored 双重。三层修复：杠可用集计入副露（multiset 仍 fail-closed）、kakan actual realizes 同牌 ankan 行（ADR-0001 declares 模式同构）、contracts correspondence 放行第二对粒度。seat3 复跑 ACCEPTED，模型杠分 p=0.25 正确挂到 ankan 承载行。
+
+**余 2 分支：**
+- `self_turn_kyuushu`：候选 `tenhou-g:8ffcebe9788bdaee#3`（纯东南局、本地映射通过）在 operator worklist 等人工提交（Turnstile）；inbox 就绪。
+- `dama_with_tsumo_candidate`：4 个不相交 worker 后台扫剩余语料（前 ~280 局/31k 窗口 0 命中）；0 命中到底 → §11 STOP 报告，降级条款需用户明确批准，不擅自发明。
+
+**8-17 验证全量绿**：vitest 1430/1430（136 文件）、node --test 34/34、typecheck 6 包、build 全链。
+
+**§9 隐私不变**：终产物仍只含不透明哈希/座位/序号/分支/证据哈希；雀魂报告 ID（09d54c…）与 URL 只存在于 0600 私有 state 目录，不入 repo。
+
 下一步（A3 收口，M6-A4 之前）：用户从自己的天凤对局历史取回 log URL → 放入 inbox → 重跑 `scripts/tenhou-acceptance.mjs`（断点续跑，缓存/预算/去重自动生效）→ 补满矩阵 → 生成 §16 manifest → 派生 lift → 届时才可宣布 M6-A3 CLOSED。
