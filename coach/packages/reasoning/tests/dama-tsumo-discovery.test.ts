@@ -209,4 +209,62 @@ describe("collectDamaTsumoWindows (§7 local dama_with_tsumo discovery)", () => 
     expect(result.skippedWindows).toBe(1);
     expect(requests).toHaveLength(0);
   });
+
+  // Prefilter: (hand minus X) + X is the holding itself, so a holding with
+  // no winning shape can never be promoted — the engine is not asked.
+  it("prefilters a non-winning holding without an engine roundtrip", async () => {
+    const { engine, requests } = fakeEngine(() => ({
+      overallShanten: 0,
+      waits: [{ tile34: 8 }],
+    }));
+    // Default holding with 1p replaced by 1s: no standard/chiitoi/kokushi
+    // shape (1s floats), yet the 9m discard is physically present.
+    const result = await collectDamaTsumoWindows(
+      [
+        fakeDecision({
+          concealed: CONCEALED_13.map((id) => (id === "1p" ? "1s" : id)),
+        }),
+      ],
+      engine,
+    );
+    expect(result.windows).toEqual([]);
+    expect(result.classifiedWindows).toBe(0);
+    expect(result.prefilteredWindows).toBe(1);
+    expect(result.skippedWindows).toBe(0);
+    expect(requests).toHaveLength(0);
+  });
+
+  it("still asks the engine for chiitoitsu and kokushi holdings", async () => {
+    const { engine, requests } = fakeEngine((request) => ({
+      overallShanten: 0,
+      waits: request.handTiles34
+        .map((count, tile34) => ({ count, tile34 }))
+        .filter((entry) => entry.count === 1)
+        .map((entry) => ({ tile34: entry.tile34 })),
+    }));
+    const result = await collectDamaTsumoWindows(
+      [
+        // Chiitoi: 7 pairs, discard one copy of the last pair.
+        fakeDecision({
+          concealed: ["1m", "1m", "3m", "3m", "5m", "5m", "2p", "2p", "4p", "4p", "6s", "6s", "8s"],
+          drawnTile: "8s",
+          discardedTile: "8s",
+        }),
+        // Kokushi: all 13 orphans, doubled 7z discarded.
+        fakeDecision({
+          concealed: ["1m", "9m", "1p", "9p", "1s", "9s", "1z", "2z", "3z", "4z", "5z", "6z", "7z"],
+          drawnTile: "7z",
+          discardedTile: "7z",
+        }),
+      ],
+      engine,
+    );
+    expect(result.classifiedWindows).toBe(2);
+    expect(result.prefilteredWindows).toBe(0);
+    expect(requests).toHaveLength(2);
+    expect(result.windows).toEqual([
+      { decisionEventRef: "game:g/0/1/0", discardedWaitTile34: 25 }, // 8s
+      { decisionEventRef: "game:g/0/1/0", discardedWaitTile34: 33 }, // 7z
+    ]);
+  });
 });

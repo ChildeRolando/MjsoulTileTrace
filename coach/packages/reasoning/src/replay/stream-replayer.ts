@@ -6,7 +6,11 @@ import type {
   RiichiAction,
   Tile,
 } from "@riichi-coach/contracts";
-import { freezeDecisionSnapshot } from "./decision-snapshot.js";
+import {
+  freezeDecisionSnapshotInContext,
+  freezeDecisionStreamContext,
+  type DecisionStreamContext,
+} from "./decision-snapshot.js";
 import { projectKnownGameFactsV2 } from "../factors/known-game-facts-v2.js";
 
 export interface ReplayedDecision {
@@ -164,10 +168,12 @@ function actualActionFromResolution(
 
 function freezeWindow(
   stream: CanonicalEventStream,
+  getContext: () => DecisionStreamContext,
   window: { kind: "self_turn" | "post_call_discard" | "post_riichi_discard"; actor: number; triggerEventRef: string },
   resolution: SelfResolution | null,
 ): ReplayedDecision {
-  const snapshot = freezeDecisionSnapshot(stream, {
+  const context = getContext();
+  const snapshot = freezeDecisionSnapshotInContext(context, {
     kind: window.kind,
     actor: window.actor,
     triggerEventRef: window.triggerEventRef,
@@ -176,6 +182,7 @@ function freezeWindow(
     stream,
     decisionWindow: snapshot.privateState.decisionWindow,
     cachedSnapshot: snapshot,
+    streamContext: context,
   });
   return {
     decisionEventRef: window.triggerEventRef,
@@ -199,12 +206,21 @@ export function replayCanonicalStream(
   stream: CanonicalEventStream,
 ): ReplayedDecision[] {
   const decisions: ReplayedDecision[] = [];
+  // Parse + reduce once, lazily: built on the FIRST window so a stream with
+  // no self windows is never validated (the per-window freeze used to defer
+  // all parsing/validation the same way). Every window below then shares the
+  // one reduction — re-reducing per window made the replay O(windows ×
+  // events²), ~172s per seat on corpus games — with identical outputs.
+  let context: DecisionStreamContext | undefined;
+  const getContext = (): DecisionStreamContext =>
+    (context ??= freezeDecisionStreamContext(stream));
   for (let index = 0; index < stream.events.length; index += 1) {
     const event = stream.events[index]!;
     if (event.type === "tile_drawn" && event.actor === stream.selfActor &&
       event.tile.visibility === "visible") {
       decisions.push(freezeWindow(
         stream,
+        getContext,
         {
           kind: "self_turn",
           actor: stream.selfActor,
@@ -220,6 +236,7 @@ export function replayCanonicalStream(
     ) {
       decisions.push(freezeWindow(
         stream,
+        getContext,
         {
           kind: "post_call_discard",
           actor: stream.selfActor,
@@ -232,6 +249,7 @@ export function replayCanonicalStream(
     if (event.type === "riichi_declared" && event.actor === stream.selfActor) {
       decisions.push(freezeWindow(
         stream,
+        getContext,
         {
           kind: "post_riichi_discard",
           actor: stream.selfActor,

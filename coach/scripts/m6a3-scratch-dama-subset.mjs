@@ -59,6 +59,7 @@ let gamesScanned = 0;
 let seatsReplayed = 0;
 let seatsFailed = 0;
 let windowsClassified = 0;
+let windowsPrefiltered = 0;
 let engineFailures = 0;
 let stopReason = "max-games";
 const gamesSkipped = opts.skip;
@@ -93,13 +94,14 @@ try {
       }
       seatsReplayed += 1;
       windowsClassified += result.classifiedWindows;
+      windowsPrefiltered += result.prefilteredWindows ?? 0;
       engineFailures += result.engineFailures;
       for (const window of result.windows) {
         candidates.push({ gameId, seat, decisionEventRef: window.decisionEventRef });
       }
       console.error(
         `${gameId}#${seat}: +${result.windows.length} (total ${candidates.length}) ` +
-        `cls=${result.classifiedWindows} fail=${result.engineFailures}`,
+        `cls=${result.classifiedWindows} pre=${result.prefilteredWindows ?? 0} fail=${result.engineFailures}`,
       );
     }
     console.error(`game ${gamesScanned}/${Math.min(opts.maxGames, names.length)} done (${name}): candidates=${candidates.length}`);
@@ -111,6 +113,7 @@ try {
       seatsReplayed,
       seatsFailed,
       windowsClassified,
+      windowsPrefiltered,
       engineFailures,
       candidates,
     }, null, 2)}\n`, { mode: 0o600 });
@@ -126,10 +129,11 @@ writeFileSync(opts.out, `${JSON.stringify({
   seatsReplayed,
   seatsFailed,
   windowsClassified,
+  windowsPrefiltered,
   engineFailures,
   candidates,
 }, null, 2)}\n`, { mode: 0o600 });
 console.error(
   `DONE ${stopReason}: games=${gamesScanned} seats=${seatsReplayed} ok/${seatsFailed} failed, ` +
-  `windows=${windowsClassified}, candidates=${candidates.length}`,
+  `windows=${windowsClassified} (pre=${windowsPrefiltered}), candidates=${candidates.length}`,
 );

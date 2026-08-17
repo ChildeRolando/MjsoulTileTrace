@@ -10,7 +10,11 @@ import {
   type KnownMeld,
   type YakuContextV2,
 } from "@riichi-coach/contracts";
-import { freezeDecisionSnapshot } from "../replay/decision-snapshot.js";
+import {
+  freezeDecisionSnapshot,
+  freezeDecisionSnapshotInContext,
+  type DecisionStreamContext,
+} from "../replay/decision-snapshot.js";
 import { CanonicalReplayError } from "../replay/round-reducer.js";
 import type { HandStructureFactEnginePort } from "../fact-engine/port.js";
 import {
@@ -22,6 +26,16 @@ export interface KnownGameFactsV2ProjectionInput {
   stream: CanonicalEventStream;
   decisionWindow: DecisionWindow;
   cachedSnapshot?: DecisionSnapshotV2;
+  /**
+   * A stream already parsed+reduced once (see freezeDecisionStreamContext).
+   * When given, the verification freeze below shares that reduction instead
+   * of re-reducing the whole stream per projection — reduce is pure and its
+   * determinism is pinned by canonical-replay-invariance tests, so sharing
+   * is memoization, not a semantic change: the snapshot is still re-frozen
+   * (window assertions + schema parses) and still deep-compared against
+   * cachedSnapshot.
+   */
+  streamContext?: DecisionStreamContext;
 }
 
 function knownMeld(meld: CanonicalMeldV2): KnownMeld {
@@ -96,7 +110,9 @@ function handStructureYakuContext(
 export function projectKnownGameFactsV2(
   input: KnownGameFactsV2ProjectionInput,
 ): KnownGameFacts {
-  const snapshot = freezeDecisionSnapshot(input.stream, input.decisionWindow);
+  const snapshot = input.streamContext !== undefined
+    ? freezeDecisionSnapshotInContext(input.streamContext, input.decisionWindow)
+    : freezeDecisionSnapshot(input.stream, input.decisionWindow);
   if (input.cachedSnapshot !== undefined) {
     const cached = DecisionSnapshotV2Schema.safeParse(input.cachedSnapshot);
     if (!cached.success || !isDeepStrictEqual(cached.data, snapshot)) {

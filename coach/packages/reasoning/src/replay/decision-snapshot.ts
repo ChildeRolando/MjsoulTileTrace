@@ -13,6 +13,7 @@ import {
 import {
   CanonicalReplayError,
   reduceCanonicalEventStream,
+  type ReducedCanonicalState,
 } from "./round-reducer.js";
 
 function sameTile(left: Tile, right: Tile): boolean {
@@ -97,28 +98,53 @@ function assertWindowMatchesEvent(
   ) mismatch();
 }
 
-export function freezeDecisionSnapshot(
+/**
+ * A stream parsed and reduced ONCE, shared by every window frozen against it.
+ * replayCanonicalStream freezes ~a hundred windows per seat; re-reducing the
+ * whole stream per window made that O(windows × events²). The freeze logic in
+ * freezeDecisionSnapshotInContext is unchanged — sharing the reduction only.
+ */
+export interface DecisionStreamContext {
+  readonly stream: CanonicalEventStream;
+  readonly eventsByRef: ReadonlyMap<string, CanonicalGameEvent>;
+  readonly statesByRef: ReadonlyMap<string, ReducedCanonicalState>;
+}
+
+export function freezeDecisionStreamContext(
   rawStream: CanonicalEventStream,
-  rawWindow: DecisionWindow,
-): DecisionSnapshotV2 {
+): DecisionStreamContext {
   const parsedStream = CanonicalEventStreamSchema.safeParse(rawStream);
   if (!parsedStream.success) {
     throw new CanonicalReplayError("canonical_stream_schema_invalid");
   }
   const stream = parsedStream.data;
+  const states = reduceCanonicalEventStream(stream);
+  // find()-first semantics: a duplicated ref resolves to the earliest entry.
+  const eventsByRef = new Map<string, CanonicalGameEvent>();
+  for (const event of stream.events) {
+    if (!eventsByRef.has(event.eventId)) eventsByRef.set(event.eventId, event);
+  }
+  const statesByRef = new Map<string, ReducedCanonicalState>();
+  for (const state of states) {
+    if (!statesByRef.has(state.eventRef)) statesByRef.set(state.eventRef, state);
+  }
+  return { stream, eventsByRef, statesByRef };
+}
+
+export function freezeDecisionSnapshotInContext(
+  context: DecisionStreamContext,
+  rawWindow: DecisionWindow,
+): DecisionSnapshotV2 {
   const parsedWindow = DecisionWindowSchema.safeParse(rawWindow);
   if (!parsedWindow.success) {
     throw new CanonicalReplayError("decision_window_schema_invalid");
   }
   const window = parsedWindow.data;
+  const stream = context.stream;
   if (stream.selfActor === null || window.actor !== stream.selfActor) mismatch();
 
-  const event = stream.events.find((entry) =>
-    entry.eventId === window.triggerEventRef
-  );
-  const reduced = reduceCanonicalEventStream(stream).find((entry) =>
-    entry.eventRef === window.triggerEventRef
-  );
+  const event = context.eventsByRef.get(window.triggerEventRef);
+  const reduced = context.statesByRef.get(window.triggerEventRef);
   if (
     event === undefined ||
     reduced === undefined ||
@@ -154,4 +180,14 @@ export function freezeDecisionSnapshot(
     evidenceIds: reduced.publicState.appliedEventRefs,
   });
   return deepFreeze(snapshot);
+}
+
+export function freezeDecisionSnapshot(
+  rawStream: CanonicalEventStream,
+  rawWindow: DecisionWindow,
+): DecisionSnapshotV2 {
+  return freezeDecisionSnapshotInContext(
+    freezeDecisionStreamContext(rawStream),
+    rawWindow,
+  );
 }

@@ -18,6 +18,14 @@
  * decisions and asks the trusted Go fact engine one question per candidate
  * window. Engine failures skip the window fail-closed (a window is never
  * promoted to a candidate without the engine's verdict).
+ *
+ * Prefilter (added for corpus-scale scanning): the engine question — "is
+ * hand-minus-discard tenpai, with the discard among its waits" — is exactly
+ * equivalent to "is the 14-tile holding a complete winning hand", because
+ * (hand minus X) + X is the same multiset as the holding. A local
+ * winning-shape check (win-shape.ts, permissive across standard/chiitoitsu/
+ * kokushi) therefore skips only windows no engine verdict could promote; the
+ * engine stays the sole promotion authority for everything that passes.
  */
 import {
   canonicalActionRef,
@@ -27,6 +35,7 @@ import {
 import type { HandStructureFactEnginePort } from "../fact-engine/port.js";
 import { buildHandStructureRequestV2 } from "../factors/hand-structure-projector.js";
 import { tileIdTo34 } from "../factors/tile34.js";
+import { isCompleteHandShape } from "../factors/win-shape.js";
 import type { ReplayedDecision } from "./stream-replayer.js";
 
 /** One verified dama-with-tsumo window: locator + the wait that was discarded. */
@@ -42,6 +51,11 @@ export interface DamaTsumoDiscoveryResult {
   readonly classifiedWindows: number;
   /** Windows skipped structurally (open hand, riichi'd, no draw, unprovable private facts). */
   readonly skippedWindows: number;
+  /**
+   * Windows skipped by the local winning-shape prefilter — the 14-tile
+   * holding has no winning shape, so the engine question is provably "no".
+   */
+  readonly prefilteredWindows: number;
   /** Windows skipped fail-closed because the engine errored. */
   readonly engineFailures: number;
 }
@@ -69,6 +83,7 @@ export async function collectDamaTsumoWindows(
   const windows: DamaTsumoWindow[] = [];
   let classifiedWindows = 0;
   let skippedWindows = 0;
+  let prefilteredWindows = 0;
   let engineFailures = 0;
 
   for (const decision of decisions) {
@@ -95,6 +110,18 @@ export async function collectDamaTsumoWindows(
     const projectedHand = removePhysicalTile(held, action.tile);
     if (projectedHand === null) {
       skippedWindows += 1;
+      continue;
+    }
+    // Winning-shape prefilter: (hand minus X) + X is the holding itself, so
+    // "tenpai on X" <=> "the 14-tile holding is complete". No winning shape
+    // means the engine question is provably negative — skip the roundtrip.
+    const held34 = Array<number>(34).fill(0);
+    for (const tile of held) {
+      const kind = tileIdTo34(tile.id);
+      held34[kind] = held34[kind]! + 1;
+    }
+    if (!isCompleteHandShape(held34)) {
+      prefilteredWindows += 1;
       continue;
     }
     classifiedWindows += 1;
@@ -130,5 +157,11 @@ export async function collectDamaTsumoWindows(
     }
   }
 
-  return { windows, classifiedWindows, skippedWindows, engineFailures };
+  return {
+    windows,
+    classifiedWindows,
+    skippedWindows,
+    prefilteredWindows,
+    engineFailures,
+  };
 }
