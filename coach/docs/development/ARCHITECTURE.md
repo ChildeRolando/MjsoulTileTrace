@@ -27,7 +27,7 @@ mahjong-soul-source ──► CanonicalEventStreamV2
                                   desktop renderer / LLM
 ```
 
-系统刻意把“数据来源”“麻将事实”“模型选择”“教练偏好”和“自然语言表达”分开。后层可以引用前层，但不能倒写前层事实。
+系统刻意把“数据来源”“局面事实”“候选因素与差异”“模型选择”和“自然语言表达”分开；教练判断（CoachJudgment）位于证据之上、表达之下——可以综合与权衡证据，但不能倒写证据层事实。
 
 ## Workspace 边界
 
@@ -114,8 +114,9 @@ renderer 只能收到安全会话状态、可分析目录摘要和固定操作�
 1. 候选必须先归一化为 canonical action 与稳定 `actionRef`。
 2. 模型评价只表示模型选择；事实管线独立计算麻将因素。
 3. 每候选生成同构五轴账本，再生成 pairwise differences。
-4. 只有 registered deterministic difference 可进入确定性偏好。
-5. LLM 未来只能表达经过验证的分析包，不能增加事实或改写偏好。
+4. 只有 registered deterministic difference 可进入确定性偏好；确定性偏好是 optional deterministic signal，轴间冲突时为 null——冲突场景交给教练判断层，而非禁止综合。
+5. LLM 教练判断（CoachJudgment）在已有确定性证据内做跨因素权衡、给出推荐与置信度；不得发明、修改或补全局面事实与候选因素，不得改写差异方向，也不得声称知道模型内部原因。
+6. 解释（ExplanationBullet）是表达单元：证据向条目引用候选差异，判断向条目引用教练判断；解释验证器只做 grounding 校验（可追溯、数值/方向一致、无捏造事实），不试图确定性证明判断本身“正确”。
 
 ## 核心设计决策
 
@@ -131,9 +132,24 @@ renderer 只能收到安全会话状态、可分析目录摘要和固定操作�
 
 现物等可证明事实可以进入确定性比较；筋、壁、one-chance 和 helper 风险刻度保留为版本化启发式，不得升级为确定性结论或精确概率。
 
+### 证据先行，判断分层
+
+局面事实与候选因素只能来自本地可验证的确定性管线，候选间差异由 FactorDifference 固定；跨因素取舍与最终教练判断（CoachJudgment）允许由 LLM 在证据之内完成——权衡冲突轴、给出推荐与置信度是 Coach 相对纯分析器的核心价值。
+
+> No game-state fact or candidate-level analytical fact may originate from the LLM.
+> Coaching judgments may originate from the LLM, but must be grounded exclusively in available deterministic evidence.
+> The LLM may weigh conflicting grounded factors and produce a coaching recommendation.
+> It must not invent, alter, or infer unsupported game-state facts in order to justify that recommendation.
+
+事实必须确定；判断可以经验；无出处的局面事实一律禁止。DeterministicPreference 是 optional deterministic signal，不是教练推荐的唯一合法来源。
+
+证据在此分三层：**硬证据**（KnownGameFacts + 确定性因素 → 事实约束，LLM 不可有意见）；**参考信号**（版本化启发式/估算 → 仅作上下文、无否决权）；**教练推断**（CoachJudgment → 可否决参考信号，不得抵触硬证据）。现物是不是现物，LLM 不能有意见；helper 说这张牌危险多少，LLM 可以不认；依据真实牌河判断 helper 在当前局面低估/高估了危险，正是教练发挥价值的地方。
+
+缺失的分析能力不构成缺失的解释——系统没有可据以识别"解释缺口"的独立真相来源（missing analytical capabilities do not constitute missing explanations, because the system has no independent ground-truth explanation against which such a gap could be identified）。
+
 ### 模型和教练分离
 
-Mortal/Akagi 的分数决定“模型偏好”；教练偏好由可审计因素和教学规则决定。删除模型评分不能改变事实账本。
+Mortal/Akagi 的分数决定“模型偏好”；教练判断（CoachJudgment）由 LLM 在可审计的确定性证据上做出。删除模型评分不能改变事实账本与差异，也不得改变教练判断的证据基础。
 
 ### Privileged / renderer 分离
 
@@ -141,7 +157,7 @@ Mortal/Akagi 的分数决定“模型偏好”；教练偏好由可审计因素�
 
 ## 当前已知架构缺口
 
-- canonical mapper 的部分杠/流局/荣和语义尚需真实牌谱反证；
-- mapped/replayed record 当前仅存主进程内存，没有任务持久化；
-- 生产 Mortal/Akagi 候选尚未接到真实 replay decisions；
-- LLM、SQLite 会话、报告工作台与跨平台发布尚未实现。
+- canonical mapper 的部分流局/杠语义尚需真实牌谱反证（M5 人工验收并行线程）；
+- 响应面（他家舍牌/他家杠响应窗口）尚未接入，且 source 投影层仍按 `last_actor` 过滤、会把响应 entry 整层丢弃——M6-A4 先修决策归属模型再开面；
+- mapped/replayed record 与 Mortal 报告仍仅在主进程内存/验收缓存中，没有产品级持久化（M7-B）；
+- 整盘 StructuredAnalysisPackage、解释引擎与 validator、review UI、LLM 客户端、SQLite 会话与跨平台发布尚未实现（M6-C / M6-D / M7-A / M7-B / M8）。

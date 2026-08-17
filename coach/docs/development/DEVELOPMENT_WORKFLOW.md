@@ -92,7 +92,8 @@ contract → producer/source → validator → consumer → composition root →
 
 - 模型评价不生成麻将事实；
 - 启发式不进入确定性偏好；
-- LLM 不创建 factors、不修改 preference；
+- LLM 不创建 factors、不修改 preference/差异方向；
+- CoachJudgment（LLM 跨因素取舍与推荐）只能权衡已有确定性证据，不得引入无出处的局面事实；
 - 不支持或缺事实时保留 blocked/unknown，不补写“合理猜测”。
 
 ## 并发与生命周期

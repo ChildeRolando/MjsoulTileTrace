@@ -213,8 +213,9 @@ mahjong-helper recommendations or composite rankings never enter coach
 preference.
 
 The LLM consumes the validated package. It is not allowed to create factors,
-change model facts, infer an engine motive, or provide a recommendation when the
-policy gate is closed.
+change model facts, or infer an engine motive. Coaching judgments (CoachJudgment)
+may weigh grounded factors into a recommendation, but never introduce unsupported
+game-state facts.
 
 ## 可运行原型：命令行教练
 

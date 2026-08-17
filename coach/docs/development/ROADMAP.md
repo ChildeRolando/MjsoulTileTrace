@@ -1,10 +1,10 @@
 # 当前开发路线图
 
-本页是当前路线图。旧的完整构想仍可在 [`2026-08-01-llm-riichi-coach-product-roadmap.md`](../plans/2026-08-01-llm-riichi-coach-product-roadmap.md) 查阅，但其状态数字和部分缺口已经过时。
+本页是当前路线图。旧的完整构想仍可在 [`2026-08-01-llm-riichi-coach-product-roadmap.md`](../plans/2026-08-01-llm-riichi-coach-product-roadmap.md) 查阅，但其状态数字和部分缺口已经过时。下一阶段（Playable Review MVP）的共识基线见 [`2026-08-18-next-phase-roadmap-grill-decisions.md`](../handoffs/2026-08-18-next-phase-roadmap-grill-decisions.md) 与 ADR-0003。
 
 ## 产品目标
 
-用户在本机应用登录雀魂国区账号，从近期可分析的四人南风标准规则牌谱中选择一场，获得可回放、可审计、可追问的整盘教练会话。模型只提供候选动作与选择分；麻将事实和教学结论必须来自可验证的本地管线。
+用户在本机应用登录雀魂国区账号，从近期可分析的四人南风标准规则牌谱中选择一场，获得可回放、可审计、可追问的整盘教练会话。模型只提供候选动作与选择分；麻将事实与候选间因素差异必须来自可验证的本地确定性管线。LLM 在这些有据证据之上完成跨因素权衡与教练判断（CoachJudgment），不得发明或改写任何局面事实。
 
 ## 里程碑状态
 
@@ -12,59 +12,69 @@
 |---|---|---|---|
 | 静态牌效率课程 | 完成 | 18 课、训练器、掌握度与本地计算器 | 独立维护，不阻塞桌面教练 |
 | M0 严格契约与候选 | 完成 | canonical 动作、比较、事实边界、模型评价与偏好契约 | 新功能继续复用，不另建宽松旁路 |
-| M1 五轴 FactorPipeline | 完成 | 同构账本、差异、确定性偏好、受管 Go sidecar | 补充新分析维度时保持证据等级 |
-| M2 局面事实 | 部分完成 | canonical event v2、决策快照、牌形/等待/振听、逐威胁防守矩阵 | 精确符番、顺位 EV、选择权、行为启发式 |
-| M3 教学证据 | 未开始 | 仅有策略边界和占位契约 | 冻结资料、引用、版本化教学规则 |
-| M4 LLM 教练 | 未开始 | 严格分析包与解释验证地基 | LLM 客户端、编排、流式输出、追问 |
+| M1 五轴 FactorPipeline | 完成 | 同构账本、差异、确定性偏好（ADR-0003 后为 optional signal）、受管 Go sidecar | 补充新分析维度时保持证据等级 |
+| M2 局面事实 | 部分完成 | canonical event v2、决策快照、牌形/等待/振听、逐威胁防守矩阵 | **pull-based 能力池**（非线性 gate）：exact fu / choice rights / 顺位条件 = 硬证据，顺位 EV / 读牌行为推断 = advisory（ADR-0003），按产品 scope 拉入 |
+| M3 教学证据 | 未开始 | 仅有策略边界和占位契约 | 冻结资料、引用、版本化教学规则；与 decision fact 两源分离，fixed report 稳定后启动 |
+| M4 受约束追问 | 未开始 | ——（原 M4"LLM 教练"已拆分为 M6-D 解释引擎 + M7-A 固定报告 UI + M4 追问对话） | fixed report 与教学证据层稳定后的 constrained follow-up/chat |
 | M5 雀魂国区接入 | 接近完成 | Electron 登录、加密恢复、最近 30 场、取回、canonical mapper、重放、脱敏 replay audit、H1 诊断命令 | 真实牌谱 H1 对照验收；未覆盖流局/杠枚举的 fixture 反证 |
-| M6 模型生产接入 | 进行中 | M6-A1：Mortal 单决策切片（安全获取、指纹/视角绑定、比较集 + ModelEvaluation + assembly）；M6-A2：全量自摸面覆盖账本（全局二部绑定、120/113 无丢失、99 个支持对 analysis_ready）；M6-A3：行动支持扩展已落地（declare_riichi 契约与 riichi_discard 实现语义、自摸/杠/九种九牌终局 actual、post_riichi/post_call 决策面、真实 hora 形态钉死、10 分支 fail-closed coverage gate + §16 evidence manifest lift 路径、双平台验收入口（雀魂首选 + Tenhou 补充，共享验收核心）、H2 连续性复跑 125/113 全绑定 0 歧义）；**真实语料验收矩阵 10/10 补满（2026-08-17，双平台 §16 manifest，handoff §15）** | M6-A4 响应面；Mortal 产品化工作流；Akagi（M6-B） |
-| M7 会话与工作台 | 未开始 | 安全 IPC 和最小目录 UI | SQLite 任务、报告页、回放、聊天、恢复/删除 |
+| M6 模型生产接入 | 进行中 | M6-A1：Mortal 单决策切片（安全获取、指纹/视角绑定、比较集 + ModelEvaluation + assembly）；M6-A2：全量自摸面覆盖账本（全局二部绑定、120/113 无丢失、99 个支持对 analysis_ready）；M6-A3：行动支持扩展已落地（declare_riichi 契约与 riichi_discard 实现语义、自摸/杠/九种九牌终局 actual、post_riichi/post_call 决策面、真实 hora 形态钉死、10 分支 fail-closed coverage gate + §16 evidence manifest lift 路径、双平台验收入口（雀魂首选 + Tenhou 补充，共享验收核心）、H2 连续性复跑 125/113 全绑定 0 歧义）；**真实语料验收矩阵 10/10 补满（2026-08-17，双平台 §16 manifest，handoff §15）** | **M6-A4 响应面**（A4.0 源模型修正 → A4.3 语料验收，wave-1/2）；**M6-C StructuredAnalysisPackage 固化**；**M6-D 解释引擎 + validator**；M6-B Akagi 后置 |
+| M7 复盘工作台 | 未开始 | 安全 IPC 和最小目录 UI | **M7-A** fixed review UI + DeterministicReviewSelector（三层，原生 DOM）；**M7-B** ReviewSession 持久化/重开 + SQLite + 产品内 Mortal 缓存（privileged 边界，ADR-0003/决策 H6） |
 | M8 打包发布 | 未开始 | Electron 与 sidecar 构建基础 | 跨平台安装、升级、日志、发布验收 |
 
 ## 当前关键路径
 
-### 1. 完成 M5 人工验收
+纵向主线：**真实一场牌 → 完整分析 → StructuredAnalysisPackage → CoachJudgment / ExplanationBullet → 用户可见可审计 → 保存并重开。**
+
+> Any next development item should be evaluated by whether it makes the end-to-end review vertical slice more complete, reliable, or useful. Exceptions are explicit product-scope prerequisites, integrity fixes, privacy/security fixes, and release blockers.
+
+### 1. M5 人工验收（并行线程）
 
 - 运行 `npm run desktop:diagnose-mahjong-soul-replay`，对照审计文件逐项核对雀魂回放（self seat、局数/庄家/本场、初始手牌、摸切、鸣牌、立直、和牌/流局）。
 - 未覆盖的流局/杠枚举（`ActionLiuJu`、`ActionAnGangAddGang`）继续保持 fail closed；真实牌谱命中时先补脱敏 fixture + RED/GREEN，再放宽。
 - 发现协议差异时先补 fixture 和映射测试，再改实现。
+- 真实语料验收政策沿用 ADR-0002 与 2026-08-16 source-policy 修正（雀魂首选 + 天凤补充，Mortal 报告内嵌数据永不充当本地侧）；A3 矩阵已于 2026-08-17 收口 10/10。
 
-### 2. 收口 M6-A3 真实语料验收
+### 2. M6-A4 响应面（决策归属架构升级）
 
-- **验收来源政策已修正（2026-08-16 source-policy correction）**：验收不变量 = 真实 + 独立本地权威 + 全 E2E，**不是“仅天凤”**。获批独立本地来源 = 雀魂官方原始牌谱（**首选**，最终产品入口）与天凤权威原始牌谱（补充：discovery/稀有事件语料/第二验收来源）。同一原始对局的两侧数据只要各自独立获取与解析即合法；严禁用 Mortal 报告内嵌的 `mjai_log`/`split_logs`/任何从报告重建的数据充当本地侧。
-- 工作流（按序）：
-  1. **固化 H2 雀魂证据**：`scripts/majsoul-acceptance.mjs`（INNER record bytes + selfActor → 既有生产 mapper → 重放 → 共享验收核心 → 脱敏 artifact → manifest）。报告可用本地缓存的真实 raw body（经注入 fetch 走完整生产解析路径，零网络）或操作者提供的 result URL（真实抓取；提交仍由操作者浏览器过 Turnstile，脚本永不自动提交）。
-  2. **扫描更多雀魂牌谱**补充分支覆盖（雀魂为产品主入口）。
-  3. 仅对仍缺的分支用 Tenhou 语料补：`scripts/tenhou-acceptance.mjs`（断点续跑；mjai.ekyu.moe 无 API、Turnstile 门禁 → operator-assisted：操作者把**自己牌局**的可达天凤 log URL 放入 `<state-dir>/inbox/<fileKey>.url`，错误 URL↔pair 对在报告绑定校验处 fail-closed；钉死语料 dnovikoff mjloggm 内嵌无归档 log id，永远不能做验收提交）。
-  4. 只有在某分支**确实无其他来源**时才要求用户提供天凤牌谱。
-- 目标不变：10 个语义分支每个至少 1 个独立真实 E2E 接受命中（来自任一获批来源）；证据只进 §16 版本化 manifest（记录 `localSourceType: "mahjong_soul" | "tenhou"`），registry lift 只能由 manifest 派生。
-- 语料缺口状态（2026-08-17 收口）：**矩阵 10/10 补满，无缺口**。`dama_with_tsumo_candidate` 全 3000 局天凤语料扫描命中 3（555,403 窗口、引擎提升、0 失败），operator 提交后 **2 对全链路 ACCEPTED**（handoff §15）；`self_turn_kyuushu` 已由 `8ffcebe9#3` 真实验收 lift（§13）。
-- 矩阵补满前，未覆盖分支保持 `coverage_branch_uncovered` fail-closed，不得手工放宽。
+- **A4.0** 修正 Mortal source model：拆除 `report-fetcher.ts` 与 `mortal-review-service.ts` 两处 `last_actor == player` 归属过滤，钉死"全部 entry 为受评者视角决策"；H2 重跑确认 self-turn 绑定不回归、现有 12 个 `no_mortal_entry` 逐个获得解释。
+- **A4.1** response replay 开窗（他家舍牌/他家杠响应窗口）→ **A4.2** binding validation（响应身份事实表 + 本地候选枚举与 Mortal 候选空间同构）→ **A4.3** wave-1 真实语料验收（`response window × actual action` 7 分支矩阵；wave-2 `resp_pass_on_kakan`/国士抢暗杠 fail-closed + 事前固定降级条款）。
+- discovery 最早启动 chankan 纯事件扫描（wave-1 唯一无降级兜底的稀有分支）。
+- 详见 2026-08-18 grill 决策 A1–A9。
 
-### 3. M6-A4 响应面
+### 3. M6-C 固化 StructuredAnalysisPackage
 
-- 覆盖 `discard_response`/`kan_response` 决策面（荣和、过、抢杠）。
-- 沿用 A3 的真实形态钉死方法：先固定真实 Mortal 报告形态，再写适配与校验。
+- 整盘聚合、六值 outcome（沿用 `MortalDecisionOutcome`，不缩水）、组件版本字段（replay/mapper、fact-engine、adapter、model tag）。
+- 与解释物理分离：`ReviewReport` 经 `decisionId + evidenceId` 引用，绝不内嵌。
 
-### 4. Mortal 产品化工作流
+### 4. M6-D Evidence-first Explanation Engine + validator
 
-- 把全量复盘的固定报告接入 UI；UI 状态推进到“分析完成”。
-- 输出结构化分析包，再渲染固定报告；不要先做聊天。
+- `LlmProvider` 接口（v1 单实现、BYOK、key 只在主进程）+ `LlmDecisionContext` 白名单投影 DTO（座位匿名，audit 只留 hash/元数据）。
+- `EvidenceClaim`（轴/方向由 evidence 查回）+ 证据占位符渲染 + hard/soft 双层验证；语义校验失败不重试，传输失败重试一次；LLM 失败永不污染分析包（`generationStatus`/`explanationStatus` 属 ReviewReport）。
 
-### 5. M6-B Akagi 备选来源
+### 5. M7-A Whole-game fixed review UI
 
-- 在 Mortal 管线稳定后评估 Akagi 作为第二模型来源，复用同一契约与绑定层。
+- `DeterministicReviewSelector`（确定性、版本化：分歧 AND errorGap ≥ T；无差异分支入选；preference 冲突仅 tiebreaker）。
+- 三层 UI：Overview（计数含 unsupported/no_mortal_entry）→ List（tags 机械派生）→ Detail（你的选择 vs Mortal、候选分、bullets、证据展开）；原生 DOM，不引框架。
 
-### 6. 建立会话工作台
+### 6. M7-B ReviewSession 持久化
 
-- 持久化任务状态、输入哈希、模型身份、分析包和解释版本。
-- 增加牌桌回放、候选对比与证据面板。
-- 最后加入受约束 LLM 对话和追问。
+- SQLite；ReviewSession 只引用（不内嵌）analysisPackage / ReviewReport；componentVersions 概念清单预留（canonical/replay、Mortal model/source、factor pipeline、selector policy、analysis package schema、LLM provider/model、prompt/schema、review report schema）。
+- 产品内 Mortal 报告缓存进入：**raw cache 属 privileged source infrastructure，不进 ReviewSession/ReviewReport**（main process only、无 renderer 暴露、无 raw audit payload；eviction 策略实现时定）。
+
+### 7. M2-next：pull-based deterministic capability pool
+
+- M2-next is not an independent horizontal completion gate. New fact capabilities are pulled into the critical path only when required by an explicit product scope or vertical-slice requirement.
+- 分层按 ADR-0003：exact fu / choice rights / 顺位条件 = 硬证据；顺位 EV / 读牌行为推断 = advisory（版本化估算，永不入 DeterministicPreference）。
+
+### 8. 其后
+
+- M3 教学证据层（与 decision fact 两源分离）→ M4 受约束追问对话 → M6-B Akagi（产品链稳定后）→ M8 打包发布。
 
 ## 明确不应提前做的事
 
 - 不把单个实际动作伪装成候选比较；比较契约要求至少两个候选。
 - 不从模型分数推断模型“为什么”选择某动作。
+- 不让 LLM 发明证据层不存在的局面事实；教练判断（CoachJudgment）只能权衡已有的确定性证据。
 - 不把 helper 风险刻度称为放铳概率。
 - 不在 renderer 暴露令牌、账号 ID、牌谱下载 URL 或原始字节。
 - 不在缺少生产模型候选时宣称真实牌谱教学分析已经完成。
