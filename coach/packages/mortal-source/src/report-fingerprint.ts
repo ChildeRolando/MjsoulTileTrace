@@ -11,15 +11,14 @@ import { parseMjaiTile } from "./mjai-tile.js";
 // canonical stream using ONLY the maximal deterministic PUBLIC event sequence
 // that both sides can represent equivalently.
 //
-// Explicit supported subset (v2):
+// Explicit supported subset (v3):
 //   - game_start / round_start (wind, dealer, honba, riichi sticks, scores,
 //     initial dora marker)
 //   - every public discard (actor, tile, tsumogiri/tedashi)
 //   - chi / pon / daiminkan calls (actor, target, called tile, consumed tiles)
 //   - ankan (actor, four tiles) and kakan (actor, added tile)
 //   - riichi declarations and acceptances (actor)
-//   - win settlements (winner, target, score deltas) when both sides expose
-//     the delta array
+//   - win settlements (winner, target) — WITHOUT score deltas (see below)
 //   - round_end / game_end markers
 //
 // Explicitly EXCLUDED because they are not equivalently representable on both
@@ -33,12 +32,21 @@ import { parseMjaiTile } from "./mjai-tile.js";
 //   - nicknames, account IDs, split_logs, result URLs
 //   - win `ura_markers` / `winningTile` / `winSourceEventRef` (no equivalent
 //     in the other representation)
+//   - win score deltas (v3): the canonical contract folds riichi deposits
+//     into zero-sum round deltas (validator settlement identity
+//     roundStart + Σdeltas == settled scores), while mjai hora deltas
+//     attribute the pot to the winner per hule (non-zero-sum when sticks are
+//     on the table). Identical games therefore produce different delta
+//     arrays on the two sides — deltas are a representation artifact, not a
+//     game-identity fact. Settlements stay bound indirectly: every round's
+//     outcome is pinned by the NEXT round_start's scores, which both sides
+//     expose identically.
 //
 // The fingerprint must change when any included public action changes. Events
 // outside this subset are intentionally ignored by both sides.
 
 export const MORTAL_GAME_FINGERPRINT_VERSION =
-  "mortal-game-fingerprint/v2" as const;
+  "mortal-game-fingerprint/v3" as const;
 
 export type PublicRoundFingerprint = {
   readonly wind: "E" | "S" | "W";
@@ -86,7 +94,6 @@ type FingerprintEvent =
       readonly kind: "win";
       readonly actor: number;
       readonly target: number;
-      readonly deltas: FingerprintScores;
     }
   | { readonly kind: "round_end" }
   | { readonly kind: "game_end" };
@@ -229,7 +236,7 @@ function eventKey(event: FingerprintEvent): unknown[] {
     case "riichi_accepted":
       return [event.kind, event.actor];
     case "win":
-      return ["win", event.actor, event.target, [...event.deltas]];
+      return ["win", event.actor, event.target];
     case "round_end":
       return ["round_end"];
     case "game_end":
@@ -296,17 +303,13 @@ function mjaiEventToFingerprint(
       return { kind: "riichi_declared", actor: normalizeActor(rawEvent.actor) };
     case "reach_accepted":
       return { kind: "riichi_accepted", actor: normalizeActor(rawEvent.actor) };
-    case "hora": {
-      if (!Array.isArray(rawEvent.deltas) || rawEvent.deltas.length !== 4) {
-        return null;
-      }
+    case "hora":
+      // v3: deltas are deliberately not read — see the header note.
       return {
         kind: "win",
         actor: normalizeActor(rawEvent.actor),
         target: normalizeActor(rawEvent.target),
-        deltas: normalizeScores(rawEvent.deltas),
       };
-    }
     case "end_kyoku":
       return { kind: "round_end" };
     case "end_game":
@@ -395,12 +398,11 @@ function canonicalEventToFingerprint(
     case "riichi_accepted":
       return { kind: event.type, actor: event.actor };
     case "win_declared":
-      if (event.scoreDeltas === null) return null;
+      // v3: scoreDeltas are deliberately not read — see the header note.
       return {
         kind: "win",
         actor: event.winnerActor,
         target: event.targetActor ?? event.winnerActor,
-        deltas: event.scoreDeltas,
       };
     case "round_ended":
       return { kind: "round_end" };

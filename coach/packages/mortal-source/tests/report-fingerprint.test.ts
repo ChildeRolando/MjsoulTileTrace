@@ -118,6 +118,25 @@ function hiddenDraw(sourceOrdinal: number, actor = 1) {
   };
 }
 
+function winDeclared(
+  sourceOrdinal: number,
+  winner = 0,
+  target = 2,
+  scoreDeltas: [number, number, number, number] | null = null,
+) {
+  return {
+    type: "win_declared" as const,
+    eventId: `game:test/0/${sourceOrdinal}/0`,
+    sourceRecordRef: `record:${sourceOrdinal}`,
+    winnerActor: winner,
+    targetActor: target,
+    method: "ron" as const,
+    winningTile: { id: "1p", red: false },
+    winSourceEventRef: "game:test/0/2/0",
+    scoreDeltas,
+  };
+}
+
 function canonicalStream(
   events: unknown[],
 ): CanonicalEventStream {
@@ -183,7 +202,7 @@ function mjaiLog(events: unknown[]): unknown[] {
   return [mjaiStartGame(), mjaiStartKyoku(), ...events];
 }
 
-describe("Mortal game fingerprint v2", () => {
+describe("Mortal game fingerprint v3", () => {
   it("matches canonical public event sequence for the same game", () => {
     const mortal = computeMortalGameFingerprint(mjaiLog([
       mjaiDahai("1p", false),
@@ -247,5 +266,45 @@ describe("Mortal game fingerprint v2", () => {
       hiddenDraw(3, 2),
       tileDiscarded(4, "1p"),
     ])));
+  });
+
+  // v3 regression: canonical streams fold riichi deposits into zero-sum
+  // round deltas (settlement conservation identity), while mjai hora deltas
+  // attribute the pot to the winner per hule. Identical games produced
+  // different v2 fingerprints whenever a win carried riichi sticks — the
+  // exact divergence observed between the tenhou importer and real ekyu
+  // Mortal reports on 2026-08-17.
+  it("binds wins by winner/target and ignores score-delta representation", () => {
+    const canonicalFolded = computeCanonicalGameFingerprint(canonicalStream([
+      tileDiscarded(2, "1p"),
+      winDeclared(3, 0, 2, [8700, 0, -8700, 0]),
+    ]));
+    const mjaiPotAttributed = computeMortalGameFingerprint(mjaiLog([
+      mjaiDahai("1p"),
+      { type: "hora", actor: 0, target: 2, deltas: [8700, 0, -7700, 0] },
+    ]));
+    const mjaiOtherDeltas = computeMortalGameFingerprint(mjaiLog([
+      mjaiDahai("1p"),
+      { type: "hora", actor: 0, target: 2, deltas: [9700, 0, -6700, 0] },
+    ]));
+    const mjaiNoDeltas = computeMortalGameFingerprint(mjaiLog([
+      mjaiDahai("1p"),
+      { type: "hora", actor: 0, target: 2 },
+    ]));
+    expect(canonicalFolded).toBe(mjaiPotAttributed);
+    expect(canonicalFolded).toBe(mjaiOtherDeltas);
+    expect(canonicalFolded).toBe(mjaiNoDeltas);
+
+    const canonicalNullDeltas = computeCanonicalGameFingerprint(canonicalStream([
+      tileDiscarded(2, "1p"),
+      winDeclared(3, 0, 2, null),
+    ]));
+    expect(canonicalNullDeltas).toBe(canonicalFolded);
+
+    const mjaiOtherTarget = computeMortalGameFingerprint(mjaiLog([
+      mjaiDahai("1p"),
+      { type: "hora", actor: 0, target: 3, deltas: [8700, 0, -7700, 0] },
+    ]));
+    expect(canonicalFolded).not.toBe(mjaiOtherTarget);
   });
 });

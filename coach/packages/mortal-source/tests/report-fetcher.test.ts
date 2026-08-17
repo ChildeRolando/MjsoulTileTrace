@@ -132,7 +132,7 @@ describe("fetchMortalReport", () => {
     expect(result.kyokus[0]!.entries).toHaveLength(1);
     expect(result.kyokus[0]!.entries[0]!.lastActor).toBe(1);
     expect(result.kyokus[0]!.entries[0]!.tehai).toHaveLength(14);
-    expect(result.gameFingerprint).toContain("mortal-game-fingerprint/v2:sha256:");
+    expect(result.gameFingerprint).toContain("mortal-game-fingerprint/v3:sha256:");
     expect(calls).toEqual([REPORT_URL]);
   });
 
