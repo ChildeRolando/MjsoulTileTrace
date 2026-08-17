@@ -197,3 +197,29 @@ riichi_window、dama_with_riichi_candidate、post_call_chi、post_call_pon、pos
 **验证**：mjai-action/structured-mortal 新增 5 测试（含 3 fail-closed：裸形状他家回合拒、有 actor 无 reason 拒、非九九 reason 拒、未评分拒）；reasoning 全量 530/530 绿、typecheck 6 包绿。checkpoint 该 pair 手动重置 `mortal_submission_pending`（缓存保留，reportFetches=0 复用真实报告）→ 复跑 **ACCEPTED，`self_turn_kyuushu` lift**，矩阵 **9/10**。manifest 该分支 1 条真实证据（哈希 b4fc3e4f…）。
 
 **仅余 1 分支**：`dama_with_tsumo_candidate`——4 worker 后台扫描中（互不相交段 [281,3000)，断点 json `m6a3-dama-w{1..4}.json`）；有候选→inbox 验收；全扫 0 命中→§11 STOP 报告+降级需用户批准。
+
+## 14. 2026-08-17 dama_with_tsumo 收口（final truth，代码 HEAD `f2869b4`）
+
+**先修根因再扫全量**：旧 4-worker 扫描 ~13.5min/局（10 分钟跑不完第一局）。profile 定位不是引擎，而是 `replayCanonicalStream` 复杂度——每个决策窗口经公开 `freezeDecisionSnapshot` 全量重新 parse+reduce 整条流，`projectKnownGameFactsV2` 再冻结一遍做验证（每 seat ~270 次全量 reduce，O(窗口×事件²)，热点 hashJson 26% + structuredClone 23% + zod 12%）。修复（`f2869b4`）：
+
+- `decision-snapshot` 拆出 `freezeDecisionStreamContext`（parse+reduce 一次、eventRef 索引）与 `freezeDecisionSnapshotInContext`；公开 API = context+core，行为不变。
+- `stream-replayer` 每 replay 惰性共享一个 context（惰性：零窗口流仍从不校验，保持旧语义；有窗口流本来就会全量校验）。
+- `known-game-facts-v2` 可选 `streamContext`：验证冻结共享 reduction——reduce 是纯函数且确定性被 canonical-replay-invariance 钉死，共享=记忆化；快照仍重新冻结（窗口断言+schema parse）并深比较 cachedSnapshot。
+- 前置 `win-shape.ts` 完成形预筛（(hand−X)+X=持牌本身，无和牌形⇒引擎问题必为否）；permissive 跨标准/七对/国士，引擎仍是唯一提升权威。
+
+**A/B 验证**：真实语料局 4 seat 输出 JSON 逐字节一致（sha256 相等），172s/seat → 0.9s/seat（192×）；vitest 544/544。
+
+**全量终局（6 worker × [0,500)…[2500,3000)，3100 局段并集覆盖全部 3000 局）**：9812 seat replay 成功 / 2588 mapper not-ready（语料固有覆盖率，抽样确认 replay 失败为 0）；dama 窗口 555,403 个全部结构预筛，仅 4 个进引擎（假阳性 ~1/14 万），**3 个候选获引擎提升**（overallShanten=0 且弃牌在待牌中），引擎 0 失败。发生率 ≈ 5.4/百万窗口（~1/1000 局）。§11 STOP 不触发——语料命中非零。
+
+**3 候选（全部已过验收 LOCAL 段，`mortal_submission_pending`）**：
+| gameId（不透明） | seat | decisionEventRef | tenhou log id（私有，仅 operator 用） |
+|---|---|---|---|
+| tenhou-g:1733834247a789b2 | 2 | …/10/1019/0 | 2026080918gm-00a9-0000-91dc6a72 |
+| tenhou-g:d91fdd402a94dc48 | 0 | …/2/335/0 | 2026081204gm-00a9-0000-9d71c14c |
+| tenhou-g:f91cc7d8e3d63004 | 0 | …/8/868/0 | 2026081407gm-00a9-0000-abc87788 |
+
+第 2 候选单局重扫逐字段复现（确定性）。discovery 报告 `m6a3-discovery-dama-final.json`、state 目录 `m6a3-tenhou-acceptance-state/`（checkpoint 已备份 `.bak-dama`，另有本 job tmp 全量备份）。
+
+**收口最后一步（operator，与 9/10 相同流程）**：任选 ≥1 对在 https://mjai.ekyu.moe/ 提交（engine Mortal，Turnstile 须人工）→ 报告 URL 存 `<state-dir>/inbox/<gameId>#<seat>.url` → 重跑
+`node scripts/tenhou-acceptance.mjs <对应 raw xml> --discovery m6a3-discovery-dama-final.json --state-dir m6a3-tenhou-acceptance-state`
+→ ACCEPTED 后 `dama_with_tsumo_candidate` lift，矩阵 **10/10**，重生成 §16 manifest（复用缓存报告，0 新请求也成立）。

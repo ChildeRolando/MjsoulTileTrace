@@ -38,7 +38,7 @@
   3. 仅对仍缺的分支用 Tenhou 语料补：`scripts/tenhou-acceptance.mjs`（断点续跑；mjai.ekyu.moe 无 API、Turnstile 门禁 → operator-assisted：操作者把**自己牌局**的可达天凤 log URL 放入 `<state-dir>/inbox/<fileKey>.url`，错误 URL↔pair 对在报告绑定校验处 fail-closed；钉死语料 dnovikoff mjloggm 内嵌无归档 log id，永远不能做验收提交）。
   4. 只有在某分支**确实无其他来源**时才要求用户提供天凤牌谱。
 - 目标不变：10 个语义分支每个至少 1 个独立真实 E2E 接受命中（来自任一获批来源）；证据只进 §16 版本化 manifest（记录 `localSourceType: "mahjong_soul" | "tenhou"`），registry lift 只能由 manifest 派生。
-- 已知语料缺口（发现层实证）：`dama_with_tsumo_candidate` 天凤钉死语料命中 0（需另寻样本，雀魂扫描优先）；`self_turn_kyuushu` 唯一候选在西局游戏，本地 replay 以 `known_facts_v2_unsupported_round_wind` fail-closed（需西局重放支持或另寻样本）。
+- 语料缺口状态（2026-08-17 全量终局）：`dama_with_tsumo_candidate` 全 3000 局天凤语料扫描命中 **3**（555,403 窗口、引擎提升、0 失败；发现层零缺口关闭，验收待 operator 提交，见 handoff §14）；`self_turn_kyuushu` 已由 `8ffcebe9#3` 真实验收 lift（§13）。
 - 矩阵补满前，未覆盖分支保持 `coverage_branch_uncovered` fail-closed，不得手工放宽。
 
 ### 3. M6-A4 响应面
