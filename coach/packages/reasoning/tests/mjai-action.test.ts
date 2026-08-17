@@ -470,4 +470,51 @@ describe("MJAI action adapter", () => {
       sourceType: "future_engine_extension",
     });
   });
+
+  it("maps the bare scored ryukyoku alternative on the self turn only", () => {
+    // Real-evidence pin (ekyu report, 2026-08-17): the scored kyuushu
+    // alternative carries neither actor nor reason — the abort is a player
+    // choice only on the self turn, so the bare shape is admissible exactly
+    // there. An attributed shape without a reason and any off-turn round
+    // abort stay unsupported, as does a non-kyuushu reason.
+    expect(adaptMjaiActionSequence([
+      {
+        eventRef: "event:ryukyoku",
+        action: { type: "ryukyoku", deltas: [0, 0, 0, 0] },
+      },
+    ], selfTurn)).toMatchObject({
+      status: "ready",
+      draft: {
+        kind: "kyuushu_kyuuhai",
+        drawEventRef: "event:draw",
+      },
+    });
+    expect(adaptMjaiActionSequence([
+      {
+        eventRef: "event:ryukyoku",
+        action: { type: "ryukyoku", actor: 3 },
+      },
+    ], selfTurn)).toEqual({
+      status: "unsupported",
+      sourceType: "ryukyoku:unattributed",
+    });
+    expect(adaptMjaiActionSequence([
+      {
+        eventRef: "event:ryukyoku",
+        action: { type: "ryukyoku" },
+      },
+    ], discardResponse)).toEqual({
+      status: "unsupported",
+      sourceType: "ryukyoku:unattributed",
+    });
+    expect(adaptMjaiActionSequence([
+      {
+        eventRef: "event:ryukyoku",
+        action: { type: "ryukyoku", actor: 3, reason: "suufonrenda" },
+      },
+    ], selfTurn)).toEqual({
+      status: "unsupported",
+      sourceType: "ryukyoku:suufonrenda",
+    });
+  });
 });

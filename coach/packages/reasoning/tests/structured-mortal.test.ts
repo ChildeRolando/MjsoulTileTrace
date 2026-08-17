@@ -617,6 +617,107 @@ describe("generic structured Mortal importer", () => {
     });
   });
 
+  // M6-A3 completion: ekyu's reviewer serializes the kyuushu alternative AND
+  // the kyuushu actual as a bare `{"type":"ryukyoku"}` — no actor, no reason,
+  // deltas all zero (observed on real reports 2026-08-17). Both sides
+  // normalize to the same canonical kyuushu_kyuuhai identity, so the actual
+  // merges into the scored model row — no realization correspondence needed.
+  const kyuushuFacts = {
+    decisionWindow: {
+      kind: "self_turn" as const,
+      actor: 3,
+      triggerEventRef: "event:draw",
+    },
+    concealedTiles: [
+      { id: "1m" as const, red: false },
+      { id: "9m" as const, red: false },
+      { id: "1p" as const, red: false },
+      { id: "9p" as const, red: false },
+      { id: "1s" as const, red: false },
+      { id: "9s" as const, red: false },
+      { id: "1z" as const, red: false },
+      { id: "1z" as const, red: false },
+      { id: "2z" as const, red: false },
+      { id: "2z" as const, red: false },
+      { id: "3z" as const, red: false },
+      { id: "3z" as const, red: false },
+      { id: "4z" as const, red: false },
+    ],
+    currentDraw: {
+      tile: { id: "5z" as const, red: false },
+      eventRef: "event:draw",
+    },
+  };
+  const modelKyuushuAbort = {
+    actions: [{
+      eventRef: "model:ryukyoku",
+      action: { type: "ryukyoku", deltas: [0, 0, 0, 0] },
+    }],
+    probability: 0.9999,
+    qValue: 0.03,
+  };
+  const modelManzuTerminalDahai = {
+    actions: [{
+      eventRef: "model:dahai",
+      action: {
+        type: "dahai",
+        actor: 3,
+        pai: "1m",
+        tsumogiri: false,
+      },
+    }],
+    probability: 0.0001,
+    qValue: -1.31,
+  };
+  const actualKyuushuAbort = {
+    actions: [{
+      eventRef: "actual:ryukyoku",
+      action: { type: "ryukyoku", deltas: [0, 0, 0, 0] },
+    }],
+  };
+
+  it("merges a bare-ryukyoku kyuushu actual into the scored kyuushu alternative", () => {
+    const result = importStructuredMortalComparison({
+      comparisonSetId: "comparison:kyuushu-window",
+      decisionLayerRef: "decision-layer:kyuushu-window",
+      facts: kyuushuFacts,
+      modelCandidates: [modelKyuushuAbort, modelManzuTerminalDahai],
+      actual: actualKyuushuAbort,
+    });
+
+    expect(result.status).toBe("ready");
+    if (result.status !== "ready") return;
+    expect(result.comparisonSet.candidates).toHaveLength(2);
+    const kyuushuRow = result.comparisonSet.candidates.find(
+      (candidate) => candidate.action.kind === "kyuushu_kyuuhai",
+    );
+    expect(kyuushuRow).toBeDefined();
+    // Exact canonical identity: the actual merges into the scored model row
+    // (origins union) — never an actual-only realization candidate.
+    expect(kyuushuRow!.origins).toEqual(["model", "actual"]);
+    expect(result.comparisonSet.correspondences).toBeUndefined();
+    expect(
+      result.scores.find((score) => score.actionRef === kyuushuRow!.actionRef),
+    ).toEqual({
+      actionRef: kyuushuRow!.actionRef,
+      probability: 0.9999,
+      qValue: 0.03,
+    });
+  });
+
+  it("fails closed when the kyuushu actual was not scored", () => {
+    expect(importStructuredMortalComparison({
+      comparisonSetId: "comparison:unscored-kyuushu-actual",
+      decisionLayerRef: "decision-layer:unscored-kyuushu-actual",
+      facts: kyuushuFacts,
+      modelCandidates: [modelManzuTerminalDahai],
+      actual: actualKyuushuAbort,
+    })).toEqual({
+      status: "incomplete",
+      diagnostics: ["actual_action_not_scored"],
+    });
+  });
+
   it("rejects duplicate model rows for one canonical action", () => {
     expect(importStructuredMortalComparison({
       comparisonSetId: "comparison:duplicate-score",

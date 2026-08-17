@@ -233,11 +233,27 @@ export function mortalActualMatchesLocal(
       return actual.type === "kakan"
         && actual.actor === actor
         && actual.pai === formatMjaiTile(local.addedTile);
-    case "kyuushu_kyuuhai":
-      return actual.type === "ryukyoku"
-        && actual.actor === actor
-        && (actual.reason === "kyuushu_kyuuhai"
-          || actual.reason === "kyushukyuhai");
+    case "kyuushu_kyuuhai": {
+      // Real-evidence pin (ekyu report, 2026-08-17): the kyuushu actual
+      // serializes as a bare `{"type":"ryukyoku","deltas":[0,0,0,0]}` — no
+      // actor and no reason. The degree-1 identity binding (round identity +
+      // full 14-tile hand + draw tile) is the actor authority for this row;
+      // any actor/reason the source does carry must still agree, and any
+      // explicit non-zero deltas contradict an abortive draw.
+      if (actual.type !== "ryukyoku") return false;
+      if (actual.actor !== undefined && actual.actor !== actor) return false;
+      if (
+        actual.reason !== undefined
+        && actual.reason !== "kyuushu_kyuuhai"
+        && actual.reason !== "kyushukyuhai"
+      ) {
+        return false;
+      }
+      if (Array.isArray(actual.deltas) && actual.deltas.some((v) => v !== 0)) {
+        return false;
+      }
+      return true;
+    }
     default:
       return false;
   }

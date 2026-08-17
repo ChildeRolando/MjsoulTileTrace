@@ -135,7 +135,11 @@ function requiredFields(type: string): string[] {
       // response windows, checked in the case body below.
       return ["actor", "target"];
     case "ryukyoku":
-      return ["actor", "reason"];
+      // Real-evidence pin (ekyu report, 2026-08-17): the scored kyuushu
+      // alternative carries NEITHER field — validation lives in the case
+      // body (reason-carrying shapes must name kyuushu; bare shapes are
+      // admissible only as the self-turn abort alternative).
+      return [];
     default:
       return [];
   }
@@ -288,8 +292,16 @@ export function adaptMjaiActionSequence(
   if (!knownTypes.has(action.type)) {
     return unsupported(action.type);
   }
-  const actionActor = actor(action);
+  // Real-evidence pin (ekyu report, 2026-08-17): the scored kyuushu
+  // alternative is the one actor-less single-action shape (a bare
+  // `{"type":"ryukyoku"}`, validated in its case body below). Every other
+  // type still requires an explicit actor.
+  const carriedKyuushuReason =
+    typeof action.reason === "string" && action.reason.length > 0;
+  const bareKyuushuAlternative = action.type === "ryukyoku" && !carriedKyuushuReason;
+  const actionActor = bareKyuushuAlternative ? null : actor(action);
   if (
+    actionActor !== null &&
     context.decisionWindow.actor !== null &&
     actionActor !== context.decisionWindow.actor
   ) {
@@ -400,9 +412,23 @@ export function adaptMjaiActionSequence(
       return unsupported("hora_in_post_call_discard");
     }
     case "ryukyoku": {
-      const reason = stringField(action, "reason");
-      if (reason !== "kyuushu_kyuuhai" && reason !== "kyushukyuhai") {
-        return unsupported(`ryukyoku:${reason}`);
+      const reason = action.reason;
+      if (typeof reason === "string" && reason.length > 0) {
+        if (reason !== "kyuushu_kyuuhai" && reason !== "kyushukyuhai") {
+          return unsupported(`ryukyoku:${reason}`);
+        }
+      } else {
+        // Real-evidence pin (ekyu report, 2026-08-17): the scored kyuushu
+        // alternative serializes as a bare `{"type":"ryukyoku"}` — no actor,
+        // no reason. The abort is a player choice only on the self turn, so
+        // the bare shape is admissible exactly there; an attributed or
+        // off-turn round-abort row stays unsupported.
+        if (
+          context.decisionWindow.kind !== "self_turn"
+          || action.actor !== undefined
+        ) {
+          return unsupported("ryukyoku:unattributed");
+        }
       }
       return ready({
         kind: "kyuushu_kyuuhai",
