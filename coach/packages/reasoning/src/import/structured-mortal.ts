@@ -219,6 +219,35 @@ export function importStructuredMortalComparison(input: {
       scoredModelActionRef: declareRow.normalized.candidate.actionRef,
       relation: "realizes",
     }];
+  } else if (
+    actual.candidate.action.kind === "kakan"
+    && !modelRefs.includes(actual.candidate.actionRef)
+  ) {
+    // M6-A3 completion: ekyu's reviewer serializes the pon-extension kan
+    // alternative in the scored distribution as an ankan of all four tiles
+    // (the meld's copies merged with the drawn copy), while the actual
+    // carries the kakan shape — observed on real reports 2026-08-17, where
+    // every kakan actual row died as actual_action_not_scored despite the
+    // model scoring the kan at p=0.25. Same realizes-pattern as riichi
+    // (ADR-0001): the model must have scored a kan of that tile — exactly
+    // one ankan row of the added tile's id — or the actual was not scored.
+    const addedTile = actual.candidate.action.addedTile;
+    const kanRow = modelRows.find((row) => {
+      const action = row.normalized.candidate.action;
+      return action.kind === "ankan"
+        && action.tiles.every((tile) => tile.id === addedTile.id);
+    });
+    if (kanRow === undefined) {
+      return {
+        status: "incomplete",
+        diagnostics: ["actual_action_not_scored"],
+      };
+    }
+    correspondences = [{
+      actualActionRef: actual.candidate.actionRef,
+      scoredModelActionRef: kanRow.normalized.candidate.actionRef,
+      relation: "realizes",
+    }];
   } else if (!modelRefs.includes(actual.candidate.actionRef)) {
     return {
       status: "incomplete",

@@ -53,6 +53,18 @@ function knownAvailableTiles(facts: KnownActionFacts): Tile[] | undefined {
   ];
 }
 
+// M6-A3 completion: a kan candidate's four tiles may be composed from a meld
+// (ekyu's reviewer serializes the pon-extension kan as an ankan of all four
+// tiles — the pon's three plus the drawn copy). The multiset containment
+// below still fails closed unless every claimed tile is held somewhere.
+function knownKanAvailableTiles(facts: KnownActionFacts): Tile[] | undefined {
+  const base = knownAvailableTiles(facts);
+  if (base === undefined) {
+    return undefined;
+  }
+  return [...base, ...(facts.melds ?? []).flatMap((meld) => meld.tiles)];
+}
+
 function knownDiscardTiles(
   discardMode: "tsumogiri" | "tedashi" | undefined,
   facts: KnownActionFacts,
@@ -688,7 +700,7 @@ function checkConsistency(
   }
 
   if (action.kind === "ankan") {
-    const available = knownAvailableTiles(facts);
+    const available = knownKanAvailableTiles(facts);
     if (available === undefined) {
       skippedChecks.push("ankan_known_tiles");
     } else if (!containsMultiset(available, action.tiles)) {
@@ -909,6 +921,8 @@ function directDraftConflicts(
     }
   }
   if (draft.kind === "ankan") {
+    // M6-A3 completion: include meld tiles — a pon-extension kan serialized
+    // as a four-tile ankan draws three of its tiles from the meld.
     const knownTiles = facts.concealedTiles === undefined
       ? undefined
       : [
@@ -916,6 +930,7 @@ function directDraftConflicts(
         ...(facts.currentDraw === undefined || facts.currentDraw === null
           ? []
           : [facts.currentDraw.tile]),
+        ...(facts.melds ?? []).flatMap((meld) => meld.tiles),
       ];
     const unknownDrawAllowance = facts.currentDraw === undefined ? 1 : 0;
     if (

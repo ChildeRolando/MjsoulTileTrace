@@ -466,6 +466,157 @@ describe("generic structured Mortal importer", () => {
     });
   });
 
+  // M6-A3 completion: ekyu's reviewer serializes the pon-extension kan
+  // alternative as an ankan of all four tiles while the actual carries the
+  // kakan shape (observed on real reports 2026-08-17 — the model scored the
+  // kan at p=0.25 yet every kakan actual row died as not scored).
+  const kakanFacts = {
+    decisionWindow: {
+      kind: "self_turn" as const,
+      actor: 3,
+      triggerEventRef: "event:draw",
+    },
+    concealedTiles: [
+      { id: "5z" as const, red: false },
+      { id: "5z" as const, red: false },
+      { id: "5z" as const, red: false },
+      { id: "5z" as const, red: false },
+    ],
+    currentDraw: {
+      tile: { id: "7z" as const, red: false },
+      eventRef: "event:draw",
+    },
+    melds: [{
+      meldRef: "meld:pon-c-0",
+      kind: "pon" as const,
+      tiles: [
+        { id: "7z" as const, red: false },
+        { id: "7z" as const, red: false },
+        { id: "7z" as const, red: false },
+      ],
+    }],
+  };
+  const modelKanGreenDragon = {
+    actions: [{
+      eventRef: "model:ankan",
+      action: {
+        type: "ankan",
+        actor: 3,
+        consumed: ["C", "C", "C", "C"],
+      },
+    }],
+    probability: 0.25,
+    qValue: -0.1,
+  };
+  const modelWhiteDahai = {
+    actions: [{
+      eventRef: "model:dahai",
+      action: {
+        type: "dahai",
+        actor: 3,
+        pai: "P",
+        tsumogiri: false,
+      },
+    }],
+    probability: 0.72,
+    qValue: 0.01,
+  };
+  const actualKakanGreenDragon = {
+    actions: [{
+      eventRef: "actual:kakan",
+      action: {
+        type: "kakan",
+        actor: 3,
+        pai: "C",
+        consumed: ["C", "C", "C"],
+        existingMeldRef: "meld:pon-c-0",
+      },
+    }],
+  };
+
+  it("binds a kakan actual to the ankan-shaped scored kan alternative via a realizes correspondence", () => {
+    const result = importStructuredMortalComparison({
+      comparisonSetId: "comparison:kakan-window",
+      decisionLayerRef: "decision-layer:kakan-window",
+      facts: kakanFacts,
+      modelCandidates: [modelKanGreenDragon, modelWhiteDahai],
+      actual: actualKakanGreenDragon,
+    });
+
+    expect(result.status).toBe("ready");
+    if (result.status !== "ready") return;
+    expect(result.comparisonSet.candidates).toHaveLength(3);
+    const kanRow = result.comparisonSet.candidates.find(
+      (candidate) => candidate.action.kind === "ankan",
+    );
+    expect(kanRow).toBeDefined();
+    expect(kanRow!.origins).toEqual(["model"]);
+    const actualCandidate = result.comparisonSet.candidates.find(
+      (candidate) => candidate.origins.includes("actual"),
+    );
+    expect(actualCandidate).toBeDefined();
+    expect(actualCandidate!.action).toEqual({
+      kind: "kakan",
+      addedTile: { id: "7z", red: false },
+      existingMeldRef: "meld:pon-c-0",
+    });
+    expect(actualCandidate!.origins).toEqual(["actual"]);
+    expect(actualCandidate!.actionRef).not.toBe(kanRow!.actionRef);
+    expect(result.comparisonSet.correspondences).toEqual([{
+      actualActionRef: actualCandidate!.actionRef,
+      scoredModelActionRef: kanRow!.actionRef,
+      relation: "realizes",
+    }]);
+    // The Mortal probability/q-value stays attached to the ankan row; the
+    // kakan actual carries no model-supplied score of its own.
+    expect(
+      result.scores.find((score) => score.actionRef === kanRow!.actionRef),
+    ).toEqual({
+      actionRef: kanRow!.actionRef,
+      probability: 0.25,
+      qValue: -0.1,
+    });
+    expect(result.scores.some(
+      (score) => score.actionRef === actualCandidate!.actionRef,
+    )).toBe(false);
+  });
+
+  it("fails closed when a kakan actual has no kan of that tile scored", () => {
+    expect(importStructuredMortalComparison({
+      comparisonSetId: "comparison:unscored-kakan-actual",
+      decisionLayerRef: "decision-layer:unscored-kakan-actual",
+      facts: kakanFacts,
+      modelCandidates: [modelWhiteDahai],
+      actual: actualKakanGreenDragon,
+    })).toEqual({
+      status: "incomplete",
+      diagnostics: ["actual_action_not_scored"],
+    });
+  });
+
+  it("fails closed when the only scored kan is of a different tile than the kakan actual", () => {
+    expect(importStructuredMortalComparison({
+      comparisonSetId: "comparison:wrong-tile-kakan-actual",
+      decisionLayerRef: "decision-layer:wrong-tile-kakan-actual",
+      facts: kakanFacts,
+      modelCandidates: [{
+        actions: [{
+          eventRef: "model:ankan",
+          action: {
+            type: "ankan",
+            actor: 3,
+            consumed: ["P", "P", "P", "P"],
+          },
+        }],
+        probability: 0.25,
+      }, modelWhiteDahai],
+      actual: actualKakanGreenDragon,
+    })).toEqual({
+      status: "incomplete",
+      diagnostics: ["actual_action_not_scored"],
+    });
+  });
+
   it("rejects duplicate model rows for one canonical action", () => {
     expect(importStructuredMortalComparison({
       comparisonSetId: "comparison:duplicate-score",

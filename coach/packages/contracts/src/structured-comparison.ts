@@ -130,14 +130,21 @@ export const StructuredComparisonSetSchema = z.object({
         path: ["correspondences", index],
       });
     }
-    if (
-      actualCandidate?.action.kind !== "riichi_discard" ||
-      modelCandidate?.action.kind !== "declare_riichi"
-    ) {
+    // M6-A3 completion: a second legal granularity pair — ekyu's reviewer
+    // serializes the pon-extension kan alternative as an ankan of all four
+    // tiles while the actual carries the kakan shape over the pon's tile.
+    const riichiPair =
+      actualCandidate?.action.kind === "riichi_discard" &&
+      modelCandidate?.action.kind === "declare_riichi";
+    const kakanPair =
+      actualCandidate?.action.kind === "kakan" &&
+      modelCandidate?.action.kind === "ankan" &&
+      actualCandidate.action.addedTile.id === modelCandidate.action.tiles[0]!.id;
+    if (!riichiPair && !kakanPair) {
       context.addIssue({
         code: z.ZodIssueCode.custom,
         message:
-          "correspondence is limited to a riichi_discard actual realizing a declare_riichi model candidate",
+          "correspondence is limited to a riichi_discard actual realizing a declare_riichi model candidate, or a kakan actual realizing an ankan-of-the-same-tile model candidate",
         path: ["correspondences", index],
       });
     }
