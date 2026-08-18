@@ -36,6 +36,12 @@ roadmap（P0–P9：Playable Review MVP，evidence-first epistemology）。
    把 chankan（纯事件扫描、零 Mortal 成本）最早启动、优先于其他分支。
 2. 国士抢暗杠的雀魂规则存在性未确认；确认前按"规则不存在即出 scope"处理。
 
+> **Current-state note（A4.3 落地，2026-08-18）**：两项开放风险均已按预案收口——
+> ① chankan 经最早启动的纯事件 discovery 命中并取证 `resp_chankan_actual`（天凤
+> 28b283816b231418#1），wave-1 六分支 6/6 真实 E2E；② 雀魂允许国士無双抢暗杠
+> （wiki 实证），规则存在性确认；wave-2（`resp_pass_on_kakan` / 国士抢暗杠）按
+> 冻结降级条款（N = 10,000 场，两来源合计）保持 fail-closed 顺延，不阻塞 A4 CLOSE。
+
 ### 教练语义冻结（roadmap P1/P3/P4 地基，2026-08-18 Q3 裁定）
 
 | # | 决策点 | 结论 |
@@ -58,9 +64,23 @@ roadmap（P0–P9：Playable Review MVP，evidence-first epistemology）。
 | # | 决策点 | 结论 |
 |---|---|---|
 | D1 | analysisStatus 枚举 | **沿用现有 `MortalDecisionOutcome` 六值**（`analysis_ready/unsupported_action/no_mortal_entry/binding_mismatch/model_output_incomplete/analysis_blocked`），A4 后按需增加"源行门槛内跳过"细分；**不采用** sol 的四值缩水枚举（丢 binding_mismatch/no_mortal_entry 会破坏 A3 §21 优先级纪律；且 no_mortal_entry 是合法常态、model_unavailable 是工程失败，语义不同不得合并）。sol 禁令（missingReason/likelyMissingFactor/explanationBlockedBy）作用于**解释层**；`FactorStatus.blocked_missing_facts` 等轴级工程状态保留 |
+
+> **Supersession note（A4.0，现行权威）**：D1 的"六值 + 按需增加"已被 M6-A4.0 落地为
+> **七值契约**——新增第七值 `source_row_not_expected`（合法状态：本地候选枚举 = 1 →
+> Mortal 按定义不产出行，在任何源行查找前判定；`no_mortal_entry` 保持完整性故障语义，
+> 绿色验收 run 中必须为 0），"按需增加"删除。七值清单与语义见 M6-A4 规格
+> （outcome 契约冻结节）与当前 ROADMAP §2 M6-C。
 | D2 | 包与解释物理分离 | `StructuredAnalysisPackage` 只装确定性内容（identity、组件版本、每决策 outcome/ledgers/differences/preference/modelEvaluation）；`ExplanationBullet`/`CoachJudgment` 放独立 `ReviewReport`，经 `decisionId + evidenceId` **引用**包内容、绝不内嵌——C 裁定不变量获得类型级结构保证，LLM 产物无法改写分析包 |
 | D3 | 载荷粒度 | 每决策带全量 ledgers（不按引用裁剪）；本地分析本地存储，SQLite 时代 MB 级可接受 |
 | D4 | 版本字段 | 按组件展开（replay/mapper 版本、fact-engine 版本、adapter 版本、model tag、explanationPrompt 版本），不用单一 `pipelineVersion` 模糊串；与 P6 ReviewSession 字段一致 |
+
+> **Supersession note（M6-C 版本所有权，现行权威）**：D4 列举的组件版本中，
+> **`explanationPrompt` 版本属 `ReviewReport` / 解释生成侧**，不进入
+> `StructuredAnalysisPackage`。`StructuredAnalysisPackage` 只装确定性/来源/模型
+> 分析生产链版本（package schema、canonical/replay、mapper/source adapter、
+> fact-engine、factor pipeline、Mortal model/source tag 等）；LLM provider/model、
+> prompt version、输出 schema 版本、validator/generation 版本归 ReviewReport。
+> 同一分析包可被不同 LLM/prompt 重生成多个 ReviewReport。现行权威见 ROADMAP §2 M6-C。
 
 ### Explanation Engine 与 Validator（roadmap P3/P4 / M6-D）
 
@@ -85,6 +105,13 @@ roadmap（P0–P9：Playable Review MVP，evidence-first epistemology）。
 | F3 | preference 冲突 | v1 **不**作独立硬入选条件；作为排序 tiebreaker 记录在 policy，待真实语料评估是否升级 |
 | F4 | UI | 保持原生 DOM、不引框架；三层：Overview（计数含 unsupported/no_mortal_entry）→ List（摘要 tags 由渲染器从差异轴集合机械派生）→ Detail（你的选择 vs Mortal、候选分、bullets、证据展开= EvidenceClaim + 占位符解析）；on-demand generation 入口后置 |
 
+> **Supersession note（selector 排序/所有权，现行权威）**：`DeterministicReviewSelector`
+> 的**排序位置**定为 M6-C 之后、M6-D2 之前（M6-D2 的
+> `generateReport(analysisPackage, selectedDecisionIds)` 依赖它，见 E3），且**非 UI
+> 拥有**——它是确定性、版本化的产品策略（独立于 M7-A 渲染层）；M7-A 消费其输出而不
+> 定义 review-worthy 判定。不新增顶级里程碑。策略语义（F1–F3）不变。现行权威见
+> ROADMAP §3。
+
 ### 证据三层模型与 M2-next 分层（roadmap P7）
 
 | # | 决策点 | 结论 |
@@ -100,6 +127,11 @@ roadmap（P0–P9：Playable Review MVP，evidence-first epistemology）。
 | # | 决策点 | 结论 |
 |---|---|---|
 | H1 | 里程碑结构 | 采纳 sol 结构 + 老编号映射：老 M4"LLM 教练"拆为 **M6-D 解释引擎 + M7-A 固定报告 UI + M4 追问对话**；老 M7 拆为 **M7-A / M7-B**；新增 **M6-C / M6-D**。关键路径：M5 人工验收（并行）→ M6-A4 → M6-C → M6-D → M7-A → M7-B → M2-next / M3 / M4 → M6-B → M8 |
+
+> **Supersession note（A4 收口，现行权威）**：H1 关键路径中的 M6-A4 已于 2026-08-18
+> 收口。当前关键路径 = M5 人工验收（并行）→ **M6-C → DeterministicReviewSelector →
+> M6-D1 → M6-D2** → M7-A → M7-B → pull-based M2-next / M3 / M4 → M6-B → M8
+> （见 ROADMAP.md）。
 | H2 | 纵向判据 | Any next development item should be evaluated by whether it makes the end-to-end review vertical slice more complete, reliable, or useful. **Exceptions**: explicit product-scope prerequisites, integrity fixes, privacy/security fixes, and release blockers |
 | H3 | M2-next 定位 | **pull-based deterministic capability pool**，不是 M7-B 后才允许开始的线性 gate——产品 scope 或 vertical-slice 明确需要的硬能力（如顺位条件）可提前插入；不做"补完知识库再做产品"，也不人为禁止合理的 M2 工作 |
 | H4 | ADR-0003 | 《Evidence-First Coaching Judgment and Evidence Authority Layers》：冻结三层权威（hard/advisory/coach inference）+ DeterministicPreference 非最终裁判 + 三个 rejected alternatives（A 复述层 / B 启发式否决权 / C 自由推断局面事实） |
@@ -114,6 +146,10 @@ roadmap（P0–P9：Playable Review MVP，evidence-first epistemology）。
 P0–P9 全部走完。开放风险仅 A4 两项（chankan 留 wave-1 无降级兜底——缓解为
 discovery 最早启动纯事件扫描；国士抢暗杠雀魂规则存在性待确认）。后续不再继续
 抽象架构讨论，回到实现主线：**M6-A4 → M6-C → M6-D**。
+
+> **Current-state note（2026-08-18 收口后）**：两项 A4 开放风险已按预案落地（见上文
+> 开放风险 current-state note）；M6-A4 已 CLOSE，当前实现主线起点为 **M6-C**（含
+> DeterministicReviewSelector 于 M6-D2 之前），见 ROADMAP.md。
 
 ## 三、产物清单（本会话）
 

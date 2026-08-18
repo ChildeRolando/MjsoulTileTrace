@@ -89,6 +89,31 @@ _Avoid_: 用 last_actor/最后行动者判定归属（自摸回合恰好重合�
 合法无行。绑定守恒因此是"每个本地窗口要么可绑定、要么有明确无行原因"，
 不是两侧计数相等。
 
+### 分析产物（analysis artifacts）
+
+**StructuredAnalysisPackage（M6-C 整盘确定性证据产物）**：
+M6-C 将要固化的**整盘**确定性/可审计分析产物，是 evidence source of truth；
+只装确定性/来源/模型分析内容（record/decision identity、确定性生产者版本、
+七值 decision outcome、ledgers/differences/advisory signals/preference/
+modelEvaluation、evidence provenance）。**不是 graph、不是 LLM 产物**。
+_Avoid_: 把它与现役逐决策原型 `StrictAnalysisPackage` 混同
+（见 ROADMAP §2 M6-C）。
+
+**StrictAnalysisPackage（现役逐决策原型产物）**：
+**早期**、**逐决策**的回归/原型分析包（`NormalizedDecision` + scene + factor
+buckets + evidence registry + teaching rules），由 `buildStrictAnalysisPackage`
+构建、`validateStrictAnalysisPackage` 校验，供现有 pipeline/测试（fixture
+分析、coach-report 原型）使用。**不是** M6-C 的整盘 `StructuredAnalysisPackage`；
+M6-C 不得静默改名/扩展现有类型来假装实现。
+_Avoid_: 把它当作 M6-C 产物；用 `StructuredAnalysisPackage` 指代现役类型
+
+**组件版本所有权（component version ownership）**：
+`StructuredAnalysisPackage` 只装确定性/来源/模型分析生产链版本（package schema、
+canonical/replay、mapper/source adapter、fact-engine、factor pipeline、Mortal
+model/source tag 等）；LLM prompt/解释版本（provider/model、prompt version、输出
+schema 版本、validator/generation 版本）属 `ReviewReport`。同一分析包可被不同
+LLM/prompt 重生成多个 ReviewReport。
+
 ### ContextGraph 与推理审计（context graph / reasoning audit）
 
 **ContextGraph**：
