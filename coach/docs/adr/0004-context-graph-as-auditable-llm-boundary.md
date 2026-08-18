@@ -30,7 +30,7 @@ deterministic traversal 即可，未来规模需要时再引入高级 graph retr
 
 ## Why
 
-现有 artifact 已经形成隐式 graph：
+现有实现 + 已冻结的待实现契约正在形成/指向隐式 graph：
 
 - evidenceRefs
 - premiseRefs

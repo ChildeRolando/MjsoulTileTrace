@@ -12,9 +12,10 @@ ContextGraph 裁定见
 ## 1. Problem / goals
 
 整盘教练报告需要回答的不只是“Mortal 推荐什么”，而是“这条判断基于哪些事实、
-哪些估算、哪些教练推断”。现有 `StructuredAnalysisPackage` 已经携带
-evidenceRefs / premiseRefs / provenance / CoachInference / CoachJudgment 等
-隐式图结构，但缺少统一的 typed graph 层，导致：
+哪些估算、哪些教练推断”。`StructuredAnalysisPackage` 尚未实现；当前是设计语义
+与已有 evidence/provenance 结构（evidenceRefs / premiseRefs / evidence
+authority / provenance / CoachInference / CoachJudgment 等）指向 graph，
+但缺少统一的 typed graph 层，导致：
 
 - provenance 查询要反复回到 flat JSON 里手工拼引用链；
 - LLM 上下文选择没有稳定 allow-list 边界，容易把过宽或过窄的上下文交给模型；

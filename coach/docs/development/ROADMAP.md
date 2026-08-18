@@ -49,7 +49,7 @@ M5 manual acceptance (parallel)
 
 ### 2. M6-A4 响应面（决策归属架构升级）
 
-- **A4.0** 修正 Mortal source model：拆除 `report-fetcher.ts` 与 `mortal-review-service.ts` 两处 `last_actor == player` 归属过滤，钉死"全部 entry 为受评者视角决策"；H2 重跑确认 self-turn 绑定不回归、现有 12 个 `no_mortal_entry` 逐个获得解释。
+- **A4.0** 修正 Mortal source model：拆除 `report-fetcher.ts` 与 `mortal-review-service.ts` 两处 `last_actor == player` 归属过滤，钉死"全部 entry 为受评者视角决策"；H2 重跑确认 self-turn 绑定不回归、现有 12 个 `no_mortal_entry` 逐个证明 local candidate count = 1，重分类为 `source_row_not_expected`。
 - **A4.1** response replay 开窗（他家舍牌/他家杠响应窗口）→ **A4.2** binding validation（响应身份事实表 + 本地候选枚举与 Mortal 候选空间同构）→ **A4.3** wave-1 真实语料验收（`response window × actual action` 6 分支矩阵；wave-2 `resp_pass_on_kakan`/国士抢暗杠 fail-closed + 事前固定降级条款）。
 - discovery 最早启动 chankan 纯事件扫描（wave-1 唯一无降级兜底的稀有分支）。
 - 详见 2026-08-18 grill 决策 A1–A9。
