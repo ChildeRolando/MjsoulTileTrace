@@ -3,14 +3,19 @@
  * Mechanical architecture boundary check for the coach workspace.
  *
  * Three rules, each mapped to the invariants it protects (see
- * docs/development/INVARIANTS.md):
+ * docs/development/INVARIANTS.md and docs/adr/0005-workspace-dependency-
+ * boundaries.md):
  *
  *  R1 package_dependency_direction (INV-003 / INV-009)
  *     Workspace packages may only import riichi-coach packages listed in the
- *     allowed dependency direction table. Sources must never import reasoning
- *     (a source cannot compute coach factors); reasoning must never import the
- *     mahjong-soul / tenhou sources (source-specific protocol semantics stop
- *     at the source boundary). Nothing below desktop may import desktop.
+ *     allowed dependency direction table. Game-record providers
+ *     (mahjong-soul-source, tenhou-source) must never import reasoning (a
+ *     source cannot compute coach factors); reasoning must never import the
+ *     game-record providers (their protocol semantics terminate before the
+ *     canonical replay/reasoning boundary). reasoning MAY import
+ *     mortal-source — the model/report evidence provider — whose public
+ *     report-format contract it consumes (ADR-0005). Nothing below desktop
+ *     may import desktop.
  *
  *  R2 renderer_safe_boundary (INV-005)
  *     Desktop renderer code and the preload entries must not import the
@@ -26,6 +31,13 @@
  *     covers repository tools that legitimately need a deliberately
  *     non-public bridge (see scripts/generate-factor-regression-golden.mjs).
  *
+ * Parsing is owned by the TypeScript Compiler API (ts.createSourceFile + AST
+ * traversal): only real module specifiers are collected, so import-looking
+ * text inside comments, string literals, and template literals can never be
+ * interpreted as an import. Only static/literal module specifiers are
+ * governed; runtime-computed specifiers (e.g. import(getPackageName())) are
+ * intentionally ignored.
+ *
  * Run: npm run check:architecture   (from coach/)
  * Deterministic, offline, no external services. Exit 1 on any violation.
  */
@@ -33,6 +45,7 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
+import ts from "typescript";
 
 const THIS_DIR = dirname(fileURLToPath(import.meta.url));
 const DEFAULT_ROOT = resolve(THIS_DIR, "..");
@@ -49,6 +62,8 @@ export const DEFAULT_ALLOWED_EDGES = Object.freeze({
   "@riichi-coach/mahjong-soul-source": Object.freeze(["@riichi-coach/contracts"]),
   "@riichi-coach/tenhou-source": Object.freeze(["@riichi-coach/contracts"]),
   "@riichi-coach/mortal-source": Object.freeze(["@riichi-coach/contracts"]),
+  // reasoning may consume the mortal-source report-format evidence contract
+  // (ADR-0005) but must stay clear of game-record provider protocol details.
   "@riichi-coach/reasoning": Object.freeze([
     "@riichi-coach/contracts",
     "@riichi-coach/mortal-source",
@@ -82,140 +97,66 @@ export const DEFAULT_DEEP_IMPORT_ALLOWLIST = Object.freeze([
 
 const WORKSPACE_PACKAGE_PREFIX = "@riichi-coach/";
 
-/**
- * Replace comments with spaces (newlines preserved) so import specifiers are
- * extracted only from real code. Strings and template literals are kept intact.
- */
-export function stripComments(text) {
-  const out = new Array(text.length);
-  let i = 0;
-  const n = text.length;
-  while (i < n) {
-    const ch = text[i];
-    if (ch === "/" && text[i + 1] === "/") {
-      while (i < n && text[i] !== "\n") {
-        out[i] = " ";
-        i += 1;
-      }
-      continue;
-    }
-    if (ch === "/" && text[i + 1] === "*") {
-      out[i] = " ";
-      out[i + 1] = " ";
-      i += 2;
-      while (i < n && !(text[i] === "*" && text[i + 1] === "/")) {
-        out[i] = text[i] === "\n" ? "\n" : " ";
-        i += 1;
-      }
-      if (i < n) {
-        out[i] = " ";
-        out[i + 1] = " ";
-        i += 2;
-      }
-      continue;
-    }
-    if (ch === '"' || ch === "'" || ch === "`") {
-      const quote = ch;
-      out[i] = ch;
-      i += 1;
-      while (i < n) {
-        const inner = text[i];
-        out[i] = inner;
-        if (inner === "\\") {
-          out[i + 1] = text[i + 1] ?? " ";
-          i += 2;
-          continue;
-        }
-        if (inner === quote) {
-          i += 1;
-          break;
-        }
-        i += 1;
-      }
-      continue;
-    }
-    out[i] = ch;
-    i += 1;
-  }
-  return out.join("");
-}
-
-const IMPORT_PATTERNS = [
-  // static import/export ... from "spec"; group 2 = keyword, group 3 = specifier
-  {
-    re: /((?:^|[;{}]|\s))(\b(?:import|export)\b)[^;]*?\bfrom\s*["']([^"']+)["']/g,
-    keywordGroup: 2,
-    specGroup: 3,
-  },
-  // dynamic import("spec")
-  { re: /\b(import)\s*\(\s*["']([^"']+)["']\s*\)/g, keywordGroup: 1, specGroup: 2 },
-  // require("spec")
-  { re: /\b(require)\s*\(\s*["']([^"']+)["']\s*\)/g, keywordGroup: 1, specGroup: 2 },
-  // bare import "spec";
-  { re: /\b(import)\s*["']([^"']+)["']/g, keywordGroup: 1, specGroup: 2 },
-];
-
-/** Extract { specifier, index } for every import in stripped code. */
-export function extractImportSpecifiers(code) {
-  const matches = [];
-  for (const { re, keywordGroup, specGroup } of IMPORT_PATTERNS) {
-    re.lastIndex = 0;
-    let match;
-    while ((match = re.exec(code)) !== null) {
-      const specifier = match[specGroup];
-      if (specifier === undefined) continue;
-      // match.index points at the leading prefix whitespace for the static
-      // pattern; anchor the line at the import/export keyword itself.
-      const keyword = match[keywordGroup];
-      const keywordOffset = match[0].indexOf(keyword);
-      matches.push({ specifier, index: match.index + keywordOffset });
-    }
-  }
-  // A bare `import "x"` is also matched by the dynamic pattern? No — the bare
-  // pattern requires no "(". Deduplicate identical (specifier, index) pairs
-  // produced by overlapping patterns, then order by source position.
-  const unique = matches.filter((entry, position, all) =>
-    all.findIndex((other) =>
-      other.specifier === entry.specifier && other.index === entry.index
-    ) === position
-  );
-  unique.sort((a, b) => a.index - b.index);
-  return unique;
-}
-
-export function lineOfIndex(text, index) {
-  let line = 1;
-  for (let i = 0; i < index && i < text.length; i += 1) {
-    if (text[i] === "\n") line += 1;
-  }
-  return line;
-}
-
-function isNodeBuiltin(spec) {
-  if (spec.startsWith("node:")) return true;
-  const builtins = new Set([
-    "assert", "async_hooks", "buffer", "child_process", "cluster", "console",
-    "constants", "crypto", "dgram", "diagnostics_channel", "dns", "domain",
-    "events", "fs", "http", "http2", "https", "inspector", "module", "net",
-    "os", "path", "perf_hooks", "process", "punycode", "querystring",
-    "readline", "repl", "stream", "string_decoder", "timers", "tls",
-    "trace_events", "tty", "url", "util", "v8", "vm", "wasi", "worker_threads",
-    "zlib",
-  ]);
-  return builtins.has(spec);
-}
-
-function workspacePackageName(spec) {
-  if (!spec.startsWith(WORKSPACE_PACKAGE_PREFIX)) return null;
-  const segments = spec.split("/");
-  return segments.slice(0, 2).join("/");
-}
-
 const CODE_EXTENSIONS = new Set(["ts", "mts", "cts", "js", "mjs", "cjs"]);
 
 // Build output and dependency directories are never scanned: they are not
 // authored source and their imports are not governed by the boundary rules.
 const SKIP_DIRECTORIES = new Set(["dist", "node_modules", ".git"]);
+
+/**
+ * Collect every static module specifier in a source file using the TypeScript
+ * Compiler API. Recognized AST nodes:
+ *  - ImportDeclaration (import ..., import type ..., side-effect import)
+ *  - ExportDeclaration with a module specifier (export ... from, export * from)
+ *  - CallExpression import("...") with a string-literal first argument
+ *  - CallExpression require("...") with a string-literal first argument
+ * Comments, string literals, and template literals never produce specifiers
+ * because they are not module-specifier syntax nodes.
+ * @returns {{ specifier: string, line: number }[]} 1-based line numbers
+ */
+export function collectModuleSpecifiers(code, fileName) {
+  const scriptKind = /\.(m?js|cjs)$/u.test(fileName)
+    ? ts.ScriptKind.JS
+    : ts.ScriptKind.TS;
+  const sourceFile = ts.createSourceFile(
+    fileName,
+    code,
+    ts.ScriptTarget.Latest,
+    /* setParentNodes */ false,
+    scriptKind,
+  );
+  const specifiers = [];
+  const visit = (node) => {
+    if (ts.isImportDeclaration(node)) {
+      const spec = node.moduleSpecifier;
+      if (spec !== undefined && ts.isStringLiteral(spec)) {
+        specifiers.push(spec);
+      }
+    } else if (ts.isExportDeclaration(node)) {
+      const spec = node.moduleSpecifier;
+      if (spec !== undefined && ts.isStringLiteral(spec)) {
+        specifiers.push(spec);
+      }
+    } else if (ts.isCallExpression(node)) {
+      const expression = node.expression;
+      const isDynamicImport = ts.isImportKeyword(expression);
+      const isRequire = ts.isIdentifier(expression) && expression.text === "require";
+      const argument = node.arguments[0];
+      if ((isDynamicImport || isRequire) && ts.isStringLiteral(argument)) {
+        specifiers.push(argument);
+      }
+    }
+    ts.forEachChild(node, visit);
+  };
+  visit(sourceFile);
+  return specifiers.map((node) => ({
+    specifier: node.text,
+    line: ts.getLineAndCharacterOfPosition(
+      sourceFile,
+      node.getStart(sourceFile),
+    ).line + 1,
+  }));
+}
 
 function walkFiles(dir, extensions, out = []) {
   let entries;
@@ -256,7 +197,7 @@ export function checkWorkspace(root, opts = {}) {
   const packageDirs = new Map();
   for (const pattern of workspacePattern) {
     if (!pattern.includes("*")) continue;
-    const [base, wildcard] = pattern.split("*");
+    const [base] = pattern.split("*");
     const baseDir = join(root, base);
     let children;
     try {
@@ -313,12 +254,11 @@ export function checkWorkspace(root, opts = {}) {
   const isInsideAnyPackage = (absPath) => {
     const rel = relative(root, absPath);
     if (rel.startsWith("..") || isAbsolute(rel)) return false;
-    const normalized = rel.split(sep).join("/");
     for (const entry of packageDirs.values()) {
       const pkgRel = relative(entry.dir, absPath);
       if (!pkgRel.startsWith("..") && !isAbsolute(pkgRel)) return true;
     }
-    return normalized.startsWith("packages/");
+    return false;
   };
 
   const isRendererSafeFile = (relPath) => {
@@ -348,12 +288,10 @@ export function checkWorkspace(root, opts = {}) {
       const isProductionCode = ownerPackage !== null &&
         relPath.split("/").includes("src");
       const code = readFileSync(file, "utf8");
-      const stripped = stripComments(code);
       scannedFiles += 1;
 
-      for (const { specifier, index } of extractImportSpecifiers(stripped)) {
+      for (const { specifier, line } of collectModuleSpecifiers(code, file)) {
         scannedImports += 1;
-        const line = lineOfIndex(stripped, index);
 
         // Builtins and external third-party packages are not governed here.
         if (isNodeBuiltin(specifier)) continue;
@@ -456,6 +394,26 @@ export function checkWorkspace(root, opts = {}) {
     return a.line - b.line;
   });
   return { violations, scannedFiles, scannedImports, packageCount: packageDirs.size };
+}
+
+function isNodeBuiltin(spec) {
+  if (spec.startsWith("node:")) return true;
+  const builtins = new Set([
+    "assert", "async_hooks", "buffer", "child_process", "cluster", "console",
+    "constants", "crypto", "dgram", "diagnostics_channel", "dns", "domain",
+    "events", "fs", "http", "http2", "https", "inspector", "module", "net",
+    "os", "path", "perf_hooks", "process", "punycode", "querystring",
+    "readline", "repl", "stream", "string_decoder", "timers", "tls",
+    "trace_events", "tty", "url", "util", "v8", "vm", "wasi", "worker_threads",
+    "zlib",
+  ]);
+  return builtins.has(spec);
+}
+
+function workspacePackageName(spec) {
+  if (!spec.startsWith(WORKSPACE_PACKAGE_PREFIX)) return null;
+  const segments = spec.split("/");
+  return segments.slice(0, 2).join("/");
 }
 
 function ownerIsPackageDir(ownerPackage, resolved, packageDirs) {

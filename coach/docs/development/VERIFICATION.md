@@ -12,8 +12,10 @@ npm audit --omit=dev
 ```
 
 `npm test` 已包含 workspace build、全部 Vitest、协议 updater 测试、协议
-compatibility 测试、**架构边界检查（`npm run check:architecture`）**与检查器
-自测（`npm run test:architecture-checker`）。
+compatibility 测试与**架构边界检查（`npm run check:architecture`）**。
+检查器自测（`scripts/check-architecture.test.mjs`）由 Vitest 在 `npm test`
+中自动发现执行，**不在全量门禁内重复运行**；`npm run test:architecture-checker`
+是同一套测试的聚焦命令（node --test），供单独调试使用。
 
 ### 架构边界检查
 

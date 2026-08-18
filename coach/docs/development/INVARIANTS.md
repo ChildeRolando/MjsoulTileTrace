@@ -27,14 +27,21 @@
 - **Owner / boundary**：`StructuredAnalysisPackage`（确定性产物）与 `ReviewReport`
   （LLM reasoning overlay）之间的边界；LLM 产物经 `decisionId/evidenceId` 引用证据层，
   类型上无法改写。
-- **Enforcement**：`validateStrictAnalysisPackage` 拒绝未知字段、校验证据节点
-  （`package-validator.ts`）；`CoachJudgment` 只携带受 teaching-policy 支持的证据
-  引用。模型评价只表示模型选择，不生成麻将事实。
+- **Enforcement（当前已机械强制部分）**：`validateStrictAnalysisPackage` 拒绝未知
+  字段、校验证据节点（`package-validator.ts`）；`CoachJudgment` 只携带受
+  teaching-policy 支持的证据引用；模型评价只表示模型选择，不生成麻将事实。以上保证
+  **当前确定性管线产物无法被任意 LLM 字段覆盖**——即便未来出现 LLM 输出，其字段
+  结构也无法通过包级 schema 校验进入证据层。
 - **Executable tests**：`strict-analysis-package.test.ts`、`package-validator` 相关
   测试、`public-pipeline.test.ts`（`coachJudgement === null`）、`mortal-report.test.ts`
   （导入边界脱敏）。
-- **Status**：machine-enforced（契约 + validator 覆盖证据层；CoachJudgment 政策
-  校验覆盖判断层）。
+- **Enforcement（剩余缺口）**：生产 Coach/LLM 编排路径（M6-D：GraphContextSlice →
+  LLM → ReviewReport）尚未实现，因此"LLM 输出在运行时不得发明/改写硬事实"尚未被
+  任何运行时验证器或对抗测试证明。
+- **Status**：partial。
+- **Promotion condition**：仅在以下条件满足后升级为 machine-enforced——生产 Coach
+  运行时与 validator 边界（M6-D2）已实现，且对抗测试证明：LLM 输出的无依据事实断言
+  与证据改写均 fail closed（被 validator 拒绝、不进入证据层）。
 
 ## INV-002 模型偏好不得改写确定性事实账本
 
@@ -50,20 +57,37 @@
   model bucket"）、`factor-differences.test.ts`、`preference-agreement.test.ts`。
 - **Status**：machine-enforced。
 
-## INV-003 来源专属协议语义止于来源/canonical 边界
+## INV-003 game-record 来源协议语义止于 canonical 重放/推理边界
 
-- **Statement**：来源适配器（雀魂/天凤/Mortal）把来源记录映射为
-  `CanonicalEventStreamV2` 后，下游只消费 canonical 契约；来源专属的协议、牌谱格式、
-  编码细节不得泄漏到 reasoning 或更上层。
-- **Why**：来源可替换性依赖"唯一 canonical 语义"；协议细节泄漏会让新来源接入变成
-  全链改动。
-- **Owner / boundary**：`@riichi-coach/{mahjong-soul-source,tenhou-source,mortal-
-  source}` 的导出面（只导出 canonical 映射/报告解析/错误码），以及它们与
-  `@riichi-coach/reasoning` 的依赖方向。
+来源分两类，规则不同（权威裁决见
+[ADR-0005](../adr/0005-workspace-dependency-boundaries.md)）：
+
+```text
+Game-record providers（牌谱协议来源）
+├── mahjong-soul-source   —— 雀魂协议/账号/牌谱
+└── tenhou-source         —— 天凤 mjlog 牌谱格式
+
+Model/report evidence provider（模型/报告证据来源）
+└── mortal-source         —— Mortal 报告格式解析（reasoning 可消费其公开契约）
+```
+
+- **Statement**：**game-record provider 的协议语义必须止于 canonical
+  重放/推理边界之前**——下游只消费 `CanonicalEventStreamV2` 契约。reasoning 不得
+  依赖雀魂协议细节、天凤牌谱格式细节或任何 provider 专属局面表示。它**可以**按
+  ADR-0005 消费 `mortal-source` 公开导出的模型/报告证据契约（`mortal-source` 只做
+  报告格式解析，不含特权来源能力，不在此边界内）。
+- **Why**：game-record 来源可替换性依赖"唯一 canonical 语义"；协议细节泄漏会让新
+  来源接入变成全链改动。mortal-source 是证据格式适配器，其消费边界由 ADR-0005
+  单独裁决，两者不混同。
+- **Owner / boundary**：`@riichi-coach/{mahjong-soul-source,tenhou-source}` 的导出
+  面（只导出 canonical 映射与错误码）；`@riichi-coach/mortal-source` 的导出面（只
+  导出报告 schema/URL/指纹/tile 工具）；它们与 `@riichi-coach/reasoning` 的依赖
+  方向（reasoning 只允许依赖 contracts 与 mortal-source）。
 - **Enforcement**：canonical mapper fail-closed + `canonical-event-validator`；
   tenhou-source 的 index 文档明确"source-specific details stop at this package"；
-  `scripts/check-architecture.mjs` 的依赖方向规则（来源包不得导入 reasoning，
-  reasoning 不得导入 mahjong-soul-source / tenhou-source）。
+  `scripts/check-architecture.mjs` 的依赖方向规则（game-record 来源包不得导入
+  reasoning；reasoning 不得导入 mahjong-soul-source / tenhou-source；reasoning →
+  mortal-source 是 ADR-0005 允许边）。
 - **Executable tests**：`canonical-mapper.test.ts`、`canonical-event-validator.test.ts`、
   `tenhou-source/tests/real-logs-corpus.test.ts`、`malformed-inputs.test.ts`、
   `npm run check:architecture`。
@@ -149,13 +173,14 @@
 
 ## INV-009 canonical 事件流是唯一真相，来源适配器只映射不计算
 
-- **Statement**：canonical 事件流是所有新重放工作的唯一真相；来源适配器只能把
-  来源记录映射为事件，不得顺便计算教练因素或改写冻结决策；fixture-only legacy
-  bridge 仅用于回归，不是生产 fallback。
+- **Statement**：canonical 事件流是所有新重放工作的唯一真相；**game-record 来源
+  适配器**只能把来源记录映射为事件，不得顺便计算教练因素或改写冻结决策；
+  fixture-only legacy bridge 仅用于回归，不是生产 fallback。
 - **Why**：计算与映射分离才能保证"同一 canonical 流 → 同一分析"的来源无关性。
-- **Owner / boundary**：来源包（只做映射）与 reasoning（做重放/因素）之间的依赖
-  方向；`legacy_regression_bridge_only` 的 source kind 限制。
-- **Enforcement**：来源包 `package.json` 不含 reasoning 依赖
+- **Owner / boundary**：game-record 来源包（mahjong-soul-source / tenhou-source，
+  只做映射）与 reasoning（做重放/因素）之间的依赖方向；
+  `legacy_regression_bridge_only` 的 source kind 限制。
+- **Enforcement**：game-record 来源包 `package.json` 不含 reasoning 依赖
   （`scripts/check-architecture.mjs`）；bridge 拒绝非 fixture source kind；
   `known-game-facts-v2` 对 fixture 来源标记 `legacy_regression_bridge_only`。
 - **Executable tests**：`legacy-event-stream-bridge.test.ts`、

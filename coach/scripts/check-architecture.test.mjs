@@ -8,14 +8,7 @@ import assert from "node:assert/strict";
 import { mkdtempSync, mkdirSync, writeFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import {
-  checkWorkspace,
-  extractImportSpecifiers,
-  stripComments,
-} from "./check-architecture.mjs";
-
-const PACKAGE_EXPORTS = (extra = {}) =>
-  JSON.stringify({ ".": { types: "./src/index.ts", import: "./dist/index.js" }, ...extra }, null, 2);
+import { checkWorkspace } from "./check-architecture.mjs";
 
 function write(root, relPath, content) {
   const full = join(root, relPath);
@@ -63,6 +56,8 @@ function clean(root) {
   rmSync(root, { recursive: true, force: true });
 }
 
+// --- valid cases -----------------------------------------------------------
+
 test("clean workspace reports no violations", () => {
   const root = buildWorkspace();
   try {
@@ -77,6 +72,76 @@ test("clean workspace reports no violations", () => {
     clean(root);
   }
 });
+
+test("test code may consume another package's public API", () => {
+  const root = buildWorkspace();
+  try {
+    write(root, "packages/alpha/tests/integration.test.ts", 'import { x } from "@riichi-coach/reasoning";\n');
+    const result = checkWorkspace(root, { allowedEdges: TEST_ALLOWED_EDGES });
+    assert.deepEqual(result.violations, []);
+  } finally {
+    clean(root);
+  }
+});
+
+test("declared public package subpath is allowed from tooling", () => {
+  const root = buildWorkspace();
+  try {
+    write(root, "scripts/declared.mjs", 'import { parse } from "@riichi-coach/desktop/session-api";\n');
+    const result = checkWorkspace(root, { allowedEdges: TEST_ALLOWED_EDGES });
+    assert.deepEqual(result.violations, []);
+  } finally {
+    clean(root);
+  }
+});
+
+test("import-looking text in comments never triggers a violation", () => {
+  const root = buildWorkspace();
+  try {
+    write(
+      root,
+      "packages/alpha/src/index.ts",
+      '// import { x } from "@riichi-coach/reasoning";\n' +
+        '/* import { y } from "@riichi-coach/reasoning"; */\n',
+    );
+    const result = checkWorkspace(root, { allowedEdges: TEST_ALLOWED_EDGES });
+    assert.deepEqual(result.violations, []);
+  } finally {
+    clean(root);
+  }
+});
+
+test("import-looking text in ordinary strings never triggers a violation", () => {
+  const root = buildWorkspace();
+  try {
+    write(
+      root,
+      "packages/alpha/src/index.ts",
+      'const s = \'import { foo } from "@riichi-coach/reasoning"\';',
+    );
+    const result = checkWorkspace(root, { allowedEdges: TEST_ALLOWED_EDGES });
+    assert.deepEqual(result.violations, []);
+  } finally {
+    clean(root);
+  }
+});
+
+test("import-looking text in template literals never triggers a violation", () => {
+  const root = buildWorkspace();
+  try {
+    write(
+      root,
+      "packages/alpha/src/index.ts",
+      "const t = `require(\"@riichi-coach/reasoning\")`;",
+    );
+    const result = checkWorkspace(root, { allowedEdges: TEST_ALLOWED_EDGES });
+    assert.deepEqual(result.violations, []);
+  } finally {
+    clean(root);
+  }
+});
+
+// --- violations ------------------------------------------------------------
 
 test("flags a forbidden reverse package dependency in production src", () => {
   const root = buildWorkspace();
@@ -95,22 +160,10 @@ test("flags a forbidden reverse package dependency in production src", () => {
   }
 });
 
-test("does not flag test files importing another package's public surface", () => {
-  const root = buildWorkspace();
-  try {
-    write(root, "packages/alpha/tests/integration.test.ts", 'import { x } from "@riichi-coach/reasoning";\n');
-    const result = checkWorkspace(root, { allowedEdges: TEST_ALLOWED_EDGES });
-    assert.deepEqual(result.violations, []);
-  } finally {
-    clean(root);
-  }
-});
-
 test("flags renderer code importing a privileged package", () => {
   const root = buildWorkspace();
   try {
     write(root, "packages/desktop/src/renderer/ui.ts", 'import { secret } from "@riichi-coach/reasoning";\n');
-    write(root, "packages/desktop/src/preload.ts", 'import { x } from "@riichi-coach/contracts";\n');
     const result = checkWorkspace(root, { allowedEdges: TEST_ALLOWED_EDGES });
     assert.equal(result.violations.length, 1);
     const violation = result.violations[0];
@@ -118,6 +171,20 @@ test("flags renderer code importing a privileged package", () => {
     assert.equal(violation.file, "packages/desktop/src/renderer/ui.ts");
     assert.match(violation.message, /Renderer\/preload.*must not import/);
     assert.match(violation.inv, /INV-005/);
+  } finally {
+    clean(root);
+  }
+});
+
+test("flags preload importing a privileged package", () => {
+  const root = buildWorkspace();
+  try {
+    write(root, "packages/desktop/src/preload.ts", 'import { secret } from "@riichi-coach/reasoning";\n');
+    const result = checkWorkspace(root, { allowedEdges: TEST_ALLOWED_EDGES });
+    assert.equal(result.violations.length, 1);
+    const violation = result.violations[0];
+    assert.equal(violation.rule, "renderer_safe_boundary");
+    assert.equal(violation.file, "packages/desktop/src/preload.ts");
   } finally {
     clean(root);
   }
@@ -195,7 +262,7 @@ test("honors the deep-import allowlist", () => {
   }
 });
 
-test("reports the correct line number for a later violation", () => {
+test("violation reports useful file and line information", () => {
   const root = buildWorkspace();
   try {
     write(
@@ -205,37 +272,61 @@ test("reports the correct line number for a later violation", () => {
     );
     const result = checkWorkspace(root, { allowedEdges: TEST_ALLOWED_EDGES });
     assert.equal(result.violations.length, 1);
+    assert.equal(result.violations[0].file, "packages/alpha/src/index.ts");
     assert.equal(result.violations[0].line, 4);
   } finally {
     clean(root);
   }
 });
 
-test("stripComments removes import-looking text from comments only", () => {
-  const code = '// import { x } from "fake-a";\n/* import { y } from "fake-b"; */\nimport { z } from "./real.js";\n';
-  const stripped = stripComments(code);
-  const specifiers = extractImportSpecifiers(stripped).map((entry) => entry.specifier);
-  assert.deepEqual(specifiers, ["./real.js"]);
+// --- syntax forms ----------------------------------------------------------
+
+test("detects every supported import syntax form", () => {
+  const root = buildWorkspace();
+  try {
+    write(
+      root,
+      "scripts/forms.mjs",
+      [
+        'import { a } from "@riichi-coach/alpha/dist/a.js";',
+        'import type { T } from "@riichi-coach/alpha/dist/t.js";',
+        'import "@riichi-coach/alpha/dist/s.js";',
+        'export { b } from "@riichi-coach/alpha/dist/e.js";',
+        'export * from "@riichi-coach/alpha/dist/star.js";',
+        'const d = await import("@riichi-coach/alpha/dist/d.js");',
+        'const r = require("@riichi-coach/alpha/dist/r.js");',
+      ].join("\n") + "\n",
+    );
+    const result = checkWorkspace(root, { allowedEdges: TEST_ALLOWED_EDGES });
+    assert.equal(result.violations.length, 7);
+    for (const violation of result.violations) {
+      assert.equal(violation.rule, "package_internal_import");
+      assert.match(violation.message, /not a declared public export/);
+    }
+    assert.deepEqual(
+      result.violations.map((violation) => violation.line),
+      [1, 2, 3, 4, 5, 6, 7],
+    );
+  } finally {
+    clean(root);
+  }
 });
 
-test("extractImportSpecifiers covers multiline, type, dynamic and bare imports", () => {
-  const code = [
-    'import {',
-    '  a,',
-    '} from "./multi.js";',
-    'import type { T } from "./types.js";',
-    'const x = import("./dynamic.js");',
-    'import "./side-effect.js";',
-    'const y = require("./cjs.js");',
-    'export * from "./re-export.js";',
-  ].join("\n");
-  const specifiers = extractImportSpecifiers(stripComments(code)).map((entry) => entry.specifier);
-  assert.deepEqual(specifiers, [
-    "./multi.js",
-    "./types.js",
-    "./dynamic.js",
-    "./side-effect.js",
-    "./cjs.js",
-    "./re-export.js",
-  ]);
+test("runtime-computed import specifiers are intentionally ignored", () => {
+  const root = buildWorkspace();
+  try {
+    write(
+      root,
+      "scripts/computed.mjs",
+      [
+        'const a = await import(getPackageName());',
+        'const b = require(moduleName);',
+        "const c = import(`@riichi-coach/alpha/${suffix}`);",
+      ].join("\n") + "\n",
+    );
+    const result = checkWorkspace(root, { allowedEdges: TEST_ALLOWED_EDGES });
+    assert.deepEqual(result.violations, []);
+  } finally {
+    clean(root);
+  }
 });

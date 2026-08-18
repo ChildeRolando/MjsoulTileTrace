@@ -9,9 +9,16 @@
 "来源无关的麻将推理层"，但 M6-A 真实语料验收需要把 Mortal 报告解析进推理层的
 验收证据机制（`acceptance-core` / `acceptance-evidence` / `mortal-full-game-
 review`），因此代码中 `reasoning → @riichi-coach/mortal-source` 已是事实依赖。
-`mortal-source` 只做**报告格式解析**（schema、URL 校验、指纹、mjai tile），
-不含任何雀魂账号/协议能力——"来源无关"在此的准确含义是"无关特权来源与协议细节"，
-而不是"零来源格式依赖"。
+
+来源因此分两类，边界规则不同：
+
+- **Game-record providers（牌谱协议来源）**：`mahjong-soul-source`（雀魂协议/账号/
+  牌谱）、`tenhou-source`（天凤 mjlog 格式）。它们的协议语义必须止于 canonical
+  重放/推理边界之前，reasoning 不得依赖其任何协议/格式细节。
+- **Model/report evidence provider（模型/报告证据来源）**：`mortal-source`，只做
+  报告格式解析（schema、URL 校验、指纹、mjai tile），不含任何雀魂账号/协议能力。
+  reasoning 可以消费它公开导出的报告证据契约——"来源无关"在此的准确含义是"无关
+  特权来源与协议细节"，而不是"零来源格式依赖"。
 
 同时以下边界此前只是约定与散落测试，无单一裁决文档：
 

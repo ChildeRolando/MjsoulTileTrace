@@ -67,6 +67,20 @@ mahjong-soul-source ──► CanonicalEventStreamV2
 
 它可以读取秘密和原始响应，但不得把这些对象直接交给 renderer。
 
+### `@riichi-coach/tenhou-source`
+
+天凤 game-record provider（第二 canonical 导入器）：mjlog 词法化、牌/副露编解码、
+记录 → `CanonicalEventStreamV2` 严格映射与纯事件 census。来源专属细节止于本包：
+调用方只消费 canonical 契约与错误码，reasoning 不得依赖天凤牌谱格式。
+
+### `@riichi-coach/mortal-source`
+
+Mortal model/report evidence provider：报告 schema、URL 校验、指纹与 mjai tile
+工具，**不含任何雀魂/特权来源能力**。reasoning 按 ADR-0005 允许消费其公开导出的
+报告证据契约（验收证据机制依赖它），但不得依赖 game-record provider 协议细节。
+来源分类与依赖方向的权威裁决见
+[ADR-0005](../adr/0005-workspace-dependency-boundaries.md)。
+
 ### `@riichi-coach/reasoning`
 
 来源无关的麻将推理层：
