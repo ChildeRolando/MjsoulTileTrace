@@ -11,7 +11,24 @@ npm run test:package-import
 npm audit --omit=dev
 ```
 
-`npm test` 已包含 workspace build、全部 Vitest、协议 updater 测试和协议 compatibility 测试。
+`npm test` 已包含 workspace build、全部 Vitest、协议 updater 测试、协议
+compatibility 测试、**架构边界检查（`npm run check:architecture`）**与检查器
+自测（`npm run test:architecture-checker`）。
+
+### 架构边界检查
+
+`npm run check:architecture` 机械强制包依赖方向、renderer 安全边界与包内深导入
+规则（规则与对应 INV-\* 见 `docs/development/INVARIANTS.md` 与
+`docs/adr/0005-workspace-dependency-boundaries.md`）。新增/移动包、改动依赖方向、
+新增 renderer 文件或包内深导入时，必须同步更新
+`scripts/check-architecture.mjs` 的规则表与其测试。
+
+### Golden vertical slice
+
+`npm run test:golden` 运行唯一直立纵向回归路径
+（`packages/reasoning/tests/golden-vertical-slice.test.ts`）：真实 fixture →
+canonical 事件流 → 决策快照 → 确定事实 → 模型比较 → 打包 sidecar 因素管线 →
+结构化分析产物。大改动后先跑它回答"语义主干是否仍在"。
 
 ## 按改动范围选择门禁
 
@@ -21,6 +38,7 @@ npm audit --omit=dev
 | mahjong-soul-source | 对应 source test；协议改动额外 updater/compatibility | typecheck、full、package-import、audit |
 | reasoning | 对应 factor/replay/assembly tests | typecheck、full、package-import |
 | desktop IPC/UI | desktop focused、preload、security boundary | typecheck、full、package-import |
+| 依赖方向 / renderer 边界 / 包内深导入 | `npm run check:architecture` + checker 测试 | typecheck、full、package-import |
 | Go sidecar | Go focused + TS client/semantic tests | `go test ./...`、`go vet ./...`、full、重新打包/清单验证 |
 | 静态课程 | 相关 Node test 与浏览器 smoke | 根目录完整课程门禁 |
 | 文档 | 链接、命令和当前状态核对 | `git diff --check`；必要时实际运行示例 |

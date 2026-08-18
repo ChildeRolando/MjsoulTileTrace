@@ -210,6 +210,9 @@ v1 不要求新增第三个持久化 canonical artifact。ReviewSession 仍可�
 
 ## 核心设计决策
 
+> 架构级不变量及其可执行检查见 [INVARIANTS.md](INVARIANTS.md)；Workspace 依赖
+> 方向与 renderer 安全边界的权威裁决见 [ADR-0005](../adr/0005-workspace-dependency-boundaries.md)。
+
 ### Fail closed
 
 输入不完整、协议漂移、证据不一致或能力未实现时，系统返回固定 blocked/unsupported 状态。它不猜字段、不降级到宽松解析，也不让上游 prose 穿透。

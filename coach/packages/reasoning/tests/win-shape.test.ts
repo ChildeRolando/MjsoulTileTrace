@@ -16,7 +16,8 @@ function counts(ids: readonly string[]): number[] {
       : suit === "p" ? rank + 8
       : suit === "s" ? rank + 17
       : rank + 26;
-    vector[index] += 1;
+    // index is guaranteed in 0..33 by the suit/rank mapping (noUncheckedIndexedAccess).
+    vector[index]! += 1;
   }
   return vector;
 }
@@ -105,7 +106,7 @@ describe("isCompleteHandShape", () => {
     // Five of one kind is physically impossible and rejected defensively,
     // even though the four-of-a-kind version IS decomposable (triplet+run).
     const five = counts(["1m", "1m", "1m", "1m", "2m", "3m", "4m", "5m", "6m", "7m", "8m", "9m", "1p"]);
-    five[0] += 1;
+    five[0]! += 1;
     expect(five[0]).toBe(5);
     expect(isCompleteHandShape(five)).toBe(false);
     expect(isCompleteHandShape(

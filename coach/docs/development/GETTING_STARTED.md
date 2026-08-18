@@ -26,7 +26,8 @@ npm test
 npm run test:package-import
 ```
 
-成功时应看到 TypeScript 无错误、Vitest/协议测试全部通过、编译后的 workspace 能由普通 Node 导入。
+成功时应看到 TypeScript 无错误、Vitest/协议测试全部通过、编译后的 workspace 能由普通 Node 导入。`npm test` 内含架构边界检查（`npm run check:architecture`）；大改动后另跑
+`npm run test:golden`（纵向主干回归）与 `npm run test:architecture-checker`（检查器自测）。
 
 ## 第三步：运行一个入口
 
