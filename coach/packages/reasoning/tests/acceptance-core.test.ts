@@ -55,6 +55,7 @@ function makeReview(): AcceptanceReadyReview {
     status: "coverage_ready",
     summary: {
       replayDecisionCount: 1,
+      responseWindowCount: 0,
       mortalSelfEntryCount: 1,
       responseEntryCount: 0,
       localConservation: 1,
@@ -80,6 +81,7 @@ function makeReview(): AcceptanceReadyReview {
     decisions: [{
       decisionOrdinal: 0,
       roundOrdinal: 0,
+      surface: "self",
       binding: "bound",
       support: "supported",
       review: "analysis_ready",
@@ -104,6 +106,10 @@ function makeReview(): AcceptanceReadyReview {
       unboundMortalEntryCount: 0,
       ambiguousMortalEntryCount: 0,
       entries: [],
+      responseEntries: [],
+      responseBoundEntryCount: 0,
+      responseUnboundEntryCount: 0,
+      responseAmbiguousEntryCount: 0,
     },
   } as AcceptanceReadyReview;
 }

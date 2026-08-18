@@ -54,6 +54,10 @@ export interface AcceptanceLocalSource {
   readonly selfActor: number;
   readonly canonicalStream: CanonicalEventStream;
   readonly replayedDecisions: readonly ReplayedDecision[];
+  // M6-A4.2: the response surface partition (replayCanonicalResponseWindows).
+  // Optional so pre-A4.2 adapters keep working; the review treats an absent
+  // response surface as an empty partition.
+  readonly replayedResponseWindows?: readonly ReplayedDecision[];
 }
 
 /** The §23-safe outputs of one accepted sample (§8: no timestamps — the
@@ -145,6 +149,11 @@ export async function runMortalAcceptanceEvidence(input: {
   const review = await runMortalFullGameReview({
     stream: input.local.canonicalStream,
     decisions: input.local.replayedDecisions,
+    // M6-A4.2: the response surface partition feeds the same review so
+    // response rows bind + conserve through the shared pipeline.
+    ...(input.local.replayedResponseWindows === undefined
+      ? {}
+      : { responseDecisions: input.local.replayedResponseWindows }),
     report: input.report,
     engine: input.engine,
     ...(input.now !== undefined ? { now: input.now } : {}),
@@ -157,6 +166,9 @@ export async function runMortalAcceptanceEvidence(input: {
   const evidence = extractAcceptedBranchEvidence({
     stream: input.local.canonicalStream,
     decisions: input.local.replayedDecisions,
+    ...(input.local.replayedResponseWindows === undefined
+      ? {}
+      : { responseDecisions: input.local.replayedResponseWindows }),
     report: input.report,
     review,
   });

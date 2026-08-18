@@ -3,6 +3,13 @@
 // REAL E2E hit (tenhou/majsoul corpus → canonical → binding → assembly →
 // redacted output) is recorded against it. Synthetic fixtures can never lift
 // the gate: they only prove regression behavior.
+//
+// M6-A4.2: the response surface (discard_response / kan_response windows)
+// joins the matrix — wave-1 six branches per the A4 spec (resp_chi_actual /
+// resp_pon_actual / resp_daiminkan_actual / resp_hora_actual /
+// resp_pass_on_discard / resp_chankan_actual) plus the wave-2
+// resp_pass_on_kakan entry. They stay fail-closed (production default is the
+// empty registry) until A4.3 records real E2E evidence for each.
 
 export const MORTAL_COVERAGE_BRANCHES = [
   "riichi_window",
@@ -15,6 +22,15 @@ export const MORTAL_COVERAGE_BRANCHES = [
   "self_turn_ankan",
   "self_turn_kakan",
   "self_turn_kyuushu",
+  // M6-A4.2 wave-1: response window × actual action matrix (A4 spec §分支矩阵).
+  "resp_chi_actual",
+  "resp_pon_actual",
+  "resp_daiminkan_actual",
+  "resp_hora_actual",
+  "resp_pass_on_discard",
+  "resp_chankan_actual",
+  // M6-A4.2 wave-2 (fail-closed + degradation clause; A4.3 acceptance).
+  "resp_pass_on_kakan",
 ] as const;
 
 export type MortalCoverageBranch = (typeof MORTAL_COVERAGE_BRANCHES)[number];
@@ -24,7 +40,9 @@ const branchSet: ReadonlySet<string> = new Set(MORTAL_COVERAGE_BRANCHES);
 export type MortalCoverageWindowKind =
   | "self_turn"
   | "post_call_discard"
-  | "post_riichi_discard";
+  | "post_riichi_discard"
+  | "discard_response"
+  | "kan_response";
 
 // Classify which coverage branches a bound decision row exercises. The
 // candidate action types are the RAW mjai types from the Mortal report
@@ -81,6 +99,26 @@ export function classifyCoverageBranches(input: {
     if (input.actualActionKind === "kyuushu_kyuuhai" || has("ryukyoku")) {
       branches.add("self_turn_kyuushu");
     }
+  }
+
+  // M6-A4.2: the response surface matrix (A4 spec §分支矩阵). The actual
+  // action kind is the TYPED local actual (pass / chi / pon / daiminkan /
+  // ron); the pass branch is only ever fired by an actual pass — a pass is
+  // never a proxy for another branch (resp_pass_on_discard vs
+  // resp_chi_actual are distinct acceptance facts). Candidate-driven
+  // branches are not used here: the response surface's wave-1/2 matrix is
+  // actual-driven by design (the candidate set is the 同构 enumeration, the
+  // actual outcome is the acceptance fact).
+  if (input.windowKind === "discard_response") {
+    if (input.actualActionKind === "chi") branches.add("resp_chi_actual");
+    if (input.actualActionKind === "pon") branches.add("resp_pon_actual");
+    if (input.actualActionKind === "daiminkan") branches.add("resp_daiminkan_actual");
+    if (input.actualActionKind === "ron") branches.add("resp_hora_actual");
+    if (input.actualActionKind === "pass") branches.add("resp_pass_on_discard");
+  }
+  if (input.windowKind === "kan_response") {
+    if (input.actualActionKind === "ron") branches.add("resp_chankan_actual");
+    if (input.actualActionKind === "pass") branches.add("resp_pass_on_kakan");
   }
 
   return MORTAL_COVERAGE_BRANCHES.filter((branch) => branches.has(branch));

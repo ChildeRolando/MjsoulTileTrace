@@ -212,6 +212,7 @@ function ledgerRow(
   return {
     decisionOrdinal: 0,
     roundOrdinal: 0,
+    surface: "self",
     binding: "bound",
     support: "supported",
     review: "analysis_ready",
@@ -237,6 +238,7 @@ function reviewOf(decisions: readonly MortalFullGameLedgerEntry[]) {
     status: "coverage_ready" as const,
     summary: {
       replayDecisionCount: decisions.length,
+      responseWindowCount: 0,
       mortalSelfEntryCount: decisions.length,
       responseEntryCount: 0,
       localConservation: decisions.length,
@@ -269,6 +271,10 @@ function reviewOf(decisions: readonly MortalFullGameLedgerEntry[]) {
       unboundMortalEntryCount: 0,
       ambiguousMortalEntryCount: 0,
       entries: [],
+      responseEntries: [],
+      responseBoundEntryCount: 0,
+      responseUnboundEntryCount: 0,
+      responseAmbiguousEntryCount: 0,
     },
   };
 }

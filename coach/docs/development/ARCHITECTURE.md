@@ -158,6 +158,6 @@ Mortal/Akagi 的分数决定“模型偏好”；教练判断（CoachJudgment）
 ## 当前已知架构缺口
 
 - canonical mapper 的部分流局/杠语义尚需真实牌谱反证（M5 人工验收并行线程）；
-- 响应面（他家舍牌/他家杠响应窗口）尚未接入，且 source 投影层仍按 `last_actor` 过滤、会把响应 entry 整层丢弃——M6-A4 先修决策归属模型再开面；
+- 响应面已接入（M6-A4.0/A4.1/A4.2：归属过滤拆除、discard_response/kan_response 开窗、响应窗口身份事实表与本地候选枚举同构、守恒不变量升级、响应分支覆盖率矩阵 fail-closed）；wave-1/2 真实语料验收（A4.3）与 chankan 纯事件 discovery 未启动；
 - mapped/replayed record 与 Mortal 报告仍仅在主进程内存/验收缓存中，没有产品级持久化（M7-B）；
 - 整盘 StructuredAnalysisPackage、解释引擎与 validator、review UI、LLM 客户端、SQLite 会话与跨平台发布尚未实现（M6-C / M6-D / M7-A / M7-B / M8）。

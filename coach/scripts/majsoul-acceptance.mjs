@@ -56,6 +56,7 @@ import {
   buildMortalCoverageEvidenceManifest,
   JsonlFactEngineClient,
   ManagedFactEngineTransport,
+  replayCanonicalResponseWindows,
   replayCanonicalStream,
   runMortalAcceptanceEvidence,
   validateCanonicalEventStream,
@@ -370,6 +371,10 @@ if (record.state === "accepted" || record.state === "failed") {
               selfActor: seat,
               canonicalStream: local.stream,
               replayedDecisions: local.decisions,
+              // M6-A4.2: the response surface partition joins the acceptance
+              // review so response rows bind + conserve through the shared
+              // pipeline (zero extra network — same canonical stream).
+              replayedResponseWindows: replayCanonicalResponseWindows(local.stream),
             },
             report: cachedReport,
             engine,

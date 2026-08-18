@@ -36,8 +36,10 @@
 
 ### 2. M6-A4 响应面（决策归属架构升级）
 
-- **A4.0** 修正 Mortal source model：拆除 `report-fetcher.ts` 与 `mortal-review-service.ts` 两处 `last_actor == player` 归属过滤，钉死"全部 entry 为受评者视角决策"；H2 重跑确认 self-turn 绑定不回归、现有 12 个 `no_mortal_entry` 逐个获得解释。
-- **A4.1** response replay 开窗（他家舍牌/他家杠响应窗口）→ **A4.2** binding validation（响应身份事实表 + 本地候选枚举与 Mortal 候选空间同构）→ **A4.3** wave-1 真实语料验收（`response window × actual action` 6 分支矩阵；wave-2 `resp_pass_on_kakan`/国士抢暗杠 fail-closed + 事前固定降级条款）。
+- **A4.0** 修正 Mortal source model：拆除 `report-fetcher.ts` 与 `mortal-review-service.ts` 两处 `last_actor == player` 归属过滤，钉死"全部 entry 为受评者视角决策"；H2 重跑确认 self-turn 绑定不回归、现有 12 个 `no_mortal_entry` 逐个获得解释。**已落地（2026-08-18）**。
+- **A4.1** response replay 开窗（他家舍牌/他家杠响应窗口）。**已落地（2026-08-18）**：`replayCanonicalResponseWindows` 经共享 streamContext 打开 discard_response/kan_response 窗口，开窗权威 = canonical 事件 + 本地规则（开窗权威分离），Mortal 标记仅作源侧绑定锚点。
+- **A4.2** binding validation（响应身份事实表 + 本地候选枚举与 Mortal 候选空间同构）。**已落地（2026-08-18）**：响应窗口身份事实表（owner/triggerActor/triggerEvent/offeredTile/responseKind）进入 `entryMatchesDecisionIdentity`；本地候选枚举镜像 Mortal 候选空间（chi 按搭子组合展开、none 计一候选），候选数 = 1 在源行查找前判定 `source_row_not_expected`；`runMortalFullGameReview` 接受 responseDecisions 第二分区，守恒不变量升级为"每个本地窗口要么可绑定、要么有明确无行原因"，response 源行全部入账（无本地窗口 = 守恒失败）；响应分支（resp_chi_actual / resp_pon_actual / resp_daiminkan_actual / resp_hora_actual / resp_pass_on_discard / resp_chankan_actual / resp_pass_on_kakan）加入覆盖率矩阵并 fail-closed；真实序列化钉（actor-less `none`、response daiminkan-as-ankan、response hora 无 pai 回落 offeredTile）落地。H2 复跑：self 125 决策 / 113 analysis_ready / 12 source_row_not_expected / 0 no_mortal_entry 不回归；response 37 窗口全绑定且 analysis_ready，0 unbound。
+- **A4.3** wave-1 真实语料验收（`response window × actual action` 6 分支矩阵；wave-2 `resp_pass_on_kakan`/国士抢暗杠 fail-closed + 事前固定降级条款）。
 - discovery 最早启动 chankan 纯事件扫描（wave-1 唯一无降级兜底的稀有分支）。
 - 详见 2026-08-18 grill 决策 A1–A9。
 

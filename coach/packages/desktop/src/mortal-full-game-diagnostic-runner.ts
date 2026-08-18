@@ -7,6 +7,7 @@ import {
   type MortalFetchedReport,
 } from "@riichi-coach/mortal-source";
 import {
+  replayCanonicalResponseWindows,
   runMortalFullGameReview,
   type MortalFullGameReviewResult,
 } from "@riichi-coach/reasoning";
@@ -92,6 +93,7 @@ export function serializeMortalFullGameDiagnosticResult(
     decisions: review.decisions.map((decision) => ({
       decisionOrdinal: decision.decisionOrdinal,
       roundOrdinal: decision.roundOrdinal,
+      surface: decision.surface,
       binding: decision.binding,
       support: decision.support,
       outcome: decision.outcome,
@@ -163,6 +165,9 @@ export async function runMortalFullGameDiagnostic(
     review = await runMortalFullGameReview({
       stream: acquisition.stream,
       decisions: acquisition.decisions,
+      // M6-A4.2: replay the response surface partition so the full-game
+      // diagnostic binds + conserves response windows too.
+      responseDecisions: replayCanonicalResponseWindows(acquisition.stream),
       report,
       engine: ports.engine,
       now: ports.now ?? Date.now,

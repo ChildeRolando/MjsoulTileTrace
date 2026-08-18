@@ -54,6 +54,8 @@ function coverageWindowKindOf(
   return kind === "self_turn"
     || kind === "post_call_discard"
     || kind === "post_riichi_discard"
+    || kind === "discard_response"
+    || kind === "kan_response"
     ? kind
     : null;
 }
@@ -62,22 +64,35 @@ function coverageWindowKindOf(
  * Classify which coverage branches one real review evidences. Recomputes
  * per-row branch classification with the SAME exported classifier and the
  * SAME bound source entries the review used — never a second opinion.
+ * M6-A4.2: response rows (surface === "response") index into
+ * responseDecisions and their own binding plan rows.
  */
 export function extractAcceptedBranchEvidence(input: {
   readonly stream: CanonicalEventStream;
   readonly decisions: readonly ReplayedDecision[];
+  readonly responseDecisions?: readonly ReplayedDecision[];
   readonly report: MortalFetchedReport;
   readonly review: AcceptanceReadyReview;
 }): AcceptedBranchEvidence {
+  const responseDecisions = input.responseDecisions ?? [];
   const { rows } = buildMortalFullGameBindingPlan(input.decisions, input.report);
+  const responsePlan = responseDecisions.length === 0
+    ? null
+    : buildMortalFullGameBindingPlan(responseDecisions, input.report);
   const evidenced = new Set<MortalCoverageBranch>();
   let analysisReadyRowCount = 0;
 
   for (const ledgerRow of input.review.decisions) {
     if (ledgerRow.outcome !== "analysis_ready") continue;
     analysisReadyRowCount += 1;
-    const decision = input.decisions[ledgerRow.decisionOrdinal];
-    const planRow = rows[ledgerRow.decisionOrdinal];
+    const decisions = ledgerRow.surface === "response"
+      ? responseDecisions
+      : input.decisions;
+    const planRows = ledgerRow.surface === "response"
+      ? responsePlan?.rows ?? []
+      : rows;
+    const decision = decisions[ledgerRow.decisionOrdinal];
+    const planRow = planRows[ledgerRow.decisionOrdinal];
     if (decision === undefined || planRow?.sourceEntry == null) continue;
     const windowKind = coverageWindowKindOf(decision);
     if (windowKind === null) continue;
@@ -175,6 +190,8 @@ export function buildRedactedAcceptanceArtifact(input: {
     modelTag: input.report.modelTag ?? null,
     reviewSummary: Object.freeze({
       replayDecisionCount: input.review.summary.replayDecisionCount,
+      // M6-A4.2: the response partition's local window count.
+      responseWindowCount: input.review.summary.responseWindowCount,
       mortalSelfEntryCount: input.review.summary.mortalSelfEntryCount,
       responseEntryCount: input.review.summary.responseEntryCount,
       localConservation: input.review.summary.localConservation,

@@ -13,6 +13,7 @@ function fakeCoverageReview() {
     status: "coverage_ready",
     summary: {
       replayDecisionCount: 2,
+      responseWindowCount: 0,
       mortalSelfEntryCount: 1,
       responseEntryCount: 0,
       localConservation: 2,
@@ -39,10 +40,15 @@ function fakeCoverageReview() {
       unboundMortalEntryCount: 0,
       ambiguousMortalEntryCount: 0,
       entries: [],
+      responseEntries: [],
+      responseBoundEntryCount: 0,
+      responseUnboundEntryCount: 0,
+      responseAmbiguousEntryCount: 0,
     },
     decisions: [{
       decisionOrdinal: 0,
       roundOrdinal: 0,
+      surface: "self",
       binding: "bound",
       support: "supported",
       outcome: "analysis_ready",

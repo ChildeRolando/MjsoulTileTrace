@@ -71,6 +71,7 @@ import {
   buildMortalCoverageEvidenceManifest,
   JsonlFactEngineClient,
   ManagedFactEngineTransport,
+  replayCanonicalResponseWindows,
   replayCanonicalStream,
   runMortalAcceptanceEvidence,
 } from "@riichi-coach/reasoning";
@@ -577,6 +578,9 @@ for (const pair of stagePairs) {
       selfActor: pair.seat,
       canonicalStream: local.stream,
       replayedDecisions: local.decisions,
+      // M6-A4.2: the response surface partition (same canonical stream, zero
+      // extra network).
+      replayedResponseWindows: replayCanonicalResponseWindows(local.stream),
     },
     report: cachedReport,
     engine,

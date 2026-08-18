@@ -43,7 +43,11 @@ import type { ReplayedDecision } from "../replay/stream-replayer.js";
 
 export type SingleCandidateProofShape =
   | "riichi_accepted_forced_tsumogiri"
-  | "riichi_declaration_unique_tenpai_discard";
+  | "riichi_declaration_unique_tenpai_discard"
+  // M6-A4.2: a response window whose isomorphic local enumeration proves
+  // only `none` (pass) is legal — Mortal emits no row at single-candidate
+  // response points. Defined here so the ledger's proof field is one union.
+  | "response_single_candidate";
 
 export type SingleCandidateProof = Readonly<{
   shape: SingleCandidateProofShape;

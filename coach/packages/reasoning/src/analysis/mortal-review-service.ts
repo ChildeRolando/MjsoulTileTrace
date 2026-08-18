@@ -154,6 +154,38 @@ function localActualEnvelopes(
         eventRef,
         action: { type: "ryukyoku", actor, reason: "kyuushu_kyuuhai" },
       }];
+    // M6-A4.2: response actuals. Every tile is local-authoritative (ADR-0001);
+    // the mjai shapes mirror what adaptMjaiActionSequence already accepts for
+    // response windows (chi/pon/daiminkan/hora/none), so the local actual
+    // flows through the SAME structured import as a self-surface actual.
+    case "pass":
+      return [{
+        eventRef,
+        action: { type: "none", actor },
+      }];
+    case "chi":
+    case "pon":
+    case "daiminkan":
+      return [{
+        eventRef,
+        action: {
+          type: actual.kind,
+          actor,
+          target: actual.targetActor,
+          pai: formatMjaiTile(actual.calledTile),
+          consumed: actual.consumedTiles.map((tile) => formatMjaiTile(tile)),
+        },
+      }];
+    case "ron":
+      return [{
+        eventRef,
+        action: {
+          type: "hora",
+          actor,
+          target: actual.targetActor,
+          pai: formatMjaiTile(actual.winningTile),
+        },
+      }];
     default:
       throw new MortalSourceError("mortal_decision_unsupported_entry");
   }
@@ -254,6 +286,45 @@ export function mortalActualMatchesLocal(
       }
       return true;
     }
+    // M6-A4.2: response actual correspondence (type + actor + tiles; tiles
+    // stay local-authoritative). pass ↔ Mortal's explicit `none` — the source
+    // `none` action carries no actor (A4.0 perspective invariant: only
+    // actor-carrying actions must equal player_id), so an absent actor is the
+    // expected shape. The call actuals map 1:1; ron ↔ hora/agari with the
+    // winning tile checked against the source-carried `pai` or the entry tile
+    // (same shape as tsumo).
+    case "pass":
+      return actual.type === "none"
+        && (actual.actor === undefined || actual.actor === actor);
+    case "chi":
+    case "pon":
+    case "daiminkan": {
+      if (actual.type !== local.kind || actual.actor !== actor) return false;
+      if (actual.target !== local.targetActor) return false;
+      if (actual.pai !== formatMjaiTile(local.calledTile)) return false;
+      const consumed = asStringArray(actual.consumed);
+      return consumed !== null
+        && sameStringMultiset(
+          consumed,
+          local.consumedTiles.map((tile) => formatMjaiTile(tile)),
+        );
+    }
+    case "ron": {
+      if (
+        (actual.type !== "hora" && actual.type !== "agari")
+        || actual.actor !== actor
+        || actual.target !== local.targetActor
+      ) {
+        return false;
+      }
+      const sourceWinningTile = typeof actual.pai === "string"
+        ? actual.pai
+        : typeof sourceEntryTile === "string"
+          ? sourceEntryTile
+          : null;
+      return sourceWinningTile !== null
+        && sourceWinningTile === formatMjaiTile(local.winningTile);
+    }
     default:
       return false;
   }
@@ -330,7 +401,45 @@ export function entryMatchesDecisionIdentity(
     return sameHand([...privateState.concealedTiles, currentDraw.tile]);
   }
 
-  // Response surfaces are M6-A4: no identity table here yet.
+  // M6-A4.2: response window identity fact table (A4 spec US 27, 决策身份模型).
+  // A response window is a decision the REVIEWED player owns in response to an
+  // OPPONENT's discard (discard_response) or kan (kan_response). Decision
+  // ownership is window.actor (= report.playerId, single-perspective verified),
+  // never entry.lastActor — lastActor IS the trigger actor here (the opponent
+  // who offered the tile). The identity facts:
+  //   owner        = window.actor / report.playerId (implicit: every projected
+  //                  entry is the reviewed player's decision)
+  //   triggerActor = window.sourceActor ≈ entry.lastActor
+  //   triggerEvent = window.triggerEventRef (frozen by the canonical snapshot;
+  //                  the entry carries no event ref — the round + tilesLeft +
+  //                  sourceActor + offeredTile + hand facts pin the window)
+  //   offeredTile  = window.offeredTile ≈ entry.tile
+  //   responseKind = window.kind (discard_response / kan_response) ↔
+  //                  entry.at_opponent_kakan (a chankan row is a kan response;
+  //                  a discard-response row is not)
+  //   hand         = entry.tehai ↔ privateState.concealedTiles (no draw in a
+  //                  response window) + fuuros ↔ self melds
+  if (window.kind === "discard_response" || window.kind === "kan_response") {
+    if (window.sourceActor === null || window.actor !== snapshot.selfActor) {
+      return false;
+    }
+    // A response row is triggered by the opponent named on the window.
+    if (entry.lastActor !== window.sourceActor) return false;
+    // responseKind: a kan response is marked at_opponent_kakan; a discard
+    // response is not. Gating both directions keeps kan rows from matching
+    // discard windows and vice versa.
+    if (window.kind === "kan_response" && !entry.atOpponentKakan) return false;
+    if (window.kind === "discard_response" && entry.atOpponentKakan) return false;
+    // offeredTile: the window's offered tile is the entry's trigger tile.
+    if (formatMjaiTile(window.offeredTile) !== entry.tile) return false;
+    // Hand identity: no draw exists in a response window (A4.1 eligibility
+    // requires currentDraw === null), so the concealed hand alone is the
+    // 13-tile (or meld-shortened) anchor, and the self meld state must line
+    // up through the same fuuro identity as post-call rows.
+    if (!sameHand(privateState.concealedTiles)) return false;
+    return sameFuuros(entry.fuuros, localSelfFuuros(decision));
+  }
+
   return false;
 }
 
@@ -469,6 +578,23 @@ const supportedCandidateTypesByWindowKind: Readonly<
   // Riichi is declared (not yet accepted) at this window: the same-turn
   // discard is locked, so only the plain discard remains.
   post_riichi_discard: new Set(["dahai"]),
+  // M6-A4.2: response surfaces. The closed candidate set mirrors the A4.1
+  // eligibility space (chi/pon/daiminkan/ron + explicit none); the isomorphic
+  // A4.2 enumeration expands chi by meld combination over the same set.
+  // `ankan` is accepted on discard_response rows as Mortal's serialization of
+  // the daiminkan candidate (consumed = the offered tile x4 — same real-data
+  // pin family as the A3 kakan-as-ankan finding, verified on H2 response
+  // rows). The mjai adapter bridges it to a daiminkan draft downstream.
+  discard_response: new Set([
+    "chi",
+    "pon",
+    "daiminkan",
+    "ankan",
+    "hora",
+    "agari",
+    "none",
+  ]),
+  kan_response: new Set(["hora", "agari", "none"]),
 };
 
 export function supportedCandidateTypesForWindow(

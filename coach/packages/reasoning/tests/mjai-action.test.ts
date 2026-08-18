@@ -471,6 +471,55 @@ describe("MJAI action adapter", () => {
     });
   });
 
+  // M6-A4.2 real-data pins (H2 response report): the response pass serializes
+  // as `none` WITHOUT an actor, a response daiminkan candidate serializes as an
+  // `ankan` of four copies of the offered tile, and a response win alternative
+  // omits `pai` (the winning tile is the offered discard, local-authoritative).
+
+  it("accepts an actor-less response pass (`none` without actor)", () => {
+    expect(adaptMjaiActionSequence([
+      { eventRef: "event:none", action: { type: "none" } },
+    ], discardResponse)).toMatchObject({
+      status: "ready",
+      draft: {
+        kind: "pass",
+        responseEventRef: "event:discard",
+        responseKind: "discard",
+      },
+    });
+  });
+
+  it("bridges a response-window ankan-of-the-offered-tile to a daiminkan draft", () => {
+    expect(adaptMjaiActionSequence([
+      {
+        eventRef: "event:ankan",
+        action: { type: "ankan", actor: 3, consumed: ["5p", "5p", "5p", "5pr"] },
+      },
+    ], discardResponse)).toMatchObject({
+      status: "ready",
+      draft: {
+        kind: "daiminkan",
+        calledTile: { id: "5p", red: true },
+        targetActor: 1,
+        responseEventRef: "event:discard",
+      },
+    });
+  });
+
+  it("falls back to the offered tile for a response ron whose hora omits pai", () => {
+    expect(adaptMjaiActionSequence([
+      { eventRef: "event:hora", action: { type: "hora", actor: 3, target: 1 } },
+    ], discardResponse)).toMatchObject({
+      status: "ready",
+      draft: {
+        kind: "ron",
+        winningTile: { id: "5p", red: true },
+        targetActor: 1,
+        winContext: "discard",
+      },
+    });
+  });
+
   it("maps the bare scored ryukyoku alternative on the self turn only", () => {
     // Real-evidence pin (ekyu report, 2026-08-17): the scored kyuushu
     // alternative carries neither actor nor reason — the abort is a player
