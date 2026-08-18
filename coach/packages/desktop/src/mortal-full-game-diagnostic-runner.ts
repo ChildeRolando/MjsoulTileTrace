@@ -7,6 +7,7 @@ import {
   type MortalFetchedReport,
 } from "@riichi-coach/mortal-source";
 import {
+  replayCanonicalResponseWindows,
   runMortalFullGameReview,
   type MortalFullGameReviewResult,
 } from "@riichi-coach/reasoning";
@@ -51,20 +52,24 @@ export function buildMortalFullGameResultPath(
 export function formatMortalFullGameConsoleLine(summary: {
   replayDecisionCount: number;
   mortalSelfEntryCount: number;
+  responseEntryCount: number;
   bound: number;
   ready: number;
   unsupported: number;
   missing: number;
+  sourceRowNotExpected: number;
   bindingMismatch: number;
   modelIncomplete: number;
   blocked: number;
 }): string {
   return `[riichi-coach] mortal-full-game:replay=${summary.replayDecisionCount}`
     + ` mortal=${summary.mortalSelfEntryCount}`
+    + ` response=${summary.responseEntryCount}`
     + ` bound=${summary.bound}`
     + ` ready=${summary.ready}`
     + ` unsupported=${summary.unsupported}`
     + ` missing=${summary.missing}`
+    + ` notExpected=${summary.sourceRowNotExpected}`
     + ` bindingMismatch=${summary.bindingMismatch}`
     + ` modelIncomplete=${summary.modelIncomplete}`
     + ` blocked=${summary.blocked}`;
@@ -80,6 +85,7 @@ export function serializeMortalFullGameDiagnosticResult(
     summary: review.summary,
     sourceCoverage: {
       mortalSelfEntryCount: review.sourceCoverage.mortalSelfEntryCount,
+      responseEntryCount: review.sourceCoverage.responseEntryCount,
       boundMortalEntryCount: review.sourceCoverage.boundMortalEntryCount,
       unboundMortalEntryCount: review.sourceCoverage.unboundMortalEntryCount,
       ambiguousMortalEntryCount: review.sourceCoverage.ambiguousMortalEntryCount,
@@ -87,10 +93,12 @@ export function serializeMortalFullGameDiagnosticResult(
     decisions: review.decisions.map((decision) => ({
       decisionOrdinal: decision.decisionOrdinal,
       roundOrdinal: decision.roundOrdinal,
+      surface: decision.surface,
       binding: decision.binding,
       support: decision.support,
       outcome: decision.outcome,
       reason: decision.reason,
+      singleCandidateProof: decision.singleCandidateProof ?? null,
       modelSummary: decision.modelSummary,
     })),
   }, null, 2)}\n`;
@@ -157,6 +165,9 @@ export async function runMortalFullGameDiagnostic(
     review = await runMortalFullGameReview({
       stream: acquisition.stream,
       decisions: acquisition.decisions,
+      // M6-A4.2: replay the response surface partition so the full-game
+      // diagnostic binds + conserves response windows too.
+      responseDecisions: replayCanonicalResponseWindows(acquisition.stream),
       report,
       engine: ports.engine,
       now: ports.now ?? Date.now,
@@ -186,10 +197,12 @@ export async function runMortalFullGameDiagnostic(
   console.log(formatMortalFullGameConsoleLine({
     replayDecisionCount: review.summary.replayDecisionCount,
     mortalSelfEntryCount: review.summary.mortalSelfEntryCount,
+    responseEntryCount: review.summary.responseEntryCount,
     bound: review.summary.binding.bound,
     ready: review.summary.outcomes.analysis_ready,
     unsupported: review.summary.outcomes.unsupported_action,
     missing: review.summary.outcomes.no_mortal_entry,
+    sourceRowNotExpected: review.summary.outcomes.source_row_not_expected,
     bindingMismatch: review.summary.outcomes.binding_mismatch,
     modelIncomplete: review.summary.outcomes.model_output_incomplete,
     blocked: review.summary.outcomes.analysis_blocked,

@@ -33,7 +33,7 @@ import type { HandStructureFactEnginePort } from "../src/fact-engine/port.js";
 function makeReport(): MortalFetchedReport {
   return Object.freeze({
     reportId: "0123456789abcdef",
-    adapterVersion: "mortal-source/1",
+    adapterVersion: "mortal-source/2",
     engine: "Mortal" as const,
     version: "1.5.10",
     modelTag: "4.1b",
@@ -55,12 +55,15 @@ function makeReview(): AcceptanceReadyReview {
     status: "coverage_ready",
     summary: {
       replayDecisionCount: 1,
+      responseWindowCount: 0,
       mortalSelfEntryCount: 1,
+      responseEntryCount: 0,
       localConservation: 1,
       sourceConservation: 1,
       outcomes: {
         analysis_ready: 1,
         unsupported_action: 0,
+        source_row_not_expected: 0,
         no_mortal_entry: 0,
         binding_mismatch: 0,
         model_output_incomplete: 0,
@@ -78,6 +81,7 @@ function makeReview(): AcceptanceReadyReview {
     decisions: [{
       decisionOrdinal: 0,
       roundOrdinal: 0,
+      surface: "self",
       binding: "bound",
       support: "supported",
       review: "analysis_ready",
@@ -97,10 +101,15 @@ function makeReview(): AcceptanceReadyReview {
     }] as MortalFullGameLedgerEntry[],
     sourceCoverage: {
       mortalSelfEntryCount: 1,
+      responseEntryCount: 0,
       boundMortalEntryCount: 1,
       unboundMortalEntryCount: 0,
       ambiguousMortalEntryCount: 0,
       entries: [],
+      responseEntries: [],
+      responseBoundEntryCount: 0,
+      responseUnboundEntryCount: 0,
+      responseAmbiguousEntryCount: 0,
     },
   } as AcceptanceReadyReview;
 }
@@ -188,7 +197,7 @@ describe("source-policy tests E/F (§20): provenance is named or rejected", () =
         localSourceType: "mortal_mjai",
         report: makeReport(),
         review: makeReview(),
-        evidence: { branches: [], analysisReadyRowCount: 0 } as AcceptedBranchEvidence,
+        evidence: { branches: [], analysisReadyRowCount: 0, responsePassFamilies: [] } as AcceptedBranchEvidence,
       }),
     ).toThrowError("mortal_acceptance_artifact_source_type_invalid");
     // And the manifest side refuses the record outright.
@@ -216,7 +225,7 @@ describe("source-policy tests E/F (§20): provenance is named or rejected", () =
         seat: 0,
         report: makeReport(),
         review: makeReview(),
-        evidence: { branches: [], analysisReadyRowCount: 0 } as AcceptedBranchEvidence,
+        evidence: { branches: [], analysisReadyRowCount: 0, responsePassFamilies: [] } as AcceptedBranchEvidence,
         // @ts-expect-error localSourceType deliberately omitted
         localSourceType: undefined,
       }),

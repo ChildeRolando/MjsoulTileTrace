@@ -223,9 +223,15 @@ function projectReport(
       kyoku: kyoku.kyoku,
       honba: kyoku.honba,
       entries: kyoku.entries.flatMap((entry): MortalReportDecisionEntry[] => {
-        // Opponent-perspective rows are deliberately not projected: their
-        // `state.tehai` and private context are not ours to carry around.
-        if (entry.last_actor !== report.player_id) return [];
+        // M6-A4.0: the report is a single-perspective review — EVERY entry's
+        // state.tehai is the reviewed player's own hand at that decision. A
+        // response entry's last_actor is the opponent who triggered the
+        // decision (discard / kakan); the decision still belongs to the
+        // reviewed player. Ownership is NOT assumed: MortalReportSchema
+        // verifies at the fetch boundary that every action carrying an actor
+        // has actor === report.player_id (fails closed as
+        // report_schema_unsupported otherwise). All rows are projected;
+        // `lastActor` identifies the trigger surface, never ownership.
         return [{
           roundOrdinal: context.roundOrdinal,
           roundWind: context.roundWind,

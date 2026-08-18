@@ -15,7 +15,10 @@ import { z } from "zod";
 // Only the fields M6 consumes are validated; every violation fails closed
 // with report_schema_unsupported at the fetch boundary.
 
-export const MORTAL_ADAPTER_VERSION = "mortal-source/1" as const;
+// M6-A4.0: bumped from mortal-source/1 — the projection now retains response
+// entries (last_actor != player_id), so every cached pre-A4.0 projected report
+// is stale by construction (it is missing the response rows).
+export const MORTAL_ADAPTER_VERSION = "mortal-source/2" as const;
 
 const MjaiEventSchema = z.object({
   type: z.string().min(1),
@@ -112,6 +115,42 @@ export const MortalReportSchema = z.object({
     kyokus: z.array(MortalKyokuSchema).min(1),
   }).passthrough(),
   mjai_log: z.array(MjaiEventSchema).min(1),
-}).passthrough();
+}).passthrough().superRefine((report, context) => {
+  // M6-A4.0 (review round-1 Blocker 2): the reviewed-player perspective is a
+  // VERIFIED invariant, not an assumption. The report is single-perspective —
+  // every entry is a decision OF report.player_id — so every reviewed-player
+  // action the report carries (expected / actual / every model detail) must,
+  // when it has an actor, have THAT actor == report.player_id. `none` has no
+  // actor and is fine; the same decision's chi/pon/kan/hora candidates carry
+  // the ownership evidence. A violation fails the fetch closed as
+  // report_schema_unsupported (verified clean against the real H2 report:
+  // 150 entries, 1612 actions, 1508 with actor, 0 violations).
+  const playerId = report.player_id;
+  report.review.kyokus.forEach((kyoku, kyokuIndex) => {
+    kyoku.entries.forEach((entry, entryIndex) => {
+      const actions: ReadonlyArray<{
+        action: { readonly type: string };
+        path: readonly (string | number)[];
+      }> = [
+        { action: entry.expected, path: ["expected"] },
+        { action: entry.actual, path: ["actual"] },
+        ...entry.details.map((detail, detailIndex) => ({
+          action: detail.action,
+          path: ["details", detailIndex, "action"],
+        })),
+      ];
+      for (const { action, path } of actions) {
+        const actor = (action as { actor?: unknown }).actor;
+        if (typeof actor === "number" && actor !== playerId) {
+          context.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: "M6-A4.0: reviewed-player action actor must equal report.player_id",
+            path: ["review", "kyokus", kyokuIndex, "entries", entryIndex, ...path, "actor"],
+          });
+        }
+      }
+    });
+  });
+});
 
 export type RawMortalReport = z.infer<typeof MortalReportSchema>;

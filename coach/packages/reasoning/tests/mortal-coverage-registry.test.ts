@@ -135,6 +135,66 @@ describe("M6-A3 coverage branch classification", () => {
       candidateActionTypes: ["dahai"],
     })).toEqual([]);
   });
+
+  // M6-A4.2: the response surface matrix (wave-1 six + wave-2 pass-on-kakan).
+  it("classifies response window actuals into the response branches", () => {
+    expect(classifyCoverageBranches({
+      windowKind: "discard_response",
+      actualActionKind: "chi",
+      callKind: null,
+      candidateActionTypes: ["none", "chi"],
+    })).toEqual(["resp_chi_actual"]);
+    expect(classifyCoverageBranches({
+      windowKind: "discard_response",
+      actualActionKind: "pon",
+      callKind: null,
+      candidateActionTypes: ["none", "pon"],
+    })).toEqual(["resp_pon_actual"]);
+    expect(classifyCoverageBranches({
+      windowKind: "discard_response",
+      actualActionKind: "daiminkan",
+      callKind: null,
+      candidateActionTypes: ["none", "daiminkan"],
+    })).toEqual(["resp_daiminkan_actual"]);
+    expect(classifyCoverageBranches({
+      windowKind: "discard_response",
+      actualActionKind: "ron",
+      callKind: null,
+      candidateActionTypes: ["none", "hora"],
+    })).toEqual(["resp_hora_actual"]);
+    expect(classifyCoverageBranches({
+      windowKind: "discard_response",
+      actualActionKind: "pass",
+      callKind: null,
+      candidateActionTypes: ["none", "chi"],
+    })).toEqual(["resp_pass_on_discard"]);
+    expect(classifyCoverageBranches({
+      windowKind: "kan_response",
+      actualActionKind: "ron",
+      callKind: null,
+      candidateActionTypes: ["none", "hora"],
+    })).toEqual(["resp_chankan_actual"]);
+    expect(classifyCoverageBranches({
+      windowKind: "kan_response",
+      actualActionKind: "pass",
+      callKind: null,
+      candidateActionTypes: ["none"],
+    })).toEqual(["resp_pass_on_kakan"]);
+  });
+
+  it("keeps response branches fail-closed by default", () => {
+    for (const branch of [
+      "resp_chi_actual",
+      "resp_pon_actual",
+      "resp_daiminkan_actual",
+      "resp_hora_actual",
+      "resp_pass_on_discard",
+      "resp_chankan_actual",
+      "resp_pass_on_kakan",
+    ]) {
+      expect(createMortalCoverageRegistry([]).isCovered(branch as never)).toBe(false);
+    }
+  });
 });
 
 describe("M6-A3 coverage registry", () => {

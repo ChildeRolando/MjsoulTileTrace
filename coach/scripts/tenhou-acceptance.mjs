@@ -71,6 +71,7 @@ import {
   buildMortalCoverageEvidenceManifest,
   JsonlFactEngineClient,
   ManagedFactEngineTransport,
+  replayCanonicalResponseWindows,
   replayCanonicalStream,
   runMortalAcceptanceEvidence,
 } from "@riichi-coach/reasoning";
@@ -577,6 +578,9 @@ for (const pair of stagePairs) {
       selfActor: pair.seat,
       canonicalStream: local.stream,
       replayedDecisions: local.decisions,
+      // M6-A4.2: the response surface partition (same canonical stream, zero
+      // extra network).
+      replayedResponseWindows: replayCanonicalResponseWindows(local.stream),
     },
     report: cachedReport,
     engine,
@@ -616,6 +620,12 @@ for (const pair of stagePairs) {
     evidenceHash: evidenceRun.evidenceHash,
     evidenceVersion: options.evidenceVersion,
     branches: [...evidenceRun.evidence.branches],
+    // M6-A4.3: resp_pass_on_discard family sub-coverage rides the pair so
+    // the manifest rebuild below can re-emit it.
+    responsePassFamilies:
+      evidenceRun.evidence.responsePassFamilies.length > 0
+        ? evidenceRun.evidence.responsePassFamilies
+        : undefined,
   });
   console.error(
     `ACCEPTED ${key}: branches [${evidenceRun.evidence.branches.join(", ")}] evidence ${evidenceRun.evidenceHash.slice(0, 19)}…`,
@@ -665,6 +675,10 @@ for (const pair of checkpoint.pairs) {
       localSourceType: pair.sourceType ?? "tenhou",
       modelAdapterVersion: report.adapterVersion,
       ...(report.modelTag !== undefined ? { modelTag: report.modelTag } : {}),
+      // M6-A4.3: only resp_pass_on_discard samples carry family coverage.
+      ...(branch === "resp_pass_on_discard" && (pair.responsePassFamilies?.length ?? 0) > 0
+        ? { responsePassFamilies: pair.responsePassFamilies }
+        : {}),
     });
   }
 }

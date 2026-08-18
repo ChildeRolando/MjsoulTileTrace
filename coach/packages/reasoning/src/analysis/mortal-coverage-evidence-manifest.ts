@@ -31,7 +31,21 @@ export const MORTAL_COVERAGE_LOCAL_SOURCE_TYPES = [
 export type MortalCoverageLocalSourceType =
   (typeof MORTAL_COVERAGE_LOCAL_SOURCE_TYPES)[number];
 
-/** One accepted real E2E sample (audit metadata only, §16 minimum fields). */
+/** One accepted real E2E sample (audit metadata only, §16 minimum fields).
+ *  M6-A4.3: a resp_pass_on_discard sample may additionally carry the
+ *  candidate-family sub-coverage it exercises (chi/pon/daiminkan/hora
+ *  families — A4 spec §分支矩阵 候选族子覆盖). The field is optional so
+ *  pre-A4.3 manifests stay valid; it is only ever set on resp_pass_on_discard
+ *  entries. */
+export const RESPONSE_PASS_FAMILIES = [
+  "chi",
+  "pon",
+  "daiminkan",
+  "hora",
+] as const;
+
+export type ResponsePassFamily = (typeof RESPONSE_PASS_FAMILIES)[number];
+
 export const MortalCoverageEvidenceRecordSchema = z.object({
   /** Versioned identity of the acceptance run that produced this sample. */
   evidenceVersion: z.string().min(1),
@@ -40,6 +54,8 @@ export const MortalCoverageEvidenceRecordSchema = z.object({
   localSourceType: z.enum(MORTAL_COVERAGE_LOCAL_SOURCE_TYPES),
   modelAdapterVersion: z.string().min(1),
   modelTag: z.string().min(1).optional(),
+  /** M6-A4.3: candidate families this resp_pass_on_discard sample exercised. */
+  responsePassFamilies: z.array(z.enum(RESPONSE_PASS_FAMILIES)).min(1).optional(),
 }).strict();
 
 export const MortalCoverageEvidenceEntrySchema = z.object({

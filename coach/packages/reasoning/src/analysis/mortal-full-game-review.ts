@@ -25,6 +25,14 @@ import {
   type MortalCoverageBranch,
   type MortalCoverageRegistry,
 } from "./mortal-coverage-registry.js";
+import {
+  collectSingleCandidateProofs,
+  type SingleCandidateProof,
+} from "./single-candidate-proof.js";
+import {
+  collectResponseSingleCandidateProofs,
+  type ResponseSingleCandidateProof,
+} from "./response-candidate-enumeration.js";
 
 export type MortalFullGameFailureCode =
   | "mortal_report_game_fingerprint_mismatch"
@@ -47,7 +55,12 @@ export type MortalBindingMismatchReason =
   | "mortal_entry_matches_multiple_decisions"
   | "source_entry_reuse"
   | "source_order_violation"
-  | "mortal_actual_mismatch";
+  | "mortal_actual_mismatch"
+  // M6-A4.0: a locally-proven single-candidate window expects NO source row
+  // (Mortal emits rows only at >=2-candidate decision points). A compatible
+  // source row existing anyway contradicts the local expectation — integrity
+  // failure, never a normal bound analysis.
+  | "unexpected_source_row_present";
 
 export type MortalModelIncompleteReason =
   | "actual_action_not_scored"
@@ -68,6 +81,11 @@ export type MortalAnalysisBlockedReason =
 export type MortalDecisionOutcome =
   | "analysis_ready"
   | "unsupported_action"
+  // M6-A4.0: the seventh value. A legal state, decided purely by the local
+  // candidate enumeration (count = 1 -> Mortal emits no row by definition)
+  // BEFORE any source lookup; carries the proof. `no_mortal_entry` keeps its
+  // integrity-failure semantics and must be 0 in a green acceptance run.
+  | "source_row_not_expected"
   | "no_mortal_entry"
   | "binding_mismatch"
   | "model_output_incomplete"
@@ -89,6 +107,10 @@ export type MortalFullGameLedgerEntry = Readonly<{
   decisionOrdinal: number;
   roundOrdinal: number;
   binding: MortalBindingStatus;
+  // M6-A4.2: which replay partition this row came from. Self-surface rows
+  // index into input.decisions; response-surface rows index into
+  // input.responseDecisions. Consumers must branch on it.
+  surface: "self" | "response";
   // LOCAL actual representation support only (§21 closing round: local and
   // source-candidate support are separate classification stages; the outcome
   // plus reason fields carry whichever stage classified the row).
@@ -104,6 +126,9 @@ export type MortalFullGameLedgerEntry = Readonly<{
   sourceEntryRef: string | null;
   sourceOrdinal: number | null;
   modelSummary: MortalFullGameModelSummary | null;
+  // M6-A4.0: present exactly on source_row_not_expected rows — the local
+  // proof that the window is single-candidate. Null otherwise.
+  readonly singleCandidateProof?: SingleCandidateProof | null;
 }>;
 
 export type MortalSourceDisposition = "bound" | "unbound" | "ambiguous";
@@ -114,7 +139,11 @@ export type MortalSourceUnboundReason =
   // kyuushu mapper-coverage) debt, never enumeration debt.
   | "local_terminal_action_not_replayed"
   | "identity_fact_mismatch"
-  | "source_semantics_not_understood";
+  | "source_semantics_not_understood"
+  // M6-A4.2: a RESPONSE source row that no local response window opened.
+  // The local response enumeration under-opened — conservation failure,
+  // never a silent pass (US 18).
+  | "response_window_not_opened";
 
 export type MortalSourceCoverageEntry = Readonly<{
   sourceEntryRef: string;
@@ -128,16 +157,34 @@ export type MortalSourceCoverageEntry = Readonly<{
 }>;
 
 export type MortalSourceCoverage = Readonly<{
+  // M6-A4.0: self-surface partition. The existing counts cover SELF rows
+  // only (lastActor === playerId — the reviewed player's own decision rows);
+  // response rows (triggered by an opponent's discard/kakan) are tracked
+  // separately and never enter self conservation. Response identity tables
+  // are A4.2 — until then response rows are neither bound nor failured.
   mortalSelfEntryCount: number;
+  responseEntryCount: number;
   boundMortalEntryCount: number;
   unboundMortalEntryCount: number;
   ambiguousMortalEntryCount: number;
   entries: readonly MortalSourceCoverageEntry[];
+  // M6-A4.2: the RESPONSE partition's source ledger — every projected
+  // response row gets a disposition. Unbound response rows are conservation
+  // failures (US 18: a source row with no local window must fail loudly).
+  responseEntries: readonly MortalSourceCoverageEntry[];
+  responseBoundEntryCount: number;
+  responseUnboundEntryCount: number;
+  responseAmbiguousEntryCount: number;
 }>;
 
 export type MortalFullGameCoverageSummary = Readonly<{
   replayDecisionCount: number;
+  // M6-A4.2: local response windows replayed for the response partition.
+  responseWindowCount: number;
   mortalSelfEntryCount: number;
+  // M6-A4.0: projected response rows (lastActor !== playerId) — a separate
+  // surface, never part of self conservation.
+  responseEntryCount: number;
   localConservation: number;
   sourceConservation: number;
   outcomes: Readonly<Record<MortalDecisionOutcome, number>>;
@@ -213,11 +260,16 @@ function flattenSourceRows(report: MortalFetchedReport): SourceRow[] {
 function validateFullGameInputs(
   rawStream: CanonicalEventStream,
   decisions: readonly ReplayedDecision[],
+  allowEmpty = false,
 ): string | null {
   const stream = CanonicalEventStreamSchema.safeParse(rawStream);
   if (!stream.success) return "canonical_stream_schema_invalid";
   if (!Array.isArray(decisions) || decisions.length === 0) {
-    return "decisions_empty";
+    // M6-A4.2: the response partition may legitimately be empty (no response
+    // opportunities for the reviewed player in the game). The self partition
+    // still requires at least one decision.
+    if (!allowEmpty) return "decisions_empty";
+    return null;
   }
   const seenDecisionRefs = new Set<string>();
   for (let index = 0; index < decisions.length; index += 1) {
@@ -496,6 +548,11 @@ function analysisBlockedReason(
 export async function runMortalFullGameReview(input: {
   readonly stream: CanonicalEventStream;
   readonly decisions: readonly ReplayedDecision[];
+  // M6-A4.2: the response surface is a SECOND partition — windows replayed by
+  // replayCanonicalResponseWindows (owner = reviewed player, trigger = an
+  // opponent's discard / kan). Binding + conservation run per partition; the
+  // identity tables keep the two surfaces disjoint.
+  readonly responseDecisions?: readonly ReplayedDecision[];
   readonly report: MortalFetchedReport;
   readonly engine: HandStructureFactEnginePort;
   readonly now?: () => number;
@@ -506,9 +563,18 @@ export async function runMortalFullGameReview(input: {
 }): Promise<MortalFullGameReviewResult> {
   const now = input.now ?? Date.now;
   const registry = input.coverageRegistry ?? EMPTY_MORTAL_COVERAGE_REGISTRY;
+  const responseDecisions = input.responseDecisions ?? [];
 
   const inputError = validateFullGameInputs(input.stream, input.decisions);
   if (inputError !== null) {
+    return { status: "failed", code: "mortal_full_game_input_invalid" };
+  }
+  // Response windows are a legal partition: a game can have zero response
+  // opportunities for the reviewed player, so an empty response surface is
+  // valid. When present, every decision must pass the same snapshot/facts/
+  // ref-uniqueness checks as the self partition.
+  const responseInputError = validateFullGameInputs(input.stream, responseDecisions, true);
+  if (responseInputError !== null) {
     return { status: "failed", code: "mortal_full_game_input_invalid" };
   }
   const stream = CanonicalEventStreamSchema.parse(input.stream);
@@ -528,12 +594,47 @@ export async function runMortalFullGameReview(input: {
     return { status: "failed", code: "mortal_full_game_input_invalid" };
   }
 
+  // M6-A4.0: the single-candidate proofs are computed BEFORE any source
+  // lookup — whether a window is source_row_not_expected may never depend
+  // on what the source happened to contain. Shape A is engine-free; shape B
+  // asks the trusted hand-structure engine and fails closed on any error.
+  const singleCandidateProofs = await collectSingleCandidateProofs(
+    input.decisions,
+    input.engine,
+  );
+  // M6-A4.2: response-surface single-candidate proofs. The local candidate
+  // enumeration (chi by meld combination, pon, daiminkan, ron, none) mirrors
+  // Mortal's candidate space and is decided BEFORE any source lookup — a
+  // single-candidate response window (only none legal) expects no row.
+  const responseSingleCandidateProofs = collectResponseSingleCandidateProofs(
+    responseDecisions,
+  );
+
   const { rows, sourceDegrees, ambiguousSourceOrdinals } =
     buildMortalFullGameBindingPlan(
       input.decisions,
       input.report,
     );
+  // M6-A4.2: response partition binding plan — response windows × response
+  // source rows (lastActor !== playerId). The identity tables keep the two
+  // surfaces disjoint, so a response window never matches a self row and vice
+  // versa; the plan is built over the FULL source list but the response
+  // windows only ever bind response rows.
+  const responsePlan = responseDecisions.length === 0
+    ? null
+    : buildMortalFullGameBindingPlan(responseDecisions, input.report);
   const sourceRows = flattenSourceRows(input.report);
+  // M6-A4.0 self-surface partition (freeze): source rows split by
+  // lastActor vs playerId. Self rows keep the existing conservation names;
+  // response rows are counted apart and never enter the self conservation
+  // check (their identity tables are A4.2).
+  const selfSourceRows = sourceRows.filter(
+    (row) => row.entry.lastActor === input.report.playerId,
+  );
+  const responseSourceRows = sourceRows.filter(
+    (row) => row.entry.lastActor !== input.report.playerId,
+  );
+  const responseEntryCount = responseSourceRows.length;
 
   const runStartedAt = now();
   const frozenAt = new Date(runStartedAt).toISOString();
@@ -542,6 +643,7 @@ export async function runMortalFullGameReview(input: {
   const outcomeCounts: Record<MortalDecisionOutcome, number> = {
     analysis_ready: 0,
     unsupported_action: 0,
+    source_row_not_expected: 0,
     no_mortal_entry: 0,
     binding_mismatch: 0,
     model_output_incomplete: 0,
@@ -553,379 +655,463 @@ export async function runMortalFullGameReview(input: {
   const coverageBranchEncounters: Partial<Record<MortalCoverageBranch, number>> = {};
   const coverageBranchUncoveredBlocks: Partial<Record<MortalCoverageBranch, number>> = {};
 
-  for (const row of rows) {
-    const decision = input.decisions[row.decisionOrdinal]!;
-    // LOCAL actual representation support. Kept as its own variable — the
-    // source-candidate surface support below is a separate classification
-    // stage, and merging them obscured the §21 precedence.
-    const local = localSupport(decision);
-    const support = local.support;
+  // M6-A4.2: both replay partitions flow through the SAME classification
+  // pipeline — binding → single-candidate proof → support → correspondence →
+  // candidate surface → coverage gate → analysis. The identity tables keep
+  // self and response windows disjoint, so each partition binds only its own
+  // source rows. Self rows keep the existing ordinals (H2 continuity); the
+  // response partition appends its own rows with surface = "response".
+  const partitions: ReadonlyArray<{
+    surface: "self" | "response";
+    decisions: readonly ReplayedDecision[];
+    rows: MortalBindingPlanRow[];
+    proofs: ReadonlyMap<
+      number,
+      SingleCandidateProof | ResponseSingleCandidateProof
+    >;
+  }> = [
+    {
+      surface: "self",
+      decisions: input.decisions,
+      rows,
+      proofs: singleCandidateProofs,
+    },
+    {
+      surface: "response",
+      decisions: responseDecisions,
+      rows: responsePlan === null ? [] : responsePlan.rows,
+      proofs: responseSingleCandidateProofs,
+    },
+  ];
 
-    // Precedence (M6-A3 §21, closing round): (1) whole-run identity failures
-    // already returned above; per-row order is (2) binding ambiguity/order
-    // failure, (3) no source entry, (4) LOCAL actual representation support,
-    // (5) source actual ↔ local actual correspondence, (6) source/model
-    // candidate surface support, (7) real coverage gate, (8) completeness,
-    // (9) assembly, (10) analysis_ready. A row with no source entry never
-    // reports as an unsupported action; a local actual with no meaningful
-    // local action to compare may classify before the correspondence check;
-    // a source candidate surface problem may NEVER classify before the
-    // source actual ↔ local actual correspondence — support and coverage
-    // classification must not hide an integrity mismatch.
-    if (row.binding === "ambiguous") {
-      let reason: MortalBindingMismatchReason;
-      if (row.orderViolation) {
-        reason = "source_order_violation";
-      } else if (row.localDegree > 1) {
-        reason = "multiple_mortal_entries_for_decision";
-      } else {
-        reason = "mortal_entry_matches_multiple_decisions";
-      }
-      ledger.push({
-        decisionOrdinal: row.decisionOrdinal,
-        roundOrdinal: row.roundOrdinal,
-        binding: row.binding,
-        support,
-        review: "not_attempted",
-        outcome: "binding_mismatch",
-        reason,
-        sourceEntryRef: row.sourceEntryRef,
-        sourceOrdinal: row.sourceOrdinal,
-        modelSummary: null,
-      });
-      outcomeCounts.binding_mismatch += 1;
-      continue;
-    }
+  for (const partition of partitions) {
+      for (const row of partition.rows) {
+      const decision = partition.decisions[row.decisionOrdinal]!;
+      // LOCAL actual representation support. Kept as its own variable — the
+      // source-candidate surface support below is a separate classification
+      // stage, and merging them obscured the §21 precedence.
+      const local = localSupport(decision);
+      const support = local.support;
+      // M6-A4.0: the single-candidate proof is a LOCAL expectation decided
+      // before any source lookup — whether a window expects a source row may
+      // never depend on what the source contained. M6-A4.2: the response
+      // partition's proofs come from the isomorphic local enumeration.
+      const proof = partition.proofs.get(row.decisionOrdinal) ?? null;
 
-    if (row.binding === "no_mortal_entry") {
-      ledger.push({
-        decisionOrdinal: row.decisionOrdinal,
-        roundOrdinal: row.roundOrdinal,
-        binding: row.binding,
-        support,
-        review: "not_attempted",
-        outcome: "no_mortal_entry",
-        reason: null,
-        sourceEntryRef: null,
-        sourceOrdinal: null,
-        modelSummary: null,
-      });
-      outcomeCounts.no_mortal_entry += 1;
-      continue;
-    }
-
-    // (4) LOCAL actual representation support: the local window produced no
-    // typed actual action to compare (pure round end with no self action).
-    if (support === "unsupported") {
-      ledger.push({
-        decisionOrdinal: row.decisionOrdinal,
-        roundOrdinal: row.roundOrdinal,
-        binding: row.binding,
-        support,
-        review: "not_attempted",
-        outcome: "unsupported_action",
-        reason: local.reason,
-        sourceEntryRef: row.sourceEntryRef,
-        sourceOrdinal: row.sourceOrdinal,
-        modelSummary: null,
-      });
-      outcomeCounts.unsupported_action += 1;
-      if (local.reason !== null) {
-        unsupportedReasonCounts[local.reason] =
-          (unsupportedReasonCounts[local.reason] ?? 0) + 1;
-      }
-      continue;
-    }
-
-    // Bound + locally supported rows must carry their bound source entry.
-    if (row.sourceEntry === null) {
-      ledger.push({
-        decisionOrdinal: row.decisionOrdinal,
-        roundOrdinal: row.roundOrdinal,
-        binding: row.binding,
-        support,
-        review: "not_attempted",
-        outcome: "binding_mismatch",
-        reason: "mortal_entry_matches_multiple_decisions",
-        sourceEntryRef: row.sourceEntryRef,
-        sourceOrdinal: row.sourceOrdinal,
-        modelSummary: null,
-      });
-      outcomeCounts.binding_mismatch += 1;
-      continue;
-    }
-
-    // (5) Local actual authority correspondence: type-level correspondence
-    // between the Mortal actual row and the locally derived actual action
-    // (ADR-0001: tiles stay local-authoritative; riichi cross-checks type +
-    // actor only). Classified BEFORE the source candidate surface so an
-    // actual mismatch can never be hidden by an unsupported candidate set.
-    if (
-      !mortalActualMatchesLocal(
-        row.sourceEntry.actual,
-        decision,
-        row.sourceEntry.tile,
-      )
-    ) {
-      ledger.push({
-        decisionOrdinal: row.decisionOrdinal,
-        roundOrdinal: row.roundOrdinal,
-        binding: row.binding,
-        support,
-        review: "not_attempted",
-        outcome: "binding_mismatch",
-        reason: "mortal_actual_mismatch",
-        sourceEntryRef: row.sourceEntryRef,
-        sourceOrdinal: row.sourceOrdinal,
-        modelSummary: null,
-      });
-      outcomeCounts.binding_mismatch += 1;
-      continue;
-    }
-
-    // (6) SOURCE candidate surface support: the Mortal candidate set must be
-    // A1-representable for this window kind (per-kind candidate type tables:
-    // self_turn / post_call / post_riichi).
-    const allowedCandidateTypes = supportedCandidateTypesForWindow(
-      decision.snapshot.privateState.decisionWindow.kind,
-    );
-    if (
-      allowedCandidateTypes === null
-      || row.sourceEntry.details.length === 0
-      || !row.sourceEntry.details.every((detail) =>
-        allowedCandidateTypes.has(detail.action.type)
-      )
-    ) {
-      ledger.push({
-        decisionOrdinal: row.decisionOrdinal,
-        roundOrdinal: row.roundOrdinal,
-        binding: row.binding,
-        support,
-        review: "not_attempted",
-        outcome: "unsupported_action",
-        reason: "mortal_candidate_action_not_supported",
-        sourceEntryRef: row.sourceEntryRef,
-        sourceOrdinal: row.sourceOrdinal,
-        modelSummary: null,
-      });
-      outcomeCounts.unsupported_action += 1;
-      unsupportedReasonCounts.mortal_candidate_action_not_supported =
-        (unsupportedReasonCounts.mortal_candidate_action_not_supported ?? 0) + 1;
-      continue;
-    }
-
-    // M6-A3 coverage gate: classify which semantic branches this bound row
-    // exercises; any branch without a recorded real E2E hit fails the row
-    // closed. Synthetic fixtures can never lift the registry.
-    const windowKind = decision.snapshot.privateState.decisionWindow.kind;
-    // Response surfaces (M6-A4) never bind in the identity matcher, so a row
-    // reaching this point is always one of the three replay kinds; narrow for
-    // the classifier's type. M6-A4 GUARD: when response identity tables land,
-    // response rows would silently bypass this gate (coverageWindowKind null
-    // → no branches → no coverage accounting) — response branches must be
-    // added to the matrix BEFORE response binding is enabled.
-    const coverageWindowKind =
-      windowKind === "self_turn"
-      || windowKind === "post_call_discard"
-      || windowKind === "post_riichi_discard"
-        ? windowKind
-        : null;
-    const coverageBranches = coverageWindowKind === null ? [] : classifyCoverageBranches({
-      windowKind: coverageWindowKind,
-      actualActionKind: decision.actualAction?.kind ?? null,
-      callKind: callKindForDecision(stream, decision),
-      candidateActionTypes: row.sourceEntry.details.map((detail) => detail.action.type),
-    });
-    for (const branch of coverageBranches) {
-      coverageBranchEncounters[branch] = (coverageBranchEncounters[branch] ?? 0) + 1;
-    }
-    const uncoveredBranches = coverageBranches.filter(
-      (branch) => !registry.isCovered(branch),
-    );
-    if (uncoveredBranches.length > 0) {
-      for (const branch of uncoveredBranches) {
-        coverageBranchUncoveredBlocks[branch] =
-          (coverageBranchUncoveredBlocks[branch] ?? 0) + 1;
-      }
-      ledger.push({
-        decisionOrdinal: row.decisionOrdinal,
-        roundOrdinal: row.roundOrdinal,
-        binding: row.binding,
-        support,
-        review: "not_attempted",
-        outcome: "unsupported_action",
-        reason: "coverage_branch_uncovered",
-        sourceEntryRef: row.sourceEntryRef,
-        sourceOrdinal: row.sourceOrdinal,
-        modelSummary: null,
-      });
-      outcomeCounts.unsupported_action += 1;
-      unsupportedReasonCounts.coverage_branch_uncovered =
-        (unsupportedReasonCounts.coverage_branch_uncovered ?? 0) + 1;
-      continue;
-    }
-
-    const result = await runBoundMortalDecisionReview({
-      stream,
-      decision,
-      report: input.report,
-      entry: row.sourceEntry,
-      engine: input.engine,
-      now,
-      frozenAt,
-    });
-
-    if (result.status === "ready") {
-      const actualCandidate = result.comparisonSet.candidates.find((candidate) =>
-        candidate.origins.includes("actual")
-      );
-      const topModelProbabilityPercent = Math.max(
-        ...result.modelEvaluation.candidates.map((candidate) =>
-          candidate.modelSelectionScore
-        ),
-      );
-      const engineBlocked = result.factorResult.diagnostics.some((diagnostic) =>
-        diagnostic.status === "blocked_engine_failure"
-      );
-      if (engineBlocked) {
+      // Precedence (M6-A3 §21, closing round): (1) whole-run identity failures
+      // already returned above; per-row order is (2) M6-A4.0 single-candidate
+      // source-presence failure, (3) binding ambiguity/order failure, (4) no
+      // source entry, (5) LOCAL actual representation support, (6) source
+      // actual ↔ local actual correspondence, (7) source/model candidate
+      // surface support, (8) real coverage gate, (9) completeness, (10)
+      // assembly, (11) analysis_ready. A row with no source entry never
+      // reports as an unsupported action; a local actual with no meaningful
+      // local action to compare may classify before the correspondence check;
+      // a source candidate surface problem may NEVER classify before the
+      // source actual ↔ local actual correspondence — support and coverage
+      // classification must not hide an integrity mismatch.
+      if (proof !== null && row.binding !== "no_mortal_entry") {
+        // A proven single-candidate window expects NO source row. A compatible
+        // row existing anyway (bound or ambiguous) contradicts the local
+        // expectation — integrity failure, not a normal bound analysis. The
+        // binding status stays on the row so an auditor sees the contradiction.
         ledger.push({
           decisionOrdinal: row.decisionOrdinal,
           roundOrdinal: row.roundOrdinal,
+          surface: partition.surface,
+          binding: row.binding,
+          support,
+          review: "not_attempted",
+          outcome: "binding_mismatch",
+          reason: "unexpected_source_row_present",
+          sourceEntryRef: row.sourceEntryRef,
+          sourceOrdinal: row.sourceOrdinal,
+          modelSummary: null,
+          singleCandidateProof: proof,
+        });
+        outcomeCounts.binding_mismatch += 1;
+        continue;
+      }
+
+      if (row.binding === "ambiguous") {
+        let reason: MortalBindingMismatchReason;
+        if (row.orderViolation) {
+          reason = "source_order_violation";
+        } else if (row.localDegree > 1) {
+          reason = "multiple_mortal_entries_for_decision";
+        } else {
+          reason = "mortal_entry_matches_multiple_decisions";
+        }
+        ledger.push({
+          decisionOrdinal: row.decisionOrdinal,
+          roundOrdinal: row.roundOrdinal,
+          surface: partition.surface,
+          binding: row.binding,
+          support,
+          review: "not_attempted",
+          outcome: "binding_mismatch",
+          reason,
+          sourceEntryRef: row.sourceEntryRef,
+          sourceOrdinal: row.sourceOrdinal,
+          modelSummary: null,
+        });
+        outcomeCounts.binding_mismatch += 1;
+        continue;
+      }
+
+      if (row.binding === "no_mortal_entry") {
+        // M6-A4.0: a locally proven single-candidate window EXPECTS no source
+        // row (Mortal emits rows only at >=2-candidate decision points), so
+        // the absence is reclassified from integrity failure to the legal
+        // source_row_not_expected state. Without a proof the absence stays a
+        // loud no_mortal_entry (green runs require 0).
+        const outcome: MortalDecisionOutcome = proof === null
+          ? "no_mortal_entry"
+          : "source_row_not_expected";
+        ledger.push({
+          decisionOrdinal: row.decisionOrdinal,
+          roundOrdinal: row.roundOrdinal,
+          surface: partition.surface,
+          binding: row.binding,
+          support,
+          review: "not_attempted",
+          outcome,
+          reason: null,
+          sourceEntryRef: null,
+          sourceOrdinal: null,
+          modelSummary: null,
+          singleCandidateProof: proof,
+        });
+        outcomeCounts[outcome] += 1;
+        continue;
+      }
+
+      // (4) LOCAL actual representation support: the local window produced no
+      // typed actual action to compare (pure round end with no self action).
+      if (support === "unsupported") {
+        ledger.push({
+          decisionOrdinal: row.decisionOrdinal,
+          roundOrdinal: row.roundOrdinal,
+          surface: partition.surface,
+          binding: row.binding,
+          support,
+          review: "not_attempted",
+          outcome: "unsupported_action",
+          reason: local.reason,
+          sourceEntryRef: row.sourceEntryRef,
+          sourceOrdinal: row.sourceOrdinal,
+          modelSummary: null,
+        });
+        outcomeCounts.unsupported_action += 1;
+        if (local.reason !== null) {
+          unsupportedReasonCounts[local.reason] =
+            (unsupportedReasonCounts[local.reason] ?? 0) + 1;
+        }
+        continue;
+      }
+
+      // Bound + locally supported rows must carry their bound source entry.
+      if (row.sourceEntry === null) {
+        ledger.push({
+          decisionOrdinal: row.decisionOrdinal,
+          roundOrdinal: row.roundOrdinal,
+          surface: partition.surface,
+          binding: row.binding,
+          support,
+          review: "not_attempted",
+          outcome: "binding_mismatch",
+          reason: "mortal_entry_matches_multiple_decisions",
+          sourceEntryRef: row.sourceEntryRef,
+          sourceOrdinal: row.sourceOrdinal,
+          modelSummary: null,
+        });
+        outcomeCounts.binding_mismatch += 1;
+        continue;
+      }
+
+      // (5) Local actual authority correspondence: type-level correspondence
+      // between the Mortal actual row and the locally derived actual action
+      // (ADR-0001: tiles stay local-authoritative; riichi cross-checks type +
+      // actor only). Classified BEFORE the source candidate surface so an
+      // actual mismatch can never be hidden by an unsupported candidate set.
+      if (
+        !mortalActualMatchesLocal(
+          row.sourceEntry.actual,
+          decision,
+          row.sourceEntry.tile,
+        )
+      ) {
+        ledger.push({
+          decisionOrdinal: row.decisionOrdinal,
+          roundOrdinal: row.roundOrdinal,
+          surface: partition.surface,
+          binding: row.binding,
+          support,
+          review: "not_attempted",
+          outcome: "binding_mismatch",
+          reason: "mortal_actual_mismatch",
+          sourceEntryRef: row.sourceEntryRef,
+          sourceOrdinal: row.sourceOrdinal,
+          modelSummary: null,
+        });
+        outcomeCounts.binding_mismatch += 1;
+        continue;
+      }
+
+      // (6) SOURCE candidate surface support: the Mortal candidate set must be
+      // A1-representable for this window kind (per-kind candidate type tables:
+      // self_turn / post_call / post_riichi).
+      const allowedCandidateTypes = supportedCandidateTypesForWindow(
+        decision.snapshot.privateState.decisionWindow.kind,
+      );
+      if (
+        allowedCandidateTypes === null
+        || row.sourceEntry.details.length === 0
+        || !row.sourceEntry.details.every((detail) =>
+          allowedCandidateTypes.has(detail.action.type)
+        )
+      ) {
+        ledger.push({
+          decisionOrdinal: row.decisionOrdinal,
+          roundOrdinal: row.roundOrdinal,
+          surface: partition.surface,
+          binding: row.binding,
+          support,
+          review: "not_attempted",
+          outcome: "unsupported_action",
+          reason: "mortal_candidate_action_not_supported",
+          sourceEntryRef: row.sourceEntryRef,
+          sourceOrdinal: row.sourceOrdinal,
+          modelSummary: null,
+        });
+        outcomeCounts.unsupported_action += 1;
+        unsupportedReasonCounts.mortal_candidate_action_not_supported =
+          (unsupportedReasonCounts.mortal_candidate_action_not_supported ?? 0) + 1;
+        continue;
+      }
+
+      // M6-A3 coverage gate: classify which semantic branches this bound row
+      // exercises; any branch without a recorded real E2E hit fails the row
+      // closed. Synthetic fixtures can never lift the registry.
+      const windowKind = decision.snapshot.privateState.decisionWindow.kind;
+      // M6-A4.2: response window kinds now bind in the identity matcher, so the
+      // coverage gate classifies them into the response branches (resp_*_actual /
+      // resp_pass_on_discard / resp_chankan_actual / resp_pass_on_kakan) — added
+      // to the matrix BEFORE response binding was enabled (A4.2 guard), so bound
+      // response rows go through coverage accounting and stay fail-closed until
+      // A4.3 records real E2E evidence for each branch.
+      const coverageWindowKind =
+        windowKind === "self_turn"
+        || windowKind === "post_call_discard"
+        || windowKind === "post_riichi_discard"
+        || windowKind === "discard_response"
+        || windowKind === "kan_response"
+          ? windowKind
+          : null;
+      const coverageBranches = coverageWindowKind === null ? [] : classifyCoverageBranches({
+        windowKind: coverageWindowKind,
+        actualActionKind: decision.actualAction?.kind ?? null,
+        callKind: callKindForDecision(stream, decision),
+        candidateActionTypes: row.sourceEntry.details.map((detail) => detail.action.type),
+      });
+      for (const branch of coverageBranches) {
+        coverageBranchEncounters[branch] = (coverageBranchEncounters[branch] ?? 0) + 1;
+      }
+      const uncoveredBranches = coverageBranches.filter(
+        (branch) => !registry.isCovered(branch),
+      );
+      if (uncoveredBranches.length > 0) {
+        for (const branch of uncoveredBranches) {
+          coverageBranchUncoveredBlocks[branch] =
+            (coverageBranchUncoveredBlocks[branch] ?? 0) + 1;
+        }
+        ledger.push({
+          decisionOrdinal: row.decisionOrdinal,
+          roundOrdinal: row.roundOrdinal,
+          surface: partition.surface,
+          binding: row.binding,
+          support,
+          review: "not_attempted",
+          outcome: "unsupported_action",
+          reason: "coverage_branch_uncovered",
+          sourceEntryRef: row.sourceEntryRef,
+          sourceOrdinal: row.sourceOrdinal,
+          modelSummary: null,
+        });
+        outcomeCounts.unsupported_action += 1;
+        unsupportedReasonCounts.coverage_branch_uncovered =
+          (unsupportedReasonCounts.coverage_branch_uncovered ?? 0) + 1;
+        continue;
+      }
+
+      const result = await runBoundMortalDecisionReview({
+        stream,
+        decision,
+        report: input.report,
+        entry: row.sourceEntry,
+        engine: input.engine,
+        now,
+        frozenAt,
+      });
+
+      if (result.status === "ready") {
+        const actualCandidate = result.comparisonSet.candidates.find((candidate) =>
+          candidate.origins.includes("actual")
+        );
+        const topModelProbabilityPercent = Math.max(
+          ...result.modelEvaluation.candidates.map((candidate) =>
+            candidate.modelSelectionScore
+          ),
+        );
+        const engineBlocked = result.factorResult.diagnostics.some((diagnostic) =>
+          diagnostic.status === "blocked_engine_failure"
+        );
+        if (engineBlocked) {
+          ledger.push({
+            decisionOrdinal: row.decisionOrdinal,
+            roundOrdinal: row.roundOrdinal,
+            surface: partition.surface,
+            binding: row.binding,
+            support,
+            review: "analysis_blocked",
+            outcome: "analysis_blocked",
+            reason: "fact_engine_failure",
+            sourceEntryRef: row.sourceEntryRef,
+            sourceOrdinal: row.sourceOrdinal,
+            modelSummary: null,
+          });
+          outcomeCounts.analysis_blocked += 1;
+          analysisBlockedReasonCounts.fact_engine_failure =
+            (analysisBlockedReasonCounts.fact_engine_failure ?? 0) + 1;
+          continue;
+        }
+        ledger.push({
+          decisionOrdinal: row.decisionOrdinal,
+          roundOrdinal: row.roundOrdinal,
+          surface: partition.surface,
+          binding: row.binding,
+          support,
+          review: "analysis_ready",
+          outcome: "analysis_ready",
+          reason: null,
+          sourceEntryRef: row.sourceEntryRef,
+          sourceOrdinal: row.sourceOrdinal,
+          modelSummary: {
+            actualActionRef: result.modelEvaluation.actualActionRef,
+            preferredActions: result.modelEvaluation.preferredActions,
+            topModelProbabilityPercent,
+            errorGap: result.modelEvaluation.errorGap,
+            detailClass: result.modelEvaluation.errorGap === 0
+              ? "not_error"
+              : result.modelEvaluation.errorGap >= result.modelEvaluation.detailPolicy.threshold
+                ? "detailed"
+                : "concise",
+            factorAnalysisMode: result.factorResult.analysisMode,
+            deterministicPreference: result.factorResult.deterministicPreference,
+          },
+        });
+        outcomeCounts.analysis_ready += 1;
+        continue;
+      }
+
+      if (result.status === "not_comparable") {
+        // A degenerate candidate set on a terminal window (tsumo/ankan/kakan/
+        // kyuushu actual) is attributed to the M6-A3 terminal surface, not to
+        // the generic degenerate-set reason.
+        const terminalActual =
+          decision.actualAction?.kind === "tsumo"
+          || decision.actualAction?.kind === "ankan"
+          || decision.actualAction?.kind === "kakan"
+          || decision.actualAction?.kind === "kyuushu_kyuuhai";
+        const reason: MortalModelIncompleteReason =
+          result.code === "cross_decision_window"
+            ? "cross_decision_window"
+            : terminalActual && result.code === "fewer_than_two_distinct_actions"
+              ? "terminal_window_action_unsupported"
+              : "fewer_than_two_distinct_actions";
+        ledger.push({
+          decisionOrdinal: row.decisionOrdinal,
+          roundOrdinal: row.roundOrdinal,
+          surface: partition.surface,
+          binding: row.binding,
+          support,
+          review: "model_output_incomplete",
+          outcome: "model_output_incomplete",
+          reason,
+          sourceEntryRef: row.sourceEntryRef,
+          sourceOrdinal: row.sourceOrdinal,
+          modelSummary: null,
+        });
+        outcomeCounts.model_output_incomplete += 1;
+        modelIncompleteReasonCounts[reason] =
+          (modelIncompleteReasonCounts[reason] ?? 0) + 1;
+        continue;
+      }
+
+      if (result.code === "mortal_decision_unsupported_entry") {
+        const reason = modelIncompleteReason(result);
+        ledger.push({
+          decisionOrdinal: row.decisionOrdinal,
+          roundOrdinal: row.roundOrdinal,
+          surface: partition.surface,
+          binding: row.binding,
+          support,
+          review: "model_output_incomplete",
+          outcome: "model_output_incomplete",
+          reason,
+          sourceEntryRef: row.sourceEntryRef,
+          sourceOrdinal: row.sourceOrdinal,
+          modelSummary: null,
+        });
+        outcomeCounts.model_output_incomplete += 1;
+        modelIncompleteReasonCounts[reason] =
+          (modelIncompleteReasonCounts[reason] ?? 0) + 1;
+        continue;
+      }
+
+      if (
+        result.code === "mortal_review_assembly_failed"
+        || result.code === "mortal_review_engine_failed"
+      ) {
+        const reason = analysisBlockedReason(result);
+        ledger.push({
+          decisionOrdinal: row.decisionOrdinal,
+          roundOrdinal: row.roundOrdinal,
+          surface: partition.surface,
           binding: row.binding,
           support,
           review: "analysis_blocked",
           outcome: "analysis_blocked",
-          reason: "fact_engine_failure",
+          reason,
           sourceEntryRef: row.sourceEntryRef,
           sourceOrdinal: row.sourceOrdinal,
           modelSummary: null,
         });
         outcomeCounts.analysis_blocked += 1;
-        analysisBlockedReasonCounts.fact_engine_failure =
-          (analysisBlockedReasonCounts.fact_engine_failure ?? 0) + 1;
+        analysisBlockedReasonCounts[reason] =
+          (analysisBlockedReasonCounts[reason] ?? 0) + 1;
         continue;
       }
-      ledger.push({
-        decisionOrdinal: row.decisionOrdinal,
-        roundOrdinal: row.roundOrdinal,
-        binding: row.binding,
-        support,
-        review: "analysis_ready",
-        outcome: "analysis_ready",
-        reason: null,
-        sourceEntryRef: row.sourceEntryRef,
-        sourceOrdinal: row.sourceOrdinal,
-        modelSummary: {
-          actualActionRef: result.modelEvaluation.actualActionRef,
-          preferredActions: result.modelEvaluation.preferredActions,
-          topModelProbabilityPercent,
-          errorGap: result.modelEvaluation.errorGap,
-          detailClass: result.modelEvaluation.errorGap === 0
-            ? "not_error"
-            : result.modelEvaluation.errorGap >= result.modelEvaluation.detailPolicy.threshold
-              ? "detailed"
-              : "concise",
-          factorAnalysisMode: result.factorResult.analysisMode,
-          deterministicPreference: result.factorResult.deterministicPreference,
-        },
-      });
-      outcomeCounts.analysis_ready += 1;
-      continue;
-    }
 
-    if (result.status === "not_comparable") {
-      // A degenerate candidate set on a terminal window (tsumo/ankan/kakan/
-      // kyuushu actual) is attributed to the M6-A3 terminal surface, not to
-      // the generic degenerate-set reason.
-      const terminalActual =
-        decision.actualAction?.kind === "tsumo"
-        || decision.actualAction?.kind === "ankan"
-        || decision.actualAction?.kind === "kakan"
-        || decision.actualAction?.kind === "kyuushu_kyuuhai";
-      const reason: MortalModelIncompleteReason =
-        result.code === "cross_decision_window"
-          ? "cross_decision_window"
-          : terminalActual && result.code === "fewer_than_two_distinct_actions"
-            ? "terminal_window_action_unsupported"
-            : "fewer_than_two_distinct_actions";
+      // Any other fixed failure (e.g. actual mismatch) is a binding mismatch.
       ledger.push({
         decisionOrdinal: row.decisionOrdinal,
         roundOrdinal: row.roundOrdinal,
+        surface: partition.surface,
         binding: row.binding,
         support,
-        review: "model_output_incomplete",
-        outcome: "model_output_incomplete",
-        reason,
+        review: "not_attempted",
+        outcome: "binding_mismatch",
+        reason: result.code === "mortal_decision_actual_mismatch"
+          ? "mortal_actual_mismatch"
+          : "mortal_entry_matches_multiple_decisions",
         sourceEntryRef: row.sourceEntryRef,
         sourceOrdinal: row.sourceOrdinal,
         modelSummary: null,
       });
-      outcomeCounts.model_output_incomplete += 1;
-      modelIncompleteReasonCounts[reason] =
-        (modelIncompleteReasonCounts[reason] ?? 0) + 1;
-      continue;
+      outcomeCounts.binding_mismatch += 1;
+      }
     }
-
-    if (result.code === "mortal_decision_unsupported_entry") {
-      const reason = modelIncompleteReason(result);
-      ledger.push({
-        decisionOrdinal: row.decisionOrdinal,
-        roundOrdinal: row.roundOrdinal,
-        binding: row.binding,
-        support,
-        review: "model_output_incomplete",
-        outcome: "model_output_incomplete",
-        reason,
-        sourceEntryRef: row.sourceEntryRef,
-        sourceOrdinal: row.sourceOrdinal,
-        modelSummary: null,
-      });
-      outcomeCounts.model_output_incomplete += 1;
-      modelIncompleteReasonCounts[reason] =
-        (modelIncompleteReasonCounts[reason] ?? 0) + 1;
-      continue;
-    }
-
-    if (
-      result.code === "mortal_review_assembly_failed"
-      || result.code === "mortal_review_engine_failed"
-    ) {
-      const reason = analysisBlockedReason(result);
-      ledger.push({
-        decisionOrdinal: row.decisionOrdinal,
-        roundOrdinal: row.roundOrdinal,
-        binding: row.binding,
-        support,
-        review: "analysis_blocked",
-        outcome: "analysis_blocked",
-        reason,
-        sourceEntryRef: row.sourceEntryRef,
-        sourceOrdinal: row.sourceOrdinal,
-        modelSummary: null,
-      });
-      outcomeCounts.analysis_blocked += 1;
-      analysisBlockedReasonCounts[reason] =
-        (analysisBlockedReasonCounts[reason] ?? 0) + 1;
-      continue;
-    }
-
-    // Any other fixed failure (e.g. actual mismatch) is a binding mismatch.
-    ledger.push({
-      decisionOrdinal: row.decisionOrdinal,
-      roundOrdinal: row.roundOrdinal,
-      binding: row.binding,
-      support,
-      review: "not_attempted",
-      outcome: "binding_mismatch",
-      reason: result.code === "mortal_decision_actual_mismatch"
-        ? "mortal_actual_mismatch"
-        : "mortal_entry_matches_multiple_decisions",
-      sourceEntryRef: row.sourceEntryRef,
-      sourceOrdinal: row.sourceOrdinal,
-      modelSummary: null,
-    });
-    outcomeCounts.binding_mismatch += 1;
-  }
 
   // Source-side conservation ledger. Dispositions come from the bipartite
   // compatibility graph, not from the final local ledger: a source involved
@@ -945,7 +1131,48 @@ export async function runMortalFullGameReview(input: {
   ] as const) {
     sourceUnboundReasonCounts[reason] = 0;
   }
-  const sourceCoverageEntries = sourceRows.map((sourceRow) => {
+  // M6-A4.0: the coverage ledger walks SELF rows only — response rows are a
+  // separate surface (A4.2 identity tables) and are not unbound failures.
+  // M6-A4.2: the RESPONSE source rows get their own conservation ledger —
+  // every projected response row must bind to a response window (US 18: a
+  // source row appearing while local did not expect a window is a
+  // conservation failure, never a silent pass).
+  const responsePlanRows = responsePlan === null ? [] : responsePlan.rows;
+  const responseBoundSourceOrdinals = new Set(
+    responsePlanRows
+      .filter((row) => row.binding === "bound")
+      .map((row) => row.sourceOrdinal)
+      .filter((value): value is number => value !== null),
+  );
+  const responseGraphAmbiguousSourceOrdinals = new Set(
+    responsePlan === null ? [] : responsePlan.ambiguousSourceOrdinals,
+  );
+  const responseSourceCoverageEntries = responseSourceRows.map((sourceRow) => {
+    let disposition: MortalSourceDisposition;
+    if (responseBoundSourceOrdinals.has(sourceRow.sourceOrdinal)) {
+      disposition = "bound";
+    } else if (responseGraphAmbiguousSourceOrdinals.has(sourceRow.sourceOrdinal)) {
+      disposition = "ambiguous";
+    } else {
+      // A response source row with no local response window: the local
+      // response enumeration under-opened — conservation failure, reported
+      // loudly with the source identity so an auditor can locate the gap.
+      disposition = "unbound";
+    }
+    return Object.freeze({
+      sourceEntryRef: sourceRow.ref,
+      roundOrdinal: sourceRow.entry.roundOrdinal,
+      kyoku: sourceRow.entry.kyoku,
+      honba: sourceRow.entry.honba,
+      junme: sourceRow.entry.junme,
+      sourceOrdinal: sourceRow.sourceOrdinal,
+      disposition,
+      unboundReason: disposition === "unbound"
+        ? ("response_window_not_opened" as const)
+        : null,
+    });
+  });
+  const sourceCoverageEntries = selfSourceRows.map((sourceRow) => {
     let disposition: MortalSourceDisposition;
     if (boundSourceOrdinals.has(sourceRow.sourceOrdinal)) {
       disposition = "bound";
@@ -980,7 +1207,8 @@ export async function runMortalFullGameReview(input: {
   };
 
   const sourceCoverage: MortalSourceCoverage = Object.freeze({
-    mortalSelfEntryCount: sourceRows.length,
+    mortalSelfEntryCount: selfSourceRows.length,
+    responseEntryCount,
     boundMortalEntryCount: sourceCoverageEntries.filter((entry) =>
       entry.disposition === "bound"
     ).length,
@@ -991,10 +1219,25 @@ export async function runMortalFullGameReview(input: {
       entry.disposition === "ambiguous"
     ).length,
     entries: Object.freeze(sourceCoverageEntries),
+    // M6-A4.2: the response source ledger. Self and response rows are
+    // disjoint ordinals (lastActor partition), so the two ledgers never
+    // double-count a row.
+    responseEntries: Object.freeze(responseSourceCoverageEntries),
+    responseBoundEntryCount: responseSourceCoverageEntries.filter((entry) =>
+      entry.disposition === "bound"
+    ).length,
+    responseUnboundEntryCount: responseSourceCoverageEntries.filter((entry) =>
+      entry.disposition === "unbound"
+    ).length,
+    responseAmbiguousEntryCount: responseSourceCoverageEntries.filter((entry) =>
+      entry.disposition === "ambiguous"
+    ).length,
   });
 
   // True conservation: derive the totals from the actual ledger and coverage
-  // dispositions. Never set them directly to input lengths.
+  // dispositions. Never set them directly to input lengths. M6-A4.2: the
+  // local outcome sum now covers BOTH partitions (self + response windows);
+  // the source side covers BOTH source ledgers (self rows + response rows).
   const localOutcomeSum = Object.values(outcomeCounts).reduce(
     (total, count) => total + count,
     0,
@@ -1002,16 +1245,23 @@ export async function runMortalFullGameReview(input: {
   const sourceDispositionSum = sourceCoverage.boundMortalEntryCount
     + sourceCoverage.unboundMortalEntryCount
     + sourceCoverage.ambiguousMortalEntryCount;
+  const responseSourceDispositionSum = sourceCoverage.responseBoundEntryCount
+    + sourceCoverage.responseUnboundEntryCount
+    + sourceCoverage.responseAmbiguousEntryCount;
   if (
-    localOutcomeSum !== input.decisions.length
-    || sourceDispositionSum !== sourceRows.length
+    localOutcomeSum !== input.decisions.length + responseDecisions.length
+    || sourceDispositionSum !== selfSourceRows.length
+    || responseSourceDispositionSum !== responseSourceRows.length
   ) {
     return { status: "failed", code: "mortal_full_game_input_invalid" };
   }
 
   const summary: MortalFullGameCoverageSummary = Object.freeze({
     replayDecisionCount: input.decisions.length,
-    mortalSelfEntryCount: sourceRows.length,
+    // M6-A4.2: the response partition's local window count.
+    responseWindowCount: responseDecisions.length,
+    mortalSelfEntryCount: selfSourceRows.length,
+    responseEntryCount,
     localConservation: localOutcomeSum,
     sourceConservation: sourceDispositionSum,
     outcomes: Object.freeze(outcomeCounts),

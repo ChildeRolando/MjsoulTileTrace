@@ -131,7 +131,7 @@ function makeReport(
 ): MortalFetchedReport {
   return Object.freeze({
     reportId: raw.source.reportId,
-    adapterVersion: "mortal-source/1" as const,
+    adapterVersion: "mortal-source/2" as const,
     engine: "Mortal" as const,
     version: "1.5.10",
     modelTag: raw.source.modelTag,

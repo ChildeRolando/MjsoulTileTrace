@@ -1,8 +1,9 @@
 import { describe, expect, it } from "vitest";
 import {
+  MORTAL_ADAPTER_VERSION,
   MORTAL_REPORT_MAX_BYTES,
   fetchMortalReport,
-} from "../src/report-fetcher.js";
+} from "../src/index.js";
 import { MortalSourceError } from "../src/errors.js";
 
 const REPORT_ID = "0123456789abcdef";
@@ -113,7 +114,7 @@ function jsonResponse(
 }
 
 describe("fetchMortalReport", () => {
-  it("fetches, validates, and projects only self-perspective entries", async () => {
+  it("fetches, validates, and projects every reviewed entry — response rows included (M6-A4)", async () => {
     const calls: string[] = [];
     const result = await fetchMortalReport({
       url: REPORT_URL,
@@ -129,11 +130,122 @@ describe("fetchMortalReport", () => {
     expect(result.modelTag).toBe("4.1b");
     expect(result.playerId).toBe(1);
     expect(result.kyokus).toHaveLength(1);
-    expect(result.kyokus[0]!.entries).toHaveLength(1);
+    // The report is a single-perspective review: EVERY entry's state.tehai is
+    // the reviewed player's hand at that decision, and a response entry's
+    // last_actor is the opponent who triggered it — the decision still
+    // belongs to the reviewed player. M6-A4.0: the projection no longer
+    // drops response rows.
+    expect(result.kyokus[0]!.entries).toHaveLength(2);
     expect(result.kyokus[0]!.entries[0]!.lastActor).toBe(1);
     expect(result.kyokus[0]!.entries[0]!.tehai).toHaveLength(14);
+    expect(result.kyokus[0]!.entries[1]!.lastActor).toBe(0);
+    expect(result.kyokus[0]!.entries[1]!.actual).toEqual({ type: "none" });
     expect(result.gameFingerprint).toContain("mortal-game-fingerprint/v3:sha256:");
     expect(calls).toEqual([REPORT_URL]);
+  });
+
+  it("pins the reviewed-player perspective as a projected fact, not an actor filter (M6-A4)", async () => {
+    // Three response entries (chi / pon / none) plus one self entry: all four
+    // are the reviewed player's decisions and must all survive projection in
+    // source order. `last_actor` identifies the trigger surface, never
+    // ownership.
+    const result = await fetchMortalReport({
+      url: REPORT_URL,
+      fetchImpl: (async () => jsonResponse(JSON.stringify(rawReport({
+        review: {
+          model_tag: "4.1b",
+          kyokus: [{
+            kyoku: 0,
+            honba: 0,
+            end_status: [],
+            relative_scores: [],
+            entries: [
+              entry(),
+              entry({
+                junme: 7,
+                last_actor: 2,
+                tile: "3p",
+                actual: { type: "chi", actor: 1, target: 2, pai: "3p", consumed: ["1p", "2p"] },
+              }),
+              entry({
+                junme: 8,
+                last_actor: 3,
+                tile: "9m",
+                actual: { type: "pon", actor: 1, target: 3, pai: "9m", consumed: ["9m", "9m"] },
+              }),
+              opponentEntry(),
+            ],
+          }],
+          total_reviewed: 4,
+          total_matches: 1,
+          rating: 0,
+          temperature: 0,
+          relative_phi_matrix: [],
+        },
+      })))) as typeof fetch,
+    });
+
+    const entries = result.kyokus[0]!.entries;
+    expect(entries.map((projected) => projected.lastActor)).toEqual([1, 2, 3, 0]);
+    expect(entries.map((projected) => projected.junme)).toEqual([6, 7, 8, 6]);
+    expect(entries.map((projected) => projected.actual.type)).toEqual([
+      "dahai",
+      "chi",
+      "pon",
+      "none",
+    ]);
+  });
+
+  it("fails closed when a reviewed-player action carries a foreign actor (M6-A4 ownership)", async () => {
+    // The single-perspective invariant is VERIFIED at the fetch boundary: a
+    // response row whose chi/pon/kan candidate names another seat as the
+    // decision owner contradicts the report's own perspective and must fail
+    // closed as report_schema_unsupported — never be silently projected.
+    await expect(fetchMortalReport({
+      url: REPORT_URL,
+      fetchImpl: (async () => jsonResponse(JSON.stringify(rawReport({
+        review: {
+          model_tag: "4.1b",
+          kyokus: [{
+            kyoku: 0,
+            honba: 0,
+            end_status: [],
+            relative_scores: [],
+            entries: [
+              entry({
+                last_actor: 1,
+                actual: { type: "none" },
+                details: [
+                  { action: { type: "none" }, q_value: 0.6, prob: 0.6 },
+                  {
+                    action: { type: "pon", actor: 0, target: 1, pai: "4p", consumed: ["1p", "1p"] },
+                    q_value: -0.2,
+                    prob: 0.4,
+                  },
+                ],
+              }),
+            ],
+          }],
+          total_reviewed: 1,
+          total_matches: 1,
+          rating: 0,
+          temperature: 0,
+          relative_phi_matrix: [],
+        },
+      })))) as typeof fetch,
+    })).rejects.toMatchObject({ code: "mortal_report_schema_unsupported" });
+  });
+
+  it("stamps the M6-A4.0 projection adapter version", async () => {
+    const result = await fetchMortalReport({
+      url: REPORT_URL,
+      fetchImpl: (async () => jsonResponse(JSON.stringify(rawReport()))) as typeof fetch,
+    });
+    // Projection semantics changed in M6-A4.0 (response rows retained): the
+    // version bump invalidates caches of pre-A4.0 projected reports. Pinned
+    // as a literal so the bump cannot silently revert.
+    expect(result.adapterVersion).toBe(MORTAL_ADAPTER_VERSION);
+    expect(MORTAL_ADAPTER_VERSION).toBe("mortal-source/2");
   });
 
   it("projects fuuros as canonical meld identities with red fives preserved", async () => {

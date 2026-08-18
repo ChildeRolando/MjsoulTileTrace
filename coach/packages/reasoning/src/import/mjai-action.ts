@@ -115,8 +115,14 @@ function target(action: Record<string, unknown>): number {
 function requiredFields(type: string): string[] {
   switch (type) {
     case "reach":
-    case "none":
       return ["actor"];
+    case "none":
+      // M6-A4.2 (real-evidence pin, H2 response rows): the response pass
+      // serializes as `{"type":"none"}` with NO actor — the A4.0 perspective
+      // invariant only constrains actor-CARRYING actions. `none` is the
+      // reviewed player's own pass in a response window; the case body never
+      // reads the actor. Mirrors the bare `ryukyoku` handling below.
+      return [];
     case "dahai":
       return ["actor", "pai", "tsumogiri"];
     case "chi":
@@ -292,14 +298,24 @@ export function adaptMjaiActionSequence(
   if (!knownTypes.has(action.type)) {
     return unsupported(action.type);
   }
-  // Real-evidence pin (ekyu report, 2026-08-17): the scored kyuushu
-  // alternative is the one actor-less single-action shape (a bare
-  // `{"type":"ryukyoku"}`, validated in its case body below). Every other
-  // type still requires an explicit actor.
+  // Real-evidence pins: the kyuushu alternative is one actor-less single-action
+  // shape (a bare `{"type":"ryukyoku"}`), and the response pass serializes as
+  // `{"type":"none"}` with no actor (M6-A4.2 H2). For `none`, an ABSENT actor
+  // is admissible (the reviewed player's implicit pass), but a PRESENT actor
+  // must still equal the window actor — a foreign actor is a mismatch.
   const carriedKyuushuReason =
     typeof action.reason === "string" && action.reason.length > 0;
   const bareKyuushuAlternative = action.type === "ryukyoku" && !carriedKyuushuReason;
-  const actionActor = bareKyuushuAlternative ? null : actor(action);
+  const actionActor = bareKyuushuAlternative
+    ? null
+    : action.type === "none"
+      ? (typeof action.actor === "number" &&
+          Number.isInteger(action.actor) &&
+          action.actor >= 0 &&
+          action.actor <= 3
+        ? action.actor
+        : null)
+      : actor(action);
   if (
     actionActor !== null &&
     context.decisionWindow.actor !== null &&
@@ -343,11 +359,42 @@ export function adaptMjaiActionSequence(
         responseEventRef: context.decisionWindow.triggerEventRef,
       }, [first.eventRef, context.decisionWindow.triggerEventRef]);
     }
-    case "ankan":
+    case "ankan": {
+      // M6-A4.2 (real-evidence pin, H2 response rows): on a discard_response
+      // window Mortal serializes the daiminkan candidate as an ankan whose
+      // four consumed tiles are all copies of the OFFERED tile (the offered
+      // copy + the concealed triplet) — the same pin family as the A3
+      // kakan-as-ankan finding. Bridge it to a daiminkan draft on the offered
+      // tile, targeting the source actor, so the candidate normalizer accepts
+      // it in the response window.
+      if (context.decisionWindow.kind === "discard_response") {
+        const consumed = tileArray(action, 4);
+        const offered = context.decisionWindow.offeredTile;
+        if (
+          offered !== undefined &&
+          consumed.every((t) => t.id === offered.id)
+        ) {
+          const sourceActor = context.decisionWindow.sourceActor;
+          if (sourceActor !== null && sourceActor !== context.decisionWindow.actor) {
+            return ready({
+              kind: "daiminkan",
+              calledTile: { ...offered },
+              consumedTiles: [
+                { ...offered },
+                { ...offered },
+                { ...offered },
+              ],
+              targetActor: sourceActor,
+              responseEventRef: context.decisionWindow.triggerEventRef,
+            }, [first.eventRef, context.decisionWindow.triggerEventRef]);
+          }
+        }
+      }
       return ready({
         kind: "ankan",
         tiles: tileArray(action, 4),
       }, [first.eventRef]);
+    }
     case "kakan":
       return ready({
         kind: "kakan",
@@ -394,10 +441,25 @@ export function adaptMjaiActionSequence(
         if (targetActor === actionActor) {
           return unsupported("hora_context_mismatch");
         }
-        // Response surfaces (M6-A4): the winning tile is the claimed discard,
-        // which the source must carry explicitly.
+        // Response surfaces (M6-A4): the winning tile is the claimed discard.
+        // Real Mortal response reports omit `pai` on the win alternative (same
+        // pin as the self-turn hora), so fall back to the window's offered
+        // tile — the local-authoritative winning tile (ADR-0001), exactly as
+        // self-turn falls back to the drawn tile.
         if (sourcePai === null) {
-          return incompleteFields(rawSequence, ["pai"]);
+          const offered = context.decisionWindow.offeredTile;
+          if (offered === undefined) {
+            return incompleteFields(rawSequence, ["pai"]);
+          }
+          return ready({
+            kind: "ron",
+            winningTile: { ...offered },
+            targetActor,
+            responseEventRef: context.decisionWindow.triggerEventRef,
+            winContext: context.decisionWindow.kind === "discard_response"
+              ? "discard"
+              : context.decisionWindow.kanKind,
+          }, [first.eventRef, context.decisionWindow.triggerEventRef]);
         }
         return ready({
           kind: "ron",
