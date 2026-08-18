@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 /**
  * Mechanical architecture boundary check for the coach workspace.
  *
