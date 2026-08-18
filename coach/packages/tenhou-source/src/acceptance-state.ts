@@ -149,6 +149,13 @@ export interface MortalAcceptancePairRecord {
   readonly evidenceVersion: string | null;
   /** Branches lifted by this pair's accepted sample (subset of the matrix). */
   readonly branches: readonly string[];
+  /**
+   * M6-A4.3: candidate-family sub-coverage of this pair's resp_pass_on_discard
+   * evidence (chi/pon/daiminkan/hora). Set only on accepted pairs whose
+   * branches include resp_pass_on_discard; the manifest schema (reasoning) is
+   * the strict authority on family names — this field is opaque strings here.
+   */
+  readonly responsePassFamilies?: readonly string[];
   /** ISO timestamp of the last transition (audit only). */
   readonly updatedAt: string | null;
 }

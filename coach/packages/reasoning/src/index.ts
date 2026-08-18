@@ -46,6 +46,7 @@ export * from "./analysis/mortal-review-service.js";
 export * from "./analysis/mortal-full-game-review.js";
 export * from "./analysis/single-candidate-proof.js";
 export * from "./analysis/response-candidate-enumeration.js";
+export * from "./analysis/response-surface-discovery.js";
 export * from "./analysis/mortal-coverage-registry.js";
 export * from "./analysis/mortal-coverage-evidence-manifest.js";
 export * from "./analysis/acceptance-evidence.js";

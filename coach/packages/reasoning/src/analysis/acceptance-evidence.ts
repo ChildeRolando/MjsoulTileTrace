@@ -31,7 +31,9 @@ import {
 } from "./mortal-coverage-registry.js";
 import {
   MORTAL_COVERAGE_LOCAL_SOURCE_TYPES,
+  RESPONSE_PASS_FAMILIES,
   type MortalCoverageLocalSourceType,
+  type ResponsePassFamily,
 } from "./mortal-coverage-evidence-manifest.js";
 import type { ReplayedDecision } from "../replay/stream-replayer.js";
 
@@ -45,6 +47,16 @@ export interface AcceptedBranchEvidence {
   readonly branches: readonly MortalCoverageBranch[];
   /** Rows that reached analysis_ready — the only rows that lift anything. */
   readonly analysisReadyRowCount: number;
+  /**
+   * M6-A4.3: candidate-family sub-coverage of this sample's
+   * resp_pass_on_discard evidence (A4 spec §分支矩阵 候选族子覆盖). Each
+   * family listed was exercised by at least one analysis_ready PASS window
+   * whose bound source row scored a candidate of that family (Mortal is
+   * furiten-aware, so a scored hora is a genuinely legal 能荣而过). Empty
+   * when the sample evidences no pass windows (or none with a scored
+   * non-pass candidate).
+   */
+  readonly responsePassFamilies: readonly ResponsePassFamily[];
 }
 
 function coverageWindowKindOf(
@@ -81,6 +93,15 @@ export function extractAcceptedBranchEvidence(input: {
     : buildMortalFullGameBindingPlan(responseDecisions, input.report);
   const evidenced = new Set<MortalCoverageBranch>();
   let analysisReadyRowCount = 0;
+  // M6-A4.3: pass-family sub-coverage — one entry per candidate family a pass
+  // window's candidate SET exercised (A4 spec §分支矩阵 候选族子覆盖: none+chi
+  // 与 none+hora 不是同一个验收事实). The acceptance authority is the bound
+  // source row's scored candidates: Mortal is furiten-aware and scores a hora
+  // candidate only when the win was actually legal (能荣而过), whereas the
+  // local shape enumeration cannot prove furiten. The local enumeration stays
+  // the conservation-side isomorphism check (A4.2); the family EVIDENCE is
+  // the report's candidate set.
+  const passFamilies = new Set<ResponsePassFamily>();
 
   for (const ledgerRow of input.review.decisions) {
     if (ledgerRow.outcome !== "analysis_ready") continue;
@@ -96,9 +117,29 @@ export function extractAcceptedBranchEvidence(input: {
     if (decision === undefined || planRow?.sourceEntry == null) continue;
     const windowKind = coverageWindowKindOf(decision);
     if (windowKind === null) continue;
+    const actualActionKind = decision.actualAction?.kind ?? null;
+    if (
+      ledgerRow.surface === "response"
+      && actualActionKind === "pass"
+      && windowKind === "discard_response"
+    ) {
+      const sourceTypes = new Set(
+        planRow.sourceEntry.details.map((detail) => detail.action.type),
+      );
+      if (sourceTypes.has("chi")) passFamilies.add("chi");
+      if (sourceTypes.has("pon")) passFamilies.add("pon");
+      // Mortal serializes a daiminkan response candidate as ankan of the
+      // four-tile set (real-pin H2); both spellings count.
+      if (sourceTypes.has("daiminkan") || sourceTypes.has("ankan")) {
+        passFamilies.add("daiminkan");
+      }
+      if (sourceTypes.has("hora") || sourceTypes.has("agari")) {
+        passFamilies.add("hora");
+      }
+    }
     for (const branch of classifyCoverageBranches({
       windowKind,
-      actualActionKind: decision.actualAction?.kind ?? null,
+      actualActionKind,
       callKind: callKindForDecision(input.stream, decision),
       candidateActionTypes: planRow.sourceEntry.details.map(
         (detail) => detail.action.type,
@@ -111,6 +152,9 @@ export function extractAcceptedBranchEvidence(input: {
   return {
     branches: MORTAL_COVERAGE_BRANCHES.filter((branch) => evidenced.has(branch)),
     analysisReadyRowCount,
+    responsePassFamilies: RESPONSE_PASS_FAMILIES.filter((family) =>
+      passFamilies.has(family)
+    ),
   };
 }
 

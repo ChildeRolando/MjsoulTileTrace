@@ -183,6 +183,10 @@ function advance(gameId, seat, event, patch = {}) {
       ? (patch.evidenceVersion ?? null)
       : record.evidenceVersion,
     branches: state === "accepted" ? (patch.branches ?? record.branches) : record.branches,
+    // M6-A4.3: family sub-coverage rides accepted resp_pass_on_discard pairs.
+    responsePassFamilies: state === "accepted"
+      ? (patch.responsePassFamilies ?? record.responsePassFamilies)
+      : record.responsePassFamilies,
     updatedAt: new Date().toISOString(),
   });
   writeCheckpoint(checkpoint);
@@ -406,6 +410,11 @@ if (record.state === "accepted" || record.state === "failed") {
               evidenceHash: evidenceRun.evidenceHash,
               evidenceVersion: options.evidenceVersion,
               branches: [...evidenceRun.evidence.branches],
+              // M6-A4.3: resp_pass_on_discard family sub-coverage.
+              responsePassFamilies:
+                evidenceRun.evidence.responsePassFamilies.length > 0
+                  ? evidenceRun.evidence.responsePassFamilies
+                  : undefined,
             });
             console.error(
               `ACCEPTED ${fileKey}: branches [${evidenceRun.evidence.branches.join(", ")}]`
@@ -437,6 +446,10 @@ for (const pair of checkpoint.pairs) {
       localSourceType: pair.sourceType ?? "mahjong_soul",
       modelAdapterVersion: report.adapterVersion,
       ...(report.modelTag !== undefined ? { modelTag: report.modelTag } : {}),
+      // M6-A4.3: only resp_pass_on_discard samples carry family coverage.
+      ...(branch === "resp_pass_on_discard" && (pair.responsePassFamilies?.length ?? 0) > 0
+        ? { responsePassFamilies: pair.responsePassFamilies }
+        : {}),
     });
   }
 }

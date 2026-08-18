@@ -197,7 +197,7 @@ describe("source-policy tests E/F (§20): provenance is named or rejected", () =
         localSourceType: "mortal_mjai",
         report: makeReport(),
         review: makeReview(),
-        evidence: { branches: [], analysisReadyRowCount: 0 } as AcceptedBranchEvidence,
+        evidence: { branches: [], analysisReadyRowCount: 0, responsePassFamilies: [] } as AcceptedBranchEvidence,
       }),
     ).toThrowError("mortal_acceptance_artifact_source_type_invalid");
     // And the manifest side refuses the record outright.
@@ -225,7 +225,7 @@ describe("source-policy tests E/F (§20): provenance is named or rejected", () =
         seat: 0,
         report: makeReport(),
         review: makeReview(),
-        evidence: { branches: [], analysisReadyRowCount: 0 } as AcceptedBranchEvidence,
+        evidence: { branches: [], analysisReadyRowCount: 0, responsePassFamilies: [] } as AcceptedBranchEvidence,
         // @ts-expect-error localSourceType deliberately omitted
         localSourceType: undefined,
       }),

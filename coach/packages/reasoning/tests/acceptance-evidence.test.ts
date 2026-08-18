@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
-import type { CanonicalEventStream, CanonicalMeldV2 } from "@riichi-coach/contracts";
+import type {
+  CanonicalEventStream,
+  CanonicalMeldV2,
+  Tile,
+} from "@riichi-coach/contracts";
 import type {
   MortalFetchedReport,
   MortalReportDecisionEntry,
@@ -108,6 +112,138 @@ const sourcePonFiveMan = [{
     { id: "5m", red: true },
   ]),
 }];
+
+// M6-A4.3 pass-family sub-coverage fixtures: a response pass window whose
+// local enumeration proves candidate families (mirrors response-binding.test.ts).
+const tile = (id: string, red = false): Tile => ({ id: id as Tile["id"], red });
+
+function responsePassWindow(input: {
+  concealed: readonly Tile[];
+  offeredTile: Tile;
+}): ReplayedDecision {
+  return {
+    decisionEventRef: "game:test/0/3/0",
+    actualAction: {
+      kind: "pass",
+      responseEventRef: "game:test/0/3/0",
+      responseKind: "discard",
+    },
+    snapshot: {
+      snapshotVersion: "decision-snapshot/v2",
+      gameId: "game:test",
+      streamHash: "sha256:test",
+      streamPrefixHash: "sha256:test",
+      decisionEventRef: "game:test/0/3/0",
+      selfActor: 0,
+      publicState: {
+        gameId: "game:test",
+        streamSchemaVersion: "canonical-riichi-events/v2",
+        ruleSet: {
+          length: "east",
+          redFives: { man: 1, pin: 1, sou: 1 },
+          openTanyao: true,
+          atamahane: false,
+          westExtension: "none",
+          ippatsuCancelledByAnkan: true,
+        },
+        roundOrdinal: 0,
+        roundWind: "E",
+        hand: 1,
+        honba: 0,
+        riichiSticks: 0,
+        dealer: 0,
+        scores: [25000, 25000, 25000, 25000],
+        seatWinds: ["E", "S", "W", "N"],
+        phase: "awaiting_discard_responses",
+        expectedActor: 3,
+        doraIndicators: [{ id: "6p", red: false }],
+        rivers: [[], [], [], []],
+        melds: [],
+        riichiStates: [
+          { actor: 0, status: "none", declarationEventRef: null, acceptanceEventRef: null, ippatsuAlive: null },
+          { actor: 1, status: "none", declarationEventRef: null, acceptanceEventRef: null, ippatsuAlive: null },
+          { actor: 2, status: "none", declarationEventRef: null, acceptanceEventRef: null, ippatsuAlive: null },
+          { actor: 3, status: "none", declarationEventRef: null, acceptanceEventRef: null, ippatsuAlive: null },
+        ],
+        remainingDraws: 62,
+        terminal: null,
+        fields: {
+          roundContext: "complete",
+          ruleSet: "complete",
+          scores: "complete",
+          doraIndicators: "complete",
+          rivers: "complete",
+          calledDiscardMarkers: "complete",
+          melds: "complete",
+          remainingDraws: "complete",
+          settlement: "complete",
+        },
+        appliedEventRefs: ["game:test/0/3/0"],
+      },
+      privateState: {
+        selfActor: 0,
+        concealedTiles: input.concealed.map((t) => ({ ...t })),
+        currentDraw: null,
+        selfMeldRefs: [],
+        furiten: {
+          discard: { status: "unknown", evidenceIds: [] },
+          temporary: { status: "unknown", evidenceIds: [] },
+          riichi: { status: "unknown", evidenceIds: [] },
+        },
+        fields: {
+          concealedTiles: "complete",
+          currentDraw: "complete",
+          responseOpportunities: "complete",
+          furiten: "complete",
+        },
+        evidenceIds: ["game:test/0/3/0"],
+        decisionWindow: {
+          kind: "discard_response",
+          actor: 0,
+          triggerEventRef: "game:test/0/3/0",
+          sourceActor: 3,
+          offeredTile: input.offeredTile,
+        },
+      },
+      evidenceIds: ["game:test/0/3/0"],
+    },
+    facts: null as never,
+    actualDiscard: null,
+  } as unknown as ReplayedDecision;
+}
+
+function responsePassEntry(
+  tehai: readonly string[],
+  tileName: string,
+  familyDetails: MortalReportDecisionEntry["details"] = [],
+): MortalReportDecisionEntry {
+  return Object.freeze({
+    roundOrdinal: 0,
+    roundWind: "E" as const,
+    dealer: 0,
+    kyoku: 0,
+    honba: 0,
+    junme: 2,
+    tilesLeft: 62,
+    lastActor: 3, // the opponent who discarded
+    tile: tileName,
+    tehai: Object.freeze([...tehai]),
+    fuuros: Object.freeze([]),
+    atSelfChiPon: false,
+    atSelfRiichi: false,
+    atOpponentKakan: false,
+    expected: { type: "none" },
+    actual: { type: "none" },
+    isEqual: true,
+    details: Object.freeze([
+      { action: { type: "none" }, probability: 0.99, qValue: 0 },
+      ...familyDetails.map((detail) => ({ ...detail })),
+    ]),
+    shanten: 1,
+    atFuriten: false,
+    actualIndex: 0,
+  });
+}
 
 function chiDecision(): ReplayedDecision {
   return {
@@ -350,6 +486,69 @@ describe("extractAcceptedBranchEvidence (§9)", () => {
     const evidence = extractAcceptedBranchEvidence({ stream, decisions, report, review });
     expect(evidence.branches).toEqual([]);
     expect(evidence.analysisReadyRowCount).toBe(0);
+    expect(evidence.responsePassFamilies).toEqual([]);
+  });
+
+  it("M6-A4.3: records resp_pass_on_discard candidate-family sub-coverage from pass windows", () => {
+    // Two response pass windows (actual none, surface response) whose bound
+    // source rows score candidate families. The acceptance authority is the
+    // report's candidate set (Mortal is furiten-aware, so a scored hora is a
+    // genuinely legal 能荣而过); the local shape enumeration cannot prove
+    // furiten, so families come from the source details.
+    const passWindow = responsePassWindow({
+      concealed: [
+        tile("1m"), tile("2m"), tile("3m"), tile("4m"), tile("5m"),
+        tile("6m"), tile("7m"), tile("8m"), tile("9m"),
+        tile("3p"), tile("4p"), tile("5p"), tile("5p"),
+      ],
+      offeredTile: tile("5p"),
+    });
+    const daiminkanPassWindow = responsePassWindow({
+      concealed: [
+        tile("1m"), tile("2m"), tile("3m"), tile("4m"), tile("5m"),
+        tile("6m"), tile("7m"), tile("8m"), tile("9m"),
+        tile("5p"), tile("5p"), tile("5p"), tile("2s"),
+      ],
+      offeredTile: tile("5p"),
+    });
+    const responseDecisions = [passWindow, daiminkanPassWindow];
+    // Source rows: actor-less `none` pass rows; details score the candidate
+    // families — window 1: chi + pon + hora; window 2: ankan (daiminkan).
+    const passEntry = responsePassEntry(
+      passWindow.snapshot.privateState.concealedTiles.map((t) => `${t.id}${t.red ? "r" : ""}`),
+      "5p",
+      [
+        { action: { type: "chi", actor: 0, target: 3, pai: "5p", consumed: ["3p", "4p"] }, probability: 0.01, qValue: 0 },
+        { action: { type: "pon", actor: 0, target: 3, pai: "5p", consumed: ["5p", "5p"] }, probability: 0.01, qValue: 0 },
+        { action: { type: "hora", actor: 0, target: 3, pai: "5p" }, probability: 0.01, qValue: 0 },
+      ],
+    );
+    const daiminkanPassEntry = responsePassEntry(
+      daiminkanPassWindow.snapshot.privateState.concealedTiles.map((t) => `${t.id}${t.red ? "r" : ""}`),
+      "5p",
+      [
+        // Mortal serializes a daiminkan candidate as ankan of the offered tile.
+        { action: { type: "ankan", actor: 0, pai: "5p", consumed: ["5p", "5p", "5p"] }, probability: 0.01, qValue: 0 },
+      ],
+    );
+    const report = makeReport([passEntry, daiminkanPassEntry]);
+    const review = reviewOf([
+      ledgerRow({ decisionOrdinal: 0, sourceOrdinal: 0, surface: "response" }),
+      ledgerRow({ decisionOrdinal: 1, sourceOrdinal: 1, surface: "response" }),
+    ]);
+    const evidence = extractAcceptedBranchEvidence({
+      stream,
+      decisions: [],
+      responseDecisions,
+      report,
+      review,
+    });
+    // Both windows bound as response pass rows → resp_pass_on_discard, and
+    // the source candidate sets prove chi/pon/daiminkan/hora families.
+    expect(evidence.branches).toEqual(["resp_pass_on_discard"]);
+    expect(evidence.responsePassFamilies).toEqual([
+      "chi", "pon", "daiminkan", "hora",
+    ]);
   });
 });
 

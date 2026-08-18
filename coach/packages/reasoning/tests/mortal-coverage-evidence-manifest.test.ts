@@ -70,6 +70,45 @@ describe("buildMortalCoverageEvidenceManifest", () => {
       "self_turn_kyuushu",
     ]);
   });
+
+  it("M6-A4.3: carries resp_pass_on_discard candidate-family sub-coverage", () => {
+    const manifest = buildMortalCoverageEvidenceManifest([
+      sample("resp_pass_on_discard", "a", {
+        responsePassFamilies: ["chi", "pon", "daiminkan", "hora"],
+      }),
+      // A pass sample without family metadata still validates (pre-A4.3).
+      sample("resp_pass_on_discard", "b"),
+    ]);
+    expect(manifest.entries).toHaveLength(1);
+    const pass = manifest.entries[0]!;
+    expect(pass.branch).toBe("resp_pass_on_discard");
+    expect(pass.acceptedRealSampleCount).toBe(2);
+    expect(pass.evidence[0]!.responsePassFamilies).toEqual([
+      "chi", "pon", "daiminkan", "hora",
+    ]);
+    // Round-trip through JSON keeps the family field valid.
+    const revived = JSON.parse(JSON.stringify(manifest)) as unknown;
+    expect(() => MortalCoverageEvidenceManifestSchema.parse(revived)).not.toThrow();
+  });
+
+  it("M6-A4.3: rejects an unknown pass family (strict union)", () => {
+    const poisoned = {
+      schemaVersion: MORTAL_COVERAGE_EVIDENCE_MANIFEST_VERSION,
+      entries: [{
+        branch: "resp_pass_on_discard",
+        acceptedRealSampleCount: 1,
+        evidence: [{
+          evidenceVersion: "acceptance-run/v1",
+          evidenceHash: "a",
+          localSourceType: "tenhou",
+          modelAdapterVersion: "mortal-adapter/v3",
+          modelTag: "4.1b",
+          responsePassFamilies: ["chii"],
+        }],
+      }],
+    };
+    expect(() => MortalCoverageEvidenceManifestSchema.parse(poisoned)).toThrow();
+  });
 });
 
 describe("createMortalCoverageRegistryFromManifest", () => {

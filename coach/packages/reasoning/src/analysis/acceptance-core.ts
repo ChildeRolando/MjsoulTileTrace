@@ -198,6 +198,10 @@ export async function runMortalAcceptanceEvidence(input: {
     localSourceType: input.local.sourceKind,
     modelAdapterVersion: input.report.adapterVersion,
     ...(input.report.modelTag !== undefined ? { modelTag: input.report.modelTag } : {}),
+    // M6-A4.3: only resp_pass_on_discard samples carry family sub-coverage.
+    ...(branch === "resp_pass_on_discard" && evidence.responsePassFamilies.length > 0
+      ? { responsePassFamilies: [...evidence.responsePassFamilies] }
+      : {}),
   }));
 
   return {
