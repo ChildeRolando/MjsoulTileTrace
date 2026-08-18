@@ -493,10 +493,16 @@ function collectIdentityMatches(
   report: MortalFetchedReport,
   decision: ReplayedDecision,
 ): MortalReportDecisionEntry[] {
+  // M6-A4.0: no ownership filter here. Decision ownership is decided by the
+  // identity tables, not by last_actor: every projected entry is the reviewed
+  // player's decision (single-perspective report), and a response entry is
+  // excluded from a self-surface window by the tables themselves — self_turn
+  // and post_riichi require the 14-tile hand (a response row's tehai is 13),
+  // post_call requires at_self_chi_pon. Response identity tables are A4.2;
+  // until then response rows simply never match a replayed self window.
   const matches: MortalReportDecisionEntry[] = [];
   for (const kyoku of report.kyokus) {
     for (const entry of kyoku.entries) {
-      if (entry.lastActor !== report.playerId) continue;
       if (entryMatchesDecisionIdentity(entry, decision)) matches.push(entry);
     }
   }

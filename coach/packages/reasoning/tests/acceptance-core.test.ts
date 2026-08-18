@@ -33,7 +33,7 @@ import type { HandStructureFactEnginePort } from "../src/fact-engine/port.js";
 function makeReport(): MortalFetchedReport {
   return Object.freeze({
     reportId: "0123456789abcdef",
-    adapterVersion: "mortal-source/1",
+    adapterVersion: "mortal-source/2",
     engine: "Mortal" as const,
     version: "1.5.10",
     modelTag: "4.1b",
@@ -56,11 +56,13 @@ function makeReview(): AcceptanceReadyReview {
     summary: {
       replayDecisionCount: 1,
       mortalSelfEntryCount: 1,
+      responseEntryCount: 0,
       localConservation: 1,
       sourceConservation: 1,
       outcomes: {
         analysis_ready: 1,
         unsupported_action: 0,
+        source_row_not_expected: 0,
         no_mortal_entry: 0,
         binding_mismatch: 0,
         model_output_incomplete: 0,
@@ -97,6 +99,7 @@ function makeReview(): AcceptanceReadyReview {
     }] as MortalFullGameLedgerEntry[],
     sourceCoverage: {
       mortalSelfEntryCount: 1,
+      responseEntryCount: 0,
       boundMortalEntryCount: 1,
       unboundMortalEntryCount: 0,
       ambiguousMortalEntryCount: 0,

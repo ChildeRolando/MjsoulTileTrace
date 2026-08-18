@@ -15,7 +15,10 @@ import { z } from "zod";
 // Only the fields M6 consumes are validated; every violation fails closed
 // with report_schema_unsupported at the fetch boundary.
 
-export const MORTAL_ADAPTER_VERSION = "mortal-source/1" as const;
+// M6-A4.0: bumped from mortal-source/1 — the projection now retains response
+// entries (last_actor != player_id), so every cached pre-A4.0 projected report
+// is stale by construction (it is missing the response rows).
+export const MORTAL_ADAPTER_VERSION = "mortal-source/2" as const;
 
 const MjaiEventSchema = z.object({
   type: z.string().min(1),

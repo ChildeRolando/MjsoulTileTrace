@@ -25,6 +25,10 @@ import {
   type MortalCoverageBranch,
   type MortalCoverageRegistry,
 } from "./mortal-coverage-registry.js";
+import {
+  collectSingleCandidateProofs,
+  type SingleCandidateProof,
+} from "./single-candidate-proof.js";
 
 export type MortalFullGameFailureCode =
   | "mortal_report_game_fingerprint_mismatch"
@@ -68,6 +72,11 @@ export type MortalAnalysisBlockedReason =
 export type MortalDecisionOutcome =
   | "analysis_ready"
   | "unsupported_action"
+  // M6-A4.0: the seventh value. A legal state, decided purely by the local
+  // candidate enumeration (count = 1 -> Mortal emits no row by definition)
+  // BEFORE any source lookup; carries the proof. `no_mortal_entry` keeps its
+  // integrity-failure semantics and must be 0 in a green acceptance run.
+  | "source_row_not_expected"
   | "no_mortal_entry"
   | "binding_mismatch"
   | "model_output_incomplete"
@@ -104,6 +113,9 @@ export type MortalFullGameLedgerEntry = Readonly<{
   sourceEntryRef: string | null;
   sourceOrdinal: number | null;
   modelSummary: MortalFullGameModelSummary | null;
+  // M6-A4.0: present exactly on source_row_not_expected rows — the local
+  // proof that the window is single-candidate. Null otherwise.
+  readonly singleCandidateProof?: SingleCandidateProof | null;
 }>;
 
 export type MortalSourceDisposition = "bound" | "unbound" | "ambiguous";
@@ -128,7 +140,13 @@ export type MortalSourceCoverageEntry = Readonly<{
 }>;
 
 export type MortalSourceCoverage = Readonly<{
+  // M6-A4.0: self-surface partition. The existing counts cover SELF rows
+  // only (lastActor === playerId — the reviewed player's own decision rows);
+  // response rows (triggered by an opponent's discard/kakan) are tracked
+  // separately and never enter self conservation. Response identity tables
+  // are A4.2 — until then response rows are neither bound nor failured.
   mortalSelfEntryCount: number;
+  responseEntryCount: number;
   boundMortalEntryCount: number;
   unboundMortalEntryCount: number;
   ambiguousMortalEntryCount: number;
@@ -138,6 +156,9 @@ export type MortalSourceCoverage = Readonly<{
 export type MortalFullGameCoverageSummary = Readonly<{
   replayDecisionCount: number;
   mortalSelfEntryCount: number;
+  // M6-A4.0: projected response rows (lastActor !== playerId) — a separate
+  // surface, never part of self conservation.
+  responseEntryCount: number;
   localConservation: number;
   sourceConservation: number;
   outcomes: Readonly<Record<MortalDecisionOutcome, number>>;
@@ -528,12 +549,29 @@ export async function runMortalFullGameReview(input: {
     return { status: "failed", code: "mortal_full_game_input_invalid" };
   }
 
+  // M6-A4.0: the single-candidate proofs are computed BEFORE any source
+  // lookup — whether a window is source_row_not_expected may never depend
+  // on what the source happened to contain. Shape A is engine-free; shape B
+  // asks the trusted hand-structure engine and fails closed on any error.
+  const singleCandidateProofs = await collectSingleCandidateProofs(
+    input.decisions,
+    input.engine,
+  );
+
   const { rows, sourceDegrees, ambiguousSourceOrdinals } =
     buildMortalFullGameBindingPlan(
       input.decisions,
       input.report,
     );
   const sourceRows = flattenSourceRows(input.report);
+  // M6-A4.0 self-surface partition (freeze): source rows split by
+  // lastActor vs playerId. Self rows keep the existing conservation names;
+  // response rows are counted apart and never enter the self conservation
+  // check (their identity tables are A4.2).
+  const selfSourceRows = sourceRows.filter(
+    (row) => row.entry.lastActor === input.report.playerId,
+  );
+  const responseEntryCount = sourceRows.length - selfSourceRows.length;
 
   const runStartedAt = now();
   const frozenAt = new Date(runStartedAt).toISOString();
@@ -542,6 +580,7 @@ export async function runMortalFullGameReview(input: {
   const outcomeCounts: Record<MortalDecisionOutcome, number> = {
     analysis_ready: 0,
     unsupported_action: 0,
+    source_row_not_expected: 0,
     no_mortal_entry: 0,
     binding_mismatch: 0,
     model_output_incomplete: 0,
@@ -598,19 +637,29 @@ export async function runMortalFullGameReview(input: {
     }
 
     if (row.binding === "no_mortal_entry") {
+      // M6-A4.0: a locally proven single-candidate window EXPECTS no source
+      // row (Mortal emits rows only at >=2-candidate decision points), so
+      // the absence is reclassified from integrity failure to the legal
+      // source_row_not_expected state. Without a proof the absence stays a
+      // loud no_mortal_entry (green runs require 0).
+      const proof = singleCandidateProofs.get(row.decisionOrdinal) ?? null;
+      const outcome: MortalDecisionOutcome = proof === null
+        ? "no_mortal_entry"
+        : "source_row_not_expected";
       ledger.push({
         decisionOrdinal: row.decisionOrdinal,
         roundOrdinal: row.roundOrdinal,
         binding: row.binding,
         support,
         review: "not_attempted",
-        outcome: "no_mortal_entry",
+        outcome,
         reason: null,
         sourceEntryRef: null,
         sourceOrdinal: null,
         modelSummary: null,
+        singleCandidateProof: proof,
       });
-      outcomeCounts.no_mortal_entry += 1;
+      outcomeCounts[outcome] += 1;
       continue;
     }
 
@@ -945,7 +994,9 @@ export async function runMortalFullGameReview(input: {
   ] as const) {
     sourceUnboundReasonCounts[reason] = 0;
   }
-  const sourceCoverageEntries = sourceRows.map((sourceRow) => {
+  // M6-A4.0: the coverage ledger walks SELF rows only — response rows are a
+  // separate surface (A4.2 identity tables) and are not unbound failures.
+  const sourceCoverageEntries = selfSourceRows.map((sourceRow) => {
     let disposition: MortalSourceDisposition;
     if (boundSourceOrdinals.has(sourceRow.sourceOrdinal)) {
       disposition = "bound";
@@ -980,7 +1031,8 @@ export async function runMortalFullGameReview(input: {
   };
 
   const sourceCoverage: MortalSourceCoverage = Object.freeze({
-    mortalSelfEntryCount: sourceRows.length,
+    mortalSelfEntryCount: selfSourceRows.length,
+    responseEntryCount,
     boundMortalEntryCount: sourceCoverageEntries.filter((entry) =>
       entry.disposition === "bound"
     ).length,
@@ -1004,14 +1056,15 @@ export async function runMortalFullGameReview(input: {
     + sourceCoverage.ambiguousMortalEntryCount;
   if (
     localOutcomeSum !== input.decisions.length
-    || sourceDispositionSum !== sourceRows.length
+    || sourceDispositionSum !== selfSourceRows.length
   ) {
     return { status: "failed", code: "mortal_full_game_input_invalid" };
   }
 
   const summary: MortalFullGameCoverageSummary = Object.freeze({
     replayDecisionCount: input.decisions.length,
-    mortalSelfEntryCount: sourceRows.length,
+    mortalSelfEntryCount: selfSourceRows.length,
+    responseEntryCount,
     localConservation: localOutcomeSum,
     sourceConservation: sourceDispositionSum,
     outcomes: Object.freeze(outcomeCounts),

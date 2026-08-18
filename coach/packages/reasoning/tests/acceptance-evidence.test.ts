@@ -148,7 +148,7 @@ function makeReport(
 ): MortalFetchedReport {
   return Object.freeze({
     reportId: "0123456789abcdef",
-    adapterVersion: "mortal-source/1",
+    adapterVersion: "mortal-source/2",
     engine: "Mortal" as const,
     version: "1.5.10",
     modelTag: "4.1b",
@@ -238,11 +238,13 @@ function reviewOf(decisions: readonly MortalFullGameLedgerEntry[]) {
     summary: {
       replayDecisionCount: decisions.length,
       mortalSelfEntryCount: decisions.length,
+      responseEntryCount: 0,
       localConservation: decisions.length,
       sourceConservation: decisions.length,
       outcomes: {
         analysis_ready: decisions.filter((row) => row.outcome === "analysis_ready").length,
         unsupported_action: 0,
+        source_row_not_expected: 0,
         no_mortal_entry: decisions.filter((row) => row.outcome === "no_mortal_entry").length,
         binding_mismatch: 0,
         model_output_incomplete: decisions.filter(
@@ -262,6 +264,7 @@ function reviewOf(decisions: readonly MortalFullGameLedgerEntry[]) {
     decisions,
     sourceCoverage: {
       mortalSelfEntryCount: decisions.length,
+      responseEntryCount: 0,
       boundMortalEntryCount: decisions.length,
       unboundMortalEntryCount: 0,
       ambiguousMortalEntryCount: 0,
@@ -372,7 +375,7 @@ describe("buildRedactedAcceptanceArtifact (§10/§15)", () => {
     expect(artifact.seat).toBe(2);
     expect(artifact.localSourceType).toBe("tenhou");
     expect(json).toContain('"modelTag":"4.1b"');
-    expect(json).toContain('"modelAdapterVersion":"mortal-source/1"');
+    expect(json).toContain('"modelAdapterVersion":"mortal-source/2"');
     expect(json).toContain("riichi_window");
     // Privacy: no report id, no player id, no fingerprint bytes.
     expect(json).not.toContain("0123456789abcdef");

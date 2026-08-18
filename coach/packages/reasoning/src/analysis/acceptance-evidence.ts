@@ -148,6 +148,21 @@ export function buildRedactedAcceptanceArtifact(input: {
       topModelProbabilityPercent: row.modelSummary!.topModelProbabilityPercent,
       preferredActions: row.modelSummary!.preferredActions,
     }));
+  // M6-A4.0: every source_row_not_expected row carries its local proof —
+  // the artifact must let an auditor re-derive why each absent row is legal
+  // (shape + candidate count + locators; no hand content, privacy-safe).
+  const sourceRowNotExpectedRows = input.review.decisions
+    .filter((row) =>
+      row.outcome === "source_row_not_expected"
+      && row.singleCandidateProof !== null
+      && row.singleCandidateProof !== undefined
+    )
+    .map((row) => ({
+      decisionOrdinal: row.decisionOrdinal,
+      roundOrdinal: row.roundOrdinal,
+      shape: row.singleCandidateProof!.shape,
+      candidateCount: row.singleCandidateProof!.candidateCount,
+    }));
 
   return Object.freeze({
     schemaVersion: MORTAL_ACCEPTANCE_ARTIFACT_VERSION,
@@ -161,12 +176,14 @@ export function buildRedactedAcceptanceArtifact(input: {
     reviewSummary: Object.freeze({
       replayDecisionCount: input.review.summary.replayDecisionCount,
       mortalSelfEntryCount: input.review.summary.mortalSelfEntryCount,
+      responseEntryCount: input.review.summary.responseEntryCount,
       localConservation: input.review.summary.localConservation,
       sourceConservation: input.review.summary.sourceConservation,
       outcomes: input.review.summary.outcomes,
       binding: input.review.summary.binding,
       supportedPairCount: input.review.summary.supportedPairCount,
       coverageBranchEncounters: input.review.summary.coverageBranchEncounters,
+      sourceRowNotExpectedRows: Object.freeze(sourceRowNotExpectedRows),
     }),
     acceptedBranches: input.evidence.branches,
     analysisReadyRowCount: input.evidence.analysisReadyRowCount,

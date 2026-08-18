@@ -14,11 +14,13 @@ function fakeCoverageReview() {
     summary: {
       replayDecisionCount: 2,
       mortalSelfEntryCount: 1,
+      responseEntryCount: 0,
       localConservation: 2,
       sourceConservation: 1,
       outcomes: {
         analysis_ready: 1,
         unsupported_action: 0,
+        source_row_not_expected: 0,
         no_mortal_entry: 1,
         binding_mismatch: 0,
         model_output_incomplete: 0,
@@ -32,6 +34,7 @@ function fakeCoverageReview() {
     },
     sourceCoverage: {
       mortalSelfEntryCount: 1,
+      responseEntryCount: 0,
       boundMortalEntryCount: 1,
       unboundMortalEntryCount: 0,
       ambiguousMortalEntryCount: 0,
@@ -77,16 +80,20 @@ describe("mortal-full-game diagnostic privacy", () => {
     const line = formatMortalFullGameConsoleLine({
       replayDecisionCount: 120,
       mortalSelfEntryCount: 113,
+      responseEntryCount: 37,
       bound: 100,
       ready: 90,
       unsupported: 5,
       missing: 3,
+      sourceRowNotExpected: 12,
       bindingMismatch: 0,
       modelIncomplete: 0,
       blocked: 0,
     });
     expect(line).toContain("replay=120");
     expect(line).toContain("mortal=113");
+    expect(line).toContain("response=37");
+    expect(line).toContain("notExpected=12");
     expect(line).not.toContain(SYNTHETIC_REPORT_ID);
     expect(line).not.toContain("https://");
     expect(line).not.toContain("action:v1");
