@@ -25,24 +25,23 @@
  *    package may faithfully record an incomplete / failed analysis.
  *
  * 决策载荷一致性 (per-decision payload binding): only `analysis_ready`
- * decisions carry the full ledgers / differences / modelEvaluation payload;
- * failed / skipped decisions carry their reason / proof and no analysis
- * payload — the discriminated union makes it impossible to fake an analyzed
- * shape on a failed decision.
+ * decisions carry the full analysis payload (comparisonSet, ledgers,
+ * differences, modelEvaluation); failed / skipped decisions carry their
+ * reason / proof and no analysis payload — the discriminated union makes it
+ * impossible to fake an analyzed shape on a failed decision.
  */
 import { z } from "zod";
 import { RiichiActionSchema } from "./actions.js";
 import { parseCanonicalEventRef } from "./event-stream.js";
-import { AxisSchema } from "./evidence.js";
 import { EngineIdentitySchema } from "./fact-engine.js";
 import {
   CandidateFactorLedgerSchema,
   DeterministicPreferenceSchema,
   FactorDifferenceSchema,
-  FactorEvidenceClassSchema,
 } from "./factor-ledger.js";
 import { KnownGameFactsSchema } from "./known-game-facts.js";
 import { ModelEvaluationSchema } from "./model-evaluation.js";
+import { StructuredComparisonSetSchema } from "./structured-comparison.js";
 
 const ActorSchema = z.number().int().min(0).max(3);
 
@@ -230,14 +229,16 @@ export const EvidenceKindSchema = z.enum([
 export type EvidenceKind = z.infer<typeof EvidenceKindSchema>;
 
 /**
- * CR-4 evidence-id namespace rule (frozen):
- *  - `canonical_event` evidence reuses the existing canonical event ref
- *    namespace (gameId/round/source/sub — see event-stream.ts);
- *  - derived evidence (e.g. fact-engine requests) uses an explicit kind
- *    prefix so kinds can never collide.
+ * CR-4 evidence-id namespace rule (frozen): canonical-event evidence reuses
+ * the existing canonical event ref namespace (gameId/round/source/sub — see
+ * event-stream.ts), which production canonical events already satisfy. No
+ * forced rename is imposed on other kinds: the registry's kind/producer/
+ * producerVersion already distinguish evidence types, and existing
+ * fact-engine request IDs (e.g. `<factSetId>:hand-structure:<stateHash>`)
+ * must resolve as-is without an ID-translation layer. Registry keys must be
+ * globally unique; per-kind namespaced identities are only introduced if a
+ * real collision risk is ever observed.
  */
-export const FACT_ENGINE_EVIDENCE_ID_PREFIX = "fact-engine:" as const;
-
 export const EvidenceRecordSchema = z.object({
   evidenceId: EvidenceIdSchema,
   kind: EvidenceKindSchema,
@@ -257,16 +258,6 @@ export const EvidenceRecordSchema = z.object({
     context.addIssue({
       code: z.ZodIssueCode.custom,
       message: "Canonical-event evidence must use the canonical event ref namespace",
-      path: ["evidenceId"],
-    });
-  }
-  if (
-    record.kind === "fact_engine_request"
-    && !record.evidenceId.startsWith(FACT_ENGINE_EVIDENCE_ID_PREFIX)
-  ) {
-    context.addIssue({
-      code: z.ZodIssueCode.custom,
-      message: `Fact-engine request evidence IDs must use the "${FACT_ENGINE_EVIDENCE_ID_PREFIX}" prefix`,
       path: ["evidenceId"],
     });
   }
@@ -326,34 +317,6 @@ export const ComponentVersionsSchema = z.object({
 export type ComponentVersions = z.infer<typeof ComponentVersionsSchema>;
 
 // ---------------------------------------------------------------------------
-// Advisory signals (versioned estimates — no veto power)
-// ---------------------------------------------------------------------------
-
-/** A versioned heuristic/estimate (helper risk scale, placement EV, versioned
- *  upstream behavioral heuristic / river estimate). Advisory signals are
- *  context only and never enter DeterministicPreference (CONTEXT.md:
- *  参考信号). */
-export const AdvisorySignalSchema = z.object({
-  signalId: z.string().min(1),
-  axis: AxisSchema,
-  dimension: z.string().min(1),
-  statement: z.string().min(1),
-  evidenceClass: FactorEvidenceClassSchema,
-  producer: z.string().min(1),
-  producerVersion: z.string().min(1),
-  evidenceIds: z.array(EvidenceIdSchema).min(1),
-}).strict().superRefine((signal, context) => {
-  if (signal.evidenceClass !== "versioned_upstream_estimate") {
-    context.addIssue({
-      code: z.ZodIssueCode.custom,
-      message: "Advisory signals must be versioned upstream estimates",
-      path: ["evidenceClass"],
-    });
-  }
-});
-export type AdvisorySignal = z.infer<typeof AdvisorySignalSchema>;
-
-// ---------------------------------------------------------------------------
 // RecordAnalysis (CR-6)
 // ---------------------------------------------------------------------------
 
@@ -388,15 +351,20 @@ const DecisionContextShape = {
   analysisProvider: MortalAnalysisProviderSchema,
 };
 
-/** An `analysis_ready` decision carries the full deterministic analysis
- *  payload: ledgers, differences, advisory signals, optional deterministic
- *  preference, and the ModelEvaluation. `reason` is null by definition. */
+/** An `analysis_ready` decision carries the full analysis payload: the
+ *  action-bound `StructuredComparisonSet` (which preserves the actionRef →
+ *  RiichiAction semantics and the actual ↔ model realization correspondence
+ *  — e.g. riichi_discard → declare_riichi — that ModelEvaluation alone cannot
+ *  express), ledgers, differences, the optional deterministic preference, and
+ *  the ModelEvaluation. `reason` is null by definition. The package validator
+ *  (Slice 3) cross-checks comparisonSet ↔ ledgers ↔ modelEvaluation identity
+ *  and the correspondence; the contract only fixes the presence here. */
 export const AnalysisReadyDecisionSchema = z.object({
   ...DecisionContextShape,
   outcome: z.literal("analysis_ready"),
+  comparisonSet: StructuredComparisonSetSchema,
   candidateFactorLedgers: z.array(CandidateFactorLedgerSchema).min(1),
   factorDifferences: z.array(FactorDifferenceSchema),
-  advisorySignals: z.array(AdvisorySignalSchema),
   /** Null exactly when axes conflict (US 8: preference is optional and null
    *  leaves the trade-off to the coach-judgment layer). */
   deterministicPreference: DeterministicPreferenceSchema.nullable(),
@@ -464,8 +432,8 @@ function reasonCategoryMatches(
 /** One decision entry of the whole-game package (output shape, declared
  *  explicitly from the named variant schemas so declaration emit stays
  *  bounded). The `outcome` discriminator binds the payload at the type
- *  level: only `analysis_ready` carries ledgers/differences/modelEvaluation
- *  (决策载荷一致性). */
+ *  level: only `analysis_ready` carries the comparisonSet + ledgers +
+ *  differences + modelEvaluation analysis payload (决策载荷一致性). */
 export type DecisionAnalysis =
   | z.infer<typeof AnalysisReadyDecisionSchema>
   | z.infer<typeof UnsupportedActionDecisionSchema>
@@ -500,6 +468,47 @@ export const DecisionAnalysisSchema: z.ZodType<
   ModelOutputIncompleteDecisionSchema,
   AnalysisBlockedDecisionSchema,
 ]).superRefine((decision, context) => {
+  // Identity coherence (Slice 1 review Blocker 3B): the normalized
+  // renderer-safe context, KnownGameFacts, and the surface must agree — the
+  // package is the authoritative contract ContextGraph/selector/ReviewReport/
+  // UI all trust, so these invariants are compiled into the schema, not left
+  // to the builder's discipline.
+  const contextView = decision.normalizedDecisionContext;
+  const facts = decision.knownGameFacts;
+  if (contextView.selfActor !== facts.actor) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Normalized decision context self actor must equal the known self actor",
+      path: ["normalizedDecisionContext", "selfActor"],
+    });
+  }
+  if (contextView.triggerEventRef !== facts.decisionEventRef) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Normalized decision context trigger event must equal the known decision event",
+      path: ["normalizedDecisionContext", "triggerEventRef"],
+    });
+  }
+  if (contextView.decisionWindowKind !== facts.decisionWindow.kind) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Normalized decision window kind must equal the known decision window kind",
+      path: ["normalizedDecisionContext", "decisionWindowKind"],
+    });
+  }
+  const expectedSurface = contextView.decisionWindowKind === "self_turn"
+      || contextView.decisionWindowKind === "post_call_discard"
+      || contextView.decisionWindowKind === "post_riichi_discard"
+    ? "self"
+    : "response";
+  if (decision.surface !== expectedSurface) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Surface must be inferred from the decision window kind",
+      path: ["surface"],
+    });
+  }
+
   const provider = decision.analysisProvider;
   if (provider.outcome !== decision.outcome) {
     context.addIssue({
@@ -558,9 +567,17 @@ export const DecisionAnalysisSchema: z.ZodType<
  * of truth (CONTEXT.md: StructuredAnalysisPackage). Locally safe /
  * renderer-safe; NEVER an LLM transport boundary (CR-1).
  *
- * CR-4 packageId: SEMANTIC identity derived from record identity + self actor
- * + analysis provider + package schema version — stable across reruns, with
- * no wall-clock or artifact-creation metadata.
+ * CR-4 identity split (Slice 1 review Blocker 3A):
+ *  - `analysisKey` = the LOGICAL analysis slot: record identity + self actor +
+ *    analysis provider. Stable across reruns AND across model/fact-pipeline
+ *    versions — it answers "which slot", not "which artifact".
+ *  - `packageId` = the ARTIFACT identity, derived from `analysisKey` +
+ *    `componentVersions` + the explicit frozen policy snapshot. Two analyses
+ *    of the same slot with different model/fact-pipeline versions therefore
+ *    yield DIFFERENT packageIds — no semantic collision for ReviewSession
+ *    references. Stable across reruns; no wall-clock or artifact-creation
+ *    metadata. packageId ≠ semanticContentHash: the hash is content-based
+ *    dedupe/comparison, packageId is the artifact reference.
  *
  * CR-5 semanticContentHash: computed over the deterministic semantic content
  * only; createdAt / artifact metadata is provenance and never participates in
@@ -573,6 +590,7 @@ export const DecisionAnalysisSchema: z.ZodType<
  * failed analysis; `record.status` marks the aggregate truth.
  */
 export type StructuredAnalysisPackage = {
+  analysisKey: string;
   packageId: string;
   /** Artifact creation metadata (provenance only; excluded from
    *  semanticContentHash). */
@@ -588,6 +606,7 @@ export const StructuredAnalysisPackageSchema: z.ZodType<
   StructuredAnalysisPackage,
   z.ZodTypeDef,
   {
+    analysisKey: string;
     packageId: string;
     createdAt: string;
     semanticContentHash: string;
@@ -597,6 +616,7 @@ export const StructuredAnalysisPackageSchema: z.ZodType<
     evidenceRegistry: EvidenceRegistry;
   }
 > = z.object({
+  analysisKey: z.string().min(1),
   packageId: z.string().min(1),
   /** Artifact creation metadata (provenance only; excluded from
    *  semanticContentHash). */
@@ -606,4 +626,24 @@ export const StructuredAnalysisPackageSchema: z.ZodType<
   componentVersions: ComponentVersionsSchema,
   decisions: z.array(DecisionAnalysisSchema).min(1),
   evidenceRegistry: EvidenceRegistrySchema,
-}).strict();
+}).strict().superRefine((pkg, context) => {
+  // Package-level identity coherence (Slice 1 review Blocker 3B).
+  const seenDecisionIds = new Set<string>();
+  pkg.decisions.forEach((decision, index) => {
+    if (seenDecisionIds.has(decision.decisionId)) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Decision IDs must be globally unique within a package",
+        path: ["decisions", index, "decisionId"],
+      });
+    }
+    seenDecisionIds.add(decision.decisionId);
+    if (decision.knownGameFacts.actor !== pkg.record.selfActor) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Every decision's known self actor must equal the record self actor",
+        path: ["decisions", index, "knownGameFacts", "actor"],
+      });
+    }
+  });
+});

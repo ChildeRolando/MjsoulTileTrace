@@ -1,10 +1,8 @@
 import { describe, expect, it } from "vitest";
 import {
   FACT_ENGINE_ADAPTER_VERSION,
-  FACT_ENGINE_EVIDENCE_ID_PREFIX,
   FACT_ENGINE_PROTOCOL_VERSION,
   MAHJONG_HELPER_COMMIT,
-  AdvisorySignalSchema,
   AnalysisProviderSchema,
   ComponentVersionsSchema,
   DecisionAnalysisSchema,
@@ -20,6 +18,8 @@ import {
   RecordAnalysisSchema,
   SingleCandidateProofSchema,
   StructuredAnalysisPackageSchema,
+  canonicalActionRef,
+  type RiichiAction,
 } from "../src/index.js";
 
 // ---------------------------------------------------------------------------
@@ -28,7 +28,22 @@ import {
 // ---------------------------------------------------------------------------
 
 const CANONICAL_EVENT_REF = "game-1/0/0/58";
-const FACT_ENGINE_EVIDENCE_ID = `${FACT_ENGINE_EVIDENCE_ID_PREFIX}req-1`;
+// Production-shaped fact-engine request id (<factSetId>:hand-structure:<hash>);
+// the contract must NOT force a namespace rename on existing evidence.
+const FACT_ENGINE_REQUEST_ID = "facts:e1:t6:hand-structure:abc";
+
+const DISCARD_6S: RiichiAction = {
+  kind: "discard",
+  tile: { id: "6s", red: false },
+  discardMode: "tsumogiri",
+};
+const DISCARD_2P: RiichiAction = {
+  kind: "discard",
+  tile: { id: "2p", red: false },
+  discardMode: "tedashi",
+};
+const REF_6S = canonicalActionRef(DISCARD_6S);
+const REF_2P = canonicalActionRef(DISCARD_2P);
 
 function baseFacts() {
   return {
@@ -86,7 +101,7 @@ const mortalEvaluation = {
   },
   candidates: [
     {
-      actionRef: "action:6s",
+      actionRef: REF_6S,
       rawValues: [
         { metric: "probability", value: 0.75 },
         { metric: "q_value", value: 1.2 },
@@ -94,7 +109,7 @@ const mortalEvaluation = {
       modelSelectionScore: 75,
     },
     {
-      actionRef: "action:2p",
+      actionRef: REF_2P,
       rawValues: [
         { metric: "probability", value: 0.25 },
         { metric: "q_value", value: 0.4 },
@@ -102,11 +117,29 @@ const mortalEvaluation = {
       modelSelectionScore: 25,
     },
   ],
-  preferredActions: ["action:6s"],
-  actualActionRef: "action:2p",
-  scoredActualModelActionRef: "action:2p",
+  preferredActions: [REF_6S],
+  actualActionRef: REF_2P,
+  scoredActualModelActionRef: REF_2P,
   errorGap: 50,
   modelReason: "unknown",
+};
+
+// The action-bound comparison set preserves actionRef → RiichiAction semantics
+// and the actual ↔ model realization correspondence that ModelEvaluation alone
+// cannot express.
+const comparisonSet = {
+  comparisonSetId: "comparison:e1:t6",
+  origin: "automatic_review",
+  decisionLayerRef: "decision-layer:e1:t6",
+  decisionWindow: {
+    kind: "self_turn",
+    actor: 3,
+    triggerEventRef: CANONICAL_EVENT_REF,
+  },
+  candidates: [
+    { actionRef: REF_6S, action: DISCARD_6S, origins: ["model"] },
+    { actionRef: REF_2P, action: DISCARD_2P, origins: ["model", "actual"] },
+  ],
 };
 
 function ledger(actionRef: string) {
@@ -124,7 +157,7 @@ function ledger(actionRef: string) {
           evidenceClass: "deterministic_local_replay",
           preferenceEligibility: "deterministic",
           value: { kind: "number", value: 1, unit: "shanten" },
-          evidenceIds: [FACT_ENGINE_EVIDENCE_ID],
+          evidenceIds: [FACT_ENGINE_REQUEST_ID],
           limitations: [],
         }],
       },
@@ -141,14 +174,14 @@ const factorDifference = {
   differenceId: "diff:1",
   axis: "efficiency",
   dimension: "shanten",
-  leftActionRef: "action:6s",
-  rightActionRef: "action:2p",
+  leftActionRef: REF_6S,
+  rightActionRef: REF_2P,
   kind: "deterministic_difference",
   direction: "supports_left",
   valueRelation: "ordered",
   leftValue: { kind: "number", value: 1, unit: "shanten" },
   rightValue: { kind: "number", value: 2, unit: "shanten" },
-  evidenceIds: [FACT_ENGINE_EVIDENCE_ID],
+  evidenceIds: [FACT_ENGINE_REQUEST_ID],
   limitations: [],
   preferenceEligibility: "deterministic",
   evidenceClass: "deterministic_local_replay",
@@ -163,26 +196,23 @@ function analysisReadyDecision() {
       decisionWindowKind: "self_turn",
       selfActor: 3,
       triggerEventRef: CANONICAL_EVENT_REF,
-      actualAction: {
-        kind: "discard",
-        tile: { id: "6s", red: false },
-        discardMode: "tsumogiri",
-      },
+      actualAction: DISCARD_2P,
     },
     knownGameFacts: baseFacts(),
     analysisProvider: { kind: "mortal", outcome: "analysis_ready", reason: null },
     outcome: "analysis_ready",
-    candidateFactorLedgers: [ledger("action:6s"), ledger("action:2p")],
+    comparisonSet,
+    candidateFactorLedgers: [ledger(REF_6S), ledger(REF_2P)],
     factorDifferences: [factorDifference],
-    advisorySignals: [],
     deterministicPreference: null,
     modelEvaluation: mortalEvaluation,
-    evidenceIds: [CANONICAL_EVENT_REF, FACT_ENGINE_EVIDENCE_ID],
+    evidenceIds: [CANONICAL_EVENT_REF, FACT_ENGINE_REQUEST_ID],
   };
 }
 
 function validPackage() {
   return {
+    analysisKey: "analysis:game-1:actor3:mortal",
     packageId: "package:game-1:actor3:mortal:m6c/v1",
     createdAt: "2026-08-19T00:00:00.000Z",
     semanticContentHash: "sha256:0123456789abcdef",
@@ -214,13 +244,13 @@ function validPackage() {
         sourceRefs: [],
         payload: { type: "draw", actor: 3 },
       },
-      [FACT_ENGINE_EVIDENCE_ID]: {
-        evidenceId: FACT_ENGINE_EVIDENCE_ID,
+      [FACT_ENGINE_REQUEST_ID]: {
+        evidenceId: FACT_ENGINE_REQUEST_ID,
         kind: "fact_engine_request",
         producer: "fact-engine",
         producerVersion: FACT_ENGINE_PROTOCOL_VERSION,
         sourceRefs: [CANONICAL_EVENT_REF],
-        payload: { requestId: "req-1", actionRef: "action:6s" },
+        payload: { requestId: FACT_ENGINE_REQUEST_ID, actionRef: REF_6S },
       },
     },
   };
@@ -329,6 +359,22 @@ describe("DecisionAnalysis payload binding", () => {
     expect(parsed.candidateFactorLedgers).toHaveLength(2);
   });
 
+  it("preserves the action-bound comparison set and its actual (Blocker 1)", () => {
+    const parsed = DecisionAnalysisSchema.parse(analysisReadyDecision());
+    if (parsed.outcome !== "analysis_ready") {
+      throw new Error("expected an analysis_ready decision");
+    }
+    expect(parsed.comparisonSet.comparisonSetId).toBe("comparison:e1:t6");
+    const actual = parsed.comparisonSet.candidates.find(
+      (candidate) => candidate.origins.includes("actual"),
+    );
+    if (actual === undefined || actual.action.kind !== "discard") {
+      throw new Error("expected the discard actual in the comparison set");
+    }
+    expect(actual.action.tile.id).toBe("2p");
+    expect(actual.actionRef).toBe(REF_2P);
+  });
+
   it("rejects an analysis_ready decision carrying a failure reason", () => {
     expect(() => DecisionAnalysisSchema.parse({
       ...analysisReadyDecision(),
@@ -343,6 +389,8 @@ describe("DecisionAnalysis payload binding", () => {
   it("rejects an analysis_ready decision missing its analysis payload", () => {
     const { modelEvaluation: _omitted, ...withoutEvaluation } = analysisReadyDecision();
     expect(() => DecisionAnalysisSchema.parse(withoutEvaluation)).toThrow();
+    const { comparisonSet: _omittedSet, ...withoutComparisonSet } = analysisReadyDecision();
+    expect(() => DecisionAnalysisSchema.parse(withoutComparisonSet)).toThrow();
   });
 
   it("rejects a failed decision that fakes an analyzed shape", () => {
@@ -459,6 +507,45 @@ describe("DecisionAnalysis payload binding", () => {
     })).toThrow(/must equal the decision outcome/);
   });
 
+  it("binds the normalized context, KnownGameFacts, and surface together (Blocker 3B)", () => {
+    const decision = analysisReadyDecision();
+    const context = decision.normalizedDecisionContext;
+    expect(() => DecisionAnalysisSchema.parse({
+      ...decision,
+      normalizedDecisionContext: { ...context, selfActor: 2 },
+    })).toThrow(/self actor must equal/);
+    expect(() => DecisionAnalysisSchema.parse({
+      ...decision,
+      normalizedDecisionContext: { ...context, triggerEventRef: "game-1/0/0/99" },
+    })).toThrow(/trigger event must equal/);
+    expect(() => DecisionAnalysisSchema.parse({
+      ...decision,
+      normalizedDecisionContext: { ...context, decisionWindowKind: "post_call_discard" },
+    })).toThrow(/window kind must equal/);
+    expect(() => DecisionAnalysisSchema.parse({
+      ...decision,
+      surface: "response",
+    })).toThrow(/Surface must be inferred/);
+    // A response window kind infers the response surface.
+    const responseFacts = baseFacts();
+    const responseWindow = {
+      kind: "discard_response",
+      actor: 3,
+      triggerEventRef: CANONICAL_EVENT_REF,
+      sourceActor: 0,
+      offeredTile: { id: "4m", red: false },
+    };
+    expect(DecisionAnalysisSchema.parse({
+      ...decision,
+      surface: "response",
+      normalizedDecisionContext: { ...context, decisionWindowKind: "discard_response" },
+      knownGameFacts: {
+        ...responseFacts,
+        decisionWindow: responseWindow,
+      },
+    }).surface).toBe("response");
+  });
+
   it("freezes the decision identity semantics (CR-4)", () => {
     expect(() => DecisionIdSchema.parse("")).toThrow();
     expect(DecisionIdSchema.parse("game-1/0/0/58#self#self_turn")).toBe(
@@ -504,20 +591,20 @@ describe("evidence registry (CR-3)", () => {
     }).kind).toBe("canonical_event");
   });
 
-  it("requires the kind prefix on fact-engine request evidence", () => {
-    expect(() => EvidenceRecordSchema.parse({
-      evidenceId: "request:1",
+  it("accepts production fact-engine request IDs without a forced namespace (Blocker 2)", () => {
+    expect(EvidenceRecordSchema.parse({
+      evidenceId: FACT_ENGINE_REQUEST_ID,
       kind: "fact_engine_request",
       producer: "fact-engine",
-      producerVersion: "v1",
-      sourceRefs: [],
-      payload: {},
-    })).toThrow(/prefix/);
+      producerVersion: FACT_ENGINE_PROTOCOL_VERSION,
+      sourceRefs: [CANONICAL_EVENT_REF],
+      payload: { requestId: FACT_ENGINE_REQUEST_ID, actionRef: REF_6S },
+    }).evidenceId).toBe(FACT_ENGINE_REQUEST_ID);
   });
 
   it("rejects incomplete evidence records", () => {
     expect(() => EvidenceRecordSchema.parse({
-      evidenceId: FACT_ENGINE_EVIDENCE_ID,
+      evidenceId: FACT_ENGINE_REQUEST_ID,
       kind: "fact_engine_request",
       producer: "fact-engine",
       sourceRefs: [],
@@ -535,8 +622,8 @@ describe("evidence registry (CR-3)", () => {
 
   it("requires registry keys to equal their record evidenceId", () => {
     expect(() => EvidenceRegistrySchema.parse({
-      [FACT_ENGINE_EVIDENCE_ID]: {
-        evidenceId: "fact-engine:other",
+      [FACT_ENGINE_REQUEST_ID]: {
+        evidenceId: "facts:e1:t6:hand-structure:other",
         kind: "fact_engine_request",
         producer: "fact-engine",
         producerVersion: "v1",
@@ -548,7 +635,7 @@ describe("evidence registry (CR-3)", () => {
 });
 
 // ---------------------------------------------------------------------------
-// RecordAnalysis / ComponentVersions / advisory signals / package (CR-5/CR-6)
+// RecordAnalysis / ComponentVersions / package (CR-5/CR-6, 3A/3B)
 // ---------------------------------------------------------------------------
 
 describe("record, versions, and package contract", () => {
@@ -600,31 +687,9 @@ describe("record, versions, and package contract", () => {
     })).toThrow();
   });
 
-  it("accepts only versioned estimates as advisory signals", () => {
-    expect(AdvisorySignalSchema.parse({
-      signalId: "signal:1",
-      axis: "placement",
-      dimension: "placement.ev",
-      statement: "Versioned placement EV estimate",
-      evidenceClass: "versioned_upstream_estimate",
-      producer: "placement-ev",
-      producerVersion: "1.0.0",
-      evidenceIds: [FACT_ENGINE_EVIDENCE_ID],
-    }).producer).toBe("placement-ev");
-    expect(() => AdvisorySignalSchema.parse({
-      signalId: "signal:2",
-      axis: "efficiency",
-      dimension: "shanten",
-      statement: "Not an estimate",
-      evidenceClass: "deterministic_local_replay",
-      producer: "local",
-      producerVersion: "1.0.0",
-      evidenceIds: [FACT_ENGINE_EVIDENCE_ID],
-    })).toThrow(/versioned upstream estimates/);
-  });
-
   it("parses a minimal valid whole-game package", () => {
     const parsed = StructuredAnalysisPackageSchema.parse(validPackage());
+    expect(parsed.analysisKey).toBe("analysis:game-1:actor3:mortal");
     expect(parsed.packageId).toBe("package:game-1:actor3:mortal:m6c/v1");
     expect(parsed.decisions).toHaveLength(1);
     expect(Object.keys(parsed.evidenceRegistry)).toHaveLength(2);
@@ -637,11 +702,27 @@ describe("record, versions, and package contract", () => {
     })).toThrow();
     expect(() => StructuredAnalysisPackageSchema.parse({
       ...validPackage(),
+      analysisKey: "",
+    })).toThrow();
+    expect(() => StructuredAnalysisPackageSchema.parse({
+      ...validPackage(),
       createdAt: "not-a-timestamp",
     })).toThrow();
     expect(() => StructuredAnalysisPackageSchema.parse({
       ...validPackage(),
       semanticContentHash: "",
     })).toThrow();
+  });
+
+  it("enforces package-level identity coherence (Blocker 3B)", () => {
+    const pkg = validPackage();
+    expect(() => StructuredAnalysisPackageSchema.parse({
+      ...pkg,
+      decisions: [analysisReadyDecision(), analysisReadyDecision()],
+    })).toThrow(/globally unique/);
+    expect(() => StructuredAnalysisPackageSchema.parse({
+      ...pkg,
+      record: { ...pkg.record, selfActor: 2 },
+    })).toThrow(/known self actor must equal the record/);
   });
 });
