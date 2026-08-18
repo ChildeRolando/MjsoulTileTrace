@@ -227,8 +227,11 @@ function projectReport(
         // state.tehai is the reviewed player's own hand at that decision. A
         // response entry's last_actor is the opponent who triggered the
         // decision (discard / kakan); the decision still belongs to the
-        // reviewed player. All rows are projected; `lastActor` identifies the
-        // trigger surface, never ownership.
+        // reviewed player. Ownership is NOT assumed: MortalReportSchema
+        // verifies at the fetch boundary that every action carrying an actor
+        // has actor === report.player_id (fails closed as
+        // report_schema_unsupported otherwise). All rows are projected;
+        // `lastActor` identifies the trigger surface, never ownership.
         return [{
           roundOrdinal: context.roundOrdinal,
           roundWind: context.roundWind,

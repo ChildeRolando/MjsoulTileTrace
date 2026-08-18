@@ -51,7 +51,12 @@ export type MortalBindingMismatchReason =
   | "mortal_entry_matches_multiple_decisions"
   | "source_entry_reuse"
   | "source_order_violation"
-  | "mortal_actual_mismatch";
+  | "mortal_actual_mismatch"
+  // M6-A4.0: a locally-proven single-candidate window expects NO source row
+  // (Mortal emits rows only at >=2-candidate decision points). A compatible
+  // source row existing anyway contradicts the local expectation — integrity
+  // failure, never a normal bound analysis.
+  | "unexpected_source_row_present";
 
 export type MortalModelIncompleteReason =
   | "actual_action_not_scored"
@@ -599,18 +604,45 @@ export async function runMortalFullGameReview(input: {
     // stage, and merging them obscured the §21 precedence.
     const local = localSupport(decision);
     const support = local.support;
+    // M6-A4.0: the single-candidate proof is a LOCAL expectation decided
+    // before any source lookup — whether a window expects a source row may
+    // never depend on what the source contained.
+    const proof = singleCandidateProofs.get(row.decisionOrdinal) ?? null;
 
     // Precedence (M6-A3 §21, closing round): (1) whole-run identity failures
-    // already returned above; per-row order is (2) binding ambiguity/order
-    // failure, (3) no source entry, (4) LOCAL actual representation support,
-    // (5) source actual ↔ local actual correspondence, (6) source/model
-    // candidate surface support, (7) real coverage gate, (8) completeness,
-    // (9) assembly, (10) analysis_ready. A row with no source entry never
+    // already returned above; per-row order is (2) M6-A4.0 single-candidate
+    // source-presence failure, (3) binding ambiguity/order failure, (4) no
+    // source entry, (5) LOCAL actual representation support, (6) source
+    // actual ↔ local actual correspondence, (7) source/model candidate
+    // surface support, (8) real coverage gate, (9) completeness, (10)
+    // assembly, (11) analysis_ready. A row with no source entry never
     // reports as an unsupported action; a local actual with no meaningful
     // local action to compare may classify before the correspondence check;
     // a source candidate surface problem may NEVER classify before the
     // source actual ↔ local actual correspondence — support and coverage
     // classification must not hide an integrity mismatch.
+    if (proof !== null && row.binding !== "no_mortal_entry") {
+      // A proven single-candidate window expects NO source row. A compatible
+      // row existing anyway (bound or ambiguous) contradicts the local
+      // expectation — integrity failure, not a normal bound analysis. The
+      // binding status stays on the row so an auditor sees the contradiction.
+      ledger.push({
+        decisionOrdinal: row.decisionOrdinal,
+        roundOrdinal: row.roundOrdinal,
+        binding: row.binding,
+        support,
+        review: "not_attempted",
+        outcome: "binding_mismatch",
+        reason: "unexpected_source_row_present",
+        sourceEntryRef: row.sourceEntryRef,
+        sourceOrdinal: row.sourceOrdinal,
+        modelSummary: null,
+        singleCandidateProof: proof,
+      });
+      outcomeCounts.binding_mismatch += 1;
+      continue;
+    }
+
     if (row.binding === "ambiguous") {
       let reason: MortalBindingMismatchReason;
       if (row.orderViolation) {
@@ -642,7 +674,6 @@ export async function runMortalFullGameReview(input: {
       // the absence is reclassified from integrity failure to the legal
       // source_row_not_expected state. Without a proof the absence stays a
       // loud no_mortal_entry (green runs require 0).
-      const proof = singleCandidateProofs.get(row.decisionOrdinal) ?? null;
       const outcome: MortalDecisionOutcome = proof === null
         ? "no_mortal_entry"
         : "source_row_not_expected";

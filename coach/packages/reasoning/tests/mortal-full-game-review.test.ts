@@ -1873,6 +1873,66 @@ describe("M6-A4.0 source model: source_row_not_expected + source-surface partiti
     expect(review.summary.outcomes.no_mortal_entry).toBe(2);
   });
 
+  it("Blocker-1: a proven single-candidate window with a compatible source row is an integrity failure", async () => {
+    const stream = riichiForcedTurnStream(canonicalTile("7z"));
+    const decisions = replayCanonicalStream(stream);
+    expect(decisions).toHaveLength(3);
+    // The forced-tsumogiri window (decision 2) is locally proven
+    // single-candidate, so a source row is NOT expected. The report
+    // UNEXPECTEDLY carries a matching self row: the local expectation is
+    // contradicted -> binding_mismatch with a dedicated reason, never a
+    // normal bound analysis (the old behavior).
+    const unexpectedRow = entryForDecision(decisions[2]!, { atSelfRiichi: true });
+    const review = await runMortalFullGameReview({
+      stream,
+      decisions,
+      report: makeReport([unexpectedRow], {
+        gameFingerprint: computeCanonicalGameFingerprint(stream),
+      }),
+      engine: new FailingEngine(),
+    });
+    expect(review.status).toBe("coverage_ready");
+    if (review.status !== "coverage_ready") return;
+    expect(review.decisions[0]!.outcome).toBe("no_mortal_entry");
+    expect(review.decisions[1]!.outcome).toBe("no_mortal_entry");
+    expect(review.decisions[2]!.outcome).toBe("binding_mismatch");
+    expect(review.decisions[2]!.reason).toBe("unexpected_source_row_present");
+    expect(review.decisions[2]!.binding).toBe("bound");
+    expect(review.decisions[2]!.singleCandidateProof?.shape).toBe(
+      "riichi_accepted_forced_tsumogiri",
+    );
+    expect(review.decisions[2]!.singleCandidateProof?.candidateCount).toBe(1);
+    expect(review.summary.outcomes.binding_mismatch).toBe(1);
+    expect(review.summary.outcomes.source_row_not_expected).toBe(0);
+    expect(review.summary.outcomes.no_mortal_entry).toBe(2);
+  });
+
+  it("Blocker-1: a proven single-candidate window with multiple compatible source rows stays an integrity failure", async () => {
+    const stream = riichiForcedTurnStream(canonicalTile("7z"));
+    const decisions = replayCanonicalStream(stream);
+    const unexpectedRow = entryForDecision(decisions[2]!, { atSelfRiichi: true });
+    const review = await runMortalFullGameReview({
+      stream,
+      decisions,
+      report: makeReport([
+        unexpectedRow,
+        Object.freeze({ ...unexpectedRow, junme: unexpectedRow.junme + 1 }),
+      ], {
+        gameFingerprint: computeCanonicalGameFingerprint(stream),
+      }),
+      engine: new FailingEngine(),
+    });
+    expect(review.status).toBe("coverage_ready");
+    if (review.status !== "coverage_ready") return;
+    // Two compatible rows make the single-candidate window ambiguous — but
+    // either way a source row exists where none was expected, so the
+    // dedicated source-presence reason wins over the generic ambiguity.
+    expect(review.decisions[2]!.outcome).toBe("binding_mismatch");
+    expect(review.decisions[2]!.reason).toBe("unexpected_source_row_present");
+    expect(review.decisions[2]!.binding).toBe("ambiguous");
+    expect(review.summary.outcomes.binding_mismatch).toBe(1);
+  });
+
   it("shape A refutes tsumo: a completing draw withholds the proof", async () => {
     // Draw the red 5p: 123m456m789m + 123p + 55p is a complete hand, so
     // tsumo is a legal second candidate — the window is not single-candidate

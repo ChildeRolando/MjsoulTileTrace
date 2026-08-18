@@ -196,6 +196,46 @@ describe("fetchMortalReport", () => {
     ]);
   });
 
+  it("fails closed when a reviewed-player action carries a foreign actor (M6-A4 ownership)", async () => {
+    // The single-perspective invariant is VERIFIED at the fetch boundary: a
+    // response row whose chi/pon/kan candidate names another seat as the
+    // decision owner contradicts the report's own perspective and must fail
+    // closed as report_schema_unsupported — never be silently projected.
+    await expect(fetchMortalReport({
+      url: REPORT_URL,
+      fetchImpl: (async () => jsonResponse(JSON.stringify(rawReport({
+        review: {
+          model_tag: "4.1b",
+          kyokus: [{
+            kyoku: 0,
+            honba: 0,
+            end_status: [],
+            relative_scores: [],
+            entries: [
+              entry({
+                last_actor: 1,
+                actual: { type: "none" },
+                details: [
+                  { action: { type: "none" }, q_value: 0.6, prob: 0.6 },
+                  {
+                    action: { type: "pon", actor: 0, target: 1, pai: "4p", consumed: ["1p", "1p"] },
+                    q_value: -0.2,
+                    prob: 0.4,
+                  },
+                ],
+              }),
+            ],
+          }],
+          total_reviewed: 1,
+          total_matches: 1,
+          rating: 0,
+          temperature: 0,
+          relative_phi_matrix: [],
+        },
+      })))) as typeof fetch,
+    })).rejects.toMatchObject({ code: "mortal_report_schema_unsupported" });
+  });
+
   it("stamps the M6-A4.0 projection adapter version", async () => {
     const result = await fetchMortalReport({
       url: REPORT_URL,
