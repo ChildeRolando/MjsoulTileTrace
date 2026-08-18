@@ -21,10 +21,22 @@ mahjong-soul-source ──► CanonicalEventStreamV2
                               structured comparison / ledgers
                                              │
                                              ▼
-                                validated analysis package
+                                StructuredAnalysisPackage
                                              │
                                              ▼
-                                  desktop renderer / LLM
+                                  ContextGraph projection
+                                             │
+                                             ▼
+                                     GraphContextSlice
+                                             │
+                                             ▼
+                                         LLM Coach
+                                             │
+                                             ▼
+                            Reasoning overlay / ReviewReport
+                                             │
+                                             ▼
+                                      desktop renderer
 ```
 
 系统刻意把“数据来源”“局面事实”“候选因素与差异”“模型选择”和“自然语言表达”分开；教练判断（CoachJudgment）位于证据之上、表达之下——可以综合与权衡证据，但不能倒写证据层事实。
@@ -115,8 +127,86 @@ renderer 只能收到安全会话状态、可分析目录摘要和固定操作�
 2. 模型评价只表示模型选择；事实管线独立计算麻将因素。
 3. 每候选生成同构五轴账本，再生成 pairwise differences。
 4. 只有 registered deterministic difference 可进入确定性偏好；确定性偏好是 optional deterministic signal，轴间冲突时为 null——冲突场景交给教练判断层，而非禁止综合。
-5. LLM 教练判断（CoachJudgment）在已有确定性证据内做跨因素权衡、给出推荐与置信度；不得发明、修改或补全局面事实与候选因素，不得改写差异方向，也不得声称知道模型内部原因。
+5. LLM 教练判断（CoachJudgment）在已有证据之内做跨因素权衡（hard evidence 是约束，advisory signal 是带来源/版本的参考上下文且无否决权）、给出推荐与置信度；不得发明、修改或补全局面事实与候选因素，不得改写差异方向，也不得声称知道模型内部原因。
 6. 解释（ExplanationBullet）是表达单元：证据向条目引用候选差异，判断向条目引用教练判断；解释验证器只做 grounding 校验（可追溯、数值/方向一致、无捏造事实），不试图确定性证明判断本身“正确”。
+
+## Context Graph 架构
+
+ContextGraph 不是 GraphRAG 产品依赖，也不是新的事实来源。它是
+`StructuredAnalysisPackage` 的 typed projection，加上 LLM 追加的 reasoning
+overlay。权威裁定见
+[ADR-0004](../adr/0004-context-graph-as-auditable-llm-boundary.md)，设计细节见
+[Context Graph design spec](../specs/2026-08-18-auditable-context-graph-design.md)。
+
+### Evidence subgraph
+
+由 `StructuredAnalysisPackage` deterministic projection 生成。允许的初始 node
+kinds 至少概念上包含：
+
+- Decision
+- CandidateAction
+- KnownGameFact
+- FactorFact
+- FactorDifference
+- AdvisorySignal
+- ModelEvaluation
+- DeterministicPreference
+- Constraint
+
+每个 node 至少概念上携带：
+
+- stable id
+- kind
+- origin
+- authority / evidenceClass
+- producer/version
+- payload
+- provenance
+
+Evidence subgraph 是 immutable，LLM 不得修改、删除、覆盖其中任何
+hard-evidence / advisory / model node。
+
+### Reasoning overlay
+
+LLM 只允许追加：
+
+- CoachInference
+- CoachJudgment
+- Explanation-related representation
+
+reasoning overlay 可以引用 evidence nodes，但不得修改 evidence nodes。
+
+### Edge semantics
+
+v1 只使用明确的 argument/semantic relation，例如：
+
+- derived_from
+- supports
+- opposes
+- qualifies
+- compares
+- applies_to
+- recommends
+- verbalizes
+
+不要在 v1 引入未经证明的 `causes` relation。`supports` / `derived_from` 表达
+论证与语义关系，不声称建立因果真理。
+
+### Runtime composition
+
+```text
+ContextGraph =
+project(StructuredAnalysisPackage)
++
+ReviewReport.reasoningOverlay
+```
+
+v1 不要求新增第三个持久化 canonical artifact。ReviewSession 仍可只引用：
+
+- StructuredAnalysisPackage
+- ReviewReport
+
+因此不要推翻已冻结的 M7-B persistence 设计。
 
 ## 核心设计决策
 
@@ -137,9 +227,15 @@ renderer 只能收到安全会话状态、可分析目录摘要和固定操作�
 局面事实与候选因素只能来自本地可验证的确定性管线，候选间差异由 FactorDifference 固定；跨因素取舍与最终教练判断（CoachJudgment）允许由 LLM 在证据之内完成——权衡冲突轴、给出推荐与置信度是 Coach 相对纯分析器的核心价值。
 
 > No game-state fact or candidate-level analytical fact may originate from the LLM.
-> Coaching judgments may originate from the LLM, but must be grounded exclusively in available deterministic evidence.
-> The LLM may weigh conflicting grounded factors and produce a coaching recommendation.
-> It must not invent, alter, or infer unsupported game-state facts in order to justify that recommendation.
+> Coaching judgments may originate from the LLM, but their factual premises must come from auditable non-LLM sources.
+
+- factual premises 必须来自 auditable non-LLM sources；
+- hard evidence 是约束；
+- advisory signal 是带来源/版本的参考上下文，无 veto power；
+- CoachInference 可以根据 KnownGameFacts 做高级综合与读牌；
+- LLM 可以不接受 advisory signal，但不能篡改它的原始值或来源；
+- LLM 不得抵触 hard evidence；
+- LLM 不得发明、修改或补全局面事实来支持其建议。
 
 事实必须确定；判断可以经验；无出处的局面事实一律禁止。DeterministicPreference 是 optional deterministic signal，不是教练推荐的唯一合法来源。
 
@@ -149,7 +245,7 @@ renderer 只能收到安全会话状态、可分析目录摘要和固定操作�
 
 ### 模型和教练分离
 
-Mortal/Akagi 的分数决定“模型偏好”；教练判断（CoachJudgment）由 LLM 在可审计的确定性证据上做出。删除模型评分不能改变事实账本与差异，也不得改变教练判断的证据基础。
+Mortal/Akagi 的分数决定“模型偏好”；教练判断（CoachJudgment）由 LLM 在可审计的证据上做出（hard evidence 为约束，advisory signal 为带来源/版本的参考上下文）。删除模型评分不能改变事实账本与差异，也不得改变教练判断的证据基础。
 
 ### Privileged / renderer 分离
 
@@ -160,4 +256,4 @@ Mortal/Akagi 的分数决定“模型偏好”；教练判断（CoachJudgment）
 - canonical mapper 的部分流局/杠语义尚需真实牌谱反证（M5 人工验收并行线程）；
 - 响应面（他家舍牌/他家杠响应窗口）尚未接入，且 source 投影层仍按 `last_actor` 过滤、会把响应 entry 整层丢弃——M6-A4 先修决策归属模型再开面；
 - mapped/replayed record 与 Mortal 报告仍仅在主进程内存/验收缓存中，没有产品级持久化（M7-B）；
-- 整盘 StructuredAnalysisPackage、解释引擎与 validator、review UI、LLM 客户端、SQLite 会话与跨平台发布尚未实现（M6-C / M6-D / M7-A / M7-B / M8）。
+- 整盘 StructuredAnalysisPackage、Typed Context Graph substrate、Graph-grounded Coach 与 validator、review UI、LLM 客户端、SQLite 会话与跨平台发布尚未实现（M6-C / M6-D1 / M6-D2 / M7-A / M7-B / M8）。

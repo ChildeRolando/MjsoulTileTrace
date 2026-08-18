@@ -4,6 +4,18 @@
 状态：已确认，待书面审核
 适用范围：双引擎 LLM 日麻教练的决策后处理、教练提示词和解释校验
 
+> **当前权威提示（2026-08-18）**：本文件为历史设计 spec，正文保留用于设计演进
+> 追踪，不再作为当前 LLM/evidence/context 边界的权威。其中
+> “TeachingPolicyEngine / deterministic rules 产生最终教练建议、LLM 主要做
+> 表达”的部分已被
+> [ADR-0003](../adr/0003-evidence-first-coaching-judgment-and-authority-layers.md)
+> supersede。当前 LLM/evidence/context 边界以
+> [ADR-0003](../adr/0003-evidence-first-coaching-judgment-and-authority-layers.md)、
+> [ADR-0004](../adr/0004-context-graph-as-auditable-llm-boundary.md)、
+> [当前 ROADMAP](../development/ROADMAP.md) 和
+> [Context Graph design spec](./2026-08-18-auditable-context-graph-design.md)
+> 为准。
+
 ## 1. 问题与目标
 
 麻将模型输出动作、候选分数和概率，但不输出可验证的内部推理。仅把牌局 JSON 和模型首选交给 LLM，会诱使 LLM 事后编造一个听起来合理的理由。

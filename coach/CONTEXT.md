@@ -89,6 +89,36 @@ _Avoid_: 用 last_actor/最后行动者判定归属（自摸回合恰好重合�
 合法无行。绑定守恒因此是"每个本地窗口要么可绑定、要么有明确无行原因"，
 不是两侧计数相等。
 
+### ContextGraph 与推理审计（context graph / reasoning audit）
+
+**ContextGraph**：
+由 StructuredAnalysisPackage 投影出的 typed provenance graph，加上可选 LLM
+reasoning overlay。v1 是内存中的 typed property graph + deterministic traversal，
+不引入 graph database / GraphRAG。
+
+**Evidence subgraph**：
+非 LLM 起源、不可被 LLM 修改的 graph partition；由 StructuredAnalysisPackage
+deterministic projection 得到。
+
+**Reasoning overlay**：
+LLM 追加的 CoachInference / CoachJudgment / Explanation relation 集合；只允许
+append，可以引用 evidence subgraph，但不得修改、删除或覆盖其中节点/边。
+
+**GraphContextSlice**：
+从 ContextGraph 通过确定性 allow-list / traversal 选出的单次 LLM 输入。
+
+**Reasoning trace / argument trace**：
+面向产品保存和审计的显式结构化推理路径。
+
+> reasoning trace != raw chain-of-thought
+
+**读牌语义拆分**：
+
+- 上游、本地、版本化的 behavioral heuristic / river estimate
+  → advisory signal（无否决权）；
+- LLM 根据真实 KnownGameFacts（舍牌顺序、手切/摸切、立直时机等）形成的
+  高级读牌判断 → CoachInference（属于教练判断层）。
+
 ### 证据先行教练语义（evidence-first coaching）
 
 **局面事实（KnownGameFacts）**：
@@ -112,9 +142,9 @@ null 不是"禁止综合判断"，而是把取舍交给教练判断层。
 _Avoid_: 最终推荐、教练结论的唯一合法来源
 
 **教练判断（CoachJudgment）**：
-LLM 在已有确定性证据之内做出的跨因素权衡、最终推荐与置信度；可以处理
-轴间冲突、表达经验性取舍，但不得发明或修改局面事实、候选因素数值或差异
-方向。
+LLM 在已有证据之内（hard evidence 为约束、advisory signal 为参考上下文且
+无否决权）做出的跨因素权衡、最终推荐与置信度；可以处理轴间冲突、表达
+经验性取舍，但不得发明或修改局面事实、候选因素数值或差异方向。
 _Avoid_: 把它当局面事实；把 LLM 降格为纯语言包装层
 
 **解释条目（ExplanationBullet）**：
@@ -130,11 +160,14 @@ KnownGameFacts 与确定性候选因素，构成事实约束——LLM 对其不�
 （现物是不是现物不由 LLM 说了算）。
 
 **参考信号（advisory signal）**：
-版本化启发式/估算（helper 风险刻度、顺位 EV、读牌推断）；只作上下文、
-**无否决权**——教练可以不认，也可以在真实牌河依据上判断其低估/高估。
+版本化启发式/估算（helper 风险刻度、顺位 EV、版本化上游 behavioral
+heuristic / river estimate）；只作上下文、**无否决权**——教练可以不认，
+也可以在真实牌河依据上判断其低估/高估。
 
 **教练推断（coach inference）**：
-CoachJudgment 的综合层：可以否决参考信号，不得抵触硬证据。
+CoachJudgment 的综合层；LLM 根据真实 KnownGameFacts（舍牌顺序、手切/摸切、
+立直时机等）形成的高级读牌判断属于 CoachInference。可以否决参考信号，不得
+抵触硬证据。
 
 **顺位条件（placement conditions）**：
 点数/番数/点位算术导出的升顺保顺条件；确定性事实，属硬证据。

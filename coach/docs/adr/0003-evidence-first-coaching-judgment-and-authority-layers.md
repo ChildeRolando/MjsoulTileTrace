@@ -7,11 +7,14 @@
 - **Hard evidence**（KnownGameFacts + 确定性候选因素 / deterministic
   FactorDifference）：factual constraints——LLM 不可有意见、不可发明、不可修改、
   不可补全。
-- **Advisory signals**（版本化启发式/估算：helper 风险刻度、顺位 EV、读牌行为
-  推断）：reproducible context，**no veto power**——教练可以不认，也可依据真实
-  牌河判断其在当前局面低估/高估。
+- **Advisory signals**（版本化启发式/估算：helper 风险刻度、顺位 EV、版本化上游
+  behavioral heuristic / river estimate）：reproducible context，**no veto
+  power**——教练可以不认，也可依据真实牌河判断其在当前局面低估/高估。这里的
+  “读牌行为推断”特指上游、本地、版本化的启发式/估算，不是 LLM 教练推断。
 - **Coach inference / CoachJudgment**（LLM）：在证据之内综合、权衡冲突轴、给出
-  最终推荐与置信度；**可否决 advisory signals，不得抵触 hard facts**。
+  最终推荐与置信度；**可否决 advisory signals，不得抵触 hard facts**。LLM 基于
+  KnownGameFacts 形成的高级牌河阅读（舍牌顺序、手切/摸切、立直时机等）属于
+  CoachInference，不属于 advisory signal。
 
 `DeterministicPreference` 由此定位为 **optional deterministic signal**：本地显式
 规则一致时给出，轴间冲突时为 null；null 不是"禁止综合判断"，而是"交给教练判断
