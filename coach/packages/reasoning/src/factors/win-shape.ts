@@ -48,6 +48,42 @@ function canFormSets(counts: number[], startIndex: number, setsNeeded: number): 
   return false;
 }
 
+/**
+ * M6-A4.1: winning-shape check for a hand with M exposed melds.
+ *
+ * A hand with M melds holds (4 - M) concealed sets + a concealed pair — the
+ * concealed holding carries (13 - 3M) tiles at a ron point, so (concealed +
+ * offered) totals 14 - 3M and must decompose into (4 - M) sets + 1 pair.
+ * Chiitoitsu and kokushi are closed-hand-only forms, so they only apply when
+ * M === 0 (setsNeeded === 4), which delegates to isCompleteHandShape. The
+ * fail-safe direction matches the closed checker: PERMISSIVE — a false
+ * "complete" only costs an extra engine call; a false "incomplete" would
+ * silently drop a real ron candidate.
+ */
+export function isCompleteHandShapeWithSets(
+  counts34: readonly number[],
+  setsNeeded: number,
+): boolean {
+  if (counts34.length !== 34) return false;
+  let total = 0;
+  for (const count of counts34) {
+    if (!Number.isInteger(count) || count < 0 || count > 4) return false;
+    total += count;
+  }
+  if (total !== 3 * setsNeeded + 2) return false;
+  if (setsNeeded === 4) return isCompleteHandShape(counts34);
+  if (setsNeeded < 0 || setsNeeded > 3) return false;
+  const counts = [...counts34];
+  for (let pair = 0; pair < 34; pair += 1) {
+    if (counts[pair]! < 2) continue;
+    counts[pair] = counts[pair]! - 2;
+    const done = canFormSets(counts, 0, setsNeeded);
+    counts[pair] = counts[pair]! + 2;
+    if (done) return true;
+  }
+  return false;
+}
+
 export function isCompleteHandShape(counts34: readonly number[]): boolean {
   if (counts34.length !== 34) return false;
   let total = 0;
