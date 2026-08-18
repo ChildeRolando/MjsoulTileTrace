@@ -40,9 +40,11 @@ graph 边界见 [ADR-0004](../adr/0004-context-graph-as-auditable-llm-boundary.m
 record/decision identity、组件版本、七值 outcome、renderer-safe / locally
 auditable normalized decision context 与 KnownGameFacts、canonical
 event/evidence 引用与 registry、CandidateFactorLedger / FactorFact、
-FactorDifference、带 evidence class + producer/version 的 advisory signals、
-optional DeterministicPreference、ModelEvaluation 与 stable
-EvidenceId/provenance。LLM 产物一律不进 package。
+FactorDifference、optional DeterministicPreference、ModelEvaluation 与
+stable EvidenceId/provenance。advisory semantics 不再有独立载荷：由
+FactorFact / FactorDifference 的 authority classification
+（`versioned_upstream_estimate` / `heuristic_only`，ADR-0003）承担。
+LLM 产物一律不进 package。
 
 `StructuredAnalysisPackage` 自身不是 graph，不替代未来的 ContextGraph，而是后者
 的确定性投影来源。它在权限上的位置是：
@@ -168,14 +170,26 @@ M6-D 之前就已有稳定的机器可读答案。
   - 跨 rerun 稳定（只要语义输入一致，不随 wall-clock 变化）；
   - 跨 mapper version **不保证**稳定；mapper 版本变化导致的 canonical
     event ref 变化由 `componentVersions` 显式记录。
-- `packageId` 是 **semantic identity**：由 record identity + self actor +
-  analysis provider + package schema version 派生，跨 rerun 稳定。
-  另设 **semanticContentHash**（见 CR-5）用于去重/比对；wall-clock 与
-  artifact creation metadata 不进入 packageId，也不进入
-  semanticContentHash。
-- EvidenceId namespace 必须避免 collision：按 kind/producer 命名空间隔离；
-  canonical event refs 沿用既有 canonical 事件 ref 命名空间，fact-engine
-  request 等派生 evidence 使用显式 kind 前缀，registry key 全局唯一。
+- `packageId` 不再是"record identity + self actor + provider + schema
+  版本"的单一 semantic identity（Slice 1 评审 Blocker 3A 收口），改为
+  **identity split**：
+  - **`analysisKey` = logical slot**：由 record identity + self actor +
+    analysis provider 派生，跨 rerun **且跨 model/fact-pipeline 版本稳定**；
+    它回答"哪个分析槽位"，不回答"哪个产物"。
+  - **`packageId` = artifact identity**：由 `analysisKey` +
+    `componentVersions` + **显式冻结的 policy snapshot** 派生；同一 slot
+    在不同 model/fact-pipeline 版本下产出**不同** packageId，ReviewSession
+    引用无语义碰撞。跨 rerun 稳定；wall-clock 与 artifact creation metadata
+    不进入 packageId。
+  - `packageId ≠ semanticContentHash`：hash（CR-5）是内容级去重/比对，
+    packageId 是产物引用。
+- EvidenceId namespace（Slice 1 评审 Blocker 2 收口）：**保留现有 production
+  identity，不做强制改名**。canonical event evidence 沿用既有 canonical
+  事件 ref 命名空间（production canonical events 已满足，零改名成本）；
+  fact-engine request 等派生 evidence 直接保留 production request id
+  （如 `<factSetId>:hand-structure:<stateHash>`），**不再要求显式 kind
+  前缀，不设 ID 翻译层**；registry key 全局唯一（key === record.evidenceId）。
+  仅在观察到真实 collision 时才引入按 kind/producer 的命名空间前缀。
 
 ### CR-5：determinism / time semantics 精确化
 
@@ -270,16 +284,20 @@ M6-D 之前就已有稳定的机器可读答案。
     （CR-3，自包含可解析）；
   - `CandidateFactorLedger` / `FactorFact`；
   - `FactorDifference`；
-  - advisory signals，带 evidence class + producer/version；
+  - `StructuredComparisonSet`（action-bound：保存 actionRef → RiichiAction
+    与 actual ↔ model realization 对应关系；`analysis_ready` 决策携带）；
+  - 无独立 advisory signal 载荷：advisory semantics 由 FactorFact /
+    FactorDifference 的 authority classification（`versioned_upstream_estimate` /
+    `heuristic_only`）承担；
   - optional `DeterministicPreference`；
   - `ModelEvaluation`；
   - stable `EvidenceId` / provenance。
 - **决策载荷一致性**：每个 decision entry 的 outcome 与其载荷按类型级约束
-  绑定：只有 `analysis_ready` 决策携带完整 ledgers / differences /
-  modelEvaluation；失败/跳过决策携带其 reason/proof 与空载荷，不得伪造
-  "有分析"的形态。
+  绑定：只有 `analysis_ready` 决策携带完整的 `StructuredComparisonSet` +
+  ledgers / differences / modelEvaluation；失败/跳过决策携带其 reason/proof
+  与空载荷，不得伪造"有分析"的形态。
 - **构建路径（不重算）**：`runMortalFullGameReview` 在 `coverage_ready`
-  时保留每个走到 review 阶段的决策的完整逐决策载荷（comparison set、
+  时保留每个走到 review 阶段的决策的完整逐决策载荷（StructuredComparisonSet、
   model evaluation、factor result），供 builder 固化；失败/跳过决策仍只
   保留 ledger 行。builder 是纯投影式组装：拼包过程不调用事实引擎、不访问
   Mortal、不重跑 `runBoundMortalDecisionReview`。
