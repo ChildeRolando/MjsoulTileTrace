@@ -34,25 +34,23 @@
  *     Any engine error withholds the whole window's proof fail-closed: an
  *     error can never be read as "not tenpai".
  */
-import { canonicalActionRef, type Tile } from "@riichi-coach/contracts";
+import {
+  canonicalActionRef,
+  type SingleCandidateProof,
+  type Tile,
+} from "@riichi-coach/contracts";
 import type { HandStructureFactEnginePort } from "../fact-engine/port.js";
 import { buildHandStructureRequestV2 } from "../factors/hand-structure-projector.js";
 import { tileIdTo34 } from "../factors/tile34.js";
 import { isCompleteHandShape } from "../factors/win-shape.js";
 import type { ReplayedDecision } from "../replay/stream-replayer.js";
 
-export type SingleCandidateProofShape =
-  | "riichi_accepted_forced_tsumogiri"
-  | "riichi_declaration_unique_tenpai_discard"
-  // M6-A4.2: a response window whose isomorphic local enumeration proves
-  // only `none` (pass) is legal — Mortal emits no row at single-candidate
-  // response points. Defined here so the ledger's proof field is one union.
-  | "response_single_candidate";
-
-export type SingleCandidateProof = Readonly<{
-  shape: SingleCandidateProofShape;
-  candidateCount: 1;
-}>;
+// M6-C Slice 1 (CR-2): the proof shape/schema now belongs to the contracts
+// package. Re-exported here to keep the reasoning public surface unchanged.
+export type {
+  SingleCandidateProof,
+  SingleCandidateProofShape,
+} from "@riichi-coach/contracts";
 
 function samePhysicalTile(left: Tile, right: Tile): boolean {
   return left.id === right.id && left.red === right.red;

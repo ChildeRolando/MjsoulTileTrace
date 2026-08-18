@@ -4,6 +4,12 @@ import {
   DecisionSnapshotV2Schema,
   KnownGameFactsSchema,
   type CanonicalEventStream,
+  type MortalAnalysisBlockedReason,
+  type MortalBindingMismatchReason,
+  type MortalDecisionOutcome,
+  type MortalDecisionReason,
+  type MortalModelIncompleteReason,
+  type MortalUnsupportedReason,
 } from "@riichi-coach/contracts";
 import {
   type MortalFetchedReport,
@@ -43,53 +49,18 @@ export type MortalBindingStatus = "bound" | "no_mortal_entry" | "ambiguous";
 
 export type MortalSupportStatus = "supported" | "unsupported";
 
-export type MortalUnsupportedReason =
-  | "local_actual_not_represented"
-  | "mortal_candidate_action_not_supported"
-  // M6-A3: the branch's production fail-closed has not been lifted by a
-  // real E2E acceptance hit yet.
-  | "coverage_branch_uncovered";
-
-export type MortalBindingMismatchReason =
-  | "multiple_mortal_entries_for_decision"
-  | "mortal_entry_matches_multiple_decisions"
-  | "source_entry_reuse"
-  | "source_order_violation"
-  | "mortal_actual_mismatch"
-  // M6-A4.0: a locally-proven single-candidate window expects NO source row
-  // (Mortal emits rows only at >=2-candidate decision points). A compatible
-  // source row existing anyway contradicts the local expectation — integrity
-  // failure, never a normal bound analysis.
-  | "unexpected_source_row_present";
-
-export type MortalModelIncompleteReason =
-  | "actual_action_not_scored"
-  | "duplicate_model_action"
-  | "invalid_model_candidate"
-  | "fewer_than_two_distinct_actions"
-  | "cross_decision_window"
-  | "candidate_normalization_failed"
-  // M6-A3: a terminal window whose Mortal candidate set degenerated (e.g.
-  // only the winning action) — fail closed, never fabricate a second
-  // candidate.
-  | "terminal_window_action_unsupported";
-
-export type MortalAnalysisBlockedReason =
-  | "fact_engine_failure"
-  | "structured_analysis_assembly_failure";
-
-export type MortalDecisionOutcome =
-  | "analysis_ready"
-  | "unsupported_action"
-  // M6-A4.0: the seventh value. A legal state, decided purely by the local
-  // candidate enumeration (count = 1 -> Mortal emits no row by definition)
-  // BEFORE any source lookup; carries the proof. `no_mortal_entry` keeps its
-  // integrity-failure semantics and must be 0 in a green acceptance run.
-  | "source_row_not_expected"
-  | "no_mortal_entry"
-  | "binding_mismatch"
-  | "model_output_incomplete"
-  | "analysis_blocked";
+// M6-C Slice 1 (CR-2): the seven-value outcome and the four reason unions are
+// schema-owned by the contracts package; reasoning imports them and owns no
+// duplicate unions. Re-exported here to keep the reasoning public surface
+// unchanged.
+export type {
+  MortalAnalysisBlockedReason,
+  MortalBindingMismatchReason,
+  MortalDecisionOutcome,
+  MortalDecisionReason,
+  MortalModelIncompleteReason,
+  MortalUnsupportedReason,
+} from "@riichi-coach/contracts";
 
 export type MortalFullGameReviewStatus = "coverage_ready" | "failed";
 
@@ -117,12 +88,7 @@ export type MortalFullGameLedgerEntry = Readonly<{
   support: MortalSupportStatus;
   review: "not_attempted" | "analysis_ready" | "model_output_incomplete" | "analysis_blocked";
   outcome: MortalDecisionOutcome;
-  reason:
-    | MortalBindingMismatchReason
-    | MortalUnsupportedReason
-    | MortalModelIncompleteReason
-    | MortalAnalysisBlockedReason
-    | null;
+  reason: MortalDecisionReason | null;
   sourceEntryRef: string | null;
   sourceOrdinal: number | null;
   modelSummary: MortalFullGameModelSummary | null;
