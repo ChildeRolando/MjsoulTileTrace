@@ -44,6 +44,7 @@ export * from "./candidate/legacy-action-bridge.js";
 export * from "./analysis/structured-analysis-assembly.js";
 export * from "./analysis/mortal-review-service.js";
 export * from "./analysis/mortal-full-game-review.js";
+export * from "./analysis/structured-analysis-package-builder.js";
 export * from "./analysis/single-candidate-proof.js";
 export * from "./analysis/response-candidate-enumeration.js";
 export * from "./analysis/response-surface-discovery.js";

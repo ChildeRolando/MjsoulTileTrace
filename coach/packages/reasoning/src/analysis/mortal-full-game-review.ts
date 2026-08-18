@@ -4,18 +4,21 @@ import {
   DecisionSnapshotV2Schema,
   KnownGameFactsSchema,
   type CanonicalEventStream,
+  type ModelEvaluation,
   type MortalAnalysisBlockedReason,
   type MortalBindingMismatchReason,
   type MortalDecisionOutcome,
   type MortalDecisionReason,
   type MortalModelIncompleteReason,
   type MortalUnsupportedReason,
+  type StructuredComparisonSet,
 } from "@riichi-coach/contracts";
 import {
   type MortalFetchedReport,
   type MortalReportDecisionEntry,
 } from "@riichi-coach/mortal-source";
 import type { HandStructureFactEnginePort } from "../fact-engine/port.js";
+import type { StructuredFactorPipelineResult } from "../factors/structured-factor-pipeline.js";
 import type { ReplayedDecision } from "../replay/stream-replayer.js";
 import {
   entryMatchesDecisionIdentity,
@@ -179,11 +182,26 @@ export type MortalFullGameReviewResult =
       readonly summary: MortalFullGameCoverageSummary;
       readonly decisions: readonly MortalFullGameLedgerEntry[];
       readonly sourceCoverage: MortalSourceCoverage;
+      // M6-C Slice 2 (spec: 构建路径不重算): every decision that reached the
+      // review stage keeps its FULL ready payload (StructuredComparisonSet +
+      // ModelEvaluation + factor pipeline result) so the package builder is a
+      // pure projection and never re-runs analysis. Aligned 1:1 with the
+      // analysis_ready ledger rows by `surface` + `decisionOrdinal`.
+      readonly retainedAnalyses: readonly MortalFullGameRetainedAnalysis[];
     }
   | {
       readonly status: "failed";
       readonly code: MortalFullGameFailureCode;
     };
+
+/** M6-C Slice 2: the retained full payload of one analysis_ready decision. */
+export type MortalFullGameRetainedAnalysis = Readonly<{
+  decisionOrdinal: number;
+  surface: "self" | "response";
+  comparisonSet: StructuredComparisonSet;
+  modelEvaluation: ModelEvaluation;
+  factorResult: StructuredFactorPipelineResult;
+}>;
 
 type SourceRow = {
   readonly sourceOrdinal: number;
@@ -606,6 +624,9 @@ export async function runMortalFullGameReview(input: {
   const frozenAt = new Date(runStartedAt).toISOString();
 
   const ledger: MortalFullGameLedgerEntry[] = [];
+  // M6-C Slice 2: full ready payloads retained for the package builder — one
+  // entry per analysis_ready ledger row, in the same partition/ordinal order.
+  const retainedAnalyses: MortalFullGameRetainedAnalysis[] = [];
   const outcomeCounts: Record<MortalDecisionOutcome, number> = {
     analysis_ready: 0,
     unsupported_action: 0,
@@ -976,6 +997,15 @@ export async function runMortalFullGameReview(input: {
             deterministicPreference: result.factorResult.deterministicPreference,
           },
         });
+        // M6-C Slice 2: retain the full payload so buildStructuredAnalysisPackage
+        // can project the package without re-running any analysis.
+        retainedAnalyses.push({
+          decisionOrdinal: row.decisionOrdinal,
+          surface: partition.surface,
+          comparisonSet: result.comparisonSet,
+          modelEvaluation: result.modelEvaluation,
+          factorResult: result.factorResult,
+        });
         outcomeCounts.analysis_ready += 1;
         continue;
       }
@@ -1252,5 +1282,6 @@ export async function runMortalFullGameReview(input: {
     summary,
     decisions: Object.freeze(ledger),
     sourceCoverage,
+    retainedAnalyses: Object.freeze(retainedAnalyses),
   };
 }

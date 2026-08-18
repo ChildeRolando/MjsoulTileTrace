@@ -111,6 +111,7 @@ function makeReview(): AcceptanceReadyReview {
       responseUnboundEntryCount: 0,
       responseAmbiguousEntryCount: 0,
     },
+    retainedAnalyses: [],
   } as AcceptanceReadyReview;
 }
 

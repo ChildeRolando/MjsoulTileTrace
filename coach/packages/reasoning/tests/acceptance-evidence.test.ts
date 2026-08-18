@@ -412,6 +412,7 @@ function reviewOf(decisions: readonly MortalFullGameLedgerEntry[]) {
       responseUnboundEntryCount: 0,
       responseAmbiguousEntryCount: 0,
     },
+    retainedAnalyses: [],
   };
 }
 
