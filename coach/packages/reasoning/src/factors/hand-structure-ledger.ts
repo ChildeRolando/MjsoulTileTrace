@@ -77,11 +77,11 @@ export function mapMergedHandFuritenToEfficiencyFacts(
   const { hand } = merged;
   const facts: FactorFact[] = [];
   const diagnostics: string[] = [];
-  const handEvidence = unique([
-    hand.requestId,
-    hand.stateHash,
-    hand.actionRef,
-  ]);
+  // CR-3 evidence identity: the fact-engine REQUEST is the evidence record
+  // (a self-contained, registry-resolvable id); `stateHash` / `actionRef` are
+  // descriptors of that request (the stateHash is also embedded in the
+  // request id), never peer evidence ids.
+  const handEvidence = unique([hand.requestId]);
 
   const addEngineFact = (
     dimension: string,
@@ -522,13 +522,10 @@ function canonicalWaitTypes<T extends typeof waitTypeOrder[number]>(
 }
 
 function bindingEvidence(merged: MergedHandFuritenV2): string[] {
-  return merged.binding.source === "canonical_replay"
-    ? [
-        merged.binding.factSetId,
-        merged.binding.streamPrefixHash,
-        merged.binding.decisionEventRef,
-      ]
-    : [merged.binding.factSetId, merged.binding.decisionEventRef];
+  // The scene binding's canonical decision event is the replay evidence; the
+  // factSetId / streamPrefixHash are provenance of the hand-structure request
+  // (the request id embeds the factSetId), never peer evidence ids (CR-3).
+  return [merged.binding.decisionEventRef];
 }
 
 function responseEvidence(
@@ -536,14 +533,14 @@ function responseEvidence(
   component: "temporary" | "riichi",
 ): string[] {
   const response = merged.furiten[component];
+  // Only actual evidence identities: the response analysis request ids and
+  // the typed canonical event refs. `stateHash` / `actionRef` /
+  // `sourceStreamPrefixHash` are descriptors of those request records.
   return unique([
     ...bindingEvidence(merged),
     ...response.evidenceIds,
     ...response.analysisRefs.flatMap((reference) => [
       reference.requestId,
-      reference.stateHash,
-      reference.actionRef,
-      reference.sourceStreamPrefixHash,
       reference.sourceEventRef,
       reference.closingEventRef,
     ]),
@@ -559,11 +556,15 @@ function mapDiscardFuriten(
   diagnostics: string[],
 ): void {
   const discard = merged.furiten.discard;
+  // The candidate action ref is a descriptor of the analyzed hand-structure
+  // request (the ledger's actionRef already binds the candidate), never a
+  // peer evidence id; the wait analysis that proves the furiten IS the
+  // hand-structure request (CR-3).
   const evidenceIds = unique([
     ...bindingEvidence(merged),
+    merged.hand.requestId,
     ...discard.selfRiver.map((entry) => entry.eventRef),
     ...discard.canonicalEventRefs,
-    ...discard.candidateActionRefs,
   ]);
   const common = {
     factorKey: "efficiency.v2.discard_furiten",
@@ -661,12 +662,9 @@ function mapResponseFuriten(
 function finalEvidence(merged: MergedHandFuritenV2): string[] {
   return unique([
     merged.hand.requestId,
-    merged.hand.stateHash,
-    merged.hand.actionRef,
     ...bindingEvidence(merged),
     ...merged.furiten.discard.selfRiver.map((entry) => entry.eventRef),
     ...merged.furiten.discard.canonicalEventRefs,
-    ...merged.furiten.discard.candidateActionRefs,
     ...responseEvidence(merged, "temporary"),
     ...responseEvidence(merged, "riichi"),
   ]);

@@ -462,8 +462,6 @@ describe("hand structure V2 ledger mapper", () => {
       expect(fact(clear, dimension).preferenceEligibility).toBe("ineligible");
     }
     expect(fact(clear, "temporary_furiten").evidenceIds).toEqual([
-      factSetId,
-      "sha256:ledger-prefix",
       decisionEventRef,
     ]);
 

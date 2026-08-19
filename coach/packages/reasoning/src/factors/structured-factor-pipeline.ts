@@ -202,10 +202,11 @@ async function analyzeReadyCandidate(
         status: "blocked_engine_failure",
         mapping: blockedHandStructureEfficiencyFacts(
           "blocked_engine_failure",
+          // CR-3 evidence identity: the REQUEST is the evidence record (its
+          // stateHash / actionRef are descriptors — the request id already
+          // embeds the stateHash), never peer evidence ids.
           [
             projection.handStructureRequest.requestId,
-            projection.handStructureRequest.stateHash,
-            projection.handStructureRequest.actionRef,
             ...projection.localEvidenceIds,
           ],
         ),

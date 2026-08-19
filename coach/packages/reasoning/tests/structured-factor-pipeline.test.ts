@@ -786,7 +786,12 @@ describe("structured factor pipeline", () => {
       .toMatchObject({
         status: "calculated",
         value: { kind: "boolean", value: true },
-        evidenceIds: expect.arrayContaining([twoPinRef]),
+        // The furiten proof cites the hand-structure REQUEST (the wait
+        // analysis authority), never the candidate action ref as a peer
+        // evidence id (CR-3).
+        evidenceIds: expect.arrayContaining([
+          expect.stringContaining(":hand-structure:"),
+        ]),
       });
     expect(findFact(candidateResult, sixSouRef, "efficiency.v2.discard_furiten"))
       .toMatchObject({
@@ -878,8 +883,10 @@ describe("structured factor pipeline", () => {
     expect(findFact(result, twoPinRef, "efficiency.v2.overall_shanten"))
       .toMatchObject({
         status: "blocked_engine_failure",
+        // The blocked facts cite the hand-structure REQUEST (the analysis
+        // authority) plus the local replay evidence — never the actionRef as
+        // a peer evidence id (CR-3).
         evidenceIds: expect.arrayContaining([
-          twoPinRef,
           expect.stringContaining(":hand-structure:"),
         ]),
       });

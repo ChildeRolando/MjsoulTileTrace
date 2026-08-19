@@ -33,10 +33,12 @@
  * classifies into the frozen two kinds: canonical event refs (descriptor
  * resolved from the canonical stream, so the package is self-contained) and
  * production fact-engine request ids (kept as-is, no ID translation layer).
- * IDs outside those two vocabularies (e.g. opaque request fragments such as
- * stateHash / actionRef on legacy factor facts) are intentionally not
- * registered here — full cross-reference resolution of every referenced id is
- * the Slice 3 validator's scope.
+ * ANY referenced id outside those two vocabularies (e.g. opaque request
+ * fragments such as stateHash / actionRef on legacy factor facts) fails the
+ * build LOUDLY — a produced package may never embed an evidence id the
+ * registry cannot resolve. The builder collects the CR-3 footprint from
+ * KnownGameFacts, every candidate-ledger FactorFact, every FactorDifference
+ * and the decision-level ids and verifies each one resolves.
  */
 import { createHash } from "node:crypto";
 import {
@@ -65,15 +67,16 @@ import type {
 export type BuildStructuredAnalysisPackageInput = {
   /** The coverage_ready whole-game review result, with retained payloads. */
   readonly review: Extract<MortalFullGameReviewResult, { status: "coverage_ready" }>;
-  /** The canonical stream the review consumed (identity + event descriptors). */
+  /** The canonical stream the review consumed (identity + event descriptors).
+   *  `stream.gameId` is the SOLE authority for the package's canonical record
+   *  identity: `record.recordId`, `analysisKey` and every `decisionId` derive
+   *  from it — no caller-supplied record id exists. */
   readonly stream: CanonicalEventStream;
   /** Self-surface replayed decisions, indexed by the review's decisionOrdinal. */
   readonly decisions: readonly ReplayedDecision[];
   /** Response-surface replayed decisions, indexed by the review's
    *  decisionOrdinal within the response partition. */
   readonly responseDecisions?: readonly ReplayedDecision[];
-  /** Record identity of the analyzed whole game (e.g. the canonical game id). */
-  readonly recordId: string;
   /** Deterministic producer chain versions (D4) — explicit construction input. */
   readonly componentVersions: ComponentVersions;
   /** The frozen detail policy snapshot (threshold/unit/boundary/policyVersion/
@@ -166,7 +169,7 @@ function classifyEvidenceIds(
   accumulator: RegistryAccumulator,
   fallbackEngineVersion: string | null,
 ): string[] {
-  const registered: string[] = [];
+  const registered = new Set<string>();
   const canonicalRefsInSet = new Set<string>();
   for (const id of ids) {
     if (parseCanonicalEventRef(id) !== null) canonicalRefsInSet.add(id);
@@ -174,7 +177,7 @@ function classifyEvidenceIds(
   for (const id of ids) {
     if (parseCanonicalEventRef(id) !== null) {
       accumulator.canonical.add(id);
-      registered.push(id);
+      registered.add(id);
       continue;
     }
     const segment = factEngineRequestSegment(id);
@@ -190,15 +193,17 @@ function classifyEvidenceIds(
       } else if (fallbackEngineVersion !== null && existing.producerVersion === null) {
         existing.producerVersion = fallbackEngineVersion;
       }
-      registered.push(id);
+      registered.add(id);
+      continue;
     }
-    // Other ids (opaque request fragments such as stateHash / actionRef on
-    // legacy factor facts) stay out of the registry: they are not canonical
-    // events and not fact-engine request ids, and the frozen EvidenceKind
-    // vocabulary has no third kind. Cross-reference resolution of every
-    // referenced id is the Slice 3 validator's scope.
+    // CR-3 fail-loud: the frozen EvidenceKind vocabulary has exactly two
+    // kinds (canonical_event, fact_engine_request). An id that classifies
+    // into neither (e.g. an opaque request fragment such as stateHash /
+    // actionRef / factSetId on a factor fact) could never resolve through
+    // this package's registry, so the package must not be produced.
+    throw new Error(`m6c_builder_unresolvable_evidence:${id}`);
   }
-  return registered.sort();
+  return [...registered].sort();
 }
 
 // ---------------------------------------------------------------------------
@@ -458,8 +463,13 @@ export function buildStructuredAnalysisPackage(
   }
 
   const selfActor = stream.selfActor;
+  // Single record-identity authority (Fix 2): the canonical stream's gameId
+  // IS the package's canonical record identity — record.recordId, analysisKey
+  // and every decisionId derive from it, so no caller-supplied record id can
+  // ever disagree with the evidence the package embeds.
+  const recordId = stream.gameId;
   const analysisKey =
-    `analysis:${input.recordId}:actor${selfActor}:${ANALYSIS_PROVIDER}`;
+    `analysis:${recordId}:actor${selfActor}:${ANALYSIS_PROVIDER}`;
   // packageId = analysisKey + componentVersions + the frozen policy snapshot's
   // SEMANTIC values. The wall-clock frozenAt is artifact-creation metadata
   // (CR-4/CR-5: "no wall-clock or artifact-creation metadata enters packageId"),
@@ -480,7 +490,7 @@ export function buildStructuredAnalysisPackage(
     }))}`;
 
   const record: RecordAnalysis = {
-    recordId: input.recordId,
+    recordId,
     selfActor,
     status: recordStatusFor(input.review.decisions.map((row) => row.outcome)),
   };

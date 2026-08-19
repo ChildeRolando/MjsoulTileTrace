@@ -338,14 +338,19 @@ describe("M6-C Slice 2 production assembly", () => {
       review,
       stream,
       decisions,
-      recordId: stream.gameId,
       componentVersions,
       frozenPolicySnapshot: retained.modelEvaluation.detailPolicy,
       now: () => FROZEN_NOW,
     });
     // The single build entry produces a structurally valid package.
     expect(StructuredAnalysisPackageSchema.parse(pkg)).toEqual(pkg);
+    // Single record-identity authority: record.recordId, analysisKey and
+    // decisionId all derive from the canonical stream's gameId — there is no
+    // caller-supplied record id to disagree with the embedded evidence.
+    expect(pkg.record.recordId).toBe(stream.gameId);
     expect(pkg.analysisKey).toBe("analysis:game:fixture:actor0:mortal");
+    expect(pkg.decisions[0]!.decisionId.startsWith(`decision:${stream.gameId}:self0:`))
+      .toBe(true);
     expect(pkg.record).toEqual({
       recordId: "game:fixture",
       selfActor: 0,
@@ -376,6 +381,73 @@ describe("M6-C Slice 2 production assembly", () => {
     expect(pkg.semanticContentHash.startsWith("sha256:")).toBe(true);
   });
 
+  it("CR-3: every evidence id referenced anywhere in the package resolves through evidenceRegistry", async () => {
+    const { stream, decisions } = fixtureSetup();
+    const review = await runFixtureReview(stream, decisions, [entryFor(decisions[0]!)]);
+    const retained = review.retainedAnalyses[0]!;
+    const pkg = buildStructuredAnalysisPackage({
+      review,
+      stream,
+      decisions,
+      componentVersions,
+      frozenPolicySnapshot: retained.modelEvaluation.detailPolicy,
+      now: () => FROZEN_NOW,
+    });
+
+    // Recursively collect the FULL CR-3 footprint: KnownGameFacts.evidenceIds,
+    // every nested CandidateFactorLedger FactorFact.evidenceIds, every
+    // FactorDifference.evidenceIds, and decision-level evidenceIds — not just
+    // DecisionAnalysis.evidenceIds.
+    const referenced = new Set<string>();
+    for (const decision of pkg.decisions) {
+      for (const id of decision.knownGameFacts.evidenceIds) referenced.add(id);
+      if (decision.outcome !== "analysis_ready") continue;
+      for (const id of decision.evidenceIds) referenced.add(id);
+      for (const ledger of decision.candidateFactorLedgers) {
+        for (const axis of ledger.axes) {
+          for (const fact of axis.facts) {
+            for (const id of fact.evidenceIds) referenced.add(id);
+          }
+        }
+      }
+      for (const difference of decision.factorDifferences) {
+        for (const id of difference.evidenceIds) referenced.add(id);
+      }
+    }
+    expect(referenced.size).toBeGreaterThan(0);
+
+    // The completion invariant: referenced ⊆ keys(evidenceRegistry). The
+    // registry only ever contains canonical_event + fact_engine_request
+    // records, so this also proves no stateHash / actionRef / factSetId
+    // fragment survived as a peer evidence id.
+    for (const id of [...referenced].sort()) {
+      expect(pkg.evidenceRegistry[id], `unresolved evidence id ${id}`)
+        .toBeDefined();
+    }
+
+    // This fixture reaches the hand-structure path that previously emitted
+    // [requestId, stateHash, actionRef] as three peer evidence ids. The
+    // request must be registered and referenced; the fragments must be gone.
+    const requestIds = [...referenced].filter((id) =>
+      pkg.evidenceRegistry[id]?.kind === "fact_engine_request"
+    );
+    expect(requestIds.some((id) => id.includes(":hand-structure:"))).toBe(true);
+    expect([...referenced].some((id) =>
+      id.startsWith("sha256:") || id.startsWith("action:v1:")
+    )).toBe(false);
+    for (const id of [...referenced].sort()) {
+      const record = pkg.evidenceRegistry[id]!;
+      expect(record.evidenceId).toBe(id);
+      if (record.kind === "fact_engine_request") {
+        expect(record.payload).toEqual({ requestId: id, kind: expect.any(String) });
+      } else {
+        // Canonical event evidence stays self-contained with its descriptor.
+        expect(id.startsWith(`${stream.gameId}/`)).toBe(true);
+        expect(record.payload).toMatchObject({ eventId: id });
+      }
+    }
+  });
+
   it("is deterministic: createdAt is provenance only; identity and content hash are stable", async () => {
     const { stream, decisions } = fixtureSetup();
     const review = await runFixtureReview(stream, decisions, [entryFor(decisions[0]!)]);
@@ -384,7 +456,6 @@ describe("M6-C Slice 2 production assembly", () => {
       review,
       stream,
       decisions,
-      recordId: stream.gameId,
       componentVersions,
       frozenPolicySnapshot: retained.modelEvaluation.detailPolicy,
     };
@@ -437,7 +508,6 @@ describe("M6-C Slice 2 production assembly", () => {
       review,
       stream,
       decisions,
-      recordId: stream.gameId,
       componentVersions,
       frozenPolicySnapshot: retained.modelEvaluation.detailPolicy,
       now: () => FROZEN_NOW,
@@ -447,6 +517,9 @@ describe("M6-C Slice 2 production assembly", () => {
     // (spec: 拼包过程不调用事实引擎、不访问 Mortal、不重跑 review).
     expect("engine" in input).toBe(false);
     expect("report" in input).toBe(false);
+    // No caller-supplied record id exists: the canonical stream's gameId is
+    // the sole record-identity authority (no API path can disagree).
+    expect("recordId" in input).toBe(false);
     // Synchronous: the result is the package itself, never a Promise.
     const pkg = buildStructuredAnalysisPackage(input);
     expect(pkg instanceof Promise).toBe(false);
@@ -463,7 +536,6 @@ describe("M6-C Slice 2 production assembly", () => {
       review,
       stream,
       decisions,
-      recordId: stream.gameId,
       componentVersions,
       frozenPolicySnapshot: {
         threshold: 10,
