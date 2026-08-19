@@ -22,6 +22,7 @@ import {
 import { canonicalJson, sha256Hex } from "../src/analysis/package-identity.js";
 import { deriveEdgeId, deriveNodeId, semanticKeyOfNode } from "../src/context-graph/context-graph-ids.js";
 import { projectContextGraph } from "../src/context-graph/project-context-graph.js";
+import { validateContextGraph } from "../src/context-graph/validate-context-graph.js";
 import {
   buildFailedDecisionPackage,
   buildSingleDecisionPackage,
@@ -360,6 +361,28 @@ describe("M6-D1 projectContextGraph", () => {
         .sort();
       expect(derived).toEqual(expected);
     }
+  });
+
+  it("deduplicates duplicate fact-engine sourceRefs (schema-valid but M6-C-invalid package never makes the projector reject its own output)", async () => {
+    const pkg = await buildSingleDecisionPackage();
+    // EvidenceRecordSchema does not enforce sourceRef uniqueness (the M6-C
+    // validator does), so this tampered package is still schema-valid.
+    const tampered = clone(pkg);
+    const requestKey = Object.keys(tampered.evidenceRegistry)
+      .find((key) => tampered.evidenceRegistry[key]!.kind === "fact_engine_request")!;
+    const record = tampered.evidenceRegistry[requestKey]!;
+    if (record.sourceRefs.length === 0) {
+      throw new Error("fixture must carry a fact_engine_request with sourceRefs");
+    }
+    record.sourceRefs = [record.sourceRefs[0]!, ...record.sourceRefs];
+
+    const graph = projectContextGraph(tampered);
+    const node = evidenceNodeOf(graph, requestKey);
+    const derived = outgoing(graph, node.nodeId)
+      .filter((edge) => edge.edgeKind === "derived_from");
+    // One edge per UNIQUE source ref, and the graph stays validator-clean.
+    expect(derived).toHaveLength(new Set(record.sourceRefs).size);
+    expect(() => validateContextGraph(graph)).not.toThrow();
   });
 
   it("guard 1: node ids derive through the shared deterministic serializer (no second stringify)", async () => {

@@ -14,8 +14,11 @@
  *    three reasoning kinds (spec rule 1/2);
  *  - every reasoning edge: edgeKind in the D2-reserved kinds (opposes /
  *    qualifies / verbalizes — spec: 前六种由 projection 使用; 这三种保留给
- *    reasoning overlay), from/to resolve to an existing graph node or a
- *    same-batch reasoning node (spec rule 3);
+ *    reasoning overlay), origin `llm_reasoning`, from/to resolve to an
+ *    existing graph node or a same-batch reasoning node (spec rule 3);
+ *  - reasoning node ids are unique within the batch and never collide with
+ *    existing graph node ids (fail-closed hardening; the appended graph must
+ *    keep globally unique node ids);
  *  - a reasoning edge must never start from an evidence node (spec rule 4:
  *    reasoning edge 不得以 evidence 节点为 from 去改 evidence 语义) — the D2
  *    append implementation must additionally preserve the evidence nodes and
@@ -71,6 +74,15 @@ export function validateReasoningOverlayPartition(
     if (node.authority !== "coach") {
       throw new Error(`m6d1_reasoning_partition_authority:${node.nodeId}`);
     }
+    // Fail-closed hardening (review P2): reasoning node ids must be unique
+    // within the batch and never collide with existing graph node ids —
+    // otherwise the appended graph would fail global id uniqueness.
+    if (batchNodeIds.has(node.nodeId)) {
+      throw new Error(`m6d1_reasoning_partition_duplicate_node_id:${node.nodeId}`);
+    }
+    if (graphNodeIds.has(node.nodeId)) {
+      throw new Error(`m6d1_reasoning_partition_node_id_collision:${node.nodeId}`);
+    }
     batchNodeIds.add(node.nodeId);
   }
 
@@ -84,6 +96,11 @@ export function validateReasoningOverlayPartition(
     }
     if (!REASONING_GRAPH_EDGE_KINDS.includes(edge.edgeKind)) {
       throw new Error(`m6d1_reasoning_partition_edge_kind:${edge.edgeId}:${edge.edgeKind}`);
+    }
+    // Fail-closed hardening (review P2): a reasoning edge is LLM-produced —
+    // its origin must be llm_reasoning, never a projection origin.
+    if (edge.origin !== "llm_reasoning") {
+      throw new Error(`m6d1_reasoning_partition_edge_origin:${edge.edgeId}`);
     }
     // Spec rule 3: from/to resolve to an existing graph node or a same-batch
     // reasoning node.

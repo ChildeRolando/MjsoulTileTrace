@@ -72,7 +72,10 @@ function containsForbiddenKey(
 function containsUrl(value: unknown): boolean {
   if (typeof value === "string") {
     const lower = value.toLowerCase();
-    return lower.includes("http://") || lower.includes("https://");
+    // "任何 URL" (spec allow-list): http(s) covers the realistic paipu
+    // download URL threat; ftp:// is caught for completeness.
+    return lower.includes("http://") || lower.includes("https://")
+      || lower.includes("ftp://");
   }
   if (value === null || typeof value !== "object") return false;
   if (Array.isArray(value)) return value.some((entry) => containsUrl(entry));
@@ -172,6 +175,14 @@ export function validateGraphContextSlice(
   if (slice.packageId !== graph.packageId) {
     throw new Error(
       `m6d1_slice_validator_package_mismatch:${slice.packageId}`,
+    );
+  }
+  // Guard-3 reinforcement (review P2): the ORIGINATING selection must itself
+  // be bound to the graph's packageId — validating a slice against a foreign
+  // selection would weaken the same-source proof.
+  if (selection.analysisPackageId !== graph.packageId) {
+    throw new Error(
+      `m6d1_slice_validator_selection_package_mismatch:${selection.analysisPackageId}`,
     );
   }
 

@@ -256,6 +256,9 @@ function deterministicPreferenceNodeOf(
 
 function evidenceNodeOf(evidenceId: string, record: EvidenceRecord): ContextGraphNode {
   const canonical = record.kind === "canonical_event";
+  // Authority follows the spec table literally: hard for canonical_event,
+  // advisory for fact_engine_request ("advisory/按来源" — the registry kind
+  // IS the source; the registry's own producer semantics are copied below).
   return makeNode({
     nodeKind: "Evidence",
     partition: "evidence",
@@ -385,11 +388,15 @@ export function projectContextGraph(
   }
 
   // fact_engine_request Evidence nodes derive from their canonical source
-  // refs (spec D1 投影边规则最后一条).
+  // refs (spec D1 投影边规则最后一条). sourceRefs are deduplicated: the
+  // EvidenceRecordSchema does not enforce source-ref uniqueness (the M6-C
+  // validator does), so a schema-valid-but-validator-invalid package could
+  // otherwise emit two derived_from edges with an identical edgeId and make
+  // validateContextGraph reject the projector's own output (review P2).
   for (const record of Object.values(pkg.evidenceRegistry)) {
     if (record.kind !== "fact_engine_request") continue;
     const from = resolveEvidence(record.evidenceId);
-    for (const sourceRef of record.sourceRefs) {
+    for (const sourceRef of new Set(record.sourceRefs)) {
       const to = evidenceNodeIds.get(sourceRef);
       if (to === undefined) {
         throw new Error(

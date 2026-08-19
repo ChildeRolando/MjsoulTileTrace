@@ -102,6 +102,12 @@ export function validateContextGraph(input: unknown): void {
   // JSON roundtrip unchanged (CR-5 style serializability at the graph layer).
   assertJsonRoundtrip(graph);
 
+  // graphId invariant (spec "Graph 总体形状"): D1's graphId is deterministically
+  // derived as `context-graph:<packageId>` — a stale graphId is a tamper.
+  if (graph.graphId !== `context-graph:${graph.packageId}`) {
+    throw new Error(`m6d1_graph_validator_graph_id_mismatch:${graph.graphId}`);
+  }
+
   // Global uniqueness + recomputability (spec: nodeId / edgeId 全局唯一且可重算
   // 一致). Reasoning-partition node ids have no D1 derivation (D2 owns them),
   // so recomputation applies to evidence-partition nodes only.

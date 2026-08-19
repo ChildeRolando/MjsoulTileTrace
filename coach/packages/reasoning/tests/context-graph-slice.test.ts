@@ -225,6 +225,29 @@ describe("M6-D1 validateGraphContextSlice", () => {
     };
     expect(() => validateGraphContextSlice(slice, graph, selection))
       .toThrow(/m6d1_slice_validator_privileged_payload/);
+
+    // "任何 URL" (spec): ftp:// is caught as well.
+    const ftpSlice = clone(buildGraphContextSlice(graph, selection));
+    const ftpNode = ftpSlice.nodes.find((candidate) => candidate.nodeKind === "Evidence")!;
+    (ftpNode.payload as { payload?: Record<string, unknown> }).payload = {
+      downloadUrl: "ftp://example.com/paipu/123",
+    };
+    expect(() => validateGraphContextSlice(ftpSlice, graph, selection))
+      .toThrow(/m6d1_slice_validator_privileged_payload/);
+  });
+
+  it("rejects validating a slice against a foreign selection (guard-3 reinforcement)", async () => {
+    const { graph, selection } = await readySlice();
+    const slice = buildGraphContextSlice(graph, selection);
+    // A hand-crafted foreign selection bound to ANOTHER package but carrying
+    // the same decision ids / ranks / policy version: the slice itself is
+    // fine, but the selection breaks the same-source proof.
+    const foreign: ReviewSelectionResult = {
+      ...selection,
+      analysisPackageId: "package:sha256:foreign",
+    };
+    expect(() => validateGraphContextSlice(slice, graph, foreign))
+      .toThrow(/m6d1_slice_validator_selection_package_mismatch/);
   });
 
   it("rejects an LLM-boundary artifact key smuggled into the slice", async () => {

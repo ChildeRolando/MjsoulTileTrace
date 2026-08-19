@@ -113,6 +113,44 @@ describe("M6-D1 validateReasoningOverlayPartition", () => {
     )).toThrow(/m6d1_reasoning_partition_kind/);
   });
 
+  it("rejects a reasoning edge whose origin is not llm_reasoning", async () => {
+    const pkg = await buildSingleDecisionPackage();
+    const graph = projectContextGraph(pkg);
+    const judgment = reasoningNode();
+    const edge = {
+      edgeId: "ctxg:edge:bad-origin",
+      edgeKind: "qualifies" as const,
+      from: judgment.nodeId,
+      to: "ctxg:CoachInference:test",
+      origin: "package_projection",
+      provenance: [],
+      payload: {},
+    };
+    expect(() => validateReasoningOverlayPartition(graph, [judgment], [edge]))
+      .toThrow(/m6d1_reasoning_partition_edge_origin/);
+  });
+
+  it("rejects duplicate reasoning node ids within one batch", async () => {
+    const pkg = await buildSingleDecisionPackage();
+    const graph = projectContextGraph(pkg);
+    expect(() => validateReasoningOverlayPartition(
+      graph,
+      [reasoningNode(), reasoningNode()],
+      [],
+    )).toThrow(/m6d1_reasoning_partition_duplicate_node_id/);
+  });
+
+  it("rejects a reasoning node id that collides with an existing graph node", async () => {
+    const pkg = await buildSingleDecisionPackage();
+    const graph = projectContextGraph(pkg);
+    const decisionNode = graph.nodes.find((node) => node.nodeKind === "Decision")!;
+    expect(() => validateReasoningOverlayPartition(
+      graph,
+      [reasoningNode({ nodeId: decisionNode.nodeId })],
+      [],
+    )).toThrow(/m6d1_reasoning_partition_node_id_collision/);
+  });
+
   it("rejects a reasoning edge that dangles (neither graph nor same-batch node)", async () => {
     const pkg = await buildSingleDecisionPackage();
     const graph = projectContextGraph(pkg);

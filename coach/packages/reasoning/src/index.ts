@@ -79,8 +79,9 @@ export * from "./replay/dama-tsumo-discovery.js";
 export * from "./replay/replay-audit.js";
 export * from "./selector/select-review-decisions.js";
 export * from "./prototype/coach-report.js";
-export * from "./context-graph/context-graph-ids.js";
-export * from "./context-graph/slice-payload.js";
+// M6-D1 exports the six named seam/support functions only (spec "模块与依赖"
+// + "Seam"); the id-derivation / slice-payload helpers stay internal — tests
+// import them relatively and D2 will consume the public seams.
 export * from "./context-graph/project-context-graph.js";
 export * from "./context-graph/get-decision-subgraph.js";
 export * from "./context-graph/build-graph-context-slice.js";

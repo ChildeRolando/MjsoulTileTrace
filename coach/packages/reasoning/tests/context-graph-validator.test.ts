@@ -183,6 +183,14 @@ describe("M6-D1 validateContextGraph", () => {
       .toThrow(/m6d1_graph_validator_dangling_edge/);
   });
 
+  it("rejects a graphId that is not deterministically derived from the packageId", async () => {
+    const pkg = await buildSingleDecisionPackage();
+    const graph = clone(projectContextGraph(pkg));
+    graph.graphId = "context-graph:package:sha256:other";
+    expect(() => validateContextGraph(graph))
+      .toThrow(/m6d1_graph_validator_graph_id_mismatch/);
+  });
+
   it("rejects a graph that changes under JSON roundtrip", async () => {
     const pkg = await buildSingleDecisionPackage();
     const graph = clone(projectContextGraph(pkg));
