@@ -31,9 +31,15 @@
  *
  * Identity / hash derivation lives in the SHARED helper
  * `./package-identity.ts` (deriveAnalysisKey / derivePackageId /
- * deriveSemanticContentHash): the package validator (Slice 3 review repair
- * 3B/3C) recomputes packageId and semanticContentHash with the SAME functions
- * to independently verify the artifact.
+ * deriveSemanticContentHash / deriveDecisionId / deriveRecordStatus): the
+ * package validator (Slice 3 repair 3B/3C + closure 4/5) recomputes
+ * packageId, semanticContentHash, every decisionId and record.status with the
+ * SAME functions to independently verify the artifact.
+ *
+ * The builder executes the CURRENT package schema: `componentVersions
+ * .packageSchema` must equal the contract-owned
+ * `STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION` (the final schema parse also
+ * pins it via the literal; the explicit check names the failure).
  *
  * The evidence registry (CR-3) registers every referenced evidence id that
  * classifies into the frozen two kinds: canonical event refs (descriptor
@@ -44,12 +50,19 @@
  * build LOUDLY — a produced package may never embed an evidence id the
  * registry cannot resolve. The builder collects the CR-3 footprint from
  * KnownGameFacts, every candidate-ledger FactorFact, every FactorDifference
- * and the decision-level ids and verifies each one resolves.
+ * and the decision-level ids and verifies each one resolves. Registry
+ * provenance follows the frozen two-kind model: canonical_event records are
+ * produced by `CANONICAL_REPLAY_PRODUCER` with empty sourceRefs;
+ * fact_engine_request records are produced by `FACT_ENGINE_PRODUCER` and cite
+ * the canonical events of their own evidence set as sourceRefs.
  */
 import {
+  CANONICAL_REPLAY_PRODUCER,
   DecisionAnalysisSchema,
   FACT_ENGINE_ADAPTER_VERSION,
+  FACT_ENGINE_PRODUCER,
   FACT_ENGINE_PROTOCOL_VERSION,
+  STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION,
   StructuredAnalysisPackageSchema,
   type CanonicalEventStream,
   type CanonicalGameEvent,
@@ -57,7 +70,6 @@ import {
   type DecisionAnalysis,
   type DetailPolicySnapshot,
   type EvidenceRegistry,
-  type MortalDecisionOutcome,
   type RecordAnalysis,
   type StructuredAnalysisPackage,
   parseCanonicalEventRef,
@@ -70,7 +82,9 @@ import type {
 } from "./mortal-full-game-review.js";
 import {
   deriveAnalysisKey,
+  deriveDecisionId,
   derivePackageId,
+  deriveRecordStatus,
   deriveSemanticContentHash,
 } from "./package-identity.js";
 
@@ -203,38 +217,6 @@ function classifyEvidenceIds(
 // Decision projection (7-value outcome + payload binding, CR-2)
 // ---------------------------------------------------------------------------
 
-function decisionIdFor(input: {
-  stream: CanonicalEventStream;
-  surface: "self" | "response";
-  windowKind: string;
-  triggerEventRef: string;
-}): string {
-  return [
-    "decision",
-    input.stream.gameId,
-    `self${input.stream.selfActor}`,
-    input.surface,
-    input.windowKind,
-    input.triggerEventRef,
-  ].join(":");
-}
-
-function recordStatusFor(
-  outcomes: readonly MortalDecisionOutcome[],
-): RecordAnalysis["status"] {
-  if (outcomes.some((outcome) =>
-    outcome === "binding_mismatch" || outcome === "no_mortal_entry"
-  )) {
-    // CR-6: no_mortal_entry keeps integrity-failure semantics; a binding
-    // mismatch is a binding-integrity failure. Never disguise as success.
-    return "integrity_failed";
-  }
-  if (outcomes.some((outcome) => outcome !== "analysis_ready")) {
-    return "degraded";
-  }
-  return "complete";
-}
-
 function analysisProviderFor(
   row: MortalFullGameLedgerEntry,
 ): Record<string, unknown> {
@@ -261,8 +243,9 @@ function projectDecision(input: {
   const facts = decision.facts;
 
   const base = {
-    decisionId: decisionIdFor({
-      stream,
+    decisionId: deriveDecisionId({
+      recordId: stream.gameId,
+      selfActor: stream.selfActor,
       surface,
       windowKind: window.kind,
       triggerEventRef: decision.decisionEventRef,
@@ -359,6 +342,16 @@ export function buildStructuredAnalysisPackage(
   if (input.review.status !== "coverage_ready") {
     throw new Error("m6c_builder_requires_coverage_ready_review");
   }
+  if (
+    input.componentVersions.packageSchema !==
+    STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION
+  ) {
+    // The builder executes the CURRENT package schema; a caller passing a
+    // stale packageSchema would produce an artifact claiming a schema version
+    // this builder does not implement (the final schema parse also pins the
+    // literal — this named error surfaces the failure earlier).
+    throw new Error("m6c_builder_schema_version_mismatch");
+  }
   if (stream.selfActor !== input.decisions[0]?.snapshot.selfActor) {
     // Defensive: the review already validated this; the builder stays total.
     throw new Error("m6c_builder_stream_actor_mismatch");
@@ -413,7 +406,7 @@ export function buildStructuredAnalysisPackage(
     registry[id] = {
       evidenceId: id,
       kind: "canonical_event",
-      producer: "canonical-replay",
+      producer: CANONICAL_REPLAY_PRODUCER,
       producerVersion: input.componentVersions.canonicalReplay,
       sourceRefs: [],
       payload: canonicalEventDescriptor(event),
@@ -425,7 +418,7 @@ export function buildStructuredAnalysisPackage(
     registry[id] = {
       evidenceId: id,
       kind: pending.kind,
-      producer: "fact-engine",
+      producer: FACT_ENGINE_PRODUCER,
       producerVersion: pending.producerVersion ?? FACT_ENGINE_PROTOCOL_VERSION,
       sourceRefs: pending.sourceRefs,
       payload: { requestId: id, kind: pending.segment },
@@ -468,7 +461,9 @@ export function buildStructuredAnalysisPackage(
   const record: RecordAnalysis = {
     recordId,
     selfActor,
-    status: recordStatusFor(input.review.decisions.map((row) => row.outcome)),
+    // CR-6: the aggregate truth over the decision outcomes, via the shared
+    // derivation — the validator recomputes it and requires equality.
+    status: deriveRecordStatus(input.review.decisions.map((row) => row.outcome)),
   };
 
   const decisions = projectedDecisions.map((decision) =>

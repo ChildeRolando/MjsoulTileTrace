@@ -15,6 +15,8 @@ import {
   FACT_ENGINE_ADAPTER_VERSION,
   FACT_ENGINE_PROTOCOL_VERSION,
   MAHJONG_HELPER_COMMIT,
+  MORTAL_PROVIDER_IDENTITY,
+  STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION,
   type ComponentVersions,
   type CompletedHandFactRequest,
   type CompletedHandFactResult,
@@ -192,7 +194,7 @@ class CannedEngine implements HandStructureFactEnginePort {
 export const FROZEN_NOW = Date.parse("2026-08-20T00:00:00.000Z");
 
 export const componentVersions: ComponentVersions = {
-  packageSchema: "structured-analysis-package/v1",
+  packageSchema: STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION,
   canonicalReplay: "canonical-riichi-events/v2",
   mapperAdapter: "fixture/v1",
   factEngine: {
@@ -203,7 +205,7 @@ export const componentVersions: ComponentVersions = {
   },
   factorPipeline: "factor-pipeline/v1",
   mortalSourceModel: {
-    identity: "Mortal",
+    identity: MORTAL_PROVIDER_IDENTITY,
     version: "mortal-source/2",
     modelTag: "4.1b",
   },

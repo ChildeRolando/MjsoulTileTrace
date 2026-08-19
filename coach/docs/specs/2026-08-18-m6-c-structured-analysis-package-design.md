@@ -320,28 +320,49 @@ M6-D 之前就已有稳定的机器可读答案。
   model evaluation、factor result），供 builder 固化；失败/跳过决策仍只
   保留 ledger 行。builder 是纯投影式组装：拼包过程不调用事实引擎、不访问
   Mortal、不重跑 `runBoundMortalDecisionReview`。
-- **严格校验（按 CR-5/CR-6，含 Slice 3 评审修复）**：validator 做 schema
-  校验、引用完整性、版本字段非空、无 LLM 产物字段、无 privileged 原始载荷、
-  evidence registry 可解析；不因分析不完整拒绝 package。语义相等用
-  semanticContentHash 表达，不含 artifact creation metadata。此外 validator
-  是**产物完整性边界**，逐层保证：
-  - **producer-version provenance coherence（修复 1）**：凡 package 同时含
-    package 级 `componentVersions` 声明与 payload 级 producer identity/version
-    元数据，二者必须一致——每个带 `engineIdentity` 的 FactorFact /
-    FactorDifference 与 `componentVersions.factEngine` 逐字段一致；
-    `ModelEvaluation.adapterVersion` 与 `componentVersions.mortalSourceModel.
-    version` 一致；evidence registry 的 `producerVersion` 与其编码的
-    canonical-replay / fact-engine 版本一致。无独立 payload provenance 的
-    声明字段（如 mortalSourceModel.identity / modelTag）保持声明性，不发明
-    校验。
-  - **ready-decision reference integrity（修复 2）**：一个 `analysis_ready`
-    决策 = 一个内部自洽的候选宇宙：`comparisonSet` 与 `modelEvaluation` 的
-    comparisonSetId / decisionLayerRef 一致；candidate ledger 与 comparison
-    candidate 一一对应（缺 ledger / 多 ledger / 重复 actionRef 均拒绝）；
-    FactorDifference 与 DeterministicPreference 的 actionRef 属于该候选宇宙；
-    ModelEvaluation 的 actual / scored / preferred / candidate ref 经
-    comparison set 的合法 actual↔model 对应关系解析（保留 riichi/kakan
-    realization，不假设 actual 与 model ref 恒等）。
+- **严格校验（按 CR-5/CR-6，含 Slice 3 评审修复与语义完整性收口）**：
+  validator 做 schema 校验、引用完整性、版本字段非空、无 LLM 产物字段、
+  无 privileged 原始载荷、evidence registry 可解析；不因分析不完整拒绝
+  package。语义相等用 semanticContentHash 表达，不含 artifact creation
+  metadata。此外 validator 是**产物完整性边界**，逐层保证：
+  - **producer/provider provenance coherence（修复 1 + 收口 1）**：凡
+    package 同时含 package 级 `componentVersions` 声明与 payload 级
+    producer identity/version 元数据，二者必须一致——Mortal provider 链
+    （`mortalSourceModel.identity === "Mortal"`、每个 `analysis_ready` 的
+    `ModelEvaluation.engineId === "mortal"`、`analysisProvider.kind ===
+    "mortal"`）；每个带 `engineIdentity` 的 FactorFact / FactorDifference 与
+    `componentVersions.factEngine` 逐字段一致；`ModelEvaluation.
+    adapterVersion` 与 `componentVersions.mortalSourceModel.version` 一致；
+    evidence registry 的 `producerVersion` 与其编码的 canonical-replay /
+    fact-engine 版本一致。
+    **当前 schema 版本非歧义**：`componentVersions.packageSchema` 是
+    contract 持有的单一常量 literal
+    `STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION = "structured-analysis-package/
+    v1"`，contract / builder / validator 消费同一权威——validator 执行的就是
+    当前 schema，package 不得声称任意 schema 版本。
+    **可独立验证 vs 仅声明（declaration-only）**：
+    - 可独立验证（存在包内第二权威）：Mortal provider / engine identity、
+      Mortal adapter/source version、fact-engine identity、当前 package
+      schema version、canonical replay version、evidence producer 名称；
+    - 仅声明（包内无独立 payload 字段承载同一语义）：`modelTag`（除非找到
+      真实存在的对应字段）、`ModelEvaluation.engineVersion`（报告 `version`，
+      `componentVersions` 无对应项）、`mapperAdapter`、`factorPipeline`。
+      仅声明字段不发明校验。
+  - **ready-decision reference integrity（修复 2 + 收口 2/3）**：一个
+    `analysis_ready` 决策 = 一个内部自洽的候选宇宙：`comparisonSet` 与
+    `modelEvaluation` 的 comparisonSetId / decisionLayerRef 一致；candidate
+    ledger 与 comparison candidate 一一对应（缺 ledger / 多 ledger / 重复
+    actionRef 均拒绝）；**model 候选宇宙是真正双射**：comparison set 的
+    model-origin 候选集合与 `modelEvaluation.candidates` 的 actionRef 集合
+    **相等**（comparison 有 model-origin 候选而 evaluation 缺分 / evaluation
+    候选不在 comparison 中均拒绝；actual-only realization 候选不需要自己的
+    model score）；`FactorDifference.differenceId` 在决策内唯一；
+    `deterministicPreference.decisiveDifferenceIds` 的每一项必须解析到**同一
+    决策**内的 `FactorDifference.differenceId`（只做引用完整性，不推断哪些
+    differences 应当 decisive）；FactorDifference 与 DeterministicPreference
+    的 actionRef 属于该候选宇宙；ModelEvaluation 的 actual / scored /
+    preferred / candidate ref 经 comparison set 的合法 actual↔model 对应关系
+    解析（保留 riichi/kakan realization，不假设 actual 与 model ref 恒等）。
   - **analysis-policy 权威（修复 3A）**：`package.analysisPolicy` 为构造
     权威，每个 `analysis_ready` 的 `detailPolicy` 四语义字段必须与之一致
     （frozenAt 排除）。
@@ -349,6 +370,24 @@ M6-D 之前就已有稳定的机器可读答案。
     `semanticContentHash` 由共享推导（builder 与 validator 同一实现）从
     package 自身内容重算并断言相等——保留旧 hash/身份去篡改语义内容即校验
     失败。
+  - **exact decision identity（收口 4）**：每个 `decisionId` 用共享
+    `deriveDecisionId`（record/game 身份 + self actor + surface + decision
+    window kind + triggerEventRef，CR-4）从决策自身的
+    `normalizedDecisionContext` 重算并断言相等——record 前缀正确但 surface /
+    window / event 后缀被改的决策 id 同样拒绝。
+  - **record.status 真实性（收口 5）**：`record.status` 用共享
+    `deriveRecordStatus` 从决策 outcome 重算并断言相等：任一
+    `binding_mismatch` / `no_mortal_entry` → `integrity_failed`；否则任一非
+    `analysis_ready` → `degraded`；否则 `complete`。谎报聚合状态的 package
+    拒绝；不完整的 outcome 本身从不导致拒绝（schema validity ≠ completeness
+    保持不变）。
+  - **evidence provenance references（收口 6）**：`EvidenceRecord.sourceRefs`
+    本身就是 provenance 引用，不得悬空。冻结双 kind 模型下：
+    `canonical_event` 的 producer 必须是 canonical replay 生产者且
+    `sourceRefs` 为空（canonical 流是根权威）；`fact_engine_request` 的
+    producer 必须是 fact-engine 生产者，每个 `sourceRef` 必须解析到
+    evidence registry 内且 kind 为 `canonical_event`，且 `sourceRefs` 无重复。
+    不引入第三种 EvidenceKind，不做通用 provenance graph。
 - **renderer-safe 上下文**：package 的 renderer-safe 上下文只含匿名座位/
   角色与渲染需要的归一化字段；不含账号 ID、昵称、令牌、牌谱下载 URL、
   原始字节、cookie。`KnownGameFacts` 以归一化事实形式存在，与 privileged
@@ -402,6 +441,19 @@ M6-D 之前就已有稳定的机器可读答案。
     componentVersions 留旧 packageId → 拒绝；篡改 package.analysisPolicy
     留旧 packageId → 拒绝；只改 ModelEvaluation.detailPolicy → policy
     mismatch；同语义不同 createdAt / frozenAt → 仍通过）。
+    Slice 3 语义完整性收口追加（每新不变量至少一个负例）：
+    **Mortal provider 链 + schema 版本**（identity ≠ "Mortal" → 拒绝；
+    Mortal package 内非 Mortal ModelEvaluation → 拒绝（naive 篡改被
+    schema 钉住，完整 Akagi 一致载荷触达具名 provider 检查）；错误
+    packageSchema 版本 → 拒绝）；**model 候选宇宙双射**（comparison
+    model 候选 A,B,C 而 evaluation 只 A,B → 拒绝）；**preference →
+    difference 引用**（悬空 decisiveDifferenceId → 拒绝；重复
+    differenceId → 拒绝）；**exact decision identity**（record 前缀正确
+    但 surface/window/event 后缀被改 → 拒绝）；**record.status 真实性**
+    （no_mortal_entry / unsupported_action 配 complete → 拒绝；全 ready
+    配 degraded → 拒绝）；**evidence provenance references**（悬空
+    fact-engine sourceRef → 拒绝；sourceRef 解析到非 canonical 节点 →
+    拒绝；任一种 evidence 的 producer 错误 → 拒绝）。
   - Slice 4 测 whole-game golden：real canonical fixture + self
     decisions + response decisions + Mortal + factor pipeline → 校验通过
     的 `StructuredAnalysisPackage`；此测试成熟前，旧 golden test 继续作为

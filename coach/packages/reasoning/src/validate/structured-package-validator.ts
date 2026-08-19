@@ -29,49 +29,79 @@
  *  4. VERSION VALIDATION (D4 + supersession). No blank version field;
  *     explanation-side versions (LLM provider/model, prompt, output schema,
  *     validator/generation) never ride in `componentVersions` — they belong to
- *     ReviewReport.
+ *     ReviewReport. `componentVersions.packageSchema` is pinned to the
+ *     contract-owned literal `STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION` (the
+ *     validator executes exactly this schema, so the package cannot claim an
+ *     arbitrary schema version).
  *  5. CROSS-REFERENCE RESOLUTION (CR-3). Every evidence id referenced anywhere
  *     (KnownGameFacts, every candidate-ledger FactorFact, every
  *     FactorDifference, decision-level) resolves in `evidenceRegistry`, and
  *     the registry is locally complete (no unreferenced nodes).
- *  6. RECORD-IDENTITY COHERENCE (CR-4). `analysisKey`, every `decisionId` and
- *     every canonical-event evidence ref derive from `record.recordId` (the
- *     canonical stream's gameId) — no second record identity can exist in a
- *     valid package.
+ *  6. RECORD-IDENTITY COHERENCE (CR-4, closure 4). `analysisKey`, every
+ *     `decisionId` and every canonical-event evidence ref derive from
+ *     `record.recordId` (the canonical stream's gameId) — no second record
+ *     identity can exist in a valid package. Every `decisionId` is RECOMPUTED
+ *     with the shared `deriveDecisionId` (record identity + self actor +
+ *     surface + decision window kind + triggerEventRef) and must equal the
+ *     stored value — a decision id that disagrees with its own decision
+ *     context is rejected.
  *  7. SERIALIZABILITY (CR-5 / Slice 3). The package survives a JSON roundtrip
  *     unchanged; non-JSON values (NaN, undefined, BigInt, Date, ...) are
  *     rejected here, per the EvidenceRecord contract comment ("Payload
  *     JSON-serializability is validated at the serialization layer (Slice 3)").
- *  8. PRODUCER-VERSION PROVENANCE COHERENCE (repair 1). Wherever the package
- *     carries both a package-level `componentVersions` declaration AND
- *     payload-level producer identity/version metadata, the two must agree:
- *     every FactorFact / FactorDifference `engineIdentity` against
- *     `componentVersions.factEngine`, every ModelEvaluation.adapterVersion
- *     against `componentVersions.mortalSourceModel.version`, and every
+ *  8. PRODUCER/PROVIDER PROVENANCE COHERENCE (repair 1 + closure 1). Wherever
+ *     the package carries both a package-level `componentVersions` declaration
+ *     AND payload-level producer identity/version metadata, the two must
+ *     agree: the Mortal provider chain (`mortalSourceModel.identity ===
+ *     "Mortal"`, every ready `ModelEvaluation.engineId === "mortal"`,
+ *     `analysisProvider.kind === "mortal"`), every FactorFact /
+ *     FactorDifference `engineIdentity` against `componentVersions.factEngine`
+ *     field-by-field, every ModelEvaluation.adapterVersion against
+ *     `componentVersions.mortalSourceModel.version`, and every
  *     evidence-registry `producerVersion` against the replay / fact-engine
  *     versions it encodes. Fields with no independent payload provenance
- *     (e.g. mortalSourceModel.identity / modelTag) stay declaration-only and
- *     are NOT invented into checks.
- *  9. READY-DECISION REFERENCE INTEGRITY (repair 2). One `analysis_ready`
- *     decision = one internally coherent candidate universe:
- *     comparisonSet ↔ modelEvaluation identity, ledgers = exactly the
- *     comparison candidates, FactorDifference / deterministicPreference refs
- *     inside the universe, and ModelEvaluation action refs resolving through
- *     the comparison set's legal actual↔model correspondence.
- * 10. ANALYSIS-POLICY AUTHORITY (repair 3A). `package.analysisPolicy` is the
+ *     (modelTag, ModelEvaluation.engineVersion, mapperAdapter, factorPipeline)
+ *     stay declaration-only and are NOT invented into checks.
+ *  9. READY-DECISION REFERENCE INTEGRITY (repair 2 + closure 2/3). One
+ *     `analysis_ready` decision = one internally coherent candidate universe:
+ *     comparisonSet ↔ modelEvaluation identity; ledgers = exactly the
+ *     comparison candidates; the model candidate universe is a TRUE BIJECTION
+ *     (comparison model-origin candidates == evaluation candidates as sets);
+ *     FactorDifference / deterministicPreference refs inside the universe;
+ *     `differenceId` values unique per decision and every
+ *     `decisiveDifferenceIds` entry resolving to a FactorDifference of the
+ *     SAME decision; ModelEvaluation action refs resolving through the
+ *     comparison set's legal actual↔model correspondence.
+ * 10. EVIDENCE PROVENANCE REFERENCES (closure 6). Registry `sourceRefs` are
+ *     provenance references and must not dangle: canonical_event records are
+ *     produced by the canonical replay producer with EMPTY sourceRefs;
+ *     fact_engine_request records are produced by the fact-engine producer and
+ *     every sourceRef must resolve to a canonical_event registry node, with
+ *     no duplicates.
+ * 11. ANALYSIS-POLICY AUTHORITY (repair 3A). `package.analysisPolicy` is the
  *     authoritative construction policy; every analysis_ready
  *     ModelEvaluation.detailPolicy must agree with it on the four semantic
  *     fields (wall-clock `frozenAt` excluded).
- * 11. ARTIFACT IDENTITY (repair 3B/3C). `packageId` and `semanticContentHash`
+ * 12. RECORD STATUS TRUTH (closure 5). `record.status` is RECOMPUTED from the
+ *     decision outcomes with the shared `deriveRecordStatus` (any
+ *     binding_mismatch / no_mortal_entry → integrity_failed; else any
+ *     non-analysis_ready → degraded; else complete) and must equal the stored
+ *     value — a package that lies about its aggregate status is rejected,
+ *     while the incomplete outcomes themselves never cause rejection.
+ * 13. ARTIFACT IDENTITY (repair 3B/3C). `packageId` and `semanticContentHash`
  *     are RECOMPUTED from the package's own contents with the SAME shared
  *     derivation the builder uses (`./analysis/package-identity.ts`) and must
  *     match the stored values — mutating semantically meaningful content
- *     without updating its identity/hash fails validation.
+ *     without updating its identity/hash fails validation. Runs LAST so every
+ *     semantic tamper class surfaces its named error first.
  *
  * Error convention: every failure throws `m6c_validator_<kind>:<detail>`.
  */
 import { isDeepStrictEqual } from "node:util";
 import {
+  CANONICAL_REPLAY_PRODUCER,
+  FACT_ENGINE_PRODUCER,
+  MORTAL_PROVIDER_IDENTITY,
   parseCanonicalEventRef,
   StructuredAnalysisPackageSchema,
   type DecisionAnalysis,
@@ -81,7 +111,9 @@ import {
 } from "@riichi-coach/contracts";
 import {
   deriveAnalysisKey,
+  deriveDecisionId,
   derivePackageId,
+  deriveRecordStatus,
   deriveSemanticContentHash,
 } from "../analysis/package-identity.js";
 
@@ -221,7 +253,11 @@ function rejectBlankVersions(pkg: StructuredAnalysisPackage): void {
  *  logical analysis slot, every decision id and every canonical event evidence
  *  ref derive from it. A package whose identities disagree is rejected — no
  *  second record identity can exist in a valid package. The analysisKey is
- *  recomputed exactly (shared derivation) instead of prefix-checked. */
+ *  recomputed exactly (shared derivation) instead of prefix-checked, and every
+ *  decisionId is RECOMPUTED with the shared deriveDecisionId (record identity
+ *  + self actor + surface + decision window kind + triggerEventRef, CR-4):
+ *  keeping the correct record-id prefix while altering the surface /
+ *  window / event suffix is a decision-identity failure. */
 function validateIdentity(pkg: StructuredAnalysisPackage): void {
   const recordId = pkg.record.recordId;
   // Every valid package is provider-scoped to "mortal" (the frozen
@@ -238,9 +274,16 @@ function validateIdentity(pkg: StructuredAnalysisPackage): void {
     );
   }
   for (const decision of pkg.decisions) {
-    if (!decision.decisionId.startsWith(`decision:${recordId}:`)) {
+    const expectedDecisionId = deriveDecisionId({
+      recordId,
+      selfActor: pkg.record.selfActor,
+      surface: decision.surface,
+      windowKind: decision.normalizedDecisionContext.decisionWindowKind,
+      triggerEventRef: decision.normalizedDecisionContext.triggerEventRef,
+    });
+    if (decision.decisionId !== expectedDecisionId) {
       throw new Error(
-        `m6c_validator_decision_identity:${decision.decisionId}`,
+        `m6c_validator_decision_identity:${decision.decisionId}: decisionId must derive from the record identity + self actor + surface + decision window kind + trigger event ref`,
       );
     }
   }
@@ -397,11 +440,43 @@ function validateCrossReferences(pkg: StructuredAnalysisPackage): void {
 /** Package-level `componentVersions` declarations must agree with the producer
  *  identity/version metadata the package payload itself carries, wherever
  *  existing contracts actually represent the overlap. A structurally valid
- *  package may no longer claim arbitrary producer versions. Fields with no
- *  independent payload provenance (e.g. mortalSourceModel.identity /
- *  modelTag, ModelEvaluation.engineVersion) are intentionally NOT invented
- *  into checks. */
+ *  package may no longer claim arbitrary producer versions. The Mortal
+ *  provider chain (closure 1) is part of this coherence: the declaration's
+ *  `mortalSourceModel.identity` must be the canonical "Mortal" provider, and
+ *  every ready decision's `ModelEvaluation.engineId` must be the Mortal
+ *  engine. Fields with no independent payload provenance (modelTag,
+ *  ModelEvaluation.engineVersion, mapperAdapter, factorPipeline) are
+ *  intentionally NOT invented into checks. */
 function validateProducerVersions(pkg: StructuredAnalysisPackage): void {
+  // Provider-chain agreement (closure 1): WHO produced the model evidence.
+  // The declaration must claim the canonical Mortal provider identity; the
+  // provider-scoped verdict kind and the model evaluation engine are
+  // cross-checked per decision.
+  if (
+    pkg.componentVersions.mortalSourceModel.identity !== MORTAL_PROVIDER_IDENTITY
+  ) {
+    throw new Error(
+      "m6c_validator_provider_mismatch:mortalSourceModel:identity",
+    );
+  }
+  for (const decision of pkg.decisions) {
+    // analysisProvider.kind is schema-pinned to "mortal" by the literal
+    // AnalysisProviderSchema — defense-in-depth, like the fact-engine checks.
+    if (decision.analysisProvider.kind !== "mortal") {
+      throw new Error(
+        `m6c_validator_provider_mismatch:${decision.decisionId}:analysisProvider.kind`,
+      );
+    }
+    if (decision.outcome !== "analysis_ready") continue;
+    // ModelEvaluation.engineId admits a future "akagi_native" variant at the
+    // schema level; a MORTAL package may not carry non-Mortal model evidence.
+    if (decision.modelEvaluation.engineId !== "mortal") {
+      throw new Error(
+        `m6c_validator_provider_mismatch:${decision.decisionId}:engineId`,
+      );
+    }
+  }
+
   // Evidence-registry provenance (builder-written, CR-3): a canonical_event
   // record's producerVersion IS the canonical replay version, and a
   // fact_engine_request record's producerVersion IS the fact-engine adapter
@@ -488,6 +563,62 @@ function assertEngineIdentityAgrees(
 }
 
 // ---------------------------------------------------------------------------
+// Evidence provenance references (Slice 3 semantic-integrity closure 6)
+// ---------------------------------------------------------------------------
+
+/** `EvidenceRecord.sourceRefs` are THEMSELVES provenance references and must
+ *  not be allowed to dangle. For the frozen two-kind model:
+ *
+ *   canonical_event:      produced by the canonical replay producer
+ *                         (CANONICAL_REPLAY_PRODUCER), sourceRefs EMPTY (the
+ *                         canonical stream is the root authority);
+ *   fact_engine_request:  produced by the fact-engine producer
+ *                         (FACT_ENGINE_PRODUCER), every sourceRef resolves to
+ *                         an evidenceRegistry entry of kind canonical_event,
+ *                         and sourceRefs contain no duplicates.
+ *
+ *  Deliberately not a generic provenance graph: exactly the two frozen kinds,
+ *  one reference direction (request → canonical events), no recursion. */
+function validateEvidenceProvenance(pkg: StructuredAnalysisPackage): void {
+  const registered = new Set(Object.keys(pkg.evidenceRegistry));
+  for (const [key, record] of Object.entries(pkg.evidenceRegistry)) {
+    if (record.kind === "canonical_event") {
+      if (record.producer !== CANONICAL_REPLAY_PRODUCER) {
+        throw new Error(`m6c_validator_evidence_producer:${key}`);
+      }
+      if (record.sourceRefs.length > 0) {
+        throw new Error(`m6c_validator_evidence_source_refs_nonempty:${key}`);
+      }
+      continue;
+    }
+    // fact_engine_request
+    if (record.producer !== FACT_ENGINE_PRODUCER) {
+      throw new Error(`m6c_validator_evidence_producer:${key}`);
+    }
+    const seen = new Set<string>();
+    for (const ref of record.sourceRefs) {
+      if (seen.has(ref)) {
+        throw new Error(
+          `m6c_validator_evidence_source_ref_duplicate:${key}:${ref}`,
+        );
+      }
+      seen.add(ref);
+      const target = pkg.evidenceRegistry[ref];
+      if (target === undefined) {
+        throw new Error(
+          `m6c_validator_evidence_source_ref_dangling:${key}:${ref}`,
+        );
+      }
+      if (target.kind !== "canonical_event") {
+        throw new Error(
+          `m6c_validator_evidence_source_ref_kind:${key}:${ref}`,
+        );
+      }
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
 // Ready-decision reference integrity (Slice 3 review repair 2)
 // ---------------------------------------------------------------------------
 
@@ -551,8 +682,18 @@ function validateReadyDecisionReferences(
     }
   }
 
-  // FactorDifference references: both sides belong to the candidate universe.
+  // FactorDifference references (closure 3): differenceId values are unique
+  // within the decision (they are the reference targets of
+  // deterministicPreference.decisiveDifferenceIds), and both sides of every
+  // difference belong to the candidate universe.
+  const seenDifferenceIds = new Set<string>();
   for (const difference of decision.factorDifferences) {
+    if (seenDifferenceIds.has(difference.differenceId)) {
+      throw new Error(
+        `m6c_validator_difference_duplicate:${decision.decisionId}:${difference.differenceId}`,
+      );
+    }
+    seenDifferenceIds.add(difference.differenceId);
     if (!universe.has(difference.leftActionRef)) {
       throw new Error(
         `m6c_validator_difference_action_ref:${decision.decisionId}:${difference.leftActionRef}`,
@@ -566,12 +707,24 @@ function validateReadyDecisionReferences(
   }
 
   // DeterministicPreference refs belong to the candidate universe (production
-  // derives the maximal set from the ledger/difference candidate refs).
+  // derives the maximal set from the ledger/difference candidate refs), and
+  // every decisiveDifferenceIds entry must resolve to a FactorDifference of
+  // the SAME decision (closure 3 — reference-integrity only; which differences
+  // SHOULD be decisive is never inferred or recomputed).
   if (decision.deterministicPreference !== null) {
     for (const actionRef of decision.deterministicPreference.actionRefs) {
       if (!universe.has(actionRef)) {
         throw new Error(
           `m6c_validator_preference_action_ref:${decision.decisionId}:${actionRef}`,
+        );
+      }
+    }
+    for (const differenceId of
+      decision.deterministicPreference.decisiveDifferenceIds
+    ) {
+      if (!seenDifferenceIds.has(differenceId)) {
+        throw new Error(
+          `m6c_validator_preference_difference_ref:${decision.decisionId}:${differenceId}`,
         );
       }
     }
@@ -581,10 +734,27 @@ function validateReadyDecisionReferences(
   // legal model/action correspondence (ADR-0001): scored entries and
   // preferences are model-origin candidates; the actual action is the
   // comparison set's actual candidate.
+  const evaluationRefs = new Set(
+    evaluation.candidates.map((candidate) => candidate.actionRef),
+  );
   for (const candidate of evaluation.candidates) {
     if (!modelCandidates.has(candidate.actionRef)) {
       throw new Error(
         `m6c_validator_evaluation_action_ref:${decision.decisionId}:${candidate.actionRef}`,
+      );
+    }
+  }
+  // Closure 2: the model candidate universe is a TRUE BIJECTION — the
+  // comparison set's model-origin candidates and the evaluation candidates are
+  // the SAME set. Production builds the scores by filtering the model origin,
+  // so a model-origin comparison candidate without a model score (or an
+  // evaluation candidate outside the comparison set) is a contradiction. An
+  // actual-only realization candidate (bound by correspondence) is NOT a
+  // model-origin candidate and never requires a model score of its own.
+  for (const ref of modelCandidates) {
+    if (!evaluationRefs.has(ref)) {
+      throw new Error(
+        `m6c_validator_evaluation_candidate_missing:${decision.decisionId}:${ref}`,
       );
     }
   }
@@ -664,6 +834,26 @@ function validateAnalysisPolicy(pkg: StructuredAnalysisPackage): void {
 }
 
 // ---------------------------------------------------------------------------
+// Record status truth (Slice 3 semantic-integrity closure 5)
+// ---------------------------------------------------------------------------
+
+/** `record.status` must TRUTHFULLY summarize the decisions using the shared
+ *  builder derivation (`deriveRecordStatus`): any binding_mismatch /
+ *  no_mortal_entry → integrity_failed; else any non-analysis_ready outcome →
+ *  degraded; else complete. A package that lies about its aggregate status is
+ *  rejected. Schema validity remains distinct from analysis completeness —
+ *  the incomplete outcomes themselves never cause rejection, only a status
+ *  that contradicts them does. */
+function validateRecordStatus(pkg: StructuredAnalysisPackage): void {
+  const expected = deriveRecordStatus(
+    pkg.decisions.map((decision) => decision.analysisProvider.outcome),
+  );
+  if (pkg.record.status !== expected) {
+    throw new Error("m6c_validator_status_mismatch");
+  }
+}
+
+// ---------------------------------------------------------------------------
 // Artifact identity recomputation (Slice 3 review repair 3B/3C)
 // ---------------------------------------------------------------------------
 
@@ -738,12 +928,17 @@ export function validateStructuredAnalysisPackage(input: unknown): void {
   validateIdentity(pkg);
   validateCrossReferences(pkg);
 
-  // PRODUCER-VERSION PROVENANCE COHERENCE (repair 1): componentVersions must
-  // agree with the payload's own producer identity/version metadata.
+  // PRODUCER/PROVIDER PROVENANCE COHERENCE (repair 1 + closure 1):
+  // componentVersions must agree with the payload's own producer
+  // identity/version metadata and the Mortal provider chain.
   validateProducerVersions(pkg);
 
-  // READY-DECISION REFERENCE INTEGRITY (repair 2): one analysis_ready decision
-  // = one internally coherent candidate universe.
+  // EVIDENCE PROVENANCE REFERENCES (closure 6): registry sourceRefs must not
+  // dangle; producers must match the frozen two-kind chain.
+  validateEvidenceProvenance(pkg);
+
+  // READY-DECISION REFERENCE INTEGRITY (repair 2 + closure 2/3): one
+  // analysis_ready decision = one internally coherent candidate universe.
   for (const decision of pkg.decisions) {
     if (decision.outcome === "analysis_ready") {
       validateReadyDecisionReferences(decision);
@@ -753,6 +948,11 @@ export function validateStructuredAnalysisPackage(input: unknown): void {
   // ANALYSIS-POLICY AUTHORITY (repair 3A): package.analysisPolicy is the
   // construction authority; every detailPolicy agrees with it.
   validateAnalysisPolicy(pkg);
+
+  // RECORD STATUS TRUTH (closure 5): record.status is recomputed from the
+  // decision outcomes and must match — a package may not lie about its
+  // aggregate status (schema validity ≠ completeness is preserved).
+  validateRecordStatus(pkg);
 
   // ARTIFACT IDENTITY (repair 3B/3C): packageId + semanticContentHash are
   // recomputed from the package's own contents and must match. Runs LAST so

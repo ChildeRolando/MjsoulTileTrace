@@ -3,6 +3,7 @@ import {
   FACT_ENGINE_ADAPTER_VERSION,
   FACT_ENGINE_PROTOCOL_VERSION,
   MAHJONG_HELPER_COMMIT,
+  STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION,
   AnalysisPolicySnapshotSchema,
   AnalysisProviderSchema,
   ComponentVersionsSchema,
@@ -219,7 +220,7 @@ function validPackage() {
     semanticContentHash: "sha256:0123456789abcdef",
     record: { recordId: "game-1", selfActor: 3, status: "complete" },
     componentVersions: {
-      packageSchema: "m6c/v1",
+      packageSchema: STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION,
       canonicalReplay: "canonical-riichi-events/v2",
       mapperAdapter: "mahjong-soul-mapper/1",
       factEngine: {
@@ -663,7 +664,7 @@ describe("record, versions, and package contract", () => {
 
   it("requires non-empty deterministic producer versions (D4)", () => {
     expect(ComponentVersionsSchema.parse({
-      packageSchema: "m6c/v1",
+      packageSchema: STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION,
       canonicalReplay: "canonical-riichi-events/v2",
       factEngine: {
         engine: "mahjong-helper",
@@ -680,6 +681,46 @@ describe("record, versions, and package contract", () => {
     })).toBeDefined();
     expect(() => ComponentVersionsSchema.parse({
       packageSchema: "",
+      canonicalReplay: "canonical-riichi-events/v2",
+      factEngine: {
+        engine: "mahjong-helper",
+        upstreamCommit: MAHJONG_HELPER_COMMIT,
+        adapterVersion: FACT_ENGINE_ADAPTER_VERSION,
+        protocolVersion: FACT_ENGINE_PROTOCOL_VERSION,
+      },
+      factorPipeline: "factor-pipeline/v1",
+      mortalSourceModel: {
+        identity: "Mortal",
+        version: "mortal-source/2",
+        modelTag: "2026-07",
+      },
+    })).toThrow();
+  });
+
+  it("pins the package schema version to the current literal (Slice 3 closure)", () => {
+    // The validator executes exactly this schema, so a package may not claim
+    // an arbitrary schema version: componentVersions.packageSchema is the
+    // contract-owned literal, not a free string.
+    expect(STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION)
+      .toBe("structured-analysis-package/v1");
+    expect(ComponentVersionsSchema.parse({
+      packageSchema: STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION,
+      canonicalReplay: "canonical-riichi-events/v2",
+      factEngine: {
+        engine: "mahjong-helper",
+        upstreamCommit: MAHJONG_HELPER_COMMIT,
+        adapterVersion: FACT_ENGINE_ADAPTER_VERSION,
+        protocolVersion: FACT_ENGINE_PROTOCOL_VERSION,
+      },
+      factorPipeline: "factor-pipeline/v1",
+      mortalSourceModel: {
+        identity: "Mortal",
+        version: "mortal-source/2",
+        modelTag: "2026-07",
+      },
+    })).toBeDefined();
+    expect(() => ComponentVersionsSchema.parse({
+      packageSchema: "structured-analysis-package/v0",
       canonicalReplay: "canonical-riichi-events/v2",
       factEngine: {
         engine: "mahjong-helper",

@@ -18,13 +18,23 @@
  *  - analysis-policy authority + independently recomputable packageId /
  *    semanticContentHash.
  *
+ * The Slice 3 semantic-integrity closure (six "closure" describe blocks) adds
+ * one negative test per newly enforced invariant: Mortal provider chain +
+ * current schema version, model candidate universe bijection,
+ * preference → difference references, exact decision identity, record.status
+ * truth, and evidence provenance references.
+ *
  * The positive path goes through the real E2E seam: pinned fixture report +
  * canned fact engine → runMortalFullGameReview → buildStructuredAnalysisPackage
  * → validateStructuredAnalysisPackage. Negative cases tamper with a deep clone
  * of that package.
  */
 import { describe, expect, it } from "vitest";
-import type { StructuredAnalysisPackage } from "@riichi-coach/contracts";
+import {
+  canonicalActionRef,
+  type RiichiAction,
+  type StructuredAnalysisPackage,
+} from "@riichi-coach/contracts";
 import {
   buildStructuredAnalysisPackage,
 } from "../src/analysis/structured-analysis-package-builder.js";
@@ -521,5 +531,279 @@ describe("M6-C Slice 3 acceptance repair: analysis policy and artifact identity"
     const tampered = clonePackage(pkg);
     tampered.createdAt = "2026-07-01T00:00:00.000Z";
     expect(() => validateStructuredAnalysisPackage(tampered)).not.toThrow();
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Slice 3 semantic-integrity closure — closure 1: Mortal provider chain +
+// current package schema version
+// ---------------------------------------------------------------------------
+
+describe("M6-C Slice 3 closure: Mortal provider chain and schema version", () => {
+  it("rejects a component identity that is not the canonical Mortal provider", async () => {
+    const pkg = await buildFixturePackage();
+    const tampered = clonePackage(pkg);
+    tampered.componentVersions.mortalSourceModel.identity = "Akagi";
+    expect(() => validateStructuredAnalysisPackage(tampered))
+      .toThrow(/m6c_validator_provider_mismatch:mortalSourceModel:identity/);
+  });
+
+  it("rejects a non-Mortal ModelEvaluation engine in a Mortal package (naive mutation pinned at schema level)", async () => {
+    const pkg = await buildFixturePackage();
+    const tampered = clonePackage(pkg);
+    // engineId admits a future "akagi_native" variant, but the schema super
+    // refine binds the score method to the engine — a naive engine swap fails
+    // schema before the validator's named provider check (defense-in-depth,
+    // like the fact-engine checks). The fully consistent Akagi evaluation
+    // below reaches the named check.
+    readyDecisionOf(tampered).modelEvaluation.engineId = "akagi_native";
+    expect(() => validateStructuredAnalysisPackage(tampered))
+      .toThrow(/m6c_validator_schema/);
+  });
+
+  it("rejects a fully consistent Akagi evaluation inside a Mortal package (named provider check)", async () => {
+    const pkg = await buildFixturePackage();
+    const tampered = clonePackage(pkg);
+    const evaluation = readyDecisionOf(tampered).modelEvaluation;
+    // A schema-valid Akagi evaluation: logits whose softmax reproduces the
+    // original Mortal probabilities, so scores / preferred / errorGap all
+    // stay consistent — only the engine identity is non-Mortal.
+    evaluation.engineId = "akagi_native";
+    evaluation.scoreMethod = "akagi_softmax_x100";
+    for (const candidate of evaluation.candidates) {
+      const probability = candidate.rawValues
+        .find((value) => value.metric === "probability")!.value;
+      candidate.rawValues = [{ metric: "logit", value: Math.log(probability) }];
+    }
+    expect(() => validateStructuredAnalysisPackage(tampered))
+      .toThrow(/m6c_validator_provider_mismatch/);
+  });
+
+  it("rejects a package claiming an arbitrary schema version", async () => {
+    const pkg = await buildFixturePackage();
+    const tampered = clonePackage(pkg);
+    // componentVersions.packageSchema is the contract-owned literal: the
+    // validator executes exactly this schema, so any other version fails the
+    // schema parse.
+    (tampered.componentVersions as { packageSchema: string }).packageSchema =
+      "structured-analysis-package/v0";
+    expect(() => validateStructuredAnalysisPackage(tampered))
+      .toThrow(/m6c_validator_schema/);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Slice 3 semantic-integrity closure — closure 2: model candidate universe
+// bijection (comparison model-origin candidates == evaluation candidates)
+// ---------------------------------------------------------------------------
+
+describe("M6-C Slice 3 closure: model candidate universe bijection", () => {
+  it("rejects a model-origin comparison candidate missing from the model evaluation (A,B,C vs A,B)", async () => {
+    const pkg = await buildFixturePackage();
+    const tampered = clonePackage(pkg);
+    const decision = readyDecisionOf(tampered);
+    // Add a third legal model-origin candidate to the comparison set AND a
+    // matching ledger (so the ledger bijection passes): only the evaluation
+    // lacks a score for it.
+    const thirdAction: RiichiAction = {
+      kind: "discard",
+      tile: { id: "7p", red: false },
+      discardMode: "tedashi",
+    };
+    const thirdRef = canonicalActionRef(thirdAction);
+    decision.comparisonSet.candidates.push({
+      actionRef: thirdRef,
+      action: thirdAction,
+      origins: ["model"],
+    });
+    decision.candidateFactorLedgers.push(clonePackage({
+      ...decision.candidateFactorLedgers[0]!,
+      actionRef: thirdRef,
+    }));
+    expect(() => validateStructuredAnalysisPackage(tampered))
+      .toThrow(/m6c_validator_evaluation_candidate_missing/);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Slice 3 semantic-integrity closure — closure 3: DeterministicPreference →
+// FactorDifference references (reference-integrity only)
+// ---------------------------------------------------------------------------
+
+describe("M6-C Slice 3 closure: preference → difference references", () => {
+  it("rejects a dangling decisiveDifferenceId", async () => {
+    const pkg = await buildFixturePackage();
+    const tampered = clonePackage(pkg);
+    const decision = readyDecisionOf(tampered);
+    if (decision.deterministicPreference === null) {
+      decision.deterministicPreference = {
+        actionRefs: decision.comparisonSet.candidates.map(
+          (candidate) => candidate.actionRef,
+        ),
+        scope: "applied_decision",
+        decisiveDifferenceIds: ["difference:v1:ghost"],
+        coverage: "complete",
+      };
+    } else {
+      decision.deterministicPreference.decisiveDifferenceIds =
+        ["difference:v1:ghost"];
+    }
+    expect(() => validateStructuredAnalysisPackage(tampered))
+      .toThrow(/m6c_validator_preference_difference_ref/);
+  });
+
+  it("rejects duplicate FactorDifference.differenceId values within a decision", async () => {
+    const pkg = await buildFixturePackage();
+    const tampered = clonePackage(pkg);
+    const decision = readyDecisionOf(tampered);
+    expect(decision.factorDifferences.length).toBeGreaterThan(0);
+    decision.factorDifferences.push(clonePackage(decision.factorDifferences[0]!));
+    expect(() => validateStructuredAnalysisPackage(tampered))
+      .toThrow(/m6c_validator_difference_duplicate/);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Slice 3 semantic-integrity closure — closure 4: exact decision identity
+// recomputation (record id + self actor + surface + window kind + trigger ref)
+// ---------------------------------------------------------------------------
+
+describe("M6-C Slice 3 closure: exact decision identity", () => {
+  it("rejects a decision id that keeps the record prefix but alters the surface/window/event suffix", async () => {
+    const pkg = await buildFixturePackage();
+    const tampered = clonePackage(pkg);
+    const decisionId = tampered.decisions[0]!.decisionId;
+    expect(decisionId.startsWith("decision:game:fixture:self0:self:self_turn:"))
+      .toBe(true);
+    // Keep the correct record-id prefix; change the decision window kind
+    // segment of the suffix. The context still says self_turn.
+    tampered.decisions[0]!.decisionId =
+      decisionId.replace(":self_turn:", ":post_call_discard:");
+    expect(() => validateStructuredAnalysisPackage(tampered))
+      .toThrow(/m6c_validator_decision_identity/);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Slice 3 semantic-integrity closure — closure 5: record.status truth
+// (schema validity ≠ completeness is preserved)
+// ---------------------------------------------------------------------------
+
+describe("M6-C Slice 3 closure: record.status truth", () => {
+  it("rejects no_mortal_entry outcomes disguised as complete", async () => {
+    const pkg = await buildIncompleteFixturePackage();
+    expect(pkg.decisions[0]!.outcome).toBe("no_mortal_entry");
+    const tampered = clonePackage(pkg);
+    tampered.record.status = "complete";
+    expect(() => validateStructuredAnalysisPackage(tampered))
+      .toThrow(/m6c_validator_status_mismatch/);
+  });
+
+  it("rejects unsupported_action outcomes disguised as complete", async () => {
+    const pkg = await buildIncompleteFixturePackage();
+    const tampered = clonePackage(pkg);
+    // Rewrite the decision to a schema-valid unsupported_action (with its
+    // category-matching reason); the aggregate truth is then degraded, not
+    // complete.
+    tampered.decisions[0]!.outcome = "unsupported_action";
+    tampered.decisions[0]!.analysisProvider = {
+      kind: "mortal",
+      outcome: "unsupported_action",
+      reason: "local_actual_not_represented",
+    };
+    tampered.record.status = "complete";
+    expect(() => validateStructuredAnalysisPackage(tampered))
+      .toThrow(/m6c_validator_status_mismatch/);
+  });
+
+  it("rejects an all-analysis_ready package disguised as degraded", async () => {
+    const pkg = await buildFixturePackage();
+    expect(pkg.decisions.every((decision) => decision.outcome === "analysis_ready"))
+      .toBe(true);
+    const tampered = clonePackage(pkg);
+    tampered.record.status = "degraded";
+    expect(() => validateStructuredAnalysisPackage(tampered))
+      .toThrow(/m6c_validator_status_mismatch/);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Slice 3 semantic-integrity closure — closure 6: EvidenceRecord provenance
+// references (sourceRefs are provenance references and must not dangle)
+// ---------------------------------------------------------------------------
+
+describe("M6-C Slice 3 closure: evidence provenance references", () => {
+  function requestKeyOf(pkg: StructuredAnalysisPackage): string {
+    const key = Object.keys(pkg.evidenceRegistry)
+      .find((candidate) =>
+        pkg.evidenceRegistry[candidate]!.kind === "fact_engine_request"
+      )!;
+    expect(key).toBeDefined();
+    return key;
+  }
+
+  it("rejects a dangling fact-engine sourceRef", async () => {
+    const pkg = await buildFixturePackage();
+    const tampered = clonePackage(pkg);
+    tampered.evidenceRegistry[requestKeyOf(tampered)]!.sourceRefs.push(
+      "game:fixture/0/99/0",
+    );
+    expect(() => validateStructuredAnalysisPackage(tampered))
+      .toThrow(/m6c_validator_evidence_source_ref_dangling/);
+  });
+
+  it("rejects a sourceRef that resolves to a non-canonical evidence node", async () => {
+    const pkg = await buildFixturePackage();
+    const tampered = clonePackage(pkg);
+    const key = requestKeyOf(tampered);
+    tampered.evidenceRegistry[key]!.sourceRefs = [key];
+    expect(() => validateStructuredAnalysisPackage(tampered))
+      .toThrow(/m6c_validator_evidence_source_ref_kind/);
+  });
+
+  it("rejects a canonical_event record with sourceRefs (root authority must stay empty)", async () => {
+    const pkg = await buildFixturePackage();
+    const tampered = clonePackage(pkg);
+    const canonicalKey = Object.keys(tampered.evidenceRegistry)
+      .find((candidate) =>
+        tampered.evidenceRegistry[candidate]!.kind === "canonical_event"
+      )!;
+    tampered.evidenceRegistry[canonicalKey]!.sourceRefs.push(
+      "game:fixture/0/3/0",
+    );
+    expect(() => validateStructuredAnalysisPackage(tampered))
+      .toThrow(/m6c_validator_evidence_source_refs_nonempty/);
+  });
+
+  it("rejects duplicate sourceRefs on a fact-engine request", async () => {
+    const pkg = await buildFixturePackage();
+    const tampered = clonePackage(pkg);
+    const key = requestKeyOf(tampered);
+    const existing = tampered.evidenceRegistry[key]!.sourceRefs;
+    const ref = existing[0] ?? Object.keys(tampered.evidenceRegistry)
+      .find((candidate) =>
+        tampered.evidenceRegistry[candidate]!.kind === "canonical_event"
+      )!;
+    tampered.evidenceRegistry[key]!.sourceRefs = [ref, ref];
+    expect(() => validateStructuredAnalysisPackage(tampered))
+      .toThrow(/m6c_validator_evidence_source_ref_duplicate/);
+  });
+
+  it("rejects a wrong producer for either evidence kind", async () => {
+    const pkg = await buildFixturePackage();
+    const tampered = clonePackage(pkg);
+    const canonicalKey = Object.keys(tampered.evidenceRegistry)
+      .find((candidate) =>
+        tampered.evidenceRegistry[candidate]!.kind === "canonical_event"
+      )!;
+    tampered.evidenceRegistry[canonicalKey]!.producer = "fact-engine";
+    expect(() => validateStructuredAnalysisPackage(tampered))
+      .toThrow(/m6c_validator_evidence_producer/);
+
+    const requestTampered = clonePackage(pkg);
+    requestTampered.evidenceRegistry[requestKeyOf(requestTampered)]!.producer =
+      "canonical-replay";
+    expect(() => validateStructuredAnalysisPackage(requestTampered))
+      .toThrow(/m6c_validator_evidence_producer/);
   });
 });

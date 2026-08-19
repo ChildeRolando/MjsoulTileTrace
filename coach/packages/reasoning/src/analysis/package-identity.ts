@@ -8,16 +8,26 @@
  *   derivePackageId
  *   deriveSemanticContentHash
  *
+ * The Slice 3 semantic-integrity closure adds the two remaining shared
+ * derivations that must not drift between builder and validator:
+ *
+ *   deriveDecisionId
+ *   deriveRecordStatus
+ *
  * This abstraction is admitted (Abstraction Admission Rule) because it
  * prevents the two algorithms from drifting over time: the validator must be
  * able to RECOMPUTE `packageId` and `semanticContentHash` from the package's
- * own contents and require equality (3C). It is a narrowly scoped,
- * deterministic, pure helper — deliberately NOT a generic hashing framework
- * and NOT a general artifact-identity service.
+ * own contents and require equality (3C), RECOMPUTE every `decisionId` from
+ * the decision's own context (closure 4), and RECOMPUTE `record.status` from
+ * the decision outcomes (closure 5). It is a narrowly scoped, deterministic,
+ * pure helper — deliberately NOT a generic hashing framework and NOT a
+ * general artifact-identity service.
  *
  * Identity semantics follow the frozen Slice 1 contract (CR-4 / CR-5):
  *  - `analysisKey` = logical slot (record identity + self actor + provider),
  *    stable across model/fact-pipeline versions.
+ *  - `decisionId` = game identity + self actor + surface + decision window
+ *    kind + triggerEventRef (CR-4) — the exact per-decision identity.
  *  - `packageId` = artifact identity derived from analysisKey +
  *    componentVersions + analysisPolicy (the package-level construction
  *    policy). No wall-clock / artifact-creation metadata enters it.
@@ -25,13 +35,18 @@
  *    content only: analysisKey, record, componentVersions, analysisPolicy,
  *    decisions (with the wall-clock `detailPolicy.frozenAt` value nulled) and
  *    evidenceRegistry. createdAt / packageId / frozenAt never participate.
+ *  - `record.status` = the aggregate truth over the decision outcomes:
+ *    any binding_mismatch / no_mortal_entry → integrity_failed; else any
+ *    non-analysis_ready outcome → degraded; else complete (CR-6).
  */
 import { createHash } from "node:crypto";
 import type {
   AnalysisPolicySnapshot,
   ComponentVersions,
   DecisionAnalysis,
+  DecisionSurface,
   EvidenceRegistry,
+  MortalDecisionOutcome,
   RecordAnalysis,
 } from "@riichi-coach/contracts";
 
@@ -81,6 +96,51 @@ export function deriveAnalysisKey(input: {
   provider: string;
 }): string {
   return `analysis:${input.recordId}:actor${input.selfActor}:${input.provider}`;
+}
+
+/** The exact per-decision identity (CR-4): game identity + self actor +
+ *  surface + decision window kind + triggerEventRef. The concrete string
+ *  encoding is implementation design (frozen in Slice 2); the validator
+ *  RECOMPUTES each `decisionId` from the decision's own
+ *  normalizedDecisionContext with this SAME function and requires equality —
+ *  a decision id that disagrees with its own context is rejected. */
+export function deriveDecisionId(input: {
+  recordId: string;
+  selfActor: number;
+  surface: DecisionSurface;
+  windowKind: string;
+  triggerEventRef: string;
+}): string {
+  return [
+    "decision",
+    input.recordId,
+    `self${input.selfActor}`,
+    input.surface,
+    input.windowKind,
+    input.triggerEventRef,
+  ].join(":");
+}
+
+/** The aggregate analysis status (CR-6): the truthfulness summary over the
+ *  decision outcomes, derived deterministically — any binding_mismatch or
+ *  no_mortal_entry → integrity_failed (never disguise as success); else any
+ *  non-analysis_ready outcome → degraded; else complete. The validator
+ *  RECOMPUTES `record.status` from the package's own decisions with this SAME
+ *  function and requires equality — a package that lies about its aggregate
+ *  status is rejected (schema validity ≠ analysis completeness is preserved:
+ *  incomplete outcomes themselves never cause rejection). */
+export function deriveRecordStatus(
+  outcomes: readonly MortalDecisionOutcome[],
+): RecordAnalysis["status"] {
+  if (outcomes.some((outcome) =>
+    outcome === "binding_mismatch" || outcome === "no_mortal_entry"
+  )) {
+    return "integrity_failed";
+  }
+  if (outcomes.some((outcome) => outcome !== "analysis_ready")) {
+    return "degraded";
+  }
+  return "complete";
 }
 
 /** The artifact identity (CR-4): analysisKey + componentVersions +

@@ -242,8 +242,17 @@ export type EvidenceKind = z.infer<typeof EvidenceKindSchema>;
 export const EvidenceRecordSchema = z.object({
   evidenceId: EvidenceIdSchema,
   kind: EvidenceKindSchema,
+  /** Producer chain name (Slice 3 semantic-integrity closure): for the frozen
+   *  two-kind model the builder writes exactly `CANONICAL_REPLAY_PRODUCER`
+   *  for canonical_event and `FACT_ENGINE_PRODUCER` for fact_engine_request,
+   *  and the package validator requires those exact producers. */
   producer: z.string().min(1),
   producerVersion: z.string().min(1),
+  /** Provenance references to other registry nodes (Slice 3 semantic-integrity
+   *  closure): canonical_event records carry NO sourceRefs (the canonical
+   *  stream is the root authority); fact_engine_request records cite the
+   *  canonical events their computation was derived from, and every cited ref
+   *  must resolve to a canonical_event registry node without duplicates. */
   sourceRefs: z.array(z.string().min(1)),
   /** Sanitized, resolvable descriptor/payload kept INSIDE the package so it
    *  is self-contained for audit: a bare event ref that depends on the raw
@@ -290,6 +299,30 @@ export type EvidenceRegistry = z.infer<typeof EvidenceRegistrySchema>;
 // CR-5 / D4 — component versions (deterministic producer chain only)
 // ---------------------------------------------------------------------------
 
+/** The CURRENT StructuredAnalysisPackage schema version — the single
+ *  contract-owned authority (Slice 3 semantic-integrity closure). The
+ *  `ComponentVersionsSchema.packageSchema` field is this exact literal: a
+ *  package cannot claim an arbitrary schema version because the validator
+ *  executes exactly this schema. The builder asserts the same constant and
+ *  the package validator inherits the enforcement from the literal schema. */
+export const STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION =
+  "structured-analysis-package/v1" as const;
+
+/** The canonical Mortal provider identity (the report's `engine` field /
+ *  source identity — the repository's canonical spelling, e.g.
+ *  mortal-source report-schema `engine: z.literal("Mortal")`). A Mortal
+ *  package's `componentVersions.mortalSourceModel.identity` must equal it;
+ *  the package validator enforces the agreement. */
+export const MORTAL_PROVIDER_IDENTITY = "Mortal" as const;
+
+/** Evidence-record producer names of the frozen two-kind model (Slice 3
+ *  semantic-integrity closure). The package builder writes exactly these and
+ *  the package validator requires them — a registry record may not claim an
+ *  arbitrary producer for its kind. Not a generic producer registry: just the
+ *  two canonical replay / fact-engine chain names. */
+export const CANONICAL_REPLAY_PRODUCER = "canonical-replay" as const;
+export const FACT_ENGINE_PRODUCER = "fact-engine" as const;
+
 /** Version identity of the Mortal source/model used by the analysis (D4:
  *  "Mortal source/model identity/tag"; the report carries `version` and
  *  `review.model_tag`). */
@@ -304,9 +337,14 @@ export type MortalModelVersion = z.infer<typeof MortalModelVersionSchema>;
  *  the deterministic/source/model-analysis production chain. LLM
  *  provider/model, prompt version, output schema version, and
  *  validator/generation versions belong to ReviewReport — the same package
- *  may be re-consumed by different LLM/prompt generations. */
+ *  may be re-consumed by different LLM/prompt generations.
+ *
+ *  `packageSchema` is the CURRENT schema version, pinned to
+ *  `STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION` (a contract-owned literal):
+ *  the validator executes exactly this schema, so the package may not claim
+ *  an arbitrary schema version. */
 export const ComponentVersionsSchema = z.object({
-  packageSchema: z.string().min(1),
+  packageSchema: z.literal(STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION),
   canonicalReplay: z.string().min(1),
   /** Mapper/source adapter version — present when a source mapper applies. */
   mapperAdapter: z.string().min(1).optional(),
