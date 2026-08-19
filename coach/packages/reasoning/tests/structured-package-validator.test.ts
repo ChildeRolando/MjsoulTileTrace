@@ -9,6 +9,15 @@
  *  - no LLM fields 拒绝含 CoachJudgment/ExplanationBullet 的包；
  *  - 有 no_mortal_entry 的 package 仍通过 schema 校验（CR-6）。
  *
+ * Slice 3 acceptance-repair tests (review blockers 1-3) are appended in the
+ * "M6-C Slice 3 acceptance repair" describe blocks:
+ *  - producer-version provenance coherence (componentVersions vs payload
+ *    provenance);
+ *  - ready-decision reference integrity (one analysis_ready decision = one
+ *    coherent candidate universe);
+ *  - analysis-policy authority + independently recomputable packageId /
+ *    semanticContentHash.
+ *
  * The positive path goes through the real E2E seam: pinned fixture report +
  * canned fact engine → runMortalFullGameReview → buildStructuredAnalysisPackage
  * → validateStructuredAnalysisPackage. Negative cases tamper with a deep clone
@@ -255,5 +264,262 @@ describe("M6-C Slice 3 serialization / validator / provenance", () => {
     // Schema validity ≠ analysis completeness: the validator never rejects a
     // structurally valid package for an incomplete / failed analysis.
     expect(() => validateStructuredAnalysisPackage(pkg)).not.toThrow();
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Slice 3 acceptance repair — blocker 1: producer-version provenance coherence
+// ---------------------------------------------------------------------------
+
+describe("M6-C Slice 3 acceptance repair: producer-version provenance coherence", () => {
+  it("fact-engine versions are pinned by the literal EngineIdentitySchema (declaration mutation rejected at schema level)", async () => {
+    const pkg = await buildFixturePackage();
+    const tampered = clonePackage(pkg);
+    // EngineIdentitySchema is fully literal (engine / upstreamCommit /
+    // adapterVersion / protocolVersion), so ANY declaration mutation is
+    // rejected by the schema itself — a schema-valid package can never claim
+    // arbitrary fact-engine versions. The validator's named producer checks
+    // (m6c_validator_producer_version_mismatch:factEngine:...) stay as
+    // defense-in-depth for the registry's free-string producerVersion and for
+    // a future relaxation of the literal schema.
+    (tampered.componentVersions.factEngine as { adapterVersion: string })
+      .adapterVersion = "0.2.1";
+    expect(() => validateStructuredAnalysisPackage(tampered))
+      .toThrow(/m6c_validator_schema/);
+  });
+
+  it("fact-engine payload identities are pinned by the literal EngineIdentitySchema (payload mutation rejected at schema level)", async () => {
+    const pkg = await buildFixturePackage();
+    const tampered = clonePackage(pkg);
+    const decision = readyDecisionOf(tampered);
+    const fact = decision.candidateFactorLedgers
+      .flatMap((ledger) => ledger.axes.flatMap((axis) => axis.facts))
+      .find((candidate) => candidate.engineIdentity !== undefined)!;
+    (fact.engineIdentity as unknown as { adapterVersion: string })
+      .adapterVersion = "0.2.1";
+    expect(() => validateStructuredAnalysisPackage(tampered))
+      .toThrow(/m6c_validator_schema/);
+  });
+
+  it("rejects a Mortal/model declaration contradicting the model evaluation", async () => {
+    const pkg = await buildFixturePackage();
+    const tampered = clonePackage(pkg);
+    // Mutate the DECLARATION side; ModelEvaluation.adapterVersion stays
+    // "mortal-source/2".
+    tampered.componentVersions.mortalSourceModel.version = "mortal-source/3";
+    expect(() => validateStructuredAnalysisPackage(tampered))
+      .toThrow(/m6c_validator_producer_version_mismatch:mortalSourceModel/);
+  });
+
+  it("rejects a model-evaluation adapter version contradicting the declaration", async () => {
+    const pkg = await buildFixturePackage();
+    const tampered = clonePackage(pkg);
+    readyDecisionOf(tampered).modelEvaluation.adapterVersion = "mortal-source/3";
+    expect(() => validateStructuredAnalysisPackage(tampered))
+      .toThrow(/m6c_validator_producer_version_mismatch:mortalSourceModel/);
+  });
+
+  it("rejects an evidence-registry canonical producer version contradicting componentVersions", async () => {
+    const pkg = await buildFixturePackage();
+    const tampered = clonePackage(pkg);
+    const canonicalKey = Object.keys(tampered.evidenceRegistry)
+      .find((key) => tampered.evidenceRegistry[key]!.kind === "canonical_event")!;
+    tampered.evidenceRegistry[canonicalKey]!.producerVersion =
+      "canonical-riichi-events/v3";
+    expect(() => validateStructuredAnalysisPackage(tampered))
+      .toThrow(/m6c_validator_producer_version_mismatch:canonicalReplay/);
+  });
+
+  it("rejects an evidence-registry request producer version contradicting componentVersions", async () => {
+    const pkg = await buildFixturePackage();
+    const tampered = clonePackage(pkg);
+    const requestKey = Object.keys(tampered.evidenceRegistry)
+      .find((key) => tampered.evidenceRegistry[key]!.kind === "fact_engine_request")!;
+    tampered.evidenceRegistry[requestKey]!.producerVersion = "0.2.1";
+    expect(() => validateStructuredAnalysisPackage(tampered))
+      .toThrow(/m6c_validator_producer_version_mismatch:factEngine:request/);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Slice 3 acceptance repair — blocker 2: ready-decision reference integrity
+// ---------------------------------------------------------------------------
+
+describe("M6-C Slice 3 acceptance repair: ready-decision reference integrity", () => {
+  it("rejects a comparisonSetId that disagrees with the model evaluation", async () => {
+    const pkg = await buildFixturePackage();
+    const tampered = clonePackage(pkg);
+    readyDecisionOf(tampered).comparisonSet.comparisonSetId =
+      "mortal-comparison:other";
+    expect(() => validateStructuredAnalysisPackage(tampered))
+      .toThrow(/m6c_validator_comparison_identity/);
+  });
+
+  it("rejects a duplicate ledger actionRef", async () => {
+    const pkg = await buildFixturePackage();
+    const tampered = clonePackage(pkg);
+    const ledgers = readyDecisionOf(tampered).candidateFactorLedgers;
+    expect(ledgers.length).toBeGreaterThanOrEqual(2);
+    (ledgers[1]! as { actionRef: string }).actionRef =
+      ledgers[0]!.actionRef as string;
+    expect(() => validateStructuredAnalysisPackage(tampered))
+      .toThrow(/m6c_validator_ledger_duplicate/);
+  });
+
+  it("rejects a ledger actionRef outside the candidate universe", async () => {
+    const pkg = await buildFixturePackage();
+    const tampered = clonePackage(pkg);
+    (readyDecisionOf(tampered).candidateFactorLedgers[0]! as { actionRef: string })
+      .actionRef = "action:v1:ghost";
+    expect(() => validateStructuredAnalysisPackage(tampered))
+      .toThrow(/m6c_validator_ledger_candidate_extra/);
+  });
+
+  it("rejects a comparison candidate without a ledger", async () => {
+    const pkg = await buildFixturePackage();
+    const tampered = clonePackage(pkg);
+    const decision = readyDecisionOf(tampered);
+    expect(decision.candidateFactorLedgers.length).toBeGreaterThanOrEqual(2);
+    decision.candidateFactorLedgers.splice(1, 1);
+    expect(() => validateStructuredAnalysisPackage(tampered))
+      .toThrow(/m6c_validator_ledger_candidate_missing/);
+  });
+
+  it("rejects a FactorDifference action ref outside the candidate universe", async () => {
+    const pkg = await buildFixturePackage();
+    const tampered = clonePackage(pkg);
+    const decision = readyDecisionOf(tampered);
+    expect(decision.factorDifferences.length).toBeGreaterThan(0);
+    (decision.factorDifferences[0]! as { leftActionRef: string }).leftActionRef =
+      "action:v1:ghost";
+    expect(() => validateStructuredAnalysisPackage(tampered))
+      .toThrow(/m6c_validator_difference_action_ref/);
+  });
+
+  it("rejects a model-evaluation scored candidate outside the model-origin universe", async () => {
+    const pkg = await buildFixturePackage();
+    const tampered = clonePackage(pkg);
+    const evaluation = readyDecisionOf(tampered).modelEvaluation;
+    expect(evaluation.candidates.length).toBeGreaterThanOrEqual(2);
+    (evaluation.candidates[1]! as { actionRef: string }).actionRef =
+      "action:v1:foreign-score";
+    expect(() => validateStructuredAnalysisPackage(tampered))
+      .toThrow(/m6c_validator_evaluation_action_ref/);
+  });
+
+  it("rejects an actualActionRef outside the candidate universe", async () => {
+    const pkg = await buildFixturePackage();
+    const tampered = clonePackage(pkg);
+    (readyDecisionOf(tampered).modelEvaluation as unknown as {
+      actualActionRef: string;
+    }).actualActionRef = "action:v1:ghost-actual";
+    expect(() => validateStructuredAnalysisPackage(tampered))
+      .toThrow(/m6c_validator_evaluation_action_ref/);
+  });
+
+  it("rejects a scored actual-model carrier that ignores the actual↔model correspondence", async () => {
+    const pkg = await buildFixturePackage();
+    const tampered = clonePackage(pkg);
+    const evaluation = readyDecisionOf(tampered).modelEvaluation;
+    // The fixture's actual is directly model-scored (no correspondence), so the
+    // scored carrier MUST be the actual's own ref — moving it to another scored
+    // alternative breaks the correspondence mapping.
+    expect(evaluation.candidates.length).toBeGreaterThanOrEqual(2);
+    evaluation.scoredActualModelActionRef = evaluation.candidates[1]!.actionRef;
+    evaluation.errorGap = 60;
+    expect(() => validateStructuredAnalysisPackage(tampered))
+      .toThrow(/m6c_validator_evaluation_action_ref/);
+  });
+
+  it("rejects a DeterministicPreference ref outside the candidate universe", async () => {
+    const pkg = await buildFixturePackage();
+    const tampered = clonePackage(pkg);
+    const decision = readyDecisionOf(tampered);
+    decision.deterministicPreference = {
+      actionRefs: ["action:v1:ghost-pref"],
+      scope: "applied_decision",
+      decisiveDifferenceIds: ["difference:v1:ghost"],
+      coverage: "complete",
+    } as unknown as typeof decision.deterministicPreference;
+    expect(() => validateStructuredAnalysisPackage(tampered))
+      .toThrow(/m6c_validator_preference_action_ref/);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Slice 3 acceptance repair — blocker 3: analysis-policy authority + artifact
+// identity (recomputable packageId / semanticContentHash)
+// ---------------------------------------------------------------------------
+
+describe("M6-C Slice 3 acceptance repair: analysis policy and artifact identity", () => {
+  it("rejects a package analysis policy that contradicts every detailPolicy", async () => {
+    const pkg = await buildFixturePackage();
+    const tampered = clonePackage(pkg);
+    tampered.analysisPolicy.threshold = 50;
+    expect(() => validateStructuredAnalysisPackage(tampered))
+      .toThrow(/m6c_validator_policy_mismatch/);
+  });
+
+  it("rejects a ModelEvaluation detailPolicy that contradicts the package policy", async () => {
+    const pkg = await buildFixturePackage();
+    const tampered = clonePackage(pkg);
+    readyDecisionOf(tampered).modelEvaluation.detailPolicy.threshold = 50;
+    expect(() => validateStructuredAnalysisPackage(tampered))
+      .toThrow(/m6c_validator_policy_mismatch/);
+  });
+
+  it("rejects a mutated FactorFact value while keeping the old semanticContentHash", async () => {
+    const pkg = await buildFixturePackage();
+    const tampered = clonePackage(pkg);
+    const fact = readyDecisionOf(tampered).candidateFactorLedgers
+      .flatMap((ledger) => ledger.axes.flatMap((axis) => axis.facts))
+      .find((candidate) =>
+        candidate.status === "calculated" && candidate.value?.kind === "number"
+      )!;
+    expect(fact).toBeDefined();
+    if (fact.value?.kind === "number") fact.value.value = 5;
+    expect(() => validateStructuredAnalysisPackage(tampered))
+      .toThrow(/m6c_validator_semantic_hash_mismatch/);
+  });
+
+  it("rejects mutated componentVersions while keeping the old packageId", async () => {
+    const pkg = await buildFixturePackage();
+    const tampered = clonePackage(pkg);
+    tampered.componentVersions.factorPipeline = "factor-pipeline/v2";
+    expect(() => validateStructuredAnalysisPackage(tampered))
+      .toThrow(/m6c_validator_package_id_mismatch/);
+  });
+
+  it("rejects a stale packageId after any content change", async () => {
+    const pkg = await buildFixturePackage();
+    const tampered = clonePackage(pkg);
+    tampered.packageId = "package:sha256:deadbeef";
+    expect(() => validateStructuredAnalysisPackage(tampered))
+      .toThrow(/m6c_validator_package_id_mismatch/);
+  });
+
+  it("binds package.analysisPolicy into packageId even with zero analysis_ready decisions", async () => {
+    const pkg = await buildIncompleteFixturePackage();
+    expect(pkg.decisions.every((decision) => decision.outcome !== "analysis_ready"))
+      .toBe(true);
+    const tampered = clonePackage(pkg);
+    tampered.analysisPolicy.threshold = 50;
+    expect(() => validateStructuredAnalysisPackage(tampered))
+      .toThrow(/m6c_validator_package_id_mismatch/);
+  });
+
+  it("keeps accepting a different wall-clock frozenAt (excluded from semantic identity)", async () => {
+    const pkg = await buildFixturePackage();
+    const tampered = clonePackage(pkg);
+    readyDecisionOf(tampered).modelEvaluation.detailPolicy.frozenAt =
+      "2026-07-01T00:00:00.000Z";
+    expect(() => validateStructuredAnalysisPackage(tampered)).not.toThrow();
+  });
+
+  it("keeps accepting a different createdAt (provenance only)", async () => {
+    const pkg = await buildFixturePackage();
+    const tampered = clonePackage(pkg);
+    tampered.createdAt = "2026-07-01T00:00:00.000Z";
+    expect(() => validateStructuredAnalysisPackage(tampered)).not.toThrow();
   });
 });

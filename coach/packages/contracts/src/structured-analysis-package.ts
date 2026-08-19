@@ -559,6 +559,37 @@ export const DecisionAnalysisSchema: z.ZodType<
 });
 
 // ---------------------------------------------------------------------------
+// Package-level analysis policy (CR-5 / Slice 3 review repair 3A)
+// ---------------------------------------------------------------------------
+
+/**
+ * The package-level construction policy: the AUTHORITATIVE semantic policy
+ * input the analysis was built with (threshold / unit / boundary /
+ * policyVersion). Owned by the package, not by any single
+ * ModelEvaluation.detailPolicy:
+ *
+ *   package.analysisPolicy       = construction authority
+ *   ModelEvaluation.detailPolicy = per-evaluation copy that MUST agree with
+ *                                  package policy on the four semantic fields
+ *
+ * `frozenAt` (wall-clock) is intentionally absent: it is artifact-creation
+ * provenance, excluded from semantic identity. It lives only in
+ * `ModelEvaluation.detailPolicy.frozenAt` and never participates in packageId /
+ * semanticContentHash. `analysisPolicy` participates in BOTH, so a package
+ * with zero analysis_ready decisions still binds its construction policy into
+ * its artifact identity.
+ */
+export const AnalysisPolicySnapshotSchema = z.object({
+  threshold: z.number().finite().min(0).max(100),
+  unit: z.literal("model_selection_score_points"),
+  boundary: z.literal("greater_than_or_equal_is_detailed"),
+  policyVersion: z.string().min(1),
+}).strict();
+export type AnalysisPolicySnapshot = z.infer<
+  typeof AnalysisPolicySnapshotSchema
+>;
+
+// ---------------------------------------------------------------------------
 // StructuredAnalysisPackage (CR-4 / CR-5 / CR-6)
 // ---------------------------------------------------------------------------
 
@@ -572,19 +603,38 @@ export const DecisionAnalysisSchema: z.ZodType<
  *    analysis provider. Stable across reruns AND across model/fact-pipeline
  *    versions — it answers "which slot", not "which artifact".
  *  - `packageId` = the ARTIFACT identity, derived from `analysisKey` +
- *    `componentVersions` + the explicit frozen policy snapshot. Two analyses
- *    of the same slot with different model/fact-pipeline versions therefore
- *    yield DIFFERENT packageIds — no semantic collision for ReviewSession
- *    references. Stable across reruns; no wall-clock or artifact-creation
- *    metadata. packageId ≠ semanticContentHash: the hash is content-based
+ *    `componentVersions` + `analysisPolicy`. Two analyses of the same slot
+ *    with different model/fact-pipeline versions therefore yield DIFFERENT
+ *    packageIds — no semantic collision for ReviewSession references. Stable
+ *    across reruns; no wall-clock or artifact-creation metadata (createdAt /
+ *    detailPolicy.frozenAt never participate). packageId is a RECOMPUTABLE
+ *    artifact identity: the package validator recomputes it from the package's
+ *    own contents and requires `pkg.packageId === expectedPackageId`.
+ *    packageId ≠ semanticContentHash: the hash is content-based
  *    dedupe/comparison, packageId is the artifact reference.
  *
  * CR-5 semanticContentHash: computed over the deterministic semantic content
- * only; createdAt / artifact metadata is provenance and never participates in
- * the hash (frozenAt's semantic policy snapshot is an explicit construction
- * input and lives inside ModelEvaluation.detailPolicy). The package is
- * deterministic-to-construct and non-LLM authoritative; model scores are
- * auditable model evidence, not hard Mahjong facts.
+ * only (analysisKey, record, componentVersions, analysisPolicy, decisions with
+ * wall-clock `detailPolicy.frozenAt` nulled, evidenceRegistry); createdAt /
+ * artifact metadata is provenance and never participates in the hash. The
+ * semanticContentHash is a RECOMPUTABLE semantic content integrity value: the
+ * package validator recomputes it from the package and requires
+ * `pkg.semanticContentHash === expectedSemanticContentHash`, so mutating any
+ * semantically meaningful field without updating its identity/hash fails
+ * validation. The package is deterministic-to-construct and non-LLM
+ * authoritative; model scores are auditable model evidence, not hard Mahjong
+ * facts.
+ *
+ * Analysis-policy ownership (Slice 3 review repair 3A):
+ *  - `package.analysisPolicy` = the AUTHORITATIVE construction policy
+ *    (threshold / unit / boundary / policyVersion; no wall-clock frozenAt).
+ *    It participates in BOTH packageId and semanticContentHash, so a package
+ *    with zero analysis_ready decisions still binds its construction policy
+ *    into its artifact identity.
+ *  - `ModelEvaluation.detailPolicy` = the per-evaluation copy; its four
+ *    semantic fields MUST agree with `package.analysisPolicy` (the validator
+ *    enforces agreement; only the wall-clock `frozenAt` may differ, and it is
+ *    excluded from semantic identity).
  *
  * CR-6: a structurally valid package may faithfully record an incomplete /
  * failed analysis; `record.status` marks the aggregate truth.
@@ -598,6 +648,11 @@ export type StructuredAnalysisPackage = {
   semanticContentHash: string;
   record: RecordAnalysis;
   componentVersions: ComponentVersions;
+  /** Authoritative construction policy (CR-5 / Slice 3 review repair 3A):
+   *  every analysis_ready ModelEvaluation.detailPolicy must agree with it on
+   *  the four semantic fields; frozenAt never rides here. Participates in
+   *  packageId AND semanticContentHash. */
+  analysisPolicy: AnalysisPolicySnapshot;
   decisions: DecisionAnalysis[];
   evidenceRegistry: EvidenceRegistry;
 };
@@ -612,6 +667,7 @@ export const StructuredAnalysisPackageSchema: z.ZodType<
     semanticContentHash: string;
     record: RecordAnalysis;
     componentVersions: ComponentVersions;
+    analysisPolicy: AnalysisPolicySnapshot;
     decisions: DecisionAnalysisInput[];
     evidenceRegistry: EvidenceRegistry;
   }
@@ -624,6 +680,11 @@ export const StructuredAnalysisPackageSchema: z.ZodType<
   semanticContentHash: z.string().min(1),
   record: RecordAnalysisSchema,
   componentVersions: ComponentVersionsSchema,
+  /** Authoritative construction policy (CR-5 / Slice 3 review repair 3A):
+   *  every analysis_ready ModelEvaluation.detailPolicy must agree with it on
+   *  the four semantic fields; frozenAt never rides here. Participates in
+   *  packageId AND semanticContentHash. */
+  analysisPolicy: AnalysisPolicySnapshotSchema,
   decisions: z.array(DecisionAnalysisSchema).min(1),
   evidenceRegistry: EvidenceRegistrySchema,
 }).strict().superRefine((pkg, context) => {

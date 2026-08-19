@@ -23,11 +23,17 @@
  *  - `analysisKey` = logical slot (record identity + self actor + provider),
  *    stable across model/fact-pipeline versions (CR-4 identity split).
  *  - `packageId` = artifact identity derived from analysisKey +
- *    componentVersions + the explicit frozen policy snapshot (CR-4). No
+ *    componentVersions + the package-level analysis policy (CR-4). No
  *    wall-clock / artifact-creation metadata enters it.
  *  - `semanticContentHash` = deterministic content hash over the semantic
  *    content only; artifact creation metadata (createdAt, packageId and the
  *    wall-clock `detailPolicy.frozenAt` value) never participates (CR-5).
+ *
+ * Identity / hash derivation lives in the SHARED helper
+ * `./package-identity.ts` (deriveAnalysisKey / derivePackageId /
+ * deriveSemanticContentHash): the package validator (Slice 3 review repair
+ * 3B/3C) recomputes packageId and semanticContentHash with the SAME functions
+ * to independently verify the artifact.
  *
  * The evidence registry (CR-3) registers every referenced evidence id that
  * classifies into the frozen two kinds: canonical event refs (descriptor
@@ -40,7 +46,6 @@
  * KnownGameFacts, every candidate-ledger FactorFact, every FactorDifference
  * and the decision-level ids and verifies each one resolves.
  */
-import { createHash } from "node:crypto";
 import {
   DecisionAnalysisSchema,
   FACT_ENGINE_ADAPTER_VERSION,
@@ -63,6 +68,11 @@ import type {
   MortalFullGameRetainedAnalysis,
   MortalFullGameReviewResult,
 } from "./mortal-full-game-review.js";
+import {
+  deriveAnalysisKey,
+  derivePackageId,
+  deriveSemanticContentHash,
+} from "./package-identity.js";
 
 export type BuildStructuredAnalysisPackageInput = {
   /** The coverage_ready whole-game review result, with retained payloads. */
@@ -89,23 +99,6 @@ export type BuildStructuredAnalysisPackageInput = {
 
 /** The analysis provider kind this package is scoped to (CR-2). */
 const ANALYSIS_PROVIDER = "mortal" as const;
-
-// ---------------------------------------------------------------------------
-// Deterministic canonical serialization (sorted keys; locale-independent).
-// ---------------------------------------------------------------------------
-
-function canonicalJson(value: unknown): string {
-  if (value === null || typeof value !== "object") return JSON.stringify(value);
-  if (Array.isArray(value)) return `[${value.map(canonicalJson).join(",")}]`;
-  const entries = Object.entries(value as Record<string, unknown>)
-    .sort(([left], [right]) => left < right ? -1 : left > right ? 1 : 0)
-    .map(([key, entry]) => `${JSON.stringify(key)}:${canonicalJson(entry)}`);
-  return `{${entries.join(",")}}`;
-}
-
-function sha256Hex(value: string): string {
-  return createHash("sha256").update(value).digest("hex");
-}
 
 // ---------------------------------------------------------------------------
 // Evidence classification (CR-3 / CR-4 namespace rules, Slice 1 review Blocker 2)
@@ -353,29 +346,6 @@ function projectDecision(input: {
 }
 
 // ---------------------------------------------------------------------------
-// Hash helpers (CR-5: artifact creation metadata never participates)
-// ---------------------------------------------------------------------------
-
-/** The semantic content hash: excludes createdAt / packageId / the wall-clock
- *  detailPolicy.frozenAt value. The frozen policy snapshot's SEMANTIC values
- *  (threshold / unit / boundary / policyVersion) are deterministic
- *  construction inputs and DO participate through the decisions' detailPolicy.
- *  The returned value is only ever JSON-serialized into the hash. */
-function withoutFrozenAt(decision: DecisionAnalysis): unknown {
-  if (decision.outcome !== "analysis_ready") return decision;
-  return {
-    ...decision,
-    modelEvaluation: {
-      ...decision.modelEvaluation,
-      detailPolicy: {
-        ...decision.modelEvaluation.detailPolicy,
-        frozenAt: null,
-      },
-    },
-  };
-}
-
-// ---------------------------------------------------------------------------
 // buildStructuredAnalysisPackage
 // ---------------------------------------------------------------------------
 
@@ -468,26 +438,32 @@ export function buildStructuredAnalysisPackage(
   // and every decisionId derive from it, so no caller-supplied record id can
   // ever disagree with the evidence the package embeds.
   const recordId = stream.gameId;
-  const analysisKey =
-    `analysis:${recordId}:actor${selfActor}:${ANALYSIS_PROVIDER}`;
-  // packageId = analysisKey + componentVersions + the frozen policy snapshot's
-  // SEMANTIC values. The wall-clock frozenAt is artifact-creation metadata
-  // (CR-4/CR-5: "no wall-clock or artifact-creation metadata enters packageId"),
-  // so it never participates — the artifact reference is stable across reruns
-  // for the same semantic snapshot, while a different model/fact-pipeline
-  // version still yields a different packageId.
+  const analysisKey = deriveAnalysisKey({
+    recordId,
+    selfActor,
+    provider: ANALYSIS_PROVIDER,
+  });
+  // The package-level construction policy (Slice 3 review repair 3A): the
+  // AUTHORITATIVE semantic policy snapshot, derived from the explicit frozen
+  // policy input. The wall-clock frozenAt is artifact-creation metadata
+  // (CR-4/CR-5) and never participates in identity — it lives only in each
+  // ModelEvaluation.detailPolicy.frozenAt.
   const frozenPolicy = input.frozenPolicySnapshot;
-  const packageId =
-    `package:sha256:${sha256Hex(canonicalJson({
-      analysisKey,
-      componentVersions: input.componentVersions,
-      frozenPolicySnapshot: {
-        threshold: frozenPolicy.threshold,
-        unit: frozenPolicy.unit,
-        boundary: frozenPolicy.boundary,
-        policyVersion: frozenPolicy.policyVersion,
-      },
-    }))}`;
+  const analysisPolicy = {
+    threshold: frozenPolicy.threshold,
+    unit: frozenPolicy.unit,
+    boundary: frozenPolicy.boundary,
+    policyVersion: frozenPolicy.policyVersion,
+  };
+  // packageId = analysisKey + componentVersions + analysisPolicy (shared
+  // derivation, ./package-identity.ts): the artifact reference is stable
+  // across reruns for the same semantic snapshot, while a different
+  // model/fact-pipeline version still yields a different packageId.
+  const packageId = derivePackageId({
+    analysisKey,
+    componentVersions: input.componentVersions,
+    analysisPolicy,
+  });
 
   const record: RecordAnalysis = {
     recordId,
@@ -499,14 +475,14 @@ export function buildStructuredAnalysisPackage(
     DecisionAnalysisSchema.parse(decision) as DecisionAnalysis,
   );
 
-  const semanticContentHash =
-    `sha256:${sha256Hex(canonicalJson({
-      analysisKey,
-      record,
-      componentVersions: input.componentVersions,
-      decisions: decisions.map(withoutFrozenAt),
-      evidenceRegistry: registry,
-    }))}`;
+  const semanticContentHash = deriveSemanticContentHash({
+    analysisKey,
+    record,
+    componentVersions: input.componentVersions,
+    analysisPolicy,
+    decisions,
+    evidenceRegistry: registry,
+  });
 
   return StructuredAnalysisPackageSchema.parse({
     analysisKey,
@@ -515,6 +491,7 @@ export function buildStructuredAnalysisPackage(
     semanticContentHash,
     record,
     componentVersions: input.componentVersions,
+    analysisPolicy,
     decisions,
     evidenceRegistry: registry,
   });

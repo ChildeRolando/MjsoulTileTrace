@@ -3,7 +3,9 @@
  * provenance gate (spec "Slice 3 — serialization / validator / provenance" and
  * "严格校验":  validator 做 schema 校验、引用完整性、版本字段非空、无 LLM
  * 产物字段、无 privileged 原始载荷、evidence registry 可解析；不因分析不完整
- * 拒绝 package).
+ * 拒绝 package). Slice 3 review repair (3 blockers) adds: producer-version
+ * provenance coherence, ready-decision reference integrity, and independently
+ * recomputable packageId / semanticContentHash.
  *
  * The validator is the audit gate between a builder-produced package and every
  * consumer (persistence M7-B, ContextGraph projection M6-D1, ReviewReport
@@ -40,6 +42,31 @@
  *     unchanged; non-JSON values (NaN, undefined, BigInt, Date, ...) are
  *     rejected here, per the EvidenceRecord contract comment ("Payload
  *     JSON-serializability is validated at the serialization layer (Slice 3)").
+ *  8. PRODUCER-VERSION PROVENANCE COHERENCE (repair 1). Wherever the package
+ *     carries both a package-level `componentVersions` declaration AND
+ *     payload-level producer identity/version metadata, the two must agree:
+ *     every FactorFact / FactorDifference `engineIdentity` against
+ *     `componentVersions.factEngine`, every ModelEvaluation.adapterVersion
+ *     against `componentVersions.mortalSourceModel.version`, and every
+ *     evidence-registry `producerVersion` against the replay / fact-engine
+ *     versions it encodes. Fields with no independent payload provenance
+ *     (e.g. mortalSourceModel.identity / modelTag) stay declaration-only and
+ *     are NOT invented into checks.
+ *  9. READY-DECISION REFERENCE INTEGRITY (repair 2). One `analysis_ready`
+ *     decision = one internally coherent candidate universe:
+ *     comparisonSet ↔ modelEvaluation identity, ledgers = exactly the
+ *     comparison candidates, FactorDifference / deterministicPreference refs
+ *     inside the universe, and ModelEvaluation action refs resolving through
+ *     the comparison set's legal actual↔model correspondence.
+ * 10. ANALYSIS-POLICY AUTHORITY (repair 3A). `package.analysisPolicy` is the
+ *     authoritative construction policy; every analysis_ready
+ *     ModelEvaluation.detailPolicy must agree with it on the four semantic
+ *     fields (wall-clock `frozenAt` excluded).
+ * 11. ARTIFACT IDENTITY (repair 3B/3C). `packageId` and `semanticContentHash`
+ *     are RECOMPUTED from the package's own contents with the SAME shared
+ *     derivation the builder uses (`./analysis/package-identity.ts`) and must
+ *     match the stored values — mutating semantically meaningful content
+ *     without updating its identity/hash fails validation.
  *
  * Error convention: every failure throws `m6c_validator_<kind>:<detail>`.
  */
@@ -47,9 +74,16 @@ import { isDeepStrictEqual } from "node:util";
 import {
   parseCanonicalEventRef,
   StructuredAnalysisPackageSchema,
+  type DecisionAnalysis,
+  type EngineIdentity,
   type EvidenceRecord,
   type StructuredAnalysisPackage,
 } from "@riichi-coach/contracts";
+import {
+  deriveAnalysisKey,
+  derivePackageId,
+  deriveSemanticContentHash,
+} from "../analysis/package-identity.js";
 
 /** LLM-boundary artifact keys (CR-1): CoachJudgment / ExplanationBullet /
  *  CoachInference live in ReviewReport and REFERENCE package content by
@@ -186,10 +220,19 @@ function rejectBlankVersions(pkg: StructuredAnalysisPackage): void {
 /** The canonical stream's gameId is the SOLE canonical record identity: the
  *  logical analysis slot, every decision id and every canonical event evidence
  *  ref derive from it. A package whose identities disagree is rejected — no
- *  second record identity can exist in a valid package. */
+ *  second record identity can exist in a valid package. The analysisKey is
+ *  recomputed exactly (shared derivation) instead of prefix-checked. */
 function validateIdentity(pkg: StructuredAnalysisPackage): void {
   const recordId = pkg.record.recordId;
-  if (!pkg.analysisKey.startsWith(`analysis:${recordId}:actor${pkg.record.selfActor}:`)) {
+  // Every valid package is provider-scoped to "mortal" (the frozen
+  // AnalysisProviderSchema has a single kind), so the analysisKey's provider
+  // segment is fully determined.
+  const expectedAnalysisKey = deriveAnalysisKey({
+    recordId,
+    selfActor: pkg.record.selfActor,
+    provider: "mortal",
+  });
+  if (pkg.analysisKey !== expectedAnalysisKey) {
     throw new Error(
       "m6c_validator_analysis_key_identity: analysisKey must derive from the canonical record identity and self actor",
     );
@@ -348,6 +391,309 @@ function validateCrossReferences(pkg: StructuredAnalysisPackage): void {
 }
 
 // ---------------------------------------------------------------------------
+// Producer-version provenance coherence (Slice 3 review repair 1)
+// ---------------------------------------------------------------------------
+
+/** Package-level `componentVersions` declarations must agree with the producer
+ *  identity/version metadata the package payload itself carries, wherever
+ *  existing contracts actually represent the overlap. A structurally valid
+ *  package may no longer claim arbitrary producer versions. Fields with no
+ *  independent payload provenance (e.g. mortalSourceModel.identity /
+ *  modelTag, ModelEvaluation.engineVersion) are intentionally NOT invented
+ *  into checks. */
+function validateProducerVersions(pkg: StructuredAnalysisPackage): void {
+  // Evidence-registry provenance (builder-written, CR-3): a canonical_event
+  // record's producerVersion IS the canonical replay version, and a
+  // fact_engine_request record's producerVersion IS the fact-engine adapter
+  // version — the registry may not contradict the package-level declaration.
+  for (const [key, record] of Object.entries(pkg.evidenceRegistry)) {
+    if (record.kind === "canonical_event") {
+      if (record.producerVersion !== pkg.componentVersions.canonicalReplay) {
+        throw new Error(
+          `m6c_validator_producer_version_mismatch:canonicalReplay:${key}`,
+        );
+      }
+    } else if (
+      record.producerVersion !== pkg.componentVersions.factEngine.adapterVersion
+    ) {
+      throw new Error(
+        `m6c_validator_producer_version_mismatch:factEngine:request:${key}`,
+      );
+    }
+  }
+
+  for (const decision of pkg.decisions) {
+    if (decision.outcome !== "analysis_ready") continue;
+    // Per-fact engine provenance: every FactorFact carrying engineIdentity
+    // must agree with componentVersions.factEngine field-by-field. Today the
+    // literal EngineIdentitySchema already pins both sides to the same
+    // constants, so this is defense-in-depth that becomes live if the frozen
+    // literal schema is ever relaxed (e.g. a second engine or versioned
+    // adapter is admitted) — a schema-valid package can never claim arbitrary
+    // fact-engine versions either way.
+    for (const ledger of decision.candidateFactorLedgers) {
+      for (const axis of ledger.axes) {
+        for (const fact of axis.facts) {
+          if (fact.engineIdentity === undefined) continue;
+          assertEngineIdentityAgrees(
+            fact.engineIdentity,
+            pkg.componentVersions.factEngine,
+            `factEngine:fact:${decision.decisionId}:${fact.factorKey}`,
+          );
+        }
+      }
+    }
+    // Per-difference engine provenance.
+    for (const difference of decision.factorDifferences) {
+      if (difference.engineIdentity === undefined) continue;
+      assertEngineIdentityAgrees(
+        difference.engineIdentity,
+        pkg.componentVersions.factEngine,
+        `factEngine:difference:${decision.decisionId}:${difference.differenceId}`,
+      );
+    }
+    // Mortal/model provenance: ModelEvaluation.adapterVersion is the Mortal
+    // source adapter version — the same semantic value as
+    // componentVersions.mortalSourceModel.version (both are the report's
+    // adapterVersion / MORTAL_ADAPTER_VERSION in the producer chain).
+    if (
+      decision.modelEvaluation.adapterVersion !==
+      pkg.componentVersions.mortalSourceModel.version
+    ) {
+      throw new Error(
+        `m6c_validator_producer_version_mismatch:mortalSourceModel:${decision.decisionId}:adapterVersion`,
+      );
+    }
+  }
+}
+
+function assertEngineIdentityAgrees(
+  identity: EngineIdentity,
+  declared: EngineIdentity,
+  location: string,
+): void {
+  const fields: ReadonlyArray<readonly [string, string, string]> = [
+    ["engine", identity.engine, declared.engine],
+    ["upstreamCommit", identity.upstreamCommit, declared.upstreamCommit],
+    ["adapterVersion", identity.adapterVersion, declared.adapterVersion],
+    ["protocolVersion", identity.protocolVersion, declared.protocolVersion],
+  ];
+  for (const [field, actual, expected] of fields) {
+    if (actual !== expected) {
+      throw new Error(
+        `m6c_validator_producer_version_mismatch:${location}:${field}`,
+      );
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Ready-decision reference integrity (Slice 3 review repair 2)
+// ---------------------------------------------------------------------------
+
+/** One `analysis_ready` decision = one internally coherent candidate universe:
+ *  the StructuredComparisonSet, every candidate ledger, every FactorDifference
+ *  and the ModelEvaluation must describe the SAME comparison. Invariants are
+ *  frozen from what production actually guarantees (runBoundMortalDecisionReview
+ *  + runStructuredFactorPipeline): one ledger per comparison candidate
+ *  (blocked projections included), evaluation candidates = the model-origin
+ *  candidates, differences / preference refs inside the candidate universe. */
+function validateReadyDecisionReferences(
+  decision: Extract<DecisionAnalysis, { outcome: "analysis_ready" }>,
+): void {
+  const comparison = decision.comparisonSet;
+  const evaluation = decision.modelEvaluation;
+
+  // Comparison identity: the model evaluation describes the SAME comparison.
+  if (comparison.comparisonSetId !== evaluation.comparisonSetId) {
+    throw new Error(
+      `m6c_validator_comparison_identity:${decision.decisionId}:comparisonSetId`,
+    );
+  }
+  if (comparison.decisionLayerRef !== evaluation.decisionLayerRef) {
+    throw new Error(
+      `m6c_validator_comparison_identity:${decision.decisionId}:decisionLayerRef`,
+    );
+  }
+
+  // Candidate universe: the comparison set's candidate action refs, and the
+  // legal scored-model subset (candidates carrying the model origin).
+  const universe = new Set(
+    comparison.candidates.map((candidate) => candidate.actionRef),
+  );
+  const modelCandidates = new Set(
+    comparison.candidates
+      .filter((candidate) => candidate.origins.includes("model"))
+      .map((candidate) => candidate.actionRef),
+  );
+
+  // Candidate ledgers: production emits exactly one ledger per comparison
+  // candidate, so the ledger refs must be a bijection onto the universe.
+  const seenLedgerRefs = new Set<string>();
+  for (const ledger of decision.candidateFactorLedgers) {
+    if (seenLedgerRefs.has(ledger.actionRef)) {
+      throw new Error(
+        `m6c_validator_ledger_duplicate:${decision.decisionId}:${ledger.actionRef}`,
+      );
+    }
+    seenLedgerRefs.add(ledger.actionRef);
+    if (!universe.has(ledger.actionRef)) {
+      throw new Error(
+        `m6c_validator_ledger_candidate_extra:${decision.decisionId}:${ledger.actionRef}`,
+      );
+    }
+  }
+  for (const candidate of comparison.candidates) {
+    if (!seenLedgerRefs.has(candidate.actionRef)) {
+      throw new Error(
+        `m6c_validator_ledger_candidate_missing:${decision.decisionId}:${candidate.actionRef}`,
+      );
+    }
+  }
+
+  // FactorDifference references: both sides belong to the candidate universe.
+  for (const difference of decision.factorDifferences) {
+    if (!universe.has(difference.leftActionRef)) {
+      throw new Error(
+        `m6c_validator_difference_action_ref:${decision.decisionId}:${difference.leftActionRef}`,
+      );
+    }
+    if (!universe.has(difference.rightActionRef)) {
+      throw new Error(
+        `m6c_validator_difference_action_ref:${decision.decisionId}:${difference.rightActionRef}`,
+      );
+    }
+  }
+
+  // DeterministicPreference refs belong to the candidate universe (production
+  // derives the maximal set from the ledger/difference candidate refs).
+  if (decision.deterministicPreference !== null) {
+    for (const actionRef of decision.deterministicPreference.actionRefs) {
+      if (!universe.has(actionRef)) {
+        throw new Error(
+          `m6c_validator_preference_action_ref:${decision.decisionId}:${actionRef}`,
+        );
+      }
+    }
+  }
+
+  // ModelEvaluation action references resolve through the comparison set's
+  // legal model/action correspondence (ADR-0001): scored entries and
+  // preferences are model-origin candidates; the actual action is the
+  // comparison set's actual candidate.
+  for (const candidate of evaluation.candidates) {
+    if (!modelCandidates.has(candidate.actionRef)) {
+      throw new Error(
+        `m6c_validator_evaluation_action_ref:${decision.decisionId}:${candidate.actionRef}`,
+      );
+    }
+  }
+  for (const actionRef of evaluation.preferredActions) {
+    if (!modelCandidates.has(actionRef)) {
+      throw new Error(
+        `m6c_validator_evaluation_action_ref:${decision.decisionId}:${actionRef}`,
+      );
+    }
+  }
+  if (!modelCandidates.has(evaluation.scoredActualModelActionRef)) {
+    throw new Error(
+      `m6c_validator_evaluation_action_ref:${decision.decisionId}:${evaluation.scoredActualModelActionRef}`,
+    );
+  }
+  if (!universe.has(evaluation.actualActionRef)) {
+    throw new Error(
+      `m6c_validator_evaluation_action_ref:${decision.decisionId}:${evaluation.actualActionRef}`,
+    );
+  }
+  const actualCandidates = comparison.candidates.filter((candidate) =>
+    candidate.origins.includes("actual"),
+  );
+  if (
+    actualCandidates.length === 1 &&
+    evaluation.actualActionRef !== actualCandidates[0]!.actionRef
+  ) {
+    throw new Error(
+      `m6c_validator_evaluation_action_ref:${decision.decisionId}:${evaluation.actualActionRef}`,
+    );
+  }
+
+  // The scored actual-model carrier must match the comparison set's
+  // actual↔model correspondence: when the actual realizes a model alternative
+  // of different granularity (riichi_discard → declare_riichi, kakan → ankan,
+  // ADR-0001), the scored carrier is the correspondence's scored model ref; a
+  // directly scored actual carries its own ref. Actual and model refs are NOT
+  // assumed identical.
+  const correspondence = comparison.correspondences?.[0];
+  const expectedScoredCarrier = correspondence === undefined
+    ? evaluation.actualActionRef
+    : correspondence.scoredModelActionRef;
+  if (evaluation.scoredActualModelActionRef !== expectedScoredCarrier) {
+    throw new Error(
+      `m6c_validator_evaluation_action_ref:${decision.decisionId}:${evaluation.scoredActualModelActionRef}`,
+    );
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Analysis-policy authority (Slice 3 review repair 3A)
+// ---------------------------------------------------------------------------
+
+/** `package.analysisPolicy` is the AUTHORITATIVE construction policy; every
+ *  analysis_ready `ModelEvaluation.detailPolicy` must agree with it on the
+ *  four semantic fields. The wall-clock `detailPolicy.frozenAt` is excluded
+ *  from semantic identity (CR-5) and never compared. */
+function validateAnalysisPolicy(pkg: StructuredAnalysisPackage): void {
+  const policy = pkg.analysisPolicy;
+  for (const decision of pkg.decisions) {
+    if (decision.outcome !== "analysis_ready") continue;
+    const detail = decision.modelEvaluation.detailPolicy;
+    const checks: ReadonlyArray<readonly [string, unknown, unknown]> = [
+      ["threshold", policy.threshold, detail.threshold],
+      ["unit", policy.unit, detail.unit],
+      ["boundary", policy.boundary, detail.boundary],
+      ["policyVersion", policy.policyVersion, detail.policyVersion],
+    ];
+    for (const [field, expected, actual] of checks) {
+      if (expected !== actual) {
+        throw new Error(
+          `m6c_validator_policy_mismatch:${decision.decisionId}:${field}`,
+        );
+      }
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Artifact identity recomputation (Slice 3 review repair 3B/3C)
+// ---------------------------------------------------------------------------
+
+/** `packageId` and `semanticContentHash` are independently recomputable from
+ *  the package's own contents using the SAME shared derivation the builder
+ *  uses (./analysis/package-identity.ts). Keeping a stale identity after
+ *  mutating semantically meaningful content is a validation failure. */
+function assertPackageIdentity(pkg: StructuredAnalysisPackage): void {
+  const expectedPackageId = derivePackageId({
+    analysisKey: pkg.analysisKey,
+    componentVersions: pkg.componentVersions,
+    analysisPolicy: pkg.analysisPolicy,
+  });
+  if (pkg.packageId !== expectedPackageId) {
+    throw new Error("m6c_validator_package_id_mismatch");
+  }
+  const expectedHash = deriveSemanticContentHash({
+    analysisKey: pkg.analysisKey,
+    record: pkg.record,
+    componentVersions: pkg.componentVersions,
+    analysisPolicy: pkg.analysisPolicy,
+    decisions: pkg.decisions,
+    evidenceRegistry: pkg.evidenceRegistry,
+  });
+  if (pkg.semanticContentHash !== expectedHash) {
+    throw new Error("m6c_validator_semantic_hash_mismatch");
+  }
+}
+
+// ---------------------------------------------------------------------------
 // validateStructuredAnalysisPackage
 // ---------------------------------------------------------------------------
 
@@ -391,4 +737,25 @@ export function validateStructuredAnalysisPackage(input: unknown): void {
   // RECORD-IDENTITY COHERENCE (CR-4) then CROSS-REFERENCE RESOLUTION (CR-3).
   validateIdentity(pkg);
   validateCrossReferences(pkg);
+
+  // PRODUCER-VERSION PROVENANCE COHERENCE (repair 1): componentVersions must
+  // agree with the payload's own producer identity/version metadata.
+  validateProducerVersions(pkg);
+
+  // READY-DECISION REFERENCE INTEGRITY (repair 2): one analysis_ready decision
+  // = one internally coherent candidate universe.
+  for (const decision of pkg.decisions) {
+    if (decision.outcome === "analysis_ready") {
+      validateReadyDecisionReferences(decision);
+    }
+  }
+
+  // ANALYSIS-POLICY AUTHORITY (repair 3A): package.analysisPolicy is the
+  // construction authority; every detailPolicy agrees with it.
+  validateAnalysisPolicy(pkg);
+
+  // ARTIFACT IDENTITY (repair 3B/3C): packageId + semanticContentHash are
+  // recomputed from the package's own contents and must match. Runs LAST so
+  // every semantic tamper class surfaces its named error first.
+  assertPackageIdentity(pkg);
 }

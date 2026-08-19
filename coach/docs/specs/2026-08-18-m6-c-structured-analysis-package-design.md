@@ -177,10 +177,14 @@ M6-D 之前就已有稳定的机器可读答案。
     analysis provider 派生，跨 rerun **且跨 model/fact-pipeline 版本稳定**；
     它回答"哪个分析槽位"，不回答"哪个产物"。
   - **`packageId` = artifact identity**：由 `analysisKey` +
-    `componentVersions` + **显式冻结的 policy snapshot** 派生；同一 slot
-    在不同 model/fact-pipeline 版本下产出**不同** packageId，ReviewSession
-    引用无语义碰撞。跨 rerun 稳定；wall-clock 与 artifact creation metadata
-    不进入 packageId。
+    `componentVersions` + **package 级 `analysisPolicy`**（显式冻结的构造
+    policy，见 CR-5 与"包内容清单"）派生；同一 slot 在不同
+    model/fact-pipeline 版本下产出**不同** packageId，ReviewSession 引用
+    无语义碰撞。跨 rerun 稳定；wall-clock 与 artifact creation metadata
+    不进入 packageId。**packageId 是可重算的产物身份**：validator 从 package
+    自身内容重算并断言 `pkg.packageId === expectedPackageId`（Slice 3 评审
+    修复 3B/3C），篡改任何参与 packageId 的语义字段而不更新 packageId 即校验
+    失败。
   - `packageId ≠ semanticContentHash`：hash（CR-5）是内容级去重/比对，
     packageId 是产物引用。
 - EvidenceId namespace（Slice 1 评审 Blocker 2 收口）：**保留现有 production
@@ -199,11 +203,23 @@ M6-D 之前就已有稳定的机器可读答案。
 - 当前 `frozenAt` 来自 wall-clock 并进入
   `ModelEvaluation.detailPolicy.frozenAt`。因此不能承诺"byte-equivalent"。
   区分：
-  - **semanticContentHash**：对确定性语义内容计算，**不包含** artifact
-    creation metadata（createdAt、frozenAt 不作为内容参与哈希，但
-    frozenAt 的**语义版本值**在构造输入中显式给出）；
+  - **semanticContentHash**：对确定性语义内容计算（analysisKey、record、
+    componentVersions、analysisPolicy、decisions——其中 wall-clock 的
+    `detailPolicy.frozenAt` 置空——evidenceRegistry），**不包含** artifact
+    creation metadata（createdAt、frozenAt 不作为内容参与哈希）。frozenAt
+    的**语义版本值**在构造输入中显式给出并进入 `analysisPolicy`。
+    **semanticContentHash 是可重算的语义内容完整性值**：validator 从 package
+    自身内容重算并断言 `pkg.semanticContentHash === expectedSemanticContentHash`
+    （Slice 3 评审修复 3B/3C），篡改任何语义字段而不更新 hash/身份即校验失败。
   - **createdAt / artifact metadata**：可以不同，只作 provenance，不影响
     语义相等。
+  - **analysis policy 所有权（Slice 3 评审修复 3A）**：`package.analysisPolicy`
+    （threshold / unit / boundary / policyVersion，无 wall-clock frozenAt）=
+    **构造权威**；`ModelEvaluation.detailPolicy` = 每 evaluation 的副本，其
+    四个语义字段**必须**与 package policy 一致（validator 强制；仅 wall-clock
+    `frozenAt` 允许不同且排除在语义身份之外）。`analysisPolicy` 同时进入
+    packageId 与 semanticContentHash，因此**零 `analysis_ready` 决策的
+    package 也把构造 policy 绑定进产物身份**。
 - `ModelEvaluation` 是**可审计的模型证据**，不是 hard deterministic
   Mahjong fact。package 里"确定性内容"的准确含义是
   **deterministic-to-construct + non-LLM authoritative**，而不是把模型
@@ -277,6 +293,9 @@ M6-D 之前就已有稳定的机器可读答案。
 - **包内容清单**（来自 ROADMAP §2 M6-C，结合 CR-1/CR-3 修订）：
   - record / decision identity（CR-4）；
   - component versions；
+  - **package 级 `analysisPolicy`**（构造权威：threshold / unit / boundary /
+    policyVersion，无 frozenAt；进入 packageId 与 semanticContentHash；
+    `ModelEvaluation.detailPolicy` 的语义字段必须与之一致）；
   - 七值 decision outcome（CR-2，provider-scoped）；
   - renderer-safe / locally auditable normalized decision context 与
     `KnownGameFacts`；
@@ -301,10 +320,35 @@ M6-D 之前就已有稳定的机器可读答案。
   model evaluation、factor result），供 builder 固化；失败/跳过决策仍只
   保留 ledger 行。builder 是纯投影式组装：拼包过程不调用事实引擎、不访问
   Mortal、不重跑 `runBoundMortalDecisionReview`。
-- **严格校验（按 CR-5/CR-6）**：validator 做 schema 校验、引用完整性、
-  版本字段非空、无 LLM 产物字段、无 privileged 原始载荷、evidence registry
-  可解析；不因分析不完整拒绝 package。语义相等用 semanticContentHash
-  表达，不含 artifact creation metadata。
+- **严格校验（按 CR-5/CR-6，含 Slice 3 评审修复）**：validator 做 schema
+  校验、引用完整性、版本字段非空、无 LLM 产物字段、无 privileged 原始载荷、
+  evidence registry 可解析；不因分析不完整拒绝 package。语义相等用
+  semanticContentHash 表达，不含 artifact creation metadata。此外 validator
+  是**产物完整性边界**，逐层保证：
+  - **producer-version provenance coherence（修复 1）**：凡 package 同时含
+    package 级 `componentVersions` 声明与 payload 级 producer identity/version
+    元数据，二者必须一致——每个带 `engineIdentity` 的 FactorFact /
+    FactorDifference 与 `componentVersions.factEngine` 逐字段一致；
+    `ModelEvaluation.adapterVersion` 与 `componentVersions.mortalSourceModel.
+    version` 一致；evidence registry 的 `producerVersion` 与其编码的
+    canonical-replay / fact-engine 版本一致。无独立 payload provenance 的
+    声明字段（如 mortalSourceModel.identity / modelTag）保持声明性，不发明
+    校验。
+  - **ready-decision reference integrity（修复 2）**：一个 `analysis_ready`
+    决策 = 一个内部自洽的候选宇宙：`comparisonSet` 与 `modelEvaluation` 的
+    comparisonSetId / decisionLayerRef 一致；candidate ledger 与 comparison
+    candidate 一一对应（缺 ledger / 多 ledger / 重复 actionRef 均拒绝）；
+    FactorDifference 与 DeterministicPreference 的 actionRef 属于该候选宇宙；
+    ModelEvaluation 的 actual / scored / preferred / candidate ref 经
+    comparison set 的合法 actual↔model 对应关系解析（保留 riichi/kakan
+    realization，不假设 actual 与 model ref 恒等）。
+  - **analysis-policy 权威（修复 3A）**：`package.analysisPolicy` 为构造
+    权威，每个 `analysis_ready` 的 `detailPolicy` 四语义字段必须与之一致
+    （frozenAt 排除）。
+  - **artifact identity 可重算（修复 3B/3C）**：`packageId` 与
+    `semanticContentHash` 由共享推导（builder 与 validator 同一实现）从
+    package 自身内容重算并断言相等——保留旧 hash/身份去篡改语义内容即校验
+    失败。
 - **renderer-safe 上下文**：package 的 renderer-safe 上下文只含匿名座位/
   角色与渲染需要的归一化字段；不含账号 ID、昵称、令牌、牌谱下载 URL、
   原始字节、cookie。`KnownGameFacts` 以归一化事实形式存在，与 privileged
@@ -348,7 +392,16 @@ M6-D 之前就已有稳定的机器可读答案。
     仍通过校验；stable IDs 确定；version validation 拒绝空版本/解释侧
     版本；cross-reference validation 拒绝悬空 evidenceId；no LLM fields
     拒绝含 CoachJudgment/ExplanationBullet 的包；**有 `no_mortal_entry`
-    的 package 仍通过 schema 校验**（CR-6）。
+    的 package 仍通过 schema 校验**（CR-6）。Slice 3 评审修复追加：
+    **producer-version provenance coherence**（改声明留 payload / 改
+    payload 留声明均拒绝，fact-engine 与 Mortal/model 至少各一例）；
+    **ready-decision reference integrity**（各自篡改 comparisonSetId /
+    ledger actionRef / ModelEvaluation preferred / scored / actual ref /
+    FactorDifference ref 均拒绝）；**analysis policy + artifact identity**
+    （篡改 FactorFact.value 留旧 semanticContentHash → 拒绝；篡改
+    componentVersions 留旧 packageId → 拒绝；篡改 package.analysisPolicy
+    留旧 packageId → 拒绝；只改 ModelEvaluation.detailPolicy → policy
+    mismatch；同语义不同 createdAt / frozenAt → 仍通过）。
   - Slice 4 测 whole-game golden：real canonical fixture + self
     decisions + response decisions + Mortal + factor pipeline → 校验通过
     的 `StructuredAnalysisPackage`；此测试成熟前，旧 golden test 继续作为

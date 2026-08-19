@@ -3,6 +3,7 @@ import {
   FACT_ENGINE_ADAPTER_VERSION,
   FACT_ENGINE_PROTOCOL_VERSION,
   MAHJONG_HELPER_COMMIT,
+  AnalysisPolicySnapshotSchema,
   AnalysisProviderSchema,
   ComponentVersionsSchema,
   DecisionAnalysisSchema,
@@ -233,6 +234,14 @@ function validPackage() {
         version: "mortal-source/2",
         modelTag: "2026-07",
       },
+    },
+    // Authoritative construction policy (CR-5 / Slice 3 review repair 3A):
+    // matches the detailPolicy semantic fields of the fixture evaluation.
+    analysisPolicy: {
+      threshold: 10,
+      unit: "model_selection_score_points",
+      boundary: "greater_than_or_equal_is_detailed",
+      policyVersion: "detail-policy@1",
     },
     decisions: [analysisReadyDecision()],
     evidenceRegistry: {
@@ -693,6 +702,26 @@ describe("record, versions, and package contract", () => {
     expect(parsed.packageId).toBe("package:game-1:actor3:mortal:m6c/v1");
     expect(parsed.decisions).toHaveLength(1);
     expect(Object.keys(parsed.evidenceRegistry)).toHaveLength(2);
+  });
+
+  it("freezes the package-level analysis policy shape (Slice 3 review repair 3A)", () => {
+    // The construction authority: exactly the four semantic fields.
+    expect(AnalysisPolicySnapshotSchema.parse({
+      threshold: 10,
+      unit: "model_selection_score_points",
+      boundary: "greater_than_or_equal_is_detailed",
+      policyVersion: "mortal-review/v1",
+    })).toBeDefined();
+    // Wall-clock provenance must NOT ride in the policy (it lives in
+    // ModelEvaluation.detailPolicy.frozenAt and is excluded from semantic
+    // identity; the package validator enforces detailPolicy agreement).
+    expect(() => AnalysisPolicySnapshotSchema.parse({
+      threshold: 10,
+      unit: "model_selection_score_points",
+      boundary: "greater_than_or_equal_is_detailed",
+      policyVersion: "mortal-review/v1",
+      frozenAt: "2026-08-20T00:00:00.000Z",
+    })).toThrow();
   });
 
   it("rejects structurally invalid packages", () => {
