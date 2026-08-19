@@ -457,7 +457,15 @@ M6-D 之前就已有稳定的机器可读答案。
   - Slice 4 测 whole-game golden：real canonical fixture + self
     decisions + response decisions + Mortal + factor pipeline → 校验通过
     的 `StructuredAnalysisPackage`；此测试成熟前，旧 golden test 继续作为
-    旧 semantic spine 的保护门，不提前删除。
+    旧 semantic spine 的保护门，不提前删除。当前真实 fixture 的报告只覆盖
+    其中两个决策点（east1-turn6/7），整盘重放（7 self + 2 response 窗口）
+    其余窗口如实地读 `no_mortal_entry` → `record.status = integrity_failed`，
+    validator 仍接受该真实 package（CR-6 在真实 fixture 上成立）；
+    "绿色 run（no_mortal_entry == 0）"需要一份覆盖全部重放决策点的报告，
+    属于未来 whole-game 报告 fixture（本里程碑按"不要求新的外部语料"不做）。
+    golden 同时固定 H2/CR-5 确定性（同语义输入 + 显式 frozen policy →
+    相同 packageId / semanticContentHash）与 CR-4（artifact identity 绑定
+    真实 producer chain 版本）。
 - **Prior art**：
   - `golden-vertical-slice`：真实 fixture + packaged sidecar 走通黄金链路；
     M6-C 测试沿用同一 fixture 与 sidecar 口径。
