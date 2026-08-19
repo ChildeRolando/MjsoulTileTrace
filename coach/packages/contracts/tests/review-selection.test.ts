@@ -11,6 +11,7 @@
  */
 import { describe, expect, it } from "vitest";
 import {
+  SELECTOR_POLICY_V1,
   SELECTOR_POLICY_VERSION_V1,
   ReviewSelectionReasonSchema,
   ReviewSelectionResultSchema,
@@ -165,6 +166,25 @@ describe("DeterministicReviewSelector Slice 1 contract", () => {
       errorGapThreshold: 10,
       maxSelections: 10,
     })).toThrow();
+  });
+
+  it("exports the frozen parsed v1 policy value as the single policy owner", () => {
+    // SELECTOR_POLICY_V1 is the runtime owner of the selector's threshold, cap
+    // and emitted version: it is schema-parsed at module scope (any literal
+    // drift between the schema and the value fails closed at load time) and
+    // frozen against mutation.
+    expect(SelectorPolicyV1Schema.parse(SELECTOR_POLICY_V1)).toEqual(
+      SELECTOR_POLICY_V1,
+    );
+    expect(SELECTOR_POLICY_V1).toEqual({
+      policyVersion: SELECTOR_POLICY_VERSION_V1,
+      errorGapThreshold: 10,
+      maxSelections: 10,
+    });
+    expect(SELECTOR_POLICY_V1.policyVersion).toBe(
+      "deterministic-review-selector/v1",
+    );
+    expect(Object.isFrozen(SELECTOR_POLICY_V1)).toBe(true);
   });
 
   it("keeps the reason vocabulary free of pedagogy / CoachJudgment wording", () => {

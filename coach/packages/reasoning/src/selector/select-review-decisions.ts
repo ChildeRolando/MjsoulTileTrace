@@ -27,28 +27,26 @@
  *  - `no_distinguishable_factor_difference` is NOT a separate admission
  *    authority (CR-2): it only replaces the reason of an already-admitted
  *    decision; it never bypasses T, disagreement, or N.
- *  - Preference conflict is a tiebreaker ONLY (grill F3): it reuses the
- *    existing preference-set `conflict` semantics and never adds a decision to
- *    the review.
- *  - Depends only on `@riichi-coach/contracts` (ADR-0005); no new workspace
- *    dependency.
+ *  - Preference conflict is a tiebreaker ONLY (grill F3): it delegates to the
+ *    existing shared preference-agreement authority
+ *    (`computePreferenceAgreement` — the single owner of agree/partial/conflict
+ *    semantics) and never adds a decision to the review.
+ *  - Policy v1 truth lives in contracts: the admission threshold, the cap and
+ *    the emitted `policyVersion` are read from the frozen
+ *    `SELECTOR_POLICY_V1` value — reasoning owns no policy literals.
+ *  - No new workspace dependency (ADR-0005): besides `@riichi-coach/contracts`
+ *    it only reuses the reasoning package's own pure preference-agreement
+ *    module; no Mortal / fact engine / LLM / graph / database.
  */
 import {
-  SELECTOR_POLICY_VERSION_V1,
+  SELECTOR_POLICY_V1,
   StructuredAnalysisPackageSchema,
   type AnalysisReadyDecision,
   type ReviewSelectionReason,
   type ReviewSelectionResult,
   type StructuredAnalysisPackage,
 } from "@riichi-coach/contracts";
-
-/** Policy v1 T — error-gap threshold (model_selection_score_points). Pinned
- *  by `SelectorPolicyV1Schema` in contracts; a change requires a new policy
- *  version, never an in-place edit. Boundary is inclusive: `errorGap >= T`. */
-const ERROR_GAP_THRESHOLD_V1 = 10;
-/** Policy v1 N — maximum selections per review. Boundary is inclusive:
- *  `selected.length <= N`. */
-const MAX_SELECTIONS_V1 = 10;
+import { computePreferenceAgreement } from "../preference/preference-agreement.js";
 
 /** CR-4 disagreement: the scored actual-model carrier is NOT among the model's
  *  preferred actions. With multiple preferredActions, hitting ANY one of them
@@ -62,17 +60,17 @@ function isDisagreement(decision: AnalysisReadyDecision): boolean {
 }
 
 /** Tiebreaker-only preference conflict (grill F3): the deterministic
- *  preference set is non-null and disjoint from the model preferred actions —
- *  the existing preference-set `conflict` semantics. Null / partial agreement
- *  get no tiebreak priority, and conflict NEVER adds a decision to the review
+ *  preference set conflicts with the model preferred actions. Delegates to the
+ *  existing shared preference-agreement authority (`computePreferenceAgreement`
+ *  — the single owner of agree/partial_agreement/conflict semantics): only the
+ *  `conflict` verdict gets tiebreak priority; null (not comparable) and
+ *  partial agreement do not, and conflict NEVER adds a decision to the review
  *  (user story 9). */
 function hasPreferenceConflict(decision: AnalysisReadyDecision): boolean {
-  const preference = decision.deterministicPreference;
-  if (preference === null) return false;
-  const preferredActions = new Set(decision.modelEvaluation.preferredActions);
-  return preference.actionRefs.every(
-    (actionRef) => !preferredActions.has(actionRef),
-  );
+  return computePreferenceAgreement(
+    decision.modelEvaluation.preferredActions,
+    decision.deterministicPreference?.actionRefs ?? null,
+  ) === "conflict";
 }
 
 /** CR-2 reason selection. Relevant differences = `factorDifferences` entries
@@ -156,12 +154,12 @@ export function selectReviewDecisions(
     )
     .filter((decision) =>
       isDisagreement(decision) &&
-      decision.modelEvaluation.errorGap >= ERROR_GAP_THRESHOLD_V1,
+      decision.modelEvaluation.errorGap >= SELECTOR_POLICY_V1.errorGapThreshold,
     )
     .sort(compareSelectedDecisions)
-    .slice(0, MAX_SELECTIONS_V1);
+    .slice(0, SELECTOR_POLICY_V1.maxSelections);
   return {
-    policyVersion: SELECTOR_POLICY_VERSION_V1,
+    policyVersion: SELECTOR_POLICY_V1.policyVersion,
     analysisPackageId: pkg.packageId,
     analysisPackageStatus: pkg.record.status,
     selected: admitted.map((decision, index) => ({

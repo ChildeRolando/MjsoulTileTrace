@@ -50,6 +50,23 @@ export const SelectorPolicyV1Schema = z.object({
 }).strict();
 export type SelectorPolicyV1 = z.infer<typeof SelectorPolicyV1Schema>;
 
+/** The frozen v1 policy VALUE — the SINGLE runtime owner of the selector's
+ *  threshold, cap and emitted policy version (Issue #3 review: contracts is
+ *  the sole owner of v1's policyVersion / errorGapThreshold=10 /
+ *  maxSelections=10). It is parsed through `SelectorPolicyV1Schema` at module
+ *  scope so any literal drift between the schema and the value fails closed at
+ *  load time, and `Object.freeze`d so no consumer can mutate it.
+ *  `selectReviewDecisions` consumes THIS value for the admission threshold,
+ *  the cap and the emitted `policyVersion` — no policy literals live in the
+ *  reasoning package. */
+export const SELECTOR_POLICY_V1: SelectorPolicyV1 = Object.freeze(
+  SelectorPolicyV1Schema.parse({
+    policyVersion: SELECTOR_POLICY_VERSION_V1,
+    errorGapThreshold: 10,
+    maxSelections: 10,
+  }),
+);
+
 /** The frozen two-value selection reason vocabulary (CR-2): only mechanical,
  *  verifiable policy reasons — no pedagogy / CoachJudgment wording. */
 export const ReviewSelectionReasonSchema = z.enum([

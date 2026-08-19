@@ -21,7 +21,7 @@
  */
 import { describe, expect, it, beforeEach } from "vitest";
 import {
-  SELECTOR_POLICY_VERSION_V1,
+  SELECTOR_POLICY_V1,
   canonicalActionRef,
   type ActionRef,
   type AnalysisReadyDecision,
@@ -43,7 +43,7 @@ import {
 import {
   validateStructuredAnalysisPackage,
 } from "../src/validate/structured-package-validator.js";
-import { selectReviewDecisions } from "../src/index.js";
+import { selectReviewDecisions, computePreferenceAgreement } from "../src/index.js";
 import {
   componentVersions,
   entryFor,
@@ -551,14 +551,18 @@ function remapLedger(actionRef: ActionRef): CandidateFactorLedger {
 // ---------------------------------------------------------------------------
 
 describe("DeterministicReviewSelector threshold boundary", () => {
-  it("selects only disagreement with errorGap >= T (T=10 inclusive)", () => {
+  it("selects only disagreement with errorGap >= T using the frozen v1 policy threshold", () => {
+    // The threshold comes from the contracts-owned policy value — the selector
+    // must react to exactly SELECTOR_POLICY_V1.errorGapThreshold (T=10):
+    // T-1 rejected, T (inclusive boundary) and T+1 selected.
+    const T = SELECTOR_POLICY_V1.errorGapThreshold;
     const { actualRef, otherRef } = baseRefs();
     const below = makeReadyDecision({
       triggerEventRef: "game:fixture/0/1/0",
       roundOrdinal: 1,
       scores: [
-        { actionRef: actualRef, probability: 0.71 },
-        { actionRef: otherRef, probability: 0.8 },
+        { actionRef: actualRef, probability: 0.5 },
+        { actionRef: otherRef, probability: 0.5 + (T - 1) / 100 },
       ],
       actualActionRef: actualRef,
     });
@@ -566,8 +570,8 @@ describe("DeterministicReviewSelector threshold boundary", () => {
       triggerEventRef: "game:fixture/0/5/0",
       roundOrdinal: 2,
       scores: [
-        { actionRef: actualRef, probability: 0.7 },
-        { actionRef: otherRef, probability: 0.8 },
+        { actionRef: actualRef, probability: 0.5 },
+        { actionRef: otherRef, probability: 0.5 + T / 100 },
       ],
       actualActionRef: actualRef,
     });
@@ -575,18 +579,18 @@ describe("DeterministicReviewSelector threshold boundary", () => {
       triggerEventRef: "game:fixture/0/7/0",
       roundOrdinal: 3,
       scores: [
-        { actionRef: actualRef, probability: 0.69 },
-        { actionRef: otherRef, probability: 0.8 },
+        { actionRef: actualRef, probability: 0.5 },
+        { actionRef: otherRef, probability: 0.5 + (T + 1) / 100 },
       ],
       actualActionRef: actualRef,
     });
-    expect(below.modelEvaluation.errorGap).toBe(9);
-    expect(atThreshold.modelEvaluation.errorGap).toBe(10);
-    expect(above.modelEvaluation.errorGap).toBe(11);
+    expect(below.modelEvaluation.errorGap).toBe(T - 1);
+    expect(atThreshold.modelEvaluation.errorGap).toBe(T);
+    expect(above.modelEvaluation.errorGap).toBe(T + 1);
     const pkg = scenarioPackage([below, atThreshold, above]);
     const result = selectReviewDecisions(pkg);
     expect(result.selected.map((selection) => selection.decisionId)).toEqual([
-      above.decisionId, // errorGap 11 ranks above the exact-threshold gap 10
+      above.decisionId, // errorGap T+1 ranks above the exact-threshold gap T
       atThreshold.decisionId,
     ]);
   });
@@ -752,10 +756,13 @@ describe("DeterministicReviewSelector ordering and cap", () => {
     expect(result.selected.map((selection) => selection.rank)).toEqual([1, 2, 3, 4]);
   });
 
-  it("caps at N=10 with contiguous 1-based ranks and keeps the top gaps", () => {
+  it("caps at the frozen v1 policy N with contiguous 1-based ranks and keeps the top gaps", () => {
+    // The cap comes from the contracts-owned policy value — the selector must
+    // cut exactly at SELECTOR_POLICY_V1.maxSelections (N=10).
+    const N = SELECTOR_POLICY_V1.maxSelections;
     const decisions: AnalysisReadyDecision[] = [];
-    // 12 disagreements with distinct gaps 31 down to 20.
-    const gaps = Array.from({ length: 12 }, (_, index) => 31 - index);
+    // N+2 disagreements with distinct gaps, all far above T.
+    const gaps = Array.from({ length: N + 2 }, (_, index) => 3 * (N + 2) - index);
     gaps.forEach((gap, index) => {
       decisions.push(sortedDecision(
         `game:fixture/0/${1 + index * 2}/0`,
@@ -766,11 +773,11 @@ describe("DeterministicReviewSelector ordering and cap", () => {
     });
     const pkg = scenarioPackage(decisions);
     const result = selectReviewDecisions(pkg);
-    expect(result.selected).toHaveLength(10);
+    expect(result.selected).toHaveLength(N);
     expect(result.selected.map((selection) => selection.rank)).toEqual(
-      [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      Array.from({ length: N }, (_, index) => index + 1),
     );
-    // The top-10 by errorGap are kept; the two smallest gaps are dropped.
+    // The top-N by errorGap are kept; the two smallest gaps are dropped.
     const keptDecisionIds = new Set(
       result.selected.map((selection) => selection.decisionId),
     );
@@ -780,7 +787,7 @@ describe("DeterministicReviewSelector ordering and cap", () => {
         .sort((left, right) =>
           right.modelEvaluation.errorGap - left.modelEvaluation.errorGap,
         )
-        .slice(0, 10)
+        .slice(0, N)
         .map((decision) => decision.decisionId),
     );
     expect([...keptDecisionIds].sort()).toEqual([...topGaps].sort());
@@ -795,6 +802,75 @@ describe("DeterministicReviewSelector ordering and cap", () => {
       expect(current.modelEvaluation.errorGap)
         .toBeLessThanOrEqual(previous.modelEvaluation.errorGap);
     }
+  });
+
+  it("derives the conflict tiebreak from the shared preference-agreement authority (agree/partial get no priority)", () => {
+    // The tiebreak must follow `computePreferenceAgreement` exactly: only the
+    // `conflict` verdict gets priority; `agree` and `partial_agreement` fall
+    // back to the decisionId order. All three decisions share gap 30.
+    const { actualRef, otherRef } = baseRefs();
+    const conflictDecision = makeReadyDecision({
+      triggerEventRef: "game:fixture/0/9/0",
+      roundOrdinal: 1,
+      scores: [
+        { actionRef: actualRef, probability: 0.5 },
+        { actionRef: otherRef, probability: 0.8 },
+      ],
+      actualActionRef: actualRef,
+      factorDifferences: [orderedDeterministicDifference(actualRef, otherRef, "difference:agree-class:conflict")],
+      // disjoint from the preferred set → conflict
+      deterministicPreference: conflictPreference(actualRef, "difference:agree-class:conflict"),
+    });
+    const partialDecision = makeReadyDecision({
+      triggerEventRef: "game:fixture/0/1/0",
+      roundOrdinal: 2,
+      scores: [
+        { actionRef: actualRef, probability: 0.5 },
+        { actionRef: otherRef, probability: 0.8 },
+      ],
+      actualActionRef: actualRef,
+      factorDifferences: [orderedDeterministicDifference(actualRef, otherRef, "difference:agree-class:partial")],
+      // overlaps the preferred set → partial_agreement
+      deterministicPreference: {
+        ...conflictPreference(otherRef, "difference:agree-class:partial"),
+        actionRefs: [otherRef, actualRef],
+      },
+    });
+    const agreeDecision = makeReadyDecision({
+      triggerEventRef: "game:fixture/0/5/0",
+      roundOrdinal: 3,
+      scores: [
+        { actionRef: actualRef, probability: 0.5 },
+        { actionRef: otherRef, probability: 0.8 },
+      ],
+      actualActionRef: actualRef,
+      factorDifferences: [orderedDeterministicDifference(actualRef, otherRef, "difference:agree-class:agree")],
+      // identical to the preferred set → agree
+      deterministicPreference: conflictPreference(otherRef, "difference:agree-class:agree"),
+    });
+    // Prove the agreement classes map onto the shared authority.
+    expect(computePreferenceAgreement(
+      conflictDecision.modelEvaluation.preferredActions,
+      conflictDecision.deterministicPreference!.actionRefs,
+    )).toBe("conflict");
+    expect(computePreferenceAgreement(
+      partialDecision.modelEvaluation.preferredActions,
+      partialDecision.deterministicPreference!.actionRefs,
+    )).toBe("partial_agreement");
+    expect(computePreferenceAgreement(
+      agreeDecision.modelEvaluation.preferredActions,
+      agreeDecision.deterministicPreference!.actionRefs,
+    )).toBe("agree");
+
+    const pkg = scenarioPackage([partialDecision, agreeDecision, conflictDecision]);
+    const result = selectReviewDecisions(pkg);
+    // conflict first; agree and partial order by decisionId ("…/0/1/0" before
+    // "…/0/5/0") — the tiebreak never re-orders non-conflict classes.
+    expect(result.selected.map((selection) => selection.decisionId)).toEqual([
+      conflictDecision.decisionId,
+      partialDecision.decisionId,
+      agreeDecision.decisionId,
+    ]);
   });
 
   it("returns fewer than N when the pool is smaller", () => {
@@ -812,6 +888,7 @@ describe("DeterministicReviewSelector ordering and cap", () => {
     const pkg = scenarioPackage([decision]);
     const result = selectReviewDecisions(pkg);
     expect(result.selected).toHaveLength(1);
+    expect(result.selected.length).toBeLessThan(SELECTOR_POLICY_V1.maxSelections);
     expect(result.selected[0]!.rank).toBe(1);
   });
 });
@@ -899,9 +976,10 @@ describe("DeterministicReviewSelector fail closed", () => {
     )).toThrow(/globally unique/);
   });
 
-  it("freezes the result policy version to the v1 literal", () => {
+  it("emits the policy version from the frozen v1 policy owner", () => {
     const pkg = scenarioPackage([templateReady()]);
-    expect(selectReviewDecisions(pkg).policyVersion)
-      .toBe(SELECTOR_POLICY_VERSION_V1);
+    const result = selectReviewDecisions(pkg);
+    expect(result.policyVersion).toBe(SELECTOR_POLICY_V1.policyVersion);
+    expect(result.policyVersion).toBe("deterministic-review-selector/v1");
   });
 });
