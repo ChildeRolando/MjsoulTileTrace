@@ -35,13 +35,14 @@ property graph，加上 D2 才会追加的 reasoning overlay 分区。D1 交付�
    `GraphContextSlice`；它是 M6-D2 的 LLM 传输边界。
 3. `validateContextGraph` —— graph 结构校验器，执行 design §11 的规则与投影
    不变量。
-4. 支撑函数：`getDecisionSubgraph`、`appendReasoningOverlay`、
+4. 支撑函数：`getDecisionSubgraph`、`validateReasoningOverlayPartition`、
    `validateGraphContextSlice`。
 
 D1 的 `ContextGraph` 是 projection，不是 source of truth；不替代、不倒写
 `StructuredAnalysisPackage`。D1 不接 LLM：`projectContextGraph` 只产生
-evidence subgraph；reasoning overlay 分区由 D2 通过 `appendReasoningOverlay`
-追加，D1 只冻结其分区规则与校验。
+evidence subgraph；reasoning overlay 分区的追加属于 D2。D1 只实现该分区的
+schema/partition validator（`validateReasoningOverlayPartition`），不生成、
+不追加任何 reasoning 节点或边。
 
 ## User Stories
 
@@ -60,8 +61,8 @@ evidence subgraph；reasoning overlay 分区由 D2 通过 `appendReasoningOverla
 13. 作为复盘用户，我想让 `derived_from` 边只表达来源/论证关系，这样我不会把来源关系误读为因果关系。
 14. 作为复盘用户，我想让 graph 校验拒绝任何 `causes` 边，这样 v1 不声称因果真理。
 15. 作为复盘用户，我想让 graph 校验拒绝 evidence 节点携带 LLM 来源或 coach 权威，这样 LLM 无法在结构上污染证据分区。
-16. 作为 M6-D2 解释引擎的调用方，我想让 reasoning overlay 只能通过 `appendReasoningOverlay` 追加，这样 CoachInference / CoachJudgment / Explanation 永远不能修改、删除或覆盖 evidence 节点和边。
-17. 作为 M6-D2 解释引擎的调用方，我想让 `appendReasoningOverlay` 校验 reasoning 节点的 origin 必须是 LLM、authority 必须是 coach、边必须解析到存在的节点，这样不合法推理无法进入 graph。
+16. 作为 M6-D2 解释引擎的调用方，我想让 D1 冻结 reasoning overlay 分区的 schema/partition 校验，这样 D2 的 `appendReasoningOverlay` 只能追加合法 reasoning，且 CoachInference / CoachJudgment / Explanation 永远不能修改、删除或覆盖 evidence 节点和边。
+17. 作为 M6-D2 解释引擎的调用方，我想让 `validateReasoningOverlayPartition` 校验 reasoning 节点的 origin 必须是 LLM、authority 必须是 coach、边必须解析到存在的节点，这样不合法推理无法进入 graph。
 18. 作为审计 UI（M7-A）的开发者，我想按 decisionId 取得该决策的 decision subgraph，这样 Detail 视图可以只展开当前决策的证据与比较。
 19. 作为审计 UI 的开发者，我想让 decision subgraph 是确定性的有向可达子图，这样同一决策每次展开顺序一致。
 20. 作为未来 M4 追问的开发者，我想让 ContextGraph 的 typed node/edge 与稳定 id 成为未来 chat retrieval 的基础，这样 M4 不必重新造一套图遍历。
@@ -91,8 +92,9 @@ M6-D1 设置**两个平级新增 seam**：
 1. **`projectContextGraph(package)`**：唯一 evidence-subgraph 构建入口。
 2. **`buildGraphContextSlice(graph, selection)`**：唯一 LLM 上下文切片构建入口。
 
-`validateContextGraph`、`getDecisionSubgraph`、`appendReasoningOverlay`、
+`validateContextGraph`、`getDecisionSubgraph`、`validateReasoningOverlayPartition`、
 `validateGraphContextSlice` 是两个 seam 的支撑函数，不新增第三条分析/构建路径。
+D1 不实现 `appendReasoningOverlay` 的追加动作。
 
 ### Graph 总体形状
 
@@ -143,17 +145,26 @@ v1 node kind（8 种）：
 非证据声明节点；它不进入 ADR-0003 的证据权威分层。证据分区整体不可被 reasoning
 overlay 改写，无论其 authority 值。
 
-### Node 身份派生
+### Node / Edge / Slice 身份派生
 
-- 每个 node 的 `nodeId` 由 `nodeKind` 加该 kind 的稳定语义键，经确定性 JSON
-  canonicalization + SHA-256 派生，格式为 `ctxg:<nodeKind>:<digest>`。
+- **统一 deterministic serializer（guard）**：canonical JSON 与所有 id 派生
+  必须复用 M6-C `package-identity` 已建立的**唯一** deterministic serializer
+  （排序键 canonical JSON + SHA-256）。projector、slice builder、graph/slice
+  validator、reasoning partition validator 全部只调用这一份共享派生实现；
+  **禁止 projector 或 slice builder 自行 `JSON.stringify`、自行排序键或另写
+  一套 canonicalization**。
+- 每个 node 的 `nodeId` 由 `nodeKind` 加该 kind 的稳定语义键，经上述统一
+  serializer + SHA-256 派生，格式为 `ctxg:<nodeKind>:<digest>`。
 - 语义键必须是 package 内已经稳定存在的字段（decisionId、actionRef、factorKey、
   differenceId、evidenceId、factSetId 等），不得含 wall-clock、数组下标、遍历
   顺序。
 - 每个 edge 的 `edgeId` 由 `(fromNodeId, toNodeId, edgeKind, edge payload)`
-  派生，格式为 `ctxg:edge:<digest>`。
+  经同一 serializer 派生，格式为 `ctxg:edge:<digest>`。
+- `sliceId` 由 `(packageId, selector policyVersion, selectedDecisionIds)`
+  经同一 serializer 派生。
 - `validateContextGraph` 从 node/edge 自身载荷重算 nodeId/edgeId 并断言相等；
-  篡改 payload 而不更新 id 即校验失败。
+  篡改 payload 而不更新 id 即校验失败。`validateGraphContextSlice` 对
+  sliceId 做同样的重算断言。
 
 ### Origin / authority 投影规则
 
@@ -233,30 +244,41 @@ compares/supports 有 payload）。所有 projection 边的 origin 为
   决策；decision subgraph 是"从 Decision 出发可达"，不是无向连通分量。
 - decisionId 不存在时 fail closed，不返回空图。
 
-### Reasoning overlay 追加（`appendReasoningOverlay`）
+### Reasoning overlay 分区校验（`validateReasoningOverlayPartition`）
 
-- D1 只冻结追加契约，不生成 LLM 内容。调用方传入 reasoning nodes 与 edges。
-- 返回新 graph；原 evidence 节点与边必须 deep-equal 保持原样（append-only）。
-- 追加前校验：
+- **D1 不生成 reasoning（guard）**：D1 不实现 `appendReasoningOverlay` 的追加
+  动作，不产生任何 CoachInference / CoachJudgment / Explanation 节点或边；
+  追加能力属于 D2。
+- D1 只实现 schema/partition validator：对一份待追加的 reasoning partition
+  输入（nodes + edges）执行以下校验：
   - reasoning node 的 `partition === "reasoning"`、`origin === "llm_reasoning"`、
     `authority === "coach"`；
   - reasoning node 的 nodeKind 属于 CoachInference / CoachJudgment /
     Explanation 三种之一；
-  - reasoning edge 的 from/to 必须解析到图中已有节点；
+  - reasoning edge 的 from/to 必须解析到**已有 graph 节点或同批 reasoning
+    node**；
   - reasoning edge 不得以 evidence 节点为 from 去改 evidence 语义；evidence
-    edge 不得因 overlay 增删而变化。
-- 校验失败即拒绝追加并抛错，不返回部分修改的 graph。
+    edge 不得因 overlay 增删而变化（D2 的 append 实现必须保证原 evidence
+    节点与边 deep-equal 保持原样）。
+- 校验失败即抛错；D2 的 `appendReasoningOverlay` 必须先通过该 validator 才能
+  返回追加后的 graph。
 
 ### `ContextSliceBuilder`（`buildGraphContextSlice`）
 
 - 输入：`ContextGraph` + `ReviewSelectionResult`。
-- 前置校验：
-  - `selection.analysisPackageId === graph.packageId`，否则 fail closed；
-  - 每个 `selected.decisionId` 必须解析到 graph 中的 Decision 节点。
+- **同源证明只由 packageId 承担（guard）**：
+  - `selection.analysisPackageId === graph.packageId` 是唯一同源判据，否则
+    fail closed；
+  - 不得用 decisionId 前缀、recordId 或其他弱匹配替代该判据；
+  - 产出 slice 的 `packageId` 必须从 `graph.packageId` 复制，不重新计算，
+    不采信 graph 与 selection 之外的第三来源。
+- 前置校验还包括：每个 `selected.decisionId` 必须解析到 graph 中的 Decision
+  节点。
 - 选择范围：对每个 selected decision，取该 Decision 的 decision subgraph；
   多个入选决策的节点/边按 id 去重后按 nodeId/edgeId 排序。selected 的顺序
   进入 slice 的 `selectedDecisionIds`（按 rank 升序）。
-- 空 selection 返回合法空 slice：`selectedDecisionIds` 为空、nodes/edges 为空。
+- 空 selection 返回合法空 slice：`selectedDecisionIds` 为空、nodes/edges 为空，
+  `packageId` 仍等于 graph.packageId。
 
 ### `GraphContextSlice` allow-list
 
@@ -296,11 +318,13 @@ slice 校验器拒绝 allow-list 之外的键、任何 URL、任何 privileged �
 - reasoning 分区节点 origin 必须为 `llm_reasoning`、authority 必须为 `coach`、
   nodeKind 必须是三种 reasoning kind；
 - 所有 reasoning edge 必须解析到存在节点；overlay 不得改动 evidence 节点/边
-  （append-only 校验在 `appendReasoningOverlay` 中机械强制）。
+  （该分区规则的校验在 `validateReasoningOverlayPartition` 中机械执行）。
 
 `validateGraphContextSlice` 至少执行：
 
 - strict schema 解析与 JSON roundtrip 不变；
+- `slice.packageId === graph.packageId`（packageId 同源证明）且 sliceId 可重算
+  一致；
 - slice 只包含 allow-list 字段；
 - 无 URL、无 privileged 载荷；
 - 所有 slice node/edge 能匹配源 graph 中同 id 节点/边；
@@ -348,16 +372,22 @@ M6-D1 所有失败抛 `m6d1_<模块>_<错误>:<detail>` 风格错误；命名与
 - graph validator：篡改 nodeId 留旧 payload、edge 端点悬空、插入 `causes`、
   evidence 节点 origin=llm_reasoning / authority=coach、reasoning 节点
   origin≠llm_reasoning、reasoning edge 悬空，均拒绝。
+- id derivation（guard 1）：nodeId / edgeId / sliceId 与 M6-C 共享
+  deterministic serializer 的期望值一致；projector、slice builder 与 validator
+  之间不存在第二套 stringify 产物（以共享 helper 的固定 golden 值断言）。
+- reasoning partition validator（guard 2）：合法 reasoning partition 通过；
+  reasoning 节点 origin≠llm_reasoning / authority≠coach / nodeKind 非法、
+  reasoning edge 悬空或指向不在 graph 中的节点，均拒绝。D1 不测试任何
+  reasoning 追加动作，因为没有 append 实现。
 - decision subgraph：按 decisionId 返回确定性子图；不存在的 decisionId fail
   closed；两个决策共享 Evidence 时不会互相拉入对方的 Decision/Factor 节点。
-- overlay append：合法 reasoning nodes/edges 追加成功；追加前后 evidence
-  nodes/edges deep-equal；改写 evidence 节点/边、删除 evidence 节点/边、
-  reasoning 节点 authority 错误、reasoning edge 悬空，均拒绝。
-- slice builder：空 selection 返回空 slice；selection 与 graph packageId
-  不一致 fail closed；selected decisionId 不存在 fail closed；入选顺序与
-  selector rank 一致；共享节点去重且排序确定。
+- slice builder（guard 3）：空 selection 返回空 slice；selection 与 graph
+  packageId 不一致 fail closed；同 recordId/decisionId 前缀但 packageId 不同
+  同样 fail closed（证明同源判据是 packageId 而非弱匹配）；selected
+  decisionId 不存在 fail closed；入选顺序与 selector rank 一致；共享节点去重
+  且排序确定；slice.packageId 等于 graph.packageId。
 - slice validator：allow-list 外字段、URL、privileged 载荷、slice node 与
-  graph 同 id 节点不一致，均拒绝。
+  graph 同 id 节点不一致、slice.packageId 与 graph.packageId 不一致，均拒绝。
 
 ### Prior art
 
@@ -385,6 +415,8 @@ M6-D1 所有失败抛 `m6d1_<模块>_<错误>:<detail>` 风格错误；命名与
 - LLM provider / BYOK / key 管理、GraphContextSlice 实际发给模型、结构化
   CoachInference / CoachJudgment 生成、grounding validator、evidence-only
   degrade（M6-D2）。
+- `appendReasoningOverlay` 的追加动作与返回新 graph 的构造路径（D2）；D1 只
+  提供 `validateReasoningOverlayPartition`。
 - `ReviewReport` 及其 reasoning overlay 的持久化 schema（M6-D2）。
 - M7-A 固定 review UI 与任何 graph visualization；UI 消费 decision subgraph
   是后续里程碑。
@@ -404,7 +436,9 @@ M6-D1 所有失败抛 `m6d1_<模块>_<错误>:<detail>` 风格错误；命名与
   与 design spec 冲突时，以本 spec 的窄切口径为准（例如 AdvisorySignal /
   Constraint 不设独立 node kind，Evidence 显式成为 node kind）。
 - ContextGraph 是运行时投影，不是第三个持久化 canonical artifact。
-- D1 只冻结 reasoning overlay 的分区规则与 append-only 校验；LLM 内容与
-  ReviewReport 归 D2。
+- D1 只冻结 reasoning overlay 的 schema/partition 校验；`appendReasoningOverlay`
+  的追加动作、LLM 内容与 ReviewReport 归 D2。
+- 评审 verdict（2026-08-19）三项 guard 已纳入：统一 deterministic serializer、
+  D1 reasoning 只做 schema/partition validator、slice 同源只以 packageId 证明。
 - 术语一律以 `coach/CONTEXT.md` 词汇表为准；与既有 ADR 矛盾处显式指出，不
   静默覆盖。
