@@ -70,6 +70,7 @@ import {
 } from "../src/analysis/mortal-coverage-registry.js";
 import { buildStructuredAnalysisPackage } from "../src/analysis/structured-analysis-package-builder.js";
 import { validateStructuredAnalysisPackage } from "../src/validate/structured-package-validator.js";
+import { selectReviewDecisions } from "../src/index.js";
 import {
   JsonlFactEngineClient,
   ManagedFactEngineTransport,
@@ -342,5 +343,113 @@ describe("M6-C Slice 4 whole-game golden", () => {
     });
     expect(other.packageId).not.toBe(first.pkg.packageId);
     expect(other.semanticContentHash).not.toBe(first.pkg.semanticContentHash);
+  }, 120000);
+});
+
+// ---------------------------------------------------------------------------
+// DeterministicReviewSelector Slice 3 — whole-game consumer golden
+// (spec 2026-08-19-deterministic-review-selector-design.md "Slice 3 —
+// Whole-game consumer golden"). Directly consumes the M6-C whole-game golden
+// chain (same real fixture + packaged sidecar): real package →
+// validateStructuredAnalysisPackage → selectReviewDecisions. This is the
+// first real downstream product-policy consumer of the M6-C package
+// (consumer pressure), standing on the SAME seam — no second whole-game
+// analysis path.
+// ---------------------------------------------------------------------------
+
+describe("DeterministicReviewSelector Slice 3 whole-game consumer golden", () => {
+  async function goldenSelection(): Promise<{
+    pkg: StructuredAnalysisPackage;
+  }> {
+    const raw = JSON.parse(await readFile(fixtureUrl, "utf8")) as RawLegacyFixture;
+    const imported = importRegressionFixture(raw as unknown as RegressionFixture);
+    const bridged = bridgeLegacyRegressionEvents(
+      imported.events,
+      imported.selfActor,
+      { sourceKind: "fixture", gameId: "fixture:c1924cad66f66dd9" },
+    );
+    if (bridged.status !== "ready") throw new Error(bridged.code);
+    const stream = bridged.stream;
+    const decisions = replayCanonicalStream(stream);
+    const responseDecisions = replayCanonicalResponseWindows(stream);
+    const { pkg } = await wholeGameGolden({
+      raw,
+      stream,
+      decisions,
+      responseDecisions,
+    });
+    return { pkg };
+  }
+
+  it("selects the real whole-game ready decisions with resolvable ids and frozen reasons", async () => {
+    const { pkg } = await goldenSelection();
+    // The real fixture's two Mortal rows reach analysis_ready; the rest of the
+    // replayed windows truthfully read no_mortal_entry (aggregate status
+    // integrity_failed — CR-6 schema validity ≠ completeness).
+    expect(pkg.record.status).toBe("integrity_failed");
+    expect(pkg.decisions.filter((decision) => decision.outcome === "analysis_ready"))
+      .toHaveLength(2);
+
+    const result = selectReviewDecisions(pkg);
+
+    // The real observed behavior (spec Slice 3): both ready decisions are
+    // disagreements with errorGap ≈99.27 / ≈97.42 — far above T — so all
+    // enter; the cap never binds here.
+    const readyGaps = pkg.decisions
+      .filter((decision) => decision.outcome === "analysis_ready")
+      .map((decision) => decision.modelEvaluation.errorGap)
+      .sort((left, right) => right - left);
+    expect(readyGaps).toHaveLength(2);
+    expect(readyGaps[0]).toBeCloseTo(99.27, 1);
+    expect(readyGaps[1]).toBeCloseTo(97.42, 1);
+
+    // Both real ready decisions are disagreements with errorGap well above T
+    // → all selected; the cap never binds here.
+    expect(result.selected).toHaveLength(2);
+    expect(result.selected.length).toBeLessThanOrEqual(10);
+    expect(result.selected.map((selection) => selection.rank)).toEqual([1, 2]);
+
+    // Every selected id resolves back into the package's decisions and each
+    // reason belongs to the frozen two-value vocabulary (CR-2).
+    for (const selection of result.selected) {
+      expect(selection.selectionReason).toMatch(
+        /^(model_disagreement_above_threshold|no_distinguishable_factor_difference)$/,
+      );
+      const resolved = pkg.decisions.find(
+        (decision) => decision.decisionId === selection.decisionId,
+      );
+      expect(resolved).toBeDefined();
+      expect(resolved!.outcome).toBe("analysis_ready");
+    }
+
+    // Selection order is the policy total order: errorGap strictly
+    // non-increasing down the selected list (≈99.27 before ≈97.42).
+    const gaps = result.selected.map((selection) => {
+      const decision = pkg.decisions.find(
+        (candidate) => candidate.decisionId === selection.decisionId,
+      )!;
+      return decision.outcome === "analysis_ready"
+        ? decision.modelEvaluation.errorGap
+        : -1;
+    });
+    for (let index = 1; index < gaps.length; index += 1) {
+      expect(gaps[index]!).toBeLessThanOrEqual(gaps[index - 1]!);
+    }
+
+    // Aggregate passthrough (CR-3) and package binding (CR-5): the result
+    // carries the package id and its truthful status untouched.
+    expect(result.analysisPackageId).toBe(pkg.packageId);
+    expect(result.analysisPackageStatus).toBe(pkg.record.status);
+    expect(result.analysisPackageStatus).toBe("integrity_failed");
+  }, 120000);
+
+  it("is recomputable: the same semantic input rerun through the whole chain yields field-identical ReviewSelectionResults", async () => {
+    const first = await goldenSelection();
+    const second = await goldenSelection();
+    expect(second.pkg.packageId).toBe(first.pkg.packageId);
+    expect(second.pkg.semanticContentHash).toBe(first.pkg.semanticContentHash);
+    expect(selectReviewDecisions(second.pkg)).toEqual(
+      selectReviewDecisions(first.pkg),
+    );
   }, 120000);
 });

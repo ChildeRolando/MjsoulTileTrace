@@ -114,6 +114,35 @@ model/source tag 等）；LLM prompt/解释版本（provider/model、prompt vers
 schema 版本、validator/generation 版本）属 `ReviewReport`。同一分析包可被不同
 LLM/prompt 重生成多个 ReviewReport。
 
+### 评审选择（review selection）
+
+**DeterministicReviewSelector（确定性评审选择策略）**：
+纯函数式、确定性、版本化的产品策略，把 schema-valid 的 `StructuredAnalysisPackage`
+投影为可机器审计的 `ReviewSelectionResult`；只消费 M6-C 已有信息，不新增任何分析
+能力。入选 authority 只有一条门："分歧 AND errorGap ≥ T"（T/N 冻结进 policy
+版本）；preference 冲突只作排序 tiebreaker；graph / UI / 引擎都不拥有"什么值得
+评审"的判定权（grill F1/F3）。
+_Avoid_: 把它当智能选择器 / 质量/重要性评分器；让 M7-A 或 M6-D2 自行推理
+"为什么入选、为什么排序"
+
+**ReviewSelectionResult（评审选择结果）**：
+selector 的确定性投影：`policyVersion` + `analysisPackageId` +
+`analysisPackageStatus`（原样透传 `package.record.status`）+ `selected`
+（decisionId / 1-based rank / selectionReason）。没有 `selectionId` /
+`semanticHash` / `createdAt`；identity = `(analysisPackageId, policyVersion)`，
+M7-B 只保存这两个值即可重算。`selected` 只引用 decisionId，不复制 errorGap /
+preferredActions / factor differences（避免第二套 truth）。
+_Avoid_: 把它当新的 evidence artifact / 有独立生命周期的产物
+
+**selection reason（入选原因）**：
+冻结的两值机械词汇：`model_disagreement_above_threshold`（分歧且 ≥T 且
+actual↔preferred 存在 valueRelation ≠ equal 的确定性 FactorDifference）与
+`no_distinguishable_factor_difference`（分歧且 ≥T，但已计算确定性维度无可区分
+差异）；后者不构成独立入选 authority。pedagogy / CoachJudgment 措辞
+（bad_push / dangerous_decision / important_learning_point /
+learning_opportunity）一律不得进入结果；heuristic / advisory 差异不参与该判定。
+_Avoid_: 用"学习点"式措辞替换 selection reason；让 heuristic 差异决定 reason
+
 ### ContextGraph 与推理审计（context graph / reasoning audit）
 
 **ContextGraph**：
