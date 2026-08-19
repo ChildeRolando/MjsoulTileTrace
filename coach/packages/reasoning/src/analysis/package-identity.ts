@@ -54,7 +54,15 @@ import type {
 // Deterministic canonical serialization (sorted keys; locale-independent).
 // ---------------------------------------------------------------------------
 
-function canonicalJson(value: unknown): string {
+/**
+ * The UNIQUE deterministic canonical serializer of the package/graph identity
+ * substrate (M6-D1 spec "统一 deterministic serializer（guard）"): sorted-key
+ * canonical JSON + SHA-256. M6-C identity derivation AND the M6-D1 projector,
+ * slice builder, graph/slice validators and reasoning partition validator all
+ * call exactly this implementation — no second stringify / key sort may exist
+ * in the projector or slice builder (guard 1).
+ */
+export function canonicalJson(value: unknown): string {
   if (value === null || typeof value !== "object") return JSON.stringify(value);
   if (Array.isArray(value)) return `[${value.map(canonicalJson).join(",")}]`;
   const entries = Object.entries(value as Record<string, unknown>)
@@ -63,7 +71,8 @@ function canonicalJson(value: unknown): string {
   return `{${entries.join(",")}}`;
 }
 
-function sha256Hex(value: string): string {
+/** SHA-256 hex digest — the second half of the shared identity substrate. */
+export function sha256Hex(value: string): string {
   return createHash("sha256").update(value).digest("hex");
 }
 

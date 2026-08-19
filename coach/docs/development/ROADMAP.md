@@ -17,7 +17,7 @@
 | M3 教学证据 | 未开始 | 仅有策略边界和占位契约 | 冻结资料、引用、版本化教学规则；与 decision fact 两源分离，fixed report 稳定后启动 |
 | M4 受约束追问 | 未开始 | ——（原 M4"LLM 教练"已拆分为 M6-D 解释引擎 + M7-A 固定报告 UI + M4 追问对话） | fixed report 与教学证据层稳定后的 constrained follow-up/chat；context retrieval 将建立在 M6-D1 ContextGraph 上（embeddings/GraphRAG 不是前提） |
 | M5 雀魂国区接入 | 接近完成 | Electron 登录、加密恢复、最近 30 场、取回、canonical mapper、重放、脱敏 replay audit、H1 诊断命令 | 真实牌谱 H1 对照验收；未覆盖流局/杠枚举的 fixture 反证 |
-| M6 模型生产接入 | 进行中 | M6-A1：Mortal 单决策切片（安全获取、指纹/视角绑定、比较集 + ModelEvaluation + assembly）；M6-A2：全量自摸面覆盖账本（全局二部绑定、120/113 无丢失、99 个支持对 analysis_ready）；M6-A3：行动支持扩展已落地（declare_riichi 契约与 riichi_discard 实现语义、自摸/杠/九种九牌终局 actual、post_riichi/post_call 决策面、真实 hora 形态钉死、10 分支 fail-closed coverage gate + §16 evidence manifest lift 路径、双平台验收入口（雀魂首选 + Tenhou 补充，共享验收核心）、H2 连续性复跑 125/113 全绑定 0 歧义）；**真实语料验收矩阵 10/10 补满（2026-08-17，双平台 §16 manifest，handoff §15）**；**M6-A4 响应面已收口（2026-08-18，wave-1 六分支 6/6 真实 E2E，详见 [M6-A4.3 wave-1 矩阵](M6-A4.3-wave1-matrix-status.md)）**；**M6-C StructuredAnalysisPackage 固化（stable evidence substrate，Slice 1–4 + whole-game golden）**；**DeterministicReviewSelector（确定性选择策略，policy v1 冻结 + 三 slice + whole-game consumer golden，2026-08-19）** | **M6-D1 Typed Context Graph substrate**；**M6-D2 Graph-grounded Coach + Validator**；M6-B Akagi 后置 |
+| M6 模型生产接入 | 进行中 | M6-A1：Mortal 单决策切片（安全获取、指纹/视角绑定、比较集 + ModelEvaluation + assembly）；M6-A2：全量自摸面覆盖账本（全局二部绑定、120/113 无丢失、99 个支持对 analysis_ready）；M6-A3：行动支持扩展已落地（declare_riichi 契约与 riichi_discard 实现语义、自摸/杠/九种九牌终局 actual、post_riichi/post_call 决策面、真实 hora 形态钉死、10 分支 fail-closed coverage gate + §16 evidence manifest lift 路径、双平台验收入口（雀魂首选 + Tenhou 补充，共享验收核心）、H2 连续性复跑 125/113 全绑定 0 歧义）；**真实语料验收矩阵 10/10 补满（2026-08-17，双平台 §16 manifest，handoff §15）**；**M6-A4 响应面已收口（2026-08-18，wave-1 六分支 6/6 真实 E2E，详见 [M6-A4.3 wave-1 矩阵](M6-A4.3-wave1-matrix-status.md)）**；**M6-C StructuredAnalysisPackage 固化（stable evidence substrate，Slice 1–4 + whole-game golden）**；**DeterministicReviewSelector（确定性选择策略，policy v1 冻结 + 三 slice + whole-game consumer golden，2026-08-19）**；**M6-D1 Typed Context Graph substrate（2026-08-19，deterministic projection + GraphContextSlice + 三 guard 全绿）** | **M6-D2 Graph-grounded Coach + Validator**；M6-B Akagi 后置 |
 | M7 复盘工作台 | 未开始 | 安全 IPC 和最小目录 UI | **M7-A** fixed review UI（三层，原生 DOM；消费 `DeterministicReviewSelector` 输出）；**M7-B** ReviewSession 持久化/重开 + SQLite + 产品内 Mortal 缓存（privileged 边界，ADR-0003/决策 H6） |
 | M8 打包发布 | 未开始 | Electron 与 sidecar 构建基础 | 跨平台安装、升级、日志、发布验收 |
 
@@ -118,6 +118,18 @@ downstream product policy 消费方）。contract 名称与 selection reason 词
 ### 4. M6-D 解释引擎 + Validator（拆为两个内部 slice，不新增顶级 milestone）
 
 #### M6-D1 — Typed Context Graph substrate
+
+**状态：已落地（2026-08-19）**。实现规格
+[`2026-08-19-m6-d1-context-graph-substrate-design.md`](../specs/2026-08-19-m6-d1-context-graph-substrate-design.md)
+全部交付：contracts 冻结 `ContextGraph` / `GraphContextSlice` 契约与
+`GRAPH_SLICE_PAYLOAD_ALLOWLIST`（不新增依赖）；reasoning 包根导出
+`projectContextGraph` / `buildGraphContextSlice` / `getDecisionSubgraph` /
+`validateContextGraph` / `validateReasoningOverlayPartition` /
+`validateGraphContextSlice`。三项评审 guard 全绿：统一 deterministic
+serializer（nodeId/edgeId/sliceId 复用 M6-C package-identity）、D1 只做
+reasoning partition 校验（无 `appendReasoningOverlay`、projection 无 reasoning
+节点）、slice 同源只以 packageId 证明。不新增 workspace 依赖；
+typecheck / vitest（1705）/ check:architecture / package-import 全绿。
 
 - 从 `StructuredAnalysisPackage` 确定性投影 `ContextGraph`；
 - typed nodes / typed edges；
