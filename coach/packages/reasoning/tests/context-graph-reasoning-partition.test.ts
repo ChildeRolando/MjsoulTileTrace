@@ -2,11 +2,9 @@
  * M6-D1 — reasoning overlay partition validator tests (spec "按模块测试 —
  * reasoning partition validator（guard 2）").
  *
- * D1 only FREEZES the reasoning overlay's schema/partition validation: there
- * is no `appendReasoningOverlay` implementation and the projector emits no
- * reasoning nodes/edges (guard 2). These tests validate the partition rules
- * against a proposed reasoning partition; they never test an append action —
- * none exists in D1.
+ * D1 only FREEZES the reasoning overlay's schema/partition validation and the
+ * projector still emits no reasoning nodes/edges (guard 2). M6-D2 now owns the
+ * sole public `appendReasoningOverlay` seam at the package root.
  */
 import * as reasoning from "../src/index.js";
 import { describe, expect, it } from "vitest";
@@ -35,8 +33,8 @@ function reasoningNode(overrides: Record<string, unknown> = {}): ContextGraphNod
 }
 
 describe("M6-D1 validateReasoningOverlayPartition", () => {
-  it("guard 2: D1 exports no appendReasoningOverlay implementation", () => {
-    expect("appendReasoningOverlay" in reasoning).toBe(false);
+  it("guard 2: D1 projection emits no append action; D2 exposes the sole root seam", () => {
+    expect("appendReasoningOverlay" in reasoning).toBe(true);
     expect("appendReasoningOverlay" in projectContextGraph).toBe(false);
   });
 

@@ -23,3 +23,4 @@ export * from "./mahjong-soul.js";
 export * from "./structured-analysis-package.js";
 export * from "./review-selection.js";
 export * from "./context-graph.js";
+export * from "./coach.js";
