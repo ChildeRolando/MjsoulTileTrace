@@ -236,6 +236,71 @@ fixtures）、独立 `test:package-import`、`typecheck`、`npm audit --omit=dev
 沙箱内 `.git` 写入及宿主 SSH 私钥读取仍有访问边界；不将这些边界当作 esbuild
 复发，也不为了推送文档而放宽它们。执行器通过已有 GitHub CLI 认证的 Git Data
 API 保存仅含验收记录的文档提交；生产代码与被测试候选一致。
+### 审查官第二个新任务终验（2026-09-20）
+
+本次为评论 `01a0bb90-66ab-7889-a973-af7dda454401` 触发的真实审查任务，
+task home 后缀 `coac-13-d0a81022870d`，Codex session
+`01a0bb90-a332-7be3-a077-4fa5a033870e`。cwd 为
+`E:\文档\日麻教学\MjsoulTileTrace\coach`；开始核对 HEAD 为
+`1741b30ad3d2cd3d0241b629fb052a28b96551ab`。保留既有未提交文档、检查器和
+生成产物，仅追加本节证据。已读取 PR #6 的 `1c7c8dca2497e1e3d3261da3e677daee79904291`
+权威说明；本地检查器与该提交内容一致（归一化 CRLF/LF 后比较）。
+
+实际 shell 为 `C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe`，
+版本 `5.1.26100.7462`；Node `v24.15.0`、npm `11.12.1`。当前 task 的
+`.sandbox/sandbox.2026-09-19.log` 记录 05:27:05 需要初始化，05:27:10
+`setup provisioning binary completed`，05:27:15 refresh `errors=[]` 和
+`setup binary completed`，随后实际启动 `codex-command-runner-0.155.1.exe`。
+这是 elevated runner 的运行证据，不是复制 config 的推断；本轮没有人工初始化
+干预。日志仍有隐藏 `C:\Users\Default` 属性失败（错误 5）的警告；不据此宣称
+上游初始化问题普遍解决。读取 setup_marker.json 被沙箱拒绝，未绕过此边界。
+
+同一 PowerShell 会话直接执行实际安装的
+`node_modules/@esbuild/win32-x64/esbuild.exe --version`：stdout `0.28.1`，exit 0；
+`node -e "console.log(require('esbuild').transformSync('let x=1').code)"`：
+stdout `let x = 1;`，exit 0，无异常。
+`node scripts/check-windows-esbuild.mjs --bundle` exit 0，Node/cmd 管道、transform、
+两次真实 bundler 全部通过；没有 ESBUILD_BINARY_PATH override。
+
+覆写前后 `packages/desktop/dist/preload.bundle.cjs` owner 均为 `1080TI\Roland`，
+`AreAccessRulesProtected=False`，SHA-256 均为
+`B2A6ADFC7D697F27CDA02B2B5025C6E734F138830117A619569BBDAF462D4158`。
+当前 cap_sid 的 cwd SID `S-1-5-21-4030059394-2614175392-3956312493-3152035038`
+及 writable-root SID `S-1-5-21-2833052021-169515237-3988116199-3774164276`
+均在文件 ACL 中具有继承的 `Modify, Synchronize`（`IsInherited=True`）；父目录
+同样启用继承。未清理该产物、修改 ACL、全局权限、安全软件或生产 bundler。
+
+完整 `npm test` 两次均 exit 1：构建成功，但
+`packages/mahjong-soul-source/tests/protocol-bundle.test.ts:239` 的
+`rejects modified or missing upstream and generated assets` 均触发原有 5000ms
+超时。第二次与其他构建/typecheck 串行执行，未更改测试或超时设置。因命令短路，
+其后的协议脚本、Review Loop fixtures 与 architecture 阶段未执行，不能沿用前一
+Agent 的通过结果。独立 `npm run test:package-import`、`npm run typecheck`、
+`npm audit --omit=dev` 均 exit 0（audit 无漏洞）。
+聚焦 `npx vitest run packages/mahjong-soul-source/tests/protocol-bundle.test.ts`
+exit 0，目标用例耗时 321ms；仅说明聚焦执行成功，不证明全量门禁通过，也不足以
+将超时归因为负载或 ACL。
+
+裁决：原 esbuild/旧 bundle 覆写故障本轮无法复现，第二 Agent 的既有产物复用已
+验证；但按 `VERIFICATION.md` 完整门禁和工单验收标准，终验仍禁止关闭。
+机械阻断检查沿用上述原始 `npm test`（已连续两次失败），现有测试即回归 owner，
+无需新增重复检查。最小下一步为定位该全量运行超时，再在同一新任务环境下让
+未放宽门槛的 `npm test` 完整通过；聚焦 PASS 不能替代。任意未来任务或清理后
+首次生成产物的 ACL 生命周期仍未获得通用保证。本次不审 webhook 设计、不合并
+PR、不变更工单状态。完整输出随 COAC-13 此触发线程的终验评论提供。
+
+### 协议资产测试的全量运行超时修复
+
+审查官新任务 `01a0bb90-66b5-792f-aa17-d0a81022870d` 连续两次完整运行在
+同一协议资产负例测试超过默认 5 秒；单文件 8 个测试总计 872ms，目标聚合用例
+321ms。保留这些 RED 证据，不把 focused 成功当成完整门禁成功。
+
+原 `protocol-bundle.test.ts` 把 5 个资产的修改/缺失共 10 个独立场景串行放进
+一个 `it`，每场景都复制/清理完整 fixture 并检查固定错误。PR #5 的修复提交
+`40951767e95fa789d64ff66080a1ab47e84a8cdc` 将它们参数化为 10 个独立 `it.each`，
+保留全部资产、两种破坏方式、完整 fixture 和原错误断言，每例仍用默认 5 秒。
+没有增大全局 timeout、降低断言或修改生产 loader。
+focused 修复后 17/17 通过；完整门禁必须继续在真实新任务中验证，不能据此放行。
 ### workspace import 指向旧的 `dist`
 
 先运行 `npm run build`，再跑跨 workspace 的 focused 测试。desktop 测试通过包名导入 source 包时，旧 `dist` 会造成看似无法解释的失败。
