@@ -198,9 +198,13 @@ export function runChecks() {
     "environment blocked",
     "malformed",
     "stale HEAD",
+    "stale Fixer result",
+    "untrusted review result author",
+    "untrusted Fixer result author",
     "round 3",
     "duplicate transition",
     "conflicting results",
+    "unverifiable webhook source bytes",
   ];
   const names = fixtureDocument.cases.map((fixture) => fixture.name);
   for (const name of requiredCases) {
