@@ -96,6 +96,9 @@ node --test scripts/mahjong-soul-protocol-compatibility.test.mjs
 
 ### Windows esbuild `spawn EPERM`（COAC-13）
 
+2026-09-20 当前验收：本机当前工作区已恢复，真实新 Multica 任务的完整门禁通过。
+当前证据见下方“测试拆分后的新任务终验”，此前失败记录保留用于回归与恢复。
+
 先在**发生故障的同一个 Agent 会话**、`coach/` 目录运行：
 
 ```powershell
@@ -231,7 +234,7 @@ fixtures）、独立 `test:package-import`、`typecheck`、`npm audit --omit=dev
 同轮发现审查官仍无专用配置，已按用户的全权修复授权为
 `a800ee82-550e-49ce-aac1-eeb211135da8` 补齐与 Mika/Ticket 相同的 elevated
 参数和唯一 PATH 环境配置，修改前为空且已备份，回读验证参数精确匹配。
-完整恢复仍应包含这个第二 Agent 的新任务对同一生成产物的复验。
+第二 Agent 的新任务复验结果见下方“测试拆分后的新任务终验”；本机当前门禁已通过。
 
 沙箱内 `.git` 写入及宿主 SSH 私钥读取仍有访问边界；不将这些边界当作 esbuild
 复发，也不为了推送文档而放宽它们。执行器通过已有 GitHub CLI 认证的 Git Data
@@ -300,7 +303,53 @@ PR、不变更工单状态。完整输出随 COAC-13 此触发线程的终验评
 `40951767e95fa789d64ff66080a1ab47e84a8cdc` 将它们参数化为 10 个独立 `it.each`，
 保留全部资产、两种破坏方式、完整 fixture 和原错误断言，每例仍用默认 5 秒。
 没有增大全局 timeout、降低断言或修改生产 loader。
-focused 修复后 17/17 通过；完整门禁必须继续在真实新任务中验证，不能据此放行。
+focused 修复后 17/17 通过；随后真实新任务的完整门禁也已通过，证据见下一节。
+### 测试拆分后的新任务终验（2026-09-20，COAC-13）
+
+真实 Multica task `01a0bb98-79bb-74ef-902f-5dc785beec24`，Codex session
+`01a0bb98-b27a-7cd2-badb-c40a0b9e1e83`，task home 后缀
+`coac-13-5dc785beec24`。在 `E:\文档\日麻教学\MjsoulTileTrace\coach` 核对开始与
+结束 HEAD 均为 `40951767e95fa789d64ff66080a1ab47e84a8cdc`（PR #5）。
+实际 shell 为 Windows PowerShell `5.1.26100.7462`，可执行文件位于
+`C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe`；Node `v24.15.0`、
+npm `11.12.1`。保留既有 bundle、检查器和未提交文档，没有清理产物或修改权限。
+
+相对先前 RED 候选 `1741b30`，仅 `protocol-bundle.test.ts:239` 改动：
+LICENSE.txt、NOTICE、liqi.proto、rpc-map.json、endpoints.json 各自的 modified / missing
+共十个负例改为独立 `it.each`，每例仍使用完整 fixture 复制和 finally 清理，
+仍经 `expectFixedFailure` 验证错误类型与固定错误消息。未删负例、改生产代码或
+提高全局/单例 timeout。先前两次全量失败记录保留；本次同一 `npm test` 门禁转绿。
+
+同一 PowerShell 会话执行实际安装的
+`./node_modules/@esbuild/win32-x64/esbuild.exe --version`：stdout `0.28.1`，
+stderr 空，exit 0；`node -e "console.log(require('esbuild').transformSync('let x=1').code)"`
+（实跑加异常字段捕获）stdout `let x = 1;`，stderr 空，exit 0，无异常字段。
+`node scripts/check-windows-esbuild.mjs --bundle` exit 0：Node/cmd 管道、transform
+和两次真实 bundler 覆写均通过，无 ESBUILD_BINARY_PATH override。
+
+本轮串行执行构建门禁，没有启动其他并行构建：`npm test` exit 0，完整执行 build、
+Vitest、updater、compatibility、fixture generator、Review Loop 和 architecture；
+当次 Vitest 为 161 文件 / 1860 测试通过，protocol-bundle 为 17/17（整个文件
+8289ms，不是单例超时），Review Loop 18 fixtures 通过，architecture 0 violations。
+随后独立 `npm run test:package-import`、`npm run typecheck`、
+`npm audit --omit=dev` 均 exit 0，audit 为 0 vulnerabilities。
+
+bundle 前后 owner 均为 `1080TI\Roland`，`AreAccessRulesProtected=False`，SHA-256
+保持 `B2A6ADFC7D697F27CDA02B2B5025C6E734F138830117A619569BBDAF462D4158`。
+当前 cwd SID `S-1-5-21-2359646143-2783130386-2956527127-3596885274` 与 writable-root
+SID `S-1-5-21-3802383779-1613282652-803036976-1453468600` 均有继承的 Modify 权限。
+当前 task 的真实 sandbox 日志记录 05:35:59 provisioning completed、05:36:06
+refresh `errors=[]` / setup completed，05:36:07 实际执行
+`codex-command-runner-0.155.1.exe`，证明 elevated runner 已运行。隐藏
+`C:\Users\Default` 属性失败警告仍存在，但未阻止本轮门禁；不依赖复制 config 推断。
+
+裁决：本机环境恢复与测试拆分通过；原 esbuild / 旧 bundle 写入故障本轮归类为
+无法复现，前次全量超时阻断已由同一完整门禁通过解除。回归 owner 仍为
+`scripts/check-windows-esbuild.mjs --bundle` 和 `npm test` 中上述十个独立负例。
+这不证明任意未来任务、清理后首次生成产物的 ACL 或上游 COM+ 生命周期普遍可靠。
+验收范围仅限本机恢复和测试拆分，不包含 webhook 重新设计或产品功能完成判断。
+原始日志由 COAC-13 终验评论附件提供；不合并 PR、不将工单置 done。
+
 ### workspace import 指向旧的 `dist`
 
 先运行 `npm run build`，再跑跨 workspace 的 focused 测试。desktop 测试通过包名导入 source 包时，旧 `dist` 会造成看似无法解释的失败。
