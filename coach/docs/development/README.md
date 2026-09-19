@@ -26,6 +26,10 @@
 - `coach/README.md`：推理核心的详细能力清单与命令行原型说明；内容较长，部分里程碑描述可能落后于本目录。
 - `COMPLETION-AUDIT.md`：根目录静态课程的完成审计。
 
+外部工单、评论与 Agent 对话是执行和协调表面，不是项目知识权威。会影响未来实现、
+审查、恢复或验证的知识必须按 [开发工作流的 knowledge ownership](DEVELOPMENT_WORKFLOW.md#knowledge-ownership)
+进入仓库；已有权威 artifact 时应更新或引用它，不复制成第二事实源。
+
 ## 更新责任
 
 合并任何改变“完成状态、架构边界、公开命令、测试门禁或下一个里程碑”的提交时，必须同步本目录对应页面。handoff 可以追加，但不能替代 living docs 的更新。

@@ -72,6 +72,41 @@ contract → producer/source → validator → consumer → composition root →
 - 命令变化：更新 `GETTING_STARTED.md` / `VERIFICATION.md`；
 - 接力时：新增 handoff，记录提交、真实门禁、待核实项和下一步。
 
+### 8. Durable Knowledge Gate
+
+完成前判断本次工作是否产生了未来 Agent 或维护者在实现、审查、恢复或验证时仍需知道的
+项目知识。外部工单、评论、聊天和 Agent 日志只用于协调；它们不能成为重要项目知识的
+唯一副本。
+
+按以下优先级选择最强且已有的承载方式：
+
+```text
+executable test/check > normative contract/invariant > ADR/spec amendment > historical record
+```
+
+- 机械可测的新回归条件：先写能在缺陷上失败的 test/check，再修复至通过；
+- 新不变量或权威规则：更新 contract/schema 与本登记表，能机械强制时同时补检查；
+- 新设计取舍或被拒绝方案：写 ADR；spec 被现实修正时 amendment/supersede 原 owner；
+- 实现、里程碑或验收结果：更新 roadmap、handoff 或 acceptance artifact；
+- 纯临时日志、无未来决策价值的探索过程：不落文档。
+
+已有权威 artifact 时只更新或引用它，不复制全文。若执行语义已由 ready-for-agent spec
+拥有，外部 issue 指向该 spec；issue 本身不是 spec。若环境不能写入所需 repository
+owner，任务保持 blocked，并明确列出待写内容；不得用 comment-only 的 PASS/完成替代。
+
+## Knowledge ownership
+
+| Knowledge type | Durable owner |
+|---|---|
+| Current architecture | `ARCHITECTURE.md` |
+| Non-negotiable invariant | `INVARIANTS.md` + executable check |
+| Architectural choice | `docs/adr/` |
+| Ready-to-execute design | `docs/specs/` |
+| Milestone/current status | `ROADMAP.md` |
+| Historical implementation/acceptance outcome | `docs/handoffs/` / acceptance docs |
+| Regression discovered by review | test first + relevant owner doc if semantics changed |
+| External work tracking | Multica/GitHub issue; coordination only, not authoritative |
+
 ## 信任边界清单
 
 ### 外部输入
@@ -116,6 +151,8 @@ contract → producer/source → validator → consumer → composition root →
 - 影响 [INVARIANTS.md](INVARIANTS.md) 中哪些 `INV-*`？
 - 哪些可执行检查保护它们？
 - 是否新增/修改/删除不变量？删除必须说明理由并更新登记表。
+- 是否产生了只存在于外部工单、评论或 Agent context 的未来相关知识？若有，已进入哪个
+  repository owner；机械可测的 finding 对应哪条 regression check？
 
 ### Traceability
 
@@ -168,3 +205,5 @@ contract → producer/source → validator → consumer → composition root →
 3. 是否存在 direct schema bypass、旧 fallback 或第二套 truth；
 4. 并发、超时、注销和跨重启是否会提交陈旧结果；
 5. 文档是否把 fixture、骨架或诊断误写成生产完成。
+6. blocking finding 是否已进入 repository owner；机械可测时，是否有先红后绿的
+   regression test/check，而不是只留在 review 评论中。

@@ -202,6 +202,30 @@ Model/report evidence provider（模型/报告证据来源）
   `mortal-coverage-evidence-manifest.test.ts`。
 - **Status**：machine-enforced。
 
+## INV-011 未来相关的项目知识必须进入仓库
+
+- **Statement**：架构决定、实现与验收结果、review finding、被拒绝的替代方案、
+  spec 与现实的偏差，以及新发现的回归条件，不得只存在于 Agent 临时上下文、聊天、
+  外部工单、评论或运行日志中。当这些知识会影响未来的实现、审查、恢复或验证时，
+  任务只有在知识进入 repository-owned durable artifact 后才算完成。
+- **Why**：外部系统是执行队列和协作表面，不是项目记忆。未来 Agent 即使无法访问
+  本次对话或工单，也必须能仅从仓库理解并验证已接受状态。
+- **Owner / boundary**：知识按
+  [DEVELOPMENT_WORKFLOW.md](DEVELOPMENT_WORKFLOW.md) 的 knowledge ownership 表进入
+  既有权威 owner；外部工单只引用 owner，不复制 ready-for-agent spec 形成第二事实源。
+- **Representation priority**：优先使用最强的 durable 表达：可机械验证的知识进入
+  test/check；规范性规则进入 contract/schema/invariant；设计取舍进入 ADR 或 spec
+  amendment；状态与历史结果进入 roadmap/handoff/acceptance artifact。纯临时运行日志
+  不进入文档。
+- **Enforcement**：大改动变更报告的 Invariants/Traceability/Recoverability 检查、
+  code review 的 durable knowledge gate，以及各知识 owner 已有的 schema、测试与门禁。
+  每个机械可测的 blocking finding 必须优先形成会在缺陷上失败的 regression test；
+  修复后由同一检查证明转绿。
+- **Executable tests**：本不变量的分类动作需要评审判断，无法由一个全局检查完整证明；
+  具体发现一旦可机械验证，其 regression test/check 即成为该知识的可执行 owner。
+- **Status**：partial（具体回归可 machine-enforced；“是否产生未来相关知识”的分类仍需
+  作者与 reviewer 执行门禁）。
+
 ---
 
 ## 维护规则
@@ -213,3 +237,5 @@ Model/report evidence provider（模型/报告证据来源）
    受影响 INV-\* 与保护它们的检查。
 3. 把 docs-only / partial 升级为 machine-enforced 时，同提交补齐检查与测试。
 4. 本表只收架构级不变量；功能级规则进各自模块文档，不收进本表。
+5. 变更完成前执行 INV-011 的 durable knowledge gate；已有权威 owner 时更新或引用它，
+   不创建内容重复的第二份文档。
