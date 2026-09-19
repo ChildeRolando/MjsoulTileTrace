@@ -446,3 +446,21 @@ webhook，也未取得真实原始 delivery。因此 §3.1 的激活阻塞仍有
 因此 Vitest 门禁已经补齐通过证据；build、package-import 与 full 仍未通过，关闭阻塞尚未
 清零。当前失败与 Review Loop 协议逻辑无关，但必须由运行环境修复该工作区输出文件写入
 边界后，对 PR HEAD 重跑原命令。
+
+#### Gate rerun — candidate `05d82bf`, 2026-09-20
+
+宿主已恢复被旧沙箱身份创建的、Git 忽略的
+`packages/desktop/dist/preload.bundle.cjs` 产物生命周期；生产 bundler 与候选 HEAD 字节一致，
+本轮未修改 ACL、沙箱配置或生产代码。随后在 Windows / Node.js v24.15.0、cwd `coach/`
+对 PR #5 HEAD `05d82bf01e13971da142a9040bfdb41f67294aff` 重跑原门禁：
+
+- `npm test`：exit 0；build、161 个 Vitest files / 1851 tests、协议 updater / compatibility、
+  18 个 Review Loop fixtures 与架构检查全部通过；
+- `npm run test:package-import`：exit 0，workspace packages 从 emitted JavaScript 导入成功；
+- `npm run typecheck`：exit 0；`npm audit --omit=dev`：exit 0，0 vulnerabilities；
+- `npm run test:review-loop-protocol`：exit 0，18 fixtures / 5 transitions；
+- `git diff --check 3fa9cfe..HEAD`：exit 0。
+
+先前由 `spawn EPERM` 和既存 bundle 写入拒绝造成的环境门禁阻塞至此清零。§3.1 的 webhook
+激活阻塞不变：以上仓库验收通过不证明平台提供 raw delivery headers/body bytes，也不授权创建
+或启用 webhook。
