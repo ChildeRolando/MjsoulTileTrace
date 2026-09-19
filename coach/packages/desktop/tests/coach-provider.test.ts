@@ -1,4 +1,5 @@
 import { readFileSync } from "node:fs";
+import { createHash } from "node:crypto";
 import { describe, expect, it, vi } from "vitest";
 import {
   StructuredAnalysisPackageSchema, SELECTOR_POLICY_VERSION_V1, type ReviewSelectionResult,
@@ -52,7 +53,18 @@ describe("main-process OpenAI-compatible provider and narrow generation seam", (
     expect(init!.body).not.toContain(KEY);
     for (const forbidden of [KEY, "PRIVATE_COT", request.prompt, JSON.stringify(draft())]) expect(JSON.stringify(report)).not.toContain(forbidden);
     expect(report.audit).toMatchObject({ transportRetries: 0, usage: { inputTokens: 12, outputTokens: 8, totalTokens: 20 } });
+    expect(report.audit.outputHash).toBe(`sha256:${createHash("sha256").update(JSON.stringify(draft())).digest("hex")}`);
     expect(await generateReviewReport(graph, selection, p, now)).toEqual(report);
+  });
+  it.each([undefined, null, false, 12, "invalid", [], { prompt_tokens: "invalid" }, { completion_tokens: -1 }].map(usage => ({ usage })))("keeps valid content when optional usage is $usage", async ({ usage }) => {
+    const http = vi.fn<typeof fetch>(async () => new Response(JSON.stringify({
+      choices: [{ message: { content: JSON.stringify(draft()) } }], usage,
+    })));
+    const report = await generateReviewReport(graph, selection, provider(http), now);
+    expect(report.generationStatus).toBe("complete");
+    expect(report.audit.transportRetries).toBe(0);
+    expect(report.audit.usage).toBeUndefined();
+    expect(http).toHaveBeenCalledTimes(1);
   });
   it.each([
     [429, "rate_limited"], [500, "server_error"], [503, "server_error"], [401, "connection_failed"],
@@ -89,6 +101,7 @@ describe("main-process OpenAI-compatible provider and narrow generation seam", (
     expect(http).toHaveBeenCalledTimes(1);
     expect(report.decisionEntries[0]?.explanationStatus).toBe("invalid_output");
     expect(report.reasoningOverlay).toEqual({ nodes: [], edges: [] });
+    expect(report.audit.outputHash).toBe(`sha256:${createHash("sha256").update(content).digest("hex")}`);
     expect(JSON.stringify(report)).not.toContain("hostile-ref");
     expect(JSON.stringify(report)).not.toContain(KEY);
   });
@@ -110,6 +123,8 @@ describe("main-process OpenAI-compatible provider and narrow generation seam", (
       const http = vi.fn<typeof fetch>(async () => response(escaped));
       const report = await generateReviewReport(graph, selection, provider(http), now);
       expect(report.decisionEntries[0]?.explanationStatus).toBe("invalid_output");
+      expect(report.audit.outputHash).toBe(`sha256:${createHash("sha256").update(escaped).digest("hex")}`);
+      expect(report.audit.transportRetries).toBe(0);
       expect(http).toHaveBeenCalledTimes(1);
       expect(JSON.stringify(report)).not.toContain(statement);
     }
@@ -120,6 +135,24 @@ describe("main-process OpenAI-compatible provider and narrow generation seam", (
     const extended = structuredClone(graph);
     (extended.nodes[0]!.payload as Record<string, unknown>).privateAudit = "OUTSIDE_ALLOWLIST";
     expect(buildCoachRequest(buildGraphContextSlice(extended, selection))).toEqual(request);
+  });
+  it("keeps rejected output hashes local to concurrent completions and subsequent valid output", async () => {
+    const contents = [`first reflection ${KEY}`, `second reflection ${KEY}`];
+    const http = vi.fn<typeof fetch>()
+      .mockImplementationOnce(async () => response(contents[0]))
+      .mockImplementationOnce(async () => response(contents[1]))
+      .mockImplementation(async () => response());
+    const p = provider(http);
+    const reports = await Promise.all(contents.map(() => generateReviewReport(graph, selection, p, now)));
+    reports.forEach((report, index) => {
+      expect(report.audit.outputHash).toBe(`sha256:${createHash("sha256").update(contents[index]!).digest("hex")}`);
+      expect(report.decisionEntries[0]?.explanationStatus).toBe("invalid_output");
+      expect(JSON.stringify(report)).not.toContain(KEY);
+    });
+    const valid = await generateReviewReport(graph, selection, p, now);
+    expect(valid.generationStatus).toBe("complete");
+    expect(valid.audit.outputHash).toBe(`sha256:${createHash("sha256").update(JSON.stringify(draft())).digest("hex")}`);
+    expect(http).toHaveBeenCalledTimes(3);
   });
   it("production service validates identity and runs the real selector, provider and report validator", async () => {
     const http = vi.fn<typeof fetch>(async () => response());

@@ -3,6 +3,7 @@ import {
   type CoachProviderConfig, type LlmCoachProvider, type LlmCoachResult, type LlmCoachErrorCode, type LlmCoachRequest,
 } from "@riichi-coach/contracts";
 import type { ProviderCredentials } from "./credentials.js";
+import { redactCoachOutput } from "./redacted-output.js";
 
 function transportError(error: unknown, timedOut: boolean): LlmCoachErrorCode {
   if (timedOut) return "timeout";
@@ -65,15 +66,20 @@ export function createOpenAiCoachProvider(input: {
             if (error instanceof SyntaxError) return { content: "{}" };
             throw error;
           }
-          const r = raw as { choices?: { message?: { content?: unknown } }[]; usage?: Record<string, unknown> } | null;
+          const r = raw as { choices?: { message?: { content?: unknown } }[]; usage?: unknown } | null;
           const content = r?.choices?.[0]?.message?.content;
           // Semantic failures are success-shaped invalid drafts: never transport-retry them.
-          if (typeof content !== "string" || content.length === 0 || reflectsProtectedText(content, [key!, checked.data.prompt])) return { content: "{}" };
+          if (typeof content !== "string") return { content: "{}" };
+          if (content.length === 0 || reflectsProtectedText(content, [key!, checked.data.prompt])) return redactCoachOutput(content);
           const usage = r?.usage;
-          const tokens = LlmTokenUsageSchema.safeParse(usage === undefined ? {} : {
-            inputTokens: usage.prompt_tokens, outputTokens: usage.completion_tokens, totalTokens: usage.total_tokens,
+          // Optional metadata is untrusted. Its absence or malformed shape must
+          // never discard valid content or be classified as a transport error.
+          if (usage === null || typeof usage !== "object" || Array.isArray(usage)) return { content };
+          const fields = usage as Record<string, unknown>;
+          const tokens = LlmTokenUsageSchema.safeParse({
+            inputTokens: fields.prompt_tokens, outputTokens: fields.completion_tokens, totalTokens: fields.total_tokens,
           });
-          return tokens.success && usage !== undefined ? { content, usage: tokens.data } : { content };
+          return tokens.success ? { content, usage: tokens.data } : { content };
         } catch (error) { return { errorCode: transportError(error, timedOut) }; }
       };
       try { return await Promise.race([attempt(), timeout]); }

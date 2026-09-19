@@ -3,9 +3,9 @@
 日期：2026-09-19。基线 HEAD 已核对为
 `44a633da1ffff7fede80a5fb04f8681d5e7b98c9`，初始工作区干净。
 冻结 issue/spec 未修改。只在本仓库执行，无委派、外部 LLM、push、PR 或 merge。
-实现与本回执保留在工作区，尚未提交：精确暂存时 `git add` exit 1，无法创建
-`.git/index.lock`（Permission denied）。运行时将本仓库 `.git` 设为只读且不允许
-提权，没有绕过该限制。HEAD 仍为上述基线，`BASE_COMMIT..HEAD` 尚不包含实现。
+首次执行的提交被 `.git/index.lock` 写权限阻止（`git add` exit 1），该历史保留在下方。
+恢复本会话时已核对实现提交为 `57cd43ce5d8ed849ab5b02c4ef06aae58d5f9b5f`，工作区
+干净。本轮按 controller 提供的三个 P2 修复并重跑五门；最新结果见文末修复回执。
 
 ## Scope
 
@@ -51,8 +51,8 @@ allow-list 零改动。最终 architecture check：6 packages / 370 files / 1559
   retry、语义不重试与 hash-only audit。diagnostics 不输出被拒绝模型的任意 prose。
 - INV-003/009 的依赖方向门通过；不修改 selector、D1 allow-list 或 session 加密语义。
 
-没有新增、放宽或删除不变量，也不因本次实现升级不变量等级。新 Vitest 测试已落盘，
-但环境阻止其运行；不能将存在测试文件等同于测试通过。
+没有新增、放宽或删除不变量，也不因本次实现升级不变量等级。首次执行的测试被环境
+阻止；恢复会话后实际完成全量运行，结果见文末，历史失败不删除。
 
 ## Traceability
 
@@ -84,9 +84,9 @@ session protector/vault 不是正确所有者，它们拥有 canonical-base64 �
 不新增 package、第二 provider port 或新的核心分析真相。其余是既有 DTO、IPC、slice
 与 report assembly 的窄扩展。
 
-## Verification
+## Verification（首次受限执行的历史记录）
 
-以下命令均从 `coach` 原样调用，最终结果如下：
+以下命令均从 `coach` 原样调用，首次受限执行的结果如下：
 
 | 原样门禁 | 结果 | Exit code | 证据/限制 |
 |---|---|---:|---|
@@ -114,10 +114,8 @@ exit 0。精确暂存指定代码/测试/living-doc 文件的 `git add` 为 exit
 
 ## Remaining limitations
 
-这不是验收通过声明：三项原样门禁 ENVIRONMENT_BLOCKED，需在允许子进程的同等环境
-重跑；真实 Electron OS backend/桌面交互未做人类验收。
-本地提交要求也处于 ENVIRONMENT_BLOCKED（`.git/index.lock` 写权限）。需恢复本仓库
-Git 写权限后，暂存并提交工作区实现；当前不能用 `BASE_COMMIT..HEAD` 代替工作区 diff。
+首次的三项门禁及 Git 写权限阻塞已在恢复会话后解除，重跑结果见下方。真实 Electron
+OS backend/桌面交互仍未做人类验收；门禁通过不替代 controller 的复核决定。
 
 当前非敏感 settings 保留在 main 内存，重启需重新配置；独立凭据可从密文恢复。
 生产 reader 从 `userData/analysis-packages/<sha256(packageId)>.json` 读取已有合法包，
@@ -125,3 +123,55 @@ Git 写权限后，暂存并提交工作区实现；当前不能用 `BASE_COMMIT
 UI/持久化由 COAC-4/M7 承接。本次没有把空 resolver、原始牌谱或 fixture 接成生产包。
 任何后续 reviewer P1/P2 由同一 executor session 修复、重跑五门并提交；本次未运行
 独立 reviewer，也不以自行检查宣称接受。
+
+## Reviewer 修复回执（同一 executor session，2026-09-19）
+
+**Scope / Locality**：处理 `44a633d..57cd43c` 审查中的全部三个 P2。只修改 desktop
+provider/窄生成 seam、reasoning prompt 及其回归测试和 living docs。冻结 spec/issue、
+provider/request/result/report 契约、session protector、依赖表和 renderer allow-list
+均未改变，无新依赖。
+
+1. **P2 usage metadata**：在解引用前校验 optional usage 的对象形状；null、primitive、
+   array 或非法 token 数值只使 usage 缺省，保留合法 content，不触发 transport retry。
+   回归覆盖 8 种缺失/畸形 metadata，断言 complete、单次 HTTP、零重试。
+2. **P2 reflected-output audit hash**：在丢弃内容前计算原始字符串的 SHA-256。
+   main-only WeakMap 将 hash 绑定到本次安全结果对象；严格解析之后生成 seam 将该
+   hash 写入既有 audit.outputHash，再通过 report validator。map 不保留原文，DTO
+   仍只有冻结字段；不把 hash 放进模型可控制的字段，不用跨请求共享的 last-result
+   状态。明文/转义 key 与完整 prompt 反射继续 invalid_output、不重试、无 overlay。
+   测试独立计算预期 hash，并覆盖并发拒绝与后续正常完成之间的隔离。
+3. **P2 frozen prompt**：补齐 v1 规格要求的 zh-CN、Mortal/Akagi 内部原因不可知
+   （modelReason 恒 unknown）、引用复制、advisory 值/来源不篡改及事实/候选数值
+   不补全指令。这是纠正未通过验收的 v1 实现遗漏，保持冻结版本字面量和规格不变。
+   新 `coach-prompt.test.ts` 用独立的预期全文与 canonical slice JSON 锁定字节，
+   不靠 builder 自比较作为 golden。
+
+**Invariants / Traceability**：INV-005 保持秘密不跨 IPC；INV-006 不把畸形 metadata
+误作网络故障；INV-007 恢复原始 outputHash 的审计含义。INV-001/011 的 grounding
+与身份验证原样复用。没有放宽检查或降低不变量级别。
+
+**Replaceability / Semantic Load**：冻结 LlmCoachProvider 端口不扩展；新增的私有
+hash 关联是 desktop redaction 的实现细节。它避免安全替代文本污染 audit 并隔离每次
+completion 的生命周期；端口 DTO 无此元数据字段，扩展它会违反冻结形状，单个全局
+last-hash 会串扰并发调用。reasoning 与 renderer 不依赖该关联或具体 provider。
+
+**Recoverability / Verification**：先运行新增定向测试，exit 1，按预期复现上述缺陷
+（8 failed / 20 passed）；实现后同一测试集合 exit 0（29 passed）。随后从 `coach`
+运行全部五项原样门禁，各一次，结果如下：
+
+| 原样门禁 | 本轮结果 | Exit code | 证据 |
+|---|---|---:|---|
+| `npm run typecheck` | PASS | 0 | 全 workspace |
+| `npm run build` | PASS | 0 | 含实际 sandbox preload bundle |
+| `npx vitest run` | PASS | 0 | 161 files / 1,851 tests |
+| `npm run check:architecture` | PASS | 0 | 6 packages / 372 files / 1,566 imports / 0 violations |
+| `npm run test:package-import` | PASS | 0 | 内置完整 build 与 emitted-JS smoke 均通过 |
+
+本轮无新的环境失败。保留 controller 提供的先前审查记录：第一次全量 Vitest 的
+`protocol-bundle.test.ts:239` 因 5000ms 超时被标记 ENVIRONMENT_BLOCKED（exit 1）；
+未改代码的全量重跑 PASS（160 files / 1,841 tests，exit 0）。这是 reviewer 提供的
+历史证据，与本轮 executor 的一次全量 PASS 分别记录。
+
+所有 HTTP 继续使用 stub，无真实 LLM 调用，无独立 reviewer。本轮三个 P2 已有对应
+实现和回归证据，最终接受与否仍由实验 controller 复核；COAC-4/M7 和真实桌面验收
+限制保持前述范围。

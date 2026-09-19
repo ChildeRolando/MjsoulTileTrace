@@ -6,6 +6,7 @@ import {
   assembleReviewReport, buildCoachRequest, buildGraphContextSlice,
   coachRequestOutcomeFromLlmResult, validateContextGraph, validateReviewReport,
 } from "@riichi-coach/reasoning";
+import { redactedOutputHash } from "./redacted-output.js";
 
 /** COAC-3 narrow seam: one slice, at most two HTTP attempts, existing pure assembly.
  * No full generation workflow, job state, report persistence or regeneration policy. */
@@ -18,10 +19,17 @@ export async function generateReviewReport(
   const descriptor = LlmProviderDescriptorSchema.parse(provider.descriptor());
   let result = { errorCode: "provider_unavailable" } as Awaited<ReturnType<LlmCoachProvider["complete"]>>;
   let transportRetries = 0;
+  let originalOutputHash: string | undefined;
   if (slice.selectedDecisionIds.length > 0) {
     const request = buildCoachRequest(slice);
     const attempt = async () => {
-      try { return LlmCoachResultSchema.parse(await provider.complete(request)); }
+      originalOutputHash = undefined;
+      try {
+        const returned = await provider.complete(request);
+        const parsed = LlmCoachResultSchema.parse(returned);
+        originalOutputHash = redactedOutputHash(returned);
+        return parsed;
+      }
       catch { return { errorCode: "connection_failed" as const }; }
     };
     result = await attempt();
@@ -37,6 +45,9 @@ export async function generateReviewReport(
   }
   const report = assembleReviewReport({ graph, selection, provider: descriptor, generatedAt,
     outcome: coachRequestOutcomeFromLlmResult(result, transportRetries) });
+  // Assembly sees only the safe invalid draft. Preserve the hash of the actual
+  // model output, not that substitute; audit is excluded from report identity.
+  if (originalOutputHash !== undefined) report.audit.outputHash = originalOutputHash;
   // Validator prose may contain rejected model identifiers. Only frozen codes
   // and known decision ids leave main; never persist rejected arbitrary prose.
   report.diagnostics = report.diagnostics.map(({ kind, code, decisionId }) => ({
