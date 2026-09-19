@@ -1,5 +1,5 @@
 import {
-  CoachProviderSettingsSchema, CoachReasoningDraftSchema, LlmCoachRequestSchema, LlmTokenUsageSchema,
+  CoachProviderSettingsSchema, LlmCoachRequestSchema, LlmTokenUsageSchema,
   type CoachProviderSettings, type LlmCoachProvider, type LlmCoachResult, type LlmCoachRequest,
 } from "@riichi-coach/contracts";
 import type { ProviderCredentialService } from "./credentials.js";
@@ -60,16 +60,10 @@ export function createOpenAiCoachProvider(input: {
               try { value = JSON.parse(Buffer.concat(chunks).toString("utf8")); } catch { return { content: "{}" }; }
               const rawContent: unknown = value?.choices?.[0]?.message?.content;
               if (typeof rawContent !== "string" || !rawContent.length) return { content: "{}" };
-              let draft;
-              try { draft = CoachReasoningDraftSchema.safeParse(JSON.parse(rawContent)); } catch { return { content: "{}" }; }
-              if (!draft.success) return { content: "{}" };
-              const containsKey = (value: unknown): boolean => typeof value === "string" ? value.includes(key)
-                : Array.isArray(value) ? value.some(containsKey)
-                : value !== null && typeof value === "object" ? Object.entries(value).some(([name, entry]) => name.includes(key) || containsKey(entry)) : false;
-              if (containsKey(draft.data)) return { content: "{}" };
-              const content = JSON.stringify(draft.data);
-              // Only structured draft content crosses the main-process port. Provider
-              // reasoning_content, headers, error prose and other envelope fields die here.
+              // Preserve the model's exact content for privileged hash/assembly,
+              // including malformed JSON. It is never an IPC/persistence DTO.
+              // Envelope reasoning_content, headers and other fields die here.
+              const content = rawContent;
               const usage = LlmTokenUsageSchema.safeParse(value?.usage ? {
                 inputTokens: value.usage.prompt_tokens, outputTokens: value.usage.completion_tokens, totalTokens: value.usage.total_tokens,
               } : undefined);

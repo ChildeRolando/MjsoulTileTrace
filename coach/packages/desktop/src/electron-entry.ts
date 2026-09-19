@@ -89,6 +89,16 @@ import { createProviderCredentialService, environmentCredentialImporter } from "
 import { createCoachService } from "./llm-provider/service.js";
 import { registerCoachIpc } from "./llm-provider/ipc.js";
 
+const isDiagnosticRun = process.argv.includes("--diagnose-mahjong-soul-restore")
+  || process.argv.includes("--diagnose-mahjong-soul-replay")
+  || process.argv.includes("--diagnose-mahjong-soul-capture-record")
+  || process.argv.includes("--diagnose-mortal-decision")
+  || process.argv.includes("--diagnose-mortal-full-game");
+const hasStartupProviderCredential = !isDiagnosticRun && process.env.RIICHI_COACH_API_KEY !== undefined;
+// Must precede Electron readiness, diagnostics, BrowserWindows and sidecars.
+// Diagnostic-only runs delete the environment input without retaining the key.
+const importProviderCredential = environmentCredentialImporter(process.env, isDiagnosticRun);
+
 const PARTITION = "persist:riichi-coach-mahjong-soul-cn";
 const bundleRoot = fileURLToPath(new URL("../../../vendor/mahjong-soul-protocol/", import.meta.url));
 const resourcesDir = fileURLToPath(new URL("../../../resources/", import.meta.url));
@@ -552,6 +562,10 @@ async function start(): Promise<void> {
     mapRecord: (mappedInput) => mapMahjongSoulRecord({ ...mappedInput, bundle }),
     replay: replayCanonicalStream,
   });
+  // An explicit main-process source path supplies an existing M6-C artifact.
+  // Renderer generation remains packageId-only; no file path or raw package IPC.
+  const analysisPackageFile = process.env.RIICHI_COACH_ANALYSIS_PACKAGE_FILE;
+  if (analysisPackageFile !== undefined) await analysisStore.loadAnalysisPackageFile(analysisPackageFile);
   const recordIngestionService = createMahjongSoulRecordIngestionService({
     vault,
     catalogStore,
@@ -606,10 +620,10 @@ async function start(): Promise<void> {
   const providerCredentials = createProviderCredentialService({
     root: join(app.getPath("userData"), "coach-provider"),
     safeStorage, platform: process.platform,
-    importer: environmentCredentialImporter(process.env),
+    importer: importProviderCredential,
   });
   await providerCredentials.initialize();
-  if (process.env.RIICHI_COACH_API_KEY !== undefined) await providerCredentials.importCredential();
+  if (hasStartupProviderCredential) await providerCredentials.importCredential();
   const coachService = createCoachService({
     credentials: providerCredentials,
     resolvePackage: (packageId) => analysisStore.getAnalysisPackage(packageId),
@@ -667,12 +681,6 @@ async function start(): Promise<void> {
   await createMainWindow();
   app.on("activate", () => { void createMainWindow(); });
 }
-
-const isDiagnosticRun = process.argv.includes("--diagnose-mahjong-soul-restore")
-  || process.argv.includes("--diagnose-mahjong-soul-replay")
-  || process.argv.includes("--diagnose-mahjong-soul-capture-record")
-  || process.argv.includes("--diagnose-mortal-decision")
-  || process.argv.includes("--diagnose-mortal-full-game");
 
 app.whenReady().then(start).catch((error) => {
   console.error("[riichi-coach] startup failed:", error);

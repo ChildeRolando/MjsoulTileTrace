@@ -1,5 +1,7 @@
 import { StructuredAnalysisPackageSchema, type CanonicalEventStream, type StructuredAnalysisPackage } from "@riichi-coach/contracts";
 import { validateStructuredAnalysisPackage } from "@riichi-coach/reasoning";
+import { lstat, open } from "node:fs/promises";
+import { isAbsolute } from "node:path";
 import type {
   MahjongSoulCanonicalMapperResult,
   MahjongSoulMapperDiagnostic,
@@ -46,6 +48,8 @@ export type RecordAnalysisOutcome =
   };
 
 export interface RecordAnalysisStore {
+  /** Explicit main-process file import; no path or package-input IPC exists. */
+  loadAnalysisPackageFile(filePath: string): Promise<string | undefined>;
   /** Main-process producer handoff only; never exposed through IPC. */
   putAnalysisPackage(value: StructuredAnalysisPackage): void;
   getAnalysisPackage(packageId: string): StructuredAnalysisPackage | undefined;
@@ -78,6 +82,10 @@ export function createRecordAnalysisStore(input: {
 }): RecordAnalysisStore {
   const mappedRecords = new Map<string, CanonicalEventStream>();
   const analysisPackages = new Map<string, StructuredAnalysisPackage>();
+  const putAnalysisPackage = (value: StructuredAnalysisPackage): void => {
+    validateStructuredAnalysisPackage(value);
+    analysisPackages.set(value.packageId, structuredClone(StructuredAnalysisPackageSchema.parse(value)));
+  };
   const replayedRecords = new Map<string, ReplayedDecision[]>();
 
   const analyzeRecord = (request: {
@@ -133,10 +141,37 @@ export function createRecordAnalysisStore(input: {
   };
 
   return Object.freeze({
-    putAnalysisPackage(value: StructuredAnalysisPackage): void {
-      validateStructuredAnalysisPackage(value);
-      analysisPackages.set(value.packageId, structuredClone(StructuredAnalysisPackageSchema.parse(value)));
+    async loadAnalysisPackageFile(filePath: string): Promise<string | undefined> {
+      // This is a loader for an existing M6-C artifact, not a new analysis
+      // producer or persistence format. Never reflect path/JSON/parser prose.
+      const maximumBytes = 16 * 1024 * 1024;
+      try {
+        if (!isAbsolute(filePath)) return undefined;
+        const info = await lstat(filePath);
+        if (!info.isFile() || info.isSymbolicLink() || info.size > maximumBytes) return undefined;
+        const handle = await open(filePath, "r");
+        let serialized: string;
+        try {
+          const before = await handle.stat();
+          if (!before.isFile() || before.size > maximumBytes) return undefined;
+          const buffer = Buffer.alloc(Math.min(before.size + 1, maximumBytes + 1));
+          let total = 0;
+          while (total < buffer.length) {
+            const { bytesRead } = await handle.read(buffer, total, buffer.length - total, null);
+            if (bytesRead === 0) break;
+            total += bytesRead;
+          }
+          const after = await handle.stat();
+          if (total > maximumBytes || total !== before.size || total !== after.size
+            || before.dev !== after.dev || before.ino !== after.ino) return undefined;
+          serialized = buffer.subarray(0, total).toString("utf8");
+        } finally { await handle.close(); }
+        const pkg = StructuredAnalysisPackageSchema.parse(JSON.parse(serialized));
+        putAnalysisPackage(pkg);
+        return pkg.packageId;
+      } catch { return undefined; }
     },
+    putAnalysisPackage,
     getAnalysisPackage(packageId: string): StructuredAnalysisPackage | undefined {
       const value = analysisPackages.get(packageId);
       return value === undefined ? undefined : structuredClone(StructuredAnalysisPackageSchema.parse(value));

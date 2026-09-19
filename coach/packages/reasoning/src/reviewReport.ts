@@ -120,6 +120,8 @@ export type CoachRequestOutcome =
   | {
       kind: "generated";
       content: string;
+      /** Main-process security rejection; still hash the original content. */
+      rejectContent?: boolean;
       usage?: LlmTokenUsage;
       transportRetries: number;
     };
@@ -535,7 +537,7 @@ export function assembleReviewReport(
     transportRetries = input.outcome.transportRetries;
     if (input.outcome.usage !== undefined) usage = input.outcome.usage;
     outputHash = `sha256:${sha256Hex(input.outcome.content)}`;
-    const draft = parseDraftContent(input.outcome.content);
+    const draft = input.outcome.rejectContent === true ? null : parseDraftContent(input.outcome.content);
     if (draft === null) {
       // Degrade path 3: unparseable output — invalid_output, no retry.
       rows = selectedDecisionIds.map((decisionId) =>

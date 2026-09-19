@@ -23,11 +23,13 @@ export interface ProviderCredentialService {
   withCredential<T>(use: (key: string) => Promise<T>): Promise<T | undefined>;
 }
 
-/** The environment is consumed once per explicit import and immediately removed. */
-export function environmentCredentialImporter(env: NodeJS.ProcessEnv): () => string | undefined {
+/** Capture before any child/window startup; deferred import holds only a main-process closure. */
+export function environmentCredentialImporter(env: NodeJS.ProcessEnv, discard = false): () => string | undefined {
+  let pending = discard ? undefined : env.RIICHI_COACH_API_KEY;
+  delete env.RIICHI_COACH_API_KEY;
   return () => {
-    const value = env.RIICHI_COACH_API_KEY;
-    delete env.RIICHI_COACH_API_KEY;
+    const value = pending;
+    pending = undefined;
     return value;
   };
 }

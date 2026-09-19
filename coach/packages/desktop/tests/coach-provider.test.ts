@@ -116,11 +116,11 @@ describe("main-process coach credentials and transport", () => {
       .toEqual({ errorCode: "timeout" });
     expect(signal?.aborted).toBe(true);
   });
-  it("drops echoed secrets and never follows redirects or forwards provider reasoning", async () => {
+  it("preserves original content for privileged assembly without following redirects or forwarding envelope reasoning", async () => {
     const f = await fixture(); const credentials = f.create(); await credentials.importCredential();
     const fetch = vi.fn<typeof globalThis.fetch>(async () => new Response(JSON.stringify({ choices: [{ message: { content: f.key, reasoning: f.key } }] })));
     const provider = createOpenAiCoachProvider({ credentials, settings: () => settings, fetch });
-    expect(await provider.complete(request)).toEqual({ content: "{}" });
+    expect(await provider.complete(request)).toEqual({ content: f.key });
     const init = fetch.mock.calls[0]![1]!;
     expect(init.redirect).toBe("error");
     expect(JSON.parse(init.body as string)).toEqual({ model: settings.modelName, temperature: 0, max_tokens: 1024,

@@ -17,7 +17,7 @@
 | M3 教学证据 | 未开始 | 仅有策略边界和占位契约 | 冻结资料、引用、版本化教学规则；与 decision fact 两源分离，fixed report 稳定后启动 |
 | M4 受约束追问 | 未开始 | ——（原 M4"LLM 教练"已拆分为 M6-D 解释引擎 + M7-A 固定报告 UI + M4 追问对话） | fixed report 与教学证据层稳定后的 constrained follow-up/chat；context retrieval 将建立在 M6-D1 ContextGraph 上（embeddings/GraphRAG 不是前提） |
 | M5 雀魂国区接入 | 接近完成 | Electron 登录、加密恢复、最近 30 场、取回、canonical mapper、重放、脱敏 replay audit、H1 诊断命令 | 真实牌谱 H1 对照验收；未覆盖流局/杠枚举的 fixture 反证 |
-| M6 模型生产接入 | 进行中 | M6-A1：Mortal 单决策切片（安全获取、指纹/视角绑定、比较集 + ModelEvaluation + assembly）；M6-A2：全量自摸面覆盖账本（全局二部绑定、120/113 无丢失、99 个支持对 analysis_ready）；M6-A3：行动支持扩展已落地（declare_riichi 契约与 riichi_discard 实现语义、自摸/杠/九种九牌终局 actual、post_riichi/post_call 决策面、真实 hora 形态钉死、10 分支 fail-closed coverage gate + §16 evidence manifest lift 路径、双平台验收入口（雀魂首选 + Tenhou 补充，共享验收核心）、H2 连续性复跑 125/113 全绑定 0 歧义）；**真实语料验收矩阵 10/10 补满（2026-08-17，双平台 §16 manifest，handoff §15）**；**M6-A4 响应面已收口（2026-08-18，wave-1 六分支 6/6 真实 E2E，详见 [M6-A4.3 wave-1 矩阵](M6-A4.3-wave1-matrix-status.md)）**；**M6-C StructuredAnalysisPackage 固化（stable evidence substrate，Slice 1–4 + whole-game golden）**；**DeterministicReviewSelector（确定性选择策略，policy v1 冻结 + 三 slice + whole-game consumer golden，2026-08-19）**；**M6-D1 Typed Context Graph substrate（2026-08-19，deterministic projection + GraphContextSlice + 三 guard 全绿）**；**M6-D2 contracts/reasoning baseline（2026-08-24，严格契约、grounding/read-back validator、append-only overlay、evidence-only degrade）** | COAC-3 门禁/控制器评审、完整 package 生产交接与 COAC-4 编排；M6-B Akagi 后置 |
+| M6 模型生产接入 | 进行中 | M6-A1：Mortal 单决策切片（安全获取、指纹/视角绑定、比较集 + ModelEvaluation + assembly）；M6-A2：全量自摸面覆盖账本（全局二部绑定、120/113 无丢失、99 个支持对 analysis_ready）；M6-A3：行动支持扩展已落地（declare_riichi 契约与 riichi_discard 实现语义、自摸/杠/九种九牌终局 actual、post_riichi/post_call 决策面、真实 hora 形态钉死、10 分支 fail-closed coverage gate + §16 evidence manifest lift 路径、双平台验收入口（雀魂首选 + Tenhou 补充，共享验收核心）、H2 连续性复跑 125/113 全绑定 0 歧义）；**真实语料验收矩阵 10/10 补满（2026-08-17，双平台 §16 manifest，handoff §15）**；**M6-A4 响应面已收口（2026-08-18，wave-1 六分支 6/6 真实 E2E，详见 [M6-A4.3 wave-1 矩阵](M6-A4.3-wave1-matrix-status.md)）**；**M6-C StructuredAnalysisPackage 固化（stable evidence substrate，Slice 1–4 + whole-game golden）**；**DeterministicReviewSelector（确定性选择策略，policy v1 冻结 + 三 slice + whole-game consumer golden，2026-08-19）**；**M6-D1 Typed Context Graph substrate（2026-08-19，deterministic projection + GraphContextSlice + 三 guard 全绿）**；**M6-D2 contracts/reasoning baseline（2026-08-24，严格契约、grounding/read-back validator、append-only overlay、evidence-only degrade）** | COAC-3 控制器复评、自动整盘 package 生产与 COAC-4 编排；M6-B Akagi 后置 |
 | M7 复盘工作台 | 未开始 | 安全 IPC 和最小目录 UI | **M7-A** fixed review UI（三层，原生 DOM；消费 `DeterministicReviewSelector` 输出）；**M7-B** ReviewSession 持久化/重开 + SQLite + 产品内 Mortal 缓存（privileged 边界，ADR-0003/决策 H6） |
 | M8 打包发布 | 未开始 | Electron 与 sidecar 构建基础 | 跨平台安装、升级、日志、发布验收 |
 
@@ -151,8 +151,8 @@ evidence-only degrade。read-back 会重新推导 `CoachJudgment` / `CoachInfere
 
 COAC-3（2026-09-19）已实现主进程 provider、独立 safeStorage 凭据、无 key
 IPC/preload、冻结 prompt 与一次传输重试的窄生成 seam，生产 root 注册对应服务。
-凭据仅从主进程 importer 进入；session-key protector 未修改。完整 package 生产交接、
-COAC-4 编排及后续 UI 仍未完成；所需全量门禁受环境限制，不能视为 M6-D2 验收完成。
+凭据在任何诊断/窗口/子进程启动前由主进程 importer 捕获并清除环境变量；session-key protector 未修改。已有 M6-C package 可从显式主进程文件路径加载并验证后进入生成 IPC。自动整盘 package 生产、
+COAC-4 编排及后续 UI 仍未完成；COAC-3 三项 P2 修复后五个全量门禁通过（1,848 tests），仍待控制器复评，不能视为 M6-D2 整体验收完成。
 行为与变更控制见 [COAC-3 交付记录](../plans/2026-09-19-coac-3-provider.md)。
 
 以下是本 slice 的完整能力清单；baseline 与 COAC-3 不等于 M6-D2 整体完成：

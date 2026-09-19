@@ -16,7 +16,8 @@ serializer and D1 slice builder without widening the slice allow-list.
 
 `electron-entry.ts` initializes the independent credential service under
 `userData/coach-provider/provider-credential.json`, consumes an explicitly supplied
-`RIICHI_COACH_API_KEY` once (deleting it from `process.env`), and registers the five
+`RIICHI_COACH_API_KEY` once at module startup (deleting it before Electron readiness,
+windows, diagnostics or child processes), and registers the five
 coach IPC channels for the trusted main window. Reopening a window disposes the old
 handlers. `riichiCoachProvider` exposes configure, getStatus, importCredential,
 clearCredential and generate. No method accepts an API key. Configure accepts only
@@ -24,19 +25,29 @@ an HTTPS base URL (no userinfo/query/fragment) and a model name. Settings are he
 in memory and must be configured again after restart; credentials survive restart.
 Never place a real key in command arguments, a URL, renderer input or a file.
 
-Import/clear and generation are serialized. The main-only environment importer may
-be triggered again with no IPC payload; a consumed/missing environment value fails
-closed. No renderer key-entry UI is provided.
+The captured key waits only in the main-process importer closure until safeStorage
+is ready. Diagnostic-only launches discard it immediately. Import/clear and generation
+are serialized. The importer may be triggered again with no IPC payload, but its
+one-shot captured value is then absent and fails closed; it does not reread process.env.
+No renderer key-entry UI is provided.
 
 The existing main-process `RecordAnalysisStore` gains a validated, cloned package
 handoff (`putAnalysisPackage` / `getAnalysisPackage`); generation accepts only a
 packageId already present there. A missing/mismatched package returns the fixed
-`unavailable` result. Existing record ingestion produces canonical/replay data,
-not whole-game analysis packages: connecting that upstream producer, full COAC-4
-generation orchestration, UI and persistence remain outside this delivery. The
-production root is wired to the handoff, but ordinary ingestion alone does not
-yet make a report available. Tests drive the handoff with the existing D1/M6-C
-fixture builder's output, not a renderer-supplied package or prompt.
+`unavailable` result. Normal Electron startup now loads an existing M6-C artifact
+from the explicit main-process environment setting `RIICHI_COACH_ANALYSIS_PACKAGE_FILE`.
+Set that non-secret setting to an absolute path to a StructuredAnalysisPackage JSON
+produced by the existing M6-C builder, then call configure/generate using the file's
+packageId. The loader accepts only a regular non-symlink file up to 16 MiB, closes its
+handle on all paths, and runs the existing strict schema and semantic/provenance
+validator before updating the store. Invalid input does not enter the store or reach
+the provider. File paths and packages cannot be supplied through renderer IPC.
+
+This is a concrete production loader, not a new persistence format or analysis
+producer. Automatic whole-game generation from ordinary record ingestion, full
+COAC-4 orchestration, UI and persistence remain outside this delivery. Regression
+tests drive file loading through registered generation IPC using the D1/M6-C fixture;
+they do not seed the store through its test-only writer.
 
 ## Credential and transport behavior
 
@@ -58,9 +69,14 @@ fixture builder's output, not a renderer-supplied package or prompt.
   rejection. Auth/protocol errors produce invalid-output evidence-only reports;
   the frozen vocabulary has no separate authentication result code.
 - Requests use redirect:error, an abort deadline covering headers and body, and a
-  bounded response body. Only structured draft content and token counts survive
-  envelope parsing. Provider reasoning fields and upstream error prose are discarded.
-  Echoed credentials, including JSON-escaped copies, fail closed before assembly.
+  bounded response body. The original model content string and token counts survive
+  only inside the privileged provider/assembly boundary. Envelope reasoning fields
+  and upstream error prose are discarded. Assembly hashes the original content bytes
+  before strict draft parsing, including rejected/malformed outputs; it never hashes
+  a reserialized draft in place of the received content. Echoed credentials, including
+  JSON-escaped copies, trigger a privileged rejection flag: assembly still records
+  the original digest but emits only invalid-output evidence-only rows. Original
+  content, raw CoT and credentials never enter IPC/report/audit beyond the digest.
 - IPC and preload reparse strict DTOs and return fixed errors. The renderer report
   schema additionally closes the graph contract's opaque edge payload sink (the v1
   producer emits empty edge payloads). No fetch/provider/credential implementation

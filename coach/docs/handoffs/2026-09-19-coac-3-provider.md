@@ -1,5 +1,10 @@
 # COAC-3 local delivery receipt
 
+Historical receipt for the initial sandboxed attempt. The controller subsequently
+committed that implementation as `e71512aaaf360b60c4cfed8217ba211caa57b244`.
+Current review fixes, gate results and remaining limits supersede the status below:
+[COAC-3 review-fix receipt](2026-09-19-coac-3-review-fixes.md).
+
 Base verified before edits: `44a633da1ffff7fede80a5fb04f8681d5e7b98c9`.
 Scope and the repository-required Scope / Locality / Invariants / Traceability /
 Replaceability / Recoverability / Semantic Load receipt are in

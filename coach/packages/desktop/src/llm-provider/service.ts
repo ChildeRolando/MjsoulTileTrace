@@ -65,8 +65,22 @@ export function createCoachService(input: {
             result = LlmCoachResultSchema.parse(await provider.complete(request));
           }
         }
+        const outcome = coachRequestOutcomeFromLlmResult(result, retries);
+        if (outcome.kind === "generated") {
+          // Secret echo detection is a privileged pre-publication gate. Do not
+          // replace content: even a rejected response must retain its own hash.
+          const reject = await input.credentials.withCredential(async (key) => {
+            const containsKey = (value: unknown): boolean => typeof value === "string" ? value.includes(key)
+              : Array.isArray(value) ? value.some(containsKey)
+              : value !== null && typeof value === "object" ? Object.entries(value).some(([name, entry]) => name.includes(key) || containsKey(entry)) : false;
+            if (outcome.content.includes(key)) return true;
+            try { return containsKey(JSON.parse(outcome.content)); } catch { return false; }
+          });
+          // Credentials disappearing before this gate also prevents publication.
+          outcome.rejectContent = reject !== false;
+        }
         const report = assembleReviewReport({ graph, selection, provider: provider.descriptor(),
-          outcome: coachRequestOutcomeFromLlmResult(result, retries), generatedAt: input.now?.() ?? new Date().toISOString() });
+          outcome, generatedAt: input.now?.() ?? new Date().toISOString() });
         validateReviewReport(report, graph);
         return { status: "ready" as const, report };
       } catch { return { status: "unavailable" as const }; }
