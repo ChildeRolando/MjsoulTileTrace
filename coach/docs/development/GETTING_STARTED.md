@@ -160,13 +160,13 @@ PowerShell 也必须一起验证：同机商店安装目录中的 PowerShell 7.6
 下返回 Access Denied；Codex primary-runtime 中实际 pwsh.exe 可运行。
 Multica 0.5.0 的 bundled CLI 在这组测试中也可以执行，无需额外手工 ACL 变更。
 
-经用户批准，已对 Mika 与 Ticket 编码执行器应用专用配置：custom_args 追加
+经用户批准，先对 Mika 与 Ticket 编码执行器应用专用配置，后补齐仓库律法审查官：custom_args 追加
 `-c windows.sandbox=elevated`；custom_env 的 PATH 优先放可运行的实际 PowerShell
 目录并保留 Node/npm、Multica CLI 和原工具路径。COAC-13 已关联已有 Coach
-local_directory，后续任务预期使用 E 盘资源。服务端已确认保存；尚未触发新的
-Multica 模型任务验证 daemon 是否选用新的目录及环境，因此不能宣称端到端恢复。
+local_directory。保存配置时尚未进行新任务验收；后续真实运行结果见下文，
+不能把配置已保存等同于运行恢复。
 
-重启一个新任务后应核对其实际 argv/config、PowerShell 解析路径、cwd 与 checkout
+后续复验应核对新任务的实际 argv/config、PowerShell 解析路径、cwd 与 checkout
 提交，再跑检查器、npm test、package-import。旧运行进程不会自动继承设置；后续若
 初始化 COM+ 弹窗复发，按 #6883 记录并停止宣称完整恢复，不回退到已知 pipe 失败的
 unelevated，也不自动取消沙箱。不要更改机器级 PATH、全局 Codex 配置或安全软件。
@@ -218,6 +218,24 @@ node scripts/check-windows-esbuild.mjs --bundle
 重建前后 bundle SHA-256 相同，说明恢复改变了产物生命周期而非编译结果。
 切换至 COAC-13 的 c3c754e877d8 task home 后，同一检查器（两次 bundle）及完整 build 也 exit 0，产物仍由宿主用户拥有；跨这两个已存在身份的复用已通过，新任务创建/COM+ 生命周期仍待单独验收。
 
+### 新 Multica 任务验收（2026-09-20）
+
+用户授权重跑 COAC-14 后，Ticket 编码执行器的新 run
+`01a0bb87-9e8b-752c-b8ba-62917dd1c88e` 从 daemon 正常启动，在同一个 E 盘
+checkout、候选 `05d82bf` 上通过 `npm test`（161 文件 / 1851 测试，18 protocol
+fixtures）、独立 `test:package-import`、`typecheck`、`npm audit --omit=dev`
+（0 vulnerabilities）与差异检查。真实 sandbox 日志显示 setup refresh
+`errors=[]`、helper completed，并使用 elevated command-runner；本轮不需人工
+干预初始化。它证明本次新任务恢复，不证明上游 COM+ 问题永不复发。
+
+同轮发现审查官仍无专用配置，已按用户的全权修复授权为
+`a800ee82-550e-49ce-aac1-eeb211135da8` 补齐与 Mika/Ticket 相同的 elevated
+参数和唯一 PATH 环境配置，修改前为空且已备份，回读验证参数精确匹配。
+完整恢复仍应包含这个第二 Agent 的新任务对同一生成产物的复验。
+
+沙箱内 `.git` 写入及宿主 SSH 私钥读取仍有访问边界；不将这些边界当作 esbuild
+复发，也不为了推送文档而放宽它们。执行器通过已有 GitHub CLI 认证的 Git Data
+API 保存仅含验收记录的文档提交；生产代码与被测试候选一致。
 ### workspace import 指向旧的 `dist`
 
 先运行 `npm run build`，再跑跨 workspace 的 focused 测试。desktop 测试通过包名导入 source 包时，旧 `dist` 会造成看似无法解释的失败。
