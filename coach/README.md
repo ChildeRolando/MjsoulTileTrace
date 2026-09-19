@@ -8,6 +8,7 @@
 - [当前路线图](docs/development/ROADMAP.md)
 - [系统架构](docs/development/ARCHITECTURE.md)
 - [规格档案](docs/specs/)
+- [Review Loop v1 协议与 Multica 配置规格](docs/specs/2026-09-20-review-loop-v1.md)
 - [实施计划档案](docs/plans/)
 - [交接档案](docs/handoffs/)
 

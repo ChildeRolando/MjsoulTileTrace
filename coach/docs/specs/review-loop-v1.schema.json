@@ -1,0 +1,121 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/ChildeRolando/MjsoulTileTrace/coach/docs/specs/review-loop-v1.schema.json",
+  "title": "Review Loop v1 controller observation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "protocol_version",
+    "ticket_issue_id",
+    "ticket_identifier",
+    "pull_request",
+    "base_sha",
+    "current_head_sha",
+    "reviewed_head_sha",
+    "round",
+    "source_review_id",
+    "source_review_comment_id",
+    "raw_review_sha256",
+    "verdict",
+    "findings",
+    "gates",
+    "environment_failures"
+  ],
+  "properties": {
+    "protocol_version": { "const": "review-loop/v1" },
+    "ticket_issue_id": { "$ref": "#/$defs/uuid" },
+    "ticket_identifier": { "type": "string", "pattern": "^[A-Z][A-Z0-9]+-[1-9][0-9]*$" },
+    "pull_request": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository", "number", "url"],
+      "properties": {
+        "repository": { "const": "ChildeRolando/MjsoulTileTrace" },
+        "number": { "type": "integer", "minimum": 1 },
+        "url": { "type": "string", "format": "uri", "pattern": "^https://github\\.com/ChildeRolando/MjsoulTileTrace/pull/[1-9][0-9]*$" }
+      }
+    },
+    "base_sha": { "$ref": "#/$defs/gitSha" },
+    "current_head_sha": { "$ref": "#/$defs/gitSha" },
+    "reviewed_head_sha": { "$ref": "#/$defs/gitSha" },
+    "round": { "type": "integer", "minimum": 1, "maximum": 3 },
+    "source_review_id": { "$ref": "#/$defs/uuid" },
+    "source_review_comment_id": { "$ref": "#/$defs/uuid" },
+    "raw_review_sha256": { "$ref": "#/$defs/sha256" },
+    "verdict": { "enum": ["NO_P1_P2", "CHANGES_REQUIRED", "ENVIRONMENT_BLOCKED"] },
+    "findings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["P1", "P2", "P3"],
+      "properties": {
+        "P1": { "$ref": "#/$defs/findings" },
+        "P2": { "$ref": "#/$defs/findings" },
+        "P3": { "$ref": "#/$defs/findings" }
+      }
+    },
+    "gates": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": { "$ref": "#/$defs/gate" },
+      "allOf": [
+        { "contains": { "properties": { "id": { "const": "typecheck" } }, "required": ["id"] }, "minContains": 1, "maxContains": 1 },
+        { "contains": { "properties": { "id": { "const": "build" } }, "required": ["id"] }, "minContains": 1, "maxContains": 1 },
+        { "contains": { "properties": { "id": { "const": "vitest" } }, "required": ["id"] }, "minContains": 1, "maxContains": 1 },
+        { "contains": { "properties": { "id": { "const": "architecture" } }, "required": ["id"] }, "minContains": 1, "maxContains": 1 },
+        { "contains": { "properties": { "id": { "const": "package-import" } }, "required": ["id"] }, "minContains": 1, "maxContains": 1 }
+      ]
+    },
+    "environment_failures": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["code", "detail"],
+        "properties": {
+          "code": { "type": "string", "minLength": 1 },
+          "detail": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "uuid": { "type": "string", "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$" },
+    "gitSha": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "path", "line", "scenario", "consequence", "minimal_fix"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "path": { "type": "string", "minLength": 1 },
+          "line": { "type": "integer", "minimum": 1 },
+          "scenario": { "type": "string", "minLength": 1 },
+          "consequence": { "type": "string", "minLength": 1 },
+          "minimal_fix": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "command", "status", "exit_code"],
+      "properties": {
+        "id": { "enum": ["typecheck", "build", "vitest", "architecture", "package-import"] },
+        "command": { "type": "string" },
+        "status": { "enum": ["PASS", "FAIL", "NOT_RUN"] },
+        "exit_code": { "type": ["integer", "null"] }
+      },
+      "oneOf": [
+        { "properties": { "id": { "const": "typecheck" }, "command": { "const": "npm run typecheck" } } },
+        { "properties": { "id": { "const": "build" }, "command": { "const": "npm run build" } } },
+        { "properties": { "id": { "const": "vitest" }, "command": { "const": "npx vitest run" } } },
+        { "properties": { "id": { "const": "architecture" }, "command": { "const": "npm run check:architecture" } } },
+        { "properties": { "id": { "const": "package-import" }, "command": { "const": "npm run test:package-import" } } }
+      ]
+    }
+  }
+}
