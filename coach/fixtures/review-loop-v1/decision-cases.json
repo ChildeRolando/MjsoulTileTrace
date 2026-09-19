@@ -1,0 +1,233 @@
+{
+  "protocol_version": "review-loop/v1",
+  "gate_profile": "coach-five-gates/v1",
+  "cases": [
+    {
+      "name": "clean pass",
+      "input": {
+        "phase": "review",
+        "schema_valid": true,
+        "identity_valid": true,
+        "dispatch_state": "absent",
+        "results_state": "single",
+        "round": 1,
+        "current_head_sha": "1111111111111111111111111111111111111111",
+        "reviewed_head_sha": "1111111111111111111111111111111111111111",
+        "verdict": "NO_P1_P2",
+        "finding_counts": { "P1": 0, "P2": 0, "P3": 0 },
+        "gates": "all_green",
+        "environment_failures": 0
+      },
+      "expected": { "transition": "PASS", "next_round": null }
+    },
+    {
+      "name": "P1",
+      "input": {
+        "phase": "review",
+        "schema_valid": true,
+        "identity_valid": true,
+        "dispatch_state": "absent",
+        "results_state": "single",
+        "round": 1,
+        "current_head_sha": "1111111111111111111111111111111111111111",
+        "reviewed_head_sha": "1111111111111111111111111111111111111111",
+        "verdict": "CHANGES_REQUIRED",
+        "finding_counts": { "P1": 1, "P2": 0, "P3": 0 },
+        "gates": "all_green",
+        "environment_failures": 0
+      },
+      "expected": { "transition": "ROUTE_TO_FIXER", "next_round": null }
+    },
+    {
+      "name": "P2",
+      "input": {
+        "phase": "review",
+        "schema_valid": true,
+        "identity_valid": true,
+        "dispatch_state": "absent",
+        "results_state": "single",
+        "round": 2,
+        "current_head_sha": "2222222222222222222222222222222222222222",
+        "reviewed_head_sha": "2222222222222222222222222222222222222222",
+        "verdict": "CHANGES_REQUIRED",
+        "finding_counts": { "P1": 0, "P2": 2, "P3": 1 },
+        "gates": "all_green",
+        "environment_failures": 0
+      },
+      "expected": { "transition": "ROUTE_TO_FIXER", "next_round": null }
+    },
+    {
+      "name": "P3-only",
+      "input": {
+        "phase": "review",
+        "schema_valid": true,
+        "identity_valid": true,
+        "dispatch_state": "absent",
+        "results_state": "single",
+        "round": 2,
+        "current_head_sha": "2222222222222222222222222222222222222222",
+        "reviewed_head_sha": "2222222222222222222222222222222222222222",
+        "verdict": "NO_P1_P2",
+        "finding_counts": { "P1": 0, "P2": 0, "P3": 3 },
+        "gates": "all_green",
+        "environment_failures": 0
+      },
+      "expected": { "transition": "PASS", "next_round": null }
+    },
+    {
+      "name": "gate fail",
+      "input": {
+        "phase": "review",
+        "schema_valid": true,
+        "identity_valid": true,
+        "dispatch_state": "absent",
+        "results_state": "single",
+        "round": 1,
+        "current_head_sha": "1111111111111111111111111111111111111111",
+        "reviewed_head_sha": "1111111111111111111111111111111111111111",
+        "verdict": "NO_P1_P2",
+        "finding_counts": { "P1": 0, "P2": 0, "P3": 0 },
+        "gates": "failed",
+        "environment_failures": 0
+      },
+      "expected": { "transition": "BLOCKED", "next_round": null }
+    },
+    {
+      "name": "environment blocked",
+      "input": {
+        "phase": "review",
+        "schema_valid": true,
+        "identity_valid": true,
+        "dispatch_state": "absent",
+        "results_state": "single",
+        "round": 1,
+        "current_head_sha": "1111111111111111111111111111111111111111",
+        "reviewed_head_sha": "1111111111111111111111111111111111111111",
+        "verdict": "ENVIRONMENT_BLOCKED",
+        "finding_counts": { "P1": 0, "P2": 0, "P3": 0 },
+        "gates": "not_run",
+        "environment_failures": 1
+      },
+      "expected": { "transition": "BLOCKED", "next_round": null }
+    },
+    {
+      "name": "malformed",
+      "input": {
+        "phase": "review",
+        "schema_valid": false,
+        "identity_valid": true,
+        "dispatch_state": "absent",
+        "results_state": "single",
+        "round": 1,
+        "current_head_sha": "1111111111111111111111111111111111111111",
+        "reviewed_head_sha": "1111111111111111111111111111111111111111",
+        "verdict": "NO_P1_P2",
+        "finding_counts": { "P1": 0, "P2": 0, "P3": 0 },
+        "gates": "all_green",
+        "environment_failures": 0
+      },
+      "expected": { "transition": "BLOCKED", "next_round": null }
+    },
+    {
+      "name": "stale HEAD",
+      "input": {
+        "phase": "review",
+        "schema_valid": true,
+        "identity_valid": true,
+        "dispatch_state": "absent",
+        "results_state": "single",
+        "round": 1,
+        "current_head_sha": "2222222222222222222222222222222222222222",
+        "reviewed_head_sha": "1111111111111111111111111111111111111111",
+        "verdict": "NO_P1_P2",
+        "finding_counts": { "P1": 0, "P2": 0, "P3": 0 },
+        "gates": "all_green",
+        "environment_failures": 0
+      },
+      "expected": { "transition": "DISCARD_AND_REVIEW", "next_round": 2 }
+    },
+    {
+      "name": "round 3",
+      "input": {
+        "phase": "review",
+        "schema_valid": true,
+        "identity_valid": true,
+        "dispatch_state": "absent",
+        "results_state": "single",
+        "round": 3,
+        "current_head_sha": "3333333333333333333333333333333333333333",
+        "reviewed_head_sha": "3333333333333333333333333333333333333333",
+        "verdict": "CHANGES_REQUIRED",
+        "finding_counts": { "P1": 0, "P2": 1, "P3": 0 },
+        "gates": "all_green",
+        "environment_failures": 0
+      },
+      "expected": { "transition": "BLOCKED", "next_round": null }
+    },
+    {
+      "name": "duplicate transition",
+      "input": {
+        "phase": "review",
+        "schema_valid": true,
+        "identity_valid": true,
+        "dispatch_state": "identical",
+        "results_state": "single",
+        "round": 1,
+        "current_head_sha": "1111111111111111111111111111111111111111",
+        "reviewed_head_sha": "1111111111111111111111111111111111111111",
+        "verdict": "CHANGES_REQUIRED",
+        "finding_counts": { "P1": 0, "P2": 1, "P3": 0 },
+        "gates": "all_green",
+        "environment_failures": 0
+      },
+      "expected": { "transition": "NO_ACTION_ALREADY_DISPATCHED", "next_round": null }
+    },
+    {
+      "name": "conflicting results",
+      "input": {
+        "phase": "review",
+        "schema_valid": true,
+        "identity_valid": true,
+        "dispatch_state": "absent",
+        "results_state": "conflicting",
+        "round": 1,
+        "current_head_sha": "1111111111111111111111111111111111111111",
+        "reviewed_head_sha": "1111111111111111111111111111111111111111",
+        "verdict": "NO_P1_P2",
+        "finding_counts": { "P1": 0, "P2": 0, "P3": 0 },
+        "gates": "all_green",
+        "environment_failures": 0
+      },
+      "expected": { "transition": "BLOCKED", "next_round": null }
+    },
+    {
+      "name": "initial candidate",
+      "input": {
+        "phase": "initial_candidate",
+        "schema_valid": true,
+        "identity_valid": true,
+        "dispatch_state": "absent",
+        "results_state": "none",
+        "round": 1,
+        "current_head_sha": "1111111111111111111111111111111111111111"
+      },
+      "expected": { "transition": "DISCARD_AND_REVIEW", "next_round": 1 }
+    },
+    {
+      "name": "fixer new head",
+      "input": {
+        "phase": "fixer",
+        "schema_valid": true,
+        "identity_valid": true,
+        "dispatch_state": "absent",
+        "results_state": "single",
+        "round": 1,
+        "current_head_sha": "2222222222222222222222222222222222222222",
+        "fixer_head_sha": "2222222222222222222222222222222222222222",
+        "previous_head_sha": "1111111111111111111111111111111111111111",
+        "fixer_result_valid": true
+      },
+      "expected": { "transition": "DISCARD_AND_REVIEW", "next_round": 2 }
+    }
+  ]
+}
