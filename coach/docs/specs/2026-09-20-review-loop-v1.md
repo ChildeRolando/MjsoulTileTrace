@@ -427,3 +427,22 @@ delivery read 子命令，`autopilot runs --help` 提供 runs 读取与分页；
 webhook，也未取得真实原始 delivery。因此 §3.1 的激活阻塞仍有效，本文顶部的
 “ready for platform implementation”不得解释为获准启用 webhook。原始 delivery 读取路径
 或新的 versioned hash/admission 语义须由负责人裁决并落盘后再实施。
+
+#### Gate rerun — candidate `e7df092`, 2026-09-20
+
+应用户要求在新的 Multica 运行中补跑相同门禁。子进程创建限制已解除，但 desktop build
+仍被 workspace 产物写入边界阻断：
+
+- `npx vitest run`：exit 0，161 test files、1851 tests 全部通过；
+- `npm run test:review-loop-protocol`、`npm run typecheck`、
+  `npm run check:architecture`：均 PASS，架构检查 0 violations；
+- `npm run build`：exit 1；esbuild 已成功启动，但写入既存
+  `packages/desktop/dist/preload.bundle.cjs` 时返回 `Access is denied`；
+- `npm run test:package-import`、`npm test`：均 exit 1，停在相同的前置 build 写入失败，
+  后续阶段未执行；
+- 目标文件属性为 `Archive`、`IsReadOnly=False`；这不足以判定拒绝来源，未修改 ACL、沙箱
+  配置或生产 bundler 来规避门禁。
+
+因此 Vitest 门禁已经补齐通过证据；build、package-import 与 full 仍未通过，关闭阻塞尚未
+清零。当前失败与 Review Loop 协议逻辑无关，但必须由运行环境修复该工作区输出文件写入
+边界后，对 PR HEAD 重跑原命令。
