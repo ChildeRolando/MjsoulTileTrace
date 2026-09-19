@@ -350,6 +350,32 @@ refresh `errors=[]` / setup completed，05:36:07 实际执行
 验收范围仅限本机恢复和测试拆分，不包含 webhook 重新设计或产品功能完成判断。
 原始日志由 COAC-13 终验评论附件提供；不合并 PR、不将工单置 done。
 
+### 当前 Multica 专用配置与免 UAC 验收（2026-09-20）
+
+本节更新上述 elevated 配置的当前使用状态，保留前文作为历史诊断证据。
+按 COAC-13 用户裁决 `01a0bbce-49d8-755f-b71d-88ad467c999c`，用户已明确授权
+Mika、Ticket 编码执行器、仓库律法审查官使用 Multica 专用参数
+`-c sandbox_mode="danger-full-access"`。这三个 Agent 的命令执行不再使用
+Codex 命令沙箱隔离；独立 Codex 配置未修改。这是免重复 UAC 的明确安全取舍，
+不是 elevated 隔离下的根治。不要照搬 `-s danger-full-access`：本次
+`codex app-server` 实测拒绝该参数，报 `unexpected argument '-s'`。
+
+用户报告新真实 Ticket task `01a0bbc8-fe30-7d62-875c-be8ce16469ca`
+初始化耗时 281 ms，task home 未生成 `.sandbox`，所查 daemon 最近 1200 行
+没有 `setup refresh` 或 `codex-windows-sandbox-setup`，结束后无同名 helper。
+Ticket 终验评论 `01a0bbcc-b86b-7147-8e0d-63c5edaaabda` 记录候选
+`40951767e95fa789d64ff66080a1ab47e84a8cdc` 的 Node/cmd 管道、transform、
+两次真实 bundle 覆写、完整 `npm test`（161 文件/1860 测试）、独立
+package-import、typecheck、audit 均 exit 0。该评论末尾“未获授权/未应用降级”
+的判断已由后续用户裁决更正：Agent 未亲自更改配置不代表运行未继承该配置。
+
+本地使用验收通过，保持现配置；本节转录已完成的验收证据，未另行重跑门禁。
+重复初始化的上游跟踪为 Multica #6883。获知修复发布后，先核对修复范围，
+再撤销上述覆盖、恢复 elevated，并以新的真实任务复验初始化是否仍需反复 UAC、
+`node scripts/check-windows-esbuild.mjs --bundle` 和完整门禁。
+不要回退本机已复现 pipe EPERM 的 unelevated。当前结论不保证未来任意任务或
+清理后首次创建产物的 ACL 生命周期，也不等同于保留命令沙箱的无人值守验收。
+
 ### workspace import 指向旧的 `dist`
 
 先运行 `npm run build`，再跑跨 workspace 的 focused 测试。desktop 测试通过包名导入 source 包时，旧 `dist` 会造成看似无法解释的失败。
