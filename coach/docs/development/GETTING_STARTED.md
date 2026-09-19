@@ -171,6 +171,53 @@ Multica 模型任务验证 daemon 是否选用新的目录及环境，因此不�
 初始化 COM+ 弹窗复发，按 #6883 记录并停止宣称完整恢复，不回退到已知 pipe 失败的
 unelevated，也不自动取消沙箱。不要更改机器级 PATH、全局 Codex 配置或安全软件。
 
+### 跨任务复用 preload bundle 的写入拒绝（COAC-13 / COAC-14）
+
+2026-09-20 的真实 Multica 续跑已不再复现 pipe EPERM：COAC-13 的
+`01a0bb6a-6a0f-7c5d-8ea0-c3c754e877d8` 探针全绿，COAC-14 的
+`01a0bb6c-0d7f-7864-92a3-df8fc3e7dc50` Vitest 161 文件 / 1851 测试通过，
+但二者都无法覆盖 `packages/desktop/dist/preload.bundle.cjs`。
+因此 transform 成功不能作为 build 恢复的验收。
+
+在 COAC-14 HEAD `05d82bf01e13971da142a9040bfdb41f67294aff` 上，宿主侧
+检查发现旧 bundle owner 是 `CodexSandboxOnline`，其继承 ACL 缺少当前任务
+`cap_sid` 中的 workspace SID，而父目录已有该 SID。使用该失败任务的
+CODEX_HOME、elevated/workspace-write/network_access=true 重放：已有 bundle
+的 `openSync(path, "r+")` 返回 EPERM，旁边 preload-entry.js 可写，实际 bundler
+报 Access denied；删除 bundle 也失败。文件非只读，不能仅凭属性判断可写。
+独立任务 CODEX_HOME 的身份不同；单个 home 的构建成功不能证明跨任务复用。
+
+机械回归在 `coach/`（已有完整 build 输入）运行：
+
+```powershell
+node scripts/check-windows-esbuild.mjs --bundle
+```
+
+`--bundle` 除管道/transform 外运行真实 bundler 两次；任何一次非零即失败。
+原故障环境中前面三项通过、两次 bundler 均失败，构成 RED。不要从受限 Agent
+嵌套启动沙箱绕过策略；外部宿主复现应使用明确的任务 home、工作区和模式。
+
+本机恢复只在正常宿主终端处理这个已由 Git 忽略的生成文件：先备份，确认绝对
+路径在目标 checkout、`git ls-files -- packages/desktop/dist/preload.bundle.cjs`
+为空且 `git check-ignore` 命中，然后删除此单一文件并运行
+`node packages/desktop/scripts/bundle-preload.mjs` 重建。不要递归清理工作区。
+新文件 owner 为宿主用户 Roland，可正常继承后续任务的授权；构建继续使用原
+生产脚本，不修改 ACL、不扩大 writable roots，也不改安全软件或全局配置。
+这是对本机陈旧构建产物的恢复，不是上游沙箱身份/ACL 生命周期缺陷的通用修复。
+产物若以后在其他沙箱身份下首次生成而再次出现同类 ACL 差异，仍需宿主侧恢复。
+
+真实任务日志确认 elevated command-runner 已在运行，虽然复制的 config.toml
+仍含 unelevated（启动覆盖生效）；不能只读该文件判断有效模式。实际工具 shell
+仍为 Windows PowerShell 5.1，先前保存 PATH 不等于 shell 继承验收成功。
+本轮按真实 PowerShell 5.1 验证，不把指定另一 pwsh 的成功作为继承证明。
+新 COM+ 初始化是否在所有后续任务都可靠，仍不由这些构建检查证明。
+修复后的宿主重放验证（不是新 Multica 模型任务）：COAC-14 原失败 task home，
+相同 E 盘项目根 cwd、实际 Windows PowerShell 5.1，检查器含两次 bundle 均通过；
+`npm test`（161 文件 / 1851 测试、18 protocol fixtures）、`test:package-import`
+和 `typecheck` 全部 exit 0，候选仍为 `05d82bf`，生产代码未改。
+重建前后 bundle SHA-256 相同，说明恢复改变了产物生命周期而非编译结果。
+切换至 COAC-13 的 c3c754e877d8 task home 后，同一检查器（两次 bundle）及完整 build 也 exit 0，产物仍由宿主用户拥有；跨这两个已存在身份的复用已通过，新任务创建/COM+ 生命周期仍待单独验收。
+
 ### workspace import 指向旧的 `dist`
 
 先运行 `npm run build`，再跑跨 workspace 的 focused 测试。desktop 测试通过包名导入 source 包时，旧 `dist` 会造成看似无法解释的失败。

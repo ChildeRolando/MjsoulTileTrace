@@ -30,4 +30,11 @@ try {
   console.log(JSON.stringify({ name: 'esbuild-resolution', error: errorFields(e) }));
   failed = true;
 }
+// Opt in after a workspace build: exercise real output replacement, not just pipes.
+if (process.argv.includes('--bundle')) {
+  for (let attempt = 1; attempt <= 2; attempt++) {
+    probe(`preload-rebuild-${attempt}`, process.execPath,
+      ['packages/desktop/scripts/bundle-preload.mjs']);
+  }
+}
 process.exitCode = failed ? 1 : 0;
