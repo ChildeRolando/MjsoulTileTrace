@@ -296,7 +296,7 @@
       "expected": { "transition": "DISCARD_AND_REVIEW", "next_round": 1 }
     },
     {
-      "name": "unverifiable webhook source bytes",
+      "name": "unverifiable webhook source",
       "input": {
         "phase": "initial_candidate",
         "schema_valid": true,
@@ -325,6 +325,370 @@
         "fixer_result_valid": true
       },
       "expected": { "transition": "DISCARD_AND_REVIEW", "next_round": 2 }
+    }
+  ],
+  "webhook_baseline": {
+    "config": {
+      "autopilot_id": "00000000-0000-0000-0000-000000000001",
+      "trigger_id": "00000000-0000-0000-0000-000000000002",
+      "trigger": {
+        "id": "00000000-0000-0000-0000-000000000002",
+        "autopilot_id": "00000000-0000-0000-0000-000000000001",
+        "kind": "webhook",
+        "provider": "github",
+        "has_signing_secret": true
+      },
+      "hmac_before_run_verified": true
+    },
+    "intake_issue_id": "00000000-0000-0000-0000-000000000003",
+    "runs_complete": true,
+    "runs": [
+      {
+        "id": "00000000-0000-0000-0000-000000000004",
+        "autopilot_id": "00000000-0000-0000-0000-000000000001",
+        "issue_id": "00000000-0000-0000-0000-000000000003",
+        "source": "webhook",
+        "trigger_id": "00000000-0000-0000-0000-000000000002",
+        "trigger_payload": {
+          "event": "deliberately-untrusted-wrapper",
+          "eventPayload": {
+            "repository": {
+              "full_name": "ChildeRolando/MjsoulTileTrace"
+            },
+            "action": "synchronize",
+            "number": 8,
+            "pull_request": {
+              "number": 8,
+              "base": {
+                "sha": "1111111111111111111111111111111111111111",
+                "ref": "master",
+                "repo": {
+                  "full_name": "ChildeRolando/MjsoulTileTrace"
+                }
+              },
+              "head": {
+                "sha": "2222222222222222222222222222222222222222",
+                "ref": "topic",
+                "repo": {
+                  "full_name": "ChildeRolando/MjsoulTileTrace"
+                }
+              }
+            }
+          }
+        }
+      }
+    ],
+    "live": {
+      "ok": true,
+      "complete": true,
+      "prs": [
+        {
+          "repository": "ChildeRolando/MjsoulTileTrace",
+          "head_repository": "ChildeRolando/MjsoulTileTrace",
+          "number": 8,
+          "state": "open",
+          "draft": false,
+          "base_sha": "1111111111111111111111111111111111111111",
+          "head_sha": "2222222222222222222222222222222222222222",
+          "ticket": {
+            "issue_id": "00000000-0000-0000-0000-000000000005",
+            "project_id": "bc4d48fd-93e1-4377-9342-670a523729ac",
+            "admission_valid": true
+          }
+        }
+      ]
+    }
+  },
+  "webhook_cases": [
+    {
+      "name": "valid signed normalized pull_request source",
+      "steps": [
+        {"expected": {"transition": "DISCARD_AND_REVIEW"},"patches": []}
+      ],
+      "dispatches": 1
+    },
+    {
+      "name": "valid normalized push source",
+      "steps": [
+        {"expected": {"transition": "DISCARD_AND_REVIEW"},"patches": [{"path": ["runs",0,"id"],"value": "00000000-0000-0000-0000-000000000006"},{"path": ["runs",0,"trigger_payload","eventPayload","pull_request"],"remove": true},{"path": ["runs",0,"trigger_payload","eventPayload","number"],"remove": true},{"path": ["runs",0,"trigger_payload","eventPayload","action"],"remove": true},{"path": ["runs",0,"trigger_payload","eventPayload","ref"],"value": "refs/heads/topic"},{"path": ["runs",0,"trigger_payload","eventPayload","before"],"value": "1111111111111111111111111111111111111111"},{"path": ["runs",0,"trigger_payload","eventPayload","after"],"value": "2222222222222222222222222222222222222222"},{"path": ["runs",0,"trigger_payload","eventPayload","deleted"],"value": false}]}
+      ],
+      "dispatches": 1
+    },
+    {
+      "name": "malformed eventPayload",
+      "steps": [
+        {"expected": {"transition": "BLOCKED"},"patches": [{"path": ["runs",0,"trigger_payload","eventPayload"],"value": []}]}
+      ],
+      "dispatches": 0
+    },
+    {
+      "name": "missing eventPayload",
+      "steps": [
+        {"expected": {"transition": "BLOCKED"},"patches": [{"path": ["runs",0,"trigger_payload","eventPayload"],"remove": true}]}
+      ],
+      "dispatches": 0
+    },
+    {
+      "name": "ambiguous event shape",
+      "steps": [
+        {"expected": {"transition": "BLOCKED"},"patches": [{"path": ["runs",0,"trigger_payload","eventPayload","ref"],"value": "refs/heads/topic"},{"path": ["runs",0,"trigger_payload","eventPayload","before"],"value": "1111111111111111111111111111111111111111"},{"path": ["runs",0,"trigger_payload","eventPayload","after"],"value": "2222222222222222222222222222222222222222"},{"path": ["runs",0,"trigger_payload","eventPayload","deleted"],"value": false}]}
+      ],
+      "dispatches": 0
+    },
+    {
+      "name": "partial cross-family fields",
+      "steps": [
+        {"expected": {"transition": "BLOCKED"},"patches": [{"path": ["runs",0,"trigger_payload","eventPayload","after"],"value": "2222222222222222222222222222222222222222"}]}
+      ],
+      "dispatches": 0
+    },
+    {
+      "name": "wrong repository",
+      "steps": [
+        {"expected": {"transition": "BLOCKED"},"patches": [{"path": ["runs",0,"trigger_payload","eventPayload","repository","full_name"],"value": "other/repo"}]}
+      ],
+      "dispatches": 0
+    },
+    {
+      "name": "fork head repository",
+      "steps": [
+        {"expected": {"transition": "BLOCKED"},"patches": [{"path": ["runs",0,"trigger_payload","eventPayload","pull_request","head","repo","full_name"],"value": "fork/repo"}]}
+      ],
+      "dispatches": 0
+    },
+    {
+      "name": "unsupported action",
+      "steps": [
+        {"expected": {"transition": "BLOCKED"},"patches": [{"path": ["runs",0,"trigger_payload","eventPayload","action"],"value": "closed"}]}
+      ],
+      "dispatches": 0
+    },
+    {
+      "name": "PR number mismatch",
+      "steps": [
+        {"expected": {"transition": "BLOCKED"},"patches": [{"path": ["runs",0,"trigger_payload","eventPayload","pull_request","number"],"value": 9}]}
+      ],
+      "dispatches": 0
+    },
+    {
+      "name": "malformed payload SHA",
+      "steps": [
+        {"expected": {"transition": "BLOCKED"},"patches": [{"path": ["runs",0,"trigger_payload","eventPayload","pull_request","base","sha"],"value": "ABC"}]}
+      ],
+      "dispatches": 0
+    },
+    {
+      "name": "wrong trigger/run association",
+      "steps": [
+        {"expected": {"transition": "BLOCKED"},"patches": [{"path": ["runs",0,"trigger_id"],"value": "00000000-0000-0000-0000-000000000009"}]}
+      ],
+      "dispatches": 0
+    },
+    {
+      "name": "wrong autopilot association",
+      "steps": [
+        {"expected": {"transition": "BLOCKED"},"patches": [{"path": ["runs",0,"autopilot_id"],"value": "00000000-0000-0000-0000-000000000009"}]}
+      ],
+      "dispatches": 0
+    },
+    {
+      "name": "wrong run source",
+      "steps": [
+        {"expected": {"transition": "BLOCKED"},"patches": [{"path": ["runs",0,"source"],"value": "manual"}]}
+      ],
+      "dispatches": 0
+    },
+    {
+      "name": "wrong intake issue",
+      "steps": [
+        {"expected": {"transition": "BLOCKED"},"patches": [{"path": ["intake_issue_id"],"value": "00000000-0000-0000-0000-000000000009"}]}
+      ],
+      "dispatches": 0
+    },
+    {
+      "name": "multiple matching runs",
+      "steps": [
+        {"expected": {"transition": "BLOCKED"},"patches": [{"path": ["runs"],"value": [{"id": "00000000-0000-0000-0000-000000000004","autopilot_id": "00000000-0000-0000-0000-000000000001","issue_id": "00000000-0000-0000-0000-000000000003","source": "webhook","trigger_id": "00000000-0000-0000-0000-000000000002","trigger_payload": {"event": "deliberately-untrusted-wrapper","eventPayload": {"repository": {"full_name": "ChildeRolando/MjsoulTileTrace"},"action": "synchronize","number": 8,"pull_request": {"number": 8,"base": {"sha": "1111111111111111111111111111111111111111","ref": "master","repo": {"full_name": "ChildeRolando/MjsoulTileTrace"}},"head": {"sha": "2222222222222222222222222222222222222222","ref": "topic","repo": {"full_name": "ChildeRolando/MjsoulTileTrace"}}}}}},{"id": "00000000-0000-0000-0000-000000000004","autopilot_id": "00000000-0000-0000-0000-000000000001","issue_id": "00000000-0000-0000-0000-000000000003","source": "webhook","trigger_id": "00000000-0000-0000-0000-000000000002","trigger_payload": {"event": "deliberately-untrusted-wrapper","eventPayload": {"repository": {"full_name": "ChildeRolando/MjsoulTileTrace"},"action": "synchronize","number": 8,"pull_request": {"number": 8,"base": {"sha": "1111111111111111111111111111111111111111","ref": "master","repo": {"full_name": "ChildeRolando/MjsoulTileTrace"}},"head": {"sha": "2222222222222222222222222222222222222222","ref": "topic","repo": {"full_name": "ChildeRolando/MjsoulTileTrace"}}}}}}]}]}
+      ],
+      "dispatches": 0
+    },
+    {
+      "name": "incomplete runs",
+      "steps": [
+        {"expected": {"transition": "BLOCKED"},"patches": [{"path": ["runs_complete"],"value": false}]}
+      ],
+      "dispatches": 0
+    },
+    {
+      "name": "unsigned trigger deployment configuration",
+      "steps": [
+        {"expected": {"transition": "BLOCKED"},"patches": [{"path": ["config","trigger","has_signing_secret"],"value": false}]}
+      ],
+      "dispatches": 0
+    },
+    {
+      "name": "non-GitHub trigger deployment configuration",
+      "steps": [
+        {"expected": {"transition": "BLOCKED"},"patches": [{"path": ["config","trigger","provider"],"value": "generic"}]}
+      ],
+      "dispatches": 0
+    },
+    {
+      "name": "HMAC-before-run unverified",
+      "steps": [
+        {"expected": {"transition": "BLOCKED"},"patches": [{"path": ["config","hmac_before_run_verified"],"value": false}]}
+      ],
+      "dispatches": 0
+    },
+    {
+      "name": "wrong trigger readback identity",
+      "steps": [
+        {"expected": {"transition": "BLOCKED"},"patches": [{"path": ["config","trigger","id"],"value": "00000000-0000-0000-0000-000000000009"}]}
+      ],
+      "dispatches": 0
+    },
+    {
+      "name": "live GitHub lookup failure",
+      "steps": [
+        {"expected": {"transition": "BLOCKED"},"patches": [{"path": ["live","ok"],"value": false}]}
+      ],
+      "dispatches": 0
+    },
+    {
+      "name": "incomplete live lookup",
+      "steps": [
+        {"expected": {"transition": "BLOCKED"},"patches": [{"path": ["live","complete"],"value": false}]}
+      ],
+      "dispatches": 0
+    },
+    {
+      "name": "wrong live repository",
+      "steps": [
+        {"expected": {"transition": "BLOCKED"},"patches": [{"path": ["live","prs",0,"repository"],"value": "other/repo"}]}
+      ],
+      "dispatches": 0
+    },
+    {
+      "name": "draft live PR",
+      "steps": [
+        {"expected": {"transition": "BLOCKED"},"patches": [{"path": ["live","prs",0,"draft"],"value": true}]}
+      ],
+      "dispatches": 0
+    },
+    {
+      "name": "closed live PR",
+      "steps": [
+        {"expected": {"transition": "BLOCKED"},"patches": [{"path": ["live","prs",0,"state"],"value": "closed"}]}
+      ],
+      "dispatches": 0
+    },
+    {
+      "name": "wrong ticket admission",
+      "steps": [
+        {"expected": {"transition": "BLOCKED"},"patches": [{"path": ["live","prs",0,"ticket","admission_valid"],"value": false}]}
+      ],
+      "dispatches": 0
+    },
+    {
+      "name": "wrong ticket project",
+      "steps": [
+        {"expected": {"transition": "BLOCKED"},"patches": [{"path": ["live","prs",0,"ticket","project_id"],"value": "00000000-0000-0000-0000-000000000009"}]}
+      ],
+      "dispatches": 0
+    },
+    {
+      "name": "stale payload but newer live HEAD",
+      "steps": [
+        {"expected": {"transition": "DISCARD_AND_REVIEW","head": "3333333333333333333333333333333333333333","round": 1},"patches": [{"path": ["live","prs",0,"head_sha"],"value": "3333333333333333333333333333333333333333"}]}
+      ],
+      "dispatches": 1
+    },
+    {
+      "name": "deleted push",
+      "steps": [
+        {"expected": {"transition": "BLOCKED"},"patches": [{"path": ["runs",0,"id"],"value": "00000000-0000-0000-0000-000000000006"},{"path": ["runs",0,"trigger_payload","eventPayload","pull_request"],"remove": true},{"path": ["runs",0,"trigger_payload","eventPayload","number"],"remove": true},{"path": ["runs",0,"trigger_payload","eventPayload","action"],"remove": true},{"path": ["runs",0,"trigger_payload","eventPayload","ref"],"value": "refs/heads/topic"},{"path": ["runs",0,"trigger_payload","eventPayload","before"],"value": "1111111111111111111111111111111111111111"},{"path": ["runs",0,"trigger_payload","eventPayload","after"],"value": "2222222222222222222222222222222222222222"},{"path": ["runs",0,"trigger_payload","eventPayload","deleted"],"value": true}]}
+      ],
+      "dispatches": 0
+    },
+    {
+      "name": "uppercase push SHA",
+      "steps": [
+        {"expected": {"transition": "BLOCKED"},"patches": [{"path": ["runs",0,"id"],"value": "00000000-0000-0000-0000-000000000006"},{"path": ["runs",0,"trigger_payload","eventPayload","pull_request"],"remove": true},{"path": ["runs",0,"trigger_payload","eventPayload","number"],"remove": true},{"path": ["runs",0,"trigger_payload","eventPayload","action"],"remove": true},{"path": ["runs",0,"trigger_payload","eventPayload","ref"],"value": "refs/heads/topic"},{"path": ["runs",0,"trigger_payload","eventPayload","before"],"value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},{"path": ["runs",0,"trigger_payload","eventPayload","after"],"value": "2222222222222222222222222222222222222222"},{"path": ["runs",0,"trigger_payload","eventPayload","deleted"],"value": false}]}
+      ],
+      "dispatches": 0
+    },
+    {
+      "name": "invalid push ref",
+      "steps": [
+        {"expected": {"transition": "BLOCKED"},"patches": [{"path": ["runs",0,"id"],"value": "00000000-0000-0000-0000-000000000006"},{"path": ["runs",0,"trigger_payload","eventPayload","pull_request"],"remove": true},{"path": ["runs",0,"trigger_payload","eventPayload","number"],"remove": true},{"path": ["runs",0,"trigger_payload","eventPayload","action"],"remove": true},{"path": ["runs",0,"trigger_payload","eventPayload","ref"],"value": "refs/tags/v1"},{"path": ["runs",0,"trigger_payload","eventPayload","before"],"value": "1111111111111111111111111111111111111111"},{"path": ["runs",0,"trigger_payload","eventPayload","after"],"value": "2222222222222222222222222222222222222222"},{"path": ["runs",0,"trigger_payload","eventPayload","deleted"],"value": false}]}
+      ],
+      "dispatches": 0
+    },
+    {
+      "name": "stale push cannot map live HEAD",
+      "steps": [
+        {"expected": {"transition": "BLOCKED"},"patches": [{"path": ["runs",0,"id"],"value": "00000000-0000-0000-0000-000000000006"},{"path": ["runs",0,"trigger_payload","eventPayload","pull_request"],"remove": true},{"path": ["runs",0,"trigger_payload","eventPayload","number"],"remove": true},{"path": ["runs",0,"trigger_payload","eventPayload","action"],"remove": true},{"path": ["runs",0,"trigger_payload","eventPayload","ref"],"value": "refs/heads/topic"},{"path": ["runs",0,"trigger_payload","eventPayload","before"],"value": "1111111111111111111111111111111111111111"},{"path": ["runs",0,"trigger_payload","eventPayload","after"],"value": "2222222222222222222222222222222222222222"},{"path": ["runs",0,"trigger_payload","eventPayload","deleted"],"value": false},{"path": ["live","prs",0,"head_sha"],"value": "3333333333333333333333333333333333333333"}]}
+      ],
+      "dispatches": 0
+    },
+    {
+      "name": "ambiguous push PR mapping",
+      "steps": [
+        {"expected": {"transition": "BLOCKED"},"patches": [{"path": ["runs",0,"id"],"value": "00000000-0000-0000-0000-000000000006"},{"path": ["runs",0,"trigger_payload","eventPayload","pull_request"],"remove": true},{"path": ["runs",0,"trigger_payload","eventPayload","number"],"remove": true},{"path": ["runs",0,"trigger_payload","eventPayload","action"],"remove": true},{"path": ["runs",0,"trigger_payload","eventPayload","ref"],"value": "refs/heads/topic"},{"path": ["runs",0,"trigger_payload","eventPayload","before"],"value": "1111111111111111111111111111111111111111"},{"path": ["runs",0,"trigger_payload","eventPayload","after"],"value": "2222222222222222222222222222222222222222"},{"path": ["runs",0,"trigger_payload","eventPayload","deleted"],"value": false},{"path": ["live","prs"],"value": [{"repository": "ChildeRolando/MjsoulTileTrace","head_repository": "ChildeRolando/MjsoulTileTrace","number": 8,"state": "open","draft": false,"base_sha": "1111111111111111111111111111111111111111","head_sha": "2222222222222222222222222222222222222222","ticket": {"issue_id": "00000000-0000-0000-0000-000000000005","project_id": "bc4d48fd-93e1-4377-9342-670a523729ac","admission_valid": true}},{"repository": "ChildeRolando/MjsoulTileTrace","head_repository": "ChildeRolando/MjsoulTileTrace","number": 8,"state": "open","draft": false,"base_sha": "1111111111111111111111111111111111111111","head_sha": "2222222222222222222222222222222222222222","ticket": {"issue_id": "00000000-0000-0000-0000-000000000005","project_id": "bc4d48fd-93e1-4377-9342-670a523729ac","admission_valid": true}}]}]}
+      ],
+      "dispatches": 0
+    },
+    {
+      "name": "duplicate same run",
+      "steps": [
+        {"expected": {"transition": "DISCARD_AND_REVIEW"},"patches": []},
+        {"expected": {"transition": "NO_ACTION_ALREADY_DISPATCHED"},"patches": []}
+      ],
+      "dispatches": 1,
+      "sources": 1
+    },
+    {
+      "name": "distinct push + pull_request same effect",
+      "steps": [
+        {"expected": {"transition": "DISCARD_AND_REVIEW"},"patches": [{"path": ["runs",0,"id"],"value": "00000000-0000-0000-0000-000000000006"},{"path": ["runs",0,"trigger_payload","eventPayload","pull_request"],"remove": true},{"path": ["runs",0,"trigger_payload","eventPayload","number"],"remove": true},{"path": ["runs",0,"trigger_payload","eventPayload","action"],"remove": true},{"path": ["runs",0,"trigger_payload","eventPayload","ref"],"value": "refs/heads/topic"},{"path": ["runs",0,"trigger_payload","eventPayload","before"],"value": "1111111111111111111111111111111111111111"},{"path": ["runs",0,"trigger_payload","eventPayload","after"],"value": "2222222222222222222222222222222222222222"},{"path": ["runs",0,"trigger_payload","eventPayload","deleted"],"value": false}]},
+        {"expected": {"transition": "NO_ACTION_ALREADY_DISPATCHED"},"patches": []}
+      ],
+      "dispatches": 1,
+      "sources": 2
+    },
+    {
+      "name": "same effect metadata conflict",
+      "steps": [
+        {"expected": {"transition": "DISCARD_AND_REVIEW"},"corrupt_effect": true,"patches": []},
+        {"expected": {"transition": "BLOCKED"},"patches": [{"path": ["runs",0,"id"],"value": "00000000-0000-0000-0000-000000000006"},{"path": ["runs",0,"trigger_payload","eventPayload","pull_request"],"remove": true},{"path": ["runs",0,"trigger_payload","eventPayload","number"],"remove": true},{"path": ["runs",0,"trigger_payload","eventPayload","action"],"remove": true},{"path": ["runs",0,"trigger_payload","eventPayload","ref"],"value": "refs/heads/topic"},{"path": ["runs",0,"trigger_payload","eventPayload","before"],"value": "1111111111111111111111111111111111111111"},{"path": ["runs",0,"trigger_payload","eventPayload","after"],"value": "2222222222222222222222222222222222222222"},{"path": ["runs",0,"trigger_payload","eventPayload","deleted"],"value": false}]}
+      ],
+      "dispatches": 1
+    },
+    {
+      "name": "same run source provenance conflict",
+      "steps": [
+        {"expected": {"transition": "DISCARD_AND_REVIEW"},"patches": []},
+        {"expected": {"transition": "BLOCKED"},"patches": [{"path": ["runs",0,"trigger_payload","eventPayload","extra"],"value": "changed"}]}
+      ],
+      "dispatches": 1
+    },
+    {
+      "name": "duplicate cannot bypass trust failure",
+      "steps": [
+        {"expected": {"transition": "DISCARD_AND_REVIEW"},"patches": []},
+        {"expected": {"transition": "BLOCKED"},"patches": [{"path": ["config","trigger","has_signing_secret"],"value": false}]}
+      ],
+      "dispatches": 1
+    },
+    {
+      "name": "stale payload live advances up to round three",
+      "steps": [
+        {"expected": {"transition": "DISCARD_AND_REVIEW","head": "2222222222222222222222222222222222222222","round": 1},"patches": []},
+        {"expected": {"transition": "DISCARD_AND_REVIEW","head": "3333333333333333333333333333333333333333","round": 2},"patches": [{"path": ["live","prs",0,"head_sha"],"value": "3333333333333333333333333333333333333333"}]},
+        {"expected": {"transition": "DISCARD_AND_REVIEW","head": "4444444444444444444444444444444444444444","round": 3},"patches": [{"path": ["live","prs",0,"head_sha"],"value": "4444444444444444444444444444444444444444"}]},
+        {"expected": {"transition": "BLOCKED"},"patches": [{"path": ["live","prs",0,"head_sha"],"value": "5555555555555555555555555555555555555555"}]}
+      ],
+      "dispatches": 3
     }
   ]
 }

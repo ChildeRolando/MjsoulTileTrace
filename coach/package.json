@@ -9,7 +9,7 @@
     "test:mahjong-soul-protocol-updater": "node --test scripts/update-mahjong-soul-protocol.test.mjs",
     "test:mahjong-soul-protocol-compatibility": "node --test scripts/mahjong-soul-protocol-compatibility.test.mjs",
     "test:generate-mahjong-soul-real-fixtures": "node --test scripts/generate-mahjong-soul-real-fixtures.test.mjs",
-    "test:review-loop-protocol": "node scripts/check-review-loop-v1.mjs",
+    "test:review-loop-protocol": "node scripts/check-review-loop-v1.mjs && node --test scripts/review-loop-source.test.mjs",
     "check:architecture": "node scripts/check-architecture.mjs",
     "test:architecture-checker": "node --test scripts/check-architecture.test.mjs",
     "test:golden": "npm run build && vitest run packages/reasoning/tests/golden-vertical-slice.test.ts",

@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
-import { createHash } from "node:crypto";
+import { transitionKey, EFFECT_FIELDS, SOURCE_FIELDS, SOURCE_SEMANTICS } from "./review-loop-source.mjs";
+export { canonicalize, transitionKey } from "./review-loop-source.mjs";
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 
@@ -48,9 +49,6 @@ export function decide(input) {
     return result("BLOCKED");
   }
 
-  if (input?.dispatch_state === "identical") {
-    return result("NO_ACTION_ALREADY_DISPATCHED");
-  }
   if (
     !input
     || input.dispatch_state === "conflict"
@@ -63,6 +61,9 @@ export function decide(input) {
   ) {
     return result("BLOCKED");
   }
+
+  if (!["initial_candidate", "review", "fixer"].includes(input.phase)) return result("BLOCKED");
+  if (input.dispatch_state === "identical") return result("NO_ACTION_ALREADY_DISPATCHED");
 
   if (input.phase === "initial_candidate") {
     return input.results_state === "none" && input.round === 1
@@ -130,22 +131,6 @@ export function decide(input) {
     : result("BLOCKED");
 }
 
-export function canonicalize(value) {
-  if (Array.isArray(value)) {
-    return `[${value.map(canonicalize).join(",")}]`;
-  }
-  if (value !== null && typeof value === "object") {
-    return `{${Object.keys(value).sort().map(
-      (key) => `${JSON.stringify(key)}:${canonicalize(value[key])}`,
-    ).join(",")}}`;
-  }
-  return JSON.stringify(value);
-}
-
-export function transitionKey(record) {
-  return createHash("sha256").update(canonicalize(record), "utf8").digest("hex");
-}
-
 function readJson(url) {
   return JSON.parse(readFileSync(url, "utf8"));
 }
@@ -177,7 +162,9 @@ export function runChecks() {
   assert.equal(reviewer.visibility, "private");
   assert(controller.instructions.includes("${FRESH_REVIEWER_AGENT_ID}"));
   assert(controller.instructions.includes("author_type=agent"));
-  assert(controller.instructions.includes("source_payload_verified=false"));
+  assert(controller.instructions.includes(SOURCE_SEMANTICS));
+  assert(controller.instructions.includes("has_signing_secret=true"));
+  assert(controller.instructions.includes("source_key"));
   assert(controller.instructions.includes("ba77da89-8574-4dea-8fc2-24e841fc2754"));
   assert(reviewer.instructions.includes("${CONTROLLER_AGENT_ID}"));
   assert(reviewer.instructions.includes("source_review_provenance"));
@@ -189,9 +176,26 @@ export function runChecks() {
   assert.equal(manifest.autopilot.webhook_intake.payload_field, "trigger_payload");
   assert.equal(manifest.autopilot.webhook_intake.raw_headers_available, false);
   assert.equal(manifest.autopilot.webhook_intake.raw_body_bytes_available, false);
-  assert.equal(manifest.autopilot.webhook_intake.reserialize_trigger_payload_for_hash, false);
+  assert.equal(manifest.autopilot.webhook_intake.hash_payload_field, "trigger_payload.eventPayload");
+  assert.equal(manifest.autopilot.webhook_intake.source_semantics, SOURCE_SEMANTICS);
+  assert.equal(manifest.autopilot.trigger.provider, "github");
+  assert.equal(manifest.autopilot.trigger.has_signing_secret_required, true);
+  assert.equal(manifest.autopilot.status, "paused");
+  assert.equal(manifest.autopilot.trigger.enabled, false);
+  assert.deepEqual(manifest.identity.source_fields, SOURCE_FIELDS);
+  assert.deepEqual(manifest.identity.effect_fields, EFFECT_FIELDS);
+  assert.deepEqual(schema.$defs.webhookSource.required, SOURCE_FIELDS);
+  assert.equal(schema.$defs.webhookSource.properties.source_semantics.const, SOURCE_SEMANTICS);
+  assert.deepEqual(schema.$defs.effectIdentity.required, EFFECT_FIELDS);
   assert.equal(manifest.autopilot.webhook_intake.unverifiable_source_transition, "BLOCKED");
-  assert.equal(manifest.autopilot.webhook_intake.activation_blocked_pending_owner_decision, true);
+  assert.equal(manifest.autopilot.webhook_intake.activation_blocked_pending_platform_verification, true);
+  assert.equal(manifest.autopilot.webhook_intake.hmac_before_run_verified, false);
+  assert.equal(manifest.activation.state, "BLOCKED");
+  assert(spec.includes(SOURCE_SEMANTICS));
+  assert(spec.includes("normalized GitHub event payload semantic hash"));
+  assert(spec.includes("source_key"));
+  assert.deepEqual(manifest.autopilot.trigger.github_events[0].actions,
+    ["opened", "reopened", "synchronize", "ready_for_review"]);
   const templateTokens = [...manifest.autopilot.issue_title_template.matchAll(/{{([^}]+)}}/g)]
     .map((match) => match[1]);
   assert.deepEqual(templateTokens, ["date"]);
@@ -241,7 +245,7 @@ export function runChecks() {
     "round 3",
     "duplicate transition",
     "conflicting results",
-    "unverifiable webhook source bytes",
+    "unverifiable webhook source",
   ];
   const names = fixtureDocument.cases.map((fixture) => fixture.name);
   for (const name of requiredCases) {
@@ -257,8 +261,8 @@ export function runChecks() {
     result("BLOCKED"),
   );
 
-  const recordA = { protocol_version: "review-loop/v1", round: 1, transition: "PASS" };
-  const recordB = { transition: "PASS", protocol_version: "review-loop/v1", round: 1 };
+  const recordA = { protocol_version: "review-loop/v1", ticket_issue_id: "00000000-0000-0000-0000-000000000005", repository: "ChildeRolando/MjsoulTileTrace", pr_number: 8, base_sha: "1".repeat(40), current_head_sha: "2".repeat(40), round: 1, transition: "PASS" };
+  const recordB = Object.fromEntries(Object.entries(recordA).reverse());
   assert.equal(transitionKey(recordA), transitionKey(recordB));
   assert.notEqual(transitionKey(recordA), transitionKey({ ...recordA, round: 2 }));
 

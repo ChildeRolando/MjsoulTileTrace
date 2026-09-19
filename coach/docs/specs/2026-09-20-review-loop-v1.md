@@ -2,7 +2,7 @@
 
 日期：2026-09-20
 
-状态：冻结，ready for platform implementation
+状态：路线 B 已批准并落实仓库协议；平台激活 BLOCKED（§3.11、§8）
 
 协议标识：`review-loop/v1`
 
@@ -78,7 +78,7 @@ Autopilot 创建的第一张 intake issue 被 Controller 重命名为 control ro
 intake 被挂为它的 child：
 
 ```text
-[review-loop/v1][event][<delivery-id-prefix-12>] <owner>/<repo>#<pr-number>
+[review-loop/v1][event][<run-id-prefix-12>] <owner>/<repo>#<pr-number>
 ```
 
 intake issue 与触发记录的唯一可读关联路径是：对配置的 Autopilot 执行
@@ -93,87 +93,331 @@ intake issue 与触发记录的唯一可读关联路径是：对配置的 Autopi
 [review-loop/v1][fix][r<round>][<head-prefix-12>] <ticket-key> PR #<number>
 ```
 
-`transition_key` 是以下对象按 RFC 8785/JCS canonical JSON 编码后 UTF-8 bytes 的
-lowercase SHA-256：
+`transition_key` 只绑定 effect，不含任何 source 字段。对以下八字段对象按
+[RFC 8785/JCS](https://www.rfc-editor.org/rfc/rfc8785) 编码后取 UTF-8 lowercase SHA-256：
 
 ```json
 {
   "protocol_version": "review-loop/v1",
   "ticket_issue_id": "<uuid>",
-  "repository": "<owner>/<repo>",
+  "repository": "ChildeRolando/MjsoulTileTrace",
   "pr_number": 123,
   "base_sha": "<40 lowercase hex>",
   "current_head_sha": "<40 lowercase hex>",
   "round": 1,
-  "transition": "DISCARD_AND_REVIEW",
-  "source_kind": "github_delivery|review_comment|fixer_comment",
-  "source_id": "<provider delivery id or Multica comment id>",
-  "source_sha256": "<64 lowercase hex>"
+  "transition": "DISCARD_AND_REVIEW"
 }
 ```
 
-GitHub source hash 必须覆盖平台保存的原始 request body bytes；comment source hash覆盖
-Multica API 返回的 `content` 字符串按 UTF-8 编码的精确 bytes，不增删尾换行、不规范化
-CRLF、不重排 JSON。当前平台可读面不能取得前者，故 webhook source 不得生成
-`source_sha256` 或进入 dispatch；见 §3 的冻结限制。
+`source_key` 对且仅对 `source_semantics`、`source_kind`、`source_id`、`source_sha256`
+四字段对象采用同样 JCS/SHA-256 编码。Webhook 使用 §3 的 run/JCS 语义。
+Review/Fixer comment 保持精确 content UTF-8 bytes hash（不规范化 CRLF 或尾换行），
+source kind 分别是 `review_comment` / `fixer_comment`，source id 是 Multica comment UUID；
+其既有 byte-exact 行为标记为 `multica-comment-utf8/v1`，不得与 webhook semantic hash 混用。
+Schema `$defs.webhookSource`、`$defs.effectIdentity` 定义这两个独立封装；review observation
+顶层仍由 §4 定义，不混入 webhook 字段。
 
-Controller 在任何 child create 前必须扫描：
+Controller 在 child create 前完整读取 canonical root children、transition comments 与来源记录。
+来源关联、live admission、schema/hash、冲突校验必须先于重复 shortcut；不能用重复记录
+绕过已失效的 trust predicate。相同 source semantics/kind/id 对应不同 hash，或已有 child
+title/key/immutable effect metadata 冲突，均 `BLOCKED`。Immutable effect metadata 是上面八字段；
+child 的确定性 title、归属与执行角色也必须匹配，source provenance 列表是可追加审计记录。
 
-1. canonical root 的所有 child title；
-2. root 与 relevant child comments 中的 `transition_key`；
-3. 相同 round/head 的 review/fix result source id 与 SHA。
+相同 effect 的可信新 source（包括 push 与 PR 双事件）追加 provenance，返回
+`NO_ACTION_ALREADY_DISPATCHED`，复用 child，不增 round。先从完整 ledger 找现有
+base/head/transition 的 round，再决定是否分派；新 candidate 才消耗 next round，上限三轮。
+既有 child/transition 记录不完整、分页失败或并发冲突都 fail closed，不创建后缀副本。
 
-相同 key 和相同 payload 已存在时返回 `NO_ACTION_ALREADY_DISPATCHED`。确定性 title 已存在
-且 metadata 完全相同也视为同一 dispatch；title/key/source 发生一项冲突即 `BLOCKED`，
-不得猜测或创建后缀副本。
+## 3. GitHub webhook admission — normalized Route B
 
-## 3. GitHub webhook admission
+以下十节是 COAC-15 用户裁决的 repository-owned 版本。Webhook URL/signing material
+是秘密，不进入仓库、日志、issue 或 PR。Multica ingress delivery dedupe 与 effect dedupe
+独立；run read path 不提供 raw bytes，且本版本不需要 raw delivery CLI。
 
-Autopilot webhook URL 是 secret，不能写入仓库、issue、日志或 PR。Multica ingress 使用
-`X-GitHub-Delivery`（否则 `Idempotency-Key`）复用重复 delivery；Controller 仍执行上节
-的第二层幂等检查。
+**Decision: Route B — 批准新的 versioned normalized webhook admission/hash semantics。**
 
-### 3.1 Frozen Multica delivery/read path and current limitation
+语义标识：
 
-截至 2026-09-20，仓库可验证的 Multica CLI read path 只有：
+`multica-github-run-jcs/v1`
 
-1. `multica autopilot runs <autopilot-id> --output json`；
-2. 以 run 的 `issue_id` 精确关联当前 intake issue；
-3. 读取 run 的 `source`、`trigger_id` 和解析后的 `trigger_payload`。
+本裁决不声称 Multica `trigger_payload` 等于原始 HTTP request，不声称其 hash 是 raw request body hash，也不从解析后的 JSON 重构原始 bytes。
 
-该 read path **不提供** delivery read 子命令，也不在 run 记录中提供原始 request headers、
-原始 body bytes、provider delivery id 或原始 body hash。`trigger_payload` 是解析后的 JSON，
-不得重新序列化后冒充原始 bytes，也不得从 payload 字段猜测 `X-GitHub-Event` 或
-`X-GitHub-Delivery`。因此当前所有 webhook intake 的 normalized
-`source_payload_verified=false`，Controller 必须在任何 child dispatch 前返回 `BLOCKED`。
+### 3.1. Trust boundary
 
-激活 webhook 前，Multica 平台负责人必须二选一并更新本文、manifest 与 fixtures：
+Review Loop v1 webhook source 信任的是：
 
-- 暴露与 `issue_id` 关联的只读 delivery 记录，其中含未经重序列化的 headers、body bytes
-  和 provider delivery id；或
-- 明确批准一个新的 versioned hash/admission 语义。
+1. Multica 已完成 webhook ingress admission；
+2. 对应 trigger 固定为 `provider=github`；
+3. 部署回读必须证明该 trigger `has_signing_secret=true`；
+4. Multica 在创建 Autopilot run 前已经完成 GitHub-compatible HMAC 校验；
+5. Controller 再通过 live GitHub 查询验证 repository、PR、state、draft、base SHA 和 head SHA。
 
-在该裁决落盘前不得创建或启用 Review Loop v1 webhook；实现者无权自行选取新语义。
+Webhook payload 只提供“发生了一个候选事件”的来源证据，不拥有当前 GitHub 状态。
 
-唯一允许的 repository 是 `ChildeRolando/MjsoulTileTrace`。必须有
-`X-GitHub-Event`、provider delivery id，并通过 live GitHub 查询重新验证 PR；event
-payload 是不受信提示，不是当前 HEAD 权威。
+若 trigger 不是 GitHub provider、没有 signing secret、run/source/trigger/issue 关联无法唯一验证，则 `BLOCKED`。
 
-支持：
+### 3.2. Source association
 
-| Event | Actions / conditions | Candidate |
-|---|---|---|
-| `pull_request` | `opened`, `reopened`, `synchronize`, `ready_for_review`; live PR 必须 open、non-draft | live `pull_request.head.sha` |
-| `push` | non-deletion push；`after` 必须恰好是一个 open、non-draft PR 的 live head，且该 PR 唯一映射到一个 admitted Ticket | live PR head（必须等于 `after`） |
+Controller 仍以：
 
-任何其他 event/action、draft/closed PR、deleted branch、fork repository、不唯一的 push→PR
-映射、缺失 ticket/spec/gate profile、无法查询 live PR 均 `BLOCKED`。v1 不把 ignored
-input 悄悄当成功。
+`multica autopilot runs <autopilot-id> --output json`
 
-如果 event 中的 head 已落后于 live PR head，旧 head 不得被 review 或 fix：当 round 尚
-有容量时使用 live head 执行 `DISCARD_AND_REVIEW` 并增加 round；round 3 已消耗时
-`BLOCKED`。重复 delivery 或 live head 已有同一 dispatch 则
-`NO_ACTION_ALREADY_DISPATCHED`。
+为 repository-approved read path。
+
+对 intake `issue_id` 必须精确匹配唯一一条 run，并要求：
+
+- `run.issue_id == intake_issue_id`
+- `run.source == "webhook"`
+- `run.trigger_id == configured_trigger_id`
+- run 属于配置的 Review Loop Autopilot
+- `trigger_payload.eventPayload` 存在且是 JSON object
+- 零条、多条或字段冲突均 `BLOCKED`
+
+### 3.3. Source identity
+
+新的 webhook source 字段定义为：
+
+- `source_kind = "multica_github_run"`
+- `source_id = <autopilot_run.id>`
+- `source_semantics = "multica-github-run-jcs/v1"`
+
+不再要求 Controller 取得 provider `X-GitHub-Delivery` 作为协议 source id。
+
+Multica 自身仍可使用 `X-GitHub-Delivery` 做 ingress dedupe；这是平台内部 admission 行为，不伪装成 Review Loop 可审计字段。
+
+### 3.4. Source hash
+
+`source_sha256` 定义为：
+
+`lowercase_sha256(UTF8(JCS(trigger_payload.eventPayload)))`
+
+其中 JCS 为 RFC 8785 canonical JSON。
+
+明确排除：
+
+- `trigger_payload.event`
+- `trigger_payload.request.receivedAt`
+- `trigger_payload.request.contentType`
+- 任意重新构造的 HTTP headers
+- provider delivery id
+
+因此该 hash 的准确名称和语义是：
+
+> **normalized GitHub event payload semantic hash**
+
+不是：
+
+> raw webhook request body hash
+
+相同 JSON 语义、不同原始空白/字段顺序在此版本中有意得到同一 hash。若未来需要 byte-exact provenance，必须发布新的 source semantics version，不得静默改变本规则。
+
+### 3.5. Event classification
+
+Controller **不得信任 `trigger_payload.event` 作为 event/action 权威**。
+
+event family 从 `trigger_payload.eventPayload` 的严格结构机械分类。
+
+#### `pull_request`
+
+必须同时满足：
+
+- `repository.full_name == "ChildeRolando/MjsoulTileTrace"`
+- 存在合法 `pull_request`
+- 存在 PR number
+- `action` 恰为：
+  - `opened`
+  - `reopened`
+  - `synchronize`
+  - `ready_for_review`
+- body 中 base/head/repository identity 形状合法
+
+随后必须通过 live GitHub 查询重新验证：
+
+- PR 存在；
+- open；
+- non-draft；
+- repository 正确；
+- live base/head SHA 合法。
+
+payload 中 SHA 不是当前状态权威。
+
+#### `push`
+
+必须满足严格 push payload shape，包括：
+
+- `repository.full_name == "ChildeRolando/MjsoulTileTrace"`
+- `ref`
+- 40 位 lowercase `before`
+- 40 位 lowercase `after`
+- `deleted == false`
+- 不得同时匹配 pull_request shape
+
+随后 live GitHub 查询必须证明 `after` 恰好是唯一一个 open、non-draft admitted PR 的当前 live head。
+
+无法唯一映射则 `BLOCKED`。
+
+#### Unknown / ambiguous
+
+同时匹配多个 event family、一个也不匹配、字段缺失或 unsupported event 均：
+
+`BLOCKED`
+
+不得从 prose、`trigger_payload.event` 或近似字段猜测。
+
+### 3.6. Effect idempotency 与 source provenance 分离
+
+为正确处理 GitHub 对同一 HEAD 同时产生 `push` 和 `pull_request.synchronize` 等合法双事件：
+
+**source identity 不再参与“是否已经执行这个 effect”的唯一键。**
+
+新增两个概念：
+
+#### `source_key`
+
+绑定来源：
+
+- source semantics
+- source kind
+- source id
+- source SHA-256
+
+用于 provenance 与冲突检查。
+
+#### `transition_key`
+
+只绑定 effect：
+
+- `protocol_version`
+- `ticket_issue_id`
+- `repository`
+- `pr_number`
+- `base_sha`
+- `current_head_sha`
+- `round`
+- `transition`
+
+按 RFC 8785/JCS 后 SHA-256。
+
+若两个独立、均可信的 webhook source 导向完全相同的 transition/head/round：
+
+`NO_ACTION_ALREADY_DISPATCHED`
+
+并保留额外 source provenance，不创建第二个 child。
+
+若相同 effect identity 下已有 child，但其 immutable metadata 与期望 transition/head/round 不一致：
+
+`BLOCKED`
+
+这样平台 delivery dedupe 和 Review Loop effect dedupe 是两层独立机制，不依赖 provider delivery id 才能正确工作。
+
+### 3.7. Failure semantics
+
+以下任何情况必须在 child dispatch 前 `BLOCKED`：
+
+- intake → run 无法唯一关联；
+- source / trigger / Autopilot 不匹配；
+- GitHub provider/signing prerequisite 不满足；
+- eventPayload malformed；
+- event classification unknown 或 ambiguous；
+- live GitHub 查询失败；
+- repository / PR / ticket admission 不一致；
+- JCS/hash 失败；
+- source provenance 冲突；
+- effect metadata 冲突。
+
+不得 fallback 到旧的 raw-body 语义，不得把重新序列化后的 payload 描述成原始请求。
+
+### 3.8. Required repository updates
+
+实施负责人必须同步修改：
+
+1. `2026-09-20-review-loop-v1.md`
+2. `review-loop-v1.multica.json`
+3. review-loop protocol schema/checker（如字段发生变化）
+4. `decision-cases.json`
+
+fixtures 至少增加/修订：
+
+- valid signed normalized pull_request source
+- valid normalized push source
+- malformed eventPayload
+- ambiguous event shape
+- wrong repository
+- wrong trigger/run association
+- unsigned/non-GitHub trigger deployment configuration
+- duplicate same run
+- distinct push + pull_request events resolving to same HEAD/effect
+- same effect metadata conflict
+- stale payload but newer live HEAD
+- live GitHub lookup failure
+
+机械检查仍至少要求：
+
+- `npm run test:review-loop-protocol`
+- `npm run check:architecture`
+- `git diff --check`
+
+### 3.9. Activation gate — inactive configuration before activation
+
+本裁决**解除“必须等待 raw delivery CLI”的架构决策阻塞**，但不立即授权启用 webhook。
+
+只有在：
+
+- 上述 B 语义已经进入部署引用的权威 commit；
+- spec / manifest / fixtures / Controller instructions 一致；
+- protocol fixtures 与规定 gates 通过；
+- 部署回读确认 `provider=github`、`has_signing_secret=true`、trigger/filter/Controller 配置正确；
+
+之后才可以创建外部事件订阅并启用 Review Loop webhook。为满足回读前置条件，内部 trigger 只能先在已证明安全、不可接收/派发事件的配置阶段创建；如果平台不能保证该顺序，必须停止。详见 §8。
+
+### 3.10. Future raw-delivery support
+
+若以后 Multica 正式向 Agent/CLI 暴露可稳定关联的 raw delivery read surface，可以新增例如：
+
+`multica-github-raw-delivery/v1`
+
+但它必须作为新的 source semantics version 单独验收。
+
+不得把现有 `multica-github-run-jcs/v1` 的 hash 定义原地改成 raw-body hash。
+
+### 3.11. Executable shape and platform evidence
+
+`scripts/review-loop-source.mjs` 是离线协议参考模型，不发送 CLI/API、不验证真实 HMAC、
+不创建 child。fixtures 中 `config.hmac_before_run_verified=true` 只是模拟已验收部署证据；
+Controller 必须从平台负责人确认的 ingress contract/验证记录获得该事实，不能从 payload
+自报或由 `has_signing_secret` 单独推导。Manifest 当前值为 false，激活保持 BLOCKED。
+
+机械 shape 明确如下：eventPayload 必须是 object；PR 顶层 `number` 是正安全整数，且等于
+`pull_request.number`；base/head 各自包含非空 ref、40 位 lowercase SHA 和本仓库
+`repo.full_name`（fork 不接纳）。Push ref 必须是非空 `refs/heads/...`，after 不得全零。
+PR 标志字段为 pull_request/number/action；push 标志字段为 ref/before/after/deleted。
+两组任意字段同时出现也拒绝，防止残缺的另一 family 被宽松分类。额外 GitHub 非判别字段
+保留在 semantic hash 中，不参与近似猜测。Live push 候选必须唯一，且该唯一候选通过
+repository、open/non-draft、ticket/project/spec/gate admission；不能靠过滤掉 admission
+失败的 PR 将多候选伪装成唯一。PR payload 的旧 SHA 不覆盖 live SHA；stale push 的 after
+若已不是 live head 则 BLOCKED。
+
+JCS 对 JSON object 递归排序 UTF-16 keys，保持数组顺序和字符串 Unicode，不接受
+non-finite number、lone surrogate 或其他非 JSON 值；序列化失败即 BLOCKED。这里只 hash
+平台解析后的 eventPayload，不能恢复入站重复字段或原始数字字节，也不声称可以检测它们。
+run 读取必须完成 `--limit/--offset` 分页，唯一性不能从默认第一页推断；live 查询亦须完整。
+
+2026-09-20 只读核验：Multica CLI v0.5.0，commit `2df765a3c`。
+
+- `autopilot --help` 无 delivery 子命令；`runs --help` 提供 limit/offset。
+- `trigger-add --help` 只有 kind/cron/label/timezone；没有 provider、signing secret 或初始
+  disabled 参数。`trigger-update --help` 有 enabled，但没有 provider/signing secret。
+- `autopilot create --help` 未提供初始 paused；先创建再暂停的窗口不能假设安全。
+- `autopilot list` 只返回现有“每日进度报告”。其 `get` 的 schedule trigger 回读包含
+  `provider=null`、`has_signing_secret=false`；`runs` 返回 schedule source 与 null payload。
+  这证明字段可读，不证明 GitHub signed trigger 可配置，更不证明 pre-run HMAC 已生效。
+- 未创建/修改 Agent、Autopilot、webhook，未调用 API 绕过 CLI，未读取任何 secrets。
+
+**剩余激活阻塞与负责人动作**：Multica 平台负责人需提供 CLI 支持的 GitHub provider/
+signing 配置途径，以及从创建开始就禁止 ingress/dispatch 的安全配置顺序；随后在授权部署
+阶段回读真实 Review Loop trigger 的 provider/signing 标志，验证签名无效时不能创建 run、
+签名有效时先 admission 后 run 的平台保证，并验证 Controller/filter/关联。没有这些证据，
+部署负责人不能启用事件。仓库 fixtures 通过不解除此阻塞，也不需要重新等待 raw delivery。
 
 ## 4. Protocol envelopes
 
@@ -271,9 +515,9 @@ Controller 唯一允许输出以下五种 transition：
 
 | Priority | Normalized condition | Transition | Effect |
 |---:|---|---|---|
-| 1 | verified source provenance and exact delivery/transition/child dispatch already recorded with identical metadata | `NO_ACTION_ALREADY_DISPATCHED` | 不创建、不重发、不改 round |
-| 2 | duplicate title/key/source exists but any metadata/hash/result conflicts | `BLOCKED` | 记录 conflict，零 dispatch |
-| 3 | unsupported/malformed input；webhook 原始 source 不可验证；identity/spec/live PR 不可验证；Reviewer/Fixer 作者或 comment/child 归属不匹配；review envelope/hash/verdict 自相矛盾；multiple conflicting results | `BLOCKED` | 零 dispatch |
+| 1 | source/admission/schema/live checks passed, no source/effect conflict, exact effect/child already recorded with identical immutable metadata (possibly a distinct trusted source) | `NO_ACTION_ALREADY_DISPATCHED` | 不创建、不重发、不改 round |
+| 2 | duplicate title/key/source exists but any immutable metadata/hash/result conflicts | `BLOCKED` | 记录 conflict，零 dispatch |
+| 3 | unsupported/malformed input；webhook normalized source 或 provider/signing/HMAC 前置条件不可验证；identity/spec/live PR 不可验证；Reviewer/Fixer 作者或 comment/child 归属不匹配；review envelope/hash/verdict 自相矛盾；multiple conflicting results | `BLOCKED` | 零 dispatch |
 | 4 | no review exists for an admitted initial candidate | `DISCARD_AND_REVIEW` | 创建 round 1 fresh review child |
 | 5 | event/review/fixer references stale HEAD and next round is `<=3` | `DISCARD_AND_REVIEW` | 丢弃旧结果，仅对 live HEAD 创建 next-round fresh review |
 | 6 | event/review/fixer references stale HEAD but next round would be `4` | `BLOCKED` | 三轮上限，零 dispatch |
@@ -302,50 +546,24 @@ Reviewer/Fixer 的 final comment mention Controller，是唯一 continuation tri
 配置预览的固定值与完整 instructions 在
 [`review-loop-v1.multica.json`](review-loop-v1.multica.json)。后续实施顺序：
 
-1. 由 Multica 平台负责人先解决 §3.1 的 raw delivery 读取/哈希语义裁决；未解决则停止，
-   不创建或启用 webhook；
-2. 重新只读核验 runtime/project/Fixer IDs 与 model catalog；
-3. 创建 Controller，保存返回 ID；
-4. 将该 ID 替换进 Reviewer instructions 后创建 Reviewer；
-5. 将 Reviewer ID 替换进 Controller instructions；
-6. 创建 `create_issue` Autopilot 并添加 webhook trigger；
-7. 在 GitHub 只订阅 §3 的 `pull_request` 与 `push` events；webhook URL 不进入仓库；
-8. 回读两个 Agent 与 Autopilot，核对 instructions hash、模型、thinking、权限、并发和 project。
+1. 部署引用的 commit 必须包含路线 B 的 spec/manifest/schema/checker/fixtures，规定 gates
+   通过；重新只读核验 runtime/project/Fixer/model IDs。
+2. 平台负责人先证明安全的 inactive 配置途径（§3.11），否则停止。不能执行当前裸
+   `trigger-add --kind webhook` 再补 signing；没有 provider/signing 参数时也不能猜参数。
+3. 在后续授权的部署阶段创建 Controller，回填 ID 后创建 Reviewer，再把 Reviewer ID
+   回填 Controller；任何创建失败立即停止，不创建替代资源、不修改仓库律法审查官。
+4. 仅通过已核验的 CLI 能力建立 paused Autopilot 与 disabled GitHub signed trigger。
+   manifest 中 paused/enabled=false 是要求，**不是当前 CLI 已支持该原子创建的声明**。
+   若必须先经历可能接收事件的 active/unsigned 状态，停止并报告平台缺口。
+5. 在事件仍不可进入时回读 provider=github、has_signing_secret=true、trigger 所属 Autopilot、
+   project、Controller/Reviewer instructions hash、模型、权限、并发、events/actions filter；
+   取得 HMAC-before-run 证据。所有回读必须来自本次实际配置，不能引用测试 fixture。
+6. 配置仍为 inactive 的 GitHub pull_request/push 订阅，URL/signing material 仅进入 secret
+   配置面；全部前置条件通过后才允许事件启用。启用后回读配置，不主动发送测试事件。
 
-后续实施工单可直接从 manifest 取值；以下 PowerShell 是配置预览，不得在本工单运行：
-
-```powershell
-$m = Get-Content -Raw coach/docs/specs/review-loop-v1.multica.json | ConvertFrom-Json
-$c = $m.agents | Where-Object role -eq controller
-$r = $m.agents | Where-Object role -eq fresh_reviewer
-
-$controller = multica agent create --name $c.name --runtime-id $c.runtime_id `
-  --model $c.model --thinking-level $c.thinking_level `
-  --max-concurrent-tasks $c.max_concurrent_tasks --permission-mode $c.permission_mode `
-  --description $c.description --instructions $c.instructions --output json | ConvertFrom-Json
-
-$reviewerInstructions = $r.instructions.Replace('${CONTROLLER_AGENT_ID}', $controller.id)
-$reviewer = multica agent create --name $r.name --runtime-id $r.runtime_id `
-  --model $r.model --thinking-level $r.thinking_level `
-  --max-concurrent-tasks $r.max_concurrent_tasks --permission-mode $r.permission_mode `
-  --description $r.description --instructions $reviewerInstructions --output json | ConvertFrom-Json
-
-$controllerInstructions = $c.instructions.Replace('${FRESH_REVIEWER_AGENT_ID}', $reviewer.id)
-multica agent update $controller.id --instructions $controllerInstructions --output json
-
-$a = $m.autopilot
-$autopilot = multica autopilot create --title $a.name --description $a.description `
-  --agent $controller.id --mode $a.execution_mode --project $a.project_id `
-  --issue-title-template $a.issue_title_template --output json | ConvertFrom-Json
-multica autopilot trigger-add $autopilot.id --kind webhook --label $a.trigger.label --output json
-```
-
-命令返回的 webhook URL 只进入 GitHub secret configuration，不写入脚本、仓库或 issue。
-创建前仍须执行步骤 1 的只读 revalidation；创建后按步骤 7 回读，不能把 CLI 返回成功当作
-配置验收完成。
-
-这是配置预览，不授权本工单创建或修改任何 Agent、Squad、Autopilot 或 webhook。v1 明确
-不创建 Squad。
+目前没有可安全执行的 Autopilot/webhook 创建命令预览：CLI 缺口见 §3.11，manifest 的
+`cli_preview` 仅保留 Agent 配置样例；不以成功的 CLI exit code 代替部署验收。
+本工单只完成仓库协议与只读核验，不执行任何平台部署，不创建 Squad。
 
 ## 9. Fixtures and acceptance
 
@@ -355,6 +573,12 @@ unverifiable webhook source、round 3、duplicate transition、conflicting resul
 initial candidate 与 Fixer new-head 用例。检查器必须证明每个 fixture 只得到一个允许的
 transition、所有未知组合 fail closed、配置中 Controller 并发为 1、Autopilot 不含非法
 title token、Fixer ID 被复用且无 Squad。
+
+新增 `webhook_cases` 直接输入模拟 CLI run/config 与 live PR，而非用一个 true flag
+假装 admission 已检查；覆盖签名配置前置、source 关联、严格 shape、错误 repository/ticket、
+重复 run、push+PR 相同 effect、source/effect 冲突、stale live head、查询失败与三轮上限。
+`test:review-loop-protocol` 同时运行既有 review/fixer 状态机 fixtures 和 normalized source
+tests。真实 HMAC/平台读写仍是外部验收，不由离线测试证明。
 
 ## 10. Change Control Report
 
@@ -382,7 +606,7 @@ SHA/provenance 字段和 `test:review-loop-protocol` 扩展保护；现有产品
 
 **Traceability** — live PR 拥有 current HEAD；repository spec 拥有验收语义；review issue
 拥有 source review identity；原文 bytes 由 SHA-256 绑定；所有 effect 由 transition key
-追到 source delivery/comment。
+绑定八字段 identity，再由追加的 source_key 追到 run/comment。
 
 **Replaceability** — Controller、Reviewer、Fixer 通过 versioned envelope、issue/comment 与
 GitHub SHA 交互；协议不依赖 Squad、sidecar 或模型私有格式。Agent model 是部署选择，不是
@@ -400,6 +624,31 @@ fixtures 单点验证。因此由一个 repository spec + machine companions 承
 
 **Verification** — 以实际 PR 交付记录为准；最低门禁为
 `npm run test:review-loop-protocol`、`npm run check:architecture`、`git diff --check`。
+
+### COAC-15 Route B change control — 2026-09-20
+
+- Scope / Locality：只改本协议及 manifest/schema、fixtures、离线 checker/test 与命令接线；
+  不改变产品包或平台资源。原 checkout 的无关未提交内容保持原样。
+- Invariants：INV-006 fail closed、INV-007 version/provenance 的已有规则由 normalized
+  admission/冲突 fixtures 扩展保护；没有削弱或新建不变量。HMAC 为待外部验收部分。
+- Traceability：用户十节裁决成为 §3.1–3.10；live PR 仍拥有当前状态；source hash 明确是
+  normalized eventPayload semantic hash，不是 raw-body。schema defs 与 manifest 同步。
+- Replaceability：来源语义采用 versioned identifier；未来 raw delivery 必须新版本验收。
+- Recoverability：strict shape、关联、JCS、provenance/effect 冲突在 dispatch 前拒绝；
+  push/PR 双事件复用 effect 并记录两份来源；离线 fixtures 可重放。
+- Semantic Load：source_key/effect key 折入既有 Review Loop identity owner；拆分防止同 HEAD
+  双事件重复 dispatch，隔离来源与副作用去重，不新增服务或第二套日志。
+- Verification：基于默认分支 `4e41784bc765b6cd0306fe9c5084ba31f85d6854`，Windows /
+  Node.js v24.15.0，cwd `coach/`：`npm test` exit 0（162 files / 1902 tests，包含 build、
+  脚本测试与架构检查）；`npm run typecheck`、`npm run test:package-import` exit 0；
+  `npm audit --omit=dev` exit 0、0 vulnerabilities。`npm run test:review-loop-protocol`
+  exit 0（18 个既有决策 fixtures、40 个 webhook scenarios + 2 个 coverage/JCS/schema tests）；
+  `npm run check:architecture` exit 0、0 violations；`git diff --check` exit 0。
+  独立工作树初次依赖安装因 cache 目录写入被拒失败，改用该工作树内 cache 后安装成功，
+  随后上述原命令全部通过；未修改 ACL 或绕过沙箱。平台证据边界仍按 §3.11。
+
+以下 COAC-14 记录是历史候选的验收证据，不是当前激活规则；其中等待 raw delivery/裁决的
+旧阻塞由本次路线 B 取代，当前剩余阻塞仅按 §3.11/§8 判定。
 
 ### COAC-14 acceptance evidence — 2026-09-20
 

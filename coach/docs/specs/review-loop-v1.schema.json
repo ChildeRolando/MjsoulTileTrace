@@ -94,6 +94,79 @@
     }
   },
   "$defs": {
+    "webhookSource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_semantics",
+        "source_kind",
+        "source_id",
+        "source_sha256"
+      ],
+      "properties": {
+        "source_semantics": {
+          "const": "multica-github-run-jcs/v1"
+        },
+        "source_kind": {
+          "const": "multica_github_run"
+        },
+        "source_id": {
+          "$ref": "#/$defs/uuid"
+        },
+        "source_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "effectIdentity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "protocol_version",
+        "ticket_issue_id",
+        "repository",
+        "pr_number",
+        "base_sha",
+        "current_head_sha",
+        "round",
+        "transition"
+      ],
+      "properties": {
+        "protocol_version": {
+          "const": "review-loop/v1"
+        },
+        "ticket_issue_id": {
+          "$ref": "#/$defs/uuid"
+        },
+        "repository": {
+          "const": "ChildeRolando/MjsoulTileTrace"
+        },
+        "pr_number": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "base_sha": {
+          "$ref": "#/$defs/gitSha"
+        },
+        "current_head_sha": {
+          "$ref": "#/$defs/gitSha"
+        },
+        "round": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3
+        },
+        "transition": {
+          "enum": [
+            "DISCARD_AND_REVIEW",
+            "ROUTE_TO_FIXER",
+            "PASS",
+            "BLOCKED",
+            "NO_ACTION_ALREADY_DISPATCHED"
+          ]
+        }
+      }
+    },
     "uuid": { "type": "string", "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$" },
     "gitSha": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
     "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
