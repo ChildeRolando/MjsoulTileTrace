@@ -146,15 +146,16 @@ Model/report evidence provider（模型/报告证据来源）
 - **Why**：版本与来源是追溯与"旧产物可否重放"的判据；缺失则审计无法定位到产生它的
   代码版本。
 - **Owner / boundary**：各产物 schema 的 `schemaVersion` / `sourceKind` / `gameId` /
-  `sha256` 字段约定；M6-C 的 `StructuredAnalysisPackage` 尚未实现，届时沿用。
+  `sha256` 字段约定；已实现的 `StructuredAnalysisPackage` 以 package identity、
+  component versions 与 evidence provenance 延续该约束。
 - **Enforcement**：schema 字面量版本（如 `canonical-riichi-events/v2`、
   `decision-snapshot/v2`）与 manifest 校验（evidence manifest 含 sha256 与
   schemaVersion）；协议 bundle manifest 逐字段校验。
 - **Executable tests**：`mortal-coverage-evidence-manifest.test.ts`、
   `mortal-coverage-registry.test.ts`、`protocol-bundle.test.ts`、
-  `update-packaged-fact-engine-manifest.test.mjs`。
-- **Status**：machine-enforced（现有产物）；`StructuredAnalysisPackage` 为
-  partial（契约未实现，见 M6-C）。
+  `update-packaged-fact-engine-manifest.test.mjs`、
+  `structured-analysis-package.test.ts`、`structured-analysis-package-golden.test.ts`。
+- **Status**：machine-enforced（含 `StructuredAnalysisPackage` 契约与 identity）。
 
 ## INV-008 启发式/估算永不进入确定性偏好
 
@@ -201,6 +202,29 @@ Model/report evidence provider（模型/报告证据来源）
 - **Executable tests**：`acceptance-core.test.ts`（提升路径 + 非法 manifest 抛错）、
   `mortal-coverage-evidence-manifest.test.ts`。
 - **Status**：machine-enforced。
+
+## INV-011 reasoning overlay read-back 必须重建身份与决策归属
+
+- **Statement**：持久化或反序列化的 reasoning overlay 不能信任自报身份。
+  `CoachJudgment` / `CoachInference` 必须通过引擎重新推导 `nodeId`，且与 payload
+  self-id 一致；`Explanation` 保持 content-derived identity（不增加 localId），其
+  payload self-id 也必须匹配。`verbalizes` / `opposes` / `qualifies` 必须同时满足
+  endpoint-kind 与 same-decision ownership。
+- **Why**：只校验 schema、edge hash 或 payload 内部自洽，会允许攻击者同步伪造
+  nodeId、自报 self-id、edgeId 与 reportId，或用类型合法的跨 decision 边拼接不属于
+  当前判断的证据。
+- **Owner / boundary**：`contracts` 的 reasoning node payload / edge 契约，以及
+  `reasoning` 的 `validateReviewReport` read-back 边界；Explanation identity 仍由内容
+  派生，不引入第二套 local identity。
+- **Enforcement**：read-back 从受信输入重新推导三类 reasoning node identity，重新
+  校验 overlay edge identity、endpoint kind、decision ownership、grounding 与最终
+  report identity；任一不匹配均 fail closed。
+- **Executable tests**：`grounding-validator.test.ts` 覆盖同步伪造
+  CoachJudgment/CoachInference nodeId + payload self-id、Explanation 内容与 payload
+  self-id 篡改、`verbalizes` / `opposes` / `qualifies` endpoint-kind 篡改，以及合法
+  endpoint kind 的跨 decision 边。
+- **Status**：machine-enforced（contracts/reasoning baseline；桌面 provider/IPC/真实
+  网络仍是 M6-D2 未完成项）。
 
 ---
 

@@ -190,6 +190,12 @@ LLM 只允许追加：
 
 reasoning overlay 可以引用 evidence nodes，但不得修改 evidence nodes。
 
+当前 contracts/reasoning baseline 已实现 append-only 组装与 read-back validator。
+`CoachJudgment` / `CoachInference` 的 `nodeId` 由引擎按 decision 与 local id 重新推导，
+并必须与 payload self-id 一致；`Explanation` 保持由内容推导 identity，不新增 localId，
+其 payload `explanationId` 同样必须匹配。即使同时伪造 nodeId、payload self-id、关联
+edgeId 和 reportId，也不能绕过重新推导校验。
+
 ### Edge semantics
 
 v1 只使用明确的 argument/semantic relation，例如：
@@ -205,6 +211,10 @@ v1 只使用明确的 argument/semantic relation，例如：
 
 不要在 v1 引入未经证明的 `causes` relation。`supports` / `derived_from` 表达
 论证与语义关系，不声称建立因果真理。
+
+read-back 对 `verbalizes` / `opposes` / `qualifies` 同时校验允许的 endpoint kind 与
+same-decision ownership，阻止类型正确但跨 decision 的 reasoning edge。相关约束由
+`grounding-validator.test.ts` 的 adversarial tamper cases 机械执行。
 
 ### Runtime composition
 
@@ -273,4 +283,4 @@ Mortal/Akagi 的分数决定“模型偏好”；教练判断（CoachJudgment）
 - canonical mapper 的部分流局/杠语义尚需真实牌谱反证（M5 人工验收并行线程）；
 - 响应面已接入（M6-A4.0/A4.1/A4.2：归属过滤拆除、discard_response/kan_response 开窗、响应窗口身份事实表与本地候选枚举同构、守恒不变量升级、响应分支覆盖率矩阵 fail-closed）；A4.3 纯事件 discovery 扫描已落地（`scripts/response-surface-discovery.mjs`，chankan 最早启动、合格局计数按 source 记入 manifest），wave-1 六分支已全部真实 E2E 取证（resp_chi/pon/daiminkan/hora_actual + resp_pass_on_discard 四候选族子覆盖 + resp_chankan_actual，8 份真实报告），wave-2 保持 fail-closed + 降级条款；
 - mapped/replayed record 与 Mortal 报告仍仅在主进程内存/验收缓存中，没有产品级持久化（M7-B）；
-- 整盘 StructuredAnalysisPackage、Typed Context Graph substrate、Graph-grounded Coach 与 validator、review UI、LLM 客户端、SQLite 会话与跨平台发布尚未实现（M6-C / M6-D1 / M6-D2 / M7-A / M7-B / M8）。
+- 整盘 StructuredAnalysisPackage（M6-C）与 Typed Context Graph substrate（M6-D1）已实现；M6-D2 的 contracts/reasoning baseline（严格 Coach/ReviewReport 契约、grounding/read-back validator、append-only overlay、evidence-only degrade）已实现，但桌面 provider/BYOK、safeStorage、IPC、真实网络与生产组合根尚未接线；review UI、SQLite 会话与跨平台发布仍未实现（M7-A / M7-B / M8）。
