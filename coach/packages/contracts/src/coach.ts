@@ -43,7 +43,7 @@ import {
   REASONING_GRAPH_NODE_KINDS,
 } from "./context-graph.js";
 import { SELECTOR_POLICY_VERSION_V1 } from "./review-selection.js";
-import { DecisionIdSchema } from "./structured-analysis-package.js";
+import { DecisionIdSchema } from "./analysis-identity-contract.js";
 
 /** The current ReviewReport schema version (contract-owned literal). */
 export const REVIEW_REPORT_SCHEMA_VERSION = "review-report/v1" as const;

@@ -29,7 +29,7 @@
  * version (new discriminated variant), never an in-place constant edit.
  */
 import { z } from "zod";
-import { DecisionIdSchema, RecordAnalysisStatusSchema } from "./structured-analysis-package.js";
+import { DecisionIdSchema, RecordAnalysisStatusSchema } from "./analysis-identity-contract.js";
 
 /** The frozen v1 selector policy version (spec "Policy v1 冻结"). */
 export const SELECTOR_POLICY_VERSION_V1 =

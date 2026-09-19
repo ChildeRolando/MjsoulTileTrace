@@ -1,8 +1,11 @@
 import { contextBridge, ipcRenderer } from "electron";
+import { createCoachPreloadApi } from "./session-api.js";
+
+contextBridge.exposeInMainWorld("riichiCoachProvider", createCoachPreloadApi(ipcRenderer));
 
 // The sandboxed preload cannot resolve bare npm package specifiers or Node
-// builtins like `node:crypto`. This entry must stay self-contained: only the
-// `electron` module, inline channel names, and a light renderer-side validation
+// builtins like `node:crypto`. The build bundles contracts and the safe API;
+// only `electron` remains external. Existing session routes use light validation
 // that rejects credential-bearing fields. The main process performs the full
 // zod validation before returning anything over IPC; this is defense in depth.
 

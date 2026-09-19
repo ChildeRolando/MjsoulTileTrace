@@ -85,6 +85,9 @@ import {
 } from "./record-ingestion-service.js";
 import { createRecordAnalysisStore } from "./record-analysis-store.js";
 import { readCliFlag } from "./diagnostic-flags.js";
+import { registerCoachIpc } from "./coach-ipc.js";
+import { createEnvironmentKeyImporter, createProviderCredentials } from "./llm-provider/credentials.js";
+import { createCoachService, createPackageReferenceReader } from "./llm-provider/service.js";
 
 const PARTITION = "persist:riichi-coach-mahjong-soul-cn";
 const bundleRoot = fileURLToPath(new URL("../../../vendor/mahjong-soul-protocol/", import.meta.url));
@@ -107,6 +110,7 @@ let mainWindow: BrowserWindow | null = null;
 let ipcRegistration: Readonly<{ dispose(): void }> | null = null;
 let catalogIpcRegistration: Readonly<{ dispose(): void }> | null = null;
 let paipuIpcRegistration: Readonly<{ dispose(): void }> | null = null;
+let coachIpcRegistration: Readonly<{ dispose(): void }> | null = null;
 
 // The official-client window used by BOTH record-capture routes (the paipu
 // URL import and the capture diagnostic): the app's persistent Mahjong Soul
@@ -229,6 +233,15 @@ async function writeReplayAuditFile(
 }
 
 async function start(): Promise<void> {
+  const providerCredentials = createProviderCredentials({
+    userData: app.getPath("userData"), safeStorage, platform: process.platform,
+    importer: createEnvironmentKeyImporter(process.env),
+  });
+  // Consume explicit environment input before any source or diagnostic startup.
+  // Import failure is unavailable and never logs backend errors or the input.
+  if (process.env.RIICHI_COACH_API_KEY !== undefined) {
+    await providerCredentials.importCredential().catch(() => undefined);
+  }
   const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
   const loginProvider = createElectronMahjongSoulLoginProvider({
     bundle,
@@ -599,6 +612,11 @@ async function start(): Promise<void> {
   });
   await service.initialize();
 
+  const coachService = createCoachService({
+    credentials: providerCredentials, fetchImpl: globalThis.fetch,
+    readPackage: createPackageReferenceReader(app.getPath("userData")),
+  });
+
   const createMainWindow = async (): Promise<void> => {
     if (mainWindow !== null && !mainWindow.isDestroyed()) return;
     const window = new BrowserWindow({
@@ -610,6 +628,11 @@ async function start(): Promise<void> {
     ipcRegistration?.dispose();
     catalogIpcRegistration?.dispose();
     paipuIpcRegistration?.dispose();
+    coachIpcRegistration?.dispose();
+    coachIpcRegistration = registerCoachIpc({
+      ipcMain: ipcMain as unknown as IpcMainPort, service: coachService,
+      trustedSenderId: window.webContents.id,
+    });
     ipcRegistration = registerMahjongSoulIpc({
       ipcMain: ipcMain as unknown as IpcMainPort,
       service,
@@ -637,6 +660,8 @@ async function start(): Promise<void> {
       catalogIpcRegistration = null;
       paipuIpcRegistration?.dispose();
       paipuIpcRegistration = null;
+      coachIpcRegistration?.dispose();
+      coachIpcRegistration = null;
     });
     await window.loadURL(rendererUrl);
   };

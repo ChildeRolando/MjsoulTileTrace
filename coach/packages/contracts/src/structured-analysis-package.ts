@@ -31,6 +31,8 @@
  * impossible to fake an analyzed shape on a failed decision.
  */
 import { z } from "zod";
+import { DecisionIdSchema, RecordAnalysisStatusSchema } from "./analysis-identity-contract.js";
+export { DecisionIdSchema, RecordAnalysisStatusSchema, type DecisionId, type RecordAnalysisStatus } from "./analysis-identity-contract.js";
 import { RiichiActionSchema } from "./actions.js";
 import { parseCanonicalEventRef } from "./event-stream.js";
 import { EngineIdentitySchema } from "./fact-engine.js";
@@ -183,8 +185,6 @@ export type DecisionSurface = z.infer<typeof DecisionSurfaceSchema>;
  *  - NOT guaranteed stable across mapper versions — mapper-version changes
  *    that alter canonical event refs are recorded via `componentVersions`.
  */
-export const DecisionIdSchema = z.string().min(1);
-export type DecisionId = z.infer<typeof DecisionIdSchema>;
 
 /** Frozen decision-window kinds (mirrors DecisionWindowSchema in actions.ts). */
 export const DecisionWindowKindSchema = z.enum([
@@ -360,14 +360,6 @@ export type ComponentVersions = z.infer<typeof ComponentVersionsSchema>;
 
 /** Aggregate status of one whole-game analysis. `integrity_failed` never
  *  disguises a failed analysis as success. */
-export const RecordAnalysisStatusSchema = z.enum([
-  "complete",
-  "degraded",
-  "integrity_failed",
-]);
-export type RecordAnalysisStatus = z.infer<
-  typeof RecordAnalysisStatusSchema
->;
 
 export const RecordAnalysisSchema = z.object({
   recordId: z.string().min(1),

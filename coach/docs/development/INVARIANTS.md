@@ -123,6 +123,10 @@ Model/report evidence provider（模型/报告证据来源）
 - **Executable tests**：`preload-entry.test.ts`（拒绝携带凭据的状态/摘要）、
   `security-boundary.integration.test.ts`、`main-security.test.ts`、
   `secret-string.test.ts`、`npm run check:architecture`。
+- **COAC-3 增量**：`provider-credentials.test.ts`、`coach-provider.test.ts`、
+  `coach-ipc.test.ts`、`coach-preload-bundle.test.ts` 约束独立密文记录、无 key IPC、
+  固定错误、反射秘密拦截与沙箱 bundle 的实际依赖。当前执行环境的 Vitest/build
+  `spawn EPERM` 不算测试通过，见 COAC-3 回执；不修改既有不变量等级。
 - **Status**：machine-enforced（行为测试 + 机械导入规则；注意机械规则只查直接导入，
   传递泄漏仍靠行为测试）。
 
@@ -223,8 +227,8 @@ Model/report evidence provider（模型/报告证据来源）
   CoachJudgment/CoachInference nodeId + payload self-id、Explanation 内容与 payload
   self-id 篡改、`verbalizes` / `opposes` / `qualifies` endpoint-kind 篡改，以及合法
   endpoint kind 的跨 decision 边。
-- **Status**：machine-enforced（contracts/reasoning baseline；桌面 provider/IPC/真实
-  网络仍是 M6-D2 未完成项）。
+- **Status**：machine-enforced（contracts/reasoning baseline；COAC-3 provider/IPC
+  接线已落盘，但环境门禁、COAC-4 完整工作流与真实桌面验收仍未完成）。
 
 ---
 

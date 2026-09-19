@@ -278,9 +278,31 @@ Mortal/Akagi 的分数决定“模型偏好”；教练判断（CoachJudgment）
 
 账号 ID、令牌、协议 payload、下载 URL 和牌谱字节只能存在于主进程或 source 包。IPC 使用窄方法和固定安全结果。
 
+COAC-3 的 `desktop/src/llm-provider/` 消费 contracts 的 `LlmCoachProvider`；HTTP、
+凭据和 package reader 只在 main 组合。生产入口启动时消费一次显式
+`RIICHI_COACH_API_KEY` 环境槽并删除该环境值，直接调用 Electron safeStorage，原子
+写入 `userData/coach-provider-credential.json`（仅版本、providerId、密文）。凭据
+不经过 session-key protector，后者仍要求 `canonicalBase64(keyBase64, 32)`。
+Linux 弱后端、损坏/解密失败、加密/写入失败均不可用；失败替换保留旧密文，当前服务
+停止使用凭据，成功重新导入或经校验的重启才能恢复。删除/替换操作等待在途生成结束。
+
+`riichiCoachProvider` 只暴露 configure/status/importCredential/clearCredential/generate。
+configure 是严格 `{baseUrl, modelName}`；baseUrl 只允许无认证信息、query、fragment 的
+HTTPS URL。非敏感设置在当前 main 生命周期内保留，与密文文件独立；重启后需重新配置
+设置。导入/删除不接收参数。generate 只接收 `{packageId}`，主进程从
+`userData/analysis-packages/<sha256(packageId)>.json` 读取已有包，并校验内容与 identity；
+缺失/损坏引用返回 `package_unavailable`。此只读接点不提供新的分析包写入或目录 UI。
+
+窄生成链是 validate → project → select → slice → 冻结 prompt → 最多两次 HTTP
+attempt → 既有 assemble/read-back validator；不保存报告、prompt、response 或 raw CoT。
+模型返回的未知字段不成为产品字段，错误正文不读取，diagnostics 只保留冻结 code 与
+已选 decisionId。IPC 与 preload 两端重解析同一 contracts DTO；contracts 的基础
+identity/status schema 仅做内部提取，公共形状和导出保持不变，`sideEffects: false`
+使沙箱 bundle 不引入未使用的 Node crypto 模块。依赖方向与 renderer allow-list 未扩张。
+
 ## 当前已知架构缺口
 
 - canonical mapper 的部分流局/杠语义尚需真实牌谱反证（M5 人工验收并行线程）；
 - 响应面已接入（M6-A4.0/A4.1/A4.2：归属过滤拆除、discard_response/kan_response 开窗、响应窗口身份事实表与本地候选枚举同构、守恒不变量升级、响应分支覆盖率矩阵 fail-closed）；A4.3 纯事件 discovery 扫描已落地（`scripts/response-surface-discovery.mjs`，chankan 最早启动、合格局计数按 source 记入 manifest），wave-1 六分支已全部真实 E2E 取证（resp_chi/pon/daiminkan/hora_actual + resp_pass_on_discard 四候选族子覆盖 + resp_chankan_actual，8 份真实报告），wave-2 保持 fail-closed + 降级条款；
 - mapped/replayed record 与 Mortal 报告仍仅在主进程内存/验收缓存中，没有产品级持久化（M7-B）；
-- 整盘 StructuredAnalysisPackage（M6-C）与 Typed Context Graph substrate（M6-D1）已实现；M6-D2 的 contracts/reasoning baseline（严格 Coach/ReviewReport 契约、grounding/read-back validator、append-only overlay、evidence-only degrade）已实现，但桌面 provider/BYOK、safeStorage、IPC、真实网络与生产组合根尚未接线；review UI、SQLite 会话与跨平台发布仍未实现（M7-A / M7-B / M8）。
+- 整盘 StructuredAnalysisPackage（M6-C）与 Typed Context Graph substrate（M6-D1）已实现；M6-D2 的 contracts/reasoning baseline（严格 Coach/ReviewReport 契约、grounding/read-back validator、append-only overlay、evidence-only degrade）已实现，COAC-3 已接入桌面 provider/BYOK、safeStorage、窄 IPC 与 package 引用生成 seam（原样门禁环境阻塞，未做真实 LLM 验收），COAC-4 完整工作流仍待实现；review UI、SQLite 会话与跨平台发布仍未实现（M7-A / M7-B / M8）。
