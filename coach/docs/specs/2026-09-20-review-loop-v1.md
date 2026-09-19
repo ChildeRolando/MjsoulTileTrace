@@ -400,3 +400,30 @@ fixtures 单点验证。因此由一个 repository spec + machine companions 承
 
 **Verification** — 以实际 PR 交付记录为准；最低门禁为
 `npm run test:review-loop-protocol`、`npm run check:architecture`、`git diff --check`。
+
+### COAC-14 acceptance evidence — 2026-09-20
+
+审查候选：`3fa9cfe416dad65c22baac98d1862833191c87c5` →
+`f2d6bd6a46ef7f6c66066115a923ef2d31193f77`，PR #5。以下是该候选的独立复核，
+不把协议 fixture 通过等同于平台部署或仓库全量验收通过。
+
+- `npm run test:review-loop-protocol`：PASS，18 fixtures；不可信 Reviewer/Fixer、
+  不可验证 webhook source 均 BLOCKED，可信 stale Fixer 有容量时继续 review，round 3 BLOCKED。
+- `npm run typecheck`：PASS；`npm run check:architecture`：PASS，0 violations。
+- `git diff --check 3fa9cfe..HEAD`：PASS。
+- `npm run build`：exit 1，desktop `scripts/bundle-preload.mjs:12` 调用 esbuild，
+  `node:internal/child_process:441` 抛出 `spawn EPERM`（errno -4048）。
+- `npx vitest run`：exit 1，tinypool ProcessWorker 创建子进程时 `spawn EPERM`，未执行测试。
+- `npm run test:package-import`、`npm test`：均 exit 1，前置 build 命中同一 esbuild
+  `spawn EPERM`，后续测试未执行。
+
+复现环境：Windows，Node.js v24.15.0；所有 npm 命令 cwd 为 `coach/`。上述四条失败命令
+就是现有 durable gate/check，不另造替代门禁。工单要求的环境阻塞证据已提供，但关闭门槛
+中的“相关测试通过”仍未满足；必须在允许这些子进程的环境对同一候选重跑相同命令并记录
+通过结果，才能消除这一验收阻塞。审查未修改生产代码或平台资源。
+
+平台读取核对：Multica CLI v0.5.0（commit `2df765a3c`）的 `autopilot --help` 没有
+delivery read 子命令，`autopilot runs --help` 提供 runs 读取与分页；本轮未创建/触发
+webhook，也未取得真实原始 delivery。因此 §3.1 的激活阻塞仍有效，本文顶部的
+“ready for platform implementation”不得解释为获准启用 webhook。原始 delivery 读取路径
+或新的 versioned hash/admission 语义须由负责人裁决并落盘后再实施。
