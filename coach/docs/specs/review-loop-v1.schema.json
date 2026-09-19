@@ -16,6 +16,7 @@
     "source_review_id",
     "source_review_comment_id",
     "raw_review_sha256",
+    "source_review_provenance",
     "verdict",
     "findings",
     "gates",
@@ -42,6 +43,19 @@
     "source_review_id": { "$ref": "#/$defs/uuid" },
     "source_review_comment_id": { "$ref": "#/$defs/uuid" },
     "raw_review_sha256": { "$ref": "#/$defs/sha256" },
+    "source_review_provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["author_type", "author_id", "expected_author_id", "comment_owner_issue_id", "expected_review_issue_id", "verified"],
+      "properties": {
+        "author_type": { "const": "agent" },
+        "author_id": { "$ref": "#/$defs/uuid" },
+        "expected_author_id": { "$ref": "#/$defs/uuid" },
+        "comment_owner_issue_id": { "$ref": "#/$defs/uuid" },
+        "expected_review_issue_id": { "$ref": "#/$defs/uuid" },
+        "verified": { "const": true }
+      }
+    },
     "verdict": { "enum": ["NO_P1_P2", "CHANGES_REQUIRED", "ENVIRONMENT_BLOCKED"] },
     "findings": {
       "type": "object",

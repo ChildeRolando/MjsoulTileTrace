@@ -34,6 +34,20 @@ function result(transition, nextRound = null) {
 }
 
 export function decide(input) {
+  if (
+    input?.phase === "initial_candidate"
+    && input.source_payload_verified !== true
+  ) {
+    return result("BLOCKED");
+  }
+
+  if (
+    (input?.phase === "review" || input?.phase === "fixer")
+    && input.source_author_valid !== true
+  ) {
+    return result("BLOCKED");
+  }
+
   if (input?.dispatch_state === "identical") {
     return result("NO_ACTION_ALREADY_DISPATCHED");
   }
@@ -57,12 +71,20 @@ export function decide(input) {
   }
 
   if (input.phase === "fixer") {
-    const validNewHead = input.fixer_result_valid === true
-      && input.current_head_sha === input.fixer_head_sha
-      && input.fixer_head_sha !== input.previous_head_sha;
-    if (!validNewHead || input.round === 3) {
+    if (input.fixer_result_valid !== true) {
       return result("BLOCKED");
     }
+
+    if (input.current_head_sha !== input.fixer_head_sha) {
+      return input.round < 3
+        ? result("DISCARD_AND_REVIEW", input.round + 1)
+        : result("BLOCKED");
+    }
+
+    if (input.fixer_head_sha === input.previous_head_sha || input.round === 3) {
+      return result("BLOCKED");
+    }
+
     return result("DISCARD_AND_REVIEW", input.round + 1);
   }
 
@@ -154,11 +176,22 @@ export function runChecks() {
   assert.equal(reviewer.permission_mode, "private");
   assert.equal(reviewer.visibility, "private");
   assert(controller.instructions.includes("${FRESH_REVIEWER_AGENT_ID}"));
+  assert(controller.instructions.includes("author_type=agent"));
+  assert(controller.instructions.includes("source_payload_verified=false"));
+  assert(controller.instructions.includes("ba77da89-8574-4dea-8fc2-24e841fc2754"));
   assert(reviewer.instructions.includes("${CONTROLLER_AGENT_ID}"));
+  assert(reviewer.instructions.includes("source_review_provenance"));
 
   assert.equal(manifest.autopilot.execution_mode, "create_issue");
   assert.equal(manifest.autopilot.project_id, "bc4d48fd-93e1-4377-9342-670a523729ac");
   assert.equal(manifest.autopilot.trigger.kind, "webhook");
+  assert.equal(manifest.autopilot.webhook_intake.issue_association_field, "issue_id");
+  assert.equal(manifest.autopilot.webhook_intake.payload_field, "trigger_payload");
+  assert.equal(manifest.autopilot.webhook_intake.raw_headers_available, false);
+  assert.equal(manifest.autopilot.webhook_intake.raw_body_bytes_available, false);
+  assert.equal(manifest.autopilot.webhook_intake.reserialize_trigger_payload_for_hash, false);
+  assert.equal(manifest.autopilot.webhook_intake.unverifiable_source_transition, "BLOCKED");
+  assert.equal(manifest.autopilot.webhook_intake.activation_blocked_pending_owner_decision, true);
   const templateTokens = [...manifest.autopilot.issue_title_template.matchAll(/{{([^}]+)}}/g)]
     .map((match) => match[1]);
   assert.deepEqual(templateTokens, ["date"]);
@@ -177,9 +210,12 @@ export function runChecks() {
     "environment_failures",
     "source_review_id",
     "raw_review_sha256",
+    "source_review_provenance",
   ]) {
     assert(schema.required.includes(required), `schema missing ${required}`);
   }
+  assert.equal(schema.properties.source_review_provenance.properties.author_type.const, "agent");
+  assert.equal(schema.properties.source_review_provenance.properties.verified.const, true);
 
   for (const transition of TRANSITIONS) {
     assert(spec.includes(`\`${transition}\``), `spec missing ${transition}`);
@@ -199,6 +235,7 @@ export function runChecks() {
     "malformed",
     "stale HEAD",
     "stale Fixer result",
+    "stale Fixer result round 3",
     "untrusted review result author",
     "untrusted Fixer result author",
     "round 3",
