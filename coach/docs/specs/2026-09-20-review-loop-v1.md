@@ -81,6 +81,11 @@ intake 被挂为它的 child：
 [review-loop/v1][event][<delivery-id-prefix-12>] <owner>/<repo>#<pr-number>
 ```
 
+intake issue 与触发记录的唯一可读关联路径是：对配置的 Autopilot 执行
+`multica autopilot runs <autopilot-id> --output json`，在返回的 run 中按
+`issue_id == <intake-issue-id>` 精确匹配一条记录，并要求 `source == "webhook"`、
+`trigger_id` 等于配置的 webhook trigger ID。零条、多条或字段不匹配均 `BLOCKED`。
+
 工作 child title：
 
 ```text
@@ -107,9 +112,10 @@ lowercase SHA-256：
 }
 ```
 
-GitHub source hash覆盖平台保存的原始 request body；comment source hash覆盖 Multica API
-返回的 `content` 字符串按 UTF-8 编码的精确 bytes，不增删尾换行、不规范化 CRLF、不
-重排 JSON。
+GitHub source hash 必须覆盖平台保存的原始 request body bytes；comment source hash覆盖
+Multica API 返回的 `content` 字符串按 UTF-8 编码的精确 bytes，不增删尾换行、不规范化
+CRLF、不重排 JSON。当前平台可读面不能取得前者，故 webhook source 不得生成
+`source_sha256` 或进入 dispatch；见 §3 的冻结限制。
 
 Controller 在任何 child create 前必须扫描：
 
@@ -126,6 +132,28 @@ Controller 在任何 child create 前必须扫描：
 Autopilot webhook URL 是 secret，不能写入仓库、issue、日志或 PR。Multica ingress 使用
 `X-GitHub-Delivery`（否则 `Idempotency-Key`）复用重复 delivery；Controller 仍执行上节
 的第二层幂等检查。
+
+### 3.1 Frozen Multica delivery/read path and current limitation
+
+截至 2026-09-20，仓库可验证的 Multica CLI read path 只有：
+
+1. `multica autopilot runs <autopilot-id> --output json`；
+2. 以 run 的 `issue_id` 精确关联当前 intake issue；
+3. 读取 run 的 `source`、`trigger_id` 和解析后的 `trigger_payload`。
+
+该 read path **不提供** delivery read 子命令，也不在 run 记录中提供原始 request headers、
+原始 body bytes、provider delivery id 或原始 body hash。`trigger_payload` 是解析后的 JSON，
+不得重新序列化后冒充原始 bytes，也不得从 payload 字段猜测 `X-GitHub-Event` 或
+`X-GitHub-Delivery`。因此当前所有 webhook intake 的 normalized
+`source_payload_verified=false`，Controller 必须在任何 child dispatch 前返回 `BLOCKED`。
+
+激活 webhook 前，Multica 平台负责人必须二选一并更新本文、manifest 与 fixtures：
+
+- 暴露与 `issue_id` 关联的只读 delivery 记录，其中含未经重序列化的 headers、body bytes
+  和 provider delivery id；或
+- 明确批准一个新的 versioned hash/admission 语义。
+
+在该裁决落盘前不得创建或启用 Review Loop v1 webhook；实现者无权自行选取新语义。
 
 唯一允许的 repository 是 `ChildeRolando/MjsoulTileTrace`。必须有
 `X-GitHub-Event`、provider delivery id，并通过 live GitHub 查询重新验证 PR；event
@@ -156,8 +184,15 @@ SHA 必须是完整 40 位 lowercase Git object id，不接受缩写。Ticket �
 Fresh Reviewer final comment 必须以一个且仅一个 `review-loop-result` JSON fenced block
 结束。其 JSON 提供 schema 顶层 observation 的 reviewer-owned 字段；`source_review_id`
 是 fresh review issue UUID。Controller 读取 comment 后补入 live `current_head_sha`、
-`source_review_comment_id` 与 `raw_review_sha256`，再校验
+`source_review_comment_id`、`raw_review_sha256` 与 `source_review_provenance`，再校验
 [`review-loop-v1.schema.json`](review-loop-v1.schema.json) 定义的完整 observation。
+
+`source_review_provenance` 只能由 Controller 从 Multica 元数据派生，Reviewer prose/JSON
+不能声明或覆盖它。以下条件必须同时成立：comment `author_type == "agent"`；
+`author_id` 严格等于 manifest 中部署后回填的 Fresh Reviewer Agent ID；comment 的 owner
+issue 严格等于 `source_review_id` 和本轮确定性 review child；该 child 的 assignee 仍是同一
+Fresh Reviewer ID。任一字段缺失、不相等或归属冲突均 `BLOCKED`，即使正文/hash 自洽也
+不得 `PASS` 或消耗新一轮。
 
 五项 gate 固定且必须各出现一次：
 
@@ -216,6 +251,11 @@ Fixer 下载附件、重新计算 SHA-256，一致后才执行；不一致或附
 并在 final comment 报告完整 40 位 pushed HEAD，然后 mention Controller。没有新 pushed
 HEAD、只改 local worktree、force-push 无法验证或 fixer result malformed 均 `BLOCKED`。
 
+Controller 在解释 Fixer comment 前必须从 Multica 元数据验证：`author_type == "agent"`、
+`author_id == ba77da89-8574-4dea-8fc2-24e841fc2754`、comment owner 是本轮确定性 fix child，
+且该 child 分配给同一 Fixer ID。该 conjunction 是 normalized `source_author_valid`；任一项
+不成立立即 `BLOCKED`，不允许伪造 Fixer result 或借此消耗 round。
+
 ## 7. Controller state machine
 
 Controller 唯一允许输出以下五种 transition：
@@ -231,9 +271,9 @@ Controller 唯一允许输出以下五种 transition：
 
 | Priority | Normalized condition | Transition | Effect |
 |---:|---|---|---|
-| 1 | exact delivery/transition/child dispatch already recorded with identical metadata | `NO_ACTION_ALREADY_DISPATCHED` | 不创建、不重发、不改 round |
+| 1 | verified source provenance and exact delivery/transition/child dispatch already recorded with identical metadata | `NO_ACTION_ALREADY_DISPATCHED` | 不创建、不重发、不改 round |
 | 2 | duplicate title/key/source exists but any metadata/hash/result conflicts | `BLOCKED` | 记录 conflict，零 dispatch |
-| 3 | unsupported/malformed input；identity/spec/live PR 不可验证；review envelope/hash/verdict 自相矛盾；multiple conflicting results | `BLOCKED` | 零 dispatch |
+| 3 | unsupported/malformed input；webhook 原始 source 不可验证；identity/spec/live PR 不可验证；Reviewer/Fixer 作者或 comment/child 归属不匹配；review envelope/hash/verdict 自相矛盾；multiple conflicting results | `BLOCKED` | 零 dispatch |
 | 4 | no review exists for an admitted initial candidate | `DISCARD_AND_REVIEW` | 创建 round 1 fresh review child |
 | 5 | event/review/fixer references stale HEAD and next round is `<=3` | `DISCARD_AND_REVIEW` | 丢弃旧结果，仅对 live HEAD 创建 next-round fresh review |
 | 6 | event/review/fixer references stale HEAD but next round would be `4` | `BLOCKED` | 三轮上限，零 dispatch |
@@ -262,13 +302,15 @@ Reviewer/Fixer 的 final comment mention Controller，是唯一 continuation tri
 配置预览的固定值与完整 instructions 在
 [`review-loop-v1.multica.json`](review-loop-v1.multica.json)。后续实施顺序：
 
-1. 重新只读核验 runtime/project/Fixer IDs 与 model catalog；
-2. 创建 Controller，保存返回 ID；
-3. 将该 ID 替换进 Reviewer instructions 后创建 Reviewer；
-4. 将 Reviewer ID 替换进 Controller instructions；
-5. 创建 `create_issue` Autopilot 并添加 webhook trigger；
-6. 在 GitHub 只订阅 §3 的 `pull_request` 与 `push` events；webhook URL 不进入仓库；
-7. 回读两个 Agent 与 Autopilot，核对 instructions hash、模型、thinking、权限、并发和 project。
+1. 由 Multica 平台负责人先解决 §3.1 的 raw delivery 读取/哈希语义裁决；未解决则停止，
+   不创建或启用 webhook；
+2. 重新只读核验 runtime/project/Fixer IDs 与 model catalog；
+3. 创建 Controller，保存返回 ID；
+4. 将该 ID 替换进 Reviewer instructions 后创建 Reviewer；
+5. 将 Reviewer ID 替换进 Controller instructions；
+6. 创建 `create_issue` Autopilot 并添加 webhook trigger；
+7. 在 GitHub 只订阅 §3 的 `pull_request` 与 `push` events；webhook URL 不进入仓库；
+8. 回读两个 Agent 与 Autopilot，核对 instructions hash、模型、thinking、权限、并发和 project。
 
 后续实施工单可直接从 manifest 取值；以下 PowerShell 是配置预览，不得在本工单运行：
 
@@ -308,7 +350,8 @@ multica autopilot trigger-add $autopilot.id --kind webhook --label $a.trigger.la
 ## 9. Fixtures and acceptance
 
 `decision-cases.json` 至少冻结：clean pass、P1、P2、P3-only、gate fail、environment
-blocked、malformed、stale HEAD、round 3、duplicate transition、conflicting results；另有
+blocked、malformed、stale HEAD、stale Fixer（含 round 3）、untrusted Reviewer/Fixer、
+unverifiable webhook source、round 3、duplicate transition、conflicting results；另有
 initial candidate 与 Fixer new-head 用例。检查器必须证明每个 fixture 只得到一个允许的
 transition、所有未知组合 fail closed、配置中 Controller 并发为 1、Autopilot 不含非法
 title token、Fixer ID 被复用且无 Squad。
@@ -357,3 +400,67 @@ fixtures 单点验证。因此由一个 repository spec + machine companions 承
 
 **Verification** — 以实际 PR 交付记录为准；最低门禁为
 `npm run test:review-loop-protocol`、`npm run check:architecture`、`git diff --check`。
+
+### COAC-14 acceptance evidence — 2026-09-20
+
+审查候选：`3fa9cfe416dad65c22baac98d1862833191c87c5` →
+`f2d6bd6a46ef7f6c66066115a923ef2d31193f77`，PR #5。以下是该候选的独立复核，
+不把协议 fixture 通过等同于平台部署或仓库全量验收通过。
+
+- `npm run test:review-loop-protocol`：PASS，18 fixtures；不可信 Reviewer/Fixer、
+  不可验证 webhook source 均 BLOCKED，可信 stale Fixer 有容量时继续 review，round 3 BLOCKED。
+- `npm run typecheck`：PASS；`npm run check:architecture`：PASS，0 violations。
+- `git diff --check 3fa9cfe..HEAD`：PASS。
+- `npm run build`：exit 1，desktop `scripts/bundle-preload.mjs:12` 调用 esbuild，
+  `node:internal/child_process:441` 抛出 `spawn EPERM`（errno -4048）。
+- `npx vitest run`：exit 1，tinypool ProcessWorker 创建子进程时 `spawn EPERM`，未执行测试。
+- `npm run test:package-import`、`npm test`：均 exit 1，前置 build 命中同一 esbuild
+  `spawn EPERM`，后续测试未执行。
+
+复现环境：Windows，Node.js v24.15.0；所有 npm 命令 cwd 为 `coach/`。上述四条失败命令
+就是现有 durable gate/check，不另造替代门禁。工单要求的环境阻塞证据已提供，但关闭门槛
+中的“相关测试通过”仍未满足；必须在允许这些子进程的环境对同一候选重跑相同命令并记录
+通过结果，才能消除这一验收阻塞。审查未修改生产代码或平台资源。
+
+平台读取核对：Multica CLI v0.5.0（commit `2df765a3c`）的 `autopilot --help` 没有
+delivery read 子命令，`autopilot runs --help` 提供 runs 读取与分页；本轮未创建/触发
+webhook，也未取得真实原始 delivery。因此 §3.1 的激活阻塞仍有效，本文顶部的
+“ready for platform implementation”不得解释为获准启用 webhook。原始 delivery 读取路径
+或新的 versioned hash/admission 语义须由负责人裁决并落盘后再实施。
+
+#### Gate rerun — candidate `e7df092`, 2026-09-20
+
+应用户要求在新的 Multica 运行中补跑相同门禁。子进程创建限制已解除，但 desktop build
+仍被 workspace 产物写入边界阻断：
+
+- `npx vitest run`：exit 0，161 test files、1851 tests 全部通过；
+- `npm run test:review-loop-protocol`、`npm run typecheck`、
+  `npm run check:architecture`：均 PASS，架构检查 0 violations；
+- `npm run build`：exit 1；esbuild 已成功启动，但写入既存
+  `packages/desktop/dist/preload.bundle.cjs` 时返回 `Access is denied`；
+- `npm run test:package-import`、`npm test`：均 exit 1，停在相同的前置 build 写入失败，
+  后续阶段未执行；
+- 目标文件属性为 `Archive`、`IsReadOnly=False`；这不足以判定拒绝来源，未修改 ACL、沙箱
+  配置或生产 bundler 来规避门禁。
+
+因此 Vitest 门禁已经补齐通过证据；build、package-import 与 full 仍未通过，关闭阻塞尚未
+清零。当前失败与 Review Loop 协议逻辑无关，但必须由运行环境修复该工作区输出文件写入
+边界后，对 PR HEAD 重跑原命令。
+
+#### Gate rerun — candidate `05d82bf`, 2026-09-20
+
+宿主已恢复被旧沙箱身份创建的、Git 忽略的
+`packages/desktop/dist/preload.bundle.cjs` 产物生命周期；生产 bundler 与候选 HEAD 字节一致，
+本轮未修改 ACL、沙箱配置或生产代码。随后在 Windows / Node.js v24.15.0、cwd `coach/`
+对 PR #5 HEAD `05d82bf01e13971da142a9040bfdb41f67294aff` 重跑原门禁：
+
+- `npm test`：exit 0；build、161 个 Vitest files / 1851 tests、协议 updater / compatibility、
+  18 个 Review Loop fixtures 与架构检查全部通过；
+- `npm run test:package-import`：exit 0，workspace packages 从 emitted JavaScript 导入成功；
+- `npm run typecheck`：exit 0；`npm audit --omit=dev`：exit 0，0 vulnerabilities；
+- `npm run test:review-loop-protocol`：exit 0，18 fixtures / 5 transitions；
+- `git diff --check 3fa9cfe..HEAD`：exit 0。
+
+先前由 `spawn EPERM` 和既存 bundle 写入拒绝造成的环境门禁阻塞至此清零。§3.1 的 webhook
+激活阻塞不变：以上仓库验收通过不证明平台提供 raw delivery headers/body bytes，也不授权创建
+或启用 webhook。
