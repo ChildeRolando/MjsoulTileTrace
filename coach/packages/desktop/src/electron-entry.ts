@@ -85,6 +85,9 @@ import {
 } from "./record-ingestion-service.js";
 import { createRecordAnalysisStore } from "./record-analysis-store.js";
 import { readCliFlag } from "./diagnostic-flags.js";
+import { createProviderCredentialService, environmentCredentialImporter } from "./llm-provider/credentials.js";
+import { createCoachService } from "./llm-provider/service.js";
+import { registerCoachIpc } from "./llm-provider/ipc.js";
 
 const PARTITION = "persist:riichi-coach-mahjong-soul-cn";
 const bundleRoot = fileURLToPath(new URL("../../../vendor/mahjong-soul-protocol/", import.meta.url));
@@ -107,6 +110,7 @@ let mainWindow: BrowserWindow | null = null;
 let ipcRegistration: Readonly<{ dispose(): void }> | null = null;
 let catalogIpcRegistration: Readonly<{ dispose(): void }> | null = null;
 let paipuIpcRegistration: Readonly<{ dispose(): void }> | null = null;
+let coachIpcRegistration: Readonly<{ dispose(): void }> | null = null;
 
 // The official-client window used by BOTH record-capture routes (the paipu
 // URL import and the capture diagnostic): the app's persistent Mahjong Soul
@@ -599,6 +603,18 @@ async function start(): Promise<void> {
   });
   await service.initialize();
 
+  const providerCredentials = createProviderCredentialService({
+    root: join(app.getPath("userData"), "coach-provider"),
+    safeStorage, platform: process.platform,
+    importer: environmentCredentialImporter(process.env),
+  });
+  await providerCredentials.initialize();
+  if (process.env.RIICHI_COACH_API_KEY !== undefined) await providerCredentials.importCredential();
+  const coachService = createCoachService({
+    credentials: providerCredentials,
+    resolvePackage: (packageId) => analysisStore.getAnalysisPackage(packageId),
+  });
+
   const createMainWindow = async (): Promise<void> => {
     if (mainWindow !== null && !mainWindow.isDestroyed()) return;
     const window = new BrowserWindow({
@@ -610,6 +626,11 @@ async function start(): Promise<void> {
     ipcRegistration?.dispose();
     catalogIpcRegistration?.dispose();
     paipuIpcRegistration?.dispose();
+    coachIpcRegistration?.dispose();
+    coachIpcRegistration = registerCoachIpc({
+      ipcMain: ipcMain as unknown as IpcMainPort, service: coachService,
+      trustedSenderId: window.webContents.id,
+    });
     ipcRegistration = registerMahjongSoulIpc({
       ipcMain: ipcMain as unknown as IpcMainPort,
       service,
@@ -637,6 +658,8 @@ async function start(): Promise<void> {
       catalogIpcRegistration = null;
       paipuIpcRegistration?.dispose();
       paipuIpcRegistration = null;
+      coachIpcRegistration?.dispose();
+      coachIpcRegistration = null;
     });
     await window.loadURL(rendererUrl);
   };

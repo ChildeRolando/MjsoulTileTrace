@@ -32,8 +32,8 @@ import { z } from "zod";
 import { DecisionIdSchema, RecordAnalysisStatusSchema } from "./structured-analysis-package.js";
 
 /** The frozen v1 selector policy version (spec "Policy v1 冻结"). */
-export const SELECTOR_POLICY_VERSION_V1 =
-  "deterministic-review-selector/v1" as const;
+import { SELECTOR_POLICY_VERSION_V1 } from "./review-identifiers.js";
+export { SELECTOR_POLICY_VERSION_V1 } from "./review-identifiers.js";
 
 /** Policy v1 snapshot. T (errorGapThreshold) and N (maxSelections) are frozen
  *  as schema literals so a threshold/cap change is a compile/test failure and

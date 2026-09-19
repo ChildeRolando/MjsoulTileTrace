@@ -93,6 +93,7 @@ export * from "./context-graph/validate-reasoning-overlay-partition.js";
 // assembly (the deterministic core of generateReviewReport — the provider
 // port implementation lives in the desktop main process).
 export * from "./groundingValidator.js";
+export * from "./coach-prompt.js";
 export {
   assembleReviewReport,
   appendReasoningOverlay,

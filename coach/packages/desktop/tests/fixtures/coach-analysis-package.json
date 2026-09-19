@@ -1,0 +1,3827 @@
+{
+  "analysisKey": "analysis:game:fixture:actor0:mortal",
+  "packageId": "package:sha256:d3130a426de1cc3cb25333e94037998028637ba502d35342e93f2b4ee2f77e1d",
+  "createdAt": "2026-08-20T00:00:00.000Z",
+  "semanticContentHash": "sha256:ce114ecef2dd07aa6a83c0ced94ba7717f32c8d59c7bcbe8bb6e0a568911bb72",
+  "record": {
+    "recordId": "game:fixture",
+    "selfActor": 0,
+    "status": "complete"
+  },
+  "componentVersions": {
+    "packageSchema": "structured-analysis-package/v1",
+    "canonicalReplay": "canonical-riichi-events/v2",
+    "mapperAdapter": "fixture/v1",
+    "factEngine": {
+      "engine": "mahjong-helper",
+      "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+      "adapterVersion": "0.2.0",
+      "protocolVersion": "mahjong-facts/v1"
+    },
+    "factorPipeline": "factor-pipeline/v1",
+    "mortalSourceModel": {
+      "identity": "Mortal",
+      "version": "mortal-source/2",
+      "modelTag": "4.1b"
+    }
+  },
+  "analysisPolicy": {
+    "threshold": 10,
+    "unit": "model_selection_score_points",
+    "boundary": "greater_than_or_equal_is_detailed",
+    "policyVersion": "mortal-review/v1"
+  },
+  "decisions": [
+    {
+      "decisionId": "decision:game:fixture:self0:self:self_turn:game:fixture/0/2/0",
+      "surface": "self",
+      "roundOrdinal": 0,
+      "normalizedDecisionContext": {
+        "decisionWindowKind": "self_turn",
+        "selfActor": 0,
+        "triggerEventRef": "game:fixture/0/2/0",
+        "actualAction": {
+          "kind": "discard",
+          "tile": {
+            "id": "5p",
+            "red": false
+          },
+          "discardMode": "tsumogiri"
+        }
+      },
+      "knownGameFacts": {
+        "factSetId": "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a",
+        "provenance": "legacy_regression_bridge_only",
+        "actor": 0,
+        "selfRiichi": false,
+        "handStructureYakuContext": {
+          "windsStatus": "known",
+          "roundWindTile34": 27,
+          "selfWindTile34": 27,
+          "riichiStatus": "inactive",
+          "openTanyaoStatus": "enabled"
+        },
+        "decisionEventRef": "game:fixture/0/2/0",
+        "decisionWindow": {
+          "kind": "self_turn",
+          "actor": 0,
+          "triggerEventRef": "game:fixture/0/2/0"
+        },
+        "concealedTiles": [
+          {
+            "id": "1m",
+            "red": false
+          },
+          {
+            "id": "2m",
+            "red": false
+          },
+          {
+            "id": "3m",
+            "red": false
+          },
+          {
+            "id": "4m",
+            "red": false
+          },
+          {
+            "id": "5m",
+            "red": false
+          },
+          {
+            "id": "6m",
+            "red": false
+          },
+          {
+            "id": "7m",
+            "red": false
+          },
+          {
+            "id": "8m",
+            "red": false
+          },
+          {
+            "id": "9m",
+            "red": false
+          },
+          {
+            "id": "1p",
+            "red": false
+          },
+          {
+            "id": "2p",
+            "red": false
+          },
+          {
+            "id": "3p",
+            "red": false
+          },
+          {
+            "id": "4p",
+            "red": false
+          }
+        ],
+        "currentDraw": {
+          "tile": {
+            "id": "5p",
+            "red": false
+          },
+          "eventRef": "game:fixture/0/2/0"
+        },
+        "melds": [],
+        "doraIndicators": [
+          {
+            "id": "1s",
+            "red": false
+          }
+        ],
+        "rivers": [
+          [],
+          [],
+          [],
+          []
+        ],
+        "furitenSelfRiver": [],
+        "threats": [
+          {
+            "actor": 1,
+            "riichi": false,
+            "declarationEventId": null,
+            "ippatsuAlive": false
+          },
+          {
+            "actor": 2,
+            "riichi": false,
+            "declarationEventId": null,
+            "ippatsuAlive": false
+          },
+          {
+            "actor": 3,
+            "riichi": false,
+            "declarationEventId": null,
+            "ippatsuAlive": false
+          }
+        ],
+        "defenseThreats": [],
+        "roundWind": "E",
+        "seatWind": "E",
+        "dealer": true,
+        "remainingDraws": 69,
+        "completeness": {
+          "concealedTiles": true,
+          "melds": true,
+          "doraIndicators": true,
+          "rivers": true,
+          "remainingDraws": true,
+          "calledDiscardMarkers": true,
+          "responseOpportunities": true,
+          "eventSequence": true,
+          "roundContext": true
+        },
+        "evidenceIds": [
+          "game:fixture/0/0/0",
+          "game:fixture/0/1/0",
+          "game:fixture/0/2/0"
+        ]
+      },
+      "analysisProvider": {
+        "kind": "mortal",
+        "outcome": "analysis_ready",
+        "reason": null
+      },
+      "outcome": "analysis_ready",
+      "comparisonSet": {
+        "comparisonSetId": "mortal-comparison:sha256:9f9f5111f7b27a781f1f1ddde5ebc2dd2b796bfc7365c9c28b548e564176929f:game:fixture/0/2/0",
+        "origin": "automatic_review",
+        "decisionLayerRef": "mortal-review:sha256:9f9f5111f7b27a781f1f1ddde5ebc2dd2b796bfc7365c9c28b548e564176929f:game:fixture/0/2/0",
+        "decisionWindow": {
+          "kind": "self_turn",
+          "actor": 0,
+          "triggerEventRef": "game:fixture/0/2/0"
+        },
+        "candidates": [
+          {
+            "actionRef": "action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+            "action": {
+              "kind": "discard",
+              "tile": {
+                "id": "9m",
+                "red": false
+              },
+              "discardMode": "tedashi"
+            },
+            "origins": [
+              "model"
+            ]
+          },
+          {
+            "actionRef": "action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
+            "action": {
+              "kind": "discard",
+              "tile": {
+                "id": "5p",
+                "red": false
+              },
+              "discardMode": "tsumogiri"
+            },
+            "origins": [
+              "model",
+              "actual"
+            ]
+          }
+        ]
+      },
+      "candidateFactorLedgers": [
+        {
+          "actionRef": "action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
+          "projectedStateRef": "sha256:5c6b83183901c075345142e44b7646455df87cd805f62615d0c3ee16ab47d37d",
+          "axes": [
+            {
+              "axis": "efficiency",
+              "status": "calculated",
+              "facts": [
+                {
+                  "factorKey": "efficiency.mixed_waits_score",
+                  "dimension": "mixed_waits_score",
+                  "status": "blocked_missing_facts",
+                  "evidenceClass": "versioned_upstream_estimate",
+                  "preferenceEligibility": "heuristic_only",
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand13:sha256:5c6b83183901c075345142e44b7646455df87cd805f62615d0c3ee16ab47d37d",
+                    "game:fixture/0/0/0",
+                    "game:fixture/0/1/0",
+                    "game:fixture/0/2/0"
+                  ],
+                  "limitations": [
+                    "Required inputs for mixed_waits_score were not complete"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.avg_agari_rate",
+                  "dimension": "avg_agari_rate",
+                  "status": "blocked_missing_facts",
+                  "evidenceClass": "versioned_upstream_estimate",
+                  "preferenceEligibility": "heuristic_only",
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand13:sha256:5c6b83183901c075345142e44b7646455df87cd805f62615d0c3ee16ab47d37d",
+                    "game:fixture/0/0/0",
+                    "game:fixture/0/1/0",
+                    "game:fixture/0/2/0"
+                  ],
+                  "limitations": [
+                    "Required inputs for avg_agari_rate were not complete"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.overall_shanten",
+                  "dimension": "overall_shanten",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_allowlisted",
+                  "preferenceEligibility": "deterministic",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "number",
+                    "value": 1,
+                    "unit": "shanten"
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835"
+                  ],
+                  "limitations": [
+                    "由固定版本手牌结构引擎计算"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.family_applicability:standard",
+                  "dimension": "family_applicability:standard",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_allowlisted",
+                  "preferenceEligibility": "ineligible",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "classification",
+                    "value": "applicable"
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835"
+                  ],
+                  "limitations": [
+                    "由固定版本手牌结构引擎计算"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.family_shanten:standard",
+                  "dimension": "family_shanten:standard",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_allowlisted",
+                  "preferenceEligibility": "ineligible",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "number",
+                    "value": 1,
+                    "unit": "shanten"
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835"
+                  ],
+                  "limitations": [
+                    "由固定版本手牌结构引擎计算"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.family_effective_tile_types:standard",
+                  "dimension": "family_effective_tile_types:standard",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_allowlisted",
+                  "preferenceEligibility": "ineligible",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "integer_ids",
+                    "values": [
+                      4
+                    ]
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835"
+                  ],
+                  "limitations": [
+                    "由固定版本手牌结构引擎计算"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.family_effective_tiles_remaining:standard",
+                  "dimension": "family_effective_tiles_remaining:standard",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_under_assumptions",
+                  "preferenceEligibility": "ineligible",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "number",
+                    "value": 3,
+                    "unit": "tiles_remaining"
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835"
+                  ],
+                  "limitations": [
+                    "剩余枚数基于输入的可见牌与牌山计数"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.family_applicability:chiitoitsu",
+                  "dimension": "family_applicability:chiitoitsu",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_allowlisted",
+                  "preferenceEligibility": "ineligible",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "classification",
+                    "value": "applicable"
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835"
+                  ],
+                  "limitations": [
+                    "由固定版本手牌结构引擎计算"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.family_shanten:chiitoitsu",
+                  "dimension": "family_shanten:chiitoitsu",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_allowlisted",
+                  "preferenceEligibility": "ineligible",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "number",
+                    "value": 5,
+                    "unit": "shanten"
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835"
+                  ],
+                  "limitations": [
+                    "由固定版本手牌结构引擎计算"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.family_effective_tile_types:chiitoitsu",
+                  "dimension": "family_effective_tile_types:chiitoitsu",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_allowlisted",
+                  "preferenceEligibility": "ineligible",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "integer_ids",
+                    "values": []
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835"
+                  ],
+                  "limitations": [
+                    "由固定版本手牌结构引擎计算"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.family_effective_tiles_remaining:chiitoitsu",
+                  "dimension": "family_effective_tiles_remaining:chiitoitsu",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_under_assumptions",
+                  "preferenceEligibility": "ineligible",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "number",
+                    "value": 0,
+                    "unit": "tiles_remaining"
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835"
+                  ],
+                  "limitations": [
+                    "剩余枚数基于输入的可见牌与牌山计数"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.family_applicability:kokushi",
+                  "dimension": "family_applicability:kokushi",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_allowlisted",
+                  "preferenceEligibility": "ineligible",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "classification",
+                    "value": "applicable"
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835"
+                  ],
+                  "limitations": [
+                    "由固定版本手牌结构引擎计算"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.family_shanten:kokushi",
+                  "dimension": "family_shanten:kokushi",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_allowlisted",
+                  "preferenceEligibility": "ineligible",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "number",
+                    "value": 8,
+                    "unit": "shanten"
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835"
+                  ],
+                  "limitations": [
+                    "由固定版本手牌结构引擎计算"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.family_effective_tile_types:kokushi",
+                  "dimension": "family_effective_tile_types:kokushi",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_allowlisted",
+                  "preferenceEligibility": "ineligible",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "integer_ids",
+                    "values": []
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835"
+                  ],
+                  "limitations": [
+                    "由固定版本手牌结构引擎计算"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.family_effective_tiles_remaining:kokushi",
+                  "dimension": "family_effective_tiles_remaining:kokushi",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_under_assumptions",
+                  "preferenceEligibility": "ineligible",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "number",
+                    "value": 0,
+                    "unit": "tiles_remaining"
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835"
+                  ],
+                  "limitations": [
+                    "剩余枚数基于输入的可见牌与牌山计数"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.best_families",
+                  "dimension": "best_families",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_allowlisted",
+                  "preferenceEligibility": "ineligible",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "string_set",
+                    "values": [
+                      "standard"
+                    ]
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835"
+                  ],
+                  "limitations": [
+                    "由固定版本手牌结构引擎计算"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.overall_effective_tile_types",
+                  "dimension": "overall_effective_tile_types",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_allowlisted",
+                  "preferenceEligibility": "ineligible",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "integer_ids",
+                    "values": [
+                      4
+                    ]
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835"
+                  ],
+                  "limitations": [
+                    "由固定版本手牌结构引擎计算"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.overall_effective_tiles_remaining",
+                  "dimension": "overall_effective_tiles_remaining",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_under_assumptions",
+                  "preferenceEligibility": "deterministic",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "tile_counts",
+                    "value": [
+                      {
+                        "tile34": 4,
+                        "count": 3
+                      }
+                    ]
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835"
+                  ],
+                  "limitations": [
+                    "剩余枚数基于输入的可见牌与牌山计数"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.non_dominated_decomposition_count",
+                  "dimension": "non_dominated_decomposition_count",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_allowlisted",
+                  "preferenceEligibility": "ineligible",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "number",
+                    "value": 1,
+                    "unit": "decompositions"
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835"
+                  ],
+                  "limitations": [
+                    "由固定版本手牌结构引擎计算"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.shape_claims",
+                  "dimension": "shape_claims",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_allowlisted",
+                  "preferenceEligibility": "ineligible",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "shape_claims",
+                    "claims": [
+                      {
+                        "certainty": "invariant",
+                        "group": {
+                          "kind": "floating",
+                          "tiles34": [
+                            0
+                          ],
+                          "occurrence": 1
+                        },
+                        "decompositionOrdinals": [
+                          0
+                        ]
+                      },
+                      {
+                        "certainty": "invariant",
+                        "group": {
+                          "kind": "floating",
+                          "tiles34": [
+                            1
+                          ],
+                          "occurrence": 1
+                        },
+                        "decompositionOrdinals": [
+                          0
+                        ]
+                      },
+                      {
+                        "certainty": "invariant",
+                        "group": {
+                          "kind": "floating",
+                          "tiles34": [
+                            2
+                          ],
+                          "occurrence": 1
+                        },
+                        "decompositionOrdinals": [
+                          0
+                        ]
+                      },
+                      {
+                        "certainty": "invariant",
+                        "group": {
+                          "kind": "floating",
+                          "tiles34": [
+                            3
+                          ],
+                          "occurrence": 1
+                        },
+                        "decompositionOrdinals": [
+                          0
+                        ]
+                      },
+                      {
+                        "certainty": "invariant",
+                        "group": {
+                          "kind": "floating",
+                          "tiles34": [
+                            4
+                          ],
+                          "occurrence": 1
+                        },
+                        "decompositionOrdinals": [
+                          0
+                        ]
+                      },
+                      {
+                        "certainty": "invariant",
+                        "group": {
+                          "kind": "floating",
+                          "tiles34": [
+                            5
+                          ],
+                          "occurrence": 1
+                        },
+                        "decompositionOrdinals": [
+                          0
+                        ]
+                      },
+                      {
+                        "certainty": "invariant",
+                        "group": {
+                          "kind": "floating",
+                          "tiles34": [
+                            6
+                          ],
+                          "occurrence": 1
+                        },
+                        "decompositionOrdinals": [
+                          0
+                        ]
+                      },
+                      {
+                        "certainty": "invariant",
+                        "group": {
+                          "kind": "floating",
+                          "tiles34": [
+                            7
+                          ],
+                          "occurrence": 1
+                        },
+                        "decompositionOrdinals": [
+                          0
+                        ]
+                      },
+                      {
+                        "certainty": "invariant",
+                        "group": {
+                          "kind": "floating",
+                          "tiles34": [
+                            8
+                          ],
+                          "occurrence": 1
+                        },
+                        "decompositionOrdinals": [
+                          0
+                        ]
+                      },
+                      {
+                        "certainty": "invariant",
+                        "group": {
+                          "kind": "floating",
+                          "tiles34": [
+                            9
+                          ],
+                          "occurrence": 1
+                        },
+                        "decompositionOrdinals": [
+                          0
+                        ]
+                      },
+                      {
+                        "certainty": "invariant",
+                        "group": {
+                          "kind": "floating",
+                          "tiles34": [
+                            10
+                          ],
+                          "occurrence": 1
+                        },
+                        "decompositionOrdinals": [
+                          0
+                        ]
+                      },
+                      {
+                        "certainty": "invariant",
+                        "group": {
+                          "kind": "floating",
+                          "tiles34": [
+                            11
+                          ],
+                          "occurrence": 1
+                        },
+                        "decompositionOrdinals": [
+                          0
+                        ]
+                      },
+                      {
+                        "certainty": "invariant",
+                        "group": {
+                          "kind": "floating",
+                          "tiles34": [
+                            12
+                          ],
+                          "occurrence": 1
+                        },
+                        "decompositionOrdinals": [
+                          0
+                        ]
+                      }
+                    ]
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835"
+                  ],
+                  "limitations": [
+                    "由固定版本手牌结构引擎计算"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.decomposition_truncated",
+                  "dimension": "decomposition_truncated",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_allowlisted",
+                  "preferenceEligibility": "ineligible",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "boolean",
+                    "value": false
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835"
+                  ],
+                  "limitations": [
+                    "由固定版本手牌结构引擎计算"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.wait_tiles",
+                  "dimension": "wait_tiles",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_allowlisted",
+                  "preferenceEligibility": "ineligible",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "integer_ids",
+                    "values": []
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835"
+                  ],
+                  "limitations": [
+                    "由固定版本手牌结构引擎计算"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.wait_details",
+                  "dimension": "wait_details",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_allowlisted",
+                  "preferenceEligibility": "ineligible",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "wait_details",
+                    "waits": []
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835"
+                  ],
+                  "limitations": [
+                    "由固定版本手牌结构引擎计算"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.wait_tiles_remaining",
+                  "dimension": "wait_tiles_remaining",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_under_assumptions",
+                  "preferenceEligibility": "ineligible",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "number",
+                    "value": 0,
+                    "unit": "tiles_remaining"
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835"
+                  ],
+                  "limitations": [
+                    "剩余枚数基于输入的可见牌与牌山计数"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.base_ron_eligibility",
+                  "dimension": "base_ron_eligibility",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_allowlisted",
+                  "preferenceEligibility": "ineligible",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "string_set",
+                    "values": []
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835"
+                  ],
+                  "limitations": [
+                    "由固定版本手牌结构引擎计算"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.discard_furiten",
+                  "dimension": "discard_furiten",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_local_replay",
+                  "preferenceEligibility": "ineligible",
+                  "value": {
+                    "kind": "boolean",
+                    "value": false
+                  },
+                  "evidenceIds": [
+                    "game:fixture/0/2/0",
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835"
+                  ],
+                  "limitations": [
+                    "舍牌振听由当前绑定场景的自家牌河确定"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.temporary_furiten",
+                  "dimension": "temporary_furiten",
+                  "status": "blocked_missing_facts",
+                  "evidenceClass": "deterministic_allowlisted",
+                  "preferenceEligibility": "ineligible",
+                  "evidenceIds": [
+                    "game:fixture/0/2/0"
+                  ],
+                  "limitations": [
+                    "未提供可验证的响应历史，不能判定响应振听"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.riichi_furiten",
+                  "dimension": "riichi_furiten",
+                  "status": "blocked_missing_facts",
+                  "evidenceClass": "deterministic_allowlisted",
+                  "preferenceEligibility": "ineligible",
+                  "evidenceIds": [
+                    "game:fixture/0/2/0"
+                  ],
+                  "limitations": [
+                    "未提供可验证的响应历史，不能判定响应振听"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.final_ron_eligibility_status",
+                  "dimension": "final_ron_eligibility_status",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_allowlisted",
+                  "preferenceEligibility": "ineligible",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "classification",
+                    "value": "calculated"
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835",
+                    "game:fixture/0/2/0"
+                  ],
+                  "limitations": [
+                    "最终荣和资格由手牌等待、舍牌振听与响应振听的绑定事实共同计算"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.ron_eligible_wait_tiles",
+                  "dimension": "ron_eligible_wait_tiles",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_allowlisted",
+                  "preferenceEligibility": "ineligible",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "integer_ids",
+                    "values": []
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835",
+                    "game:fixture/0/2/0"
+                  ],
+                  "limitations": [
+                    "最终荣和资格由手牌等待、舍牌振听与响应振听的绑定事实共同计算"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.ron_eligible_wait_count",
+                  "dimension": "ron_eligible_wait_count",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_allowlisted",
+                  "preferenceEligibility": "ineligible",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "number",
+                    "value": 0,
+                    "unit": "tile_types"
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835",
+                    "game:fixture/0/2/0"
+                  ],
+                  "limitations": [
+                    "最终荣和资格由手牌等待、舍牌振听与响应振听的绑定事实共同计算"
+                  ]
+                }
+              ]
+            },
+            {
+              "axis": "value",
+              "status": "calculated",
+              "facts": [
+                {
+                  "factorKey": "value.dora_count",
+                  "dimension": "dora_count",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_allowlisted",
+                  "preferenceEligibility": "deterministic",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "number",
+                    "value": 0,
+                    "unit": "dora_count"
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand13:sha256:5c6b83183901c075345142e44b7646455df87cd805f62615d0c3ee16ab47d37d",
+                    "game:fixture/0/0/0",
+                    "game:fixture/0/1/0",
+                    "game:fixture/0/2/0"
+                  ],
+                  "limitations": []
+                },
+                {
+                  "factorKey": "value.yaku_ids",
+                  "dimension": "yaku_ids",
+                  "status": "blocked_missing_facts",
+                  "evidenceClass": "versioned_upstream_estimate",
+                  "preferenceEligibility": "heuristic_only",
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand13:sha256:5c6b83183901c075345142e44b7646455df87cd805f62615d0c3ee16ab47d37d",
+                    "game:fixture/0/0/0",
+                    "game:fixture/0/1/0",
+                    "game:fixture/0/2/0"
+                  ],
+                  "limitations": [
+                    "Required inputs for yaku_types were not complete"
+                  ]
+                },
+                {
+                  "factorKey": "value.yaku_names",
+                  "dimension": "yaku_names",
+                  "status": "blocked_missing_facts",
+                  "evidenceClass": "versioned_upstream_estimate",
+                  "preferenceEligibility": "heuristic_only",
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand13:sha256:5c6b83183901c075345142e44b7646455df87cd805f62615d0c3ee16ab47d37d",
+                    "game:fixture/0/0/0",
+                    "game:fixture/0/1/0",
+                    "game:fixture/0/2/0"
+                  ],
+                  "limitations": [
+                    "Required inputs for yaku_types were not complete"
+                  ]
+                },
+                {
+                  "factorKey": "value.dama_point",
+                  "dimension": "dama_point",
+                  "status": "calculated",
+                  "evidenceClass": "versioned_upstream_estimate",
+                  "preferenceEligibility": "heuristic_only",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "number",
+                    "value": 3900,
+                    "unit": "points"
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand13:sha256:5c6b83183901c075345142e44b7646455df87cd805f62615d0c3ee16ab47d37d",
+                    "game:fixture/0/0/0",
+                    "game:fixture/0/1/0",
+                    "game:fixture/0/2/0"
+                  ],
+                  "limitations": [
+                    "默听或副露打点是固定版本 mahjong-helper 的估算",
+                    "Pinned mahjong-helper commit 514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0"
+                  ]
+                },
+                {
+                  "factorKey": "value.riichi_point",
+                  "dimension": "riichi_point",
+                  "status": "blocked_missing_facts",
+                  "evidenceClass": "versioned_upstream_estimate",
+                  "preferenceEligibility": "heuristic_only",
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand13:sha256:5c6b83183901c075345142e44b7646455df87cd805f62615d0c3ee16ab47d37d",
+                    "game:fixture/0/0/0",
+                    "game:fixture/0/1/0",
+                    "game:fixture/0/2/0"
+                  ],
+                  "limitations": [
+                    "Required inputs for riichi_point were not complete"
+                  ]
+                },
+                {
+                  "factorKey": "value.furiten_rate",
+                  "dimension": "furiten_rate",
+                  "status": "blocked_missing_facts",
+                  "evidenceClass": "versioned_upstream_estimate",
+                  "preferenceEligibility": "heuristic_only",
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand13:sha256:5c6b83183901c075345142e44b7646455df87cd805f62615d0c3ee16ab47d37d",
+                    "game:fixture/0/0/0",
+                    "game:fixture/0/1/0",
+                    "game:fixture/0/2/0"
+                  ],
+                  "limitations": [
+                    "Required inputs for furiten_rate were not complete"
+                  ]
+                }
+              ]
+            },
+            {
+              "axis": "defense",
+              "status": "unsupported_dimension",
+              "facts": []
+            },
+            {
+              "axis": "placement",
+              "status": "blocked_missing_facts",
+              "facts": [
+                {
+                  "factorKey": "placement.helper_mixed_round_point",
+                  "dimension": "helper_mixed_round_point",
+                  "status": "blocked_missing_facts",
+                  "evidenceClass": "versioned_upstream_estimate",
+                  "preferenceEligibility": "heuristic_only",
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand13:sha256:5c6b83183901c075345142e44b7646455df87cd805f62615d0c3ee16ab47d37d",
+                    "game:fixture/0/0/0",
+                    "game:fixture/0/1/0",
+                    "game:fixture/0/2/0"
+                  ],
+                  "limitations": [
+                    "Required inputs for mixed_round_point were not complete"
+                  ]
+                }
+              ]
+            },
+            {
+              "axis": "option_value",
+              "status": "unsupported_dimension",
+              "facts": []
+            }
+          ],
+          "diagnostics": [
+            "response_temporary_facts_incomplete",
+            "response_riichi_facts_incomplete"
+          ]
+        },
+        {
+          "actionRef": "action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "projectedStateRef": "sha256:b01158d587ecded08de17fc6b9a281cc2522b7e1b6432b7c8a43b533abbcf7c1",
+          "axes": [
+            {
+              "axis": "efficiency",
+              "status": "calculated",
+              "facts": [
+                {
+                  "factorKey": "efficiency.mixed_waits_score",
+                  "dimension": "mixed_waits_score",
+                  "status": "blocked_missing_facts",
+                  "evidenceClass": "versioned_upstream_estimate",
+                  "preferenceEligibility": "heuristic_only",
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand13:sha256:b01158d587ecded08de17fc6b9a281cc2522b7e1b6432b7c8a43b533abbcf7c1",
+                    "game:fixture/0/0/0",
+                    "game:fixture/0/1/0",
+                    "game:fixture/0/2/0"
+                  ],
+                  "limitations": [
+                    "Required inputs for mixed_waits_score were not complete"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.avg_agari_rate",
+                  "dimension": "avg_agari_rate",
+                  "status": "blocked_missing_facts",
+                  "evidenceClass": "versioned_upstream_estimate",
+                  "preferenceEligibility": "heuristic_only",
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand13:sha256:b01158d587ecded08de17fc6b9a281cc2522b7e1b6432b7c8a43b533abbcf7c1",
+                    "game:fixture/0/0/0",
+                    "game:fixture/0/1/0",
+                    "game:fixture/0/2/0"
+                  ],
+                  "limitations": [
+                    "Required inputs for avg_agari_rate were not complete"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.overall_shanten",
+                  "dimension": "overall_shanten",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_allowlisted",
+                  "preferenceEligibility": "deterministic",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "number",
+                    "value": 1,
+                    "unit": "shanten"
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+                  ],
+                  "limitations": [
+                    "由固定版本手牌结构引擎计算"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.family_applicability:standard",
+                  "dimension": "family_applicability:standard",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_allowlisted",
+                  "preferenceEligibility": "ineligible",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "classification",
+                    "value": "applicable"
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+                  ],
+                  "limitations": [
+                    "由固定版本手牌结构引擎计算"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.family_shanten:standard",
+                  "dimension": "family_shanten:standard",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_allowlisted",
+                  "preferenceEligibility": "ineligible",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "number",
+                    "value": 1,
+                    "unit": "shanten"
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+                  ],
+                  "limitations": [
+                    "由固定版本手牌结构引擎计算"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.family_effective_tile_types:standard",
+                  "dimension": "family_effective_tile_types:standard",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_allowlisted",
+                  "preferenceEligibility": "ineligible",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "integer_ids",
+                    "values": [
+                      4
+                    ]
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+                  ],
+                  "limitations": [
+                    "由固定版本手牌结构引擎计算"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.family_effective_tiles_remaining:standard",
+                  "dimension": "family_effective_tiles_remaining:standard",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_under_assumptions",
+                  "preferenceEligibility": "ineligible",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "number",
+                    "value": 3,
+                    "unit": "tiles_remaining"
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+                  ],
+                  "limitations": [
+                    "剩余枚数基于输入的可见牌与牌山计数"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.family_applicability:chiitoitsu",
+                  "dimension": "family_applicability:chiitoitsu",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_allowlisted",
+                  "preferenceEligibility": "ineligible",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "classification",
+                    "value": "applicable"
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+                  ],
+                  "limitations": [
+                    "由固定版本手牌结构引擎计算"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.family_shanten:chiitoitsu",
+                  "dimension": "family_shanten:chiitoitsu",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_allowlisted",
+                  "preferenceEligibility": "ineligible",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "number",
+                    "value": 5,
+                    "unit": "shanten"
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+                  ],
+                  "limitations": [
+                    "由固定版本手牌结构引擎计算"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.family_effective_tile_types:chiitoitsu",
+                  "dimension": "family_effective_tile_types:chiitoitsu",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_allowlisted",
+                  "preferenceEligibility": "ineligible",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "integer_ids",
+                    "values": []
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+                  ],
+                  "limitations": [
+                    "由固定版本手牌结构引擎计算"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.family_effective_tiles_remaining:chiitoitsu",
+                  "dimension": "family_effective_tiles_remaining:chiitoitsu",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_under_assumptions",
+                  "preferenceEligibility": "ineligible",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "number",
+                    "value": 0,
+                    "unit": "tiles_remaining"
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+                  ],
+                  "limitations": [
+                    "剩余枚数基于输入的可见牌与牌山计数"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.family_applicability:kokushi",
+                  "dimension": "family_applicability:kokushi",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_allowlisted",
+                  "preferenceEligibility": "ineligible",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "classification",
+                    "value": "applicable"
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+                  ],
+                  "limitations": [
+                    "由固定版本手牌结构引擎计算"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.family_shanten:kokushi",
+                  "dimension": "family_shanten:kokushi",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_allowlisted",
+                  "preferenceEligibility": "ineligible",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "number",
+                    "value": 8,
+                    "unit": "shanten"
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+                  ],
+                  "limitations": [
+                    "由固定版本手牌结构引擎计算"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.family_effective_tile_types:kokushi",
+                  "dimension": "family_effective_tile_types:kokushi",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_allowlisted",
+                  "preferenceEligibility": "ineligible",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "integer_ids",
+                    "values": []
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+                  ],
+                  "limitations": [
+                    "由固定版本手牌结构引擎计算"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.family_effective_tiles_remaining:kokushi",
+                  "dimension": "family_effective_tiles_remaining:kokushi",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_under_assumptions",
+                  "preferenceEligibility": "ineligible",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "number",
+                    "value": 0,
+                    "unit": "tiles_remaining"
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+                  ],
+                  "limitations": [
+                    "剩余枚数基于输入的可见牌与牌山计数"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.best_families",
+                  "dimension": "best_families",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_allowlisted",
+                  "preferenceEligibility": "ineligible",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "string_set",
+                    "values": [
+                      "standard"
+                    ]
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+                  ],
+                  "limitations": [
+                    "由固定版本手牌结构引擎计算"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.overall_effective_tile_types",
+                  "dimension": "overall_effective_tile_types",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_allowlisted",
+                  "preferenceEligibility": "ineligible",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "integer_ids",
+                    "values": [
+                      4
+                    ]
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+                  ],
+                  "limitations": [
+                    "由固定版本手牌结构引擎计算"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.overall_effective_tiles_remaining",
+                  "dimension": "overall_effective_tiles_remaining",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_under_assumptions",
+                  "preferenceEligibility": "deterministic",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "tile_counts",
+                    "value": [
+                      {
+                        "tile34": 4,
+                        "count": 3
+                      }
+                    ]
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+                  ],
+                  "limitations": [
+                    "剩余枚数基于输入的可见牌与牌山计数"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.non_dominated_decomposition_count",
+                  "dimension": "non_dominated_decomposition_count",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_allowlisted",
+                  "preferenceEligibility": "ineligible",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "number",
+                    "value": 1,
+                    "unit": "decompositions"
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+                  ],
+                  "limitations": [
+                    "由固定版本手牌结构引擎计算"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.shape_claims",
+                  "dimension": "shape_claims",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_allowlisted",
+                  "preferenceEligibility": "ineligible",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "shape_claims",
+                    "claims": [
+                      {
+                        "certainty": "invariant",
+                        "group": {
+                          "kind": "floating",
+                          "tiles34": [
+                            0
+                          ],
+                          "occurrence": 1
+                        },
+                        "decompositionOrdinals": [
+                          0
+                        ]
+                      },
+                      {
+                        "certainty": "invariant",
+                        "group": {
+                          "kind": "floating",
+                          "tiles34": [
+                            1
+                          ],
+                          "occurrence": 1
+                        },
+                        "decompositionOrdinals": [
+                          0
+                        ]
+                      },
+                      {
+                        "certainty": "invariant",
+                        "group": {
+                          "kind": "floating",
+                          "tiles34": [
+                            2
+                          ],
+                          "occurrence": 1
+                        },
+                        "decompositionOrdinals": [
+                          0
+                        ]
+                      },
+                      {
+                        "certainty": "invariant",
+                        "group": {
+                          "kind": "floating",
+                          "tiles34": [
+                            3
+                          ],
+                          "occurrence": 1
+                        },
+                        "decompositionOrdinals": [
+                          0
+                        ]
+                      },
+                      {
+                        "certainty": "invariant",
+                        "group": {
+                          "kind": "floating",
+                          "tiles34": [
+                            4
+                          ],
+                          "occurrence": 1
+                        },
+                        "decompositionOrdinals": [
+                          0
+                        ]
+                      },
+                      {
+                        "certainty": "invariant",
+                        "group": {
+                          "kind": "floating",
+                          "tiles34": [
+                            5
+                          ],
+                          "occurrence": 1
+                        },
+                        "decompositionOrdinals": [
+                          0
+                        ]
+                      },
+                      {
+                        "certainty": "invariant",
+                        "group": {
+                          "kind": "floating",
+                          "tiles34": [
+                            6
+                          ],
+                          "occurrence": 1
+                        },
+                        "decompositionOrdinals": [
+                          0
+                        ]
+                      },
+                      {
+                        "certainty": "invariant",
+                        "group": {
+                          "kind": "floating",
+                          "tiles34": [
+                            7
+                          ],
+                          "occurrence": 1
+                        },
+                        "decompositionOrdinals": [
+                          0
+                        ]
+                      },
+                      {
+                        "certainty": "invariant",
+                        "group": {
+                          "kind": "floating",
+                          "tiles34": [
+                            9
+                          ],
+                          "occurrence": 1
+                        },
+                        "decompositionOrdinals": [
+                          0
+                        ]
+                      },
+                      {
+                        "certainty": "invariant",
+                        "group": {
+                          "kind": "floating",
+                          "tiles34": [
+                            10
+                          ],
+                          "occurrence": 1
+                        },
+                        "decompositionOrdinals": [
+                          0
+                        ]
+                      },
+                      {
+                        "certainty": "invariant",
+                        "group": {
+                          "kind": "floating",
+                          "tiles34": [
+                            11
+                          ],
+                          "occurrence": 1
+                        },
+                        "decompositionOrdinals": [
+                          0
+                        ]
+                      },
+                      {
+                        "certainty": "invariant",
+                        "group": {
+                          "kind": "floating",
+                          "tiles34": [
+                            12
+                          ],
+                          "occurrence": 1
+                        },
+                        "decompositionOrdinals": [
+                          0
+                        ]
+                      },
+                      {
+                        "certainty": "invariant",
+                        "group": {
+                          "kind": "floating",
+                          "tiles34": [
+                            13
+                          ],
+                          "occurrence": 1
+                        },
+                        "decompositionOrdinals": [
+                          0
+                        ]
+                      }
+                    ]
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+                  ],
+                  "limitations": [
+                    "由固定版本手牌结构引擎计算"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.decomposition_truncated",
+                  "dimension": "decomposition_truncated",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_allowlisted",
+                  "preferenceEligibility": "ineligible",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "boolean",
+                    "value": false
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+                  ],
+                  "limitations": [
+                    "由固定版本手牌结构引擎计算"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.wait_tiles",
+                  "dimension": "wait_tiles",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_allowlisted",
+                  "preferenceEligibility": "ineligible",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "integer_ids",
+                    "values": []
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+                  ],
+                  "limitations": [
+                    "由固定版本手牌结构引擎计算"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.wait_details",
+                  "dimension": "wait_details",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_allowlisted",
+                  "preferenceEligibility": "ineligible",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "wait_details",
+                    "waits": []
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+                  ],
+                  "limitations": [
+                    "由固定版本手牌结构引擎计算"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.wait_tiles_remaining",
+                  "dimension": "wait_tiles_remaining",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_under_assumptions",
+                  "preferenceEligibility": "ineligible",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "number",
+                    "value": 0,
+                    "unit": "tiles_remaining"
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+                  ],
+                  "limitations": [
+                    "剩余枚数基于输入的可见牌与牌山计数"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.base_ron_eligibility",
+                  "dimension": "base_ron_eligibility",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_allowlisted",
+                  "preferenceEligibility": "ineligible",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "string_set",
+                    "values": []
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+                  ],
+                  "limitations": [
+                    "由固定版本手牌结构引擎计算"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.discard_furiten",
+                  "dimension": "discard_furiten",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_local_replay",
+                  "preferenceEligibility": "ineligible",
+                  "value": {
+                    "kind": "boolean",
+                    "value": false
+                  },
+                  "evidenceIds": [
+                    "game:fixture/0/2/0",
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+                  ],
+                  "limitations": [
+                    "舍牌振听由当前绑定场景的自家牌河确定"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.temporary_furiten",
+                  "dimension": "temporary_furiten",
+                  "status": "blocked_missing_facts",
+                  "evidenceClass": "deterministic_allowlisted",
+                  "preferenceEligibility": "ineligible",
+                  "evidenceIds": [
+                    "game:fixture/0/2/0"
+                  ],
+                  "limitations": [
+                    "未提供可验证的响应历史，不能判定响应振听"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.riichi_furiten",
+                  "dimension": "riichi_furiten",
+                  "status": "blocked_missing_facts",
+                  "evidenceClass": "deterministic_allowlisted",
+                  "preferenceEligibility": "ineligible",
+                  "evidenceIds": [
+                    "game:fixture/0/2/0"
+                  ],
+                  "limitations": [
+                    "未提供可验证的响应历史，不能判定响应振听"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.final_ron_eligibility_status",
+                  "dimension": "final_ron_eligibility_status",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_allowlisted",
+                  "preferenceEligibility": "ineligible",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "classification",
+                    "value": "calculated"
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c",
+                    "game:fixture/0/2/0"
+                  ],
+                  "limitations": [
+                    "最终荣和资格由手牌等待、舍牌振听与响应振听的绑定事实共同计算"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.ron_eligible_wait_tiles",
+                  "dimension": "ron_eligible_wait_tiles",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_allowlisted",
+                  "preferenceEligibility": "ineligible",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "integer_ids",
+                    "values": []
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c",
+                    "game:fixture/0/2/0"
+                  ],
+                  "limitations": [
+                    "最终荣和资格由手牌等待、舍牌振听与响应振听的绑定事实共同计算"
+                  ]
+                },
+                {
+                  "factorKey": "efficiency.v2.ron_eligible_wait_count",
+                  "dimension": "ron_eligible_wait_count",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_allowlisted",
+                  "preferenceEligibility": "ineligible",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "number",
+                    "value": 0,
+                    "unit": "tile_types"
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c",
+                    "game:fixture/0/2/0"
+                  ],
+                  "limitations": [
+                    "最终荣和资格由手牌等待、舍牌振听与响应振听的绑定事实共同计算"
+                  ]
+                }
+              ]
+            },
+            {
+              "axis": "value",
+              "status": "calculated",
+              "facts": [
+                {
+                  "factorKey": "value.dora_count",
+                  "dimension": "dora_count",
+                  "status": "calculated",
+                  "evidenceClass": "deterministic_allowlisted",
+                  "preferenceEligibility": "deterministic",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "number",
+                    "value": 0,
+                    "unit": "dora_count"
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand13:sha256:b01158d587ecded08de17fc6b9a281cc2522b7e1b6432b7c8a43b533abbcf7c1",
+                    "game:fixture/0/0/0",
+                    "game:fixture/0/1/0",
+                    "game:fixture/0/2/0"
+                  ],
+                  "limitations": []
+                },
+                {
+                  "factorKey": "value.yaku_ids",
+                  "dimension": "yaku_ids",
+                  "status": "blocked_missing_facts",
+                  "evidenceClass": "versioned_upstream_estimate",
+                  "preferenceEligibility": "heuristic_only",
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand13:sha256:b01158d587ecded08de17fc6b9a281cc2522b7e1b6432b7c8a43b533abbcf7c1",
+                    "game:fixture/0/0/0",
+                    "game:fixture/0/1/0",
+                    "game:fixture/0/2/0"
+                  ],
+                  "limitations": [
+                    "Required inputs for yaku_types were not complete"
+                  ]
+                },
+                {
+                  "factorKey": "value.yaku_names",
+                  "dimension": "yaku_names",
+                  "status": "blocked_missing_facts",
+                  "evidenceClass": "versioned_upstream_estimate",
+                  "preferenceEligibility": "heuristic_only",
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand13:sha256:b01158d587ecded08de17fc6b9a281cc2522b7e1b6432b7c8a43b533abbcf7c1",
+                    "game:fixture/0/0/0",
+                    "game:fixture/0/1/0",
+                    "game:fixture/0/2/0"
+                  ],
+                  "limitations": [
+                    "Required inputs for yaku_types were not complete"
+                  ]
+                },
+                {
+                  "factorKey": "value.dama_point",
+                  "dimension": "dama_point",
+                  "status": "calculated",
+                  "evidenceClass": "versioned_upstream_estimate",
+                  "preferenceEligibility": "heuristic_only",
+                  "engineIdentity": {
+                    "engine": "mahjong-helper",
+                    "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+                    "adapterVersion": "0.2.0",
+                    "protocolVersion": "mahjong-facts/v1"
+                  },
+                  "value": {
+                    "kind": "number",
+                    "value": 3900,
+                    "unit": "points"
+                  },
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand13:sha256:b01158d587ecded08de17fc6b9a281cc2522b7e1b6432b7c8a43b533abbcf7c1",
+                    "game:fixture/0/0/0",
+                    "game:fixture/0/1/0",
+                    "game:fixture/0/2/0"
+                  ],
+                  "limitations": [
+                    "默听或副露打点是固定版本 mahjong-helper 的估算",
+                    "Pinned mahjong-helper commit 514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0"
+                  ]
+                },
+                {
+                  "factorKey": "value.riichi_point",
+                  "dimension": "riichi_point",
+                  "status": "blocked_missing_facts",
+                  "evidenceClass": "versioned_upstream_estimate",
+                  "preferenceEligibility": "heuristic_only",
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand13:sha256:b01158d587ecded08de17fc6b9a281cc2522b7e1b6432b7c8a43b533abbcf7c1",
+                    "game:fixture/0/0/0",
+                    "game:fixture/0/1/0",
+                    "game:fixture/0/2/0"
+                  ],
+                  "limitations": [
+                    "Required inputs for riichi_point were not complete"
+                  ]
+                },
+                {
+                  "factorKey": "value.furiten_rate",
+                  "dimension": "furiten_rate",
+                  "status": "blocked_missing_facts",
+                  "evidenceClass": "versioned_upstream_estimate",
+                  "preferenceEligibility": "heuristic_only",
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand13:sha256:b01158d587ecded08de17fc6b9a281cc2522b7e1b6432b7c8a43b533abbcf7c1",
+                    "game:fixture/0/0/0",
+                    "game:fixture/0/1/0",
+                    "game:fixture/0/2/0"
+                  ],
+                  "limitations": [
+                    "Required inputs for furiten_rate were not complete"
+                  ]
+                }
+              ]
+            },
+            {
+              "axis": "defense",
+              "status": "unsupported_dimension",
+              "facts": []
+            },
+            {
+              "axis": "placement",
+              "status": "blocked_missing_facts",
+              "facts": [
+                {
+                  "factorKey": "placement.helper_mixed_round_point",
+                  "dimension": "helper_mixed_round_point",
+                  "status": "blocked_missing_facts",
+                  "evidenceClass": "versioned_upstream_estimate",
+                  "preferenceEligibility": "heuristic_only",
+                  "evidenceIds": [
+                    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand13:sha256:b01158d587ecded08de17fc6b9a281cc2522b7e1b6432b7c8a43b533abbcf7c1",
+                    "game:fixture/0/0/0",
+                    "game:fixture/0/1/0",
+                    "game:fixture/0/2/0"
+                  ],
+                  "limitations": [
+                    "Required inputs for mixed_round_point were not complete"
+                  ]
+                }
+              ]
+            },
+            {
+              "axis": "option_value",
+              "status": "unsupported_dimension",
+              "facts": []
+            }
+          ],
+          "diagnostics": [
+            "response_temporary_facts_incomplete",
+            "response_riichi_facts_incomplete"
+          ]
+        }
+      ],
+      "factorDifferences": [
+        {
+          "differenceId": "difference:v1:efficiency:base_ron_eligibility:action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D:action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "axis": "efficiency",
+          "dimension": "base_ron_eligibility",
+          "leftActionRef": "action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
+          "rightActionRef": "action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "direction": "neutral",
+          "valueRelation": "equal",
+          "leftValue": {
+            "kind": "string_set",
+            "values": []
+          },
+          "rightValue": {
+            "kind": "string_set",
+            "values": []
+          },
+          "evidenceIds": [
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835",
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+          ],
+          "limitations": [
+            "由固定版本手牌结构引擎计算"
+          ],
+          "kind": "deterministic_difference",
+          "preferenceEligibility": "ineligible",
+          "evidenceClass": "deterministic_allowlisted",
+          "engineIdentity": {
+            "engine": "mahjong-helper",
+            "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+            "adapterVersion": "0.2.0",
+            "protocolVersion": "mahjong-facts/v1"
+          }
+        },
+        {
+          "differenceId": "difference:v1:efficiency:best_families:action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D:action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "axis": "efficiency",
+          "dimension": "best_families",
+          "leftActionRef": "action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
+          "rightActionRef": "action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "direction": "neutral",
+          "valueRelation": "equal",
+          "leftValue": {
+            "kind": "string_set",
+            "values": [
+              "standard"
+            ]
+          },
+          "rightValue": {
+            "kind": "string_set",
+            "values": [
+              "standard"
+            ]
+          },
+          "evidenceIds": [
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835",
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+          ],
+          "limitations": [
+            "由固定版本手牌结构引擎计算"
+          ],
+          "kind": "deterministic_difference",
+          "preferenceEligibility": "ineligible",
+          "evidenceClass": "deterministic_allowlisted",
+          "engineIdentity": {
+            "engine": "mahjong-helper",
+            "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+            "adapterVersion": "0.2.0",
+            "protocolVersion": "mahjong-facts/v1"
+          }
+        },
+        {
+          "differenceId": "difference:v1:efficiency:decomposition_truncated:action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D:action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "axis": "efficiency",
+          "dimension": "decomposition_truncated",
+          "leftActionRef": "action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
+          "rightActionRef": "action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "direction": "neutral",
+          "valueRelation": "equal",
+          "leftValue": {
+            "kind": "boolean",
+            "value": false
+          },
+          "rightValue": {
+            "kind": "boolean",
+            "value": false
+          },
+          "evidenceIds": [
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835",
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+          ],
+          "limitations": [
+            "由固定版本手牌结构引擎计算"
+          ],
+          "kind": "deterministic_difference",
+          "preferenceEligibility": "ineligible",
+          "evidenceClass": "deterministic_allowlisted",
+          "engineIdentity": {
+            "engine": "mahjong-helper",
+            "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+            "adapterVersion": "0.2.0",
+            "protocolVersion": "mahjong-facts/v1"
+          }
+        },
+        {
+          "differenceId": "difference:v1:efficiency:discard_furiten:action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D:action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "axis": "efficiency",
+          "dimension": "discard_furiten",
+          "leftActionRef": "action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
+          "rightActionRef": "action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "direction": "neutral",
+          "valueRelation": "equal",
+          "leftValue": {
+            "kind": "boolean",
+            "value": false
+          },
+          "rightValue": {
+            "kind": "boolean",
+            "value": false
+          },
+          "evidenceIds": [
+            "game:fixture/0/2/0",
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835",
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+          ],
+          "limitations": [
+            "舍牌振听由当前绑定场景的自家牌河确定"
+          ],
+          "kind": "deterministic_difference",
+          "preferenceEligibility": "ineligible",
+          "evidenceClass": "deterministic_local_replay"
+        },
+        {
+          "differenceId": "difference:v1:efficiency:family_applicability:chiitoitsu:action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D:action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "axis": "efficiency",
+          "dimension": "family_applicability:chiitoitsu",
+          "leftActionRef": "action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
+          "rightActionRef": "action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "direction": "neutral",
+          "valueRelation": "equal",
+          "leftValue": {
+            "kind": "classification",
+            "value": "applicable"
+          },
+          "rightValue": {
+            "kind": "classification",
+            "value": "applicable"
+          },
+          "evidenceIds": [
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835",
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+          ],
+          "limitations": [
+            "由固定版本手牌结构引擎计算"
+          ],
+          "kind": "deterministic_difference",
+          "preferenceEligibility": "ineligible",
+          "evidenceClass": "deterministic_allowlisted",
+          "engineIdentity": {
+            "engine": "mahjong-helper",
+            "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+            "adapterVersion": "0.2.0",
+            "protocolVersion": "mahjong-facts/v1"
+          }
+        },
+        {
+          "differenceId": "difference:v1:efficiency:family_applicability:kokushi:action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D:action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "axis": "efficiency",
+          "dimension": "family_applicability:kokushi",
+          "leftActionRef": "action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
+          "rightActionRef": "action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "direction": "neutral",
+          "valueRelation": "equal",
+          "leftValue": {
+            "kind": "classification",
+            "value": "applicable"
+          },
+          "rightValue": {
+            "kind": "classification",
+            "value": "applicable"
+          },
+          "evidenceIds": [
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835",
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+          ],
+          "limitations": [
+            "由固定版本手牌结构引擎计算"
+          ],
+          "kind": "deterministic_difference",
+          "preferenceEligibility": "ineligible",
+          "evidenceClass": "deterministic_allowlisted",
+          "engineIdentity": {
+            "engine": "mahjong-helper",
+            "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+            "adapterVersion": "0.2.0",
+            "protocolVersion": "mahjong-facts/v1"
+          }
+        },
+        {
+          "differenceId": "difference:v1:efficiency:family_applicability:standard:action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D:action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "axis": "efficiency",
+          "dimension": "family_applicability:standard",
+          "leftActionRef": "action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
+          "rightActionRef": "action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "direction": "neutral",
+          "valueRelation": "equal",
+          "leftValue": {
+            "kind": "classification",
+            "value": "applicable"
+          },
+          "rightValue": {
+            "kind": "classification",
+            "value": "applicable"
+          },
+          "evidenceIds": [
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835",
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+          ],
+          "limitations": [
+            "由固定版本手牌结构引擎计算"
+          ],
+          "kind": "deterministic_difference",
+          "preferenceEligibility": "ineligible",
+          "evidenceClass": "deterministic_allowlisted",
+          "engineIdentity": {
+            "engine": "mahjong-helper",
+            "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+            "adapterVersion": "0.2.0",
+            "protocolVersion": "mahjong-facts/v1"
+          }
+        },
+        {
+          "differenceId": "difference:v1:efficiency:family_effective_tile_types:chiitoitsu:action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D:action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "axis": "efficiency",
+          "dimension": "family_effective_tile_types:chiitoitsu",
+          "leftActionRef": "action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
+          "rightActionRef": "action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "direction": "neutral",
+          "valueRelation": "equal",
+          "leftValue": {
+            "kind": "integer_ids",
+            "values": []
+          },
+          "rightValue": {
+            "kind": "integer_ids",
+            "values": []
+          },
+          "evidenceIds": [
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835",
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+          ],
+          "limitations": [
+            "由固定版本手牌结构引擎计算"
+          ],
+          "kind": "deterministic_difference",
+          "preferenceEligibility": "ineligible",
+          "evidenceClass": "deterministic_allowlisted",
+          "engineIdentity": {
+            "engine": "mahjong-helper",
+            "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+            "adapterVersion": "0.2.0",
+            "protocolVersion": "mahjong-facts/v1"
+          }
+        },
+        {
+          "differenceId": "difference:v1:efficiency:family_effective_tile_types:kokushi:action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D:action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "axis": "efficiency",
+          "dimension": "family_effective_tile_types:kokushi",
+          "leftActionRef": "action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
+          "rightActionRef": "action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "direction": "neutral",
+          "valueRelation": "equal",
+          "leftValue": {
+            "kind": "integer_ids",
+            "values": []
+          },
+          "rightValue": {
+            "kind": "integer_ids",
+            "values": []
+          },
+          "evidenceIds": [
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835",
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+          ],
+          "limitations": [
+            "由固定版本手牌结构引擎计算"
+          ],
+          "kind": "deterministic_difference",
+          "preferenceEligibility": "ineligible",
+          "evidenceClass": "deterministic_allowlisted",
+          "engineIdentity": {
+            "engine": "mahjong-helper",
+            "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+            "adapterVersion": "0.2.0",
+            "protocolVersion": "mahjong-facts/v1"
+          }
+        },
+        {
+          "differenceId": "difference:v1:efficiency:family_effective_tile_types:standard:action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D:action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "axis": "efficiency",
+          "dimension": "family_effective_tile_types:standard",
+          "leftActionRef": "action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
+          "rightActionRef": "action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "direction": "neutral",
+          "valueRelation": "equal",
+          "leftValue": {
+            "kind": "integer_ids",
+            "values": [
+              4
+            ]
+          },
+          "rightValue": {
+            "kind": "integer_ids",
+            "values": [
+              4
+            ]
+          },
+          "evidenceIds": [
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835",
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+          ],
+          "limitations": [
+            "由固定版本手牌结构引擎计算"
+          ],
+          "kind": "deterministic_difference",
+          "preferenceEligibility": "ineligible",
+          "evidenceClass": "deterministic_allowlisted",
+          "engineIdentity": {
+            "engine": "mahjong-helper",
+            "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+            "adapterVersion": "0.2.0",
+            "protocolVersion": "mahjong-facts/v1"
+          }
+        },
+        {
+          "differenceId": "difference:v1:efficiency:family_effective_tiles_remaining:chiitoitsu:action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D:action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "axis": "efficiency",
+          "dimension": "family_effective_tiles_remaining:chiitoitsu",
+          "leftActionRef": "action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
+          "rightActionRef": "action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "direction": "neutral",
+          "valueRelation": "equal",
+          "leftValue": {
+            "kind": "number",
+            "value": 0,
+            "unit": "tiles_remaining"
+          },
+          "rightValue": {
+            "kind": "number",
+            "value": 0,
+            "unit": "tiles_remaining"
+          },
+          "evidenceIds": [
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835",
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+          ],
+          "limitations": [
+            "剩余枚数基于输入的可见牌与牌山计数"
+          ],
+          "kind": "deterministic_difference",
+          "preferenceEligibility": "ineligible",
+          "evidenceClass": "deterministic_under_assumptions",
+          "engineIdentity": {
+            "engine": "mahjong-helper",
+            "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+            "adapterVersion": "0.2.0",
+            "protocolVersion": "mahjong-facts/v1"
+          }
+        },
+        {
+          "differenceId": "difference:v1:efficiency:family_effective_tiles_remaining:kokushi:action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D:action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "axis": "efficiency",
+          "dimension": "family_effective_tiles_remaining:kokushi",
+          "leftActionRef": "action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
+          "rightActionRef": "action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "direction": "neutral",
+          "valueRelation": "equal",
+          "leftValue": {
+            "kind": "number",
+            "value": 0,
+            "unit": "tiles_remaining"
+          },
+          "rightValue": {
+            "kind": "number",
+            "value": 0,
+            "unit": "tiles_remaining"
+          },
+          "evidenceIds": [
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835",
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+          ],
+          "limitations": [
+            "剩余枚数基于输入的可见牌与牌山计数"
+          ],
+          "kind": "deterministic_difference",
+          "preferenceEligibility": "ineligible",
+          "evidenceClass": "deterministic_under_assumptions",
+          "engineIdentity": {
+            "engine": "mahjong-helper",
+            "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+            "adapterVersion": "0.2.0",
+            "protocolVersion": "mahjong-facts/v1"
+          }
+        },
+        {
+          "differenceId": "difference:v1:efficiency:family_effective_tiles_remaining:standard:action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D:action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "axis": "efficiency",
+          "dimension": "family_effective_tiles_remaining:standard",
+          "leftActionRef": "action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
+          "rightActionRef": "action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "direction": "neutral",
+          "valueRelation": "equal",
+          "leftValue": {
+            "kind": "number",
+            "value": 3,
+            "unit": "tiles_remaining"
+          },
+          "rightValue": {
+            "kind": "number",
+            "value": 3,
+            "unit": "tiles_remaining"
+          },
+          "evidenceIds": [
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835",
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+          ],
+          "limitations": [
+            "剩余枚数基于输入的可见牌与牌山计数"
+          ],
+          "kind": "deterministic_difference",
+          "preferenceEligibility": "ineligible",
+          "evidenceClass": "deterministic_under_assumptions",
+          "engineIdentity": {
+            "engine": "mahjong-helper",
+            "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+            "adapterVersion": "0.2.0",
+            "protocolVersion": "mahjong-facts/v1"
+          }
+        },
+        {
+          "differenceId": "difference:v1:efficiency:family_shanten:chiitoitsu:action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D:action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "axis": "efficiency",
+          "dimension": "family_shanten:chiitoitsu",
+          "leftActionRef": "action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
+          "rightActionRef": "action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "direction": "neutral",
+          "valueRelation": "equal",
+          "leftValue": {
+            "kind": "number",
+            "value": 5,
+            "unit": "shanten"
+          },
+          "rightValue": {
+            "kind": "number",
+            "value": 5,
+            "unit": "shanten"
+          },
+          "evidenceIds": [
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835",
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+          ],
+          "limitations": [
+            "由固定版本手牌结构引擎计算"
+          ],
+          "kind": "deterministic_difference",
+          "preferenceEligibility": "ineligible",
+          "evidenceClass": "deterministic_allowlisted",
+          "engineIdentity": {
+            "engine": "mahjong-helper",
+            "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+            "adapterVersion": "0.2.0",
+            "protocolVersion": "mahjong-facts/v1"
+          }
+        },
+        {
+          "differenceId": "difference:v1:efficiency:family_shanten:kokushi:action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D:action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "axis": "efficiency",
+          "dimension": "family_shanten:kokushi",
+          "leftActionRef": "action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
+          "rightActionRef": "action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "direction": "neutral",
+          "valueRelation": "equal",
+          "leftValue": {
+            "kind": "number",
+            "value": 8,
+            "unit": "shanten"
+          },
+          "rightValue": {
+            "kind": "number",
+            "value": 8,
+            "unit": "shanten"
+          },
+          "evidenceIds": [
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835",
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+          ],
+          "limitations": [
+            "由固定版本手牌结构引擎计算"
+          ],
+          "kind": "deterministic_difference",
+          "preferenceEligibility": "ineligible",
+          "evidenceClass": "deterministic_allowlisted",
+          "engineIdentity": {
+            "engine": "mahjong-helper",
+            "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+            "adapterVersion": "0.2.0",
+            "protocolVersion": "mahjong-facts/v1"
+          }
+        },
+        {
+          "differenceId": "difference:v1:efficiency:family_shanten:standard:action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D:action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "axis": "efficiency",
+          "dimension": "family_shanten:standard",
+          "leftActionRef": "action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
+          "rightActionRef": "action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "direction": "neutral",
+          "valueRelation": "equal",
+          "leftValue": {
+            "kind": "number",
+            "value": 1,
+            "unit": "shanten"
+          },
+          "rightValue": {
+            "kind": "number",
+            "value": 1,
+            "unit": "shanten"
+          },
+          "evidenceIds": [
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835",
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+          ],
+          "limitations": [
+            "由固定版本手牌结构引擎计算"
+          ],
+          "kind": "deterministic_difference",
+          "preferenceEligibility": "ineligible",
+          "evidenceClass": "deterministic_allowlisted",
+          "engineIdentity": {
+            "engine": "mahjong-helper",
+            "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+            "adapterVersion": "0.2.0",
+            "protocolVersion": "mahjong-facts/v1"
+          }
+        },
+        {
+          "differenceId": "difference:v1:efficiency:final_ron_eligibility_status:action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D:action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "axis": "efficiency",
+          "dimension": "final_ron_eligibility_status",
+          "leftActionRef": "action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
+          "rightActionRef": "action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "direction": "neutral",
+          "valueRelation": "equal",
+          "leftValue": {
+            "kind": "classification",
+            "value": "calculated"
+          },
+          "rightValue": {
+            "kind": "classification",
+            "value": "calculated"
+          },
+          "evidenceIds": [
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835",
+            "game:fixture/0/2/0",
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+          ],
+          "limitations": [
+            "最终荣和资格由手牌等待、舍牌振听与响应振听的绑定事实共同计算"
+          ],
+          "kind": "deterministic_difference",
+          "preferenceEligibility": "ineligible",
+          "evidenceClass": "deterministic_allowlisted",
+          "engineIdentity": {
+            "engine": "mahjong-helper",
+            "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+            "adapterVersion": "0.2.0",
+            "protocolVersion": "mahjong-facts/v1"
+          }
+        },
+        {
+          "differenceId": "difference:v1:efficiency:non_dominated_decomposition_count:action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D:action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "axis": "efficiency",
+          "dimension": "non_dominated_decomposition_count",
+          "leftActionRef": "action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
+          "rightActionRef": "action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "direction": "neutral",
+          "valueRelation": "equal",
+          "leftValue": {
+            "kind": "number",
+            "value": 1,
+            "unit": "decompositions"
+          },
+          "rightValue": {
+            "kind": "number",
+            "value": 1,
+            "unit": "decompositions"
+          },
+          "evidenceIds": [
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835",
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+          ],
+          "limitations": [
+            "由固定版本手牌结构引擎计算"
+          ],
+          "kind": "deterministic_difference",
+          "preferenceEligibility": "ineligible",
+          "evidenceClass": "deterministic_allowlisted",
+          "engineIdentity": {
+            "engine": "mahjong-helper",
+            "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+            "adapterVersion": "0.2.0",
+            "protocolVersion": "mahjong-facts/v1"
+          }
+        },
+        {
+          "differenceId": "difference:v1:efficiency:overall_effective_tile_types:action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D:action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "axis": "efficiency",
+          "dimension": "overall_effective_tile_types",
+          "leftActionRef": "action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
+          "rightActionRef": "action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "direction": "neutral",
+          "valueRelation": "equal",
+          "leftValue": {
+            "kind": "integer_ids",
+            "values": [
+              4
+            ]
+          },
+          "rightValue": {
+            "kind": "integer_ids",
+            "values": [
+              4
+            ]
+          },
+          "evidenceIds": [
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835",
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+          ],
+          "limitations": [
+            "由固定版本手牌结构引擎计算"
+          ],
+          "kind": "deterministic_difference",
+          "preferenceEligibility": "ineligible",
+          "evidenceClass": "deterministic_allowlisted",
+          "engineIdentity": {
+            "engine": "mahjong-helper",
+            "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+            "adapterVersion": "0.2.0",
+            "protocolVersion": "mahjong-facts/v1"
+          }
+        },
+        {
+          "differenceId": "difference:v1:efficiency:overall_effective_tiles_remaining:action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D:action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "axis": "efficiency",
+          "dimension": "overall_effective_tiles_remaining",
+          "leftActionRef": "action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
+          "rightActionRef": "action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "direction": "neutral",
+          "valueRelation": "equal",
+          "leftValue": {
+            "kind": "tile_counts",
+            "value": [
+              {
+                "tile34": 4,
+                "count": 3
+              }
+            ]
+          },
+          "rightValue": {
+            "kind": "tile_counts",
+            "value": [
+              {
+                "tile34": 4,
+                "count": 3
+              }
+            ]
+          },
+          "evidenceIds": [
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835",
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+          ],
+          "limitations": [
+            "剩余枚数基于输入的可见牌与牌山计数"
+          ],
+          "kind": "deterministic_difference",
+          "preferenceEligibility": "deterministic",
+          "evidenceClass": "deterministic_under_assumptions",
+          "engineIdentity": {
+            "engine": "mahjong-helper",
+            "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+            "adapterVersion": "0.2.0",
+            "protocolVersion": "mahjong-facts/v1"
+          }
+        },
+        {
+          "differenceId": "difference:v1:efficiency:overall_shanten:action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D:action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "axis": "efficiency",
+          "dimension": "overall_shanten",
+          "leftActionRef": "action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
+          "rightActionRef": "action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "direction": "neutral",
+          "valueRelation": "equal",
+          "leftValue": {
+            "kind": "number",
+            "value": 1,
+            "unit": "shanten"
+          },
+          "rightValue": {
+            "kind": "number",
+            "value": 1,
+            "unit": "shanten"
+          },
+          "evidenceIds": [
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835",
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+          ],
+          "limitations": [
+            "由固定版本手牌结构引擎计算"
+          ],
+          "kind": "deterministic_difference",
+          "preferenceEligibility": "deterministic",
+          "evidenceClass": "deterministic_allowlisted",
+          "engineIdentity": {
+            "engine": "mahjong-helper",
+            "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+            "adapterVersion": "0.2.0",
+            "protocolVersion": "mahjong-facts/v1"
+          }
+        },
+        {
+          "differenceId": "difference:v1:efficiency:ron_eligible_wait_count:action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D:action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "axis": "efficiency",
+          "dimension": "ron_eligible_wait_count",
+          "leftActionRef": "action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
+          "rightActionRef": "action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "direction": "neutral",
+          "valueRelation": "equal",
+          "leftValue": {
+            "kind": "number",
+            "value": 0,
+            "unit": "tile_types"
+          },
+          "rightValue": {
+            "kind": "number",
+            "value": 0,
+            "unit": "tile_types"
+          },
+          "evidenceIds": [
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835",
+            "game:fixture/0/2/0",
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+          ],
+          "limitations": [
+            "最终荣和资格由手牌等待、舍牌振听与响应振听的绑定事实共同计算"
+          ],
+          "kind": "deterministic_difference",
+          "preferenceEligibility": "ineligible",
+          "evidenceClass": "deterministic_allowlisted",
+          "engineIdentity": {
+            "engine": "mahjong-helper",
+            "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+            "adapterVersion": "0.2.0",
+            "protocolVersion": "mahjong-facts/v1"
+          }
+        },
+        {
+          "differenceId": "difference:v1:efficiency:ron_eligible_wait_tiles:action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D:action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "axis": "efficiency",
+          "dimension": "ron_eligible_wait_tiles",
+          "leftActionRef": "action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
+          "rightActionRef": "action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "direction": "neutral",
+          "valueRelation": "equal",
+          "leftValue": {
+            "kind": "integer_ids",
+            "values": []
+          },
+          "rightValue": {
+            "kind": "integer_ids",
+            "values": []
+          },
+          "evidenceIds": [
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835",
+            "game:fixture/0/2/0",
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+          ],
+          "limitations": [
+            "最终荣和资格由手牌等待、舍牌振听与响应振听的绑定事实共同计算"
+          ],
+          "kind": "deterministic_difference",
+          "preferenceEligibility": "ineligible",
+          "evidenceClass": "deterministic_allowlisted",
+          "engineIdentity": {
+            "engine": "mahjong-helper",
+            "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+            "adapterVersion": "0.2.0",
+            "protocolVersion": "mahjong-facts/v1"
+          }
+        },
+        {
+          "differenceId": "difference:v1:efficiency:shape_claims:action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D:action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "axis": "efficiency",
+          "dimension": "shape_claims",
+          "leftActionRef": "action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
+          "rightActionRef": "action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "direction": "neutral",
+          "valueRelation": "different",
+          "leftValue": {
+            "kind": "shape_claims",
+            "claims": [
+              {
+                "certainty": "invariant",
+                "group": {
+                  "kind": "floating",
+                  "tiles34": [
+                    0
+                  ],
+                  "occurrence": 1
+                },
+                "decompositionOrdinals": [
+                  0
+                ]
+              },
+              {
+                "certainty": "invariant",
+                "group": {
+                  "kind": "floating",
+                  "tiles34": [
+                    1
+                  ],
+                  "occurrence": 1
+                },
+                "decompositionOrdinals": [
+                  0
+                ]
+              },
+              {
+                "certainty": "invariant",
+                "group": {
+                  "kind": "floating",
+                  "tiles34": [
+                    2
+                  ],
+                  "occurrence": 1
+                },
+                "decompositionOrdinals": [
+                  0
+                ]
+              },
+              {
+                "certainty": "invariant",
+                "group": {
+                  "kind": "floating",
+                  "tiles34": [
+                    3
+                  ],
+                  "occurrence": 1
+                },
+                "decompositionOrdinals": [
+                  0
+                ]
+              },
+              {
+                "certainty": "invariant",
+                "group": {
+                  "kind": "floating",
+                  "tiles34": [
+                    4
+                  ],
+                  "occurrence": 1
+                },
+                "decompositionOrdinals": [
+                  0
+                ]
+              },
+              {
+                "certainty": "invariant",
+                "group": {
+                  "kind": "floating",
+                  "tiles34": [
+                    5
+                  ],
+                  "occurrence": 1
+                },
+                "decompositionOrdinals": [
+                  0
+                ]
+              },
+              {
+                "certainty": "invariant",
+                "group": {
+                  "kind": "floating",
+                  "tiles34": [
+                    6
+                  ],
+                  "occurrence": 1
+                },
+                "decompositionOrdinals": [
+                  0
+                ]
+              },
+              {
+                "certainty": "invariant",
+                "group": {
+                  "kind": "floating",
+                  "tiles34": [
+                    7
+                  ],
+                  "occurrence": 1
+                },
+                "decompositionOrdinals": [
+                  0
+                ]
+              },
+              {
+                "certainty": "invariant",
+                "group": {
+                  "kind": "floating",
+                  "tiles34": [
+                    8
+                  ],
+                  "occurrence": 1
+                },
+                "decompositionOrdinals": [
+                  0
+                ]
+              },
+              {
+                "certainty": "invariant",
+                "group": {
+                  "kind": "floating",
+                  "tiles34": [
+                    9
+                  ],
+                  "occurrence": 1
+                },
+                "decompositionOrdinals": [
+                  0
+                ]
+              },
+              {
+                "certainty": "invariant",
+                "group": {
+                  "kind": "floating",
+                  "tiles34": [
+                    10
+                  ],
+                  "occurrence": 1
+                },
+                "decompositionOrdinals": [
+                  0
+                ]
+              },
+              {
+                "certainty": "invariant",
+                "group": {
+                  "kind": "floating",
+                  "tiles34": [
+                    11
+                  ],
+                  "occurrence": 1
+                },
+                "decompositionOrdinals": [
+                  0
+                ]
+              },
+              {
+                "certainty": "invariant",
+                "group": {
+                  "kind": "floating",
+                  "tiles34": [
+                    12
+                  ],
+                  "occurrence": 1
+                },
+                "decompositionOrdinals": [
+                  0
+                ]
+              }
+            ]
+          },
+          "rightValue": {
+            "kind": "shape_claims",
+            "claims": [
+              {
+                "certainty": "invariant",
+                "group": {
+                  "kind": "floating",
+                  "tiles34": [
+                    0
+                  ],
+                  "occurrence": 1
+                },
+                "decompositionOrdinals": [
+                  0
+                ]
+              },
+              {
+                "certainty": "invariant",
+                "group": {
+                  "kind": "floating",
+                  "tiles34": [
+                    1
+                  ],
+                  "occurrence": 1
+                },
+                "decompositionOrdinals": [
+                  0
+                ]
+              },
+              {
+                "certainty": "invariant",
+                "group": {
+                  "kind": "floating",
+                  "tiles34": [
+                    2
+                  ],
+                  "occurrence": 1
+                },
+                "decompositionOrdinals": [
+                  0
+                ]
+              },
+              {
+                "certainty": "invariant",
+                "group": {
+                  "kind": "floating",
+                  "tiles34": [
+                    3
+                  ],
+                  "occurrence": 1
+                },
+                "decompositionOrdinals": [
+                  0
+                ]
+              },
+              {
+                "certainty": "invariant",
+                "group": {
+                  "kind": "floating",
+                  "tiles34": [
+                    4
+                  ],
+                  "occurrence": 1
+                },
+                "decompositionOrdinals": [
+                  0
+                ]
+              },
+              {
+                "certainty": "invariant",
+                "group": {
+                  "kind": "floating",
+                  "tiles34": [
+                    5
+                  ],
+                  "occurrence": 1
+                },
+                "decompositionOrdinals": [
+                  0
+                ]
+              },
+              {
+                "certainty": "invariant",
+                "group": {
+                  "kind": "floating",
+                  "tiles34": [
+                    6
+                  ],
+                  "occurrence": 1
+                },
+                "decompositionOrdinals": [
+                  0
+                ]
+              },
+              {
+                "certainty": "invariant",
+                "group": {
+                  "kind": "floating",
+                  "tiles34": [
+                    7
+                  ],
+                  "occurrence": 1
+                },
+                "decompositionOrdinals": [
+                  0
+                ]
+              },
+              {
+                "certainty": "invariant",
+                "group": {
+                  "kind": "floating",
+                  "tiles34": [
+                    9
+                  ],
+                  "occurrence": 1
+                },
+                "decompositionOrdinals": [
+                  0
+                ]
+              },
+              {
+                "certainty": "invariant",
+                "group": {
+                  "kind": "floating",
+                  "tiles34": [
+                    10
+                  ],
+                  "occurrence": 1
+                },
+                "decompositionOrdinals": [
+                  0
+                ]
+              },
+              {
+                "certainty": "invariant",
+                "group": {
+                  "kind": "floating",
+                  "tiles34": [
+                    11
+                  ],
+                  "occurrence": 1
+                },
+                "decompositionOrdinals": [
+                  0
+                ]
+              },
+              {
+                "certainty": "invariant",
+                "group": {
+                  "kind": "floating",
+                  "tiles34": [
+                    12
+                  ],
+                  "occurrence": 1
+                },
+                "decompositionOrdinals": [
+                  0
+                ]
+              },
+              {
+                "certainty": "invariant",
+                "group": {
+                  "kind": "floating",
+                  "tiles34": [
+                    13
+                  ],
+                  "occurrence": 1
+                },
+                "decompositionOrdinals": [
+                  0
+                ]
+              }
+            ]
+          },
+          "evidenceIds": [
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835",
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+          ],
+          "limitations": [
+            "由固定版本手牌结构引擎计算"
+          ],
+          "kind": "deterministic_difference",
+          "preferenceEligibility": "ineligible",
+          "evidenceClass": "deterministic_allowlisted",
+          "engineIdentity": {
+            "engine": "mahjong-helper",
+            "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+            "adapterVersion": "0.2.0",
+            "protocolVersion": "mahjong-facts/v1"
+          }
+        },
+        {
+          "differenceId": "difference:v1:efficiency:wait_details:action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D:action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "axis": "efficiency",
+          "dimension": "wait_details",
+          "leftActionRef": "action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
+          "rightActionRef": "action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "direction": "neutral",
+          "valueRelation": "equal",
+          "leftValue": {
+            "kind": "wait_details",
+            "waits": []
+          },
+          "rightValue": {
+            "kind": "wait_details",
+            "waits": []
+          },
+          "evidenceIds": [
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835",
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+          ],
+          "limitations": [
+            "由固定版本手牌结构引擎计算"
+          ],
+          "kind": "deterministic_difference",
+          "preferenceEligibility": "ineligible",
+          "evidenceClass": "deterministic_allowlisted",
+          "engineIdentity": {
+            "engine": "mahjong-helper",
+            "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+            "adapterVersion": "0.2.0",
+            "protocolVersion": "mahjong-facts/v1"
+          }
+        },
+        {
+          "differenceId": "difference:v1:efficiency:wait_tiles:action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D:action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "axis": "efficiency",
+          "dimension": "wait_tiles",
+          "leftActionRef": "action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
+          "rightActionRef": "action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "direction": "neutral",
+          "valueRelation": "equal",
+          "leftValue": {
+            "kind": "integer_ids",
+            "values": []
+          },
+          "rightValue": {
+            "kind": "integer_ids",
+            "values": []
+          },
+          "evidenceIds": [
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835",
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+          ],
+          "limitations": [
+            "由固定版本手牌结构引擎计算"
+          ],
+          "kind": "deterministic_difference",
+          "preferenceEligibility": "ineligible",
+          "evidenceClass": "deterministic_allowlisted",
+          "engineIdentity": {
+            "engine": "mahjong-helper",
+            "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+            "adapterVersion": "0.2.0",
+            "protocolVersion": "mahjong-facts/v1"
+          }
+        },
+        {
+          "differenceId": "difference:v1:efficiency:wait_tiles_remaining:action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D:action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "axis": "efficiency",
+          "dimension": "wait_tiles_remaining",
+          "leftActionRef": "action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
+          "rightActionRef": "action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "direction": "neutral",
+          "valueRelation": "equal",
+          "leftValue": {
+            "kind": "number",
+            "value": 0,
+            "unit": "tiles_remaining"
+          },
+          "rightValue": {
+            "kind": "number",
+            "value": 0,
+            "unit": "tiles_remaining"
+          },
+          "evidenceIds": [
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835",
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c"
+          ],
+          "limitations": [
+            "剩余枚数基于输入的可见牌与牌山计数"
+          ],
+          "kind": "deterministic_difference",
+          "preferenceEligibility": "ineligible",
+          "evidenceClass": "deterministic_under_assumptions",
+          "engineIdentity": {
+            "engine": "mahjong-helper",
+            "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+            "adapterVersion": "0.2.0",
+            "protocolVersion": "mahjong-facts/v1"
+          }
+        },
+        {
+          "differenceId": "difference:v1:value:dora_count:action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D:action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "axis": "value",
+          "dimension": "dora_count",
+          "leftActionRef": "action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
+          "rightActionRef": "action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "direction": "neutral",
+          "valueRelation": "equal",
+          "leftValue": {
+            "kind": "number",
+            "value": 0,
+            "unit": "dora_count"
+          },
+          "rightValue": {
+            "kind": "number",
+            "value": 0,
+            "unit": "dora_count"
+          },
+          "evidenceIds": [
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand13:sha256:5c6b83183901c075345142e44b7646455df87cd805f62615d0c3ee16ab47d37d",
+            "game:fixture/0/0/0",
+            "game:fixture/0/1/0",
+            "game:fixture/0/2/0",
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand13:sha256:b01158d587ecded08de17fc6b9a281cc2522b7e1b6432b7c8a43b533abbcf7c1"
+          ],
+          "limitations": [],
+          "kind": "deterministic_difference",
+          "preferenceEligibility": "deterministic",
+          "evidenceClass": "deterministic_allowlisted",
+          "engineIdentity": {
+            "engine": "mahjong-helper",
+            "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+            "adapterVersion": "0.2.0",
+            "protocolVersion": "mahjong-facts/v1"
+          }
+        },
+        {
+          "differenceId": "difference:v1:value:dama_point:action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D:action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "axis": "value",
+          "dimension": "dama_point",
+          "leftActionRef": "action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
+          "rightActionRef": "action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+          "direction": "neutral",
+          "valueRelation": "equal",
+          "leftValue": {
+            "kind": "number",
+            "value": 3900,
+            "unit": "points"
+          },
+          "rightValue": {
+            "kind": "number",
+            "value": 3900,
+            "unit": "points"
+          },
+          "evidenceIds": [
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand13:sha256:5c6b83183901c075345142e44b7646455df87cd805f62615d0c3ee16ab47d37d",
+            "game:fixture/0/0/0",
+            "game:fixture/0/1/0",
+            "game:fixture/0/2/0",
+            "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand13:sha256:b01158d587ecded08de17fc6b9a281cc2522b7e1b6432b7c8a43b533abbcf7c1"
+          ],
+          "limitations": [
+            "默听或副露打点是固定版本 mahjong-helper 的估算",
+            "Pinned mahjong-helper commit 514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0"
+          ],
+          "kind": "heuristic_difference",
+          "preferenceEligibility": "heuristic_only",
+          "evidenceClass": "versioned_upstream_estimate",
+          "engineIdentity": {
+            "engine": "mahjong-helper",
+            "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+            "adapterVersion": "0.2.0",
+            "protocolVersion": "mahjong-facts/v1"
+          }
+        }
+      ],
+      "deterministicPreference": null,
+      "modelEvaluation": {
+        "evaluationId": "mortal-evaluation:sha256:9f9f5111f7b27a781f1f1ddde5ebc2dd2b796bfc7365c9c28b548e564176929f:game:fixture/0/2/0",
+        "comparisonSetId": "mortal-comparison:sha256:9f9f5111f7b27a781f1f1ddde5ebc2dd2b796bfc7365c9c28b548e564176929f:game:fixture/0/2/0",
+        "decisionLayerRef": "mortal-review:sha256:9f9f5111f7b27a781f1f1ddde5ebc2dd2b796bfc7365c9c28b548e564176929f:game:fixture/0/2/0",
+        "engineId": "mortal",
+        "engineVersion": "1.5.10",
+        "adapterVersion": "mortal-source/2",
+        "scoreMethod": "mortal_probability_x100",
+        "detailPolicy": {
+          "threshold": 10,
+          "unit": "model_selection_score_points",
+          "boundary": "greater_than_or_equal_is_detailed",
+          "policyVersion": "mortal-review/v1",
+          "frozenAt": "2026-08-20T00:00:00.000Z"
+        },
+        "candidates": [
+          {
+            "actionRef": "action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D",
+            "rawValues": [
+              {
+                "metric": "probability",
+                "value": 0.8
+              },
+              {
+                "metric": "q_value",
+                "value": 1
+              }
+            ],
+            "modelSelectionScore": 80
+          },
+          {
+            "actionRef": "action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
+            "rawValues": [
+              {
+                "metric": "probability",
+                "value": 0.2
+              },
+              {
+                "metric": "q_value",
+                "value": 0.1
+              }
+            ],
+            "modelSelectionScore": 20
+          }
+        ],
+        "preferredActions": [
+          "action:v1:%5B%22discard%22%2C%5B%229m%22%2Cfalse%5D%2C%22tedashi%22%5D"
+        ],
+        "actualActionRef": "action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
+        "scoredActualModelActionRef": "action:v1:%5B%22discard%22%2C%5B%225p%22%2Cfalse%5D%2C%22tsumogiri%22%5D",
+        "errorGap": 60,
+        "modelReason": "unknown"
+      },
+      "evidenceIds": [
+        "game:fixture/0/0/0",
+        "game:fixture/0/1/0",
+        "game:fixture/0/2/0",
+        "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835",
+        "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c",
+        "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand13:sha256:5c6b83183901c075345142e44b7646455df87cd805f62615d0c3ee16ab47d37d",
+        "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand13:sha256:b01158d587ecded08de17fc6b9a281cc2522b7e1b6432b7c8a43b533abbcf7c1"
+      ]
+    }
+  ],
+  "evidenceRegistry": {
+    "game:fixture/0/0/0": {
+      "evidenceId": "game:fixture/0/0/0",
+      "kind": "canonical_event",
+      "producer": "canonical-replay",
+      "producerVersion": "canonical-riichi-events/v2",
+      "sourceRefs": [],
+      "payload": {
+        "eventId": "game:fixture/0/0/0",
+        "type": "game_started"
+      }
+    },
+    "game:fixture/0/1/0": {
+      "evidenceId": "game:fixture/0/1/0",
+      "kind": "canonical_event",
+      "producer": "canonical-replay",
+      "producerVersion": "canonical-riichi-events/v2",
+      "sourceRefs": [],
+      "payload": {
+        "eventId": "game:fixture/0/1/0",
+        "type": "round_started"
+      }
+    },
+    "game:fixture/0/2/0": {
+      "evidenceId": "game:fixture/0/2/0",
+      "kind": "canonical_event",
+      "producer": "canonical-replay",
+      "producerVersion": "canonical-riichi-events/v2",
+      "sourceRefs": [],
+      "payload": {
+        "eventId": "game:fixture/0/2/0",
+        "type": "tile_drawn",
+        "actor": 0,
+        "tile": {
+          "id": "5p",
+          "red": false
+        }
+      }
+    },
+    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835": {
+      "evidenceId": "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835",
+      "kind": "fact_engine_request",
+      "producer": "fact-engine",
+      "producerVersion": "0.2.0",
+      "sourceRefs": [
+        "game:fixture/0/0/0",
+        "game:fixture/0/1/0",
+        "game:fixture/0/2/0"
+      ],
+      "payload": {
+        "requestId": "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:50020100fd3bdf6be157552adbd2243acb802f8caf7a34573ca5f9cd1c18e835",
+        "kind": "hand-structure"
+      }
+    },
+    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c": {
+      "evidenceId": "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c",
+      "kind": "fact_engine_request",
+      "producer": "fact-engine",
+      "producerVersion": "0.2.0",
+      "sourceRefs": [
+        "game:fixture/0/0/0",
+        "game:fixture/0/1/0",
+        "game:fixture/0/2/0"
+      ],
+      "payload": {
+        "requestId": "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand-structure:sha256:9944b365c5b5b95fb88f62f9e867ebe008c7fb12a9f4aadb94167e9535d5be9c",
+        "kind": "hand-structure"
+      }
+    },
+    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand13:sha256:5c6b83183901c075345142e44b7646455df87cd805f62615d0c3ee16ab47d37d": {
+      "evidenceId": "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand13:sha256:5c6b83183901c075345142e44b7646455df87cd805f62615d0c3ee16ab47d37d",
+      "kind": "fact_engine_request",
+      "producer": "fact-engine",
+      "producerVersion": "0.2.0",
+      "sourceRefs": [
+        "game:fixture/0/0/0",
+        "game:fixture/0/1/0",
+        "game:fixture/0/2/0"
+      ],
+      "payload": {
+        "requestId": "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand13:sha256:5c6b83183901c075345142e44b7646455df87cd805f62615d0c3ee16ab47d37d",
+        "kind": "hand13"
+      }
+    },
+    "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand13:sha256:b01158d587ecded08de17fc6b9a281cc2522b7e1b6432b7c8a43b533abbcf7c1": {
+      "evidenceId": "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand13:sha256:b01158d587ecded08de17fc6b9a281cc2522b7e1b6432b7c8a43b533abbcf7c1",
+      "kind": "fact_engine_request",
+      "producer": "fact-engine",
+      "producerVersion": "0.2.0",
+      "sourceRefs": [
+        "game:fixture/0/0/0",
+        "game:fixture/0/1/0",
+        "game:fixture/0/2/0"
+      ],
+      "payload": {
+        "requestId": "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a:hand13:sha256:b01158d587ecded08de17fc6b9a281cc2522b7e1b6432b7c8a43b533abbcf7c1",
+        "kind": "hand13"
+      }
+    }
+  }
+}

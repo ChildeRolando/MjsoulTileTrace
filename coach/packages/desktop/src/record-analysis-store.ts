@@ -1,4 +1,5 @@
-import type { CanonicalEventStream } from "@riichi-coach/contracts";
+import { StructuredAnalysisPackageSchema, type CanonicalEventStream, type StructuredAnalysisPackage } from "@riichi-coach/contracts";
+import { validateStructuredAnalysisPackage } from "@riichi-coach/reasoning";
 import type {
   MahjongSoulCanonicalMapperResult,
   MahjongSoulMapperDiagnostic,
@@ -45,6 +46,9 @@ export type RecordAnalysisOutcome =
   };
 
 export interface RecordAnalysisStore {
+  /** Main-process producer handoff only; never exposed through IPC. */
+  putAnalysisPackage(value: StructuredAnalysisPackage): void;
+  getAnalysisPackage(packageId: string): StructuredAnalysisPackage | undefined;
   analyzeRecord(input: {
     readonly recordId: string;
     readonly selfActor: number;
@@ -73,6 +77,7 @@ export function createRecordAnalysisStore(input: {
   readonly replay: (stream: CanonicalEventStream) => readonly ReplayedDecision[];
 }): RecordAnalysisStore {
   const mappedRecords = new Map<string, CanonicalEventStream>();
+  const analysisPackages = new Map<string, StructuredAnalysisPackage>();
   const replayedRecords = new Map<string, ReplayedDecision[]>();
 
   const analyzeRecord = (request: {
@@ -128,6 +133,14 @@ export function createRecordAnalysisStore(input: {
   };
 
   return Object.freeze({
+    putAnalysisPackage(value: StructuredAnalysisPackage): void {
+      validateStructuredAnalysisPackage(value);
+      analysisPackages.set(value.packageId, structuredClone(StructuredAnalysisPackageSchema.parse(value)));
+    },
+    getAnalysisPackage(packageId: string): StructuredAnalysisPackage | undefined {
+      const value = analysisPackages.get(packageId);
+      return value === undefined ? undefined : structuredClone(StructuredAnalysisPackageSchema.parse(value));
+    },
     analyzeRecord,
     getMappedRecord: (recordId: string, selfActor: number) =>
       mappedRecords.get(stateKey(recordId, selfActor)),

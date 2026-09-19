@@ -1,8 +1,9 @@
 import { contextBridge, ipcRenderer } from "electron";
+import { createCoachPreloadApi } from "./preload.js";
 
 // The sandboxed preload cannot resolve bare npm package specifiers or Node
-// builtins like `node:crypto`. This entry must stay self-contained: only the
-// `electron` module, inline channel names, and a light renderer-side validation
+// builtins like `node:crypto`. The build bundles the safe contract schemas;
+// only `electron` remains external. Existing session APIs use light validation
 // that rejects credential-bearing fields. The main process performs the full
 // zod validation before returning anything over IPC; this is defense in depth.
 
@@ -55,6 +56,8 @@ const FORBIDDEN_KEYS: ReadonlySet<string> = new Set([
 ]);
 
 const PROTOCOL_ERROR = "mahjong_soul_login_protocol_unsupported";
+
+contextBridge.exposeInMainWorld("riichiCoachProvider", createCoachPreloadApi(ipcRenderer));
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return value !== null && typeof value === "object" && !Array.isArray(value);

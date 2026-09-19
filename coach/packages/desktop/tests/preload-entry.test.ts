@@ -27,11 +27,12 @@ import {
 } from "../src/ipc.js";
 
 describe("self-contained sandboxed preload", () => {
-  it("exposes exactly three renderer globals with the right methods", () => {
+  it("exposes exactly four renderer globals with the right methods", () => {
     expect([...exposed.keys()].sort()).toEqual([
       "riichiCoach",
       "riichiCoachCatalog",
       "riichiCoachPaipu",
+      "riichiCoachProvider",
     ]);
     const session = exposed.get("riichiCoach") as Record<string, unknown>;
     const catalog = exposed.get("riichiCoachCatalog") as Record<string, unknown>;
@@ -47,6 +48,9 @@ describe("self-contained sandboxed preload", () => {
       "syncAnalyzableRecords",
     ]);
     expect(Object.keys(paipu).sort()).toEqual(["importPaipu"]);
+    expect(Object.keys(exposed.get("riichiCoachProvider") as object).sort()).toEqual([
+      "clearCredential", "configure", "generate", "getStatus", "importCredential",
+    ]);
   });
 
   it("keeps channel names in lockstep with the main-process IPC registry", () => {

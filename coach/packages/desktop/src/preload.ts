@@ -1,4 +1,8 @@
-import { MahjongSoulSourceErrorCodeSchema } from "@riichi-coach/contracts";
+import {
+  MahjongSoulSourceErrorCodeSchema, COACH_IPC_CHANNELS, CoachProviderSettingsSchema,
+  CoachProviderStatusSchema, CoachGenerateRequestSchema, CoachGenerateResultSchema,
+  type CoachDesktopApi,
+} from "@riichi-coach/contracts";
 import {
   parseMahjongSoulSessionStatus,
   type MahjongSoulDesktopApi,
@@ -13,6 +17,26 @@ import {
 } from "./ipc.js";
 
 const PROTOCOL_ERROR = "mahjong_soul_login_protocol_unsupported" as const;
+
+export function createCoachPreloadApi(ipc: IpcRendererInvokePort): CoachDesktopApi {
+  const status = async (channel: string, args: unknown[]) => {
+    try { return CoachProviderStatusSchema.parse(await ipc.invoke(channel, ...args)); }
+    catch { throw Error("m6d2_provider_operation_failed"); }
+  };
+  return Object.freeze({
+    configure: async (value: Parameters<CoachDesktopApi["configure"]>[0]) => {
+      try { return await status(COACH_IPC_CHANNELS.configure, [CoachProviderSettingsSchema.parse(value)]); }
+      catch { throw Error("m6d2_provider_operation_failed"); }
+    },
+    getStatus: () => status(COACH_IPC_CHANNELS.status, []),
+    importCredential: () => status(COACH_IPC_CHANNELS.importCredential, []),
+    clearCredential: () => status(COACH_IPC_CHANNELS.clearCredential, []),
+    generate: async (value: Parameters<CoachDesktopApi["generate"]>[0]) => {
+      try { return CoachGenerateResultSchema.parse(await ipc.invoke(COACH_IPC_CHANNELS.generate, CoachGenerateRequestSchema.parse(value))); }
+      catch { throw Error("m6d2_provider_operation_failed"); }
+    },
+  });
+}
 
 export interface IpcRendererInvokePort {
   invoke(channel: string, ...args: unknown[]): Promise<unknown>;
