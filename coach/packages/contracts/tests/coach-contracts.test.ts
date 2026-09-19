@@ -39,6 +39,7 @@ function judgmentPayload(
 ): Record<string, unknown> {
   return {
     judgmentId: "ctxg:CoachJudgment:test",
+    localId: "j1",
     decisionId: D1,
     recommendation: JUDGMENT_RECOMMENDATION,
     confidence: "medium",
@@ -52,6 +53,7 @@ function inferencePayload(
 ): Record<string, unknown> {
   return {
     inferenceId: "ctxg:CoachInference:test",
+    localId: "i1",
     decisionId: D1,
     statement: "West looks tenpai-ish based on the discard flow",
     premiseRefs: ["ctxg:KnownGameFact:test"],

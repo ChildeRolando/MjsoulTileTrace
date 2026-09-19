@@ -344,6 +344,7 @@ function buildReportReasoningOverlay(
           nodeId,
           payload: {
             inferenceId: nodeId,
+            localId: inference.localId,
             decisionId: decision.decisionId,
             statement: inference.statement,
             premiseRefs: [...inference.premiseRefs],
@@ -377,6 +378,7 @@ function buildReportReasoningOverlay(
         nodeId: judgmentNodeId,
         payload: {
           judgmentId: judgmentNodeId,
+          localId: decision.judgment.localId,
           decisionId: decision.decisionId,
           recommendation: decision.judgment.recommendation,
           confidence: decision.judgment.confidence,

@@ -337,15 +337,18 @@ describe("M6-D2 assembleReviewReport (golden)", () => {
       .find((node) => node.nodeKind === "Explanation")!;
     const judgmentPayload = judgmentNode.payload as {
       judgmentId: string;
+      localId: string;
       recommendation: string;
       premiseRefs: string[];
     };
     expect(judgmentPayload.judgmentId).toBe(judgmentNode.nodeId);
+    expect(judgmentPayload.localId).toBe("j1");
     expect(judgmentPayload.recommendation).toBe(refs.actionRef);
     expect(judgmentPayload.premiseRefs).toContain(refs.kgfNodeId);
     expect(judgmentPayload.premiseRefs).toContain(inferenceNode.nodeId);
     expect(judgmentPayload.premiseRefs).not.toContain("i1");
     expect(inferenceNode.nodeId).toMatch(/^ctxg:CoachInference:/);
+    expect((inferenceNode.payload as { localId: string }).localId).toBe("i1");
     expect(judgmentNode.nodeId).toMatch(/^ctxg:CoachJudgment:/);
 
     // Provenance = deduped CANONICALLY SORTED union of the referenced graph

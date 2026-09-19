@@ -563,6 +563,13 @@ export function validateReviewReport(
     throw new Error(`m6d2_report_overlay_partition:${messageOf(error)}`);
   }
 
+  const graphNodeById = new Map(
+    graph.nodes.map((node) => [node.nodeId, node] as const),
+  );
+  const overlayNodeById = new Map(
+    report.reasoningOverlay.nodes.map((node) => [node.nodeId, node] as const),
+  );
+
   for (const edge of report.reasoningOverlay.edges) {
     const expected = deriveEdgeId({
       from: edge.from,
@@ -573,13 +580,35 @@ export function validateReviewReport(
     if (edge.edgeId !== expected) {
       throw new Error(`m6d2_report_overlay_edge_id_mismatch:${edge.edgeId}`);
     }
+
+    // A read-back edge must start from this report's overlay. Its kind fixes
+    // the legal endpoint shapes; a syntactically valid edge kind is not
+    // sufficient by itself.
+    const from = overlayNodeById.get(edge.from);
+    const to = overlayNodeById.get(edge.to) ?? graphNodeById.get(edge.to);
+    const endpointKindsValid = edge.edgeKind === "verbalizes"
+      ? from?.nodeKind === "Explanation" &&
+        (to?.nodeKind === "CoachJudgment" || to?.nodeKind === "FactorDifference")
+      : (from?.nodeKind === "CoachJudgment" || from?.nodeKind === "CoachInference") &&
+        to?.partition === "evidence";
+    if (!endpointKindsValid || from === undefined || to === undefined) {
+      throw new Error(`m6d2_report_overlay_edge_endpoint_kind:${edge.edgeId}`);
+    }
+
+    const fromDecisionId = (from.payload as { decisionId?: unknown }).decisionId;
+    const toDecisionId = (to.payload as { decisionId?: unknown }).decisionId;
+    if (
+      typeof fromDecisionId !== "string" ||
+      typeof toDecisionId !== "string" ||
+      fromDecisionId !== toDecisionId
+    ) {
+      throw new Error(`m6d2_report_overlay_edge_cross_decision:${edge.edgeId}`);
+    }
   }
 
   // Graph-dependent grounding over the overlay payloads.
-  const graphNodeIds = new Set(graph.nodes.map((node) => node.nodeId));
-  const overlayNodeIds = new Set(
-    report.reasoningOverlay.nodes.map((node) => node.nodeId),
-  );
+  const graphNodeIds = new Set(graphNodeById.keys());
+  const overlayNodeIds = new Set(overlayNodeById.keys());
   const inferenceDecisionByNodeId = new Map<string, string>();
   for (const node of report.reasoningOverlay.nodes) {
     if (node.nodeKind !== "CoachInference") continue;
@@ -590,6 +619,15 @@ export function validateReviewReport(
   for (const node of report.reasoningOverlay.nodes) {
     if (node.nodeKind === "CoachJudgment") {
       const payload = CoachJudgmentPayloadSchema.parse(node.payload);
+      const expectedNodeId = deriveNodeId("CoachJudgment", [
+        graph.packageId,
+        payload.decisionId,
+        "judgment",
+        payload.localId,
+      ]);
+      if (node.nodeId !== expectedNodeId || payload.judgmentId !== expectedNodeId) {
+        throw new Error(`m6d2_report_overlay_node_id_mismatch:${node.nodeId}`);
+      }
       const scope = scopeOfDecision(graph, payload.decisionId);
       if (scope === null) {
         groundingThrow("dangling_ref", `decisionId ${payload.decisionId}`);
@@ -618,6 +656,15 @@ export function validateReviewReport(
 
     if (node.nodeKind === "CoachInference") {
       const payload = CoachInferencePayloadSchema.parse(node.payload);
+      const expectedNodeId = deriveNodeId("CoachInference", [
+        graph.packageId,
+        payload.decisionId,
+        "inference",
+        payload.localId,
+      ]);
+      if (node.nodeId !== expectedNodeId || payload.inferenceId !== expectedNodeId) {
+        throw new Error(`m6d2_report_overlay_node_id_mismatch:${node.nodeId}`);
+      }
       const scope = scopeOfDecision(graph, payload.decisionId);
       if (scope === null) {
         groundingThrow("dangling_ref", `decisionId ${payload.decisionId}`);
@@ -640,7 +687,10 @@ export function validateReviewReport(
       payload.text,
       payload.claims,
     ]);
-    if (node.nodeId !== expectedExplanationId) {
+    if (
+      node.nodeId !== expectedExplanationId ||
+      payload.explanationId !== expectedExplanationId
+    ) {
       throw new Error(`m6d2_report_overlay_node_id_mismatch:${node.nodeId}`);
     }
     const scope = scopeOfDecision(graph, payload.decisionId);

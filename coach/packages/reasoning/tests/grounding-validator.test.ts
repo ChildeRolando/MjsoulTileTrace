@@ -138,6 +138,30 @@ function codesOf(violations: { code: string }[]): string[] {
   return violations.map((violation) => violation.code);
 }
 
+function recomputeReportId(report: ReviewReport): void {
+  report.reportId = `review-report:${sha256Hex(canonicalJson({
+    packageId: report.packageId,
+    selectorPolicyVersion: report.selectorPolicyVersion,
+    generation: report.generation,
+    decisionEntries: report.decisionEntries,
+    reasoningOverlay: report.reasoningOverlay,
+  }))}`;
+}
+
+function recomputeOverlayEdgeIds(report: ReviewReport): void {
+  for (const edge of report.reasoningOverlay.edges) {
+    edge.edgeId = deriveEdgeId({
+      from: edge.from,
+      to: edge.to,
+      edgeKind: edge.edgeKind,
+      payload: edge.payload,
+    });
+  }
+  report.reasoningOverlay.edges.sort((left, right) =>
+    left.edgeId.localeCompare(right.edgeId),
+  );
+}
+
 // ---------------------------------------------------------------------------
 // validateCoachGrounding — hard layers
 // ---------------------------------------------------------------------------
@@ -493,13 +517,7 @@ describe("M6-D2 validateReviewReport", () => {
     readBack.reasoningOverlay.edges.sort((left, right) =>
       left.edgeId.localeCompare(right.edgeId),
     );
-    readBack.reportId = `review-report:${sha256Hex(canonicalJson({
-      packageId: readBack.packageId,
-      selectorPolicyVersion: readBack.selectorPolicyVersion,
-      generation: readBack.generation,
-      decisionEntries: readBack.decisionEntries,
-      reasoningOverlay: readBack.reasoningOverlay,
-    }))}`;
+    recomputeReportId(readBack);
 
     expect(() => validateReviewReport(readBack, graph)).not.toThrow();
   });
@@ -558,6 +576,135 @@ describe("M6-D2 validateReviewReport", () => {
     (explanation.payload as { text: string }).text += " 已篡改";
     expect(() => validateReviewReport(tampered, graph))
       .toThrow(/m6d2_report_overlay_node_id_mismatch/);
+  });
+
+  it("rejects synchronized CoachJudgment / CoachInference nodeId and payload self-id forgery", async () => {
+    const { graph, report } = await goldenReport();
+    for (const [nodeKind, selfIdKey] of [
+      ["CoachJudgment", "judgmentId"],
+      ["CoachInference", "inferenceId"],
+    ] as const) {
+      const tampered = clone(report);
+      const node = tampered.reasoningOverlay.nodes
+        .find((candidate) => candidate.nodeKind === nodeKind)!;
+      const previousId = node.nodeId;
+      const forgedId = `ctxg:${nodeKind}:forged`;
+      node.nodeId = forgedId;
+      (node.payload as Record<string, unknown>)[selfIdKey] = forgedId;
+      for (const edge of tampered.reasoningOverlay.edges) {
+        if (edge.from === previousId) edge.from = forgedId;
+        if (edge.to === previousId) edge.to = forgedId;
+      }
+      recomputeOverlayEdgeIds(tampered);
+      recomputeReportId(tampered);
+
+      expect(() => validateReviewReport(tampered, graph))
+        .toThrow(/m6d2_report_overlay_node_id_mismatch/);
+    }
+  });
+
+  it("rejects an Explanation payload self-id tamper even with a recomputed reportId", async () => {
+    const { graph, report } = await goldenReport();
+    const tampered = clone(report);
+    const explanation = tampered.reasoningOverlay.nodes
+      .find((node) => node.nodeKind === "Explanation")!;
+    (explanation.payload as { explanationId: string }).explanationId =
+      "ctxg:Explanation:forged";
+    recomputeReportId(tampered);
+
+    expect(() => validateReviewReport(tampered, graph))
+      .toThrow(/m6d2_report_schema/);
+  });
+
+  it("rejects endpoint-kind violations for verbalizes / opposes / qualifies", async () => {
+    const { graph, report } = await goldenReport();
+    const judgment = report.reasoningOverlay.nodes
+      .find((node) => node.nodeKind === "CoachJudgment")!;
+    const explanation = report.reasoningOverlay.nodes
+      .find((node) => node.nodeKind === "Explanation")!;
+    const decisionId = (judgment.payload as { decisionId: string }).decisionId;
+    const evidence = nodeOfKindForDecision(graph, "FactorFact", decisionId);
+
+    for (const [edgeKind, from] of [
+      ["verbalizes", judgment.nodeId],
+      ["opposes", explanation.nodeId],
+      ["qualifies", explanation.nodeId],
+    ] as const) {
+      const tampered = clone(report);
+      tampered.reasoningOverlay.edges.push({
+        edgeId: deriveEdgeId({ from, to: evidence.nodeId, edgeKind, payload: {} }),
+        edgeKind,
+        from,
+        to: evidence.nodeId,
+        origin: "llm_reasoning",
+        provenance: [],
+        payload: {},
+      });
+      tampered.reasoningOverlay.edges.sort((left, right) =>
+        left.edgeId.localeCompare(right.edgeId),
+      );
+      recomputeReportId(tampered);
+
+      expect(() => validateReviewReport(tampered, graph))
+        .toThrow(/m6d2_report_overlay_edge_endpoint_kind/);
+    }
+  });
+
+  it("rejects a valid-kind edge whose endpoints belong to different decisions", async () => {
+    const pkg = await buildTwoReadyPackage();
+    const graph = projectContextGraph(pkg);
+    const [first, second] = pkg.decisions;
+    if (first === undefined || second === undefined) {
+      throw new Error("fixture must carry two decisions");
+    }
+    const refsA = refsOf(graph, first.decisionId);
+    const refsB = refsOf(graph, second.decisionId);
+    const report = assembleReviewReport({
+      graph,
+      selection: {
+        policyVersion: SELECTOR_POLICY_VERSION_V1,
+        analysisPackageId: pkg.packageId,
+        analysisPackageStatus: pkg.record.status,
+        selected: [first, second].map((decision, index) => ({
+          decisionId: decision.decisionId,
+          rank: index + 1,
+          selectionReason: "model_disagreement_above_threshold" as const,
+        })),
+      },
+      outcome: {
+        kind: "generated",
+        content: JSON.stringify({ decisions: [baseDecision(refsA), baseDecision(refsB)] }),
+        transportRetries: 0,
+      },
+      provider: { providerId: "openai", model: "gpt-test" },
+      generatedAt: GENERATED_AT,
+    });
+    const judgmentA = report.reasoningOverlay.nodes.find(
+      (node) => node.nodeKind === "CoachJudgment" &&
+        (node.payload as { decisionId: string }).decisionId === first.decisionId,
+    )!;
+    const evidenceB = nodeOfKindForDecision(graph, "FactorFact", second.decisionId);
+    report.reasoningOverlay.edges.push({
+      edgeId: deriveEdgeId({
+        from: judgmentA.nodeId,
+        to: evidenceB.nodeId,
+        edgeKind: "opposes",
+        payload: {},
+      }),
+      edgeKind: "opposes",
+      from: judgmentA.nodeId,
+      to: evidenceB.nodeId,
+      origin: "llm_reasoning",
+      provenance: [],
+      payload: {},
+    });
+    report.reasoningOverlay.edges.sort((left, right) =>
+      left.edgeId.localeCompare(right.edgeId),
+    );
+    recomputeReportId(report);
+
+    expect(() => validateReviewReport(report, graph))
+      .toThrow(/m6d2_report_overlay_edge_cross_decision/);
   });
 
   it("rejects an overlay payload grounding violation with the frozen code", async () => {

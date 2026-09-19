@@ -180,8 +180,8 @@ contract 层 payload 保持 opaque，per-kind 形状由 D2 schema + grounding �
 
 | nodeKind | payload 字段 | 语义 |
 |---|---|---|
-| CoachInference | `inferenceId`、`decisionId`、`statement`、`premiseRefs` | 综合层中间推断（如基于 KnownGameFacts 的高级读牌）；可被 CoachJudgment 引用为前提 |
-| CoachJudgment | `judgmentId`、`decisionId`、`recommendation`（actionRef）、`confidence`、`premiseRefs` | 最终推荐 + 置信度；`premiseRefs` 非空 |
+| CoachInference | `inferenceId`、`localId`、`decisionId`、`statement`、`premiseRefs` | 综合层中间推断（如基于 KnownGameFacts 的高级读牌）；`localId` 保留为读回时重算 engine-derived identity 的材料；可被 CoachJudgment 引用为前提 |
+| CoachJudgment | `judgmentId`、`localId`、`decisionId`、`recommendation`（actionRef）、`confidence`、`premiseRefs` | 最终推荐 + 置信度；`localId` 保留为读回时重算 engine-derived identity 的材料；`premiseRefs` 非空 |
 | Explanation | `explanationId`、`decisionId`、`text`、`claims` | 面向用户的解释条目；`text` 含占位符；`claims: { kind, evidenceRef }[]` |
 
 - `confidence`：`high | medium | low`（grill C1：LLM 给推荐与置信度）。
@@ -204,7 +204,9 @@ contract 层 payload 保持 opaque，per-kind 形状由 D2 schema + grounding �
   `ctxg:<nodeKind>:<digest>` / `ctxg:edge:<digest>` 格式与语义键纪律）。
   CoachJudgment / CoachInference 沿用 `packageId + decisionId + node kind +
   localId`；Explanation 沿用 `packageId + decisionId + text + claims` 的内容
-  派生规则（不为统一公式新增 localId）。这些 identity 均先于 reportId 确定，
+  派生规则（不为统一公式新增 localId）。持久化 payload 保留 Judgment / Inference
+  的 `localId`，read-back validator 同时重算 engine-derived nodeId 并校验 payload
+  self-id；Explanation 则从既有内容材料重算并校验 self-id。这些 identity 均先于 reportId 确定，
   无 wall-clock、无随机。draft 中
   出现的任何自造 nodeId 一律视为 `invalid_output`。
 - reasoning node 的 `producer` / `producerVersion` = coach engine 名称与
@@ -427,7 +429,7 @@ M6-D2 所有失败抛 `m6d2_<模块>_<错误>:<detail>` 风格错误（`m6d2_eng
   重试仍败 → `request_failed`；grounding 失败**不**触发第二次请求；被拒
   judgment 的 Explanation 级联消失；部分行失败 → `partial` 且 diagnostics 有
   记录。
-- **review report validator**：从磁盘读回的合法报告通过；篡改（改 status、      
+- **review report validator**：从磁盘读回的合法报告通过；篡改（改 status、
   注入 overlay 外节点、悬空 ref、audit 带完整 prompt）拒绝。
 - **报告隔离**：同 package / decision、相同 judgment/inference localId、不同
   判断内容生成报告 A/B（Explanation 按既有内容规则派生），分别读回并覆盖

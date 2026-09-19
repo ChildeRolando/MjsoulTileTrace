@@ -84,6 +84,8 @@ export type CoachConfidence = z.infer<typeof CoachConfidenceSchema>;
  */
 export const CoachInferencePayloadSchema = z.object({
   inferenceId: z.string().min(1),
+  /** Persisted engine identity material for deterministic read-back checks. */
+  localId: z.string().min(1),
   decisionId: DecisionIdSchema,
   /** The inference statement (a product field — NOT raw chain-of-thought). */
   statement: z.string().min(1),
@@ -102,6 +104,8 @@ export type CoachInferencePayload = z.infer<typeof CoachInferencePayloadSchema>;
  */
 export const CoachJudgmentPayloadSchema = z.object({
   judgmentId: z.string().min(1),
+  /** Persisted engine identity material for deterministic read-back checks. */
+  localId: z.string().min(1),
   decisionId: DecisionIdSchema,
   /** An actionRef inside the decision's CandidateAction set (hard layer 2). */
   recommendation: ActionRefSchema,
