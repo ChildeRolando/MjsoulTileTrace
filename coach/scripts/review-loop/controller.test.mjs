@@ -53,3 +53,38 @@ test('obsolete completed review respects the global three-round cap',async()=>{
   await advance(s,live,f.io,config);
   assert.equal(s.status,'BLOCKED');assert.match(s.reason,/round limit/);assert.equal(f.creates,0);
 });
+function fixFixture() {
+  const f=fake(),nextHead='c'.repeat(40),rawReviewSha='d'.repeat(64),changed=structuredClone(raw);
+  changed.head.sha=nextHead;
+  const job={kind:'fix',round:1,pr_number:8,issue_id:'fix-id',agent_id:'fixer',head_sha:live.head_sha,base_sha:live.base_sha,raw_review_sha256:rawReviewSha};
+  const s={...state(),round:1,status:'FIXING',admission_hash:live.admission_hash,job};
+  const result={protocol_version:'review-loop/v2',pr_number:8,base_sha:live.base_sha,previous_head_sha:live.head_sha,head_sha:nextHead,round:1,raw_review_sha256:rawReviewSha};
+  const comment={id:'fix-comment',author_type:'agent',author_id:'fixer',issue_id:'fix-id',source_task_id:'fix-run',content:'fixed\n```review-loop-fix\n'+JSON.stringify(result)+'\n```'};
+  const run={id:'fix-run',issue_id:'fix-id',agent_id:'fixer',status:'completed'};
+  Object.assign(f.io,{live:async()=>changed,runs:async()=>[run],issue:async()=>({id:'fix-id',assignee_type:'agent',assignee_id:'fixer'}),comments:async()=>[comment],verifyCheckout:async()=>{},archiveResult:async()=>{}});
+  return {f,s,changed,job,result,comment,run};
+}
+test('changed live head does not bypass failed, missing or untrusted fixer results',async()=>{
+  const cases=[
+    x=>{x.run.status='failed';return /result run not completed/;},
+    x=>{x.f.io.comments=async()=>[];return /missing\/conflicting results/;},
+    x=>{x.comment.author_id='reviewer';return /untrusted result author/;},
+  ];
+  for(const change of cases) {
+    const x=fixFixture(),expected=change(x);let verified=false;
+    x.f.io.verifyCheckout=async()=>{verified=true;};
+    await assert.rejects(()=>advance(x.s,live,x.f.io,config),expected);
+    assert.equal(verified,false);assert.equal(x.f.creates,0);
+  }
+});
+test('valid new-head fix reaches fresh review only after source and checkout verification',async()=>{
+  const {f,s,changed,job,result}=fixFixture();let verified=false,archived=false;
+  f.io.verifyCheckout=async(actualJob,parsed,decisionLive)=>{
+    assert.equal(actualJob,job);assert.deepEqual(parsed.data,result);assert.equal(decisionLive.head_sha,changed.head.sha);verified=true;
+  };
+  f.io.archiveResult=async()=>{assert(verified);archived=true;};
+  f.io.prepare=async()=>{assert(verified);assert(archived);return '/fresh-review-worktree';};
+  await advance(s,live,f.io,config);
+  assert(verified);assert(archived);assert.equal(f.creates,1);assert.equal(s.status,'REVIEWING');assert.equal(s.round,2);
+  assert.equal(s.history[0].event,'result');assert.equal(s.history[0].transition,'DISCARD_AND_REVIEW');
+});

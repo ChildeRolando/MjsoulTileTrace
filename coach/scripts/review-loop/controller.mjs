@@ -72,7 +72,7 @@ export async function advance(state, live, io, config) {
   let current=await observeLive(io,live.pr_number);
   assert.equal(current.admission_hash,state.admission_hash,'admission changed during result read');
   state.snapshot=current.snapshot;
-  if(current.head_sha !== job.head_sha || current.base_sha !== job.base_sha) {
+  if(job.kind === 'review' && (current.head_sha !== job.head_sha || current.base_sha !== job.base_sha)) {
     state.history.push({event:'discard',reason:'candidate changed before result consumption',issue_id:job.issue_id,head_sha:job.head_sha,base_sha:job.base_sha,round:job.round,snapshot:current.snapshot,at:new Date().toISOString()});
     if(state.round >= 3) {
       state.status='BLOCKED';state.reason='round limit after candidate changed';await io.save(state);return;
