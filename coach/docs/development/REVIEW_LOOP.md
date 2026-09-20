@@ -1,10 +1,10 @@
 # 自动评审与修复
 
-当前实现：Review Loop v2，2026-09-20 按用户明确接受已知风险的决定合并部署用于试用。
-这是人工放行，不是独立评审 PASS；已知问题和原始结论保留如下。
+当前实现：Review Loop v2.1，2026-09-21 完成受审代码部署、状态迁移和真实平台 smoke。
+2026-09-20 的 v2 人工风险放行不是独立评审 PASS；其已知问题和原始结论仍保留如下。
 权威协议：[v2 spec](../specs/2026-09-20-review-loop-v2.md)。
 
-COAC-30 代码协议升级为 `review-loop/v2.1`，尚未部署。finding 独立声明 severity 与
+COAC-30 代码协议已升级并部署为 `review-loop/v2.1`。finding 独立声明 severity 与
 durability；P3 ephemeral 可直接 PASS，P3 repository_required 在独立分支持久化，
 不会因此否决原 PR。Reviewer human/runtime policy 的单一权威源为
 `scripts/review-loop/reviewer-instructions.md`，`controller.mjs` 读取该文件并仅组合本轮
@@ -27,7 +27,7 @@ regression 普通文件及 blob hashes、指定 agent/completed run 的严格 re
 
 ### v2 → v2.1 migration / deployment acceptance
 
-本节是 stage 2 的执行 owner；本票只补全步骤，不执行生产迁移。
+本节是 stage 2 的执行 owner；2026-09-21 的首次 v2.1 生产迁移记录见“验证与证据”。
 
 1. **冻结与备份**：暂停 webhook/schedule/Autopilot，将部署 config 设为
    `enabled=false`，确认无活动 Controller/Reviewer/Fixer/durability run，并持有唯一
@@ -37,8 +37,10 @@ regression 普通文件及 blob hashes、指定 agent/completed run 的严格 re
    job。不得删除 ledger、重置 round/history/authorization、重写已完成 review evidence，
    也不得为历史 P3 猜 durability。旧 PASS 撤销为待重新核验；在保留预算内按 v2.1 重新
    review，预算耗尽则保持 BLOCKED。
-3. **部署受审候选**：只有 COAC-32 独立 code review PASS 且受审远端 SHA 已固定，才将受信
-   deployment checkout 快进到该 SHA。更新 protocol/controller/runtime、
+3. **部署受审候选**：只有 COAC-32 独立 code review PASS 且受审远端 SHA 已固定，才更新
+   受信 deployment checkout。旧 checkout 可快进时快进；如受审分支因重组而与旧 checkout
+   无祖先关系，必须新建 clean detached trusted checkout 固定到该 SHA，保留旧 checkout 和
+   完整备份作为回滚点，不得 reset/强行改写旧部署目录。更新 protocol/controller/runtime、
    `reviewer-instructions.md` 和 config；如部署流程另有 Reviewer Agent prompt/config，必须
    从同一 instruction source 同步。禁止并行运行两个指向同组 PR 的 state directory。
 4. **disabled read-back**：保持 `enabled=false`，回读 checkout SHA、config、Agent/Autopilot
@@ -122,6 +124,66 @@ in-place 本机目录，避免与 Reviewer/Fixer 争用目录锁；评审/修复
 ## 验证与证据
 
 `npm run test:review-loop-protocol` 检查生产状态机与适配器；五项门禁仍依 spec 原样运行。
+
+### 2026-09-21 v2.1 migration / deployment（COAC-33）
+
+- [PR #11](https://github.com/ChildeRolando/MjsoulTileTrace/pull/11) 的受审 HEAD
+  `cdf76c63f7df705f9f4af178cda243943271a10f` 在生产 v2 的 COAC-40 round 5 获得
+  `NO_P1_P2`；run `01a0c0fc-7bc8-7beb-a85c-b099361948f9`、comment
+  `01a0c100-c56f-7535-87cb-456a43a0f413`、原文 SHA-256
+  `3803e62e1ee7cc7d8d7136344bd99f26f9340f9cccdc1b235787e264badedaab`。五门全部
+  PASS，Vitest 165 文件 / 1,916 项。PR 合并提交为
+  `439045b52e131916be14fc9eb44fa12bb323e49e`；部署仍固定到受审 HEAD，不以合并动作代替评审。
+- 迁移前暂停 Autopilot、webhook 与 schedule，并设置 `enabled=false`。早期快照
+  `backups/2026-09-21-v2.1-predeploy`（56 个 payload；manifest SHA-256
+  `1a5dc679f52b901f0f85e3092eccce4740be2d723b97178d44099e3a536a7527`）仅到 PR #11
+  round 3，不能单独作为最终回滚点。补齐 round 4/5 后的 post-review 快照 manifest 为
+  `b2af0782ffe937789b0d79ab6ad8c87faef6be5a3d03a3e13dd3cb6811d3f092`。
+- 旧 SHA 不是受审 HEAD 的祖先，因此没有伪造“快进”：保留旧 `review-loop-v2` checkout，
+  新建 clean detached `review-loop-v2.1` checkout 固定到受审 HEAD。旧 checkout SHA 为
+  `ece3fd23bfc194e14dd4ff70d8d9acc72f270268`；其两处临时授权修改未当作已提交代码，原始
+  patch 已单独归档（SHA-256
+  `ad3daf8d15f616c18766b2c62c612bf9dfd66f71b8d5f968b34f95846a39c247`）。回滚须从该旧
+  SHA 新建 clean checkout，再在锁内只切换 protocol/config/prompt identity；不得复用 dirty 目录。
+- `pr-8/10/11` 保留全部原文、round、history、authorization 和 result。旧 v2 PASS 不继承：
+  PR #10/#11 分别追加 `migration_revoke_legacy_pass`，PR #8 追加
+  `migration_preserve_legacy_block`；迁移终态为 `BLOCKED/r5/history=21`、
+  `BLOCKED/r3/history=9`、`BLOCKED/r5/history=18`。最终私有证据备份
+  `backups/2026-09-21-v2.1-final` 含 81 个 payload（含隔离 smoke ledger），manifest
+  SHA-256 `656adb5cf0c1c9d698fd0483c5ceb079a91239ed509bcc2437edd87789e5808e`。
+- disabled read-back 确认 checkout clean、SHA/config/三个 ledger 均为 v2.1，Controller 指向
+  新 trusted checkout；平台 Reviewer instructions 与仓库单一权威源逐字一致，SHA-256
+  均为 `0becc9acf516faac1c39a932c279d4d5316d6e41c1d021d7330d163641fcb8d6`。
+  真实 disabled tick 返回 `enabled=false`、`prs=[]`，零派发。
+- 部署目录执行 `npm run test:review-loop-protocol` 为 56/56 PASS；这是代码/本地 Git 回归，
+  不冒充真实平台 smoke。其覆盖真实 Git durability、
+  P3 ephemeral/repository_required、P2 Fixer metadata、closed PR 队列、exactly-once、伪造
+  author/run/commit/branch/hash、missing commit/branch、unchanged artifact、failed regression 与
+  transport retry 对照。
+- 另以部署 checkout 的同一 `runtime.mjs` `tick` 和独立私有 state 运行真实 Multica 平台
+  smoke；PR identity/snapshot/publication 为隔离合成输入，issue/create/run/comment/attachment
+  与 Git remote verification 均走真实适配器。COAC-42（run
+  `01a0c11a-7390-74f6-bbcf-59e95d70b94d`、comment
+  `01a0c11b-ce07-7bb6-8684-c5d9d7f25711`、result hash
+  `ba2fb6230893476c8362b54a5eb63c748180a5c1553c029eb74cfd87311ec4da`）验证 P3 ephemeral
+  PASS 且零 follow-up。COAC-43 验证 P3 repository_required PASS，并 exactly-once 创建唯一
+  COAC-45；duplicate tick 未重复。将该隔离 PR 从 open 集移除后，closed-ledger 扫描仍消费
+  COAC-45 的 completed run `01a0c11e-3a12-7747-9d4b-f09cafd2c55c` / comment
+  `01a0c11e-f52c-76e0-b0bf-9caf3cde9084`，把真实作者/run 但不存在的远端 branch 判为
+  `DURABLE_KNOWLEDGE_BLOCKED`，错误为 `durability branch missing from reachable origin`。
+- COAC-44 的 P2 repository_required 结果（run
+  `01a0c11a-8fd6-7b71-a9b1-bda28bb226fb`、comment
+  `01a0c11d-ce36-7adc-9f2e-bab26cee52c5`、raw hash
+  `419fec251fb518f3fa8725bc32b4b2a330f57384f5a02f6f84d47c2399fe7e68`）路由唯一 COAC-46。
+  COAC-46 attachment 文件名与 raw hash 一致，完整保留 severity/durability/owner/basis；其
+  completed run/comment 也由 Controller 校验。隔离 smoke 共且仅共五个唯一任务
+  COAC-42—46；完成后任务置 done，两个临时 receipt actor 已归档。
+- webhook URL 已轮换且只保存在本机 secret file。恢复后 webhook run
+  `01a0c106-2494-71a0-8490-778f93869533`、恢复时 schedule run
+  `01a0c106-1975-7074-84a5-faeaafebc515`，以及下一个正常五分钟周期 schedule run
+  `01a0c107-f3cb-7e88-ba8a-fa95c1a6dd95` 均 completed；实际程序输出均为
+  `status=OK`、`enabled=true`、`prs=[]`。这证明两种自动入口运行的是 v2.1，不依赖手工 tick。
+
 2026-09-20 实测与上线记录：
 
 - [交付 PR #8](https://github.com/ChildeRolando/MjsoulTileTrace/pull/8) 已合并；候选
