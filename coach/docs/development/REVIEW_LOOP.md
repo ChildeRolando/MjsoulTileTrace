@@ -5,7 +5,7 @@
 
 流程：Multica webhook/schedule → 受信本机 Controller → GitHub live PR → fresh Reviewer
 → 完整 findings → 现有 Fixer → pushed HEAD → 下一轮 fresh Reviewer。默认最多三轮；
-仅 PR #8 已获用户明确批准追加第四轮，授权与原有轮次一起留存在 ledger。
+仅 PR #8 已获用户两次明确批准追加第四、第五轮，授权与原有轮次一起留存在 ledger。
 
 ## 接入 PR
 
@@ -41,10 +41,12 @@ in-place 本机目录，避免与 Reviewer/Fixer 争用目录锁；评审/修复
   不能因为观察超时就重新创建任务，不能删除 ledger 绕过轮次上限。
 - 人工追加：只有收到针对该 PR 的明确批准后，暂停 Autopilot、设置 enabled=false，
   核验无活动 Controller，再持锁备份 ledger、验证第三轮原文 hash 与来源，调用
-  `authorizeExtraReview` 并原子保存。保留全部 round/history；该操作一次性最多允许第四轮。
-  普通 tick 不会自动恢复 BLOCKED；第四轮仍有阻断项则停止。
+  `authorizeExtraReview` 并原子保存。保留全部 round/history；第一次仅允许第四轮。
+  PR #8 的第二次明确批准另绑定第四轮结果并验证原授权，最多第五轮，不开放第六轮。
+  普通 tick 不会自动恢复 BLOCKED；达到已批准上限仍有阻断项则停止。
 - `publication-<sha>.json`：同一提交的成员集与聚合发布缓存。它不授予 PASS，源事实仍
   是实时 GitHub 状态及每个 PR 的已核验 ledger；旧 per-PR published 字段不再用于发布。
+  POST 前缓存先落为 uncertain；响应丢失或进程中断后，下次会按实时聚合重新发布。
 - 孤儿锁：暂停 Autopilot，核实 PID 已退出后运行 `runtime.mjs recover-lock <config>`；
   该命令会拒绝仍存在的 PID。恢复后重新 tick 并回读任务，最后恢复 Autopilot。
 - 暂停：Autopilot pause 并将 enabled=false；已经分派的 agent run 不会因此自动取消，须

@@ -6,11 +6,11 @@ export const activeStatuses = new Set(['queued','dispatched','running','waiting_
 // explicit human approval. It resumes this exact terminal review once, without
 // resetting rounds or erasing any prior result. tick never calls this function.
 export function authorizeExtraReview(state,approvalRef,at=new Date().toISOString()) {
-  assert(!state.extra_review_authorization,'extra review already authorized');
-  assert(state.protocol_version === VERSION && state.status === 'BLOCKED' && state.round === 3 && !state.pending,'extension requires exhausted blocked review');
+  const limit=reviewRoundLimit(state);
+  assert(limit < 5 && state.protocol_version === VERSION && state.status === 'BLOCKED' && state.round === limit && !state.pending,'extension requires exhausted blocked review');
   const j=state.job;
-  assert(j?.kind === 'review' && j.round === 3 && j.pr_number === state.pr_number && state.result?.issue_id === j.issue_id,'extension source mismatch');
-  const a={pr_number:state.pr_number,max_rounds:4,approved_after_round:3,review_issue_id:j.issue_id,result_sha256:state.result.sha256,head_sha:j.head_sha,base_sha:j.base_sha,approval_ref:approvalRef,approved_at:at};
+  assert(j?.kind === 'review' && j.round === limit && j.pr_number === state.pr_number && state.result?.issue_id === j.issue_id,'extension source mismatch');
+  const a={pr_number:state.pr_number,max_rounds:limit+1,approved_after_round:limit,review_issue_id:j.issue_id,result_sha256:state.result.sha256,head_sha:j.head_sha,base_sha:j.base_sha,approval_ref:approvalRef,approved_at:at};
   reviewRoundLimit({...state,extra_review_authorization:a});
   state.extra_review_authorization=a;
   state.history.push({event:'authorize_extra_review',...a});

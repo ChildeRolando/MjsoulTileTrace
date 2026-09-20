@@ -85,8 +85,10 @@ BLOCKED。结果消费前和任务创建前重新读取 live PR。已 PASS 后�
 只有受信 operator 在暂停触发、配置 disabled、持有同一部署锁时，才能调用
 `authorizeExtraReview` 保存此类显式人工批准；它绑定 PR、第三轮 BLOCKED 的 issue、
 base/head、结果 hash、批准引用和记录时间，并追加历史事件而不重置 round。它只恢复该
-第三轮终态一次；缺失/错配来源、未知 pending、重复授权均拒绝，最高仍为四轮。tick、
-webhook、PR admission 和智能体结果均不能授予授权。当前仅 PR #8 获批，其他 PR 仍为三轮。
+第三轮终态一次；缺失/错配来源、未知 pending、重复授权均拒绝。第四轮发现状态发布
+响应丢失缺陷后，用户再次明确批准仅 PR #8 修复并追加第五轮：第二次授权绑定第四轮
+BLOCKED 原文与身份，并要求保留、验证第一次授权。两次授权均追加进 history，最高五轮，
+不开放第六轮。tick、webhook、PR admission 和智能体结果均不能授予授权；其他 PR 仍为三轮。
 
 GitHub `Review Loop v2` commit status 报告 pending/success/failure；同一 GitHub 账号
 可以提交 COMMENT/状态，并不意味着拥有作者自批能力。PASS 仅表示该 base/head 的本轮
@@ -98,7 +100,9 @@ GitHub 的 status 实际归属是 commit SHA/context，而非 PR。该共享位�
 准入失效或身份矛盾为 failure；缺失结果、陈旧 base/head 为 pending。未 opt-in 且无账本
 的 PR 不纳入；已关闭的 PR 不继续否决 live 候选。旧 job HEAD 与当前 HEAD 都纳入更新，
 避免失败 PR 推到已有成功提交时继承绿灯。缓存按 SHA 保存整个成员集与聚合状态，
-废弃旧的 per-PR published 缓存；所有发布与 ledger 更新共用部署锁。聚合绿灯仍不代替
+废弃旧的 per-PR published 缓存；发送 POST 前原子落盘未确认标记，只有收到成功响应后
+才保存确认缓存。响应丢失或写后中断时，下次按 live aggregate 重发，旧缓存不得跳过纠正。
+所有发布与 ledger 更新共用部署锁。聚合绿灯仍不代替
 合并前对目标 PR 本身的结果来源、base/head 与 admission 的核验。
 
 ## 幂等与恢复
@@ -125,7 +129,7 @@ comment ids、hash、历史和状态。配置含 enabled 开关；初次部署�
 6. 旧 v1 checker/schema/manifest/fixtures 退出当前树，旧 PR/工单标注替代；当前入口仅指 v2。
 7. 同 HEAD 的不同 PR 不得互相覆盖成假 PASS；覆盖冲突结果、重复发布、准入撤回、
    base/head 变化、未评审候选及已关闭候选。显式追加授权不重置历史、不扩散到其他 PR，
-   第四轮后仍停止。
+   到达各自已批准的轮次上限后仍停止。
 
 ## 变更控制
 

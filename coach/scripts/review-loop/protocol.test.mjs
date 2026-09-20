@@ -56,13 +56,13 @@ test('fixer must push a new live SHA before another review', () => {
   assert.equal(decide({...j,round:3},{data:{head_sha:live.head_sha}},live).transition,'BLOCKED');
 });
 
-test('fourth-round authorization preserves all result gates and never opens a fifth round',()=>{
-  const j={...job(),round:4},r={...result(),round:4};
+for(const limit of [4,5]) test(`authorized round ${limit} preserves all result gates and never opens another round`,()=>{
+  const j={...job(),round:limit},r={...result(),round:limit};
   const parsed=read([comment(r)],j);
   assert.throws(()=>decide(j,parsed,admit(pr())),/round limit/);
-  assert.equal(decide(j,parsed,admit(pr()),4).transition,'PASS');
+  assert.equal(decide(j,parsed,admit(pr()),limit).transition,'PASS');
   r.verdict='CHANGES_REQUIRED';r.findings.P2=[{id:'remaining',path:'coach/a.ts',line:1,scenario:'x',consequence:'y',minimal_fix:'z'}];
-  assert.equal(decide(j,read([comment(r)],j),admit(pr()),4).transition,'BLOCKED');
+  assert.equal(decide(j,read([comment(r)],j),admit(pr()),limit).transition,'BLOCKED');
   r.verdict='ENVIRONMENT_BLOCKED';r.environment_failures=['gate failed'];r.gates[0].status='FAIL';r.gates[0].exit_code=1;
-  assert.equal(decide(j,read([comment(r)],j),admit(pr()),4).transition,'BLOCKED');
+  assert.equal(decide(j,read([comment(r)],j),admit(pr()),limit).transition,'BLOCKED');
 });

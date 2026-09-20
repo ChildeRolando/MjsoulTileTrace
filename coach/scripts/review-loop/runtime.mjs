@@ -165,6 +165,9 @@ export function makeIO(config,stateFile,stateDir,runCommand=command) {
         const identity=JSON.stringify({version:1,sha,status,members});
         const cacheFile=path.join(stateDir,`publication-${sha}.json`),cached=await readJson(cacheFile,null);
         if(cached?.identity === identity)continue;
+        // Invalidate confirmation before transmission: GitHub may accept the
+        // POST even when its response or the following cache write is lost.
+        await atomicJson(cacheFile,{uncertain:true,attempted_at:new Date().toISOString()});
         await gh([`${api}/statuses/${sha}`,'--method','POST','-f',`state=${status}`,'-f','context=Review Loop v2','-f',`description=${status} · ${members.length} live PR candidate(s)`,'-f',`target_url=https://github.com/${REPOSITORY}/commit/${sha}`]);
         await atomicJson(cacheFile,{identity,status,members,published_at:new Date().toISOString()});
       }

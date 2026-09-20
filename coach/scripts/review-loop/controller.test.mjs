@@ -103,7 +103,7 @@ test('explicit operator authorization preserves history and permits only a fourt
   const f=fake(),s=exhausted(),previous=structuredClone(s.history),changed=structuredClone(raw);changed.head.sha='c'.repeat(40);
   authorizeExtraReview(s,'user approved PR 8 extension');
   assert.equal(s.round,3);assert.deepEqual(s.history.slice(0,1),previous);
-  assert.throws(()=>authorizeExtraReview(s,'repeat'),/already authorized/);
+  assert.throws(()=>authorizeExtraReview(s,'repeat'),/exhausted blocked/);
   f.io.live=async()=>changed;f.io.runs=async()=>[{status:'completed'}];
   await advance(s,admit(changed),f.io,config);
   assert.equal(s.round,4);assert.equal(s.status,'REVIEWING');assert.equal(f.creates,1);
@@ -111,6 +111,27 @@ test('explicit operator authorization preserves history and permits only a fourt
   await assert.rejects(()=>advance(s,admit(changed),f.io,config),/round limit/);
   assert.equal(f.creates,1);
 });
+test('PR 8 fifth review needs a second approval and keeps both authorizations; no sixth',async()=>{
+  const s=exhausted();authorizeExtraReview(s,'fourth approved');
+  const source={...s.history[0],round:4,issue_id:'fourth-review',sha256:'e'.repeat(64)};
+  s.history.push(source);s.round=4;s.status='BLOCKED';s.job={...s.job,round:4,issue_id:source.issue_id};
+  s.result={issue_id:source.issue_id,sha256:source.sha256};
+  const before=structuredClone(s.history);
+  authorizeExtraReview(s,'fifth explicitly approved');
+  assert.deepEqual(s.history.slice(0,-1),before);assert.equal(s.extra_review_authorization.max_rounds,5);
+  assert.throws(()=>authorizeExtraReview(s,'repeat'));
+  const f=fake(),changed=structuredClone(raw);changed.head.sha='f'.repeat(40);
+  f.io.live=async()=>changed;f.io.runs=async()=>[{status:'completed'}];
+  await advance(s,admit(changed),f.io,config);assert.equal(s.round,5);assert.equal(f.creates,1);
+  s.status='BLOCKED';assert.throws(()=>authorizeExtraReview(s,'sixth'));
+  s.status='PASS';changed.head.sha='e'.repeat(40);
+  await assert.rejects(()=>advance(s,admit(changed),f.io,config),/round limit/);
+  const missing=structuredClone(s);missing.history=missing.history.filter(e=>e.event!=='authorize_extra_review');
+  await assert.rejects(()=>advance(missing,live,fake().io,config),/prior fourth/);
+  const other=structuredClone(s);other.pr_number=9;other.extra_review_authorization.pr_number=9;
+  await assert.rejects(()=>advance(other,live,fake().io,config),/round budget/);
+});
+
 test('extension cannot be copied to another PR or bypass an unrelated block',async()=>{
   const s=exhausted();authorizeExtraReview(s,'user approved PR 8 extension');s.pr_number=9;
   await assert.rejects(()=>advance(s,live,fake().io,config),/authorization/);

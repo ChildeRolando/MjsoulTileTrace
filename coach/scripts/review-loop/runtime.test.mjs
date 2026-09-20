@@ -71,6 +71,31 @@ test('a blocked PR moving onto another passed SHA invalidates the new shared slo
   } finally {await rm(dir,{recursive:true,force:true});}
 });
 
+test('lost status response cannot reuse an older confirmed identity after close and reopen',async()=>{
+  const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-uncertain-publication-'));
+  try {
+    const a=pr(),b={...pr(),number:9};let list=[a,b],loseResponse=false,remote;
+    const ledger=(p,status)=>({protocol_version:'review-loop/v2',pr_number:p.number,round:1,status,admission_hash:admit(p).admission_hash,job:{pr_number:p.number,head_sha:p.head.sha,base_sha:p.base.sha}});
+    const sa=ledger(a,'PASS'),sb=ledger(b,'BLOCKED'),writes=[];
+    await atomicJson(path.join(dir,'pr-8.json'),sa);await atomicJson(path.join(dir,'pr-9.json'),sb);
+    const runner=async(_file,args)=>{
+      if(args.includes('POST')) {
+        remote=args.find(x=>x.startsWith('state=')).slice(6);writes.push(remote);
+        if(loseResponse){loseResponse=false;throw Object.assign(new Error('accepted but response lost'),{transport:true});}
+        return '{}';
+      }
+      if(args.includes('--paginate'))return JSON.stringify([list]);
+      return JSON.stringify(list.find(p=>String(p.number)===args[1].split('/').at(-1)));
+    };
+    const io=()=>makeIO(config(dir),path.join(dir,'pr-8.json'),dir,runner);
+    await io().publish(sa);assert.equal(remote,'failure');
+    list=[a];loseResponse=true;await assert.rejects(()=>io().publish(sa),/response lost/);
+    assert.equal(remote,'success');
+    list=[a,b];await io().publish(sa);await io().publish(sa);
+    assert.equal(remote,'failure');assert.deepEqual(writes,['failure','success','failure']);
+  } finally {await rm(dir,{recursive:true,force:true});}
+});
+
 test('exclusive lock prevents concurrent controllers and can be reacquired',async()=>{
   const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-lock-'));
   try {
