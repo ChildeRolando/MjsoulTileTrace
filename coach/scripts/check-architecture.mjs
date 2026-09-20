@@ -35,6 +35,8 @@
  *     reasoning's `generateReviewReport`; only the main-process coach service
  *     may call that seam. IPC and other desktop modules cannot import report
  *     assembly/slice/prompt helpers or the concrete provider directly.
+ *     Reasoning access must use static named imports; other literal loading
+ *     forms fail closed, including in the service itself.
  *
  * Parsing is owned by the TypeScript Compiler API (ts.createSourceFile + AST
  * traversal): only real module specifiers are collected, so import-looking
@@ -123,11 +125,12 @@ const SKIP_DIRECTORIES = new Set(["dist", "node_modules", ".git"]);
  * Compiler API. Recognized AST nodes:
  *  - ImportDeclaration (import ..., import type ..., side-effect import)
  *  - ExportDeclaration with a module specifier (export ... from, export * from)
- *  - CallExpression import("...") with a string-literal first argument
- *  - CallExpression require("...") with a string-literal first argument
- * Comments, string literals, and template literals never produce specifiers
- * because they are not module-specifier syntax nodes.
- * @returns {{ specifier: string, line: number }[]} 1-based line numbers
+ *  - CallExpression import("...") with a literal first argument
+ *  - CallExpression require("...") with a literal first argument
+ *  - ImportEqualsDeclaration (import x = require("..."))
+ * Literal call arguments include template literals without substitutions.
+ * Import-looking text in comments or ordinary strings/templates is ignored.
+ * @returns {{ specifier: string, line: number, namedImport: boolean }[]} 1-based line numbers
  */
 export function collectModuleSpecifiers(code, fileName) {
   const scriptKind = /\.(m?js|cjs)$/u.test(fileName)
@@ -141,31 +144,41 @@ export function collectModuleSpecifiers(code, fileName) {
     scriptKind,
   );
   const specifiers = [];
+  const add = (node, namedImport = false) => specifiers.push({ node, namedImport });
   const visit = (node) => {
     if (ts.isImportDeclaration(node)) {
       const spec = node.moduleSpecifier;
       if (spec !== undefined && ts.isStringLiteral(spec)) {
-        specifiers.push(spec);
+        const clause = node.importClause;
+        add(spec, clause !== undefined && clause.name === undefined &&
+          clause.namedBindings !== undefined && ts.isNamedImports(clause.namedBindings) &&
+          clause.namedBindings.elements.every((element) =>
+            (element.propertyName?.text ?? element.name.text) !== "default"));
       }
     } else if (ts.isExportDeclaration(node)) {
       const spec = node.moduleSpecifier;
       if (spec !== undefined && ts.isStringLiteral(spec)) {
-        specifiers.push(spec);
+        add(spec);
       }
+    } else if (ts.isImportEqualsDeclaration(node) && ts.isExternalModuleReference(node.moduleReference)) {
+      const spec = node.moduleReference.expression;
+      if (spec !== undefined && ts.isStringLiteral(spec)) add(spec);
     } else if (ts.isCallExpression(node)) {
       const expression = node.expression;
       const isDynamicImport = ts.isImportKeyword(expression);
       const isRequire = ts.isIdentifier(expression) && expression.text === "require";
       const argument = node.arguments[0];
-      if ((isDynamicImport || isRequire) && ts.isStringLiteral(argument)) {
-        specifiers.push(argument);
+      if ((isDynamicImport || isRequire) && argument !== undefined &&
+          (ts.isStringLiteral(argument) || ts.isNoSubstitutionTemplateLiteral(argument))) {
+        add(argument);
       }
     }
     ts.forEachChild(node, visit);
   };
   visit(sourceFile);
-  return specifiers.map((node) => ({
+  return specifiers.map(({ node, namedImport }) => ({
     specifier: node.text,
+    namedImport,
     line: ts.getLineAndCharacterOfPosition(
       sourceFile,
       node.getStart(sourceFile),
@@ -339,15 +352,6 @@ export function checkWorkspace(root, opts = {}) {
         for (const imported of collectImportBindings(code, file)) {
           if (imported.specifier === "@riichi-coach/reasoning") {
             for (const name of imported.names) {
-              if (name === "*") {
-                record(
-                  RULE_IDS.reviewReportGenerationSeam,
-                  relPath,
-                  imported.line,
-                  "Desktop production code must use named reasoning imports so generation ownership is auditable",
-                  "INV-001/INV-002/INV-005",
-                );
-              }
               if (REVIEW_GENERATION_INTERNALS.has(name)) {
                 record(
                   RULE_IDS.reviewReportGenerationSeam,
@@ -384,8 +388,18 @@ export function checkWorkspace(root, opts = {}) {
         }
       }
 
-      for (const { specifier, line } of collectModuleSpecifiers(code, file)) {
+      for (const { specifier, line, namedImport } of collectModuleSpecifiers(code, file)) {
         scannedImports += 1;
+
+        if (isProductionCode && ownerPackage === "@riichi-coach/desktop" &&
+            workspacePackageName(specifier) === "@riichi-coach/reasoning" && !namedImport) {
+          record(
+            RULE_IDS.reviewReportGenerationSeam,
+            relPath, line,
+            "Desktop production code must use static named reasoning imports so generation ownership is auditable",
+            "INV-001/INV-002/INV-005",
+          );
+        }
 
         // Builtins and external third-party packages are not governed here.
         if (isNodeBuiltin(specifier)) continue;

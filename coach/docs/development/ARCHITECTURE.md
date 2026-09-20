@@ -298,7 +298,13 @@ slice → 冻结 prompt → provider 内一次初始发送与至多一次自动�
 append overlay → read-back validator。desktop main 是组合根；service/IPC 不得直接调用
 provider、slice/prompt builder 或 assembler 产生报告。该边界由
 `review_report_generation_seam` 架构规则机械保护；独立 read-back validator 仍可验证
-已有报告。流程不保存完整 prompt、response 或 raw CoT。
+已有报告。desktop production 对 reasoning 的静态/literal 模块引用只允许静态 named
+import（允许别名，禁止 default/namespace）；re-export、literal dynamic import、
+`require()` 与 import-equals 均 fail closed，包括 service 自身。
+`generateReviewReport` 绑定仅归 `llm-provider/service.ts`，generation internals 禁止
+desktop 获取；持久化读回仍可 named import `validateReviewReport` / package validators。
+检查器不解析运行时计算的模块路径，不提供任意 JavaScript 的数据流证明。
+流程不保存完整 prompt、response 或 raw CoT。
 optional usage 先校验形状，畸形 metadata 不会把合法 draft 变成传输失败。被拦截的
 key/prompt 反射只在 main 内保留与本次结果绑定的原文 hash，正文丢弃，audit.outputHash
 继续指向原始模型输出。冻结 v1 prompt 明确要求 zh-CN，且 Mortal/Akagi 内部原因

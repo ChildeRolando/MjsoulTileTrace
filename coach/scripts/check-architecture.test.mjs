@@ -244,10 +244,55 @@ test("only the coach service may use the report generation seam", () => {
   }
 });
 
+for (const [form, code] of Object.entries({
+  reexport: 'export { generateReviewReport } from "@riichi-coach/reasoning";',
+  starReexport: 'export * from "@riichi-coach/reasoning";',
+  namespaceReexport: 'export * as reasoning from "@riichi-coach/reasoning";',
+  dynamicImport: 'await import("@riichi-coach/reasoning");',
+  require: 'require("@riichi-coach/reasoning");',
+  importEquals: 'import reasoning = require("@riichi-coach/reasoning");',
+  namespaceImport: 'import * as reasoning from "@riichi-coach/reasoning";',
+  defaultImport: 'import reasoning from "@riichi-coach/reasoning";',
+  namedDefaultImport: 'import { default as reasoning } from "@riichi-coach/reasoning";',
+  mixedDefaultImport: 'import reasoning, { validateReviewReport } from "@riichi-coach/reasoning";',
+  sideEffectImport: 'import "@riichi-coach/reasoning";',
+  templateImport: 'await import(`@riichi-coach/reasoning`);',
+})) {
+  for (const file of ["report-store.ts", "llm-provider/service.ts"]) {
+    test(`generation authority rejects ${form} in ${file}`, () => {
+      const root = buildWorkspace();
+      const path = `packages/desktop/src/${file}`;
+      try {
+        write(root, path, `// boundary regression\n${code}\n`);
+        const result = checkWorkspace(root, { allowedEdges: TEST_ALLOWED_EDGES });
+        assert.equal(result.violations.length, 1);
+        assert.equal(result.violations[0].rule, "review_report_generation_seam");
+        assert.equal(result.violations[0].file, path);
+        assert.equal(result.violations[0].line, 2);
+      } finally {
+        clean(root);
+      }
+    });
+  }
+}
+
+test("aliased generation imports retain symbol ownership", () => {
+  const root = buildWorkspace();
+  try {
+    write(root, "packages/desktop/src/llm-provider/service.ts", 'import { generateReviewReport as generate } from "@riichi-coach/reasoning";');
+    write(root, "packages/desktop/src/report-store.ts", 'import { generateReviewReport as generate, assembleReviewReport as assemble } from "@riichi-coach/reasoning";');
+    const result = checkWorkspace(root, { allowedEdges: TEST_ALLOWED_EDGES });
+    assert.equal(result.violations.length, 2);
+    assert.ok(result.violations.every((v) => v.rule === "review_report_generation_seam" && v.file.endsWith("report-store.ts")));
+  } finally {
+    clean(root);
+  }
+});
+
 test("read-back validation remains allowed outside generation", () => {
   const root = buildWorkspace();
   try {
-    write(root, "packages/desktop/src/report-store.ts", 'import { validateReviewReport } from "@riichi-coach/reasoning";\n');
+    write(root, "packages/desktop/src/report-store.ts", 'import { validateReviewReport, validateStrictAnalysisPackage as validatePackage } from "@riichi-coach/reasoning";\n');
     const result = checkWorkspace(root, { allowedEdges: TEST_ALLOWED_EDGES });
     assert.deepEqual(result.violations, []);
   } finally {

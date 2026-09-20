@@ -35,7 +35,10 @@
 - **Executable tests**：上述 package/pipeline 测试，加上
   `review-report.test.ts`、`grounding-validator.test.ts`、`coach-provider.test.ts` 与
   `review_report_generation_seam` 架构规则；无依据事实、跨 decision 引用、证据改写与
-  绕过唯一生成 seam 均 fail closed。
+  绕过唯一生成 seam 的静态/literal reasoning 模块引用均 fail closed。
+  `scripts/check-architecture.test.mjs` 永久覆盖 re-export、dynamic import、require、
+  import-equals、default/namespace 旁路和合法 service/read-back named import；
+  运行时计算的模块路径不在静态检查范围内。
 - **Status**：machine-enforced（M6-D2 运行时、grounding/read-back validator 与架构
   边界已于 COAC-4 收口）。
 
