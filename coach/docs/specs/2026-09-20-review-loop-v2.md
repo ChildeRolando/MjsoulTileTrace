@@ -13,11 +13,15 @@ GitHub provider/signing-secret 参数，也不依赖 multica-ai/multica #8583。
 没有配置签名密钥的 generic webhook 不承诺在创建唤醒 run 之前执行 GitHub HMAC。
 本协议不接收外部 webhook 的事实声明，故删除 v1 的原始 delivery 字节读取前提。
 
-Multica Autopilot 使用 run_only 模式、专用 launcher Agent、并发 1，配置 generic
+Multica Autopilot 使用 run_only 模式、专用 Controller Agent、并发 1，配置 generic
 webhook 和每五分钟 schedule。两种触发均执行已部署的同一 Node 程序 `runtime.mjs tick`。
-该程序读取 GitHub API，按本协议创建 Multica review/fix issues。launcher 不解释
+该程序读取 GitHub API，按本协议创建 Multica review/fix issues。Controller Agent 不解释
 事件内容、不决定状态、不审查代码。定时触发补偿丢失通知、GitHub GITHUB_TOKEN
 产生的非触发 push 和智能体未主动通知的完成事件。无需 Docker、本机入站端口或新服务。
+
+这里的 Controller Agent 是程序在 Multica 的执行入口，二者属于同一个控制角色；
+没有额外 Launcher 角色。Controller Autopilot 不绑定项目的 in-place local_directory，
+避免被长时间运行的评审/修复任务占住项目目录锁；创建的 review/fix issues 仍属于 Coach。
 
 部署目录为受信的专用 checkout；不会自动从被审 PR 加载 Controller 代码。
 主机在线且 Multica daemon 在线是运行条件。离线时不宣称有新结果，恢复后下一轮扫描补齐。

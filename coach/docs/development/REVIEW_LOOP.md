@@ -21,10 +21,12 @@
 node coach/scripts/review-loop/runtime.mjs tick C:\absolute\review-loop.local.json
 ```
 
-Multica launcher 只运行此命令。Autopilot run_only，Agent concurrency=1，schedule 每五分钟，
+Multica Controller 智能体只运行此命令，程序承担同一控制角色的状态判断和派发。
+Autopilot run_only，Agent concurrency=1，schedule 每五分钟，
 generic webhook 作为可选即时唤醒。URL 只保存在本机 secret file 或 secret store，POST body
 只用于唤醒，不能指定命令、repository、HEAD 或结果。通知可用稳定 Idempotency-Key 减少重复
-launcher run；Controller 本身仍靠 ledger 防重复任务。
+Controller run；程序仍靠 ledger 防重复任务。Controller Autopilot 不绑定项目的
+in-place 本机目录，避免与 Reviewer/Fixer 争用目录锁；评审/修复工单仍属于 Coach 项目。
 
 ## 故障与恢复
 
