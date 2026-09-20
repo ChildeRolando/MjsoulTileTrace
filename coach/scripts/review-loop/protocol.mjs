@@ -21,7 +21,7 @@ export function reviewRoundLimit(state) {
   keys(a,['pr_number','max_rounds','approved_after_round','review_issue_id','result_sha256','head_sha','base_sha','approval_ref','approved_at']);
   assert(a.pr_number === state.pr_number && Number.isSafeInteger(a.pr_number) && a.pr_number > 0,'authorization PR mismatch');
   assert((a.max_rounds === 4 && a.approved_after_round === 3)
-    || (a.pr_number === 8 && a.max_rounds === 5 && a.approved_after_round === 4),'invalid authorization round budget');
+    || (a.max_rounds === 5 && a.approved_after_round === 4),'invalid authorization round budget');
   if(a.max_rounds === 5) {
     const prior=state.history.filter(e=>e.event === 'authorize_extra_review' && e.max_rounds === 4);
     assert.equal(prior.length,1,'fifth review requires prior fourth-round authorization');

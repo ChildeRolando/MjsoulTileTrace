@@ -73,6 +73,12 @@ test('only verified repository commit completes; review source remains byte-iden
   assert.equal(j.status,'COMPLETE');assert.equal(j.completion.comment_id,'durable-comment');assert.equal(j.raw_review,source);assert.deepEqual(x.s.result,reviewResult);
   const count=x.s.history.length;await advanceDurability(x.s,x.io,config);assert.equal(x.s.history.length,count);
 });
+test('transport failure remains retryable instead of becoming a semantic durability block',async()=>{
+  const x=fixture();await advance(x.s,x.live,x.io,config);await advanceDurability(x.s,x.io,config);
+  const {j}=receipt(x);x.io.verifyDurability=async()=>{const e=new Error('origin unavailable');e.transport=true;throw e;};
+  await advanceDurability(x.s,x.io,config);
+  assert.equal(j.status,'RETRY_IO');assert.equal(j.completion,undefined);assert.match(j.error,/origin unavailable/);
+});
 test('untrusted, missing, mismatched and incomplete durability receipts cannot complete',async()=>{
   for(const change of [y=>y.comment.author_id='other',y=>y.run.status='failed',y=>y.r.head_sha='d'.repeat(40),y=>y.r.identity='other',y=>y.r.raw_review_sha256='e'.repeat(64),y=>y.r.artifacts.pop(),y=>y.r.checks[0].exit_code=1,y=>y.r.commit_sha=head,y=>y.r.extra=true]) {
     const x=fixture();await advance(x.s,x.live,x.io,config);await advanceDurability(x.s,x.io,config);change(receipt(x));

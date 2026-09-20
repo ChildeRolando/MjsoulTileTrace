@@ -102,11 +102,11 @@ test('three reviews exhausted stays blocked on external push',async()=>{
   await assert.rejects(()=>advance(s,live,f.io,config),/round limit/);assert.equal(f.creates,0);
 });
 
-function exhausted() {
-  const source={event:'result',transition:'BLOCKED',round:3,issue_id:'third-review',head_sha:live.head_sha,base_sha:live.base_sha,sha256:'d'.repeat(64)};
-  return {...state(),protocol_version:'review-loop/v2.1',pr_number:8,round:3,status:'BLOCKED',admission_hash:live.admission_hash,
+function exhausted(prNumber=8,observed=live) {
+  const source={event:'result',transition:'BLOCKED',round:3,issue_id:'third-review',head_sha:observed.head_sha,base_sha:observed.base_sha,sha256:'d'.repeat(64)};
+  return {...state(),protocol_version:'review-loop/v2.1',pr_number:prNumber,round:3,status:'BLOCKED',admission_hash:observed.admission_hash,
     history:[source],result:{issue_id:source.issue_id,sha256:source.sha256},
-    job:{kind:'review',round:3,pr_number:8,issue_id:source.issue_id,head_sha:live.head_sha,base_sha:live.base_sha}};
+    job:{kind:'review',round:3,pr_number:prNumber,issue_id:source.issue_id,head_sha:observed.head_sha,base_sha:observed.base_sha}};
 }
 test('explicit operator authorization preserves history and permits only a fourth review',async()=>{
   const f=fake(),s=exhausted(),previous=structuredClone(s.history),changed=structuredClone(raw);changed.head.sha='c'.repeat(40);
@@ -120,8 +120,9 @@ test('explicit operator authorization preserves history and permits only a fourt
   await assert.rejects(()=>advance(s,admit(changed),f.io,config),/round limit/);
   assert.equal(f.creates,1);
 });
-test('PR 8 fifth review needs a second approval and keeps both authorizations; no sixth',async()=>{
-  const s=exhausted();authorizeExtraReview(s,'fourth approved');
+test('a fifth review needs a second bound approval and keeps both authorizations; no sixth',async()=>{
+  const raw11=structuredClone(raw);raw11.number=11;const live11=admit(raw11);
+  const s=exhausted(11,live11);authorizeExtraReview(s,'fourth approved');
   const source={...s.history[0],round:4,issue_id:'fourth-review',sha256:'e'.repeat(64)};
   s.history.push(source);s.round=4;s.status='BLOCKED';s.job={...s.job,round:4,issue_id:source.issue_id};
   s.result={issue_id:source.issue_id,sha256:source.sha256};
@@ -129,16 +130,16 @@ test('PR 8 fifth review needs a second approval and keeps both authorizations; n
   authorizeExtraReview(s,'fifth explicitly approved');
   assert.deepEqual(s.history.slice(0,-1),before);assert.equal(s.extra_review_authorization.max_rounds,5);
   assert.throws(()=>authorizeExtraReview(s,'repeat'));
-  const f=fake(),changed=structuredClone(raw);changed.head.sha='f'.repeat(40);
+  const f=fake(),changed=structuredClone(raw11);changed.head.sha='f'.repeat(40);
   f.io.live=async()=>changed;f.io.runs=async()=>[{status:'completed'}];
   await advance(s,admit(changed),f.io,config);assert.equal(s.round,5);assert.equal(f.creates,1);
   s.status='BLOCKED';assert.throws(()=>authorizeExtraReview(s,'sixth'));
   s.status='PASS';changed.head.sha='e'.repeat(40);
   await assert.rejects(()=>advance(s,admit(changed),f.io,config),/round limit/);
   const missing=structuredClone(s);missing.history=missing.history.filter(e=>e.event!=='authorize_extra_review');
-  await assert.rejects(()=>advance(missing,live,fake().io,config),/prior fourth/);
-  const other=structuredClone(s);other.pr_number=9;other.extra_review_authorization.pr_number=9;
-  await assert.rejects(()=>advance(other,live,fake().io,config),/round budget/);
+  await assert.rejects(()=>advance(missing,live11,fake().io,config),/prior fourth/);
+  const other=structuredClone(s);other.pr_number=12;other.extra_review_authorization.pr_number=12;
+  await assert.rejects(()=>advance(other,live11,fake().io,config),/authorization/);
 });
 
 test('extension cannot be copied to another PR or bypass an unrelated block',async()=>{

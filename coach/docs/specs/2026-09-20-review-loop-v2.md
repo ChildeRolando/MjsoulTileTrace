@@ -96,10 +96,10 @@ BLOCKED。结果消费前和任务创建前重新读取 live PR。已 PASS 后�
 只有受信 operator 在暂停触发、配置 disabled、持有同一部署锁时，才能调用
 `authorizeExtraReview` 保存此类显式人工批准；它绑定 PR、第三轮 BLOCKED 的 issue、
 base/head、结果 hash、批准引用和记录时间，并追加历史事件而不重置 round。它只恢复该
-第三轮终态一次；缺失/错配来源、未知 pending、重复授权均拒绝。第四轮发现状态发布
-响应丢失缺陷后，用户再次明确批准仅 PR #8 修复并追加第五轮：第二次授权绑定第四轮
-BLOCKED 原文与身份，并要求保留、验证第一次授权。两次授权均追加进 history，最高五轮，
-不开放第六轮。tick、webhook、PR admission 和智能体结果均不能授予授权；其他 PR 仍为三轮。
+第三轮终态一次；缺失/错配来源、未知 pending、重复授权均拒绝。第五轮必须再次获得针对
+同一 PR 的明确人工批准；第二次授权绑定第四轮 BLOCKED 原文与身份，并要求保留、验证
+第一次授权。两次授权均追加进 history，最高五轮，不开放第六轮。tick、webhook、PR
+admission 和智能体结果均不能授予授权；未获对应人工批准的 PR 仍为三轮。
 
 GitHub `Review Loop v2` commit status 报告 pending/success/failure；同一 GitHub 账号
 可以提交 COMMENT/状态，并不意味着拥有作者自批能力。PASS 仅表示该 base/head 的本轮

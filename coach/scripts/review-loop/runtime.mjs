@@ -106,8 +106,17 @@ export function makeIO(config,stateFile,stateDir,runCommand=command) {
     verifyDurability:async(job,result)=>{
       const r=result.data;
       assert.equal(r.branch,`review-loop/durability/${job.identity}`);
+      let advertised;
+      try {advertised=(await git(['ls-remote','--exit-code','origin',`refs/heads/${r.branch}`])).trim();}
+      catch(e) {
+        if(e.exitCode === 2)throw new Error('durability branch missing from reachable origin');
+        throw e;
+      }
+      const [advertisedSha,advertisedRef,...extra]=advertised.split(/\s+/);
+      assert(isSha(advertisedSha) && advertisedRef === `refs/heads/${r.branch}` && extra.length === 0,'invalid durability branch advertisement');
       await git(['fetch','--no-tags','origin',`refs/heads/${r.branch}`]);
       const remote=(await git(['rev-parse','FETCH_HEAD'])).trim();assert(isSha(remote));
+      assert.equal(remote,advertisedSha,'durability branch changed during verification');
       try {await git(['cat-file','-e',`${r.commit_sha}^{commit}`]);}
       catch(e) {if(e.exitCode === 128)throw new Error('durability receipt commit missing or not a commit');throw e;}
       for(const [from,to] of [[job.head_sha,r.commit_sha],[r.commit_sha,remote]]) {

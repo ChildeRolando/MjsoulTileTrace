@@ -49,6 +49,19 @@ test('mode-only owner or regression changes cannot complete durability',{timeout
     await writeFile(path.join(repo,owner),'old owner\n');await writeFile(path.join(repo,regression),'old regression\n');
     await git(['add','.']);await commit('base');const head=(await git(['rev-parse','HEAD'])).trim();
     {
+      await writeFile(path.join(repo,owner),'missing branch owner\n');await writeFile(path.join(repo,regression),'missing branch regression\n');
+      await git(['add','.']);await commit('valid commit on absent branch');
+      const sha=(await git(['rev-parse','HEAD'])).trim(),identity=hash('missing remote branch'),branch=`review-loop/durability/${identity}`;
+      const finding={id:'missing-branch',durable_owner:owner,regression:{path:regression,command:'npm test'}};
+      const job={kind:'durability',identity,pr_number:8,base_sha:head,head_sha:head,round:1,raw_review_sha256:hash('review'),finding,agent_id:'fixer',issue_id:'durability',prepared_at:'prepared',status:'WAITING'};
+      const receipt={protocol_version:VERSION,pr_number:8,base_sha:head,head_sha:head,round:1,identity,raw_review_sha256:job.raw_review_sha256,finding_id:finding.id,commit_sha:sha,branch,artifacts:[{path:owner,sha256:hash('missing branch owner\n')},{path:regression,sha256:hash('missing branch regression\n')}],checks:[{command:'npm test',status:'PASS',exit_code:0}]};
+      const comment={id:'comment',author_type:'agent',author_id:'fixer',issue_id:'durability',source_task_id:'run',content:'```review-loop-durability\n'+JSON.stringify(receipt)+'\n```'};
+      const state={durability:[job],history:[]},io={...makeIO({...config(dir),repository_path:repo},path.join(dir,'state.json'),dir),save:async()=>{},issue:async()=>({id:'durability',assignee_type:'agent',assignee_id:'fixer'}),runs:async()=>[{id:'run',issue_id:'durability',agent_id:'fixer',status:'completed'}],comments:async()=>[comment],archiveResult:async()=>{}};
+      await advanceDurability(state,io,config(dir));
+      assert.equal(job.status,'DURABLE_KNOWLEDGE_BLOCKED');assert.equal(job.completion,undefined);assert.match(job.error,/branch missing/);
+      await git(['checkout','--detach',head]);
+    }
+    {
       const identity=hash('missing receipt commit'),branch=`review-loop/durability/${identity}`;
       await git(['push','origin',`HEAD:refs/heads/${branch}`]);
       const finding={id:'missing-commit',durable_owner:owner,regression:{path:regression,command:'npm test'}};
