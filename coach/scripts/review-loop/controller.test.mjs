@@ -1,11 +1,20 @@
 const test = process.env.VITEST === 'true' ? (await import('vitest')).test : (await import('node:test')).test;
 import assert from 'node:assert/strict';
-import { ensureDispatch, advance, authorizeExtraReview } from './controller.mjs';
+import { readFileSync } from 'node:fs';
+import { ensureDispatch, advance, authorizeExtraReview, jobDescription, reviewerInstructions } from './controller.mjs';
 import { admit } from './protocol.mjs';
 const config={reviewer_id:'reviewer',fixer_id:'fixer',project_id:'project'};
 const raw={number:8,state:'open',draft:false,body:'```review-loop-admission\n{"protocol_version":"review-loop/v2.1","authoritative_spec_paths":["coach/docs/specs/a.md"],"rubric":"all criteria"}\n```',base:{sha:'a'.repeat(40),repo:{full_name:'ChildeRolando/MjsoulTileTrace'}},head:{sha:'b'.repeat(40),ref:'codex/a',repo:{full_name:'ChildeRolando/MjsoulTileTrace'}}};
 const live=admit(raw);
 const state=()=>({round:0,history:[],status:'NEW'});
+test('review job composes the authoritative instructions with pinned parameters',()=>{
+  const source=readFileSync(new URL('./reviewer-instructions.md',import.meta.url),'utf8').trim();
+  const description=jobDescription({kind:'review',pr_number:8,round:1,base_sha:live.base_sha,head_sha:live.head_sha,worktree:'/review'},live);
+  assert.equal(reviewerInstructions,source);
+  assert(description.startsWith(`${source}\n\n# 本轮固定任务参数`));
+  for(const expected of ['父/兄弟 issue','不能继承旧 PASS','当前固定候选重新核验','review-loop-result',live.head_sha,live.base_sha]) assert(description.includes(expected),expected);
+  for(const forbidden of ['outside the review input',"Use only this task's input",'不输入旧 findings、父/兄弟 issue']) assert(!description.includes(forbidden),forbidden);
+});
 function fake() {
   const issues=[], saves=[];let creates=0;
   return {issues,saves,get creates(){return creates;},io:{prepare:async()=>'/worktree',save:async s=>saves.push(structuredClone(s)),issues:async()=>issues,live:async()=>raw,snapshot:async value=>({semantics:'test',sha256:value.head.sha,observed_at:'now'}),checkSpecs:async()=>{},saveReview:async()=>'/review.txt',create:async j=>{creates++;const issue={id:'id',identifier:'COAC-20',title:j.title,description:j.description,assignee_id:j.agent_id,assignee_type:'agent',project_id:config.project_id};issues.push(issue);return issue;}}};

@@ -4,7 +4,8 @@
 本文件记录实施边界，不复制治理政策。
 
 1. protocol.mjs：严格 finding metadata、严重性校准、v2.1 版本及 durability receipt。
-2. controller.mjs：直接注入 Reviewer 指令、保存确定性 follow-up 意图、幂等派发和回执。
+2. reviewer-instructions.md：Reviewer human/runtime policy；controller.mjs 读取该单一来源、
+   组合 pinned 参数，并保存确定性 follow-up 意图、幂等派发和回执。
 3. runtime.mjs：独立 worktree/branch、远端 Git artifact 核验、关闭 PR 队列扫描。
 4. 同目录 tests：两轴路由、来源/替换/陈旧候选、失败恢复及真实 Git regression。
 5. REVIEW_LOOP.md：升级和运维入口。原产品包、M6-D2/M7 无改动。

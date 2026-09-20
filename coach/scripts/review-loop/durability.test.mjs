@@ -1,6 +1,6 @@
 const test = process.env.VITEST === 'true' ? (await import('vitest')).test : (await import('node:test')).test;
 import assert from 'node:assert/strict';
-import { advance, advanceDurability, captureDurability, jobDescription, reviewerDurabilityInstructions } from './controller.mjs';
+import { advance, advanceDurability, captureDurability, jobDescription, reviewerInstructions } from './controller.mjs';
 import { VERSION, GATES, REPOSITORY, admit, hash } from './protocol.mjs';
 const config={reviewer_id:'reviewer',fixer_id:'fixer',project_id:'project'};
 const head='a'.repeat(40),base='b'.repeat(40);
@@ -93,5 +93,6 @@ test('stale result never queues; captured old source survives head change and re
 });
 test('reviewer prompt includes independent durability and explicit-claim calibration',()=>{
   const x=fixture();const prompt=jobDescription(x.job,x.live);
-  assert(prompt.includes(reviewerDurabilityInstructions));assert.match(prompt,/COAC-26/);assert.match(prompt,/at least P2/);assert.match(prompt,/read-only/);
+  assert(prompt.includes(reviewerInstructions));assert.match(prompt,/COAC-26/);assert.match(prompt,/至少按 P2/);assert.match(prompt,/只读评审/);
+  assert.match(prompt,/P3 repository_required 仍可不阻断当前 PR/);assert.match(prompt,/完整保留 durability metadata/);
 });
