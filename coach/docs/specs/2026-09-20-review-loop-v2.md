@@ -1,6 +1,8 @@
 # Review Loop v2：Multica 唤醒与确定性编排
 
-状态：实施中；实际部署与真实验收证据见 development/REVIEW_LOOP.md。
+状态：2026-09-20 已按用户风险接受决定合并部署；实际证据与已知问题见
+development/REVIEW_LOOP.md。第五轮仍为 BLOCKED；本次人工放行不等于验收全通过，
+也不改变下述正常协议和后续 PR 门禁。
 
 ## 范围与裁决
 
