@@ -232,6 +232,11 @@ export async function tick(config,ioFactory=makeIO) {
       try {
         const raw=await io.live(pr.number),live=admit(raw);
         live.snapshot=await io.snapshot(raw);state.snapshot=live.snapshot;
+        if(state.status === 'BLOCKED' && state.round === 0 && !state.admission_hash && !state.job && !state.pending && state.history.length === 0) {
+          state.history.push({event:'recover_initial_admission',reason:state.reason ?? null,admission_hash:live.admission_hash,at:new Date().toISOString()});
+          state.status='NEW';state.reason=null;delete state.last_error_at;
+          await io.save(state);
+        }
         if(state.status === 'PASS' && state.job && (live.head_sha !== state.job.head_sha || live.base_sha !== state.job.base_sha)) {
           state.status='STALE';state.reason='candidate changed; awaiting fresh review';
           await io.save(state);

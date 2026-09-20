@@ -97,6 +97,10 @@ in-place 本机目录，避免与 Reviewer/Fixer 争用目录锁；评审/修复
 - `pr-N.json`：完整轮次与来源账本；`results/<issue>-<hash>.json` 保存按内容寻址的结果，
   评论替换不覆盖旧证据；`snapshots/` 保存 GitHub 观察。durability 原文同时保存在队列。
 - BLOCKED：先读 reason 与对应 issue。已有 tasks 的实际状态通过 `multica issue runs` 核实。
+  首次准入在 round 0 因 admission/spec 暂时无效而失败时，只要 ledger 仍无
+  `admission_hash`、job、pending 与 history，修正 PR 后下一次 tick 会记录
+  `recover_initial_admission` 并重新准入；任何已经冻结身份或产生历史的 ledger 都不会
+  走这条自动恢复路径。
   不能因为观察超时就重新创建任务，不能删除 ledger 绕过轮次上限。
 - 人工追加：只有收到针对该 PR 的明确批准后，暂停 Autopilot、设置 enabled=false，
   核验无活动 Controller，再持锁备份 ledger、验证第三轮原文 hash 与来源，调用

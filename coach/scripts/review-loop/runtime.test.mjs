@@ -269,6 +269,25 @@ test('ledger-owned PR blocks and publishes failure when admission is removed',as
     assert.equal(report.prs[0].status,'BLOCKED');
   } finally {await rm(dir,{recursive:true,force:true});}
 });
+test('corrected first admission resumes only a pristine round-zero ledger',async()=>{
+  const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-initial-admission-'));
+  try {
+    const file=path.join(dir,'pr-8.json');let current={...pr(),body:'```review-loop-admission\n'+JSON.stringify({...admission,protocol_version:'review-loop/v2'})+'\n```'};
+    let creates=0;
+    const factory=()=>({
+      openPRs:async()=>[current],live:async()=>current,snapshot:async value=>({semantics:'test',sha256:hash(JSON.stringify(value))}),
+      save:s=>atomicJson(file,s),publish:async()=>{},checkSpecs:async()=>{},prepare:async()=>'/worktree',issues:async()=>[],
+      create:async job=>{creates++;return {id:'review',identifier:'COAC-1',title:job.title,description:job.description,assignee_id:job.agent_id,assignee_type:'agent',project_id:'project'};}
+    });
+    const blocked=await tick(config(dir),factory);assert.equal(blocked.prs[0].status,'BLOCKED');
+    let saved=JSON.parse(await readFile(file,'utf8'));assert.equal(saved.round,0);assert.equal(saved.admission_hash,undefined);assert.equal(saved.history.length,0);
+    current=pr();
+    const resumed=await tick(config(dir),factory);saved=JSON.parse(await readFile(file,'utf8'));
+    assert.equal(resumed.prs[0].status,'REVIEWING');assert.equal(saved.round,1);assert.equal(creates,1);
+    assert.equal(saved.history[0].event,'recover_initial_admission');assert.match(saved.history[0].reason,/review-loop\/v2/);
+    assert.equal(saved.history[0].admission_hash,admit(current).admission_hash);
+  } finally {await rm(dir,{recursive:true,force:true});}
+});
 test('stale PASS is persisted and pending publication retries before fallible preparation',async()=>{
   const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-stale-pass-'));
   try {
