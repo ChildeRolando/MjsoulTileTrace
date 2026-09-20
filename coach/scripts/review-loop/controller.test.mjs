@@ -15,6 +15,17 @@ test('review job composes the authoritative instructions with pinned parameters'
   for(const expected of ['父/兄弟 issue','不能继承旧 PASS','当前固定候选重新核验','review-loop-result',live.head_sha,live.base_sha]) assert(description.includes(expected),expected);
   for(const forbidden of ['outside the review input',"Use only this task's input",'不输入旧 findings、父/兄弟 issue']) assert(!description.includes(forbidden),forbidden);
 });
+test('review and fix jobs use Chinese user-facing templates',async()=>{
+  const review=fake(),reviewState=state();await ensureDispatch(reviewState,live,'review',review.io,config);
+  assert.match(review.issues[0].title,/\[审查\]\[第1轮\]/);
+  assert.match(review.issues[0].description,/本轮固定任务参数/);
+  const fix=fake(),fixState={...state(),round:1,job:{issue_id:'source-review'}};
+  const result={comment_id:'source-comment',sha256:'d'.repeat(64),raw:'raw review'};
+  await ensureDispatch(fixState,live,'fix',fix.io,config,result);
+  assert.match(fix.issues[0].title,/\[修复\]\[第1轮\]/);
+  assert.match(fix.issues[0].description,/修复附件中针对该 PR 的完整独立评审/);
+  assert(!fix.issues[0].description.includes('Fix the attached'));
+});
 function fake() {
   const issues=[], saves=[];let creates=0;
   return {issues,saves,get creates(){return creates;},io:{prepare:async()=>'/worktree',save:async s=>saves.push(structuredClone(s)),issues:async()=>issues,live:async()=>raw,snapshot:async value=>({semantics:'test',sha256:value.head.sha,observed_at:'now'}),checkSpecs:async()=>{},saveReview:async()=>'/review.txt',create:async j=>{creates++;const issue={id:'id',identifier:'COAC-20',title:j.title,description:j.description,assignee_id:j.agent_id,assignee_type:'agent',project_id:config.project_id};issues.push(issue);return issue;}}};
