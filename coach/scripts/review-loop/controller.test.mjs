@@ -8,7 +8,7 @@ const live=admit(raw);
 const state=()=>({round:0,history:[],status:'NEW'});
 function fake() {
   const issues=[], saves=[];let creates=0;
-  return {issues,saves,get creates(){return creates;},io:{prepare:async()=>'/worktree',save:async s=>saves.push(structuredClone(s)),issues:async()=>issues,live:async()=>raw,snapshot:async value=>({semantics:'test',sha256:value.head.sha,observed_at:'now'}),create:async j=>{creates++;const issue={id:'id',identifier:'COAC-20',title:j.title,description:j.description,assignee_id:j.agent_id,assignee_type:'agent',project_id:config.project_id};issues.push(issue);return issue;}}};
+  return {issues,saves,get creates(){return creates;},io:{prepare:async()=>'/worktree',save:async s=>saves.push(structuredClone(s)),issues:async()=>issues,live:async()=>raw,snapshot:async value=>({semantics:'test',sha256:value.head.sha,observed_at:'now'}),checkSpecs:async()=>{},saveReview:async()=>'/review.txt',create:async j=>{creates++;const issue={id:'id',identifier:'COAC-20',title:j.title,description:j.description,assignee_id:j.agent_id,assignee_type:'agent',project_id:config.project_id};issues.push(issue);return issue;}}};
 }
 test('persist intent before create; repeat tick with live run does not dispatch twice',async()=>{
   const f=fake(),s=state();await ensureDispatch(s,live,'review',f.io,config);
@@ -25,6 +25,38 @@ test('unknown create without visible issue fails closed, never duplicates',async
   const f=fake(),s=state();f.io.create=async()=>{throw new Error('timeout');};
   await assert.rejects(()=>ensureDispatch(s,live,'review',f.io,config));
   await assert.rejects(()=>ensureDispatch(s,live,'review',f.io,config),/response unknown/);
+});
+test('restart discards an unattempted stale intent and repeated ticks keep one fresh dispatch',async()=>{
+  const f=fake(),initial=state(),changed=structuredClone(raw);changed.head.sha='c'.repeat(40);
+  let persisted,crashed=false;
+  f.io.save=async s=>{
+    persisted=structuredClone(s);
+    if(s.pending && !s.pending.attempted_at && !crashed) {crashed=true;throw new Error('controller stopped after persisting intent');}
+  };
+  await assert.rejects(()=>ensureDispatch(initial,live,'review',f.io,config),/controller stopped/);
+  assert.equal(persisted.pending.head_sha,live.head_sha);assert.equal(persisted.pending.attempted_at,undefined);
+  f.io.live=async()=>changed;f.io.save=async s=>{persisted=structuredClone(s);};
+  await advance(persisted,admit(changed),f.io,config);
+  assert.equal(f.creates,1);assert.equal(persisted.job.head_sha,changed.head.sha);assert.equal(persisted.round,1);
+  assert.equal(persisted.history[0].event,'discard');assert.equal(persisted.history[0].kind,'review');
+  f.io.runs=async()=>[{status:'running'}];
+  await advance(persisted,admit(changed),f.io,config);await advance(persisted,admit(changed),f.io,config);
+  assert.equal(f.creates,1);
+});
+test('candidate drift before a fix dispatch discards stale findings and starts a fresh review',async()=>{
+  const f=fake(),s={...state(),round:1,status:'FIXING',job:{issue_id:'review-issue'}},changed=structuredClone(raw);changed.head.sha='c'.repeat(40);
+  f.io.live=async()=>changed;
+  await ensureDispatch(s,live,'fix',f.io,config,{comment_id:'comment',sha256:'d'.repeat(64),raw:'review'});
+  assert.equal(f.creates,1);assert.equal(s.job.kind,'review');assert.equal(s.job.round,2);assert.equal(s.job.head_sha,changed.head.sha);
+  assert.equal(s.history[0].event,'discard');assert.equal(s.history[0].kind,'fix');
+});
+test('newly observed dispatch candidate is spec-checked before create',async()=>{
+  const f=fake(),s=state(),changed=structuredClone(raw);changed.head.sha='c'.repeat(40);let prepared=false;
+  f.io.prepare=async()=>{prepared=true;return '/worktree';};
+  f.io.live=async()=>changed;
+  f.io.checkSpecs=async candidate=>{assert(prepared);assert.equal(candidate.head_sha,changed.head.sha);throw new Error('spec missing or symlink');};
+  await assert.rejects(()=>ensureDispatch(s,live,'review',f.io,config),/spec missing or symlink/);
+  assert.equal(f.creates,0);assert.equal(s.pending.head_sha,changed.head.sha);assert.equal(s.pending.attempted_at,undefined);
 });
 test('conflicting existing issue or changed admission cannot dispatch',async()=>{
   const f=fake(),s=state();await ensureDispatch(s,live,'review',f.io,config);

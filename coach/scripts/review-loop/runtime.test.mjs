@@ -53,6 +53,24 @@ test('runtime adapter treats both failed ancestry checks as semantic rejection',
     }
   } finally {await rm(dir,{recursive:true,force:true});}
 });
+test('runtime adapter pins spec checks to the candidate SHA and rejects missing files and symlinks',async()=>{
+  const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-specs-'));
+  try {
+    const head='b'.repeat(40),live={head_sha:head,admission};
+    for(const treeRow of ['',`120000 blob ${'c'.repeat(40)}\tcoach/docs/specs/a.md\n`]) {
+      const calls=[];
+      const runner=async(_file,args)=>{
+        calls.push(args);
+        if(args[0] === 'fetch')return '';
+        if(args[0] === 'ls-tree')return treeRow;
+        throw new Error(`unexpected command ${args[0]}`);
+      };
+      const io=makeIO(config(dir),path.join(dir,'state.json'),dir,runner);
+      await assert.rejects(()=>io.checkSpecs(live),/spec missing or symlink/);
+      assert(calls.some(args=>args[0] === 'ls-tree' && args[1] === head && args[3] === admission.authoritative_spec_paths[0]));
+    }
+  } finally {await rm(dir,{recursive:true,force:true});}
+});
 test('ledger-owned PR blocks and publishes failure when admission is removed',async()=>{
   const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-admission-'));
   try {

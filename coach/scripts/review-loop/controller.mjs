@@ -40,8 +40,21 @@ export async function ensureDispatch(state, live, kind, io, config, result) {
     assert(issue.project_id === config.project_id && issue.assignee_type === 'agent' && issue.assignee_id === job.agent_id && hash(issue.description) === job.description_hash,'dispatch identity conflict');
   } else {
     assert(!job.attempted_at,'dispatch response unknown; reconcile before retry');
-    const current=await observeLive(io,live.pr_number);
-    assert(current.head_sha === job.head_sha && current.base_sha === job.base_sha && current.admission_hash === job.admission_hash,'candidate changed before dispatch');
+    let current=await observeLive(io,live.pr_number);
+    assert.equal(current.admission_hash,job.admission_hash,'admission changed before dispatch');
+    if(current.head_sha !== job.head_sha || current.base_sha !== job.base_sha) {
+      state.history.push({event:'discard',reason:'candidate changed before dispatch',kind:job.kind,head_sha:job.head_sha,base_sha:job.base_sha,round:job.round,snapshot:current.snapshot,at:new Date().toISOString()});
+      state.pending=null;state.snapshot=current.snapshot;await io.save(state);
+      return ensureDispatch(state,current,'review',io,config);
+    }
+    await io.checkSpecs(current);
+    current=await observeLive(io,live.pr_number);
+    assert.equal(current.admission_hash,job.admission_hash,'admission changed before dispatch');
+    if(current.head_sha !== job.head_sha || current.base_sha !== job.base_sha) {
+      state.history.push({event:'discard',reason:'candidate changed before dispatch',kind:job.kind,head_sha:job.head_sha,base_sha:job.base_sha,round:job.round,snapshot:current.snapshot,at:new Date().toISOString()});
+      state.pending=null;state.snapshot=current.snapshot;await io.save(state);
+      return ensureDispatch(state,current,'review',io,config);
+    }
     job.dispatch_snapshot=current.snapshot;state.snapshot=current.snapshot;
     job.attempted_at=new Date().toISOString();await io.save(state);
     issue=await io.create(job);
