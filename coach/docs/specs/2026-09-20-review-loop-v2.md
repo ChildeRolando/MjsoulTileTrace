@@ -34,7 +34,7 @@ webhook 和每五分钟 schedule。两种触发均执行已部署的同一 Node 
 PR description 必须含唯一 `review-loop-admission` JSON fence：
 
 ```review-loop-admission
-{"protocol_version":"review-loop/v2","authoritative_spec_paths":["coach/docs/specs/2026-09-20-review-loop-v2.md"],"rubric":"Review every acceptance criterion and repository invariant."}
+{"protocol_version":"review-loop/v2.1","authoritative_spec_paths":["coach/docs/specs/2026-09-20-review-loop-v2.md"],"rubric":"Review every acceptance criterion and repository invariant."}
 ```
 
 它是显式 opt-in；未提供该 block 的 PR 不自动执行代码或分派任务。读取实时 PR 后验证
@@ -52,8 +52,17 @@ GitHub 当前查询拥有 PR 身份、base/head；任何 webhook JSON 都只是�
 `controller.mjs`；测试调用同一生产代码，不再用另一套离线模型模拟平台完成。
 
 每个 PR 默认全生命周期最多分派三轮 fresh review。每轮使用新的 Multica issue/run 和
-独立 detached worktree。Reviewer 只接收本轮 SHA、spec、rubric、五门命令、opaque ids。
-不输入旧 findings、父/兄弟 issue 或旧 session。禁用委派；tracked files/index/HEAD 保持不变。
+独立 detached worktree。Controller 固定提供本轮 SHA、spec、rubric、五门命令、opaque ids。
+Reviewer 从 README/CONTEXT/适用智能体指令按相关性路由治理文档、ADR、模板与目录级说明；
+指定 specs 是必读项而非阅读白名单。可按需读取与本 PR 直接相关的父/兄弟 issue、已记录
+历史讨论、旧 findings、复现步骤与修复说明；历史仅作为 evidence/claim，必须对照 pinned
+base/head 的 current candidate 重新核验，不继承旧 PASS/已修复结论。既复核旧问题，也独立
+检查本轮完整差异和受影响调用链。不得遍历无关 sessions/private state；参考资料不改变
+固定 identity、rubric、gates、result protocol 或 permissions。这替代旧版 blanket history
+ban，不改变新会话/新 issue/run 的隔离。Reviewer 的 human/runtime policy 单一权威源为
+`scripts/review-loop/reviewer-instructions.md`；Controller 只组合该文件与本轮固定参数、门禁
+及严格结果 schema，部署前后须精确回读确认 source 与实际 prompt 无漂移。
+禁用委派；tracked files/index/HEAD 保持不变。
 运行依赖安装与忽略的构建产物允许。Controller 实际检查 review worktree 的 HEAD 与脏状态。
 
 review 结果必须由指定 Reviewer 在本轮 issue 发表，且 `source_task_id` 对应它的 completed
@@ -87,10 +96,10 @@ BLOCKED。结果消费前和任务创建前重新读取 live PR。已 PASS 后�
 只有受信 operator 在暂停触发、配置 disabled、持有同一部署锁时，才能调用
 `authorizeExtraReview` 保存此类显式人工批准；它绑定 PR、第三轮 BLOCKED 的 issue、
 base/head、结果 hash、批准引用和记录时间，并追加历史事件而不重置 round。它只恢复该
-第三轮终态一次；缺失/错配来源、未知 pending、重复授权均拒绝。第四轮发现状态发布
-响应丢失缺陷后，用户再次明确批准仅 PR #8 修复并追加第五轮：第二次授权绑定第四轮
-BLOCKED 原文与身份，并要求保留、验证第一次授权。两次授权均追加进 history，最高五轮，
-不开放第六轮。tick、webhook、PR admission 和智能体结果均不能授予授权；其他 PR 仍为三轮。
+第三轮终态一次；缺失/错配来源、未知 pending、重复授权均拒绝。第五轮必须再次获得针对
+同一 PR 的明确人工批准；第二次授权绑定第四轮 BLOCKED 原文与身份，并要求保留、验证
+第一次授权。两次授权均追加进 history，最高五轮，不开放第六轮。tick、webhook、PR
+admission 和智能体结果均不能授予授权；未获对应人工批准的 PR 仍为三轮。
 
 GitHub `Review Loop v2` commit status 报告 pending/success/failure；同一 GitHub 账号
 可以提交 COMMENT/状态，并不意味着拥有作者自批能力。PASS 仅表示该 base/head 的本轮
@@ -119,6 +128,45 @@ comment ids、hash、历史和状态。配置含 enabled 开关；初次部署�
 不能删除 ledger 来重置三轮计数；备份状态目录后迁移，保持单一运行部署。
 
 ## 验收
+
+### COAC-30：独立 durability routing（protocol v2.1）
+
+Severity 仍由 P1/P2/P3 分组表达。每个 finding 另含严格字段 `durability`
+（ephemeral/repository_required）、`durable_owner`、`regression`、`basis`。
+owner 为仓库相对文件；regression 为 `{path,command}` 或 null（仅规范/历史知识）。
+basis 为 local_observation/future_limitation/explicit_contract_violation。
+ephemeral 必须为 local_observation 且 owner/regression 均 null；repository_required
+必须指定 owner。mechanically testable finding 必须提供 regression；其余指向现有权威文档。
+直接证伪 admission rubric、acceptance criterion 或 invariant 完成声明的 finding 必须
+标 explicit_contract_violation、repository_required，至少 P2，不得用 production tree
+尚未利用缺口降级。COAC-26 review_report_generation_seam 是此校准的回归案例。
+Reviewer 保持只读；知识所有权沿用 development/README.md、DEVELOPMENT_WORKFLOW.md。
+
+Controller 在消费有效且未陈旧的 review 时，将每个 P3 repository_required finding
+登记为独立 durability job，再结束原 review 或路由 Fixer。P3 ephemeral 不建单。
+P1/P2 仍交 Fixer，完整原文和 metadata 不经转述；机械可测项必须补 regression 和 owner。
+durability 队列不改变原 PR 的 PASS、轮次或历史；外部 issue 不是持久化完成证据。
+identity = SHA-256(JSON.stringify([repository,PR,reviewed head,review issue,comment,
+raw review hash,finding id]))。意图先落盘、精确 reconcile、未知发送不重试。
+队列保存原始 finding、review 原文及身份；新候选或原评论替换不得重绑定旧 job。
+
+follow-up 使用独立 worktree 与独立 `review-loop/durability/<identity>` 分支，不推原
+PR 分支。结果为严格 `review-loop-durability` fence，绑定 identity、原 review hash、
+head 和 finding id，携带 commit、branch、artifact paths/content hashes 与 regression
+check 的 PASS/0。Controller 核验指定 agent/completed run、远端分支祖先关系、从原
+head 衍生的新 commit、owner/regression 为相对原 head 实际改变的普通文件、blob hash。
+只有核验通过才保存 COMPLETE 及 receipt 来源；原 review evidence 不修改。
+缺失/伪造/未提交/仅关闭 issue 均不能完成，记录 DURABLE_KNOWLEDGE_BLOCKED。
+该队列独立扫描，即使原 PR PASS、BLOCKED、已关闭或不再符合 admission 仍追踪。
+
+协议升级不自动推断旧 finding。v2.1 拒绝 v2 result/config/ledger；上线前暂停触发、
+备份原 ledger/evidence，完成或人工处置旧在途任务。存量 PR 必须人工迁移，保留
+round/history/authorization，清除旧 PASS 授权并在剩余预算内重新 review；耗尽则保留
+BLOCKED，不能通过新账本重置预算。新部署与旧部署不可并行。此次代码交付不改生产部署。
+
+机械验收位于 scripts/review-loop 的 protocol/controller/runtime tests：两轴路由、
+幂等及发送响应丢失、提交核验、closed-PR 追踪、stale/replacement 身份、严格 schema、
+COAC-26 校准。保留既有 fresh-review/Fixer/round-limit/evidence-hash 测试与五项门禁。
 
 1. 生产校验/状态机测试覆盖准入、来源伪造、重复/冲突、stale base/head、门禁、三轮上限、
    丢失响应与并发；五门与 `npm test` 在交付候选通过。

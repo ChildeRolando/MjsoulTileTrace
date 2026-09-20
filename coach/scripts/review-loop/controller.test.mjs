@@ -1,11 +1,20 @@
 const test = process.env.VITEST === 'true' ? (await import('vitest')).test : (await import('node:test')).test;
 import assert from 'node:assert/strict';
-import { ensureDispatch, advance, authorizeExtraReview } from './controller.mjs';
+import { readFileSync } from 'node:fs';
+import { ensureDispatch, advance, authorizeExtraReview, jobDescription, reviewerInstructions } from './controller.mjs';
 import { admit } from './protocol.mjs';
 const config={reviewer_id:'reviewer',fixer_id:'fixer',project_id:'project'};
-const raw={number:8,state:'open',draft:false,body:'```review-loop-admission\n{"protocol_version":"review-loop/v2","authoritative_spec_paths":["coach/docs/specs/a.md"],"rubric":"all criteria"}\n```',base:{sha:'a'.repeat(40),repo:{full_name:'ChildeRolando/MjsoulTileTrace'}},head:{sha:'b'.repeat(40),ref:'codex/a',repo:{full_name:'ChildeRolando/MjsoulTileTrace'}}};
+const raw={number:8,state:'open',draft:false,body:'```review-loop-admission\n{"protocol_version":"review-loop/v2.1","authoritative_spec_paths":["coach/docs/specs/a.md"],"rubric":"all criteria"}\n```',base:{sha:'a'.repeat(40),repo:{full_name:'ChildeRolando/MjsoulTileTrace'}},head:{sha:'b'.repeat(40),ref:'codex/a',repo:{full_name:'ChildeRolando/MjsoulTileTrace'}}};
 const live=admit(raw);
 const state=()=>({round:0,history:[],status:'NEW'});
+test('review job composes the authoritative instructions with pinned parameters',()=>{
+  const source=readFileSync(new URL('./reviewer-instructions.md',import.meta.url),'utf8').trim();
+  const description=jobDescription({kind:'review',pr_number:8,round:1,base_sha:live.base_sha,head_sha:live.head_sha,worktree:'/review'},live);
+  assert.equal(reviewerInstructions,source);
+  assert(description.startsWith(`${source}\n\n# 本轮固定任务参数`));
+  for(const expected of ['父/兄弟 issue','不能继承旧 PASS','当前固定候选重新核验','review-loop-result',live.head_sha,live.base_sha]) assert(description.includes(expected),expected);
+  for(const forbidden of ['outside the review input',"Use only this task's input",'不输入旧 findings、父/兄弟 issue']) assert(!description.includes(forbidden),forbidden);
+});
 function fake() {
   const issues=[], saves=[];let creates=0;
   return {issues,saves,get creates(){return creates;},io:{prepare:async()=>'/worktree',save:async s=>saves.push(structuredClone(s)),issues:async()=>issues,live:async()=>raw,snapshot:async value=>({semantics:'test',sha256:value.head.sha,observed_at:'now'}),checkSpecs:async()=>{},saveReview:async()=>'/review.txt',create:async j=>{creates++;const issue={id:'id',identifier:'COAC-20',title:j.title,description:j.description,assignee_id:j.agent_id,assignee_type:'agent',project_id:config.project_id};issues.push(issue);return issue;}}};
@@ -93,11 +102,11 @@ test('three reviews exhausted stays blocked on external push',async()=>{
   await assert.rejects(()=>advance(s,live,f.io,config),/round limit/);assert.equal(f.creates,0);
 });
 
-function exhausted() {
-  const source={event:'result',transition:'BLOCKED',round:3,issue_id:'third-review',head_sha:live.head_sha,base_sha:live.base_sha,sha256:'d'.repeat(64)};
-  return {...state(),protocol_version:'review-loop/v2',pr_number:8,round:3,status:'BLOCKED',admission_hash:live.admission_hash,
+function exhausted(prNumber=8,observed=live) {
+  const source={event:'result',transition:'BLOCKED',round:3,issue_id:'third-review',head_sha:observed.head_sha,base_sha:observed.base_sha,sha256:'d'.repeat(64)};
+  return {...state(),protocol_version:'review-loop/v2.1',pr_number:prNumber,round:3,status:'BLOCKED',admission_hash:observed.admission_hash,
     history:[source],result:{issue_id:source.issue_id,sha256:source.sha256},
-    job:{kind:'review',round:3,pr_number:8,issue_id:source.issue_id,head_sha:live.head_sha,base_sha:live.base_sha}};
+    job:{kind:'review',round:3,pr_number:prNumber,issue_id:source.issue_id,head_sha:observed.head_sha,base_sha:observed.base_sha}};
 }
 test('explicit operator authorization preserves history and permits only a fourth review',async()=>{
   const f=fake(),s=exhausted(),previous=structuredClone(s.history),changed=structuredClone(raw);changed.head.sha='c'.repeat(40);
@@ -111,8 +120,9 @@ test('explicit operator authorization preserves history and permits only a fourt
   await assert.rejects(()=>advance(s,admit(changed),f.io,config),/round limit/);
   assert.equal(f.creates,1);
 });
-test('PR 8 fifth review needs a second approval and keeps both authorizations; no sixth',async()=>{
-  const s=exhausted();authorizeExtraReview(s,'fourth approved');
+test('a fifth review needs a second bound approval and keeps both authorizations; no sixth',async()=>{
+  const raw11=structuredClone(raw);raw11.number=11;const live11=admit(raw11);
+  const s=exhausted(11,live11);authorizeExtraReview(s,'fourth approved');
   const source={...s.history[0],round:4,issue_id:'fourth-review',sha256:'e'.repeat(64)};
   s.history.push(source);s.round=4;s.status='BLOCKED';s.job={...s.job,round:4,issue_id:source.issue_id};
   s.result={issue_id:source.issue_id,sha256:source.sha256};
@@ -120,16 +130,16 @@ test('PR 8 fifth review needs a second approval and keeps both authorizations; n
   authorizeExtraReview(s,'fifth explicitly approved');
   assert.deepEqual(s.history.slice(0,-1),before);assert.equal(s.extra_review_authorization.max_rounds,5);
   assert.throws(()=>authorizeExtraReview(s,'repeat'));
-  const f=fake(),changed=structuredClone(raw);changed.head.sha='f'.repeat(40);
+  const f=fake(),changed=structuredClone(raw11);changed.head.sha='f'.repeat(40);
   f.io.live=async()=>changed;f.io.runs=async()=>[{status:'completed'}];
   await advance(s,admit(changed),f.io,config);assert.equal(s.round,5);assert.equal(f.creates,1);
   s.status='BLOCKED';assert.throws(()=>authorizeExtraReview(s,'sixth'));
   s.status='PASS';changed.head.sha='e'.repeat(40);
   await assert.rejects(()=>advance(s,admit(changed),f.io,config),/round limit/);
   const missing=structuredClone(s);missing.history=missing.history.filter(e=>e.event!=='authorize_extra_review');
-  await assert.rejects(()=>advance(missing,live,fake().io,config),/prior fourth/);
-  const other=structuredClone(s);other.pr_number=9;other.extra_review_authorization.pr_number=9;
-  await assert.rejects(()=>advance(other,live,fake().io,config),/round budget/);
+  await assert.rejects(()=>advance(missing,live11,fake().io,config),/prior fourth/);
+  const other=structuredClone(s);other.pr_number=12;other.extra_review_authorization.pr_number=12;
+  await assert.rejects(()=>advance(other,live11,fake().io,config),/authorization/);
 });
 
 test('extension cannot be copied to another PR or bypass an unrelated block',async()=>{
@@ -162,7 +172,7 @@ function fixFixture() {
   changed.head.sha=nextHead;
   const job={kind:'fix',round:1,pr_number:8,issue_id:'fix-id',agent_id:'fixer',head_sha:live.head_sha,base_sha:live.base_sha,raw_review_sha256:rawReviewSha};
   const s={...state(),round:1,status:'FIXING',admission_hash:live.admission_hash,job};
-  const result={protocol_version:'review-loop/v2',pr_number:8,base_sha:live.base_sha,previous_head_sha:live.head_sha,head_sha:nextHead,round:1,raw_review_sha256:rawReviewSha};
+  const result={protocol_version:'review-loop/v2.1',pr_number:8,base_sha:live.base_sha,previous_head_sha:live.head_sha,head_sha:nextHead,round:1,raw_review_sha256:rawReviewSha};
   const comment={id:'fix-comment',author_type:'agent',author_id:'fixer',issue_id:'fix-id',source_task_id:'fix-run',content:'fixed\n```review-loop-fix\n'+JSON.stringify(result)+'\n```'};
   const run={id:'fix-run',issue_id:'fix-id',agent_id:'fixer',status:'completed'};
   Object.assign(f.io,{live:async()=>changed,runs:async()=>[run],issue:async()=>({id:'fix-id',assignee_type:'agent',assignee_id:'fixer'}),comments:async()=>[comment],verifyCheckout:async()=>{},archiveResult:async()=>{}});

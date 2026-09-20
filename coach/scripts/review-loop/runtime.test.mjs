@@ -1,20 +1,144 @@
 const test = process.env.VITEST === 'true' ? (await import('vitest')).test : (await import('node:test')).test;
 import assert from 'node:assert/strict';
-import { mkdir, mkdtemp, readFile, rm } from 'node:fs/promises';
+import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import { acquireLock, recoverLock, atomicJson, command, makeIO, tick } from './runtime.mjs';
-import { GATES, hash, admit } from './protocol.mjs';
+import { GATES, hash, admit, VERSION } from './protocol.mjs';
+import { advanceDurability, captureDurability } from './controller.mjs';
 
-const admission={protocol_version:'review-loop/v2',authoritative_spec_paths:['coach/docs/specs/a.md'],rubric:'all criteria'};
+test('real Git durable verification requires pushed, changed regular artifacts and exact hashes',{timeout:30000},async()=>{
+  const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-durable-git-'));
+  try {
+    const repo=path.join(dir,'repo'),remote=path.join(dir,'remote.git');await mkdir(repo);
+    await command('git',['init','--bare',remote],dir);await command('git',['init'],repo);
+    const git=args=>command('git',args,repo);
+    // Explicit per-command identity belongs only to this disposable test fixture.
+    const commit=message=>git(['-c','user.name=Fixture','-c','user.email=fixture@example.invalid','commit','-m',message]);
+    await git(['remote','add','origin',remote]);await mkdir(path.join(repo,'coach'));
+    const owner='coach/owner.md';await writeFile(path.join(repo,owner),'old\n');await git(['add','.']);await commit('base');
+    const head=(await git(['rev-parse','HEAD'])).trim(),identity=hash('durability'),branch=`review-loop/durability/${identity}`;
+    await writeFile(path.join(repo,owner),'durable limitation\n');await git(['add','.']);await commit('persist');
+    const sha=(await git(['rev-parse','HEAD'])).trim();await git(['push','origin',`HEAD:refs/heads/${branch}`]);
+    const io=makeIO({...config(dir),repository_path:repo},path.join(dir,'pr-8.json'),dir);
+    const job={identity,head_sha:head},result={data:{branch,commit_sha:sha,artifacts:[{path:owner,sha256:hash('durable limitation\n')}]}};
+    assert.equal((await io.verifyDurability(job,result)).commit_sha,sha);
+    const wrong=structuredClone(result);wrong.data.artifacts[0].sha256=hash('forged');await assert.rejects(()=>io.verifyDurability(job,wrong),/hash mismatch/);
+    const missing=structuredClone(result);missing.data.artifacts[0].path='coach/absent.md';await assert.rejects(()=>io.verifyDurability(job,missing),/missing or not regular/);
+    await writeFile(path.join(repo,'coach/other.md'),'unrelated');await git(['add','.']);await commit('unrelated');
+    const next=(await git(['rev-parse','HEAD'])).trim();const unpushed={data:{...result.data,commit_sha:next}};
+    await assert.rejects(()=>io.verifyDurability(job,unpushed),/reachability/);
+    await git(['push','origin',`HEAD:refs/heads/${branch}`]);
+    await assert.rejects(()=>io.verifyDurability({...job,head_sha:sha},unpushed),/unchanged/);
+    // Git mode 120000 is rejected even on Windows hosts without symlink privilege.
+    await git(['update-index','--add','--cacheinfo',`120000,${(await git(['rev-parse',`${sha}:${owner}`])).trim()},coach/link.md`]);await commit('symlink mode');
+    const linkSha=(await git(['rev-parse','HEAD'])).trim();await git(['push','origin',`HEAD:refs/heads/${branch}`]);
+    await assert.rejects(()=>io.verifyDurability(job,{data:{...result.data,commit_sha:linkSha,artifacts:[{path:'coach/link.md',sha256:hash('durable limitation\n')}]}}),/not regular/);
+  } finally {await rm(dir,{recursive:true,force:true});}
+});
+
+test('mode-only owner or regression changes cannot complete durability',{timeout:30000},async()=>{
+  const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-durable-mode-'));
+  try {
+    const repo=path.join(dir,'repo'),remote=path.join(dir,'remote.git');await mkdir(repo);
+    await command('git',['init','--bare',remote],dir);await command('git',['init'],repo);
+    const git=args=>command('git',args,repo);
+    const commit=message=>git(['-c','user.name=Fixture','-c','user.email=fixture@example.invalid','commit','-m',message]);
+    const owner='coach/owner.md',regression='coach/regression.test.mjs';
+    await git(['remote','add','origin',remote]);await mkdir(path.join(repo,'coach'));
+    await writeFile(path.join(repo,owner),'old owner\n');await writeFile(path.join(repo,regression),'old regression\n');
+    await git(['add','.']);await commit('base');const head=(await git(['rev-parse','HEAD'])).trim();
+    {
+      await writeFile(path.join(repo,owner),'missing branch owner\n');await writeFile(path.join(repo,regression),'missing branch regression\n');
+      await git(['add','.']);await commit('valid commit on absent branch');
+      const sha=(await git(['rev-parse','HEAD'])).trim(),identity=hash('missing remote branch'),branch=`review-loop/durability/${identity}`;
+      const finding={id:'missing-branch',durable_owner:owner,regression:{path:regression,command:'npm test'}};
+      const job={kind:'durability',identity,pr_number:8,base_sha:head,head_sha:head,round:1,raw_review_sha256:hash('review'),finding,agent_id:'fixer',issue_id:'durability',prepared_at:'prepared',status:'WAITING'};
+      const receipt={protocol_version:VERSION,pr_number:8,base_sha:head,head_sha:head,round:1,identity,raw_review_sha256:job.raw_review_sha256,finding_id:finding.id,commit_sha:sha,branch,artifacts:[{path:owner,sha256:hash('missing branch owner\n')},{path:regression,sha256:hash('missing branch regression\n')}],checks:[{command:'npm test',status:'PASS',exit_code:0}]};
+      const comment={id:'comment',author_type:'agent',author_id:'fixer',issue_id:'durability',source_task_id:'run',content:'```review-loop-durability\n'+JSON.stringify(receipt)+'\n```'};
+      const state={durability:[job],history:[]},io={...makeIO({...config(dir),repository_path:repo},path.join(dir,'state.json'),dir),save:async()=>{},issue:async()=>({id:'durability',assignee_type:'agent',assignee_id:'fixer'}),runs:async()=>[{id:'run',issue_id:'durability',agent_id:'fixer',status:'completed'}],comments:async()=>[comment],archiveResult:async()=>{}};
+      await advanceDurability(state,io,config(dir));
+      assert.equal(job.status,'DURABLE_KNOWLEDGE_BLOCKED');assert.equal(job.completion,undefined);assert.match(job.error,/branch missing/);
+      await git(['checkout','--detach',head]);
+    }
+    {
+      const identity=hash('missing receipt commit'),branch=`review-loop/durability/${identity}`;
+      await git(['push','origin',`HEAD:refs/heads/${branch}`]);
+      const finding={id:'missing-commit',durable_owner:owner,regression:{path:regression,command:'npm test'}};
+      const job={kind:'durability',identity,pr_number:8,base_sha:head,head_sha:head,round:1,raw_review_sha256:hash('review'),finding,agent_id:'fixer',issue_id:'durability',prepared_at:'prepared',status:'WAITING'};
+      const receipt={protocol_version:VERSION,pr_number:8,base_sha:head,head_sha:head,round:1,identity,raw_review_sha256:job.raw_review_sha256,finding_id:finding.id,commit_sha:'0'.repeat(40),branch,artifacts:[{path:owner,sha256:hash('old owner\n')},{path:regression,sha256:hash('old regression\n')}],checks:[{command:'npm test',status:'PASS',exit_code:0}]};
+      const comment={id:'comment',author_type:'agent',author_id:'fixer',issue_id:'durability',source_task_id:'run',content:'```review-loop-durability\n'+JSON.stringify(receipt)+'\n```'};
+      const state={durability:[job],history:[]},io={...makeIO({...config(dir),repository_path:repo},path.join(dir,'state.json'),dir),save:async()=>{},issue:async()=>({id:'durability',assignee_type:'agent',assignee_id:'fixer'}),runs:async()=>[{id:'run',issue_id:'durability',agent_id:'fixer',status:'completed'}],comments:async()=>[comment],archiveResult:async()=>{}};
+      await advanceDurability(state,io,config(dir));
+      assert.equal(job.status,'DURABLE_KNOWLEDGE_BLOCKED');assert.equal(job.completion,undefined);assert.match(job.error,/commit missing or not a commit/);
+    }
+    for(const variant of [
+      {name:'owner-only',modes:[owner],contents:{[regression]:'changed regression\n'}},
+      {name:'regression-only',modes:[regression],contents:{[owner]:'changed owner\n'}},
+      {name:'both',modes:[owner,regression],contents:{}}
+    ]) {
+      await git(['checkout','--detach',head]);
+      for(const file of variant.modes)await git(['update-index','--chmod=+x',file]);
+      for(const [file,content] of Object.entries(variant.contents)){await writeFile(path.join(repo,file),content);await git(['add',file]);}
+      await commit(`mode-only ${variant.name}`);const sha=(await git(['rev-parse','HEAD'])).trim();
+      const identity=hash(`mode-only-${variant.name}`),branch=`review-loop/durability/${identity}`;
+      await git(['push','origin',`HEAD:refs/heads/${branch}`]);
+      const finding={id:'mode-only',durable_owner:owner,regression:{path:regression,command:'npm test'}};
+      const job={kind:'durability',identity,pr_number:8,base_sha:head,head_sha:head,round:1,raw_review_sha256:hash('review'),finding,agent_id:'fixer',issue_id:'durability',prepared_at:'prepared',status:'WAITING'};
+      const artifact=async file=>({path:file,sha256:hash(await git(['show',`${sha}:${file}`]))});
+      const receipt={protocol_version:VERSION,pr_number:8,base_sha:head,head_sha:head,round:1,identity,raw_review_sha256:job.raw_review_sha256,finding_id:finding.id,commit_sha:sha,branch,artifacts:[await artifact(owner),await artifact(regression)],checks:[{command:'npm test',status:'PASS',exit_code:0}]};
+      const comment={id:'comment',author_type:'agent',author_id:'fixer',issue_id:'durability',source_task_id:'run',content:'```review-loop-durability\n'+JSON.stringify(receipt)+'\n```'};
+      const state={durability:[job],history:[]},io={...makeIO({...config(dir),repository_path:repo},path.join(dir,'state.json'),dir),save:async()=>{},issue:async()=>({id:'durability',assignee_type:'agent',assignee_id:'fixer'}),runs:async()=>[{id:'run',issue_id:'durability',agent_id:'fixer',status:'completed'}],comments:async()=>[comment],archiveResult:async()=>{}};
+      await advanceDurability(state,io,config(dir));
+      assert.equal(job.status,'DURABLE_KNOWLEDGE_BLOCKED',variant.name);assert.equal(job.completion,undefined,variant.name);
+      assert.match(job.error,/content unchanged/,variant.name);
+    }
+  } finally {await rm(dir,{recursive:true,force:true});}
+});
+
+test('closed PR queue remains tracked across ticks; disabled config dispatches nothing',async()=>{
+  const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-closed-durable-'));
+  try {
+    const file=path.join(dir,'pr-8.json'),live=admit(pr()),state={protocol_version:VERSION,pr_number:8,round:1,status:'PASS',history:[]};
+    const finding={id:'gap',durability:'repository_required',durable_owner:'coach/docs/development/INVARIANTS.md',regression:null};
+    const issues=[];let creates=0;
+    const io={openPRs:async()=>[],save:s=>atomicJson(file,s),prepare:async()=>'/durable',saveReview:async()=>'/review',issues:async()=>issues,
+      create:async job=>{creates++;const i={id:'durable',identifier:'COAC-D',title:job.title,description:job.description,project_id:'project',assignee_type:'agent',assignee_id:'fixer'};issues.push(i);return i;},runs:async()=>[{status:'running'}]};
+    await captureDurability(state,{pr_number:8,head_sha:live.head_sha,base_sha:live.base_sha,round:1,issue_id:'review'},
+      {data:{findings:{P3:[finding]}},raw:'source',sha256:hash('source'),comment_id:'comment',run_id:'run'},live,io,config(dir));
+    await tick({...config(dir),enabled:false},()=>io);assert.equal(creates,0);
+    await tick(config(dir),()=>io);const report=await tick(config(dir),()=>io);
+    assert.equal(creates,1);assert.equal(report.prs[0].status,'PASS');assert.equal(report.prs[0].durability[0].status,'WAITING');
+    const saved=JSON.parse(await readFile(file,'utf8'));assert.equal(saved.durability[0].head_sha,live.head_sha);assert.equal(saved.round,1);
+  } finally {await rm(dir,{recursive:true,force:true});}
+});
+
+test('live P3 PASS tick dispatches durability before publication and never duplicates',async()=>{
+  const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-live-durable-'));
+  try {
+    const file=path.join(dir,'pr-8.json'),raw=pr(),live=admit(raw),job={kind:'review',issue_id:'review',agent_id:'reviewer',pr_number:8,head_sha:live.head_sha,base_sha:live.base_sha,round:1};
+    await atomicJson(file,{protocol_version:VERSION,pr_number:8,round:1,status:'REVIEWING',history:[],job,admission_hash:live.admission_hash});
+    const result={protocol_version:VERSION,pr_number:8,head_sha:live.head_sha,base_sha:live.base_sha,round:1,verdict:'NO_P1_P2',environment_failures:[],gates:Object.entries(GATES).map(([id,command])=>({id,command,status:'PASS',exit_code:0})),findings:{P1:[],P2:[],P3:[{id:'gap',path:'coach/a.ts',line:1,scenario:'future gap',consequence:'known limitation',minimal_fix:'document',durability:'repository_required',durable_owner:'coach/docs/development/INVARIANTS.md',regression:null,basis:'future_limitation'}]}};
+    const issues=[];let creates=0,publishes=0;
+    const io={openPRs:async()=>[raw],live:async()=>raw,snapshot:async()=>({sha256:hash('snapshot')}),checkSpecs:async()=>{},save:s=>atomicJson(file,s),prepare:async()=>'/durable',saveReview:async()=>'/review',issues:async()=>issues,
+      create:async j=>{creates++;const i={id:'durable',title:j.title,description:j.description,project_id:'project',assignee_id:'fixer',assignee_type:'agent'};issues.push(i);return i;},
+      runs:async id=>id==='review' ? [{id:'run',issue_id:'review',agent_id:'reviewer',status:'completed'}] : [{status:'running'}],
+      issue:async()=>({id:'review',assignee_type:'agent',assignee_id:'reviewer'}),comments:async()=>[{id:'comment',author_type:'agent',author_id:'reviewer',issue_id:'review',source_task_id:'run',content:'```review-loop-result\n'+JSON.stringify(result)+'\n```'}],verifyCheckout:async()=>{},archiveResult:async()=>{},
+      publish:async s=>{publishes++;assert.equal(s.status,'PASS');assert.equal(s.durability[0].issue_id,'durable');assert.equal(s.job.issue_id,'review');}};
+    await tick(config(dir),()=>io);await tick(config(dir),()=>io);
+    assert.equal(creates,1);assert.equal(publishes,2);
+  } finally {await rm(dir,{recursive:true,force:true});}
+});
+
+const admission={protocol_version:'review-loop/v2.1',authoritative_spec_paths:['coach/docs/specs/a.md'],rubric:'all criteria'};
 const pr=(head='b'.repeat(40),base='a'.repeat(40),marker='live')=>({number:8,state:'open',draft:false,body:'```review-loop-admission\n'+JSON.stringify(admission)+'\n```',base:{sha:base,repo:{full_name:'ChildeRolando/MjsoulTileTrace'}},head:{sha:head,ref:'codex/a',repo:{full_name:'ChildeRolando/MjsoulTileTrace'}},marker});
-const config=dir=>({protocol_version:'review-loop/v2',repository:'ChildeRolando/MjsoulTileTrace',reviewer_id:'reviewer',fixer_id:'fixer',project_id:'project',enabled:true,state_dir:dir,repository_path:dir,gh_path:'gh',git_path:'git',multica_path:'multica',profile:'profile',workspace_id:'workspace'});
+const config=dir=>({protocol_version:'review-loop/v2.1',repository:'ChildeRolando/MjsoulTileTrace',reviewer_id:'reviewer',fixer_id:'fixer',project_id:'project',enabled:true,state_dir:dir,repository_path:dir,gh_path:'gh',git_path:'git',multica_path:'multica',profile:'profile',workspace_id:'workspace'});
 
 test('one SHA publication owner aggregates conflicting PR results and caches the aggregate',async()=>{
   const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-shared-head-'));
   try {
     const a=pr(),b={...pr(a.head.sha,'c'.repeat(40)),number:9};let list=[a,b];const writes=[];
-    const ledger=(raw,status)=>({protocol_version:'review-loop/v2',pr_number:raw.number,round:1,status,admission_hash:admit(raw).admission_hash,job:{pr_number:raw.number,round:1,head_sha:raw.head.sha,base_sha:raw.base.sha}});
+    const ledger=(raw,status)=>({protocol_version:'review-loop/v2.1',pr_number:raw.number,round:1,status,admission_hash:admit(raw).admission_hash,job:{pr_number:raw.number,round:1,head_sha:raw.head.sha,base_sha:raw.base.sha}});
     const sa=ledger(a,'BLOCKED'),sb=ledger(b,'PASS');
     const save=async()=>{await atomicJson(path.join(dir,'pr-8.json'),sa);await atomicJson(path.join(dir,'pr-9.json'),sb);};
     await save();
@@ -39,7 +163,7 @@ test('one SHA publication owner aggregates conflicting PR results and caches the
 test('shared SHA remains pending for an unreviewed admitted PR, but ignores non-opt-in PRs',async()=>{
   const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-unreviewed-head-'));
   try {
-    const a=pr(),b={...pr(),number:9},sa={protocol_version:'review-loop/v2',pr_number:8,status:'PASS',round:1,admission_hash:admit(a).admission_hash,job:{pr_number:8,head_sha:a.head.sha,base_sha:a.base.sha}};
+    const a=pr(),b={...pr(),number:9},sa={protocol_version:'review-loop/v2.1',pr_number:8,status:'PASS',round:1,admission_hash:admit(a).admission_hash,job:{pr_number:8,head_sha:a.head.sha,base_sha:a.base.sha}};
     const writes=[];
     const runner=async(_file,args)=>{
       if(args.includes('POST')){writes.push(args.find(x=>x.startsWith('state=')));return '{}';}
@@ -55,7 +179,7 @@ test('a blocked PR moving onto another passed SHA invalidates the new shared slo
   const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-moving-head-'));
   try {
     const a=pr(),b={...pr(),number:9},old='e'.repeat(40),writes=[];let list=[b];
-    const sb={protocol_version:'review-loop/v2',pr_number:9,status:'PASS',round:1,admission_hash:admit(b).admission_hash,job:{pr_number:9,head_sha:b.head.sha,base_sha:b.base.sha}};
+    const sb={protocol_version:'review-loop/v2.1',pr_number:9,status:'PASS',round:1,admission_hash:admit(b).admission_hash,job:{pr_number:9,head_sha:b.head.sha,base_sha:b.base.sha}};
     const sa={...sb,pr_number:8,status:'BLOCKED',job:{pr_number:8,head_sha:old,base_sha:a.base.sha}};
     await atomicJson(path.join(dir,'pr-9.json'),sb);await atomicJson(path.join(dir,'pr-8.json'),sa);
     const runner=async(_file,args)=>{
@@ -75,7 +199,7 @@ test('lost status response cannot reuse an older confirmed identity after close 
   const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-uncertain-publication-'));
   try {
     const a=pr(),b={...pr(),number:9};let list=[a,b],loseResponse=false,remote;
-    const ledger=(p,status)=>({protocol_version:'review-loop/v2',pr_number:p.number,round:1,status,admission_hash:admit(p).admission_hash,job:{pr_number:p.number,head_sha:p.head.sha,base_sha:p.base.sha}});
+    const ledger=(p,status)=>({protocol_version:'review-loop/v2.1',pr_number:p.number,round:1,status,admission_hash:admit(p).admission_hash,job:{pr_number:p.number,head_sha:p.head.sha,base_sha:p.base.sha}});
     const sa=ledger(a,'PASS'),sb=ledger(b,'BLOCKED'),writes=[];
     await atomicJson(path.join(dir,'pr-8.json'),sa);await atomicJson(path.join(dir,'pr-9.json'),sb);
     const runner=async(_file,args)=>{
@@ -161,7 +285,7 @@ test('ledger-owned PR blocks and publishes failure when admission is removed',as
   const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-admission-'));
   try {
     const file=path.join(dir,'pr-8.json'),head='b'.repeat(40),base='a'.repeat(40);
-    await atomicJson(file,{protocol_version:'review-loop/v2',pr_number:8,round:1,status:'PASS',history:[],admission_hash:'old',job:{pr_number:8,round:1,head_sha:head,base_sha:base}});
+    await atomicJson(file,{protocol_version:'review-loop/v2.1',pr_number:8,round:1,status:'PASS',history:[],admission_hash:'old',job:{pr_number:8,round:1,head_sha:head,base_sha:base}});
     const removed={...pr(head,base),body:'admission removed'};let published=0;
     const factory=()=>({openPRs:async()=>[removed],live:async()=>removed,save:s=>atomicJson(file,s),publish:async()=>{published++;}});
     const report=await tick(config(dir),factory),saved=JSON.parse(await readFile(file,'utf8'));
@@ -169,11 +293,30 @@ test('ledger-owned PR blocks and publishes failure when admission is removed',as
     assert.equal(report.prs[0].status,'BLOCKED');
   } finally {await rm(dir,{recursive:true,force:true});}
 });
+test('corrected first admission resumes only a pristine round-zero ledger',async()=>{
+  const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-initial-admission-'));
+  try {
+    const file=path.join(dir,'pr-8.json');let current={...pr(),body:'```review-loop-admission\n'+JSON.stringify({...admission,protocol_version:'review-loop/v2'})+'\n```'};
+    let creates=0;
+    const factory=()=>({
+      openPRs:async()=>[current],live:async()=>current,snapshot:async value=>({semantics:'test',sha256:hash(JSON.stringify(value))}),
+      save:s=>atomicJson(file,s),publish:async()=>{},checkSpecs:async()=>{},prepare:async()=>'/worktree',issues:async()=>[],
+      create:async job=>{creates++;return {id:'review',identifier:'COAC-1',title:job.title,description:job.description,assignee_id:job.agent_id,assignee_type:'agent',project_id:'project'};}
+    });
+    const blocked=await tick(config(dir),factory);assert.equal(blocked.prs[0].status,'BLOCKED');
+    let saved=JSON.parse(await readFile(file,'utf8'));assert.equal(saved.round,0);assert.equal(saved.admission_hash,undefined);assert.equal(saved.history.length,0);
+    current=pr();
+    const resumed=await tick(config(dir),factory);saved=JSON.parse(await readFile(file,'utf8'));
+    assert.equal(resumed.prs[0].status,'REVIEWING');assert.equal(saved.round,1);assert.equal(creates,1);
+    assert.equal(saved.history[0].event,'recover_initial_admission');assert.match(saved.history[0].reason,/review-loop\/v2/);
+    assert.equal(saved.history[0].admission_hash,admit(current).admission_hash);
+  } finally {await rm(dir,{recursive:true,force:true});}
+});
 test('stale PASS is persisted and pending publication retries before fallible preparation',async()=>{
   const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-stale-pass-'));
   try {
     const file=path.join(dir,'pr-8.json'),head='b'.repeat(40),oldBase='a'.repeat(40),newBase='c'.repeat(40),live=pr(head,newBase);
-    await atomicJson(file,{protocol_version:'review-loop/v2',pr_number:8,round:1,status:'PASS',history:[],admission_hash:hash(JSON.stringify(admission)),job:{pr_number:8,round:1,head_sha:head,base_sha:oldBase}});
+    await atomicJson(file,{protocol_version:'review-loop/v2.1',pr_number:8,round:1,status:'PASS',history:[],admission_hash:hash(JSON.stringify(admission)),job:{pr_number:8,round:1,head_sha:head,base_sha:oldBase}});
     let publications=0,checks=0;
     const factory=()=>({openPRs:async()=>[live],live:async()=>live,snapshot:async value=>({sha256:hash(JSON.stringify(value))}),save:s=>atomicJson(file,s),publish:async()=>{publications++;if(publications === 1){const e=new Error('status unavailable');e.transport=true;throw e;}},checkSpecs:async()=>{checks++;const e=new Error('fetch failed');e.transport=true;throw e;}});
     await tick(config(dir),factory);await tick(config(dir),factory);
@@ -186,7 +329,7 @@ test('blocked prior job resumes a stale-intent replacement after preparation tra
   try {
     const file=path.join(dir,'pr-8.json'),base='a'.repeat(40),oldHead='b'.repeat(40),newHead='c'.repeat(40),current=pr(newHead,base);
     const admissionHash=hash(JSON.stringify(admission));
-    await atomicJson(file,{protocol_version:'review-loop/v2',pr_number:8,round:1,status:'BLOCKED',history:[],admission_hash:admissionHash,
+    await atomicJson(file,{protocol_version:'review-loop/v2.1',pr_number:8,round:1,status:'BLOCKED',history:[],admission_hash:admissionHash,
       job:{kind:'review',round:1,pr_number:8,issue_id:'old-review',agent_id:'reviewer',head_sha:oldHead,base_sha:base},
       pending:{kind:'review',round:2,pr_number:8,agent_id:'reviewer',head_sha:oldHead,base_sha:base,admission_hash:admissionHash,title:'stale-review',worktree:'/stale',description:'stale',description_hash:'stale',prepared_at:'then'}});
     let prepareCalls=0,creates=0;const saves=[];
@@ -212,8 +355,8 @@ test('list, freshness and decision races bind exact live snapshots to history an
     const oldLive=pr(oldHead,base,'initial-live'),decisionLive=pr(newHead,base,'decision-live'),dispatchLive=pr(newHead,base,'dispatch-live');
     const list={...pr('d'.repeat(40),base,'list')};
     const job={kind:'review',round:1,pr_number:8,issue_id:'review-id',agent_id:'reviewer',head_sha:oldHead,base_sha:base};
-    await atomicJson(file,{protocol_version:'review-loop/v2',pr_number:8,round:1,status:'REVIEWING',history:[],admission_hash:hash(JSON.stringify(admission)),job});
-    const result={protocol_version:'review-loop/v2',pr_number:8,base_sha:base,head_sha:oldHead,round:1,verdict:'NO_P1_P2',findings:{P1:[],P2:[],P3:[]},gates:Object.entries(GATES).map(([id,cmd])=>({id,command:cmd,status:'PASS',exit_code:0})),environment_failures:[]};
+    await atomicJson(file,{protocol_version:'review-loop/v2.1',pr_number:8,round:1,status:'REVIEWING',history:[],admission_hash:hash(JSON.stringify(admission)),job});
+    const result={protocol_version:'review-loop/v2.1',pr_number:8,base_sha:base,head_sha:oldHead,round:1,verdict:'NO_P1_P2',findings:{P1:[],P2:[],P3:[]},gates:Object.entries(GATES).map(([id,cmd])=>({id,command:cmd,status:'PASS',exit_code:0})),environment_failures:[]};
     const comment={id:'comment-id',author_type:'agent',author_id:'reviewer',issue_id:'review-id',source_task_id:'run-id',content:'done\n```review-loop-result\n'+JSON.stringify(result)+'\n```'};
     const reads=[oldLive,oldLive,decisionLive,dispatchLive];let read=0;
     const snapshots=[];

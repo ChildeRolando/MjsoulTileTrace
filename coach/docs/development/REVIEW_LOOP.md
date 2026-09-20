@@ -4,9 +4,63 @@
 这是人工放行，不是独立评审 PASS；已知问题和原始结论保留如下。
 权威协议：[v2 spec](../specs/2026-09-20-review-loop-v2.md)。
 
+COAC-30 代码协议升级为 `review-loop/v2.1`，尚未部署。finding 独立声明 severity 与
+durability；P3 ephemeral 可直接 PASS，P3 repository_required 在独立分支持久化，
+不会因此否决原 PR。Reviewer human/runtime policy 的单一权威源为
+`scripts/review-loop/reviewer-instructions.md`，`controller.mjs` 读取该文件并仅组合本轮
+固定参数、门禁与结果字段，严格 schema/validation 由 `protocol.mjs` 拥有。
+直接证伪显式验收/不变量声明的 finding 至少 P2，且必须 repository_required。
+
+fresh reviewer 保持独立新会话，但不是历史盲审：可按需读取与当前 PR 直接相关的父/兄弟
+issue、历史讨论、finding、复现和修复说明。历史仅为 evidence/claim；不得继承旧 PASS 或
+fixed，必须对 pinned base/head 的 current candidate 重新验证，也不得浏览无关 session/
+private state 或改变固定 identity、rubric、gates、permissions。
+
+`pr-N.json` 的 durability 队列保存原 review issue/comment/run/hash/head/finding；
+health 的 durability 数组显示 WAITING、RETRY_IO、DURABLE_KNOWLEDGE_BLOCKED 或 COMPLETE。
+即使原 PR 已关闭也继续扫描。仅在核验独立远端分支中的新 commit、已改变的 owner/
+regression 普通文件及 blob hashes、指定 agent/completed run 的严格 receipt 后 COMPLETE；
+工单 done/in_review 本身不构成完成。验收回执的命令 PASS 是受信 agent 的报告，Git
+内容与远端可达性由 Controller 独立核验；Controller 不执行 finding 提供的任意命令，
+也不使用 LLM 判断改动语义。是否充分解决 finding 仍由 follow-up 的人工验收负责。
+提交不自动合并，owner 可以从 receipt 的 branch/commit 审查合入。
+
+### v2 → v2.1 migration / deployment acceptance
+
+本节是 stage 2 的执行 owner；本票只补全步骤，不执行生产迁移。
+
+1. **冻结与备份**：暂停 webhook/schedule/Autopilot，将部署 config 设为
+   `enabled=false`，确认无活动 Controller/Reviewer/Fixer/durability run，并持有唯一
+   deployment lock。备份 config、全部 `pr-N.json`、`results/`、`snapshots/`、
+   `publication-*.json`、health 和 evidence；记录备份 hash/位置及旧 deployment SHA。
+2. **盘点旧状态**：逐个列出 v2 pending review/fix 与终态 ledger，完成或人工裁定旧在途
+   job。不得删除 ledger、重置 round/history/authorization、重写已完成 review evidence，
+   也不得为历史 P3 猜 durability。旧 PASS 撤销为待重新核验；在保留预算内按 v2.1 重新
+   review，预算耗尽则保持 BLOCKED。
+3. **部署受审候选**：只有 COAC-32 独立 code review PASS 且受审远端 SHA 已固定，才将受信
+   deployment checkout 快进到该 SHA。更新 protocol/controller/runtime、
+   `reviewer-instructions.md` 和 config；如部署流程另有 Reviewer Agent prompt/config，必须
+   从同一 instruction source 同步。禁止并行运行两个指向同组 PR 的 state directory。
+4. **disabled read-back**：保持 `enabled=false`，回读 checkout SHA、config、Agent/Autopilot
+   配置和实际 Reviewer prompt，确认 `protocol_version == review-loop/v2.1`、prompt 包含
+   durability metadata 与 relevant-history policy、Controller/Autopilot 指向新 trusted
+   checkout，且一次真实只读 tick 零 dispatch。任一不符立即回滚到旧 checkout/config，
+   保留新旧 ledger/evidence 备份，不恢复触发。
+5. **runtime smoke**：在隔离验收 PR/账本验证 P3 ephemeral PASS 且无 follow-up；P3
+   repository_required PASS、exactly-once follow-up 且 duplicate tick 不重复；P2
+   repository_required 路由 Fixer 并完整携带 metadata；closed PR 的 outstanding durability
+   继续处理。伪造 author/run/commit/branch/hash、unchanged owner、missing/failed regression
+   均必须返回 `DURABLE_KNOWLEDGE_BLOCKED`，不得 COMPLETE。
+6. **恢复与记录**：保存 read-back/smoke 的命令、exit code、ledger identity、issue/run/
+   comment/hash/head 与 deployment SHA。全部通过后才启用 config 并恢复 trigger；失败则保持
+   disabled，按第 4 步回滚。PR merge/code deploy 不能单独证明 runtime migration 完成。
+
+新任务使用 `config.example.json` 和 v2.1 admission。stage 2 完成前不得把 COAC-30 关闭。
+
 流程：Multica webhook/schedule → 受信本机 Controller → GitHub live PR → fresh Reviewer
 → 完整 findings → 现有 Fixer → pushed HEAD → 下一轮 fresh Reviewer。默认最多三轮；
-仅 PR #8 已获用户两次明确批准追加第四、第五轮，授权与原有轮次一起留存在 ledger。
+任意 PR 的第四、第五轮都必须分别获得一次明确人工批准，并各自绑定上一轮 BLOCKED 证据；
+两次授权与原有轮次一起留存在 ledger，绝不开放第六轮。
 
 ## 接入 PR
 
@@ -41,13 +95,19 @@ in-place 本机目录，避免与 Reviewer/Fixer 争用目录锁；评审/修复
 - `health.json`：最近成功扫描时刻、PR 状态、轮次和当前 issue；超过两次周期未更新先查
   Multica Autopilot runs、daemon 和主机在线情况。智能体 run 显示 completed 不足以证明
   程序成功，须同时核对程序 JSON 和 health 更新时间；固定命令执行失败会等待下次唤醒。
-- `pr-N.json`：完整轮次与来源账本；`results/` 保存完整评审，`snapshots/` 保存 GitHub 观察。
+- `pr-N.json`：完整轮次与来源账本；`results/<issue>-<hash>.json` 保存按内容寻址的结果，
+  评论替换不覆盖旧证据；`snapshots/` 保存 GitHub 观察。durability 原文同时保存在队列。
 - BLOCKED：先读 reason 与对应 issue。已有 tasks 的实际状态通过 `multica issue runs` 核实。
+  首次准入在 round 0 因 admission/spec 暂时无效而失败时，只要 ledger 仍无
+  `admission_hash`、job、pending 与 history，修正 PR 后下一次 tick 会记录
+  `recover_initial_admission` 并重新准入；任何已经冻结身份或产生历史的 ledger 都不会
+  走这条自动恢复路径。
   不能因为观察超时就重新创建任务，不能删除 ledger 绕过轮次上限。
 - 人工追加：只有收到针对该 PR 的明确批准后，暂停 Autopilot、设置 enabled=false，
   核验无活动 Controller，再持锁备份 ledger、验证第三轮原文 hash 与来源，调用
   `authorizeExtraReview` 并原子保存。保留全部 round/history；第一次仅允许第四轮。
-  PR #8 的第二次明确批准另绑定第四轮结果并验证原授权，最多第五轮，不开放第六轮。
+  如需第五轮，必须取得第二次明确批准，另绑定第四轮结果并验证原授权；该规则适用于
+  任意 PR，最多第五轮，不开放第六轮。
   普通 tick 不会自动恢复 BLOCKED；达到已批准上限仍有阻断项则停止。
 - `publication-<sha>.json`：同一提交的成员集与聚合发布缓存。它不授予 PASS，源事实仍
   是实时 GitHub 状态及每个 PR 的已核验 ledger；旧 per-PR published 字段不再用于发布。
@@ -56,8 +116,8 @@ in-place 本机目录，避免与 Reviewer/Fixer 争用目录锁；评审/修复
   该命令会拒绝仍存在的 PID。恢复后重新 tick 并回读任务，最后恢复 Autopilot。
 - 暂停：Autopilot pause 并将 enabled=false；已经分派的 agent run 不会因此自动取消，须
   单独查询并决定取消，避免误认为写操作已经停止。
-- 升级：先停触发并确认无 Controller 进程；更新受信 deployment checkout，运行协议测试，
-  保留 ledger 与凭据；只读运行确认后恢复。禁止并行部署两个状态目录指向同一组 PR。
+- 升级：严格执行上文 v2 → v2.1 migration/deployment acceptance；不得以替换 checkout 或
+  PR merge 代替 ledger migration、disabled read-back 与 runtime smoke。
 
 ## 验证与证据
 
