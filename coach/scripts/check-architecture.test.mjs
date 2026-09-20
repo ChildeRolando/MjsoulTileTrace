@@ -220,6 +220,41 @@ test("flags undeclared subpath imports but allows declared public exports", () =
   }
 });
 
+test("only the coach service may use the report generation seam", () => {
+  const root = buildWorkspace();
+  try {
+    write(root, "packages/desktop/src/llm-provider/service.ts", 'import { generateReviewReport } from "@riichi-coach/reasoning";\n');
+    write(root, "packages/desktop/src/coach-ipc.ts", 'import { generateReviewReport, assembleReviewReport } from "@riichi-coach/reasoning";\n');
+    write(root, "packages/desktop/src/bypass.ts", 'import { createOpenAiCoachProvider } from "./llm-provider/openai-compatible.js";\n');
+    const result = checkWorkspace(root, { allowedEdges: TEST_ALLOWED_EDGES });
+    const seamViolations = result.violations.filter(
+      (violation) => violation.rule === "review_report_generation_seam",
+    );
+    assert.equal(seamViolations.length, 3);
+    assert.deepEqual(
+      seamViolations.map((violation) => violation.file),
+      [
+        "packages/desktop/src/bypass.ts",
+        "packages/desktop/src/coach-ipc.ts",
+        "packages/desktop/src/coach-ipc.ts",
+      ],
+    );
+  } finally {
+    clean(root);
+  }
+});
+
+test("read-back validation remains allowed outside generation", () => {
+  const root = buildWorkspace();
+  try {
+    write(root, "packages/desktop/src/report-store.ts", 'import { validateReviewReport } from "@riichi-coach/reasoning";\n');
+    const result = checkWorkspace(root, { allowedEdges: TEST_ALLOWED_EDGES });
+    assert.deepEqual(result.violations, []);
+  } finally {
+    clean(root);
+  }
+});
+
 test("declared subpath imports still obey dependency direction", () => {
   const root = buildWorkspace();
   try {

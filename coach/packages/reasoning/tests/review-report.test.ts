@@ -160,7 +160,7 @@ function baseDecision(refs: GraphRefs) {
 
 function generatedOutcome(
   draftObject: unknown,
-  transportRetries = 0,
+  transportRetries: 0 | 1 = 0,
 ): CoachRequestOutcome {
   return {
     kind: "generated",
@@ -211,15 +211,14 @@ async function goldenFixture(): Promise<GoldenFixture> {
 describe("M6-D2 coachRequestOutcomeFromLlmResult", () => {
   it("maps a success (with or without usage) onto the generated outcome", () => {
     expect(coachRequestOutcomeFromLlmResult(
-      { content: "x", usage: { inputTokens: 1 } } as LlmCoachResult,
-      3,
+      { content: "x", usage: { inputTokens: 1 }, transportRetries: 1 } as LlmCoachResult,
     )).toEqual({
       kind: "generated",
       content: "x",
       usage: { inputTokens: 1 },
-      transportRetries: 3,
+      transportRetries: 1,
     });
-    expect(coachRequestOutcomeFromLlmResult({ content: "x" }, 0)).toEqual({
+    expect(coachRequestOutcomeFromLlmResult({ content: "x", transportRetries: 0 })).toEqual({
       kind: "generated",
       content: "x",
       transportRetries: 0,
@@ -227,10 +226,10 @@ describe("M6-D2 coachRequestOutcomeFromLlmResult", () => {
   });
 
   it("maps provider_unavailable (pre-request) and transport failures", () => {
-    expect(coachRequestOutcomeFromLlmResult({ errorCode: "provider_unavailable" }, 0))
+    expect(coachRequestOutcomeFromLlmResult({ errorCode: "provider_unavailable", transportRetries: 0 }))
       .toEqual({ kind: "provider_unavailable" });
-    expect(coachRequestOutcomeFromLlmResult({ errorCode: "timeout" }, 2))
-      .toEqual({ kind: "request_failed", transportRetries: 2 });
+    expect(coachRequestOutcomeFromLlmResult({ errorCode: "timeout", transportRetries: 1 }))
+      .toEqual({ kind: "request_failed", transportRetries: 1 });
   });
 });
 
@@ -552,13 +551,13 @@ describe("M6-D2 assembleReviewReport (LLM failure degrades)", () => {
     const report = assembleReviewReport({
       graph,
       selection,
-      outcome: { kind: "request_failed", transportRetries: 2 },
+      outcome: { kind: "request_failed", transportRetries: 1 },
       generatedAt: GENERATED_AT,
     });
     expect(report.generationStatus).toBe("evidence_only");
     expect(report.decisionEntries)
       .toEqual([{ decisionId: refs.decisionId, explanationStatus: "request_failed" }]);
-    expect(report.audit.transportRetries).toBe(2);
+    expect(report.audit.transportRetries).toBe(1);
     expect(report.audit.outputHash).toBe(`sha256:${sha256Hex("")}`);
     expect(report.audit.usage).toBeUndefined();
     expect(report.reasoningOverlay).toEqual({ nodes: [], edges: [] });

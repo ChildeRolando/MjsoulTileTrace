@@ -92,7 +92,7 @@ _Avoid_: 用 last_actor/最后行动者判定归属（自摸回合恰好重合�
 ### 分析产物（analysis artifacts）
 
 **StructuredAnalysisPackage（M6-C 整盘确定性证据产物）**：
-M6-C 将要固化的**整盘**确定性/可审计分析产物，是 evidence source of truth；
+M6-C 已固化的**整盘**确定性/可审计分析产物，是 evidence source of truth；
 只装确定性/来源/模型分析内容（record/decision identity、确定性生产者版本、
 七值 decision outcome、ledgers/differences/advisory signals/preference/
 modelEvaluation、evidence provenance）。**不是 graph、不是 LLM 产物**。
@@ -113,6 +113,12 @@ canonical/replay、mapper/source adapter、fact-engine、factor pipeline、Morta
 model/source tag 等）；LLM prompt/解释版本（provider/model、prompt version、输出
 schema 版本、validator/generation 版本）属 `ReviewReport`。同一分析包可被不同
 LLM/prompt 重生成多个 ReviewReport。
+
+**ReviewReport（解释侧报告产物）**：
+由唯一 `generateReviewReport` 入口生成，引用而不内嵌 StructuredAnalysisPackage；保存
+生成状态、逐行解释状态、grounded reasoning overlay 与 hash-only audit。selector 决定
+入选与排序，provider 独占一次自动传输重试，assembler/IPC 不得形成第二生成路径。
+_Avoid_: 把它当确定性分析包；绕过 selector 重算入选；保存完整 prompt/response/raw CoT
 
 ### 评审选择（review selection）
 

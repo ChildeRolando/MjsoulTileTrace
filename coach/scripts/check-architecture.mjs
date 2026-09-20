@@ -1,7 +1,7 @@
 /**
  * Mechanical architecture boundary check for the coach workspace.
  *
- * Three rules, each mapped to the invariants it protects (see
+ * Four rules, each mapped to the invariants it protects (see
  * docs/development/INVARIANTS.md and docs/adr/0005-workspace-dependency-
  * boundaries.md):
  *
@@ -30,6 +30,12 @@
  *     covers repository tools that legitimately need a deliberately
  *     non-public bridge (see scripts/generate-factor-regression-golden.mjs).
  *
+ *  R4 review_report_generation_seam (INV-001 / INV-002 / INV-005)
+ *     Desktop production code may generate a new report only through
+ *     reasoning's `generateReviewReport`; only the main-process coach service
+ *     may call that seam. IPC and other desktop modules cannot import report
+ *     assembly/slice/prompt helpers or the concrete provider directly.
+ *
  * Parsing is owned by the TypeScript Compiler API (ts.createSourceFile + AST
  * traversal): only real module specifiers are collected, so import-looking
  * text inside comments, string literals, and template literals can never be
@@ -53,7 +59,17 @@ const RULE_IDS = {
   packageDependencyDirection: "package_dependency_direction",
   rendererSafeBoundary: "renderer_safe_boundary",
   packageInternalImport: "package_internal_import",
+  reviewReportGenerationSeam: "review_report_generation_seam",
 };
+
+const REVIEW_GENERATION_INTERNALS = new Set([
+  "appendReasoningOverlay",
+  "assembleReviewReport",
+  "buildCoachRequest",
+  "buildGraphContextSlice",
+  "coachRequestOutcomeFromLlmResult",
+]);
+const COACH_SERVICE_PATH = "packages/desktop/src/llm-provider/service.ts";
 
 /** Allowed riichi-coach dependency edges for production src code. */
 export const DEFAULT_ALLOWED_EDGES = Object.freeze({
@@ -155,6 +171,36 @@ export function collectModuleSpecifiers(code, fileName) {
       node.getStart(sourceFile),
     ).line + 1,
   }));
+}
+
+/** Collect named/default/namespace bindings from static import declarations. */
+export function collectImportBindings(code, fileName) {
+  const sourceFile = ts.createSourceFile(
+    fileName,
+    code,
+    ts.ScriptTarget.Latest,
+    false,
+    /\.(m?js|cjs)$/u.test(fileName) ? ts.ScriptKind.JS : ts.ScriptKind.TS,
+  );
+  const imports = [];
+  for (const statement of sourceFile.statements) {
+    if (!ts.isImportDeclaration(statement) ||
+        !ts.isStringLiteral(statement.moduleSpecifier)) continue;
+    const names = [];
+    const clause = statement.importClause;
+    if (clause?.name !== undefined) names.push(clause.name.text);
+    const bindings = clause?.namedBindings;
+    if (bindings !== undefined) {
+      if (ts.isNamespaceImport(bindings)) names.push("*");
+      else names.push(...bindings.elements.map((element) => element.propertyName?.text ?? element.name.text));
+    }
+    imports.push({
+      specifier: statement.moduleSpecifier.text,
+      names,
+      line: ts.getLineAndCharacterOfPosition(sourceFile, statement.getStart(sourceFile)).line + 1,
+    });
+  }
+  return imports;
 }
 
 function walkFiles(dir, extensions, out = []) {
@@ -288,6 +334,55 @@ export function checkWorkspace(root, opts = {}) {
         relPath.split("/").includes("src");
       const code = readFileSync(file, "utf8");
       scannedFiles += 1;
+
+      if (isProductionCode && ownerPackage === "@riichi-coach/desktop") {
+        for (const imported of collectImportBindings(code, file)) {
+          if (imported.specifier === "@riichi-coach/reasoning") {
+            for (const name of imported.names) {
+              if (name === "*") {
+                record(
+                  RULE_IDS.reviewReportGenerationSeam,
+                  relPath,
+                  imported.line,
+                  "Desktop production code must use named reasoning imports so generation ownership is auditable",
+                  "INV-001/INV-002/INV-005",
+                );
+              }
+              if (REVIEW_GENERATION_INTERNALS.has(name)) {
+                record(
+                  RULE_IDS.reviewReportGenerationSeam,
+                  relPath,
+                  imported.line,
+                  `Desktop production code must not import internal report generator helper "${name}"`,
+                  "INV-001/INV-002",
+                );
+              }
+              if (name === "generateReviewReport" && relPath !== COACH_SERVICE_PATH) {
+                record(
+                  RULE_IDS.reviewReportGenerationSeam,
+                  relPath,
+                  imported.line,
+                  "Only the main-process coach service may call generateReviewReport",
+                  "INV-001/INV-002/INV-005",
+                );
+              }
+            }
+          }
+          if (relPath !== COACH_SERVICE_PATH && imported.specifier.startsWith(".")) {
+            const resolved = resolve(dirname(file), imported.specifier).split(sep).join("/");
+            if (resolved.endsWith("/packages/desktop/src/llm-provider/openai-compatible.js") ||
+                resolved.endsWith("/packages/desktop/src/llm-provider/openai-compatible.ts")) {
+              record(
+                RULE_IDS.reviewReportGenerationSeam,
+                relPath,
+                imported.line,
+                "Only the main-process coach service may compose the concrete LLM provider",
+                "INV-005",
+              );
+            }
+          }
+        }
+      }
 
       for (const { specifier, line } of collectModuleSpecifiers(code, file)) {
         scannedImports += 1;

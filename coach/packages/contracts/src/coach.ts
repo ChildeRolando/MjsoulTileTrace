@@ -363,6 +363,15 @@ export const LlmTokenUsageSchema = z.object({
 }).strict();
 export type LlmTokenUsage = z.infer<typeof LlmTokenUsageSchema>;
 
+/** Provider-owned transport metadata. `transportRetries` is the number of
+ * sends after the initial request (v1 therefore permits only 0 or 1).  An
+ * optional output hash lets a privileged provider redact reflected secrets
+ * while retaining non-reversible audit evidence of the received bytes. */
+const LlmCoachTransportAuditSchema = z.object({
+  transportRetries: z.union([z.literal(0), z.literal(1)]),
+  outputHash: z.string().regex(/^sha256:[0-9a-f]{64}$/).optional(),
+});
+
 /**
  * The failure codes of the provider result. The five transport codes
  * (`timeout` / `rate_limited` / `server_error` / `network_reset` /
@@ -402,13 +411,13 @@ export type LlmCoachRequest = z.infer<typeof LlmCoachRequestSchema>;
 export const LlmCoachSuccessSchema = z.object({
   content: z.string().min(1),
   usage: LlmTokenUsageSchema.optional(),
-}).strict();
+}).merge(LlmCoachTransportAuditSchema).strict();
 export type LlmCoachSuccess = z.infer<typeof LlmCoachSuccessSchema>;
 
 /** The failure variant. */
 export const LlmCoachFailureSchema = z.object({
   errorCode: LlmCoachErrorCodeSchema,
-}).strict();
+}).merge(LlmCoachTransportAuditSchema.omit({ outputHash: true })).strict();
 export type LlmCoachFailure = z.infer<typeof LlmCoachFailureSchema>;
 
 export const LlmCoachResultSchema = z.union([
@@ -514,7 +523,7 @@ export const ReviewAuditSchema = z.object({
   inputSliceHash: z.string().min(1),
   outputHash: z.string().min(1),
   usage: LlmTokenUsageSchema.optional(),
-  transportRetries: z.number().int().min(0),
+  transportRetries: z.union([z.literal(0), z.literal(1)]),
 }).strict();
 export type ReviewAudit = z.infer<typeof ReviewAuditSchema>;
 

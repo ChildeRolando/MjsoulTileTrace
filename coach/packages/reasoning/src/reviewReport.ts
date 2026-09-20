@@ -4,9 +4,9 @@
  * / grounding / report validation).
  *
  * This module owns every DETERMINISTIC piece of report generation; the
- * privileged-process pieces (provider call, retries, key custody) are the
- * desktop composition root's job. Given the provider's already-returned
- * outcome, everything here is a pure function that golden tests can lock:
+ * privileged-process pieces (transport retry and key custody) remain with the
+ * injected provider. Given the provider's already-returned outcome,
+ * everything here is a pure function that golden tests can lock:
  *
  *  - `appendReasoningOverlay(graph, nodes, edges)` — the D1-reserved append
  *    action (spec item 2): D1 partition validation first, then a NEW graph
@@ -116,12 +116,13 @@ const EMPTY_OUTPUT_HASH = `sha256:${sha256Hex("")}`;
  *  transport retry count; `generated` carries the raw model output. */
 export type CoachRequestOutcome =
   | { kind: "provider_unavailable" }
-  | { kind: "request_failed"; transportRetries: number }
+  | { kind: "request_failed"; transportRetries: 0 | 1 }
   | {
       kind: "generated";
       content: string;
       usage?: LlmTokenUsage;
-      transportRetries: number;
+      transportRetries: 0 | 1;
+      outputHash?: string;
     };
 
 /** Pure mapping of a contracts `LlmCoachResult` DTO onto the assembly
@@ -129,7 +130,6 @@ export type CoachRequestOutcome =
  *  desktop main process). */
 export function coachRequestOutcomeFromLlmResult(
   result: LlmCoachResult,
-  transportRetries: number,
 ): CoachRequestOutcome {
   if ("content" in result) {
     if (result.usage !== undefined) {
@@ -137,15 +137,21 @@ export function coachRequestOutcomeFromLlmResult(
         kind: "generated",
         content: result.content,
         usage: result.usage,
-        transportRetries,
+        transportRetries: result.transportRetries,
+        ...(result.outputHash === undefined ? {} : { outputHash: result.outputHash }),
       };
     }
-    return { kind: "generated", content: result.content, transportRetries };
+    return {
+      kind: "generated",
+      content: result.content,
+      transportRetries: result.transportRetries,
+      ...(result.outputHash === undefined ? {} : { outputHash: result.outputHash }),
+    };
   }
   if (result.errorCode === "provider_unavailable") {
     return { kind: "provider_unavailable" };
   }
-  return { kind: "request_failed", transportRetries };
+  return { kind: "request_failed", transportRetries: result.transportRetries };
 }
 
 // ---------------------------------------------------------------------------
@@ -513,7 +519,7 @@ export function assembleReviewReport(
   let rows: ReviewDecisionEntry[] = [];
   let outputHash = EMPTY_OUTPUT_HASH;
   let usage: LlmTokenUsage | undefined;
-  let transportRetries = 0;
+  let transportRetries: 0 | 1 = 0;
 
   const rowOf = (
     decisionId: string,
@@ -534,7 +540,7 @@ export function assembleReviewReport(
   } else {
     transportRetries = input.outcome.transportRetries;
     if (input.outcome.usage !== undefined) usage = input.outcome.usage;
-    outputHash = `sha256:${sha256Hex(input.outcome.content)}`;
+    outputHash = input.outcome.outputHash ?? `sha256:${sha256Hex(input.outcome.content)}`;
     const draft = parseDraftContent(input.outcome.content);
     if (draft === null) {
       // Degrade path 3: unparseable output — invalid_output, no retry.

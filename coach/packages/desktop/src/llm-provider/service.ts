@@ -5,10 +5,9 @@ import {
   CoachProviderConfigSchema, CoachProviderStatusSchema, CoachReportRequestSchema, StructuredAnalysisPackageSchema,
   type CoachProviderConfig, type CoachReportResult,
 } from "@riichi-coach/contracts";
-import { projectContextGraph, selectReviewDecisions, validateStructuredAnalysisPackage } from "@riichi-coach/reasoning";
+import { generateReviewReport, projectContextGraph, selectReviewDecisions, validateStructuredAnalysisPackage } from "@riichi-coach/reasoning";
 import type { ProviderCredentials } from "./credentials.js";
 import { createOpenAiCoachProvider } from "./openai-compatible.js";
-import { generateReviewReport } from "./generate.js";
 
 /** Main-only read-back adapter. A renderer supplies identity, never a file path.
  * Package production/catalog UI remain upstream/M7 work; missing references fail closed. */

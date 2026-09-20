@@ -17,7 +17,7 @@
 | M3 教学证据 | 未开始 | 仅有策略边界和占位契约 | 冻结资料、引用、版本化教学规则；与 decision fact 两源分离，fixed report 稳定后启动 |
 | M4 受约束追问 | 未开始 | ——（原 M4"LLM 教练"已拆分为 M6-D 解释引擎 + M7-A 固定报告 UI + M4 追问对话） | fixed report 与教学证据层稳定后的 constrained follow-up/chat；context retrieval 将建立在 M6-D1 ContextGraph 上（embeddings/GraphRAG 不是前提） |
 | M5 雀魂国区接入 | 接近完成 | Electron 登录、加密恢复、最近 30 场、取回、canonical mapper、重放、脱敏 replay audit、H1 诊断命令 | 真实牌谱 H1 对照验收；未覆盖流局/杠枚举的 fixture 反证 |
-| M6 模型生产接入 | 进行中 | M6-A1：Mortal 单决策切片（安全获取、指纹/视角绑定、比较集 + ModelEvaluation + assembly）；M6-A2：全量自摸面覆盖账本（全局二部绑定、120/113 无丢失、99 个支持对 analysis_ready）；M6-A3：行动支持扩展已落地（declare_riichi 契约与 riichi_discard 实现语义、自摸/杠/九种九牌终局 actual、post_riichi/post_call 决策面、真实 hora 形态钉死、10 分支 fail-closed coverage gate + §16 evidence manifest lift 路径、双平台验收入口（雀魂首选 + Tenhou 补充，共享验收核心）、H2 连续性复跑 125/113 全绑定 0 歧义）；**真实语料验收矩阵 10/10 补满（2026-08-17，双平台 §16 manifest，handoff §15）**；**M6-A4 响应面已收口（2026-08-18，wave-1 六分支 6/6 真实 E2E，详见 [M6-A4.3 wave-1 矩阵](M6-A4.3-wave1-matrix-status.md)）**；**M6-C StructuredAnalysisPackage 固化（stable evidence substrate，Slice 1–4 + whole-game golden）**；**DeterministicReviewSelector（确定性选择策略，policy v1 冻结 + 三 slice + whole-game consumer golden，2026-08-19）**；**M6-D1 Typed Context Graph substrate（2026-08-19，deterministic projection + GraphContextSlice + 三 guard 全绿）**；**M6-D2 contracts/reasoning baseline（2026-08-24，严格契约、grounding/read-back validator、append-only overlay、evidence-only degrade）** | COAC-3 provider/BYOK/IPC 及三个 P2 修复已落盘，五门通过、待复核；COAC-4 完整工作流与 M7 产品接线；M6-B Akagi 后置 |
+| M6 模型生产接入 | 进行中 | M6-A1–A4、M6-C、DeterministicReviewSelector、M6-D1 已落地；**M6-D2 Graph-grounded Coach + Validator 已于 2026-09-20 收口**：唯一 `generateReviewReport` 链、provider 单点重试、grounding/read-back 发布门、架构绕过检查与安全降级路径全绿 | M7-A/B 产品 UI 与持久化接线；M6-B Akagi 后置 |
 | M7 复盘工作台 | 未开始 | 安全 IPC 和最小目录 UI | **M7-A** fixed review UI（三层，原生 DOM；消费 `DeterministicReviewSelector` 输出）；**M7-B** ReviewSession 持久化/重开 + SQLite + 产品内 Mortal 缓存（privileged 边界，ADR-0003/决策 H6） |
 | M8 打包发布 | 未开始 | Electron 与 sidecar 构建基础 | 跨平台安装、升级、日志、发布验收 |
 
@@ -141,7 +141,7 @@ typecheck / vitest（1705）/ check:architecture / package-import 全绿。
 
 #### M6-D2 — Graph-grounded Coach + Validator
 
-**状态：contracts/reasoning baseline 已落地（2026-08-24），M6-D2 尚未整体完成。**
+**状态：已落地并完成 COAC-4 本地验收（2026-09-20）。**
 已交付严格 `CoachReasoningDraft` / `ReviewReport` 契约、grounding 与 read-back
 validator、append-only reasoning overlay、确定性 report identity，以及 provider 失败时的
 evidence-only degrade。read-back 会重新推导 `CoachJudgment` / `CoachInference` 节点身份，
@@ -149,16 +149,18 @@ evidence-only degrade。read-back 会重新推导 `CoachJudgment` / `CoachInfere
 `verbalizes` / `opposes` / `qualifies` 强制 endpoint kind 和 same-decision ownership；
 对应篡改场景由 `grounding-validator.test.ts` 永久回归。
 
-COAC-3 实现及三个 P2 修复已落盘（2026-09-19，五项门禁通过、待 controller 复核）：contracts 的
+COAC-3 实现及三个 P2 修复已落盘（2026-09-19）：contracts 的
 `LlmCoachProvider` 在 Electron main 中有单一 OpenAI-compatible 实现；BYOK 通过
 主进程环境 importer 与独立 safeStorage 密文文件保管；窄 IPC/preload 只传非敏感设置、
-无 payload 的导入/删除动作与 package 引用。生成窄 seam 复用 slice、grounding 与
-report assembly，传输最多重试一次，空 selection 不请求，语义失败不重试。
+无 payload 的导入/删除动作与 package 引用。COAC-4 将生成路径收敛为 reasoning 包根
+唯一 `generateReviewReport`：selector 是唯一入选 authority，内部复用 slice、grounding、
+assembly 与 read-back validator；自动传输重试只在 provider 内发生，总发送数最多 2，
+空 selection / provider unavailable / 语义或 read-back 失败均不追加请求。
 详见 [COAC-3 回执](../handoffs/2026-09-19-coac-3-privileged-provider.md)。
 
-剩余：COAC-4 完整生成工作流、上游 package 的产品发现/交接、M7 报告 UI 与会话
-持久化。当前 main-only package reader 只读取已有的严格 package 引用；不生成新的
-分析包，不把原始牌谱当作 package，不实现后台任务/重生成策略。M6-D2 仍未整体验收。
+剩余属于后续里程碑：上游 package 的产品发现/交接、M7 报告 UI 与会话持久化。
+当前 main-only package reader 只读取已有的严格 package 引用；不生成新的分析包，
+不把原始牌谱当作 package，不实现后台任务/重生成策略。
 
 ### 5. M7-A Whole-game fixed review UI
 
