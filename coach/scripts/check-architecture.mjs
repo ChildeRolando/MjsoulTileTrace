@@ -35,8 +35,9 @@
  *     reasoning's `generateReviewReport`; only the main-process coach service
  *     may call that seam. IPC and other desktop modules cannot import report
  *     assembly/slice/prompt helpers or the concrete provider directly.
- *     Reasoning access must use static named imports; other literal loading
- *     forms fail closed, including in the service itself.
+ *     Reasoning access and concrete-provider composition must use static
+ *     named imports; other literal loading forms fail closed, including in
+ *     the service itself.
  *
  * Parsing is owned by the TypeScript Compiler API (ts.createSourceFile + AST
  * traversal): only real module specifiers are collected, so import-looking
@@ -72,6 +73,7 @@ const REVIEW_GENERATION_INTERNALS = new Set([
   "coachRequestOutcomeFromLlmResult",
 ]);
 const COACH_SERVICE_PATH = "packages/desktop/src/llm-provider/service.ts";
+const CONCRETE_PROVIDER_PATH = "/packages/desktop/src/llm-provider/openai-compatible";
 
 /** Allowed riichi-coach dependency edges for production src code. */
 export const DEFAULT_ALLOWED_EDGES = Object.freeze({
@@ -372,24 +374,27 @@ export function checkWorkspace(root, opts = {}) {
               }
             }
           }
-          if (relPath !== COACH_SERVICE_PATH && imported.specifier.startsWith(".")) {
-            const resolved = resolve(dirname(file), imported.specifier).split(sep).join("/");
-            if (resolved.endsWith("/packages/desktop/src/llm-provider/openai-compatible.js") ||
-                resolved.endsWith("/packages/desktop/src/llm-provider/openai-compatible.ts")) {
-              record(
-                RULE_IDS.reviewReportGenerationSeam,
-                relPath,
-                imported.line,
-                "Only the main-process coach service may compose the concrete LLM provider",
-                "INV-005",
-              );
-            }
-          }
         }
       }
 
       for (const { specifier, line, namedImport } of collectModuleSpecifiers(code, file)) {
         scannedImports += 1;
+
+        if (isProductionCode && ownerPackage === "@riichi-coach/desktop" &&
+            specifier.startsWith(".")) {
+          const resolvedModule = resolve(dirname(file), specifier)
+            .split(sep).join("/")
+            .replace(/\.(?:[cm]?[jt]sx?)$/u, "");
+          if (resolvedModule.endsWith(CONCRETE_PROVIDER_PATH) &&
+              (relPath !== COACH_SERVICE_PATH || !namedImport)) {
+            record(
+              RULE_IDS.reviewReportGenerationSeam,
+              relPath, line,
+              "Only the main-process coach service may load the concrete LLM provider, using a static named import",
+              "INV-005",
+            );
+          }
+        }
 
         if (isProductionCode && ownerPackage === "@riichi-coach/desktop" &&
             workspacePackageName(specifier) === "@riichi-coach/reasoning" && !namedImport) {

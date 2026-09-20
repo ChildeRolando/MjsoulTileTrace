@@ -301,8 +301,11 @@ provider、slice/prompt builder 或 assembler 产生报告。该边界由
 已有报告。desktop production 对 reasoning 的静态/literal 模块引用只允许静态 named
 import（允许别名，禁止 default/namespace）；re-export、literal dynamic import、
 `require()` 与 import-equals 均 fail closed，包括 service 自身。
-`generateReviewReport` 绑定仅归 `llm-provider/service.ts`，generation internals 禁止
-desktop 获取；持久化读回仍可 named import `validateReviewReport` / package validators。
+`generateReviewReport` 绑定与 concrete provider 的加载均仅归
+`llm-provider/service.ts`；两者只允许 static named import，re-export、literal dynamic
+import、`require()`、import-equals、default/namespace import 均 fail closed。generation
+internals 禁止 desktop 获取；持久化读回仍可 named import `validateReviewReport` /
+package validators。
 检查器不解析运行时计算的模块路径，不提供任意 JavaScript 的数据流证明。
 流程不保存完整 prompt、response 或 raw CoT。
 optional usage 先校验形状，畸形 metadata 不会把合法 draft 变成传输失败。被拦截的
