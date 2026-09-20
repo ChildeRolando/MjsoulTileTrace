@@ -5,7 +5,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { acquireLock, recoverLock, atomicJson, command, makeIO, tick } from './runtime.mjs';
 import { GATES, hash, admit, VERSION } from './protocol.mjs';
-import { captureDurability } from './controller.mjs';
+import { advanceDurability, captureDurability } from './controller.mjs';
 
 test('real Git durable verification requires pushed, changed regular artifacts and exact hashes',{timeout:30000},async()=>{
   const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-durable-git-'));
@@ -24,7 +24,7 @@ test('real Git durable verification requires pushed, changed regular artifacts a
     const job={identity,head_sha:head},result={data:{branch,commit_sha:sha,artifacts:[{path:owner,sha256:hash('durable limitation\n')}]}};
     assert.equal((await io.verifyDurability(job,result)).commit_sha,sha);
     const wrong=structuredClone(result);wrong.data.artifacts[0].sha256=hash('forged');await assert.rejects(()=>io.verifyDurability(job,wrong),/hash mismatch/);
-    const missing=structuredClone(result);missing.data.artifacts[0].path='coach/absent.md';await assert.rejects(()=>io.verifyDurability(job,missing),/unchanged/);
+    const missing=structuredClone(result);missing.data.artifacts[0].path='coach/absent.md';await assert.rejects(()=>io.verifyDurability(job,missing),/missing or not regular/);
     await writeFile(path.join(repo,'coach/other.md'),'unrelated');await git(['add','.']);await commit('unrelated');
     const next=(await git(['rev-parse','HEAD'])).trim();const unpushed={data:{...result.data,commit_sha:next}};
     await assert.rejects(()=>io.verifyDurability(job,unpushed),/reachability/);
@@ -34,6 +34,41 @@ test('real Git durable verification requires pushed, changed regular artifacts a
     await git(['update-index','--add','--cacheinfo',`120000,${(await git(['rev-parse',`${sha}:${owner}`])).trim()},coach/link.md`]);await commit('symlink mode');
     const linkSha=(await git(['rev-parse','HEAD'])).trim();await git(['push','origin',`HEAD:refs/heads/${branch}`]);
     await assert.rejects(()=>io.verifyDurability(job,{data:{...result.data,commit_sha:linkSha,artifacts:[{path:'coach/link.md',sha256:hash('durable limitation\n')}]}}),/not regular/);
+  } finally {await rm(dir,{recursive:true,force:true});}
+});
+
+test('mode-only owner or regression changes cannot complete durability',{timeout:30000},async()=>{
+  const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-durable-mode-'));
+  try {
+    const repo=path.join(dir,'repo'),remote=path.join(dir,'remote.git');await mkdir(repo);
+    await command('git',['init','--bare',remote],dir);await command('git',['init'],repo);
+    const git=args=>command('git',args,repo);
+    const commit=message=>git(['-c','user.name=Fixture','-c','user.email=fixture@example.invalid','commit','-m',message]);
+    const owner='coach/owner.md',regression='coach/regression.test.mjs';
+    await git(['remote','add','origin',remote]);await mkdir(path.join(repo,'coach'));
+    await writeFile(path.join(repo,owner),'old owner\n');await writeFile(path.join(repo,regression),'old regression\n');
+    await git(['add','.']);await commit('base');const head=(await git(['rev-parse','HEAD'])).trim();
+    for(const variant of [
+      {name:'owner-only',modes:[owner],contents:{[regression]:'changed regression\n'}},
+      {name:'regression-only',modes:[regression],contents:{[owner]:'changed owner\n'}},
+      {name:'both',modes:[owner,regression],contents:{}}
+    ]) {
+      await git(['checkout','--detach',head]);
+      for(const file of variant.modes)await git(['update-index','--chmod=+x',file]);
+      for(const [file,content] of Object.entries(variant.contents)){await writeFile(path.join(repo,file),content);await git(['add',file]);}
+      await commit(`mode-only ${variant.name}`);const sha=(await git(['rev-parse','HEAD'])).trim();
+      const identity=hash(`mode-only-${variant.name}`),branch=`review-loop/durability/${identity}`;
+      await git(['push','origin',`HEAD:refs/heads/${branch}`]);
+      const finding={id:'mode-only',durable_owner:owner,regression:{path:regression,command:'npm test'}};
+      const job={kind:'durability',identity,pr_number:8,base_sha:head,head_sha:head,round:1,raw_review_sha256:hash('review'),finding,agent_id:'fixer',issue_id:'durability',prepared_at:'prepared',status:'WAITING'};
+      const artifact=async file=>({path:file,sha256:hash(await git(['show',`${sha}:${file}`]))});
+      const receipt={protocol_version:VERSION,pr_number:8,base_sha:head,head_sha:head,round:1,identity,raw_review_sha256:job.raw_review_sha256,finding_id:finding.id,commit_sha:sha,branch,artifacts:[await artifact(owner),await artifact(regression)],checks:[{command:'npm test',status:'PASS',exit_code:0}]};
+      const comment={id:'comment',author_type:'agent',author_id:'fixer',issue_id:'durability',source_task_id:'run',content:'```review-loop-durability\n'+JSON.stringify(receipt)+'\n```'};
+      const state={durability:[job],history:[]},io={...makeIO({...config(dir),repository_path:repo},path.join(dir,'state.json'),dir),save:async()=>{},issue:async()=>({id:'durability',assignee_type:'agent',assignee_id:'fixer'}),runs:async()=>[{id:'run',issue_id:'durability',agent_id:'fixer',status:'completed'}],comments:async()=>[comment],archiveResult:async()=>{}};
+      await advanceDurability(state,io,config(dir));
+      assert.equal(job.status,'DURABLE_KNOWLEDGE_BLOCKED',variant.name);assert.equal(job.completion,undefined,variant.name);
+      assert.match(job.error,/content unchanged/,variant.name);
+    }
   } finally {await rm(dir,{recursive:true,force:true});}
 });
 

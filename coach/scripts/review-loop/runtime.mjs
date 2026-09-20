@@ -113,11 +113,13 @@ export function makeIO(config,stateFile,stateDir,runCommand=command) {
         catch(e) {if(e.exitCode === 1)throw new Error('durability commit ancestry/reachability mismatch');throw e;}
       }
       assert.notEqual(r.commit_sha,job.head_sha,'durability did not produce new commit');
-      const changed=(await git(['diff','--name-only','-z',job.head_sha,r.commit_sha,'--'])).split('\0');
       for(const artifact of r.artifacts) {
-        assert(changed.includes(artifact.path),'durable artifact unchanged from reviewed head');
         const row=await git(['ls-tree',r.commit_sha,'--',artifact.path]);
-        assert(row.startsWith('100644 blob ') || row.startsWith('100755 blob '),'durable artifact missing or not regular file');
+        const match=row.match(/^(100644|100755) blob ([a-f0-9]{40,64})\t/);
+        assert(match,'durable artifact missing or not regular file');
+        const previous=await git(['ls-tree',job.head_sha,'--',artifact.path]);
+        const previousBlob=previous.match(/^[0-9]{6} blob ([a-f0-9]{40,64})\t/)?.[1];
+        assert.notEqual(match[2],previousBlob,'durable artifact content unchanged from reviewed head');
         const content=await git(['show',`${r.commit_sha}:${artifact.path}`]);
         assert.equal(hash(content),artifact.sha256,'durable artifact hash mismatch');
       }
