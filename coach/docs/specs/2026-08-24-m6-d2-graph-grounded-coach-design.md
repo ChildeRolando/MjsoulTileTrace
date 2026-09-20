@@ -1,8 +1,8 @@
 # M6-D2：Graph-grounded Coach + Grounding Validator 实现规格
 
 日期：2026-08-24
-状态：M6-D2 设计规格（implementation spec，ready-for-agent；本文件落盘架构决策与
-实现边界，M6-D2 尚未实现）
+状态：M6-D2 设计规格（implementation spec；2026-09-20 已实现并通过 COAC-4 本地
+验收；Problem Statement 保留实现前的时间语义）
 依据：[ADR-0003](../adr/0003-evidence-first-coaching-judgment-and-authority-layers.md)、
 [ADR-0004](../adr/0004-context-graph-as-auditable-llm-boundary.md)、
 [ADR-0005](../adr/0005-workspace-dependency-boundaries.md)、
@@ -13,6 +13,13 @@
 [DeterministicReviewSelector 规格](./2026-08-19-deterministic-review-selector-design.md)、
 [2026-08-18 grill 决策 E1–E9 / F1–F3](../handoffs/2026-08-18-next-phase-roadmap-grill-decisions.md)。
 术语以 [`coach/CONTEXT.md`](../../CONTEXT.md) 词汇表为准。
+
+> **COAC-4 收口说明（2026-09-20）**：`generateReviewReport` 是 production 唯一的
+> 新报告生成入口，位于 reasoning 包根；desktop main 只装配 package reader、selector
+> 与 provider 后调用它。`assembleReviewReport` 与 provider-result 映射留在 reasoning
+> 内部，不再从包根导出。自动传输重试唯一归 provider：一次初始发送加至多一次重试；
+> 引擎、service 与 IPC 均不重试。持久化读回可独立调用既有 package/report validators，
+> 但不得调用 provider 或发布新报告。
 
 ## Problem Statement
 

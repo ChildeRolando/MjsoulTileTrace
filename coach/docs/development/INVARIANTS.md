@@ -27,21 +27,21 @@
 - **Owner / boundary**：`StructuredAnalysisPackage`（确定性产物）与 `ReviewReport`
   （LLM reasoning overlay）之间的边界；LLM 产物经 `decisionId/evidenceId` 引用证据层，
   类型上无法改写。
-- **Enforcement（当前已机械强制部分）**：`validateStrictAnalysisPackage` 拒绝未知
+- **Enforcement**：`validateStrictAnalysisPackage` 拒绝未知
   字段、校验证据节点（`package-validator.ts`）；`CoachJudgment` 只携带受
   teaching-policy 支持的证据引用；模型评价只表示模型选择，不生成麻将事实。以上保证
   **当前确定性管线产物无法被任意 LLM 字段覆盖**——即便未来出现 LLM 输出，其字段
   结构也无法通过包级 schema 校验进入证据层。
-- **Executable tests**：`strict-analysis-package.test.ts`、`package-validator` 相关
-  测试、`public-pipeline.test.ts`（`coachJudgement === null`）、`mortal-report.test.ts`
-  （导入边界脱敏）。
-- **Enforcement（剩余缺口）**：生产 Coach/LLM 编排路径（M6-D：GraphContextSlice →
-  LLM → ReviewReport）尚未实现，因此"LLM 输出在运行时不得发明/改写硬事实"尚未被
-  任何运行时验证器或对抗测试证明。
-- **Status**：partial。
-- **Promotion condition**：仅在以下条件满足后升级为 machine-enforced——生产 Coach
-  运行时与 validator 边界（M6-D2）已实现，且对抗测试证明：LLM 输出的无依据事实断言
-  与证据改写均 fail closed（被 validator 拒绝、不进入证据层）。
+- **Executable tests**：上述 package/pipeline 测试，加上
+  `review-report.test.ts`、`grounding-validator.test.ts`、`coach-provider.test.ts` 与
+  `review_report_generation_seam` 架构规则；无依据事实、跨 decision 引用、证据改写与
+  绕过唯一生成 seam 的静态/literal reasoning 模块引用均 fail closed。
+  `scripts/check-architecture.test.mjs` 永久覆盖 reasoning 与 concrete provider 的
+  re-export、dynamic import、require、import-equals、default/namespace 旁路，以及合法
+  service/read-back named import；
+  运行时计算的模块路径不在静态检查范围内。
+- **Status**：machine-enforced（M6-D2 运行时、grounding/read-back validator 与架构
+  边界已于 COAC-4 收口）。
 
 ## INV-002 模型偏好不得改写确定性事实账本
 
@@ -228,8 +228,8 @@ Model/report evidence provider（模型/报告证据来源）
   CoachJudgment/CoachInference nodeId + payload self-id、Explanation 内容与 payload
   self-id 篡改、`verbalizes` / `opposes` / `qualifies` endpoint-kind 篡改，以及合法
   endpoint kind 的跨 decision 边。
-- **Status**：machine-enforced（contracts/reasoning baseline；COAC-3 provider/IPC
-  接线及 P2 修复已落盘、五门通过；controller 复核、COAC-4 完整工作流与真实桌面验收仍未完成）。
+- **Status**：machine-enforced（contracts/reasoning、COAC-3 provider/IPC 与 COAC-4
+  唯一生成链均已落盘；真实账号/真实 LLM 人工验收不属于本不变量门禁）。
 
 ---
 

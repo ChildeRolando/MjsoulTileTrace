@@ -449,16 +449,18 @@ describe("M6-D2 LLM provider port DTOs", () => {
       LlmCoachResultSchema.parse({
         content: "{\"decisions\":[]}",
         usage: { inputTokens: 10, outputTokens: 20, totalTokens: 30 },
+        transportRetries: 0,
       }),
     ).not.toThrow();
     for (const errorCode of LlmCoachErrorCodeSchema.options) {
-      expect(() => LlmCoachResultSchema.parse({ errorCode })).not.toThrow();
+      expect(() => LlmCoachResultSchema.parse({ errorCode, transportRetries: 0 })).not.toThrow();
     }
     expect(() => LlmCoachResultSchema.parse({ errorCode: "malformed" }))
       .toThrow();
     expect(() =>
       LlmCoachResultSchema.parse({
         content: "ok",
+        transportRetries: 0,
         reasoningContent: "raw chain of thought",
       }),
     ).toThrow(/reasoningContent/);
@@ -470,7 +472,7 @@ describe("M6-D2 LLM provider port DTOs", () => {
         providerId: "openai-compatible",
         model: "test-model",
       }),
-      complete: async () => ({ errorCode: "provider_unavailable" }),
+      complete: async () => ({ errorCode: "provider_unavailable", transportRetries: 0 }),
     };
     expect(LlmProviderDescriptorSchema.parse(provider.descriptor())).toEqual({
       providerId: "openai-compatible",
@@ -486,6 +488,14 @@ describe("M6-D2 ReviewReport contract", () => {
 
   it("accepts an evidence_only degrade report", () => {
     expect(() => ReviewReportSchema.parse(evidenceOnlyReport())).not.toThrow();
+  });
+
+  it("rejects a report claiming more than the provider's one automatic retry", () => {
+    const report = minimalReport();
+    expect(() => ReviewReportSchema.parse({
+      ...report,
+      audit: { ...(report.audit as Record<string, unknown>), transportRetries: 2 },
+    })).toThrow();
   });
 
   it("accepts an empty-selection report (no request sent)", () => {

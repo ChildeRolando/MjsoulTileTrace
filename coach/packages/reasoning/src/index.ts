@@ -88,19 +88,14 @@ export * from "./context-graph/build-graph-context-slice.js";
 export * from "./context-graph/validate-context-graph.js";
 export * from "./context-graph/validate-graph-context-slice.js";
 export * from "./context-graph/validate-reasoning-overlay-partition.js";
-// M6-D2 graph-grounded coach (spec "Seam"): the validator pair
-// (validateCoachGrounding / validateReviewReport) and the pure ReviewReport
-// assembly (the deterministic core of generateReviewReport — the provider
-// port implementation lives in the desktop main process).
+// M6-D2 graph-grounded coach: one public generation seam plus read-back and
+// grounding validators. Assembly remains an internal implementation detail.
 export * from "./groundingValidator.js";
+export * from "./generate-review-report.js";
 export {
-  assembleReviewReport,
   appendReasoningOverlay,
-  coachRequestOutcomeFromLlmResult,
   COACH_ENGINE_VERSION,
   COACH_GROUNDING_VALIDATOR_VERSION,
   UNCONFIGURED_COACH_PROVIDER,
-  type AssembleReviewReportInput,
-  type CoachRequestOutcome,
 } from "./reviewReport.js";
 export * from "./coach-prompt.js";

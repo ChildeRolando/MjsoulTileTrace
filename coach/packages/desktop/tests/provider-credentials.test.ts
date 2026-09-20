@@ -9,7 +9,7 @@ import { COACH_REASONING_DRAFT_SCHEMA_VERSION, COACH_REVIEW_PROMPT_VERSION } fro
 async function expectNoNetwork(credentials: ReturnType<typeof createProviderCredentials>) {
   const http = vi.fn<typeof fetch>();
   const provider = createOpenAiCoachProvider({ credentials, settings: { baseUrl: "https://llm.example/v1", modelName: "fixture" }, fetchImpl: http });
-  expect(await provider.complete({ promptVersion: COACH_REVIEW_PROMPT_VERSION, draftSchemaVersion: COACH_REASONING_DRAFT_SCHEMA_VERSION, prompt: "frozen test prompt", temperature: 0, maxOutputTokens: 10 })).toEqual({ errorCode: "provider_unavailable" });
+  expect(await provider.complete({ promptVersion: COACH_REVIEW_PROMPT_VERSION, draftSchemaVersion: COACH_REASONING_DRAFT_SCHEMA_VERSION, prompt: "frozen test prompt", temperature: 0, maxOutputTokens: 10 })).toEqual({ errorCode: "provider_unavailable", transportRetries: 0 });
   expect(http).not.toHaveBeenCalled();
 }
 

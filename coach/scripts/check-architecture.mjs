@@ -1,7 +1,7 @@
 /**
  * Mechanical architecture boundary check for the coach workspace.
  *
- * Three rules, each mapped to the invariants it protects (see
+ * Four rules, each mapped to the invariants it protects (see
  * docs/development/INVARIANTS.md and docs/adr/0005-workspace-dependency-
  * boundaries.md):
  *
@@ -30,6 +30,15 @@
  *     covers repository tools that legitimately need a deliberately
  *     non-public bridge (see scripts/generate-factor-regression-golden.mjs).
  *
+ *  R4 review_report_generation_seam (INV-001 / INV-002 / INV-005)
+ *     Desktop production code may generate a new report only through
+ *     reasoning's `generateReviewReport`; only the main-process coach service
+ *     may call that seam. IPC and other desktop modules cannot import report
+ *     assembly/slice/prompt helpers or the concrete provider directly.
+ *     Reasoning access and concrete-provider composition must use static
+ *     named imports; other literal loading forms fail closed, including in
+ *     the service itself.
+ *
  * Parsing is owned by the TypeScript Compiler API (ts.createSourceFile + AST
  * traversal): only real module specifiers are collected, so import-looking
  * text inside comments, string literals, and template literals can never be
@@ -53,7 +62,18 @@ const RULE_IDS = {
   packageDependencyDirection: "package_dependency_direction",
   rendererSafeBoundary: "renderer_safe_boundary",
   packageInternalImport: "package_internal_import",
+  reviewReportGenerationSeam: "review_report_generation_seam",
 };
+
+const REVIEW_GENERATION_INTERNALS = new Set([
+  "appendReasoningOverlay",
+  "assembleReviewReport",
+  "buildCoachRequest",
+  "buildGraphContextSlice",
+  "coachRequestOutcomeFromLlmResult",
+]);
+const COACH_SERVICE_PATH = "packages/desktop/src/llm-provider/service.ts";
+const CONCRETE_PROVIDER_PATH = "/packages/desktop/src/llm-provider/openai-compatible";
 
 /** Allowed riichi-coach dependency edges for production src code. */
 export const DEFAULT_ALLOWED_EDGES = Object.freeze({
@@ -107,11 +127,12 @@ const SKIP_DIRECTORIES = new Set(["dist", "node_modules", ".git"]);
  * Compiler API. Recognized AST nodes:
  *  - ImportDeclaration (import ..., import type ..., side-effect import)
  *  - ExportDeclaration with a module specifier (export ... from, export * from)
- *  - CallExpression import("...") with a string-literal first argument
- *  - CallExpression require("...") with a string-literal first argument
- * Comments, string literals, and template literals never produce specifiers
- * because they are not module-specifier syntax nodes.
- * @returns {{ specifier: string, line: number }[]} 1-based line numbers
+ *  - CallExpression import("...") with a literal first argument
+ *  - CallExpression require("...") with a literal first argument
+ *  - ImportEqualsDeclaration (import x = require("..."))
+ * Literal call arguments include template literals without substitutions.
+ * Import-looking text in comments or ordinary strings/templates is ignored.
+ * @returns {{ specifier: string, line: number, namedImport: boolean }[]} 1-based line numbers
  */
 export function collectModuleSpecifiers(code, fileName) {
   const scriptKind = /\.(m?js|cjs)$/u.test(fileName)
@@ -125,36 +146,76 @@ export function collectModuleSpecifiers(code, fileName) {
     scriptKind,
   );
   const specifiers = [];
+  const add = (node, namedImport = false) => specifiers.push({ node, namedImport });
   const visit = (node) => {
     if (ts.isImportDeclaration(node)) {
       const spec = node.moduleSpecifier;
       if (spec !== undefined && ts.isStringLiteral(spec)) {
-        specifiers.push(spec);
+        const clause = node.importClause;
+        add(spec, clause !== undefined && clause.name === undefined &&
+          clause.namedBindings !== undefined && ts.isNamedImports(clause.namedBindings) &&
+          clause.namedBindings.elements.every((element) =>
+            (element.propertyName?.text ?? element.name.text) !== "default"));
       }
     } else if (ts.isExportDeclaration(node)) {
       const spec = node.moduleSpecifier;
       if (spec !== undefined && ts.isStringLiteral(spec)) {
-        specifiers.push(spec);
+        add(spec);
       }
+    } else if (ts.isImportEqualsDeclaration(node) && ts.isExternalModuleReference(node.moduleReference)) {
+      const spec = node.moduleReference.expression;
+      if (spec !== undefined && ts.isStringLiteral(spec)) add(spec);
     } else if (ts.isCallExpression(node)) {
       const expression = node.expression;
       const isDynamicImport = ts.isImportKeyword(expression);
       const isRequire = ts.isIdentifier(expression) && expression.text === "require";
       const argument = node.arguments[0];
-      if ((isDynamicImport || isRequire) && ts.isStringLiteral(argument)) {
-        specifiers.push(argument);
+      if ((isDynamicImport || isRequire) && argument !== undefined &&
+          (ts.isStringLiteral(argument) || ts.isNoSubstitutionTemplateLiteral(argument))) {
+        add(argument);
       }
     }
     ts.forEachChild(node, visit);
   };
   visit(sourceFile);
-  return specifiers.map((node) => ({
+  return specifiers.map(({ node, namedImport }) => ({
     specifier: node.text,
+    namedImport,
     line: ts.getLineAndCharacterOfPosition(
       sourceFile,
       node.getStart(sourceFile),
     ).line + 1,
   }));
+}
+
+/** Collect named/default/namespace bindings from static import declarations. */
+export function collectImportBindings(code, fileName) {
+  const sourceFile = ts.createSourceFile(
+    fileName,
+    code,
+    ts.ScriptTarget.Latest,
+    false,
+    /\.(m?js|cjs)$/u.test(fileName) ? ts.ScriptKind.JS : ts.ScriptKind.TS,
+  );
+  const imports = [];
+  for (const statement of sourceFile.statements) {
+    if (!ts.isImportDeclaration(statement) ||
+        !ts.isStringLiteral(statement.moduleSpecifier)) continue;
+    const names = [];
+    const clause = statement.importClause;
+    if (clause?.name !== undefined) names.push(clause.name.text);
+    const bindings = clause?.namedBindings;
+    if (bindings !== undefined) {
+      if (ts.isNamespaceImport(bindings)) names.push("*");
+      else names.push(...bindings.elements.map((element) => element.propertyName?.text ?? element.name.text));
+    }
+    imports.push({
+      specifier: statement.moduleSpecifier.text,
+      names,
+      line: ts.getLineAndCharacterOfPosition(sourceFile, statement.getStart(sourceFile)).line + 1,
+    });
+  }
+  return imports;
 }
 
 function walkFiles(dir, extensions, out = []) {
@@ -289,8 +350,61 @@ export function checkWorkspace(root, opts = {}) {
       const code = readFileSync(file, "utf8");
       scannedFiles += 1;
 
-      for (const { specifier, line } of collectModuleSpecifiers(code, file)) {
+      if (isProductionCode && ownerPackage === "@riichi-coach/desktop") {
+        for (const imported of collectImportBindings(code, file)) {
+          if (imported.specifier === "@riichi-coach/reasoning") {
+            for (const name of imported.names) {
+              if (REVIEW_GENERATION_INTERNALS.has(name)) {
+                record(
+                  RULE_IDS.reviewReportGenerationSeam,
+                  relPath,
+                  imported.line,
+                  `Desktop production code must not import internal report generator helper "${name}"`,
+                  "INV-001/INV-002",
+                );
+              }
+              if (name === "generateReviewReport" && relPath !== COACH_SERVICE_PATH) {
+                record(
+                  RULE_IDS.reviewReportGenerationSeam,
+                  relPath,
+                  imported.line,
+                  "Only the main-process coach service may call generateReviewReport",
+                  "INV-001/INV-002/INV-005",
+                );
+              }
+            }
+          }
+        }
+      }
+
+      for (const { specifier, line, namedImport } of collectModuleSpecifiers(code, file)) {
         scannedImports += 1;
+
+        if (isProductionCode && ownerPackage === "@riichi-coach/desktop" &&
+            specifier.startsWith(".")) {
+          const resolvedModule = resolve(dirname(file), specifier)
+            .split(sep).join("/")
+            .replace(/\.(?:[cm]?[jt]sx?)$/u, "");
+          if (resolvedModule.endsWith(CONCRETE_PROVIDER_PATH) &&
+              (relPath !== COACH_SERVICE_PATH || !namedImport)) {
+            record(
+              RULE_IDS.reviewReportGenerationSeam,
+              relPath, line,
+              "Only the main-process coach service may load the concrete LLM provider, using a static named import",
+              "INV-005",
+            );
+          }
+        }
+
+        if (isProductionCode && ownerPackage === "@riichi-coach/desktop" &&
+            workspacePackageName(specifier) === "@riichi-coach/reasoning" && !namedImport) {
+          record(
+            RULE_IDS.reviewReportGenerationSeam,
+            relPath, line,
+            "Desktop production code must use static named reasoning imports so generation ownership is auditable",
+            "INV-001/INV-002/INV-005",
+          );
+        }
 
         // Builtins and external third-party packages are not governed here.
         if (isNodeBuiltin(specifier)) continue;

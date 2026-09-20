@@ -293,8 +293,21 @@ HTTPS URL。非敏感设置在当前 main 生命周期内保留，与密文文�
 `userData/analysis-packages/<sha256(packageId)>.json` 读取已有包，并校验内容与 identity；
 缺失/损坏引用返回 `package_unavailable`。此只读接点不提供新的分析包写入或目录 UI。
 
-窄生成链是 validate → project → select → slice → 冻结 prompt → 最多两次 HTTP
-attempt → 既有 assemble/read-back validator；不保存报告、prompt、response 或 raw CoT。
+唯一生产生成链是 validate package → project → select → `generateReviewReport` →
+slice → 冻结 prompt → provider 内一次初始发送与至多一次自动重试 → grounding →
+append overlay → read-back validator。desktop main 是组合根；service/IPC 不得直接调用
+provider、slice/prompt builder 或 assembler 产生报告。该边界由
+`review_report_generation_seam` 架构规则机械保护；独立 read-back validator 仍可验证
+已有报告。desktop production 对 reasoning 的静态/literal 模块引用只允许静态 named
+import（允许别名，禁止 default/namespace）；re-export、literal dynamic import、
+`require()` 与 import-equals 均 fail closed，包括 service 自身。
+`generateReviewReport` 绑定与 concrete provider 的加载均仅归
+`llm-provider/service.ts`；两者只允许 static named import，re-export、literal dynamic
+import、`require()`、import-equals、default/namespace import 均 fail closed。generation
+internals 禁止 desktop 获取；持久化读回仍可 named import `validateReviewReport` /
+package validators。
+检查器不解析运行时计算的模块路径，不提供任意 JavaScript 的数据流证明。
+流程不保存完整 prompt、response 或 raw CoT。
 optional usage 先校验形状，畸形 metadata 不会把合法 draft 变成传输失败。被拦截的
 key/prompt 反射只在 main 内保留与本次结果绑定的原文 hash，正文丢弃，audit.outputHash
 继续指向原始模型输出。冻结 v1 prompt 明确要求 zh-CN，且 Mortal/Akagi 内部原因
@@ -309,4 +322,4 @@ identity/status schema 仅做内部提取，公共形状和导出保持不变，
 - canonical mapper 的部分流局/杠语义尚需真实牌谱反证（M5 人工验收并行线程）；
 - 响应面已接入（M6-A4.0/A4.1/A4.2：归属过滤拆除、discard_response/kan_response 开窗、响应窗口身份事实表与本地候选枚举同构、守恒不变量升级、响应分支覆盖率矩阵 fail-closed）；A4.3 纯事件 discovery 扫描已落地（`scripts/response-surface-discovery.mjs`，chankan 最早启动、合格局计数按 source 记入 manifest），wave-1 六分支已全部真实 E2E 取证（resp_chi/pon/daiminkan/hora_actual + resp_pass_on_discard 四候选族子覆盖 + resp_chankan_actual，8 份真实报告），wave-2 保持 fail-closed + 降级条款；
 - mapped/replayed record 与 Mortal 报告仍仅在主进程内存/验收缓存中，没有产品级持久化（M7-B）；
-- 整盘 StructuredAnalysisPackage（M6-C）与 Typed Context Graph substrate（M6-D1）已实现；M6-D2 的 contracts/reasoning baseline（严格 Coach/ReviewReport 契约、grounding/read-back validator、append-only overlay、evidence-only degrade）已实现，COAC-3 已接入桌面 provider/BYOK、safeStorage、窄 IPC 与 package 引用生成 seam（五项原样门禁通过、待 controller 复核，未做真实 LLM 验收），COAC-4 完整工作流仍待实现；review UI、SQLite 会话与跨平台发布仍未实现（M7-A / M7-B / M8）。
+- 整盘 StructuredAnalysisPackage（M6-C）、Typed Context Graph substrate（M6-D1）与 M6-D2 唯一端到端生成链均已实现；真实账号/真实 LLM 人工验收不属于 M6-D2。review UI、SQLite 会话与跨平台发布仍未实现（M7-A / M7-B / M8）。
