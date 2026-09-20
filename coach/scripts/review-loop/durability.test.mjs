@@ -37,13 +37,16 @@ test('P3 required PASS has exactly one follow-up across duplicate ticks and rest
   assert.equal(x.created,1);assert.equal(restarted.status,'PASS');assert.equal(restarted.round,1);
   assert.match(restarted.durability[0].description,/DURABLE_KNOWLEDGE_BLOCKED/);
   assert.equal(restarted.durability[0].raw_review,x.comment.content);
+  assert.match(restarted.durability[0].title,/\[知识持久化\]/);
+  assert.match(restarted.durability[0].description,/将这项非阻断 finding 持久化/);
+  assert(!restarted.durability[0].description.includes('Persist this non-blocking finding'));
 });
 for(const severity of ['P1','P2'])test(`${severity} required still uses Fixer with exact raw metadata`,async()=>{
   const x=fixture(severity);await advance(x.s,x.live,x.io,config);
   assert.equal(x.s.status,'FIXING');assert.equal(x.s.job.kind,'fix');assert.equal(x.s.durability.length,0);
   assert.equal(x.s.job.raw_review_sha256,hash(x.comment.content));
   assert.equal(x.archives[0].result.raw,x.comment.content);
-  assert.match(x.s.job.description,/durability metadata/);assert.match(x.s.job.description,/authoritative owner/);
+  assert.match(x.s.job.description,/durability metadata/);assert.match(x.s.job.description,/权威 owner/);
 });
 test('durability create response lost reconciles; unknown send never duplicates',async()=>{
   for(const createdOnServer of [true,false]) {
