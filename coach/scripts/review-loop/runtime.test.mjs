@@ -95,6 +95,30 @@ test('stale PASS is persisted and pending publication retries before fallible pr
     assert.equal(saved.status,'STALE');assert.equal(publications,2);assert.equal(checks,1);
   } finally {await rm(dir,{recursive:true,force:true});}
 });
+test('blocked prior job resumes a stale-intent replacement after preparation transport failure',async()=>{
+  const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-replacement-'));
+  try {
+    const file=path.join(dir,'pr-8.json'),base='a'.repeat(40),oldHead='b'.repeat(40),newHead='c'.repeat(40),current=pr(newHead,base);
+    const admissionHash=hash(JSON.stringify(admission));
+    await atomicJson(file,{protocol_version:'review-loop/v2',pr_number:8,round:1,status:'BLOCKED',history:[],admission_hash:admissionHash,
+      job:{kind:'review',round:1,pr_number:8,issue_id:'old-review',agent_id:'reviewer',head_sha:oldHead,base_sha:base},
+      pending:{kind:'review',round:2,pr_number:8,agent_id:'reviewer',head_sha:oldHead,base_sha:base,admission_hash:admissionHash,title:'stale-review',worktree:'/stale',description:'stale',description_hash:'stale',prepared_at:'then'}});
+    let prepareCalls=0,creates=0;const saves=[];
+    const factory=()=>({
+      openPRs:async()=>[current],live:async()=>current,snapshot:async value=>({semantics:'test',sha256:hash(value.head.sha)}),
+      save:async s=>{saves.push(structuredClone(s));await atomicJson(file,s);},publish:async()=>{},checkSpecs:async()=>{},issues:async()=>[],
+      prepare:async job=>{prepareCalls++;assert.equal(job.head_sha,newHead);if(prepareCalls === 1){const error=new Error('git fetch unavailable');error.transport=true;throw error;}return '/fresh-review';},
+      create:async job=>{creates++;return {id:'new-review',identifier:'COAC-23',title:job.title,description:job.description,assignee_id:job.agent_id,assignee_type:'agent',project_id:'project'};}
+    });
+    const first=await tick(config(dir),factory),afterFailure=JSON.parse(await readFile(file,'utf8'));
+    assert.equal(first.prs[0].status,'RETRY_IO');assert.equal(afterFailure.status,'BLOCKED');
+    assert.equal(afterFailure.pending.head_sha,newHead);assert.equal(afterFailure.pending.prepared_at,undefined);
+    assert(!saves.some(value=>value.pending === null));assert.equal(creates,0);
+    const second=await tick(config(dir),factory),recovered=JSON.parse(await readFile(file,'utf8'));
+    assert.equal(second.prs[0].status,'REVIEWING');assert.equal(recovered.status,'REVIEWING');
+    assert.equal(recovered.round,2);assert.equal(recovered.job.head_sha,newHead);assert.equal(prepareCalls,2);assert.equal(creates,1);
+  } finally {await rm(dir,{recursive:true,force:true});}
+});
 test('list, freshness and decision races bind exact live snapshots to history and next job',async()=>{
   const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-snapshot-'));
   try {

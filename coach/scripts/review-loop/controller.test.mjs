@@ -43,12 +43,36 @@ test('restart discards an unattempted stale intent and repeated ticks keep one f
   await advance(persisted,admit(changed),f.io,config);await advance(persisted,admit(changed),f.io,config);
   assert.equal(f.creates,1);
 });
-test('candidate drift before a fix dispatch discards stale findings and starts a fresh review',async()=>{
-  const f=fake(),s={...state(),round:1,status:'FIXING',job:{issue_id:'review-issue'}},changed=structuredClone(raw);changed.head.sha='c'.repeat(40);
+test('blocked prior job resumes replacement preparation after a transport failure and restart',async()=>{
+  const f=fake(),changed=structuredClone(raw);changed.head.sha='c'.repeat(40);
+  const oldJob={kind:'review',round:1,pr_number:8,issue_id:'old-review',agent_id:'reviewer',head_sha:live.head_sha,base_sha:live.base_sha};
+  const stalePending={kind:'review',round:2,pr_number:8,agent_id:'reviewer',head_sha:live.head_sha,base_sha:live.base_sha,admission_hash:live.admission_hash,title:'stale-review',worktree:'/stale',description:'stale',description_hash:'stale',prepared_at:'then'};
+  const s={...state(),round:1,status:'BLOCKED',admission_hash:live.admission_hash,job:oldJob,pending:stalePending};
+  let persisted,prepareCalls=0;const saved=[];
+  f.io.live=async()=>changed;f.io.save=async value=>{persisted=structuredClone(value);saved.push(persisted);};
+  f.io.prepare=async job=>{
+    prepareCalls++;assert.equal(job.kind,'review');assert.equal(job.head_sha,changed.head.sha);
+    if(prepareCalls === 1) {const error=new Error('git fetch unavailable');error.transport=true;throw error;}
+    return '/fresh-review';
+  };
+  await assert.rejects(()=>advance(s,admit(changed),f.io,config),error=>error.transport === true);
+  assert(!saved.some(value=>value.pending === null),'replacement must atomically supersede stale pending');
+  assert.equal(persisted.status,'BLOCKED');assert.equal(persisted.pending.head_sha,changed.head.sha);
+  assert.equal(persisted.pending.prepared_at,undefined);assert.equal(f.creates,0);
+  const restarted=structuredClone(persisted);
+  await advance(restarted,admit(changed),f.io,config);
+  assert.equal(prepareCalls,2);assert.equal(f.creates,1);assert.equal(restarted.status,'REVIEWING');
+  assert.equal(restarted.round,2);assert.equal(restarted.job.head_sha,changed.head.sha);
+});
+test('stale pending fix discards old findings and starts a fresh review',async()=>{
+  const f=fake(),changed=structuredClone(raw);changed.head.sha='c'.repeat(40);
+  const staleFix={kind:'fix',round:1,pr_number:8,agent_id:'fixer',head_sha:live.head_sha,base_sha:live.base_sha,admission_hash:live.admission_hash,title:'stale-fix',worktree:'/stale-fix',description:'stale',description_hash:'stale',prepared_at:'then',raw_review_sha256:'d'.repeat(64),source_review_issue_id:'review-issue',source_comment_id:'review-comment'};
+  const s={...state(),round:1,status:'BLOCKED',admission_hash:live.admission_hash,job:{kind:'review',round:1,issue_id:'review-issue',head_sha:live.head_sha,base_sha:live.base_sha},pending:staleFix};
   f.io.live=async()=>changed;
-  await ensureDispatch(s,live,'fix',f.io,config,{comment_id:'comment',sha256:'d'.repeat(64),raw:'review'});
+  await advance(s,admit(changed),f.io,config);
   assert.equal(f.creates,1);assert.equal(s.job.kind,'review');assert.equal(s.job.round,2);assert.equal(s.job.head_sha,changed.head.sha);
   assert.equal(s.history[0].event,'discard');assert.equal(s.history[0].kind,'fix');
+  assert.equal(s.job.raw_review_sha256,undefined);assert.equal(s.job.source_comment_id,undefined);
 });
 test('newly observed dispatch candidate is spec-checked before create',async()=>{
   const f=fake(),s=state(),changed=structuredClone(raw);changed.head.sha='c'.repeat(40);let prepared=false;

@@ -22,8 +22,13 @@ export async function ensureDispatch(state, live, kind, io, config, result) {
     assert(round >= 1 && round <= 3, 'round limit');
     job={kind,round,pr_number:live.pr_number,base_sha:live.base_sha,head_sha:live.head_sha,admission_hash:live.admission_hash,candidate_snapshot:live.snapshot,agent_id:kind === 'review' ? config.reviewer_id : config.fixer_id};
     job.title=`[review-loop/v2][${kind}][r${round}][${live.head_sha.slice(0,12)}] ${REPOSITORY}#${live.pr_number}`;
+    // A review replacement must survive worktree preparation transport failures.
+    // Fix preparation remains recoverable by replaying its authenticated result.
+    if(kind === 'review') {state.pending=job;await io.save(state);}
+  }
+  if(!job.prepared_at) {
     job.worktree=await io.prepare(job);
-    if(kind === 'fix') {
+    if(job.kind === 'fix') {
       job.source_review_issue_id=state.job.issue_id;job.source_comment_id=result.comment_id;
       job.raw_review_sha256=result.sha256;
       job.review_file=await io.saveReview(job,result.raw);
@@ -44,7 +49,7 @@ export async function ensureDispatch(state, live, kind, io, config, result) {
     assert.equal(current.admission_hash,job.admission_hash,'admission changed before dispatch');
     if(current.head_sha !== job.head_sha || current.base_sha !== job.base_sha) {
       state.history.push({event:'discard',reason:'candidate changed before dispatch',kind:job.kind,head_sha:job.head_sha,base_sha:job.base_sha,round:job.round,snapshot:current.snapshot,at:new Date().toISOString()});
-      state.pending=null;state.snapshot=current.snapshot;await io.save(state);
+      state.pending=null;state.snapshot=current.snapshot;
       return ensureDispatch(state,current,'review',io,config);
     }
     await io.checkSpecs(current);
@@ -52,7 +57,7 @@ export async function ensureDispatch(state, live, kind, io, config, result) {
     assert.equal(current.admission_hash,job.admission_hash,'admission changed before dispatch');
     if(current.head_sha !== job.head_sha || current.base_sha !== job.base_sha) {
       state.history.push({event:'discard',reason:'candidate changed before dispatch',kind:job.kind,head_sha:job.head_sha,base_sha:job.base_sha,round:job.round,snapshot:current.snapshot,at:new Date().toISOString()});
-      state.pending=null;state.snapshot=current.snapshot;await io.save(state);
+      state.pending=null;state.snapshot=current.snapshot;
       return ensureDispatch(state,current,'review',io,config);
     }
     job.dispatch_snapshot=current.snapshot;state.snapshot=current.snapshot;
