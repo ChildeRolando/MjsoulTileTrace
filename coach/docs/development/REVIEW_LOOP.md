@@ -27,7 +27,7 @@ regression 普通文件及 blob hashes、指定 agent/completed run 的严格 re
 
 ### v2 → v2.1 migration / deployment acceptance
 
-本节是 stage 2 的执行 owner；本票只补全步骤，不执行生产迁移。
+本节是 stage 2 的执行 owner；2026-09-21 的首次 v2.1 生产迁移记录见“验证与证据”。
 
 1. **冻结与备份**：暂停 webhook/schedule/Autopilot，将部署 config 设为
    `enabled=false`，确认无活动 Controller/Reviewer/Fixer/durability run，并持有唯一
@@ -37,8 +37,10 @@ regression 普通文件及 blob hashes、指定 agent/completed run 的严格 re
    job。不得删除 ledger、重置 round/history/authorization、重写已完成 review evidence，
    也不得为历史 P3 猜 durability。旧 PASS 撤销为待重新核验；在保留预算内按 v2.1 重新
    review，预算耗尽则保持 BLOCKED。
-3. **部署受审候选**：只有 COAC-32 独立 code review PASS 且受审远端 SHA 已固定，才将受信
-   deployment checkout 快进到该 SHA。更新 protocol/controller/runtime、
+3. **部署受审候选**：只有 COAC-32 独立 code review PASS 且受审远端 SHA 已固定，才更新
+   受信 deployment checkout。旧 checkout 可快进时快进；如受审分支因重组而与旧 checkout
+   无祖先关系，必须新建 clean detached trusted checkout 固定到该 SHA，保留旧 checkout 和
+   完整备份作为回滚点，不得 reset/强行改写旧部署目录。更新 protocol/controller/runtime、
    `reviewer-instructions.md` 和 config；如部署流程另有 Reviewer Agent prompt/config，必须
    从同一 instruction source 同步。禁止并行运行两个指向同组 PR 的 state directory。
 4. **disabled read-back**：保持 `enabled=false`，回读 checkout SHA、config、Agent/Autopilot
@@ -122,6 +124,38 @@ in-place 本机目录，避免与 Reviewer/Fixer 争用目录锁；评审/修复
 ## 验证与证据
 
 `npm run test:review-loop-protocol` 检查生产状态机与适配器；五项门禁仍依 spec 原样运行。
+
+### 2026-09-21 v2.1 migration / deployment（COAC-33）
+
+- [PR #11](https://github.com/ChildeRolando/MjsoulTileTrace/pull/11) 的受审 HEAD
+  `cdf76c63f7df705f9f4af178cda243943271a10f` 在生产 v2 的 COAC-40 round 5 获得
+  `NO_P1_P2`；run `01a0c0fc-7bc8-7beb-a85c-b099361948f9`、comment
+  `01a0c100-c56f-7535-87cb-456a43a0f413`、原文 SHA-256
+  `3803e62e1ee7cc7d8d7136344bd99f26f9340f9cccdc1b235787e264badedaab`。五门全部
+  PASS，Vitest 165 文件 / 1,916 项。PR 合并提交为
+  `439045b52e131916be14fc9eb44fa12bb323e49e`；部署仍固定到受审 HEAD，不以合并动作代替评审。
+- 迁移前暂停 Autopilot、webhook 与 schedule，并设置 `enabled=false`。备份目录为本机私有
+  `backups/2026-09-21-v2.1-predeploy`，manifest 枚举 56 个 payload 文件；manifest SHA-256
+  `1a5dc679f52b901f0f85e3092eccce4740be2d723b97178d44099e3a536a7527`，旧部署 SHA
+  `ece3fd23bfc194e14dd4ff70d8d9acc72f270268`。
+- 旧 SHA 不是受审 HEAD 的祖先，因此没有伪造“快进”：保留旧 `review-loop-v2` checkout，
+  新建 clean detached `review-loop-v2.1` checkout 固定到受审 HEAD。config 与 `pr-8/10/11`
+  ledger 仅迁移 `protocol_version`，round/history/status 均保留；迁移后分别为
+  `BLOCKED/r5`、`PASS/r3`、`PASS/r5`。
+- disabled read-back 确认 checkout clean、SHA/config/三个 ledger 均为 v2.1，Controller 指向
+  新 trusted checkout；平台 Reviewer instructions 与仓库单一权威源逐字一致，SHA-256
+  均为 `0becc9acf516faac1c39a932c279d4d5316d6e41c1d021d7330d163641fcb8d6`。
+  真实 disabled tick 返回 `enabled=false`、`prs=[]`，零派发。
+- 部署目录执行 `npm run test:review-loop-protocol` 为 56/56 PASS，包含真实 Git durability、
+  P3 ephemeral/repository_required、P2 Fixer metadata、closed PR 队列、exactly-once、伪造
+  author/run/commit/branch/hash、missing commit/branch、unchanged artifact、failed regression 与
+  transport retry 对照。
+- webhook URL 已轮换且只保存在本机 secret file。恢复后 webhook run
+  `01a0c106-2494-71a0-8490-778f93869533`、恢复时 schedule run
+  `01a0c106-1975-7074-84a5-faeaafebc515`，以及下一个正常五分钟周期 schedule run
+  `01a0c107-f3cb-7e88-ba8a-fa95c1a6dd95` 均 completed；实际程序输出均为
+  `status=OK`、`enabled=true`、`prs=[]`。这证明两种自动入口运行的是 v2.1，不依赖手工 tick。
+
 2026-09-20 实测与上线记录：
 
 - [交付 PR #8](https://github.com/ChildeRolando/MjsoulTileTrace/pull/8) 已合并；候选
