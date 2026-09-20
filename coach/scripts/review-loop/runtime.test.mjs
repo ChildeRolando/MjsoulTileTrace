@@ -4,11 +4,72 @@ import { mkdir, mkdtemp, readFile, rm } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import { acquireLock, recoverLock, atomicJson, command, makeIO, tick } from './runtime.mjs';
-import { GATES, hash } from './protocol.mjs';
+import { GATES, hash, admit } from './protocol.mjs';
 
 const admission={protocol_version:'review-loop/v2',authoritative_spec_paths:['coach/docs/specs/a.md'],rubric:'all criteria'};
 const pr=(head='b'.repeat(40),base='a'.repeat(40),marker='live')=>({number:8,state:'open',draft:false,body:'```review-loop-admission\n'+JSON.stringify(admission)+'\n```',base:{sha:base,repo:{full_name:'ChildeRolando/MjsoulTileTrace'}},head:{sha:head,ref:'codex/a',repo:{full_name:'ChildeRolando/MjsoulTileTrace'}},marker});
 const config=dir=>({protocol_version:'review-loop/v2',repository:'ChildeRolando/MjsoulTileTrace',reviewer_id:'reviewer',fixer_id:'fixer',project_id:'project',enabled:true,state_dir:dir,repository_path:dir,gh_path:'gh',git_path:'git',multica_path:'multica',profile:'profile',workspace_id:'workspace'});
+
+test('one SHA publication owner aggregates conflicting PR results and caches the aggregate',async()=>{
+  const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-shared-head-'));
+  try {
+    const a=pr(),b={...pr(a.head.sha,'c'.repeat(40)),number:9};let list=[a,b];const writes=[];
+    const ledger=(raw,status)=>({protocol_version:'review-loop/v2',pr_number:raw.number,round:1,status,admission_hash:admit(raw).admission_hash,job:{pr_number:raw.number,round:1,head_sha:raw.head.sha,base_sha:raw.base.sha}});
+    const sa=ledger(a,'BLOCKED'),sb=ledger(b,'PASS');
+    const save=async()=>{await atomicJson(path.join(dir,'pr-8.json'),sa);await atomicJson(path.join(dir,'pr-9.json'),sb);};
+    await save();
+    const runner=async(_file,args)=>{
+      if(args.includes('POST')) {writes.push(args.find(x=>x.startsWith('state=')));return '{}';}
+      if(args.includes('--paginate'))return JSON.stringify([list]);
+      const number=Number(args[1].split('/').at(-1));return JSON.stringify(list.find(x=>x.number===number));
+    };
+    const io=n=>makeIO(config(dir),path.join(dir,`pr-${n}.json`),dir,runner);
+    await io(8).publish(sa);await io(9).publish(sb);await io(8).publish(sa);
+    assert.deepEqual(writes,['state=failure']);
+    sa.status='PASS';await save();await io(8).publish(sa);await io(9).publish(sb);
+    assert.deepEqual(writes,['state=failure','state=success']);
+    b.base.sha='d'.repeat(40);await io(8).publish(sa);
+    assert.equal(writes.at(-1),'state=pending','old base PASS cannot cover the new base');
+    b.body='admission removed';await io(8).publish(sa);
+    assert.equal(writes.at(-1),'state=failure','ledger-owned admission removal remains a veto');
+    list=[a];await io(8).publish(sa);
+    assert.equal(writes.at(-1),'state=success','a closed competing PR no longer vetoes the live candidate');
+  } finally {await rm(dir,{recursive:true,force:true});}
+});
+test('shared SHA remains pending for an unreviewed admitted PR, but ignores non-opt-in PRs',async()=>{
+  const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-unreviewed-head-'));
+  try {
+    const a=pr(),b={...pr(),number:9},sa={protocol_version:'review-loop/v2',pr_number:8,status:'PASS',round:1,admission_hash:admit(a).admission_hash,job:{pr_number:8,head_sha:a.head.sha,base_sha:a.base.sha}};
+    const writes=[];
+    const runner=async(_file,args)=>{
+      if(args.includes('POST')){writes.push(args.find(x=>x.startsWith('state=')));return '{}';}
+      if(args.includes('--paginate'))return JSON.stringify([[a,b]]);
+      return JSON.stringify(args[1].endsWith('/8') ? a : b);
+    };
+    const io=makeIO(config(dir),path.join(dir,'pr-8.json'),dir,runner);
+    await io.publish(sa);assert.equal(writes.at(-1),'state=pending');
+    b.body='ordinary PR';await io.publish(sa);assert.equal(writes.at(-1),'state=success');
+  } finally {await rm(dir,{recursive:true,force:true});}
+});
+test('a blocked PR moving onto another passed SHA invalidates the new shared slot too',async()=>{
+  const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-moving-head-'));
+  try {
+    const a=pr(),b={...pr(),number:9},old='e'.repeat(40),writes=[];let list=[b];
+    const sb={protocol_version:'review-loop/v2',pr_number:9,status:'PASS',round:1,admission_hash:admit(b).admission_hash,job:{pr_number:9,head_sha:b.head.sha,base_sha:b.base.sha}};
+    const sa={...sb,pr_number:8,status:'BLOCKED',job:{pr_number:8,head_sha:old,base_sha:a.base.sha}};
+    await atomicJson(path.join(dir,'pr-9.json'),sb);await atomicJson(path.join(dir,'pr-8.json'),sa);
+    const runner=async(_file,args)=>{
+      if(args.includes('POST')){writes.push({sha:args[1].split('/').at(-1),status:args.find(x=>x.startsWith('state='))});return '{}';}
+      if(args.includes('--paginate'))return JSON.stringify([list]);
+      return JSON.stringify(args[1].endsWith('/8') ? a : b);
+    };
+    await makeIO(config(dir),path.join(dir,'pr-9.json'),dir,runner).publish(sb);
+    assert.deepEqual(writes,[{sha:b.head.sha,status:'state=success'}]);
+    list=[a,b];a.body='removed admission after pushing onto the passed commit';
+    await makeIO(config(dir),path.join(dir,'pr-8.json'),dir,runner).publish(sa);
+    assert(writes.some(w=>w.sha===a.head.sha && w.status==='state=failure'),'the new shared HEAD must not retain another PR success');
+  } finally {await rm(dir,{recursive:true,force:true});}
+});
 
 test('exclusive lock prevents concurrent controllers and can be reacquired',async()=>{
   const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-lock-'));

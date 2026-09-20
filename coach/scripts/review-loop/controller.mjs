@@ -1,7 +1,21 @@
 import assert from 'node:assert/strict';
-import { VERSION, REPOSITORY, GATES, admit, parseResult, decide, hash } from './protocol.mjs';
+import { VERSION, REPOSITORY, GATES, admit, parseResult, decide, hash, reviewRoundLimit } from './protocol.mjs';
 
 export const activeStatuses = new Set(['queued','dispatched','running','waiting_local_directory']);
+// Operator-only operation: the caller must hold the deployment lock and have
+// explicit human approval. It resumes this exact terminal review once, without
+// resetting rounds or erasing any prior result. tick never calls this function.
+export function authorizeExtraReview(state,approvalRef,at=new Date().toISOString()) {
+  assert(!state.extra_review_authorization,'extra review already authorized');
+  assert(state.protocol_version === VERSION && state.status === 'BLOCKED' && state.round === 3 && !state.pending,'extension requires exhausted blocked review');
+  const j=state.job;
+  assert(j?.kind === 'review' && j.round === 3 && j.pr_number === state.pr_number && state.result?.issue_id === j.issue_id,'extension source mismatch');
+  const a={pr_number:state.pr_number,max_rounds:4,approved_after_round:3,review_issue_id:j.issue_id,result_sha256:state.result.sha256,head_sha:j.head_sha,base_sha:j.base_sha,approval_ref:approvalRef,approved_at:at};
+  reviewRoundLimit({...state,extra_review_authorization:a});
+  state.extra_review_authorization=a;
+  state.history.push({event:'authorize_extra_review',...a});
+  state.status='REVIEWING';state.reason=null;
+}
 async function observeLive(io,prNumber) {
   const raw=await io.live(prNumber),live=admit(raw);
   live.snapshot=await io.snapshot(raw);
@@ -19,13 +33,14 @@ export async function ensureDispatch(state, live, kind, io, config, result) {
   let job=state.pending;
   if(!job) {
     const round=kind === 'review' ? state.round+1 : state.round;
-    assert(round >= 1 && round <= 3, 'round limit');
+    assert(round >= 1 && round <= reviewRoundLimit(state), 'round limit');
     job={kind,round,pr_number:live.pr_number,base_sha:live.base_sha,head_sha:live.head_sha,admission_hash:live.admission_hash,candidate_snapshot:live.snapshot,agent_id:kind === 'review' ? config.reviewer_id : config.fixer_id};
     job.title=`[review-loop/v2][${kind}][r${round}][${live.head_sha.slice(0,12)}] ${REPOSITORY}#${live.pr_number}`;
     // A review replacement must survive worktree preparation transport failures.
     // Fix preparation remains recoverable by replaying its authenticated result.
     if(kind === 'review') {state.pending=job;await io.save(state);}
   }
+  assert(job.round >= 1 && job.round <= reviewRoundLimit(state),'round limit');
   if(!job.prepared_at) {
     job.worktree=await io.prepare(job);
     if(job.kind === 'fix') {
@@ -72,6 +87,8 @@ export async function ensureDispatch(state, live, kind, io, config, result) {
 }
 
 export async function advance(state, live, io, config) {
+  const limit=reviewRoundLimit(state);
+  assert(Number.isInteger(state.round) && state.round >= 0 && state.round <= limit,'round limit');
   if(state.admission_hash && live.admission_hash !== state.admission_hash) throw new Error('admission changed during loop');
   state.admission_hash ??=live.admission_hash;
   if(state.pending) return ensureDispatch(state,live,state.pending.kind,io,config);
@@ -79,7 +96,7 @@ export async function advance(state, live, io, config) {
   if(state.status === 'BLOCKED') return;
   if(state.status === 'PASS') {
     if(live.head_sha === state.job.head_sha && live.base_sha === state.job.base_sha) return;
-    assert(state.round < 3,'round limit after new push');
+    assert(state.round < limit,'round limit after new push');
     return ensureDispatch(state,live,'review',io,config);
   }
   const job=state.job;
@@ -92,7 +109,7 @@ export async function advance(state, live, io, config) {
   state.snapshot=current.snapshot;
   if(job.kind === 'review' && (current.head_sha !== job.head_sha || current.base_sha !== job.base_sha)) {
     state.history.push({event:'discard',reason:'candidate changed before result consumption',issue_id:job.issue_id,head_sha:job.head_sha,base_sha:job.base_sha,round:job.round,snapshot:current.snapshot,at:new Date().toISOString()});
-    if(state.round >= 3) {
+    if(state.round >= limit) {
       state.status='BLOCKED';state.reason='round limit after candidate changed';await io.save(state);return;
     }
     return ensureDispatch(state,current,'review',io,config);
@@ -103,7 +120,7 @@ export async function advance(state, live, io, config) {
   live=await observeLive(io,live.pr_number);state.snapshot=live.snapshot;
   assert.equal(live.admission_hash,state.admission_hash,'admission changed during result read');
   await io.verifyCheckout(job,result,live);
-  const {transition}=decide(job,result,live);
+  const {transition}=decide(job,result,live,limit);
   state.history.push({event:'result',transition,issue_id:job.issue_id,comment_id:result.comment_id,run_id:result.run_id,sha256:result.sha256,head_sha:job.head_sha,base_sha:job.base_sha,round:job.round,snapshot:live.snapshot,at:new Date().toISOString()});
   await io.archiveResult(job,result);
   if(transition === 'ROUTE_TO_FIXER') return ensureDispatch(state,live,'fix',io,config,result);

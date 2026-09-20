@@ -1,6 +1,6 @@
 const test = process.env.VITEST === 'true' ? (await import('vitest')).test : (await import('node:test')).test;
 import assert from 'node:assert/strict';
-import { ensureDispatch, advance } from './controller.mjs';
+import { ensureDispatch, advance, authorizeExtraReview } from './controller.mjs';
 import { admit } from './protocol.mjs';
 const config={reviewer_id:'reviewer',fixer_id:'fixer',project_id:'project'};
 const raw={number:8,state:'open',draft:false,body:'```review-loop-admission\n{"protocol_version":"review-loop/v2","authoritative_spec_paths":["coach/docs/specs/a.md"],"rubric":"all criteria"}\n```',base:{sha:'a'.repeat(40),repo:{full_name:'ChildeRolando/MjsoulTileTrace'}},head:{sha:'b'.repeat(40),ref:'codex/a',repo:{full_name:'ChildeRolando/MjsoulTileTrace'}}};
@@ -91,6 +91,33 @@ test('conflicting existing issue or changed admission cannot dispatch',async()=>
 test('three reviews exhausted stays blocked on external push',async()=>{
   const f=fake(),s={...state(),round:3,status:'PASS',admission_hash:live.admission_hash,job:{head_sha:'c'.repeat(40),base_sha:live.base_sha}};
   await assert.rejects(()=>advance(s,live,f.io,config),/round limit/);assert.equal(f.creates,0);
+});
+
+function exhausted() {
+  const source={event:'result',transition:'BLOCKED',round:3,issue_id:'third-review',head_sha:live.head_sha,base_sha:live.base_sha,sha256:'d'.repeat(64)};
+  return {...state(),protocol_version:'review-loop/v2',pr_number:8,round:3,status:'BLOCKED',admission_hash:live.admission_hash,
+    history:[source],result:{issue_id:source.issue_id,sha256:source.sha256},
+    job:{kind:'review',round:3,pr_number:8,issue_id:source.issue_id,head_sha:live.head_sha,base_sha:live.base_sha}};
+}
+test('explicit operator authorization preserves history and permits only a fourth review',async()=>{
+  const f=fake(),s=exhausted(),previous=structuredClone(s.history),changed=structuredClone(raw);changed.head.sha='c'.repeat(40);
+  authorizeExtraReview(s,'user approved PR 8 extension');
+  assert.equal(s.round,3);assert.deepEqual(s.history.slice(0,1),previous);
+  assert.throws(()=>authorizeExtraReview(s,'repeat'),/already authorized/);
+  f.io.live=async()=>changed;f.io.runs=async()=>[{status:'completed'}];
+  await advance(s,admit(changed),f.io,config);
+  assert.equal(s.round,4);assert.equal(s.status,'REVIEWING');assert.equal(f.creates,1);
+  s.status='PASS';changed.head.sha='e'.repeat(40);
+  await assert.rejects(()=>advance(s,admit(changed),f.io,config),/round limit/);
+  assert.equal(f.creates,1);
+});
+test('extension cannot be copied to another PR or bypass an unrelated block',async()=>{
+  const s=exhausted();authorizeExtraReview(s,'user approved PR 8 extension');s.pr_number=9;
+  await assert.rejects(()=>advance(s,live,fake().io,config),/authorization/);
+  for(const change of [s=>s.round=2,s=>s.status='PASS',s=>s.pending={attempted_at:'unknown'},s=>s.history=[]]) {
+    const candidate=exhausted();change(candidate);
+    assert.throws(()=>authorizeExtraReview(candidate,'user approval'));
+  }
 });
 test('obsolete completed review is discarded before its missing result is parsed',async()=>{
   const f=fake(),s={...state(),round:1,status:'REVIEWING',admission_hash:live.admission_hash,job:{kind:'review',round:1,pr_number:8,issue_id:'old',agent_id:'reviewer',head_sha:live.head_sha,base_sha:live.base_sha}};

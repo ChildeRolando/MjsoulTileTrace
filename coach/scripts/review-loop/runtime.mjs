@@ -127,11 +127,47 @@ export function makeIO(config,stateFile,stateDir,runCommand=command) {
     },
     publish:async state=>{
       const j=state.job;if(!j)return;
-      const status=state.status === 'PASS' ? 'success' : state.status === 'BLOCKED' ? 'failure' : 'pending';
-      const identity=JSON.stringify([status,j.head_sha,j.base_sha,state.round,state.reason ?? null]);
-      if(state.published === identity)return;
-      await gh([`${api}/statuses/${j.head_sha}`,'--method','POST','-f',`state=${status}`,'-f','context=Review Loop v2','-f',`description=${state.status} · round ${state.round}/3`,'-f',`target_url=https://github.com/${REPOSITORY}/pull/${j.pr_number}`]);
-      state.published=identity;await atomicJson(stateFile,state);
+      assert(isSha(j.head_sha),'invalid publication SHA');
+      // A GitHub commit status belongs to SHA/context, not to a PR. All callers
+      // share this aggregate cache under tick's deployment lock. Never trust a
+      // per-PR publication cache to represent the state of that shared slot.
+      const pages=await gh([`${api}/pulls?state=open&per_page=100`,'--paginate','--slurp']);
+      assert(Array.isArray(pages) && pages.every(Array.isArray),'publication pagination incomplete');
+      const groups=new Map([[j.head_sha,[]]]),seen=new Set();
+      for(const listed of pages.flat()) {
+        assert(Number.isSafeInteger(listed.number) && listed.number > 0 && !seen.has(listed.number),'invalid publication PR identity');seen.add(listed.number);
+        const current=await gh([`${api}/pulls/${listed.number}`]);
+        assert.equal(current.number,listed.number,'publication live PR mismatch');
+        if(current.state !== 'open')continue;
+        const other=current.number === j.pr_number ? state : await readJson(path.join(stateDir,`pr-${current.number}.json`),null);
+        if(!other && (current.draft || !current.body?.includes('```review-loop-admission')))continue;
+        assert(isSha(current.head?.sha),'invalid live publication SHA');
+        const sha=current.head.sha;
+        if(!groups.has(sha))groups.set(sha,[]);
+        const member={pr_number:current.number,head_sha:sha,base_sha:current.base?.sha ?? null,admission_hash:null,status:'pending'};
+        try {
+          const live=admit(current);member.admission_hash=live.admission_hash;
+          if(other) {
+            assert(other.protocol_version === VERSION && other.pr_number === current.number,'publication ledger identity mismatch');
+            assert(!other.admission_hash || other.admission_hash === live.admission_hash,'publication admission changed');
+            if(other.status === 'BLOCKED')member.status='failure';
+            else if(other.status === 'PASS' && other.job?.pr_number === current.number
+              && other.job.head_sha === live.head_sha && other.job.base_sha === live.base_sha
+              && other.admission_hash === live.admission_hash)member.status='success';
+          }
+        } catch {member.status='failure';}
+        groups.get(sha).push(member);
+      }
+      for(const [sha,members] of groups) {
+        members.sort((a,b)=>a.pr_number-b.pr_number);
+        const status=!members.length || members.some(m=>m.status === 'failure') ? 'failure'
+          : members.every(m=>m.status === 'success') ? 'success' : 'pending';
+        const identity=JSON.stringify({version:1,sha,status,members});
+        const cacheFile=path.join(stateDir,`publication-${sha}.json`),cached=await readJson(cacheFile,null);
+        if(cached?.identity === identity)continue;
+        await gh([`${api}/statuses/${sha}`,'--method','POST','-f',`state=${status}`,'-f','context=Review Loop v2','-f',`description=${status} · ${members.length} live PR candidate(s)`,'-f',`target_url=https://github.com/${REPOSITORY}/commit/${sha}`]);
+        await atomicJson(cacheFile,{identity,status,members,published_at:new Date().toISOString()});
+      }
     },
   };
 }

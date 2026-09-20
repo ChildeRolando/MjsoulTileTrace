@@ -49,7 +49,7 @@ GitHub 当前查询拥有 PR 身份、base/head；任何 webhook JSON 都只是�
 生产契约与校验器为 `scripts/review-loop/protocol.mjs`，生产状态机为
 `controller.mjs`；测试调用同一生产代码，不再用另一套离线模型模拟平台完成。
 
-每个 PR 全生命周期最多分派三轮 fresh review。每轮使用新的 Multica issue/run 和
+每个 PR 默认全生命周期最多分派三轮 fresh review。每轮使用新的 Multica issue/run 和
 独立 detached worktree。Reviewer 只接收本轮 SHA、spec、rubric、五门命令、opaque ids。
 不输入旧 findings、父/兄弟 issue 或旧 session。禁用委派；tracked files/index/HEAD 保持不变。
 运行依赖安装与忽略的构建产物允许。Controller 实际检查 review worktree 的 HEAD 与脏状态。
@@ -81,9 +81,25 @@ Fixer 校验附件 hash，在独立 worktree 修复、补回归、运行门禁�
 BLOCKED。结果消费前和任务创建前重新读取 live PR。已 PASS 后的新 push/base 变化同样重新
 评审且消耗轮次。第三轮后不会静默开启新 loop。
 
+2026-09-20 用户明确批准 PR #8 在保留前三轮记录的前提下追加一次修复和第四轮独立评审。
+只有受信 operator 在暂停触发、配置 disabled、持有同一部署锁时，才能调用
+`authorizeExtraReview` 保存此类显式人工批准；它绑定 PR、第三轮 BLOCKED 的 issue、
+base/head、结果 hash、批准引用和记录时间，并追加历史事件而不重置 round。它只恢复该
+第三轮终态一次；缺失/错配来源、未知 pending、重复授权均拒绝，最高仍为四轮。tick、
+webhook、PR admission 和智能体结果均不能授予授权。当前仅 PR #8 获批，其他 PR 仍为三轮。
+
 GitHub `Review Loop v2` commit status 报告 pending/success/failure；同一 GitHub 账号
 可以提交 COMMENT/状态，并不意味着拥有作者自批能力。PASS 仅表示该 base/head 的本轮
 评审通过，不合并 PR、不关闭业务工单。合并仍须核对 live base/head 与保存证据。
+
+GitHub 的 status 实际归属是 commit SHA/context，而非 PR。该共享位置只由 runtime 的
+聚合发布器拥有：回读所有 open PR，按当前 HEAD 汇总已 opt-in 或有 ledger 的候选；
+只有每个候选都对当前 base/head/admission 具有 PASS，才发布 success。任一 BLOCKED、
+准入失效或身份矛盾为 failure；缺失结果、陈旧 base/head 为 pending。未 opt-in 且无账本
+的 PR 不纳入；已关闭的 PR 不继续否决 live 候选。旧 job HEAD 与当前 HEAD 都纳入更新，
+避免失败 PR 推到已有成功提交时继承绿灯。缓存按 SHA 保存整个成员集与聚合状态，
+废弃旧的 per-PR published 缓存；所有发布与 ledger 更新共用部署锁。聚合绿灯仍不代替
+合并前对目标 PR 本身的结果来源、base/head 与 admission 的核验。
 
 ## 幂等与恢复
 
@@ -107,6 +123,9 @@ comment ids、hash、历史和状态。配置含 enabled 开关；初次部署�
 5. Multica run_only schedule/webhook 已保存并回读；真实 webhook POST 与 schedule 均能
    唤醒受信 Controller；URL/token 不进入 Git、issue 或默认日志。
 6. 旧 v1 checker/schema/manifest/fixtures 退出当前树，旧 PR/工单标注替代；当前入口仅指 v2。
+7. 同 HEAD 的不同 PR 不得互相覆盖成假 PASS；覆盖冲突结果、重复发布、准入撤回、
+   base/head 变化、未评审候选及已关闭候选。显式追加授权不重置历史、不扩散到其他 PR，
+   第四轮后仍停止。
 
 ## 变更控制
 

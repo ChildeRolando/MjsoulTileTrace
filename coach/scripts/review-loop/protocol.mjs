@@ -12,6 +12,20 @@ function keys(v, required) {
   assert(object(v), 'expected object');
   assert.deepEqual(Object.keys(v).sort(), [...required].sort(), 'unexpected/missing fields');
 }
+// The ledger is operator-owned. Webhooks, admission and agent results cannot
+// supply this one-time authorization or alter the default three-round budget.
+export function reviewRoundLimit(state) {
+  const a=state.extra_review_authorization;
+  if(!a)return 3;
+  keys(a,['pr_number','max_rounds','approved_after_round','review_issue_id','result_sha256','head_sha','base_sha','approval_ref','approved_at']);
+  assert(a.pr_number === state.pr_number && Number.isSafeInteger(a.pr_number) && a.pr_number > 0,'authorization PR mismatch');
+  assert(a.max_rounds === 4 && a.approved_after_round === 3,'invalid authorization round budget');
+  assert(text(a.approval_ref) && Number.isFinite(Date.parse(a.approved_at)),'missing authorization provenance');
+  assert(isSha(a.head_sha) && isSha(a.base_sha) && /^[a-f0-9]{64}$/.test(a.result_sha256),'invalid authorization identity');
+  assert(state.history.some(e=>e.event === 'result' && e.transition === 'BLOCKED' && e.round === 3
+    && e.issue_id === a.review_issue_id && e.sha256 === a.result_sha256 && e.head_sha === a.head_sha && e.base_sha === a.base_sha),'authorization source missing');
+  return 4;
+}
 export function block(content, name) {
   assert(text(content), 'missing content');
   const matches = [...content.matchAll(new RegExp('^```'+name+'\\r?\\n([\\s\\S]*?)^```[ \\t]*$', 'gm'))];
@@ -83,8 +97,10 @@ export function parseResult(job, issue, comments, runs) {
   }
   return {data:r,raw:c.content,sha256:hash(c.content),comment_id:c.id,run_id:c.source_task_id};
 }
-export function decide(job, result, live) {
-  const next = () => ({transition:job.round < 3 ? 'DISCARD_AND_REVIEW' : 'BLOCKED'});
+export function decide(job, result, live, limit=3) {
+  assert(limit === 3 || limit === 4,'invalid round limit');
+  assert(Number.isInteger(job.round) && job.round >= 1 && job.round <= limit,'round limit');
+  const next = () => ({transition:job.round < limit ? 'DISCARD_AND_REVIEW' : 'BLOCKED'});
   if(live.base_sha !== job.base_sha || live.head_sha !== job.head_sha) {
     if(job.kind === 'fix' && result.data.head_sha === job.head_sha) return {transition:'BLOCKED'};
     return next();
@@ -93,5 +109,5 @@ export function decide(job, result, live) {
   const r=result.data;
   if(r.environment_failures.length || r.gates.some(g=>g.status !== 'PASS')) return {transition:'BLOCKED'};
   if(r.verdict === 'NO_P1_P2') return {transition:'PASS'};
-  return {transition:job.round < 3 ? 'ROUTE_TO_FIXER' : 'BLOCKED'};
+  return {transition:job.round < limit ? 'ROUTE_TO_FIXER' : 'BLOCKED'};
 }

@@ -4,13 +4,16 @@
 权威协议：[v2 spec](../specs/2026-09-20-review-loop-v2.md)。
 
 流程：Multica webhook/schedule → 受信本机 Controller → GitHub live PR → fresh Reviewer
-→ 完整 findings → 现有 Fixer → pushed HEAD → 下一轮 fresh Reviewer。最多三轮。
+→ 完整 findings → 现有 Fixer → pushed HEAD → 下一轮 fresh Reviewer。默认最多三轮；
+仅 PR #8 已获用户明确批准追加第四轮，授权与原有轮次一起留存在 ledger。
 
 ## 接入 PR
 
 在 PR description 加入 spec 中的 `review-loop-admission` block，填写实际批准的 spec
 路径和验收 rubric。只接受同仓库已推送且 ready 的 PR。无需 GitHub 正式 approval
 或额外账号；评审与合并权限分开。结果在 GitHub `Review Loop v2` status 和 Multica issue。
+GitHub status 是同提交所有已接入 PR 的聚合门禁，单个 PR 的结论以其 ledger 和评审
+原文为准。共享提交上只有所有 live 候选都通过才会显示 success。
 
 配置与 ledger 保存在专用部署目录外的本机私有状态目录。示例配置见
 `scripts/review-loop/config.example.json`。首次 enabled=false，用真实 GitHub 只读检查后启用。
@@ -31,10 +34,17 @@ in-place 本机目录，避免与 Reviewer/Fixer 争用目录锁；评审/修复
 ## 故障与恢复
 
 - `health.json`：最近成功扫描时刻、PR 状态、轮次和当前 issue；超过两次周期未更新先查
-  Multica Autopilot runs、daemon 和主机在线情况。
+  Multica Autopilot runs、daemon 和主机在线情况。智能体 run 显示 completed 不足以证明
+  程序成功，须同时核对程序 JSON 和 health 更新时间；固定命令执行失败会等待下次唤醒。
 - `pr-N.json`：完整轮次与来源账本；`results/` 保存完整评审，`snapshots/` 保存 GitHub 观察。
 - BLOCKED：先读 reason 与对应 issue。已有 tasks 的实际状态通过 `multica issue runs` 核实。
   不能因为观察超时就重新创建任务，不能删除 ledger 绕过轮次上限。
+- 人工追加：只有收到针对该 PR 的明确批准后，暂停 Autopilot、设置 enabled=false，
+  核验无活动 Controller，再持锁备份 ledger、验证第三轮原文 hash 与来源，调用
+  `authorizeExtraReview` 并原子保存。保留全部 round/history；该操作一次性最多允许第四轮。
+  普通 tick 不会自动恢复 BLOCKED；第四轮仍有阻断项则停止。
+- `publication-<sha>.json`：同一提交的成员集与聚合发布缓存。它不授予 PASS，源事实仍
+  是实时 GitHub 状态及每个 PR 的已核验 ledger；旧 per-PR published 字段不再用于发布。
 - 孤儿锁：暂停 Autopilot，核实 PID 已退出后运行 `runtime.mjs recover-lock <config>`；
   该命令会拒绝仍存在的 PID。恢复后重新 tick 并回读任务，最后恢复 Autopilot。
 - 暂停：Autopilot pause 并将 enabled=false；已经分派的 agent run 不会因此自动取消，须
