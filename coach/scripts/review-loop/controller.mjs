@@ -2,6 +2,11 @@ import assert from 'node:assert/strict';
 import { VERSION, REPOSITORY, GATES, admit, parseResult, decide, hash } from './protocol.mjs';
 
 export const activeStatuses = new Set(['queued','dispatched','running','waiting_local_directory']);
+async function observeLive(io,prNumber) {
+  const raw=await io.live(prNumber),live=admit(raw);
+  live.snapshot=await io.snapshot(raw);
+  return live;
+}
 export function jobDescription(job, live) {
   const common = {protocol_version:VERSION,repository:REPOSITORY,pr_number:job.pr_number,base_sha:job.base_sha,head_sha:job.head_sha,round:job.round,worktree:job.worktree,authoritative_spec_paths:live.admission.authoritative_spec_paths,rubric:live.admission.rubric};
   if(job.kind === 'review') return `Fresh independent review. Use only this task's input, listed repository specs and repository governance. Read the exact base..head diff in the supplied detached worktree. Prior reviews, parent/sibling issues and prior agent sessions are outside the review input. Keep tracked files/index/HEAD unchanged; ignored dependency/build outputs are allowed. Do not delegate, fix, merge or submit GitHub approval.\n\n${JSON.stringify(common,null,2)}\n\nRun all five commands from worktree/coach; install dependencies with npm ci if needed. Record their actual exit codes.\n${JSON.stringify(GATES,null,2)}\n\nPost one final Multica comment on THIS issue, ending with one fenced review-loop-result JSON block. Fields: protocol_version, pr_number, base_sha, head_sha, round (copy pinned input); verdict (NO_P1_P2, CHANGES_REQUIRED or ENVIRONMENT_BLOCKED); findings {P1:[],P2:[],P3:[]} where every finding has id,path,line,scenario,consequence,minimal_fix; gates [{id,command,status:PASS|FAIL|NOT_RUN,exit_code:integer|null}] with all five exact commands; environment_failures (array of strings). NO_P1_P2 requires empty P1/P2, all five PASS/0 and no environment failure. CHANGES_REQUIRED needs P1/P2 and every gate actually run. ENVIRONMENT_BLOCKED needs an explanation. Include all actionable findings in the prose and JSON. Set issue in_review after posting. Do not mention another agent. A final chat response alone is insufficient; the controller reads issue comments.`;
@@ -15,7 +20,7 @@ export async function ensureDispatch(state, live, kind, io, config, result) {
   if(!job) {
     const round=kind === 'review' ? state.round+1 : state.round;
     assert(round >= 1 && round <= 3, 'round limit');
-    job={kind,round,pr_number:live.pr_number,base_sha:live.base_sha,head_sha:live.head_sha,admission_hash:live.admission_hash,agent_id:kind === 'review' ? config.reviewer_id : config.fixer_id};
+    job={kind,round,pr_number:live.pr_number,base_sha:live.base_sha,head_sha:live.head_sha,admission_hash:live.admission_hash,candidate_snapshot:live.snapshot,agent_id:kind === 'review' ? config.reviewer_id : config.fixer_id};
     job.title=`[review-loop/v2][${kind}][r${round}][${live.head_sha.slice(0,12)}] ${REPOSITORY}#${live.pr_number}`;
     job.worktree=await io.prepare(job);
     if(kind === 'fix') {
@@ -35,15 +40,16 @@ export async function ensureDispatch(state, live, kind, io, config, result) {
     assert(issue.project_id === config.project_id && issue.assignee_type === 'agent' && issue.assignee_id === job.agent_id && hash(issue.description) === job.description_hash,'dispatch identity conflict');
   } else {
     assert(!job.attempted_at,'dispatch response unknown; reconcile before retry');
-    const current=admit(await io.live(live.pr_number));
+    const current=await observeLive(io,live.pr_number);
     assert(current.head_sha === job.head_sha && current.base_sha === job.base_sha && current.admission_hash === job.admission_hash,'candidate changed before dispatch');
+    job.dispatch_snapshot=current.snapshot;state.snapshot=current.snapshot;
     job.attempted_at=new Date().toISOString();await io.save(state);
     issue=await io.create(job);
     assert(issue.id,'missing created issue identity');
   }
   job.issue_id=issue.id;job.identifier=issue.identifier;
   state.job=job;state.pending=null;state.round=job.round;state.status=kind === 'review' ? 'REVIEWING' : 'FIXING';
-  state.history.push({event:'dispatch',kind,round:job.round,head_sha:job.head_sha,base_sha:job.base_sha,issue_id:issue.id,at:new Date().toISOString()});
+  state.history.push({event:'dispatch',kind,round:job.round,head_sha:job.head_sha,base_sha:job.base_sha,issue_id:issue.id,snapshot:job.dispatch_snapshot ?? job.candidate_snapshot,at:new Date().toISOString()});
   await io.save(state);
 }
 
@@ -63,14 +69,24 @@ export async function advance(state, live, io, config) {
   assert(Array.isArray(runs));
   if(runs.some(r=>activeStatuses.has(r.status))) return;
   assert(runs.length > 0,'assigned issue has no run');
+  let current=await observeLive(io,live.pr_number);
+  assert.equal(current.admission_hash,state.admission_hash,'admission changed during result read');
+  state.snapshot=current.snapshot;
+  if(current.head_sha !== job.head_sha || current.base_sha !== job.base_sha) {
+    state.history.push({event:'discard',reason:'candidate changed before result consumption',issue_id:job.issue_id,head_sha:job.head_sha,base_sha:job.base_sha,round:job.round,snapshot:current.snapshot,at:new Date().toISOString()});
+    if(state.round >= 3) {
+      state.status='BLOCKED';state.reason='round limit after candidate changed';await io.save(state);return;
+    }
+    return ensureDispatch(state,current,'review',io,config);
+  }
   const issue=await io.issue(job.issue_id), comments=await io.comments(job.issue_id);
   const result=parseResult(job,issue,comments,runs);
-  await io.verifyCheckout(job,result);
   // Re-read immediately before a decision; polling input may be stale after IO.
-  live=admit(await io.live(live.pr_number));
+  live=await observeLive(io,live.pr_number);state.snapshot=live.snapshot;
   assert.equal(live.admission_hash,state.admission_hash,'admission changed during result read');
+  await io.verifyCheckout(job,result,live);
   const {transition}=decide(job,result,live);
-  state.history.push({event:'result',transition,issue_id:job.issue_id,comment_id:result.comment_id,run_id:result.run_id,sha256:result.sha256,head_sha:job.head_sha,base_sha:job.base_sha,round:job.round,at:new Date().toISOString()});
+  state.history.push({event:'result',transition,issue_id:job.issue_id,comment_id:result.comment_id,run_id:result.run_id,sha256:result.sha256,head_sha:job.head_sha,base_sha:job.base_sha,round:job.round,snapshot:live.snapshot,at:new Date().toISOString()});
   await io.archiveResult(job,result);
   if(transition === 'ROUTE_TO_FIXER') return ensureDispatch(state,live,'fix',io,config,result);
   if(transition === 'DISCARD_AND_REVIEW') return ensureDispatch(state,live,'review',io,config);

@@ -9,7 +9,12 @@ import { advance } from './controller.mjs';
 const exec=promisify(execFile);
 export async function command(file,args,cwd) {
   try { return (await exec(file,args,{cwd,windowsHide:true,encoding:'utf8',maxBuffer:32*1024*1024,timeout:120000})).stdout; }
-  catch { const error=new Error(`${path.basename(file)} operation failed (${args[0] ?? ''}); inspect locally`);error.transport=true;throw error; }
+  catch (cause) {
+    const error=new Error(`${path.basename(file)} operation failed (${args[0] ?? ''}); inspect locally`,{cause});
+    error.exitCode=Number.isInteger(cause.code) ? cause.code : null;
+    error.transport=true;
+    throw error;
+  }
 }
 export async function atomicJson(file,data) {
   const tmp=`${file}.${process.pid}.tmp`;
@@ -33,10 +38,10 @@ export async function recoverLock(dir) {
   // Operator-only command; stop the Autopilot before running it.
   await unlink(file);
 }
-export function makeIO(config,stateFile,stateDir) {
-  const gh=async args=>JSON.parse(await command(config.gh_path,['api',...args]));
-  const multica=async args=>JSON.parse(await command(config.multica_path,['--profile',config.profile,'--workspace-id',config.workspace_id,...args,'--output','json'],stateDir));
-  const git=async args=>command(config.git_path,args,config.repository_path);
+export function makeIO(config,stateFile,stateDir,runCommand=command) {
+  const gh=async args=>JSON.parse(await runCommand(config.gh_path,['api',...args]));
+  const multica=async args=>JSON.parse(await runCommand(config.multica_path,['--profile',config.profile,'--workspace-id',config.workspace_id,...args,'--output','json'],stateDir));
+  const git=async args=>runCommand(config.git_path,args,config.repository_path);
   const api=`repos/${REPOSITORY}`;
   const worktree = job => path.join(stateDir,'worktrees',`pr-${job.pr_number}-${job.kind}-${job.round}-${job.head_sha.slice(0,12)}`);
   async function allIssues() {
@@ -72,8 +77,8 @@ export function makeIO(config,stateFile,stateDir) {
       for(const sha of [job.base_sha,job.head_sha])assert.equal((await git(['rev-parse',`${sha}^{commit}`])).trim(),sha);
       const trees=(await git(['worktree','list','--porcelain'])).replaceAll('\\','/');
       if(!trees.includes(`worktree ${dir.replaceAll('\\','/')}\n`))await git(['worktree','add','--detach',dir,job.head_sha]);
-      assert.equal((await command(config.git_path,['rev-parse','HEAD'],dir)).trim(),job.head_sha);
-      assert.equal((await command(config.git_path,['status','--porcelain','--untracked-files=no'],dir)).trim(),'');
+      assert.equal((await runCommand(config.git_path,['rev-parse','HEAD'],dir)).trim(),job.head_sha);
+      assert.equal((await runCommand(config.git_path,['status','--porcelain','--untracked-files=no'],dir)).trim(),'');
       return dir;
     },
     checkSpecs:async live=>{
@@ -98,20 +103,26 @@ export function makeIO(config,stateFile,stateDir) {
       if(job.kind === 'fix')args.push('--attachment',job.review_file);
       return multica(args);
     },
-    verifyCheckout:async(job,result)=>{
+    verifyCheckout:async(job,result,live)=>{
       assert.equal(await realpath(job.worktree),await realpath(worktree(job)));
-      const status=(await command(config.git_path,['status','--porcelain','--untracked-files=no'],job.worktree)).trim();
+      const status=(await runCommand(config.git_path,['status','--porcelain','--untracked-files=no'],job.worktree)).trim();
       assert.equal(status,'','agent left tracked modifications');
-      const head=(await command(config.git_path,['rev-parse','HEAD'],job.worktree)).trim();
+      const head=(await runCommand(config.git_path,['rev-parse','HEAD'],job.worktree)).trim();
       if(job.kind === 'review')assert.equal(head,job.head_sha,'reviewer modified HEAD');
       else {
         assert(isSha(result.data.head_sha) && result.data.head_sha !== job.head_sha,'fixer did not produce new commit');
         await git(['fetch','origin']);
-        await git(['merge-base','--is-ancestor',job.head_sha,result.data.head_sha]);
-        const live=admit(await gh([`${api}/pulls/${job.pr_number}`]));
+        const ancestor=async(from,to,message)=>{
+          try { await git(['merge-base','--is-ancestor',from,to]); }
+          catch(e) {
+            if(e.exitCode === 1)throw new Error(message);
+            throw e;
+          }
+        };
+        await ancestor(job.head_sha,result.data.head_sha,'fix result is not descended from previous head');
         // A later external push may supersede the fix, but the claimed fix must
         // actually be reachable from the current PR branch.
-        await git(['merge-base','--is-ancestor',result.data.head_sha,live.head_sha]);
+        await ancestor(result.data.head_sha,live.head_sha,'fix result is not reachable from current PR head');
       }
     },
     publish:async state=>{
@@ -124,28 +135,34 @@ export function makeIO(config,stateFile,stateDir) {
     },
   };
 }
-export async function tick(config) {
+export async function tick(config,ioFactory=makeIO) {
   assert.equal(config.protocol_version,VERSION);assert.equal(config.repository,REPOSITORY);
   assert(config.reviewer_id && config.fixer_id && config.reviewer_id !== config.fixer_id);
   assert(path.isAbsolute(config.state_dir) && path.isAbsolute(config.repository_path));
   const release=await acquireLock(config.state_dir);
   if(!release)return {status:'ALREADY_RUNNING'};
   try {
-    const probe=makeIO(config,'',config.state_dir),prs=await probe.openPRs(),summary=[];
+    const probe=ioFactory(config,'',config.state_dir),prs=await probe.openPRs(),summary=[];
     for(const pr of prs) {
-      if(!pr.body?.includes('```review-loop-admission'))continue;
       const file=path.join(config.state_dir,`pr-${pr.number}.json`);
-      const io=makeIO(config,file,config.state_dir);
+      const existing=await readJson(file,null);
+      if(!existing && !pr.body?.includes('```review-loop-admission'))continue;
+      const io=ioFactory(config,file,config.state_dir);
       if(config.enabled !== true) {
-        try {const live=admit(await io.live(pr.number));summary.push({pr:pr.number,status:'DISABLED',head:live.head_sha});}
+        try {const raw=await io.live(pr.number),live=admit(raw);await io.snapshot(raw);summary.push({pr:pr.number,status:'DISABLED',head:live.head_sha});}
         catch {summary.push({pr:pr.number,status:'DISABLED',admission:'invalid or unavailable'});}
         continue;
       }
-      let state=await readJson(file,{protocol_version:VERSION,pr_number:pr.number,round:0,status:'NEW',history:[]});
+      let state=existing ?? {protocol_version:VERSION,pr_number:pr.number,round:0,status:'NEW',history:[]};
       assert.equal(state.protocol_version,VERSION);assert.equal(state.pr_number,pr.number);
       try {
-        const live=admit(await io.live(pr.number));
-        state.snapshot=await io.snapshot(pr);
+        const raw=await io.live(pr.number),live=admit(raw);
+        live.snapshot=await io.snapshot(raw);state.snapshot=live.snapshot;
+        if(state.status === 'PASS' && state.job && (live.head_sha !== state.job.head_sha || live.base_sha !== state.job.base_sha)) {
+          state.status='STALE';state.reason='candidate changed; awaiting fresh review';
+          await io.save(state);
+        }
+        if(state.status === 'STALE')await io.publish(state);
         await io.checkSpecs(live);
         await advance(state,live,io,config);
       } catch(e) {
