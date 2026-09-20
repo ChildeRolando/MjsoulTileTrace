@@ -8,9 +8,13 @@
 4. 跑五门和 full；创建交付 PR，独立 review/fix 验证。
 5. 创建 Multica Fresh Reviewer 与 Controller 执行入口，Autopilot run_only 的 schedule/webhook。
    初始配置禁用，通过真实只读检查后开启；记录原生触发和真实 review/fix 证据。
-6. 合并部署经过验收的版本，收口旧 COAC-15 PR/工单，更新本任务 heartbeat 为运行健康监测。
+6. 合并部署经过验收的版本，收口旧 COAC-15 PR/工单，停用本次上线推进 heartbeat；
+   保留 Multica 原生 Autopilot 运行，日常健康检查入口见运行指南。
 
-完成以运行证据为准；剩余步骤不能通过缩小目标省略。
+正常验收以运行证据为准。2026-09-20 用户明确指示“不修了，直接上线，用出问题再修”，
+据此以风险接受方式收口：实现合并部署、智能体接入和旧入口清理已完成；第五轮 R5-001
+及未达到端到端 PASS 的事实保留在[运行指南](../development/REVIEW_LOOP.md)，不宣称
+原先全部验收条件满足，不再派发第六轮。
 
 第三轮发现 R3-001（同 SHA 的 PR 共享 GitHub status）后自动 BLOCKED，用户已于
 2026-09-20 明确批准仅 PR #8 追加修复与第四轮评审。修复共享位置的聚合发布与回归，
