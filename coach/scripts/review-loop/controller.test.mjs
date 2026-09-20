@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { ensureDispatch, advance, authorizeExtraReview } from './controller.mjs';
 import { admit } from './protocol.mjs';
 const config={reviewer_id:'reviewer',fixer_id:'fixer',project_id:'project'};
-const raw={number:8,state:'open',draft:false,body:'```review-loop-admission\n{"protocol_version":"review-loop/v2","authoritative_spec_paths":["coach/docs/specs/a.md"],"rubric":"all criteria"}\n```',base:{sha:'a'.repeat(40),repo:{full_name:'ChildeRolando/MjsoulTileTrace'}},head:{sha:'b'.repeat(40),ref:'codex/a',repo:{full_name:'ChildeRolando/MjsoulTileTrace'}}};
+const raw={number:8,state:'open',draft:false,body:'```review-loop-admission\n{"protocol_version":"review-loop/v2.1","authoritative_spec_paths":["coach/docs/specs/a.md"],"rubric":"all criteria"}\n```',base:{sha:'a'.repeat(40),repo:{full_name:'ChildeRolando/MjsoulTileTrace'}},head:{sha:'b'.repeat(40),ref:'codex/a',repo:{full_name:'ChildeRolando/MjsoulTileTrace'}}};
 const live=admit(raw);
 const state=()=>({round:0,history:[],status:'NEW'});
 function fake() {
@@ -95,7 +95,7 @@ test('three reviews exhausted stays blocked on external push',async()=>{
 
 function exhausted() {
   const source={event:'result',transition:'BLOCKED',round:3,issue_id:'third-review',head_sha:live.head_sha,base_sha:live.base_sha,sha256:'d'.repeat(64)};
-  return {...state(),protocol_version:'review-loop/v2',pr_number:8,round:3,status:'BLOCKED',admission_hash:live.admission_hash,
+  return {...state(),protocol_version:'review-loop/v2.1',pr_number:8,round:3,status:'BLOCKED',admission_hash:live.admission_hash,
     history:[source],result:{issue_id:source.issue_id,sha256:source.sha256},
     job:{kind:'review',round:3,pr_number:8,issue_id:source.issue_id,head_sha:live.head_sha,base_sha:live.base_sha}};
 }
@@ -162,7 +162,7 @@ function fixFixture() {
   changed.head.sha=nextHead;
   const job={kind:'fix',round:1,pr_number:8,issue_id:'fix-id',agent_id:'fixer',head_sha:live.head_sha,base_sha:live.base_sha,raw_review_sha256:rawReviewSha};
   const s={...state(),round:1,status:'FIXING',admission_hash:live.admission_hash,job};
-  const result={protocol_version:'review-loop/v2',pr_number:8,base_sha:live.base_sha,previous_head_sha:live.head_sha,head_sha:nextHead,round:1,raw_review_sha256:rawReviewSha};
+  const result={protocol_version:'review-loop/v2.1',pr_number:8,base_sha:live.base_sha,previous_head_sha:live.head_sha,head_sha:nextHead,round:1,raw_review_sha256:rawReviewSha};
   const comment={id:'fix-comment',author_type:'agent',author_id:'fixer',issue_id:'fix-id',source_task_id:'fix-run',content:'fixed\n```review-loop-fix\n'+JSON.stringify(result)+'\n```'};
   const run={id:'fix-run',issue_id:'fix-id',agent_id:'fixer',status:'completed'};
   Object.assign(f.io,{live:async()=>changed,runs:async()=>[run],issue:async()=>({id:'fix-id',assignee_type:'agent',assignee_id:'fixer'}),comments:async()=>[comment],verifyCheckout:async()=>{},archiveResult:async()=>{}});

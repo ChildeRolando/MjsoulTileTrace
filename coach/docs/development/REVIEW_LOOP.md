@@ -4,6 +4,27 @@
 这是人工放行，不是独立评审 PASS；已知问题和原始结论保留如下。
 权威协议：[v2 spec](../specs/2026-09-20-review-loop-v2.md)。
 
+COAC-30 代码协议升级为 `review-loop/v2.1`，尚未部署。finding 独立声明 severity 与
+durability；P3 ephemeral 可直接 PASS，P3 repository_required 在独立分支持久化，
+不会因此否决原 PR。Reviewer 指令由 `controller.mjs` 的
+`reviewerDurabilityInstructions` 直接注入，严格 schema 由 `protocol.mjs` 拥有。
+直接证伪显式验收/不变量声明的 finding 至少 P2，且必须 repository_required。
+
+`pr-N.json` 的 durability 队列保存原 review issue/comment/run/hash/head/finding；
+health 的 durability 数组显示 WAITING、RETRY_IO、DURABLE_KNOWLEDGE_BLOCKED 或 COMPLETE。
+即使原 PR 已关闭也继续扫描。仅在核验独立远端分支中的新 commit、已改变的 owner/
+regression 普通文件及 blob hashes、指定 agent/completed run 的严格 receipt 后 COMPLETE；
+工单 done/in_review 本身不构成完成。验收回执的命令 PASS 是受信 agent 的报告，Git
+内容与远端可达性由 Controller 独立核验；Controller 不执行 finding 提供的任意命令，
+也不使用 LLM 判断改动语义。是否充分解决 finding 仍由 follow-up 的人工验收负责。
+提交不自动合并，owner 可以从 receipt 的 branch/commit 审查合入。
+
+升级前停触发并备份 ledger/evidence；v2.1 不兼容 v2 config/admission/results/ledger，
+不得仅替换版本字符串继续消费旧 PASS。旧在途任务先完成或人工处置；存量账本须人工
+保留轮次/历史/授权，撤销旧 PASS，按剩余预算重新 review，耗尽保持 BLOCKED。
+历史评审不自动推断 durability。遵循 spec 的迁移条款后才能切换 deployment；此次不改
+现有 Autopilot、Agent 或生产状态。新任务使用 config.example.json 和 v2.1 admission。
+
 流程：Multica webhook/schedule → 受信本机 Controller → GitHub live PR → fresh Reviewer
 → 完整 findings → 现有 Fixer → pushed HEAD → 下一轮 fresh Reviewer。默认最多三轮；
 仅 PR #8 已获用户两次明确批准追加第四、第五轮，授权与原有轮次一起留存在 ledger。
@@ -41,7 +62,8 @@ in-place 本机目录，避免与 Reviewer/Fixer 争用目录锁；评审/修复
 - `health.json`：最近成功扫描时刻、PR 状态、轮次和当前 issue；超过两次周期未更新先查
   Multica Autopilot runs、daemon 和主机在线情况。智能体 run 显示 completed 不足以证明
   程序成功，须同时核对程序 JSON 和 health 更新时间；固定命令执行失败会等待下次唤醒。
-- `pr-N.json`：完整轮次与来源账本；`results/` 保存完整评审，`snapshots/` 保存 GitHub 观察。
+- `pr-N.json`：完整轮次与来源账本；`results/<issue>-<hash>.json` 保存按内容寻址的结果，
+  评论替换不覆盖旧证据；`snapshots/` 保存 GitHub 观察。durability 原文同时保存在队列。
 - BLOCKED：先读 reason 与对应 issue。已有 tasks 的实际状态通过 `multica issue runs` 核实。
   不能因为观察超时就重新创建任务，不能删除 ledger 绕过轮次上限。
 - 人工追加：只有收到针对该 PR 的明确批准后，暂停 Autopilot、设置 enabled=false，

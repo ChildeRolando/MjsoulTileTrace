@@ -2,6 +2,65 @@ import assert from 'node:assert/strict';
 import { VERSION, REPOSITORY, GATES, admit, parseResult, decide, hash, reviewRoundLimit } from './protocol.mjs';
 
 export const activeStatuses = new Set(['queued','dispatched','running','waiting_local_directory']);
+export const reviewerDurabilityInstructions = `Every finding must include durability (ephemeral|repository_required), durable_owner (repository-relative path or null), regression ({path,command} or null), and basis (local_observation|future_limitation|explicit_contract_violation). Ephemeral means no future implementation, review, recovery or verification value and requires null owner/regression and local_observation. Architecture checker blind spots, invariant enforcement limitations, accepted limitations, spec drift and materially missing capabilities are repository_required. Mechanically testable findings require a regression path and command; otherwise identify the existing authoritative normative/historical document owner. Consume repository knowledge ownership rules; do not create a second policy. If a finding directly disproves an explicit admission rubric, issue acceptance criterion or repository invariant completion claim, mark explicit_contract_violation and assess at least P2, even if the production tree does not yet exploit it. COAC-26 review_report_generation_seam architecture bypass is this calibration case. Keep the repository read-only.`;
+
+// The queue is independent of PR acceptance and never rebinds a captured source.
+export async function captureDurability(state,job,result,live,io,config) {
+  state.durability ??=[];
+  for(const finding of result.data.findings.P3.filter(f=>f.durability === 'repository_required')) {
+    const identity=hash(JSON.stringify([REPOSITORY,job.pr_number,job.head_sha,job.issue_id,result.comment_id,result.sha256,finding.id]));
+    if(state.durability.some(j=>j.identity === identity))continue;
+    state.durability.push({kind:'durability',identity,pr_number:job.pr_number,base_sha:job.base_sha,head_sha:job.head_sha,round:job.round,
+      source_review_issue_id:job.issue_id,source_comment_id:result.comment_id,source_run_id:result.run_id,raw_review_sha256:result.sha256,
+      raw_review:result.raw,finding:structuredClone(finding),admission:structuredClone(live.admission),agent_id:config.fixer_id,
+      title:`[review-loop/v2.1][durability][${identity}] ${REPOSITORY}#${job.pr_number}`,status:'PENDING'});
+  }
+  await io.save(state);
+}
+function durabilityDescription(job) {
+  const receipt={protocol_version:VERSION,pr_number:job.pr_number,base_sha:job.base_sha,head_sha:job.head_sha,round:job.round,
+    identity:job.identity,raw_review_sha256:job.raw_review_sha256,finding_id:job.finding.id,commit_sha:'<full pushed commit SHA>',
+    branch:`review-loop/durability/${job.identity}`,artifacts:[{path:job.finding.durable_owner,sha256:'<SHA-256 of committed blob bytes>'}],
+    checks:job.finding.regression ? [{command:job.finding.regression.command,status:'PASS',exit_code:0}] : []};
+  return `Persist this non-blocking finding in its repository-owned artifact. This task does not change the original review verdict. Read repository governance and the pinned specs; use existing authoritative owners, never a second knowledge policy. Work only in ${job.worktree}, initially at ${job.head_sha}. Verify the attached review SHA-256 ${job.raw_review_sha256} (local ${job.review_file}). Source review issue ${job.source_review_issue_id}, comment ${job.source_comment_id}, run ${job.source_run_id}. Preserve the original evidence.\n\n${JSON.stringify({repository:REPOSITORY,identity:job.identity,pr_number:job.pr_number,head_sha:job.head_sha,finding:job.finding,admission:job.admission},null,2)}\n\nUpdate the named durable owner; when regression is supplied, add the mechanically executable regression/check at that path and run its command from coach. For normative/historical knowledge update the existing authoritative document. Commit the artifacts and push without force ONLY to refs/heads/review-loop/durability/${job.identity}. Never push the original PR branch, merge, deploy, change agent configuration or edit the source review. Reassess applicability using the pinned source; newer candidates do not replace this source. Issue closure or a prose promise is not completion. If blocked, report DURABLE_KNOWLEDGE_BLOCKED and missing owner/content. Run the five repository gates: ${JSON.stringify(GATES)}.\n\nPost one final comment ending with a strict review-loop-durability JSON fence matching ${JSON.stringify(receipt)}. artifacts must include both owner and regression (if present), with committed UTF-8 content hashes. Set in_review; no agent mentions. Controller independently verifies the pushed commit/artifacts before recording completion.`;
+}
+export async function advanceDurability(state,io,config) {
+  for(const job of state.durability ?? []) {
+    if(job.status === 'COMPLETE')continue;
+    try {
+      if(!job.prepared_at) {
+        job.worktree=await io.prepare(job);
+        job.review_file=await io.saveReview(job,job.raw_review);
+        job.description=durabilityDescription(job);job.description_hash=hash(job.description);
+        job.prepared_at=new Date().toISOString();await io.save(state);
+      }
+      if(!job.issue_id) {
+        const matches=(await io.issues()).filter(i=>i.title === job.title);
+        assert(matches.length <= 1,'duplicate durability identity');
+        let issue=matches[0];
+        if(issue) assert(issue.project_id === config.project_id && issue.assignee_type === 'agent' && issue.assignee_id === job.agent_id && hash(issue.description) === job.description_hash,'durability dispatch conflict');
+        else {
+          assert(!job.attempted_at,'durability dispatch response unknown; reconcile before retry');
+          job.attempted_at=new Date().toISOString();await io.save(state);
+          issue=await io.create(job);assert(issue.id,'missing durability issue');
+        }
+        job.issue_id=issue.id;job.identifier=issue.identifier;job.status='WAITING';job.error=null;
+        await io.save(state);continue;
+      }
+      const runs=await io.runs(job.issue_id);assert(Array.isArray(runs));
+      if(runs.some(r=>activeStatuses.has(r.status)))continue;
+      const result=parseResult(job,await io.issue(job.issue_id),await io.comments(job.issue_id),runs);
+      const verified=await io.verifyDurability(job,result);
+      await io.archiveResult(job,result);
+      job.completion={...verified,comment_id:result.comment_id,run_id:result.run_id,sha256:result.sha256,receipt:result.data,verified_at:new Date().toISOString()};
+      job.status='COMPLETE';job.error=null;
+      state.history.push({event:'durability_complete',identity:job.identity,issue_id:job.issue_id,...job.completion});
+    } catch(e) {
+      job.status=e.transport ? 'RETRY_IO' : 'DURABLE_KNOWLEDGE_BLOCKED';job.error=String(e.message).slice(0,600);
+    }
+    await io.save(state);
+  }
+}
 // Operator-only operation: the caller must hold the deployment lock and have
 // explicit human approval. It resumes this exact terminal review once, without
 // resetting rounds or erasing any prior result. tick never calls this function.
@@ -23,8 +82,8 @@ async function observeLive(io,prNumber) {
 }
 export function jobDescription(job, live) {
   const common = {protocol_version:VERSION,repository:REPOSITORY,pr_number:job.pr_number,base_sha:job.base_sha,head_sha:job.head_sha,round:job.round,worktree:job.worktree,authoritative_spec_paths:live.admission.authoritative_spec_paths,rubric:live.admission.rubric};
-  if(job.kind === 'review') return `Fresh independent review. Use only this task's input, listed repository specs and repository governance. Read the exact base..head diff in the supplied detached worktree. Prior reviews, parent/sibling issues and prior agent sessions are outside the review input. Keep tracked files/index/HEAD unchanged; ignored dependency/build outputs are allowed. Do not delegate, fix, merge or submit GitHub approval.\n\n${JSON.stringify(common,null,2)}\n\nRun all five commands from worktree/coach; install dependencies with npm ci if needed. Record their actual exit codes.\n${JSON.stringify(GATES,null,2)}\n\nPost one final Multica comment on THIS issue, ending with one fenced review-loop-result JSON block. Fields: protocol_version, pr_number, base_sha, head_sha, round (copy pinned input); verdict (NO_P1_P2, CHANGES_REQUIRED or ENVIRONMENT_BLOCKED); findings {P1:[],P2:[],P3:[]} where every finding has id,path,line,scenario,consequence,minimal_fix; gates [{id,command,status:PASS|FAIL|NOT_RUN,exit_code:integer|null}] with all five exact commands; environment_failures (array of strings). NO_P1_P2 requires empty P1/P2, all five PASS/0 and no environment failure. CHANGES_REQUIRED needs P1/P2 and every gate actually run. ENVIRONMENT_BLOCKED needs an explanation. Include all actionable findings in the prose and JSON. Set issue in_review after posting. Do not mention another agent. A final chat response alone is insufficient; the controller reads issue comments.`;
-  return `Fix the attached complete independent review for this exact PR. Work only in the supplied detached worktree; verify HEAD and live PR head equal the previous candidate before editing.\n\n${JSON.stringify(common,null,2)}\n\nReview source: issue ${job.source_review_issue_id}, comment ${job.source_comment_id}, SHA-256 ${job.raw_review_sha256}. The exact UTF-8 review is attached and available locally at ${job.review_file}. Verify its SHA-256 before reading findings. Preserve all findings; fix every P1/P2 and add durable regression coverage where mechanically testable. Read repository governance and listed specs. Run the five commands from coach: ${JSON.stringify(GATES)}. Commit only requested fixes, then push HEAD:refs/heads/${live.branch} to origin without force, after rechecking live PR head. If someone else pushed, stop and report the race. No merge or ticket closure.\n\nPost one final Multica comment ending with a fenced review-loop-fix JSON block: ${JSON.stringify({protocol_version:VERSION,pr_number:job.pr_number,base_sha:job.base_sha,previous_head_sha:job.head_sha,head_sha:'<full pushed SHA>',round:job.round,raw_review_sha256:job.raw_review_sha256})}. Set this issue in_review. Do not mention other agents. Report obstacles honestly instead of fabricating a result.`;
+  if(job.kind === 'review') return `Fresh independent review. ${reviewerDurabilityInstructions} Use only this task's input, listed repository specs and repository governance. Read the exact base..head diff in the supplied detached worktree. Prior reviews, parent/sibling issues and prior agent sessions are outside the review input. Keep tracked files/index/HEAD unchanged; ignored dependency/build outputs are allowed. Do not delegate, fix, merge or submit GitHub approval.\n\n${JSON.stringify(common,null,2)}\n\nRun all five commands from worktree/coach; install dependencies with npm ci if needed. Record their actual exit codes.\n${JSON.stringify(GATES,null,2)}\n\nPost one final Multica comment on THIS issue, ending with one fenced review-loop-result JSON block. Fields: protocol_version, pr_number, base_sha, head_sha, round (copy pinned input); verdict (NO_P1_P2, CHANGES_REQUIRED or ENVIRONMENT_BLOCKED); findings {P1:[],P2:[],P3:[]} where every finding has id,path,line,scenario,consequence,minimal_fix,durability,durable_owner,regression,basis; gates [{id,command,status:PASS|FAIL|NOT_RUN,exit_code:integer|null}] with all five exact commands; environment_failures (array of strings). NO_P1_P2 requires empty P1/P2, all five PASS/0 and no environment failure. CHANGES_REQUIRED needs P1/P2 and every gate actually run. ENVIRONMENT_BLOCKED needs an explanation. Include all actionable findings in the prose and JSON. Set issue in_review after posting. Do not mention another agent. A final chat response alone is insufficient; the controller reads issue comments.`;
+  return `Fix the attached complete independent review for this exact PR. Work only in the supplied detached worktree; verify HEAD and live PR head equal the previous candidate before editing.\n\n${JSON.stringify(common,null,2)}\n\nReview source: issue ${job.source_review_issue_id}, comment ${job.source_comment_id}, SHA-256 ${job.raw_review_sha256}. The exact UTF-8 review is attached and available locally at ${job.review_file}. Verify its SHA-256 before reading findings. Preserve all findings; fix every P1/P2 and add durable regression coverage where mechanically testable, honoring each finding durability metadata and updating the named authoritative owner. Preserve metadata in the attached raw review; do not claim repository durability from issue closure. Read repository governance and listed specs. Run the five commands from coach: ${JSON.stringify(GATES)}. Commit only requested fixes, then push HEAD:refs/heads/${live.branch} to origin without force, after rechecking live PR head. If someone else pushed, stop and report the race. No merge or ticket closure.\n\nPost one final Multica comment ending with a fenced review-loop-fix JSON block: ${JSON.stringify({protocol_version:VERSION,pr_number:job.pr_number,base_sha:job.base_sha,previous_head_sha:job.head_sha,head_sha:'<full pushed SHA>',round:job.round,raw_review_sha256:job.raw_review_sha256})}. Set this issue in_review. Do not mention other agents. Report obstacles honestly instead of fabricating a result.`;
 }
 
 // All effects are recorded before transmission. A lost response is reconciled by
@@ -35,7 +94,7 @@ export async function ensureDispatch(state, live, kind, io, config, result) {
     const round=kind === 'review' ? state.round+1 : state.round;
     assert(round >= 1 && round <= reviewRoundLimit(state), 'round limit');
     job={kind,round,pr_number:live.pr_number,base_sha:live.base_sha,head_sha:live.head_sha,admission_hash:live.admission_hash,candidate_snapshot:live.snapshot,agent_id:kind === 'review' ? config.reviewer_id : config.fixer_id};
-    job.title=`[review-loop/v2][${kind}][r${round}][${live.head_sha.slice(0,12)}] ${REPOSITORY}#${live.pr_number}`;
+    job.title=`[review-loop/v2.1][${kind}][r${round}][${live.head_sha.slice(0,12)}] ${REPOSITORY}#${live.pr_number}`;
     // A review replacement must survive worktree preparation transport failures.
     // Fix preparation remains recoverable by replaying its authenticated result.
     if(kind === 'review') {state.pending=job;await io.save(state);}
@@ -123,6 +182,7 @@ export async function advance(state, live, io, config) {
   const {transition}=decide(job,result,live,limit);
   state.history.push({event:'result',transition,issue_id:job.issue_id,comment_id:result.comment_id,run_id:result.run_id,sha256:result.sha256,head_sha:job.head_sha,base_sha:job.base_sha,round:job.round,snapshot:live.snapshot,at:new Date().toISOString()});
   await io.archiveResult(job,result);
+  if(job.kind === 'review' && job.head_sha === live.head_sha && job.base_sha === live.base_sha) await captureDurability(state,job,result,live,io,config);
   if(transition === 'ROUTE_TO_FIXER') return ensureDispatch(state,live,'fix',io,config,result);
   if(transition === 'DISCARD_AND_REVIEW') return ensureDispatch(state,live,'review',io,config);
   state.status=transition;state.reason=transition === 'BLOCKED' ? 'review gates, environment or round limit' : null;

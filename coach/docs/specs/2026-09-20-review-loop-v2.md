@@ -34,7 +34,7 @@ webhook 和每五分钟 schedule。两种触发均执行已部署的同一 Node 
 PR description 必须含唯一 `review-loop-admission` JSON fence：
 
 ```review-loop-admission
-{"protocol_version":"review-loop/v2","authoritative_spec_paths":["coach/docs/specs/2026-09-20-review-loop-v2.md"],"rubric":"Review every acceptance criterion and repository invariant."}
+{"protocol_version":"review-loop/v2.1","authoritative_spec_paths":["coach/docs/specs/2026-09-20-review-loop-v2.md"],"rubric":"Review every acceptance criterion and repository invariant."}
 ```
 
 它是显式 opt-in；未提供该 block 的 PR 不自动执行代码或分派任务。读取实时 PR 后验证
@@ -119,6 +119,45 @@ comment ids、hash、历史和状态。配置含 enabled 开关；初次部署�
 不能删除 ledger 来重置三轮计数；备份状态目录后迁移，保持单一运行部署。
 
 ## 验收
+
+### COAC-30：独立 durability routing（protocol v2.1）
+
+Severity 仍由 P1/P2/P3 分组表达。每个 finding 另含严格字段 `durability`
+（ephemeral/repository_required）、`durable_owner`、`regression`、`basis`。
+owner 为仓库相对文件；regression 为 `{path,command}` 或 null（仅规范/历史知识）。
+basis 为 local_observation/future_limitation/explicit_contract_violation。
+ephemeral 必须为 local_observation 且 owner/regression 均 null；repository_required
+必须指定 owner。mechanically testable finding 必须提供 regression；其余指向现有权威文档。
+直接证伪 admission rubric、acceptance criterion 或 invariant 完成声明的 finding 必须
+标 explicit_contract_violation、repository_required，至少 P2，不得用 production tree
+尚未利用缺口降级。COAC-26 review_report_generation_seam 是此校准的回归案例。
+Reviewer 保持只读；知识所有权沿用 development/README.md、DEVELOPMENT_WORKFLOW.md。
+
+Controller 在消费有效且未陈旧的 review 时，将每个 P3 repository_required finding
+登记为独立 durability job，再结束原 review 或路由 Fixer。P3 ephemeral 不建单。
+P1/P2 仍交 Fixer，完整原文和 metadata 不经转述；机械可测项必须补 regression 和 owner。
+durability 队列不改变原 PR 的 PASS、轮次或历史；外部 issue 不是持久化完成证据。
+identity = SHA-256(JSON.stringify([repository,PR,reviewed head,review issue,comment,
+raw review hash,finding id]))。意图先落盘、精确 reconcile、未知发送不重试。
+队列保存原始 finding、review 原文及身份；新候选或原评论替换不得重绑定旧 job。
+
+follow-up 使用独立 worktree 与独立 `review-loop/durability/<identity>` 分支，不推原
+PR 分支。结果为严格 `review-loop-durability` fence，绑定 identity、原 review hash、
+head 和 finding id，携带 commit、branch、artifact paths/content hashes 与 regression
+check 的 PASS/0。Controller 核验指定 agent/completed run、远端分支祖先关系、从原
+head 衍生的新 commit、owner/regression 为相对原 head 实际改变的普通文件、blob hash。
+只有核验通过才保存 COMPLETE 及 receipt 来源；原 review evidence 不修改。
+缺失/伪造/未提交/仅关闭 issue 均不能完成，记录 DURABLE_KNOWLEDGE_BLOCKED。
+该队列独立扫描，即使原 PR PASS、BLOCKED、已关闭或不再符合 admission 仍追踪。
+
+协议升级不自动推断旧 finding。v2.1 拒绝 v2 result/config/ledger；上线前暂停触发、
+备份原 ledger/evidence，完成或人工处置旧在途任务。存量 PR 必须人工迁移，保留
+round/history/authorization，清除旧 PASS 授权并在剩余预算内重新 review；耗尽则保留
+BLOCKED，不能通过新账本重置预算。新部署与旧部署不可并行。此次代码交付不改生产部署。
+
+机械验收位于 scripts/review-loop 的 protocol/controller/runtime tests：两轴路由、
+幂等及发送响应丢失、提交核验、closed-PR 追踪、stale/replacement 身份、严格 schema、
+COAC-26 校准。保留既有 fresh-review/Fixer/round-limit/evidence-hash 测试与五项门禁。
 
 1. 生产校验/状态机测试覆盖准入、来源伪造、重复/冲突、stale base/head、门禁、三轮上限、
    丢失响应与并发；五门与 `npm test` 在交付候选通过。

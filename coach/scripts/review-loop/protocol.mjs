@@ -1,13 +1,14 @@
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 
-export const VERSION = 'review-loop/v2';
+export const VERSION = 'review-loop/v2.1';
 export const REPOSITORY = 'ChildeRolando/MjsoulTileTrace';
 export const GATES = Object.freeze({typecheck:'npm run typecheck',build:'npm run build',vitest:'npx vitest run',architecture:'npm run check:architecture','package-import':'npm run test:package-import'});
 export const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 export const isSha = value => typeof value === 'string' && /^[0-9a-f]{40}$/.test(value);
 const text = v => typeof v === 'string' && v.trim().length > 0;
 const object = v => v && typeof v === 'object' && !Array.isArray(v);
+export const repositoryPath = p => typeof p === 'string' && /^coach\/[a-zA-Z0-9_./-]+$/.test(p) && !p.split('/').some(s=>!s || s === '..' || s === '.');
 function keys(v, required) {
   assert(object(v), 'expected object');
   assert.deepEqual(Object.keys(v).sort(), [...required].sort(), 'unexpected/missing fields');
@@ -57,7 +58,8 @@ export function admit(pr) {
 export function parseResult(job, issue, comments, runs) {
   assert(issue.id === job.issue_id && issue.assignee_type === 'agent' && issue.assignee_id === job.agent_id, 'assignment mismatch');
   assert(Array.isArray(comments) && Array.isArray(runs));
-  const name = job.kind === 'review' ? 'review-loop-result' : 'review-loop-fix';
+  assert(['review','fix','durability'].includes(job.kind),'unknown job kind');
+  const name = job.kind === 'review' ? 'review-loop-result' : job.kind === 'fix' ? 'review-loop-fix' : 'review-loop-durability';
   const candidates = comments.filter(c => c.content?.includes('```'+name));
   assert.equal(candidates.length,1,'missing/conflicting results');
   const c=candidates[0];
@@ -68,23 +70,57 @@ export function parseResult(job, issue, comments, runs) {
   const {data:r,end}=block(c.content,name);
   assert.equal(c.content.slice(end).trim(),'','result block must be final');
   const common=['protocol_version','pr_number','base_sha','head_sha','round'];
-  keys(r,job.kind === 'review' ? [...common,'verdict','findings','gates','environment_failures'] : [...common,'previous_head_sha','raw_review_sha256']);
+  keys(r,job.kind === 'review' ? [...common,'verdict','findings','gates','environment_failures'] : job.kind === 'fix' ? [...common,'previous_head_sha','raw_review_sha256'] : [...common,'identity','raw_review_sha256','finding_id','commit_sha','branch','artifacts','checks']);
   assert.equal(r.protocol_version,VERSION);
   for (const k of ['pr_number','base_sha','round']) assert.equal(r[k],job[k],`result ${k} mismatch`);
   assert(isSha(r.head_sha));
-  if(job.kind === 'fix') {
+  if(job.kind === 'durability') {
+    assert.equal(r.head_sha,job.head_sha);
+    assert.equal(r.identity,job.identity);
+    assert.equal(r.raw_review_sha256,job.raw_review_sha256);
+    assert.equal(r.finding_id,job.finding.id);
+    assert(isSha(r.commit_sha) && r.commit_sha !== job.head_sha,'missing durable commit');
+    assert.equal(r.branch,`review-loop/durability/${job.identity}`);
+    assert(Array.isArray(r.artifacts) && r.artifacts.length > 0);
+    const paths=new Set();
+    for(const a of r.artifacts) {
+      keys(a,['path','sha256']);assert(repositoryPath(a.path) && !paths.has(a.path));paths.add(a.path);
+      assert(typeof a.sha256 === 'string' && /^[a-f0-9]{64}$/.test(a.sha256));
+    }
+    assert(paths.has(job.finding.durable_owner),'missing durable owner artifact');
+    assert(Array.isArray(r.checks));
+    const regression=job.finding.regression;
+    assert.equal(r.checks.length,regression ? 1 : 0);
+    if(regression) {
+      assert(paths.has(regression.path),'missing regression artifact');
+      keys(r.checks[0],['command','status','exit_code']);
+      assert.equal(r.checks[0].command,regression.command);
+      assert.equal(r.checks[0].status,'PASS');assert.equal(r.checks[0].exit_code,0);
+    }
+  } else if(job.kind === 'fix') {
     assert.equal(r.previous_head_sha,job.head_sha);
     assert.equal(r.raw_review_sha256,job.raw_review_sha256);
   } else {
     assert.equal(r.head_sha,job.head_sha);
     keys(r.findings,['P1','P2','P3']);
     const ids=new Set();
-    for(const findings of Object.values(r.findings)) {
+    for(const [severity,findings] of Object.entries(r.findings)) {
       assert(Array.isArray(findings));
       for(const f of findings) {
-        keys(f,['id','path','line','scenario','consequence','minimal_fix']);
+        keys(f,['id','path','line','scenario','consequence','minimal_fix','durability','durable_owner','regression','basis']);
         for(const k of ['id','path','scenario','consequence','minimal_fix']) assert(text(f[k]));
         assert(Number.isInteger(f.line) && f.line > 0 && !ids.has(f.id));ids.add(f.id);
+        assert(['ephemeral','repository_required'].includes(f.durability),'invalid durability');
+        assert(['local_observation','future_limitation','explicit_contract_violation'].includes(f.basis),'invalid finding basis');
+        if(f.durability === 'ephemeral') {
+          assert(f.durable_owner === null && f.regression === null && f.basis === 'local_observation','ephemeral metadata conflict');
+        } else {
+          assert(repositoryPath(f.durable_owner),'missing/unsafe durable owner');
+          if(f.regression !== null) {
+            keys(f.regression,['path','command']);assert(repositoryPath(f.regression.path) && text(f.regression.command),'invalid regression');
+          }
+        }
+        if(f.basis === 'explicit_contract_violation') assert(severity !== 'P3' && f.durability === 'repository_required','explicit contract violation requires P1/P2 and repository durability');
       }
     }
     assert(Array.isArray(r.environment_failures) && r.environment_failures.every(text));
