@@ -108,6 +108,8 @@ export function makeIO(config,stateFile,stateDir,runCommand=command) {
       assert.equal(r.branch,`review-loop/durability/${job.identity}`);
       await git(['fetch','--no-tags','origin',`refs/heads/${r.branch}`]);
       const remote=(await git(['rev-parse','FETCH_HEAD'])).trim();assert(isSha(remote));
+      try {await git(['cat-file','-e',`${r.commit_sha}^{commit}`]);}
+      catch(e) {if(e.exitCode === 128)throw new Error('durability receipt commit missing or not a commit');throw e;}
       for(const [from,to] of [[job.head_sha,r.commit_sha],[r.commit_sha,remote]]) {
         try {await git(['merge-base','--is-ancestor',from,to]);}
         catch(e) {if(e.exitCode === 1)throw new Error('durability commit ancestry/reachability mismatch');throw e;}

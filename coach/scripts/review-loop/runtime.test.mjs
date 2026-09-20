@@ -48,6 +48,17 @@ test('mode-only owner or regression changes cannot complete durability',{timeout
     await git(['remote','add','origin',remote]);await mkdir(path.join(repo,'coach'));
     await writeFile(path.join(repo,owner),'old owner\n');await writeFile(path.join(repo,regression),'old regression\n');
     await git(['add','.']);await commit('base');const head=(await git(['rev-parse','HEAD'])).trim();
+    {
+      const identity=hash('missing receipt commit'),branch=`review-loop/durability/${identity}`;
+      await git(['push','origin',`HEAD:refs/heads/${branch}`]);
+      const finding={id:'missing-commit',durable_owner:owner,regression:{path:regression,command:'npm test'}};
+      const job={kind:'durability',identity,pr_number:8,base_sha:head,head_sha:head,round:1,raw_review_sha256:hash('review'),finding,agent_id:'fixer',issue_id:'durability',prepared_at:'prepared',status:'WAITING'};
+      const receipt={protocol_version:VERSION,pr_number:8,base_sha:head,head_sha:head,round:1,identity,raw_review_sha256:job.raw_review_sha256,finding_id:finding.id,commit_sha:'0'.repeat(40),branch,artifacts:[{path:owner,sha256:hash('old owner\n')},{path:regression,sha256:hash('old regression\n')}],checks:[{command:'npm test',status:'PASS',exit_code:0}]};
+      const comment={id:'comment',author_type:'agent',author_id:'fixer',issue_id:'durability',source_task_id:'run',content:'```review-loop-durability\n'+JSON.stringify(receipt)+'\n```'};
+      const state={durability:[job],history:[]},io={...makeIO({...config(dir),repository_path:repo},path.join(dir,'state.json'),dir),save:async()=>{},issue:async()=>({id:'durability',assignee_type:'agent',assignee_id:'fixer'}),runs:async()=>[{id:'run',issue_id:'durability',agent_id:'fixer',status:'completed'}],comments:async()=>[comment],archiveResult:async()=>{}};
+      await advanceDurability(state,io,config(dir));
+      assert.equal(job.status,'DURABLE_KNOWLEDGE_BLOCKED');assert.equal(job.completion,undefined);assert.match(job.error,/commit missing or not a commit/);
+    }
     for(const variant of [
       {name:'owner-only',modes:[owner],contents:{[regression]:'changed regression\n'}},
       {name:'regression-only',modes:[regression],contents:{[owner]:'changed owner\n'}},
