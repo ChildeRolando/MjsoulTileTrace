@@ -52,8 +52,15 @@ GitHub 当前查询拥有 PR 身份、base/head；任何 webhook JSON 都只是�
 `controller.mjs`；测试调用同一生产代码，不再用另一套离线模型模拟平台完成。
 
 每个 PR 默认全生命周期最多分派三轮 fresh review。每轮使用新的 Multica issue/run 和
-独立 detached worktree。Reviewer 只接收本轮 SHA、spec、rubric、五门命令、opaque ids。
-不输入旧 findings、父/兄弟 issue 或旧 session。禁用委派；tracked files/index/HEAD 保持不变。
+独立 detached worktree。Controller 固定提供本轮 SHA、spec、rubric、五门命令、opaque ids。
+Reviewer 从 README/CONTEXT/适用智能体指令按相关性路由治理文档、ADR、模板与目录级说明；
+指定 specs 是必读项而非阅读白名单。可按需读取与本 PR 直接相关的父/兄弟 issue、已记录
+历史讨论、旧 findings、复现步骤与修复说明，记录来源并对照固定候选核验；不遍历无关
+会话或私有状态，不继承历史 PASS/已修复结论。既复核旧问题，也独立检查本轮完整差异和
+受影响调用链。参考资料不改变固定身份、rubric、门禁、输出协议或权限。这替代旧版的
+历史输入全面禁令，不改变新会话/新 issue/run 的隔离。部署用中文指令源见
+`scripts/review-loop/reviewer-instructions.md`；更新智能体后必须精确回读确认一致。
+禁用委派；tracked files/index/HEAD 保持不变。
 运行依赖安装与忽略的构建产物允许。Controller 实际检查 review worktree 的 HEAD 与脏状态。
 
 review 结果必须由指定 Reviewer 在本轮 issue 发表，且 `source_task_id` 对应它的 completed

@@ -1,11 +1,18 @@
 const test = process.env.VITEST === 'true' ? (await import('vitest')).test : (await import('node:test')).test;
 import assert from 'node:assert/strict';
-import { ensureDispatch, advance, authorizeExtraReview } from './controller.mjs';
+import { ensureDispatch, advance, authorizeExtraReview, jobDescription } from './controller.mjs';
 import { admit } from './protocol.mjs';
 const config={reviewer_id:'reviewer',fixer_id:'fixer',project_id:'project'};
 const raw={number:8,state:'open',draft:false,body:'```review-loop-admission\n{"protocol_version":"review-loop/v2","authoritative_spec_paths":["coach/docs/specs/a.md"],"rubric":"all criteria"}\n```',base:{sha:'a'.repeat(40),repo:{full_name:'ChildeRolando/MjsoulTileTrace'}},head:{sha:'b'.repeat(40),ref:'codex/a',repo:{full_name:'ChildeRolando/MjsoulTileTrace'}}};
 const live=admit(raw);
 const state=()=>({round:0,history:[],status:'NEW'});
+test('review context is relevant and independently verified, not a document whitelist',()=>{
+  const description=jobDescription({kind:'review',pr_number:8,round:1,base_sha:live.base_sha,head_sha:live.head_sha,worktree:'/review'},live);
+  for(const expected of ['README.md','CONTEXT.md','ADR','parent/sibling issues','verify against the pinned candidate','not a reading whitelist','Keep tracked files/index/HEAD unchanged','review-loop-result']) assert(description.includes(expected),expected);
+  assert(!description.includes('outside the review input'));
+  assert(!description.includes("Use only this task's input"));
+  assert(description.includes(live.head_sha));assert(description.includes(live.base_sha));
+});
 function fake() {
   const issues=[], saves=[];let creates=0;
   return {issues,saves,get creates(){return creates;},io:{prepare:async()=>'/worktree',save:async s=>saves.push(structuredClone(s)),issues:async()=>issues,live:async()=>raw,snapshot:async value=>({semantics:'test',sha256:value.head.sha,observed_at:'now'}),checkSpecs:async()=>{},saveReview:async()=>'/review.txt',create:async j=>{creates++;const issue={id:'id',identifier:'COAC-20',title:j.title,description:j.description,assignee_id:j.agent_id,assignee_type:'agent',project_id:config.project_id};issues.push(issue);return issue;}}};
