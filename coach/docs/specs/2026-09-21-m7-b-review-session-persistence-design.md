@@ -1,501 +1,169 @@
 # M7-B ReviewSession / SQLite / privileged raw-cache 实现规格
 
-开始整理：2026-09-22；文件名沿用 M7-A 已预留的互引路径。
-状态：**产品裁决已收敛并获用户确认推送；TECHNICAL DRAFT，尚未完整 SPEC FREEZE，技术执行门未获 PASS。**
-工单：COAC-7；后续实现：COAC-8。
+冻结日期：2026-09-22
+状态：**SPEC FREEZE；产品与技术审阅已收敛，可供 COAC-8 实现。** 规格冻结不等于实现、验收或合并已经完成。
 
-## 基线与文档权威
+## 1. 权威、消费基线与范围
 
-- COAC-4 消费基线：`404fc9c596ccb406fa9334bdcbab186ef933ee0c`，沿用 M7-A 所记录的已验收合入基线；最终执行门须核验合入证据与实际消费版本。
-- 继承 M7-A 产品冻结版本：`febf6d911e9f9f743314fcf2d033c5f54dc78eb6`；当前消费其技术收口后的 PR #14 合并版本 `3e9bbb7b0e90e2072053c1eb16fff7ad5c44db74`（候选 HEAD `039bd13433f009e658f3a35e38be345b4cb912f8`）。2026-09-22 已通过 GitHub PR 读回核实 PR #10/#14 为 MERGED，并将本规格工作分支快进到该合并基线；未重写 M7-A 产品裁决。
-- [M7-A 冻结规格](./2026-09-21-m7-a-whole-game-fixed-review-ui-design.md) 拥有共享生命周期和 P6；本轮不重新 grill。
-- [CONTEXT.md](../../CONTEXT.md) 拥有术语定义；本文件拥有 M7-B 产品裁决及后续存储实施规格。
-- 继承 ADR-0003/0004/0005、现有 package/report contracts 与 validators，不建立第二套分析、报告或验证真相。
+本文件是 M7-B 持久化设计、失败矩阵和机械验收的唯一 owner。它消费而不复制以下权威：
 
-## 本轮沟通规则
+- COAC-4 已验收生成链基线 `404fc9c596ccb406fa9334bdcbab186ef933ee0c`；M7-A 产品冻结基线 `febf6d911e9f9f743314fcf2d033c5f54dc78eb6`。
+- M7-A 技术 read-back 基线：PR #14 合并提交 `3e9bbb7b0e90e2072053c1eb16fff7ad5c44db74`，其候选 HEAD `039bd13433f009e658f3a35e38be345b4cb912f8`。最终 DTO、P6 和 presenter 边界以 [M7-A owner](./2026-09-21-m7-a-whole-game-fixed-review-ui-design.md) 为准。
+- M6-C 拥有 `StructuredAnalysisPackage` 身份和 validator；D1 拥有 `projectContextGraph`；D2 拥有 `ReviewReport`、grounding validator 和唯一生成 authority；selector owner 拥有 `ReviewSelectionResult`。
+- 持久化和 presentation 只可调用 reasoning-owned `composeReviewReadBackContext(package, selection, report?)` 组合已保存数据。desktop 不得直接导入或调用 `appendReasoningOverlay`。
 
-首次出现的专有名词必须先解释用途、创建者及其与用户操作的关系，再提问。一次只裁决一个问题；可以由代码回答的问题先检查代码。产品 owner 进一步要求：仅询问存在实质分歧的产品取舍；可以由既有裁决推出的行为直接写入规格，不制造显然的二选一。工程实现缺口应列为技术阻塞，不反复要求产品 owner 确认。
+MVP 用户范围只有：会话列表、保存、退出、重启、离线重开、首次 Coach 生成，以及浏览当前 active report 的 Overview → List → Detail。没有 regenerate、history picker、A/B comparison/switching UI，也没有隐藏菜单、快捷键或禁用占位。
 
-## 术语边界与档案组织
+多份 immutable reports、append、active switch 和 A→B→A 只作为内部 repository/controller 能力与回归边界。多请求粒度、生成断点/续做、归档/文件夹、云同步、多用户、跨设备、GraphDB、向量检索和 M4 对话历史不属于 COAC-8 MVP；不得为它们新增表、DTO 或 UI。
 
-### B1：复盘档案与教练报告的层级
+## 2. 冻结不变量
 
-本轮已澄清：ReviewSession 是围绕分析包组织报告的复盘档案，不是智能体会话、教练身份、单次生成任务或独立学习活动。
+1. `ReviewSession` 围绕一份 package 组织报告引用；每个 `analysisPackageRef` 最多一个现存 session。session 不内嵌 package 或 report 正文。
+2. package/report 正文作为独立 immutable artifact 保存；一次合法生成取得全局唯一 `reportRefId`。`reportId` 是内容身份，允许两个不同 `reportRefId` 具有相同 `reportId`。
+3. session 保存冻结并验证过的 selector 结果，供重开复用；它是派生 session state，不是第三个 canonical artifact。重开不得按当前策略重新选牌。
+4. `activeReportRefId` 为 `null` 表示 `not_generated`；非空时必须唯一指向该 session、同一 package 下的一项 report ref。时间戳和 append 顺序都不能代替显式 active ref。
+5. graph 永不持久化：`ContextGraph = project(package) + active ReviewReport.reasoningOverlay`。每次重开或内部切换都从新的 package evidence 投影开始，只装配目标报告。
+6. package 读回经过 `validateStructuredAnalysisPackage`；selection 经过 `ReviewSelectionResultSchema`；report 经过 `validateReviewReport`。随后必须再通过获准的 `composeReviewReadBackContext`。缺失引用、不支持版本、hash 不符、身份不符或 validator 拒绝一律 fail closed。
+7. component version ownership 不混淆：canonical/replay、Mortal source/model、factor pipeline、selector policy 和 package schema 属 package/selection；provider/model、prompt/draft/generator/validator 和 report schema 属 ReviewReport；SQLite `user_version` 只描述存储结构。
+8. `complete`、`partial`、`evidence_only` 都是合法可保存报告。损坏或无法验证的数据不是 `evidence_only`。
+9. raw Mortal/source cache 只属于 main/source infrastructure，不进入 ReviewSession、ReviewReport、renderer DTO、audit、日志或错误 prose；离线重开不依赖 raw cache。
+10. renderer 只收到 M7-A 窄 DTO：当前 active ref、当前状态及页面所需 evidence/judgment/explanation/provenance；不收到完整 report catalog、artifact bytes、数据库路径或 cache material。
 
-按当前 A 方案继续细化：每个 `packageId` 最多一个现存 ReviewSession，重复打开恢复该档案。该方案满足已经提出的多教练、多次讲解需求；不因这些需求增加同包多 session。
-
-- 同一分析包可由不同教练生成多份 ReviewReport，同一教练也可多次生成不同报告。
-- 每份报告通过各自稳定的 `reportRefId` 独立寻址；同属一个 session 不意味着必须整组查看、整组管理或整组删除。
-- 用户已在 B12 明确要求按牌谱、分析、教练解释及对话的实体层级分别管理；报告级操作不因同属一个 session 而被合并。删除当前报告后的展示/再生成边界与物理清理仍须细化，不能偷换成整档案统一删除。
-- 用户举出的“进攻一次、防守一次，再将报告归入学习单元文件夹”说明报告层组织足以表达学习主题，不要求扩大 ReviewSession 的职责。
-- 学习单元文件夹仅作为边界说明，不新增其实体、存储或 MVP 入口；未来如有明确需求，分组可引用报告实例，不把 session 改称学习活动。
-
-撤回此前对 B 方案的论证：多教练、重复讲解、分别管理报告及按主题分组，都不是“同一分析包需要多个 ReviewSession”的充分理由。此前将 ReviewSession 类比为学习活动容器属于术语漂移，不进入规格。
-
-`packageId` 继承既有 M6-C 身份规则；它不等同于完整内容校验值。其引用解析、精确 artifact 的保存与同身份冲突处理将纳入后续存储裁决，不能仅凭 ID 相同认定 bytes 相同。
-
-### B2：没有教练报告的档案仍需保存（已裁决：保留）
-
-产品 owner 明确裁决：分析包已经生成、尚未请求教练讲解就退出应用时，保留复盘档案及其依赖的合法分析包；下次可重开证据视图，再决定是否首次生成教练报告。
-
-- 零报告是合法的持久档案形态：`reportRefs = []`、`activeReportRef = null`；对 M7-A view DTO 表达为 `activeReportRefId = null`、`activeReportStatus = "not_generated"`。
-- 不为填充档案伪造 ReviewReport，不调用教练生成入口，也不把无报告状态改写为 `evidence_only`。后者指确实存在且通过校验的合法报告。
-- 无报告的离线重开只依赖已保存分析包，不依赖网络、教练服务或原始来源缓存。
-- 生成中退出仍继承 M7-A：丢弃未接受的迟到报告，不删除原已保存的无报告档案或已有合法报告。
-- 验收场景：保存合法分析包及零报告档案 → 关闭进程并清空内存 → 禁用网络与教练服务 → 重开原档案；证据可浏览、报告集合仍为空、当前报告仍为空、未发生生成请求。
-- 实际保存入口、提交时刻及写入失败的用户行为见 C2/C3/C9 工程候选；本条冻结零报告档案须可持久保存，不把纯读取的 `openReview` 偷换成写操作。
-
-### B3：完整分析包和报告的物理存储（已裁决：A，同库独立记录）
-
-采用 A：完整分析包与报告存入同一个 SQLite 数据库中的独立记录，ReviewSession 仅引用这些记录。不采用“数据库仅保存目录与引用、完整内容保存在外部文件”的 B 方案；不把本题误述为“是否引入 SQLite”。
-
-产品 owner 在了解开源交付与提供服务的部署取舍后明确答复“就 A 吧”。正式桌面版无需用户额外安装 SQLite；接入方式与实际运行验证仍是技术执行条件。以下保留选择依据与实现约束：
-
-- SQLite 是嵌入应用的数据库引擎，无须单独运行数据库服务器；正式桌面发行包应携带所需运行能力，普通用户不应被要求额外安装 SQLite 或其命令行工具。依据：[SQLite serverless](https://www.sqlite.org/serverless.html)。
-- SQLite 核心允许开源与商业分发；应用实际选择的访问库仍有各自依赖与许可。依据：[SQLite copyright](https://www.sqlite.org/copyright.html)。
-- 当前仓库 desktop 固定 Electron `43.3.0`，尚无明确的 SQLite 访问库依赖；不能声称已完成 SQLite 打包验证。若选择需本地编译的访问库，须验证与 Electron、目标系统及处理器架构兼容。依据：[Electron native modules](https://www.electronjs.org/docs/latest/tutorial/using-native-node-modules)。
-- A/B 都有数据库接入成本；A 不因保存完整报告就额外要求一个数据库服务，B 也不能免除数据库接入。A 可在同一数据库事务中协调内容与引用；容量、备份时间和实际读写表现仍需代表性材料验证。
-- 本地开源桌面版与服务交付并不互斥。若远端只提供教练生成能力，本地档案仍可用 A；若未来托管用户档案，须另行定义身份隔离、服务端持久存储、备份及并发写入需求。
-- 单机、写入负载合适的托管服务可以使用 SQLite；多服务器共同写入或大量并发写入时，应另行评估服务端数据库。不得把普通共享网络目录上的同一个 SQLite 文件作为默认多机方案。依据：[SQLite appropriate uses](https://www.sqlite.org/whentouse.html)。
-- 本期采用本地 A，不为可能的云服务提前引入多数据库适配框架；未来服务化不能被承诺为无需迁移。云服务、多用户与同步仍不在 COAC-7 本期实现范围。
-
-实现前需验证：选择的 SQLite 接入方式在实际 Electron 运行时可用；在未安装 SQLite 命令行或开发工具的干净目标环境中，发行产物可创建、保存和重开测试档案。完整跨平台安装器仍归 M8，不以普通 Node 测试替代 Electron 运行验证。
-
-该裁决只确定分析包、报告与档案引用的物理存储关系；没有决定原始 Mortal/source 缓存的位置或保留策略，也没有批准把原始缓存混入上述产品记录。事务边界、具体表结构、旧文件迁移及备份仍须继续细化。
-
-### B4：新报告保存与当前报告切换的持久提交边界（已裁决：B，先保住合法报告）
-
-事务是应用交给数据库的一组写入，提交成功后整体生效，未完成则整体不生效。本题仅细化 M7-B 的持久化边界，不改变 M7-A 的事件顺序，也不开放 P6 延期的报告切换入口。
-
-- 产品 owner 选择 B：先单独提交合法报告与归属引用，再提交当前报告引用；第一阶段成功后，中断不应导致这份已保存报告因第二阶段尚未完成而被丢弃。
-- 选择理由：教练生成消耗时间与付费模型资源，优先保护已经取得并验证的生成成果。
-- 报告内容与归属引用在第一阶段仍须原子保存；禁止残缺正式报告、悬空引用和未经校验的激活；网络生成过程不纳入数据库写事务。
-- 第一阶段成功而第二阶段未完成的恢复行为按 B21/C3：自动完成已保存目标的本地恢复；不能依赖 P6 已延期的手动报告切换入口补救，也不能用报告时间或目录最后一项猜测用户原本的目标。
-- 两个提交点与既有 `REPORT_REF_APPENDED`、目标装配/校验、`ACTIVE_REPORT_SWITCHED`、`VIEW_READY` 的关系，以及退出/崩溃竞争、磁盘写满、提交结果未知时的读回规则已写入 C3/C9 技术候选，待技术审阅。
-
-### B5：付费教练生成成果的断点保存与续做（已裁决：多种请求粒度可调，最终默认策略待 MVP 后实验）
-
-产品 owner 进一步要求保护长时间教练生成中的付费成果，并提出可细至每手牌的每个分析面。这里的断点指可持久保存、经验证且恢复时可复用的已完成工作单元，不是仅保存进度百分比或请求已发送标记。
-
-随后明确裁决：一次模型请求的粒度暂不定死；MVP 先具备多种粒度可调模式，MVP 完成后通过效果与成本实验决定最终策略。不得将助手此前建议的“每个入选决策一次请求”写成唯一生产模式，也不得以粒度尚未选优为由把可调能力全部延期。
-
-区分三个层级：
-
-- 生成任务：为固定分析包及其入选决策形成一份正式报告的工作过程；一个任务可以发出多个请求，不等于 ReviewSession。
-- 请求粒度：一次模型请求承担多少分析工作，由任务调度采用的模式决定。
-- 断点成果：已经取得、校验并提交保存的可复用结果。请求范围与断点范围不能在数据库中被假定为一对一；单个响应是否可拆成多个可复用成果，须由该模式的输出和验证契约确定。
-
-MVP 模式集合经 B20 明确包含整批、小批量、单个入选决策及单分析面；参数范围和临时实验默认值仍需在实施契约中细化。最终产品默认策略明确后置到实验，不作为本轮强行选定单一粒度的理由。单分析面沿用既有分析条目和流水线共识，不重新 grill 分析内容或综合判断方法。
-
-共同实施要求：
-
-- 所有模式仍通过同一个获准的生成入口调度，消费同一 selector 入选集合和排序；改变请求粒度不授权改变哪些决策值得分析。
-- 同一任务记录其实际使用的模式、参数及计划；重启不能因应用默认配置变化而静默换一种粒度。进行中的任务能否主动换模式尚未批准。
-- 已持久保存且复用条件一致的成果不因重启而重新付费生成；改变粒度不能绕过身份、版本、依据关联或报告装配校验。
-- 对现有“一份报告至多两次网络发送”的冻结限制必须作显式增量设计：多请求任务需要分别定义每个请求的重试与整项任务的发送/费用边界。不能直接把旧报告级上限复制到每一片后无限放大请求数。
-- 模式适用范围与输出验证必须明确；一个整批非流式响应未返回时，不能宣称其内部某手已经存在本地可恢复断点。
-
-MVP 后实验应固定同一组分析包、入选决策、教练配置及相关版本，比较各模式的解释质量、依据校验通过情况、完整度、实际请求/重试数、输入输出用量、耗时与中断后重复工作量。费用以可获得的实际账单或明确标注的估算记录，缺失用量/费用记为未知，不计作零；这些受限指标不包含完整 prompt/response 或秘密。真实模型收费实验在 MVP 后另行安排，本轮不调用真实服务。
-
-当前实际基线：
-
-- `packages/reasoning/src/generate-review-report.ts` 对整批入选决策只调用一次 `provider.complete`；空 selection 不调用。
-- `packages/desktop/src/llm-provider/openai-compatible.ts` 使用 `stream: false`，完整响应返回后才交给解析、grounding 和报告装配；没有逐决策或逐分析面的持久结果回调。
-- M6-D2 冻结一次报告一次批量请求，provider 最多一次自动传输重试；细粒度生成和续做需要有界修订生成协议与对应回归，不能仅在 M7-B 中宣称已经支持。
-
-设计约束与尚待审阅的处理方向：
-
-- 已完成并持久提交、校验可复用的单元应避免重复付费生成；未收到结果的在途请求不能被记作已完成。
-- 内部未完成生成任务及其单元结果必须与正式 immutable ReviewReport 分开；不得把半成品伪装成报告或创建半成品 reportRef。
-- 已发布的合法 `partial` / `evidence_only` 报告仍受 P6 约束，不借“续做”名义重新生成已完成报告。未完成任务何时正式结束、何时形成合法降级报告须在增量生成协议中明确。
-- 恢复时需核对同一分析包、教练生成配置及所需版本，不能将不兼容的不同生成结果拼接。具体绑定字段尚待设计，不提前引入 P6 延期的用户配置功能。
-- 不把保存完整 prompt/response、隐藏推理过程或 raw source cache 当作断点方案；只考虑受约束且可验证的结构化成果。
-- 进程在供应商已执行而本地尚未收到结果时崩溃，单靠本地数据库不能保证取回结果或避免二次计费。本期按 B8 不依赖供应商取回结果；用户点击普通“继续”即允许重新请求这部分未完成工作。该授权不扩展为应用重开时自动发送，也不将未知计费在内部记录中写成零。
-- 较小单元可能重复发送上下文、增加请求次数，并影响跨分析面的综合判断；不能未经验证就认定拆得越细越省钱。
-- 不预先宣布单决策、小批量、整批或单分析面中的任何一种是最终最优粒度；保留已裁决的多模式可调能力，以实验结果收口默认策略。
-
-该需求是生成与持久化协同的增量设计，不重新 grill M7-A 的既有页面与 P6。模式集合按 B20 冻结；将既有分析输出映射为各模式的保存/恢复单元、退出时已接受单元的保存、在途请求处理、请求/重试预算、费用未知状态、任务完成与发布时机，均须明确后才能通过执行门。这些是工程衔接，不将既有分析方法重新列为待决产品问题。模式入口按 B6 冻结，多模式实验不能借道打开 P6 延期的已发布报告重生成入口。
-
-### B6：多粒度配置的使用者（已裁决：A，仅内部实验）
-
-产品 owner 选择 A：请求粒度模式及参数仅通过内部配置或实验工具调整，MVP 不增加面向普通用户的设置入口。
-
-- 普通用户按应用预设模式首次生成；临时预设不代表实验已证明的最终最佳粒度。
-- 每次任务仍记录实际模式和参数，保证中断恢复与实验记录可追溯，不因配置入口不可见而省略保存。
-- 实验工具可针对固定输入比较模式，不借产品菜单、快捷键或隐藏入口开放 P6 延期的已发布报告重新生成/切换；实验产生的报告及断点遵守相同校验与保存规则。
-- 本条只裁决粒度参数的访问面；未完成生成任务的恢复提示与操作属于独立的 MVP session UX 问题，不因“仅内部实验”而自动隐藏或开放。
-
-### B7：中断任务重开后是否自动继续付费生成（已裁决：A，用户主动继续）
-
-产品 owner 选择 A：重开应用只恢复已保存成果与进度，等待用户点击“继续”后才向模型发送原任务中尚未执行的工作；打开应用、打开档案或浏览已有证据均不得自行触发新的付费生成。
-
-- 本地读回、校验与进度恢复不依赖模型生成，离线亦可进行；继续时如网络、凭据或必要配置不可用，应保留进度并明确提示，不将已保存成果作废。
-- 继续沿用原任务已记录的分析包、配置/版本、模式及计划；可复用的已完成成果不再次发送生成请求。不能恢复兼容条件时须停止，而不是静默新建一次全量生成。
-- 自动测试须覆盖重启、重开档案、查看已有内容时模型生成请求数为 0；显式继续后只处理获准的未完成工作，完成断点保持不变。
-
-结果未知的在途请求按 B8 处理：普通“继续”包含对这部分未完成工作的重新请求；内部仍不能把它标记成从未发送或推断未收费。对已经保存完整合法报告、仅当前展示切换未完成的 B4 第二阶段恢复，也不应重新调用模型。
-
-该问题仅针对未完成的原生成任务；已发布的合法报告不以续做名义重新生成，P6 保持。
-
-### B8：已发送但结果未知的请求如何恢复（已裁决：B，普通继续即重发，不额外提示）
-
-“结果未知”表示应用没有足够证据判定原请求完成、失败或计费情况；本地中断、超时或没有保存响应不等同于供应商未执行。
-
-产品 owner 选择 B，并明确去掉“可能重复收费”的按钮说明与额外确认。本期按当前接入没有原请求结果取回能力设计；不增加查询/轮询结果恢复分支，也不以寻找供应商取回能力阻塞 MVP。该范围选择不用于宣称所有模型或 agent 服务均不存在相关能力。
-
-- 用户点击普通“继续”后，应用复用已保存且有效的成果，并重新请求结果未知的未完成部分。
-- UI 使用普通“继续”入口，不增加重复收费警告、确认弹窗、费用风险按钮说明或隐藏提示来变相恢复已被产品 owner 删除的信息。
-- 重开、浏览和本地恢复仍不得自动发起模型生成；B7 保持。
-- 内部保留原尝试与后续尝试的关联及允许的用量信息；未知费用仍为未知，不能记录成零或已退款。内部审计不等于向用户增加提示。
-- 重复点击“继续”不得并发创建同一份未完成工作的多个请求；恢复的本地提交仍须避免重复写入引用和重复发布报告。
-- 验收覆盖：已保存成果复用、未知工作在一次明确继续后重新请求、无额外确认/风险文案、重复点击不增加重复请求。现有 provider 自动重试策略的增量修改仍须按 B5 单独闭合。
-
-是否可越过未知部分继续其他独立工作、放弃未知部分后的报告完成语义，随任务状态与依赖关系明确；不能通过新建任务绕过既有尝试记录。
-
-### B9：原始来源缓存的保留策略（已裁决：B，长期保留，主动清理）
-
-原始来源缓存由应用在下载牌谱或 Mortal 源报告时保存，供中断恢复、重新进行本地分析和避免重复下载使用。它不是分析包、教练报告或已完成的付费教练断点；继承 H6 的主进程专用边界，不进入 ReviewSession、ReviewReport、renderer 或原始 audit payload。
-
-产品 owner 选择 B：默认长期保留原始来源材料，直到用户主动清理。不按保存时间、最近使用时间或总容量阈值自动淘汰既有材料。
-
-- 保留不等于永久可用：来源身份、内容完整性或解析版本不符合当前要求时拒绝复用，不以此为理由静默删除原始材料。缓存键、版本关联、重复下载去重及明确清理范围仍需细化。
-- 磁盘空间不足时应报告新写入失败并保住已保存数据，不能为了腾空间自行删除旧来源材料、分析包、报告或生成断点。后续失败矩阵须覆盖此行为。
-- “清理可选缓存副本”不得连带删除完整分析包、教练报告或可恢复的付费教练成果；已有完整档案的离线重开不依赖原始缓存字节。B12 新增的“删除导入牌谱实体”是不同产品操作，必须按实体依赖向下删除，不能借缓存清理绕过。
-- 清理后未来重新进行来源分析可能需要重新下载，来源失效时可能无法重做；不能把重新下载能力当成保证。具体删除入口与确认语义待删除专题裁决。
-- 验收应以模拟时间推进、长期未使用及容量压力证明旧条目不会自动消失，并验证拒绝复用与主动删除是不同操作。
-
-### B10：本地数据目录是否允许用户更改（已裁决：A，目录搬迁列后续 TODO）
-
-数据目录指应用保存复盘数据库、生成进度及原始来源材料的位置。当前 desktop 已通过 Electron 的 `app.getPath("userData")` 定位应用数据目录；登录凭据也有独立的既有保存边界，不能将复盘目录变更自动扩展为搬移全部登录和秘密材料。
-
-产品 owner 选择 A，并要求将迁移功能加入 TODO：MVP 使用应用默认数据目录，不提供更改位置或搬迁已有数据的用户入口。正式默认目录及其子目录布局在本规格技术部分明确，不让用户为启动应用选择路径。
-
-- 后续 TODO：允许选择其他本地磁盘目录，并安全搬迁已有复盘数据库、生成进度和原始来源材料；明确搬迁中断恢复、目标目录不可用、空间不足、权限及切换成功的验证规则。
-- TODO 的跟踪 owner 为 [ROADMAP §6](../development/ROADMAP.md#6-m7-b-reviewsession-持久化)，不创建另一套待办系统，也不作为本期完成条件。
-- 这里延期的是更换保存位置的“目录搬迁”；软件升级时数据库结构的“版本迁移”仍属于本期必须定义的兼容与恢复工作，两者不能混淆。
-- 本题不将网络共享目录、多设备同步、便携版或凭据搬迁纳入已批准范围。
-
-### B11：MVP 备份与恢复的提供方式（已裁决：B，无内置功能，不列 TODO）
-
-备份指另存一份可恢复的数据副本，不改变应用当前的数据目录，与 B10 延期的目录搬迁不同。
-
-产品 owner 选择 B，并明确认为内置备份/恢复没有实际意义、不得列入 TODO。本期不实现备份/恢复按钮、导入导出备份向导、定时备份或云备份，也不创建相应后续开发待办。
-
-- 仅提供完全退出应用后，手动复制和恢复所需数据目录的操作说明；说明精确到后续冻结的目录布局，不能让用户凭猜测遗漏数据库附属文件、生成断点或来源材料。
-- 手动恢复时同样要求应用退出，恢复后经通常的数据库版本及内容校验再打开；不承诺任意新旧版本之间无条件兼容。
-- 手动说明不要求复制无关的登录凭据或秘密，不把应用正在写入的数据库主文件复制描述为可靠备份。
-- 本裁决不取消数据库自身的事务/崩溃恢复或版本迁移失败处理，它们仍是持久化正确性要求，不扩展成产品备份功能。
-
-### B12：分层实体管理与依赖方向删除（已裁决：上游删除级联下游，下游删除保留上游）
-
-产品 owner 选择 A，并补充比原 A/B 更完整的规则：用户应清楚看见“导入的牌谱”“分析的事实”“教练的解释”“用户和教练的会话”等不同实体层级，能够分别操作；删除上游实体时，一并删除消费它的下游实体，删除下游实体时不得连带删除其消费的上游。
-
-本节取代助手此前“删除复盘档案等于同时删除报告、进度和分析产物”的笼统定义。ReviewSession 仍是围绕分析包组织报告与当前引用的记录，不替代用户对各层实体的选择；尤其不得在删除最后一份教练报告时，以“没有下游引用”为由向上自动清理分析包或原始牌谱。
-
-| 用户选择删除的实体 | 一并删除的实际依赖下游 | 必须保留的上游/其他分支 |
-|---|---|---|
-| 导入牌谱 | 消费它的分析包、这些分析的教练报告、相关任务/断点，以及未来依赖这些材料的对话 | 无关牌谱及其分析；共享存储材料仍被无关实体使用时不得物理误删 |
-| 某一份分析包 | 消费它的教练报告、相关任务/断点，以及未来直接或间接依赖它的对话；相应 ReviewSession 同步删除 | 原始牌谱、Mortal 来源材料、同牌谱的其他分析版本及其独立下游 |
-| 某一份教练报告实例 | 未来依赖该报告的对话；归属目录/当前引用与仅服务于该报告的内部记录按一致性规则处理 | 分析包、原始牌谱、其他教练报告及不依赖被删报告的对话 |
-| 某一次教练对话（未来 M4） | 该对话自身内容与实际依赖它的下游 | 它消费的报告、分析包、牌谱与其他对话 |
-
-- 图示 `导入牌谱 → 分析结果 → 教练解释 → 教练对话` 表示常见依赖方向，不能当成每层固定单父的目录树；未来对话可直接引用分析，也可引用多份报告，删除范围必须计算实际依赖。
-- “分析的事实”在当前实现中对应既有分析包的证据层，而非新建另一套事实 artifact。包内客观计算事实、Mortal 模型评价及参考信号仍按现有权威边界区分，不能因 UI 分层把模型评分改称客观事实。
-- 用户可见的是经过安全投影的实体摘要、关系和操作，不代表 renderer 获得原始牌谱字节、完整分析包、来源缓存、下载地址或账号秘密。
-- 删除不相关兄弟分支禁止；下游同时依赖被删来源与其他来源时，按本条删除这个下游实体，但不向上删除其他来源。
-- 删除须阻止受影响生成任务继续提交结果，避免迟到响应恢复被删除的报告或档案；不得额外调用模型来修补被删引用。
-- 目录、当前引用和实体删除须一致。删除后不能留下指向不存在报告的 active ref，也不能任意激活目录中的另一份报告；具体展示与 P6 边界下一步明确。
-- 删除导入牌谱是删除本地实体，不包含删除远端账号中的牌谱；不删除登录凭据。
-
-#### 牌谱实体与缓存副本的区别
-
-已有完整分析包可在没有原始缓存字节时离线查看，这是既有 H6/重开边界。用户主动删除导入牌谱实体时向下级联，是本次确定的产品依赖规则；不能声称所有报告读回在技术上都必须再次读取原始字节。
-
-“清理缓存”只适用于能够证明不是实体唯一内容副本的可选存储副本；不能用这个名称删除导入牌谱的唯一材料而保留一个伪完整实体。如果当前只有一份保存材料，移除它须走对应实体删除及依赖处理；不为提供缓存清理按钮而强造一份重复存储。具体所有权关系在 schema 与 raw-cache 章节明确。
-
-### B13：四层实体模型中的教练对话是否提前进入 MVP（已裁决：不提前，仍归 M4）
-
-产品 owner 明确确认：本期实现导入牌谱、分析结果和教练解释前三层的分别管理；第四层用户与教练的多轮对话继续归后续 M4，不提前进入 MVP。
-
-- 保留 B12 的领域依赖及删除方向供 M4 继承，本期不创建聊天表、消息历史、聊天入口或不可用的对话占位。
-- ReviewSession 继续保持复盘档案语义，不改名为聊天会话，也不为未来对话构造一个尚无需求的通用会话框架。
-
-### B14：资料归属与登录边界（按 B15 的本地桌面范围收敛）
-
-产品 owner 指出资料归属取决于产品形态：在线服务的主资料库与本地软件不同。助手此前直接要求在“本地统一资料库/按雀魂账号分库”之间选择，跳过了本期交付形态，并混淆了产品登录与牌谱来源登录；该二选一未获裁决，不能继续作为默认前提。
-
-必须区分：
-
-- 产品账号：若提供多人在线教练服务，用来识别访问本产品的用户及其资料；它不等于雀魂账号，当前 desktop 未据此建立资料归属。
-- 雀魂账号：获取账号下在线牌谱的来源身份。现有登录/退出处理的是此来源身份；开放源码不使受账号保护的在线取回免于认证。
-- 本地软件可以不要求注册本产品账号；已有本地分析与报告的离线读取不应被表述为必须重新登录雀魂。
-- 托管在线服务的主要持久资料位于服务端；不能把访问者电脑上的 `userData` 当作其权威资料库。
-- 开源是源码与许可的交付方式，不直接决定本地/在线部署或登录要求；开源代码也可用于自行托管的在线服务。
-
-已核对的实现事实：当前为 Electron desktop，雀魂退出流程清理登录状态、浏览器会话与账号目录缓存（`mahjong-soul-session-service.ts` / `session-controller.ts`）。现有 COAC-5/7、B3 SQLite 部署讨论与 B10 默认目录均基于该本地实现；这不构成用户对未来所有产品形态的限制。
-
-根据 B15，本期以当前操作系统用户的应用数据目录保存本地资料，不新增产品账号注册/登录体系，也不引入服务端多用户资料隔离。这是本地桌面范围下的最小实现方案，不将先前未获裁决的“按雀魂账号分库”记录为用户选择。
-
-雀魂来源登录与本地资料访问分离：离线读取已保存的牌谱摘要、分析与报告不要求雀魂登录；退出或切换来源账号不等于删除已导入的本地实体。在线取谱继续按当前来源身份验证授权。本地库不承诺隔离同一操作系统用户下的不同实际使用者；如未来增加多用户产品身份，应另立范围。任何形态都不放宽既有牌谱来源取回授权，也不向 renderer 暴露来源凭据或原始账号标识。
-
-### B15：本期 MVP 的交付形态（已裁决：先交付本地桌面软件）
-
-产品 owner 明确选择“先交付本地桌面软件”。沿已有 Electron 与 COAC-5/7 基线实现，B3 的 SQLite 与 B10 的默认本地数据目录适用于本期；不将多人在线服务并入本次实现范围。此裁决不单独决定开源许可或发布方式。
-
-未来在线托管服务需另行定义用户身份、资料归属与服务端执行边界，不能把当前 desktop main-process 边界机械改名为服务端便视为完成。已有实体、引用、删除方向和付费成果保护裁决继续保留，不重开 M7-A lifecycle / P6。
-
-### B16：本地复盘资料是否额外加密（已裁决：不加密，便于本机 agent 访问）
-
-产品 owner 明确选择复盘资料明文保存，认为本机 agent 直接读取和利用这些材料是有价值的使用方式。本期不增加资料库密码、解锁流程、数据库/来源缓存内容加密或相应密钥恢复机制。
-
-- 明文范围包括本地牌谱材料、分析包、教练报告与生成断点；明文表示没有应用层内容加密，不要求把 SQLite 中所有内容另存为文本副本。
-- 资料访问依靠操作系统文件访问权限；能读取这些文件的本地用户或程序也能读取其中的对局记录、昵称、分析及个人学习内容。接受这一边界，不据此追加加密功能或日常警告。
-- 用户认可本机 agent 读取资料，不等于本期新增 agent 接口、允许其绕过事务直接修改正式数据库，或要求桌面展示层接收原始来源数据。既有 privileged raw-cache 与安全投影边界继续适用。
-- 模型 API 凭据、雀魂登录秘密继续沿用既有独立保护机制，不因复盘资料明文保存而改为明文，不混入复盘数据库、断点或手动备份资料范围。
-
-### B17：区分归档与删除（已裁决：采用归档/取消归档与删除的独立语义）
-
-产品 owner 在原“直接删除/回收站”的问题中选择 B，并明确提出参考 Codex 等 agent 产品，区分归档与删除。按用户补充后的含义记录，不把原选项的回收站及清空流程直接视为批准。
-
-- 归档由用户发起，是整理资料的可逆操作：从日常列表收起，保留实体内容、身份、依赖引用与已保存成果；用户可在已归档资料中找到并取消归档。
-- 删除是独立的资料移除操作，沿用 B12 的上游删除级联实际下游、下游删除保留上游规则。归档不能替代明确的删除，也不把已归档资料视为等待自动清理的垃圾。
-- 取消归档复用原实体和已有成果，不复制分析包、不创建新报告实例，不触发模型调用。归档不能重置 M7-A P6 的首次生成限制。
-- 本题不批准第三套回收站机制、自动到期删除、归档文件压缩或备份功能；关联下游的显示规则由 B18 裁决，运行中任务与归档的衔接仍需细化并遵守既有退出生命周期。
-- 参考证据：2026-09-22 核对的 [OpenAI 官方 Codex App Server 文档](https://learn.chatgpt.com/docs/app-server#archive-a-thread) 分别定义归档、取消归档及永久删除。这里只借鉴操作语义；Codex 的生成后代任务关系不直接等同于本产品的牌谱/分析/报告消费关系，其文件移动实现不作为本产品 SQLite 方案的约束。
-
-### B18：归档是否连带收起下游（已裁决：B，整条依赖分支一起收起）
-
-产品 owner 选择 B：归档上游资料时，依赖它的下游也从日常列表隐藏；取消归档时恢复此前的显示状态。
-
-- 归档牌谱时，其分析与教练报告一起收起；归档某份分析时，仅收起该分析及实际依赖它的报告，不影响同牌谱的其他分析分支；单独归档报告不向上归档分析或牌谱。
-- 区分用户直接归档某实体与因上游归档而连带隐藏。取消上游归档只解除该上游带来的隐藏原因，不清除下游原本独立的归档状态；也不消除其他仍归档上游带来的隐藏原因。
-- 上述状态是资料管理元数据，不改写不可变的分析包/报告正文、实体身份或引用关系，不切换当前报告引用。已归档资料仍可经归档入口访问；取消归档不重新分析、不重新生成报告。
-- 实际依赖关系仍按 B12 确定，不因列表按层显示就改为固定单父目录树；本期不提前实现 M4 对话或通用关系框架。
-- 后续验收至少覆盖：整支归档/恢复、兄弟分支不受影响、下游先独立归档再归档/恢复上游、归档状态重启后保留。归档不会把仍存在的报告当作未生成，从而绕过 P6。
-
-### B19：本地资料库的主要浏览入口（已裁决：A，按牌谱组织）
-
-产品 owner 选择 A：本地资料库按导入牌谱组织，展开牌谱可看到对应分析结果，再展开分析可看到对应教练报告；每个实体层级保留自己的归档与删除操作。
-
-- 显示牌谱、分析、教练解释的层级和实际关联，避免将一个 ReviewSession 当作所有资料的唯一管理对象；本期不增加 M4 对话层占位。
-- 日常列表与归档入口遵守 B18 整条依赖分支收起及恢复原状态的规则；不以归档为由删除内容或生成新的实体身份。
-- 层级展开属于资料库导航，不更改单局复盘页面，不开放 P6 延期的报告切换器、重新生成或多教练选择。多报告内部存储与隔离契约继续保留。
-- 列表只消费应用提供的安全实体摘要与引用，不将整个分析包或原始缓存下发到展示层。按层显示不改变 B12 按实际引用计算的依赖关系。
-
-### B20：可调请求模式包含单分析面（已裁决：纳入 MVP，继承既有分析流水线）
-
-产品 owner 明确要求增加分析面模式，并指出单手分析的条目、过程与综合解释规则已经在早期 grill 中形成共识。撤回助手此前将“重新定义各分析面的输出和如何合成完整解释”作为新增产品设计工作的表述。
-
-- “复盘点”是助手引入的不清楚表述，后续使用“入选复盘决策”：一处具体操作选择，例如某巡弃牌、立直选择或对他家舍牌的响应；不是从配牌至和牌/流局的整局，也不是仅有一组手牌而无决策时刻的图片。
-- MVP 内部可调模式包含整批入选决策、小批量、单个入选决策、单分析面。模式只改变一次请求承担的范围，不另建分析方法、改变入选决策范围或强迫每一处都执行全部分析面。
-- 已核对继承依据：[统一候选比较规格 §4/§6](./2026-07-30-unified-comparison-analysis-design.md#4-统一分析管线) 规定统一流程及五条分析主轴；[证据约束规格 §3.2](./2026-07-30-evidence-grounded-coach-reasoning-design.md#32-第二层五条分析主轴) 列出各轴内容。五轴为牌效与速度、打点与和牌质量、防守与对手模型、顺位与局收支、可逆性与选择权。所需条目、适用性及依赖沿已有规范解析，不用临时的“进攻/防守”二分替换。
-- 综合判断继承较新的 [ADR-0003](../adr/0003-evidence-first-coaching-judgment-and-authority-layers.md)：本地事实不可由 LLM 改写，教练可以在证据内权衡冲突因素并作最终推荐。继承流水线不等于将教练降级为确定性文字拼接，也不恢复已被该 ADR 取代的旧权威规则。
-- 持久化须支持按既有分析面/步骤保存已经取得、校验通过且可复用的成果；后续步骤中断不能让此前已保存成果被重复生成。依赖前序成果的后续步骤须绑定实际消费的已保存成果，避免恢复时混用不同输入或版本。
-- 当前整批非流式生成入口尚无这些中间成果的持久回调；需要新增调度与断点保存/读回的工程衔接。该实现缺口不构成重新裁决分析内容的理由，也不能据此把单分析面从 MVP 排除。
-- 普通用户不配置粒度；最终默认模式仍由 MVP 后实验决定。正式报告发布与 M7-A P6 不变，内部分析面断点不伪装成已发布的完整报告。
-
-### B21：已保存报告的中断恢复（已裁决：自动完成本地恢复）
-
-完整合法报告及引用已提交，但尚未完成当前报告激活/展示就崩溃时，下次打开原档案自动读回校验并完成该目标的本地激活与展示，不增加“继续展示”的按钮，也不调用模型。这是 B4 保护已保存成果与 B7 重开不自动付费的直接推论。
-
-尚未完成生成的任务仍等待用户主动点击普通“继续”。恢复依据明确保存的目标引用和操作身份，不按时间猜最新报告，不将已取消或被删除的目标重新激活。
-
-## 与 M7-A 共享的会话生命周期
-
-完整协议直接继承 [M7-A 共享生命周期](./2026-09-21-m7-a-whole-game-fixed-review-ui-design.md#共享会话生命周期coac-5--coac-7)；事件名称、事件顺序、view state 与 ref 语义不另起一套。
-
-- 每次合法报告生成获得唯一 `reportRefId`，不得用可能相同的内容身份 `reportId` 代替实例引用。
-- 合法 `partial` / `evidence_only` 报告可保存重开；无合法报告的操作失败与合法降级报告严格区分。
-- 生成中退出丢弃迟到结果；既有已保存报告不变。
-- 报告切换只装配当前报告的解释与判断，不混用其他报告内容；具体持久化提交点待本轮裁决。
-- P6 保持：MVP 只开放首次生成与未取得合法报告时的重试；已有合法报告后不开放重新生成或报告切换。多报告存储契约与内部隔离回归不等于开放用户入口。
-
-## 持久化实施候选（待技术审阅）
-
-以下实施候选是从 B1–B21、既有 validators 及最新 M7-A 推导的工程方案，不将每个工程默认值再次交给产品 owner 选择。全文尚需技术审阅；下述候选不表示持久化代码已实现。
-
-### C1：存储位置、运行边界与数据库设置
-
-目录根为 `app.getPath("userData")/review-library/`：
+## 3. 数据目录与 SQLite 运行边界
 
 ```text
-review-library/
-  library.sqlite             # 正式实体、分析包、报告、引用、断点及来源文件索引
-  library.sqlite-wal         # SQLite 写入日志，存在时属于数据库整体
-  library.sqlite-shm         # SQLite 协调文件，存在时保留给 SQLite 管理
-  source-materials/           # 原始牌谱与原始 Mortal 材料，仅 main/source 访问
-  staging/                   # 尚未正式登记的来源文件临时写入
+app.getPath("userData")/review-library/
+  library.sqlite
+  library.sqlite-wal
+  library.sqlite-shm
+  source-cache/
+  staging/
 ```
 
-- 复盘根目录与现有凭据、浏览器会话、账号目录缓存分离。原始材料字节不放入 SQLite 正式产物表，不进入 session/report/audit；SQLite 中只保存 main 专用的不透明材料引用及校验元数据。
-- 主进程拥有数据库写入连接，以串行队列执行短事务；同一库只允许一个应用实例写入。不提供 renderer 文件路径、任意 SQL 或直接文件 API。读取可用独立只读连接；用户自选本机 agent 读取文件不要求应用另建访问服务。
-- SQLite 打开后设置并读回核验 `foreign_keys=ON`、`journal_mode=WAL`、`synchronous=FULL`、`busy_timeout=5000`。WAL 是数据库的写入日志，与教练生成断点不同；不能为“清缓存”删除它。外键指数据库强制维护的引用关系，用来防止条目指向不存在的上游。
-- 采用参数化语句，动态排序字段使用固定白名单；每次写事务重新检查引用、revision 与删除状态。网络、LLM 请求、来源下载和大段校验不占用写事务。
-- 不承诺文件系统/硬件损坏下绝对不丢失；验收须证明在支持环境下提交成功的结果经进程中断可恢复，磁盘写入失败不会被报告成已保存。
-- SQLite 访问库尚未选择和验证，列技术执行门：必须在固定 Electron `43.3.0` 的实际进程及目标发行目录运行创建/提交/崩溃重开验证；普通 Node 运行结果不足以代替。不得要求用户单独安装 SQLite。
-- SQLite 设置依据：[WAL](https://www.sqlite.org/wal.html)、[PRAGMA](https://www.sqlite.org/pragma.html)、[foreign keys](https://www.sqlite.org/foreignkeys.html)。访问库还须读取并记录实际 SQLite 引擎版本、编译选项及适用的官方修复信息，不仅核对 npm 包名。
+- desktop main process 是唯一数据库写入者；同一资料库只允许一个应用实例持有写所有权。renderer/preload 不获得 SQL、路径或任意文件能力。
+- SQLite 初始化后设置并读回 `foreign_keys=ON`、`journal_mode=WAL`、`synchronous=FULL`、`busy_timeout=5000`。不得手动删除 WAL/SHM 充当恢复或清缓存。
+- 写入使用参数化语句和串行短事务。网络、LLM、下载、JSON parse、validator 与 graph projection 均在事务外完成；提交前在事务内重新检查 revision、引用归属和删除状态。
+- 正式桌面发行物携带 SQLite runtime，不要求用户安装 SQLite CLI。实现必须在仓库固定的 Electron `43.3.0` 进程和发行布局验证所选 binding；普通 Node mock 不替代该门。
+- 正文保存 validator 接受后的 canonical UTF-8 JSON bytes、SHA-256、schema version。内容 hash 检测与已登记 bytes 的偏差，但不宣称防御拥有本机写权限的攻击者。
 
-### C2：实体、引用与候选表结构
+## 4. SQLite v1 schema
 
-`artifact` 指已经生成并校验的完整产物正文；`ref` 指向该正文的稳定引用。数据库为前者保存不可变内容，为后者保存归属及访问身份。`revision` 是每次修改递增的整数，用于拒绝基于旧状态的写入；内容校验值只能检测与已登记内容不一致，不能认证恶意本机写入者。
+下列是 v1 必须实现的逻辑 schema；DDL 可按所选 binding 拆分，但表、字段语义、唯一性和复合外键不得弱化。
 
-下表是本期必需的逻辑表及关键约束。正文统一保存校验后固定序列化的 UTF-8 JSON 字节及 SHA-256，不依赖再次序列化后的偶然字段顺序。所有时间只用于显示/诊断，不决定身份或选择当前报告。
-
-| 表 | 关键字段与类型 | 约束/所有权 |
+| 表 | 必需字段 | 约束 |
 |---|---|---|
-| `library_meta` | 单行 `format_version INTEGER`、`created_at TEXT`、`migration_state TEXT` | 与 SQLite `user_version` 一致；不保存产品账号或秘密 |
-| `imported_records` | `record_ref_id TEXT PK`、`source_kind TEXT`、`source_identity_hash TEXT`、`source_content_hash TEXT`、`summary_json TEXT`、`archived_at TEXT NULL`、`revision INTEGER` | 同来源身份和相同内容复用原实体；同身份异内容不得静默替换。摘要须单独通过安全 schema |
-| `source_materials` | `material_id TEXT PK`、`source_kind TEXT`、`content_hash TEXT`、`byte_length INTEGER`、`relative_path TEXT UNIQUE`、`format_version TEXT`、`state TEXT` | `state` 为 `ready/deleting`；main 专用；长度非负，路径由 main 生成；不存 token、cookie 或完整下载 URL |
-| `record_material_refs` | `record_ref_id FK`、`material_id FK`、`role TEXT` | 复合主键；`role` 为 `record_original` 或 `optional_source_cache`；至少一个原始材料引用由导入事务保证 |
-| `raw_cache_entries` | `cache_key TEXT PK`、`material_id FK`、`record_ref_id FK`、`parser_version TEXT`、`validation_version TEXT`、`created_at TEXT` | 仅特权索引；不是 ReviewSession 字段；不以命中索引代替内容/身份校验 |
-| `analysis_artifacts` | `package_id TEXT PK`、`record_ref_id FK`、`analysis_key TEXT`、`semantic_hash TEXT`、`content_hash TEXT`、`payload BLOB`、`storage_format INTEGER`、`archived_at TEXT NULL`、`revision INTEGER` | 正文及来源绑定不可变；payload 由既有 package validator 认可；archive/revision 是独立管理元数据 |
-| `review_sessions` | `session_id TEXT PK`、`package_id TEXT UNIQUE FK`、`selection_payload BLOB`、`selection_hash TEXT`、`has_published_report INTEGER`、`revision INTEGER` | 每包最多一个现存 session；selector 结果在创建时冻结，重开不重新选择；`has_published_report` 只能由 0 变 1，删除报告不把旧档案伪装成从未生成 |
-| `report_artifacts` | `artifact_id TEXT PK`、`package_id FK`、`report_id TEXT`、`content_hash TEXT`、`payload BLOB`、`schema_version TEXT` | `report_id` 只建普通索引，不能 UNIQUE；完整正文、generatedAt 与 generation metadata 不可变 |
-| `report_refs` | `report_ref_id TEXT PK`、`session_id FK`、`package_id FK`、`artifact_id TEXT UNIQUE FK`、`append_ordinal INTEGER`、`archived_at TEXT NULL` | 每次合法生成产生独立 ref 与 artifact instance；`UNIQUE(session_id,append_ordinal)`；同一 reportId 允许多实例 |
-| `session_active_report` | `session_id TEXT PK FK`、`report_ref_id TEXT NULL` | 通过 `(session_id,report_ref_id)` 复合外键约束引用该 session 的成员；删除前显式置 null，不误将 session_id 一并置 null |
-| `activation_intents` | `session_id TEXT PK FK`、`operation_id TEXT UNIQUE`、`target_ref_id TEXT`、`previous_ref_id TEXT NULL`、`expected_revision INTEGER` | target/previous 必须属于同一 session；第一阶段与 report/ref 同事务登记，第二阶段原子完成并删除 intent |
-| `generation_tasks` | `task_id TEXT PK`、`session_id FK`、`input_fingerprint TEXT`、`config_payload BLOB`、`plan_payload BLOB`、`state TEXT`、`execution_epoch INTEGER`、`published_ref_id TEXT NULL` | 每 session 最多一个非终态任务；配置仅非秘密模型参数/版本；任务计划不可静默重写 |
-| `generation_units` | `task_id FK`、`unit_id TEXT`、`decision_id TEXT`、`axis_or_stage TEXT`、`ordinal INTEGER`、`dependency_hashes BLOB`、`state TEXT`、`result_payload BLOB NULL`、`result_hash TEXT NULL` | `PK(task_id,unit_id)`；完成成果不可原地替换；每项对应既有流水线中的分析面/综合步骤，不扩展为通用 workflow 平台 |
-| `request_attempts` | `attempt_id TEXT PK`、`task_id FK`、`request_group_id TEXT`、`run_ordinal INTEGER`、`send_ordinal INTEGER`、`state TEXT`、`input_hash TEXT`、`output_hash TEXT NULL`、`usage_payload BLOB NULL`、`error_code TEXT NULL` | 只存有界元数据、hash 与可获得的用量；未知用量为 NULL；绝不保存完整 prompt/response 或秘密 |
-| `legacy_import_receipts` | `source_file_hash TEXT PK`、`package_id TEXT NULL FK`、`state TEXT`、`error_code TEXT NULL` | 一次性旧目录接纳及防重复导入；不依赖文件时间判断是否迁移成功 |
+| `library_meta` | `singleton INTEGER PK CHECK(singleton=1)`, `format_version INTEGER`, `created_at TEXT` | `format_version=1`，与 `PRAGMA user_version` 一致 |
+| `analysis_packages` | `package_ref_id TEXT PK`, `package_id TEXT`, `content_hash TEXT`, `schema_version TEXT`, `payload BLOB` | `package_id UNIQUE`；正文不可 UPDATE |
+| `review_sessions` | `session_id TEXT PK`, `package_ref_id TEXT`, `selection_hash TEXT`, `selection_payload BLOB`, `revision INTEGER`, `created_at TEXT`, `updated_at TEXT` | `package_ref_id UNIQUE FK`；`revision>=0` |
+| `review_reports` | `report_ref_id TEXT PK`, `package_ref_id TEXT`, `report_id TEXT`, `content_hash TEXT`, `schema_version TEXT`, `payload BLOB`, `created_at TEXT` | `(report_ref_id,package_ref_id) UNIQUE`；`report_id` 仅普通索引；正文不可 UPDATE |
+| `session_report_refs` | `session_id TEXT`, `package_ref_id TEXT`, `report_ref_id TEXT`, `append_ordinal INTEGER` | PK `(session_id,report_ref_id)`；`report_ref_id UNIQUE`；`(session_id,append_ordinal) UNIQUE`；复合 FK 同时证明 session/report 属同一 package |
+| `session_active_report` | `session_id TEXT PK`, `package_ref_id TEXT`, `active_report_ref_id TEXT NULL` | active 非空时以 `(session_id,package_ref_id,active_report_ref_id)` 复合 FK 指向 `session_report_refs` |
+| `activation_intents` | `session_id TEXT PK`, `operation_id TEXT UNIQUE`, `package_ref_id TEXT`, `target_report_ref_id TEXT`, `previous_report_ref_id TEXT NULL`, `expected_revision INTEGER` | target/previous 必须属于同 session/package；完成激活后删除 |
+| `operation_receipts` | `operation_id TEXT PK`, `kind TEXT`, `session_id TEXT`, `report_ref_id TEXT NULL`, `state TEXT`, `committed_revision INTEGER`, `created_at TEXT` | `state IN ('report_saved','activated','deleted')`；为提交结果未知和重试提供 durable idempotency |
+| `source_materials` | `material_id TEXT PK`, `content_hash TEXT`, `byte_length INTEGER`, `relative_path TEXT UNIQUE`, `state TEXT` | `state IN ('ready','deleting')`；路径仅 main 解析；不存 URL/token/cookie |
+| `raw_cache_entries` | `cache_key TEXT PK`, `material_id TEXT FK`, `source_kind TEXT`, `record_identity_hash TEXT`, `parser_version TEXT`, `validation_version TEXT`, `created_at TEXT` | 仅 privileged 索引；命中仍须验证 material |
 
-约束补充：
+额外数据库约束：
 
-1. `report_refs` 的 `(session_id,package_id)`、`(artifact_id,package_id)` 分别引用对应表的复合唯一键，数据库阻止跨包挂报告；active/intent 的复合外键阻止跨 session 引用。所有 FK 使用经过测试的确定删除顺序或显式 CASCADE，不依赖应用“通常不会传错”。
-2. 正文表禁止 UPDATE 正文/内容身份；生成新报告必须 INSERT 新实例。归档元数据可更新。引用追加是 append-only 的正常生成规则，用户明确删除仍按 B12 移除对应实体；它不意味着永不允许用户删除。
-3. 重复保存同 packageId 且语义一致的分析，返回已经保存的精确实例，不覆盖其原始时间等元数据；同 packageId 但 semantic hash 不同则报 `identity_conflict`。在生成任务开始前固定实际消费的已存包 content hash；不得给旧引用偷偷换正文。
-4. 报告不能按 reportId 去重为同一生成实例。一次任务的本地提交重试则复用同一 operation/ref/artifact 身份，避免“提交成功但回执丢失”重复追加。`generation_tasks.published_ref_id` 与 ref 创建在同一事务设置。
-5. 新正式分析包保存时，在同一事务保存 package、既有 selector 的结果和零报告 session；成功前不向 UI 返回“已保存”。`openReview` 仍为读取，不偷偷创建缺失产物。导入牌谱成功后先保存来源实体；分析失败也不丢掉已经导入的来源。
-6. 不保存 ContextGraph 第三份正文。版本所有权保持：确定性生产链版本在 package，LLM/prompt/validator/report 版本在 report；数据库格式号与这两类领域版本不同。
+- `review_sessions` 声明 `UNIQUE(session_id,package_ref_id)`；`session_report_refs` 以复合外键分别引用该键和 `review_reports(report_ref_id,package_ref_id)`，从数据库层拒绝跨 session/package 挂接。
+- `session_active_report` 和 `activation_intents` 的 ref 外键引用 `session_report_refs` 的三列唯一键。active 为 null 时仍保留一行，避免用“缺行”表达第二种空状态。
+- artifact 表禁止修改 payload、content hash、领域身份或 schema version；新报告只 INSERT。重复提交同一 `operation_id` 必须通过 `operation_receipts` 读回既有结果，不能重复追加。
+- session 删除在一个事务中先置空 active/删除 intent，再删除 refs、reports、session；package 只在没有任何 session/ref 后删除。cache 清理是另一条 privileged 操作，不能借 session 删除扫描任意目录。
 
-### C3：两阶段报告提交、激活与竞争处理
+## 5. 事务、事件与崩溃恢复
 
-持久化协调由 main service 负责；推理与校验仍由 reasoning 所有。M7-A 的事件顺序不变。
+### 5.1 创建/保存 session
 
-1. `GENERATE_REQUESTED`：验证包、session revision 与 P6 资格，创建/恢复任务，固定 operation ID 与 execution epoch（本次执行代次，用来拒绝旧执行的回调）。先提交计划，再发送模型请求。
-2. 唯一 `generateReviewReport` 生成入口返回完整合法报告后发出 `REPORT_GENERATED`。复用已有验证与 `composeReviewReadBackContext(package, savedSelection, report)` 做身份/内容读回校验，随后为 `REPORT_READ_BACK_VALIDATED`。
-3. **提交一**：重新检查 session 未删除、operation 仍有效与包内容未变；原子插入 report artifact、report ref、activation intent，并将任务标为 `report_saved`、写入 published ref、置 `has_published_report=1`。提交成功且按 operation 身份核实后才发出 `REPORT_REF_APPENDED`。提交失败不产生半个引用。
-4. 从精确 ref 读回已保存字节，再调用同一获准 seam。通过 M7-A 的旧 overlay 卸载、目标装配与验证步骤，只在当前报告作用域解析引用；准备过程不把半装配对象交给 renderer。
-5. **提交二**：确认 intent 与 expected revision 未变，原子写 active ref 并删除 intent，更新 revision。提交成功后发出 `ACTIVE_REPORT_SWITCHED` 与 `VIEW_READY`。提交二失败保留提交一的合法成果，并保留原 durable active；本次 UI 恢复原一致快照或报告固定读取错误。
-6. 下次打开时，若有有效 intent，则先完成第 4–5 步再返回 ready；无 intent 则只加载已存 active。不存在“取目录最后一项”的恢复逻辑。intent 不兼容/目标校验失败时保留原 active 与目标记录，返回固定恢复错误，不再生成一份报告替代。
+1. 在事务外验证 package，运行既有 selector，验证 selection，并固定两者 bytes/hash。
+2. 单个事务插入 package（或核实完全相同的既有 package）、session、selection snapshot 和 null active 行。
+3. 仅在 commit 成功并按 `session_id` 读回后返回“已保存”。同 `packageId`/ref 但 hash 不同返回 `identity_conflict`，不得覆盖。
+4. 零报告 session 是合法状态；打开它只展示确定性 evidence 和 `not_generated`，不得伪造 `evidence_only` 或自动调用 provider。
 
-退出、删除与迟到结果：
+### 5.2 首次报告保存与激活
 
-- 退出发生在提交一之前：使 operation 失效，取消或丢弃在途结果；保留此前已提交的单元断点，不追加报告。
-- 提交一先于退出成功：该报告已被接受并保存，不能因视图关闭而删掉。关闭视图不再接收回调；保留 intent，重开按 B21 本地恢复。
-- 通过同一写入串行队列与数据库条件检查决定竞态顺序；不能仅用内存布尔值判断。删除先提交，则迟到 callback 的 FK/epoch/revision 检查失败，不能重建已删记录；报告先提交，则删除范围包括它。
-- 崩溃后遗留 `running` 任务转为 `interrupted`；尚无确定完成结果的 attempt 标为 `unknown`。不自动调用 provider、不查询供应商取回接口。用户“继续”创建新执行代次，复用可验证成果并重发剩余工作。
-- 写入超时/连接丢失而提交结果未知：按 operation ID、task published ref 和 intent 读回核实。未核实前不得追加另一 ref、激活其他报告或重复付费生成。
+共享事件名和顺序沿用 M7-A：`GENERATE_REQUESTED → REPORT_GENERATED → REPORT_READ_BACK_VALIDATED → REPORT_REF_APPENDED → ACTIVE_REPORT_SWITCHED → VIEW_READY`。
 
-### C4：断点与多请求模式的工程衔接
+1. provider 调用前核实 session revision、P6 首次生成资格和 package/selection；网络调用不在数据库事务内。
+2. 唯一 `generateReviewReport` 返回后，在内存中完成 report validator 与 `composeReviewReadBackContext` read-back。失败不保存 ref、不改变 active。
+3. **提交一**原子插入 immutable report、`session_report_refs`、activation intent 和 `report_saved` receipt，并递增 session revision。提交后才发出 `REPORT_REF_APPENDED`。写入/回执不确定时按 `operation_id` 读回，不重发模型请求。
+4. 从刚保存的精确 ref 重新读取 bytes，重新验证并调用 `composeReviewReadBackContext`。成功后，**提交二**以 expected revision/CAS 设置 active ref、删除 intent、把 receipt 更新为 `activated`、再次递增 revision；提交后才发出 `ACTIVE_REPORT_SWITCHED` 和 `VIEW_READY`。
+5. 提交一成功、提交二前退出/崩溃时，报告和 ref 保留，旧 active（首次生成时为 null）不变。下次打开只做本地第 4 步和提交二；零网络、零 LLM。
+6. 生成中退出且提交一尚未成功时，使 operation 失效并丢弃迟到结果，不创建半成品 ref。已有已保存报告和 active 均不变。
 
-模式范围与分析方法已经由 B5/B20 决定。下列是待随 D2 增量契约审阅的实施候选，不是重新向产品 owner 征询分析内容：
+### 5.3 内部 append/switch 回归
 
-- `whole`：本任务全部入选决策作为一组；`batch`：按冻结 rank 顺序每组 `batchSize` 个；`decision`：每组一个决策；`axis`：按既有适用分析面及综合步骤组成有依赖的有限计划。`batchSize` 是内部正整数，不能超过入选数量；同一次任务的计划不因重启或配置变化自动重分组。
-- 临时默认保留 `whole` 以便与现有生产行为对照；它是实验基准，不是效果最优结论。MVP 验收必须实际覆盖四种模式，不能只保留枚举占位。
-- 任务固定 package content hash、saved selection hash、provider/model、非秘密 endpoint/config 身份、prompt/draft/generator/validator/report 版本、工作计划及各单元依赖。凭据本身不保存到任务；替换凭据仍受现有凭据串行撤换约束，不允许旧 key 的迟到重试。
-- 任务状态限定为 `created/running/interrupted/blocked/report_saved/published`；只有 `published` 是正式报告已激活完成，`report_saved` 进入 B21 本地恢复。单元状态为 `pending/running/completed/failed/skipped`，failed 是正常终结的失败、不被恢复逻辑偷偷重试；进程中断未提交成果的 running 单元回到 pending，而其 request attempt 保留 unknown。来源实体删除直接删除相应任务，不能再从孤立队列重建。
-- 每个单元持久保存经过既有依据约束校验的结构化成果及其输入指纹。前置事实沿已存 package 读取，不为得到“断点”重新付费计算确定性事实。综合步骤只能消费计划指定、已经验证保存的分析面结果。
-- 对于整批/小批响应，只在完整响应已经返回并解析出可独立验证的成果后逐单元保存；网络仍未返回或只有半段 JSON 时，不声称已拥有可恢复成果。请求分组与保存单元分开，不要求二者一对一。
-- provider 保持唯一自动传输重试所有者：每次 completion 最多初始发送 + 1 次自动重试；语义/依据校验失败不重试。调度器、assembler、IPC 不再包一层自动重试。一次用户启动/继续执行的最大网络发送数为 `2 × 本次尚需请求的有限组数`，实际用量按 attempt 记录；用户再次主动继续形成新 run，不能伪造整个任务 lifetime 最多两次发送。
-- 初始候选采用串行请求，单次请求 token/timeout 沿当前受限 provider 配置；已有 `8192` 输出 token 上限是单次上限，不能谎称是整个多请求任务总上限。实际计划组数和最大发送数在发请求前可计算并存档；无限循环自动重试禁止。
-- 磁盘写满/保存失败时停止调度新的付费请求，保留已提交成果；已有响应在当前进程内待保存，不标为 durable。单靠应用无法保证供应商已执行而结果尚未落盘的工作永不重做，该边界按 B8 处理。
-- 主动退出/进程中断属于未完成任务，不发布半成品报告。正常请求终结（含重试耗尽、语义拒绝）仍按既有规则产生 complete/partial/evidence_only；不得为了“继续”而把已发布合法降级报告改成 unfinished。正常终结后的被拒步骤不因重开而再请求。
-- 单面成果与已发布报告分离。现有 `ReviewAudit.transportRetries` 只有 0/1，现有 draft 要求逐决策完整判断；多请求/单面不能把累计重试数硬塞进 v1、静默丢弃其他请求的审计或给每面伪造完整报告。原 [D2 owner 的 M7-B 衔接章节](./2026-08-24-m6-d2-graph-grounded-coach-design.md#m7-b-多粒度与断点衔接候选2026-09-22未实现) 已记录版本化工作单元输入/输出、依赖引用、请求审计聚合与兼容 reader 的约束；精确 schema 和既有 grounding/graph validators 的组合仍须完成技术审阅。此处为明确技术阻塞，未验证前不得宣称四模式实现 ready。
-- 对输入/版本不兼容的断点保留原数据并标不可继续，不自动换模型、换 prompt、抹掉成果或拼接成新报告；已发布且 reader 支持的旧报告仍可离线读。
+P6 不向用户暴露这些操作。repository/controller 仍必须支持：追加新 immutable ref；为既有 ref 建 intent；从 fresh base graph 装配目标；CAS 切 active。A→B→A 每次均先丢弃整个旧 read-back context，再从同一 package 重建，禁止全局 reasoning-node registry 或跨报告 ref 解析。
 
-### C5：版本迁移、旧文件与崩溃恢复
+## 6. 离线重开
 
-数据库结构迁移指软件升级时修改表结构，与 B10 延期的数据目录搬迁不同。
+重开按以下固定顺序执行：
 
-- 数据库从 `user_version=0` 初始化为本期版本 1。后续仅运行应用内受版本控制的连续前向迁移；每个迁移在单个短事务中完成 DDL、数据变换、约束检查与版本号更新。全部成功才打开资料库 UI；失败整体回滚，原库保留，不自动删库重建。
-- 高于当前程序支持的数据库版本拒绝打开，提示使用兼容的新版本；不尝试猜测列含义、自动降级或覆盖。包/报告 schema 有独立的显式 reader 支持表；数据库结构迁移不改写不可变领域产物使其“看起来是新版”。
-- 启动先取得应用写入所有权，再让 SQLite 自行恢复其日志；不手动删除 WAL/SHM。迁移后执行 `foreign_key_check` 与数据库完整性检查；打开每个 artifact 时仍必须做领域校验，数据库检查通过不能替代它。
-- 现有 `analysis-packages/<sha256(packageId)>.json` 是旧的 package reader 位置，当前没有通用历史资料库迁移器。一次性扫描只接受规定目录内普通文件，验证文件名与 packageId、内容/schema/版本，按 receipt 防止重复。
-- 旧 package 若能与实际保存的原始牌谱材料核验同源，才完整导入 C2 的三层实体。只有 package JSON 而找不到原始牌谱时，不伪造一个“完整导入牌谱”父实体、不静默丢文件，也不联网补齐；保留原文件并返回明确未迁入状态。不得把过去的 reader 接口误报为已经具备完整历史库。
-- 原文件不因首次导入成功就立即移除；旧入口在迁移完成后不再作为日常第二真相源。receipt 记录已接纳/拒绝，后续用户删除新库中的分析不会被后台扫描重新导回。
-- 崩溃用例分别覆盖：迁移提交前/后、来源文件发布前/后、SQLite 内容/ref 提交前/后、激活前/后、断点提交前/后、实体删除前/后。每个边界必须有唯一的重开结果，不能依赖人工改数据库。
+1. 读取 session、selection snapshot、package ref、active row 和可能存在的 intent；验证 FK、hash、版本、revision 与身份。
+2. 对 package 运行 `validateStructuredAnalysisPackage`，对 selection 运行 `ReviewSelectionResultSchema`；不得重新调用 selector。
+3. active 为 null 时调用 `composeReviewReadBackContext(package, selection, null)`。active 非空时读取精确 `reportRefId`，运行 `validateReviewReport`，再调用 `composeReviewReadBackContext(package, selection, report)`。
+4. presenter 从该 seam 的返回值构造 M7-A narrowed active-report DTO；不得自行装配 overlay、重验 grounding、调用 provider、刷新 source 或读取 raw cache。
+5. intent 存在时先按 5.2 的本地恢复完成或返回固定恢复错误，再向 renderer 发布一致快照。不能用 `created_at`、`reportId` 或 append 最后一项猜 active。
 
-### C6：离线重开与不兼容数据
+引用缺失、hash/identity 不一致、不支持 schema、selection 与 package 不一致、report validator 或 compose 拒绝时：不展示未验证数据，不自动删除/迁移/重生/换 active；返回固定 unavailable 状态并保留原 bytes 供受限诊断。独立验证通过的 package evidence 可在产品定义允许时继续显示，但不得把损坏报告降格冒充合法 `evidence_only`。
 
-1. 读取 session、其精确 package、冻结的 selector 结果与 active ref/intent，检查所有权、版本、content hash、引用存在性。
-2. 无 report 时调用 `composeReviewReadBackContext(package, selection, null)`；有 report 时通过精确 reportRefId 读回对应 artifact，并调用同一 seam。它负责已有 package/report/graph 校验、重新投影证据、装配当前报告和同决策引用解析。
-3. main presenter 只向 renderer 返回 M7-A 窄 DTO：当前报告状态/必要摘要、当前引用及页面所需证据；不发送完整 reportRefs/history catalog。列表的三层导航在 MVP 只开放本包当前报告的产品访问，内部历史引用不变成切换菜单。
-4. 不调用 selector 重新挑选、不调用 provider、不刷新来源、不加载持久化 graph、不按新默认设置改旧报告。清空内存并禁网后仍须恢复相同判断、解释、证据来源与状态。
-5. 缺失引用、不兼容 schema 或内容篡改时按既有 unavailable/固定错误机制关闭失败，保存原记录供诊断；不自动删除、补报告、换 active、伪装为“尚未生成”，也不把损坏报告称为合法 evidence_only。独立验证通过的原分析实体仍可从资料库访问。
+## 7. migration 与版本兼容
 
-### C7：原始来源材料的键、文件提交与清理
+- 新库从 `user_version=0` 在单个事务初始化到 v1，同时写 `library_meta.format_version=1`。后续只允许应用内、连续、前向 migration；DDL、数据变换、约束检查和版本号在同一短事务提交。
+- migration 失败整体回滚并拒绝打开资料库；不得删除旧库、创建空库覆盖或静默跳过。高于程序支持版本的库 fail closed，提示使用兼容新版本；不自动 downgrade。
+- 启动取得单实例写锁后让 SQLite 自行恢复 WAL，再执行 `quick_check`/`integrity_check`（实现按启动预算选择）和 `foreign_key_check`。数据库检查不能替代领域 validators。
+- package/report schema reader support 与 SQLite schema migration 分离。不得改写 immutable artifact 假装升级成功。
+- MVP 没有需要迁移的已发布 ReviewSession 数据。现有开发期 `analysis-packages/*.json` 不自动导入、删除或作为第二 truth；如未来需要导入，必须另立有 fixture、receipt 和来源绑定的 migration 规格。
 
-- 原始材料不属于教练输出缓存。牌谱原件是导入实体的必要材料；Mortal HTML/原始响应等是特权来源材料。领域产物重开依赖已存 package/report，不要求重新解析 raw cache。
-- 缓存查找键取固定序列化后的来源种类、稳定来源记录身份摘要、所需视角、来源/model/schema/解析与验证版本及必要请求参数的 SHA-256。鉴权账号分区若来源访问必须区分，只参与特权侧的不透明摘要；token/cookie/完整 URL 不作为可显示键，也不落入产品摘要。缺少可靠身份/版本时记 miss，不按文件名或昵称猜命中。
-- 存储文件按实际字节 hash 去重；同一缓存键允许保持既有有效条目，遇到不同内容须重新验证并作明确替换事务，不覆盖已被正式实体当作原件引用的字节。hit 还需复查文件长度/hash、来源身份、版本与 parser/validator；不因命中而跳过校验。
-- source-owned adapter 在既有大小限制、协议解析和身份验证边界内把材料交给 main 注入的窄保存端口；不为缓存把原始报告返回给 renderer 或 reasoning。当前 `report-fetcher` 丢弃原始内容的边界需要相应 adapter 接入与安全回归。
-- 文件先在 staging 中独占创建，完整写入并 flush，验证后同卷发布到受控 source-materials 路径，再由 SQLite 事务登记 material/ref/cache entry；任一文件阶段失败不登记 ready。数据库登记失败时剩余文件是未提交材料，不能被命中；恢复检查只能处理可证明由应用创建且未被引用的 staging/orphan 文件，不能扫用户其他目录。
-- 文件系统与 SQLite 不能合成一个原子事务：异常重开必须检查已登记文件存在性与 hash；缺文件则来源材料不可用，不能默认为下载成功。已完成 package/report 的独立离线可用性不受缓存损坏自动牵连。
-- 无 TTL、无 LRU、无容量自动淘汰。所谓 eviction 验收是确认应用不会自行淘汰，以及用户清理的行为正确，不偷偷恢复默认自动过期策略。版本不兼容拒绝复用但保留文件。
-- 清理可选缓存只解除可选引用，必要原件引用还存在则不物理删除。只有唯一原件的材料不能以“清缓存”名义移除；用户须删除对应导入实体并按 B12 处理下游。
-- 文件物理删除采用数据库先登记 `deleting`/删除意图、禁止新引用，再安全 unlink，最后移除 material 元数据；重启可重试。真正删除成功须等清理完成再报告，不将逻辑隐藏谎称为释放完磁盘。物理路径校验必须拒绝越界、符号链接/重解析点绕行；共享字节仍有必要引用时保留。
+## 8. privileged raw-cache
 
-### C8：归档、删除与资料库 UX
+- `cache_key = SHA-256(canonical(sourceKind, stableRecordIdentityHash, perspective, source/model/schema/parser/validator versions, relevant request params))`。鉴权分区只可作为 main 内不透明摘要；token、cookie、完整 URL、用户可读昵称不得进入键或日志。缺任一稳定身份/版本即 miss。
+- bytes 以 `content_hash` 去重。写入先在 `staging/` 独占创建并 flush，校验后同卷原子 rename 到 `source-cache/`，最后以 SQLite 事务登记 ready material 和 cache entry。未登记文件不是 hit，启动只可清理能证明由应用创建且无引用的 orphan/staging。
+- hit 必须重新核对路径位于受控根、非 symlink/reparse-point 逃逸、长度/hash、source identity、parser/validator version；任一不符为 invalid/miss，不向 renderer 或 reasoning 返回 raw bytes。
+- MVP **无自动 TTL、LRU 或容量淘汰**；长期保留，直到用户显式执行“清理来源缓存”。因此 eviction 验收验证“不会自动淘汰”及显式清理，而不是虚构后台过期策略。不兼容 entry 拒绝复用但保留，直至显式清理。
+- 显式清理先把 material 标为 `deleting` 并禁止新引用，再安全 unlink，最后删 index/material row；崩溃后幂等续做。共享 bytes 仍有 ref 时只删 cache entry/减 ref，不物理删除。路径越界或 unlink 失败保持 `deleting` 并报告未完成，不能谎称已释放空间。
 
-- 资料库按牌谱→分析→当前教练报告展开，显示安全标题、状态、时间与各层管理菜单；默认只显示未被自身或上游归档的实体。归档入口可展开同一层级并取消归档，无自动到期清空。
-- 实际归档状态由自身 archived_at 与上游归档共同决定，不递归覆盖子项原有 archived_at。因此取消上游归档自然恢复此前的状态。归档不改内容、active ref 或 P6 资格。
-- 归档本身是列表管理，不另创运行生命周期；若操作导致用户离开正在生成的 view，严格触发已有 leave/cancel 规则，已保存断点保留。取消归档或重新打开不会自动开始付费执行。
-- 删除前展示选定实体与真实连带范围；执行时在事务内重新确认该范围，变化则刷新确认而非扩大已确认删除。删除包括已归档的依赖下游；它们不能因为列表隐藏而漏删。
-- 删除报告：同事务移除仅属于它的 ref/artifact、关联发布任务记录与 intent；若它是 active 则置 null，不切换到其他历史报告。包、原件和 session 保留；已有 session 的 has_published_report 不清零，MVP 不借删除开放“重新生成”。删除整个分析实体时删除其 session/任务/报告，保留原牌谱与其他分析。
-- 删除原牌谱：按实际依赖删除全部下游和来源材料引用；既有凭据和远端账号牌谱不受影响。完成后不能通过迟到请求、迁移扫描或旧缓存入口自动恢复被删实体。
-- 清除数据库记录不宣称磁盘法证级擦除；本期没有安全擦盘能力。归档也不承诺释放空间。
-- 本期不增加备份产品功能。手动复制说明：完全退出应用和访问该库的其他写入程序后，复制整个 review-library 子树（含尚存在的 SQLite 附属文件）；恢复时同样退出，先保留当前目录再替换该子树，启动按正常迁移/校验打开。不要复制应用其他目录中的凭据，也不要只复制运行中的 library.sqlite。
+## 9. 备份、删除、隐私与日志
 
-### C9：失败矩阵与机械验收
+- MVP 不提供内置备份/恢复 UI。手工备份必须完全退出应用后复制整个 `review-library/`；不得只复制运行中的 `library.sqlite`。恢复同样在完全退出后进行，并先保留现目录。凭据位于其他 owner，不属于该备份。
+- 删除 session 使用第 4 节事务规则，成功回执必须在 commit 后；提交结果未知则按 session/revision 读回。删除不能通过迟到 callback、旧 intent 或 cache scan 复活。SQLite 删除不承诺法证级安全擦除。
+- 本地资料默认明文，继承 OS 用户目录权限；本期不新增应用级加密。provider credential 仍只由 safeStorage owner 管理，绝不进入该库。
+- 允许日志：operation/session/ref 的不透明 ID、固定错误码、schema/version、计数、耗时和 hash 前缀。禁止日志/audit/error/telemetry：artifact payload、raw bytes、牌谱 URL、账号身份、cookie/token/key、完整 prompt/response、reasoning 文本、绝对用户路径或 SQL 参数正文。
 
-| 注入情形 | 必须观察到的结果 |
+## 10. 失败矩阵
+
+| 注入点 | 必须结果 |
 |---|---|
-| package/ref 保存任一步失败 | 不存在半个可打开档案；来源实体若此前已独立提交则保留 |
-| 首次生成合法 complete/partial/evidence_only | 同一路径保存/追加/激活；状态如实保留，不按 HTTP 失败猜失败分支 |
-| 报告提交一前退出 | 无新正式 ref，旧 active 不变；先前有效断点保留 |
-| 提交一后、激活前 kill | 原 ref 只出现一次；重开按 intent 自动本地恢复，零网络/LLM |
-| 提交二成功但回执丢失 | 根据 operation/active 读回识别已完成，不重复追加 |
-| 断点保存后 kill | “继续”仅执行剩余工作，已保存单元请求计数不增加 |
-| 供应商请求已发但结果未知 | 重开不发送；主动继续后按 B8 重发未知单元，不查询取回接口、不显示重复收费文案 |
-| 磁盘满/权限丢失/SQLITE_BUSY | 固定保存错误，无假成功，不清旧数据，不继续调度未发的付费请求 |
-| reportId 相同、ref 不同 | 两实例内容/metadata 不相互覆盖；内部 A→B→A 精确恢复、无 reasoning 残留 |
-| package/ref/selection hash 或身份不符 | 不展示未验证内容、不生成、不换 active；原持久内容不被自动“修复” |
-| 归档分支、恢复上游 | 独立已归档子项保持归档，兄弟分支不变，无生成请求 |
-| 删除与 callback 竞争 | 以事务序列化顺序收敛，删除之后不复活，不向上误删 |
-| migration 中断/较新库被旧程序打开 | 回滚或拒绝，保留原库；不得新建空库覆盖 |
-| cache hit/miss/invalid/clear | 命中仍校验；不兼容拒绝复用但保留；无自动淘汰；唯一原件不被缓存清理误删 |
+| package/session 事务任一步失败 | 无半个可打开 session；既有数据不变 |
+| 合法 `complete/partial/evidence_only` | 同一保存/读回路径；状态如实保留 |
+| report validator/read-back 拒绝 | 不追加 ref，不改变 active，不向 renderer 暴露内容 |
+| 提交一前退出 | 无新 ref；旧 active 不变 |
+| 提交一后、提交二前 kill | ref 恰好一份；重开本地完成 intent；0 网络/LLM |
+| 提交二回执丢失 | 按 operation/active/revision 识别已提交；不重复 append |
+| 缺失/跨 package ref、篡改或不兼容版本 | fail closed；原 bytes 保留；不猜 active、不生成替代物 |
+| `reportId` 相同而 `reportRefId` 不同 | 两实例不互相覆盖；按 ref 精确激活 |
+| A→B→A | B 的 node/explanation/ref 解析结果在最终 A 中均不存在 |
+| migration 中断或旧程序开新库 | 回滚或拒绝；不得空库覆盖 |
+| `SQLITE_BUSY`、磁盘满、权限丢失 | 固定保存错误、无假成功、无旧数据清除 |
+| cache hit/miss/invalid | hit 仍校验；invalid 为 miss；raw bytes 不越 privileged 边界 |
+| 自动 eviction 时钟/容量压力 | 不淘汰；entry 保留 |
+| 显式 cache clear 中断 | `deleting` 可幂等恢复；共享/越界文件不误删 |
 
-验收 owner 为本规格 C9 与既有 M7-A fixtures，不新建另一份长期 acceptance 真相：
+## 11. fixtures、机械验收与执行门
 
-1. **主链**：受支持的真实牌谱脱敏 fixture → 确定性分析 → 既有 selector → 首次 stubbed Coach 生成（测试替身，不收费）→ M7-A Overview/List/Detail → 保存退出 → 清空所有内存 graph、重启并禁网/禁 LLM → 重开同 session/active ref → 相同 judgment、explanation、provenance 与状态。不能只用手写宽松 DTO 代替生产 contracts。
-2. **降级链**：真实构建出的 partial 与 evidence_only 各执行离线重开；已有确定性证据可用，provider 请求计数为 0。零报告 session 单独验证 not_generated，不伪造 evidence_only。
-3. **内部隔离**：duplicate reportId、不同 generatedAt/ref、A→B→A、跨 package/session 引用拒绝及被删除 ref 迟到激活拒绝。DOM 不含 regenerate/history/switch 菜单、快捷键或禁用占位。
-4. **四模式与费用保护**：固定输入与 mock 请求计数，分别在已保存单面、综合步骤前、小批完成、整批未返回处中断；验证只有实际保存并符合依赖的成果被复用。单面从头到最终完整报告必须经过同一生产 generation authority 与既有依据校验。
-5. **SQLite 实证**：在真实 Electron 进程注入边界退出并重新启动，不以 in-memory repository 或 mock transaction 代替；验证外键、复合引用、原子提交、只读读回、已提交断点与版本迁移。
-6. **安全路径**：service→IPC→preload→renderer 全链检查；原始来源 bytes/URL/账号秘密、完整 prompt/response 不穿透。畸形文件、路径越界、重解析点、秘密反射、伪造 opaque ref 与错误 prose 均有回归。
-7. **项目门**：按原仓库命令运行 typecheck、build、Vitest、architecture、package-import，并补 architecture-checker 与本规格 SQLite/cancellation 回归；只记录实际运行证据。真实收费 provider 不进入自动 suite，未运行不得写成 PASS。
+验收 owner 就是本节；实现把机械规则固化到既有 contract/repository/Electron/DOM/architecture test owner，不另建第二份长期 truth。
 
-## SPEC FREEZE
+1. **主链**：受支持的真实、脱敏牌谱 fixture → 生产确定性分析 → 既有 selector → 首次 stubbed Coach 生成 → Overview/List/Detail → 保存 → 退出并清空全部内存 graph → 重启、禁网、禁 LLM → 重开同 session。断言同一 `activeReportRefId`、selection/report status/version、judgment、explanation 与 provenance，provider/network 请求数均为 0。
+2. **降级链**：分别从真实生产 contracts 构造 `partial` 和 `evidence_only`，保存后离线重开；确定性 evidence 仍可浏览、状态不变、provider/network 请求数为 0。零报告 session 另测 `not_generated`，不得冒充 `evidence_only`。
+3. **内部隔离**：两个不同 `reportRefId` 使用相同 `reportId`；执行 A→B→A，断言 current graph、judgment、explanation、provenance 和 reasoning ref 只来自当前 ref。覆盖跨 session/package ref、重复 ref、迟到 activation 与 operation 幂等拒绝。
+4. **P6 DOM**：用户 DOM、preload API、菜单和快捷键均不存在 regenerate/history/A-B switch；snapshot 不含完整 report catalog。内部 repository 方法不得被 renderer 发现或调用。
+5. **SQLite/recovery**：真实 Electron 进程和磁盘库覆盖两个提交点、kill/restart、WAL recovery、外键、复合引用、migration rollback/newer-version refusal、删除竞争；不能只用 in-memory repository 或 mock transaction 代替。
+6. **cache/security**：固定 raw fixtures 覆盖 hit/miss/hash invalid/content dedup/no-auto-eviction/explicit clear/restart recovery，以及路径越界、symlink/reparse point、秘密反射。IPC→preload→renderer 全链断言无 raw bytes/URL/account/secret/prompt/response。
+7. **项目门**：从 `coach/` 实际运行 `npm run typecheck`、`npm run build`、`npx vitest run`、`npm run check:architecture`、`npm run test:package-import`，并运行新增的 Electron persistence suite。真实收费 provider 只在人工明确授权、确认账号/额度后补充验证；默认 suite 使用 stub，未获授权必须记录“未执行”而非 PASS。
 
-**产品裁决已收敛；完整实施规格尚未冻结。** B1–B21 与 C1–C9 已落实本地桌面、三层管理、整支归档与依赖删除、明文资料、四种内部粒度、付费成果断点、两阶段报告保存、本地恢复、离线重开、目录/备份/cache 策略。M7-A lifecycle / P6 按已合并版本继承。产品 owner 已确认本轮无更多问题并要求推送，计划接续 M7-A/B 开发；本交付保留技术候选与验收 PASS 的区别，精确多单元生成契约与存储技术验证仍须收口，不重新询问已裁决产品问题。
+COAC-8 只有在 COAC-6 accepted/merged、COAC-7 本规格 reviewed/frozen/accepted/merged，并记录二者精确合并 SHA 后才能启动。COAC-6 的 GO 也同时要求 COAC-5 technical gate PASS+merged 与本规格 reviewed/frozen/merged。
 
-## REMAINING PRODUCT DECISIONS
+## 12. 审阅结论与 out-of-scope
 
-**当前没有需要产品 owner 再次回答的问题。** 能由既有共识推出的恢复、版本兼容及错误行为已作为工程候选写入，不继续制造二选一。最终默认请求粒度由 MVP 后实验选优，既定后续目录搬迁归 ROADMAP；两者均非本轮新的产品阻塞。M4 对话、多人在线服务、模型配置/报告切换仍按各自既有后续范围处理。
+技术审阅已逐项核对实体关系、schema/复合引用、两阶段事务、migration、崩溃恢复、validator/read-back、raw-cache 生命周期、安全边界和主链/降级验收；没有剩余产品决策。实现期仍须选择并实测 Electron-compatible SQLite binding，但该选择不得改变本规格的表语义、边界或验收，属于实现任务而非 spec blocker。
 
-## TECHNICAL BLOCKERS
-
-1. **多粒度生成契约**：当前生产 v1 不能完整表达分析面断点与多请求审计；单面综合若消费前序结果也不能穿过 v1 的 evidence-only slice。已有流程和分析方法不重定，精确版本化输入/输出、共享校验复用与旧报告 reader 兼容须按 D2 owner 的增量衔接完成技术设计/审阅。
-2. **SQLite 运行验证**：当前工作树未安装依赖，也没有选定/验证 Electron 的数据库访问库。需在真实 Electron 和发行布局确认绑定可用、SQLite 版本适用、崩溃后提交可恢复；逻辑表设计不是已经通过该验证的证据。
-3. **raw-source 保存接入**：当前 source fetcher 不向生产调用方返回 raw bytes；需在原特权边界内落实窄保存端口、文件发布/数据库登记恢复与真实路径检查。不能通过扩大 renderer/reasoning 权限绕过。
-
-**已移除旧阻塞**：R3-P2-1 所需 `composeReviewReadBackContext` 及架构回归已在 PR #14 合并版本落盘，并已在本工作树读到实现；不再称“没有获准的 read-back seam”。本轮核实了合并事实，未重跑其五门，也未将 Multica 工单仍显示 in_review 误当作 GitHub 未合并。
-
-## EXECUTION GATES
-
-- 收口上述技术契约，完成本规格和 D2 增量章节的技术审阅；若发现真正的新产品取舍再单题询问，否则自行解决工程问题。
-- 多模式调度、各自断点复用与请求预算经受控测试验证；具备 MVP 后实验所需的受限指标记录能力。MVP 前不要求已经证明某一种粒度最优。
-- COAC-4 精确合并基线与 PR #14 合并事实已读回核实；引用相应候选的独立审阅/验收证据，不把本轮文档检查当作重新通过代码五门。
-- COAC-6 须满足 COAC-5 技术验收/合并与 COAC-7 frozen/reviewed/merged；最新 COAC-8 依赖还要求 COAC-6 accepted/merged 与 COAC-7 accepted/merged。不得因本轮产品裁决收敛提前启动实现。
-- 本次仅更新术语、规格与既有 roadmap owner；未实现持久化、未请求真实付费 provider，也未运行实现验收测试。提交与合并状态以 Git/PR 记录为准；推送不等于独立技术审阅或验收通过。
+明确不做：用户级 regenerate/history/A-B switch；多请求粒度和生成断点；自动 cache TTL/LRU/cap；内置备份；自选数据目录/搬迁；云同步、多用户、跨设备、服务端托管；GraphDB/向量检索；M4 对话；真实 provider 自动测试；将 graph、raw source 或完整 prompt/response 持久化为产品 artifact。

@@ -18,7 +18,9 @@
 雀魂国区登录、跨重启恢复、最近 30 场可分析目录、牌谱取回、canonical 重放、Mortal
 整盘确定性分析、selector、ContextGraph 与 grounded ReviewReport 生成链均已接通；
 **用户可见的 M7 review UI 与 M7-B 持久化仍未实现**。M7-A 的已冻结实现规格见
-[`2026-09-21-m7-a-whole-game-fixed-review-ui-design.md`](../specs/2026-09-21-m7-a-whole-game-fixed-review-ui-design.md)。
+[`2026-09-21-m7-a-whole-game-fixed-review-ui-design.md`](../specs/2026-09-21-m7-a-whole-game-fixed-review-ui-design.md)，
+M7-B 的已冻结实现规格见
+[`2026-09-21-m7-b-review-session-persistence-design.md`](../specs/2026-09-21-m7-b-review-session-persistence-design.md)。
 
 ## 文档分层
 

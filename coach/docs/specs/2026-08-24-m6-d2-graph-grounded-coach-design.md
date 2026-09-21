@@ -506,19 +506,3 @@ M6-D2 所有失败抛 `m6d2_<模块>_<错误>:<detail>` 风格错误（`m6d2_eng
   draft 之外全部丢弃，audit 只留 hash）。
 - 术语一律以 [`coach/CONTEXT.md`](../../CONTEXT.md) 词汇表为准；与既有 ADR
   矛盾处显式指出，不静默覆盖。
-
-## M7-B 多粒度与断点衔接候选（2026-09-22，未实现）
-
-本节记录 [M7-B B5/B20 与 C4](./2026-09-21-m7-b-review-session-persistence-design.md#c4断点与多请求模式的工程衔接) 已批准的产品需求对 D2 的工程影响；不把上述已验收 v1 行为重写成已经支持多请求。分析面、分析条目与综合判断方法沿用既有五轴/统一流程和 ADR-0003，不重新 grill。
-
-实施者必须在本 owner 与 `packages/contracts/src/coach.ts` 中完成有版本的增量契约审阅，保持以下边界：
-
-1. 仍由唯一 `generateReviewReport` authority 调度四模式和恢复任务；desktop 注入保存端口并协调事务，不另建能直接请求 provider/组装报告的生产入口。已保存单元校验与 read-back 都没有新请求能力。
-2. 现有 `CoachDraftDecision` 必须含完整 judgment，不能直接代表只有一个分析面的中间成果。须增加明确的工作单元 schema 与版本，其字段复用现有受约束 inference/claim/explanation 类型；模型不能自定义单位身份、决策范围、步骤依赖或 graph 节点 ID。单元校验复用原依据约束机制；最终 ready 行仍必须有合法 judgment。
-3. 现有 `GraphContextSlice` 只含证据，禁止把保存的分析面输出塞进 v1 slice 伪装为证据。若综合步骤消费前序教练成果，须用独立、有版本、明确区分证据与教练内容的 generation-work 输入封套：只接纳同任务、同决策、依赖计划明确指定且校验通过的结果，保留来源 hash；不扩为任意历史报告检索或 M4 对话上下文，不改证据节点的权威。此增量须同步架构/允许字段回归后才能启用。
-4. 现有 `ReviewAudit.transportRetries=0|1` 只适用单 completion。多请求报告须有版本化审计，逐请求记录分组身份、输入/输出 hash、结果、0/1 次自动重试与可得用量；总数从请求账本导出，未知用量不能填零。最终报告须携带读回/审计所需内容，不能依赖日后可能删除的运行日志才能解释其生成来源。v1 reader 与不可变 v1 报告继续支持，不篡改旧 schema 字面量。
-5. 对 audit、generation versions、report identity 材料的变更必须一起版本化，既有身份验证与 read-back seam 同步支持新版本；不能把每个分析面包装成完整 ReviewReport 再拼接。相同内容 reportId 可重复的实例引用规则不变。
-6. 自动重试仍只归 provider，单 completion 至多两次发送；多请求任务的有限计划与每次用户启动/继续的总发送上界由 M7-B C4 约束。语义/依据拒绝仍不重试；正常终结仍发布合法 complete/partial/evidence_only，用户退出/进程中断则保留已提交断点、不发布半成品。
-7. 验收同时覆盖 v1 整批行为不回退、四模式首次生成、单面中断复用、依赖变更拒绝、无第二套 grounding、无 provider/assembler 旁路、审计完整、旧新报告离线读回及 P6 无重生成/切换 UI。默认只使用 stubbed provider。
-
-本节不是已通过执行门的接口实现，也不以“产品需要多粒度”为由默许上述版本/边界变更未经审阅落地。精确 schema 与生产适配仍是 M7-B 技术收口事项；无需向产品 owner 重复询问是否需要单分析面。
