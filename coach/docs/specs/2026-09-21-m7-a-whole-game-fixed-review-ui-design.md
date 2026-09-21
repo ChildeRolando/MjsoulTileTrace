@@ -1,7 +1,7 @@
 # M7-A Whole-game fixed review UI 实现规格
 
 日期：2026-09-21
-状态：**已完成 grill 与审阅，决策冻结，可直接执行**
+状态：**SPEC FREEZE（产品/UI）：P1–P6 已裁决，2026-09-22 冻结；既有边界保持冻结；独立技术阻塞 R3-P2-1 未关闭，技术执行门仍未通过**
 工单：COAC-5；后续实现：COAC-6
 
 权威上游：
@@ -74,8 +74,9 @@ validated package + selector result + validated active ReviewReport
 Overview ─────────────▶ List ─────────────▶ Detail
 ```
 
-1. **Overview** 分开展示 analysis status、七值 outcome counts、selector 数量、报告
-   generation status 与逐行 explanation status counts。
+1. **Overview** 首屏突出 selector 入选数量与进入 List 的入口；analysis status、报告
+   generation status 与解说可用数量保持可见。七值 outcome counts 与逐行 explanation
+   status counts 放入默认折叠、可展开的详情，两组状态仍分开表达。
 2. **List** 只列 `ReviewSelectionResult.selected`，严格按 `rank` 排序，原样携带
    `selectionReason`；tags 仅由该 decision 的确定性 `FactorDifference.axis` 集合
    机械映射。
@@ -86,13 +87,16 @@ Overview ─────────────▶ List ───────�
    renderer 只收到 strict、renderer-safe、按当前 active report 投影的 DTO。
 5. `complete`、`partial`、`evidence_only`（含空 selection）都是正常可浏览状态。
    provider/解释缺失永不抹掉 package 的确定性证据。
+6. MVP 只提供首次生成解说；重新生成和历史报告切换不提供用户入口。待解说基模与
+   知识库均可由用户自定义，并能展示报告生成时的教练配置快照后，再启用这些入口。
+   下文共享生命周期的冻结语义保持不变，能力预留不等于本期用户功能。
 
 不引入 UI 框架，不把 ContextGraph 画成图，不新增第三份 truth。
 
 ## User Stories
 
-1. 作为复盘用户，我想先看到整盘分析完整性与各 outcome 计数，而不是先看到一句
-   “生成成功”，这样来源缺口不会被漂亮 UI 隐藏。
+1. 作为复盘用户，我想先看到本盘有多少处入选复盘并进入条目列表，同时看清分析
+   完整性和教练解说可用情况；需要时展开完整计数，来源完整性异常始终显著可见。
 2. 作为复盘用户，我想让复盘条目顺序与 selector rank 完全一致，这样 UI 不会自行
    定义“最重要决策”。
 3. 作为复盘用户，我想看到固定的 selector reason 文案与机械 tags，这样展示不会用
@@ -105,14 +109,14 @@ Overview ─────────────▶ List ───────�
    差异轴与证据，这样 LLM 不可用不会夺走复盘能力。
 7. 作为复盘用户，我想让空 selection 明确显示“当前策略未选出复盘条目”，而不是
    报错或显示空白页面。
-8. 作为复盘用户，我想重新生成得到一个新的不可变报告实例引用；即使连续两次
+8. **后续启用场景，MVP 无用户入口**：作为复盘用户，我想重新生成得到一个新的不可变报告实例引用；即使连续两次
    生成得到同一内容派生 `reportId`，两次生成仍可在目录中分别寻址，且早先实例的
    展示/审计元数据不被覆盖。即使 provider 请求失败，只要生成链仍产出并读回验证通过的
    `partial` / `evidence_only` 报告，也应追加新引用并切换到该引用。只有 package
    读取、报告 read-back 或 identity 校验等操作级失败导致未取得
    合法报告时，才继续看到原 active report，这样降级结果不会被误判为操作失败，真正
    的失败也不会丢失当前结果。
-9. 作为复盘用户，我想在报告 A/B 间切换时只看到当前报告的 judgment、explanation
+9. **后续启用场景，MVP 无用户入口**：作为复盘用户，我想在报告 A/B 间切换时只看到当前报告的 judgment、explanation
    和 inference，这样相同 local id 也不会串内容。
 10. 作为安全审查者，我想让 renderer 永远拿不到 raw package bytes、raw source/Mortal
     cache、key、完整 prompt/response、raw CoT 或文件路径。
@@ -123,7 +127,40 @@ Overview ─────────────▶ List ───────�
 
 ## Information Architecture
 
+### MVP 报告操作范围（P6，2026-09-22 产品 owner 裁决：暂不提供重新生成/切换）
+
+- 在用户不能自定义解说基模与知识库时，重复生成和比较多份报告不是本期核心流程。
+  MVP 不展示“重新生成解说”、历史报告选择器、A/B 切换，也不放入“更多”菜单或
+  以禁用按钮占位；不设置快捷键或自动重新生成来绕开此范围。
+- 无 active report 时保留“生成教练解说”；生成中防止重复提交，退出/取消仍遵守
+  已冻结生命周期。操作级失败且未取得合法报告时，允许再次尝试首次生成。
+  一旦取得合法 `complete` / `partial` / `evidence_only` 报告，均视为已有报告，
+  MVP 不以“补全解说”或“重试失败条目”名义再次生成；证据继续可读。
+- 后续入口启用的产品前提是**解说基模和知识库都支持用户自定义**，并能随每份报告
+  展示**生成时的教练配置快照**。快照须帮助用户辨认当时使用的基模和知识库版本/选择，
+  不可用当前配置冒充历史配置；具体安全投影与版本契约在相关功能规格中闭合。
+  不为本期新增设置页、知识库管理、配置快照 schema 或持久化实现。
+- 本期没有用户报告比较界面。将来启用时，优先以教练配置快照解释报告差异，而不是
+  仅靠 A/B、生成次序或内部 ID；不声称更换基模/知识库后结果必然不同或更优。
+- 共享生命周期、immutable refs、合法降级与 overlay isolation 已冻结，完整保留为
+  内部契约及回归边界。相关场景不再作为 MVP 用户入口的交付要求；首次生成仍使用
+  同一条已验证报告装配路径，因此本裁决不消除独立技术阻塞 R3-P2-1。
+
 ### Overview
+
+#### 首屏优先级（P1，2026-09-21 产品 owner 裁决：A）
+
+- 视觉主区突出 `selectedCount` 和“查看复盘条目”入口；入口进入既有 List，不跳过
+  List 自动打开某条 Detail，也不改变 selector 的行集、排序或入选含义。
+- 首屏常显分析完整性、报告生成状态及解说可用数量（`readyCount` / `selectedCount`）；
+  分析状态与解说状态分别标明。无 active report 时按 `not_generated` 表达，不把
+  零 ready 说成生成失败；空 selection 保留既有明确 empty-state，不暗示没有失误。
+- 七值 outcome 明细和逐行 explanation status 计数分别置于默认折叠的详情区域；
+  展开后所有固定键与零值均可见。折叠只改变展示密度，不删减 DTO 或计数。
+- 分析降级/完整性缺口提示不藏在折叠区；`integrity_failed` 的显著警示位于复盘入口
+  之前。入选数量不称为错误数，不用“生成成功”代替两组状态。
+- 本裁决只冻结 Overview 信息主次与上述默认折叠行为。示意中的模拟数值、颜色、
+  “值得回看”等措辞不是新增真值；状态本地化遵循下方 P5 裁决。
 
 Overview 同时展示两组绝不互相折叠的状态：
 
@@ -148,9 +185,60 @@ analysis_blocked
 所有键即使为 0 也必须存在。另显示 `selectedCount`、`readyCount`、
 `providerUnavailableCount`、`requestFailedCount`、`invalidOutputCount`。不得把
 `source_row_not_expected`（合法单候选无源行）渲染成错误；`no_mortal_entry` 等完整性
-失败则保持原名/固定本地化文案，不做乐观改写。
+失败则使用准确的固定本地化文案，不做乐观改写，也不展示技术原名。
+
+#### 用户状态表达（P5，2026-09-22 产品 owner 裁决：技术状态不展示给用户）
+
+技术枚举与错误码留给开发者。Overview、List、Detail、通知及用户可展开的详情
+均只展示用户能理解的文案、原因与当前可执行操作；不得把代码藏入折叠区、悬浮提示
+或辅助技术标签继续暴露。DTO/验证/开发诊断仍保留原技术值，状态语义与合法性不变。
+这比示意 A 的“折叠后显示代码”更严格；不新增面向用户的开发者状态面板。
+
+以下为落实本裁决的固定本地化映射（左列仅供实现者读取）：
+
+| 范围 | 内部状态 | 用户文案 |
+|---|---|---|
+| 分析 | `complete` | 决策比较齐全 |
+| 分析 | `degraded` | 部分决策未作完整比较 |
+| 分析 | `integrity_failed` | 分析来源完整性未通过校验 |
+| 解说报告 | `complete` | 入选条目的解说齐全 |
+| 解说报告 | `partial` | 部分解说可用 |
+| 解说报告 | `evidence_only` | 仅证据可用 |
+| 解说报告/条目 | `not_generated` | 尚未生成教练解说 |
+| 条目 | `ready` | 解说可用 |
+| 条目 | `provider_unavailable` | 解说服务未就绪 |
+| 条目 | `request_failed` | 解说请求未成功 |
+| 条目 | `invalid_output` | 解说未通过校验 |
+
+- 两组状态始终分开；分析齐全不保证解说齐全，解说缺失也不抹掉证据。报告文案配合
+  解说可用数量；空 selection 仍显示“当前策略未选出复盘条目”，不暗示发生服务故障。
+- 分析详情中的七组计数分别使用“可作决策比较”“暂不支持的行动”“单一候选，无需
+  模型比较”“缺少对应的模型分析”“模型分析与决策对应关系未通过校验”“模型分析
+  不完整”“分析条件未满足”。全部固定键/零值仍保留，不显示原 enum 名。
+- `degraded` 必须结合实际 outcome 解释原因：合法单候选也会导致该状态，应明确
+  说明“只有一种候选，无需模型比较”；不得一律翻译为“数据缺失”或“分析出错”。
+- 完整性警示明确说明分析来源缺口/对应校验问题；仅呈现实际仍可浏览的条目与证据，
+  不提示未经证实的修复手段，不把安全校验未通过写成普通无解说。
+- 生成未取得合法新报告时，提示“未能生成新解说，仍显示原报告”；无原报告时提示
+  “未能生成解说，仍可查看已有证据”。报告切换失败提示“未能打开所选报告，仍显示
+  原报告”。详细原因由固定错误码映射为安全的用户文案，禁止原码或上游错误原文回显。
+  以上操作失败文案不得用于已取得合法 `partial` / `evidence_only` 报告的成功分支。
 
 ### List
+
+#### 信息密度（P2，2026-09-21 产品 owner 裁决：有条件选择 B）
+
+- 采用紧凑表格；产品 owner 认为当前字段规模下，列对齐比摘要行更清晰、有组织，
+  重点更易辨认。该选择以 List 信息量不大幅增加为前提。
+- 保持六组展示列：局况/决策窗口（含 rank）、我的行动、Mortal 偏好、
+  模型分差/固定入选原因、差异维度 tags、解说状态/详情入口。沿用全部现行字段，
+  不因紧凑布局省略入选原因或失败状态；模型分差不称为胜率或预期损失。
+- List 负责定位与比较条目；完整候选评分、Coach 判断/解说正文与 evidence/provenance
+  留在 Detail，不持续追加成新列或行内长文。若未来确需显著增加 List 信息量，
+  须重新裁决密度，不能把本次选择视为允许表格无限扩展。
+- 数值列对齐，行动使用可辨识牌面及动作文字，tags/长原因允许换行；Mortal 并列
+  偏好不得为压缩行高而静默丢弃。窄窗可转为带字段标签的堆叠布局，保留相同字段
+  与顺序，不以缩小文字到难读或裁切内容实现紧凑。
 
 - 行集严格等于 `selection.selected`；不得把未选 decision、失败 outcome 或 report
   `decisionEntries` 自行追加进 List。
@@ -170,6 +258,46 @@ analysis_blocked
   `no_distinguishable_factor_difference`，UI 不补造一个“综合”轴。
 
 ### Detail
+
+#### 视觉与信息层级（P3，2026-09-22 产品 owner 裁决：B）
+
+- 上方紧凑并列对照“我的选择 / Mortal 偏好”，随后以更高视觉权重呈现
+  Coach 建议及紧随其后的解说。阅读顺序保持实际行动 → 模型偏好 → 教练判断 →
+  解说 → 证据，不因视觉强调改换权威来源或章节顺序。
+- 实际行动明确标为牌谱记录，Mortal 明确标为模型评估，Coach 明确标为教练综合判断。
+  Coach 更醒目是教学阅读优先级，不表示其可覆盖硬证据，也不把 Mortal 叫作教练建议。
+- Coach 推荐、confidence 与依据入口可辨；Mortal 并列偏好及 score method/unit
+  保留，不能为紧凑而删减，也不得把策略概率称为胜率。
+- Coach 与 Mortal 不同时，各自展示真实结果及 Coach 的有据解说，不自动改为一致、
+  不用颜色将模型分歧直接判为用户错误。窄窗按相同顺序堆叠。
+- 解说不可用或尚未生成时，Coach 区显示固定状态说明，不用 Mortal 内容冒充 Coach，
+  不保留其他报告的 Coach 内容；实际行动、模型评估及合法证据继续可读。
+  Evidence 默认展开层级按下述 P4 裁决执行。
+
+#### Evidence 展开与可追溯明细（P4，2026-09-22 产品 owner 裁决：B + 明细可达）
+
+- 硬证据、参考信号、教练推断分组的证据摘要默认展开；各项生产者/版本、显示引用、
+  父项关系等来源信息默认折叠，可按项展开。缺少解说不关闭已有证据；无当前报告
+  推断时显示明确空状态，不沿用旧报告内容。
+- 对已有可信细项支撑的汇总值，尽可能提供到构成明细、计算口径和来源的可读路径。
+  “摘要展开”不能止步于一个无法检查的总数；既有安全 allow-list 仍适用于全部层级，
+  不展示 raw graph、任意 payload 或原始 provider/source 数据。
+- **有效进张**在当前宽松布局中默认直接列出牌面及每种剩余张数，并保留种数与总张数，
+  让用户直接对照两种行动的进张组成。空间不足时允许换行或显式点击展开；鼠标悬浮
+  可以补充说明，但不能成为获取明细的唯一方式，键盘与触屏均须可达。
+- 每组明细必须标明对应候选行动和同一统计范围/口径，例如 overall 与某个手牌族
+  不得混用，牌种数不得冒充张数；剩余数量按上游已验证的可见牌/剩余计数假设表达，
+  不声称为实际牌山中必然可摸到的张数。
+- 当前账本已有 `efficiency.ukeire_remaining` 与 `overall_effective_tiles_remaining`
+  的 `tile_counts`（`tile34`、`count`）；hand-structure 也有按 family 的牌种与
+  remaining status。主进程从同一候选、同一 decision 的已验证证据投影明细，
+  由 strict renderer DTO 承载牌面、逐牌张数/可用状态、范围/口径与安全 display refs。
+  renderer 只呈现，不从总数反推、不重跑牌理计算、不混合不同 family 重复计数。
+- 上游只有牌种、没有可信数量时，展示牌种并注明“剩余张数未知”；只有总量时明确
+  “明细未提供”；已知为零与未知必须区分。理论未见枚数不得标成已扣除公开可见牌的
+  live count。缺失使用合法 unavailable 状态；不一致/越权的 DTO 仍按既有规则拒绝。
+- 本裁决增加的是现有证据的展示深度，不扩展 deterministic 分析能力，不向 List
+  增加明细列。示意牌组/数值不构成生产证据或新增权威规格。
 
 Detail 使用固定章节，不因 LLM 状态改变权威顺序：
 
@@ -297,12 +425,16 @@ contracts）：
 | `generateReport` | `{packageId, operationId}` | generation result + snapshot | 复用唯一 COAC-4 生成链；不返回完整 report |
 | `cancelGeneration` | `{operationId}` | fixed acknowledgement | 取消或使迟到结果失效 |
 | `getReviewDetail` | `{packageId, decisionId, activeReportRefId}` | `FixedReviewDetailDto` | active ref 必须与 main 当前状态一致 |
-| `activateReport` | `{packageId, reportRefId}` | `FixedReviewSnapshotDto` | 按唯一生成实例引用执行完整 overlay 切换序列 |
+| `activateReport`（后续用户能力预留） | `{packageId, reportRefId}` | `FixedReviewSnapshotDto` | 按唯一生成实例引用执行完整 overlay 切换序列；P6 启用前不接用户入口 |
 | `leaveReview` | `{packageId}` | fixed acknowledgement | 使在途 operation epoch 失效并释放 view state |
 
 `operationId` 由 main/renderer 协议使用的 opaque id，不进入 ReviewReport。每个请求均
 校验 trusted sender、参数个数与 strict schema；preload 对返回值再次 parse。错误只暴露
 冻结项目错误码，不透传 filesystem/provider/parser prose。
+
+按 P6，本期 preload/renderer 的用户操作面仅接入首次生成；`activateReport` 的
+用户 IPC 暴露/接线延期，不为预留功能扩张本期 renderer API。内部 controller 的
+报告引用、装配/切换语义和回归继续保留。IPC 中的错误码由用户界面按 P5 映射为文案。
 
 现有 `coach:report:generate` 可以演进为上述 `generateReport`，但不得与新 channel 并存
 两条生成路径；architecture check 必须继续证明只有 `llm-provider/service.ts` 静态 named
@@ -418,6 +550,9 @@ GENERATE_REQUESTED(operationId, packageRef)
 
 ## UI 状态矩阵
 
+本表使用实现者状态名，用户文案以 P5 为准。涉及已有报告后的 regenerate 与
+用户主动 switching_report 的行是后续启用行为，P6 冻结期间不从 MVP 用户入口触发。
+
 | analysis / report 情形 | Overview | List | Detail |
 |---|---|---|---|
 | analysis `complete` + report `complete` | 两组状态均如实显示 | 全部 selected 行为 `ready` | 完整 judgment/explanation + evidence |
@@ -435,7 +570,7 @@ GENERATE_REQUESTED(operationId, packageRef)
 - 继续使用语义化原生 DOM：Overview 用 landmark/definition list，List 用可键盘导航的
   list/button，Detail 用 headings/sections；报告状态用 `aria-live="polite"`，错误用
   `role="alert"`。
-- List selection、展开/收起与报告切换全部可用键盘完成；focus 在重渲染后落到可预测
+- List selection、展开/收起与后续启用的报告切换全部可用键盘完成；focus 在重渲染后落到可预测
   元素，切换报告不得把 focus 丢到 document body。
 - 颜色不是状态唯一载体；所有 status/tag 均有文本。
 - 所有模型/证据文本用 `textContent` 或 text node；禁止 `innerHTML`、inline handler、
@@ -492,11 +627,25 @@ read-back validation，不得以 HTTP 结果或异常类别直接猜测是否成
   代替实例引用均 fail closed。
 - Overview counts 精确等于 package decisions；0 值键不缺失；analysis 与 generation
   status 不互相推导。
+- 用户状态文案按 P5 映射；可见文本、展开区、悬浮与辅助技术标签均不出现技术状态码。
+  覆盖合法单候选导致 degraded、完整性失败、部分解说、仅证据、未生成、空 selection
+  及无合法新报告的操作失败；原因与可执行操作准确，禁止原始错误文案回显。
+- Overview 首屏主区呈现入选数量和 List 入口；两组状态与解说可用数量默认可见，
+  两组明细默认折叠且展开后保留全部键/零值；完整性异常提示始终可见，
+  `integrity_failed` 警示先于入口。覆盖 `not_generated` 与空 selection 的准确表达。
 - List 行集/顺序/reason 精确等于 selector；打乱输入 selected 或重复 rank fail closed；
   tags 只由五值 axis 集合按固定序产生。
+- List 默认使用上述六组列的紧凑表格；长原因、多 tags、Mortal 并列偏好和失败状态
+  均完整可读，窄窗重排不丢字段。List 不增加 Coach 正文、完整候选评分或证据展开。
 - Detail action/model/judgment 分层正确；placeholder segments 的值可追到当前 decision
   evidence；悬空、跨 decision、跨 report refs 拒绝整个 detail。
+- Detail 呈现上方实际/模型紧凑对照、下方突出的 Coach 建议与解说；来源文本可辨。
+  覆盖 Coach/Mortal 推荐不同、Mortal 并列偏好及无可用解说，窄窗保持阅读顺序，
+  不混用推荐、不丢评分单位、不用 Mortal 填充缺失 Coach。
 - `partial`/`evidence_only` 即使没有 explanation 也返回 evidence detail。
+- Evidence 默认展示摘要、折叠来源；有效进张的牌面/逐牌张数与上游同候选、同口径
+  `tile_counts` 逐项一致，去重后的明细总和与展示总量一致。覆盖未知张数、零张、
+  只有总量无明细、family/overall 范围、窄窗及无鼠标操作；不得制造缺失数据。
 
 ### IPC / security tests
 
@@ -509,6 +658,10 @@ read-back validation，不得以 HTTP 结果或异常类别直接猜测是否成
 - architecture checker 阻止第二生成入口、renderer privileged import 与 deep import。
 
 ### Lifecycle / renderer tests
+
+以下 regenerate、重复生成实例与 A→B→A 场景继续在内部 controller/presenter 层
+验证冻结契约，不要求本期用户能触发。renderer 须验证首次生成入口、无合法报告时
+可重试，以及存在任何合法报告后不出现重新生成/切换入口（含菜单、快捷键与占位）。
 
 - 生成中 `leaveReview`：abort-capable fake 收到 cancel；non-abortable fake 迟到成功也不
   追加 ref、不触发 view 更新。
@@ -531,15 +684,18 @@ read-back validation，不得以 HTTP 结果或异常类别直接猜测是否成
    的 RED/GREEN，再做 ref/identity 负例。
 3. **Lifecycle controller**：operation epoch、每次 validated generation 分配的唯一
    `reportRefId`、内存 report catalog、active ref 与原子 overlay switch；不实现 disk persistence。
-4. **IPC/preload**：收窄现有 generate 返回并增加 open/detail/cancel/switch/leave；保持
-   唯一生成 seam。
+4. **IPC/preload**：收窄现有 generate 返回并增加 open/detail/cancel/leave；保持
+   唯一生成 seam。用户主动 switch 的 IPC/preload 接线按 P6 延期。
 5. **Renderer policy + DOM**：纯 view reducer/render functions 后接事件；完成 Overview
    → List → Detail 与 accessibility tests。
-6. **Integration**：四状态 fixture E2E、生成中退出、失败 regenerate、A→B→A；运行全部
+6. **Integration**：四状态 fixture E2E、首次生成/无报告重试、生成中退出、延期入口
+   不可见；内部 controller/presenter 继续覆盖失败 regenerate、A→B→A。运行全部
    architecture/security/build gates。
 
 ## 验收门
 
+- MVP 首次生成可达；无合法报告时允许重试；已有合法报告后无重新生成或报告切换
+  的用户入口。基模/知识库自定义与教练配置快照只作为后续启用条件，不进入本期实现。
 - complete、partial、evidence_only、empty-selection 四个 fixture 均从生产 schema 经
   main presenter、IPC/preload parse 到 DOM 自动验证，无崩溃、无第二套状态推导。
 - Overview 的七值 counts、analysis status、generation status 精确匹配输入 truth；
@@ -564,6 +720,8 @@ read-back validation，不得以 HTTP 结果或异常类别直接猜测是否成
 
 ## Out of Scope
 
+- MVP 的重新生成/历史报告切换用户入口、解说基模和知识库自定义界面、教练配置
+  快照的新 schema/存储；共享生命周期和内部隔离回归仍按冻结契约保留；
 - ContextGraph visualization、GraphRAG、GraphDB、vector search 或开发者图调试器；
 - 在 UI/presenter 重算 selection、rank、reason、threshold、cap 或 preference conflict；
 - 在 renderer 重跑 grounding、`validateReviewReport` 或报告 identity 校验；
@@ -594,6 +752,36 @@ read-back validation，不得以 HTTP 结果或异常类别直接猜测是否成
 | M7-A 是否持久化 | 否；仅内存 catalog，durability 归 M7-B | ROADMAP §6 |
 | 是否需要新 ADR | 不需要；本规格在 ADR-0003/0004/0005 内实现可逆 feature architecture | governance review |
 
-审阅结论：没有未决产品、契约、安全或生命周期问题；本规格不是 `ready-for-agent`
-标签占位，而是 COAC-6 的完整执行契约。COAC-7 仍需把共享生命周期互引落入其独立
-持久化规格；在 COAC-5 与 COAC-7 两份规格均冻结合入前，不得启动 COAC-6。
+### 产品收口记录（2026-09-21 起，继续现有 candidate）
+
+本轮基于 PR #14 candidate `5c43f399977c54dcc04b2620e16f4ce1980896dc` 收口，
+不重新讨论 F1–F4 / H5–H6、原生 DOM、三层导航、selector/tags authority、安全 DTO、
+合法降级报告或 A/B overlay isolation。只裁决 repository 无法推导的产品/UI 选择；
+每题由产品 owner 回答后立即更新本规格对应条款，不创建第二份规格。
+产品 owner 要求后续每题在提问时同时提供简单、可比较的网页示意；示意采用明确标注的
+模拟数据，辅助裁决，不替代本规格。预览切换不算产品裁决，收到明确回答后才冻结。
+
+| 编号 | 产品问题 | 状态/裁决 |
+|---|---|---|
+| P1 | Overview 首屏优先级 | **已冻结：A，复盘入口优先**；首屏常显两组状态，完整计数默认折叠，异常提示保持显著 |
+| P2 | List 信息密度 | **已冻结：B，紧凑表格**；条件是当前字段规模不大幅增加，新增详细信息优先放 Detail |
+| P3 | Detail 的实际选择 / Mortal / Coach 视觉与信息层级 | **已冻结：B（2026-09-22）**；实际/Mortal 紧凑对照，随后突出 Coach 建议与解说；来源与权威边界保持可辨 |
+| P4 | Evidence 默认展开层级 | **已冻结：B + 明细可达（2026-09-22）**；摘要展开、来源折叠；进张优先直接列牌及各自张数，窄窗可显式展开，悬浮不作唯一入口 |
+| P5 | 技术状态的用户可理解文案 | **已冻结（2026-09-22）**：技术状态留给开发者，用户界面包括折叠详情均不展示代码；只显示本地化状态、原因与可执行操作，按上方 P5 映射落实 |
+| P6 | MVP 是否显式暴露 Regenerate / A-B report switching | **已冻结（2026-09-22）**：暂不提供用户入口，仅保留首次生成；待基模与知识库均可自定义、可展示生成时教练配置快照后再启用；既有生命周期与隔离契约保持冻结 |
+
+### 独立技术阻塞与执行门槛
+
+PR #14 Review Loop round 1 的失败/合法降级分支与 round 2 的重复报告身份问题，
+已分别在 `cd7c633`、`5c43f39` 修订。Round 3 的 **R3-P2-1** 保持独立技术修复：
+spec 所列 `appendReasoningOverlay` 包根导出不等于 desktop 已获准导入；当前
+architecture checker 禁止该导入。须另行闭合获准的已验证报告装配路径及回归，
+不通过产品 grill 放宽生成边界，不将该问题记为产品 owner 待决事项。
+
+当前状态：**SPEC FREEZE：产品/UI 已冻结（P1–P6，2026-09-22）；
+REMAINING PRODUCT DECISIONS：无（COAC-5 本期范围）；
+TECHNICAL BLOCKERS：R3-P2-1 未关闭。** 产品冻结不等于技术审阅通过、PR 合入或
+COAC-6 可执行。将来重新生成/报告比较的配置快照细节属于后续功能规格，不阻塞本期
+产品冻结。本记录取代此前“没有未决产品问题、可直接执行”的关闭声明。
+COAC-7 仍需把共享生命周期互引落入其独立持久化规格；在 COAC-5 与
+COAC-7 两份规格均冻结合入前，不得启动 COAC-6。
