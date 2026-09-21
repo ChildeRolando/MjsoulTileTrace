@@ -219,15 +219,19 @@ Model/report evidence provider（模型/报告证据来源）
   nodeId、自报 self-id、edgeId 与 reportId，或用类型合法的跨 decision 边拼接不属于
   当前判断的证据。
 - **Owner / boundary**：`contracts` 的 reasoning node payload / edge 契约，以及
-  `reasoning` 的 `validateReviewReport` read-back 边界；Explanation identity 仍由内容
-  派生，不引入第二套 local identity。
+  `reasoning` 的 `validateReviewReport` 与 `composeReviewReadBackContext` read-back 边界；
+  Explanation identity 仍由内容派生，不引入第二套 local identity。
 - **Enforcement**：read-back 从受信输入重新推导三类 reasoning node identity，重新
   校验 overlay edge identity、endpoint kind、decision ownership、grounding 与最终
-  report identity；任一不匹配均 fail closed。
+  report identity；获准组合 seam 先验证 package/report，再从新投影的 base graph 只装配
+  当前 report overlay，并把 ref resolution 限于当前 report、same-decision context；任一
+  不匹配均 fail closed。
 - **Executable tests**：`grounding-validator.test.ts` 覆盖同步伪造
   CoachJudgment/CoachInference nodeId + payload self-id、Explanation 内容与 payload
   self-id 篡改、`verbalizes` / `opposes` / `qualifies` endpoint-kind 篡改，以及合法
-  endpoint kind 的跨 decision 边。
+  endpoint kind 的跨 decision 边；`review-read-back.test.ts` 覆盖 package/report fail-closed、
+  current-report ref resolution 与 A→B→A 隔离；`check-architecture.test.mjs` 覆盖 presenter
+  只允许 read-back seam、拒绝 overlay/generation internals。
 - **Status**：machine-enforced（contracts/reasoning、COAC-3 provider/IPC 与 COAC-4
   唯一生成链均已落盘；真实账号/真实 LLM 人工验收不属于本不变量门禁）。
 

@@ -92,6 +92,7 @@ export * from "./context-graph/validate-reasoning-overlay-partition.js";
 // grounding validators. Assembly remains an internal implementation detail.
 export * from "./groundingValidator.js";
 export * from "./generate-review-report.js";
+export * from "./review-read-back.js";
 export {
   appendReasoningOverlay,
   COACH_ENGINE_VERSION,

@@ -297,14 +297,18 @@ HTTPS URL。非敏感设置在当前 main 生命周期内保留，与密文文�
 slice → 冻结 prompt → provider 内一次初始发送与至多一次自动重试 → grounding →
 append overlay → read-back validator。desktop main 是组合根；service/IPC 不得直接调用
 provider、slice/prompt builder 或 assembler 产生报告。该边界由
-`review_report_generation_seam` 架构规则机械保护；独立 read-back validator 仍可验证
-已有报告。desktop production 对 reasoning 的静态/literal 模块引用只允许静态 named
+`review_report_generation_seam` 架构规则机械保护。已有 package/report 的 presentation
+读回只能通过 reasoning-owned `composeReviewReadBackContext`：它复用 package/report
+validators、base projection 与 overlay assembly，返回单一 current-report graph 与
+same-decision ref resolution，不拥有 provider/prompt/selection/retry/generation/publication。
+desktop production 对 reasoning 的静态/literal 模块引用只允许静态 named
 import（允许别名，禁止 default/namespace）；re-export、literal dynamic import、
 `require()` 与 import-equals 均 fail closed，包括 service 自身。
 `generateReviewReport` 绑定与 concrete provider 的加载均仅归
 `llm-provider/service.ts`；两者只允许 static named import，re-export、literal dynamic
 import、`require()`、import-equals、default/namespace import 均 fail closed。generation
-internals 禁止 desktop 获取；持久化读回仍可 named import `validateReviewReport` /
+internals（含 `appendReasoningOverlay`）禁止 desktop 获取；presenter 可 named import
+`composeReviewReadBackContext`，持久化校验仍可 named import `validateReviewReport` /
 package validators。
 检查器不解析运行时计算的模块路径，不提供任意 JavaScript 的数据流证明。
 流程不保存完整 prompt、response 或 raw CoT。

@@ -1,7 +1,7 @@
 # M7-A Whole-game fixed review UI 实现规格
 
 日期：2026-09-21
-状态：**SPEC FREEZE（产品/UI）：P1–P6 已裁决，2026-09-22 冻结；既有边界保持冻结；独立技术阻塞 R3-P2-1 未关闭，技术执行门仍未通过**
+状态：**SPEC FREEZE（产品/UI）：P1–P6 已裁决，2026-09-22 冻结；R3-P2-1 技术候选已落盘，须经最终候选 HEAD 的独立评审后才可判定技术执行门 PASS**
 工单：COAC-5；后续实现：COAC-6
 
 权威上游：
@@ -31,9 +31,10 @@ M7-A 只能建立在 COAC-4 已验收并合入的代码上：
   `CoachDesktopApi` 与 `COACH_IPC_CHANNELS`。
 - `@riichi-coach/reasoning` 包根公共 seam：
   `selectReviewDecisions`、`projectContextGraph`、`getDecisionSubgraph`、
-  `appendReasoningOverlay`、`validateReviewReport` 与唯一生产生成入口
-  `generateReviewReport`。M7-A 不导入内部 assembler、prompt/provider mapper 或
-  id helper。
+  `validateReviewReport`、获准的只读组合入口 `composeReviewReadBackContext` 与唯一生产
+  生成入口 `generateReviewReport`。`appendReasoningOverlay` 虽为既有包根导出，仍是
+  generation internal，desktop production 不得直接导入；M7-A 也不导入内部 assembler、
+  prompt/provider mapper 或 id helper。
 - desktop 已有 IPC seam：`coach:report:generate` 只接收 `{packageId}`，主进程从
   `userData/analysis-packages/<sha256(packageId)>.json` 读取并验证 package，执行
   validate → project → select → generate，当前返回 schema-parsed `ReviewReport`。
@@ -144,7 +145,7 @@ Overview ─────────────▶ List ───────�
   仅靠 A/B、生成次序或内部 ID；不声称更换基模/知识库后结果必然不同或更优。
 - 共享生命周期、immutable refs、合法降级与 overlay isolation 已冻结，完整保留为
   内部契约及回归边界。相关场景不再作为 MVP 用户入口的交付要求；首次生成仍使用
-  同一条已验证报告装配路径，因此本裁决不消除独立技术阻塞 R3-P2-1。
+  同一条获准的 `composeReviewReadBackContext` 已验证报告装配路径。
 
 ### Overview
 
@@ -308,7 +309,8 @@ Detail 使用固定章节，不因 LLM 状态改变权威顺序：
 3. **CoachJudgment**：只从当前 active report、当前 decision 的
    `CoachJudgment` 节点投影 recommendation/confidence/premise refs。
 4. **Explanation**：只显示当前 report 中当前 decision 的 Explanation；事实占位符
-   由 main presenter 在已通过 `validateReviewReport(report, graph)` 的组合上解析，
+   由 main presenter 从 `composeReviewReadBackContext(package, report)` 返回的已验证
+   current-report context 解析，
    输出 `text | evidence_value | action_value` typed segments。renderer 不接收模板
    原文后自行解析，也不把 HTML 字符串写入 DOM。
 5. **证据与 provenance**：按 `hard | advisory | coach_inference` 分组。每项只含
@@ -339,14 +341,6 @@ type FixedReviewSnapshotDto = {
     selectedCount: number;
     items: FixedReviewListItemDto[];
   };
-  reportCatalog: Array<{
-    reportRefId: string;
-    reportId: string;
-    generatedAt: string;
-    providerId: string;
-    model: string;
-    generationStatus: "complete" | "partial" | "evidence_only";
-  }>;
   activeReportRefId: string | null;
   activeReportStatus: "not_generated" | "complete" | "partial" | "evidence_only";
   explanationCounts: {
@@ -391,19 +385,22 @@ type FixedReviewDetailDto = {
 };
 ```
 
-以上是字段语义冻结，不要求照抄 TypeScript 排版。所有嵌套 object `.strict()`；数组有
+以上是字段语义冻结，不要求照抄 TypeScript 排版。MVP snapshot 明确不含完整
+`reportCatalog` / `reportRefs` 历史；provider/model/generatedAt 当前页面不呈现，因此也不
+进入 DTO。完整 immutable report refs 只留在 main lifecycle controller。所有嵌套 object `.strict()`；数组有
 确定顺序；`Renderer*Dto` 只含渲染需要的 typed action/label/value/ref 字段。严禁加入
 以下字段：package/graph/report 整体、任意文件路径/URL、原始牌谱或 source/Mortal
 payload、账号标识、credential、prompt/response、raw CoT、上游异常 prose。
 
 ### Main presenter
 
-在 desktop 主进程新增窄 presenter/controller，输入为已验证的 package、selector
-result、base evidence graph 与可选 active ReviewReport。它负责：
+在 desktop 主进程新增窄 presenter/controller，输入为 package、selector result 与可选
+active ReviewReport。它只能通过 reasoning 包根的获准
+`composeReviewReadBackContext(package, report)` 取得 base/current graph 与 ref resolver；
+不得直接导入 `appendReasoningOverlay`。它负责：
 
 - 复核 `packageId` / selector `analysisPackageId` / report `packageId` 同源；
-- active report 存在时，先对 base graph 调用 `validateReviewReport`，再只装配该
-  report overlay；
+- active report 存在时，只消费 read-back seam 返回的 validated current-report context；
 - 计算固定 counts、axis tags、action display DTO、placeholder segments 与 provenance；
 - detail 只允许 selector 已选的 `decisionId`，且 refs 只能落在该 decision subgraph
   或当前 report overlay；
@@ -528,7 +525,7 @@ GENERATE_REQUESTED(operationId, packageRef)
 - target report 缺失、package 不同源或 validator 拒绝：
   `REPORT_SWITCH_FAILED(code)`；恢复原 active ref 与原 overlay 的一致快照。不得把
   old overlay 与 target report 部分拼接。
-- reasoning ref 只在 `activeReportRef` 指向的单份 overlay 内解析；package evidence
+- reasoning ref 只通过 read-back seam 在 `activeReportRef` 指向的单份 overlay 内解析；package evidence
   ref 只在同一 package 投影内解析。禁止全局 reasoning-node registry。
 - 显式切换的 A/B 均是 `reportRefId`，不是 `reportId`。相同 `reportId` 的两个
   生成实例也必须能分别激活；`activeReportRef` 与 snapshot/detail 中的
@@ -620,11 +617,12 @@ read-back validation，不得以 HTTP 结果或异常类别直接猜测是否成
 
 ### Contract / presenter tests
 
-- DTO strict schema 接受上述投影，拒绝未知字段、完整 package/report/graph、路径/URL、
+- DTO strict schema 接受上述投影，拒绝未知字段、完整 package/report/graph、完整
+  `reportCatalog` / `reportRefs` 历史、路径/URL、
   prompt/response/key-like 字段与未知状态。
-- catalog 允许两项拥有相同 `reportId` 但必须拥有不同 `reportRefId`；重复
-  `reportRefId`、无法解析到唯一 catalog 项的 `activeReportRefId` 或以 `reportId`
-  代替实例引用均 fail closed。
+- main controller 内部 catalog 允许两项拥有相同 `reportId` 但必须拥有不同
+  `reportRefId`；重复 `reportRefId`、无法解析到唯一内部项的 `activeReportRefId` 或以
+  `reportId` 代替实例引用均 fail closed。renderer snapshot 只得到当前 active ref/status。
 - Overview counts 精确等于 package decisions；0 值键不缺失；analysis 与 generation
   status 不互相推导。
 - 用户状态文案按 P5 映射；可见文本、展开区、悬浮与辅助技术标签均不出现技术状态码。
@@ -655,7 +653,9 @@ read-back validation，不得以 HTTP 结果或异常类别直接猜测是否成
   `contextIsolation: true`、`sandbox: true`、`nodeIntegration: false`。
 - IPC 响应递归扫描禁止 credential、raw cache/source bytes、account identity、完整
   prompt/response、raw CoT 与本地路径。
-- architecture checker 阻止第二生成入口、renderer privileged import 与 deep import。
+- architecture checker 允许 presenter 静态 named import
+  `composeReviewReadBackContext`，阻止其直接导入 `appendReasoningOverlay`、第二生成入口、
+  provider/assembler/generation internals、renderer privileged import 与 deep import。
 
 ### Lifecycle / renderer tests
 
@@ -669,7 +669,8 @@ read-back validation，不得以 HTTP 结果或异常类别直接猜测是否成
   追加新 ref 并切换 active report；不得因传输失败原因保留 A。
 - 连续两次生成相同的合法报告：保留 `review-report.test.ts` 已有的“不同
   `generatedAt` 不改变 `reportId`”回归；controller tests 额外断言两个唯一
-  `reportRefId`、两条未覆盖 catalog metadata、按 ref 的 A→B→A 可寻址性与 active/DTO 一致。
+  `reportRefId`、两条未覆盖的 main-owned metadata、按 ref 的 A→B→A 可寻址性与
+  active DTO 一致；DTO 不含完整历史。
 - regenerate 操作级失败（package/read-back/identity，未取得合法报告）：active
   `reportRefId`、Detail DOM 与 overlay snapshot deep-equal 不变。
 - A→B→A：每次先清空 reasoning state，再装配 target；B 中不存在 A 的 judgment、
@@ -773,15 +774,19 @@ read-back validation，不得以 HTTP 结果或异常类别直接猜测是否成
 ### 独立技术阻塞与执行门槛
 
 PR #14 Review Loop round 1 的失败/合法降级分支与 round 2 的重复报告身份问题，
-已分别在 `cd7c633`、`5c43f39` 修订。Round 3 的 **R3-P2-1** 保持独立技术修复：
-spec 所列 `appendReasoningOverlay` 包根导出不等于 desktop 已获准导入；当前
-architecture checker 禁止该导入。须另行闭合获准的已验证报告装配路径及回归，
-不通过产品 grill 放宽生成边界，不将该问题记为产品 owner 待决事项。
+已分别在 `cd7c633`、`5c43f39` 修订。Round 3 的 **R3-P2-1** 以 reasoning-owned
+`composeReviewReadBackContext` 收口：它验证已有 package/report、重新投影 base graph、
+只装配所选报告 overlay，并提供 current-report、same-decision ref resolution；它没有
+provider、prompt、selection、retry、generation、publication 或 mutation capability。
+architecture checker 允许 desktop presenter 消费该 seam，同时继续拒绝其直接导入
+`appendReasoningOverlay`、provider/assembler/generation internals；
+`generateReviewReport` 仍是唯一 generation authority。
 
 当前状态：**SPEC FREEZE：产品/UI 已冻结（P1–P6，2026-09-22）；
 REMAINING PRODUCT DECISIONS：无（COAC-5 本期范围）；
-TECHNICAL BLOCKERS：R3-P2-1 未关闭。** 产品冻结不等于技术审阅通过、PR 合入或
-COAC-6 可执行。将来重新生成/报告比较的配置快照细节属于后续功能规格，不阻塞本期
+TECHNICAL CANDIDATE：R3-P2-1 实现与机械回归已落盘，仍须 final candidate HEAD 的
+fresh independent review 无 P1/P2 后才可记为 PASS。** 产品冻结不等于技术审阅通过、
+PR 合入或 COAC-6 可执行。将来重新生成/报告比较的配置快照细节属于后续功能规格，不阻塞本期
 产品冻结。本记录取代此前“没有未决产品问题、可直接执行”的关闭声明。
 COAC-7 仍需把共享生命周期互引落入其独立持久化规格；在 COAC-5 与
 COAC-7 两份规格均冻结合入前，不得启动 COAC-6。
