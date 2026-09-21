@@ -105,9 +105,11 @@ Overview ─────────────▶ List ───────�
    差异轴与证据，这样 LLM 不可用不会夺走复盘能力。
 7. 作为复盘用户，我想让空 selection 明确显示“当前策略未选出复盘条目”，而不是
    报错或显示空白页面。
-8. 作为复盘用户，我想重新生成得到一份新的不可变报告；即使 provider 请求失败，只要
-   生成链仍产出并读回验证通过的 `partial` / `evidence_only` 报告，也应追加并切换到
-   该报告。只有 package 读取、报告 read-back 或 identity 校验等操作级失败导致未取得
+8. 作为复盘用户，我想重新生成得到一个新的不可变报告实例引用；即使连续两次
+   生成得到同一内容派生 `reportId`，两次生成仍可在目录中分别寻址，且早先实例的
+   展示/审计元数据不被覆盖。即使 provider 请求失败，只要生成链仍产出并读回验证通过的
+   `partial` / `evidence_only` 报告，也应追加新引用并切换到该引用。只有 package
+   读取、报告 read-back 或 identity 校验等操作级失败导致未取得
    合法报告时，才继续看到原 active report，这样降级结果不会被误判为操作失败，真正
    的失败也不会丢失当前结果。
 9. 作为复盘用户，我想在报告 A/B 间切换时只看到当前报告的 judgment、explanation
@@ -210,13 +212,14 @@ type FixedReviewSnapshotDto = {
     items: FixedReviewListItemDto[];
   };
   reportCatalog: Array<{
+    reportRefId: string;
     reportId: string;
     generatedAt: string;
     providerId: string;
     model: string;
     generationStatus: "complete" | "partial" | "evidence_only";
   }>;
-  activeReportId: string | null;
+  activeReportRefId: string | null;
   activeReportStatus: "not_generated" | "complete" | "partial" | "evidence_only";
   explanationCounts: {
     ready: number;
@@ -249,7 +252,7 @@ type FixedReviewListItemDto = {
 type FixedReviewDetailDto = {
   schemaVersion: "fixed-review-detail/v1";
   packageId: string;
-  activeReportId: string | null;
+  activeReportRefId: string | null;
   decisionId: string;
   actual: RendererActionDto | null;
   mortal: RendererScoredActionDto[];
@@ -293,8 +296,8 @@ contracts）：
 | `openReview` | `{packageId}` | `FixedReviewSnapshotDto` | 只读；不生成 |
 | `generateReport` | `{packageId, operationId}` | generation result + snapshot | 复用唯一 COAC-4 生成链；不返回完整 report |
 | `cancelGeneration` | `{operationId}` | fixed acknowledgement | 取消或使迟到结果失效 |
-| `getReviewDetail` | `{packageId, decisionId, activeReportId}` | `FixedReviewDetailDto` | active ref 必须与 main 当前状态一致 |
-| `activateReport` | `{packageId, reportId}` | `FixedReviewSnapshotDto` | 执行完整 overlay 切换序列 |
+| `getReviewDetail` | `{packageId, decisionId, activeReportRefId}` | `FixedReviewDetailDto` | active ref 必须与 main 当前状态一致 |
+| `activateReport` | `{packageId, reportRefId}` | `FixedReviewSnapshotDto` | 按唯一生成实例引用执行完整 overlay 切换序列 |
 | `leaveReview` | `{packageId}` | fixed acknowledgement | 使在途 operation epoch 失效并释放 view state |
 
 `operationId` 由 main/renderer 协议使用的 opaque id，不进入 ReviewReport。每个请求均
@@ -316,11 +319,22 @@ import 并调用 `generateReviewReport`。
 ### Canonical refs
 
 - `packageRef`：指向 immutable `StructuredAnalysisPackage` 的稳定引用；
-- `reportRef`：指向 immutable `ReviewReport` 的稳定引用；
+- `reportRef`：指向 immutable `ReviewReport` 的稳定生成实例引用，至少包含唯一不变的
+  `reportRefId`、`packageId`、ReviewReport 内容身份 `reportId` 及该实例的 `generatedAt`；
 - `reportRefs`：同一 package 下按追加顺序保存的报告引用集合；
 - `activeReportRef`：当前唯一允许装配 reasoning overlay 的 `reportRef`，可为 null。
 
-报告的 `generatedAt`、provider/model 或数组最后一项都不能隐式决定 active report。
+其中 `reportId` 仍严格遵守 M6-D2 的内容派生公式，`generatedAt` 不进入该公式。
+`reportRefId` 是生命周期 controller 在每次合法报告读回通过后分配的 opaque 唯一实例键；
+它不得仅从 `reportId` 或 `reportId + generatedAt` 派生，也不改写 ReviewReport identity。
+M7-A 在内存中保持该引用及其精确的 immutable report 实例，M7-B 将按同一
+形状持久化引用并保证它解析到该次读回验证的精确 artifact；两者都不得仅按
+`reportId` 回查报告。
+
+每次 validated generation 都追加新 `reportRef`，即使新旧 ReviewReport 的 `reportId`
+相同也不去重、不覆盖、不合并元数据；目录与激活请求都以 `reportRefId`
+唯一寻址。报告的 `generatedAt`、provider/model、`reportId` 或数组最后一项都不能
+隐式决定 active report。
 
 ### View state
 
@@ -350,6 +364,9 @@ GENERATE_REQUESTED(operationId, packageRef)
 ```
 
 - 只有通过 read-back validation 的完整 immutable ReviewReport 才能产生 `reportRef`。
+- `REPORT_REF_APPENDED(reportRef)` 每次分配并追加一个新 `reportRefId`。若
+  catalog 已有相同 `reportId`，新引用仍必须追加；旧引用的 `generatedAt`、provider/model、
+  generation status 与审计关联保持原值。
 - `partial` 与 `evidence_only` 都是“完整合法报告”，可走同一成功序列；这里的完整是
   artifact 完整，不等于每行 explanation ready。
 - 第一次生成时 old overlay 为空，仍记录/执行同一逻辑分支，不另造 fast path。
@@ -381,6 +398,9 @@ GENERATE_REQUESTED(operationId, packageRef)
   old overlay 与 target report 部分拼接。
 - reasoning ref 只在 `activeReportRef` 指向的单份 overlay 内解析；package evidence
   ref 只在同一 package 投影内解析。禁止全局 reasoning-node registry。
+- 显式切换的 A/B 均是 `reportRefId`，不是 `reportId`。相同 `reportId` 的两个
+  生成实例也必须能分别激活；`activeReportRef` 与 snapshot/detail 中的
+  `activeReportRefId` 必须始终指向同一 catalog 项。
 
 ### 生命周期状态矩阵
 
@@ -443,17 +463,22 @@ view object。
    provider 调用计数为 0，List empty-state，Detail 无自动选择。
 5. **report-a / report-b**：同 package、同 decision、相同 judgment/inference localId、
    不同 recommendation/explanation 内容；用于 A→B→A 隔离。
+6. **duplicate-report-id**：同 package、selection 与 provider 连续生成相同内容，
+   注入两个不同 `generatedAt`；两份报告经 read-back validation 后 `reportId`
+   相同，但必须获得不同 `reportRefId` 并同时留在 catalog。先前引用的元数据不得
+   被覆盖，两项均可被明确激活，每次激活后 `activeReportRef`、snapshot 与 detail
+   必须一致。
 
 另冻结两组生成生命周期 fixture；它们必须调用唯一生产生成入口并对返回报告执行
 read-back validation，不得以 HTTP 结果或异常类别直接猜测是否成功：
 
-6. **provider-503-evidence-only**：已有 active report A；provider 初始请求与唯一重试
+7. **provider-503-evidence-only**：已有 active report A；provider 初始请求与唯一重试
    均返回 HTTP 503；生产生成链返回 read-back validated `evidence_only` report B，
    其 selected 行均为 `request_failed`。断言 B 被追加、A overlay 先卸载、B overlay
    装配/验证后 `activeReportRef` 切到 B，最终 `VIEW_READY`。该边界由现有
    `packages/desktop/tests/coach-provider.test.ts` 的双 503 → `status: "ready"` +
    `generationStatus: "evidence_only"` 回归提供上游保护。
-7. **operation-failure-preserves-a**：已有 active report A；分别注入 package 读取或
+8. **operation-failure-preserves-a**：已有 active report A；分别注入 package 读取或
    validation 失败、report read-back validation 失败、package/report identity 不一致。
    每种情况都断言没有合法 report B、没有追加 ref、没有卸载 A overlay，
    `activeReportRef` 与 Detail snapshot 保持 A 且返回固定错误码。
@@ -462,6 +487,9 @@ read-back validation，不得以 HTTP 结果或异常类别直接猜测是否成
 
 - DTO strict schema 接受上述投影，拒绝未知字段、完整 package/report/graph、路径/URL、
   prompt/response/key-like 字段与未知状态。
+- catalog 允许两项拥有相同 `reportId` 但必须拥有不同 `reportRefId`；重复
+  `reportRefId`、无法解析到唯一 catalog 项的 `activeReportRefId` 或以 `reportId`
+  代替实例引用均 fail closed。
 - Overview counts 精确等于 package decisions；0 值键不缺失；analysis 与 generation
   status 不互相推导。
 - List 行集/顺序/reason 精确等于 selector；打乱输入 selected 或重复 rank fail closed；
@@ -486,8 +514,11 @@ read-back validation，不得以 HTTP 结果或异常类别直接猜测是否成
   追加 ref、不触发 view 更新。
 - provider 两次 503 后返回的 read-back validated `evidence_only` 报告走完整成功序列，
   追加新 ref 并切换 active report；不得因传输失败原因保留 A。
-- regenerate 操作级失败（package/read-back/identity，未取得合法报告）：active report
-  id、Detail DOM 与 overlay snapshot deep-equal 不变。
+- 连续两次生成相同的合法报告：保留 `review-report.test.ts` 已有的“不同
+  `generatedAt` 不改变 `reportId`”回归；controller tests 额外断言两个唯一
+  `reportRefId`、两条未覆盖 catalog metadata、按 ref 的 A→B→A 可寻址性与 active/DTO 一致。
+- regenerate 操作级失败（package/read-back/identity，未取得合法报告）：active
+  `reportRefId`、Detail DOM 与 overlay snapshot deep-equal 不变。
 - A→B→A：每次先清空 reasoning state，再装配 target；B 中不存在 A 的 judgment、
   explanation、inference 或 ref resolution cache，反向亦然。
 - renderer fixture tests 覆盖三层导航、empty-state、固定本地化文案、keyboard/focus、
@@ -498,8 +529,8 @@ read-back validation，不得以 HTTP 结果或异常类别直接猜测是否成
 1. **Contracts**：新增 view DTO / IPC request-result schemas 与 exhaustive enum tests。
 2. **Main presenter**：package + selection + active report → snapshot/detail；先做四 fixture
    的 RED/GREEN，再做 ref/identity 负例。
-3. **Lifecycle controller**：operation epoch、内存 report catalog、active ref 与原子
-   overlay switch；不实现 disk persistence。
+3. **Lifecycle controller**：operation epoch、每次 validated generation 分配的唯一
+   `reportRefId`、内存 report catalog、active ref 与原子 overlay switch；不实现 disk persistence。
 4. **IPC/preload**：收窄现有 generate 返回并增加 open/detail/cancel/switch/leave；保持
    唯一生成 seam。
 5. **Renderer policy + DOM**：纯 view reducer/render functions 后接事件；完成 Overview
@@ -520,6 +551,9 @@ read-back validation，不得以 HTTP 结果或异常类别直接猜测是否成
 - 生成中退出无半成品引用；双 503 产生的合法 `evidence_only` 报告追加并切换；未取得
   合法报告的失败 regenerate 不改变 active report；A→B→A 不残留另一 report 的
   reasoning state。
+- 不同 `generatedAt` 的连续同内容生成保持相同 `reportId`，但每次追加唯一
+  `reportRefId`；旧元数据不覆盖、目录无歧义、两个实例均可按 ref 激活且
+  active ref / snapshot / detail 一致。
 - renderer 不获得 prohibited data/capability，现有 main-security、preload、IPC 与
   architecture tests 不回归。
 - `npm run typecheck`、`npm run build`、`npx vitest run`、
@@ -555,6 +589,7 @@ read-back validation，不得以 HTTP 结果或异常类别直接猜测是否成
 | provider 失败是否保留旧报告 | 不按原因判断；read-back validated `partial` / `evidence_only` 走成功追加与切换，只有未取得合法报告的操作级失败保留旧报告 | D2 degrade contract / `coach-provider.test.ts` |
 | report A/B ref scope | reasoning 只解析当前 overlay；先卸载再装配 | INV-011 / D2 report isolation |
 | regenerate 是否覆盖旧报告 | 永不覆盖；验证后追加并显式切 active | COAC-5/7 shared lifecycle |
+| 重复 `reportId` 如何寻址 | 不改内容派生 `reportId`；每次合法生成分配唯一 `reportRefId`，允许同 ID 多项且不覆盖元数据 | D2 report identity / COAC-5/7 shared lifecycle |
 | 退出时迟到结果 | operation epoch 丢弃，不追加、不切换 | lifecycle matrix |
 | M7-A 是否持久化 | 否；仅内存 catalog，durability 归 M7-B | ROADMAP §6 |
 | 是否需要新 ADR | 不需要；本规格在 ADR-0003/0004/0005 内实现可逆 feature architecture | governance review |
