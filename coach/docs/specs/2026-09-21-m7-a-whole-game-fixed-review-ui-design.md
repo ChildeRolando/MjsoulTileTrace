@@ -105,8 +105,11 @@ Overview ─────────────▶ List ───────�
    差异轴与证据，这样 LLM 不可用不会夺走复盘能力。
 7. 作为复盘用户，我想让空 selection 明确显示“当前策略未选出复盘条目”，而不是
    报错或显示空白页面。
-8. 作为复盘用户，我想重新生成得到一份新的不可变报告，并在失败时继续看到原 active
-   report，这样不会因为一次网络失败丢失当前结果。
+8. 作为复盘用户，我想重新生成得到一份新的不可变报告；即使 provider 请求失败，只要
+   生成链仍产出并读回验证通过的 `partial` / `evidence_only` 报告，也应追加并切换到
+   该报告。只有 package 读取、报告 read-back 或 identity 校验等操作级失败导致未取得
+   合法报告时，才继续看到原 active report，这样降级结果不会被误判为操作失败，真正
+   的失败也不会丢失当前结果。
 9. 作为复盘用户，我想在报告 A/B 间切换时只看到当前报告的 judgment、explanation
    和 inference，这样相同 local id 也不会串内容。
 10. 作为安全审查者，我想让 renderer 永远拿不到 raw package bytes、raw source/Mortal
@@ -355,8 +358,17 @@ GENERATE_REQUESTED(operationId, packageRef)
 
 ### 失败、退出与切换
 
-- 生成失败：`GENERATE_FAILED(code) → VIEW_READY`。不追加 reportRef，不改变
-  `activeReportRef`，不卸载当前 overlay。
+- provider 未配置、请求最终失败或单行输出无效，是 `ReviewReport` 内的行级降级原因，
+  不是天然的操作级失败。只要唯一生成链最终返回通过 read-back validation 的合法
+  `complete` / `partial` / `evidence_only` 报告，就必须执行完整成功顺序：追加
+  `reportRef`、卸载旧 overlay、装配并验证目标 overlay、切换 `activeReportRef`。例如
+  两次 HTTP 503 会生成全行 `request_failed` 的合法 `evidence_only` 报告，并切换到
+  该新报告。
+- 生成失败专指**未取得合法报告**的操作级失败，例如 package 读取/validation 失败、
+  生成入口抛错而未返回报告、report read-back validation 失败或 package/report
+  identity 不一致：`GENERATE_FAILED(code) → VIEW_READY`。此时不追加 reportRef，
+  不改变 `activeReportRef`，不卸载当前 overlay。固定错误码不得泄漏 package、provider
+  或 validator prose。
 - 生成中退出：`LEAVE_REQUESTED → GENERATION_CANCELLED_OR_DETACHED → VIEW_CLOSED`。
   尝试取消传输；若底层不能及时中止，则 operation epoch 使迟到结果只能丢弃。迟到
   报告不得追加引用或切换 active report。已有已保存报告保持不变。
@@ -377,8 +389,8 @@ GENERATE_REQUESTED(operationId, packageRef)
 | `opening` | package/selection projection 成功 | `ready` | null 或显式 ref |
 | `opening` | package/DTO validation 失败 | `unavailable` | 不暴露 |
 | `ready` | generate/regenerate | `generating` | 保持原值 |
-| `generating` | validated complete/partial/evidence_only | 完成成功顺序后 `ready` | 切到新 ref |
-| `generating` | provider/validation/identity 失败 | `ready` + fixed error | 原值不变 |
+| `generating` | read-back validated complete/partial/evidence_only（含 provider 失败降级出的合法报告） | 完成成功顺序后 `ready` | 切到新 ref |
+| `generating` | 未取得合法报告：package/read-back/identity 等操作级失败 | `ready` + fixed error | 原值不变 |
 | `generating` | leave | `closed` | 不追加、不切换 |
 | `ready` | switch A→B | `switching_report` → `ready` | validation 后才变 B |
 | `switching_report` | B validation 失败 | `ready` + fixed error | 恢复 A |
@@ -395,7 +407,7 @@ GENERATE_REQUESTED(operationId, packageRef)
 | analysis `integrity_failed` | 显著完整性警示与真实 counts | 仍只显示 selector 给出的行（通常为空） | 不猜缺失数据；已有合法 evidence 可读 |
 | 尚未生成 | report=`not_generated` | explanation=`not_generated` | package evidence 可读，可触发整批生成 |
 | generating | 保留当前 snapshot + busy 状态 | 不清空旧列表 | 旧 active detail 保留且标记生成中 |
-| regenerate 失败 | 固定错误提示 | 不改变 | active report 与 overlay 不变 |
+| regenerate 操作级失败（未取得合法报告） | 固定错误提示 | 不改变 | active report 与 overlay 不变 |
 | switching_report | 禁用重复切换 | 保留旧 snapshot 至原子提交 | 不呈现半装配 target |
 
 ## Accessibility 与 DOM 纪律
@@ -432,6 +444,20 @@ view object。
 5. **report-a / report-b**：同 package、同 decision、相同 judgment/inference localId、
    不同 recommendation/explanation 内容；用于 A→B→A 隔离。
 
+另冻结两组生成生命周期 fixture；它们必须调用唯一生产生成入口并对返回报告执行
+read-back validation，不得以 HTTP 结果或异常类别直接猜测是否成功：
+
+6. **provider-503-evidence-only**：已有 active report A；provider 初始请求与唯一重试
+   均返回 HTTP 503；生产生成链返回 read-back validated `evidence_only` report B，
+   其 selected 行均为 `request_failed`。断言 B 被追加、A overlay 先卸载、B overlay
+   装配/验证后 `activeReportRef` 切到 B，最终 `VIEW_READY`。该边界由现有
+   `packages/desktop/tests/coach-provider.test.ts` 的双 503 → `status: "ready"` +
+   `generationStatus: "evidence_only"` 回归提供上游保护。
+7. **operation-failure-preserves-a**：已有 active report A；分别注入 package 读取或
+   validation 失败、report read-back validation 失败、package/report identity 不一致。
+   每种情况都断言没有合法 report B、没有追加 ref、没有卸载 A overlay，
+   `activeReportRef` 与 Detail snapshot 保持 A 且返回固定错误码。
+
 ### Contract / presenter tests
 
 - DTO strict schema 接受上述投影，拒绝未知字段、完整 package/report/graph、路径/URL、
@@ -458,7 +484,10 @@ view object。
 
 - 生成中 `leaveReview`：abort-capable fake 收到 cancel；non-abortable fake 迟到成功也不
   追加 ref、不触发 view 更新。
-- regenerate 失败：active report id、Detail DOM 与 overlay snapshot deep-equal 不变。
+- provider 两次 503 后返回的 read-back validated `evidence_only` 报告走完整成功序列，
+  追加新 ref 并切换 active report；不得因传输失败原因保留 A。
+- regenerate 操作级失败（package/read-back/identity，未取得合法报告）：active report
+  id、Detail DOM 与 overlay snapshot deep-equal 不变。
 - A→B→A：每次先清空 reasoning state，再装配 target；B 中不存在 A 的 judgment、
   explanation、inference 或 ref resolution cache，反向亦然。
 - renderer fixture tests 覆盖三层导航、empty-state、固定本地化文案、keyboard/focus、
@@ -488,8 +517,9 @@ view object。
   refs；hard/advisory/coach provenance 可展开。
 - `partial` / `evidence_only` 可浏览 evidence；空 selection 不调用 provider、不自动
   选 decision。
-- 生成中退出无半成品引用；失败 regenerate 不改变 active report；A→B→A 不残留另一
-  report 的 reasoning state。
+- 生成中退出无半成品引用；双 503 产生的合法 `evidence_only` 报告追加并切换；未取得
+  合法报告的失败 regenerate 不改变 active report；A→B→A 不残留另一 report 的
+  reasoning state。
 - renderer 不获得 prohibited data/capability，现有 main-security、preload、IPC 与
   architecture tests 不回归。
 - `npm run typecheck`、`npm run build`、`npx vitest run`、
@@ -522,6 +552,7 @@ view object。
 | explanation 数字谁解析 | main 在 validated graph/report 上解析为 typed segments | ADR-0003/0005 |
 | renderer 是否拿完整 package/report | 不拿；只拿 strict view DTO | ADR-0005 / INV-005 |
 | evidence_only 是否失败 | 否，是合法一等 report；证据 UI 完整可用 | D2 E4/E9 |
+| provider 失败是否保留旧报告 | 不按原因判断；read-back validated `partial` / `evidence_only` 走成功追加与切换，只有未取得合法报告的操作级失败保留旧报告 | D2 degrade contract / `coach-provider.test.ts` |
 | report A/B ref scope | reasoning 只解析当前 overlay；先卸载再装配 | INV-011 / D2 report isolation |
 | regenerate 是否覆盖旧报告 | 永不覆盖；验证后追加并显式切 active | COAC-5/7 shared lifecycle |
 | 退出时迟到结果 | operation epoch 丢弃，不追加、不切换 | lifecycle matrix |
