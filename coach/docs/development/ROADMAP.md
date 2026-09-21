@@ -181,7 +181,8 @@ COAC-5/COAC-7 共享的 active-report 生命周期；只有 M7-B 规格也完成
 ### 6. M7-B ReviewSession 持久化
 
 - SQLite；ReviewSession 只引用（不内嵌）analysisPackage / ReviewReport；componentVersions 概念清单预留（canonical/replay、Mortal model/source、factor pipeline、selector policy、analysis package schema、LLM provider/model、prompt/schema、review report schema；其中 LLM provider/model、prompt/schema、review report schema 属 ReviewReport 侧，analysis package 只记确定性生产者版本，见 §2 M6-C）。
-- 产品内 Mortal 报告缓存进入：**raw cache 属 privileged source infrastructure，不进 ReviewSession/ReviewReport**（main process only、无 renderer 暴露、无 raw audit payload；eviction 策略实现时定）。
+- 产品内 Mortal 报告缓存进入：**raw cache 属 privileged source infrastructure，不进 ReviewSession/ReviewReport**（main process only、无 renderer 暴露、无 raw audit payload）。COAC-7 已裁决长期保留、无自动过期/容量淘汰，用户主动清理不得误删实体唯一原件；[M7-B 规格](../specs/2026-09-21-m7-b-review-session-persistence-design.md) 保存完整产品裁决、技术候选与执行门。
+- [ ] **M7-B 后续 TODO：本地数据目录搬迁**。MVP 使用应用默认数据目录；后续支持用户选择其他本地磁盘目录，安全搬迁已有复盘数据库、生成进度与原始来源材料，并验证中断恢复、空间/权限错误、目标不可用及切换后的完整读回。该 TODO 不阻塞本期，不等同于本期必须定义的数据库版本迁移。依据：[COAC-7 grill B10](../specs/2026-09-21-m7-b-review-session-persistence-design.md#b10本地数据目录是否允许用户更改已裁决a目录搬迁列后续-todo)。
 
 ### 7. M2-next：pull-based deterministic capability pool
 

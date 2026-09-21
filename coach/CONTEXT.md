@@ -91,6 +91,10 @@ _Avoid_: 用 last_actor/最后行动者判定归属（自摸回合恰好重合�
 
 ### 分析产物（analysis artifacts）
 
+**导入牌谱（imported game record）**：
+用户已导入本地、可独立管理的牌局来源实体，是其后分析结果的来源；应用内部的原始存储材料不因此成为用户界面可直接访问的原始数据。
+_Avoid_: 远端牌谱目录条目、任意缓存副本、ReviewSession
+
 **StructuredAnalysisPackage（M6-C 整盘确定性证据产物）**：
 M6-C 已固化的**整盘**确定性/可审计分析产物，是 evidence source of truth；
 只装确定性/来源/模型分析内容（record/decision identity、确定性生产者版本、
@@ -120,12 +124,48 @@ LLM/prompt 重生成多个 ReviewReport。
 入选与排序，provider 独占一次自动传输重试，assembler/IPC 不得形成第二生成路径。
 _Avoid_: 把它当确定性分析包；绕过 selector 重算入选；保存完整 prompt/response/raw CoT
 
+**ReviewSession（复盘档案）**：
+围绕一份 StructuredAnalysisPackage 组织已保存 ReviewReport 的持久复盘记录，持有分析包引用、报告实例引用集合及当前选中的报告引用。
+_Avoid_: 智能体聊天会话、一次教练生成任务、教练身份、学习单元文件夹、代替所有层级的统一删除对象
+
+**教练对话（用户和教练的会话）**：
+用户围绕已存在的分析或教练解释进行的多轮交流，具有自己消费的材料引用与对话内容；它属于后续 M4 对话能力的领域概念。
+_Avoid_: ReviewSession、单份 ReviewReport、单次模型请求
+
+**下游依赖实体**：
+消费另一实体作为来源或依据的产品对象；依赖关系按实际引用确定，可跨越相邻层级，也可同时引用多个来源。
+_Avoid_: 同一文件夹中的所有条目、所有同类型实体
+
+**归档**：
+用户将暂时不常用的资料及其依赖下游从日常列表收起的可逆整理操作，保留实体内容、身份与依赖引用。取消归档解除该次上游归档带来的隐藏，不取消下游自身独立的归档状态。
+_Avoid_: 删除、清理缓存、备份、等待自动清空的回收站
+
+**教练生成任务（coach generation task）**：
+为一份固定分析包产生教练报告的一次工作过程，可包含多个模型请求及尚未发布为正式报告的已完成成果。
+_Avoid_: ReviewSession、单次模型请求、已发布的 ReviewReport
+
+**教练生成断点（coach generation checkpoint）**：
+生成任务中已经持久保存、通过规定校验并可在恢复时复用的成果，携带其所属任务、工作范围及复用条件。
+_Avoid_: 进度百分比、请求已发送标记、半成品 ReviewReport、原始模型响应
+
+**原始来源缓存（raw Mortal/source cache）**：
+应用保留的原始牌谱或 Mortal 来源材料，用于中断恢复、重新分析及避免重复下载；它与正式分析包、教练报告和教练生成断点是不同材料。
+_Avoid_: ReviewSession 内容、教练生成成果、用户可见报告
+
 **Active ReviewReport（当前报告）**：
 同一 StructuredAnalysisPackage 的多个 immutable ReviewReport 中，当前唯一装配进
 review view 的那一份；切换时先卸载旧 reasoning overlay，再装配并验证目标 overlay。
 _Avoid_: 最新报告、最后一份报告（时间或数组位置都不能隐式决定 active report）
 
 ### 评审选择（review selection）
+
+**入选复盘决策**：
+既有选择规则从分析包中选出的具体操作决策，供教练解释，例如某巡弃牌或一次鸣牌响应；每项通过原有决策身份关联证据。
+_Avoid_: 含义不清的“复盘点”、整局牌、脱离决策时刻的一组手牌
+
+**分析面**：
+既有分析规范规定的观察维度及其分析条目，用来组织同一决策的因素和教练解释；沿用五轴及既定流程，不因请求拆分而创建另一套分析方法。事实由本地分析管线产生，教练解释与综合判断由教练在证据内产生。
+_Avoid_: 新的分析包、独立复盘档案、一次请求必须等于一个分析面
 
 **DeterministicReviewSelector（确定性评审选择策略）**：
 纯函数式、确定性、版本化的产品策略，把 schema-valid 的 `StructuredAnalysisPackage`
