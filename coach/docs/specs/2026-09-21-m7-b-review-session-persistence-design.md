@@ -87,8 +87,9 @@ app.getPath("userData")/review-library/
 2. 唯一 `generateReviewReport` 返回后，在内存中完成 report validator 与 `composeReviewReadBackContext` read-back。失败不保存 ref、不改变 active。
 3. **提交一**原子插入 immutable report、`session_report_refs`、activation intent 和 `report_saved` receipt，并递增 session revision。提交后才发出 `REPORT_REF_APPENDED`。写入/回执不确定时按 `operation_id` 读回，不重发模型请求。
 4. 从刚保存的精确 ref 重新读取 bytes，重新验证并调用 `composeReviewReadBackContext`。成功后，**提交二**以 expected revision/CAS 设置 active ref、删除 intent、把 receipt 更新为 `activated`、再次递增 revision；提交后才发出 `ACTIVE_REPORT_SWITCHED` 和 `VIEW_READY`。
-5. 提交一成功、提交二前退出/崩溃时，报告和 ref 保留，旧 active（首次生成时为 null）不变。下次打开只做本地第 4 步和提交二；零网络、零 LLM。
-6. 生成中退出且提交一尚未成功时，使 operation 失效并丢弃迟到结果，不创建半成品 ref。已有已保存报告和 active 均不变。
+5. 提交一成功后，若第 4 步的精确 ref 读回、report validator 或 compose 拒绝，已提交的 report/ref、activation intent 和 `report_saved` receipt 全部保留，旧 active（首次生成时为 null）不变；不得发出 `ACTIVE_REPORT_SWITCHED`/`VIEW_READY`，不得向 renderer 暴露被拒内容，也不得自动删除、换 active 或把 receipt 伪装成 `activated`。本次及以后重开都只可按同一 intent 重试本地第 4 步；仍拒绝时返回固定恢复 unavailable 状态并继续保留上述恢复记录，验证成功后才执行提交二。全程零网络、零 LLM。
+6. 提交一成功、提交二前退出/崩溃时，报告和 ref 保留，旧 active 不变。下次打开按第 5 项规则只做本地第 4 步和提交二；零网络、零 LLM。
+7. 生成中退出且提交一尚未成功时，使 operation 失效并丢弃迟到结果，不创建半成品 ref。已有已保存报告和 active 均不变。
 
 ### 5.3 内部 append/switch 回归
 
@@ -135,13 +136,14 @@ P6 不向用户暴露这些操作。repository/controller 仍必须支持：追�
 |---|---|
 | package/session 事务任一步失败 | 无半个可打开 session；既有数据不变 |
 | 合法 `complete/partial/evidence_only` | 同一保存/读回路径；状态如实保留 |
-| report validator/read-back 拒绝 | 不追加 ref，不改变 active，不向 renderer 暴露内容 |
+| 提交一前 report validator/read-back 拒绝 | 不追加 ref，不改变 active，不向 renderer 暴露内容 |
+| 提交一后精确 ref 读回、report validator 或 compose 拒绝 | 已提交 report/ref、intent 和 `report_saved` receipt 保留；旧 active 不变；无 `ACTIVE_REPORT_SWITCHED`/`VIEW_READY`，不暴露被拒内容；重开只做本地恢复，仍拒绝则返回固定 unavailable |
 | 提交一前退出 | 无新 ref；旧 active 不变 |
 | 提交一后、提交二前 kill | ref 恰好一份；重开本地完成 intent；0 网络/LLM |
 | 提交二回执丢失 | 按 operation/active/revision 识别已提交；不重复 append |
 | 缺失/跨 package ref、篡改或不兼容版本 | fail closed；原 bytes 保留；不猜 active、不生成替代物 |
 | `reportId` 相同而 `reportRefId` 不同 | 两实例不互相覆盖；按 ref 精确激活 |
-| A→B→A | B 的 node/explanation/ref 解析结果在最终 A 中均不存在 |
+| 不同内容 A→B→A | 最终内容、provenance 和 ref resolution 精确等于 A；无 B 独有内容或跨报告解析缓存残留；允许领域身份规则产生的共享 nodeId |
 | migration 中断或旧程序开新库 | 回滚或拒绝；不得空库覆盖 |
 | `SQLITE_BUSY`、磁盘满、权限丢失 | 固定保存错误、无假成功、无旧数据清除 |
 | cache hit/miss/invalid | hit 仍校验；invalid 为 miss；raw bytes 不越 privileged 边界 |
@@ -154,9 +156,9 @@ P6 不向用户暴露这些操作。repository/controller 仍必须支持：追�
 
 1. **主链**：受支持的真实、脱敏牌谱 fixture → 生产确定性分析 → 既有 selector → 首次 stubbed Coach 生成 → Overview/List/Detail → 保存 → 退出并清空全部内存 graph → 重启、禁网、禁 LLM → 重开同 session。断言同一 `activeReportRefId`、selection/report status/version、judgment、explanation 与 provenance，provider/network 请求数均为 0。
 2. **降级链**：分别从真实生产 contracts 构造 `partial` 和 `evidence_only`，保存后离线重开；确定性 evidence 仍可浏览、状态不变、provider/network 请求数为 0。零报告 session 另测 `not_generated`，不得冒充 `evidence_only`。
-3. **内部隔离**：两个不同 `reportRefId` 使用相同 `reportId`；执行 A→B→A，断言 current graph、judgment、explanation、provenance 和 reasoning ref 只来自当前 ref。覆盖跨 session/package ref、重复 ref、迟到 activation 与 operation 幂等拒绝。
+3. **内部寻址与隔离**：分别固化两组不可互相替代的案例。duplicate identity 案例让两个不同 `reportRefId` 指向相同 `reportId`，断言两份 ref、append ordinal、intent/receipt 和 active 寻址互不覆盖，按精确 ref 激活且元数据不串写；不能用内容相同来声称已证明 overlay 隔离。隔离案例使用同一 package/decision/localId 但不同 judgment/explanation 内容、因而 `reportId` 不同的 A 与 B，执行 A→B→A；每次都清空旧 read-back context，最终 current graph、judgment、explanation、provenance 和 reasoning ref resolution 精确等于 A，且没有 B 独有内容或解析缓存残留；允许 canonical identity 规则使非 B 独有节点共享 nodeId。两组均覆盖跨 session/package ref、重复 ref、迟到 activation 与 operation 幂等拒绝。
 4. **P6 DOM**：用户 DOM、preload API、菜单和快捷键均不存在 regenerate/history/A-B switch；snapshot 不含完整 report catalog。内部 repository 方法不得被 renderer 发现或调用。
-5. **SQLite/recovery**：真实 Electron 进程和磁盘库覆盖两个提交点、kill/restart、WAL recovery、外键、复合引用、migration rollback/newer-version refusal、删除竞争；不能只用 in-memory repository 或 mock transaction 代替。
+5. **SQLite/recovery**：真实 Electron 进程和磁盘库覆盖两个提交点、kill/restart、WAL recovery、外键、复合引用、migration rollback/newer-version refusal、删除竞争；另在提交一成功后分别注入精确 ref 读回、report validator 和 compose 拒绝，断言 report/ref、intent 与 `report_saved` receipt 保留、旧 active 不变、无 `VIEW_READY`/内容暴露，重启仍只做零网络/零 LLM 的本地恢复并在继续拒绝时返回固定 unavailable。不能只用 in-memory repository 或 mock transaction 代替。
 6. **cache/security**：固定 raw fixtures 覆盖 hit/miss/hash invalid/content dedup/no-auto-eviction/explicit clear/restart recovery，以及路径越界、symlink/reparse point、秘密反射。IPC→preload→renderer 全链断言无 raw bytes/URL/account/secret/prompt/response。
 7. **项目门**：从 `coach/` 实际运行 `npm run typecheck`、`npm run build`、`npx vitest run`、`npm run check:architecture`、`npm run test:package-import`，并运行新增的 Electron persistence suite。真实收费 provider 只在人工明确授权、确认账号/额度后补充验证；默认 suite 使用 stub，未获授权必须记录“未执行”而非 PASS。
 
