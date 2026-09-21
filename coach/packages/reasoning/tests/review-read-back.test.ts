@@ -68,15 +68,34 @@ describe("M7-A authorized report read-back composition", () => {
       provider,
       "2026-09-22T00:00:00.000Z",
     );
-    return { pkg, graph, report, decisionId, premise };
+    return { pkg, graph, selection, report, decisionId, premise };
   }
 
+  it("reads selector-scoped package evidence before an active report exists", async () => {
+    const { pkg, graph, selection, decisionId, premise } = await setup();
+    const packageBefore = structuredClone(pkg);
+    const selectionBefore = structuredClone(selection);
+
+    const readBack = composeReviewReadBackContext(pkg, selection);
+
+    expect(readBack.report).toBeNull();
+    expect(readBack.selection).toEqual(selection);
+    expect(readBack.baseGraph).toEqual(graph);
+    expect(readBack.currentGraph).toEqual(graph);
+    expect(readBack.decisionContext(decisionId).nodes).toContainEqual(premise);
+    expect(readBack.resolveDecisionRef(decisionId, premise.nodeId)).toEqual(premise);
+    expect(() => readBack.decisionContext("unselected-decision"))
+      .toThrow(/m7a_read_back_unselected_decision/);
+    expect(pkg).toEqual(packageBefore);
+    expect(selection).toEqual(selectionBefore);
+  });
+
   it("validates package/report, attaches only the current overlay, and resolves decision refs", async () => {
-    const { pkg, graph, report, decisionId, premise } = await setup();
+    const { pkg, graph, selection, report, decisionId, premise } = await setup();
     const packageBefore = structuredClone(pkg);
     const reportBefore = structuredClone(report);
 
-    const readBack = composeReviewReadBackContext(pkg, report);
+    const readBack = composeReviewReadBackContext(pkg, selection, report);
     const judgment = report.reasoningOverlay.nodes.find(
       (node) => node.nodeKind === "CoachJudgment",
     )!;
@@ -100,9 +119,9 @@ describe("M7-A authorized report read-back composition", () => {
     const b = await setup(1);
     expect(a.pkg).toEqual(b.pkg);
 
-    const graphA1 = composeReviewReadBackContext(a.pkg, a.report).currentGraph;
-    const graphB = composeReviewReadBackContext(a.pkg, b.report).currentGraph;
-    const graphA2 = composeReviewReadBackContext(a.pkg, a.report).currentGraph;
+    const graphA1 = composeReviewReadBackContext(a.pkg, a.selection, a.report).currentGraph;
+    const graphB = composeReviewReadBackContext(a.pkg, b.selection, b.report).currentGraph;
+    const graphA2 = composeReviewReadBackContext(a.pkg, a.selection, a.report).currentGraph;
 
     expect(graphA2).toEqual(graphA1);
     expect(graphB).not.toEqual(graphA1);
@@ -113,15 +132,25 @@ describe("M7-A authorized report read-back composition", () => {
   });
 
   it("fails closed before composition for invalid package or report identity", async () => {
-    const { pkg, report } = await setup();
+    const { pkg, selection, report } = await setup();
     const invalidPackage = structuredClone(pkg);
     invalidPackage.packageId = `${pkg.packageId}:tampered`;
-    expect(() => composeReviewReadBackContext(invalidPackage, report))
+    expect(() => composeReviewReadBackContext(invalidPackage, selection, report))
       .toThrow(/m6c_validator_package_id/);
 
     const invalidReport = structuredClone(report);
     invalidReport.packageId = `${report.packageId}:tampered`;
-    expect(() => composeReviewReadBackContext(pkg, invalidReport))
+    expect(() => composeReviewReadBackContext(pkg, selection, invalidReport))
       .toThrow(/m6d2_report_package_mismatch/);
+
+    const invalidSelection = structuredClone(selection);
+    invalidSelection.analysisPackageId = `${pkg.packageId}:tampered`;
+    expect(() => composeReviewReadBackContext(pkg, invalidSelection))
+      .toThrow(/m7a_read_back_selection_package_mismatch/);
+
+    const mismatchedSelection = structuredClone(selection);
+    mismatchedSelection.selected = [];
+    expect(() => composeReviewReadBackContext(pkg, mismatchedSelection, report))
+      .toThrow(/m7a_read_back_report_selection_mismatch/);
   });
 });

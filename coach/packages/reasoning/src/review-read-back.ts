@@ -3,8 +3,10 @@ import type {
   ContextGraphEdge,
   ContextGraphNode,
   ReviewReport,
+  ReviewSelectionResult,
   StructuredAnalysisPackage,
 } from "@riichi-coach/contracts";
+import { ReviewSelectionResultSchema } from "@riichi-coach/contracts";
 import { getDecisionSubgraph } from "./context-graph/get-decision-subgraph.js";
 import { projectContextGraph } from "./context-graph/project-context-graph.js";
 import { validateContextGraph } from "./context-graph/validate-context-graph.js";
@@ -19,14 +21,16 @@ export type ReviewDecisionReadBack = Readonly<{
 }>;
 
 /**
- * Validated, read-only composition of one existing analysis package and one
- * existing report. This is the presentation/persistence consumption seam; it
+ * Validated, read-only composition of one existing analysis package, its
+ * selector-owned scope, and an optional existing report. This is the
+ * presentation/persistence consumption seam; it
  * has no provider, prompt, selection, retry, generation, publication, or
  * mutation capability.
  */
 export type ReviewReadBackContext = Readonly<{
   analysisPackage: StructuredAnalysisPackage;
-  report: ReviewReport;
+  selection: ReviewSelectionResult;
+  report: ReviewReport | null;
   baseGraph: ContextGraph;
   currentGraph: ContextGraph;
   decisionContext(decisionId: string): ReviewDecisionReadBack;
@@ -43,40 +47,87 @@ function decisionIdOf(node: ContextGraphNode): string | undefined {
 }
 
 /**
- * Compose a validated current-report graph for read-back consumers.
+ * Compose a validated selector-scoped graph for read-back consumers, with an
+ * optional current-report overlay.
  *
- * The function deliberately accepts untrusted values so package/report
- * schema, identity, provenance, grounding, and same-decision ownership are
- * re-established before any overlay is exposed. Only the supplied report's
- * overlay is attached to a freshly projected base graph. Inputs are never
- * modified and no ReviewReport is created or published here.
+ * The function deliberately accepts untrusted values so package/selection/
+ * report schema, identity, provenance, grounding, and same-decision ownership
+ * are re-established before evidence or an overlay is exposed. Only the
+ * supplied report's overlay is attached to a freshly projected base graph.
+ * Inputs are never modified and no selection or ReviewReport is created or
+ * published here.
  */
 export function composeReviewReadBackContext(
   packageInput: unknown,
-  reportInput: unknown,
+  selectionInput: unknown,
+  reportInput: unknown | null = null,
 ): ReviewReadBackContext {
   validateStructuredAnalysisPackage(packageInput);
   const analysisPackage = packageInput as StructuredAnalysisPackage;
   const baseGraph = projectContextGraph(analysisPackage);
   validateContextGraph(baseGraph);
 
-  validateReviewReport(reportInput, baseGraph);
-  const report = reportInput as ReviewReport;
-  const currentGraph = appendReasoningOverlay(
-    baseGraph,
-    report.reasoningOverlay.nodes,
-    report.reasoningOverlay.edges,
-  );
+  let selection: ReviewSelectionResult;
+  try {
+    selection = ReviewSelectionResultSchema.parse(selectionInput);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    throw new Error(`m7a_read_back_selection_schema:${message}`);
+  }
+  if (selection.analysisPackageId !== analysisPackage.packageId) {
+    throw new Error(
+      `m7a_read_back_selection_package_mismatch:${selection.analysisPackageId}`,
+    );
+  }
+  if (selection.analysisPackageStatus !== analysisPackage.record.status) {
+    throw new Error(
+      `m7a_read_back_selection_status_mismatch:${selection.analysisPackageStatus}`,
+    );
+  }
+
+  const selectedDecisionIds = selection.selected.map((item, index) => {
+    if (item.rank !== index + 1) {
+      throw new Error(`m7a_read_back_selection_rank:${item.decisionId}`);
+    }
+    getDecisionSubgraph(baseGraph, item.decisionId);
+    return item.decisionId;
+  });
+  if (new Set(selectedDecisionIds).size !== selectedDecisionIds.length) {
+    throw new Error("m7a_read_back_selection_duplicate_decision");
+  }
+
+  let report: ReviewReport | null = null;
+  let currentGraph = baseGraph;
+  if (reportInput !== null) {
+    validateReviewReport(reportInput, baseGraph);
+    report = reportInput as ReviewReport;
+    if (report.selectorPolicyVersion !== selection.policyVersion) {
+      throw new Error("m7a_read_back_report_selection_policy_mismatch");
+    }
+    if (
+      report.selectedDecisionIds.length !== selectedDecisionIds.length ||
+      report.selectedDecisionIds.some(
+        (decisionId, index) => decisionId !== selectedDecisionIds[index],
+      )
+    ) {
+      throw new Error("m7a_read_back_report_selection_mismatch");
+    }
+    currentGraph = appendReasoningOverlay(
+      baseGraph,
+      report.reasoningOverlay.nodes,
+      report.reasoningOverlay.edges,
+    );
+  }
   validateContextGraph(currentGraph);
 
   const decisionContext = (decisionId: string): ReviewDecisionReadBack => {
-    if (!report.selectedDecisionIds.includes(decisionId)) {
+    if (!selectedDecisionIds.includes(decisionId)) {
       throw new Error(`m7a_read_back_unselected_decision:${decisionId}`);
     }
 
     const evidence = getDecisionSubgraph(baseGraph, decisionId);
     const nodeIds = new Set(evidence.nodes.map((node) => node.nodeId));
-    const reasoningNodes = report.reasoningOverlay.nodes.filter(
+    const reasoningNodes = (report?.reasoningOverlay.nodes ?? []).filter(
       (node) => decisionIdOf(node) === decisionId,
     );
     for (const node of reasoningNodes) nodeIds.add(node.nodeId);
@@ -107,6 +158,7 @@ export function composeReviewReadBackContext(
 
   return Object.freeze({
     analysisPackage,
+    selection,
     report,
     baseGraph,
     currentGraph,

@@ -396,11 +396,17 @@ payload、账号标识、credential、prompt/response、raw CoT、上游异常 p
 
 在 desktop 主进程新增窄 presenter/controller，输入为 package、selector result 与可选
 active ReviewReport。它只能通过 reasoning 包根的获准
-`composeReviewReadBackContext(package, report)` 取得 base/current graph 与 ref resolver；
+`composeReviewReadBackContext(package, selectorResult, activeReport?)` 取得
+base/current graph 与 ref resolver。无 active report 时，该 seam 仍验证 package 与
+selector result 的 schema、package identity、analysis status、rank/decision scope，返回
+不含 reasoning overlay 的 base graph，并只允许解析 selector 已选 decision 的 package
+evidence；不得伪造 report、重算 selection 或调用 provider。active report 存在时还须验证
+report 与 selector 的 policy、selected decision 顺序完全一致后才装配 overlay；
 不得直接导入 `appendReasoningOverlay`。它负责：
 
 - 复核 `packageId` / selector `analysisPackageId` / report `packageId` 同源；
 - active report 存在时，只消费 read-back seam 返回的 validated current-report context；
+- active report 不存在时，也只消费同一 seam 返回的 selector-scoped base evidence context；
 - 计算固定 counts、axis tags、action display DTO、placeholder segments 与 provenance；
 - detail 只允许 selector 已选的 `decisionId`，且 refs 只能落在该 decision subgraph
   或当前 report overlay；

@@ -299,8 +299,10 @@ append overlay → read-back validator。desktop main 是组合根；service/IPC
 provider、slice/prompt builder 或 assembler 产生报告。该边界由
 `review_report_generation_seam` 架构规则机械保护。已有 package/report 的 presentation
 读回只能通过 reasoning-owned `composeReviewReadBackContext`：它复用 package/report
-validators、base projection 与 overlay assembly，返回单一 current-report graph 与
-same-decision ref resolution，不拥有 provider/prompt/selection/retry/generation/publication。
+validators、base projection 与 overlay assembly，并验证 selector-owned scope。无 active
+report 时返回 selector-scoped base evidence context；有 active report 时验证 report 与
+selector 的 policy/decision 顺序一致后返回单一 current-report graph。两条路径都提供
+same-decision ref resolution，且不拥有 provider/prompt/selection/retry/generation/publication。
 desktop production 对 reasoning 的静态/literal 模块引用只允许静态 named
 import（允许别名，禁止 default/namespace）；re-export、literal dynamic import、
 `require()` 与 import-equals 均 fail closed，包括 service 自身。
