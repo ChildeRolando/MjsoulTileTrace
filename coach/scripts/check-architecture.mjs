@@ -30,11 +30,14 @@
  *     covers repository tools that legitimately need a deliberately
  *     non-public bridge (see scripts/generate-factor-regression-golden.mjs).
  *
- *  R4 review_report_generation_seam (INV-001 / INV-002 / INV-005)
+ *  R4 review_report_generation_seam (INV-001 / INV-002 / INV-005 / INV-011)
  *     Desktop production code may generate a new report only through
  *     reasoning's `generateReviewReport`; only the main-process coach service
  *     may call that seam. IPC and other desktop modules cannot import report
  *     assembly/slice/prompt helpers or the concrete provider directly.
+ *     Presentation/read-back consumers may use the public
+ *     `composeReviewReadBackContext` seam; direct overlay assembly remains an
+ *     internal generation helper.
  *     Reasoning access and concrete-provider composition must use static
  *     named imports; other literal loading forms fail closed, including in
  *     the service itself.

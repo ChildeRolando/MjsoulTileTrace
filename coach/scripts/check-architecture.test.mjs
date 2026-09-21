@@ -350,6 +350,61 @@ test("read-back validation remains allowed outside generation", () => {
   }
 });
 
+test("presenter may use only the authorized read-back composition seam", () => {
+  const root = buildWorkspace();
+  try {
+    write(
+      root,
+      "packages/desktop/src/fixed-review-presenter.ts",
+      'import { composeReviewReadBackContext } from "@riichi-coach/reasoning";\n',
+    );
+    write(
+      root,
+      "packages/reasoning/src/review-read-back.ts",
+      [
+        'import { projectContextGraph } from "./context-graph/project-context-graph.js";',
+        'import { validateStructuredAnalysisPackage } from "./validate/structured-package-validator.js";',
+        'import { validateReviewReport } from "./groundingValidator.js";',
+        'import { appendReasoningOverlay } from "./reviewReport.js";',
+      ].join("\n"),
+    );
+    const result = checkWorkspace(root, { allowedEdges: TEST_ALLOWED_EDGES });
+    assert.deepEqual(result.violations, []);
+  } finally {
+    clean(root);
+  }
+});
+
+test("presenter cannot bypass read-back or generation ownership", () => {
+  const root = buildWorkspace();
+  try {
+    write(
+      root,
+      "packages/desktop/src/fixed-review-presenter.ts",
+      [
+        "import {",
+        "  appendReasoningOverlay,",
+        "  assembleReviewReport,",
+        "  buildCoachRequest,",
+        "  buildGraphContextSlice,",
+        "  generateReviewReport,",
+        '} from "@riichi-coach/reasoning";',
+        'import { createOpenAiCoachProvider } from "./llm-provider/openai-compatible.js";',
+      ].join("\n"),
+    );
+    const result = checkWorkspace(root, { allowedEdges: TEST_ALLOWED_EDGES });
+    const seamViolations = result.violations.filter(
+      (violation) => violation.rule === "review_report_generation_seam",
+    );
+    assert.equal(seamViolations.length, 6);
+    assert.ok(seamViolations.every(
+      (violation) => violation.file === "packages/desktop/src/fixed-review-presenter.ts",
+    ));
+  } finally {
+    clean(root);
+  }
+});
+
 test("declared subpath imports still obey dependency direction", () => {
   const root = buildWorkspace();
   try {
