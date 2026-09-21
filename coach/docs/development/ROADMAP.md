@@ -18,7 +18,7 @@
 | M4 受约束追问 | 未开始 | ——（原 M4"LLM 教练"已拆分为 M6-D 解释引擎 + M7-A 固定报告 UI + M4 追问对话） | fixed report 与教学证据层稳定后的 constrained follow-up/chat；context retrieval 将建立在 M6-D1 ContextGraph 上（embeddings/GraphRAG 不是前提） |
 | M5 雀魂国区接入 | 接近完成 | Electron 登录、加密恢复、最近 30 场、取回、canonical mapper、重放、脱敏 replay audit、H1 诊断命令 | 真实牌谱 H1 对照验收；未覆盖流局/杠枚举的 fixture 反证 |
 | M6 模型生产接入 | 进行中 | M6-A1–A4、M6-C、DeterministicReviewSelector、M6-D1 已落地；**M6-D2 Graph-grounded Coach + Validator 已于 2026-09-20 收口**：唯一 `generateReviewReport` 链、provider 单点重试、grounding/read-back 发布门、架构绕过检查与安全降级路径全绿 | M7-A/B 产品 UI 与持久化接线；M6-B Akagi 后置 |
-| M7 复盘工作台 | 未开始 | 安全 IPC 和最小目录 UI | **M7-A** fixed review UI（三层，原生 DOM；消费 `DeterministicReviewSelector` 输出）；**M7-B** ReviewSession 持久化/重开 + SQLite + 产品内 Mortal 缓存（privileged 边界，ADR-0003/决策 H6） |
+| M7 复盘工作台 | 规格冻结中 | 安全 IPC 和最小目录 UI；**M7-A 实现规格已于 2026-09-21 完成 grill/审阅并冻结** | 待 M7-B 规格同步冻结共享生命周期后，实现 **M7-A** fixed review UI；随后实现 **M7-B** ReviewSession 持久化/重开 + SQLite + 产品内 Mortal 缓存（privileged 边界，ADR-0003/决策 H6） |
 | M8 打包发布 | 未开始 | Electron 与 sidecar 构建基础 | 跨平台安装、升级、日志、发布验收 |
 
 ## 当前关键路径
@@ -163,6 +163,12 @@ assembly 与 read-back validator；自动传输重试只在 provider 内发生�
 不把原始牌谱当作 package，不实现后台任务/重生成策略。
 
 ### 5. M7-A Whole-game fixed review UI
+
+现行 implementation spec：
+[2026-09-21 M7-A Whole-game fixed review UI](../specs/2026-09-21-m7-a-whole-game-fixed-review-ui-design.md)。
+该规格已完成 grill 与审阅，冻结安全 view DTO、三层信息架构、四类 fixture 与
+COAC-5/COAC-7 共享的 active-report 生命周期；只有 M7-B 规格也完成互引冻结后才允许
+启动实现。
 
 - 消费 `DeterministicReviewSelector` 输出（入选决策 + 排序；策略语义见 §3 与
   2026-08-18 grill F1–F3）；UI 不定义"什么值得上评审"。

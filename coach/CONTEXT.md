@@ -120,6 +120,11 @@ LLM/prompt 重生成多个 ReviewReport。
 入选与排序，provider 独占一次自动传输重试，assembler/IPC 不得形成第二生成路径。
 _Avoid_: 把它当确定性分析包；绕过 selector 重算入选；保存完整 prompt/response/raw CoT
 
+**Active ReviewReport（当前报告）**：
+同一 StructuredAnalysisPackage 的多个 immutable ReviewReport 中，当前唯一装配进
+review view 的那一份；切换时先卸载旧 reasoning overlay，再装配并验证目标 overlay。
+_Avoid_: 最新报告、最后一份报告（时间或数组位置都不能隐式决定 active report）
+
 ### 评审选择（review selection）
 
 **DeterministicReviewSelector（确定性评审选择策略）**：

@@ -15,7 +15,10 @@
 
 ## 当前一句话状态
 
-雀魂国区登录、跨重启恢复、最近 30 场可分析目录、牌谱取回、基础解码、canonical 事件映射和本人摸牌决策重放均已接通；**尚未把真实牌谱决策与生产 Mortal/Akagi 候选结合，因此产品还不能生成完整教学分析报告**。
+雀魂国区登录、跨重启恢复、最近 30 场可分析目录、牌谱取回、canonical 重放、Mortal
+整盘确定性分析、selector、ContextGraph 与 grounded ReviewReport 生成链均已接通；
+**用户可见的 M7 review UI 与 M7-B 持久化仍未实现**。M7-A 的已冻结实现规格见
+[`2026-09-21-m7-a-whole-game-fixed-review-ui-design.md`](../specs/2026-09-21-m7-a-whole-game-fixed-review-ui-design.md)。
 
 ## 文档分层
 
