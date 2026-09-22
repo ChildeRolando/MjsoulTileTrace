@@ -132,7 +132,7 @@ test('live P3 PASS tick dispatches durability before publication and never dupli
 
 const admission={protocol_version:'review-loop/v2.1',authoritative_spec_paths:['coach/docs/specs/a.md'],rubric:'all criteria'};
 const pr=(head='b'.repeat(40),base='a'.repeat(40),marker='live')=>({number:8,state:'open',draft:false,body:'```review-loop-admission\n'+JSON.stringify(admission)+'\n```',base:{sha:base,repo:{full_name:'ChildeRolando/MjsoulTileTrace'}},head:{sha:head,ref:'codex/a',repo:{full_name:'ChildeRolando/MjsoulTileTrace'}},marker});
-const config=dir=>({protocol_version:'review-loop/v2.1',repository:'ChildeRolando/MjsoulTileTrace',reviewer_id:'reviewer',fixer_id:'fixer',project_id:'project',enabled:true,state_dir:dir,repository_path:dir,gh_path:'gh',git_path:'git',multica_path:'multica',profile:'profile',workspace_id:'workspace'});
+const config=dir=>({protocol_version:'review-loop/v2.1',repository:'ChildeRolando/MjsoulTileTrace',reviewer_id:'reviewer',fixer_id:'fixer',project_id:'project',enabled:true,auto_merge:{version:1,enabled:false,expected_actor:{login:'merger',id:1}},state_dir:dir,repository_path:dir,gh_path:'gh',git_path:'git',multica_path:'multica',profile:'profile',workspace_id:'workspace'});
 
 test('one SHA publication owner aggregates conflicting PR results and caches the aggregate',async()=>{
   const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-shared-head-'));

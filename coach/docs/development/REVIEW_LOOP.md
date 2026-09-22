@@ -29,10 +29,19 @@ durability follow-up 提交不自动合并，owner 可以从 receipt 的 branch/
 
 ### 自动合并交付状态（COAC-65）
 
-权威契约见 spec 的“COAC-65：独立评审 PASS 后自动合并”。截至本节落盘时，生产仍是
-Review Loop v2.1 的评审/修复/durability 部署，**自动合并尚未实现或启用**；现有 PASS
-不会自行合并 PR。后续实现沿用同一 Controller、runtime、ledger、deployment lock 和
-Autopilot，只增加默认关闭的 `auto_merge` 配置与受信 PASS 后的 fail-closed merge 阶段。
+权威契约见 spec 的“COAC-65：独立评审 PASS 后自动合并”。COAC-66 候选已在同一
+Controller/runtime、`pr-N.json`、deployment lock 和 Autopilot 内实现 fail-closed merge
+阶段；`auto_merge` 配置独立版本化且示例默认 `enabled=false`。截至本节落盘时，生产仍是
+Review Loop v2.1 的评审/修复/durability 部署，**该候选尚未取得独立评审 PASS、人工合并、
+disabled 部署或生产启用**；现有生产 PASS 不会自行合并 PR。
+
+候选把最后一次严格解析的 review result 的 issue/run/comment/raw hash、五门结果、base/head
+和零 P1/P2 证明固化到原 ledger；每次写前以 GitHub 实时 PR、repository merge policy、
+调用者、collaborator permission、branch protection、适用 rulesets/bypass actors、commit
+statuses、check runs 和 mergeability 重建并哈希 eligibility。任何分页、规则类型、bypass
+归属、required check 身份或权限无法解释均拒绝。intent 在请求前原子落入同一 ledger，固定
+`merge` 和 expected HEAD；重复 tick 先回读，disabled 只允许回读，不发送或重发。health
+只公开已净化的 eligibility、intent 和 read-back，不记录 token、webhook URL 或上游错误正文。
 
 冻结的运行选择是普通 merge commit、expected HEAD REST precondition、运行时完整读取
 applicable protection/rulesets/required checks、普通 write 权限且调用者不得拥有适用 bypass、
