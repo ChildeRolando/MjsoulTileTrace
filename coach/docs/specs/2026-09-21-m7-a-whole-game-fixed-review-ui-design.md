@@ -1,7 +1,7 @@
 # M7-A Whole-game fixed review UI 实现规格
 
 日期：2026-09-21
-状态：**SPEC FREEZE（产品/UI）：P1–P6 已裁决，2026-09-22 冻结；R3-P2-1 技术候选已落盘，须经最终候选 HEAD 的独立评审后才可判定技术执行门 PASS**
+状态：**SPEC FREEZE + TECHNICAL GATE PASS：P1–P6 已冻结；PR #14 已通过独立评审并合入；COAC-6 实现候选待 Review Loop 验收**
 工单：COAC-5；后续实现：COAC-6
 
 权威上游：
@@ -788,11 +788,27 @@ architecture checker 允许 desktop presenter 消费该 seam，同时继续拒�
 `appendReasoningOverlay`、provider/assembler/generation internals；
 `generateReviewReport` 仍是唯一 generation authority。
 
-当前状态：**SPEC FREEZE：产品/UI 已冻结（P1–P6，2026-09-22）；
-REMAINING PRODUCT DECISIONS：无（COAC-5 本期范围）；
-TECHNICAL CANDIDATE：R3-P2-1 实现与机械回归已落盘，仍须 final candidate HEAD 的
-fresh independent review 无 P1/P2 后才可记为 PASS。** 产品冻结不等于技术审阅通过、
-PR 合入或 COAC-6 可执行。将来重新生成/报告比较的配置快照细节属于后续功能规格，不阻塞本期
-产品冻结。本记录取代此前“没有未决产品问题、可直接执行”的关闭声明。
-COAC-7 仍需把共享生命周期互引落入其独立持久化规格；在 COAC-5 与
-COAC-7 两份规格均冻结合入前，不得启动 COAC-6。
+执行门已于 2026-09-22 满足：PR #14 通过 `review-loop/v2.1` 并以 merge commit
+`3e9bbb7b0e90e2072053c1eb16fff7ad5c44db74` 合入；COAC-7 的权威 owner 为
+[`2026-09-21-m7-b-review-session-persistence-design.md`](./2026-09-21-m7-b-review-session-persistence-design.md)，
+PR #15 通过同一独立评审并以 merge commit
+`ab379cc267ee96776317ddb8d7b44843de8a1ebe` 合入。由此 COAC-6 可以消费两份冻结契约；
+将来重新生成/报告比较的配置快照细节仍属于后续功能，不进入本期用户入口。
+
+### COAC-6 实现与回归 owner（2026-09-22）
+
+- renderer DTO 与 IPC request/result 的机器契约由
+  `packages/contracts/src/fixed-review-view.ts` 拥有；snapshot 只有当前 active report
+  字段，不携带 report catalog/history、provider/model/time 或 privileged payload。
+- main 投影由 `packages/desktop/src/fixed-review-presenter.ts` 拥有，并且只通过
+  `composeReviewReadBackContext` 读取 selector-scoped evidence/current-report overlay；
+  内存 lifecycle 由相邻 `fixed-review-controller.ts` 拥有 reportRef instance identity、
+  active ref、operation epoch、leave/late-result 丢弃与内部 A→B→A isolation。
+- 原生 DOM 消费面由 `packages/desktop/src/renderer/fixed-review-ui.ts` 拥有；P6 只暴露
+  首次生成，不含 regenerate、history picker、report switch 或隐藏替代入口。
+- 自动验收由 `fixed-review-view.test.ts`、`fixed-review.test.ts`、
+  `fixed-review-renderer.test.ts` 与 `coach-ipc.test.ts` 固化。fixture 覆盖 complete、
+  degraded+partial（含 `unsupported_action` / `source_row_not_expected`）、
+  evidence_only、empty selection、duplicate reportId/distinct reportRefId、操作失败保留
+  active report、A→B→A 与 leave 后迟到结果丢弃。实现候选仍须通过本 Ticket 的五门和
+  Review Loop，不能以本记录替代验收结论。

@@ -1,6 +1,9 @@
 import {
   COACH_IPC_CHANNELS, CoachProviderConfigSchema, CoachProviderStatusSchema,
-  CoachReportRequestSchema, CoachReportResultSchema,
+  FixedReviewAcknowledgementSchema, FixedReviewCancelRequestSchema,
+  FixedReviewDetailRequestSchema, FixedReviewDetailSchema, FixedReviewGenerateRequestSchema,
+  FixedReviewLeaveRequestSchema, FixedReviewOpenRequestSchema, FixedReviewOperationResultSchema,
+  FixedReviewSnapshotSchema,
 } from "@riichi-coach/contracts";
 import type { IpcMainPort } from "./ipc.js";
 import type { CoachService } from "./llm-provider/service.js";
@@ -21,7 +24,30 @@ export function registerCoachIpc(input: {
         }
         if (operation === "generate") {
           if (args.length !== 1) throw Error();
-          return CoachReportResultSchema.parse(await input.service.generate(CoachReportRequestSchema.parse(args[0])));
+          const request = FixedReviewGenerateRequestSchema.parse(args[0]);
+          return FixedReviewOperationResultSchema.parse(await input.service.generateReview(request.packageId, request.operationId));
+        }
+        if (operation === "openReview") {
+          if (args.length !== 1) throw Error();
+          const request = FixedReviewOpenRequestSchema.parse(args[0]);
+          return FixedReviewSnapshotSchema.parse(await input.service.openReview(request.packageId));
+        }
+        if (operation === "cancelGeneration") {
+          if (args.length !== 1) throw Error();
+          const request = FixedReviewCancelRequestSchema.parse(args[0]);
+          input.service.cancelGeneration(request.operationId);
+          return FixedReviewAcknowledgementSchema.parse({ status: "acknowledged" });
+        }
+        if (operation === "getReviewDetail") {
+          if (args.length !== 1) throw Error();
+          const request = FixedReviewDetailRequestSchema.parse(args[0]);
+          return FixedReviewDetailSchema.parse(input.service.getReviewDetail(request.packageId, request.decisionId, request.activeReportRefId));
+        }
+        if (operation === "leaveReview") {
+          if (args.length !== 1) throw Error();
+          const request = FixedReviewLeaveRequestSchema.parse(args[0]);
+          input.service.leaveReview(request.packageId);
+          return FixedReviewAcknowledgementSchema.parse({ status: "acknowledged" });
         }
         if (args.length !== 0) throw Error();
         const result = operation === "status" ? await input.service.status()

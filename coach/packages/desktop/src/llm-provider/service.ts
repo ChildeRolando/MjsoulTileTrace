@@ -4,10 +4,12 @@ import { join } from "node:path";
 import {
   CoachProviderConfigSchema, CoachProviderStatusSchema, CoachReportRequestSchema, StructuredAnalysisPackageSchema,
   type CoachProviderConfig, type CoachReportResult,
+  type ReviewSelectionResult, type StructuredAnalysisPackage,
 } from "@riichi-coach/contracts";
 import { generateReviewReport, projectContextGraph, selectReviewDecisions, validateStructuredAnalysisPackage } from "@riichi-coach/reasoning";
 import type { ProviderCredentials } from "./credentials.js";
 import { createOpenAiCoachProvider } from "./openai-compatible.js";
+import { createFixedReviewController } from "../fixed-review-controller.js";
 
 /** Main-only read-back adapter. A renderer supplies identity, never a file path.
  * Package production/catalog UI remain upstream/M7 work; missing references fail closed. */
@@ -35,6 +37,16 @@ export function createCoachService(input: {
     configured: settings !== null && (await input.credentials.readKey()) !== null,
     settings,
   });
+  const generateArtifact = async (pkg: StructuredAnalysisPackage, selection: ReviewSelectionResult) => {
+    const configuredSettings = settings;
+    const graph = projectContextGraph(pkg);
+    const provider = createOpenAiCoachProvider({ settings: configuredSettings, credentials: input.credentials, fetchImpl: input.fetchImpl });
+    return generateReviewReport(graph, selection, provider, input.clock?.());
+  };
+  const reviewController = createFixedReviewController({
+    readPackage: input.readPackage,
+    generateReport: generateArtifact,
+  });
   return Object.freeze({
     status,
     configure: (value: unknown) => exclusive(async () => {
@@ -44,21 +56,25 @@ export function createCoachService(input: {
     importCredential: () => exclusive(async () => { await input.credentials.importCredential(); return status(); }),
     clearCredential: () => exclusive(async () => { await input.credentials.clear(); return status(); }),
     generate: (value: unknown): Promise<CoachReportResult> => exclusive(async () => {
-      // Snapshot public config before asynchronous resolution; never mix models.
-      const configuredSettings = settings;
       try {
         const { packageId } = CoachReportRequestSchema.parse(value);
         const raw = await input.readPackage(packageId);
         validateStructuredAnalysisPackage(raw);
         const pkg = StructuredAnalysisPackageSchema.parse(raw);
         if (pkg.packageId !== packageId) return { status: "package_unavailable" };
-        const graph = projectContextGraph(pkg);
         const selection = selectReviewDecisions(pkg);
-        const provider = createOpenAiCoachProvider({ settings: configuredSettings, credentials: input.credentials, fetchImpl: input.fetchImpl });
-        const report = await generateReviewReport(graph, selection, provider, input.clock?.());
+        const report = await generateArtifact(pkg, selection);
         return { status: "ready", report };
       } catch { return { status: "package_unavailable" }; }
     }),
+    openReview: (packageId: string) => reviewController.openReview(packageId),
+    generateReview: (packageId: string, operationId: string) => exclusive(
+      () => reviewController.generateReview(packageId, operationId),
+    ),
+    cancelGeneration: (operationId: string) => reviewController.cancelGeneration(operationId),
+    getReviewDetail: (packageId: string, decisionId: string, activeReportRefId: string | null) =>
+      reviewController.getReviewDetail(packageId, decisionId, activeReportRefId),
+    leaveReview: (packageId: string) => reviewController.leaveReview(packageId),
   });
 }
 export type CoachService = ReturnType<typeof createCoachService>;

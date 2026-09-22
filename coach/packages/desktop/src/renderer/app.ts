@@ -8,12 +8,15 @@ import {
   paipuImportUiStateFromResult,
   paipuShareUrlLooksValid,
 } from "./paipu-ui-policy.js";
+import { createFixedReviewUi } from "./fixed-review-ui.js";
+import type { CoachDesktopApi } from "@riichi-coach/contracts";
 
 declare global {
   interface Window {
     readonly riichiCoach: MahjongSoulDesktopApi;
     readonly riichiCoachCatalog: MahjongSoulCatalogApi;
     readonly riichiCoachPaipu: MahjongSoulPaipuApi;
+    readonly riichiCoachProvider: CoachDesktopApi;
   }
 }
 
@@ -31,6 +34,8 @@ const paipuUrlInput = document.querySelector<HTMLInputElement>("#paipu-url")!;
 const paipuImportButton = document.querySelector<HTMLButtonElement>("#paipu-import")!;
 const paipuStatusElement = document.querySelector<HTMLElement>("#paipu-status")!;
 const buttons = [loginButton, logoutButton, refreshButton, syncButton, paipuImportButton];
+const reviewRoot = document.querySelector<HTMLElement>("#fixed-review")!;
+export const fixedReviewUi = createFixedReviewUi({ document, root: reviewRoot, api: window.riichiCoachProvider });
 let currentSessionStatus: MahjongSoulSessionStatus["status"] = "logged_out";
 
 function setPending(pending: boolean): void {
