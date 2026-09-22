@@ -120,6 +120,14 @@ LLM/prompt 重生成多个 ReviewReport。
 入选与排序，provider 独占一次自动传输重试，assembler/IPC 不得形成第二生成路径。
 _Avoid_: 把它当确定性分析包；绕过 selector 重算入选；保存完整 prompt/response/raw CoT
 
+**ReviewSession（复盘档案）**：
+围绕一份 StructuredAnalysisPackage 组织已保存 ReviewReport 的持久复盘记录，持有分析包引用、报告实例引用集合及当前选中的报告引用。
+_Avoid_: 智能体聊天会话、一次教练生成任务、教练身份、学习单元文件夹
+
+**原始来源缓存（raw Mortal/source cache）**：
+应用保留的原始牌谱或 Mortal 来源材料，用于中断恢复、重新分析及避免重复下载；它与正式分析包和教练报告是不同材料。
+_Avoid_: ReviewSession 内容、教练生成成果、用户可见报告
+
 **Active ReviewReport（当前报告）**：
 同一 StructuredAnalysisPackage 的多个 immutable ReviewReport 中，当前唯一装配进
 review view 的那一份；切换时先卸载旧 reasoning overlay，再装配并验证目标 overlay。

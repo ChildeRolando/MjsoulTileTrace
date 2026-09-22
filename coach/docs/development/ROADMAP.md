@@ -18,7 +18,7 @@
 | M4 受约束追问 | 未开始 | ——（原 M4"LLM 教练"已拆分为 M6-D 解释引擎 + M7-A 固定报告 UI + M4 追问对话） | fixed report 与教学证据层稳定后的 constrained follow-up/chat；context retrieval 将建立在 M6-D1 ContextGraph 上（embeddings/GraphRAG 不是前提） |
 | M5 雀魂国区接入 | 接近完成 | Electron 登录、加密恢复、最近 30 场、取回、canonical mapper、重放、脱敏 replay audit、H1 诊断命令 | 真实牌谱 H1 对照验收；未覆盖流局/杠枚举的 fixture 反证 |
 | M6 模型生产接入 | 进行中 | M6-A1–A4、M6-C、DeterministicReviewSelector、M6-D1 已落地；**M6-D2 Graph-grounded Coach + Validator 已于 2026-09-20 收口**：唯一 `generateReviewReport` 链、provider 单点重试、grounding/read-back 发布门、架构绕过检查与安全降级路径全绿 | M7-A/B 产品 UI 与持久化接线；M6-B Akagi 后置 |
-| M7 复盘工作台 | 规格冻结中 | 安全 IPC 和最小目录 UI；**M7-A 实现规格已于 2026-09-21 完成 grill/审阅并冻结** | 待 M7-B 规格同步冻结共享生命周期后，实现 **M7-A** fixed review UI；随后实现 **M7-B** ReviewSession 持久化/重开 + SQLite + 产品内 Mortal 缓存（privileged 边界，ADR-0003/决策 H6） |
+| M7 复盘工作台 | 规格收口中 | 安全 IPC 和最小目录 UI；**M7-A 产品/UI P1–P6 已冻结，M7-B implementation spec 已于 2026-09-22 完成 grill/审阅并冻结** | M7-A 仍须通过 technical gate 并合入；随后按 merge gate 实现 **M7-A** fixed review UI 与 **M7-B** ReviewSession 持久化/重开 + SQLite + privileged Mortal/source cache |
 | M8 打包发布 | 未开始 | Electron 与 sidecar 构建基础 | 跨平台安装、升级、日志、发布验收 |
 
 ## 当前关键路径
@@ -181,7 +181,7 @@ COAC-5/COAC-7 共享的 active-report 生命周期；只有 M7-B 规格也完成
 ### 6. M7-B ReviewSession 持久化
 
 - SQLite；ReviewSession 只引用（不内嵌）analysisPackage / ReviewReport；componentVersions 概念清单预留（canonical/replay、Mortal model/source、factor pipeline、selector policy、analysis package schema、LLM provider/model、prompt/schema、review report schema；其中 LLM provider/model、prompt/schema、review report schema 属 ReviewReport 侧，analysis package 只记确定性生产者版本，见 §2 M6-C）。
-- 产品内 Mortal 报告缓存进入：**raw cache 属 privileged source infrastructure，不进 ReviewSession/ReviewReport**（main process only、无 renderer 暴露、无 raw audit payload；eviction 策略实现时定）。
+- 产品内 Mortal 报告缓存进入：**raw cache 属 privileged source infrastructure，不进 ReviewSession/ReviewReport**（main process only、无 renderer 暴露、无 raw audit payload）。COAC-7 已裁决长期保留、无自动过期/容量淘汰，显式清理不得误删共享材料；[M7-B 冻结规格](../specs/2026-09-21-m7-b-review-session-persistence-design.md) 保存 schema、事务、恢复、安全边界和执行门。
 
 ### 7. M2-next：pull-based deterministic capability pool
 
