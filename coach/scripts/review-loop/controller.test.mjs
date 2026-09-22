@@ -1,7 +1,7 @@
 const test = process.env.VITEST === 'true' ? (await import('vitest')).test : (await import('node:test')).test;
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { ensureDispatch, advance, authorizeExtraReview, jobDescription, reviewerInstructions } from './controller.mjs';
+import { ensureDispatch, advance, authorizeExtraReview, recoverRejectedTerminalReview, jobDescription, reviewerInstructions } from './controller.mjs';
 import { admit } from './protocol.mjs';
 const config={reviewer_id:'reviewer',fixer_id:'fixer',project_id:'project'};
 const raw={number:8,state:'open',draft:false,body:'```review-loop-admission\n{"protocol_version":"review-loop/v2.1","authoritative_spec_paths":["coach/docs/specs/a.md"],"rubric":"all criteria"}\n```',base:{sha:'a'.repeat(40),repo:{full_name:'ChildeRolando/MjsoulTileTrace'}},head:{sha:'b'.repeat(40),ref:'codex/a',repo:{full_name:'ChildeRolando/MjsoulTileTrace'}}};
@@ -151,6 +151,31 @@ test('a fifth review needs a second bound approval and keeps both authorizations
   await assert.rejects(()=>advance(missing,live11,fake().io,config),/prior fourth/);
   const other=structuredClone(s);other.pr_number=12;other.extra_review_authorization.pr_number=12;
   await assert.rejects(()=>advance(other,live11,fake().io,config),/authorization/);
+});
+function rejectedFourth() {
+  const s=exhausted();authorizeExtraReview(s,'fourth approved');
+  s.round=4;s.status='BLOCKED';s.reason='contradictory verdict';
+  s.job={...s.job,round:4,issue_id:'fourth-review'};
+  const result={comment_id:'fourth-comment',run_id:'fourth-run',sha256:'e'.repeat(64),rejection_reason:'contradictory verdict'};
+  const request={pr_number:8,round:4,review_issue_id:'fourth-review',comment_id:'fourth-comment',run_id:'fourth-run',raw_review_sha256:'e'.repeat(64),review_base_sha:s.job.base_sha,review_head_sha:s.job.head_sha,approval_ref:'fifth approved'};
+  return {s,result,request};
+}
+test('invalid terminal review recovery preserves the rejection and grants only one fifth review',()=>{
+  const {s,result,request}=rejectedFourth(),oldResult=structuredClone(s.result);
+  recoverRejectedTerminalReview(s,result,request,'2026-09-22T00:00:00Z');
+  assert.deepEqual(s.result,oldResult);assert.equal(s.status,'REVIEWING');assert.equal(s.round,4);
+  assert.equal(s.extra_review_authorization.max_rounds,5);
+  const rejected=s.history.at(-2),authorization=s.history.at(-1);
+  assert.equal(rejected.event,'reject_invalid_review_result');assert.equal(rejected.reason,'contradictory verdict');assert.equal(rejected.comment_id,result.comment_id);
+  assert.equal(authorization.event,'authorize_extra_review');assert.equal(authorization.result_sha256,result.sha256);
+  assert.throws(()=>recoverRejectedTerminalReview(s,result,request),/requires contradictory terminal review/);
+});
+test('invalid terminal review recovery rejects wrong identity, hash and missing prior authorization',()=>{
+  for(const change of [x=>x.request.review_issue_id='other',x=>x.request.comment_id='other',x=>x.request.run_id='other',x=>x.request.raw_review_sha256='f'.repeat(64),x=>x.request.review_head_sha='f'.repeat(40)]) {
+    const fixture=rejectedFourth();change(fixture);assert.throws(()=>recoverRejectedTerminalReview(fixture.s,fixture.result,fixture.request));
+  }
+  const {s,result,request}=rejectedFourth();delete s.extra_review_authorization;s.history=s.history.filter(e=>e.event!=='authorize_extra_review');
+  assert.throws(()=>recoverRejectedTerminalReview(s,result,request),/authorized fourth review/);
 });
 
 test('extension cannot be copied to another PR or bypass an unrelated block',async()=>{

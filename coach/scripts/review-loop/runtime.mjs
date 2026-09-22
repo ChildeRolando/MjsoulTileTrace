@@ -4,8 +4,8 @@ import { promisify } from 'node:util';
 import { mkdir, readFile, writeFile, rename, open, unlink, realpath, readdir } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { admit, VERSION, REPOSITORY, hash, isSha } from './protocol.mjs';
-import { advance, advanceDurability } from './controller.mjs';
+import { admit, VERSION, REPOSITORY, hash, isSha, parseRejectedReviewResult } from './protocol.mjs';
+import { advance, advanceDurability, recoverRejectedTerminalReview } from './controller.mjs';
 const exec=promisify(execFile);
 export async function command(file,args,cwd) {
   try { return (await exec(file,args,{cwd,windowsHide:true,encoding:'utf8',maxBuffer:32*1024*1024,timeout:120000})).stdout; }
@@ -271,10 +271,49 @@ export async function tick(config,ioFactory=makeIO) {
     await atomicJson(path.join(config.state_dir,'health.json'),report);return report;
   } finally {await release();}
 }
+export async function recoverInvalidReview(config,request,ioFactory=makeIO) {
+  assert.equal(config.protocol_version,VERSION);assert.equal(config.repository,REPOSITORY);
+  assert.equal(config.enabled,false,'operator recovery requires enabled=false');
+  assert(path.isAbsolute(config.state_dir) && path.isAbsolute(config.repository_path));
+  const required=['protocol_version','pr_number','review_issue_id','comment_id','run_id','raw_review_sha256','review_base_sha','review_head_sha','round','current_base_sha','current_head_sha','approval_ref'];
+  assert(request && typeof request === 'object' && !Array.isArray(request),'invalid recovery request');
+  assert.deepEqual(Object.keys(request).sort(),required.sort(),'unexpected/missing recovery fields');
+  assert.equal(request.protocol_version,VERSION);assert(Number.isSafeInteger(request.pr_number) && request.pr_number > 0);
+  assert.equal(request.round,4);assert(isSha(request.review_base_sha) && isSha(request.review_head_sha));
+  assert(isSha(request.current_base_sha) && isSha(request.current_head_sha));
+  assert(/^[a-f0-9]{64}$/.test(request.raw_review_sha256));
+  for(const key of ['review_issue_id','comment_id','run_id','approval_ref'])assert(typeof request[key] === 'string' && request[key].trim(),'missing recovery provenance');
+  const release=await acquireLock(config.state_dir);
+  assert(release,'controller already running');
+  try {
+    const file=path.join(config.state_dir,`pr-${request.pr_number}.json`),state=await readJson(file);
+    const baseIO=ioFactory(config,file,config.state_dir);
+    const io={...baseIO,live:async prNumber=>{
+      const raw=await baseIO.live(prNumber),observed=admit(raw);
+      assert.equal(observed.base_sha,request.current_base_sha,'recovery current base changed');
+      assert.equal(observed.head_sha,request.current_head_sha,'recovery current head changed');
+      return raw;
+    }};
+    const raw=await io.live(request.pr_number),live=admit(raw);
+    assert.notEqual(live.head_sha,request.review_head_sha,'recovery requires a new candidate');
+    live.snapshot=await io.snapshot(raw);state.snapshot=live.snapshot;
+    const result=parseRejectedReviewResult(state.job,await io.issue(request.review_issue_id),await io.comments(request.review_issue_id),await io.runs(request.review_issue_id));
+    recoverRejectedTerminalReview(state,result,request);
+    await io.archiveResult(state.job,result);
+    await advance(state,live,io,config);
+    assert(state.status === 'REVIEWING' && state.round === 5 && state.job?.kind === 'review','recovery did not dispatch one fresh review');
+    assert(state.job.head_sha === live.head_sha && state.job.base_sha === live.base_sha,'recovery dispatched a stale candidate');
+    await io.publish(state);
+    return {status:state.status,pr:state.pr_number,round:state.round,issue:state.job.identifier,issue_id:state.job.issue_id,base_sha:state.job.base_sha,head_sha:state.job.head_sha,recovered_comment_id:result.comment_id,recovered_sha256:result.sha256};
+  } finally {await release();}
+}
 if(process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   try {
     const config=await readJson(path.resolve(process.argv[3] ?? 'review-loop.local.json'));
     if(process.argv[2] === 'recover-lock'){await recoverLock(config.state_dir);console.log('Recovered abandoned lock');}
-    else {assert.equal(process.argv[2],'tick','usage: node runtime.mjs tick <config>');console.log(JSON.stringify(await tick(config)));}
+    else if(process.argv[2] === 'recover-invalid-review') {
+      const request=await readJson(path.resolve(process.argv[4] ?? 'review-recovery.json'));
+      console.log(JSON.stringify(await recoverInvalidReview(config,request)));
+    } else {assert.equal(process.argv[2],'tick','usage: node runtime.mjs tick <config> | recover-invalid-review <config> <request>');console.log(JSON.stringify(await tick(config)));}
   } catch(e) {console.error(e.message);process.exitCode=1;}
 }

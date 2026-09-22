@@ -65,16 +65,29 @@ export async function advanceDurability(state,io,config) {
 // Operator-only operation: the caller must hold the deployment lock and have
 // explicit human approval. It resumes this exact terminal review once, without
 // resetting rounds or erasing any prior result. tick never calls this function.
-export function authorizeExtraReview(state,approvalRef,at=new Date().toISOString()) {
+export function authorizeExtraReview(state,approvalRef,at=new Date().toISOString(),source=state.result) {
   const limit=reviewRoundLimit(state);
   assert(limit < 5 && state.protocol_version === VERSION && state.status === 'BLOCKED' && state.round === limit && !state.pending,'extension requires exhausted blocked review');
   const j=state.job;
-  assert(j?.kind === 'review' && j.round === limit && j.pr_number === state.pr_number && state.result?.issue_id === j.issue_id,'extension source mismatch');
-  const a={pr_number:state.pr_number,max_rounds:limit+1,approved_after_round:limit,review_issue_id:j.issue_id,result_sha256:state.result.sha256,head_sha:j.head_sha,base_sha:j.base_sha,approval_ref:approvalRef,approved_at:at};
+  assert(j?.kind === 'review' && j.round === limit && j.pr_number === state.pr_number && source?.issue_id === j.issue_id,'extension source mismatch');
+  const a={pr_number:state.pr_number,max_rounds:limit+1,approved_after_round:limit,review_issue_id:j.issue_id,result_sha256:source.sha256,head_sha:j.head_sha,base_sha:j.base_sha,approval_ref:approvalRef,approved_at:at};
   reviewRoundLimit({...state,extra_review_authorization:a});
   state.extra_review_authorization=a;
   state.history.push({event:'authorize_extra_review',...a});
   state.status='REVIEWING';state.reason=null;
+}
+export function recoverRejectedTerminalReview(state,result,request,at=new Date().toISOString()) {
+  assert(state.protocol_version === VERSION && state.status === 'BLOCKED' && state.reason === 'contradictory verdict','recovery requires contradictory terminal review');
+  assert(state.round === 4 && !state.pending && reviewRoundLimit(state) === 4,'recovery requires exhausted authorized fourth review');
+  const job=state.job;
+  assert(job?.kind === 'review' && job.round === 4 && job.pr_number === state.pr_number,'recovery job mismatch');
+  assert(request.pr_number === state.pr_number && request.round === job.round && request.review_issue_id === job.issue_id,'recovery request identity mismatch');
+  assert(request.review_base_sha === job.base_sha && request.review_head_sha === job.head_sha,'recovery review candidate mismatch');
+  assert(result.comment_id === request.comment_id && result.run_id === request.run_id && result.sha256 === request.raw_review_sha256,'recovery result identity/hash mismatch');
+  assert(result.rejection_reason === state.reason,'recovery rejection mismatch');
+  assert(!state.history.some(e=>e.event === 'reject_invalid_review_result' && e.issue_id === job.issue_id),'review result already recovered');
+  state.history.push({event:'reject_invalid_review_result',reason:result.rejection_reason,issue_id:job.issue_id,comment_id:result.comment_id,run_id:result.run_id,sha256:result.sha256,head_sha:job.head_sha,base_sha:job.base_sha,round:job.round,at});
+  authorizeExtraReview(state,request.approval_ref,at,{issue_id:job.issue_id,sha256:result.sha256});
 }
 async function observeLive(io,prNumber) {
   const raw=await io.live(prNumber),live=admit(raw);
@@ -83,7 +96,7 @@ async function observeLive(io,prNumber) {
 }
 export function jobDescription(job, live) {
   const common = {protocol_version:VERSION,repository:REPOSITORY,pr_number:job.pr_number,base_sha:job.base_sha,head_sha:job.head_sha,round:job.round,worktree:job.worktree,authoritative_spec_paths:live.admission.authoritative_spec_paths,rubric:live.admission.rubric};
-  if(job.kind === 'review') return `${reviewerInstructions}\n\n# 本轮固定任务参数\n\n${JSON.stringify(common,null,2)}\n\n从 worktree/coach 运行以下五门；需要时可先 npm ci。记录真实 exit code：\n${JSON.stringify(GATES,null,2)}\n\n最终评论末尾必须有且仅有一个 review-loop-result JSON fence。严格字段：protocol_version、pr_number、base_sha、head_sha、round（复制固定输入）；verdict（NO_P1_P2、CHANGES_REQUIRED 或 ENVIRONMENT_BLOCKED）；findings {P1:[],P2:[],P3:[]}，每项包含 id、path、line、scenario、consequence、minimal_fix、durability、durable_owner、regression、basis；gates [{id,command,status:PASS|FAIL|NOT_RUN,exit_code:integer|null}]，命令必须与上述五门完全一致；environment_failures 为字符串数组。NO_P1_P2 要求 P1/P2 为空、五门全部 PASS/0 且无环境失败；CHANGES_REQUIRED 要求存在 P1/P2 且五门均实际运行；ENVIRONMENT_BLOCKED 必须解释原因。正文和 JSON 都要包含全部 actionable findings。`;
+  if(job.kind === 'review') return `${reviewerInstructions}\n\n# 本轮固定任务参数\n\n${JSON.stringify(common,null,2)}\n\n从 worktree/coach 运行以下五门；需要时可先 npm ci。记录真实 exit code：\n${JSON.stringify(GATES,null,2)}\n\n最终评论末尾必须有且仅有一个 review-loop-result JSON fence。严格字段：protocol_version、pr_number、base_sha、head_sha、round（复制固定输入）；verdict（NO_P1_P2、CHANGES_REQUIRED 或 ENVIRONMENT_BLOCKED）；findings {P1:[],P2:[],P3:[]}，每项包含 id、path、line、scenario、consequence、minimal_fix、durability、durable_owner、regression、basis；gates [{id,command,status:PASS|FAIL|NOT_RUN,exit_code:integer|null}]，命令必须与上述五门完全一致；environment_failures 为字符串数组，只放结论形成时仍未恢复的当前环境失败；历史上已恢复的失败保留在正文验证记录，不放入该数组。NO_P1_P2 要求 P1/P2 为空、五门全部 PASS/0 且无环境失败；CHANGES_REQUIRED 要求存在 P1/P2、五门均实际运行且无未恢复环境失败；ENVIRONMENT_BLOCKED 必须解释当前阻塞原因。正文和 JSON 都要包含全部 actionable findings。`;
   return `修复附件中针对该 PR 的完整独立评审。仅在提供的 detached worktree 中工作；编辑前确认本地 HEAD 和远端 PR head 都等于上一候选。\n\n${JSON.stringify(common,null,2)}\n\n评审来源：工单 ${job.source_review_issue_id}，评论 ${job.source_comment_id}，SHA-256 ${job.raw_review_sha256}。完整 UTF-8 评审已作为附件提供，本地路径为 ${job.review_file}。读取 findings 前先校验 SHA-256。完整保留所有 findings；修复全部 P1/P2，并为可机械验证的问题加入持久回归。遵循每项 finding 的 durability metadata，更新指定的权威 owner。保留附件原始评审中的 metadata；工单关闭不能作为知识已进入仓库的证明。读取仓库治理规则和列出的 spec。从 coach 目录运行五门：${JSON.stringify(GATES)}。只提交本工单要求的修复；重新检查远端 PR head 后，将 HEAD 无强推地推送到 origin 的 refs/heads/${live.branch}。若他人已经推送，停止并报告并发冲突。不要合并 PR 或关闭工单。\n\n发表一条最终 Multica 评论，末尾放置 review-loop-fix JSON fence：${JSON.stringify({protocol_version:VERSION,pr_number:job.pr_number,base_sha:job.base_sha,previous_head_sha:job.head_sha,head_sha:'<完整的已推送 SHA>',round:job.round,raw_review_sha256:job.raw_review_sha256})}。将本工单设为 in_review，不要 mention 其他 Agent。如实报告阻碍，不得伪造结果。`;
 }
 
