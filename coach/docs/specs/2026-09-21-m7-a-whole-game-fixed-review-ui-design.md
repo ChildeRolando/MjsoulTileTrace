@@ -299,6 +299,10 @@ analysis_blocked
   live count。缺失使用合法 unavailable 状态；不一致/越权的 DTO 仍按既有规则拒绝。
 - 本裁决增加的是现有证据的展示深度，不扩展 deterministic 分析能力，不向 List
   增加明细列。示意牌组/数值不构成生产证据或新增权威规格。
+- presenter 必须为当前账本实际支持的指标使用固定可读名称；逐威胁防守维度必须把
+  `actorN` 投影为明确的“玩家 N+1（威胁对象）”范围。手牌类型、结构风险分类、
+  基础荣和资格等集合值必须展示经 allow-list 本地化后的成员，不得退化为“分析指标”
+  或仅显示“若干项”；未知维度和值继续 fail closed 为泛化摘要，不透传任意 payload。
 
 Detail 使用固定章节，不因 LLM 状态改变权威顺序：
 
@@ -567,6 +571,10 @@ GENERATE_REQUESTED(operationId, packageRef)
 | generating | 保留当前 snapshot + busy 状态 | 不清空旧列表 | 旧 active detail 保留且标记生成中 |
 | regenerate 操作级失败（未取得合法报告） | 固定错误提示 | 不改变 | active report 与 overlay 不变 |
 | switching_report | 禁用重复切换 | 保留旧 snapshot 至原子提交 | 不呈现半装配 target |
+
+首次生成返回固定 `failed` 结果或 IPC Promise 拒绝时，renderer 必须在同一 operation
+epoch 内清除“正在生成教练解说…”文案、显示可重试的固定失败状态并重新启用生成按钮；
+当前 snapshot、证据和 active report 不变。迟到的旧 epoch 结果不得改写新视图状态。
 
 ## Accessibility 与 DOM 纪律
 

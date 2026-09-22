@@ -129,9 +129,33 @@ const DIMENSION_LABELS: Readonly<Record<string, string>> = {
   wait_tiles: "听牌牌种", ron_eligible_wait_count: "可荣牌种数", ron_eligible_wait_tiles: "可荣牌种",
   dora_count: "宝牌数", dama_point: "默听打点", shape_claims: "牌形组成", wait_details: "听牌明细",
   discard_furiten: "舍牌振听", temporary_furiten: "同巡振听", riichi_furiten: "立直振听",
+  best_families: "最优手牌类型", non_dominated_decomposition_count: "非支配分解数",
+  decomposition_truncated: "牌形分解是否截断", base_ron_eligibility: "基础荣和资格",
+  final_ron_eligibility_status: "最终荣和资格状态", effective_tile_types: "有效牌种类",
+  ukeire_remaining: "有效进张", riichi_point: "立直打点", mixed_waits_score: "综合待牌速度",
+  avg_agari_rate: "上游估算和率", furiten_rate: "上游振听率", helper_mixed_round_point: "上游局收支",
+  completed_hand_point: "和牌点数", completed_hand_fixed_point: "固定场况和牌点数", han: "番数", fu: "符数",
+  yaku_ids: "役种编号", yaku_names: "役种", family_applicability: "手牌类型适用性",
+  family_shanten: "手牌类型向听数", family_effective_tile_types: "手牌类型有效牌",
+  family_effective_tiles_remaining: "手牌类型有效进张", riichi_threat: "立直威胁",
+  ippatsu_alive: "一发状态", genbutsu: "现物", helper_risk_scale: "结构风险刻度",
+  helper_classifications: "结构风险分类", helper_honor: "字牌安全度",
 };
 const UNIT_LABELS: Readonly<Record<string, string>> = {
   shanten: "向听", tiles_remaining: "张", tile_types: "种", points: "点", dora_count: "枚",
+  percent: "%", decompositions: "种", helper_mixed_waits_score: "（版本化待牌速度刻度）",
+  helper_furiten_rate: "（版本化振听刻度）", helper_round_points: "点（上游局收支）",
+  helper_risk_scale: "（版本化结构风险刻度）",
+};
+const FAMILY_LABELS: Readonly<Record<string, string>> = { standard: "一般形", chiitoitsu: "七对子", kokushi: "国士无双" };
+const STRUCTURAL_CLASSIFICATION_LABELS: Readonly<Record<string, string>> = {
+  suji: "筋", half_suji: "半筋", double_suji: "双筋", no_suji: "无筋", wall: "壁",
+  no_chance: "无机会", double_no_chance: "双无机会", one_chance: "单机会",
+  double_one_chance: "双单机会", mixed_one_chance: "混合单机会", early_outside: "早巡外侧牌",
+};
+const CLASSIFICATION_LABELS: Readonly<Record<string, string>> = {
+  applicable: "适用", unavailable: "不可用", calculated: "已计算",
+  ineligible: "不可荣", eligible: "可荣", unknown_missing_situational_yaku_context: "缺少场况役信息，资格未知",
 };
 
 function tile34Label(tile34: number): string {
@@ -146,18 +170,41 @@ function dimensionLabel(dimension: unknown): string {
   if (typeof dimension !== "string") return "分析指标";
   const familyMatch = /^family_(.+):(standard|chiitoitsu|kokushi)$/.exec(dimension);
   if (familyMatch !== null) {
-    const family = { standard: "一般形", chiitoitsu: "七对子", kokushi: "国士无双" }[familyMatch[2]!];
-    const base = DIMENSION_LABELS[`overall_${familyMatch[1]}`] ?? "手牌指标";
+    const family = FAMILY_LABELS[familyMatch[2]!]!;
+    const base = DIMENSION_LABELS[`family_${familyMatch[1]}`] ?? "手牌指标";
     return `${family} · ${base}`;
   }
+  const actorMatch = /^(.+):actor([0-3])$/.exec(dimension);
+  if (actorMatch !== null) return DIMENSION_LABELS[actorMatch[1]!] ?? "防守指标";
+  if (/^improve_waits:draw(?:[0-9]|[12][0-9]|3[0-3])$/.test(dimension)) return "摸入后有效进张";
   return DIMENSION_LABELS[dimension] ?? "分析指标";
 }
 
 function scopeLabel(dimension: unknown): string | null {
   if (typeof dimension !== "string") return null;
   if (dimension.startsWith("overall_")) return "整手范围";
+  const actor = /^.+:actor([0-3])$/.exec(dimension)?.[1];
+  if (actor !== undefined) return `玩家 ${Number(actor) + 1}（威胁对象）`;
+  const draw = /^improve_waits:draw([0-9]|[12][0-9]|3[0-3])$/.exec(dimension)?.[1];
+  if (draw !== undefined) return `摸入 ${tile34Label(Number(draw))} 后`;
   const family = /:(standard|chiitoitsu|kokushi)$/.exec(dimension)?.[1];
-  return family === undefined ? null : ({ standard: "一般形", chiitoitsu: "七对子", kokushi: "国士无双" }[family] ?? null);
+  return family === undefined ? null : (FAMILY_LABELS[family] ?? null);
+}
+
+function stringSetValue(values: unknown[], dimension: string): string {
+  if (values.length === 0) return "无";
+  if (!values.every((entry) => typeof entry === "string")) return `${values.length} 项`;
+  const members = values as string[];
+  if (dimension === "best_families") return members.map((entry) => FAMILY_LABELS[entry] ?? "其他手牌类型").join("、");
+  if (/^helper_classifications:actor[0-3]$/.test(dimension)) {
+    return members.map((entry) => STRUCTURAL_CLASSIFICATION_LABELS[entry] ?? "其他结构分类").join("、");
+  }
+  if (dimension === "base_ron_eligibility") return members.map((entry) => {
+    const match = /^(\d|[12]\d|3[0-3]):(.+)$/.exec(entry);
+    return match === null ? "资格记录不可读" : `${tile34Label(Number(match[1]))}：${CLASSIFICATION_LABELS[match[2]!] ?? "状态未知"}`;
+  }).join("、");
+  if (dimension === "yaku_names") return members.join("、");
+  return `${members.length} 项`;
 }
 
 function evidenceValue(value: unknown, dimension: unknown): { value: string; tiles: Array<{ tile: string; count: number | null }> } {
@@ -185,9 +232,16 @@ function evidenceValue(value: unknown, dimension: unknown): { value: string; til
     return { value: tiles.length === 0 ? "无" : `${tiles.length} 种（剩余张数未知）`, tiles };
   }
   if (item.kind === "classification" && typeof item.value === "string") {
-    return { value: ({ applicable: "适用", unavailable: "不可用" } as Record<string, string>)[item.value] ?? "已分类", tiles: [] };
+    return { value: CLASSIFICATION_LABELS[item.value] ?? "已分类", tiles: [] };
   }
-  if (item.kind === "string_set" && Array.isArray(item.values)) return { value: `${item.values.length} 项`, tiles: [] };
+  if (item.kind === "string_set" && Array.isArray(item.values) && typeof dimension === "string") {
+    return { value: stringSetValue(item.values, dimension), tiles: [] };
+  }
+  if (item.kind === "honor_safety" && Number.isInteger(item.remainingCount) && (item.category === "yakuhai" || item.category === "guest_wind")) {
+    return { value: `${item.category === "yakuhai" ? "役牌" : "客风牌"}，剩余 ${item.remainingCount} 张`, tiles: [] };
+  }
+  if (item.kind === "shape_claims" && Array.isArray(item.claims)) return { value: `${item.claims.length} 项牌形组成`, tiles: [] };
+  if (item.kind === "wait_details" && Array.isArray(item.waits)) return { value: item.waits.length === 0 ? "无" : `${item.waits.length} 种听牌`, tiles: [] };
   return { value: "已记录（详细结构不在本页面展示）", tiles: [] };
 }
 

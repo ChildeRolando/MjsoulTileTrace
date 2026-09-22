@@ -209,9 +209,15 @@ export function createFixedReviewUi(input: {
           const result = await input.api.generateReview({ packageId: requestPackageId, operationId: requestOperationId });
           if (!isCurrent(requestEpoch, requestPackageId) || operationId !== requestOperationId) return;
           if (result.status === "ready") render(result.snapshot);
-          else showError("本次解说未生成，当前证据和已有内容保持不变。你可以稍后再试。");
+          else {
+            live.textContent = "教练解说未生成，可以稍后重试。";
+            showError("本次解说未生成，当前证据和已有内容保持不变。你可以稍后再试。");
+          }
         } catch {
-          if (isCurrent(requestEpoch, requestPackageId) && operationId === requestOperationId) showError("本次操作未完成，请稍后再试。");
+          if (isCurrent(requestEpoch, requestPackageId) && operationId === requestOperationId) {
+            live.textContent = "教练解说未生成，可以稍后重试。";
+            showError("本次操作未完成，请稍后再试。");
+          }
         } finally {
           if (isCurrent(requestEpoch, requestPackageId) && operationId === requestOperationId) {
             operationId = null;

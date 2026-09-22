@@ -169,6 +169,59 @@ describe("fixed review presenter", () => {
     ]));
     const discardFuriten = detail.provenance.find((item) => item.label === "候选事实" && item.summary.includes("舍牌振听"));
     expect(discardFuriten?.summary).toContain("否");
+    const bestFamilies = detail.provenance.find((item) => item.summary.includes("最优手牌类型"));
+    expect(bestFamilies?.details).toEqual(expect.arrayContaining([
+      expect.objectContaining({ value: "一般形" }),
+    ]));
+  });
+
+  it("projects supported defense dimensions, threat actors and set members as readable evidence", () => {
+    const readable = structuredClone(pkg);
+    const decision = readable.decisions[0]!;
+    if (decision.outcome !== "analysis_ready") throw new Error("fixture must be analysis_ready");
+    const ledger = decision.candidateFactorLedgers[0]!;
+    const defense = ledger.axes.find((axis) => axis.axis === "defense")!;
+    const engineFact = ledger.axes[0]!.facts.find((fact) => fact.evidenceIds.length > 0 && fact.engineIdentity !== undefined)!;
+    const evidenceIds = engineFact.evidenceIds;
+    defense.facts.push(
+      {
+        factorKey: "defense.genbutsu.actor1",
+        dimension: "genbutsu:actor1",
+        status: "calculated",
+        evidenceClass: "deterministic_local_replay",
+        preferenceEligibility: "deterministic",
+        value: { kind: "boolean", value: true },
+        evidenceIds,
+        limitations: [],
+      },
+      {
+        factorKey: "defense.helper_classifications.actor1",
+        dimension: "helper_classifications:actor1",
+        status: "calculated",
+        evidenceClass: "versioned_upstream_estimate",
+        preferenceEligibility: "heuristic_only",
+        engineIdentity: engineFact.engineIdentity,
+        value: { kind: "string_set", values: ["suji", "wall"] },
+        evidenceIds,
+        limitations: ["固定版本结构风险分类"],
+      },
+    );
+    readable.semanticContentHash = fixtureSemanticHash(readable);
+    const parsed = StructuredAnalysisPackageSchema.parse(readable);
+    validateStructuredAnalysisPackage(parsed);
+    const readableSelection = selectReviewDecisions(parsed);
+    const detail = presentFixedReviewDetail({ analysisPackage: parsed, selection: readableSelection, decisionId: decision.decisionId });
+
+    const genbutsu = detail.provenance.find((item) => item.summary.includes("现物"));
+    expect(genbutsu?.summary).toContain("是");
+    expect(genbutsu?.details).toEqual(expect.arrayContaining([
+      expect.objectContaining({ label: "现物", scope: "玩家 2（威胁对象）", value: "是" }),
+    ]));
+    const classifications = detail.provenance.find((item) => item.summary.includes("结构风险分类"));
+    expect(classifications?.details).toEqual(expect.arrayContaining([
+      expect.objectContaining({ label: "结构风险分类", scope: "玩家 2（威胁对象）", value: "筋、壁" }),
+    ]));
+    expect(`${genbutsu?.summary}${classifications?.summary}`).not.toContain("分析指标");
   });
 
   it("projects every canonical action with distinguishable tiles and red-five identity", () => {
@@ -422,6 +475,32 @@ describe("fixed review presenter", () => {
     await Promise.resolve(); await Promise.resolve();
     expect(detailDom.root.hidden).toBe(true);
     expect(detailDom.root.textContent).toBe("");
+  });
+
+  it.each([
+    ["fixed failed result", async () => ({ status: "failed" as const, code: "generation_failed" as const })],
+    ["IPC rejection", async () => { throw new Error("private backend prose"); }],
+  ])("clears generation busy state, preserves the snapshot and enables retry after %s", async (_case, generateReview) => {
+    const snapshot = presentFixedReviewSnapshot({ analysisPackage: pkg, selection });
+    const dom = fakeDom();
+    const ui = createFixedReviewUi({
+      document: dom.document as unknown as Document,
+      root: dom.root as unknown as HTMLElement,
+      api: { openReview: async () => snapshot, generateReview } as unknown as CoachDesktopApi,
+    });
+    await ui.open(pkg.packageId);
+    const generate = nodes(dom.root).find((node) => node.textContent === "生成教练解说")!;
+    const before = dom.root.textContent;
+    generate.listeners.get("click")!();
+    expect(dom.root.textContent).toContain("正在生成教练解说…");
+    await Promise.resolve(); await Promise.resolve();
+
+    expect(generate.disabled).toBe(false);
+    expect(dom.root.textContent).not.toContain("正在生成教练解说…");
+    expect(dom.root.textContent).toContain("教练解说未生成，可以稍后重试。");
+    expect(dom.root.textContent).toContain("尚未生成教练解说");
+    expect(dom.root.textContent).toContain("查看复盘条目");
+    expect(before).toContain("查看复盘条目");
   });
 
   it("replaces stale content with visible loading/unavailable states and recovers after open failure", async () => {
