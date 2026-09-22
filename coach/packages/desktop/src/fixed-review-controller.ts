@@ -68,47 +68,57 @@ export function createFixedReviewController(input: {
     return projected;
   };
 
+  const generate = async (packageId: string, operationId: string, firstGenerationOnly: boolean): Promise<FixedReviewOperationResult> => {
+    try {
+      let state = views.get(packageId);
+      if (state === undefined) {
+        await open(packageId);
+        state = requireState(packageId);
+      }
+      if (firstGenerationOnly && state.activeReportRefId !== null) return { status: "failed", code: "generation_failed" };
+      if (state.operations.size > 0 || [...views.values()].some((view) => view.operations.has(operationId))) {
+        return { status: "failed", code: "generation_failed" };
+      }
+      const epoch = ++state.epoch;
+      state.operations.set(operationId, epoch);
+      const rawReport = await input.generateReport(state.analysisPackage, state.selection);
+      const current = views.get(packageId);
+      if (current !== state || state.operations.get(operationId) !== epoch || state.epoch !== epoch) {
+        return { status: "failed", code: "operation_cancelled" };
+      }
+      const report = ReviewReportSchema.parse(rawReport);
+      const nextRefId = reportRefId();
+      if (nextRefId.length === 0 || state.reportRefs.some((ref) => ref.reportRefId === nextRefId)) throw new Error("duplicate_report_ref");
+      const nextSnapshot = presentFixedReviewSnapshot({
+        analysisPackage: state.analysisPackage, selection: state.selection,
+        activeReport: report, activeReportRefId: nextRefId,
+      });
+      state.reportRefs.push(Object.freeze({
+        reportRefId: nextRefId, packageId, reportId: report.reportId,
+        generatedAt: report.generatedAt, report,
+      }));
+      state.activeReportRefId = nextRefId;
+      state.operations.delete(operationId);
+      return { status: "ready", snapshot: nextSnapshot };
+    } catch {
+      const state = views.get(packageId);
+      state?.operations.delete(operationId);
+      return { status: "failed", code: "generation_failed" };
+    }
+  };
+
   return Object.freeze({
     async openReview(packageId: string): Promise<FixedReviewSnapshotDto> {
       return open(packageId);
     },
 
     async generateReview(packageId: string, operationId: string): Promise<FixedReviewOperationResult> {
-      try {
-        let state = views.get(packageId);
-        if (state === undefined) {
-          await open(packageId);
-          state = requireState(packageId);
-        }
-        if (state.operations.has(operationId)) return { status: "failed", code: "generation_failed" };
-        const epoch = ++state.epoch;
-        state.operations.set(operationId, epoch);
-        const rawReport = await input.generateReport(state.analysisPackage, state.selection);
-        const current = views.get(packageId);
-        if (current !== state || state.operations.get(operationId) !== epoch || state.epoch !== epoch) {
-          return { status: "failed", code: "operation_cancelled" };
-        }
-        const report = ReviewReportSchema.parse(rawReport);
-        const nextRefId = reportRefId();
-        if (nextRefId.length === 0 || state.reportRefs.some((ref) => ref.reportRefId === nextRefId)) throw new Error("duplicate_report_ref");
-        // This projection is the authorized read-back validation. Nothing is
-        // appended or activated until it succeeds in full.
-        const nextSnapshot = presentFixedReviewSnapshot({
-          analysisPackage: state.analysisPackage, selection: state.selection,
-          activeReport: report, activeReportRefId: nextRefId,
-        });
-        state.reportRefs.push(Object.freeze({
-          reportRefId: nextRefId, packageId, reportId: report.reportId,
-          generatedAt: report.generatedAt, report,
-        }));
-        state.activeReportRefId = nextRefId;
-        state.operations.delete(operationId);
-        return { status: "ready", snapshot: nextSnapshot };
-      } catch {
-        const state = views.get(packageId);
-        state?.operations.delete(operationId);
-        return { status: "failed", code: "generation_failed" };
-      }
+      return generate(packageId, operationId, true);
+    },
+
+    /** Internal lifecycle regression seam; intentionally absent from IPC/preload. */
+    async generateReviewForLifecycle(packageId: string, operationId: string): Promise<FixedReviewOperationResult> {
+      return generate(packageId, operationId, false);
     },
 
     cancelGeneration(operationId: string): void {

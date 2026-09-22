@@ -30,6 +30,7 @@ export function createCoachService(input: {
   // A credential mutation drains the active generation before returning. No
   // old-key retry or plaintext holder can outlive a completed clear/replace.
   let queue: Promise<unknown> = Promise.resolve();
+  const queuedGenerations = new Map<string, { packageId: string; cancelled: boolean }>();
   const exclusive = <T>(operation: () => Promise<T>): Promise<T> => {
     const result = queue.then(operation); queue = result.catch(() => undefined); return result;
   };
@@ -68,13 +69,30 @@ export function createCoachService(input: {
       } catch { return { status: "package_unavailable" }; }
     }),
     openReview: (packageId: string) => reviewController.openReview(packageId),
-    generateReview: (packageId: string, operationId: string) => exclusive(
-      () => reviewController.generateReview(packageId, operationId),
-    ),
-    cancelGeneration: (operationId: string) => reviewController.cancelGeneration(operationId),
+    generateReview: (packageId: string, operationId: string) => {
+      if (queuedGenerations.has(operationId)) return Promise.resolve({ status: "failed" as const, code: "generation_failed" as const });
+      const token = { packageId, cancelled: false };
+      queuedGenerations.set(operationId, token);
+      return exclusive(async () => {
+        try {
+          if (token.cancelled) return { status: "failed" as const, code: "operation_cancelled" as const };
+          return await reviewController.generateReview(packageId, operationId);
+        } finally {
+          queuedGenerations.delete(operationId);
+        }
+      });
+    },
+    cancelGeneration: (operationId: string) => {
+      const token = queuedGenerations.get(operationId);
+      if (token !== undefined) token.cancelled = true;
+      reviewController.cancelGeneration(operationId);
+    },
     getReviewDetail: (packageId: string, decisionId: string, activeReportRefId: string | null) =>
       reviewController.getReviewDetail(packageId, decisionId, activeReportRefId),
-    leaveReview: (packageId: string) => reviewController.leaveReview(packageId),
+    leaveReview: (packageId: string) => {
+      for (const token of queuedGenerations.values()) if (token.packageId === packageId) token.cancelled = true;
+      reviewController.leaveReview(packageId);
+    },
   });
 }
 export type CoachService = ReturnType<typeof createCoachService>;

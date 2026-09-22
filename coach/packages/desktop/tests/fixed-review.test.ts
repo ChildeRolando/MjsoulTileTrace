@@ -6,6 +6,9 @@ import { generateReviewReport, projectContextGraph, selectReviewDecisions, valid
 import { createFixedReviewController } from "../src/fixed-review-controller.js";
 import { presentFixedReviewDetail, presentFixedReviewSnapshot } from "../src/fixed-review-presenter.js";
 import { createFixedReviewUi } from "../src/renderer/fixed-review-ui.js";
+import { registerCoachIpc } from "../src/coach-ipc.js";
+import { createCoachPreloadApi } from "../src/session-api.js";
+import type { CoachService } from "../src/llm-provider/service.js";
 
 const pkg = StructuredAnalysisPackageSchema.parse(JSON.parse(readFileSync(new URL("./fixtures/coach-package.json", import.meta.url), "utf8")));
 validateStructuredAnalysisPackage(pkg);
@@ -75,6 +78,7 @@ class FakeNode {
   tabIndex = 0;
   open = false;
   disabled = false;
+  focused = false;
   type = "";
   private ownText = "";
   readonly attributes = new Map<string, string>();
@@ -95,8 +99,10 @@ class FakeNode {
     return null;
   }
   remove() { if (this.parent !== null) this.parent.children = this.parent.children.filter((child) => child !== this); }
-  focus() {}
+  focus() { this.focused = true; }
 }
+
+function nodes(root: FakeNode): FakeNode[] { return [root, ...root.children.flatMap(nodes)]; }
 
 function fakeDom() {
   const root = new FakeNode("SECTION");
@@ -105,6 +111,28 @@ function fakeDom() {
     createTextNode: (text: string) => { const node = new FakeNode("#TEXT"); node.textContent = text; return node; },
   };
   return { root, document };
+}
+
+function apiThroughIpc(snapshot: ReturnType<typeof presentFixedReviewSnapshot>, detail?: ReturnType<typeof presentFixedReviewDetail>) {
+  const handlers = new Map<string, (event: unknown, ...args: unknown[]) => Promise<unknown>>();
+  const service = {
+    openReview: async () => snapshot,
+    generateReview: async () => ({ status: "ready" as const, snapshot }),
+    cancelGeneration: () => undefined,
+    getReviewDetail: () => { if (detail === undefined) throw new Error("review_unavailable"); return detail; },
+    leaveReview: () => undefined,
+  } as unknown as CoachService;
+  const registration = registerCoachIpc({
+    trustedSenderId: 11,
+    service,
+    ipcMain: { handle: (channel, handler) => { handlers.set(channel, handler); }, removeHandler: (channel) => { handlers.delete(channel); } },
+  });
+  const frame = {};
+  const event = { sender: { id: 11, mainFrame: frame }, senderFrame: frame };
+  return {
+    api: createCoachPreloadApi({ invoke: async (channel, ...args) => handlers.get(channel)!(event, ...args) }),
+    dispose: registration.dispose,
+  };
 }
 
 describe("fixed review presenter", () => {
@@ -121,6 +149,11 @@ describe("fixed review presenter", () => {
     expect(detail.explanationStatus).toBe("provider_unavailable");
     expect(detail.coachJudgments).toEqual([]);
     expect(detail.provenance.length).toBeGreaterThan(0);
+    expect(detail.mortal[0]?.scoreMethodLabel).toBe("Mortal 行动概率 × 100");
+    expect(JSON.stringify(detail.provenance)).not.toContain("undefined");
+    const ukeire = detail.provenance.find((item) => item.relatedAction !== null && item.summary.includes("有效进张") && item.details.some((entry) => entry.tiles.length > 0));
+    expect(ukeire).toMatchObject({ relatedAction: { label: expect.any(String) } });
+    expect(ukeire?.details.flatMap((entry) => entry.tiles)).toContainEqual({ tile: "5m", count: 3 });
   });
 
   it("supports not-generated evidence and fails closed outside selector scope", () => {
@@ -132,22 +165,35 @@ describe("fixed review presenter", () => {
 
   it("renders complete, partial and empty-selection production reports", async () => {
     const graph = projectContextGraph(pkg);
+    const evidenceSnapshot = presentFixedReviewSnapshot({ analysisPackage: pkg, selection, activeReport: report, activeReportRefId: "evidence" });
+    const evidenceDom = fakeDom();
+    await createFixedReviewUi({ document: evidenceDom.document as unknown as Document, root: evidenceDom.root as unknown as HTMLElement, api: { openReview: async () => evidenceSnapshot } as unknown as CoachDesktopApi }).open(pkg.packageId);
+    expect(evidenceDom.root.textContent).toContain("仅证据可用");
+    expect(evidenceDom.root.textContent).toContain("解说服务未就绪");
     const complete = await generateReviewReport(graph, selection, respondingProvider(draftFor(graph, selection)), "2026-09-22T01:00:00.000Z");
     const completeSnapshot = presentFixedReviewSnapshot({ analysisPackage: pkg, selection, activeReport: complete, activeReportRefId: "complete" });
     expect(completeSnapshot.activeReportStatus).toBe("complete");
     const dom = fakeDom();
+    const completeDetail = presentFixedReviewDetail({ analysisPackage: pkg, selection, activeReport: complete, activeReportRefId: "complete", decisionId: selection.selected[0]!.decisionId });
     const ui = createFixedReviewUi({
       document: dom.document as unknown as Document,
       root: dom.root as unknown as HTMLElement,
-      api: { openReview: async () => completeSnapshot } as unknown as CoachDesktopApi,
+      api: { openReview: async () => completeSnapshot, getReviewDetail: async () => completeDetail } as unknown as CoachDesktopApi,
     });
     await ui.open(pkg.packageId);
     expect(dom.root.textContent).toContain("整盘复盘");
-    expect(dom.root.textContent).toContain("教练解说已完整生成");
+    expect(dom.root.textContent).toContain("入选条目的解说齐全");
     expect(dom.root.textContent).not.toContain("complete");
-    const completeDetail = presentFixedReviewDetail({ analysisPackage: pkg, selection, activeReport: complete, activeReportRefId: "complete", decisionId: selection.selected[0]!.decisionId });
     expect(completeDetail.coachJudgments).toHaveLength(1);
     expect(completeDetail.explanations[0]!.segments.some((segment) => segment.kind === "evidence_value" && /^\d+$/.test(segment.text))).toBe(true);
+    expect(completeDetail.coachJudgments[0]!.premiseRefs.every((ref) => completeDetail.provenance.some((item) => item.displayRef === ref))).toBe(true);
+    expect(completeDetail.explanations[0]!.evidenceRefs.every((ref) => completeDetail.provenance.some((item) => item.displayRef === ref))).toBe(true);
+    nodes(dom.root).find((node) => node.textContent === "查看复盘条目")!.listeners.get("click")!();
+    expect(nodes(dom.root).find((node) => node.textContent === "复盘条目")?.focused).toBe(true);
+    nodes(dom.root).find((node) => node.textContent === "查看详情")!.listeners.get("click")!();
+    await Promise.resolve(); await Promise.resolve();
+    expect(dom.root.textContent).toContain("评分口径：Mortal 行动概率 × 100");
+    expect(nodes(dom.root).find((node) => node.textContent === "条目详情")?.focused).toBe(true);
 
     const twoBase = structuredClone(pkg);
     const readyClone = structuredClone(twoBase.decisions[0]!);
@@ -201,6 +247,11 @@ describe("fixed review presenter", () => {
     expect(partialSnapshot.explanationCounts).toMatchObject({ ready: 1, invalid_output: 1 });
     expect(partialSnapshot.analysisStatus).toBe("degraded");
     expect(partialSnapshot.outcomeCounts).toMatchObject({ unsupported_action: 1, source_row_not_expected: 1 });
+    const partialDom = fakeDom();
+    await createFixedReviewUi({ document: partialDom.document as unknown as Document, root: partialDom.root as unknown as HTMLElement, api: { openReview: async () => partialSnapshot } as unknown as CoachDesktopApi }).open(two.packageId);
+    expect(partialDom.root.textContent).toContain("部分决策未作完整比较");
+    expect(partialDom.root.textContent).toContain("只有一种候选，无需模型比较");
+    expect(partialDom.root.textContent).toContain("部分解说可用");
 
     const emptySelection: ReviewSelectionResult = { ...selection, selected: [] };
     let providerCalls = 0;
@@ -212,6 +263,24 @@ describe("fixed review presenter", () => {
     expect(emptySnapshot.selection.items).toEqual([]);
     expect(emptySnapshot.activeReportStatus).toBe("evidence_only");
     expect(providerCalls).toBe(0);
+    const emptyDom = fakeDom();
+    await createFixedReviewUi({ document: emptyDom.document as unknown as Document, root: emptyDom.root as unknown as HTMLElement, api: { openReview: async () => emptySnapshot } as unknown as CoachDesktopApi }).open(pkg.packageId);
+    expect(emptyDom.root.textContent).toContain("当前策略未选出复盘条目");
+    expect(emptyDom.root.textContent).toContain("仅证据可用");
+    expect(emptyDom.root.textContent).not.toContain("服务故障");
+
+    for (const [candidate, visible] of [
+      [completeSnapshot, "入选条目的解说齐全"],
+      [partialSnapshot, "部分解说可用"],
+      [evidenceSnapshot, "仅证据可用"],
+      [emptySnapshot, "当前策略未选出复盘条目"],
+    ] as const) {
+      const boundary = apiThroughIpc(candidate, completeDetail);
+      const boundaryDom = fakeDom();
+      await createFixedReviewUi({ document: boundaryDom.document as unknown as Document, root: boundaryDom.root as unknown as HTMLElement, api: boundary.api }).open(candidate.packageId);
+      expect(boundaryDom.root.textContent).toContain(visible);
+      boundary.dispose();
+    }
   });
 });
 
@@ -225,13 +294,41 @@ describe("fixed review lifecycle controller", () => {
     });
     await controller.openReview(pkg.packageId);
     expect((await controller.generateReview(pkg.packageId, "op-a")).status).toBe("ready");
-    expect((await controller.generateReview(pkg.packageId, "op-b")).status).toBe("ready");
+    expect((await controller.generateReviewForLifecycle(pkg.packageId, "op-b")).status).toBe("ready");
     const state = controller.inspect(pkg.packageId);
     expect(state.reportRefs.map((ref) => ref.reportId)).toEqual([report.reportId, report.reportId]);
     expect(state.reportRefs.map((ref) => ref.reportRefId)).toEqual(["ref-1", "ref-2"]);
     expect(controller.activateReport(pkg.packageId, "ref-1").activeReportRefId).toBe("ref-1");
     expect(controller.activateReport(pkg.packageId, "ref-2").activeReportRefId).toBe("ref-2");
     expect(controller.activateReport(pkg.packageId, "ref-1").activeReportRefId).toBe("ref-1");
+  });
+
+  it("restores distinct judgment, explanation, provenance and refs across A→B→A", async () => {
+    const graph = projectContextGraph(pkg);
+    const draftA = draftFor(graph, selection);
+    const draftB = structuredClone(draftA);
+    const candidates = graph.nodes.filter((node) => node.nodeKind === "CandidateAction" && (node.payload as { decisionId?: string }).decisionId === selection.selected[0]!.decisionId);
+    draftB.decisions[0]!.judgment.recommendation = (candidates[1]!.payload as { actionRef: string }).actionRef;
+    draftB.decisions[0]!.explanations![0]!.text = `另一份解释：${draftA.decisions[0]!.explanations![0]!.text}`;
+    const reportA = await generateReviewReport(graph, selection, respondingProvider(draftA), "2026-09-22T04:00:00.000Z");
+    const reportB = await generateReviewReport(graph, selection, respondingProvider(draftB), "2026-09-22T05:00:00.000Z");
+    expect(reportA.reportId).not.toBe(reportB.reportId);
+    const reports = [reportA, reportB];
+    const controller = createFixedReviewController({
+      readPackage: async () => pkg,
+      generateReport: async () => reports.shift()!,
+      createReportRefId: (() => { let id = 0; return () => `isolation-${++id}`; })(),
+    });
+    await controller.openReview(pkg.packageId);
+    await controller.generateReview(pkg.packageId, "a");
+    const detailA = controller.getReviewDetail(pkg.packageId, selection.selected[0]!.decisionId, "isolation-1");
+    await controller.generateReviewForLifecycle(pkg.packageId, "b");
+    const detailB = controller.getReviewDetail(pkg.packageId, selection.selected[0]!.decisionId, "isolation-2");
+    expect(detailB).not.toEqual(detailA);
+    expect(detailB.coachJudgments[0]!.recommendation).not.toEqual(detailA.coachJudgments[0]!.recommendation);
+    expect(detailB.explanations).not.toEqual(detailA.explanations);
+    controller.activateReport(pkg.packageId, "isolation-1");
+    expect(controller.getReviewDetail(pkg.packageId, selection.selected[0]!.decisionId, "isolation-1")).toEqual(detailA);
   });
 
   it("preserves the active report on operation failure", async () => {
@@ -244,8 +341,16 @@ describe("fixed review lifecycle controller", () => {
     await controller.openReview(pkg.packageId);
     expect((await controller.generateReview(pkg.packageId, "op-a")).status).toBe("ready");
     fail = true;
-    expect(await controller.generateReview(pkg.packageId, "op-b")).toEqual({ status: "failed", code: "generation_failed" });
+    expect(await controller.generateReviewForLifecycle(pkg.packageId, "op-b")).toEqual({ status: "failed", code: "generation_failed" });
     expect(controller.inspect(pkg.packageId)).toMatchObject({ activeReportRefId: "ref-a", reportRefs: [{ reportRefId: "ref-a" }] });
+  });
+
+  it("enforces first-generation-only at the renderer-facing controller boundary", async () => {
+    const controller = createFixedReviewController({ readPackage: async () => pkg, generateReport: async () => report });
+    await controller.openReview(pkg.packageId);
+    expect((await controller.generateReview(pkg.packageId, "first")).status).toBe("ready");
+    expect(await controller.generateReview(pkg.packageId, "second")).toEqual({ status: "failed", code: "generation_failed" });
+    expect(controller.inspect(pkg.packageId).reportRefs).toHaveLength(1);
   });
 
   it("drops a late result after leave", async () => {

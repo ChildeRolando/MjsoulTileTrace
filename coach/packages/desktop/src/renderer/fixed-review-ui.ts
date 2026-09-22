@@ -1,22 +1,22 @@
 import type { CoachDesktopApi, FixedReviewDetailDto, FixedReviewSnapshotDto } from "@riichi-coach/contracts";
 
 const ANALYSIS_LABELS = {
-  complete: "分析资料完整",
-  degraded: "部分局面资料不完整，仍可查看已有证据",
-  integrity_failed: "资料完整性检查未通过，请先重新分析牌谱",
+  complete: "决策比较齐全",
+  degraded: "部分决策未作完整比较",
+  integrity_failed: "分析来源完整性未通过校验",
 } as const;
 const REPORT_LABELS = {
   not_generated: "尚未生成教练解说",
-  complete: "教练解说已完整生成",
-  partial: "部分条目暂时没有解说，证据仍可查看",
-  evidence_only: "教练解说暂不可用，确定性证据仍可查看",
+  complete: "入选条目的解说齐全",
+  partial: "部分解说可用",
+  evidence_only: "仅证据可用",
 } as const;
 const EXPLANATION_LABELS = {
-  not_generated: "尚未生成",
+  not_generated: "尚未生成教练解说",
   ready: "解说可用",
-  provider_unavailable: "教练服务尚未配置",
-  request_failed: "教练服务暂时不可用",
-  invalid_output: "本条解说未通过证据校验",
+  provider_unavailable: "解说服务未就绪",
+  request_failed: "解说请求未成功",
+  invalid_output: "解说未通过校验",
 } as const;
 const REASON_LABELS = {
   model_disagreement_above_threshold: "你的选择与模型偏好差异较大",
@@ -67,16 +67,28 @@ export function createFixedReviewUi(input: {
     actual.append(element(document, "h4", "你的选择"), element(document, "p", detail.actual?.label ?? "没有可展示的行动"));
     const mortal = element(document, "section");
     mortal.append(element(document, "h4", "Mortal 偏好"));
-    for (const action of detail.mortal) mortal.append(element(document, "p", `${action.label} · ${action.score.toFixed(2)} ${action.scoreUnit}`));
+    for (const action of detail.mortal) mortal.append(element(document, "p", `${action.label} · ${action.score.toFixed(2)} ${action.scoreUnit} · 评分口径：${action.scoreMethodLabel}`));
     comparison.append(actual, mortal);
     const coach = element(document, "section");
     coach.className = "review-coach";
     coach.append(element(document, "h4", "教练建议"));
     if (detail.coachJudgments.length === 0) coach.append(element(document, "p", EXPLANATION_LABELS[detail.explanationStatus]));
-    for (const judgment of detail.coachJudgments) coach.append(element(document, "p", `${judgment.recommendation.label} · 把握度${CONFIDENCE_LABELS[judgment.confidence]}`));
+    const evidenceTargets = new Map<string, HTMLElement>();
+    const evidenceButton = (ref: string, label: string) => {
+      const button = element(document, "button", label);
+      button.type = "button";
+      button.addEventListener("click", () => evidenceTargets.get(ref)?.focus());
+      return button;
+    };
+    for (const judgment of detail.coachJudgments) {
+      const paragraph = element(document, "p", `${judgment.recommendation.label} · 把握度${CONFIDENCE_LABELS[judgment.confidence]} `);
+      for (const ref of judgment.premiseRefs) paragraph.append(evidenceButton(ref, "查看判断依据"));
+      coach.append(paragraph);
+    }
     for (const explanation of detail.explanations) {
       const paragraph = element(document, "p");
       for (const segment of explanation.segments) paragraph.append(document.createTextNode(segment.text));
+      for (const ref of explanation.evidenceRefs) paragraph.append(document.createTextNode(" "), evidenceButton(ref, "查看解说证据"));
       coach.append(paragraph);
     }
     const evidence = element(document, "details");
@@ -89,11 +101,26 @@ export function createFixedReviewUi(input: {
       const items = detail.provenance.filter((item) => item.category === category);
       if (items.length === 0) continue;
       evidence.append(element(document, "h5", label));
-      for (const item of items) evidence.append(element(document, "p", `${item.label}：${item.summary}`));
+      for (const item of items) {
+        const card = element(document, "article");
+        card.tabIndex = -1;
+        evidenceTargets.set(item.displayRef, card);
+        card.append(element(document, "p", `${item.label}${item.relatedAction === null ? "" : `（${item.relatedAction.label}）`}：${item.summary}`));
+        for (const detailItem of item.details) {
+          const line = element(document, "p", `${detailItem.label}${detailItem.scope === null ? "" : ` · ${detailItem.scope}`}：${detailItem.value}`);
+          if (detailItem.tiles.length > 0) line.append(document.createTextNode(`（${detailItem.tiles.map((tile) => `${tile.tile} ${tile.count === null ? "剩余张数未知" : `${tile.count} 张`}`).join("、")}）`));
+          card.append(line);
+        }
+        evidence.append(card);
+      }
     }
     const metadata = element(document, "details");
     metadata.append(element(document, "summary", "来源信息"));
-    for (const item of detail.provenance) metadata.append(element(document, "p", `${item.label} · ${item.producer} ${item.producerVersion} · 来源 ${item.sourceRefs.join("、") || "无上游引用"}`));
+    for (const item of detail.provenance) {
+      const line = element(document, "p", `${item.label} · ${item.producer} ${item.producerVersion} · 来源 ${item.sourceRefs.join("、") || "无上游引用"}`);
+      for (const ref of item.parentRefs) line.append(document.createTextNode(" "), evidenceButton(ref, "查看父项"));
+      metadata.append(line);
+    }
     section.append(heading, comparison, coach, evidence, metadata);
     input.root.querySelector(".review-detail")?.remove();
     input.root.append(section);
@@ -121,7 +148,15 @@ export function createFixedReviewUi(input: {
     live.className = "review-live";
     live.setAttribute("aria-live", "polite");
     if (next.analysisStatus !== "complete") {
-      const warning = element(document, "p", ANALYSIS_LABELS[next.analysisStatus]);
+      const degradedReasons = [
+        next.outcomeCounts.source_row_not_expected > 0 ? `只有一种候选，无需模型比较（${next.outcomeCounts.source_row_not_expected} 处）` : null,
+        next.outcomeCounts.unsupported_action > 0 ? `暂不支持的行动 ${next.outcomeCounts.unsupported_action} 处` : null,
+        next.outcomeCounts.no_mortal_entry > 0 ? `缺少对应的模型分析 ${next.outcomeCounts.no_mortal_entry} 处` : null,
+        next.outcomeCounts.binding_mismatch > 0 ? `模型分析与决策对应关系未通过校验 ${next.outcomeCounts.binding_mismatch} 处` : null,
+        next.outcomeCounts.model_output_incomplete > 0 ? `模型分析不完整 ${next.outcomeCounts.model_output_incomplete} 处` : null,
+        next.outcomeCounts.analysis_blocked > 0 ? `分析条件未满足 ${next.outcomeCounts.analysis_blocked} 处` : null,
+      ].filter((reason): reason is string => reason !== null);
+      const warning = element(document, "p", `${ANALYSIS_LABELS[next.analysisStatus]}。${degradedReasons.join("；")}`);
       warning.className = "review-warning";
       overview.append(heading, warning, count, countLabel, status, live);
     } else overview.append(heading, count, countLabel, status, live);
@@ -130,15 +165,15 @@ export function createFixedReviewUi(input: {
     overview.append(goList);
     const analysisDetails = element(document, "details");
     analysisDetails.append(element(document, "summary", "分析结果明细"));
-    const outcomeLabels = ["可分析", "行动暂不支持", "无需来源行", "模型没有对应条目", "行动对应不一致", "模型输出不完整", "分析被阻断"];
+    const outcomeLabels = ["可作决策比较", "暂不支持的行动", "单一候选，无需模型比较", "缺少对应的模型分析", "模型分析与决策对应关系未通过校验", "模型分析不完整", "分析条件未满足"];
     Object.values(next.outcomeCounts).forEach((value, index) => analysisDetails.append(element(document, "p", `${outcomeLabels[index]}：${value}`)));
     const explanationDetails = element(document, "details");
     explanationDetails.append(element(document, "summary", "解说状态明细"));
     explanationDetails.append(
       element(document, "p", `可用：${next.explanationCounts.ready}`),
-      element(document, "p", `服务未配置：${next.explanationCounts.provider_unavailable}`),
-      element(document, "p", `请求未完成：${next.explanationCounts.request_failed}`),
-      element(document, "p", `证据校验未通过：${next.explanationCounts.invalid_output}`),
+      element(document, "p", `解说服务未就绪：${next.explanationCounts.provider_unavailable}`),
+      element(document, "p", `解说请求未成功：${next.explanationCounts.request_failed}`),
+      element(document, "p", `解说未通过校验：${next.explanationCounts.invalid_output}`),
     );
     overview.append(analysisDetails, explanationDetails);
     if (next.activeReportRefId === null) {
@@ -165,23 +200,22 @@ export function createFixedReviewUi(input: {
     else {
       const table = element(document, "table");
       const header = element(document, "tr");
-      for (const label of ["顺序", "局面", "你的选择", "Mortal 偏好", "分差", "入选原因 / 标签", "解说"]) header.append(element(document, "th", label));
+      for (const label of ["局况 / 决策窗口", "我的行动", "Mortal 偏好", "模型分差 / 固定入选原因", "差异维度", "解说状态 / 详情"]) header.append(element(document, "th", label));
       const head = element(document, "thead"); head.append(header); table.append(head);
       const body = element(document, "tbody");
       for (const item of next.selection.items) {
         const row = element(document, "tr");
-        const open = element(document, "button", `第 ${item.rank} 条`);
+        const open = element(document, "button", "查看详情");
         open.type = "button";
         open.addEventListener("click", () => void input.api.getReviewDetail({ packageId: next.packageId, decisionId: item.decisionId, activeReportRefId: next.activeReportRefId }).then(renderDetail).catch(() => showError("无法打开这条复盘，请返回后重试。")));
-        const first = element(document, "td"); first.append(open);
+        const last = element(document, "td", `${EXPLANATION_LABELS[item.explanationStatus]} `); last.append(open);
         row.append(
-          first,
-          element(document, "td", `第 ${item.roundOrdinal + 1} 局 · ${WINDOW_LABELS[item.decisionWindowKind] ?? "决策窗口"}`),
+          element(document, "td", `第 ${item.rank} 条 · 第 ${item.roundOrdinal + 1} 局 · ${WINDOW_LABELS[item.decisionWindowKind] ?? "决策窗口"}`),
           element(document, "td", item.actualAction?.label ?? "无"),
           element(document, "td", item.mortalPreferredActions.map((action) => `${action.label} ${action.score.toFixed(2)}`).join(" / ")),
-          element(document, "td", item.errorGap.toFixed(2)),
-          element(document, "td", `${REASON_LABELS[item.selectionReason]} · ${item.tags.map((tag) => TAG_LABELS[tag]).join("、") || "无显著差异轴"}`),
-          element(document, "td", EXPLANATION_LABELS[item.explanationStatus]),
+          element(document, "td", `${item.errorGap.toFixed(2)} · ${REASON_LABELS[item.selectionReason]}`),
+          element(document, "td", item.tags.map((tag) => TAG_LABELS[tag]).join("、") || "无显著差异轴"),
+          last,
         );
         body.append(row);
       }

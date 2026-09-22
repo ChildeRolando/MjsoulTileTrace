@@ -22,6 +22,7 @@ export const RendererActionSchema = z.object({
 export const RendererScoredActionSchema = RendererActionSchema.extend({
   score: z.number().finite().min(0).max(100),
   scoreUnit: z.literal("模型选择分"),
+  scoreMethodLabel: z.enum(["Mortal 行动概率 × 100", "Akagi 选择分 softmax × 100"]),
 }).strict();
 export const RendererCoachJudgmentSchema = z.object({
   recommendation: RendererActionSchema,
@@ -41,6 +42,17 @@ export const RendererProvenanceItemSchema = z.object({
   category: z.enum(["hard_evidence", "advisory_signal", "coach_inference"]),
   label: z.string().min(1),
   summary: z.string().min(1),
+  relatedAction: RendererActionSchema.nullable(),
+  details: z.array(z.object({
+    label: z.string().min(1),
+    value: z.string().min(1),
+    scope: z.string().min(1).nullable(),
+    tiles: z.array(z.object({
+      tile: z.string().min(1),
+      count: z.number().int().nonnegative().nullable(),
+    }).strict()),
+  }).strict()),
+  parentRefs: z.array(z.string().min(1)),
   producer: z.string().min(1),
   producerVersion: z.string().min(1),
   sourceRefs: z.array(z.string().min(1)),

@@ -1,8 +1,12 @@
 import { describe, expect, it, vi } from "vitest";
+import { readFileSync } from "node:fs";
 import { COACH_IPC_CHANNELS } from "@riichi-coach/contracts";
 import { registerCoachIpc } from "../src/coach-ipc.js";
 import { createCoachPreloadApi } from "../src/session-api.js";
 import type { CoachService } from "../src/llm-provider/service.js";
+import { createCoachService } from "../src/llm-provider/service.js";
+
+const packageFixture = JSON.parse(readFileSync(new URL("./fixtures/coach-package.json", import.meta.url), "utf8"));
 
 const settings = { baseUrl: "https://llm.example/v1", modelName: "fixture" };
 const snapshot = {
@@ -86,5 +90,26 @@ describe("coach narrow IPC and preload", () => {
   it.each(["http://llm.example/v1", "https://user:SECRET@llm.example/v1", "https://llm.example/v1?key=SECRET", "https://llm.example/v1#SECRET"])("rejects credential-bearing or insecure endpoints: %s", async baseUrl => {
     const f = fixture(); await expect(f.api.configure({ ...settings, baseUrl })).rejects.toThrow(/^provider_unavailable$/);
     expect(f.invoke).not.toHaveBeenCalled();
+  });
+
+  it("enforces first-generation-only through the real IPC/preload/service boundary", async () => {
+    const service = createCoachService({
+      credentials: { readKey: async () => null, importCredential: async () => undefined, clear: async () => undefined },
+      fetchImpl: vi.fn<typeof fetch>(async () => { throw new Error("must not call provider"); }),
+      readPackage: async () => packageFixture,
+      clock: () => "2026-09-22T00:00:00.000Z",
+    });
+    const handlers = new Map<string, (event: unknown, ...args: unknown[]) => Promise<unknown>>();
+    const registration = registerCoachIpc({
+      trustedSenderId: 17, service,
+      ipcMain: { handle: (channel, handler) => { handlers.set(channel, handler); }, removeHandler: (channel) => { handlers.delete(channel); } },
+    });
+    const frame = {};
+    const event = { sender: { id: 17, mainFrame: frame }, senderFrame: frame };
+    const api = createCoachPreloadApi({ invoke: async (channel, ...args) => handlers.get(channel)!(event, ...args) });
+    await api.openReview({ packageId: packageFixture.packageId as string });
+    expect((await api.generateReview({ packageId: packageFixture.packageId as string, operationId: "first" })).status).toBe("ready");
+    expect(await api.generateReview({ packageId: packageFixture.packageId as string, operationId: "second" })).toEqual({ status: "failed", code: "generation_failed" });
+    registration.dispose();
   });
 });

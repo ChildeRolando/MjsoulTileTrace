@@ -198,4 +198,33 @@ describe("main-process OpenAI-compatible provider and narrow generation seam", (
     resolveHttp(response()); await generation; await clearing;
     expect(clear).toHaveBeenCalledTimes(1);
   });
+
+  it("cancels a queued generation at submission time and does not reopen after leave", async () => {
+    let releaseImport!: () => void;
+    let importStarted!: () => void;
+    const entered = new Promise<void>((resolve) => { importStarted = resolve; });
+    const importPending = new Promise<void>((resolve) => { releaseImport = resolve; });
+    const http = vi.fn<typeof fetch>(async () => response());
+    const service = createCoachService({
+      credentials: {
+        readKey: async () => KEY,
+        importCredential: async () => { importStarted(); await importPending; },
+        clear: async () => undefined,
+      },
+      fetchImpl: http,
+      readPackage: async () => pkg,
+      clock: () => now,
+    });
+    await service.configure(settings);
+    await service.openReview(pkg.packageId);
+    const importing = service.importCredential();
+    await entered;
+    const generation = service.generateReview(pkg.packageId, "queued-op");
+    service.cancelGeneration("queued-op");
+    service.leaveReview(pkg.packageId);
+    releaseImport();
+    await importing;
+    expect(await generation).toEqual({ status: "failed", code: "operation_cancelled" });
+    expect(http).not.toHaveBeenCalled();
+  });
 });

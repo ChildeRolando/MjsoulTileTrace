@@ -35,6 +35,10 @@ const paipuImportButton = document.querySelector<HTMLButtonElement>("#paipu-impo
 const paipuStatusElement = document.querySelector<HTMLElement>("#paipu-status")!;
 const buttons = [loginButton, logoutButton, refreshButton, syncButton, paipuImportButton];
 const reviewRoot = document.querySelector<HTMLElement>("#fixed-review")!;
+const reviewPackageIdInput = document.querySelector<HTMLInputElement>("#review-package-id")!;
+const openReviewButton = document.querySelector<HTMLButtonElement>("#open-review")!;
+const leaveReviewButton = document.querySelector<HTMLButtonElement>("#leave-review")!;
+const reviewEntryStatus = document.querySelector<HTMLElement>("#review-entry-status")!;
 export const fixedReviewUi = createFixedReviewUi({ document, root: reviewRoot, api: window.riichiCoachProvider });
 let currentSessionStatus: MahjongSoulSessionStatus["status"] = "logged_out";
 
@@ -155,6 +159,32 @@ loginButton.addEventListener("click", () => {
 logoutButton.addEventListener("click", () => void run(() => window.riichiCoach.logoutMahjongSoul()));
 refreshButton.addEventListener("click", () => void run(() => window.riichiCoach.getSessionStatus()));
 syncButton.addEventListener("click", () => void runSync());
+
+openReviewButton.addEventListener("click", () => {
+  void (async () => {
+    const packageId = reviewPackageIdInput.value.trim();
+    if (packageId === "") {
+      reviewEntryStatus.textContent = "请输入分析包引用。";
+      return;
+    }
+    openReviewButton.disabled = true;
+    try {
+      await fixedReviewUi.open(packageId);
+      reviewEntryStatus.textContent = "已打开整盘复盘。";
+      leaveReviewButton.hidden = false;
+    } catch {
+      reviewEntryStatus.textContent = "无法打开该分析包，请确认引用有效。";
+    } finally {
+      openReviewButton.disabled = false;
+    }
+  })();
+});
+leaveReviewButton.addEventListener("click", () => {
+  void fixedReviewUi.leave().then(() => {
+    leaveReviewButton.hidden = true;
+    reviewEntryStatus.textContent = "已离开整盘复盘。";
+  }).catch(() => { reviewEntryStatus.textContent = "暂时无法离开复盘，请重试。"; });
+});
 
 function setPaipuPending(pending: boolean): void {
   paipuImportButton.disabled = pending;

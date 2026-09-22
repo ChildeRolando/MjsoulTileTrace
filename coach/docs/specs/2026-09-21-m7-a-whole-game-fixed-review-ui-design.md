@@ -812,3 +812,22 @@ PR #15 通过同一独立评审并以 merge commit
   evidence_only、empty selection、duplicate reportId/distinct reportRefId、操作失败保留
   active report、A→B→A 与 leave 后迟到结果丢弃。实现候选仍须通过本 Ticket 的五门和
   Review Loop，不能以本记录替代验收结论。
+
+#### Review Loop 第 1 轮修复闭环（COAC-73）
+
+- 生产 renderer 通过经过 main 严格 identity/validator 校验的既有 `packageId` 引用
+  打开复盘，并提供显式离开操作；测试必须从 app 入口证明 `fixedReviewUi.open` 可达，
+  不再以直接调用 UI helper 冒充生产接线。
+- `RendererScoredAction` 携带本地化评分口径；provenance DTO 携带候选归属、安全值、
+  统计范围、有效牌逐牌剩余张数与父引用。presenter 只从
+  `composeReviewReadBackContext` 返回的 same-decision graph 投影这些字段，包含当前
+  判断所引用的 `KnownGameFact`；renderer 提供判断/解释到证据项的键盘可聚焦入口。
+- renderer-facing `generateReview` 在 controller 边界强制首次生成；内部生命周期测试
+  seam 仍可 append/activate 多个 immutable refs。service 在请求提交排队时即登记取消
+  token，确保 credential mutation 前排队的 generation 经 cancel/leave 后不会调用
+  provider、重建 closed view 或追加 ref。
+- `fixed-review.test.ts` 持续覆盖 complete、degraded+partial、evidence_only 与 empty
+  selection 经 presenter → IPC → preload → DOM、本地化 P5 文案、真实 focus、六组 List、
+  明细证据，以及不同 judgment/explanation 内容的 A→B→A 深比较；
+  `coach-provider.test.ts` 覆盖排队取消，`fixed-review-renderer.test.ts` 覆盖生产入口与
+  窄窗六组重排。上述回归是本轮九项 P2 的 durable enforcement。
