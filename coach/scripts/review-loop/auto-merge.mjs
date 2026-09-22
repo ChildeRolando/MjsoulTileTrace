@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
-import { GATES, REPOSITORY, VERSION, hash, isSha } from './protocol.mjs';
+import { GATES, REPOSITORY, VERSION, admit, hash, isSha } from './protocol.mjs';
 
 const CHECK_OK=new Set(['success','neutral','skipped']);
 const terminal=new Set(['MERGED','MERGED_EXTERNALLY','CLOSED_NO_MERGE','INVALIDATED']);
@@ -32,7 +32,10 @@ function checkResults(required,evidence) {
   const statuses=evidence.statuses ?? [],runs=evidence.check_runs ?? [];
   for(const req of required) {
     const candidates=[];
-    for(const s of statuses)if(s.context === req.context)candidates.push({kind:'status',state:s.state,app_id:s.creator?.id ?? null});
+    // Commit-status creators are users, not GitHub Apps. They can satisfy an
+    // unbound context, but never prove the integration identity of an app-bound
+    // required check even when the numeric IDs happen to collide.
+    for(const s of statuses)if(s.context === req.context)candidates.push({kind:'status',state:s.state,app_id:null});
     for(const r of runs)if(r.name === req.context)candidates.push({kind:'check',state:r.status === 'completed' ? r.conclusion : r.status,app_id:r.app?.id ?? null});
     const attributed=candidates.filter(c=>req.app_id === null || req.app_id === -1 || c.app_id === req.app_id);
     if(attributed.length !== 1)return deny(attributed.length ? 'required check ambiguous' : 'required check missing',{check:req,count:attributed.length});
@@ -64,13 +67,14 @@ export function buildEligibility(state,live,evidence,config) {
       || proof.issue_id !== job.issue_id || !proof.run_id || !proof.comment_id || !/^[a-f0-9]{64}$/.test(proof.sha256 ?? ''))return deny('review proof incomplete');
     if(!Array.isArray(proof.gates) || proof.gates.length !== 5 || proof.gates.some(g=>GATES[g.id] !== g.command || g.status !== 'PASS' || g.exit_code !== 0))return deny('review gates not PASS');
     if((proof.findings?.P1?.length ?? -1) !== 0 || (proof.findings?.P2?.length ?? -1) !== 0)return deny('P1/P2 present');
-    const pr=evidence.pr;
+    const pr=evidence.pr,current=admit(pr);
     if(pr?.number !== state.pr_number || pr.state !== 'open' || pr.draft !== false || pr.merged === true)return deny('PR not open and ready');
     if(pr.base?.repo?.full_name !== REPOSITORY || pr.head?.repo?.full_name !== REPOSITORY)return deny('repository mismatch');
-    if(pr.base.sha !== job.base_sha || pr.head.sha !== job.head_sha)return deny('candidate changed during eligibility');
+    if(current.base_sha !== job.base_sha || current.head_sha !== job.head_sha || current.base_branch !== live.base_branch)return deny('candidate changed during eligibility');
+    if(current.admission_hash !== state.admission_hash || current.admission_hash !== live.admission_hash)return deny('admission changed during eligibility');
     if(evidence.repository?.full_name !== REPOSITORY || evidence.repository.allow_merge_commit !== true)return deny('merge commits disabled');
     if(!exactActor(evidence.actor,a.expected_actor))return deny('caller identity mismatch');
-    if(evidence.permission !== 'push')return deny('caller is not ordinary write');
+    if(evidence.permission?.permission !== 'write' || evidence.permission?.role_name !== 'write')return deny('caller is not ordinary write');
     if(evidence.rules_complete !== true || evidence.protection_complete !== true)return deny('protection/rules incomplete');
     if(evidence.actor_can_bypass !== false)return deny('bypass absent not proven');
     if(pr.mergeable !== true || pr.mergeable_state !== 'clean')return deny('mergeability not clean');
@@ -81,52 +85,67 @@ export function buildEligibility(state,live,evidence,config) {
   } catch(e) { return deny('eligibility evidence invalid',{message:String(e.message).slice(0,200)}); }
 }
 
-async function reconcile(state,live,io) {
+async function reconcile(state,io) {
   const intent=state.merge?.intent;if(!intent || terminal.has(state.merge.status))return false;
-  if(live.head_sha !== intent.head_sha || live.base_sha !== intent.base_sha || live.admission_hash !== intent.admission_hash) {
-    state.merge.status='INVALIDATED';state.merge.read_back={at:now(),reason:'candidate or admission changed'};await io.save(state);return true;
-  }
   const raw=await io.live(state.pr_number);
   if(raw.merged === true) {
     if(!raw.merged_at || !isSha(raw.merge_commit_sha) || raw.head?.sha !== intent.head_sha)throw new Error('merge read-back incomplete');
     await io.verifyMergeCommit(raw.merge_commit_sha);
-    state.merge.status=intent.request_attempted ? 'MERGED' : 'MERGED_EXTERNALLY';
-    state.merge.read_back={at:now(),merged_at:raw.merged_at,merge_commit_sha:raw.merge_commit_sha,head_sha:raw.head.sha,actor:raw.merged_by ? {login:raw.merged_by.login,id:raw.merged_by.id} : null};
+    const actor=raw.merged_by ? {login:raw.merged_by.login,id:raw.merged_by.id} : null;
+    if(!actor || typeof actor.login !== 'string' || !Number.isSafeInteger(actor.id))throw new Error('merge actor read-back incomplete');
+    if(!intent.actor || typeof intent.actor.login !== 'string' || !Number.isSafeInteger(intent.actor.id))throw new Error('merge intent actor incomplete');
+    const ours=exactActor(actor,intent.actor);
+    if(ours && intent.response?.sha && intent.response.sha !== raw.merge_commit_sha)throw new Error('merge response/read-back mismatch');
+    state.merge.status=ours ? 'MERGED' : 'MERGED_EXTERNALLY';
+    state.merge.read_back={at:now(),merged_at:raw.merged_at,merge_commit_sha:raw.merge_commit_sha,head_sha:raw.head.sha,actor};
     state.history.push({event:'merge_read_back',status:state.merge.status,attempt_id:intent.attempt_id,...state.merge.read_back});await io.save(state);return true;
   }
   if(raw.state === 'closed') {state.merge.status='CLOSED_NO_MERGE';state.merge.read_back={at:now(),merged:false};await io.save(state);return true;}
+  let current;
+  try {current=admit(raw);}
+  catch {state.merge.status='INVALIDATED';state.merge.read_back={at:now(),reason:'candidate or admission invalid'};await io.save(state);return true;}
+  if(current.head_sha !== intent.head_sha || current.base_sha !== intent.base_sha || current.admission_hash !== intent.admission_hash) {
+    state.merge.status='INVALIDATED';state.merge.read_back={at:now(),reason:'candidate or admission changed'};await io.save(state);return true;
+  }
   return false;
 }
 
 export async function advanceAutoMerge(state,live,io,config) {
   const a=validateAutoMergeConfig(config);
   state.merge ??={status:'NONE'};
-  try {if(await reconcile(state,live,io))return;}
+  try {if(await reconcile(state,io))return;}
   catch(e) {state.merge.status=e.transport ? 'RETRY_IO' : 'WAITING_READ_BACK';state.merge.reason=String(e.message).slice(0,200);await io.save(state);return;}
   if(!a.enabled)return;
-  if(state.merge.intent && state.merge.status !== 'RETRY_IO')return;
+  if(terminal.has(state.merge.status))return;
   let evidence;
-  try {evidence=await io.mergeEvidence(state.pr_number,live.branch);}
+  try {evidence=await io.mergeEvidence(state.pr_number,live.base_branch);}
   catch(e) {state.merge.status=e.permission ? 'BLOCKED_PERMISSION' : 'RETRY_IO';state.merge.reason=String(e.message).slice(0,200);await io.save(state);return;}
   const eligibility=buildEligibility(state,live,evidence,config);
   state.merge.eligibility={...eligibility,checked_at:now(),head_sha:live.head_sha,base_sha:live.base_sha};
-  if(!eligibility.eligible) {state.merge.status='WAITING_ELIGIBILITY';await io.save(state);return;}
+  if(!eligibility.eligible) {
+    state.merge.status=state.merge.intent && /candidate|admission/.test(eligibility.reason) ? 'INVALIDATED' : 'WAITING_ELIGIBILITY';
+    await io.save(state);return;
+  }
   if(!state.merge.intent) {
     state.merge.intent={attempt_id:randomUUID(),repository:REPOSITORY,pr_number:state.pr_number,base_sha:live.base_sha,head_sha:live.head_sha,method:'merge',admission_hash:live.admission_hash,
-      review:{issue_id:state.result.issue_id,run_id:state.result.run_id,comment_id:state.result.comment_id,sha256:state.result.sha256},evidence_sha256:eligibility.evidence_sha256,created_at:now(),request_attempted:false};
+      actor:{...evidence.actor},review:{issue_id:state.result.issue_id,run_id:state.result.run_id,comment_id:state.result.comment_id,sha256:state.result.sha256},evidence_sha256:eligibility.evidence_sha256,created_at:now(),request_attempted:false};
     state.merge.status='INTENT_SAVED';state.history.push({event:'merge_intent',...state.merge.intent});await io.save(state);
   }
   // Re-read the complete proof immediately before the only write.
   let current;
-  try {current=await io.mergeEvidence(state.pr_number,live.branch);}
+  try {current=await io.mergeEvidence(state.pr_number,live.base_branch);}
   catch(e) {state.merge.status=e.permission ? 'BLOCKED_PERMISSION' : 'RETRY_IO';state.merge.reason=String(e.message).slice(0,200);await io.save(state);return;}
   const proof=buildEligibility(state,live,current,config);
   if(!proof.eligible || proof.evidence_sha256 !== state.merge.intent.evidence_sha256) {state.merge.status='INVALIDATED';state.merge.reason=proof.reason ?? 'eligibility evidence changed';await io.save(state);return;}
   state.merge.intent.request_attempted=true;state.merge.intent.requested_at=now();state.merge.status='REQUESTING';await io.save(state);
-  try {await io.merge(state.pr_number,state.merge.intent.head_sha);state.merge.intent.response_received_at=now();state.merge.status='READ_BACK';await io.save(state);}
+  try {
+    const response=await io.merge(state.pr_number,state.merge.intent.head_sha);
+    if(response?.merged !== true || !isSha(response.sha))throw new Error('merge response incomplete');
+    state.merge.intent.response={received_at:now(),merged:true,sha:response.sha};state.merge.status='READ_BACK';await io.save(state);
+  }
   catch(e) {
     state.merge.status=e.permission ? 'BLOCKED_PERMISSION' : e.waiting ? 'WAITING_GITHUB' : 'RETRY_IO';state.merge.reason=String(e.message).slice(0,200);await io.save(state);return;
   }
-  try {if(!await reconcile(state,live,io)) {state.merge.status='RETRY_IO';state.merge.reason='merge response not confirmed by read-back';await io.save(state);}}
+  try {if(!await reconcile(state,io)) {state.merge.status='RETRY_IO';state.merge.reason='merge response not confirmed by read-back';await io.save(state);}}
   catch(e) {state.merge.status=e.transport ? 'RETRY_IO' : 'WAITING_READ_BACK';state.merge.reason=String(e.message).slice(0,200);await io.save(state);}
 }

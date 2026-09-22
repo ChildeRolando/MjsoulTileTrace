@@ -163,18 +163,20 @@ export function makeIO(config,stateFile,stateDir,runCommand=command) {
         await ancestor(result.data.head_sha,live.head_sha,'fix result is not reachable from current PR head');
       }
     },
-    mergeEvidence:async(n,branch)=>{
+    mergeEvidence:async(n,targetBranch)=>{
       const pr=await gh([`${api}/pulls/${n}`]);assert(isSha(pr.head?.sha),'invalid eligibility head');
+      assert.equal(pr.base?.ref,targetBranch,'eligibility target branch changed');
       const [repository,actor,teams,statuses,checks,rules]=await Promise.all([
         gh([api]),gh(['user']),paged('user/teams'),
         paged(`${api}/commits/${pr.head.sha}/statuses`),
         gh([`${api}/commits/${pr.head.sha}/check-runs?per_page=100`,'--paginate','--slurp']),
-        paged(`${api}/rules/branches/${encodeURIComponent(branch)}`),
+        paged(`${api}/rules/branches/${encodeURIComponent(targetBranch)}`),
       ]);
       assert(Array.isArray(checks) && checks.every(x=>Array.isArray(x?.check_runs)),'check-run pagination incomplete');
-      const permission=(await gh([`${api}/collaborators/${encodeURIComponent(actor.login)}/permission`])).permission;
-      const branchInfo=await gh([`${api}/branches/${encodeURIComponent(branch)}`]);
-      const protection=branchInfo.protected === true ? await gh([`${api}/branches/${encodeURIComponent(branch)}/protection`]) : null;
+      const permissionResponse=await gh([`${api}/collaborators/${encodeURIComponent(actor.login)}/permission`]);
+      const permission={permission:permissionResponse.permission,role_name:permissionResponse.role_name};
+      const branchInfo=await gh([`${api}/branches/${encodeURIComponent(targetBranch)}`]);
+      const protection=branchInfo.protected === true ? await gh([`${api}/branches/${encodeURIComponent(targetBranch)}/protection`]) : null;
       const ids=[...new Set(rules.map(r=>r.ruleset_id).filter(Number.isSafeInteger))];
       const rulesets=[];for(const id of ids)rulesets.push(await gh([`${api}/rulesets/${id}?includes_parents=true`]));
       const knownRules=new Set(['creation','update','deletion','required_linear_history','required_deployments','required_signatures','pull_request','required_status_checks','non_fast_forward','commit_message_pattern','commit_author_email_pattern','committer_email_pattern','branch_name_pattern','tag_name_pattern','file_path_restriction','max_file_path_length','file_extension_restriction','max_file_size','workflows','code_scanning','merge_queue']);
@@ -275,7 +277,7 @@ export async function tick(config,ioFactory=makeIO) {
       if(config.enabled === true)await advanceDurability(state,io,config);
       if(state.merge?.intent) {
         const raw=await io.live(state.pr_number);
-        await advanceAutoMerge(state,{pr_number:state.pr_number,head_sha:raw.head?.sha,base_sha:raw.base?.sha,admission_hash:state.admission_hash,branch:raw.head?.ref},io,config);
+        await advanceAutoMerge(state,{pr_number:state.pr_number,head_sha:raw.head?.sha,base_sha:raw.base?.sha,admission_hash:state.admission_hash,branch:raw.head?.ref,base_branch:raw.base?.ref},io,config);
       }
       summary.push({pr:state.pr_number,status:state.status,auto_merge:state.merge ? {status:state.merge.status,intent:state.merge.intent,read_back:state.merge.read_back} : null,durability:(state.durability ?? []).map(j=>({identity:j.identity,status:j.status,issue:j.identifier,error:j.error}))});
     }

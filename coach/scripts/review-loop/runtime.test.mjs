@@ -131,8 +131,30 @@ test('live P3 PASS tick dispatches durability before publication and never dupli
 });
 
 const admission={protocol_version:'review-loop/v2.1',authoritative_spec_paths:['coach/docs/specs/a.md'],rubric:'all criteria'};
-const pr=(head='b'.repeat(40),base='a'.repeat(40),marker='live')=>({number:8,state:'open',draft:false,body:'```review-loop-admission\n'+JSON.stringify(admission)+'\n```',base:{sha:base,repo:{full_name:'ChildeRolando/MjsoulTileTrace'}},head:{sha:head,ref:'codex/a',repo:{full_name:'ChildeRolando/MjsoulTileTrace'}},marker});
+const pr=(head='b'.repeat(40),base='a'.repeat(40),marker='live')=>({number:8,state:'open',draft:false,body:'```review-loop-admission\n'+JSON.stringify(admission)+'\n```',base:{sha:base,ref:'master',repo:{full_name:'ChildeRolando/MjsoulTileTrace'}},head:{sha:head,ref:'codex/a',repo:{full_name:'ChildeRolando/MjsoulTileTrace'}},marker});
 const config=dir=>({protocol_version:'review-loop/v2.1',repository:'ChildeRolando/MjsoulTileTrace',reviewer_id:'reviewer',fixer_id:'fixer',project_id:'project',enabled:true,auto_merge:{version:1,enabled:false,expected_actor:{login:'merger',id:1}},state_dir:dir,repository_path:dir,gh_path:'gh',git_path:'git',multica_path:'multica',profile:'profile',workspace_id:'workspace'});
+
+test('merge evidence reads the target branch and preserves ordinary role and app identity',async()=>{
+  const raw=pr(),requests=[];
+  const runner=async(_file,args)=>{
+    const endpoint=args[1];requests.push(endpoint);
+    if(endpoint === 'repos/ChildeRolando/MjsoulTileTrace/pulls/8')return JSON.stringify(raw);
+    if(endpoint === 'repos/ChildeRolando/MjsoulTileTrace')return JSON.stringify({full_name:'ChildeRolando/MjsoulTileTrace',allow_merge_commit:true});
+    if(endpoint === 'user')return JSON.stringify({login:'merger',id:1});
+    if(endpoint.startsWith('user/teams'))return JSON.stringify([[]]);
+    if(endpoint.includes('/statuses?'))return JSON.stringify([[]]);
+    if(endpoint.includes('/check-runs?'))return JSON.stringify([{check_runs:[{name:'target-ci',status:'completed',conclusion:'success',app:{id:9}}]}]);
+    if(endpoint.includes('/rules/branches/master?'))return JSON.stringify([[]]);
+    if(endpoint.endsWith('/collaborators/merger/permission'))return JSON.stringify({permission:'write',role_name:'write'});
+    if(endpoint.endsWith('/branches/master'))return JSON.stringify({protected:true});
+    if(endpoint.endsWith('/branches/master/protection'))return JSON.stringify({required_status_checks:{checks:[{context:'target-ci',app_id:9}],contexts:[]},required_pull_request_reviews:{bypass_pull_request_allowances:{users:[{login:'merger'}],teams:[]}}});
+    throw new Error(`unexpected request ${endpoint}`);
+  };
+  const evidence=await makeIO(config('.'),'state.json','.',runner).mergeEvidence(8,'master');
+  assert.deepEqual(evidence.permission,{permission:'write',role_name:'write'});assert.equal(evidence.actor_can_bypass,true);
+  assert.equal(evidence.protection.required_status_checks.checks[0].app_id,9);
+  assert(requests.some(x=>x.includes('/rules/branches/master?')));assert(!requests.some(x=>x.includes('/rules/branches/codex%2Fa')));
+});
 
 test('one SHA publication owner aggregates conflicting PR results and caches the aggregate',async()=>{
   const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-shared-head-'));
