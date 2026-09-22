@@ -211,6 +211,33 @@ function summarizeEvidence(node: GraphNode): string {
   return typeof payload.statement === "string" ? payload.statement : "教练基于当前证据形成的推断";
 }
 
+function referenceTarget(node: GraphNode, decision: ReadyDecision) {
+  const payload = node.payload as Record<string, unknown>;
+  if (node.nodeKind === "CandidateAction") {
+    const action = actionDto(decision, String(payload.actionRef));
+    return { displayRef: node.nodeId, authority: node.authority, label: "候选行动", summary: action!.label, relatedAction: action };
+  }
+  if (node.nodeKind === "ModelEvaluation") {
+    const preferred = Array.isArray(payload.preferredActions)
+      ? payload.preferredActions.map((ref) => actionDto(decision, String(ref))!.label).join("、")
+      : "未提供";
+    return { displayRef: node.nodeId, authority: node.authority, label: "模型评估", summary: `模型偏好：${preferred}`, relatedAction: null };
+  }
+  if (node.nodeKind === "Decision") {
+    return { displayRef: node.nodeId, authority: node.authority, label: "决策窗口", summary: "当前复盘条目的决策范围", relatedAction: actualActionDto(decision) };
+  }
+  if (node.nodeKind === "DeterministicPreference") {
+    const preferred = Array.isArray(payload.preferredActions)
+      ? payload.preferredActions.map((ref) => actionDto(decision, String(ref))!.label).join("、")
+      : "无单一偏好";
+    return { displayRef: node.nodeId, authority: node.authority, label: "确定性偏好信号", summary: preferred, relatedAction: null };
+  }
+  if (node.nodeKind === "Evidence") {
+    return { displayRef: node.nodeId, authority: node.authority, label: "证据来源", summary: "已验证的当前决策证据来源", relatedAction: null };
+  }
+  throw new Error("fixed_review_unavailable");
+}
+
 function countedTiles(tiles: readonly Tile[]): Array<{ tile: string; count: number | null }> {
   const counts = new Map<string, number>();
   for (const tile of tiles) counts.set(tileLabel(tile), (counts.get(tileLabel(tile)) ?? 0) + 1);
@@ -318,6 +345,17 @@ export function presentFixedReviewDetail(input: {
     const evidenceRefs = payload.claims.map((claim) => context.resolveDecisionRef(input.decisionId, claim.evidenceRef).nodeId);
     return { segments: explanationSegments(scoped.nodes, payload.text), evidenceRefs };
   });
+  const directlyRenderedRefs = new Set<string>();
+  for (const judgment of judgments) for (const ref of judgment.premiseRefs) directlyRenderedRefs.add(ref);
+  for (const node of scoped.nodes) {
+    if (node.nodeKind !== "CoachInference") continue;
+    const payload = node.payload as { premiseRefs?: unknown };
+    if (Array.isArray(payload.premiseRefs)) for (const ref of payload.premiseRefs) directlyRenderedRefs.add(String(ref));
+  }
+  const provenanceKinds = new Set(["KnownGameFact", "FactorDifference", "FactorFact", "CoachInference"]);
+  const referenceTargets = scoped.nodes
+    .filter((node) => directlyRenderedRefs.has(node.nodeId) && !provenanceKinds.has(node.nodeKind))
+    .map((node) => referenceTarget(node, decision));
   const provenance = scoped.nodes.filter((node) =>
     node.nodeKind === "KnownGameFact" || node.nodeKind === "FactorDifference" || node.nodeKind === "FactorFact" || node.nodeKind === "CoachInference"
   ).map((node) => {
@@ -349,6 +387,7 @@ export function presentFixedReviewDetail(input: {
     mortal: mortalActions(decision),
     coachJudgments: judgments,
     explanations,
+    referenceTargets,
     provenance,
     explanationStatus: explanationStatus(context.report, input.decisionId),
   }));

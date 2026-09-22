@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { RecordAnalysisStatusSchema } from "./analysis-identity-contract.js";
+import { GraphAuthoritySchema } from "./context-graph.js";
 import { ReviewSelectionReasonSchema, SELECTOR_POLICY_VERSION_V1 } from "./review-selection.js";
 
 export const FIXED_REVIEW_VIEW_SCHEMA_VERSION = "fixed-review-view/v1" as const;
@@ -56,6 +57,14 @@ export const RendererProvenanceItemSchema = z.object({
   producer: z.string().min(1),
   producerVersion: z.string().min(1),
   sourceRefs: z.array(z.string().min(1)),
+}).strict();
+
+export const RendererReferenceTargetSchema = z.object({
+  displayRef: z.string().min(1),
+  authority: GraphAuthoritySchema,
+  label: z.string().min(1),
+  summary: z.string().min(1),
+  relatedAction: RendererActionSchema.nullable(),
 }).strict();
 
 export const FixedReviewListItemSchema = z.object({
@@ -115,6 +124,7 @@ export const FixedReviewDetailSchema = z.object({
   mortal: z.array(RendererScoredActionSchema),
   coachJudgments: z.array(RendererCoachJudgmentSchema),
   explanations: z.array(RendererExplanationSchema),
+  referenceTargets: z.array(RendererReferenceTargetSchema),
   provenance: z.array(RendererProvenanceItemSchema),
   explanationStatus: FixedReviewExplanationStatusSchema,
 }).strict();

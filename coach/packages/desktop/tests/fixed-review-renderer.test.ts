@@ -108,6 +108,8 @@ describe("fixed review native DOM surface", () => {
     expect(html).toContain('id="open-review"');
     expect(app).toContain("await fixedReviewUi.open(packageId)");
     expect(app).toContain("fixedReviewUi.leave()");
+    expect(app).toContain('reviewEntryStatus.textContent = "正在打开整盘复盘…"');
+    expect(app).toContain('leaveReviewButton.hidden = true');
     for (const heading of ["局况 / 决策窗口", "我的行动", "Mortal 偏好", "模型分差 / 固定入选原因", "差异维度", "解说状态 / 详情"]) expect(source).toContain(heading);
     expect(source).not.toContain('["顺序", "局面"');
     expect(styles).toContain(".review-list td:nth-child(6)::before");

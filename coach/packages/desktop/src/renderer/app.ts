@@ -168,11 +168,14 @@ openReviewButton.addEventListener("click", () => {
       return;
     }
     openReviewButton.disabled = true;
+    leaveReviewButton.hidden = true;
+    reviewEntryStatus.textContent = "正在打开整盘复盘…";
     try {
       await fixedReviewUi.open(packageId);
       reviewEntryStatus.textContent = "已打开整盘复盘。";
       leaveReviewButton.hidden = false;
     } catch {
+      leaveReviewButton.hidden = true;
       reviewEntryStatus.textContent = "无法打开该分析包，请确认引用有效。";
     } finally {
       openReviewButton.disabled = false;

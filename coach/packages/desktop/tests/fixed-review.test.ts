@@ -186,6 +186,62 @@ describe("fixed review presenter", () => {
     expect(action({ kind: "ron", winningTile: { id: "5m", red: true }, targetActor: 1, responseEventRef: "e", winContext: "discard" })).toBe("荣和 赤5m");
   });
 
+  it("keeps every legal judgment and inference premise reachable without changing its authority", async () => {
+    const graph = projectContextGraph(pkg);
+    const decisionId = selection.selected[0]!.decisionId;
+    const scoped = graph.nodes.filter((node) => (node.payload as { decisionId?: string }).decisionId === decisionId);
+    const candidate = scoped.find((node) => node.nodeKind === "CandidateAction")!;
+    const evaluation = scoped.find((node) => node.nodeKind === "ModelEvaluation")!;
+    const generated = await generateReviewReport(graph, selection, respondingProvider({ decisions: [{
+      decisionId,
+      inferences: [{ localId: "inference-0", statement: "模型评价与候选行动共同支持这个判断。", premiseRefs: [candidate.nodeId, evaluation.nodeId] }],
+      judgment: {
+        localId: "judgment-0",
+        recommendation: (candidate.payload as { actionRef: string }).actionRef,
+        confidence: "medium",
+        premiseRefs: [candidate.nodeId, evaluation.nodeId, "inference-0"],
+      },
+    }] }), "2026-09-22T00:30:00.000Z");
+    expect(generated.generationStatus).toBe("complete");
+
+    const detail = presentFixedReviewDetail({ analysisPackage: pkg, selection, activeReport: generated, activeReportRefId: "premises", decisionId });
+    const targets = new Map([...detail.provenance, ...detail.referenceTargets].map((item) => [item.displayRef, item]));
+    expect(detail.coachJudgments[0]!.premiseRefs.every((ref) => targets.has(ref))).toBe(true);
+    expect(detail.referenceTargets).toEqual(expect.arrayContaining([
+      expect.objectContaining({ displayRef: candidate.nodeId, authority: "structural", label: "候选行动" }),
+      expect.objectContaining({ displayRef: evaluation.nodeId, authority: "model", label: "模型评估" }),
+    ]));
+    const inference = detail.provenance.find((item) => item.category === "coach_inference")!;
+    expect(inference.parentRefs).toEqual([candidate.nodeId, evaluation.nodeId]);
+    expect(inference.parentRefs.every((ref) => targets.has(ref))).toBe(true);
+
+    const dom = fakeDom();
+    const ui = createFixedReviewUi({
+      document: dom.document as unknown as Document,
+      root: dom.root as unknown as HTMLElement,
+      api: {
+        openReview: async () => presentFixedReviewSnapshot({ analysisPackage: pkg, selection, activeReport: generated, activeReportRefId: "premises" }),
+        getReviewDetail: async () => detail,
+      } as unknown as CoachDesktopApi,
+    });
+    await ui.open(pkg.packageId);
+    nodes(dom.root).find((node) => node.textContent === "查看复盘条目")!.listeners.get("click")!();
+    nodes(dom.root).find((node) => node.textContent === "查看详情")!.listeners.get("click")!();
+    await Promise.resolve(); await Promise.resolve();
+    const premiseButtons = nodes(dom.root).filter((node) => node.textContent === "查看判断依据");
+    expect(premiseButtons).toHaveLength(3);
+    for (const button of premiseButtons) {
+      button.listeners.get("click")!();
+      expect(dom.document.activeElement?.tagName).toBe("ARTICLE");
+    }
+    const parentButtons = nodes(dom.root).filter((node) => node.textContent === "查看父项");
+    expect(parentButtons).toHaveLength(2);
+    for (const button of parentButtons) {
+      button.listeners.get("click")!();
+      expect(dom.document.activeElement?.tagName).toBe("ARTICLE");
+    }
+  });
+
   it("supports not-generated evidence and fails closed outside selector scope", () => {
     const snapshot = presentFixedReviewSnapshot({ analysisPackage: pkg, selection });
     expect(snapshot.activeReportStatus).toBe("not_generated");
@@ -366,6 +422,50 @@ describe("fixed review presenter", () => {
     await Promise.resolve(); await Promise.resolve();
     expect(detailDom.root.hidden).toBe(true);
     expect(detailDom.root.textContent).toBe("");
+  });
+
+  it("replaces stale content with visible loading/unavailable states and recovers after open failure", async () => {
+    const snapshotA = presentFixedReviewSnapshot({ analysisPackage: pkg, selection });
+    const leaveReview = vi.fn(async () => ({ status: "acknowledged" as const }));
+    const dom = fakeDom();
+    dom.root.hidden = true;
+    const ui = createFixedReviewUi({
+      document: dom.document as unknown as Document,
+      root: dom.root as unknown as HTMLElement,
+      api: {
+        openReview: async ({ packageId }: { packageId: string }) => {
+          if (packageId === "missing") throw new Error("private backend prose");
+          return snapshotA;
+        },
+        leaveReview,
+      } as unknown as CoachDesktopApi,
+    });
+    await ui.open(pkg.packageId);
+    expect(dom.root.textContent).toContain("整盘复盘");
+
+    const failed = ui.open("missing");
+    expect(dom.root.hidden).toBe(false);
+    expect(dom.root.textContent).toBe("正在打开整盘复盘…");
+    expect(dom.root.textContent).not.toContain("整盘复盘查看复盘条目");
+    await expect(failed).rejects.toThrow(/^review_unavailable$/);
+    expect(leaveReview).toHaveBeenCalledWith({ packageId: pkg.packageId });
+    expect(dom.root.hidden).toBe(false);
+    expect(dom.root.textContent).toBe("无法打开整盘复盘，请稍后再试。");
+    expect(dom.root.textContent).not.toContain("查看复盘条目");
+
+    await ui.open(pkg.packageId);
+    expect(dom.root.textContent).toContain("整盘复盘");
+
+    const firstDom = fakeDom();
+    firstDom.root.hidden = true;
+    const firstUi = createFixedReviewUi({
+      document: firstDom.document as unknown as Document,
+      root: firstDom.root as unknown as HTMLElement,
+      api: { openReview: async () => { throw new Error("private backend prose"); } } as unknown as CoachDesktopApi,
+    });
+    await expect(firstUi.open("missing")).rejects.toThrow(/^review_unavailable$/);
+    expect(firstDom.root.hidden).toBe(false);
+    expect(firstDom.root.textContent).toBe("无法打开整盘复盘，请稍后再试。");
   });
 });
 

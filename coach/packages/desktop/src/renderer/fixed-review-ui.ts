@@ -24,6 +24,7 @@ const REASON_LABELS = {
 } as const;
 const TAG_LABELS = { efficiency: "效率", value: "价值", defense: "防守", placement: "顺位", option_value: "选择空间" } as const;
 const CONFIDENCE_LABELS = { high: "高", medium: "中", low: "低" } as const;
+const AUTHORITY_LABELS = { hard: "确定性证据", advisory: "参考信号", model: "模型评估", coach: "教练推断", structural: "结构引用" } as const;
 const WINDOW_LABELS: Readonly<Record<string, string>> = {
   self_turn: "自摸回合", discard_response: "对手打牌响应", kan_response: "杠响应",
   post_call_discard: "副露后打牌", post_riichi_discard: "立直宣言后打牌",
@@ -84,6 +85,19 @@ export function createFixedReviewUi(input: {
       button.addEventListener("click", () => evidenceTargets.get(ref)?.focus());
       return button;
     };
+    if (detail.referenceTargets.length > 0) {
+      const references = element(document, "section");
+      references.className = "review-reference-targets";
+      references.append(element(document, "h4", "判断引用目标"));
+      for (const item of detail.referenceTargets) {
+        const card = element(document, "article");
+        card.tabIndex = -1;
+        evidenceTargets.set(item.displayRef, card);
+        card.append(element(document, "p", `${AUTHORITY_LABELS[item.authority]} · ${item.label}${item.relatedAction === null ? "" : `（${item.relatedAction.label}）`}：${item.summary}`));
+        references.append(card);
+      }
+      comparison.append(references);
+    }
     for (const judgment of detail.coachJudgments) {
       const paragraph = element(document, "p", `${judgment.recommendation.label} · 把握度${CONFIDENCE_LABELS[judgment.confidence]} `);
       for (const ref of judgment.premiseRefs) paragraph.append(evidenceButton(ref, "查看判断依据"));
@@ -250,6 +264,16 @@ export function createFixedReviewUi(input: {
     input.root.append(overview, list);
   };
 
+  const renderOpenState = (message: string, role: "status" | "alert") => {
+    input.root.textContent = "";
+    input.root.hidden = false;
+    const state = element(document, "p", message);
+    state.className = role === "status" ? "review-loading" : "review-alert";
+    state.setAttribute("role", role);
+    state.setAttribute("aria-live", role === "status" ? "polite" : "assertive");
+    input.root.append(state);
+  };
+
   return Object.freeze({
     async open(packageId: string) {
       const epoch = ++viewEpoch;
@@ -258,13 +282,20 @@ export function createFixedReviewUi(input: {
       currentPackageId = packageId;
       operationId = null;
       snapshot = null;
-      if (previousOperationId !== null) await input.api.cancelGeneration({ operationId: previousOperationId });
-      if (previousPackageId !== null) await input.api.leaveReview({ packageId: previousPackageId });
+      renderOpenState("正在打开整盘复盘…", "status");
       try {
+        if (previousOperationId !== null) await input.api.cancelGeneration({ operationId: previousOperationId });
+        if (previousPackageId !== null) await input.api.leaveReview({ packageId: previousPackageId });
         const next = await input.api.openReview({ packageId });
         if (isCurrent(epoch, packageId)) render(next);
       } catch {
-        if (isCurrent(epoch, packageId)) showError("无法打开整盘复盘，请稍后再试。");
+        if (isCurrent(epoch, packageId)) {
+          snapshot = null;
+          operationId = null;
+          currentPackageId = null;
+          renderOpenState("无法打开整盘复盘，请稍后再试。", "alert");
+        }
+        throw new Error("review_unavailable");
       }
     },
     async leave() {
