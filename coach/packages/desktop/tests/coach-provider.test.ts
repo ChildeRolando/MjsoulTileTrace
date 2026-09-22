@@ -227,4 +227,27 @@ describe("main-process OpenAI-compatible provider and narrow generation seam", (
     expect(await generation).toEqual({ status: "failed", code: "operation_cancelled" });
     expect(http).not.toHaveBeenCalled();
   });
+
+  it("registers cancellation before the initial package read and never revives the left view", async () => {
+    let releaseRead!: (value: typeof pkg) => void;
+    let readStarted!: () => void;
+    const entered = new Promise<void>((resolve) => { readStarted = resolve; });
+    const pendingRead = new Promise<typeof pkg>((resolve) => { releaseRead = resolve; });
+    const http = vi.fn<typeof fetch>(async () => response());
+    const service = createCoachService({
+      credentials: { readKey: async () => KEY, importCredential: async () => undefined, clear: async () => undefined },
+      fetchImpl: http,
+      readPackage: async () => { readStarted(); return pendingRead; },
+      clock: () => now,
+    });
+    await service.configure(settings);
+    const generation = service.generateReview(pkg.packageId, "read-op");
+    await entered;
+    service.cancelGeneration("read-op");
+    service.leaveReview(pkg.packageId);
+    releaseRead(pkg);
+    expect(await generation).toEqual({ status: "failed", code: "operation_cancelled" });
+    expect(http).not.toHaveBeenCalled();
+    expect(() => service.getReviewDetail(pkg.packageId, decisionId, null)).toThrow(/^review_unavailable$/);
+  });
 });

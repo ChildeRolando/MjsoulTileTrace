@@ -46,7 +46,11 @@ export function createFixedReviewUi(input: {
 }) {
   let snapshot: FixedReviewSnapshotDto | null = null;
   let operationId: string | null = null;
+  let currentPackageId: string | null = null;
+  let viewEpoch = 0;
   const document = input.document;
+  const isCurrent = (epoch: number, packageId: string) =>
+    viewEpoch === epoch && currentPackageId === packageId;
 
   const showError = (message: string) => {
     const alert = element(document, "p", message);
@@ -130,6 +134,7 @@ export function createFixedReviewUi(input: {
 
   const render = (next: FixedReviewSnapshotDto) => {
     snapshot = next;
+    currentPackageId = next.packageId;
     input.root.textContent = "";
     input.root.hidden = false;
     const overview = element(document, "section");
@@ -182,20 +187,32 @@ export function createFixedReviewUi(input: {
       generate.addEventListener("click", () => void (async () => {
         generate.disabled = true;
         live.textContent = "正在生成教练解说…";
-        operationId = globalThis.crypto.randomUUID();
+        const requestEpoch = viewEpoch;
+        const requestPackageId = next.packageId;
+        const requestOperationId = globalThis.crypto.randomUUID();
+        operationId = requestOperationId;
         try {
-          const result = await input.api.generateReview({ packageId: next.packageId, operationId });
+          const result = await input.api.generateReview({ packageId: requestPackageId, operationId: requestOperationId });
+          if (!isCurrent(requestEpoch, requestPackageId) || operationId !== requestOperationId) return;
           if (result.status === "ready") render(result.snapshot);
           else showError("本次解说未生成，当前证据和已有内容保持不变。你可以稍后再试。");
-        } catch { showError("本次操作未完成，请稍后再试。"); }
-        finally { operationId = null; generate.disabled = false; }
+        } catch {
+          if (isCurrent(requestEpoch, requestPackageId) && operationId === requestOperationId) showError("本次操作未完成，请稍后再试。");
+        } finally {
+          if (isCurrent(requestEpoch, requestPackageId) && operationId === requestOperationId) {
+            operationId = null;
+            generate.disabled = false;
+          }
+        }
       })());
       overview.append(generate);
     }
     const list = element(document, "section");
     list.className = "review-list";
     list.hidden = true;
-    list.append(element(document, "h3", "复盘条目"));
+    const listHeading = element(document, "h3", "复盘条目");
+    listHeading.tabIndex = -1;
+    list.append(listHeading);
     if (next.selection.items.length === 0) list.append(element(document, "p", "当前策略未选出复盘条目。这不代表本局没有失误。"));
     else {
       const table = element(document, "table");
@@ -207,7 +224,15 @@ export function createFixedReviewUi(input: {
         const row = element(document, "tr");
         const open = element(document, "button", "查看详情");
         open.type = "button";
-        open.addEventListener("click", () => void input.api.getReviewDetail({ packageId: next.packageId, decisionId: item.decisionId, activeReportRefId: next.activeReportRefId }).then(renderDetail).catch(() => showError("无法打开这条复盘，请返回后重试。")));
+        open.addEventListener("click", () => void (async () => {
+          const requestEpoch = viewEpoch;
+          try {
+            const detail = await input.api.getReviewDetail({ packageId: next.packageId, decisionId: item.decisionId, activeReportRefId: next.activeReportRefId });
+            if (isCurrent(requestEpoch, next.packageId) && snapshot?.activeReportRefId === next.activeReportRefId) renderDetail(detail);
+          } catch {
+            if (isCurrent(requestEpoch, next.packageId)) showError("无法打开这条复盘，请返回后重试。");
+          }
+        })());
         const last = element(document, "td", `${EXPLANATION_LABELS[item.explanationStatus]} `); last.append(open);
         row.append(
           element(document, "td", `第 ${item.rank} 条 · 第 ${item.roundOrdinal + 1} 局 · ${WINDOW_LABELS[item.decisionWindowKind] ?? "决策窗口"}`),
@@ -226,12 +251,33 @@ export function createFixedReviewUi(input: {
   };
 
   return Object.freeze({
-    async open(packageId: string) { render(await input.api.openReview({ packageId })); },
+    async open(packageId: string) {
+      const epoch = ++viewEpoch;
+      const previousPackageId = currentPackageId;
+      const previousOperationId = operationId;
+      currentPackageId = packageId;
+      operationId = null;
+      snapshot = null;
+      if (previousOperationId !== null) await input.api.cancelGeneration({ operationId: previousOperationId });
+      if (previousPackageId !== null) await input.api.leaveReview({ packageId: previousPackageId });
+      try {
+        const next = await input.api.openReview({ packageId });
+        if (isCurrent(epoch, packageId)) render(next);
+      } catch {
+        if (isCurrent(epoch, packageId)) showError("无法打开整盘复盘，请稍后再试。");
+      }
+    },
     async leave() {
-      if (snapshot === null) return;
-      if (operationId !== null) await input.api.cancelGeneration({ operationId });
-      await input.api.leaveReview({ packageId: snapshot.packageId });
-      snapshot = null; operationId = null; input.root.textContent = ""; input.root.hidden = true;
+      const packageId = currentPackageId;
+      const cancelledOperationId = operationId;
+      viewEpoch += 1;
+      snapshot = null;
+      operationId = null;
+      currentPackageId = null;
+      input.root.textContent = "";
+      input.root.hidden = true;
+      if (cancelledOperationId !== null) await input.api.cancelGeneration({ operationId: cancelledOperationId });
+      if (packageId !== null) await input.api.leaveReview({ packageId });
     },
   });
 }

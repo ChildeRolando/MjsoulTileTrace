@@ -19,9 +19,8 @@ type ViewState = {
   selection: ReviewSelectionResult;
   reportRefs: ReportRef[];
   activeReportRefId: string | null;
-  epoch: number;
-  operations: Map<string, number>;
 };
+type Operation = { packageId: string; viewEpoch: number; cancelled: boolean };
 
 export function createFixedReviewController(input: {
   readPackage(packageId: string): Promise<unknown>;
@@ -29,7 +28,10 @@ export function createFixedReviewController(input: {
   createReportRefId?: () => string;
 }) {
   const views = new Map<string, ViewState>();
+  const viewEpochs = new Map<string, number>();
+  const operations = new Map<string, Operation>();
   const reportRefId = input.createReportRefId ?? randomUUID;
+  const viewEpoch = (packageId: string) => viewEpochs.get(packageId) ?? 0;
 
   const activeRef = (state: ViewState): ReportRef | null => {
     if (state.activeReportRefId === null) return null;
@@ -51,39 +53,50 @@ export function createFixedReviewController(input: {
     if (state === undefined) throw new Error("review_unavailable");
     return state;
   };
-  const open = async (packageId: string): Promise<FixedReviewSnapshotDto> => {
+  const open = async (
+    packageId: string,
+    expectedEpoch = viewEpoch(packageId),
+    isCurrent: () => boolean = () => viewEpoch(packageId) === expectedEpoch,
+  ): Promise<FixedReviewSnapshotDto> => {
+    const existing = views.get(packageId);
+    if (existing !== undefined) return snapshot(existing);
     const raw = await input.readPackage(packageId);
+    if (!isCurrent() || viewEpoch(packageId) !== expectedEpoch) throw new Error("operation_cancelled");
     validateStructuredAnalysisPackage(raw);
     const analysisPackage = StructuredAnalysisPackageSchema.parse(raw);
     if (analysisPackage.packageId !== packageId) throw new Error("review_unavailable");
-    const existing = views.get(packageId);
-    if (existing !== undefined) return snapshot(existing);
+    if (!isCurrent() || viewEpoch(packageId) !== expectedEpoch) throw new Error("operation_cancelled");
     const state: ViewState = {
       analysisPackage,
       selection: selectReviewDecisions(analysisPackage),
-      reportRefs: [], activeReportRefId: null, epoch: 0, operations: new Map(),
+      reportRefs: [], activeReportRefId: null,
     };
     const projected = snapshot(state);
+    if (!isCurrent() || viewEpoch(packageId) !== expectedEpoch) throw new Error("operation_cancelled");
     views.set(packageId, state);
     return projected;
   };
 
   const generate = async (packageId: string, operationId: string, firstGenerationOnly: boolean): Promise<FixedReviewOperationResult> => {
+    if (operations.has(operationId) || [...operations.values()].some((operation) => operation.packageId === packageId)) {
+      return { status: "failed", code: "generation_failed" };
+    }
+    const operation: Operation = { packageId, viewEpoch: viewEpoch(packageId), cancelled: false };
+    operations.set(operationId, operation);
+    const isCurrent = () => operations.get(operationId) === operation
+      && !operation.cancelled
+      && viewEpoch(packageId) === operation.viewEpoch;
     try {
       let state = views.get(packageId);
       if (state === undefined) {
-        await open(packageId);
+        await open(packageId, operation.viewEpoch, isCurrent);
         state = requireState(packageId);
       }
+      if (!isCurrent()) return { status: "failed", code: "operation_cancelled" };
       if (firstGenerationOnly && state.activeReportRefId !== null) return { status: "failed", code: "generation_failed" };
-      if (state.operations.size > 0 || [...views.values()].some((view) => view.operations.has(operationId))) {
-        return { status: "failed", code: "generation_failed" };
-      }
-      const epoch = ++state.epoch;
-      state.operations.set(operationId, epoch);
       const rawReport = await input.generateReport(state.analysisPackage, state.selection);
       const current = views.get(packageId);
-      if (current !== state || state.operations.get(operationId) !== epoch || state.epoch !== epoch) {
+      if (current !== state || !isCurrent()) {
         return { status: "failed", code: "operation_cancelled" };
       }
       const report = ReviewReportSchema.parse(rawReport);
@@ -98,12 +111,13 @@ export function createFixedReviewController(input: {
         generatedAt: report.generatedAt, report,
       }));
       state.activeReportRefId = nextRefId;
-      state.operations.delete(operationId);
       return { status: "ready", snapshot: nextSnapshot };
-    } catch {
-      const state = views.get(packageId);
-      state?.operations.delete(operationId);
-      return { status: "failed", code: "generation_failed" };
+    } catch (error) {
+      return !isCurrent() || (error instanceof Error && error.message === "operation_cancelled")
+        ? { status: "failed", code: "operation_cancelled" }
+        : { status: "failed", code: "generation_failed" };
+    } finally {
+      if (operations.get(operationId) === operation) operations.delete(operationId);
     }
   };
 
@@ -122,9 +136,8 @@ export function createFixedReviewController(input: {
     },
 
     cancelGeneration(operationId: string): void {
-      for (const state of views.values()) {
-        if (state.operations.delete(operationId)) state.epoch += 1;
-      }
+      const operation = operations.get(operationId);
+      if (operation !== undefined) operation.cancelled = true;
     },
 
     getReviewDetail(packageId: string, decisionId: string, requestedActiveRefId: string | null): FixedReviewDetailDto {
@@ -148,17 +161,15 @@ export function createFixedReviewController(input: {
         activeReport: matches[0]!.report, activeReportRefId: targetReportRefId,
       });
       state.activeReportRefId = targetReportRefId;
-      state.epoch += 1;
       return next;
     },
 
     leaveReview(packageId: string): void {
-      const state = views.get(packageId);
-      if (state !== undefined) {
-        state.epoch += 1;
-        state.operations.clear();
-        views.delete(packageId);
+      viewEpochs.set(packageId, viewEpoch(packageId) + 1);
+      for (const operation of operations.values()) {
+        if (operation.packageId === packageId) operation.cancelled = true;
       }
+      views.delete(packageId);
     },
 
     /** Test-only read view: immutable metadata, never exposed to renderer. */

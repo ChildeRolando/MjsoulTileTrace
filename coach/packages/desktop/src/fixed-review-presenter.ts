@@ -1,7 +1,9 @@
 import {
   FixedReviewDetailSchema, FixedReviewSnapshotSchema,
+  sortTilesCanonical,
   type FixedReviewDetailDto, type FixedReviewSnapshotDto,
-  type ReviewReport, type ReviewSelectionResult, type StructuredAnalysisPackage,
+  type ReviewReport, type ReviewSelectionResult, type RiichiAction,
+  type StructuredAnalysisPackage, type Tile,
 } from "@riichi-coach/contracts";
 import { composeReviewReadBackContext } from "@riichi-coach/reasoning";
 
@@ -14,23 +16,34 @@ const AXES = ["efficiency", "value", "defense", "placement", "option_value"] as 
 type ReadyDecision = Extract<StructuredAnalysisPackage["decisions"][number], { outcome: "analysis_ready" }>;
 type GraphNode = ReturnType<typeof composeReviewReadBackContext>["currentGraph"]["nodes"][number];
 
-function actionLabel(action: unknown): string {
-  if (action === null || typeof action !== "object" || Array.isArray(action)) return "未知行动";
-  const value = action as Record<string, unknown>;
-  const tile = (candidate: unknown): string => {
-    if (candidate && typeof candidate === "object" && !Array.isArray(candidate)) {
-      const id = (candidate as Record<string, unknown>).id;
-      if (typeof id === "string") return id;
-    }
-    return "";
-  };
-  const names: Record<string, string> = {
-    discard: "打牌", riichi_discard: "立直打牌", declare_riichi: "立直", tsumo: "自摸",
-    ron: "荣和", chi: "吃", pon: "碰", daiminkan: "大明杠", ankan: "暗杠", kakan: "加杠", none: "跳过",
-  };
-  const kind = typeof value.kind === "string" ? value.kind : "unknown";
-  const tileText = tile(value.tile) || tile(value.addedTile);
-  return `${names[kind] ?? "行动"}${tileText === "" ? "" : ` ${tileText}`}`;
+function tileLabel(tile: Tile): string {
+  return tile.red ? `赤${tile.id}` : tile.id;
+}
+
+function tileGroup(tiles: readonly Tile[]): string {
+  return sortTilesCanonical(tiles).map(tileLabel).join("-");
+}
+
+function assertNever(value: never): never {
+  throw new Error(`fixed_review_unavailable:${String(value)}`);
+}
+
+export function actionLabel(action: RiichiAction): string {
+  switch (action.kind) {
+    case "discard": return `打牌 ${tileLabel(action.tile)}`;
+    case "riichi_discard": return `立直打牌 ${tileLabel(action.tile)}`;
+    case "declare_riichi": return "立直";
+    case "chi": return `吃 ${tileGroup([action.calledTile, ...action.consumedTiles])}（鸣牌 ${tileLabel(action.calledTile)}）`;
+    case "pon": return `碰 ${tileGroup([action.calledTile, ...action.consumedTiles])}（鸣牌 ${tileLabel(action.calledTile)}）`;
+    case "daiminkan": return `大明杠 ${tileGroup([action.calledTile, ...action.consumedTiles])}（鸣牌 ${tileLabel(action.calledTile)}）`;
+    case "ankan": return `暗杠 ${tileGroup(action.tiles)}`;
+    case "kakan": return `加杠 ${tileLabel(action.addedTile)}`;
+    case "tsumo": return `自摸 ${tileLabel(action.winningTile)}`;
+    case "ron": return `荣和 ${tileLabel(action.winningTile)}`;
+    case "kyuushu_kyuuhai": return "九种九牌";
+    case "pass": return "过";
+    default: return assertNever(action);
+  }
 }
 
 function readyDecision(pkg: StructuredAnalysisPackage, decisionId: string): ReadyDecision {
@@ -115,6 +128,7 @@ const DIMENSION_LABELS: Readonly<Record<string, string>> = {
   overall_effective_tiles_remaining: "有效进张", wait_tiles_remaining: "听牌剩余张数",
   wait_tiles: "听牌牌种", ron_eligible_wait_count: "可荣牌种数", ron_eligible_wait_tiles: "可荣牌种",
   dora_count: "宝牌数", dama_point: "默听打点", shape_claims: "牌形组成", wait_details: "听牌明细",
+  discard_furiten: "舍牌振听", temporary_furiten: "同巡振听", riichi_furiten: "立直振听",
 };
 const UNIT_LABELS: Readonly<Record<string, string>> = {
   shanten: "向听", tiles_remaining: "张", tile_types: "种", points: "点", dora_count: "枚",
@@ -154,6 +168,9 @@ function evidenceValue(value: unknown, dimension: unknown): { value: string; til
     const unit = typeof item.unit === "string" ? (UNIT_LABELS[item.unit] ?? "") : "";
     return { value: `${item.value}${unit}`, tiles: [] };
   }
+  if (item.kind === "boolean" && typeof item.value === "boolean") {
+    return { value: item.value ? "是" : "否", tiles: [] };
+  }
   if (item.kind === "tile_counts" && Array.isArray(item.value)) {
     const tiles = item.value.map((entry) => {
       if (entry === null || typeof entry !== "object" || Array.isArray(entry)) throw new Error("fixed_review_unavailable");
@@ -184,12 +201,50 @@ function summarizeEvidence(node: GraphNode): string {
     const rendered = evidenceValue(payload.value, payload.dimension);
     return `${AXIS_LABELS[String(payload.axis)] ?? "候选事实"} · ${dimensionLabel(payload.dimension)}：${rendered.value}`;
   }
-  if (node.nodeKind === "KnownGameFact") return "牌谱记录与重放确认的当前局面事实";
+  if (node.nodeKind === "KnownGameFact") {
+    const concealed = Array.isArray(payload.concealedTiles) ? payload.concealedTiles.length : 0;
+    const riverCount = Array.isArray(payload.rivers)
+      ? payload.rivers.reduce((sum, river) => sum + (Array.isArray(river) ? river.length : 0), 0)
+      : 0;
+    return `局面事实：手牌 ${concealed} 张、公开牌河 ${riverCount} 张、自家${payload.selfRiichi === true ? "已" : "未"}立直`;
+  }
   return typeof payload.statement === "string" ? payload.statement : "教练基于当前证据形成的推断";
+}
+
+function countedTiles(tiles: readonly Tile[]): Array<{ tile: string; count: number | null }> {
+  const counts = new Map<string, number>();
+  for (const tile of tiles) counts.set(tileLabel(tile), (counts.get(tileLabel(tile)) ?? 0) + 1);
+  return [...counts].map(([tile, count]) => ({ tile, count }));
+}
+
+function knownGameFactDetails(payload: Record<string, unknown>) {
+  const facts = payload as unknown as ReadyDecision["knownGameFacts"];
+  const details = [
+    { label: "场风 / 自风", value: `${facts.roundWind}场 / ${facts.seatWind}家`, scope: "当前决策", tiles: [] },
+    { label: "自家立直", value: facts.selfRiichi ? "是" : "否", scope: "当前决策", tiles: [] },
+    { label: "手牌", value: `${facts.concealedTiles.length} 张`, scope: "当前决策", tiles: countedTiles(facts.concealedTiles) },
+    { label: "当前摸牌", value: facts.currentDraw === null ? "无" : tileLabel(facts.currentDraw.tile), scope: "当前决策", tiles: facts.currentDraw === null ? [] : countedTiles([facts.currentDraw.tile]) },
+    { label: "宝牌指示牌", value: facts.doraIndicators.length === 0 ? "无" : `${facts.doraIndicators.length} 张`, scope: "当前决策", tiles: countedTiles(facts.doraIndicators) },
+    { label: "剩余摸牌", value: facts.remainingDraws === null ? "未知" : `${facts.remainingDraws} 张`, scope: "当前决策", tiles: [] },
+  ];
+  facts.rivers.forEach((river, actor) => details.push({
+    label: `玩家 ${actor + 1} 牌河`,
+    value: river.length === 0 ? "无" : river.map((discard) => `${tileLabel(discard.tile)}${discard.tsumogiri ? "（摸切）" : "（手切）"}`).join("、"),
+    scope: "当前决策",
+    tiles: countedTiles(river.map((discard) => discard.tile)),
+  }));
+  facts.melds.forEach((meld, index) => details.push({
+    label: `副露 ${index + 1}`,
+    value: `${({ chi: "吃", pon: "碰", daiminkan: "大明杠", ankan: "暗杠", kakan: "加杠" } as const)[meld.kind]} ${tileGroup(meld.tiles)}`,
+    scope: "当前决策",
+    tiles: countedTiles(meld.tiles),
+  }));
+  return details;
 }
 
 function provenanceDetails(node: GraphNode, decision: ReadyDecision) {
   const payload = node.payload as Record<string, unknown>;
+  if (node.nodeKind === "KnownGameFact") return knownGameFactDetails(payload);
   if (node.nodeKind === "FactorFact") {
     const rendered = evidenceValue(payload.value, payload.dimension);
     return [{ label: dimensionLabel(payload.dimension), value: rendered.value, scope: scopeLabel(payload.dimension), tiles: rendered.tiles }];

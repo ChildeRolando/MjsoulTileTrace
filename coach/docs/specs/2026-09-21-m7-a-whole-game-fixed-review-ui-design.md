@@ -831,3 +831,20 @@ PR #15 通过同一独立评审并以 merge commit
   明细证据，以及不同 judgment/explanation 内容的 A→B→A 深比较；
   `coach-provider.test.ts` 覆盖排队取消，`fixed-review-renderer.test.ts` 覆盖生产入口与
   窄窗六组重排。上述回归是本轮九项 P2 的 durable enforcement。
+
+#### Review Loop 第 2 轮修复闭环（COAC-75）
+
+- controller 在首次异步 package 读取前登记 operation 与 view epoch；读取返回、生成前及
+  发布前均复核取消/离开状态。读取期间 cancel/leave 不调用 provider、不创建 ref、也不
+  重建已关闭 view；`coach-provider.test.ts` 以 deferred read 固化该回归。
+- renderer 的 open/detail/generate/leave 共享同一 view epoch。打开新 package 会先使旧请求
+  失效并执行旧 generation cancel/leave；所有成功、错误和 finally 回调只可修改所属的当前
+  package/ref/view。`fixed-review.test.ts` 固化 A 生成→打开 B→A 迟到、旧 detail 迟到和
+  leave 后返回均不再更新 DOM。
+- presenter 通过既有 `composeReviewReadBackContext` 的 same-decision allow-listed payload，
+  为 `KnownGameFact` 投影手牌、摸牌、牌河、立直、风位、宝牌、副露和剩余摸牌等窄明细；
+  FactorFact 的 boolean 明确区分“是”“否”，缺失仍为“暂不可用”。不向 DTO 开放任意 payload。
+- `RiichiAction` 行动文案改为穷尽类型投影：覆盖过、九种九牌、和牌及全部吃碰杠，并保留
+  赤牌、鸣牌与组成牌面，使 List/Detail 中易混淆的合法动作可区分。
+- List 标题显式 `tabindex=-1`，以真实 Chromium `activeElement` + DevTools 键盘 Enter
+  回归验证有条目与空 List 的焦点转移；FakeNode 的无条件 focused 布尔不再作为验收证据。

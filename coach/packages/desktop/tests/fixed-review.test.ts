@@ -1,10 +1,10 @@
 import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
-import { describe, expect, it } from "vitest";
-import { StructuredAnalysisPackageSchema, type CoachDesktopApi, type ContextGraph, type DecisionAnalysis, type ReviewReport, type ReviewSelectionResult, type StructuredAnalysisPackage } from "@riichi-coach/contracts";
+import { describe, expect, it, vi } from "vitest";
+import { RiichiActionSchema, StructuredAnalysisPackageSchema, type CoachDesktopApi, type ContextGraph, type DecisionAnalysis, type ReviewReport, type ReviewSelectionResult, type StructuredAnalysisPackage } from "@riichi-coach/contracts";
 import { generateReviewReport, projectContextGraph, selectReviewDecisions, validateStructuredAnalysisPackage } from "@riichi-coach/reasoning";
 import { createFixedReviewController } from "../src/fixed-review-controller.js";
-import { presentFixedReviewDetail, presentFixedReviewSnapshot } from "../src/fixed-review-presenter.js";
+import { actionLabel, presentFixedReviewDetail, presentFixedReviewSnapshot } from "../src/fixed-review-presenter.js";
 import { createFixedReviewUi } from "../src/renderer/fixed-review-ui.js";
 import { registerCoachIpc } from "../src/coach-ipc.js";
 import { createCoachPreloadApi } from "../src/session-api.js";
@@ -75,15 +75,16 @@ class FakeNode {
   hidden = false;
   className = "";
   id = "";
-  tabIndex = 0;
+  private assignedTabIndex: number | null = null;
   open = false;
   disabled = false;
-  focused = false;
   type = "";
   private ownText = "";
   readonly attributes = new Map<string, string>();
   readonly listeners = new Map<string, () => void>();
-  constructor(readonly tagName: string) {}
+  constructor(readonly tagName: string, private readonly document?: { activeElement: FakeNode | null }) {}
+  get tabIndex() { return this.assignedTabIndex ?? (this.tagName === "BUTTON" ? 0 : -1); }
+  set tabIndex(value: number) { this.assignedTabIndex = value; }
   get textContent() { return this.ownText + this.children.map((child) => child.textContent).join(""); }
   set textContent(value: string) { this.ownText = value; this.children = []; }
   append(...nodes: FakeNode[]) { for (const node of nodes) { node.parent = this; this.children.push(node); } }
@@ -99,16 +100,22 @@ class FakeNode {
     return null;
   }
   remove() { if (this.parent !== null) this.parent.children = this.parent.children.filter((child) => child !== this); }
-  focus() { this.focused = true; }
+  focus() {
+    if (this.document !== undefined && (this.tagName === "BUTTON" || this.assignedTabIndex !== null)) this.document.activeElement = this;
+  }
 }
 
 function nodes(root: FakeNode): FakeNode[] { return [root, ...root.children.flatMap(nodes)]; }
 
 function fakeDom() {
-  const root = new FakeNode("SECTION");
+  const documentState: { activeElement: FakeNode | null } = { activeElement: null };
+  const root = new FakeNode("SECTION", documentState);
   const document = {
-    createElement: (tag: string) => new FakeNode(tag.toUpperCase()),
-    createTextNode: (text: string) => { const node = new FakeNode("#TEXT"); node.textContent = text; return node; },
+    ...documentState,
+    get activeElement() { return documentState.activeElement; },
+    set activeElement(value: FakeNode | null) { documentState.activeElement = value; },
+    createElement: (tag: string) => new FakeNode(tag.toUpperCase(), documentState),
+    createTextNode: (text: string) => { const node = new FakeNode("#TEXT", documentState); node.textContent = text; return node; },
   };
   return { root, document };
 }
@@ -154,6 +161,29 @@ describe("fixed review presenter", () => {
     const ukeire = detail.provenance.find((item) => item.relatedAction !== null && item.summary.includes("有效进张") && item.details.some((entry) => entry.tiles.length > 0));
     expect(ukeire).toMatchObject({ relatedAction: { label: expect.any(String) } });
     expect(ukeire?.details.flatMap((entry) => entry.tiles)).toContainEqual({ tile: "5m", count: 3 });
+    const knownFact = detail.provenance.find((item) => item.label === "局面事实");
+    expect(knownFact?.summary).toContain("手牌 13 张");
+    expect(knownFact?.details).toEqual(expect.arrayContaining([
+      expect.objectContaining({ label: "手牌", value: "13 张" }),
+      expect.objectContaining({ label: "自家立直", value: "否" }),
+    ]));
+    const discardFuriten = detail.provenance.find((item) => item.label === "候选事实" && item.summary.includes("舍牌振听"));
+    expect(discardFuriten?.summary).toContain("否");
+  });
+
+  it("projects every canonical action with distinguishable tiles and red-five identity", () => {
+    const action = (value: unknown) => actionLabel(RiichiActionSchema.parse(value));
+    expect(action({ kind: "pass", responseEventRef: "e", responseKind: "discard" })).toBe("过");
+    expect(action({ kind: "kyuushu_kyuuhai", drawEventRef: "e" })).toBe("九种九牌");
+    expect(action({ kind: "discard", tile: { id: "5p", red: false }, discardMode: "tedashi" })).toBe("打牌 5p");
+    expect(action({ kind: "discard", tile: { id: "5p", red: true }, discardMode: "tedashi" })).toBe("打牌 赤5p");
+    const chi123 = action({ kind: "chi", calledTile: { id: "3m", red: false }, consumedTiles: [{ id: "1m", red: false }, { id: "2m", red: false }], targetActor: 1, responseEventRef: "e" });
+    const chi345 = action({ kind: "chi", calledTile: { id: "4m", red: false }, consumedTiles: [{ id: "3m", red: false }, { id: "5m", red: true }], targetActor: 1, responseEventRef: "e" });
+    expect(chi123).toContain("1m-2m-3m");
+    expect(chi345).toContain("3m-4m-赤5m");
+    expect(chi123).not.toBe(chi345);
+    expect(action({ kind: "ankan", tiles: Array.from({ length: 4 }, () => ({ id: "5s", red: false })) })).toBe("暗杠 5s-5s-5s-5s");
+    expect(action({ kind: "ron", winningTile: { id: "5m", red: true }, targetActor: 1, responseEventRef: "e", winContext: "discard" })).toBe("荣和 赤5m");
   });
 
   it("supports not-generated evidence and fails closed outside selector scope", () => {
@@ -189,11 +219,11 @@ describe("fixed review presenter", () => {
     expect(completeDetail.coachJudgments[0]!.premiseRefs.every((ref) => completeDetail.provenance.some((item) => item.displayRef === ref))).toBe(true);
     expect(completeDetail.explanations[0]!.evidenceRefs.every((ref) => completeDetail.provenance.some((item) => item.displayRef === ref))).toBe(true);
     nodes(dom.root).find((node) => node.textContent === "查看复盘条目")!.listeners.get("click")!();
-    expect(nodes(dom.root).find((node) => node.textContent === "复盘条目")?.focused).toBe(true);
+    expect(dom.document.activeElement?.textContent).toBe("复盘条目");
     nodes(dom.root).find((node) => node.textContent === "查看详情")!.listeners.get("click")!();
     await Promise.resolve(); await Promise.resolve();
     expect(dom.root.textContent).toContain("评分口径：Mortal 行动概率 × 100");
-    expect(nodes(dom.root).find((node) => node.textContent === "条目详情")?.focused).toBe(true);
+    expect(dom.document.activeElement?.textContent).toBe("条目详情");
 
     const twoBase = structuredClone(pkg);
     const readyClone = structuredClone(twoBase.decisions[0]!);
@@ -281,6 +311,61 @@ describe("fixed review presenter", () => {
       expect(boundaryDom.root.textContent).toContain(visible);
       boundary.dispose();
     }
+  });
+
+  it("discards stale generation and detail callbacks across open/leave view epochs", async () => {
+    const complete = await generateReviewReport(projectContextGraph(pkg), selection, respondingProvider(draftFor(projectContextGraph(pkg), selection)), "2026-09-22T06:00:00.000Z");
+    const snapshotA = presentFixedReviewSnapshot({ analysisPackage: pkg, selection });
+    const snapshotB = { ...snapshotA, packageId: "package-b" };
+    let releaseGeneration!: (value: { status: "ready"; snapshot: typeof snapshotA }) => void;
+    const pendingGeneration = new Promise<{ status: "ready"; snapshot: typeof snapshotA }>((resolve) => { releaseGeneration = resolve; });
+    const leaveReview = vi.fn(async () => ({ status: "acknowledged" as const }));
+    const cancelGeneration = vi.fn(async () => ({ status: "acknowledged" as const }));
+    const dom = fakeDom();
+    const ui = createFixedReviewUi({
+      document: dom.document as unknown as Document,
+      root: dom.root as unknown as HTMLElement,
+      api: {
+        openReview: async ({ packageId }: { packageId: string }) => packageId === pkg.packageId ? snapshotA : snapshotB,
+        generateReview: async () => pendingGeneration,
+        cancelGeneration,
+        leaveReview,
+      } as unknown as CoachDesktopApi,
+    });
+    await ui.open(pkg.packageId);
+    nodes(dom.root).find((node) => node.textContent === "生成教练解说")!.listeners.get("click")!();
+    await Promise.resolve();
+    await ui.open("package-b");
+    expect(cancelGeneration).toHaveBeenCalledTimes(1);
+    expect(leaveReview).toHaveBeenCalledWith({ packageId: pkg.packageId });
+    releaseGeneration({ status: "ready", snapshot: { ...snapshotA, activeReportStatus: "complete" } });
+    await Promise.resolve(); await Promise.resolve();
+    expect(dom.root.textContent).toContain("整盘复盘");
+    expect(dom.root.textContent).toContain("尚未生成教练解说");
+    expect(dom.root.textContent).not.toContain("入选条目的解说齐全");
+
+    const detail = presentFixedReviewDetail({ analysisPackage: pkg, selection, activeReport: complete, activeReportRefId: "detail-ref", decisionId: selection.selected[0]!.decisionId });
+    const detailSnapshot = presentFixedReviewSnapshot({ analysisPackage: pkg, selection, activeReport: complete, activeReportRefId: "detail-ref" });
+    let releaseDetail!: (value: typeof detail) => void;
+    const pendingDetail = new Promise<typeof detail>((resolve) => { releaseDetail = resolve; });
+    const detailDom = fakeDom();
+    const detailUi = createFixedReviewUi({
+      document: detailDom.document as unknown as Document,
+      root: detailDom.root as unknown as HTMLElement,
+      api: {
+        openReview: async () => detailSnapshot,
+        getReviewDetail: async () => pendingDetail,
+        leaveReview: async () => ({ status: "acknowledged" as const }),
+      } as unknown as CoachDesktopApi,
+    });
+    await detailUi.open(pkg.packageId);
+    nodes(detailDom.root).find((node) => node.textContent === "查看复盘条目")!.listeners.get("click")!();
+    nodes(detailDom.root).find((node) => node.textContent === "查看详情")!.listeners.get("click")!();
+    await detailUi.leave();
+    releaseDetail(detail);
+    await Promise.resolve(); await Promise.resolve();
+    expect(detailDom.root.hidden).toBe(true);
+    expect(detailDom.root.textContent).toBe("");
   });
 });
 
