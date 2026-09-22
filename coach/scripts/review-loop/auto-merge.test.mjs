@@ -2,6 +2,7 @@ const test = process.env.VITEST === 'true' ? (await import('vitest')).test : (aw
 import assert from 'node:assert/strict';
 import { GATES, hash } from './protocol.mjs';
 import { buildEligibility, advanceAutoMerge, validateAutoMergeConfig } from './auto-merge.mjs';
+import { advanceDurability } from './controller.mjs';
 
 const sha=n=>String(n).repeat(40),admission={protocol_version:'review-loop/v2.1',authoritative_spec_paths:['coach/docs/specs/x.md'],rubric:'x'};
 const config=(enabled=true)=>({enabled:true,auto_merge:{version:1,enabled,expected_actor:{login:'merge-bot',id:7}}});
@@ -90,7 +91,7 @@ test('external merge, incomplete read-back and P3 durability are preserved',asyn
   await advanceAutoMerge(bad.state,bad.live,{...io,live:async()=>({...evidence.pr,state:'closed',merged:true,merged_at:null,merge_commit_sha:null})},config());assert.equal(bad.state.merge.status,'WAITING_READ_BACK');
 });
 
-test('merged terminal fact wins over an advanced base and is attributed by actor, not request_attempted',async()=>{
+test('merged terminal fact wins over an advanced base and requires a persisted request for attribution',async()=>{
   for(const [actor,status] of [[{login:'merge-bot',id:7},'MERGED'],[{login:'external-human',id:99},'MERGED_EXTERNALLY']]) {
     const {live,state,evidence}=fixture();state.merge={status:'REQUESTING',intent:{attempt_id:'a',pr_number:8,base_sha:live.base_sha,head_sha:live.head_sha,admission_hash:live.admission_hash,actor:evidence.actor,request_attempted:true}};
     const advanced={...live,base_sha:sha(9)};
@@ -98,6 +99,13 @@ test('merged terminal fact wins over an advanced base and is attributed by actor
     let evidenceReads=0;await advanceAutoMerge(state,advanced,{save:async()=>{},live:async()=>raw,verifyMergeCommit:async()=>{},mergeEvidence:async()=>{evidenceReads++;}},config());
     assert.equal(state.merge.status,status);assert.equal(evidenceReads,0);
   }
+});
+
+test('same-account external merge before the request is not attributed to the intent',async()=>{
+  const {live,state,evidence}=fixture();state.merge={status:'INTENT_SAVED',intent:{attempt_id:'a',pr_number:8,base_sha:live.base_sha,head_sha:live.head_sha,admission_hash:live.admission_hash,actor:evidence.actor,request_attempted:false}};
+  const raw={...evidence.pr,state:'closed',merged:true,merged_at:'2026-09-22T00:00:00Z',merge_commit_sha:sha(4),merged_by:evidence.actor};
+  await advanceAutoMerge(state,live,{save:async()=>{},live:async()=>raw,verifyMergeCommit:async()=>{}},config(false));
+  assert.equal(state.merge.status,'MERGED_EXTERNALLY');
 });
 
 test('recoverable intent states rebuild eligibility and reuse the same expected-HEAD intent',async()=>{
@@ -125,4 +133,38 @@ test('a retry waits through pending checks and resumes when the same proof becom
     live:async()=>merged?{...evidence.pr,state:'closed',merged:true,merged_at:'2026-09-22T00:00:00Z',merge_commit_sha:sha(4),merged_by:evidence.actor}:structuredClone(evidence.pr),verifyMergeCommit:async()=>{}};
   await advanceAutoMerge(state,live,io,config());assert.equal(state.merge.status,'WAITING_ELIGIBILITY');assert.equal(writes,0);
   pending=false;await advanceAutoMerge(state,live,io,config());assert.equal(state.merge.status,'MERGED');assert.equal(writes,1);
+});
+
+test('durability identity conflict reached through production advancement blocks merge writes',async()=>{
+  const {live,state,evidence}=fixture();let writes=0;
+  state.durability=[{kind:'durability',identity:'p3',agent_id:'fixer',issue_id:'durable',prepared_at:'prepared',status:'WAITING'}];
+  const io={save:async()=>{},runs:async()=>[],issue:async()=>({id:'durable',assignee_type:'agent',assignee_id:'different-agent'}),comments:async()=>[],
+    mergeEvidence:async()=>structuredClone(evidence),live:async()=>structuredClone(evidence.pr),verifyMergeCommit:async()=>{},merge:async()=>{writes++;}};
+  await advanceDurability(state,io,{});assert.equal(state.durability[0].status,'DURABLE_KNOWLEDGE_BLOCKED');
+  await advanceAutoMerge(state,live,io,config());assert.equal(writes,0);assert.equal(state.merge.status,'WAITING_ELIGIBILITY');
+  assert.match(state.merge.eligibility.reason,/durability identity blocked/);
+});
+
+test('invalidated old candidate is archived and a fresh reviewed candidate gets a new intent',async()=>{
+  const {live,state,evidence}=fixture();let writes=0,merged=false;
+  state.merge={status:'INVALIDATED',reason:'candidate changed',intent:{attempt_id:'old-attempt',repository:'ChildeRolando/MjsoulTileTrace',pr_number:8,
+    base_sha:sha(9),head_sha:sha(8),method:'merge',admission_hash:live.admission_hash,actor:evidence.actor,
+    review:{issue_id:'old-review',run_id:'old-run',comment_id:'old-comment',sha256:'b'.repeat(64)},request_attempted:true}};
+  const io={save:async()=>{},mergeEvidence:async()=>structuredClone(evidence),merge:async()=>{writes++;merged=true;return {merged:true,sha:sha(4)};},
+    live:async()=>merged?{...evidence.pr,state:'closed',merged:true,merged_at:'2026-09-22T00:00:00Z',merge_commit_sha:sha(4),merged_by:evidence.actor}:structuredClone(evidence.pr),verifyMergeCommit:async()=>{}};
+  await advanceAutoMerge(state,live,io,config());assert.equal(state.merge.status,'MERGED');assert.equal(writes,1);
+  assert.notEqual(state.merge.intent.attempt_id,'old-attempt');assert.equal(state.merge.intent.head_sha,live.head_sha);
+  assert.equal(state.history.find(h=>h.event === 'merge_intent_archived')?.attempt_id,'old-attempt');
+});
+
+test('retry persists refreshed eligibility when optional checks or check metadata change',async()=>{
+  const {live,state,evidence}=fixture();let writes=0,merged=false,variant=0;
+  state.merge={status:'RETRY_IO',intent:{attempt_id:'same-attempt',repository:'ChildeRolando/MjsoulTileTrace',pr_number:8,base_sha:live.base_sha,head_sha:live.head_sha,
+    method:'merge',admission_hash:live.admission_hash,actor:evidence.actor,review:{issue_id:'review',run_id:'run',comment_id:'comment',sha256:'a'.repeat(64)},
+    evidence_sha256:buildEligibility(state,live,evidence,config()).evidence_sha256,request_attempted:true}};
+  const io={save:async()=>{},mergeEvidence:async()=>{const e=structuredClone(evidence);e.statuses=[{context:'optional',state:'success',description:`rerun-${variant++}`}];return e;},
+    merge:async()=>{writes++;merged=true;return {merged:true,sha:sha(4)};},live:async()=>merged?{...evidence.pr,state:'closed',merged:true,merged_at:'2026-09-22T00:00:00Z',merge_commit_sha:sha(4),merged_by:evidence.actor}:structuredClone(evidence.pr),verifyMergeCommit:async()=>{}};
+  await advanceAutoMerge(state,live,io,config());assert.equal(state.merge.status,'MERGED');assert.equal(writes,1);
+  assert.equal(state.merge.intent.attempt_id,'same-attempt');assert.equal(state.merge.intent.validations.length,1);
+  assert.notEqual(state.merge.intent.validations[0].evidence_sha256,state.merge.intent.evidence_sha256);
 });

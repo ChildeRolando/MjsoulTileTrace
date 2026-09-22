@@ -61,13 +61,18 @@ export function buildEligibility(state,live,evidence,config) {
   try {
     const a=validateAutoMergeConfig(config),job=state.job,proof=state.result;
     if(state.status !== 'PASS' || job?.kind !== 'review')return deny('trusted review PASS missing');
+    const blockedDurability=(state.durability ?? []).find(j=>j.status === 'DURABLE_KNOWLEDGE_BLOCKED');
+    if(blockedDurability)return deny('durability identity blocked',{identity:blockedDurability.identity ?? null});
     if(live.pr_number !== state.pr_number || live.head_sha !== job.head_sha || live.base_sha !== job.base_sha)return deny('stale base/head');
     if(live.admission_hash !== state.admission_hash || job.admission_hash !== state.admission_hash)return deny('admission mismatch');
     if(!proof || proof.verdict !== 'NO_P1_P2' || proof.head_sha !== job.head_sha || proof.base_sha !== job.base_sha
       || proof.issue_id !== job.issue_id || !proof.run_id || !proof.comment_id || !/^[a-f0-9]{64}$/.test(proof.sha256 ?? ''))return deny('review proof incomplete');
     if(!Array.isArray(proof.gates) || proof.gates.length !== 5 || proof.gates.some(g=>GATES[g.id] !== g.command || g.status !== 'PASS' || g.exit_code !== 0))return deny('review gates not PASS');
     if((proof.findings?.P1?.length ?? -1) !== 0 || (proof.findings?.P2?.length ?? -1) !== 0)return deny('P1/P2 present');
-    const pr=evidence.pr,current=admit(pr);
+    const pr=evidence.pr;
+    let current;
+    try {current=admit(pr);}
+    catch {return deny('admission invalid');}
     if(pr?.number !== state.pr_number || pr.state !== 'open' || pr.draft !== false || pr.merged === true)return deny('PR not open and ready');
     if(pr.base?.repo?.full_name !== REPOSITORY || pr.head?.repo?.full_name !== REPOSITORY)return deny('repository mismatch');
     if(current.base_sha !== job.base_sha || current.head_sha !== job.head_sha || current.base_branch !== live.base_branch)return deny('candidate changed during eligibility');
@@ -94,7 +99,10 @@ async function reconcile(state,io) {
     const actor=raw.merged_by ? {login:raw.merged_by.login,id:raw.merged_by.id} : null;
     if(!actor || typeof actor.login !== 'string' || !Number.isSafeInteger(actor.id))throw new Error('merge actor read-back incomplete');
     if(!intent.actor || typeof intent.actor.login !== 'string' || !Number.isSafeInteger(intent.actor.id))throw new Error('merge intent actor incomplete');
-    const ours=exactActor(actor,intent.actor);
+    // The actor alone cannot attribute a merge to this intent: the same account
+    // may be used by an operator or another process. A persisted request record
+    // is the minimum evidence that this controller could have caused it.
+    const ours=intent.request_attempted === true && exactActor(actor,intent.actor);
     if(ours && intent.response?.sha && intent.response.sha !== raw.merge_commit_sha)throw new Error('merge response/read-back mismatch');
     state.merge.status=ours ? 'MERGED' : 'MERGED_EXTERNALLY';
     state.merge.read_back={at:now(),merged_at:raw.merged_at,merge_commit_sha:raw.merge_commit_sha,head_sha:raw.head.sha,actor};
@@ -110,9 +118,28 @@ async function reconcile(state,io) {
   return false;
 }
 
+function freshCandidateReplacesInvalidatedIntent(state) {
+  const intent=state.merge?.intent,job=state.job,proof=state.result;
+  if(state.merge?.status !== 'INVALIDATED' || !intent || state.status !== 'PASS' || job?.kind !== 'review' || !proof)return false;
+  const sameCandidate=intent.base_sha === job.base_sha && intent.head_sha === job.head_sha && intent.admission_hash === job.admission_hash;
+  const sameReview=intent.review?.issue_id === proof.issue_id && intent.review?.run_id === proof.run_id
+    && intent.review?.comment_id === proof.comment_id && intent.review?.sha256 === proof.sha256;
+  return !sameCandidate || !sameReview;
+}
+
+function validation(proof,phase) {
+  return {phase,checked_at:now(),evidence_sha256:proof.evidence_sha256,required_checks:structuredClone(proof.required_checks ?? [])};
+}
+
 export async function advanceAutoMerge(state,live,io,config) {
   const a=validateAutoMergeConfig(config);
   state.merge ??={status:'NONE'};
+  if(freshCandidateReplacesInvalidatedIntent(state)) {
+    state.history.push({event:'merge_intent_archived',at:now(),attempt_id:state.merge.intent.attempt_id,
+      status:state.merge.status,merge:structuredClone(state.merge)});
+    state.merge={status:'NONE'};
+    await io.save(state);
+  }
   try {if(await reconcile(state,io))return;}
   catch(e) {state.merge.status=e.transport ? 'RETRY_IO' : 'WAITING_READ_BACK';state.merge.reason=String(e.message).slice(0,200);await io.save(state);return;}
   if(!a.enabled)return;
@@ -128,7 +155,8 @@ export async function advanceAutoMerge(state,live,io,config) {
   }
   if(!state.merge.intent) {
     state.merge.intent={attempt_id:randomUUID(),repository:REPOSITORY,pr_number:state.pr_number,base_sha:live.base_sha,head_sha:live.head_sha,method:'merge',admission_hash:live.admission_hash,
-      actor:{...evidence.actor},review:{issue_id:state.result.issue_id,run_id:state.result.run_id,comment_id:state.result.comment_id,sha256:state.result.sha256},evidence_sha256:eligibility.evidence_sha256,created_at:now(),request_attempted:false};
+      actor:{...evidence.actor},review:{issue_id:state.result.issue_id,run_id:state.result.run_id,comment_id:state.result.comment_id,sha256:state.result.sha256},
+      evidence_sha256:eligibility.evidence_sha256,validations:[validation(eligibility,'intent')],created_at:now(),request_attempted:false};
     state.merge.status='INTENT_SAVED';state.history.push({event:'merge_intent',...state.merge.intent});await io.save(state);
   }
   // Re-read the complete proof immediately before the only write.
@@ -136,7 +164,16 @@ export async function advanceAutoMerge(state,live,io,config) {
   try {current=await io.mergeEvidence(state.pr_number,live.base_branch);}
   catch(e) {state.merge.status=e.permission ? 'BLOCKED_PERMISSION' : 'RETRY_IO';state.merge.reason=String(e.message).slice(0,200);await io.save(state);return;}
   const proof=buildEligibility(state,live,current,config);
-  if(!proof.eligible || proof.evidence_sha256 !== state.merge.intent.evidence_sha256) {state.merge.status='INVALIDATED';state.merge.reason=proof.reason ?? 'eligibility evidence changed';await io.save(state);return;}
+  if(!proof.eligible) {
+    state.merge.status=/candidate|admission/.test(proof.reason) ? 'INVALIDATED' : 'WAITING_ELIGIBILITY';
+    state.merge.reason=proof.reason;await io.save(state);return;
+  }
+  // Eligibility evidence is live and may legitimately change between retries
+  // (for example an optional check rerun). Keep the candidate/review/method
+  // immutable, but atomically append each complete proof before a merge write.
+  state.merge.intent.validations ??=[];
+  state.merge.intent.validations.push(validation(proof,'pre_write'));
+  state.merge.status='ELIGIBILITY_SAVED';await io.save(state);
   state.merge.intent.request_attempted=true;state.merge.intent.requested_at=now();state.merge.status='REQUESTING';await io.save(state);
   try {
     const response=await io.merge(state.pr_number,state.merge.intent.head_sha);
