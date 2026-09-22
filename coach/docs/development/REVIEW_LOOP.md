@@ -31,9 +31,15 @@ durability follow-up 提交不自动合并，owner 可以从 receipt 的 branch/
 
 权威契约见 spec 的“COAC-65：独立评审 PASS 后自动合并”。COAC-66 候选已在同一
 Controller/runtime、`pr-N.json`、deployment lock 和 Autopilot 内实现 fail-closed merge
-阶段；`auto_merge` 配置独立版本化且示例默认 `enabled=false`。截至本节落盘时，生产仍是
-Review Loop v2.1 的评审/修复/durability 部署，**该候选尚未取得独立评审 PASS、人工合并、
-disabled 部署或生产启用**；现有生产 PASS 不会自行合并 PR。
+阶段；`auto_merge` 配置独立版本化且示例默认 `enabled=false`。2026-09-22 的 COAC-71
+round 3 对候选 `776bc3e1434ae4c2c2a68f03681ebcc653715bac` 给出
+`CHANGES_REQUIRED`：required commit-status 历史尚未按 context 归一化为最新状态，且明确
+merge 请求失败后的同账号外部合并仍可能被误归属为 Controller 成功。Controller 已在默认
+三轮上限记录 `BLOCKED`，GitHub `Review Loop v2` 状态为 failure。因没有可信独立 PASS，
+**PR #16 未人工合并，也未执行 disabled 部署、受控验收或生产启用**；生产继续运行既有
+Review Loop v2.1，`auto_merge.enabled=false`，现有生产 PASS 不会自行合并 PR。恢复交付前
+必须先在现有 owner/test 中修复上述两项并取得重新授权的 fresh independent PASS；不得以
+旧轮次结果或人工声明放行。
 
 候选把最后一次严格解析的 review result 的 issue/run/comment/raw hash、五门结果、base/head
 和零 P1/P2 证明固化到原 ledger；每次写前以 GitHub 实时 PR、repository merge policy、
