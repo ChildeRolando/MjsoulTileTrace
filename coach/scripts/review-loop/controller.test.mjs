@@ -157,7 +157,7 @@ function rejectedFourth() {
   s.round=4;s.status='BLOCKED';s.reason='contradictory verdict';
   s.job={...s.job,round:4,issue_id:'fourth-review'};
   const result={comment_id:'fourth-comment',run_id:'fourth-run',sha256:'e'.repeat(64),rejection_reason:'contradictory verdict'};
-  const request={pr_number:8,round:4,review_issue_id:'fourth-review',comment_id:'fourth-comment',run_id:'fourth-run',raw_review_sha256:'e'.repeat(64),review_base_sha:s.job.base_sha,review_head_sha:s.job.head_sha,approval_ref:'fifth approved'};
+  const request={pr_number:8,round:4,review_issue_id:'fourth-review',comment_id:'fourth-comment',run_id:'fourth-run',raw_review_sha256:'e'.repeat(64),review_base_sha:s.job.base_sha,review_head_sha:s.job.head_sha,current_base_sha:s.job.base_sha,current_head_sha:'f'.repeat(40),approval_ref:'fifth approved'};
   return {s,result,request};
 }
 test('invalid terminal review recovery preserves the rejection and grants only one fifth review',()=>{

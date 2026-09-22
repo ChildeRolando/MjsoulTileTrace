@@ -142,9 +142,10 @@ async function invalidReviewRecoveryFixture(dir) {
   const comment={id:'fourth-comment',author_type:'agent',author_id:'reviewer',issue_id:'fourth-review',source_task_id:'fourth-run',content:'review\n```review-loop-result\n'+JSON.stringify(result)+'\n```'};
   const request={protocol_version:VERSION,pr_number:8,review_issue_id:'fourth-review',comment_id:comment.id,run_id:comment.source_task_id,raw_review_sha256:hash(comment.content),review_base_sha:base,review_head_sha:reviewHead,round:4,current_base_sha:base,current_head_sha:currentHead,approval_ref:'COAC-79 user-approved fifth review'};
   await atomicJson(path.join(dir,'pr-8.json'),state);
-  let creates=0,archives=0;
-  const io={live:async()=>raw,snapshot:async()=>({semantics:'test',sha256:hash(currentHead)}),save:s=>atomicJson(path.join(dir,'pr-8.json'),s),issue:async()=>({id:'fourth-review',assignee_type:'agent',assignee_id:'reviewer'}),comments:async()=>[comment],runs:async()=>[{id:'fourth-run',issue_id:'fourth-review',agent_id:'reviewer',status:'completed'}],archiveResult:async()=>{archives++;},prepare:async()=>path.join(dir,'review-5'),issues:async()=>[],checkSpecs:async()=>{},create:async job=>{creates++;return {id:'fifth-review',identifier:'COAC-80',title:job.title,description:job.description,assignee_id:'reviewer',assignee_type:'agent',project_id:'project'};},publish:async()=>{}};
-  return {request,io,get creates(){return creates;},get archives(){return archives;}};
+  let creates=0,archives=0;const issues=[];
+  let observed=raw;
+  const io={openPRs:async()=>[observed],live:async()=>observed,snapshot:async value=>({semantics:'test',sha256:hash(value.head.sha)}),save:s=>atomicJson(path.join(dir,'pr-8.json'),s),issue:async()=>({id:'fourth-review',assignee_type:'agent',assignee_id:'reviewer'}),comments:async()=>[comment],runs:async()=>[{id:'fourth-run',issue_id:'fourth-review',agent_id:'reviewer',status:'completed'}],archiveResult:async()=>{archives++;},prepare:async()=>path.join(dir,'review-5'),issues:async()=>issues,checkSpecs:async()=>{},create:async job=>{creates++;const issue={id:'fifth-review',identifier:'COAC-80',title:job.title,description:job.description,assignee_id:'reviewer',assignee_type:'agent',project_id:'project'};issues.push(issue);return issue;},publish:async()=>{}};
+  return {request,io,result,comment,issues,setLiveHead(head){observed=pr(head,base);},get creates(){return creates;},get archives(){return archives;}};
 }
 test('operator recovery is lock-serialized, rejects stale candidates, and dispatches exactly one fifth review',async()=>{
   const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-invalid-recovery-'));
@@ -161,6 +162,69 @@ test('operator recovery is lock-serialized, rejects stale candidates, and dispat
     assert.equal(saved.history.filter(e=>e.event==='authorize_extra_review').length,2);
     await assert.rejects(()=>recoverInvalidReview(disabled,fixture.request,()=>fixture.io),/unsupported review-result rejection|contradictory terminal review|already recovered/);
     assert.equal(fixture.creates,1);
+  } finally {await rm(dir,{recursive:true,force:true});}
+});
+
+test('operator recovery persists its exact candidate across preparation failure and never rebinds',async()=>{
+  const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-recovery-candidate-'));
+  try {
+    const fixture=await invalidReviewRecoveryFixture(dir),disabled={...config(dir),enabled:false};
+    let failPrepare=true;
+    fixture.io.prepare=async()=>{if(failPrepare){failPrepare=false;throw new Error('prepare interrupted');}return path.join(dir,'review-5');};
+    await assert.rejects(()=>recoverInvalidReview(disabled,fixture.request,()=>fixture.io),/prepare interrupted/);
+    const interrupted=JSON.parse(await readFile(path.join(dir,'pr-8.json'),'utf8'));
+    assert.deepEqual({base_sha:interrupted.recovery_candidate.base_sha,head_sha:interrupted.recovery_candidate.head_sha},{base_sha:fixture.request.current_base_sha,head_sha:fixture.request.current_head_sha});
+    assert.equal(interrupted.pending.head_sha,fixture.request.current_head_sha);
+
+    fixture.setLiveHead('e'.repeat(40));
+    const drifted=await tick(config(dir),()=>fixture.io);
+    assert.equal(drifted.prs[0].status,'BLOCKED');assert.match(drifted.prs[0].reason,/approved recovery candidate changed/);
+    assert.equal(fixture.creates,0);
+
+    fixture.setLiveHead(fixture.request.current_head_sha);
+    const repeated=await tick(config(dir),()=>fixture.io);
+    assert.equal(repeated.prs[0].status,'BLOCKED');assert.match(repeated.prs[0].reason,/approved recovery candidate.*invalidated/);
+    assert.equal(fixture.creates,0,'a stale authorization must not become reusable when the old SHA returns');
+  } finally {await rm(dir,{recursive:true,force:true});}
+});
+
+test('operator recovery rejects invalid verdict schema without authorization or dispatch',async()=>{
+  for(const verdict of ['BOGUS',42,null]) {
+    const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-recovery-verdict-'));
+    try {
+      const fixture=await invalidReviewRecoveryFixture(dir),disabled={...config(dir),enabled:false};
+      fixture.result.verdict=verdict;
+      fixture.comment.content='review\n```review-loop-result\n'+JSON.stringify(fixture.result)+'\n```';
+      fixture.request.raw_review_sha256=hash(fixture.comment.content);
+      await assert.rejects(()=>recoverInvalidReview(disabled,fixture.request,()=>fixture.io),/unsupported review-result rejection/);
+      const saved=JSON.parse(await readFile(path.join(dir,'pr-8.json'),'utf8'));
+      assert.equal(saved.history.filter(e=>e.event==='authorize_extra_review').length,1);
+      assert.equal(saved.history.filter(e=>e.event==='reject_invalid_review_result').length,0);
+      assert.equal(fixture.creates,0);assert.equal(fixture.archives,0);
+    } finally {await rm(dir,{recursive:true,force:true});}
+  }
+});
+
+test('operator recovery reconciles a lost create response without rebinding or duplicate dispatch',async()=>{
+  const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-recovery-response-'));
+  try {
+    const fixture=await invalidReviewRecoveryFixture(dir),disabled={...config(dir),enabled:false};
+    let sends=0;
+    fixture.io.create=async job=>{
+      sends++;
+      fixture.issues.push({id:'fifth-review',identifier:'COAC-80',title:job.title,description:job.description,assignee_id:'reviewer',assignee_type:'agent',project_id:'project'});
+      throw new Error('create response lost');
+    };
+    await assert.rejects(()=>recoverInvalidReview(disabled,fixture.request,()=>fixture.io),/create response lost/);
+    const uncertain=JSON.parse(await readFile(path.join(dir,'pr-8.json'),'utf8'));
+    assert.equal(uncertain.pending.attempted_at !== undefined,true);
+    assert.equal(uncertain.pending.head_sha,fixture.request.current_head_sha);
+
+    const resumed=await tick(config(dir),()=>fixture.io);
+    assert.equal(resumed.prs[0].status,'REVIEWING');assert.equal(resumed.prs[0].round,5);
+    assert.equal(sends,1);assert.equal(fixture.issues.length,1);
+    const saved=JSON.parse(await readFile(path.join(dir,'pr-8.json'),'utf8'));
+    assert.equal(saved.job.head_sha,fixture.request.current_head_sha);assert.equal(saved.pending,null);
   } finally {await rm(dir,{recursive:true,force:true});}
 });
 

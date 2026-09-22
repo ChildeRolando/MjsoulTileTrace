@@ -62,6 +62,13 @@ test('operator recovery accepts only a fully valid review rejected for a contrad
   assert.throws(()=>parseRejectedReviewResult(job(),{id:'review-id',assignee_type:'agent',assignee_id:'reviewer-id'},[wrong],runs),/unsupported review-result rejection/);
   assert.throws(()=>parseRejectedReviewResult(job(),{id:'review-id',assignee_type:'agent',assignee_id:'reviewer-id'},[comment()],runs),/already protocol-valid/);
 });
+test('operator recovery rejects verdicts outside the complete review schema',()=>{
+  for(const verdict of ['BOGUS',42,null]) {
+    const r=result();r.verdict=verdict;
+    assert.throws(()=>read([comment(r)]),/invalid verdict/);
+    assert.throws(()=>parseRejectedReviewResult(job(),{id:'review-id',assignee_type:'agent',assignee_id:'reviewer-id'},[comment(r)],runs),/unsupported review-result rejection/);
+  }
+});
 test('valid gate failures/environment block even without findings', () => {
   const r=result(); r.verdict='ENVIRONMENT_BLOCKED';r.gates[0].status='FAIL';r.gates[0].exit_code=1;r.environment_failures=['build environment unavailable'];
   assert.equal(decide(job(),read([comment(r)]),admit(pr())).transition,'BLOCKED');

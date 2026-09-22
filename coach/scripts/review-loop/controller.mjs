@@ -76,6 +76,30 @@ export function authorizeExtraReview(state,approvalRef,at=new Date().toISOString
   state.history.push({event:'authorize_extra_review',...a});
   state.status='REVIEWING';state.reason=null;
 }
+function recoveryCandidate(state) {
+  const binding=state.recovery_candidate;
+  if(!binding)return null;
+  assert.deepEqual(Object.keys(binding).sort(),['base_sha','bound_at','head_sha','pr_number','recovered_result_sha256','recovered_review_issue_id'].sort(),'invalid recovery candidate binding');
+  assert(binding.pr_number === state.pr_number && /^[0-9a-f]{40}$/.test(binding.base_sha) && /^[0-9a-f]{40}$/.test(binding.head_sha),'invalid recovery candidate identity');
+  assert(Number.isFinite(Date.parse(binding.bound_at)),'missing recovery candidate provenance');
+  const authorization=state.extra_review_authorization;
+  assert(authorization?.max_rounds === 5 && authorization.pr_number === binding.pr_number
+    && authorization.review_issue_id === binding.recovered_review_issue_id
+    && authorization.result_sha256 === binding.recovered_result_sha256,'recovery candidate authorization mismatch');
+  assert(state.history.some(e=>e.event === 'reject_invalid_review_result' && e.issue_id === binding.recovered_review_issue_id
+    && e.sha256 === binding.recovered_result_sha256),'recovery candidate source missing');
+  return binding;
+}
+async function requireRecoveryCandidate(state,binding,live,io) {
+  const invalidated=state.history.some(e=>e.event === 'invalidate_recovery_candidate'
+    && e.base_sha === binding.base_sha && e.head_sha === binding.head_sha);
+  assert(!invalidated,'approved recovery candidate authorization invalidated');
+  if(live.base_sha === binding.base_sha && live.head_sha === binding.head_sha)return;
+  state.history.push({event:'invalidate_recovery_candidate',reason:'approved recovery candidate changed',base_sha:binding.base_sha,head_sha:binding.head_sha,
+    observed_base_sha:live.base_sha,observed_head_sha:live.head_sha,at:new Date().toISOString()});
+  await io.save(state);
+  throw new Error('approved recovery candidate changed');
+}
 export function recoverRejectedTerminalReview(state,result,request,at=new Date().toISOString()) {
   assert(state.protocol_version === VERSION && state.status === 'BLOCKED' && state.reason === 'contradictory verdict','recovery requires contradictory terminal review');
   assert(state.round === 4 && !state.pending && reviewRoundLimit(state) === 4,'recovery requires exhausted authorized fourth review');
@@ -88,6 +112,9 @@ export function recoverRejectedTerminalReview(state,result,request,at=new Date()
   assert(!state.history.some(e=>e.event === 'reject_invalid_review_result' && e.issue_id === job.issue_id),'review result already recovered');
   state.history.push({event:'reject_invalid_review_result',reason:result.rejection_reason,issue_id:job.issue_id,comment_id:result.comment_id,run_id:result.run_id,sha256:result.sha256,head_sha:job.head_sha,base_sha:job.base_sha,round:job.round,at});
   authorizeExtraReview(state,request.approval_ref,at,{issue_id:job.issue_id,sha256:result.sha256});
+  state.recovery_candidate={pr_number:state.pr_number,base_sha:request.current_base_sha,head_sha:request.current_head_sha,
+    recovered_review_issue_id:job.issue_id,recovered_result_sha256:result.sha256,bound_at:at};
+  recoveryCandidate(state);
 }
 async function observeLive(io,prNumber) {
   const raw=await io.live(prNumber),live=admit(raw);
@@ -104,6 +131,12 @@ export function jobDescription(job, live) {
 // exact issue title AND exact description/assignment; it is never blindly retried.
 export async function ensureDispatch(state, live, kind, io, config, result) {
   let job=state.pending;
+  const recovery=recoveryCandidate(state);
+  if(recovery) {
+    assert(kind === 'review' && (job?.round ?? state.round+1) === 5,'recovery authorization only permits the fifth review');
+    if(job)assert(job.pr_number === recovery.pr_number && job.base_sha === recovery.base_sha && job.head_sha === recovery.head_sha,'pending review does not match approved recovery candidate');
+    if(!job?.attempted_at)await requireRecoveryCandidate(state,recovery,live,io);
+  }
   if(!job) {
     const round=kind === 'review' ? state.round+1 : state.round;
     assert(round >= 1 && round <= reviewRoundLimit(state), 'round limit');
@@ -137,6 +170,7 @@ export async function ensureDispatch(state, live, kind, io, config, result) {
     let current=await observeLive(io,live.pr_number);
     assert.equal(current.admission_hash,job.admission_hash,'admission changed before dispatch');
     if(current.head_sha !== job.head_sha || current.base_sha !== job.base_sha) {
+      if(recovery)await requireRecoveryCandidate(state,recovery,current,io);
       state.history.push({event:'discard',reason:'candidate changed before dispatch',kind:job.kind,head_sha:job.head_sha,base_sha:job.base_sha,round:job.round,snapshot:current.snapshot,at:new Date().toISOString()});
       state.pending=null;state.snapshot=current.snapshot;
       return ensureDispatch(state,current,'review',io,config);
@@ -145,6 +179,7 @@ export async function ensureDispatch(state, live, kind, io, config, result) {
     current=await observeLive(io,live.pr_number);
     assert.equal(current.admission_hash,job.admission_hash,'admission changed before dispatch');
     if(current.head_sha !== job.head_sha || current.base_sha !== job.base_sha) {
+      if(recovery)await requireRecoveryCandidate(state,recovery,current,io);
       state.history.push({event:'discard',reason:'candidate changed before dispatch',kind:job.kind,head_sha:job.head_sha,base_sha:job.base_sha,round:job.round,snapshot:current.snapshot,at:new Date().toISOString()});
       state.pending=null;state.snapshot=current.snapshot;
       return ensureDispatch(state,current,'review',io,config);

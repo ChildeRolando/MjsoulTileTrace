@@ -134,6 +134,7 @@ export function parseResult(job, issue, comments, runs) {
     }
     const findings=r.findings.P1.length+r.findings.P2.length;
     const green=r.gates.every(g=>g.status === 'PASS');
+    assert(typeof r.verdict === 'string' && ['NO_P1_P2','CHANGES_REQUIRED','ENVIRONMENT_BLOCKED'].includes(r.verdict),'invalid verdict');
     assert((r.verdict === 'NO_P1_P2' && !findings && green && !r.environment_failures.length)
       || (r.verdict === 'CHANGES_REQUIRED' && findings > 0 && !r.environment_failures.length && r.gates.every(g=>g.status !== 'NOT_RUN'))
       || (r.verdict === 'ENVIRONMENT_BLOCKED' && r.environment_failures.length > 0), 'contradictory verdict');
