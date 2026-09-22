@@ -103,7 +103,8 @@ admission 和智能体结果均不能授予授权；未获对应人工批准的 
 
 GitHub `Review Loop v2` commit status 报告 pending/success/failure；同一 GitHub 账号
 可以提交 COMMENT/状态，并不意味着拥有作者自批能力。PASS 仅表示该 base/head 的本轮
-评审通过，不合并 PR、不关闭业务工单。合并仍须核对 live base/head 与保存证据。
+评审通过；只有下述 COAC-65 自动合并扩展启用且全部独立门禁再次成立时才允许合并，
+否则 PASS 本身不合并 PR、不关闭业务工单。
 
 GitHub 的 status 实际归属是 commit SHA/context，而非 PR。该共享位置只由 runtime 的
 聚合发布器拥有：回读所有 open PR，按当前 HEAD 汇总已 opt-in 或有 ledger 的候选；
@@ -115,6 +116,91 @@ GitHub 的 status 实际归属是 commit SHA/context，而非 PR。该共享位�
 才保存确认缓存。响应丢失或写后中断时，下次按 live aggregate 重发，旧缓存不得跳过纠正。
 所有发布与 ledger 更新共用部署锁。聚合绿灯仍不代替
 合并前对目标 PR 本身的结果来源、base/head 与 admission 的核验。
+
+### COAC-65：独立评审 PASS 后自动合并
+
+本能力是既有 Review Loop 的窄扩展，不是通用绿色 PR 合并器。它只扫描已由现有
+admission 准入并拥有 ledger 的候选；未接入 Review Loop 的 PR 即使 GitHub 页面全绿也
+永不进入自动合并判断。admission 协议保持 `review-loop/v2.1`，避免仅为执行策略改变而
+使存量 PR 失效；配置新增版本化 `auto_merge` 段，其默认与示例必须为 `enabled=false`。
+Controller、review/fix/durability 队列、部署锁和 `pr-N.json` 仍是唯一执行系统，不增加
+agent、Autopilot、数据库或第二套 ledger。
+
+每次准备合并时必须从受信 ledger 和 GitHub 实时状态重新构造 eligibility proof，以下条件
+全部成立才允许唯一一次 merge write；任何缺失、未知、待定、失败或解析歧义均 fail closed：
+
+1. PR 仍为 open、ready、同仓库来源且 admission 与 ledger 冻结值相同；当前 full base/head
+   SHA 必须同时等于最后一次可信独立 review PASS 所绑定的 `job`、`result` 与 result-history
+   身份。PASS 必须能回溯到既有严格校验过的 reviewer、completed run、comment、原文 hash、
+   五门 PASS/0 和零 P1/P2；GitHub 聚合 status 只是输出，不是该证明的输入。
+2. 合并前重新读取 PR、目标分支、repository merge policy、当前调用者身份/权限、适用的
+   branch protection 与 repository/organization rulesets，以及当前 HEAD 的 commit statuses、
+   check runs 和 mergeability。分页、权限、API preview/version、规则类型或 check 身份无法
+   完整解释时停止；只有对应 GitHub endpoint 的契约与当前权限能把 404/空数组明确证明为
+   “未配置”时才接受空规则集，身份/授权不明的相同响应必须拒绝。
+3. 从适用 protection/rulesets 精确枚举 required status checks（含配置的 GitHub App 身份）；
+   每项必须在当前 HEAD 上有且仅有可归属结果。commit status 必须为 `success`；check run
+   仅接受 GitHub 视为满足 required check 的 `success`、`neutral` 或 `skipped`，queued、
+   in_progress、stale、cancelled、timed_out、action_required、failure、缺失和冲突结果均拒绝。
+   没有 applicable required checks 可以是有效空集，但只有规则读取完整且其他门禁全满足时
+   才可如此判定。
+4. GitHub REST 的 `mergeable` 必须为 true、`mergeable_state` 必须为 `clean`（若使用 GraphQL，
+   等价要求是 `mergeStateStatus == CLEAN`）；required reviews、
+   conversation resolution、deployment、linear history、signed commit、up-to-date branch 等
+   非 status-check 规则由这个实时状态和 GitHub merge endpoint 共同强制。`UNKNOWN`、
+   `BLOCKED`、`BEHIND`、`DIRTY`、`UNSTABLE`、`DRAFT` 或新枚举值均拒绝。
+5. 自动合并调用者必须与私有配置中的 expected login/id 一致，仓库权限只接受普通
+   `push`/write，不接受 `maintain` 或 `admin`。实现须读取 protection bypass allowances 和
+   applicable ruleset bypass actors；调用者、所属 team/app/repository role 是否命中无法确定，
+   或确实拥有适用 bypass，均不执行。禁止 `--admin`、绕过 API、临时降低/修改保护或以另一
+   凭据重试。
+
+合并方式固定为 GitHub REST merge endpoint 的普通 `merge`（merge commit），与仓库当前
+保留分支历史的策略一致；每次调用前确认 repository 仍允许 merge commits。不得按 PR 文本、
+提交作者或 agent 输出切换 merge/squash/rebase，不启用 GitHub admin bypass，不自动删除
+head branch。实际写请求必须携带预期 current HEAD SHA；GitHub 对 SHA、保护或 mergeability
+的原子拒绝是安全结果，不能去掉 SHA 后重试。base 或 head 在任一检查后变化时，旧 PASS
+失效并回到现有 fresh-review/round-limit 流程。
+
+`pr-N.json` 在调用前原子保存 merge intent，至少绑定 PR、base/head、method、admission、
+review issue/run/comment/hash、required-check/protection evidence hash、attempt id 与时刻。
+重复 tick 先 reconcile live PR 和 intent：
+
+- 已由同一 intent 合并时只回读并记录，不再发送；已被其他参与者合并时记录
+  `MERGED_EXTERNALLY`，不得冒充 Controller 成功。
+- closed-but-unmerged 记录 `CLOSED_NO_MERGE`；head/base/admission 改变则 intent 作废，旧 PASS
+  不可继承。多个并发 Controller 仍由既有 deployment lock 排除，外部合并竞态由 expected
+  HEAD 与结果回读收敛。
+- 网络/5xx/响应丢失标记 `RETRY_IO`，下一 tick 必须先回读；仅在 PR 仍 open、同一候选且
+  全部 eligibility 重新成立时才可重发同一幂等意图。401/403 或调用者/规则读取不足为
+  `BLOCKED_PERMISSION`；409/405 为 `WAITING_GITHUB` 并重新观察，不盲重试、不降级。
+- 只有重新读取 PR 得到 `merged=true`、非空 `merged_at`/`merge_commit_sha`、原 PR head 等于
+  intent expected HEAD，并能读取该 merge commit 时才记录 `MERGED`。merge response 本身、
+  HTTP 2xx 或 issue 状态都不能单独证明成功。
+
+P3 `repository_required` 延续现有非阻断 PASS 语义：其 durability job 可以在原 PR 合并后
+继续，但 merge/close 不得删除、完成或重绑定 job；closed-PR 扫描、原 finding、owner、
+regression 和 receipt 校验保持不变。P1/P2、环境失败或 durability 身份矛盾仍按原规则
+BLOCKED，不得借自动合并绕过 Fixer 或 fresh review。
+
+自动合并有独立 kill switch：`enabled=false` 时允许只读 reconcile 已有 intent/合并事实，
+但不得发起或重发 merge write。启用前须暂停触发、持 deployment lock、备份 state/evidence，
+部署经独立 review PASS 且已由人工普通合并的受审实现，disabled 回读代码/config/身份/权限/
+规则与零 merge-write tick，再用专为本能力创建且已明确授权的受控验收 PR 验证 allow 与 deny
+路径；不得拿无关 PR 做演示。全部通过后才原子启用并恢复 trigger。该功能不能用自身尚未
+审阅或尚未部署的逻辑合并自己的实现 PR。
+
+停用时先暂停 trigger，再设置 `auto_merge.enabled=false` 并以 disabled tick 回读零 merge
+write，随后恢复只读/评审触发；代码回滚固定到前一受信 deployment SHA 和备份 ledger，
+不得删除 intent/evidence。已经完成的 GitHub merge 不可逆，停用或代码回滚不得自动 revert
+业务提交。日志、health 和 result 必须记录 eligibility 各门结果、intent/attempt、GitHub
+request/read-back 身份与最终状态，但不得记录 token、generic webhook URL 或上游错误正文。
+
+机械验收必须覆盖：符合条件成功合并、stale head、stale base、P1/P2、required check 的
+pending/fail/unknown/missing/ambiguous、冲突、保护/merge state 阻止、普通权限不足和 bypass
+身份、重复 tick、响应丢失重试、两个 Controller/外部参与者竞态、已合并、closed-unmerged、
+merge 回读不完整、P3 repository_required 在合并后继续，以及 disabled/rollback 零写入。
+测试通过注入的 GitHub/Multica/Git I/O 驱动同一生产函数，不以只测副本模型代替。
 
 ## 幂等与恢复
 
