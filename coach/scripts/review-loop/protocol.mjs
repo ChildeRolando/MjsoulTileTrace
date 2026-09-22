@@ -30,7 +30,7 @@ export function reviewRoundLimit(state) {
   }
   assert(text(a.approval_ref) && Number.isFinite(Date.parse(a.approved_at)),'missing authorization provenance');
   assert(isSha(a.head_sha) && isSha(a.base_sha) && /^[a-f0-9]{64}$/.test(a.result_sha256),'invalid authorization identity');
-  assert(state.history.some(e=>e.event === 'result' && e.transition === 'BLOCKED' && e.round === a.approved_after_round
+  assert(state.history.some(e=>(e.event === 'result' && e.transition === 'BLOCKED' || e.event === 'reject_invalid_review_result' && e.reason === 'contradictory verdict') && e.round === a.approved_after_round
     && e.issue_id === a.review_issue_id && e.sha256 === a.result_sha256 && e.head_sha === a.head_sha && e.base_sha === a.base_sha),'authorization source missing');
   return a.max_rounds;
 }
@@ -134,11 +134,24 @@ export function parseResult(job, issue, comments, runs) {
     }
     const findings=r.findings.P1.length+r.findings.P2.length;
     const green=r.gates.every(g=>g.status === 'PASS');
+    assert(typeof r.verdict === 'string' && ['NO_P1_P2','CHANGES_REQUIRED','ENVIRONMENT_BLOCKED'].includes(r.verdict),'invalid verdict');
     assert((r.verdict === 'NO_P1_P2' && !findings && green && !r.environment_failures.length)
       || (r.verdict === 'CHANGES_REQUIRED' && findings > 0 && !r.environment_failures.length && r.gates.every(g=>g.status !== 'NOT_RUN'))
       || (r.verdict === 'ENVIRONMENT_BLOCKED' && r.environment_failures.length > 0), 'contradictory verdict');
   }
   return {data:r,raw:c.content,sha256:hash(c.content),comment_id:c.id,run_id:c.source_task_id};
+}
+export function parseRejectedReviewResult(job, issue, comments, runs) {
+  assert.equal(job.kind,'review','recovery only supports review results');
+  let rejection;
+  try { parseResult(job,issue,comments,runs); }
+  catch(e) { rejection=e; }
+  assert(rejection,'review result is already protocol-valid');
+  assert.equal(rejection.message,'contradictory verdict','unsupported review-result rejection');
+  const candidates=comments.filter(c=>c.content?.includes('```review-loop-result'));
+  assert.equal(candidates.length,1,'missing/conflicting results');
+  const c=candidates[0],{data}=block(c.content,'review-loop-result');
+  return {data,raw:c.content,sha256:hash(c.content),comment_id:c.id,run_id:c.source_task_id,rejection_reason:rejection.message};
 }
 export function decide(job, result, live, limit=3) {
   assert(limit === 3 || limit === 4 || limit === 5,'invalid round limit');

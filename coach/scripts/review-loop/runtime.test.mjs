@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
-import { acquireLock, recoverLock, atomicJson, command, makeIO, tick } from './runtime.mjs';
+import { acquireLock, recoverLock, atomicJson, command, makeIO, tick, recoverInvalidReview } from './runtime.mjs';
 import { GATES, hash, admit, VERSION } from './protocol.mjs';
 import { advanceDurability, captureDurability } from './controller.mjs';
 
@@ -133,6 +133,100 @@ test('live P3 PASS tick dispatches durability before publication and never dupli
 const admission={protocol_version:'review-loop/v2.1',authoritative_spec_paths:['coach/docs/specs/a.md'],rubric:'all criteria'};
 const pr=(head='b'.repeat(40),base='a'.repeat(40),marker='live')=>({number:8,state:'open',draft:false,body:'```review-loop-admission\n'+JSON.stringify(admission)+'\n```',base:{sha:base,repo:{full_name:'ChildeRolando/MjsoulTileTrace'}},head:{sha:head,ref:'codex/a',repo:{full_name:'ChildeRolando/MjsoulTileTrace'}},marker});
 const config=dir=>({protocol_version:'review-loop/v2.1',repository:'ChildeRolando/MjsoulTileTrace',reviewer_id:'reviewer',fixer_id:'fixer',project_id:'project',enabled:true,state_dir:dir,repository_path:dir,gh_path:'gh',git_path:'git',multica_path:'multica',profile:'profile',workspace_id:'workspace'});
+
+async function invalidReviewRecoveryFixture(dir) {
+  const reviewHead='b'.repeat(40),currentHead='c'.repeat(40),base='a'.repeat(40),raw=pr(currentHead,base);
+  const prior={pr_number:8,max_rounds:4,approved_after_round:3,review_issue_id:'third-review',result_sha256:'d'.repeat(64),head_sha:reviewHead,base_sha:base,approval_ref:'fourth approved',approved_at:'2026-09-21T00:00:00Z'};
+  const state={protocol_version:VERSION,pr_number:8,round:4,status:'BLOCKED',reason:'contradictory verdict',admission_hash:admit(raw).admission_hash,history:[{event:'result',transition:'BLOCKED',round:3,issue_id:'third-review',sha256:prior.result_sha256,head_sha:reviewHead,base_sha:base},{event:'authorize_extra_review',...prior}],extra_review_authorization:prior,result:{issue_id:'third-review',sha256:prior.result_sha256},job:{kind:'review',round:4,pr_number:8,issue_id:'fourth-review',identifier:'COAC-78',agent_id:'reviewer',head_sha:reviewHead,base_sha:base,admission_hash:admit(raw).admission_hash}};
+  const result={protocol_version:VERSION,pr_number:8,base_sha:base,head_sha:reviewHead,round:4,verdict:'CHANGES_REQUIRED',findings:{P1:[],P2:[{id:'p2',path:'coach/a.ts',line:1,scenario:'x',consequence:'y',minimal_fix:'z',durability:'repository_required',durable_owner:'coach/docs/specs/a.md',regression:null,basis:'explicit_contract_violation'}],P3:[]},gates:Object.entries(GATES).map(([id,command])=>({id,command,status:'PASS',exit_code:0})),environment_failures:['historical recovered failure']};
+  const comment={id:'fourth-comment',author_type:'agent',author_id:'reviewer',issue_id:'fourth-review',source_task_id:'fourth-run',content:'review\n```review-loop-result\n'+JSON.stringify(result)+'\n```'};
+  const request={protocol_version:VERSION,pr_number:8,review_issue_id:'fourth-review',comment_id:comment.id,run_id:comment.source_task_id,raw_review_sha256:hash(comment.content),review_base_sha:base,review_head_sha:reviewHead,round:4,current_base_sha:base,current_head_sha:currentHead,approval_ref:'COAC-79 user-approved fifth review'};
+  await atomicJson(path.join(dir,'pr-8.json'),state);
+  let creates=0,archives=0;const issues=[];
+  let observed=raw;
+  const io={openPRs:async()=>[observed],live:async()=>observed,snapshot:async value=>({semantics:'test',sha256:hash(value.head.sha)}),save:s=>atomicJson(path.join(dir,'pr-8.json'),s),issue:async()=>({id:'fourth-review',assignee_type:'agent',assignee_id:'reviewer'}),comments:async()=>[comment],runs:async()=>[{id:'fourth-run',issue_id:'fourth-review',agent_id:'reviewer',status:'completed'}],archiveResult:async()=>{archives++;},prepare:async()=>path.join(dir,'review-5'),issues:async()=>issues,checkSpecs:async()=>{},create:async job=>{creates++;const issue={id:'fifth-review',identifier:'COAC-80',title:job.title,description:job.description,assignee_id:'reviewer',assignee_type:'agent',project_id:'project'};issues.push(issue);return issue;},publish:async()=>{}};
+  return {request,io,result,comment,issues,setLiveHead(head){observed=pr(head,base);},get creates(){return creates;},get archives(){return archives;}};
+}
+test('operator recovery is lock-serialized, rejects stale candidates, and dispatches exactly one fifth review',async()=>{
+  const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-invalid-recovery-'));
+  try {
+    const fixture=await invalidReviewRecoveryFixture(dir),disabled={...config(dir),enabled:false};
+    const release=await acquireLock(dir);
+    await assert.rejects(()=>recoverInvalidReview(disabled,fixture.request,()=>fixture.io),/already running/);await release();
+    const stale={...fixture.request,current_head_sha:'e'.repeat(40)};
+    await assert.rejects(()=>recoverInvalidReview(disabled,stale,()=>fixture.io),/current head changed/);
+    const receipt=await recoverInvalidReview(disabled,fixture.request,()=>fixture.io),saved=JSON.parse(await readFile(path.join(dir,'pr-8.json'),'utf8'));
+    assert.equal(receipt.round,5);assert.equal(receipt.issue_id,'fifth-review');assert.equal(receipt.head_sha,fixture.request.current_head_sha);
+    assert.equal(fixture.creates,1);assert.equal(fixture.archives,1);assert.equal(saved.status,'REVIEWING');
+    assert.equal(saved.history.filter(e=>e.event==='reject_invalid_review_result').length,1);
+    assert.equal(saved.history.filter(e=>e.event==='authorize_extra_review').length,2);
+    await assert.rejects(()=>recoverInvalidReview(disabled,fixture.request,()=>fixture.io),/unsupported review-result rejection|contradictory terminal review|already recovered/);
+    assert.equal(fixture.creates,1);
+  } finally {await rm(dir,{recursive:true,force:true});}
+});
+
+test('operator recovery persists its exact candidate across preparation failure and never rebinds',async()=>{
+  const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-recovery-candidate-'));
+  try {
+    const fixture=await invalidReviewRecoveryFixture(dir),disabled={...config(dir),enabled:false};
+    let failPrepare=true;
+    fixture.io.prepare=async()=>{if(failPrepare){failPrepare=false;throw new Error('prepare interrupted');}return path.join(dir,'review-5');};
+    await assert.rejects(()=>recoverInvalidReview(disabled,fixture.request,()=>fixture.io),/prepare interrupted/);
+    const interrupted=JSON.parse(await readFile(path.join(dir,'pr-8.json'),'utf8'));
+    assert.deepEqual({base_sha:interrupted.recovery_candidate.base_sha,head_sha:interrupted.recovery_candidate.head_sha},{base_sha:fixture.request.current_base_sha,head_sha:fixture.request.current_head_sha});
+    assert.equal(interrupted.pending.head_sha,fixture.request.current_head_sha);
+
+    fixture.setLiveHead('e'.repeat(40));
+    const drifted=await tick(config(dir),()=>fixture.io);
+    assert.equal(drifted.prs[0].status,'BLOCKED');assert.match(drifted.prs[0].reason,/approved recovery candidate changed/);
+    assert.equal(fixture.creates,0);
+
+    fixture.setLiveHead(fixture.request.current_head_sha);
+    const repeated=await tick(config(dir),()=>fixture.io);
+    assert.equal(repeated.prs[0].status,'BLOCKED');assert.match(repeated.prs[0].reason,/approved recovery candidate.*invalidated/);
+    assert.equal(fixture.creates,0,'a stale authorization must not become reusable when the old SHA returns');
+  } finally {await rm(dir,{recursive:true,force:true});}
+});
+
+test('operator recovery rejects invalid verdict schema without authorization or dispatch',async()=>{
+  for(const verdict of ['BOGUS',42,null]) {
+    const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-recovery-verdict-'));
+    try {
+      const fixture=await invalidReviewRecoveryFixture(dir),disabled={...config(dir),enabled:false};
+      fixture.result.verdict=verdict;
+      fixture.comment.content='review\n```review-loop-result\n'+JSON.stringify(fixture.result)+'\n```';
+      fixture.request.raw_review_sha256=hash(fixture.comment.content);
+      await assert.rejects(()=>recoverInvalidReview(disabled,fixture.request,()=>fixture.io),/unsupported review-result rejection/);
+      const saved=JSON.parse(await readFile(path.join(dir,'pr-8.json'),'utf8'));
+      assert.equal(saved.history.filter(e=>e.event==='authorize_extra_review').length,1);
+      assert.equal(saved.history.filter(e=>e.event==='reject_invalid_review_result').length,0);
+      assert.equal(fixture.creates,0);assert.equal(fixture.archives,0);
+    } finally {await rm(dir,{recursive:true,force:true});}
+  }
+});
+
+test('operator recovery reconciles a lost create response without rebinding or duplicate dispatch',async()=>{
+  const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-recovery-response-'));
+  try {
+    const fixture=await invalidReviewRecoveryFixture(dir),disabled={...config(dir),enabled:false};
+    let sends=0;
+    fixture.io.create=async job=>{
+      sends++;
+      fixture.issues.push({id:'fifth-review',identifier:'COAC-80',title:job.title,description:job.description,assignee_id:'reviewer',assignee_type:'agent',project_id:'project'});
+      throw new Error('create response lost');
+    };
+    await assert.rejects(()=>recoverInvalidReview(disabled,fixture.request,()=>fixture.io),/create response lost/);
+    const uncertain=JSON.parse(await readFile(path.join(dir,'pr-8.json'),'utf8'));
+    assert.equal(uncertain.pending.attempted_at !== undefined,true);
+    assert.equal(uncertain.pending.head_sha,fixture.request.current_head_sha);
+
+    const resumed=await tick(config(dir),()=>fixture.io);
+    assert.equal(resumed.prs[0].status,'REVIEWING');assert.equal(resumed.prs[0].round,5);
+    assert.equal(sends,1);assert.equal(fixture.issues.length,1);
+    const saved=JSON.parse(await readFile(path.join(dir,'pr-8.json'),'utf8'));
+    assert.equal(saved.job.head_sha,fixture.request.current_head_sha);assert.equal(saved.pending,null);
+  } finally {await rm(dir,{recursive:true,force:true});}
+});
 
 test('one SHA publication owner aggregates conflicting PR results and caches the aggregate',async()=>{
   const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-shared-head-'));

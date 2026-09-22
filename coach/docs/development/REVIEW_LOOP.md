@@ -113,6 +113,18 @@ in-place 本机目录，避免与 Reviewer/Fixer 争用目录锁；评审/修复
   如需第五轮，必须取得第二次明确批准，另绑定第四轮结果并验证原授权；该规则适用于
   任意 PR，最多第五轮，不开放第六轮。
   普通 tick 不会自动恢复 BLOCKED；达到已批准上限仍有阻断项则停止。
+- 协议无效终轮恢复：仅当结果的作者、issue、completed run、base/head、round 和完整字段均
+  有效，唯一拒绝原因为 `contradictory verdict` 时使用。先按部署流程暂停触发、设
+  `enabled=false`、确认无活动 Controller、持锁备份，再准备只含固定字段的恢复 JSON：
+  `protocol_version`、`pr_number`、`review_issue_id`、`comment_id`、`run_id`、
+  `raw_review_sha256`、`review_base_sha`、`review_head_sha`、`round`、`current_base_sha`、
+  `current_head_sha`、`approval_ref`。执行
+  `node coach/scripts/review-loop/runtime.mjs recover-invalid-review <config> <request>`。
+  程序会通过同一部署锁重新读取平台原文、归档原字节、记录
+  `reject_invalid_review_result` 与拒绝原因，并在既有上一轮授权和本次明确批准均有效时只派发
+  一个 fresh Reviewer。它不写有效 result/PASS，不重置 round/history，不修改旧评论；错误
+  身份/hash、重复调用、旧 live 候选、无既有授权或并发 Controller 均 fail closed。执行后
+  回读 ledger、归档、Reviewer issue/run 和 live base/head，再恢复 trigger。
 - `publication-<sha>.json`：同一提交的成员集与聚合发布缓存。它不授予 PASS，源事实仍
   是实时 GitHub 状态及每个 PR 的已核验 ledger；旧 per-PR published 字段不再用于发布。
   POST 前缓存先落为 uncertain；响应丢失或进程中断后，下次会按实时聚合重新发布。

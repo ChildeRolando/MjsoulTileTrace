@@ -80,9 +80,11 @@ run。正文最后包含一个 `review-loop-result` JSON fence；字段与严格
 | architecture | `npm run check:architecture` |
 | package-import | `npm run test:package-import` |
 
-所有命令实际运行并记录 exit code。只有全绿、无环境失败、P1/P2 清零，才允许 PASS。
-P3 不阻断。P1/P2 且五门全绿时路由现有 `Ticket 编码执行器`，完整 findings 不经 LLM 转述。
-门禁失败、环境失败、冲突结果或第三轮仍有阻断项时 BLOCKED。
+所有命令实际运行并记录 exit code。`environment_failures` 只表达结论形成时仍未恢复、仍阻碍
+可靠审查的当前环境失败；依赖安装或偶发超时等已经由原命令重跑恢复的历史失败仍须在正文
+验证记录中保留，但不得继续放在该机器数组中。只有全绿、无当前环境失败、P1/P2 清零，
+才允许 PASS。P3 不阻断。P1/P2 且五门全绿时路由现有 `Ticket 编码执行器`，完整 findings
+不经 LLM 转述。门禁失败、当前环境失败、冲突结果或第三轮仍有阻断项时 BLOCKED。
 
 Fixer 校验附件 hash，在独立 worktree 修复、补回归、运行门禁、提交并非 force push 到
 同一 PR branch。Controller 校验其作者/run 归属、原文 hash、新 SHA、旧→新祖先关系，
@@ -100,6 +102,14 @@ base/head、结果 hash、批准引用和记录时间，并追加历史事件而
 同一 PR 的明确人工批准；第二次授权绑定第四轮 BLOCKED 原文与身份，并要求保留、验证
 第一次授权。两次授权均追加进 history，最高五轮，不开放第六轮。tick、webhook、PR
 admission 和智能体结果均不能授予授权；未获对应人工批准的 PR 仍为三轮。
+
+若已发表的终轮结果通过作者、issue、completed run、PR/base/head/round 与完整 schema 校验，
+但因 verdict 与机器字段矛盾而被协议拒绝，受信 operator 可在暂停触发、`enabled=false`、持有
+同一部署锁并完成备份后使用专用恢复入口。入口必须重新读取平台原文并核验其 UTF-8 SHA-256，
+将原文归档，向 history 追加独立的 `reject_invalid_review_result` 及拒绝原因；它不得把该原文
+追认为有效 result 或 PASS。只有已有上一轮授权、明确的新一轮人工批准和精确的新 live 候选
+同时匹配时，才可绑定被拒绝的终轮证据并派发一次 fresh Reviewer。错误身份/hash、重复恢复、
+旧候选、缺失既有授权或并发 Controller 一律拒绝；仍受最高五轮约束。
 
 GitHub `Review Loop v2` commit status 报告 pending/success/failure；同一 GitHub 账号
 可以提交 COMMENT/状态，并不意味着拥有作者自批能力。PASS 仅表示该 base/head 的本轮
