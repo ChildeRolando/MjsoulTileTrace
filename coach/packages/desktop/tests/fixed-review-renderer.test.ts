@@ -12,7 +12,7 @@ const html = readFileSync(new URL("../src/renderer/index.html", import.meta.url)
 const app = readFileSync(new URL("../src/renderer/app.ts", import.meta.url), "utf8");
 const styles = readFileSync(new URL("../src/renderer/styles.css", import.meta.url), "utf8");
 
-async function chromiumFocusResults(directory: string) {
+async function chromiumFocusResults(directory: string, scenarios = ["window.run(true)", "window.run(false)"]) {
   const candidates = process.platform === "win32" ? [
     "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
     "C:\\Program Files\\Microsoft\\Edge\\Application\\msedge.exe",
@@ -67,13 +67,13 @@ async function chromiumFocusResults(directory: string) {
       await delay(50);
     }
     const results = [];
-    for (const populated of [true, false]) {
-      await send("Runtime.evaluate", { expression: `window.run(${populated})`, awaitPromise: true, returnByValue: true });
+    for (const scenario of scenarios) {
+      await send("Runtime.evaluate", { expression: scenario, awaitPromise: true, returnByValue: true });
       await send("Input.dispatchKeyEvent", { type: "rawKeyDown", key: "Enter", code: "Enter", windowsVirtualKeyCode: 13, nativeVirtualKeyCode: 13 });
       await send("Input.dispatchKeyEvent", { type: "char", key: "Enter", code: "Enter", text: "\r", unmodifiedText: "\r", windowsVirtualKeyCode: 13, nativeVirtualKeyCode: 13 });
       await send("Input.dispatchKeyEvent", { type: "keyUp", key: "Enter", code: "Enter", windowsVirtualKeyCode: 13, nativeVirtualKeyCode: 13 });
       await delay(20);
-      const evaluated = await send("Runtime.evaluate", { expression: "({ tag: document.activeElement?.tagName, text: document.activeElement?.textContent, tabIndex: document.activeElement?.tabIndex })", returnByValue: true }) as { result?: { value?: unknown } };
+      const evaluated = await send("Runtime.evaluate", { expression: "typeof window.focusResult === 'function' ? window.focusResult() : ({ tag: document.activeElement?.tagName, text: document.activeElement?.textContent, tabIndex: document.activeElement?.tabIndex })", returnByValue: true }) as { result?: { value?: unknown } };
       results.push(evaluated.result?.value);
     }
     await send("Browser.close");
@@ -154,6 +154,80 @@ describe("fixed review native DOM surface", () => {
       expect(await chromiumFocusResults(directory)).toEqual([
         { tag: "H3", text: "复盘条目", tabIndex: -1 },
         { tag: "H3", text: "复盘条目", tabIndex: -1 },
+      ]);
+    } finally {
+      rmSync(directory, { recursive: true, force: true, maxRetries: 20, retryDelay: 100 });
+    }
+  }, 90_000);
+
+  it("reveals collapsed evidence before keyboard focus navigation", async () => {
+    const directory = mkdtempSync(join(tmpdir(), "fixed-review-evidence-focus-"));
+    try {
+      const compiled = transpileModule(source, {
+        compilerOptions: { module: ModuleKind.ES2022, target: ScriptTarget.ES2022 },
+      }).outputText;
+      writeFileSync(join(directory, "fixed-review-ui.mjs"), compiled, "utf8");
+      writeFileSync(join(directory, "page.html"), `<!doctype html><html><body><main id="root"></main><script type="module">
+        import { createFixedReviewUi } from "./fixed-review-ui.mjs";
+        const action = { actionRef: "a", label: "打牌 1m" };
+        const scoredAction = { ...action, score: 80, scoreUnit: "模型选择分", scoreMethodLabel: "测试口径" };
+        const item = { decisionId: "d1", rank: 1, selectionReason: "model_disagreement_above_threshold", roundOrdinal: 0,
+          decisionWindowKind: "self_turn", actualAction: action, mortalPreferredActions: [scoredAction], errorGap: 12,
+          tags: ["efficiency"], explanationStatus: "ready" };
+        const snapshot = {
+          schemaVersion: "fixed-review-view/v1", packageId: "focus-package", analysisStatus: "complete",
+          outcomeCounts: { analysis_ready: 1, unsupported_action: 0, source_row_not_expected: 0, no_mortal_entry: 0, binding_mismatch: 0, model_output_incomplete: 0, analysis_blocked: 0 },
+          activeReportRefId: "ref", activeReportStatus: "complete",
+          explanationCounts: { ready: 1, provider_unavailable: 0, request_failed: 0, invalid_output: 0 },
+          selection: { policyVersion: "deterministic-review-selector/v1", selectedCount: 1, items: [item] },
+        };
+        const evidence = (displayRef, label, summary, category = "hard_evidence", parentRefs = []) => ({
+          displayRef, category, label, summary, relatedAction: null, details: [], producer: "fixture",
+          producerVersion: "v1", sourceRefs: [], parentRefs,
+        });
+        const detail = {
+          schemaVersion: "fixed-review-view/v1", packageId: "focus-package", decisionId: "d1", activeReportRefId: "ref",
+          actual: action, mortal: [scoredAction],
+          explanationStatus: "ready",
+          coachJudgments: [{ recommendation: action, confidence: "medium", premiseRefs: ["fact"] }],
+          explanations: [{ segments: [{ kind: "text", text: "证据解说" }], evidenceRefs: ["difference"] }],
+          referenceTargets: [],
+          provenance: [
+            evidence("parent", "父项事实", "父项摘要"),
+            evidence("fact", "候选事实", "事实摘要"),
+            evidence("difference", "候选差异", "差异摘要"),
+            evidence("inference", "教练推断", "推断摘要", "coach_inference", ["parent"]),
+          ],
+        };
+        window.runEvidence = async (label) => {
+          const old = document.getElementById("root");
+          const root = old.cloneNode(false); old.replaceWith(root);
+          const ui = createFixedReviewUi({ document, root, api: { openReview: async () => snapshot, getReviewDetail: async () => detail } });
+          await ui.open(snapshot.packageId);
+          [...document.querySelectorAll("button")].find((button) => button.textContent === "查看复盘条目").click();
+          [...document.querySelectorAll("button")].find((button) => button.textContent === "查看详情").click();
+          await Promise.resolve(); await Promise.resolve();
+          const details = [...document.querySelectorAll("details")];
+          window.evidenceSummary = details.find((node) => node.querySelector("summary")?.textContent === "证据摘要");
+          window.evidenceSummary.open = false;
+          if (label === "查看父项") details.find((node) => node.querySelector("summary")?.textContent === "来源信息").open = true;
+          [...document.querySelectorAll("button")].find((button) => button.textContent === label).focus();
+        };
+        window.run = window.runEvidence;
+        window.focusResult = () => ({
+          tag: document.activeElement?.tagName,
+          text: document.activeElement?.textContent,
+          evidenceOpen: window.evidenceSummary.open,
+        });
+      </script></body></html>`, "utf8");
+      expect(await chromiumFocusResults(directory, [
+        'window.runEvidence("查看判断依据")',
+        'window.runEvidence("查看解说证据")',
+        'window.runEvidence("查看父项")',
+      ])).toEqual([
+        { tag: "ARTICLE", text: "候选事实：事实摘要", evidenceOpen: true },
+        { tag: "ARTICLE", text: "候选差异：差异摘要", evidenceOpen: true },
+        { tag: "ARTICLE", text: "父项事实：父项摘要", evidenceOpen: true },
       ]);
     } finally {
       rmSync(directory, { recursive: true, force: true, maxRetries: 20, retryDelay: 100 });

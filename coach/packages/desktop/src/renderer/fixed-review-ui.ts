@@ -79,10 +79,20 @@ export function createFixedReviewUi(input: {
     coach.append(element(document, "h4", "教练建议"));
     if (detail.coachJudgments.length === 0) coach.append(element(document, "p", EXPLANATION_LABELS[detail.explanationStatus]));
     const evidenceTargets = new Map<string, HTMLElement>();
+    const revealEvidenceTarget = (ref: string) => {
+      const target = evidenceTargets.get(ref);
+      if (target === undefined) return;
+      let ancestor = target.parentElement;
+      while (ancestor !== null && ancestor !== undefined) {
+        if (ancestor.tagName === "DETAILS") (ancestor as HTMLDetailsElement).open = true;
+        ancestor = ancestor.parentElement;
+      }
+      target.focus();
+    };
     const evidenceButton = (ref: string, label: string) => {
       const button = element(document, "button", label);
       button.type = "button";
-      button.addEventListener("click", () => evidenceTargets.get(ref)?.focus());
+      button.addEventListener("click", () => revealEvidenceTarget(ref));
       return button;
     };
     if (detail.referenceTargets.length > 0) {
