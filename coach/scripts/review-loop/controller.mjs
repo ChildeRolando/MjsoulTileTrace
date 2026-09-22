@@ -108,12 +108,16 @@ function recoveryCandidate(state) {
   assert(binding.pr_number === state.pr_number && /^[0-9a-f]{40}$/.test(binding.base_sha) && /^[0-9a-f]{40}$/.test(binding.head_sha),'invalid recovery candidate identity');
   assert(Number.isFinite(Date.parse(binding.bound_at)),'missing recovery candidate provenance');
   const authorization=state.extra_review_authorization;
-  assert(authorization?.max_rounds === 5 && authorization.pr_number === binding.pr_number
+  const active=authorization?.max_rounds === 5 && authorization.pr_number === binding.pr_number
     && authorization.review_issue_id === binding.recovered_review_issue_id
-    && authorization.result_sha256 === binding.recovered_result_sha256,'recovery candidate authorization mismatch');
+    && authorization.result_sha256 === binding.recovered_result_sha256;
+  const consumed=authorization?.max_rounds === 6 && state.sixth_review_candidate
+    && state.history.some(e=>e.event === 'authorize_extra_review' && e.max_rounds === 5 && e.pr_number === binding.pr_number
+      && e.review_issue_id === binding.recovered_review_issue_id && e.result_sha256 === binding.recovered_result_sha256);
+  assert(active || consumed,'recovery candidate authorization mismatch');
   assert(state.history.some(e=>e.event === 'reject_invalid_review_result' && e.issue_id === binding.recovered_review_issue_id
     && e.sha256 === binding.recovered_result_sha256),'recovery candidate source missing');
-  return binding;
+  return consumed ? null : binding;
 }
 async function requireRecoveryCandidate(state,binding,live,io) {
   const invalidated=state.history.some(e=>e.event === 'invalidate_recovery_candidate'
