@@ -1,7 +1,7 @@
 const test = process.env.VITEST === 'true' ? (await import('vitest')).test : (await import('node:test')).test;
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { ensureDispatch, advance, authorizeExtraReview, recoverRejectedTerminalReview, jobDescription, reviewerInstructions } from './controller.mjs';
+import { ensureDispatch, advance, authorizeExtraReview, authorizeSixthReview, recoverRejectedTerminalReview, jobDescription, reviewerInstructions } from './controller.mjs';
 import { admit } from './protocol.mjs';
 const config={reviewer_id:'reviewer',fixer_id:'fixer',project_id:'project'};
 const raw={number:8,state:'open',draft:false,body:'```review-loop-admission\n{"protocol_version":"review-loop/v2.1","authoritative_spec_paths":["coach/docs/specs/a.md"],"rubric":"all criteria"}\n```',base:{sha:'a'.repeat(40),repo:{full_name:'ChildeRolando/MjsoulTileTrace'}},head:{sha:'b'.repeat(40),ref:'codex/a',repo:{full_name:'ChildeRolando/MjsoulTileTrace'}}};
@@ -131,7 +131,7 @@ test('explicit operator authorization preserves history and permits only a fourt
   await assert.rejects(()=>advance(s,admit(changed),f.io,config),/round limit/);
   assert.equal(f.creates,1);
 });
-test('a fifth review needs a second bound approval and keeps both authorizations; no sixth',async()=>{
+test('a fifth review needs a second bound approval and keeps both authorizations; generic authorization cannot open a sixth',async()=>{
   const raw11=structuredClone(raw);raw11.number=11;const live11=admit(raw11);
   const s=exhausted(11,live11);authorizeExtraReview(s,'fourth approved');
   const source={...s.history[0],round:4,issue_id:'fourth-review',sha256:'e'.repeat(64)};
@@ -151,6 +151,44 @@ test('a fifth review needs a second bound approval and keeps both authorizations
   await assert.rejects(()=>advance(missing,live11,fake().io,config),/prior fourth/);
   const other=structuredClone(s);other.pr_number=12;other.extra_review_authorization.pr_number=12;
   await assert.rejects(()=>advance(other,live11,fake().io,config),/authorization/);
+});
+function exhaustedFifth() {
+  const raw17=structuredClone(raw);raw17.number=17;const live17=admit(raw17);
+  const s=exhausted(17,live17);authorizeExtraReview(s,'fourth approved');
+  const fourth={...s.history[0],round:4,issue_id:'fourth-review',comment_id:'fourth-comment',run_id:'fourth-run',sha256:'e'.repeat(64)};
+  s.history.push(fourth);s.round=4;s.status='BLOCKED';s.job={...s.job,round:4,issue_id:fourth.issue_id};s.result={issue_id:fourth.issue_id,comment_id:fourth.comment_id,sha256:fourth.sha256};
+  authorizeExtraReview(s,'fifth approved');
+  const fifth={event:'result',transition:'BLOCKED',round:5,issue_id:'fifth-review',comment_id:'fifth-comment',run_id:'fifth-run',sha256:'f'.repeat(64),head_sha:live17.head_sha,base_sha:live17.base_sha};
+  s.history.push(fifth);s.round=5;s.status='BLOCKED';s.reason='review gates, environment or round limit';
+  s.job={kind:'review',round:5,pr_number:17,issue_id:fifth.issue_id,head_sha:fifth.head_sha,base_sha:fifth.base_sha};
+  s.result={issue_id:fifth.issue_id,comment_id:fifth.comment_id,sha256:fifth.sha256};
+  const result={data:{verdict:'CHANGES_REQUIRED'},comment_id:fifth.comment_id,run_id:fifth.run_id,sha256:fifth.sha256};
+  const request={pr_number:17,round:5,review_issue_id:fifth.issue_id,comment_id:fifth.comment_id,run_id:fifth.run_id,raw_review_sha256:fifth.sha256,review_base_sha:fifth.base_sha,review_head_sha:fifth.head_sha,current_base_sha:fifth.base_sha,current_head_sha:'c'.repeat(40),approval_ref:'COAC-77 explicitly approved one sixth review'};
+  return {s,result,request,raw17};
+}
+test('bounded sixth-review authorization binds the valid fifth result, prior chain and exact new candidate',async()=>{
+  const {s,result,request,raw17}=exhaustedFifth(),before=structuredClone(s.history);
+  authorizeSixthReview(s,result,request,'2026-09-23T00:00:00Z');
+  assert.deepEqual(s.history.slice(0,-1),before);assert.equal(s.extra_review_authorization.max_rounds,6);
+  assert.deepEqual({base_sha:s.sixth_review_candidate.base_sha,head_sha:s.sixth_review_candidate.head_sha},{base_sha:request.current_base_sha,head_sha:request.current_head_sha});
+  const f=fake(),changed=structuredClone(raw17);changed.head.sha=request.current_head_sha;
+  f.io.live=async()=>changed;f.io.runs=async()=>[{status:'completed'}];
+  await advance(s,admit(changed),f.io,config);
+  assert.equal(s.round,6);assert.equal(s.status,'REVIEWING');assert.equal(f.creates,1);
+  s.status='BLOCKED';assert.throws(()=>authorizeSixthReview(s,result,request),/exhausted authorized fifth review/);
+  s.status='PASS';changed.head.sha='1'.repeat(40);await assert.rejects(()=>advance(s,admit(changed),f.io,config),/round limit/);
+});
+test('sixth-review authorization rejects identity, missing chain, stale candidate, duplicate and seventh-round attempts',async()=>{
+  for(const change of [x=>x.request.review_issue_id='other',x=>x.request.comment_id='other',x=>x.request.run_id='other',x=>x.request.raw_review_sha256='0'.repeat(64),x=>x.request.review_head_sha='0'.repeat(40)]) {
+    const fixture=exhaustedFifth();change(fixture);assert.throws(()=>authorizeSixthReview(fixture.s,fixture.result,fixture.request));
+  }
+  const missing=exhaustedFifth();missing.s.history=missing.s.history.filter(e=>e.event!=='authorize_extra_review' || e.max_rounds!==4);
+  assert.throws(()=>authorizeSixthReview(missing.s,missing.result,missing.request),/prior fourth/);
+  const stale=exhaustedFifth();stale.request.current_head_sha=stale.request.review_head_sha;
+  assert.throws(()=>authorizeSixthReview(stale.s,stale.result,stale.request),/new candidate/);
+  const duplicate=exhaustedFifth();authorizeSixthReview(duplicate.s,duplicate.result,duplicate.request);
+  assert.throws(()=>authorizeSixthReview(duplicate.s,duplicate.result,duplicate.request));
+  duplicate.s.status='BLOCKED';duplicate.s.round=6;assert.throws(()=>authorizeSixthReview(duplicate.s,duplicate.result,duplicate.request),/fifth review/);
 });
 function rejectedFourth() {
   const s=exhausted();authorizeExtraReview(s,'fourth approved');

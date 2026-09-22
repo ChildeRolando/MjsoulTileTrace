@@ -76,6 +76,31 @@ export function authorizeExtraReview(state,approvalRef,at=new Date().toISOString
   state.history.push({event:'authorize_extra_review',...a});
   state.status='REVIEWING';state.reason=null;
 }
+export function authorizeSixthReview(state,result,request,at=new Date().toISOString()) {
+  assert(state.protocol_version === VERSION && state.status === 'BLOCKED' && state.round === 5 && !state.pending
+    && reviewRoundLimit(state) === 5,'sixth-review authorization requires exhausted authorized fifth review');
+  const job=state.job;
+  assert.equal(result.data?.verdict,'CHANGES_REQUIRED','sixth review requires a valid CHANGES_REQUIRED result');
+  assert(job?.kind === 'review' && job.round === 5 && job.pr_number === state.pr_number,'sixth-review job mismatch');
+  assert(request.pr_number === state.pr_number && request.round === job.round && request.review_issue_id === job.issue_id,'sixth-review request identity mismatch');
+  assert(request.review_base_sha === job.base_sha && request.review_head_sha === job.head_sha,'sixth-review source candidate mismatch');
+  assert(result.comment_id === request.comment_id && result.run_id === request.run_id && result.sha256 === request.raw_review_sha256,'sixth-review result identity/hash mismatch');
+  assert(state.result?.issue_id === job.issue_id && state.result.comment_id === result.comment_id && state.result.sha256 === result.sha256,'sixth-review accepted result mismatch');
+  const sources=state.history.filter(e=>e.event === 'result' && e.transition === 'BLOCKED' && e.round === 5
+    && e.issue_id === job.issue_id && e.comment_id === result.comment_id && e.run_id === result.run_id && e.sha256 === result.sha256
+    && e.head_sha === job.head_sha && e.base_sha === job.base_sha);
+  assert.equal(sources.length,1,'sixth-review archived source missing');
+  assert(request.current_base_sha !== job.base_sha || request.current_head_sha !== job.head_sha,'sixth review requires a new candidate');
+  assert(!state.sixth_review_candidate && !state.history.some(e=>e.event === 'authorize_extra_review' && e.max_rounds === 6),'sixth review already authorized');
+  const authorization={pr_number:state.pr_number,max_rounds:6,approved_after_round:5,review_issue_id:job.issue_id,
+    result_sha256:result.sha256,head_sha:job.head_sha,base_sha:job.base_sha,approval_ref:request.approval_ref,approved_at:at};
+  reviewRoundLimit({...state,extra_review_authorization:authorization});
+  state.extra_review_authorization=authorization;
+  state.history.push({event:'authorize_extra_review',...authorization});
+  state.sixth_review_candidate={pr_number:state.pr_number,base_sha:request.current_base_sha,head_sha:request.current_head_sha,
+    source_review_issue_id:job.issue_id,source_comment_id:result.comment_id,source_run_id:result.run_id,source_result_sha256:result.sha256,bound_at:at};
+  state.status='REVIEWING';state.reason=null;
+}
 function recoveryCandidate(state) {
   const binding=state.recovery_candidate;
   if(!binding)return null;
@@ -99,6 +124,31 @@ async function requireRecoveryCandidate(state,binding,live,io) {
     observed_base_sha:live.base_sha,observed_head_sha:live.head_sha,at:new Date().toISOString()});
   await io.save(state);
   throw new Error('approved recovery candidate changed');
+}
+function sixthReviewCandidate(state) {
+  const binding=state.sixth_review_candidate;
+  if(!binding)return null;
+  assert.deepEqual(Object.keys(binding).sort(),['base_sha','bound_at','head_sha','pr_number','source_comment_id','source_result_sha256','source_review_issue_id','source_run_id'].sort(),'invalid sixth-review candidate binding');
+  assert(binding.pr_number === state.pr_number && /^[0-9a-f]{40}$/.test(binding.base_sha) && /^[0-9a-f]{40}$/.test(binding.head_sha),'invalid sixth-review candidate identity');
+  assert(Number.isFinite(Date.parse(binding.bound_at)),'missing sixth-review candidate provenance');
+  const authorization=state.extra_review_authorization;
+  assert(authorization?.max_rounds === 6 && authorization.pr_number === binding.pr_number
+    && authorization.review_issue_id === binding.source_review_issue_id
+    && authorization.result_sha256 === binding.source_result_sha256,'sixth-review candidate authorization mismatch');
+  assert(state.history.some(e=>e.event === 'result' && e.transition === 'BLOCKED' && e.round === 5
+    && e.issue_id === binding.source_review_issue_id && e.comment_id === binding.source_comment_id
+    && e.run_id === binding.source_run_id && e.sha256 === binding.source_result_sha256),'sixth-review candidate source missing');
+  return binding;
+}
+async function requireSixthReviewCandidate(state,binding,live,io) {
+  const invalidated=state.history.some(e=>e.event === 'invalidate_sixth_review_candidate'
+    && e.base_sha === binding.base_sha && e.head_sha === binding.head_sha);
+  assert(!invalidated,'approved sixth-review candidate authorization invalidated');
+  if(live.base_sha === binding.base_sha && live.head_sha === binding.head_sha)return;
+  state.history.push({event:'invalidate_sixth_review_candidate',reason:'approved sixth-review candidate changed',base_sha:binding.base_sha,head_sha:binding.head_sha,
+    observed_base_sha:live.base_sha,observed_head_sha:live.head_sha,at:new Date().toISOString()});
+  await io.save(state);
+  throw new Error('approved sixth-review candidate changed');
 }
 export function recoverRejectedTerminalReview(state,result,request,at=new Date().toISOString()) {
   assert(state.protocol_version === VERSION && state.status === 'BLOCKED' && state.reason === 'contradictory verdict','recovery requires contradictory terminal review');
@@ -132,10 +182,17 @@ export function jobDescription(job, live) {
 export async function ensureDispatch(state, live, kind, io, config, result) {
   let job=state.pending;
   const recovery=recoveryCandidate(state);
+  const sixth=sixthReviewCandidate(state);
+  assert(!(recovery && sixth),'conflicting operator candidate bindings');
   if(recovery) {
     assert(kind === 'review' && (job?.round ?? state.round+1) === 5,'recovery authorization only permits the fifth review');
     if(job)assert(job.pr_number === recovery.pr_number && job.base_sha === recovery.base_sha && job.head_sha === recovery.head_sha,'pending review does not match approved recovery candidate');
     if(!job?.attempted_at)await requireRecoveryCandidate(state,recovery,live,io);
+  }
+  if(sixth) {
+    assert(kind === 'review' && (job?.round ?? state.round+1) === 6,'sixth-review authorization only permits the sixth review');
+    if(job)assert(job.pr_number === sixth.pr_number && job.base_sha === sixth.base_sha && job.head_sha === sixth.head_sha,'pending review does not match approved sixth-review candidate');
+    if(!job?.attempted_at)await requireSixthReviewCandidate(state,sixth,live,io);
   }
   if(!job) {
     const round=kind === 'review' ? state.round+1 : state.round;
@@ -171,6 +228,7 @@ export async function ensureDispatch(state, live, kind, io, config, result) {
     assert.equal(current.admission_hash,job.admission_hash,'admission changed before dispatch');
     if(current.head_sha !== job.head_sha || current.base_sha !== job.base_sha) {
       if(recovery)await requireRecoveryCandidate(state,recovery,current,io);
+      if(sixth)await requireSixthReviewCandidate(state,sixth,current,io);
       state.history.push({event:'discard',reason:'candidate changed before dispatch',kind:job.kind,head_sha:job.head_sha,base_sha:job.base_sha,round:job.round,snapshot:current.snapshot,at:new Date().toISOString()});
       state.pending=null;state.snapshot=current.snapshot;
       return ensureDispatch(state,current,'review',io,config);
@@ -180,6 +238,7 @@ export async function ensureDispatch(state, live, kind, io, config, result) {
     assert.equal(current.admission_hash,job.admission_hash,'admission changed before dispatch');
     if(current.head_sha !== job.head_sha || current.base_sha !== job.base_sha) {
       if(recovery)await requireRecoveryCandidate(state,recovery,current,io);
+      if(sixth)await requireSixthReviewCandidate(state,sixth,current,io);
       state.history.push({event:'discard',reason:'candidate changed before dispatch',kind:job.kind,head_sha:job.head_sha,base_sha:job.base_sha,round:job.round,snapshot:current.snapshot,at:new Date().toISOString()});
       state.pending=null;state.snapshot=current.snapshot;
       return ensureDispatch(state,current,'review',io,config);
