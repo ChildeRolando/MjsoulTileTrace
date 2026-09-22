@@ -21,12 +21,19 @@ export function reviewRoundLimit(state) {
   keys(a,['pr_number','max_rounds','approved_after_round','review_issue_id','result_sha256','head_sha','base_sha','approval_ref','approved_at']);
   assert(a.pr_number === state.pr_number && Number.isSafeInteger(a.pr_number) && a.pr_number > 0,'authorization PR mismatch');
   assert((a.max_rounds === 4 && a.approved_after_round === 3)
-    || (a.max_rounds === 5 && a.approved_after_round === 4),'invalid authorization round budget');
+    || (a.max_rounds === 5 && a.approved_after_round === 4)
+    || (a.max_rounds === 6 && a.approved_after_round === 5),'invalid authorization round budget');
   if(a.max_rounds === 5) {
     const prior=state.history.filter(e=>e.event === 'authorize_extra_review' && e.max_rounds === 4);
     assert.equal(prior.length,1,'fifth review requires prior fourth-round authorization');
     const {event,...previous}=prior[0];
     assert.equal(reviewRoundLimit({...state,extra_review_authorization:previous}),4);
+  }
+  if(a.max_rounds === 6) {
+    const prior=state.history.filter(e=>e.event === 'authorize_extra_review' && e.max_rounds === 5);
+    assert.equal(prior.length,1,'sixth review requires prior fifth-round authorization');
+    const {event,...previous}=prior[0];
+    assert.equal(reviewRoundLimit({...state,extra_review_authorization:previous}),5);
   }
   assert(text(a.approval_ref) && Number.isFinite(Date.parse(a.approved_at)),'missing authorization provenance');
   assert(isSha(a.head_sha) && isSha(a.base_sha) && /^[a-f0-9]{64}$/.test(a.result_sha256),'invalid authorization identity');
@@ -154,7 +161,7 @@ export function parseRejectedReviewResult(job, issue, comments, runs) {
   return {data,raw:c.content,sha256:hash(c.content),comment_id:c.id,run_id:c.source_task_id,rejection_reason:rejection.message};
 }
 export function decide(job, result, live, limit=3) {
-  assert(limit === 3 || limit === 4 || limit === 5,'invalid round limit');
+  assert(limit === 3 || limit === 4 || limit === 5 || limit === 6,'invalid round limit');
   assert(Number.isInteger(job.round) && job.round >= 1 && job.round <= limit,'round limit');
   const next = () => ({transition:job.round < limit ? 'DISCARD_AND_REVIEW' : 'BLOCKED'});
   if(live.base_sha !== job.base_sha || live.head_sha !== job.head_sha) {

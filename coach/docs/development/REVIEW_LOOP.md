@@ -63,8 +63,9 @@ regression 普通文件及 blob hashes、指定 agent/completed run 的严格 re
 
 流程：Multica webhook/schedule → 受信本机 Controller → GitHub live PR → fresh Reviewer
 → 完整 findings → 现有 Fixer → pushed HEAD → 下一轮 fresh Reviewer。默认最多三轮；
-任意 PR 的第四、第五轮都必须分别获得一次明确人工批准，并各自绑定上一轮 BLOCKED 证据；
-两次授权与原有轮次一起留存在 ledger，绝不开放第六轮。
+任意 PR 的第四、第五轮都必须分别获得一次明确人工批准，并各自绑定上一轮 BLOCKED 证据。
+普通追加授权最高第五轮。仅当第五轮结果本身协议有效、已被 Controller 接受为 BLOCKED，且修复后
+出现精确新候选时，受信 operator 才能按下述独立入口追加一次第六轮；第七轮及自动续轮始终拒绝。
 
 ## 接入 PR
 
@@ -111,8 +112,18 @@ in-place 本机目录，避免与 Reviewer/Fixer 争用目录锁；评审/修复
   核验无活动 Controller，再持锁备份 ledger、验证第三轮原文 hash 与来源，调用
   `authorizeExtraReview` 并原子保存。保留全部 round/history；第一次仅允许第四轮。
   如需第五轮，必须取得第二次明确批准，另绑定第四轮结果并验证原授权；该规则适用于
-  任意 PR，最多第五轮，不开放第六轮。
+  任意 PR；通用 `authorizeExtraReview` 最多第五轮。
   普通 tick 不会自动恢复 BLOCKED；达到已批准上限仍有阻断项则停止。
+- 合法第五轮终态的一次性第六轮：不得使用下述“协议无效终轮恢复”入口。先按同一受信部署流程
+  暂停触发、设置 `enabled=false`、确认无活动 Controller、持锁备份，再准备与恢复 JSON 相同
+  的固定字段，其中 `round=5`，来源必须是已归档且由 Controller 正常接受的 BLOCKED result，
+  `current_base_sha/current_head_sha` 必须是明确批准后的精确新候选。执行
+  `node coach/scripts/review-loop/runtime.mjs authorize-sixth-review <config> <request>`。
+  程序重新读取指定 Reviewer issue/comment/completed run，验证 UTF-8 原文 hash、base/head、
+  第四/第五轮两段前序授权链与 `results/<issue>-<hash>.json` 归档完全一致，再把人工批准和候选
+  绑定追加到 ledger，并且只派发一个 round 6 fresh Reviewer。错误身份/hash、缺失或变更归档、
+  旧/漂移候选、缺失前序授权、重复调用、并发 Controller、round 6/7 再授权均 fail closed。
+  入口不改写已有 result/评论/history，不生成 PASS；round 6 到达终态即停止。
 - 协议无效终轮恢复：仅当结果的作者、issue、completed run、base/head、round 和完整字段均
   有效，唯一拒绝原因为 `contradictory verdict` 时使用。先按部署流程暂停触发、设
   `enabled=false`、确认无活动 Controller、持锁备份，再准备只含固定字段的恢复 JSON：
@@ -124,7 +135,8 @@ in-place 本机目录，避免与 Reviewer/Fixer 争用目录锁；评审/修复
   `reject_invalid_review_result` 与拒绝原因，并在既有上一轮授权和本次明确批准均有效时只派发
   一个 fresh Reviewer。它不写有效 result/PASS，不重置 round/history，不修改旧评论；错误
   身份/hash、重复调用、旧 live 候选、无既有授权或并发 Controller 均 fail closed。执行后
-  回读 ledger、归档、Reviewer issue/run 和 live base/head，再恢复 trigger。
+  回读 ledger、归档、Reviewer issue/run 和 live base/head，再恢复 trigger。此入口仍只处理
+  round 4 的 `contradictory verdict` 并受最高第五轮约束，不能用于合法第五轮结果。
 - `publication-<sha>.json`：同一提交的成员集与聚合发布缓存。它不授予 PASS，源事实仍
   是实时 GitHub 状态及每个 PR 的已核验 ledger；旧 per-PR published 字段不再用于发布。
   POST 前缓存先落为 uncertain；响应丢失或进程中断后，下次会按实时聚合重新发布。

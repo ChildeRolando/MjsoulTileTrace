@@ -88,7 +88,7 @@ test('fixer must push a new live SHA before another review', () => {
   assert.equal(decide({...j,round:3},{data:{head_sha:live.head_sha}},live).transition,'BLOCKED');
 });
 
-for(const limit of [4,5]) test(`authorized round ${limit} preserves all result gates and never opens another round`,()=>{
+for(const limit of [4,5,6]) test(`authorized round ${limit} preserves all result gates and never opens another round`,()=>{
   const j={...job(),round:limit},r={...result(),round:limit};
   const parsed=read([comment(r)],j);
   assert.throws(()=>decide(j,parsed,admit(pr())),/round limit/);

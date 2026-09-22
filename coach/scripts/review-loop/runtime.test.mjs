@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
-import { acquireLock, recoverLock, atomicJson, command, makeIO, tick, recoverInvalidReview } from './runtime.mjs';
+import { acquireLock, recoverLock, atomicJson, command, makeIO, tick, recoverInvalidReview, authorizeSixthReviewRun } from './runtime.mjs';
 import { GATES, hash, admit, VERSION } from './protocol.mjs';
 import { advanceDurability, captureDurability } from './controller.mjs';
 
@@ -226,6 +226,42 @@ test('operator recovery reconciles a lost create response without rebinding or d
     const saved=JSON.parse(await readFile(path.join(dir,'pr-8.json'),'utf8'));
     assert.equal(saved.job.head_sha,fixture.request.current_head_sha);assert.equal(saved.pending,null);
   } finally {await rm(dir,{recursive:true,force:true});}
+});
+
+async function sixthReviewFixture(dir) {
+  const reviewHead='b'.repeat(40),currentHead='c'.repeat(40),base='a'.repeat(40),raw=pr(currentHead,base),admissionHash=admit(raw).admission_hash;
+  const third={event:'result',transition:'BLOCKED',round:3,issue_id:'third-review',comment_id:'third-comment',run_id:'third-run',sha256:'d'.repeat(64),head_sha:reviewHead,base_sha:base};
+  const fourthAuthorization={pr_number:8,max_rounds:4,approved_after_round:3,review_issue_id:third.issue_id,result_sha256:third.sha256,head_sha:third.head_sha,base_sha:third.base_sha,approval_ref:'fourth approved',approved_at:'2026-09-20T00:00:00Z'};
+  const fourth={event:'result',transition:'BLOCKED',round:4,issue_id:'fourth-review',comment_id:'fourth-comment',run_id:'fourth-run',sha256:'e'.repeat(64),head_sha:reviewHead,base_sha:base};
+  const fifthAuthorization={pr_number:8,max_rounds:5,approved_after_round:4,review_issue_id:fourth.issue_id,result_sha256:fourth.sha256,head_sha:fourth.head_sha,base_sha:fourth.base_sha,approval_ref:'fifth approved',approved_at:'2026-09-21T00:00:00Z'};
+  const result={protocol_version:VERSION,pr_number:8,base_sha:base,head_sha:reviewHead,round:5,verdict:'CHANGES_REQUIRED',findings:{P1:[],P2:[{id:'p2',path:'coach/a.ts',line:1,scenario:'x',consequence:'y',minimal_fix:'z',durability:'repository_required',durable_owner:'coach/docs/specs/a.md',regression:null,basis:'explicit_contract_violation'}],P3:[]},gates:Object.entries(GATES).map(([id,command])=>({id,command,status:'PASS',exit_code:0})),environment_failures:[]};
+  const comment={id:'fifth-comment',author_type:'agent',author_id:'reviewer',issue_id:'fifth-review',source_task_id:'fifth-run',content:'review\n```review-loop-result\n'+JSON.stringify(result)+'\n```'};
+  const resultHash=hash(comment.content),fifth={event:'result',transition:'BLOCKED',round:5,issue_id:comment.issue_id,comment_id:comment.id,run_id:comment.source_task_id,sha256:resultHash,head_sha:reviewHead,base_sha:base};
+  const state={protocol_version:VERSION,pr_number:8,round:5,status:'BLOCKED',reason:'review gates, environment or round limit',admission_hash:admissionHash,history:[third,{event:'authorize_extra_review',...fourthAuthorization},fourth,{event:'authorize_extra_review',...fifthAuthorization},fifth],extra_review_authorization:fifthAuthorization,result:{issue_id:fifth.issue_id,comment_id:fifth.comment_id,sha256:fifth.sha256},job:{kind:'review',round:5,pr_number:8,issue_id:fifth.issue_id,identifier:'COAC-83',agent_id:'reviewer',head_sha:reviewHead,base_sha:base,admission_hash:admissionHash}};
+  const parsed={data:result,raw:comment.content,sha256:resultHash,comment_id:comment.id,run_id:comment.source_task_id};
+  const request={protocol_version:VERSION,pr_number:8,review_issue_id:fifth.issue_id,comment_id:fifth.comment_id,run_id:fifth.run_id,raw_review_sha256:fifth.sha256,review_base_sha:base,review_head_sha:reviewHead,round:5,current_base_sha:base,current_head_sha:currentHead,approval_ref:'COAC-77 comment explicitly approved one sixth review'};
+  await atomicJson(path.join(dir,'pr-8.json'),state);await mkdir(path.join(dir,'results'));
+  await atomicJson(path.join(dir,'results',`${fifth.issue_id}-${fifth.sha256}.json`),parsed);
+  let creates=0,observed=raw;const issues=[];
+  const io={openPRs:async()=>[observed],live:async()=>observed,snapshot:async value=>({semantics:'test',sha256:hash(value.head.sha)}),save:s=>atomicJson(path.join(dir,'pr-8.json'),s),issue:async()=>({id:fifth.issue_id,assignee_type:'agent',assignee_id:'reviewer'}),comments:async()=>[comment],runs:async()=>[{id:fifth.run_id,issue_id:fifth.issue_id,agent_id:'reviewer',status:'completed'}],prepare:async()=>path.join(dir,'review-6'),issues:async()=>issues,checkSpecs:async()=>{},create:async job=>{creates++;const issue={id:'sixth-review',identifier:'COAC-84',title:job.title,description:job.description,assignee_id:'reviewer',assignee_type:'agent',project_id:'project'};issues.push(issue);return issue;},publish:async()=>{}};
+  return {request,io,issues,setLiveHead(head){observed=pr(head,base);},get creates(){return creates;}};
+}
+test('valid fifth-round operator path is lock-serialized, archive-bound, idempotent and dispatches one sixth review',async()=>{
+  const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-sixth-'));
+  try {
+    const fixture=await sixthReviewFixture(dir),disabled={...config(dir),enabled:false};
+    const release=await acquireLock(dir);await assert.rejects(()=>authorizeSixthReviewRun(disabled,fixture.request,()=>fixture.io),/already running/);await release();
+    const stale={...fixture.request,current_head_sha:'9'.repeat(40)};await assert.rejects(()=>authorizeSixthReviewRun(disabled,stale,()=>fixture.io),/current head changed/);
+    const receipt=await authorizeSixthReviewRun(disabled,fixture.request,()=>fixture.io),saved=JSON.parse(await readFile(path.join(dir,'pr-8.json'),'utf8'));
+    assert.equal(receipt.round,6);assert.equal(receipt.issue_id,'sixth-review');assert.equal(fixture.creates,1);assert.equal(saved.history.filter(e=>e.event==='authorize_extra_review').length,3);
+    await assert.rejects(()=>authorizeSixthReviewRun(disabled,fixture.request,()=>fixture.io));assert.equal(fixture.creates,1);
+  } finally {await rm(dir,{recursive:true,force:true});}
+});
+test('sixth-review operator path rejects missing or changed archived evidence before authorization',async()=>{
+  for(const mutate of [async(dir,fixture)=>rm(path.join(dir,'results',`${fixture.request.review_issue_id}-${fixture.request.raw_review_sha256}.json`)),async(dir,fixture)=>atomicJson(path.join(dir,'results',`${fixture.request.review_issue_id}-${fixture.request.raw_review_sha256}.json`),{forged:true})]) {
+    const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-sixth-archive-'));
+    try {const fixture=await sixthReviewFixture(dir);await mutate(dir,fixture);await assert.rejects(()=>authorizeSixthReviewRun({...config(dir),enabled:false},fixture.request,()=>fixture.io));assert.equal(fixture.creates,0);} finally {await rm(dir,{recursive:true,force:true});}
+  }
 });
 
 test('one SHA publication owner aggregates conflicting PR results and caches the aggregate',async()=>{
