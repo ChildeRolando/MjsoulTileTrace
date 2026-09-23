@@ -247,7 +247,7 @@ Model/report evidence provider（模型/报告证据来源）
   truth、崩溃后错误报告和秘密/来源材料泄漏。
 - **Owner / boundary**：M7-B spec；`review-session-repository.ts`、
   `privileged-raw-cache.ts` 与 M7-A strict DTO/IPC/preload 边界。
-- **Enforcement**：SQLite v1 的唯一/复合 FK、immutable triggers、hash/schema/domain
+- **Enforcement**：SQLite v1 逻辑 schema（storage v2 追加 receipt package binding）的唯一/复合 FK、immutable triggers、hash/schema/domain
   validators、索引列与正文领域 identity 一致性、生成开始时的 durable session/revision CAS、
   intent/receipt；cache 命中重新验证受控路径/非链接/长度/hash，
   无 TTL/LRU，显式清理以 `deleting` 状态幂等恢复；renderer 只解析 strict DTO。
@@ -257,7 +257,9 @@ Model/report evidence provider（模型/报告证据来源）
   `electron-persistence-smoke.cjs` 在发行 Electron runtime 覆盖 binding/PRAGMA、子进程异常
   终止与 WAL/intent 恢复、complete/evidence-only、不同内容 A→B→A、migration rollback
   及同一真实脱敏 fixture 的生产分析→stub 生成→Overview/List/Detail→独立进程零请求重开；
-  repository suite 另覆盖索引/正文 identity 错配和删除重建迟到生成；
+  repository suite 另覆盖索引/正文 identity 错配、删除重建迟到生成、跨 package/重建 session
+  复用删除 operationId 的拒绝，以及 v1 receipt migration/rollback；生产 Electron 启动
+  在 cache 路径损坏或 junction 越界时保留材料、固定无路径错误且仍可离线重开；
   `record-ingestion-service.test.ts`、`catalog-api.test.ts` 与
   preload tests 保护生产 cache hit/clear 接线和安全结果；既有 `fixed-review*.test.ts` 与
   security/architecture suites 保护 P6/DTO 边界。

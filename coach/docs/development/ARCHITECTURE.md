@@ -324,7 +324,8 @@ identity/status schema 仅做内部提取，公共形状和导出保持不变，
 使沙箱 bundle 不引入未使用的 Node crypto 模块。依赖方向与 renderer allow-list 未扩张。
 
 M7-B 将上述只读边界落到 `desktop/src/review-session-repository.ts`：Electron main 是
-`review-library/library.sqlite` 的唯一写入者，SQLite v1 只保存 immutable package/report
+`review-library/library.sqlite` 的唯一写入者，SQLite v1 逻辑 schema（storage v2 为删除
+receipt 追加 package binding；迁移/兼容见 M7-B §7）只保存 immutable package/report
 bytes、冻结 selection、append-only report ref、显式 active ref 与两阶段 activation
 intent/receipt。打开或恢复时逐层校验 hash/schema/domain identity，并且只调用
 `composeReviewReadBackContext` 从 fresh package projection 装配当前报告；ContextGraph

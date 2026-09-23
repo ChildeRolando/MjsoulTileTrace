@@ -15,7 +15,7 @@ import {
   validateStructuredAnalysisPackage,
 } from "@riichi-coach/reasoning";
 
-const LIBRARY_FORMAT_VERSION = 1;
+const LIBRARY_FORMAT_VERSION = 2;
 
 type SessionRow = {
   session_id: string;
@@ -120,6 +120,18 @@ function initialize(db: DatabaseSync, now: string): void {
     `);
     db.prepare("INSERT INTO library_meta VALUES(1,1,?)").run(now);
     db.exec("PRAGMA user_version=1");
+  });
+  // v1 deletion receipts lost their package when the artifact was deleted.
+  // Preserve them, but never guess a missing binding for an old receipt.
+  if (version < 2) transaction(db, () => {
+    const meta = db.prepare("SELECT format_version FROM library_meta WHERE singleton=1").get();
+    if (meta?.format_version !== 1) throw new Error("library_version_mismatch");
+    db.exec(`ALTER TABLE operation_receipts ADD COLUMN package_id TEXT;
+      CREATE TABLE library_meta_v2(singleton INTEGER PRIMARY KEY CHECK(singleton=1), format_version INTEGER NOT NULL CHECK(format_version=2), created_at TEXT NOT NULL);
+      INSERT INTO library_meta_v2 SELECT singleton,2,created_at FROM library_meta;
+      DROP TABLE library_meta;
+      ALTER TABLE library_meta_v2 RENAME TO library_meta;
+      PRAGMA user_version=2;`);
   });
   const meta = db.prepare("SELECT format_version FROM library_meta WHERE singleton=1").get() as { format_version?: number } | undefined;
   if (meta?.format_version !== LIBRARY_FORMAT_VERSION) throw new Error("library_version_mismatch");
@@ -334,7 +346,7 @@ export function createReviewSessionRepository(input: {
         db.prepare("INSERT INTO activation_intents VALUES(?,?,?,?,?,?)").run(session.session_id, operationId, session.package_ref_id, reportRefId, session.active_report_ref_id, session.revision + 1);
         const revision = db.prepare("UPDATE review_sessions SET revision=revision+1,updated_at=? WHERE session_id=? AND revision=?").run(timestamp, session.session_id, session.revision);
         if (Number(revision.changes) !== 1) throw new Error("save_conflict");
-        db.prepare("INSERT INTO operation_receipts VALUES(?,?,?,?,?,?,?)").run(operationId, "append_and_activate", session.session_id, reportRefId, "report_saved", session.revision + 1, timestamp);
+        db.prepare("INSERT INTO operation_receipts VALUES(?,?,?,?,?,?,?,?)").run(operationId, "append_and_activate", session.session_id, reportRefId, "report_saved", session.revision + 1, timestamp, packageId);
       });
       input.beforeActivationReadBack?.(operationId);
       return activate(operationId);
@@ -352,18 +364,19 @@ export function createReviewSessionRepository(input: {
       const session = sessionByPackageId(packageId)!;
       transaction(db, () => {
         db.prepare("INSERT INTO activation_intents VALUES(?,?,?,?,?,?)").run(session.session_id, operationId, session.package_ref_id, reportRefId, session.active_report_ref_id, session.revision);
-        db.prepare("INSERT INTO operation_receipts VALUES(?,?,?,?,?,?,?)").run(operationId, "activate", session.session_id, reportRefId, "report_saved", state.revision, now());
+        db.prepare("INSERT INTO operation_receipts VALUES(?,?,?,?,?,?,?,?)").run(operationId, "activate", session.session_id, reportRefId, "report_saved", state.revision, now(), packageId);
       });
       return activate(operationId);
     },
 
     deleteSession(packageId: string, operationId: string): Readonly<{ status: "deleted" }> {
-      const prior = db.prepare("SELECT state FROM operation_receipts WHERE operation_id=?").get(operationId) as { state: string } | undefined;
+      const prior = db.prepare("SELECT state,kind,session_id,package_id FROM operation_receipts WHERE operation_id=?").get(operationId) as (ReceiptRow & { package_id: string | null }) | undefined;
+      const session = sessionByPackageId(packageId);
       if (prior !== undefined) {
-        if (prior.state !== "deleted") throw new Error("operation_identity_conflict");
+        if (prior.state !== "deleted" || prior.kind !== "delete" || prior.package_id !== packageId
+          || session !== undefined) throw new Error("operation_identity_conflict");
         return Object.freeze({ status: "deleted" as const });
       }
-      const session = sessionByPackageId(packageId);
       if (session === undefined) throw new Error("review_unavailable");
       transaction(db, () => {
         db.prepare("UPDATE session_active_report SET active_report_ref_id=NULL WHERE session_id=?").run(session.session_id);
@@ -374,7 +387,7 @@ export function createReviewSessionRepository(input: {
         const deleted = db.prepare("DELETE FROM review_sessions WHERE session_id=? AND revision=?").run(session.session_id, session.revision);
         if (Number(deleted.changes) !== 1) throw new Error("delete_conflict");
         db.prepare("DELETE FROM analysis_packages WHERE package_ref_id=? AND NOT EXISTS(SELECT 1 FROM review_sessions WHERE package_ref_id=?)").run(session.package_ref_id, session.package_ref_id);
-        db.prepare("INSERT INTO operation_receipts VALUES(?,?,?,?,?,?,?)").run(operationId, "delete", session.session_id, null, "deleted", session.revision, now());
+        db.prepare("INSERT INTO operation_receipts VALUES(?,?,?,?,?,?,?,?)").run(operationId, "delete", session.session_id, null, "deleted", session.revision, now(), packageId);
       });
       return Object.freeze({ status: "deleted" as const });
     },

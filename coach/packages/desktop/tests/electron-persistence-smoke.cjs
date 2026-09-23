@@ -1,13 +1,57 @@
 const { app } = require("electron");
+const assert = require("node:assert/strict");
 const { spawnSync } = require("node:child_process");
 const { createHash } = require("node:crypto");
-const { mkdtempSync, readFileSync, rmSync, writeFileSync } = require("node:fs");
+const { mkdtempSync, readFileSync, rmSync, writeFileSync, mkdirSync, renameSync, symlinkSync } = require("node:fs");
 const { tmpdir } = require("node:os");
-const { join } = require("node:path");
+const { join, dirname } = require("node:path");
 const { DatabaseSync } = require("node:sqlite");
 
 const CRASH_CHILD = process.argv.includes("--crash-after-report-save");
 const OFFLINE_REAL_CHILD = process.argv.includes("--offline-reopen-real");
+const PRODUCTION_CACHE_CHILD = process.argv.includes("--production-cache-failure");
+
+if (PRODUCTION_CACHE_CHILD) {
+  const root = process.env.RIICHI_ELECTRON_PERSISTENCE_ROOT;
+  app.setPath("userData", dirname(root));
+  delete process.env.RIICHI_COACH_API_KEY;
+  let requests = 0;
+  globalThis.fetch = async () => { requests += 1; throw new Error("offline_network_blocked"); };
+  app.on("session-created", (session) => {
+    session.webRequest.onBeforeRequest((details, callback) => {
+      const remote = /^(https?|wss?):/.test(details.url);
+      if (remote) requests += 1;
+      callback({ cancel: remote });
+    });
+  });
+  const deadline = setTimeout(() => { console.error("production window unavailable"); app.exit(1); }, 20_000);
+  app.once("browser-window-created", (_event, window) => {
+    // Hidden test windows must keep servicing the production renderer/IPC.
+    window.webContents.setBackgroundThrottling(false);
+    window.hide();
+    window.webContents.once("did-finish-load", async () => {
+      try {
+        const expected = JSON.parse(readFileSync(join(root, "real-expected.json"), "utf8"));
+        const actual = await window.webContents.executeJavaScript(`(async () => {
+          const snapshot = await window.riichiCoachProvider.openReview(${JSON.stringify({ packageId: expected.packageId })});
+          const detail = await window.riichiCoachProvider.getReviewDetail(${JSON.stringify({ packageId: expected.packageId, decisionId: expected.decisionId, activeReportRefId: expected.snapshot.activeReportRefId })});
+          let cacheError;
+          try { await window.riichiCoachCatalog.clearSourceCache(); } catch (error) { cacheError = error.message; }
+          return { snapshot, detail, cacheError };
+        })()`);
+        assert.deepEqual(actual.snapshot, expected.snapshot);
+        assert.deepEqual(actual.detail, expected.detail);
+        assert.match(actual.cacheError, /mahjong_soul/);
+        assert(!actual.cacheError.includes(root));
+        assert.equal(requests, 0);
+        console.log("[electron-persistence] production-cache-offline PASS network=0 llm=0");
+        clearTimeout(deadline);
+        app.quit();
+      } catch (error) { console.error(error); app.exit(1); }
+    });
+  });
+  import("../dist/electron-entry.js").catch(() => app.exit(1));
+}
 
 function canonical(value) {
   if (value === null || typeof value !== "object") return JSON.stringify(value);
@@ -192,7 +236,7 @@ async function stubReportFor(pkg) {
   }, "2026-09-23T00:11:00.000Z");
 }
 
-app.whenReady().then(async () => {
+if (!PRODUCTION_CACHE_CHILD) app.whenReady().then(async () => {
   const { createReviewSessionRepository } = await import("../dist/review-session-repository.js");
   const root = process.env.RIICHI_ELECTRON_PERSISTENCE_ROOT || mkdtempSync(join(tmpdir(), "riichi-electron-sqlite-"));
 
@@ -293,7 +337,8 @@ app.whenReady().then(async () => {
     const { createFixedReviewController } = await import("../dist/fixed-review-controller.js");
     const realPackage = await realProductionPackage();
     const realReport = await stubReportFor(realPackage);
-    const realRoot = mkdtempSync(join(tmpdir(), "riichi-electron-real-main-chain-"));
+    const realUserData = mkdtempSync(join(tmpdir(), "riichi-electron-real-main-chain-"));
+    const realRoot = join(realUserData, "review-library");
     let providerRequests = 0;
     let realRepository = createReviewSessionRepository({ root: realRoot, createId: () => "real-session" });
     const realController = createFixedReviewController({
@@ -333,7 +378,46 @@ app.whenReady().then(async () => {
     if (offline.status !== 0 || !offline.stdout.toString().includes("real-offline PASS network=0 llm=0")) {
       throw new Error(`real offline child failed: ${offline.stderr.toString() || offline.stdout.toString()}`);
     }
-    rmSync(realRoot, { recursive: true, force: true });
+    rmSync(realUserData, { recursive: true, force: true });
+    // Exercise the actual production composition root, preload and IPC with a
+    // compact valid library and damaged optional cache. The full real-record
+    // pipeline remains independently exercised above, without cache access.
+    const cacheUserData = mkdtempSync(join(tmpdir(), "riichi-electron-cache-startup-"));
+    const cacheRoot = join(cacheUserData, "review-library");
+    const cacheRepository = createReviewSessionRepository({ root: cacheRoot });
+    cacheRepository.saveSession(fixture, selection);
+    cacheRepository.saveReport(fixture.packageId, completeA, "cache-report", "cache-save");
+    const cacheController = createFixedReviewController({ repository: cacheRepository,
+      readPackage: async () => { throw new Error("unexpected source read"); },
+      generateReport: async () => { throw new Error("unexpected generation"); },
+    });
+    const cacheSnapshot = await cacheController.openReview(fixture.packageId);
+    const cacheDecision = cacheSnapshot.selection.items[0].decisionId;
+    writeFileSync(join(cacheRoot, "real-expected.json"), JSON.stringify({
+      packageId: fixture.packageId, decisionId: cacheDecision, snapshot: cacheSnapshot,
+      detail: cacheController.getReviewDetail(fixture.packageId, cacheDecision, cacheSnapshot.activeReportRefId),
+    }));
+    cacheRepository.close();
+    for (const damage of ["file", "junction"]) {
+      const source = join(cacheRoot, "source-cache");
+      const preserved = join(cacheUserData, `preserved-${damage}`);
+      mkdirSync(preserved);
+      writeFileSync(join(preserved, "original.bin"), "preserve raw material");
+      if (damage === "file") writeFileSync(source, "damaged cache directory");
+      else symlinkSync(preserved, source, process.platform === "win32" ? "junction" : "dir");
+      const child = spawnSync(process.execPath, [__filename, "--production-cache-failure"], {
+        env: { ...process.env, RIICHI_ELECTRON_PERSISTENCE_ROOT: cacheRoot }, stdio: "pipe", timeout: 30_000,
+      });
+      const output = child.stdout.toString() + child.stderr.toString();
+      assert.equal(child.status, 0, output);
+      assert.match(output, /production-cache-offline PASS network=0 llm=0/);
+      assert.match(output, /\[riichi-coach\] raw_cache_unavailable/);
+      assert(!output.includes(cacheUserData), "startup log leaked user path");
+      assert.equal(readFileSync(join(preserved, "original.bin"), "utf8"), "preserve raw material");
+      if (damage === "file") assert.equal(readFileSync(source, "utf8"), "damaged cache directory");
+      renameSync(source, join(cacheUserData, `damaged-${damage}`));
+    }
+    rmSync(cacheUserData, { recursive: true, force: true });
 
     const migrationRoot = mkdtempSync(join(tmpdir(), "riichi-electron-migration-"));
     const migrationDb = new DatabaseSync(join(migrationRoot, "library.sqlite"));
@@ -354,7 +438,7 @@ app.whenReady().then(async () => {
       userVersion: Number(db.prepare("PRAGMA user_version").get().user_version),
     };
     db.close();
-    if (values.foreignKeys !== 1 || values.journalMode !== "wal" || values.synchronous !== 2 || values.userVersion !== 1) {
+    if (values.foreignKeys !== 1 || values.journalMode !== "wal" || values.synchronous !== 2 || values.userVersion !== 2) {
       throw new Error(`unexpected sqlite pragmas: ${JSON.stringify(values)}`);
     }
     console.log(`[electron-persistence] PASS electron=${process.versions.electron} node=${process.versions.node} kill-recovery real-main-chain-offline-zero-requests A-B-A complete-partial-evidence migration`);

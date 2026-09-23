@@ -1,9 +1,9 @@
-import { spawn } from "node:child_process";
-import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { spawn, spawnSync } from "node:child_process";
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
-import { pathToFileURL } from "node:url";
-import { setTimeout as delay } from "node:timers/promises";
+import { fileURLToPath } from "node:url";
+import { createRequire } from "node:module";
 import { describe, expect, it } from "vitest";
 import { ModuleKind, ScriptTarget, transpileModule } from "typescript";
 
@@ -13,81 +13,39 @@ const app = readFileSync(new URL("../src/renderer/app.ts", import.meta.url), "ut
 const styles = readFileSync(new URL("../src/renderer/styles.css", import.meta.url), "utf8");
 
 async function chromiumFocusResults(directory: string, scenarios = ["window.run(true)", "window.run(false)"]) {
-  const candidates = process.platform === "win32" ? [
-    "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
-    "C:\\Program Files\\Microsoft\\Edge\\Application\\msedge.exe",
-    "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
-    "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe",
-  ] : process.platform === "darwin" ? [
-    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
-    "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge",
-  ] : ["/usr/bin/google-chrome", "/usr/bin/chromium", "/usr/bin/microsoft-edge"];
-  const executable = candidates.find(existsSync);
-  if (executable === undefined) throw new Error("A Chromium browser is required for the real-DOM focus regression");
-  // Keep Chromium's multi-process profile outside the page fixture. On
-  // Windows crashpad can retain profile handles briefly after the exact
-  // spawned tree exits, but must not pin the page/module directory.
+  // Use the project's pinned Chromium runtime and native keyboard input. The
+  // system Edge CDP transport can accept a socket yet never answer its first
+  // command; an unbounded request also prevents the old finally cleanup.
   const profile = mkdtempSync(join(tmpdir(), "fixed-review-browser-profile-"));
-  const browser = spawn(executable, [
-    "--headless=new", "--disable-gpu", "--no-first-run", "--no-default-browser-check", "--allow-file-access-from-files",
-    "--remote-debugging-port=0", `--user-data-dir=${profile}`, pathToFileURL(join(directory, "page.html")).href,
-  ], { stdio: "ignore" });
-  let socket: WebSocket | null = null;
+  const config = join(directory, "focus-input.json");
+  writeFileSync(config, JSON.stringify({ directory, profile, scenarios }));
+  const executable = createRequire(import.meta.url)("electron") as string;
+  const harness = fileURLToPath(new URL("./electron-focus-harness.cjs", import.meta.url));
   try {
-    const portFile = join(profile, "DevToolsActivePort");
-    for (let attempt = 0; attempt < 200 && !existsSync(portFile); attempt += 1) await delay(50);
-    if (!existsSync(portFile)) throw new Error("Chromium DevTools port was not created");
-    const port = Number(readFileSync(portFile, "utf8").split(/\r?\n/)[0]);
-    let target: { webSocketDebuggerUrl?: string; url?: string } | undefined;
-    for (let attempt = 0; attempt < 200 && target?.webSocketDebuggerUrl === undefined; attempt += 1) {
-      const targets = await fetch(`http://127.0.0.1:${port}/json/list`).then((response) => response.json()) as Array<{ type: string; url?: string; webSocketDebuggerUrl?: string }>;
-      target = targets.find((candidate) => candidate.type === "page" && candidate.url?.includes("page.html"));
-      if (target?.webSocketDebuggerUrl === undefined) await delay(50);
-    }
-    if (target?.webSocketDebuggerUrl === undefined) throw new Error("Chromium page target was not created");
-    socket = new WebSocket(target.webSocketDebuggerUrl);
-    await new Promise<void>((resolve, reject) => {
-      socket!.addEventListener("open", () => resolve(), { once: true });
-      socket!.addEventListener("error", () => reject(new Error("Chromium DevTools connection failed")), { once: true });
+    return await new Promise<unknown[]>((resolve, reject) => {
+      const child = spawn(executable, [harness, config], { stdio: ["ignore", "pipe", "pipe"], windowsHide: true });
+      let stdout = "";
+      let stderr = "";
+      let timedOut = false;
+      child.stdout.on("data", (data) => { stdout += data; });
+      child.stderr.on("data", (data) => { stderr += data; });
+      const timer = setTimeout(() => {
+        timedOut = true;
+        if (process.platform === "win32" && child.pid !== undefined) {
+          spawnSync("taskkill", ["/PID", String(child.pid), "/T", "/F"], { windowsHide: true });
+        } else child.kill("SIGKILL");
+      }, 30_000);
+      child.once("error", (error) => { clearTimeout(timer); reject(error); });
+      child.once("close", (code) => {
+        clearTimeout(timer);
+        if (timedOut || code !== 0) return reject(new Error(`Chromium focus harness failed (${code}): ${stderr}`));
+        const result = stdout.split(/\r?\n/).find((line) => line.startsWith("FOCUS_RESULT="));
+        if (result === undefined) return reject(new Error("Chromium focus result missing"));
+        try { resolve(JSON.parse(result.slice("FOCUS_RESULT=".length))); } catch (error) { reject(error); }
+      });
     });
-    let id = 0;
-    const pending = new Map<number, { resolve(value: unknown): void; reject(error: Error): void }>();
-    socket.addEventListener("message", (event) => {
-      const message = JSON.parse(String(event.data)) as { id?: number; result?: unknown; error?: { message: string } };
-      if (message.id === undefined) return;
-      const request = pending.get(message.id); pending.delete(message.id);
-      if (message.error === undefined) request?.resolve(message.result);
-      else request?.reject(new Error(message.error.message));
-    });
-    const send = (method: string, params: Record<string, unknown> = {}) => new Promise<unknown>((resolve, reject) => {
-      const requestId = ++id; pending.set(requestId, { resolve, reject });
-      socket!.send(JSON.stringify({ id: requestId, method, params }));
-    });
-    for (let attempt = 0; attempt < 200; attempt += 1) {
-      const evaluated = await send("Runtime.evaluate", { expression: "typeof window.run", returnByValue: true }) as { result?: { value?: string } };
-      if (evaluated.result?.value === "function") break;
-      if (attempt === 199) throw new Error("Focus test page did not initialize");
-      await delay(50);
-    }
-    const results = [];
-    for (const scenario of scenarios) {
-      await send("Runtime.evaluate", { expression: scenario, awaitPromise: true, returnByValue: true });
-      await send("Input.dispatchKeyEvent", { type: "rawKeyDown", key: "Enter", code: "Enter", windowsVirtualKeyCode: 13, nativeVirtualKeyCode: 13 });
-      await send("Input.dispatchKeyEvent", { type: "char", key: "Enter", code: "Enter", text: "\r", unmodifiedText: "\r", windowsVirtualKeyCode: 13, nativeVirtualKeyCode: 13 });
-      await send("Input.dispatchKeyEvent", { type: "keyUp", key: "Enter", code: "Enter", windowsVirtualKeyCode: 13, nativeVirtualKeyCode: 13 });
-      await delay(20);
-      const evaluated = await send("Runtime.evaluate", { expression: "typeof window.focusResult === 'function' ? window.focusResult() : ({ tag: document.activeElement?.tagName, text: document.activeElement?.textContent, tabIndex: document.activeElement?.tabIndex })", returnByValue: true }) as { result?: { value?: unknown } };
-      results.push(evaluated.result?.value);
-    }
-    await send("Browser.close");
-    return results;
   } finally {
-    socket?.close();
-    for (let attempt = 0; attempt < 100 && browser.exitCode === null; attempt += 1) await delay(20);
-    if (browser.exitCode === null) browser.kill();
-    for (let attempt = 0; attempt < 100 && browser.exitCode === null; attempt += 1) await delay(20);
-    try { rmSync(profile, { recursive: true, force: true, maxRetries: 5, retryDelay: 100 }); }
-    catch { /* Chromium crashpad releases this OS-temp profile asynchronously. */ }
+    rmSync(profile, { recursive: true, force: true, maxRetries: 20, retryDelay: 100 });
   }
 }
 

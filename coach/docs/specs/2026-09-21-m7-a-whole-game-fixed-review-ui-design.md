@@ -867,3 +867,17 @@ PR #15 通过同一独立评审并以 merge commit
   赤牌、鸣牌与组成牌面，使 List/Detail 中易混淆的合法动作可区分。
 - List 标题显式 `tabindex=-1`，以真实 Chromium `activeElement` + DevTools 键盘 Enter
   回归验证有条目与空 List 的焦点转移；FakeNode 的无条件 focused 布尔不再作为验收证据。
+
+#### COAC-98 焦点测试运行时修复（2026-09-23）
+
+全量运行实际复现首个 `Runtime.evaluate` 无回复；加上请求期限并先导航空白页的
+诊断仍停在首个 `Page.enable`，所以未进入产品焦点逻辑。旧系统 Edge/CDP 驱动的
+无期限 pending Promise 会把 transport 挂起拖到 90 秒测试超时，并阻止 finally 清理。
+这定位了测试驱动挂起点，不宣称已确认 Edge 内部为什么不回复。
+
+`fixed-review-renderer.test.ts` 现在通过 `electron-focus-harness.cjs` 使用仓库锁定的
+Electron Chromium：加载同一生产 UI module、发送原生 Enter 键盘事件、读取真实
+`document.activeElement`，保留 populated/empty List、首次生成、折叠证据三项断言。
+sandbox/contextIsolation 保持开启，nodeIntegration 关闭；隐藏测试窗口仅禁用后台节流。
+子进程有独立 profile、明确退出及超时后精确 PID tree 清理，不依赖系统浏览器版本或
+无期限 CDP 回复；不增加原用例超时，不跳过用例。

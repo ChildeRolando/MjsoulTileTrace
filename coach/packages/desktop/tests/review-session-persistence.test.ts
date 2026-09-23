@@ -16,6 +16,12 @@ afterEach(() => { for (const root of roots.splice(0)) rmSync(root, { recursive: 
 const root = () => { const value = mkdtempSync(join(tmpdir(), "riichi-review-")); roots.push(value); return value; };
 const pkg = StructuredAnalysisPackageSchema.parse(JSON.parse(readFileSync(new URL("./fixtures/coach-package.json", import.meta.url), "utf8")));
 const selection = selectReviewDecisions(pkg);
+function canonical(value: unknown): string {
+  if (value === null || typeof value !== "object") return JSON.stringify(value);
+  if (Array.isArray(value)) return `[${value.map(canonical).join(",")}]`;
+  return `{${Object.entries(value as Record<string, unknown>).sort(([a], [b]) => a < b ? -1 : a > b ? 1 : 0).map(([key, item]) => `${JSON.stringify(key)}:${canonical(item)}`).join(",")}}`;
+}
+const fixtureHash = (value: unknown) => createHash("sha256").update(canonical(value)).digest("hex");
 const provider = {
   descriptor: () => ({ providerId: "unconfigured", model: "unconfigured" }),
   complete: async () => ({ errorCode: "provider_unavailable" as const, transportRetries: 0 as const }),
@@ -40,6 +46,65 @@ const completeReport = await generateReviewReport(graph, selection, {
 }, "2026-09-23T00:00:00.000Z");
 
 describe("ReviewSession SQLite persistence", () => {
+  it("migrates v1 receipts without guessing deleted package bindings and rolls back failed migration", () => {
+    for (const fail of [false, true]) {
+      const dir = root();
+      const repository = createReviewSessionRepository({ root: dir });
+      repository.saveSession(pkg, selection);
+      repository.close();
+      const db = new DatabaseSync(join(dir, "library.sqlite"));
+      db.exec(`ALTER TABLE operation_receipts DROP COLUMN package_id;
+        DROP TABLE library_meta;
+        CREATE TABLE library_meta(singleton INTEGER PRIMARY KEY CHECK(singleton=1), format_version INTEGER CHECK(format_version=1), created_at TEXT);
+        INSERT INTO library_meta VALUES(1,1,'original');
+        INSERT INTO operation_receipts VALUES('old-delete','delete','old-session',NULL,'deleted',0,'original');
+        PRAGMA user_version=1;`);
+      if (fail) db.exec("CREATE TABLE library_meta_v2(sentinel TEXT); INSERT INTO library_meta_v2 VALUES('preserve')");
+      db.close();
+      if (fail) {
+        expect(() => createReviewSessionRepository({ root: dir })).toThrow();
+        const verify = new DatabaseSync(join(dir, "library.sqlite"));
+        try {
+          expect(verify.prepare("PRAGMA user_version").get()?.user_version).toBe(1);
+          expect(verify.prepare("PRAGMA table_info(operation_receipts)").all().some((column) => column.name === "package_id")).toBe(false);
+          expect(verify.prepare("SELECT sentinel FROM library_meta_v2").get()?.sentinel).toBe("preserve");
+        } finally { verify.close(); }
+      } else {
+        const reopened = createReviewSessionRepository({ root: dir });
+        try {
+          expect(reopened.openByPackageId(pkg.packageId).analysisPackage).toEqual(pkg);
+          expect(() => reopened.deleteSession(pkg.packageId, "old-delete")).toThrow("operation_identity_conflict");
+        } finally { reopened.close(); }
+      }
+    }
+  });
+  it("binds deletion retries to both the original package and session across restart (R4-P2-1)", () => {
+    const dir = root();
+    let repository = createReviewSessionRepository({ root: dir });
+    const changed = { ...pkg, componentVersions: { ...pkg.componentVersions, mapperAdapter: "fixture/v2" } };
+    const { analysisKey, componentVersions, analysisPolicy, record, evidenceRegistry } = changed;
+    const decisions = changed.decisions.map((decision) => decision.outcome === "analysis_ready"
+      ? { ...decision, modelEvaluation: { ...decision.modelEvaluation, detailPolicy: { ...decision.modelEvaluation.detailPolicy, frozenAt: null } } }
+      : decision);
+    const other = {
+      ...changed,
+      packageId: `package:sha256:${fixtureHash({ analysisKey, componentVersions, analysisPolicy })}`,
+      semanticContentHash: `sha256:${fixtureHash({ analysisKey, componentVersions, analysisPolicy, record, evidenceRegistry, decisions })}`,
+    };
+    repository.saveSession(pkg, selection);
+    repository.saveSession(other, selectReviewDecisions(other));
+    repository.deleteSession(pkg.packageId, "delete-bound");
+    repository.close();
+    repository = createReviewSessionRepository({ root: dir });
+    try {
+      expect(repository.deleteSession(pkg.packageId, "delete-bound")).toEqual({ status: "deleted" });
+      expect(() => repository.deleteSession(other.packageId, "delete-bound")).toThrow("operation_identity_conflict");
+      expect(repository.openByPackageId(other.packageId).analysisPackage).toEqual(other);
+      const replacement = repository.saveSession(pkg, selection);
+      expect(() => repository.deleteSession(pkg.packageId, "delete-bound")).toThrow("operation_identity_conflict");
+      expect(repository.openByPackageId(pkg.packageId).sessionId).toBe(replacement.sessionId);
+    } finally { repository.close(); }
+  });
   it("reopens the same active immutable report offline without selector or provider calls", () => {
     const dir = root();
     const first = createReviewSessionRepository({ root: dir, createId: () => "session-a", now: () => "2026-09-23T00:00:00.000Z" });
@@ -186,11 +251,11 @@ describe("ReviewSession SQLite persistence", () => {
     const dir = root();
     const databasePath = join(dir, "library.sqlite");
     const db = new DatabaseSync(databasePath);
-    db.exec("PRAGMA user_version=2");
+    db.exec("PRAGMA user_version=3");
     db.close();
     expect(() => createReviewSessionRepository({ root: dir })).toThrow("library_newer_version");
     const verify = new DatabaseSync(databasePath);
-    expect((verify.prepare("PRAGMA user_version").get() as { user_version: number }).user_version).toBe(2);
+    expect((verify.prepare("PRAGMA user_version").get() as { user_version: number }).user_version).toBe(3);
     verify.close();
   });
 

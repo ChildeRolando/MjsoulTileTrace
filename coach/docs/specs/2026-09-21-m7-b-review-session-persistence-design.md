@@ -109,6 +109,14 @@ P6 不向用户暴露这些操作。repository/controller 仍必须支持：追�
 
 ## 7. migration 与版本兼容
 
+COAC-98 删除回执修复在原 v1 逻辑 schema 上追加 storage v2：
+`operation_receipts.package_id TEXT NULL` 保留删除后仍可验证的 package 绑定，
+新操作同时写原始 `session_id`；artifact、引用及所有原约束不变。
+v1 → v2 的列添加、`library_meta.format_version=2` 和 `user_version=2` 同事务提交。
+旧删除回执无法从已删除 artifact 恢复 package 身份时保留 NULL，冲突重试固定拒绝，
+不能猜绑定或重新删除；新回执仅在同 package 且原 session 已不存在、没有重建 session
+时幂等返回。此存储修复不改变 package/report 的领域 schema 或产品范围。
+
 - 新库从 `user_version=0` 在单个事务初始化到 v1，同时写 `library_meta.format_version=1`。后续只允许应用内、连续、前向 migration；DDL、数据变换、约束检查和版本号在同一短事务提交。
 - migration 失败整体回滚并拒绝打开资料库；不得删除旧库、创建空库覆盖或静默跳过。高于程序支持版本的库 fail closed，提示使用兼容新版本；不自动 downgrade。
 - 启动取得单实例写锁后让 SQLite 自行恢复 WAL，再执行 `quick_check`/`integrity_check`（实现按启动预算选择）和 `foreign_key_check`。数据库检查不能替代领域 validators。
@@ -197,6 +205,39 @@ P6 不向用户暴露这些操作。repository/controller 仍必须支持：追�
   保存贯通；随后由独立 Electron 进程禁用并计数 source/network/LLM，离线重开比较 active
   ref、selection/status/version、judgment、explanation、provenance 与 session list，固定为
   `network=0`、`llm=0`，固化 `R3-P2-3`。真实收费 provider 仍未执行。
+
+### Review Loop 第 4 轮修复与实际验证（COAC-98，2026-09-23）
+
+- 来源：第四轮原始合法 `ENVIRONMENT_BLOCKED`，comment
+  `01a0cd37-2553-79b7-ad77-3cc6d3acfb31`，completed run
+  `01a0cd2b-af86-7680-9b7b-e63a85ea703c`，UTF-8 SHA-256
+  `5956ca0345903646fd4f10570865a06508a05fcfe58f8d5797f5cb6ca36d04d6`。
+  修复消费候选 `e46a349df9c715e8e71052df6b38cfae5703f80a`；原结论、admission 与历史不改写。
+- `R4-P2-1`：删除 receipt 持久保留原 package/session 绑定；仅同 package 的已删除目标可
+  重试，跨 package 或同 package 已重建 session 均固定 `operation_identity_conflict`。
+  `review-session-persistence.test.ts` 在旧实现上实际失败（跨 package 未抛错误），修复后
+  通过；另覆盖跨 restart 的同目标幂等、旧 v1 未知绑定拒绝与 migration rollback。
+- `R4-P2-2`：组合根捕获 cache 初始化异常，固定记录 `raw_cache_unavailable`；缓存操作
+  固定不可用，资料库及离线复盘仍可用。其他启动异常只记录 `startup_unavailable`。
+  原始材料与受控路径验证保留，cache 初始化失败释放已打开的数据库句柄。
+  `electron-persistence-smoke.cjs` 在旧 emitted entry 上实际复现 `EEXIST`/路径泄露；
+  修复后以独立 Electron 启动生产 entry，经真实 preload/IPC 比较原 snapshot/detail，
+  对 source-cache 普通文件损坏和 junction 越界均断言固定错误、无用户目录日志、原材料
+  不变、离线请求数为 0。该故障注入使用紧凑合法 fixture；完整真实牌谱主链仍单独完整执行。
+- Chromium 门的驱动挂起点、替代运行时和生命周期修复由 M7-A owner 的 COAC-98 节持有；
+  真实键盘焦点覆盖未减少。诊断期全量首次运行仍是 169 文件/2044 项通过、1 项 90000ms
+  超时；对旧 CDP 加期限的实验也失败，均不作为通过记录。新 cache 测试曾把完整真实链
+  再次跨 renderer 传输，超过新增测试的 20 秒期限；诊断已确认生产 Detail handler 返回，
+  后将独立 cache 故障注入改用紧凑 fixture，不改原真实离线主链或任何焦点断言/超时。
+- 本修复实际门禁：`npm run typecheck` PASS/0；`npm run build` PASS/0；
+  `npx vitest run` 两次完整 PASS/0，各 170 files / 2047 tests；
+  `npm run check:architecture` PASS/0（6 packages / 391 files / 1685 imports / 0 violations）；
+  `npm run test:package-import` PASS/0（1/1）；`npm run test:electron-persistence`
+  PASS/0（Electron 43.3.0 / Node 24.18.1），含原 kill/WAL、真实主链零请求、A→B→A、
+  complete/partial/evidence-only、migration 及新增生产 cache 故障回归。
+  诊断阶段一次 test internal import 违反 architecture gate，已移除并以原命令恢复。
+  当前无未恢复的本地环境失败；仅 stubbed provider，未调用真实收费服务。
+  这些是作者本地验收证据，不是第五轮独立 PASS，也不授权合并。
 
 COAC-8 只有在 COAC-6 accepted/merged、COAC-7 本规格 reviewed/frozen/accepted/merged，并记录二者精确合并 SHA 后才能启动。COAC-6 的 GO 也同时要求 COAC-5 technical gate PASS+merged 与本规格 reviewed/frozen/merged。
 

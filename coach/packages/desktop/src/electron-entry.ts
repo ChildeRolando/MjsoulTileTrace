@@ -91,7 +91,7 @@ import { registerCoachIpc } from "./coach-ipc.js";
 import { createEnvironmentKeyImporter, createProviderCredentials } from "./llm-provider/credentials.js";
 import { createCoachService, createPackageReferenceReader } from "./llm-provider/service.js";
 import { createReviewSessionRepository } from "./review-session-repository.js";
-import { createPrivilegedRawCache, type RawCacheIdentity } from "./privileged-raw-cache.js";
+import { createPrivilegedRawCache, type PrivilegedRawCache, type RawCacheIdentity } from "./privileged-raw-cache.js";
 
 const PARTITION = "persist:riichi-coach-mahjong-soul-cn";
 const bundleRoot = fileURLToPath(new URL("../../../vendor/mahjong-soul-protocol/", import.meta.url));
@@ -242,11 +242,20 @@ async function start(): Promise<void> {
   const reviewRepository = createReviewSessionRepository({
     root: join(app.getPath("userData"), "review-library"),
   });
-  const privilegedRawCache = createPrivilegedRawCache({
-    root: join(app.getPath("userData"), "review-library"),
-  });
+  let privilegedRawCache: PrivilegedRawCache | null = null;
+  try {
+    privilegedRawCache = createPrivilegedRawCache({ root: join(app.getPath("userData"), "review-library") });
+  } catch {
+    // Source material is optional for validated library read-back. Preserve it
+    // for recovery and never log the filesystem exception (which carries paths).
+    console.error("[riichi-coach] raw_cache_unavailable");
+  }
+  const requireRawCache = (): PrivilegedRawCache => {
+    if (privilegedRawCache === null) throw new Error("raw_cache_unavailable");
+    return privilegedRawCache;
+  };
   app.once("will-quit", () => {
-    privilegedRawCache.close();
+    privilegedRawCache?.close();
     reviewRepository.close();
   });
   const providerCredentials = createProviderCredentials({
@@ -604,7 +613,7 @@ async function start(): Promise<void> {
     createSession: createLobbySessionFactory({ bundle }),
     authenticate: authenticateStoredMahjongSoulSession,
     readCachedRecord: async (stored, recordId) => {
-      const bytes = privilegedRawCache.get(cacheIdentity(recordId, stored.accountId));
+      const bytes = requireRawCache().get(cacheIdentity(recordId, stored.accountId));
       if (bytes === null) return null;
       try {
         return await analyzeFetchedRecord(stored, recordId, validateMahjongSoulRecordBytes({
@@ -613,7 +622,7 @@ async function start(): Promise<void> {
       } catch { return null; }
     },
     writeCachedRecord: (stored, fetched) => {
-      privilegedRawCache.put(cacheIdentity(fetched.recordId, stored.accountId), fetched.recordBytes);
+      requireRawCache().put(cacheIdentity(fetched.recordId, stored.accountId), fetched.recordBytes);
     },
     fetchRecord: async (lobby, stored, recordId) => {
       const fetched = await fetchMahjongSoulRecord({
@@ -682,7 +691,7 @@ async function start(): Promise<void> {
         syncAnalyzableRecords: () => catalogService.syncAnalyzableRecords(),
         listAnalyzableRecords: () => catalogService.listAnalyzableRecords(),
         ingest: (recordId: string) => recordIngestionService.ingest(recordId),
-        clearSourceCache: () => privilegedRawCache.clear(),
+        clearSourceCache: () => requireRawCache().clear(),
       }),
       trustedSenderId: window.webContents.id,
     });
@@ -715,8 +724,8 @@ const isDiagnosticRun = process.argv.includes("--diagnose-mahjong-soul-restore")
   || process.argv.includes("--diagnose-mortal-decision")
   || process.argv.includes("--diagnose-mortal-full-game");
 
-if (hasSingleInstanceLock) app.whenReady().then(start).catch((error) => {
-  console.error("[riichi-coach] startup failed:", error);
+if (hasSingleInstanceLock) app.whenReady().then(start).catch(() => {
+  console.error("[riichi-coach] startup_unavailable");
   app.exit(1);
 });
 

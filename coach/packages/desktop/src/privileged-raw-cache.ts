@@ -63,7 +63,8 @@ export function createPrivilegedRawCache(input: { root: string; now?: () => stri
   };
   assertControlledDirectories();
   const db = new DatabaseSync(join(libraryRoot, "library.sqlite"));
-  db.exec("PRAGMA foreign_keys=ON; PRAGMA journal_mode=WAL; PRAGMA synchronous=FULL; PRAGMA busy_timeout=5000");
+  try { db.exec("PRAGMA foreign_keys=ON; PRAGMA journal_mode=WAL; PRAGMA synchronous=FULL; PRAGMA busy_timeout=5000"); }
+  catch (error) { db.close(); throw error; }
   const now = input.now ?? (() => new Date().toISOString());
 
   const removeMaterial = (materialId: string, relativePath: string): void => {
@@ -77,13 +78,13 @@ export function createPrivilegedRawCache(input: { root: string; now?: () => stri
     db.prepare("DELETE FROM source_materials WHERE material_id=? AND state='deleting' AND NOT EXISTS(SELECT 1 FROM raw_cache_entries WHERE material_id=?)").run(materialId, materialId);
   };
 
-  for (const row of db.prepare(`SELECT material_id,relative_path,state FROM source_materials
+  try { for (const row of db.prepare(`SELECT material_id,relative_path,state FROM source_materials
     WHERE state='deleting' OR NOT EXISTS(SELECT 1 FROM raw_cache_entries WHERE raw_cache_entries.material_id=source_materials.material_id)`).all() as Array<{ material_id: string; relative_path: string; state: string }>) {
     try {
       if (row.state !== "deleting") db.prepare("UPDATE source_materials SET state='deleting' WHERE material_id=?").run(row.material_id);
       removeMaterial(row.material_id, row.relative_path);
     } catch { /* retain deleting for explicit retry */ }
-  }
+  } } catch (error) { db.close(); throw error; }
 
   return Object.freeze({
     put(identity: RawCacheIdentity, value: Uint8Array): string {
