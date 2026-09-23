@@ -6,6 +6,7 @@ import { fileURLToPath } from "node:url";
 import { createRequire } from "node:module";
 import { describe, expect, it } from "vitest";
 import { ModuleKind, ScriptTarget, transpileModule } from "typescript";
+import { FixedReviewSnapshotSchema, FixedReviewOperationResultSchema, ReviewSessionSummarySchema } from "@riichi-coach/contracts";
 
 const source = readFileSync(new URL("../src/renderer/fixed-review-ui.ts", import.meta.url), "utf8");
 const html = readFileSync(new URL("../src/renderer/index.html", import.meta.url), "utf8");
@@ -50,6 +51,87 @@ async function chromiumFocusResults(directory: string, scenarios = ["window.run(
 }
 
 describe("fixed review native DOM surface", () => {
+  it.each(["complete", "partial", "evidence_only", "failed"])("refreshes the saved session label after app generation: %s", async (status) => {
+    const directory = mkdtempSync(join(tmpdir(), "fixed-review-session-list-"));
+    try {
+      const snapshot = FixedReviewSnapshotSchema.parse({
+        schemaVersion: "fixed-review-view/v1", packageId: "saved-package", analysisStatus: "complete",
+        outcomeCounts: { analysis_ready: 2, unsupported_action: 0, source_row_not_expected: 0, no_mortal_entry: 0, binding_mismatch: 0, model_output_incomplete: 0, analysis_blocked: 0 },
+        activeReportRefId: null, activeReportStatus: "not_generated",
+        explanationCounts: { ready: 0, provider_unavailable: 0, request_failed: 0, invalid_output: 0 },
+        selection: { policyVersion: "deterministic-review-selector/v1", selectedCount: 2, items: [1, 2].map(rank => ({
+          decisionId: `d${rank}`, rank, selectionReason: "model_disagreement_above_threshold", roundOrdinal: 0,
+          decisionWindowKind: "self_turn", actualAction: { actionRef: `a${rank}`, label: "打牌 1m" },
+          mortalPreferredActions: [], errorGap: 12, tags: ["efficiency"], explanationStatus: "not_generated",
+        })) },
+      });
+      const ready = status === "complete" ? 2 : status === "partial" ? 1 : 0;
+      const result = FixedReviewOperationResultSchema.parse(status === "failed"
+        ? { status: "failed", code: "generation_failed" }
+        : { status: "ready", snapshot: {
+          ...snapshot, activeReportRefId: "saved-report", activeReportStatus: status,
+          explanationCounts: { ready, provider_unavailable: 2 - ready, request_failed: 0, invalid_output: 0 },
+          selection: { ...snapshot.selection, items: snapshot.selection.items.map((item, index) => ({
+            ...item, explanationStatus: index < ready ? "ready" : "provider_unavailable",
+          })) },
+        } });
+      const session = ReviewSessionSummarySchema.parse({
+        sessionId: "saved-session", packageId: snapshot.packageId, analysisStatus: "complete",
+        activeReportRefId: null, updatedAt: "2026-09-23T00:00:00.000Z",
+      });
+      for (const name of ["app", "fixed-review-ui", "session-ui-policy", "paipu-ui-policy"]) {
+        const text = readFileSync(new URL(`../src/renderer/${name}.ts`, import.meta.url), "utf8");
+        writeFileSync(join(directory, `${name}.js`), transpileModule(text, {
+          compilerOptions: { module: ModuleKind.ES2022, target: ScriptTarget.ES2022 },
+        }).outputText, "utf8");
+      }
+      const setup = `
+        let activeReportRefId = null;
+        let reads = 0;
+        const snapshot = ${JSON.stringify(snapshot)};
+        const result = ${JSON.stringify(result)};
+        const session = ${JSON.stringify(session)};
+        window.riichiCoach = { getSessionStatus: async () => ({ status: "logged_out" }) };
+        window.riichiCoachProvider = {
+          listReviewSessions: async () => { reads++; return [{ ...session, activeReportRefId }]; },
+          openReview: async () => snapshot,
+          generateReview: async () => {
+            if (result.status === "ready") activeReportRefId = result.snapshot.activeReportRefId;
+            return result;
+          },
+          leaveReview: async () => {},
+        };
+        const settle = async () => { for (let i = 0; i < 12; i++) await Promise.resolve(); };
+        window.run = async () => {
+          const list = document.querySelector("#review-session-list");
+          window.before = list.textContent;
+          list.querySelector("button").click();
+          await settle();
+          window.afterOpen = list.textContent;
+          [...document.querySelectorAll("#fixed-review button")].find(b => b.textContent === "生成教练解说").click();
+          await settle();
+          window.afterGeneration = list.textContent;
+          document.querySelector("#leave-review").click();
+          await settle();
+          document.activeElement?.blur();
+        };
+        window.focusResult = () => ({ before: window.before, afterOpen: window.afterOpen,
+          afterGeneration: window.afterGeneration, afterLeave: document.querySelector("#review-session-list").textContent,
+          hidden: document.querySelector("#fixed-review").hidden, reads });
+      `;
+      writeFileSync(join(directory, "setup.js"), setup, "utf8");
+      writeFileSync(join(directory, "page.html"), html.replace('<script type="module" src="./app.js"></script>', '<script src="./setup.js"></script><script type="module" src="./app.js"></script>'), "utf8");
+      const before = "saved-package · 尚未生成教练解说打开";
+      const after = status === "failed" ? before : "saved-package · 已有教练解说打开";
+      expect(await chromiumFocusResults(directory, ["window.run()"])).toEqual([{
+        before, afterOpen: before, afterGeneration: after, afterLeave: after, hidden: true,
+        reads: status === "failed" ? 2 : 3,
+      }]);
+    } finally {
+      rmSync(directory, { recursive: true, force: true, maxRetries: 20, retryDelay: 100 });
+    }
+  }, 90_000);
+
   it("ships semantic three-level landmarks and safe text-only rendering", () => {
     expect(html).toContain('id="fixed-review"');
     expect(source).toContain("review-overview");

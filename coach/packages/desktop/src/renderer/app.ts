@@ -41,7 +41,14 @@ const openReviewButton = document.querySelector<HTMLButtonElement>("#open-review
 const leaveReviewButton = document.querySelector<HTMLButtonElement>("#leave-review")!;
 const reviewEntryStatus = document.querySelector<HTMLElement>("#review-entry-status")!;
 const reviewSessionList = document.querySelector<HTMLElement>("#review-session-list")!;
-export const fixedReviewUi = createFixedReviewUi({ document, root: reviewRoot, api: window.riichiCoachProvider });
+export const fixedReviewUi = createFixedReviewUi({
+  document, root: reviewRoot, api: window.riichiCoachProvider,
+  onReportGenerated: () => {
+    void refreshReviewSessions().catch(() => {
+      reviewEntryStatus.textContent = "教练解说已生成，暂时无法刷新已保存复盘列表。";
+    });
+  },
+});
 let currentSessionStatus: MahjongSoulSessionStatus["status"] = "logged_out";
 
 async function refreshReviewSessions(): Promise<void> {
