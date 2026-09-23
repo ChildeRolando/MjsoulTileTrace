@@ -137,6 +137,21 @@ in-place 本机目录，避免与 Reviewer/Fixer 争用目录锁；评审/修复
   身份/hash、重复调用、旧 live 候选、无既有授权或并发 Controller 均 fail closed。执行后
   回读 ledger、归档、Reviewer issue/run 和 live base/head，再恢复 trigger。此入口仍只处理
   round 4 的 `contradictory verdict` 并受最高第五轮约束，不能用于合法第五轮结果。
+- 外部独立审查收口：自动 round 6 已合法 BLOCKED 且用户另行人工创建了独立补充审查时，
+  不得把外部序号改写成自动 round 或继续提高自动上限。按部署流程暂停 Autopilot、设置
+  `enabled=false`、确认无活动 Controller、持锁备份，准备严格 JSON：`protocol_version`、
+  `pr_number`、`review_issue_id`、`comment_id`、`run_id`、`raw_review_sha256`、
+  `issue_contract_sha256`、`external_sequence`、`base_sha`、`head_sha`、`admission_hash`、
+  `approval_ref`。执行
+  `node coach/scripts/review-loop/runtime.mjs accept-external-review <config> <request>`。
+  程序只接受本项目中由 human member 创建、指定给配置 Reviewer 的 issue，并重新读取唯一评论、
+  completed run 与 live PR；完整 issue 契约 hash、原 admission/rubric/spec paths、候选、严格结果
+  schema、空 P1/P2/P3、五门 PASS/0 和空环境失败必须同时匹配。成功后自动 ledger 仍保持
+  BLOCKED/round 6，另以 `external_independent_review` 来源追加唯一审计事件并归档到
+  `external-results/`；聚合发布器仅为仍匹配该 base/head/admission 的候选发布 success。
+  重复、并发、stale HEAD、契约/身份/hash 不符、未完成 run、缺门禁或非绿结果均拒绝。
+  执行后回读 ledger、外部归档和 GitHub status，恢复 config/Autopilot；正常 merge 仍须独立
+  核对 live candidate 和所有 merge gate。入口不合并、不清空历史、不修改 Reviewer 原文。
 - `publication-<sha>.json`：同一提交的成员集与聚合发布缓存。它不授予 PASS，源事实仍
   是实时 GitHub 状态及每个 PR 的已核验 ledger；旧 per-PR published 字段不再用于发布。
   POST 前缓存先落为 uncertain；响应丢失或进程中断后，下次会按实时聚合重新发布。

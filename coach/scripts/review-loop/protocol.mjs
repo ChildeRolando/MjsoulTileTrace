@@ -41,6 +41,25 @@ export function reviewRoundLimit(state) {
     && e.issue_id === a.review_issue_id && e.sha256 === a.result_sha256 && e.head_sha === a.head_sha && e.base_sha === a.base_sha),'authorization source missing');
   return a.max_rounds;
 }
+export function externalReviewAcceptance(state, live) {
+  const a=state.external_review_acceptance;
+  if(!a)return null;
+  keys(a,['source','pr_number','review_issue_id','comment_id','run_id','raw_review_sha256','issue_contract_sha256','external_sequence','base_sha','head_sha','admission_hash','approval_ref','accepted_at']);
+  assert.equal(a.source,'external_independent_review');
+  assert(state.protocol_version === VERSION && state.status === 'BLOCKED' && state.round === 6 && reviewRoundLimit(state) === 6,'external review requires exhausted automatic loop');
+  assert(a.pr_number === state.pr_number && Number.isSafeInteger(a.external_sequence) && a.external_sequence > state.round,'invalid external review identity');
+  assert(isSha(a.base_sha) && isSha(a.head_sha) && /^[a-f0-9]{64}$/.test(a.raw_review_sha256) && /^[a-f0-9]{64}$/.test(a.issue_contract_sha256) && /^[a-f0-9]{64}$/.test(a.admission_hash),'invalid external review hashes');
+  for(const k of ['review_issue_id','comment_id','run_id','approval_ref'])assert(text(a[k]),'missing external review provenance');
+  assert(Number.isFinite(Date.parse(a.accepted_at)),'missing external review acceptance time');
+  if(live)assert(a.pr_number === live.pr_number && a.base_sha === live.base_sha && a.head_sha === live.head_sha && a.admission_hash === live.admission_hash,'external review candidate/admission changed');
+  const events=state.history.filter(e=>e.event === 'accept_external_review' && e.source === a.source && e.pr_number === a.pr_number
+    && e.review_issue_id === a.review_issue_id && e.comment_id === a.comment_id && e.run_id === a.run_id
+    && e.raw_review_sha256 === a.raw_review_sha256 && e.issue_contract_sha256 === a.issue_contract_sha256
+    && e.external_sequence === a.external_sequence && e.base_sha === a.base_sha && e.head_sha === a.head_sha
+    && e.admission_hash === a.admission_hash && e.approval_ref === a.approval_ref && e.accepted_at === a.accepted_at);
+  assert.equal(events.length,1,'external review acceptance history mismatch');
+  return a;
+}
 export function block(content, name) {
   assert(text(content), 'missing content');
   const matches = [...content.matchAll(new RegExp('^```'+name+'\\r?\\n([\\s\\S]*?)^```[ \\t]*$', 'gm'))];
