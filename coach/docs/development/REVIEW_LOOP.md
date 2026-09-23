@@ -146,7 +146,9 @@ in-place 本机目录，避免与 Reviewer/Fixer 争用目录锁；评审/修复
   `node coach/scripts/review-loop/runtime.mjs accept-external-review <config> <request>`。
   程序只接受本项目中由 human member 创建、指定给配置 Reviewer 的 issue，并重新读取唯一评论、
   completed run 与 live PR；完整 issue 契约 hash、原 admission/rubric/spec paths、候选、严格结果
-  schema、空 P1/P2/P3、五门 PASS/0 和空环境失败必须同时匹配。成功后自动 ledger 仍保持
+  schema、空 P1/P2/P3、五门 PASS/0 和空环境失败必须同时匹配。外部 issue、comments、runs
+  全部读取并验证后，程序会在任何归档或 ledger 写入前再次严格核对 live base/head/admission；
+  读取期间发生的任一漂移均不消耗接纳机会。成功后自动 ledger 仍保持
   BLOCKED/round 6，另以 `external_independent_review` 来源追加唯一审计事件并归档到
   `external-results/`；聚合发布器仅为仍匹配该 base/head/admission 的候选发布 success。
   重复、并发、stale HEAD、契约/身份/hash 不符、未完成 run、缺门禁或非绿结果均拒绝。

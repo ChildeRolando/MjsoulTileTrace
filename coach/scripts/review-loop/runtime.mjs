@@ -386,9 +386,13 @@ export async function acceptExternalReviewRun(config,request,ioFactory=makeIO) {
     assert.equal(result.data.verdict,'NO_P1_P2','external review did not pass');
     assert(Object.values(result.data.findings).every(findings=>findings.length === 0),'external review has findings');
     assert(result.data.gates.every(g=>g.status === 'PASS' && g.exit_code === 0) && result.data.environment_failures.length === 0,'external review gates not green');
+    const current=admit(await io.live(request.pr_number));
+    assert.equal(current.base_sha,request.base_sha,'external-review current base changed');
+    assert.equal(current.head_sha,request.head_sha,'external-review current head changed');
+    assert.equal(current.admission_hash,request.admission_hash,'external-review admission changed');
     const accepted_at=new Date().toISOString(),acceptance={source:'external_independent_review',pr_number:request.pr_number,review_issue_id:request.review_issue_id,comment_id:result.comment_id,run_id:result.run_id,raw_review_sha256:result.sha256,issue_contract_sha256:request.issue_contract_sha256,external_sequence:request.external_sequence,base_sha:request.base_sha,head_sha:request.head_sha,admission_hash:request.admission_hash,approval_ref:request.approval_ref,accepted_at};
     state.external_review_acceptance=acceptance;state.history.push({event:'accept_external_review',...acceptance});
-    externalReviewAcceptance(state,live);
+    externalReviewAcceptance(state,current);
     await io.archiveExternalResult(request.review_issue_id,result);await io.save(state);await io.publish(state);
     return {status:'EXTERNAL_REVIEW_ACCEPTED',ledger_status:state.status,pr:state.pr_number,base_sha:acceptance.base_sha,head_sha:acceptance.head_sha,review_issue_id:acceptance.review_issue_id,comment_id:acceptance.comment_id,run_id:acceptance.run_id,raw_review_sha256:acceptance.raw_review_sha256,external_sequence:acceptance.external_sequence};
   } finally {await release();}
