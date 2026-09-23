@@ -1,7 +1,7 @@
 # M7-A Whole-game fixed review UI 实现规格
 
 日期：2026-09-21
-状态：**SPEC FREEZE（产品/UI）：P1–P6 已裁决，2026-09-22 冻结；R3-P2-1 技术候选已落盘，须经最终候选 HEAD 的独立评审后才可判定技术执行门 PASS**
+状态：**SPEC FREEZE + TECHNICAL GATE PASS：P1–P6 已冻结；PR #14 已通过独立评审并合入；COAC-6 实现候选待 Review Loop 验收**
 工单：COAC-5；后续实现：COAC-6
 
 权威上游：
@@ -194,6 +194,9 @@ analysis_blocked
 均只展示用户能理解的文案、原因与当前可执行操作；不得把代码藏入折叠区、悬浮提示
 或辅助技术标签继续暴露。DTO/验证/开发诊断仍保留原技术值，状态语义与合法性不变。
 这比示意 A 的“折叠后显示代码”更严格；不新增面向用户的开发者状态面板。
+合法解说占位符也属于该边界：presenter 必须按 CandidateAction / FactorDifference 的
+字段语义本地化，行动复用统一行动文案，数字及 evidence `sourceRef` 保持原归属；未知
+技术字符串只显示安全固定文案，不得把枚举、引用或标识符原样插入解说正文。
 
 以下为落实本裁决的固定本地化映射（左列仅供实现者读取）：
 
@@ -299,6 +302,13 @@ analysis_blocked
   live count。缺失使用合法 unavailable 状态；不一致/越权的 DTO 仍按既有规则拒绝。
 - 本裁决增加的是现有证据的展示深度，不扩展 deterministic 分析能力，不向 List
   增加明细列。示意牌组/数值不构成生产证据或新增权威规格。
+- 判断依据、解说证据和父项引用共用同一导航行为：目标位于已折叠的 `details` 内时，
+  renderer 必须先展开目标的全部祖先 `details`，再把键盘焦点移到精确目标；不得只对
+  隐藏节点调用 `focus()`。该行为由真实 Chromium 键盘回归保护，Fake DOM 不作为证明。
+- presenter 必须为当前账本实际支持的指标使用固定可读名称；逐威胁防守维度必须把
+  `actorN` 投影为明确的“玩家 N+1（威胁对象）”范围。手牌类型、结构风险分类、
+  基础荣和资格等集合值必须展示经 allow-list 本地化后的成员，不得退化为“分析指标”
+  或仅显示“若干项”；未知维度和值继续 fail closed 为泛化摘要，不透传任意 payload。
 
 Detail 使用固定章节，不因 LLM 状态改变权威顺序：
 
@@ -568,6 +578,10 @@ GENERATE_REQUESTED(operationId, packageRef)
 | regenerate 操作级失败（未取得合法报告） | 固定错误提示 | 不改变 | active report 与 overlay 不变 |
 | switching_report | 禁用重复切换 | 保留旧 snapshot 至原子提交 | 不呈现半装配 target |
 
+首次生成返回固定 `failed` 结果或 IPC Promise 拒绝时，renderer 必须在同一 operation
+epoch 内清除“正在生成教练解说…”文案、显示可重试的固定失败状态并重新启用生成按钮；
+当前 snapshot、证据和 active report 不变。迟到的旧 epoch 结果不得改写新视图状态。
+
 ## Accessibility 与 DOM 纪律
 
 - 继续使用语义化原生 DOM：Overview 用 landmark/definition list，List 用可键盘导航的
@@ -575,6 +589,8 @@ GENERATE_REQUESTED(operationId, packageRef)
   `role="alert"`。
 - List selection、展开/收起与后续启用的报告切换全部可用键盘完成；focus 在重渲染后落到可预测
   元素，切换报告不得把 focus 丢到 document body。
+- 首次生成在当前 operation/view epoch 内成功并重建 Overview/List 后，focus 固定落到新的
+  “查看复盘条目”入口；失败或迟到结果仍按生命周期规则保留/隔离当前视图，不得借此移动焦点。
 - 颜色不是状态唯一载体；所有 status/tag 均有文本。
 - 所有模型/证据文本用 `textContent` 或 text node；禁止 `innerHTML`、inline handler、
   markdown HTML passthrough。
@@ -634,6 +650,9 @@ read-back validation，不得以 HTTP 结果或异常类别直接猜测是否成
 - 用户状态文案按 P5 映射；可见文本、展开区、悬浮与辅助技术标签均不出现技术状态码。
   覆盖合法单候选导致 degraded、完整性失败、部分解说、仅证据、未生成、空 selection
   及无合法新报告的操作失败；原因与可执行操作准确，禁止原始错误文案回显。
+- 手牌结构生产分类 `not_applicable_open_hand` 固定显示“副露手牌不适用”，并在七对子/
+  国士无双的适用性、向听、有效牌种类与有效进张中保留该原因；未知 classification
+  继续安全退化为“已分类”，不得把已支持值误作未知扩展。
 - Overview 首屏主区呈现入选数量和 List 入口；两组状态与解说可用数量默认可见，
   两组明细默认折叠且展开后保留全部键/零值；完整性异常提示始终可见，
   `integrity_failed` 警示先于入口。覆盖 `not_generated` 与空 selection 的准确表达。
@@ -788,11 +807,63 @@ architecture checker 允许 desktop presenter 消费该 seam，同时继续拒�
 `appendReasoningOverlay`、provider/assembler/generation internals；
 `generateReviewReport` 仍是唯一 generation authority。
 
-当前状态：**SPEC FREEZE：产品/UI 已冻结（P1–P6，2026-09-22）；
-REMAINING PRODUCT DECISIONS：无（COAC-5 本期范围）；
-TECHNICAL CANDIDATE：R3-P2-1 实现与机械回归已落盘，仍须 final candidate HEAD 的
-fresh independent review 无 P1/P2 后才可记为 PASS。** 产品冻结不等于技术审阅通过、
-PR 合入或 COAC-6 可执行。将来重新生成/报告比较的配置快照细节属于后续功能规格，不阻塞本期
-产品冻结。本记录取代此前“没有未决产品问题、可直接执行”的关闭声明。
-COAC-7 仍需把共享生命周期互引落入其独立持久化规格；在 COAC-5 与
-COAC-7 两份规格均冻结合入前，不得启动 COAC-6。
+执行门已于 2026-09-22 满足：PR #14 通过 `review-loop/v2.1` 并以 merge commit
+`3e9bbb7b0e90e2072053c1eb16fff7ad5c44db74` 合入；COAC-7 的权威 owner 为
+[`2026-09-21-m7-b-review-session-persistence-design.md`](./2026-09-21-m7-b-review-session-persistence-design.md)，
+PR #15 通过同一独立评审并以 merge commit
+`ab379cc267ee96776317ddb8d7b44843de8a1ebe` 合入。由此 COAC-6 可以消费两份冻结契约；
+将来重新生成/报告比较的配置快照细节仍属于后续功能，不进入本期用户入口。
+
+### COAC-6 实现与回归 owner（2026-09-22）
+
+- renderer DTO 与 IPC request/result 的机器契约由
+  `packages/contracts/src/fixed-review-view.ts` 拥有；snapshot 只有当前 active report
+  字段，不携带 report catalog/history、provider/model/time 或 privileged payload。
+- main 投影由 `packages/desktop/src/fixed-review-presenter.ts` 拥有，并且只通过
+  `composeReviewReadBackContext` 读取 selector-scoped evidence/current-report overlay；
+  内存 lifecycle 由相邻 `fixed-review-controller.ts` 拥有 reportRef instance identity、
+  active ref、operation epoch、leave/late-result 丢弃与内部 A→B→A isolation。
+- 原生 DOM 消费面由 `packages/desktop/src/renderer/fixed-review-ui.ts` 拥有；P6 只暴露
+  首次生成，不含 regenerate、history picker、report switch 或隐藏替代入口。
+- 自动验收由 `fixed-review-view.test.ts`、`fixed-review.test.ts`、
+  `fixed-review-renderer.test.ts` 与 `coach-ipc.test.ts` 固化。fixture 覆盖 complete、
+  degraded+partial（含 `unsupported_action` / `source_row_not_expected`）、
+  evidence_only、empty selection、duplicate reportId/distinct reportRefId、操作失败保留
+  active report、A→B→A 与 leave 后迟到结果丢弃。实现候选仍须通过本 Ticket 的五门和
+  Review Loop，不能以本记录替代验收结论。
+
+#### Review Loop 第 1 轮修复闭环（COAC-73）
+
+- 生产 renderer 通过经过 main 严格 identity/validator 校验的既有 `packageId` 引用
+  打开复盘，并提供显式离开操作；测试必须从 app 入口证明 `fixedReviewUi.open` 可达，
+  不再以直接调用 UI helper 冒充生产接线。
+- `RendererScoredAction` 携带本地化评分口径；provenance DTO 携带候选归属、安全值、
+  统计范围、有效牌逐牌剩余张数与父引用。presenter 只从
+  `composeReviewReadBackContext` 返回的 same-decision graph 投影这些字段，包含当前
+  判断所引用的 `KnownGameFact`；renderer 提供判断/解释到证据项的键盘可聚焦入口。
+- renderer-facing `generateReview` 在 controller 边界强制首次生成；内部生命周期测试
+  seam 仍可 append/activate 多个 immutable refs。service 在请求提交排队时即登记取消
+  token，确保 credential mutation 前排队的 generation 经 cancel/leave 后不会调用
+  provider、重建 closed view 或追加 ref。
+- `fixed-review.test.ts` 持续覆盖 complete、degraded+partial、evidence_only 与 empty
+  selection 经 presenter → IPC → preload → DOM、本地化 P5 文案、真实 focus、六组 List、
+  明细证据，以及不同 judgment/explanation 内容的 A→B→A 深比较；
+  `coach-provider.test.ts` 覆盖排队取消，`fixed-review-renderer.test.ts` 覆盖生产入口与
+  窄窗六组重排。上述回归是本轮九项 P2 的 durable enforcement。
+
+#### Review Loop 第 2 轮修复闭环（COAC-75）
+
+- controller 在首次异步 package 读取前登记 operation 与 view epoch；读取返回、生成前及
+  发布前均复核取消/离开状态。读取期间 cancel/leave 不调用 provider、不创建 ref、也不
+  重建已关闭 view；`coach-provider.test.ts` 以 deferred read 固化该回归。
+- renderer 的 open/detail/generate/leave 共享同一 view epoch。打开新 package 会先使旧请求
+  失效并执行旧 generation cancel/leave；所有成功、错误和 finally 回调只可修改所属的当前
+  package/ref/view。`fixed-review.test.ts` 固化 A 生成→打开 B→A 迟到、旧 detail 迟到和
+  leave 后返回均不再更新 DOM。
+- presenter 通过既有 `composeReviewReadBackContext` 的 same-decision allow-listed payload，
+  为 `KnownGameFact` 投影手牌、摸牌、牌河、立直、风位、宝牌、副露和剩余摸牌等窄明细；
+  FactorFact 的 boolean 明确区分“是”“否”，缺失仍为“暂不可用”。不向 DTO 开放任意 payload。
+- `RiichiAction` 行动文案改为穷尽类型投影：覆盖过、九种九牌、和牌及全部吃碰杠，并保留
+  赤牌、鸣牌与组成牌面，使 List/Detail 中易混淆的合法动作可区分。
+- List 标题显式 `tabindex=-1`，以真实 Chromium `activeElement` + DevTools 键盘 Enter
+  回归验证有条目与空 List 的焦点转移；FakeNode 的无条件 focused 布尔不再作为验收证据。

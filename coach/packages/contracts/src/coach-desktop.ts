@@ -1,5 +1,11 @@
 import { z } from "zod";
 import { ReviewReportSchema } from "./coach.js";
+import {
+  FixedReviewAcknowledgementSchema, FixedReviewCancelRequestSchema,
+  FixedReviewDetailRequestSchema, FixedReviewDetailSchema, FixedReviewGenerateRequestSchema,
+  FixedReviewLeaveRequestSchema, FixedReviewOpenRequestSchema, FixedReviewOperationResultSchema,
+  FixedReviewSnapshotSchema,
+} from "./fixed-review-view.js";
 
 /** Public configuration contains no authentication, query, fragment or userinfo. */
 export const CoachProviderConfigSchema = z.object({
@@ -23,6 +29,10 @@ export const COACH_IPC_CHANNELS = Object.freeze({
   importCredential: "coach:provider:import-credential",
   clearCredential: "coach:provider:clear-credential",
   generate: "coach:report:generate",
+  openReview: "coach:review:open",
+  cancelGeneration: "coach:review:cancel-generation",
+  getReviewDetail: "coach:review:detail",
+  leaveReview: "coach:review:leave",
 } as const);
 export const CoachReportResultSchema = z.discriminatedUnion("status", [
   z.object({ status: z.literal("ready"), report: ReviewReportSchema }).strict(),
@@ -34,5 +44,9 @@ export interface CoachDesktopApi {
   status(): Promise<CoachProviderStatus>;
   importCredential(): Promise<CoachProviderStatus>;
   clearCredential(): Promise<CoachProviderStatus>;
-  generate(input: CoachReportRequest): Promise<CoachReportResult>;
+  openReview(input: z.input<typeof FixedReviewOpenRequestSchema>): Promise<z.infer<typeof FixedReviewSnapshotSchema>>;
+  generateReview(input: z.input<typeof FixedReviewGenerateRequestSchema>): Promise<z.infer<typeof FixedReviewOperationResultSchema>>;
+  cancelGeneration(input: z.input<typeof FixedReviewCancelRequestSchema>): Promise<z.infer<typeof FixedReviewAcknowledgementSchema>>;
+  getReviewDetail(input: z.input<typeof FixedReviewDetailRequestSchema>): Promise<z.infer<typeof FixedReviewDetailSchema>>;
+  leaveReview(input: z.input<typeof FixedReviewLeaveRequestSchema>): Promise<z.infer<typeof FixedReviewAcknowledgementSchema>>;
 }
