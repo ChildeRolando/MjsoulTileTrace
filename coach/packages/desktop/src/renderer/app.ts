@@ -26,6 +26,7 @@ const loginButton = document.querySelector<HTMLButtonElement>("#login")!;
 const logoutButton = document.querySelector<HTMLButtonElement>("#logout")!;
 const refreshButton = document.querySelector<HTMLButtonElement>("#refresh")!;
 const syncButton = document.querySelector<HTMLButtonElement>("#sync")!;
+const clearSourceCacheButton = document.querySelector<HTMLButtonElement>("#clear-source-cache")!;
 const catalogSection = document.querySelector<HTMLElement>(".catalog")!;
 const catalogDetailElement = document.querySelector<HTMLElement>("#catalog-detail")!;
 const catalogListElement = document.querySelector<HTMLElement>("#catalog-list")!;
@@ -33,7 +34,7 @@ const paipuSection = document.querySelector<HTMLElement>(".paipu-import")!;
 const paipuUrlInput = document.querySelector<HTMLInputElement>("#paipu-url")!;
 const paipuImportButton = document.querySelector<HTMLButtonElement>("#paipu-import")!;
 const paipuStatusElement = document.querySelector<HTMLElement>("#paipu-status")!;
-const buttons = [loginButton, logoutButton, refreshButton, syncButton, paipuImportButton];
+const buttons = [loginButton, logoutButton, refreshButton, syncButton, clearSourceCacheButton, paipuImportButton];
 const reviewRoot = document.querySelector<HTMLElement>("#fixed-review")!;
 const reviewPackageIdInput = document.querySelector<HTMLInputElement>("#review-package-id")!;
 const openReviewButton = document.querySelector<HTMLButtonElement>("#open-review")!;
@@ -176,6 +177,18 @@ loginButton.addEventListener("click", () => {
 logoutButton.addEventListener("click", () => void run(() => window.riichiCoach.logoutMahjongSoul()));
 refreshButton.addEventListener("click", () => void run(() => window.riichiCoach.getSessionStatus()));
 syncButton.addEventListener("click", () => void runSync());
+clearSourceCacheButton.addEventListener("click", () => {
+  void (async () => {
+    setPending(true);
+    try {
+      const result = await window.riichiCoachCatalog.clearSourceCache();
+      catalogDetailElement.textContent = result.pendingMaterials === 0
+        ? "来源缓存已清理。"
+        : "部分来源缓存尚未清理完成，请稍后重试。";
+    } catch { catalogDetailElement.textContent = "暂时无法清理来源缓存。"; }
+    finally { setPending(false); }
+  })();
+});
 
 openReviewButton.addEventListener("click", () => {
   void (async () => {

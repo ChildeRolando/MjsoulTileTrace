@@ -45,13 +45,29 @@ export function createPrivilegedRawCache(input: { root: string; now?: () => stri
   const libraryRoot = resolve(input.root);
   const sourceRoot = join(libraryRoot, "source-cache");
   const stagingRoot = join(libraryRoot, "staging");
+  mkdirSync(libraryRoot, { recursive: true, mode: 0o700 });
+  const trustedLibraryRoot = realpathSync(libraryRoot);
   mkdirSync(sourceRoot, { recursive: true, mode: 0o700 });
   mkdirSync(stagingRoot, { recursive: true, mode: 0o700 });
+  const assertControlledDirectory = (directory: string, expectedName: string): string => {
+    if (realpathSync(libraryRoot) !== trustedLibraryRoot) throw new Error("raw_cache_path_invalid");
+    const stat = lstatSync(directory);
+    if (!stat.isDirectory() || stat.isSymbolicLink()) throw new Error("raw_cache_path_invalid");
+    const real = realpathSync(directory);
+    if (relative(trustedLibraryRoot, real) !== expectedName) throw new Error("raw_cache_path_invalid");
+    return real;
+  };
+  const assertControlledDirectories = (): void => {
+    assertControlledDirectory(sourceRoot, "source-cache");
+    assertControlledDirectory(stagingRoot, "staging");
+  };
+  assertControlledDirectories();
   const db = new DatabaseSync(join(libraryRoot, "library.sqlite"));
   db.exec("PRAGMA foreign_keys=ON; PRAGMA journal_mode=WAL; PRAGMA synchronous=FULL; PRAGMA busy_timeout=5000");
   const now = input.now ?? (() => new Date().toISOString());
 
   const removeMaterial = (materialId: string, relativePath: string): void => {
+    assertControlledDirectories();
     const target = controlledPath(sourceRoot, relativePath);
     if (existsSync(target)) {
       const stat = lstatSync(target);
@@ -71,6 +87,7 @@ export function createPrivilegedRawCache(input: { root: string; now?: () => stri
 
   return Object.freeze({
     put(identity: RawCacheIdentity, value: Uint8Array): string {
+      assertControlledDirectories();
       const cacheKey = rawCacheKey(identity);
       const contentHash = sha(value);
       const materialId = `material:${contentHash}`;
@@ -81,6 +98,7 @@ export function createPrivilegedRawCache(input: { root: string; now?: () => stri
         const fd = openSync(staging, "wx", 0o600);
         try { writeFileSync(fd, value); fsyncSync(fd); } finally { closeSync(fd); }
         if (sha(readFileSync(staging)) !== contentHash) { unlinkSync(staging); throw new Error("raw_cache_write_invalid"); }
+        assertControlledDirectories();
         try { renameSync(staging, target); } catch (error) {
           if (existsSync(target)) unlinkSync(staging); else throw error;
         }
@@ -108,6 +126,7 @@ export function createPrivilegedRawCache(input: { root: string; now?: () => stri
         || row.record_identity_hash !== identity.stableRecordIdentityHash || row.parser_version !== identity.parserVersion
         || row.validation_version !== identity.validationVersion) return null;
       try {
+        assertControlledDirectories();
         const target = controlledPath(sourceRoot, row.relative_path);
         const stat = lstatSync(target);
         if (!stat.isFile() || stat.isSymbolicLink() || realpathSync(dirname(target)) !== realpathSync(sourceRoot)) return null;
@@ -117,6 +136,7 @@ export function createPrivilegedRawCache(input: { root: string; now?: () => stri
     },
 
     clear(): Readonly<{ clearedEntries: number; pendingMaterials: number }> {
+      assertControlledDirectories();
       const entries = db.prepare("SELECT cache_key,material_id FROM raw_cache_entries").all() as Array<{ cache_key: string; material_id: string }>;
       for (const entry of entries) db.prepare("DELETE FROM raw_cache_entries WHERE cache_key=?").run(entry.cache_key);
       const materials = db.prepare("SELECT material_id,relative_path FROM source_materials WHERE NOT EXISTS(SELECT 1 FROM raw_cache_entries WHERE raw_cache_entries.material_id=source_materials.material_id)").all() as Array<{ material_id: string; relative_path: string }>;

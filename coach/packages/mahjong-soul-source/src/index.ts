@@ -105,6 +105,7 @@ export {
 } from "./session-restorer.js";
 export {
   fetchMahjongSoulRecord,
+  validateMahjongSoulRecordBytes,
   type MahjongSoulFetchedRecord,
 } from "./record-fetcher.js";
 export { unwrapGameDetailRecords } from "./record-wire.js";

@@ -116,6 +116,12 @@ export function createFixedReviewController(input: {
         await open(packageId, operation.viewEpoch, isCurrent);
         state = requireState(packageId);
       }
+      if (input.repository !== undefined) {
+        const persisted = input.repository.tryOpenByPackageId(packageId);
+        if (persisted === null) throw new Error("review_unavailable");
+        state = fromPersisted(persisted);
+        views.set(packageId, state);
+      }
       if (!isCurrent()) return { status: "failed", code: "operation_cancelled" };
       if (firstGenerationOnly && state.activeReportRefId !== null) return { status: "failed", code: "generation_failed" };
       const rawReport = await input.generateReport(state.analysisPackage, state.selection);

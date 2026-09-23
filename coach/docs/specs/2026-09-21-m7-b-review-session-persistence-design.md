@@ -162,6 +162,27 @@ P6 不向用户暴露这些操作。repository/controller 仍必须支持：追�
 6. **cache/security**：固定 raw fixtures 覆盖 hit/miss/hash invalid/content dedup/no-auto-eviction/explicit clear/restart recovery，以及路径越界、symlink/reparse point、秘密反射。IPC→preload→renderer 全链断言无 raw bytes/URL/account/secret/prompt/response。
 7. **项目门**：从 `coach/` 实际运行 `npm run typecheck`、`npm run build`、`npx vitest run`、`npm run check:architecture`、`npm run test:package-import`，并运行新增的 Electron persistence suite。真实收费 provider 只在人工明确授权、确认账号/额度后补充验证；默认 suite 使用 stub，未获授权必须记录“未执行”而非 PASS。
 
+### Review Loop 第 2 轮修复闭环（COAC-96）
+
+- 首次生成前先从 durable repository 恢复既有 intent/receipt；提交一已成功时只做本地
+  read-back 与提交二，不再次调用 provider。activation 在任何数据库写入前校验 package、
+  selection、report 的 hash、存储 schema version、领域 identity 与
+  `composeReviewReadBackContext`，拒绝时保留旧 active、intent、`report_saved` receipt
+  与 revision。
+- `activateExisting` 按 operation receipt 的 kind/session/package/target ref 绑定实现幂等；
+  同参重试返回既有结果，冲突参数固定拒绝。`review-session-persistence.test.ts` 固化上述
+  三条恢复/幂等回归。
+- raw cache 以已解析的真实 `review-library` 为锚，写入、命中、恢复与清理均复核
+  `source-cache/`、`staging/` 目录链，拒绝 junction/symlink/reparse-point 越界；越界目标
+  不读取、不写入、不删除。
+- 账号牌谱摄取在创建 Lobby/下载前查询 main-only cache，命中后仍由 source parser 和
+  canonical mapper 验证；miss/invalid 才下载并登记。IPC/preload/renderer 仅新增无参数
+  “清理来源缓存”与 `{status,pendingMaterials}` 安全结果，不返回 bytes、路径、账号或秘密。
+- `electron-persistence-smoke.cjs` 由同进程 reopen 扩展为真实 Electron 子进程在提交一后
+  异常终止、WAL/intent 恢复、complete 与 evidence-only 离线读回、不同内容 A→B→A、
+  migration rollback，以及脱敏真实牌谱经生产 mapper/replay 的验收；网络与 LLM 边界均
+  使用离线 fixture/stub。
+
 COAC-8 只有在 COAC-6 accepted/merged、COAC-7 本规格 reviewed/frozen/accepted/merged，并记录二者精确合并 SHA 后才能启动。COAC-6 的 GO 也同时要求 COAC-5 technical gate PASS+merged 与本规格 reviewed/frozen/merged。
 
 ## 12. 审阅结论与 out-of-scope

@@ -43,6 +43,13 @@ type IntentRow = {
   expected_revision: number;
 };
 
+type ReceiptRow = {
+  state: string;
+  kind: string;
+  session_id: string;
+  report_ref_id: string | null;
+};
+
 export type PersistedReviewState = Readonly<{
   sessionId: string;
   revision: number;
@@ -179,23 +186,44 @@ export function createReviewSessionRepository(input: {
     if (intent !== undefined) activate(intent.operation_id);
   };
 
+  const validateActivationReadBack = (intent: IntentRow, session: SessionRow): void => {
+    if (session.session_id !== intent.session_id || session.package_ref_id !== intent.package_ref_id) {
+      throw new Error("activation_unavailable");
+    }
+    const packageRow = packageRowForSession(session.session_id);
+    const target = db.prepare(`SELECT r.payload,r.content_hash,r.schema_version FROM review_reports r
+      JOIN session_report_refs x ON x.report_ref_id=r.report_ref_id AND x.package_ref_id=r.package_ref_id
+      WHERE x.session_id=? AND x.package_ref_id=? AND x.report_ref_id=?`).get(
+      intent.session_id, intent.package_ref_id, intent.target_report_ref_id,
+    ) as ArtifactRow | undefined;
+    if (packageRow === undefined || target === undefined) throw new Error("activation_unavailable");
+
+    const packageRaw = assertHash(packageRow, "package_hash_mismatch");
+    validateStructuredAnalysisPackage(packageRaw);
+    const analysisPackage = StructuredAnalysisPackageSchema.parse(packageRaw);
+    if (analysisPackage.componentVersions.packageSchema !== packageRow.schema_version) throw new Error("package_version_mismatch");
+    if (hash(session.selection_payload) !== session.selection_hash) throw new Error("selection_hash_mismatch");
+    const selection = ReviewSelectionResultSchema.parse(decode(session.selection_payload));
+    const report = ReviewReportSchema.parse(assertHash(target, "report_hash_mismatch"));
+    if (report.schemaVersion !== target.schema_version) throw new Error("report_version_mismatch");
+    composeReviewReadBackContext(analysisPackage, selection, report);
+  };
+
   const activate = (operationId: string): PersistedReviewState => {
-    const receipt = db.prepare("SELECT state,session_id FROM operation_receipts WHERE operation_id=?").get(operationId) as { state: string; session_id: string } | undefined;
+    const receipt = db.prepare("SELECT state,kind,session_id,report_ref_id FROM operation_receipts WHERE operation_id=?").get(operationId) as ReceiptRow | undefined;
     if (receipt?.state === "activated") {
       const row = db.prepare("SELECT s.*,a.active_report_ref_id FROM review_sessions s JOIN session_active_report a ON a.session_id=s.session_id WHERE s.session_id=?").get(receipt.session_id) as SessionRow;
       return read(row);
     }
     const intent = db.prepare("SELECT * FROM activation_intents WHERE operation_id=?").get(operationId) as IntentRow | undefined;
     if (intent === undefined) throw new Error("activation_unavailable");
+    if (receipt === undefined || receipt.session_id !== intent.session_id
+      || receipt.report_ref_id !== intent.target_report_ref_id
+      || (receipt.kind !== "append_and_activate" && receipt.kind !== "activate")) {
+      throw new Error("operation_identity_conflict");
+    }
     const session = db.prepare("SELECT s.*,a.active_report_ref_id FROM review_sessions s JOIN session_active_report a ON a.session_id=s.session_id WHERE s.session_id=?").get(intent.session_id) as SessionRow;
-    const target = db.prepare("SELECT payload,content_hash,schema_version FROM review_reports WHERE report_ref_id=? AND package_ref_id=?").get(intent.target_report_ref_id, intent.package_ref_id) as ArtifactRow | undefined;
-    if (target === undefined) throw new Error("activation_unavailable");
-    const packageRow = packageRowForSession(session.session_id);
-    if (packageRow === undefined) throw new Error("activation_unavailable");
-    const packageRaw = assertHash(packageRow, "package_hash_mismatch");
-    const selectionRaw = decode(session.selection_payload);
-    const reportRaw = assertHash(target, "report_hash_mismatch");
-    composeReviewReadBackContext(packageRaw, selectionRaw, reportRaw);
+    validateActivationReadBack(intent, session);
     transaction(db, () => {
       const result = db.prepare("UPDATE session_active_report SET active_report_ref_id=? WHERE session_id=? AND package_ref_id=? AND active_report_ref_id IS ?").run(intent.target_report_ref_id, intent.session_id, intent.package_ref_id, intent.previous_report_ref_id);
       if (Number(result.changes) !== 1) throw new Error("activation_conflict");
@@ -292,6 +320,13 @@ export function createReviewSessionRepository(input: {
     },
 
     activateExisting(packageId: string, reportRefId: string, operationId: string): PersistedReviewState {
+      const prior = db.prepare("SELECT state,kind,session_id,report_ref_id FROM operation_receipts WHERE operation_id=?").get(operationId) as ReceiptRow | undefined;
+      if (prior !== undefined) {
+        const current = sessionByPackageId(packageId);
+        if (current === undefined || prior.kind !== "activate" || prior.session_id !== current.session_id
+          || prior.report_ref_id !== reportRefId) throw new Error("operation_identity_conflict");
+        return prior.state === "activated" ? read(current) : activate(operationId);
+      }
       const state = this.openByPackageId(packageId);
       const session = sessionByPackageId(packageId)!;
       transaction(db, () => {

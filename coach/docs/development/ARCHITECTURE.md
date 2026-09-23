@@ -336,5 +336,7 @@ artifact 均不携带 raw material。缓存没有 TTL/LRU，只有显式清理�
 
 - canonical mapper 的部分流局/杠语义尚需真实牌谱反证（M5 人工验收并行线程）；
 - 响应面已接入（M6-A4.0/A4.1/A4.2：归属过滤拆除、discard_response/kan_response 开窗、响应窗口身份事实表与本地候选枚举同构、守恒不变量升级、响应分支覆盖率矩阵 fail-closed）；A4.3 纯事件 discovery 扫描已落地（`scripts/response-surface-discovery.mjs`，chankan 最早启动、合格局计数按 source 记入 manifest），wave-1 六分支已全部真实 E2E 取证（resp_chi/pon/daiminkan/hora_actual + resp_pass_on_discard 四候选族子覆盖 + resp_chankan_actual，8 份真实报告），wave-2 保持 fail-closed + 降级条款；
-- mapped/replayed record 的产品接线仍需随来源入口继续闭合；Mortal/source raw cache 已有 main-only、内容去重与显式清理 substrate，不构成 renderer 或会话 artifact；
+- mapped/replayed record 的产品接线仍需随来源入口继续闭合；账号牌谱下载已消费 main-only、
+  内容去重的 source raw cache，命中仍经 source/canonical 验证，并提供只返回安全计数结果的
+  显式清理入口；raw bytes 仍不构成 renderer 或会话 artifact；
 - 整盘 StructuredAnalysisPackage（M6-C）、Typed Context Graph substrate（M6-D1）、M6-D2 唯一端到端生成链、M7-A fixed review UI 与 M7-B SQLite 会话/离线重开 substrate 已实现；真实账号/真实收费 LLM 自动验收未授权，跨平台发布仍未实现（M8）。

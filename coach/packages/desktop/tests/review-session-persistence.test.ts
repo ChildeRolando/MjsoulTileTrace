@@ -1,13 +1,15 @@
-import { readFileSync, rmSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, rmSync, symlinkSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { mkdtempSync } from "node:fs";
 import { DatabaseSync } from "node:sqlite";
+import { createHash } from "node:crypto";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { StructuredAnalysisPackageSchema } from "@riichi-coach/contracts";
 import { generateReviewReport, projectContextGraph, selectReviewDecisions } from "@riichi-coach/reasoning";
 import { createReviewSessionRepository } from "../src/review-session-repository.js";
 import { createPrivilegedRawCache, rawCacheKey, type RawCacheIdentity } from "../src/privileged-raw-cache.js";
+import { createFixedReviewController } from "../src/fixed-review-controller.js";
 
 const roots: string[] = [];
 afterEach(() => { for (const root of roots.splice(0)) rmSync(root, { recursive: true, force: true }); });
@@ -75,6 +77,8 @@ describe("ReviewSession SQLite persistence", () => {
     expect(repository.activateExisting(pkg.packageId, "report-ref-a", "activate-a").activeReportRefId).toBe("report-ref-a");
     expect(repository.activateExisting(pkg.packageId, "report-ref-b", "activate-b").activeReportRefId).toBe("report-ref-b");
     expect(repository.activateExisting(pkg.packageId, "report-ref-a", "activate-a2").activeReportRefId).toBe("report-ref-a");
+    expect(repository.activateExisting(pkg.packageId, "report-ref-a", "activate-a2").activeReportRefId).toBe("report-ref-a");
+    expect(() => repository.activateExisting(pkg.packageId, "report-ref-b", "activate-a2")).toThrow("operation_identity_conflict");
     repository.close();
   });
 
@@ -92,6 +96,89 @@ describe("ReviewSession SQLite persistence", () => {
     const second = createReviewSessionRepository({ root: dir });
     expect(second.openByPackageId(pkg.packageId).activeReportRefId).toBe("report-ref-a");
     expect(second.inspect(pkg.packageId)).toMatchObject({ intents: [], receipts: [{ state: "activated" }] });
+    second.close();
+  });
+
+  it("recovers a committed report before generation and never calls the provider twice", async () => {
+    const dir = root();
+    const first = createReviewSessionRepository({
+      root: dir, createId: () => "session-a",
+      beforeActivationReadBack: () => { throw new Error("simulated_crash"); },
+    });
+    first.saveSession(pkg, selection);
+    expect(() => first.saveReport(pkg.packageId, report, "report-ref-a", "operation-a")).toThrow("simulated_crash");
+    first.close();
+
+    const repository = createReviewSessionRepository({ root: dir });
+    const generateReport = vi.fn(async () => report);
+    const controller = createFixedReviewController({
+      readPackage: async () => pkg,
+      generateReport,
+      repository,
+      createReportRefId: () => "must-not-be-created",
+    });
+    expect(await controller.generateReview(pkg.packageId, "retry-operation")).toEqual({
+      status: "failed", code: "generation_failed",
+    });
+    expect(generateReport).not.toHaveBeenCalled();
+    expect(repository.inspect(pkg.packageId)).toMatchObject({
+      activeReportRefId: "report-ref-a", intents: [], receipts: [{ state: "activated" }],
+    });
+    repository.close();
+  });
+
+  it("validates every stored hash and version before committing an activation", () => {
+    const dir = root();
+    const first = createReviewSessionRepository({
+      root: dir, createId: () => "session-a",
+      beforeActivationReadBack: () => { throw new Error("simulated_crash"); },
+    });
+    first.saveSession(pkg, selection);
+    expect(() => first.saveReport(pkg.packageId, report, "report-ref-a", "operation-a")).toThrow("simulated_crash");
+    first.close();
+
+    const db = new DatabaseSync(join(dir, "library.sqlite"));
+    db.prepare("UPDATE review_sessions SET selection_hash='invalid' WHERE session_id='session-a'").run();
+    db.close();
+    const second = createReviewSessionRepository({ root: dir });
+    expect(() => second.openByPackageId(pkg.packageId)).toThrow("selection_hash_mismatch");
+    expect(second.inspect(pkg.packageId)).toMatchObject({
+      activeReportRefId: null,
+      intents: [{ operation_id: "operation-a" }],
+      receipts: [{ state: "report_saved" }],
+    });
+    expect(second.inspect(pkg.packageId).revision).toBe(1);
+    second.close();
+  });
+
+  it.each([
+    ["report hash", (db: DatabaseSync) => { db.exec("DROP TRIGGER immutable_report"); db.prepare("UPDATE review_reports SET content_hash='invalid' WHERE report_ref_id='report-ref-a'").run(); }, "report_hash_mismatch"],
+    ["stored report version", (db: DatabaseSync) => { db.exec("DROP TRIGGER immutable_report"); db.prepare("UPDATE review_reports SET schema_version='review-report/unsupported' WHERE report_ref_id='report-ref-a'").run(); }, "report_version_mismatch"],
+    ["read-back identity", (db: DatabaseSync) => {
+      const invalid = Buffer.from(JSON.stringify({ ...selection, analysisPackageId: "wrong-package" }), "utf8");
+      const digest = createHash("sha256").update(invalid).digest("hex");
+      db.prepare("UPDATE review_sessions SET selection_payload=?,selection_hash=? WHERE session_id='session-a'").run(invalid, digest);
+    }, "m7a_read_back_selection_package_mismatch"],
+  ])("preserves report_saved recovery state when %s validation fails", (_label, corrupt, expected) => {
+    const dir = root();
+    const first = createReviewSessionRepository({
+      root: dir, createId: () => "session-a",
+      beforeActivationReadBack: () => { throw new Error("simulated_crash"); },
+    });
+    first.saveSession(pkg, selection);
+    expect(() => first.saveReport(pkg.packageId, report, "report-ref-a", "operation-a")).toThrow("simulated_crash");
+    first.close();
+    const db = new DatabaseSync(join(dir, "library.sqlite"));
+    corrupt(db);
+    db.close();
+    const second = createReviewSessionRepository({ root: dir });
+    expect(() => second.openByPackageId(pkg.packageId)).toThrow(expected);
+    expect(second.inspect(pkg.packageId)).toMatchObject({
+      activeReportRefId: null,
+      revision: 1,
+      intents: [{ operation_id: "operation-a" }],
+      receipts: [{ state: "report_saved" }],
+    });
     second.close();
   });
 
@@ -184,5 +271,17 @@ describe("main-only raw source cache", () => {
     cache = createPrivilegedRawCache({ root: dir });
     expect(cache.inspect()).toEqual({ entries: 0, materials: 0 });
     cache.close();
+  });
+
+  it("rejects a source-cache directory redirected outside the trusted library root", () => {
+    const dir = root();
+    const outside = root();
+    const repository = createReviewSessionRepository({ root: dir }); repository.close();
+    rmSync(join(dir, "source-cache"), { recursive: true, force: true });
+    mkdirSync(outside, { recursive: true });
+    writeFileSync(join(outside, "must-survive.bin"), "outside");
+    symlinkSync(outside, join(dir, "source-cache"), process.platform === "win32" ? "junction" : "dir");
+    expect(() => createPrivilegedRawCache({ root: dir })).toThrow("raw_cache_path_invalid");
+    expect(readFileSync(join(outside, "must-survive.bin"), "utf8")).toBe("outside");
   });
 });
