@@ -74,7 +74,7 @@ function setPending(pending: boolean): void {
 function applySessionState(status: MahjongSoulSessionStatus["status"]): void {
   const loggedIn = status === "valid" || status === "offline_unverified";
   const busy = status === "authenticating" || status === "session_validating";
-  const policy = sessionUiPolicy(status);
+  const policy = sessionUiPolicy(status, true);
   currentSessionStatus = status;
   loginButton.hidden = status !== "logged_out";
   logoutButton.hidden = !loggedIn;
@@ -95,7 +95,7 @@ function renderCatalog(summaries: readonly import("@riichi-coach/contracts").Ana
   catalogListElement.textContent = "";
   const notice = sessionUiPolicy(currentSessionStatus).catalogNotice;
   if (summaries.length === 0) {
-    catalogDetailElement.textContent = notice ?? "暂无可分析的四人南风对局。";
+    catalogDetailElement.textContent = notice ?? "暂无可分析牌谱。";
     return;
   }
   catalogDetailElement.textContent = notice === null
@@ -132,7 +132,7 @@ async function refreshCatalog(): Promise<void> {
   try {
     renderCatalog(await window.riichiCoachCatalog.listAnalyzableRecords());
   } catch {
-    catalogDetailElement.textContent = "暂无可分析的四人南风对局。";
+    catalogDetailElement.textContent = "牌谱加载失败，请重试。";
   }
 }
 
@@ -169,7 +169,7 @@ async function runSync(): Promise<void> {
   try {
     renderCatalog(await window.riichiCoachCatalog.syncAnalyzableRecords());
   } catch {
-    catalogDetailElement.textContent = "无法同步牌谱，请确认已登录雀魂。";
+    catalogDetailElement.textContent = "牌谱加载失败，请重试。";
   } finally {
     setPending(false);
   }
@@ -178,11 +178,18 @@ async function runSync(): Promise<void> {
 loginButton.addEventListener("click", () => {
   void (async () => {
     const status = await run(() => window.riichiCoach.openMahjongSoulLogin());
-    if (status === "valid" || status === "offline_unverified") await refreshCatalog();
+    if (status === "valid") await runSync();
+    else if (status === "offline_unverified") await refreshCatalog();
   })();
 });
 logoutButton.addEventListener("click", () => void run(() => window.riichiCoach.logoutMahjongSoul()));
-refreshButton.addEventListener("click", () => void run(() => window.riichiCoach.getSessionStatus()));
+refreshButton.addEventListener("click", () => {
+  void (async () => {
+    const status = await run(() => window.riichiCoach.getSessionStatus());
+    if (status === "valid") await runSync();
+    else if (status === "offline_unverified") await refreshCatalog();
+  })();
+});
 syncButton.addEventListener("click", () => void runSync());
 clearSourceCacheButton.addEventListener("click", () => {
   void (async () => {

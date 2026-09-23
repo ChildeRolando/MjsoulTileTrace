@@ -57,31 +57,31 @@ describe("analyzable Mahjong Soul record filter", () => {
 
   it("rejects an unsupported record version", () => {
     expect(filterAnalyzableRecord({ ...validEntry, version: 9 }, 103, now))
-      .toEqual({ status: "not_analyzable" });
+      .toEqual({ status: "not_analyzable", reason: "unsupported_record_version" });
   });
 
   it("rejects a non-standard rule flag", () => {
     expect(filterAnalyzableRecord({ ...validEntry, standard_rule: 1 }, 103, now))
-      .toEqual({ status: "not_analyzable" });
+      .toEqual({ status: "not_analyzable", reason: "unsupported_standard_rule" });
   });
 
   it("requires positive four-player South mode evidence", () => {
     expect(filterAnalyzableRecord({ ...validEntry, game_mode: 1 }, 103, now))
-      .toEqual({ status: "not_analyzable" });
+      .toEqual({ status: "not_analyzable", reason: "unsupported_game_mode" });
     expect(filterAnalyzableRecord({ ...validEntry, game_mode: 12 }, 103, now))
-      .toEqual({ status: "not_analyzable" });
+      .toEqual({ status: "not_analyzable", reason: "unsupported_game_mode" });
     const withoutMode = { ...validEntry } as Record<string, unknown>;
     delete withoutMode.game_mode;
     expect(filterAnalyzableRecord(
       withoutMode as unknown as RawRecordListEntry,
       103,
       now,
-    )).toEqual({ status: "not_analyzable" });
+    )).toEqual({ status: "not_analyzable", reason: "invalid_input" });
   });
 
   it("rejects a self account id that maps to zero or multiple seats", () => {
     expect(filterAnalyzableRecord(validEntry, 999, now))
-      .toEqual({ status: "not_analyzable" });
+      .toEqual({ status: "not_analyzable", reason: "account_not_in_record" });
     const duplicated = {
       ...validEntry,
       players: validEntry.players.map((player, index) =>
@@ -89,7 +89,7 @@ describe("analyzable Mahjong Soul record filter", () => {
       ),
     };
     expect(filterAnalyzableRecord(duplicated, 101, now))
-      .toEqual({ status: "not_analyzable" });
+      .toEqual({ status: "not_analyzable", reason: "account_not_in_record" });
   });
 
   it("rejects duplicate player seats", () => {
@@ -98,7 +98,7 @@ describe("analyzable Mahjong Soul record filter", () => {
       players: validEntry.players.map((player) => ({ ...player, seat: 0 })),
     };
     expect(filterAnalyzableRecord(duplicateSeat, 103, now))
-      .toEqual({ status: "not_analyzable" });
+      .toEqual({ status: "not_analyzable", reason: "invalid_player_seats" });
   });
 
   it("normalizes a reverse-ordered player list by seat", () => {
@@ -118,11 +118,11 @@ describe("analyzable Mahjong Soul record filter", () => {
     expect(filterAnalyzableRecord({
       ...validEntry,
       uuid: "not-a-record-id",
-    }, 103, now)).toEqual({ status: "not_analyzable" });
+    }, 103, now)).toEqual({ status: "not_analyzable", reason: "invalid_record_id" });
     expect(filterAnalyzableRecord({
       ...validEntry,
       uuid: "260811-00000000-0000-0000-0000-00000000000G",
-    }, 103, now)).toEqual({ status: "not_analyzable" });
+    }, 103, now)).toEqual({ status: "not_analyzable", reason: "invalid_record_id" });
   });
 
   it.each([
@@ -136,7 +136,7 @@ describe("analyzable Mahjong Soul record filter", () => {
     { ...validEntry, uuid: 42 },
   ])("rejects malformed or hostile input %#", (value) => {
     expect(filterAnalyzableRecord(value as unknown as RawRecordListEntry, 103, now))
-      .toEqual({ status: "not_analyzable" });
+      .toEqual({ status: "not_analyzable", reason: "invalid_input" });
   });
 
   it("never includes account id, token, or raw fields in the summary", () => {
