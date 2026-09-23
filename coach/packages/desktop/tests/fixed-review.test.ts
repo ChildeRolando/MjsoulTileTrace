@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { describe, expect, it, vi } from "vitest";
 import { RiichiActionSchema, StructuredAnalysisPackageSchema, type CoachDesktopApi, type ContextGraph, type DecisionAnalysis, type ReviewReport, type ReviewSelectionResult, type StructuredAnalysisPackage } from "@riichi-coach/contracts";
-import { generateReviewReport, projectContextGraph, selectReviewDecisions, validateStructuredAnalysisPackage } from "@riichi-coach/reasoning";
+import { generateReviewReport, projectContextGraph, selectReviewDecisions, validateReviewReport, validateStructuredAnalysisPackage } from "@riichi-coach/reasoning";
 import { createFixedReviewController } from "../src/fixed-review-controller.js";
 import { actionLabel, presentFixedReviewDetail, presentFixedReviewSnapshot } from "../src/fixed-review-presenter.js";
 import { createFixedReviewUi } from "../src/renderer/fixed-review-ui.js";
@@ -290,6 +290,69 @@ describe("fixed review presenter", () => {
     expect(unknownDetail.provenance.flatMap((item) => item.details)).toContainEqual(expect.objectContaining({
       label: "一般形 · 手牌类型适用性", scope: "一般形", value: "已分类",
     }));
+  });
+
+  it("localizes every allowed placeholder scalar class through read-back and DOM", async () => {
+    const graph = projectContextGraph(pkg);
+    const decisionId = selection.selected[0]!.decisionId;
+    const scoped = graph.nodes.filter((node) => (node.payload as { decisionId?: string }).decisionId === decisionId);
+    const candidate = scoped.find((node) => node.nodeKind === "CandidateAction")!;
+    const premise = scoped.find((node) => node.nodeKind === "KnownGameFact")!;
+    const difference = scoped.find((node) => node.nodeKind === "FactorDifference" && typeof (node.payload as { leftValue?: { value?: unknown } }).leftValue?.value === "number")!;
+    const actionRef = (candidate.payload as { actionRef: string }).actionRef;
+    const differenceId = (difference.payload as { differenceId: string }).differenceId;
+    const token = (kind: "candidate" | "diff", ref: string, path: string) => `{${kind}:${ref}.${path}}`;
+    const explanation = [
+      token("candidate", actionRef, "action.kind"), token("candidate", actionRef, "actionRef"),
+      token("candidate", actionRef, "action.tile.id"), token("candidate", actionRef, "action.tile.red"),
+      token("candidate", actionRef, "action.discardMode"), token("diff", differenceId, "differenceId"),
+      token("diff", differenceId, "axis"), token("diff", differenceId, "dimension"),
+      token("diff", differenceId, "leftActionRef"), token("diff", differenceId, "rightActionRef"),
+      token("diff", differenceId, "direction"), token("diff", differenceId, "valueRelation"),
+      token("diff", differenceId, "preferenceEligibility"), token("diff", differenceId, "evidenceClass"),
+      token("diff", differenceId, "leftValue.kind"),
+      token("diff", differenceId, "leftValue.value"), token("diff", differenceId, "leftValue.unit"),
+    ].join(" / ");
+    const generated = await generateReviewReport(graph, selection, respondingProvider({ decisions: [{
+      decisionId,
+      judgment: { localId: "localized-placeholders", recommendation: actionRef, confidence: "medium", premiseRefs: [premise.nodeId] },
+      explanations: [{
+        text: explanation,
+        claims: [{ kind: "factor_difference", evidenceRef: difference.nodeId }],
+        judgmentLocalRef: "localized-placeholders",
+      }],
+    }] }), "2026-09-23T01:00:00.000Z");
+    expect(generated.generationStatus, JSON.stringify(generated.diagnostics)).toBe("complete");
+    validateReviewReport(generated, graph);
+
+    const detail = presentFixedReviewDetail({ analysisPackage: pkg, selection, activeReport: generated, activeReportRefId: "localized", decisionId });
+    const values = detail.explanations[0]!.segments.filter((segment) => segment.kind === "evidence_value");
+    expect(values.map((segment) => segment.text)).toEqual([
+      "打牌 5p", "打牌 5p", "5p", "否", "摸切", "已记录的证据差异", "打点价值",
+      "默听打点", "打牌 5p", "打牌 9m", "两侧均无优先方向", "数值相同",
+      "仅作启发参考", "固定版本上游估算", "数值", "3900", "点",
+    ]);
+    expect(values.every((segment) => segment.sourceRef === candidate.nodeId || segment.sourceRef === difference.nodeId)).toBe(true);
+    expect(values.filter((segment) => segment.sourceRef === candidate.nodeId)).toHaveLength(5);
+    expect(values.filter((segment) => segment.sourceRef === difference.nodeId)).toHaveLength(12);
+
+    const snapshot = presentFixedReviewSnapshot({ analysisPackage: pkg, selection, activeReport: generated, activeReportRefId: "localized" });
+    const dom = fakeDom();
+    const ui = createFixedReviewUi({
+      document: dom.document as unknown as Document,
+      root: dom.root as unknown as HTMLElement,
+      api: { openReview: async () => snapshot, getReviewDetail: async () => detail } as unknown as CoachDesktopApi,
+    });
+    await ui.open(pkg.packageId);
+    nodes(dom.root).find((node) => node.textContent === "查看复盘条目")!.listeners.get("click")!();
+    nodes(dom.root).find((node) => node.textContent === "查看详情")!.listeners.get("click")!();
+    await Promise.resolve(); await Promise.resolve();
+    for (const localized of ["打牌 5p", "打点价值", "两侧均无优先方向", "数值相同", "仅作启发参考"]) {
+      expect(dom.root.textContent).toContain(localized);
+    }
+    for (const internal of ["discard", "neutral", "heuristic_difference", "heuristic_only", "versioned_upstream_estimate", actionRef, differenceId]) {
+      expect(dom.root.textContent).not.toContain(internal);
+    }
   });
 
   it("projects every canonical action with distinguishable tiles and red-five identity", () => {

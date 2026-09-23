@@ -88,8 +88,89 @@ function explanationStatus(report: ReviewReport | null, decisionId: string) {
   return entry.explanationStatus;
 }
 
-function scalar(value: unknown): string | null {
-  return typeof value === "string" || typeof value === "number" || typeof value === "boolean" ? String(value) : null;
+function safePlaceholderScalar(value: unknown): string | null {
+  if (typeof value === "number") return String(value);
+  if (typeof value === "boolean") return value ? "是" : "否";
+  if (typeof value === "string") return "已记录";
+  return null;
+}
+
+function candidateAction(payload: Record<string, unknown>): RiichiAction {
+  if (payload.action === null || typeof payload.action !== "object" || Array.isArray(payload.action)) throw new Error("fixed_review_unavailable");
+  return payload.action as RiichiAction;
+}
+
+function candidateActionForRef(nodes: readonly GraphNode[], actionRef: unknown): string {
+  if (typeof actionRef !== "string") throw new Error("fixed_review_unavailable");
+  const candidate = nodes.find((node) => node.nodeKind === "CandidateAction" && (node.payload as Record<string, unknown>).actionRef === actionRef);
+  if (candidate === undefined) throw new Error("fixed_review_unavailable");
+  return actionLabel(candidateAction(candidate.payload as Record<string, unknown>));
+}
+
+function candidatePlaceholder(payload: Record<string, unknown>, path: string, value: unknown): string {
+  const action = candidateAction(payload);
+  if (path === "actionRef" || path === "action.kind") return actionLabel(action);
+  const tilePath = /^action\.(tile|calledTile|addedTile|winningTile)\.(id|red)$/.exec(path);
+  if (tilePath !== null) {
+    const tile = (action as unknown as Record<string, unknown>)[tilePath[1]!] as Tile;
+    return tilePath[2] === "id" ? tileLabel(tile) : (tile.red ? "是" : "否");
+  }
+  if (path === "action.discardMode") return value === "tsumogiri" ? "摸切" : value === "tedashi" ? "手切" : "已记录的打牌方式";
+  if (path === "action.targetActor" && typeof value === "number") return `玩家 ${value + 1}`;
+  if (path === "action.winContext" || path === "action.responseKind") {
+    return ({ discard: "打牌响应", kakan: "加杠响应", ankan: "暗杠响应" } as Readonly<Record<string, string>>)[String(value)] ?? "已记录的响应方式";
+  }
+  if (path === "action.responseEventRef" || path === "action.drawEventRef") return "已记录的事件";
+  if (path === "action.existingMeldRef") return "已记录的副露";
+  const safe = safePlaceholderScalar(value);
+  if (safe === null) throw new Error("fixed_review_unavailable");
+  return safe;
+}
+
+const DIFFERENCE_DIRECTION_LABELS: Readonly<Record<string, string>> = {
+  supports_left: "左侧行动更优", supports_right: "右侧行动更优", neutral: "两侧均无优先方向",
+};
+const VALUE_RELATION_LABELS: Readonly<Record<string, string>> = { ordered: "可以排序", equal: "数值相同", different: "数值不同" };
+const PREFERENCE_ELIGIBILITY_LABELS: Readonly<Record<string, string>> = {
+  deterministic: "可用于确定性偏好", heuristic_only: "仅作启发参考", ineligible: "不用于行动偏好",
+};
+const EVIDENCE_CLASS_LABELS: Readonly<Record<string, string>> = {
+  deterministic_allowlisted: "确定性证据", deterministic_under_assumptions: "基于明确假设的确定性证据",
+  deterministic_local_replay: "本地回放确定性证据", versioned_upstream_estimate: "固定版本上游估算",
+};
+const FACTOR_VALUE_KIND_LABELS: Readonly<Record<string, string>> = {
+  number: "数值", boolean: "是非状态", classification: "分类状态", tile_counts: "牌与剩余张数",
+  integer_ids: "牌种集合", string_set: "文本集合", honor_safety: "字牌安全度",
+  shape_claims: "牌形组成", wait_details: "听牌明细",
+};
+
+function differencePlaceholder(nodes: readonly GraphNode[], payload: Record<string, unknown>, path: string, value: unknown): string {
+  if (path === "differenceId") return "已记录的证据差异";
+  if (path === "axis") return AXIS_LABELS[String(value)] ?? "分析维度";
+  if (path === "dimension") return dimensionLabel(value);
+  if (path === "leftActionRef" || path === "rightActionRef") return candidateActionForRef(nodes, value);
+  if (path === "direction") return DIFFERENCE_DIRECTION_LABELS[String(value)] ?? "差异方向已记录";
+  if (path === "valueRelation") return VALUE_RELATION_LABELS[String(value)] ?? "数值关系已记录";
+  if (path === "kind") return value === "deterministic_difference" ? "确定性差异" : value === "heuristic_difference" ? "启发式差异" : "已记录的差异";
+  if (path === "preferenceEligibility") return PREFERENCE_ELIGIBILITY_LABELS[String(value)] ?? "偏好资格已记录";
+  if (path === "evidenceClass") return EVIDENCE_CLASS_LABELS[String(value)] ?? "证据类别已记录";
+  const factorPath = /^(leftValue|rightValue)\.(kind|value|unit|remainingCount|category)$/.exec(path);
+  if (factorPath !== null) {
+    const factorValue = payload[factorPath[1]!] as Record<string, unknown>;
+    const field = factorPath[2]!;
+    if (field === "kind") return FACTOR_VALUE_KIND_LABELS[String(value)] ?? "已记录的证据值";
+    if (field === "value") {
+      if (typeof value === "number") return String(value);
+      if (typeof value === "boolean") return value ? "是" : "否";
+      if (typeof value === "string" && factorValue.kind === "classification") return CLASSIFICATION_LABELS[value] ?? "已分类";
+    }
+    if (field === "unit") return UNIT_LABELS[String(value)] ?? "已记录单位";
+    if (field === "remainingCount" && typeof value === "number") return String(value);
+    if (field === "category") return value === "yakuhai" ? "役牌" : value === "guest_wind" ? "客风牌" : "字牌类别已记录";
+  }
+  const safe = safePlaceholderScalar(value);
+  if (safe === null) throw new Error("fixed_review_unavailable");
+  return safe;
 }
 
 function placeholderValue(nodes: readonly GraphNode[], token: string): { text: string; sourceRef: string } {
@@ -108,8 +189,10 @@ function placeholderValue(nodes: readonly GraphNode[], token: string): { text: s
     if (value === null || typeof value !== "object" || Array.isArray(value)) throw new Error("fixed_review_unavailable");
     value = (value as Record<string, unknown>)[segment];
   }
-  const text = scalar(value);
-  if (text === null) throw new Error("fixed_review_unavailable");
+  const payload = node.payload as Record<string, unknown>;
+  const text = node.nodeKind === "CandidateAction"
+    ? candidatePlaceholder(payload, path!, value)
+    : differencePlaceholder(nodes, payload, path!, value);
   return { text, sourceRef: node.nodeId };
 }
 
