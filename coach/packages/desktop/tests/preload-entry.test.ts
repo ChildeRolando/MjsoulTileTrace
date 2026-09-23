@@ -43,6 +43,7 @@ describe("self-contained sandboxed preload", () => {
       "openMahjongSoulLogin",
     ]);
     expect(Object.keys(catalog).sort()).toEqual([
+      "clearSourceCache",
       "listAnalyzableRecords",
       "startRecordAnalysis",
       "syncAnalyzableRecords",
@@ -50,7 +51,7 @@ describe("self-contained sandboxed preload", () => {
     expect(Object.keys(paipu).sort()).toEqual(["importPaipu"]);
     expect(Object.keys(exposed.get("riichiCoachProvider") as object).sort()).toEqual([
       "cancelGeneration", "clearCredential", "configure", "generateReview",
-      "getReviewDetail", "importCredential", "leaveReview", "openReview", "status",
+      "getReviewDetail", "importCredential", "leaveReview", "listReviewSessions", "openReview", "status",
     ]);
   });
 
@@ -64,6 +65,8 @@ describe("self-contained sandboxed preload", () => {
       .toBe(MAHJONG_SOUL_CATALOG_IPC_CHANNELS.listAnalyzableRecords);
     expect(PRELOAD_CHANNELS.startAnalysis)
       .toBe(MAHJONG_SOUL_CATALOG_IPC_CHANNELS.startRecordAnalysis);
+    expect(PRELOAD_CHANNELS.clearSourceCache)
+      .toBe(MAHJONG_SOUL_CATALOG_IPC_CHANNELS.clearSourceCache);
     expect(PRELOAD_CHANNELS.importPaipuUrl)
       .toBe(MAHJONG_SOUL_PAIPU_IPC_CHANNELS.importPaipuUrl);
   });

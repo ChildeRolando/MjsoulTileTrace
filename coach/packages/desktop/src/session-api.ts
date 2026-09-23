@@ -5,6 +5,7 @@ import {
   FixedReviewDetailRequestSchema, FixedReviewDetailSchema, FixedReviewGenerateRequestSchema,
   FixedReviewLeaveRequestSchema, FixedReviewOpenRequestSchema, FixedReviewOperationResultSchema,
   FixedReviewSnapshotSchema, type CoachDesktopApi,
+  ReviewSessionListSchema,
   type MahjongSoulSessionStatus,
 } from "@riichi-coach/contracts";
 import { z } from "zod";
@@ -81,6 +82,12 @@ export function createCoachPreloadApi(port: { invoke(channel: string, ...args: u
       try {
         if (args.length !== 1) throw Error();
         return FixedReviewAcknowledgementSchema.parse(await invoke(COACH_IPC_CHANNELS.leaveReview, FixedReviewLeaveRequestSchema.parse(args[0])));
+      } catch { throw new Error("provider_unavailable"); }
+    },
+    async listReviewSessions(...args: unknown[]) {
+      try {
+        if (args.length !== 0) throw Error();
+        return ReviewSessionListSchema.parse(await invoke(COACH_IPC_CHANNELS.listReviewSessions));
       } catch { throw new Error("provider_unavailable"); }
     },
   });

@@ -10,6 +10,7 @@ import { generateReviewReport, projectContextGraph, selectReviewDecisions, valid
 import type { ProviderCredentials } from "./credentials.js";
 import { createOpenAiCoachProvider } from "./openai-compatible.js";
 import { createFixedReviewController } from "../fixed-review-controller.js";
+import type { ReviewSessionRepository } from "../review-session-repository.js";
 
 /** Main-only read-back adapter. A renderer supplies identity, never a file path.
  * Package production/catalog UI remain upstream/M7 work; missing references fail closed. */
@@ -25,6 +26,7 @@ export function createCoachService(input: {
   fetchImpl: typeof fetch;
   readPackage: (packageId: string) => Promise<unknown>;
   clock?: () => string;
+  reviewRepository?: ReviewSessionRepository;
 }) {
   let settings: CoachProviderConfig | null = null;
   // A credential mutation drains the active generation before returning. No
@@ -47,6 +49,7 @@ export function createCoachService(input: {
   const reviewController = createFixedReviewController({
     readPackage: input.readPackage,
     generateReport: generateArtifact,
+    ...(input.reviewRepository === undefined ? {} : { repository: input.reviewRepository }),
   });
   return Object.freeze({
     status,
@@ -93,6 +96,7 @@ export function createCoachService(input: {
       for (const token of queuedGenerations.values()) if (token.packageId === packageId) token.cancelled = true;
       reviewController.leaveReview(packageId);
     },
+    listReviewSessions: () => input.reviewRepository?.listSessions() ?? [],
   });
 }
 export type CoachService = ReturnType<typeof createCoachService>;

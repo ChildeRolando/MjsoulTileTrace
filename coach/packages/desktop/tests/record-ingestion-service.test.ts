@@ -73,6 +73,30 @@ describe("account-bound Mahjong Soul record ingestion", () => {
     expect([first.recordId, second.recordId]).toEqual([id, secondId]);
     expect(value.fetchCalls()).toBe(2);
   });
+
+  test("uses a validated cache hit across service restarts without opening a lobby", async () => {
+    const cached = Object.freeze({
+      recordId: id,
+      sha256: `sha256:${"b".repeat(64)}` as const,
+      container: "actions" as const,
+      actionCount: 1,
+      recordBytes: Uint8Array.of(2),
+    });
+    let sessions = 0;
+    let fetches = 0;
+    let writes = 0;
+    const service = createMahjongSoulRecordIngestionService({
+      vault: { async restore() { return stored; }, async save() {}, async markValidated() {}, async clear() {} },
+      catalogStore: { async replaceSummaries() {}, async list() { return [summary] as never; }, async clear() {} },
+      createSession: async () => { sessions += 1; return { async authenticate() {}, async call() { return {}; }, async close() {} }; },
+      authenticate: async () => "authenticated",
+      readCachedRecord: async () => cached,
+      writeCachedRecord: async () => { writes += 1; },
+      fetchRecord: async () => { fetches += 1; return cached; },
+    });
+    await expect(service.ingest(id)).resolves.toEqual(cached);
+    expect({ sessions, fetches, writes }).toEqual({ sessions: 0, fetches: 0, writes: 0 });
+  });
 });
 
 describe("requireCatalogSelfSeat (account route seat resolution)", () => {

@@ -51,6 +51,14 @@ export function createMahjongSoulRecordIngestionService(input: {
     stored: StoredMahjongSoulSession,
     recordId: string,
   ) => Promise<MahjongSoulFetchedRecord>;
+  readonly readCachedRecord?: (
+    stored: StoredMahjongSoulSession,
+    recordId: string,
+  ) => MahjongSoulFetchedRecord | null | Promise<MahjongSoulFetchedRecord | null>;
+  readonly writeCachedRecord?: (
+    stored: StoredMahjongSoulSession,
+    record: MahjongSoulFetchedRecord,
+  ) => void | Promise<void>;
 }): MahjongSoulRecordIngestionService {
   const active = new Map<string, Promise<MahjongSoulFetchedRecord>>();
   return Object.freeze({
@@ -67,13 +75,21 @@ export function createMahjongSoulRecordIngestionService(input: {
         if (!summaries.some((entry) => entry.recordId === recordId)) {
           throw error("mahjong_soul_record_not_analyzable");
         }
+        const cached = await input.readCachedRecord?.(stored, recordId) ?? null;
+        if (cached !== null) {
+          if (cached.recordId !== recordId || cached.actionCount < 1) throw error("mahjong_soul_record_fetch_failed");
+          return cached;
+        }
         let lobby: MahjongSoulLobbySession | null = null;
         try {
           lobby = await input.createSession();
           if (await input.authenticate(lobby, stored) !== "authenticated") {
             throw error("mahjong_soul_record_fetch_failed");
           }
-          return await input.fetchRecord(lobby, stored, recordId);
+          const fetched = await input.fetchRecord(lobby, stored, recordId);
+          if (fetched.recordId !== recordId || fetched.actionCount < 1) throw error("mahjong_soul_record_fetch_failed");
+          await input.writeCachedRecord?.(stored, fetched);
+          return fetched;
         } catch (cause) {
           if (cause instanceof MahjongSoulSourceError) throw cause;
           throw error("mahjong_soul_record_fetch_failed");

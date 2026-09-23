@@ -1,4 +1,5 @@
 import { mkdir, writeFile } from "node:fs/promises";
+import { createHash } from "node:crypto";
 import { join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
@@ -18,6 +19,7 @@ import {
   createMahjongSoulOAuth2SessionRestorer,
   authenticateStoredMahjongSoulSession,
   fetchMahjongSoulRecord,
+  validateMahjongSoulRecordBytes,
   loadMahjongSoulProtocolBundle,
   mapMahjongSoulRecord,
   readSessionRestoreRejection,
@@ -88,6 +90,8 @@ import { readCliFlag } from "./diagnostic-flags.js";
 import { registerCoachIpc } from "./coach-ipc.js";
 import { createEnvironmentKeyImporter, createProviderCredentials } from "./llm-provider/credentials.js";
 import { createCoachService, createPackageReferenceReader } from "./llm-provider/service.js";
+import { createReviewSessionRepository } from "./review-session-repository.js";
+import { createPrivilegedRawCache, type PrivilegedRawCache, type RawCacheIdentity } from "./privileged-raw-cache.js";
 
 const PARTITION = "persist:riichi-coach-mahjong-soul-cn";
 const bundleRoot = fileURLToPath(new URL("../../../vendor/mahjong-soul-protocol/", import.meta.url));
@@ -105,6 +109,8 @@ const rendererUrl = pathToFileURL(
 // feature is the standard Electron workaround; the official-client capture
 // window is created while the main window holds focus, exactly the trigger.
 app.commandLine.appendSwitch("disable-features", "CalculateNativeWinOcclusion");
+const hasSingleInstanceLock = app.requestSingleInstanceLock();
+if (!hasSingleInstanceLock) app.quit();
 
 let mainWindow: BrowserWindow | null = null;
 let ipcRegistration: Readonly<{ dispose(): void }> | null = null;
@@ -233,6 +239,25 @@ async function writeReplayAuditFile(
 }
 
 async function start(): Promise<void> {
+  const reviewRepository = createReviewSessionRepository({
+    root: join(app.getPath("userData"), "review-library"),
+  });
+  let privilegedRawCache: PrivilegedRawCache | null = null;
+  try {
+    privilegedRawCache = createPrivilegedRawCache({ root: join(app.getPath("userData"), "review-library") });
+  } catch {
+    // Source material is optional for validated library read-back. Preserve it
+    // for recovery and never log the filesystem exception (which carries paths).
+    console.error("[riichi-coach] raw_cache_unavailable");
+  }
+  const requireRawCache = (): PrivilegedRawCache => {
+    if (privilegedRawCache === null) throw new Error("raw_cache_unavailable");
+    return privilegedRawCache;
+  };
+  app.once("will-quit", () => {
+    privilegedRawCache?.close();
+    reviewRepository.close();
+  });
   const providerCredentials = createProviderCredentials({
     userData: app.getPath("userData"), safeStorage, platform: process.platform,
     importer: createEnvironmentKeyImporter(process.env),
@@ -561,11 +586,44 @@ async function start(): Promise<void> {
     mapRecord: (mappedInput) => mapMahjongSoulRecord({ ...mappedInput, bundle }),
     replay: replayCanonicalStream,
   });
+  const cacheIdentity = (recordId: string, accountId: number): RawCacheIdentity => ({
+    sourceKind: "mahjong_soul_record",
+    stableRecordIdentityHash: createHash("sha256").update(recordId).digest("hex"),
+    perspective: "all-seats",
+    sourceVersion: MAHJONG_SOUL_PROTOCOL_BUNDLE_VERSION,
+    modelVersion: "not_applicable",
+    schemaVersion: "game-detail-records/v1",
+    parserVersion: MAHJONG_SOUL_PROTOCOL_BUNDLE_VERSION,
+    validationVersion: DESKTOP_APP_VERSION,
+    requestParameters: {},
+    authenticationPartitionHash: createHash("sha256").update(String(accountId)).digest("hex"),
+  });
+  const analyzeFetchedRecord = async (stored: { accountId: number }, recordId: string, fetched: Awaited<ReturnType<typeof fetchMahjongSoulRecord>>) => {
+    const summaries = await catalogStore.list(stored.accountId);
+    const selfActor = requireCatalogSelfSeat(summaries, recordId);
+    const outcome = analysisStore.analyzeRecord({ recordId, selfActor, recordBytes: fetched.recordBytes });
+    if (outcome.status !== "analysis_ready") {
+      throw new MahjongSoulSourceError("mahjong_soul_canonical_validation_failed");
+    }
+    return fetched;
+  };
   const recordIngestionService = createMahjongSoulRecordIngestionService({
     vault,
     catalogStore,
     createSession: createLobbySessionFactory({ bundle }),
     authenticate: authenticateStoredMahjongSoulSession,
+    readCachedRecord: async (stored, recordId) => {
+      const bytes = requireRawCache().get(cacheIdentity(recordId, stored.accountId));
+      if (bytes === null) return null;
+      try {
+        return await analyzeFetchedRecord(stored, recordId, validateMahjongSoulRecordBytes({
+          bundle, recordId, recordBytes: bytes,
+        }));
+      } catch { return null; }
+    },
+    writeCachedRecord: (stored, fetched) => {
+      requireRawCache().put(cacheIdentity(fetched.recordId, stored.accountId), fetched.recordBytes);
+    },
     fetchRecord: async (lobby, stored, recordId) => {
       const fetched = await fetchMahjongSoulRecord({
         session: lobby,
@@ -574,19 +632,7 @@ async function start(): Promise<void> {
         clientVersionString: stored.recoveryContext.clientVersionString,
         fetchImpl: globalThis.fetch,
       });
-      const summaries = await catalogStore.list(stored.accountId);
-      // The account route's seat comes from the catalog summary; a summary
-      // that vanished mid-fetch fails closed — never a silent seat 0.
-      const selfActor = requireCatalogSelfSeat(summaries, recordId);
-      const outcome = analysisStore.analyzeRecord({
-        recordId,
-        selfActor,
-        recordBytes: fetched.recordBytes,
-      });
-      if (outcome.status !== "analysis_ready") {
-        throw new MahjongSoulSourceError("mahjong_soul_canonical_validation_failed");
-      }
-      return fetched;
+      return analyzeFetchedRecord(stored, recordId, fetched);
     },
   });
   const service = createMahjongSoulSessionService({
@@ -615,6 +661,7 @@ async function start(): Promise<void> {
   const coachService = createCoachService({
     credentials: providerCredentials, fetchImpl: globalThis.fetch,
     readPackage: createPackageReferenceReader(app.getPath("userData")),
+    reviewRepository,
   });
 
   const createMainWindow = async (): Promise<void> => {
@@ -644,6 +691,7 @@ async function start(): Promise<void> {
         syncAnalyzableRecords: () => catalogService.syncAnalyzableRecords(),
         listAnalyzableRecords: () => catalogService.listAnalyzableRecords(),
         ingest: (recordId: string) => recordIngestionService.ingest(recordId),
+        clearSourceCache: () => requireRawCache().clear(),
       }),
       trustedSenderId: window.webContents.id,
     });
@@ -676,8 +724,8 @@ const isDiagnosticRun = process.argv.includes("--diagnose-mahjong-soul-restore")
   || process.argv.includes("--diagnose-mortal-decision")
   || process.argv.includes("--diagnose-mortal-full-game");
 
-app.whenReady().then(start).catch((error) => {
-  console.error("[riichi-coach] startup failed:", error);
+if (hasSingleInstanceLock) app.whenReady().then(start).catch(() => {
+  console.error("[riichi-coach] startup_unavailable");
   app.exit(1);
 });
 

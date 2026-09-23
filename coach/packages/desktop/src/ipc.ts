@@ -4,7 +4,7 @@ import {
 } from "@riichi-coach/contracts";
 import type { MahjongSoulSessionController } from "@riichi-coach/mahjong-soul-source";
 import { parseMahjongSoulSessionStatus } from "./session-api.js";
-import { parseAnalyzableRecordSummaries } from "./catalog-api.js";
+import { parseAnalyzableRecordSummaries, SourceCacheClearResultSchema } from "./catalog-api.js";
 import {
   PAIPU_SHARE_URL_MAX_LENGTH,
   parsePaipuImportResult,
@@ -25,6 +25,7 @@ export const MAHJONG_SOUL_CATALOG_IPC_CHANNELS = Object.freeze({
   syncAnalyzableRecords: "mahjong-soul:sync-analyzable-records",
   listAnalyzableRecords: "mahjong-soul:list-analyzable-records",
   startRecordAnalysis: "mahjong-soul:start-record-analysis",
+  clearSourceCache: "mahjong-soul:clear-source-cache",
 } as const);
 
 export const MAHJONG_SOUL_PAIPU_IPC_CHANNELS = Object.freeze({
@@ -121,13 +122,16 @@ export function registerMahjongSoulCatalogIpc(input: {
   readonly service: Pick<
     MahjongSoulCatalogService,
     "syncAnalyzableRecords" | "listAnalyzableRecords"
-  > & Pick<MahjongSoulRecordIngestionService, "ingest">;
+  > & Pick<MahjongSoulRecordIngestionService, "ingest"> & Readonly<{
+    clearSourceCache: () => Readonly<{ clearedEntries: number; pendingMaterials: number }>;
+  }>;
   readonly trustedSenderId: number;
 }): Readonly<{ dispose(): void }> {
   const { ipcMain, service, trustedSenderId } = input;
   const syncAnalyzableRecords = service?.syncAnalyzableRecords;
   const listAnalyzableRecords = service?.listAnalyzableRecords;
   const ingest = service?.ingest;
+  const clearSourceCache = service?.clearSourceCache;
   if (
     ipcMain === null
     || typeof ipcMain !== "object"
@@ -138,6 +142,7 @@ export function registerMahjongSoulCatalogIpc(input: {
     || typeof syncAnalyzableRecords !== "function"
     || typeof listAnalyzableRecords !== "function"
     || typeof ingest !== "function"
+    || typeof clearSourceCache !== "function"
     || !Number.isInteger(trustedSenderId)
     || trustedSenderId < 0
   ) {
@@ -182,6 +187,13 @@ export function registerMahjongSoulCatalogIpc(input: {
     } catch (error) {
       throw fixedError(error);
     }
+  });
+  ipcMain.handle(MAHJONG_SOUL_CATALOG_IPC_CHANNELS.clearSourceCache, async (event, ...args) => {
+    try {
+      if (senderId(event) !== trustedSenderId || args.length !== 0) throw fixedError();
+      const result = clearSourceCache.call(service);
+      return SourceCacheClearResultSchema.parse({ status: "cleared", pendingMaterials: result.pendingMaterials });
+    } catch (error) { throw fixedError(error); }
   });
 
   return Object.freeze({

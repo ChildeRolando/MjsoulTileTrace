@@ -5,6 +5,7 @@ import {
 } from "./session-api.js";
 import {
   parseAnalyzableRecordSummaries,
+  SourceCacheClearResultSchema,
   type MahjongSoulCatalogApi,
 } from "./catalog-api.js";
 import {
@@ -83,6 +84,11 @@ export function createMahjongSoulCatalogPreloadApi(
         const value = await invokePort(MAHJONG_SOUL_CATALOG_IPC_CHANNELS.startRecordAnalysis, recordId);
         if (value === null || typeof value !== "object" || (value as { status?: unknown }).status !== "record_fetched") throw fixedError();
         return Object.freeze({ status: "record_fetched" as const });
+      } catch (error) { throw fixedError(error); }
+    },
+    clearSourceCache: async () => {
+      try {
+        return SourceCacheClearResultSchema.parse(await invokePort(MAHJONG_SOUL_CATALOG_IPC_CHANNELS.clearSourceCache));
       } catch (error) { throw fixedError(error); }
     },
   });

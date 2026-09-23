@@ -323,9 +323,21 @@ key/prompt 反射只在 main 内保留与本次结果绑定的原文 hash，正�
 identity/status schema 仅做内部提取，公共形状和导出保持不变，`sideEffects: false`
 使沙箱 bundle 不引入未使用的 Node crypto 模块。依赖方向与 renderer allow-list 未扩张。
 
+M7-B 将上述只读边界落到 `desktop/src/review-session-repository.ts`：Electron main 是
+`review-library/library.sqlite` 的唯一写入者，SQLite v1 逻辑 schema（storage v2 为删除
+receipt 追加 package binding；迁移/兼容见 M7-B §7）只保存 immutable package/report
+bytes、冻结 selection、append-only report ref、显式 active ref 与两阶段 activation
+intent/receipt。打开或恢复时逐层校验 hash/schema/domain identity，并且只调用
+`composeReviewReadBackContext` 从 fresh package projection 装配当前报告；ContextGraph
+仍不落盘。`desktop/src/privileged-raw-cache.ts` 与资料库共用 main-only 索引，但 raw bytes
+只进入受控 `source-cache/`，命中重新验证路径、长度和 hash；renderer DTO、日志与会话
+artifact 均不携带 raw material。缓存没有 TTL/LRU，只有显式清理。
+
 ## 当前已知架构缺口
 
 - canonical mapper 的部分流局/杠语义尚需真实牌谱反证（M5 人工验收并行线程）；
 - 响应面已接入（M6-A4.0/A4.1/A4.2：归属过滤拆除、discard_response/kan_response 开窗、响应窗口身份事实表与本地候选枚举同构、守恒不变量升级、响应分支覆盖率矩阵 fail-closed）；A4.3 纯事件 discovery 扫描已落地（`scripts/response-surface-discovery.mjs`，chankan 最早启动、合格局计数按 source 记入 manifest），wave-1 六分支已全部真实 E2E 取证（resp_chi/pon/daiminkan/hora_actual + resp_pass_on_discard 四候选族子覆盖 + resp_chankan_actual，8 份真实报告），wave-2 保持 fail-closed + 降级条款；
-- mapped/replayed record 与 Mortal 报告仍仅在主进程内存/验收缓存中，没有产品级持久化（M7-B）；
-- 整盘 StructuredAnalysisPackage（M6-C）、Typed Context Graph substrate（M6-D1）与 M6-D2 唯一端到端生成链均已实现；真实账号/真实 LLM 人工验收不属于 M6-D2。review UI、SQLite 会话与跨平台发布仍未实现（M7-A / M7-B / M8）。
+- mapped/replayed record 的产品接线仍需随来源入口继续闭合；账号牌谱下载已消费 main-only、
+  内容去重的 source raw cache，命中仍经 source/canonical 验证，并提供只返回安全计数结果的
+  显式清理入口；raw bytes 仍不构成 renderer 或会话 artifact；
+- 整盘 StructuredAnalysisPackage（M6-C）、Typed Context Graph substrate（M6-D1）、M6-D2 唯一端到端生成链、M7-A fixed review UI 与 M7-B SQLite 会话/离线重开 substrate 已实现；真实账号/真实收费 LLM 自动验收未授权，跨平台发布仍未实现（M8）。

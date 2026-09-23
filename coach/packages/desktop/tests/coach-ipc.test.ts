@@ -28,6 +28,7 @@ function fixture() {
     cancelGeneration: vi.fn(),
     getReviewDetail: vi.fn(() => { throw new Error("review_unavailable"); }),
     leaveReview: vi.fn(),
+    listReviewSessions: vi.fn(() => []),
   };
   const registration = registerCoachIpc({
     trustedSenderId: 7, service,
@@ -42,7 +43,7 @@ describe("coach narrow IPC and preload", () => {
   it("exposes only settings/status, payload-free import/clear, and package-reference generation", async () => {
     const f = fixture();
     expect([...f.handlers.keys()].sort()).toEqual(Object.values(COACH_IPC_CHANNELS).sort());
-    expect(Object.keys(f.api).sort()).toEqual(["cancelGeneration", "clearCredential", "configure", "generateReview", "getReviewDetail", "importCredential", "leaveReview", "openReview", "status"]);
+    expect(Object.keys(f.api).sort()).toEqual(["cancelGeneration", "clearCredential", "configure", "generateReview", "getReviewDetail", "importCredential", "leaveReview", "listReviewSessions", "openReview", "status"]);
     expect(await f.api.configure(settings)).toEqual({ configured: true, settings });
     await f.api.status(); await f.api.importCredential();
     expect(await f.api.clearCredential()).toEqual({ configured: false, settings });

@@ -22,6 +22,7 @@
         <div class="catalog-head">
           <h2>可分析牌谱</h2>
           <button id="sync" type="button" class="quiet">同步最近牌谱</button>
+          <button id="clear-source-cache" type="button" class="quiet">清理来源缓存</button>
         </div>
         <p id="catalog-detail" class="detail">仅显示四人南风标准规则的可分析对局。</p>
         <ul id="catalog-list" class="catalog-list"></ul>
@@ -42,10 +43,12 @@
         <p class="detail">输入本机已生成并验证的分析包引用。</p>
         <div class="review-entry-form">
           <input id="review-package-id" type="text" autocomplete="off" aria-label="分析包引用">
-          <button id="open-review" type="button">打开复盘</button>
+          <button id="open-review" type="button">保存并打开复盘</button>
           <button id="leave-review" type="button" class="secondary" hidden>离开复盘</button>
         </div>
         <p id="review-entry-status" class="detail" aria-live="polite"></p>
+        <h3>已保存复盘</h3>
+        <ul id="review-session-list" class="catalog-list"></ul>
       </section>
       <section id="fixed-review" class="fixed-review" hidden aria-label="整盘复盘"></section>
     </main>

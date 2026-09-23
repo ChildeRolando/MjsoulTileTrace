@@ -5,6 +5,7 @@ import {
   FixedReviewDetailRequestSchema, FixedReviewDetailSchema, FixedReviewGenerateRequestSchema,
   FixedReviewLeaveRequestSchema, FixedReviewOpenRequestSchema, FixedReviewOperationResultSchema,
   FixedReviewSnapshotSchema,
+  ReviewSessionListSchema,
 } from "./fixed-review-view.js";
 
 /** Public configuration contains no authentication, query, fragment or userinfo. */
@@ -33,6 +34,7 @@ export const COACH_IPC_CHANNELS = Object.freeze({
   cancelGeneration: "coach:review:cancel-generation",
   getReviewDetail: "coach:review:detail",
   leaveReview: "coach:review:leave",
+  listReviewSessions: "coach:review:list-sessions",
 } as const);
 export const CoachReportResultSchema = z.discriminatedUnion("status", [
   z.object({ status: z.literal("ready"), report: ReviewReportSchema }).strict(),
@@ -49,4 +51,5 @@ export interface CoachDesktopApi {
   cancelGeneration(input: z.input<typeof FixedReviewCancelRequestSchema>): Promise<z.infer<typeof FixedReviewAcknowledgementSchema>>;
   getReviewDetail(input: z.input<typeof FixedReviewDetailRequestSchema>): Promise<z.infer<typeof FixedReviewDetailSchema>>;
   leaveReview(input: z.input<typeof FixedReviewLeaveRequestSchema>): Promise<z.infer<typeof FixedReviewAcknowledgementSchema>>;
+  listReviewSessions(): Promise<z.infer<typeof ReviewSessionListSchema>>;
 }
