@@ -32,6 +32,41 @@ compatibility 测试与**架构边界检查（`npm run check:architecture`）**�
 canonical 事件流 → 决策快照 → 确定事实 → 模型比较 → 打包 sidecar 因素管线 →
 结构化分析产物。大改动后先跑它回答"语义主干是否仍在"。
 
+### MVP Electron Golden Slice（Integration Closeout D，待实现）
+
+永久发布入口冻结为：
+
+```powershell
+npm run test:electron-mvp-golden
+```
+
+owner 为 `packages/desktop/tests/electron-mvp-golden-slice.cjs` 与
+`packages/desktop/tests/fixtures/`。它必须使用真实 Electron main/preload/renderer、
+SQLite、应用退出与新进程重启；account discovery 只可在 main adapter seam 使用安全 fixture，
+Coach provider 必须 stub。默认 suite 禁止真实网络、账号和 provider。测试从 app shell 的
+account select 或 share import 起步，不得从 `openReview()` 直接起步；离线重开必须先销毁
+全部内存 graph/controller/provider state，再禁网/禁 LLM，并断言同一
+`activeReportRefId`、judgment、explanation、provenance 与零请求。
+
+**当前状态（2026-09-24）**：该 package script 与 test owner 尚未实现，命令不可运行，
+不得报告 PASS。D 实现票负责添加二者并删除本 pending 标记。完整语义见
+[Integration Closeout spec](../specs/2026-09-24-playable-review-mvp-integration-closeout.md)。
+
+### Integration Closeout 固定五门
+
+实现 A/B/C/D 的候选除 focused tests 和 Electron Golden Slice 外，统一运行：
+
+```powershell
+npm run typecheck
+npm run build
+npx vitest run
+npm run check:architecture
+npm run test:package-import
+```
+
+发布闭合还要求 fresh independent `NO_P1_P2`、代码合入及一次获授权的真人 smoke；真实
+provider 不进入默认自动 suite。
+
 ## 按改动范围选择门禁
 
 | 改动范围 | 最低 focused 门禁 | 合并前门禁 |
