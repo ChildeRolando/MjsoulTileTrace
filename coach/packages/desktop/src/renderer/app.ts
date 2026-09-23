@@ -39,8 +39,25 @@ const reviewPackageIdInput = document.querySelector<HTMLInputElement>("#review-p
 const openReviewButton = document.querySelector<HTMLButtonElement>("#open-review")!;
 const leaveReviewButton = document.querySelector<HTMLButtonElement>("#leave-review")!;
 const reviewEntryStatus = document.querySelector<HTMLElement>("#review-entry-status")!;
+const reviewSessionList = document.querySelector<HTMLElement>("#review-session-list")!;
 export const fixedReviewUi = createFixedReviewUi({ document, root: reviewRoot, api: window.riichiCoachProvider });
 let currentSessionStatus: MahjongSoulSessionStatus["status"] = "logged_out";
+
+async function refreshReviewSessions(): Promise<void> {
+  reviewSessionList.textContent = "";
+  const sessions = await window.riichiCoachProvider.listReviewSessions();
+  for (const session of sessions) {
+    const item = document.createElement("li");
+    const label = document.createElement("span");
+    label.textContent = `${session.packageId} · ${session.activeReportRefId === null ? "尚未生成教练解说" : "已有教练解说"}`;
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = "打开";
+    button.addEventListener("click", () => { reviewPackageIdInput.value = session.packageId; openReviewButton.click(); });
+    item.append(label, button);
+    reviewSessionList.appendChild(item);
+  }
+}
 
 function setPending(pending: boolean): void {
   for (const button of buttons) button.disabled = pending;
@@ -174,6 +191,7 @@ openReviewButton.addEventListener("click", () => {
       await fixedReviewUi.open(packageId);
       reviewEntryStatus.textContent = "已打开整盘复盘。";
       leaveReviewButton.hidden = false;
+      await refreshReviewSessions();
     } catch {
       leaveReviewButton.hidden = true;
       reviewEntryStatus.textContent = "无法打开该分析包，请确认引用有效。";
@@ -222,6 +240,7 @@ paipuImportButton.addEventListener("click", () => {
 });
 
 void (async () => {
+  await refreshReviewSessions().catch(() => undefined);
   const status = await run(() => window.riichiCoach.getSessionStatus());
   if (status === "valid" || status === "offline_unverified") await refreshCatalog();
 })();

@@ -4,12 +4,15 @@ import {
   FixedReviewDetailRequestSchema, FixedReviewDetailSchema, FixedReviewGenerateRequestSchema,
   FixedReviewLeaveRequestSchema, FixedReviewOpenRequestSchema, FixedReviewOperationResultSchema,
   FixedReviewSnapshotSchema,
+  ReviewSessionListSchema,
 } from "@riichi-coach/contracts";
 import type { IpcMainPort } from "./ipc.js";
 import type { CoachService } from "./llm-provider/service.js";
 
 export function registerCoachIpc(input: {
-  ipcMain: IpcMainPort; service: CoachService; trustedSenderId: number;
+  ipcMain: IpcMainPort;
+  service: Omit<CoachService, "listReviewSessions"> & Partial<Pick<CoachService, "listReviewSessions">>;
+  trustedSenderId: number;
 }) {
   if (!Number.isInteger(input.trustedSenderId) || input.trustedSenderId < 0) throw new Error("provider_unavailable");
   for (const [operation, channel] of Object.entries(COACH_IPC_CHANNELS)) {
@@ -48,6 +51,10 @@ export function registerCoachIpc(input: {
           const request = FixedReviewLeaveRequestSchema.parse(args[0]);
           input.service.leaveReview(request.packageId);
           return FixedReviewAcknowledgementSchema.parse({ status: "acknowledged" });
+        }
+        if (operation === "listReviewSessions") {
+          if (args.length !== 0) throw Error();
+          return ReviewSessionListSchema.parse(input.service.listReviewSessions?.() ?? []);
         }
         if (args.length !== 0) throw Error();
         const result = operation === "status" ? await input.service.status()

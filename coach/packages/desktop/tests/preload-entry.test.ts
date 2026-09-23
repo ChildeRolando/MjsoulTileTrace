@@ -50,7 +50,7 @@ describe("self-contained sandboxed preload", () => {
     expect(Object.keys(paipu).sort()).toEqual(["importPaipu"]);
     expect(Object.keys(exposed.get("riichiCoachProvider") as object).sort()).toEqual([
       "cancelGeneration", "clearCredential", "configure", "generateReview",
-      "getReviewDetail", "importCredential", "leaveReview", "openReview", "status",
+      "getReviewDetail", "importCredential", "leaveReview", "listReviewSessions", "openReview", "status",
     ]);
   });
 

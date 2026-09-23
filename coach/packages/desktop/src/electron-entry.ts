@@ -88,6 +88,8 @@ import { readCliFlag } from "./diagnostic-flags.js";
 import { registerCoachIpc } from "./coach-ipc.js";
 import { createEnvironmentKeyImporter, createProviderCredentials } from "./llm-provider/credentials.js";
 import { createCoachService, createPackageReferenceReader } from "./llm-provider/service.js";
+import { createReviewSessionRepository } from "./review-session-repository.js";
+import { createPrivilegedRawCache } from "./privileged-raw-cache.js";
 
 const PARTITION = "persist:riichi-coach-mahjong-soul-cn";
 const bundleRoot = fileURLToPath(new URL("../../../vendor/mahjong-soul-protocol/", import.meta.url));
@@ -105,6 +107,8 @@ const rendererUrl = pathToFileURL(
 // feature is the standard Electron workaround; the official-client capture
 // window is created while the main window holds focus, exactly the trigger.
 app.commandLine.appendSwitch("disable-features", "CalculateNativeWinOcclusion");
+const hasSingleInstanceLock = app.requestSingleInstanceLock();
+if (!hasSingleInstanceLock) app.quit();
 
 let mainWindow: BrowserWindow | null = null;
 let ipcRegistration: Readonly<{ dispose(): void }> | null = null;
@@ -233,6 +237,16 @@ async function writeReplayAuditFile(
 }
 
 async function start(): Promise<void> {
+  const reviewRepository = createReviewSessionRepository({
+    root: join(app.getPath("userData"), "review-library"),
+  });
+  const privilegedRawCache = createPrivilegedRawCache({
+    root: join(app.getPath("userData"), "review-library"),
+  });
+  app.once("will-quit", () => {
+    privilegedRawCache.close();
+    reviewRepository.close();
+  });
   const providerCredentials = createProviderCredentials({
     userData: app.getPath("userData"), safeStorage, platform: process.platform,
     importer: createEnvironmentKeyImporter(process.env),
@@ -615,6 +629,7 @@ async function start(): Promise<void> {
   const coachService = createCoachService({
     credentials: providerCredentials, fetchImpl: globalThis.fetch,
     readPackage: createPackageReferenceReader(app.getPath("userData")),
+    reviewRepository,
   });
 
   const createMainWindow = async (): Promise<void> => {
@@ -676,7 +691,7 @@ const isDiagnosticRun = process.argv.includes("--diagnose-mahjong-soul-restore")
   || process.argv.includes("--diagnose-mortal-decision")
   || process.argv.includes("--diagnose-mortal-full-game");
 
-app.whenReady().then(start).catch((error) => {
+if (hasSingleInstanceLock) app.whenReady().then(start).catch((error) => {
   console.error("[riichi-coach] startup failed:", error);
   app.exit(1);
 });

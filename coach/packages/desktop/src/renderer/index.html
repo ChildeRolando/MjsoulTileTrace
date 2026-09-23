@@ -42,10 +42,12 @@
         <p class="detail">输入本机已生成并验证的分析包引用。</p>
         <div class="review-entry-form">
           <input id="review-package-id" type="text" autocomplete="off" aria-label="分析包引用">
-          <button id="open-review" type="button">打开复盘</button>
+          <button id="open-review" type="button">保存并打开复盘</button>
           <button id="leave-review" type="button" class="secondary" hidden>离开复盘</button>
         </div>
         <p id="review-entry-status" class="detail" aria-live="polite"></p>
+        <h3>已保存复盘</h3>
+        <ul id="review-session-list" class="catalog-list"></ul>
       </section>
       <section id="fixed-review" class="fixed-review" hidden aria-label="整盘复盘"></section>
     </main>

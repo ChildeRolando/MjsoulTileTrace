@@ -139,6 +139,14 @@ export const FixedReviewDetailRequestSchema = z.object({
 }).strict();
 export const FixedReviewLeaveRequestSchema = FixedReviewOpenRequestSchema;
 export const FixedReviewAcknowledgementSchema = z.object({ status: z.literal("acknowledged") }).strict();
+export const ReviewSessionSummarySchema = z.object({
+  sessionId: z.string().min(1),
+  packageId: z.string().min(1),
+  analysisStatus: RecordAnalysisStatusSchema,
+  activeReportRefId: z.string().min(1).nullable(),
+  updatedAt: z.string().datetime(),
+}).strict();
+export const ReviewSessionListSchema = z.array(ReviewSessionSummarySchema);
 export const FixedReviewOperationResultSchema = z.discriminatedUnion("status", [
   z.object({ status: z.literal("ready"), snapshot: FixedReviewSnapshotSchema }).strict(),
   z.object({ status: z.literal("failed"), code: z.enum(["review_unavailable", "generation_failed", "operation_cancelled"]) }).strict(),
@@ -147,3 +155,4 @@ export const FixedReviewOperationResultSchema = z.discriminatedUnion("status", [
 export type FixedReviewSnapshotDto = z.infer<typeof FixedReviewSnapshotSchema>;
 export type FixedReviewDetailDto = z.infer<typeof FixedReviewDetailSchema>;
 export type FixedReviewOperationResult = z.infer<typeof FixedReviewOperationResultSchema>;
+export type ReviewSessionSummaryDto = z.infer<typeof ReviewSessionSummarySchema>;

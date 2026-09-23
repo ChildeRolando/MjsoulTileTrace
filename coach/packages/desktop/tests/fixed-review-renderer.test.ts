@@ -24,7 +24,10 @@ async function chromiumFocusResults(directory: string, scenarios = ["window.run(
   ] : ["/usr/bin/google-chrome", "/usr/bin/chromium", "/usr/bin/microsoft-edge"];
   const executable = candidates.find(existsSync);
   if (executable === undefined) throw new Error("A Chromium browser is required for the real-DOM focus regression");
-  const profile = join(directory, "browser-profile");
+  // Keep Chromium's multi-process profile outside the page fixture. On
+  // Windows crashpad can retain profile handles briefly after the exact
+  // spawned tree exits, but must not pin the page/module directory.
+  const profile = mkdtempSync(join(tmpdir(), "fixed-review-browser-profile-"));
   const browser = spawn(executable, [
     "--headless=new", "--disable-gpu", "--no-first-run", "--no-default-browser-check", "--allow-file-access-from-files",
     "--remote-debugging-port=0", `--user-data-dir=${profile}`, pathToFileURL(join(directory, "page.html")).href,
@@ -83,6 +86,8 @@ async function chromiumFocusResults(directory: string, scenarios = ["window.run(
     for (let attempt = 0; attempt < 100 && browser.exitCode === null; attempt += 1) await delay(20);
     if (browser.exitCode === null) browser.kill();
     for (let attempt = 0; attempt < 100 && browser.exitCode === null; attempt += 1) await delay(20);
+    try { rmSync(profile, { recursive: true, force: true, maxRetries: 5, retryDelay: 100 }); }
+    catch { /* Chromium crashpad releases this OS-temp profile asynchronously. */ }
   }
 }
 

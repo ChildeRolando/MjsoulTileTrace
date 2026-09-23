@@ -6,6 +6,7 @@ import {
 } from "@riichi-coach/contracts";
 import { selectReviewDecisions, validateStructuredAnalysisPackage } from "@riichi-coach/reasoning";
 import { presentFixedReviewDetail, presentFixedReviewSnapshot } from "./fixed-review-presenter.js";
+import type { ReviewSessionRepository } from "./review-session-repository.js";
 
 type ReportRef = Readonly<{
   reportRefId: string;
@@ -26,12 +27,26 @@ export function createFixedReviewController(input: {
   readPackage(packageId: string): Promise<unknown>;
   generateReport(pkg: StructuredAnalysisPackage, selection: ReviewSelectionResult): Promise<unknown>;
   createReportRefId?: () => string;
+  repository?: ReviewSessionRepository;
 }) {
   const views = new Map<string, ViewState>();
   const viewEpochs = new Map<string, number>();
   const operations = new Map<string, Operation>();
   const reportRefId = input.createReportRefId ?? randomUUID;
   const viewEpoch = (packageId: string) => viewEpochs.get(packageId) ?? 0;
+
+  const fromPersisted = (persisted: ReturnType<ReviewSessionRepository["openByPackageId"]>): ViewState => ({
+    analysisPackage: persisted.analysisPackage,
+    selection: persisted.selection,
+    reportRefs: persisted.activeReport === null || persisted.activeReportRefId === null ? [] : [Object.freeze({
+      reportRefId: persisted.activeReportRefId,
+      packageId: persisted.analysisPackage.packageId,
+      reportId: persisted.activeReport.reportId,
+      generatedAt: persisted.activeReport.generatedAt,
+      report: persisted.activeReport,
+    })],
+    activeReportRefId: persisted.activeReportRefId,
+  });
 
   const activeRef = (state: ViewState): ReportRef | null => {
     if (state.activeReportRefId === null) return null;
@@ -60,17 +75,26 @@ export function createFixedReviewController(input: {
   ): Promise<FixedReviewSnapshotDto> => {
     const existing = views.get(packageId);
     if (existing !== undefined) return snapshot(existing);
+    const persisted = input.repository?.tryOpenByPackageId(packageId) ?? null;
+    if (persisted !== null) {
+      const state = fromPersisted(persisted);
+      const projected = snapshot(state);
+      if (!isCurrent() || viewEpoch(packageId) !== expectedEpoch) throw new Error("operation_cancelled");
+      views.set(packageId, state);
+      return projected;
+    }
     const raw = await input.readPackage(packageId);
     if (!isCurrent() || viewEpoch(packageId) !== expectedEpoch) throw new Error("operation_cancelled");
     validateStructuredAnalysisPackage(raw);
     const analysisPackage = StructuredAnalysisPackageSchema.parse(raw);
     if (analysisPackage.packageId !== packageId) throw new Error("review_unavailable");
     if (!isCurrent() || viewEpoch(packageId) !== expectedEpoch) throw new Error("operation_cancelled");
-    const state: ViewState = {
+    let state: ViewState = {
       analysisPackage,
       selection: selectReviewDecisions(analysisPackage),
       reportRefs: [], activeReportRefId: null,
     };
+    if (input.repository !== undefined) state = fromPersisted(input.repository.saveSession(state.analysisPackage, state.selection));
     const projected = snapshot(state);
     if (!isCurrent() || viewEpoch(packageId) !== expectedEpoch) throw new Error("operation_cancelled");
     views.set(packageId, state);
@@ -106,6 +130,12 @@ export function createFixedReviewController(input: {
         analysisPackage: state.analysisPackage, selection: state.selection,
         activeReport: report, activeReportRefId: nextRefId,
       });
+      if (input.repository !== undefined) {
+        const persisted = input.repository.saveReport(packageId, report, nextRefId, operationId);
+        const durableState = fromPersisted(persisted);
+        views.set(packageId, durableState);
+        return { status: "ready", snapshot: snapshot(durableState) };
+      }
       state.reportRefs.push(Object.freeze({
         reportRefId: nextRefId, packageId, reportId: report.reportId,
         generatedAt: report.generatedAt, report,
@@ -153,6 +183,12 @@ export function createFixedReviewController(input: {
 
     /** Internal lifecycle capability only; intentionally absent from IPC/preload. */
     activateReport(packageId: string, targetReportRefId: string): FixedReviewSnapshotDto {
+      if (input.repository !== undefined) {
+        const persisted = input.repository.activateExisting(packageId, targetReportRefId, randomUUID());
+        const state = fromPersisted(persisted);
+        views.set(packageId, state);
+        return snapshot(state);
+      }
       const state = requireState(packageId);
       const matches = state.reportRefs.filter((ref) => ref.reportRefId === targetReportRefId);
       if (matches.length !== 1 || matches[0]!.packageId !== packageId) throw new Error("review_unavailable");
@@ -174,6 +210,7 @@ export function createFixedReviewController(input: {
 
     /** Test-only read view: immutable metadata, never exposed to renderer. */
     inspect(packageId: string) {
+      if (input.repository !== undefined) return input.repository.inspect(packageId);
       const state = requireState(packageId);
       return Object.freeze({
         activeReportRefId: state.activeReportRefId,

@@ -237,6 +237,25 @@ Model/report evidence provider（模型/报告证据来源）
 - **Status**：machine-enforced（contracts/reasoning、COAC-3 provider/IPC 与 COAC-4
   唯一生成链均已落盘；真实账号/真实 LLM 人工验收不属于本不变量门禁）。
 
+## INV-012 ReviewSession 持久化不复制 truth，raw cache 不越过 main
+
+- **Statement**：session 只引用 immutable package/report artifact、冻结 selection 与显式
+  active report ref；ContextGraph 不落盘。报告追加和激活用 durable intent/receipt 两阶段
+  提交，重启只做本地 read-back 恢复。raw source/Mortal bytes 仅在 main 的受控 cache，
+  不进入 session/report/renderer/audit/log/error prose。
+- **Why**：复制 graph、按时间猜 active 或让 raw bytes 进入 renderer，会分别制造第三套
+  truth、崩溃后错误报告和秘密/来源材料泄漏。
+- **Owner / boundary**：M7-B spec；`review-session-repository.ts`、
+  `privileged-raw-cache.ts` 与 M7-A strict DTO/IPC/preload 边界。
+- **Enforcement**：SQLite v1 的唯一/复合 FK、immutable triggers、hash/schema/domain
+  validators、CAS revision、intent/receipt；cache 命中重新验证受控路径/非链接/长度/hash，
+  无 TTL/LRU，显式清理以 `deleting` 状态幂等恢复；renderer 只解析 strict DTO。
+- **Executable tests**：`review-session-persistence.test.ts` 覆盖离线重开、duplicate
+  reportId/ref 寻址、A→B→A、提交点恢复、新版本拒绝及 cache dedup/hit/tamper/no-auto-
+  eviction/clear；`electron-persistence-smoke.mjs` 在发行 Electron runtime 检查 binding 和
+  PRAGMA；既有 `fixed-review*.test.ts` 与 security/architecture suites 保护 P6/DTO 边界。
+- **Status**：machine-enforced；真实收费 provider 未授权且不属于默认 suite。
+
 ---
 
 ## 维护规则
