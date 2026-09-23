@@ -1,16 +1,38 @@
 const { app } = require("electron");
-const { mkdtempSync, rmSync } = require("node:fs");
+const { mkdtempSync, readFileSync, rmSync } = require("node:fs");
 const { tmpdir } = require("node:os");
 const { join } = require("node:path");
 const { DatabaseSync } = require("node:sqlite");
 
 app.whenReady().then(async () => {
   const { createReviewSessionRepository } = await import("../dist/review-session-repository.js");
+  const contracts = await import("@riichi-coach/contracts");
+  const reasoning = await import("@riichi-coach/reasoning");
   const root = mkdtempSync(join(tmpdir(), "riichi-electron-sqlite-"));
   let exitCode = 1;
   try {
-    const repository = createReviewSessionRepository({ root });
+    const fixture = contracts.StructuredAnalysisPackageSchema.parse(JSON.parse(
+      readFileSync(join(__dirname, "fixtures", "coach-package.json"), "utf8"),
+    ));
+    const selection = reasoning.selectReviewDecisions(fixture);
+    const report = await reasoning.generateReviewReport(
+      reasoning.projectContextGraph(fixture), selection,
+      {
+        descriptor: () => ({ providerId: "unconfigured", model: "unconfigured" }),
+        complete: async () => ({ errorCode: "provider_unavailable", transportRetries: 0 }),
+      },
+      "2026-09-23T00:00:00.000Z",
+    );
+    const repository = createReviewSessionRepository({ root, createId: () => "electron-session" });
+    repository.saveSession(fixture, selection);
+    repository.saveReport(fixture.packageId, report, "electron-report-ref", "electron-operation");
     repository.close();
+    const reopened = createReviewSessionRepository({ root });
+    const state = reopened.openByPackageId(fixture.packageId);
+    if (state.activeReportRefId !== "electron-report-ref" || state.activeReport?.reportId !== report.reportId) {
+      throw new Error("electron restart read-back mismatch");
+    }
+    reopened.close();
     const db = new DatabaseSync(join(root, "library.sqlite"));
     const values = {
       foreignKeys: Number(db.prepare("PRAGMA foreign_keys").get().foreign_keys),

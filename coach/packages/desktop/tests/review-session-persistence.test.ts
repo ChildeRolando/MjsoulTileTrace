@@ -65,6 +65,8 @@ describe("ReviewSession SQLite persistence", () => {
     const repository = createReviewSessionRepository({ root: root(), createId: () => "session-a" });
     repository.saveSession(pkg, selection);
     repository.saveReport(pkg.packageId, report, "report-ref-a", "operation-a");
+    expect(repository.saveReport(pkg.packageId, report, "report-ref-a", "operation-a").activeReportRefId).toBe("report-ref-a");
+    expect(() => repository.saveReport(pkg.packageId, report, "different-ref", "operation-a")).toThrow("operation_identity_conflict");
     const duplicate = { ...report, generatedAt: "2026-09-23T00:01:00.000Z" };
     repository.saveReport(pkg.packageId, duplicate, "report-ref-b", "operation-b");
     expect(repository.inspect(pkg.packageId).reportRefs.map((ref) => [ref.reportRefId, ref.reportId])).toEqual([
@@ -109,6 +111,26 @@ describe("ReviewSession SQLite persistence", () => {
     const repository = createReviewSessionRepository({ root: root(), createId: () => "session-a" });
     repository.saveSession(pkg, selection);
     expect(() => repository.saveSession({ ...pkg, createdAt: "2026-09-23T01:00:00.000Z" }, selection)).toThrow("identity_conflict");
+    repository.close();
+  });
+
+  it("deletes session refs and artifacts atomically without scanning the raw cache", () => {
+    const dir = root();
+    const repository = createReviewSessionRepository({ root: dir, createId: () => "session-a" });
+    repository.saveSession(pkg, selection);
+    repository.saveReport(pkg.packageId, report, "report-ref-a", "operation-a");
+    const cache = createPrivilegedRawCache({ root: dir });
+    cache.put({
+      sourceKind: "mortal", stableRecordIdentityHash: "record-hash", perspective: "self:0",
+      sourceVersion: "source/v1", modelVersion: "model/v1", schemaVersion: "schema/v1",
+      parserVersion: "parser/v1", validationVersion: "validator/v1", requestParameters: {},
+    }, Buffer.from("independent cache material"));
+    expect(repository.deleteSession(pkg.packageId, "delete-a")).toEqual({ status: "deleted" });
+    expect(repository.deleteSession(pkg.packageId, "delete-a")).toEqual({ status: "deleted" });
+    expect(repository.tryOpenByPackageId(pkg.packageId)).toBeNull();
+    expect(repository.listSessions()).toEqual([]);
+    expect(cache.inspect()).toEqual({ entries: 1, materials: 1 });
+    cache.close();
     repository.close();
   });
 });

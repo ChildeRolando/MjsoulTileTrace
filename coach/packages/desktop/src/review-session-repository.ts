@@ -103,7 +103,7 @@ function initialize(db: DatabaseSync, now: string): void {
       CREATE TABLE session_report_refs(session_id TEXT NOT NULL, package_ref_id TEXT NOT NULL, report_ref_id TEXT NOT NULL UNIQUE, append_ordinal INTEGER NOT NULL CHECK(append_ordinal>=1), PRIMARY KEY(session_id,report_ref_id), UNIQUE(session_id,append_ordinal), UNIQUE(session_id,package_ref_id,report_ref_id), FOREIGN KEY(session_id,package_ref_id) REFERENCES review_sessions(session_id,package_ref_id), FOREIGN KEY(report_ref_id,package_ref_id) REFERENCES review_reports(report_ref_id,package_ref_id));
       CREATE TABLE session_active_report(session_id TEXT PRIMARY KEY, package_ref_id TEXT NOT NULL, active_report_ref_id TEXT NULL, FOREIGN KEY(session_id,package_ref_id) REFERENCES review_sessions(session_id,package_ref_id), FOREIGN KEY(session_id,package_ref_id,active_report_ref_id) REFERENCES session_report_refs(session_id,package_ref_id,report_ref_id));
       CREATE TABLE activation_intents(session_id TEXT PRIMARY KEY, operation_id TEXT NOT NULL UNIQUE, package_ref_id TEXT NOT NULL, target_report_ref_id TEXT NOT NULL, previous_report_ref_id TEXT NULL, expected_revision INTEGER NOT NULL, FOREIGN KEY(session_id,package_ref_id,target_report_ref_id) REFERENCES session_report_refs(session_id,package_ref_id,report_ref_id), FOREIGN KEY(session_id,package_ref_id,previous_report_ref_id) REFERENCES session_report_refs(session_id,package_ref_id,report_ref_id));
-      CREATE TABLE operation_receipts(operation_id TEXT PRIMARY KEY, kind TEXT NOT NULL, session_id TEXT NOT NULL REFERENCES review_sessions(session_id), report_ref_id TEXT NULL REFERENCES review_reports(report_ref_id), state TEXT NOT NULL CHECK(state IN ('report_saved','activated','deleted')), committed_revision INTEGER NOT NULL, created_at TEXT NOT NULL);
+      CREATE TABLE operation_receipts(operation_id TEXT PRIMARY KEY, kind TEXT NOT NULL, session_id TEXT NOT NULL, report_ref_id TEXT NULL, state TEXT NOT NULL CHECK(state IN ('report_saved','activated','deleted')), committed_revision INTEGER NOT NULL, created_at TEXT NOT NULL);
       CREATE TABLE source_materials(material_id TEXT PRIMARY KEY, content_hash TEXT NOT NULL, byte_length INTEGER NOT NULL, relative_path TEXT NOT NULL UNIQUE, state TEXT NOT NULL CHECK(state IN ('ready','deleting')));
       CREATE TABLE raw_cache_entries(cache_key TEXT PRIMARY KEY, material_id TEXT NOT NULL REFERENCES source_materials(material_id), source_kind TEXT NOT NULL, record_identity_hash TEXT NOT NULL, parser_version TEXT NOT NULL, validation_version TEXT NOT NULL, created_at TEXT NOT NULL);
       CREATE TRIGGER immutable_package BEFORE UPDATE ON analysis_packages BEGIN SELECT RAISE(ABORT,'immutable_artifact'); END;
@@ -266,8 +266,12 @@ export function createReviewSessionRepository(input: {
     },
 
     saveReport(packageId: string, reportInput: unknown, reportRefId: string, operationId: string): PersistedReviewState {
-      const prior = db.prepare("SELECT state,session_id FROM operation_receipts WHERE operation_id=?").get(operationId) as { state: string; session_id: string } | undefined;
-      if (prior !== undefined) return prior.state === "activated" ? read(sessionByPackageId(packageId)!) : activate(operationId);
+      const prior = db.prepare("SELECT state,session_id,report_ref_id FROM operation_receipts WHERE operation_id=?").get(operationId) as { state: string; session_id: string; report_ref_id: string | null } | undefined;
+      if (prior !== undefined) {
+        const current = sessionByPackageId(packageId);
+        if (current === undefined || prior.session_id !== current.session_id || prior.report_ref_id !== reportRefId) throw new Error("operation_identity_conflict");
+        return prior.state === "activated" ? read(current) : activate(operationId);
+      }
       const state = this.openByPackageId(packageId);
       const report = ReviewReportSchema.parse(reportInput);
       composeReviewReadBackContext(state.analysisPackage, state.selection, report);
@@ -295,6 +299,28 @@ export function createReviewSessionRepository(input: {
         db.prepare("INSERT INTO operation_receipts VALUES(?,?,?,?,?,?,?)").run(operationId, "activate", session.session_id, reportRefId, "report_saved", state.revision, now());
       });
       return activate(operationId);
+    },
+
+    deleteSession(packageId: string, operationId: string): Readonly<{ status: "deleted" }> {
+      const prior = db.prepare("SELECT state FROM operation_receipts WHERE operation_id=?").get(operationId) as { state: string } | undefined;
+      if (prior !== undefined) {
+        if (prior.state !== "deleted") throw new Error("operation_identity_conflict");
+        return Object.freeze({ status: "deleted" as const });
+      }
+      const session = sessionByPackageId(packageId);
+      if (session === undefined) throw new Error("review_unavailable");
+      transaction(db, () => {
+        db.prepare("UPDATE session_active_report SET active_report_ref_id=NULL WHERE session_id=?").run(session.session_id);
+        db.prepare("DELETE FROM activation_intents WHERE session_id=?").run(session.session_id);
+        db.prepare("DELETE FROM session_report_refs WHERE session_id=?").run(session.session_id);
+        db.prepare("DELETE FROM review_reports WHERE package_ref_id=?").run(session.package_ref_id);
+        db.prepare("DELETE FROM session_active_report WHERE session_id=?").run(session.session_id);
+        const deleted = db.prepare("DELETE FROM review_sessions WHERE session_id=? AND revision=?").run(session.session_id, session.revision);
+        if (Number(deleted.changes) !== 1) throw new Error("delete_conflict");
+        db.prepare("DELETE FROM analysis_packages WHERE package_ref_id=? AND NOT EXISTS(SELECT 1 FROM review_sessions WHERE package_ref_id=?)").run(session.package_ref_id, session.package_ref_id);
+        db.prepare("INSERT INTO operation_receipts VALUES(?,?,?,?,?,?,?)").run(operationId, "delete", session.session_id, null, "deleted", session.revision, now());
+      });
+      return Object.freeze({ status: "deleted" as const });
     },
 
     inspect(packageId: string) {
