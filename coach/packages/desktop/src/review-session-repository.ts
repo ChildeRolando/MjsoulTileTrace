@@ -33,6 +33,8 @@ type ArtifactRow = {
   content_hash: string;
   schema_version: string;
 };
+type PackageArtifactRow = ArtifactRow & { package_id: string };
+type ReportArtifactRow = ArtifactRow & { report_id: string };
 
 type IntentRow = {
   session_id: string;
@@ -140,9 +142,9 @@ export function createReviewSessionRepository(input: {
   catch (error) { db.close(); throw error; }
 
   const packageRowForSession = (sessionId: string) => db.prepare(`
-    SELECT p.payload,p.content_hash,p.schema_version FROM analysis_packages p
+    SELECT p.package_id,p.payload,p.content_hash,p.schema_version FROM analysis_packages p
     JOIN review_sessions s ON s.package_ref_id=p.package_ref_id WHERE s.session_id=?
-  `).get(sessionId) as ArtifactRow | undefined;
+  `).get(sessionId) as PackageArtifactRow | undefined;
 
   const read = (session: SessionRow): PersistedReviewState => {
     const packageRow = packageRowForSession(session.session_id);
@@ -150,18 +152,20 @@ export function createReviewSessionRepository(input: {
     const packageRaw = assertHash(packageRow, "package_hash_mismatch");
     validateStructuredAnalysisPackage(packageRaw);
     const analysisPackage = StructuredAnalysisPackageSchema.parse(packageRaw);
+    if (analysisPackage.packageId !== packageRow.package_id) throw new Error("package_identity_mismatch");
     if (analysisPackage.componentVersions.packageSchema !== packageRow.schema_version) throw new Error("package_version_mismatch");
     if (hash(session.selection_payload) !== session.selection_hash) throw new Error("selection_hash_mismatch");
     const selection = ReviewSelectionResultSchema.parse(decode(session.selection_payload));
     let activeReport: ReviewReport | null = null;
     if (session.active_report_ref_id !== null) {
-      const reportRow = db.prepare(`SELECT r.payload,r.content_hash,r.schema_version FROM review_reports r
+      const reportRow = db.prepare(`SELECT r.report_id,r.payload,r.content_hash,r.schema_version FROM review_reports r
         JOIN session_report_refs x ON x.report_ref_id=r.report_ref_id
         WHERE x.session_id=? AND x.package_ref_id=? AND x.report_ref_id=?`).get(
         session.session_id, session.package_ref_id, session.active_report_ref_id,
-      ) as ArtifactRow | undefined;
+      ) as ReportArtifactRow | undefined;
       if (reportRow === undefined) throw new Error("review_unavailable");
       activeReport = ReviewReportSchema.parse(assertHash(reportRow, "report_hash_mismatch"));
+      if (activeReport.reportId !== reportRow.report_id) throw new Error("report_identity_mismatch");
       if (activeReport.schemaVersion !== reportRow.schema_version) throw new Error("report_version_mismatch");
     }
     composeReviewReadBackContext(analysisPackage, selection, activeReport);
@@ -191,20 +195,22 @@ export function createReviewSessionRepository(input: {
       throw new Error("activation_unavailable");
     }
     const packageRow = packageRowForSession(session.session_id);
-    const target = db.prepare(`SELECT r.payload,r.content_hash,r.schema_version FROM review_reports r
+    const target = db.prepare(`SELECT r.report_id,r.payload,r.content_hash,r.schema_version FROM review_reports r
       JOIN session_report_refs x ON x.report_ref_id=r.report_ref_id AND x.package_ref_id=r.package_ref_id
       WHERE x.session_id=? AND x.package_ref_id=? AND x.report_ref_id=?`).get(
       intent.session_id, intent.package_ref_id, intent.target_report_ref_id,
-    ) as ArtifactRow | undefined;
+    ) as ReportArtifactRow | undefined;
     if (packageRow === undefined || target === undefined) throw new Error("activation_unavailable");
 
     const packageRaw = assertHash(packageRow, "package_hash_mismatch");
     validateStructuredAnalysisPackage(packageRaw);
     const analysisPackage = StructuredAnalysisPackageSchema.parse(packageRaw);
+    if (analysisPackage.packageId !== packageRow.package_id) throw new Error("package_identity_mismatch");
     if (analysisPackage.componentVersions.packageSchema !== packageRow.schema_version) throw new Error("package_version_mismatch");
     if (hash(session.selection_payload) !== session.selection_hash) throw new Error("selection_hash_mismatch");
     const selection = ReviewSelectionResultSchema.parse(decode(session.selection_payload));
     const report = ReviewReportSchema.parse(assertHash(target, "report_hash_mismatch"));
+    if (report.reportId !== target.report_id) throw new Error("report_identity_mismatch");
     if (report.schemaVersion !== target.schema_version) throw new Error("report_version_mismatch");
     composeReviewReadBackContext(analysisPackage, selection, report);
   };
@@ -293,7 +299,13 @@ export function createReviewSessionRepository(input: {
       })));
     },
 
-    saveReport(packageId: string, reportInput: unknown, reportRefId: string, operationId: string): PersistedReviewState {
+    saveReport(
+      packageId: string,
+      reportInput: unknown,
+      reportRefId: string,
+      operationId: string,
+      expectedSession?: Readonly<{ sessionId: string; revision: number }>,
+    ): PersistedReviewState {
       const prior = db.prepare("SELECT state,session_id,report_ref_id FROM operation_receipts WHERE operation_id=?").get(operationId) as { state: string; session_id: string; report_ref_id: string | null } | undefined;
       if (prior !== undefined) {
         const current = sessionByPackageId(packageId);
@@ -301,12 +313,21 @@ export function createReviewSessionRepository(input: {
         return prior.state === "activated" ? read(current) : activate(operationId);
       }
       const state = this.openByPackageId(packageId);
+      if (expectedSession !== undefined
+        && (state.sessionId !== expectedSession.sessionId || state.revision !== expectedSession.revision)) {
+        throw new Error("session_binding_conflict");
+      }
       const report = ReviewReportSchema.parse(reportInput);
       composeReviewReadBackContext(state.analysisPackage, state.selection, report);
       const payload = bytes(report);
-      const session = sessionByPackageId(packageId)!;
       const timestamp = now();
       transaction(db, () => {
+        const session = sessionByPackageId(packageId);
+        if (session === undefined) throw new Error("session_binding_conflict");
+        if (expectedSession !== undefined
+          && (session.session_id !== expectedSession.sessionId || session.revision !== expectedSession.revision)) {
+          throw new Error("session_binding_conflict");
+        }
         const ordinal = Number((db.prepare("SELECT COALESCE(MAX(append_ordinal),0)+1 AS value FROM session_report_refs WHERE session_id=?").get(session.session_id) as { value: number }).value);
         db.prepare("INSERT INTO review_reports VALUES(?,?,?,?,?,?,?)").run(reportRefId, session.package_ref_id, report.reportId, hash(payload), report.schemaVersion, payload, timestamp);
         db.prepare("INSERT INTO session_report_refs VALUES(?,?,?,?)").run(session.session_id, session.package_ref_id, reportRefId, ordinal);

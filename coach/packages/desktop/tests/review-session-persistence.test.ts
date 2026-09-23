@@ -201,6 +201,60 @@ describe("ReviewSession SQLite persistence", () => {
     repository.close();
   });
 
+  it("fails closed when indexed package/report identities disagree with immutable payloads (R3-P2-1)", () => {
+    const packageDir = root();
+    let repository = createReviewSessionRepository({ root: packageDir, createId: () => "session-a" });
+    repository.saveSession(pkg, selection);
+    repository.close();
+    let db = new DatabaseSync(join(packageDir, "library.sqlite"));
+    db.exec("DROP TRIGGER immutable_package");
+    db.prepare("UPDATE analysis_packages SET package_id='wrong-index-id'").run();
+    db.close();
+    repository = createReviewSessionRepository({ root: packageDir });
+    expect(() => repository.openByPackageId("wrong-index-id")).toThrow("package_identity_mismatch");
+    repository.close();
+
+    const reportDir = root();
+    repository = createReviewSessionRepository({ root: reportDir, createId: () => "session-b" });
+    repository.saveSession(pkg, selection);
+    repository.saveReport(pkg.packageId, report, "report-ref-a", "operation-a");
+    repository.close();
+    db = new DatabaseSync(join(reportDir, "library.sqlite"));
+    db.exec("DROP TRIGGER immutable_report");
+    db.prepare("UPDATE review_reports SET report_id='wrong-report-id'").run();
+    db.close();
+    repository = createReviewSessionRepository({ root: reportDir });
+    expect(() => repository.openByPackageId(pkg.packageId)).toThrow("report_identity_mismatch");
+    repository.close();
+  });
+
+  it("rejects a generated result bound to a deleted and recreated durable session (R3-P2-2)", async () => {
+    const ids = ["session-a", "session-b"];
+    const repository = createReviewSessionRepository({ root: root(), createId: () => ids.shift()! });
+    let release!: (value: unknown) => void;
+    const generateReport = vi.fn(() => new Promise<unknown>((resolve) => { release = resolve; }));
+    const controller = createFixedReviewController({
+      readPackage: async () => pkg,
+      generateReport,
+      repository,
+      createReportRefId: () => "stale-report-ref",
+    });
+    await controller.openReview(pkg.packageId);
+    const pending = controller.generateReview(pkg.packageId, "stale-operation");
+    await vi.waitFor(() => expect(generateReport).toHaveBeenCalledOnce());
+    repository.deleteSession(pkg.packageId, "delete-a");
+    const replacement = repository.saveSession(pkg, selection);
+    expect(replacement.sessionId).toBe("session-b");
+    release(report);
+    expect(await pending).toEqual({ status: "failed", code: "generation_failed" });
+    expect(repository.openByPackageId(pkg.packageId).sessionId).toBe("session-b");
+    expect(repository.inspect(pkg.packageId)).toMatchObject({
+      activeReportRefId: null,
+      reportRefs: [],
+    });
+    repository.close();
+  });
+
   it("deletes session refs and artifacts atomically without scanning the raw cache", () => {
     const dir = root();
     const repository = createReviewSessionRepository({ root: dir, createId: () => "session-a" });

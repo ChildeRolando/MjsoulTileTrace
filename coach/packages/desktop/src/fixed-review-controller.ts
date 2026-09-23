@@ -16,6 +16,8 @@ type ReportRef = Readonly<{
   report: ReviewReport;
 }>;
 type ViewState = {
+  sessionId: string | null;
+  revision: number | null;
   analysisPackage: StructuredAnalysisPackage;
   selection: ReviewSelectionResult;
   reportRefs: ReportRef[];
@@ -36,6 +38,8 @@ export function createFixedReviewController(input: {
   const viewEpoch = (packageId: string) => viewEpochs.get(packageId) ?? 0;
 
   const fromPersisted = (persisted: ReturnType<ReviewSessionRepository["openByPackageId"]>): ViewState => ({
+    sessionId: persisted.sessionId,
+    revision: persisted.revision,
     analysisPackage: persisted.analysisPackage,
     selection: persisted.selection,
     reportRefs: persisted.activeReport === null || persisted.activeReportRefId === null ? [] : [Object.freeze({
@@ -90,6 +94,8 @@ export function createFixedReviewController(input: {
     if (analysisPackage.packageId !== packageId) throw new Error("review_unavailable");
     if (!isCurrent() || viewEpoch(packageId) !== expectedEpoch) throw new Error("operation_cancelled");
     let state: ViewState = {
+      sessionId: null,
+      revision: null,
       analysisPackage,
       selection: selectReviewDecisions(analysisPackage),
       reportRefs: [], activeReportRefId: null,
@@ -124,6 +130,9 @@ export function createFixedReviewController(input: {
       }
       if (!isCurrent()) return { status: "failed", code: "operation_cancelled" };
       if (firstGenerationOnly && state.activeReportRefId !== null) return { status: "failed", code: "generation_failed" };
+      const expectedSession = state.sessionId === null || state.revision === null
+        ? undefined
+        : Object.freeze({ sessionId: state.sessionId, revision: state.revision });
       const rawReport = await input.generateReport(state.analysisPackage, state.selection);
       const current = views.get(packageId);
       if (current !== state || !isCurrent()) {
@@ -137,7 +146,7 @@ export function createFixedReviewController(input: {
         activeReport: report, activeReportRefId: nextRefId,
       });
       if (input.repository !== undefined) {
-        const persisted = input.repository.saveReport(packageId, report, nextRefId, operationId);
+        const persisted = input.repository.saveReport(packageId, report, nextRefId, operationId, expectedSession);
         const durableState = fromPersisted(persisted);
         views.set(packageId, durableState);
         return { status: "ready", snapshot: snapshot(durableState) };

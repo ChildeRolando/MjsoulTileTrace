@@ -248,14 +248,17 @@ Model/report evidence provider（模型/报告证据来源）
 - **Owner / boundary**：M7-B spec；`review-session-repository.ts`、
   `privileged-raw-cache.ts` 与 M7-A strict DTO/IPC/preload 边界。
 - **Enforcement**：SQLite v1 的唯一/复合 FK、immutable triggers、hash/schema/domain
-  validators、CAS revision、intent/receipt；cache 命中重新验证受控路径/非链接/长度/hash，
+  validators、索引列与正文领域 identity 一致性、生成开始时的 durable session/revision CAS、
+  intent/receipt；cache 命中重新验证受控路径/非链接/长度/hash，
   无 TTL/LRU，显式清理以 `deleting` 状态幂等恢复；renderer 只解析 strict DTO。
 - **Executable tests**：`review-session-persistence.test.ts` 覆盖离线重开、duplicate
   reportId/ref 寻址、A→B→A、提交一后零 provider 恢复、激活前完整校验、operation 幂等、
   新版本拒绝及 cache dedup/hit/tamper/no-auto-eviction/clear/junction 越界；
   `electron-persistence-smoke.cjs` 在发行 Electron runtime 覆盖 binding/PRAGMA、子进程异常
   终止与 WAL/intent 恢复、complete/evidence-only、不同内容 A→B→A、migration rollback
-  及真实脱敏牌谱 mapper/replay；`record-ingestion-service.test.ts`、`catalog-api.test.ts` 与
+  及同一真实脱敏 fixture 的生产分析→stub 生成→Overview/List/Detail→独立进程零请求重开；
+  repository suite 另覆盖索引/正文 identity 错配和删除重建迟到生成；
+  `record-ingestion-service.test.ts`、`catalog-api.test.ts` 与
   preload tests 保护生产 cache hit/clear 接线和安全结果；既有 `fixed-review*.test.ts` 与
   security/architecture suites 保护 P6/DTO 边界。
 - **Status**：machine-enforced；真实收费 provider 未授权且不属于默认 suite。

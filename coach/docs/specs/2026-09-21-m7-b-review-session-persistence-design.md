@@ -183,6 +183,21 @@ P6 不向用户暴露这些操作。repository/controller 仍必须支持：追�
   migration rollback，以及脱敏真实牌谱经生产 mapper/replay 的验收；网络与 LLM 边界均
   使用离线 fixture/stub。
 
+### Review Loop 第 3 轮修复闭环（COAC-97）
+
+- artifact 读回同时核对 SQLite 索引列与正文领域 identity；即使正文 hash/schema/validator
+  均合法，`analysis_packages.package_id` 或 `review_reports.report_id` 与正文不一致仍固定
+  fail closed。`review-session-persistence.test.ts` 以只改索引、不改正文 bytes/hash 的回归
+  固化 `R3-P2-1`。
+- provider 调用前捕获 durable `sessionId/revision`，报告提交前由 repository 对同一绑定
+  执行 CAS；生成期间删除并以相同 package 重建 session 时，旧结果拒绝且不得写入新 session。
+  `review-session-persistence.test.ts` 的 deferred provider 删除竞争固化 `R3-P2-2`。
+- `electron-persistence-smoke.cjs` 将同一脱敏真实 Mortal fixture 经生产 deterministic
+  analysis/package builder、selector、首次 stubbed Coach、Overview/List/Detail 和 SQLite
+  保存贯通；随后由独立 Electron 进程禁用并计数 source/network/LLM，离线重开比较 active
+  ref、selection/status/version、judgment、explanation、provenance 与 session list，固定为
+  `network=0`、`llm=0`，固化 `R3-P2-3`。真实收费 provider 仍未执行。
+
 COAC-8 只有在 COAC-6 accepted/merged、COAC-7 本规格 reviewed/frozen/accepted/merged，并记录二者精确合并 SHA 后才能启动。COAC-6 的 GO 也同时要求 COAC-5 technical gate PASS+merged 与本规格 reviewed/frozen/merged。
 
 ## 12. 审阅结论与 out-of-scope

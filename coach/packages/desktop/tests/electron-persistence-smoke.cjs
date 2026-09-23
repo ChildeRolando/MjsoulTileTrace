@@ -1,12 +1,13 @@
 const { app } = require("electron");
 const { spawnSync } = require("node:child_process");
 const { createHash } = require("node:crypto");
-const { mkdtempSync, readFileSync, rmSync } = require("node:fs");
+const { mkdtempSync, readFileSync, rmSync, writeFileSync } = require("node:fs");
 const { tmpdir } = require("node:os");
 const { join } = require("node:path");
 const { DatabaseSync } = require("node:sqlite");
 
 const CRASH_CHILD = process.argv.includes("--crash-after-report-save");
+const OFFLINE_REAL_CHILD = process.argv.includes("--offline-reopen-real");
 
 function canonical(value) {
   if (value === null || typeof value !== "object") return JSON.stringify(value);
@@ -105,9 +106,122 @@ async function fixtures() {
   return { fixture, selection, completeA: await makeComplete("a"), completeB: await makeComplete("b"), evidenceOnly, partialFixture, partialSelection, partial };
 }
 
+async function realProductionPackage() {
+  const contracts = await import("@riichi-coach/contracts");
+  const mortal = await import("@riichi-coach/mortal-source");
+  const reasoning = await import("@riichi-coach/reasoning");
+  const bridge = await import("../../reasoning/dist/import/legacy-event-stream-bridge.js");
+  const raw = JSON.parse(readFileSync(join(__dirname, "../../../fixtures/mortal/c1924cad66f66dd9-east1-turn6-7.json"), "utf8"));
+  const imported = reasoning.importRegressionFixture(raw);
+  const bridged = bridge.bridgeLegacyRegressionEvents(imported.events, imported.selfActor, {
+    sourceKind: "fixture", gameId: "fixture:c1924cad66f66dd9",
+  });
+  if (bridged.status !== "ready") throw new Error(`real production bridge failed: ${bridged.code}`);
+  const stream = bridged.stream;
+  const decisions = reasoning.replayCanonicalStream(stream);
+  const responseDecisions = reasoning.replayCanonicalResponseWindows(stream);
+  const entries = raw.decisions.map((entry) => Object.freeze({
+    roundOrdinal: 0, roundWind: "E", dealer: 0, kyoku: 0, honba: 0,
+    junme: entry.junme, tilesLeft: 46, lastActor: 3, tile: entry.tile,
+    tehai: Object.freeze([...entry.state.tehai]), fuuros: Object.freeze([]),
+    atSelfChiPon: false, atSelfRiichi: false, atOpponentKakan: false,
+    expected: { ...entry.expected }, actual: { ...entry.actual }, isEqual: entry.is_equal,
+    details: Object.freeze(entry.details.map((detail) => ({
+      action: { ...detail.action }, probability: detail.prob, qValue: detail.q_value,
+    }))),
+    shanten: entry.shanten, atFuriten: entry.at_furiten, actualIndex: entry.actual_index,
+  }));
+  const report = Object.freeze({
+    reportId: raw.source.reportId, adapterVersion: "mortal-source/2", engine: "Mortal",
+    version: "1.5.10", modelTag: raw.source.modelTag, playerId: raw.source.playerId,
+    gameFingerprint: mortal.computeMortalGameFingerprint(raw.mjaiLog),
+    kyokus: Object.freeze([{ roundOrdinal: 0, roundWind: "E", dealer: 0, kyoku: 0, honba: 0, entries: Object.freeze(entries) }]),
+  });
+  const engine = new reasoning.JsonlFactEngineClient(new reasoning.ManagedFactEngineTransport(join(__dirname, "../../../resources")));
+  let review;
+  try {
+    review = await reasoning.runMortalFullGameReview({
+      stream, decisions, responseDecisions, report, engine,
+      now: () => Date.parse("2026-09-23T00:10:00.000Z"),
+      coverageRegistry: reasoning.createMortalCoverageRegistry(reasoning.MORTAL_COVERAGE_BRANCHES),
+    });
+  } finally { await engine.close(); }
+  if (review.status !== "coverage_ready") throw new Error(`real production review failed: ${review.code}`);
+  const retained = review.retainedAnalyses[0];
+  const pkg = reasoning.buildStructuredAnalysisPackage({
+    review, stream, decisions, responseDecisions,
+    componentVersions: {
+      packageSchema: contracts.STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION,
+      canonicalReplay: "canonical-riichi-events/v2", mapperAdapter: "legacy-regression-bridge/v2",
+      factEngine: {
+        engine: "mahjong-helper", upstreamCommit: contracts.MAHJONG_HELPER_COMMIT,
+        adapterVersion: contracts.FACT_ENGINE_ADAPTER_VERSION,
+        protocolVersion: contracts.FACT_ENGINE_PROTOCOL_VERSION,
+      },
+      factorPipeline: "factor-pipeline/v1",
+      mortalSourceModel: { identity: contracts.MORTAL_PROVIDER_IDENTITY, version: "mortal-source/2", modelTag: raw.source.modelTag },
+    },
+    frozenPolicySnapshot: retained.modelEvaluation.detailPolicy,
+    now: () => Date.parse("2026-09-23T00:10:00.000Z"),
+  });
+  reasoning.validateStructuredAnalysisPackage(pkg);
+  return pkg;
+}
+
+async function stubReportFor(pkg) {
+  const reasoning = await import("@riichi-coach/reasoning");
+  const selection = reasoning.selectReviewDecisions(pkg);
+  const graph = reasoning.projectContextGraph(pkg);
+  return reasoning.generateReviewReport(graph, selection, {
+    descriptor: () => ({ providerId: "electron-stub", model: "real-fixture" }),
+    complete: async () => ({
+      content: JSON.stringify({ decisions: selection.selected.map(({ decisionId }, index) => {
+        const nodes = graph.nodes.filter((node) => node.payload?.decisionId === decisionId);
+        const candidate = nodes.find((node) => node.nodeKind === "CandidateAction");
+        const premise = nodes.find((node) => node.nodeKind === "KnownGameFact");
+        const difference = nodes.find((node) => node.nodeKind === "FactorDifference");
+        if (!candidate || !premise || !difference) throw new Error("real package lacks grounded review evidence");
+        return {
+          decisionId,
+          judgment: { localId: `real-judgment-${index}`, recommendation: candidate.payload.actionRef, confidence: "medium", premiseRefs: [premise.nodeId] },
+          explanations: [{ text: "这条判断由同一真实牌谱的可审计差异支持。", claims: [{ kind: "factor_difference", evidenceRef: difference.nodeId }], judgmentLocalRef: `real-judgment-${index}` }],
+        };
+      }) }),
+      transportRetries: 0,
+    }),
+  }, "2026-09-23T00:11:00.000Z");
+}
+
 app.whenReady().then(async () => {
   const { createReviewSessionRepository } = await import("../dist/review-session-repository.js");
   const root = process.env.RIICHI_ELECTRON_PERSISTENCE_ROOT || mkdtempSync(join(tmpdir(), "riichi-electron-sqlite-"));
+
+  if (OFFLINE_REAL_CHILD) {
+    const { createFixedReviewController } = await import("../dist/fixed-review-controller.js");
+    const expected = JSON.parse(readFileSync(join(root, "real-expected.json"), "utf8"));
+    let networkRequests = 0;
+    let llmRequests = 0;
+    globalThis.fetch = async () => { networkRequests += 1; throw new Error("offline_network_blocked"); };
+    const repository = createReviewSessionRepository({ root });
+    const controller = createFixedReviewController({
+      readPackage: async () => { networkRequests += 1; throw new Error("offline_source_blocked"); },
+      generateReport: async () => { llmRequests += 1; throw new Error("offline_llm_blocked"); },
+      repository,
+    });
+    const snapshot = await controller.openReview(expected.packageId);
+    const detail = controller.getReviewDetail(expected.packageId, expected.decisionId, snapshot.activeReportRefId);
+    const sessions = repository.listSessions();
+    if (JSON.stringify(snapshot) !== JSON.stringify(expected.snapshot)
+      || JSON.stringify(detail) !== JSON.stringify(expected.detail)
+      || JSON.stringify(sessions) !== JSON.stringify(expected.sessions)) {
+      throw new Error("real offline Overview/List/Detail read-back mismatch");
+    }
+    if (networkRequests !== 0 || llmRequests !== 0) throw new Error(`offline request leak network=${networkRequests} llm=${llmRequests}`);
+    repository.close();
+    console.log("[electron-persistence] real-offline PASS network=0 llm=0");
+    app.exit(0);
+    return;
+  }
 
   if (CRASH_CHILD) {
     const { fixture, selection, completeA } = await fixtures();
@@ -172,15 +286,54 @@ app.whenReady().then(async () => {
     evidenceReopen.close();
     rmSync(evidenceRoot, { recursive: true, force: true });
 
-    const source = await import("@riichi-coach/mahjong-soul-source");
-    const reasoning = await import("@riichi-coach/reasoning");
-    const realFixture = JSON.parse(readFileSync(join(__dirname, "../../mahjong-soul-source/tests/fixtures/real-record-wire.json"), "utf8"));
-    const bundle = await source.loadMahjongSoulProtocolBundle(join(__dirname, "../../../vendor/mahjong-soul-protocol"));
-    const recordBytes = source.unwrapGameDetailRecords(bundle, Uint8Array.from(Buffer.from(realFixture.wire, "hex")));
-    const mapped = source.mapMahjongSoulRecord({ gameId: `majsoul:${realFixture.recordId}`, recordId: realFixture.recordId, selfActor: 0, recordBytes, bundle });
-    if (mapped.status !== "ready") throw new Error("real sanitized record did not reach production canonical mapper");
-    const decisions = reasoning.replayCanonicalStream(mapped.stream);
-    if (mapped.stream.events.length === 0 || decisions.length === 0) throw new Error("real sanitized record replay was empty");
+    // R3-P2-3: one supported, sanitized real Mortal fixture traverses the
+    // production deterministic analysis/package builder, selector, first
+    // stubbed Coach generation, Overview/List/Detail presenter, SQLite save,
+    // and a distinct Electron process that blocks and counts network/LLM.
+    const { createFixedReviewController } = await import("../dist/fixed-review-controller.js");
+    const realPackage = await realProductionPackage();
+    const realReport = await stubReportFor(realPackage);
+    const realRoot = mkdtempSync(join(tmpdir(), "riichi-electron-real-main-chain-"));
+    let providerRequests = 0;
+    let realRepository = createReviewSessionRepository({ root: realRoot, createId: () => "real-session" });
+    const realController = createFixedReviewController({
+      readPackage: async (packageId) => {
+        if (packageId !== realPackage.packageId) throw new Error("unexpected real package identity");
+        return realPackage;
+      },
+      generateReport: async () => { providerRequests += 1; return realReport; },
+      createReportRefId: () => "real-report-ref",
+      repository: realRepository,
+    });
+    const beforeGeneration = await realController.openReview(realPackage.packageId);
+    if (beforeGeneration.activeReportStatus !== "not_generated") throw new Error("real main chain did not start at not_generated");
+    const generated = await realController.generateReview(realPackage.packageId, "real-generate-operation");
+    if (generated.status !== "ready" || providerRequests !== 1) throw new Error("real stubbed first generation failed");
+    const realSnapshot = generated.snapshot;
+    const decisionId = realSnapshot.selection.items[0]?.decisionId;
+    if (!decisionId || realSnapshot.selection.items.length === 0) throw new Error("real List projection was empty");
+    const realDetail = realController.getReviewDetail(realPackage.packageId, decisionId, realSnapshot.activeReportRefId);
+    if (realDetail.coachJudgments.length === 0 || realDetail.explanations.length === 0 || realDetail.provenance.length === 0) {
+      throw new Error("real Detail projection omitted judgment/explanation/provenance");
+    }
+    const expected = {
+      packageId: realPackage.packageId,
+      decisionId,
+      snapshot: realSnapshot,
+      detail: realDetail,
+      sessions: realRepository.listSessions(),
+    };
+    writeFileSync(join(realRoot, "real-expected.json"), JSON.stringify(expected));
+    realRepository.close();
+    const offline = spawnSync(process.execPath, [__filename, "--offline-reopen-real"], {
+      env: { ...process.env, RIICHI_ELECTRON_PERSISTENCE_ROOT: realRoot },
+      stdio: "pipe",
+      timeout: 30_000,
+    });
+    if (offline.status !== 0 || !offline.stdout.toString().includes("real-offline PASS network=0 llm=0")) {
+      throw new Error(`real offline child failed: ${offline.stderr.toString() || offline.stdout.toString()}`);
+    }
+    rmSync(realRoot, { recursive: true, force: true });
 
     const migrationRoot = mkdtempSync(join(tmpdir(), "riichi-electron-migration-"));
     const migrationDb = new DatabaseSync(join(migrationRoot, "library.sqlite"));
@@ -204,7 +357,7 @@ app.whenReady().then(async () => {
     if (values.foreignKeys !== 1 || values.journalMode !== "wal" || values.synchronous !== 2 || values.userVersion !== 1) {
       throw new Error(`unexpected sqlite pragmas: ${JSON.stringify(values)}`);
     }
-    console.log(`[electron-persistence] PASS electron=${process.versions.electron} node=${process.versions.node} kill-recovery real-record A-B-A complete-partial-evidence migration`);
+    console.log(`[electron-persistence] PASS electron=${process.versions.electron} node=${process.versions.node} kill-recovery real-main-chain-offline-zero-requests A-B-A complete-partial-evidence migration`);
     exitCode = 0;
   } catch (error) {
     console.error("[electron-persistence] FAIL", error instanceof Error ? error.message : String(error));
