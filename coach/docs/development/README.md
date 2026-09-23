@@ -16,11 +16,15 @@
 ## 当前一句话状态
 
 雀魂国区登录、跨重启恢复、最近 30 场可分析目录、牌谱取回、canonical 重放、Mortal
-整盘确定性分析、selector、ContextGraph 与 grounded ReviewReport 生成链均已接通；
-**用户可见的 M7 review UI 与 M7-B 持久化仍未实现**。M7-A 的已冻结实现规格见
+整盘确定性分析、selector、ContextGraph、grounded ReviewReport、M7-A review UI 与
+M7-B 持久化均已合入；真人 smoke 仍发现 account catalog 与 manual import 没有完整接到
+Review Workspace，**Playable Review MVP 尚不可宣称 demoable**。M7-A 的冻结规格见
 [`2026-09-21-m7-a-whole-game-fixed-review-ui-design.md`](../specs/2026-09-21-m7-a-whole-game-fixed-review-ui-design.md)，
-M7-B 的已冻结实现规格见
-[`2026-09-21-m7-b-review-session-persistence-design.md`](../specs/2026-09-21-m7-b-review-session-persistence-design.md)。
+M7-B 的冻结规格见
+[`2026-09-21-m7-b-review-session-persistence-design.md`](../specs/2026-09-21-m7-b-review-session-persistence-design.md)，
+最终应用组合与发布闭合以
+[`2026-09-24-playable-review-mvp-integration-closeout.md`](../specs/2026-09-24-playable-review-mvp-integration-closeout.md)
+为准。
 
 ## 文档分层
 

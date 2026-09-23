@@ -17,8 +17,8 @@
 | M3 教学证据 | 未开始 | 仅有策略边界和占位契约 | 冻结资料、引用、版本化教学规则；与 decision fact 两源分离，fixed report 稳定后启动 |
 | M4 受约束追问 | 未开始 | ——（原 M4"LLM 教练"已拆分为 M6-D 解释引擎 + M7-A 固定报告 UI + M4 追问对话） | fixed report 与教学证据层稳定后的 constrained follow-up/chat；context retrieval 将建立在 M6-D1 ContextGraph 上（embeddings/GraphRAG 不是前提） |
 | M5 雀魂国区接入 | 接近完成 | Electron 登录、加密恢复、最近 30 场、取回、canonical mapper、重放、脱敏 replay audit、H1 诊断命令 | 真实牌谱 H1 对照验收；未覆盖流局/杠枚举的 fixture 反证 |
-| M6 模型生产接入 | 进行中 | M6-A1–A4、M6-C、DeterministicReviewSelector、M6-D1 已落地；**M6-D2 Graph-grounded Coach + Validator 已于 2026-09-20 收口**：唯一 `generateReviewReport` 链、provider 单点重试、grounding/read-back 发布门、架构绕过检查与安全降级路径全绿 | M7-A/B 产品 UI 与持久化接线；M6-B Akagi 后置 |
-| M7 复盘工作台 | 实现验收中 | M7-A 已验收合入；M7-B 已形成 SQLite v1、immutable artifacts、两阶段恢复、离线重开、会话列表与 main-only raw cache 候选 | 完成 COAC-8 五门、Electron persistence suite、Review Loop 与合入 |
+| M6 模型生产接入 | 核心链完成 | M6-A1–A4、M6-C、DeterministicReviewSelector、M6-D1/D2 已落地；唯一 `generateReviewReport` 链、provider 单点重试、grounding/read-back 发布门、架构绕过检查与安全降级路径全绿 | M6-B Akagi 后置 |
+| M7 复盘工作台 | 核心能力完成，产品组合未闭合 | M7-A UI 与 M7-B SQLite/immutable artifacts/两阶段恢复/离线重开/main-only raw cache 已合入 | 按 Integration Closeout 完成 account/import 入口、session-list refresh 与 MVP Electron Golden Slice |
 | M8 打包发布 | 未开始 | Electron 与 sidecar 构建基础 | 跨平台安装、升级、日志、发布验收 |
 
 ## 当前关键路径
@@ -31,6 +31,7 @@ M5 manual acceptance (parallel)
 → M6-D2
 → M7-A
 → M7-B
+→ Playable Review MVP Integration Closeout
 → pull-based M2-next / M3 / M4
 → M6-B
 → M8
@@ -182,7 +183,19 @@ COAC-5/COAC-7 共享的 active-report 生命周期。PR #14（merge `3e9bbb7b…
 
 - SQLite；ReviewSession 只引用（不内嵌）analysisPackage / ReviewReport；componentVersions 概念清单预留（canonical/replay、Mortal model/source、factor pipeline、selector policy、analysis package schema、LLM provider/model、prompt/schema、review report schema；其中 LLM provider/model、prompt/schema、review report schema 属 ReviewReport 侧，analysis package 只记确定性生产者版本，见 §2 M6-C）。
 - 产品内 Mortal 报告缓存进入：**raw cache 属 privileged source infrastructure，不进 ReviewSession/ReviewReport**（main process only、无 renderer 暴露、无 raw audit payload）。COAC-7 已裁决长期保留、无自动过期/容量淘汰，显式清理不得误删共享材料；[M7-B 冻结规格](../specs/2026-09-21-m7-b-review-session-persistence-design.md) 保存 schema、事务、恢复、安全边界和执行门。
-- COAC-8 候选已把上述 schema/事务落实到 Electron main，并把保存/列表/重启离线重开接入 M7-A controller；当前状态仍须以本票五门和独立 Review Loop 为准，不因本条路线图更新视为已验收。
+- COAC-8 已把上述 schema/事务落实到 Electron main，并把保存/列表/重启离线重开接入
+  M7-A controller，PR #22 已合入。该内部能力完成不证明真实 app entry 已闭合。
+
+### 6.1 Playable Review MVP Integration Closeout
+
+[Integration Closeout 规格](../specs/2026-09-24-playable-review-mvp-integration-closeout.md)
+冻结最后的 app composition：账号同步必须区分真实空目录与 sync/service failure；手动导入
+必须产出或复用真实 ReviewSession 并自动进入 Review Workspace；首次生成后列表即时刷新；
+永久 Electron Golden Slice 必须从 app shell 起步并在清内存、禁网/禁 LLM 后重启重开。
+
+A/B/D 尚未实现。C 已由 COAC-100/PR #23 提供修复并通过独立评审，但在合入与最终组合回归
+前仍未闭合。只有 Integration spec 的 Golden Slice、五门、fresh `NO_P1_P2`、合并与一次
+真人 smoke 全部完成，才能标记 `Playable Review MVP v0.1 = DEMOABLE`。
 
 ### 7. M2-next：pull-based deterministic capability pool
 

@@ -341,3 +341,7 @@ artifact 均不携带 raw material。缓存没有 TTL/LRU，只有显式清理�
   内容去重的 source raw cache，命中仍经 source/canonical 验证，并提供只返回安全计数结果的
   显式清理入口；raw bytes 仍不构成 renderer 或会话 artifact；
 - 整盘 StructuredAnalysisPackage（M6-C）、Typed Context Graph substrate（M6-D1）、M6-D2 唯一端到端生成链、M7-A fixed review UI 与 M7-B SQLite 会话/离线重开 substrate 已实现；真实账号/真实收费 LLM 自动验收未授权，跨平台发布仍未实现（M8）。
+- Playable Review MVP 的 composition root 尚未闭合：account catalog 必须把真实空目录与
+  sync/service failure 分开；manual import 必须把既有生产分析接到 ReviewSession
+  create/reuse 与 `openReview`，不能以 replay 决策数 prose 结束。冻结接线与顶层 Electron
+  验收见 [Integration Closeout spec](../specs/2026-09-24-playable-review-mvp-integration-closeout.md)。
