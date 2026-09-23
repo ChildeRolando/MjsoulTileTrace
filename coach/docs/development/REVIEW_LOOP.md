@@ -151,6 +151,9 @@ in-place 本机目录，避免与 Reviewer/Fixer 争用目录锁；评审/修复
   读取期间发生的任一漂移均不消耗接纳机会。成功后自动 ledger 仍保持
   BLOCKED/round 6，另以 `external_independent_review` 来源追加唯一审计事件并归档到
   `external-results/`；聚合发布器仅为仍匹配该 base/head/admission 的候选发布 success。
+  “合法 BLOCKED”还要求无 pending、当前 job 是本 PR 的 round 6 review，且 `state.result`
+  与唯一 round 6 `result`/`BLOCKED` history 事件的 issue/comment/hash/base/head 精确一致；
+  作者、来源或协议校验失败仅产生的 BLOCKED 标签，以及残留的上一轮 result，均不得接纳。
   重复、并发、stale HEAD、契约/身份/hash 不符、未完成 run、缺门禁或非绿结果均拒绝。
   执行后回读 ledger、外部归档和 GitHub status，恢复 config/Autopilot；正常 merge 仍须独立
   核对 live candidate 和所有 merge gate。入口不合并、不清空历史、不修改 Reviewer 原文。

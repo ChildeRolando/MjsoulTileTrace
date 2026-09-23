@@ -4,7 +4,7 @@ import { promisify } from 'node:util';
 import { mkdir, readFile, writeFile, rename, open, unlink, realpath, readdir } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { admit, VERSION, REPOSITORY, hash, isSha, parseResult, parseRejectedReviewResult, externalReviewAcceptance } from './protocol.mjs';
+import { admit, VERSION, REPOSITORY, hash, isSha, parseResult, parseRejectedReviewResult, automaticRoundSixTerminal, externalReviewAcceptance } from './protocol.mjs';
 import { advance, advanceDurability, authorizeSixthReview, recoverRejectedTerminalReview } from './controller.mjs';
 const exec=promisify(execFile);
 export async function command(file,args,cwd) {
@@ -367,7 +367,7 @@ export async function acceptExternalReviewRun(config,request,ioFactory=makeIO) {
   try {
     const file=path.join(config.state_dir,`pr-${request.pr_number}.json`),state=await readJson(file);
     assert(!state.external_review_acceptance && !state.history.some(e=>e.event === 'accept_external_review'),'external review already accepted');
-    assert(state.status === 'BLOCKED' && state.round === 6,'external review requires automatic round-6 BLOCKED');
+    automaticRoundSixTerminal(state);
     const io=ioFactory(config,file,config.state_dir),raw=await io.live(request.pr_number),live=admit(raw);
     assert.equal(live.base_sha,request.base_sha,'external-review current base changed');
     assert.equal(live.head_sha,request.head_sha,'external-review current head changed');

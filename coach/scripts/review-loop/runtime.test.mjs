@@ -317,6 +317,45 @@ test('external review closure rejects stale, forged, incomplete, non-green and m
     try {const f=await externalReviewFixture(dir);mutate(f);await assert.rejects(()=>acceptExternalReviewRun({...config(dir),enabled:false},f.request,()=>f.io));assert.equal(f.saves,0);assert.equal(f.archives,0);assert.equal(f.publishes,0);} finally {await rm(dir,{recursive:true,force:true});}
   }
 });
+test('external review closure rejects pending, wrong-job and mismatched automatic ledgers before external reads',async()=>{
+  const mutations=[
+    state=>{state.pending={kind:'review'};},
+    state=>{state.job.round=5;},
+    state=>{state.result.comment_id='wrong-comment';},
+    state=>{state.history=state.history.filter(e=>!(e.event === 'result' && e.round === 6));},
+  ];
+  for(const mutate of mutations) {
+    const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-external-ledger-reject-'));
+    try {
+      const f=await externalReviewFixture(dir);mutate(f.state);await atomicJson(path.join(dir,'pr-8.json'),f.state);
+      await assert.rejects(()=>acceptExternalReviewRun({...config(dir),enabled:false},f.request,()=>f.io));
+      assert.equal(f.liveReads,0);assert.equal(f.saves,0);assert.equal(f.archives,0);assert.equal(f.publishes,0);
+    } finally {await rm(dir,{recursive:true,force:true});}
+  }
+});
+test('external review closure rejects a round-six source failure produced by tick',async()=>{
+  const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-external-invalid-sixth-'));
+  try {
+    const f=await externalReviewFixture(dir),automatic=structuredClone(f.state);
+    const sixth=automatic.history.pop(),fifth=automatic.history.findLast(e=>e.event === 'result' && e.round === 5);
+    automatic.status='REVIEWING';automatic.reason=null;
+    automatic.result={issue_id:fifth.issue_id,comment_id:fifth.comment_id,sha256:fifth.sha256};
+    await atomicJson(path.join(dir,'pr-8.json'),automatic);
+    const invalid={...f.result,head_sha:automatic.job.head_sha,round:6,verdict:'CHANGES_REQUIRED',findings:{P1:[],P2:[{id:'p2',path:'coach/a.ts',line:1,scenario:'x',consequence:'y',minimal_fix:'z',durability:'repository_required',durable_owner:'coach/docs/development/REVIEW_LOOP.md',regression:{path:'coach/scripts/review-loop/runtime.test.mjs',command:'npm run test:review-loop-protocol'},basis:'explicit_contract_violation'}],P3:[]}};
+    const rejectedComment={id:sixth.comment_id,author_type:'agent',author_id:'fixer',issue_id:sixth.issue_id,source_task_id:sixth.run_id,content:'```review-loop-result\n'+JSON.stringify(invalid)+'\n```'};
+    const automaticRaw=pr(automatic.job.head_sha,automatic.job.base_sha);
+    const tickIO={
+      openPRs:async()=>[automaticRaw],live:async()=>automaticRaw,snapshot:async()=>({sha256:hash('snapshot')}),checkSpecs:async()=>{},
+      save:s=>atomicJson(path.join(dir,'pr-8.json'),s),publish:async()=>{},runs:async()=>[{id:sixth.run_id,issue_id:sixth.issue_id,agent_id:'reviewer',status:'completed'}],
+      issue:async()=>({id:sixth.issue_id,assignee_type:'agent',assignee_id:'reviewer'}),comments:async()=>[rejectedComment],verifyCheckout:async()=>{},archiveResult:async()=>{assert.fail('a rejected source must not be archived');},
+    };
+    const report=await tick(config(dir),()=>tickIO),blocked=JSON.parse(await readFile(path.join(dir,'pr-8.json'),'utf8'));
+    assert.equal(report.prs[0].status,'BLOCKED');assert.match(blocked.reason,/untrusted result author\/owner/);
+    assert.equal(blocked.result.issue_id,fifth.issue_id);assert.equal(blocked.history.some(e=>e.event === 'result' && e.round === 6),false);
+    await assert.rejects(()=>acceptExternalReviewRun({...config(dir),enabled:false},f.request,()=>f.io),/automatic round-6 (accepted|terminal) result/);
+    assert.equal(f.saves,0);assert.equal(f.archives,0);assert.equal(f.publishes,0);
+  } finally {await rm(dir,{recursive:true,force:true});}
+});
 test('external review closure revalidates candidate after every external evidence read before writing',async()=>{
   const changes=[
     ['issue',f=>pr('9'.repeat(40),f.request.base_sha)],
