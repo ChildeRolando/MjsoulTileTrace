@@ -3,8 +3,8 @@ import assert from 'node:assert/strict';
 import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
-import { acquireLock, recoverLock, atomicJson, command, makeIO, tick, recoverInvalidReview, authorizeSixthReviewRun } from './runtime.mjs';
-import { GATES, hash, admit, VERSION } from './protocol.mjs';
+import { acquireLock, recoverLock, atomicJson, command, makeIO, tick, recoverInvalidReview, authorizeSixthReviewRun, acceptExternalReviewRun } from './runtime.mjs';
+import { GATES, hash, admit, VERSION, externalReviewAcceptance } from './protocol.mjs';
 import { advanceDurability, captureDurability } from './controller.mjs';
 
 test('real Git durable verification requires pushed, changed regular artifacts and exact hashes',{timeout:30000},async()=>{
@@ -265,6 +265,129 @@ test('sixth-review operator path rejects missing or changed archived evidence be
     const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-sixth-archive-'));
     try {const fixture=await sixthReviewFixture(dir);await mutate(dir,fixture);await assert.rejects(()=>authorizeSixthReviewRun({...config(dir),enabled:false},fixture.request,()=>fixture.io));assert.equal(fixture.creates,0);} finally {await rm(dir,{recursive:true,force:true});}
   }
+});
+
+async function externalReviewFixture(dir) {
+  const base='a'.repeat(40),automaticHead='b'.repeat(40),head='c'.repeat(40),raw=pr(head,base),live=admit(raw);
+  const blocked=(round,issue,sha)=>({event:'result',transition:'BLOCKED',round,issue_id:issue,comment_id:`${issue}-comment`,run_id:`${issue}-run`,sha256:sha,head_sha:automaticHead,base_sha:base});
+  const third=blocked(3,'third','3'.repeat(64)),fourth=blocked(4,'fourth','4'.repeat(64)),fifth=blocked(5,'fifth','5'.repeat(64)),sixth=blocked(6,'sixth','6'.repeat(64));
+  const auth=(limit,source)=>({pr_number:8,max_rounds:limit,approved_after_round:limit-1,review_issue_id:source.issue_id,result_sha256:source.sha256,head_sha:source.head_sha,base_sha:source.base_sha,approval_ref:`round ${limit} approved`,approved_at:`2026-09-2${limit}T00:00:00Z`});
+  const a4=auth(4,third),a5=auth(5,fourth),a6=auth(6,fifth);
+  const state={protocol_version:VERSION,pr_number:8,round:6,status:'BLOCKED',reason:'review gates, environment or round limit',admission_hash:live.admission_hash,history:[third,{event:'authorize_extra_review',...a4},fourth,{event:'authorize_extra_review',...a5},fifth,{event:'authorize_extra_review',...a6},sixth],extra_review_authorization:a6,result:{issue_id:sixth.issue_id,comment_id:sixth.comment_id,sha256:sixth.sha256},job:{kind:'review',round:6,pr_number:8,issue_id:sixth.issue_id,agent_id:'reviewer',head_sha:automaticHead,base_sha:base,admission_hash:live.admission_hash}};
+  const description=`Human-dispatched independent review for PR 8 at ${base} / ${head}.\n${live.admission.authoritative_spec_paths.join('\n')}\n${live.admission.rubric}`;
+  const result={protocol_version:VERSION,pr_number:8,base_sha:base,head_sha:head,round:8,verdict:'NO_P1_P2',findings:{P1:[],P2:[],P3:[]},gates:Object.entries(GATES).map(([id,command])=>({id,command,status:'PASS',exit_code:0})),environment_failures:[]};
+  const comment={id:'external-comment',author_type:'agent',author_id:'reviewer',issue_id:'external-review',source_task_id:'external-run',content:'independent\n```review-loop-result\n'+JSON.stringify(result)+'\n```'};
+  const issue={id:'external-review',creator_type:'member',project_id:'project',assignee_type:'agent',assignee_id:'reviewer',description};
+  const run={id:'external-run',issue_id:issue.id,agent_id:'reviewer',status:'completed'};
+  const request={protocol_version:VERSION,pr_number:8,review_issue_id:issue.id,comment_id:comment.id,run_id:run.id,raw_review_sha256:hash(comment.content),issue_contract_sha256:hash(description),external_sequence:8,base_sha:base,head_sha:head,admission_hash:live.admission_hash,approval_ref:'COAC-79 explicit external-review closure approval'};
+  await atomicJson(path.join(dir,'pr-8.json'),state);
+  let archives=0,saves=0,publishes=0,liveReads=0,observed=raw;
+  const after={issue:null,comments:null,runs:null};
+  const read=(key,value)=>{after[key]?.();return value;};
+  const io={live:async()=>{liveReads++;return observed;},issue:async()=>read('issue',issue),comments:async()=>read('comments',[comment]),runs:async()=>read('runs',[run]),archiveExternalResult:async()=>{archives++;},save:async s=>{saves++;await atomicJson(path.join(dir,'pr-8.json'),s);},publish:async s=>{publishes++;assert(externalReviewAcceptance(s,live));}};
+  return {state,result,comment,issue,run,request,io,raw,after,setLive(value){observed=value;},get archives(){return archives;},get saves(){return saves;},get publishes(){return publishes;},get liveReads(){return liveReads;}};
+}
+test('external independent review closure preserves automatic BLOCKED and publishes one exact acceptance',async()=>{
+  const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-external-'));
+  try {
+    const f=await externalReviewFixture(dir),disabled={...config(dir),enabled:false};
+    const release=await acquireLock(dir);await assert.rejects(()=>acceptExternalReviewRun(disabled,f.request,()=>f.io),/already running/);await release();
+    const receipt=await acceptExternalReviewRun(disabled,f.request,()=>f.io),saved=JSON.parse(await readFile(path.join(dir,'pr-8.json'),'utf8'));
+    assert.equal(receipt.status,'EXTERNAL_REVIEW_ACCEPTED');assert.equal(receipt.ledger_status,'BLOCKED');
+    assert.equal(saved.status,'BLOCKED');assert.equal(saved.round,6);assert.equal(saved.history.length,f.state.history.length+1);
+    assert.equal(saved.history.filter(e=>e.event==='accept_external_review').length,1);assert.equal(saved.external_review_acceptance.source,'external_independent_review');
+    assert.equal(f.archives,1);assert.equal(f.saves,1);assert.equal(f.publishes,1);
+    await assert.rejects(()=>acceptExternalReviewRun(disabled,f.request,()=>f.io),/already accepted/);assert.equal(f.publishes,1);
+  } finally {await rm(dir,{recursive:true,force:true});}
+});
+test('external review closure rejects stale, forged, incomplete, non-green and mismatched evidence without saving',async()=>{
+  const mutations=[
+    f=>{f.request.head_sha='9'.repeat(40);},
+    f=>{f.request.raw_review_sha256='0'.repeat(64);},
+    f=>{f.issue.creator_type='agent';},
+    f=>{f.issue.assignee_id='fixer';},
+    f=>{f.issue.description+=' changed';},
+    f=>{f.run.status='running';},
+    f=>{f.result.gates.pop();f.comment.content='independent\n```review-loop-result\n'+JSON.stringify(f.result)+'\n```';f.request.raw_review_sha256=hash(f.comment.content);},
+    f=>{f.result.gates[0]={...f.result.gates[0],status:'FAIL',exit_code:1};f.result.verdict='ENVIRONMENT_BLOCKED';f.result.environment_failures=['blocked'];f.comment.content='independent\n```review-loop-result\n'+JSON.stringify(f.result)+'\n```';f.request.raw_review_sha256=hash(f.comment.content);},
+    f=>{f.request.admission_hash='0'.repeat(64);},
+  ];
+  for(const mutate of mutations) {
+    const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-external-reject-'));
+    try {const f=await externalReviewFixture(dir);mutate(f);await assert.rejects(()=>acceptExternalReviewRun({...config(dir),enabled:false},f.request,()=>f.io));assert.equal(f.saves,0);assert.equal(f.archives,0);assert.equal(f.publishes,0);} finally {await rm(dir,{recursive:true,force:true});}
+  }
+});
+test('external review closure rejects pending, wrong-job and mismatched automatic ledgers before external reads',async()=>{
+  const mutations=[
+    state=>{state.pending={kind:'review'};},
+    state=>{state.job.round=5;},
+    state=>{state.result.comment_id='wrong-comment';},
+    state=>{state.history=state.history.filter(e=>!(e.event === 'result' && e.round === 6));},
+  ];
+  for(const mutate of mutations) {
+    const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-external-ledger-reject-'));
+    try {
+      const f=await externalReviewFixture(dir);mutate(f.state);await atomicJson(path.join(dir,'pr-8.json'),f.state);
+      await assert.rejects(()=>acceptExternalReviewRun({...config(dir),enabled:false},f.request,()=>f.io));
+      assert.equal(f.liveReads,0);assert.equal(f.saves,0);assert.equal(f.archives,0);assert.equal(f.publishes,0);
+    } finally {await rm(dir,{recursive:true,force:true});}
+  }
+});
+test('external review closure rejects a round-six source failure produced by tick',async()=>{
+  const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-external-invalid-sixth-'));
+  try {
+    const f=await externalReviewFixture(dir),automatic=structuredClone(f.state);
+    const sixth=automatic.history.pop(),fifth=automatic.history.findLast(e=>e.event === 'result' && e.round === 5);
+    automatic.status='REVIEWING';automatic.reason=null;
+    automatic.result={issue_id:fifth.issue_id,comment_id:fifth.comment_id,sha256:fifth.sha256};
+    await atomicJson(path.join(dir,'pr-8.json'),automatic);
+    const invalid={...f.result,head_sha:automatic.job.head_sha,round:6,verdict:'CHANGES_REQUIRED',findings:{P1:[],P2:[{id:'p2',path:'coach/a.ts',line:1,scenario:'x',consequence:'y',minimal_fix:'z',durability:'repository_required',durable_owner:'coach/docs/development/REVIEW_LOOP.md',regression:{path:'coach/scripts/review-loop/runtime.test.mjs',command:'npm run test:review-loop-protocol'},basis:'explicit_contract_violation'}],P3:[]}};
+    const rejectedComment={id:sixth.comment_id,author_type:'agent',author_id:'fixer',issue_id:sixth.issue_id,source_task_id:sixth.run_id,content:'```review-loop-result\n'+JSON.stringify(invalid)+'\n```'};
+    const automaticRaw=pr(automatic.job.head_sha,automatic.job.base_sha);
+    const tickIO={
+      openPRs:async()=>[automaticRaw],live:async()=>automaticRaw,snapshot:async()=>({sha256:hash('snapshot')}),checkSpecs:async()=>{},
+      save:s=>atomicJson(path.join(dir,'pr-8.json'),s),publish:async()=>{},runs:async()=>[{id:sixth.run_id,issue_id:sixth.issue_id,agent_id:'reviewer',status:'completed'}],
+      issue:async()=>({id:sixth.issue_id,assignee_type:'agent',assignee_id:'reviewer'}),comments:async()=>[rejectedComment],verifyCheckout:async()=>{},archiveResult:async()=>{assert.fail('a rejected source must not be archived');},
+    };
+    const report=await tick(config(dir),()=>tickIO),blocked=JSON.parse(await readFile(path.join(dir,'pr-8.json'),'utf8'));
+    assert.equal(report.prs[0].status,'BLOCKED');assert.match(blocked.reason,/untrusted result author\/owner/);
+    assert.equal(blocked.result.issue_id,fifth.issue_id);assert.equal(blocked.history.some(e=>e.event === 'result' && e.round === 6),false);
+    await assert.rejects(()=>acceptExternalReviewRun({...config(dir),enabled:false},f.request,()=>f.io),/automatic round-6 (accepted|terminal) result/);
+    assert.equal(f.saves,0);assert.equal(f.archives,0);assert.equal(f.publishes,0);
+  } finally {await rm(dir,{recursive:true,force:true});}
+});
+test('external review closure revalidates candidate after every external evidence read before writing',async()=>{
+  const changes=[
+    ['issue',f=>pr('9'.repeat(40),f.request.base_sha)],
+    ['comments',f=>pr(f.request.head_sha,'9'.repeat(40))],
+    ['runs',f=>({...f.raw,body:'```review-loop-admission\n'+JSON.stringify({...admission,rubric:'changed rubric'})+'\n```'})],
+  ];
+  for(const [phase,changed] of changes) {
+    const dir=await mkdtemp(path.join(os.tmpdir(),`review-loop-external-${phase}-race-`));
+    try {
+      const f=await externalReviewFixture(dir),disabled={...config(dir),enabled:false};
+      f.after[phase]=()=>f.setLive(changed(f));
+      await assert.rejects(()=>acceptExternalReviewRun(disabled,f.request,()=>f.io),/external-review (current base|current head|admission) changed/);
+      assert.equal(f.liveReads,2);assert.equal(f.archives,0);assert.equal(f.saves,0);assert.equal(f.publishes,0);
+      f.after[phase]=null;f.setLive(f.raw);
+      const receipt=await acceptExternalReviewRun(disabled,f.request,()=>f.io);
+      assert.equal(receipt.status,'EXTERNAL_REVIEW_ACCEPTED');assert.equal(f.archives,1);assert.equal(f.saves,1);assert.equal(f.publishes,1);
+    } finally {await rm(dir,{recursive:true,force:true});}
+  }
+});
+test('aggregate publication reports success from a validated external acceptance while automatic ledger stays BLOCKED',async()=>{
+  const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-external-publish-'));
+  try {
+    const f=await externalReviewFixture(dir);await acceptExternalReviewRun({...config(dir),enabled:false},f.request,()=>f.io);
+    const saved=JSON.parse(await readFile(path.join(dir,'pr-8.json'),'utf8')),writes=[];
+    const runner=async(_file,args)=>{
+      if(args.includes('POST')){writes.push({sha:args[1].split('/').at(-1),status:args.find(x=>x.startsWith('state='))});return '{}';}
+      if(args.includes('--paginate'))return JSON.stringify([[f.raw]]);
+      return JSON.stringify(f.raw);
+    };
+    await makeIO(config(dir),path.join(dir,'pr-8.json'),dir,runner).publish(saved);
+    assert.equal(saved.status,'BLOCKED');assert(writes.some(w=>w.sha===f.request.head_sha && w.status==='state=success'));
+  } finally {await rm(dir,{recursive:true,force:true});}
 });
 
 test('one SHA publication owner aggregates conflicting PR results and caches the aggregate',async()=>{

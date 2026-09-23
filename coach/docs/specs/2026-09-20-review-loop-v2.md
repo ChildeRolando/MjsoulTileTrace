@@ -120,6 +120,19 @@ PR admission 和智能体结果均不能授予授权；未获对应人工批准�
 同时匹配时，才可绑定被拒绝的终轮证据并派发一次 fresh Reviewer。错误身份/hash、重复恢复、
 旧候选、缺失既有授权或并发 Controller 一律拒绝；仍受最高五轮约束，不能处理合法第五轮。
 
+自动审查达到第六轮上限后，用户另行人工派发的独立补充审查不属于自动 round，也不得扩大
+`reviewRoundLimit`。受信 operator 只有在 Autopilot 暂停、`enabled=false`、持有同一部署锁且
+自动 ledger 仍为 round 6 BLOCKED 时，才可调用 `accept-external-review`。入口重新读取 live PR
+与 admission、人工创建的审查 issue、指定 Reviewer 的唯一结果评论和 completed run；严格校验
+完整 issue description 的 SHA-256、原 admission hash/rubric/spec paths、base/head、外部序号、
+原文 hash、五门 PASS/0、空 P1/P2/P3 与空 environment failures。接受记录以
+`source=external_independent_review` 单独追加到 ledger/history 和 `external-results/`，自动
+BLOCKED、round、job、result、授权链及全部原文保持不变。聚合发布器只在该记录仍精确匹配
+实时 base/head/admission 时把当前候选发布为 success；候选或 admission 变化立即失效。
+伪造/错配作者、issue/comment/run/hash/contract、非 completed run、少门禁、非绿结果、重复调用、
+stale candidate 与并发 Controller 均 fail closed。该入口不创建新自动轮次、不直接合并 PR，
+也不能由被审 PR 作者的自评替代指定 Reviewer 结果。
+
 GitHub `Review Loop v2` commit status 报告 pending/success/failure；同一 GitHub 账号
 可以提交 COMMENT/状态，并不意味着拥有作者自批能力。PASS 仅表示该 base/head 的本轮
 评审通过，不合并 PR、不关闭业务工单。合并仍须核对 live base/head 与保存证据。

@@ -4,7 +4,7 @@ import { promisify } from 'node:util';
 import { mkdir, readFile, writeFile, rename, open, unlink, realpath, readdir } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { admit, VERSION, REPOSITORY, hash, isSha, parseResult, parseRejectedReviewResult } from './protocol.mjs';
+import { admit, VERSION, REPOSITORY, hash, isSha, parseResult, parseRejectedReviewResult, automaticRoundSixTerminal, externalReviewAcceptance } from './protocol.mjs';
 import { advance, advanceDurability, authorizeSixthReview, recoverRejectedTerminalReview } from './controller.mjs';
 const exec=promisify(execFile);
 export async function command(file,args,cwd) {
@@ -97,6 +97,10 @@ export function makeIO(config,stateFile,stateDir,runCommand=command) {
       const dir=path.join(stateDir,'results');await mkdir(dir,{recursive:true});
       await atomicJson(path.join(dir,`${job.issue_id}-${result.sha256}.json`),result);
     },
+    archiveExternalResult:async(issueId,result)=>{
+      const dir=path.join(stateDir,'external-results');await mkdir(dir,{recursive:true});
+      await atomicJson(path.join(dir,`${issueId}-${result.sha256}.json`),result);
+    },
     create:async job=>{
       const file=path.join(stateDir,'dispatch.md');await writeFile(file,job.description,{mode:0o600});
       const args=['issue','create','--title',job.title,'--project',config.project_id,'--assignee-id',job.agent_id,'--description-file',file,'--status','todo'];
@@ -183,7 +187,9 @@ export function makeIO(config,stateFile,stateDir,runCommand=command) {
           if(other) {
             assert(other.protocol_version === VERSION && other.pr_number === current.number,'publication ledger identity mismatch');
             assert(!other.admission_hash || other.admission_hash === live.admission_hash,'publication admission changed');
-            if(other.status === 'BLOCKED')member.status='failure';
+            const external=externalReviewAcceptance(other,live);
+            if(external){member.status='success';member.review_source=external.source;}
+            else if(other.status === 'BLOCKED')member.status='failure';
             else if(other.status === 'PASS' && other.job?.pr_number === current.number
               && other.job.head_sha === live.head_sha && other.job.base_sha === live.base_sha
               && other.admission_hash === live.admission_hash)member.status='success';
@@ -344,6 +350,53 @@ export async function authorizeSixthReviewRun(config,request,ioFactory=makeIO) {
     return {status:state.status,pr:state.pr_number,round:state.round,issue:state.job.identifier,issue_id:state.job.issue_id,base_sha:state.job.base_sha,head_sha:state.job.head_sha,source_comment_id:result.comment_id,source_sha256:result.sha256};
   } finally {await release();}
 }
+export async function acceptExternalReviewRun(config,request,ioFactory=makeIO) {
+  assert.equal(config.protocol_version,VERSION);assert.equal(config.repository,REPOSITORY);
+  assert.equal(config.enabled,false,'external-review acceptance requires enabled=false');
+  assert(config.reviewer_id && config.fixer_id && config.reviewer_id !== config.fixer_id,'invalid reviewer identity');
+  assert(path.isAbsolute(config.state_dir) && path.isAbsolute(config.repository_path));
+  const required=['protocol_version','pr_number','review_issue_id','comment_id','run_id','raw_review_sha256','issue_contract_sha256','external_sequence','base_sha','head_sha','admission_hash','approval_ref'];
+  assert(request && typeof request === 'object' && !Array.isArray(request),'invalid external-review request');
+  assert.deepEqual(Object.keys(request).sort(),required.sort(),'unexpected/missing external-review fields');
+  assert.equal(request.protocol_version,VERSION);assert(Number.isSafeInteger(request.pr_number) && request.pr_number > 0);
+  assert(Number.isSafeInteger(request.external_sequence) && request.external_sequence > 0);
+  assert(isSha(request.base_sha) && isSha(request.head_sha));
+  for(const key of ['raw_review_sha256','issue_contract_sha256','admission_hash'])assert(typeof request[key] === 'string' && /^[a-f0-9]{64}$/.test(request[key]),'invalid external-review hash');
+  for(const key of ['review_issue_id','comment_id','run_id','approval_ref'])assert(typeof request[key] === 'string' && request[key].trim(),'missing external-review provenance');
+  const release=await acquireLock(config.state_dir);assert(release,'controller already running');
+  try {
+    const file=path.join(config.state_dir,`pr-${request.pr_number}.json`),state=await readJson(file);
+    assert(!state.external_review_acceptance && !state.history.some(e=>e.event === 'accept_external_review'),'external review already accepted');
+    automaticRoundSixTerminal(state);
+    const io=ioFactory(config,file,config.state_dir),raw=await io.live(request.pr_number),live=admit(raw);
+    assert.equal(live.base_sha,request.base_sha,'external-review current base changed');
+    assert.equal(live.head_sha,request.head_sha,'external-review current head changed');
+    assert.equal(live.admission_hash,request.admission_hash,'external-review admission changed');
+    assert.equal(state.admission_hash,request.admission_hash,'external-review ledger admission mismatch');
+    const issue=await io.issue(request.review_issue_id);
+    assert(issue.creator_type === 'member' && issue.project_id === config.project_id,'external review was not independently human-dispatched in this project');
+    assert(typeof issue.description === 'string' && hash(issue.description) === request.issue_contract_sha256,'external review issue contract changed');
+    assert(issue.description.includes(live.admission.rubric),'external review contract missing original rubric');
+    for(const spec of live.admission.authoritative_spec_paths)assert(issue.description.includes(spec),'external review contract missing authoritative spec');
+    const job={kind:'review',pr_number:request.pr_number,base_sha:request.base_sha,head_sha:request.head_sha,round:request.external_sequence,issue_id:request.review_issue_id,agent_id:config.reviewer_id,admission_hash:request.admission_hash};
+    const result=parseResult(job,issue,await io.comments(request.review_issue_id),await io.runs(request.review_issue_id));
+    assert.equal(result.comment_id,request.comment_id,'external-review comment mismatch');
+    assert.equal(result.run_id,request.run_id,'external-review run mismatch');
+    assert.equal(result.sha256,request.raw_review_sha256,'external-review raw hash mismatch');
+    assert.equal(result.data.verdict,'NO_P1_P2','external review did not pass');
+    assert(Object.values(result.data.findings).every(findings=>findings.length === 0),'external review has findings');
+    assert(result.data.gates.every(g=>g.status === 'PASS' && g.exit_code === 0) && result.data.environment_failures.length === 0,'external review gates not green');
+    const current=admit(await io.live(request.pr_number));
+    assert.equal(current.base_sha,request.base_sha,'external-review current base changed');
+    assert.equal(current.head_sha,request.head_sha,'external-review current head changed');
+    assert.equal(current.admission_hash,request.admission_hash,'external-review admission changed');
+    const accepted_at=new Date().toISOString(),acceptance={source:'external_independent_review',pr_number:request.pr_number,review_issue_id:request.review_issue_id,comment_id:result.comment_id,run_id:result.run_id,raw_review_sha256:result.sha256,issue_contract_sha256:request.issue_contract_sha256,external_sequence:request.external_sequence,base_sha:request.base_sha,head_sha:request.head_sha,admission_hash:request.admission_hash,approval_ref:request.approval_ref,accepted_at};
+    state.external_review_acceptance=acceptance;state.history.push({event:'accept_external_review',...acceptance});
+    externalReviewAcceptance(state,current);
+    await io.archiveExternalResult(request.review_issue_id,result);await io.save(state);await io.publish(state);
+    return {status:'EXTERNAL_REVIEW_ACCEPTED',ledger_status:state.status,pr:state.pr_number,base_sha:acceptance.base_sha,head_sha:acceptance.head_sha,review_issue_id:acceptance.review_issue_id,comment_id:acceptance.comment_id,run_id:acceptance.run_id,raw_review_sha256:acceptance.raw_review_sha256,external_sequence:acceptance.external_sequence};
+  } finally {await release();}
+}
 if(process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   try {
     const config=await readJson(path.resolve(process.argv[3] ?? 'review-loop.local.json'));
@@ -354,6 +407,9 @@ if(process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.met
     } else if(process.argv[2] === 'authorize-sixth-review') {
       const request=await readJson(path.resolve(process.argv[4] ?? 'sixth-review-authorization.json'));
       console.log(JSON.stringify(await authorizeSixthReviewRun(config,request)));
-    } else {assert.equal(process.argv[2],'tick','usage: node runtime.mjs tick <config> | recover-invalid-review <config> <request> | authorize-sixth-review <config> <request>');console.log(JSON.stringify(await tick(config)));}
+    } else if(process.argv[2] === 'accept-external-review') {
+      const request=await readJson(path.resolve(process.argv[4] ?? 'external-review-acceptance.json'));
+      console.log(JSON.stringify(await acceptExternalReviewRun(config,request)));
+    } else {assert.equal(process.argv[2],'tick','usage: node runtime.mjs tick <config> | recover-invalid-review <config> <request> | authorize-sixth-review <config> <request> | accept-external-review <config> <request>');console.log(JSON.stringify(await tick(config)));}
   } catch(e) {console.error(e.message);process.exitCode=1;}
 }
