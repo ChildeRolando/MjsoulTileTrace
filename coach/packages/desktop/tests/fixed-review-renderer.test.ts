@@ -160,6 +160,49 @@ describe("fixed review native DOM surface", () => {
     }
   }, 90_000);
 
+  it("moves real Chromium focus to the review entry after first-generation success", async () => {
+    const directory = mkdtempSync(join(tmpdir(), "fixed-review-generation-focus-"));
+    try {
+      const compiled = transpileModule(source, {
+        compilerOptions: { module: ModuleKind.ES2022, target: ScriptTarget.ES2022 },
+      }).outputText;
+      writeFileSync(join(directory, "fixed-review-ui.mjs"), compiled, "utf8");
+      writeFileSync(join(directory, "page.html"), `<!doctype html><html><body><main id="root"></main><script type="module">
+        import { createFixedReviewUi } from "./fixed-review-ui.mjs";
+        const item = { decisionId: "d1", rank: 1, selectionReason: "model_disagreement_above_threshold", roundOrdinal: 0,
+          decisionWindowKind: "self_turn", actualAction: { actionRef: "a", label: "打牌 1m" }, mortalPreferredActions: [],
+          errorGap: 12, tags: ["efficiency"], explanationStatus: "not_generated" };
+        const snapshot = {
+          schemaVersion: "fixed-review-view/v1", packageId: "focus-package", analysisStatus: "complete",
+          outcomeCounts: { analysis_ready: 1, unsupported_action: 0, source_row_not_expected: 0, no_mortal_entry: 0, binding_mismatch: 0, model_output_incomplete: 0, analysis_blocked: 0 },
+          activeReportRefId: null, activeReportStatus: "not_generated",
+          explanationCounts: { ready: 0, provider_unavailable: 0, request_failed: 0, invalid_output: 0 },
+          selection: { policyVersion: "deterministic-review-selector/v1", selectedCount: 1, items: [item] },
+        };
+        const generated = {
+          ...snapshot, activeReportRefId: "generated-ref", activeReportStatus: "evidence_only",
+          explanationCounts: { ready: 0, provider_unavailable: 1, request_failed: 0, invalid_output: 0 },
+          selection: { ...snapshot.selection, items: [{ ...item, explanationStatus: "provider_unavailable" }] },
+        };
+        window.runGeneration = async () => {
+          const old = document.getElementById("root");
+          const root = old.cloneNode(false); old.replaceWith(root);
+          const ui = createFixedReviewUi({ document, root, api: {
+            openReview: async () => snapshot,
+            generateReview: async () => ({ status: "ready", snapshot: generated }),
+          } });
+          await ui.open(snapshot.packageId);
+          [...document.querySelectorAll("button")].find((button) => button.textContent === "生成教练解说").focus();
+        };
+        window.run = window.runGeneration;
+      </script></body></html>`, "utf8");
+      expect(await chromiumFocusResults(directory, ["window.runGeneration()"]))
+        .toEqual([{ tag: "BUTTON", text: "查看复盘条目", tabIndex: 0 }]);
+    } finally {
+      rmSync(directory, { recursive: true, force: true, maxRetries: 20, retryDelay: 100 });
+    }
+  }, 90_000);
+
   it("reveals collapsed evidence before keyboard focus navigation", async () => {
     const directory = mkdtempSync(join(tmpdir(), "fixed-review-evidence-focus-"));
     try {

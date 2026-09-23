@@ -156,7 +156,7 @@ export function createFixedReviewUi(input: {
     heading.focus();
   };
 
-  const render = (next: FixedReviewSnapshotDto) => {
+  const render = (next: FixedReviewSnapshotDto, focusReviewEntry = false) => {
     snapshot = next;
     currentPackageId = next.packageId;
     input.root.textContent = "";
@@ -218,7 +218,7 @@ export function createFixedReviewUi(input: {
         try {
           const result = await input.api.generateReview({ packageId: requestPackageId, operationId: requestOperationId });
           if (!isCurrent(requestEpoch, requestPackageId) || operationId !== requestOperationId) return;
-          if (result.status === "ready") render(result.snapshot);
+          if (result.status === "ready") render(result.snapshot, true);
           else {
             live.textContent = "教练解说未生成，可以稍后重试。";
             showError("本次解说未生成，当前证据和已有内容保持不变。你可以稍后再试。");
@@ -278,6 +278,7 @@ export function createFixedReviewUi(input: {
     }
     goList.addEventListener("click", () => { list.hidden = false; list.querySelector<HTMLElement>("button, h3")?.focus(); });
     input.root.append(overview, list);
+    if (focusReviewEntry) goList.focus();
   };
 
   const renderOpenState = (message: string, role: "status" | "alert") => {

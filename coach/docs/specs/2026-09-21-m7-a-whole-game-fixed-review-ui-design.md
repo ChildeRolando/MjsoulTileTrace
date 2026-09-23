@@ -586,6 +586,8 @@ epoch 内清除“正在生成教练解说…”文案、显示可重试的固�
   `role="alert"`。
 - List selection、展开/收起与后续启用的报告切换全部可用键盘完成；focus 在重渲染后落到可预测
   元素，切换报告不得把 focus 丢到 document body。
+- 首次生成在当前 operation/view epoch 内成功并重建 Overview/List 后，focus 固定落到新的
+  “查看复盘条目”入口；失败或迟到结果仍按生命周期规则保留/隔离当前视图，不得借此移动焦点。
 - 颜色不是状态唯一载体；所有 status/tag 均有文本。
 - 所有模型/证据文本用 `textContent` 或 text node；禁止 `innerHTML`、inline handler、
   markdown HTML passthrough。
@@ -645,6 +647,9 @@ read-back validation，不得以 HTTP 结果或异常类别直接猜测是否成
 - 用户状态文案按 P5 映射；可见文本、展开区、悬浮与辅助技术标签均不出现技术状态码。
   覆盖合法单候选导致 degraded、完整性失败、部分解说、仅证据、未生成、空 selection
   及无合法新报告的操作失败；原因与可执行操作准确，禁止原始错误文案回显。
+- 手牌结构生产分类 `not_applicable_open_hand` 固定显示“副露手牌不适用”，并在七对子/
+  国士无双的适用性、向听、有效牌种类与有效进张中保留该原因；未知 classification
+  继续安全退化为“已分类”，不得把已支持值误作未知扩展。
 - Overview 首屏主区呈现入选数量和 List 入口；两组状态与解说可用数量默认可见，
   两组明细默认折叠且展开后保留全部键/零值；完整性异常提示始终可见，
   `integrity_failed` 警示先于入口。覆盖 `not_generated` 与空 selection 的准确表达。

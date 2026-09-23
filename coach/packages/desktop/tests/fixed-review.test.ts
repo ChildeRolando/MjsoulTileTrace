@@ -224,6 +224,74 @@ describe("fixed review presenter", () => {
     expect(`${genbutsu?.summary}${classifications?.summary}`).not.toContain("分析指标");
   });
 
+  it("preserves the open-hand reason through package validation, presenter and DOM", async () => {
+    const openHand = structuredClone(pkg);
+    const decision = openHand.decisions[0]!;
+    if (decision.outcome !== "analysis_ready") throw new Error("fixture must be analysis_ready");
+    const isOpenOnlyFamilyDimension = (dimension: string) =>
+      /^family_(?:applicability|shanten|effective_tile_types|effective_tiles_remaining):(chiitoitsu|kokushi)$/.test(dimension);
+    for (const ledger of decision.candidateFactorLedgers) {
+      for (const fact of ledger.axes.flatMap((axis) => axis.facts)) {
+        if (isOpenOnlyFamilyDimension(fact.dimension)) {
+          fact.value = { kind: "classification", value: "not_applicable_open_hand" };
+        }
+      }
+    }
+    for (const difference of decision.factorDifferences) {
+      if (isOpenOnlyFamilyDimension(difference.dimension)) {
+        difference.leftValue = { kind: "classification", value: "not_applicable_open_hand" };
+        difference.rightValue = { kind: "classification", value: "not_applicable_open_hand" };
+      }
+    }
+    openHand.semanticContentHash = fixtureSemanticHash(openHand);
+    const parsed = StructuredAnalysisPackageSchema.parse(openHand);
+    validateStructuredAnalysisPackage(parsed);
+    const openHandSelection = selectReviewDecisions(parsed);
+    const detail = presentFixedReviewDetail({
+      analysisPackage: parsed,
+      selection: openHandSelection,
+      decisionId: decision.decisionId,
+    });
+    const details = detail.provenance.flatMap((item) => item.details);
+    for (const scope of ["七对子", "国士无双"]) {
+      for (const label of ["手牌类型适用性", "手牌类型向听数", "手牌类型有效牌", "手牌类型有效进张"]) {
+        expect(details).toContainEqual(expect.objectContaining({ label: `${scope} · ${label}`, scope, value: "副露手牌不适用" }));
+      }
+    }
+
+    const snapshot = presentFixedReviewSnapshot({ analysisPackage: parsed, selection: openHandSelection });
+    const dom = fakeDom();
+    const ui = createFixedReviewUi({
+      document: dom.document as unknown as Document,
+      root: dom.root as unknown as HTMLElement,
+      api: { openReview: async () => snapshot, getReviewDetail: async () => detail } as unknown as CoachDesktopApi,
+    });
+    await ui.open(parsed.packageId);
+    nodes(dom.root).find((node) => node.textContent === "查看复盘条目")!.listeners.get("click")!();
+    nodes(dom.root).find((node) => node.textContent === "查看详情")!.listeners.get("click")!();
+    await Promise.resolve(); await Promise.resolve();
+    expect(dom.root.textContent).toContain("副露手牌不适用");
+    expect(dom.root.textContent).not.toContain("已分类");
+
+    const unknown = structuredClone(parsed);
+    const unknownDecision = unknown.decisions[0]!;
+    if (unknownDecision.outcome !== "analysis_ready") throw new Error("fixture must be analysis_ready");
+    const unknownFact = unknownDecision.candidateFactorLedgers[0]!.axes.flatMap((axis) => axis.facts)
+      .find((fact) => fact.dimension === "family_applicability:standard")!;
+    unknownFact.value = { kind: "classification", value: "future_unknown_classification" };
+    unknown.semanticContentHash = fixtureSemanticHash(unknown);
+    const unknownParsed = StructuredAnalysisPackageSchema.parse(unknown);
+    validateStructuredAnalysisPackage(unknownParsed);
+    const unknownDetail = presentFixedReviewDetail({
+      analysisPackage: unknownParsed,
+      selection: selectReviewDecisions(unknownParsed),
+      decisionId: unknownDecision.decisionId,
+    });
+    expect(unknownDetail.provenance.flatMap((item) => item.details)).toContainEqual(expect.objectContaining({
+      label: "一般形 · 手牌类型适用性", scope: "一般形", value: "已分类",
+    }));
+  });
+
   it("projects every canonical action with distinguishable tiles and red-five identity", () => {
     const action = (value: unknown) => actionLabel(RiichiActionSchema.parse(value));
     expect(action({ kind: "pass", responseEventRef: "e", responseKind: "discard" })).toBe("过");

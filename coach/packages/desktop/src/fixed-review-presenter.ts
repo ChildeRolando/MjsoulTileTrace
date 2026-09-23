@@ -154,7 +154,7 @@ const STRUCTURAL_CLASSIFICATION_LABELS: Readonly<Record<string, string>> = {
   double_one_chance: "双单机会", mixed_one_chance: "混合单机会", early_outside: "早巡外侧牌",
 };
 const CLASSIFICATION_LABELS: Readonly<Record<string, string>> = {
-  applicable: "适用", unavailable: "不可用", calculated: "已计算",
+  applicable: "适用", not_applicable_open_hand: "副露手牌不适用", unavailable: "不可用", calculated: "已计算",
   ineligible: "不可荣", eligible: "可荣", unknown_missing_situational_yaku_context: "缺少场况役信息，资格未知",
 };
 
