@@ -71,6 +71,19 @@ async function setup(mode: string) {
 }
 
 describe("managed Mortal exact-child protocol", () => {
+  it("keeps checked-out wrapper and Tenhou fixture bytes equal to their manifests", async () => {
+    const manifest = JSON.parse(await readFile(new URL("../manifests/mortal-582500.windows-x64.json", import.meta.url), "utf8"));
+    const wrapperPath = fileURLToPath(new URL("../runtime/local_mortal_runtime.py", import.meta.url));
+    expect(await sha256File(wrapperPath)).toBe(manifest.identity.runtimeArtifactSha256);
+    const fixtures = JSON.parse(await readFile(new URL("../../reasoning/tests/fixtures/local-mortal/fixture-manifest.json", import.meta.url), "utf8"));
+    const attrs = await readFile(new URL("../../../../.gitattributes", import.meta.url), "utf8");
+    expect(attrs).toContain("/coach/packages/mortal-runtime/runtime/local_mortal_runtime.py -text");
+    expect(attrs).toContain("/coach/packages/reasoning/tests/fixtures/local-mortal/tenhou-*.xml -text");
+    for (const fixture of fixtures.fixtures.filter((item: { sourceKind: string }) => item.sourceKind === "tenhou")) {
+      const path = fileURLToPath(new URL(`../../reasoning/tests/fixtures/local-mortal/${fixture.source}`, import.meta.url));
+      expect(await sha256File(path)).toBe(fixture.sha256);
+    }
+  });
   it("verifies artifacts and accepts one strict, identity-bound response", async () => {
     const { runtime, request } = await setup("success");
     try {
