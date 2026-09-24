@@ -65,20 +65,21 @@ function audit(state,status,live,extra={}) {
   state.auto_merge={status,reviewed_head:live.head_sha,reviewed_base:live.base_sha,checked_at:now(),...extra};
 }
 
-function reviewedCandidate(state,live) {
+function reviewedCandidate(state) {
   const previous=state.auto_merge;
   if(isSha(previous?.reviewed_head) && isSha(previous?.reviewed_base)) {
     return {head_sha:previous.reviewed_head,base_sha:previous.reviewed_base};
   }
-  const job=state.job;
-  if(job?.kind === 'review' && isSha(job.head_sha) && isSha(job.base_sha)) {
+  const job=state.job,proof=state.result;
+  if(state.status === 'PASS' && job?.kind === 'review' && proof?.head_sha === job.head_sha && proof?.base_sha === job.base_sha
+    && isSha(job.head_sha) && isSha(job.base_sha)) {
     return {head_sha:job.head_sha,base_sha:job.base_sha};
   }
-  return live;
+  return {head_sha:null,base_sha:null};
 }
 
 function mergedReadBack(state,live,pr) {
-  const reviewed=reviewedCandidate(state,live),observed_head=pr?.head?.sha ?? null,observed_base=pr?.base?.sha ?? null;
+  const reviewed=reviewedCandidate(state),observed_head=pr?.head?.sha ?? null,observed_base=pr?.base?.sha ?? null;
   const complete=observed_head === reviewed.head_sha && observed_base === reviewed.base_sha
     && typeof pr.merged_at === 'string' && isSha(pr.merge_commit_sha);
   audit(state,complete ? 'MERGED' : 'MERGE_READ_BACK_INCOMPLETE',reviewed,{
@@ -96,7 +97,7 @@ export async function advanceAutoMerge(state,live,io,config) {
   let evidence;
   try {evidence=await io.autoMergeEvidence(state.pr_number,live.base_branch);}
   catch(e) {
-    if(a.enabled) {audit(state,'PLATFORM_READ_FAILED',live,{reason:String(e.message).slice(0,200)});await io.save(state);}
+    if(a.enabled) {audit(state,'PLATFORM_READ_FAILED',reviewedCandidate(state),{reason:String(e.message).slice(0,200)});await io.save(state);}
     return;
   }
   const pr=evidence.pr;
@@ -104,12 +105,12 @@ export async function advanceAutoMerge(state,live,io,config) {
     mergedReadBack(state,live,pr);
     await io.save(state);return;
   }
-  if(pr?.state === 'closed') {audit(state,'CLOSED_NO_MERGE',live);await io.save(state);return;}
+  if(pr?.state === 'closed') {audit(state,'CLOSED_NO_MERGE',reviewedCandidate(state));await io.save(state);return;}
   if(!a.enabled)return;
 
   const admission=buildAutoMergeAdmission(state,live,evidence,config);
   if(!admission.admitted) {
-    audit(state,admission.policy === 'P3_DECISION_REQUIRED' ? 'P3_DECISION_REQUIRED' : 'ADMISSION_BLOCKED',live,
+    audit(state,admission.policy === 'P3_DECISION_REQUIRED' ? 'P3_DECISION_REQUIRED' : 'ADMISSION_BLOCKED',reviewedCandidate(state),
       {reason:admission.reason,details:admission.details});
     await io.save(state);return;
   }

@@ -89,6 +89,45 @@ test('GitHub merge completion is authoritative and read back against the reviewe
   assert.equal(f.state.auto_merge.status,'MERGED');assert.equal(f.state.auto_merge.merge_commit_sha,sha(9));assert.equal(harness.requests,0);
 });
 
+test('an unreviewed head cannot replace the requested identity before merged read-back',async()=>{
+  const f=fixture(),requestedHead=f.live.head_sha,requestedBase=f.live.base_sha;
+  f.evidence.pr.auto_merge={enabled_at:'2026-09-24T00:00:00Z'};
+  await advanceAutoMerge(f.state,f.live,ioFor(f).io,config());
+
+  f.live.head_sha=sha(3);f.state.status='REVIEWING';f.state.result=null;
+  f.state.job={...f.state.job,head_sha:f.live.head_sha};
+  f.evidence.pr.head.sha=f.live.head_sha;f.evidence.pr.auto_merge=null;
+  await advanceAutoMerge(f.state,f.live,ioFor(f).io,config());
+  assert.equal(f.state.auto_merge.status,'ADMISSION_BLOCKED');
+  assert.equal(f.state.auto_merge.reviewed_head,requestedHead);
+  assert.equal(f.state.auto_merge.reviewed_base,requestedBase);
+
+  Object.assign(f.evidence.pr,{state:'closed',merged:true,merged_at:'2026-09-24T00:01:00Z',merge_commit_sha:sha(9)});
+  await advanceAutoMerge(f.state,f.live,ioFor(f).io,config());
+  assert.equal(f.state.auto_merge.status,'MERGE_READ_BACK_INCOMPLETE');
+  assert.equal(f.state.auto_merge.reviewed_head,requestedHead);
+  assert.equal(f.state.auto_merge.reviewed_base,requestedBase);
+  assert.equal(f.state.auto_merge.observed_head,f.live.head_sha);
+});
+
+test('base drift and platform read failure preserve the requested identity',async()=>{
+  for(const failure of ['base drift','platform read failure']) {
+    const f=fixture(),requestedHead=f.live.head_sha,requestedBase=f.live.base_sha;
+    f.evidence.pr.auto_merge={enabled_at:'2026-09-24T00:00:00Z'};
+    await advanceAutoMerge(f.state,f.live,ioFor(f).io,config());
+
+    f.live.base_sha=sha(4);f.state.status='REVIEWING';f.state.result=null;
+    f.state.job={...f.state.job,base_sha:f.live.base_sha};f.evidence.pr.base.sha=f.live.base_sha;
+    const harness=failure === 'platform read failure'
+      ? {autoMergeEvidence:async()=>{throw new Error('unavailable');},requestAutoMerge:async()=>{assert.fail('unexpected request');},save:async()=>{}}
+      : ioFor(f).io;
+    await advanceAutoMerge(f.state,f.live,harness,config());
+    assert.equal(f.state.auto_merge.status,failure === 'platform read failure' ? 'PLATFORM_READ_FAILED' : 'ADMISSION_BLOCKED');
+    assert.equal(f.state.auto_merge.reviewed_head,requestedHead);
+    assert.equal(f.state.auto_merge.reviewed_base,requestedBase);
+  }
+});
+
 test('disabled and blocked platform enforcement produce zero merge writes',async()=>{
   const disabled=fixture(),disabledHarness=ioFor(disabled);await advanceAutoMerge(disabled.state,disabled.live,disabledHarness.io,config(false));assert.equal(disabledHarness.requests,0);
   const blocked=fixture();blocked.evidence.actor_constrained=false;const blockedHarness=ioFor(blocked);await advanceAutoMerge(blocked.state,blocked.live,blockedHarness.io,config());
