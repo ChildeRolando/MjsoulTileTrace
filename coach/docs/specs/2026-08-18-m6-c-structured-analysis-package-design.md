@@ -491,7 +491,9 @@ M6-D 之前就已有稳定的机器可读答案。
   生成逻辑（本规格只冻结"引用不内嵌"与"package 不是 LLM boundary"）。
 - M7-A 固定 review UI、M7-B ReviewSession 持久化与 SQLite、产品内 Mortal
   缓存策略。
-- M6-B Akagi（但 CR-2 的 provider-scoped outcome 已为 Akagi 预留扩展点）。
+- 历史 M6-B Akagi 实现不在本规格范围；当前 M6-B 已由 2026-09-24 产品裁决校准为
+  native model runtime capability。其首个 local Mortal 实现只可最小扩展本规格的 producer
+  provenance，不得另建 package/downstream pipeline。
 - `StrictAnalysisPackage` 的迁移、改名或扩展（本规格明确禁止静默合并）。
 - 旧 golden test 的删除或迁移：在新的 production whole-game golden 足够
   成熟并完成显式评审之前，旧 golden test 继续作为旧 semantic spine 的
@@ -503,6 +505,13 @@ M6-D 之前就已有稳定的机器可读答案。
 
 ## Further Notes
 
+- 2026-09-24 的 current native-model owner 是
+  [Local Mortal Runtime 生产规格](./2026-09-24-local-mortal-runtime-production-design.md)。
+  本规格现役 schema 只完整表达 remote Mortal report producer chain；COAC-111 必须最小
+  扩展 component provenance，使 managed local runtime 的 runtime/checkpoint/protocol/
+  adapter version 与 SHA-256 进入 package identity/content hash 并受 validator 交叉校验。
+  该扩展不得改变本规格的 evidence authority、candidate-universe 双射、builder 不重算与
+  schema validity ≠ completeness 语义。
 - D1 原文的"六值 + 按需增加"已被 M6-A4.0 supersede 为七值契约；本 spec 只
   承认七值口径，不再使用"按需增加"。
 - D4 原文列举的 `explanationPrompt` 版本已被 supersession note 移出 package；

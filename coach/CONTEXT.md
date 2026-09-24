@@ -1,7 +1,8 @@
 # Coach（日麻教练）
 
 本机日麻教练应用：登录雀魂国区账号取回牌谱，用可验证的本地事实管线加上生产模型
-（Mortal/Akagi）候选评分，产出可回放、可审计、可追问的整盘教学分析。
+Mortal 候选评分，产出可回放、可审计、可追问的整盘教学分析。当前批准的自动生产来源是
+managed local Mortal + `mortal-582500`；Akagi 仅保留为历史设计语境。
 
 ## Language
 
@@ -127,6 +128,18 @@ _Avoid_: 智能体聊天会话、一次教练生成任务、教练身份、学�
 **原始来源缓存（raw Mortal/source cache）**：
 应用保留的原始牌谱或 Mortal 来源材料，用于中断恢复、重新分析及避免重复下载；它与正式分析包和教练报告是不同材料。
 _Avoid_: ReviewSession 内容、教练生成成果、用户可见报告
+
+**Managed local Mortal runtime（受管本地 Mortal 运行时）**：
+Electron main 独占的 privileged subprocess/checkpoint owner；只消费 canonical/replay
+projection，以 strict typed protocol 产生 model evidence，并经既有 Mortal comparison /
+`ModelEvaluation` 进入下游。它不是 game-record source、不是 hard-fact engine，也不是
+`mortal-source` 的本地模式。当前批准 checkpoint 固定为 `Yuchen1457/mortal-582500`。
+_Avoid_: Akagi Native（历史 M6-B 名称）、Mortal fact engine、通用 MahjongAIProvider
+
+**Remote Mortal report path（远端 Mortal 报告路径）**：
+result URL → `@riichi-coach/mortal-source` → report evidence 的现役兼容/回归/诊断路径；
+不拥有 subprocess/checkpoint，且不再是 manual-import MVP 的用户前置。local 与 remote
+只在同一 structured comparison / `ModelEvaluation` contract 合流，不形成两套下游。
 
 **Active ReviewReport（当前报告）**：
 同一 StructuredAnalysisPackage 的多个 immutable ReviewReport 中，当前唯一装配进

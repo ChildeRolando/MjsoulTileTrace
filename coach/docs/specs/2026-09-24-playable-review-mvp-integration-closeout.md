@@ -19,6 +19,10 @@
   及其 validators 仍由既有 contracts/reasoning owners 持有；
 - 本规格拥有 account/import 入口到既有分析与 Review Workspace 的组合语义，以及
   MVP Electron Golden Slice 的发布门。它不复制上述 schema、算法或持久化规则。
+- manual-import 的生产模型前置由
+  [Local Mortal Runtime 生产规格](./2026-09-24-local-mortal-runtime-production-design.md)
+  持有：managed local Mortal + `mortal-582500` 是批准的 M6 native runtime path；本规格
+  只在其真实 spike 合入后消费 validated `StructuredAnalysisPackage`，不实现 runtime。
 
 `master` 已包含 M7-A/M7-B（PR #17 / #22），但真人 smoke 证明“内部能力完成”不等于
 “真实应用入口已接通”：账号页把同步失败伪装为空目录；手动导入成功只显示决策点数量，
@@ -44,6 +48,9 @@ share URL → capture/import ────────────┘  → Struct
 
 1. source/import 层只取得并验证牌谱；不得拥有 selector、ReviewSession 或 UI truth。
 2. deterministic analysis 只使用既有生产入口，不复制 fixture-only pipeline。
+   manual-import 自动路径的 model evidence 前置是已经验收的 managed local Mortal
+   production seam；不得要求用户另行生成 remote result URL，也不得在 B 内复制 runtime、
+   comparison、`ModelEvaluation` 或 package pipeline。remote report adapter 仍是兼容路径。
 3. 每个 `analysisPackageRef` 最多一个现存 `ReviewSession`。已有 session 必须 reuse/reopen，
    不得建立第二套 session truth。
 4. renderer 的成功 authority 是 repository 已验证的 `sessionId` 与当前
@@ -103,7 +110,9 @@ npx vitest run packages/desktop/tests/catalog-service.test.ts packages/desktop/t
 ```text
 supported share URL
 → existing strict capture/import
-→ deterministic analysis
+→ canonical/replay
+→ accepted managed local Mortal production seam
+→ existing deterministic analysis
 → validated StructuredAnalysisPackage
 → ReviewSession create-or-reuse
 → renderer-safe { status: "review_ready", sessionId, packageId }
@@ -116,10 +125,17 @@ supported share URL
 打开 Overview 后断言 `selectedCount` 来自 selector，List 与 Detail 均可达。零报告 session
 保持 `activeReportRefId = null`、evidence 可读和首次生成入口。
 
+B 的实现启动门是 Local Mortal Runtime Production Spike 已以真实 checkpoint 完成
+canonical/replay（含 wave-1 self/response）→ candidate conservation → strict
+`ModelEvaluation` → validated `StructuredAnalysisPackage`，通过 fresh independent review
+并合入 `master`。规格 PR、protocol fixture 或 stub 不满足启动门；门满足后 B 只消费该 seam，
+不得扩张为 runtime/checkpoint 实现票。
+
 ### 失败路径
 
-- URL/capture/import/unsupported semantics/analysis/validation 失败：不创建 session，留在
-  import 页面并显示既有安全固定错误；
+- URL/capture/import/unsupported semantics/local-runtime/analysis/validation 失败：不创建
+  session，留在 import 页面并显示既有安全固定错误；runtime crash/timeout/protocol/
+  candidate mismatch 不得透传 stdout/stderr、traceback、路径或上游 prose；
 - package/session 事务失败：无半个可打开 session，不导航；
 - 已有合法 session 的 reopen/open 失败：不新建替代 session，不改 active ref，留在来源页；
 - 所有失败均不得把 replay 决策数误作成功 authority。
@@ -246,7 +262,9 @@ npm run test:package-import
 
 ## 8. 非目标
 
-- 不新增 OAuth/account architecture、ReviewSession schema/architecture 或分析管线；
+- 不新增 OAuth/account architecture、ReviewSession schema/architecture 或第二条下游分析
+  管线；已批准的独立 M6 native Mortal runtime prerequisite 由其专属规格/实现票拥有，B/D
+  只能消费，不得在本规格内重写；
 - 不实现 regenerate/history picker/A-B UI；
 - 不加入 Longitudinal Learner Model、user memory、adaptive training、M4 chat、Akagi、
   GraphRAG、vector DB、UI framework migration 或发布阶段的新能力；
