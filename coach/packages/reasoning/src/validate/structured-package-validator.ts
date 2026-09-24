@@ -102,6 +102,8 @@ import {
   CANONICAL_REPLAY_PRODUCER,
   FACT_ENGINE_PRODUCER,
   MORTAL_PROVIDER_IDENTITY,
+  LOCAL_MORTAL_ADAPTER_VERSION,
+  managedLocalMortalEngineVersion,
   parseCanonicalEventRef,
   StructuredAnalysisPackageSchema,
   type DecisionAnalysis,
@@ -459,6 +461,15 @@ function validateProducerVersions(pkg: StructuredAnalysisPackage): void {
       "m6c_validator_provider_mismatch:mortalSourceModel:identity",
     );
   }
+  const mortalSource = pkg.componentVersions.mortalSourceModel;
+  if (mortalSource.version === LOCAL_MORTAL_ADAPTER_VERSION &&
+      mortalSource.evidenceSource?.kind !== "managed_local_runtime") {
+    throw new Error("m6c_validator_producer_version_mismatch:localMortal:evidenceSource");
+  }
+  if (mortalSource.evidenceSource?.kind === "managed_local_runtime" &&
+      mortalSource.version !== LOCAL_MORTAL_ADAPTER_VERSION) {
+    throw new Error("m6c_validator_producer_version_mismatch:localMortal:adapterVersion");
+  }
   for (const decision of pkg.decisions) {
     // analysisProvider.kind is schema-pinned to "mortal" by the literal
     // AnalysisProviderSchema — defense-in-depth, like the fact-engine checks.
@@ -538,6 +549,19 @@ function validateProducerVersions(pkg: StructuredAnalysisPackage): void {
       throw new Error(
         `m6c_validator_producer_version_mismatch:mortalSourceModel:${decision.decisionId}:adapterVersion`,
       );
+    }
+    const source = pkg.componentVersions.mortalSourceModel.evidenceSource;
+    if (source?.kind === "managed_local_runtime") {
+      if (decision.modelEvaluation.adapterVersion !== LOCAL_MORTAL_ADAPTER_VERSION) {
+        throw new Error(
+          `m6c_validator_producer_version_mismatch:localMortal:${decision.decisionId}:adapterVersion`,
+        );
+      }
+      if (decision.modelEvaluation.engineVersion !== managedLocalMortalEngineVersion(source.identity)) {
+        throw new Error(
+          `m6c_validator_producer_version_mismatch:localMortal:${decision.decisionId}:engineVersion`,
+        );
+      }
     }
   }
 }

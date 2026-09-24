@@ -833,7 +833,7 @@ export async function runBoundMortalDecisionReview(input: {
       comparisonSetId: imported.comparisonSet.comparisonSetId,
       decisionLayerRef: imported.comparisonSet.decisionLayerRef,
       engineVersion: input.report.version,
-      adapterVersion: MORTAL_ADAPTER_VERSION,
+      adapterVersion: input.report.adapterVersion,
       actualActionRef: actualCandidate.actionRef,
       scoredActualModelActionRef:
         correspondence?.scoredModelActionRef ?? actualCandidate.actionRef,

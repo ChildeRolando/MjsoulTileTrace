@@ -1,0 +1,20 @@
+{
+  "manifestVersion": "managed-mortal-runtime-manifest/v1",
+  "identity": {
+    "runtimeImplementation": "Equim-chan/Mortal",
+    "runtimeRevision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
+    "runtimeVersion": "Mortal V4",
+    "runtimeArtifactSha256": "7cac7bf596ef77f4c64b872b0a5e0deb82909c537df8ab1753161265bff8521d",
+    "checkpointRepository": "Yuchen1457/mortal-582500",
+    "checkpointRevision": "7386c9f5c751a3ea75efea99737cef5a5ef950f1",
+    "checkpointModelTag": "mortal-hpc@582500",
+    "checkpointFileSha256": "738e0d6e3c0ce9671629554ad39abd147d2ffbac676e80b194c83f2acc0fea20",
+    "protocolVersion": "riichi-local-mortal-jsonl/v1",
+    "adapterVersion": "local-mortal-adapter/v1"
+  },
+  "runtimeEntrypoint": "runtime/local_mortal_runtime.py",
+  "checkpointFile": "mortal_582500.pth",
+  "geometry": { "observation": [1012, 34], "legalActionSpace": 46, "outputWidth": 47 },
+  "inference": { "device": "cpu", "mode": "eval", "greedy": true, "temperature": 1, "amp": false },
+  "licenses": { "runtime": "AGPL-3.0-or-later", "checkpoint": "AGPL-3.0", "redistribution": "verify_at_m8" }
+}

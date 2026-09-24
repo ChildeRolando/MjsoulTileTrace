@@ -56,10 +56,8 @@
   resolver` 只消费已注册确定性差异。
 - **Executable tests**：`package-validator` 相关测试（"Factor … is in the wrong
   model bucket"）、`factor-differences.test.ts`、`preference-agreement.test.ts`。
-  COAC-111 必须把相同输入在有/无 local Mortal scores 下的 facts/ledgers/differences
-  byte-equivalence 加入 `local-mortal-adapter.test.ts`。
-- **Status**：machine-enforced（现役 report-based path）。本规格没有降低等级；COAC-111
-  只有在同提交加入 local-runtime 等价性门并保持 machine-enforced 后才能宣称实现。
+  `local-mortal-adapter.test.ts` 固化相同输入在投影/评分前后的 facts byte-equivalence。
+- **Status**：machine-enforced（remote report + managed local runtime）。
 
 ## INV-003 game-record 来源协议语义止于 canonical 重放/推理边界
 
@@ -73,7 +71,7 @@ Game-record providers（牌谱协议来源）
 
 Model/report evidence provider（模型/报告证据来源）
 ├── mortal-source         —— remote Mortal 报告格式解析（reasoning 可消费其公开契约）
-└── mortal-runtime        —— privileged local subprocess/checkpoint（尚未实现；reasoning 不依赖）
+└── mortal-runtime        —— privileged local subprocess/checkpoint（reasoning 不依赖）
 ```
 
 - **Statement**：**game-record provider 的协议语义必须止于 canonical
@@ -100,8 +98,7 @@ Model/report evidence provider（模型/报告证据来源）
   `tenhou-source/tests/real-logs-corpus.test.ts`、`malformed-inputs.test.ts`、
   `npm run check:architecture`。COAC-111 必须扩展 checker 与其自测，拒绝 runtime 导入
   game-record providers、reasoning 导入 runtime、renderer/preload 导入 runtime。
-- **Status**：machine-enforced（现役来源边界）。local runtime 尚不存在；COAC-111 必须让
-  新边先进入同一机械门，禁止以“暂时 partial”接入生产路径。
+- **Status**：machine-enforced；checker 覆盖 runtime/source/reasoning/renderer/preload 新边。
 
 ## INV-004 候选身份必须绑定其 canonical 决策窗口
 
@@ -121,8 +118,7 @@ Model/report evidence provider（模型/报告证据来源）
   `candidate-contracts.test.ts`、`comparison-set-builder.test.ts`、M6-A4 binding/conservation
   与 structured package candidate-universe tests。COAC-111 追加 local runtime 的
   duplicate/missing/extra/unknown/ambiguous 及 self/response actual-correspondence 负例。
-- **Status**：machine-enforced（现役 canonical/report/package 路径）。local runtime 尚未
-  实现；其双射负例是 production seam 的先决门，不能先接入后补测试。
+- **Status**：machine-enforced（canonical/report/local-runtime/package 路径）。
 
 ## INV-005 renderer/UI 不得接收特权原始协议与秘密
 
@@ -146,8 +142,7 @@ Model/report evidence provider（模型/报告证据来源）
   `spawn EPERM` 保留为环境失败；恢复会话并修复三个 P2 后五门实际通过，见 COAC-3
   回执；不修改既有不变量等级。
 - **Status**：machine-enforced（行为测试 + 机械导入规则；注意机械规则只查直接导入，
-  传递泄漏仍靠行为测试）。local runtime 增量在 COAC-111 落地前为 docs-only，完成时必须
-  同提交增加 checker/preload/security 行为负例，不能降低本条等级后宣称完成。
+  传递泄漏仍靠行为测试）。local runtime 的 renderer/preload 负例已进入同一门禁。
 
 ## INV-006 畸形/语义不支持的记录 fail closed，不静默降级
 
@@ -163,8 +158,8 @@ Model/report evidence provider（模型/报告证据来源）
   `canonical-mapper.test.ts`、`report-schema.test.ts`、`fact-engine.test.ts`
   （拒绝任意 sidecar prose）、`mahjong-soul-protocol-compatibility.test.mjs`；COAC-111
   追加每个 `mortal_*` 固定错误与 oversize/extra-prose 负例。
-- **Status**：machine-enforced（现役路径）。COAC-111 必须在接入 local runtime 的同一提交
-  机械覆盖新增错误面并保持等级。
+- **Status**：machine-enforced；local runtime strict schema、artifact identity、lifecycle、
+  oversize/extra-prose 与固定安全错误均由永久测试覆盖。
 
 ## INV-007 持久化/可复现分析产物保留版本与来源信息
 
@@ -185,8 +180,8 @@ Model/report evidence provider（模型/报告证据来源）
   `update-packaged-fact-engine-manifest.test.mjs`、
   `structured-analysis-package.test.ts`、`structured-analysis-package-golden.test.ts`；
   COAC-111 必须增加声明/payload/hash 任一侧篡改的 local-runtime provenance 负例。
-- **Status**：machine-enforced（现役 `StructuredAnalysisPackage` identity）。local runtime
-  provenance schema/validator 是 COAC-111 的前置交付，不能以 declaration-only 进入 package。
+- **Status**：machine-enforced；`StructuredAnalysisPackage` validator 交叉核对 local runtime
+  declaration、evaluation producer identity 与 artifact/semantic hashes。
 
 ## INV-008 启发式/估算永不进入确定性偏好
 

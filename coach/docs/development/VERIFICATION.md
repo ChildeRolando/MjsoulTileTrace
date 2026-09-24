@@ -32,7 +32,7 @@ compatibility 测试与**架构边界检查（`npm run check:architecture`）**�
 canonical 事件流 → 决策快照 → 确定事实 → 模型比较 → 打包 sidecar 因素管线 →
 结构化分析产物。大改动后先跑它回答"语义主干是否仍在"。
 
-### Local Mortal Runtime Production Spike（待实现）
+### Local Mortal Runtime Production Spike
 
 [冻结规格](../specs/2026-09-24-local-mortal-runtime-production-design.md) 要求 COAC-111
 长期提供两个显式入口：
@@ -50,8 +50,11 @@ strict `ModelEvaluation` → whole-game review → `StructuredAnalysisPackage` v
 
 普通 `npx vitest run` 只跑 protocol fixtures/fake exact child，禁止联网或加载真实 checkpoint；
 它覆盖 crash/timeout/protocol/candidate mismatch 与安全边界，但不能冒充 production spike。
-**当前状态（2026-09-24）**：package/scripts/owners 尚未实现，上述命令不可运行且不得报告
-PASS。checkpoint、runtime binary 和大模型文件不进入 Git、npm package 或普通五门。
+**当前状态（2026-09-24）**：COAC-111 已建立 package/scripts/owners。真实四视角 spike
+完成 572 次 CPU inference，覆盖 discard/riichi/chi/pon/daiminkan/hora/pass/ankan/kakan，
+所有固定错误计数为 0；每个分块均通过 package validator 与 selector smoke。receipt 位于
+app-managed artifact 目录且不入库。checkpoint、native runtime 和大模型文件不进入 Git、
+npm package 或普通五门；M8 再分发/notice/源码义务核验仍未完成。
 
 ### MVP Electron Golden Slice（Integration Closeout D，待实现）
 

@@ -51,6 +51,7 @@ export * from "./analysis/response-candidate-enumeration.js";
 export * from "./analysis/response-surface-discovery.js";
 export * from "./analysis/mortal-coverage-registry.js";
 export * from "./analysis/mortal-coverage-evidence-manifest.js";
+export * from "./analysis/local-mortal-adapter.js";
 export * from "./analysis/acceptance-evidence.js";
 export * from "./analysis/acceptance-core.js";
 export * from "./import/action-adapter-port.js";

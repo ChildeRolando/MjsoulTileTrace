@@ -5,6 +5,7 @@ test("workspace packages import as emitted JavaScript", async () => {
   const contracts = await import("@riichi-coach/contracts");
   const source = await import("@riichi-coach/mahjong-soul-source");
   const reasoning = await import("@riichi-coach/reasoning");
+  const mortalRuntime = await import("@riichi-coach/mortal-runtime");
   const desktop = await import("@riichi-coach/desktop/session-api");
 
   assert.equal(typeof contracts.AnalysisRequestSchema.parse, "function");
@@ -28,6 +29,8 @@ test("workspace packages import as emitted JavaScript", async () => {
   );
   assert.equal(typeof reasoning.analyzeRegressionFixture, "function");
   assert.equal(typeof reasoning.buildMortalModelEvaluation, "function");
+  assert.equal(typeof mortalRuntime.ManagedMortalRuntime, "function");
+  assert.equal(typeof mortalRuntime.loadManagedMortalManifest, "function");
   assert.equal(typeof reasoning.buildAkagiModelEvaluation, "function");
   assert.equal(typeof reasoning.freezeDetailPolicy, "function");
   assert.equal(typeof reasoning.classifyModelEvaluationDetail, "function");

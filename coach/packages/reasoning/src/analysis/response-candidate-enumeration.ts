@@ -26,6 +26,7 @@ import { tileIdTo34 } from "../factors/tile34.js";
 import {
   canDaiminkan,
   canPon,
+  seatDistance,
 } from "../replay/response-eligibility.js";
 import type { SingleCandidateProof } from "./single-candidate-proof.js";
 import type { ReplayedDecision } from "../replay/stream-replayer.js";
@@ -135,7 +136,9 @@ export function enumerateResponseCandidates(
   const inRiichi =
     publicState.riichiStates[snapshot.selfActor]!.status !== "none";
 
-  const chi = inRiichi ? [] : chiCombinations(concealed, offered);
+  const chi = inRiichi || seatDistance(window.sourceActor, snapshot.selfActor) !== 1
+    ? []
+    : chiCombinations(concealed, offered);
   const pon = !inRiichi && canPon(concealed, offered);
   const daiminkan = !inRiichi && canDaiminkan(concealed, offered);
   const ron = canRonShape(concealed, meldCount, offered);

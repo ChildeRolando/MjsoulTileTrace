@@ -1,0 +1,8 @@
+{
+  "version": "local-mortal-real-fixture-set/v1",
+  "source": "../../../../mahjong-soul-source/tests/fixtures/real-record-wire.json",
+  "sha256": "9efea5c9ceb73ee062c8d8edb8f960a74e79776ca023f686f669090dd9ac49ed",
+  "perspectives": [0, 1, 2, 3],
+  "privacy": "sanitized synthetic record id; no account ids, names, tokens, URLs, cookies, or raw runtime prose",
+  "coverage": ["self_turn", "discard_response", "kan_response", "chi", "pon", "daiminkan", "ron", "pass", "riichi_discard", "ankan", "kakan", "tsumo"]
+}

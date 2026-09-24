@@ -13,13 +13,15 @@
  *     game-record providers (their protocol semantics terminate before the
  *     canonical replay/reasoning boundary). reasoning MAY import
  *     mortal-source — the model/report evidence provider — whose public
- *     report-format contract it consumes (ADR-0005). Nothing below desktop
- *     may import desktop.
+ *     report-format contract it consumes (ADR-0005). The independent
+ *     mortal-runtime owner may import contracts only; reasoning and
+ *     mortal-source cannot acquire its subprocess/checkpoint capability.
+ *     Nothing below desktop may import desktop.
  *
  *  R2 renderer_safe_boundary (INV-005)
  *     Desktop renderer code and the preload entries must not import the
- *     privileged packages (mahjong-soul-source, mortal-source, tenhou-source,
- *     reasoning). They receive only safe DTOs through narrow desktop API
+ *     privileged packages (mahjong-soul-source, mortal-source, mortal-runtime,
+ *     tenhou-source, reasoning). They receive only safe DTOs through narrow desktop API
  *     modules and contracts. Direct-import level by design; transitive
  *     leakage is covered by the preload/security-boundary behavior tests.
  *
@@ -84,6 +86,7 @@ export const DEFAULT_ALLOWED_EDGES = Object.freeze({
   "@riichi-coach/mahjong-soul-source": Object.freeze(["@riichi-coach/contracts"]),
   "@riichi-coach/tenhou-source": Object.freeze(["@riichi-coach/contracts"]),
   "@riichi-coach/mortal-source": Object.freeze(["@riichi-coach/contracts"]),
+  "@riichi-coach/mortal-runtime": Object.freeze(["@riichi-coach/contracts"]),
   // reasoning may consume the mortal-source report-format evidence contract
   // (ADR-0005) but must stay clear of game-record provider protocol details.
   "@riichi-coach/reasoning": Object.freeze([
@@ -96,6 +99,7 @@ export const DEFAULT_ALLOWED_EDGES = Object.freeze({
     "@riichi-coach/mahjong-soul-source",
     "@riichi-coach/tenhou-source",
     "@riichi-coach/mortal-source",
+    "@riichi-coach/mortal-runtime",
     "@riichi-coach/reasoning",
   ]),
 });
@@ -104,6 +108,7 @@ export const DEFAULT_ALLOWED_EDGES = Object.freeze({
 export const DEFAULT_PRIVILEGED_PACKAGES = Object.freeze([
   "@riichi-coach/mahjong-soul-source",
   "@riichi-coach/mortal-source",
+  "@riichi-coach/mortal-runtime",
   "@riichi-coach/tenhou-source",
   "@riichi-coach/reasoning",
 ]);
