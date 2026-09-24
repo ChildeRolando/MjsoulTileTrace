@@ -80,12 +80,26 @@ function binding(action: RiichiAction, actor: number): LocalMortalCandidateBindi
   };
 }
 
-function selfCandidates(decision: ReplayedDecision, includeDeclareRiichi: boolean, includeTsumo: boolean): LocalMortalCandidateBinding[] {
+function selfCandidates(
+  decision: ReplayedDecision,
+  includeDeclareRiichi: boolean,
+  includeTsumo: boolean,
+  riichiDiscardCandidates?: readonly Tile[],
+): LocalMortalCandidateBinding[] {
   const state = decision.snapshot.privateState;
   const actor = decision.snapshot.selfActor;
   const actual = decision.actualAction;
   if (actual === null) throw new Error("mortal_actual_action_mismatch");
-  if (state.decisionWindow.kind === "post_riichi_discard") return [binding(actual, actor)];
+  if (state.decisionWindow.kind === "post_riichi_discard") {
+    if (riichiDiscardCandidates === undefined) throw new Error("mortal_protocol_invalid");
+    return riichiDiscardCandidates.map((tile) => binding({
+      kind: "discard",
+      tile,
+      discardMode: actual.kind === "discard" && actual.tile.id === tile.id && actual.tile.red === tile.red
+        ? actual.discardMode
+        : "tedashi",
+    }, actor));
+  }
   const draw = state.currentDraw?.tile;
   const tiles = [...state.concealedTiles, ...(draw === undefined ? [] : [draw])];
   const unique = new Map<string, Tile>();
@@ -295,10 +309,17 @@ export function projectLocalMortalRequest(input: {
   includeDeclareRiichi?: boolean;
   includeTsumo?: boolean;
   includeRon?: boolean;
+  riichiDiscardCandidates?: readonly Tile[];
 }): LocalMortalInferenceRequest {
   const candidates = input.surface === "response"
     ? responseCandidates(input.decision, input.includeRon ?? false)
-    : selfCandidates(input.decision, input.includeDeclareRiichi ?? false, input.includeTsumo ?? false);
+    : selfCandidates(
+      input.decision,
+      input.includeDeclareRiichi ?? false,
+      input.includeTsumo ?? false,
+      input.riichiDiscardCandidates,
+    );
+  if (candidates.length < 2) throw new Error("mortal_source_row_not_expected");
   const trigger = input.decision.decisionEventRef;
   const events = [];
   for (const event of input.stream.events) {
@@ -345,6 +366,52 @@ export function localMortalResponseToReportEntry(input: {
   response: LocalMortalInferenceSuccess;
   decision: ReplayedDecision;
 }): MortalReportDecisionEntry {
+  const actual = input.decision.actualAction;
+  if (actual === null) throw new Error("mortal_actual_action_mismatch");
+  const window = input.decision.snapshot.privateState.decisionWindow;
+  const expectedSurface = window.kind === "discard_response" || window.kind === "kan_response"
+    ? "response"
+    : "self";
+  const expectedDecision = {
+    decisionId: input.decision.decisionEventRef,
+    surface: expectedSurface,
+    windowKind: window.kind,
+    triggerEventRef: input.decision.decisionEventRef,
+    selfActor: input.decision.snapshot.selfActor,
+  };
+  if (
+    input.response.requestId !== input.request.requestId
+    || input.response.protocolVersion !== input.request.protocolVersion
+    || JSON.stringify(input.response.identity) !== JSON.stringify(input.request.identity)
+    || JSON.stringify(input.response.decision) !== JSON.stringify(input.request.decision)
+    || JSON.stringify(input.request.decision) !== JSON.stringify(expectedDecision)
+  ) {
+    throw new Error("mortal_protocol_invalid");
+  }
+  const actualActionRef = canonicalActionRef(actual);
+  if (
+    input.request.actualActionRef !== actualActionRef
+    || input.request.candidates.filter((row) => row.actionRef === actualActionRef).length !== 1
+  ) {
+    throw new Error("mortal_actual_action_mismatch");
+  }
+  const requestKeys = input.request.candidates.map((row) => JSON.stringify(row.runtimeAction));
+  const responseKeys = input.response.candidates.map((row) => JSON.stringify(row.runtimeAction));
+  const requestActionRefs = input.request.candidates.map((row) => row.actionRef);
+  if (
+    new Set(requestKeys).size !== requestKeys.length
+    || new Set(requestActionRefs).size !== requestActionRefs.length
+    || new Set(responseKeys).size !== responseKeys.length
+    || JSON.stringify([...requestKeys].sort()) !== JSON.stringify([...responseKeys].sort())
+  ) {
+    throw new Error("mortal_candidate_mismatch");
+  }
+  const preferredKey = JSON.stringify(input.response.preferredRuntimeAction);
+  const preferredRow = input.response.candidates.find((row) => JSON.stringify(row.runtimeAction) === preferredKey);
+  const maxQ = Math.max(...input.response.candidates.map((row) => row.qValue));
+  if (preferredRow === undefined || preferredRow.qValue !== maxQ) {
+    throw new Error("mortal_candidate_mismatch");
+  }
   const candidateByKey = new Map(input.request.candidates.map((row) => [JSON.stringify(row.runtimeAction), row]));
   const probs = stableSoftmax(input.response.candidates.map((row) => row.qValue));
   const details: MortalReportCandidate[] = input.response.candidates.map((row, index) => {
@@ -354,9 +421,6 @@ export function localMortalResponseToReportEntry(input: {
   });
   const snapshot = input.decision.snapshot;
   const state = snapshot.privateState;
-  const window = state.decisionWindow;
-  const actual = input.decision.actualAction;
-  if (actual === null) throw new Error("mortal_actual_action_mismatch");
   const preferred = candidateByKey.get(JSON.stringify(input.response.preferredRuntimeAction));
   if (preferred === undefined) throw new Error("mortal_candidate_mismatch");
   const expected = JSON.parse(preferred.mjaiActionJson) as MortalSourceAction;
@@ -365,7 +429,12 @@ export function localMortalResponseToReportEntry(input: {
     ? window.offeredTile
     : state.currentDraw?.tile ?? (actual.kind === "discard" || actual.kind === "riichi_discard" ? actual.tile : undefined);
   if (triggerTile === undefined) throw new Error("mortal_actual_action_mismatch");
-  const hand = [...state.concealedTiles, ...(window.kind === "self_turn" && state.currentDraw !== null ? [state.currentDraw.tile] : [])];
+  const hand = [
+    ...state.concealedTiles,
+    ...((window.kind === "self_turn" || window.kind === "post_riichi_discard") && state.currentDraw !== null
+      ? [state.currentDraw.tile]
+      : []),
+  ];
   return {
     roundOrdinal: snapshot.publicState.roundOrdinal,
     roundWind: snapshot.publicState.roundWind,
@@ -392,5 +461,6 @@ export function localMortalResponseToReportEntry(input: {
       if (index < 0) throw new Error("mortal_actual_action_mismatch");
       return index;
     })(),
+    localDecisionIdentity: input.request.decision,
   };
 }

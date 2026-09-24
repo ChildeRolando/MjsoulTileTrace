@@ -338,6 +338,20 @@ export function entryMatchesDecisionIdentity(
   const privateState = snapshot.privateState;
   const publicState = snapshot.publicState;
   const window = privateState.decisionWindow;
+  if (entry.localDecisionIdentity !== undefined) {
+    const expected = {
+      decisionId: decision.decisionEventRef,
+      surface: window.kind === "discard_response" || window.kind === "kan_response" ? "response" : "self",
+      windowKind: window.kind,
+      triggerEventRef: decision.decisionEventRef,
+      selfActor: snapshot.selfActor,
+    };
+    // Managed-local rows already crossed the strict request/response/replay
+    // seam. Their canonical decision identity is stronger than the lossy
+    // remote-report fact table (which has no event ref and may omit draw
+    // counts late in a round), so it is the binding authority for this row.
+    return JSON.stringify(entry.localDecisionIdentity) === JSON.stringify(expected);
+  }
 
   // Round identity: canonical round occurrence, wind, dealer, and honba.
   // These are public facts on both sides and are proven by fingerprint v2,

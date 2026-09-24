@@ -374,6 +374,34 @@ describe("M6-A4.2 response local candidate enumeration (isomorphic to Mortal)", 
       shape: "response_single_candidate",
       candidateCount: 1,
     });
+
+    const shapeOnlyRon = responseDecision({
+      window: { sourceActor: 1, offeredTile: tile("5s") } as unknown as DecisionWindow,
+      concealed: [
+        tile("1p"), tile("3p"), tile("8s"), tile("6m"), tile("6s"),
+        tile("3z"), tile("7s"), tile("3z"), tile("2p"), tile("6m"),
+        tile("3z"), tile("9s"), tile("4s"),
+      ],
+    });
+    expect(enumerateResponseCandidates(shapeOnlyRon)?.ron).toBe(true);
+    expect(collectResponseSingleCandidateProofs([shapeOnlyRon], new Set()).get(0)).toEqual({
+      shape: "response_single_candidate",
+      candidateCount: 1,
+    });
+    expect(collectResponseSingleCandidateProofs(
+      [shapeOnlyRon],
+      new Set([shapeOnlyRon.decisionEventRef]),
+    ).has(0)).toBe(false);
+    expect(collectResponseSingleCandidateProofs(
+      [{ ...shapeOnlyRon, actualAction: {
+        kind: "ron",
+        winningTile: tile("5s"),
+        targetActor: 1,
+        responseEventRef: shapeOnlyRon.decisionEventRef,
+        winContext: "discard",
+      } }],
+      new Set(),
+    ).has(0)).toBe(false);
   });
 
   it("suppresses chi/pon/daiminkan for a riichi'd reviewed player (ron-only space)", () => {

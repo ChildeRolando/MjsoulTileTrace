@@ -106,7 +106,9 @@ Model/report evidence provider（模型/报告证据来源）
   （`DecisionSnapshotV2.decisionEventRef === privateState.decisionWindow.triggerEventRef`）；
   身份不得脱离窗口漂移，响应窗口按决策归属配对，绝不按 last_actor 猜。任何 local
   model evaluation 还必须证明本地 canonical legal candidates ↔ runtime legal actions
-  一一双射及 actual action 唯一 correspondence；不得取交集或静默丢 action。
+  一一双射及 actual action 唯一 correspondence；runtime response 还必须回显同一 request、
+  protocol、完整 runtime identity、decision/window identity、候选全集，并把 preferred action
+  严格绑定到唯一 Q-value argmax；不得取交集、按位置猜测或静默丢 action。
 - **Why**：候选与窗口的绑定是"可追溯比较"的最小单位；脱绑后任何差异、解释、
   验收证据都无法定位。
 - **Owner / boundary**：`contracts` 的 decision snapshot / decision window /
@@ -117,7 +119,8 @@ Model/report evidence provider（模型/报告证据来源）
 - **Executable tests**：`decision-snapshot.test.ts`、`round-state.test.ts`、
   `candidate-contracts.test.ts`、`comparison-set-builder.test.ts`、M6-A4 binding/conservation
   与 structured package candidate-universe tests。COAC-111 追加 local runtime 的
-  duplicate/missing/extra/unknown/ambiguous 及 self/response actual-correspondence 负例。
+  duplicate/missing/extra/unknown/ambiguous、跨决策响应、非 argmax preferred action 及
+  self/response actual-correspondence 负例。
 - **Status**：machine-enforced（canonical/report/local-runtime/package 路径）。
 
 ## INV-005 renderer/UI 不得接收特权原始协议与秘密
@@ -150,6 +153,9 @@ Model/report evidence provider（模型/报告证据来源）
   blocked/unsupported 状态；不猜字段、不降级到宽松解析、不让上游 prose 穿透。
   local Mortal 的 identity/hash、crash、timeout、protocol、candidate/actual mismatch 只能
   映射到冻结的安全 code 与既有 outcome，不得透传 traceback、路径或 stdout/stderr。
+  stdout 按 1 MiB byte ceiling 分帧；每个 request 只允许一个换行终止的 JSON response，
+  trailing prose、额外 response、未终止 oversize frame 都必须关闭精确子进程并 fail closed。
+  manifest 缺失、不可读、畸形或 artifact I/O 失败同样只能返回固定安全 code。
 - **Why**：宽松解析会悄悄把错误当成分析结果；fail closed 是可复现失败的前提。
 - **Owner / boundary**：所有严格 schema（contracts）与所有来源适配器的错误路径。
 - **Enforcement**：zod strict schema 拒绝未知字段；canonical mapper / 报告解析 /
@@ -166,7 +172,9 @@ Model/report evidence provider（模型/报告证据来源）
 - **Statement**：任何可复现/可持久化的分析产物（事件流、证据 manifest、验收状态、
   discovery 报告）必须携带 schema 版本、来源/身份与（适用时）内容哈希。local Mortal
   package 必须可恢复 runtime revision/version/artifact SHA-256、checkpoint repository
-  revision/model tag/file SHA-256、protocol 与 adapter version；不得只写 `Mortal`。
+  revision/model tag/file SHA-256、protocol 与 adapter version；runtime identity 必须同时覆盖
+  wrapper、上游 `model.py`、`engine.py` 与本机构建 native module 的 SHA-256，不得只写
+  `Mortal` 或仅绑定 wrapper/checkpoint。
 - **Why**：版本与来源是追溯与"旧产物可否重放"的判据；缺失则审计无法定位到产生它的
   代码版本。
 - **Owner / boundary**：各产物 schema 的 `schemaVersion` / `sourceKind` / `gameId` /
@@ -179,7 +187,8 @@ Model/report evidence provider（模型/报告证据来源）
   `mortal-coverage-registry.test.ts`、`protocol-bundle.test.ts`、
   `update-packaged-fact-engine-manifest.test.mjs`、
   `structured-analysis-package.test.ts`、`structured-analysis-package-golden.test.ts`；
-  COAC-111 必须增加声明/payload/hash 任一侧篡改的 local-runtime provenance 负例。
+  COAC-111 必须增加声明/payload/hash 任一侧篡改，以及 wrapper/model/engine/native 任一
+  artifact 被替换的 local-runtime provenance 负例。
 - **Status**：machine-enforced；`StructuredAnalysisPackage` validator 交叉核对 local runtime
   declaration、evaluation producer identity 与 artifact/semantic hashes。
 

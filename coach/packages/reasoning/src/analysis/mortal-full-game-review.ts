@@ -42,6 +42,7 @@ import {
   collectResponseSingleCandidateProofs,
   type ResponseSingleCandidateProof,
 } from "./response-candidate-enumeration.js";
+import { collectLocalMortalRonCandidateWindows } from "./local-mortal-adapter.js";
 
 export type MortalFullGameFailureCode =
   | "mortal_report_game_fingerprint_mismatch"
@@ -590,8 +591,14 @@ export async function runMortalFullGameReview(input: {
   // enumeration (chi by meld combination, pon, daiminkan, ron, none) mirrors
   // Mortal's candidate space and is decided BEFORE any source lookup — a
   // single-candidate response window (only none legal) expects no row.
+  const ronCandidateWindows = await collectLocalMortalRonCandidateWindows(
+    stream,
+    responseDecisions,
+    input.engine,
+  );
   const responseSingleCandidateProofs = collectResponseSingleCandidateProofs(
     responseDecisions,
+    ronCandidateWindows,
   );
 
   const { rows, sourceDegrees, ambiguousSourceOrdinals } =

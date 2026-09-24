@@ -206,17 +206,27 @@ function rejectExplanationSideVersions(input: unknown): void {
 // ---------------------------------------------------------------------------
 
 function assertJsonRoundtrip(pkg: unknown): void {
-  let roundtripped: unknown;
-  try {
-    roundtripped = JSON.parse(JSON.stringify(pkg));
-  } catch {
+  const active = new WeakSet<object>();
+  const visit = (value: unknown): boolean => {
+    if (value === null || typeof value === "string" || typeof value === "boolean") return true;
+    if (typeof value === "number") return Number.isFinite(value);
+    if (typeof value !== "object") return false;
+    if (active.has(value)) return false;
+    active.add(value);
+    let valid: boolean;
+    if (Array.isArray(value)) {
+      valid = value.length === Object.keys(value).length
+        && value.every((entry) => visit(entry));
+    } else {
+      valid = Object.getPrototypeOf(value) === Object.prototype
+        && Object.values(value as Record<string, unknown>).every((entry) => visit(entry));
+    }
+    active.delete(value);
+    return valid;
+  };
+  if (!visit(pkg)) {
     throw new Error(
-      "m6c_validator_not_json_serializable: package contains a non-JSON value",
-    );
-  }
-  if (!isDeepStrictEqual(roundtripped, pkg)) {
-    throw new Error(
-      "m6c_validator_json_roundtrip_mismatch: package changes under JSON serialization",
+      "m6c_validator_json_roundtrip_mismatch: package contains a non-JSON value",
     );
   }
 }

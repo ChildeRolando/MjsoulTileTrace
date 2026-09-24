@@ -30,10 +30,15 @@ function sha256(path) {
 }
 
 function ensurePinnedCheckout(url, directory, revision) {
-  if (!existsSync(join(directory, ".git"))) run("git", ["clone", "--no-checkout", url, directory], artifactRoot);
-  run("git", ["fetch", "origin", revision], directory);
-  run("git", ["checkout", "--detach", revision], directory, { GIT_LFS_SKIP_SMUDGE: "1" });
-  const actual = execFileSync("git", ["rev-parse", "HEAD"], { cwd: directory, encoding: "utf8", windowsHide: true }).trim();
+  const publicGitEnv = { GIT_CONFIG_GLOBAL: process.platform === "win32" ? "NUL" : "/dev/null" };
+  if (!existsSync(join(directory, ".git"))) run("git", ["clone", "--no-checkout", url, directory], artifactRoot, publicGitEnv);
+  run("git", ["fetch", "origin", revision], directory, publicGitEnv);
+  run("git", ["checkout", "--detach", revision], directory, { ...publicGitEnv, GIT_LFS_SKIP_SMUDGE: "1" });
+  run("git", ["config", "core.autocrlf", "true"], directory, publicGitEnv);
+  run("git", ["checkout-index", "--all", "--force"], directory, { ...publicGitEnv, GIT_LFS_SKIP_SMUDGE: "1" });
+  const actual = execFileSync("git", ["rev-parse", "HEAD"], {
+    cwd: directory, encoding: "utf8", windowsHide: true, env: { ...process.env, ...publicGitEnv },
+  }).trim();
   if (actual !== revision) fail("local Mortal preparation failed: pinned revision mismatch");
 }
 
@@ -77,11 +82,19 @@ const runtimePath = join(repoRoot, "packages", "mortal-runtime", "runtime", "loc
 const manifestPath = join(repoRoot, "packages", "mortal-runtime", "manifests", "mortal-582500.windows-x64.json");
 const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
 if (sha256(runtimePath) !== manifest.identity.runtimeArtifactSha256) fail("local Mortal preparation failed: runtime artifact SHA-256 mismatch");
+const modelPath = join(mortalRoot, "mortal", "model.py");
+const enginePath = join(mortalRoot, "mortal", "engine.py");
+if (
+  sha256(modelPath) !== manifest.identity.runtimeModelSha256
+  || sha256(enginePath) !== manifest.identity.runtimeEngineSha256
+) fail("local Mortal preparation failed: upstream runtime artifact SHA-256 mismatch");
 
 const receipt = {
   receiptVersion: "local-mortal-preparation-receipt/v1",
   runtimeRevision: RUNTIME_REVISION,
   runtimeArtifactSha256: sha256(runtimePath),
+  runtimeModelSha256: sha256(modelPath),
+  runtimeEngineSha256: sha256(enginePath),
   nativeArtifactSha256: sha256(nativePath),
   checkpointRevision: CHECKPOINT_REVISION,
   checkpointFileSha256: sha256(checkpointPath),

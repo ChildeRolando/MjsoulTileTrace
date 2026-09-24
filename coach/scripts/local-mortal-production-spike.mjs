@@ -28,8 +28,8 @@ import {
   collectLocalMortalRiichiCandidateWindows,
   collectLocalMortalRonCandidateWindows,
   collectDamaTsumoWindows,
+  collectRiichiDeclarationTenpaiDiscards,
   createMortalCoverageRegistry,
-  enumerateResponseCandidates,
   localMortalResponseToReportEntry,
   projectLocalMortalRequest,
   replayCanonicalResponseWindows,
@@ -46,6 +46,9 @@ const receiptPath = join(artifactRoot, "preparation-receipt.json");
 const checkpointPath = join(artifactRoot, "mortal_582500.pth");
 const pythonExecutable = join(artifactRoot, "python", "Scripts", "python.exe");
 const mortalRoot = join(artifactRoot, "Mortal");
+const modelPath = join(mortalRoot, "mortal", "model.py");
+const enginePath = join(mortalRoot, "mortal", "engine.py");
+const nativeModulePath = join(mortalRoot, "target", "release", "libriichi.pyd");
 const runtimePackageRoot = join(repoRoot, "packages", "mortal-runtime");
 const runtimePath = join(runtimePackageRoot, "runtime", "local_mortal_runtime.py");
 const manifestPath = join(runtimePackageRoot, "manifests", "mortal-582500.windows-x64.json");
@@ -62,11 +65,20 @@ if (
   prepared.receiptVersion !== "local-mortal-preparation-receipt/v1"
   || prepared.runtimeRevision !== manifest.identity.runtimeRevision
   || prepared.runtimeArtifactSha256 !== manifest.identity.runtimeArtifactSha256
+  || prepared.runtimeModelSha256 !== manifest.identity.runtimeModelSha256
+  || prepared.runtimeEngineSha256 !== manifest.identity.runtimeEngineSha256
   || prepared.checkpointRevision !== manifest.identity.checkpointRevision
   || prepared.checkpointFileSha256 !== manifest.identity.checkpointFileSha256
   || await sha256File(runtimePath) !== prepared.runtimeArtifactSha256
+  || await sha256File(modelPath) !== prepared.runtimeModelSha256
+  || await sha256File(enginePath) !== prepared.runtimeEngineSha256
+  || await sha256File(nativeModulePath) !== prepared.nativeArtifactSha256
   || await sha256File(checkpointPath) !== prepared.checkpointFileSha256
 ) fail("local Mortal preparation receipt or artifact identity mismatch");
+const runtimeIdentity = {
+  ...manifest.identity,
+  nativeArtifactSha256: prepared.nativeArtifactSha256,
+};
 
 const fixtureManifestPath = join(repoRoot, "packages", "reasoning", "tests", "fixtures", "local-mortal", "fixture-manifest.json");
 const fixtureManifest = JSON.parse(readFileSync(fixtureManifestPath, "utf8"));
@@ -84,7 +96,9 @@ const runtime = new ManagedMortalRuntime({
   runtimePath,
   checkpointPath,
   mortalSourcePath: join(mortalRoot, "mortal"),
+  nativeModulePath,
   manifest,
+  identity: runtimeIdentity,
   environment: {
     ...process.env,
     PYTHONPATH: join(mortalRoot, "target", "release"),
@@ -122,36 +136,41 @@ try {
     let riichiWindows;
     let tsumoWindows;
     let ronWindows;
+    const riichiDiscardCandidates = new Map();
     try {
       riichiWindows = await collectLocalMortalRiichiCandidateWindows(decisions, candidateFactEngine);
       tsumoWindows = new Set((await collectDamaTsumoWindows(decisions, candidateFactEngine)).windows.map((row) => row.decisionEventRef));
       ronWindows = await collectLocalMortalRonCandidateWindows(stream, responseDecisions, candidateFactEngine);
+      for (const decision of decisions) {
+        if (decision.snapshot.privateState.decisionWindow.kind !== "post_riichi_discard") continue;
+        const candidates = await collectRiichiDeclarationTenpaiDiscards(decision, candidateFactEngine);
+        if (candidates === null || candidates.length === 0) {
+          fail(`local riichi discard enumeration failed: actor=${actor}; decision=${decision.decisionEventRef}`);
+        }
+        riichiDiscardCandidates.set(decision.decisionEventRef, candidates);
+      }
     } finally {
       await candidateFactEngine.close();
     }
     const evaluated = [];
     const evaluable = [
-      ...decisions
-        .filter((decision) => {
-          const window = decision.snapshot.privateState.decisionWindow;
-          if (window.kind === "post_riichi_discard") return false;
-          return !(decision.snapshot.publicState.riichiStates[actor].status !== "none" && decision.actualAction?.kind === "discard");
-        })
-        .map((decision) => ({ decision, surface: "self" })),
-      ...responseDecisions
-        .filter((decision) => {
-          const row = enumerateResponseCandidates(decision);
-          return row !== null && (row.chiCombinations.length > 0 || row.pon || row.daiminkan || ronWindows.has(decision.decisionEventRef));
-        })
-        .map((decision) => ({ decision, surface: "response" })),
+      ...decisions.map((decision) => ({ decision, surface: "self" })),
+      ...responseDecisions.map((decision) => ({ decision, surface: "response" })),
     ];
     for (const row of evaluable) {
-      const request = projectLocalMortalRequest({
-        stream, decision: row.decision, surface: row.surface, identity: manifest.identity,
-        includeDeclareRiichi: riichiWindows.has(row.decision.decisionEventRef),
-        includeTsumo: tsumoWindows.has(row.decision.decisionEventRef),
-        includeRon: ronWindows.has(row.decision.decisionEventRef),
-      });
+      let request;
+      try {
+        request = projectLocalMortalRequest({
+          stream, decision: row.decision, surface: row.surface, identity: runtimeIdentity,
+          includeDeclareRiichi: riichiWindows.has(row.decision.decisionEventRef),
+          includeTsumo: tsumoWindows.has(row.decision.decisionEventRef),
+          includeRon: ronWindows.has(row.decision.decisionEventRef),
+          riichiDiscardCandidates: riichiDiscardCandidates.get(row.decision.decisionEventRef),
+        });
+      } catch (error) {
+        if (error instanceof Error && error.message === "mortal_source_row_not_expected") continue;
+        throw error;
+      }
       const response = await runtime.infer(request);
       if (response.status === "error") {
         fixedErrors[response.code]++;
@@ -169,60 +188,104 @@ try {
         if (family in families) families[family]++;
       }
     }
-    for (let chunkStart = 0; chunkStart < evaluated.length; chunkStart += 8) {
-      const chunk = evaluated.slice(chunkStart, chunkStart + 8);
-      console.log(JSON.stringify({ stage: "package_chunk", actor, chunk: chunkStart / 8, sourceEntryCount: chunk.length }));
-      const groups = new Map();
-      for (const { entry } of chunk) {
-        const key = `${entry.roundOrdinal}:${entry.roundWind}:${entry.dealer}:${entry.kyoku}:${entry.honba}`;
-        const group = groups.get(key) ?? { roundOrdinal: entry.roundOrdinal, roundWind: entry.roundWind, dealer: entry.dealer, kyoku: entry.kyoku, honba: entry.honba, entries: [] };
-        group.entries.push(entry);
-        groups.set(key, group);
-      }
-      const report = {
-        reportId: `managed-local-mortal:${actor}:${chunkStart / 8}`,
-        adapterVersion: manifest.identity.adapterVersion, engine: "Mortal",
-        version: managedLocalMortalEngineVersion(manifest.identity),
-        modelTag: manifest.identity.checkpointModelTag, playerId: actor,
-        gameFingerprint: computeCanonicalGameFingerprint(stream), kyokus: [...groups.values()],
-      };
-      const chunkSelfDecisions = chunk.filter((row) => row.surface === "self").map((row) => row.decision);
-      const chunkDecisions = chunkSelfDecisions.length > 0 ? chunkSelfDecisions : [decisions[0]];
-      const chunkResponses = chunk.filter((row) => row.surface === "response").map((row) => row.decision);
-      const factEngine = new JsonlFactEngineClient(new ManagedFactEngineTransport(join(repoRoot, "resources")));
-      let review;
-      try {
-        review = await runMortalFullGameReview({
-          stream, decisions: chunkDecisions, responseDecisions: chunkResponses, report,
-          engine: factEngine, now: () => Date.parse("2026-09-24T00:00:00.000Z"),
-          coverageRegistry: createMortalCoverageRegistry(MORTAL_COVERAGE_BRANCHES),
-        });
-      } finally {
-        await factEngine.close();
-      }
-      if (review.status !== "coverage_ready" || review.retainedAnalyses.length === 0) {
-        fail(`whole-game review failed: actor=${actor}; chunk=${chunkStart / 8}; ${review.status === "failed" ? review.code : "no_analysis_ready_decision"}`);
-      }
-      const pkg = buildStructuredAnalysisPackage({
-        review, stream, decisions: chunkDecisions, responseDecisions: chunkResponses,
-        componentVersions: {
-          packageSchema: STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION,
-          canonicalReplay: "canonical-riichi-events/v2",
-          mapperAdapter: "mahjong-soul-canonical-mapper/v1",
-          factEngine: { engine: "mahjong-helper", upstreamCommit: MAHJONG_HELPER_COMMIT, adapterVersion: FACT_ENGINE_ADAPTER_VERSION, protocolVersion: FACT_ENGINE_PROTOCOL_VERSION },
-          factorPipeline: "factor-pipeline/v1",
-          mortalSourceModel: {
-            identity: "Mortal", version: manifest.identity.adapterVersion, modelTag: manifest.identity.checkpointModelTag,
-            evidenceSource: { kind: "managed_local_runtime", identity: manifest.identity },
-          },
-        },
-        frozenPolicySnapshot: review.retainedAnalyses[0].modelEvaluation.detailPolicy,
-        now: () => Date.parse("2026-09-24T00:00:00.000Z"),
-      });
-      validateStructuredAnalysisPackage(pkg);
-      const selection = selectReviewDecisions(pkg);
-      packages.push({ actor, chunk: chunkStart / 8, sourceEntryCount: chunk.length, packageId: pkg.packageId, semanticContentHash: pkg.semanticContentHash, status: pkg.record.status, selectedCount: selection.selected.length });
+    const groups = new Map();
+    const eventOrdinal = new Map(stream.events.map((event, index) => [event.eventId, index]));
+    const orderedEvaluated = [...evaluated].sort((left, right) =>
+      eventOrdinal.get(left.decision.decisionEventRef) - eventOrdinal.get(right.decision.decisionEventRef)
+    );
+    for (const { entry } of orderedEvaluated) {
+      const key = `${entry.roundOrdinal}:${entry.roundWind}:${entry.dealer}:${entry.kyoku}:${entry.honba}`;
+      const group = groups.get(key) ?? { roundOrdinal: entry.roundOrdinal, roundWind: entry.roundWind, dealer: entry.dealer, kyoku: entry.kyoku, honba: entry.honba, entries: [] };
+      group.entries.push(entry);
+      groups.set(key, group);
     }
+    const report = {
+      reportId: `managed-local-mortal:${actor}`,
+      adapterVersion: manifest.identity.adapterVersion, engine: "Mortal",
+      version: managedLocalMortalEngineVersion(runtimeIdentity),
+      modelTag: manifest.identity.checkpointModelTag, playerId: actor,
+      gameFingerprint: computeCanonicalGameFingerprint(stream), kyokus: [...groups.values()],
+    };
+    const factEngine = new JsonlFactEngineClient(new ManagedFactEngineTransport(join(repoRoot, "resources")));
+    let review;
+    try {
+      review = await runMortalFullGameReview({
+        stream, decisions, responseDecisions, report,
+        engine: factEngine, now: () => Date.parse("2026-09-24T00:00:00.000Z"),
+        coverageRegistry: createMortalCoverageRegistry(MORTAL_COVERAGE_BRANCHES),
+      });
+    } finally {
+      await factEngine.close();
+    }
+    if (review.status !== "coverage_ready" || review.retainedAnalyses.length === 0) {
+      fail(`whole-game review failed: actor=${actor}; ${review.status === "failed" ? review.code : "no_analysis_ready_decision"}`);
+    }
+    if (
+      review.summary.localConservation !== decisions.length + responseDecisions.length
+      || review.sourceCoverage.mortalSelfEntryCount + review.sourceCoverage.responseEntryCount !== evaluated.length
+      || review.sourceCoverage.unboundMortalEntryCount !== 0
+      || review.sourceCoverage.ambiguousMortalEntryCount !== 0
+      || review.sourceCoverage.responseUnboundEntryCount !== 0
+      || review.sourceCoverage.responseAmbiguousEntryCount !== 0
+    ) {
+      const reportEntries = report.kyokus.flatMap((kyoku) => kyoku.entries);
+      const failedSourceRows = [
+        ...review.sourceCoverage.entries,
+        ...review.sourceCoverage.responseEntries,
+      ].filter((row) => row.disposition !== "bound");
+      fail(`whole-game conservation failed: actor=${actor}; ${JSON.stringify({
+      decisionCount: decisions.length + responseDecisions.length,
+      sourceEntryCount: evaluated.length,
+      localConservation: review.summary.localConservation,
+      selfSourceConservation: review.summary.sourceConservation,
+      responseSourceConservation: review.sourceCoverage.responseBoundEntryCount
+        + review.sourceCoverage.responseUnboundEntryCount
+        + review.sourceCoverage.responseAmbiguousEntryCount,
+      failedSourceRows: failedSourceRows.map((row) => ({
+        ...row,
+        entry: reportEntries[row.sourceOrdinal],
+      })),
+    })}`);
+    }
+    if (review.summary.outcomes.no_mortal_entry > 0 || review.summary.outcomes.binding_mismatch > 0) {
+      fail(`whole-game review integrity failed: actor=${actor}; ${JSON.stringify(review.decisions.filter((row) =>
+        row.outcome === "no_mortal_entry" || row.outcome === "binding_mismatch"
+      ))}`);
+    }
+    const pkg = buildStructuredAnalysisPackage({
+      review, stream, decisions, responseDecisions,
+      componentVersions: {
+        packageSchema: STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION,
+        canonicalReplay: "canonical-riichi-events/v2",
+        mapperAdapter: "mahjong-soul-canonical-mapper/v1",
+        factEngine: { engine: "mahjong-helper", upstreamCommit: MAHJONG_HELPER_COMMIT, adapterVersion: FACT_ENGINE_ADAPTER_VERSION, protocolVersion: FACT_ENGINE_PROTOCOL_VERSION },
+        factorPipeline: "factor-pipeline/v1",
+        mortalSourceModel: {
+          identity: "Mortal", version: manifest.identity.adapterVersion, modelTag: manifest.identity.checkpointModelTag,
+          evidenceSource: { kind: "managed_local_runtime", identity: runtimeIdentity },
+        },
+      },
+      frozenPolicySnapshot: review.retainedAnalyses[0].modelEvaluation.detailPolicy,
+      now: () => Date.parse("2026-09-24T00:00:00.000Z"),
+    });
+    validateStructuredAnalysisPackage(pkg);
+    if (pkg.record.status === "integrity_failed") fail(`whole-game package integrity failed: actor=${actor}; ${JSON.stringify({
+      outcomes: review.summary.outcomes,
+      failedDecisions: review.decisions.filter((row) =>
+        row.outcome === "no_mortal_entry" || row.outcome === "binding_mismatch" || row.outcome === "model_output_incomplete"
+      ),
+    })}`);
+    const selection = selectReviewDecisions(pkg);
+    packages.push({
+      actor,
+      sourceEntryCount: evaluated.length,
+      decisionCount: pkg.decisions.length,
+      outcomeCounts: review.summary.outcomes,
+      packageId: pkg.packageId,
+      semanticContentHash: pkg.semanticContentHash,
+      status: pkg.record.status,
+      selectedCount: selection.selected.length,
+    });
   }
 } finally {
   await runtime.close();
@@ -235,7 +298,7 @@ if (inferenceCount === 0 || requiredFamilies.some((family) => families[family] =
 const acceptance = {
   receiptVersion: "local-mortal-production-spike-receipt/v1",
   commit: process.env.GITHUB_SHA ?? "working-tree",
-  runtimeIdentity: manifest.identity,
+  runtimeIdentity,
   nativeArtifactSha256: prepared.nativeArtifactSha256,
   fixtureSha256,
   actorPerspectives,

@@ -182,13 +182,26 @@ function canRonShape(
  */
 export function collectResponseSingleCandidateProofs(
   responseDecisions: readonly ReplayedDecision[],
+  ronCandidateWindows: ReadonlySet<string> | null = null,
 ): ReadonlyMap<number, ResponseSingleCandidateProof> {
   const proofs = new Map<number, ResponseSingleCandidateProof>();
   for (let index = 0; index < responseDecisions.length; index += 1) {
     const decision = responseDecisions[index]!;
     const enumeration = enumerateResponseCandidates(decision);
     if (enumeration === null) continue;
-    if (enumeration.candidateCount !== 1) continue;
+    // Shape enumeration is intentionally permissive for ron. When the fact
+    // engine has supplied the authoritative eligible-window set, remove a
+    // merely shape-compatible ron before deciding whether Mortal should have
+    // emitted a row. A null set retains the legacy structural-only helper
+    // behavior for callers that have no fact-engine authority available.
+    const confirmedRon = ronCandidateWindows === null
+      || ronCandidateWindows.has(decision.decisionEventRef)
+      || decision.actualAction?.kind === "ron";
+    const candidateCount = ronCandidateWindows === null
+      ? enumeration.candidateCount
+      : enumeration.candidateCount
+        - (enumeration.ron && !confirmedRon ? 1 : 0);
+    if (candidateCount !== 1) continue;
     proofs.set(index, { shape: "response_single_candidate", candidateCount: 1 });
   }
   return proofs;

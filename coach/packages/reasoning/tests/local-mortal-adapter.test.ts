@@ -25,6 +25,8 @@ import {
 const identity: ManagedMortalRuntimeIdentity = {
   runtimeImplementation: "Equim-chan/Mortal", runtimeRevision: "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
   runtimeVersion: "Mortal V4", runtimeArtifactSha256: "0".repeat(64),
+  runtimeModelSha256: "1".repeat(64), runtimeEngineSha256: "2".repeat(64),
+  nativeArtifactSha256: "3".repeat(64),
   checkpointRepository: "Yuchen1457/mortal-582500", checkpointRevision: "7386c9f5c751a3ea75efea99737cef5a5ef950f1",
   checkpointModelTag: "mortal-hpc@582500", checkpointFileSha256: "738e0d6e3c0ce9671629554ad39abd147d2ffbac676e80b194c83f2acc0fea20",
   protocolVersion: LOCAL_MORTAL_PROTOCOL_VERSION, adapterVersion: LOCAL_MORTAL_ADAPTER_VERSION,
@@ -63,6 +65,10 @@ describe("local Mortal canonical projection and conservation", () => {
     });
     const entry = localMortalResponseToReportEntry({ request, response, decision: decision! });
     expect(entryMatchesDecisionIdentity(entry, decision!)).toBe(true);
+    expect(entryMatchesDecisionIdentity({
+      ...entry,
+      localDecisionIdentity: { ...entry.localDecisionIdentity!, decisionId: "another-decision" },
+    }, decision!)).toBe(false);
     expect(JSON.stringify(decision!.facts)).toBe(factsBefore);
 
     const evaluation = buildMortalModelEvaluation({
@@ -85,5 +91,50 @@ describe("local Mortal canonical projection and conservation", () => {
     expect(request.recordId).toBe(stream.gameId);
     expect(request.candidates.some((candidate) => candidate.runtimeAction.index === 42)).toBe(true);
     expect(JSON.stringify(request)).not.toMatch(/protobuf|account|token|cookie|recordUrl/i);
+  });
+
+  it("fails closed at the reasoning seam on cross-decision, missing, duplicate, and non-argmax responses", async () => {
+    const stream = await realFixture(0);
+    const decision = replayCanonicalStream(stream).find((row) => {
+      try {
+        return projectLocalMortalRequest({ stream, decision: row, surface: "self", identity }).candidates.length > 2;
+      } catch {
+        return false;
+      }
+    });
+    expect(decision).toBeDefined();
+    const request = projectLocalMortalRequest({ stream, decision: decision!, surface: "self", identity });
+    const response = LocalMortalInferenceSuccessSchema.parse({
+      protocolVersion: request.protocolVersion,
+      requestId: request.requestId,
+      identity,
+      decision: request.decision,
+      status: "ok",
+      candidates: request.candidates.map((candidate, index) => ({
+        runtimeAction: candidate.runtimeAction,
+        qValue: index,
+      })),
+      preferredRuntimeAction: request.candidates.at(-1)!.runtimeAction,
+    });
+
+    const crossDecision = structuredClone(response);
+    crossDecision.requestId = "another-request";
+    expect(() => localMortalResponseToReportEntry({ request, response: crossDecision, decision: decision! }))
+      .toThrow("mortal_protocol_invalid");
+
+    const missing = structuredClone(response);
+    missing.candidates.pop();
+    expect(() => localMortalResponseToReportEntry({ request, response: missing, decision: decision! }))
+      .toThrow("mortal_candidate_mismatch");
+
+    const duplicate = structuredClone(response);
+    duplicate.candidates[0] = duplicate.candidates[1]!;
+    expect(() => localMortalResponseToReportEntry({ request, response: duplicate, decision: decision! }))
+      .toThrow("mortal_candidate_mismatch");
+
+    const nonArgmax = structuredClone(response);
+    nonArgmax.preferredRuntimeAction = request.candidates[0]!.runtimeAction;
+    expect(() => localMortalResponseToReportEntry({ request, response: nonArgmax, decision: decision! }))
+      .toThrow("mortal_candidate_mismatch");
   });
 });

@@ -8,7 +8,11 @@ import {
 import { parseMortalReportResultUrl } from "./report-url.js";
 import { computeMortalGameFingerprint } from "./report-fingerprint.js";
 import { parseMjaiTile } from "./mjai-tile.js";
-import { LOCAL_MORTAL_ADAPTER_VERSION, sortTilesCanonical } from "@riichi-coach/contracts";
+import {
+  LOCAL_MORTAL_ADAPTER_VERSION,
+  sortTilesCanonical,
+  type LocalMortalDecisionIdentity,
+} from "@riichi-coach/contracts";
 
 // The only production download boundary for Mortal (mjai-reviewer) results.
 // It fetches the canonical JSON endpoint, re-validates every redirect hop
@@ -89,6 +93,9 @@ export type MortalReportDecisionEntry = Readonly<{
   shanten: number;
   atFuriten: boolean;
   actualIndex: number;
+  /** Present only for the managed-local adapter. Remote reports have no
+   * canonical decision identity and continue through fact-table binding. */
+  localDecisionIdentity?: LocalMortalDecisionIdentity;
 }>;
 
 export type MortalReportKyoku = Readonly<{

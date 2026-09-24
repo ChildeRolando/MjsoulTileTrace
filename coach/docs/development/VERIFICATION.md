@@ -50,11 +50,14 @@ strict `ModelEvaluation` → whole-game review → `StructuredAnalysisPackage` v
 
 普通 `npx vitest run` 只跑 protocol fixtures/fake exact child，禁止联网或加载真实 checkpoint；
 它覆盖 crash/timeout/protocol/candidate mismatch 与安全边界，但不能冒充 production spike。
-**当前状态（2026-09-24）**：COAC-111 已建立 package/scripts/owners。真实四视角 spike
-完成 572 次 CPU inference，覆盖 discard/riichi/chi/pon/daiminkan/hora/pass/ankan/kakan，
-所有固定错误计数为 0；每个分块均通过 package validator 与 selector smoke。receipt 位于
-app-managed artifact 目录且不入库。checkpoint、native runtime 和大模型文件不进入 Git、
-npm package 或普通五门；M8 再分发/notice/源码义务核验仍未完成。
+**当前状态（2026-09-25）**：COAC-120 复验的真实四视角 spike 完成 582 次 CPU
+inference，覆盖 discard/riichi/chi/pon/daiminkan/hora/pass/ankan/kakan，所有固定错误计数
+为 0。每个视角只构建一个覆盖整局 self + response 决策账本的完整 package；四个 package
+分别包含 158/162/154/156 个决策，`no_mortal_entry=0`、`binding_mismatch=0`，均通过
+package validator 与 selector smoke；脚本显式拒绝 `integrity_failed`，当前四包因可审计的
+`model_output_incomplete` 为 `degraded` 而非完整性失败。receipt 位于 app-managed artifact
+目录且不入库。checkpoint、native runtime 和大模型文件不进入 Git、npm package 或普通
+五门；M8 再分发/notice/源码义务核验仍未完成。
 
 ### MVP Electron Golden Slice（Integration Closeout D，待实现）
 

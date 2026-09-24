@@ -20,11 +20,13 @@ export type LocalMortalSafeErrorCode = z.infer<typeof LocalMortalSafeErrorCodeSc
 
 const Sha256Schema = z.string().regex(/^[a-f0-9]{64}$/);
 
-export const ManagedMortalRuntimeIdentitySchema = z.object({
+export const ManagedMortalRuntimeStaticIdentitySchema = z.object({
   runtimeImplementation: z.literal("Equim-chan/Mortal"),
   runtimeRevision: z.string().regex(/^[a-f0-9]{40}$/),
   runtimeVersion: z.literal("Mortal V4"),
   runtimeArtifactSha256: Sha256Schema,
+  runtimeModelSha256: Sha256Schema,
+  runtimeEngineSha256: Sha256Schema,
   checkpointRepository: z.literal("Yuchen1457/mortal-582500"),
   checkpointRevision: z.string().regex(/^[a-f0-9]{40}$/),
   checkpointModelTag: z.literal("mortal-hpc@582500"),
@@ -32,11 +34,14 @@ export const ManagedMortalRuntimeIdentitySchema = z.object({
   protocolVersion: z.literal(LOCAL_MORTAL_PROTOCOL_VERSION),
   adapterVersion: z.literal(LOCAL_MORTAL_ADAPTER_VERSION),
 }).strict();
+export const ManagedMortalRuntimeIdentitySchema = ManagedMortalRuntimeStaticIdentitySchema.extend({
+  nativeArtifactSha256: Sha256Schema,
+}).strict();
 export type ManagedMortalRuntimeIdentity = z.infer<typeof ManagedMortalRuntimeIdentitySchema>;
 
 export const ManagedMortalRuntimeManifestSchema = z.object({
   manifestVersion: z.literal(MANAGED_MORTAL_RUNTIME_MANIFEST_VERSION),
-  identity: ManagedMortalRuntimeIdentitySchema,
+  identity: ManagedMortalRuntimeStaticIdentitySchema,
   runtimeEntrypoint: z.literal("runtime/local_mortal_runtime.py"),
   checkpointFile: z.literal("mortal_582500.pth"),
   geometry: z.object({
@@ -69,6 +74,7 @@ export const LocalMortalDecisionIdentitySchema = z.object({
   triggerEventRef: z.string().min(1),
   selfActor: z.number().int().min(0).max(3),
 }).strict();
+export type LocalMortalDecisionIdentity = z.infer<typeof LocalMortalDecisionIdentitySchema>;
 
 export const LocalMortalRuntimeActionSchema = z.object({
   index: z.number().int().min(0).max(45),
@@ -135,6 +141,9 @@ export function managedLocalMortalEngineVersion(
     "managed-local-mortal/v1",
     identity.runtimeRevision,
     identity.runtimeArtifactSha256,
+    identity.runtimeModelSha256,
+    identity.runtimeEngineSha256,
+    identity.nativeArtifactSha256,
     identity.checkpointRevision,
     identity.checkpointFileSha256,
   ].join(":");

@@ -54,3 +54,10 @@ for line in sys.stdin:
     if mode == "oversize":
         print("x" * 1048577, flush=True)
     print(json.dumps(response, separators=(",", ":")), flush=True)
+    if mode == "trailing_prose":
+        print("TRAILING_UNSOLICITED_PROSE", flush=True)
+    if mode == "extra_response":
+        print(json.dumps(response, separators=(",", ":")), flush=True)
+    if mode == "unterminated_oversize":
+        sys.stdout.write("x" * 1048577)
+        sys.stdout.flush()
