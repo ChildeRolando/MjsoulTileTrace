@@ -29,38 +29,37 @@ durability follow-up 提交不自动合并，owner 可以从 receipt 的 branch/
 
 ### 自动合并交付状态（COAC-65）
 
-权威契约见 spec 的“COAC-65：独立评审 PASS 后自动合并”。COAC-66 候选已在同一
-Controller/runtime、`pr-N.json`、deployment lock 和 Autopilot 内实现 fail-closed merge
-阶段；`auto_merge` 配置独立版本化且示例默认 `enabled=false`。2026-09-22 的 COAC-71
-round 3 对候选 `776bc3e1434ae4c2c2a68f03681ebcc653715bac` 给出
-`CHANGES_REQUIRED`：required commit-status 历史尚未按 context 归一化为最新状态，且明确
-merge 请求失败后的同账号外部合并仍可能被误归属为 Controller 成功。Controller 已在默认
-三轮上限记录 `BLOCKED`，GitHub `Review Loop v2` 状态为 failure。因没有可信独立 PASS，
-**PR #16 未人工合并，也未执行 disabled 部署、受控验收或生产启用**；生产继续运行既有
-Review Loop v2.1，`auto_merge.enabled=false`，现有生产 PASS 不会自行合并 PR。恢复交付前
-必须先在现有 owner/test 中修复上述两项并取得重新授权的 fresh independent PASS；不得以
-旧轮次结果或人工声明放行。
+权威契约见 spec 的“COAC-65：可信评审后的 GitHub native auto-merge admission”。2026-09-24
+重新冻结职责：Controller 只做 trusted review + exact HEAD/base + P1/P2/P3 policy admission；
+GitHub native auto-merge 负责 rules/checks 等待与 merge execution。旧 COAC-66 direct merge
+executor、required-check 第二套聚合、merge intent/response-loss reconciliation 和 external
+merge attribution 不再属于架构，必须删除而不是继续修补。`auto_merge` 配置仍独立版本化、
+默认 `enabled=false`。
 
-候选把最后一次严格解析的 review result 的 issue/run/comment/raw hash、五门结果、base/head
-和零 P1/P2 证明固化到原 ledger；每次写前以 GitHub 实时 PR、repository merge policy、
-调用者、collaborator permission、branch protection、适用 rulesets/bypass actors、commit
-statuses、check runs 和 mergeability 重建并哈希 eligibility。任何分页、规则类型、bypass
-归属、required check 身份或权限无法解释均拒绝。intent 在请求前原子落入同一 ledger，固定
-`merge` 和 expected HEAD；重复 tick 先回读，disabled 只允许回读，不发送或重发。health
-只公开已净化的 eligibility、intent 和 read-back，不记录 token、webhook URL 或上游错误正文。
+三分流固定为：P1/P2 继续 Fixer；仅 P3 记录 `P3_DECISION_REQUIRED`、不启用 auto-merge并
+通知用户；P1/P2/P3 全空且 provenance/live HEAD/base/platform enforcement 完整时，执行
+`gh pr merge --auto --merge --match-head-commit <reviewed_head>`，永不使用 `--admin`。
+`Review Loop v2` 必须是适用保护/ruleset 的 required status/check，由 GitHub 对其余条件和
+最终 merge mechanics 负责。重复 tick 读取 GitHub native request 幂等；merged 后只读回审计。
 
-冻结的运行选择是普通 merge commit、expected HEAD REST precondition、运行时完整读取
-applicable protection/rulesets/required checks、普通 write 权限且调用者不得拥有适用 bypass、
-合并后强制回读。`auto_merge.enabled=false` 是独立 kill switch；停用不影响 review/fix/
-durability 扫描，尤其 closed PR 的 P3 repository_required follow-up 必须继续。实现 PR 必须
-先走当前独立评审流程并由人工普通合并，再以 disabled 部署/read-back 和专用受控验收 PR
-证明 allow/deny 路径后才能生产启用；不能让新逻辑为自身放行。
+身份不再限定 ordinary write：admin 可以作为 actor，但 branch protection 必须
+`enforce_admins=true` 或 active ruleset 必须等价约束它，并且没有命中的 bypass actor。
+“命令没有 `--admin`”不足以证明安全。2026-09-24 实际读回为：repository
+`allow_auto_merge=true`；`master` 无 classic branch protection、无 active repository ruleset；
+当前 `ChildeRolando` 权限为 `admin`。因此平台当前不能证明约束 admin，生产必须保持
+`auto_merge.enabled=false`。需要在 GitHub 为 `master` 启用对 admin 生效且不可 bypass 的保护/
+ruleset，并把 `Review Loop v2` 设为 required status/check，之后重新 read-back 才可启用。
+
+PR #16 先前 round 3 的两个 P2 都位于已废弃 direct-merge 路径：commit-status 历史二次聚合和
+同账号 external-merge attribution。新实现应通过删除对应生产路径与测试解决，而不是修补旧
+状态机。PR 仍须为新 HEAD 取得可信 fresh independent review；旧 BLOCKED/PASS 不可继承。
 
 生产启用后的操作顺序必须是：暂停 trigger → 持锁并备份 ledger/evidence/config → 部署固定
-受审 SHA 且 `auto_merge.enabled=false` → 回读调用者/权限/规则和一次零 merge-write tick →
+受审 SHA 且 `auto_merge.enabled=false` → 回读调用者、native auto-merge、保护/规则和一次零
+auto-merge request tick →
 受控验收 → 原子启用 → 恢复 trigger → 回读 health、实际 deployment SHA 和验收 PR 的
-merge commit。停用/回滚反向执行并保留 intent/evidence；已完成 merge 不自动 revert，
-head branch 不自动删除。实现、部署、验证证据尚未落盘前不得把本节写成“已启用”。
+merge commit。停用/回滚反向执行并保留 admission/audit evidence；已完成 merge 不自动
+revert，head branch 不自动删除。实现、部署、验证证据尚未落盘前不得把本节写成“已启用”。
 
 ### v2 → v2.1 migration / deployment acceptance
 
@@ -110,8 +109,9 @@ schedule 自动发现。需要用户裁决的 PR 保持待确认。无需为每�
 
 在 PR description 加入 spec 中的 `review-loop-admission` block，填写实际批准的 spec
 路径和验收 rubric。只接受同仓库已推送且 ready 的 PR。无需 GitHub 正式 approval
-或额外 reviewer 账号；独立评审身份与普通 write 合并身份必须分开。结果在 GitHub
-`Review Loop v2` status 和 Multica issue。
+或额外 reviewer 账号；独立 Reviewer 与 auto-merge requester 的职责必须分开，requester
+即使是 admin 也必须被 GitHub 保护规则实际约束。结果在 GitHub `Review Loop v2` status 和
+Multica issue。
 GitHub status 是同提交所有已接入 PR 的聚合门禁，单个 PR 的结论以其 ledger 和评审
 原文为准。共享提交上只有所有 live 候选都通过才会显示 success。
 
@@ -201,8 +201,9 @@ in-place 本机目录，避免与 Reviewer/Fixer 争用目录锁；评审/修复
 - 暂停：Autopilot pause 并将 enabled=false；已经分派的 agent run 不会因此自动取消，须
   单独查询并决定取消，避免误认为写操作已经停止。
 - 自动合并停用：先暂停 trigger，将 `auto_merge.enabled=false`，再运行 disabled tick 回读
-  零 merge write 后恢复 review trigger。保留 merge intent、attempt 和 read-back evidence；
-  网络未知结果先 reconcile，不通过删除 ledger 或重复请求来“恢复”。
+  零 native auto-merge request 后恢复 review trigger。保留 admission 与 read-back evidence；
+  不自行实现 response-loss/merge reconciliation。GitHub 已接受的 request 不会因本地停用自动
+  取消，如需取消须由 operator 在 GitHub 明确执行并记录。
 - 升级：严格执行上文 v2 → v2.1 migration/deployment acceptance；不得以替换 checkout 或
   PR merge 代替 ledger migration、disabled read-back 与 runtime smoke。
 

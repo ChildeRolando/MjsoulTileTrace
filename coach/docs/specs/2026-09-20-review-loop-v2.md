@@ -149,90 +149,71 @@ GitHub 的 status 实际归属是 commit SHA/context，而非 PR。该共享位�
 所有发布与 ledger 更新共用部署锁。聚合绿灯仍不代替
 合并前对目标 PR 本身的结果来源、base/head 与 admission 的核验。
 
-### COAC-65：独立评审 PASS 后自动合并
+### COAC-65：可信评审后的 GitHub native auto-merge admission
 
-本能力是既有 Review Loop 的窄扩展，不是通用绿色 PR 合并器。它只扫描已由现有
-admission 准入并拥有 ledger 的候选；未接入 Review Loop 的 PR 即使 GitHub 页面全绿也
-永不进入自动合并判断。admission 协议保持 `review-loop/v2.1`，避免仅为执行策略改变而
-使存量 PR 失效；配置新增版本化 `auto_merge` 段，其默认与示例必须为 `enabled=false`。
-Controller、review/fix/durability 队列、部署锁和 `pr-N.json` 仍是唯一执行系统，不增加
-agent、Autopilot、数据库或第二套 ledger。
+本能力是既有 Review Loop 的窄扩展，不是 direct-merge executor，也不是通用绿色 PR
+合并器。Controller 只决定某个精确 reviewed HEAD 是否获准请求 GitHub native auto-merge；
+GitHub 独占 required checks/rules 等待、merge execution、并发处理和最终 merge mechanics。
+不得在 Controller 内建立第二套 required-check 聚合、merge intent/response-loss reconciliation、
+external merge attribution 或 direct merge 状态机。admission 协议继续为 `review-loop/v2.1`；
+配置保留独立、版本化且默认关闭的 `auto_merge` 段。Controller、review/fix/durability、部署锁
+和 `pr-N.json` 仍是唯一控制面，不增加 Agent、Autopilot、服务、数据库或第二份规范。
 
-每次准备合并时必须从受信 ledger 和 GitHub 实时状态重新构造 eligibility proof，以下条件
-全部成立才允许唯一一次 merge write；任何缺失、未知、待定、失败或解析歧义均 fail closed：
+Review Loop 结果不新增 verdict；Controller 只读取严格解析后的 `findings.P1/P2/P3` 分流：
 
-1. PR 仍为 open、ready、同仓库来源且 admission 与 ledger 冻结值相同；当前 full base/head
-   SHA 必须同时等于最后一次可信独立 review PASS 所绑定的 `job`、`result` 与 result-history
-   身份。PASS 必须能回溯到既有严格校验过的 reviewer、completed run、comment、原文 hash、
-   五门 PASS/0 和零 P1/P2；GitHub 聚合 status 只是输出，不是该证明的输入。
-2. 合并前重新读取 PR、目标分支、repository merge policy、当前调用者身份/权限、适用的
-   branch protection 与 repository/organization rulesets，以及当前 HEAD 的 commit statuses、
-   check runs 和 mergeability。分页、权限、API preview/version、规则类型或 check 身份无法
-   完整解释时停止；只有对应 GitHub endpoint 的契约与当前权限能把 404/空数组明确证明为
-   “未配置”时才接受空规则集，身份/授权不明的相同响应必须拒绝。
-3. 从适用 protection/rulesets 精确枚举 required status checks（含配置的 GitHub App 身份）；
-   每项必须在当前 HEAD 上有且仅有可归属结果。commit status 必须为 `success`；check run
-   仅接受 GitHub 视为满足 required check 的 `success`、`neutral` 或 `skipped`，queued、
-   in_progress、stale、cancelled、timed_out、action_required、failure、缺失和冲突结果均拒绝。
-   没有 applicable required checks 可以是有效空集，但只有规则读取完整且其他门禁全满足时
-   才可如此判定。
-4. GitHub REST 的 `mergeable` 必须为 true、`mergeable_state` 必须为 `clean`（若使用 GraphQL，
-   等价要求是 `mergeStateStatus == CLEAN`）；required reviews、
-   conversation resolution、deployment、linear history、signed commit、up-to-date branch 等
-   非 status-check 规则由这个实时状态和 GitHub merge endpoint 共同强制。`UNKNOWN`、
-   `BLOCKED`、`BEHIND`、`DIRTY`、`UNSTABLE`、`DRAFT` 或新枚举值均拒绝。
-5. 自动合并调用者必须与私有配置中的 expected login/id 一致，仓库权限只接受普通
-   `push`/write，不接受 `maintain` 或 `admin`。实现须读取 protection bypass allowances 和
-   applicable ruleset bypass actors；调用者、所属 team/app/repository role 是否命中无法确定，
-   或确实拥有适用 bypass，均不执行。禁止 `--admin`、绕过 API、临时降低/修改保护或以另一
-   凭据重试。
+- 任一 P1/P2：不请求 auto-merge，继续既有 Fixer → fresh Review Loop。
+- P1/P2 为空且 P3 非空：不请求 auto-merge，记录 `P3_DECISION_REQUIRED` 并停止自动流程；
+  保留完整 finding/durability 证据并通知用户，由用户选择按当前 reviewed HEAD 合并或先修 P3。
+- P1/P2/P3 全空：只有下述 provenance 与平台约束全部成立，才请求 GitHub native auto-merge；
+  不再要求用户另发一次“合并 PR”指令。
 
-合并方式固定为 GitHub REST merge endpoint 的普通 `merge`（merge commit），与仓库当前
-保留分支历史的策略一致；每次调用前确认 repository 仍允许 merge commits。不得按 PR 文本、
-提交作者或 agent 输出切换 merge/squash/rebase，不启用 GitHub admin bypass，不自动删除
-head branch。实际写请求必须携带预期 current HEAD SHA；GitHub 对 SHA、保护或 mergeability
-的原子拒绝是安全结果，不能去掉 SHA 后重试。base 或 head 在任一检查后变化时，旧 PASS
-失效并回到现有 fresh-review/round-limit 流程。
+auto-merge admission 必须绑定最后一次可信独立 review 的 issue/run/comment/raw hash、五门
+PASS/0、空 findings、admission hash、full base SHA 和 full reviewed HEAD。请求前重新读取 live
+PR；它必须仍 open、ready、同仓库、无冲突，且 admission/base/head 与 review 完全相同。
+HEAD 或 base 改变立即使旧 admission 失效，新候选必须重新完成 Review Loop 与 GitHub checks。
+`Review Loop v2` 应作为当前 HEAD 上的 GitHub required status/check；其 success 只能来自上述
+可信结果，不能从旧 HEAD、共享 SHA 的其他 PR 或 PR 文本继承。
 
-`pr-N.json` 在调用前原子保存 merge intent，至少绑定 PR、base/head、method、admission、
-review issue/run/comment/hash、required-check/protection evidence hash、attempt id 与时刻。
-重复 tick 先 reconcile live PR 和 intent：
+Controller 在请求前只验证 GitHub **配置约束**，不重复计算每个 check 的运行结果：
 
-- 已由同一 intent 合并时只回读并记录，不再发送；已被其他参与者合并时记录
-  `MERGED_EXTERNALLY`，不得冒充 Controller 成功。
-- closed-but-unmerged 记录 `CLOSED_NO_MERGE`；head/base/admission 改变则 intent 作废，旧 PASS
-  不可继承。多个并发 Controller 仍由既有 deployment lock 排除，外部合并竞态由 expected
-  HEAD 与结果回读收敛。
-- 网络/5xx/响应丢失标记 `RETRY_IO`，下一 tick 必须先回读；仅在 PR 仍 open、同一候选且
-  全部 eligibility 重新成立时才可重发同一幂等意图。401/403 或调用者/规则读取不足为
-  `BLOCKED_PERMISSION`；409/405 为 `WAITING_GITHUB` 并重新观察，不盲重试、不降级。
-- 只有重新读取 PR 得到 `merged=true`、非空 `merged_at`/`merge_commit_sha`、原 PR head 等于
-  intent expected HEAD，并能读取该 merge commit 时才记录 `MERGED`。merge response 本身、
-  HTTP 2xx 或 issue 状态都不能单独证明成功。
+1. repository `allow_auto_merge=true`，选择仓库允许且配置固定的 merge method；当前仓库策略
+   采用 merge commit，调用为 `gh pr merge --auto --merge --match-head-commit <reviewed_head>`。
+   禁止 `--admin`、direct merge API、自动删除分支或按 PR 内容切换 method。
+2. 目标分支必须有可完整读取且实际适用于当前 merge actor 的 branch protection 或 active
+   ruleset；规则必须把 `Review Loop v2` 作为 required status/check，并让 GitHub 对其他
+   applicable required checks、review、deployment、up-to-date 等条件执行等待。Controller
+   不把 pending/fail/unknown 自行聚合成另一份 merge truth。
+3. actor 可以是 admin，但自动化不得请求或使用 bypass。经典保护必须 `enforce_admins=true`
+   且没有命中 actor 的 bypass allowance；ruleset 必须 active，且 actor/user/team/app/
+   repository role/organization-admin 不命中任何 bypass actor。无法证明规则适用、admin 仍可
+   绕过、规则或分页读取不完整、`Review Loop v2` 未 required，均 fail closed，并报告所需的
+   GitHub repository setting；不能用“命令未写 `--admin`”替代平台强制。
 
-P3 `repository_required` 延续现有非阻断 PASS 语义：其 durability job 可以在原 PR 合并后
-继续，但 merge/close 不得删除、完成或重绑定 job；closed-PR 扫描、原 finding、owner、
-regression 和 receipt 校验保持不变。P1/P2、环境失败或 durability 身份矛盾仍按原规则
-BLOCKED，不得借自动合并绕过 Fixer 或 fresh review。
+Controller 先发布绑定当前 HEAD 的可信 `Review Loop v2` status，再调用上述 GitHub native
+auto-merge 命令。`--match-head-commit` 是 admission 的原子 HEAD 约束；GitHub 接受请求后，
+auto-merge request 本身是执行权威。重复 tick 先读取 live PR/native auto-merge request：同一
+HEAD 已启用则不重复请求；命令失败或响应未知时只记录净化错误并在下次重新读取 GitHub，
+不创建 merge intent/retry/external-attribution 状态机。PR 已 merged 时只读回 `mergedAt`、
+`mergeCommit` 与 reviewed HEAD 作为审计结果；closed-unmerged 只记录终态，不尝试 direct merge。
 
-自动合并有独立 kill switch：`enabled=false` 时允许只读 reconcile 已有 intent/合并事实，
-但不得发起或重发 merge write。启用前须暂停触发、持 deployment lock、备份 state/evidence，
-部署经独立 review PASS 且已由人工普通合并的受审实现，disabled 回读代码/config/身份/权限/
-规则与零 merge-write tick，再用专为本能力创建且已明确授权的受控验收 PR 验证 allow 与 deny
-路径；不得拿无关 PR 做演示。全部通过后才原子启用并恢复 trigger。该功能不能用自身尚未
-审阅或尚未部署的逻辑合并自己的实现 PR。
+P3 `repository_required` 的 durability 队列继续按既有 closed-PR 扫描处理，但任何 P3 都触发
+上述人工决策门，不自动启用 auto-merge；P1/P2、环境失败、provenance/durability 身份矛盾
+继续 fail closed。用户选择修复 P3 后的新提交是新候选，必须 fresh review；选择合并只授权
+该 reviewed HEAD，仍不能绕过 GitHub rules。
 
-停用时先暂停 trigger，再设置 `auto_merge.enabled=false` 并以 disabled tick 回读零 merge
-write，随后恢复只读/评审触发；代码回滚固定到前一受信 deployment SHA 和备份 ledger，
-不得删除 intent/evidence。已经完成的 GitHub merge 不可逆，停用或代码回滚不得自动 revert
-业务提交。日志、health 和 result 必须记录 eligibility 各门结果、intent/attempt、GitHub
-request/read-back 身份与最终状态，但不得记录 token、generic webhook URL 或上游错误正文。
+`auto_merge.enabled=false` 时只允许读取 native request/merged 状态，不得执行 `gh pr merge`
+或任何等价 merge write。启用前须暂停 trigger、持 deployment lock、备份 state/evidence，
+部署经独立 review PASS 且人工普通合并的受审实现，disabled 回读 deployment SHA、config、
+actor、repository auto-merge 与保护/ruleset 强制状态，并运行零 merge-write tick。只有平台已
+实际约束该 actor 后才可启用；若 repository setting 缺失则保持 disabled。停用/回滚保留
+admission/audit evidence，不自动取消 GitHub 已接受的 native request，也不 revert 已完成 merge；
+operator 若需取消 request，必须在 GitHub 明确操作并另行记录。
 
-机械验收必须覆盖：符合条件成功合并、stale head、stale base、P1/P2、required check 的
-pending/fail/unknown/missing/ambiguous、冲突、保护/merge state 阻止、普通权限不足和 bypass
-身份、重复 tick、响应丢失重试、两个 Controller/外部参与者竞态、已合并、closed-unmerged、
-merge 回读不完整、P3 repository_required 在合并后继续，以及 disabled/rollback 零写入。
-测试通过注入的 GitHub/Multica/Git I/O 驱动同一生产函数，不以只测副本模型代替。
+机械验收至少覆盖：P1/P2 → Fixer 且零 auto-merge request；仅 P3 →
+`P3_DECISION_REQUIRED`；空 findings → 精确 reviewed HEAD 的 native request；stale base/head
+拒绝；required check pending/fail 时 GitHub 不实际 merge；protection/ruleset/bypass enforcement
+不明确时 fail closed；命令永不含 `--admin`；重复 tick 不重复请求；GitHub 完成后可靠 read-back；
+disabled/rollback 零 merge-write。测试须注入 GitHub/Multica/Git I/O 驱动同一生产函数。
 
 ## 幂等与恢复
 
