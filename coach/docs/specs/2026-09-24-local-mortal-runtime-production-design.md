@@ -221,6 +221,16 @@ COAC-111 必须建立并长期保留：
 
 ### 默认门与显式真实模型门
 
+COAC-111 落地后，protocol/lifecycle/conservation 的永久 focused 入口从 `coach/` 执行：
+
+```powershell
+npx vitest run packages/mortal-runtime/tests packages/reasoning/tests/local-mortal-adapter.test.ts
+```
+
+该命令只使用 protocol fixtures/fake exact child，覆盖 runtime protocol/lifecycle 与
+self-turn/response-window candidate conservation；必须保持离线，且不得加载真实 checkpoint。
+在上述 test owners 由 COAC-111 建立前，该命令不可运行且不得报告 PASS。
+
 `npx vitest run` 只使用 protocol fixtures/fake exact child，不下载、不加载大 checkpoint、
 不开网络、不冒充真实 inference。它永久覆盖 strict schema、identity/hash、crash、timeout、
 oversize/extra prose、所有 candidate mismatch 与 renderer/architecture 边界。
