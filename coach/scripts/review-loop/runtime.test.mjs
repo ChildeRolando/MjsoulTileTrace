@@ -184,6 +184,38 @@ test('native auto-merge evidence proves GitHub constrains an admin and requires 
   assert(!requests.some(x=>x.includes('/statuses') || x.includes('/check-runs')));
 });
 
+async function mixedProtectionEvidence({enforceAdmins,rulesetBypass=[]}) {
+  const raw=pr(),rules=[{ruleset_id:7,type:'required_status_checks',parameters:{required_status_checks:[{context:'Review Loop v2'}]}}];
+  const runner=async(_file,args)=>{
+    const endpoint=args[1];
+    if(endpoint === 'repos/ChildeRolando/MjsoulTileTrace/pulls/8')return JSON.stringify(raw);
+    if(endpoint === 'repos/ChildeRolando/MjsoulTileTrace')return JSON.stringify({full_name:'ChildeRolando/MjsoulTileTrace',allow_auto_merge:true,allow_merge_commit:true});
+    if(endpoint === 'user')return JSON.stringify({login:'merger',id:1});
+    if(endpoint.startsWith('user/teams'))return JSON.stringify([[]]);
+    if(endpoint.includes('/rules/branches/master?'))return JSON.stringify([rules]);
+    if(endpoint.endsWith('/rulesets/7?includes_parents=true'))return JSON.stringify({enforcement:'active',bypass_actors:rulesetBypass});
+    if(endpoint.endsWith('/collaborators/merger/permission'))return JSON.stringify({permission:'admin',role_name:'admin'});
+    if(endpoint.endsWith('/branches/master'))return JSON.stringify({protected:true});
+    if(endpoint.endsWith('/branches/master/protection'))return JSON.stringify({enforce_admins:{enabled:enforceAdmins},required_pull_request_reviews:{required_approving_review_count:2,bypass_pull_request_allowances:{users:[],teams:[],apps:[]}}});
+    throw new Error(`unexpected request ${endpoint}`);
+  };
+  return makeIO(config('.'),'state.json','.',runner).autoMergeEvidence(8,'master');
+}
+
+test('native auto-merge evidence rejects classic admin bypass even when a ruleset is constrained',async()=>{
+  const evidence=await mixedProtectionEvidence({enforceAdmins:false});
+  assert.equal(evidence.enforcement_complete,true);
+  assert.equal(evidence.review_loop_required,true);
+  assert.equal(evidence.actor_constrained,false);
+});
+
+test('native auto-merge evidence rejects a matching ruleset bypass even when classic protection is constrained',async()=>{
+  const evidence=await mixedProtectionEvidence({enforceAdmins:true,rulesetBypass:[{actor_type:'User',actor_id:1,bypass_mode:'always'}]});
+  assert.equal(evidence.enforcement_complete,true);
+  assert.equal(evidence.review_loop_required,true);
+  assert.equal(evidence.actor_constrained,false);
+});
+
 test('native auto-merge request binds the reviewed head and never requests admin bypass',async()=>{
   let invoked;
   const runner=async(_file,args)=>{invoked=args;return '';};

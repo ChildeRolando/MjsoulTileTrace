@@ -207,15 +207,17 @@ export function makeIO(config,stateFile,stateDir,runCommand=command) {
         return [...(checks?.checks ?? []),...(checks?.contexts ?? []).map(context=>({context}))]
           .some(c=>c.context === 'Review Loop v2');
       };
-      const classicConstrained=Boolean(protection && required(protection) && !classicBypass
+      const classicApplies=protection !== null;
+      const classicActorConstrained=!classicApplies || Boolean(!classicBypass
         && (permission.permission !== 'admin' || protection.enforce_admins?.enabled === true));
       const rulesetRequired=rules.some(r=>r.type === 'required_status_checks'
         && r.parameters?.required_status_checks?.some(c=>c.context === 'Review Loop v2'));
-      const rulesetConstrained=Boolean(rulesetRequired && !rulesetBypass && complete);
+      const rulesetApplies=rules.length > 0;
+      const rulesetActorConstrained=!rulesetApplies || Boolean(!rulesetBypass && complete);
       return {pr,repository,actor:{login:actor.login,id:actor.id},permission,protection,rules,rulesets,
         enforcement_complete:complete && (branchInfo.protected === false || protection !== null || rules.length > 0),
-        actor_constrained:classicConstrained || rulesetConstrained,
-        review_loop_required:classicConstrained || rulesetConstrained};
+        actor_constrained:(classicApplies || rulesetApplies) && classicActorConstrained && rulesetActorConstrained,
+        review_loop_required:Boolean((classicApplies && required(protection)) || rulesetRequired)};
     },
     requestAutoMerge:async(n,sha,method)=>{
       assert.equal(method,'merge');assert(isSha(sha));
