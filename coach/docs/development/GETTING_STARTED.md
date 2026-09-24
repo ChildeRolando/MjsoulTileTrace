@@ -45,7 +45,11 @@ npm run coach:demo
 npm run desktop
 ```
 
-当前桌面入口支持雀魂国区登录、跨重启恢复、可分析目录、牌谱取回、canonical 映射与重放。点击“分析”后目前只确认牌谱已取得并基础解码；不会生成最终教学报告。
+当前桌面入口已包含雀魂国区登录、目录/牌谱摄取、M7 Review Workspace 与持久会话。
+但真人 smoke 已确认 account catalog 的失败/空目录分流和 manual import → ReviewSession →
+Review Workspace 组合仍未闭合；当前入口不能作为 Playable Review MVP 已完成的证明。
+实现与发布门见
+[`Integration Closeout spec`](../specs/2026-09-24-playable-review-mvp-integration-closeout.md)。
 
 ### OAuth2 恢复诊断
 
@@ -102,6 +106,7 @@ node --test scripts/mahjong-soul-protocol-compatibility.test.mjs
 
 只有修改/重建 sidecar 时需要 Go。若当前任务不改 sidecar，运行 TypeScript 全量和 package-import 即可；不要为了绕过缺失 Go 修改清单或二进制。
 
-### Electron 登录成功但没有教学报告
+### Electron 已导入牌谱但没有进入复盘
 
-这是当前产品状态，不是登录失败。现有链路停在 canonical replay；生产模型候选和完整分析报告属于下一里程碑。
+这是当前已知的 app composition 缺口，不表示 M7 Review Workspace 不存在。不要用手工输入
+package id 绕过发布验收；Integration Closeout 要求来源入口创建/复用 session 并自动导航。

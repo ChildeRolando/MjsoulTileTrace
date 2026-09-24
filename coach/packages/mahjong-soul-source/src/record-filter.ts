@@ -47,7 +47,18 @@ export interface RawRecordListEntry {
 
 export type FilterResult =
   | { readonly status: "analyzable"; readonly summary: AnalyzableRecordSummary }
-  | { readonly status: "not_analyzable" };
+  | {
+    readonly status: "not_analyzable";
+    readonly reason:
+      | "invalid_input"
+      | "unsupported_record_version"
+      | "unsupported_standard_rule"
+      | "unsupported_game_mode"
+      | "invalid_record_id"
+      | "invalid_player_seats"
+      | "account_not_in_record"
+      | "unsafe_summary";
+  };
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   if (value === null || typeof value !== "object" || Array.isArray(value)) {
@@ -131,32 +142,34 @@ export function filterAnalyzableRecord(
 ): FilterResult {
   if (!isRawEntry(entry) || !isUint32(selfAccountId) || selfAccountId === 0 ||
     !isTimestamp(now)) {
-    return { status: "not_analyzable" };
+    return { status: "not_analyzable", reason: "invalid_input" };
   }
   if (!SUPPORTED_RECORD_VERSIONS.includes(entry.version)) {
-    return { status: "not_analyzable" };
+    return { status: "not_analyzable", reason: "unsupported_record_version" };
   }
   if (!SUPPORTED_STANDARD_RULES.includes(entry.standard_rule)) {
-    return { status: "not_analyzable" };
+    return { status: "not_analyzable", reason: "unsupported_standard_rule" };
   }
   if (
     entry.game_mode !== FOUR_PLAYER_SOUTH_MODE_ID
     || entry.game_mode_ai
     || entry.game_mode_extendinfo !== ""
     || entry.game_mode_detail_rule_present
-  ) return { status: "not_analyzable" };
+  ) return { status: "not_analyzable", reason: "unsupported_game_mode" };
   if (!MahjongSoulRecordIdSchema.safeParse(entry.uuid).success) {
-    return { status: "not_analyzable" };
+    return { status: "not_analyzable", reason: "invalid_record_id" };
   }
 
   const players = [...entry.players].sort((left, right) => left.seat - right.seat);
   if (players.some((player, index) => player.seat !== index)) {
-    return { status: "not_analyzable" };
+    return { status: "not_analyzable", reason: "invalid_player_seats" };
   }
   const selfSeats = players
     .filter((player) => player.account_id === selfAccountId)
     .map((player) => player.seat);
-  if (selfSeats.length !== 1) return { status: "not_analyzable" };
+  if (selfSeats.length !== 1) {
+    return { status: "not_analyzable", reason: "account_not_in_record" };
+  }
   const selfSeat = selfSeats[0]!;
 
   const shareUrl = formatMahjongSoulCnShareUrl(entry.uuid, SHARE_URL_PERSPECTIVE_ACCOUNT_ID);
@@ -181,6 +194,6 @@ export function filterAnalyzableRecord(
     analysisStatus: "not_analyzed",
     lastSyncedAt: now,
   });
-  if (!parsed.success) return { status: "not_analyzable" };
+  if (!parsed.success) return { status: "not_analyzable", reason: "unsafe_summary" };
   return { status: "analyzable", summary: Object.freeze(parsed.data) };
 }

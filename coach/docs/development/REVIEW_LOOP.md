@@ -98,8 +98,9 @@ head branch 不自动删除。实现、部署、验证证据尚未落盘前不�
 
 流程：Multica webhook/schedule → 受信本机 Controller → GitHub live PR → fresh Reviewer
 → 完整 findings → 现有 Fixer → pushed HEAD → 下一轮 fresh Reviewer。默认最多三轮；
-任意 PR 的第四、第五轮都必须分别获得一次明确人工批准，并各自绑定上一轮 BLOCKED 证据；
-两次授权与原有轮次一起留存在 ledger，绝不开放第六轮。
+任意 PR 的第四、第五轮都必须分别获得一次明确人工批准，并各自绑定上一轮 BLOCKED 证据。
+普通追加授权最高第五轮。仅当第五轮结果本身协议有效、已被 Controller 接受为 BLOCKED，且修复后
+出现精确新候选时，受信 operator 才能按下述独立入口追加一次第六轮；第七轮及自动续轮始终拒绝。
 
 ## 接入 PR
 
@@ -147,8 +148,51 @@ in-place 本机目录，避免与 Reviewer/Fixer 争用目录锁；评审/修复
   核验无活动 Controller，再持锁备份 ledger、验证第三轮原文 hash 与来源，调用
   `authorizeExtraReview` 并原子保存。保留全部 round/history；第一次仅允许第四轮。
   如需第五轮，必须取得第二次明确批准，另绑定第四轮结果并验证原授权；该规则适用于
-  任意 PR，最多第五轮，不开放第六轮。
+  任意 PR；通用 `authorizeExtraReview` 最多第五轮。
   普通 tick 不会自动恢复 BLOCKED；达到已批准上限仍有阻断项则停止。
+- 合法第五轮终态的一次性第六轮：不得使用下述“协议无效终轮恢复”入口。先按同一受信部署流程
+  暂停触发、设置 `enabled=false`、确认无活动 Controller、持锁备份，再准备与恢复 JSON 相同
+  的固定字段，其中 `round=5`，来源必须是已归档且由 Controller 正常接受的 BLOCKED result，
+  `current_base_sha/current_head_sha` 必须是明确批准后的精确新候选。执行
+  `node coach/scripts/review-loop/runtime.mjs authorize-sixth-review <config> <request>`。
+  程序重新读取指定 Reviewer issue/comment/completed run，验证 UTF-8 原文 hash、base/head、
+  第四/第五轮两段前序授权链与 `results/<issue>-<hash>.json` 归档完全一致，再把人工批准和候选
+  绑定追加到 ledger，并且只派发一个 round 6 fresh Reviewer。错误身份/hash、缺失或变更归档、
+  旧/漂移候选、缺失前序授权、重复调用、并发 Controller、round 6/7 再授权均 fail closed。
+  入口不改写已有 result/评论/history，不生成 PASS；round 6 到达终态即停止。
+- 协议无效终轮恢复：仅当结果的作者、issue、completed run、base/head、round 和完整字段均
+  有效，唯一拒绝原因为 `contradictory verdict` 时使用。先按部署流程暂停触发、设
+  `enabled=false`、确认无活动 Controller、持锁备份，再准备只含固定字段的恢复 JSON：
+  `protocol_version`、`pr_number`、`review_issue_id`、`comment_id`、`run_id`、
+  `raw_review_sha256`、`review_base_sha`、`review_head_sha`、`round`、`current_base_sha`、
+  `current_head_sha`、`approval_ref`。执行
+  `node coach/scripts/review-loop/runtime.mjs recover-invalid-review <config> <request>`。
+  程序会通过同一部署锁重新读取平台原文、归档原字节、记录
+  `reject_invalid_review_result` 与拒绝原因，并在既有上一轮授权和本次明确批准均有效时只派发
+  一个 fresh Reviewer。它不写有效 result/PASS，不重置 round/history，不修改旧评论；错误
+  身份/hash、重复调用、旧 live 候选、无既有授权或并发 Controller 均 fail closed。执行后
+  回读 ledger、归档、Reviewer issue/run 和 live base/head，再恢复 trigger。此入口仍只处理
+  round 4 的 `contradictory verdict` 并受最高第五轮约束，不能用于合法第五轮结果。
+- 外部独立审查收口：自动 round 6 已合法 BLOCKED 且用户另行人工创建了独立补充审查时，
+  不得把外部序号改写成自动 round 或继续提高自动上限。按部署流程暂停 Autopilot、设置
+  `enabled=false`、确认无活动 Controller、持锁备份，准备严格 JSON：`protocol_version`、
+  `pr_number`、`review_issue_id`、`comment_id`、`run_id`、`raw_review_sha256`、
+  `issue_contract_sha256`、`external_sequence`、`base_sha`、`head_sha`、`admission_hash`、
+  `approval_ref`。执行
+  `node coach/scripts/review-loop/runtime.mjs accept-external-review <config> <request>`。
+  程序只接受本项目中由 human member 创建、指定给配置 Reviewer 的 issue，并重新读取唯一评论、
+  completed run 与 live PR；完整 issue 契约 hash、原 admission/rubric/spec paths、候选、严格结果
+  schema、空 P1/P2/P3、五门 PASS/0 和空环境失败必须同时匹配。外部 issue、comments、runs
+  全部读取并验证后，程序会在任何归档或 ledger 写入前再次严格核对 live base/head/admission；
+  读取期间发生的任一漂移均不消耗接纳机会。成功后自动 ledger 仍保持
+  BLOCKED/round 6，另以 `external_independent_review` 来源追加唯一审计事件并归档到
+  `external-results/`；聚合发布器仅为仍匹配该 base/head/admission 的候选发布 success。
+  “合法 BLOCKED”还要求无 pending、当前 job 是本 PR 的 round 6 review，且 `state.result`
+  与唯一 round 6 `result`/`BLOCKED` history 事件的 issue/comment/hash/base/head 精确一致；
+  作者、来源或协议校验失败仅产生的 BLOCKED 标签，以及残留的上一轮 result，均不得接纳。
+  重复、并发、stale HEAD、契约/身份/hash 不符、未完成 run、缺门禁或非绿结果均拒绝。
+  执行后回读 ledger、外部归档和 GitHub status，恢复 config/Autopilot；正常 merge 仍须独立
+  核对 live candidate 和所有 merge gate。入口不合并、不清空历史、不修改 Reviewer 原文。
 - `publication-<sha>.json`：同一提交的成员集与聚合发布缓存。它不授予 PASS，源事实仍
   是实时 GitHub 状态及每个 PR 的已核验 ledger；旧 per-PR published 字段不再用于发布。
   POST 前缓存先落为 uncertain；响应丢失或进程中断后，下次会按实时聚合重新发布。

@@ -25,3 +25,4 @@ export * from "./review-selection.js";
 export * from "./context-graph.js";
 export * from "./coach.js";
 export * from "./coach-desktop.js";
+export * from "./fixed-review-view.js";

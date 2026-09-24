@@ -32,6 +32,62 @@ compatibility 测试与**架构边界检查（`npm run check:architecture`）**�
 canonical 事件流 → 决策快照 → 确定事实 → 模型比较 → 打包 sidecar 因素管线 →
 结构化分析产物。大改动后先跑它回答"语义主干是否仍在"。
 
+### Local Mortal Runtime Production Spike（待实现）
+
+[冻结规格](../specs/2026-09-24-local-mortal-runtime-production-design.md) 要求 COAC-111
+长期提供两个显式入口：
+
+```powershell
+npm run prepare:local-mortal-spike
+npm run test:local-mortal-production-spike
+```
+
+准备命令固定上游 revision，把 runtime/checkpoint 放入 gitignored app-managed artifact
+目录并复验 SHA-256/license metadata；只有该步骤可联网。测试命令必须再次校验 runtime、
+checkpoint、protocol 与 adapter identity，在禁网状态用真实 `mortal-582500` CPU inference
+运行脱敏雀魂 fixture → canonical/replay（self + response wave-1）→ candidate conservation →
+strict `ModelEvaluation` → whole-game review → `StructuredAnalysisPackage` validator。
+
+普通 `npx vitest run` 只跑 protocol fixtures/fake exact child，禁止联网或加载真实 checkpoint；
+它覆盖 crash/timeout/protocol/candidate mismatch 与安全边界，但不能冒充 production spike。
+**当前状态（2026-09-24）**：package/scripts/owners 尚未实现，上述命令不可运行且不得报告
+PASS。checkpoint、runtime binary 和大模型文件不进入 Git、npm package 或普通五门。
+
+### MVP Electron Golden Slice（Integration Closeout D，待实现）
+
+永久发布入口冻结为：
+
+```powershell
+npm run test:electron-mvp-golden
+```
+
+owner 为 `packages/desktop/tests/electron-mvp-golden-slice.cjs` 与
+`packages/desktop/tests/fixtures/`。它必须使用真实 Electron main/preload/renderer、
+SQLite、应用退出与新进程重启；account discovery 只可在 main adapter seam 使用安全 fixture，
+Coach provider 必须 stub。默认 suite 禁止真实网络、账号和 provider。测试从 app shell 的
+account select 或 share import 起步，不得从 `openReview()` 直接起步；离线重开必须先销毁
+全部内存 graph/controller/provider state，再禁网/禁 LLM，并断言同一
+`activeReportRefId`、judgment、explanation、provenance 与零请求。
+
+**当前状态（2026-09-24）**：该 package script 与 test owner 尚未实现，命令不可运行，
+不得报告 PASS。D 实现票负责添加二者并删除本 pending 标记。完整语义见
+[Integration Closeout spec](../specs/2026-09-24-playable-review-mvp-integration-closeout.md)。
+
+### Integration Closeout 固定五门
+
+实现 A/B/C/D 的候选除 focused tests 和 Electron Golden Slice 外，统一运行：
+
+```powershell
+npm run typecheck
+npm run build
+npx vitest run
+npm run check:architecture
+npm run test:package-import
+```
+
+发布闭合还要求 fresh independent `NO_P1_P2`、代码合入及一次获授权的真人 smoke；真实
+provider 不进入默认自动 suite。
+
 ## 按改动范围选择门禁
 
 | 改动范围 | 最低 focused 门禁 | 合并前门禁 |
@@ -39,6 +95,7 @@ canonical 事件流 → 决策快照 → 确定事实 → 模型比较 → 打�
 | contracts | 对应 contracts test + 所有直接消费者 test | typecheck、full、package-import |
 | mahjong-soul-source | 对应 source test；协议改动额外 updater/compatibility | typecheck、full、package-import、audit |
 | reasoning | 对应 factor/replay/assembly tests | typecheck、full、package-import |
+| local Mortal runtime / adapter | protocol/lifecycle/conservation focused；真实模型改动额外 `prepare:local-mortal-spike` + `test:local-mortal-production-spike` | typecheck、full、architecture、package-import、真实 spike receipt |
 | desktop IPC/UI | desktop focused、preload、security boundary | typecheck、full、package-import |
 | 依赖方向 / renderer 边界 / 包内深导入 | `npm run check:architecture` + checker 测试 | typecheck、full、package-import |
 | Go sidecar | Go focused + TS client/semantic tests | `go test ./...`、`go vet ./...`、full、重新打包/清单验证 |
@@ -103,6 +160,7 @@ node tests/lesson-0001-smoke.mjs
 3. full/typecheck/package-import/audit 全绿；
 4. sidecar、协议或 Electron 资源发生变化时，重新验证打包产物；
 5. 所有外部依赖身份、许可和 hash 已固定；
+   local Mortal 发布另须完成 runtime/checkpoint 再分发、attribution/notice 与源码义务核验；
 6. 需要人类验收的能力已经验收，或 UI/文档明确标为未完成；
 7. handoff 记录下一步，而不是用“后续完善”掩盖关键阻塞。
 

@@ -1,6 +1,6 @@
 const test = process.env.VITEST === 'true' ? (await import('vitest')).test : (await import('node:test')).test;
 import assert from 'node:assert/strict';
-import { admit, parseResult, decide, GATES, hash } from './protocol.mjs';
+import { admit, parseResult, parseRejectedReviewResult, decide, GATES, hash } from './protocol.mjs';
 
 const sha = 'a'.repeat(40), base = 'b'.repeat(40);
 const pr = () => ({ number: 8, state: 'open', draft: false, body: '```review-loop-admission\n' + JSON.stringify({protocol_version:'review-loop/v2.1', authoritative_spec_paths:['coach/docs/specs/example.md'], rubric:'Review all acceptance criteria.'}) + '\n```', base:{sha:base,ref:'master',repo:{full_name:'ChildeRolando/MjsoulTileTrace'}}, head:{sha,ref:'codex/test',repo:{full_name:'ChildeRolando/MjsoulTileTrace'}} });
@@ -54,6 +54,21 @@ test('missing/duplicate/unknown gates and contradictory verdicts fail closed', (
     const r=result(); change(r); assert.throws(()=>read([comment(r)]));
   }
 });
+test('operator recovery accepts only a fully valid review rejected for a contradictory verdict',()=>{
+  const r=result();r.verdict='CHANGES_REQUIRED';r.findings.P2=[{durability:'repository_required',durable_owner:'coach/docs/specs/example.md',regression:null,basis:'explicit_contract_violation',id:'p2',path:'coach/a.ts',line:1,scenario:'x',consequence:'y',minimal_fix:'z'}];r.environment_failures=['historical recovered failure'];
+  const c=comment(r),rejected=parseRejectedReviewResult(job(),{id:'review-id',assignee_type:'agent',assignee_id:'reviewer-id'},[c],runs);
+  assert.equal(rejected.rejection_reason,'contradictory verdict');assert.equal(rejected.raw,c.content);assert.equal(rejected.sha256,hash(c.content));
+  const wrong=structuredClone(c);wrong.author_id='other';
+  assert.throws(()=>parseRejectedReviewResult(job(),{id:'review-id',assignee_type:'agent',assignee_id:'reviewer-id'},[wrong],runs),/unsupported review-result rejection/);
+  assert.throws(()=>parseRejectedReviewResult(job(),{id:'review-id',assignee_type:'agent',assignee_id:'reviewer-id'},[comment()],runs),/already protocol-valid/);
+});
+test('operator recovery rejects verdicts outside the complete review schema',()=>{
+  for(const verdict of ['BOGUS',42,null]) {
+    const r=result();r.verdict=verdict;
+    assert.throws(()=>read([comment(r)]),/invalid verdict/);
+    assert.throws(()=>parseRejectedReviewResult(job(),{id:'review-id',assignee_type:'agent',assignee_id:'reviewer-id'},[comment(r)],runs),/unsupported review-result rejection/);
+  }
+});
 test('valid gate failures/environment block even without findings', () => {
   const r=result(); r.verdict='ENVIRONMENT_BLOCKED';r.gates[0].status='FAIL';r.gates[0].exit_code=1;r.environment_failures=['build environment unavailable'];
   assert.equal(decide(job(),read([comment(r)]),admit(pr())).transition,'BLOCKED');
@@ -73,7 +88,7 @@ test('fixer must push a new live SHA before another review', () => {
   assert.equal(decide({...j,round:3},{data:{head_sha:live.head_sha}},live).transition,'BLOCKED');
 });
 
-for(const limit of [4,5]) test(`authorized round ${limit} preserves all result gates and never opens another round`,()=>{
+for(const limit of [4,5,6]) test(`authorized round ${limit} preserves all result gates and never opens another round`,()=>{
   const j={...job(),round:limit},r={...result(),round:limit};
   const parsed=read([comment(r)],j);
   assert.throws(()=>decide(j,parsed,admit(pr())),/round limit/);

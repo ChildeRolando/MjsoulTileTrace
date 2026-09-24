@@ -14,6 +14,7 @@
     "test:architecture-checker": "node --test scripts/check-architecture.test.mjs",
     "test:golden": "npm run build && vitest run packages/reasoning/tests/golden-vertical-slice.test.ts",
     "test:desktop": "vitest run packages/desktop/tests",
+    "test:electron-persistence": "npm run build -w @riichi-coach/desktop && electron packages/desktop/tests/electron-persistence-smoke.cjs",
     "build:fact-engine": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build-fact-engine.ps1",
     "package:fact-engine": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-fact-engine.ps1",
     "generate:factor-regression-golden": "node scripts/generate-factor-regression-golden.mjs",

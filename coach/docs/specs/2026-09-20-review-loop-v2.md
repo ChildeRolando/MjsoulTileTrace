@@ -80,9 +80,11 @@ run。正文最后包含一个 `review-loop-result` JSON fence；字段与严格
 | architecture | `npm run check:architecture` |
 | package-import | `npm run test:package-import` |
 
-所有命令实际运行并记录 exit code。只有全绿、无环境失败、P1/P2 清零，才允许 PASS。
-P3 不阻断。P1/P2 且五门全绿时路由现有 `Ticket 编码执行器`，完整 findings 不经 LLM 转述。
-门禁失败、环境失败、冲突结果或第三轮仍有阻断项时 BLOCKED。
+所有命令实际运行并记录 exit code。`environment_failures` 只表达结论形成时仍未恢复、仍阻碍
+可靠审查的当前环境失败；依赖安装或偶发超时等已经由原命令重跑恢复的历史失败仍须在正文
+验证记录中保留，但不得继续放在该机器数组中。只有全绿、无当前环境失败、P1/P2 清零，
+才允许 PASS。P3 不阻断。P1/P2 且五门全绿时路由现有 `Ticket 编码执行器`，完整 findings
+不经 LLM 转述。门禁失败、当前环境失败、冲突结果或第三轮仍有阻断项时 BLOCKED。
 
 Fixer 校验附件 hash，在独立 worktree 修复、补回归、运行门禁、提交并非 force push 到
 同一 PR branch。Controller 校验其作者/run 归属、原文 hash、新 SHA、旧→新祖先关系，
@@ -98,8 +100,38 @@ BLOCKED。结果消费前和任务创建前重新读取 live PR。已 PASS 后�
 base/head、结果 hash、批准引用和记录时间，并追加历史事件而不重置 round。它只恢复该
 第三轮终态一次；缺失/错配来源、未知 pending、重复授权均拒绝。第五轮必须再次获得针对
 同一 PR 的明确人工批准；第二次授权绑定第四轮 BLOCKED 原文与身份，并要求保留、验证
-第一次授权。两次授权均追加进 history，最高五轮，不开放第六轮。tick、webhook、PR
-admission 和智能体结果均不能授予授权；未获对应人工批准的 PR 仍为三轮。
+第一次授权。两次授权均追加进 history；通用 `authorizeExtraReview` 最高五轮。tick、webhook、
+PR admission 和智能体结果均不能授予授权；未获对应人工批准的 PR 仍为三轮。
+
+合法第五轮结果已由 Controller 按完整 schema、作者、issue、completed run、base/head/round
+核验、归档并接受为 BLOCKED 后，若修复产生精确新候选，允许受信 operator 通过独立
+`authorize-sixth-review` 入口追加一次且仅一次第六轮。入口要求暂停触发、`enabled=false`、
+同一部署锁与备份；重新读取平台原文并核验 UTF-8 hash，要求归档 result 完全一致，并验证
+第四/第五轮两段授权链、第五轮 issue/comment/run/hash/base/head、明确批准引用和 live 新候选。
+授权和候选绑定只追加到 ledger；不得改写 result、原文或历史，不得形成 PASS，不得自动续轮。
+错误身份/hash、缺失/变更归档、旧或漂移候选、缺失前序授权、重复调用、并发及第七轮均拒绝。
+该入口与下述协议无效第四轮恢复互斥，不扩大其适用范围。
+
+若已发表的终轮结果通过作者、issue、completed run、PR/base/head/round 与完整 schema 校验，
+但因 verdict 与机器字段矛盾而被协议拒绝，受信 operator 可在暂停触发、`enabled=false`、持有
+同一部署锁并完成备份后使用专用恢复入口。入口必须重新读取平台原文并核验其 UTF-8 SHA-256，
+将原文归档，向 history 追加独立的 `reject_invalid_review_result` 及拒绝原因；它不得把该原文
+追认为有效 result 或 PASS。只有已有上一轮授权、明确的新一轮人工批准和精确的新 live 候选
+同时匹配时，才可绑定被拒绝的终轮证据并派发一次 fresh Reviewer。错误身份/hash、重复恢复、
+旧候选、缺失既有授权或并发 Controller 一律拒绝；仍受最高五轮约束，不能处理合法第五轮。
+
+自动审查达到第六轮上限后，用户另行人工派发的独立补充审查不属于自动 round，也不得扩大
+`reviewRoundLimit`。受信 operator 只有在 Autopilot 暂停、`enabled=false`、持有同一部署锁且
+自动 ledger 仍为 round 6 BLOCKED 时，才可调用 `accept-external-review`。入口重新读取 live PR
+与 admission、人工创建的审查 issue、指定 Reviewer 的唯一结果评论和 completed run；严格校验
+完整 issue description 的 SHA-256、原 admission hash/rubric/spec paths、base/head、外部序号、
+原文 hash、五门 PASS/0、空 P1/P2/P3 与空 environment failures。接受记录以
+`source=external_independent_review` 单独追加到 ledger/history 和 `external-results/`，自动
+BLOCKED、round、job、result、授权链及全部原文保持不变。聚合发布器只在该记录仍精确匹配
+实时 base/head/admission 时把当前候选发布为 success；候选或 admission 变化立即失效。
+伪造/错配作者、issue/comment/run/hash/contract、非 completed run、少门禁、非绿结果、重复调用、
+stale candidate 与并发 Controller 均 fail closed。该入口不创建新自动轮次、不直接合并 PR，
+也不能由被审 PR 作者的自评替代指定 Reviewer 结果。
 
 GitHub `Review Loop v2` commit status 报告 pending/success/failure；同一 GitHub 账号
 可以提交 COMMENT/状态，并不意味着拥有作者自批能力。PASS 仅表示该 base/head 的本轮

@@ -16,6 +16,7 @@ export const PRELOAD_CHANNELS = Object.freeze({
   syncRecords: "mahjong-soul:sync-analyzable-records",
   listRecords: "mahjong-soul:list-analyzable-records",
   startAnalysis: "mahjong-soul:start-record-analysis",
+  clearSourceCache: "mahjong-soul:clear-source-cache",
   importPaipuUrl: "mahjong-soul:import-paipu-url",
 } as const);
 
@@ -175,6 +176,14 @@ contextBridge.exposeInMainWorld("riichiCoachCatalog", Object.freeze({
     const value = await ipcRenderer.invoke(PRELOAD_CHANNELS.startAnalysis, recordId);
     if (!isRecord(value) || value.status !== "record_fetched" || Object.keys(value).length !== 1) throw new Error(PROTOCOL_ERROR);
     return Object.freeze({ status: "record_fetched" as const });
+  },
+  clearSourceCache: async () => {
+    const value = await ipcRenderer.invoke(PRELOAD_CHANNELS.clearSourceCache);
+    if (!isRecord(value) || value.status !== "cleared" || Object.keys(value).sort().join(",") !== "pendingMaterials,status"
+      || typeof value.pendingMaterials !== "number" || !Number.isInteger(value.pendingMaterials) || value.pendingMaterials < 0) {
+      throw new Error(PROTOCOL_ERROR);
+    }
+    return Object.freeze({ status: "cleared" as const, pendingMaterials: value.pendingMaterials });
   },
 }));
 

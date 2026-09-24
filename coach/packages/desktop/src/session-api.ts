@@ -1,7 +1,11 @@
 import {
   MahjongSoulSessionStatusSchema,
   COACH_IPC_CHANNELS, CoachProviderConfigSchema, CoachProviderStatusSchema,
-  CoachReportRequestSchema, CoachReportResultSchema, type CoachDesktopApi,
+  FixedReviewAcknowledgementSchema, FixedReviewCancelRequestSchema,
+  FixedReviewDetailRequestSchema, FixedReviewDetailSchema, FixedReviewGenerateRequestSchema,
+  FixedReviewLeaveRequestSchema, FixedReviewOpenRequestSchema, FixedReviewOperationResultSchema,
+  FixedReviewSnapshotSchema, type CoachDesktopApi,
+  ReviewSessionListSchema,
   type MahjongSoulSessionStatus,
 } from "@riichi-coach/contracts";
 import { z } from "zod";
@@ -50,10 +54,40 @@ export function createCoachPreloadApi(port: { invoke(channel: string, ...args: u
     status: (...args: unknown[]) => noArgs(COACH_IPC_CHANNELS.status, args),
     importCredential: (...args: unknown[]) => noArgs(COACH_IPC_CHANNELS.importCredential, args),
     clearCredential: (...args: unknown[]) => noArgs(COACH_IPC_CHANNELS.clearCredential, args),
-    async generate(...args: unknown[]) {
+    async openReview(...args: unknown[]) {
       try {
         if (args.length !== 1) throw Error();
-        return CoachReportResultSchema.parse(await invoke(COACH_IPC_CHANNELS.generate, CoachReportRequestSchema.parse(args[0])));
+        return FixedReviewSnapshotSchema.parse(await invoke(COACH_IPC_CHANNELS.openReview, FixedReviewOpenRequestSchema.parse(args[0])));
+      } catch { throw new Error("provider_unavailable"); }
+    },
+    async generateReview(...args: unknown[]) {
+      try {
+        if (args.length !== 1) throw Error();
+        return FixedReviewOperationResultSchema.parse(await invoke(COACH_IPC_CHANNELS.generate, FixedReviewGenerateRequestSchema.parse(args[0])));
+      } catch { throw new Error("provider_unavailable"); }
+    },
+    async cancelGeneration(...args: unknown[]) {
+      try {
+        if (args.length !== 1) throw Error();
+        return FixedReviewAcknowledgementSchema.parse(await invoke(COACH_IPC_CHANNELS.cancelGeneration, FixedReviewCancelRequestSchema.parse(args[0])));
+      } catch { throw new Error("provider_unavailable"); }
+    },
+    async getReviewDetail(...args: unknown[]) {
+      try {
+        if (args.length !== 1) throw Error();
+        return FixedReviewDetailSchema.parse(await invoke(COACH_IPC_CHANNELS.getReviewDetail, FixedReviewDetailRequestSchema.parse(args[0])));
+      } catch { throw new Error("provider_unavailable"); }
+    },
+    async leaveReview(...args: unknown[]) {
+      try {
+        if (args.length !== 1) throw Error();
+        return FixedReviewAcknowledgementSchema.parse(await invoke(COACH_IPC_CHANNELS.leaveReview, FixedReviewLeaveRequestSchema.parse(args[0])));
+      } catch { throw new Error("provider_unavailable"); }
+    },
+    async listReviewSessions(...args: unknown[]) {
+      try {
+        if (args.length !== 0) throw Error();
+        return ReviewSessionListSchema.parse(await invoke(COACH_IPC_CHANNELS.listReviewSessions));
       } catch { throw new Error("provider_unavailable"); }
     },
   });
