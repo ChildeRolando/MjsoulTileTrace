@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { copyFile, mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
+import { copyFile, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -51,10 +51,11 @@ async function setup(mode: string) {
     licenses: { runtime: "AGPL-3.0-or-later", checkpoint: "AGPL-3.0", redistribution: "verify_at_m8" },
   });
   const identity = { ...manifest.identity, nativeArtifactSha256: hash("fixture-native") };
+  const environment: NodeJS.ProcessEnv = { ...process.env, MORTAL_FAKE_MODE: mode };
   const runtime = new ManagedMortalRuntime({
     executable: "python", runtimePath, checkpointPath: checkpoint, mortalSourcePath, nativeModulePath,
     manifest, identity, startTimeoutMs: 2_000, inferenceTimeoutMs: 100,
-    environment: { ...process.env, MORTAL_FAKE_MODE: mode },
+    environment,
   });
   const request: LocalMortalInferenceRequest = {
     protocolVersion: LOCAL_MORTAL_PROTOCOL_VERSION, requestId: "request-1", identity,
@@ -66,7 +67,7 @@ async function setup(mode: string) {
       { actionRef: "action:b", runtimeAction: { index: 1, variant: null }, mjaiActionJson: "{\"type\":\"dahai\"}" },
     ], actualActionRef: "action:a",
   };
-  return { runtime, request, checkpoint, runtimePath, mortalSourcePath, nativeModulePath, dir };
+  return { runtime, request, checkpoint, runtimePath, mortalSourcePath, nativeModulePath, environment, dir };
 }
 
 describe("managed Mortal exact-child protocol", () => {
@@ -136,6 +137,55 @@ describe("managed Mortal exact-child protocol", () => {
     await writeFile(nativeModulePath, "replaced");
     await expect(runtime.infer(request)).rejects.toMatchObject({ code: "mortal_runtime_identity_mismatch" });
     await runtime.close();
+  });
+
+  for (const mode of ["slow_start", "exit_before_ready"] as const) {
+    it(`cleans a failed ${mode} child and permits a fresh retry`, async () => {
+      const { runtime, request, environment } = await setup(mode);
+      try {
+        await expect(runtime.start()).rejects.toMatchObject({ code: "mortal_runtime_unavailable" });
+        environment.MORTAL_FAKE_MODE = "success";
+        await expect(runtime.infer(request)).resolves.toMatchObject({ status: "ok" });
+      } finally {
+        await runtime.close();
+      }
+    }, 5_000);
+  }
+
+  it("shares one startup handshake across concurrent and repeated start calls", async () => {
+    const { runtime, environment, dir } = await setup("success");
+    const startCountPath = join(dir, "start-count.txt");
+    environment.MORTAL_FAKE_START_COUNT_FILE = startCountPath;
+    try {
+      await Promise.all([runtime.start(), runtime.start(), runtime.start()]);
+      await runtime.start();
+      expect((await readFile(startCountPath, "utf8")).trim().split("\n")).toHaveLength(1);
+    } finally {
+      await runtime.close();
+    }
+  });
+
+  for (const pythonPath of ["", join(tmpdir(), "polluted-python-path")] as const) {
+    it(`passes the verified native module explicitly with PYTHONPATH=${pythonPath === "" ? "empty" : "polluted"}`, async () => {
+      const { runtime, nativeModulePath, environment } = await setup("success");
+      environment.PYTHONPATH = pythonPath;
+      environment.MORTAL_FAKE_EXPECT_NATIVE = nativeModulePath;
+      try {
+        await expect(runtime.start()).resolves.toBeUndefined();
+      } finally {
+        await runtime.close();
+      }
+    });
+  }
+
+  it("fails startup when the checked native path differs from the path supplied to the child", async () => {
+    const { runtime, environment, dir } = await setup("success");
+    environment.MORTAL_FAKE_EXPECT_NATIVE = join(dir, "different", "libriichi.pyd");
+    try {
+      await expect(runtime.start()).rejects.toMatchObject({ code: "mortal_runtime_unavailable" });
+    } finally {
+      await runtime.close();
+    }
   });
 
   it("converts missing artifacts and invalid requests to fixed safe errors", async () => {

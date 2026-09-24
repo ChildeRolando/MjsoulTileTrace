@@ -1,8 +1,30 @@
 {
-  "version": "local-mortal-real-fixture-set/v1",
-  "source": "../../../../mahjong-soul-source/tests/fixtures/real-record-wire.json",
-  "sha256": "9efea5c9ceb73ee062c8d8edb8f960a74e79776ca023f686f669090dd9ac49ed",
-  "perspectives": [0, 1, 2, 3],
-  "privacy": "sanitized synthetic record id; no account ids, names, tokens, URLs, cookies, or raw runtime prose",
+  "version": "local-mortal-real-fixture-set/v2",
+  "fixtures": [
+    {
+      "id": "mahjong-soul-primary",
+      "sourceKind": "mahjong_soul",
+      "source": "../../../../mahjong-soul-source/tests/fixtures/real-record-wire.json",
+      "sha256": "9efea5c9ceb73ee062c8d8edb8f960a74e79776ca023f686f669090dd9ac49ed",
+      "perspectives": [0, 1, 2, 3]
+    },
+    {
+      "id": "tenhou-chankan-supplement",
+      "sourceKind": "tenhou",
+      "source": "tenhou-chankan-2026080804.xml",
+      "sha256": "c4d1f48788f1212257b9def84b92abc9548805e9b8a862364e9e616160ba1ae6",
+      "perspectives": [1],
+      "provenance": "public Tenhou replay 2026080804gm-00a9-0000-71cfcabf; player names replaced"
+    },
+    {
+      "id": "tenhou-daiminkan-supplement",
+      "sourceKind": "tenhou",
+      "source": "tenhou-daiminkan-2026080803.xml",
+      "sha256": "800a62abf96ae7c3fc48046818b60ec6b747054398d02ab2e0740db1efd21b03",
+      "perspectives": [1],
+      "provenance": "final-hand extract from public Tenhou replay 2026080803gm-00a9-0000-e96730d7; player names replaced"
+    }
+  ],
+  "privacy": "player names and account identifiers removed; no tokens, cookies, or raw runtime prose",
   "coverage": ["self_turn", "discard_response", "kan_response", "chi", "pon", "daiminkan", "ron", "pass", "riichi_discard", "ankan", "kakan", "tsumo"]
 }

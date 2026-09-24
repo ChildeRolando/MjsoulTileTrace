@@ -1,5 +1,7 @@
 import argparse
+import importlib
 import json
+import os
 import sys
 
 import torch
@@ -26,11 +28,16 @@ class CapturingEngine:
         return result
 
 
-def load_runtime(checkpoint, mortal_source):
+def load_runtime(checkpoint, mortal_source, native_module):
     sys.path.insert(0, mortal_source)
+    sys.path.insert(0, os.path.dirname(os.path.realpath(native_module)))
     from model import Brain, DQN
     from engine import MortalEngine
-    from libriichi.mjai import Bot
+    libriichi = importlib.import_module("libriichi")
+    loaded_native = getattr(libriichi, "__file__", None)
+    if loaded_native is None or os.path.normcase(os.path.realpath(loaded_native)) != os.path.normcase(os.path.realpath(native_module)):
+        raise ValueError("native module identity mismatch")
+    Bot = importlib.import_module("libriichi.mjai").Bot
 
     state = torch.load(checkpoint, weights_only=True, map_location=torch.device("cpu"))
     cfg = state["config"]
@@ -77,8 +84,9 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--checkpoint", required=True)
     parser.add_argument("--mortal-source", required=True)
+    parser.add_argument("--native-module", required=True)
     args = parser.parse_args()
-    engine, bot_type = load_runtime(args.checkpoint, args.mortal_source)
+    engine, bot_type = load_runtime(args.checkpoint, args.mortal_source, args.native_module)
     print(json.dumps({"ready": True, "protocolVersion": "riichi-local-mortal-jsonl/v1"}, separators=(",", ":")), flush=True)
     for line in sys.stdin:
         request = None

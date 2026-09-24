@@ -1,5 +1,4 @@
 import { spawn, type ChildProcessWithoutNullStreams } from "node:child_process";
-import { once } from "node:events";
 import {
   LocalMortalInferenceRequestSchema,
   LocalMortalInferenceResponseSchema,
@@ -29,6 +28,8 @@ export type ManagedMortalRuntimeOptions = Readonly<{
 export class ManagedMortalRuntime {
   readonly #options: ManagedMortalRuntimeOptions;
   #child: ChildProcessWithoutNullStreams | null = null;
+  #startPromise: Promise<void> | null = null;
+  #ready = false;
   #exitSignal: Promise<void> | null = null;
   #stdoutBuffer = Buffer.alloc(0);
   #pendingLine: string | null = null;
@@ -40,14 +41,27 @@ export class ManagedMortalRuntime {
   }
 
   async start(): Promise<void> {
-    if (this.#child !== null) return;
+    if (this.#ready && this.#child !== null && this.#child.exitCode === null) return;
+    if (this.#startPromise !== null) return this.#startPromise;
+    const startPromise = this.#startOnce();
+    this.#startPromise = startPromise;
+    try {
+      await startPromise;
+    } finally {
+      if (this.#startPromise === startPromise) this.#startPromise = null;
+    }
+  }
+
+  async #startOnce(): Promise<void> {
     await verifyManagedMortalArtifacts(this.#options);
     const child = spawn(this.#options.executable, [
       "-u", this.#options.runtimePath,
       "--checkpoint", this.#options.checkpointPath,
       "--mortal-source", this.#options.mortalSourcePath,
+      "--native-module", this.#options.nativeModulePath,
     ], { windowsHide: true, stdio: ["pipe", "pipe", "pipe"], env: this.#options.environment ?? process.env });
     this.#child = child;
+    this.#ready = false;
     this.#exitSignal = new Promise((resolve) => {
       child.once("error", () => resolve());
       child.once("exit", () => resolve());
@@ -57,13 +71,20 @@ export class ManagedMortalRuntime {
     this.#pendingLine = null;
     this.#protocolFailed = false;
     child.stdout.on("data", (chunk: Buffer) => this.#acceptStdout(chunk));
-    const ready = await this.#nextLine(this.#options.startTimeoutMs ?? 30_000, "mortal_runtime_unavailable");
-    await this.#waitForQuietBoundary();
-    if (ready !== JSON.stringify({ ready: true, protocolVersion: this.#options.identity.protocolVersion })) {
-      await this.close();
-      throw new ManagedMortalRuntimeError("mortal_protocol_invalid");
+    try {
+      const ready = await this.#nextLine(this.#options.startTimeoutMs ?? 30_000, "mortal_runtime_unavailable");
+      await this.#waitForQuietBoundary();
+      if (ready !== JSON.stringify({ ready: true, protocolVersion: this.#options.identity.protocolVersion })) {
+        throw new ManagedMortalRuntimeError("mortal_protocol_invalid");
+      }
+      this.#assertNoUnsolicitedOutput();
+      this.#ready = true;
+    } catch (error) {
+      await this.#closeExactChild(child);
+      this.#clearChild(child);
+      if (error instanceof ManagedMortalRuntimeError) throw error;
+      throw new ManagedMortalRuntimeError("mortal_runtime_unavailable");
     }
-    this.#assertNoUnsolicitedOutput();
   }
 
   async infer(raw: LocalMortalInferenceRequest): Promise<LocalMortalInferenceResponse> {
@@ -83,14 +104,14 @@ export class ManagedMortalRuntime {
     if (request.candidates.filter((candidate) => candidate.actionRef === request.actualActionRef).length !== 1) {
       throw new ManagedMortalRuntimeError("mortal_actual_action_mismatch");
     }
-    if (this.#child === null) await this.start();
-    this.#assertNoUnsolicitedOutput();
-    const payload = JSON.stringify(request);
-    if (Buffer.byteLength(payload) > MAX_LINE_BYTES) {
-      throw new ManagedMortalRuntimeError("mortal_protocol_invalid");
-    }
-    this.#child!.stdin.write(`${payload}\n`);
     try {
+      if (!this.#ready || this.#child === null) await this.start();
+      this.#assertNoUnsolicitedOutput();
+      const payload = JSON.stringify(request);
+      if (Buffer.byteLength(payload) > MAX_LINE_BYTES) {
+        throw new ManagedMortalRuntimeError("mortal_protocol_invalid");
+      }
+      this.#child!.stdin.write(`${payload}\n`);
       const line = await this.#nextLine(this.#options.inferenceTimeoutMs ?? 30_000, "mortal_runtime_timeout");
       await this.#waitForQuietBoundary();
       this.#assertNoUnsolicitedOutput();
@@ -214,21 +235,39 @@ export class ManagedMortalRuntime {
 
   async close(): Promise<void> {
     const child = this.#child;
+    this.#ready = false;
+    if (child === null) return;
+    await this.#closeExactChild(child);
+    this.#clearChild(child);
+  }
+
+  #clearChild(child: ChildProcessWithoutNullStreams): void {
+    if (this.#child !== child) return;
     this.#child = null;
     this.#exitSignal = null;
     this.#lineWaiter = null;
     this.#stdoutBuffer = Buffer.alloc(0);
     this.#pendingLine = null;
-    if (child === null || child.exitCode !== null) return;
+    this.#protocolFailed = false;
+    this.#ready = false;
+  }
+
+  async #closeExactChild(child: ChildProcessWithoutNullStreams): Promise<void> {
+    if (child.exitCode !== null) return;
     child.stdin.end();
-    const exited = once(child, "exit");
-    const forced = new Promise<void>((resolve) => {
-      const handle = setTimeout(() => {
-        if (child.exitCode === null) child.kill("SIGKILL");
-        resolve();
-      }, 1_000);
-      handle.unref();
+    const exited = new Promise<void>((resolve) => {
+      child.once("exit", () => resolve());
+      child.once("error", () => resolve());
     });
-    await Promise.race([exited.then(() => undefined), forced]);
+    let timeoutHandle: NodeJS.Timeout | undefined;
+    const graceExpired = new Promise<"timeout">((resolve) => {
+      timeoutHandle = setTimeout(() => resolve("timeout"), 1_000);
+      timeoutHandle.unref();
+    });
+    const graceful = await Promise.race([exited.then(() => "exited" as const), graceExpired]);
+    if (timeoutHandle !== undefined) clearTimeout(timeoutHandle);
+    if (graceful === "exited" || child.exitCode !== null) return;
+    child.kill("SIGKILL");
+    await exited;
   }
 }

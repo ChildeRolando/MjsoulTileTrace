@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
@@ -13,9 +14,11 @@ import {
   mapMahjongSoulRecord,
   unwrapGameDetailRecords,
 } from "@riichi-coach/mahjong-soul-source";
+import { mapTenhouRecord } from "@riichi-coach/tenhou-source";
 import {
   buildMortalModelEvaluation,
   entryMatchesDecisionIdentity,
+  enumerateResponseCandidates,
   localMortalResponseToReportEntry,
   projectLocalMortalRequest,
   replayCanonicalResponseWindows,
@@ -34,7 +37,8 @@ const identity: ManagedMortalRuntimeIdentity = {
 
 async function realFixture(actor: number) {
   const manifest = JSON.parse(await readFile(new URL("./fixtures/local-mortal/fixture-manifest.json", import.meta.url), "utf8"));
-  const fixture = JSON.parse(await readFile(new URL(`./fixtures/local-mortal/${manifest.source}`, import.meta.url), "utf8"));
+  const source = manifest.fixtures.find((fixture: { sourceKind: string }) => fixture.sourceKind === "mahjong_soul");
+  const fixture = JSON.parse(await readFile(new URL(`./fixtures/local-mortal/${source.source}`, import.meta.url), "utf8"));
   const bundle = await loadMahjongSoulProtocolBundle(fileURLToPath(new URL("../../../vendor/mahjong-soul-protocol/", import.meta.url)));
   const bytes = unwrapGameDetailRecords(bundle, Buffer.from(fixture.wire, "hex"));
   const mapped = mapMahjongSoulRecord({ gameId: `majsoul:local-mortal:actor${actor}`, selfActor: actor, recordId: fixture.recordId, recordBytes: bytes, bundle });
@@ -42,7 +46,100 @@ async function realFixture(actor: number) {
   return mapped.stream;
 }
 
+async function realTenhouFixture(sourceId: string, actor: number) {
+  const manifest = JSON.parse(await readFile(new URL("./fixtures/local-mortal/fixture-manifest.json", import.meta.url), "utf8"));
+  const source = manifest.fixtures.find((fixture: { id: string }) => fixture.id === sourceId);
+  const raw = await readFile(new URL(`./fixtures/local-mortal/${source.source}`, import.meta.url), "utf8");
+  expect(createHash("sha256").update(raw).digest("hex")).toBe(source.sha256);
+  const mapped = mapTenhouRecord({ raw, gameId: `tenhou:local-mortal:actor${actor}`, selfActor: actor });
+  if (mapped.status !== "ready") throw new Error(mapped.code);
+  return mapped.stream;
+}
+
 describe("local Mortal canonical projection and conservation", () => {
+  it("keeps a real chankan window in the registered supplemental fixture", async () => {
+    const stream = await realTenhouFixture("tenhou-chankan-supplement", 1);
+    const chankan = replayCanonicalResponseWindows(stream).find((decision) =>
+      decision.snapshot.privateState.decisionWindow.kind === "kan_response"
+      && decision.actualAction?.kind === "ron"
+    );
+    expect(chankan).toBeDefined();
+    const request = projectLocalMortalRequest({
+      stream,
+      decision: chankan!,
+      surface: "response",
+      identity,
+      includeRon: true,
+    });
+    expect(request.candidates.map((candidate) => candidate.runtimeAction.index)).toEqual([43, 45]);
+    expect(request.actualActionRef).toBe(canonicalActionRef(chankan!.actualAction!));
+    expect(replayCanonicalResponseWindows(stream).some((decision) =>
+      decision.actualAction?.kind === "pass" && enumerateResponseCandidates(decision)?.ron === true
+    )).toBe(true);
+  });
+
+  it("keeps a real daiminkan actual window in the registered supplemental fixture", async () => {
+    const stream = await realTenhouFixture("tenhou-daiminkan-supplement", 1);
+    const daiminkan = replayCanonicalResponseWindows(stream).find((decision) =>
+      decision.actualAction?.kind === "daiminkan"
+    );
+    expect(daiminkan).toBeDefined();
+    const request = projectLocalMortalRequest({
+      stream,
+      decision: daiminkan!,
+      surface: "response",
+      identity,
+    });
+    expect(request.candidates.map((candidate) => candidate.runtimeAction.index)).toEqual(expect.arrayContaining([42, 45]));
+    expect(request.actualActionRef).toBe(canonicalActionRef(daiminkan!.actualAction!));
+  });
+
+  it("realizes chi candidates from the frozen hand with Mortal's red-five rule", async () => {
+    const onlyRedStream = await realFixture(0);
+    const onlyRedDecision = replayCanonicalResponseWindows(onlyRedStream)
+      .find((row) => row.decisionEventRef.endsWith("/2/374/0"));
+    expect(onlyRedDecision?.actualAction?.kind).toBe("pass");
+    const onlyRedRequest = projectLocalMortalRequest({
+      stream: onlyRedStream,
+      decision: onlyRedDecision!,
+      surface: "response",
+      identity,
+    });
+    const onlyRedChi = onlyRedRequest.candidates
+      .map((candidate) => JSON.parse(candidate.mjaiActionJson))
+      .find((action) => action.type === "chi" && action.consumed.includes("3s") && action.consumed.some((tile: string) => tile.startsWith("5s")));
+    expect(onlyRedChi.consumed).toEqual(["3s", "5sr"]);
+    expect(onlyRedRequest.actualActionRef).toBe(canonicalActionRef(onlyRedDecision!.actualAction!));
+
+    const mixedStream = await realFixture(3);
+    const mixedDecision = replayCanonicalResponseWindows(mixedStream)
+      .find((row) => row.decisionEventRef.endsWith("/0/83/0"));
+    expect(mixedDecision?.actualAction?.kind).toBe("pass");
+    const mixedRequest = projectLocalMortalRequest({
+      stream: mixedStream,
+      decision: mixedDecision!,
+      surface: "response",
+      identity,
+    });
+    const mixedChi = mixedRequest.candidates
+      .map((candidate) => JSON.parse(candidate.mjaiActionJson))
+      .find((action) => action.type === "chi" && action.consumed.includes("3s") && action.consumed.some((tile: string) => tile.startsWith("5s")));
+    expect(mixedChi.consumed).toEqual(["3s", "5sr"]);
+
+    const actualChiDecision = replayCanonicalResponseWindows(mixedStream)
+      .find((row) => row.decisionEventRef.endsWith("/4/833/0"));
+    expect(actualChiDecision?.actualAction?.kind).toBe("chi");
+    const actualChiRequest = projectLocalMortalRequest({
+      stream: mixedStream,
+      decision: actualChiDecision!,
+      surface: "response",
+      identity,
+    });
+    expect(actualChiRequest.candidates.filter((candidate) =>
+      candidate.actionRef === canonicalActionRef(actualChiDecision!.actualAction!)
+    )).toHaveLength(1);
+  }, 15_000);
+
   it("projects a real response window with a strict candidate bijection and actual correspondence", async () => {
     const stream = await realFixture(0);
     const decision = replayCanonicalResponseWindows(stream).find((row) => {

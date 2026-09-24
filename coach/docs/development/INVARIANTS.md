@@ -120,7 +120,8 @@ Model/report evidence provider（模型/报告证据来源）
   `candidate-contracts.test.ts`、`comparison-set-builder.test.ts`、M6-A4 binding/conservation
   与 structured package candidate-universe tests。COAC-111 追加 local runtime 的
   duplicate/missing/extra/unknown/ambiguous、跨决策响应、非 argmax preferred action 及
-  self/response actual-correspondence 负例。
+  self/response actual-correspondence 负例；`local-mortal-adapter.test.ts` 还以真实冻结手牌
+  固化仅赤五、赤普并存、actual/pass 与 kan-response 只允许 ron/pass 的 Mortal realization。
 - **Status**：machine-enforced（canonical/report/local-runtime/package 路径）。
 
 ## INV-005 renderer/UI 不得接收特权原始协议与秘密
@@ -165,7 +166,8 @@ Model/report evidence provider（模型/报告证据来源）
   （拒绝任意 sidecar prose）、`mahjong-soul-protocol-compatibility.test.mjs`；COAC-111
   追加每个 `mortal_*` 固定错误与 oversize/extra-prose 负例。
 - **Status**：machine-enforced；local runtime strict schema、artifact identity、lifecycle、
-  oversize/extra-prose 与固定安全错误均由永久测试覆盖。
+  oversize/extra-prose 与固定安全错误均由永久测试覆盖。启动握手为 single-flight；timeout、
+  ready 前退出或协议失败会等待 exact child 终止并清空状态，失败后的重试不得伪成功。
 
 ## INV-007 持久化/可复现分析产物保留版本与来源信息
 
@@ -182,7 +184,9 @@ Model/report evidence provider（模型/报告证据来源）
   component versions 与 evidence provenance 延续该约束。
 - **Enforcement**：schema 字面量版本（如 `canonical-riichi-events/v2`、
   `decision-snapshot/v2`）与 manifest 校验（evidence manifest 含 sha256 与
-  schemaVersion）；协议 bundle manifest 逐字段校验。
+  schemaVersion）；协议 bundle manifest 逐字段校验。managed runtime 将已哈希的
+  `nativeModulePath` 显式传入 wrapper；wrapper 把其父目录置于受控 import 首位并核对
+  `libriichi.__file__` 的真实路径，清空或污染继承 `PYTHONPATH` 均不能改变实际加载文件。
 - **Executable tests**：`mortal-coverage-evidence-manifest.test.ts`、
   `mortal-coverage-registry.test.ts`、`protocol-bundle.test.ts`、
   `update-packaged-fact-engine-manifest.test.mjs`、

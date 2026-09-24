@@ -7,8 +7,20 @@ import time
 parser = argparse.ArgumentParser()
 parser.add_argument("--checkpoint")
 parser.add_argument("--mortal-source")
-parser.parse_args()
+parser.add_argument("--native-module", required=True)
+args = parser.parse_args()
 mode = os.environ.get("MORTAL_FAKE_MODE", "success")
+expected_native = os.environ.get("MORTAL_FAKE_EXPECT_NATIVE")
+if expected_native and os.path.realpath(args.native_module) != os.path.realpath(expected_native):
+    sys.exit(9)
+start_count_file = os.environ.get("MORTAL_FAKE_START_COUNT_FILE")
+if start_count_file:
+    with open(start_count_file, "a", encoding="utf-8") as handle:
+        handle.write("start\n")
+if mode == "slow_start":
+    time.sleep(10)
+if mode == "exit_before_ready":
+    sys.exit(8)
 if mode == "bad_ready":
     print("not-json", flush=True)
     sys.exit(0)

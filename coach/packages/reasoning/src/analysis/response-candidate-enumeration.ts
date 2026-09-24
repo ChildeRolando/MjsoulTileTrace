@@ -82,20 +82,28 @@ export function chiCombinations(
   if (offered.id.endsWith("z")) return [];
   const suit = offered.id[1]!;
   const rank = Number(offered.id[0]);
-  const counts = new Map<string, number>();
+  const tilesById = new Map<TileId, Tile[]>();
   for (const tile of concealed) {
-    counts.set(tile.id, (counts.get(tile.id) ?? 0) + 1);
+    tilesById.set(tile.id, [...(tilesById.get(tile.id) ?? []), tile]);
   }
   const combinations: Array<{ consumedTiles: readonly Tile[] }> = [];
   const consume = (low: number, high: number): void => {
     if (low < 1 || high > 9) return;
     const lowId = `${low}${suit}` as TileId;
     const highId = `${high}${suit}` as TileId;
-    if ((counts.get(lowId) ?? 0) >= 1 && (counts.get(highId) ?? 0) >= 1) {
+    const lowTiles = tilesById.get(lowId);
+    const highTiles = tilesById.get(highId);
+    if (lowTiles !== undefined && highTiles !== undefined) {
+      // libriichi's fixed Mortal realization consumes an aka five whenever
+      // the required five exists as aka in hand, including when a normal five
+      // is also present. Preserve that exact physical-tile identity instead of
+      // inventing a normal-five placeholder that the frozen hand does not own.
+      const realize = (tiles: readonly Tile[]): Tile =>
+        tiles.find((tile) => tile.red) ?? tiles[0]!;
       combinations.push({
         consumedTiles: [
-          { id: lowId, red: false },
-          { id: highId, red: false },
+          realize(lowTiles),
+          realize(highTiles),
         ],
       });
     }
@@ -136,11 +144,11 @@ export function enumerateResponseCandidates(
   const inRiichi =
     publicState.riichiStates[snapshot.selfActor]!.status !== "none";
 
-  const chi = inRiichi || seatDistance(window.sourceActor, snapshot.selfActor) !== 1
+  const chi = window.kind === "kan_response" || inRiichi || seatDistance(window.sourceActor, snapshot.selfActor) !== 1
     ? []
     : chiCombinations(concealed, offered);
-  const pon = !inRiichi && canPon(concealed, offered);
-  const daiminkan = !inRiichi && canDaiminkan(concealed, offered);
+  const pon = window.kind === "discard_response" && !inRiichi && canPon(concealed, offered);
+  const daiminkan = window.kind === "discard_response" && !inRiichi && canDaiminkan(concealed, offered);
   const ron = canRonShape(concealed, meldCount, offered);
 
   const candidateCount =

@@ -14,6 +14,7 @@ import {
   mapMahjongSoulRecord,
   unwrapGameDetailRecords,
 } from "@riichi-coach/mahjong-soul-source";
+import { TENHOU_MAPPER_VERSION, mapTenhouRecord } from "@riichi-coach/tenhou-source";
 import { computeCanonicalGameFingerprint } from "@riichi-coach/mortal-source";
 import {
   ManagedMortalRuntime,
@@ -30,6 +31,7 @@ import {
   collectDamaTsumoWindows,
   collectRiichiDeclarationTenpaiDiscards,
   createMortalCoverageRegistry,
+  enumerateResponseCandidates,
   localMortalResponseToReportEntry,
   projectLocalMortalRequest,
   replayCanonicalResponseWindows,
@@ -82,15 +84,55 @@ const runtimeIdentity = {
 
 const fixtureManifestPath = join(repoRoot, "packages", "reasoning", "tests", "fixtures", "local-mortal", "fixture-manifest.json");
 const fixtureManifest = JSON.parse(readFileSync(fixtureManifestPath, "utf8"));
-const fixturePath = resolve(join(repoRoot, "packages", "reasoning", "tests", "fixtures", "local-mortal"), fixtureManifest.source);
-const fixtureBytes = readFileSync(fixturePath);
-const fixture = JSON.parse(fixtureBytes.toString("utf8"));
-const fixtureSha256 = createHash("sha256").update(fixtureBytes).digest("hex");
-const actorPerspectives = process.env.RIICHI_LOCAL_MORTAL_ACTORS === undefined
-  ? fixtureManifest.perspectives
-  : process.env.RIICHI_LOCAL_MORTAL_ACTORS.split(",").map((value) => Number(value));
+if (fixtureManifest.version !== "local-mortal-real-fixture-set/v2" || !Array.isArray(fixtureManifest.fixtures)) {
+  fail("local Mortal fixture manifest is invalid");
+}
+const fixtureRoot = join(repoRoot, "packages", "reasoning", "tests", "fixtures", "local-mortal");
+const actorFilter = process.env.RIICHI_LOCAL_MORTAL_ACTORS === undefined
+  ? null
+  : new Set(process.env.RIICHI_LOCAL_MORTAL_ACTORS.split(",").map((value) => Number(value)));
 const bundle = await loadMahjongSoulProtocolBundle(join(repoRoot, "vendor", "mahjong-soul-protocol"));
-const recordBytes = unwrapGameDetailRecords(bundle, Buffer.from(fixture.wire, "hex"));
+const fixtureRuns = [];
+const fixtureEvidence = [];
+for (const registered of fixtureManifest.fixtures) {
+  const fixturePath = resolve(fixtureRoot, registered.source);
+  const fixtureBytes = readFileSync(fixturePath);
+  const fixtureSha256 = createHash("sha256").update(fixtureBytes).digest("hex");
+  if (fixtureSha256 !== registered.sha256) fail(`local Mortal fixture hash mismatch: ${registered.id}`);
+  const perspectives = registered.perspectives.filter((actor) => actorFilter === null || actorFilter.has(actor));
+  fixtureEvidence.push({ id: registered.id, sourceKind: registered.sourceKind, fixtureSha256, actorPerspectives: perspectives });
+  if (registered.sourceKind === "mahjong_soul") {
+    const fixture = JSON.parse(fixtureBytes.toString("utf8"));
+    const recordBytes = unwrapGameDetailRecords(bundle, Buffer.from(fixture.wire, "hex"));
+    for (const actor of perspectives) fixtureRuns.push({
+      fixtureId: registered.id,
+      actor,
+      mapperAdapter: "mahjong-soul-canonical-mapper/v1",
+      map: () => mapMahjongSoulRecord({
+        gameId: `majsoul:local-mortal-production:${registered.id}:${actor}`,
+        selfActor: actor,
+        recordId: fixture.recordId,
+        recordBytes,
+        bundle,
+      }),
+    });
+  } else if (registered.sourceKind === "tenhou") {
+    const raw = fixtureBytes.toString("utf8");
+    for (const actor of perspectives) fixtureRuns.push({
+      fixtureId: registered.id,
+      actor,
+      mapperAdapter: TENHOU_MAPPER_VERSION,
+      map: () => mapTenhouRecord({
+        raw,
+        gameId: `tenhou:local-mortal-production:${registered.id}:${actor}`,
+        selfActor: actor,
+      }),
+    });
+  } else {
+    fail(`unsupported local Mortal fixture source kind: ${registered.sourceKind}`);
+  }
+}
+if (fixtureRuns.length === 0) fail("local Mortal fixture selection is empty");
 const runtime = new ManagedMortalRuntime({
   executable: pythonExecutable,
   runtimePath,
@@ -101,7 +143,7 @@ const runtime = new ManagedMortalRuntime({
   identity: runtimeIdentity,
   environment: {
     ...process.env,
-    PYTHONPATH: join(mortalRoot, "target", "release"),
+    PYTHONPATH: "",
     CUDA_VISIBLE_DEVICES: "",
   },
   startTimeoutMs: 120_000,
@@ -116,22 +158,50 @@ const fixedErrors = Object.fromEntries([
 ].map((code) => [code, 0]));
 const families = Object.fromEntries(["discard", "riichi", "chi", "pon", "daiminkan", "hora", "pass", "ankan", "kakan", "kyuushu"].map((name) => [name, 0]));
 const packages = [];
+const wave1ActualBranchCounts = Object.fromEntries([
+  "resp_chi_actual", "resp_pon_actual", "resp_daiminkan_actual",
+  "resp_hora_actual", "resp_pass_on_discard", "resp_chankan_actual",
+].map((name) => [name, 0]));
+const passOnDiscardCandidateFamilyCounts = Object.fromEntries(["chi", "pon", "daiminkan", "hora"].map((name) => [name, 0]));
+const windowActualCounts = {};
 let inferenceCount = 0;
 
 try {
   await runtime.start();
-  for (const actor of actorPerspectives) {
-    const mapped = mapMahjongSoulRecord({
-      gameId: `majsoul:local-mortal-production:${actor}`,
-      selfActor: actor,
-      recordId: fixture.recordId,
-      recordBytes,
-      bundle,
-    });
+  for (const fixtureRun of fixtureRuns) {
+    const { actor } = fixtureRun;
+    const mapped = fixtureRun.map();
     if (mapped.status !== "ready") fail(`production mapper failed: ${mapped.code}`);
     const stream = mapped.stream;
     const decisions = replayCanonicalStream(stream);
     const responseDecisions = replayCanonicalResponseWindows(stream);
+    for (const decision of [...decisions, ...responseDecisions]) {
+      const window = decision.snapshot.privateState.decisionWindow;
+      const actualKind = decision.actualAction?.kind ?? "missing";
+      const windowActualKey = `${window.kind}:${actualKind}`;
+      windowActualCounts[windowActualKey] = (windowActualCounts[windowActualKey] ?? 0) + 1;
+      if (window.kind !== "discard_response") {
+        if (window.kind === "kan_response" && actualKind === "ron") {
+          wave1ActualBranchCounts.resp_chankan_actual++;
+        }
+        continue;
+      }
+      const branch = actualKind === "chi" ? "resp_chi_actual"
+        : actualKind === "pon" ? "resp_pon_actual"
+          : actualKind === "daiminkan" ? "resp_daiminkan_actual"
+            : actualKind === "ron" ? "resp_hora_actual"
+              : actualKind === "pass" ? "resp_pass_on_discard"
+                : null;
+      if (branch !== null) wave1ActualBranchCounts[branch]++;
+      if (actualKind === "pass") {
+        const enumeration = enumerateResponseCandidates(decision);
+        if (enumeration === null) fail(`response candidate enumeration missing: ${decision.decisionEventRef}`);
+        if (enumeration.chiCombinations.length > 0) passOnDiscardCandidateFamilyCounts.chi++;
+        if (enumeration.pon) passOnDiscardCandidateFamilyCounts.pon++;
+        if (enumeration.daiminkan) passOnDiscardCandidateFamilyCounts.daiminkan++;
+        if (enumeration.ron) passOnDiscardCandidateFamilyCounts.hora++;
+      }
+    }
     const candidateFactEngine = new JsonlFactEngineClient(new ManagedFactEngineTransport(join(repoRoot, "resources")));
     let riichiWindows;
     let tsumoWindows;
@@ -257,7 +327,7 @@ try {
       componentVersions: {
         packageSchema: STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION,
         canonicalReplay: "canonical-riichi-events/v2",
-        mapperAdapter: "mahjong-soul-canonical-mapper/v1",
+        mapperAdapter: fixtureRun.mapperAdapter,
         factEngine: { engine: "mahjong-helper", upstreamCommit: MAHJONG_HELPER_COMMIT, adapterVersion: FACT_ENGINE_ADAPTER_VERSION, protocolVersion: FACT_ENGINE_PROTOCOL_VERSION },
         factorPipeline: "factor-pipeline/v1",
         mortalSourceModel: {
@@ -277,6 +347,7 @@ try {
     })}`);
     const selection = selectReviewDecisions(pkg);
     packages.push({
+      fixtureId: fixtureRun.fixtureId,
       actor,
       sourceEntryCount: evaluated.length,
       decisionCount: pkg.decisions.length,
@@ -295,15 +366,21 @@ const requiredFamilies = ["discard", "riichi", "chi", "pon", "daiminkan", "hora"
 if (inferenceCount === 0 || requiredFamilies.some((family) => families[family] === 0)) {
   fail(`production spike coverage incomplete: ${JSON.stringify(families)}`);
 }
+if (Object.values(wave1ActualBranchCounts).some((count) => count === 0)
+  || Object.values(passOnDiscardCandidateFamilyCounts).some((count) => count === 0)) {
+  fail(`production spike wave-1 matrix incomplete: ${JSON.stringify({ wave1ActualBranchCounts, passOnDiscardCandidateFamilyCounts, windowActualCounts })}`);
+}
 const acceptance = {
-  receiptVersion: "local-mortal-production-spike-receipt/v1",
+  receiptVersion: "local-mortal-production-spike-receipt/v2",
   commit: process.env.GITHUB_SHA ?? "working-tree",
   runtimeIdentity,
   nativeArtifactSha256: prepared.nativeArtifactSha256,
-  fixtureSha256,
-  actorPerspectives,
+  fixtureEvidence,
   inferenceCount,
   familyCandidateCounts: families,
+  wave1ActualBranchCounts,
+  passOnDiscardCandidateFamilyCounts,
+  windowActualCounts,
   fixedErrorCounts: fixedErrors,
   packages,
   command: "npm run test:local-mortal-production-spike",
