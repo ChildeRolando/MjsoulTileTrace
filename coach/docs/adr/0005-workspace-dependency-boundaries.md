@@ -1,7 +1,7 @@
 # ADR-0005：Workspace 依赖方向与 renderer 安全边界——reasoning 允许依赖 mortal-source 报告格式，来源包不得依赖 reasoning，renderer 不得直接导入特权包
 
-日期：2026-08-19
-状态：已采纳（docs + 机械强制）
+日期：2026-08-19；2026-09-24 增补 local Mortal runtime 边界
+状态：已采纳（现役边 docs + 机械强制；2026-09-24 runtime 增量为待实现 target architecture）
 
 ## Context
 
@@ -19,6 +19,10 @@ review`），因此代码中 `reasoning → @riichi-coach/mortal-source` 已是�
   报告格式解析（schema、URL 校验、指纹、mjai tile），不含任何雀魂账号/协议能力。
   reasoning 可以消费它公开导出的报告证据契约——"来源无关"在此的准确含义是"无关
   特权来源与协议细节"，而不是"零来源格式依赖"。
+- **Managed native model runtime（受管本地模型运行时）**：计划中的
+  `mortal-runtime` 独立拥有 subprocess/checkpoint 生命周期，只消费 contracts-owned
+  canonical/replay request 并返回 strict model-evidence result。它不是 report source，
+  reasoning 不依赖它，renderer/preload 不得接触它。
 
 同时以下边界此前只是约定与散落测试，无单一裁决文档：
 
@@ -39,11 +43,15 @@ review`），因此代码中 `reasoning → @riichi-coach/mortal-source` 已是�
 | `@riichi-coach/tenhou-source` | contracts |
 | `@riichi-coach/mortal-source` | contracts |
 | `@riichi-coach/reasoning` | contracts、mortal-source（仅报告格式解析） |
+| `@riichi-coach/mortal-runtime`（计划；尚未实现） | contracts |
 | `@riichi-coach/desktop` | 全部（组合根） |
 
 - renderer 安全集合（`desktop/src/renderer/**`、`preload.ts`、`preload-entry.ts`）
   的直接导入只允许 contracts 与桌面安全 API 模块；禁止 mahjong-soul-source、
-  mortal-source、tenhou-source、reasoning。
+  mortal-source、mortal-runtime、tenhou-source、reasoning。
+- reasoning 不得依赖 mortal-runtime；mortal-runtime 不得依赖 reasoning、任一 game-record
+  provider、mortal-source 或 deterministic `mahjong-facts` owner。desktop main 只能经其包根
+  lifecycle API 接线，renderer/preload 禁止直接或传递获得 subprocess/checkpoint capability。
 - 跨包导入必须使用包根 exports 面（desktop 的 `./session-api` 是已声明的公共
   子路径例外）；深导入只允许 `scripts/` 的 allowlisted 工具
   （`generate-factor-regression-golden.mjs` 需要刻意不公开的 legacy bridge）。
@@ -65,6 +73,10 @@ review`），因此代码中 `reasoning → @riichi-coach/mortal-source` 已是�
 
 - reasoning 可解析 Mortal 报告格式，但不得读取雀魂/天凤来源格式；新来源包只需
   依赖 contracts 即可接入 canonical 重放。
+- local Mortal runtime 与 remote report parser 是两个 owner，但其结果在 contracts /
+  reasoning 的既有 structured comparison 与 `ModelEvaluation` 语义合流；不得复制下游。
+- COAC-111 落地 `mortal-runtime` 时必须同时扩展 architecture checker 与自测；在此之前
+  新边界是批准的 target architecture，不得误报为已有机械强制。
 - ARCHITECTURE.md "来源无关" 的表述按本 ADR 解释：无关特权来源与协议细节，
   不禁止报告格式适配器依赖。
 - `npm run check:architecture` 成为日常门禁；改动依赖方向或 renderer 表面时必须

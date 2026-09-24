@@ -24,7 +24,9 @@ M7-B 的冻结规格见
 [`2026-09-21-m7-b-review-session-persistence-design.md`](../specs/2026-09-21-m7-b-review-session-persistence-design.md)，
 最终应用组合与发布闭合以
 [`2026-09-24-playable-review-mvp-integration-closeout.md`](../specs/2026-09-24-playable-review-mvp-integration-closeout.md)
-为准。
+为准；其中 manual-import 的生产模型前置已由
+[`2026-09-24-local-mortal-runtime-production-design.md`](../specs/2026-09-24-local-mortal-runtime-production-design.md)
+冻结为 managed local Mortal + `mortal-582500`，runtime/spike 仍未实现。
 
 ## 文档分层
 

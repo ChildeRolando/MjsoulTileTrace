@@ -45,8 +45,9 @@
 
 ## INV-002 模型偏好不得改写确定性事实账本
 
-- **Statement**：Mortal/Akagi 的分数决定"模型偏好"；删除模型评分不能改变
-  `CandidateFactorLedger` / `FactorDifference`，也不得改变教练判断的证据基础。
+- **Statement**：remote report 或 managed local runtime 的 Mortal 分数只决定“模型偏好”；
+  删除模型评分不能改变 `KnownGameFacts`、`CandidateFactorLedger` /
+  `FactorDifference`，也不得改变教练判断的事实证据基础；`modelReason` 恒为 `unknown`。
 - **Why**：事实账本与模型评价是两个独立来源；混用会让"删除模型后结果仍稳定"这一
   可审计性质失效。
 - **Owner / boundary**：`buildStrictAnalysisPackage` 内 factor 与
@@ -55,7 +56,10 @@
   resolver` 只消费已注册确定性差异。
 - **Executable tests**：`package-validator` 相关测试（"Factor … is in the wrong
   model bucket"）、`factor-differences.test.ts`、`preference-agreement.test.ts`。
-- **Status**：machine-enforced。
+  COAC-111 必须把相同输入在有/无 local Mortal scores 下的 facts/ledgers/differences
+  byte-equivalence 加入 `local-mortal-adapter.test.ts`。
+- **Status**：machine-enforced（现役 report-based path）。本规格没有降低等级；COAC-111
+  只有在同提交加入 local-runtime 等价性门并保持 machine-enforced 后才能宣称实现。
 
 ## INV-003 game-record 来源协议语义止于 canonical 重放/推理边界
 
@@ -68,21 +72,25 @@ Game-record providers（牌谱协议来源）
 └── tenhou-source         —— 天凤 mjlog 牌谱格式
 
 Model/report evidence provider（模型/报告证据来源）
-└── mortal-source         —— Mortal 报告格式解析（reasoning 可消费其公开契约）
+├── mortal-source         —— remote Mortal 报告格式解析（reasoning 可消费其公开契约）
+└── mortal-runtime        —— privileged local subprocess/checkpoint（尚未实现；reasoning 不依赖）
 ```
 
 - **Statement**：**game-record provider 的协议语义必须止于 canonical
   重放/推理边界之前**——下游只消费 `CanonicalEventStreamV2` 契约。reasoning 不得
   依赖雀魂协议细节、天凤牌谱格式细节或任何 provider 专属局面表示。它**可以**按
   ADR-0005 消费 `mortal-source` 公开导出的模型/报告证据契约（`mortal-source` 只做
-  报告格式解析，不含特权来源能力，不在此边界内）。
+  报告格式解析，不含特权来源能力，不在此边界内）。计划中的 `mortal-runtime` 只能消费
+  contracts-owned canonical/replay request，不得读取任何雀魂/天凤协议或账号 payload；
+  reasoning 只消费 contracts-owned runtime result，不依赖 privileged runtime 包。
 - **Why**：game-record 来源可替换性依赖"唯一 canonical 语义"；协议细节泄漏会让新
   来源接入变成全链改动。mortal-source 是证据格式适配器，其消费边界由 ADR-0005
   单独裁决，两者不混同。
 - **Owner / boundary**：`@riichi-coach/{mahjong-soul-source,tenhou-source}` 的导出
   面（只导出 canonical 映射与错误码）；`@riichi-coach/mortal-source` 的导出面（只
-  导出报告 schema/URL/指纹/tile 工具）；它们与 `@riichi-coach/reasoning` 的依赖
-  方向（reasoning 只允许依赖 contracts 与 mortal-source）。
+  导出报告 schema/URL/指纹/tile 工具）；计划中的 `@riichi-coach/mortal-runtime` 只导出
+  main-owned lifecycle 能力；它们与 `@riichi-coach/reasoning` 的依赖方向（reasoning 只
+  允许依赖 contracts 与 mortal-source，不允许依赖 mortal-runtime）。
 - **Enforcement**：canonical mapper fail-closed + `canonical-event-validator`；
   tenhou-source 的 index 文档明确"source-specific details stop at this package"；
   `scripts/check-architecture.mjs` 的依赖方向规则（game-record 来源包不得导入
@@ -90,14 +98,18 @@ Model/report evidence provider（模型/报告证据来源）
   mortal-source 是 ADR-0005 允许边）。
 - **Executable tests**：`canonical-mapper.test.ts`、`canonical-event-validator.test.ts`、
   `tenhou-source/tests/real-logs-corpus.test.ts`、`malformed-inputs.test.ts`、
-  `npm run check:architecture`。
-- **Status**：machine-enforced（schema/validator + 机械导入规则）。
+  `npm run check:architecture`。COAC-111 必须扩展 checker 与其自测，拒绝 runtime 导入
+  game-record providers、reasoning 导入 runtime、renderer/preload 导入 runtime。
+- **Status**：machine-enforced（现役来源边界）。local runtime 尚不存在；COAC-111 必须让
+  新边先进入同一机械门，禁止以“暂时 partial”接入生产路径。
 
 ## INV-004 候选身份必须绑定其 canonical 决策窗口
 
 - **Statement**：候选通过 `actionRef` 绑定到产生它的决策窗口
   （`DecisionSnapshotV2.decisionEventRef === privateState.decisionWindow.triggerEventRef`）；
-  身份不得脱离窗口漂移，响应窗口按决策归属配对，绝不按 last_actor 猜。
+  身份不得脱离窗口漂移，响应窗口按决策归属配对，绝不按 last_actor 猜。任何 local
+  model evaluation 还必须证明本地 canonical legal candidates ↔ runtime legal actions
+  一一双射及 actual action 唯一 correspondence；不得取交集或静默丢 action。
 - **Why**：候选与窗口的绑定是"可追溯比较"的最小单位；脱绑后任何差异、解释、
   验收证据都无法定位。
 - **Owner / boundary**：`contracts` 的 decision snapshot / decision window /
@@ -106,13 +118,18 @@ Model/report evidence provider（模型/报告证据来源）
   （decision/trigger 相等、actor 相等）；`validateStrictAnalysisPackage` 校验
   "Decision and scene event IDs do not match"。
 - **Executable tests**：`decision-snapshot.test.ts`、`round-state.test.ts`、
-  `candidate-contracts.test.ts`、`comparison-set-builder.test.ts`。
-- **Status**：machine-enforced。
+  `candidate-contracts.test.ts`、`comparison-set-builder.test.ts`、M6-A4 binding/conservation
+  与 structured package candidate-universe tests。COAC-111 追加 local runtime 的
+  duplicate/missing/extra/unknown/ambiguous 及 self/response actual-correspondence 负例。
+- **Status**：machine-enforced（现役 canonical/report/package 路径）。local runtime 尚未
+  实现；其双射负例是 production seam 的先决门，不能先接入后补测试。
 
 ## INV-005 renderer/UI 不得接收特权原始协议与秘密
 
 - **Statement**：账号 ID、令牌、协议 payload、下载 URL、原始牌谱字节只能存在于
-  主进程或 source 包；renderer/preload 只接收安全 DTO 与固定错误码。
+  主进程或 source 包；renderer/preload 只接收安全 DTO 与固定错误码。local Mortal
+  subprocess、checkpoint 路径/文件与 raw stdout/stderr 也只属于 Electron main 的独立
+  privileged runtime owner，renderer/preload 不得启动进程或获得通用执行能力。
 - **Why**：特权数据进入 renderer 即扩大攻击面；隔离边界是本机信任模型的核心。
 - **Owner / boundary**：`desktop` 的 preload / `renderer/` 与主进程
   `mahjong-soul-session-service` / `catalog-service` / IPC 之间的表面；
@@ -129,25 +146,32 @@ Model/report evidence provider（模型/报告证据来源）
   `spawn EPERM` 保留为环境失败；恢复会话并修复三个 P2 后五门实际通过，见 COAC-3
   回执；不修改既有不变量等级。
 - **Status**：machine-enforced（行为测试 + 机械导入规则；注意机械规则只查直接导入，
-  传递泄漏仍靠行为测试）。
+  传递泄漏仍靠行为测试）。local runtime 增量在 COAC-111 落地前为 docs-only，完成时必须
+  同提交增加 checker/preload/security 行为负例，不能降低本条等级后宣称完成。
 
 ## INV-006 畸形/语义不支持的记录 fail closed，不静默降级
 
 - **Statement**：输入不完整、协议漂移、证据不一致或能力未实现时返回固定
   blocked/unsupported 状态；不猜字段、不降级到宽松解析、不让上游 prose 穿透。
+  local Mortal 的 identity/hash、crash、timeout、protocol、candidate/actual mismatch 只能
+  映射到冻结的安全 code 与既有 outcome，不得透传 traceback、路径或 stdout/stderr。
 - **Why**：宽松解析会悄悄把错误当成分析结果；fail closed 是可复现失败的前提。
 - **Owner / boundary**：所有严格 schema（contracts）与所有来源适配器的错误路径。
 - **Enforcement**：zod strict schema 拒绝未知字段；canonical mapper / 报告解析 /
   协议 bundle 返回固定错误码；`managed-sidecar` 校验打包清单逐字段相等。
 - **Executable tests**：`malformed-inputs.test.ts`（tenhou）、
   `canonical-mapper.test.ts`、`report-schema.test.ts`、`fact-engine.test.ts`
-  （拒绝任意 sidecar prose）、`mahjong-soul-protocol-compatibility.test.mjs`。
-- **Status**：machine-enforced。
+  （拒绝任意 sidecar prose）、`mahjong-soul-protocol-compatibility.test.mjs`；COAC-111
+  追加每个 `mortal_*` 固定错误与 oversize/extra-prose 负例。
+- **Status**：machine-enforced（现役路径）。COAC-111 必须在接入 local runtime 的同一提交
+  机械覆盖新增错误面并保持等级。
 
 ## INV-007 持久化/可复现分析产物保留版本与来源信息
 
 - **Statement**：任何可复现/可持久化的分析产物（事件流、证据 manifest、验收状态、
-  discovery 报告）必须携带 schema 版本、来源/身份与（适用时）内容哈希。
+  discovery 报告）必须携带 schema 版本、来源/身份与（适用时）内容哈希。local Mortal
+  package 必须可恢复 runtime revision/version/artifact SHA-256、checkpoint repository
+  revision/model tag/file SHA-256、protocol 与 adapter version；不得只写 `Mortal`。
 - **Why**：版本与来源是追溯与"旧产物可否重放"的判据；缺失则审计无法定位到产生它的
   代码版本。
 - **Owner / boundary**：各产物 schema 的 `schemaVersion` / `sourceKind` / `gameId` /
@@ -159,8 +183,10 @@ Model/report evidence provider（模型/报告证据来源）
 - **Executable tests**：`mortal-coverage-evidence-manifest.test.ts`、
   `mortal-coverage-registry.test.ts`、`protocol-bundle.test.ts`、
   `update-packaged-fact-engine-manifest.test.mjs`、
-  `structured-analysis-package.test.ts`、`structured-analysis-package-golden.test.ts`。
-- **Status**：machine-enforced（含 `StructuredAnalysisPackage` 契约与 identity）。
+  `structured-analysis-package.test.ts`、`structured-analysis-package-golden.test.ts`；
+  COAC-111 必须增加声明/payload/hash 任一侧篡改的 local-runtime provenance 负例。
+- **Status**：machine-enforced（现役 `StructuredAnalysisPackage` identity）。local runtime
+  provenance schema/validator 是 COAC-111 的前置交付，不能以 declaration-only 进入 package。
 
 ## INV-008 启发式/估算永不进入确定性偏好
 

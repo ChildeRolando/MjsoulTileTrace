@@ -13,9 +13,9 @@ mahjong-soul-source ──► CanonicalEventStreamV2
         │                         │
         └─────────────────────────┼──────────────┐
                                   ▼              ▼
-                           reasoning pipeline   model adapter
-                                  │              │
-                                  └──── candidates + scores
+                           reasoning pipeline   model evidence adapter
+                                   │              │
+                                   └──── candidates + scores
                                              │
                                              ▼
                               structured comparison / ledgers
@@ -52,6 +52,7 @@ mahjong-soul-source ──► CanonicalEventStreamV2
 - 已知事实、牌形、振听、防守矩阵和因素账本；
 - 模型评价、比较、偏好和严格分析包；
 - renderer-safe 雀魂会话与目录 DTO。
+- 计划中的 local Mortal runtime strict request/result/error/identity DTO。
 
 规则：跨包数据进入下一层前必须经过这里的严格 schema；未知字段默认拒绝。
 
@@ -81,6 +82,17 @@ Mortal model/report evidence provider：报告 schema、URL 校验、指纹与 m
 来源分类与依赖方向的权威裁决见
 [ADR-0005](../adr/0005-workspace-dependency-boundaries.md)。
 
+### `@riichi-coach/mortal-runtime`（已冻结，尚未实现）
+
+独立 privileged native-model owner：由 Electron main 托管固定 Mortal V4 subprocess 与
+`Yuchen1457/mortal-582500` checkpoint，只接收 contracts-owned canonical/replay request，
+通过 strict `riichi-local-mortal-jsonl/v1` 返回 model evidence。它不解析雀魂/天凤格式，
+不生成麻将事实，不与 `mortal-source` 或 `mahjong-facts` 合并。reasoning 不依赖该包；只
+消费 contracts-owned result 并复用现有 Mortal comparison / `ModelEvaluation` builder。
+renderer/preload 不得启动进程、读取模型、知道 checkpoint 路径或接收 raw stdout/stderr。
+完整 owner、identity、候选双射和 spike 门见
+[Local Mortal Runtime 生产规格](../specs/2026-09-24-local-mortal-runtime-production-design.md)。
+
 ### `@riichi-coach/reasoning`
 
 来源无关的麻将推理层：
@@ -102,6 +114,7 @@ Electron 组合根与本地产品边界：
 - 生产 Lobby、目录、牌谱摄取的依赖接线；
 - 安全 IPC/preload、窗口权限和本地 renderer；
 - 当前在主进程内缓存 mapped/replayed record。
+- COAC-111 落地后，独占 local Mortal subprocess/checkpoint 生命周期与 manifest 校验。
 
 renderer 只能收到安全会话状态、可分析目录摘要和固定操作结果。
 
@@ -133,12 +146,15 @@ renderer 只能收到安全会话状态、可分析目录摘要和固定操作�
 2. 未知动作、非法牌、缺失引用或最终 schema 失败均 fail closed。
 3. replayer 在本人可见摸牌处冻结 `DecisionSnapshotV2`。
 4. 每个快照投影 `KnownGameFacts`，并记录之后的实际舍牌。
-5. 目前此处停止：没有生产模型候选时不能构造合法的自动比较。
+5. 当前 report-based 路径可消费既有 Mortal 报告；manual-import 自动路径仍停在缺少生产
+   模型候选处。已冻结的下一步是从 canonical/replay 投影到独立 local Mortal runtime，
+   runtime/spike 尚未实现，不能把规格当作已接通。
 
 ### 比较与解释
 
 1. 候选必须先归一化为 canonical action 与稳定 `actionRef`。
-2. 模型评价只表示模型选择；事实管线独立计算麻将因素。
+2. remote report 或 managed local Mortal 的模型评价只表示模型选择；事实管线独立计算
+   麻将因素，两种 Mortal 来源在同一 comparison / `ModelEvaluation` contract 合流。
 3. 每候选生成同构五轴账本，再生成 pairwise differences。
 4. 只有 registered deterministic difference 可进入确定性偏好；确定性偏好是 optional deterministic signal，轴间冲突时为 null——冲突场景交给教练判断层，而非禁止综合。
 5. LLM 教练判断（CoachJudgment）在已有证据之内做跨因素权衡（hard evidence 是约束，advisory signal 是带来源/版本的参考上下文且无否决权）、给出推荐与置信度；不得发明、修改或补全局面事实与候选因素，不得改写差异方向，也不得声称知道模型内部原因。
@@ -272,7 +288,21 @@ v1 不要求新增第三个持久化 canonical artifact。ReviewSession 仍可�
 
 ### 模型和教练分离
 
-Mortal/Akagi 的分数决定“模型偏好”；教练判断（CoachJudgment）由 LLM 在可审计的证据上做出（hard evidence 为约束，advisory signal 为带来源/版本的参考上下文）。删除模型评分不能改变事实账本与差异，也不得改变教练判断的证据基础。
+Mortal 的分数决定“模型偏好”；教练判断（CoachJudgment）由 LLM 在可审计的证据上做出
+（hard evidence 为约束，advisory signal 为带来源/版本的参考上下文）。删除模型评分不能
+改变事实账本与差异，也不得改变教练判断的证据基础。历史 Akagi 契约不代表当前实现范围。
+
+### Local Mortal privileged runtime
+
+Electron main 是唯一 runtime lifecycle owner。启动前必须校验 strict runtime manifest、
+runtime artifact 与 checkpoint SHA-256；request 只含 canonical/replay identity、窗口、合法
+候选与 actual correspondence。每个 self-turn/response window 的本地候选集必须与 runtime
+候选集一一双射；duplicate/missing/extra/unknown/ambiguous 全部 fail closed，不取交集。
+
+local runtime 的 package provenance 必须恢复 runtime source revision/version/artifact hash、
+checkpoint repository revision/model tag/file hash、protocol 与 adapter version，且参与 package
+identity/content hash。crash、timeout、协议或候选不一致只产生固定安全错误；raw prose、路径、
+tensor 与 debug output 不进入 package、ReviewReport、renderer、LLM 或日志。
 
 ### Privileged / renderer 分离
 
@@ -316,7 +346,7 @@ package validators。
 流程不保存完整 prompt、response 或 raw CoT。
 optional usage 先校验形状，畸形 metadata 不会把合法 draft 变成传输失败。被拦截的
 key/prompt 反射只在 main 内保留与本次结果绑定的原文 hash，正文丢弃，audit.outputHash
-继续指向原始模型输出。冻结 v1 prompt 明确要求 zh-CN，且 Mortal/Akagi 内部原因
+继续指向原始模型输出。冻结 v1 prompt 明确要求 zh-CN，且任何 Mortal（以及历史 Akagi）内部原因
 （modelReason）恒 unknown；预期全文 golden 锁定字节。
 模型返回的未知字段不成为产品字段，错误正文不读取，diagnostics 只保留冻结 code 与
 已选 decisionId。IPC 与 preload 两端重解析同一 contracts DTO；contracts 的基础

@@ -17,7 +17,7 @@
 | M3 教学证据 | 未开始 | 仅有策略边界和占位契约 | 冻结资料、引用、版本化教学规则；与 decision fact 两源分离，fixed report 稳定后启动 |
 | M4 受约束追问 | 未开始 | ——（原 M4"LLM 教练"已拆分为 M6-D 解释引擎 + M7-A 固定报告 UI + M4 追问对话） | fixed report 与教学证据层稳定后的 constrained follow-up/chat；context retrieval 将建立在 M6-D1 ContextGraph 上（embeddings/GraphRAG 不是前提） |
 | M5 雀魂国区接入 | 接近完成 | Electron 登录、加密恢复、最近 30 场、取回、canonical mapper、重放、脱敏 replay audit、H1 诊断命令 | 真实牌谱 H1 对照验收；未覆盖流局/杠枚举的 fixture 反证 |
-| M6 模型生产接入 | 核心链完成 | M6-A1–A4、M6-C、DeterministicReviewSelector、M6-D1/D2 已落地；唯一 `generateReviewReport` 链、provider 单点重试、grounding/read-back 发布门、架构绕过检查与安全降级路径全绿 | M6-B Akagi 后置 |
+| M6 模型生产接入 | report-based 核心链完成；native runtime 待实现 | M6-A1–A4、M6-C、DeterministicReviewSelector、M6-D1/D2 已落地；唯一 `generateReviewReport` 链、provider 单点重试、grounding/read-back 发布门、架构绕过检查与安全降级路径全绿 | M6-B 已校准为 native model runtime capability；local Mortal `mortal-582500` 规格已冻结，真实 production spike 待实现 |
 | M7 复盘工作台 | 核心能力完成，产品组合未闭合 | M7-A UI 与 M7-B SQLite/immutable artifacts/两阶段恢复/离线重开/main-only raw cache 已合入 | 按 Integration Closeout 完成 account/import 入口、session-list refresh 与 MVP Electron Golden Slice |
 | M8 打包发布 | 未开始 | Electron 与 sidecar 构建基础 | 跨平台安装、升级、日志、发布验收 |
 
@@ -31,9 +31,9 @@ M5 manual acceptance (parallel)
 → M6-D2
 → M7-A
 → M7-B
+→ M6-B Local Mortal Runtime Production Spike
 → Playable Review MVP Integration Closeout
 → pull-based M2-next / M3 / M4
-→ M6-B
 → M8
 ```
 
@@ -197,6 +197,21 @@ A/B/D 尚未实现。C 已由 COAC-100/PR #23 提供修复并通过独立评审�
 前仍未闭合。只有 Integration spec 的 Golden Slice、五门、fresh `NO_P1_P2`、合并与一次
 真人 smoke 全部完成，才能标记 `Playable Review MVP v0.1 = DEMOABLE`。
 
+### 6.2 M6-B Native model runtime prerequisite
+
+M6-B 的能力本质是受管 native model runtime，不再绑定历史名称 “Akagi Native”。当前批准
+且唯一的 MVP 实现是 managed local Mortal runtime + `Yuchen1457/mortal-582500`；冻结规格见
+[Local Mortal Runtime 生产规格](../specs/2026-09-24-local-mortal-runtime-production-design.md)。
+remote Mortal report path 保留作 regression/cross-validation/diagnostic，但 manual-import
+产品主链不再等待用户粘贴 result URL。
+
+该 runtime 是独立 privileged owner，只产生 model evidence，经既有 structured comparison /
+`ModelEvaluation` 进入 M6-C；它不得产生或改写 `KnownGameFacts`、候选账本或差异，不得解析
+雀魂协议，也不得与 `mortal-source` 或 deterministic `mahjong-facts` sidecar 合并。真实
+`mortal-582500` CPU inference → candidate conservation → validated
+`StructuredAnalysisPackage` 合入 `master` 前，COAC-106 的 B 路径保持 blocked；规格完成本身
+不等于 production spike 或 runtime 已完成。
+
 ### 7. M2-next：pull-based deterministic capability pool
 
 - M2-next is not an independent horizontal completion gate. New fact capabilities are pulled into the critical path only when required by an explicit product scope or vertical-slice requirement.
@@ -204,7 +219,10 @@ A/B/D 尚未实现。C 已由 COAC-100/PR #23 提供修复并通过独立评审�
 
 ### 8. 其后
 
-- M3 教学证据层（与 decision fact 两源分离）→ M4 受约束追问对话 → M6-B Akagi（产品链稳定后）→ M8 打包发布。
+- M3 教学证据层（与 decision fact 两源分离）→ M4 受约束追问对话 → M8 打包发布。
+- 历史路线图曾把 M6-B 写作“Akagi 后置”；2026-09-24 产品裁决保留该时间语义，但把当前
+  能力校准为 native model runtime，并把 local Mortal production spike 前移为 Playable
+  Review MVP 的显式前置。Akagi 不在当前范围。
 - M4 未来 constrained follow-up/chat 的 context retrieval 将建立在 ContextGraph 上：
 
 ```text
