@@ -41,6 +41,10 @@ merge attribution 不再属于架构，必须删除而不是继续修补。`auto
 `gh pr merge --auto --merge --match-head-commit <reviewed_head>`，永不使用 `--admin`。
 `Review Loop v2` 必须是适用保护/ruleset 的 required status/check，由 GitHub 对其余条件和
 最终 merge mechanics 负责。重复 tick 读取 GitHub native request 幂等；merged 后只读回审计。
+回读始终保留 request/可信 review 已绑定的 `reviewed_head` 与 `reviewed_base`，并将 GitHub
+实际返回的 head/base、mergedAt 和 merge commit 作为独立事实记录。只有两份身份精确一致且
+合并元数据完整时才记录 `MERGED`；任一身份漂移都记录 `MERGE_READ_BACK_INCOMPLETE`，不得
+用实时 PR 身份覆盖受审身份。该只读回读在 `auto_merge.enabled=false` 时同样执行且零 merge write。
 
 身份不再限定 ordinary write：admin 可以作为 actor，但 branch protection 必须
 `enforce_admins=true` 或 active ruleset 必须等价约束它，并且没有命中的 bypass actor。

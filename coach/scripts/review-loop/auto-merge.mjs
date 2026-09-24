@@ -65,6 +65,28 @@ function audit(state,status,live,extra={}) {
   state.auto_merge={status,reviewed_head:live.head_sha,reviewed_base:live.base_sha,checked_at:now(),...extra};
 }
 
+function reviewedCandidate(state,live) {
+  const previous=state.auto_merge;
+  if(isSha(previous?.reviewed_head) && isSha(previous?.reviewed_base)) {
+    return {head_sha:previous.reviewed_head,base_sha:previous.reviewed_base};
+  }
+  const job=state.job;
+  if(job?.kind === 'review' && isSha(job.head_sha) && isSha(job.base_sha)) {
+    return {head_sha:job.head_sha,base_sha:job.base_sha};
+  }
+  return live;
+}
+
+function mergedReadBack(state,live,pr) {
+  const reviewed=reviewedCandidate(state,live),observed_head=pr?.head?.sha ?? null,observed_base=pr?.base?.sha ?? null;
+  const complete=observed_head === reviewed.head_sha && observed_base === reviewed.base_sha
+    && typeof pr.merged_at === 'string' && isSha(pr.merge_commit_sha);
+  audit(state,complete ? 'MERGED' : 'MERGE_READ_BACK_INCOMPLETE',reviewed,{
+    github_merged:true,observed_head,observed_base,merged_at:typeof pr.merged_at === 'string' ? pr.merged_at : null,
+    merge_commit_sha:isSha(pr.merge_commit_sha) ? pr.merge_commit_sha : null,
+  });
+}
+
 function nativeRequestMatches(pr,head) {
   return pr?.auto_merge && pr.head?.sha === head;
 }
@@ -79,8 +101,7 @@ export async function advanceAutoMerge(state,live,io,config) {
   }
   const pr=evidence.pr;
   if(pr?.merged === true) {
-    const complete=pr.head?.sha === live.head_sha && typeof pr.merged_at === 'string' && isSha(pr.merge_commit_sha);
-    audit(state,complete ? 'MERGED' : 'MERGE_READ_BACK_INCOMPLETE',live,complete ? {merged_at:pr.merged_at,merge_commit_sha:pr.merge_commit_sha} : {});
+    mergedReadBack(state,live,pr);
     await io.save(state);return;
   }
   if(pr?.state === 'closed') {audit(state,'CLOSED_NO_MERGE',live);await io.save(state);return;}
@@ -104,8 +125,7 @@ export async function advanceAutoMerge(state,live,io,config) {
   try {evidence=await io.autoMergeEvidence(state.pr_number,live.base_branch);}
   catch(e) {audit(state,'REQUEST_READ_BACK_FAILED',live,{reason:String(e.message).slice(0,200),evidence_sha256:admission.evidence_sha256});await io.save(state);return;}
   if(evidence.pr?.merged === true) {
-    const complete=evidence.pr.head?.sha === live.head_sha && typeof evidence.pr.merged_at === 'string' && isSha(evidence.pr.merge_commit_sha);
-    audit(state,complete ? 'MERGED' : 'MERGE_READ_BACK_INCOMPLETE',live,complete ? {merged_at:evidence.pr.merged_at,merge_commit_sha:evidence.pr.merge_commit_sha} : {});
+    mergedReadBack(state,live,evidence.pr);
   } else if(nativeRequestMatches(evidence.pr,live.head_sha)) {
     audit(state,'REQUESTED',live,{requested_at:evidence.pr.auto_merge.enabled_at ?? null,evidence_sha256:admission.evidence_sha256});
   } else audit(state,'REQUEST_NOT_CONFIRMED',live,{evidence_sha256:admission.evidence_sha256});

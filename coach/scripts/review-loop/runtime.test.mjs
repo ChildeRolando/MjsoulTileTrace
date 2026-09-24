@@ -113,6 +113,36 @@ test('closed PR queue remains tracked across ticks; disabled config dispatches n
   } finally {await rm(dir,{recursive:true,force:true});}
 });
 
+test('closed-PR merge read-back preserves the reviewed candidate across live head/base drift and while disabled',async()=>{
+  const cases=[
+    {name:'head drift',liveHead:'c'.repeat(40),liveBase:'a'.repeat(40),status:'MERGE_READ_BACK_INCOMPLETE'},
+    {name:'base drift',liveHead:'b'.repeat(40),liveBase:'d'.repeat(40),status:'MERGE_READ_BACK_INCOMPLETE'},
+    {name:'disabled exact read-back',liveHead:'b'.repeat(40),liveBase:'a'.repeat(40),status:'MERGED'},
+  ];
+  for(const scenario of cases) {
+    const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-closed-merge-'));
+    try {
+      const file=path.join(dir,'pr-8.json'),reviewedHead='b'.repeat(40),reviewedBase='a'.repeat(40);
+      const state={protocol_version:VERSION,pr_number:8,round:1,status:'PASS',history:[],
+        job:{kind:'review',head_sha:reviewedHead,base_sha:reviewedBase},
+        auto_merge:{status:'REQUESTED',reviewed_head:reviewedHead,reviewed_base:reviewedBase,checked_at:'2026-09-24T00:00:00Z'}};
+      await atomicJson(file,state);
+      const raw={...pr(scenario.liveHead,scenario.liveBase),state:'closed',merged:true,merged_at:'2026-09-24T00:01:00Z',merge_commit_sha:'9'.repeat(40)};
+      let requests=0;
+      const io={openPRs:async()=>[],live:async()=>raw,autoMergeEvidence:async()=>({pr:raw}),save:s=>atomicJson(file,s),requestAutoMerge:async()=>{requests++;}};
+      await tick({...config(dir),enabled:false},()=>io);
+      const saved=JSON.parse(await readFile(file,'utf8'));
+      assert.equal(saved.auto_merge.status,scenario.status,scenario.name);
+      assert.equal(saved.auto_merge.reviewed_head,reviewedHead,scenario.name);
+      assert.equal(saved.auto_merge.reviewed_base,reviewedBase,scenario.name);
+      assert.equal(saved.auto_merge.observed_head,scenario.liveHead,scenario.name);
+      assert.equal(saved.auto_merge.observed_base,scenario.liveBase,scenario.name);
+      assert.equal(saved.auto_merge.github_merged,true,scenario.name);
+      assert.equal(requests,0,scenario.name);
+    } finally {await rm(dir,{recursive:true,force:true});}
+  }
+});
+
 test('live P3 PASS tick dispatches durability before publication and never duplicates',async()=>{
   const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-live-durable-'));
   try {
