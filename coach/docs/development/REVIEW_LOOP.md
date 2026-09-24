@@ -54,6 +54,14 @@ PR #16 先前 round 3 的两个 P2 都位于已废弃 direct-merge 路径：comm
 同账号 external-merge attribution。新实现应通过删除对应生产路径与测试解决，而不是修补旧
 状态机。PR 仍须为新 HEAD 取得可信 fresh independent review；旧 BLOCKED/PASS 不可继承。
 
+2026-09-24 收窄实现提交 `87b7a106d6f3591fcdadf4df5d268e2988ae99f6` 已删除上述路径，改为
+`gh pr merge --auto --merge --match-head-commit <reviewed_head>` admission/read-back；回归测试
+机械拒绝 direct merge endpoint、`merge_intent`、required-check 结果二次聚合和 external merge
+归属逻辑。focused Review Loop 为 88/88 PASS；五门为 typecheck PASS、build PASS、Vitest
+172 文件 / 2,069 项 PASS、architecture 0 violation、package-import PASS。该结果只是本地候选
+验证，不是独立 review PASS，也不是部署/启用证据。由于 PR #16 的旧 admission/rubric 与新
+职责冲突，新候选须用更新后的唯一 admission 重新进入 fresh Review Loop，不能复用旧三轮。
+
 生产启用后的操作顺序必须是：暂停 trigger → 持锁并备份 ledger/evidence/config → 部署固定
 受审 SHA 且 `auto_merge.enabled=false` → 回读调用者、native auto-merge、保护/规则和一次零
 auto-merge request tick →
