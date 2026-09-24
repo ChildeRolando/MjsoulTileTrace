@@ -1,7 +1,7 @@
 # Local Mortal Runtime 生产规格
 
-日期：2026-09-24  
-状态：**SPEC READY；runtime 与 production spike 尚未实现**  
+日期：2026-09-24
+状态：**SPEC READY；runtime 与 production spike 尚未实现**
 决策来源：COAC-106 产品 owner 裁决；规格落盘：COAC-110；后继实现：COAC-111
 
 ## 1. 当前权威与 supersession
