@@ -113,6 +113,36 @@ test('closed PR queue remains tracked across ticks; disabled config dispatches n
   } finally {await rm(dir,{recursive:true,force:true});}
 });
 
+test('closed-PR merge read-back preserves the reviewed candidate across live head/base drift and while disabled',async()=>{
+  const cases=[
+    {name:'head drift',liveHead:'c'.repeat(40),liveBase:'a'.repeat(40),status:'MERGE_READ_BACK_INCOMPLETE'},
+    {name:'base drift',liveHead:'b'.repeat(40),liveBase:'d'.repeat(40),status:'MERGE_READ_BACK_INCOMPLETE'},
+    {name:'disabled exact read-back',liveHead:'b'.repeat(40),liveBase:'a'.repeat(40),status:'MERGED'},
+  ];
+  for(const scenario of cases) {
+    const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-closed-merge-'));
+    try {
+      const file=path.join(dir,'pr-8.json'),reviewedHead='b'.repeat(40),reviewedBase='a'.repeat(40);
+      const state={protocol_version:VERSION,pr_number:8,round:1,status:'PASS',history:[],
+        job:{kind:'review',head_sha:reviewedHead,base_sha:reviewedBase},
+        auto_merge:{status:'REQUESTED',reviewed_head:reviewedHead,reviewed_base:reviewedBase,checked_at:'2026-09-24T00:00:00Z'}};
+      await atomicJson(file,state);
+      const raw={...pr(scenario.liveHead,scenario.liveBase),state:'closed',merged:true,merged_at:'2026-09-24T00:01:00Z',merge_commit_sha:'9'.repeat(40)};
+      let requests=0;
+      const io={openPRs:async()=>[],live:async()=>raw,autoMergeEvidence:async()=>({pr:raw}),save:s=>atomicJson(file,s),requestAutoMerge:async()=>{requests++;}};
+      await tick({...config(dir),enabled:false},()=>io);
+      const saved=JSON.parse(await readFile(file,'utf8'));
+      assert.equal(saved.auto_merge.status,scenario.status,scenario.name);
+      assert.equal(saved.auto_merge.reviewed_head,reviewedHead,scenario.name);
+      assert.equal(saved.auto_merge.reviewed_base,reviewedBase,scenario.name);
+      assert.equal(saved.auto_merge.observed_head,scenario.liveHead,scenario.name);
+      assert.equal(saved.auto_merge.observed_base,scenario.liveBase,scenario.name);
+      assert.equal(saved.auto_merge.github_merged,true,scenario.name);
+      assert.equal(requests,0,scenario.name);
+    } finally {await rm(dir,{recursive:true,force:true});}
+  }
+});
+
 test('live P3 PASS tick dispatches durability before publication and never duplicates',async()=>{
   const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-live-durable-'));
   try {
@@ -131,8 +161,68 @@ test('live P3 PASS tick dispatches durability before publication and never dupli
 });
 
 const admission={protocol_version:'review-loop/v2.1',authoritative_spec_paths:['coach/docs/specs/a.md'],rubric:'all criteria'};
-const pr=(head='b'.repeat(40),base='a'.repeat(40),marker='live')=>({number:8,state:'open',draft:false,body:'```review-loop-admission\n'+JSON.stringify(admission)+'\n```',base:{sha:base,repo:{full_name:'ChildeRolando/MjsoulTileTrace'}},head:{sha:head,ref:'codex/a',repo:{full_name:'ChildeRolando/MjsoulTileTrace'}},marker});
-const config=dir=>({protocol_version:'review-loop/v2.1',repository:'ChildeRolando/MjsoulTileTrace',reviewer_id:'reviewer',fixer_id:'fixer',project_id:'project',enabled:true,state_dir:dir,repository_path:dir,gh_path:'gh',git_path:'git',multica_path:'multica',profile:'profile',workspace_id:'workspace'});
+const pr=(head='b'.repeat(40),base='a'.repeat(40),marker='live')=>({number:8,state:'open',draft:false,body:'```review-loop-admission\n'+JSON.stringify(admission)+'\n```',base:{sha:base,ref:'master',repo:{full_name:'ChildeRolando/MjsoulTileTrace'}},head:{sha:head,ref:'codex/a',repo:{full_name:'ChildeRolando/MjsoulTileTrace'}},marker});
+const config=dir=>({protocol_version:'review-loop/v2.1',repository:'ChildeRolando/MjsoulTileTrace',reviewer_id:'reviewer',fixer_id:'fixer',project_id:'project',enabled:true,auto_merge:{version:2,enabled:false,method:'merge',expected_actor:{login:'merger',id:1}},state_dir:dir,repository_path:dir,gh_path:'gh',git_path:'git',multica_path:'multica',profile:'profile',workspace_id:'workspace'});
+
+test('native auto-merge evidence proves GitHub constrains an admin and requires Review Loop',async()=>{
+  const raw=pr(),requests=[];
+  const runner=async(_file,args)=>{
+    const endpoint=args[1];requests.push(endpoint);
+    if(endpoint === 'repos/ChildeRolando/MjsoulTileTrace/pulls/8')return JSON.stringify(raw);
+    if(endpoint === 'repos/ChildeRolando/MjsoulTileTrace')return JSON.stringify({full_name:'ChildeRolando/MjsoulTileTrace',allow_auto_merge:true,allow_merge_commit:true});
+    if(endpoint === 'user')return JSON.stringify({login:'merger',id:1});
+    if(endpoint.startsWith('user/teams'))return JSON.stringify([[]]);
+    if(endpoint.includes('/rules/branches/master?'))return JSON.stringify([[]]);
+    if(endpoint.endsWith('/collaborators/merger/permission'))return JSON.stringify({permission:'admin',role_name:'admin'});
+    if(endpoint.endsWith('/branches/master'))return JSON.stringify({protected:true});
+    if(endpoint.endsWith('/branches/master/protection'))return JSON.stringify({enforce_admins:{enabled:true},required_status_checks:{checks:[{context:'Review Loop v2',app_id:null}],contexts:[]},required_pull_request_reviews:{bypass_pull_request_allowances:{users:[],teams:[],apps:[]}}});
+    throw new Error(`unexpected request ${endpoint}`);
+  };
+  const evidence=await makeIO(config('.'),'state.json','.',runner).autoMergeEvidence(8,'master');
+  assert.deepEqual(evidence.permission,{permission:'admin',role_name:'admin'});assert.equal(evidence.actor_constrained,true);assert.equal(evidence.review_loop_required,true);
+  assert(requests.some(x=>x.includes('/rules/branches/master?')));assert(!requests.some(x=>x.includes('/rules/branches/codex%2Fa')));
+  assert(!requests.some(x=>x.includes('/statuses') || x.includes('/check-runs')));
+});
+
+async function mixedProtectionEvidence({enforceAdmins,rulesetBypass=[]}) {
+  const raw=pr(),rules=[{ruleset_id:7,type:'required_status_checks',parameters:{required_status_checks:[{context:'Review Loop v2'}]}}];
+  const runner=async(_file,args)=>{
+    const endpoint=args[1];
+    if(endpoint === 'repos/ChildeRolando/MjsoulTileTrace/pulls/8')return JSON.stringify(raw);
+    if(endpoint === 'repos/ChildeRolando/MjsoulTileTrace')return JSON.stringify({full_name:'ChildeRolando/MjsoulTileTrace',allow_auto_merge:true,allow_merge_commit:true});
+    if(endpoint === 'user')return JSON.stringify({login:'merger',id:1});
+    if(endpoint.startsWith('user/teams'))return JSON.stringify([[]]);
+    if(endpoint.includes('/rules/branches/master?'))return JSON.stringify([rules]);
+    if(endpoint.endsWith('/rulesets/7?includes_parents=true'))return JSON.stringify({enforcement:'active',bypass_actors:rulesetBypass});
+    if(endpoint.endsWith('/collaborators/merger/permission'))return JSON.stringify({permission:'admin',role_name:'admin'});
+    if(endpoint.endsWith('/branches/master'))return JSON.stringify({protected:true});
+    if(endpoint.endsWith('/branches/master/protection'))return JSON.stringify({enforce_admins:{enabled:enforceAdmins},required_pull_request_reviews:{required_approving_review_count:2,bypass_pull_request_allowances:{users:[],teams:[],apps:[]}}});
+    throw new Error(`unexpected request ${endpoint}`);
+  };
+  return makeIO(config('.'),'state.json','.',runner).autoMergeEvidence(8,'master');
+}
+
+test('native auto-merge evidence rejects classic admin bypass even when a ruleset is constrained',async()=>{
+  const evidence=await mixedProtectionEvidence({enforceAdmins:false});
+  assert.equal(evidence.enforcement_complete,true);
+  assert.equal(evidence.review_loop_required,true);
+  assert.equal(evidence.actor_constrained,false);
+});
+
+test('native auto-merge evidence rejects a matching ruleset bypass even when classic protection is constrained',async()=>{
+  const evidence=await mixedProtectionEvidence({enforceAdmins:true,rulesetBypass:[{actor_type:'User',actor_id:1,bypass_mode:'always'}]});
+  assert.equal(evidence.enforcement_complete,true);
+  assert.equal(evidence.review_loop_required,true);
+  assert.equal(evidence.actor_constrained,false);
+});
+
+test('native auto-merge request binds the reviewed head and never requests admin bypass',async()=>{
+  let invoked;
+  const runner=async(_file,args)=>{invoked=args;return '';};
+  await makeIO(config('.'),'state.json','.',runner).requestAutoMerge(8,'b'.repeat(40),'merge');
+  assert.deepEqual(invoked,['pr','merge','8','--repo','ChildeRolando/MjsoulTileTrace','--auto','--merge','--match-head-commit','b'.repeat(40)]);
+  assert.equal(invoked.includes('--admin'),false);assert.equal(invoked.includes('--delete-branch'),false);
+});
 
 async function invalidReviewRecoveryFixture(dir) {
   const reviewHead='b'.repeat(40),currentHead='c'.repeat(40),base='a'.repeat(40),raw=pr(currentHead,base);

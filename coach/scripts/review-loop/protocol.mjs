@@ -88,6 +88,7 @@ export function admit(pr) {
   assert(pr.base?.repo?.full_name === REPOSITORY && pr.head?.repo?.full_name === REPOSITORY, 'repository mismatch/fork');
   assert(isSha(pr.base.sha) && isSha(pr.head.sha), 'invalid SHA');
   assert(text(pr.head.ref) && !pr.head.ref.startsWith('-'), 'invalid branch');
+  assert(text(pr.base.ref) && !pr.base.ref.startsWith('-'), 'invalid base branch');
   const {data} = block(pr.body, 'review-loop-admission');
   keys(data, ['protocol_version','authoritative_spec_paths','rubric']);
   assert.equal(data.protocol_version, VERSION);
@@ -95,7 +96,7 @@ export function admit(pr) {
   assert(Array.isArray(data.authoritative_spec_paths) && data.authoritative_spec_paths.length > 0 && data.authoritative_spec_paths.length <= 20);
   for (const p of data.authoritative_spec_paths) assert(typeof p === 'string' && /^coach\/docs\/(specs|development)\/[a-zA-Z0-9_./-]+\.md$/.test(p) && !p.split('/').some(s=>s === '..' || s === '.' || !s), 'unsafe spec path');
   assert.equal(new Set(data.authoritative_spec_paths).size,data.authoritative_spec_paths.length);
-  return {pr_number:pr.number,base_sha:pr.base.sha,head_sha:pr.head.sha,branch:pr.head.ref,admission:data,admission_hash:hash(JSON.stringify(data))};
+  return {pr_number:pr.number,base_sha:pr.base.sha,head_sha:pr.head.sha,branch:pr.head.ref,base_branch:pr.base.ref,admission:data,admission_hash:hash(JSON.stringify(data))};
 }
 export function parseResult(job, issue, comments, runs) {
   assert(issue.id === job.issue_id && issue.assignee_type === 'agent' && issue.assignee_id === job.agent_id, 'assignment mismatch');

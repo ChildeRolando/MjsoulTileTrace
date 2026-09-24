@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { admit, parseResult, parseRejectedReviewResult, decide, GATES, hash } from './protocol.mjs';
 
 const sha = 'a'.repeat(40), base = 'b'.repeat(40);
-const pr = () => ({ number: 8, state: 'open', draft: false, body: '```review-loop-admission\n' + JSON.stringify({protocol_version:'review-loop/v2.1', authoritative_spec_paths:['coach/docs/specs/example.md'], rubric:'Review all acceptance criteria.'}) + '\n```', base:{sha:base,repo:{full_name:'ChildeRolando/MjsoulTileTrace'}}, head:{sha,ref:'codex/test',repo:{full_name:'ChildeRolando/MjsoulTileTrace'}} });
+const pr = () => ({ number: 8, state: 'open', draft: false, body: '```review-loop-admission\n' + JSON.stringify({protocol_version:'review-loop/v2.1', authoritative_spec_paths:['coach/docs/specs/example.md'], rubric:'Review all acceptance criteria.'}) + '\n```', base:{sha:base,ref:'master',repo:{full_name:'ChildeRolando/MjsoulTileTrace'}}, head:{sha,ref:'codex/test',repo:{full_name:'ChildeRolando/MjsoulTileTrace'}} });
 const job = () => ({kind:'review',issue_id:'review-id',agent_id:'reviewer-id',round:1,base_sha:base,head_sha:sha,pr_number:8,admission_hash:hash('admission')});
 const result = () => ({protocol_version:'review-loop/v2.1',pr_number:8,base_sha:base,head_sha:sha,round:1,verdict:'NO_P1_P2',findings:{P1:[],P2:[],P3:[]},gates:Object.entries(GATES).map(([id,command])=>({id,command,status:'PASS',exit_code:0})),environment_failures:[]});
 const comment = (r=result()) => ({id:'comment-id',author_type:'agent',author_id:'reviewer-id',issue_id:'review-id',source_task_id:'run-id',content:'Full findings\n```review-loop-result\n'+JSON.stringify(r)+'\n```'});

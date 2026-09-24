@@ -25,7 +25,53 @@ regression 普通文件及 blob hashes、指定 agent/completed run 的严格 re
 工单 done/in_review 本身不构成完成。验收回执的命令 PASS 是受信 agent 的报告，Git
 内容与远端可达性由 Controller 独立核验；Controller 不执行 finding 提供的任意命令，
 也不使用 LLM 判断改动语义。是否充分解决 finding 仍由 follow-up 的人工验收负责。
-提交不自动合并，owner 可以从 receipt 的 branch/commit 审查合入。
+durability follow-up 提交不自动合并，owner 可以从 receipt 的 branch/commit 审查合入。
+
+### 自动合并交付状态（COAC-65）
+
+权威契约见 spec 的“COAC-65：可信评审后的 GitHub native auto-merge admission”。2026-09-24
+重新冻结职责：Controller 只做 trusted review + exact HEAD/base + P1/P2/P3 policy admission；
+GitHub native auto-merge 负责 rules/checks 等待与 merge execution。旧 COAC-66 direct merge
+executor、required-check 第二套聚合、merge intent/response-loss reconciliation 和 external
+merge attribution 不再属于架构，必须删除而不是继续修补。`auto_merge` 配置仍独立版本化、
+默认 `enabled=false`。
+
+三分流固定为：P1/P2 继续 Fixer；仅 P3 记录 `P3_DECISION_REQUIRED`、不启用 auto-merge并
+通知用户；P1/P2/P3 全空且 provenance/live HEAD/base/platform enforcement 完整时，执行
+`gh pr merge --auto --merge --match-head-commit <reviewed_head>`，永不使用 `--admin`。
+`Review Loop v2` 必须是适用保护/ruleset 的 required status/check，由 GitHub 对其余条件和
+最终 merge mechanics 负责。重复 tick 读取 GitHub native request 幂等；merged 后只读回审计。
+回读始终保留 request/可信 review 已绑定的 `reviewed_head` 与 `reviewed_base`，并将 GitHub
+实际返回的 head/base、mergedAt 和 merge commit 作为独立事实记录。只有两份身份精确一致且
+合并元数据完整时才记录 `MERGED`；任一身份漂移都记录 `MERGE_READ_BACK_INCOMPLETE`，不得
+用实时 PR 身份覆盖受审身份。该只读回读在 `auto_merge.enabled=false` 时同样执行且零 merge write。
+
+身份不再限定 ordinary write：admin 可以作为 actor，但 branch protection 必须
+`enforce_admins=true` 或 active ruleset 必须等价约束它，并且没有命中的 bypass actor。
+“命令没有 `--admin`”不足以证明安全。2026-09-24 实际读回为：repository
+`allow_auto_merge=true`；`master` 无 classic branch protection、无 active repository ruleset；
+当前 `ChildeRolando` 权限为 `admin`。因此平台当前不能证明约束 admin，生产必须保持
+`auto_merge.enabled=false`。需要在 GitHub 为 `master` 启用对 admin 生效且不可 bypass 的保护/
+ruleset，并把 `Review Loop v2` 设为 required status/check，之后重新 read-back 才可启用。
+
+PR #16 先前 round 3 的两个 P2 都位于已废弃 direct-merge 路径：commit-status 历史二次聚合和
+同账号 external-merge attribution。新实现应通过删除对应生产路径与测试解决，而不是修补旧
+状态机。PR 仍须为新 HEAD 取得可信 fresh independent review；旧 BLOCKED/PASS 不可继承。
+
+2026-09-24 收窄实现提交 `87b7a106d6f3591fcdadf4df5d268e2988ae99f6` 已删除上述路径，改为
+`gh pr merge --auto --merge --match-head-commit <reviewed_head>` admission/read-back；回归测试
+机械拒绝 direct merge endpoint、`merge_intent`、required-check 结果二次聚合和 external merge
+归属逻辑。focused Review Loop 为 88/88 PASS；五门为 typecheck PASS、build PASS、Vitest
+172 文件 / 2,069 项 PASS、architecture 0 violation、package-import PASS。该结果只是本地候选
+验证，不是独立 review PASS，也不是部署/启用证据。由于 PR #16 的旧 admission/rubric 与新
+职责冲突，新候选须用更新后的唯一 admission 重新进入 fresh Review Loop，不能复用旧三轮。
+
+生产启用后的操作顺序必须是：暂停 trigger → 持锁并备份 ledger/evidence/config → 部署固定
+受审 SHA 且 `auto_merge.enabled=false` → 回读调用者、native auto-merge、保护/规则和一次零
+auto-merge request tick →
+受控验收 → 原子启用 → 恢复 trigger → 回读 health、实际 deployment SHA 和验收 PR 的
+merge commit。停用/回滚反向执行并保留 admission/audit evidence；已完成 merge 不自动
+revert，head branch 不自动删除。实现、部署、验证证据尚未落盘前不得把本节写成“已启用”。
 
 ### v2 → v2.1 migration / deployment acceptance
 
@@ -75,7 +121,9 @@ schedule 自动发现。需要用户裁决的 PR 保持待确认。无需为每�
 
 在 PR description 加入 spec 中的 `review-loop-admission` block，填写实际批准的 spec
 路径和验收 rubric。只接受同仓库已推送且 ready 的 PR。无需 GitHub 正式 approval
-或额外账号；评审与合并权限分开。结果在 GitHub `Review Loop v2` status 和 Multica issue。
+或额外 reviewer 账号；独立 Reviewer 与 auto-merge requester 的职责必须分开，requester
+即使是 admin 也必须被 GitHub 保护规则实际约束。结果在 GitHub `Review Loop v2` status 和
+Multica issue。
 GitHub status 是同提交所有已接入 PR 的聚合门禁，单个 PR 的结论以其 ledger 和评审
 原文为准。共享提交上只有所有 live 候选都通过才会显示 success。
 
@@ -164,6 +212,10 @@ in-place 本机目录，避免与 Reviewer/Fixer 争用目录锁；评审/修复
   该命令会拒绝仍存在的 PID。恢复后重新 tick 并回读任务，最后恢复 Autopilot。
 - 暂停：Autopilot pause 并将 enabled=false；已经分派的 agent run 不会因此自动取消，须
   单独查询并决定取消，避免误认为写操作已经停止。
+- 自动合并停用：先暂停 trigger，将 `auto_merge.enabled=false`，再运行 disabled tick 回读
+  零 native auto-merge request 后恢复 review trigger。保留 admission 与 read-back evidence；
+  不自行实现 response-loss/merge reconciliation。GitHub 已接受的 request 不会因本地停用自动
+  取消，如需取消须由 operator 在 GitHub 明确执行并记录。
 - 升级：严格执行上文 v2 → v2.1 migration/deployment acceptance；不得以替换 checkout 或
   PR merge 代替 ledger migration、disabled read-back 与 runtime smoke。
 

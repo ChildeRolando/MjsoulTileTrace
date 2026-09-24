@@ -299,6 +299,8 @@ export async function advance(state, live, io, config) {
   if(transition === 'ROUTE_TO_FIXER') return ensureDispatch(state,live,'fix',io,config,result);
   if(transition === 'DISCARD_AND_REVIEW') return ensureDispatch(state,live,'review',io,config);
   state.status=transition;state.reason=transition === 'BLOCKED' ? 'review gates, environment or round limit' : null;
-  state.result={comment_id:result.comment_id,sha256:result.sha256,issue_id:job.issue_id};
+  state.result={comment_id:result.comment_id,run_id:result.run_id,sha256:result.sha256,issue_id:job.issue_id,
+    head_sha:job.head_sha,base_sha:job.base_sha,verdict:result.data.verdict,
+    gates:structuredClone(result.data.gates),findings:structuredClone(result.data.findings)};
   await io.save(state);
 }

@@ -2,6 +2,15 @@
   "protocol_version": "review-loop/v2.1",
   "repository": "ChildeRolando/MjsoulTileTrace",
   "enabled": false,
+  "auto_merge": {
+    "version": 2,
+    "enabled": false,
+    "method": "merge",
+    "expected_actor": {
+      "login": "EXPECTED_GITHUB_LOGIN",
+      "id": 1
+    }
+  },
   "repository_path": "C:\\absolute\\trusted-deployment-checkout",
   "state_dir": "C:\\absolute\\review-loop-state",
   "multica_path": "C:\\absolute\\multica.exe",
