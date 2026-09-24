@@ -167,49 +167,60 @@ export function makeIO(config,stateFile,stateDir,runCommand=command) {
         await ancestor(result.data.head_sha,live.head_sha,'fix result is not reachable from current PR head');
       }
     },
-    mergeEvidence:async(n,targetBranch)=>{
+    autoMergeEvidence:async(n,targetBranch)=>{
       const pr=await gh([`${api}/pulls/${n}`]);assert(isSha(pr.head?.sha),'invalid eligibility head');
       assert.equal(pr.base?.ref,targetBranch,'eligibility target branch changed');
-      const [repository,actor,teams,statuses,checks,rules]=await Promise.all([
+      const [repository,actor,teams,rules]=await Promise.all([
         gh([api]),gh(['user']),paged('user/teams'),
-        paged(`${api}/commits/${pr.head.sha}/statuses`),
-        gh([`${api}/commits/${pr.head.sha}/check-runs?per_page=100`,'--paginate','--slurp']),
         paged(`${api}/rules/branches/${encodeURIComponent(targetBranch)}`),
       ]);
-      assert(Array.isArray(checks) && checks.every(x=>Array.isArray(x?.check_runs)),'check-run pagination incomplete');
       const permissionResponse=await gh([`${api}/collaborators/${encodeURIComponent(actor.login)}/permission`]);
       const permission={permission:permissionResponse.permission,role_name:permissionResponse.role_name};
       const branchInfo=await gh([`${api}/branches/${encodeURIComponent(targetBranch)}`]);
-      const protection=branchInfo.protected === true ? await gh([`${api}/branches/${encodeURIComponent(targetBranch)}/protection`]) : null;
+      let protection=null;
+      if(branchInfo.protected === true) {
+        try {protection=await gh([`${api}/branches/${encodeURIComponent(targetBranch)}/protection`]);}
+        catch(e) {
+          if(!/HTTP 404/.test(String(e.cause?.stderr ?? '')))throw e;
+        }
+      }
       const ids=[...new Set(rules.map(r=>r.ruleset_id).filter(Number.isSafeInteger))];
       const rulesets=[];for(const id of ids)rulesets.push(await gh([`${api}/rulesets/${id}?includes_parents=true`]));
       const knownRules=new Set(['creation','update','deletion','required_linear_history','required_deployments','required_signatures','pull_request','required_status_checks','non_fast_forward','commit_message_pattern','commit_author_email_pattern','committer_email_pattern','branch_name_pattern','tag_name_pattern','file_path_restriction','max_file_path_length','file_extension_restriction','max_file_size','workflows','code_scanning','merge_queue']);
-      let complete=rules.every(r=>Number.isSafeInteger(r.ruleset_id) && knownRules.has(r.type)) && rulesets.every(r=>Array.isArray(r.bypass_actors));
+      let complete=typeof branchInfo.protected === 'boolean'
+        && rules.every(r=>Number.isSafeInteger(r.ruleset_id) && knownRules.has(r.type))
+        && rulesets.every(r=>r.enforcement === 'active' && Array.isArray(r.bypass_actors));
       const teamIds=new Set(teams.map(t=>t.id)),teamSlugs=new Set(teams.map(t=>t.slug));
-      let bypass=false;
+      let rulesetBypass=false;
       for(const r of rulesets)for(const b of r.bypass_actors ?? []) {
-        if(b.actor_type === 'User' && b.actor_id === actor.id)bypass=true;
-        else if(b.actor_type === 'Team' && teamIds.has(b.actor_id))bypass=true;
+        if(b.actor_type === 'User' && b.actor_id === actor.id)rulesetBypass=true;
+        else if(b.actor_type === 'Team' && teamIds.has(b.actor_id))rulesetBypass=true;
         else if(b.actor_type === 'RepositoryRole') {complete=false;}
+        else if(b.actor_type === 'OrganizationAdmin' && permission.permission === 'admin') {complete=false;}
         else if(!['Integration','DeployKey','OrganizationAdmin'].includes(b.actor_type))complete=false;
       }
       const allowances=protection?.required_pull_request_reviews?.bypass_pull_request_allowances;
-      if(allowances?.users?.some(u=>(u.login ?? u).toLowerCase() === actor.login.toLowerCase()))bypass=true;
-      if(allowances?.teams?.some(t=>teamSlugs.has(t.slug ?? t)))bypass=true;
-      return {pr,repository,actor:{login:actor.login,id:actor.id},permission,protection,rules,
-        statuses,check_runs:checks.flatMap(x=>x.check_runs),protection_complete:branchInfo.protected === false || protection !== null,
-        rules_complete:complete,actor_can_bypass:bypass};
+      const classicBypass=Boolean(allowances?.users?.some(u=>(u.login ?? u).toLowerCase() === actor.login.toLowerCase())
+        || allowances?.teams?.some(t=>teamSlugs.has(t.slug ?? t)));
+      const required=(source)=>{
+        const checks=source?.required_status_checks;
+        return [...(checks?.checks ?? []),...(checks?.contexts ?? []).map(context=>({context}))]
+          .some(c=>c.context === 'Review Loop v2');
+      };
+      const classicConstrained=Boolean(protection && required(protection) && !classicBypass
+        && (permission.permission !== 'admin' || protection.enforce_admins?.enabled === true));
+      const rulesetRequired=rules.some(r=>r.type === 'required_status_checks'
+        && r.parameters?.required_status_checks?.some(c=>c.context === 'Review Loop v2'));
+      const rulesetConstrained=Boolean(rulesetRequired && !rulesetBypass && complete);
+      return {pr,repository,actor:{login:actor.login,id:actor.id},permission,protection,rules,rulesets,
+        enforcement_complete:complete && (branchInfo.protected === false || protection !== null || rules.length > 0),
+        actor_constrained:classicConstrained || rulesetConstrained,
+        review_loop_required:classicConstrained || rulesetConstrained};
     },
-    merge:async(n,sha)=>{
-      try{return await gh([`${api}/pulls/${n}/merge`,'--method','PUT','-f',`sha=${sha}`,'-f','merge_method=merge']);}
-      catch(e) {
-        const stderr=String(e.cause?.stderr ?? '');
-        if(/HTTP (401|403)/.test(stderr))e.permission=true;
-        else if(/HTTP (405|409)/.test(stderr))e.waiting=true;
-        throw e;
-      }
+    requestAutoMerge:async(n,sha,method)=>{
+      assert.equal(method,'merge');assert(isSha(sha));
+      await runCommand(config.gh_path,['pr','merge',String(n),'--repo',REPOSITORY,'--auto','--merge','--match-head-commit',sha],config.repository_path);
     },
-    verifyMergeCommit:async sha=>{const c=await gh([`${api}/commits/${sha}`]);assert.equal(c.sha,sha,'merge commit read-back mismatch');},
     publish:async state=>{
       const j=state.job;if(!j)return;
       assert(isSha(j.head_sha),'invalid publication SHA');
@@ -277,15 +288,15 @@ export async function tick(config,ioFactory=makeIO) {
       const match=/^pr-([1-9][0-9]*)\.json$/.exec(name);
       if(!match || openNumbers.has(Number(match[1])))continue;
       const file=path.join(config.state_dir,name),state=await readJson(file);
-      if(!state.durability?.length && !state.merge?.intent)continue;
+      if(!state.durability?.length && !state.auto_merge)continue;
       assert.equal(state.protocol_version,VERSION);assert.equal(state.pr_number,Number(match[1]));
       const io=ioFactory(config,file,config.state_dir);
       if(config.enabled === true)await advanceDurability(state,io,config);
-      if(state.merge?.intent) {
+      if(state.auto_merge) {
         const raw=await io.live(state.pr_number);
         await advanceAutoMerge(state,{pr_number:state.pr_number,head_sha:raw.head?.sha,base_sha:raw.base?.sha,admission_hash:state.admission_hash,branch:raw.head?.ref,base_branch:raw.base?.ref},io,config);
       }
-      summary.push({pr:state.pr_number,status:state.status,auto_merge:state.merge ? {status:state.merge.status,intent:state.merge.intent,read_back:state.merge.read_back} : null,durability:(state.durability ?? []).map(j=>({identity:j.identity,status:j.status,issue:j.identifier,error:j.error}))});
+      summary.push({pr:state.pr_number,status:state.status,auto_merge:state.auto_merge ?? null,durability:(state.durability ?? []).map(j=>({identity:j.identity,status:j.status,issue:j.identifier,error:j.error}))});
     }
     for(const pr of prs) {
       const file=path.join(config.state_dir,`pr-${pr.number}.json`);
@@ -293,11 +304,12 @@ export async function tick(config,ioFactory=makeIO) {
       if(!existing && !pr.body?.includes('```review-loop-admission'))continue;
       const io=ioFactory(config,file,config.state_dir);
       if(config.enabled !== true) {
-        try {const raw=await io.live(pr.number),live=admit(raw);await io.snapshot(raw);if(existing?.merge?.intent)await advanceAutoMerge(existing,live,io,config);summary.push({pr:pr.number,status:'DISABLED',head:live.head_sha,auto_merge:existing?.merge?.status ?? 'NONE'});}
+        try {const raw=await io.live(pr.number),live=admit(raw);await io.snapshot(raw);if(existing?.auto_merge)await advanceAutoMerge(existing,live,io,config);summary.push({pr:pr.number,status:'DISABLED',head:live.head_sha,auto_merge:existing?.auto_merge?.status ?? 'NONE'});}
         catch {summary.push({pr:pr.number,status:'DISABLED',admission:'invalid or unavailable'});}
         continue;
       }
       let state=existing ?? {protocol_version:VERSION,pr_number:pr.number,round:0,status:'NEW',history:[]};
+      let published=false;
       assert.equal(state.protocol_version,VERSION);assert.equal(state.pr_number,pr.number);
       await advanceDurability(state,io,config);
       try {
@@ -316,6 +328,9 @@ export async function tick(config,ioFactory=makeIO) {
         await io.checkSpecs(live);
         await advance(state,live,io,config);
         await advanceDurability(state,io,config);
+        // GitHub's required Review Loop status must be current before native
+        // auto-merge is requested; GitHub, not this controller, owns waiting.
+        await io.publish(state);published=true;
         await advanceAutoMerge(state,live,io,config);
       } catch(e) {
         if(e.transport) {
@@ -325,8 +340,8 @@ export async function tick(config,ioFactory=makeIO) {
         state.status='BLOCKED';state.reason=String(e.message).slice(0,600);
         state.last_error_at=new Date().toISOString();await io.save(state);
       }
-      await io.publish(state);
-      summary.push({pr:pr.number,status:state.status,round:state.round,issue:state.job?.identifier,reason:state.reason,auto_merge:state.merge ? {status:state.merge.status,eligibility:state.merge.eligibility,intent:state.merge.intent,read_back:state.merge.read_back} : null,durability:(state.durability ?? []).map(j=>({identity:j.identity,status:j.status,issue:j.identifier,error:j.error}))});
+      if(!published)await io.publish(state);
+      summary.push({pr:pr.number,status:state.status,round:state.round,issue:state.job?.identifier,reason:state.reason,auto_merge:state.auto_merge ?? null,durability:(state.durability ?? []).map(j=>({identity:j.identity,status:j.status,issue:j.identifier,error:j.error}))});
     }
     const report={status:'OK',at:new Date().toISOString(),enabled:config.enabled === true,auto_merge_enabled:config.auto_merge.enabled === true,prs:summary};
     await atomicJson(path.join(config.state_dir,'health.json'),report);return report;

@@ -3,10 +3,11 @@
   "repository": "ChildeRolando/MjsoulTileTrace",
   "enabled": false,
   "auto_merge": {
-    "version": 1,
+    "version": 2,
     "enabled": false,
+    "method": "merge",
     "expected_actor": {
-      "login": "DEDICATED_ORDINARY_WRITE_LOGIN",
+      "login": "EXPECTED_GITHUB_LOGIN",
       "id": 1
     }
   },
