@@ -165,6 +165,18 @@ describe("managed Mortal exact-child protocol", () => {
     }
   });
 
+  it("does not spawn after close races artifact verification", async () => {
+    const { runtime, environment, dir } = await setup("success");
+    const startCountPath = join(dir, "start-count.txt");
+    environment.MORTAL_FAKE_START_COUNT_FILE = startCountPath;
+    const starting = runtime.start();
+    await runtime.close();
+    await expect(starting).rejects.toMatchObject({ code: "mortal_runtime_unavailable" });
+    await expect(readFile(startCountPath, "utf8")).rejects.toMatchObject({ code: "ENOENT" });
+    await expect(runtime.start()).resolves.toBeUndefined();
+    await runtime.close();
+  });
+
   for (const pythonPath of ["", join(tmpdir(), "polluted-python-path")] as const) {
     it(`passes the verified native module explicitly with PYTHONPATH=${pythonPath === "" ? "empty" : "polluted"}`, async () => {
       const { runtime, nativeModulePath, environment } = await setup("success");

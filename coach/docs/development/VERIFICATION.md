@@ -112,6 +112,10 @@ provider 不进入默认自动 suite。
 | 静态课程 | 相关 Node test 与浏览器 smoke | 根目录完整课程门禁 |
 | 文档 | 链接、命令和当前状态核对 | `git diff --check`；必要时实际运行示例 |
 
+local Mortal 的 hash/fixture 变更还须在新建 Windows `core.autocrlf=true` worktree 中核对
+wrapper 与两份 Tenhou XML 的工作树 SHA-256 与入库 manifest 一致，运行五门和真实 spike；
+已有工作树的旧 CRLF 字节不能作为新 checkout 验收证据。
+
 ## Sidecar 门禁
 
 修改 `coach/tools/mahjong-facts` 或其协议时：

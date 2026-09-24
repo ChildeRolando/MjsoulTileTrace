@@ -29,6 +29,7 @@ export class ManagedMortalRuntime {
   readonly #options: ManagedMortalRuntimeOptions;
   #child: ChildProcessWithoutNullStreams | null = null;
   #startPromise: Promise<void> | null = null;
+  #closeRequested = false;
   #ready = false;
   #exitSignal: Promise<void> | null = null;
   #stdoutBuffer = Buffer.alloc(0);
@@ -43,6 +44,7 @@ export class ManagedMortalRuntime {
   async start(): Promise<void> {
     if (this.#ready && this.#child !== null && this.#child.exitCode === null) return;
     if (this.#startPromise !== null) return this.#startPromise;
+    this.#closeRequested = false;
     const startPromise = this.#startOnce();
     this.#startPromise = startPromise;
     try {
@@ -54,6 +56,7 @@ export class ManagedMortalRuntime {
 
   async #startOnce(): Promise<void> {
     await verifyManagedMortalArtifacts(this.#options);
+    if (this.#closeRequested) throw new ManagedMortalRuntimeError("mortal_runtime_unavailable");
     const child = spawn(this.#options.executable, [
       "-u", this.#options.runtimePath,
       "--checkpoint", this.#options.checkpointPath,
@@ -234,6 +237,10 @@ export class ManagedMortalRuntime {
   }
 
   async close(): Promise<void> {
+    this.#closeRequested = true;
+    if (this.#startPromise !== null) {
+      try { await this.#startPromise; } catch { /* Startup failure still requires cleanup below. */ }
+    }
     const child = this.#child;
     this.#ready = false;
     if (child === null) return;

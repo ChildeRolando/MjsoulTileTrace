@@ -168,6 +168,7 @@ Model/report evidence provider（模型/报告证据来源）
 - **Status**：machine-enforced；local runtime strict schema、artifact identity、lifecycle、
   oversize/extra-prose 与固定安全错误均由永久测试覆盖。启动握手为 single-flight；timeout、
   ready 前退出或协议失败会等待 exact child 终止并清空状态，失败后的重试不得伪成功。
+  `close()` 与异步 artifact 验证并发时必须等待该次启动结束，且关闭后不得遗留或延迟启动子进程。
 
 ## INV-007 持久化/可复现分析产物保留版本与来源信息
 
@@ -193,6 +194,9 @@ Model/report evidence provider（模型/报告证据来源）
   `structured-analysis-package.test.ts`、`structured-analysis-package-golden.test.ts`；
   COAC-111 必须增加声明/payload/hash 任一侧篡改，以及 wrapper/model/engine/native 任一
   artifact 被替换的 local-runtime provenance 负例。
+- **Windows checkout 回归条件**：入库 wrapper 与两份 Tenhou XML fixture 的 SHA-256
+  必须等于新 `core.autocrlf=true` worktree 的实际字节；准备 receipt 固定 native hash，
+  新建 service 不得从当前 native bytes 重新建立可信身份。
 - **Status**：machine-enforced；`StructuredAnalysisPackage` validator 交叉核对 local runtime
   declaration、evaluation producer identity 与 artifact/semantic hashes。
 
