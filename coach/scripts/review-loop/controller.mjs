@@ -170,6 +170,46 @@ export function recoverRejectedTerminalReview(state,result,request,at=new Date()
     recovered_review_issue_id:job.issue_id,recovered_result_sha256:result.sha256,bound_at:at};
   recoveryCandidate(state);
 }
+export function validateTransportRecovery(state,request) {
+  assert.equal(state.protocol_version,VERSION);
+  assert.equal(state.pr_number,request.pr_number,'recovery PR mismatch');
+  assert.equal(state.admission_hash,request.admission_hash,'recovery admission mismatch');
+  const job=state.job;
+  assert(job?.kind === 'review' && job.pr_number === state.pr_number && job.round === state.round && job.issue_id === request.review_issue_id
+    && job.base_sha === request.review_base_sha && job.head_sha === request.review_head_sha && job.admission_hash === state.admission_hash,
+    'recovery review job mismatch');
+  assert(state.round === request.round && state.round >= 1 && state.round <= reviewRoundLimit(state),'recovery round/authorization mismatch');
+  assert(!state.pending,'recovery pending dispatch');
+  const dispatches=state.history.filter(event=>event.event === 'dispatch' && event.round === job.round);
+  assert.equal(dispatches.length,1,'original review dispatch missing or ambiguous');
+  assert(dispatches[0].kind === 'review' && dispatches[0].issue_id === job.issue_id
+    && dispatches[0].base_sha === job.base_sha && dispatches[0].head_sha === job.head_sha,'original review dispatch mismatch');
+  const accepted=state.history.filter(event=>event.event === 'result' && event.round === job.round && event.issue_id === job.issue_id);
+  if(accepted.length) {
+    assert.equal(accepted.length,1,'ambiguous accepted review results');
+    const event=accepted[0];
+    assert(state.status === 'PASS' && event.transition === 'PASS' && event.comment_id === request.comment_id && event.run_id === request.run_id
+      && event.sha256 === request.raw_review_sha256 && event.base_sha === job.base_sha && event.head_sha === job.head_sha
+      && state.result?.comment_id === event.comment_id && state.result?.issue_id === job.issue_id && state.result?.sha256 === event.sha256,
+    'conflicting prior recovery');
+    return 'ALREADY_ACCEPTED';
+  }
+  assert(state.status === 'BLOCKED' && state.reason === 'missing/conflicting results','recovery requires missing results BLOCKED');
+  assert(!state.history.some(event=>event.round === job.round && ['result','reject_invalid_review_result','recover_transport_result'].includes(event.event)),'current round already processed');
+  return 'READY';
+}
+export function acceptTransportRecovery(state,result,live,request,at=new Date().toISOString()) {
+  assert.equal(validateTransportRecovery(state,request),'READY');
+  assert(live.pr_number === state.pr_number && live.base_sha === state.job.base_sha && live.head_sha === state.job.head_sha
+    && live.admission_hash === state.admission_hash,'recovery live candidate changed');
+  assert(result.comment_id === request.comment_id && result.run_id === request.run_id && result.sha256 === request.raw_review_sha256,'recovery result mismatch');
+  const {transition}=decide(state.job,result,live,reviewRoundLimit(state));
+  assert.equal(transition,'PASS','transport recovery only accepts green current review');
+  state.history.push({event:'result',transition,issue_id:state.job.issue_id,comment_id:result.comment_id,run_id:result.run_id,sha256:result.sha256,
+    head_sha:state.job.head_sha,base_sha:state.job.base_sha,round:state.round,snapshot:live.snapshot,at});
+  state.status=transition;state.reason=null;
+  state.result={comment_id:result.comment_id,sha256:result.sha256,issue_id:state.job.issue_id};
+}
 async function observeLive(io,prNumber) {
   const raw=await io.live(prNumber),live=admit(raw);
   live.snapshot=await io.snapshot(raw);
