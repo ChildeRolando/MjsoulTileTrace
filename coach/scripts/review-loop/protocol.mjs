@@ -195,6 +195,22 @@ export function parseRejectedReviewResult(job, issue, comments, runs) {
   const c=candidates[0],{data}=block(c.content,'review-loop-result');
   return {data,raw:c.content,sha256:hash(c.content),comment_id:c.id,run_id:c.source_task_id,rejection_reason:rejection.message};
 }
+export function parseTransportRecoveryResult(job,issue,comments,runs,request) {
+  assert.equal(job.kind,'review','transport recovery only supports review');
+  assert(Array.isArray(runs) && runs.length >= 2,'transport failure history missing');
+  assert(runs.every(run=>run.issue_id === job.issue_id && run.agent_id === job.agent_id),'foreign review run');
+  assert(runs.some(run=>run.status === 'failed' && ['runtime_offline','runtime_reconnect_timeout'].includes(run.failure_reason)),'transport failure history missing');
+  assert(runs.every(run=>run.status === 'completed' || run.status === 'failed' && ['runtime_offline','runtime_reconnect_timeout'].includes(run.failure_reason)),'unresolved/non-transport review run');
+  assert.equal(runs.filter(run=>run.status === 'completed').length,1,'ambiguous completed review runs');
+  const result=parseResult(job,issue,comments,runs);
+  assert.equal(result.comment_id,request.comment_id,'recovery comment mismatch');
+  assert.equal(result.run_id,request.run_id,'recovery run mismatch');
+  assert.equal(result.sha256,request.raw_review_sha256,'recovery raw hash mismatch');
+  assert.equal(result.data.base_sha,request.review_base_sha,'recovery base mismatch');
+  assert.equal(result.data.head_sha,request.review_head_sha,'recovery head mismatch');
+  assert.equal(result.data.round,request.round,'recovery round mismatch');
+  return result;
+}
 export function decide(job, result, live, limit=3) {
   assert(limit === 3 || limit === 4 || limit === 5 || limit === 6,'invalid round limit');
   assert(Number.isInteger(job.round) && job.round >= 1 && job.round <= limit,'round limit');

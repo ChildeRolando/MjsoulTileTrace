@@ -1,11 +1,11 @@
 import assert from 'node:assert/strict';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
-import { mkdir, readFile, writeFile, rename, open, unlink, realpath, readdir } from 'node:fs/promises';
+import { mkdir, readFile, writeFile, rename, open, unlink, realpath, readdir, copyFile, lstat, mkdtemp } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { admit, VERSION, REPOSITORY, hash, isSha, parseResult, parseRejectedReviewResult, automaticRoundSixTerminal, externalReviewAcceptance } from './protocol.mjs';
-import { advance, advanceDurability, authorizeSixthReview, recoverRejectedTerminalReview } from './controller.mjs';
+import { admit, VERSION, REPOSITORY, hash, isSha, parseResult, parseRejectedReviewResult, parseTransportRecoveryResult, automaticRoundSixTerminal, externalReviewAcceptance } from './protocol.mjs';
+import { advance, advanceDurability, captureDurability, authorizeSixthReview, recoverRejectedTerminalReview, validateTransportRecovery, acceptTransportRecovery } from './controller.mjs';
 const exec=promisify(execFile);
 export async function command(file,args,cwd) {
   try { return (await exec(file,args,{cwd,windowsHide:true,encoding:'utf8',maxBuffer:32*1024*1024,timeout:120000})).stdout; }
@@ -313,6 +313,112 @@ export async function recoverInvalidReview(config,request,ioFactory=makeIO) {
     return {status:state.status,pr:state.pr_number,round:state.round,issue:state.job.identifier,issue_id:state.job.issue_id,base_sha:state.job.base_sha,head_sha:state.job.head_sha,recovered_comment_id:result.comment_id,recovered_sha256:result.sha256};
   } finally {await release();}
 }
+async function archivedResult(stateDir,issueId,sha256) {
+  const file=path.join(stateDir,'results',`${issueId}-${sha256}.json`);
+  try {
+    assert((await lstat(file)).isFile(),'archive must be a regular file');
+    return await readJson(file);
+  } catch(error) {if(error.code === 'ENOENT')return null;throw error;}
+}
+async function assertNoConflictingArchives(stateDir,issueId,result) {
+  const directory=path.join(stateDir,'results');
+  let names;
+  try {names=await readdir(directory);} catch(error) {if(error.code === 'ENOENT')return;throw error;}
+  for(const name of names.filter(value=>value.startsWith(`${issueId}-`))) {
+    assert.equal(name,`${issueId}-${result.sha256}.json`,'conflicting review result archive');
+    assertArchivedSource(await archivedResult(stateDir,issueId,result.sha256),result);
+  }
+}
+function assertArchivedSource(archive,source) {
+  assert(archive && archive.comment_id === source.comment_id && archive.run_id === source.run_id && archive.sha256 === source.sha256
+    && hash(archive.raw) === source.sha256,'archived result source mismatch');
+  if(source.raw !== undefined)assert.deepEqual(archive,source,'archived result content mismatch');
+}
+async function backupRecoveryState(stateDir,stateFile) {
+  const backupRoot=path.join(stateDir,'backups');await mkdir(backupRoot,{recursive:true});
+  assert((await lstat(backupRoot)).isDirectory(),'backup root must be a directory');
+  const backup=await mkdtemp(path.join(backupRoot,'transport-result-'));
+  const files=[stateFile],resultDir=path.join(stateDir,'results');
+  try {
+    assert((await lstat(resultDir)).isDirectory(),'result archive directory must be a directory');
+    for(const name of await readdir(resultDir)) {
+      assert(/^[a-zA-Z0-9-]+-[a-f0-9]{64}\.json$/.test(name),'unexpected archive name');
+      files.push(path.join(resultDir,name));
+    }
+  } catch(error) {if(error.code !== 'ENOENT')throw error;}
+  for(const source of files) {
+    assert((await lstat(source)).isFile(),'recovery backup source must be regular file');
+    const relative=path.relative(stateDir,source);
+    const destination=path.join(backup,relative);await mkdir(path.dirname(destination),{recursive:true});
+    await copyFile(source,destination);
+    assert.equal(hash(await readFile(destination)),hash(await readFile(source)),'recovery backup verification failed');
+  }
+  return backup;
+}
+export async function recoverTransportResult(config,request,ioFactory=makeIO) {
+  assert.equal(config.protocol_version,VERSION);assert.equal(config.repository,REPOSITORY);
+  assert.equal(config.enabled,false,'operator recovery requires enabled=false');
+  assert(path.isAbsolute(config.state_dir) && path.isAbsolute(config.repository_path));
+  const required=['protocol_version','pr_number','review_issue_id','comment_id','run_id','raw_review_sha256','round','review_base_sha','review_head_sha','admission_hash'];
+  assert(request && typeof request === 'object' && !Array.isArray(request),'invalid transport recovery request');
+  assert.deepEqual(Object.keys(request).sort(),required.sort(),'unexpected/missing transport recovery fields');
+  assert.equal(request.protocol_version,VERSION);
+  assert(Number.isSafeInteger(request.pr_number) && request.pr_number > 0 && Number.isSafeInteger(request.round),'invalid recovery identity');
+  assert(isSha(request.review_base_sha) && isSha(request.review_head_sha) && /^[a-f0-9]{64}$/.test(request.admission_hash)
+    && /^[a-f0-9]{64}$/.test(request.raw_review_sha256),'invalid recovery hash');
+  for(const key of ['review_issue_id','comment_id','run_id'])assert(typeof request[key] === 'string' && /^[a-zA-Z0-9-]+$/.test(request[key]),'invalid recovery provenance');
+  const release=await acquireLock(config.state_dir);assert(release,'controller already running');
+  try {
+    const file=path.join(config.state_dir,`pr-${request.pr_number}.json`),initial=await readFile(file);
+    const state=JSON.parse(initial.toString('utf8'));
+    const phase=validateTransportRecovery(state,request),io=ioFactory(config,file,config.state_dir);
+    const old=state.result;
+    if(phase === 'READY' && old) {
+      const previous=state.history.filter(event=>event.event === 'result' && event.round === state.round-1);
+      assert.equal(previous.length,1,'previous result history mismatch');
+      assert(previous[0].issue_id === old.issue_id && previous[0].comment_id === old.comment_id
+        && previous[0].sha256 === old.sha256,'previous result history mismatch');
+      await assertNoConflictingArchives(config.state_dir,old.issue_id,{...old,run_id:previous[0].run_id});
+      const priorArchive=await archivedResult(config.state_dir,old.issue_id,old.sha256);
+      assertArchivedSource(priorArchive,{...old,run_id:previous[0].run_id});
+      const previousJob={kind:'review',pr_number:state.pr_number,round:previous[0].round,issue_id:old.issue_id,
+        agent_id:'archived-reviewer',base_sha:previous[0].base_sha,head_sha:previous[0].head_sha};
+      const parsed=parseResult(previousJob,{id:old.issue_id,assignee_type:'agent',assignee_id:previousJob.agent_id},
+        [{id:old.comment_id,issue_id:old.issue_id,author_type:'agent',author_id:previousJob.agent_id,
+          source_task_id:previous[0].run_id,content:priorArchive.raw}],
+        [{id:previous[0].run_id,issue_id:old.issue_id,agent_id:previousJob.agent_id,status:'completed'}]);
+      assert.deepEqual(priorArchive,parsed,'previous result archive/raw mismatch');
+      assert(priorArchive.data?.round === previous[0].round && priorArchive.data?.base_sha === previous[0].base_sha
+        && priorArchive.data?.head_sha === previous[0].head_sha && priorArchive.data?.pr_number === state.pr_number,
+      'previous result archive/history mismatch');
+    }
+    if(phase === 'READY')await backupRecoveryState(config.state_dir,file);
+    const first=admit(await io.live(request.pr_number));
+    const sameCandidate=live=>assert(live.pr_number === request.pr_number && live.base_sha === request.review_base_sha
+      && live.head_sha === request.review_head_sha && live.admission_hash === request.admission_hash,'recovery live candidate changed');
+    sameCandidate(first);
+    const issue=await io.issue(request.review_issue_id),comments=await io.comments(request.review_issue_id),runs=await io.runs(request.review_issue_id);
+    const result=parseTransportRecoveryResult(state.job,issue,comments,runs,request);
+    await assertNoConflictingArchives(config.state_dir,state.job.issue_id,result);
+    const existing=await archivedResult(config.state_dir,state.job.issue_id,result.sha256);
+    if(existing)assertArchivedSource(existing,result);
+    await io.checkSpecs(first);
+    const final=admit(await io.live(request.pr_number));sameCandidate(final);
+    assert.equal(hash(await readFile(file)),hash(initial),'recovery ledger changed during verification');
+    if(phase === 'ALREADY_ACCEPTED') {
+      assertArchivedSource(existing,result);
+      return {status:'ALREADY_ACCEPTED',pr:state.pr_number,round:state.round,comment_id:result.comment_id,sha256:result.sha256};
+    }
+    await io.verifyCheckout(state.job,result,final);
+    final.snapshot=state.snapshot;
+    acceptTransportRecovery(state,result,final,request);
+    await captureDurability(state,state.job,result,final,io,config,false);
+    if(!existing)await io.archiveResult(state.job,result);
+    await io.save(state);
+    await io.publish(state);
+    return {status:state.status,pr:state.pr_number,round:state.round,comment_id:result.comment_id,sha256:result.sha256};
+  } finally {await release();}
+}
 export async function authorizeSixthReviewRun(config,request,ioFactory=makeIO) {
   assert.equal(config.protocol_version,VERSION);assert.equal(config.repository,REPOSITORY);
   assert.equal(config.enabled,false,'sixth-review authorization requires enabled=false');
@@ -404,12 +510,15 @@ if(process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.met
     else if(process.argv[2] === 'recover-invalid-review') {
       const request=await readJson(path.resolve(process.argv[4] ?? 'review-recovery.json'));
       console.log(JSON.stringify(await recoverInvalidReview(config,request)));
+    } else if(process.argv[2] === 'recover-transport-result') {
+      const request=await readJson(path.resolve(process.argv[4] ?? 'transport-recovery.json'));
+      console.log(JSON.stringify(await recoverTransportResult(config,request)));
     } else if(process.argv[2] === 'authorize-sixth-review') {
       const request=await readJson(path.resolve(process.argv[4] ?? 'sixth-review-authorization.json'));
       console.log(JSON.stringify(await authorizeSixthReviewRun(config,request)));
     } else if(process.argv[2] === 'accept-external-review') {
       const request=await readJson(path.resolve(process.argv[4] ?? 'external-review-acceptance.json'));
       console.log(JSON.stringify(await acceptExternalReviewRun(config,request)));
-    } else {assert.equal(process.argv[2],'tick','usage: node runtime.mjs tick <config> | recover-invalid-review <config> <request> | authorize-sixth-review <config> <request> | accept-external-review <config> <request>');console.log(JSON.stringify(await tick(config)));}
+    } else {assert.equal(process.argv[2],'tick','usage: node runtime.mjs tick <config> | recover-transport-result <config> <request> | recover-invalid-review <config> <request> | authorize-sixth-review <config> <request> | accept-external-review <config> <request>');console.log(JSON.stringify(await tick(config)));}
   } catch(e) {console.error(e.message);process.exitCode=1;}
 }
