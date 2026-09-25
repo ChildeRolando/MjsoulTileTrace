@@ -23,6 +23,20 @@ test('transport recovery preserves the original round and fresh candidate requir
   assert.equal(ledger.status,'REVIEWING');assert.equal(ledger.round,2);
   assert.equal(ledger.job.head_sha,nextLive.head_sha);assert.equal(fixture.creates,1);
 });
+
+test('transport recovery accepts a P2 result for the original fix route and validates read-only replay',()=>{
+  const job={kind:'review',round:1,pr_number:8,issue_id:'review',agent_id:'reviewer',base_sha:live.base_sha,head_sha:live.head_sha,admission_hash:live.admission_hash};
+  const ledger={protocol_version:'review-loop/v2.1',pr_number:8,round:1,status:'BLOCKED',reason:'missing/conflicting results',history:[{event:'dispatch',kind:'review',round:1,issue_id:'review',base_sha:live.base_sha,head_sha:live.head_sha}],admission_hash:live.admission_hash,job};
+  const request={pr_number:8,round:1,review_issue_id:'review',review_base_sha:live.base_sha,review_head_sha:live.head_sha,admission_hash:live.admission_hash,comment_id:'comment',run_id:'run',raw_review_sha256:'d'.repeat(64)};
+  const result={comment_id:'comment',run_id:'run',sha256:request.raw_review_sha256,data:{verdict:'CHANGES_REQUIRED',findings:{P1:[],P2:[{id:'p2'}],P3:[]},gates:[{status:'PASS'}],environment_failures:[]}};
+  acceptTransportRecovery(ledger,result,live,request);
+  assert.equal(ledger.status,'ROUTE_TO_FIXER');assert.equal(ledger.history.at(-1).transition,'ROUTE_TO_FIXER');
+  assert.equal(validateTransportRecovery(ledger,request),'RESUME_ROUTE');
+  ledger.job={kind:'fix',round:1,pr_number:8,issue_id:'fix',source_review_issue_id:'review',source_comment_id:'comment',raw_review_sha256:result.sha256};
+  ledger.status='FIXING';ledger.history.push({event:'dispatch',kind:'fix',round:1,issue_id:'fix'});
+  assert.equal(validateTransportRecovery(ledger,request),'ALREADY_ACCEPTED');
+  assert.throws(()=>validateTransportRecovery(ledger,{...request,comment_id:'other'}),/conflicting prior recovery/);
+});
 test('review job composes the authoritative instructions with pinned parameters',()=>{
   const source=readFileSync(new URL('./reviewer-instructions.md',import.meta.url),'utf8').trim();
   const description=jobDescription({kind:'review',pr_number:8,round:1,base_sha:live.base_sha,head_sha:live.head_sha,worktree:'/review'},live);

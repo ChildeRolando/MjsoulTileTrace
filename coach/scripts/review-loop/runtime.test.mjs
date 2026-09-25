@@ -19,8 +19,8 @@ async function transportFixture(dir) {
   const request={protocol_version:VERSION,pr_number:8,review_issue_id:'review',comment_id:'comment',run_id:'completed-run',raw_review_sha256:hash(comment.content),round:1,review_base_sha:admitted.base_sha,review_head_sha:admitted.head_sha,admission_hash:admitted.admission_hash};
   await atomicJson(file,state);
   const runs=[{id:'failed-run',issue_id:'review',agent_id:'reviewer',status:'failed',failure_reason:'runtime_offline'},{id:'completed-run',issue_id:'review',agent_id:'reviewer',status:'completed'}];
-  const metrics={archives:0,saves:0,publishes:0,lives:0};
-  const io={live:async()=>{metrics.lives++;return live;},issue:async()=>({id:'review',assignee_type:'agent',assignee_id:'reviewer'}),comments:async()=>[comment],runs:async()=>runs,checkSpecs:async()=>{},verifyCheckout:async()=>{},archiveResult:async(j,value)=>{metrics.archives++;await mkdir(path.join(dir,'results'),{recursive:true});await atomicJson(path.join(dir,'results',`${j.issue_id}-${value.sha256}.json`),value);},save:async value=>{metrics.saves++;await atomicJson(file,value);},publish:async()=>{metrics.publishes++;}};
+  const metrics={archives:0,saves:0,publishes:0,publishedStatuses:[],lives:0,creates:0},issues=[];
+  const io={live:async()=>{metrics.lives++;return live;},snapshot:async()=>({semantics:'test',sha256:hash('candidate')}),issue:async()=>({id:'review',assignee_type:'agent',assignee_id:'reviewer'}),comments:async()=>[comment],runs:async()=>runs,checkSpecs:async()=>{},verifyCheckout:async()=>{},prepare:async()=>path.join(dir,'fix-worktree'),saveReview:async()=>path.join(dir,'review.txt'),issues:async()=>issues,create:async job=>{metrics.creates++;const created={id:'fix-issue',identifier:'COAC-99',title:job.title,description:job.description,assignee_type:'agent',assignee_id:job.agent_id,project_id:'project'};issues.push(created);return created;},archiveResult:async(j,value)=>{metrics.archives++;await mkdir(path.join(dir,'results'),{recursive:true});await atomicJson(path.join(dir,'results',`${j.issue_id}-${value.sha256}.json`),value);},save:async value=>{metrics.saves++;await atomicJson(file,value);},publish:async state=>{metrics.publishes++;metrics.publishedStatuses.push(state.status);}};
   return {live,state,result,comment,job,request,runs,metrics,io,file};
 }
 async function previousTransportResult(fixture,dir) {
@@ -53,6 +53,55 @@ test('transport result recovery retains failed runs, backs up state, publishes o
     const repeated=await recoverTransportResult(disabled,fixture.request,()=>fixture.io);
     assert.equal(repeated.status,'ALREADY_ACCEPTED');assert.equal(fixture.metrics.saves,1);assert.equal(fixture.metrics.publishes,1);
     assert.equal((await readdir(path.join(dir,'backups'))).length,1);
+  } finally {await rm(dir,{recursive:true,force:true});}
+});
+
+test('transport recovery routes a green P2 result once without publishing PASS',async()=>{
+  const dir=await mkdtemp(path.join(os.tmpdir(),'transport-fix-'));
+  try {
+    const fixture=await transportFixture(dir),disabled={...config(dir),enabled:false};
+    fixture.result.verdict='CHANGES_REQUIRED';
+    fixture.result.findings.P2=[{id:'p2',path:'coach/a.ts',line:1,scenario:'gap',consequence:'wrong result',minimal_fix:'fix',durability:'repository_required',durable_owner:'coach/a.ts',regression:{path:'coach/a.test.ts',command:'npm run test:review-loop-protocol'},basis:'explicit_contract_violation'}];
+    fixture.comment.content='review\n```review-loop-result\n'+JSON.stringify(fixture.result)+'\n```';
+    fixture.request.raw_review_sha256=hash(fixture.comment.content);
+    assert.equal((await recoverTransportResult(disabled,fixture.request,()=>fixture.io)).status,'FIXING');
+    const saved=JSON.parse(await readFile(fixture.file,'utf8'));
+    assert.equal(saved.round,1);assert.equal(saved.status,'FIXING');
+    assert.deepEqual(saved.history.map(event=>event.event),['dispatch','result','dispatch']);
+    assert.equal(saved.history[1].transition,'ROUTE_TO_FIXER');
+    assert.equal(saved.history[2].kind,'fix');
+    assert.equal(saved.job.source_review_issue_id,'review');
+    assert.equal(saved.job.raw_review_sha256,fixture.request.raw_review_sha256);
+    assert.equal(saved.result.issue_id,'review');
+    assert.equal(fixture.runs[0].status,'failed');
+    assert.equal(fixture.metrics.archives,1);assert.equal(fixture.metrics.creates,1);assert.equal(fixture.metrics.publishes,1);
+    assert.deepEqual(fixture.metrics.publishedStatuses,['FIXING']);
+    assert.equal((await recoverTransportResult(disabled,fixture.request,()=>fixture.io)).status,'ALREADY_ACCEPTED');
+    assert.equal(fixture.metrics.archives,1);assert.equal(fixture.metrics.creates,1);assert.equal(fixture.metrics.publishes,1);
+    assert.equal((await readdir(path.join(dir,'backups'))).length,1);
+  } finally {await rm(dir,{recursive:true,force:true});}
+});
+
+test('transport recovery resumes the accepted P2 result after fix preparation fails',async()=>{
+  const dir=await mkdtemp(path.join(os.tmpdir(),'transport-fix-resume-'));
+  try {
+    const fixture=await transportFixture(dir),disabled={...config(dir),enabled:false};
+    fixture.result.verdict='CHANGES_REQUIRED';
+    fixture.result.findings.P2=[{id:'p2',path:'coach/a.ts',line:1,scenario:'gap',consequence:'wrong result',minimal_fix:'fix',durability:'repository_required',durable_owner:'coach/a.ts',regression:null,basis:'explicit_contract_violation'}];
+    fixture.comment.content='review\n```review-loop-result\n'+JSON.stringify(fixture.result)+'\n```';
+    fixture.request.raw_review_sha256=hash(fixture.comment.content);
+    const prepare=fixture.io.prepare;
+    fixture.io.prepare=async()=>{throw new Error('fix preparation unavailable');};
+    await assert.rejects(()=>recoverTransportResult(disabled,fixture.request,()=>fixture.io),/fix preparation unavailable/);
+    const partial=JSON.parse(await readFile(fixture.file,'utf8'));
+    assert.equal(partial.status,'ROUTE_TO_FIXER');
+    assert.equal(partial.history.filter(event=>event.event==='result').length,1);
+    assert.equal(fixture.metrics.archives,1);assert.equal(fixture.metrics.creates,0);assert.equal(fixture.metrics.publishes,0);
+    fixture.io.prepare=prepare;
+    assert.equal((await recoverTransportResult(disabled,fixture.request,()=>fixture.io)).status,'FIXING');
+    assert.equal((await recoverTransportResult(disabled,fixture.request,()=>fixture.io)).status,'ALREADY_ACCEPTED');
+    assert.equal(fixture.metrics.archives,1);assert.equal(fixture.metrics.creates,1);assert.equal(fixture.metrics.publishes,1);
+    assert.equal(JSON.parse(await readFile(fixture.file,'utf8')).history.filter(event=>event.event==='result').length,1);
   } finally {await rm(dir,{recursive:true,force:true});}
 });
 test('transport recovery captures required P3 before PASS and ignores ephemeral findings on replay',async()=>{

@@ -5,7 +5,7 @@ import { mkdir, readFile, writeFile, rename, open, unlink, realpath, readdir, co
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { admit, VERSION, REPOSITORY, hash, isSha, parseResult, parseRejectedReviewResult, parseTransportRecoveryResult, automaticRoundSixTerminal, externalReviewAcceptance } from './protocol.mjs';
-import { advance, advanceDurability, captureDurability, authorizeSixthReview, recoverRejectedTerminalReview, validateTransportRecovery, acceptTransportRecovery } from './controller.mjs';
+import { advance, advanceDurability, captureDurability, ensureDispatch, authorizeSixthReview, recoverRejectedTerminalReview, validateTransportRecovery, acceptTransportRecovery } from './controller.mjs';
 const exec=promisify(execFile);
 export async function command(file,args,cwd) {
   try { return (await exec(file,args,{cwd,windowsHide:true,encoding:'utf8',maxBuffer:32*1024*1024,timeout:120000})).stdout; }
@@ -398,9 +398,10 @@ export async function recoverTransportResult(config,request,ioFactory=makeIO) {
       && live.head_sha === request.review_head_sha && live.admission_hash === request.admission_hash,'recovery live candidate changed');
     sameCandidate(first);
     const issue=await io.issue(request.review_issue_id),comments=await io.comments(request.review_issue_id),runs=await io.runs(request.review_issue_id);
-    const result=parseTransportRecoveryResult(state.job,issue,comments,runs,request);
-    await assertNoConflictingArchives(config.state_dir,state.job.issue_id,result);
-    const existing=await archivedResult(config.state_dir,state.job.issue_id,result.sha256);
+    const reviewJob=state.recovered_review_job ?? state.job;
+    const result=parseTransportRecoveryResult(reviewJob,issue,comments,runs,request);
+    await assertNoConflictingArchives(config.state_dir,reviewJob.issue_id,result);
+    const existing=await archivedResult(config.state_dir,reviewJob.issue_id,result.sha256);
     if(existing)assertArchivedSource(existing,result);
     await io.checkSpecs(first);
     const final=admit(await io.live(request.pr_number));sameCandidate(final);
@@ -409,12 +410,15 @@ export async function recoverTransportResult(config,request,ioFactory=makeIO) {
       assertArchivedSource(existing,result);
       return {status:'ALREADY_ACCEPTED',pr:state.pr_number,round:state.round,comment_id:result.comment_id,sha256:result.sha256};
     }
-    await io.verifyCheckout(state.job,result,final);
+    await io.verifyCheckout(reviewJob,result,final);
     final.snapshot=state.snapshot;
-    acceptTransportRecovery(state,result,final,request);
-    await captureDurability(state,state.job,result,final,io,config,false);
-    if(!existing)await io.archiveResult(state.job,result);
-    await io.save(state);
+    if(phase === 'READY') {
+      acceptTransportRecovery(state,result,final,request);
+      await captureDurability(state,reviewJob,result,final,io,config,false);
+      if(!existing)await io.archiveResult(reviewJob,result);
+      await io.save(state);
+    } else assertArchivedSource(existing,result);
+    if(state.status === 'ROUTE_TO_FIXER') await ensureDispatch(state,final,'fix',io,config,result);
     await io.publish(state);
     return {status:state.status,pr:state.pr_number,round:state.round,comment_id:result.comment_id,sha256:result.sha256};
   } finally {await release();}
