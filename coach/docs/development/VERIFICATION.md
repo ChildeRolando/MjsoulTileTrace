@@ -73,6 +73,20 @@ receipt 必须绑定 clean tracked working tree 的实际完整 HEAD SHA；外�
 若存在须与其一致。checkpoint、native runtime 和大模型文件不进入 Git、npm package
 或普通五门；M8 再分发/notice/源码义务核验仍未完成。
 
+#### PR #28 验收证据盘点（COAC-155）
+
+盘点起点为 live base `efc40f02591a36ba4a63072f6d8f31ca097e050d`、head
+`c2317a33e7d8268dfccf8b7a611ca6e1e4bde236`；仍使用原 COAC-111 admission，
+不增加功能或验收条件。表中列出的既有提交均为该 head 或其祖先；本表落盘后的新 head 须重新绑定
+clean-tree spike receipt，不能沿用旧 head 的 PASS 作为新提交的评审结论。
+
+| 验收面 | 代码位置 | 测试或回执 | 对应提交 | 仍存在的缺口 |
+|---|---|---|---|---|
+| Runtime 与协议 | `packages/mortal-runtime/src/manifest.ts`、`packages/mortal-runtime/src/managed-runtime.ts`、`packages/desktop/src/local-mortal-runtime-service.ts`、`scripts/check-architecture.mjs` | `managed-runtime.test.ts` 覆盖五种资产哈希、严格帧、固定错误、启动/关闭竞态与 native 路径；`local-mortal-runtime-service.test.ts` 覆盖主进程组合与 preload 隔离；`npm run check:architecture` 检查导入边界 | `43477b8`、`cea3662`、`608ba4f`、`d4e7687` | 无已知 COAC-111 实现缺口；M8 再分发判断不属于本次验收。 |
+| 候选合法性与守恒 | `packages/reasoning/src/analysis/local-mortal-adapter.ts`、`packages/reasoning/src/analysis/response-candidate-enumeration.ts`、`packages/reasoning/src/replay/response-furiten.ts`、`packages/reasoning/src/factors/furiten-merger.ts` | `local-mortal-adapter.test.ts` 覆盖 self/response 实际行动、赤五吃/碰、ron/chankan/pass 正例、舍牌/临时/立直振听及未知牌河/役/历史负例；`response-furiten.test.ts` 覆盖临时振听解除与立直振听持续；`response-binding.test.ts` 和 `mortal-full-game-review.test.ts` 覆盖单候选证明、未知阻断；`managed-runtime.test.ts` 覆盖候选双射负例 | `fbe5a9b`、`696f017`、`c2317a3`、本盘点提交 | 当前 focused 回归无失败；独立评审尚未对新 head 给出 PASS。 |
+| 真实端到端覆盖 | `scripts/local-mortal-production-spike.mjs`、`scripts/local-mortal-spike-proof.mjs`、`packages/reasoning/src/validate/structured-package-validator.ts` | `local-mortal-spike-proof.test.mjs` 拒绝虚计数；真实 receipt 必须同时满足同窗口成功推理、候选双射、validated package 的 ModelEvaluation。`c2317a3` 回执为 716 次 CPU 推理、六个 package，chi/pon/daiminkan/hora/pass/chankan 实际分支 7/13/1/1/131/1，固定 runtime 错误 0 | `580da93`、`263c666`、`8a75020`、`c2317a3` | 非 wave-1 窗口仍可能 degraded/blocked；未独立执行系统级禁网演练，不将其冒充已验证。 |
+| 证据与候选绑定 | `scripts/local-mortal-spike-proof.mjs`、`scripts/local-mortal-production-spike.mjs`、上述永久测试 owner | `local-mortal-spike-proof.test.mjs` 拒绝脏 tracked tree 与错误 `GITHUB_SHA`；receipt 的 `commit` 必须等于运行仓库完整 HEAD。历史阻断修复 R1/R2→`cea3662`/`fbe5a9b`，R3→`608ba4f`/`d4e7687`，R4→`696f017`，R5→`580da93`/`8a75020`，R6→`c2317a3`；对应回归进入上述测试 | `580da93`、`8a75020`、`c2317a3`、本盘点提交 | 文档提交产生新 head 后必须重跑五门和真实 spike，核对远端 SHA；第六轮 BLOCKED 及第七轮禁令不因本表改变。 |
+
 ### MVP Electron Golden Slice（Integration Closeout D，待实现）
 
 永久发布入口冻结为：

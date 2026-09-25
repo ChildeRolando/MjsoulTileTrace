@@ -115,6 +115,53 @@ describe("local Mortal canonical projection and conservation", () => {
     }
   }, 15_000);
 
+  it.each(["temporary", "riichi"] as const)(
+    "keeps %s furiten ineligible after a passed ron wait",
+    async (kind) => {
+      const hand = ["1m", "2m", "3m", "1p", "2p", "3p", "1s", "2s", "3s", "4s", "5s", "1z", "1z"]
+        .map((id) => canonicalTile(id as Parameters<typeof canonicalTile>[0]));
+      const events: CanonicalGameEvent[] = [
+        ...canonicalStartEvents(hand),
+        { type: "tile_drawn", eventId: "game:fixture/0/2/0", sourceRecordRef: "record:2", actor: 0,
+          tile: { visibility: "visible", tile: canonicalTile("9p") }, from: "live_wall" },
+        ...(kind === "riichi" ? [{ type: "riichi_declared" as const, eventId: "game:fixture/0/3/0",
+          sourceRecordRef: "record:3", actor: 0 }] : []),
+        { type: "tile_discarded", eventId: "game:fixture/0/4/0", sourceRecordRef: "record:4", actor: 0,
+          tile: canonicalTile("9p"), discardMode: "tsumogiri",
+          riichiDeclarationEventRef: kind === "riichi" ? "game:fixture/0/3/0" : null },
+        ...(kind === "riichi" ? [{ type: "riichi_accepted" as const, eventId: "game:fixture/0/5/0",
+          sourceRecordRef: "record:5", actor: 0, declarationEventRef: "game:fixture/0/3/0" }] : []),
+        { type: "tile_drawn", eventId: "game:fixture/0/6/0", sourceRecordRef: "record:6", actor: 1,
+          tile: { visibility: "hidden" }, from: "live_wall" },
+        { type: "tile_discarded", eventId: "game:fixture/0/7/0", sourceRecordRef: "record:7", actor: 1,
+          tile: canonicalTile("6s"), discardMode: "tedashi", riichiDeclarationEventRef: null },
+        { type: "tile_drawn", eventId: "game:fixture/0/8/0", sourceRecordRef: "record:8", actor: 2,
+          tile: { visibility: "hidden" }, from: "live_wall" },
+        { type: "tile_discarded", eventId: "game:fixture/0/9/0", sourceRecordRef: "record:9", actor: 2,
+          tile: canonicalTile("6s"), discardMode: "tedashi", riichiDeclarationEventRef: null },
+        { type: "tile_drawn", eventId: "game:fixture/0/10/0", sourceRecordRef: "record:10", actor: 3,
+          tile: { visibility: "hidden" }, from: "live_wall" },
+      ];
+      const stream = canonicalStream(events);
+      const decision = replayCanonicalResponseWindows(stream).find((row) => row.decisionEventRef === "game:fixture/0/9/0");
+      expect(decision?.actualAction?.kind).toBe("pass");
+      expect(enumerateResponseCandidates(decision!)?.ron).toBe(true);
+      const engine = new JsonlFactEngineClient(
+        new ManagedFactEngineTransport(fileURLToPath(new URL("../../../resources/", import.meta.url))),
+      );
+      try {
+        const verdicts = await collectLocalMortalRonCandidateWindows(stream, [decision!], engine);
+        expect(verdicts.get(decision!.decisionEventRef)).toEqual({ status: "proven_ineligible", reason: "furiten_confirmed" });
+        expect(collectResponseSingleCandidateProofs([decision!], verdicts).get(0)).toEqual({
+          shape: "response_single_candidate", candidateCount: 1,
+        });
+      } finally {
+        await engine.close();
+      }
+    },
+    15_000,
+  );
+
   it("uses Mortal's red-first pon realization regardless of hand order", async () => {
     const stream = await realFixture(3);
     const original = replayCanonicalResponseWindows(stream).find((row) =>
