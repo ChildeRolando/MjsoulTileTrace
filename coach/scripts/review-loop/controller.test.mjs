@@ -1,12 +1,28 @@
 const test = process.env.VITEST === 'true' ? (await import('vitest')).test : (await import('node:test')).test;
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { ensureDispatch, advance, authorizeExtraReview, authorizeSixthReview, recoverRejectedTerminalReview, jobDescription, reviewerInstructions } from './controller.mjs';
+import { ensureDispatch, advance, authorizeExtraReview, authorizeSixthReview, recoverRejectedTerminalReview, validateTransportRecovery, acceptTransportRecovery, jobDescription, reviewerInstructions } from './controller.mjs';
 import { admit } from './protocol.mjs';
 const config={reviewer_id:'reviewer',fixer_id:'fixer',project_id:'project'};
 const raw={number:8,state:'open',draft:false,body:'```review-loop-admission\n{"protocol_version":"review-loop/v2.1","authoritative_spec_paths":["coach/docs/specs/a.md"],"rubric":"all criteria"}\n```',base:{sha:'a'.repeat(40),repo:{full_name:'ChildeRolando/MjsoulTileTrace'}},head:{sha:'b'.repeat(40),ref:'codex/a',repo:{full_name:'ChildeRolando/MjsoulTileTrace'}}};
 const live=admit(raw);
 const state=()=>({round:0,history:[],status:'NEW'});
+test('transport recovery preserves the original round and fresh candidate requires independent review',async()=>{
+  const job={kind:'review',round:1,pr_number:8,issue_id:'review',base_sha:live.base_sha,head_sha:live.head_sha,admission_hash:live.admission_hash};
+  const ledger={protocol_version:'review-loop/v2.1',pr_number:8,round:1,status:'BLOCKED',reason:'missing/conflicting results',history:[{event:'dispatch',kind:'review',round:1,issue_id:'review',base_sha:live.base_sha,head_sha:live.head_sha}],admission_hash:live.admission_hash,job};
+  const request={pr_number:8,round:1,review_issue_id:'review',review_base_sha:live.base_sha,review_head_sha:live.head_sha,admission_hash:live.admission_hash,comment_id:'comment',run_id:'run',raw_review_sha256:'d'.repeat(64)};
+  const result={comment_id:'comment',run_id:'run',sha256:request.raw_review_sha256,data:{verdict:'NO_P1_P2',findings:{P1:[],P2:[],P3:[]},gates:[],environment_failures:[]}};
+  assert.equal(validateTransportRecovery(ledger,request),'READY');
+  acceptTransportRecovery(ledger,result,live,request);
+  assert.equal(ledger.status,'PASS');assert.equal(ledger.round,1);assert.equal(ledger.history.length,2);
+  assert.equal(validateTransportRecovery(ledger,request),'ALREADY_ACCEPTED');
+  assert.throws(()=>validateTransportRecovery(ledger,{...request,comment_id:'other'}),/conflicting prior recovery/);
+  const nextRaw=structuredClone(raw);nextRaw.head.sha='c'.repeat(40);
+  const nextLive=admit(nextRaw),fixture=fake();fixture.io.live=async()=>nextRaw;
+  await advance(ledger,nextLive,fixture.io,config);
+  assert.equal(ledger.status,'REVIEWING');assert.equal(ledger.round,2);
+  assert.equal(ledger.job.head_sha,nextLive.head_sha);assert.equal(fixture.creates,1);
+});
 test('review job composes the authoritative instructions with pinned parameters',()=>{
   const source=readFileSync(new URL('./reviewer-instructions.md',import.meta.url),'utf8').trim();
   const description=jobDescription({kind:'review',pr_number:8,round:1,base_sha:live.base_sha,head_sha:live.head_sha,worktree:'/review'},live);

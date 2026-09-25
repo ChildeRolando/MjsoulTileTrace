@@ -1,6 +1,6 @@
 const test = process.env.VITEST === 'true' ? (await import('vitest')).test : (await import('node:test')).test;
 import assert from 'node:assert/strict';
-import { admit, parseResult, parseRejectedReviewResult, decide, GATES, hash } from './protocol.mjs';
+import { admit, parseResult, parseRejectedReviewResult, parseTransportRecoveryResult, decide, GATES, hash } from './protocol.mjs';
 
 const sha = 'a'.repeat(40), base = 'b'.repeat(40);
 const pr = () => ({ number: 8, state: 'open', draft: false, body: '```review-loop-admission\n' + JSON.stringify({protocol_version:'review-loop/v2.1', authoritative_spec_paths:['coach/docs/specs/example.md'], rubric:'Review all acceptance criteria.'}) + '\n```', base:{sha:base,repo:{full_name:'ChildeRolando/MjsoulTileTrace'}}, head:{sha,ref:'codex/test',repo:{full_name:'ChildeRolando/MjsoulTileTrace'}} });
@@ -48,6 +48,17 @@ test('forged author, wrong issue, non-terminal run, duplicate results fail close
   }
   assert.throws(()=>read([comment(),{...comment(),id:'second'}]));
   assert.throws(()=>parseResult(job(),{id:'review-id',assignee_type:'agent',assignee_id:'reviewer-id'},[comment()],[{...runs[0],status:'running'}]));
+});
+test('transport recovery binds one completed source to the original failed review',()=>{
+  const request={comment_id:'comment-id',run_id:'run-id',raw_review_sha256:hash(comment().content),review_base_sha:base,review_head_sha:sha,round:1};
+  const failed={id:'failed',issue_id:'review-id',agent_id:'reviewer-id',status:'failed',failure_reason:'runtime_offline'};
+  const source=[failed,...runs];
+  assert.equal(parseTransportRecoveryResult(job(),{id:'review-id',assignee_type:'agent',assignee_id:'reviewer-id'},[comment()],source,request).run_id,'run-id');
+  for(const change of [r=>r[0].failure_reason='other',r=>r[0].issue_id='other',r=>r.push({...runs[0],id:'second'}),r=>r[1].status='running']) {
+    const changed=structuredClone(source);change(changed);
+    assert.throws(()=>parseTransportRecoveryResult(job(),{id:'review-id',assignee_type:'agent',assignee_id:'reviewer-id'},[comment()],changed,request));
+  }
+  assert.throws(()=>parseTransportRecoveryResult(job(),{id:'review-id',assignee_type:'agent',assignee_id:'reviewer-id'},[comment()],source,{...request,raw_review_sha256:'f'.repeat(64)}));
 });
 test('missing/duplicate/unknown gates and contradictory verdicts fail closed', () => {
   for(const change of [r=>r.gates.pop(),r=>r.gates[1]=r.gates[0],r=>r.gates[0].command='echo pass',r=>r.gates[0].exit_code=1,r=>r.extra=true,r=>r.findings.P1.push({}),r=>r.verdict='CHANGES_REQUIRED']) {
