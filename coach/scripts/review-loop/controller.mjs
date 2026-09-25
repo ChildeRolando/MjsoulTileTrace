@@ -170,11 +170,14 @@ export function recoverRejectedTerminalReview(state,result,request,at=new Date()
     recovered_review_issue_id:job.issue_id,recovered_result_sha256:result.sha256,bound_at:at};
   recoveryCandidate(state);
 }
+export function transportReviewJob(state) {
+  return state.recovered_review_job?.round === state.round ? state.recovered_review_job : state.job;
+}
 export function validateTransportRecovery(state,request) {
   assert.equal(state.protocol_version,VERSION);
   assert.equal(state.pr_number,request.pr_number,'recovery PR mismatch');
   assert.equal(state.admission_hash,request.admission_hash,'recovery admission mismatch');
-  const job=state.recovered_review_job ?? state.job;
+  const job=transportReviewJob(state);
   assert(job?.kind === 'review' && job.pr_number === state.pr_number && job.round === state.round && job.issue_id === request.review_issue_id
     && job.base_sha === request.review_base_sha && job.head_sha === request.review_head_sha && job.admission_hash === state.admission_hash,
     'recovery review job mismatch');

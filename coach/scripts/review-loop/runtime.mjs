@@ -5,7 +5,7 @@ import { mkdir, readFile, writeFile, rename, open, unlink, realpath, readdir, co
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { admit, VERSION, REPOSITORY, hash, isSha, parseResult, parseRejectedReviewResult, parseTransportRecoveryResult, automaticRoundSixTerminal, externalReviewAcceptance } from './protocol.mjs';
-import { advance, advanceDurability, captureDurability, ensureDispatch, authorizeSixthReview, recoverRejectedTerminalReview, validateTransportRecovery, acceptTransportRecovery } from './controller.mjs';
+import { advance, advanceDurability, captureDurability, ensureDispatch, authorizeSixthReview, recoverRejectedTerminalReview, validateTransportRecovery, acceptTransportRecovery, transportReviewJob } from './controller.mjs';
 const exec=promisify(execFile);
 export async function command(file,args,cwd) {
   try { return (await exec(file,args,{cwd,windowsHide:true,encoding:'utf8',maxBuffer:32*1024*1024,timeout:120000})).stdout; }
@@ -374,10 +374,18 @@ export async function recoverTransportResult(config,request,ioFactory=makeIO) {
     const phase=validateTransportRecovery(state,request),io=ioFactory(config,file,config.state_dir);
     const old=state.result;
     if(phase === 'READY' && old) {
-      const previous=state.history.filter(event=>event.event === 'result' && event.round === state.round-1);
+      const priorRound=state.round-1;
+      const reviewDispatches=state.history.filter(event=>event.event === 'dispatch' && event.kind === 'review' && event.round === priorRound);
+      assert.equal(reviewDispatches.length,1,'previous review dispatch mismatch');
+      const dispatch=reviewDispatches[0];
+      const fixIssues=new Set(state.history.filter(event=>event.event === 'dispatch' && event.kind === 'fix' && event.round === priorRound).map(event=>event.issue_id));
+      assert(!fixIssues.has(dispatch.issue_id),'previous review/fix dispatch conflict');
+      const previous=state.history.filter(event=>event.event === 'result' && event.round === priorRound && !fixIssues.has(event.issue_id));
       assert.equal(previous.length,1,'previous result history mismatch');
       assert(previous[0].issue_id === old.issue_id && previous[0].comment_id === old.comment_id
         && previous[0].sha256 === old.sha256,'previous result history mismatch');
+      assert(dispatch.issue_id === previous[0].issue_id && dispatch.base_sha === previous[0].base_sha
+        && dispatch.head_sha === previous[0].head_sha,'previous review dispatch mismatch');
       await assertNoConflictingArchives(config.state_dir,old.issue_id,{...old,run_id:previous[0].run_id});
       const priorArchive=await archivedResult(config.state_dir,old.issue_id,old.sha256);
       assertArchivedSource(priorArchive,{...old,run_id:previous[0].run_id});
@@ -398,7 +406,7 @@ export async function recoverTransportResult(config,request,ioFactory=makeIO) {
       && live.head_sha === request.review_head_sha && live.admission_hash === request.admission_hash,'recovery live candidate changed');
     sameCandidate(first);
     const issue=await io.issue(request.review_issue_id),comments=await io.comments(request.review_issue_id),runs=await io.runs(request.review_issue_id);
-    const reviewJob=state.recovered_review_job ?? state.job;
+    const reviewJob=transportReviewJob(state);
     const result=parseTransportRecoveryResult(reviewJob,issue,comments,runs,request);
     await assertNoConflictingArchives(config.state_dir,reviewJob.issue_id,result);
     const existing=await archivedResult(config.state_dir,reviewJob.issue_id,result.sha256);

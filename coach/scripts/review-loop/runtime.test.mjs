@@ -5,7 +5,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { acquireLock, recoverLock, atomicJson, command, makeIO, tick, recoverInvalidReview, recoverTransportResult, authorizeSixthReviewRun, acceptExternalReviewRun } from './runtime.mjs';
 import { GATES, hash, admit, parseResult, VERSION, externalReviewAcceptance } from './protocol.mjs';
-import { advanceDurability, captureDurability } from './controller.mjs';
+import { advance, advanceDurability, captureDurability } from './controller.mjs';
 test('transport recovery entrypoint exists',async()=>{
   const module=await import('./runtime.mjs');
   assert.equal(typeof module.recoverTransportResult,'function');
@@ -33,7 +33,9 @@ async function previousTransportResult(fixture,dir) {
   fixture.request.raw_review_sha256=hash(fixture.comment.content);
   fixture.state.history[0].round=2;
   fixture.state.result={issue_id:'previous',comment_id:previous.comment_id,sha256:previous.sha256};
-  fixture.state.history.unshift({event:'result',transition:'PASS',round:1,issue_id:'previous',comment_id:previous.comment_id,run_id:previous.run_id,sha256:previous.sha256,base_sha:previous.data.base_sha,head_sha:previous.data.head_sha});
+  fixture.state.history.unshift(
+    {event:'dispatch',kind:'review',round:1,issue_id:'previous',base_sha:previous.data.base_sha,head_sha:previous.data.head_sha},
+    {event:'result',transition:'PASS',round:1,issue_id:'previous',comment_id:previous.comment_id,run_id:previous.run_id,sha256:previous.sha256,base_sha:previous.data.base_sha,head_sha:previous.data.head_sha});
   await atomicJson(fixture.file,fixture.state);
   await mkdir(path.join(dir,'results'));
   await atomicJson(path.join(dir,'results',`previous-${previous.sha256}.json`),previous);
@@ -79,6 +81,64 @@ test('transport recovery routes a green P2 result once without publishing PASS',
     assert.equal((await recoverTransportResult(disabled,fixture.request,()=>fixture.io)).status,'ALREADY_ACCEPTED');
     assert.equal(fixture.metrics.archives,1);assert.equal(fixture.metrics.creates,1);assert.equal(fixture.metrics.publishes,1);
     assert.equal((await readdir(path.join(dir,'backups'))).length,1);
+  } finally {await rm(dir,{recursive:true,force:true});}
+});
+
+test('a later review recovers after an earlier P2 recovery and completed fixer result',async()=>{
+  const dir=await mkdtemp(path.join(os.tmpdir(),'transport-next-round-'));
+  try {
+    const fixture=await transportFixture(dir),disabled={...config(dir),enabled:false};
+    fixture.result.verdict='CHANGES_REQUIRED';
+    fixture.result.findings.P2=[{id:'p2',path:'coach/a.ts',line:1,scenario:'gap',consequence:'wrong result',minimal_fix:'fix',durability:'repository_required',durable_owner:'coach/a.ts',regression:null,basis:'explicit_contract_violation'}];
+    fixture.comment.content='review\n```review-loop-result\n'+JSON.stringify(fixture.result)+'\n```';
+    fixture.request.raw_review_sha256=hash(fixture.comment.content);
+    assert.equal((await recoverTransportResult(disabled,fixture.request,()=>fixture.io)).status,'FIXING');
+    const first=JSON.parse(await readFile(fixture.file,'utf8'));
+    const fixJob=first.job,fixReceipt={protocol_version:VERSION,pr_number:8,base_sha:fixJob.base_sha,previous_head_sha:fixJob.head_sha,
+      head_sha:'c'.repeat(40),round:1,raw_review_sha256:fixture.request.raw_review_sha256};
+    const fixComment={id:'fix-comment',issue_id:fixJob.issue_id,author_type:'agent',author_id:fixJob.agent_id,source_task_id:'fix-run',
+      content:'fix\n```review-loop-fix\n'+JSON.stringify(fixReceipt)+'\n```'};
+    fixture.live.head.sha=fixReceipt.head_sha;
+    const originalCreate=fixture.io.create;
+    fixture.io.create=async job=>job.kind === 'review'
+      ? {id:'review-2',identifier:'COAC-100',title:job.title,description:job.description,assignee_type:'agent',assignee_id:job.agent_id,project_id:'project'}
+      : originalCreate(job);
+    fixture.io.runs=async issueId=>issueId === fixJob.issue_id
+      ? [{id:'fix-run',issue_id:fixJob.issue_id,agent_id:fixJob.agent_id,status:'completed'}] : fixture.runs;
+    fixture.io.issue=async issueId=>issueId === fixJob.issue_id
+      ? {id:fixJob.issue_id,assignee_type:'agent',assignee_id:fixJob.agent_id}
+      : {id:issueId,assignee_type:'agent',assignee_id:'reviewer'};
+    fixture.io.comments=async issueId=>issueId === fixJob.issue_id ? [fixComment] : [fixture.comment];
+    await advance(first,admit(fixture.live),fixture.io,config(dir));
+    const second=JSON.parse(await readFile(fixture.file,'utf8'));
+    assert.equal(second.status,'REVIEWING');assert.equal(second.round,2);
+    assert.equal(second.job.issue_id,'review-2');assert.equal(second.recovered_review_job.issue_id,'review');
+    assert.deepEqual(second.history.filter(e=>e.event === 'result').map(e=>[e.issue_id,e.transition]),
+      [['review','ROUTE_TO_FIXER'],[fixJob.issue_id,'DISCARD_AND_REVIEW']]);
+    second.status='BLOCKED';second.reason='missing/conflicting results';
+    fixture.result={...fixture.result,base_sha:second.job.base_sha,head_sha:second.job.head_sha,round:2,verdict:'NO_P1_P2',findings:{P1:[],P2:[],P3:[]}};
+    fixture.comment={...fixture.comment,id:'comment-2',issue_id:'review-2',source_task_id:'completed-run-2',
+      content:'review\n```review-loop-result\n'+JSON.stringify(fixture.result)+'\n```'};
+    fixture.runs=[{id:'failed-run-2',issue_id:'review-2',agent_id:'reviewer',status:'failed',failure_reason:'runtime_offline'},
+      {id:'completed-run-2',issue_id:'review-2',agent_id:'reviewer',status:'completed'}];
+    fixture.request={...fixture.request,review_issue_id:'review-2',comment_id:'comment-2',run_id:'completed-run-2',round:2,
+      review_base_sha:second.job.base_sha,review_head_sha:second.job.head_sha,raw_review_sha256:hash(fixture.comment.content)};
+    const conflicting=structuredClone(second),prior=conflicting.history.find(e=>e.event === 'result' && e.issue_id === 'review');
+    conflicting.history.push({...prior,comment_id:'conflicting-comment',sha256:hash('conflicting review')});
+    await atomicJson(fixture.file,conflicting);
+    const beforeConflict=await readFile(fixture.file,'utf8'),savesBefore=fixture.metrics.saves,publishesBefore=fixture.metrics.publishes;
+    await assert.rejects(()=>recoverTransportResult(disabled,fixture.request,()=>fixture.io),/previous result history mismatch/);
+    assert.equal(await readFile(fixture.file,'utf8'),beforeConflict);
+    assert.equal(fixture.metrics.saves,savesBefore);assert.equal(fixture.metrics.publishes,publishesBefore);
+    await atomicJson(fixture.file,second);
+    assert.equal((await recoverTransportResult(disabled,fixture.request,()=>fixture.io)).status,'PASS');
+    const accepted=JSON.parse(await readFile(fixture.file,'utf8'));
+    assert.equal(accepted.history.filter(e=>e.event === 'result').length,3);
+    assert.equal(accepted.recovered_review_job.issue_id,'review');
+    const before=await readFile(fixture.file,'utf8'),writes=fixture.metrics.saves,archives=fixture.metrics.archives,publishes=fixture.metrics.publishes;
+    assert.equal((await recoverTransportResult(disabled,fixture.request,()=>fixture.io)).status,'ALREADY_ACCEPTED');
+    assert.equal(await readFile(fixture.file,'utf8'),before);
+    assert.equal(fixture.metrics.saves,writes);assert.equal(fixture.metrics.archives,archives);assert.equal(fixture.metrics.publishes,publishes);
   } finally {await rm(dir,{recursive:true,force:true});}
 });
 
@@ -149,7 +209,9 @@ test('transport recovery needs previous result archive, free lock and stable sec
     fixture.state.round=2;fixture.job.round=2;fixture.result.round=2;fixture.request.round=2;
     fixture.state.history[0].round=2;
     fixture.state.result={issue_id:'previous',comment_id:'previous-comment',sha256:'f'.repeat(64)};
-    fixture.state.history.unshift({event:'result',transition:'PASS',round:1,issue_id:'previous',comment_id:'previous-comment',run_id:'previous-run',sha256:'f'.repeat(64)});
+    fixture.state.history.unshift(
+      {event:'dispatch',kind:'review',round:1,issue_id:'previous',base_sha:fixture.job.base_sha,head_sha:fixture.job.head_sha},
+      {event:'result',transition:'PASS',round:1,issue_id:'previous',comment_id:'previous-comment',run_id:'previous-run',sha256:'f'.repeat(64),base_sha:fixture.job.base_sha,head_sha:fixture.job.head_sha});
     await atomicJson(fixture.file,fixture.state);
     await assert.rejects(()=>recoverTransportResult(disabled,fixture.request,()=>fixture.io),/archived result source mismatch/);
     assert.equal(fixture.metrics.saves,0);
@@ -163,13 +225,13 @@ test('transport recovery preserves a verified previous-round result and archives
     assert.equal((await recoverTransportResult(disabled,fixture.request,()=>fixture.io)).status,'PASS');
     const backups=await readdir(path.join(dir,'backups'));
     assert.deepEqual(JSON.parse(await readFile(path.join(dir,'backups',backups[0],'results',`previous-${previous.sha256}.json`),'utf8')),previous);
-    assert.equal(fixture.state.history[0].event,'result');
+    assert.equal(fixture.state.history[1].event,'result');
   } finally {await rm(dir,{recursive:true,force:true});}
 });
 test('transport recovery rejects previous archive data that differs from its raw review',async()=>{
   for(const change of [
     (fixture,archive)=>{archive.data.verdict='ENVIRONMENT_BLOCKED';},
-    (fixture,archive)=>{archive.data.base_sha='c'.repeat(40);fixture.state.history[0].base_sha=archive.data.base_sha;}
+    (fixture,archive)=>{archive.data.base_sha='c'.repeat(40);fixture.state.history[1].base_sha=archive.data.base_sha;}
   ]) {
     const dir=await mkdtemp(path.join(os.tmpdir(),'transport-previous-data-'));
     try {
@@ -239,7 +301,8 @@ test('transport recovery rejects conflicting previous-round result history befor
     const raw='previous accepted result',sha256=hash(raw);
     fixture.state.result={issue_id:'previous',comment_id:'previous-comment',sha256};
     const previous={event:'result',transition:'PASS',round:1,issue_id:'previous',comment_id:'previous-comment',run_id:'previous-run',sha256,base_sha:fixture.job.base_sha,head_sha:fixture.job.head_sha};
-    fixture.state.history.unshift(previous,{...previous,comment_id:'other-comment',sha256:hash('other raw')});
+    fixture.state.history.unshift({event:'dispatch',kind:'review',round:1,issue_id:'previous',base_sha:fixture.job.base_sha,head_sha:fixture.job.head_sha},
+      previous,{...previous,comment_id:'other-comment',sha256:hash('other raw')});
     await atomicJson(fixture.file,fixture.state);
     await mkdir(path.join(dir,'results'));
     await atomicJson(path.join(dir,'results',`previous-${sha256}.json`),{data:{pr_number:8,round:1,base_sha:fixture.job.base_sha,head_sha:fixture.job.head_sha},raw,comment_id:previous.comment_id,run_id:previous.run_id,sha256});
