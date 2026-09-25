@@ -272,6 +272,13 @@ prerequisite，GPU 仅可另记性能数据。验收 receipt 记录 commit、run
 adapter identity 与 SHA、fixture hashes、每 family/window 计数、固定错误计数、packageId/
 semanticContentHash、命令和 exit code，不记录牌谱 raw bytes、路径或 runtime prose。
 
+COAC-141 响应资格来源：Tenhou mapper 仅在完整、受支持的原始 `mjlog` 经逐事件解析、
+本局闭合且 canonical stream 校验通过时，将 `responseOpportunities` 标为 `complete`。
+这表示全部他家舍牌/加杠及窗口闭合事件可供重放推导，不表示每个窗口自动可荣和。
+每个拟纳入验收的荣和或含荣和候选的 pass 窗口仍须由已冻结手牌、规则上下文、
+事实引擎和完整历史分别证明役与振听资格；不完整或不支持的来源仍 fail closed。
+不得仅凭 actual 荣和、原始事件命中、窗口计数或模型输出跳过该证明。
+
 ## 9. Implementation 与发布 gates
 
 COAC-111 除 focused/default/real-spike commands 外，从 `coach/` 跑固定五门。实现完成前：

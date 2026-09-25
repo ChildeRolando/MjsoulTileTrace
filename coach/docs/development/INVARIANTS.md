@@ -164,6 +164,9 @@ Model/report evidence provider（模型/报告证据来源）
   从候选集合中静默扣除 ron。荣和资格仍未知时，full-game ledger 使用
   `analysis_blocked/ron_eligibility_unproven`，无论来源行是否存在都不能生成
   `source_row_not_expected` 或 `analysis_ready`。
+  Tenhou 仅对完整解析并闭合的受支持真实 mjlog 声明响应机会历史 `complete`；
+  这只允许逐窗口运行事实引擎和振听推导，不自动宣称荣和合法。资格依赖的手牌、
+  役、规则或闭合证据缺失时仍为 `unknown`，不得用 actual 行动或模型输出补足。
 - **Why**：宽松解析会悄悄把错误当成分析结果；fail closed 是可复现失败的前提。
 - **Owner / boundary**：所有严格 schema（contracts）与所有来源适配器的错误路径。
 - **Enforcement**：zod strict schema 拒绝未知字段；canonical mapper / 报告解析 /
@@ -173,7 +176,9 @@ Model/report evidence provider（模型/报告证据来源）
   （拒绝任意 sidecar prose）、`mahjong-soul-protocol-compatibility.test.mjs`；COAC-111
   追加每个 `mortal_*` 固定错误与 oversize/extra-prose 负例；
   `response-binding.test.ts`、`local-mortal-adapter.test.ts` 和
-  `mortal-full-game-review.test.ts` 覆盖未知荣和资格不得获得单候选证明或 ready 结果。
+  `mortal-full-game-review.test.ts` 覆盖未知荣和资格不得获得单候选证明或 ready 结果；
+  `real-logs-corpus.test.ts` 与 `local-mortal-adapter.test.ts` 覆盖真实完整 Tenhou
+  来源声明及逐窗口荣和、抢杠荣和、含荣和候选 pass 资格，同时保留不完整历史负例。
 - **Status**：machine-enforced；local runtime strict schema、artifact identity、lifecycle、
   oversize/extra-prose 与固定安全错误均由永久测试覆盖。启动握手为 single-flight；timeout、
   ready 前退出或协议失败会等待 exact child 终止并清空状态，失败后的重试不得伪成功。

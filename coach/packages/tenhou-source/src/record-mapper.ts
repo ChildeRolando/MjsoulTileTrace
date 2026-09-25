@@ -244,7 +244,10 @@ class MapperEngine {
         melds: "complete",
         remainingDraws: "complete",
         settlement: "unknown",
-        responseOpportunities: "unknown",
+        // A ready full mjlog has every offered tile and response closure in
+        // canonical order. Eligibility is still proven per window by replay
+        // and the fact engine; this does not assert that every offer is ron.
+        responseOpportunities: "complete",
       },
       ruleSet: {
         length: (this.goType ?? 0) & 0x08 ? "south" : "east",

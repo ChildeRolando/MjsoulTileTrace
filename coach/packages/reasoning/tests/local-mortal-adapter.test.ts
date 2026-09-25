@@ -171,6 +171,32 @@ describe("local Mortal canonical projection and conservation", () => {
     )).toBe(true);
   });
 
+  it("proves real Tenhou ron, chankan, and pass-on-ron eligibility from complete history", async () => {
+    const engine = new JsonlFactEngineClient(
+      new ManagedFactEngineTransport(fileURLToPath(new URL("../../../resources/", import.meta.url))),
+    );
+    try {
+      const targets = [
+        { fixture: "tenhou-chankan-supplement", kind: "kan_response", actual: "ron" },
+        { fixture: "tenhou-chankan-supplement", kind: "discard_response", actual: "pass" },
+        { fixture: "tenhou-daiminkan-supplement", kind: "discard_response", actual: "ron" },
+      ] as const;
+      for (const target of targets) {
+        const stream = await realTenhouFixture(target.fixture, 1);
+        const decisions = replayCanonicalResponseWindows(stream);
+        const verdicts = await collectLocalMortalRonCandidateWindows(stream, decisions, engine);
+        const match = decisions.find((decision) =>
+          decision.snapshot.privateState.decisionWindow.kind === target.kind
+          && decision.actualAction?.kind === target.actual
+          && verdicts.get(decision.decisionEventRef)?.status === "eligible"
+        );
+        expect(match, JSON.stringify(target)).toBeDefined();
+      }
+    } finally {
+      await engine.close();
+    }
+  }, 30_000);
+
   it("keeps a real daiminkan actual window in the registered supplemental fixture", async () => {
     const stream = await realTenhouFixture("tenhou-daiminkan-supplement", 1);
     const daiminkan = replayCanonicalResponseWindows(stream).find((decision) =>
