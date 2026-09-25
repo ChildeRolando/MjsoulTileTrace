@@ -50,18 +50,16 @@ strict `ModelEvaluation` → whole-game review → `StructuredAnalysisPackage` v
 
 普通 `npx vitest run` 只跑 protocol fixtures/fake exact child，禁止联网或加载真实 checkpoint；
 它覆盖 crash/timeout/protocol/candidate mismatch 与安全边界，但不能冒充 production spike。
-**当前状态（2026-09-25）**：COAC-124 复验的真实 spike 使用雀魂四视角及两个最小天凤
-补充视角，完成 723 次 CPU inference，覆盖 discard/riichi/chi/pon/daiminkan/hora/pass/
-ankan/kakan，所有固定错误计数为 0。六个 package 分别包含 158/162/154/156/122/22 个
-决策，`no_mortal_entry=0`、`binding_mismatch=0`，均通过 package validator 与 selector
-smoke；最后一个最小 daiminkan package 为 `complete`，其余因可审计的
-`source_row_not_expected` 或 4 个 `model_output_incomplete` 为 `degraded`，无
-`integrity_failed`。脚本逐 window × actual 统计并要求 wave-1 六分支非零：chi 7、pon 13、
-daiminkan 1、hora 9、pass-on-discard 133、chankan 1；pass 候选族 chi/pon/daiminkan/hora
-分别命中 97/39/3/3。receipt v2 绑定 runtime/checkpoint/protocol/adapter、三个 fixture hash、
-窗口矩阵与 package identities，位于 app-managed artifact 目录且不入库。checkpoint、native
-runtime 和大模型文件不进入 Git、npm package 或普通五门；M8 再分发/notice/源码义务核验
-仍未完成。
+**当前状态（2026-09-25，COAC-141）**：此前真实 spike 的 wave-1 计数发生在推理前，
+因此原有 chi 7、pon 13、daiminkan 1、hora 9、pass-on-discard 133、chankan 1
+及 pass 候选族 97/39/3/3 只能视为原始窗口统计，不能证明模型覆盖。
+现在只有成功推理且同一窗口在 validated package 中具有 ModelEvaluation 才进入验收计数；
+未知荣和资格仍 fail closed。已登记六视角中原先有 9 个舍牌荣和、1 个抢杠荣和、
+3 个含荣和候选的 pass 窗口因资格未知被跳过；在补齐可证明资格的真实脱敏 fixture
+或能力、并重跑真实 checkpoint 取得全部必需分支前，wave-1 真实验收**未完成**。
+receipt 必须绑定 clean tracked working tree 的实际完整 HEAD SHA；外部 GITHUB_SHA
+若存在须与其一致。checkpoint、native runtime 和大模型文件不进入 Git、npm package
+或普通五门；M8 再分发/notice/源码义务核验仍未完成。
 
 ### MVP Electron Golden Slice（Integration Closeout D，待实现）
 

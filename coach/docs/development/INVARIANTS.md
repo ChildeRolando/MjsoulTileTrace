@@ -206,6 +206,11 @@ Model/report evidence provider（模型/报告证据来源）
 - **Windows checkout 回归条件**：入库 wrapper 与两份 Tenhou XML fixture 的 SHA-256
   必须等于新 `core.autocrlf=true` worktree 的实际字节；准备 receipt 固定 native hash，
   新建 service 不得从当前 native bytes 重新建立可信身份。
+- **真实 spike receipt 的提交身份**：`scripts/local-mortal-production-spike.mjs`
+  从脚本所在 Git 仓库读取完整 HEAD SHA；tracked working tree 必须干净，且传入的
+  `GITHUB_SHA`（若有）必须严格相同。取不到 HEAD、存在 tracked 改动或外部 SHA
+  不符时验收失败，不得把 `working-tree` 或未核对的环境变量写成 commit。
+  `npx vitest run scripts/local-mortal-spike-proof.test.mjs` 固化未设置及错误设置 SHA 的回归。
 - **Status**：machine-enforced；`StructuredAnalysisPackage` validator 交叉核对 local runtime
   declaration、evaluation producer identity 与 artifact/semantic hashes。
 

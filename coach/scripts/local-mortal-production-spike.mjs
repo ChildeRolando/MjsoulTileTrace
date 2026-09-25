@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { countProvenWave1, readAcceptanceCommit } from "./local-mortal-spike-proof.mjs";
 import {
   FACT_ENGINE_ADAPTER_VERSION,
   FACT_ENGINE_PROTOCOL_VERSION,
@@ -31,7 +32,6 @@ import {
   collectDamaTsumoWindows,
   collectRiichiDeclarationTenpaiDiscards,
   createMortalCoverageRegistry,
-  enumerateResponseCandidates,
   localMortalResponseToReportEntry,
   projectLocalMortalRequest,
   replayCanonicalResponseWindows,
@@ -42,6 +42,7 @@ import {
 } from "@riichi-coach/reasoning";
 
 const repoRoot = resolve(fileURLToPath(new URL("..", import.meta.url)));
+const acceptanceCommit = readAcceptanceCommit(repoRoot);
 const artifactRoot = process.env.RIICHI_LOCAL_MORTAL_ROOT
   ?? join(process.env.LOCALAPPDATA ?? "", "RiichiCoach", "local-mortal-spike");
 const receiptPath = join(artifactRoot, "preparation-receipt.json");
@@ -180,27 +181,6 @@ try {
       const actualKind = decision.actualAction?.kind ?? "missing";
       const windowActualKey = `${window.kind}:${actualKind}`;
       windowActualCounts[windowActualKey] = (windowActualCounts[windowActualKey] ?? 0) + 1;
-      if (window.kind !== "discard_response") {
-        if (window.kind === "kan_response" && actualKind === "ron") {
-          wave1ActualBranchCounts.resp_chankan_actual++;
-        }
-        continue;
-      }
-      const branch = actualKind === "chi" ? "resp_chi_actual"
-        : actualKind === "pon" ? "resp_pon_actual"
-          : actualKind === "daiminkan" ? "resp_daiminkan_actual"
-            : actualKind === "ron" ? "resp_hora_actual"
-              : actualKind === "pass" ? "resp_pass_on_discard"
-                : null;
-      if (branch !== null) wave1ActualBranchCounts[branch]++;
-      if (actualKind === "pass") {
-        const enumeration = enumerateResponseCandidates(decision);
-        if (enumeration === null) fail(`response candidate enumeration missing: ${decision.decisionEventRef}`);
-        if (enumeration.chiCombinations.length > 0) passOnDiscardCandidateFamilyCounts.chi++;
-        if (enumeration.pon) passOnDiscardCandidateFamilyCounts.pon++;
-        if (enumeration.daiminkan) passOnDiscardCandidateFamilyCounts.daiminkan++;
-        if (enumeration.ron) passOnDiscardCandidateFamilyCounts.hora++;
-      }
     }
     const candidateFactEngine = new JsonlFactEngineClient(new ManagedFactEngineTransport(join(repoRoot, "resources")));
     let riichiWindows;
@@ -256,6 +236,7 @@ try {
         entry: localMortalResponseToReportEntry({ request, response, decision: row.decision }),
         decision: row.decision,
         surface: row.surface,
+        request,
       });
       inferenceCount++;
       for (const candidate of request.candidates) {
@@ -345,6 +326,9 @@ try {
       now: () => Date.parse("2026-09-24T00:00:00.000Z"),
     });
     validateStructuredAnalysisPackage(pkg);
+    const proven = countProvenWave1(responseDecisions, evaluated, pkg);
+    for (const [branch, count] of Object.entries(proven.actual)) wave1ActualBranchCounts[branch] += count;
+    for (const [family, count] of Object.entries(proven.passFamilies)) passOnDiscardCandidateFamilyCounts[family] += count;
     if (pkg.record.status === "integrity_failed") fail(`whole-game package integrity failed: actor=${actor}; ${JSON.stringify({
       outcomes: review.summary.outcomes,
       failedDecisions: review.decisions.filter((row) =>
@@ -378,7 +362,7 @@ if (Object.values(wave1ActualBranchCounts).some((count) => count === 0)
 }
 const acceptance = {
   receiptVersion: "local-mortal-production-spike-receipt/v2",
-  commit: process.env.GITHUB_SHA ?? "working-tree",
+  commit: acceptanceCommit,
   runtimeIdentity,
   nativeArtifactSha256: prepared.nativeArtifactSha256,
   fixtureEvidence,
