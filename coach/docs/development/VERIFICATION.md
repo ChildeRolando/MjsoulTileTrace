@@ -50,18 +50,25 @@ strict `ModelEvaluation` → whole-game review → `StructuredAnalysisPackage` v
 
 普通 `npx vitest run` 只跑 protocol fixtures/fake exact child，禁止联网或加载真实 checkpoint；
 它覆盖 crash/timeout/protocol/candidate mismatch 与安全边界，但不能冒充 production spike。
-**当前状态（2026-09-25，COAC-141）**：此前真实 spike 的 wave-1 计数发生在推理前，
-因此原有 chi 7、pon 13、daiminkan 1、hora 9、pass-on-discard 133、chankan 1
-及 pass 候选族 97/39/3/3 只能视为原始窗口统计，不能证明模型覆盖。
-现在只有成功推理且同一窗口在 validated package 中具有 ModelEvaluation 才进入验收计数；
-未知荣和资格仍 fail closed。已登记六视角中原先有 9 个舍牌荣和、1 个抢杠荣和、
-3 个含荣和候选的 pass 窗口因资格未知被跳过；当前雀魂和天凤 mapper 的
-`responseOpportunities` 均为 `unknown`，不足以证明完整过手牌历史。
-COAC-141 在 clean HEAD `580da93` 的真实 checkpoint 重跑以 exit 1 结束：
-已证明的 `resp_hora_actual=0`、`resp_chankan_actual=0`、pass/hora=0，
-其余实际分支 chi/pon/daiminkan/pass 为 7/13/1/130。
-在补齐可证明资格的真实脱敏 fixture 或能力、并重跑真实 checkpoint
-取得全部必需分支前，wave-1 真实验收**未完成**。
+**当前状态（2026-09-26，COAC-141）**：wave-1 覆盖计数只接受成功推理、候选双射、
+同窗口 validated package 的 ModelEvaluation；未知荣和资格仍 fail closed。
+此前六视角中 9 个舍牌荣和、1 个抢杠荣和及 3 个含荣和候选的 pass 窗口因资格未知
+被跳过，真实 spike 正确以 exit 1 报告缺口。完整解析的真实 Tenhou mjlog 现在提供
+`responseOpportunities=complete` 的历史证明；手牌、役、规则与振听仍逐窗口由事实引擎
+核验，未知者继续跳过。现有脱敏 Tenhou 补充 fixture 已分别证明一例舍牌荣和、
+抢杠荣和及含荣和候选的 pass，无需增加原始牌谱。
+
+私有 discovery corpus 使用仓库现有 Tenhou 批量下载器新增 20 份公开牌谱，合计扫描
+3,020 份原始 mjlog；2,504 份映射、2,467 份 canonical 校验、2,397 份重放通过。
+失败分别为 mapper invalid event 147、断线不支持 369、canonical 校验 37、
+重放 70；纯事件 census 命中舍牌荣和 12,637、抢杠荣和 3。这些数量只定位候选，
+不替代资格证明或真实模型验收；私有下载映射与原始牌谱不入库。
+
+真实 `mortal-582500` CPU spike 在干净提交上 PASS/0：716 次推理、六个 validated
+package，全部必需 wave-1 实际分支 chi/pon/daiminkan/hora/pass/chankan 为
+7/13/1/1/131/1，pass 候选族 chi/pon/daiminkan/hora 为 6/5/2/1；固定 runtime 错误均为 0。
+部分非目标窗口仍为 degraded/blocked，本结果只关闭本规格的 wave-1 真实覆盖门，
+不代表整盘所有窗口或 M8 发布条件均已完成。
 receipt 必须绑定 clean tracked working tree 的实际完整 HEAD SHA；外部 GITHUB_SHA
 若存在须与其一致。checkpoint、native runtime 和大模型文件不进入 Git、npm package
 或普通五门；M8 再分发/notice/源码义务核验仍未完成。
