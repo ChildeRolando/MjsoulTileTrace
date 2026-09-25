@@ -7,6 +7,7 @@ import {
   LOCAL_MORTAL_PROTOCOL_VERSION,
   LocalMortalInferenceSuccessSchema,
   canonicalActionRef,
+  type CanonicalGameEvent,
   type ManagedMortalRuntimeIdentity,
 } from "@riichi-coach/contracts";
 import {
@@ -28,6 +29,8 @@ import {
   replayCanonicalResponseWindows,
   replayCanonicalStream,
 } from "../src/index.js";
+import type { ReplayedDecision } from "../src/replay/stream-replayer.js";
+import { canonicalStartEvents, canonicalStream, canonicalTile } from "./fixtures/canonical-stream.js";
 
 const identity: ManagedMortalRuntimeIdentity = {
   runtimeImplementation: "Equim-chan/Mortal", runtimeRevision: "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -61,6 +64,57 @@ async function realTenhouFixture(sourceId: string, actor: number) {
 }
 
 describe("local Mortal canonical projection and conservation", () => {
+  it("proves pass-only when another structural wait was discarded by self", async () => {
+    const hand = ["1m", "2m", "3m", "1p", "2p", "3p", "1s", "2s", "3s", "4s", "5s", "1z", "1z"]
+      .map((id) => canonicalTile(id as Parameters<typeof canonicalTile>[0]));
+    const events: CanonicalGameEvent[] = [
+      ...canonicalStartEvents(hand),
+      { type: "tile_drawn", eventId: "game:fixture/0/2/0", sourceRecordRef: "record:2", actor: 0,
+        tile: { visibility: "visible", tile: canonicalTile("3s") }, from: "live_wall" },
+      { type: "tile_discarded", eventId: "game:fixture/0/3/0", sourceRecordRef: "record:3", actor: 0,
+        tile: canonicalTile("3s"), discardMode: "tsumogiri", riichiDeclarationEventRef: null },
+      { type: "tile_drawn", eventId: "game:fixture/0/4/0", sourceRecordRef: "record:4", actor: 1,
+        tile: { visibility: "hidden" }, from: "live_wall" },
+      { type: "tile_discarded", eventId: "game:fixture/0/5/0", sourceRecordRef: "record:5", actor: 1,
+        tile: canonicalTile("6s"), discardMode: "tedashi", riichiDeclarationEventRef: null },
+      { type: "tile_drawn", eventId: "game:fixture/0/6/0", sourceRecordRef: "record:6", actor: 2,
+        tile: { visibility: "hidden" }, from: "live_wall" },
+    ];
+    const stream = canonicalStream(events);
+    const decision = replayCanonicalResponseWindows(stream).find((row) => row.decisionEventRef === "game:fixture/0/5/0");
+    expect(decision?.actualAction?.kind).toBe("pass");
+    expect(enumerateResponseCandidates(decision!)?.ron).toBe(true);
+    const engine = new JsonlFactEngineClient(
+      new ManagedFactEngineTransport(fileURLToPath(new URL("../../../resources/", import.meta.url))),
+    );
+    try {
+      const verdicts = await collectLocalMortalRonCandidateWindows(stream, [decision!], engine);
+      expect(verdicts.get(decision!.decisionEventRef)).toEqual({ status: "proven_ineligible", reason: "furiten_confirmed" });
+      expect(collectResponseSingleCandidateProofs([decision!], verdicts).get(0)).toEqual({
+        shape: "response_single_candidate", candidateCount: 1,
+      });
+      expect(() => projectLocalMortalRequest({ stream, decision: decision!, surface: "response", identity }))
+        .toThrow("mortal_source_row_not_expected");
+      const incompleteRiver: ReplayedDecision = {
+        ...decision!,
+        snapshot: {
+          ...decision!.snapshot,
+          publicState: {
+            ...decision!.snapshot.publicState,
+            fields: { ...decision!.snapshot.publicState.fields, rivers: "partial" as const },
+            rivers: [[], decision!.snapshot.publicState.rivers[1]!,
+              decision!.snapshot.publicState.rivers[2]!, decision!.snapshot.publicState.rivers[3]!],
+          },
+        },
+      };
+      const unknown = await collectLocalMortalRonCandidateWindows(stream, [incompleteRiver], engine);
+      expect(unknown.get(decision!.decisionEventRef)).toEqual({ status: "unknown", reason: "furiten_unknown" });
+      expect(collectResponseSingleCandidateProofs([incompleteRiver], unknown).has(0)).toBe(false);
+    } finally {
+      await engine.close();
+    }
+  }, 15_000);
+
   it("uses Mortal's red-first pon realization regardless of hand order", async () => {
     const stream = await realFixture(3);
     const original = replayCanonicalResponseWindows(stream).find((row) =>

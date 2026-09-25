@@ -161,7 +161,9 @@ Model/report evidence provider（模型/报告证据来源）
   manifest 缺失、不可读、畸形或 artifact I/O 失败同样只能返回固定安全 code。
   响应窗口只有在 hand-structure 与振听证据明确排除荣和时才能减少 ron 候选并签发
   `response_single_candidate`；未知役条件、响应历史不完整导致的未知振听、引擎失败或缺失 verdict 均不能
-  从候选集合中静默扣除 ron。荣和资格仍未知时，full-game ledger 使用
+  从候选集合中静默扣除 ron。舍牌振听须用全部结构等待牌与本人牌河核验：本人打过
+  另一张等待牌也排除荣和；牌河证据不完整且无已知交集时保持 `unknown`，不能签发
+  单候选证明。荣和资格仍未知时，full-game ledger 使用
   `analysis_blocked/ron_eligibility_unproven`，无论来源行是否存在都不能生成
   `source_row_not_expected` 或 `analysis_ready`。
   Tenhou 仅对完整解析并闭合的受支持真实 mjlog 声明响应机会历史 `complete`；

@@ -245,7 +245,21 @@ export async function collectLocalMortalRonCandidateWindows(
         continue;
       }
       const furiten = await deriveResponseFuriten(stream, decision.decisionEventRef, engine);
-      const states = [furiten.temporary.status, furiten.riichi.status];
+      // As in the hand-structure furiten merger, every structural wait (not
+      // only the offered tile) must be checked against the self river.
+      const publicState = decision.snapshot.publicState;
+      const selfRiver = publicState.rivers[decision.snapshot.selfActor];
+      const structuralWaits = new Set(hand.waits.map((row) => row.tile34));
+      const discardStatus = selfRiver?.some((discard) =>
+        discard.actor === decision.snapshot.selfActor && structuralWaits.has(tileIdTo34(discard.tile.id)))
+        ? "confirmed"
+        : selfRiver !== undefined &&
+          stream.completeness.eventSequence === "complete" &&
+          stream.completeness.rivers === "complete" &&
+          publicState.fields.rivers === "complete"
+          ? "clear"
+          : "unknown";
+      const states = [discardStatus, furiten.temporary.status, furiten.riichi.status];
       result.set(decision.decisionEventRef, states.includes("confirmed")
         ? { status: "proven_ineligible", reason: "furiten_confirmed" }
         : states.every((status) => status === "clear")
