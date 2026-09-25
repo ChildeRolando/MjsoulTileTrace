@@ -76,6 +76,13 @@ schedule 自动发现。需要用户裁决的 PR 保持待确认。无需为每�
 在 PR description 加入 spec 中的 `review-loop-admission` block，填写实际批准的 spec
 路径和验收 rubric。只接受同仓库已推送且 ready 的 PR。无需 GitHub 正式 approval
 或额外账号；评审与合并权限分开。结果在 GitHub `Review Loop v2` status 和 Multica issue。
+对 stacked PR，先检查 `base..head` 的实际差异和将进入目标分支的提交来源都落在
+本 PR admission 的 spec/rubric 范围内。spec-only PR 可以作为实现 PR 的临时开发 base，
+但实现不得 merge 回 spec 分支。spec 先 fresh review 并入 master；实现随后 retarget/rebase
+到 master，以新 base/head/admission 做独立 fresh review。父/子 PR 的 result、GitHub
+commit status、历史 PASS 不能互相授权；范围超出或来源不明时按 spec fail closed，
+不能让 Reviewer 改固定 rubric 或用历史评论猜测。当前代码尚无完整的自动范围判定，
+operator 在后续实现落地前须阻止此类候选进入合并与 auto-merge 请求。
 GitHub status 是同提交所有已接入 PR 的聚合门禁，单个 PR 的结论以其 ledger 和评审
 原文为准。共享提交上只有所有 live 候选都通过才会显示 success。
 
@@ -96,6 +103,32 @@ Controller run；程序仍靠 ledger 防重复任务。Controller Autopilot 不�
 in-place 本机目录，避免与 Reviewer/Fixer 争用目录锁；评审/修复工单仍属于 Coach 项目。
 
 ## 故障与恢复
+
+### #29/#30 stacked 候选拆分（COAC-142）
+
+先暂停针对这两层候选的合并和 auto-merge；只读记录 live #29/#30 的 base/head、
+merge 状态、`master..head` 完整提交图与 diff、PR 正文/admission、各轮评论/原文 hash、
+GitHub check、Controller ledger 与 archived raw result。对照 spec 的三条恢复路径，
+优先以原始 spec commit `e6eb846ef1057a92bc825a23a47c464840eae7e3` 为来源创建
+新的 clean spec PR；其 rubric 必须覆盖该 PR 的全部文档差异。#29 保留待确认关闭，
+#30 的 MERGED 标记、实现分支和历史证据保留。不能把旧 COAC-133/139 PASS 或 COAC-140
+ENVIRONMENT_BLOCKED 迁移成新 PR 的证书，也不能删除/修改 ledger 或归档来制造准入。
+
+若后续恢复工单提出改写 #29 远端历史，先备份所有相关 refs，展示 expected old SHA、
+new SHA、`master..new` 与 `old..new` 的精确提交/diff、PR/check/证书失效影响，并取得
+Roland 对该精确 `--force-with-lease` 操作的确认；未获确认不执行。追加 revert 虽不重写
+历史，却仍须把 merge 与 revert 来源纳入审查，不能凭最终树相同复用旧文档证书。
+任何路径都要遵守 master ruleset。clean spec PR fresh independent review 并正常合并后，
+从保留的 #30 实现提交建立到 master 的新实现 PR，重新固定 base/head/admission，
+fresh independent review 后正常合并。新 PR 的正文、admission、轮次、result/check 与
+ledger 分别由其自身 Controller 流程生成；旧 #29/#30 的状态只读留存。两层都完成前，
+COAC-134 对 PR #27 的生产恢复继续 blocked。
+
+落地此契约时，`protocol.mjs` 负责固定 admission/身份/范围输入，`controller.mjs`
+负责准入与结果 fail closed，`runtime.mjs` 负责 live PR 复核、聚合发布及 auto-merge
+写入边界。focused tests 写入同目录 `protocol.test.mjs`、`controller.test.mjs`、
+`runtime.test.mjs`，覆盖 spec-only/误 merge、scope 超限、base/head 漂移、旧 PASS、
+拆分新候选、重复/并发 tick 与零 auto-merge 写入；先在现有缺陷上证实失败，再实现。
 
 - `health.json`：最近成功扫描时刻、PR 状态、轮次和当前 issue；超过两次周期未更新先查
   Multica Autopilot runs、daemon 和主机在线情况。智能体 run 显示 completed 不足以证明
@@ -137,6 +170,25 @@ in-place 本机目录，避免与 Reviewer/Fixer 争用目录锁；评审/修复
   身份/hash、重复调用、旧 live 候选、无既有授权或并发 Controller 均 fail closed。执行后
   回读 ledger、归档、Reviewer issue/run 和 live base/head，再恢复 trigger。此入口仍只处理
   round 4 的 `contradictory verdict` 并受最高第五轮约束，不能用于合法第五轮结果。
+- transport 失败后补同一 issue 的有效结果（COAC-131；**规格已冻结、入口尚未实现**）：
+  对照上文 spec 的专用契约，先只读核对 live PR、admission、ledger job/round/history、
+  `state.result` 指向的上一轮归档、该 review issue 的完整 runs 和唯一原文评论。
+  特别区分 Reviewer 自身 `NO_P1_P2`/五门 PASS 与 Controller 的 BLOCKED/旧结果；
+  不得直接改 `pr-N.json`、覆盖 `results/`、删除 lock 或伪造 GitHub success。
+  仅当原阻塞确为无可读结果的 transport 失败、后补来源为同一 issue 的 completed run、
+  固定 base/head/admission 与 live 全部一致且此前没有本轮 result，才能进入操作窗口。
+  暂停 Autopilot、回读 disabled、确认没有运行中 Controller，取得同一部署锁并备份、
+  校验 ledger/history/既有归档可恢复；准备绑定 PR、issue、comment、run、raw hash、
+  round、base/head、admission hash 的严格请求。待实现的**专用**恢复入口将再次读取
+  平台原文与 live candidate，验证旧归档和历史，然后原子记录正常 review result；
+  锁/备份/来源/候选任一不符时零状态写入。当前版本尚无该 CLI 命令，切勿用
+  `recover-invalid-review`、手工 ledger 编辑或重置轮次代替。
+  实施后的回读顺序：ledger 状态/round/result/history、`results/<issue>-<hash>.json`、
+  原失败 run 与 completed run、live base/head/admission、GitHub `Review Loop v2`
+  check；核验重复请求幂等且没有 auto-merge request，再恢复 trigger。新候选必须按
+  原授权上限 fresh independent review；`master` 保护/ruleset 缺失仍单独阻断自动合并启用。
+  回归 owner 为 `scripts/review-loop/{protocol,controller,runtime}.test.mjs`，以 spec 的
+  机械矩阵为准；没有实际执行的测试不能记录为 PASS。
 - 外部独立审查收口：自动 round 6 已合法 BLOCKED 且用户另行人工创建了独立补充审查时，
   不得把外部序号改写成自动 round 或继续提高自动上限。按部署流程暂停 Autopilot、设置
   `enabled=false`、确认无活动 Controller、持锁备份，准备严格 JSON：`protocol_version`、

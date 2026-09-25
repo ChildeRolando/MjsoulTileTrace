@@ -42,6 +42,64 @@ full base/head SHA、同仓库来源、严格 admission 字段、存在且非 sy
 admission 在整个 PR loop 内固定，修改后停止，需人工核对恢复。
 代码执行信任范围是此用户管理的同仓库分支；这是 Agent 输入隔离，不是敌对代码沙箱。
 
+### 候选范围与评审证书（COAC-142）
+
+一次 verdict 只认证其固定 `review-loop-admission` 实际覆盖的精确候选。候选身份至少包括
+PR、同仓库来源、实时 base/head 的完整 SHA、`base..head` 的最终合并差异和将进入目标
+分支的提交来源/拓扑；admission 的 spec paths 与 rubric 决定被准入的审查范围。
+`candidate_scope ⊄ admitted_scope` 时，即使五门为绿、旧轮为 PASS 或同一 HEAD 的共享
+commit status 为 success，Controller/Reviewer 也必须 fail closed：不得签发 PASS、请求
+native auto-merge，或推断新候选已审。文档专用 rubric 不能认证夹带的生产实现与测试。
+路径清单只是审查线索，不能用改名、revert 后相同树或历史评论代替对真实差异和来源的
+核验；无法确定范围时保持 BLOCKED/ENVIRONMENT_BLOCKED，交由 owner 裁决固定契约。
+Reviewer 不得自行修改 rubric、spec paths 或本轮固定参数。Controller 在准入、结果接纳、
+状态发布及合并前重新核对 live candidate；已有证书仅对其原身份有效。
+
+正常 stacked PR 可以让实现 PR 暂以未合并的 spec 分支为 base 开发，但不得把实现 PR
+merge 回 spec 分支。先让 spec-only PR 在 master 的固定候选获得 fresh independent review
+并正常合并；随后将实现 PR retarget/rebase 到 master，固定新的 base/head/admission，
+再获得针对该独立候选的 fresh review 并正常合并。每个 PR 的结果只证明自身候选，
+父/子 PR 的 PASS 不相互继承；base/head、来源或最终合并范围改变就失效。
+
+2026-09-25 事故边界：PR #29 原本为 COAC-131 spec-only，GitHub 当前 head
+`2d01950befb730cd177b01ca8759a8960922a764` 是把实现 PR #30 合到 #29 的 merge
+commit；#30 head `eefc45503774e43c567555f2a801527de8228670` 已标记 MERGED，
+目标是 #29 分支而非 master。COAC-133/139 的旧 PASS 仅是各自旧候选的历史证据；
+COAC-140 对 #29 新候选的 `ENVIRONMENT_BLOCKED` 是正确的 fail closed。不能扩写 #29
+documentation-only rubric 来放行该混合候选，也不能把 #30 当作待合入 master 的开放 PR。
+
+恢复方案决策门（执行属于后续工单；本规格不改变远端 ref/PR/ledger）：
+
+| 路径 | 候选与证书影响 | 历史、GitHub 状态及权限 |
+|---|---|---|
+| 在 #29 head 后追加 revert #30 merge | 树可回到 spec-only，但 `base..head` 提交来源仍含实现与反向提交；不能仅凭树相同沿用旧 PASS，需重新审查真实拓扑 | 非破坏性，但 #29 保留污染历史；#30 仍 MERGED；不满足干净 spec 候选的优先目标 |
+| 备份 ref 后以精确 `--force-with-lease` 把 #29 恢复到 spec commit | 新 head 必须 fresh review；旧证书/round/check 只作历史，不能复制或重置 | 会重写公开分支与 #29 比较历史；需先备份并展示精确 expected old/new refs、提交和 diff，取得 Roland 明确确认，再核对权限/ruleset；本票禁止执行 |
+| 保留 #29/#30，另建 clean spec PR；经确认后关闭旧 #29 | 新 spec PR 的 admission/rubric 必须覆盖其完整文档差异并 fresh review；实现另开 PR 到 master 后 fresh review | 不重写 refs，保留 #29/#30 原始审查和 MERGED 记录；关闭 #29 及后续合并由恢复工单按权限执行。优先选择此路径 |
+
+选定路径须先只读保存 #29 base `efc40f02591a36ba4a63072f6d8f31ca097e050d`、
+spec commit `e6eb846ef1057a92bc825a23a47c464840eae7e3`、当前 #29/#30 refs、
+完整提交图、`master..candidate` diff、PR 正文/admission、各轮 issue/result/check 与
+Controller ledger/archived raw result 的原文 hash。任何 live ref 漂移都重做预览。
+不得手改 ledger、伪造 PASS、删除旧 COAC-133/139/140 证据、重置轮次或绕过 master
+ruleset。旧 #29 的 admission、正文与 check 不授权新 PR；新 PR 以自己的 admission、
+独立轮次与结果接受审查，旧归档保持只读。#30 MERGED 历史与实现分支/提交继续保留，
+仅用作新 master 实现 PR 的来源证据，不能当作新证书。两层新候选各自通过并正常合并后，
+才可推进 COAC-134 对 PR #27 的生产恢复。
+
+后续实现的机械回归 owner 为 `scripts/review-loop/protocol.test.mjs`（严格 admission/候选
+身份与范围判定）、`controller.test.mjs`（准入、结果与旧 PASS 不继承）、
+`runtime.test.mjs`（live PR、聚合 status、重复/并发 tick 与零 auto-merge 写入）。
+测试须在缺陷代码上失败、修复后通过；本次文档提交没有实现或宣称这些测试已 PASS。
+
+| 场景 | 必须验证的结果 |
+|---|---|
+| spec-only 正常 stacked 生命周期 | spec 先独立审查并入 master；实现 retarget/rebase、重新固定身份并独立审查；各自证书不互用 |
+| 实现误 merge 入 spec；或任何 `candidate_scope ⊄ admitted_scope` | 文档 rubric 拒绝实现范围；结果不能 PASS，不能请求 auto-merge |
+| base/head、来源或最终合并范围漂移 | 旧结果/check 失效；重读 live 候选并 fresh review |
+| 旧 PASS、拆分恢复后的新候选 | 原评论/hash/归档/轮次保留；新 spec 和 master 实现候选均不得继承旧 PASS |
+| 并发/重复 tick、结果重放 | 持锁与幂等，不出现两个证书、重复派发或额外 merge 写入 |
+| 任一失配或证据不足 | fail closed，零 native auto-merge request，审计记录指出失配来源 |
+
 来源语义是 `github-rest-json-utf8/v1`：通过已认证 gh API 读取 GitHub 状态，记录观察时刻
 与保存的 JSON UTF-8 内容 hash。它不是 GitHub webhook 原始字节或 GitHub 签名证明。
 GitHub 当前查询拥有 PR 身份、base/head；任何 webhook JSON 都只是唤醒信号。
@@ -119,6 +177,62 @@ PR admission 和智能体结果均不能授予授权；未获对应人工批准�
 追认为有效 result 或 PASS。只有已有上一轮授权、明确的新一轮人工批准和精确的新 live 候选
 同时匹配时，才可绑定被拒绝的终轮证据并派发一次 fresh Reviewer。错误身份/hash、重复恢复、
 旧候选、缺失既有授权或并发 Controller 一律拒绝；仍受最高五轮约束，不能处理合法第五轮。
+
+### 同一 Reviewer issue 的 transport 失败后补结果（COAC-131）
+
+专用 operator 恢复入口仅适用于已分派 review 的 run 因 `runtime_offline` 或
+`runtime_reconnect_timeout` 等可核验 transport 失败，Controller 当时因没有可读结果而以
+`missing/conflicting results` BLOCKED，随后**同一 issue** 的指定 Reviewer 在 completed
+run 发表唯一、协议有效的结果。它不是 `recover-invalid-review`：后者只处理
+`contradictory verdict`，要求新候选及额外授权。真实多结果冲突、门禁/环境阻断、轮次上限
+和其他 BLOCKED 原因均不得经此入口恢复。不得删除或伪装失败 run，不重派原轮、不重置 round。
+
+2026-09-25 对 PR #27 的只读审计样例：COAC-129 round 4 的前两次 run 分别因上述原因
+失败；后补 completed run `01a0d714-bb9e-7217-a4f3-3390e5efabbe` 的唯一评论
+`01a0d731-123f-7d2a-aaac-81b2f621b0ef` UTF-8 原文 SHA-256 为
+`146f65de386e32293159dbfb9a3591487fe8584eeaa82481a781f7bcea2c8d31`，
+Reviewer 裁决 `NO_P1_P2`、五门 PASS/0；固定 base
+`efc40f02591a36ba4a63072f6d8f31ca097e050d`、head
+`04c415642237f556b4657e6b699e791920d09029`。当时 ledger 仍为
+`BLOCKED/round=4`，无 round 4 result/history/归档，`state.result` 仍指向 round 3；
+GitHub `Review Loop v2` check FAILURE。Reviewer PASS **不等于** Controller 已接纳 PASS；
+操作时必须重新读取 live PR/issue/runs/comments/ledger，不得沿用本快照。
+
+入口须暂停 Autopilot、回读 `enabled=false`、确认无活动 Controller、持同一部署锁，
+先成功创建并校验可恢复的 ledger/history/既有归档备份。请求严格固定 PR、review issue、
+comment、source run、raw UTF-8 SHA-256、round、review base/head 和 admission hash；
+不能传入另一个候选或更改 admission。锁竞争、无备份、unknown pending 或状态不符时，
+在任何归档、ledger、status 写入前拒绝。验证唯一原轮 dispatch、当前 review job、
+轮次上限、已有授权链与原失败 runs 的 issue/agent/transport failure；无原轮已接纳
+result/recovery 事件。旧 `state.result` 若存在，必须与上一轮唯一已归档 result/history
+精确一致，不得冒充本轮。已有本轮归档若与原文、ledger/history 不一致则拒绝，不覆盖。
+
+重新读取唯一结果评论、issue/指定 agent、评论 `source_task_id` 对应的 completed run、
+原文 hash，并以 `parseResult` 校验完整 schema、base/head/round、verdict 与五门。
+未完成、错作者/issue/run/hash、多个结果或协议冲突均拒绝。写入前再次读取 open live PR，
+base/head/admission hash 须同时匹配原 job 和请求；读取期间候选漂移不得接纳旧结果。
+成功时按原 `decide` 对当前候选裁决，沿用原归档/历史/ledger/发布路径，追加唯一含
+issue/comment/run/hash/base/head/round 的 `result` 事件，归档原文并原子保存；仅五门
+PASS/0、空 P1/P2 才可能成为 Controller PASS。验证/持久化失败不得发布伪 PASS；
+重试先核对部分归档与账本。同一来源已接纳的再次调用只读返回，不重复追加、派发或
+写入 merge；不同来源或不一致 fail closed。
+
+此入口不执行 auto-merge request 或改变保护/权限。恢复后如有新 base/head，原 PASS
+失效，仍由 `advance` 在原授权上限内派发 fresh independent review；上限耗尽 BLOCKED。
+不变更第 4/5 轮人工授权、第 6 轮特殊授权、severity、reviewer 模型或 GitHub native
+auto-merge admission；后者只消费当前已接纳精确候选的 PASS，仍遵守 disabled/保护门禁。
+`master` 缺少保护/ruleset 是另一生产启用阻塞，不由本入口解决。
+
+机械验收位置与最小路径：`scripts/review-loop/protocol.mjs` 复用 `parseResult`/`admit`；
+`controller.mjs` 复用 `decide`/`advance` 的结果 transition，不改普通 tick 的 BLOCKED
+分支；`runtime.mjs` 复用现有锁、IO/归档/发布。对应 `protocol.test.mjs` 检验来源/schema/
+候选，`controller.test.mjs` 检验状态/历史/幂等/新候选，`runtime.test.mjs` 检验锁/备份/
+双读 live/持久化及零 merge 写入。回归矩阵：单个 completed 可信重跑接纳、失败历史
+保留、重复调用幂等；未完成、错作者/issue/run/hash/base/head/round/admission、live
+漂移、多结果/冲突、错旧 result/history/归档、无备份或锁竞争均零写入拒绝；其他
+BLOCKED 原因拒绝；零自动合并写入；新提交 fresh independent review。实现时先证明
+相应回归在缺陷上失败，修复后跑 focused tests、`npm run test:review-loop-protocol` 与
+适用五门；规格冻结不等于尚未实施的用例通过。
 
 自动审查达到第六轮上限后，用户另行人工派发的独立补充审查不属于自动 round，也不得扩大
 `reviewRoundLimit`。受信 operator 只有在 Autopilot 暂停、`enabled=false`、持有同一部署锁且
