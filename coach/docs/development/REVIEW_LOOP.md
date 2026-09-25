@@ -170,7 +170,7 @@ COAC-134 对 PR #27 的生产恢复继续 blocked。
   身份/hash、重复调用、旧 live 候选、无既有授权或并发 Controller 均 fail closed。执行后
   回读 ledger、归档、Reviewer issue/run 和 live base/head，再恢复 trigger。此入口仍只处理
   round 4 的 `contradictory verdict` 并受最高第五轮约束，不能用于合法第五轮结果。
-- transport 失败后补同一 issue 的有效结果（COAC-131；**规格已冻结、入口尚未实现**）：
+- transport 失败后补同一 issue 的有效结果（COAC-131；实现须独立评审、operator 准入后才可用于生产）：
   对照上文 spec 的专用契约，先只读核对 live PR、admission、ledger job/round/history、
   `state.result` 指向的上一轮归档、该 review issue 的完整 runs 和唯一原文评论。
   特别区分 Reviewer 自身 `NO_P1_P2`/五门 PASS 与 Controller 的 BLOCKED/旧结果；
@@ -179,9 +179,12 @@ COAC-134 对 PR #27 的生产恢复继续 blocked。
   固定 base/head/admission 与 live 全部一致且此前没有本轮 result，才能进入操作窗口。
   暂停 Autopilot、回读 disabled、确认没有运行中 Controller，取得同一部署锁并备份、
   校验 ledger/history/既有归档可恢复；准备绑定 PR、issue、comment、run、raw hash、
-  round、base/head、admission hash 的严格请求。待实现的**专用**恢复入口将再次读取
+  round、base/head、admission hash 的严格请求。专用入口 `node scripts/review-loop/runtime.mjs recover-transport-result <config> <request.json>` 将再次读取
   平台原文与 live candidate，验证旧归档和历史，然后原子记录正常 review result；
-  锁/备份/来源/候选任一不符时零状态写入。当前版本尚无该 CLI 命令，切勿用
+  锁/备份/来源/候选任一不符时零状态写入。请求 JSON 须恰含 `protocol_version`、`pr_number`、
+  `review_issue_id`、`comment_id`、`run_id`、`raw_review_sha256`、`round`、`review_base_sha`、
+  `review_head_sha`、`admission_hash`；入口在 `state_dir/backups/transport-result-*` 保留校验过的
+  ledger 与既有归档备份，重复同源结果只读返回。审核/准入前仍切勿执行；也切勿用
   `recover-invalid-review`、手工 ledger 编辑或重置轮次代替。
   实施后的回读顺序：ledger 状态/round/result/history、`results/<issue>-<hash>.json`、
   原失败 run 与 completed run、live base/head/admission、GitHub `Review Loop v2`
