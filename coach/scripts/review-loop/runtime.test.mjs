@@ -39,6 +39,29 @@ test('transport result recovery retains failed runs, backs up state, publishes o
     assert.equal((await readdir(path.join(dir,'backups'))).length,1);
   } finally {await rm(dir,{recursive:true,force:true});}
 });
+test('transport recovery captures required P3 before PASS and ignores ephemeral findings on replay',async()=>{
+  const dir=await mkdtemp(path.join(os.tmpdir(),'transport-durability-'));
+  try {
+    const fixture=await transportFixture(dir),disabled={...config(dir),enabled:false};
+    const required={id:'gap',path:'coach/a.ts',line:1,scenario:'future gap',consequence:'known limitation',minimal_fix:'document',durability:'repository_required',durable_owner:'coach/docs/development/INVARIANTS.md',regression:null,basis:'future_limitation'};
+    const ephemeral={...required,id:'style',durability:'ephemeral',durable_owner:null,basis:'local_observation'};
+    fixture.result.findings.P3=[required,ephemeral];
+    fixture.comment.content='review\n```review-loop-result\n'+JSON.stringify(fixture.result)+'\n```';
+    fixture.request.raw_review_sha256=hash(fixture.comment.content);
+    assert.equal((await recoverTransportResult(disabled,fixture.request,()=>fixture.io)).status,'PASS');
+    const saved=JSON.parse(await readFile(fixture.file,'utf8'));
+    assert.equal(saved.durability.length,1);
+    assert.equal(saved.durability[0].finding.id,'gap');
+    assert.equal(saved.durability[0].source_review_issue_id,fixture.job.issue_id);
+    assert.equal(saved.durability[0].source_run_id,fixture.request.run_id);
+    assert.equal(saved.durability[0].raw_review,fixture.comment.content);
+    assert.equal(saved.durability[0].raw_review_sha256,fixture.request.raw_review_sha256);
+    assert.equal(fixture.metrics.saves,1);
+    assert.equal((await recoverTransportResult(disabled,fixture.request,()=>fixture.io)).status,'ALREADY_ACCEPTED');
+    assert.equal(JSON.parse(await readFile(fixture.file,'utf8')).durability.length,1);
+    assert.equal(fixture.metrics.saves,1);
+  } finally {await rm(dir,{recursive:true,force:true});}
+});
 test('transport recovery rejects untrusted runs, stale candidates and conflicts with no ledger/status writes',async()=>{
   for(const change of [f=>f.runs[0].failure_reason='other',f=>f.runs[1].status='running',f=>f.runs.push({...f.runs[1],id:'other-run'}),f=>f.comment.author_id='other',f=>f.comment.content+='altered',f=>f.request.review_head_sha='c'.repeat(40),f=>f.request.admission_hash='f'.repeat(64),f=>f.state.reason='contradictory verdict',f=>f.state.pending={kind:'review'},f=>f.state.history.push({...f.state.history[0]}),f=>f.live.head.sha='c'.repeat(40)]) {
     const dir=await mkdtemp(path.join(os.tmpdir(),'transport-reject-'));
@@ -103,6 +126,40 @@ test('transport recovery rejects second-read drift and an inconsistent orphan ar
       assert.equal(fixture.metrics.archives,0);assert.equal(fixture.metrics.saves,0);assert.equal(fixture.metrics.publishes,0);
     } finally {await rm(dir,{recursive:true,force:true});}
   }
+});
+test('transport recovery rejects a different-hash orphan from the same review issue without writes',async()=>{
+  const dir=await mkdtemp(path.join(os.tmpdir(),'transport-orphan-conflict-'));
+  try {
+    const fixture=await transportFixture(dir),before=await readFile(fixture.file,'utf8');
+    const raw='previous archived raw',sha256=hash(raw);
+    await mkdir(path.join(dir,'results'));
+    await atomicJson(path.join(dir,'results',`review-${sha256}.json`),{raw,sha256,comment_id:'other',run_id:'other-run',data:fixture.result});
+    await assert.rejects(()=>recoverTransportResult({...config(dir),enabled:false},fixture.request,()=>fixture.io),/conflicting review result archive/);
+    assert.equal(await readFile(fixture.file,'utf8'),before);
+    assert.equal(fixture.metrics.archives,0);assert.equal(fixture.metrics.saves,0);assert.equal(fixture.metrics.publishes,0);
+    assert.deepEqual(await readdir(path.join(dir,'results')),[`review-${sha256}.json`]);
+  } finally {await rm(dir,{recursive:true,force:true});}
+});
+test('transport recovery rejects conflicting previous-round result history before writes',async()=>{
+  const dir=await mkdtemp(path.join(os.tmpdir(),'transport-history-conflict-'));
+  try {
+    const fixture=await transportFixture(dir);
+    fixture.state.round=2;fixture.job.round=2;fixture.request.round=2;fixture.result.round=2;
+    fixture.comment.content='review\n```review-loop-result\n'+JSON.stringify(fixture.result)+'\n```';
+    fixture.request.raw_review_sha256=hash(fixture.comment.content);
+    fixture.state.history[0].round=2;
+    const raw='previous accepted result',sha256=hash(raw);
+    fixture.state.result={issue_id:'previous',comment_id:'previous-comment',sha256};
+    const previous={event:'result',transition:'PASS',round:1,issue_id:'previous',comment_id:'previous-comment',run_id:'previous-run',sha256,base_sha:fixture.job.base_sha,head_sha:fixture.job.head_sha};
+    fixture.state.history.unshift(previous,{...previous,comment_id:'other-comment',sha256:hash('other raw')});
+    await atomicJson(fixture.file,fixture.state);
+    await mkdir(path.join(dir,'results'));
+    await atomicJson(path.join(dir,'results',`previous-${sha256}.json`),{data:{pr_number:8,round:1,base_sha:fixture.job.base_sha,head_sha:fixture.job.head_sha},raw,comment_id:previous.comment_id,run_id:previous.run_id,sha256});
+    const before=await readFile(fixture.file,'utf8');
+    await assert.rejects(()=>recoverTransportResult({...config(dir),enabled:false},fixture.request,()=>fixture.io),/previous result history mismatch/);
+    assert.equal(await readFile(fixture.file,'utf8'),before);
+    assert.equal(fixture.metrics.archives,0);assert.equal(fixture.metrics.saves,0);assert.equal(fixture.metrics.publishes,0);
+  } finally {await rm(dir,{recursive:true,force:true});}
 });
 
 test('real Git durable verification requires pushed, changed regular artifacts and exact hashes',{timeout:30000},async()=>{
