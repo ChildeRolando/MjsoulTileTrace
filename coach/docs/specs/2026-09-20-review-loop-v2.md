@@ -42,6 +42,64 @@ full base/head SHA、同仓库来源、严格 admission 字段、存在且非 sy
 admission 在整个 PR loop 内固定，修改后停止，需人工核对恢复。
 代码执行信任范围是此用户管理的同仓库分支；这是 Agent 输入隔离，不是敌对代码沙箱。
 
+### 候选范围与评审证书（COAC-142）
+
+一次 verdict 只认证其固定 `review-loop-admission` 实际覆盖的精确候选。候选身份至少包括
+PR、同仓库来源、实时 base/head 的完整 SHA、`base..head` 的最终合并差异和将进入目标
+分支的提交来源/拓扑；admission 的 spec paths 与 rubric 决定被准入的审查范围。
+`candidate_scope ⊄ admitted_scope` 时，即使五门为绿、旧轮为 PASS 或同一 HEAD 的共享
+commit status 为 success，Controller/Reviewer 也必须 fail closed：不得签发 PASS、请求
+native auto-merge，或推断新候选已审。文档专用 rubric 不能认证夹带的生产实现与测试。
+路径清单只是审查线索，不能用改名、revert 后相同树或历史评论代替对真实差异和来源的
+核验；无法确定范围时保持 BLOCKED/ENVIRONMENT_BLOCKED，交由 owner 裁决固定契约。
+Reviewer 不得自行修改 rubric、spec paths 或本轮固定参数。Controller 在准入、结果接纳、
+状态发布及合并前重新核对 live candidate；已有证书仅对其原身份有效。
+
+正常 stacked PR 可以让实现 PR 暂以未合并的 spec 分支为 base 开发，但不得把实现 PR
+merge 回 spec 分支。先让 spec-only PR 在 master 的固定候选获得 fresh independent review
+并正常合并；随后将实现 PR retarget/rebase 到 master，固定新的 base/head/admission，
+再获得针对该独立候选的 fresh review 并正常合并。每个 PR 的结果只证明自身候选，
+父/子 PR 的 PASS 不相互继承；base/head、来源或最终合并范围改变就失效。
+
+2026-09-25 事故边界：PR #29 原本为 COAC-131 spec-only，GitHub 当前 head
+`2d01950befb730cd177b01ca8759a8960922a764` 是把实现 PR #30 合到 #29 的 merge
+commit；#30 head `eefc45503774e43c567555f2a801527de8228670` 已标记 MERGED，
+目标是 #29 分支而非 master。COAC-133/139 的旧 PASS 仅是各自旧候选的历史证据；
+COAC-140 对 #29 新候选的 `ENVIRONMENT_BLOCKED` 是正确的 fail closed。不能扩写 #29
+documentation-only rubric 来放行该混合候选，也不能把 #30 当作待合入 master 的开放 PR。
+
+恢复方案决策门（执行属于后续工单；本规格不改变远端 ref/PR/ledger）：
+
+| 路径 | 候选与证书影响 | 历史、GitHub 状态及权限 |
+|---|---|---|
+| 在 #29 head 后追加 revert #30 merge | 树可回到 spec-only，但 `base..head` 提交来源仍含实现与反向提交；不能仅凭树相同沿用旧 PASS，需重新审查真实拓扑 | 非破坏性，但 #29 保留污染历史；#30 仍 MERGED；不满足干净 spec 候选的优先目标 |
+| 备份 ref 后以精确 `--force-with-lease` 把 #29 恢复到 spec commit | 新 head 必须 fresh review；旧证书/round/check 只作历史，不能复制或重置 | 会重写公开分支与 #29 比较历史；需先备份并展示精确 expected old/new refs、提交和 diff，取得 Roland 明确确认，再核对权限/ruleset；本票禁止执行 |
+| 保留 #29/#30，另建 clean spec PR；经确认后关闭旧 #29 | 新 spec PR 的 admission/rubric 必须覆盖其完整文档差异并 fresh review；实现另开 PR 到 master 后 fresh review | 不重写 refs，保留 #29/#30 原始审查和 MERGED 记录；关闭 #29 及后续合并由恢复工单按权限执行。优先选择此路径 |
+
+选定路径须先只读保存 #29 base `efc40f02591a36ba4a63072f6d8f31ca097e050d`、
+spec commit `e6eb846ef1057a92bc825a23a47c464840eae7e3`、当前 #29/#30 refs、
+完整提交图、`master..candidate` diff、PR 正文/admission、各轮 issue/result/check 与
+Controller ledger/archived raw result 的原文 hash。任何 live ref 漂移都重做预览。
+不得手改 ledger、伪造 PASS、删除旧 COAC-133/139/140 证据、重置轮次或绕过 master
+ruleset。旧 #29 的 admission、正文与 check 不授权新 PR；新 PR 以自己的 admission、
+独立轮次与结果接受审查，旧归档保持只读。#30 MERGED 历史与实现分支/提交继续保留，
+仅用作新 master 实现 PR 的来源证据，不能当作新证书。两层新候选各自通过并正常合并后，
+才可推进 COAC-134 对 PR #27 的生产恢复。
+
+后续实现的机械回归 owner 为 `scripts/review-loop/protocol.test.mjs`（严格 admission/候选
+身份与范围判定）、`controller.test.mjs`（准入、结果与旧 PASS 不继承）、
+`runtime.test.mjs`（live PR、聚合 status、重复/并发 tick 与零 auto-merge 写入）。
+测试须在缺陷代码上失败、修复后通过；本次文档提交没有实现或宣称这些测试已 PASS。
+
+| 场景 | 必须验证的结果 |
+|---|---|
+| spec-only 正常 stacked 生命周期 | spec 先独立审查并入 master；实现 retarget/rebase、重新固定身份并独立审查；各自证书不互用 |
+| 实现误 merge 入 spec；或任何 `candidate_scope ⊄ admitted_scope` | 文档 rubric 拒绝实现范围；结果不能 PASS，不能请求 auto-merge |
+| base/head、来源或最终合并范围漂移 | 旧结果/check 失效；重读 live 候选并 fresh review |
+| 旧 PASS、拆分恢复后的新候选 | 原评论/hash/归档/轮次保留；新 spec 和 master 实现候选均不得继承旧 PASS |
+| 并发/重复 tick、结果重放 | 持锁与幂等，不出现两个证书、重复派发或额外 merge 写入 |
+| 任一失配或证据不足 | fail closed，零 native auto-merge request，审计记录指出失配来源 |
+
 来源语义是 `github-rest-json-utf8/v1`：通过已认证 gh API 读取 GitHub 状态，记录观察时刻
 与保存的 JSON UTF-8 内容 hash。它不是 GitHub webhook 原始字节或 GitHub 签名证明。
 GitHub 当前查询拥有 PR 身份、base/head；任何 webhook JSON 都只是唤醒信号。
