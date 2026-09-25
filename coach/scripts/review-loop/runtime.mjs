@@ -5,7 +5,7 @@ import { mkdir, readFile, writeFile, rename, open, unlink, realpath, readdir, co
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { admit, VERSION, REPOSITORY, hash, isSha, parseResult, parseRejectedReviewResult, parseTransportRecoveryResult, automaticRoundSixTerminal, externalReviewAcceptance } from './protocol.mjs';
-import { advance, advanceDurability, authorizeSixthReview, recoverRejectedTerminalReview, validateTransportRecovery, acceptTransportRecovery } from './controller.mjs';
+import { advance, advanceDurability, captureDurability, authorizeSixthReview, recoverRejectedTerminalReview, validateTransportRecovery, acceptTransportRecovery } from './controller.mjs';
 const exec=promisify(execFile);
 export async function command(file,args,cwd) {
   try { return (await exec(file,args,{cwd,windowsHide:true,encoding:'utf8',maxBuffer:32*1024*1024,timeout:120000})).stdout; }
@@ -320,6 +320,15 @@ async function archivedResult(stateDir,issueId,sha256) {
     return await readJson(file);
   } catch(error) {if(error.code === 'ENOENT')return null;throw error;}
 }
+async function assertNoConflictingArchives(stateDir,issueId,result) {
+  const directory=path.join(stateDir,'results');
+  let names;
+  try {names=await readdir(directory);} catch(error) {if(error.code === 'ENOENT')return;throw error;}
+  for(const name of names.filter(value=>value.startsWith(`${issueId}-`))) {
+    assert.equal(name,`${issueId}-${result.sha256}.json`,'conflicting review result archive');
+    assertArchivedSource(await archivedResult(stateDir,issueId,result.sha256),result);
+  }
+}
 function assertArchivedSource(archive,source) {
   assert(archive && archive.comment_id === source.comment_id && archive.run_id === source.run_id && archive.sha256 === source.sha256
     && hash(archive.raw) === source.sha256,'archived result source mismatch');
@@ -365,9 +374,10 @@ export async function recoverTransportResult(config,request,ioFactory=makeIO) {
     const phase=validateTransportRecovery(state,request),io=ioFactory(config,file,config.state_dir);
     const old=state.result;
     if(phase === 'READY' && old) {
-      const previous=state.history.filter(event=>event.event === 'result' && event.issue_id === old.issue_id && event.comment_id === old.comment_id && event.sha256 === old.sha256);
+      const previous=state.history.filter(event=>event.event === 'result' && event.round === state.round-1);
       assert.equal(previous.length,1,'previous result history mismatch');
-      assert.equal(previous[0].round,state.round-1,'previous result round mismatch');
+      assert(previous[0].issue_id === old.issue_id && previous[0].comment_id === old.comment_id
+        && previous[0].sha256 === old.sha256,'previous result history mismatch');
       const priorArchive=await archivedResult(config.state_dir,old.issue_id,old.sha256);
       assertArchivedSource(priorArchive,{...old,run_id:previous[0].run_id});
       assert(priorArchive.data?.round === previous[0].round && priorArchive.data?.base_sha === previous[0].base_sha
@@ -381,6 +391,7 @@ export async function recoverTransportResult(config,request,ioFactory=makeIO) {
     sameCandidate(first);
     const issue=await io.issue(request.review_issue_id),comments=await io.comments(request.review_issue_id),runs=await io.runs(request.review_issue_id);
     const result=parseTransportRecoveryResult(state.job,issue,comments,runs,request);
+    await assertNoConflictingArchives(config.state_dir,state.job.issue_id,result);
     const existing=await archivedResult(config.state_dir,state.job.issue_id,result.sha256);
     if(existing)assertArchivedSource(existing,result);
     await io.checkSpecs(first);
@@ -393,6 +404,7 @@ export async function recoverTransportResult(config,request,ioFactory=makeIO) {
     await io.verifyCheckout(state.job,result,final);
     final.snapshot=state.snapshot;
     acceptTransportRecovery(state,result,final,request);
+    await captureDurability(state,state.job,result,final,io,config,false);
     if(!existing)await io.archiveResult(state.job,result);
     await io.save(state);
     await io.publish(state);

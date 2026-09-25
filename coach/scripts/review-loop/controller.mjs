@@ -6,7 +6,7 @@ export const activeStatuses = new Set(['queued','dispatched','running','waiting_
 export const reviewerInstructions = readFileSync(new URL('./reviewer-instructions.md',import.meta.url),'utf8').trim();
 
 // The queue is independent of PR acceptance and never rebinds a captured source.
-export async function captureDurability(state,job,result,live,io,config) {
+export async function captureDurability(state,job,result,live,io,config,persist=true) {
   state.durability ??=[];
   for(const finding of result.data.findings.P3.filter(f=>f.durability === 'repository_required')) {
     const identity=hash(JSON.stringify([REPOSITORY,job.pr_number,job.head_sha,job.issue_id,result.comment_id,result.sha256,finding.id]));
@@ -16,7 +16,7 @@ export async function captureDurability(state,job,result,live,io,config) {
       raw_review:result.raw,finding:structuredClone(finding),admission:structuredClone(live.admission),agent_id:config.fixer_id,
       title:`[review-loop/v2.1][知识持久化][${identity}] ${REPOSITORY}#${job.pr_number}`,status:'PENDING'});
   }
-  await io.save(state);
+  if(persist)await io.save(state);
 }
 function durabilityDescription(job) {
   const receipt={protocol_version:VERSION,pr_number:job.pr_number,base_sha:job.base_sha,head_sha:job.head_sha,round:job.round,
