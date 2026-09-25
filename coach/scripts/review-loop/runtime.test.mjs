@@ -4,7 +4,7 @@ import { mkdir, mkdtemp, readFile, readdir, rm, writeFile } from 'node:fs/promis
 import os from 'node:os';
 import path from 'node:path';
 import { acquireLock, recoverLock, atomicJson, command, makeIO, tick, recoverInvalidReview, recoverTransportResult, authorizeSixthReviewRun, acceptExternalReviewRun } from './runtime.mjs';
-import { GATES, hash, admit, VERSION, externalReviewAcceptance } from './protocol.mjs';
+import { GATES, hash, admit, parseResult, VERSION, externalReviewAcceptance } from './protocol.mjs';
 import { advanceDurability, captureDurability } from './controller.mjs';
 test('transport recovery entrypoint exists',async()=>{
   const module=await import('./runtime.mjs');
@@ -22,6 +22,22 @@ async function transportFixture(dir) {
   const metrics={archives:0,saves:0,publishes:0,lives:0};
   const io={live:async()=>{metrics.lives++;return live;},issue:async()=>({id:'review',assignee_type:'agent',assignee_id:'reviewer'}),comments:async()=>[comment],runs:async()=>runs,checkSpecs:async()=>{},verifyCheckout:async()=>{},archiveResult:async(j,value)=>{metrics.archives++;await mkdir(path.join(dir,'results'),{recursive:true});await atomicJson(path.join(dir,'results',`${j.issue_id}-${value.sha256}.json`),value);},save:async value=>{metrics.saves++;await atomicJson(file,value);},publish:async()=>{metrics.publishes++;}};
   return {live,state,result,comment,job,request,runs,metrics,io,file};
+}
+async function previousTransportResult(fixture,dir) {
+  const previousJob={...fixture.job,issue_id:'previous',round:1};
+  const previousData={...fixture.result,round:1};
+  const previousComment={...fixture.comment,id:'previous-comment',issue_id:'previous',source_task_id:'previous-run',content:'review\n```review-loop-result\n'+JSON.stringify(previousData)+'\n```'};
+  const previous=parseResult(previousJob,{id:'previous',assignee_type:'agent',assignee_id:'reviewer'},[previousComment],[{id:'previous-run',issue_id:'previous',agent_id:'reviewer',status:'completed'}]);
+  fixture.state.round=2;fixture.job.round=2;fixture.request.round=2;fixture.result.round=2;
+  fixture.comment.content='review\n```review-loop-result\n'+JSON.stringify(fixture.result)+'\n```';
+  fixture.request.raw_review_sha256=hash(fixture.comment.content);
+  fixture.state.history[0].round=2;
+  fixture.state.result={issue_id:'previous',comment_id:previous.comment_id,sha256:previous.sha256};
+  fixture.state.history.unshift({event:'result',transition:'PASS',round:1,issue_id:'previous',comment_id:previous.comment_id,run_id:previous.run_id,sha256:previous.sha256,base_sha:previous.data.base_sha,head_sha:previous.data.head_sha});
+  await atomicJson(fixture.file,fixture.state);
+  await mkdir(path.join(dir,'results'));
+  await atomicJson(path.join(dir,'results',`previous-${previous.sha256}.json`),previous);
+  return {previous,previousJob,previousComment};
 }
 test('transport result recovery retains failed runs, backs up state, publishes once and retries read-only',async()=>{
   const dir=await mkdtemp(path.join(os.tmpdir(),'transport-accept-'));
@@ -94,19 +110,42 @@ test('transport recovery preserves a verified previous-round result and archives
   const dir=await mkdtemp(path.join(os.tmpdir(),'transport-previous-'));
   try {
     const fixture=await transportFixture(dir),disabled={...config(dir),enabled:false};
-    fixture.state.round=2;fixture.job.round=2;fixture.request.round=2;fixture.result.round=2;
-    fixture.comment.content='review\n```review-loop-result\n'+JSON.stringify(fixture.result)+'\n```';
-    fixture.request.raw_review_sha256=hash(fixture.comment.content);
-    fixture.state.history[0].round=2;
-    const previous={data:{pr_number:8,round:1,base_sha:fixture.request.review_base_sha,head_sha:fixture.request.review_head_sha},raw:'previous accepted result',comment_id:'previous-comment',run_id:'previous-run',sha256:hash('previous accepted result')};
-    fixture.state.result={issue_id:'previous',comment_id:previous.comment_id,sha256:previous.sha256};
-    fixture.state.history.unshift({event:'result',transition:'PASS',round:1,issue_id:'previous',comment_id:previous.comment_id,run_id:previous.run_id,sha256:previous.sha256,base_sha:previous.data.base_sha,head_sha:previous.data.head_sha});
-    await atomicJson(fixture.file,fixture.state);
-    await mkdir(path.join(dir,'results'));await atomicJson(path.join(dir,'results',`previous-${previous.sha256}.json`),previous);
+    const {previous}=await previousTransportResult(fixture,dir);
     assert.equal((await recoverTransportResult(disabled,fixture.request,()=>fixture.io)).status,'PASS');
     const backups=await readdir(path.join(dir,'backups'));
     assert.deepEqual(JSON.parse(await readFile(path.join(dir,'backups',backups[0],'results',`previous-${previous.sha256}.json`),'utf8')),previous);
     assert.equal(fixture.state.history[0].event,'result');
+  } finally {await rm(dir,{recursive:true,force:true});}
+});
+test('transport recovery rejects previous archive data that differs from its raw review',async()=>{
+  for(const change of [
+    (fixture,archive)=>{archive.data.verdict='ENVIRONMENT_BLOCKED';},
+    (fixture,archive)=>{archive.data.base_sha='c'.repeat(40);fixture.state.history[0].base_sha=archive.data.base_sha;}
+  ]) {
+    const dir=await mkdtemp(path.join(os.tmpdir(),'transport-previous-data-'));
+    try {
+      const fixture=await transportFixture(dir),{previous}=await previousTransportResult(fixture,dir);
+      const archive=structuredClone(previous);change(fixture,archive);
+      await atomicJson(path.join(dir,'results',`previous-${previous.sha256}.json`),archive);
+      await atomicJson(fixture.file,fixture.state);
+      const before=await readFile(fixture.file,'utf8');
+      await assert.rejects(()=>recoverTransportResult({...config(dir),enabled:false},fixture.request,()=>fixture.io));
+      assert.equal(await readFile(fixture.file,'utf8'),before);
+      assert.equal(fixture.metrics.archives,0);assert.equal(fixture.metrics.saves,0);assert.equal(fixture.metrics.publishes,0);
+    } finally {await rm(dir,{recursive:true,force:true});}
+  }
+});
+test('transport recovery rejects another valid archive for the previous review issue',async()=>{
+  const dir=await mkdtemp(path.join(os.tmpdir(),'transport-previous-conflict-'));
+  try {
+    const fixture=await transportFixture(dir),{previousJob,previousComment}=await previousTransportResult(fixture,dir);
+    const otherComment={...previousComment,id:'other-comment',source_task_id:'other-run',content:previousComment.content.replace('review\n','second review\n')};
+    const other=parseResult(previousJob,{id:'previous',assignee_type:'agent',assignee_id:'reviewer'},[otherComment],[{id:'other-run',issue_id:'previous',agent_id:'reviewer',status:'completed'}]);
+    await atomicJson(path.join(dir,'results',`previous-${other.sha256}.json`),other);
+    const before=await readFile(fixture.file,'utf8');
+    await assert.rejects(()=>recoverTransportResult({...config(dir),enabled:false},fixture.request,()=>fixture.io),/conflicting review result archive/);
+    assert.equal(await readFile(fixture.file,'utf8'),before);
+    assert.equal(fixture.metrics.archives,0);assert.equal(fixture.metrics.saves,0);assert.equal(fixture.metrics.publishes,0);
   } finally {await rm(dir,{recursive:true,force:true});}
 });
 test('transport recovery rejects second-read drift and an inconsistent orphan archive',async()=>{
