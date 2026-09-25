@@ -378,8 +378,16 @@ export async function recoverTransportResult(config,request,ioFactory=makeIO) {
       assert.equal(previous.length,1,'previous result history mismatch');
       assert(previous[0].issue_id === old.issue_id && previous[0].comment_id === old.comment_id
         && previous[0].sha256 === old.sha256,'previous result history mismatch');
+      await assertNoConflictingArchives(config.state_dir,old.issue_id,{...old,run_id:previous[0].run_id});
       const priorArchive=await archivedResult(config.state_dir,old.issue_id,old.sha256);
       assertArchivedSource(priorArchive,{...old,run_id:previous[0].run_id});
+      const previousJob={kind:'review',pr_number:state.pr_number,round:previous[0].round,issue_id:old.issue_id,
+        agent_id:'archived-reviewer',base_sha:previous[0].base_sha,head_sha:previous[0].head_sha};
+      const parsed=parseResult(previousJob,{id:old.issue_id,assignee_type:'agent',assignee_id:previousJob.agent_id},
+        [{id:old.comment_id,issue_id:old.issue_id,author_type:'agent',author_id:previousJob.agent_id,
+          source_task_id:previous[0].run_id,content:priorArchive.raw}],
+        [{id:previous[0].run_id,issue_id:old.issue_id,agent_id:previousJob.agent_id,status:'completed'}]);
+      assert.deepEqual(priorArchive,parsed,'previous result archive/raw mismatch');
       assert(priorArchive.data?.round === previous[0].round && priorArchive.data?.base_sha === previous[0].base_sha
         && priorArchive.data?.head_sha === previous[0].head_sha && priorArchive.data?.pr_number === state.pr_number,
       'previous result archive/history mismatch');
