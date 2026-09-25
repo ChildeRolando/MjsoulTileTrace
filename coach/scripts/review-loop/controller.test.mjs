@@ -7,6 +7,15 @@ const config={reviewer_id:'reviewer',fixer_id:'fixer',project_id:'project'};
 const raw={number:8,state:'open',draft:false,body:'```review-loop-admission\n{"protocol_version":"review-loop/v2.1","authoritative_spec_paths":["coach/docs/specs/a.md"],"rubric":"all criteria"}\n```',base:{sha:'a'.repeat(40),repo:{full_name:'ChildeRolando/MjsoulTileTrace'}},head:{sha:'b'.repeat(40),ref:'codex/a',repo:{full_name:'ChildeRolando/MjsoulTileTrace'}}};
 const live=admit(raw);
 const state=()=>({round:0,history:[],status:'NEW'});
+test('transport recovery accepts the persisted missing-result assertion and rejects other blockers',()=>{
+  const job={kind:'review',round:1,pr_number:8,issue_id:'review',base_sha:live.base_sha,head_sha:live.head_sha,admission_hash:live.admission_hash};
+  const ledger={protocol_version:'review-loop/v2.1',pr_number:8,round:1,status:'BLOCKED',reason:'missing/conflicting results\n\n0 !== 1\n',history:[{event:'dispatch',kind:'review',round:1,issue_id:'review',base_sha:live.base_sha,head_sha:live.head_sha}],admission_hash:live.admission_hash,job};
+  const request={pr_number:8,round:1,review_issue_id:'review',review_base_sha:live.base_sha,review_head_sha:live.head_sha,admission_hash:live.admission_hash};
+  assert.equal(validateTransportRecovery(ledger,request),'READY');
+  for(const reason of ['missing/conflicting results\n\n1 !== 1\n','missing/conflicting results\nother failure','review gates, environment or round limit']) {
+    assert.throws(()=>validateTransportRecovery({...ledger,reason},request),/recovery requires missing results BLOCKED/);
+  }
+});
 test('transport recovery preserves the original round and fresh candidate requires independent review',async()=>{
   const job={kind:'review',round:1,pr_number:8,issue_id:'review',base_sha:live.base_sha,head_sha:live.head_sha,admission_hash:live.admission_hash};
   const ledger={protocol_version:'review-loop/v2.1',pr_number:8,round:1,status:'BLOCKED',reason:'missing/conflicting results',history:[{event:'dispatch',kind:'review',round:1,issue_id:'review',base_sha:live.base_sha,head_sha:live.head_sha}],admission_hash:live.admission_hash,job};

@@ -206,7 +206,10 @@ export function validateTransportRecovery(state,request) {
     } else assert(state.status === 'PASS' && event.transition === 'PASS','conflicting prior recovery transition');
     return 'ALREADY_ACCEPTED';
   }
-  assert(state.status === 'BLOCKED' && state.reason === 'missing/conflicting results','recovery requires missing results BLOCKED');
+  // Older Controller ledgers include the assertion detail from the zero-result check.
+  const missingResultReason=state.reason === 'missing/conflicting results'
+    || state.reason === 'missing/conflicting results\n\n0 !== 1\n';
+  assert(state.status === 'BLOCKED' && missingResultReason,'recovery requires missing results BLOCKED');
   assert(!state.history.some(event=>event.round === job.round && ['result','reject_invalid_review_result','recover_transport_result'].includes(event.event)),'current round already processed');
   return 'READY';
 }
