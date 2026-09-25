@@ -228,13 +228,19 @@ try {
       ...responseDecisions.map((decision) => ({ decision, surface: "response" })),
     ];
     for (const row of evaluable) {
+      if (row.surface === "response"
+        && ronWindows.get(row.decision.decisionEventRef)?.status === "unknown") {
+        // No candidate universe can be proven for this response window.
+        // The full-game review records the blocked outcome without a model row.
+        continue;
+      }
       let request;
       try {
         request = projectLocalMortalRequest({
           stream, decision: row.decision, surface: row.surface, identity: runtimeIdentity,
           includeDeclareRiichi: riichiWindows.has(row.decision.decisionEventRef),
           includeTsumo: tsumoWindows.has(row.decision.decisionEventRef),
-          includeRon: ronWindows.has(row.decision.decisionEventRef),
+          includeRon: ronWindows.get(row.decision.decisionEventRef)?.status === "eligible",
           riichiDiscardCandidates: riichiDiscardCandidates.get(row.decision.decisionEventRef),
         });
       } catch (error) {

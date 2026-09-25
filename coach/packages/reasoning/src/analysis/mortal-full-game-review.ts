@@ -753,6 +753,29 @@ export async function runMortalFullGameReview(input: {
         continue;
       }
 
+      if (partition.surface === "response"
+        && ronCandidateWindows.get(decision.decisionEventRef)?.status === "unknown") {
+        // Unproven ron legality blocks the local window whether or not a
+        // source row exists. Its absence cannot be called a source mismatch.
+        ledger.push({
+          decisionOrdinal: row.decisionOrdinal,
+          roundOrdinal: row.roundOrdinal,
+          surface: partition.surface,
+          binding: row.binding,
+          support,
+          review: "analysis_blocked",
+          outcome: "analysis_blocked",
+          reason: "ron_eligibility_unproven",
+          sourceEntryRef: row.sourceEntryRef,
+          sourceOrdinal: row.sourceOrdinal,
+          modelSummary: null,
+        });
+        outcomeCounts.analysis_blocked += 1;
+        analysisBlockedReasonCounts.ron_eligibility_unproven =
+          (analysisBlockedReasonCounts.ron_eligibility_unproven ?? 0) + 1;
+        continue;
+      }
+
       if (row.binding === "no_mortal_entry") {
         // M6-A4.0: a locally proven single-candidate window EXPECTS no source
         // row (Mortal emits rows only at >=2-candidate decision points), so

@@ -24,7 +24,7 @@ import type { HandStructureFactEnginePort } from "../fact-engine/port.js";
 import { buildHandStructureRequestV2, deriveHandStructureRonContext } from "../factors/hand-structure-projector.js";
 import { tileIdTo34 } from "../factors/tile34.js";
 import { deriveResponseFuriten } from "../replay/response-furiten.js";
-import { enumerateResponseCandidates } from "./response-candidate-enumeration.js";
+import { enumerateResponseCandidates, type RonCandidateVerdict } from "./response-candidate-enumeration.js";
 
 function tileIndex(tile: Tile): number {
   if (tile.red) return tile.id.endsWith("m") ? 34 : tile.id.endsWith("p") ? 35 : 36;
@@ -209,8 +209,8 @@ export async function collectLocalMortalRonCandidateWindows(
   stream: CanonicalEventStream,
   decisions: readonly ReplayedDecision[],
   engine: HandStructureFactEnginePort,
-): Promise<ReadonlySet<string>> {
-  const result = new Set<string>();
+): Promise<ReadonlyMap<string, RonCandidateVerdict>> {
+  const result = new Map<string, RonCandidateVerdict>();
   for (const decision of decisions) {
     const enumeration = enumerateResponseCandidates(decision);
     if (enumeration?.ron !== true) continue;
@@ -233,12 +233,26 @@ export async function collectLocalMortalRonCandidateWindows(
         riichiStatus: facts.selfRiichi ? "accepted" : "inactive", openTanyaoStatus: "unknown",
       },
     });
-    const hand = await engine.analyzeHandStructure(request);
-    const wait = hand.waits.find((row) => row.tile34 === tileIdTo34(window.offeredTile.id));
-    if (wait?.baseRonEligibility !== "eligible") continue;
-    const furiten = await deriveResponseFuriten(stream, decision.decisionEventRef, engine);
-    if (furiten.temporary.status === "clear" && furiten.riichi.status === "clear") {
-      result.add(decision.decisionEventRef);
+    try {
+      const hand = await engine.analyzeHandStructure(request);
+      const wait = hand.waits.find((row) => row.tile34 === tileIdTo34(window.offeredTile.id));
+      if (wait?.baseRonEligibility === "ineligible") {
+        result.set(decision.decisionEventRef, { status: "proven_ineligible", reason: "hand_structure_ineligible" });
+        continue;
+      }
+      if (wait?.baseRonEligibility !== "eligible") {
+        result.set(decision.decisionEventRef, { status: "unknown", reason: "hand_structure_unknown" });
+        continue;
+      }
+      const furiten = await deriveResponseFuriten(stream, decision.decisionEventRef, engine);
+      const states = [furiten.temporary.status, furiten.riichi.status];
+      result.set(decision.decisionEventRef, states.includes("confirmed")
+        ? { status: "proven_ineligible", reason: "furiten_confirmed" }
+        : states.every((status) => status === "clear")
+          ? { status: "eligible", reason: "ron_eligible" }
+          : { status: "unknown", reason: "furiten_unknown" });
+    } catch {
+      result.set(decision.decisionEventRef, { status: "unknown", reason: "fact_engine_unavailable" });
     }
   }
   return result;
@@ -259,7 +273,9 @@ function responseCandidates(decision: ReplayedDecision, includeRon: boolean): Lo
     responseEventRef: window.triggerEventRef,
   });
   if (enumeration.pon) {
-    const consumed = sortTilesCanonical(decision.snapshot.privateState.concealedTiles.filter((tile) => tile.id === window.offeredTile.id).slice(0, 2)) as [Tile, Tile];
+    const matching = decision.snapshot.privateState.concealedTiles.filter((tile) => tile.id === window.offeredTile.id);
+    const consumed = sortTilesCanonical([...matching].sort((a, b) => Number(b.red) - Number(a.red)).slice(0, 2)) as [Tile, Tile];
+    if (consumed.length !== 2) throw new Error("mortal_candidate_mismatch");
     actions.push({ kind: "pon", calledTile: window.offeredTile, consumedTiles: consumed, targetActor: window.sourceActor, responseEventRef: window.triggerEventRef });
   }
   if (enumeration.daiminkan) {

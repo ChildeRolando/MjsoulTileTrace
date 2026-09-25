@@ -63,6 +63,11 @@ export type ResponseCandidateEnumeration = Readonly<{
  *  so the review ledger carries one proof union. */
 export type ResponseSingleCandidateProof = SingleCandidateProof;
 
+export type RonCandidateVerdict = Readonly<{
+  status: "eligible" | "proven_ineligible" | "unknown";
+  reason: string;
+}>;
+
 function countId(concealed: readonly Tile[], offered: Tile): number {
   let count = 0;
   for (const tile of concealed) {
@@ -190,25 +195,22 @@ function canRonShape(
  */
 export function collectResponseSingleCandidateProofs(
   responseDecisions: readonly ReplayedDecision[],
-  ronCandidateWindows: ReadonlySet<string> | null = null,
+  ronCandidateWindows: ReadonlyMap<string, RonCandidateVerdict> | null = null,
 ): ReadonlyMap<number, ResponseSingleCandidateProof> {
   const proofs = new Map<number, ResponseSingleCandidateProof>();
   for (let index = 0; index < responseDecisions.length; index += 1) {
     const decision = responseDecisions[index]!;
     const enumeration = enumerateResponseCandidates(decision);
     if (enumeration === null) continue;
-    // Shape enumeration is intentionally permissive for ron. When the fact
-    // engine has supplied the authoritative eligible-window set, remove a
-    // merely shape-compatible ron before deciding whether Mortal should have
-    // emitted a row. A null set retains the legacy structural-only helper
-    // behavior for callers that have no fact-engine authority available.
-    const confirmedRon = ronCandidateWindows === null
-      || ronCandidateWindows.has(decision.decisionEventRef)
-      || decision.actualAction?.kind === "ron";
+    // Only a proven negative can remove a shape-compatible ron. Missing or
+    // unknown fact-engine evidence must never prove a pass-only window.
+    const ronVerdict = ronCandidateWindows?.get(decision.decisionEventRef);
+    const provenIneligible = ronVerdict?.status === "proven_ineligible"
+      && decision.actualAction?.kind !== "ron";
     const candidateCount = ronCandidateWindows === null
       ? enumeration.candidateCount
       : enumeration.candidateCount
-        - (enumeration.ron && !confirmedRon ? 1 : 0);
+        - (enumeration.ron && provenIneligible ? 1 : 0);
     if (candidateCount !== 1) continue;
     proofs.set(index, { shape: "response_single_candidate", candidateCount: 1 });
   }

@@ -384,13 +384,15 @@ describe("M6-A4.2 response local candidate enumeration (isomorphic to Mortal)", 
       ],
     });
     expect(enumerateResponseCandidates(shapeOnlyRon)?.ron).toBe(true);
-    expect(collectResponseSingleCandidateProofs([shapeOnlyRon], new Set()).get(0)).toEqual({
+    expect(collectResponseSingleCandidateProofs([shapeOnlyRon], new Map([[shapeOnlyRon.decisionEventRef, {
+      status: "proven_ineligible", reason: "hand_structure_ineligible",
+    }]])).get(0)).toEqual({
       shape: "response_single_candidate",
       candidateCount: 1,
     });
     expect(collectResponseSingleCandidateProofs(
       [shapeOnlyRon],
-      new Set([shapeOnlyRon.decisionEventRef]),
+      new Map([[shapeOnlyRon.decisionEventRef, { status: "eligible", reason: "ron_eligible" }]]),
     ).has(0)).toBe(false);
     expect(collectResponseSingleCandidateProofs(
       [{ ...shapeOnlyRon, actualAction: {
@@ -400,8 +402,13 @@ describe("M6-A4.2 response local candidate enumeration (isomorphic to Mortal)", 
         responseEventRef: shapeOnlyRon.decisionEventRef,
         winContext: "discard",
       } }],
-      new Set(),
+      new Map([[shapeOnlyRon.decisionEventRef, { status: "proven_ineligible", reason: "hand_structure_ineligible" }]]),
     ).has(0)).toBe(false);
+    expect(collectResponseSingleCandidateProofs(
+      [shapeOnlyRon],
+      new Map([[shapeOnlyRon.decisionEventRef, { status: "unknown", reason: "hand_structure_unknown" }]]),
+    ).has(0)).toBe(false);
+    expect(collectResponseSingleCandidateProofs([shapeOnlyRon], new Map()).has(0)).toBe(false);
   });
 
   it("suppresses chi/pon/daiminkan for a riichi'd reviewed player (ron-only space)", () => {

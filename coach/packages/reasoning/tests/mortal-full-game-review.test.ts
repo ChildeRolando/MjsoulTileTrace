@@ -2200,6 +2200,58 @@ describe("M6-A4.0 source model: source_row_not_expected + source-surface partiti
     expect(responseLedgerRow!.outcome).toBe("no_mortal_entry");
   });
 
+  it("blocks response rows with or without source evidence when ron eligibility is unknown", async () => {
+    const stream = responseWindowStream();
+    const decisions = replayCanonicalStream(stream);
+    const base = replayCanonicalResponseWindows(stream).find((decision) => {
+      const window = decision.snapshot.privateState.decisionWindow;
+      return window.kind === "discard_response" && window.sourceActor === 1;
+    });
+    expect(base).toBeDefined();
+    const hand = ["1m", "2m", "3m", "4m", "5m", "6m", "7m", "8m", "9m", "1p", "1p", "1p", "9s"] as const;
+    const response = {
+      ...base!,
+      snapshot: {
+        ...base!.snapshot,
+        privateState: { ...base!.snapshot.privateState, concealedTiles: hand.map((id) => canonicalTile(id)) },
+      },
+    } as ReplayedDecision;
+    const row = fakeEntry({
+      junme: 5,
+      lastActor: 1,
+      tile: "9s",
+      tilesLeft: response.snapshot.publicState.remainingDraws ?? 62,
+      tehai: Object.freeze(hand),
+      expected: { type: "none" },
+      actual: { type: "none" },
+      details: Object.freeze([
+        { action: { type: "none" }, probability: 0.9, qValue: 0 },
+        { action: { type: "hora", actor: 0, target: 1, pai: "9s" }, probability: 0.1, qValue: -0.5 },
+      ]),
+    });
+    expect(entryMatchesDecisionIdentity(row, response)).toBe(true);
+    const review = await runMortalFullGameReview({
+      stream, decisions, responseDecisions: [response],
+      report: makeReport([row], { gameFingerprint: computeCanonicalGameFingerprint(stream) }),
+      engine: new FailingEngine(),
+    });
+    expect(review.status).toBe("coverage_ready");
+    if (review.status !== "coverage_ready") return;
+    expect(review.decisions.find((item) => item.surface === "response")).toMatchObject({
+      binding: "bound", outcome: "analysis_blocked", reason: "ron_eligibility_unproven",
+    });
+    const missingRow = await runMortalFullGameReview({
+      stream, decisions, responseDecisions: [response],
+      report: makeReport([], { gameFingerprint: computeCanonicalGameFingerprint(stream) }),
+      engine: new FailingEngine(),
+    });
+    expect(missingRow.status).toBe("coverage_ready");
+    if (missingRow.status !== "coverage_ready") return;
+    expect(missingRow.decisions.find((item) => item.surface === "response")).toMatchObject({
+      binding: "no_mortal_entry", outcome: "analysis_blocked", reason: "ron_eligibility_unproven",
+    });
+  });
+
   it("classifies a single-candidate response window as source_row_not_expected", async () => {
     const stream = responseWindowStream();
     const decisions = replayCanonicalStream(stream);

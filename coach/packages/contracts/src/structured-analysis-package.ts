@@ -107,6 +107,7 @@ export type MortalModelIncompleteReason = z.infer<
 
 export const MortalAnalysisBlockedReasonSchema = z.enum([
   "fact_engine_failure",
+  "ron_eligibility_unproven",
   "structured_analysis_assembly_failure",
 ]);
 export type MortalAnalysisBlockedReason = z.infer<

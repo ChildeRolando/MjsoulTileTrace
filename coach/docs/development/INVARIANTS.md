@@ -122,6 +122,8 @@ Model/report evidence provider（模型/报告证据来源）
   duplicate/missing/extra/unknown/ambiguous、跨决策响应、非 argmax preferred action 及
   self/response actual-correspondence 负例；`local-mortal-adapter.test.ts` 还以真实冻结手牌
   固化仅赤五、赤普并存、actual/pass 与 kan-response 只允许 ron/pass 的 Mortal realization。
+  pon 的物理消费牌须按固定 Mortal 赤五优先规则从冻结手牌确定，不能依手牌数组顺序取前两张；
+  赤普并存时应核验完整 `consumed`/`actionRef`，不能仅核验 runtime index 41。
 - **Status**：machine-enforced（canonical/report/local-runtime/package 路径）。
 
 ## INV-005 renderer/UI 不得接收特权原始协议与秘密
@@ -157,6 +159,11 @@ Model/report evidence provider（模型/报告证据来源）
   stdout 按 1 MiB byte ceiling 分帧；每个 request 只允许一个换行终止的 JSON response，
   trailing prose、额外 response、未终止 oversize frame 都必须关闭精确子进程并 fail closed。
   manifest 缺失、不可读、畸形或 artifact I/O 失败同样只能返回固定安全 code。
+  响应窗口只有在 hand-structure 与振听证据明确排除荣和时才能减少 ron 候选并签发
+  `response_single_candidate`；未知役条件、响应历史不完整导致的未知振听、引擎失败或缺失 verdict 均不能
+  从候选集合中静默扣除 ron。荣和资格仍未知时，full-game ledger 使用
+  `analysis_blocked/ron_eligibility_unproven`，无论来源行是否存在都不能生成
+  `source_row_not_expected` 或 `analysis_ready`。
 - **Why**：宽松解析会悄悄把错误当成分析结果；fail closed 是可复现失败的前提。
 - **Owner / boundary**：所有严格 schema（contracts）与所有来源适配器的错误路径。
 - **Enforcement**：zod strict schema 拒绝未知字段；canonical mapper / 报告解析 /
@@ -164,7 +171,9 @@ Model/report evidence provider（模型/报告证据来源）
 - **Executable tests**：`malformed-inputs.test.ts`（tenhou）、
   `canonical-mapper.test.ts`、`report-schema.test.ts`、`fact-engine.test.ts`
   （拒绝任意 sidecar prose）、`mahjong-soul-protocol-compatibility.test.mjs`；COAC-111
-  追加每个 `mortal_*` 固定错误与 oversize/extra-prose 负例。
+  追加每个 `mortal_*` 固定错误与 oversize/extra-prose 负例；
+  `response-binding.test.ts`、`local-mortal-adapter.test.ts` 和
+  `mortal-full-game-review.test.ts` 覆盖未知荣和资格不得获得单候选证明或 ready 结果。
 - **Status**：machine-enforced；local runtime strict schema、artifact identity、lifecycle、
   oversize/extra-prose 与固定安全错误均由永久测试覆盖。启动握手为 single-flight；timeout、
   ready 前退出或协议失败会等待 exact child 终止并清空状态，失败后的重试不得伪成功。

@@ -17,8 +17,12 @@ import {
 import { mapTenhouRecord } from "@riichi-coach/tenhou-source";
 import {
   buildMortalModelEvaluation,
+  collectLocalMortalRonCandidateWindows,
+  collectResponseSingleCandidateProofs,
   entryMatchesDecisionIdentity,
   enumerateResponseCandidates,
+  JsonlFactEngineClient,
+  ManagedFactEngineTransport,
   localMortalResponseToReportEntry,
   projectLocalMortalRequest,
   replayCanonicalResponseWindows,
@@ -57,6 +61,95 @@ async function realTenhouFixture(sourceId: string, actor: number) {
 }
 
 describe("local Mortal canonical projection and conservation", () => {
+  it("uses Mortal's red-first pon realization regardless of hand order", async () => {
+    const stream = await realFixture(3);
+    const original = replayCanonicalResponseWindows(stream).find((row) =>
+      row.actualAction?.kind === "pass"
+      && row.snapshot.privateState.decisionWindow.kind === "discard_response"
+      && row.snapshot.privateState.decisionWindow.offeredTile.id === "5s"
+    );
+    expect(original).toBeDefined();
+    const tiles = original!.snapshot.privateState.concealedTiles;
+    const mixed = [
+      { id: "5s" as const, red: false },
+      { id: "5s" as const, red: false },
+      { id: "5s" as const, red: true },
+      ...tiles.filter((tile) => tile.id !== "5s").slice(0, 10),
+    ];
+    const decision = {
+      ...original!,
+      snapshot: {
+        ...original!.snapshot,
+        privateState: { ...original!.snapshot.privateState, concealedTiles: mixed },
+      },
+    };
+    for (const hand of [mixed, [...mixed].reverse()]) {
+      const request = projectLocalMortalRequest({
+        stream, decision: {
+          ...decision,
+          snapshot: { ...decision.snapshot, privateState: { ...decision.snapshot.privateState, concealedTiles: hand } },
+        },
+        surface: "response", identity,
+      });
+      const pon = request.candidates.map((candidate) => JSON.parse(candidate.mjaiActionJson))
+        .find((action) => action.type === "pon");
+      expect(pon.consumed).toEqual(["5s", "5sr"]);
+      expect(request.actualActionRef).toBe(canonicalActionRef(original!.actualAction!));
+    }
+    const window = original!.snapshot.privateState.decisionWindow;
+    if (window.kind !== "discard_response" || window.sourceActor === null) throw new Error("missing response fixture");
+    const actualPon = {
+      kind: "pon" as const, calledTile: window.offeredTile,
+      consumedTiles: [mixed[0]!, mixed[2]!] as [typeof mixed[number], typeof mixed[number]],
+      targetActor: window.sourceActor, responseEventRef: window.triggerEventRef,
+    };
+    const actualDecision = { ...decision, actualAction: actualPon };
+    const actualRequest = projectLocalMortalRequest({ stream, decision: actualDecision, surface: "response", identity });
+    expect(actualRequest.actualActionRef).toBe(canonicalActionRef(actualPon));
+    const wrongPon = { ...actualPon, consumedTiles: [mixed[0]!, mixed[1]!] as [typeof mixed[number], typeof mixed[number]] };
+    expect(() => projectLocalMortalRequest({
+      stream, decision: { ...decision, actualAction: wrongPon }, surface: "response", identity,
+    })).toThrow("mortal_actual_action_mismatch");
+  });
+
+  it("keeps unknown ron eligibility unproven with the packaged fact engine", async () => {
+    const stream = await realFixture(3);
+    const original = replayCanonicalResponseWindows(stream)
+      .find((row) => row.decisionEventRef.endsWith("/5/969/0"));
+    expect(original?.actualAction?.kind).toBe("pass");
+    expect(enumerateResponseCandidates(original!)?.ron).toBe(true);
+    const decision = {
+      ...original!,
+      facts: {
+        ...original!.facts,
+        handStructureYakuContext: {
+          ...original!.facts.handStructureYakuContext!,
+          windsStatus: "unknown" as const,
+          roundWindTile34: null,
+          selfWindTile34: null,
+        },
+      },
+    };
+    const engine = new JsonlFactEngineClient(
+      new ManagedFactEngineTransport(fileURLToPath(new URL("../../../resources/", import.meta.url))),
+    );
+    try {
+      const originalVerdicts = await collectLocalMortalRonCandidateWindows(stream, [original!], engine);
+      expect(originalVerdicts.get(original!.decisionEventRef)).toEqual({ status: "unknown", reason: "hand_structure_unknown" });
+      const verdicts = await collectLocalMortalRonCandidateWindows(stream, [decision], engine);
+      expect(verdicts.get(decision.decisionEventRef)?.status).toBe("unknown");
+      expect(collectResponseSingleCandidateProofs([decision], verdicts).has(0)).toBe(false);
+      const incompleteHistory = {
+        ...stream,
+        completeness: { ...stream.completeness, responseOpportunities: "partial" as const },
+      };
+      const historyVerdicts = await collectLocalMortalRonCandidateWindows(incompleteHistory, [original!], engine);
+      expect(historyVerdicts.get(original!.decisionEventRef)?.status).toBe("unknown");
+      expect(collectResponseSingleCandidateProofs([original!], historyVerdicts).has(0)).toBe(false);
+    } finally {
+      await engine.close();
+    }
+  }, 15_000);
   it("keeps a real chankan window in the registered supplemental fixture", async () => {
     const stream = await realTenhouFixture("tenhou-chankan-supplement", 1);
     const chankan = replayCanonicalResponseWindows(stream).find((decision) =>
