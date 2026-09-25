@@ -58,6 +58,20 @@ test('transport result recovery retains failed runs, backs up state, publishes o
   } finally {await rm(dir,{recursive:true,force:true});}
 });
 
+test('transport recovery backs up legacy issue-only result archives before acceptance',async()=>{
+  const dir=await mkdtemp(path.join(os.tmpdir(),'transport-legacy-backup-'));
+  try {
+    const fixture=await transportFixture(dir),disabled={...config(dir),enabled:false};
+    const legacyName='01a0be4c-0dcd-7cb4-94ff-d3cdeff26dd5.json';
+    await mkdir(path.join(dir,'results'));
+    await atomicJson(path.join(dir,'results',legacyName),{legacy:true});
+    const accepted=await recoverTransportResult(disabled,fixture.request,()=>fixture.io);
+    assert.equal(accepted.status,'PASS');
+    const backupDir=path.join(dir,'backups',(await readdir(path.join(dir,'backups')))[0]);
+    assert.equal(await readFile(path.join(backupDir,'results',legacyName),'utf8'),await readFile(path.join(dir,'results',legacyName),'utf8'));
+  } finally {await rm(dir,{recursive:true,force:true});}
+});
+
 test('transport recovery routes a green P2 result once without publishing PASS',async()=>{
   const dir=await mkdtemp(path.join(os.tmpdir(),'transport-fix-'));
   try {

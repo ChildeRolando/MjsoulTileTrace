@@ -342,7 +342,9 @@ async function backupRecoveryState(stateDir,stateFile) {
   try {
     assert((await lstat(resultDir)).isDirectory(),'result archive directory must be a directory');
     for(const name of await readdir(resultDir)) {
-      assert(/^[a-zA-Z0-9-]+-[a-f0-9]{64}\.json$/.test(name),'unexpected archive name');
+      const addressed=/^[a-zA-Z0-9-]+-[a-f0-9]{64}\.json$/.test(name);
+      const legacy=/^[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}\.json$/.test(name);
+      assert(addressed || legacy,'unexpected archive name');
       files.push(path.join(resultDir,name));
     }
   } catch(error) {if(error.code !== 'ENOENT')throw error;}
