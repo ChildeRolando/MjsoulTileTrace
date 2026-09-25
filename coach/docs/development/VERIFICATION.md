@@ -55,8 +55,13 @@ strict `ModelEvaluation` → whole-game review → `StructuredAnalysisPackage` v
 及 pass 候选族 97/39/3/3 只能视为原始窗口统计，不能证明模型覆盖。
 现在只有成功推理且同一窗口在 validated package 中具有 ModelEvaluation 才进入验收计数；
 未知荣和资格仍 fail closed。已登记六视角中原先有 9 个舍牌荣和、1 个抢杠荣和、
-3 个含荣和候选的 pass 窗口因资格未知被跳过；在补齐可证明资格的真实脱敏 fixture
-或能力、并重跑真实 checkpoint 取得全部必需分支前，wave-1 真实验收**未完成**。
+3 个含荣和候选的 pass 窗口因资格未知被跳过；当前雀魂和天凤 mapper 的
+`responseOpportunities` 均为 `unknown`，不足以证明完整过手牌历史。
+COAC-141 在 clean HEAD `580da93` 的真实 checkpoint 重跑以 exit 1 结束：
+已证明的 `resp_hora_actual=0`、`resp_chankan_actual=0`、pass/hora=0，
+其余实际分支 chi/pon/daiminkan/pass 为 7/13/1/130。
+在补齐可证明资格的真实脱敏 fixture 或能力、并重跑真实 checkpoint
+取得全部必需分支前，wave-1 真实验收**未完成**。
 receipt 必须绑定 clean tracked working tree 的实际完整 HEAD SHA；外部 GITHUB_SHA
 若存在须与其一致。checkpoint、native runtime 和大模型文件不进入 Git、npm package
 或普通五门；M8 再分发/notice/源码义务核验仍未完成。
