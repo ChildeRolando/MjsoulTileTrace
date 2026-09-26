@@ -70,6 +70,17 @@ R12 回归补充吃入口的喰替后可弃牌检查、桌面四杠上限、开�
 运行时第二阶段协议测试不加载权重，不能替代真实 spike。日志与新回执保存在源码外，
 既有资产不重新下载，旧回执不覆盖。候选集合不依赖实际选择，也不按模型 mask 取交集。
 
+R13 回归分别检查自摸/荣和的役语义（开放三暗刻实际弃牌与实际自摸）、
+post-call 同牌唯一弃牌与两种弃牌、立直前已有四张且当前摸牌不同、非等待牌的确定不成立
+与引擎失败的未知语义。候选与 post-call 单候选证明复用同一物理弃牌枚举；
+开放自摸使用既有 completed-hand scorer 的 tsumo 语义，去掉宝牌/赤宝牌，
+对未知风位逐一核验，不用实际动作回填，也不从模型 mask 删除候选。
+运行时故障注入同时验证 ready 后关闭 stdin 的 EPIPE 被归类并能重启；
+model/engine 从校验的源文件直接执行，绕过同名模块缓存与未校验字节码，
+native 模块来源在执行前核验。真实 CPU 另测 native 目录中同名 model/engine 不被执行。
+诊断矩阵逐例收集结果，不在首个反例停止；固定牌谱 spike 与故障注入都不是状态穷举，
+历史反例不复发只能证明局部收敛，不能用每轮发现数量（受停止条件影响）证明总体收敛。
+
 普通 `npx vitest run` 只跑 protocol fixtures/fake exact child，禁止联网或加载真实 checkpoint；
 它覆盖 crash/timeout/protocol/candidate mismatch 与安全边界，但不能冒充 production spike。
 **当前状态（2026-09-26，COAC-141）**：wave-1 覆盖计数只接受成功推理、候选双射、

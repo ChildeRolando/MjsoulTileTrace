@@ -1,5 +1,6 @@
 import argparse
 import importlib
+import importlib.util
 import json
 import os
 import sys
@@ -28,15 +29,40 @@ class CapturingEngine:
         return result
 
 
+def load_exact_source(name, source_path):
+    # Import the checked file itself, bypassing sys.path and cached names.
+    spec = importlib.util.spec_from_file_location(name, os.path.realpath(source_path))
+    if spec is None or spec.loader is None:
+        raise ValueError("source module identity mismatch")
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[name] = module
+    try:
+        # Execute source bytes; an unverified .pyc must not replace the .py
+        # whose digest was checked by the managed parent.
+        with open(spec.origin, "rb") as handle:
+            source = handle.read()
+        exec(compile(source, spec.origin, "exec"), module.__dict__)
+    except BaseException:
+        sys.modules.pop(name, None)
+        raise
+    return module
+
+
 def load_runtime(checkpoint, mortal_source, native_module):
     sys.path.insert(0, mortal_source)
     sys.path.insert(0, os.path.dirname(os.path.realpath(native_module)))
-    from model import Brain, DQN
-    from engine import MortalEngine
+    cached_native = sys.modules.get("libriichi")
+    native_spec = None if cached_native is not None else importlib.util.find_spec("libriichi")
+    native_origin = getattr(cached_native, "__file__", None) if cached_native is not None else getattr(native_spec, "origin", None)
+    if native_origin is None or os.path.normcase(os.path.realpath(native_origin)) != os.path.normcase(os.path.realpath(native_module)):
+        raise ValueError("native module identity mismatch")
     libriichi = importlib.import_module("libriichi")
     loaded_native = getattr(libriichi, "__file__", None)
     if loaded_native is None or os.path.normcase(os.path.realpath(loaded_native)) != os.path.normcase(os.path.realpath(native_module)):
         raise ValueError("native module identity mismatch")
+    model = load_exact_source("model", os.path.join(mortal_source, "model.py"))
+    engine = load_exact_source("engine", os.path.join(mortal_source, "engine.py"))
+    Brain, DQN, MortalEngine = model.Brain, model.DQN, engine.MortalEngine
     Bot = importlib.import_module("libriichi.mjai").Bot
 
     state = torch.load(checkpoint, weights_only=True, map_location=torch.device("cpu"))

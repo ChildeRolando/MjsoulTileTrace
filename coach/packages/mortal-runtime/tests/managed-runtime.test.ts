@@ -92,6 +92,15 @@ describe("managed Mortal exact-child protocol", () => {
     } finally { await runtime.close(); }
   });
 
+  it("contains a ready child's EPIPE and permits a fresh retry", async () => {
+    const {runtime,request,environment}=await setup("closed_stdin");
+    try {
+      await expect(runtime.infer(request)).rejects.toMatchObject({code:"mortal_runtime_crash"});
+      environment.MORTAL_FAKE_MODE="success";
+      await expect(runtime.infer(request)).resolves.toMatchObject({status:"ok"});
+    } finally {await runtime.close();}
+  });
+
   for (const [mode, code] of [
     ["duplicate", "mortal_candidate_mismatch"], ["missing", "mortal_candidate_mismatch"],
     ["unknown_preferred", "mortal_candidate_mismatch"],

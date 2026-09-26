@@ -25,10 +25,14 @@ if mode == "bad_ready":
     print("not-json", flush=True)
     sys.exit(0)
 print(json.dumps({"ready": True, "protocolVersion": "riichi-local-mortal-jsonl/v1"}, separators=(",", ":")), flush=True)
+if mode == "closed_stdin":
+    os.close(0)
+    time.sleep(10)
+    sys.exit(0)
 for line in sys.stdin:
     request = json.loads(line)
     if mode == "crash":
-        sys.exit(7)
+        os._exit(7)
     if mode == "timeout":
         time.sleep(10)
         continue

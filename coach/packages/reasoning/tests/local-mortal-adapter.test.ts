@@ -74,6 +74,79 @@ function matrixBuilder(text: string, dealer = 0) {
   return { events, add, draw, discard, pon, stream: () => canonicalStream(events) };
 }
 
+describe("R13 candidate and proof boundaries", () => {
+  const factEngine = () => new JsonlFactEngineClient(new ManagedFactEngineTransport(fileURLToPath(new URL("../../../resources/",import.meta.url))));
+  it.each(["discard", "tsumo", "nonwinning"] as const)("uses draw-specific sanankou semantics (actual=%s)", async actual => {
+    const b=matrixBuilder("46m111p999s3344z8p",3);
+    b.draw(3,"5m"); const called=b.discard(3,"5m");
+    b.add({type:"chi_called",actor:0,targetActor:3,calledTile:canonicalTile("5m"),consumedTiles:[canonicalTile("4m"),canonicalTile("6m")],calledDiscardEventRef:called});
+    b.discard(0,"8p","tedashi");
+    for(const [a,id] of [[1,"5z"],[2,"6z"],[3,"7z"]] as const) { b.draw(a,id); b.discard(a,id); }
+    const tile=actual==="nonwinning"?"2z":"3z", target=b.draw(0,tile);
+    if(actual==="tsumo") b.add({type:"win_declared",winnerActor:0,method:"tsumo",winningTile:canonicalTile(tile),targetActor:null,winSourceEventRef:target,scoreDeltas:null});
+    else b.discard(0,tile);
+    const stream=b.stream(), d=replayCanonicalStream(stream).find(r=>r.decisionEventRef===target)!, engine=factEngine();
+    try {
+      const wins=await collectLocalMortalAdditionalTsumoWindows([d],engine);
+      expect(wins.has(target)).toBe(actual!=="nonwinning");
+      const request=projectLocalMortalRequest({stream,decision:d,surface:"self",identity,includeTsumo:wins.has(target)});
+      expect(request.candidates.map(r=>r.runtimeAction.index).sort((a,b)=>a-b)).toEqual(actual==="nonwinning"?[9,26,28,29,30]:[9,26,29,30,43]);
+      if(actual!=="nonwinning") {
+        const response=LocalMortalInferenceSuccessSchema.parse({protocolVersion:request.protocolVersion,requestId:request.requestId,decision:request.decision,identity,status:"ok",
+          candidates:request.candidates.map(r=>({runtimeAction:r.runtimeAction,qValue:r.runtimeAction.index===43?10:0})),preferredRuntimeAction:{index:43,variant:null}});
+        const entry=localMortalResponseToReportEntry({request,response,decision:d});
+        const review=await runMortalFullGameReview({stream,decisions:[d],responseDecisions:[],engine,coverageRegistry:createMortalCoverageRegistry(["dama_with_tsumo_candidate","self_turn_tsumo_actual"]),
+          report:{reportId:"R13-sanankou",adapterVersion:identity.adapterVersion,engine:"Mortal",version:"Mortal V4",modelTag:identity.checkpointModelTag,playerId:0,gameFingerprint:computeCanonicalGameFingerprint(stream),
+            kyokus:[{roundOrdinal:0,roundWind:"E",dealer:3,kyoku:0,honba:0,entries:[entry]}]}});
+        expect(review.status).toBe("coverage_ready");
+        if(review.status==="coverage_ready") { expect(review.decisions[0]?.outcome).toBe("analysis_ready"); expect(review.retainedAnalyses[0]?.modelEvaluation.candidates.map(r=>r.actionRef).sort()).toEqual(request.candidates.map(r=>r.actionRef).sort()); }
+      }
+    } finally {await engine.close();}
+  });
+  it.each(["99s","89s"])("shares post-call discard enumeration with the singleton proof (%s)", async tail => {
+    const b=matrixBuilder("556677z22m123p"+tail,3); let target="";
+    for(const [a,id,drop] of [[3,"5z","1p"],[1,"6z","2p"],[1,"7z","3p"],[1,"2m","9s"]] as const) { b.pon(a,id); target=b.events.at(-1)!.eventId; b.discard(0,drop,"tedashi"); }
+    const stream=b.stream(),d=replayCanonicalStream(stream).find(r=>r.decisionEventRef===target)!,engine=factEngine();
+    try {
+      const proofs=await collectSingleCandidateProofs([d],engine);
+      if(tail==="99s") {
+        expect(proofs.get(0)).toEqual({shape:"post_call_unique_discard",candidateCount:1});
+        expect(()=>projectLocalMortalRequest({stream,decision:d,surface:"self",identity})).toThrow("mortal_source_row_not_expected");
+        const review=await runMortalFullGameReview({stream,decisions:[d],responseDecisions:[],engine,report:{reportId:"R13-post-call",adapterVersion:identity.adapterVersion,engine:"Mortal",version:"Mortal V4",modelTag:identity.checkpointModelTag,playerId:0,gameFingerprint:computeCanonicalGameFingerprint(stream),kyokus:[]}});
+        expect(review.status).toBe("coverage_ready"); if(review.status==="coverage_ready") expect(review.decisions[0]).toMatchObject({outcome:"source_row_not_expected",singleCandidateProof:proofs.get(0)});
+        const unknown=structuredClone(d); unknown.snapshot.publicState.fields.melds="unknown";
+        expect((await collectSingleCandidateProofs([unknown],engine)).has(0)).toBe(false);
+      } else { expect(proofs.has(0)).toBe(false); expect(projectLocalMortalRequest({stream,decision:d,surface:"self",identity}).candidates.map(r=>r.runtimeAction.index)).toEqual([25,26]); }
+    } finally {await engine.close();}
+  });
+  it("does not mistake an unrelated preexisting quad for a post-riichi kan",async()=>{
+    const hand=[..."111123m456p789s1z".matchAll(/([1-9]+)([mpsz])/g)].flatMap(m=>[...m[1]!].map(n=>canonicalTile(`${n}${m[2]}` as Tile["id"])));
+    const stream=acceptedRiichiKanStream(hand,canonicalTile("9p"),"discard"),d=replayCanonicalStream(stream).at(-1)!,engine=factEngine();
+    try { expect((await collectSingleCandidateProofs([d],engine)).get(0)).toEqual({shape:"riichi_accepted_forced_tsumogiri",candidateCount:1}); }
+    finally {await engine.close();}
+  });
+  it("proves an offered non-wait ineligible while preserving engine failures as unknown",async()=>{
+    const b=matrixBuilder("111m223344p5566s",1); b.draw(1,"1m");const target=b.discard(1,"1m");
+    for(const [a,id] of [[2,"5z"],[3,"6z"],[0,"7p"]] as const){b.draw(a,id);b.discard(a,id);}
+    const stream=b.stream(),d=replayCanonicalResponseWindows(stream).find(r=>r.decisionEventRef===target)!,engine=factEngine();
+    try {
+      expect((await collectLocalMortalRonCandidateWindows(stream,[d],engine)).get(target)).toEqual({status:"proven_ineligible",reason:"hand_structure_ineligible"});
+      const request=projectLocalMortalRequest({stream,decision:d,surface:"response",identity,includeRon:false});
+      expect(request.candidates.map(r=>r.runtimeAction.index)).toEqual([41,42,45]);
+      const response=LocalMortalInferenceSuccessSchema.parse({protocolVersion:request.protocolVersion,requestId:request.requestId,decision:request.decision,identity,status:"ok",
+        candidates:request.candidates.map((r,i)=>({runtimeAction:r.runtimeAction,qValue:i})),preferredRuntimeAction:{index:45,variant:null}});
+      const entry=localMortalResponseToReportEntry({request,response,decision:d});
+      const review=await runMortalFullGameReview({stream,decisions:replayCanonicalStream(stream),responseDecisions:[d],engine,coverageRegistry:createMortalCoverageRegistry(["resp_pass_on_discard"]),
+        report:{reportId:"R13-non-wait",adapterVersion:identity.adapterVersion,engine:"Mortal",version:"Mortal V4",modelTag:identity.checkpointModelTag,playerId:0,gameFingerprint:computeCanonicalGameFingerprint(stream),
+          kyokus:[{roundOrdinal:0,roundWind:"E",dealer:1,kyoku:0,honba:0,entries:[entry]}]}});
+      expect(review.status).toBe("coverage_ready");
+      if(review.status==="coverage_ready") expect(review.decisions.find(r=>r.surface==="response")?.outcome).toBe("analysis_ready");
+      const broken=Object.create(engine); broken.analyzeHandStructure=async()=>{throw new Error("fixture failure");};
+      expect((await collectLocalMortalRonCandidateWindows(stream,[d],broken)).get(target)?.status).toBe("unknown");
+    } finally {await engine.close();}
+  });
+});
+
 describe("R12 candidate boundary matrix", () => {
   it.each([false, true])("requires a legal discard after chi (residual=%s)", legal => {
     const b = matrixBuilder(legal ? "556677z1923m789p" : "556677z1123m789p", 3);

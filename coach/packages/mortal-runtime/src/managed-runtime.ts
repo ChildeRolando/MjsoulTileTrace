@@ -36,6 +36,7 @@ export class ManagedMortalRuntime {
   #pendingLine: string | null = null;
   #lineWaiter: { resolve: (line: string) => void; reject: (error: Error) => void } | null = null;
   #protocolFailed = false;
+  #streamFailed = false;
 
   constructor(options: ManagedMortalRuntimeOptions) {
     this.#options = options;
@@ -65,9 +66,19 @@ export class ManagedMortalRuntime {
     ], { windowsHide: true, stdio: ["pipe", "pipe", "pipe"], env: this.#options.environment ?? process.env });
     this.#child = child;
     this.#ready = false;
+    this.#streamFailed = false;
     this.#exitSignal = new Promise((resolve) => {
       child.once("error", () => resolve());
       child.once("exit", () => resolve());
+      const streamError = () => {
+        if (this.#child !== child) return;
+        this.#streamFailed = true;
+        this.#lineWaiter?.reject(new ManagedMortalRuntimeError("mortal_runtime_crash"));
+        resolve();
+      };
+      child.stdin.on("error", streamError);
+      child.stdout.on("error", streamError);
+      child.stderr.on("error", streamError);
     });
     child.stderr.resume();
     this.#stdoutBuffer = Buffer.alloc(0);
@@ -193,6 +204,7 @@ export class ManagedMortalRuntime {
   }
 
   #assertNoUnsolicitedOutput(): void {
+    if (this.#streamFailed) throw new ManagedMortalRuntimeError("mortal_runtime_crash");
     if (this.#protocolFailed || this.#pendingLine !== null || this.#stdoutBuffer.length !== 0) {
       this.#failProtocol();
       throw new ManagedMortalRuntimeError("mortal_protocol_invalid");
@@ -208,6 +220,7 @@ export class ManagedMortalRuntime {
 
   async #nextLine(timeoutMs: number, timeoutCode: "mortal_runtime_unavailable" | "mortal_runtime_timeout"): Promise<string> {
     if (this.#child === null) throw new ManagedMortalRuntimeError("mortal_runtime_unavailable");
+    if (this.#streamFailed) throw new ManagedMortalRuntimeError("mortal_runtime_crash");
     if (this.#protocolFailed) throw new ManagedMortalRuntimeError("mortal_protocol_invalid");
     if (this.#pendingLine !== null) {
       const line = this.#pendingLine;

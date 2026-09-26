@@ -129,6 +129,7 @@ export type MortalDecisionReason = z.infer<typeof MortalDecisionReasonSchema>;
 export const SingleCandidateProofShapeSchema = z.enum([
   "riichi_accepted_forced_tsumogiri",
   "riichi_declaration_unique_tenpai_discard",
+  "post_call_unique_discard",
   // M6-A4.2: a response window whose isomorphic local enumeration proves only
   // `none` (pass) is legal.
   "response_single_candidate",

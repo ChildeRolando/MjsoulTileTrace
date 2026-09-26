@@ -23,6 +23,8 @@ import type { ReplayedDecision } from "../replay/stream-replayer.js";
 import type { HandStructureFactEnginePort } from "../fact-engine/port.js";
 import { buildHandStructureRequestV2, deriveHandStructureRonContext } from "../factors/hand-structure-projector.js";
 import { tileIdTo34 } from "../factors/tile34.js";
+import { stableProjectedStateHash } from "../factors/tile34.js";
+import type { CompletedHandFactRequest } from "@riichi-coach/contracts";
 import { isCompleteHandShapeWithSets } from "../factors/win-shape.js";
 import { deriveResponseFuriten } from "../replay/response-furiten.js";
 import { canDeclareKan, forbiddenCallDiscardIds, enumerateResponseCandidates, type RonCandidateVerdict } from "./response-candidate-enumeration.js";
@@ -82,6 +84,34 @@ function binding(action: RiichiAction, actor: number): LocalMortalCandidateBindi
   };
 }
 
+/** Shared physical discard enumeration for projection and local singleton proof. */
+export function enumerateSelfDiscards(decision: ReplayedDecision): readonly Extract<RiichiAction, { kind: "discard" }>[] {
+  const state = decision.snapshot.privateState;
+  const actual = decision.actualAction;
+  const draw = state.currentDraw?.tile;
+  const tiles = [...state.concealedTiles, ...(draw === undefined ? [] : [draw])];
+  const unique = new Map<string, Tile>();
+  for (const tile of tiles) unique.set(`${tile.id}:${tile.red}`, tile);
+  const forbiddenDiscardIds = new Set<string>();
+  if (state.decisionWindow.kind === "post_call_discard" &&
+      (state.fields.concealedTiles !== "complete" || decision.snapshot.publicState.fields.melds !== "complete")) {
+    throw new Error("mortal_candidate_mismatch");
+  }
+  if (state.decisionWindow.kind === "post_call_discard") {
+    const call = decision.snapshot.publicState.melds.find((meld) => meld.createdEventRef === state.decisionWindow.triggerEventRef);
+    if (call?.actor === decision.snapshot.selfActor && (call.kind === "chi" || call.kind === "pon")) {
+      for (const id of forbiddenCallDiscardIds(call)) forbiddenDiscardIds.add(id);
+    }
+  }
+  return [...unique.values()].filter((tile) => !forbiddenDiscardIds.has(tile.id)).map((tile) => ({
+    kind: "discard",
+    tile,
+    discardMode: actual?.kind === "discard" && actual.tile.id === tile.id && actual.tile.red === tile.red
+      ? actual.discardMode
+      : draw !== undefined && draw.id === tile.id && draw.red === tile.red ? "tsumogiri" : "tedashi",
+  } as const));
+}
+
 function selfCandidates(
   decision: ReplayedDecision,
   includeDeclareRiichi: boolean,
@@ -98,29 +128,14 @@ function selfCandidates(
     return riichiDiscardCandidates.map((tile) => binding({
       kind: "discard",
       tile,
-      discardMode: actual.kind === "discard" && actual.tile.id === tile.id && actual.tile.red === tile.red
+      discardMode: actual?.kind === "discard" && actual.tile.id === tile.id && actual.tile.red === tile.red
         ? actual.discardMode
         : "tedashi",
     }, actor));
   }
   const draw = state.currentDraw?.tile;
   const tiles = [...state.concealedTiles, ...(draw === undefined ? [] : [draw])];
-  const unique = new Map<string, Tile>();
-  for (const tile of tiles) unique.set(`${tile.id}:${tile.red}`, tile);
-  const forbiddenDiscardIds = new Set<string>();
-  if (state.decisionWindow.kind === "post_call_discard") {
-    const call = decision.snapshot.publicState.melds.find((meld) => meld.createdEventRef === state.decisionWindow.triggerEventRef);
-    if (call?.kind === "chi" || call?.kind === "pon") {
-      for (const id of forbiddenCallDiscardIds(call)) forbiddenDiscardIds.add(id);
-    }
-  }
-  let result = [...unique.values()].filter((tile) => !forbiddenDiscardIds.has(tile.id)).map((tile) => binding({
-    kind: "discard",
-    tile,
-    discardMode: actual.kind === "discard" && actual.tile.id === tile.id && actual.tile.red === tile.red
-      ? actual.discardMode
-      : draw !== undefined && draw.id === tile.id && draw.red === tile.red ? "tsumogiri" : "tedashi",
-  }, actor));
+  let result = enumerateSelfDiscards(decision).map(action => binding(action, actor));
   const counts = new Map<string, Tile[]>();
   for (const tile of tiles) counts.set(tile.id, [...(counts.get(tile.id) ?? []), tile]);
   const riichiStatus = decision.snapshot.publicState.riichiStates[actor]!.status;
@@ -246,11 +261,45 @@ export async function collectLocalMortalRiichiAnkanCandidates(
   return result;
 }
 
+/** Ask the existing scoring engine about the completed draw. Bonuses cannot
+ * establish yaku. Evaluate every wind assignment allowed by the known context. */
+async function proveOpenTsumo(decision: ReplayedDecision, engine: Pick<HandStructureFactEnginePort, "analyzeCompletedHand">): Promise<boolean> {
+  const facts = decision.facts, draw = decision.snapshot.privateState.currentDraw!;
+  const context = facts.handStructureYakuContext;
+  const melds = facts.melds.filter(meld => meld.actor === decision.snapshot.selfActor);
+  const held = [...decision.snapshot.privateState.concealedTiles, draw.tile];
+  const counts = Array<number>(34).fill(0);
+  for (const tile of held) counts[tileIdTo34(tile.id)]! += 1;
+  const owned = [...held, ...melds.flatMap(meld => meld.tiles)];
+  // The upstream scorer assumes kuitan. Without an enabled rule it cannot
+  // prove an all-simples open hand; the structural ron proof remains usable.
+  if (context?.openTanyaoStatus !== "enabled" && owned.every(tile => {
+    const i=tileIdTo34(tile.id); return i<27 && i%9!==0 && i%9!==8;
+  })) throw new Error("mortal_candidate_mismatch");
+  const winds = context?.windsStatus === "known"
+    ? [[context.roundWindTile34!, context.selfWindTile34!]]
+    : [27,28,29,30].flatMap(round => [27,28,29,30].map(seat => [round,seat]));
+  const outcomes: boolean[] = [];
+  for (const [roundWindTile34, selfWindTile34] of winds) {
+    const projected = {actionRef: canonicalActionRef({kind:"tsumo",winningTile:draw.tile,drawEventRef:draw.eventRef}),
+      completedHandTiles34:counts,tsumo:true,winTile34:tileIdTo34(draw.tile.id),
+      melds:melds.map(meld=>({kind:meld.kind,tiles34:meld.tiles.map(tile=>tileIdTo34(tile.id))})),
+      doraTiles34:[],redFiveCounts:[0,0,0] as [number,number,number],roundWindTile34:roundWindTile34!,selfWindTile34:selfWindTile34!,
+      dealer:selfWindTile34===27,riichi:decision.snapshot.publicState.riichiStates[decision.snapshot.selfActor]?.status==="accepted",selfDiscards34:[]};
+    const stateHash=stableProjectedStateHash(projected);
+    const request:CompletedHandFactRequest={kind:"completed_hand",requestId:`local-mortal-tsumo:${decision.decisionEventRef}:${stateHash}`,protocolVersion:"mahjong-facts/v1",stateHash,...projected};
+    outcomes.push((await engine.analyzeCompletedHand(request)).point>0);
+  }
+  if(outcomes.every(Boolean)) return true;
+  if(outcomes.every(value=>!value)) return false;
+  throw new Error("mortal_candidate_mismatch");
+}
+
 /** Cover winning draws outside dama-discard discovery using structure and
  * yaku evidence, independent of whether the player took the win. */
 export async function collectLocalMortalAdditionalTsumoWindows(
   decisions: readonly ReplayedDecision[],
-  engine: Pick<HandStructureFactEnginePort, "analyzeHandStructure">,
+  engine: Pick<HandStructureFactEnginePort, "analyzeHandStructure" | "analyzeCompletedHand">,
 ): Promise<ReadonlySet<string>> {
   const result = new Set<string>();
   for (const decision of decisions) {
@@ -264,6 +313,9 @@ export async function collectLocalMortalAdditionalTsumoWindows(
     const counts = Array<number>(34).fill(0);
     for (const tile of held) counts[tileIdTo34(tile.id)]! += 1;
     if (!isCompleteHandShapeWithSets(counts, 4 - melds.length)) continue;
+    if (state.fields.concealedTiles !== "complete" || snapshot.publicState.fields.melds !== "complete") {
+      throw new Error("mortal_candidate_mismatch");
+    }
     const verdict = await engine.analyzeHandStructure(buildHandStructureRequestV2({
       actionRef: canonicalActionRef({ kind: "tsumo", winningTile: state.currentDraw.tile,
         drawEventRef: state.currentDraw.eventRef }),
@@ -281,10 +333,11 @@ export async function collectLocalMortalAdditionalTsumoWindows(
     const wait = verdict.waits.find(wait => wait.tile34 === tileIdTo34(state.currentDraw!.tile.id));
     const situationalYaku = (snapshot.publicState.remainingDraws === 0 && snapshot.publicState.fields.remainingDraws === "complete") ||
       state.currentDraw.from === "rinshan";
-    if (open && !situationalYaku && wait?.baseRonEligibility === "unknown_missing_situational_yaku_context") throw new Error("mortal_candidate_mismatch");
-    if (verdict.overallShanten === 0 && wait !== undefined && (!open || situationalYaku || wait.baseRonEligibility === "eligible")) {
+    if (verdict.overallShanten !== 0 || wait === undefined) continue;
+    if (!open || situationalYaku || wait.baseRonEligibility === "eligible" || await proveOpenTsumo(decision, engine)) {
       result.add(decision.decisionEventRef);
     }
+
   }
   return result;
 }
@@ -360,7 +413,15 @@ export async function collectLocalMortalRonCandidateWindows(
     try {
       const hand = await engine.analyzeHandStructure(request);
       const wait = hand.waits.find((row) => row.tile34 === tileIdTo34(window.offeredTile.id));
-      if (wait?.baseRonEligibility === "ineligible") {
+      // A successful, complete structural result makes absence definitive.
+      // Missing input or a blocked engine result is still unknown evidence.
+      if (hand.decompositions.status !== "calculated" ||
+          decision.snapshot.privateState.fields.concealedTiles !== "complete" ||
+          decision.snapshot.publicState.fields.melds !== "complete") {
+        result.set(decision.decisionEventRef, { status: "unknown", reason: "hand_structure_unknown" });
+        continue;
+      }
+      if (wait === undefined || wait.baseRonEligibility === "ineligible") {
         result.set(decision.decisionEventRef, { status: "proven_ineligible", reason: "hand_structure_ineligible" });
         continue;
       }

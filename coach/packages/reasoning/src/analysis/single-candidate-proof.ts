@@ -46,7 +46,7 @@ import { tileIdTo34 } from "../factors/tile34.js";
 import { isCompleteHandShape } from "../factors/win-shape.js";
 import type { ReplayedDecision } from "../replay/stream-replayer.js";
 import { canDeclareKan } from "./response-candidate-enumeration.js";
-import { collectLocalMortalRiichiAnkanCandidates } from "./local-mortal-adapter.js";
+import { enumerateSelfDiscards, collectLocalMortalRiichiAnkanCandidates } from "./local-mortal-adapter.js";
 
 // M6-C Slice 1 (CR-2): the proof shape/schema now belongs to the contracts
 // package. Re-exported here to keep the reasoning public surface unchanged.
@@ -97,7 +97,7 @@ async function proveForcedTsumogiri(
   if (selfMelds.some((meld) => meld.kind === "pon")) return null;
   const counts = heldCounts34(held);
   if (counts === null) return null;
-  if (counts.some(count => count === 4) && canDeclareKan(decision)) {
+  if (counts[tileIdTo34(draw.tile.id)] === 4 && canDeclareKan(decision)) {
     try {
       const candidates = await collectLocalMortalRiichiAnkanCandidates([decision], engine);
       if ((candidates.get(decision.decisionEventRef)?.length ?? 1) !== 0) return null;
@@ -242,6 +242,21 @@ export async function collectSingleCandidateProofs(
       if (riichiStatus !== "accepted") continue;
       const proof = await proveForcedTsumogiri(decision, engine);
       if (proof !== null) proofs.set(index, proof);
+      continue;
+    }
+    if (window.kind === "post_call_discard") {
+      const state = snapshot.privateState;
+      const actual = decision.actualAction;
+      const call = snapshot.publicState.melds.find(meld => meld.actor === snapshot.selfActor && meld.createdEventRef === window.triggerEventRef);
+      if (state.currentDraw !== null || state.fields.concealedTiles !== "complete" ||
+          snapshot.publicState.fields.melds !== "complete" ||
+          (call?.kind !== "chi" && call?.kind !== "pon") || actual?.kind !== "discard") continue;
+      const selfMelds = snapshot.publicState.melds.filter(meld => meld.actor === snapshot.selfActor);
+      if (state.concealedTiles.length !== 14 - 3 * selfMelds.length || heldCounts34(state.concealedTiles) === null) continue;
+      const discards = enumerateSelfDiscards(decision);
+      if (discards.length === 1 && canonicalActionRef(discards[0]!) === canonicalActionRef(actual)) {
+        proofs.set(index, {shape:"post_call_unique_discard",candidateCount:1});
+      }
       continue;
     }
     if (window.kind === "post_riichi_discard") {
