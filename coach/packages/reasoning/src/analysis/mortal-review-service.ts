@@ -338,6 +338,20 @@ export function entryMatchesDecisionIdentity(
   const privateState = snapshot.privateState;
   const publicState = snapshot.publicState;
   const window = privateState.decisionWindow;
+  if (entry.localDecisionIdentity !== undefined) {
+    const expected = {
+      decisionId: decision.decisionEventRef,
+      surface: window.kind === "discard_response" || window.kind === "kan_response" ? "response" : "self",
+      windowKind: window.kind,
+      triggerEventRef: decision.decisionEventRef,
+      selfActor: snapshot.selfActor,
+    };
+    // Managed-local rows already crossed the strict request/response/replay
+    // seam. Their canonical decision identity is stronger than the lossy
+    // remote-report fact table (which has no event ref and may omit draw
+    // counts late in a round), so it is the binding authority for this row.
+    return JSON.stringify(entry.localDecisionIdentity) === JSON.stringify(expected);
+  }
 
   // Round identity: canonical round occurrence, wind, dealer, and honba.
   // These are public facts on both sides and are proven by fingerprint v2,
@@ -775,29 +789,32 @@ export async function runBoundMortalDecisionReview(input: {
     // P7: pure projection into the candidate normalizer's action-fact shape.
     const actionFacts = projectActionFacts(input.decision);
 
-    // P8: reuse the structured Mortal import. A kakan candidate needs the
-    // upgraded pon ref; the local actual owns it, so it flows in as adapter
-    // context for every model row.
-    const kakanMeldHint = input.decision.actualAction?.kind === "kakan"
-      ? input.decision.actualAction.existingMeldRef
-      : undefined;
+    // P8: bind each kakan to its own matching frozen pon, including an
+    // unchosen kakan. The actual action cannot supply every candidate's ref.
     const decisionLayerRef = `mortal-review:${reportIdHash}:${input.decision.decisionEventRef}`;
     const comparisonSetId = `mortal-comparison:${reportIdHash}:${input.decision.decisionEventRef}`;
     const imported = importStructuredMortalComparison({
       comparisonSetId,
       decisionLayerRef,
       facts: actionFacts,
-      modelCandidates: input.entry.details.map((detail, index) => ({
-        actions: [{
-          eventRef: candidateEventRef(reportIdHash, input.entry, index),
-          action: detail.action,
-        }],
-        probability: detail.probability,
-        qValue: detail.qValue,
-        ...(kakanMeldHint === undefined
-          ? {}
-          : { existingMeldRef: kakanMeldHint }),
-      })),
+      modelCandidates: input.entry.details.map((detail, index) => {
+        const added = detail.action.type === "kakan" && detail.action.pai !== undefined
+          ? parseMjaiTile(detail.action.pai) : null;
+        const pons = added === null ? [] : actionFacts.melds?.filter(meld =>
+          meld.kind === "pon" && meld.tiles.every(tile => tile.id === added.id)) ?? [];
+        const kakanMeldHint = pons.length === 1 ? pons[0]!.meldRef : undefined;
+        return {
+          actions: [{
+            eventRef: candidateEventRef(reportIdHash, input.entry, index),
+            action: detail.action,
+          }],
+          probability: detail.probability,
+          qValue: detail.qValue,
+          ...(kakanMeldHint === undefined
+            ? {}
+            : { existingMeldRef: kakanMeldHint }),
+        };
+      }),
       actual: { actions: localEnvelopes },
     });
     if (imported.status === "incomplete") {
@@ -833,7 +850,7 @@ export async function runBoundMortalDecisionReview(input: {
       comparisonSetId: imported.comparisonSet.comparisonSetId,
       decisionLayerRef: imported.comparisonSet.decisionLayerRef,
       engineVersion: input.report.version,
-      adapterVersion: MORTAL_ADAPTER_VERSION,
+      adapterVersion: input.report.adapterVersion,
       actualActionRef: actualCandidate.actionRef,
       scoredActualModelActionRef:
         correspondence?.scoredModelActionRef ?? actualCandidate.actionRef,

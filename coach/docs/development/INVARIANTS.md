@@ -56,10 +56,8 @@
   resolver` 只消费已注册确定性差异。
 - **Executable tests**：`package-validator` 相关测试（"Factor … is in the wrong
   model bucket"）、`factor-differences.test.ts`、`preference-agreement.test.ts`。
-  COAC-111 必须把相同输入在有/无 local Mortal scores 下的 facts/ledgers/differences
-  byte-equivalence 加入 `local-mortal-adapter.test.ts`。
-- **Status**：machine-enforced（现役 report-based path）。本规格没有降低等级；COAC-111
-  只有在同提交加入 local-runtime 等价性门并保持 machine-enforced 后才能宣称实现。
+  `local-mortal-adapter.test.ts` 固化相同输入在投影/评分前后的 facts byte-equivalence。
+- **Status**：machine-enforced（remote report + managed local runtime）。
 
 ## INV-003 game-record 来源协议语义止于 canonical 重放/推理边界
 
@@ -73,7 +71,7 @@ Game-record providers（牌谱协议来源）
 
 Model/report evidence provider（模型/报告证据来源）
 ├── mortal-source         —— remote Mortal 报告格式解析（reasoning 可消费其公开契约）
-└── mortal-runtime        —— privileged local subprocess/checkpoint（尚未实现；reasoning 不依赖）
+└── mortal-runtime        —— privileged local subprocess/checkpoint（reasoning 不依赖）
 ```
 
 - **Statement**：**game-record provider 的协议语义必须止于 canonical
@@ -100,8 +98,7 @@ Model/report evidence provider（模型/报告证据来源）
   `tenhou-source/tests/real-logs-corpus.test.ts`、`malformed-inputs.test.ts`、
   `npm run check:architecture`。COAC-111 必须扩展 checker 与其自测，拒绝 runtime 导入
   game-record providers、reasoning 导入 runtime、renderer/preload 导入 runtime。
-- **Status**：machine-enforced（现役来源边界）。local runtime 尚不存在；COAC-111 必须让
-  新边先进入同一机械门，禁止以“暂时 partial”接入生产路径。
+- **Status**：machine-enforced；checker 覆盖 runtime/source/reasoning/renderer/preload 新边。
 
 ## INV-004 候选身份必须绑定其 canonical 决策窗口
 
@@ -109,7 +106,9 @@ Model/report evidence provider（模型/报告证据来源）
   （`DecisionSnapshotV2.decisionEventRef === privateState.decisionWindow.triggerEventRef`）；
   身份不得脱离窗口漂移，响应窗口按决策归属配对，绝不按 last_actor 猜。任何 local
   model evaluation 还必须证明本地 canonical legal candidates ↔ runtime legal actions
-  一一双射及 actual action 唯一 correspondence；不得取交集或静默丢 action。
+  一一双射及 actual action 唯一 correspondence；runtime response 还必须回显同一 request、
+  protocol、完整 runtime identity、decision/window identity、候选全集，并把 preferred action
+  严格绑定到唯一 Q-value argmax；不得取交集、按位置猜测或静默丢 action。
 - **Why**：候选与窗口的绑定是"可追溯比较"的最小单位；脱绑后任何差异、解释、
   验收证据都无法定位。
 - **Owner / boundary**：`contracts` 的 decision snapshot / decision window /
@@ -120,9 +119,12 @@ Model/report evidence provider（模型/报告证据来源）
 - **Executable tests**：`decision-snapshot.test.ts`、`round-state.test.ts`、
   `candidate-contracts.test.ts`、`comparison-set-builder.test.ts`、M6-A4 binding/conservation
   与 structured package candidate-universe tests。COAC-111 追加 local runtime 的
-  duplicate/missing/extra/unknown/ambiguous 及 self/response actual-correspondence 负例。
-- **Status**：machine-enforced（现役 canonical/report/package 路径）。local runtime 尚未
-  实现；其双射负例是 production seam 的先决门，不能先接入后补测试。
+  duplicate/missing/extra/unknown/ambiguous、跨决策响应、非 argmax preferred action 及
+  self/response actual-correspondence 负例；`local-mortal-adapter.test.ts` 还以真实冻结手牌
+  固化仅赤五、赤普并存、actual/pass 与 kan-response 只允许 ron/pass 的 Mortal realization。
+  pon 的物理消费牌须按固定 Mortal 赤五优先规则从冻结手牌确定，不能依手牌数组顺序取前两张；
+  赤普并存时应核验完整 `consumed`/`actionRef`，不能仅核验 runtime index 41。
+- **Status**：machine-enforced（canonical/report/local-runtime/package 路径）。
 
 ## INV-005 renderer/UI 不得接收特权原始协议与秘密
 
@@ -146,8 +148,7 @@ Model/report evidence provider（模型/报告证据来源）
   `spawn EPERM` 保留为环境失败；恢复会话并修复三个 P2 后五门实际通过，见 COAC-3
   回执；不修改既有不变量等级。
 - **Status**：machine-enforced（行为测试 + 机械导入规则；注意机械规则只查直接导入，
-  传递泄漏仍靠行为测试）。local runtime 增量在 COAC-111 落地前为 docs-only，完成时必须
-  同提交增加 checker/preload/security 行为负例，不能降低本条等级后宣称完成。
+  传递泄漏仍靠行为测试）。local runtime 的 renderer/preload 负例已进入同一门禁。
 
 ## INV-006 畸形/语义不支持的记录 fail closed，不静默降级
 
@@ -155,6 +156,19 @@ Model/report evidence provider（模型/报告证据来源）
   blocked/unsupported 状态；不猜字段、不降级到宽松解析、不让上游 prose 穿透。
   local Mortal 的 identity/hash、crash、timeout、protocol、candidate/actual mismatch 只能
   映射到冻结的安全 code 与既有 outcome，不得透传 traceback、路径或 stdout/stderr。
+  stdout 按 1 MiB byte ceiling 分帧；每个 request 只允许一个换行终止的 JSON response，
+  trailing prose、额外 response、未终止 oversize frame 都必须关闭精确子进程并 fail closed。
+  manifest 缺失、不可读、畸形或 artifact I/O 失败同样只能返回固定安全 code。
+  响应窗口只有在 hand-structure 与振听证据明确排除荣和时才能减少 ron 候选并签发
+  `response_single_candidate`；未知役条件、响应历史不完整导致的未知振听、引擎失败或缺失 verdict 均不能
+  从候选集合中静默扣除 ron。舍牌振听须用全部结构等待牌与本人牌河核验：本人打过
+  另一张等待牌也排除荣和；牌河证据不完整且无已知交集时保持 `unknown`，不能签发
+  单候选证明。荣和资格仍未知时，full-game ledger 使用
+  `analysis_blocked/ron_eligibility_unproven`，无论来源行是否存在都不能生成
+  `source_row_not_expected` 或 `analysis_ready`。
+  Tenhou 仅对完整解析并闭合的受支持真实 mjlog 声明响应机会历史 `complete`；
+  这只允许逐窗口运行事实引擎和振听推导，不自动宣称荣和合法。资格依赖的手牌、
+  役、规则或闭合证据缺失时仍为 `unknown`，不得用 actual 行动或模型输出补足。
 - **Why**：宽松解析会悄悄把错误当成分析结果；fail closed 是可复现失败的前提。
 - **Owner / boundary**：所有严格 schema（contracts）与所有来源适配器的错误路径。
 - **Enforcement**：zod strict schema 拒绝未知字段；canonical mapper / 报告解析 /
@@ -162,16 +176,24 @@ Model/report evidence provider（模型/报告证据来源）
 - **Executable tests**：`malformed-inputs.test.ts`（tenhou）、
   `canonical-mapper.test.ts`、`report-schema.test.ts`、`fact-engine.test.ts`
   （拒绝任意 sidecar prose）、`mahjong-soul-protocol-compatibility.test.mjs`；COAC-111
-  追加每个 `mortal_*` 固定错误与 oversize/extra-prose 负例。
-- **Status**：machine-enforced（现役路径）。COAC-111 必须在接入 local runtime 的同一提交
-  机械覆盖新增错误面并保持等级。
+  追加每个 `mortal_*` 固定错误与 oversize/extra-prose 负例；
+  `response-binding.test.ts`、`local-mortal-adapter.test.ts` 和
+  `mortal-full-game-review.test.ts` 覆盖未知荣和资格不得获得单候选证明或 ready 结果；
+  `real-logs-corpus.test.ts` 与 `local-mortal-adapter.test.ts` 覆盖真实完整 Tenhou
+  来源声明及逐窗口荣和、抢杠荣和、含荣和候选 pass 资格，同时保留不完整历史负例。
+- **Status**：machine-enforced；local runtime strict schema、artifact identity、lifecycle、
+  oversize/extra-prose 与固定安全错误均由永久测试覆盖。启动握手为 single-flight；timeout、
+  ready 前退出或协议失败会等待 exact child 终止并清空状态，失败后的重试不得伪成功。
+  `close()` 与异步 artifact 验证并发时必须等待该次启动结束，且关闭后不得遗留或延迟启动子进程。
 
 ## INV-007 持久化/可复现分析产物保留版本与来源信息
 
 - **Statement**：任何可复现/可持久化的分析产物（事件流、证据 manifest、验收状态、
   discovery 报告）必须携带 schema 版本、来源/身份与（适用时）内容哈希。local Mortal
   package 必须可恢复 runtime revision/version/artifact SHA-256、checkpoint repository
-  revision/model tag/file SHA-256、protocol 与 adapter version；不得只写 `Mortal`。
+  revision/model tag/file SHA-256、protocol 与 adapter version；runtime identity 必须同时覆盖
+  wrapper、上游 `model.py`、`engine.py` 与本机构建 native module 的 SHA-256，不得只写
+  `Mortal` 或仅绑定 wrapper/checkpoint。
 - **Why**：版本与来源是追溯与"旧产物可否重放"的判据；缺失则审计无法定位到产生它的
   代码版本。
 - **Owner / boundary**：各产物 schema 的 `schemaVersion` / `sourceKind` / `gameId` /
@@ -179,14 +201,25 @@ Model/report evidence provider（模型/报告证据来源）
   component versions 与 evidence provenance 延续该约束。
 - **Enforcement**：schema 字面量版本（如 `canonical-riichi-events/v2`、
   `decision-snapshot/v2`）与 manifest 校验（evidence manifest 含 sha256 与
-  schemaVersion）；协议 bundle manifest 逐字段校验。
+  schemaVersion）；协议 bundle manifest 逐字段校验。managed runtime 将已哈希的
+  `nativeModulePath` 显式传入 wrapper；wrapper 把其父目录置于受控 import 首位并核对
+  `libriichi.__file__` 的真实路径，清空或污染继承 `PYTHONPATH` 均不能改变实际加载文件。
 - **Executable tests**：`mortal-coverage-evidence-manifest.test.ts`、
   `mortal-coverage-registry.test.ts`、`protocol-bundle.test.ts`、
   `update-packaged-fact-engine-manifest.test.mjs`、
   `structured-analysis-package.test.ts`、`structured-analysis-package-golden.test.ts`；
-  COAC-111 必须增加声明/payload/hash 任一侧篡改的 local-runtime provenance 负例。
-- **Status**：machine-enforced（现役 `StructuredAnalysisPackage` identity）。local runtime
-  provenance schema/validator 是 COAC-111 的前置交付，不能以 declaration-only 进入 package。
+  COAC-111 必须增加声明/payload/hash 任一侧篡改，以及 wrapper/model/engine/native 任一
+  artifact 被替换的 local-runtime provenance 负例。
+- **Windows checkout 回归条件**：入库 wrapper 与两份 Tenhou XML fixture 的 SHA-256
+  必须等于新 `core.autocrlf=true` worktree 的实际字节；准备 receipt 固定 native hash，
+  新建 service 不得从当前 native bytes 重新建立可信身份。
+- **真实 spike receipt 的提交身份**：`scripts/local-mortal-production-spike.mjs`
+  从脚本所在 Git 仓库读取完整 HEAD SHA；tracked working tree 必须干净，且传入的
+  `GITHUB_SHA`（若有）必须严格相同。取不到 HEAD、存在 tracked 改动或外部 SHA
+  不符时验收失败，不得把 `working-tree` 或未核对的环境变量写成 commit。
+  `npx vitest run scripts/local-mortal-spike-proof.test.mjs` 固化未设置及错误设置 SHA 的回归。
+- **Status**：machine-enforced；`StructuredAnalysisPackage` validator 交叉核对 local runtime
+  declaration、evaluation producer identity 与 artifact/semantic hashes。
 
 ## INV-008 启发式/估算永不进入确定性偏好
 

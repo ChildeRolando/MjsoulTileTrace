@@ -1,7 +1,7 @@
 # Local Mortal Runtime 生产规格
 
 日期：2026-09-24
-状态：**SPEC READY；runtime 与 production spike 尚未实现**
+状态：**IMPLEMENTED；COAC-111 production spike 已于 2026-09-24 验证**
 决策来源：COAC-106 产品 owner 裁决；规格落盘：COAC-110；后继实现：COAC-111
 
 ## 1. 当前权威与 supersession
@@ -161,6 +161,17 @@ device 或 remote source。
 
 ## 6. Candidate-space 双射
 
+多个 self-turn 暗杠/加杠使用既有 `runtimeAction.variant` 的 `kan:<tile34>` 身份；
+只有一个杠或大明杠仍使用 `null`。运行时从固定 libriichi 的第二阶段 mask 独立展开合法
+牌种，主 mask 的 42 与这些牌种共同参与完整双射，不能按本地列表裁剪。
+多个杠的 response 同时携带 raw 主阶段 `qValue` 与 raw 第二阶段
+`kanSelectionQValue`；每个杠的主 Q 必须相同，非杠不得带第二阶段 Q。
+运行时偏好先按主 Q，再按杠选择 Q 取最大值。reasoning 用
+`mainQ + kanQ - maxKanQ` 作为杠候选的派生选择分数，再与其他主 Q 一同 softmax；
+这保留原两阶段 greedy 排序，报告的 `qValue` 仍为 raw 主 Q，派生概率不宣称是原生策略概率。
+候选缺失、重复、错误 variant、缺第二阶段 Q 或非最大第二阶段偏好均拒绝。
+该扩展沿用 v1 的 nullable variant 与 finite-Q 契约，runner 变更由 manifest 的资产 hash 绑定。
+
 对每个本地候选数大于一且需要模型评价的 self-turn 或 response window，必须证明：
 
 1. response 的 decision/window/trigger/self actor 与 request 完全一致；
@@ -242,11 +253,24 @@ npm run prepare:local-mortal-spike
 npm run test:local-mortal-production-spike
 ```
 
-准备命令是唯一允许联网的步骤：固定 repository revision 下载到 gitignored app-managed
+资产下载只允许在显式准备步骤执行：固定 repository revision 下载到 gitignored app-managed
 目录，重算 checkpoint/runtime artifacts SHA-256，核对 geometry/license metadata，并生成
-本地 receipt。测试命令必须先复验 receipt 与每个 artifact hash，然后在网络禁用条件下
-运行；缺资产时明确失败/提示先准备，不得 skip 后报 PASS。checkpoint/runtime 不进 Git、npm
-package 或普通构建产物。
+本地 receipt。测试命令必须先复验 receipt 与每个 artifact hash，使用已准备的本地 runtime
+与真实 checkpoint 完成 CPU inference；不得在测试阶段下载缺失资产或使用远程推理替代。
+缺资产时明确失败/提示先准备，不得 skip 后报 PASS。宿主网络可以保持开启，系统级禁网
+不是模型正确性验收的前置条件。checkpoint/runtime 不进 Git、npm package 或普通构建产物。
+
+### 2026-09-26 验收条件修订（用户批准）
+
+真实本地模型正确性与离线可用性分别记录。系统级禁网可验证整条执行链在无网络时仍能
+完成，但不增加候选守恒、真实推理或 package 正确性的证明；为此配置隔离环境不应阻塞
+本次产品修复验收。撤销原“真实 spike 必须在网络禁用条件下运行”的硬门槛。
+真实 checkpoint、资产/版本/hash 校验、真实 fixture、候选双射、下游完整链、失败语义与
+最终提交绑定要求保持有效；普通环境 receipt 仍须按实际运行的最终提交重新取得。
+
+禁网演练作为独立的离线可用性验证，可复用 Windows Sandbox 配置。其未执行或环境失败
+单独记为“离线可用性未验证”，不阻塞上述模型正确性验收；普通环境成功不得改称禁网
+PASS，也不得因此声称离线可用性已验证。本次修订不改写历史 receipt 或独立评审结论。
 
 ### 真实验收链
 
@@ -271,6 +295,13 @@ fixture 必须覆盖当前 M6-A4 wave-1 self/response families；若一场无法
 prerequisite，GPU 仅可另记性能数据。验收 receipt 记录 commit、runtime/checkpoint/protocol/
 adapter identity 与 SHA、fixture hashes、每 family/window 计数、固定错误计数、packageId/
 semanticContentHash、命令和 exit code，不记录牌谱 raw bytes、路径或 runtime prose。
+
+COAC-141 响应资格来源：Tenhou mapper 仅在完整、受支持的原始 `mjlog` 经逐事件解析、
+本局闭合且 canonical stream 校验通过时，将 `responseOpportunities` 标为 `complete`。
+这表示全部他家舍牌/加杠及窗口闭合事件可供重放推导，不表示每个窗口自动可荣和。
+每个拟纳入验收的荣和或含荣和候选的 pass 窗口仍须由已冻结手牌、规则上下文、
+事实引擎和完整历史分别证明役与振听资格；不完整或不支持的来源仍 fail closed。
+不得仅凭 actual 荣和、原始事件命中、窗口计数或模型输出跳过该证明。
 
 ## 9. Implementation 与发布 gates
 

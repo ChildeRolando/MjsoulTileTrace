@@ -11,12 +11,13 @@
  *
  * Two proof shapes, both ending in "exactly one legal discard":
  *
- * A — riichi_accepted_forced_tsumogiri (engine-free). At a self_turn window
+ * A — riichi_accepted_forced_tsumogiri. At a self_turn window
  *     whose riichi is ACCEPTED, the legal action model reduces to
  *     {tsumogiri, tsumo, kan} (the post-riichi surface Mortal emits rows
  *     from; H2 调研实证 — all 10 accepted-riichi kan-free non-winning draws
- *     have no row). Kan is refuted without an engine: ankan needs four of a
- *     kind in hand, kakan needs a previous pon (no self melds), daiminkan is
+ *     have no row). Kan is refuted by shape, wall/board limits, or the same
+ *     engine-backed riichi-kan eligibility used by local projection.
+ *     Kakan needs a previous pon (no self melds), daiminkan is
  *     impossible on one's own draw. Tsumo is refuted by the local winning
  *     shape check, which is permissive across standard/chiitoitsu/kokushi —
  *     a false verdict means definitely-not-winning. Kyuushu is impossible:
@@ -44,6 +45,8 @@ import { buildHandStructureRequestV2 } from "../factors/hand-structure-projector
 import { tileIdTo34 } from "../factors/tile34.js";
 import { isCompleteHandShape } from "../factors/win-shape.js";
 import type { ReplayedDecision } from "../replay/stream-replayer.js";
+import { canDeclareKan } from "./response-candidate-enumeration.js";
+import { collectLocalMortalRiichiAnkanCandidates } from "./local-mortal-adapter.js";
 
 // M6-C Slice 1 (CR-2): the proof shape/schema now belongs to the contracts
 // package. Re-exported here to keep the reasoning public surface unchanged.
@@ -72,27 +75,62 @@ function heldCounts34(held: readonly Tile[]): number[] | null {
   for (const tile of held) {
     const kind = tileIdTo34(tile.id);
     counts[kind] = counts[kind]! + 1;
-    // Ankan refutation: four of a kind (any red mix) is a kan candidate.
-    if (counts[kind]! >= 4) return null;
+    // Reject physically impossible counts; a quad still needs legality proof.
+    if (counts[kind]! > 4) return null;
   }
   return counts;
 }
 
 /** Shape A: the accepted-riichi window reduces to exactly the tsumogiri. */
-function proveForcedTsumogiri(decision: ReplayedDecision): SingleCandidateProof | null {
+async function proveForcedTsumogiri(
+  decision: ReplayedDecision,
+  engine: { analyzeHandStructure: HandStructureFactEnginePort["analyzeHandStructure"] },
+): Promise<SingleCandidateProof | null> {
   const facts = decision.facts;
   const draw = facts.currentDraw;
   if (draw === null) return null;
   const held = [...facts.concealedTiles, draw.tile];
-  if (held.length !== 14) return null;
-  // facts.melds is the public all-player meld state; self-meld emptiness is
-  // a private fact. A prior pon would keep kakan legal.
-  if (decision.snapshot.privateState.selfMeldRefs.length !== 0) return null;
+  const selfMelds = facts.melds.filter((meld) => meld.actor === decision.snapshot.selfActor);
+  if (held.length !== 14 - 3 * selfMelds.length) return null;
+  // A prior pon keeps kakan legal. Closed kans do not, and riichi after ankan
+  // remains a closed-hand state.
+  if (selfMelds.some((meld) => meld.kind === "pon")) return null;
   const counts = heldCounts34(held);
   if (counts === null) return null;
+  if (counts.some(count => count === 4) && canDeclareKan(decision)) {
+    try {
+      const candidates = await collectLocalMortalRiichiAnkanCandidates([decision], engine);
+      if ((candidates.get(decision.decisionEventRef)?.length ?? 1) !== 0) return null;
+    } catch { return null; }
+  }
   // Tsumo refutation: no winning shape means definitely not winning (the
   // checker is permissive; false is a proof, not a guess).
-  if (isCompleteHandShape(counts)) return null;
+  if (selfMelds.length === 0) {
+    if (isCompleteHandShape(counts)) return null;
+  } else {
+    let result;
+    try {
+      result = await engine.analyzeHandStructure(buildHandStructureRequestV2({
+        actionRef: canonicalActionRef(decision.actualAction!),
+        factSetId: `single-candidate-proof:${decision.decisionEventRef}`,
+        projectedHand: facts.concealedTiles,
+        selfMelds,
+        leftTiles34: null,
+        ronContext: "unknown_future",
+        yakuContext: {
+          windsStatus: "unknown", roundWindTile34: null, selfWindTile34: null,
+          riichiStatus: "accepted", openTanyaoStatus: "unknown",
+        },
+      }));
+    } catch {
+      return null;
+    }
+    if (!Number.isInteger(result.overallShanten) || result.overallShanten < 0 || result.overallShanten > 13) return null;
+    if (
+      result.overallShanten === 0
+      && result.waits.some((wait) => wait.tile34 === tileIdTo34(draw.tile.id))
+    ) return null;
+  }
   // Integrity guard: the player actually made the forced move.
   const actual = decision.actualAction;
   if (actual === null || actual.kind !== "discard" || actual.discardMode !== "tsumogiri") {
@@ -107,19 +145,16 @@ function proveForcedTsumogiri(decision: ReplayedDecision): SingleCandidateProof 
  * The engine is the sole tenpai authority; every error fails the window
  * closed.
  */
-async function proveUniqueTenpaiDiscard(
+export async function collectRiichiDeclarationTenpaiDiscards(
   decision: ReplayedDecision,
   engine: { analyzeHandStructure: HandStructureFactEnginePort["analyzeHandStructure"] },
-): Promise<SingleCandidateProof | null> {
+): Promise<readonly Tile[] | null> {
   const facts = decision.facts;
   const draw = facts.currentDraw;
   if (draw === null) return null;
   const held = [...facts.concealedTiles, draw.tile];
-  if (held.length !== 14) return null;
-  if (decision.snapshot.privateState.selfMeldRefs.length !== 0) return null;
-  const actual = decision.actualAction;
-  if (actual === null || actual.kind !== "discard") return null;
-
+  const selfMelds = facts.melds.filter((meld) => meld.actor === decision.snapshot.selfActor);
+  if (held.length !== 14 - 3 * selfMelds.length) return null;
   const seen = new Set<string>();
   const tenpaiDiscards: Tile[] = [];
   for (const candidate of held) {
@@ -136,7 +171,7 @@ async function proveUniqueTenpaiDiscard(
       }),
       factSetId: `single-candidate-proof:${decision.decisionEventRef}`,
       projectedHand: projection,
-      selfMelds: [],
+      selfMelds,
       leftTiles34: null,
       ronContext: "unknown_future",
       yakuContext: {
@@ -167,9 +202,19 @@ async function proveUniqueTenpaiDiscard(
     }
     if (result.overallShanten === 0) {
       tenpaiDiscards.push(candidate);
-      if (tenpaiDiscards.length > 1) return null;
     }
   }
+  return tenpaiDiscards;
+}
+
+async function proveUniqueTenpaiDiscard(
+  decision: ReplayedDecision,
+  engine: { analyzeHandStructure: HandStructureFactEnginePort["analyzeHandStructure"] },
+): Promise<SingleCandidateProof | null> {
+  const actual = decision.actualAction;
+  if (actual === null || actual.kind !== "discard") return null;
+  const tenpaiDiscards = await collectRiichiDeclarationTenpaiDiscards(decision, engine);
+  if (tenpaiDiscards === null) return null;
   if (tenpaiDiscards.length !== 1) return null;
   // Integrity guard: the unique legal discard is the one actually made.
   if (!samePhysicalTile(tenpaiDiscards[0]!, actual.tile)) return null;
@@ -195,7 +240,7 @@ export async function collectSingleCandidateProofs(
     const riichiStatus = snapshot.publicState.riichiStates[snapshot.selfActor]?.status ?? "none";
     if (window.kind === "self_turn") {
       if (riichiStatus !== "accepted") continue;
-      const proof = proveForcedTsumogiri(decision);
+      const proof = await proveForcedTsumogiri(decision, engine);
       if (proof !== null) proofs.set(index, proof);
       continue;
     }

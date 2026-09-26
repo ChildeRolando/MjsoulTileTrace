@@ -43,6 +43,7 @@ import {
 } from "./factor-ledger.js";
 import { KnownGameFactsSchema } from "./known-game-facts.js";
 import { ModelEvaluationSchema } from "./model-evaluation.js";
+import { ManagedMortalRuntimeIdentitySchema } from "./local-mortal-runtime.js";
 import { StructuredComparisonSetSchema } from "./structured-comparison.js";
 
 const ActorSchema = z.number().int().min(0).max(3);
@@ -106,6 +107,7 @@ export type MortalModelIncompleteReason = z.infer<
 
 export const MortalAnalysisBlockedReasonSchema = z.enum([
   "fact_engine_failure",
+  "ron_eligibility_unproven",
   "structured_analysis_assembly_failure",
 ]);
 export type MortalAnalysisBlockedReason = z.infer<
@@ -330,6 +332,13 @@ export const MortalModelVersionSchema = z.object({
   identity: z.string().min(1),
   version: z.string().min(1),
   modelTag: z.string().min(1),
+  evidenceSource: z.discriminatedUnion("kind", [
+    z.object({ kind: z.literal("remote_report") }).strict(),
+    z.object({
+      kind: z.literal("managed_local_runtime"),
+      identity: ManagedMortalRuntimeIdentitySchema,
+    }).strict(),
+  ]).optional(),
 }).strict();
 export type MortalModelVersion = z.infer<typeof MortalModelVersionSchema>;
 

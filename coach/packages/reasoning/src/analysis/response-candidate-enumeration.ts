@@ -26,6 +26,7 @@ import { tileIdTo34 } from "../factors/tile34.js";
 import {
   canDaiminkan,
   canPon,
+  seatDistance,
 } from "../replay/response-eligibility.js";
 import type { SingleCandidateProof } from "./single-candidate-proof.js";
 import type { ReplayedDecision } from "../replay/stream-replayer.js";
@@ -62,12 +63,37 @@ export type ResponseCandidateEnumeration = Readonly<{
  *  so the review ledger carries one proof union. */
 export type ResponseSingleCandidateProof = SingleCandidateProof;
 
+export type RonCandidateVerdict = Readonly<{
+  status: "eligible" | "proven_ineligible" | "unknown";
+  reason: string;
+}>;
+
 function countId(concealed: readonly Tile[], offered: Tile): number {
   let count = 0;
   for (const tile of concealed) {
     if (tile.id === offered.id) count += 1;
   }
   return count;
+}
+
+/** Same-kind and sequence-swap kuikae apply at both the call entrance and
+ * the ensuing discard window; red and normal copies share this restriction. */
+export function forbiddenCallDiscardIds(call: { kind: "chi" | "pon"; calledTile: Tile; consumedTiles: readonly Tile[] }): ReadonlySet<string> {
+  const forbidden = new Set<string>([call.calledTile.id]);
+  if (call.kind === "chi") {
+    const rank = Number(call.calledTile.id[0]);
+    const ranks = call.consumedTiles.map(tile => Number(tile.id[0]));
+    const min = Math.min(...ranks), max = Math.max(...ranks);
+    const swap = rank < min ? max + 1 : rank > max ? min - 1 : null;
+    if (swap !== null && swap >= 1 && swap <= 9) forbidden.add(`${swap}${call.calledTile.id[1]}`);
+  }
+  return forbidden;
+}
+
+export function canDeclareKan(decision: ReplayedDecision): boolean {
+  const state = decision.snapshot.publicState;
+  return !(state.remainingDraws === 0 && state.fields.remainingDraws === "complete") &&
+    state.melds.filter(meld => ["ankan", "kakan", "daiminkan"].includes(meld.kind)).length < 4;
 }
 
 /** Distinct chi meld combinations completing a run with the offered tile.
@@ -81,22 +107,29 @@ export function chiCombinations(
   if (offered.id.endsWith("z")) return [];
   const suit = offered.id[1]!;
   const rank = Number(offered.id[0]);
-  const counts = new Map<string, number>();
+  const tilesById = new Map<TileId, Tile[]>();
   for (const tile of concealed) {
-    counts.set(tile.id, (counts.get(tile.id) ?? 0) + 1);
+    tilesById.set(tile.id, [...(tilesById.get(tile.id) ?? []), tile]);
   }
   const combinations: Array<{ consumedTiles: readonly Tile[] }> = [];
   const consume = (low: number, high: number): void => {
     if (low < 1 || high > 9) return;
     const lowId = `${low}${suit}` as TileId;
     const highId = `${high}${suit}` as TileId;
-    if ((counts.get(lowId) ?? 0) >= 1 && (counts.get(highId) ?? 0) >= 1) {
-      combinations.push({
-        consumedTiles: [
-          { id: lowId, red: false },
-          { id: highId, red: false },
-        ],
-      });
+    const lowTiles = tilesById.get(lowId);
+    const highTiles = tilesById.get(highId);
+    if (lowTiles !== undefined && highTiles !== undefined) {
+      // libriichi's fixed Mortal realization consumes an aka five whenever
+      // the required five exists as aka in hand, including when a normal five
+      // is also present. Preserve that exact physical-tile identity instead of
+      // inventing a normal-five placeholder that the frozen hand does not own.
+      const realize = (tiles: readonly Tile[]): Tile =>
+        tiles.find((tile) => tile.red) ?? tiles[0]!;
+      const consumedTiles = [realize(lowTiles), realize(highTiles)];
+      const remaining = [...concealed];
+      for (const tile of consumedTiles) remaining.splice(remaining.findIndex(held => held.id === tile.id && held.red === tile.red), 1);
+      const forbidden = forbiddenCallDiscardIds({ kind: "chi", calledTile: offered, consumedTiles });
+      if (remaining.some(tile => !forbidden.has(tile.id))) combinations.push({ consumedTiles });
     }
   };
   consume(rank - 2, rank - 1);
@@ -135,9 +168,18 @@ export function enumerateResponseCandidates(
   const inRiichi =
     publicState.riichiStates[snapshot.selfActor]!.status !== "none";
 
-  const chi = inRiichi ? [] : chiCombinations(concealed, offered);
-  const pon = !inRiichi && canPon(concealed, offered);
-  const daiminkan = !inRiichi && canDaiminkan(concealed, offered);
+  const chiShapes = window.kind === "kan_response" || inRiichi || seatDistance(window.sourceActor, snapshot.selfActor) !== 1
+    ? []
+    : chiCombinations(concealed, offered);
+  const ponShape = window.kind === "discard_response" && !inRiichi && canPon(concealed, offered);
+  const daiminkanShape = window.kind === "discard_response" && !inRiichi && canDaiminkan(concealed, offered);
+  // Only a proven last live-wall discard removes calls. With unknown wall
+  // evidence retain possible calls, so they cannot become a false pass-only
+  // exemption; strict runtime candidate validation still fails closed.
+  const canCall = !(publicState.remainingDraws === 0 && publicState.fields.remainingDraws === "complete");
+  const chi = canCall ? chiShapes : [];
+  const pon = canCall && ponShape;
+  const daiminkan = canCall && canDeclareKan(decision) && daiminkanShape;
   const ron = canRonShape(concealed, meldCount, offered);
 
   const candidateCount =
@@ -179,13 +221,23 @@ function canRonShape(
  */
 export function collectResponseSingleCandidateProofs(
   responseDecisions: readonly ReplayedDecision[],
+  ronCandidateWindows: ReadonlyMap<string, RonCandidateVerdict> | null = null,
 ): ReadonlyMap<number, ResponseSingleCandidateProof> {
   const proofs = new Map<number, ResponseSingleCandidateProof>();
   for (let index = 0; index < responseDecisions.length; index += 1) {
     const decision = responseDecisions[index]!;
     const enumeration = enumerateResponseCandidates(decision);
     if (enumeration === null) continue;
-    if (enumeration.candidateCount !== 1) continue;
+    // Only a proven negative can remove a shape-compatible ron. Missing or
+    // unknown fact-engine evidence must never prove a pass-only window.
+    const ronVerdict = ronCandidateWindows?.get(decision.decisionEventRef);
+    const provenIneligible = ronVerdict?.status === "proven_ineligible"
+      && decision.actualAction?.kind !== "ron";
+    const candidateCount = ronCandidateWindows === null
+      ? enumeration.candidateCount
+      : enumeration.candidateCount
+        - (enumeration.ron && provenIneligible ? 1 : 0);
+    if (candidateCount !== 1) continue;
     proofs.set(index, { shape: "response_single_candidate", candidateCount: 1 });
   }
   return proofs;

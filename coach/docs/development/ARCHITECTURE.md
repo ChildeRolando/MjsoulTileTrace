@@ -52,7 +52,7 @@ mahjong-soul-source ──► CanonicalEventStreamV2
 - 已知事实、牌形、振听、防守矩阵和因素账本；
 - 模型评价、比较、偏好和严格分析包；
 - renderer-safe 雀魂会话与目录 DTO。
-- 计划中的 local Mortal runtime strict request/result/error/identity DTO。
+- local Mortal runtime strict request/result/error/identity DTO。
 
 规则：跨包数据进入下一层前必须经过这里的严格 schema；未知字段默认拒绝。
 
@@ -82,7 +82,7 @@ Mortal model/report evidence provider：报告 schema、URL 校验、指纹与 m
 来源分类与依赖方向的权威裁决见
 [ADR-0005](../adr/0005-workspace-dependency-boundaries.md)。
 
-### `@riichi-coach/mortal-runtime`（已冻结，尚未实现）
+### `@riichi-coach/mortal-runtime`
 
 独立 privileged native-model owner：由 Electron main 托管固定 Mortal V4 subprocess 与
 `Yuchen1457/mortal-582500` checkpoint，只接收 contracts-owned canonical/replay request，
@@ -114,7 +114,7 @@ Electron 组合根与本地产品边界：
 - 生产 Lobby、目录、牌谱摄取的依赖接线；
 - 安全 IPC/preload、窗口权限和本地 renderer；
 - 当前在主进程内缓存 mapped/replayed record。
-- COAC-111 落地后，独占 local Mortal subprocess/checkpoint 生命周期与 manifest 校验。
+- 独占 local Mortal subprocess/checkpoint 生命周期与 manifest 校验。
 
 renderer 只能收到安全会话状态、可分析目录摘要和固定操作结果。
 
@@ -146,9 +146,9 @@ renderer 只能收到安全会话状态、可分析目录摘要和固定操作�
 2. 未知动作、非法牌、缺失引用或最终 schema 失败均 fail closed。
 3. replayer 在本人可见摸牌处冻结 `DecisionSnapshotV2`。
 4. 每个快照投影 `KnownGameFacts`，并记录之后的实际舍牌。
-5. 当前 report-based 路径可消费既有 Mortal 报告；manual-import 自动路径仍停在缺少生产
-   模型候选处。已冻结的下一步是从 canonical/replay 投影到独立 local Mortal runtime，
-   runtime/spike 尚未实现，不能把规格当作已接通。
+5. report-based 路径继续消费既有 Mortal 报告；managed local 路径从 canonical/replay
+   投影到独立 local Mortal runtime，并在同一 comparison / package contract 合流。
+   Electron 产品工作流接线仍属于 Integration Closeout，不因 spike 通过而视为 MVP 已接通。
 
 ### 比较与解释
 

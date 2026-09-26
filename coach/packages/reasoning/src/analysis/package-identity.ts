@@ -39,7 +39,7 @@
  *    any binding_mismatch / no_mortal_entry → integrity_failed; else any
  *    non-analysis_ready outcome → degraded; else complete (CR-6).
  */
-import { createHash } from "node:crypto";
+import { createHash, type Hash } from "node:crypto";
 import type {
   AnalysisPolicySnapshot,
   ComponentVersions,
@@ -74,6 +74,40 @@ export function canonicalJson(value: unknown): string {
 /** SHA-256 hex digest — the second half of the shared identity substrate. */
 export function sha256Hex(value: string): string {
   return createHash("sha256").update(value).digest("hex");
+}
+
+function updateCanonicalHash(hash: Hash, value: unknown): void {
+  if (value === null || typeof value !== "object") {
+    hash.update(JSON.stringify(value));
+    return;
+  }
+  if (Array.isArray(value)) {
+    hash.update("[");
+    value.forEach((entry, index) => {
+      if (index > 0) hash.update(",");
+      updateCanonicalHash(hash, entry);
+    });
+    hash.update("]");
+    return;
+  }
+  hash.update("{");
+  Object.entries(value as Record<string, unknown>)
+    .sort(([left], [right]) => left < right ? -1 : left > right ? 1 : 0)
+    .forEach(([key, entry], index) => {
+      if (index > 0) hash.update(",");
+      hash.update(JSON.stringify(key));
+      hash.update(":");
+      updateCanonicalHash(hash, entry);
+    });
+  hash.update("}");
+}
+
+/** Hashes the same canonical byte stream as `canonicalJson` without first
+ * materializing a whole-game package as one V8 string. */
+export function sha256CanonicalJson(value: unknown): string {
+  const hash = createHash("sha256");
+  updateCanonicalHash(hash, value);
+  return hash.digest("hex");
 }
 
 /** The wall-clock `detailPolicy.frozenAt` value is artifact-creation metadata
@@ -163,11 +197,11 @@ export function derivePackageId(input: {
   componentVersions: ComponentVersions;
   analysisPolicy: AnalysisPolicySnapshot;
 }): string {
-  return `package:sha256:${sha256Hex(canonicalJson({
+  return `package:sha256:${sha256CanonicalJson({
     analysisKey: input.analysisKey,
     componentVersions: input.componentVersions,
     analysisPolicy: input.analysisPolicy,
-  }))}`;
+  })}`;
 }
 
 /** The semantic content hash (CR-5): deterministic content hash over the
@@ -181,12 +215,12 @@ export function deriveSemanticContentHash(input: {
   decisions: readonly DecisionAnalysis[];
   evidenceRegistry: EvidenceRegistry;
 }): string {
-  return `sha256:${sha256Hex(canonicalJson({
+  return `sha256:${sha256CanonicalJson({
     analysisKey: input.analysisKey,
     record: input.record,
     componentVersions: input.componentVersions,
     analysisPolicy: input.analysisPolicy,
     decisions: input.decisions.map(withoutFrozenAt),
     evidenceRegistry: input.evidenceRegistry,
-  }))}`;
+  })}`;
 }

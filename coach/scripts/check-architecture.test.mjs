@@ -32,6 +32,7 @@ function buildWorkspace() {
   makePackage(root, "packages/alpha", "@riichi-coach/alpha");
   makePackage(root, "packages/beta", "@riichi-coach/beta");
   makePackage(root, "packages/reasoning", "@riichi-coach/reasoning");
+  makePackage(root, "packages/mortal-runtime", "@riichi-coach/mortal-runtime");
   makePackage(root, "packages/desktop", "@riichi-coach/desktop", {
     ".": { types: "./src/index.ts", import: "./dist/index.js" },
     "./session-api": { types: "./src/session-api.ts", import: "./dist/session-api.js" },
@@ -44,11 +45,13 @@ const TEST_ALLOWED_EDGES = {
   "@riichi-coach/alpha": ["@riichi-coach/contracts"],
   "@riichi-coach/beta": ["@riichi-coach/contracts"],
   "@riichi-coach/reasoning": ["@riichi-coach/contracts"],
+  "@riichi-coach/mortal-runtime": ["@riichi-coach/contracts"],
   "@riichi-coach/desktop": [
     "@riichi-coach/contracts",
     "@riichi-coach/alpha",
     "@riichi-coach/beta",
     "@riichi-coach/reasoning",
+    "@riichi-coach/mortal-runtime",
   ],
 };
 
@@ -67,7 +70,7 @@ test("clean workspace reports no violations", () => {
 
     const result = checkWorkspace(root, { allowedEdges: TEST_ALLOWED_EDGES });
     assert.deepEqual(result.violations, []);
-    assert.equal(result.packageCount, 5);
+    assert.equal(result.packageCount, 6);
   } finally {
     clean(root);
   }
@@ -185,6 +188,37 @@ test("flags preload importing a privileged package", () => {
     const violation = result.violations[0];
     assert.equal(violation.rule, "renderer_safe_boundary");
     assert.equal(violation.file, "packages/desktop/src/preload.ts");
+  } finally {
+    clean(root);
+  }
+});
+
+test("keeps Mortal subprocess/checkpoint capability out of reasoning and mortal-source", () => {
+  const root = buildWorkspace();
+  try {
+    makePackage(root, "packages/mortal-source", "@riichi-coach/mortal-source");
+    const allowed = {
+      ...TEST_ALLOWED_EDGES,
+      "@riichi-coach/mortal-source": ["@riichi-coach/contracts"],
+    };
+    write(root, "packages/reasoning/src/bypass.ts", 'import { ManagedMortalRuntime } from "@riichi-coach/mortal-runtime";\n');
+    write(root, "packages/mortal-source/src/bypass.ts", 'import { ManagedMortalRuntime } from "@riichi-coach/mortal-runtime";\n');
+    const result = checkWorkspace(root, { allowedEdges: allowed });
+    assert.equal(result.violations.length, 2);
+    assert.ok(result.violations.every((violation) => violation.rule === "package_dependency_direction"));
+  } finally {
+    clean(root);
+  }
+});
+
+test("keeps Mortal runtime capability out of renderer and preload", () => {
+  const root = buildWorkspace();
+  try {
+    write(root, "packages/desktop/src/renderer/runtime.ts", 'import { ManagedMortalRuntime } from "@riichi-coach/mortal-runtime";\n');
+    write(root, "packages/desktop/src/preload.ts", 'import { ManagedMortalRuntime } from "@riichi-coach/mortal-runtime";\n');
+    const result = checkWorkspace(root, { allowedEdges: TEST_ALLOWED_EDGES });
+    const violations = result.violations.filter((violation) => violation.rule === "renderer_safe_boundary");
+    assert.equal(violations.length, 2);
   } finally {
     clean(root);
   }

@@ -302,6 +302,30 @@ describe("M6-A4.2 response window identity fact table", () => {
 // --- local candidate enumeration --------------------------------------------
 
 describe("M6-A4.2 response local candidate enumeration (isomorphic to Mortal)", () => {
+  it.each([
+    { family: "chi", ids: ["1m","2m","3m","4m","5m","6m","7m","8m","9m","1p","2p","3p","4p"], offered: "5p" },
+    { family: "pon", ids: ["1m","2m","3m","4m","5m","6m","7m","8m","9m","5p","5p","2s","3s"], offered: "5p" },
+    { family: "daiminkan", ids: ["5p","5p","5p","1m","2m","3m","1s","2s","3s","1z","2z","3z","4z"], offered: "5p" },
+  ])("suppresses $family at the last discard and proves pass-only", ({ ids, offered }) => {
+    const decision = responseDecision({ concealed: ids.map(id => tile(id)), window: { offeredTile: tile(offered) } });
+    expect(enumerateResponseCandidates(decision)!.candidateCount).toBeGreaterThan(1);
+    decision.snapshot.publicState.remainingDraws = 0;
+    expect(enumerateResponseCandidates(decision)).toMatchObject({ chiCombinations: [], pon: false, daiminkan: false, ron: false, candidateCount: 1 });
+    expect(collectResponseSingleCandidateProofs([decision]).get(0)).toEqual({ shape: "response_single_candidate", candidateCount: 1 });
+    decision.snapshot.publicState.remainingDraws = null;
+    decision.snapshot.publicState.fields.remainingDraws = "unknown";
+    expect(enumerateResponseCandidates(decision)!.candidateCount).toBeGreaterThan(1);
+    expect(collectResponseSingleCandidateProofs([decision]).size).toBe(0);
+  });
+
+  it("retains ron and pass on the last discard without a false single-candidate proof", () => {
+    const decision = responseDecision({ concealed: ["1m","2m","3m","4m","5m","6m","7m","8m","9m","1p","2p","3p","4p"].map(id => tile(id)),
+      window: { offeredTile: tile("4p") } });
+    decision.snapshot.publicState.remainingDraws = 0;
+    expect(enumerateResponseCandidates(decision)).toMatchObject({ chiCombinations: [], pon: false, daiminkan: false, ron: true, candidateCount: 2 });
+    expect(collectResponseSingleCandidateProofs([decision]).size).toBe(0);
+  });
+
   it("expands chi by meld combination (distinct combinations count separately)", () => {
     // Offered 5p with concealed 3p4p AND 4p6p: two distinct chi combinations.
     const decision = responseDecision({
@@ -374,6 +398,41 @@ describe("M6-A4.2 response local candidate enumeration (isomorphic to Mortal)", 
       shape: "response_single_candidate",
       candidateCount: 1,
     });
+
+    const shapeOnlyRon = responseDecision({
+      window: { sourceActor: 1, offeredTile: tile("5s") } as unknown as DecisionWindow,
+      concealed: [
+        tile("1p"), tile("3p"), tile("8s"), tile("6m"), tile("6s"),
+        tile("3z"), tile("7s"), tile("3z"), tile("2p"), tile("6m"),
+        tile("3z"), tile("9s"), tile("4s"),
+      ],
+    });
+    expect(enumerateResponseCandidates(shapeOnlyRon)?.ron).toBe(true);
+    expect(collectResponseSingleCandidateProofs([shapeOnlyRon], new Map([[shapeOnlyRon.decisionEventRef, {
+      status: "proven_ineligible", reason: "hand_structure_ineligible",
+    }]])).get(0)).toEqual({
+      shape: "response_single_candidate",
+      candidateCount: 1,
+    });
+    expect(collectResponseSingleCandidateProofs(
+      [shapeOnlyRon],
+      new Map([[shapeOnlyRon.decisionEventRef, { status: "eligible", reason: "ron_eligible" }]]),
+    ).has(0)).toBe(false);
+    expect(collectResponseSingleCandidateProofs(
+      [{ ...shapeOnlyRon, actualAction: {
+        kind: "ron",
+        winningTile: tile("5s"),
+        targetActor: 1,
+        responseEventRef: shapeOnlyRon.decisionEventRef,
+        winContext: "discard",
+      } }],
+      new Map([[shapeOnlyRon.decisionEventRef, { status: "proven_ineligible", reason: "hand_structure_ineligible" }]]),
+    ).has(0)).toBe(false);
+    expect(collectResponseSingleCandidateProofs(
+      [shapeOnlyRon],
+      new Map([[shapeOnlyRon.decisionEventRef, { status: "unknown", reason: "hand_structure_unknown" }]]),
+    ).has(0)).toBe(false);
+    expect(collectResponseSingleCandidateProofs([shapeOnlyRon], new Map()).has(0)).toBe(false);
   });
 
   it("suppresses chi/pon/daiminkan for a riichi'd reviewed player (ron-only space)", () => {

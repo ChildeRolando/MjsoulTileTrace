@@ -42,6 +42,7 @@ import {
   collectResponseSingleCandidateProofs,
   type ResponseSingleCandidateProof,
 } from "./response-candidate-enumeration.js";
+import { collectLocalMortalRonCandidateWindows } from "./local-mortal-adapter.js";
 
 export type MortalFullGameFailureCode =
   | "mortal_report_game_fingerprint_mismatch"
@@ -590,8 +591,14 @@ export async function runMortalFullGameReview(input: {
   // enumeration (chi by meld combination, pon, daiminkan, ron, none) mirrors
   // Mortal's candidate space and is decided BEFORE any source lookup — a
   // single-candidate response window (only none legal) expects no row.
+  const ronCandidateWindows = await collectLocalMortalRonCandidateWindows(
+    stream,
+    responseDecisions,
+    input.engine,
+  );
   const responseSingleCandidateProofs = collectResponseSingleCandidateProofs(
     responseDecisions,
+    ronCandidateWindows,
   );
 
   const { rows, sourceDegrees, ambiguousSourceOrdinals } =
@@ -743,6 +750,29 @@ export async function runMortalFullGameReview(input: {
           modelSummary: null,
         });
         outcomeCounts.binding_mismatch += 1;
+        continue;
+      }
+
+      if (partition.surface === "response"
+        && ronCandidateWindows.get(decision.decisionEventRef)?.status === "unknown") {
+        // Unproven ron legality blocks the local window whether or not a
+        // source row exists. Its absence cannot be called a source mismatch.
+        ledger.push({
+          decisionOrdinal: row.decisionOrdinal,
+          roundOrdinal: row.roundOrdinal,
+          surface: partition.surface,
+          binding: row.binding,
+          support,
+          review: "analysis_blocked",
+          outcome: "analysis_blocked",
+          reason: "ron_eligibility_unproven",
+          sourceEntryRef: row.sourceEntryRef,
+          sourceOrdinal: row.sourceOrdinal,
+          modelSummary: null,
+        });
+        outcomeCounts.analysis_blocked += 1;
+        analysisBlockedReasonCounts.ron_eligibility_unproven =
+          (analysisBlockedReasonCounts.ron_eligibility_unproven ?? 0) + 1;
         continue;
       }
 

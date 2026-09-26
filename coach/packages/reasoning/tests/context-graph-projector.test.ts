@@ -19,7 +19,7 @@ import {
   type ContextGraphNode,
   type StructuredAnalysisPackage,
 } from "@riichi-coach/contracts";
-import { canonicalJson, sha256Hex } from "../src/analysis/package-identity.js";
+import { canonicalJson, sha256CanonicalJson, sha256Hex } from "../src/analysis/package-identity.js";
 import { deriveEdgeId, deriveNodeId, semanticKeyOfNode } from "../src/context-graph/context-graph-ids.js";
 import { projectContextGraph } from "../src/context-graph/project-context-graph.js";
 import { validateContextGraph } from "../src/context-graph/validate-context-graph.js";
@@ -411,6 +411,8 @@ describe("M6-D1 projectContextGraph", () => {
       .toBe('{"key":"d1","nodeKind":"Decision"}');
     expect(sha256Hex('{"key":"d1","nodeKind":"Decision"}'))
       .toBe("88e1de2602309460550e58b93a95812082cf809598d9fe43dfad3e2d9244906c");
+    expect(sha256CanonicalJson({ nodeKind: "Decision", nested: [null, true, { key: "d1" }] }))
+      .toBe(sha256Hex(canonicalJson({ nodeKind: "Decision", nested: [null, true, { key: "d1" }] })));
     expect(deriveNodeId("Decision", "d1"))
       .toBe("ctxg:Decision:88e1de2602309460550e58b93a95812082cf809598d9fe43dfad3e2d9244906c");
   });
