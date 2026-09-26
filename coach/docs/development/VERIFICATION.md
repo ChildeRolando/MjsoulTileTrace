@@ -54,6 +54,11 @@ Windows x64 的现成执行路线见 [Windows Sandbox 禁网 spike](WINDOWS_SAND
 配置生成成功、系统功能启用成功和真实禁网 spike PASS 是三个不同状态；未完成重启或
 沙箱运行时不得把普通环境 receipt 记为禁网验收。
 
+立直后暗杠的本地证明须与固定 runtime 的 Tenhou 非 strict 规则一致：比较杠前后可和牌种，
+禁止杠掉等待牌；不要求所有分解共有刻子，也不要求等待形状或役保持不变。
+`invariantClaims` 是结构事实，不能直接充当动作合法性条件。回归同时保留字牌、多分解数牌、
+等待改变的反例、海底禁止暗杠/加杠，以及 full-game 模型评价路径。
+
 普通 `npx vitest run` 只跑 protocol fixtures/fake exact child，禁止联网或加载真实 checkpoint；
 它覆盖 crash/timeout/protocol/candidate mismatch 与安全边界，但不能冒充 production spike。
 **当前状态（2026-09-26，COAC-141）**：wave-1 覆盖计数只接受成功推理、候选双射、

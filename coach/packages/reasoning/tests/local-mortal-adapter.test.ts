@@ -92,6 +92,23 @@ async function realTenhouFixture(sourceId: string, actor: number) {
 }
 
 describe("local Mortal canonical projection and conservation", () => {
+  it.each(["ankan", "kakan"] as const)("does not offer %s on the last live-wall draw", (kind) => {
+    const hand = ["5z", "5z", "5z", "1m", "2m", "3m", "1p", "2p", "3p", "1s", "2s", "3s", "1z"]
+      .map((id) => canonicalTile(id as Tile["id"]));
+    const stream = acceptedRiichiKanStream(hand, canonicalTile("5z"), "discard");
+    const decision = structuredClone(replayCanonicalStream(stream).at(-1)!);
+    decision.snapshot.publicState.riichiStates[0] = { status: "none", actor: 0, ippatsuAlive: false, declarationEventRef: null, acceptanceEventRef: null };
+    decision.snapshot.publicState.remainingDraws = 0;
+    if (kind === "kakan") {
+      decision.snapshot.privateState.concealedTiles = decision.snapshot.privateState.concealedTiles.filter(tile => tile.id !== "5z");
+      decision.snapshot.publicState.melds.push({ actor: 0, kind: "pon", meldRef: "pon", createdEventRef: "pon", latestEventRef: "pon", targetActor: 1,
+        calledTile: canonicalTile("5z"), consumedTiles: [canonicalTile("5z"), canonicalTile("5z")], calledDiscardEventRef: "discard" });
+    }
+    const request = projectLocalMortalRequest({ stream, decision, surface: "self", identity });
+    expect(request.candidates.map(row => row.runtimeAction.index).sort((a,b) => a-b))
+      .toEqual([0, 1, 2, 9, 10, 11, 18, 19, 20, 27, 31]);
+  });
+
   it.each([false, true])("ends nine-terminals eligibility after a concealed kan (opponent=%s)", (opponent) => {
     const hand = ["5z", "5z", "5z", "1m", "9m", "1p", "9p", "1s", "9s", "1z", "2z", "3z", "4z"]
       .map((id) => canonicalTile(id as Tile["id"]));
@@ -184,10 +201,15 @@ describe("local Mortal canonical projection and conservation", () => {
     } finally { await engine.close(); }
   });
 
-  it.each(["discard", "ankan"] as const)("keeps the unchosen legal riichi kan when actual is %s", async (actual) => {
-    const hand = ["5z", "5z", "5z", "1m", "2m", "3m", "1p", "2p", "3p", "1s", "2s", "3s", "1z"]
+  it.each([
+    { actual: "discard" as const, multi: false }, { actual: "ankan" as const, multi: false },
+    { actual: "discard" as const, multi: true }, { actual: "ankan" as const, multi: true },
+  ])("keeps the unchosen legal riichi kan: $actual, multi=$multi", async ({ actual, multi }) => {
+    const ids = multi ? ["1m", "1m", "1m", "2m", "2m", "2m", "3m", "3m", "3m", "4p", "5p", "6p", "7z"]
+      : ["5z", "5z", "5z", "1m", "2m", "3m", "1p", "2p", "3p", "1s", "2s", "3s", "1z"];
+    const hand = ids
       .map((id) => canonicalTile(id as Tile["id"]));
-    const stream = acceptedRiichiKanStream(hand, canonicalTile("5z"), actual);
+    const stream = acceptedRiichiKanStream(hand, canonicalTile(multi ? "1m" : "5z"), actual);
     const decision = replayCanonicalStream(stream).at(-1)!;
     expect(decision.snapshot.publicState.riichiStates[0]!.status).toBe("accepted");
     const engine = new JsonlFactEngineClient(new ManagedFactEngineTransport(fileURLToPath(new URL("../../../resources/", import.meta.url))));
@@ -196,14 +218,14 @@ describe("local Mortal canonical projection and conservation", () => {
     finally { await engine.close(); }
     const request = projectLocalMortalRequest({ stream, decision, surface: "self", identity,
       riichiAnkanCandidates: candidates.get(decision.decisionEventRef) ?? [] });
-    expect(request.candidates.map((row) => row.runtimeAction.index).sort((a, b) => a - b)).toEqual([31, 42]);
+    expect(request.candidates.map((row) => row.runtimeAction.index).sort((a, b) => a - b)).toEqual([multi ? 0 : 31, 42]);
     expect(request.candidates.filter((row) => row.actionRef === request.actualActionRef)).toHaveLength(1);
   });
 
   it("carries the riichi discard and kan through the full-game model evaluation", async () => {
-    const hand = ["5z", "5z", "5z", "1m", "2m", "3m", "1p", "2p", "3p", "1s", "2s", "3s", "1z"]
+    const hand = ["1m", "1m", "1m", "2m", "2m", "2m", "3m", "3m", "3m", "4p", "5p", "6p", "7z"]
       .map((id) => canonicalTile(id as Tile["id"]));
-    const stream = acceptedRiichiKanStream(hand, canonicalTile("5z"), "discard");
+    const stream = acceptedRiichiKanStream(hand, canonicalTile("1m"), "discard");
     const decision = replayCanonicalStream(stream).at(-1)!;
     const engine = new JsonlFactEngineClient(new ManagedFactEngineTransport(fileURLToPath(new URL("../../../resources/", import.meta.url))));
     try {

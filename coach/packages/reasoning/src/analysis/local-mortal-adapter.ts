@@ -133,9 +133,12 @@ function selfCandidates(
   const counts = new Map<string, Tile[]>();
   for (const tile of tiles) counts.set(tile.id, [...(counts.get(tile.id) ?? []), tile]);
   const riichiStatus = decision.snapshot.publicState.riichiStates[actor]!.status;
+  const kansOnBoard = decision.snapshot.publicState.melds.filter(meld =>
+    meld.kind === "ankan" || meld.kind === "kakan" || meld.kind === "daiminkan").length;
+  const canKan = decision.snapshot.publicState.remainingDraws !== 0 && kansOnBoard < 4;
   for (const group of counts.values()) {
     if (group.length !== 4) continue;
-    if (state.decisionWindow.kind !== "self_turn") continue;
+    if (state.decisionWindow.kind !== "self_turn" || !canKan) continue;
     if (riichiStatus !== "none") {
       if (riichiStatus !== "accepted" || state.decisionWindow.kind !== "self_turn" ||
           draw?.id !== group[0]!.id) continue;
@@ -145,7 +148,7 @@ function selfCandidates(
     result.push(binding({ kind: "ankan", tiles: group as [Tile, Tile, Tile, Tile] }, actor));
   }
   for (const meld of decision.snapshot.publicState.melds) {
-    if (state.decisionWindow.kind !== "self_turn" || riichiStatus !== "none") break;
+    if (state.decisionWindow.kind !== "self_turn" || riichiStatus !== "none" || !canKan) break;
     if (meld.actor !== actor || meld.kind !== "pon") continue;
     const addedTile = tiles.find((tile) => tile.id === meld.calledTile.id);
     if (addedTile !== undefined) {
@@ -220,15 +223,21 @@ export async function collectLocalMortalRiichiAnkanCandidates(
       throw new Error("mortal_candidate_mismatch");
     }
     const tile34 = tileIdTo34(draw.id);
-    const tripletInvariant = before.decompositions.invariantClaims.some((claim) =>
-      claim.kind === "triplet" && claim.tiles34.every((tile) => tile === tile34));
-    if (!tripletInvariant) {
+    const afterHand = state.concealedTiles.filter(tile => tile.id !== draw.id);
+    const afterCounts = Array<number>(34).fill(0);
+    for (const tile of afterHand) afterCounts[tileIdTo34(tile.id)]! += 1;
+    if (before.waits.some(wait => {
+      if (wait.tile34 === tile34) return true;
+      const winning = [...afterCounts];
+      winning[wait.tile34]! += 1;
+      return !isCompleteHandShapeWithSets(winning, 3 - melds.length);
+    })) {
       result.set(decision.decisionEventRef, []);
       continue;
     }
     const after = await engine.analyzeHandStructure(buildHandStructureRequestV2({
       actionRef, factSetId: `local-mortal-riichi-kan-after:${decision.decisionEventRef}`,
-      projectedHand: state.concealedTiles.filter((tile) => tile.id !== draw.id),
+      projectedHand: afterHand,
       selfMelds: [...melds, {
         actor, kind: "ankan", meldRef: `local-mortal:${decision.decisionEventRef}`,
         tiles: group,
@@ -236,8 +245,10 @@ export async function collectLocalMortalRiichiAnkanCandidates(
       leftTiles34: null, ronContext: "unknown_future", yakuContext,
     }));
     if (after.decompositions.status !== "calculated") throw new Error("mortal_candidate_mismatch");
-    const waits = (value: typeof before) => value.waits.map((wait) =>
-      JSON.stringify([wait.tile34, wait.families, wait.waitTypes])).sort();
+    // The pinned runtime uses Tenhou's non-strict rule: preserve winning
+    // tile kinds, not every decomposition, wait shape, or yaku. Invariant
+    // shape claims describe facts; they are not a kan legality requirement.
+    const waits = (value: typeof before) => value.waits.map(wait => wait.tile34).sort((a,b) => a-b);
     result.set(decision.decisionEventRef,
       after.overallShanten === 0 && JSON.stringify(waits(before)) === JSON.stringify(waits(after))
         ? [draw] : []);
