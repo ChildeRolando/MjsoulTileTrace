@@ -92,6 +92,47 @@ async function realTenhouFixture(sourceId: string, actor: number) {
 }
 
 describe("local Mortal canonical projection and conservation", () => {
+  it("carries the last-discard pass-only proof through the full-game ledger", async () => {
+    const hand = ["5p","5p","5p","3p","4p","1m","2m","3m","1s","2s","3s","1z","2z"].map(id => canonicalTile(id as Tile["id"]));
+    const events = [...canonicalStartEvents(hand, canonicalTile("8p"))];
+    (events[1] as Extract<CanonicalGameEvent, { type: "round_started" }>).dealer = 2;
+    const add = (event: Record<string, unknown>) => {
+      const index = events.length;
+      events.push({ ...event, eventId: `game:fixture/0/${index}/0`, sourceRecordRef: `record:${index}` } as CanonicalGameEvent);
+    };
+    const counts = Array<number>(34).fill(4);
+    const ids = [...Array.from({ length: 27 }, (_, i) => `${i % 9 + 1}${["m","p","s"][Math.floor(i / 9)]}`), ...Array.from({ length: 7 }, (_, i) => `${i + 1}z`)];
+    for (const tile of [...hand, canonicalTile("8p"), canonicalTile("5p", true)]) counts[ids.indexOf(tile.id)]!--;
+    const bag = ids.flatMap((id, i) => Array<string>(counts[i]!).fill(id));
+    for (let i = 0; i < 70; i++) {
+      const actor = (i + 2) % 4;
+      const tile = i === 69 ? canonicalTile("5p", true) : canonicalTile(bag[i] as Tile["id"]);
+      add({ type: "tile_drawn", actor, tile: actor === 0 ? { visibility: "visible", tile } : { visibility: "hidden" }, from: "live_wall" });
+      add({ type: "tile_discarded", actor, tile, discardMode: "tsumogiri", riichiDeclarationEventRef: null });
+    }
+    const lastDiscard = events.at(-1)!.eventId;
+    add({ type: "round_drawn", reason: "exhaustive", tenpaiActors: [] });
+    const stream = canonicalStream(events);
+    const decision = replayCanonicalResponseWindows(stream).find(row => row.decisionEventRef === lastDiscard)!;
+    expect(decision.actualAction?.kind).toBe("pass");
+    expect(decision.snapshot.publicState.remainingDraws).toBe(0);
+    expect(enumerateResponseCandidates(decision)).toMatchObject({ chiCombinations: [], pon: false, daiminkan: false, ron: false, candidateCount: 1 });
+    expect(() => projectLocalMortalRequest({ stream, decision, surface: "response", identity })).toThrow("mortal_source_row_not_expected");
+    const engine = new JsonlFactEngineClient(new ManagedFactEngineTransport(fileURLToPath(new URL("../../../resources/", import.meta.url))));
+    try {
+      const review = await runMortalFullGameReview({ stream, decisions: replayCanonicalStream(stream), responseDecisions: [decision], engine,
+        report: { reportId: "last-discard-regression", adapterVersion: identity.adapterVersion,
+          engine: "Mortal", version: "Mortal V4", modelTag: identity.checkpointModelTag, playerId: 0,
+          gameFingerprint: computeCanonicalGameFingerprint(stream), kyokus: [] } });
+      expect(review.status).toBe("coverage_ready");
+      if (review.status === "coverage_ready") {
+        const response = review.decisions.find(row => row.surface === "response");
+        expect(response?.outcome).toBe("source_row_not_expected");
+        expect(response?.singleCandidateProof).toEqual({ shape: "response_single_candidate", candidateCount: 1 });
+      }
+    } finally { await engine.close(); }
+  });
+
   it.each(["ankan", "kakan"] as const)("does not offer %s on the last live-wall draw", (kind) => {
     const hand = ["5z", "5z", "5z", "1m", "2m", "3m", "1p", "2p", "3p", "1s", "2s", "3s", "1z"]
       .map((id) => canonicalTile(id as Tile["id"]));

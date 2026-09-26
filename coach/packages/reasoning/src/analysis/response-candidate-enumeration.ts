@@ -149,11 +149,18 @@ export function enumerateResponseCandidates(
   const inRiichi =
     publicState.riichiStates[snapshot.selfActor]!.status !== "none";
 
-  const chi = window.kind === "kan_response" || inRiichi || seatDistance(window.sourceActor, snapshot.selfActor) !== 1
+  const chiShapes = window.kind === "kan_response" || inRiichi || seatDistance(window.sourceActor, snapshot.selfActor) !== 1
     ? []
     : chiCombinations(concealed, offered);
-  const pon = window.kind === "discard_response" && !inRiichi && canPon(concealed, offered);
-  const daiminkan = window.kind === "discard_response" && !inRiichi && canDaiminkan(concealed, offered);
+  const ponShape = window.kind === "discard_response" && !inRiichi && canPon(concealed, offered);
+  const daiminkanShape = window.kind === "discard_response" && !inRiichi && canDaiminkan(concealed, offered);
+  // Only a proven last live-wall discard removes calls. With unknown wall
+  // evidence retain possible calls, so they cannot become a false pass-only
+  // exemption; strict runtime candidate validation still fails closed.
+  const canCall = !(publicState.remainingDraws === 0 && publicState.fields.remainingDraws === "complete");
+  const chi = canCall ? chiShapes : [];
+  const pon = canCall && ponShape;
+  const daiminkan = canCall && daiminkanShape;
   const ron = canRonShape(concealed, meldCount, offered);
 
   const candidateCount =
