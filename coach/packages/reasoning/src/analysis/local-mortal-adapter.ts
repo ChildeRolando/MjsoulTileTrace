@@ -294,14 +294,11 @@ export async function collectLocalMortalRiichiCandidateWindows(
   for (const decision of decisions) {
     const state = decision.snapshot.privateState;
     const actor = decision.snapshot.selfActor;
+    const selfMelds = decision.facts.melds.filter((meld) => meld.actor === actor);
     if (state.decisionWindow.kind !== "self_turn" || state.currentDraw === null ||
-        state.selfMeldRefs.length > 0 || decision.snapshot.publicState.riichiStates[actor]!.status !== "none" ||
+        selfMelds.some((meld) => meld.kind !== "ankan") || decision.snapshot.publicState.riichiStates[actor]!.status !== "none" ||
         decision.snapshot.publicState.scores[actor]! < 1_000 ||
         (decision.snapshot.publicState.remainingDraws !== null && decision.snapshot.publicState.remainingDraws < 4)) continue;
-    if (decision.actualAction?.kind === "riichi_discard") {
-      result.add(decision.decisionEventRef);
-      continue;
-    }
     const held = [...state.concealedTiles, state.currentDraw.tile];
     const unique = new Map<string, Tile>();
     for (const tile of held) unique.set(`${tile.id}:${tile.red}`, tile);
@@ -312,7 +309,7 @@ export async function collectLocalMortalRiichiCandidateWindows(
         actionRef: canonicalActionRef({ kind: "discard", tile: discard, discardMode: "tedashi" }),
         factSetId: `local-mortal-riichi:${decision.decisionEventRef}:${discard.id}:${discard.red}`,
         projectedHand,
-        selfMelds: [],
+        selfMelds,
         leftTiles34: null,
         ronContext: "unknown_future",
         yakuContext: {

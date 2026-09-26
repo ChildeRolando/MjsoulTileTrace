@@ -21,6 +21,7 @@ import { computeCanonicalGameFingerprint } from "@riichi-coach/mortal-source";
 import {
   buildMortalModelEvaluation,
   collectLocalMortalRonCandidateWindows,
+  collectLocalMortalRiichiCandidateWindows,
   collectLocalMortalRiichiAnkanCandidates,
   collectLocalMortalAdditionalTsumoWindows,
   collectRiichiDeclarationTenpaiDiscards,
@@ -91,6 +92,56 @@ async function realTenhouFixture(sourceId: string, actor: number) {
 }
 
 describe("local Mortal canonical projection and conservation", () => {
+  it("offers riichi after a concealed kan without treating it as an open hand", async () => {
+    const hand = ["5z", "5z", "5z", "1m", "2m", "3m", "1p", "2p", "3p", "1s", "2s", "1z", "1z"]
+      .map((id) => canonicalTile(id as Tile["id"]));
+    const events: CanonicalGameEvent[] = [...canonicalStartEvents(hand)];
+    const add = (event: Record<string, unknown>) => {
+      const index = events.length;
+      events.push({ ...event, eventId: `game:fixture/0/${index}/0`, sourceRecordRef: `record:${index}` } as CanonicalGameEvent);
+    };
+    add({ type: "tile_drawn", actor: 0, tile: { visibility: "visible", tile: canonicalTile("5z") }, from: "live_wall" });
+    add({ type: "ankan_declared", actor: 0, tiles: Array(4).fill(canonicalTile("5z")) });
+    add({ type: "dora_revealed", indicator: canonicalTile("9p"), kanEventRef: events[3]!.eventId });
+    add({ type: "tile_drawn", actor: 0, tile: { visibility: "visible", tile: canonicalTile("3s") }, from: "rinshan" });
+    add({ type: "tile_discarded", actor: 0, tile: canonicalTile("3s"), discardMode: "tsumogiri", riichiDeclarationEventRef: null });
+    const stream = canonicalStream(events);
+    const decision = replayCanonicalStream(stream).at(-1)!;
+    const engine = new JsonlFactEngineClient(new ManagedFactEngineTransport(fileURLToPath(new URL("../../../resources/", import.meta.url))));
+    try {
+      const windows = await collectLocalMortalRiichiCandidateWindows([decision], engine);
+      expect(windows.has(decision.decisionEventRef)).toBe(true);
+      const tsumoWindows = await collectLocalMortalAdditionalTsumoWindows([decision], engine);
+      const request = projectLocalMortalRequest({ stream, decision, surface: "self", identity,
+        includeDeclareRiichi: windows.has(decision.decisionEventRef), includeTsumo: tsumoWindows.has(decision.decisionEventRef) });
+      expect(request.candidates.filter((row) => row.runtimeAction.index === 37)).toHaveLength(1);
+      expect(request.candidates.filter((row) => row.actionRef === request.actualActionRef)).toHaveLength(1);
+      const response = LocalMortalInferenceSuccessSchema.parse({
+        protocolVersion: request.protocolVersion, requestId: request.requestId, identity,
+        decision: request.decision, status: "ok",
+        candidates: request.candidates.map((candidate, index) => ({ runtimeAction: candidate.runtimeAction, qValue: index })),
+        preferredRuntimeAction: request.candidates.at(-1)!.runtimeAction,
+      });
+      const entry = localMortalResponseToReportEntry({ request, response, decision });
+      const review = await runMortalFullGameReview({
+        stream, decisions: [decision], engine,
+        coverageRegistry: createMortalCoverageRegistry(["dama_with_riichi_candidate", "dama_with_tsumo_candidate"]),
+        report: {
+          reportId: "local-post-ankan-riichi-regression", adapterVersion: identity.adapterVersion,
+          engine: "Mortal", version: "Mortal V4", modelTag: identity.checkpointModelTag,
+          playerId: 0, gameFingerprint: computeCanonicalGameFingerprint(stream),
+          kyokus: [{ roundOrdinal: 0, roundWind: "E", dealer: 0, kyoku: 0, honba: 0, entries: [entry] }],
+        },
+      });
+      expect(review.status).toBe("coverage_ready");
+      if (review.status === "coverage_ready") {
+        expect(review.decisions[0]?.outcome).toBe("analysis_ready");
+        expect(review.retainedAnalyses[0]?.modelEvaluation.candidates.some((row) =>
+          row.actionRef === request.candidates.find((candidate) => candidate.runtimeAction.index === 37)!.actionRef)).toBe(true);
+      }
+    } finally { await engine.close(); }
+  });
+
   it.each(["discard", "ankan"] as const)("keeps the unchosen legal riichi kan when actual is %s", async (actual) => {
     const hand = ["5z", "5z", "5z", "1m", "2m", "3m", "1p", "2p", "3p", "1s", "2s", "3s", "1z"]
       .map((id) => canonicalTile(id as Tile["id"]));
