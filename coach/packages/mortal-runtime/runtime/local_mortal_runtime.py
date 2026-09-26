@@ -57,6 +57,7 @@ def load_runtime(checkpoint, mortal_source, native_module):
 
 
 def infer(request, engine, bot_type):
+    engine.last = None
     bot = bot_type(engine, request["decision"]["selfActor"])
     reaction = None
     for row in request["events"]:
@@ -67,16 +68,29 @@ def infer(request, engine, bot_type):
     q = q_values[-1]
     mask = masks[-1]
     legal = [i for i, enabled in enumerate(mask) if enabled]
-    expected = sorted(item["runtimeAction"]["index"] for item in request["candidates"])
-    if len(set(expected)) != len(expected) or legal != expected:
+    expected = [(item["runtimeAction"]["index"], item["runtimeAction"]["variant"]) for item in request["candidates"]]
+    kan_tiles = [i for i, enabled in enumerate(masks[-2]) if enabled] if 42 in legal and len(masks) == 2 else []
+    multiple_kans = len(kan_tiles) > 1
+    if any(tile > 33 for tile in kan_tiles):
         return fail(request["requestId"], "mortal_candidate_mismatch")
-    candidates = [{"runtimeAction": {"index": i, "variant": None}, "qValue": q[i]} for i in legal]
+    keys = []
+    for i in legal:
+        keys.extend([(42, "kan:" + str(tile)) for tile in kan_tiles] if i == 42 and multiple_kans else [(i, None)])
+    if len(set(expected)) != len(expected) or set(keys) != set(expected):
+        return fail(request["requestId"], "mortal_candidate_mismatch")
+    candidates = []
+    for i, variant in keys:
+        candidate = {"runtimeAction": {"index": i, "variant": variant}, "qValue": q[i]}
+        if variant is not None:
+            candidate["kanSelectionQValue"] = q_values[-2][int(variant[4:])]
+        candidates.append(candidate)
     preferred = max(legal, key=lambda i: q[i])
+    preferred_variant = "kan:" + str(max(kan_tiles, key=lambda i: q_values[-2][i])) if preferred == 42 and multiple_kans else None
     return {
         "protocolVersion": request["protocolVersion"], "requestId": request["requestId"],
         "identity": request["identity"], "decision": request["decision"], "status": "ok",
         "candidates": candidates,
-        "preferredRuntimeAction": {"index": preferred, "variant": None},
+        "preferredRuntimeAction": {"index": preferred, "variant": preferred_variant},
     }
 
 

@@ -592,12 +592,16 @@ export async function deriveResponseFuriten(
     atIndex.push(update);
     updatesByIndex.set(update.eventIndex, atIndex);
   }
+  let acceptedRiichi = false;
   for (let index = activeRoundStart; index < prefix.length; index++) {
     for (const update of updatesByIndex.get(index) ?? []) {
       applyUpdate(update.component === "temporary" ? temporary : riichi, update);
     }
     const event = prefix[index]!;
-    if (event.type === "tile_drawn" && event.actor === stream.selfActor) {
+    if (event.type === "riichi_accepted" && event.actor === stream.selfActor) acceptedRiichi = true;
+    // The pinned rules recalculate waits and clear same-cycle furiten on
+    // non-riichi self discards too, including the discard following a call.
+    if ((event.type === "tile_drawn" || (event.type === "tile_discarded" && !acceptedRiichi)) && event.actor === stream.selfActor) {
       temporary.status = "clear";
       temporary.unknownReason = null;
       temporary.evidenceIds.clear();

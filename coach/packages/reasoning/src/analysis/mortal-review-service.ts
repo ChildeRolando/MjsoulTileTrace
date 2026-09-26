@@ -789,29 +789,32 @@ export async function runBoundMortalDecisionReview(input: {
     // P7: pure projection into the candidate normalizer's action-fact shape.
     const actionFacts = projectActionFacts(input.decision);
 
-    // P8: reuse the structured Mortal import. A kakan candidate needs the
-    // upgraded pon ref; the local actual owns it, so it flows in as adapter
-    // context for every model row.
-    const kakanMeldHint = input.decision.actualAction?.kind === "kakan"
-      ? input.decision.actualAction.existingMeldRef
-      : undefined;
+    // P8: bind each kakan to its own matching frozen pon, including an
+    // unchosen kakan. The actual action cannot supply every candidate's ref.
     const decisionLayerRef = `mortal-review:${reportIdHash}:${input.decision.decisionEventRef}`;
     const comparisonSetId = `mortal-comparison:${reportIdHash}:${input.decision.decisionEventRef}`;
     const imported = importStructuredMortalComparison({
       comparisonSetId,
       decisionLayerRef,
       facts: actionFacts,
-      modelCandidates: input.entry.details.map((detail, index) => ({
-        actions: [{
-          eventRef: candidateEventRef(reportIdHash, input.entry, index),
-          action: detail.action,
-        }],
-        probability: detail.probability,
-        qValue: detail.qValue,
-        ...(kakanMeldHint === undefined
-          ? {}
-          : { existingMeldRef: kakanMeldHint }),
-      })),
+      modelCandidates: input.entry.details.map((detail, index) => {
+        const added = detail.action.type === "kakan" && detail.action.pai !== undefined
+          ? parseMjaiTile(detail.action.pai) : null;
+        const pons = added === null ? [] : actionFacts.melds?.filter(meld =>
+          meld.kind === "pon" && meld.tiles.every(tile => tile.id === added.id)) ?? [];
+        const kakanMeldHint = pons.length === 1 ? pons[0]!.meldRef : undefined;
+        return {
+          actions: [{
+            eventRef: candidateEventRef(reportIdHash, input.entry, index),
+            action: detail.action,
+          }],
+          probability: detail.probability,
+          qValue: detail.qValue,
+          ...(kakanMeldHint === undefined
+            ? {}
+            : { existingMeldRef: kakanMeldHint }),
+        };
+      }),
       actual: { actions: localEnvelopes },
     });
     if (imported.status === "incomplete") {

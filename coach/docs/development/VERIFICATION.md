@@ -64,6 +64,11 @@ strict `ModelEvaluation` → whole-game review → `StructuredAnalysisPackage` v
 等待改变的反例、海底禁止暗杠/加杠，以及 full-game 模型评价路径。
 河底响应在余牌为 0 且字段完整时禁止吃、碰、大明杠，保留合法荣和/pass；共享 response
 枚举同时保护本地请求与 full-game 单候选证明。余牌未知不作为删除可能候选或豁免模型行的依据。
+R12 回归补充吃入口的喰替后可弃牌检查、桌面四杠上限、开放手牌未选择的合法自摸、
+多个暗杠/加杠的第二阶段身份与分数、海底/四杠后立直摸切的单候选证明，以及非立直
+本人弃牌后的临时振听重置。focused 测试和真实 CPU 差分分别检查这些边界；
+运行时第二阶段协议测试不加载权重，不能替代真实 spike。日志与新回执保存在源码外，
+既有资产不重新下载，旧回执不覆盖。候选集合不依赖实际选择，也不按模型 mask 取交集。
 
 普通 `npx vitest run` 只跑 protocol fixtures/fake exact child，禁止联网或加载真实 checkpoint；
 它覆盖 crash/timeout/protocol/candidate mismatch 与安全边界，但不能冒充 production spike。

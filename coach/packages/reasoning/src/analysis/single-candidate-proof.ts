@@ -11,12 +11,13 @@
  *
  * Two proof shapes, both ending in "exactly one legal discard":
  *
- * A — riichi_accepted_forced_tsumogiri (engine-free). At a self_turn window
+ * A — riichi_accepted_forced_tsumogiri. At a self_turn window
  *     whose riichi is ACCEPTED, the legal action model reduces to
  *     {tsumogiri, tsumo, kan} (the post-riichi surface Mortal emits rows
  *     from; H2 调研实证 — all 10 accepted-riichi kan-free non-winning draws
- *     have no row). Kan is refuted without an engine: ankan needs four of a
- *     kind in hand, kakan needs a previous pon (no self melds), daiminkan is
+ *     have no row). Kan is refuted by shape, wall/board limits, or the same
+ *     engine-backed riichi-kan eligibility used by local projection.
+ *     Kakan needs a previous pon (no self melds), daiminkan is
  *     impossible on one's own draw. Tsumo is refuted by the local winning
  *     shape check, which is permissive across standard/chiitoitsu/kokushi —
  *     a false verdict means definitely-not-winning. Kyuushu is impossible:
@@ -44,6 +45,8 @@ import { buildHandStructureRequestV2 } from "../factors/hand-structure-projector
 import { tileIdTo34 } from "../factors/tile34.js";
 import { isCompleteHandShape } from "../factors/win-shape.js";
 import type { ReplayedDecision } from "../replay/stream-replayer.js";
+import { canDeclareKan } from "./response-candidate-enumeration.js";
+import { collectLocalMortalRiichiAnkanCandidates } from "./local-mortal-adapter.js";
 
 // M6-C Slice 1 (CR-2): the proof shape/schema now belongs to the contracts
 // package. Re-exported here to keep the reasoning public surface unchanged.
@@ -72,8 +75,8 @@ function heldCounts34(held: readonly Tile[]): number[] | null {
   for (const tile of held) {
     const kind = tileIdTo34(tile.id);
     counts[kind] = counts[kind]! + 1;
-    // Ankan refutation: four of a kind (any red mix) is a kan candidate.
-    if (counts[kind]! >= 4) return null;
+    // Reject physically impossible counts; a quad still needs legality proof.
+    if (counts[kind]! > 4) return null;
   }
   return counts;
 }
@@ -94,6 +97,12 @@ async function proveForcedTsumogiri(
   if (selfMelds.some((meld) => meld.kind === "pon")) return null;
   const counts = heldCounts34(held);
   if (counts === null) return null;
+  if (counts.some(count => count === 4) && canDeclareKan(decision)) {
+    try {
+      const candidates = await collectLocalMortalRiichiAnkanCandidates([decision], engine);
+      if ((candidates.get(decision.decisionEventRef)?.length ?? 1) !== 0) return null;
+    } catch { return null; }
+  }
   // Tsumo refutation: no winning shape means definitely not winning (the
   // checker is permissive; false is a proof, not a guess).
   if (selfMelds.length === 0) {

@@ -161,6 +161,17 @@ device 或 remote source。
 
 ## 6. Candidate-space 双射
 
+多个 self-turn 暗杠/加杠使用既有 `runtimeAction.variant` 的 `kan:<tile34>` 身份；
+只有一个杠或大明杠仍使用 `null`。运行时从固定 libriichi 的第二阶段 mask 独立展开合法
+牌种，主 mask 的 42 与这些牌种共同参与完整双射，不能按本地列表裁剪。
+多个杠的 response 同时携带 raw 主阶段 `qValue` 与 raw 第二阶段
+`kanSelectionQValue`；每个杠的主 Q 必须相同，非杠不得带第二阶段 Q。
+运行时偏好先按主 Q，再按杠选择 Q 取最大值。reasoning 用
+`mainQ + kanQ - maxKanQ` 作为杠候选的派生选择分数，再与其他主 Q 一同 softmax；
+这保留原两阶段 greedy 排序，报告的 `qValue` 仍为 raw 主 Q，派生概率不宣称是原生策略概率。
+候选缺失、重复、错误 variant、缺第二阶段 Q 或非最大第二阶段偏好均拒绝。
+该扩展沿用 v1 的 nullable variant 与 finite-Q 契约，runner 变更由 manifest 的资产 hash 绑定。
+
 对每个本地候选数大于一且需要模型评价的 self-turn 或 response window，必须证明：
 
 1. response 的 decision/window/trigger/self actor 与 request 完全一致；

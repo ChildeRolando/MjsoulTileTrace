@@ -116,6 +116,8 @@ export const LocalMortalInferenceSuccessSchema = z.object({
   candidates: z.array(z.object({
     runtimeAction: LocalMortalRuntimeActionSchema,
     qValue: z.number().finite(),
+    /** Native second-stage kan Q, present only for multiple self-kan choices. */
+    kanSelectionQValue: z.number().finite().optional(),
   }).strict()).min(2).max(46),
   preferredRuntimeAction: LocalMortalRuntimeActionSchema,
 }).strict();

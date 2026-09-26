@@ -76,6 +76,26 @@ function countId(concealed: readonly Tile[], offered: Tile): number {
   return count;
 }
 
+/** Same-kind and sequence-swap kuikae apply at both the call entrance and
+ * the ensuing discard window; red and normal copies share this restriction. */
+export function forbiddenCallDiscardIds(call: { kind: "chi" | "pon"; calledTile: Tile; consumedTiles: readonly Tile[] }): ReadonlySet<string> {
+  const forbidden = new Set<string>([call.calledTile.id]);
+  if (call.kind === "chi") {
+    const rank = Number(call.calledTile.id[0]);
+    const ranks = call.consumedTiles.map(tile => Number(tile.id[0]));
+    const min = Math.min(...ranks), max = Math.max(...ranks);
+    const swap = rank < min ? max + 1 : rank > max ? min - 1 : null;
+    if (swap !== null && swap >= 1 && swap <= 9) forbidden.add(`${swap}${call.calledTile.id[1]}`);
+  }
+  return forbidden;
+}
+
+export function canDeclareKan(decision: ReplayedDecision): boolean {
+  const state = decision.snapshot.publicState;
+  return !(state.remainingDraws === 0 && state.fields.remainingDraws === "complete") &&
+    state.melds.filter(meld => ["ankan", "kakan", "daiminkan"].includes(meld.kind)).length < 4;
+}
+
 /** Distinct chi meld combinations completing a run with the offered tile.
  *  The offered tile sits at rank r; the two consumed tiles form (r-2,r-1),
  *  (r-1,r+1) or (r+1,r+2). Each distinct consumed multiset is one candidate,
@@ -105,12 +125,11 @@ export function chiCombinations(
       // inventing a normal-five placeholder that the frozen hand does not own.
       const realize = (tiles: readonly Tile[]): Tile =>
         tiles.find((tile) => tile.red) ?? tiles[0]!;
-      combinations.push({
-        consumedTiles: [
-          realize(lowTiles),
-          realize(highTiles),
-        ],
-      });
+      const consumedTiles = [realize(lowTiles), realize(highTiles)];
+      const remaining = [...concealed];
+      for (const tile of consumedTiles) remaining.splice(remaining.findIndex(held => held.id === tile.id && held.red === tile.red), 1);
+      const forbidden = forbiddenCallDiscardIds({ kind: "chi", calledTile: offered, consumedTiles });
+      if (remaining.some(tile => !forbidden.has(tile.id))) combinations.push({ consumedTiles });
     }
   };
   consume(rank - 2, rank - 1);
@@ -160,7 +179,7 @@ export function enumerateResponseCandidates(
   const canCall = !(publicState.remainingDraws === 0 && publicState.fields.remainingDraws === "complete");
   const chi = canCall ? chiShapes : [];
   const pon = canCall && ponShape;
-  const daiminkan = canCall && daiminkanShape;
+  const daiminkan = canCall && canDeclareKan(decision) && daiminkanShape;
   const ron = canRonShape(concealed, meldCount, offered);
 
   const candidateCount =

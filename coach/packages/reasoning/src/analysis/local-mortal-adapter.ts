@@ -25,7 +25,7 @@ import { buildHandStructureRequestV2, deriveHandStructureRonContext } from "../f
 import { tileIdTo34 } from "../factors/tile34.js";
 import { isCompleteHandShapeWithSets } from "../factors/win-shape.js";
 import { deriveResponseFuriten } from "../replay/response-furiten.js";
-import { enumerateResponseCandidates, type RonCandidateVerdict } from "./response-candidate-enumeration.js";
+import { canDeclareKan, forbiddenCallDiscardIds, enumerateResponseCandidates, type RonCandidateVerdict } from "./response-candidate-enumeration.js";
 
 function tileIndex(tile: Tile): number {
   if (tile.red) return tile.id.endsWith("m") ? 34 : tile.id.endsWith("p") ? 35 : 36;
@@ -76,7 +76,8 @@ function mjaiAction(action: RiichiAction, actor: number): MortalSourceAction {
 function binding(action: RiichiAction, actor: number): LocalMortalCandidateBinding {
   return {
     actionRef: canonicalActionRef(action),
-    runtimeAction: { index: runtimeIndex(action), variant: null },
+    runtimeAction: { index: runtimeIndex(action), variant: action.kind === "ankan" || action.kind === "kakan"
+      ? `kan:${tileIdTo34(action.kind === "ankan" ? action.tiles[0].id : action.addedTile.id)}` : null },
     mjaiActionJson: JSON.stringify(mjaiAction(action, actor)),
   };
 }
@@ -110,17 +111,7 @@ function selfCandidates(
   if (state.decisionWindow.kind === "post_call_discard") {
     const call = decision.snapshot.publicState.melds.find((meld) => meld.createdEventRef === state.decisionWindow.triggerEventRef);
     if (call?.kind === "chi" || call?.kind === "pon") {
-      forbiddenDiscardIds.add(call.calledTile.id);
-      if (call.kind === "chi") {
-        const calledRank = Number(call.calledTile.id[0]);
-        const consumedRanks = call.consumedTiles.map((tile) => Number(tile.id[0]));
-        const min = Math.min(...consumedRanks);
-        const max = Math.max(...consumedRanks);
-        const swappedRank = calledRank < min ? max + 1 : calledRank > max ? min - 1 : null;
-        if (swappedRank !== null && swappedRank >= 1 && swappedRank <= 9) {
-          forbiddenDiscardIds.add(`${swappedRank}${call.calledTile.id[1]}`);
-        }
-      }
+      for (const id of forbiddenCallDiscardIds(call)) forbiddenDiscardIds.add(id);
     }
   }
   let result = [...unique.values()].filter((tile) => !forbiddenDiscardIds.has(tile.id)).map((tile) => binding({
@@ -133,9 +124,7 @@ function selfCandidates(
   const counts = new Map<string, Tile[]>();
   for (const tile of tiles) counts.set(tile.id, [...(counts.get(tile.id) ?? []), tile]);
   const riichiStatus = decision.snapshot.publicState.riichiStates[actor]!.status;
-  const kansOnBoard = decision.snapshot.publicState.melds.filter(meld =>
-    meld.kind === "ankan" || meld.kind === "kakan" || meld.kind === "daiminkan").length;
-  const canKan = decision.snapshot.publicState.remainingDraws !== 0 && kansOnBoard < 4;
+  const canKan = canDeclareKan(decision);
   for (const group of counts.values()) {
     if (group.length !== 4) continue;
     if (state.decisionWindow.kind !== "self_turn" || !canKan) continue;
@@ -152,7 +141,6 @@ function selfCandidates(
     if (meld.actor !== actor || meld.kind !== "pon") continue;
     const addedTile = tiles.find((tile) => tile.id === meld.calledTile.id);
     if (addedTile !== undefined) {
-      if (result.some((row) => row.runtimeAction.index === 42)) throw new Error("mortal_candidate_mismatch");
       result.push(binding({ kind: "kakan", addedTile, existingMeldRef: meld.meldRef }, actor));
     }
   }
@@ -184,6 +172,8 @@ function selfCandidates(
       !result.some((row) => row.actionRef === canonicalActionRef(actual))) {
     throw new Error("mortal_candidate_mismatch");
   }
+  const kans = result.filter(row => row.runtimeAction.index === 42);
+  if (kans.length === 1) kans[0]!.runtimeAction.variant = null;
   return result;
 }
 
@@ -204,7 +194,7 @@ export async function collectLocalMortalRiichiAnkanCandidates(
         snapshot.publicState.riichiStates[actor]?.status !== "accepted") continue;
     const group = [...state.concealedTiles, draw].filter((tile) => tile.id === draw.id);
     if (group.length !== 4) continue;
-    if (snapshot.publicState.remainingDraws === 0) {
+    if (!canDeclareKan(decision)) {
       result.set(decision.decisionEventRef, []);
       continue;
     }
@@ -256,10 +246,8 @@ export async function collectLocalMortalRiichiAnkanCandidates(
   return result;
 }
 
-/** Cover winning draws outside dama-discard discovery. Closed-hand shape and
- * wait facts are independent of the choice; an open actual win is attested by
- * the canonical terminal event, while open declined wins remain outside the
- * existing supported candidate surface. */
+/** Cover winning draws outside dama-discard discovery using structure and
+ * yaku evidence, independent of whether the player took the win. */
 export async function collectLocalMortalAdditionalTsumoWindows(
   decisions: readonly ReplayedDecision[],
   engine: Pick<HandStructureFactEnginePort, "analyzeHandStructure">,
@@ -271,14 +259,7 @@ export async function collectLocalMortalAdditionalTsumoWindows(
     const actor = snapshot.selfActor;
     if (state.decisionWindow.kind !== "self_turn" || state.currentDraw === null) continue;
     const melds = decision.facts.melds.filter((meld) => meld.actor === actor);
-    if (melds.some((meld) => meld.kind !== "ankan")) {
-      if (decision.actualAction?.kind === "tsumo" &&
-          decision.actualAction.drawEventRef === state.currentDraw.eventRef &&
-          decision.actualAction.winningTile.id === state.currentDraw.tile.id) {
-        result.add(decision.decisionEventRef);
-      }
-      continue;
-    }
+    const open = melds.some(meld => meld.kind !== "ankan");
     const held = [...state.concealedTiles, state.currentDraw.tile];
     const counts = Array<number>(34).fill(0);
     for (const tile of held) counts[tileIdTo34(tile.id)]! += 1;
@@ -288,15 +269,20 @@ export async function collectLocalMortalAdditionalTsumoWindows(
         drawEventRef: state.currentDraw.eventRef }),
       factSetId: `local-mortal-riichi-tsumo:${decision.decisionEventRef}`,
       projectedHand: state.concealedTiles, selfMelds: melds,
-      leftTiles34: null, ronContext: "unknown_future",
-      yakuContext: {
+      // Use ordinary-hand yaku proof here. Draw-specific haitei/rinshan and
+      // menzen tsumo are checked below, never borrowed from future ron context.
+      leftTiles34: null, ronContext: "complete_none",
+      yakuContext: decision.facts.handStructureYakuContext ?? {
         windsStatus: "unknown", roundWindTile34: null, selfWindTile34: null,
         riichiStatus: snapshot.publicState.riichiStates[actor]?.status === "accepted" ? "accepted" : "inactive",
         openTanyaoStatus: "unknown",
       },
     }));
-    if (verdict.overallShanten === 0 &&
-        verdict.waits.some((wait) => wait.tile34 === tileIdTo34(state.currentDraw!.tile.id))) {
+    const wait = verdict.waits.find(wait => wait.tile34 === tileIdTo34(state.currentDraw!.tile.id));
+    const situationalYaku = (snapshot.publicState.remainingDraws === 0 && snapshot.publicState.fields.remainingDraws === "complete") ||
+      state.currentDraw.from === "rinshan";
+    if (open && !situationalYaku && wait?.baseRonEligibility === "unknown_missing_situational_yaku_context") throw new Error("mortal_candidate_mismatch");
+    if (verdict.overallShanten === 0 && wait !== undefined && (!open || situationalYaku || wait.baseRonEligibility === "eligible")) {
       result.add(decision.decisionEventRef);
     }
   }
@@ -582,8 +568,21 @@ export function localMortalResponseToReportEntry(input: {
   if (preferredRow === undefined || preferredRow.qValue !== maxQ) {
     throw new Error("mortal_candidate_mismatch");
   }
+  const kanRows = input.response.candidates.filter(row => row.runtimeAction.index === 42);
+  const multipleKans = kanRows.length > 1;
+  if (input.response.candidates.some(row =>
+    (multipleKans && row.runtimeAction.index === 42) !== (row.kanSelectionQValue !== undefined)) ||
+    (multipleKans && (kanRows.some(row => row.qValue !== kanRows[0]!.qValue) ||
+      (preferredRow.runtimeAction.index === 42 && preferredRow.kanSelectionQValue !== Math.max(...kanRows.map(row => row.kanSelectionQValue!)))))) {
+    throw new Error("mortal_candidate_mismatch");
+  }
   const candidateByKey = new Map(input.request.candidates.map((row) => [JSON.stringify(row.runtimeAction), row]));
-  const probs = stableSoftmax(input.response.candidates.map((row) => row.qValue));
+  // Preserve the native two-stage greedy ordering without pretending a kan
+  // selection Q is comparable to a main-action Q. Scores are derived locally;
+  // reported qValue remains the raw main-action value.
+  const bestKanQ = multipleKans ? Math.max(...kanRows.map(row => row.kanSelectionQValue!)) : 0;
+  const probs = stableSoftmax(input.response.candidates.map(row => row.qValue +
+    (row.kanSelectionQValue === undefined ? 0 : row.kanSelectionQValue - bestKanQ)));
   const details: MortalReportCandidate[] = input.response.candidates.map((row, index) => {
     const candidate = candidateByKey.get(JSON.stringify(row.runtimeAction));
     if (candidate === undefined) throw new Error("mortal_candidate_mismatch");

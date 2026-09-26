@@ -27,6 +27,8 @@ import {
   collectRiichiDeclarationTenpaiDiscards,
   createMortalCoverageRegistry,
   collectResponseSingleCandidateProofs,
+  collectSingleCandidateProofs,
+  deriveResponseFuriten,
   entryMatchesDecisionIdentity,
   enumerateResponseCandidates,
   JsonlFactEngineClient,
@@ -49,6 +51,193 @@ const identity: ManagedMortalRuntimeIdentity = {
   checkpointModelTag: "mortal-hpc@582500", checkpointFileSha256: "738e0d6e3c0ce9671629554ad39abd147d2ffbac676e80b194c83f2acc0fea20",
   protocolVersion: LOCAL_MORTAL_PROTOCOL_VERSION, adapterVersion: LOCAL_MORTAL_ADAPTER_VERSION,
 };
+
+function matrixBuilder(text: string, dealer = 0) {
+  const hand = [...text.matchAll(/([1-9]+)([mpsz])/g)].flatMap(match =>
+    [...match[1]!].map(rank => canonicalTile(`${rank}${match[2]}` as Tile["id"])));
+  const events = [...canonicalStartEvents(hand, canonicalTile("9s"))];
+  (events[1] as Extract<CanonicalGameEvent, { type: "round_started" }>).dealer = dealer;
+  const add = (event: Record<string, unknown>) => {
+    const i = events.length;
+    events.push({ ...event, eventId: `game:fixture/0/${i}/0`, sourceRecordRef: `record:${i}` } as CanonicalGameEvent);
+    return events.at(-1)!.eventId;
+  };
+  const draw = (actor: number, id: Tile["id"], from = "live_wall") => add({ type: "tile_drawn", actor,
+    tile: actor === 0 ? { visibility: "visible", tile: canonicalTile(id) } : { visibility: "hidden" }, from });
+  const discard = (actor: number, id: Tile["id"], mode = "tsumogiri") => add({ type: "tile_discarded", actor,
+    tile: canonicalTile(id), discardMode: mode, riichiDeclarationEventRef: null });
+  const pon = (actor: number, id: Tile["id"]) => {
+    draw(actor, id); const ref = discard(actor, id);
+    add({ type: "pon_called", actor: 0, targetActor: actor, calledTile: canonicalTile(id),
+      consumedTiles: [canonicalTile(id), canonicalTile(id)], calledDiscardEventRef: ref });
+  };
+  return { events, add, draw, discard, pon, stream: () => canonicalStream(events) };
+}
+
+describe("R12 candidate boundary matrix", () => {
+  it.each([false, true])("requires a legal discard after chi (residual=%s)", legal => {
+    const b = matrixBuilder(legal ? "556677z1923m789p" : "556677z1123m789p", 3);
+    for (const [actor, id, drop] of [[3,"5z","7p"], [1,"6z","8p"], [1,"7z","9p"]] as const) {
+      b.pon(actor,id); b.discard(0,drop,"tedashi");
+    }
+    for (const [actor,id] of [[1,"8s"],[2,"7s"]] as const) { b.draw(actor,id); b.discard(actor,id); }
+    b.draw(3,"4m"); const target = b.discard(3,"4m");
+    const d = replayCanonicalResponseWindows(b.stream()).find(row => row.decisionEventRef === target)!;
+    expect(enumerateResponseCandidates(d)?.chiCombinations.map(row => row.consumedTiles.map(tile => tile.id)))
+      .toEqual(legal ? [["2m","3m"]] : []);
+  });
+  it.each([3,4])("caps response kans at four (board=%s)", count => {
+    const b = matrixBuilder("555z123m123p123s1z",1); b.draw(1,"1z");
+    for (const id of (["2z","3z","4z","6z"] as const).slice(0,count)) {
+      const ref=b.add({ type:"ankan_declared", actor:1, tiles:Array(4).fill(canonicalTile(id)) });
+      b.add({type:"dora_revealed",indicator:canonicalTile("9p"),kanEventRef:ref});
+      b.draw(1,"5z","rinshan");
+    }
+    const target = b.discard(1,"5z");
+    const d = replayCanonicalResponseWindows(b.stream()).find(row => row.decisionEventRef === target)!;
+    expect(enumerateResponseCandidates(d)).toMatchObject({pon:true,daiminkan:count===3});
+  });
+  it.each(["3s","4s"] as const)("discovers unchosen open tsumo (%s)", async tile => {
+    const b = matrixBuilder("55z123m123p12s11z9s",3); b.pon(3,"5z"); b.discard(0,"9s","tedashi");
+    for (const [actor,id] of [[1,"2z"],[2,"3z"],[3,"4z"]] as const) { b.draw(actor,id); b.discard(actor,id); }
+    const target=b.draw(0,tile); b.discard(0,tile);
+    const stream=b.stream(), d=replayCanonicalStream(stream).find(row=>row.decisionEventRef===target)!;
+    const engine=new JsonlFactEngineClient(new ManagedFactEngineTransport(fileURLToPath(new URL("../../../resources/",import.meta.url))));
+    try {
+      const wins=await collectLocalMortalAdditionalTsumoWindows([d],engine);
+      expect(wins.has(target)).toBe(tile==="3s");
+      const request=projectLocalMortalRequest({stream,decision:d,surface:"self",identity,includeTsumo:wins.has(target)});
+      expect(request.candidates.map(row=>row.runtimeAction.index).sort((a,b)=>a-b))
+        .toEqual([0,1,2,9,10,11,18,19,tile==="3s"?20:21,27,...(tile==="3s"?[43]:[])]);
+      if (tile==="3s") {
+        const response=LocalMortalInferenceSuccessSchema.parse({protocolVersion:request.protocolVersion,requestId:request.requestId,
+          decision:request.decision,identity,status:"ok",candidates:request.candidates.map(row=>({runtimeAction:row.runtimeAction,
+            qValue:row.runtimeAction.index===43?10:0})),preferredRuntimeAction:{index:43,variant:null}});
+        const entry=localMortalResponseToReportEntry({request,response,decision:d});
+        const review=await runMortalFullGameReview({stream,decisions:[d],responseDecisions:[],engine,
+          coverageRegistry:createMortalCoverageRegistry(["dama_with_tsumo_candidate"]),
+          report:{reportId:"R12-open-win",adapterVersion:identity.adapterVersion,engine:"Mortal",version:"Mortal V4",
+            modelTag:identity.checkpointModelTag,playerId:0,gameFingerprint:computeCanonicalGameFingerprint(stream),
+            kyokus:[{roundOrdinal:0,roundWind:"E",dealer:3,kyoku:0,honba:0,entries:[entry]}]}});
+        expect(review.status).toBe("coverage_ready");
+        if(review.status==="coverage_ready") {
+          expect(review.decisions[0]?.outcome).toBe("analysis_ready");
+          expect(review.retainedAnalyses[0]?.modelEvaluation.candidates.map(row=>row.actionRef).sort())
+            .toEqual(request.candidates.map(row=>row.actionRef).sort());
+        }
+      }
+    } finally { await engine.close(); }
+  });
+  it("does not treat an open completed hand without yaku as a tsumo candidate", async () => {
+    const b=matrixBuilder("44m123p123s12s55p9s",3); b.pon(3,"4m"); b.discard(0,"9s","tedashi");
+    for (const [actor,id] of [[1,"2z"],[2,"3z"],[3,"4z"]] as const) { b.draw(actor,id); b.discard(actor,id); }
+    const target=b.draw(0,"3s"); b.discard(0,"3s");
+    const d=structuredClone(replayCanonicalStream(b.stream()).find(row=>row.decisionEventRef===target)!);
+    const engine=new JsonlFactEngineClient(new ManagedFactEngineTransport(fileURLToPath(new URL("../../../resources/",import.meta.url))));
+    try {
+      expect((await collectLocalMortalAdditionalTsumoWindows([d],engine)).has(target)).toBe(false);
+      d.snapshot.publicState.remainingDraws=0;
+      expect((await collectLocalMortalAdditionalTsumoWindows([d],engine)).has(target)).toBe(true);
+      d.snapshot.publicState.remainingDraws=64;
+      d.snapshot.privateState.currentDraw!.from="rinshan";
+      expect((await collectLocalMortalAdditionalTsumoWindows([d],engine)).has(target)).toBe(true);
+    } finally { await engine.close(); }
+  });
+  it.each(["discard","ankan"] as const)("gives each of two legal kans its own stable runtime identity (actual=%s)", actual => {
+    const b=matrixBuilder("11112222m123p45s"); const target=b.draw(0,"6s"); b.discard(0,"6s");
+    if (actual === "ankan") b.events[b.events.length-1] = { type:"ankan_declared",actor:0,
+      tiles:Array(4).fill(canonicalTile("2m")),eventId:b.events.at(-1)!.eventId,sourceRecordRef:"actual-kan" } as CanonicalGameEvent;
+    const stream=b.stream(),d=replayCanonicalStream(stream).find(row=>row.decisionEventRef===target)!;
+    const req=projectLocalMortalRequest({stream,decision:d,surface:"self",identity});
+    expect(req.candidates.filter(row=>row.runtimeAction.index===42).map(row=>row.runtimeAction))
+      .toEqual([{index:42,variant:"kan:0"},{index:42,variant:"kan:1"}]);
+    expect(new Set(req.candidates.map(row=>JSON.stringify(row.runtimeAction))).size).toBe(req.candidates.length);
+    expect(req.candidates.filter(row=>row.actionRef===req.actualActionRef)).toHaveLength(1);
+    const response=LocalMortalInferenceSuccessSchema.parse({protocolVersion:req.protocolVersion,requestId:req.requestId,
+      decision:req.decision,identity,status:"ok",candidates:req.candidates.map(row=>({runtimeAction:row.runtimeAction,
+        qValue:row.runtimeAction.index===42?10:0,...(row.runtimeAction.index===42?{kanSelectionQValue:row.runtimeAction.variant==="kan:1"?5:1}:{})})),
+      preferredRuntimeAction:{index:42,variant:"kan:1"}});
+    const entry=localMortalResponseToReportEntry({request:req,response,decision:d});
+    expect(entry.expected).toMatchObject({type:"ankan",consumed:["2m","2m","2m","2m"]});
+    expect(entry.details.reduce((sum,row)=>sum+row.probability,0)).toBeCloseTo(1);
+    expect(entry.details.find(row=>row.action.type==="ankan" && Array.isArray(row.action.consumed) && row.action.consumed[0]==="2m")!.probability)
+      .toBe(Math.max(...entry.details.map(row=>row.probability)));
+    for (const bad of [
+      {...response,preferredRuntimeAction:{index:42,variant:"kan:0"}},
+      {...response,candidates:response.candidates.map(row=>({runtimeAction:row.runtimeAction,qValue:row.qValue}))},
+    ]) expect(()=>localMortalResponseToReportEntry({request:req,response:bad,decision:d})).toThrow("mortal_candidate_mismatch");
+  });
+  it.each(["sea","four-kans"] as const)("proves forced riichi tsumogiri when kan is forbidden (%s)", async reason => {
+    const hand=["1m","1m","1m","2m","2m","2m","3m","3m","3m","4p","5p","6p","7z"].map(id=>canonicalTile(id as Tile["id"]));
+    const stream=acceptedRiichiKanStream(hand, canonicalTile("1m"),"discard");
+    const d=structuredClone(replayCanonicalStream(stream).at(-1)!);
+    if (reason==="sea") d.snapshot.publicState.remainingDraws=0;
+    else for (const id of ["2z","3z","4z","6z"] as const) d.snapshot.publicState.melds.push({kind:"ankan",actor:1,
+      meldRef:id,createdEventRef:id,latestEventRef:id,tiles:Array(4).fill(canonicalTile(id))} as typeof d.snapshot.publicState.melds[number]);
+    const engine=new JsonlFactEngineClient(new ManagedFactEngineTransport(fileURLToPath(new URL("../../../resources/",import.meta.url))));
+    try {
+      expect((await collectSingleCandidateProofs([d],engine)).get(0)).toEqual({shape:"riichi_accepted_forced_tsumogiri",candidateCount:1});
+      expect(()=>projectLocalMortalRequest({stream,decision:d,surface:"self",identity})).toThrow("mortal_source_row_not_expected");
+      const review=await runMortalFullGameReview({stream,decisions:[d],responseDecisions:[],engine,
+        report:{reportId:"R12-forced-discard",adapterVersion:identity.adapterVersion,engine:"Mortal",version:"Mortal V4",
+          modelTag:identity.checkpointModelTag,playerId:0,gameFingerprint:computeCanonicalGameFingerprint(stream),kyokus:[]}});
+      expect(review.status).toBe("coverage_ready");
+      if(review.status==="coverage_ready") expect(review.decisions[0]).toMatchObject({outcome:"source_row_not_expected",
+        singleCandidateProof:{shape:"riichi_accepted_forced_tsumogiri",candidateCount:1}});
+    }
+    finally { await engine.close(); }
+  });
+  it("does not turn unknown wall evidence into a forced-discard exemption", async () => {
+    const hand=["1m","1m","1m","2m","2m","2m","3m","3m","3m","4p","5p","6p","7z"].map(id=>canonicalTile(id as Tile["id"]));
+    const stream=acceptedRiichiKanStream(hand,canonicalTile("1m"),"discard");
+    const d=structuredClone(replayCanonicalStream(stream).at(-1)!);
+    d.snapshot.publicState.remainingDraws=0;
+    d.snapshot.publicState.fields.remainingDraws="unknown";
+    const engine=new JsonlFactEngineClient(new ManagedFactEngineTransport(fileURLToPath(new URL("../../../resources/",import.meta.url))));
+    try { expect((await collectSingleCandidateProofs([d],engine)).get(0)).toBeUndefined(); }
+    finally { await engine.close(); }
+  });
+  it("keeps both ankan and kakan without actual-action backfill", async () => {
+    const b=matrixBuilder("111155z123p456s7z",3); b.pon(3,"5z"); b.discard(0,"6s","tedashi");
+    for (const [actor,id] of [[1,"2z"],[2,"3z"],[3,"4z"]] as const) { b.draw(actor,id); b.discard(actor,id); }
+    const target=b.draw(0,"5z"); b.discard(0,"5z");
+    const stream=b.stream(),d=replayCanonicalStream(stream).find(row=>row.decisionEventRef===target)!;
+    const req=projectLocalMortalRequest({stream,decision:d,surface:"self",identity});
+    expect(req.candidates.filter(row=>row.runtimeAction.index===42).map(row=>[JSON.parse(row.mjaiActionJson).type,row.runtimeAction.variant]))
+      .toEqual([["ankan","kan:27"],["kakan","kan:31"]]);
+    const response=LocalMortalInferenceSuccessSchema.parse({protocolVersion:req.protocolVersion,requestId:req.requestId,
+      decision:req.decision,identity,status:"ok",candidates:req.candidates.map(row=>({runtimeAction:row.runtimeAction,
+        qValue:row.runtimeAction.index===42?10:0,...(row.runtimeAction.index===42?{kanSelectionQValue:row.runtimeAction.variant==="kan:31"?5:1}:{})})),
+      preferredRuntimeAction:{index:42,variant:"kan:31"}});
+    const entry=localMortalResponseToReportEntry({request:req,response,decision:d});
+    const engine=new JsonlFactEngineClient(new ManagedFactEngineTransport(fileURLToPath(new URL("../../../resources/",import.meta.url))));
+    try {
+      const review=await runMortalFullGameReview({stream,decisions:[d],responseDecisions:[],engine,
+        coverageRegistry:createMortalCoverageRegistry(["self_turn_ankan","self_turn_kakan"]),
+        report:{reportId:"R12-multi-kan",adapterVersion:identity.adapterVersion,engine:"Mortal",version:"Mortal V4",
+          modelTag:identity.checkpointModelTag,playerId:0,gameFingerprint:computeCanonicalGameFingerprint(stream),
+          kyokus:[{roundOrdinal:0,roundWind:"E",dealer:3,kyoku:0,honba:0,entries:[entry]}]}});
+      expect(review.status).toBe("coverage_ready");
+      if(review.status==="coverage_ready") {
+        expect(review.decisions[0]?.outcome).toBe("analysis_ready");
+        expect(review.retainedAnalyses[0]?.modelEvaluation.candidates.map(row=>row.actionRef).sort())
+          .toEqual(req.candidates.map(row=>row.actionRef).sort());
+      }
+    } finally { await engine.close(); }
+  });
+  it.each([false,true])("clears temporary furiten after pon and discard (earlier pass=%s)", async passed => {
+    const b=matrixBuilder("55z11223m123p123s",1);
+    b.draw(1,passed?"3m":"8p"); b.discard(1,passed?"3m":"8p");
+    b.pon(2,"5z"); b.discard(0,"1m","tedashi"); b.draw(1,"2m"); const target=b.discard(1,"2m");
+    b.draw(2,"8s"); b.discard(2,"8s"); const stream=b.stream();
+    const d=replayCanonicalResponseWindows(stream).find(row=>row.decisionEventRef===target)!;
+    const engine=new JsonlFactEngineClient(new ManagedFactEngineTransport(fileURLToPath(new URL("../../../resources/",import.meta.url))));
+    try {
+      expect((await deriveResponseFuriten(stream,target,engine)).temporary.status).toBe("clear");
+      expect((await collectLocalMortalRonCandidateWindows(stream,[d],engine)).get(target)?.status).toBe("eligible");
+    } finally { await engine.close(); }
+  });
+});
 
 function acceptedRiichiKanStream(hand: readonly Tile[], draw: Tile, actual: "discard" | "ankan") {
   const events: CanonicalGameEvent[] = [...canonicalStartEvents(hand)];
