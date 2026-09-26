@@ -48,6 +48,12 @@ checkpoint、protocol 与 adapter identity，在禁网状态用真实 `mortal-58
 运行脱敏雀魂 fixture → canonical/replay（self + response wave-1）→ candidate conservation →
 strict `ModelEvaluation` → whole-game review → `StructuredAnalysisPackage` validator。
 
+这里的禁网范围是测试环境及其子进程，不要求宿主机或 agent 断网。
+Windows x64 的现成执行路线见 [Windows Sandbox 禁网 spike](WINDOWS_SANDBOX_SPIKE.md)：
+只读映射已准备资产、在沙箱内部运行原命令，保存禁网配置与运行前后网络状态。
+配置生成成功、系统功能启用成功和真实禁网 spike PASS 是三个不同状态；未完成重启或
+沙箱运行时不得把普通环境 receipt 记为禁网验收。
+
 普通 `npx vitest run` 只跑 protocol fixtures/fake exact child，禁止联网或加载真实 checkpoint；
 它覆盖 crash/timeout/protocol/candidate mismatch 与安全边界，但不能冒充 production spike。
 **当前状态（2026-09-26，COAC-141）**：wave-1 覆盖计数只接受成功推理、候选双射、
