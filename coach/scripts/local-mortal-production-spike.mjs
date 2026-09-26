@@ -231,7 +231,7 @@ try {
         });
       } catch (error) {
         if (error instanceof Error && error.message === "mortal_source_row_not_expected") continue;
-        throw error;
+        fail(`local candidate projection failed: actor=${actor}; decision=${row.decision.decisionEventRef}; window=${row.decision.snapshot.privateState.decisionWindow.kind}; actual=${row.decision.actualAction?.kind}; code=${error instanceof Error ? error.message : "unknown"}`);
       }
       const response = await runtime.infer(request);
       if (response.status === "error") {
