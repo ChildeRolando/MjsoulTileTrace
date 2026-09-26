@@ -29,7 +29,7 @@ import {
   buildStructuredAnalysisPackage,
   collectLocalMortalRiichiCandidateWindows,
   collectLocalMortalRiichiAnkanCandidates,
-  collectLocalMortalRiichiTsumoWindows,
+  collectLocalMortalAdditionalTsumoWindows,
   collectLocalMortalRonCandidateWindows,
   collectDamaTsumoWindows,
   collectRiichiDeclarationTenpaiDiscards,
@@ -194,7 +194,7 @@ try {
       riichiWindows = await collectLocalMortalRiichiCandidateWindows(decisions, candidateFactEngine);
       riichiAnkanCandidates = await collectLocalMortalRiichiAnkanCandidates(decisions, candidateFactEngine);
       tsumoWindows = new Set((await collectDamaTsumoWindows(decisions, candidateFactEngine)).windows.map((row) => row.decisionEventRef));
-      for (const window of await collectLocalMortalRiichiTsumoWindows(decisions, candidateFactEngine)) tsumoWindows.add(window);
+      for (const window of await collectLocalMortalAdditionalTsumoWindows(decisions, candidateFactEngine)) tsumoWindows.add(window);
       ronWindows = await collectLocalMortalRonCandidateWindows(stream, responseDecisions, candidateFactEngine);
       for (const decision of decisions) {
         if (decision.snapshot.privateState.decisionWindow.kind !== "post_riichi_discard") continue;

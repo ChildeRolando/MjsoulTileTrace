@@ -239,9 +239,11 @@ export async function collectLocalMortalRiichiAnkanCandidates(
   return result;
 }
 
-/** Dama discovery intentionally skips riichi; this covers accepted riichi
- * wins from the same frozen draw without relying on the actual action. */
-export async function collectLocalMortalRiichiTsumoWindows(
+/** Cover winning draws outside dama-discard discovery. Closed-hand shape and
+ * wait facts are independent of the choice; an open actual win is attested by
+ * the canonical terminal event, while open declined wins remain outside the
+ * existing supported candidate surface. */
+export async function collectLocalMortalAdditionalTsumoWindows(
   decisions: readonly ReplayedDecision[],
   engine: Pick<HandStructureFactEnginePort, "analyzeHandStructure">,
 ): Promise<ReadonlySet<string>> {
@@ -250,9 +252,16 @@ export async function collectLocalMortalRiichiTsumoWindows(
     const snapshot = decision.snapshot;
     const state = snapshot.privateState;
     const actor = snapshot.selfActor;
-    if (state.decisionWindow.kind !== "self_turn" || state.currentDraw === null ||
-        snapshot.publicState.riichiStates[actor]?.status !== "accepted") continue;
+    if (state.decisionWindow.kind !== "self_turn" || state.currentDraw === null) continue;
     const melds = decision.facts.melds.filter((meld) => meld.actor === actor);
+    if (melds.some((meld) => meld.kind !== "ankan")) {
+      if (decision.actualAction?.kind === "tsumo" &&
+          decision.actualAction.drawEventRef === state.currentDraw.eventRef &&
+          decision.actualAction.winningTile.id === state.currentDraw.tile.id) {
+        result.add(decision.decisionEventRef);
+      }
+      continue;
+    }
     const held = [...state.concealedTiles, state.currentDraw.tile];
     const counts = Array<number>(34).fill(0);
     for (const tile of held) counts[tileIdTo34(tile.id)]! += 1;
@@ -265,7 +274,8 @@ export async function collectLocalMortalRiichiTsumoWindows(
       leftTiles34: null, ronContext: "unknown_future",
       yakuContext: {
         windsStatus: "unknown", roundWindTile34: null, selfWindTile34: null,
-        riichiStatus: "accepted", openTanyaoStatus: "unknown",
+        riichiStatus: snapshot.publicState.riichiStates[actor]?.status === "accepted" ? "accepted" : "inactive",
+        openTanyaoStatus: "unknown",
       },
     }));
     if (verdict.overallShanten === 0 &&

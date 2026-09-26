@@ -22,7 +22,7 @@ import {
   buildMortalModelEvaluation,
   collectLocalMortalRonCandidateWindows,
   collectLocalMortalRiichiAnkanCandidates,
-  collectLocalMortalRiichiTsumoWindows,
+  collectLocalMortalAdditionalTsumoWindows,
   collectRiichiDeclarationTenpaiDiscards,
   createMortalCoverageRegistry,
   collectResponseSingleCandidateProofs,
@@ -206,11 +206,26 @@ describe("local Mortal canonical projection and conservation", () => {
     const decision = replayCanonicalStream(stream).at(-1)!;
     const engine = new JsonlFactEngineClient(new ManagedFactEngineTransport(fileURLToPath(new URL("../../../resources/", import.meta.url))));
     try {
-      const tsumo = await collectLocalMortalRiichiTsumoWindows([decision], engine);
+      const tsumo = await collectLocalMortalAdditionalTsumoWindows([decision], engine);
       expect(tsumo.has(decision.decisionEventRef)).toBe(true);
       const request = projectLocalMortalRequest({ stream, decision, surface: "self", identity,
         includeTsumo: tsumo.has(decision.decisionEventRef) });
       expect(request.candidates.map((row) => row.runtimeAction.index).sort((a, b) => a - b)).toEqual([27, 43]);
+    } finally { await engine.close(); }
+  });
+
+  it("retains an unriichi terminal tsumo in the real wave-1 fixture", async () => {
+    const stream = await realFixture(0);
+    const decision = replayCanonicalStream(stream).find((row) => row.actualAction?.kind === "tsumo");
+    expect(decision).toBeDefined();
+    const engine = new JsonlFactEngineClient(new ManagedFactEngineTransport(fileURLToPath(new URL("../../../resources/", import.meta.url))));
+    try {
+      const windows = await collectLocalMortalAdditionalTsumoWindows([decision!], engine);
+      expect(windows.has(decision!.decisionEventRef)).toBe(true);
+      const request = projectLocalMortalRequest({ stream, decision: decision!, surface: "self", identity,
+        includeTsumo: windows.has(decision!.decisionEventRef) });
+      expect(request.candidates.some((row) => row.runtimeAction.index === 43)).toBe(true);
+      expect(request.candidates.filter((row) => row.actionRef === request.actualActionRef)).toHaveLength(1);
     } finally { await engine.close(); }
   });
 
