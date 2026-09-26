@@ -37,7 +37,7 @@ M7-B 的冻结规格见
 - `coach/docs/plans/`：逐文件实施计划，是执行时的历史快照。
 - `coach/docs/handoffs/`：每次接力的事实记录、已知限制和验证结果。
 - `coach/README.md`：推理核心的详细能力清单与命令行原型说明；内容较长，部分里程碑描述可能落后于本目录。
-- [Windows Sandbox 禁网 spike](WINDOWS_SANDBOX_SPIKE.md)：已有 Windows 模型资产的隔离验收配置、执行与证据回读。
+- [Windows Sandbox 禁网 spike](WINDOWS_SANDBOX_SPIKE.md)：已有 Windows 模型资产的可选离线可用性验证配置、执行与证据回读。
 - `COMPLETION-AUDIT.md`：根目录静态课程的完成审计。
 
 ## 更新责任

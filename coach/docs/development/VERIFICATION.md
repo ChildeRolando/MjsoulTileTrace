@@ -43,16 +43,20 @@ npm run test:local-mortal-production-spike
 ```
 
 准备命令固定上游 revision，把 runtime/checkpoint 放入 gitignored app-managed artifact
-目录并复验 SHA-256/license metadata；只有该步骤可联网。测试命令必须再次校验 runtime、
-checkpoint、protocol 与 adapter identity，在禁网状态用真实 `mortal-582500` CPU inference
+目录并复验 SHA-256/license metadata；资产下载仅在显式准备步骤执行。测试命令必须再次校验 runtime、
+checkpoint、protocol 与 adapter identity，用已准备的本地真实 `mortal-582500` CPU inference
 运行脱敏雀魂 fixture → canonical/replay（self + response wave-1）→ candidate conservation →
 strict `ModelEvaluation` → whole-game review → `StructuredAnalysisPackage` validator。
 
-这里的禁网范围是测试环境及其子进程，不要求宿主机或 agent 断网。
-Windows x64 的现成执行路线见 [Windows Sandbox 禁网 spike](WINDOWS_SANDBOX_SPIKE.md)：
-只读映射已准备资产、在沙箱内部运行原命令，保存禁网配置与运行前后网络状态。
-配置生成成功、系统功能启用成功和真实禁网 spike PASS 是三个不同状态；未完成重启或
-沙箱运行时不得把普通环境 receipt 记为禁网验收。
+测试阶段不得下载缺失资产或调用远程推理替代；缺资产明确失败，不能 skip 后报 PASS。
+按冻结规格 §8 的 2026-09-26 用户批准修订，宿主网络可以保持开启，系统级禁网不再是
+真实本地模型正确性验收的前置门槛。真实推理、候选守恒、下游 package 与最终提交绑定
+等要求不变；历史 PASS 不替代当前提交的运行证据。
+
+禁网演练独立记录离线可用性，不阻塞上述正确性验收。可选路线见
+[Windows Sandbox 禁网 spike](WINDOWS_SANDBOX_SPIKE.md)：只读映射已准备资产、
+保存禁网配置与运行前后网络状态。未运行或环境失败时标为“离线可用性未验证”；
+配置生成、功能启用或普通环境 receipt 均不能记为禁网 PASS，也不能改写历史评审结论。
 
 立直后暗杠的本地证明须与固定 runtime 的 Tenhou 非 strict 规则一致：比较杠前后可和牌种，
 禁止杠掉等待牌；不要求所有分解共有刻子，也不要求等待形状或役保持不变。

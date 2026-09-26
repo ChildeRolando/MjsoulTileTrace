@@ -242,11 +242,24 @@ npm run prepare:local-mortal-spike
 npm run test:local-mortal-production-spike
 ```
 
-准备命令是唯一允许联网的步骤：固定 repository revision 下载到 gitignored app-managed
+资产下载只允许在显式准备步骤执行：固定 repository revision 下载到 gitignored app-managed
 目录，重算 checkpoint/runtime artifacts SHA-256，核对 geometry/license metadata，并生成
-本地 receipt。测试命令必须先复验 receipt 与每个 artifact hash，然后在网络禁用条件下
-运行；缺资产时明确失败/提示先准备，不得 skip 后报 PASS。checkpoint/runtime 不进 Git、npm
-package 或普通构建产物。
+本地 receipt。测试命令必须先复验 receipt 与每个 artifact hash，使用已准备的本地 runtime
+与真实 checkpoint 完成 CPU inference；不得在测试阶段下载缺失资产或使用远程推理替代。
+缺资产时明确失败/提示先准备，不得 skip 后报 PASS。宿主网络可以保持开启，系统级禁网
+不是模型正确性验收的前置条件。checkpoint/runtime 不进 Git、npm package 或普通构建产物。
+
+### 2026-09-26 验收条件修订（用户批准）
+
+真实本地模型正确性与离线可用性分别记录。系统级禁网可验证整条执行链在无网络时仍能
+完成，但不增加候选守恒、真实推理或 package 正确性的证明；为此配置隔离环境不应阻塞
+本次产品修复验收。撤销原“真实 spike 必须在网络禁用条件下运行”的硬门槛。
+真实 checkpoint、资产/版本/hash 校验、真实 fixture、候选双射、下游完整链、失败语义与
+最终提交绑定要求保持有效；普通环境 receipt 仍须按实际运行的最终提交重新取得。
+
+禁网演练作为独立的离线可用性验证，可复用 Windows Sandbox 配置。其未执行或环境失败
+单独记为“离线可用性未验证”，不阻塞上述模型正确性验收；普通环境成功不得改称禁网
+PASS，也不得因此声称离线可用性已验证。本次修订不改写历史 receipt 或独立评审结论。
 
 ### 真实验收链
 
