@@ -14,7 +14,7 @@
 - Windows Sandbox 已启用；若启用时返回 `RestartNeeded=true`，先完成系统重启。
 - 已按 [VERIFICATION.md](VERIFICATION.md) 准备受管 Windows x64 资产及 preparation receipt。
 - 本机可用 Node/npm、Git、Python base installation；现有 venv 及 CPU PyTorch 已准备。
-- 目标提交的 tracked tree 干净，已运行 `npm run build`。
+- 目标提交已提交。沙箱快照的 tracked tree 必须干净；来源工作区的其他未提交工作不进入快照。
 - 宿主可提供约 16 GiB 沙箱内存及复制依赖、venv、checkpoint 所需临时磁盘空间。
 
 准备操作只复制本地文件；不执行准备资产下载命令，不安装模型、不下载权重。
@@ -24,10 +24,9 @@ runtime/model/engine/native/checkpoint 的既有 SHA 验证仍由原 production 
 
 ## 操作
 
-在干净提交的 `coach/` 运行：
+在目标提交的 `coach/` 运行：
 
 ```powershell
-npm run build
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/prepare-windows-sandbox-spike.ps1
 ```
 
@@ -37,7 +36,7 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/prepare-windows-
 不接受覆盖历史运行目录。代码快照为独立 Git clone，不依赖原 worktree 的外部 `.git` 指针。
 
 启用功能并重启完成后，打开生成的 `.wsb` 文件。其 LogonCommand 自动启动
-`run-windows-sandbox-spike.ps1`，在沙箱内执行原命令：
+`run-windows-sandbox-spike.ps1`，先在禁网沙箱内从已提交源码重新 build（不使用宿主旧 dist），再执行原命令：
 
 ```powershell
 npm run test:local-mortal-production-spike
@@ -59,7 +58,7 @@ npm run test:local-mortal-production-spike
 网络断言或任何执行步骤失败时，runner 写失败 result，不签发禁网 PASS。
 Python smoke、网络断言、真实推理完成与候选双射是不同证据，不能相互替代。
 日志、configuration、模型和本机路径留在非源码输出目录；不提交 checkpoint 或 receipt 原始本机路径。
-配置或源码提交发生变化后，重新 build、准备新快照和运行，不能沿用旧 HEAD receipt。
+配置或源码提交发生变化后，准备新快照并在沙箱内重新 build 和运行，不能沿用旧 HEAD receipt。
 
 ## 本机配置状态（2026-09-26）
 

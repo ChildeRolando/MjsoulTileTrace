@@ -40,6 +40,8 @@ try {
   $expected = (Get-Content -LiteralPath (Join-Path $evidence 'host-preparation.json') -Raw | ConvertFrom-Json).commit
   if ($head -ne $expected) { throw 'Snapshot HEAD mismatch' }
   $env:GITHUB_SHA = $head
+  & npm.cmd run build *> (Join-Path $evidence 'build.log')
+  if ($LASTEXITCODE -ne 0) { throw 'Offline snapshot build failed' }
   & npm.cmd run test:local-mortal-production-spike *> (Join-Path $evidence 'spike.log')
   $exitCode = $LASTEXITCODE
   AssertNoNetwork 'after'

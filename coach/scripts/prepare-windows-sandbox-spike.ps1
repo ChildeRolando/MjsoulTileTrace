@@ -6,7 +6,8 @@ $ErrorActionPreference = 'Stop'
 $repo = (Resolve-Path (Join-Path $PSScriptRoot '..\..')).Path
 $head = (& git -C $repo rev-parse HEAD).Trim()
 if ($LASTEXITCODE -ne 0) { throw 'Cannot read repository HEAD' }
-if ((& git -C $repo status --porcelain --untracked-files=no)) { throw 'Commit tracked changes before preparing the sandbox snapshot' }
+$sourceHasTrackedChanges = [bool](& git -C $repo status --porcelain --untracked-files=no)
+if ($sourceHasTrackedChanges) { Write-Warning 'Source contains uncommitted work; only committed HEAD enters the sandbox snapshot' }
 if (Test-Path -LiteralPath $OutputRoot) { throw 'Use a new output directory; historical runs are never overwritten' }
 $nodeRoot = Split-Path (Get-Command node.exe).Source
 $gitRoot = Split-Path (Split-Path (Get-Command git.exe).Source)
@@ -26,11 +27,6 @@ function CopyTree([string]$source, [string]$destination) {
   if ($LASTEXITCODE -ge 8) { throw "Offline file copy failed: $source" }
 }
 CopyTree (Join-Path $repo 'coach\node_modules') (Join-Path $snapshot 'coach\node_modules')
-foreach ($package in @('contracts','mahjong-soul-source','tenhou-source','mortal-source','mortal-runtime','reasoning','desktop')) {
-  $dist = Join-Path $repo "coach\packages\$package\dist"
-  if (!(Test-Path -LiteralPath $dist)) { throw 'Run npm run build before preparing the snapshot' }
-  CopyTree $dist (Join-Path $snapshot "coach\packages\$package\dist")
-}
 Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'run-windows-sandbox-spike.ps1') -Destination (Join-Path $OutputRoot 'run.ps1')
 $evidence = Join-Path $OutputRoot 'evidence'
 New-Item -ItemType Directory -Path $evidence | Out-Null
@@ -64,6 +60,7 @@ $configPath = Join-Path $OutputRoot 'local-mortal-offline.wsb'
 $wsb | Set-Content -LiteralPath $configPath -Encoding UTF8
 @{
   commit = $head; preparedAt = (Get-Date).ToUniversalTime().ToString('o')
+  sourceHasTrackedChanges = $sourceHasTrackedChanges; uncommittedWorkIncluded = $false
   networkPolicy = 'Windows Sandbox Networking=Disable'
   configurationSha256 = (Get-FileHash -LiteralPath $configPath -Algorithm SHA256).Hash.ToLower()
   configuration = $configPath; evidence = $evidence
