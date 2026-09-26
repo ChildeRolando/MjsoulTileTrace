@@ -168,8 +168,14 @@ function selfCandidates(
     result.push(binding({ kind: "tsumo", winningTile: state.currentDraw.tile, drawEventRef: state.currentDraw.eventRef }, actor));
   }
   const terminalKinds = new Set(tiles.filter((tile) => tile.id.endsWith("z") || tile.id.startsWith("1") || tile.id.startsWith("9")).map((tile) => tile.id));
-  if (state.decisionWindow.kind === "self_turn" && decision.snapshot.publicState.rivers[actor]!.length === 0 && terminalKinds.size >= 9 && !result.some((row) => row.runtimeAction.index === 44)) {
-    result.push(binding({ kind: "kyuushu_kyuuhai", drawEventRef: state.currentDraw!.eventRef }, actor));
+  const publicState = decision.snapshot.publicState;
+  if (state.decisionWindow.kind === "self_turn" && publicState.rivers[actor]!.length === 0 &&
+      terminalKinds.size >= 9 && publicState.melds.length === 0) {
+    // Any call or kan, including another player's concealed kan, interrupts
+    // the first cycle. An empty self river alone does not prove eligibility.
+    if (publicState.fields.melds !== "complete" || publicState.fields.rivers !== "complete" ||
+        state.currentDraw === null) throw new Error("mortal_candidate_mismatch");
+    result.push(binding({ kind: "kyuushu_kyuuhai", drawEventRef: state.currentDraw.eventRef }, actor));
   }
   if (["ankan", "kakan", "tsumo", "kyuushu_kyuuhai"].includes(actual.kind) &&
       !result.some((row) => row.actionRef === canonicalActionRef(actual))) {

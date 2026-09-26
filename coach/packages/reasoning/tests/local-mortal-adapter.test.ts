@@ -92,6 +92,48 @@ async function realTenhouFixture(sourceId: string, actor: number) {
 }
 
 describe("local Mortal canonical projection and conservation", () => {
+  it.each([false, true])("ends nine-terminals eligibility after a concealed kan (opponent=%s)", (opponent) => {
+    const hand = ["5z", "5z", "5z", "1m", "9m", "1p", "9p", "1s", "9s", "1z", "2z", "3z", "4z"]
+      .map((id) => canonicalTile(id as Tile["id"]));
+    const events = [...canonicalStartEvents(hand)];
+    const add = (event: Record<string, unknown>) => {
+      const index = events.length;
+      events.push({ ...event, eventId: `game:fixture/0/${index}/0`, sourceRecordRef: `record:${index}` } as CanonicalGameEvent);
+    };
+    if (opponent) {
+      (events[1] as Extract<CanonicalGameEvent, { type: "round_started" }>).dealer = 1;
+      add({ type: "tile_drawn", actor: 1, tile: { visibility: "hidden" }, from: "live_wall" });
+      add({ type: "ankan_declared", actor: 1, tiles: Array(4).fill(canonicalTile("6z")) });
+      add({ type: "dora_revealed", indicator: canonicalTile("9p"), kanEventRef: events[3]!.eventId });
+      add({ type: "tile_drawn", actor: 1, tile: { visibility: "hidden" }, from: "rinshan" });
+      add({ type: "tile_discarded", actor: 1, tile: canonicalTile("7z"), discardMode: "tsumogiri", riichiDeclarationEventRef: null });
+      for (const actor of [2, 3]) {
+        add({ type: "tile_drawn", actor, tile: { visibility: "hidden" }, from: "live_wall" });
+        add({ type: "tile_discarded", actor, tile: canonicalTile("2p"), discardMode: "tsumogiri", riichiDeclarationEventRef: null });
+      }
+    } else {
+      add({ type: "tile_drawn", actor: 0, tile: { visibility: "visible", tile: canonicalTile("5z") }, from: "live_wall" });
+      add({ type: "ankan_declared", actor: 0, tiles: Array(4).fill(canonicalTile("5z")) });
+      add({ type: "dora_revealed", indicator: canonicalTile("9p"), kanEventRef: events[3]!.eventId });
+    }
+    add({ type: "tile_drawn", actor: 0, tile: { visibility: "visible", tile: canonicalTile("2m") }, from: opponent ? "live_wall" : "rinshan" });
+    add({ type: "tile_discarded", actor: 0, tile: canonicalTile("2m"), discardMode: "tsumogiri", riichiDeclarationEventRef: null });
+    const stream = canonicalStream(events);
+    const decision = replayCanonicalStream(stream).at(-1)!;
+    const request = projectLocalMortalRequest({ stream, decision, surface: "self", identity });
+    expect(request.candidates.map((row) => row.runtimeAction.index).sort((a, b) => a - b))
+      .toEqual(opponent ? [0, 1, 8, 9, 17, 18, 26, 27, 28, 29, 30, 31] : [0, 1, 8, 9, 17, 18, 26, 27, 28, 29, 30]);
+    expect(request.candidates.filter((row) => row.actionRef === request.actualActionRef)).toHaveLength(1);
+    if (!opponent) {
+      const beforeKan = replayCanonicalStream(stream)[0]!;
+      const before = projectLocalMortalRequest({ stream, decision: beforeKan, surface: "self", identity });
+      expect(before.candidates.map((row) => row.runtimeAction.index)).toEqual([31, 0, 8, 9, 17, 18, 26, 27, 28, 29, 30, 42, 44]);
+      const unknown = structuredClone(beforeKan);
+      unknown.snapshot.publicState.fields.melds = "unknown";
+      expect(() => projectLocalMortalRequest({ stream, decision: unknown, surface: "self", identity })).toThrow("mortal_candidate_mismatch");
+    }
+  });
+
   it("offers riichi after a concealed kan without treating it as an open hand", async () => {
     const hand = ["5z", "5z", "5z", "1m", "2m", "3m", "1p", "2p", "3p", "1s", "2s", "1z", "1z"]
       .map((id) => canonicalTile(id as Tile["id"]));
