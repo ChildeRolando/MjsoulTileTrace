@@ -23,6 +23,7 @@ import type { ReplayedDecision } from "../replay/stream-replayer.js";
 import type { HandStructureFactEnginePort } from "../fact-engine/port.js";
 import { buildHandStructureRequestV2, deriveHandStructureRonContext } from "../factors/hand-structure-projector.js";
 import { tileIdTo34 } from "../factors/tile34.js";
+import { isCompleteHandShapeWithSets } from "../factors/win-shape.js";
 import { deriveResponseFuriten } from "../replay/response-furiten.js";
 import { enumerateResponseCandidates, type RonCandidateVerdict } from "./response-candidate-enumeration.js";
 
@@ -85,6 +86,7 @@ function selfCandidates(
   includeDeclareRiichi: boolean,
   includeTsumo: boolean,
   riichiDiscardCandidates?: readonly Tile[],
+  riichiAnkanCandidates?: readonly Tile[],
 ): LocalMortalCandidateBinding[] {
   const state = decision.snapshot.privateState;
   const actor = decision.snapshot.selfActor;
@@ -130,10 +132,20 @@ function selfCandidates(
   }, actor));
   const counts = new Map<string, Tile[]>();
   for (const tile of tiles) counts.set(tile.id, [...(counts.get(tile.id) ?? []), tile]);
+  const riichiStatus = decision.snapshot.publicState.riichiStates[actor]!.status;
   for (const group of counts.values()) {
-    if (group.length === 4) result.push(binding({ kind: "ankan", tiles: group as [Tile, Tile, Tile, Tile] }, actor));
+    if (group.length !== 4) continue;
+    if (state.decisionWindow.kind !== "self_turn") continue;
+    if (riichiStatus !== "none") {
+      if (riichiStatus !== "accepted" || state.decisionWindow.kind !== "self_turn" ||
+          draw?.id !== group[0]!.id) continue;
+      if (riichiAnkanCandidates === undefined) throw new Error("mortal_candidate_mismatch");
+      if (!riichiAnkanCandidates.some((tile) => tile.id === group[0]!.id)) continue;
+    }
+    result.push(binding({ kind: "ankan", tiles: group as [Tile, Tile, Tile, Tile] }, actor));
   }
   for (const meld of decision.snapshot.publicState.melds) {
+    if (state.decisionWindow.kind !== "self_turn" || riichiStatus !== "none") break;
     if (meld.actor !== actor || meld.kind !== "pon") continue;
     const addedTile = tiles.find((tile) => tile.id === meld.calledTile.id);
     if (addedTile !== undefined) {
@@ -141,11 +153,11 @@ function selfCandidates(
       result.push(binding({ kind: "kakan", addedTile, existingMeldRef: meld.meldRef }, actor));
     }
   }
-  if (decision.snapshot.publicState.riichiStates[actor]!.status !== "none") {
-    result = draw === undefined ? [] : [binding({ kind: "discard", tile: draw, discardMode: "tsumogiri" }, actor)];
-  }
-  if (actual.kind !== "riichi_discard" && !result.some((row) => row.runtimeAction.index === runtimeIndex(actual))) {
-    result.push(binding(actual, actor));
+  if (riichiStatus !== "none" && state.decisionWindow.kind === "self_turn") {
+    result = draw === undefined ? [] : [
+      binding({ kind: "discard", tile: draw, discardMode: "tsumogiri" }, actor),
+      ...result.filter((row) => row.runtimeAction.index === 42 && riichiStatus === "accepted"),
+    ];
   }
   if (actual.kind === "riichi_discard") {
     result.push(binding(actual, actor));
@@ -158,6 +170,108 @@ function selfCandidates(
   const terminalKinds = new Set(tiles.filter((tile) => tile.id.endsWith("z") || tile.id.startsWith("1") || tile.id.startsWith("9")).map((tile) => tile.id));
   if (state.decisionWindow.kind === "self_turn" && decision.snapshot.publicState.rivers[actor]!.length === 0 && terminalKinds.size >= 9 && !result.some((row) => row.runtimeAction.index === 44)) {
     result.push(binding({ kind: "kyuushu_kyuuhai", drawEventRef: state.currentDraw!.eventRef }, actor));
+  }
+  if (["ankan", "kakan", "tsumo", "kyuushu_kyuuhai"].includes(actual.kind) &&
+      !result.some((row) => row.actionRef === canonicalActionRef(actual))) {
+    throw new Error("mortal_candidate_mismatch");
+  }
+  return result;
+}
+
+/** Prove post-acceptance kan eligibility before constructing a model request.
+ * Missing or inconsistent fact-engine evidence aborts the projection rather
+ * than producing a false single-candidate window. */
+export async function collectLocalMortalRiichiAnkanCandidates(
+  decisions: readonly ReplayedDecision[],
+  engine: Pick<HandStructureFactEnginePort, "analyzeHandStructure">,
+): Promise<ReadonlyMap<string, readonly Tile[]>> {
+  const result = new Map<string, readonly Tile[]>();
+  for (const decision of decisions) {
+    const snapshot = decision.snapshot;
+    const state = snapshot.privateState;
+    const actor = snapshot.selfActor;
+    const draw = state.currentDraw?.tile;
+    if (state.decisionWindow.kind !== "self_turn" || draw === undefined ||
+        snapshot.publicState.riichiStates[actor]?.status !== "accepted") continue;
+    const group = [...state.concealedTiles, draw].filter((tile) => tile.id === draw.id);
+    if (group.length !== 4) continue;
+    if (snapshot.publicState.remainingDraws === 0) {
+      result.set(decision.decisionEventRef, []);
+      continue;
+    }
+    const melds = decision.facts.melds.filter((meld) => meld.actor === actor);
+    const actionRef = canonicalActionRef({ kind: "ankan", tiles: group as [Tile, Tile, Tile, Tile] });
+    const yakuContext = {
+      windsStatus: "unknown" as const, roundWindTile34: null, selfWindTile34: null,
+      riichiStatus: "accepted" as const, openTanyaoStatus: "unknown" as const,
+    };
+    const before = await engine.analyzeHandStructure(buildHandStructureRequestV2({
+      actionRef, factSetId: `local-mortal-riichi-kan-before:${decision.decisionEventRef}`,
+      projectedHand: state.concealedTiles, selfMelds: melds,
+      leftTiles34: null, ronContext: "unknown_future", yakuContext,
+    }));
+    if (before.overallShanten !== 0 || before.decompositions.status !== "calculated") {
+      throw new Error("mortal_candidate_mismatch");
+    }
+    const tile34 = tileIdTo34(draw.id);
+    const tripletInvariant = before.decompositions.invariantClaims.some((claim) =>
+      claim.kind === "triplet" && claim.tiles34.every((tile) => tile === tile34));
+    if (!tripletInvariant) {
+      result.set(decision.decisionEventRef, []);
+      continue;
+    }
+    const after = await engine.analyzeHandStructure(buildHandStructureRequestV2({
+      actionRef, factSetId: `local-mortal-riichi-kan-after:${decision.decisionEventRef}`,
+      projectedHand: state.concealedTiles.filter((tile) => tile.id !== draw.id),
+      selfMelds: [...melds, {
+        actor, kind: "ankan", meldRef: `local-mortal:${decision.decisionEventRef}`,
+        tiles: group,
+      }],
+      leftTiles34: null, ronContext: "unknown_future", yakuContext,
+    }));
+    if (after.decompositions.status !== "calculated") throw new Error("mortal_candidate_mismatch");
+    const waits = (value: typeof before) => value.waits.map((wait) =>
+      JSON.stringify([wait.tile34, wait.families, wait.waitTypes])).sort();
+    result.set(decision.decisionEventRef,
+      after.overallShanten === 0 && JSON.stringify(waits(before)) === JSON.stringify(waits(after))
+        ? [draw] : []);
+  }
+  return result;
+}
+
+/** Dama discovery intentionally skips riichi; this covers accepted riichi
+ * wins from the same frozen draw without relying on the actual action. */
+export async function collectLocalMortalRiichiTsumoWindows(
+  decisions: readonly ReplayedDecision[],
+  engine: Pick<HandStructureFactEnginePort, "analyzeHandStructure">,
+): Promise<ReadonlySet<string>> {
+  const result = new Set<string>();
+  for (const decision of decisions) {
+    const snapshot = decision.snapshot;
+    const state = snapshot.privateState;
+    const actor = snapshot.selfActor;
+    if (state.decisionWindow.kind !== "self_turn" || state.currentDraw === null ||
+        snapshot.publicState.riichiStates[actor]?.status !== "accepted") continue;
+    const melds = decision.facts.melds.filter((meld) => meld.actor === actor);
+    const held = [...state.concealedTiles, state.currentDraw.tile];
+    const counts = Array<number>(34).fill(0);
+    for (const tile of held) counts[tileIdTo34(tile.id)]! += 1;
+    if (!isCompleteHandShapeWithSets(counts, 4 - melds.length)) continue;
+    const verdict = await engine.analyzeHandStructure(buildHandStructureRequestV2({
+      actionRef: canonicalActionRef({ kind: "tsumo", winningTile: state.currentDraw.tile,
+        drawEventRef: state.currentDraw.eventRef }),
+      factSetId: `local-mortal-riichi-tsumo:${decision.decisionEventRef}`,
+      projectedHand: state.concealedTiles, selfMelds: melds,
+      leftTiles34: null, ronContext: "unknown_future",
+      yakuContext: {
+        windsStatus: "unknown", roundWindTile34: null, selfWindTile34: null,
+        riichiStatus: "accepted", openTanyaoStatus: "unknown",
+      },
+    }));
+    if (verdict.overallShanten === 0 &&
+        verdict.waits.some((wait) => wait.tile34 === tileIdTo34(state.currentDraw!.tile.id))) {
+      result.add(decision.decisionEventRef);
+    }
   }
   return result;
 }
@@ -340,6 +454,7 @@ export function projectLocalMortalRequest(input: {
   includeTsumo?: boolean;
   includeRon?: boolean;
   riichiDiscardCandidates?: readonly Tile[];
+  riichiAnkanCandidates?: readonly Tile[];
 }): LocalMortalInferenceRequest {
   const candidates = input.surface === "response"
     ? responseCandidates(input.decision, input.includeRon ?? false)
@@ -348,7 +463,14 @@ export function projectLocalMortalRequest(input: {
       input.includeDeclareRiichi ?? false,
       input.includeTsumo ?? false,
       input.riichiDiscardCandidates,
+      input.riichiAnkanCandidates,
     );
+  const actual = input.decision.actualAction;
+  if (actual === null) throw new Error("mortal_actual_action_mismatch");
+  const actualActionRef = canonicalActionRef(actual);
+  if (candidates.filter((candidate) => candidate.actionRef === actualActionRef).length !== 1) {
+    throw new Error("mortal_actual_action_mismatch");
+  }
   if (candidates.length < 2) throw new Error("mortal_source_row_not_expected");
   const trigger = input.decision.decisionEventRef;
   const events = [];
@@ -356,12 +478,6 @@ export function projectLocalMortalRequest(input: {
     const projected = projectEvent(input.stream, event);
     if (projected !== null) events.push({ eventRef: event.eventId, json: JSON.stringify(projected), canAct: event.eventId === trigger });
     if (event.eventId === trigger) break;
-  }
-  const actual = input.decision.actualAction;
-  if (actual === null) throw new Error("mortal_actual_action_mismatch");
-  const actualActionRef = canonicalActionRef(actual);
-  if (candidates.filter((candidate) => candidate.actionRef === actualActionRef).length !== 1) {
-    throw new Error("mortal_actual_action_mismatch");
   }
   return LocalMortalInferenceRequestSchema.parse({
     protocolVersion: input.identity.protocolVersion,

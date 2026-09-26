@@ -28,6 +28,8 @@ import {
   MORTAL_COVERAGE_BRANCHES,
   buildStructuredAnalysisPackage,
   collectLocalMortalRiichiCandidateWindows,
+  collectLocalMortalRiichiAnkanCandidates,
+  collectLocalMortalRiichiTsumoWindows,
   collectLocalMortalRonCandidateWindows,
   collectDamaTsumoWindows,
   collectRiichiDeclarationTenpaiDiscards,
@@ -184,12 +186,15 @@ try {
     }
     const candidateFactEngine = new JsonlFactEngineClient(new ManagedFactEngineTransport(join(repoRoot, "resources")));
     let riichiWindows;
+    let riichiAnkanCandidates;
     let tsumoWindows;
     let ronWindows;
     const riichiDiscardCandidates = new Map();
     try {
       riichiWindows = await collectLocalMortalRiichiCandidateWindows(decisions, candidateFactEngine);
+      riichiAnkanCandidates = await collectLocalMortalRiichiAnkanCandidates(decisions, candidateFactEngine);
       tsumoWindows = new Set((await collectDamaTsumoWindows(decisions, candidateFactEngine)).windows.map((row) => row.decisionEventRef));
+      for (const window of await collectLocalMortalRiichiTsumoWindows(decisions, candidateFactEngine)) tsumoWindows.add(window);
       ronWindows = await collectLocalMortalRonCandidateWindows(stream, responseDecisions, candidateFactEngine);
       for (const decision of decisions) {
         if (decision.snapshot.privateState.decisionWindow.kind !== "post_riichi_discard") continue;
@@ -222,6 +227,7 @@ try {
           includeTsumo: tsumoWindows.has(row.decision.decisionEventRef),
           includeRon: ronWindows.get(row.decision.decisionEventRef)?.status === "eligible",
           riichiDiscardCandidates: riichiDiscardCandidates.get(row.decision.decisionEventRef),
+          riichiAnkanCandidates: riichiAnkanCandidates.get(row.decision.decisionEventRef),
         });
       } catch (error) {
         if (error instanceof Error && error.message === "mortal_source_row_not_expected") continue;
