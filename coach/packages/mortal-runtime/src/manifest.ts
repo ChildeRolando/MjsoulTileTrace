@@ -82,6 +82,28 @@ export async function verifyManagedMortalArtifacts(input: {
   }
 }
 
+/** The deterministic rule operation has no model-source/checkpoint dependency. */
+export async function verifyManagedLibriichiArtifacts(input: {
+  manifest: ManagedMortalRuntimeManifest;
+  identity: ManagedMortalRuntimeIdentity;
+  runtimePath: string;
+  nativeModulePath: string;
+}): Promise<void> {
+  try {
+    const [wrapper, native] = await Promise.all([
+      sha256File(input.runtimePath), sha256File(input.nativeModulePath),
+    ]);
+    if (wrapper !== input.manifest.identity.runtimeArtifactSha256 ||
+        wrapper !== input.identity.runtimeArtifactSha256 ||
+        native !== input.identity.nativeArtifactSha256 ||
+        input.identity.runtimeRevision !== input.manifest.identity.runtimeRevision) {
+      throw new Error("identity mismatch");
+    }
+  } catch {
+    throw new ManagedMortalRuntimeError("mortal_runtime_identity_mismatch");
+  }
+}
+
 export class ManagedMortalRuntimeError extends Error {
   readonly code;
   constructor(code: import("@riichi-coach/contracts").LocalMortalSafeErrorCode) {

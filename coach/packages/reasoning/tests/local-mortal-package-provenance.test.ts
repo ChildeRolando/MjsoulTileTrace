@@ -56,6 +56,16 @@ describe("managed local Mortal package provenance", () => {
       frozenPolicySnapshot: review.retainedAnalyses[0]!.modelEvaluation.detailPolicy,
     });
     expect(() => validateStructuredAnalysisPackage(pkg)).not.toThrow();
+    // R14: a freshly rehashed package must not contradict its checkpoint identity.
+    const wrongLabel = buildStructuredAnalysisPackage({
+      review, stream, decisions,
+      componentVersions: {
+        ...versions,
+        mortalSourceModel: { ...versions.mortalSourceModel, modelTag: "wrong-checkpoint@000" },
+      },
+      frozenPolicySnapshot: review.retainedAnalyses[0]!.modelEvaluation.detailPolicy,
+    });
+    expect(() => validateStructuredAnalysisPackage(wrongLabel)).toThrow(/localMortal.*modelTag/);
     expect(JSON.stringify(pkg)).not.toMatch(/checkpointPath|stdout|stderr|traceback|[A-Z]:\\/i);
 
     const tampered = structuredClone(pkg);

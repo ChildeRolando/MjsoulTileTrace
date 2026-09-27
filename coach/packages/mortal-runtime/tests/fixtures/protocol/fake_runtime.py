@@ -1,4 +1,5 @@
 import argparse
+import hashlib
 import json
 import os
 import sys
@@ -25,12 +26,34 @@ if mode == "bad_ready":
     print("not-json", flush=True)
     sys.exit(0)
 print(json.dumps({"ready": True, "protocolVersion": "riichi-local-mortal-jsonl/v1"}, separators=(",", ":")), flush=True)
+if mode == "idle_protocol_failure":
+    with open(os.environ["MORTAL_FAKE_PID_FILE"], "w", encoding="utf-8") as handle:
+        handle.write(str(os.getpid()))
+    while not os.path.exists(os.environ["MORTAL_FAKE_RELEASE_FILE"]):
+        time.sleep(0.01)
+    print("unsolicited-one\nunsolicited-two", flush=True)
+    time.sleep(10)
 if mode == "closed_stdin":
     os.close(0)
     time.sleep(10)
     sys.exit(0)
 for line in sys.stdin:
     request = json.loads(line)
+    if request.get("operation") == "legal_actions":
+        response = {"protocolVersion": request["protocolVersion"], "requestId": request["requestId"],
+            "identity": request["identity"], "status": "ok", "actions": [
+                {"runtimeAction": {"index": 0, "variant": None}, "mjaiActionJson": '{"type":"dahai","actor":0,"pai":"1m","tsumogiri":true}'}]}
+        if mode == "rule_wrong_request": response["requestId"] = "f"*64
+        if mode == "rule_wrong_identity": response["identity"]["revision"] = "f"*40
+        if mode == "rule_duplicate": response["actions"] *= 2
+        if mode == "rule_extra_score": response["actions"][0]["qValue"] = 1
+        if mode == "rule_non_action":
+            response.pop("actions")
+            response.update(status="non_action", reason="native_cannot_act")
+        response["resultId"] = hashlib.sha256(json.dumps(response, sort_keys=True, ensure_ascii=False, separators=(",", ":")).encode()).hexdigest()
+        if mode == "rule_wrong_hash": response["resultId"] = "f"*64
+        print(json.dumps(response, separators=(",", ":")), flush=True)
+        continue
     if mode == "crash":
         os._exit(7)
     if mode == "timeout":

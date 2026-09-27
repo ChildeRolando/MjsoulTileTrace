@@ -7,6 +7,9 @@ import { afterEach, describe, expect, it } from "vitest";
 import {
   LOCAL_MORTAL_ADAPTER_VERSION,
   LOCAL_MORTAL_PROTOCOL_VERSION,
+  LIBRIICHI_RULE_PROTOCOL_VERSION,
+  libriichiRuleCanonicalJson,
+  type LibriichiRuleRequest,
   ManagedMortalRuntimeManifestSchema,
   type LocalMortalInferenceRequest,
 } from "@riichi-coach/contracts";
@@ -70,7 +73,113 @@ async function setup(mode: string) {
   return { runtime, request, checkpoint, runtimePath, mortalSourcePath, nativeModulePath, environment, dir };
 }
 
+function ruleRequest(runtime: ManagedMortalRuntime): LibriichiRuleRequest {
+  const events = [{ eventRef: "event", json: '{"type":"tsumo","actor":0,"pai":"1m"}' }];
+  const content = {
+    protocolVersion: LIBRIICHI_RULE_PROTOCOL_VERSION, operation: "legal_actions" as const,
+    identity: runtime.ruleIdentity, canonicalStreamIdentity: "canonical-中文",
+    eventPrefixSha256: hash(libriichiRuleCanonicalJson(events)),
+    decision: { decisionId: "event", surface: "self" as const, windowKind: "self_turn" as const,
+      triggerEventRef: "event", selfActor: 0, roundOrdinal: 0, riichiPhase: "none" as const },
+    ruleSet: { length: "south" as const, redFives: { man: 1 as const, pin: 1 as const, sou: 1 as const },
+      openTanyao: true, atamahane: false, westExtension: "sudden_death" as const, ippatsuCancelledByAnkan: true },
+    events,
+  };
+  return { ...content, requestId: hash(libriichiRuleCanonicalJson(content)) };
+}
+
+describe("managed libriichi rule operation", () => {
+  it("does not start queued operations after an explicit close", async () => {
+    const { runtime, request, environment, dir } = await setup("success");
+    const started = join(dir, "started.txt");
+    environment.MORTAL_FAKE_START_COUNT_FILE = started;
+    const pending = Promise.allSettled([runtime.queryRules(ruleRequest(runtime)), runtime.infer(request)]);
+    await runtime.close();
+    const results = await pending;
+    expect(results).toHaveLength(2);
+    for (const result of results) {
+      expect(result).toMatchObject({ status: "rejected", reason: { code: "mortal_runtime_unavailable" } });
+    }
+    await expect(readFile(started, "utf8")).rejects.toMatchObject({ code: "ENOENT" });
+    await expect(runtime.queryRules(ruleRequest(runtime))).resolves.toMatchObject({ status: "ok" });
+    await runtime.close();
+  });
+  it("needs neither checkpoint nor model source, and survives failed model verification", async () => {
+    const { runtime, request, checkpoint, mortalSourcePath } = await setup("success");
+    await rm(checkpoint);
+    await rm(join(mortalSourcePath, "model.py"));
+    await rm(join(mortalSourcePath, "engine.py"));
+    try {
+      const rules = ruleRequest(runtime);
+      expect(runtime.ruleIdentity).not.toHaveProperty("checkpointModelTag");
+      await expect(runtime.queryRules(rules)).resolves.toMatchObject({ status: "ok", actions: [{ runtimeAction: { index: 0, variant: null } }] });
+      await expect(runtime.infer(request)).rejects.toMatchObject({ code: "mortal_runtime_identity_mismatch" });
+      await expect(runtime.queryRules(rules)).resolves.toMatchObject({ status: "ok" });
+    } finally { await runtime.close(); }
+  });
+  it.each(["rule_wrong_request", "rule_wrong_identity", "rule_wrong_hash", "rule_duplicate", "rule_extra_score"])(
+    "rejects %s without producing a rule result", async mode => {
+      const { runtime } = await setup(mode);
+      try { await expect(runtime.queryRules(ruleRequest(runtime))).rejects.toMatchObject({
+        code: mode === "rule_duplicate" ? "mortal_candidate_mismatch" : "mortal_protocol_invalid",
+      }); } finally { await runtime.close(); }
+    });
+  it("rejects modified inputs before issuing a request", async () => {
+    const { runtime } = await setup("success");
+    const request = ruleRequest(runtime);
+    request.canonicalStreamIdentity = "another-stream";
+    await expect(runtime.queryRules(request)).rejects.toMatchObject({ code: "mortal_protocol_invalid" });
+  });
+  it("distinguishes no action from a one-action result", async () => {
+    const { runtime } = await setup("rule_non_action");
+    try {
+      const response = await runtime.queryRules(ruleRequest(runtime));
+      expect(response).toMatchObject({ status: "non_action", reason: "native_cannot_act" });
+      expect(response).not.toHaveProperty("actions");
+    } finally { await runtime.close(); }
+  });
+  it("serializes simultaneous rule and scoring requests on the exact child", async () => {
+    const { runtime, request } = await setup("success");
+    try {
+      const results = await Promise.all([runtime.queryRules(ruleRequest(runtime)), runtime.infer(request), runtime.queryRules(ruleRequest(runtime))]);
+      expect(results.map(result => result.status)).toEqual(["ok", "ok", "ok"]);
+    } finally { await runtime.close(); }
+  });
+});
+
 describe("managed Mortal exact-child protocol", () => {
+  for (const operation of ["infer", "close"] as const) {
+    it(`R14: ${operation} settles after an idle protocol failure already terminated the child`, async () => {
+      const { runtime, request, environment, dir } = await setup("idle_protocol_failure");
+      const pidFile = join(dir, "pid.txt");
+      const releaseFile = join(dir, "release.txt");
+      environment.MORTAL_FAKE_PID_FILE = pidFile;
+      environment.MORTAL_FAKE_RELEASE_FILE = releaseFile;
+      await runtime.start();
+      const pid = Number(await readFile(pidFile, "utf8"));
+      await writeFile(releaseFile, "release");
+      await expect.poll(() => {
+        try { process.kill(pid, 0); return false; } catch { return true; }
+      }).toBe(true);
+      // The child has actually exited before the operation, so a late exit listener cannot work.
+      const result = operation === "infer" ? runtime.infer(request) : runtime.close();
+      let timer: NodeJS.Timeout | undefined;
+      const bounded = Promise.race([result, new Promise((_, reject) => {
+        timer = setTimeout(() => reject(new Error("cleanup did not settle")), 2_500);
+      })]);
+      try {
+        if (operation === "infer") {
+          await expect(bounded).rejects.toMatchObject({ code: "mortal_protocol_invalid" });
+        } else {
+          await expect(bounded).resolves.toBeUndefined();
+        }
+      } finally { clearTimeout(timer); }
+      environment.MORTAL_FAKE_MODE = "success";
+      await expect(runtime.infer(request)).resolves.toMatchObject({ status: "ok" });
+      await runtime.close();
+    }, 7_000);
+  }
+
   it("keeps checked-out wrapper and Tenhou fixture bytes equal to their manifests", async () => {
     const manifest = JSON.parse(await readFile(new URL("../manifests/mortal-582500.windows-x64.json", import.meta.url), "utf8"));
     const wrapperPath = fileURLToPath(new URL("../runtime/local_mortal_runtime.py", import.meta.url));

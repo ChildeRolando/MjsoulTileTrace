@@ -86,6 +86,35 @@ async function buildIncompleteFixturePackage(): Promise<StructuredAnalysisPackag
   });
 }
 
+describe("R14 JSON artifact integrity", () => {
+  it.each(["hidden-toJSON", "getter", "hidden-property", "symbol"])(
+    "rejects %s on evidence without invoking executable properties", async (kind) => {
+      const pkg = await buildFixturePackage();
+      const record = Object.values(pkg.evidenceRegistry).find((item) => item.kind === "canonical_event")!;
+      const payload = record.payload as object;
+      let invoked = false;
+      if (kind === "hidden-toJSON") Object.defineProperty(payload, "toJSON", {
+        value: () => { invoked = true; return null; }, enumerable: false,
+      });
+      if (kind === "getter") Object.defineProperty(payload, "synthetic", {
+        get: () => { invoked = true; return "changed"; }, enumerable: true,
+      });
+      if (kind === "hidden-property") Object.defineProperty(payload, "synthetic", {
+        value: "not persisted", enumerable: false,
+      });
+      if (kind === "symbol") Object.defineProperty(payload, Symbol("not persisted"), { value: 1 });
+      expect(() => validateStructuredAnalysisPackage(pkg)).toThrow(/json_roundtrip/);
+      expect(invoked).toBe(false);
+    },
+  );
+  it("accepts frozen plain JSON artifacts and their persisted roundtrip", async () => {
+    const pkg = await buildFixturePackage();
+    Object.freeze(pkg);
+    expect(() => validateStructuredAnalysisPackage(pkg)).not.toThrow();
+    expect(() => validateStructuredAnalysisPackage(JSON.parse(JSON.stringify(pkg)))).not.toThrow();
+  });
+});
+
 /** Deep clone (packages are plain JSON) so tampering never touches the
  *  original builder output. */
 function clonePackage<T>(pkg: T): T {

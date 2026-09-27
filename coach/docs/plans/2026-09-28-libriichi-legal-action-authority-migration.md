@@ -1,6 +1,6 @@
 # libriichi 唯一合法动作来源实施计划
 
-日期：2026-09-28；状态：规划完成，实施未开始
+日期：2026-09-28；状态：P0/P1 实施中，全部消费者尚未切换
 权威：[ADR-0006](../adr/0006-libriichi-single-legal-action-authority.md)、
 [规格](../specs/2026-09-28-libriichi-legal-action-authority-design.md)。
 工作树 `E:/文档/日麻教学/coac-155-work`；分支
@@ -88,7 +88,7 @@
 - 普通网络满足现行正确性规格；禁网可用性另记，未运行不得声称 PASS。
 - 文档回写实际实施状态；本地提交后推送，不 force push、不合并、不改历史评审。
 
-## 3. R14 处置追踪（全部待实施）
+## 3. R14 处置追踪（目标；当前进度见第 6 节）
 
 | 编号 | 实施责任 | 必须保留的失败性质 |
 |---|---|---|
@@ -123,6 +123,46 @@ R14 证据定位：COAC-164，固定 head 为本计划基线；本机只读附�
 退出清单与当前源码的对应、`git diff --check`，并运行现有架构检查。
 没有运行迁移后的产品，因此不复用历史五门或 CPU spike 为本方案签发通过；
 上述 P4 门禁仍是实现提交的必要验收。本节不改变历史评审/回执的约束或结果。
+
+## 6. 2026-09-28 第一实施切片
+
+已落地：
+
+- R14 #2 空闲协议错误后的信号退出清理有界，规则/评分请求在同一子进程内串行，
+  显式关闭后不启动已排队请求。
+- R14 #3 外层模型标签与 checkpoint 身份校验；#7 在任何 walker/schema 前检查
+  JSON 属性描述符，拒绝 getter、隐藏属性、Symbol、toJSON 等不可保持的载荷。
+- #4 请求 ID 绑定完整请求内容；普通动作载荷换位也在报告转换前拒绝。
+  新规则转换另逐项核对 actionRef/原生 index/MJAI，重新计算摘要也不能掩盖换位；
+  #5 的最终生产闭环仍待消费者切换。
+- contracts 增加显式、独立版本的规则操作；runtime 可以不加载 Torch、模型源码
+  或 checkpoint 查询规则。无动作与单动作结果分开，来源/输入/结果摘要分别绑定。
+- 从原 adapter 提出事件表示转换，新增一次冻结流的规则输入投影和物理动作转换；
+  缺少余牌、全桌副露/杠、响应历史、事件序列等必要证据时明确失败。
+- 固定上游增加小型原生配置补丁（见 mortal-runtime/native/README）：食断、一发
+  配置沿用原分解/役判定；杠序列化使用实际赤牌和碰牌。已用本地缓存离线编译，
+  没有改写原上游 checkout、旧 native 或旧回执。
+
+本切片测试证据位于本机 LOCALAPPDATA/RiichiCoach/spike-runs/
+`libriichi-migration-dafb76f`，均为新运行：
+
+- 生命周期/包回归旧实现 7 项失败；请求/动作绑定旧实现 2 项失败。
+- `npm run typecheck`、`npm run build`、`npx vitest run`、
+  `npm run check:architecture`、`npm run test:package-import` 最终均退出 0；
+  全量 179 文件/2186 测试，架构 7 packages/414 files/0 violations。
+- 第一轮 focused 运行曾读到旧 contracts/dist 导致新导出不存在；重新 build 后
+  完整 focused 通过。新测试 readonly 赋值的 typecheck 失败也已修正并完整重跑。
+- 真实 native 11 项测试通过，含 R14 独立三暗刻在食断 false/unknown 下保留、自摸
+  只有断幺役时依规则取舍、未知配置影响集合时明确失败、多分解立直暗杠、赤杠、
+  多杠、宣言后摸切、吃碰明杠/加杠、过荣历史和九种九牌。
+- 受管真实规则操作使用不存在的模型/权重路径返回完整 16 动作；该能力探针与
+  最终提交 CPU spike 是不同验收，不将它冒称生产全链通过或禁网验证。
+
+尚未完成：全部 self/response 边界扫描切换；新结果驱动评分与单候选；新旧包版本
+和规则来源；local/remote/full-game/discovery 接线；旧枚举封存删除与架构禁止项；
+最终提交 CPU spike；外部独立验收。原生粗粒度动作与实际物理行动的对应（特别是
+同牌手切/摸切、立直两阶段、赤牌消费）必须在下一切片显式验证，不能由 actual
+回填修改合法集合。未宣称 P0/P1 整体退出，也未宣称 R14 全部修复。
 
 2026-09-28 本规划实际检查：14 个 Markdown 文件的 78 个相对文件链接均存在；
 `git diff --check` 退出 0；`npm run check:architecture` 退出 0（7 packages、

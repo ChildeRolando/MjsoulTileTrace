@@ -1,7 +1,9 @@
+import { projectLocalMortalEvent } from "./local-mortal-events.js";
 import { createHash } from "node:crypto";
 import {
   LocalMortalInferenceRequestSchema,
   canonicalActionRef,
+  libriichiRuleCanonicalJson,
   sortTilesCanonical,
   type CanonicalEventStream,
   type LocalMortalCandidateBinding,
@@ -486,35 +488,6 @@ function responseCandidates(decision: ReplayedDecision, includeRon: boolean): Lo
   return actions.map((action) => binding(action, actor));
 }
 
-function projectEvent(stream: CanonicalEventStream, event: CanonicalEventStream["events"][number]): Record<string, unknown> | null {
-  switch (event.type) {
-    case "game_started": return { type: "start_game", names: ["p0", "p1", "p2", "p3"] };
-    case "round_started": {
-      const tehais = Array.from({ length: 4 }, (_, actor) => actor === stream.selfActor ? event.selfHand.map(formatMjaiTile) : Array(13).fill("?"));
-      return { type: "start_kyoku", bakaze: event.roundWind, kyoku: event.hand, honba: event.honba, kyotaku: event.riichiSticks, oya: event.dealer, scores: event.scores, dora_marker: formatMjaiTile(event.doraIndicator), tehais };
-    }
-    case "tile_drawn": return { type: "tsumo", actor: event.actor, pai: event.tile.visibility === "visible" ? formatMjaiTile(event.tile.tile) : "?" };
-    case "tile_discarded": return { type: "dahai", actor: event.actor, pai: formatMjaiTile(event.tile), tsumogiri: event.discardMode === "tsumogiri" };
-    case "riichi_declared": return { type: "reach", actor: event.actor };
-    case "riichi_accepted": return { type: "reach_accepted", actor: event.actor };
-    case "chi_called":
-    case "pon_called": return { type: event.type === "chi_called" ? "chi" : "pon", actor: event.actor, target: event.targetActor, pai: formatMjaiTile(event.calledTile), consumed: event.consumedTiles.map(formatMjaiTile) };
-    case "daiminkan_called": return { type: "daiminkan", actor: event.actor, target: event.targetActor, pai: formatMjaiTile(event.calledTile), consumed: event.consumedTiles.map(formatMjaiTile) };
-    case "ankan_declared": return { type: "ankan", actor: event.actor, consumed: event.tiles.map(formatMjaiTile) };
-    case "kakan_declared": {
-      const pon = stream.events.find((row) => row.eventId === event.upgradedPonEventRef);
-      if (pon?.type !== "pon_called") throw new Error("mortal_protocol_invalid");
-      return {
-        type: "kakan", actor: event.actor, pai: formatMjaiTile(event.addedTile),
-        consumed: [pon.calledTile, ...pon.consumedTiles].map(formatMjaiTile),
-      };
-    }
-    case "dora_revealed": return { type: "dora", dora_marker: formatMjaiTile(event.indicator) };
-    case "round_ended": return { type: "end_kyoku" };
-    case "game_ended": return { type: "end_game" };
-    default: return null;
-  }
-}
 
 export function projectLocalMortalRequest(input: {
   stream: CanonicalEventStream;
@@ -546,13 +519,13 @@ export function projectLocalMortalRequest(input: {
   const trigger = input.decision.decisionEventRef;
   const events = [];
   for (const event of input.stream.events) {
-    const projected = projectEvent(input.stream, event);
+    const projected = projectLocalMortalEvent(input.stream, event);
     if (projected !== null) events.push({ eventRef: event.eventId, json: JSON.stringify(projected), canAct: event.eventId === trigger });
     if (event.eventId === trigger) break;
   }
-  return LocalMortalInferenceRequestSchema.parse({
+  const request: LocalMortalInferenceRequest = LocalMortalInferenceRequestSchema.parse({
     protocolVersion: input.identity.protocolVersion,
-    requestId: `local-mortal:${createHash("sha256").update(`${input.stream.gameId}:${trigger}`).digest("hex")}`,
+    requestId: "pending-content-binding",
     identity: input.identity,
     recordId: input.stream.gameId,
     canonicalStreamIdentity: computeCanonicalGameFingerprint(input.stream),
@@ -561,6 +534,12 @@ export function projectLocalMortalRequest(input: {
     candidates,
     actualActionRef,
   });
+  return { ...request, requestId: localMortalRequestId(request) };
+}
+
+function localMortalRequestId(request: LocalMortalInferenceRequest): string {
+  const { requestId: _requestId, ...content } = request;
+  return `local-mortal:${createHash("sha256").update(libriichiRuleCanonicalJson(content)).digest("hex")}`;
 }
 
 function stableSoftmax(values: number[]): number[] {
@@ -583,6 +562,9 @@ export function localMortalResponseToReportEntry(input: {
   response: LocalMortalInferenceSuccess;
   decision: ReplayedDecision;
 }): MortalReportDecisionEntry {
+  if (input.request.requestId !== localMortalRequestId(input.request)) {
+    throw new Error("mortal_protocol_invalid");
+  }
   const actual = input.decision.actualAction;
   if (actual === null) throw new Error("mortal_actual_action_mismatch");
   const window = input.decision.snapshot.privateState.decisionWindow;

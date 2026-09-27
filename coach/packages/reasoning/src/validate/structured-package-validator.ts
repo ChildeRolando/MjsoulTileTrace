@@ -60,7 +60,7 @@
  *     `componentVersions.mortalSourceModel.version`, and every
  *     evidence-registry `producerVersion` against the replay / fact-engine
  *     versions it encodes. Fields with no independent payload provenance
- *     (modelTag, ModelEvaluation.engineVersion, mapperAdapter, factorPipeline)
+ *     (remote modelTag, ModelEvaluation.engineVersion, mapperAdapter, factorPipeline)
  *     stay declaration-only and are NOT invented into checks.
  *  9. READY-DECISION REFERENCE INTEGRITY (repair 2 + closure 2/3). One
  *     `analysis_ready` decision = one internally coherent candidate universe:
@@ -213,14 +213,26 @@ function assertJsonRoundtrip(pkg: unknown): void {
     if (typeof value !== "object") return false;
     if (active.has(value)) return false;
     active.add(value);
-    let valid: boolean;
-    if (Array.isArray(value)) {
-      valid = value.length === Object.keys(value).length
-        && value.every((entry) => visit(entry));
-    } else {
-      valid = Object.getPrototypeOf(value) === Object.prototype
-        && Object.values(value as Record<string, unknown>).every((entry) => visit(entry));
+    const array = Array.isArray(value);
+    const keys = Reflect.ownKeys(value);
+    let valid = Object.getPrototypeOf(value) === (array ? Array.prototype : Object.prototype);
+    let entries = 0;
+    for (const key of keys) {
+      if (!valid) break;
+      const descriptor = Object.getOwnPropertyDescriptor(value, key)!;
+      if (array && key === "length") continue;
+      if (typeof key !== "string" || !descriptor.enumerable || !("value" in descriptor)) {
+        valid = false;
+        break;
+      }
+      if (array && (!/^(0|[1-9][0-9]*)$/.test(key) || Number(key) >= value.length)) {
+        valid = false;
+        break;
+      }
+      entries++;
+      valid = visit(descriptor.value);
     }
+    if (array && entries !== value.length) valid = false;
     active.delete(value);
     return valid;
   };
@@ -456,7 +468,8 @@ function validateCrossReferences(pkg: StructuredAnalysisPackage): void {
  *  provider chain (closure 1) is part of this coherence: the declaration's
  *  `mortalSourceModel.identity` must be the canonical "Mortal" provider, and
  *  every ready decision's `ModelEvaluation.engineId` must be the Mortal
- *  engine. Fields with no independent payload provenance (modelTag,
+ *  engine. Local modelTag also agrees with the checkpoint identity. Fields
+ *  with no independent payload provenance (remote modelTag,
  *  ModelEvaluation.engineVersion, mapperAdapter, factorPipeline) are
  *  intentionally NOT invented into checks. */
 function validateProducerVersions(pkg: StructuredAnalysisPackage): void {
@@ -472,6 +485,10 @@ function validateProducerVersions(pkg: StructuredAnalysisPackage): void {
     );
   }
   const mortalSource = pkg.componentVersions.mortalSourceModel;
+  if (mortalSource.evidenceSource?.kind === "managed_local_runtime" &&
+      mortalSource.modelTag !== mortalSource.evidenceSource.identity.checkpointModelTag) {
+    throw new Error("m6c_validator_producer_version_mismatch:localMortal:modelTag");
+  }
   if (mortalSource.version === LOCAL_MORTAL_ADAPTER_VERSION &&
       mortalSource.evidenceSource?.kind !== "managed_local_runtime") {
     throw new Error("m6c_validator_producer_version_mismatch:localMortal:evidenceSource");
@@ -922,6 +939,9 @@ function assertPackageIdentity(pkg: StructuredAnalysisPackage): void {
 // ---------------------------------------------------------------------------
 
 export function validateStructuredAnalysisPackage(input: unknown): void {
+  // Inspect data descriptors before any schema/walker can execute a getter or
+  // discard non-enumerable/symbol properties. Accepted artifacts are plain JSON.
+  assertJsonRoundtrip(input);
   // Spec-named rejections with dedicated messages, run on the RAW input before
   // schema parse so the failure names the offending key/artifact.
   rejectExplanationSideVersions(input);

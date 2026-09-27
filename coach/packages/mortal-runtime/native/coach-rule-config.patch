@@ -1,0 +1,196 @@
+--- a/libriichi/src/algo/agari.rs
++++ b/libriichi/src/algo/agari.rs
+@@ -204,13 +204,13 @@
+     #[inline]
+     #[must_use]
+     pub fn has_yaku(&self) -> bool {
+-        self.search_yakus_impl(true).is_some()
++        self.search_yakus_impl(true, true).is_some()
+     }
+
+     #[inline]
+     #[must_use]
+     pub fn search_yakus(&self) -> Option<Agari> {
+-        self.search_yakus_impl(false)
++        self.search_yakus_impl(false, true)
+     }
+
+     /// `additional_hans` includes 門前清自摸和, (両)立直, 槍槓, 嶺上開花, 海底
+@@ -254,7 +254,12 @@
+         }
+     }
+
+-    fn search_yakus_impl(&self, return_if_any: bool) -> Option<Agari> {
++    /// Preserve the native decomposition search while configuring open tanyao.
++    pub fn has_yaku_with_open_tanyao(&self, open_tanyao: bool) -> bool {
++        self.search_yakus_impl(true, open_tanyao).is_some()
++    }
++
++    fn search_yakus_impl(&self, return_if_any: bool, open_tanyao: bool) -> Option<Agari> {
+         assert_eq!(
+             self.is_menzen,
+             self.chis.is_empty() && self.pons.is_empty() && self.minkans.is_empty(),
+@@ -274,11 +279,11 @@
+             // Benchmark result indicates it is too trivial to use rayon here.
+             divs.iter()
+                 .map(|div| DivWorker::new(self, &tile14, div))
+-                .find_map(|w| w.search_yakus::<true>())
++                .find_map(|w| w.search_yakus::<true>(open_tanyao))
+         } else {
+             divs.iter()
+                 .map(|div| DivWorker::new(self, &tile14, div))
+-                .filter_map(|w| w.search_yakus::<false>())
++                .filter_map(|w| w.search_yakus::<false>(open_tanyao))
+                 .max()
+         }
+     }
+@@ -449,7 +454,7 @@
+         ((fu - 1) / 10 + 1) * 10
+     }
+
+-    fn search_yakus<const RETURN_IF_ANY: bool>(&self) -> Option<Agari> {
++    fn search_yakus<const RETURN_IF_ANY: bool>(&self, open_tanyao: bool) -> Option<Agari> {
+         let mut han = 0;
+         let mut yakuman = 0;
+
+@@ -523,7 +528,7 @@
+                     kind < 3 && num > 0 && num < 8
+                 })
+         };
+-        if has_tanyao {
++        if has_tanyao && (self.sup.is_menzen || open_tanyao) {
+             // 断幺九
+             check_early_return! { han += 1 };
+         }
+--- a/libriichi/src/state/player_state.rs
++++ b/libriichi/src/state/player_state.rs
+@@ -23,6 +23,10 @@
+ #[derivative(Default)]
+ pub struct PlayerState {
+     pub(super) player_id: u8,
++    #[derivative(Default(value = "true"))]
++    pub(super) open_tanyao: bool,
++    #[derivative(Default(value = "true"))]
++    pub(super) ippatsu_cancelled_by_ankan: bool,
+
+     /// Does not include aka.
+     #[derivative(Default(value = "[0; 34]"))]
+@@ -150,6 +154,12 @@
+             player_id,
+             ..Default::default()
+         }
++    }
++
++    /// Coach profile configuration; call before replay begins.
++    pub fn configure_rules(&mut self, open_tanyao: bool, ippatsu_cancelled_by_ankan: bool) {
++        self.open_tanyao = open_tanyao;
++        self.ippatsu_cancelled_by_ankan = ippatsu_cancelled_by_ankan;
+     }
+
+     /// Returns an `ActionCandidate`.
+--- a/libriichi/src/state/update.rs
++++ b/libriichi/src/state/update.rs
+@@ -262,7 +262,7 @@
+                     winning_tile: pai.deaka().as_u8(),
+                     is_ron: false,
+                 };
+-                self.last_cans.can_tsumo_agari = agari_calc.has_yaku();
++                self.last_cans.can_tsumo_agari = agari_calc.has_yaku_with_open_tanyao(self.open_tanyao);
+             }
+         }
+
+@@ -388,7 +388,7 @@
+                     winning_tile: pai.deaka().as_u8(),
+                     is_ron: true,
+                 };
+-                self.last_cans.can_ron_agari = agari_calc.has_yaku();
++                self.last_cans.can_ron_agari = agari_calc.has_yaku_with_open_tanyao(self.open_tanyao);
+             }
+
+             // Track same-cycle furiten
+@@ -635,7 +635,9 @@
+         self.kans_on_board += 1;
+
+         self.can_w_riichi = false;
+-        self.at_ippatsu = false;
++        if self.ippatsu_cancelled_by_ankan {
++            self.at_ippatsu = false;
++        }
+
+         if actor_rel != 0 {
+             for t in consumed {
+--- a/libriichi/src/mjai/bot.rs
++++ b/libriichi/src/mjai/bot.rs
+@@ -25,6 +25,11 @@
+             state,
+             log: vec![],
+         })
++    }
++
++    /// Match PlayerState's explicit rule profile before replay.
++    fn configure_rules(&mut self, open_tanyao: bool, ippatsu_cancelled_by_ankan: bool) {
++        self.state.configure_rules(open_tanyao, ippatsu_cancelled_by_ankan);
+     }
+
+     /// Returns the reaction to `line`, if it can react, `None` otherwise.
+--- a/libriichi/src/state/getter.rs
++++ b/libriichi/src/state/getter.rs
+@@ -156,6 +156,13 @@
+ }
+
+ impl PlayerState {
++    /// Physical pon tiles for serialization of a native-approved kakan.
++    pub fn self_pon_tiles(&self, tile: Tile) -> Option<[Tile; 3]> {
++        self.fuuro_overview[0].iter()
++            .find(|meld| meld.len() == 3 && meld.iter().all(|t| t.deaka() == tile.deaka()))
++            .map(|meld| [meld[0], meld[1], meld[2]])
++    }
++
+     #[inline]
+     #[must_use]
+     pub const fn last_self_tsumo(&self) -> Option<Tile> {
+--- a/libriichi/src/agent/mortal.rs
++++ b/libriichi/src/agent/mortal.rs
+@@ -507,10 +507,12 @@
+                 };
+
+                 if cans.can_daiminkan {
+-                    let consumed = if tile.is_aka() {
++                    let has_red = tile.deaka().as_usize() < 27
++                        && akas_in_hand[tile.deaka().as_usize() / 9];
++                    let consumed = if has_red {
++                        [tile.akaize(), tile.deaka(), tile.deaka()]
++                    } else {
+                         [tile.deaka(); 3]
+-                    } else {
+-                        [tile.akaize(), tile, tile]
+                     };
+                     Event::Daiminkan {
+                         actor,
+@@ -521,7 +523,10 @@
+                 } else if cans.can_ankan && ankan_candidates.contains(&tile.deaka()) {
+                     Event::Ankan {
+                         actor,
+-                        consumed: [tile.akaize(), tile, tile, tile],
++                        consumed: [
++                            if tile.as_usize() < 27 && akas_in_hand[tile.as_usize() / 9] { tile.akaize() } else { tile },
++                            tile, tile, tile,
++                        ],
+                     }
+                 } else {
+                     let can_akaize_target = match tile.as_u8() {
+@@ -530,11 +535,9 @@
+                         tu8!(5s) => akas_in_hand[2],
+                         _ => false,
+                     };
+-                    let (pai, consumed) = if can_akaize_target {
+-                        (tile.akaize(), [tile.deaka(); 3])
+-                    } else {
+-                        (tile.deaka(), [tile.akaize(), tile.deaka(), tile.deaka()])
+-                    };
++                    let pai = if can_akaize_target { tile.akaize() } else { tile.deaka() };
++                    let consumed = state.self_pon_tiles(tile)
++                        .context("native kakan has no physical pon")?;
+                     Event::Kakan {
+                         actor,
+                         pai,

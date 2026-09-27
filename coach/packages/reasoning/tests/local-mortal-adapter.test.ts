@@ -147,6 +147,46 @@ describe("R13 candidate and proof boundaries", () => {
   });
 });
 
+describe("R14 content and action binding", () => {
+  it("does not accept a response from another stream with identical game and event IDs", () => {
+    const b = matrixBuilder("123456m123p123s1z");
+    b.draw(0, "2z"); b.discard(0, "2z");
+    const stream = b.stream();
+    const decision = replayCanonicalStream(stream).at(-1)!;
+    const request = projectLocalMortalRequest({ stream, decision, surface: "self", identity });
+    const changed = structuredClone(stream);
+    const start = changed.events.find(event => event.type === "round_started")!;
+    if (start.type !== "round_started") throw new Error("fixture");
+    start.scores = [30000, 20000, 25000, 25000];
+    const changedDecision = replayCanonicalStream(changed).at(-1)!;
+    const other = projectLocalMortalRequest({ stream: changed, decision: changedDecision, surface: "self", identity });
+    const response = LocalMortalInferenceSuccessSchema.parse({ protocolVersion: request.protocolVersion,
+      requestId: request.requestId, identity, decision: request.decision, status: "ok",
+      candidates: request.candidates.map((candidate, i) => ({ runtimeAction: candidate.runtimeAction, qValue: i })),
+      preferredRuntimeAction: request.candidates.at(-1)!.runtimeAction });
+    expect(request.canonicalStreamIdentity).not.toBe(other.canonicalStreamIdentity);
+    expect(request.requestId).not.toBe(other.requestId);
+    expect(() => localMortalResponseToReportEntry({ request: other, response, decision: changedDecision }))
+      .toThrow("mortal_protocol_invalid");
+  });
+
+  it("rejects swapping candidate MJAI payloads while retaining their action refs and indices", () => {
+    const b = matrixBuilder("123456m123p123s1z");
+    b.draw(0, "2z"); b.discard(0, "2z");
+    const stream = b.stream(), decision = replayCanonicalStream(stream).at(-1)!;
+    const request = projectLocalMortalRequest({ stream, decision, surface: "self", identity });
+    const response = LocalMortalInferenceSuccessSchema.parse({ protocolVersion: request.protocolVersion,
+      requestId: request.requestId, identity, decision: request.decision, status: "ok",
+      candidates: request.candidates.map((candidate, i) => ({ runtimeAction: candidate.runtimeAction, qValue: i })),
+      preferredRuntimeAction: request.candidates.at(-1)!.runtimeAction });
+    const swapped = structuredClone(request);
+    [swapped.candidates[0]!.mjaiActionJson, swapped.candidates[1]!.mjaiActionJson] =
+      [swapped.candidates[1]!.mjaiActionJson, swapped.candidates[0]!.mjaiActionJson];
+    expect(() => localMortalResponseToReportEntry({ request: swapped, response, decision }))
+      .toThrow("mortal_protocol_invalid");
+  });
+});
+
 describe("R12 candidate boundary matrix", () => {
   it.each([false, true])("requires a legal discard after chi (residual=%s)", legal => {
     const b = matrixBuilder(legal ? "556677z1923m789p" : "556677z1123m789p", 3);

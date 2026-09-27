@@ -1,5 +1,13 @@
 import { spawn, type ChildProcessWithoutNullStreams } from "node:child_process";
+import { createHash } from "node:crypto";
 import {
+  LIBRIICHI_RULE_NORMALIZATION_VERSION,
+  LibriichiRuleRequestSchema,
+  LibriichiRuleResponseSchema,
+  libriichiRuleCanonicalJson,
+  type LibriichiRuleIdentity,
+  type LibriichiRuleRequest,
+  type LibriichiRuleResponse,
   LocalMortalInferenceRequestSchema,
   LocalMortalInferenceResponseSchema,
   type LocalMortalInferenceRequest,
@@ -7,7 +15,7 @@ import {
   type ManagedMortalRuntimeIdentity,
   type ManagedMortalRuntimeManifest,
 } from "@riichi-coach/contracts";
-import { ManagedMortalRuntimeError, verifyManagedMortalArtifacts } from "./manifest.js";
+import { ManagedMortalRuntimeError, verifyManagedLibriichiArtifacts, verifyManagedMortalArtifacts } from "./manifest.js";
 
 const MAX_LINE_BYTES = 1_048_576;
 const RESPONSE_QUIET_PERIOD_MS = 20;
@@ -32,18 +40,49 @@ export class ManagedMortalRuntime {
   #closeRequested = false;
   #ready = false;
   #exitSignal: Promise<void> | null = null;
+  readonly #childExits = new WeakMap<ChildProcessWithoutNullStreams, Promise<void>>();
   #stdoutBuffer = Buffer.alloc(0);
   #pendingLine: string | null = null;
   #lineWaiter: { resolve: (line: string) => void; reject: (error: Error) => void } | null = null;
   #protocolFailed = false;
   #streamFailed = false;
+  #operationTail: Promise<unknown> = Promise.resolve();
+  #closeGeneration = 0;
+  #operationGeneration = 0;
+  #modelArtifactsVerified = false;
 
   constructor(options: ManagedMortalRuntimeOptions) {
     this.#options = options;
   }
 
+  get ruleIdentity(): LibriichiRuleIdentity {
+    return {
+      implementation: "Equim-chan/Mortal/libriichi",
+      revision: this.#options.identity.runtimeRevision,
+      nativeArtifactSha256: this.#options.identity.nativeArtifactSha256,
+      wrapperSha256: this.#options.identity.runtimeArtifactSha256,
+      normalizationVersion: LIBRIICHI_RULE_NORMALIZATION_VERSION,
+    };
+  }
+
+  #serialize<T>(operation: () => Promise<T>): Promise<T> {
+    const generation = this.#closeGeneration;
+    const current = this.#operationTail.then(() => {
+      this.#operationGeneration = generation;
+      this.#assertOperationOpen();
+      return operation();
+    });
+    this.#operationTail = current.catch(() => undefined);
+    return current;
+  }
+
+  #assertOperationOpen(): void {
+    if (this.#operationGeneration !== this.#closeGeneration) throw new ManagedMortalRuntimeError("mortal_runtime_unavailable");
+  }
+
   async start(): Promise<void> {
-    if (this.#ready && this.#child !== null && this.#child.exitCode === null) return;
+    if (this.#ready && !this.#protocolFailed && !this.#streamFailed && this.#child !== null &&
+        this.#child.exitCode === null && this.#child.signalCode === null) return;
     if (this.#startPromise !== null) return this.#startPromise;
     this.#closeRequested = false;
     const startPromise = this.#startOnce();
@@ -56,7 +95,12 @@ export class ManagedMortalRuntime {
   }
 
   async #startOnce(): Promise<void> {
-    await verifyManagedMortalArtifacts(this.#options);
+    if (this.#child !== null) {
+      const previous = this.#child;
+      await this.#closeExactChild(previous);
+      this.#clearChild(previous);
+    }
+    await verifyManagedLibriichiArtifacts(this.#options);
     if (this.#closeRequested) throw new ManagedMortalRuntimeError("mortal_runtime_unavailable");
     const child = spawn(this.#options.executable, [
       "-u", this.#options.runtimePath,
@@ -65,6 +109,14 @@ export class ManagedMortalRuntime {
       "--native-module", this.#options.nativeModulePath,
     ], { windowsHide: true, stdio: ["pipe", "pipe", "pipe"], env: this.#options.environment ?? process.env });
     this.#child = child;
+    this.#modelArtifactsVerified = false;
+    // Register at spawn time: cleanup can run after exit, including signal exits.
+    // A stream error is NOT proof that the process itself has exited.
+    this.#childExits.set(child, new Promise<void>((resolve) => {
+      child.once("exit", () => resolve());
+      child.once("close", () => resolve());
+      child.once("error", () => { if (child.pid === undefined) resolve(); });
+    }));
     this.#ready = false;
     this.#streamFailed = false;
     this.#exitSignal = new Promise((resolve) => {
@@ -101,7 +153,11 @@ export class ManagedMortalRuntime {
     }
   }
 
-  async infer(raw: LocalMortalInferenceRequest): Promise<LocalMortalInferenceResponse> {
+  infer(raw: LocalMortalInferenceRequest): Promise<LocalMortalInferenceResponse> {
+    return this.#serialize(() => this.#inferOnce(raw));
+  }
+
+  async #inferOnce(raw: LocalMortalInferenceRequest): Promise<LocalMortalInferenceResponse> {
     let request: LocalMortalInferenceRequest;
     try {
       request = LocalMortalInferenceRequestSchema.parse(raw);
@@ -119,8 +175,17 @@ export class ManagedMortalRuntime {
       throw new ManagedMortalRuntimeError("mortal_actual_action_mismatch");
     }
     try {
+      // Verify before the child's first lazy model load. A successfully loaded
+      // checkpoint remains in that exact process; hashing it on every decision
+      // would repeatedly read the entire model hundreds of times per game.
+      if (!this.#modelArtifactsVerified || !this.#ready || this.#child === null || this.#closeRequested) {
+        await verifyManagedMortalArtifacts(this.#options);
+      }
+      this.#assertOperationOpen();
       if (!this.#ready || this.#child === null) await this.start();
+      this.#assertOperationOpen();
       this.#assertNoUnsolicitedOutput();
+      this.#modelArtifactsVerified = true;
       const payload = JSON.stringify(request);
       if (Buffer.byteLength(payload) > MAX_LINE_BYTES) {
         throw new ManagedMortalRuntimeError("mortal_protocol_invalid");
@@ -158,6 +223,55 @@ export class ManagedMortalRuntime {
         }
         if (!expected.includes(JSON.stringify(response.preferredRuntimeAction))) {
           throw new ManagedMortalRuntimeError("mortal_candidate_mismatch");
+        }
+      }
+      if (response.status === "error") this.#modelArtifactsVerified = false;
+      return response;
+    } catch (error) {
+      await this.close();
+      if (error instanceof ManagedMortalRuntimeError) throw error;
+      throw new ManagedMortalRuntimeError("mortal_protocol_invalid");
+    }
+  }
+
+  queryRules(raw: LibriichiRuleRequest): Promise<LibriichiRuleResponse> {
+    return this.#serialize(() => this.#queryRulesOnce(raw));
+  }
+
+  async #queryRulesOnce(raw: LibriichiRuleRequest): Promise<LibriichiRuleResponse> {
+    const digest = (value: unknown) => createHash("sha256").update(libriichiRuleCanonicalJson(value)).digest("hex");
+    try {
+      const request = LibriichiRuleRequestSchema.parse(raw);
+      const { requestId, ...content } = request;
+      if (requestId !== digest(content) || request.eventPrefixSha256 !== digest(request.events) ||
+          request.events.at(-1)!.eventRef !== request.decision.triggerEventRef) {
+        throw new ManagedMortalRuntimeError("mortal_protocol_invalid");
+      }
+      if (libriichiRuleCanonicalJson(request.identity) !== libriichiRuleCanonicalJson(this.ruleIdentity)) {
+        throw new ManagedMortalRuntimeError("mortal_runtime_identity_mismatch");
+      }
+      await verifyManagedLibriichiArtifacts(this.#options);
+      this.#assertOperationOpen();
+      if (!this.#ready || this.#child === null) await this.start();
+      this.#assertOperationOpen();
+      this.#assertNoUnsolicitedOutput();
+      const payload = JSON.stringify(request);
+      if (Buffer.byteLength(payload) > MAX_LINE_BYTES) throw new ManagedMortalRuntimeError("mortal_protocol_invalid");
+      this.#child!.stdin.write(`${payload}\n`);
+      const line = await this.#nextLine(this.#options.inferenceTimeoutMs ?? 30_000, "mortal_runtime_timeout");
+      await this.#waitForQuietBoundary();
+      this.#assertNoUnsolicitedOutput();
+      const response = LibriichiRuleResponseSchema.parse(JSON.parse(line));
+      if (response.requestId !== requestId) throw new ManagedMortalRuntimeError("mortal_protocol_invalid");
+      if (response.status !== "error") {
+        const { resultId, ...resultContent } = response;
+        if (resultId !== digest(resultContent) ||
+            libriichiRuleCanonicalJson(response.identity) !== libriichiRuleCanonicalJson(request.identity)) {
+          throw new ManagedMortalRuntimeError("mortal_protocol_invalid");
+        }
+        if (response.status === "ok") {
+          const keys = response.actions.map(action => libriichiRuleCanonicalJson(action.runtimeAction));
+          if (new Set(keys).size !== keys.length) throw new ManagedMortalRuntimeError("mortal_candidate_mismatch");
         }
       }
       return response;
@@ -250,6 +364,7 @@ export class ManagedMortalRuntime {
   }
 
   async close(): Promise<void> {
+    this.#closeGeneration++;
     this.#closeRequested = true;
     if (this.#startPromise !== null) {
       try { await this.#startPromise; } catch { /* Startup failure still requires cleanup below. */ }
@@ -270,24 +385,24 @@ export class ManagedMortalRuntime {
     this.#pendingLine = null;
     this.#protocolFailed = false;
     this.#ready = false;
+    this.#modelArtifactsVerified = false;
   }
 
   async #closeExactChild(child: ChildProcessWithoutNullStreams): Promise<void> {
-    if (child.exitCode !== null) return;
+    if (child.exitCode !== null || child.signalCode !== null || child.pid === undefined) return;
+    const exited = this.#childExits.get(child)!;
     child.stdin.end();
-    const exited = new Promise<void>((resolve) => {
-      child.once("exit", () => resolve());
-      child.once("error", () => resolve());
-    });
-    let timeoutHandle: NodeJS.Timeout | undefined;
-    const graceExpired = new Promise<"timeout">((resolve) => {
-      timeoutHandle = setTimeout(() => resolve("timeout"), 1_000);
-      timeoutHandle.unref();
-    });
-    const graceful = await Promise.race([exited.then(() => "exited" as const), graceExpired]);
-    if (timeoutHandle !== undefined) clearTimeout(timeoutHandle);
-    if (graceful === "exited" || child.exitCode !== null) return;
+    const waitBounded = async (): Promise<boolean> => {
+      let timer: NodeJS.Timeout | undefined;
+      try {
+        return await Promise.race([
+          exited.then(() => true),
+          new Promise<false>((resolve) => { timer = setTimeout(() => resolve(false), 1_000); }),
+        ]);
+      } finally { clearTimeout(timer); }
+    };
+    if (await waitBounded()) return;
     child.kill("SIGKILL");
-    await exited;
+    if (!await waitBounded()) throw new ManagedMortalRuntimeError("mortal_runtime_crash");
   }
 }
