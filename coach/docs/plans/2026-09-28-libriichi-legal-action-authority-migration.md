@@ -124,6 +124,11 @@ R14 证据定位：COAC-164，固定 head 为本计划基线；本机只读附�
 没有运行迁移后的产品，因此不复用历史五门或 CPU spike 为本方案签发通过；
 上述 P4 门禁仍是实现提交的必要验收。本节不改变历史评审/回执的约束或结果。
 
+2026-09-28 本规划提交时的实际检查：14 个 Markdown 文件的 78 个相对文件链接均存在；
+`git diff --check` 退出 0；`npm run check:architecture` 退出 0（7 packages、
+408 files、1780 imports、0 violations）。当时没有修改源码或执行产品迁移验收；
+后续实现证据分别列于下节，不将规划检查解释成产品通过。
+
 ## 6. 2026-09-28 第一实施切片
 
 已落地：
@@ -164,7 +169,50 @@ R14 证据定位：COAC-164，固定 head 为本计划基线；本机只读附�
 同牌手切/摸切、立直两阶段、赤牌消费）必须在下一切片显式验证，不能由 actual
 回填修改合法集合。未宣称 P0/P1 整体退出，也未宣称 R14 全部修复。
 
-2026-09-28 本规划实际检查：14 个 Markdown 文件的 78 个相对文件链接均存在；
-`git diff --check` 退出 0；`npm run check:architecture` 退出 0（7 packages、
-408 files、1780 imports、0 violations）。未运行产品五门全套、新规则运行探针或
-真实 CPU spike；这些结果仍待实施阶段生成。源码未改，不声称 R14 缺陷修复。
+## 7. 第二实施切片：规则结果绑定评分
+
+本切片推进 P1/P2 的评分消费者，不构成整体迁移完成。变更范围为现有 contracts、
+mortal-runtime、reasoning 和能力验证脚本；没有新增包、特权依赖边或治理系统。
+
+- 新增显式 `riichi-local-mortal-scoring-jsonl/v2` / `score_actions` 操作：请求绑定
+  完整规则输入、原生规则结果和模型身份，排除 actual 选择；单候选不能提交评分。
+- 运行时在调用模型前，用同一固定 native 重放核对整份动作结果。交换 MJAI 内容
+  后重算所有摘要仍不通过。每项返回分数绑定原生动作行摘要与结果 ID。
+- 模型直接消费同一原生状态的观察和 mask；食断/一发配置同时影响规则与观察。
+  未知配置即使合法集合相同，观察不同时也不能任取一份评分；返回明确模型失败。
+  多杠保留主/第二阶段 Q；主动作同分时，第二阶段 Q 不得改变原生主阶段选择。
+- reasoning 新入口重新校验评分对应，直接生成既有报告行。已知动作的表示转换、
+  softmax 和报告字段投影从旧枚举文件抽出共用，未复制合法性算法。
+- R14 九种九牌原因字段补全并有下游回归：原缺字段表示保留全 16 行仍得到
+  `model_output_incomplete`；正确表示的全部候选进入 `analysis_ready`，并生成通过
+  validator 的既有分析包。该回归用受控分数和真实 helper，不冒称真实模型全链。
+
+受影响不变量：INV-002 模型评分不改动作/事实、INV-004 动作和评分逐项身份守恒、
+INV-005 特权 owner、INV-006 协议失败、INV-007 版本来源。协议 schema、运行时
+边界、报告转换和下游回归保护本切片；唯一来源覆盖所有消费者仍未机器强制。
+新评分协议是已有 runtime 的独立版本操作，避免 v1 调用者枚举被解释成原生证明，
+不增加第二套服务或候选权威。
+
+验证证据目录沿用源码外的 `LOCALAPPDATA/RiichiCoach/spike-runs/libriichi-migration-dafb76f`，
+本切片日志以 `scoring-v2-` 开头：
+
+- `npm run typecheck`：最终退出 0（`typecheck-complete.log`）。首次新增测试错误
+  修改 readonly 字段而失败，已改为新对象并完整重跑。另一次在仓库根误执行
+  `npx tsc` 未找到项目 TypeScript，已回到 coach 使用项目工具，没有修改依赖清单。
+- `npm run build`：退出 0（`build.log`）。
+- `npx vitest run`：最终退出 0，180 文件 / 2213 测试（`vitest-complete.log`）。
+- `npm run check:architecture`：退出 0，7 包 / 418 文件 / 1838 导入 / 0 违规。
+- `npm run test:package-import`：退出 0，完整重建并通过导入 smoke。
+- `git diff --check`：退出 0。
+- `runtime_scoring_native_test.py`：真实 native + 假评分 7 项通过；最初 5 项因新
+  `score_rules` 尚不存在失败。受管协议最初的成功用例因测试执行器未支持新操作
+  失败，补齐执行器后 15 项通过；负例断言具体错误码，避免进程崩溃冒充正确拒绝。
+- `node scripts/libriichi-rules-probe.mjs --with-scores`：退出 0。先以不存在的模型
+  资产证明规则可运行，再加载已准备真实 CPU checkpoint；16 项原始 Q 与原生
+  Bot 路径完全一致，动作交换重算摘要仍拒绝。输出独立的新回执；这是 synthetic
+  capability 验证，不代替最终真实牌谱 spike，也没有禁网声明。
+
+剩余工作保持原范围：事件边界全面扫描；新结果派生单候选证明；local/remote/
+full-game/discovery 的正式切换；新旧包版本与规则来源；物理动作对应语义；旧
+枚举删除/封存；最终提交真实 CPU spike；Multica 外部独立验收及后续修复循环。
+目前仍有旧 v1 入口和生产枚举，属于迁移中间态，不能保留为最终 fallback。

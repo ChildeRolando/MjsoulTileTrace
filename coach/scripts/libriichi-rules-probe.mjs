@@ -5,12 +5,13 @@ import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { LIBRIICHI_RULE_PROTOCOL_VERSION, libriichiRuleCanonicalJson } from "@riichi-coach/contracts";
+import { LIBRIICHI_RULE_PROTOCOL_VERSION, LOCAL_MORTAL_SCORING_PROTOCOL_VERSION, libriichiRuleCanonicalJson } from "@riichi-coach/contracts";
 import { ManagedMortalRuntime, loadManagedMortalManifest, sha256File } from "@riichi-coach/mortal-runtime";
 
 const root = resolve(fileURLToPath(new URL("..", import.meta.url)));
 const assetRoot = process.env.RIICHI_LOCAL_MORTAL_ROOT ?? join(process.env.LOCALAPPDATA ?? "", "RiichiCoach", "local-mortal-spike");
-const evidence = resolve(process.argv[2] ?? join(process.env.LOCALAPPDATA ?? "", "RiichiCoach", "spike-runs", `libriichi-rule-probe-${Date.now()}`));
+const withScores = process.argv.includes("--with-scores");
+const evidence = resolve(process.argv.slice(2).find(arg => arg !== "--with-scores") ?? join(process.env.LOCALAPPDATA ?? "", "RiichiCoach", "spike-runs", `libriichi-rule-probe-${Date.now()}`));
 mkdirSync(evidence, { recursive: true });
 const manifest = await loadManagedMortalManifest(join(root, "packages/mortal-runtime/manifests/mortal-582500.windows-x64.json"));
 if (!process.env.RIICHI_LIBRIICHI_NATIVE_RECEIPT) throw new Error("set RIICHI_LIBRIICHI_NATIVE_RECEIPT to the explicit native build receipt");
@@ -52,14 +53,59 @@ try {
   if (response.status !== "ok" || JSON.stringify(response.actions.map(a=>a.runtimeAction.index)) !== JSON.stringify(expected)) {
     throw new Error("native complete action-set regression");
   }
+  let scoring = null;
+  if (withScores) {
+    // The rule-only child has already proved absent model assets work. Use a
+    // separate verified child for the optional real-checkpoint capability check.
+    const identity = { ...manifest.identity, nativeArtifactSha256: prepared.nativeArtifactSha256 };
+    const scoringRuntime = new ManagedMortalRuntime({
+      executable: join(assetRoot, "python/Scripts/python.exe"),
+      runtimePath: join(root, "packages/mortal-runtime/runtime/local_mortal_runtime.py"),
+      checkpointPath: join(assetRoot, "mortal_582500.pth"), mortalSourcePath: join(assetRoot, "Mortal/mortal"),
+      nativeModulePath, manifest, identity, inferenceTimeoutMs: 120_000,
+      environment: { ...process.env, PYTHONPATH: "", PYTHONDONTWRITEBYTECODE: "1" },
+    });
+    try {
+      const scoringContent = { protocolVersion: LOCAL_MORTAL_SCORING_PROTOCOL_VERSION, operation: "score_actions",
+        identity, ruleRequest: request, ruleResult: response };
+      const scoringRequest = { ...scoringContent, requestId: digest(scoringContent) };
+      const scored = await scoringRuntime.scoreRules(scoringRequest);
+      if (scored.status !== "ok" || scored.candidates.length !== expected.length) throw new Error("native scoring regression");
+      // Independent execution route through the pinned native Bot proves the
+      // direct observation route preserves existing network values. Same model,
+      // not an independent rules oracle and not a production-corpus spike.
+      const legacyContent = { protocolVersion: identity.protocolVersion, identity, recordId: "capability-probe",
+        canonicalStreamIdentity: request.canonicalStreamIdentity,
+        decision: { decisionId: "probe:2", surface: "self", windowKind: "self_turn", triggerEventRef: "probe:2", selfActor:0 },
+        events: events.map((row,i)=>({...row,canAct:i === events.length-1})),
+        candidates: response.actions.map((row,i)=>({...row,actionRef:`probe-action:${i}`})), actualActionRef:"probe-action:0" };
+      const legacy = await scoringRuntime.infer({ ...legacyContent, requestId:`local-mortal:${digest(legacyContent)}` });
+      if (legacy.status !== "ok" || libriichiRuleCanonicalJson(scored.preferredRuntimeAction) !== libriichiRuleCanonicalJson(legacy.preferredRuntimeAction) ||
+          libriichiRuleCanonicalJson(scored.candidates.map(({ruleActionId,...row})=>row)) !== libriichiRuleCanonicalJson(legacy.candidates)) {
+        throw new Error("native score values differ from Bot route");
+      }
+      const tampered = structuredClone(scoringRequest);
+      const rows = tampered.ruleResult.actions;
+      [rows[0].mjaiActionJson,rows[1].mjaiActionJson] = [rows[1].mjaiActionJson,rows[0].mjaiActionJson];
+      delete tampered.ruleResult.resultId;
+      tampered.ruleResult.resultId = digest(tampered.ruleResult);
+      delete tampered.requestId;
+      tampered.requestId = digest(tampered);
+      const rejected = await scoringRuntime.scoreRules(tampered);
+      if (rejected.status !== "error" || rejected.code !== "mortal_candidate_mismatch") throw new Error("rehashed swap accepted");
+      scoring = { scope:"synthetic-capability-not-production-spike", device:"cpu", identity,
+        checkpointVerified:true, requestId:scoringRequest.requestId, response:scored,
+        botRouteScoresIdentical:true, rehashedSwap:rejected };
+    } finally { await scoringRuntime.close(); }
+  }
   const status = execFileSync("git", ["status", "--porcelain"], {cwd:root,encoding:"utf8",windowsHide:true});
   const diff = execFileSync("git", ["diff", "--binary", "HEAD"], {cwd:root,windowsHide:true,maxBuffer:32*1024*1024});
   const receipt = { receiptVersion: "libriichi-rule-capability/v1", createdAt: new Date().toISOString(),
     commit: execFileSync("git",["rev-parse","HEAD"],{cwd:root,encoding:"utf8",windowsHide:true}).trim(),
     dirty: status.trim().length > 0, trackedDiffSha256: createHash("sha256").update(diff).digest("hex"),
     ruleIdentity: runtime.ruleIdentity, checkpointExists: existsSync(checkpointPath), modelSourceExists: existsSync(mortalSourcePath),
-    networkIsolation: "not_requested_or_claimed", request, response };
+    networkIsolation: "not_requested_or_claimed", request, response, scoring };
   const path = join(evidence,"receipt.json");
   writeFileSync(path, JSON.stringify(receipt,null,2)+"\n", {flag:"wx"});
-  console.log(JSON.stringify({status:"passed",actionCount:response.actions.length,checkpointExists:false,modelSourceExists:false,receipt:path}));
+  console.log(JSON.stringify({status:"passed",actionCount:response.actions.length,checkpointExists:false,modelSourceExists:false,realCpuScoring:withScores,receipt:path}));
 } finally { await runtime.close(); }

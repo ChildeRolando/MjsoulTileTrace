@@ -1,3 +1,4 @@
+import { projectLocalMortalAction as mjaiAction, stableMortalSoftmax as stableSoftmax, buildLocalMortalReportEntry } from "./local-mortal-report.js";
 import { projectLocalMortalEvent } from "./local-mortal-events.js";
 import { createHash } from "node:crypto";
 import {
@@ -15,10 +16,8 @@ import {
 } from "@riichi-coach/contracts";
 import {
   computeCanonicalGameFingerprint,
-  formatMjaiTile,
   type MortalReportCandidate,
   type MortalReportDecisionEntry,
-  type MortalReportFuuro,
   type MortalSourceAction,
 } from "@riichi-coach/mortal-source";
 import type { ReplayedDecision } from "../replay/stream-replayer.js";
@@ -55,25 +54,6 @@ function runtimeIndex(action: RiichiAction, offered?: Tile): number {
     case "kyuushu_kyuuhai": return 44;
     case "pass": return 45;
     case "riichi_discard": return 37;
-  }
-}
-
-function mjaiAction(action: RiichiAction, actor: number): MortalSourceAction {
-  switch (action.kind) {
-    case "discard":
-      return { type: "dahai", actor, pai: formatMjaiTile(action.tile), tsumogiri: action.discardMode === "tsumogiri" };
-    case "riichi_discard": return { type: "reach", actor };
-    case "declare_riichi": return { type: "reach", actor };
-    case "chi":
-    case "pon":
-    case "daiminkan":
-      return { type: action.kind, actor, target: action.targetActor, pai: formatMjaiTile(action.calledTile), consumed: action.consumedTiles.map(formatMjaiTile) };
-    case "ankan": return { type: "ankan", actor, consumed: action.tiles.map(formatMjaiTile) };
-    case "kakan": return { type: "kakan", actor, pai: formatMjaiTile(action.addedTile) };
-    case "tsumo": return { type: "hora", actor, target: actor, pai: formatMjaiTile(action.winningTile) };
-    case "ron": return { type: "hora", actor, target: action.targetActor, pai: formatMjaiTile(action.winningTile) };
-    case "kyuushu_kyuuhai": return { type: "ryukyoku", actor };
-    case "pass": return { type: "none" };
   }
 }
 
@@ -542,21 +522,6 @@ function localMortalRequestId(request: LocalMortalInferenceRequest): string {
   return `local-mortal:${createHash("sha256").update(libriichiRuleCanonicalJson(content)).digest("hex")}`;
 }
 
-function stableSoftmax(values: number[]): number[] {
-  const max = Math.max(...values);
-  const exps = values.map((value) => Math.exp(value - max));
-  const total = exps.reduce((sum, value) => sum + value, 0);
-  return exps.map((value) => value / total);
-}
-
-function localFuuros(decision: ReplayedDecision): MortalReportFuuro[] {
-  return decision.snapshot.privateState.selfMeldRefs.map((ref) => {
-    const meld = decision.snapshot.publicState.melds.find((row) => row.meldRef === ref)!;
-    const tiles = meld.kind === "ankan" ? meld.tiles : meld.kind === "kakan" ? [meld.calledTile, ...meld.consumedTiles, meld.addedTile] : [meld.calledTile, ...meld.consumedTiles];
-    return { kind: meld.kind, tiles };
-  });
-}
-
 export function localMortalResponseToReportEntry(input: {
   request: LocalMortalInferenceRequest;
   response: LocalMortalInferenceSuccess;
@@ -631,48 +596,10 @@ export function localMortalResponseToReportEntry(input: {
     if (candidate === undefined) throw new Error("mortal_candidate_mismatch");
     return { action: JSON.parse(candidate.mjaiActionJson) as MortalSourceAction, probability: probs[index]!, qValue: row.qValue };
   });
-  const snapshot = input.decision.snapshot;
-  const state = snapshot.privateState;
-  const preferred = candidateByKey.get(JSON.stringify(input.response.preferredRuntimeAction));
-  if (preferred === undefined) throw new Error("mortal_candidate_mismatch");
-  const expected = JSON.parse(preferred.mjaiActionJson) as MortalSourceAction;
-  const actualProjected = mjaiAction(actual, snapshot.selfActor);
-  const triggerTile = window.kind === "discard_response" || window.kind === "kan_response"
-    ? window.offeredTile
-    : state.currentDraw?.tile ?? (actual.kind === "discard" || actual.kind === "riichi_discard" ? actual.tile : undefined);
-  if (triggerTile === undefined) throw new Error("mortal_actual_action_mismatch");
-  const hand = [
-    ...state.concealedTiles,
-    ...((window.kind === "self_turn" || window.kind === "post_riichi_discard") && state.currentDraw !== null
-      ? [state.currentDraw.tile]
-      : []),
-  ];
-  return {
-    roundOrdinal: snapshot.publicState.roundOrdinal,
-    roundWind: snapshot.publicState.roundWind,
-    dealer: snapshot.publicState.dealer,
-    kyoku: snapshot.publicState.hand - 1,
-    honba: snapshot.publicState.honba,
-    junme: snapshot.publicState.rivers[snapshot.selfActor]!.length + 1,
-    tilesLeft: snapshot.publicState.remainingDraws ?? 0,
-    lastActor: window.kind === "discard_response" || window.kind === "kan_response" ? window.sourceActor! : snapshot.selfActor,
-    tile: formatMjaiTile(triggerTile),
-    tehai: hand.map(formatMjaiTile),
-    fuuros: localFuuros(input.decision),
-    atSelfChiPon: window.kind === "post_call_discard",
-    atSelfRiichi: window.kind === "post_riichi_discard" || snapshot.publicState.riichiStates[snapshot.selfActor]!.status !== "none",
-    atOpponentKakan: window.kind === "kan_response",
-    expected,
-    actual: actualProjected,
-    isEqual: JSON.stringify(expected) === JSON.stringify(actualProjected),
-    details,
-    shanten: 0,
-    atFuriten: false,
-    actualIndex: (() => {
-      const index = details.findIndex((row) => JSON.stringify(row.action) === JSON.stringify(actualProjected));
-      if (index < 0) throw new Error("mortal_actual_action_mismatch");
-      return index;
-    })(),
-    localDecisionIdentity: input.request.decision,
-  };
+  const actualProjected = mjaiAction(actual, input.decision.snapshot.selfActor);
+  return buildLocalMortalReportEntry({
+    decision: input.decision, decisionIdentity: input.request.decision, details,
+    preferredIndex: input.response.candidates.indexOf(preferredRow),
+    actualIndex: details.findIndex(row => JSON.stringify(row.action) === JSON.stringify(actualProjected)),
+  });
 }

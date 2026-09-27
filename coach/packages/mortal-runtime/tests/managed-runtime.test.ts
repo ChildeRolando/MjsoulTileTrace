@@ -12,6 +12,8 @@ import {
   type LibriichiRuleRequest,
   ManagedMortalRuntimeManifestSchema,
   type LocalMortalInferenceRequest,
+  LOCAL_MORTAL_SCORING_PROTOCOL_VERSION,
+  type LocalMortalScoringRequest,
 } from "@riichi-coach/contracts";
 import { ManagedMortalRuntime, loadManagedMortalManifest, sha256File } from "../src/index.js";
 
@@ -87,6 +89,69 @@ function ruleRequest(runtime: ManagedMortalRuntime): LibriichiRuleRequest {
   };
   return { ...content, requestId: hash(libriichiRuleCanonicalJson(content)) };
 }
+
+function scoringRequest(runtime: ManagedMortalRuntime, identity: LocalMortalInferenceRequest["identity"]): LocalMortalScoringRequest {
+  const rules = ruleRequest(runtime);
+  const result = {
+    protocolVersion: rules.protocolVersion, requestId: rules.requestId, identity: rules.identity,
+    status: "ok" as const, actions: [
+      { runtimeAction: { index: 0, variant: null }, mjaiActionJson: '{"type":"dahai","actor":0,"pai":"1m","tsumogiri":false}' },
+      { runtimeAction: { index: 1, variant: null }, mjaiActionJson: '{"type":"dahai","actor":0,"pai":"2m","tsumogiri":true}' },
+    ],
+  };
+  const content = {
+    protocolVersion: LOCAL_MORTAL_SCORING_PROTOCOL_VERSION, operation: "score_actions" as const, identity,
+    ruleRequest: rules, ruleResult: { ...result, resultId: hash(libriichiRuleCanonicalJson(result)) },
+  };
+  return { ...content, requestId: hash(libriichiRuleCanonicalJson(content)) };
+}
+
+describe("managed scoring of the sole native rule result", () => {
+  it("binds every score to the exact rule result and native action", async () => {
+    const { runtime, request } = await setup("success");
+    try {
+      const scoring = scoringRequest(runtime, request.identity);
+      const response = await runtime.scoreRules(scoring);
+      expect(response.status).toBe("ok");
+      if (response.status !== "ok") throw new Error("fixture");
+      expect(response.ruleResultId).toBe(scoring.ruleResult.resultId);
+      expect(response.candidates).toEqual(scoring.ruleResult.actions.map((row, i) => ({
+        runtimeAction: row.runtimeAction, ruleActionId: hash(libriichiRuleCanonicalJson(row)), qValue: i + 1,
+      })));
+      expect(response.preferredRuntimeAction).toEqual({ index: 1, variant: null });
+    } finally { await runtime.close(); }
+  });
+
+  it.each([
+    ["score_wrong_request", "mortal_protocol_invalid"], ["score_wrong_result", "mortal_runtime_identity_mismatch"],
+    ["score_swapped_action_id", "mortal_candidate_mismatch"], ["score_wrong_identity", "mortal_runtime_identity_mismatch"],
+    ["duplicate", "mortal_candidate_mismatch"], ["missing", "mortal_protocol_invalid"],
+    ["unknown_preferred", "mortal_candidate_mismatch"], ["score_wrong_preferred", "mortal_candidate_mismatch"],
+    ["extra_field", "mortal_protocol_invalid"], ["trailing_prose", "mortal_protocol_invalid"],
+    ["extra_response", "mortal_protocol_invalid"], ["timeout", "mortal_runtime_timeout"], ["crash", "mortal_runtime_crash"],
+  ])(
+    "rejects %s and cleans up", async (mode, code) => {
+      const { runtime, request } = await setup(mode);
+      try { await expect(runtime.scoreRules(scoringRequest(runtime, request.identity))).rejects.toMatchObject({ code }); }
+      finally { await runtime.close(); }
+    });
+
+  it("rejects stale content or result binding before starting a process", async () => {
+    const { runtime, request, environment, dir } = await setup("success");
+    const started = join(dir, "started.txt");
+    environment.MORTAL_FAKE_START_COUNT_FILE = started;
+    for (const mutation of ["input", "result", "native"] as const) {
+      const scoring = scoringRequest(runtime, request.identity);
+      if (mutation === "input") scoring.ruleRequest.canonicalStreamIdentity = "different";
+      if (mutation === "result") scoring.ruleResult.requestId = "f".repeat(64);
+      if (mutation === "native") scoring.identity.nativeArtifactSha256 = "f".repeat(64);
+      const { requestId: _old, ...content } = scoring;
+      scoring.requestId = hash(libriichiRuleCanonicalJson(content));
+      await expect(runtime.scoreRules(scoring)).rejects.toHaveProperty("code");
+    }
+    await expect(readFile(started, "utf8")).rejects.toMatchObject({ code: "ENOENT" });
+  });
+});
 
 describe("managed libriichi rule operation", () => {
   it("does not start queued operations after an explicit close", async () => {

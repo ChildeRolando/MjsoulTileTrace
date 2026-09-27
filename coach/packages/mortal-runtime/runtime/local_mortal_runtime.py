@@ -3,6 +3,7 @@ import hashlib
 import importlib
 import importlib.util
 import json
+import math
 import os
 import sys
 from itertools import product
@@ -89,6 +90,7 @@ def load_runtime(checkpoint, mortal_source, native_module):
 
 
 RULE_PROTOCOL = "riichi-libriichi-rules-jsonl/v1"
+SCORING_PROTOCOL = "riichi-local-mortal-scoring-jsonl/v2"
 
 
 def rule_json(value):
@@ -210,6 +212,79 @@ def _query_rule_profile(request, native, open_tanyao, ippatsu):
     return result
 
 
+def score_rules(request, native, engine):
+    """Score an exact native result, never caller-enumerated or actual actions.
+
+    Re-execution verifies the untrusted result against the pinned rule engine.
+    This is same-source binding, not a second legality implementation.
+    A callable engine is loaded only after every input/observation check passes.
+    """
+    failure = {"protocolVersion": SCORING_PROTOCOL, "requestId": request["requestId"], "status": "error"}
+    content = {key: value for key, value in request.items() if key != "requestId"}
+    if (request.get("protocolVersion") != SCORING_PROTOCOL or request.get("operation") != "score_actions"
+            or rule_digest(content) != request["requestId"]):
+        return dict(failure, code="mortal_protocol_invalid")
+    rules_input, expected = request["ruleRequest"], request["ruleResult"]
+    identity = request["identity"]
+    if (rules_input["identity"]["revision"] != identity["runtimeRevision"]
+            or rules_input["identity"]["nativeArtifactSha256"] != identity["nativeArtifactSha256"]
+            or rules_input["identity"]["wrapperSha256"] != identity["runtimeArtifactSha256"]):
+        return dict(failure, code="mortal_runtime_identity_mismatch")
+    verified = query_rules(rules_input, native)
+    if verified != expected or verified["status"] != "ok" or len(verified["actions"]) < 2:
+        return dict(failure, code="mortal_candidate_mismatch")
+
+    # An unknown profile can have equal legal actions but different observations
+    # (e.g. ippatsu features). It cannot silently pick one model input.
+    PlayerState = importlib.import_module("libriichi.state").PlayerState
+    rules = rules_input["ruleSet"]
+    choices = lambda value: [False, True] if value == "unknown" else [value]
+    batches = []
+    for open_tanyao, ippatsu in product(choices(rules["openTanyao"]), choices(rules["ippatsuCancelledByAnkan"])):
+        state = PlayerState(rules_input["decision"]["selfActor"])
+        state.configure_rules(open_tanyao, ippatsu)
+        for row in rules_input["events"]:
+            state.update(row["json"])
+        batch = []
+        if state.last_cans.can_ankan or state.last_cans.can_kakan:
+            batch.append(state.encode_obs(4, True))
+        batch.append(state.encode_obs(4, False))
+        batches.append(batch)
+    fingerprint = lambda batch: [(obs.shape, obs.dtype.str, obs.tobytes(), mask.tobytes()) for obs, mask in batch]
+    if any(fingerprint(batch) != fingerprint(batches[0]) for batch in batches[1:]):
+        return dict(failure, code="mortal_output_incomplete")
+    observations = [obs for obs, _ in batches[0]]
+    masks = [mask for _, mask in batches[0]]
+    if callable(engine):
+        engine = engine()
+    _, values, returned_masks, _ = engine.react_batch(observations, masks, None)
+    if (len(values) != len(masks) or len(returned_masks) != len(masks)
+            or any(list(returned) != list(mask) for returned, mask in zip(returned_masks, masks))
+            or any(len(row) != 46 for row in values)):
+        return dict(failure, code="mortal_candidate_mismatch")
+    candidates = []
+    for row in verified["actions"]:
+        key = row["runtimeAction"]
+        q = float(values[-1][key["index"]])
+        if not math.isfinite(q):
+            return dict(failure, code="mortal_protocol_invalid")
+        candidate = {"runtimeAction": key, "ruleActionId": rule_digest(row), "qValue": q}
+        if key["variant"] is not None:
+            kan_q = float(values[0][int(key["variant"][4:])])
+            if not math.isfinite(kan_q):
+                return dict(failure, code="mortal_protocol_invalid")
+            candidate["kanSelectionQValue"] = kan_q
+        candidates.append(candidate)
+    # Native greedy breaks main-action ties by the lowest mask index. The
+    # second-stage Q breaks only ties BETWEEN realizations of the chosen kan.
+    main_index = max((i for i, enabled in enumerate(masks[-1]) if enabled), key=lambda i: values[-1][i])
+    preferred = max((row for row in candidates if row["runtimeAction"]["index"] == main_index),
+                    key=lambda row: row.get("kanSelectionQValue", 0))
+    return {"protocolVersion": SCORING_PROTOCOL, "requestId": request["requestId"], "status": "ok",
+            "identity": identity, "ruleResultId": verified["resultId"], "candidates": candidates,
+            "preferredRuntimeAction": preferred["runtimeAction"]}
+
+
 def infer(request, engine, bot_type):
     engine.last = None
     bot = bot_type(engine, request["decision"]["selfActor"])
@@ -256,6 +331,11 @@ def main():
     args = parser.parse_args()
     native = load_native(args.native_module)
     engine, bot_type = None, None
+    def get_engine():
+        nonlocal engine, bot_type
+        if engine is None:
+            engine, bot_type = load_runtime(args.checkpoint, args.mortal_source, args.native_module)
+        return engine
     print(json.dumps({"ready": True, "protocolVersion": "riichi-local-mortal-jsonl/v1"}, separators=(",", ":")), flush=True)
     for line in sys.stdin:
         request = None
@@ -263,14 +343,17 @@ def main():
             request = json.loads(line)
             if request.get("operation") == "legal_actions":
                 response = query_rules(request, native)
+            elif request.get("operation") == "score_actions":
+                response = score_rules(request, native, get_engine)
             else:
-                if engine is None:
-                    engine, bot_type = load_runtime(args.checkpoint, args.mortal_source, args.native_module)
+                get_engine()
                 response = infer(request, engine, bot_type)
         except Exception:
             request_id = request.get("requestId", "invalid") if isinstance(request, dict) else "invalid"
             response = ({"protocolVersion": RULE_PROTOCOL, "requestId": request_id, "status": "error", "code": "rules_runtime_failed"}
                         if isinstance(request, dict) and request.get("operation") == "legal_actions"
+                        else {"protocolVersion": SCORING_PROTOCOL, "requestId": request_id, "status": "error", "code": "mortal_protocol_invalid"}
+                        if isinstance(request, dict) and request.get("operation") == "score_actions"
                         else fail(request_id, "mortal_protocol_invalid"))
         print(json.dumps(response, separators=(",", ":"), allow_nan=False), flush=True)
 

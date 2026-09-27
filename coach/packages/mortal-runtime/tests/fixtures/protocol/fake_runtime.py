@@ -69,8 +69,11 @@ for line in sys.stdin:
         continue
     candidates = [
         {"runtimeAction": row["runtimeAction"], "qValue": float(index + 1)}
-        for index, row in enumerate(request["candidates"])
+        for index, row in enumerate(request["ruleResult"]["actions"] if request.get("operation") == "score_actions" else request["candidates"])
     ]
+    if request.get("operation") == "score_actions":
+        for row, candidate in zip(request["ruleResult"]["actions"], candidates):
+            candidate["ruleActionId"] = hashlib.sha256(json.dumps(row, sort_keys=True, ensure_ascii=False, separators=(",", ":")).encode()).hexdigest()
     if mode == "duplicate":
         candidates[-1] = candidates[0]
     if mode == "missing":
@@ -79,11 +82,20 @@ for line in sys.stdin:
         "protocolVersion": request["protocolVersion"],
         "requestId": request["requestId"],
         "identity": request["identity"],
-        "decision": request["decision"],
         "status": "ok",
         "candidates": candidates,
         "preferredRuntimeAction": candidates[-1]["runtimeAction"],
     }
+    if request.get("operation") == "score_actions":
+        response["ruleResultId"] = request["ruleResult"]["resultId"]
+        if mode == "score_wrong_request": response["requestId"] = "f"*64
+        if mode == "score_wrong_result": response["ruleResultId"] = "f"*64
+        if mode == "score_wrong_identity": response["identity"]["runtimeRevision"] = "f"*40
+        if mode == "score_wrong_preferred": response["preferredRuntimeAction"] = candidates[0]["runtimeAction"]
+        if mode == "score_swapped_action_id":
+            candidates[0]["ruleActionId"], candidates[1]["ruleActionId"] = candidates[1]["ruleActionId"], candidates[0]["ruleActionId"]
+    else:
+        response["decision"] = request["decision"]
     if mode == "extra_field":
         response["debug"] = "forbidden"
     if mode == "unknown_preferred":

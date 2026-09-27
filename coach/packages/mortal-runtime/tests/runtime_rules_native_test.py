@@ -62,6 +62,7 @@ class NativeRulesTest(unittest.TestCase):
                 "atamahane": False, "westExtension": "sudden_death", "ippatsuCancelledByAnkan": True}, "events": prefix}
         if profile is not None: request["ruleSet"].update(profile)
         request["requestId"] = runner.rule_digest(request)
+        self.last_request = request
         result = runner.query_rules(request, self.native)
         self.assertEqual(result["requestId"], request["requestId"])
         self.assertNotIn("torch", sys.modules)

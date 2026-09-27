@@ -4,6 +4,10 @@ import {
   LIBRIICHI_RULE_NORMALIZATION_VERSION,
   LibriichiRuleRequestSchema,
   LibriichiRuleResponseSchema,
+  LocalMortalScoringRequestSchema,
+  LocalMortalScoringResponseSchema,
+  type LocalMortalScoringRequest,
+  type LocalMortalScoringResponse,
   libriichiRuleCanonicalJson,
   type LibriichiRuleIdentity,
   type LibriichiRuleRequest,
@@ -236,6 +240,75 @@ export class ManagedMortalRuntime {
 
   queryRules(raw: LibriichiRuleRequest): Promise<LibriichiRuleResponse> {
     return this.#serialize(() => this.#queryRulesOnce(raw));
+  }
+
+  scoreRules(raw: LocalMortalScoringRequest): Promise<LocalMortalScoringResponse> {
+    return this.#serialize(() => this.#scoreRulesOnce(raw));
+  }
+
+  async #scoreRulesOnce(raw: LocalMortalScoringRequest): Promise<LocalMortalScoringResponse> {
+    const digest = (value: unknown) => createHash("sha256").update(libriichiRuleCanonicalJson(value)).digest("hex");
+    const key = libriichiRuleCanonicalJson;
+    try {
+      const request = LocalMortalScoringRequestSchema.parse(raw);
+      const { requestId, ...content } = request;
+      const { requestId: ruleRequestId, ...ruleContent } = request.ruleRequest;
+      const { resultId, ...resultContent } = request.ruleResult;
+      if (requestId !== digest(content) || ruleRequestId !== digest(ruleContent) ||
+          resultId !== digest(resultContent) || request.ruleResult.requestId !== ruleRequestId ||
+          request.ruleRequest.eventPrefixSha256 !== digest(request.ruleRequest.events) ||
+          request.ruleRequest.events.at(-1)!.eventRef !== request.ruleRequest.decision.triggerEventRef) {
+        throw new ManagedMortalRuntimeError("mortal_protocol_invalid");
+      }
+      if (key(request.identity) !== key(this.#options.identity) ||
+          key(request.ruleRequest.identity) !== key(this.ruleIdentity) ||
+          key(request.ruleResult.identity) !== key(this.ruleIdentity)) {
+        throw new ManagedMortalRuntimeError("mortal_runtime_identity_mismatch");
+      }
+      const expected = new Map(request.ruleResult.actions.map(row => [key(row.runtimeAction), digest(row)]));
+      if (expected.size !== request.ruleResult.actions.length) throw new ManagedMortalRuntimeError("mortal_candidate_mismatch");
+      if (!this.#modelArtifactsVerified || !this.#ready || this.#child === null || this.#closeRequested || this.#protocolFailed || this.#streamFailed) {
+        await verifyManagedMortalArtifacts(this.#options);
+      }
+      this.#assertOperationOpen();
+      await this.start();
+      this.#assertOperationOpen();
+      this.#assertNoUnsolicitedOutput();
+      this.#modelArtifactsVerified = true;
+      const payload = JSON.stringify(request);
+      if (Buffer.byteLength(payload) > MAX_LINE_BYTES) throw new ManagedMortalRuntimeError("mortal_protocol_invalid");
+      this.#child!.stdin.write(`${payload}\n`);
+      const line = await this.#nextLine(this.#options.inferenceTimeoutMs ?? 30_000, "mortal_runtime_timeout");
+      await this.#waitForQuietBoundary();
+      this.#assertNoUnsolicitedOutput();
+      const response = LocalMortalScoringResponseSchema.parse(JSON.parse(line));
+      if (response.requestId !== requestId) throw new ManagedMortalRuntimeError("mortal_protocol_invalid");
+      if (response.status === "error") {
+        this.#modelArtifactsVerified = false;
+        return response;
+      }
+      if (key(response.identity) !== key(request.identity) || response.ruleResultId !== resultId) {
+        throw new ManagedMortalRuntimeError("mortal_runtime_identity_mismatch");
+      }
+      const returned = response.candidates.map(row => key(row.runtimeAction));
+      const kans = response.candidates.filter(row => row.runtimeAction.index === 42);
+      const multipleKans = kans.length > 1;
+      const preferred = response.candidates.find(row => key(row.runtimeAction) === key(response.preferredRuntimeAction));
+      if (returned.length !== expected.size || new Set(returned).size !== returned.length ||
+          response.candidates.some(row => expected.get(key(row.runtimeAction)) !== row.ruleActionId ||
+            (multipleKans && row.runtimeAction.index === 42) !== (row.kanSelectionQValue !== undefined)) ||
+          (multipleKans && kans.some(row => row.qValue !== kans[0]!.qValue)) ||
+          preferred === undefined || preferred.qValue !== Math.max(...response.candidates.map(row => row.qValue)) ||
+          (multipleKans && preferred.runtimeAction.index === 42 &&
+            preferred.kanSelectionQValue !== Math.max(...kans.map(row => row.kanSelectionQValue!)))) {
+        throw new ManagedMortalRuntimeError("mortal_candidate_mismatch");
+      }
+      return response;
+    } catch (error) {
+      await this.close();
+      if (error instanceof ManagedMortalRuntimeError) throw error;
+      throw new ManagedMortalRuntimeError("mortal_protocol_invalid");
+    }
   }
 
   async #queryRulesOnce(raw: LibriichiRuleRequest): Promise<LibriichiRuleResponse> {

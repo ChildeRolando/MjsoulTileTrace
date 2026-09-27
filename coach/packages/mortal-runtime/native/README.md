@@ -33,3 +33,11 @@
 完整原生边界回归：将新 `.pyd` 的绝对路径设为 `COACH_LIBRIICHI_NATIVE_MODULE`，
 使用已有 spike Python 运行 `packages/mortal-runtime/tests/runtime_rules_native_test.py`。
 这是原生能力验证，不替代生产 full-game/package 回归或最终提交的 CPU spike。
+
+`node scripts/libriichi-rules-probe.mjs --with-scores` 在保留上述无模型资产规则验证后，
+另外使用已准备的 checkpoint 执行 CPU 评分。它验证新 `score_actions` 协议的规则结果
+绑定、与原生 Bot 路径的原始 Q 值一致，以及动作内容交换后重算摘要仍被拒绝。
+回执明确标记 synthetic capability；不能代替真实牌谱的生产 spike，也不声称禁网。
+
+`runtime_scoring_native_test.py` 使用真实 native 重放和可控的假分数，覆盖交换/跨输入、
+多杠第二阶段、主阶段同分选择和食断配置；它不加载 checkpoint，不算真实 CPU 推理。
