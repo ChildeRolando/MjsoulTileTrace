@@ -1,6 +1,7 @@
 param(
   [string]$OutputRoot = (Join-Path $env:LOCALAPPDATA ('RiichiCoach\sandbox-spike\' + (Get-Date -Format 'yyyyMMdd-HHmmss'))),
-  [string]$AssetRoot = (Join-Path $env:LOCALAPPDATA 'RiichiCoach\local-mortal-spike')
+  [string]$AssetRoot = (Join-Path $env:LOCALAPPDATA 'RiichiCoach\local-mortal-spike'),
+  [string]$NativeReceiptPath = $env:RIICHI_LIBRIICHI_NATIVE_RECEIPT
 )
 $ErrorActionPreference = 'Stop'
 $repo = (Resolve-Path (Join-Path $PSScriptRoot '..\..')).Path
@@ -9,6 +10,12 @@ if ($LASTEXITCODE -ne 0) { throw 'Cannot read repository HEAD' }
 $sourceHasTrackedChanges = [bool](& git -C $repo status --porcelain --untracked-files=no)
 if ($sourceHasTrackedChanges) { Write-Warning 'Source contains uncommitted work; only committed HEAD enters the sandbox snapshot' }
 if (Test-Path -LiteralPath $OutputRoot) { throw 'Use a new output directory; historical runs are never overwritten' }
+if (!$NativeReceiptPath -or !(Test-Path -LiteralPath $NativeReceiptPath)) { throw 'Set NativeReceiptPath to the verified libriichi build receipt' }
+$nativeReceipt = Get-Content -LiteralPath $NativeReceiptPath -Raw | ConvertFrom-Json
+if ($nativeReceipt.receiptVersion -ne 'coach-libriichi-native/v1' -or
+    (Get-FileHash -LiteralPath $nativeReceipt.nativeModulePath -Algorithm SHA256).Hash.ToLower() -ne $nativeReceipt.nativeArtifactSha256) {
+  throw 'Native build artifact identity mismatch'
+}
 $nodeRoot = Split-Path (Get-Command node.exe).Source
 $gitRoot = Split-Path (Split-Path (Get-Command git.exe).Source)
 $cfg = Get-Content -LiteralPath (Join-Path $AssetRoot 'python\pyvenv.cfg')
@@ -22,6 +29,11 @@ $snapshot = Join-Path $OutputRoot 'repo'
 if ($LASTEXITCODE -ne 0) { throw 'Local snapshot clone failed' }
 & git -C $snapshot checkout --detach $head
 if ($LASTEXITCODE -ne 0) { throw 'Snapshot checkout failed' }
+if ((Get-FileHash -LiteralPath (Join-Path $snapshot 'coach\packages\mortal-runtime\native\coach-rule-config.patch') -Algorithm SHA256).Hash.ToLower() -ne $nativeReceipt.patchSha256) {
+  throw 'Native build does not match the committed snapshot patch'
+}
+Copy-Item -LiteralPath $NativeReceiptPath -Destination (Join-Path $OutputRoot 'native-build-receipt.json')
+Copy-Item -LiteralPath $nativeReceipt.nativeModulePath -Destination (Join-Path $OutputRoot 'libriichi.pyd')
 function CopyTree([string]$source, [string]$destination) {
   & robocopy $source $destination /E /XJ /R:1 /W:1 /NFL /NDL /NJH /NJS /NP | Out-Null
   if ($LASTEXITCODE -ge 8) { throw "Offline file copy failed: $source" }

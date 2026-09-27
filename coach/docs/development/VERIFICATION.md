@@ -81,6 +81,19 @@ checkpoint、protocol 与 adapter identity，用已准备的本地真实 `mortal
 strict `ModelEvaluation` → whole-game review → `StructuredAnalysisPackage` validator。
 
 测试阶段不得下载缺失资产或调用远程推理替代；缺资产明确失败，不能 skip 后报 PASS。
+
+ADR-0006 迁移后的 spike 使用独立 native build 回执：先用已有上游源码与 Cargo 缓存运行
+`node scripts/build-libriichi-rule-native.mjs`，将产出的 `receipt.json` 绝对路径设为
+`RIICHI_LIBRIICHI_NATIVE_RECEIPT` 后执行测试命令。已有模型 preparation receipt 继续
+核验 checkpoint/model/engine；当前 wrapper 由仓库 manifest 核验，native 由固定源码、
+补丁与产物回执核验，不要求覆盖旧准备回执或重新下载权重。
+
+spike 的规则查询、评分、单候选和 v2 package 消费同一原生结果。逐窗口及牌谱聚合失败，
+有未完成/blocked/unsupported 结果时不报 PASS。每次输出新建于
+`LOCALAPPDATA/RiichiCoach/spike-runs/production-native-<commit>-<timestamp>/`，末行给出
+回执路径；可用 `RIICHI_LOCAL_MORTAL_EVIDENCE_ROOT` 指定输出父目录。回执 v3 记录
+规则身份、模型身份、运行范围、失败及未运行状态；不覆盖旧 `production-spike-receipt.json`。
+`RIICHI_LOCAL_MORTAL_ACTORS` 筛选运行仅为诊断，即使所选项通过也不签发全量 PASS。
 按冻结规格 §8 的 2026-09-26 用户批准修订，宿主网络可以保持开启，系统级禁网不再是
 真实本地模型正确性验收的前置门槛。真实推理、候选守恒、下游 package 与最终提交绑定
 等要求不变；历史 PASS 不替代当前提交的运行证据。

@@ -26,12 +26,15 @@ try {
   New-Item -ItemType Directory -Path "$runtime\Mortal\target\release" -Force | Out-Null
   CopyTree 'C:\spike\asset-source\python' "$runtime\python"
   CopyTree 'C:\spike\asset-source\Mortal\mortal' "$runtime\Mortal\mortal"
-  Copy-Item -LiteralPath 'C:\spike\asset-source\Mortal\target\release\libriichi.pyd' -Destination "$runtime\Mortal\target\release\libriichi.pyd"
+  Copy-Item -LiteralPath 'C:\spike\setup\libriichi.pyd' -Destination "$runtime\Mortal\target\release\libriichi.pyd"
   Copy-Item -LiteralPath 'C:\spike\asset-source\mortal_582500.pth' -Destination "$runtime\mortal_582500.pth"
   Copy-Item -LiteralPath 'C:\spike\asset-source\preparation-receipt.json' -Destination "$runtime\preparation-receipt.json"
   (Get-Content -LiteralPath "$runtime\python\pyvenv.cfg") -replace '^home\s*=.*$', 'home = C:\spike\python-base' |
     Set-Content -LiteralPath "$runtime\python\pyvenv.cfg"
   $env:RIICHI_LOCAL_MORTAL_ROOT = $runtime
+  $env:RIICHI_LIBRIICHI_NATIVE_RECEIPT = 'C:\spike\setup\native-build-receipt.json'
+  $env:RIICHI_LIBRIICHI_NATIVE_MODULE = "$runtime\Mortal\target\release\libriichi.pyd"
+  $env:RIICHI_LOCAL_MORTAL_EVIDENCE_ROOT = Join-Path $evidence 'runs'
   $env:PYTHONPATH = ''
   & "$runtime\python\Scripts\python.exe" -c "import torch; assert torch.__version__ == '2.7.1+cpu'"
   if ($LASTEXITCODE -ne 0) { throw 'Relocated offline Python/torch smoke failed' }
@@ -46,9 +49,12 @@ try {
   $exitCode = $LASTEXITCODE
   AssertNoNetwork 'after'
   if ($exitCode -ne 0) { throw "Production spike exited $exitCode" }
-  $receipt = Get-Content -LiteralPath "$runtime\production-spike-receipt.json" -Raw | ConvertFrom-Json
+  $runDirectories = @(Get-ChildItem -LiteralPath $env:RIICHI_LOCAL_MORTAL_EVIDENCE_ROOT -Directory -Filter 'production-native-*')
+  if ($runDirectories.Count -ne 1) { throw 'Expected exactly one fresh production run' }
+  $receiptPath = Join-Path $runDirectories[0].FullName 'production-spike-receipt.json'
+  $receipt = Get-Content -LiteralPath $receiptPath -Raw | ConvertFrom-Json
   if ($receipt.commit -ne $head -or $receipt.exitCode -ne 0) { throw 'Production receipt identity mismatch' }
-  Copy-Item -LiteralPath "$runtime\production-spike-receipt.json" -Destination (Join-Path $evidence 'production-spike-receipt.json')
+  Copy-Item -LiteralPath $receiptPath -Destination (Join-Path $evidence 'production-spike-receipt.json')
   @{ commit = $head; exitCode = 0; environment = 'Windows Sandbox'; networking = 'Disable'; networkAssertions = 'before and after'; finishedAt = (Get-Date).ToUniversalTime().ToString('o') } |
     ConvertTo-Json | Set-Content -LiteralPath (Join-Path $evidence 'result.json')
 } catch {

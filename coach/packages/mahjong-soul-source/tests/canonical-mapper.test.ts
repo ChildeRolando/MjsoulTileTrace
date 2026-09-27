@@ -56,6 +56,41 @@ function newRound(selfActor: number, dealer: number): Record<string, unknown> {
 }
 
 describe("Mahjong Soul stored Record* mapper", () => {
+  it("projects the pre-dealer-draw wall from explicit source counts", async () => {
+    const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
+    const recordBytes = encodeRecord(bundle,[
+      {name:"RecordNewRound",data:newRound(1,0)},
+      {name:"RecordDiscardTile",data:{seat:0,tile:"1z",moqie:true}},
+      {name:"RecordDealTile",data:{seat:1,tile:"5p",left_tile_count:68}},
+    ]);
+    const result=mapMahjongSoulRecord({gameId:"game:wall",selfActor:1,recordId,recordBytes,bundle});
+    expect(result.status).toBe("ready");
+    if(result.status!=="ready") throw new Error("fixture");
+    expect(result.stream.completeness.remainingDraws).toBe("complete");
+    expect(result.stream.events[1]).toMatchObject({type:"round_started",remainingDraws:70});
+    expect(result.stream.events.filter(event=>event.type==="tile_drawn")).toHaveLength(2);
+  });
+
+  it.each(["missing-start", "missing-draw", "contradictory-start", "contradictory-draw"])("does not fabricate wall evidence: %s", variant => {
+    return loadMahjongSoulProtocolBundle(bundleRoot).then(bundle=>{
+      const start=newRound(1,0);
+      const draw: Record<string,unknown>={seat:1,tile:"5p",left_tile_count:68};
+      if(variant==="missing-start") delete start.left_tile_count;
+      if(variant==="missing-draw") delete draw.left_tile_count;
+      if(variant==="contradictory-start") start.left_tile_count=68;
+      if(variant==="contradictory-draw") draw.left_tile_count=67;
+      const result=mapMahjongSoulRecord({gameId:"game:wall",selfActor:1,recordId,bundle,
+        recordBytes:encodeRecord(bundle,[{name:"RecordNewRound",data:start},{name:"RecordDealTile",data:draw}])});
+      if(variant.startsWith("contradictory")) {
+        expect(result).toEqual({status:"invalid",code:"mahjong_soul_canonical_mapping_failed"});
+      } else {
+        expect(result.status).toBe("ready");
+        if(result.status!=="ready") throw new Error("fixture");
+        expect(result.stream.completeness.remainingDraws).toBe("unknown");
+      }
+    });
+  });
+
   it("maps a minimal round with the dealer draw and a self draw", async () => {
     const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
     const recordBytes = encodeRecord(bundle, [

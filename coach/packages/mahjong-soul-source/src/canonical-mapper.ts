@@ -137,6 +137,8 @@ export function mapMahjongSoulRecord(input: {
     // Whether the current round's terminal settles scores on the wire (a
     // hule does; a sanitized RecordNoTile carries no payment data).
     let terminalSettlesScores = false;
+    let remainingDraws: number | null = null;
+    let wallEvidenceComplete = true;
 
     const push = (
       sourceRecordOrdinal: number,
@@ -217,6 +219,20 @@ export function mapMahjongSoulRecord(input: {
           ? undefined
           : parseMajsoulTile(dealerDrawTile);
 
+        // Stored NewRound includes the dealer's initial draw: the real wire
+        // has 14/13/13/13 tiles and left_tile_count=69 in all nine fixture
+        // rounds. Canonical starts before that explicit synthetic draw.
+        // Verify every later source counter, including rinshan, rather than
+        // inferring a complete wall from the source platform alone.
+        const fullDeal = seatTiles.every((tiles, actor) => tiles.length === (actor === dealer ? 14 : 13));
+        remainingDraws = null;
+        if (fullDeal && data.left_tile_count !== undefined && data.left_tile_count !== null) {
+          if (u32(data.left_tile_count) !== 69) throw mappingFailed();
+          remainingDraws = 69;
+        } else {
+          wallEvidenceComplete = false;
+        }
+
         currentRoundOrdinal = nextRoundOrdinal;
         nextRoundOrdinal += 1;
         roundStartEventIndex = events.length;
@@ -234,12 +250,7 @@ export function mapMahjongSoulRecord(input: {
           scores,
           doraIndicator: dora,
           selfHand,
-          // The stored left_tile_count is the live wall AFTER the initial deal,
-          // while the canonical state model counts draws (including the
-          // synthetic dealer draw emitted below), so the raw value cannot be
-          // projected verbatim. Completeness stays "unknown" and the value is
-          // left null rather than guessed.
-          remainingDraws: null,
+          remainingDraws: remainingDraws === null ? null : remainingDraws + 1,
         });
         rinshanDrawDue.clear();
         if (dealerDraw !== undefined) {
@@ -256,6 +267,18 @@ export function mapMahjongSoulRecord(input: {
       }
 
       if (action.name === "RecordDealTile") {
+        const expected = remainingDraws === null ? null : remainingDraws - 1;
+        if (expected !== null && expected < 0) throw mappingFailed();
+        const observed = data.left_tile_count;
+        if (observed === undefined || observed === null) {
+          // Protobuf omits its zero default. Only the already established
+          // final draw count makes that omission unambiguous.
+          if (expected !== 0) wallEvidenceComplete = false;
+        } else {
+          const count = u32(observed);
+          if (count > 69 || (expected !== null && count !== expected)) throw mappingFailed();
+        }
+        remainingDraws = expected;
         const actor = seat(data.seat);
         const from = rinshanDrawDue.has(actor) ? "rinshan" : "live_wall";
         rinshanDrawDue.delete(actor);
@@ -502,7 +525,7 @@ export function mapMahjongSoulRecord(input: {
 
     const parsed = CanonicalEventStreamSchema.safeParse({
       schemaVersion: "canonical-riichi-events/v2",
-      mapperVersion: "mahjong-soul-record-mapper/v1",
+      mapperVersion: "mahjong-soul-record-mapper/v2",
       gameId: input.gameId,
       sourceKind: "mahjong_soul",
       sourceRecordHash: `sha256:${createHash("sha256")
@@ -517,7 +540,7 @@ export function mapMahjongSoulRecord(input: {
         rivers: "complete",
         calledDiscardMarkers: "complete",
         melds: "complete",
-        remainingDraws: "unknown",
+        remainingDraws: wallEvidenceComplete && nextRoundOrdinal > 0 ? "complete" : "unknown",
         settlement: "unknown",
         responseOpportunities: "unknown",
       },

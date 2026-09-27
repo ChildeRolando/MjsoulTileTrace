@@ -302,3 +302,35 @@ full-game/discovery 的正式切换；新旧包版本与规则来源；物理动
 
 剩余：雀魂源证据及真实资产补全、其他物理动作粒度、remote 表示对应、生产默认入口
 切换、旧枚举封存、最终提交 CPU spike 与 Multica 独立验收。不得将本切片标为目标完成。
+
+## 10. 第五实施切片：来源余牌证据与原生 spike 入口
+
+- 雀魂 mapper v2 用真实 NewRound 的 14/13/13/13 配牌和 69 张余牌建立
+  canonical 摸牌前 70 张，逐次核验 DealTile（包括岭上）的计数。缺失保持 unknown，
+  矛盾拒绝；protobuf 省略零只在此前完整计数已经推出零时接受。未补造规则配置、
+  响应历史或杠宝牌证据。真实 9 局 / 466 次摸牌、四视角完整 replay 已覆盖。
+- 脱敏生成器保留摸牌、弃牌、暗杠/加杠记录上的公开 doras 字段；合成传输用例验证
+  字段保留，不将合成内容写进真实样本。旧真实样本缺失的杠宝牌尚无法恢复。
+- 真实 CPU spike 改用同一原生规则结果生成评分、单候选与 v2 分析包，不再经过旧
+  候选枚举。每个窗口、每份牌谱失败继续收集；所有视角记录完成/失败/未运行。
+  子集执行只作诊断；每次在源码外新建提交绑定的 v3 回执与包目录，历史证据不覆盖。
+- 复用已有 checkpoint/model/engine 资产，新 native 单独核验构建回执与当前补丁；
+  Windows Sandbox 准备/执行脚本同步支持该产物和路径迁移。本次没有启动 Sandbox。
+
+受影响约束为 INV-001/002/004/007：原始来源产生余牌事实，原生规则唯一生成动作，
+规则/评分/包身份守恒；七包及特权边界不变，没有引入新的架构抽象。
+
+验证日志位于源码外 `LOCALAPPDATA/RiichiCoach/spike-runs/libriichi-migration-dafb76f`：
+
+- `majsoul-source-evidence-red.log`：改动前 8 项失败；focused 3 文件 36 项及
+  real-record replay 5 项通过。`native-spike-proof-red.log` 记录旧计数器无法读取
+  新请求；新计数器测试 4 项通过，包含评分和包引用不同规则结果的拒绝断言。
+- 五门实际均已执行。typecheck、build、architecture（7 包/422 文件/1887 导入/
+  0 违规）、package-import 退出 0。首轮全量测试 1 失败：旧 unknown 回归隐含依赖
+  mapper 不提供余牌证据；测试改为显式构造证据缺失，保留 unknown 与禁止豁免断言。
+  完整重跑 `npx --no-install vitest run`：181 文件/2254 项通过，退出 0。
+  日志为 `source-native-spike-gate-*` 与 `source-native-spike-vitest-rerun.log`。
+- JS 语法、两个 PowerShell 脚本解析、`git diff --check` 通过。真实 CPU 新入口还须在
+  干净提交上实际运行；以上确定性门禁不代替 spike、禁网或外部独立验收。
+
+剩余仍为来源缺失证据、全部生产消费者迁移、动作粒度、旧实现封存及最终独立验收。

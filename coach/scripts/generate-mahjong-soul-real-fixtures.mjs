@@ -82,13 +82,13 @@ function sanitize(name, data) {
     case ".lq.RecordNewRound":
       return pick(data, ["chang", "ju", "ben", "scores", "liqibang", "doras", "tiles0", "tiles1", "tiles2", "tiles3", "left_tile_count"]);
     case ".lq.RecordDealTile":
-      return pick(data, ["seat", "tile", "left_tile_count"]);
+      return pick(data, ["seat", "tile", "left_tile_count", "doras"]);
     case ".lq.RecordDiscardTile":
-      return pick(data, ["seat", "tile", "is_liqi", "moqie"]);
+      return pick(data, ["seat", "tile", "is_liqi", "moqie", "doras"]);
     case ".lq.RecordChiPengGang":
       return pick(data, ["seat", "type", "tiles", "froms"]);
     case ".lq.RecordAnGangAddGang":
-      return pick(data, ["seat", "type", "tiles"]);
+      return pick(data, ["seat", "type", "tiles", "doras"]);
     case ".lq.RecordHule":
       return {
         ...pick(data, ["delta_scores"]),

@@ -80,3 +80,34 @@ registerTest("outer bytes fed as inner fail instead of heuristic-decoding", () =
 registerTest("unknown input format is rejected", () => {
   assert.throws(() => toInnerBytes(root, innerBytes, "auto"));
 });
+
+registerTest("sanitization retains public dora snapshots on draw, discard and kan",()=>{
+  const gdr=root.lookupType('lq.GameDetailRecords'), wrapper=root.lookupType('lq.Wrapper');
+  const decoded=gdr.toObject(gdr.decode(innerBytes),{arrays:true,bytes:Uint8Array,defaults:false});
+  const targets=new Set(['.lq.RecordDealTile','.lq.RecordDiscardTile','.lq.RecordAnGangAddGang']);
+  const changed=[];
+  for(const row of decoded.actions) {
+    if(!row.result?.length) continue;
+    const envelope=wrapper.toObject(wrapper.decode(row.result),{bytes:Uint8Array});
+    if(!targets.delete(envelope.name)) continue;
+    const type=root.lookupType(envelope.name);
+    const data=type.toObject(type.decode(envelope.data),{arrays:true,defaults:false});
+    // Synthetic transport values test preservation, not legal reveal timing.
+    data.doras=['1p','2s'];
+    row.result=wrapper.encode(wrapper.fromObject({...envelope,data:type.encode(type.fromObject(data)).finish()})).finish();
+    changed.push(envelope.name);
+  }
+  assert.equal(changed.length,3);
+  const generated=deriveSanitizedFixtures(root,gdr.encode(gdr.fromObject(decoded)).finish());
+  const sanitized=gdr.toObject(gdr.decode(toInnerBytes(root,Buffer.from(generated.fixtureA.wire,'hex'),'outer')),{arrays:true,bytes:Uint8Array});
+  const seen=new Set();
+  for(const row of sanitized.actions) {
+    if(!row.result?.length) continue;
+    const envelope=wrapper.toObject(wrapper.decode(row.result),{bytes:Uint8Array});
+    if(!changed.includes(envelope.name)||seen.has(envelope.name)) continue;
+    seen.add(envelope.name);
+    const type=root.lookupType(envelope.name);
+    assert.deepEqual(type.toObject(type.decode(envelope.data),{arrays:true}).doras,['1p','2s']);
+  }
+  assert.equal(seen.size,3);
+});

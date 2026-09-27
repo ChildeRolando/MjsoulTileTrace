@@ -31,6 +31,12 @@ export function countProvenWave1(responseDecisions, evaluated, validatedPackage)
     const inference = inferred.get(ref);
     const model = packaged.get(ref);
     if (!inference || !model) continue;
+    const native = inference.request.operation === "score_actions";
+    if (native) {
+      const evidence = validatedPackage.legalActionEvidence?.results.find(row=>row.decisionId === model.decisionId);
+      if (evidence?.response.status !== "ok" || evidence.response.resultId !== inference.request.ruleResult.resultId ||
+          evidence.request?.requestId !== inference.request.ruleRequest.requestId) throw new Error(`different native rule result: ${ref}`);
+    }
     const kind = decision.snapshot.privateState.decisionWindow.kind;
     const action = decision.actualAction?.kind;
     if (kind === "kan_response" && action === "ron") actual.resp_chankan_actual++;
@@ -38,7 +44,7 @@ export function countProvenWave1(responseDecisions, evaluated, validatedPackage)
     const branch = actualBranches[action];
     if (branch) actual[branch]++;
     if (action !== "pass") continue;
-    for (const candidate of inference.request.candidates) {
+    for (const candidate of native ? inference.request.ruleResult.actions : inference.request.candidates) {
       const type = JSON.parse(candidate.mjaiActionJson).type;
       const family = type === "hora" ? "hora" : type;
       if (family in passFamilies) passFamilies[family] = 1;

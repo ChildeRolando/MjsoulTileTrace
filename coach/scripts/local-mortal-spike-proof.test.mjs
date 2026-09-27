@@ -25,3 +25,15 @@ test("receipt commit comes from HEAD and rejects mismatched environment or track
   assert.throws(() => resolveAcceptanceCommit({ head, externalSha: "b".repeat(40), status: "" }), /GITHUB_SHA/);
   assert.throws(() => resolveAcceptanceCommit({ head, externalSha: undefined, status: " M coach\/script.mjs" }), /working tree/);
 });
+
+test("native wave-1 counts require the same rule result in inference and the validated package",()=>{
+  const decision={decisionEventRef:"pass-native",snapshot:{privateState:{decisionWindow:{kind:"discard_response"}}},actualAction:{kind:"pass"}};
+  const request={operation:"score_actions",ruleRequest:{requestId:"request-native"},ruleResult:{resultId:"rules-native",actions:[{mjaiActionJson:'{"type":"hora"}'}]}};
+  const inference={surface:"response",decision,request};
+  const pkg={decisions:[{decisionId:"decision-native",surface:"response",outcome:"analysis_ready",normalizedDecisionContext:{triggerEventRef:"pass-native"},modelEvaluation:{}}],
+    legalActionEvidence:{results:[{decisionId:"decision-native",request:{requestId:"request-native"},response:{status:"ok",resultId:"rules-native"}}]}};
+  assert.equal(countProvenWave1([decision],[inference],pkg).passFamilies.hora,1);
+  const changed=structuredClone(pkg);
+  changed.legalActionEvidence.results[0].response.resultId="other-native";
+  assert.throws(()=>countProvenWave1([decision],[inference],changed),/rule result/);
+});

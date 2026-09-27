@@ -17,6 +17,7 @@
 
 - Windows Sandbox 已启用；若启用时返回 `RestartNeeded=true`，先完成系统重启。
 - 已按 [VERIFICATION.md](VERIFICATION.md) 准备受管 Windows x64 资产及 preparation receipt。
+- 已生成与目标提交补丁一致的 libriichi native build receipt；不是旧的未打补丁 native。
 - 本机可用 Node/npm、Git、Python base installation；现有 venv 及 CPU PyTorch 已准备。
 - 目标提交已提交。沙箱快照的 tracked tree 必须干净；来源工作区的其他未提交工作不进入快照。
 - 宿主可提供约 16 GiB 沙箱内存及复制依赖、venv、checkpoint 所需临时磁盘空间。
@@ -31,13 +32,17 @@ runtime/model/engine/native/checkpoint 的既有 SHA 验证仍由原 production 
 在目标提交的 `coach/` 运行：
 
 ```powershell
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/prepare-windows-sandbox-spike.ps1
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/prepare-windows-sandbox-spike.ps1 -NativeReceiptPath <native构建回执的绝对路径>
 ```
 
 脚本默认在 `%LOCALAPPDATA%\RiichiCoach\sandbox-spike\<timestamp>` 创建独立快照、
 `local-mortal-offline.wsb` 和 `evidence/`，输出配置的完整路径。
 可用 `-OutputRoot` 指定一个尚不存在的新目录；`-AssetRoot` 指定已有受管资产目录。
 不接受覆盖历史运行目录。代码快照为独立 Git clone，不依赖原 worktree 的外部 `.git` 指针。
+也可预设 `RIICHI_LIBRIICHI_NATIVE_RECEIPT`。准备脚本核验 native 文件哈希及提交中的
+补丁哈希，将选定产物和未修改的回执复制到隔离快照；沙箱重定位仅改变加载路径，
+真实产物哈希仍须匹配。v3 production 输出写到本次 evidence/runs 的新目录，runner
+从该目录回读回执，不读取宿主或历史运行的固定路径结果。
 
 启用功能并重启完成后，打开生成的 `.wsb` 文件。其 LogonCommand 自动启动
 `run-windows-sandbox-spike.ps1`，先在禁网沙箱内从已提交源码重新 build（不使用宿主旧 dist），再执行原命令：

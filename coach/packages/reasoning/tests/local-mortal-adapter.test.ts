@@ -818,7 +818,17 @@ describe("local Mortal canonical projection and conservation", () => {
   });
 
   it("keeps unknown ron eligibility unproven with the packaged fact engine", async () => {
-    const stream = await realFixture(3);
+    const completeWall = await realFixture(3);
+    expect(completeWall.completeness.remainingDraws).toBe("complete");
+    // The production mapper now verifies the real wire counters. Make this
+    // missing-evidence regression explicit instead of relying on an old mapper
+    // omission to leave possible last-discard yaku unknown.
+    const stream = {
+      ...completeWall,
+      completeness: { ...completeWall.completeness, remainingDraws: "unknown" as const },
+      events: completeWall.events.map(event => event.type === "round_started"
+        ? { ...event, remainingDraws: null } : event),
+    };
     const original = replayCanonicalResponseWindows(stream)
       .find((row) => row.decisionEventRef.endsWith("/5/969/0"));
     expect(original?.actualAction?.kind).toBe("pass");
