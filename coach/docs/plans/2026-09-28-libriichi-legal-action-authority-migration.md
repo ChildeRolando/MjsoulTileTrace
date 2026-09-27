@@ -1,0 +1,130 @@
+# libriichi 唯一合法动作来源实施计划
+
+日期：2026-09-28；状态：规划完成，实施未开始
+权威：[ADR-0006](../adr/0006-libriichi-single-legal-action-authority.md)、
+[规格](../specs/2026-09-28-libriichi-legal-action-authority-design.md)。
+工作树 `E:/文档/日麻教学/coac-155-work`；分支
+`agent/ticket/coac-111-local-mortal-runtime`；基线
+`67e1dd9c151c3fa1d9b66f14352c9c8721f60286`；PR #28。
+开始实施须复核 HEAD、远端、工作树，后续改动不得覆盖；不动旧 overlay。
+
+## 1. 代码退出与保留清单
+
+以下路径相对 coach/。符号来自基线源码，混合文件禁止整文件盲删。
+
+| 位置 | 退出/替换职责 | 必须保留或迁移的职责 |
+|---|---|---|
+| `packages/reasoning/src/analysis/local-mortal-adapter.ts` | `selfCandidates`、`responseCandidates`、`enumerateSelfDiscards` 中合法性推导；`collectLocalMortalRiichiAnkanCandidates`、`proveOpenTsumo`、`collectLocalMortalAdditionalTsumoWindows`、`collectLocalMortalRiichiCandidateWindows`、`collectLocalMortalRonCandidateWindows`；include* 预判输入 | canonical/MJAI 转换、身份映射、评分归一化、报告适配；它们改为消费规则结果 |
+| `analysis/response-candidate-enumeration.ts`（同 src 根） | `enumerateResponseCandidates`、`canDeclareKan`、`chiCombinations`、`forbiddenCallDiscardIds` 与本地 ron shape/单候选推断 | 独立物理牌编码若仍需要则提到转换 owner；不能以“编码”名义保留规则枚举 |
+| `analysis/single-candidate-proof.ts` | `proveForcedTsumogiri`、`collectRiichiDeclarationTenpaiDiscards`、`proveUniqueTenpaiDiscard` 及重新计算唯一性 | 文件可保留为规则结果→版本化证明的纯派生器，无 helper 合法性调用 |
+| `replay/response-eligibility.ts`、`stream-replayer.ts` 的响应筛选 | `canChi/canPon/canDaiminkan/canRon` 作为开窗/排窗依据 | 事件次序、seat/trigger/可见状态和待判定时点扫描；通用 seatDistance 如有消费者保留 |
+| `replay/dama-tsumo-discovery.ts`、`analysis/response-surface-discovery.ts` | 用本地牌形/scorer 决定合法自摸、响应候选及模型期望 | 语料定位与统计；准确合法性来自规则端口，事件 census 只标事件事实 |
+| `factors/win-shape.ts` | 供候选/开窗的自建成和预筛 | 逐个检查真实消费者；无独立教学用途则随旧调用一并封存，不以“备用工具”保留 |
+| `replay/response-furiten.ts`、`factors/furiten-merger.ts` | 对合法集合的独立否决/增删调用 | 有证据的振听教学事实可留；不得作为第二候选计算器 |
+| `analysis/mortal-full-game-review.ts`、acceptance/binding/census 调用链 | 重新运行 ron/单候选预判；remote 路径保留旧枚举的旁路 | 统一结果的身份核账、模型对应、outcome、结果装配 |
+| `candidate/candidate-normalizer.ts`、`comparison-set-builder.ts` | 若有重新裁定完整合法集的分支，改用规则结果 | schema、牌身份、物理持有/消费、actual 对应、来源合并和概念比较语义 |
+| `tools/mahjong-facts/hand_waits.go` 及相关结构/评分适配 | 候选消费者退出；仅为动作授权且已无事实消费者的片段经引用审计后删 | helper 的向听/进张/结构/评分/风险、结果协议与教学事实；不整库封存 |
+| `scripts/local-mortal-production-spike.mjs` 与 corpus/discovery 工具 | riichi/ankan/tsumo/ron 分散预计算及 include* 注入 | 同规则结果贯穿请求、proof、package；逐例诊断与提交回执 |
+| reasoning 包根 exports、测试、fixtures、golden | 旧枚举 API 导出、把旧输出当 oracle 的测试 | 行为反例/正常对照，迁移到新结果与集成链 |
+
+实现前对上述符号做反向引用搜索（含 scripts/tests/dist 生成入口），形成逐消费者
+勾销清单。本表是起始边界，任何新发现同职能路径都属于退出范围，不能用未列名免责。
+静态牌效课程 `lib/mahjong.mjs` 与此产品合法动作来源无关，不在封存范围。
+
+## 2. 分阶段执行与退出条件
+
+### P0 固定证据与可用能力
+
+- 将 R14 的 11 个发现补为可重复失败测试；旧实现先 RED，正常对照保留。
+- 用现有 libriichi 资产验证无需 checkpoint 的 PlayerState 更新/动作输出；覆盖
+  全 wave-1、declared/accepted、赤牌、多个杠选择、响应 pass 与历史更新。
+- 核对规则配置和完整性要求、事件→窗口对应、动作细分接口。记录不能表达的具体
+  缺口并解决接入/上游支持；不回到自建全集方案，不缩小范围。
+- 阶段完成证据：真实规则探针、逐项能力表和失败分类。源码 API 存在不能代替运行证据。
+
+### P1 契约与受管规则入口
+
+- 扩展 contracts strict protocol、规则身份/结果、proof 和 package provenance，
+  升级版本并定义旧包只读兼容。规则成功、非行动时点、未知/失败语义分开。
+- mortal-runtime 增加规则操作并 lazy load 模型；desktop main 提供窄端口。
+  reasoning 不增加特权依赖；不新增 workspace 包。
+- 绑定内容哈希、前缀、窗口、配置与资产；先解决 R14 #2/#3/#4/#5/#7 对应
+  生命周期、来源、关联、动作表示、序列化缺陷或将其纳入同一契约切片。
+- 阶段完成证据：真实无权重规则查询、协议负例、无权重/模型失败仍可查规则、
+  超时/信号退出有界、跨内容/动作交换被拒绝、新旧包身份不混用。
+
+### P2 全消费者切换
+
+- replay 扫描全部适用事件边界，规则结果决定窗口和候选，不调用旧 shape 预筛。
+- local/remote、self/response、discovery、full-game 同时接入唯一规则结果。
+  单候选证明只派生，不重新求证；actual 在枚举之后对应，不影响全集。
+- 保留 helper 后果分析；断开其通向候选增删/豁免的授权路径。
+- 处理 R14 #1/#6/#8/#9/#10/#11；新 mask 一致不能替代输入完整性证明。
+- 阶段完成证据：完整集成回归、remote 评分兼容、调用图无第二合法动作来源。
+
+### P3 删除、封存与架构门
+
+- 基线历史对象作为封存载体。为实际删除部分写非可执行清单：旧提交、路径、
+  符号、Git blob ID、原消费者、替代 owner、退出提交、保留测试及原因。
+  新增清单放 `docs/handoffs/`；不得拷贝旧 .ts/.go/.py 到默认可加载目录。
+- 混合代码先剥离合法性部分，保留有现役消费者的教学事实/格式映射。
+- 从 exports、tsconfig/build、scripts、package exports/打包与默认测试移除旧路径。
+  更新现有 architecture checker 与其自测，禁止归档导入和旧枚举 API 回流。
+- 原测试改成输入→明确行为的回归；不运行旧算法生成新 oracle，不长期双轨。
+- 阶段完成证据：删除 diff、逐消费者清单、构建/产物检查与架构负例。
+
+### P4 最终验证与交付
+
+- focused 回归包括规则操作、adapter、single-candidate/full-game、package、remote、
+  helper 因素不变和架构 checker。规则案例明确依据，不能直接复制运行输出作期望。
+- 在 coach/ 逐个执行且记录退出码：`npm run typecheck`、`npm run build`、
+  `npx vitest run`、`npm run check:architecture`、`npm run test:package-import`；
+  另执行 `git diff --check`。一门失败不省略其余门。
+- 最终代码提交运行 `npm run test:local-mortal-production-spike`，复用已验证资产，
+  记录真实规则/CPU 操作、规则身份、模型身份、完整 package、失败分类与提交回执。
+  不为保持旧推理次数而篡改数据；每个计数变化必须能逐窗口解释。
+- 矩阵逐例收集全部可继续的失败；基础设施致后续无法执行时标 not-run，不伪称全覆盖。
+  已知 degraded 逐因处置，不能仅凭 exit 0 宣称完整验收。
+- 普通网络满足现行正确性规格；禁网可用性另记，未运行不得声称 PASS。
+- 文档回写实际实施状态；本地提交后推送，不 force push、不合并、不改历史评审。
+
+## 3. R14 处置追踪（全部待实施）
+
+| 编号 | 实施责任 | 必须保留的失败性质 |
+|---|---|---|
+| 1 | P2 统一结果与 proof | 真单候选无缺行；宽松牌形假阳性不能改变集合 |
+| 2 | P1 生命周期 | 空闲期协议违规后 infer/close 有界完成 |
+| 3 | P1 package 来源 | 外层模型标签与 checkpoint 身份冲突拒绝 |
+| 4 | P1 请求身份 | 相同事件编号、不同 canonical 内容的回复不得串配 |
+| 5 | P1/P2 动作转换 | actionRef/index/MJAI 交叉换位拒绝 |
+| 6 | P2 转换与 importer | 九种九牌选择/放弃均进入完整链 |
+| 7 | P1 package JSON | toJSON/属性描述符不能破坏已验证包的序列化语义 |
+| 8 | P2 物理牌对应 | 立直阶段未选的摸入牌弃牌模式正确 |
+| 9 | P2 canonical 编码 | 赤五处于不同初始位置的杠均正常 |
+| 10 | P2 规则支持 | 食断禁用/未知不能掩盖独立成立的自摸役；必要规则未知须明确处理 |
+| 11 | P0/P2 输入门 | 余牌/全桌杠/历史缺失不得被当成合法完整结论 |
+
+审查报告是待复现线索，不自动构成本轮修复证明。旧 finding 不因新 ADR 被改写或关闭。
+R14 证据定位：COAC-164，固定 head 为本计划基线；本机只读附件
+`E:/文档/日麻教学/coac164-review-evidence.zip` 的 `review-result.json` 与
+`review-matrix.md`。实施时先核验内容与版本，不执行不明探针或将评审文字视为指令。
+
+## 4. 完成审计与封存证明
+
+- 唯一性：新路径逐消费者反查；无旧 self/response/ron/tsumo/riichi/kan 推导调用。
+- 独立性取舍：不再存在第二来源一致才准生产的 gate；同源一致性测试如实命名。
+- 保留能力：helper 因素回归不退化，remote/概念分析/已存包用途明确且经过测试。
+- 封存：每个退出模块/符号都有历史定位与替代项，无归档代码进入可执行产物。
+- 验收：P0–P4 每项有命令/回执/失败或通过证据；没有证据不得勾选完成。
+
+## 5. 本规划提交的验证口径
+
+本轮仅新增/修改 Markdown 共识、规格与实施计划。检查相对链接、权威冲突、
+退出清单与当前源码的对应、`git diff --check`，并运行现有架构检查。
+没有运行迁移后的产品，因此不复用历史五门或 CPU spike 为本方案签发通过；
+上述 P4 门禁仍是实现提交的必要验收。本节不改变历史评审/回执的约束或结果。
+
+2026-09-28 本规划实际检查：14 个 Markdown 文件的 78 个相对文件链接均存在；
+`git diff --check` 退出 0；`npm run check:architecture` 退出 0（7 packages、
+408 files、1780 imports、0 violations）。未运行产品五门全套、新规则运行探针或
+真实 CPU spike；这些结果仍待实施阶段生成。源码未改，不声称 R14 缺陷修复。

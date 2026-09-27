@@ -4,7 +4,17 @@
 
 ## 产品目标
 
-用户在本机应用登录雀魂国区账号，从近期可分析的四人南风标准规则牌谱中选择一场，获得可回放、可审计、可追问的整盘教练会话。模型只提供候选动作与选择分；麻将事实与候选间因素差异必须来自可验证的本地确定性管线。LLM 在这些有据证据之上完成跨因素权衡与教练判断（CoachJudgment），不得发明或改写任何局面事实。
+用户在本机应用登录雀魂国区账号，从近期可分析的四人南风标准规则牌谱中选择一场，获得可回放、可审计、可追问的整盘教练会话。按 ADR-0006 的批准目标，libriichi 提供合法动作，模型提供选择分，helper 与既有事实管线提供候选因素；LLM 在这些有据证据之上完成教练判断，不得发明或改写局面事实。唯一动作来源迁移尚未实施。
+
+## 2026-09-28 当前优先项：唯一合法动作来源迁移
+
+[ADR-0006](../adr/0006-libriichi-single-legal-action-authority.md) 已采纳，
+[规格](../specs/2026-09-28-libriichi-legal-action-authority-design.md) 与
+[实施计划](../plans/2026-09-28-libriichi-legal-action-authority-migration.md) 已落盘。
+顺序：R14 反例固化与无权重规则接口验证 → 契约/受管入口 → 全消费者切换 →
+旧枚举删除与 Git 封存 → 全门禁及最终提交真实 CPU 验证。
+保留 helper 教学能力；local/remote 共用 libriichi，不维持第二动作来源独立检错。
+R14 11 项 P2 尚未由本规划修复；PR #28、MVP、Golden Slice 均未因此获得通过。
 
 ## 里程碑状态
 
@@ -78,8 +88,8 @@ provider/model、prompt version、输出 schema 版本、validator/generation �
 "引用不内嵌"一致）。
 
 **`MortalDecisionOutcome` 语义**：`source_row_not_expected` 是合法状态——纯由本地
-候选枚举决定（候选数 = 1 → Mortal 按定义不产出行），在任何源行查找前判定；
-`no_mortal_entry` 保持完整性故障语义（本地枚举 ≥2 → 源行必须存在），绿色验收 run
+libriichi 完整规则结果决定（候选数 = 1 → 无需模型行），在任何源行查找前判定；
+`no_mortal_entry` 保持完整性故障语义（需要评分的规则候选 ≥2 → 源行必须存在），绿色验收 run
 中计数必须为 0。
 
 边界：
@@ -205,8 +215,9 @@ M6-B 的能力本质是受管 native model runtime，不再绑定历史名称 �
 remote Mortal report path 保留作 regression/cross-validation/diagnostic，但 manual-import
 产品主链不再等待用户粘贴 result URL。
 
-该 runtime 是独立 privileged owner，只产生 model evidence，经既有 structured comparison /
-`ModelEvaluation` 进入 M6-C；它不得产生或改写 `KnownGameFacts`、候选账本或差异，不得解析
+该 runtime 是独立 privileged owner。现有 v1 产生 model evidence；ADR-0006 目标增加
+无权重规则操作，输出唯一合法动作结果。模型评分仍经既有 structured comparison /
+`ModelEvaluation` 进入 M6-C，不得改写 `KnownGameFacts`、候选因素账本或差异；执行器不得解析
 雀魂协议，也不得与 `mortal-source` 或 deterministic `mahjong-facts` sidecar 合并。真实
 COAC-111 已以四视角真实 `mortal-582500` CPU inference 验证 candidate conservation 与
 validated `StructuredAnalysisPackage`，并建立永久离线/真实 spike 入口；该提交合入 `master`
@@ -241,6 +252,8 @@ question
 M6-A4 已收口，不再位于关键路径；本条目为完成记录（详见
 [M6-A4.3 wave-1 矩阵](M6-A4.3-wave1-matrix-status.md) 与
 [M6-A4 响应面规格](../specs/2026-08-18-m6-a4-response-surface-design.md)）。
+
+该历史收口不代表 ADR-0006 已完成；下列本地开窗规则、独立枚举与证明是迁移退出对象。
 
 - **A4.0** 修正 Mortal source model：拆除 `report-fetcher.ts` 与 `mortal-review-service.ts` 两处 `last_actor == player` 归属过滤，钉死"全部 entry 为受评者视角决策"；H2 重跑确认 self-turn 绑定不回归、现有 12 个 `no_mortal_entry` 逐个获得解释。**已落地（2026-08-18）**。
 - **A4.1** response replay 开窗（他家舍牌/他家杠响应窗口）。**已落地（2026-08-18）**：`replayCanonicalResponseWindows` 经共享 streamContext 打开 discard_response/kan_response 窗口，开窗权威 = canonical 事件 + 本地规则（开窗权威分离），Mortal 标记仅作源侧绑定锚点。

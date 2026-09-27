@@ -34,6 +34,38 @@ canonical 事件流 → 决策快照 → 确定事实 → 模型比较 → 打�
 
 ### Local Mortal Runtime Production Spike
 
+#### 2026-09-28 唯一来源重构验收（目标，待实施）
+
+[ADR-0006](../adr/0006-libriichi-single-legal-action-authority.md) 和
+[新规格](../specs/2026-09-28-libriichi-legal-action-authority-design.md) 已取代本地
+第二套合法动作检错要求。下文 R10–R13 对本地枚举/资格证明的描述是旧实现与
+历史回归记录；保留行为反例，按唯一 libriichi 结果改写测试入口，不继续实现旧算法。
+现有 v1 与历史回执不能证明迁移完成。
+
+实现验收必须包括：
+
+- 真实 libriichi 无 checkpoint 规则查询；完整输入/规则配置与未知输入的分离。
+- 所有适用事件边界均被扫描；规则集合先于实际动作对应，不受选择或评分影响。
+- local/remote、模型请求、单候选证明和 full-game 复用一个内容绑定结果；旧包只读
+  兼容，新包不接收旧枚举证明。规则来源与 checkpoint 来源分别校验。
+- helper 的向听/进张/评分/结构/防守回归继续成立，但不再是合法集合的第二裁判。
+- R10–R14 反例及正常对照；R14 全 11 项逐项验证，包括生命周期、JSON 序列化、
+  模型来源、跨内容响应、动作表示交换和实际下游结果。
+- 旧规则代码/导出/前置过滤退出所有产品与默认测试路径；封存清单、构建/打包检查，
+  以及现有 architecture checker 的防回流负例。
+- 从 coach/ 完整运行 typecheck、build、全量 Vitest、architecture、package-import
+  五门和 diff 检查；最终代码提交绑定真实 CPU spike。逐例汇总失败和 degraded 原因。
+
+新守恒检查证明规则结果在编码、传输、评分和下游没有丢失或错配；因为规则与模型
+共用 libriichi，不将其称为两套独立规则的差分证明。固定案例预期须有明确规则依据，
+不能由运行输出或封存枚举器自动生成。禁止缩小既有支持范围或恢复第二来源兜底。
+
+仅规划/共识 Markdown 的提交检查链接、语义一致性、diff 和现有架构检查；不宣称
+产品验收、不复用历史 PASS。实施提交仍执行上述完整门禁与真实 spike。
+历史验收身份、结果、回执不因本次规划改变。
+
+#### 现有运行入口与历史回归基线
+
 [冻结规格](../specs/2026-09-24-local-mortal-runtime-production-design.md) 要求 COAC-111
 长期提供两个显式入口：
 

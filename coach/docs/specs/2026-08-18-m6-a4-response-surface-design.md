@@ -1,5 +1,13 @@
 # M6-A4：响应面——决策归属升级与他家响应决策全覆盖规格
 
+> **2026-09-28 部分取代**：按 [ADR-0006](../adr/0006-libriichi-single-legal-action-authority.md)，
+> 本文“本地规则独立枚举 ↔ Mortal”的双来源检错、候选计数与单候选自产证明要求
+> 退出目标设计。local/remote 均以固定 libriichi 为唯一合法动作来源；原始 canonical
+> 来源独立性、窗口/实际动作/评分绑定、七值 outcome、原支持范围与真实回归保留。
+> 事件边界扫描不得依赖报告或自建牌形过滤。新规格见
+> [唯一来源重构](2026-09-28-libriichi-legal-action-authority-design.md)；代码待迁移。
+> 下文保留历史决策，冲突条款不再授权维持第二规则实现。
+
 日期：2026-08-18
 决策来源：[2026-08-18 下一阶段 roadmap 盘问决策记录](../handoffs/2026-08-18-next-phase-roadmap-grill-decisions.md)（A1–A9，已定稿）；
 术语以 [`coach/CONTEXT.md`](../../CONTEXT.md) 词汇表为准；验收口径见

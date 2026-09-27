@@ -45,6 +45,10 @@
 
 ## INV-002 模型偏好不得改写确定性事实账本
 
+2026-09-28 ADR-0006 澄清：libriichi 的确定性规则结果不属于模型偏好。
+它可作为唯一合法动作来源；删除 checkpoint/Q 值仍能查询规则。helper 继续产教学事实。
+规则结果与模型评分必须分别标来源，不能借此允许评分改写任何事实。
+
 - **Statement**：remote report 或 managed local runtime 的 Mortal 分数只决定“模型偏好”；
   删除模型评分不能改变 `KnownGameFacts`、`CandidateFactorLedger` /
   `FactorDifference`，也不得改变教练判断的事实证据基础；`modelReason` 恒为 `unknown`。
@@ -60,6 +64,9 @@
 - **Status**：machine-enforced（remote report + managed local runtime）。
 
 ## INV-003 game-record 来源协议语义止于 canonical 重放/推理边界
+
+ADR-0006 目标将 mortal-runtime 的受管能力扩展为规则结果与模型结果；依赖边不变。
+下列原 v1 描述中的“只返回 runtime model result”不限制新增规则操作；迁移待实施。
 
 来源分两类，规则不同（权威裁决见
 [ADR-0005](../adr/0005-workspace-dependency-boundaries.md)）：
@@ -102,11 +109,21 @@ Model/report evidence provider（模型/报告证据来源）
 
 ## INV-004 候选身份必须绑定其 canonical 决策窗口
 
+> **2026-09-28 权威修订，实施待完成**：按
+> [ADR-0006](../adr/0006-libriichi-single-legal-action-authority.md)，合法动作全集只由
+> libriichi 产生。以下旧“本地 legal candidates ↔ runtime legal actions”要求替换为
+> “唯一规则结果 ↔ canonical 规范化动作 ↔ 模型评分项”的身份与全集守恒；不再要求
+> 第二套规则独立检错。actual、preferred、重复/缺失/交叉换位检查继续成立。
+> 请求/单候选/覆盖必须复用同一规则结果；helper 与本地枚举不得增删候选。
+> 现有 identity/schema/checker 仅部分支撑新要求：**唯一来源与封存隔离当前为
+> docs-only，整条新版 INV-004 为 partially enforced**。旧测试不证明新目标完成，
+> 也不构成所有麻将状态的穷举证明。
+
 - **Statement**：候选通过 `actionRef` 绑定到产生它的决策窗口
   （`DecisionSnapshotV2.decisionEventRef === privateState.decisionWindow.triggerEventRef`）；
-  身份不得脱离窗口漂移，响应窗口按决策归属配对，绝不按 last_actor 猜。任何 local
-  model evaluation 还必须证明本地 canonical legal candidates ↔ runtime legal actions
-  一一双射及 actual action 唯一 correspondence；runtime response 还必须回显同一 request、
+  身份不得脱离窗口漂移，响应窗口按决策归属配对，绝不按 last_actor 猜。local/remote
+  model evaluation 必须证明唯一 libriichi 规则结果 ↔ canonical 动作 ↔ 评分项
+  完整对应及 actual action 唯一 correspondence；runtime response 还必须回显同一 request、
   protocol、完整 runtime identity、decision/window identity、候选全集，并把 preferred action
   严格绑定到唯一 Q-value argmax；不得取交集、按位置猜测或静默丢 action。
 - **Why**：候选与窗口的绑定是"可追溯比较"的最小单位；脱绑后任何差异、解释、
@@ -124,7 +141,11 @@ Model/report evidence provider（模型/报告证据来源）
   固化仅赤五、赤普并存、actual/pass 与 kan-response 只允许 ron/pass 的 Mortal realization。
   pon 的物理消费牌须按固定 Mortal 赤五优先规则从冻结手牌确定，不能依手牌数组顺序取前两张；
   赤普并存时应核验完整 `consumed`/`actionRef`，不能仅核验 runtime index 41。
-- **Status**：machine-enforced（canonical/report/local-runtime/package 路径）。
+- **待增 Executable checks**：规则查询不依赖 checkpoint；全事件边界无旧枚举过滤；
+  请求/proof/full-game 共用结果；跨内容回复与动作表示交换拒绝；架构检查禁止旧枚举
+  与封存代码回流。实施计划 P0–P4 定义回归与真实执行证据。
+- **Status**：partially enforced。现有 canonical/schema/身份检查已执行；唯一来源、
+  无权重规则入口与旧代码退出尚未实施，不能因文档更新标为 machine-enforced。
 
 ## INV-005 renderer/UI 不得接收特权原始协议与秘密
 

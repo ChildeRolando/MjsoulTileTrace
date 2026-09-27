@@ -4,6 +4,17 @@
 状态：**IMPLEMENTED；COAC-111 production spike 已于 2026-09-24 验证**
 决策来源：COAC-106 产品 owner 裁决；规格落盘：COAC-110；后继实现：COAC-111
 
+> **2026-09-28 部分取代（已批准，待实施）**：
+> [ADR-0006](../adr/0006-libriichi-single-legal-action-authority.md) 与
+> [唯一来源规格](2026-09-28-libriichi-legal-action-authority-design.md) 取代本文 §3–6
+> 中 runtime 只能产模型证据、必须由本地独立枚举合法动作及禁止 runtime 作为合法性
+> authority 的规定，也取代 §8 中依赖本地第二套资格证明的要求。
+> 新目标为 libriichi 确定性规则结果唯一产生动作，helper 提供教学事实，模型只评分；
+> local/remote 与单候选共同消费同一结果。候选/评分身份守恒、禁止取交集、输入
+> 完整性、特权隔离、真实 CPU 和来源回执继续执行。
+> 下文保留原规格的历史语义；不能据旧条款继续扩建第二动作来源，也不能把新文档
+> 当作当前代码已迁移或 R14 已修复。执行见[迁移计划](../plans/2026-09-28-libriichi-legal-action-authority-migration.md)。
+
 ## 1. 当前权威与 supersession
 
 Playable Review MVP 的生产模型评价来源冻结为 managed local Mortal runtime 与
