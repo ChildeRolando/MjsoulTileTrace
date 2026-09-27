@@ -51,9 +51,9 @@ class NativeRulesTest(unittest.TestCase):
 
     def query(self, events, phase="none", window="self_turn", profile=None):
         prefix = [{"eventRef": str(i), "json": json.dumps(e, separators=(",", ":"))} for i, e in enumerate(events)]
-        request = {"protocolVersion": "riichi-libriichi-rules-jsonl/v1", "operation": "legal_actions",
+        request = {"protocolVersion": "riichi-libriichi-rules-jsonl/v2", "operation": "legal_actions",
             "identity": {"implementation": "Equim-chan/Mortal/libriichi", "revision": "0"*40,
-                "nativeArtifactSha256": "1"*64, "wrapperSha256": "2"*64, "normalizationVersion": "libriichi-actions/v1"},
+                "nativeArtifactSha256": "1"*64, "wrapperSha256": "2"*64, "normalizationVersion": "libriichi-actions/v2"},
             "canonicalStreamIdentity": "native-capability-regression",
             "eventPrefixSha256": runner.rule_digest(prefix),
             "decision": {"decisionId": str(len(events)-1), "triggerEventRef": str(len(events)-1), "selfActor": 0,
@@ -96,6 +96,36 @@ class NativeRulesTest(unittest.TestCase):
         self.assertEqual(set(actions), {(27,None),(28,None)})
         self.assertEqual(actions[27,None]["tsumogiri"], False)
         self.assertEqual(actions[28,None]["tsumogiri"], True)
+
+    def test_same_tile_discard_has_explicit_native_physical_alias(self):
+        for phase in ["none", "declared", "accepted"]:
+            with self.subTest(phase=phase):
+                events = (accepted("111222333m456p7z", "1m") if phase == "accepted"
+                          else start("111222333m456p7z") + [draw("1m")])
+                if phase == "declared": events += [{"type":"reach", "actor":0}]
+                result = self.query(events, phase=phase,
+                                    window="post_riichi_discard" if phase == "declared" else "self_turn")
+                self.assertEqual(result["status"], "ok")
+                row = next(row for row in result["actions"] if row["runtimeAction"]["index"] == 0)
+                self.assertEqual(json.loads(row["mjaiActionJson"]),
+                                 {"type":"dahai","actor":0,"pai":"1m","tsumogiri":True})
+                expected = [] if phase == "accepted" else [
+                    {"type":"dahai","actor":0,"pai":"1m","tsumogiri":False}]
+                self.assertEqual([json.loads(alias) for alias in row.get("physicalAliases", [])], expected)
+
+    def test_discard_alias_respects_exact_red_tile_and_available_copies(self):
+        for drawn, expect_alias in [("5mr", False), ("5m", True)]:
+            with self.subTest(drawn=drawn):
+                events = start("55m123p123s456s11z")
+                events[1]["tehais"][0][0] = "5mr" if drawn == "5m" else "5m"
+                result = self.query(events + [draw(drawn)])
+                self.assertEqual(result["status"], "ok")
+                row = next(row for row in result["actions"]
+                           if json.loads(row["mjaiActionJson"]).get("pai") == drawn)
+                self.assertEqual(len(row.get("physicalAliases", [])), int(expect_alias))
+
+        result = self.query(start("19m19p19s1234567z") + [draw("2m")])
+        self.assertTrue(all(not row.get("physicalAliases") for row in result["actions"]))
 
     def test_multiple_self_kans_have_native_tile_selection(self):
         actions = self.actions(start("11112222333m44p") + [draw("3m")])

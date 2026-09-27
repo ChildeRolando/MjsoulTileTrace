@@ -745,6 +745,10 @@ export const StructuredAnalysisPackageSchema: z.ZodType<
   const seenDecisionIds = new Set<string>();
   pkg.decisions.forEach((decision, index) => {
     const proof = decision.analysisProvider.singleCandidateProof;
+    if (!native && decision.outcome === "analysis_ready" &&
+        decision.comparisonSet.correspondences?.some(row=>row.relation === "native_physical_realization")) {
+      context.addIssue({code:z.ZodIssueCode.custom,message:"Native physical correspondence requires v2 rule evidence",path:["decisions",index,"comparisonSet","correspondences"]});
+    }
     if (proof != null && native !== (proof.shape === "libriichi_single_candidate")) {
       context.addIssue({code:z.ZodIssueCode.custom,message:"Single candidate proof belongs to another package version",path:["decisions",index,"analysisProvider","singleCandidateProof"]});
     }

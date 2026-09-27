@@ -7,6 +7,7 @@ import {
 import { createLibriichiRuleProjector, bindLibriichiRuleResult } from "../src/analysis/libriichi-rule-projection.js";
 import { replayCanonicalStream } from "../src/replay/stream-replayer.js";
 import { canonicalSelfDrawDiscardEvents, canonicalStream } from "./fixtures/canonical-stream.js";
+import { actualLibriichiActionRef } from "../src/analysis/local-mortal-rule-scoring.js";
 
 const digest = (value: unknown) => createHash("sha256").update(libriichiRuleCanonicalJson(value)).digest("hex");
 const identity: LibriichiRuleIdentity = {
@@ -27,6 +28,37 @@ function result(request: LibriichiRuleRequest, actions = [
 }
 
 describe("single-source libriichi input and representation boundary", () => {
+  it.each(["valid", "other-tile", "duplicate", "wrong-actor", "missing-copy"])("validates native physical aliases: %s", variant => {
+    const stream = canonicalStream(canonicalSelfDrawDiscardEvents());
+    const draw = stream.events[2]!;
+    if(draw.type !== "tile_drawn") throw new Error("fixture");
+    draw.tile = {visibility:"visible",tile:{id:variant === "missing-copy" ? "5p" : "1m",red:false}};
+    const discard = stream.events[3]!;
+    if(discard.type !== "tile_discarded") throw new Error("fixture");
+    discard.tile = {...draw.tile.tile};
+    const {request,decision} = fixture(stream);
+    const pai = variant === "missing-copy" ? "5p" : "1m";
+    const primary = {type:"dahai",actor:0,pai,tsumogiri:true};
+    const alias = {...primary,tsumogiri:variant === "duplicate",pai:variant === "other-tile" ? "2m" : pai,
+      actor:variant === "wrong-actor" ? 1 : 0};
+    const content = {protocolVersion:request.protocolVersion,requestId:request.requestId,identity:request.identity,status:"ok" as const,
+      actions:[{runtimeAction:{index:variant === "missing-copy" ? 13 : 0,variant:null},mjaiActionJson:JSON.stringify(primary),physicalAliases:[JSON.stringify(alias)]}]};
+    const response = {...content,resultId:digest(content)};
+    if(variant !== "valid") {
+      expect(()=>bindLibriichiRuleResult({request,response,decision})).toThrow("rules_action_mapping_invalid");
+      return;
+    }
+    const {actions} = bindLibriichiRuleResult({request,response,decision});
+    expect(actions).toHaveLength(1);
+    expect(actions[0]!.physicalRealizations.map(item=>item.action)).toEqual([
+      {kind:"discard",tile:{id:"1m",red:false},discardMode:"tsumogiri"},
+      {kind:"discard",tile:{id:"1m",red:false},discardMode:"tedashi"},
+    ]);
+    for(const discardMode of ["tedashi","tsumogiri"] as const) {
+      expect(actualLibriichiActionRef({actualAction:{kind:"discard",tile:{id:"1m",red:false},discardMode}},actions)).toBe(actions[0]!.actionRef);
+    }
+  });
+
   it("binds the full input, prefix, profile, phase, native and wrapper without a checkpoint", () => {
     const { request, decision } = fixture();
     expect(request).not.toHaveProperty("actualActionRef");

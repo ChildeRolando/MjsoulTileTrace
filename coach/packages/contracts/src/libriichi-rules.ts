@@ -3,8 +3,8 @@ import { RuleSetV2Schema } from "./event-stream.js";
 import { LocalMortalDecisionIdentitySchema, LocalMortalRuntimeActionSchema } from "./local-mortal-runtime.js";
 
 /** Rules are a separately versioned operation, not a model response or score. */
-export const LIBRIICHI_RULE_PROTOCOL_VERSION = "riichi-libriichi-rules-jsonl/v1" as const;
-export const LIBRIICHI_RULE_NORMALIZATION_VERSION = "libriichi-actions/v1" as const;
+export const LIBRIICHI_RULE_PROTOCOL_VERSION = "riichi-libriichi-rules-jsonl/v2" as const;
+export const LIBRIICHI_RULE_NORMALIZATION_VERSION = "libriichi-actions/v2" as const;
 const Sha256 = z.string().regex(/^[a-f0-9]{64}$/);
 export const LibriichiRuleIdentitySchema = z.object({
   implementation: z.literal("Equim-chan/Mortal/libriichi"),
@@ -37,6 +37,8 @@ export type LibriichiRuleRequest = z.infer<typeof LibriichiRuleRequestSchema>;
 export const LibriichiRuleActionSchema = z.object({
   runtimeAction: LocalMortalRuntimeActionSchema,
   mjaiActionJson: z.string().min(2).max(2048),
+  /** Other physical realizations of this one policy action, never extra scores. */
+  physicalAliases: z.array(z.string().min(2).max(2048)).min(1).max(1).optional(),
 }).strict();
 const ResultBinding = z.object({
   protocolVersion: z.literal(LIBRIICHI_RULE_PROTOCOL_VERSION),

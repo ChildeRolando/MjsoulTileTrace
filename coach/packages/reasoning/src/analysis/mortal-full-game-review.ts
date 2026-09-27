@@ -1040,7 +1040,7 @@ export async function runMortalFullGameReview(input: {
         engine: input.engine,
         now,
         frozenAt,
-        ...(native === undefined ? {} : {expectedLegalActionRefs:native.actions.map(action => action.actionRef)}),
+        ...(native?.request == null || native.response.status !== "ok" ? {} : {libriichi:{request:native.request,response:native.response}}),
       });
 
       if (result.status === "ready") {

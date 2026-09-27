@@ -67,6 +67,25 @@ class NativeScoringTest(unittest.TestCase):
         self.assertEqual(response["code"], "mortal_candidate_mismatch")
         self.assertEqual(engine.calls, 0)
 
+    def test_physical_alias_is_bound_to_one_score_and_cannot_be_rehashed_away(self):
+        request = self.request(start("123456789m1234p") + [draw("1m")])
+        self.assertEqual([row["runtimeAction"]["index"] for row in request["ruleResult"]["actions"]], list(range(13)) + [37])
+        row = next(row for row in request["ruleResult"]["actions"] if row["runtimeAction"]["index"] == 0)
+        self.assertEqual(len(row["physicalAliases"]), 1)
+        response = runner.score_rules(request, self.native, Scores())
+        self.assertEqual(response["status"], "ok")
+        self.assertEqual(len(response["candidates"]), len(request["ruleResult"]["actions"]))
+        score = next(score for score in response["candidates"] if score["runtimeAction"]["index"] == 0)
+        self.assertEqual(score["ruleActionId"], runner.rule_digest(row))
+        row["physicalAliases"] = ['{"type":"dahai","actor":0,"pai":"2m","tsumogiri":false}']
+        request["ruleResult"].pop("resultId")
+        request["ruleResult"]["resultId"] = runner.rule_digest(request["ruleResult"])
+        self.rehash(request)
+        engine = Scores()
+        response = runner.score_rules(request, self.native, engine)
+        self.assertEqual(response["code"], "mortal_candidate_mismatch")
+        self.assertEqual(engine.calls, 0)
+
     def test_changed_canonical_input_cannot_reuse_rule_result(self):
         request = self.request()
         request["ruleRequest"]["canonicalStreamIdentity"] = "other"

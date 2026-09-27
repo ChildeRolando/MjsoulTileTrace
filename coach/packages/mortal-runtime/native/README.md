@@ -12,6 +12,8 @@
 - 在原生重放中配置暗杠是否取消一发。
 - 杠动作序列化读取实际赤牌和已有碰牌，避免无赤规则凭空输出赤五。
 - PlayerState 与 Bot 暴露同一个 `configure_rules` 入口。
+- `discard_realizations` 从原生弃牌 mask 和持牌副本输出摸切/手切对应；立直受理后
+  不输出手切，赤牌与普通五分别计数。它不读取实际选择，不增加第二套牌形算法。
 
 规则查询与 Bot 格式转换使用相同配置；不运行神经网络。
 食断/一发配置 unknown 时，只有全部可能配置产生完全相同的原生结果才返回成功，
@@ -33,6 +35,11 @@
 完整原生边界回归：将新 `.pyd` 的绝对路径设为 `COACH_LIBRIICHI_NATIVE_MODULE`，
 使用已有 spike Python 运行 `packages/mortal-runtime/tests/runtime_rules_native_test.py`。
 这是原生能力验证，不替代生产 full-game/package 回归或最终提交的 CPU spike。
+
+规则协议与动作转换版本现为 v2。同牌手切/摸切通过规则行的 `physicalAliases`
+显式对应到一个模型动作编号：分数和概率只计一次，实际出牌方式单独保存。
+分析包中的 `native_physical_realization` 对应绑定规则结果 ID；旧 v1 包不接受它。
+该切片仅处理弃牌方式；吃碰赤牌消费等其他动作粒度仍须完成迁移核验。
 
 `node scripts/libriichi-rules-probe.mjs --with-scores` 在保留上述无模型资产规则验证后，
 另外使用已准备的 checkpoint 执行 CPU 评分。它验证新 `score_actions` 协议的规则结果

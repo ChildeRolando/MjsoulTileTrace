@@ -263,3 +263,42 @@ full-game/discovery 的正式切换；新旧包版本与规则来源；物理动
 仍需完成 main/local/remote/spike/discovery 默认接线、物理动作对应、旧枚举退出与
 封存清单、最终提交真实 CPU spike，以及 Multica 独立验收和后续修复循环。
 本切片没有运行禁网演练，也没有声称最终 CPU spike 或独立验收通过。
+
+## 9. 第四实施切片：同牌手切/摸切的显式对应
+
+对全部已登记真实牌谱/视角做无模型规则诊断，逐窗口收集而非首错退出。
+发现雀魂主样本 1945 个边界均缺少必要源证据；天凤抢杠补充样本有一处实际三万手切
+与原生同牌摸切表示不一致。前者是来源映射/旧脱敏资产的信息缺口，尚待解决；
+不能把完整性 unknown 改为 complete 或删除输入门来处理。后者由本切片修复。
+
+- 原生 `discard_realizations` 复用现有弃牌 mask，按原生持牌和摸牌副本输出允许的
+  出牌方式。未立直与宣言后允许已有同牌手切；受理后只保留摸切；赤牌独立计数。
+- 规则协议/转换显式升级 v2，`physicalAliases` 记录同一模型动作的其他实际表示。
+  分数、概率和模型候选只计一次；实际手切不改写模型行，也不添加重复分数。
+- 既有 comparison correspondence 扩展为带规则结果 ID 的
+  `native_physical_realization`。full-game 重新绑定原生证据后产生对应，v2 包重读
+  校验其来源和评分载体，旧 v1 包拒绝新关系。没有增加包、特权依赖或第二合法性来源。
+- 受影响约束为 INV-002、INV-004、INV-007：由规则协议、逐动作绑定、整盘/包
+  回归及真实 native 测试保护。唯一来源的全部生产消费者切换仍未完成。
+
+本切片证据位于源码外 `LOCALAPPDATA/RiichiCoach/spike-runs/libriichi-migration-dafb76f`：
+
+- `physical-alias-native-red.log`：原实现 3 个子例失败，均缺少应有的手切对应。
+  `physical-alias-consumer-red.log`：下游原协议拒绝该显式对应。
+- 真实 native 规则 13 项、真实 native + 受控评分 8 项通过，不加载 checkpoint。
+  覆盖 declared/accepted、相同牌不同副本、赤/普通五、无同牌、分数行守恒，以及
+  篡改对应后重算摘要仍在模型调用前拒绝。
+- focused 两文件 31 项通过；同牌实际切换不改变请求/分数，完整 14 候选进入真实
+  helper、full-game 与 v2 包。换牌、重复、错 actor、缺副本和错规则 ID 均拒绝。
+- 五门均退出 0，日志 `physical-alias-gate-*`：typecheck、build、vitest
+  （181 文件/2240 项）、architecture（7 包/422 文件/1886 导入/0 违规）、package-import。
+  `git diff --check` 退出 0。
+- 初次 native patch hunk 行数和一次临时脚本编码错误已修正；初次 build/typecheck
+  的 ActionRef 类型/测试 narrowing 错误已修正并完整重跑。focused 曾因 fixture
+  摸牌/弃牌不一致、缺少既有 dama coverage 注册失败，修正测试输入后完整通过。
+- 原真实天凤边界 `.../7/742/0` 已用新 native 复查：10 个模型动作保持不变，
+  三万手切/摸切显式对应到 index 2。开发期回执明确 dirty；干净提交复核另写新回执。
+  这是一处真实规则回归，不是最终真实 CPU spike、完整 corpus PASS 或禁网演练。
+
+剩余：雀魂源证据及真实资产补全、其他物理动作粒度、remote 表示对应、生产默认入口
+切换、旧枚举封存、最终提交 CPU spike 与 Multica 独立验收。不得将本切片标为目标完成。

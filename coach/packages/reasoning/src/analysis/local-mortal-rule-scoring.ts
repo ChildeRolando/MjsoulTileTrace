@@ -48,7 +48,8 @@ export function bindLocalMortalRuleScores(input: {
   if (new Set(keys).size !== keys.length || keys.length !== bound.actions.length) throw new Error("mortal_candidate_mismatch");
   const rows = response.candidates.map(score => {
     const row = byKey.get(key(score.runtimeAction));
-    if (row === undefined || score.ruleActionId !== digest({ runtimeAction: row.runtimeAction, mjaiActionJson: row.mjaiActionJson })) {
+    if (row === undefined || score.ruleActionId !== digest({ runtimeAction: row.runtimeAction, mjaiActionJson: row.mjaiActionJson,
+        ...(row.physicalAliases === undefined ? {} : {physicalAliases:row.physicalAliases}) })) {
       throw new Error("mortal_candidate_mismatch");
     }
     return { ...row, ...score };
@@ -66,11 +67,13 @@ export function bindLocalMortalRuleScores(input: {
 }
 
 /** Choice correspondence is checked after the complete set exists; it never changes that set. */
-export function actualLibriichiActionRef(decision: Pick<ReplayedDecision, "actualAction">, actions: readonly { actionRef: string; action: { kind: string } }[]): string {
+export function actualLibriichiActionRef(decision: Pick<ReplayedDecision, "actualAction">, actions: readonly {
+  actionRef: string; action: { kind: string }; physicalRealizations?: readonly {actionRef:string}[];
+}[]): string {
   const actual = decision.actualAction;
   if (actual === null) throw new Error("mortal_actual_action_mismatch");
   const exact = canonicalActionRef(actual);
-  const matches = actions.filter(row => row.actionRef === exact ||
+  const matches = actions.filter(row => row.actionRef === exact || row.physicalRealizations?.some(item => item.actionRef === exact) ||
     (actual.kind === "riichi_discard" && row.action.kind === "declare_riichi"));
   if (matches.length !== 1) throw new Error("mortal_actual_action_mismatch");
   return matches[0]!.actionRef;

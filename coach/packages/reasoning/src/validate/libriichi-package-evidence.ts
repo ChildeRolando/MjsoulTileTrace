@@ -84,6 +84,13 @@ export function validateLibriichiPackageEvidence(pkg: StructuredAnalysisPackage)
       const refs = new Set(actions.map(action=>action.actionRef));
       const scores = decision.modelEvaluation.candidates;
       if (refs.size !== scores.length || scores.some(score=>!refs.has(score.actionRef))) reject("scored_actions");
+      if (decision.modelEvaluation.scoredActualModelActionRef !== actualRef) reject("scored_actual");
+      const correspondence = decision.comparisonSet.correspondences?.[0];
+      if (correspondence?.relation === "native_physical_realization" &&
+          (correspondence.ruleResultId !== response.resultId || correspondence.scoredModelActionRef !== actualRef ||
+           !actions.some(action=>action.actionRef===actualRef && action.physicalRealizations.some(item=>item.actionRef===correspondence.actualActionRef)))) {
+        reject("physical_correspondence");
+      }
     }
   }
   if (pkg.decisions.some(decision=>!seen.has(decision.decisionId))) reject("rule_result_missing");

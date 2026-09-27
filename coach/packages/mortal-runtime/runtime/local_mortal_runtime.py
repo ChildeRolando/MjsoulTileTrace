@@ -89,7 +89,7 @@ def load_runtime(checkpoint, mortal_source, native_module):
     return CapturingEngine(delegate), Bot
 
 
-RULE_PROTOCOL = "riichi-libriichi-rules-jsonl/v1"
+RULE_PROTOCOL = "riichi-libriichi-rules-jsonl/v2"
 SCORING_PROTOCOL = "riichi-local-mortal-scoring-jsonl/v2"
 
 
@@ -163,7 +163,7 @@ def _query_rule_profile(request, native, open_tanyao, ippatsu):
     Bot = importlib.import_module("libriichi.mjai").Bot
     actor = request["decision"]["selfActor"]
     state = PlayerState(actor)
-    if not hasattr(state, "configure_rules"):
+    if not hasattr(state, "configure_rules") or not hasattr(state, "discard_realizations"):
         return dict(failure, code="rules_config_unsupported")
     state.configure_rules(open_tanyao, ippatsu)
     for row in request["events"]:
@@ -202,9 +202,18 @@ def _query_rule_profile(request, native, open_tanyao, ippatsu):
                 # the native nine-terminals choice, not a generic round ending.
                 if index == 44:
                     action.update(actor=actor, reason="kyuushu_kyuuhai")
-                actions.append({"runtimeAction": {"index": index,
+                row = {"runtimeAction": {"index": index,
                     "variant": "kan:"+str(kan_tile) if index == 42 and len(kan_tiles)>1 else None},
-                    "mjaiActionJson": rule_json(action)})
+                    "mjaiActionJson": rule_json(action)}
+                if index < 37:
+                    realizations = [dict(type="dahai", actor=actor, pai=tile, tsumogiri=mode)
+                                    for tile, mode in state.discard_realizations() if tile == action["pai"]]
+                    if action not in realizations:
+                        return dict(failure, code="rules_runtime_failed")
+                    aliases = [rule_json(candidate) for candidate in realizations if candidate != action]
+                    if aliases:
+                        row["physicalAliases"] = aliases
+                actions.append(row)
         if not actions:
             return dict(failure, code="rules_runtime_failed")
         result.update(status="ok", actions=actions)

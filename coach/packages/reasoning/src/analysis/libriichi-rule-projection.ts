@@ -76,6 +76,7 @@ export function createLibriichiRuleProjector(rawStream: CanonicalEventStream, id
 export type LibriichiBoundAction = LibriichiRuleSuccess["actions"][number] & {
   action: RiichiAction;
   actionRef: string;
+  physicalRealizations: readonly {action: RiichiAction; actionRef: string}[];
 };
 
 function actionFacts(decision: ReplayedDecision): KnownActionFacts {
@@ -158,30 +159,47 @@ export function validateLibriichiRuleBinding(rawRequest: LibriichiRuleRequest, r
 export function normalizeLibriichiRuleActions(request: LibriichiRuleRequest, response: LibriichiRuleSuccess, facts: KnownActionFacts): readonly LibriichiBoundAction[] {
   const kanCount = response.actions.filter(row => row.runtimeAction.index === 42).length;
   const actions = response.actions.map(row => {
-    const mjai = JSON.parse(row.mjaiActionJson) as { type: string; pai?: string };
-    const added = mjai.type === "kakan" ? parseMjaiTile(mjai.pai) : null;
-    const pons = added === null ? [] : facts.melds!.filter(meld => meld.actor === request.decision.selfActor && meld.kind === "pon" && meld.tiles.every(tile => tile.id === added.id));
-    const adapted = adaptMjaiActionSequence([{ eventRef: request.decision.triggerEventRef, action: mjai }], {
-      decisionWindow: facts.decisionWindow,
-      ...(pons.length === 1 ? { existingMeldRef: pons[0]!.meldRef } : {}),
-      ...(facts.currentDraw ? { currentDrawTile: facts.currentDraw.tile } : {}),
-    });
-    if (adapted.status !== "ready") throw new Error("rules_action_mapping_invalid");
-    // The existing normalizer validates physical holdings and window identity.
-    // Its model-candidate representation also represents tile-less reach;
-    // only the action is retained here, not a model origin or any model score.
-    const normalized = normalizeCandidate({ draft: adapted.draft, origin: "model", facts });
-    if (normalized.status !== "ready") throw new Error("rules_action_mapping_invalid");
-    const action = normalized.candidate.action;
-    const variant = kanCount > 1 && (action.kind === "ankan" || action.kind === "kakan")
-      ? `kan:${tileIdTo34(action.kind === "ankan" ? action.tiles[0].id : action.addedTile.id)}` : null;
-    if (row.runtimeAction.index !== encodedIndex(action) || row.runtimeAction.variant !== variant) {
-      throw new Error("rules_action_mapping_invalid");
+    const normalize = (json: string) => {
+      const mjai = JSON.parse(json) as { type: string; pai?: string; actor?: number };
+      if (mjai.type !== "none" && mjai.actor !== request.decision.selfActor) throw new Error("rules_action_mapping_invalid");
+      const added = mjai.type === "kakan" ? parseMjaiTile(mjai.pai) : null;
+      const pons = added === null ? [] : facts.melds!.filter(meld => meld.actor === request.decision.selfActor && meld.kind === "pon" && meld.tiles.every(tile => tile.id === added.id));
+      const adapted = adaptMjaiActionSequence([{ eventRef: request.decision.triggerEventRef, action: mjai }], {
+        decisionWindow: facts.decisionWindow,
+        ...(pons.length === 1 ? { existingMeldRef: pons[0]!.meldRef } : {}),
+        ...(facts.currentDraw ? { currentDrawTile: facts.currentDraw.tile } : {}),
+      });
+      if (adapted.status !== "ready") throw new Error("rules_action_mapping_invalid");
+      // The existing normalizer validates physical holdings and window identity.
+      // Its model-candidate representation also represents tile-less reach;
+      // only the action is retained here, not a model origin or any model score.
+      const normalized = normalizeCandidate({ draft: adapted.draft, origin: "model", facts });
+      if (normalized.status !== "ready") throw new Error("rules_action_mapping_invalid");
+      const action = normalized.candidate.action;
+      const variant = kanCount > 1 && (action.kind === "ankan" || action.kind === "kakan")
+        ? `kan:${tileIdTo34(action.kind === "ankan" ? action.tiles[0].id : action.addedTile.id)}` : null;
+      if (row.runtimeAction.index !== encodedIndex(action) || row.runtimeAction.variant !== variant) {
+        throw new Error("rules_action_mapping_invalid");
+      }
+      return { action, actionRef: canonicalActionRef(action) };
+    };
+    const primary = normalize(row.mjaiActionJson);
+    const aliases = (row.physicalAliases ?? []).map(normalize);
+    for (const alias of aliases) {
+      // v2 admits only the native-exposed draw/hand realization of the exact
+      // same physical tile. This is correspondence validation, not enumeration.
+      if (primary.action.kind !== "discard" || alias.action.kind !== "discard" ||
+          primary.action.tile.id !== alias.action.tile.id || primary.action.tile.red !== alias.action.tile.red ||
+          primary.action.discardMode === alias.action.discardMode || request.decision.riichiPhase === "accepted") {
+        throw new Error("rules_action_mapping_invalid");
+      }
     }
-    return { ...row, action, actionRef: canonicalActionRef(action) };
+    return { ...row, ...primary, physicalRealizations: [primary, ...aliases] };
   });
   if (new Set(actions.map(row => row.actionRef)).size !== actions.length ||
-      new Set(actions.map(row => libriichiRuleCanonicalJson(row.runtimeAction))).size !== actions.length) {
+      new Set(actions.map(row => libriichiRuleCanonicalJson(row.runtimeAction))).size !== actions.length ||
+      new Set(actions.flatMap(row => row.physicalRealizations.map(item => item.actionRef))).size !==
+        actions.reduce((sum,row) => sum + row.physicalRealizations.length,0)) {
     throw new Error("rules_action_mapping_invalid");
   }
   return actions;

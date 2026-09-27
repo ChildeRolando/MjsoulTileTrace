@@ -7,6 +7,8 @@ import {
   KnownGameFactsSchema,
   ResponseFuritenAnalysisV2Schema,
   sortTilesCanonical,
+  canonicalActionRef, libriichiRuleCanonicalJson, ActionRefSchema,
+  type LibriichiRuleRequest, type LibriichiRuleSuccess, type ActualModelCorrespondence,
   type CanonicalEventStream,
   type DecisionSnapshotV2,
   type KnownActionFacts,
@@ -36,6 +38,8 @@ import { deriveResponseFuriten } from "../replay/response-furiten.js";
 import type { ReplayedDecision } from "../replay/stream-replayer.js";
 import { runStructuredAnalysisAssembly } from "./structured-analysis-assembly.js";
 import type { StructuredFactorPipelineResult } from "../factors/structured-factor-pipeline.js";
+import { bindLibriichiRuleResult, createLibriichiRuleProjector } from "./libriichi-rule-projection.js";
+import { actualLibriichiActionRef } from "./local-mortal-rule-scoring.js";
 
 export type MortalReviewFailureCode =
   | MortalSourceErrorCode
@@ -754,7 +758,7 @@ export async function runBoundMortalDecisionReview(input: {
   readonly engine: HandStructureFactEnginePort;
   readonly now?: () => number;
   readonly frozenAt?: string;
-  readonly expectedLegalActionRefs?: readonly string[];
+  readonly libriichi?: {request:LibriichiRuleRequest;response:LibriichiRuleSuccess};
 }): Promise<MortalSingleDecisionReviewResult> {
   const now = input.now ?? Date.now;
   try {
@@ -789,6 +793,22 @@ export async function runBoundMortalDecisionReview(input: {
 
     // P7: pure projection into the candidate normalizer's action-fact shape.
     const actionFacts = projectActionFacts(input.decision);
+    let expectedLegalActionRefs: readonly string[] | undefined;
+    let nativeCorrespondence: Extract<ActualModelCorrespondence,{relation:"native_physical_realization"}> | undefined;
+    if (input.libriichi !== undefined) {
+      const {request,response} = input.libriichi;
+      const fresh = createLibriichiRuleProjector(stream,request.identity)(input.decision);
+      if (libriichiRuleCanonicalJson(fresh) !== libriichiRuleCanonicalJson(request)) throw new Error("rules_protocol_invalid");
+      const bound = bindLibriichiRuleResult({request,response,decision:input.decision});
+      expectedLegalActionRefs = bound.actions.map(row=>row.actionRef);
+      const scoredModelActionRef = actualLibriichiActionRef(input.decision,bound.actions);
+      const actual = input.decision.actualAction!;
+      const actualActionRef = canonicalActionRef(actual);
+      if (actual.kind === "discard" && actualActionRef !== scoredModelActionRef) {
+        nativeCorrespondence = {relation:"native_physical_realization",ruleResultId:response.resultId,actualActionRef,
+          scoredModelActionRef:ActionRefSchema.parse(scoredModelActionRef)};
+      }
+    }
 
     // P8: bind each kakan to its own matching frozen pon, including an
     // unchosen kakan. The actual action cannot supply every candidate's ref.
@@ -817,6 +837,7 @@ export async function runBoundMortalDecisionReview(input: {
         };
       }),
       actual: { actions: localEnvelopes },
+      ...(nativeCorrespondence === undefined ? {} : {nativeCorrespondence}),
     });
     if (imported.status === "incomplete") {
       return {
@@ -835,10 +856,10 @@ export async function runBoundMortalDecisionReview(input: {
 
     // Compare the entire normalized score domain before helper/assembly. The
     // report cannot delete an unchosen legal action or add a new one.
-    if (input.expectedLegalActionRefs !== undefined) {
-      const expected = new Set(input.expectedLegalActionRefs);
+    if (expectedLegalActionRefs !== undefined) {
+      const expected = new Set(expectedLegalActionRefs);
       const scored = imported.scores.map(score => score.actionRef);
-      if (expected.size !== input.expectedLegalActionRefs.length || scored.length !== expected.size ||
+      if (expected.size !== expectedLegalActionRefs.length || scored.length !== expected.size ||
           new Set(scored).size !== scored.length || scored.some(ref => !expected.has(ref))) {
         return {status:"failed",code:"mortal_decision_unsupported_entry",diagnostics:["legal_candidate_mismatch"]};
       }

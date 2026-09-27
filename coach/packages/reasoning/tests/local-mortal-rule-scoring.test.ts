@@ -20,6 +20,7 @@ import { createLibriichiRuleProjector } from "../src/analysis/libriichi-rule-pro
 import { collectLibriichiRuleResults } from "../src/analysis/libriichi-rule-collection.js";
 import { projectLocalMortalRuleScoring, bindLocalMortalRuleScores, localMortalRuleScoresToReportEntry } from "../src/analysis/local-mortal-rule-scoring.js";
 import { replayCanonicalStream } from "../src/replay/stream-replayer.js";
+import { deriveSemanticContentHash, derivePackageId } from "../src/analysis/package-identity.js";
 import { canonicalStream, canonicalSelfDrawDiscardEvents, canonicalTile } from "./fixtures/canonical-stream.js";
 
 const digest = (value: unknown) => createHash("sha256").update(libriichiRuleCanonicalJson(value)).digest("hex");
@@ -54,6 +55,64 @@ function fixture(stream: CanonicalEventStream = canonicalStream(canonicalSelfDra
 }
 
 describe("native rules to scores to report without a second action enumerator", () => {
+  it("same-tile tedashi keeps one score carrier and its actual identity through the native package", async () => {
+    const events = canonicalSelfDrawDiscardEvents();
+    const draw = events[2]!; const discard = events[3]!;
+    if(draw.type !== "tile_drawn" || discard.type !== "tile_discarded") throw new Error("fixture");
+    draw.tile = {visibility:"visible",tile:canonicalTile("1m")};
+    discard.tile = canonicalTile("1m"); discard.discardMode = "tedashi";
+    const actions = Array.from({length:13},(_,index)=>({runtimeAction:{index,variant:null},
+      mjaiActionJson:JSON.stringify({type:"dahai",actor:0,pai:index<9 ? `${index+1}m` : `${index-8}p`,tsumogiri:index===0}),
+      ...(index===0 ? {physicalAliases:[JSON.stringify({type:"dahai",actor:0,pai:"1m",tsumogiri:false})]} : {})}));
+    actions.push({runtimeAction:{index:37,variant:null},mjaiActionJson:'{"type":"reach","actor":0}'});
+    const input = fixture(canonicalStream(events),actions);
+    const entry = localMortalRuleScoresToReportEntry(input);
+    const switched = {...input,decision:{...input.decision,actualAction:{kind:"discard",tile:canonicalTile("1m"),discardMode:"tsumogiri"} as const}};
+    expect(localMortalRuleScoresToReportEntry(switched).details).toEqual(entry.details);
+    expect(projectLocalMortalRuleScoring(switched)).toEqual(input.request);
+    expect(entry.actual).toMatchObject({type:"dahai",pai:"1m",tsumogiri:false});
+    expect(entry.details[0]!.action).toMatchObject({type:"dahai",pai:"1m",tsumogiri:true});
+    expect(entry.details).toHaveLength(14);
+    expect(entry.details.reduce((sum,row)=>sum+row.probability!,0)).toBeCloseTo(1);
+    const engine = new JsonlFactEngineClient(new ManagedFactEngineTransport(fileURLToPath(new URL("../../../resources/",import.meta.url))));
+    try {
+      const rules = await collectLibriichiRuleResults({stream:input.stream,decisions:[input.decision],identity:input.ruleRequest.identity,
+        port:{queryRules:async()=>input.ruleResult}});
+      const review = await runMortalFullGameReview({stream:input.stream,decisions:[input.decision],responseDecisions:[],engine,
+        coverageRegistry:createMortalCoverageRegistry(["dama_with_riichi_candidate"]),
+        libriichi:{identity:input.ruleRequest.identity,results:rules},
+        report:{reportId:"native-discard-mode",adapterVersion:identity.adapterVersion,engine:"Mortal",version:managedLocalMortalEngineVersion(identity),
+          modelTag:identity.checkpointModelTag,playerId:0,gameFingerprint:computeCanonicalGameFingerprint(input.stream),
+          kyokus:[{roundOrdinal:0,roundWind:"E",dealer:0,kyoku:0,honba:0,entries:[entry]}]}});
+      expect(review.status).toBe("coverage_ready");
+      if(review.status!=="coverage_ready") throw new Error("review failed");
+      expect(review.decisions.map(row=>row.outcome)).toEqual(["analysis_ready"]);
+      const retained = review.retainedAnalyses[0]!;
+      const pkg = buildStructuredAnalysisPackage({review,stream:input.stream,decisions:[input.decision],responseDecisions:[],
+        componentVersions:{packageSchema:"structured-analysis-package/v2",legalActionRules:input.ruleRequest.identity,
+          canonicalReplay:"canonical-riichi-events/v2",mapperAdapter:input.stream.mapperVersion,
+          factEngine:{engine:"mahjong-helper",upstreamCommit:MAHJONG_HELPER_COMMIT,adapterVersion:FACT_ENGINE_ADAPTER_VERSION,protocolVersion:FACT_ENGINE_PROTOCOL_VERSION},
+          factorPipeline:"factor-pipeline/v1",mortalSourceModel:{identity:"Mortal",version:identity.adapterVersion,modelTag:identity.checkpointModelTag,
+            evidenceSource:{kind:"managed_local_runtime",identity}}},frozenPolicySnapshot:retained.modelEvaluation.detailPolicy});
+      expect(()=>validateStructuredAnalysisPackage(pkg)).not.toThrow();
+      expect(pkg.decisions[0]!.normalizedDecisionContext.actualAction).toMatchObject({kind:"discard",discardMode:"tedashi"});
+      const decision = pkg.decisions[0]!;
+      if(decision.outcome !== "analysis_ready") throw new Error("fixture");
+      expect(decision.modelEvaluation.candidates).toHaveLength(14);
+      expect(decision.comparisonSet.correspondences).toEqual([{relation:"native_physical_realization",ruleResultId:input.ruleResult.resultId,
+        actualActionRef:canonicalActionRef(input.decision.actualAction!),scoredModelActionRef:canonicalActionRef(switched.decision.actualAction)}]);
+      const forged = structuredClone(pkg);
+      const forgedDecision = forged.decisions[0]!;
+      if(forgedDecision.outcome !== "analysis_ready") throw new Error("fixture");
+      const correspondence = forgedDecision.comparisonSet.correspondences![0]!;
+      if(correspondence.relation !== "native_physical_realization") throw new Error("fixture");
+      correspondence.ruleResultId = "f".repeat(64);
+      forged.semanticContentHash = deriveSemanticContentHash(forged);
+      forged.packageId = derivePackageId(forged);
+      expect(()=>validateStructuredAnalysisPackage(forged)).toThrow("physical_correspondence");
+    } finally { await engine.close(); }
+  });
+
   it.each(["legacy", "native"] as const)("R14 nine-terminals reaches the %s full-game consumer", async mode => {
     const events = canonicalSelfDrawDiscardEvents();
     const start = events[1]!;
