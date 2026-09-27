@@ -93,6 +93,8 @@ spike 的规则查询、评分、单候选和 v2 package 消费同一原生结�
 `LOCALAPPDATA/RiichiCoach/spike-runs/production-native-<commit>-<timestamp>/`，末行给出
 回执路径；可用 `RIICHI_LOCAL_MORTAL_EVIDENCE_ROOT` 指定输出父目录。回执 v3 记录
 规则身份、模型身份、运行范围、失败及未运行状态；不覆盖旧 `production-spike-receipt.json`。
+完整包证据按共享 canonical 序列分块导出，回执记录文件名、字节数与文件 SHA-256；
+导出失败保留失败阶段，不把已完成推理视为整链通过。
 `RIICHI_LOCAL_MORTAL_ACTORS` 筛选运行仅为诊断，即使所选项通过也不签发全量 PASS。
 按冻结规格 §8 的 2026-09-26 用户批准修订，宿主网络可以保持开启，系统级禁网不再是
 真实本地模型正确性验收的前置门槛。真实推理、候选守恒、下游 package 与最终提交绑定

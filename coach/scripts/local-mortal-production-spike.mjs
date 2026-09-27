@@ -3,6 +3,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { countProvenWave1, readAcceptanceCommit } from "./local-mortal-spike-proof.mjs";
+import { writeSpikeArtifact } from "./local-mortal-spike-artifact.mjs";
 import {
   FACT_ENGINE_ADAPTER_VERSION,
   FACT_ENGINE_PROTOCOL_VERSION,
@@ -178,7 +179,7 @@ const wave1ActualBranchCounts = Object.fromEntries([
 const passOnDiscardCandidateFamilyCounts = Object.fromEntries(["chi", "pon", "daiminkan", "hora"].map((name) => [name, 0]));
 const windowActualCounts = {};
 let inferenceCount = 0;
-const runSummaries = fixtureRuns.map(run=>({fixtureId:run.fixtureId,actor:run.actor,status:"not_run"}));
+const runSummaries = fixtureRuns.map(run=>({fixtureId:run.fixtureId,actor:run.actor,status:"not_run",phase:"not_run"}));
 
 try {
   await runtime.start();
@@ -188,9 +189,11 @@ try {
     runSummary.status = "running";
     try {
       const { actor } = fixtureRun;
+      runSummary.phase = "source-mapping";
       const mapped = fixtureRun.map();
       if (mapped.status !== "ready") fail(`production mapper failed: ${mapped.code}`);
       const stream = mapped.stream;
+      runSummary.phase = "rules";
       const {decisions,responseDecisions,rules} = await queryCanonicalLibriichiRules({stream,identity:runtime.ruleIdentity,port:runtime});
       for (const decision of [...decisions, ...responseDecisions]) {
         const window = decision.snapshot.privateState.decisionWindow;
@@ -199,6 +202,7 @@ try {
         windowActualCounts[windowActualKey] = (windowActualCounts[windowActualKey] ?? 0) + 1;
       }
       const evaluated = [];
+      runSummary.phase = "scoring";
       const ruleCounts = {ok:0,non_action:0,error:0,singleton:0};
       const evaluable = [
         ...decisions.map(decision=>({decision,surface:"self"})),
@@ -258,6 +262,7 @@ try {
       const factEngine = new JsonlFactEngineClient(new ManagedFactEngineTransport(join(repoRoot, "resources")));
       let review;
       try {
+        runSummary.phase = "full-game";
         review = await runMortalFullGameReview({
           stream, decisions, responseDecisions, report,
           libriichi:{identity:runtime.ruleIdentity,results:rules},
@@ -302,6 +307,7 @@ try {
           recordFailure("full-game",fixtureRun,decision,`${decision.outcome}:${decision.reason ?? "unknown"}`);
         }
       }
+      runSummary.phase = "package-build";
       const pkg = buildStructuredAnalysisPackage({
         review, stream, decisions, responseDecisions,
         componentVersions: {
@@ -319,8 +325,12 @@ try {
         frozenPolicySnapshot: review.retainedAnalyses[0].modelEvaluation.detailPolicy,
         now: () => Date.parse("2026-09-24T00:00:00.000Z"),
       });
+      runSummary.phase = "package-validation";
       validateStructuredAnalysisPackage(pkg);
-      writeFileSync(join(evidenceDirectory,`${fixtureRun.fixtureId}-actor-${actor}-package.json`),JSON.stringify(pkg),{flag:"wx"});
+      runSummary.phase = "evidence-write";
+      const evidenceFile = `${fixtureRun.fixtureId}-actor-${actor}-package.json`;
+      const artifact = writeSpikeArtifact(join(evidenceDirectory, evidenceFile), pkg);
+      runSummary.phase = "coverage";
       const proven = countProvenWave1(responseDecisions, evaluated, pkg);
       for (const [branch, count] of Object.entries(proven.actual)) wave1ActualBranchCounts[branch] += count;
       for (const [family, count] of Object.entries(proven.passFamilies)) passOnDiscardCandidateFamilyCounts[family] += count;
@@ -340,11 +350,13 @@ try {
         outcomeCounts: review.summary.outcomes,
         packageId: pkg.packageId,
         semanticContentHash: pkg.semanticContentHash,
+        artifact: { file: evidenceFile, ...artifact },
         status: pkg.record.status,
         selectedCount: selection.selected.length,
       });
       runSummary.status = failures.length === failuresBefore ? "completed" : "failed";
-    } catch (error) {recordFailure("fixture",fixtureRun,null,error);runSummary.status="failed";}
+      runSummary.phase = "completed";
+    } catch (error) {recordFailure(runSummary.phase,fixtureRun,null,error);runSummary.status="failed";}
   }
 } catch (error) {
   recordFailure("runtime",null,null,error);

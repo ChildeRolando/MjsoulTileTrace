@@ -39,7 +39,7 @@
  *    any binding_mismatch / no_mortal_entry → integrity_failed; else any
  *    non-analysis_ready outcome → degraded; else complete (CR-6).
  */
-import { createHash, type Hash } from "node:crypto";
+import { createHash } from "node:crypto";
 import type {
   AnalysisPolicySnapshot,
   ComponentVersions,
@@ -77,37 +77,43 @@ export function sha256Hex(value: string): string {
   return createHash("sha256").update(value).digest("hex");
 }
 
-function updateCanonicalHash(hash: Hash, value: unknown): void {
+/** Emit the existing canonical byte sequence without a whole-artifact string.
+ * Input must be JSON data (packages are validated before export). A sink may
+ * hash it, buffer bounded chunks, or write it; identity semantics stay shared.
+ */
+export function writeCanonicalJson(value: unknown, write: (part: string) => void): void {
   if (value === null || typeof value !== "object") {
-    hash.update(JSON.stringify(value));
+    const serialized = JSON.stringify(value);
+    if (serialized === undefined) throw new TypeError("canonical_json_value_invalid");
+    write(serialized);
     return;
   }
   if (Array.isArray(value)) {
-    hash.update("[");
+    write("[");
     value.forEach((entry, index) => {
-      if (index > 0) hash.update(",");
-      updateCanonicalHash(hash, entry);
+      if (index > 0) write(",");
+      writeCanonicalJson(entry, write);
     });
-    hash.update("]");
+    write("]");
     return;
   }
-  hash.update("{");
+  write("{");
   Object.entries(value as Record<string, unknown>)
     .sort(([left], [right]) => left < right ? -1 : left > right ? 1 : 0)
     .forEach(([key, entry], index) => {
-      if (index > 0) hash.update(",");
-      hash.update(JSON.stringify(key));
-      hash.update(":");
-      updateCanonicalHash(hash, entry);
+      if (index > 0) write(",");
+      write(JSON.stringify(key));
+      write(":");
+      writeCanonicalJson(entry, write);
     });
-  hash.update("}");
+  write("}");
 }
 
 /** Hashes the same canonical byte stream as `canonicalJson` without first
  * materializing a whole-game package as one V8 string. */
 export function sha256CanonicalJson(value: unknown): string {
   const hash = createHash("sha256");
-  updateCanonicalHash(hash, value);
+  writeCanonicalJson(value, part => { hash.update(part); });
   return hash.digest("hex");
 }
 

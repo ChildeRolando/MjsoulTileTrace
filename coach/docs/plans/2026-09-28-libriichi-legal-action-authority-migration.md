@@ -334,3 +334,38 @@ full-game/discovery 的正式切换；新旧包版本与规则来源；物理动
   干净提交上实际运行；以上确定性门禁不代替 spike、禁网或外部独立验收。
 
 剩余仍为来源缺失证据、全部生产消费者迁移、动作粒度、旧实现封存及最终独立验收。
+
+### 10.1 干净提交的真实 CPU 运行与大包导出修复
+
+已推送提交 `2a689080ff8776397c3d8ef59231e76d14b0ce22` 实际运行完整
+`npm run test:local-mortal-production-spike`，退出 1。新回执目录为
+`LOCALAPPDATA/RiichiCoach/spike-runs/production-native-2a689080ff87-1790546235217`：
+
+- 六个牌谱视角全部运行，雀魂四视角仍有 1945 个 `rules_input_incomplete`；
+  未伪造规则配置、响应历史或旧脱敏资产已删除的杠宝牌。Git 首次纳入该 fixture
+  时的生成器也删除这些字段，不能从该文件历史补回。此前询问的原始文件仍待提供。
+- 两份天凤补充样本规则无错误：抢杠 122 成功/243 非行动/1 单候选，121 次推理；
+  大明杠 22 成功/43 非行动，22 次推理。合计 143 次真实 CPU 推理。
+- 大明杠的 22 个评价全部 `analysis_ready`，v2 package validator 通过，保存
+  97,232,235 字节完整包；抢杠样本下游遇到 `Invalid string length`。回执同时记录
+  来源失败、无分析、覆盖缺口等，共 1952 条失败记录；它们不是 1952 种独立 bug。
+- 未禁网，未提交外部独立验收，不是全量 PASS。
+
+导出修复复用既有 canonical hash walker，开放同字节序列的分块输出；CPU runner
+以 64 KiB 字节缓冲写文件，记录文件字节数与 SHA-256。既有语义哈希不变，不裁剪
+候选、教学因素或证据。每份运行增加失败阶段定位，防止把导出失败与模型失败混淆。
+
+复现/验证（同上迁移证据目录）：
+
+- `package-evidence-writer-red.log`：6 份已验证真实包组成的导出压力输入在旧
+  `JSON.stringify` 报相同 RangeError。该输入仅验证导出，不宣称是合法分析包。
+- `package-evidence-writer-large.log`：同输入分块导出 583,393,417 字节，文件大小
+  与独立流式读回 SHA-256 一致。未删减内容；完整 CPU 仍须在新干净提交重跑。
+- `artifact-writer-focused.log`：15 项通过，包括 UTF-8 跨缓冲、全部字段、原有
+  canonical 字节/哈希一致及不覆盖历史文件。此修复限于验证证据导出；桌面现有
+  JSON 持久化对超大包的上限仍是已发现的产品风险，未声称已解决。
+- 五门均实际执行：build、typecheck、vitest（182 文件/2256 项）、package-import
+  退出 0。architecture 初次发现脚本测试跨包导入内部 serializer；改用公开导出后
+  重跑退出 0（7 包/424 文件/1899 导入/0 违规），改动测试再聚焦重跑 2 项通过。
+  日志 `artifact-writer-gate-*`、`artifact-writer-architecture-rerun.log`、
+  `artifact-writer-focused-rerun.log`。JS 语法与 diff 检查通过。
