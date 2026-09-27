@@ -405,3 +405,33 @@ full-game/discovery 的正式切换；新旧包版本与规则来源；物理动
 仍待：其余 production/discovery 入口切换，动作表示兼容，雀魂真实来源证据补齐，
 旧枚举退出与封存，大包持久化风险，以及最终提交真实 CPU 全语料与外部独立验收。
 本切片提交后按当前代码运行真实 spike，不能继承 57a0a77 的结果或宣称目标完成。
+
+## 12. 第七实施切片：语料发现改用原生规则
+
+- dama 自摸发现器移除本地成和预筛、开放手排除及 helper 等待牌资格推导。
+  先重放并查询全部 self 边界，再从成功完整规则结果筛选未立直且实际弃牌的自摸机会。
+  实际动作只做对应检查，不能补候选。失败分类计数且继续扫描后续窗口。
+- 天凤、雀魂和 bounded subset 三个 CLI 共用已有资产 composition；查询无需模型评分。
+  每个命中保留规则结果 ID，聚合报告保存规则身份与失败类别。旧报告字段
+  `needsHandStructureEngine` 改为 `needsRuleEngine`，历史产物不重写。
+- 旧 helper 接口测试退出，新受控规则端口回归覆盖 12 种情形；包括副露自摸、
+  post-call、立直两个阶段、七对子/国士、实际动作变化、未知证据和失败后继续。
+  旧源码与测试的固定 blob 见 `docs/handoffs/2026-09-28-libriichi-rule-retirement.md`。
+  未增加包、依赖边或架构层抽象；INV-002/004/007 的规则/教学职责及身份边界保持。
+
+验证证据仍在 `LOCALAPPDATA/RiichiCoach/spike-runs/libriichi-migration-dafb76f/`：
+
+- `native-discovery-red.log` 是旧函数签名不接受新规则端口的 6 项 RED（接口迁移证据，
+  不冒充独立复现麻将合法性 bug）；源代码确认旧路径排除了副露手及本地非成和牌形。
+- `native-discovery-integrated.log`：新发现器 12 项和聚合/语料策略 11 项均通过。
+- 五门全部退出 0：typecheck、build、vitest（183 文件/2268 项）、architecture
+  （7 包/427 文件/1929 导入/0 违规）、package-import。日志 `native-discovery-*.log`。
+  四个 JS 入口语法检查及 `git diff --check` 退出 0。
+- 实际执行 `node scripts/tenhou-discovery.mjs packages/tenhou-source/tests/fixtures/real-logs/bug1.xml --dama-tsumo --out <源码外新文件>`，
+  复用已有 native 构建回执；四视角共 665 个 self 边界完成规则查询，0 规则失败，
+  0 个目标自摸弃牌命中。输出 `spike-runs/native-discovery-1790550218884.json`；
+  `native-discovery-real-cli.log` 记录每视角计数。此为工作树开发期真实规则 smoke，
+  没有神经网络评分、没有禁网，不是最终代码提交的完整 CPU spike。
+
+剩余仍包括单决策入口和旧 full-game 分支、其余旧规则退出、动作表示兼容、雀魂
+真实来源缺失证据、大包持久化、最终提交真实 CPU 与独立验收；目标保持进行中。

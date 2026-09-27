@@ -11,14 +11,14 @@
  * discoverable branch, not just aggregate hit counts. The census supplies
  * those locators for the eight structural branches and the dama_with_riichi
  * superset; dama_with_tsumo_candidate needs the seat's private tiles plus
- * the hand-structure fact engine, so it stays empty here and is filled by
+ * the native rules engine, so it stays empty here and is filled by
  * merging the private pass (see mergeDamaTsumoCandidates) — never guessed.
  *
  * §23 privacy: the report carries only counts, opaque game ids, seat indexes,
  * branch names, and canonical decision locators (game id + position) — never
  * raw player names, log URLs, or raw record bytes.
  */
-import type { CanonicalEventStream } from "@riichi-coach/contracts";
+import type { CanonicalEventStream, LibriichiRuleIdentity } from "@riichi-coach/contracts";
 import {
   censusCanonicalGame,
   TENHOU_COVERAGE_BRANCHES,
@@ -59,6 +59,8 @@ export interface DiscoveryBranchCandidate {
    * the replay layer (and the acceptance runner) freezes for this window.
    */
   readonly decisionEventRef: string;
+  /** Present for candidates selected by the native rule pass. */
+  readonly ruleResultId?: string;
 }
 
 /** §8 selection unit: one (game, seat) pair may evidence several branches. */
@@ -68,18 +70,20 @@ export interface DiscoverySelectionPair {
   readonly branches: readonly TenhouCoverageBranch[];
 }
 
-/** Stats from the private dama_with_tsumo pass (replay + fact engine). */
+/** Stats from the private dama_with_tsumo pass (replay + native rules). */
 export interface DamaTsumoPassStats {
   /** (game, seat) pairs that reached replay classification. */
   readonly seatsReplayed: number;
   /** (game, seat) pairs whose per-seat mapping failed. */
   readonly seatsFailed: number;
-  /** Windows the hand-structure engine classified (complete or not). */
+  /** All self boundaries queried, including failed queries. */
   readonly windowsClassified: number;
   /** Windows skipped fail-closed because the engine errored. */
   readonly engineFailures: number;
   /** Marker so consumers can tell a classified report from a census-only one. */
   readonly engineUsed: true;
+  readonly legalActionRules: LibriichiRuleIdentity;
+  readonly failureCounts: Readonly<Record<string, number>>;
 }
 
 export interface DiscoveryReport {
@@ -103,8 +107,8 @@ export interface DiscoveryReport {
   readonly damaTsumoCandidateWindows: number;
   /** The per-branch candidate cap this report was built with. */
   readonly maxCandidateSamples: number;
-  /** True until mergeDamaTsumoCandidates has run (hand structure is the fact engine's authority). */
-  readonly needsHandStructureEngine: boolean;
+  /** True until mergeDamaTsumoCandidates has run (legality is the native rules engine's authority). */
+  readonly needsRuleEngine: boolean;
   /** Private-pass stats once that pass has merged its candidates. */
   readonly damaTsumoPass?: DamaTsumoPassStats;
   /** Local branches with zero concrete candidates in this report. */
@@ -235,7 +239,7 @@ function buildReport(
     selectionPairs: selectMinimalPairs(branchCandidates, maxSamples),
     damaTsumoCandidateWindows: damaTsumo.windows,
     maxCandidateSamples: maxSamples,
-    needsHandStructureEngine: !damaTsumo.merged,
+    needsRuleEngine: !damaTsumo.merged,
     ...(damaTsumo.stats === undefined ? {} : { damaTsumoPass: damaTsumo.stats }),
     uncoveredLocalBranches,
   };
@@ -314,11 +318,11 @@ export function discoverCanonicalCorpus(
 }
 
 /**
- * Merge the private-pass dama_with_tsumo candidates (replay + hand-structure
+ * Merge the private-pass dama_with_tsumo candidates (replay + native rules
  * engine verdicts) into a census-only report. The census cannot see private
  * tiles, so the branch stays empty until this merge — the zero is never
  * guessed into existence, and after the merge the report stops claiming
- * needsHandStructureEngine.
+ * needsRuleEngine.
  */
 export function mergeDamaTsumoCandidates(
   report: DiscoveryReport,
@@ -326,6 +330,7 @@ export function mergeDamaTsumoCandidates(
     gameId: string;
     seat: number;
     decisionEventRef: string;
+    ruleResultId: string;
   }[],
   stats: DamaTsumoPassStats,
 ): DiscoveryReport {

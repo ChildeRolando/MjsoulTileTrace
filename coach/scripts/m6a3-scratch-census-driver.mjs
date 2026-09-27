@@ -132,7 +132,7 @@ const merged = {
   selectionPairs,
   damaTsumoCandidateWindows,
   maxCandidateSamples: 20,
-  needsHandStructureEngine: true,
+  needsRuleEngine: true,
   uncoveredLocalBranches: TENHOU_COVERAGE_BRANCHES.filter((b) => branchCandidates[b].length === 0),
 };
 writeFileSync(opts.out, `${JSON.stringify(merged, null, 2)}\n`, { mode: 0o600 });

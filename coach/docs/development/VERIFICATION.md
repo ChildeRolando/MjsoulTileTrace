@@ -89,7 +89,11 @@ ADR-0006 迁移后的 spike 使用独立 native build 回执：先用已有上�
 补丁与产物回执核验，不要求覆盖旧准备回执或重新下载权重。
 
 远端报告的新验收（`scripts/tenhou-acceptance.mjs`、`scripts/majsoul-acceptance.mjs`）
-与桌面整局诊断也使用该 native 回执。`RIICHI_LOCAL_MORTAL_ROOT` 指定现有受管
+与桌面整局诊断也使用该 native 回执。天凤/雀魂 discovery 的 `--dama-tsumo`
+及 bounded dama subset 扫描使用同一无权重规则服务，按全部 self 边界查询后再筛选，
+报告保留规则身份、命中结果 ID 和窗口失败分类；`needsRuleEngine` 表示是否尚未
+执行该私有视角规则扫描。纯事件 census 仍可独立运行，不能把事件命中当作合法性证明。
+`RIICHI_LOCAL_MORTAL_ROOT` 指定现有受管
 Python 资产目录，缺省为 `LOCALAPPDATA/RiichiCoach/local-mortal-spike`；
 `RIICHI_LIBRIICHI_NATIVE_RECEIPT` 指向当前构建回执，必要时可用
 `RIICHI_LIBRIICHI_NATIVE_MODULE` 指定搬迁后的同哈希 native 文件。这些入口只查询

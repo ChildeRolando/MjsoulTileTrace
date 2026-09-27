@@ -10,8 +10,8 @@
  * production mapper — no second parser/classifier) → the SAME source-agnostic
  * structural census and §6 candidate/selection aggregation the Tenhou runner
  * uses (discoverCanonicalCorpus), plus (with --dama-tsumo) the §7 private
- * pass: per-seat mapping → replay → hand-structure fact engine, classifying
- * dama_with_tsumo windows the public census cannot see. Mortal is NEVER
+ * pass: per-seat mapping → replay → weightless libriichi rules, classifying
+ * dama_with_tsumo windows the public census cannot see. Neural model scoring is NEVER
  * called here — discovery only names candidate (game, seat, branch, locator)
  * windows for later acceptance.
  *
@@ -32,10 +32,8 @@ import {
 } from "@riichi-coach/tenhou-source";
 import {
   collectDamaTsumoWindows,
-  JsonlFactEngineClient,
-  ManagedFactEngineTransport,
-  replayCanonicalStream,
 } from "@riichi-coach/reasoning";
+import { createManagedRuleRuntime } from "./managed-mortal-acceptance.mjs";
 
 function fail(message) {
   console.error(String(message));
@@ -113,13 +111,13 @@ if (Object.keys(mapFailureCounts).length > 0) {
 // --- §7 private pass (opt-in): per-seat perspective → replay → engine. ---
 
 if (damaTsumo) {
-  const resourcesDir = fileURLToPath(new URL("../resources/", import.meta.url));
-  const engine = new JsonlFactEngineClient(new ManagedFactEngineTransport(resourcesDir));
+  const runtime = await createManagedRuleRuntime();
   const candidates = [];
   let seatsReplayed = 0;
   let seatsFailed = 0;
   let windowsClassified = 0;
   let engineFailures = 0;
+  const failureCounts = {};
   try {
     for (const input of inputs) {
       for (let seat = 0; seat < 4; seat += 1) {
@@ -136,35 +134,21 @@ if (damaTsumo) {
           seatsFailed += 1;
           continue;
         }
-        // Per-seat fail-closed isolation: a game whose replay is not supported
-        // locally skips that seat without aborting the corpus — it can simply
-        // never become an acceptance candidate. replayCanonicalStream returns
-        // ReplayedDecision[] directly.
-        let decisions;
-        try {
-          decisions = replayCanonicalStream(mapped.stream);
-        } catch (error) {
+        // Replay and every rule query run inside the collector. A bad seat
+        // cannot abort later seats; raw exception prose never enters output.
+        const result = await collectDamaTsumoWindows({stream: mapped.stream,
+          identity: runtime.ruleIdentity, port: runtime}).catch(() => {
           seatsFailed += 1;
-          console.error(
-            `dama-tsumo ${input.gameId}#${seat}: replay failed, seat skipped (${
-              error instanceof Error ? error.message : String(error)
-            })`,
-          );
-          continue;
-        }
-        const result = await collectDamaTsumoWindows(decisions, engine).catch((error) => {
-          seatsFailed += 1;
-          console.error(
-            `dama-tsumo ${input.gameId}#${seat}: window collection failed, seat skipped (${
-              error instanceof Error ? error.message : String(error)
-            })`,
-          );
+          console.error(`dama-tsumo ${input.gameId}#${seat}: rules_input_invalid`);
           return null;
         });
         if (result === null) continue;
         seatsReplayed += 1;
         windowsClassified += result.classifiedWindows;
         engineFailures += result.engineFailures;
+        for (const [code, count] of Object.entries(result.failureCounts)) {
+          failureCounts[code] = (failureCounts[code] ?? 0) + count;
+        }
         console.error(
           `dama-tsumo ${input.gameId}#${seat}: ${result.windows.length} found ` +
           `(${result.classifiedWindows} classified, ${result.skippedWindows} skipped, ` +
@@ -175,12 +159,13 @@ if (damaTsumo) {
             gameId: input.gameId,
             seat,
             decisionEventRef: window.decisionEventRef,
+            ruleResultId: window.ruleResultId,
           });
         }
       }
     }
   } finally {
-    await engine.close();
+    await runtime.close();
   }
   report = mergeDamaTsumoCandidates(report, candidates, {
     seatsReplayed,
@@ -188,6 +173,8 @@ if (damaTsumo) {
     windowsClassified,
     engineFailures,
     engineUsed: true,
+    failureCounts,
+    legalActionRules: runtime.ruleIdentity,
   });
   console.error(
     `dama-tsumo pass: ${candidates.length} windows found ` +
