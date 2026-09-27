@@ -89,7 +89,9 @@ ADR-0006 迁移后的 spike 使用独立 native build 回执：先用已有上�
 补丁与产物回执核验，不要求覆盖旧准备回执或重新下载权重。
 
 远端报告的新验收（`scripts/tenhou-acceptance.mjs`、`scripts/majsoul-acceptance.mjs`）
-与桌面整局诊断也使用该 native 回执。天凤/雀魂 discovery 的 `--dama-tsumo`
+与桌面单决策/整局诊断也使用该 native 回执。单决策诊断 v2 摘要保留规则身份、
+requestId/resultId；规则失败、输入快照过期或缺少未选动作不能返回 `review_ready`。
+天凤/雀魂 discovery 的 `--dama-tsumo`
 及 bounded dama subset 扫描使用同一无权重规则服务，按全部 self 边界查询后再筛选，
 报告保留规则身份、命中结果 ID 和窗口失败分类；`needsRuleEngine` 表示是否尚未
 执行该私有视角规则扫描。纯事件 census 仍可独立运行，不能把事件命中当作合法性证明。

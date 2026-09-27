@@ -475,11 +475,23 @@ async function start(): Promise<void> {
     const engine = new JsonlFactEngineClient(
       new ManagedFactEngineTransport(resourcesDir),
     );
+    let rulesRuntime: Awaited<ReturnType<typeof createLocalMortalRuntimeService>> | undefined;
     try {
+      const artifactRoot = process.env.RIICHI_LOCAL_MORTAL_ROOT
+        ?? join(process.env.LOCALAPPDATA ?? "", "RiichiCoach", "local-mortal-spike");
+      rulesRuntime = await createLocalMortalRuntimeService({
+        artifactRoot,
+        packageRoot: fileURLToPath(new URL("../../mortal-runtime/", import.meta.url)),
+        pythonExecutable: join(artifactRoot, "python", "Scripts", "python.exe"),
+        platformManifest: "mortal-582500.windows-x64.json",
+        ...(process.env.RIICHI_LIBRIICHI_NATIVE_RECEIPT === undefined ? {} : { nativeReceiptPath: process.env.RIICHI_LIBRIICHI_NATIVE_RECEIPT }),
+        ...(process.env.RIICHI_LIBRIICHI_NATIVE_MODULE === undefined ? {} : { nativeModulePath: process.env.RIICHI_LIBRIICHI_NATIVE_MODULE }),
+      });
       const result = await runMortalDecisionDiagnostic({
         resultUrlFilePath,
         acquisition,
         engine,
+        rules: { identity: rulesRuntime.ruleIdentity, port: rulesRuntime },
         now: Date.now,
         writeResult: async (serialized) => {
           const resultDir = join(
@@ -496,10 +508,14 @@ async function start(): Promise<void> {
         `[riichi-coach] mortal-decision-diagnostic:${result.status}`
         + (result.resultPath !== undefined ? ` ${result.resultPath}` : ""),
       );
-      app.exit(mortalDecisionDiagnosticExitCode(result.status));
+      process.exitCode = mortalDecisionDiagnosticExitCode(result.status);
+    } catch {
+      console.log("[riichi-coach] mortal-decision-diagnostic:review_failed");
+      process.exitCode = mortalDecisionDiagnosticExitCode("review_failed");
     } finally {
-      await engine.close();
+      try { await rulesRuntime?.close(); } finally { await engine.close(); }
     }
+    app.exit(process.exitCode === undefined ? 39 : Number(process.exitCode));
     return;
   }
   if (process.argv.includes("--diagnose-mortal-full-game")) {

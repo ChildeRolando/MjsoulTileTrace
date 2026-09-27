@@ -8,7 +8,7 @@ import {
   ResponseFuritenAnalysisV2Schema,
   sortTilesCanonical,
   canonicalActionRef, libriichiRuleCanonicalJson, ActionRefSchema,
-  type LibriichiRuleRequest, type LibriichiRuleSuccess, type ActualModelCorrespondence,
+  type LibriichiRuleRequest, type LibriichiRuleSuccess, type LibriichiRuleIdentity, type LibriichiRulePort, type ActualModelCorrespondence,
   type CanonicalEventStream,
   type DecisionSnapshotV2,
   type KnownActionFacts,
@@ -40,10 +40,12 @@ import { runStructuredAnalysisAssembly } from "./structured-analysis-assembly.js
 import type { StructuredFactorPipelineResult } from "../factors/structured-factor-pipeline.js";
 import { bindLibriichiRuleResult, createLibriichiRuleProjector } from "./libriichi-rule-projection.js";
 import { actualLibriichiActionRef } from "./local-mortal-rule-scoring.js";
+import { collectLibriichiRuleResults } from "./libriichi-rule-collection.js";
 
 export type MortalReviewFailureCode =
   | MortalSourceErrorCode
   | "mortal_review_engine_failed"
+  | "mortal_review_rules_failed"
   | "mortal_review_assembly_failed";
 
 export type MortalDecisionAnchor = Readonly<{
@@ -61,6 +63,7 @@ export type MortalSingleDecisionReviewResult =
       readonly comparisonSet: StructuredComparisonSet;
       readonly modelEvaluation: ModelEvaluation;
       readonly factorResult: StructuredFactorPipelineResult;
+      readonly legalActionRules?: { readonly identity: LibriichiRuleIdentity; readonly requestId: string; readonly resultId: string };
     }
   | {
       readonly status: "failed";
@@ -934,6 +937,8 @@ export async function runBoundMortalDecisionReview(input: {
       comparisonSet: imported.comparisonSet,
       modelEvaluation: evaluationBuilt.evaluation,
       factorResult,
+      ...(input.libriichi === undefined ? {} : {legalActionRules:{identity:input.libriichi.request.identity,
+        requestId:input.libriichi.request.requestId,resultId:input.libriichi.response.resultId}}),
     };
   } catch (error) {
     if (error instanceof MortalSourceError) {
@@ -963,6 +968,7 @@ export async function runMortalSingleDecisionReview(input: {
   readonly decision: ReplayedDecision;
   readonly report: MortalFetchedReport;
   readonly engine: HandStructureFactEnginePort;
+  readonly rules: { readonly identity: LibriichiRuleIdentity; readonly port: LibriichiRulePort };
   readonly now?: () => number;
 }): Promise<MortalSingleDecisionReviewResult> {
   try {
@@ -979,6 +985,20 @@ export async function runMortalSingleDecisionReview(input: {
     // Whole-report preflight: game identity + perspective.
     validateMortalReportBinding(stream, input.report);
 
+    // Rules are queried from the full canonical state, before source-row lookup.
+    // A missing row or a single reported score is never evidence of a singleton.
+    const resolved = (await collectLibriichiRuleResults({stream,decisions:[input.decision],...input.rules}))
+      .get(input.decision.decisionEventRef)!;
+    if (resolved.request === null || resolved.response.status !== "ok") {
+      return {status:"failed",code:"mortal_review_rules_failed",diagnostics:[
+        resolved.response.status === "error" ? resolved.response.code : "rules_action_mapping_invalid"]};
+    }
+    try { actualLibriichiActionRef(input.decision,resolved.actions); }
+    catch { return {status:"failed",code:"mortal_review_rules_failed",diagnostics:["rules_actual_action_mismatch"]}; }
+    if (resolved.actions.length === 1) {
+      return {status:"not_comparable",code:"fewer_than_two_distinct_actions",diagnostics:[]};
+    }
+
     // P0-1 (M6-A3): the local actual must be a typed action on this surface.
     localActualEnvelopes(input.decision);
 
@@ -994,6 +1014,7 @@ export async function runMortalSingleDecisionReview(input: {
       report: input.report,
       entry: anchored.entry,
       engine: input.engine,
+      libriichi:{request:resolved.request,response:resolved.response},
       ...(input.now === undefined ? {} : { now: input.now }),
     });
   } catch (error) {

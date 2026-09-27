@@ -26,7 +26,7 @@
 仍查询、副露自摸与 post-call 分离、立直两个阶段、七对子/国士、缺实际候选拒绝。
 这些受控端口测试证明消费契约，不作为原生规则独立正确性的证据。
 
-退出提交：引入本清单的代码提交；可用下列只读命令解析唯一 SHA，后续切片回填固定值：
+退出提交：`97e13313f7e1898e2e681b7a947c67d8a898f34f`；下列只读命令可核对：
 
 ```
 git log --diff-filter=A --format=%H -- coach/docs/handoffs/2026-09-28-libriichi-rule-retirement.md

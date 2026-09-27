@@ -435,3 +435,36 @@ full-game/discovery 的正式切换；新旧包版本与规则来源；物理动
 
 剩余仍包括单决策入口和旧 full-game 分支、其余旧规则退出、动作表示兼容、雀魂
 真实来源缺失证据、大包持久化、最终提交真实 CPU 与独立验收；目标保持进行中。
+
+## 13. 第八实施切片：单决策入口的规则绑定与退出接线
+
+- `runMortalSingleDecisionReview` 强制注入规则端口，校验 canonical 快照后查询规则，
+  再处理实际动作、单候选及报告锚定。未知/过期输入、查询失败、跨请求结果、实际动作
+  不在集合中都明确失败；报告少一个未选动作也不能进入因素计算。
+- 同一 request/result 传给已有 bound review；成功结果记录规则身份及请求/结果哈希。
+  单候选不由报告行数推断。现有 bound review 的可选迁移分支尚未全部删除，本节不宣称
+  所有 full-game/default 消费者已经退出旧规则。
+- desktop 单决策诊断重新从 canonical 取得决策，忽略 acquisition 中的旧决策列表；
+  v2 摘要带规则来源，主进程注入无权重服务，关闭精确规则子进程与 helper 后才 app.exit。
+  没有启动用户手工桌面验收。七包边界不变，未增加架构层抽象。
+- 原 13 项绑定测试改用明确的合成完整回合，保留历史样本的手牌和分数用于受控对照；
+  未将历史 partial replay 标成 complete，也未修改真实 fixture。错身份、错手牌、
+  重复/缺评分、错实际行动等拒绝断言保持；两项伪造 actual 的负例改在规则对应处拒绝。
+
+验证日志位于既有源码外迁移证据目录：
+
+- `native-single-red.log`：旧入口 6 项失败，未调用规则；unknown-input 情况仍返回 ready。
+  `native-single-desktop-red.log`：3 项失败，旧传入空决策列表使规则查询为零。
+- `native-single-focused.log`：5 文件/86 项通过，包含新增过期快照、单候选、原有绑定、
+  desktop 接线/隐私和 60 项 managed runtime 生命周期/协议测试。受控规则集合只证明
+  消费契约，不作为 libriichi 独立规则验证。
+- 五门均退出 0：build、typecheck、vitest（185 文件/2278 项）、architecture
+  （7 包/429 文件/1952 导入/0 违规）、package-import；日志 `native-single-*.log`。
+  `git diff --check` 退出 0。
+- 开发期一次聚焦命令误在仓库根执行，npx 取用临时 Vitest 5.0.2，不计入验收结果；
+  其输出保留在 `native-single-binding.log`。根目录产生的 `.vite` 缓存已移至源码外。
+  此后命令均在 coach/ 用已安装 Vitest 3.2.7 重跑。合成夹具的 self actor、dealer 和
+  remainingDraws 初次不一致已修正；desktop 初次绿测使用旧 dist，完整 build 后重跑通过。
+
+此切片没有重新运行真实 CPU spike 或禁网演练。剩余为 full-game 旧分支与其余规则
+退出、动作表示、雀魂来源证据、大包持久化、最终完整 CPU 与外部独立验收。
