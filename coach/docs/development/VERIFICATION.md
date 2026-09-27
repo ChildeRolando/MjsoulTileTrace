@@ -88,6 +88,15 @@ ADR-0006 迁移后的 spike 使用独立 native build 回执：先用已有上�
 核验 checkpoint/model/engine；当前 wrapper 由仓库 manifest 核验，native 由固定源码、
 补丁与产物回执核验，不要求覆盖旧准备回执或重新下载权重。
 
+远端报告的新验收（`scripts/tenhou-acceptance.mjs`、`scripts/majsoul-acceptance.mjs`）
+与桌面整局诊断也使用该 native 回执。`RIICHI_LOCAL_MORTAL_ROOT` 指定现有受管
+Python 资产目录，缺省为 `LOCALAPPDATA/RiichiCoach/local-mortal-spike`；
+`RIICHI_LIBRIICHI_NATIVE_RECEIPT` 指向当前构建回执，必要时可用
+`RIICHI_LIBRIICHI_NATIVE_MODULE` 指定搬迁后的同哈希 native 文件。这些入口只查询
+规则，不需要 checkpoint/model.py/engine.py，也不会自动下载。缺规则资产记录失败。
+验收核心自行重放全部适用边界，不接受调用方裁剪后的窗口列表；新验收摘要使用
+`mortal-acceptance-artifact/v2` 并记录规则身份。历史 v1 证据不改写。
+
 spike 的规则查询、评分、单候选和 v2 package 消费同一原生结果。逐窗口及牌谱聚合失败，
 有未完成/blocked/unsupported 结果时不报 PASS。每次输出新建于
 `LOCALAPPDATA/RiichiCoach/spike-runs/production-native-<commit>-<timestamp>/`，末行给出

@@ -6,7 +6,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { LIBRIICHI_RULE_PROTOCOL_VERSION, LOCAL_MORTAL_SCORING_PROTOCOL_VERSION, libriichiRuleCanonicalJson } from "@riichi-coach/contracts";
-import { ManagedMortalRuntime, loadManagedMortalManifest, sha256File } from "@riichi-coach/mortal-runtime";
+import { ManagedMortalRuntime, createManagedMortalRuntimeFromAssets, loadManagedMortalManifest, sha256File } from "@riichi-coach/mortal-runtime";
 
 const root = resolve(fileURLToPath(new URL("..", import.meta.url)));
 const assetRoot = process.env.RIICHI_LOCAL_MORTAL_ROOT ?? join(process.env.LOCALAPPDATA ?? "", "RiichiCoach", "local-mortal-spike");
@@ -20,15 +20,17 @@ const nativeModulePath = prepared.nativeModulePath;
 if (prepared.receiptVersion !== "coach-libriichi-native/v1" || prepared.upstreamRevision !== manifest.identity.runtimeRevision ||
     prepared.patchSha256 !== await sha256File(join(root,"packages/mortal-runtime/native/coach-rule-config.patch")) ||
     prepared.nativeArtifactSha256 !== await sha256File(nativeModulePath)) throw new Error("native receipt mismatch");
-const checkpointPath = join(evidence, "intentionally-absent-checkpoint.pth");
-const mortalSourcePath = join(evidence, "intentionally-absent-model-source");
+const absentAssetRoot = join(evidence, "intentionally-absent-model-assets");
+const checkpointPath = join(absentAssetRoot, manifest.checkpointFile);
+const mortalSourcePath = join(absentAssetRoot, "Mortal", "mortal");
 if (existsSync(checkpointPath) || existsSync(mortalSourcePath)) throw new Error("probe requires absent model assets");
-const runtime = new ManagedMortalRuntime({
-  executable: join(assetRoot, "python/Scripts/python.exe"),
-  runtimePath: join(root, "packages/mortal-runtime/runtime/local_mortal_runtime.py"),
-  checkpointPath, mortalSourcePath, nativeModulePath, manifest,
-  identity: { ...manifest.identity, nativeArtifactSha256: prepared.nativeArtifactSha256 },
-  environment: { ...process.env, PYTHONPATH: "", PYTHONDONTWRITEBYTECODE: "1" },
+const runtime = await createManagedMortalRuntimeFromAssets({
+  pythonExecutable: join(assetRoot, "python/Scripts/python.exe"),
+  packageRoot: join(root, "packages/mortal-runtime"),
+  artifactRoot: absentAssetRoot,
+  platformManifest: "mortal-582500.windows-x64.json",
+  nativeReceiptPath: process.env.RIICHI_LIBRIICHI_NATIVE_RECEIPT,
+  nativeModulePath,
 });
 const digest = value => createHash("sha256").update(libriichiRuleCanonicalJson(value)).digest("hex");
 const events = [

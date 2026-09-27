@@ -52,13 +52,10 @@ import {
   upsertAcceptancePair,
 } from "@riichi-coach/tenhou-source";
 import { fetchMortalReport } from "@riichi-coach/mortal-source";
+import { runManagedMortalAcceptanceEvidence } from "./managed-mortal-acceptance.mjs";
 import {
   buildMortalCoverageEvidenceManifest,
-  JsonlFactEngineClient,
-  ManagedFactEngineTransport,
-  replayCanonicalResponseWindows,
   replayCanonicalStream,
-  runMortalAcceptanceEvidence,
   validateCanonicalEventStream,
 } from "@riichi-coach/reasoning";
 
@@ -366,24 +363,16 @@ if (record.state === "accepted" || record.state === "failed") {
 
         if (record.state === "report_ready") {
           const cachedReport = JSON.parse(readFileSync(cachePath, "utf8"));
-          const resourcesDir = fileURLToPath(new URL("../resources/", import.meta.url));
-          const engine = new JsonlFactEngineClient(new ManagedFactEngineTransport(resourcesDir));
-          const evidenceRun = await runMortalAcceptanceEvidence({
+          const evidenceRun = await runManagedMortalAcceptanceEvidence({
             local: {
               sourceKind: "mahjong_soul",
               opaqueGameId: gameId,
               selfActor: seat,
               canonicalStream: local.stream,
-              replayedDecisions: local.decisions,
-              // M6-A4.2: the response surface partition joins the acceptance
-              // review so response rows bind + conserve through the shared
-              // pipeline (zero extra network — same canonical stream).
-              replayedResponseWindows: replayCanonicalResponseWindows(local.stream),
             },
             report: cachedReport,
-            engine,
             evidenceVersion: options.evidenceVersion,
-          }).finally(() => engine.close());
+          });
           if (evidenceRun.status === "local_source_incoherent") {
             // Adapter bug (wrapper ≠ stream): terminal local failure, no retry.
             checkpoint = failPair(gameId, seat, `local_source_incoherent:${evidenceRun.code}`);

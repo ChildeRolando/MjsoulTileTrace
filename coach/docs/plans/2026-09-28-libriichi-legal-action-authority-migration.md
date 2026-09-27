@@ -369,3 +369,39 @@ full-game/discovery 的正式切换；新旧包版本与规则来源；物理动
   重跑退出 0（7 包/424 文件/1899 导入/0 违规），改动测试再聚焦重跑 2 项通过。
   日志 `artifact-writer-gate-*`、`artifact-writer-architecture-rerun.log`、
   `artifact-writer-focused-rerun.log`。JS 语法与 diff 检查通过。
+
+## 11. 第六实施切片：远端验收与桌面整局诊断接线
+
+- runtime 包复用既有资产核验机制，新增共享 composition 函数；核验当前 wrapper、
+  native、上游版本及仓库补丁的构建回执。规则服务不依赖旧模型 preparation receipt，
+  checkpoint/model/engine 仍只在模型评分时核验。desktop 与两个 CLI 共用此入口。
+- 共享验收核心自行从 canonical 重放 self 与全部 response 边界，查询同一规则端口，
+  将结果传入 full-game。删除调用方可传入的旧窗口列表，避免空列表或旧牌形预筛漏窗。
+- 天凤、雀魂远端报告验收及 desktop main 整局诊断完成接线；缺资产按固定错误失败。
+  main 在退出前关闭精确规则子进程与事实引擎。没有启动真人桌面验收或提交远端模型任务。
+- 新验收摘要为 v2，带独立规则身份；历史 v1 产物不重写。没有增加架构层抽象或包依赖边。
+  INV-002/004/007 的职责、绑定与证据由现有 schema、full-game 和新集成回归保护；
+  唯一来源覆盖全部生产入口仍未完成，旧枚举尚未封存。
+
+本切片验证证据仍在 `LOCALAPPDATA/RiichiCoach/spike-runs/libriichi-migration-dafb76f/`：
+
+- `native-consumer-assets-red.log`：旧服务要求模型准备回执，5 项失败；新服务 6 项通过，
+  覆盖缺模型资产及 native/补丁/版本/wrapper 被替换。旧 native 替换拒绝能力保持。
+- `native-acceptance-red.log`：旧核心未查询规则端口，3 项均失败。最终集成夹具包含
+  3 个受控候选（不是原生合法性 oracle）；完整集进入真实 helper 与验收分支，缺少
+  未选动作但仍有两项评分时拒绝，规则错误也拒绝，两负例均不调用教学分析。
+  初次绿测的普通弃牌夹具没有专项覆盖分支，已改为有效的含立直选项场景，未放宽门。
+- desktop 2 项集成回归验证传入空旧窗口列表仍扫描他家舍牌和自己摸牌，分别记录
+  原生单候选/非行动或全部规则失败。focused 共 14 项通过；共享来源一致性另 10 项通过。
+- `native-consumers-weightless-probe.log`：真实 native 经共享资产服务，在模型权重和
+  模型源码均不存在时返回完整 16 项预期动作。回执目录
+  `libriichi-rule-probe-1790548622930`，明确 dirty、无 CPU 评分、无禁网声明；不代替最终 spike。
+- 五门：build、architecture（7 包/427 文件/1926 导入/0 违规）、package-import 退出 0。
+  typecheck 首次因新增测试缺 `modelTag` 退出 2，补全后整命令重跑退出 0。
+  全量 Vitest 首次 2264 项通过、1 项在浏览器退出后清理临时目录遇到 Windows EPERM；
+  未修改或跳过该测试，完整重跑 183 文件/2265 项通过，退出 0。
+  日志为 `native-consumers-*`；四个受影响 JS 脚本语法检查通过。
+
+仍待：其余 production/discovery 入口切换，动作表示兼容，雀魂真实来源证据补齐，
+旧枚举退出与封存，大包持久化风险，以及最终提交真实 CPU 全语料与外部独立验收。
+本切片提交后按当前代码运行真实 spike，不能继承 57a0a77 的结果或宣称目标完成。

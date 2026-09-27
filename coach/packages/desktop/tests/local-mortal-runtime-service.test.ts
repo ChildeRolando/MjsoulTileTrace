@@ -6,13 +6,15 @@ import { describe, expect, it } from "vitest";
 import { createLocalMortalRuntimeService } from "../src/local-mortal-runtime-service.js";
 
 describe("local Mortal privileged ownership", () => {
-  it("rejects a replaced native module when a new service is composed from a preparation receipt", async () => {
+  it.each(["native", "patch", "revision", "wrapper", "missing-model-assets"])("binds the native build without requiring model assets: %s", async variant => {
     const root = await mkdtemp(join(tmpdir(), "mortal-service-"));
     try {
       const packageRoot = join(root, "package");
       const artifactRoot = join(root, "artifacts");
       const nativeDir = join(artifactRoot, "Mortal", "target", "release");
       await mkdir(join(packageRoot, "manifests"), { recursive: true });
+      await mkdir(join(packageRoot, "native"), { recursive: true });
+      await mkdir(join(packageRoot, "runtime"), { recursive: true });
       await mkdir(nativeDir, { recursive: true });
       const hash = (value: string) => createHash("sha256").update(value).digest("hex");
       const identity = {
@@ -30,16 +32,31 @@ describe("local Mortal privileged ownership", () => {
         licenses: { runtime: "AGPL-3.0-or-later", checkpoint: "AGPL-3.0", redistribution: "verify_at_m8" },
       };
       await writeFile(join(packageRoot, "manifests", "fixture.json"), JSON.stringify(manifest));
+      await writeFile(join(packageRoot, "native", "coach-rule-config.patch"), "patch");
+      await writeFile(join(packageRoot, "runtime", "local_mortal_runtime.py"), "wrapper");
       await writeFile(join(nativeDir, "libriichi.pyd"), "original");
-      await writeFile(join(artifactRoot, "preparation-receipt.json"), JSON.stringify({
-        receiptVersion: "local-mortal-preparation-receipt/v1", ...identity,
+      const nativeReceipt = {
+        receiptVersion: "coach-libriichi-native/v1", upstreamRevision: identity.runtimeRevision,
+        patchSha256: hash("patch"), sourceArchiveSha256: hash("source"),
         nativeArtifactSha256: hash("original"),
-      }));
+        nativeModulePath: join(nativeDir, "libriichi.pyd"),
+        createdAt: "2026-09-28T00:00:00.000Z", buildCommand: "cargo build --offline --locked -p libriichi --release --lib",
+      };
+      const receiptPath = join(artifactRoot, "native-build-receipt.json");
+      await writeFile(receiptPath, JSON.stringify(nativeReceipt));
       const options = { pythonExecutable: "python", packageRoot, artifactRoot, platformManifest: "fixture.json" };
+      // There is no preparation receipt, checkpoint, model.py or engine.py.
+      // Remote review must be able to compose the deterministic rule service.
       const service = await createLocalMortalRuntimeService(options);
+      expect(service.ruleIdentity).toMatchObject({revision:identity.runtimeRevision,nativeArtifactSha256:hash("original"),wrapperSha256:hash("wrapper")});
       await service.close();
-      await writeFile(join(nativeDir, "libriichi.pyd"), "replaced");
-      await expect(createLocalMortalRuntimeService(options)).rejects.toMatchObject({ code: "mortal_runtime_identity_mismatch" });
+      if (variant === "native") await writeFile(join(nativeDir, "libriichi.pyd"), "replaced");
+      if (variant === "patch") await writeFile(join(packageRoot, "native", "coach-rule-config.patch"), "different-patch");
+      if (variant === "wrapper") await writeFile(join(packageRoot, "runtime", "local_mortal_runtime.py"), "different-wrapper");
+      if (variant === "revision") await writeFile(receiptPath, JSON.stringify({...nativeReceipt,upstreamRevision:"f".repeat(40)}));
+      if (variant !== "missing-model-assets") {
+        await expect(createLocalMortalRuntimeService(options)).rejects.toMatchObject({ code: "mortal_runtime_identity_mismatch" });
+      }
     } finally {
       await rm(root, { recursive: true, force: true });
     }

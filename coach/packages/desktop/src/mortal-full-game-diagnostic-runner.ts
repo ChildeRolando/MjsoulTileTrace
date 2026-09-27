@@ -1,5 +1,6 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
+import type { LibriichiRuleIdentity, LibriichiRulePort } from "@riichi-coach/contracts";
 import {
   MORTAL_REPORT_TIMEOUT_MS,
   MortalSourceError,
@@ -7,7 +8,7 @@ import {
   type MortalFetchedReport,
 } from "@riichi-coach/mortal-source";
 import {
-  replayCanonicalResponseWindows,
+  queryCanonicalLibriichiRules,
   runMortalFullGameReview,
   type MortalFullGameReviewResult,
 } from "@riichi-coach/reasoning";
@@ -37,6 +38,7 @@ export type MortalFullGameDiagnosticPorts = {
   readonly resultUrlFilePath: string;
   readonly acquisition: MahjongSoulReplayAcquisitionResult;
   readonly engine: HandStructureFactEnginePort;
+  readonly rules: { readonly identity: LibriichiRuleIdentity; readonly port: LibriichiRulePort };
   readonly writeResult: (serialized: string) => Promise<string>;
   readonly now?: () => number;
   readonly fetchImpl?: typeof fetch;
@@ -81,6 +83,7 @@ export function serializeMortalFullGameDiagnosticResult(
 ): string {
   return `${JSON.stringify({
     schemaVersion: MORTAL_FULL_GAME_DIAGNOSTIC_RESULT_VERSION,
+    ...(review.libriichi === undefined ? {} : { legalActionRules: review.libriichi.identity }),
     selfSeat: acquisition.selfSeat,
     summary: review.summary,
     sourceCoverage: {
@@ -162,12 +165,12 @@ export async function runMortalFullGameDiagnostic(
 
   let review: MortalFullGameReviewResult;
   try {
+    const collected = await queryCanonicalLibriichiRules({ stream: acquisition.stream, ...ports.rules });
     review = await runMortalFullGameReview({
       stream: acquisition.stream,
-      decisions: acquisition.decisions,
-      // M6-A4.2: replay the response surface partition so the full-game
-      // diagnostic binds + conserves response windows too.
-      responseDecisions: replayCanonicalResponseWindows(acquisition.stream),
+      decisions: collected.decisions,
+      responseDecisions: collected.responseDecisions,
+      libriichi: { identity: ports.rules.identity, results: collected.rules },
       report,
       engine: ports.engine,
       now: ports.now ?? Date.now,

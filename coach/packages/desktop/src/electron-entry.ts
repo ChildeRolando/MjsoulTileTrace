@@ -86,6 +86,7 @@ import {
   requireCatalogSelfSeat,
 } from "./record-ingestion-service.js";
 import { createRecordAnalysisStore } from "./record-analysis-store.js";
+import { createLocalMortalRuntimeService } from "./local-mortal-runtime-service.js";
 import { readCliFlag } from "./diagnostic-flags.js";
 import { registerCoachIpc } from "./coach-ipc.js";
 import { createEnvironmentKeyImporter, createProviderCredentials } from "./llm-provider/credentials.js";
@@ -534,11 +535,23 @@ async function start(): Promise<void> {
     const engine = new JsonlFactEngineClient(
       new ManagedFactEngineTransport(resourcesDir),
     );
+    let rulesRuntime: Awaited<ReturnType<typeof createLocalMortalRuntimeService>> | undefined;
     try {
+      const artifactRoot = process.env.RIICHI_LOCAL_MORTAL_ROOT
+        ?? join(process.env.LOCALAPPDATA ?? "", "RiichiCoach", "local-mortal-spike");
+      rulesRuntime = await createLocalMortalRuntimeService({
+        artifactRoot,
+        packageRoot: fileURLToPath(new URL("../../mortal-runtime/", import.meta.url)),
+        pythonExecutable: join(artifactRoot, "python", "Scripts", "python.exe"),
+        platformManifest: "mortal-582500.windows-x64.json",
+        ...(process.env.RIICHI_LIBRIICHI_NATIVE_RECEIPT === undefined ? {} : { nativeReceiptPath: process.env.RIICHI_LIBRIICHI_NATIVE_RECEIPT }),
+        ...(process.env.RIICHI_LIBRIICHI_NATIVE_MODULE === undefined ? {} : { nativeModulePath: process.env.RIICHI_LIBRIICHI_NATIVE_MODULE }),
+      });
       const result = await runMortalFullGameDiagnostic({
         resultUrlFilePath,
         acquisition,
         engine,
+        rules: { identity: rulesRuntime.ruleIdentity, port: rulesRuntime },
         now: Date.now,
         writeResult: async (serialized) => {
           const resultDir = join(
@@ -555,10 +568,14 @@ async function start(): Promise<void> {
         `[riichi-coach] mortal-full-game-diagnostic:${result.status}`
         + (result.resultPath !== undefined ? ` ${result.resultPath}` : ""),
       );
-      app.exit(mortalFullGameDiagnosticExitCode(result.status));
+      process.exitCode = mortalFullGameDiagnosticExitCode(result.status);
+    } catch {
+      console.log("[riichi-coach] mortal-full-game-diagnostic:coverage_failed");
+      process.exitCode = mortalFullGameDiagnosticExitCode("coverage_failed");
     } finally {
-      await engine.close();
+      try { await rulesRuntime?.close(); } finally { await engine.close(); }
     }
+    app.exit(process.exitCode === undefined ? 49 : Number(process.exitCode));
     return;
   }
   const partitionSession = session.fromPartition(PARTITION, { cache: true });
