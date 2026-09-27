@@ -468,3 +468,41 @@ full-game/discovery 的正式切换；新旧包版本与规则来源；物理动
 
 此切片没有重新运行真实 CPU spike 或禁网演练。剩余为 full-game 旧分支与其余规则
 退出、动作表示、雀魂来源证据、大包持久化、最终完整 CPU 与外部独立验收。
+
+## 14. 第九实施切片：新包只接受规则结果，黄金回归退出旧枚举
+
+- 关闭 `buildStructuredAnalysisPackage` 的 v1 生产分支。新包必须有 native 规则结果、
+  v2 schema 和对应引擎身份；无法通过删除规则字段、改标 v1 绕过规则来源。
+  不改变已保存 v1 包的只读校验/展示，也不重新执行旧规则来读取它们。
+- 包构建/校验的合成夹具改为先取得固定规则端口结果再进入 full-game，规则答案独立
+  于被测报告。两个评分错贴负例在新规则证据校验处更早拒绝，保留精确失败断言。
+- 旧 whole-game golden 的 partial 牌谱没有被补造历史或修改 completeness。
+  四项黄金行为迁到完整天凤样本：当前 source mapper → 重建规则/评分请求 → 固定真实
+  响应 → 真实 helper → full-game → v2 package/validator → selector。原 c1924
+  教学纵向黄金回归保留。九种九牌的旧生产路径重复参数退出，native 的完整 16 候选、
+  缺少流局原因、缺少未选动作、下游包与 helper 不被错误调用等断言全部保留。
+- selector/context-graph 的旧版派生场景读固定 v1 JSON；输入由固定 `975d329` 旧夹具
+  在 builder 改动前生成并校验，不是删去 v2 来源伪造旧包。只读数据不包含可执行规则。
+  来源、SHA、封存 blob 和替代入口已登记；固定字节 JSON 使用既有 `.gitattributes`
+  机制防止 Windows 换行转换改变回执哈希。
+- 七包和特权依赖边不变，无新增架构抽象。INV-002/004/007 的规则来源、候选守恒与
+  包身份由 builder/validator、合成负例和新真实输入黄金回归共同保护；full-game 的
+  可选旧分支仍在，唯一来源全覆盖尚未完成。
+
+实际验证（日志仍在 `LOCALAPPDATA/RiichiCoach/spike-runs/libriichi-migration-dafb76f/`）：
+
+- `native-package-fixture-red.log`：旧合成链无规则来源，新断言失败。
+- `native-package-builder-red.log`：去掉规则并声明 v1 时，旧 builder 未拒绝；修复后拒绝。
+- `native-package-capture.log`：复用已有资产，重新完成 65 次原生规则查询和 22 次真实
+  CPU 评分；43 个非行动结果，无规则/评分错误。采集处于开发工作树，dirty=true，
+  网络开启，仅生成回归输入，不代替最终提交、六视角全语料 spike 或独立评审。
+- `native-package-golden.log`：新四项黄金回归通过；22 评价全部 ready，43 个非行动
+  单独记账，缺报告时 22 行全部明确缺失，重跑 hash/选择稳定，两个分歧 ID 固定。
+- 五门实际退出 0：typecheck（最终 `native-package-typecheck-rerun.log`）、build、
+  architecture（7 包/430 文件/1949 导入/0 违规）、package-import、全量 Vitest
+  （185 文件/2279 项，`native-package-vitest-rerun.log`）。初次全量有 1 项旧九种九牌
+  生产分支被新 builder 拒绝；按上述迁移后完整重跑通过。其余日志 `native-package-*`。
+  `git diff --check` 退出 0。
+
+仍待 full-game 旧分支和其他枚举退出、动作表示兼容、雀魂来源证据、大包持久化、
+最终提交完整 CPU spike 与外部独立验收；本切片不能宣称 R14 或总体目标已通过。

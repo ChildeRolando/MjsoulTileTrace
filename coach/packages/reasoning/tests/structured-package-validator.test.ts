@@ -443,7 +443,7 @@ describe("M6-C Slice 3 acceptance repair: ready-decision reference integrity", (
     (evaluation.candidates[1]! as { actionRef: string }).actionRef =
       "action:v1:foreign-score";
     expect(() => validateStructuredAnalysisPackage(tampered))
-      .toThrow(/m6c_validator_evaluation_action_ref/);
+      .toThrow("m6c_validator_rule_evidence:scored_actions");
   });
 
   it("rejects an actualActionRef outside the candidate universe", async () => {
@@ -467,7 +467,7 @@ describe("M6-C Slice 3 acceptance repair: ready-decision reference integrity", (
     evaluation.scoredActualModelActionRef = evaluation.candidates[1]!.actionRef;
     evaluation.errorGap = 60;
     expect(() => validateStructuredAnalysisPackage(tampered))
-      .toThrow(/m6c_validator_evaluation_action_ref/);
+      .toThrow("m6c_validator_rule_evidence:scored_actual");
   });
 
   it("rejects a DeterministicPreference ref outside the candidate universe", async () => {

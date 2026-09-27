@@ -34,13 +34,20 @@ canonical 事件流 → 决策快照 → 确定事实 → 模型比较 → 打�
 
 ### Local Mortal Runtime Production Spike
 
-#### 2026-09-28 唯一来源重构验收（目标，待实施）
+#### 2026-09-28 唯一来源重构验收（迁移中，未完成最终验收）
 
 [ADR-0006](../adr/0006-libriichi-single-legal-action-authority.md) 和
 [新规格](../specs/2026-09-28-libriichi-legal-action-authority-design.md) 已取代本地
 第二套合法动作检错要求。下文 R10–R13 对本地枚举/资格证明的描述是旧实现与
 历史回归记录；保留行为反例，按唯一 libriichi 结果改写测试入口，不继续实现旧算法。
 现有 v1 与历史回执不能证明迁移完成。
+
+新包构建口现已要求 libriichi 规则结果与 v2 schema。`scripts/native-whole-game-golden.test.mjs`
+从完整天凤 XML 重新映射，回放绑定的真实 native/CPU 响应，再运行真实 helper、full-game、
+builder/validator 和 selector；覆盖 65 边界、22 个有评分决策、43 个非行动时点。
+默认测试不运行 checkpoint，不替代当次 CPU spike。旧包只读兼容使用固定 v1 JSON；
+来源与哈希见 `packages/reasoning/tests/fixtures/PACKAGE_FIXTURES.md`。其余旧 full-game
+分支仍未退出，不能由新包门槛推断整个迁移已完成。
 
 实现验收必须包括：
 

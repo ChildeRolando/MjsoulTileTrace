@@ -2,3 +2,6 @@
 /coach/packages/mortal-runtime/runtime/local_mortal_runtime.py -text
 /coach/packages/mortal-runtime/native/*.patch -text
 /coach/packages/reasoning/tests/fixtures/local-mortal/tenhou-*.xml -text
+/coach/packages/reasoning/tests/fixtures/local-mortal/native-daiminkan-golden.json -text
+/coach/packages/reasoning/tests/fixtures/legacy-package-ready.json -text
+/coach/packages/reasoning/tests/fixtures/legacy-package-missing.json -text

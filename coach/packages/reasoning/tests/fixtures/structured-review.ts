@@ -11,12 +11,16 @@
  * through the SAME E2E path (spec Testing Decisions: 给定 pinned 报告 fixture
  * + 真实 sidecar → runMortalFullGameReview → builder → validator).
  */
+import { createHash } from "node:crypto";
 import {
   FACT_ENGINE_ADAPTER_VERSION,
   FACT_ENGINE_PROTOCOL_VERSION,
   MAHJONG_HELPER_COMMIT,
   MORTAL_PROVIDER_IDENTITY,
-  STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION,
+  NATIVE_STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION,
+  LIBRIICHI_RULE_NORMALIZATION_VERSION,
+  libriichiRuleCanonicalJson,
+  type LibriichiRuleIdentity,
   type ComponentVersions,
   type CompletedHandFactRequest,
   type CompletedHandFactResult,
@@ -37,6 +41,7 @@ import {
 import {
   runMortalFullGameReview,
 } from "../../src/analysis/mortal-full-game-review.js";
+import { collectLibriichiRuleResults } from "../../src/analysis/libriichi-rule-collection.js";
 import type { HandStructureFactEnginePort } from "../../src/fact-engine/port.js";
 import {
   replayCanonicalStream,
@@ -193,8 +198,19 @@ class CannedEngine implements HandStructureFactEnginePort {
 
 export const FROZEN_NOW = Date.parse("2026-08-20T00:00:00.000Z");
 
+// Explicit controlled protocol fixture, not an independent legality oracle.
+// The complete two-action answer is fixed independently of the report under test.
+export const ruleIdentity: LibriichiRuleIdentity = {
+  implementation: "Equim-chan/Mortal/libriichi",
+  revision: "0".repeat(40),
+  nativeArtifactSha256: "1".repeat(64),
+  wrapperSha256: "2".repeat(64),
+  normalizationVersion: LIBRIICHI_RULE_NORMALIZATION_VERSION,
+};
+
 export const componentVersions: ComponentVersions = {
-  packageSchema: STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION,
+  packageSchema: NATIVE_STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION,
+  legalActionRules: ruleIdentity,
   canonicalReplay: "canonical-riichi-events/v2",
   mapperAdapter: "fixture/v1",
   factEngine: {
@@ -282,12 +298,31 @@ export async function runFixtureReview(
   decisions: readonly ReplayedDecision[],
   entries: readonly MortalReportDecisionEntry[],
 ) {
+  const results = await collectLibriichiRuleResults({
+    stream, decisions, identity: ruleIdentity,
+    port: { queryRules: async request => {
+      const content = {
+        protocolVersion: request.protocolVersion, requestId: request.requestId,
+        identity: request.identity, status: "ok" as const,
+        actions: [
+          { runtimeAction: { index: 13, variant: null }, mjaiActionJson: JSON.stringify({
+            type: "dahai", actor: 0, pai: "5p", tsumogiri: true,
+          }) },
+          { runtimeAction: { index: 8, variant: null }, mjaiActionJson: JSON.stringify({
+            type: "dahai", actor: 0, pai: "9m", tsumogiri: false,
+          }) },
+        ],
+      };
+      return { ...content, resultId: createHash("sha256").update(libriichiRuleCanonicalJson(content)).digest("hex") };
+    } },
+  });
   const review = await runMortalFullGameReview({
     stream,
     decisions,
     report: makeReport(entries, stream),
     engine: new CannedEngine(),
     now: () => FROZEN_NOW,
+    libriichi: { identity: ruleIdentity, results },
   });
   if (review.status !== "coverage_ready") {
     throw new Error(`fixture review failed: ${review.status}`);

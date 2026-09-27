@@ -13,13 +13,14 @@ import {
   entryFor,
   fixtureSetup,
   runFixtureReview,
+  ruleIdentity,
 } from "./fixtures/structured-review.js";
 
 const identity: ManagedMortalRuntimeIdentity = {
-  runtimeImplementation: "Equim-chan/Mortal", runtimeRevision: "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
-  runtimeVersion: "Mortal V4", runtimeArtifactSha256: "a".repeat(64),
+  runtimeImplementation: "Equim-chan/Mortal", runtimeRevision: ruleIdentity.revision,
+  runtimeVersion: "Mortal V4", runtimeArtifactSha256: ruleIdentity.wrapperSha256,
   runtimeModelSha256: "b".repeat(64), runtimeEngineSha256: "c".repeat(64),
-  nativeArtifactSha256: "d".repeat(64),
+  nativeArtifactSha256: ruleIdentity.nativeArtifactSha256,
   checkpointRepository: "Yuchen1457/mortal-582500", checkpointRevision: "7386c9f5c751a3ea75efea99737cef5a5ef950f1",
   checkpointModelTag: "mortal-hpc@582500", checkpointFileSha256: "738e0d6e3c0ce9671629554ad39abd147d2ffbac676e80b194c83f2acc0fea20",
   protocolVersion: "riichi-local-mortal-jsonl/v1", adapterVersion: LOCAL_MORTAL_ADAPTER_VERSION,

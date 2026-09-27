@@ -1,0 +1,235 @@
+{
+  "analysisKey": "analysis:game:fixture:actor0:mortal",
+  "packageId": "package:sha256:d3130a426de1cc3cb25333e94037998028637ba502d35342e93f2b4ee2f77e1d",
+  "createdAt": "2026-08-20T00:00:00.000Z",
+  "semanticContentHash": "sha256:99f0c1fb3069ea00793962c557c15155095eaafac0ccaaa3d936e0a1e17e6e0b",
+  "record": {
+    "recordId": "game:fixture",
+    "selfActor": 0,
+    "status": "integrity_failed"
+  },
+  "componentVersions": {
+    "packageSchema": "structured-analysis-package/v1",
+    "canonicalReplay": "canonical-riichi-events/v2",
+    "mapperAdapter": "fixture/v1",
+    "factEngine": {
+      "engine": "mahjong-helper",
+      "upstreamCommit": "514bb97c5a6d157fa2ed1ac804a53cb9b559d7d0",
+      "adapterVersion": "0.2.0",
+      "protocolVersion": "mahjong-facts/v1"
+    },
+    "factorPipeline": "factor-pipeline/v1",
+    "mortalSourceModel": {
+      "identity": "Mortal",
+      "version": "mortal-source/2",
+      "modelTag": "4.1b"
+    }
+  },
+  "analysisPolicy": {
+    "threshold": 10,
+    "unit": "model_selection_score_points",
+    "boundary": "greater_than_or_equal_is_detailed",
+    "policyVersion": "mortal-review/v1"
+  },
+  "decisions": [
+    {
+      "decisionId": "decision:game:fixture:self0:self:self_turn:game:fixture/0/2/0",
+      "surface": "self",
+      "roundOrdinal": 0,
+      "normalizedDecisionContext": {
+        "decisionWindowKind": "self_turn",
+        "selfActor": 0,
+        "triggerEventRef": "game:fixture/0/2/0",
+        "actualAction": {
+          "kind": "discard",
+          "tile": {
+            "id": "5p",
+            "red": false
+          },
+          "discardMode": "tsumogiri"
+        }
+      },
+      "knownGameFacts": {
+        "factSetId": "legacy-regression:sha256:09e8153f605472991c4e53d39238f4b392af5c38329592938b7d8f6f3eddf91a",
+        "provenance": "legacy_regression_bridge_only",
+        "actor": 0,
+        "selfRiichi": false,
+        "handStructureYakuContext": {
+          "windsStatus": "known",
+          "roundWindTile34": 27,
+          "selfWindTile34": 27,
+          "riichiStatus": "inactive",
+          "openTanyaoStatus": "enabled"
+        },
+        "decisionEventRef": "game:fixture/0/2/0",
+        "decisionWindow": {
+          "kind": "self_turn",
+          "actor": 0,
+          "triggerEventRef": "game:fixture/0/2/0"
+        },
+        "concealedTiles": [
+          {
+            "id": "1m",
+            "red": false
+          },
+          {
+            "id": "2m",
+            "red": false
+          },
+          {
+            "id": "3m",
+            "red": false
+          },
+          {
+            "id": "4m",
+            "red": false
+          },
+          {
+            "id": "5m",
+            "red": false
+          },
+          {
+            "id": "6m",
+            "red": false
+          },
+          {
+            "id": "7m",
+            "red": false
+          },
+          {
+            "id": "8m",
+            "red": false
+          },
+          {
+            "id": "9m",
+            "red": false
+          },
+          {
+            "id": "1p",
+            "red": false
+          },
+          {
+            "id": "2p",
+            "red": false
+          },
+          {
+            "id": "3p",
+            "red": false
+          },
+          {
+            "id": "4p",
+            "red": false
+          }
+        ],
+        "currentDraw": {
+          "tile": {
+            "id": "5p",
+            "red": false
+          },
+          "eventRef": "game:fixture/0/2/0"
+        },
+        "melds": [],
+        "doraIndicators": [
+          {
+            "id": "1s",
+            "red": false
+          }
+        ],
+        "rivers": [
+          [],
+          [],
+          [],
+          []
+        ],
+        "furitenSelfRiver": [],
+        "threats": [
+          {
+            "actor": 1,
+            "riichi": false,
+            "declarationEventId": null,
+            "ippatsuAlive": false
+          },
+          {
+            "actor": 2,
+            "riichi": false,
+            "declarationEventId": null,
+            "ippatsuAlive": false
+          },
+          {
+            "actor": 3,
+            "riichi": false,
+            "declarationEventId": null,
+            "ippatsuAlive": false
+          }
+        ],
+        "defenseThreats": [],
+        "roundWind": "E",
+        "seatWind": "E",
+        "dealer": true,
+        "remainingDraws": 69,
+        "completeness": {
+          "concealedTiles": true,
+          "melds": true,
+          "doraIndicators": true,
+          "rivers": true,
+          "remainingDraws": true,
+          "calledDiscardMarkers": true,
+          "responseOpportunities": true,
+          "eventSequence": true,
+          "roundContext": true
+        },
+        "evidenceIds": [
+          "game:fixture/0/0/0",
+          "game:fixture/0/1/0",
+          "game:fixture/0/2/0"
+        ]
+      },
+      "analysisProvider": {
+        "kind": "mortal",
+        "outcome": "no_mortal_entry",
+        "reason": null
+      },
+      "outcome": "no_mortal_entry"
+    }
+  ],
+  "evidenceRegistry": {
+    "game:fixture/0/0/0": {
+      "evidenceId": "game:fixture/0/0/0",
+      "kind": "canonical_event",
+      "producer": "canonical-replay",
+      "producerVersion": "canonical-riichi-events/v2",
+      "sourceRefs": [],
+      "payload": {
+        "eventId": "game:fixture/0/0/0",
+        "type": "game_started"
+      }
+    },
+    "game:fixture/0/1/0": {
+      "evidenceId": "game:fixture/0/1/0",
+      "kind": "canonical_event",
+      "producer": "canonical-replay",
+      "producerVersion": "canonical-riichi-events/v2",
+      "sourceRefs": [],
+      "payload": {
+        "eventId": "game:fixture/0/1/0",
+        "type": "round_started"
+      }
+    },
+    "game:fixture/0/2/0": {
+      "evidenceId": "game:fixture/0/2/0",
+      "kind": "canonical_event",
+      "producer": "canonical-replay",
+      "producerVersion": "canonical-riichi-events/v2",
+      "sourceRefs": [],
+      "payload": {
+        "eventId": "game:fixture/0/2/0",
+        "type": "tile_drawn",
+        "actor": 0,
+        "tile": {
+          "id": "5p",
+          "red": false
+        }
+      }
+    }
+  }
+}

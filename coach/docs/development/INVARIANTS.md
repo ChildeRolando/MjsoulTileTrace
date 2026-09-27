@@ -228,7 +228,7 @@ Model/report evidence provider（模型/报告证据来源）
 - **Executable tests**：`mortal-coverage-evidence-manifest.test.ts`、
   `mortal-coverage-registry.test.ts`、`protocol-bundle.test.ts`、
   `update-packaged-fact-engine-manifest.test.mjs`、
-  `structured-analysis-package.test.ts`、`structured-analysis-package-golden.test.ts`；
+  `structured-analysis-package.test.ts`、`scripts/native-whole-game-golden.test.mjs`；
   COAC-111 必须增加声明/payload/hash 任一侧篡改，以及 wrapper/model/engine/native 任一
   artifact 被替换的 local-runtime provenance 负例。
 - **Windows checkout 回归条件**：入库 wrapper 与两份 Tenhou XML fixture 的 SHA-256

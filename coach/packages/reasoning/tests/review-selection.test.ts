@@ -2,8 +2,8 @@
  * DeterministicReviewSelector — Slice 2: selector behavior tests.
  *
  * Spec Testing Decisions (Slice 2 — selector behavior tests). All fixtures are
- * validator-clean: each scenario package is derived from the real whole-game
- * review seam (fixtures/structured-review.ts) and must pass
+ * validator-clean: each scenario is derived from a saved v1 package produced
+ * by the fixed 975d329 whole-game seam and must pass
  * `validateStructuredAnalysisPackage` before the selector runs (测试 fixture
  * 必须通过同一个生产 schema / validator，避免测试自造宽松协议).
  *
@@ -33,9 +33,6 @@ import {
   type StructuredAnalysisPackage,
 } from "@riichi-coach/contracts";
 import {
-  buildStructuredAnalysisPackage,
-} from "../src/analysis/structured-analysis-package-builder.js";
-import {
   deriveDecisionId,
   deriveRecordStatus,
   deriveSemanticContentHash,
@@ -44,13 +41,7 @@ import {
   validateStructuredAnalysisPackage,
 } from "../src/validate/structured-package-validator.js";
 import { selectReviewDecisions, computePreferenceAgreement } from "../src/index.js";
-import {
-  componentVersions,
-  entryFor,
-  FROZEN_NOW,
-  fixtureSetup,
-  runFixtureReview,
-} from "./fixtures/structured-review.js";
+import { readLegacyPackage } from "./fixtures/legacy-package.js";
 
 const RECORD_ID = "game:fixture";
 const SELF_ACTOR = 0;
@@ -61,19 +52,7 @@ function clone<T>(value: T): T {
 }
 
 async function buildTemplatePackage(): Promise<StructuredAnalysisPackage> {
-  const { stream, decisions } = fixtureSetup();
-  const review = await runFixtureReview(stream, decisions, [
-    entryFor(decisions[0]!),
-  ]);
-  const retained = review.retainedAnalyses[0]!;
-  return buildStructuredAnalysisPackage({
-    review,
-    stream,
-    decisions,
-    componentVersions,
-    frozenPolicySnapshot: retained.modelEvaluation.detailPolicy,
-    now: () => FROZEN_NOW,
-  });
+  return readLegacyPackage();
 }
 
 /** The template package (built once per test through the real seam). */

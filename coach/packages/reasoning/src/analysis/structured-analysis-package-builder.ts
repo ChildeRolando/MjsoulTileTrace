@@ -38,8 +38,8 @@
  *
  * The builder executes the CURRENT package schema: `componentVersions
  * .packageSchema` must equal the contract-owned
- * `STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION` (the final schema parse also
- * pins it via the literal; the explicit check names the failure).
+ * `NATIVE_STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION`. Saved v1 artifacts
+ * remain readable through the validator; this producer never creates v1.
  *
  * The evidence registry (CR-3) registers every referenced evidence id that
  * classifies into the frozen two kinds: canonical event refs (descriptor
@@ -62,7 +62,6 @@ import {
   FACT_ENGINE_ADAPTER_VERSION,
   FACT_ENGINE_PRODUCER,
   FACT_ENGINE_PROTOCOL_VERSION,
-  STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION,
   NATIVE_STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION,
   LibriichiPackageEvidenceSchema,
   libriichiRuleCanonicalJson,
@@ -349,36 +348,29 @@ export function buildStructuredAnalysisPackage(
     throw new Error("m6c_builder_requires_coverage_ready_review");
   }
   const native = input.review.libriichi;
-  if (
-    input.componentVersions.packageSchema !==
-    (native === undefined ? STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION : NATIVE_STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION)
-  ) {
-    // The declared package version must match the review's evidence source;
-    // never relabel a legacy proof as native or drop native evidence into v1.
+  if (native === undefined) throw new Error("m6c_builder_requires_native_rules");
+  if (input.componentVersions.packageSchema !== NATIVE_STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION) {
     throw new Error("m6c_builder_schema_version_mismatch");
   }
   if (stream.selfActor !== (input.decisions[0] ?? responseDecisions[0])?.snapshot.selfActor) {
     // Defensive: the review already validated this; the builder stays total.
     throw new Error("m6c_builder_stream_actor_mismatch");
   }
-  let legalActionEvidence;
-  if (native !== undefined) {
-    if (libriichiRuleCanonicalJson(native.identity) !== libriichiRuleCanonicalJson(input.componentVersions.legalActionRules)) {
-      throw new Error("m6c_builder_rule_identity_mismatch");
-    }
-    const all = [...input.decisions,...responseDecisions];
-    if (native.results.size !== all.length) throw new Error("m6c_builder_rule_census_mismatch");
-    const project = createLibriichiRuleProjector(stream,native.identity);
-    legalActionEvidence = LibriichiPackageEvidenceSchema.parse({identity:native.identity,results:all.map(decision=> {
-      const supplied = native.results.get(decision.decisionEventRef);
-      if (supplied === undefined) throw new Error("m6c_builder_rule_census_mismatch");
-      const result = rebindLibriichiDecision({project,decision,result:supplied});
-      const window = decision.snapshot.privateState.decisionWindow;
-      return {decisionId:deriveDecisionId({recordId:stream.gameId,selfActor:stream.selfActor,
-        surface:window.kind === "discard_response" || window.kind === "kan_response" ? "response" : "self",
-        windowKind:window.kind,triggerEventRef:decision.decisionEventRef}),request:result.request,response:result.response};
-    })});
+  if (libriichiRuleCanonicalJson(native.identity) !== libriichiRuleCanonicalJson(input.componentVersions.legalActionRules)) {
+    throw new Error("m6c_builder_rule_identity_mismatch");
   }
+  const all = [...input.decisions,...responseDecisions];
+  if (native.results.size !== all.length) throw new Error("m6c_builder_rule_census_mismatch");
+  const project = createLibriichiRuleProjector(stream,native.identity);
+  const legalActionEvidence = LibriichiPackageEvidenceSchema.parse({identity:native.identity,results:all.map(decision=> {
+    const supplied = native.results.get(decision.decisionEventRef);
+    if (supplied === undefined) throw new Error("m6c_builder_rule_census_mismatch");
+    const result = rebindLibriichiDecision({project,decision,result:supplied});
+    const window = decision.snapshot.privateState.decisionWindow;
+    return {decisionId:deriveDecisionId({recordId:stream.gameId,selfActor:stream.selfActor,
+      surface:window.kind === "discard_response" || window.kind === "kan_response" ? "response" : "self",
+      windowKind:window.kind,triggerEventRef:decision.decisionEventRef}),request:result.request,response:result.response};
+  })});
 
   // Index the retained full payloads by surface + decisionOrdinal (the same
   // keys the ledger rows carry) — the only analysis inputs the builder may
@@ -412,9 +404,6 @@ export function buildStructuredAnalysisPackage(
       retained,
       accumulator,
     }));
-  }
-  if (projectedDecisions.length === 0 && native === undefined) {
-    throw new Error("m6c_builder_no_decisions");
   }
 
   // Resolve canonical event descriptors from the stream so the package is a
@@ -500,7 +489,7 @@ export function buildStructuredAnalysisPackage(
     analysisPolicy,
     decisions,
     evidenceRegistry: registry,
-    ...(legalActionEvidence === undefined ? {} : {legalActionEvidence}),
+    legalActionEvidence,
   });
 
   const pkg = StructuredAnalysisPackageSchema.parse({
@@ -513,7 +502,7 @@ export function buildStructuredAnalysisPackage(
     analysisPolicy,
     decisions,
     evidenceRegistry: registry,
-    ...(legalActionEvidence === undefined ? {} : {legalActionEvidence}),
+    legalActionEvidence,
   });
   validateLibriichiPackageEvidence(pkg);
   return pkg;

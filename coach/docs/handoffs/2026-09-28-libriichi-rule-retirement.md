@@ -34,3 +34,25 @@ git log --diff-filter=A --format=%H -- coach/docs/handoffs/2026-09-28-libriichi-
 
 其余 `selfCandidates`、response eligibility、single-candidate proof 等尚未列为退出；
 不得由本清单推断它们已经从运行、构建或默认测试移除。
+
+## 2. 旧整局黄金测试与 v1 新包生产
+
+封存基线：`975d329410883c000f0c876576a6249bac8a0588`。
+旧 `coach/packages/reasoning/tests/structured-analysis-package-golden.test.ts`
+blob 为 `e581789cac7a46bf92ea700bcdcfeb4107d10331`。
+其 `wholeGameGolden` 经 partial legacy bridge 执行旧规则；该执行路径已退出默认测试。
+原始 c1924 牌谱及 `golden-vertical-slice.test.ts` 教学因素回归保留。
+
+替代为 `coach/scripts/native-whole-game-golden.test.mjs`：完整天凤 XML 经当前 mapper、
+全部事件边界规则结果、完整模型候选评分、真实 helper、full-game、v2 builder/validator、
+selector。四个行为回归仍覆盖完整链、缺报告行的完整性失败、重跑与生产版本身份、
+真实分歧选择顺序；不将固定同源输出回放称为独立规则 oracle 或当次 CPU 验收。
+
+`buildStructuredAnalysisPackage` 只允许携带 native 规则的 v2 新包；移除 v1 生产分支。
+旧 schema/validator 保留只读兼容。selector/context-graph 的 v1 场景改用固定 JSON，
+没有复制可执行旧规则。数据来源、SHA 和采集条件见
+`packages/reasoning/tests/fixtures/PACKAGE_FIXTURES.md`。
+
+退出提交为包含本节和 builder 变更的提交（避免自引用 SHA）；可通过
+`git log --diff-filter=D --format=%H -- coach/packages/reasoning/tests/structured-analysis-package-golden.test.ts`
+核对。full-game 的旧回退分支仍待删除，不因包生产口收紧而算全部退出。
