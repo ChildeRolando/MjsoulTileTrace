@@ -45,6 +45,8 @@ import { KnownGameFactsSchema } from "./known-game-facts.js";
 import { ModelEvaluationSchema } from "./model-evaluation.js";
 import { ManagedMortalRuntimeIdentitySchema } from "./local-mortal-runtime.js";
 import { StructuredComparisonSetSchema } from "./structured-comparison.js";
+import { LibriichiSingleCandidateProofSchema, LibriichiPackageEvidenceSchema,
+  LibriichiRuleIdentitySchema, type LibriichiPackageEvidence } from "./libriichi-rules.js";
 
 const ActorSchema = z.number().int().min(0).max(3);
 
@@ -93,6 +95,7 @@ export type MortalBindingMismatchReason = z.infer<
 >;
 
 export const MortalModelIncompleteReasonSchema = z.enum([
+  "legal_candidate_mismatch",
   "actual_action_not_scored",
   "duplicate_model_action",
   "invalid_model_candidate",
@@ -106,6 +109,7 @@ export type MortalModelIncompleteReason = z.infer<
 >;
 
 export const MortalAnalysisBlockedReasonSchema = z.enum([
+  "legal_actions_unproven",
   "fact_engine_failure",
   "ron_eligibility_unproven",
   "structured_analysis_assembly_failure",
@@ -138,10 +142,11 @@ export type SingleCandidateProofShape = z.infer<
   typeof SingleCandidateProofShapeSchema
 >;
 
-export const SingleCandidateProofSchema = z.object({
+export const LegacySingleCandidateProofSchema = z.object({
   shape: SingleCandidateProofShapeSchema,
   candidateCount: z.literal(1),
 }).strict();
+export const SingleCandidateProofSchema = z.union([LegacySingleCandidateProofSchema, LibriichiSingleCandidateProofSchema]);
 export type SingleCandidateProof = z.infer<typeof SingleCandidateProofSchema>;
 
 /** The provider-scoped analysis verdict for the Mortal provider (CR-2). The
@@ -302,14 +307,12 @@ export type EvidenceRegistry = z.infer<typeof EvidenceRegistrySchema>;
 // CR-5 / D4 — component versions (deterministic producer chain only)
 // ---------------------------------------------------------------------------
 
-/** The CURRENT StructuredAnalysisPackage schema version — the single
- *  contract-owned authority (Slice 3 semantic-integrity closure). The
- *  `ComponentVersionsSchema.packageSchema` field is this exact literal: a
- *  package cannot claim an arbitrary schema version because the validator
- *  executes exactly this schema. The builder asserts the same constant and
- *  the package validator inherits the enforcement from the literal schema. */
+/** Explicit legacy/native versions. V1 remains readable during migration;
+ * v2 requires native rule provenance and cannot accept legacy proofs. */
 export const STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION =
   "structured-analysis-package/v1" as const;
+export const NATIVE_STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION =
+  "structured-analysis-package/v2" as const;
 
 /** The canonical Mortal provider identity (the report's `engine` field /
  *  source identity — the repository's canonical spelling, e.g.
@@ -349,19 +352,22 @@ export type MortalModelVersion = z.infer<typeof MortalModelVersionSchema>;
  *  validator/generation versions belong to ReviewReport — the same package
  *  may be re-consumed by different LLM/prompt generations.
  *
- *  `packageSchema` is the CURRENT schema version, pinned to
- *  `STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION` (a contract-owned literal):
- *  the validator executes exactly this schema, so the package may not claim
- *  an arbitrary schema version. */
+ *  `packageSchema` selects an explicit legacy/native contract; arbitrary
+ *  versions and mismatched native provenance are rejected. */
 export const ComponentVersionsSchema = z.object({
-  packageSchema: z.literal(STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION),
+  packageSchema: z.enum([STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION, NATIVE_STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION]),
+  legalActionRules: LibriichiRuleIdentitySchema.optional(),
   canonicalReplay: z.string().min(1),
   /** Mapper/source adapter version — present when a source mapper applies. */
   mapperAdapter: z.string().min(1).optional(),
   factEngine: EngineIdentitySchema,
   factorPipeline: z.string().min(1),
   mortalSourceModel: MortalModelVersionSchema,
-}).strict();
+}).strict().superRefine((versions, context) => {
+  if ((versions.packageSchema === NATIVE_STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION) !== (versions.legalActionRules !== undefined)) {
+    context.addIssue({code:z.ZodIssueCode.custom,message:"Native rule identity requires package v2 and is mandatory in v2",path:["legalActionRules"]});
+  }
+});
 export type ComponentVersions = z.infer<typeof ComponentVersionsSchema>;
 
 // ---------------------------------------------------------------------------
@@ -695,6 +701,7 @@ export type StructuredAnalysisPackage = {
   analysisPolicy: AnalysisPolicySnapshot;
   decisions: DecisionAnalysis[];
   evidenceRegistry: EvidenceRegistry;
+  legalActionEvidence?: LibriichiPackageEvidence | undefined;
 };
 
 export const StructuredAnalysisPackageSchema: z.ZodType<
@@ -710,6 +717,7 @@ export const StructuredAnalysisPackageSchema: z.ZodType<
     analysisPolicy: AnalysisPolicySnapshot;
     decisions: DecisionAnalysisInput[];
     evidenceRegistry: EvidenceRegistry;
+    legalActionEvidence?: LibriichiPackageEvidence | undefined;
   }
 > = z.object({
   analysisKey: z.string().min(1),
@@ -725,12 +733,21 @@ export const StructuredAnalysisPackageSchema: z.ZodType<
    *  the four semantic fields; frozenAt never rides here. Participates in
    *  packageId AND semanticContentHash. */
   analysisPolicy: AnalysisPolicySnapshotSchema,
-  decisions: z.array(DecisionAnalysisSchema).min(1),
+  decisions: z.array(DecisionAnalysisSchema),
   evidenceRegistry: EvidenceRegistrySchema,
+  legalActionEvidence: LibriichiPackageEvidenceSchema.optional(),
 }).strict().superRefine((pkg, context) => {
+  const native = pkg.componentVersions.packageSchema === NATIVE_STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION;
+  if (native !== (pkg.legalActionEvidence !== undefined) || (!native && pkg.decisions.length === 0)) {
+    context.addIssue({code:z.ZodIssueCode.custom,message:"Package version and rule provenance disagree",path:["legalActionEvidence"]});
+  }
   // Package-level identity coherence (Slice 1 review Blocker 3B).
   const seenDecisionIds = new Set<string>();
   pkg.decisions.forEach((decision, index) => {
+    const proof = decision.analysisProvider.singleCandidateProof;
+    if (proof != null && native !== (proof.shape === "libriichi_single_candidate")) {
+      context.addIssue({code:z.ZodIssueCode.custom,message:"Single candidate proof belongs to another package version",path:["decisions",index,"analysisProvider","singleCandidateProof"]});
+    }
     if (seenDecisionIds.has(decision.decisionId)) {
       context.addIssue({
         code: z.ZodIssueCode.custom,

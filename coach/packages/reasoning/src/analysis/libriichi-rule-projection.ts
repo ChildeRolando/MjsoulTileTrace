@@ -20,6 +20,7 @@ import { projectLocalMortalEvent } from "./local-mortal-events.js";
 import { adaptMjaiActionSequence } from "../import/mjai-action.js";
 import { normalizeCandidate } from "../candidate/candidate-normalizer.js";
 import { tileIdTo34 } from "../factors/tile34.js";
+import { projectKnownGameFactsV2 } from "../factors/known-game-facts-v2.js";
 
 const digest = (value: unknown): string => createHash("sha256").update(libriichiRuleCanonicalJson(value)).digest("hex");
 
@@ -36,6 +37,8 @@ export function createLibriichiRuleProjector(rawStream: CanonicalEventStream, id
     const fresh = freezeDecisionSnapshotInContext(context, window);
     if (libriichiRuleCanonicalJson(snapshot) !== libriichiRuleCanonicalJson(fresh) ||
         decision.decisionEventRef !== fresh.decisionEventRef) throw new Error("rules_input_incomplete");
+    const freshFacts = projectKnownGameFactsV2({stream,decisionWindow:window,cachedSnapshot:fresh,streamContext:context});
+    if (libriichiRuleCanonicalJson(decision.facts) !== libriichiRuleCanonicalJson(freshFacts)) throw new Error("rules_input_incomplete");
     const requiredStreamFields = ["eventSequence", "scores", "doraIndicators", "rivers", "calledDiscardMarkers", "melds", "remainingDraws", "responseOpportunities"] as const;
     const requiredPublicFields = ["roundContext", "scores", "doraIndicators", "rivers", "calledDiscardMarkers", "melds", "remainingDraws"] as const;
     if (requiredStreamFields.some(field => stream.completeness[field] !== "complete") ||
@@ -116,34 +119,49 @@ export function bindLibriichiRuleResult(input: {
   response: LibriichiRuleResponse;
   decision: ReplayedDecision;
 }): { response: LibriichiRuleResponse; actions: readonly LibriichiBoundAction[] } {
-  const request = LibriichiRuleRequestSchema.parse(input.request);
-  const response = LibriichiRuleResponseSchema.parse(input.response);
-  const { requestId, ...requestContent } = request;
+  const {request,response} = validateLibriichiRuleBinding(input.request,input.response);
   const snapshot = input.decision.snapshot;
-  if (requestId !== digest(requestContent) || response.requestId !== requestId ||
-      request.eventPrefixSha256 !== digest(request.events) ||
-      request.decision.triggerEventRef !== input.decision.decisionEventRef ||
+  if (request.decision.triggerEventRef !== input.decision.decisionEventRef ||
       request.decision.selfActor !== snapshot.selfActor || request.decision.roundOrdinal !== snapshot.publicState.roundOrdinal ||
       request.decision.windowKind !== snapshot.privateState.decisionWindow.kind ||
       request.decision.riichiPhase !== snapshot.publicState.riichiStates[snapshot.selfActor]!.status) {
     throw new Error("rules_protocol_invalid");
   }
-  if (response.status === "error") return { response, actions: [] };
+  return {response,actions:response.status === "ok" ? normalizeLibriichiRuleActions(request,response,actionFacts(input.decision)) : []};
+}
+
+/** Transport/provenance verification, also used when reading a saved v2 package.
+ * This verifies recorded evidence; it does not re-run or independently prove rules. */
+export function validateLibriichiRuleBinding(rawRequest: LibriichiRuleRequest, rawResponse: LibriichiRuleResponse) {
+  const request = LibriichiRuleRequestSchema.parse(rawRequest);
+  const response = LibriichiRuleResponseSchema.parse(rawResponse);
+  const {requestId,...content} = request;
+  if (requestId !== digest(content) || response.requestId !== requestId ||
+      request.eventPrefixSha256 !== digest(request.events) ||
+      request.events.at(-1)?.eventRef !== request.decision.triggerEventRef ||
+      request.decision.decisionId !== request.decision.triggerEventRef ||
+      (request.decision.surface === "response") !== ["discard_response","kan_response"].includes(request.decision.windowKind)) {
+    throw new Error("rules_protocol_invalid");
+  }
+  if (response.status === "error") return {request,response};
   const { resultId, ...resultContent } = response;
   if (resultId !== digest(resultContent) || libriichiRuleCanonicalJson(response.identity) !== libriichiRuleCanonicalJson(request.identity)) {
     throw new Error("rules_protocol_invalid");
   }
   if (response.status === "non_action") {
     if (request.decision.surface !== "response") throw new Error("rules_protocol_invalid");
-    return { response, actions: [] };
   }
-  const facts = actionFacts(input.decision);
+  return {request,response};
+}
+
+/** The same physical-action normalization for live and saved native results. */
+export function normalizeLibriichiRuleActions(request: LibriichiRuleRequest, response: LibriichiRuleSuccess, facts: KnownActionFacts): readonly LibriichiBoundAction[] {
   const kanCount = response.actions.filter(row => row.runtimeAction.index === 42).length;
   const actions = response.actions.map(row => {
     const mjai = JSON.parse(row.mjaiActionJson) as { type: string; pai?: string };
     const added = mjai.type === "kakan" ? parseMjaiTile(mjai.pai) : null;
-    const pons = added === null ? [] : facts.melds!.filter(meld => meld.actor === snapshot.selfActor && meld.kind === "pon" && meld.tiles.every(tile => tile.id === added.id));
-    const adapted = adaptMjaiActionSequence([{ eventRef: input.decision.decisionEventRef, action: mjai }], {
+    const pons = added === null ? [] : facts.melds!.filter(meld => meld.actor === request.decision.selfActor && meld.kind === "pon" && meld.tiles.every(tile => tile.id === added.id));
+    const adapted = adaptMjaiActionSequence([{ eventRef: request.decision.triggerEventRef, action: mjai }], {
       decisionWindow: facts.decisionWindow,
       ...(pons.length === 1 ? { existingMeldRef: pons[0]!.meldRef } : {}),
       ...(facts.currentDraw ? { currentDrawTile: facts.currentDraw.tile } : {}),
@@ -166,5 +184,5 @@ export function bindLibriichiRuleResult(input: {
       new Set(actions.map(row => libriichiRuleCanonicalJson(row.runtimeAction))).size !== actions.length) {
     throw new Error("rules_action_mapping_invalid");
   }
-  return { response, actions };
+  return actions;
 }

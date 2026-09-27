@@ -48,6 +48,7 @@ import type {
   EvidenceRegistry,
   MortalDecisionOutcome,
   RecordAnalysis,
+  LibriichiPackageEvidence,
 } from "@riichi-coach/contracts";
 
 // ---------------------------------------------------------------------------
@@ -214,6 +215,7 @@ export function deriveSemanticContentHash(input: {
   analysisPolicy: AnalysisPolicySnapshot;
   decisions: readonly DecisionAnalysis[];
   evidenceRegistry: EvidenceRegistry;
+  legalActionEvidence?: LibriichiPackageEvidence | undefined;
 }): string {
   return `sha256:${sha256CanonicalJson({
     analysisKey: input.analysisKey,
@@ -222,5 +224,6 @@ export function deriveSemanticContentHash(input: {
     analysisPolicy: input.analysisPolicy,
     decisions: input.decisions.map(withoutFrozenAt),
     evidenceRegistry: input.evidenceRegistry,
+    ...(input.legalActionEvidence === undefined ? {} : {legalActionEvidence:input.legalActionEvidence}),
   })}`;
 }

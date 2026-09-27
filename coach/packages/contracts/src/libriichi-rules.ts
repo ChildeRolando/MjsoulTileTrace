@@ -64,6 +64,34 @@ export const LibriichiRuleResponseSchema = z.discriminatedUnion("status", [
 ]);
 export type LibriichiRuleResponse = z.infer<typeof LibriichiRuleResponseSchema>;
 export type LibriichiRuleSuccess = z.infer<typeof LibriichiRuleSuccessSchema>;
+
+/** A successful singleton result, not a local hand-shape argument. */
+export const LibriichiSingleCandidateProofSchema = z.object({
+  shape: z.literal("libriichi_single_candidate"),
+  proofVersion: z.literal("libriichi-single-candidate/v1"),
+  candidateCount: z.literal(1),
+  ruleRequestId: Sha256,
+  ruleResultId: Sha256,
+  actionRef: z.string().min(1),
+}).strict();
+export type LibriichiSingleCandidateProof = z.infer<typeof LibriichiSingleCandidateProofSchema>;
+
+/** Local projection/transport failures have no successful rule result. */
+export const LibriichiLocalFailureSchema = z.object({
+  status: z.literal("error"),
+  code: z.enum(["rules_input_incomplete", "rules_runtime_failed", "rules_action_mapping_invalid"]),
+}).strict();
+/** Preserve input and native response; normalized actions are re-derived on read. */
+export const LibriichiPackageEvidenceSchema = z.object({
+  identity: LibriichiRuleIdentitySchema,
+  results: z.array(z.object({
+    decisionId: z.string().min(1),
+    request: LibriichiRuleRequestSchema.nullable(),
+    response: z.union([LibriichiRuleResponseSchema, LibriichiLocalFailureSchema]),
+  }).strict()).min(1),
+}).strict();
+export type LibriichiPackageEvidence = z.infer<typeof LibriichiPackageEvidenceSchema>;
+
 export interface LibriichiRulePort {
   queryRules(request: LibriichiRuleRequest): Promise<LibriichiRuleResponse>;
 }

@@ -457,6 +457,15 @@ function freezeResponseWindow(
 export function replayCanonicalResponseWindows(
   stream: CanonicalEventStream,
 ): ReplayedDecision[] {
+  return responseWindows(stream, true);
+}
+
+/** All wave-1 opponent event boundaries; no local shape or actual-choice prefilter. */
+export function scanCanonicalResponseBoundaries(stream: CanonicalEventStream): ReplayedDecision[] {
+  return responseWindows(stream, false);
+}
+
+function responseWindows(stream: CanonicalEventStream, legacyEligibility: boolean): ReplayedDecision[] {
   const decisions: ReplayedDecision[] = [];
   if (stream.selfActor === null) return decisions;
   let context: DecisionStreamContext | undefined;
@@ -479,10 +488,10 @@ export function replayCanonicalResponseWindows(
         resolution.kind !== "pass" &&
         resolution.kind !== "unresolved" &&
         resolution.responder === stream.selfActor;
-      const state = getContext().statesByRef.get(source.eventId);
-      const eligible = selfResponded ||
-        responseWindowEligible(state, source, stream.selfActor);
-      if (!eligible) continue;
+      if (legacyEligibility) {
+        const state = getContext().statesByRef.get(source.eventId);
+        if (!selfResponded && !responseWindowEligible(state, source, stream.selfActor)) continue;
+      }
       const window: DecisionWindow = source.type === "tile_discarded"
         ? {
           kind: "discard_response",

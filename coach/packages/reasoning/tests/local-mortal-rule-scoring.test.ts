@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import {
   LOCAL_MORTAL_ADAPTER_VERSION, LOCAL_MORTAL_PROTOCOL_VERSION, LIBRIICHI_RULE_NORMALIZATION_VERSION,
   canonicalActionRef, libriichiRuleCanonicalJson, type LibriichiRuleSuccess, type ManagedMortalRuntimeIdentity,
@@ -17,6 +17,7 @@ import { createMortalCoverageRegistry } from "../src/analysis/mortal-coverage-re
 import { buildStructuredAnalysisPackage } from "../src/analysis/structured-analysis-package-builder.js";
 import { validateStructuredAnalysisPackage } from "../src/validate/structured-package-validator.js";
 import { createLibriichiRuleProjector } from "../src/analysis/libriichi-rule-projection.js";
+import { collectLibriichiRuleResults } from "../src/analysis/libriichi-rule-collection.js";
 import { projectLocalMortalRuleScoring, bindLocalMortalRuleScores, localMortalRuleScoresToReportEntry } from "../src/analysis/local-mortal-rule-scoring.js";
 import { replayCanonicalStream } from "../src/replay/stream-replayer.js";
 import { canonicalStream, canonicalSelfDrawDiscardEvents, canonicalTile } from "./fixtures/canonical-stream.js";
@@ -53,7 +54,7 @@ function fixture(stream: CanonicalEventStream = canonicalStream(canonicalSelfDra
 }
 
 describe("native rules to scores to report without a second action enumerator", () => {
-  it("R14 nine-terminals reason reaches the existing full-game and validated package chain", async () => {
+  it.each(["legacy", "native"] as const)("R14 nine-terminals reaches the %s full-game consumer", async mode => {
     const events = canonicalSelfDrawDiscardEvents();
     const start = events[1]!;
     const drawn = events[2]!;
@@ -75,8 +76,11 @@ describe("native rules to scores to report without a second action enumerator", 
     expect(entry.details.map(row => row.action.type)).toEqual([...Array(14).fill("dahai"),"reach","ryukyoku"]);
     expect(entry.details.at(-1)!.action.reason).toBe("kyuushu_kyuuhai");
     const engine = new JsonlFactEngineClient(new ManagedFactEngineTransport(fileURLToPath(new URL("../../../resources/", import.meta.url))));
+    const rules = await collectLibriichiRuleResults({stream:input.stream,decisions:[input.decision],identity:input.ruleRequest.identity,
+      port:{queryRules:async()=>input.ruleResult}});
     try {
       const reviewInput = { stream:input.stream, decisions:[input.decision], responseDecisions:[], engine,
+        ...(mode === "native" ? {libriichi:{identity:input.ruleRequest.identity,results:rules}} : {}),
         coverageRegistry:createMortalCoverageRegistry(["self_turn_kyuushu","dama_with_riichi_candidate"]),
         report:{reportId:"native-nine-terminals-regression",adapterVersion:identity.adapterVersion,engine:"Mortal" as const,
           version:managedLocalMortalEngineVersion(identity),modelTag:identity.checkpointModelTag,playerId:0,
@@ -103,15 +107,29 @@ describe("native rules to scores to report without a second action enumerator", 
       expect(review.summary.outcomes.no_mortal_entry).toBe(0);
       const retained = review.retainedAnalyses[0]!;
       expect(retained.modelEvaluation.candidates).toHaveLength(16);
-      const pkg = buildStructuredAnalysisPackage({review,stream:input.stream,decisions:[input.decision],responseDecisions:[],
-        componentVersions:{packageSchema:STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION,canonicalReplay:"canonical-riichi-events/v2",
-          mapperAdapter:input.stream.mapperVersion,factEngine:{engine:"mahjong-helper",upstreamCommit:MAHJONG_HELPER_COMMIT,
+      const packageInput = {review,stream:input.stream,decisions:[input.decision],responseDecisions:[],
+        componentVersions:{packageSchema:mode === "native" ? "structured-analysis-package/v2" as const : STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION,
+          ...(mode === "native" ? {legalActionRules:input.ruleRequest.identity} : {}),canonicalReplay:"canonical-riichi-events/v2",
+          mapperAdapter:input.stream.mapperVersion,factEngine:{engine:"mahjong-helper" as const,upstreamCommit:MAHJONG_HELPER_COMMIT,
             adapterVersion:FACT_ENGINE_ADAPTER_VERSION,protocolVersion:FACT_ENGINE_PROTOCOL_VERSION},factorPipeline:"factor-pipeline/v1",
           mortalSourceModel:{identity:"Mortal",version:identity.adapterVersion,modelTag:identity.checkpointModelTag,
-            evidenceSource:{kind:"managed_local_runtime",identity}}},
-        frozenPolicySnapshot:retained.modelEvaluation.detailPolicy});
+            evidenceSource:{kind:"managed_local_runtime" as const,identity}}},
+        frozenPolicySnapshot:retained.modelEvaluation.detailPolicy};
+      const pkg = buildStructuredAnalysisPackage(packageInput);
       expect(() => validateStructuredAnalysisPackage(pkg)).not.toThrow();
       expect(pkg.decisions.map(row => row.outcome)).toEqual(["analysis_ready"]);
+      if(mode === "native") {
+        expect(pkg.legalActionEvidence?.results).toHaveLength(1);
+        const helperCalls=vi.spyOn(engine,"analyzeHandStructure");
+        const missing={...entry,details:entry.details.filter(row=>row.action.pai!=="1m").map(row=>({...row,probability:1/15}))};
+        const incomplete=await runMortalFullGameReview({...reviewInput,
+          report:{...reviewInput.report,kyokus:[{...reviewInput.report.kyokus[0]!,entries:[missing]}]}});
+        expect(incomplete.status).toBe("coverage_ready");
+        if(incomplete.status!=="coverage_ready") throw new Error("review failed");
+        expect(incomplete.decisions[0]).toMatchObject({outcome:"model_output_incomplete",reason:"legal_candidate_mismatch"});
+        expect(helperCalls).not.toHaveBeenCalled();
+        helperCalls.mockRestore();
+      }
     } finally { await engine.close(); }
   });
   it("keeps identical input, candidates and scores when the actual choice changes", () => {

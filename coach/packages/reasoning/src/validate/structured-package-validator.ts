@@ -98,6 +98,7 @@
  * Error convention: every failure throws `m6c_validator_<kind>:<detail>`.
  */
 import { isDeepStrictEqual } from "node:util";
+import { validateLibriichiPackageEvidence } from "./libriichi-package-evidence.js";
 import {
   CANONICAL_REPLAY_PRODUCER,
   FACT_ENGINE_PRODUCER,
@@ -928,6 +929,7 @@ function assertPackageIdentity(pkg: StructuredAnalysisPackage): void {
     analysisPolicy: pkg.analysisPolicy,
     decisions: pkg.decisions,
     evidenceRegistry: pkg.evidenceRegistry,
+    ...(pkg.legalActionEvidence === undefined ? {} : {legalActionEvidence:pkg.legalActionEvidence}),
   });
   if (pkg.semanticContentHash !== expectedHash) {
     throw new Error("m6c_validator_semantic_hash_mismatch");
@@ -990,6 +992,7 @@ export function validateStructuredAnalysisPackage(input: unknown): void {
   // EVIDENCE PROVENANCE REFERENCES (closure 6): registry sourceRefs must not
   // dangle; producers must match the frozen two-kind chain.
   validateEvidenceProvenance(pkg);
+  validateLibriichiPackageEvidence(pkg);
 
   // READY-DECISION REFERENCE INTEGRITY (repair 2 + closure 2/3): one
   // analysis_ready decision = one internally coherent candidate universe.

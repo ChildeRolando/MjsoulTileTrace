@@ -66,7 +66,7 @@ export function bindLocalMortalRuleScores(input: {
 }
 
 /** Choice correspondence is checked after the complete set exists; it never changes that set. */
-export function actualLibriichiActionRef(decision: ReplayedDecision, actions: readonly { actionRef: string; action: { kind: string } }[]): string {
+export function actualLibriichiActionRef(decision: Pick<ReplayedDecision, "actualAction">, actions: readonly { actionRef: string; action: { kind: string } }[]): string {
   const actual = decision.actualAction;
   if (actual === null) throw new Error("mortal_actual_action_mismatch");
   const exact = canonicalActionRef(actual);

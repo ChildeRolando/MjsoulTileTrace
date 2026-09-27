@@ -63,6 +63,9 @@ import {
   FACT_ENGINE_PRODUCER,
   FACT_ENGINE_PROTOCOL_VERSION,
   STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION,
+  NATIVE_STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION,
+  LibriichiPackageEvidenceSchema,
+  libriichiRuleCanonicalJson,
   StructuredAnalysisPackageSchema,
   type CanonicalEventStream,
   type CanonicalGameEvent,
@@ -87,6 +90,9 @@ import {
   deriveRecordStatus,
   deriveSemanticContentHash,
 } from "./package-identity.js";
+import { createLibriichiRuleProjector } from "./libriichi-rule-projection.js";
+import { rebindLibriichiDecision } from "./libriichi-rule-collection.js";
+import { validateLibriichiPackageEvidence } from "../validate/libriichi-package-evidence.js";
 
 export type BuildStructuredAnalysisPackageInput = {
   /** The coverage_ready whole-game review result, with retained payloads. */
@@ -342,19 +348,36 @@ export function buildStructuredAnalysisPackage(
   if (input.review.status !== "coverage_ready") {
     throw new Error("m6c_builder_requires_coverage_ready_review");
   }
+  const native = input.review.libriichi;
   if (
     input.componentVersions.packageSchema !==
-    STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION
+    (native === undefined ? STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION : NATIVE_STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION)
   ) {
-    // The builder executes the CURRENT package schema; a caller passing a
-    // stale packageSchema would produce an artifact claiming a schema version
-    // this builder does not implement (the final schema parse also pins the
-    // literal — this named error surfaces the failure earlier).
+    // The declared package version must match the review's evidence source;
+    // never relabel a legacy proof as native or drop native evidence into v1.
     throw new Error("m6c_builder_schema_version_mismatch");
   }
-  if (stream.selfActor !== input.decisions[0]?.snapshot.selfActor) {
+  if (stream.selfActor !== (input.decisions[0] ?? responseDecisions[0])?.snapshot.selfActor) {
     // Defensive: the review already validated this; the builder stays total.
     throw new Error("m6c_builder_stream_actor_mismatch");
+  }
+  let legalActionEvidence;
+  if (native !== undefined) {
+    if (libriichiRuleCanonicalJson(native.identity) !== libriichiRuleCanonicalJson(input.componentVersions.legalActionRules)) {
+      throw new Error("m6c_builder_rule_identity_mismatch");
+    }
+    const all = [...input.decisions,...responseDecisions];
+    if (native.results.size !== all.length) throw new Error("m6c_builder_rule_census_mismatch");
+    const project = createLibriichiRuleProjector(stream,native.identity);
+    legalActionEvidence = LibriichiPackageEvidenceSchema.parse({identity:native.identity,results:all.map(decision=> {
+      const supplied = native.results.get(decision.decisionEventRef);
+      if (supplied === undefined) throw new Error("m6c_builder_rule_census_mismatch");
+      const result = rebindLibriichiDecision({project,decision,result:supplied});
+      const window = decision.snapshot.privateState.decisionWindow;
+      return {decisionId:deriveDecisionId({recordId:stream.gameId,selfActor:stream.selfActor,
+        surface:window.kind === "discard_response" || window.kind === "kan_response" ? "response" : "self",
+        windowKind:window.kind,triggerEventRef:decision.decisionEventRef}),request:result.request,response:result.response};
+    })});
   }
 
   // Index the retained full payloads by surface + decisionOrdinal (the same
@@ -390,7 +413,7 @@ export function buildStructuredAnalysisPackage(
       accumulator,
     }));
   }
-  if (projectedDecisions.length === 0) {
+  if (projectedDecisions.length === 0 && native === undefined) {
     throw new Error("m6c_builder_no_decisions");
   }
 
@@ -477,9 +500,10 @@ export function buildStructuredAnalysisPackage(
     analysisPolicy,
     decisions,
     evidenceRegistry: registry,
+    ...(legalActionEvidence === undefined ? {} : {legalActionEvidence}),
   });
 
-  return StructuredAnalysisPackageSchema.parse({
+  const pkg = StructuredAnalysisPackageSchema.parse({
     analysisKey,
     packageId,
     createdAt: new Date(now()).toISOString(),
@@ -489,5 +513,8 @@ export function buildStructuredAnalysisPackage(
     analysisPolicy,
     decisions,
     evidenceRegistry: registry,
+    ...(legalActionEvidence === undefined ? {} : {legalActionEvidence}),
   });
+  validateLibriichiPackageEvidence(pkg);
+  return pkg;
 }

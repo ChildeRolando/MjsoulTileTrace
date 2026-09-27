@@ -53,6 +53,7 @@ export * from "./analysis/mortal-coverage-registry.js";
 export * from "./analysis/mortal-coverage-evidence-manifest.js";
 export * from "./analysis/local-mortal-adapter.js";
 export * from "./analysis/libriichi-rule-projection.js";
+export * from "./analysis/libriichi-rule-collection.js";
 export * from "./analysis/local-mortal-rule-scoring.js";
 export * from "./analysis/acceptance-evidence.js";
 export * from "./analysis/acceptance-core.js";

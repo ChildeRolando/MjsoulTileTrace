@@ -754,6 +754,7 @@ export async function runBoundMortalDecisionReview(input: {
   readonly engine: HandStructureFactEnginePort;
   readonly now?: () => number;
   readonly frozenAt?: string;
+  readonly expectedLegalActionRefs?: readonly string[];
 }): Promise<MortalSingleDecisionReviewResult> {
   const now = input.now ?? Date.now;
   try {
@@ -830,6 +831,17 @@ export async function runBoundMortalDecisionReview(input: {
         code: imported.code,
         diagnostics: Object.freeze([...imported.windowKinds]),
       };
+    }
+
+    // Compare the entire normalized score domain before helper/assembly. The
+    // report cannot delete an unchosen legal action or add a new one.
+    if (input.expectedLegalActionRefs !== undefined) {
+      const expected = new Set(input.expectedLegalActionRefs);
+      const scored = imported.scores.map(score => score.actionRef);
+      if (expected.size !== input.expectedLegalActionRefs.length || scored.length !== expected.size ||
+          new Set(scored).size !== scored.length || scored.some(ref => !expected.has(ref))) {
+        return {status:"failed",code:"mortal_decision_unsupported_entry",diagnostics:["legal_candidate_mismatch"]};
+      }
     }
 
     // P9: deterministic model evaluation. For a riichi window the actual
