@@ -1129,3 +1129,8 @@ hand-structure/v2 版本不变，既有合法结果仍兼容。
 进入 full-game，analysis_ready=1、analysis_blocked=0，生成并校验 10,972,989 字节完整
 单窗口包。该诊断明确记录旧基线+dirty patch SHA，不声称是最终提交全量 CPU；证据
 为 `E:/文档/日麻教学/coach-acceptance-evidence/ranked-fact-replay-1790603542622/receipt.json`。
+
+`0ca0645` 推送后的边界复核补充了“普通零向听结果同时漏掉有效牌及等待”的负例：
+该响应在没有任何自有四枚牌约束时不可能成立，初次修复仍会接受。负例先红后修复，
+在既有绑定 validator 加上必要的四枚约束检查；不重新计算牌形、向听或合法动作。
+此检查只排除不可能的空结果，不能宣称独立证明所有 helper 牌形算法均正确。

@@ -419,6 +419,11 @@ export function validateHandStructureResult(
   for (const meld of request.melds) {
     for (const tile34 of meld.tiles34) owned[tile34] = owned[tile34]! + 1;
   }
+  // The empty-wait exception needs a physical four-copy constraint. Do not
+  // accept ordinary tenpai with both its effective tiles and waits omitted.
+  if (result.overallShanten === 0 && result.waits.length === 0 && !owned.includes(4)) {
+    rejectMismatch();
+  }
   const isClosed = request.melds.length === 0;
   for (const family of result.families) {
     const expectedApplicable = family.family === "standard" || isClosed;

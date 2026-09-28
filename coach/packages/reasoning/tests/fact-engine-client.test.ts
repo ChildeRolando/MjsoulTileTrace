@@ -636,6 +636,15 @@ describe("JSONL fact engine client", () => {
       .analyzeHandStructure(validHandStructureRequest())).rejects.toThrow("hand_structure_result_mismatch");
   });
 
+  it("rejects jointly omitted effective tiles and waits without any owned four-copy constraint", () => {
+    const result = validHandStructureResult();
+    result.families[0].effectiveTiles = [];
+    result.waits = [];
+    result.diagnostics = [];
+    expect(() => validateHandStructureResult(validHandStructureRequest(),result))
+      .toThrow("hand_structure_result_mismatch");
+  });
+
   it("rejects a fifth owned copy even when effective tiles and waits agree", async () => {
     const transport = new ManagedFactEngineTransport(fileURLToPath(new URL("../../../resources/", import.meta.url)));
     const request = validHandStructureRequest();
