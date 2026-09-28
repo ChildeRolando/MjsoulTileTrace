@@ -97,7 +97,6 @@
  *
  * Error convention: every failure throws `m6c_validator_<kind>:<detail>`.
  */
-import { isDeepStrictEqual } from "node:util";
 import { isPlainJson } from "./plain-json.js";
 import { validateLibriichiPackageEvidence } from "./libriichi-package-evidence.js";
 import {
@@ -107,7 +106,7 @@ import {
   LOCAL_MORTAL_ADAPTER_VERSION,
   managedLocalMortalEngineVersion,
   parseCanonicalEventRef,
-  StructuredAnalysisPackageSchema,
+  assertStructuredAnalysisPackageSchema,
   type DecisionAnalysis,
   type EngineIdentity,
   type EvidenceRecord,
@@ -934,15 +933,11 @@ export function validateStructuredAnalysisPackage(input: unknown): asserts input
   // cause rejection here. Strict schemas reject unknown keys at every level.
   let pkg: StructuredAnalysisPackage;
   try {
-    pkg = StructuredAnalysisPackageSchema.parse(input);
+    assertStructuredAnalysisPackageSchema(input);
+    pkg = input;
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     throw new Error(`m6c_validator_schema:${message}`);
-  }
-  if (!isDeepStrictEqual(pkg, input)) {
-    throw new Error(
-      "m6c_validator_schema_normalization: schema parse must not reshape the package",
-    );
   }
 
   // SERIALIZABILITY (CR-5 / Slice 3): the artifact survives JSON roundtrip.

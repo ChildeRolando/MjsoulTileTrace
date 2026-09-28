@@ -1,3 +1,4 @@
+import { isDeepStrictEqual } from "node:util";
 /**
  * M6-C Slice 1: `StructuredAnalysisPackage` contract freeze.
  *
@@ -704,22 +705,7 @@ export type StructuredAnalysisPackage = {
   legalActionEvidence?: LibriichiPackageEvidence | undefined;
 };
 
-export const StructuredAnalysisPackageSchema: z.ZodType<
-  StructuredAnalysisPackage,
-  z.ZodTypeDef,
-  {
-    analysisKey: string;
-    packageId: string;
-    createdAt: string;
-    semanticContentHash: string;
-    record: RecordAnalysis;
-    componentVersions: ComponentVersions;
-    analysisPolicy: AnalysisPolicySnapshot;
-    decisions: DecisionAnalysisInput[];
-    evidenceRegistry: EvidenceRegistry;
-    legalActionEvidence?: LibriichiPackageEvidence | undefined;
-  }
-> = z.object({
+const packageObjectSchema = z.object({
   analysisKey: z.string().min(1),
   packageId: z.string().min(1),
   /** Artifact creation metadata (provenance only; excluded from
@@ -736,7 +722,9 @@ export const StructuredAnalysisPackageSchema: z.ZodType<
   decisions: z.array(DecisionAnalysisSchema),
   evidenceRegistry: EvidenceRegistrySchema,
   legalActionEvidence: LibriichiPackageEvidenceSchema.optional(),
-}).strict().superRefine((pkg, context) => {
+}).strict();
+
+function refinePackage(pkg: StructuredAnalysisPackage, context: z.RefinementCtx): void {
   const native = pkg.componentVersions.packageSchema === NATIVE_STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION;
   if (native !== (pkg.legalActionEvidence !== undefined) || (!native && pkg.decisions.length === 0)) {
     context.addIssue({code:z.ZodIssueCode.custom,message:"Package version and rule provenance disagree",path:["legalActionEvidence"]});
@@ -768,4 +756,46 @@ export const StructuredAnalysisPackageSchema: z.ZodType<
       });
     }
   });
-});
+}
+
+export const StructuredAnalysisPackageSchema: z.ZodType<
+  StructuredAnalysisPackage,
+  z.ZodTypeDef,
+  {
+    analysisKey: string;
+    packageId: string;
+    createdAt: string;
+    semanticContentHash: string;
+    record: RecordAnalysis;
+    componentVersions: ComponentVersions;
+    analysisPolicy: AnalysisPolicySnapshot;
+    decisions: DecisionAnalysisInput[];
+    evidenceRegistry: EvidenceRegistry;
+    legalActionEvidence?: LibriichiPackageEvidence | undefined;
+  }
+> = packageObjectSchema.superRefine(refinePackage);
+
+// Validation-only path: the same strict envelope and package refinements,
+// with each decision checked by its original schema and then released. The
+// ordinary exported schema retains its existing parsed-copy semantics.
+const boundedPackageSchema = packageObjectSchema.extend({
+  decisions: z.array(z.unknown().superRefine((input, context) => {
+    const parsed = DecisionAnalysisSchema.safeParse(input);
+    if (!parsed.success) {
+      for (const issue of parsed.error.issues) context.addIssue({...issue, fatal: true});
+      return;
+    }
+    if (!isDeepStrictEqual(parsed.data, input)) {
+      context.addIssue({code: z.ZodIssueCode.custom, message: "schema_normalization", fatal: true});
+    }
+  }).transform(input => input as DecisionAnalysis)),
+}).superRefine(refinePackage);
+
+/** Validate without retaining a second complete decision corpus. No parsed
+ * copy is returned; callers must not infer ownership or immutability. */
+export function assertStructuredAnalysisPackageSchema(input: unknown): asserts input is StructuredAnalysisPackage {
+  const parsed = boundedPackageSchema.parse(input);
+  if (!isDeepStrictEqual(parsed, input)) {
+    throw new z.ZodError([{code: z.ZodIssueCode.custom, message: "schema_normalization", path: []}]);
+  }
+}

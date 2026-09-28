@@ -34,7 +34,7 @@ canonical 事件流 → 决策快照 → 确定事实 → 模型比较 → 打�
 
 ### Local Mortal Runtime Production Spike
 
-#### 2026-09-28 唯一来源重构验收（迁移中，未完成最终验收）
+#### 2026-09-28 唯一来源重构验收（按候选提交验收）
 
 [ADR-0006](../adr/0006-libriichi-single-legal-action-authority.md) 和
 [新规格](../specs/2026-09-28-libriichi-legal-action-authority-design.md) 已取代本地
@@ -46,8 +46,9 @@ canonical 事件流 → 决策快照 → 确定事实 → 模型比较 → 打�
 从完整天凤 XML 重新映射，回放绑定的真实 native/CPU 响应，再运行真实 helper、full-game、
 builder/validator 和 selector；覆盖 65 边界、22 个有评分决策、43 个非行动时点。
 默认测试不运行 checkpoint，不替代当次 CPU spike。旧包只读兼容使用固定 v1 JSON；
-来源与哈希见 `packages/reasoning/tests/fixtures/PACKAGE_FIXTURES.md`。其余旧 full-game
-分支仍未退出，不能由新包门槛推断整个迁移已完成。
+来源与哈希见 `packages/reasoning/tests/fixtures/PACKAGE_FIXTURES.md`。旧 full-game
+枚举分支已退出，具体职责及替代入口见
+`docs/handoffs/2026-09-28-libriichi-rule-retirement.md`；退出检查不能代替当次真实验收。
 
 实现验收必须包括：
 
@@ -130,6 +131,12 @@ spike 的规则查询、评分、单候选和 v2 package 消费同一原生结�
 规则身份、模型身份、运行范围、失败及未运行状态；不覆盖旧 `production-spike-receipt.json`。
 完整包证据按共享 canonical 序列分块导出，回执记录文件名、字节数与文件 SHA-256；
 导出失败保留失败阶段，不把已完成推理视为整链通过。
+R19 大包回归从本轮完整 CPU 回执选择最大原包；build 后运行
+`npm run test:package-persistence-scale -- <production-spike-receipt.json> <工作树外输出目录>`。
+该入口要求九个原视角及至少 5.49 GB 的实际最大包，核对全部字节哈希，在默认堆预算下
+使用生产 repository 保存、关闭、新实例重开，核对包身份、决策、边界、选择及完整图
+节点/边计数。不得增大堆、裁包或换小样本；旧包可作修复回归，但回执区分代码提交与
+包来源提交，不代替最终代码的完整 CPU。默认快速测试另有受限堆短字符串读取回归。
 `RIICHI_LOCAL_MORTAL_ACTORS` 筛选运行仅为诊断，即使所选项通过也不签发全量 PASS。
 按冻结规格 §8 的 2026-09-26 用户批准修订，宿主网络可以保持开启，系统级禁网不再是
 真实本地模型正确性验收的前置门槛。真实推理、候选守恒、下游 package 与最终提交绑定

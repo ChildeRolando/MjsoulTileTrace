@@ -64,16 +64,31 @@ export function insertPackageChunks(db: DatabaseSync, ref: string, value: unknow
 /** Synchronous streaming parser: no whole-document string, no early exposure.
  * The caller still runs the complete package/domain/read-back validators. */
 export function parsePackageJsonChunks(chunks: Iterable<Uint8Array>): unknown {
-  const parser = new JSONParser({ paths: ["$"], stringBufferSize: 64 * 1024 });
+  const parser = new JSONParser({ stringBufferSize: 64 * 1024 });
   let value: unknown;
   let complete = false;
-  parser.onValue = result => { value = result.value; complete = true; };
-  // Evidence/action IDs repeat throughout ledgers and differences. Share equal
-  // immutable strings within this one read, with a bounded FIFO dictionary.
+  parser.onValue = result => {
+    let parsed = result.value;
+    // push-built arrays retain spare capacity. Once a JSON array closes, no
+    // parser can append to it again; a dense copy keeps only its actual slots.
+    // Do not share mutable arrays or change their values/JSON representation.
+    if (Array.isArray(parsed)) {
+      parsed = parsed.slice();
+      if (result.parent !== undefined) {
+        Object.defineProperty(result.parent, result.key!, {
+          value: parsed, enumerable: true, writable: true, configurable: true,
+        });
+      }
+    }
+    if (result.parent === undefined) { value = parsed; complete = true; }
+  };
+  // Evidence/action IDs and short enum values repeat throughout ledgers and
+  // differences. Share all equal immutable strings within this one read, with
+  // a bounded FIFO dictionary; short strings dominate complete real packages.
   // This caches representation, never validation or analysis conclusions.
   const strings = new Map<string, string>();
   parser.onToken = token => {
-    if (typeof token.value !== "string" || token.value.length < 64) return;
+    if (typeof token.value !== "string") return;
     const existing = strings.get(token.value);
     if (existing !== undefined) token.value = existing;
     else {

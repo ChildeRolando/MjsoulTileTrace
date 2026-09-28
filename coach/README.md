@@ -2,11 +2,11 @@
 
 > 当前面向开发人员的统一入口见 [`docs/development/README.md`](docs/development/README.md)。本文件保留推理核心的详细能力清单和原型说明；路线图、架构、开发流程与验收门禁以统一开发文档为准。
 
-> **2026-09-28 已批准重构，代码迁移中**：libriichi 将成为唯一合法动作来源，
-> 本地第二套合法动作枚举及单候选反证退出并封存；helper 的教学分析事实继续保留。
+> **2026-09-28 实现状态**：libriichi 已接入为唯一合法动作来源，
+> 本地第二套合法动作枚举及单候选反证已退出并封存；helper 的教学分析事实继续保留。
 > 见 [ADR-0006](docs/adr/0006-libriichi-single-legal-action-authority.md) 和
 > [实施计划](docs/plans/2026-09-28-libriichi-legal-action-authority-migration.md)。
-> 下方 Implemented 是现有能力记录，不代表该重构已经全部完成。
+> 下方 Implemented 是现有能力记录；完整分析档案已通过实现侧保存重开回归，最终独立验收仍须绑定候选提交及当次运行证据。
 
 文档导航：
 

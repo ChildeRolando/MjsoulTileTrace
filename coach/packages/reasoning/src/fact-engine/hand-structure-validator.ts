@@ -406,6 +406,45 @@ export function validateThreatRiskResult(
   return result;
 }
 
+/** Check the helper's already supplied complete tenpai decompositions. This
+ * does not enumerate hands, calculate shanten, or decide legal game actions. */
+function emptyWaitsExplainedByOwnedCopies(
+  request: HandStructureRequestV2,
+  result: HandStructureResultV2,
+  owned: readonly number[],
+): boolean {
+  const set = result.decompositions;
+  if (set.status !== "calculated" || set.truncated || set.items.length === 0
+    || result.bestFamilies.some(family => family !== "standard")) return false;
+  return set.items.every(item => {
+    if (item.family !== "standard" || item.shanten !== 0) return false;
+    const incomplete = item.groups.filter(group => group.kind !== "sequence" && group.kind !== "triplet");
+    const completeCount = item.groups.length - incomplete.length + request.melds.length;
+    let completions: number[];
+    if (completeCount === 4 && incomplete.length === 1 && incomplete[0]!.kind === "floating") {
+      completions = [incomplete[0]!.tiles34[0]!];
+    } else if (completeCount === 3 && incomplete.length === 2) {
+      const pairs = incomplete.filter(group => group.kind === "pair_candidate");
+      if (pairs.length === 2) {
+        completions = pairs.map(group => group.tiles34[0]!);
+        if (completions[0] === completions[1]) return false;
+      } else if (pairs.length === 1) {
+        const taatsu = incomplete.find(group => group.kind !== "pair_candidate")!;
+        const low = taatsu.tiles34[0]!;
+        switch (taatsu.kind) {
+          case "ryanmen_taatsu": completions = [low - 1, low + 2]; break;
+          case "kanchan_taatsu": completions = [low + 1]; break;
+          case "penchan_taatsu": completions = [low % 9 === 0 ? low + 2 : low - 1]; break;
+          default: return false;
+        }
+      } else return false;
+    } else return false;
+    // The helper already excludes a fifth concealed copy when calculating
+    // effective tiles; this exception explains the later meld-owned filter.
+    return completions.every(tile => request.handTiles34[tile]! < 4 && owned[tile] === 4);
+  });
+}
+
 export function validateHandStructureResult(
   request: HandStructureRequestV2,
   rawResult: unknown,
@@ -418,11 +457,6 @@ export function validateHandStructureResult(
   const owned = [...request.handTiles34];
   for (const meld of request.melds) {
     for (const tile34 of meld.tiles34) owned[tile34] = owned[tile34]! + 1;
-  }
-  // The empty-wait exception needs a physical four-copy constraint. Do not
-  // accept ordinary tenpai with both its effective tiles and waits omitted.
-  if (result.overallShanten === 0 && result.waits.length === 0 && !owned.includes(4)) {
-    rejectMismatch();
   }
   const isClosed = request.melds.length === 0;
   for (const family of result.families) {
@@ -536,6 +570,12 @@ export function validateHandStructureResult(
       });
     }
   }
+
+  // An unrelated quad cannot explain missing waits. Only complete, validated
+  // decomposition evidence whose every completion is self-owned four times
+  // supports this physical exception to structural zero-shanten.
+  if (result.overallShanten === 0 && result.waits.length === 0
+    && !emptyWaitsExplainedByOwnedCopies(request, result, owned)) rejectMismatch();
 
   const waitByTile = new Map(result.waits.map((wait) => [wait.tile34, wait]));
   for (const wait of result.waits) {

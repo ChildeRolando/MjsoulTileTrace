@@ -46,6 +46,7 @@ import {
   deriveNodeId,
   semanticKeyOfNode,
 } from "./context-graph-ids.js";
+import { canonicalJson, sha256Hex } from "../analysis/package-identity.js";
 
 /** Producer chain names for package-level projection nodes (spec origin/
  *  authority 投影规则: "package schema 生产者" / "factor pipeline 版本"). */
@@ -66,7 +67,7 @@ function makeNode(input: {
   producer: string;
   producerVersion: string;
   payload: unknown;
-  provenance: readonly string[];
+  provenance: string[];
 }): ContextGraphNode {
   return {
     nodeId: deriveNodeId(
@@ -80,7 +81,7 @@ function makeNode(input: {
     producer: input.producer,
     producerVersion: input.producerVersion,
     payload: input.payload,
-    provenance: [...input.provenance],
+    provenance: Object.isFrozen(input.provenance) ? input.provenance : [...input.provenance],
   };
 }
 
@@ -275,6 +276,12 @@ function evidenceNodeOf(evidenceId: string, record: EvidenceRecord): ContextGrap
 // Edge factories
 // ---------------------------------------------------------------------------
 
+// Millions of structural edges carry these same empty values. They have no
+// per-edge state; immutable sharing preserves every edge and its JSON bytes.
+const EMPTY_EDGE_PROVENANCE: string[] = [];
+Object.freeze(EMPTY_EDGE_PROVENANCE);
+const EMPTY_EDGE_PAYLOAD = Object.freeze({});
+
 function makeEdge(
   edgeKind: ContextGraphEdge["edgeKind"],
   from: string,
@@ -287,17 +294,17 @@ function makeEdge(
     from,
     to,
     origin: "package_projection",
-    provenance: [],
+    provenance: EMPTY_EDGE_PROVENANCE,
     payload,
   };
 }
 
 function containsEdge(from: string, to: string): ContextGraphEdge {
-  return makeEdge("contains", from, to, {});
+  return makeEdge("contains", from, to, EMPTY_EDGE_PAYLOAD);
 }
 
 function appliesToEdge(from: string, to: string): ContextGraphEdge {
-  return makeEdge("applies_to", from, to, {});
+  return makeEdge("applies_to", from, to, EMPTY_EDGE_PAYLOAD);
 }
 
 function comparesEdge(from: string, to: string, side: "left" | "right"): ContextGraphEdge {
@@ -313,11 +320,11 @@ function supportsEdge(
 }
 
 function recommendsEdge(from: string, to: string): ContextGraphEdge {
-  return makeEdge("recommends", from, to, {});
+  return makeEdge("recommends", from, to, EMPTY_EDGE_PAYLOAD);
 }
 
 function derivedFromEdge(from: string, to: string): ContextGraphEdge {
-  return makeEdge("derived_from", from, to, {});
+  return makeEdge("derived_from", from, to, EMPTY_EDGE_PAYLOAD);
 }
 
 // ---------------------------------------------------------------------------
@@ -338,6 +345,34 @@ export function projectContextGraph(
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     throw new Error(`m6d1_projector_schema:${message}`);
+  }
+
+  // The schema parse owns this copy. Complete packages repeat the same source
+  // lists across many facts/differences; share equal immutable lists in this
+  // projection only, without retaining a second list for node.provenance.
+  // The caller's evidence lists are neither frozen nor reused by reference.
+  const evidenceLists = new Map<string, string[]>();
+  const shareEvidence = (refs: string[]): string[] => {
+    const key = sha256Hex(canonicalJson(refs));
+    const existing = evidenceLists.get(key);
+    if (existing !== undefined && existing.length === refs.length
+      && existing.every((ref, index) => ref === refs[index])) return existing;
+    Object.freeze(refs);
+    if (evidenceLists.size >= 4096) evidenceLists.delete(evidenceLists.keys().next().value!);
+    evidenceLists.set(key, refs);
+    return refs;
+  };
+  for (const decision of pkg.decisions) {
+    decision.knownGameFacts.evidenceIds = shareEvidence(decision.knownGameFacts.evidenceIds);
+    if (decision.outcome !== "analysis_ready") continue;
+    for (const ledger of decision.candidateFactorLedgers) {
+      for (const axis of ledger.axes) {
+        for (const fact of axis.facts) fact.evidenceIds = shareEvidence(fact.evidenceIds);
+      }
+    }
+    for (const difference of decision.factorDifferences) {
+      difference.evidenceIds = shareEvidence(difference.evidenceIds);
+    }
   }
 
   const versions = pkg.componentVersions;

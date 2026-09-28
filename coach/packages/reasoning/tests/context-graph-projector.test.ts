@@ -87,6 +87,31 @@ function candidateNodeOf(
 }
 
 describe("M6-D1 projectContextGraph", () => {
+  it("keeps shared projected evidence immutable without freezing or aliasing caller data", async () => {
+    const pkg = await buildSingleDecisionPackage();
+    const ready = readyDecisionOf(pkg);
+    const facts = ready.candidateFactorLedgers.flatMap(ledger => ledger.axes.flatMap(axis => axis.facts));
+    const first = facts[0]!;
+    const second = facts.find(fact => fact !== first && fact.factorKey !== first.factorKey)!;
+    second.evidenceIds = [...first.evidenceIds];
+    const before = clone(pkg);
+    const graph = projectContextGraph(pkg);
+    const nodes = graph.nodes.filter(node => node.nodeKind === "FactorFact"
+      && [first.factorKey, second.factorKey].includes((node.payload as {factorKey:string}).factorKey));
+    expect(nodes.length).toBeGreaterThanOrEqual(2);
+    for (const node of nodes) {
+      expect(Object.isFrozen(node.provenance)).toBe(true);
+      expect(Object.isFrozen((node.payload as {evidenceIds:string[]}).evidenceIds)).toBe(true);
+      expect(() => node.provenance.push("tampered")).toThrow();
+    }
+    expect(pkg).toEqual(before);
+    expect(Object.isFrozen(first.evidenceIds)).toBe(false);
+    first.evidenceIds.push("caller-only-change");
+    expect(nodes.every(node => !node.provenance.includes("caller-only-change"))).toBe(true);
+    expect(nodes.every(node => !(node.payload as {evidenceIds:string[]}).evidenceIds.includes("caller-only-change"))).toBe(true);
+    expect(clone(graph)).toEqual(graph);
+  });
+
   it.each(["covered", "overlap", "event_only", "unrelated", "duplicate", "missing", "missing_source"] as const)(
     "retains exact provenance reachability while compacting only covered direct edges: %s", async mode => {
       const pkg = await buildSingleDecisionPackage();
@@ -525,5 +550,26 @@ describe("M6-D1 projectContextGraph", () => {
         expect(node.producer).toBe("canonical-replay");
       }
     }
+  });
+});
+
+
+describe("immutable structural edge metadata", () => {
+  it("keeps empty provenance and payload immutable without freezing caller data", async () => {
+    const pkg = await buildSingleDecisionPackage();
+    const before = structuredClone(pkg);
+    const graph = projectContextGraph(pkg);
+    const emptyEdges = graph.edges.filter(edge => Object.keys(edge.payload as object).length === 0);
+    expect(emptyEdges.length).toBeGreaterThan(1);
+    for (const edge of emptyEdges) {
+      expect(edge.provenance).toEqual([]);
+      expect(edge.payload).toEqual({});
+      expect(Object.isFrozen(edge.provenance)).toBe(true);
+      expect(Object.isFrozen(edge.payload)).toBe(true);
+      expect(() => edge.provenance.push('changed')).toThrow();
+      expect(() => Object.assign(edge.payload as object, {changed:true})).toThrow();
+    }
+    expect(pkg).toStrictEqual(before);
+    validateContextGraph(graph);
   });
 });

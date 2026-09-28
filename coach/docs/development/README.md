@@ -29,11 +29,12 @@ M7-B 的冻结规格见
 冻结为 managed local Mortal + `mortal-582500`。截至 2026-09-28，PR #28 已包含
 runtime 与历史真实 CPU spike，但尚未通过当前完整独立验收，也未合并。
 
-当前批准的下一步是 [libriichi 唯一合法动作来源重构](../specs/2026-09-28-libriichi-legal-action-authority-design.md)：
-取消第二套本地合法动作推导，保留 helper 教学事实。决策见
+当前主线是 [libriichi 唯一合法动作来源重构](../specs/2026-09-28-libriichi-legal-action-authority-design.md) 的真实整场可靠性验收：
+第二套本地合法动作推导已退出，helper 教学事实保留。决策见
 [ADR-0006](../adr/0006-libriichi-single-legal-action-authority.md)，执行见
 [迁移计划](../plans/2026-09-28-libriichi-legal-action-authority-migration.md)。
-该重构现为规划，不能把文档批准当代码完成或验收 PASS。
+截至 2026-09-29，唯一来源已接入且真实牌谱来源已补全；完整分析档案的保存重开已通过
+实现侧回归，最终候选全量验证与独立验收尚未完成。具体定位见[当前路线图](ROADMAP.md)。
 
 ## 文档分层
 

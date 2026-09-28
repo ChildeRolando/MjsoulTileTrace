@@ -1,4 +1,5 @@
 import { createHash } from "node:crypto";
+import { spawnSync } from "node:child_process";
 import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -29,6 +30,60 @@ function store(db: DatabaseSync, value: unknown) {
 }
 
 describe("complete package bytes in bounded SQLite chunks", () => {
+  it("does not retain array growth capacity for repeated evidence lists", () => {
+    const moduleUrl = new URL("../src/package-artifact-storage.ts", import.meta.url).href;
+    const script = `
+      import assert from 'node:assert/strict';
+      import { parsePackageJsonChunks } from ${JSON.stringify(moduleUrl)};
+      const values = Array.from({length:18}, (_, index) => 'evidence-' + index);
+      const count = 750_000;
+      const block = Buffer.from(JSON.stringify(values) + ',');
+      function* chunks() {
+        yield Buffer.from('[');
+        for (let i = 1; i < count; i++) yield block;
+        yield block.subarray(0, block.length - 1);
+        yield Buffer.from(']');
+      }
+      const actual = parsePackageJsonChunks(chunks());
+      assert.equal(actual.length, count);
+      for (const row of actual) assert.deepEqual(row, values);
+      console.log('complete-lists-preserved');
+    `;
+    const result = spawnSync(process.execPath, ["--max-old-space-size=192", "--experimental-strip-types", "--input-type=module", "--eval", script], {
+      encoding: "utf8", timeout: 30_000, windowsHide: true,
+    });
+    expect(result.error).toBeUndefined();
+    expect(result.status, result.stderr).toBe(0);
+    expect(result.stdout).toContain("complete-lists-preserved");
+  }, 35_000);
+
+  it("reads repeated short evidence strings within a bounded process heap", () => {
+    const moduleUrl = new URL("../src/package-artifact-storage.ts", import.meta.url).href;
+    const script = `
+      import assert from 'node:assert/strict';
+      import { parsePackageJsonChunks } from ${JSON.stringify(moduleUrl)};
+      const values = ['evidence:' + 'a'.repeat(23), 'decision:' + 'b'.repeat(39), 'candidate:' + 'c'.repeat(53)];
+      const count = 1_500_000;
+      const block = Buffer.from(values.map(value => JSON.stringify(value)).join(',') + ',');
+      function* chunks() {
+        yield Buffer.from('[');
+        for (let i = 0; i < count / values.length - 1; i++) yield block;
+        yield block.subarray(0, block.length - 1);
+        yield Buffer.from(']');
+      }
+      const actual = parsePackageJsonChunks(chunks());
+      assert.equal(actual.length, count);
+      for (let i = 0; i < actual.length; i++) assert.equal(actual[i], values[i % values.length]);
+      console.log('complete-values-preserved');
+    `;
+    const result = spawnSync(process.execPath, ["--max-old-space-size=96", "--experimental-strip-types", "--input-type=module", "--eval", script], {
+      encoding: "utf8", timeout: 20_000, windowsHide: true,
+    });
+    expect(result.error).toBeUndefined();
+    expect(result.status, result.stderr).toBe(0);
+    expect(result.stdout).toContain("complete-values-preserved");
+  }, 25_000);
+
   it.each([1,2,3,17,PACKAGE_CHUNK_BYTES])("preserves native JSON semantics across %i-byte boundaries", width => {
     const text = '{"__proto__":{"kept":true},"constructor":"plain","number":-1.25e+4,"tiles":"白🀄\\n\\\"","values":[null,false,0] }';
     const bytes = Buffer.from(text);
@@ -37,6 +92,19 @@ describe("complete package bytes in bounded SQLite chunks", () => {
     expect(actual).toStrictEqual(JSON.parse(text));
     expect(Object.getPrototypeOf(actual)).toBe(Object.prototype);
     expect(Object.hasOwn(actual,"__proto__")).toBe(true);
+  });
+
+  it.each(['null', 'false', '0', '""', '[]', '[[1],[2,[]]]', '{"__proto__":[1],"a":[2],"a":[3]}'])(
+    "preserves complete root/array semantics: %s", text => {
+      function* chunks() { for (const byte of Buffer.from(text)) yield Uint8Array.of(byte); }
+      expect(parsePackageJsonChunks(chunks())).toStrictEqual(JSON.parse(text));
+    },
+  );
+
+  it("does not share mutable arrays with equal contents", () => {
+    const actual = parsePackageJsonChunks([Buffer.from('{"a":[1],"b":[1]}')]) as {a:number[];b:number[]};
+    actual.a.push(2);
+    expect(actual).toEqual({a:[1,2],b:[1]});
   });
 
   it.each(['', '{"x":', '{}{}', '{} trailing', '{"x":NaN}', '[1,]'])("rejects malformed/incomplete/multiple roots: %s", text => {

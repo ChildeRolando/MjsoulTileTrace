@@ -2,15 +2,15 @@
 
 ## 总览
 
-**2026-09-28 迁移状态**：PR #28 基线 `67e1dd9` 仍包含本地合法动作推导。
+**2026-09-28 实现状态**：PR #28 规划基线 `67e1dd9` 曾包含本地合法动作推导。
 [ADR-0006](../adr/0006-libriichi-single-legal-action-authority.md) 已采纳唯一 libriichi
 来源；[规格](../specs/2026-09-28-libriichi-legal-action-authority-design.md) 和
 [计划](../plans/2026-09-28-libriichi-legal-action-authority-migration.md) 定义目标与退出清单。
 规则查询、评分、整局/单决策、新包、remote/discovery 已接入；旧枚举与资格预筛
-已退出，封存位置见实施计划。真实全语料、来源缺失证据及大包持久化仍待收口，
-不因此宣称迁移验收完成。
+已退出，封存位置见实施计划。真实完整档案持久化已通过实现侧回归；全语料运行与独立验收
+必须绑定具体候选提交，历史结果不证明后续版本通过。
 
-目标：canonical 事件/可见状态 → 完整性与规则配置核验 → libriichi 无权重规则查询
+当前消费链：canonical 事件/可见状态 → 完整性与规则配置核验 → libriichi 无权重规则查询
 → 单一合法动作结果 → 模型请求或单候选证明 → full-game/package。
 helper 从候选计算教学事实，不参与集合增删；模型只给分数。旧枚举封存于 Git 历史，
 不保留第二来源校验、影子执行或自动回退。原始牌谱来源独立性继续保留。

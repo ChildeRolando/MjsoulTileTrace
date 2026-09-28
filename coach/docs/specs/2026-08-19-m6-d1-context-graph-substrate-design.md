@@ -229,6 +229,13 @@ evidence-bearing 节点，修改前后的**完整有向可达证据集合必须�
 旧报告引用的节点与同决策可达范围不变，旧 immutable 包/报告字节不重写。
 graph 仍由唯一 projector 整体产生，不改为截取若干决策或保存第三份 canonical artifact。
 
+完整真实包的内存表示允许在单次投影内部复用内容逐项相等的不可变证据列表：
+仅使用 schema parse 所拥有的副本，将 KnownGameFact / FactorFact / FactorDifference
+的 evidenceIds 与节点 provenance 作为只读值共享。字典有界且不跨投影保留；哈希相同
+仍逐项核对，不合并不同列表。调用方原包不被冻结、不被修改，图内共享列表不能被
+就地修改。结构边的空 provenance 和空 payload 也可共享不可变常量，非空 payload
+仍保留各边内容。所有列表元素、顺序、图身份、边和可达性保持原样，JSON 输出不因共享改变。
+
 每个 edge 概念上携带 `edgeId`、`edgeKind`、`from`、`to`、`origin`、
 `provenance`（D1 projection 边为空）、`payload`（kind-specific；D1 只有
 compares/supports 有 payload）。所有 projection 边的 origin 为

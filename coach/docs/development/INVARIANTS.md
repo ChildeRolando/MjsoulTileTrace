@@ -148,7 +148,8 @@ Model/report evidence provider（模型/报告证据来源）
   `runtime_rules_native_test.py` 检查真实规则不加载 torch/model；`check-architecture`
   的 `retired_legal_action_authority` 与 package-import 限定检查旧模块回流。
 - **Status**：partially enforced。上述边界有可执行检查；任意新代码重新实现第二套规则
-  仍需评审识别，真实全语料与独立验收未完成。详见迁移计划，不把同源检查称为独立规则证明。
+  仍需评审识别；真实全语料与独立验收结论须绑定候选提交，详见迁移计划及当次回执。
+  不把同源检查称为独立规则证明。
 
 ## INV-005 renderer/UI 不得接收特权原始协议与秘密
 

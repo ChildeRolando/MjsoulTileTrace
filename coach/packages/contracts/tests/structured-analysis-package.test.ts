@@ -1,3 +1,4 @@
+import { spawnSync } from "node:child_process";
 import { describe, expect, it } from "vitest";
 import {
   FACT_ENGINE_ADAPTER_VERSION,
@@ -20,6 +21,7 @@ import {
   RecordAnalysisSchema,
   SingleCandidateProofSchema,
   StructuredAnalysisPackageSchema,
+  assertStructuredAnalysisPackageSchema,
   canonicalActionRef,
   type RiichiAction,
 } from "../src/index.js";
@@ -794,5 +796,56 @@ describe("record, versions, and package contract", () => {
       ...pkg,
       record: { ...pkg.record, selfActor: 2 },
     })).toThrow(/known self actor must equal the record/);
+  });
+});
+
+
+describe("bounded package schema validation", () => {
+  it("validates a complete decision corpus within a bounded heap", () => {
+    const fixture = StructuredAnalysisPackageSchema.parse(validPackage());
+    const moduleUrl = new URL("../dist/index.js", import.meta.url).href;
+    const script = `
+      import { assertStructuredAnalysisPackageSchema } from ${JSON.stringify(moduleUrl)};
+      const pkg = ${JSON.stringify(fixture)};
+      const template = pkg.decisions[0];
+      const refs = Array.from({length:30_000}, (_,index) => 'game-1/0/0/'+index);
+      pkg.decisions = Array.from({length:500}, (_,index) => ({
+        ...template, decisionId:'decision:'+index,
+        knownGameFacts:{...template.knownGameFacts,evidenceIds:refs},
+      }));
+      assertStructuredAnalysisPackageSchema(pkg);
+      if(pkg.decisions.length !== 500 || pkg.decisions.some(row=>row.knownGameFacts.evidenceIds.length !== 30_000)) throw Error('lost records');
+      console.log('all decisions and evidence retained');
+    `;
+    const result = spawnSync(process.execPath, ["--max-old-space-size=96", "--input-type=module", "--eval", script], {
+      encoding:"utf8", timeout:30_000, windowsHide:true,
+    });
+    expect(result.error).toBeUndefined();
+    expect(result.status, result.stderr).toBe(0);
+    expect(result.stdout).toContain('all decisions and evidence retained');
+  },35_000);
+
+  it("validates every record without mutating or freezing caller input", () => {
+    const pkg = StructuredAnalysisPackageSchema.parse(validPackage());
+    const before = structuredClone(pkg);
+    expect(() => assertStructuredAnalysisPackageSchema(pkg)).not.toThrow();
+    expect(pkg).toStrictEqual(before);
+    expect(Object.isFrozen(pkg.decisions[0])).toBe(false);
+  });
+  it.each([
+    (pkg: any) => { pkg.decisions = [null]; },
+    (pkg: any) => { delete pkg.decisions[0].analysisProvider; },
+    (pkg: any) => { pkg.decisions.push(structuredClone(pkg.decisions[0])); },
+    (pkg: any) => { pkg.decisions[0].knownGameFacts.actor = 0; },
+    (pkg: any) => { pkg.decisions[0].unknownField = true; },
+    (pkg: any) => { pkg.evidenceRegistry.extra = {kind: 'invalid'}; },
+    (pkg: any) => { pkg.unknownHeader = true; },
+    (pkg: any) => { pkg.legalActionEvidence = {}; },
+  ])("preserves original strict schema rejection %#", mutate => {
+    const pkg = StructuredAnalysisPackageSchema.parse(validPackage());
+    mutate(pkg);
+    expect(StructuredAnalysisPackageSchema.safeParse(pkg).success).toBe(false);
+    try { assertStructuredAnalysisPackageSchema(pkg); throw new Error('accepted invalid input'); }
+    catch (error) { expect((error as Error).name).toBe('ZodError'); }
   });
 });
