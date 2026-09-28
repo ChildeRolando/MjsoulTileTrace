@@ -557,6 +557,9 @@ function validateRoundEvent(
           (state.lastDrawTile !== null &&
             !sameTile(event.winningTile, state.lastDrawTile))
         ) return invalid("win_source_mismatch", event);
+        if (state.pendingKan?.kind === "ankan" && state.doraIndicatorsComplete) {
+          return invalid("dora_kan_mismatch", event);
+        }
       } else if (state.phase === "awaiting_responses") {
         const discard = state.lastDiscardRef === null
           ? undefined
@@ -567,6 +570,9 @@ function validateRoundEvent(
           event.targetActor !== discard.actor ||
           !sameTile(event.winningTile, discard.tile)
         ) return invalid("win_source_mismatch", event);
+        if (state.pendingKan !== null && state.doraIndicatorsComplete) {
+          return invalid("dora_kan_mismatch", event);
+        }
       } else if (state.phase === "awaiting_kan_resolution") {
         if (
           state.pendingKan === null ||
@@ -597,6 +603,11 @@ function validateRoundEvent(
         state.phase === "terminal"
       ) {
         return invalid("unexpected_event_for_phase", event);
+      }
+      if (state.pendingKan !== null && state.doraIndicatorsComplete &&
+          !((event.reason === "suukaikan" || event.reason === "sancha_hou") &&
+            (state.phase === "awaiting_kan_resolution" || state.phase === "awaiting_rinshan_draw"))) {
+        return invalid("dora_kan_mismatch", event);
       }
       state.phase = "terminal";
       state.terminalEventRef = event.eventId;

@@ -1,8 +1,8 @@
 {
   "kind": "native-whole-game-capture/v1",
   "provenance": {
-    "capturedAt": "2026-09-28T10:24:38.990Z",
-    "commit": "04b4e7b7e50bd93740e86063ef85170d54299a01",
+    "capturedAt": "2026-09-28T10:59:48.285Z",
+    "commit": "f5be17f5d75991455d0d2689b05ddfdf5c22324b",
     "dirty": true,
     "sourcePath": "packages/reasoning/tests/fixtures/local-mortal/tenhou-daiminkan-2026080803.xml",
     "sourceSha256": "800a62abf96ae7c3fc48046818b60ec6b747054398d02ab2e0740db1efd21b03",
@@ -11,7 +11,7 @@
   },
   "stream": {
     "schemaVersion": "canonical-riichi-events/v2",
-    "mapperVersion": "tenhou-mjloggm-mapper/v2",
+    "mapperVersion": "tenhou-mjloggm-mapper/v3",
     "gameId": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1",
     "sourceKind": "tenhou",
     "sourceRecordHash": "sha256:800a62abf96ae7c3fc48046818b60ec6b747054398d02ab2e0740db1efd21b03",
@@ -1751,7 +1751,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/10/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "c9848a5d26535221bff4550d3cb2b0ee42088142907357cf1e5bc9c61b71710f",
+        "requestId": "b8346b78f655d7923eff45bfaa891be581f3dfc1a80105fc56a83d75b71a09f3",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -1760,7 +1760,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "ok",
-        "resultId": "92e770c44f5f704fa4081dcbabf8c06c1d51e9f0712c4e201fc670ee2d047218",
+        "resultId": "a92666b16e9578c72b12e442af18a38460e0ade5fa1f376378cad73d79744a9a",
         "actions": [
           {
             "runtimeAction": {
@@ -1853,7 +1853,7 @@
       },
       "scoringResponse": {
         "protocolVersion": "riichi-local-mortal-scoring-jsonl/v2",
-        "requestId": "1e13e6b0f6e50c3a969620148bbd2c8a29b10445c678afc09516bb9b30f1b9bd",
+        "requestId": "d5448f99481334f2dca4ea6a23454374167e9feebaa735e421c7aeeb5d9a7549",
         "identity": {
           "runtimeImplementation": "Equim-chan/Mortal",
           "runtimeRevision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -1870,7 +1870,7 @@
           "nativeArtifactSha256": "5ff7f712a45c7288f739af7c7e0613567b467ee4ade2c66c0988e18982cdefad"
         },
         "status": "ok",
-        "ruleResultId": "92e770c44f5f704fa4081dcbabf8c06c1d51e9f0712c4e201fc670ee2d047218",
+        "ruleResultId": "a92666b16e9578c72b12e442af18a38460e0ade5fa1f376378cad73d79744a9a",
         "candidates": [
           {
             "runtimeAction": {
@@ -1979,7 +1979,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/18/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "e3ba0bd3c7595f9cab79d47db65960fefc8795dd96fe37684b3166693dd22c15",
+        "requestId": "6330b919c46589b432aac003e9b91e98e80f022b080b5adc32b98ea20f3b069f",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -1988,7 +1988,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "ok",
-        "resultId": "85a988611ac280e999b8ef4d1754771433d6e1d49e9fcb94460dc7ec1fa1816d",
+        "resultId": "6e8b606f95b8724988665f68278ba0e3595887380bb9f5f5043269bf8f72099f",
         "actions": [
           {
             "runtimeAction": {
@@ -2074,7 +2074,7 @@
       },
       "scoringResponse": {
         "protocolVersion": "riichi-local-mortal-scoring-jsonl/v2",
-        "requestId": "9cec6776ee8e9acbaae9fab91ab801e3a46b63ae39178fdce4e5de90beee2d8c",
+        "requestId": "e746e9e97e818c7175fff3d5d15bf8c293d8a26b62c9956bda7c3c704424c730",
         "identity": {
           "runtimeImplementation": "Equim-chan/Mortal",
           "runtimeRevision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -2091,7 +2091,7 @@
           "nativeArtifactSha256": "5ff7f712a45c7288f739af7c7e0613567b467ee4ade2c66c0988e18982cdefad"
         },
         "status": "ok",
-        "ruleResultId": "85a988611ac280e999b8ef4d1754771433d6e1d49e9fcb94460dc7ec1fa1816d",
+        "ruleResultId": "6e8b606f95b8724988665f68278ba0e3595887380bb9f5f5043269bf8f72099f",
         "candidates": [
           {
             "runtimeAction": {
@@ -2192,7 +2192,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/26/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "4306c9bd8060f3d39a3d28667ff49f249ffbddb6fe693c5fb154db7eed917702",
+        "requestId": "420aa9b36aaba87bd7bc06912faf938e719fa809e88beef76222188c3f80523f",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -2201,7 +2201,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "ok",
-        "resultId": "8ab9e84e329327fd49930377472d8bedb0ef7492d919cefb14eb774b8ee60e13",
+        "resultId": "ce8d5f2cea4de8d0095650aac54479a3aeebef810f22f49c5783466a3389022c",
         "actions": [
           {
             "runtimeAction": {
@@ -2284,7 +2284,7 @@
       },
       "scoringResponse": {
         "protocolVersion": "riichi-local-mortal-scoring-jsonl/v2",
-        "requestId": "9f526e001c565007aa5fb551603b5cc8f104f0286262b2912a74874d2ba88ea9",
+        "requestId": "4167b9b69e921cb1472688d54166c0e3beb47dfdd1021aa8d58567fc363afda3",
         "identity": {
           "runtimeImplementation": "Equim-chan/Mortal",
           "runtimeRevision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -2301,7 +2301,7 @@
           "nativeArtifactSha256": "5ff7f712a45c7288f739af7c7e0613567b467ee4ade2c66c0988e18982cdefad"
         },
         "status": "ok",
-        "ruleResultId": "8ab9e84e329327fd49930377472d8bedb0ef7492d919cefb14eb774b8ee60e13",
+        "ruleResultId": "ce8d5f2cea4de8d0095650aac54479a3aeebef810f22f49c5783466a3389022c",
         "candidates": [
           {
             "runtimeAction": {
@@ -2402,7 +2402,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/34/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "77908c379ad6aafa74bb689fad1dccf8c1976f660468b965aca2cac829903bc0",
+        "requestId": "53ce5692eebd0e8469904c043e8d892590f1557ade34d644f533a1f69600e693",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -2411,7 +2411,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "ok",
-        "resultId": "3448be1042bf735ae0174f65272b7505a1d2025fdf14a5d222eac394b7a7440c",
+        "resultId": "2f3edc1ea2bc92b5bd5355796120115a7292fd3424ecc289478bb4a8a1f941dc",
         "actions": [
           {
             "runtimeAction": {
@@ -2494,7 +2494,7 @@
       },
       "scoringResponse": {
         "protocolVersion": "riichi-local-mortal-scoring-jsonl/v2",
-        "requestId": "4d9c1cb8fe275c737a596b8173b14415ca26db8d215fdba5628dda51b7b550c3",
+        "requestId": "a44d497bf229f54604a50fa27c05f734dc80e96f782265e945a37aee68e0f0bb",
         "identity": {
           "runtimeImplementation": "Equim-chan/Mortal",
           "runtimeRevision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -2511,7 +2511,7 @@
           "nativeArtifactSha256": "5ff7f712a45c7288f739af7c7e0613567b467ee4ade2c66c0988e18982cdefad"
         },
         "status": "ok",
-        "ruleResultId": "3448be1042bf735ae0174f65272b7505a1d2025fdf14a5d222eac394b7a7440c",
+        "ruleResultId": "2f3edc1ea2bc92b5bd5355796120115a7292fd3424ecc289478bb4a8a1f941dc",
         "candidates": [
           {
             "runtimeAction": {
@@ -2612,7 +2612,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/42/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "c7142cec6d597ecdf3e2b8ea373b548cf5dab6919d5d7ee150d78596bc7c1b3f",
+        "requestId": "5bd7a624e17771de9c951e4ac7dbc1cedd309863d5b9a1219f18e50daf884b6c",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -2621,7 +2621,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "ok",
-        "resultId": "ce5edef01282dc38762ee023733d2d269f00ab96b592766733301871832dc3ef",
+        "resultId": "84d20e0d622634df90576dc593a89c3ebd692a5523607d7535dab7f7659c21ed",
         "actions": [
           {
             "runtimeAction": {
@@ -2704,7 +2704,7 @@
       },
       "scoringResponse": {
         "protocolVersion": "riichi-local-mortal-scoring-jsonl/v2",
-        "requestId": "f79b2f618ee49c020a1b8cdb18dc2fd2dc468a4ce475dc05889019af81668ffa",
+        "requestId": "4749073a5812bc269ab558be053f4e169de9a29a3b1c5f4ce269eb237dabdfdc",
         "identity": {
           "runtimeImplementation": "Equim-chan/Mortal",
           "runtimeRevision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -2721,7 +2721,7 @@
           "nativeArtifactSha256": "5ff7f712a45c7288f739af7c7e0613567b467ee4ade2c66c0988e18982cdefad"
         },
         "status": "ok",
-        "ruleResultId": "ce5edef01282dc38762ee023733d2d269f00ab96b592766733301871832dc3ef",
+        "ruleResultId": "84d20e0d622634df90576dc593a89c3ebd692a5523607d7535dab7f7659c21ed",
         "candidates": [
           {
             "runtimeAction": {
@@ -2822,7 +2822,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/50/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "c8ee579341d1819dd3b62c4a783ff32ab79cb8d2c52e87a2161ce10233bdac02",
+        "requestId": "a00b770d2685fd94d13963a2cb158a30643b30117ec50b935caf7a67bf47622a",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -2831,7 +2831,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "ok",
-        "resultId": "73f831538f0e83c6ca252fdf641546af7acfdab815cb2f1cea24a458beacb599",
+        "resultId": "4d6fcf7be758c774b57d1f6c7d54dc1dd87ae65df06f023bc26cf0c33e9f4bd8",
         "actions": [
           {
             "runtimeAction": {
@@ -2914,7 +2914,7 @@
       },
       "scoringResponse": {
         "protocolVersion": "riichi-local-mortal-scoring-jsonl/v2",
-        "requestId": "db70ca5d81a19952c4f3c9ffc32d21ccb2c755246f604e25267039e0d0a4927a",
+        "requestId": "6db33e89105e42277594fbfc4239ad925cd7ac01f20930a929c5390d4574d8bc",
         "identity": {
           "runtimeImplementation": "Equim-chan/Mortal",
           "runtimeRevision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -2931,7 +2931,7 @@
           "nativeArtifactSha256": "5ff7f712a45c7288f739af7c7e0613567b467ee4ade2c66c0988e18982cdefad"
         },
         "status": "ok",
-        "ruleResultId": "73f831538f0e83c6ca252fdf641546af7acfdab815cb2f1cea24a458beacb599",
+        "ruleResultId": "4d6fcf7be758c774b57d1f6c7d54dc1dd87ae65df06f023bc26cf0c33e9f4bd8",
         "candidates": [
           {
             "runtimeAction": {
@@ -3032,7 +3032,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/58/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "93c918a5adb12e2e471165296b1faa3460d47b494387add0b6a064c264851d6e",
+        "requestId": "bc930ec7c80ba2b08cda1b1ffdd2b6f7479aeb74fcf05d1990d5bf6ad39e48c3",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -3041,7 +3041,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "ok",
-        "resultId": "d6cef1ed1c1067e1fdbd86304036ed1d399c75ecf367cd37e727973e7d3f1c5c",
+        "resultId": "60189a3da7a5994c2bc52daa1e39e3e2920f69a33c281e4946e1f00f830fa6e0",
         "actions": [
           {
             "runtimeAction": {
@@ -3124,7 +3124,7 @@
       },
       "scoringResponse": {
         "protocolVersion": "riichi-local-mortal-scoring-jsonl/v2",
-        "requestId": "ced353cfc30e26edb139644b0e065084522da6cba338bff93f1cb9de5fabf2ee",
+        "requestId": "0b5f4f04687259d1e0ad0b8a4f9a3a9d73965eb7b383224219fa45b583ce6a7f",
         "identity": {
           "runtimeImplementation": "Equim-chan/Mortal",
           "runtimeRevision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -3141,7 +3141,7 @@
           "nativeArtifactSha256": "5ff7f712a45c7288f739af7c7e0613567b467ee4ade2c66c0988e18982cdefad"
         },
         "status": "ok",
-        "ruleResultId": "d6cef1ed1c1067e1fdbd86304036ed1d399c75ecf367cd37e727973e7d3f1c5c",
+        "ruleResultId": "60189a3da7a5994c2bc52daa1e39e3e2920f69a33c281e4946e1f00f830fa6e0",
         "candidates": [
           {
             "runtimeAction": {
@@ -3242,7 +3242,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/66/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "c7acf84748439ebfab1887168b6d35465b81cf0fc53ece8bc16d1feb9f8a0f04",
+        "requestId": "69952779dcc51aa0ef4ea22406a1d751de3612ca7ff1a8764036dae82b459b54",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -3251,7 +3251,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "ok",
-        "resultId": "54f7f425d7ee1d035ca88f05ffceaabb141351772280c46e8cb158e45fb89142",
+        "resultId": "ae801dcfe466452352cbdf073b7bbf9209ffcfc465fb88c13472349113ac78a3",
         "actions": [
           {
             "runtimeAction": {
@@ -3330,7 +3330,7 @@
       },
       "scoringResponse": {
         "protocolVersion": "riichi-local-mortal-scoring-jsonl/v2",
-        "requestId": "0042f2da6f834e3d65ad25a8fbb8bbad8ec066c81d1460804030655333ad4a86",
+        "requestId": "9fb2feefcd5a898c2c800271419b4dd55fef37b657a9357278c04e8463d2848b",
         "identity": {
           "runtimeImplementation": "Equim-chan/Mortal",
           "runtimeRevision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -3347,7 +3347,7 @@
           "nativeArtifactSha256": "5ff7f712a45c7288f739af7c7e0613567b467ee4ade2c66c0988e18982cdefad"
         },
         "status": "ok",
-        "ruleResultId": "54f7f425d7ee1d035ca88f05ffceaabb141351772280c46e8cb158e45fb89142",
+        "ruleResultId": "ae801dcfe466452352cbdf073b7bbf9209ffcfc465fb88c13472349113ac78a3",
         "candidates": [
           {
             "runtimeAction": {
@@ -3440,7 +3440,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/74/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "aea2ab9552b3bc7ac149a2fb58727d99f513daf98b3fdb56b91a58318ea4b0a0",
+        "requestId": "86758d5ffcfb8ec311b2cd2bc2cd58f5e430ed6c05a465bd9a9faa0f6d457744",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -3449,7 +3449,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "ok",
-        "resultId": "ddd7c56bac25d59134730c3a34d111515547f20879735749a081c93fa25dc21c",
+        "resultId": "35fdbafb85089dfb2110e52db396cc2b67eda75e773d47e3c1db3fa8691df3b0",
         "actions": [
           {
             "runtimeAction": {
@@ -3525,7 +3525,7 @@
       },
       "scoringResponse": {
         "protocolVersion": "riichi-local-mortal-scoring-jsonl/v2",
-        "requestId": "92a09c263d8228c69ddc3039b2a4b52061b089af32f706e63462fb3ffff004af",
+        "requestId": "39ff43180b1e212df6cfebb98b457fe76e470844cc484acb17425567fb071bf2",
         "identity": {
           "runtimeImplementation": "Equim-chan/Mortal",
           "runtimeRevision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -3542,7 +3542,7 @@
           "nativeArtifactSha256": "5ff7f712a45c7288f739af7c7e0613567b467ee4ade2c66c0988e18982cdefad"
         },
         "status": "ok",
-        "ruleResultId": "ddd7c56bac25d59134730c3a34d111515547f20879735749a081c93fa25dc21c",
+        "ruleResultId": "35fdbafb85089dfb2110e52db396cc2b67eda75e773d47e3c1db3fa8691df3b0",
         "candidates": [
           {
             "runtimeAction": {
@@ -3635,7 +3635,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/82/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "ea3ae49b99ae25a672977207794b63935521dd9d9c6c5c84270e4a1874f4e92b",
+        "requestId": "96daa934e7eb61dcd079e92331816968cb7e13594489c109f74f64888dbba836",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -3644,7 +3644,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "ok",
-        "resultId": "efa6f6dbe55475e997654dab70236caed2027c7fab4702989cd3c0deccc1a242",
+        "resultId": "5c18b4983fceb59e64289aacbb5efca3ce7881a4a0494c84be88ebb9c062f9be",
         "actions": [
           {
             "runtimeAction": {
@@ -3720,7 +3720,7 @@
       },
       "scoringResponse": {
         "protocolVersion": "riichi-local-mortal-scoring-jsonl/v2",
-        "requestId": "112794db575d3b82e3418777689439b1dc7fbb8a07aafd438f901ad1a33f0cae",
+        "requestId": "1994de570512f0e2514e0cdb05f409b8e912442e08bf140524f9013da93aec36",
         "identity": {
           "runtimeImplementation": "Equim-chan/Mortal",
           "runtimeRevision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -3737,7 +3737,7 @@
           "nativeArtifactSha256": "5ff7f712a45c7288f739af7c7e0613567b467ee4ade2c66c0988e18982cdefad"
         },
         "status": "ok",
-        "ruleResultId": "efa6f6dbe55475e997654dab70236caed2027c7fab4702989cd3c0deccc1a242",
+        "ruleResultId": "5c18b4983fceb59e64289aacbb5efca3ce7881a4a0494c84be88ebb9c062f9be",
         "candidates": [
           {
             "runtimeAction": {
@@ -3830,7 +3830,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/90/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "92d25b21ecaebd25dbd91c87da772a7fcbfe94da6168e5a1e45645f8dc108fc2",
+        "requestId": "b33a7958f8eb7b163c4294bbe2389e4523b154529236f222a0a3729420ccaf02",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -3839,7 +3839,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "ok",
-        "resultId": "c227a833d96e710100252260d4480767a211a1eb6db31b614bf016283cdf3248",
+        "resultId": "1dfdf414fe8292b1cfccca528297e45172700533ccf6a6bc1724430d4ba22de1",
         "actions": [
           {
             "runtimeAction": {
@@ -3911,7 +3911,7 @@
       },
       "scoringResponse": {
         "protocolVersion": "riichi-local-mortal-scoring-jsonl/v2",
-        "requestId": "5697fd1f7ee8a2ae9dbbd0736d1cc581c820f05862b04de69e9cb382fdcb0a6a",
+        "requestId": "efa5f4c275b4088149e6caf18fabaa7d30d2472948179c53c213b71a1abad485",
         "identity": {
           "runtimeImplementation": "Equim-chan/Mortal",
           "runtimeRevision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -3928,7 +3928,7 @@
           "nativeArtifactSha256": "5ff7f712a45c7288f739af7c7e0613567b467ee4ade2c66c0988e18982cdefad"
         },
         "status": "ok",
-        "ruleResultId": "c227a833d96e710100252260d4480767a211a1eb6db31b614bf016283cdf3248",
+        "ruleResultId": "1dfdf414fe8292b1cfccca528297e45172700533ccf6a6bc1724430d4ba22de1",
         "candidates": [
           {
             "runtimeAction": {
@@ -4013,7 +4013,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/98/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "50c170ddacfb4dbf12f61ff347255e40f8b704ae36ca353a1c0c92e86798c985",
+        "requestId": "58c633f2b010aa467232b0e7f1dbfaf974eefedda8751d33c79fe2d79a9288cd",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -4022,7 +4022,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "ok",
-        "resultId": "44a43e3cf2219f8a9d15dfb255cc38541f8495321b5440d9c04cc9e627a08ccf",
+        "resultId": "a44105c9021e860db50d8129b09dc81d11d2fb5294ddf8fe017ed41384b65412",
         "actions": [
           {
             "runtimeAction": {
@@ -4091,7 +4091,7 @@
       },
       "scoringResponse": {
         "protocolVersion": "riichi-local-mortal-scoring-jsonl/v2",
-        "requestId": "1349f70ebf5b89ae3a5e23af2012cef7c61a02741cdbf46b486cae4b54858a31",
+        "requestId": "f8cc802ae0dfb997763395d4a45fdd1684f1a90730b10137d3b2789d7273cbd8",
         "identity": {
           "runtimeImplementation": "Equim-chan/Mortal",
           "runtimeRevision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -4108,7 +4108,7 @@
           "nativeArtifactSha256": "5ff7f712a45c7288f739af7c7e0613567b467ee4ade2c66c0988e18982cdefad"
         },
         "status": "ok",
-        "ruleResultId": "44a43e3cf2219f8a9d15dfb255cc38541f8495321b5440d9c04cc9e627a08ccf",
+        "ruleResultId": "a44105c9021e860db50d8129b09dc81d11d2fb5294ddf8fe017ed41384b65412",
         "candidates": [
           {
             "runtimeAction": {
@@ -4193,7 +4193,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/106/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "282749d60baeb303f31b3f7dbd0cb38c2ae8febb5a44f558b235c55265a0fa28",
+        "requestId": "2c88f4f4e2e539633aed51fa2c8c19961f1b922041ac80920ac01d2aa9aa6f96",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -4202,7 +4202,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "ok",
-        "resultId": "0ec4bc1faba9641a7d2244179c88775269ce9bb0d73210f9e260db985ccd52da",
+        "resultId": "1c34e299dd099db999a097043bb6088da3cfed3457d9ee62e0dce035c42b6229",
         "actions": [
           {
             "runtimeAction": {
@@ -4271,7 +4271,7 @@
       },
       "scoringResponse": {
         "protocolVersion": "riichi-local-mortal-scoring-jsonl/v2",
-        "requestId": "72ce4da9c71449ef5016e88db6133207a10f1eaf5f7b16eab210359cae5846dc",
+        "requestId": "daa4d40234e83e990d6345e99267e53cb7ae6d7f5a5f92ddb8cdfaf6c564aaca",
         "identity": {
           "runtimeImplementation": "Equim-chan/Mortal",
           "runtimeRevision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -4288,7 +4288,7 @@
           "nativeArtifactSha256": "5ff7f712a45c7288f739af7c7e0613567b467ee4ade2c66c0988e18982cdefad"
         },
         "status": "ok",
-        "ruleResultId": "0ec4bc1faba9641a7d2244179c88775269ce9bb0d73210f9e260db985ccd52da",
+        "ruleResultId": "1c34e299dd099db999a097043bb6088da3cfed3457d9ee62e0dce035c42b6229",
         "candidates": [
           {
             "runtimeAction": {
@@ -4373,7 +4373,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/116/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "576d1547238db046c7574f02631b99e9befe20a45181035392ce02fccee6afa0",
+        "requestId": "c7087cb70493da3bb6443bbf0131b65350def72ca57e02160f1d0cea75588f5b",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -4382,7 +4382,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "ok",
-        "resultId": "a38d86bbdfa3348cf97dd7c02d3a32b347267e315b7fc3cdeb1cd106703ea6c7",
+        "resultId": "0dfd23463a50231e5f601247339d12b982e51210e2dcff035d18cc64379005b9",
         "actions": [
           {
             "runtimeAction": {
@@ -4430,7 +4430,7 @@
       },
       "scoringResponse": {
         "protocolVersion": "riichi-local-mortal-scoring-jsonl/v2",
-        "requestId": "2de4ded68351e86914d99726285ae7e789cc9a541fd8ea659d0e0d6345beb312",
+        "requestId": "a130f830f9681b1ff2e49ed536cf04195f04d69aea622336790e3c683bebcd62",
         "identity": {
           "runtimeImplementation": "Equim-chan/Mortal",
           "runtimeRevision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -4447,7 +4447,7 @@
           "nativeArtifactSha256": "5ff7f712a45c7288f739af7c7e0613567b467ee4ade2c66c0988e18982cdefad"
         },
         "status": "ok",
-        "ruleResultId": "a38d86bbdfa3348cf97dd7c02d3a32b347267e315b7fc3cdeb1cd106703ea6c7",
+        "ruleResultId": "0dfd23463a50231e5f601247339d12b982e51210e2dcff035d18cc64379005b9",
         "candidates": [
           {
             "runtimeAction": {
@@ -4508,7 +4508,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/123/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "fc3984a7f2c23b4f7912e214a298085092861432913e849670f45ef1f169b521",
+        "requestId": "c4e71169e0dda4942f3208d4db5b6b01141a93e443bd3f9cd23583ca2379464c",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -4517,7 +4517,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "ok",
-        "resultId": "2a89107df174910191988a19fbeba185c37a617987e943ce3930bc9f15f85b17",
+        "resultId": "fd5ada06cb52a8dc1753751edb811f264200fd77c06b89bda1419c05e4935d81",
         "actions": [
           {
             "runtimeAction": {
@@ -4558,7 +4558,7 @@
       },
       "scoringResponse": {
         "protocolVersion": "riichi-local-mortal-scoring-jsonl/v2",
-        "requestId": "f538488898cde09c6d0a3f432c618734295e2a76e829ff852dbc1769148c9d46",
+        "requestId": "b54fd02135fd83743f8c5c3a86bbc1fa4ab9f0c3771cf075f2b6af0dcc8091f3",
         "identity": {
           "runtimeImplementation": "Equim-chan/Mortal",
           "runtimeRevision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -4575,7 +4575,7 @@
           "nativeArtifactSha256": "5ff7f712a45c7288f739af7c7e0613567b467ee4ade2c66c0988e18982cdefad"
         },
         "status": "ok",
-        "ruleResultId": "2a89107df174910191988a19fbeba185c37a617987e943ce3930bc9f15f85b17",
+        "ruleResultId": "fd5ada06cb52a8dc1753751edb811f264200fd77c06b89bda1419c05e4935d81",
         "candidates": [
           {
             "runtimeAction": {
@@ -4628,7 +4628,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/132/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "3e5fb422c0c689fe82d1618eab91b65901e85d86aa6d857f4eacdcdc80187cd2",
+        "requestId": "42f52bd6a17e4bce2cf1258dad406465ae1ceff4096f6905408163f6cdda2538",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -4637,7 +4637,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "ok",
-        "resultId": "799d7b1834e450a41a0d15bec17c105209867e2f4468364ddd8906b3b3869ea2",
+        "resultId": "25d4cab50b50c8b172480414dd24545687ac7c1e124053bec2ac4258b7c78e7b",
         "actions": [
           {
             "runtimeAction": {
@@ -4678,7 +4678,7 @@
       },
       "scoringResponse": {
         "protocolVersion": "riichi-local-mortal-scoring-jsonl/v2",
-        "requestId": "8d1208cfdc72b89fcc4c7ca8d78f03ae6f0daced86f9aa8849c7bc2ab053ba92",
+        "requestId": "541639b4ef294625cad20ea95ca78fea194711dd5aaa417febbf285d285e8f6b",
         "identity": {
           "runtimeImplementation": "Equim-chan/Mortal",
           "runtimeRevision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -4695,7 +4695,7 @@
           "nativeArtifactSha256": "5ff7f712a45c7288f739af7c7e0613567b467ee4ade2c66c0988e18982cdefad"
         },
         "status": "ok",
-        "ruleResultId": "799d7b1834e450a41a0d15bec17c105209867e2f4468364ddd8906b3b3869ea2",
+        "ruleResultId": "25d4cab50b50c8b172480414dd24545687ac7c1e124053bec2ac4258b7c78e7b",
         "candidates": [
           {
             "runtimeAction": {
@@ -4748,7 +4748,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/7/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "df27c98579cebe42c664a3e30e513dde35b288c7df030f7bf876396878dc6cb8",
+        "requestId": "296e2233af11b2704e64eced959a18672529be41375638c6a2dda1dbe8290865",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -4757,7 +4757,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "non_action",
-        "resultId": "ae22b97c8e784d9dd4d1ea44cc70c5b36e8a13fdfc77c8757a57f63b78a7874f",
+        "resultId": "333b166f239930cd78a4324180d5ba034c668c6f32effa51af0ad900da94dd76",
         "reason": "native_cannot_act"
       }
     },
@@ -4765,7 +4765,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/9/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "447a682eca3e94ef78c031dc50e9528431ff73691e9d8c2bcfcf879fc5bf7ef4",
+        "requestId": "6dfd65b1bdc051c85cc4165d4645feb139a72e9122d63de48ae300ac2e46565f",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -4774,7 +4774,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "non_action",
-        "resultId": "e901876dacc273478d14d9951e9c52bbc0da38d5fc119ff8b9bc180a87fe943a",
+        "resultId": "7dc1ebe3ae08f122f80538a97ef8c7626ab901c824355897096371ccc092648e",
         "reason": "native_cannot_act"
       }
     },
@@ -4782,7 +4782,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/13/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "c6646e5e0b5fcdf2256f04d632fc30122ef23816bdc7e5a7f3872de22afb03da",
+        "requestId": "a98e68c8ad73d5154c70652051aef435aa55122be26806d43cf7454b8e7017ce",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -4791,7 +4791,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "non_action",
-        "resultId": "cd2a0e2ae2deedeb21a2ed805541e806dea2a10fa130d32c0e7fde022136402b",
+        "resultId": "e0f5aae77dbde3172f9ce619e5e98bd1f2b842d37f46cf71e84fbc6b9ead9cc5",
         "reason": "native_cannot_act"
       }
     },
@@ -4799,7 +4799,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/15/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "071a9da3b586d9e6cd9318144ba98a461c98e0bd446e25ac8cdb0a766c78d290",
+        "requestId": "cc62364beb41c00ad5c039fbe50d62cba4c4e59c3b6c4f3c4e30335245ab87c2",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -4808,7 +4808,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "non_action",
-        "resultId": "4383242128519239d6292e4f4cc70cd97f261fbd25276450c3f8c97c35c105f3",
+        "resultId": "4e22a99f269b02d6e8bc4c4f4dc065443f79bee0b1686b336f13494efba4b844",
         "reason": "native_cannot_act"
       }
     },
@@ -4816,7 +4816,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/17/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "bb385248257afea662bb9a1ed11f255f90901e2fcb924fc0a5dd044c2b180c96",
+        "requestId": "79b4c3fc0e11b546f0072306d4907c1aab88e85a1c68301adb2a5462a36e5ecf",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -4825,7 +4825,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "non_action",
-        "resultId": "f63a9fd4e327dbf11ab2151734f5011f016bd9646e07f62ce974923769a58b08",
+        "resultId": "2dff7db472a6dca852a0805e5c3c37fa5a184a1240c9ad1a06372ba1dbbb1d03",
         "reason": "native_cannot_act"
       }
     },
@@ -4833,7 +4833,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/21/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "5bc187eea924fbd1c6e66cd5418f1e51b35e0c46f3c4bc47d68d89b5c859f849",
+        "requestId": "319b6c9029dd870e88e104cf649c3d2df1e2a27beb6f49ad28674d5a963d6838",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -4842,7 +4842,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "non_action",
-        "resultId": "48e6f1f8beb72025b5ded63286376868d3a3add0e936d0f46cc828954dbab7bb",
+        "resultId": "3599c2fced747db7db3d60c5e60fce2b7da0b3172ef4cba9fa0f99315465d3da",
         "reason": "native_cannot_act"
       }
     },
@@ -4850,7 +4850,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/23/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "7553ad2cff5807c7abfe1fb83cd935bb5aba858f765ccbe9cf2b8a63997422fd",
+        "requestId": "9384b416d0e8633913517a4d1e9c96f6b97810ede5b30c5db8cf20197826acf8",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -4859,7 +4859,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "non_action",
-        "resultId": "ed7026fa151485da0397f917f124a4e22c0a9f0c76b8bb7a6c947fee4d68e220",
+        "resultId": "438c9628365e42e1de9bcb03a6a2afe051116c9870a494aa030df8a07eb8a228",
         "reason": "native_cannot_act"
       }
     },
@@ -4867,7 +4867,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/25/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "04de7147245ecd3319ff65aef04dd0dbab3a888bbd3e4534c7f00140718a8989",
+        "requestId": "e8d720faf9208c7ae8bd18310cf5219b721e7fe99e46a5d95fd1e1245495e700",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -4876,7 +4876,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "non_action",
-        "resultId": "dac23e18003c5044c366ee887730511047e427c28354101a08e893d5fe9a302f",
+        "resultId": "f2f55dd321652a82c8dc6659fecb09da0011a8eee5dd13bf94a3a4fe229636a1",
         "reason": "native_cannot_act"
       }
     },
@@ -4884,7 +4884,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/29/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "4063fdcb8e710b1be9bb65a3c96dca091ba1c9a368766dd3a265208738bfe1e9",
+        "requestId": "e7ed34888c529dd7c89cea03a014da56bb1e169437b4aa786f0bfdcfbc9fb640",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -4893,7 +4893,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "non_action",
-        "resultId": "ffc213b5c799e656c97033af0c9e55a133acce2086f62d14ca655b2ac256270b",
+        "resultId": "9b0b2502040b2b203adeb6d73fc6ad72687df5968012735127760877b32b0c88",
         "reason": "native_cannot_act"
       }
     },
@@ -4901,7 +4901,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/31/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "a789805b10666f2cf6996f315a43951fdfb5c07dcb045de6059f1271e7774442",
+        "requestId": "22cb1137aec730b509aef5bb46607d87b44d84cc4211a6055669887f8687d8d6",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -4910,7 +4910,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "non_action",
-        "resultId": "a53720f83b5a95dbe423b52c00b4994289a29b3e08da74b1e28053bc0d02b06a",
+        "resultId": "4a2e5977fc1218a0f2bb914d77d44bff55ab6a7329d162a65f182d400733313c",
         "reason": "native_cannot_act"
       }
     },
@@ -4918,7 +4918,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/33/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "05e60419758d538a679601378f3242d5061066a20c7decfc7e9463e339c8d2cd",
+        "requestId": "28fdd7d5fc8bdeb84842a668acf1c596e4fa032b7cff303c48a9dfd7e19e356e",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -4927,7 +4927,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "non_action",
-        "resultId": "364cac8b790d05fbc9c4b06abfd65fe86309da83833bad682180ac5ab9c4879e",
+        "resultId": "bb77c09354f43ab5aecd53f6e16865e4803d51932359afcd821247495c02a144",
         "reason": "native_cannot_act"
       }
     },
@@ -4935,7 +4935,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/37/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "1e9bade6b6279b81f183cb0163ec6a534dcbd573f0959e590fc849d2ee7d649f",
+        "requestId": "38c8d5073a59ef31a3c7e19ccc7c23bd68c67c7f1312358c0d548231ec6a14a5",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -4944,7 +4944,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "non_action",
-        "resultId": "28d7e03e986d810fbcaa4f05d3fe0d25d1fa2bd2a0da6c943e3045a41661cc21",
+        "resultId": "c0b238ca1fbdbe5875067af6c1032b7cc427669029ebe281761e4f2ee35320b6",
         "reason": "native_cannot_act"
       }
     },
@@ -4952,7 +4952,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/39/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "0e922381fb5a769b4d3c6de4cf7216a12b9a693b2e9de02ec2d5d690cd313112",
+        "requestId": "973bbbfd9223c88840d2996ccc719dab1412ee21e322e3b713b8ecab13c5d87f",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -4961,7 +4961,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "non_action",
-        "resultId": "497303f7280277a9a51c57e719ed1fb7c465467ed264d80521dda743d632a422",
+        "resultId": "bfd8342e3b0bd4457875d934912ad9bb523344afdee0abdd2b93decada3f2432",
         "reason": "native_cannot_act"
       }
     },
@@ -4969,7 +4969,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/41/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "1941733b86fccffd623b1b7e64be1add4b2296e62474afe76140b156bc0b73d5",
+        "requestId": "e4bc696094bdaa2509acc6f57d7c0a8aade162f6af86a9484204e698ede05d47",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -4978,7 +4978,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "non_action",
-        "resultId": "f5f25a60080f52998680dcdad19cecc24e074b3699ccb69d6f720258bdf65fbf",
+        "resultId": "dfae42563516209dc78ab25b39313ef56e30d807af1252d145c82fa6cef5c2c3",
         "reason": "native_cannot_act"
       }
     },
@@ -4986,7 +4986,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/45/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "64b5268066e98d924abce243647adef4959460aa76b70a51ea64116d49724f91",
+        "requestId": "8ddb8a01c9c9ec0b3859bcf5e1822be2e5badc5d2d9805025f6130d2343b82dd",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -4995,7 +4995,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "non_action",
-        "resultId": "1547c32d1195e37de55cf1e97cb9324264eec123a1aabd7c727c71230c8d456a",
+        "resultId": "5cd5b4722721e8a083f1823f3e93cd4d4175dd2261424ed7359342cb31b78090",
         "reason": "native_cannot_act"
       }
     },
@@ -5003,7 +5003,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/47/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "c82d7329694c62b8eb94c9339c4995e0f33e2d1c52edc04ecaee5e486532b267",
+        "requestId": "517b1f1aa6d796d0c82f55da7d67f29245cd598cf36dfd6d687fb03e10fb256d",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -5012,7 +5012,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "non_action",
-        "resultId": "501c9f2576720210bb20ff5e12163170a8d5793d6604069007b7ab6d15d39625",
+        "resultId": "71ccccde8207975f8443f248e5851b3affbcd5171943d491fd58116c6c891fc8",
         "reason": "native_cannot_act"
       }
     },
@@ -5020,7 +5020,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/49/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "ed0fbcbdcba758ed6d68f960864bc0396fc491cb90cbd3077c2c4eef4eed67bf",
+        "requestId": "ac8d9c20d4a89ac4b931fc43c285d584fe89905e248d54ff7bc3d643f3ffb433",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -5029,7 +5029,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "non_action",
-        "resultId": "2c92d1082fe68e3b77aa5b1a5c40083d5ae3faaa8c6c90a2b2e405dd0ba1696c",
+        "resultId": "e492f08e3853b1272ccf20ed8ebc759291e7cb6987be5997d0bf64afee0138ce",
         "reason": "native_cannot_act"
       }
     },
@@ -5037,7 +5037,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/53/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "375a70b309d9488557cb9b69029f34be9c8c475a1fcd0d0143326dc738083b28",
+        "requestId": "3736e027ef39961aa07f775eaebc411c21170ced6cc9928d55ec5e245f1caf2e",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -5046,7 +5046,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "non_action",
-        "resultId": "df356b0a4a37f02ae7fdb7d480640d02d25d50bd5368d9e205ee76c6cce466b3",
+        "resultId": "f5ea7f9f141db7384f2dbbd5e8e16375c11c09d01803576f029748e00e9fed83",
         "reason": "native_cannot_act"
       }
     },
@@ -5054,7 +5054,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/55/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "7f501ae7652421dc136ec37772e7e037d8849dafc8137a14a78be15052c0ba70",
+        "requestId": "217f7d390c2ea1a8b6360909f6f982bb73141a4d0da6212cf41e7e99748b20c3",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -5063,7 +5063,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "non_action",
-        "resultId": "805f80203755208fe9865336aa457161ce62e70ba6768d62a74636a6f773d55a",
+        "resultId": "55a3dfb3498e8ad5ba0960bd4eea8bb1e6a582dc68a81ed4ffea9642baa4f790",
         "reason": "native_cannot_act"
       }
     },
@@ -5071,7 +5071,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/57/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "88cf05b3ac75a165224b5b2e7b02eadaa4a398fb654d54f1bc73450480832f2e",
+        "requestId": "7d7dea8d18b55e0759d1f5f018fb9545c0bd4b64203280ac26a33c82e1a63d1b",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -5080,7 +5080,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "ok",
-        "resultId": "29248209d66dfe23443eb85a54e6f33e3d325c3b466f4a40f33f9bf11d031e57",
+        "resultId": "0e91b3f76dc31494d1c938f7bd52a9f93caa31aa1ecacb3bdb91f3e6375152de",
         "actions": [
           {
             "runtimeAction": {
@@ -5107,7 +5107,7 @@
       },
       "scoringResponse": {
         "protocolVersion": "riichi-local-mortal-scoring-jsonl/v2",
-        "requestId": "f96f3cb9caf6395b4dc95f1fd0014755ff8a9b1d3e3b6333102ec0a858d64669",
+        "requestId": "34606572113137cbc5ea57dc3c3c51293fbe86454f6707b6df262df2b205576f",
         "identity": {
           "runtimeImplementation": "Equim-chan/Mortal",
           "runtimeRevision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -5124,7 +5124,7 @@
           "nativeArtifactSha256": "5ff7f712a45c7288f739af7c7e0613567b467ee4ade2c66c0988e18982cdefad"
         },
         "status": "ok",
-        "ruleResultId": "29248209d66dfe23443eb85a54e6f33e3d325c3b466f4a40f33f9bf11d031e57",
+        "ruleResultId": "0e91b3f76dc31494d1c938f7bd52a9f93caa31aa1ecacb3bdb91f3e6375152de",
         "candidates": [
           {
             "runtimeAction": {
@@ -5161,7 +5161,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/61/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "cd4982fb5434bd8b9801bb2b2ceeb756cdbe9def9d057798224aa9a34136218c",
+        "requestId": "137271b46113fbe854f37345af8b2d88021d455e9b47b1fac5bcfc4877869dc8",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -5170,7 +5170,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "non_action",
-        "resultId": "30046f71e56c6b5a638192a2de98c211fbada0211420b250a74527f5ee647a4a",
+        "resultId": "81926ab777faf5d6c0c87dc0e51e26181a7366a2ab9de1279c12901294fb7ea3",
         "reason": "native_cannot_act"
       }
     },
@@ -5178,7 +5178,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/63/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "4a1fcbaa63b9a7bdaa143e2d0affdc3ab5e9fd16b56e9b24be2a257714eb06e5",
+        "requestId": "5b7cd9c8a98476f73f5166473bffd13881d7c33198278ab25e09bcbf7da5985c",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -5187,7 +5187,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "non_action",
-        "resultId": "0f4136d4e43892e7119fd4246e83753f0710a516943e6effe1bb494e3456cc56",
+        "resultId": "48098ccf9e73d00a558022790bcba5d1ffdd6cf6f9e6ed4d479a9aa5d2a2adfb",
         "reason": "native_cannot_act"
       }
     },
@@ -5195,7 +5195,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/65/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "e607886fb7ec2ab1012bd9abd947b9e7876dbb6a1b8fa9fb6e81f5b6f4a8d231",
+        "requestId": "59361c167e44bd8918bcf98cdc9e6b2b210a8b44cafb63b26cac4a2dce070f9e",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -5204,7 +5204,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "non_action",
-        "resultId": "861a664eaa612b0405a9825df0d28fb870be6e768044b60d26ecb2731fe3bbaa",
+        "resultId": "f4d104f518fbceec6ae4ce93b3549fdd1d5fa87a229870f79d66597d569b7edc",
         "reason": "native_cannot_act"
       }
     },
@@ -5212,7 +5212,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/69/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "dd38398828837ef33a6267acd366742d83c6d23f250bf9a6135beeb652da7fff",
+        "requestId": "82cc51bf2b5b0dd8285ff3e0fe978fd939bc455246a74d67a5f54c6a11d6c358",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -5221,7 +5221,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "non_action",
-        "resultId": "635e949abe2f69fab2fb447cf515a8d23592b45d3242831f8a2ff03c7426e4ad",
+        "resultId": "7e55a5d5012eaadd6c8019b166b507b49265a05ad386ce7d308b98b984620e13",
         "reason": "native_cannot_act"
       }
     },
@@ -5229,7 +5229,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/71/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "277e347de0d83352c65600c46b986d52ad4986ba6cad866183535d272e508382",
+        "requestId": "c50db9dcf6384b4208c53d40aa2de25b0d08f2cf1dbc791ab8935a3ad0cad267",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -5238,7 +5238,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "non_action",
-        "resultId": "ce340f93e00ef1d72895a41970cd81f3533b1de17c7cd15dea961291f19f9294",
+        "resultId": "02dd47410b19de672e98179c9040595be831a2dd6cce6859e1e8adbcd9149237",
         "reason": "native_cannot_act"
       }
     },
@@ -5246,7 +5246,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/73/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "6a5f227b0f72449d9834bbbd0316b161df7cdd5cc4c5355ae65edf76eb9996e3",
+        "requestId": "081dcc690e0b78c63c436cd6f3d19bc68a2d5ed4b9ecd1acc91c1cc0fba41df7",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -5255,7 +5255,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "ok",
-        "resultId": "614942b19fc3ca63a212e62ad0a0e324b285cde81a0cd399f25e77dbd09fa441",
+        "resultId": "154304b1ded62db78845f3b8659645d167916f70d061856052de977dae6ba947",
         "actions": [
           {
             "runtimeAction": {
@@ -5275,7 +5275,7 @@
       },
       "scoringResponse": {
         "protocolVersion": "riichi-local-mortal-scoring-jsonl/v2",
-        "requestId": "a5b4909856f379ed232c753032204126e43fd53067db03c8e2d7735d78aa084b",
+        "requestId": "91670cfc6b5e2937149ff5f636e939220a4e7d2327ed2144ecd90a9486787e86",
         "identity": {
           "runtimeImplementation": "Equim-chan/Mortal",
           "runtimeRevision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -5292,7 +5292,7 @@
           "nativeArtifactSha256": "5ff7f712a45c7288f739af7c7e0613567b467ee4ade2c66c0988e18982cdefad"
         },
         "status": "ok",
-        "ruleResultId": "614942b19fc3ca63a212e62ad0a0e324b285cde81a0cd399f25e77dbd09fa441",
+        "ruleResultId": "154304b1ded62db78845f3b8659645d167916f70d061856052de977dae6ba947",
         "candidates": [
           {
             "runtimeAction": {
@@ -5321,7 +5321,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/77/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "0e029980f29289e7bac8f7c03aa4b7e111e33741c23ca1394967fbcbe591cfb8",
+        "requestId": "fd536ee74bd174bfaf75567a78823c29321b28879b0c4107be77c3b31e57b9da",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -5330,7 +5330,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "non_action",
-        "resultId": "9065e082ce77cf3172508198380e564095799f26909813bf059ee28aea23bfdd",
+        "resultId": "84821f1c3d5a08b97f9eeebb91eaf892324699701f8c27558432c6b868c52c1b",
         "reason": "native_cannot_act"
       }
     },
@@ -5338,7 +5338,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/79/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "fa98e9c3852c8a5024951e356ad53f5ffefb1fe404d5cb8b8757c8930ddef995",
+        "requestId": "fd2d15907a951cf58445055d1cc73689db9c215cd363822ac1c8734f0d0adb02",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -5347,7 +5347,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "non_action",
-        "resultId": "5702962122bcb3d016647cfe55afc0394402f68eb00d27c46be9310039307c73",
+        "resultId": "1745d96548b4311e2f2299df89d905e329697517c28538f3be5d39be429d7d09",
         "reason": "native_cannot_act"
       }
     },
@@ -5355,7 +5355,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/81/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "4f0164154b1ef99a725615365720f7ac9100ca442cf9438327996e09376dabe9",
+        "requestId": "2e014d52d3b45ccf09997f8f7ef42370af2c8ee7da44ee57e8f87928422c34a3",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -5364,7 +5364,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "non_action",
-        "resultId": "c28c5bb809b2830f593798ffb813dc536cb032fffa609edaaffa9d223d4de7f2",
+        "resultId": "9dbd1344cc7afda9c3b271a857fb4023bef4420eaab17ca33a321a3dc38c4aa7",
         "reason": "native_cannot_act"
       }
     },
@@ -5372,7 +5372,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/85/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "50185eedc381df4dd46b5c96355505fe0a9d6db9a3a7cfce1902d1eef6ffb95c",
+        "requestId": "5da23cd8ed283885c3efd1ee1c0701cc92d215010aa294f64b0c295da6044251",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -5381,7 +5381,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "non_action",
-        "resultId": "c3d35bc3b733dc8d9c65576ea226734de174a349064cfb9a8cca2083496339ae",
+        "resultId": "4b38ba1dfa9d92e4b6a287c6c21e3222b1b666c40d942a5df8714f3dcd84affd",
         "reason": "native_cannot_act"
       }
     },
@@ -5389,7 +5389,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/87/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "a46b9ea8324eec7c1093ce32aefa50427203d9d68a0f64498042c7e0c505c2a2",
+        "requestId": "02bd66f1624de0861259dafeae419d4c31caba2efe401b68dff0c9798e16136f",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -5398,7 +5398,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "non_action",
-        "resultId": "97b9ce4acab673f2804d82dfdae3e93fd3ef51699c6bd1d2039abc272eac8146",
+        "resultId": "a4fab6eaf3c114245afe7c1208530409de72dd1e7ae7dd65177133ee4ca0b63b",
         "reason": "native_cannot_act"
       }
     },
@@ -5406,7 +5406,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/89/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "492bbfea1f97a691931992535c8d5701059ee748fe0581e0c771bd2399a6da8b",
+        "requestId": "bc997668f8729d010dfc5e9e24299136f0986fdb8742ba3232eece9797740a37",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -5415,7 +5415,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "non_action",
-        "resultId": "1f38bb723869847d9b01e7a704f0c5405679d478f2b6bac9ad6f9a79b229913d",
+        "resultId": "d2a01a0a288d19fd0daef4420b71dc100163fe98a307929f095b41d2cea663fe",
         "reason": "native_cannot_act"
       }
     },
@@ -5423,7 +5423,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/93/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "299ee74d1c38066112fe3a8c6306b79455424f4d8e416426d502a735e44bee06",
+        "requestId": "3187cc3b0b47b59bc0b6932e5b22b0f6200ed667bd5df5a9de255808026c2189",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -5432,7 +5432,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "non_action",
-        "resultId": "2c13757101f146102ec96dd1338f38a098b2a278e239e92aa2b5b22ed1c5b3f9",
+        "resultId": "34d03f518c902d6a062b14391eec966fc29d4c19a3410a6964ff4a49592adf22",
         "reason": "native_cannot_act"
       }
     },
@@ -5440,7 +5440,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/95/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "04a489c33435dc65f4e7fb94afdc3a59e19537e4db01f00b5e9ac125ab7e3161",
+        "requestId": "176f69bc1104a2e6df4fecc89ea64ebf7b985ff65f3175f03fc00d8f49857cf2",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -5449,7 +5449,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "non_action",
-        "resultId": "f4b11e2c0f0123f2eb2d40bac70132a4922ffd7053dcf5213a3e22d9772e1088",
+        "resultId": "9022c513b4ab600b00da8ea6a5c4915cd4e1e57852ea8e6146e7f2784792e877",
         "reason": "native_cannot_act"
       }
     },
@@ -5457,7 +5457,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/97/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "9659c056f2e62ea6ce492abb27cfb347f7c436f6c7d626195b3af211cba651b5",
+        "requestId": "ff2430c73fff7e1c8b9a50bc3b2ce55e7e9cd3b1c1251a215bf7fe77f72720f0",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -5466,7 +5466,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "non_action",
-        "resultId": "d21866317ba49bc2dbde1a746541475343fbc96bf201629ab7a3b1a3779a5007",
+        "resultId": "ecd2439125ee81ca9412b029b1a23713fba34a8fe8f263b8e4d23e37cb3f4fdc",
         "reason": "native_cannot_act"
       }
     },
@@ -5474,7 +5474,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/101/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "72b8a9ce7cc85d2683d47938e2d47e98f5216222e3df73843d1ce797fe17f3a1",
+        "requestId": "052b086e5016f9f7399cf4f7507f7579ee01c7c2d9931bad0b0b22bb347e395b",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -5483,7 +5483,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "non_action",
-        "resultId": "9efad1c4cb16b6c5a767fd5059590ce4bdee96dfd091807d92179b108784378e",
+        "resultId": "7169229598294520b40efa75b592c18264672a09a20e8c5ee5f0de359a6d206e",
         "reason": "native_cannot_act"
       }
     },
@@ -5491,7 +5491,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/103/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "f50a1008a6438e115ca1219fb8edac2f20905fb09ee92b1e2c62bbf81d0cc54d",
+        "requestId": "6efd9a7d69b2a94e1a343c1928a06ab1809e418f5e701fbfb55f884433418acd",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -5500,7 +5500,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "non_action",
-        "resultId": "9e2dfd42799628bcdbb1aea9bc45f858071d58a0426cee3e40cc95741514be6f",
+        "resultId": "00b28d1c7ae9dd7b7ccf0e592fe313d7fa04d7db7cbee59e4c2d0741b1d9f03e",
         "reason": "native_cannot_act"
       }
     },
@@ -5508,7 +5508,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/105/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "5676ce52ffe6cbdc0efb9aee0bfa7ad3b15029f13a3dd124de62112a2d2a8a8c",
+        "requestId": "04bfaa32eaf33432e60a0f7f421c5a232e208b1e8786a3979feac917b25fc42f",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -5517,7 +5517,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "ok",
-        "resultId": "f56a7de4612ef5f32f20de1dd4b3fa882a715c326afe7f71004d63ad158bdf01",
+        "resultId": "246257a3f0577c7c27082ebe108c1577d178da37cef4e6ffb83bad1faa791f5d",
         "actions": [
           {
             "runtimeAction": {
@@ -5537,7 +5537,7 @@
       },
       "scoringResponse": {
         "protocolVersion": "riichi-local-mortal-scoring-jsonl/v2",
-        "requestId": "9b9552f0a2bc6d7419600d5a4be9e5655f9b7e2c162d777c3814b9586ddd56ae",
+        "requestId": "f2e7e7c0c3af04ba2e2e11c866dc36bf1999a290f0477c3ffb70e66f4bcb4e74",
         "identity": {
           "runtimeImplementation": "Equim-chan/Mortal",
           "runtimeRevision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -5554,7 +5554,7 @@
           "nativeArtifactSha256": "5ff7f712a45c7288f739af7c7e0613567b467ee4ade2c66c0988e18982cdefad"
         },
         "status": "ok",
-        "ruleResultId": "f56a7de4612ef5f32f20de1dd4b3fa882a715c326afe7f71004d63ad158bdf01",
+        "ruleResultId": "246257a3f0577c7c27082ebe108c1577d178da37cef4e6ffb83bad1faa791f5d",
         "candidates": [
           {
             "runtimeAction": {
@@ -5583,7 +5583,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/109/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "9965bd1895e13e1c54e18abed915b3bfd246bf868150e98dfa9144fe342ef570",
+        "requestId": "2fe7b85f5ec6a97072f5db2a386914a53d4f5643c4ef1275105758afa2083e6f",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -5592,7 +5592,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "non_action",
-        "resultId": "be41cdabe11661b464883450cc34a0609359c1bfbe1fe8bd65b3e0bc150a0aa0",
+        "resultId": "717078a4b71413dec4a00365baae572dafde4f45b844e305d3a12d7bfc416926",
         "reason": "native_cannot_act"
       }
     },
@@ -5600,7 +5600,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/111/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "34399bce0cc77622916505470d601b3c04b1694ffbc7545f12f4f4487b56a406",
+        "requestId": "0ab8d28e1ac58464d4321e146154eb30c7f9b6e7b566772104c69915dc43ae21",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -5609,7 +5609,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "non_action",
-        "resultId": "4c6aa51ac56935f3bd91eb7d665b39461ad31dfea52db21a0cb4c1a1d3ee9f22",
+        "resultId": "4a9423fd13e68934642dadbc589dd3c7eff8d640b725b6ed29981182c1aeac73",
         "reason": "native_cannot_act"
       }
     },
@@ -5617,7 +5617,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/114/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "f1780038033fd640b47ce71fe13ec0c269048b4dbabb6f3bba425ac131ea0230",
+        "requestId": "cfe5bae743f329fc61ab2aefd44e581aa158f27edd4c82d4b7936bad99ec8ab8",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -5626,7 +5626,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "ok",
-        "resultId": "7d35a67e3cb6cc282e302381894e5f8583a42add4a0564a8cfb00f56106a09a8",
+        "resultId": "b3f201cc3f2c47160e01b06ffbdc0100230b4f92fc9e2119917e5f47f0dcf3e5",
         "actions": [
           {
             "runtimeAction": {
@@ -5646,7 +5646,7 @@
       },
       "scoringResponse": {
         "protocolVersion": "riichi-local-mortal-scoring-jsonl/v2",
-        "requestId": "50ed82164523fff326b60b75a808db48da0ab8add1d253f062f0e555f3af31d8",
+        "requestId": "812cb7cebb98711cfb761dd3cc5e060e62f50b552e662dab625786c382afbd63",
         "identity": {
           "runtimeImplementation": "Equim-chan/Mortal",
           "runtimeRevision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -5663,7 +5663,7 @@
           "nativeArtifactSha256": "5ff7f712a45c7288f739af7c7e0613567b467ee4ade2c66c0988e18982cdefad"
         },
         "status": "ok",
-        "ruleResultId": "7d35a67e3cb6cc282e302381894e5f8583a42add4a0564a8cfb00f56106a09a8",
+        "ruleResultId": "b3f201cc3f2c47160e01b06ffbdc0100230b4f92fc9e2119917e5f47f0dcf3e5",
         "candidates": [
           {
             "runtimeAction": {
@@ -5692,7 +5692,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/119/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "0c06737772638a2f23af913ee9ea2e73b24bbab9ba21c00c058c0f26a9e9fc79",
+        "requestId": "d7dce5257b009f65492ca444890cd07d77f58d89b1d7e893a2e2d585ae224af7",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -5701,7 +5701,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "non_action",
-        "resultId": "d04782f5dc7a6603b5ea73cc1b50ec46ac002877c3d7f6bd4b12e7b7e3f24aa1",
+        "resultId": "cfabb408bcd8e4e57fb737328ca7f95f36805f04dedbcfd73991bd1644122842",
         "reason": "native_cannot_act"
       }
     },
@@ -5709,7 +5709,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/121/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "de8426396eb83162830ec79d80a780d60fd3ed276a8b7196004a187bb415af86",
+        "requestId": "9b05c043d892008191c2dcd9cf73a0dd61f8803adb40976e53a15433db710cc0",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -5718,7 +5718,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "ok",
-        "resultId": "1e5f6763213105f6772d82b984f228d909ef5c1261b9addde3fb861a87f7ddc3",
+        "resultId": "d9060f759784e150254bd9b1b7dbe03b7ed7445a2439712d649ec4e0932977ec",
         "actions": [
           {
             "runtimeAction": {
@@ -5745,7 +5745,7 @@
       },
       "scoringResponse": {
         "protocolVersion": "riichi-local-mortal-scoring-jsonl/v2",
-        "requestId": "6b93aeb76198bd018c6d55ceb0bdbbfd7e5964528ba6f397980ec346a5307af6",
+        "requestId": "9d2c8f9aafeed5cc093a47bd0f7a5015196cdec10330427879416186012ba639",
         "identity": {
           "runtimeImplementation": "Equim-chan/Mortal",
           "runtimeRevision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -5762,7 +5762,7 @@
           "nativeArtifactSha256": "5ff7f712a45c7288f739af7c7e0613567b467ee4ade2c66c0988e18982cdefad"
         },
         "status": "ok",
-        "ruleResultId": "1e5f6763213105f6772d82b984f228d909ef5c1261b9addde3fb861a87f7ddc3",
+        "ruleResultId": "d9060f759784e150254bd9b1b7dbe03b7ed7445a2439712d649ec4e0932977ec",
         "candidates": [
           {
             "runtimeAction": {
@@ -5799,7 +5799,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/127/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "3e7bef57e3edb5259aecac1c504dad9a0f73f63218dbd13f49e250383b8e09ec",
+        "requestId": "4fa9eb741a7ed2af9e742ca3ee30fdb80a2f0e4966b181e0425a4a4a04afb5e2",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -5808,7 +5808,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "non_action",
-        "resultId": "7e1027ce08f27c3b57cd4bcbdd2dbb125aab68440149377a9bfdb9fb4127d397",
+        "resultId": "4c4f04ad7f9c3b8903842c1f26a10334515b50dd071fd0ade63186c8bb272686",
         "reason": "native_cannot_act"
       }
     },
@@ -5816,7 +5816,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/129/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "4172afdde30aa033cbf0f2f9fc5ce2c2be41f1cf03c35e3bbd4b46617e50b189",
+        "requestId": "4fa72dd8609519bd867d678cfd5586a816a09df211f5096adfac39d406353330",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -5825,7 +5825,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "non_action",
-        "resultId": "42f8962fcbd876d195257391c3ea98a1c6e15e1a0e7e228407c25e86cc3b2cd3",
+        "resultId": "1241a3c190a0bab4882db80c0b9794128a410776222306ec914e7a45a19322fb",
         "reason": "native_cannot_act"
       }
     },
@@ -5833,7 +5833,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/131/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "238146f816c05565fdb4e2bc2107d2778067e94ccebf7085d5ef5e1b6b8235d0",
+        "requestId": "00e6a340275adf29c29bfea24aeceac80e5a495623300ff59d142aa10bb86594",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -5842,7 +5842,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "non_action",
-        "resultId": "b81189e01c4883f964176127bc8275ae25976aa041d1f0b890425d684b085508",
+        "resultId": "8719b038b22eaa1a74fee21fc12aa870bd56ec148e992f59c7ce9ed23a128e05",
         "reason": "native_cannot_act"
       }
     },
@@ -5850,7 +5850,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/135/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "fd5921014c9e4b828b64dfce7afde3fa9a357bfe9ffe0911471ed578724f5f55",
+        "requestId": "6ba26988949a8dd422950bb1e295f4d5e53c6f8632e37205ae51eec0fbb4382a",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -5859,7 +5859,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "non_action",
-        "resultId": "c0f4656aee5a6a6f8d121bb289da6cb0ddeef6ababec227d00f6a663728eebc2",
+        "resultId": "ca28dd6c493b5b8dcb0bd551ab9ded4a4d89d2af73014f53699c9ca564775978",
         "reason": "native_cannot_act"
       }
     },
@@ -5867,7 +5867,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/137/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "f136c7192c5f8e05b29354b40a0fa31f29d70d269697f0e7e526e1bdf66f5c74",
+        "requestId": "f50abb74108860e2d9c1e8814e3c60b56cc8a2c4df0140e407d9efc7a3b7db40",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -5876,7 +5876,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "non_action",
-        "resultId": "dd751f39b938fe25954d3aa3eb6f90e266111012c07f9ef730fea1731fd0b4ec",
+        "resultId": "97be506eee3fda85aafd49a58fa958c18cf84606aa49b8ce9b0e74e054ca70e2",
         "reason": "native_cannot_act"
       }
     },
@@ -5884,7 +5884,7 @@
       "decisionEventRef": "tenhou:local-mortal-production:tenhou-daiminkan-supplement:1/0/139/0",
       "ruleResponse": {
         "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
-        "requestId": "6b87985e490ee1dc1c7f433a79c32b9404aed39a08b992df5413e76e911c33c5",
+        "requestId": "cbba1bf215f5ebcfdd8925e8e88da1cdfd6ce29d80d6adb80dc6e3bd31c568e2",
         "identity": {
           "implementation": "Equim-chan/Mortal/libriichi",
           "revision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -5893,7 +5893,7 @@
           "normalizationVersion": "libriichi-actions/v2"
         },
         "status": "ok",
-        "resultId": "266bf3bee654b79266061e6d5035165e46366d76da054fd803e60bd4759b423d",
+        "resultId": "9ae65f1e46f04f68ddda184f15d5ace685d2ef32093dd20a3ef1b870127b33e6",
         "actions": [
           {
             "runtimeAction": {
@@ -5920,7 +5920,7 @@
       },
       "scoringResponse": {
         "protocolVersion": "riichi-local-mortal-scoring-jsonl/v2",
-        "requestId": "bca4d589ff433d8d7c3697153b42127594e65edd32d6727b969244a56297783f",
+        "requestId": "f714f7a5aba431465270d87370c1f41a7dfe2cf676c9c5114684101663d2388b",
         "identity": {
           "runtimeImplementation": "Equim-chan/Mortal",
           "runtimeRevision": "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
@@ -5937,7 +5937,7 @@
           "nativeArtifactSha256": "5ff7f712a45c7288f739af7c7e0613567b467ee4ade2c66c0988e18982cdefad"
         },
         "status": "ok",
-        "ruleResultId": "266bf3bee654b79266061e6d5035165e46366d76da054fd803e60bd4759b423d",
+        "ruleResultId": "9ae65f1e46f04f68ddda184f15d5ace685d2ef32093dd20a3ef1b870127b33e6",
         "candidates": [
           {
             "runtimeAction": {

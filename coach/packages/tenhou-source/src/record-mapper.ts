@@ -45,7 +45,7 @@ import { tokenizeMjlog } from "./mjlog-tokenizer.js";
 import { decodeTenhouMeld, type TenhouMeld } from "./meld-codec.js";
 import { tenhouTileCode, tenhouTileList } from "./tile-codec.js";
 
-export const TENHOU_MAPPER_VERSION = "tenhou-mjloggm-mapper/v2" as const;
+export const TENHOU_MAPPER_VERSION = "tenhou-mjloggm-mapper/v3" as const;
 
 const DRAW_SEATS = ["T", "U", "V", "W"] as const;
 const DISCARD_SEATS = ["D", "E", "F", "G"] as const;
@@ -171,6 +171,7 @@ class MapperEngine {
   private round: RoundState | null = null;
   private previousFinalScores: [number, number, number, number] | null = null;
   private gameEnded = false;
+  private doraIndicatorsComplete = true;
 
   constructor(
     private readonly raw: string,
@@ -236,7 +237,7 @@ class MapperEngine {
         eventSequence: "complete",
         ruleSet: "partial",
         scores: "complete",
-        doraIndicators: "complete",
+        doraIndicators: this.doraIndicatorsComplete ? "complete" : "partial",
         rivers: "complete",
         calledDiscardMarkers: "complete",
         melds: "complete",
@@ -343,6 +344,25 @@ class MapperEngine {
     const round = this.round;
     if (round === null || round.terminal === null || this.gameEnded) return;
     const terminal = round.terminal;
+    if (round.pendingKan !== null) {
+      const pendingKanRef = round.pendingKan.kanEventId;
+      const kanIndex = this.events.findIndex(event => event.eventId === pendingKanRef);
+      const kan = this.events[kanIndex];
+      const ending = this.events.find(event => event.eventId === terminal.bindingEventId);
+      const robbed = ending?.type === "win_declared" && ending.method === "ron" &&
+        ending.winSourceEventRef === pendingKanRef;
+      // Tenhou reveals open-kan indicators at discard/the next replacement
+      // draw; an immediate rinshan win need not publish one. Ankan differs.
+      // Never manufacture the missing indicator from the settlement.
+      const deferredRinshanWin = kan?.type !== "ankan_declared" && ending?.type === "win_declared" &&
+        ending.method === "tsumo" && this.events.some(event => event.type === "tile_drawn" &&
+          event.eventId === ending.winSourceEventRef && event.from === "rinshan") &&
+        !this.events.slice(kanIndex + 1).some(event => event.type === "tile_discarded");
+      const abortedBeforeDraw = ending?.type === "round_drawn" &&
+        (ending.reason === "suukaikan" || ending.reason === "sancha_hou") &&
+        round.rinshanDueSeat !== null;
+      if (!robbed && !deferredRinshanWin && !abortedBeforeDraw) this.doraIndicatorsComplete = false;
+    }
     this.push(round.roundOrdinal, terminal.settlementTagIndex, 1, {
       type: "scores_updated",
       scores: terminal.finalScores,

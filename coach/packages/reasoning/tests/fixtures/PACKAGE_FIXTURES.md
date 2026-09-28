@@ -3,11 +3,11 @@
 ## native-daiminkan-golden.json
 
 路径：`local-mortal/native-daiminkan-golden.json`。
-SHA-256：`af0d71384d148b6748ca53903cba8456a71652fa7d378be4ecf82ad0714c535d`。
+SHA-256：`586dc12abb7cde9b8b81a7b44be25ba238fa25b5005478fa854fa1d8f0b6d453`。
 
-2026-09-28 在 `04b4e7b7e50bd93740e86063ef85170d54299a01` 的开发工作树上重新运行已有
-native 与 `mortal-582500` CPU 权重采集；修改为保留宝牌发布时间的 mapper/replay
-修复，采集时 dirty=true。Tenhou mapper 为 v2，不把 DORA 移到更早的摸牌前。
+2026-09-28 在 `f5be17f5d75991455d0d2689b05ddfdf5c22324b` 的开发工作树上重新运行已有
+native 与 `mortal-582500` CPU 权重采集；修改为 R16 终局缺宝牌证据修复，采集时
+dirty=true。Tenhou mapper 为 v3，保留 DORA 发布时间，并核验终局未揭示的杠。
 没有下载资产；网络开启，无隔离声明；不是最终提交全语料验收回执。
 原生版本、补丁 SHA、模型身份、源 XML SHA、采集时间均保存在文件 provenance/identity。
 
@@ -17,10 +17,13 @@ native 与 `mortal-582500` CPU 权重采集；修改为保留宝牌发布时间�
 请求并核对响应绑定，再运行真实 packaged helper 和下游完整管线。默认测试无需模型
 权重/native 资产或网络；它检验消费者与身份传递，不提供独立麻将规则正确性证明。
 
-本次真实采集脚本和日志在源码外 `LOCALAPPDATA/RiichiCoach/spike-runs/dora-timing-20260928/`
-的 `capture-native-golden-v2.mjs`、`native-golden-v2-capture.log`。
+本次真实采集脚本和日志在源码外 `LOCALAPPDATA/RiichiCoach/spike-runs/r16-terminal-dora-20260928/`
+的 `capture-native-golden-v3.mjs`、`native-golden-v3-capture.log`。
+上次 v2 SHA `af0d71384d148b6748ca53903cba8456a71652fa7d378be4ecf82ad0714c535d`
+保存在 Git 历史和本目录 `native-daiminkan-golden-before.json`；原采集记录仍在
+`dora-timing-20260928/`。
 旧 SHA `190ee80a957863ac2ccbc4875a5467179b2e284406d7e03bb1e9df4d576f59f3` 的样本
-保存在 Git 历史和该目录的 `native-daiminkan-golden-before.json`；旧采集脚本/日志仍在
+保存在 Git 历史和 `dora-timing-20260928/native-daiminkan-golden-before.json`；旧采集脚本/日志仍在
 `libriichi-migration-dafb76f/`，没有覆盖历史回执。
 
 ## legacy-package-ready.json / legacy-package-missing.json

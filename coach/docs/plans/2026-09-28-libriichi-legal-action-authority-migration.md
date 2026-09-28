@@ -938,3 +938,43 @@ Electron 43.3.0 实际 main 链、22 决策/65 规则边界的包保存重开、
 A-B-A 与迁移测试退出 0；其零请求检查不是操作系统禁网证明。
 上述均为实现侧验证；当前缺失真实雀魂完整来源的问题仍在，提交后的全量 CPU
 及下一轮外部独立验收另外绑定提交，不把这些门禁视为验收 PASS。
+
+## 24. COAC-166 / E16-P2-1：终局不能吞掉必需杠宝牌的缺失
+
+R16 对 `f5be17f5d75991455d0d2689b05ddfdf5c22324b` 的独立结果为
+ENVIRONMENT_BLOCKED，确认 1 项 P2：暗杠后删除 DORA，再岭上自摸闭局，来源仍
+声明完整；真实 CPU、full-game 和 v2 包错误接受。五门、E15 时序对照和完整
+2.35 GB 包保存/关闭/重开通过，但原 CPU 仍因雀魂来源资料缺失退出 1。
+原报告及探针只读保存在 `coac-166-review/coach/.review-loop/coac166/`。
+
+本次修改：
+
+- 天凤 mapper v3 在每局结算及下一局重置前检查未揭示杠的来源证据；必需揭示缺失
+  时标记整流 doraIndicators=partial，不从终局打点信息补造指示牌。
+- canonical validator 在暗杠岭上自摸、杠后弃牌被荣和及补牌后的流局入口检查
+  complete 声明；缺失揭示时返回 dora_kan_mismatch，不能被终局 EOF 例外放过。
+- 保留抢杠、补牌前四杠/三家和终止、明杠立即岭上自摸的不同语义。天凤的暗杠即开、
+  明杠/加杠在打牌或后续岭上前揭示依据为 [官方手册](https://tenhou.net/man/)；
+  本次是来源完整性校验，不增加本地合法动作枚举，也不重新前移 DORA。
+- `scripts/kan-dora-terminal.test.mjs` 覆盖完整/缺失暗杠 tsumo 与 ron、伪 complete、
+  native 请求前阻断及 full-game/package 的 analysis_blocked 记录；不签发单候选。
+  canonical validator 既有 owner 增加终局、延迟揭示、抢杠和流局时点回归。
+- mapper 版本改变后使用现有真实 native/CPU 重新采集黄金输入：65 边界、22 次
+  评分；源 XML 不变，旧样本/采集证据保留。见 PACKAGE_FIXTURES.md。
+
+证据目录：`LOCALAPPDATA/RiichiCoach/spike-runs/r16-terminal-dora-20260928/`。
+`regression-red.log` 在修复前 5 项全部失败：错误 complete、validator 错误 valid、
+以及 native 端口实际被调用 2 次。修复后最初 9 文件/124 项聚焦通过；增加合法
+延迟对照后的 `focused-v3.log` 为 2 文件/32 项通过。R16 原探针仅更改模块位置与
+负例预期，`reviewer-missing-dora-current.log` 的完整对照完成真实 CPU→helper→
+full-game→v2 包，12 候选、analysis_ready；缺失版本 partial、2 个规则边界拒绝、
+native 调用 0 次。
+
+首轮五门全部执行，Vitest 192 文件/2352 项通过，architecture 因新测试深导入内部
+策略函数退出 1。删除该导入，直接给测试固定 policy 输入，没有放宽架构检查器。
+修正后全部原门禁重新执行，六项均退出 0，结果见 `final-gates.json`；旧失败日志保留。
+最终全量 Vitest 为 192 文件/2354 项，架构为 7 包/436 文件/2001 imports、0 违规。
+`electron-result.json` 记录本次 Electron 43.3.0 完整命令退出 0，22 决策/65 规则边界
+的分析包保存重开、kill 恢复、实际 main 链零来源/LLM 请求、A-B-A 与迁移通过。
+最终提交绑定的完整 CPU 和下一轮独立验收另行记录；真实雀魂资料缺口未解决，
+禁网未执行，不能由本次反例通过推断完整验收完成。
