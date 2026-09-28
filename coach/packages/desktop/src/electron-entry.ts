@@ -14,6 +14,7 @@ import {
 import {
   MahjongSoulSourceError,
   MAHJONG_SOUL_PROTOCOL_BUNDLE_VERSION,
+  MAHJONG_SOUL_RECORD_MAPPER_VERSION,
   createMahjongSoulCatalogStore,
   createMahjongSoulSessionVault,
   createMahjongSoulOAuth2SessionRestorer,
@@ -627,7 +628,9 @@ async function start(): Promise<void> {
     sourceVersion: MAHJONG_SOUL_PROTOCOL_BUNDLE_VERSION,
     modelVersion: "not_applicable",
     schemaVersion: "game-detail-records/v2",
-    parserVersion: MAHJONG_SOUL_PROTOCOL_BUNDLE_VERSION,
+    // A new mapper/rule projection must not reuse a lossy classification from
+    // an earlier raw-cache producer. Saved review packages remain unchanged.
+    parserVersion: `${MAHJONG_SOUL_PROTOCOL_BUNDLE_VERSION}/${MAHJONG_SOUL_RECORD_MAPPER_VERSION}`,
     validationVersion: DESKTOP_APP_VERSION,
     requestParameters: {},
     authenticationPartitionHash: createHash("sha256").update(String(accountId)).digest("hex"),

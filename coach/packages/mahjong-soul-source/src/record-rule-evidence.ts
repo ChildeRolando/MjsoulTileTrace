@@ -68,13 +68,23 @@ export function extractRecordRuleEvidence(input: {
   if (!record(config.mode)) return undefined;
   const mode = config.mode;
   const meta = record(config.meta) ? config.meta : {};
+  // Ranked responses may carry an explicit GameDetailRule whose fields are
+  // all proto defaults. Its presence alone does not override the ranked preset.
+  // Compare normalized messages so omitted, empty and explicit defaults agree;
+  // any non-default field (including repeated fields) still blocks the preset.
+  const detailType = root.lookupType("lq.GameDetailRule");
+  const defaultDetail = detailType.toObject(detailType.create(), {
+    defaults: true, arrays: true, objects: true,
+  });
+  const hasDetailOverride = mode.detail_rule != null
+    && JSON.stringify(mode.detail_rule) !== JSON.stringify(defaultDetail);
   return validateRecordRuleEvidence({
     schemaVersion: "mahjong-soul-record-rules/v1",
     recordId: input.recordId, recordSha256: hash(input.recordBytes),
     configurationSha256: hash(JSON.stringify(config)),
     standardRule: input.head.standard_rule ?? 0,
     category: config.category, mode: mode.mode, matchModeId: meta.mode_id ?? 0,
-    hasCustomRules: mode.ai !== false || mode.extendinfo !== "" || mode.detail_rule != null
+    hasCustomRules: mode.ai !== false || mode.extendinfo !== "" || hasDetailOverride
       || mode.testing_environment != null || (meta.room_id ?? 0) !== 0 || (meta.contest_uid ?? 0) !== 0
       || meta.contest_info != null,
   }, input.recordId, input.recordBytes);
@@ -87,8 +97,8 @@ export function projectRecordRules(evidence: MahjongSoulRecordRuleEvidence | und
   };
   // Existing four-player South ranked scope, not a default for arbitrary logs.
   // Source/profile evidence and omitted/custom rule policy are documented in
-  // docs/plans/2026-09-28-libriichi-legal-action-authority-migration.md section 21.
-  if (evidence === undefined || evidence.standardRule !== 2 || evidence.category !== 2
+  // docs/plans/2026-09-28-libriichi-legal-action-authority-migration.md sections 21/27.
+  if (evidence === undefined || ![1, 2].includes(evidence.standardRule) || evidence.category !== 2
       || evidence.mode !== 2 || evidence.hasCustomRules || ![3, 6, 9, 12, 16].includes(evidence.matchModeId)) return unknown;
   return { length: "south", redFives: { man: 1, pin: 1, sou: 1 }, openTanyao: true,
     atamahane: "unknown", westExtension: "sudden_death", ippatsuCancelledByAnkan: true };

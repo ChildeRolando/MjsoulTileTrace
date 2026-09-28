@@ -1,9 +1,9 @@
 import { parse } from "protobufjs";
-import { mkdtempSync, rmSync } from "node:fs";
+import { mkdtempSync, readFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, relative, resolve } from "node:path";
 import { describe, expect, it } from "vitest";
-import { fetchMahjongSoulRecord, loadMahjongSoulProtocolBundle, mapMahjongSoulRecord, encodeMahjongSoulRecordCache, decodeMahjongSoulRecordCache } from "@riichi-coach/mahjong-soul-source";
+import { MAHJONG_SOUL_RECORD_MAPPER_VERSION, fetchMahjongSoulRecord, loadMahjongSoulProtocolBundle, mapMahjongSoulRecord, encodeMahjongSoulRecordCache, decodeMahjongSoulRecordCache } from "@riichi-coach/mahjong-soul-source";
 import { replayCanonicalStream } from "@riichi-coach/reasoning";
 import { createRecordAnalysisStore } from "../src/record-analysis-store.js";
 import { captureRecordViaOfficialClient } from "../src/official-client-record-capture.js";
@@ -12,12 +12,14 @@ import { createPrivilegedRawCache } from "../src/privileged-raw-cache.js";
 import { createReviewSessionRepository } from "../src/review-session-repository.js";
 import { bundleRoot, fixturePaipuUrl, loadFixtureWire, scriptedCapture, syntheticRecordHead } from "./helpers/cdp-capture-harness.js";
 
+const realRanked = JSON.parse(readFileSync(new URL("../../mahjong-soul-source/tests/fixtures/real-ranked-rule-config.json", import.meta.url), "utf8"));
+
 describe("record rule evidence across ingestion routes", () => {
-  it("preserves the same rules through fetch, capture, shared replay and URL import", async () => {
+  it.each(["synthetic-standard", "captured-ranked"])("preserves %s rules through fetch, capture, shared replay and URL import", async kind => {
     const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
     const fixture = loadFixtureWire("real-supported-round");
-    const head = { ...syntheticRecordHead(), standard_rule: 2,
-      config: { category: 2, mode: { mode: 2 }, meta: { mode_id: 12 } } };
+    const head = { ...syntheticRecordHead(), standard_rule: kind === "captured-ranked" ? realRanked.standardRule : 2,
+      config: kind === "captured-ranked" ? realRanked.configuration : { category: 2, mode: { mode: 2 }, meta: { mode_id: 12 } } };
     const type = parse(bundle.protoText, { keepCase: true }).root.lookupType("lq.RecordGame");
     const decodedHead = type.toObject(type.fromObject(head), { defaults: true, arrays: true, objects: true });
     const fetched = await fetchMahjongSoulRecord({ bundle, recordId: fixture.recordId,
@@ -44,9 +46,13 @@ describe("record rule evidence across ingestion routes", () => {
     createReviewSessionRepository({ root }).close();
     const identity = { sourceKind: "mahjong_soul_record", stableRecordIdentityHash: "record-test",
       perspective: "all-seats", sourceVersion: "test", modelVersion: "not_applicable", schemaVersion: "game-detail-records/v2",
-      parserVersion: "test", validationVersion: "test", requestParameters: {} };
+      parserVersion: `test/${MAHJONG_SOUL_RECORD_MAPPER_VERSION}`, validationVersion: "test", requestParameters: {} };
     let cache = createPrivilegedRawCache({ root });
     try {
+      const oldIdentity = { ...identity, parserVersion: "test" };
+      cache.put(oldIdentity, encodeMahjongSoulRecordCache({ bundle, ...fetched,
+        ruleEvidence: { ...fetched.ruleEvidence!, hasCustomRules: true } }));
+      expect(cache.get(identity)).toBeNull();
       cache.put(identity, encodeMahjongSoulRecordCache({ bundle, ...fetched }));
       cache.close();
       cache = createPrivilegedRawCache({ root });

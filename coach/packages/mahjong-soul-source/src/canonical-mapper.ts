@@ -22,6 +22,7 @@ import {
 const MAPPING_ERROR = "mahjong_soul_canonical_mapping_failed" as const;
 const VALIDATION_ERROR = "mahjong_soul_canonical_validation_failed" as const;
 const UNSUPPORTED_SEMANTICS = "mahjong_soul_canonical_unsupported_semantics" as const;
+export const MAHJONG_SOUL_RECORD_MAPPER_VERSION = "mahjong-soul-record-mapper/v6" as const;
 
 export type MahjongSoulMapperDiagnostic =
   | "mahjong_soul_canonical_mapping_failed"
@@ -577,7 +578,7 @@ export function mapMahjongSoulRecord(input: {
 
     const parsed = CanonicalEventStreamSchema.safeParse({
       schemaVersion: "canonical-riichi-events/v2",
-      mapperVersion: "mahjong-soul-record-mapper/v5",
+      mapperVersion: MAHJONG_SOUL_RECORD_MAPPER_VERSION,
       gameId: input.gameId,
       sourceKind: "mahjong_soul",
       sourceRecordHash,

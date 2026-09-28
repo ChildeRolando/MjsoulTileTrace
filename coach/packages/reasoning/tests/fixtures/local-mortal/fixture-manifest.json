@@ -4,9 +4,10 @@
     {
       "id": "mahjong-soul-primary",
       "sourceKind": "mahjong_soul",
-      "source": "../../../../mahjong-soul-source/tests/fixtures/real-record-wire.json",
-      "sha256": "9efea5c9ceb73ee062c8d8edb8f960a74e79776ca023f686f669090dd9ac49ed",
-      "perspectives": [0, 1, 2, 3]
+      "source": "../../../../mahjong-soul-source/tests/fixtures/real-record-complete.json",
+      "sha256": "252ed97ab6f85b0b59a3733789924a2d3456edc1205c8b80f3ad5f3732fe5905",
+      "perspectives": [0, 1, 2, 3],
+      "provenance": "Same original nine-round record, freshly captured 2026-09-28 with same-response rule configuration and kan dora; all four perspectives retained. Old stripped fixture retained as real-record-wire.json."
     },
     {
       "id": "tenhou-chankan-supplement",

@@ -117,6 +117,7 @@ export {
   type DecodedStoredAction,
 } from "./stored-actions.js";
 export {
+  MAHJONG_SOUL_RECORD_MAPPER_VERSION,
   mapMahjongSoulRecord,
   type MahjongSoulCanonicalMapperResult,
   type MahjongSoulMapperDiagnostic,

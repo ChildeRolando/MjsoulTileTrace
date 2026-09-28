@@ -808,10 +808,11 @@ mapper v4 把证据纳入来源身份。无头信息、跨牌谱/字节、畸形
 
 - 固定协议的 `RecordGame`、`GameConfig`、`GameMode`、`GameMetaData` 定义字段。
   protobuf 缺省字段先正规化，显式缺省值与省略值在两条摄取路径中身份一致。
-- 仅 `standard_rule=2`、category=2、mode=2、段位模式 ID 3/6/9/12/16 且无自定义
+- 初版仅 `standard_rule=2`、category=2、mode=2、段位模式 ID 3/6/9/12/16 且无自定义
   规则/AI/试验/房间/比赛配置时投影四人南风标准档。模式 ID 的来源是
   [tensoul 固定数据](https://github.com/Equim-chan/tensoul/blob/f840fae039b52e7af8afa436fd1a2808eb20bc80/data.json)，
   赤牌缺省与自定义配置的区别参照同提交 `convert.js`。这是来源配置识别，不是动作枚举。
+  初版对 standard_rule 和空 detail_rule 的假设已被真实捕获反例修正，当前规则见 §27。
 - [雀魂官方 FAQ](https://mahjongsoul.com/faq/) 的公开接口
   `https://mahjongsoul.com/api/faq/list` 在本次查证中提供：通常三枚赤牌分别属于三门；
   四人半庄南四最高分不足 30000 时西入并在达到阈值后结束；采用役的断么九没有门清
@@ -1047,3 +1048,45 @@ npm test 因新 node:test 回归被 Vitest 发现而报告无 suite；将其移�
 后修正，未放宽断言。第二次遇到一次临时 Chromium profile 清理 EPERM，原 11 项
 聚焦不改代码重跑通过；第三次完整 npm test 退出 0。全部尝试日志保留，最终结果
 见 `final-gates.json`、`npm-test-final.json` 和 `repro-package-green.log`。
+
+## 27. 真实雀魂重新捕获及段位配置识别修复
+
+用户于 2026-09-28 手动重新登录并捕获原牌谱，随后补捕同响应的完整规则配置。
+两次内部 bytes SHA 均为
+`44bdd035c352a850cc6fa1c5801b27ef0eca7a80102c3cfe8c966eb63d66dd18`；原始文件、
+同响应配置、时间和启动版本保存在本机独立诊断目录，不入库账号、昵称或登录资料。
+配置 SHA 与第一次窄证据一致，为
+`c6fd49898ac12e08981ce5e5717b98bae061a4df68689600209e87c0f77ac95b`。
+
+真实返回是 standard_rule=1、category=2、mode=2、mode_id=6，detail_rule 中每个
+字段均为 protobuf 默认值。这揭示了初版来源适配的两个错误假设：只承认标记 2，
+以及把 detail_rule 对象存在本身当作自定义规则。原合成头只能验证接线，未验证
+真实配置识别；原始资料缺口不能掩盖本次发现的实现错误。
+
+修复仍属于 source 配置投影，未增加合法动作规则：在既有四人南段位 ID 范围内
+承认已观察到的标记 1，并保留标记 2；用固定协议的 GameDetailRule 默认对象比较
+正规化字段，省略/空消息/显式全默认等价，任何非默认标量或 repeated 值仍拒绝。
+自定义房间、比赛、AI、试验、陌生模式和陌生标记仍为 unknown。全默认消息的赤牌
+计数字段不解释为“零赤牌”，其语义是没有覆盖段位预设；依据同 §21 的模式数据、
+convert.js 对 mode_id 的处理及本次真实响应。头跳仍 unknown，不伪造完整规则证据。
+
+mapper 升为 v6，导出单一版本常量；桌面原始缓存的 parserVersion 包含该版本，
+旧窄证据缓存不会阻止重新下载。旧正式复盘包及历史记录不改写，缓存 envelope 格式
+仍 v2。SQLite 回归覆盖旧 parser key 不命中、新证据写入关闭重开后 stream/决策一致。
+
+永久回归先红：`real-rules-red.log` 三例均错误地把默认消息判为自定义；修复后
+配置边界与真实全场测试 33 项通过，跨 fetch/CDP/URL/回放/SQLite 共 35 项通过。
+真实完整来源的新文件 `real-record-complete.json` 由既有脱敏函数生成；只把 primary
+指向同一原场的新捕获，四个视角、九局、978 条动作、1616 个原始槽位全部保留。
+回归逐条比较旧/新动作，除补回的 doras 外完全一致；旧 real-record-wire.json 保留。
+新 fixture SHA 为 `252ed97ab6f85b0b59a3733789924a2d3456edc1205c8b80f3ad5f3732fe5905`，
+Git 属性固定字节。脱敏配置另存 real-ranked-rule-config.json 供回归复现。
+
+真实 native 诊断遍历四视角全部 1945 个边界：629 个合法动作集合、1316 个非行动
+结果、0 错误；原来的 rules_input_incomplete 已不再出现。此诊断未进行神经网络
+评分，不能替代完整 CPU→helper→full-game→包验收。后续五门、最终提交 CPU 和
+独立 R19 的实际结果继续保存到 §26 的源码外证据目录，未验证前不声称验收通过。
+
+实现侧五门与 diff 检查均退出 0（`ranked-final-gates.json`）；Vitest 192 文件、
+2368 项通过，架构 7 包/437 文件/2009 imports、0 违规。最终 CPU 与 Electron
+实际结果须绑定后续干净提交，不把上述无权重诊断计作 CPU 验收。
