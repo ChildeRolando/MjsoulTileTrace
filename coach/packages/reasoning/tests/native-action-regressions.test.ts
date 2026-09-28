@@ -167,6 +167,19 @@ describe("historical candidate failures through native scoring and package consu
     ],["self_turn_ankan","self_turn_kakan"]);
   });
 
+  it("keeps the full scored decision when one discard has structural zero-shanten but no physical wait",async()=>{
+    const b=builder("456999m777p45s55z",3);b.pon(3,"5z");b.drop(0,"5s","tedashi");
+    for(const [a,id] of [[1,"2s"],[2,"3s"],[3,"4m"]] as const){b.draw(a,id);b.drop(a,id);}
+    b.draw(0,"5z");b.drop(0,"5z");const stream=b.stream();
+    const review=await reviewCase(stream,replayCanonicalStream(stream).at(-1)!,[
+      discard(3,"4m"),discard(4,"5m"),discard(5,"6m"),discard(8,"9m"),
+      discard(15,"7p"),discard(21,"4s"),discard(31,"P",true),
+      action(42,{type:"kakan",actor:0,pai:"P",consumed:["P","P","P"]}),
+    ],["self_turn_kakan"]);
+    expect(review.summary.outcomes.analysis_blocked).toBe(0);
+    expect(review.retainedAnalyses[0]!.factorResult.diagnostics.some(row=>row.status==="blocked_engine_failure")).toBe(false);
+  });
+
   it("post-call unique discard carries the native proof",async()=>{
     const b=builder("556677z22m123p99s",3);
     for(const [a,id,drop] of [[3,"5z","1p"],[1,"6z","2p"],[1,"7z","3p"],[1,"2m","9s"]] as const){b.pon(a,id);b.drop(0,drop,"tedashi");}

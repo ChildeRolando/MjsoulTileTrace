@@ -435,13 +435,14 @@ export const HandStructureResultV2Schema = z.object({
       path: ["waits"],
     });
   }
-  if (
-    (result.overallShanten === 0 && result.waits.length === 0) ||
-    (result.overallShanten !== 0 && result.waits.length > 0)
-  ) {
+  // Helper shanten describes the concealed shape. A meld plus its fourth
+  // owned tile can leave structural shanten zero but no possible fifth copy.
+  // The bound result validator still requires every zero-shanten effective
+  // tile to have a wait, and every wait to match its family effective tile.
+  if (result.overallShanten !== 0 && result.waits.length > 0) {
     context.addIssue({
       code: z.ZodIssueCode.custom,
-      message: "Waits must exist exactly for a tenpai hand",
+      message: "Waits require structural zero shanten",
       path: ["waits"],
     });
   }

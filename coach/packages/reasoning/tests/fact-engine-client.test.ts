@@ -587,6 +587,70 @@ class ConcurrentIdentityTransport implements FactEngineTransport {
 }
 
 describe("JSONL fact engine client", () => {
+  it.each([0, 31])("accepts structural zero-shanten when all four copies are owned: tile %s", async (tile34) => {
+    const client = new JsonlFactEngineClient(new ManagedFactEngineTransport(
+      fileURLToPath(new URL("../../../resources/", import.meta.url)),
+    ));
+    const request = validHandStructureRequest();
+    request.handTiles34 = Array<number>(34).fill(0);
+    const tiles = tile34 === 31 ? [3,4,5,8,8,8,15,15,15,31] : [0,9,10,11,18,19,20,24,25,26];
+    for (const tile of tiles) request.handTiles34[tile]!++;
+    request.melds = [{kind:"pon", tiles34:[tile34,tile34,tile34]}];
+    try {
+      for (const visibleCountsComplete of [false, true]) {
+        request.visibleCountsComplete = visibleCountsComplete;
+        request.leftTiles34 = visibleCountsComplete
+          ? request.handTiles34.map((count, tile) => 4 - count - (tile === tile34 ? 3 : 0)) : null;
+        const result = await client.analyzeHandStructure(request);
+        expect(result.overallShanten).toBe(0);
+        expect(result.bestFamilies).toEqual(["standard"]);
+        expect(result.families.map(({shanten,effectiveTiles}) => ({shanten,effectiveTiles})))
+          .toEqual([{shanten:0,effectiveTiles:[]},{shanten:null,effectiveTiles:[]},{shanten:null,effectiveTiles:[]}]);
+        expect(result.waits).toEqual([]);
+        expect(result.decompositions.invariantClaims).toContainEqual({kind:"floating",tiles34:[tile34]});
+      }
+    } finally { await client.close(); }
+  });
+
+  it("retains exhausted waits when their copies are outside the owned hand", async () => {
+    const client = new JsonlFactEngineClient(new ManagedFactEngineTransport(
+      fileURLToPath(new URL("../../../resources/", import.meta.url)),
+    ));
+    const request = validHandStructureRequest();
+    request.visibleCountsComplete = true;
+    request.leftTiles34 = request.handTiles34.map(count => 4 - count);
+    request.leftTiles34[23] = request.leftTiles34[26] = 0;
+    try {
+      const result = await client.analyzeHandStructure(request);
+      expect(result.overallShanten).toBe(0);
+      expect(result.waits.map(({tile34,remaining}) => ({tile34,remaining})))
+        .toEqual([{tile34:23,remaining:0},{tile34:26,remaining:0}]);
+    } finally { await client.close(); }
+  });
+
+  it("rejects empty waits when zero-shanten family effective tiles remain", async () => {
+    const result = validHandStructureResult();
+    result.waits = [];
+    result.diagnostics = [];
+    await expect(new JsonlFactEngineClient(new FixtureTransport(result))
+      .analyzeHandStructure(validHandStructureRequest())).rejects.toThrow("hand_structure_result_mismatch");
+  });
+
+  it("rejects a fifth owned copy even when effective tiles and waits agree", async () => {
+    const transport = new ManagedFactEngineTransport(fileURLToPath(new URL("../../../resources/", import.meta.url)));
+    const request = validHandStructureRequest();
+    request.handTiles34 = Array<number>(34).fill(0);
+    for (const tile of [3,4,5,8,8,8,15,15,15,31]) request.handTiles34[tile]!++;
+    request.melds = [{kind:"pon",tiles34:[31,31,31]}];
+    try {
+      const result = JSON.parse(await transport.request(JSON.stringify(request),10_000)) as HandStructureResultV2;
+      result.families[0].effectiveTiles = [{tile34:31,remainingStatus:"blocked_missing_facts",remaining:null}];
+      result.waits = [{tile34:31,families:["standard"],waitTypes:["tanki"],remainingStatus:"blocked_missing_facts",
+        remaining:null,baseRonEligibility:"ineligible",decompositionRefs:[result.decompositions.items[0]!.decompositionRef]}];
+      expect(() => validateHandStructureResult(request,result)).toThrow("hand_structure_result_mismatch");
+    } finally { await transport.close(); }
+  });
+
   it("parses a bound hand-structure/v2 result", async () => {
     const client = new JsonlFactEngineClient(
       new FixtureTransport(validHandStructureResult()),

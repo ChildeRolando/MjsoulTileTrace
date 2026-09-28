@@ -1090,3 +1090,42 @@ Git 属性固定字节。脱敏配置另存 real-ranked-rule-config.json 供回�
 实现侧五门与 diff 检查均退出 0（`ranked-final-gates.json`）；Vitest 192 文件、
 2368 项通过，架构 7 包/437 文件/2009 imports、0 违规。最终 CPU 与 Electron
 实际结果须绑定后续干净提交，不把上述无权重诊断计作 CPU 验收。
+
+## 28. 完整雀魂 CPU 发现的结构事实协议边界
+
+`438053e50d339d440a275be3b2a149a06ebe73c1` 的完整原命令于 2026-09-28
+21:36:36 +08 结束：796 次真实推理、9 包，退出 1。唯一失败为雀魂 actor 2
+第二局事件后缀 `/1/266/0` 的 `analysis_blocked:fact_engine_failure`。所有视角均
+无规则错误、无 no_mortal_entry/binding_mismatch/model_output_incomplete；其他八包
+无 analysis_blocked。四雀魂及抢杠样本的其余 degraded 均由单候选豁免构成。
+原完整失败回执和包保留，不能与后续单窗口诊断拼接为 PASS。
+
+同一窗口真实 CPU→helper 追踪再次复现：弃去 4s 后持白板刻子及第四张白板，
+helper 按原有结构口径返回向听数 0，但过滤第五张自有牌后有效牌/等待皆为空。
+Go 已有 `TestAnalyzeHandStructureFiltersFifthCopyOwnedThroughMeld` 验证此行为；
+TypeScript schema 的“向听 0 必须有等待”却直接拒绝结果，导致整决策阻断。
+不是模型漏行、规则枚举缺失或偶发超时，也不应通过改变 helper 算法或伪造等待修复。
+
+先补永久回归：契约、真实打包客户端的字牌/数牌及完整/未知可见计数、外部耗尽
+仍保留零剩余等待、遗漏全部有效等待拒绝、伪造第五张自有牌拒绝，以及包含加杠和
+全部弃牌候选的 full-game→完整包链。旧实现 6 个断言失败，其中下游实际得到
+analysis_blocked 而非 analysis_ready；第五张负例还揭示绑定校验缺少自有牌计数检查。
+
+修复移除 schema 对非空等待的错误推断，保留非零向听禁止等待的约束；原绑定校验
+继续逐项核对零向听有效牌与等待，新增自有手牌+副露四枚上限检查。没有新增枚举器、
+删减合法动作、改 helper 发布字节、改变向听数或将失败吞为 singleton。协议字段及
+hand-structure/v2 版本不变，既有合法结果仍兼容。
+
+聚焦 3 文件/79 项已通过；首次修复测试因 reasoning 仍加载旧 contracts dist 而失败，
+重建 contracts 后原命令通过，日志均保留。证据继续保存在 §26 目录的
+`owned-fourth-*`；真实单窗口诊断在
+`LOCALAPPDATA/RiichiCoach/spike-runs/diagnostic-ranked-fact-438053e50d33-1790602759976/`。
+五门、Sidecar 门禁、最终提交完整 CPU 与外部独立验收仍须当次执行；R19 的固定旧
+候选评审及历史失败不会因本修复改写。
+
+后续实现侧检查全部退出 0：Go test/vet、helper build/package/两种换行可复现性、
+五门（192 文件/2375 项）、完整 npm test、diff；见 `owned-fourth-final-gates.json`。
+同一真实失败窗口回放已捕获的 native/CPU 响应并使用当前真实 helper，8 个候选完整
+进入 full-game，analysis_ready=1、analysis_blocked=0，生成并校验 10,972,989 字节完整
+单窗口包。该诊断明确记录旧基线+dirty patch SHA，不声称是最终提交全量 CPU；证据
+为 `E:/文档/日麻教学/coach-acceptance-evidence/ranked-fact-replay-1790603542622/receipt.json`。

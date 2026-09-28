@@ -415,6 +415,10 @@ export function validateHandStructureResult(
   const result = parsed.data;
   validateBoundResult(request, result);
 
+  const owned = [...request.handTiles34];
+  for (const meld of request.melds) {
+    for (const tile34 of meld.tiles34) owned[tile34] = owned[tile34]! + 1;
+  }
   const isClosed = request.melds.length === 0;
   for (const family of result.families) {
     const expectedApplicable = family.family === "standard" || isClosed;
@@ -424,6 +428,9 @@ export function validateHandStructureResult(
     ) rejectMismatch();
 
     for (const effective of family.effectiveTiles) {
+      // Zero live copies elsewhere remain useful structural facts; a fifth
+      // copy inside the player's own hand/melds is physically impossible.
+      if (owned[effective.tile34]! >= 4) rejectMismatch();
       if (request.visibleCountsComplete) {
         if (
           effective.remainingStatus !== "calculated" ||
