@@ -380,7 +380,9 @@ receipt 追加 package binding；迁移/兼容见 M7-B §7）只保存 immutable
 bytes、冻结 selection、append-only report ref、显式 active ref 与两阶段 activation
 intent/receipt。打开或恢复时逐层校验 hash/schema/domain identity，并且只调用
 `composeReviewReadBackContext` 从 fresh package projection 装配当前报告；ContextGraph
-仍不落盘。`desktop/src/privileged-raw-cache.ts` 与资料库共用 main-only 索引，但 raw bytes
+仍不落盘。同一次磁盘读回产生的 context 深度冻结后由主进程概览/详情复用，
+不经 IPC 暴露；重新读库或切换报告仍构建新 context，不缓存自报身份对应的校验结论。
+`desktop/src/privileged-raw-cache.ts` 与资料库共用 main-only 索引，但 raw bytes
 只进入受控 `source-cache/`，命中重新验证路径、长度和 hash；renderer DTO、日志与会话
 artifact 均不携带 raw material。缓存没有 TTL/LRU，只有显式清理。
 

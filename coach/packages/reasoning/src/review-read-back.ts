@@ -65,7 +65,6 @@ export function composeReviewReadBackContext(
   validateStructuredAnalysisPackage(packageInput);
   const analysisPackage = packageInput as StructuredAnalysisPackage;
   const baseGraph = projectContextGraph(analysisPackage);
-  validateContextGraph(baseGraph);
 
   let selection: ReviewSelectionResult;
   try {
@@ -89,7 +88,11 @@ export function composeReviewReadBackContext(
     if (item.rank !== index + 1) {
       throw new Error(`m7a_read_back_selection_rank:${item.decisionId}`);
     }
-    getDecisionSubgraph(baseGraph, item.decisionId);
+    // Only existence is needed here; traversing every edge for every selected
+    // decision repeats work that belongs to decisionContext's actual consumer.
+    if (!baseGraph.nodes.some(node => node.nodeKind === "Decision" && decisionIdOf(node) === item.decisionId)) {
+      throw new Error(`m6d1_subgraph_unknown_decision:${item.decisionId}`);
+    }
     return item.decisionId;
   });
   if (new Set(selectedDecisionIds).size !== selectedDecisionIds.length) {
@@ -117,8 +120,10 @@ export function composeReviewReadBackContext(
       report.reasoningOverlay.nodes,
       report.reasoningOverlay.edges,
     );
+  } else {
+    // appendReasoningOverlay validates the complete graph when a report exists.
+    validateContextGraph(baseGraph);
   }
-  validateContextGraph(currentGraph);
 
   const decisionContext = (decisionId: string): ReviewDecisionReadBack => {
     if (!selectedDecisionIds.includes(decisionId)) {

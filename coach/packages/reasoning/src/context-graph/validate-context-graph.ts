@@ -23,12 +23,17 @@
 import { isDeepStrictEqual } from "node:util";
 import {
   ContextGraphSchema,
+  ContextGraphNodeSchema,
+  ContextGraphEdgeSchema,
   EVIDENCE_GRAPH_NODE_KINDS,
   REASONING_GRAPH_NODE_KINDS,
   type ContextGraph,
   type ContextGraphNode,
 } from "@riichi-coach/contracts";
 import { deriveEdgeId, deriveNodeId, semanticKeyOfNode } from "./context-graph-ids.js";
+import { isPlainJson } from "../validate/plain-json.js";
+
+const graphHeaderSchema = ContextGraphSchema.omit({ nodes: true, edges: true });
 
 /** Named `causes` rejection before schema parse (spec: graph 校验拒绝任何
  * 未知 edge kind 与 `causes` 字符串). */
@@ -56,17 +61,9 @@ function recomputeNodeId(node: ContextGraphNode): string {
  *  NaN / undefined are rejected here, spec: strict schema 解析与 JSON
  *  roundtrip 不变). */
 function assertJsonRoundtrip(value: unknown): void {
-  let roundtripped: unknown;
-  try {
-    roundtripped = JSON.parse(JSON.stringify(value));
-  } catch {
+  if (!isPlainJson(value)) {
     throw new Error(
       "m6d1_graph_validator_roundtrip_mismatch: graph contains a non-JSON value",
-    );
-  }
-  if (!isDeepStrictEqual(roundtripped, value)) {
-    throw new Error(
-      "m6d1_graph_validator_roundtrip_mismatch: graph changes under JSON serialization",
     );
   }
 }
@@ -85,22 +82,30 @@ function assertNodeIdRecomputable(node: ContextGraphNode): void {
 }
 
 export function validateContextGraph(input: unknown): void {
+  assertJsonRoundtrip(input);
   rejectCausesEdges(input);
 
   let graph: ContextGraph;
   try {
-    graph = ContextGraphSchema.parse(input);
+    // The graph schema is a strict header plus arrays of strict records. Parse
+    // those same contracts one record at a time instead of retaining a second
+    // complete graph (hundreds of thousands of edges in real packages).
+    if (input === null || typeof input !== "object" || Array.isArray(input)) throw new Error("expected graph object");
+    const { nodes, edges, ...header } = input as Record<string, unknown>;
+    const parsedHeader = graphHeaderSchema.parse(header);
+    if (!isDeepStrictEqual(parsedHeader, header)) throw new Error("header normalization");
+    if (!Array.isArray(nodes) || !Array.isArray(edges)) throw new Error("expected graph arrays");
+    for (const node of nodes) {
+      if (!isDeepStrictEqual(ContextGraphNodeSchema.parse(node), node)) throw new Error("node normalization");
+    }
+    for (const edge of edges) {
+      if (!isDeepStrictEqual(ContextGraphEdgeSchema.parse(edge), edge)) throw new Error("edge normalization");
+    }
+    graph = input as ContextGraph;
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     throw new Error(`m6d1_graph_validator_schema:${message}`);
   }
-  if (!isDeepStrictEqual(graph, input)) {
-    throw new Error(
-      "m6d1_graph_validator_schema_normalization: schema parse must not reshape the graph",
-    );
-  }
-  // JSON roundtrip unchanged (CR-5 style serializability at the graph layer).
-  assertJsonRoundtrip(graph);
 
   // graphId invariant (spec "Graph 总体形状"): D1's graphId is deterministically
   // derived as `context-graph:<packageId>` — a stale graphId is a tamper.

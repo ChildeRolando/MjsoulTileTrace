@@ -308,11 +308,16 @@ Model/report evidence provider（模型/报告证据来源）
   当前 report overlay，并把 ref resolution 限于 selector-owned、same-decision context；
   无 active report 时只暴露 selector-scoped base evidence，不伪造报告或重算 selection；
   任一不匹配均 fail closed。
+  同一次磁盘读回构建的 context 在 main 内深度冻结后可供概览/详情复用；不进入
+  SQLite 或 IPC。重新打开、报告生成/切换仍从实际存储字节重验并构建新 context，
+  不以 packageId/reportId 命中替代内容校验。
 - **Executable tests**：`grounding-validator.test.ts` 覆盖同步伪造
   CoachJudgment/CoachInference nodeId + payload self-id、Explanation 内容与 payload
   self-id 篡改、`verbalizes` / `opposes` / `qualifies` endpoint-kind 篡改，以及合法
   endpoint kind 的跨 decision 边；`review-read-back.test.ts` 覆盖 package/report fail-closed、
   无报告 evidence read-back、current-report ref resolution 与 A→B→A 隔离；
+  `review-session-persistence.test.ts` 覆盖深度不可变、每次读回的新 context、调用方
+  输入不被冻结及再次读回拒绝损坏存储；
   `check-architecture.test.mjs` 覆盖 presenter
   只允许 read-back seam、拒绝 overlay/generation internals。
 - **Status**：machine-enforced（contracts/reasoning、COAC-3 provider/IPC 与 COAC-4

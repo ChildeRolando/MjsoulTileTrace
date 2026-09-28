@@ -13,6 +13,7 @@ import {
 import {
   composeReviewReadBackContext,
   validateStructuredAnalysisPackage,
+  type ReviewReadBackContext,
 } from "@riichi-coach/reasoning";
 
 const LIBRARY_FORMAT_VERSION = 2;
@@ -59,7 +60,24 @@ export type PersistedReviewState = Readonly<{
   selection: ReviewSelectionResult;
   activeReportRefId: string | null;
   activeReport: ReviewReport | null;
+  /** Main-only, freshly validated from this read's actual disk bytes. Never persisted or sent over IPC. */
+  readBack: ReviewReadBackContext;
 }>;
+
+/** These objects belong to this disk read, not to saveSession/saveReport callers.
+ * Freeze the complete graph and inputs before sharing the validated context with
+ * presentation. A subsequent repository read still hashes and validates anew. */
+function freezeReadBack(context: ReviewReadBackContext): ReviewReadBackContext {
+  const seen = new WeakSet<object>();
+  const freeze = (value: unknown): void => {
+    if (value === null || typeof value !== "object" || seen.has(value)) return;
+    seen.add(value);
+    for (const child of Object.values(value)) freeze(child);
+    Object.freeze(value);
+  };
+  freeze(context);
+  return context;
+}
 
 export type ReviewSessionSummary = Readonly<{
   sessionId: string;
@@ -180,14 +198,15 @@ export function createReviewSessionRepository(input: {
       if (activeReport.reportId !== reportRow.report_id) throw new Error("report_identity_mismatch");
       if (activeReport.schemaVersion !== reportRow.schema_version) throw new Error("report_version_mismatch");
     }
-    composeReviewReadBackContext(analysisPackage, selection, activeReport);
+    const readBack = freezeReadBack(composeReviewReadBackContext(analysisPackage, selection, activeReport));
     return Object.freeze({
       sessionId: session.session_id,
       revision: session.revision,
       analysisPackage,
-      selection,
+      selection: readBack.selection,
       activeReportRefId: session.active_report_ref_id,
       activeReport,
+      readBack,
     });
   };
 

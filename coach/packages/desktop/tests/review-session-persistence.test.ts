@@ -46,6 +46,31 @@ const completeReport = await generateReviewReport(graph, selection, {
 }, "2026-09-23T00:00:00.000Z");
 
 describe("ReviewSession SQLite persistence", () => {
+  it("owns immutable read-back contexts and revalidates disk on every reopen", () => {
+    const dir = root();
+    const repository = createReviewSessionRepository({ root: dir, createId: () => "session-a" });
+    try {
+      repository.saveSession(pkg, selection);
+      const first = repository.saveReport(pkg.packageId, completeReport, "report-a", "operation-a");
+      const second = repository.openByPackageId(pkg.packageId);
+      expect(first.readBack).toBeDefined();
+      expect(second.readBack).not.toBe(first.readBack);
+      expect(second.readBack.analysisPackage).toBe(second.analysisPackage);
+      expect(second.readBack.selection).toBe(second.selection);
+      expect(second.readBack.report).toBe(second.activeReport);
+      expect(() => { second.analysisPackage.record.recordId = "tampered"; }).toThrow();
+      expect(() => { second.selection.selected[0]!.rank = 99; }).toThrow();
+      expect(() => { second.readBack.currentGraph.nodes[0]!.nodeId = "tampered"; }).toThrow();
+      expect(() => { second.activeReport!.reasoningOverlay.nodes[0]!.nodeId = "tampered"; }).toThrow();
+      expect(Object.isFrozen(pkg.record)).toBe(false);
+      expect(Object.isFrozen(completeReport.reasoningOverlay.nodes)).toBe(false);
+      const db = new DatabaseSync(join(dir, "library.sqlite"));
+      db.prepare("UPDATE review_sessions SET selection_hash='invalid' WHERE session_id='session-a'").run();
+      db.close();
+      expect(() => repository.openByPackageId(pkg.packageId)).toThrow("selection_hash_mismatch");
+    } finally { repository.close(); }
+  });
+
   it("migrates v1 receipts without guessing deleted package bindings and rolls back failed migration", () => {
     for (const fail of [false, true]) {
       const dir = root();

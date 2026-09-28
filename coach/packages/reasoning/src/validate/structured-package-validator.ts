@@ -98,6 +98,7 @@
  * Error convention: every failure throws `m6c_validator_<kind>:<detail>`.
  */
 import { isDeepStrictEqual } from "node:util";
+import { isPlainJson } from "./plain-json.js";
 import { validateLibriichiPackageEvidence } from "./libriichi-package-evidence.js";
 import {
   CANONICAL_REPLAY_PRODUCER,
@@ -207,37 +208,8 @@ function rejectExplanationSideVersions(input: unknown): void {
 // ---------------------------------------------------------------------------
 
 function assertJsonRoundtrip(pkg: unknown): void {
-  const active = new WeakSet<object>();
-  const visit = (value: unknown): boolean => {
-    if (value === null || typeof value === "string" || typeof value === "boolean") return true;
-    if (typeof value === "number") return Number.isFinite(value);
-    if (typeof value !== "object") return false;
-    if (active.has(value)) return false;
-    active.add(value);
-    const array = Array.isArray(value);
-    const keys = Reflect.ownKeys(value);
-    let valid = Object.getPrototypeOf(value) === (array ? Array.prototype : Object.prototype);
-    let entries = 0;
-    for (const key of keys) {
-      if (!valid) break;
-      const descriptor = Object.getOwnPropertyDescriptor(value, key)!;
-      if (array && key === "length") continue;
-      if (typeof key !== "string" || !descriptor.enumerable || !("value" in descriptor)) {
-        valid = false;
-        break;
-      }
-      if (array && (!/^(0|[1-9][0-9]*)$/.test(key) || Number(key) >= value.length)) {
-        valid = false;
-        break;
-      }
-      entries++;
-      valid = visit(descriptor.value);
-    }
-    if (array && entries !== value.length) valid = false;
-    active.delete(value);
-    return valid;
-  };
-  if (!visit(pkg)) {
+  // Preserve the package contract, which permits finite negative zero.
+  if (!isPlainJson(pkg, true)) {
     throw new Error(
       "m6c_validator_json_roundtrip_mismatch: package contains a non-JSON value",
     );

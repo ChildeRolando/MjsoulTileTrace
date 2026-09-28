@@ -585,3 +585,53 @@ full-game/discovery 的正式切换；新旧包版本与规则来源；物理动
 当前切片未运行最终提交 CPU spike/禁网演练，未提交独立评审。
 剩余为完整包持久化与桌面消费性能、雀魂原始来源缺失证据、最终完整 CPU 与外部独立验收。
 五门和原生案例通过不能替代这些剩余要求，目标保持进行中。
+
+## 17. 第十二实施切片：严格图校验与不可变读回复用
+
+基线 `d19bcfd95fd57d8667e9550f8789fd50af287279`。
+
+- 图校验先检查原始属性描述符，拒绝 getter、隐藏属性/toJSON、symbol、非 JSON
+  值、稀疏数组及循环。与 package validator 复用已有检查逻辑；保留两处原本不同的
+  negative-zero 口径。图 header/node/edge 逐条使用原严格 schema，保留身份重算、
+  全局唯一、端点与分区校验，避免整图 stringify/parse 及完整 schema 副本。
+- read-back 组合只完整校验一次最终图；有报告时由既有 append seam 校验全部
+  evidence + overlay，无报告时校验 base。选择检查只查询决策存在性，详情引用只在
+  已得出的同决策子图内解析，不为每个引用重建整图索引。
+- SQLite 每次 read 仍验证实际字节 hash/schema/identity，构建新的既有
+  ReviewReadBackContext，并深度冻结该次读回拥有的输入与图。controller 的概览/详情
+  复用这一 context；报告更新/切换替换 context。没有按自报身份缓存校验结论，
+  没有持久化图或把它送入 IPC，没有冻结 save 调用方的输入。
+- 职责仍在 reasoning 的校验/组合与 desktop 的保存/展示 owner；未增加包、依赖边、
+  规则来源或领域抽象。INV-011 的不可变复用条件及测试在原登记处补充。
+
+本次日志：`LOCALAPPDATA/RiichiCoach/spike-runs/readback-fix-20260928-085722/`。
+
+- `graph-red.log`：9 个新增边界用例在旧实现 3 失败/6 通过；隐藏 toJSON 被执行、
+  getter 与隐藏属性未被拒绝。后续补充冻结/共享无环数据正例和 header/node/edge/数组
+  严格性负例；`reuse-focused.log` 中图 30、包 58、读回 4、展示 17、保存 20，共 129 通过。
+- `reuse-red.log`：旧保存路径未保留读回 context，新增回归退出 1；修复后验证深度
+  不可变、不同读回得到不同 context、调用方不被冻结、磁盘损坏再次打开仍拒绝。
+- 类型检查、构建、全量 Vitest、架构、package-import 最终均退出 0；全量为
+  184 文件/2235 项，架构 7 包/426 文件/1921 导入/0 违规，包导入 2 项。
+  首次 build 退出 2（新增类型引用遗漏），已修正并完整重跑，未隐藏失败记录。
+- 同一已保存真实包（22 个评价、65 个规则边界）组合测量从此前约 38.6 秒降到
+  `readback-profile.log` 的 16.1 秒；此时未跨层复用，完整 Electron 仍退出 1，
+  重开子进程达到原 30 秒门槛（`electron-persistence.log`）。
+- 接入不可变复用后，`reuse-cold-open.log` 的独立 Electron 子进程在原 30 秒条件下
+  退出 0，总耗时约 19.2 秒，open 约 18.4 秒，Overview/List/Detail/session 与原值
+  一致、来源/LLM 请求 0。这是应用离线读回诊断，不是系统禁网或完整冒烟替代品。
+
+- `electron-final.log`：完整命令退出 0，真实包保存/重开、原 30 秒子进程限制、
+  零来源/LLM 请求、kill recovery、A→B→A、迁移与坏缓存流程全部通过。
+  最后补齐 selection 与冻结 context 的同对象绑定及 controller 三项身份核对，
+  不改变报告内容；最终源码五门日志使用 `closeout-*` 前缀。
+- `closeout-vitest.log` 曾退出 1：2234 项通过、1 项在账户目录测试 finally 清理
+  临时 profile 时遇到 Windows EPERM，并非该测试产品断言失败。确认 Electron
+  进程均退出后，原全量命令单独重跑 `closeout-vitest-retry.log`，184 文件/2235 项
+  全部通过、退出 0；没有修改测试/重试次数/断言来绕过此次失败。
+- `closeout-electron.log`：最后 selection 绑定修正后的完整
+  `npm run test:electron-persistence` 再次退出 0；仍使用原 30 秒重开门槛，未复用
+  上一轮 PASS。Electron 43.3.0 / Node 24.18.1，全部原有流程通过。
+
+更大分析包的存储边界、雀魂来源缺失证据、最终提交完整真实 CPU spike 与外部
+独立验收仍需完成。本切片未运行系统禁网验证，也未提交外部独立验收。
