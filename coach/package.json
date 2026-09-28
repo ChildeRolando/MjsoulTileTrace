@@ -19,6 +19,7 @@
     "package:fact-engine": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-fact-engine.ps1",
     "generate:factor-regression-golden": "node scripts/generate-factor-regression-golden.mjs",
     "test:fact-engine": "cd tools/mahjong-facts && go test ./...",
+    "test:fact-engine-reproducibility": "node --test scripts/fact-engine-reproducibility.mjs",
     "test:package-import": "npm run build && node --test smoke/package-import-smoke.mjs",
     "coach": "npm run build && node bin/riichi-coach.mjs",
     "coach:demo": "npm run coach",

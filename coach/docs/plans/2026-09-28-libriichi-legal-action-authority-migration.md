@@ -1017,3 +1017,33 @@ ENVIRONMENT_BLOCKED：原完整 CPU 的雀魂规则头及后续杠宝牌资料�
 证据在 `LOCALAPPDATA/RiichiCoach/spike-runs/r16-terminal-dora-20260928/` 的
 `risk-*`、`tenhou-gap-discovery*`、`supplement-manifest.json`；原失败包与回执在
 `diagnostic-supplement-05ee0b306df0-1790595823911/`。雀魂资料与禁网状态保持未解决。
+
+## 26. R18 helper 发布字节重建修复
+
+COAC-168 在固定 `cf90c975227881e99de69848926c8a1298daa26b` 的干净 Windows
+检出中复现 E18-P2-1：Go 1.24.13 重建得到 `5383b168...`，原打包命令拒绝
+与发布清单 `74ab048d...` 不符的字节。实现树的 risk.go 为混合换行；恢复同样
+换行即可精确复现旧发布字节。此问题属于打包输入可复现性，空列表语义回归通过。
+独立评审的原证据、固定候选与最终结论保持原样；这里仅记录实现侧修复。
+
+先增加真实构建回归：在临时 Git index 分别以 autocrlf=true/false 检出当前源码，
+用固定工具链重建。旧规则得到 `5383b168...` 与 `44deba2b...`，均不等于发布
+`74ab048d...`，断言失败。修复在既有 `.gitattributes` 为 Go 源码与 module 文件
+固定 LF，并从相同源码重新生成二进制、两处受信 manifest；两种检出随后均重建
+`44deba2b1c2730ebdd8c7a06f9bb32e9433f45eb23b137f535f336a38f2a9406`。
+产物仍为 2,879,488 字节，adapter/protocol/helper 版本不变。未修改牌理、请求、
+候选或教学事实算法，没有新增架构抽象，也没有放宽发布 hash 校验。
+
+可复现性回归由 `npm run test:fact-engine-reproducibility` 显式运行，加入既有
+Sidecar 门禁；Go 工具链需求不扩散到一般 TypeScript 测试。原 package:fact-engine
+命令、Go tests/vet、47 项真实打包客户端回归与 manifest 回归均已通过。
+完整门禁及最终提交 CPU 回执在源码外
+`LOCALAPPDATA/RiichiCoach/spike-runs/r18-helper-repro-20260928/` 保存。
+`repro-red.log` 与 `repro-green.log` 保留失败及修复后的构建证据；不继承 R18
+固定旧提交的任何通过结论。真实雀魂仍等待新捕获，禁网可用性未验证。
+
+本轮五门全部退出 0，Vitest 192 文件/2356 项通过，diff --check 通过。首轮
+npm test 因新 node:test 回归被 Vitest 发现而报告无 suite；将其移到显式打包入口
+后修正，未放宽断言。第二次遇到一次临时 Chromium profile 清理 EPERM，原 11 项
+聚焦不改代码重跑通过；第三次完整 npm test 退出 0。全部尝试日志保留，最终结果
+见 `final-gates.json`、`npm-test-final.json` 和 `repro-package-green.log`。

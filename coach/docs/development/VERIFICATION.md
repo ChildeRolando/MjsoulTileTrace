@@ -264,10 +264,16 @@ cd coach
 npm run test:fact-engine
 npm run build:fact-engine
 npm run package:fact-engine
+npm run test:fact-engine-reproducibility
 npm test
 ```
 
 提交前核对 packaged binary 的 size/SHA-256、manifest、adapter identity 和真实 golden 一致。不要只跑 Go 单测。
+
+Go 构建输入由 `.gitattributes` 固定为 LF；Go build ID 包含源码字节，混合换行也会
+改变最终二进制。可复现性门禁使用清单固定的 Go 版本，在临时 Git index 分别以
+`core.autocrlf=true/false` 检出并真实重建，两者必须与发布 SHA 完全一致。
+临时构建及回执保留在系统临时目录 `coach-helper-repro-*`，不改原工作树。
 
 ## 雀魂协议门禁
 

@@ -5,3 +5,7 @@
 /coach/packages/reasoning/tests/fixtures/local-mortal/native-daiminkan-golden.json -text
 /coach/packages/reasoning/tests/fixtures/legacy-package-ready.json -text
 /coach/packages/reasoning/tests/fixtures/legacy-package-missing.json -text
+# Go build IDs include source bytes: the released helper must rebuild identically.
+/coach/tools/mahjong-facts/*.go text eol=lf
+/coach/tools/mahjong-facts/go.mod text eol=lf
+/coach/tools/mahjong-facts/go.sum text eol=lf
