@@ -27,6 +27,9 @@ import {
   ContextGraphEdgeSchema,
   EVIDENCE_GRAPH_NODE_KINDS,
   REASONING_GRAPH_NODE_KINDS,
+  AutomaticComparisonScopeSchema,
+  ModelEvaluationSchema,
+  deriveAutomaticComparisonScope,
   type ContextGraph,
   type ContextGraphNode,
 } from "@riichi-coach/contracts";
@@ -34,6 +37,48 @@ import { deriveEdgeId, deriveNodeId, semanticKeyOfNode } from "./context-graph-i
 import { isPlainJson } from "../validate/plain-json.js";
 
 const graphHeaderSchema = ContextGraphSchema.omit({ nodes: true, edges: true });
+
+/** A report scope is derived product policy, not a canonical replay fact.
+ * Recompute it from the complete model node before granting recommendation
+ * permission. Keep legacy graphs without this policy readable. */
+export function validateAutomaticComparisonScopes(graph: ContextGraph): void {
+  const decisions = graph.nodes.filter(node => node.nodeKind === "Decision" &&
+    (node.payload as Record<string, unknown>).automaticComparisonScope !== undefined);
+  if (decisions.length === 0) return;
+  const evaluations = new Map<unknown, ContextGraphNode[]>();
+  for (const node of graph.nodes) {
+    if (node.nodeKind !== "ModelEvaluation") continue;
+    const id = (node.payload as Record<string, unknown>).decisionId;
+    const entries = evaluations.get(id) ?? [];
+    entries.push(node);
+    evaluations.set(id, entries);
+  }
+  const contains = new Map<string, Set<string>>();
+  for (const edge of graph.edges) {
+    if (edge.edgeKind !== "contains") continue;
+    const targets = contains.get(edge.from) ?? new Set<string>();
+    targets.add(edge.to);
+    contains.set(edge.from, targets);
+  }
+  for (const decision of decisions) {
+    const payload = decision.payload as Record<string, unknown>;
+    try {
+      const scope = AutomaticComparisonScopeSchema.parse(payload.automaticComparisonScope);
+      const matches = evaluations.get(payload.decisionId) ?? [];
+      if (matches.length !== 1) throw new Error("expected one same-decision model evaluation");
+      const model = matches[0]!;
+      if (!contains.get(decision.nodeId)?.has(model.nodeId) || model.partition !== "evidence" ||
+          model.origin !== "model_evaluation" || model.authority !== "model") {
+        throw new Error("model evaluation is not bound to this decision");
+      }
+      const { decisionId: _decisionId, ...rawEvaluation } = model.payload as Record<string, unknown>;
+      const expected = deriveAutomaticComparisonScope(ModelEvaluationSchema.parse(rawEvaluation));
+      if (!isDeepStrictEqual(scope, expected)) throw new Error("scope differs from model-derived policy");
+    } catch (error) {
+      throw new Error(`m6d1_graph_validator_automatic_comparison:${decision.nodeId}:${error instanceof Error ? error.message : String(error)}`);
+    }
+  }
+}
 
 /** Named `causes` rejection before schema parse (spec: graph 校验拒绝任何
  * 未知 edge kind 与 `causes` 字符串). */
@@ -112,6 +157,7 @@ export function validateContextGraph(input: unknown): void {
   if (graph.graphId !== `context-graph:${graph.packageId}`) {
     throw new Error(`m6d1_graph_validator_graph_id_mismatch:${graph.graphId}`);
   }
+  validateAutomaticComparisonScopes(graph);
 
   // Global uniqueness + recomputability (spec: nodeId / edgeId 全局唯一且可重算
   // 一致). Reasoning-partition node ids have no D1 derivation (D2 owns them),

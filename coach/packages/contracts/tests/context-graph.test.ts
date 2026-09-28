@@ -203,7 +203,7 @@ describe("M6-D1 context-graph contracts", () => {
     ];
     expect(Object.keys(GRAPH_SLICE_PAYLOAD_ALLOWLIST).sort()).toEqual([...kinds].sort());
     expect(GRAPH_SLICE_PAYLOAD_ALLOWLIST.Decision).toEqual([
-      "decisionId", "surface", "roundOrdinal", "normalizedDecisionContext",
+      "decisionId", "surface", "roundOrdinal", "normalizedDecisionContext", "automaticComparisonScope",
     ]);
     expect(GRAPH_SLICE_PAYLOAD_ALLOWLIST.KnownGameFact).not.toContain("evidenceIds");
     expect(GRAPH_SLICE_PAYLOAD_ALLOWLIST.FactorFact).not.toContain("evidenceIds");

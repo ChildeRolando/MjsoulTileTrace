@@ -32,6 +32,7 @@ import { isDeepStrictEqual } from "node:util";
  * impossible to fake an analyzed shape on a failed decision.
  */
 import { z } from "zod";
+import { AutomaticComparisonScopeSchema } from "./automatic-comparison.js";
 import { DecisionIdSchema, RecordAnalysisStatusSchema } from "./analysis-identity-contract.js";
 export { DecisionIdSchema, RecordAnalysisStatusSchema, type DecisionId, type RecordAnalysisStatus } from "./analysis-identity-contract.js";
 import { RiichiActionSchema } from "./actions.js";
@@ -410,6 +411,8 @@ export const AnalysisReadyDecisionSchema = z.object({
   ...DecisionContextShape,
   outcome: z.literal("analysis_ready"),
   comparisonSet: StructuredComparisonSetSchema,
+  /** Absent in legacy exhaustive artifacts; present for versioned pair analysis. */
+  automaticComparisonScope: AutomaticComparisonScopeSchema.optional(),
   candidateFactorLedgers: z.array(CandidateFactorLedgerSchema).min(1),
   factorDifferences: z.array(FactorDifferenceSchema),
   /** Null exactly when axes conflict (US 8: preference is optional and null
@@ -627,6 +630,7 @@ export const DecisionAnalysisSchema: z.ZodType<
  * its artifact identity.
  */
 export const AnalysisPolicySnapshotSchema = z.object({
+  automaticComparisonPolicyVersion: z.literal("automatic-comparison/top-pair-v1").optional(),
   threshold: z.number().finite().min(0).max(100),
   unit: z.literal("model_selection_score_points"),
   boundary: z.literal("greater_than_or_equal_is_detailed"),
@@ -732,6 +736,10 @@ function refinePackage(pkg: StructuredAnalysisPackage, context: z.RefinementCtx)
   // Package-level identity coherence (Slice 1 review Blocker 3B).
   const seenDecisionIds = new Set<string>();
   pkg.decisions.forEach((decision, index) => {
+    if (decision.outcome === "analysis_ready" &&
+        decision.automaticComparisonScope?.policyVersion !== pkg.analysisPolicy.automaticComparisonPolicyVersion) {
+      context.addIssue({code:z.ZodIssueCode.custom,message:"Automatic comparison scope must match package policy",path:["decisions",index,"automaticComparisonScope"]});
+    }
     const proof = decision.analysisProvider.singleCandidateProof;
     if (!native && decision.outcome === "analysis_ready" &&
         decision.comparisonSet.correspondences?.some(row=>row.relation === "native_physical_realization")) {

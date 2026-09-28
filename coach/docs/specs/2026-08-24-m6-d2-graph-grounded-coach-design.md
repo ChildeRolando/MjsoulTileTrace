@@ -506,3 +506,16 @@ M6-D2 所有失败抛 `m6d2_<模块>_<错误>:<detail>` 风格错误（`m6d2_eng
   draft 之外全部丢弃，audit 只留 hash）。
 - 术语一律以 [`coach/CONTEXT.md`](../../CONTEXT.md) 词汇表为准；与既有 ADR
   矛盾处显式指出，不静默覆盖。
+
+## 2026-09-29 批准修订：自动报告只解释所选比较对
+
+依据 M6-C 同日自动比较策略，提示版本更新为 `coach-review-prompt/v2`，grounding
+版本更新为 `coach-grounding/v2`。新生成请求使用 v2；已保存报告仍兼容 v1 元数据。
+
+GraphContextSlice 携带 Decision.automaticComparisonScope；模型可以看到完整合法候选
+与完整评分，但自动报告推荐必须在所选比较对内，不得把对内确定性偏好表述为所有合法
+动作上的最优证明。其他候选的按需比较不影响本次自动报告是否完备。
+
+生成前校验图的范围与同决策完整 ModelEvaluation 一致；直接 grounding 与报告读回也
+执行同一重算。伪造范围不能扩大推荐权限，未选候选推荐为 invalid_output / 读回拒绝。
+无 scope 的历史图仍保留旧全候选语义；不能用这个兼容分支绕过新版档案的范围校验。

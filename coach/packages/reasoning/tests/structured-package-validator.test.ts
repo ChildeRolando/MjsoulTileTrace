@@ -86,6 +86,47 @@ async function buildIncompleteFixturePackage(): Promise<StructuredAnalysisPackag
   });
 }
 
+describe("automatic report pair integrity", () => {
+  it("accepts scope object key reordering without changing artifact identity or array order", async () => {
+    const pkg = clonePackage(await buildFixturePackage());
+    const before = { id: pkg.packageId, hash: pkg.semanticContentHash };
+    const decision = readyDecisionOf(pkg);
+    const scope = decision.automaticComparisonScope!;
+    decision.automaticComparisonScope = { actionRefs: scope.actionRefs, reason: scope.reason, policyVersion: scope.policyVersion };
+    expect(() => validateStructuredAnalysisPackage(pkg)).not.toThrow();
+    expect({ id: pkg.packageId, hash: pkg.semanticContentHash }).toEqual(before);
+  });
+
+  it("retains the versioned calculation pair through the full-game package and JSON roundtrip", async () => {
+    const pkg = await buildFixturePackage();
+    const decision = readyDecisionOf(pkg);
+    expect(pkg.analysisPolicy).toHaveProperty("automaticComparisonPolicyVersion", "automatic-comparison/top-pair-v1");
+    expect(decision.automaticComparisonScope?.policyVersion).toBe("automatic-comparison/top-pair-v1");
+    expect(decision.candidateFactorLedgers.map(item => item.actionRef).sort())
+      .toEqual([...decision.automaticComparisonScope!.actionRefs].sort());
+    expect(() => validateStructuredAnalysisPackage(clonePackage(pkg))).not.toThrow();
+  });
+
+  it.each(["reverse", "reason", "duplicate", "version"])("rejects a forged %s pair descriptor", async kind => {
+    const pkg = clonePackage(await buildFixturePackage());
+    const scope = readyDecisionOf(pkg).automaticComparisonScope!;
+    if (kind === "reverse") scope.actionRefs.reverse();
+    if (kind === "reason") scope.reason = scope.reason === "model_agreement" ? "model_disagreement" : "model_agreement";
+    if (kind === "duplicate") scope.actionRefs[1] = scope.actionRefs[0];
+    if (kind === "version") Object.assign(scope, { policyVersion: "unknown-policy" });
+    expect(() => validateStructuredAnalysisPackage(pkg))
+      .toThrow(/m6c_validator_(automatic_comparison_scope|schema)/);
+  });
+
+  it("rejects an omitted selected ledger even though all model scores are present", async () => {
+    const pkg = clonePackage(await buildFixturePackage());
+    const decision = readyDecisionOf(pkg);
+    decision.candidateFactorLedgers.pop();
+    expect(decision.modelEvaluation.candidates.length).toBeGreaterThanOrEqual(2);
+    expect(() => validateStructuredAnalysisPackage(pkg)).toThrow(/m6c_validator_ledger_candidate_missing/);
+  });
+});
+
 describe("R14 JSON artifact integrity", () => {
   it.each(["hidden-toJSON", "getter", "hidden-property", "symbol"])(
     "rejects %s on evidence without invoking executable properties", async (kind) => {

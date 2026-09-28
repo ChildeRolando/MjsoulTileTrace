@@ -199,12 +199,13 @@ async function runReview(
   stream: CanonicalEventStream,
   decision: ReplayedDecision,
   report: MortalFetchedReport,
+  engine: HandStructureFactEnginePort = new FailingEngine(),
 ) {
   return await runMortalSingleDecisionReview({
     stream,
     decision,
     report,
-    engine: new FailingEngine(),
+    engine,
     rules: {identity: ruleIdentity, port: {queryRules: async (request:LibriichiRuleRequest) => {
       // Frozen controlled legal set, independent of the report under test.
       const actions = [["6s",23],["9s",26],["2p",10],["7p",15],["7s",24],["3m",2],
@@ -217,6 +218,39 @@ async function runReview(
 }
 
 describe("runMortalSingleDecisionReview", () => {
+  it.each(["first", "second", "last"] as const)(
+    "analyzes only the automatic report pair when actual ranks %s, retaining all legal scores",
+    async (actualRank) => {
+      const fixture = await setupFixture();
+      const original = legacyEntryToMortalEntry(fixture.firstRawDecision);
+      const actualIndex = original.actualIndex;
+      const others = original.details.map((_, index) => index).filter(index => index !== actualIndex);
+      const ranked = actualRank === "first" ? [actualIndex, ...others]
+        : actualRank === "second" ? [others[0]!, actualIndex, ...others.slice(1)]
+        : [...others, actualIndex];
+      const total = ranked.length * (ranked.length + 1) / 2;
+      const entry = cloneEntry(original, {
+        details: original.details.map((detail, index) => ({
+          ...detail, probability: (ranked.length - ranked.indexOf(index)) / total,
+        })),
+        expected: original.details[ranked[0]!]!.action,
+        isEqual: actualRank === "first",
+      });
+      const engine = new FailingEngine();
+      const handCalls = vi.spyOn(engine, "analyzeHand13");
+      const review = await runReview(fixture.stream, fixture.decision, makeReport(fixture.raw, [entry]), engine);
+      expect(review.status).toBe("ready");
+      if (review.status !== "ready") throw new Error(JSON.stringify(review));
+      expect(review.modelEvaluation.candidates).toHaveLength(12);
+      expect(review.comparisonSet.candidates).toHaveLength(12);
+      const scores = [...review.modelEvaluation.candidates].sort((a, b) => b.modelSelectionScore - a.modelSelectionScore);
+      const expected = [scores[0]!.actionRef, actualRank === "first"
+        ? scores[1]!.actionRef : review.modelEvaluation.actualActionRef].sort();
+      expect(review.factorResult.ledgers.map(ledger => ledger.actionRef).sort()).toEqual(expected);
+      expect(handCalls).toHaveBeenCalledTimes(2);
+    },
+  );
+
   it("cannot bypass mandatory rules through the bound-review entry point", async () => {
     const fixture = await setupFixture();
     const report = makeReport(fixture.raw);

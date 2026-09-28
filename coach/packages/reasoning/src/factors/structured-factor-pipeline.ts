@@ -1,4 +1,6 @@
 import {
+  AutomaticComparisonScopeSchema,
+  type AutomaticComparisonScope,
   CandidateFactorLedgerSchema,
   ComparisonAnalysisFrameSchema,
   KnownGameFactsSchema,
@@ -44,6 +46,7 @@ import {
 } from "./hand-structure-ledger.js";
 
 export interface StructuredFactorPipelineInput {
+  automaticComparisonScope?: AutomaticComparisonScope;
   frame: ComparisonAnalysisFrame;
   comparisonSet: StructuredComparisonSet;
   facts: KnownGameFacts;
@@ -62,6 +65,7 @@ export interface StructuredPipelineDiagnostic {
 }
 
 export interface StructuredFactorPipelineResult {
+  automaticComparisonScope?: AutomaticComparisonScope;
   analysisMode: "v2" | "legacy_v1_fallback" | "v2_mixed_unresolved";
   ledgers: CandidateFactorLedger[];
   defenseMatrices: DefenseMatrixV1[];
@@ -339,7 +343,15 @@ export async function runStructuredFactorPipeline(
     throw new Error("comparison decision window does not match known game facts");
   }
 
-  const analyzed = await Promise.all(comparisonSet.candidates.map(async (candidate) => {
+  const scope = rawInput.automaticComparisonScope === undefined ? undefined
+    : AutomaticComparisonScopeSchema.parse(rawInput.automaticComparisonScope);
+  const candidates = scope === undefined ? comparisonSet.candidates
+    : scope.actionRefs.map(ref => {
+      const candidate = comparisonSet.candidates.find(item => item.actionRef === ref);
+      if (candidate === undefined) throw new Error("automatic_comparison_candidate_missing");
+      return candidate;
+    });
+  const analyzed = await Promise.all(candidates.map(async (candidate) => {
     const projection = projectCandidate(candidate, facts);
     if (projection.status !== "ready") {
       return {
@@ -387,6 +399,7 @@ export async function runStructuredFactorPipeline(
       : "v2" as const;
   return {
     analysisMode,
+    ...(scope === undefined ? {} : { automaticComparisonScope: scope }),
     ledgers,
     defenseMatrices,
     differences: preferenceDifferences,

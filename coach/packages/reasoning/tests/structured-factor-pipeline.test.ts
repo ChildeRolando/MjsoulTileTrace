@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import {
   KnownGameFactsSchema,
   ResponseFuritenAnalysisV2Schema,
@@ -19,6 +19,7 @@ import {
 } from "@riichi-coach/contracts";
 import type { HandStructureFactEnginePort } from "../src/fact-engine/port.js";
 import { runStructuredFactorPipeline } from "../src/factors/structured-factor-pipeline.js";
+import { runStructuredAnalysisAssembly } from "../src/analysis/structured-analysis-assembly.js";
 
 const identity: EngineIdentity = {
   engine: "mahjong-helper",
@@ -452,6 +453,37 @@ function findFact(
 }
 
 describe("structured factor pipeline", () => {
+  it("calculates a user-requested pair independently of the automatic report pair", async () => {
+    const original = comparison();
+    const frozenSnapshot = structuredClone(original);
+    const requestedAction = { kind: "discard" as const, tile: tile("7p"), discardMode: "tedashi" as const };
+    const requested = StructuredComparisonSetSchema.parse({
+      ...original, comparisonSetId: "comparison:user-requested", origin: "user_comparison",
+      candidates: [
+        { action: twoPinAction, actionRef: twoPinRef, origins: ["user"] },
+        { action: requestedAction, actionRef: canonicalActionRef(requestedAction), origins: ["user"] },
+      ],
+    });
+    const engine = new FixtureEngine();
+    const handCalls = vi.spyOn(engine, "analyzeHand13");
+    const result = await runStructuredAnalysisAssembly({
+      comparisonSet: requested, frame, facts, responseFuriten: unavailableResponse(), engine,
+      modelEvaluation: null,
+    });
+    expect(handCalls).toHaveBeenCalledTimes(2);
+    expect(handCalls.mock.calls.map(([request]) => request.actionRef).sort())
+      .toEqual(requested.candidates.map(candidate => candidate.actionRef).sort());
+    expect(result.factorResult.ledgers.map(ledger => ledger.actionRef).sort())
+      .toEqual(requested.candidates.map(candidate => candidate.actionRef).sort());
+    expect(result.factorResult.automaticComparisonScope).toBeUndefined();
+    expect(result.modelEvaluation).toBeNull();
+    expect(original).toEqual(frozenSnapshot);
+    expect(result.factorResult.differences.deterministic.length).toBeGreaterThan(0);
+    expect(result.factorResult.differences.deterministic.every(difference =>
+      requested.candidates.some(candidate => candidate.actionRef === difference.leftActionRef) &&
+      requested.candidates.some(candidate => candidate.actionRef === difference.rightActionRef))).toBe(true);
+  });
+
   it("produces one ledger per canonical candidate", async () => {
     const result = await runStructuredFactorPipeline({
       frame,

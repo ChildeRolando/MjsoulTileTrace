@@ -297,6 +297,7 @@ export async function runFixtureReview(
   stream: ReturnType<typeof canonicalStream>,
   decisions: readonly ReplayedDecision[],
   entries: readonly MortalReportDecisionEntry[],
+  includeThirdCandidate = false,
 ) {
   const results = await collectLibriichiRuleResults({
     stream, decisions, identity: ruleIdentity,
@@ -305,6 +306,8 @@ export async function runFixtureReview(
         protocolVersion: request.protocolVersion, requestId: request.requestId,
         identity: request.identity, status: "ok" as const,
         actions: [
+          ...(includeThirdCandidate ? [{runtimeAction: {index: 0, variant: null},
+            mjaiActionJson: JSON.stringify({type: "dahai", actor: 0, pai: "1m", tsumogiri: false})}] : []),
           { runtimeAction: { index: 13, variant: null }, mjaiActionJson: JSON.stringify({
             type: "dahai", actor: 0, pai: "5p", tsumogiri: true,
           }) },

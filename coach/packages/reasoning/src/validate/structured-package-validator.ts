@@ -100,6 +100,7 @@
 import { isPlainJson } from "./plain-json.js";
 import { validateLibriichiPackageEvidence } from "./libriichi-package-evidence.js";
 import {
+  deriveAutomaticComparisonScope,
   CANONICAL_REPLAY_PRODUCER,
   FACT_ENGINE_PRODUCER,
   MORTAL_PROVIDER_IDENTITY,
@@ -681,78 +682,6 @@ function validateReadyDecisionReferences(
       .map((candidate) => candidate.actionRef),
   );
 
-  // Candidate ledgers: production emits exactly one ledger per comparison
-  // candidate, so the ledger refs must be a bijection onto the universe.
-  const seenLedgerRefs = new Set<string>();
-  for (const ledger of decision.candidateFactorLedgers) {
-    if (seenLedgerRefs.has(ledger.actionRef)) {
-      throw new Error(
-        `m6c_validator_ledger_duplicate:${decision.decisionId}:${ledger.actionRef}`,
-      );
-    }
-    seenLedgerRefs.add(ledger.actionRef);
-    if (!universe.has(ledger.actionRef)) {
-      throw new Error(
-        `m6c_validator_ledger_candidate_extra:${decision.decisionId}:${ledger.actionRef}`,
-      );
-    }
-  }
-  for (const candidate of comparison.candidates) {
-    if (!seenLedgerRefs.has(candidate.actionRef)) {
-      throw new Error(
-        `m6c_validator_ledger_candidate_missing:${decision.decisionId}:${candidate.actionRef}`,
-      );
-    }
-  }
-
-  // FactorDifference references (closure 3): differenceId values are unique
-  // within the decision (they are the reference targets of
-  // deterministicPreference.decisiveDifferenceIds), and both sides of every
-  // difference belong to the candidate universe.
-  const seenDifferenceIds = new Set<string>();
-  for (const difference of decision.factorDifferences) {
-    if (seenDifferenceIds.has(difference.differenceId)) {
-      throw new Error(
-        `m6c_validator_difference_duplicate:${decision.decisionId}:${difference.differenceId}`,
-      );
-    }
-    seenDifferenceIds.add(difference.differenceId);
-    if (!universe.has(difference.leftActionRef)) {
-      throw new Error(
-        `m6c_validator_difference_action_ref:${decision.decisionId}:${difference.leftActionRef}`,
-      );
-    }
-    if (!universe.has(difference.rightActionRef)) {
-      throw new Error(
-        `m6c_validator_difference_action_ref:${decision.decisionId}:${difference.rightActionRef}`,
-      );
-    }
-  }
-
-  // DeterministicPreference refs belong to the candidate universe (production
-  // derives the maximal set from the ledger/difference candidate refs), and
-  // every decisiveDifferenceIds entry must resolve to a FactorDifference of
-  // the SAME decision (closure 3 — reference-integrity only; which differences
-  // SHOULD be decisive is never inferred or recomputed).
-  if (decision.deterministicPreference !== null) {
-    for (const actionRef of decision.deterministicPreference.actionRefs) {
-      if (!universe.has(actionRef)) {
-        throw new Error(
-          `m6c_validator_preference_action_ref:${decision.decisionId}:${actionRef}`,
-        );
-      }
-    }
-    for (const differenceId of
-      decision.deterministicPreference.decisiveDifferenceIds
-    ) {
-      if (!seenDifferenceIds.has(differenceId)) {
-        throw new Error(
-          `m6c_validator_preference_difference_ref:${decision.decisionId}:${differenceId}`,
-        );
-      }
-    }
-  }
-
   // ModelEvaluation action references resolve through the comparison set's
   // legal model/action correspondence (ADR-0001): scored entries and
   // preferences are model-origin candidates; the actual action is the
@@ -825,6 +754,91 @@ function validateReadyDecisionReferences(
       `m6c_validator_evaluation_action_ref:${decision.decisionId}:${evaluation.scoredActualModelActionRef}`,
     );
   }
+
+  const scope = decision.automaticComparisonScope;
+  const expectedScope = scope === undefined ? undefined : deriveAutomaticComparisonScope(evaluation);
+  if (scope !== undefined && (comparison.origin !== "automatic_review" ||
+      scope.policyVersion !== expectedScope!.policyVersion || scope.reason !== expectedScope!.reason ||
+      scope.actionRefs.some((ref, index) => ref !== expectedScope!.actionRefs[index]))) {
+    throw new Error(`m6c_validator_automatic_comparison_scope:${decision.decisionId}`);
+  }
+  const analyzedUniverse = scope === undefined ? universe : new Set(scope.actionRefs);
+  for (const ref of analyzedUniverse) {
+    if (!universe.has(ref)) throw new Error(`m6c_validator_automatic_comparison_candidate:${decision.decisionId}:${ref}`);
+  }
+  // Legacy artifacts cover their entire universe; pair artifacts cover exactly
+  // the versioned scope derived from the complete evaluation above.
+  const seenLedgerRefs = new Set<string>();
+  for (const ledger of decision.candidateFactorLedgers) {
+    if (seenLedgerRefs.has(ledger.actionRef)) {
+      throw new Error(
+        `m6c_validator_ledger_duplicate:${decision.decisionId}:${ledger.actionRef}`,
+      );
+    }
+    seenLedgerRefs.add(ledger.actionRef);
+    if (!analyzedUniverse.has(ledger.actionRef)) {
+      throw new Error(
+        `m6c_validator_ledger_candidate_extra:${decision.decisionId}:${ledger.actionRef}`,
+      );
+    }
+  }
+  for (const actionRef of analyzedUniverse) {
+    if (!seenLedgerRefs.has(actionRef)) {
+      throw new Error(
+        `m6c_validator_ledger_candidate_missing:${decision.decisionId}:${actionRef}`,
+      );
+    }
+  }
+
+  // FactorDifference references (closure 3): differenceId values are unique
+  // within the decision (they are the reference targets of
+  // deterministicPreference.decisiveDifferenceIds), and both sides of every
+  // difference belong to the candidate universe.
+  const seenDifferenceIds = new Set<string>();
+  for (const difference of decision.factorDifferences) {
+    if (seenDifferenceIds.has(difference.differenceId)) {
+      throw new Error(
+        `m6c_validator_difference_duplicate:${decision.decisionId}:${difference.differenceId}`,
+      );
+    }
+    seenDifferenceIds.add(difference.differenceId);
+    if (!analyzedUniverse.has(difference.leftActionRef)) {
+      throw new Error(
+        `m6c_validator_difference_action_ref:${decision.decisionId}:${difference.leftActionRef}`,
+      );
+    }
+    if (!analyzedUniverse.has(difference.rightActionRef)) {
+      throw new Error(
+        `m6c_validator_difference_action_ref:${decision.decisionId}:${difference.rightActionRef}`,
+      );
+    }
+  }
+
+  // DeterministicPreference refs belong to the candidate universe (production
+  // derives the maximal set from the ledger/difference candidate refs), and
+  // every decisiveDifferenceIds entry must resolve to a FactorDifference of
+  // the SAME decision (closure 3 — reference-integrity only; which differences
+  // SHOULD be decisive is never inferred or recomputed).
+  if (decision.deterministicPreference !== null) {
+    for (const actionRef of decision.deterministicPreference.actionRefs) {
+      if (!analyzedUniverse.has(actionRef)) {
+        throw new Error(
+          `m6c_validator_preference_action_ref:${decision.decisionId}:${actionRef}`,
+        );
+      }
+    }
+    for (const differenceId of
+      decision.deterministicPreference.decisiveDifferenceIds
+    ) {
+      if (!seenDifferenceIds.has(differenceId)) {
+        throw new Error(
+          `m6c_validator_preference_difference_ref:${decision.decisionId}:${differenceId}`,
+        );
+      }
+    }
+  }
+
+
 }
 
 // ---------------------------------------------------------------------------

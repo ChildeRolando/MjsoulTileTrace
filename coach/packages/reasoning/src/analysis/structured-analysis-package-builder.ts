@@ -326,6 +326,8 @@ function projectDecision(input: {
     ...base,
     comparisonSet: retained.comparisonSet,
     candidateFactorLedgers: retained.factorResult.ledgers,
+    ...(retained.factorResult.automaticComparisonScope === undefined ? {}
+      : { automaticComparisonScope: retained.factorResult.automaticComparisonScope }),
     factorDifferences: differences,
     deterministicPreference: retained.factorResult.deterministicPreference,
     modelEvaluation: retained.modelEvaluation,
@@ -455,6 +457,7 @@ export function buildStructuredAnalysisPackage(
   // ModelEvaluation.detailPolicy.frozenAt.
   const frozenPolicy = input.frozenPolicySnapshot;
   const analysisPolicy = {
+    automaticComparisonPolicyVersion: "automatic-comparison/top-pair-v1" as const,
     threshold: frozenPolicy.threshold,
     unit: frozenPolicy.unit,
     boundary: frozenPolicy.boundary,

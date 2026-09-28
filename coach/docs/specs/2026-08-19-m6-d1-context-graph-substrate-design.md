@@ -461,3 +461,19 @@ M6-D1 所有失败抛 `m6d1_<模块>_<错误>:<detail>` 风格错误；命名与
   D1 reasoning 只做 schema/partition validator、slice 同源只以 packageId 证明。
 - 术语一律以 `coach/CONTEXT.md` 词汇表为准；与既有 ADR 矛盾处显式指出，不
   静默覆盖。
+
+## 2026-09-29 批准修订：自动比较范围
+
+依据 M6-C 同日修订，完整 CandidateAction 与 ModelEvaluation 仍投影；详细账本与差异
+只覆盖自动选择的两个动作。Decision payload / slice 白名单增加
+`automaticComparisonScope`（policyVersion、reason、有序 actionRefs）。
+
+该字段是 **M6-C 分析编排根据模型评分生成的产品策略注释**，不是牌谱事实，也不是
+mahjong-helper 计算的牌理事实。Decision 节点的 canonical_replay 来源描述决策身份及
+normalizedDecisionContext；不能据此把附带的策略注释解释为 canonical 生产。策略版本
+在字段内部，评分来源在同一 Decision contains 的 ModelEvaluation 节点。
+
+图校验必须要求唯一、同决策且 contains 绑定的完整 ModelEvaluation，重算范围并比较
+字段内容与动作顺序；对象键序不影响语义。缺评分、重复评分、非法评分、绑定缺失、范围
+被改写均拒绝。旧无范围图按历史语义读取；生产读回始终从通过包校验的档案重新投影，
+不以外来图取代档案作为事实来源。

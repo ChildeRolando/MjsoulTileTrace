@@ -101,6 +101,10 @@ function decisionNodeOf(
       surface: decision.surface,
       roundOrdinal: decision.roundOrdinal,
       normalizedDecisionContext: decision.normalizedDecisionContext,
+      // Product-policy annotation: unlike the replay context above, this is
+      // derived from the contained ModelEvaluation and checked against it.
+      ...(decision.outcome === "analysis_ready" && decision.automaticComparisonScope !== undefined
+        ? { automaticComparisonScope: decision.automaticComparisonScope } : {}),
     },
     provenance: [],
   });

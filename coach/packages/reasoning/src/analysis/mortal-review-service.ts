@@ -911,6 +911,7 @@ export async function runBoundMortalDecisionReview(input: {
         input.engine,
       );
       factorResult = await runStructuredAnalysisAssembly({
+        automaticReport: true,
         frame: buildFrame(reportIdHash, input.decision, facts),
         comparisonSet: imported.comparisonSet,
         facts,
