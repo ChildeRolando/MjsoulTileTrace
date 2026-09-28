@@ -171,7 +171,9 @@ async function stubReportFor(pkg) {
     complete: async () => ({
       content: JSON.stringify({ decisions: selection.selected.map(({ decisionId }, index) => {
         const nodes = graph.nodes.filter((node) => node.payload?.decisionId === decisionId);
-        const candidate = nodes.find((node) => node.nodeKind === "CandidateAction");
+        const scope = nodes.find((node) => node.nodeKind === "Decision")?.payload.automaticComparisonScope;
+        const candidate = nodes.find((node) => node.nodeKind === "CandidateAction" &&
+          (scope === undefined || scope.actionRefs[0] === node.payload.actionRef));
         const premise = nodes.find((node) => node.nodeKind === "KnownGameFact");
         const difference = nodes.find((node) => node.nodeKind === "FactorDifference");
         if (!candidate || !premise || !difference) throw new Error("real package lacks grounded review evidence");
@@ -290,6 +292,9 @@ if (!PRODUCTION_CACHE_CHILD) app.whenReady().then(async () => {
     const realPackage = await realProductionPackage();
     console.log("[electron-persistence] native package built decisions=22 ruleBoundaries=65");
     const realReport = await stubReportFor(realPackage);
+    assert.ok(realReport.decisionEntries.length > 0);
+    assert.ok(realReport.decisionEntries.every(entry => entry.explanationStatus === "ready"),
+      "The valid pair-scoped stub must produce grounded content for every selected decision");
     const realUserData = mkdtempSync(join(tmpdir(), "riichi-electron-real-main-chain-"));
     const realRoot = join(realUserData, "review-library");
     let providerRequests = 0;
