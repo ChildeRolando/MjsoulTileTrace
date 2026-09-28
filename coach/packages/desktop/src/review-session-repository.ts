@@ -5,7 +5,6 @@ import { DatabaseSync } from "node:sqlite";
 import {
   ReviewReportSchema,
   ReviewSelectionResultSchema,
-  StructuredAnalysisPackageSchema,
   type ReviewReport,
   type ReviewSelectionResult,
   type StructuredAnalysisPackage,
@@ -200,7 +199,10 @@ export function createReviewSessionRepository(input: {
     if (packageRow === undefined) throw new Error("review_unavailable");
     const packageRaw = readPackageArtifact(db, packageRow);
     validateStructuredAnalysisPackage(packageRaw);
-    const analysisPackage = StructuredAnalysisPackageSchema.parse(packageRaw);
+    // The validator checks the complete schema and rejects normalization. This
+    // disk-read object is already owned here; another aggregate clone adds no
+    // validation or isolation and can exceed the heap for real whole games.
+    const analysisPackage = packageRaw;
     if (analysisPackage.packageId !== packageRow.package_id) throw new Error("package_identity_mismatch");
     if (analysisPackage.componentVersions.packageSchema !== packageRow.schema_version) throw new Error("package_version_mismatch");
     if (hash(session.selection_payload) !== session.selection_hash) throw new Error("selection_hash_mismatch");
@@ -254,7 +256,7 @@ export function createReviewSessionRepository(input: {
 
     const packageRaw = readPackageArtifact(db, packageRow);
     validateStructuredAnalysisPackage(packageRaw);
-    const analysisPackage = StructuredAnalysisPackageSchema.parse(packageRaw);
+    const analysisPackage = packageRaw;
     if (analysisPackage.packageId !== packageRow.package_id) throw new Error("package_identity_mismatch");
     if (analysisPackage.componentVersions.packageSchema !== packageRow.schema_version) throw new Error("package_version_mismatch");
     if (hash(session.selection_payload) !== session.selection_hash) throw new Error("selection_hash_mismatch");
@@ -295,7 +297,9 @@ export function createReviewSessionRepository(input: {
   return Object.freeze({
     saveSession(analysisPackageInput: unknown, selectionInput: unknown): PersistedReviewState {
       validateStructuredAnalysisPackage(analysisPackageInput);
-      const analysisPackage = StructuredAnalysisPackageSchema.parse(analysisPackageInput);
+      // Validation and serialization are synchronous and never mutate/freeze
+      // the caller's package. The returned state owns a fresh disk read.
+      const analysisPackage = analysisPackageInput;
       const selection = ReviewSelectionResultSchema.parse(selectionInput);
       composeReviewReadBackContext(analysisPackage, selection, null);
       const packageArtifact = describePackageArtifact(analysisPackage);

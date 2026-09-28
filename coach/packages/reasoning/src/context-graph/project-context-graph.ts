@@ -365,6 +365,26 @@ export function projectContextGraph(
     return nodeId;
   };
 
+  /** Keep every provenance field and reachable Evidence node. A canonical
+   * event already reached through a request cited by this same node needs no
+   * second direct edge. Never borrow a request from elsewhere in the package.
+   * Request -> source edges below remain explicit and complete. */
+  const directEvidenceIds = (refs: readonly string[]): readonly string[] => {
+    for (const ref of refs) resolveEvidence(ref);
+    // Preserve the old invalid-graph behavior for duplicate input references;
+    // compaction must not silently repair an invalid provenance list.
+    if (new Set(refs).size !== refs.length) return refs;
+    const covered = new Set<string>();
+    for (const ref of refs) {
+      const record = pkg.evidenceRegistry[ref]!;
+      if (record.kind !== "fact_engine_request") continue;
+      for (const source of record.sourceRefs) {
+        if (pkg.evidenceRegistry[source]?.kind === "canonical_event") covered.add(source);
+      }
+    }
+    return covered.size === 0 ? refs : refs.filter(ref => !covered.has(ref));
+  };
+
   for (const decision of pkg.decisions) {
     const decisionNode = decisionNodeOf(decision, versions);
     nodes.push(decisionNode);
@@ -376,7 +396,7 @@ export function projectContextGraph(
     const factsNode = knownGameFactNodeOf(decision, versions);
     nodes.push(factsNode);
     edges.push(containsEdge(decisionNodeId, factsNode.nodeId));
-    for (const evidenceId of decision.knownGameFacts.evidenceIds) {
+    for (const evidenceId of directEvidenceIds(decision.knownGameFacts.evidenceIds)) {
       edges.push(derivedFromEdge(factsNode.nodeId, resolveEvidence(evidenceId)));
     }
 
@@ -384,7 +404,7 @@ export function projectContextGraph(
     // differences / model evaluation / preference (spec: 仅 analysis_ready
     // 决策投影候选、账本、差异、模型评价与偏好节点).
     if (decision.outcome !== "analysis_ready") continue;
-    projectReadyDecision(decision, versions, decisionNodeId, nodes, edges, resolveEvidence);
+    projectReadyDecision(decision, versions, decisionNodeId, nodes, edges, resolveEvidence, directEvidenceIds);
   }
 
   // fact_engine_request Evidence nodes derive from their canonical source
@@ -428,6 +448,7 @@ function projectReadyDecision(
   nodes: ContextGraphNode[],
   edges: ContextGraphEdge[],
   resolveEvidence: (evidenceId: string) => string,
+  directEvidenceIds: (refs: readonly string[]) => readonly string[],
 ): void {
   const comparison = decision.comparisonSet;
 
@@ -453,7 +474,7 @@ function projectReadyDecision(
   };
 
   // FactorFact nodes: one per ledger axis fact; the fact applies_to its
-  // ledger's CandidateAction; every evidenceId gets a derived_from edge.
+  // ledger's CandidateAction; every evidenceId stays reachable by derived_from.
   for (const ledger of decision.candidateFactorLedgers) {
     const candidateId = resolveCandidate(ledger.actionRef);
     for (const axis of ledger.axes) {
@@ -467,7 +488,7 @@ function projectReadyDecision(
         nodes.push(node);
         edges.push(containsEdge(decisionNodeId, node.nodeId));
         edges.push(appliesToEdge(node.nodeId, candidateId));
-        for (const evidenceId of fact.evidenceIds) {
+        for (const evidenceId of directEvidenceIds(fact.evidenceIds)) {
           edges.push(derivedFromEdge(node.nodeId, resolveEvidence(evidenceId)));
         }
       }
@@ -489,7 +510,7 @@ function projectReadyDecision(
     } else if (difference.direction === "supports_right") {
       edges.push(supportsEdge(node.nodeId, rightId, "supports_right"));
     }
-    for (const evidenceId of difference.evidenceIds) {
+    for (const evidenceId of directEvidenceIds(difference.evidenceIds)) {
       edges.push(derivedFromEdge(node.nodeId, resolveEvidence(evidenceId)));
     }
   }

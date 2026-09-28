@@ -311,6 +311,8 @@ Model/report evidence provider（模型/报告证据来源）
   同一次磁盘读回构建的 context 在 main 内深度冻结后可供概览/详情复用；不进入
   SQLite 或 IPC。重新打开、报告生成/切换仍从实际存储字节重验并构建新 context，
   不以 packageId/reportId 命中替代内容校验。
+  完整图的冗余 canonical-event 直连只可由同节点已引用的 request → source 路径替代；
+  全部图节点、原始 provenance 和逐节点有向可达证据集保持，不能以压缩隐藏坏引用。
 - **Executable tests**：`grounding-validator.test.ts` 覆盖同步伪造
   CoachJudgment/CoachInference nodeId + payload self-id、Explanation 内容与 payload
   self-id 篡改、`verbalizes` / `opposes` / `qualifies` endpoint-kind 篡改，以及合法
@@ -318,6 +320,8 @@ Model/report evidence provider（模型/报告证据来源）
   无报告 evidence read-back、current-report ref resolution 与 A→B→A 隔离；
   `review-session-persistence.test.ts` 覆盖深度不可变、每次读回的新 context、调用方
   输入不被冻结及再次读回拒绝损坏存储；
+  `context-graph-projector.test.ts` 检查完整证据闭包、无替代路径/无关请求保留直连、
+  重叠请求、坏引用拒绝及原始输入不变；
   `check-architecture.test.mjs` 覆盖 presenter
   只允许 read-back seam、拒绝 overlay/generation internals。
 - **Status**：machine-enforced（contracts/reasoning、COAC-3 provider/IPC 与 COAC-4

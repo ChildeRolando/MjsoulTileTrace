@@ -912,7 +912,7 @@ function assertPackageIdentity(pkg: StructuredAnalysisPackage): void {
 // validateStructuredAnalysisPackage
 // ---------------------------------------------------------------------------
 
-export function validateStructuredAnalysisPackage(input: unknown): void {
+export function validateStructuredAnalysisPackage(input: unknown): asserts input is StructuredAnalysisPackage {
   // Inspect data descriptors before any schema/walker can execute a getter or
   // discard non-enumerable/symbol properties. Accepted artifacts are plain JSON.
   assertJsonRoundtrip(input);

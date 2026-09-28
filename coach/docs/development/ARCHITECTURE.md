@@ -382,6 +382,11 @@ intent/receipt。打开或恢复时逐层校验 hash/schema/domain identity，�
 `composeReviewReadBackContext` 从 fresh package projection 装配当前报告；ContextGraph
 仍不落盘。同一次磁盘读回产生的 context 深度冻结后由主进程概览/详情复用，
 不经 IPC 暴露；重新读库或切换报告仍构建新 context，不缓存自报身份对应的校验结论。
+完整图投影仅合并可由同节点所引请求的 sourceRefs 证明冗余的 canonical-event 直连：
+保留全部节点、完整 provenance 与请求 → 事件路径，逐节点可达证据集合不变。
+不截断分析包/图或按实际动作过滤；具体规则与回归由 M6-D1 spec/projector owner 持有。
+repository 在完整 package validator 已证明 schema 无归一化之后直接使用本次读回对象，
+不再复制整包；保存调用方仍不被修改/冻结，返回值来自独立磁盘读回。
 `package-artifact-storage.ts` 是该 repository 内的字节存储实现：64 KiB 块、完整字节哈希、
 事务内写入和旧 inline JSON 读取。固定 `@streamparser/json@0.0.26` 仅用于 main 侧分块解析，
 不进入 renderer 或领域契约；不改变校验与图构建 owner，不新增架构级抽象。

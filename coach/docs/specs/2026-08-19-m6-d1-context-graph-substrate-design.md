@@ -2,6 +2,8 @@
 
 日期：2026-08-19
 状态：M6-D1 implementation spec（ready-for-agent）
+修订：2026-09-28，完整大包内存故障驱动的溯源表示收敛。下述投影规则以完整
+可达证据集守恒取代重复直连；不删除 package 内容、图节点、节点 provenance 或分析分支。
 依据：[ADR-0004](../adr/0004-context-graph-as-auditable-llm-boundary.md)、
 [Auditable Context Graph Design](./2026-08-18-auditable-context-graph-design.md)、
 [ROADMAP §4 M6-D1](../development/ROADMAP.md)、
@@ -213,9 +215,19 @@ D1 projection 边规则：
 - ModelEvaluation `recommends` 每个 preferred CandidateAction。
 - DeterministicPreference `recommends` 其 actionRefs 对应的每个 CandidateAction。
 - 每个 evidence-bearing 节点（KnownGameFact / FactorFact / FactorDifference）
-  `derived_from` 其每个 evidenceId 对应的 Evidence 节点。
+  通过 `derived_from` 路径到达其每个 evidenceId 对应的 Evidence 节点。每个引用默认
+  直接连边；仅当该节点**自身也引用**一个 fact_engine_request，且该请求的 sourceRefs
+  已明确包含目标 canonical_event 时，省略重复的节点 → canonical_event 直接边，
+  保留节点 → 请求 → 事件的两跳路径。不能借用其他节点引用的请求，不能按数量截断，
+  不能删除无替代路径的直接边。缺失引用或重复输入不能被压缩掩盖。
 - fact_engine_request 类型的 Evidence 节点 `derived_from` 其每个 sourceRef
   对应的 canonical_event Evidence 节点。
+
+所有图节点、节点完整 provenance、原始 package 字段和非溯源边保持原值。对每个
+evidence-bearing 节点，修改前后的**完整有向可达证据集合必须相等**；请求 → 来源边
+仍完整显式存在。该变化只改变重复边的表示，沿用现有节点/边身份派生与 v1 数据形状；
+旧报告引用的节点与同决策可达范围不变，旧 immutable 包/报告字节不重写。
+graph 仍由唯一 projector 整体产生，不改为截取若干决策或保存第三份 canonical artifact。
 
 每个 edge 概念上携带 `edgeId`、`edgeKind`、`from`、`to`、`origin`、
 `provenance`（D1 projection 边为空）、`payload`（kind-specific；D1 只有
@@ -367,7 +379,7 @@ M6-D1 所有失败抛 `m6d1_<模块>_<错误>:<detail>` 风格错误；命名与
   package 两次投影 deep-equal；schema-invalid package fail closed。
 - projector 边规则：analysis_ready 决策存在 Decision contains 六类节点、
   FactorDifference compares/supports 正确方向、ModelEvaluation recommends
-  preferred、derived_from 覆盖全部 evidenceIds、fact-engine Evidence
+  preferred、derived_from 可达集精确覆盖原全部 evidenceIds 及请求来源、fact-engine Evidence
   derived_from 其 canonical sourceRefs。
 - graph validator：篡改 nodeId 留旧 payload、edge 端点悬空、插入 `causes`、
   evidence 节点 origin=llm_reasoning / authority=coach、reasoning 节点

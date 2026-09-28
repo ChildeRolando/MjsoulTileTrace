@@ -145,6 +145,22 @@ describe("ReviewSession SQLite persistence", () => {
     } finally { repository.close(); }
   });
 
+  it("isolates saved bytes and read-back from later mutations of the save input", () => {
+    const repository = createReviewSessionRepository({ root: root() });
+    const input = structuredClone(pkg);
+    try {
+      const saved = repository.saveSession(input, selection);
+      expect(saved.analysisPackage).not.toBe(input);
+      expect(saved.analysisPackage.decisions[0]).not.toBe(input.decisions[0]);
+      input.record.recordId = "caller-mutated";
+      input.decisions[0]!.knownGameFacts.actor = 3;
+      expect(saved.analysisPackage).toEqual(pkg);
+      expect(repository.openByPackageId(pkg.packageId).analysisPackage).toEqual(pkg);
+      expect(() => repository.saveSession(input, selection)).toThrow();
+      expect(repository.openByPackageId(pkg.packageId).analysisPackage).toEqual(pkg);
+    } finally { repository.close(); }
+  });
+
   it("migrates v1 receipts without guessing deleted package bindings and rolls back failed migration", () => {
     for (const fail of [false, true]) {
       const dir = root();

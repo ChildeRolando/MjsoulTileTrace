@@ -1,6 +1,6 @@
 # libriichi 唯一合法动作来源实施计划
 
-日期：2026-09-28；状态：P0/P1 实施中，全部消费者尚未切换
+日期：2026-09-28；状态：生产消费者已切换、旧枚举已封存；P4 全语料与独立验收未完成
 权威：[ADR-0006](../adr/0006-libriichi-single-legal-action-authority.md)、
 [规格](../specs/2026-09-28-libriichi-legal-action-authority-design.md)。
 工作树 `E:/文档/日麻教学/coac-155-work`；分支
@@ -684,3 +684,55 @@ full-game/discovery 的正式切换；新旧包版本与规则来源；物理动
 
 大包会话资源问题、最终提交 CPU 全语料、来源缺失证据、
 外部独立验收仍未完成；不以分块存储通过替代整体目标。
+
+## 19. 第十四实施切片：完整图的重复溯源路径与包副本
+
+基线 `23ddecd08fb28498d7aa29dec726abece3a5bb0d`。上轮 2.35 GB 完整会话
+默认堆耗尽是真实产品失败。本轮先测量，再在既有 projector/repository owner 修复。
+
+- 源码外阶段诊断 `profile-baseline.log` 复现退出 134：图投影到第 40 个决策时，
+  已有 6,890,484 条边，heapUsed 约 4.01 GB。包加载、校验、repository 整包副本、
+  projector schema 副本分别记录；没有提高内存上限。
+- `provenance-count-v2.log` 对全部 122 个决策计数：45,451 个因素、181,150 个差异，
+  29,137,938 个溯源引用；其中 28,680,699 个 canonical-event 引用同时可由本节点
+  自身引用的 fact_engine_request.sourceRefs 到达。初次计数脚本误用 ledger 字段名
+  退出 1，修正后完整重跑退出 0；这是诊断脚本错误，不是产品失败。
+- `compact-experiment.log` 是源码外可执行实验：保留全部 package、230,684 个图节点、
+  所有节点 provenance 和结构边，只合并有明确两跳替代的直连；逐引用检查没有丢失，
+  1,825,108 条边经原 graph validator 验证通过。Node 24.15.0 默认 heap、无 GC/内存
+  参数，约 119 秒、退出 0。它不能替代生产完整会话和兼容验证。
+- 生产 projector 只合并上述可证明重复的边；所有原始引用先解析，无替代路径、无关
+  请求和缺失/重复输入不能借压缩得到豁免。M6-D1 的“逐条直接边”表示规则明确修订为
+  完整可达证据集守恒；包、图节点/身份/来源/权威、非溯源边、请求 → 事件边保持。
+  没有新增图数据库、投影入口、图裁剪、分析分支筛选或新架构抽象。
+- repository 在完整 validator 已检验 schema 且拒绝归一化后直接使用本次拥有的读回
+  对象；移除冗余整包 parse 副本。保存仍同步且不修改/冻结调用方，返回独立磁盘读回。
+  validator 的 TypeScript 签名表达已有类型保证，运行时校验没有减少。
+- `compact-red-final.log`：新反例在原 projector 1 失败/4 通过，失败为应合并的
+  canonical-event 直连仍存在；首次回归中重复引用已被 schema 提前拒绝，修正负例
+  预期为这一更早的拒绝位置。`compact-focused.log` 最终 5 文件/98 项通过，涵盖
+  有/无两跳替代、重叠请求、坏引用、全部原证据闭包、图校验/切片和保存输入隔离。
+
+日志目录：`LOCALAPPDATA/RiichiCoach/spike-runs/package-memory-20260928-1000/`。
+- `large-session.log`：生产 repository 对同一 2,353,369,432 字节真实包完成完整
+  selector、saveSession、关闭及重开，退出 0；122 决策、230,684 节点和 1,825,108
+  边保留。总耗时约 524 秒，saveSession 约 331 秒、重开约 165 秒；阶段采样 RSS
+  最大约 4.26 GB。Node 24.15.0，仅 `--expose-gc`，没有提高 heap 上限；显式 GC
+  仅发生在关闭并释放首份输入/返回状态之后。该证据关闭原保存 OOM，性能仍偏重，
+  不宣称已验证该超大包的 renderer/LLM 消费或系统禁网。
+- `old-compat.log`：复制历史 `riichi-electron-real-main-chain-Km33hg` 的数据库及
+  expected 文件到新证据目录，以现有 Electron offline-reopen-real 子进程运行；
+  原件未改写。退出 0，总耗时 9,734 ms，保留原 30,000 ms 超时；旧报告概览、
+  详情和 session 列表逐字节相同，来源/LLM 请求均为 0。此为应用读回兼容测试，
+  不是系统网络隔离证明。
+- 最终五门分别为 `typecheck-final.log`、`build-final.log`、`vitest-final.log`、
+  `architecture-final.log`、`package-import-final.log`，退出码均为 0；185 文件/
+  2267 项、7 包/428 文件/1934 导入/0 架构违规、2 项包导入。`diff-check-final.log`
+  退出 0。
+- `electron-final.log`：完整 `npm run test:electron-persistence` 退出 0；
+  Electron 43.3.0 / Node 24.18.1，真实完整 22 评价/65 规则边界包、kill/WAL 恢复、
+  原 30 秒独立重开、零来源/LLM 请求、A→B→A、迁移及坏缓存流程全部通过。
+  未修改原测试阈值、裁剪 fixture 或把历史 PASS 计入本次结果。
+
+最终提交 CPU 全语料、雀魂来源缺失证据、系统禁网可用性和外部独立验收尚未在本节
+获得通过证据；不能宣称总体收口。系统禁网按现行规格单独记录，不阻塞正确性验收。
