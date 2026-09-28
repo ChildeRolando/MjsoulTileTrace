@@ -1,11 +1,13 @@
 import { createHash } from "node:crypto";
 import { parse as parseProtobuf } from "protobufjs";
+import { z } from "zod";
 
 import { MahjongSoulSourceError } from "./errors.js";
 import type { MahjongSoulLobbySession } from "./lobby-session.js";
 import type { MahjongSoulProtocolBundle } from "./protocol-bundle.js";
 import { unwrapGameDetailRecords } from "./record-wire.js";
 import { classifyRestoreResponseError } from "./restore-diagnostic.js";
+import { extractRecordRuleEvidence, validateRecordRuleEvidence, type MahjongSoulRecordRuleEvidence } from "./record-rule-evidence.js";
 
 const MAX_RECORD_BYTES = 16 * 1024 * 1024;
 const RECORD_ID = /^\d{6}-[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/u;
@@ -16,12 +18,14 @@ export type MahjongSoulFetchedRecord = Readonly<{
   readonly container: "actions" | "records";
   readonly actionCount: number;
   readonly recordBytes: Uint8Array;
+  readonly ruleEvidence?: MahjongSoulRecordRuleEvidence;
 }>;
 
 export function validateMahjongSoulRecordBytes(input: {
   readonly bundle: MahjongSoulProtocolBundle;
   readonly recordId: string;
   readonly recordBytes: Uint8Array;
+  readonly ruleEvidence?: MahjongSoulRecordRuleEvidence;
 }): MahjongSoulFetchedRecord {
   try {
     if (!RECORD_ID.test(input.recordId)) throw failed("mahjong_soul_record_identity_mismatch");
@@ -47,7 +51,51 @@ export function validateMahjongSoulRecordBytes(input: {
       container: actionCount > 0 ? "actions" : "records",
       actionCount: actionCount > 0 ? actionCount : recordCount,
       recordBytes: Uint8Array.from(input.recordBytes),
+      ...(input.ruleEvidence === undefined ? {} : {
+        ruleEvidence: validateRecordRuleEvidence(input.ruleEvidence, input.recordId, input.recordBytes),
+      }),
     });
+  } catch (error) {
+    if (error instanceof MahjongSoulSourceError) throw error;
+    throw failed();
+  }
+}
+
+const RecordCacheSchema = z.object({
+  schemaVersion: z.literal("game-detail-records/v2"),
+  recordId: z.string().regex(RECORD_ID),
+  recordBase64: z.string().min(1).max(Math.ceil(MAX_RECORD_BYTES / 3) * 4),
+  ruleEvidence: z.unknown().optional(),
+}).strict();
+
+/** Versioned source bytes for the existing privileged raw cache, not a new store. */
+export function encodeMahjongSoulRecordCache(input: {
+  readonly bundle: MahjongSoulProtocolBundle;
+  readonly recordId: string;
+  readonly recordBytes: Uint8Array;
+  readonly ruleEvidence?: MahjongSoulRecordRuleEvidence;
+}): Uint8Array {
+  const record = validateMahjongSoulRecordBytes(input);
+  return Buffer.from(JSON.stringify({ schemaVersion: "game-detail-records/v2", recordId: record.recordId,
+    recordBase64: Buffer.from(record.recordBytes).toString("base64"),
+    ...(record.ruleEvidence === undefined ? {} : { ruleEvidence: record.ruleEvidence }) }), "utf8");
+}
+
+export function decodeMahjongSoulRecordCache(input: {
+  readonly bundle: MahjongSoulProtocolBundle;
+  readonly recordId: string;
+  readonly cacheBytes: Uint8Array;
+}): MahjongSoulFetchedRecord {
+  try {
+    if (!(input.cacheBytes instanceof Uint8Array) || input.cacheBytes.length > 24 * 1024 * 1024) throw failed();
+    const envelope = RecordCacheSchema.parse(JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(input.cacheBytes)));
+    if (envelope.recordId !== input.recordId) throw failed("mahjong_soul_record_identity_mismatch");
+    const recordBytes = Buffer.from(envelope.recordBase64, "base64");
+    if (recordBytes.toString("base64") !== envelope.recordBase64) throw failed();
+    const ruleEvidence = envelope.ruleEvidence === undefined ? undefined
+      : validateRecordRuleEvidence(envelope.ruleEvidence, input.recordId, recordBytes);
+    return validateMahjongSoulRecordBytes({ bundle: input.bundle, recordId: input.recordId, recordBytes,
+      ...(ruleEvidence === undefined ? {} : { ruleEvidence }) });
   } catch (error) {
     if (error instanceof MahjongSoulSourceError) throw error;
     throw failed();
@@ -105,7 +153,9 @@ export async function fetchMahjongSoulRecord(input: {
     // The fetchGameRecord payload (inline data and the data_url file alike) is
     // the outer transport Wrapper; unwrap to the unified GameDetailRecords bytes.
     bytes = unwrapGameDetailRecords(input.bundle, bytes);
-    return validateMahjongSoulRecordBytes({ bundle: input.bundle, recordId: input.recordId, recordBytes: bytes });
+    const ruleEvidence = extractRecordRuleEvidence({ bundle: input.bundle, head: response.head, recordId: input.recordId, recordBytes: bytes });
+    return validateMahjongSoulRecordBytes({ bundle: input.bundle, recordId: input.recordId, recordBytes: bytes,
+      ...(ruleEvidence === undefined ? {} : { ruleEvidence }) });
   } catch (error) {
     if (error instanceof MahjongSoulSourceError) throw error;
     throw failed();

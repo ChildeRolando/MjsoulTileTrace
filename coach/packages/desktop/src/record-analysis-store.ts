@@ -2,6 +2,7 @@ import type { CanonicalEventStream } from "@riichi-coach/contracts";
 import type {
   MahjongSoulCanonicalMapperResult,
   MahjongSoulMapperDiagnostic,
+  MahjongSoulRecordRuleEvidence,
 } from "@riichi-coach/mahjong-soul-source";
 import type { ReplayedDecision } from "@riichi-coach/reasoning";
 
@@ -9,12 +10,12 @@ import type { ReplayedDecision } from "@riichi-coach/reasoning";
 // ingestion route (the account/catalog fetch route and the paipu-URL capture
 // route). It owns the only in-memory analysis state:
 //
-//   INNER GameDetailRecords recordBytes + selfActor
+//   INNER GameDetailRecords recordBytes + same-response rule evidence + selfActor
 //     -> mapMahjongSoulRecord (ready only; never a partial stream)
 //     -> replayCanonicalStream
 //     -> mappedRecords / replayedRecords
 //
-// Route convergence invariant: the same record bytes + the same selfActor
+// Route convergence invariant: the same record bytes/rule evidence + selfActor
 // MUST produce an identical canonical stream and identical replay decisions,
 // independent of how the bytes entered the process. There is no second
 // analysis cache implementation and no second mapper entry point.
@@ -49,6 +50,7 @@ export interface RecordAnalysisStore {
     readonly recordId: string;
     readonly selfActor: number;
     readonly recordBytes: Uint8Array;
+    readonly ruleEvidence?: MahjongSoulRecordRuleEvidence;
   }): RecordAnalysisOutcome;
   getMappedRecord(recordId: string, selfActor: number): CanonicalEventStream | undefined;
   getReplayedDecisions(
@@ -69,6 +71,7 @@ export function createRecordAnalysisStore(input: {
     readonly selfActor: number;
     readonly recordId: string;
     readonly recordBytes: Uint8Array;
+    readonly ruleEvidence?: MahjongSoulRecordRuleEvidence;
   }) => MahjongSoulCanonicalMapperResult;
   readonly replay: (stream: CanonicalEventStream) => readonly ReplayedDecision[];
 }): RecordAnalysisStore {
@@ -79,6 +82,7 @@ export function createRecordAnalysisStore(input: {
     readonly recordId: string;
     readonly selfActor: number;
     readonly recordBytes: Uint8Array;
+    readonly ruleEvidence?: MahjongSoulRecordRuleEvidence;
   }): RecordAnalysisOutcome => {
     if (
       typeof request.recordId !== "string"
@@ -98,6 +102,7 @@ export function createRecordAnalysisStore(input: {
         selfActor: request.selfActor,
         recordId: request.recordId,
         recordBytes: request.recordBytes,
+        ...(request.ruleEvidence === undefined ? {} : { ruleEvidence: request.ruleEvidence }),
       });
     } catch {
       return { status: "mapping_failed", code: "mahjong_soul_canonical_mapping_failed" };

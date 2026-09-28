@@ -19,7 +19,8 @@ import {
   createMahjongSoulOAuth2SessionRestorer,
   authenticateStoredMahjongSoulSession,
   fetchMahjongSoulRecord,
-  validateMahjongSoulRecordBytes,
+  encodeMahjongSoulRecordCache,
+  decodeMahjongSoulRecordCache,
   loadMahjongSoulProtocolBundle,
   mapMahjongSoulRecord,
   readSessionRestoreRejection,
@@ -625,7 +626,7 @@ async function start(): Promise<void> {
     perspective: "all-seats",
     sourceVersion: MAHJONG_SOUL_PROTOCOL_BUNDLE_VERSION,
     modelVersion: "not_applicable",
-    schemaVersion: "game-detail-records/v1",
+    schemaVersion: "game-detail-records/v2",
     parserVersion: MAHJONG_SOUL_PROTOCOL_BUNDLE_VERSION,
     validationVersion: DESKTOP_APP_VERSION,
     requestParameters: {},
@@ -634,7 +635,8 @@ async function start(): Promise<void> {
   const analyzeFetchedRecord = async (stored: { accountId: number }, recordId: string, fetched: Awaited<ReturnType<typeof fetchMahjongSoulRecord>>) => {
     const summaries = await catalogStore.list(stored.accountId);
     const selfActor = requireCatalogSelfSeat(summaries, recordId);
-    const outcome = analysisStore.analyzeRecord({ recordId, selfActor, recordBytes: fetched.recordBytes });
+    const outcome = analysisStore.analyzeRecord({ recordId, selfActor, recordBytes: fetched.recordBytes,
+      ...(fetched.ruleEvidence === undefined ? {} : { ruleEvidence: fetched.ruleEvidence }) });
     if (outcome.status !== "analysis_ready") {
       throw new MahjongSoulSourceError("mahjong_soul_canonical_validation_failed");
     }
@@ -649,13 +651,13 @@ async function start(): Promise<void> {
       const bytes = requireRawCache().get(cacheIdentity(recordId, stored.accountId));
       if (bytes === null) return null;
       try {
-        return await analyzeFetchedRecord(stored, recordId, validateMahjongSoulRecordBytes({
-          bundle, recordId, recordBytes: bytes,
+        return await analyzeFetchedRecord(stored, recordId, decodeMahjongSoulRecordCache({
+          bundle, recordId, cacheBytes: bytes,
         }));
       } catch { return null; }
     },
     writeCachedRecord: (stored, fetched) => {
-      requireRawCache().put(cacheIdentity(fetched.recordId, stored.accountId), fetched.recordBytes);
+      requireRawCache().put(cacheIdentity(fetched.recordId, stored.accountId), encodeMahjongSoulRecordCache({ bundle, ...fetched }));
     },
     fetchRecord: async (lobby, stored, recordId) => {
       const fetched = await fetchMahjongSoulRecord({

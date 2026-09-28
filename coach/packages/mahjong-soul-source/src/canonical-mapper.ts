@@ -13,6 +13,7 @@ import {
   parseMajsoulTile,
 } from "./majsoul-tile.js";
 import type { MahjongSoulProtocolBundle } from "./protocol-bundle.js";
+import { projectRecordRules, validateRecordRuleEvidence, type MahjongSoulRecordRuleEvidence } from "./record-rule-evidence.js";
 import {
   decodeStoredRecordActions,
   type DecodedStoredAction,
@@ -98,6 +99,7 @@ export function mapMahjongSoulRecord(input: {
   readonly recordId: string;
   readonly recordBytes: Uint8Array;
   readonly bundle: MahjongSoulProtocolBundle;
+  readonly ruleEvidence?: MahjongSoulRecordRuleEvidence;
 }): MahjongSoulCanonicalMapperResult {
   try {
     if (
@@ -108,6 +110,12 @@ export function mapMahjongSoulRecord(input: {
       !(input.recordBytes instanceof Uint8Array)
     ) throw mappingFailed();
 
+    const ruleEvidence = input.ruleEvidence === undefined ? undefined
+      : validateRecordRuleEvidence(input.ruleEvidence, input.recordId, input.recordBytes);
+    const ruleSet = projectRecordRules(ruleEvidence);
+    const recordSha256 = `sha256:${createHash("sha256").update(input.recordBytes).digest("hex")}`;
+    const sourceRecordHash = ruleEvidence === undefined ? recordSha256
+      : `sha256:${createHash("sha256").update(JSON.stringify({ recordSha256, ruleEvidence })).digest("hex")}`;
     const actions = decodeStoredRecordActions(input.bundle, input.recordBytes);
     if (actions.length === 0) throw mappingFailed();
 
@@ -568,16 +576,15 @@ export function mapMahjongSoulRecord(input: {
 
     const parsed = CanonicalEventStreamSchema.safeParse({
       schemaVersion: "canonical-riichi-events/v2",
-      mapperVersion: "mahjong-soul-record-mapper/v3",
+      mapperVersion: "mahjong-soul-record-mapper/v4",
       gameId: input.gameId,
       sourceKind: "mahjong_soul",
-      sourceRecordHash: `sha256:${createHash("sha256")
-        .update(input.recordBytes).digest("hex")}`,
+      sourceRecordHash,
       playerCount: 4,
       selfActor: input.selfActor,
       completeness: {
         eventSequence: "complete",
-        ruleSet: "unknown",
+        ruleSet: ruleSet.length === "unknown" ? "unknown" : "partial",
         scores: "complete",
         doraIndicators: doraEvidenceComplete && pendingDoraKans.length === 0 ? "complete" : "partial",
         rivers: "complete",
@@ -587,14 +594,7 @@ export function mapMahjongSoulRecord(input: {
         settlement: "unknown",
         responseOpportunities: responseHistoryComplete ? "complete" : "unknown",
       },
-      ruleSet: {
-        length: "unknown",
-        redFives: { man: "unknown", pin: "unknown", sou: "unknown" },
-        openTanyao: "unknown",
-        atamahane: "unknown",
-        westExtension: "unknown",
-        ippatsuCancelledByAnkan: "unknown",
-      },
+      ruleSet,
       events,
     });
     if (!parsed.success) {

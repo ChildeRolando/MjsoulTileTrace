@@ -794,3 +794,62 @@ mapper/replay 回归与架构检查执行；原始 bytes hash 与 mapper v3 绑�
 剩余为来源规则元数据传递、完整原始雀魂资料、最终提交 CPU 全语料和外部独立验收。
 这次来源修复的五门成功不解除旧真实样本缺宝牌和规则配置的阻塞；未执行禁网演练，
 未宣称真实 CPU 或 R14 总体通过。
+
+## 21. 雀魂规则证据在下载、捕获和缓存中的传递
+
+原 `fetchGameRecord` 响应的 `head.config` / `head.standard_rule` 在进入 mapper 前
+被丢弃；仅有内部 `GameDetailRecords` bytes 无法恢复这些配置。本切片在现有 source
+边界提取窄规则证据，绑定 recordId、内部 bytes SHA、归一化配置 SHA；fetch 与官方
+客户端捕获共同使用同一提取器，desktop 只转交，不解释雀魂规则字段。
+mapper v4 把证据纳入来源身份。无头信息、跨牌谱/字节、畸形证据分别保留 unknown
+或拒绝，不从实际动作、模型候选或目录名称反推规则。
+
+配置投影的依据与边界：
+
+- 固定协议的 `RecordGame`、`GameConfig`、`GameMode`、`GameMetaData` 定义字段。
+  protobuf 缺省字段先正规化，显式缺省值与省略值在两条摄取路径中身份一致。
+- 仅 `standard_rule=2`、category=2、mode=2、段位模式 ID 3/6/9/12/16 且无自定义
+  规则/AI/试验/房间/比赛配置时投影四人南风标准档。模式 ID 的来源是
+  [tensoul 固定数据](https://github.com/Equim-chan/tensoul/blob/f840fae039b52e7af8afa436fd1a2808eb20bc80/data.json)，
+  赤牌缺省与自定义配置的区别参照同提交 `convert.js`。这是来源配置识别，不是动作枚举。
+- [雀魂官方 FAQ](https://mahjongsoul.com/faq/) 的公开接口
+  `https://mahjongsoul.com/api/faq/list` 在本次查证中提供：通常三枚赤牌分别属于三门；
+  四人半庄南四最高分不足 30000 时西入并在达到阈值后结束；采用役的断么九没有门清
+  条件，一发说明要求期间没有吃碰杠。食断和暗杠消一发的投影依据这些规则说明；
+  不声称 FAQ 给出本项目所有规则字段的完整机器协议。
+- 未找到足够的同源头跳证据，因此 `atamahane` 仍 unknown，整体 ruleSet 只标 partial。
+  缺失/陌生/自定义配置全部保持 unknown，禁止用该档替代尚未取得的实际响应头。
+
+现有 privileged raw cache 改用 `game-detail-records/v2` 保存牌谱 bytes 与绑定证据，
+严格验证 envelope、base64、recordId 与 bytes hash。缓存键版本升级；旧 v1 原始缓存
+不冒充带规则证据的新缓存，旧正式复盘包仍按既有只读路径展示。没有新增存储 owner。
+
+回归先于实现：`fetch-rules-red.log` 两项证明旧 fetch 丢失头配置/未拒绝错误头身份；
+`mapper-rules-red.log` 三项证明旧 mapper 忽略证据；`rule-convergence-red.log` 证明
+官方捕获到共享回放的路径丢失证据。新回归覆盖配置档/未知档、getter/额外字段、跨来源
+绑定、fetch 与 CDP 捕获、URL 导入，以及真实 SQLite raw cache 写入、关闭、重开后的
+同一 canonical 与 replay。这里使用真实回合 bytes 加明确合成的响应头验证接线，
+不能作为新的真实雀魂捕获或 CPU 整库验收证据。
+
+本轮证据目录为 `LOCALAPPDATA/RiichiCoach/spike-runs/source-rules-20260928-1108/`；
+官方 FAQ 和固定 tensoul 数据的本地查证副本及先失败/后通过日志均在该非源码目录。
+首次缓存集成测试因未按生产顺序初始化既有数据库而失败（`cache-rules-green.log`），
+修正测试初始化后 `cache-rules-green-v2.log` 九项通过；没有降低缓存拒绝条件。
+完整五门、真实规则接线检查与提交身份在后续回执记录，不能继承前一切片 PASS。
+
+变更控制：source 拥有外部协议与缓存编码，desktop main 转交已绑定数据；沿用既有
+canonical RuleSetV2、分析 store 和 raw cache，不增加依赖边。INV-001/003/004/007
+由来源负例、双路径/重开回归、请求内容绑定及架构门约束。规则引擎、模型评分和
+helper 教学计算均未改动。仍需完整原始雀魂资料、最终提交 CPU 整库及外部独立验收。
+
+本切片实际验证：
+
+- `rules-final-gates.json` 记录五门及 diff 检查的完整命令/时间/退出码，全部退出 0；
+  Vitest 189 文件、2325 项；架构 7 包、433 文件、1973 导入、0 违规；package-import 2 项。
+- `rules-electron.log` 中完整 `npm run test:electron-persistence` 通过 Electron 43.3.0
+  的真实 main/package 保存重开、恢复、A-B-A、旧包迁移和零来源/LLM 请求检查。
+  该测试的应用层请求拦截不是操作系统禁网证明。
+- `source-native-probe.mjs` 以现有 native 构建回执校验资产，故意配置不存在的模型
+  目录，经真实 fetch/mapper/replay/规则收集器查询同一回合四视角：128 个边界，
+  43 个可行动、85 个 non-action、0 错误。没有加载权重或修改原始 fixture；响应头
+  明确为合成输入，回执标为接线验证，不能替代最终真实 CPU 与完整原始资料。
