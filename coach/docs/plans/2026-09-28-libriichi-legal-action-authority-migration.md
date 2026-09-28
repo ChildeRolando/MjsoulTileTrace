@@ -1,6 +1,6 @@
 # libriichi 唯一合法动作来源实施计划
 
-日期：2026-09-28；状态：生产消费者已切换、旧枚举已封存；P4 全语料与独立验收未完成
+日期：2026-09-28；状态：合法动作消费者已切换、旧枚举已封存；雀魂来源补全及 P4 未完成
 权威：[ADR-0006](../adr/0006-libriichi-single-legal-action-authority.md)、
 [规格](../specs/2026-09-28-libriichi-legal-action-authority-design.md)。
 工作树 `E:/文档/日麻教学/coac-155-work`；分支
@@ -736,3 +736,61 @@ full-game/discovery 的正式切换；新旧包版本与规则来源；物理动
 
 最终提交 CPU 全语料、雀魂来源缺失证据、系统禁网可用性和外部独立验收尚未在本节
 获得通过证据；不能宣称总体收口。系统禁网按现行规格单独记录，不阻塞正确性验收。
+
+## 20. 完整 CPU 重跑及雀魂来源接入缺口（修复中）
+
+第 19 节已提交并推送为 `c001113f0446e42056fde96ba87e791f36b99b7b`。
+在该干净提交上实际执行完整 `npm run test:local-mortal-production-spike`，复用既有
+模型与 native 回执、不下载资产、不筛选视角。`production-c001113.log` 退出 1；
+新回执目录为 `LOCALAPPDATA/RiichiCoach/spike-runs/production-native-c001113f0446-1790562321102/`。
+真实 CPU 推理 143 次、天凤补充包 2 份成功，失败 1951 条：雀魂四视角 1945 个规则
+输入不完整、4 个无可分析决策、2 个最终覆盖缺口（暗杠及含大明杠候选的 pass 未命中）。
+系统网络未隔离。该结果不能记为整体 PASS。
+
+进一步从生产 mapper 与入口反查，确认不只是旧脱敏样本丢失杠宝牌：
+
+- `canonical-mapper.ts` 固定输出 doraIndicators=partial、responseOpportunities=unknown，
+  不投影后续 Record* 的累计 doras；即使完整新捕获也不会通过现有规则输入门。
+- RecordGame 响应头里的规则元数据未传入 mapper，redFives 等固定为 unknown；
+  需要在既有来源/摄取链中保留并绑定实际来源证据，不能默认填成标准规则。
+- 旧真实样本被脱敏时已经丢失杠宝牌；当前临时捕获文件不存在。这一资料缺口与
+  上述产品接入缺口分别处理，不能把全部失败归为环境原因。
+
+诊断 `majsoul-readiness.json` 与以下日志均在第 19 节同一源码外证据目录。
+新的来源回归先在旧实现 5 项失败（`majsoul-dora-red.log`）：公开指示牌丢失、
+矛盾快照未拒绝。初步投影通过 mapper 局部测试后，新增完整回合 replay 回归发现
+直接保留晚到快照的位置会触发 dora_kan_mismatch；构建前旧产物 3 项失败，构建后
+初版实现 1 失败/2 通过，分别保存在 `majsoul-dora-replay-red.log` 和
+`majsoul-dora-replay-prototype.log`。
+
+本切片实现沿用既有 canonical/Tenhou 的杠后、岭上摸牌前指示牌位置：仅接收
+该杠或杠者紧接的摸/弃牌快照，检查既有指示牌前缀、杠关联并去除重复快照。
+不能把之后回合的知识前移；缺失指示牌继续 partial。`majsoul-dora-green.log`
+3 文件/40 项通过，包含完整回合重放与两个决策分别看到的指示牌；真实旧夹具
+仍明确 partial。这些合成传输/重放回归不是新的真实来源覆盖证明。
+
+进一步完成同类分支及来源历史证明：
+
+- mapper v3 仅在所有观察到的回合都有终局时声明响应历史完整；中途截断、此前回合
+  未闭合不会被最终一局的终局掩盖。它只证明来源序列，规则查询前仍通过完整 replay
+  的阶段/玩家/物理牌校验。规则配置继续 unknown，未猜测标准配置。
+- `majsoul-history-red.log` 的完整回合在旧实现失败（固定 unknown），未闭合对照通过；
+  新实现在 `majsoul-history-green.log` 通过 39 项。
+- 大明杠分支原先未设置 rinshan 标记；`majsoul-daiminkan-red.log` 两项失败：补牌
+  被错误标为 live_wall、弃牌才发布宝牌时映射被拒绝。修复后包含三个杠种、宝牌重复/
+  前缀变化/缩短/无杠增长/其他玩家/弃牌后晚到、跨局缺失的源回归通过。
+- 新 `majsoul-dora-replay.test.ts` 六项运行真实 mapper 和完整回合 replay，断言所有
+  自视角决策及逐决策宝牌；包括吃碰后弃牌与之后加杠，确认此前决策不受新宝牌污染。
+  这些合成协议输入不替代真实 CPU 或真实来源语料。
+- 当次五门 `majsoul-v3-{typecheck,build,vitest,architecture,package-import}.log` 均退出 0；
+  全量 186 文件/2292 项，架构 7 包/429 文件/1939 导入/0 违规，package-import 2 项。
+  命令、时间、退出码汇总在同目录 `majsoul-v3-gates.json`。没有沿用 c001113 的门禁。
+
+变更控制：仅 source mapper、源测试与跨包 replay 回归，沿用现有 canonical 事件和
+完整性字段，无新抽象/依赖边。INV-001/003/004 的来源、可见状态、动作身份边界仍由
+mapper/replay 回归与架构检查执行；原始 bytes hash 与 mapper v3 绑定归一化结果。
+缺失/矛盾证据不补造；引擎规则和模型协议本切片未变。
+
+剩余为来源规则元数据传递、完整原始雀魂资料、最终提交 CPU 全语料和外部独立验收。
+这次来源修复的五门成功不解除旧真实样本缺宝牌和规则配置的阻塞；未执行禁网演练，
+未宣称真实 CPU 或 R14 总体通过。

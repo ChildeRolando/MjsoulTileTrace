@@ -56,6 +56,175 @@ function newRound(selfActor: number, dealer: number): Record<string, unknown> {
 }
 
 describe("Mahjong Soul stored Record* mapper", () => {
+  it.each(["draw", "discard"] as const)("preserves daiminkan replacement draw and indicator: %s", async publication => {
+    const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
+    const result = mapMahjongSoulRecord({ gameId: "game:daiminkan", selfActor: 1, recordId, bundle,
+      recordBytes: encodeRecord(bundle, [
+        { name: "RecordNewRound", data: newRound(1, 0) },
+        { name: "RecordDiscardTile", data: { seat: 0, tile: "1z", moqie: true } },
+        { name: "RecordChiPengGang", data: { seat: 1, type: 2, tiles: ["1z", "1z", "1z", "1z"], froms: [1, 1, 1, 0] } },
+        { name: "RecordDealTile", data: { seat: 1, tile: "5p", left_tile_count: 68,
+          ...(publication === "draw" ? { doras: ["1z", "2z"] } : {}) } },
+        { name: "RecordDiscardTile", data: { seat: 1, tile: "5p", moqie: true, doras: ["1z", "2z"] } },
+      ]) });
+    expect(result.status).toBe("ready");
+    if (result.status !== "ready") throw new Error("fixture");
+    const kanIndex = result.stream.events.findIndex(event => event.type === "daiminkan_called");
+    expect(result.stream.events.slice(kanIndex, kanIndex + 4).map(event => event.type))
+      .toEqual(["daiminkan_called", "dora_revealed", "tile_drawn", "tile_discarded"]);
+    expect(result.stream.events[kanIndex + 1]).toMatchObject({
+      kanEventRef: result.stream.events[kanIndex]!.eventId, indicator: { id: "2z", red: false },
+    });
+    expect(result.stream.events[kanIndex + 2]).toMatchObject({ actor: 1, from: "rinshan" });
+    expect(result.stream.completeness.doraIndicators).toBe("complete");
+  });
+
+  it.each([true, false])("attests response history only when each observed round is closed: %s", async closed => {
+    const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
+    const actions = [
+      { name: "RecordNewRound", data: newRound(0, 0) },
+      { name: "RecordDiscardTile", data: { seat: 0, tile: "1z", moqie: true } },
+      ...(closed ? [{ name: "RecordHule", data: { hules: [{ seat: 1, zimo: false, hu_tile: "1z" }], delta_scores: [-1000, 1000, 0, 0] } }] : []),
+    ];
+    const result = mapMahjongSoulRecord({ gameId: "game:history", selfActor: 0, recordId, bundle,
+      recordBytes: encodeRecord(bundle, actions) });
+    expect(result.status).toBe("ready");
+    if (result.status !== "ready") throw new Error("fixture");
+    expect(result.stream.completeness.responseOpportunities).toBe(closed ? "complete" : "unknown");
+    expect(result.stream.completeness.ruleSet).toBe("unknown");
+  });
+
+  it.each([true, false])("does not let a closed final round hide an unclosed earlier round: %s", async firstClosed => {
+    const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
+    const end = { name: "RecordHule", data: { hules: [{ seat: 1, zimo: false, hu_tile: "1z" }], delta_scores: [-1000, 1000, 0, 0] } };
+    const result = mapMahjongSoulRecord({ gameId: "game:history-multi", selfActor: 0, recordId, bundle,
+      recordBytes: encodeRecord(bundle, [
+        { name: "RecordNewRound", data: newRound(0, 0) },
+        { name: "RecordDiscardTile", data: { seat: 0, tile: "1z", moqie: true } },
+        ...(firstClosed ? [end] : []),
+        { name: "RecordNewRound", data: { ...newRound(0, 0), ben: 1 } },
+        { name: "RecordDiscardTile", data: { seat: 0, tile: "1z", moqie: true } }, end,
+      ]) });
+    expect(result.status).toBe("ready");
+    if (result.status !== "ready") throw new Error("fixture");
+    expect(result.stream.completeness.responseOpportunities).toBe(firstClosed ? "complete" : "unknown");
+  });
+
+  it.each(["kan", "draw", "discard"] as const)("preserves a kakan indicator with its pon and replacement draw: %s", async publication => {
+    const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
+    const result = mapMahjongSoulRecord({ gameId: "game:kakan-dora", selfActor: 1, recordId, bundle,
+      recordBytes: encodeRecord(bundle, [
+        { name: "RecordNewRound", data: newRound(1, 0) },
+        { name: "RecordDiscardTile", data: { seat: 0, tile: "1z", moqie: true } },
+        { name: "RecordChiPengGang", data: { seat: 1, type: 1, tiles: ["1z", "1z", "1z"], froms: [1, 1, 0] } },
+        { name: "RecordDiscardTile", data: { seat: 1, tile: "1m", moqie: false } },
+        { name: "RecordDealTile", data: { seat: 1, tile: "1z", left_tile_count: 68 } },
+        { name: "RecordAnGangAddGang", data: { seat: 1, type: 2, tiles: "1z",
+          ...(publication === "kan" ? { doras: ["1z", "2z"] } : {}) } },
+        { name: "RecordDealTile", data: { seat: 1, tile: "5p", left_tile_count: 67,
+          ...(publication !== "discard" ? { doras: ["1z", "2z"] } : {}) } },
+        { name: "RecordDiscardTile", data: { seat: 1, tile: "5p", moqie: true, doras: ["1z", "2z"] } },
+      ]) });
+    expect(result.status).toBe("ready");
+    if (result.status !== "ready") throw new Error("fixture");
+    const events = result.stream.events;
+    const index = events.findIndex(event => event.type === "kakan_declared");
+    expect(events[index]).toMatchObject({ upgradedPonEventRef: events.find(event => event.type === "pon_called")!.eventId });
+    expect(events[index + 1]).toMatchObject({ type: "dora_revealed", kanEventRef: events[index]!.eventId, indicator: { id: "2z", red: false } });
+    expect(events[index + 2]).toMatchObject({ type: "tile_drawn", actor: 1, from: "rinshan" });
+    expect(events.filter(event => event.type === "dora_revealed")).toHaveLength(1);
+    expect(result.stream.completeness.doraIndicators).toBe("complete");
+  });
+
+  it.each(["shrink", "other-actor", "after-discard"] as const)("rejects unbound or late kan indicators: %s", async variant => {
+    const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
+    const result = mapMahjongSoulRecord({ gameId: "game:dora-late", selfActor: 0, recordId, bundle,
+      recordBytes: encodeRecord(bundle, [
+        { name: "RecordNewRound", data: newRound(0, 0) },
+        { name: "RecordAnGangAddGang", data: { seat: 0, type: 3, tiles: "1m",
+          ...(variant === "shrink" ? { doras: ["1z", "2z"] } : {}) } },
+        { name: "RecordDealTile", data: { seat: 0, tile: "5p", left_tile_count: 68 } },
+        ...(variant === "after-discard" ? [{ name: "RecordDiscardTile", data: { seat: 0, tile: "5p", moqie: true } }] : []),
+        { name: "RecordDiscardTile", data: { seat: variant === "other-actor" ? 1 : 0, tile: "5p", moqie: true,
+          doras: variant === "shrink" ? ["1z"] : ["1z", "2z"] } },
+      ]) });
+    expect(result).toEqual({ status: "invalid", code: "mahjong_soul_canonical_mapping_failed" });
+  });
+
+  it("keeps missing indicators incomplete across a round reset", async () => {
+    const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
+    const result = mapMahjongSoulRecord({ gameId: "game:dora-reset", selfActor: 0, recordId, bundle,
+      recordBytes: encodeRecord(bundle, [
+        { name: "RecordNewRound", data: newRound(0, 0) },
+        { name: "RecordAnGangAddGang", data: { seat: 0, type: 3, tiles: "1m" } },
+        { name: "RecordDealTile", data: { seat: 0, tile: "5p", left_tile_count: 68 } },
+        { name: "RecordHule", data: { hules: [{ seat: 0, zimo: true, hu_tile: "5p" }], delta_scores: [3000, -1000, -1000, -1000] } },
+        { name: "RecordNewRound", data: { ...newRound(0, 0), ben: 1 } },
+      ]) });
+    expect(result.status).toBe("ready");
+    if (result.status !== "ready") throw new Error("fixture");
+    expect(result.stream.completeness.doraIndicators).toBe("partial");
+    expect(result.stream.events.filter(event => event.type === "dora_revealed")).toEqual([]);
+    expect(result.stream.events.filter(event => event.type === "round_started")).toHaveLength(2);
+  });
+
+  it.each(["kan", "draw", "discard"] as const)(
+    "preserves a published kan dora once in the canonical kan slot: %s", async publishedAt => {
+      const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
+      const start = newRound(0, 0);
+      start.tiles0 = ["1m", "1m", "1m", "1m", "2p", "3p", "4p", "4s", "5s", "6s", "7s", "8s", "9s", "2p"];
+      const result = mapMahjongSoulRecord({ gameId: "game:dora", selfActor: 0, recordId, bundle,
+        recordBytes: encodeRecord(bundle, [
+          { name: "RecordNewRound", data: start },
+          { name: "RecordAnGangAddGang", data: { seat: 0, type: 3, tiles: "1m",
+            ...(publishedAt === "kan" ? { doras: ["1z", "2z"] } : {}) } },
+          { name: "RecordDealTile", data: { seat: 0, tile: "5p", left_tile_count: 68,
+            ...(publishedAt !== "discard" ? { doras: ["1z", "2z"] } : {}) } },
+          { name: "RecordDiscardTile", data: { seat: 0, tile: "5p", moqie: true, doras: ["1z", "2z"] } },
+        ]) });
+      expect(result.status).toBe("ready");
+      if (result.status !== "ready") throw new Error("fixture");
+      const events = result.stream.events;
+      const kan = events.find(event => event.type === "ankan_declared")!;
+      const updates = events.filter(event => event.type === "dora_revealed");
+      expect(updates).toHaveLength(1);
+      expect(updates[0]).toMatchObject({ indicator: { id: "2z", red: false }, kanEventRef: kan.eventId });
+      // Canonical normalizes the reveal next to its kan; the original source
+      // bytes (including the later cumulative snapshot) remain hash-bound.
+      expect(updates[0]!.sourceRecordRef).toBe(kan.sourceRecordRef);
+      const following = events[events.indexOf(updates[0]!) + 1];
+      expect(following?.type).toBe("tile_drawn");
+      expect(result.stream.completeness.doraIndicators).toBe("complete");
+    },
+  );
+
+  it("keeps missing kan indicators partial without inventing a reveal", async () => {
+    const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
+    const result = mapMahjongSoulRecord({ gameId: "game:dora-missing", selfActor: 0, recordId, bundle,
+      recordBytes: encodeRecord(bundle, [
+        { name: "RecordNewRound", data: newRound(0, 0) },
+        { name: "RecordAnGangAddGang", data: { seat: 0, type: 3, tiles: "1m" } },
+        { name: "RecordDealTile", data: { seat: 0, tile: "5p", left_tile_count: 68 } },
+      ]) });
+    expect(result.status).toBe("ready");
+    if (result.status !== "ready") throw new Error("fixture");
+    expect(result.stream.completeness.doraIndicators).toBe("partial");
+    expect(result.stream.events.filter(event => event.type === "dora_revealed")).toEqual([]);
+  });
+
+  it.each(["changed-prefix", "unexplained-growth"] as const)(
+    "rejects contradictory source dora snapshots: %s", async variant => {
+      const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
+      const result = mapMahjongSoulRecord({ gameId: "game:dora-invalid", selfActor: 0, recordId, bundle,
+        recordBytes: encodeRecord(bundle, [
+          { name: "RecordNewRound", data: newRound(0, 0) },
+          { name: "RecordDiscardTile", data: { seat: 0, tile: "1z", moqie: true,
+            doras: variant === "changed-prefix" ? ["2z"] : ["1z", "2z"] } },
+        ]) });
+      expect(result).toEqual({ status: "invalid", code: "mahjong_soul_canonical_mapping_failed" });
+    },
+  );
+
   it("projects the pre-dealer-draw wall from explicit source counts", async () => {
     const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
     const recordBytes = encodeRecord(bundle,[

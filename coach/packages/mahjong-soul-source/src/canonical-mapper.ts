@@ -139,6 +139,10 @@ export function mapMahjongSoulRecord(input: {
     let terminalSettlesScores = false;
     let remainingDraws: number | null = null;
     let wallEvidenceComplete = true;
+    let allObservedRoundsClosed = true;
+    let doraEvidenceComplete = true;
+    let currentDoras: Tile[] = [];
+    const pendingDoraKans: { eventRef: string; ordinal: number; actor: number }[] = [];
 
     const push = (
       sourceRecordOrdinal: number,
@@ -156,6 +160,30 @@ export function mapMahjongSoulRecord(input: {
         sourceRecordRef: sourceRef(input.recordId, sourceRecordOrdinal),
       } as CanonicalGameEvent);
       return eventId;
+    };
+
+    // Record* carries cumulative public indicator snapshots. As in the Tenhou
+    // mapper, canonical places an evidenced reveal immediately after its kan,
+    // before the rinshan decision. Only that kan or its caller's immediate
+    // draw/discard can supply this snapshot; do not move later-turn knowledge
+    // backward. Repeating a snapshot is not another reveal.
+    const publishDoras = (raw: unknown, actor: number): void => {
+      const snapshot = tilesArray(raw).map(parseMajsoulTile);
+      if (snapshot.length === 0) return;
+      if (snapshot.length > 5 || snapshot.length < currentDoras.length ||
+          currentDoras.some((tile, index) =>
+            tile.id !== snapshot[index]!.id || tile.red !== snapshot[index]!.red)) throw mappingFailed();
+      for (const indicator of snapshot.slice(currentDoras.length)) {
+        const kan = pendingDoraKans.shift();
+        if (kan === undefined || kan.actor !== actor) throw mappingFailed();
+        const kanIndex = events.findIndex(event => event.eventId === kan.eventRef);
+        if (kanIndex < 0 || events.slice(kanIndex + 1).some(event =>
+          event.type !== "tile_drawn" || event.actor !== actor || event.from !== "rinshan")) throw mappingFailed();
+        push(kan.ordinal, 1, { type: "dora_revealed", indicator, kanEventRef: kan.eventRef });
+        const reveal = events.pop()!;
+        events.splice(kanIndex + 1, 0, reveal);
+      }
+      currentDoras = snapshot;
     };
 
     // Synthesized game boundary before the first source action.
@@ -192,6 +220,9 @@ export function mapMahjongSoulRecord(input: {
       const data = action.data;
 
       if (action.name === "RecordNewRound") {
+        if (nextRoundOrdinal > 0 && lastTerminalEventRef === null) allObservedRoundsClosed = false;
+        if (pendingDoraKans.length > 0) doraEvidenceComplete = false;
+        pendingDoraKans.length = 0;
         // Close the terminated round before opening the next one; the state
         // machine only allows round_started from between_rounds. The eventId
         // still binds to the ENDING round (currentRoundOrdinal updates below).
@@ -204,8 +235,9 @@ export function mapMahjongSoulRecord(input: {
         // the legacy single `dora` field is absent on real wire.
         const doras = tilesArray(data.doras);
         const firstDora = doras[0];
-        if (firstDora === undefined) throw mappingFailed();
+        if (firstDora === undefined || doras.length !== 1) throw mappingFailed();
         const dora = parseMajsoulTile(firstDora);
+        currentDoras = [dora];
         const scores = scoreQuads(data.scores);
         const seatTiles = [
           tilesArray(data.tiles0),
@@ -267,6 +299,7 @@ export function mapMahjongSoulRecord(input: {
       }
 
       if (action.name === "RecordDealTile") {
+        publishDoras(data.doras, seat(data.seat));
         const expected = remainingDraws === null ? null : remainingDraws - 1;
         if (expected !== null && expected < 0) throw mappingFailed();
         const observed = data.left_tile_count;
@@ -303,6 +336,7 @@ export function mapMahjongSoulRecord(input: {
       }
 
       if (action.name === "RecordDiscardTile") {
+        publishDoras(data.doras, seat(data.seat));
         const actor = seat(data.seat);
         const tile = parseMajsoulTile(data.tile);
         const isRiichi = data.is_liqi === true;
@@ -372,10 +406,12 @@ export function mapMahjongSoulRecord(input: {
           if (consumed.length !== 3) throw mappingFailed();
           const sorted = sortTilesCanonical(consumed);
           const consumedTiles: [Tile, Tile, Tile] = [sorted[0]!, sorted[1]!, sorted[2]!];
-          push(ordinal, 0, {
+          const kanEventRef = push(ordinal, 0, {
             type: "daiminkan_called", actor, targetActor: target,
             calledTile, consumedTiles, calledDiscardEventRef: discard.eventId,
           });
+          pendingDoraKans.push({ eventRef: kanEventRef, ordinal, actor });
+          rinshanDrawDue.set(actor, ordinal);
         } else {
           throw mappingFailed();
         }
@@ -405,7 +441,9 @@ export function mapMahjongSoulRecord(input: {
           const kanTiles: [Tile, Tile, Tile, Tile] = [
             { ...tile }, { ...tile }, { ...tile }, { ...tile },
           ];
-          push(ordinal, 0, { type: "ankan_declared", actor, tiles: kanTiles });
+          const kanEventRef = push(ordinal, 0, { type: "ankan_declared", actor, tiles: kanTiles });
+          pendingDoraKans.push({ eventRef: kanEventRef, ordinal, actor });
+          publishDoras(data.doras, actor);
           rinshanDrawDue.set(actor, ordinal);
           continue;
         }
@@ -418,12 +456,14 @@ export function mapMahjongSoulRecord(input: {
           if (pon === undefined || pon.type !== "pon_called") {
             throw mappingFailed();
           }
-          push(ordinal, 0, {
+          const kanEventRef = push(ordinal, 0, {
             type: "kakan_declared",
             actor,
             addedTile: { ...addedTile },
             upgradedPonEventRef: pon.eventId,
           });
+          pendingDoraKans.push({ eventRef: kanEventRef, ordinal, actor });
+          publishDoras(data.doras, actor);
           rinshanDrawDue.set(actor, ordinal);
           continue;
         }
@@ -521,11 +561,14 @@ export function mapMahjongSoulRecord(input: {
     // closed (round_ended for every started round), plus game_ended whenever
     // the final settlement is derivable. The stream must never stop inside an
     // active round.
+    // This attests source history, not action legality. Downstream replay
+    // still validates every phase/actor transition before rules can run.
+    const responseHistoryComplete = allObservedRoundsClosed && nextRoundOrdinal > 0 && lastTerminalEventRef !== null;
     flushRoundEnd(true);
 
     const parsed = CanonicalEventStreamSchema.safeParse({
       schemaVersion: "canonical-riichi-events/v2",
-      mapperVersion: "mahjong-soul-record-mapper/v2",
+      mapperVersion: "mahjong-soul-record-mapper/v3",
       gameId: input.gameId,
       sourceKind: "mahjong_soul",
       sourceRecordHash: `sha256:${createHash("sha256")
@@ -536,13 +579,13 @@ export function mapMahjongSoulRecord(input: {
         eventSequence: "complete",
         ruleSet: "unknown",
         scores: "complete",
-        doraIndicators: "partial",
+        doraIndicators: doraEvidenceComplete && pendingDoraKans.length === 0 ? "complete" : "partial",
         rivers: "complete",
         calledDiscardMarkers: "complete",
         melds: "complete",
         remainingDraws: wallEvidenceComplete && nextRoundOrdinal > 0 ? "complete" : "unknown",
         settlement: "unknown",
-        responseOpportunities: "unknown",
+        responseOpportunities: responseHistoryComplete ? "complete" : "unknown",
       },
       ruleSet: {
         length: "unknown",
