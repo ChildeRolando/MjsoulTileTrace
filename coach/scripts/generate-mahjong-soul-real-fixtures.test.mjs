@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -79,6 +80,24 @@ registerTest("outer bytes fed as inner fail instead of heuristic-decoding", () =
 
 registerTest("unknown input format is rejected", () => {
   assert.throws(() => toInnerBytes(root, innerBytes, "auto"));
+});
+
+registerTest("sanitization rebinds source rule evidence without retaining the original record identity", () => {
+  const ruleEvidence = {
+    schemaVersion: "mahjong-soul-record-rules/v1", recordId: "260928-aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+    recordSha256: `sha256:${createHash("sha256").update(innerBytes).digest("hex")}`,
+    configurationSha256: `sha256:${"b".repeat(64)}`, standardRule: 2, category: 2, mode: 2,
+    matchModeId: 12, hasCustomRules: false,
+  };
+  const { fixtureA, fixtureB } = deriveSanitizedFixtures(root, innerBytes, ruleEvidence);
+  for (const fixture of [fixtureA, fixtureB]) {
+    const sanitized = toInnerBytes(root, Buffer.from(fixture.wire,"hex"), "outer");
+    assert.deepEqual(fixture.ruleEvidence, { ...ruleEvidence, recordId: SANITIZED_REAL_RECORD_ID,
+      recordSha256: `sha256:${createHash("sha256").update(sanitized).digest("hex")}` });
+    assert(!JSON.stringify(fixture).includes(ruleEvidence.recordId));
+    assert(fixture.fixtureVersion.endsWith("/v2"));
+  }
+  assert.throws(() => deriveSanitizedFixtures(root, innerBytes, { ...ruleEvidence, recordSha256: `sha256:${"0".repeat(64)}` }), /binding/);
 });
 
 registerTest("sanitization retains public dora snapshots on draw, discard and kan",()=>{

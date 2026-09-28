@@ -15,6 +15,12 @@ async function material() {
 }
 
 describe("versioned Mahjong Soul raw cache content", () => {
+  it("reads a self-describing diagnostic capture with the same strict byte binding", async () => {
+    const { bundle, record } = await material();
+    const reopened = decodeMahjongSoulRecordCache({ bundle, cacheBytes: encodeMahjongSoulRecordCache({ bundle, ...record }) });
+    expect(reopened).toEqual(record);
+  });
+
   it("round trips the bytes and immutable rule evidence", async () => {
     const { bundle, record } = await material();
     const cacheBytes = encodeMahjongSoulRecordCache({ bundle, ...record });

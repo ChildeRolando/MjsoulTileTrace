@@ -5,6 +5,7 @@
  *
  *   node scripts/majsoul-discovery.mjs <record1.pb> [record2.pb ...]
  *     [--out report.json] [--max-candidates N] [--dama-tsumo]
+ *     [--input-format inner|record-cache]
  *
  * Pipeline: INNER GameDetailRecords bytes → mapMahjongSoulRecord (existing
  * production mapper — no second parser/classifier) → the SAME source-agnostic
@@ -17,7 +18,8 @@
  *
  * §10/§23 privacy: output carries counts, opaque content-hash game ids,
  * seats, branch names, and canonical decision locators only. The raw Mahjong
- * Soul record id / share URL appears nowhere (game ids hash the bytes).
+ * Soul record id / share URL appears nowhere (game ids hash the input bytes,
+ * including bound rule evidence when input-format is record-cache).
  */
 import { createHash } from "node:crypto";
 import { readFileSync, writeFileSync } from "node:fs";
@@ -25,6 +27,8 @@ import { fileURLToPath } from "node:url";
 import {
   loadMahjongSoulProtocolBundle,
   mapMahjongSoulRecord,
+  decodeMahjongSoulRecordCache,
+  MahjongSoulSourceError,
 } from "@riichi-coach/mahjong-soul-source";
 import {
   discoverCanonicalCorpus,
@@ -45,6 +49,7 @@ function parseArgs(argv) {
   let out = null;
   let maxCandidateSamples;
   let damaTsumo = false;
+  let inputFormat = "inner";
   for (let index = 0; index < argv.length; index += 1) {
     const arg = argv[index];
     if (arg === "--out") {
@@ -55,6 +60,9 @@ function parseArgs(argv) {
         fail("--max-candidates requires a positive integer");
       }
       maxCandidateSamples = value;
+    } else if (arg === "--input-format") {
+      inputFormat = argv[++index];
+      if (!["inner", "record-cache"].includes(inputFormat)) fail("--input-format must be inner or record-cache");
     } else if (arg === "--dama-tsumo") {
       damaTsumo = true;
     } else if (arg.startsWith("--")) {
@@ -66,19 +74,27 @@ function parseArgs(argv) {
   if (files.length === 0) {
     fail("usage: majsoul-discovery.mjs <record1.pb> [record2.pb ...] [--out report.json] [--max-candidates N] [--dama-tsumo]");
   }
-  return { files, out, maxCandidateSamples, damaTsumo };
+  return { files, out, maxCandidateSamples, damaTsumo, inputFormat };
 }
 
-const { files, out, maxCandidateSamples, damaTsumo } = parseArgs(process.argv.slice(2));
+const { files, out, maxCandidateSamples, damaTsumo, inputFormat } = parseArgs(process.argv.slice(2));
 
 const bundleRoot = fileURLToPath(new URL("../vendor/mahjong-soul-protocol/", import.meta.url));
 const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
 
 const inputs = files.map((file) => {
-  const recordBytes = new Uint8Array(readFileSync(file));
+  const bytes = readFileSync(file);
   // Opaque id from content only: no file name, no Mahjong Soul record id, no URL.
-  const digest = createHash("sha256").update(recordBytes).digest("hex").slice(0, 16);
-  return { recordBytes, gameId: `majsoul-g:${digest}` };
+  const digest = createHash("sha256").update(bytes).digest("hex").slice(0, 16);
+  if (inputFormat === "record-cache") {
+    try {
+      const captured = decodeMahjongSoulRecordCache({ bundle, cacheBytes: bytes });
+      return { ...captured, gameId: `majsoul-g:${digest}` };
+    } catch (error) {
+      fail(error instanceof MahjongSoulSourceError ? error.code : "mahjong_soul_record_cache_invalid");
+    }
+  }
+  return { recordBytes: new Uint8Array(bytes), recordId: `majsoul-opaque:${digest}`, gameId: `majsoul-g:${digest}` };
 });
 
 // --- Census pass: one mapping per record (selfActor 0 — the census walks
@@ -90,8 +106,9 @@ for (const input of inputs) {
   const mapped = mapMahjongSoulRecord({
     gameId: input.gameId,
     selfActor: 0,
-    recordId: `majsoul-opaque:${input.gameId.slice("majsoul-g:".length)}`,
+    recordId: input.recordId,
     recordBytes: input.recordBytes,
+    ...(input.ruleEvidence === undefined ? {} : { ruleEvidence: input.ruleEvidence }),
     bundle,
   });
   if (mapped.status !== "ready") {
@@ -126,8 +143,9 @@ if (damaTsumo) {
         const mapped = mapMahjongSoulRecord({
           gameId: input.gameId,
           selfActor: seat,
-          recordId: `majsoul-opaque:${input.gameId.slice("majsoul-g:".length)}`,
+          recordId: input.recordId,
           recordBytes: input.recordBytes,
+          ...(input.ruleEvidence === undefined ? {} : { ruleEvidence: input.ruleEvidence }),
           bundle,
         });
         if (mapped.status !== "ready") {

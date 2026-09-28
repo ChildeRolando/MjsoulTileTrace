@@ -30,6 +30,7 @@
 // usage:
 //   node scripts/majsoul-acceptance.mjs \
 //     --record <inner-record-bytes.pb> --seat <0-3> \
+//     [--input-format inner|record-cache] \
 //     --result-url-file <file-with-mjai-result-url> \
 //     [--report-body <raw-report-body.json>  # zero-network H2 mode] \
 //     --state-dir <dir> [--evidence out.json] \
@@ -41,6 +42,8 @@ import { fileURLToPath } from "node:url";
 import {
   loadMahjongSoulProtocolBundle,
   mapMahjongSoulRecord,
+  decodeMahjongSoulRecordCache,
+  MahjongSoulSourceError,
 } from "@riichi-coach/mahjong-soul-source";
 import {
   createEmptyAcceptanceCheckpoint,
@@ -67,6 +70,7 @@ function fail(message) {
 function parseArgs(argv) {
   const options = {
     record: null,
+    inputFormat: "inner",
     seat: null,
     resultUrlFile: null,
     reportBody: null,
@@ -90,6 +94,9 @@ function parseArgs(argv) {
     const arg = argv[index];
     if (arg === "--record") {
       options.record = argv[++index] ?? fail("--record requires a path");
+    } else if (arg === "--input-format") {
+      options.inputFormat = argv[++index];
+      if (!["inner", "record-cache"].includes(options.inputFormat)) fail("--input-format must be inner or record-cache");
     } else if (arg === "--seat") {
       options.seat = intOption("--seat", 0);
       if (options.seat > 3) fail("--seat must be 0..3");
@@ -196,8 +203,19 @@ function failPair(gameId, seat, reason) {
 
 // --- LOCAL: INNER record bytes → opaque id → mapper → validate → replay. ---
 
-const recordBytes = new Uint8Array(readFileSync(options.record));
-const digest = createHash("sha256").update(recordBytes).digest("hex");
+const inputBytes = readFileSync(options.record);
+const digest = createHash("sha256").update(inputBytes).digest("hex");
+const bundleRoot = fileURLToPath(new URL("../vendor/mahjong-soul-protocol/", import.meta.url));
+const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
+let captured = { recordBytes: new Uint8Array(inputBytes), recordId: `majsoul-opaque:${digest.slice(0, 16)}` };
+if (options.inputFormat === "record-cache") {
+  try {
+    captured = decodeMahjongSoulRecordCache({ bundle, cacheBytes: inputBytes });
+  } catch (error) {
+    fail(error instanceof MahjongSoulSourceError ? error.code : "mahjong_soul_record_cache_invalid");
+  }
+}
+const recordBytes = captured.recordBytes;
 // §14: opaque content-hash game id. The raw Mahjong Soul record id never
 // enters any output; the mapper's recordId parameter feeds only in-memory
 // sourceRecordRefs (audit fidelity), which are not persisted by this script.
@@ -228,13 +246,12 @@ if (record.state === "accepted" || record.state === "failed") {
   // Idempotent re-run: a terminal pair is never re-executed (§4).
   console.error(`PAIR ${fileKey}: terminal ${record.state} — nothing to do`);
 } else {
-  const bundleRoot = fileURLToPath(new URL("../vendor/mahjong-soul-protocol/", import.meta.url));
-  const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
   const mapped = mapMahjongSoulRecord({
     gameId,
     selfActor: seat,
-    recordId: `majsoul-opaque:${digest.slice(0, 16)}`,
+    recordId: captured.recordId,
     recordBytes,
+    ...(captured.ruleEvidence === undefined ? {} : { ruleEvidence: captured.ruleEvidence }),
     bundle,
   });
   if (mapped.status !== "ready") {

@@ -129,6 +129,7 @@ for (const registered of fixtureManifest.fixtures) {
         recordId: fixture.recordId,
         recordBytes,
         bundle,
+        ...(fixture.ruleEvidence === undefined ? {} : { ruleEvidence: fixture.ruleEvidence }),
       }),
     });
   } else if (registered.sourceKind === "tenhou") {

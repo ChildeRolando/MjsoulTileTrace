@@ -853,3 +853,45 @@ helper 教学计算均未改动。仍需完整原始雀魂资料、最终提交 
   目录，经真实 fetch/mapper/replay/规则收集器查询同一回合四视角：128 个边界，
   43 个可行动、85 个 non-action、0 错误。没有加载权重或修改原始 fixture；响应头
   明确为合成输入，回执标为接线验证，不能替代最终真实 CPU 与完整原始资料。
+
+## 22. 诊断、捕获产物与离线语料入口的同一规则证据
+
+第 21 节已提交/推送为 `362ea6bd633b700f692914f5eeb6b1909fe28931`。随后在干净
+提交上完整运行 CPU spike，未筛选视角：143 次推理、2 份天凤完整包；整体退出 1，
+1951 条失败仍为雀魂四视角 1945 个输入不完整、4 个无可分析决策、2 个覆盖缺口。
+回执为 `LOCALAPPDATA/RiichiCoach/spike-runs/production-native-362ea6bd633b-1790566451900/production-spike-receipt.json`。
+普通联网环境，无系统级隔离；不是整体 PASS，也不继承此前真实通过记录。
+
+进一步沿输入消费者发现：desktop 的 replay acquisition、replay audit 和捕获诊断
+仍只转交 bytes；捕获到磁盘的旧 `.pb` 也不能包含响应头证据。三个先失败回归在
+`diagnostic-rules-red.log`，修复后两条 fetch 诊断和捕获映射都传递同一证据。
+捕获诊断除原有 inner bytes 外，保存唯一文件名、`wx` 写入的 `game-detail-records/v2`
+文件，结果的 `recordCachePath` 给出路径。该文件仅含牌谱字节与窄配置证据，不含
+账户清单或令牌；再次运行不覆盖它。请求 recordId 与捕获身份不同则在写入前拒绝。
+
+离线入口通过显式 `--input-format record-cache` 使用现有 source decoder，普通旧
+inner 输入仍支持，缺规则保持 unknown。decoder 可从已严格校验的 envelope 读取
+独立捕获身份；生产 raw-cache lookup 继续传入预期 recordId 并强制匹配。
+没有在各 CLI 复制协议解析器或猜测文件类型。
+
+- `majsoul-discovery.mjs` 的普通 census 和原生规则发现都传入绑定规则；输出仍使用
+  输入内容的哈希，不泄漏原始 recordId。带规则的输入身份包含其证据。
+- `majsoul-acceptance.mjs` 同样传入证据；损坏绑定在本地分析前以固定错误拒绝。
+- `generate-mahjong-soul-real-fixtures.mjs --input-format record-cache` 保留实际捕获的
+  窄规则字段，脱敏后重新绑定合成 recordId 和新 bytes hash；输出 fixture v2。
+  原有无元数据 v1 的再生成行为不变。生产 spike 转交 fixture 内证据，不补默认配置。
+- `fixture-rules-red.log` 证明原生成器丢失规则；`cli-rules-red.log` 三项证明旧 CLI
+  无法使用带证据捕获；`capture-cache-red.log` 证明原 decoder 不支持独立捕获入口。
+  修复后 focused 回归覆盖证据保存/重开/不覆盖、跨记录拒绝、脱敏身份重绑、未知原始
+  输入和两个 CLI 的损坏证据拒绝。所有输入头仍明确为合成测试数据，原真实资产未修改。
+
+变更控制：补齐既有 diagnostic/CLI/fixture owner 对同一 source 数据的传递，复用
+第 21 节的 cache codec，无新包或新的规则计算。INV-003/004/007 的来源边界、身份
+与可复现约束由负例、实际 CLI 和原生查询检查。完整资料与最终外部验收仍未完成。
+
+当次验证记录仍在第 21 节证据目录：`capture-final-gates.json` 的全部五门与 diff
+检查退出 0；Vitest 190 文件、2334 项，架构 7 包、434 文件、1987 导入、0 违规，
+package-import 2 项。`capture-focused.log` 的五文件 35 项通过（其后增加的跨记录
+捕获拒绝用例由上述全量门覆盖）。`capture-native-discovery.log` 实际调用新 CLI
+与已有 native 资产：合成头捕获文件四视角共 32 个 self 边界完成分类、0 引擎错误，
+没有神经网络推理，也不把 0 自摸命中称为自摸覆盖证明。

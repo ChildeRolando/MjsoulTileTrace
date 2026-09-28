@@ -83,18 +83,20 @@ export function encodeMahjongSoulRecordCache(input: {
 
 export function decodeMahjongSoulRecordCache(input: {
   readonly bundle: MahjongSoulProtocolBundle;
-  readonly recordId: string;
+  // Cache lookups supply their expected id; standalone diagnostic captures use
+  // the validated envelope id. Both paths verify the same evidence/byte binding.
+  readonly recordId?: string;
   readonly cacheBytes: Uint8Array;
 }): MahjongSoulFetchedRecord {
   try {
     if (!(input.cacheBytes instanceof Uint8Array) || input.cacheBytes.length > 24 * 1024 * 1024) throw failed();
     const envelope = RecordCacheSchema.parse(JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(input.cacheBytes)));
-    if (envelope.recordId !== input.recordId) throw failed("mahjong_soul_record_identity_mismatch");
+    if (input.recordId !== undefined && envelope.recordId !== input.recordId) throw failed("mahjong_soul_record_identity_mismatch");
     const recordBytes = Buffer.from(envelope.recordBase64, "base64");
     if (recordBytes.toString("base64") !== envelope.recordBase64) throw failed();
     const ruleEvidence = envelope.ruleEvidence === undefined ? undefined
-      : validateRecordRuleEvidence(envelope.ruleEvidence, input.recordId, recordBytes);
-    return validateMahjongSoulRecordBytes({ bundle: input.bundle, recordId: input.recordId, recordBytes,
+      : validateRecordRuleEvidence(envelope.ruleEvidence, envelope.recordId, recordBytes);
+    return validateMahjongSoulRecordBytes({ bundle: input.bundle, recordId: envelope.recordId, recordBytes,
       ...(ruleEvidence === undefined ? {} : { ruleEvidence }) });
   } catch (error) {
     if (error instanceof MahjongSoulSourceError) throw error;

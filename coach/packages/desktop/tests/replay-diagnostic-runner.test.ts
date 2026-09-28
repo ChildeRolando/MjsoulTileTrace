@@ -4,12 +4,14 @@ import { describe, expect, test } from "vitest";
 import type { CanonicalEventStream } from "@riichi-coach/contracts";
 import {
   SecretString,
+  type MahjongSoulRecordRuleEvidence,
   type MahjongSoulLobbySession,
   type RawRecordListEntry,
   type StoredMahjongSoulSession,
 } from "@riichi-coach/mahjong-soul-source";
 import {
   replayDiagnosticExitCode,
+  acquireMahjongSoulReplay,
   runMahjongSoulReplayDiagnostic,
   type MahjongSoulReplayDiagnosticPorts,
 } from "../src/replay-diagnostic-runner.js";
@@ -105,6 +107,22 @@ function ports(
 }
 
 describe("Mahjong Soul replay H1 diagnostic", () => {
+  test.each(["acquire", "audit"])("preserves bound source rules in the %s path", async route => {
+    const ruleEvidence: MahjongSoulRecordRuleEvidence = {
+      schemaVersion: "mahjong-soul-record-rules/v1", recordId,
+      recordSha256: `sha256:${"a".repeat(64)}`, configurationSha256: `sha256:${"b".repeat(64)}`,
+      standardRule: 2, category: 2, mode: 2, matchModeId: 12, hasCustomRules: false,
+    };
+    const base = ports();
+    let received: unknown;
+    const supplied = ports({ fetchRecord: async (...args) => ({ ...await base.fetchRecord(...args), ruleEvidence }),
+      mapRecord: input => { received = input; return { status: "ready", stream: {} as CanonicalEventStream }; },
+    });
+    const result = route === "acquire" ? await acquireMahjongSoulReplay(supplied) : await runMahjongSoulReplayDiagnostic(supplied);
+    expect(result.status).toBe(route === "acquire" ? "acquired" : "replay_audit_written");
+    expect(received).toMatchObject({ recordId, selfActor: 0, ruleEvidence });
+  });
+
   test("maps every fixed status to a stable process exit code", () => {
     expect(replayDiagnosticExitCode("replay_audit_written")).toBe(0);
     expect(replayDiagnosticExitCode("login_required")).toBe(10);
