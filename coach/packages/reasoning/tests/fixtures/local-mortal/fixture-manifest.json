@@ -17,6 +17,22 @@
       "provenance": "public Tenhou replay 2026080804gm-00a9-0000-71cfcabf; player names replaced"
     },
     {
+      "id": "tenhou-ankan-supplement",
+      "sourceKind": "tenhou",
+      "source": "tenhou-ankan-2026081116.xml",
+      "sha256": "2a5754e049fdebb23da8c391d2c7c2f82a02624df54926b4eaf228d94205a4dd",
+      "perspectives": [1, 3],
+      "provenance": "public Tenhou replay 2026081116gm-00a9-0000-19c64a92; complete record, player names replaced"
+    },
+    {
+      "id": "tenhou-pass-daiminkan-supplement",
+      "sourceKind": "tenhou",
+      "source": "tenhou-pass-daiminkan-2026080911.xml",
+      "sha256": "9ff404d03b87f045c8348434a448ae5c6f1f003842bc741e018fbc074b3beaad",
+      "perspectives": [2],
+      "provenance": "round occurrence 4 (zero-based) extract from public Tenhou replay 2026080911gm-00a9-0000-2fc0c419; all round events preserved, player names replaced"
+    },
+    {
       "id": "tenhou-daiminkan-supplement",
       "sourceKind": "tenhou",
       "source": "tenhou-daiminkan-2026080803.xml",

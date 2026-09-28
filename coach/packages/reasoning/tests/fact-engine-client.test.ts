@@ -1058,6 +1058,35 @@ describe("JSONL fact engine client", () => {
     );
   });
 
+  it.each(["all-safe", "real-late-round"] as const)("accepts an empty remaining no-suji list from the packaged sidecar: %s", async (scenario) => {
+    const resources = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../../resources");
+    const client = new JsonlFactEngineClient(new ManagedFactEngineTransport(resources));
+    const request = validThreatRiskRequest();
+    request.safeTiles34 = scenario === "all-safe" ? Array<boolean>(34).fill(true) :
+      [false,true,true,false,true,false,true,true,true,true,true,false,true,false,true,true,true,false,false,true,true,true,false,false,false,true,true,true,true,false,true,false,true,false];
+    if (scenario === "real-late-round") {
+      request.turns = 17;
+      request.leftTiles34 = [1,1,0,3,1,3,0,0,0,0,2,3,1,4,3,3,1,0,1,0,0,0,2,2,1,0,1,1,2,4,2,2,1,3];
+      request.doraTiles34 = [11,24];
+      request.threatWindTile34 = 28;
+      request.earlyOutsideTiles34 = [26];
+    }
+    try {
+      const result = await client.analyzeThreatRisk(request);
+      expect(result.leftNoSujiTile34).toEqual([]);
+      expect(result.riskScale).toHaveLength(34);
+      expect(result.evidenceIds).toEqual(request.evidenceIds);
+      request.safeTiles34.forEach((safe, tile34) => {
+        if (safe) {
+          expect(result.riskScale[tile34]).toBe(0);
+          expect(result.classifications).toContainEqual({tile34, kind: "genbutsu"});
+        }
+      });
+    } finally {
+      await client.close();
+    }
+  });
+
   it("starts the packaged sidecar without Go or a caller-supplied binary path", async () => {
     const packageRoot = path.resolve(
       path.dirname(fileURLToPath(import.meta.url)),

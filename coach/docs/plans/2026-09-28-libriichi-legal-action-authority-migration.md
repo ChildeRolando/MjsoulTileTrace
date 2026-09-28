@@ -978,3 +978,42 @@ native 调用 0 次。
 的分析包保存重开、kill 恢复、实际 main 链零来源/LLM 请求、A-B-A 与迁移通过。
 最终提交绑定的完整 CPU 和下一轮独立验收另行记录；真实雀魂资料缺口未解决，
 禁网未执行，不能由本次反例通过推断完整验收完成。
+
+## 25. R17 独立结论及真实补充语料中的空无筋牌列表
+
+COAC-167 / R17 对 `05ee0b306df0ed5ec9e8ce8b063ffe46c7f90dd0` 的独立评审于
+2026-09-28 完成：P1/P2/P3 均为空，五门、E15/E16、R14 全 11 项、无权重查询及
+真实 native/CPU 对照通过。2,353,369,432 字节包保存、关闭、新 repository 重开
+通过，230,684 节点与 1,825,108 边保持一致，约 592 秒。正式结论仍为
+ENVIRONMENT_BLOCKED：原完整 CPU 的雀魂规则头及后续杠宝牌资料缺口未解除。
+原报告与附件保持只读，外部 issue 为 `01a0e7bc-a928-7b9b-b7e2-48b81abb43c4`；
+实现侧留存附件 SHA 为 `9460f99a37fb02ecdb8e7feda7e76ddbf1484f5030c6a0331565a957c2dbe2b7`。
+
+继续从已有私有天凤语料定位，未下载或伪造牌谱；原生规则扫描两组各 3 场/12 视角。
+选出真实暗杠实际选择/放弃，以及候选为 pon/daiminkan/pass 且实际 pass 的样本。
+新增 manifest 条目保留全部原验收样本与视角，补充两个脱敏来源、三个视角：
+
+- `tenhou-ankan-2026081116.xml`：完整原局，actor 1/3；原始文件 SHA
+  `0a3cf87cff3cd464f32abc7deab32add53b78c0db99f1a21861fce6818e9d560`。
+- `tenhou-pass-daiminkan-2026080911.xml`：原始 round occurrence 4（从零计数）的
+  完整局提取，actor 2；原始文件 SHA
+  `8d698a91ecbc73ba97c3390bb50f819b5946a20d03fa1052423e35120df39210`。
+  两份均只替换玩家名字，局内动作及顺序不改；脱敏 SHA 与公共来源定位在 manifest。
+
+源码外补充诊断基于原 spike 管线：71 次真实 CPU、3 包；大明杠 pass 的 12 决策
+全部 analysis_ready。暗杠两视角分别 1/2 个窗口出现 fact_engine_failure；这些失败
+没有筛掉。追踪到 Go risk adapter 将空 LeftNoSujiTile34 编码为 null，违反数组协议，
+并非原生合法动作或神经网络评分错误。补充诊断不是完整语料验收，回执单独标识。
+
+修复只在该输出字段用非 nil 空 slice；不修改 helper 数值算法，不放宽客户端 schema，
+不把缺失输入改成空集合。其余 cloneInts 输出点审计未发现另一个可空且要求数组的
+同类出口；RiskScale 固定 34 项、EvidenceIDs 由请求门保证非空。协议/adapter 契约
+版本保持，实际发布二进制 SHA 与两处受信 manifest 更新，Go 固定 1.24.13 重建打包。
+
+回归先红：Go 序列化断言实际得到 null 而非 []；打包客户端 all-safe 与真实晚巡
+两例均因 invalid_fact_engine_response 失败。修复后 Go 全量通过、客户端 47 项通过，
+验证空列表、34 项风险、现物零风险及分类、证据绑定。新增真实来源进入原完整 spike
+作下游回归，完整门禁及最终提交 CPU 回执另存；不能继承 R17 为新提交的通过证明。
+证据在 `LOCALAPPDATA/RiichiCoach/spike-runs/r16-terminal-dora-20260928/` 的
+`risk-*`、`tenhou-gap-discovery*`、`supplement-manifest.json`；原失败包与回执在
+`diagnostic-supplement-05ee0b306df0-1790595823911/`。雀魂资料与禁网状态保持未解决。
