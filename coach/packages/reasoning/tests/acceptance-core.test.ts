@@ -1,3 +1,4 @@
+import { ruleIdentity } from "./fixtures/structured-review.js";
 /**
  * Source-policy correction §20 tests A–F: acceptance evidence is valid from
  * ANY approved independent local authority (Mahjong Soul preferred, Tenhou
@@ -110,6 +111,7 @@ function makeReview(): AcceptanceReadyReview {
       responseUnboundEntryCount: 0,
       responseAmbiguousEntryCount: 0,
     },
+    libriichi: { identity: ruleIdentity, results: new Map(), nonActionBoundaries: [] },
     retainedAnalyses: [],
   } as AcceptanceReadyReview;
 }

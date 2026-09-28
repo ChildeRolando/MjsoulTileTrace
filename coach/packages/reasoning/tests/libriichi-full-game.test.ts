@@ -49,6 +49,15 @@ function unusedEngine(): HandStructureFactEnginePort {
 }
 
 describe("native rules own the census and full-game exemptions", () => {
+  it("rejects missing rule input instead of executing a legacy singleton fallback", async () => {
+    const stream=acceptedRiichiKanStream(hand,canonicalTile("8s"),"discard");
+    const decision=replayCanonicalStream(stream).at(-1)!;
+    const engine=unusedEngine();
+    const review=await runMortalFullGameReview({stream,decisions:[decision],report:emptyReport(stream),engine} as unknown as Parameters<typeof runMortalFullGameReview>[0]);
+    expect(review).toEqual({status:"failed",code:"mortal_full_game_input_invalid"});
+    expect(engine.analyzeHandStructure).not.toHaveBeenCalled();
+  });
+
   it("collects every boundary failure instead of stopping at the first runtime exception", async () => {
     const stream=acceptedRiichiKanStream(hand,canonicalTile("8s"),"discard");
     const queryRules=vi.fn(async (_request:LibriichiRuleRequest):Promise<LibriichiRuleResponse>=>{throw new Error("runtime unavailable");});

@@ -56,3 +56,21 @@ selector。四个行为回归仍覆盖完整链、缺报告行的完整性失败
 退出提交为包含本节和 builder 变更的提交（避免自引用 SHA）；可通过
 `git log --diff-filter=D --format=%H -- coach/packages/reasoning/tests/structured-analysis-package-golden.test.ts`
 核对。full-game 的旧回退分支仍待删除，不因包生产口收紧而算全部退出。
+
+## 3. 整局及已绑定决策入口的旧回退
+
+封存基线：`518524d17bc3583ab9aba839c38c728aa7c80052`。
+
+| 路径（仓库根目录起） | 基线 blob | 退出部分 |
+|---|---|---|
+| `coach/packages/reasoning/src/analysis/mortal-full-game-review.ts` | `981b87c3288987c38432fe96dbdd4d9a7b0a5918` | `runMortalFullGameReview` 中可选规则输入、旧 self/response 单候选证明与 ron 资格计算 |
+| `coach/packages/reasoning/src/analysis/mortal-review-service.ts` | `f1400c70e47f5a02c3444d28af5bea1675c76f62` | `runBoundMortalDecisionReview` 无规则结果时跳过候选全集验证的分支 |
+| `coach/packages/reasoning/tests/mortal-full-game-review.test.ts` | `882dd6d5fb2293558050984c45b825f83a9b800c` | partial legacy bridge 生产路径、`TenpaiPredicateEngine` 驱动的旧单候选算法测试 |
+
+替代入口仍为上述同名生产函数，规则结果改为必需。未提供结果的无类型调用也明确失败。
+整局窗口先重新绑定规则结果，再检查实际行动和单候选；helper 不生产该判断。
+消费测试使用与报告无关的受控规则答案；历史手牌/评分用于显式合成完整回合，
+原始 partial fixture 没有改造或补造来源历史。这些测试不充当原生规则合法性 oracle。
+
+退出提交为包含本节及对应函数变更的提交，可用本节标题和 `git log -S` 定位。
+本节只封存上述分支；旧枚举函数本体、导出及其剩余默认测试仍待退出，不能宣称整体完成。

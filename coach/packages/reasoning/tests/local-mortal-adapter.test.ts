@@ -11,6 +11,9 @@ import {
   type CanonicalGameEvent,
   type ManagedMortalRuntimeIdentity,
   type Tile,
+  type CanonicalEventStream,
+  type LibriichiRuleSuccess,
+  libriichiRuleCanonicalJson,
 } from "@riichi-coach/contracts";
 import {
   loadMahjongSoulProtocolBundle,
@@ -40,6 +43,8 @@ import {
   replayCanonicalStream,
   runMortalFullGameReview,
 } from "../src/index.js";
+import { collectLibriichiRuleResults } from "../src/analysis/libriichi-rule-collection.js";
+import { ruleIdentity } from "./fixtures/structured-review.js";
 import type { ReplayedDecision } from "../src/replay/stream-replayer.js";
 import { canonicalStartEvents, canonicalStream, canonicalTile } from "./fixtures/canonical-stream.js";
 
@@ -52,6 +57,19 @@ const identity: ManagedMortalRuntimeIdentity = {
   checkpointModelTag: "mortal-hpc@582500", checkpointFileSha256: "738e0d6e3c0ce9671629554ad39abd147d2ffbac676e80b194c83f2acc0fea20",
   protocolVersion: LOCAL_MORTAL_PROTOCOL_VERSION, adapterVersion: LOCAL_MORTAL_ADAPTER_VERSION,
 };
+
+// Explicit independent protocol answers test downstream consumption. They are
+// not derived from the legacy projection or the report being validated.
+const ruleAction = (index: number, action: unknown, variant: string | null = null) =>
+  ({runtimeAction:{index,variant},mjaiActionJson:JSON.stringify(action)});
+const ruleDiscard = (index:number,pai:string,tsumogiri=false) => ruleAction(index,{type:"dahai",actor:0,pai,tsumogiri});
+async function fixtureRules(stream:CanonicalEventStream, decision:ReplayedDecision, actions:LibriichiRuleSuccess["actions"]) {
+  const results=await collectLibriichiRuleResults({stream,decisions:[decision],identity:ruleIdentity,port:{queryRules:async request=>{
+    const content={protocolVersion:request.protocolVersion,requestId:request.requestId,identity:ruleIdentity,status:"ok" as const,actions};
+    return {...content,resultId:createHash("sha256").update(libriichiRuleCanonicalJson(content)).digest("hex")};
+  }}});
+  return {identity:ruleIdentity,results};
+}
 
 function matrixBuilder(text: string, dealer = 0) {
   const hand = [...text.matchAll(/([1-9]+)([mpsz])/g)].flatMap(match =>
@@ -96,7 +114,9 @@ describe("R13 candidate and proof boundaries", () => {
         const response=LocalMortalInferenceSuccessSchema.parse({protocolVersion:request.protocolVersion,requestId:request.requestId,decision:request.decision,identity,status:"ok",
           candidates:request.candidates.map(r=>({runtimeAction:r.runtimeAction,qValue:r.runtimeAction.index===43?10:0})),preferredRuntimeAction:{index:43,variant:null}});
         const entry=localMortalResponseToReportEntry({request,response,decision:d});
-        const review=await runMortalFullGameReview({stream,decisions:[d],responseDecisions:[],engine,coverageRegistry:createMortalCoverageRegistry(["dama_with_tsumo_candidate","self_turn_tsumo_actual"]),
+        const review=await runMortalFullGameReview({
+        libriichi: await fixtureRules(stream,d,[ruleDiscard(9,"1p"),ruleDiscard(26,"9s"),ruleDiscard(29,"W",true),ruleDiscard(30,"N"),ruleAction(43,{type:"hora",actor:0,target:0,pai:"W"})]),
+        stream,decisions:[d],responseDecisions:[],engine,coverageRegistry:createMortalCoverageRegistry(["dama_with_tsumo_candidate","self_turn_tsumo_actual"]),
           report:{reportId:"R13-sanankou",adapterVersion:identity.adapterVersion,engine:"Mortal",version:"Mortal V4",modelTag:identity.checkpointModelTag,playerId:0,gameFingerprint:computeCanonicalGameFingerprint(stream),
             kyokus:[{roundOrdinal:0,roundWind:"E",dealer:3,kyoku:0,honba:0,entries:[entry]}]}});
         expect(review.status).toBe("coverage_ready");
@@ -113,8 +133,10 @@ describe("R13 candidate and proof boundaries", () => {
       if(tail==="99s") {
         expect(proofs.get(0)).toEqual({shape:"post_call_unique_discard",candidateCount:1});
         expect(()=>projectLocalMortalRequest({stream,decision:d,surface:"self",identity})).toThrow("mortal_source_row_not_expected");
-        const review=await runMortalFullGameReview({stream,decisions:[d],responseDecisions:[],engine,report:{reportId:"R13-post-call",adapterVersion:identity.adapterVersion,engine:"Mortal",version:"Mortal V4",modelTag:identity.checkpointModelTag,playerId:0,gameFingerprint:computeCanonicalGameFingerprint(stream),kyokus:[]}});
-        expect(review.status).toBe("coverage_ready"); if(review.status==="coverage_ready") expect(review.decisions[0]).toMatchObject({outcome:"source_row_not_expected",singleCandidateProof:proofs.get(0)});
+        const review=await runMortalFullGameReview({
+        libriichi: await fixtureRules(stream,d,[ruleDiscard(26,"9s")]),
+        stream,decisions:[d],responseDecisions:[],engine,report:{reportId:"R13-post-call",adapterVersion:identity.adapterVersion,engine:"Mortal",version:"Mortal V4",modelTag:identity.checkpointModelTag,playerId:0,gameFingerprint:computeCanonicalGameFingerprint(stream),kyokus:[]}});
+        expect(review.status).toBe("coverage_ready"); if(review.status==="coverage_ready") expect(review.decisions[0]).toMatchObject({outcome:"source_row_not_expected",singleCandidateProof:{shape:"libriichi_single_candidate",candidateCount:1}});
         const unknown=structuredClone(d); unknown.snapshot.publicState.fields.melds="unknown";
         expect((await collectSingleCandidateProofs([unknown],engine)).has(0)).toBe(false);
       } else { expect(proofs.has(0)).toBe(false); expect(projectLocalMortalRequest({stream,decision:d,surface:"self",identity}).candidates.map(r=>r.runtimeAction.index)).toEqual([25,26]); }
@@ -137,7 +159,9 @@ describe("R13 candidate and proof boundaries", () => {
       const response=LocalMortalInferenceSuccessSchema.parse({protocolVersion:request.protocolVersion,requestId:request.requestId,decision:request.decision,identity,status:"ok",
         candidates:request.candidates.map((r,i)=>({runtimeAction:r.runtimeAction,qValue:i})),preferredRuntimeAction:{index:45,variant:null}});
       const entry=localMortalResponseToReportEntry({request,response,decision:d});
-      const review=await runMortalFullGameReview({stream,decisions:replayCanonicalStream(stream),responseDecisions:[d],engine,coverageRegistry:createMortalCoverageRegistry(["resp_pass_on_discard"]),
+      const review=await runMortalFullGameReview({
+        libriichi: await fixtureRules(stream,d,[ruleAction(41,{type:"pon",actor:0,target:1,pai:"1m",consumed:["1m","1m"]}),ruleAction(42,{type:"daiminkan",actor:0,target:1,pai:"1m",consumed:["1m","1m","1m"]}),ruleAction(45,{type:"none"})]),
+        stream,decisions:[],responseDecisions:[d],engine,coverageRegistry:createMortalCoverageRegistry(["resp_pass_on_discard"]),
         report:{reportId:"R13-non-wait",adapterVersion:identity.adapterVersion,engine:"Mortal",version:"Mortal V4",modelTag:identity.checkpointModelTag,playerId:0,gameFingerprint:computeCanonicalGameFingerprint(stream),
           kyokus:[{roundOrdinal:0,roundWind:"E",dealer:1,kyoku:0,honba:0,entries:[entry]}]}});
       expect(review.status).toBe("coverage_ready");
@@ -228,7 +252,9 @@ describe("R12 candidate boundary matrix", () => {
           decision:request.decision,identity,status:"ok",candidates:request.candidates.map(row=>({runtimeAction:row.runtimeAction,
             qValue:row.runtimeAction.index===43?10:0})),preferredRuntimeAction:{index:43,variant:null}});
         const entry=localMortalResponseToReportEntry({request,response,decision:d});
-        const review=await runMortalFullGameReview({stream,decisions:[d],responseDecisions:[],engine,
+        const review=await runMortalFullGameReview({
+        libriichi: await fixtureRules(stream,d,[ruleDiscard(0,"1m"),ruleDiscard(1,"2m"),ruleDiscard(2,"3m"),ruleDiscard(9,"1p"),ruleDiscard(10,"2p"),ruleDiscard(11,"3p"),ruleDiscard(18,"1s"),ruleDiscard(19,"2s"),ruleDiscard(20,"3s",true),ruleDiscard(27,"E"),ruleAction(43,{type:"hora",actor:0,target:0,pai:"3s"})]),
+        stream,decisions:[d],responseDecisions:[],engine,
           coverageRegistry:createMortalCoverageRegistry(["dama_with_tsumo_candidate"]),
           report:{reportId:"R12-open-win",adapterVersion:identity.adapterVersion,engine:"Mortal",version:"Mortal V4",
             modelTag:identity.checkpointModelTag,playerId:0,gameFingerprint:computeCanonicalGameFingerprint(stream),
@@ -292,12 +318,17 @@ describe("R12 candidate boundary matrix", () => {
     try {
       expect((await collectSingleCandidateProofs([d],engine)).get(0)).toEqual({shape:"riichi_accepted_forced_tsumogiri",candidateCount:1});
       expect(()=>projectLocalMortalRequest({stream,decision:d,surface:"self",identity})).toThrow("mortal_source_row_not_expected");
-      const review=await runMortalFullGameReview({stream,decisions:[d],responseDecisions:[],engine,
+      const review=await runMortalFullGameReview({
+        libriichi: await fixtureRules(stream,d,[ruleDiscard(0,"1m",true)]),
+        stream,decisions:[d],responseDecisions:[],engine,
         report:{reportId:"R12-forced-discard",adapterVersion:identity.adapterVersion,engine:"Mortal",version:"Mortal V4",
           modelTag:identity.checkpointModelTag,playerId:0,gameFingerprint:computeCanonicalGameFingerprint(stream),kyokus:[]}});
       expect(review.status).toBe("coverage_ready");
-      if(review.status==="coverage_ready") expect(review.decisions[0]).toMatchObject({outcome:"source_row_not_expected",
-        singleCandidateProof:{shape:"riichi_accepted_forced_tsumogiri",candidateCount:1}});
+      // The altered snapshot is not canonical evidence. It cannot authorize an exemption.
+      if(review.status==="coverage_ready") {
+        expect(review.decisions[0]).toMatchObject({outcome:"analysis_blocked",reason:"legal_actions_unproven"});
+        expect(review.decisions[0]).not.toHaveProperty("singleCandidateProof");
+      }
     }
     finally { await engine.close(); }
   });
@@ -326,7 +357,9 @@ describe("R12 candidate boundary matrix", () => {
     const entry=localMortalResponseToReportEntry({request:req,response,decision:d});
     const engine=new JsonlFactEngineClient(new ManagedFactEngineTransport(fileURLToPath(new URL("../../../resources/",import.meta.url))));
     try {
-      const review=await runMortalFullGameReview({stream,decisions:[d],responseDecisions:[],engine,
+      const review=await runMortalFullGameReview({
+        libriichi: await fixtureRules(stream,d,[ruleDiscard(9,"1p"),ruleDiscard(10,"2p"),ruleDiscard(11,"3p"),ruleDiscard(21,"4s"),ruleDiscard(22,"5s"),ruleDiscard(27,"E"),ruleDiscard(31,"P",true),ruleDiscard(33,"C"),ruleAction(42,{type:"ankan",actor:0,consumed:["E","E","E","E"]},"kan:27"),ruleAction(42,{type:"kakan",actor:0,pai:"P",consumed:["P","P","P"]},"kan:31")]),
+        stream,decisions:[d],responseDecisions:[],engine,
         coverageRegistry:createMortalCoverageRegistry(["self_turn_ankan","self_turn_kakan"]),
         report:{reportId:"R12-multi-kan",adapterVersion:identity.adapterVersion,engine:"Mortal",version:"Mortal V4",
           modelTag:identity.checkpointModelTag,playerId:0,gameFingerprint:computeCanonicalGameFingerprint(stream),
@@ -403,7 +436,9 @@ describe("local Mortal canonical projection and conservation", () => {
     expect(() => projectLocalMortalRequest({ stream, decision, surface: "response", identity })).toThrow("mortal_source_row_not_expected");
     const engine = new JsonlFactEngineClient(new ManagedFactEngineTransport(fileURLToPath(new URL("../../../resources/", import.meta.url))));
     try {
-      const review = await runMortalFullGameReview({ stream, decisions: replayCanonicalStream(stream), responseDecisions: [decision], engine,
+      const review = await runMortalFullGameReview({
+        libriichi: await fixtureRules(stream,decision,[ruleAction(45,{type:"none"})]),
+         stream, decisions: [], responseDecisions: [decision], engine,
         report: { reportId: "last-discard-regression", adapterVersion: identity.adapterVersion,
           engine: "Mortal", version: "Mortal V4", modelTag: identity.checkpointModelTag, playerId: 0,
           gameFingerprint: computeCanonicalGameFingerprint(stream), kyokus: [] } });
@@ -411,7 +446,7 @@ describe("local Mortal canonical projection and conservation", () => {
       if (review.status === "coverage_ready") {
         const response = review.decisions.find(row => row.surface === "response");
         expect(response?.outcome).toBe("source_row_not_expected");
-        expect(response?.singleCandidateProof).toEqual({ shape: "response_single_candidate", candidateCount: 1 });
+        expect(response?.singleCandidateProof).toMatchObject({ shape: "libriichi_single_candidate", candidateCount: 1 });
       }
     } finally { await engine.close(); }
   });
@@ -507,6 +542,8 @@ describe("local Mortal canonical projection and conservation", () => {
       });
       const entry = localMortalResponseToReportEntry({ request, response, decision });
       const review = await runMortalFullGameReview({
+        libriichi: await fixtureRules(stream,decision,[ruleDiscard(0,"1m"),ruleDiscard(1,"2m"),ruleDiscard(2,"3m"),ruleDiscard(9,"1p"),ruleDiscard(10,"2p"),ruleDiscard(11,"3p"),ruleDiscard(18,"1s"),ruleDiscard(19,"2s"),ruleDiscard(20,"3s",true),ruleDiscard(27,"E"),ruleAction(37,{type:"reach",actor:0}),ruleAction(43,{type:"hora",actor:0,target:0,pai:"3s"})]),
+
         stream, decisions: [decision], engine,
         coverageRegistry: createMortalCoverageRegistry(["dama_with_riichi_candidate", "dama_with_tsumo_candidate"]),
         report: {
@@ -565,6 +602,8 @@ describe("local Mortal canonical projection and conservation", () => {
       const entry = localMortalResponseToReportEntry({ request, response, decision });
       expect(entry.details.map((row) => row.action.type)).toEqual(["dahai", "ankan"]);
       const review = await runMortalFullGameReview({
+        libriichi: await fixtureRules(stream,decision,[ruleDiscard(0,"1m",true),ruleAction(42,{type:"ankan",actor:0,consumed:["1m","1m","1m","1m"]})]),
+
         stream, decisions: [decision], engine,
         coverageRegistry: createMortalCoverageRegistry(["self_turn_ankan"]),
         report: {

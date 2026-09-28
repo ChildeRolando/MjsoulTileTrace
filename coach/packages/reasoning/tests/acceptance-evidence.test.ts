@@ -1,3 +1,4 @@
+import { ruleIdentity } from "./fixtures/structured-review.js";
 import { describe, expect, it } from "vitest";
 import type {
   CanonicalEventStream,
@@ -412,6 +413,7 @@ function reviewOf(decisions: readonly MortalFullGameLedgerEntry[]) {
       responseUnboundEntryCount: 0,
       responseAmbiguousEntryCount: 0,
     },
+    libriichi: { identity: ruleIdentity, results: new Map(), nonActionBoundaries: [] },
     retainedAnalyses: [],
   };
 }
@@ -576,7 +578,7 @@ describe("buildRedactedAcceptanceArtifact (§10/§15)", () => {
       evidence,
     });
     const json = JSON.stringify(artifact);
-    expect(artifact.schemaVersion).toBe("mortal-acceptance-artifact/v1");
+    expect(artifact.schemaVersion).toBe("mortal-acceptance-artifact/v2");
     expect(artifact.gameId).toBe("tenhou-g:abc123");
     expect(artifact.seat).toBe(2);
     expect(artifact.localSourceType).toBe("tenhou");

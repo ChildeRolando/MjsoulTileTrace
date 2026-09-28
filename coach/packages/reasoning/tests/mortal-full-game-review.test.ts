@@ -1,5 +1,7 @@
 import { readFile } from "node:fs/promises";
-import { describe, expect, it } from "vitest";
+import { createHash } from "node:crypto";
+import { LIBRIICHI_RULE_NORMALIZATION_VERSION, libriichiRuleCanonicalJson, type LibriichiRuleSuccess } from "@riichi-coach/contracts";
+import { describe, expect, it, vi } from "vitest";
 import type {
   CanonicalEventStream,
   CanonicalGameEvent,
@@ -17,7 +19,6 @@ import type {
 } from "@riichi-coach/contracts";
 import {
   computeCanonicalGameFingerprint,
-  computeMortalGameFingerprint,
   formatMjaiTile,
   parseMjaiTile,
   type MortalFetchedReport,
@@ -30,7 +31,7 @@ import {
 } from "../src/analysis/mortal-review-service.js";
 import {
   buildMortalFullGameBindingPlan,
-  runMortalFullGameReview,
+  runMortalFullGameReview as reviewFullGame,
 } from "../src/analysis/mortal-full-game-review.js";
 import { createMortalCoverageRegistry } from "../src/analysis/mortal-coverage-registry.js";
 import {
@@ -38,10 +39,10 @@ import {
   canonicalStream,
   canonicalTile,
 } from "./fixtures/canonical-stream.js";
-import { bridgeLegacyRegressionEvents } from "../src/import/legacy-event-stream-bridge.js";
-import { importRegressionFixture } from "../src/import/mortal-report.js";
+import { collectLibriichiRuleResults } from "../src/analysis/libriichi-rule-collection.js";
 import {
   replayCanonicalResponseWindows,
+  scanCanonicalResponseBoundaries,
   replayCanonicalStream,
   type ReplayedDecision,
 } from "../src/replay/stream-replayer.js";
@@ -57,6 +58,38 @@ const identity: EngineIdentity = {
   adapterVersion: "0.2.0",
   protocolVersion: "mahjong-facts/v1",
 };
+
+// Controlled protocol answers for consumer tests, never a legality oracle.
+// Each fixture registers its answers before the report is constructed/mutated.
+type FixedRules = LibriichiRuleSuccess["actions"] | null;
+const ruleIdentity = {implementation:"Equim-chan/Mortal/libriichi" as const,revision:"0".repeat(40),
+  nativeArtifactSha256:"1".repeat(64),wrapperSha256:"2".repeat(64),normalizationVersion:LIBRIICHI_RULE_NORMALIZATION_VERSION};
+const fixedRules = new WeakMap<CanonicalEventStream, Map<string, FixedRules>>();
+const actionRow = (index:number, action:unknown) => ({runtimeAction:{index,variant:null},mjaiActionJson:JSON.stringify(action)});
+const discardRow = (index:number,pai:string,tsumogiri=false,actor=0) => actionRow(index,{type:"dahai",actor,pai,tsumogiri});
+const riichiRows = [actionRow(37,{type:"reach",actor:0}),discardRow(8,"9m")];
+const declaredRows = [discardRow(12,"4p"),discardRow(8,"9m")];
+const tsumoRows = [actionRow(43,{type:"hora",actor:0,target:0,pai:"5p"}),discardRow(8,"9m")];
+const responseRows = [actionRow(45,{type:"none"}),actionRow(41,{type:"pon",actor:0,target:1,pai:"9s",consumed:["9s","9s"]})];
+function rememberRules(stream:CanonicalEventStream,self:FixedRules[],response:readonly [string,FixedRules][]=[]):CanonicalEventStream {
+  const decisions=replayCanonicalStream(stream);
+  if(decisions.length!==self.length) throw new Error("fixture rule count");
+  fixedRules.set(stream,new Map([...decisions.map((d,i)=>[d.decisionEventRef,self[i]!] as const),...response]));
+  return stream;
+}
+async function runMortalFullGameReview(input:Omit<Parameters<typeof reviewFullGame>[0],"libriichi">) {
+  const rows=fixedRules.get(input.stream);
+  if(rows===undefined) throw new Error("fixture rule answers missing");
+  const results=await collectLibriichiRuleResults({stream:input.stream,decisions:[...input.decisions,...input.responseDecisions??[]],
+    identity:ruleIdentity,port:{queryRules:async request=>{
+      if(!rows.has(request.decision.triggerEventRef)) throw new Error("fixture boundary missing");
+      const actions=rows.get(request.decision.triggerEventRef)!;
+      if(actions===null) throw new Error("controlled rules unavailable");
+      const content={protocolVersion:request.protocolVersion,requestId:request.requestId,identity:ruleIdentity,status:"ok" as const,actions};
+      return {...content,resultId:createHash("sha256").update(libriichiRuleCanonicalJson(content)).digest("hex")};
+    }}});
+  return reviewFullGame({...input,libriichi:{identity:ruleIdentity,results}});
+}
 
 class FailingEngine implements HandStructureFactEnginePort {
   async identity(): Promise<EngineIdentity> {
@@ -513,6 +546,7 @@ describe("buildMortalFullGameBindingPlan", () => {
 });
 
 type RawLegacyFixture = {
+  syntheticStream?: CanonicalEventStream;
   source: { reportId: string; modelTag: string; playerId: number };
   mjaiLog: unknown[];
   decisions: Array<{
@@ -539,11 +573,11 @@ function legacyEntryToMortalEntry(
   return Object.freeze({
     roundOrdinal: 0,
     roundWind: "E" as const,
-    dealer: 0,
+    dealer: 3,
     kyoku: 0,
     honba: 0,
     junme: raw.junme,
-    tilesLeft: 46,
+    tilesLeft: 69,
     lastActor: 3,
     tile: raw.tile,
     tehai: Object.freeze([...raw.state.tehai]),
@@ -577,11 +611,11 @@ function legacyReport(
     version: "1.5.10",
     modelTag: raw.source.modelTag,
     playerId: raw.source.playerId,
-    gameFingerprint: computeMortalGameFingerprint(raw.mjaiLog),
+    gameFingerprint: computeCanonicalGameFingerprint(raw.syntheticStream!),
     kyokus: Object.freeze([{
       roundOrdinal: 0,
       roundWind: "E" as const,
-      dealer: 0,
+      dealer: 3,
       kyoku: 0,
       honba: 0,
       entries: Object.freeze(entries),
@@ -590,21 +624,27 @@ function legacyReport(
   });
 }
 
-async function legacySetup(): Promise<{
-  raw: RawLegacyFixture;
-  stream: CanonicalEventStream;
-  decisions: ReplayedDecision[];
-}> {
-  const raw = JSON.parse(await readFile(fixtureUrl, "utf8")) as RawLegacyFixture;
-  const imported = importRegressionFixture(raw as never);
-  const bridged = bridgeLegacyRegressionEvents(
-    imported.events,
-    imported.selfActor,
-    { sourceKind: "fixture", gameId: "fixture:c1924cad66f66dd9" },
-  );
-  if (bridged.status !== "ready") throw new Error("bridge failed");
-  const decisions = replayCanonicalStream(bridged.stream);
-  return { raw, stream: bridged.stream, decisions };
+async function legacySetup(): Promise<{raw:RawLegacyFixture;stream:CanonicalEventStream;decisions:ReplayedDecision[]}> {
+  const raw=JSON.parse(await readFile(fixtureUrl,"utf8")) as RawLegacyFixture;
+  // Synthetic complete round using only the historical hand/scores. The
+  // original partial source remains unchanged and is not declared complete.
+  const first=raw.decisions[0]!;
+  const hand=first.state.tehai.map(parseMjaiTile),draw=parseMjaiTile(first.tile);
+  const at=hand.findIndex(t=>t.id===draw.id&&t.red===draw.red);
+  if(at<0) throw new Error("fixture draw");
+  hand.splice(at,1);
+  const events=canonicalStartEvents(hand),start=events[1]!;
+  if(start.type!=="round_started") throw new Error("fixture start");
+  start.dealer=3;
+  events.push({type:"tile_drawn",actor:3,tile:{visibility:"visible",tile:draw},from:"live_wall",
+    eventId:"game:fixture/0/2/0",sourceRecordRef:"record:2"},
+    {type:"tile_discarded",actor:3,tile:parseMjaiTile(first.actual.pai),discardMode:"tedashi",
+      riichiDeclarationEventRef:null,eventId:"game:fixture/0/3/0",sourceRecordRef:"record:3"});
+  const rows=[["6s",23],["9s",26],["2p",10],["7p",15],["7s",24],["3m",2],
+    ["8m",7],["5s",22],["8s",25],["6m",5],["6p",14],["4s",21]].map(([pai,index])=>discardRow(Number(index),String(pai),pai==="6s",3));
+  const stream=rememberRules({...canonicalStream(canonicalStartEvents()),events,selfActor:3},[rows]);
+  raw.syntheticStream=stream;
+  return {raw,stream,decisions:replayCanonicalStream(stream)};
 }
 
 describe("runMortalFullGameReview", () => {
@@ -889,7 +929,7 @@ function postCallStream(): CanonicalEventStream {
     canonicalTile("2p"), canonicalTile("3p"), canonicalTile("5m"),
     canonicalTile("5m", true),
   ];
-  return canonicalStream([
+  return rememberRules(canonicalStream([
     ...canonicalStartEvents(hand),
     {
       type: "tile_drawn",
@@ -961,7 +1001,7 @@ function postCallStream(): CanonicalEventStream {
       sourceRecordRef: "record:9",
       terminalEventRef: "game:fixture/0/8/0",
     },
-  ]);
+  ]),[[discardRow(27,"E",true),discardRow(8,"9m")],[discardRow(11,"3p"),discardRow(8,"9m")]]);
 }
 
 function terminalRoundStream(): CanonicalEventStream {
@@ -970,7 +1010,7 @@ function terminalRoundStream(): CanonicalEventStream {
   // must contribute no fabricated decision window or terminal actual (§22).
   // Round 2's pre-terminal events are compressed to the terminal pair; only
   // the phase machine outcome matters here.
-  return canonicalStream([
+  return rememberRules(canonicalStream([
     ...canonicalStartEvents(),
     {
       type: "tile_drawn",
@@ -1031,11 +1071,11 @@ function terminalRoundStream(): CanonicalEventStream {
       sourceRecordRef: "record:7",
       terminalEventRef: "game:fixture/1/2/0",
     },
-  ]);
+  ]),[tsumoRows]);
 }
 
 function riichiDeclarationStream(): CanonicalEventStream {
-  return canonicalStream([
+  return rememberRules(canonicalStream([
     ...canonicalStartEvents(),
     {
       type: "tile_drawn",
@@ -1067,11 +1107,11 @@ function riichiDeclarationStream(): CanonicalEventStream {
       actor: 0,
       declarationEventRef: "game:fixture/0/3/0",
     },
-  ]);
+  ]),[riichiRows,declaredRows]);
 }
 
 function tsumoTerminalStream(): CanonicalEventStream {
-  return canonicalStream([
+  return rememberRules(canonicalStream([
     ...canonicalStartEvents(),
     {
       type: "tile_drawn",
@@ -1098,7 +1138,7 @@ function tsumoTerminalStream(): CanonicalEventStream {
       sourceRecordRef: "record:4",
       terminalEventRef: "game:fixture/0/3/0",
     },
-  ]);
+  ]),[tsumoRows]);
 }
 
 function postCallEntryFor(
@@ -1397,12 +1437,11 @@ describe("M6-A3 §21 closing round: support/coverage cannot hide integrity misma
     expect(review.decisions[0]!.reason).toBe("mortal_actual_mismatch");
   });
 
-  it("D: no source entry + local actual unrepresentable -> no_mortal_entry", async () => {
+  it("D: missing actual correspondence is rejected even without a source row", async () => {
     const { stream, postCall } = replayedPostCall();
     const decisions = replayCanonicalStream(stream);
-    // A local window with no typed actual action (pure round end with no self
-    // action) has no meaningful local action to compare — but with no bound
-    // source entry the row still classifies as no_mortal_entry first.
+    // Removing the actual from a real action window must not hide the
+    // correspondence failure behind the report's missing row.
     const unrepresentable: ReplayedDecision = {
       ...postCall,
       actualAction: null,
@@ -1418,8 +1457,8 @@ describe("M6-A3 §21 closing round: support/coverage cannot hide integrity misma
     });
     expect(review.status).toBe("coverage_ready");
     if (review.status !== "coverage_ready") return;
-    expect(review.decisions[1]!.outcome).toBe("no_mortal_entry");
-    expect(review.decisions[1]!.reason).toBeNull();
+    expect(review.decisions[1]!.outcome).toBe("binding_mismatch");
+    expect(review.decisions[1]!.reason).toBe("mortal_actual_mismatch");
     // The local support status is still recorded on the ledger row.
     expect(review.decisions[1]!.support).toBe("unsupported");
   });
@@ -1815,34 +1854,12 @@ describe("M6-A4.0 source model: source_row_not_expected + source-surface partiti
         riichiDeclarationEventRef: null,
       },
     );
-    return canonicalStream(events);
+    return rememberRules(canonicalStream(events),[riichiRows,declaredRows,secondDraw.id === "7z"
+      ? [discardRow(33,"C",true)]
+      : [discardRow(35,"5pr",true),actionRow(43,{type:"hora",actor:0,target:0,pai:"5pr"})]]);
   }
 
-  // Answers the hand-structure question from a predicate over the projected
-  // 34-counts; optionally throws for some projections to pin fail-closed
-  // behavior (an engine error must never be read as "not tenpai").
-  class TenpaiPredicateEngine extends FailingEngine {
-    public asked = 0;
-    constructor(
-      private readonly isTenpai: (handTiles34: readonly number[]) => boolean,
-      private readonly throwsOn: (handTiles34: readonly number[]) => boolean = () => false,
-    ) {
-      super();
-    }
-    override async analyzeHandStructure(
-      request: HandStructureRequestV2,
-    ): Promise<HandStructureResultV2> {
-      this.asked += 1;
-      if (this.throwsOn(request.handTiles34)) {
-        throw new Error("engine unavailable");
-      }
-      return {
-        overallShanten: this.isTenpai(request.handTiles34) ? 0 : 1,
-      } as unknown as HandStructureResultV2;
-    }
-  }
-
-  it("shape A: an accepted-riichi forced-tsumogiri window is source_row_not_expected, engine-free", async () => {
+  it("accepted-riichi singleton result exempts a row without consulting helper", async () => {
     // Draw 7z into 1m..9m + 1p2p3p5p: no quad, no winning shape (4 blocks +
     // two floaters), riichi already accepted — the only candidate in the
     // post-riichi action model is the tsumogiri, so Mortal emits no row by
@@ -1861,13 +1878,13 @@ describe("M6-A4.0 source model: source_row_not_expected + source-surface partiti
     if (review.status !== "coverage_ready") return;
     // Declaration-turn self_turn window (riichi not yet declared there) and
     // the post-riichi declaration window stay no_mortal_entry: shape A needs
-    // ACCEPTED status, shape B needs the engine (FailingEngine fail-closed).
+    // These earlier windows have explicit multi-action rule answers.
     expect(review.decisions[0]!.outcome).toBe("no_mortal_entry");
     expect(review.decisions[1]!.outcome).toBe("no_mortal_entry");
     expect(review.decisions[2]!.outcome).toBe("source_row_not_expected");
     expect(review.decisions[2]!.binding).toBe("no_mortal_entry");
     expect(review.decisions[2]!.singleCandidateProof?.shape).toBe(
-      "riichi_accepted_forced_tsumogiri",
+      "libriichi_single_candidate",
     );
     expect(review.decisions[2]!.singleCandidateProof?.candidateCount).toBe(1);
     expect(review.decisions[2]!.singleCandidateProof).not.toBeNull();
@@ -1901,7 +1918,7 @@ describe("M6-A4.0 source model: source_row_not_expected + source-surface partiti
     expect(review.decisions[2]!.reason).toBe("unexpected_source_row_present");
     expect(review.decisions[2]!.binding).toBe("bound");
     expect(review.decisions[2]!.singleCandidateProof?.shape).toBe(
-      "riichi_accepted_forced_tsumogiri",
+      "libriichi_single_candidate",
     );
     expect(review.decisions[2]!.singleCandidateProof?.candidateCount).toBe(1);
     expect(review.summary.outcomes.binding_mismatch).toBe(1);
@@ -1935,7 +1952,7 @@ describe("M6-A4.0 source model: source_row_not_expected + source-surface partiti
     expect(review.summary.outcomes.binding_mismatch).toBe(1);
   });
 
-  it("shape A refutes tsumo: a completing draw withholds the proof", async () => {
+  it("a tsumo option in the complete rule result prevents singleton exemption", async () => {
     // Draw the red 5p: 123m456m789m + 123p + 55p is a complete hand, so
     // tsumo is a legal second candidate — the window is not single-candidate
     // and the absent row is an integrity failure, not an expected absence.
@@ -1955,76 +1972,49 @@ describe("M6-A4.0 source model: source_row_not_expected + source-surface partiti
     expect(review.summary.outcomes.source_row_not_expected).toBe(0);
   });
 
-  it("shape B: a declaration window with exactly one tenpai-keeping discard is source_row_not_expected", async () => {
+  it("declaration singleton derives from the rule result, never helper or report", async () => {
     const stream = riichiDeclarationStream();
     const decisions = replayCanonicalStream(stream);
-    expect(decisions).toHaveLength(2);
-    // Held 14 at the declaration window: 1m..9m + 1p2p3p4p + drawn 5p.
-    // 34-indices: 4p = 12, 5p = 13.
-    // Two tenpai-keeping discards (any projection keeping a 4p or 5p):
-    // 14 candidates -> no proof, the missing row stays loud.
-    const twoKeeps = new TenpaiPredicateEngine(
-      (c) => c[12]! >= 1 || c[13]! >= 1,
-    );
-    const reviewTwo = await runMortalFullGameReview({
-      stream,
-      decisions,
-      report: makeReport([], { gameFingerprint: computeCanonicalGameFingerprint(stream) }),
-      engine: twoKeeps,
+    const engine = new FailingEngine();
+    const helper = vi.spyOn(engine, "analyzeHandStructure");
+    const input = { stream, decisions, engine,
+      report: makeReport([], { gameFingerprint: computeCanonicalGameFingerprint(stream) }) };
+    const two = await runMortalFullGameReview(input);
+    expect(two.status).toBe("coverage_ready");
+    if (two.status !== "coverage_ready") return;
+    expect(two.decisions[1]!.outcome).toBe("no_mortal_entry");
+    expect(two.decisions[1]!.singleCandidateProof).toBeNull();
+    // Controlled protocol answers test the consumer contract, not native
+    // legality. Change the rule answer while keeping report/helper identical.
+    fixedRules.get(stream)!.set(decisions[1]!.decisionEventRef, [discardRow(12, "4p")]);
+    const one = await runMortalFullGameReview(input);
+    expect(one.status).toBe("coverage_ready");
+    if (one.status !== "coverage_ready") return;
+    expect(one.decisions[0]!.outcome).toBe("no_mortal_entry");
+    expect(one.decisions[1]!.outcome).toBe("source_row_not_expected");
+    expect(one.decisions[1]!.singleCandidateProof).toMatchObject({
+      shape: "libriichi_single_candidate", candidateCount: 1,
     });
-    expect(reviewTwo.status).toBe("coverage_ready");
-    if (reviewTwo.status !== "coverage_ready") return;
-    expect(reviewTwo.decisions[1]!.outcome).toBe("no_mortal_entry");
-    expect(reviewTwo.decisions[1]!.singleCandidateProof).toBeNull();
+    expect(one.summary.outcomes.source_row_not_expected).toBe(1);
+    expect(one.summary.outcomes.no_mortal_entry).toBe(1);
+    expect(helper).not.toHaveBeenCalled();
+  });
 
-    // Exactly one tenpai-keeping discard: only the discard-4p projection
-    // (no 4p, exactly one 5p) is tenpai. candidateCount = 1 matches the
-    // actual discard 4p — proof granted, the row is reclassified.
-    const uniqueKeep = new TenpaiPredicateEngine(
-      (c) => c[12]! === 0 && c[13]! === 1,
-    );
-    const review = await runMortalFullGameReview({
-      stream,
-      decisions,
-      report: makeReport([], { gameFingerprint: computeCanonicalGameFingerprint(stream) }),
-      engine: uniqueKeep,
-    });
+  it("failed rule query blocks the declaration window and cannot imply a singleton", async () => {
+    const stream = riichiDeclarationStream();
+    const decisions = replayCanonicalStream(stream);
+    fixedRules.get(stream)!.set(decisions[1]!.decisionEventRef, null);
+    const engine = new FailingEngine();
+    const helper = vi.spyOn(engine, "analyzeHandStructure");
+    const review = await runMortalFullGameReview({ stream, decisions, engine,
+      report: makeReport([], { gameFingerprint: computeCanonicalGameFingerprint(stream) }) });
     expect(review.status).toBe("coverage_ready");
     if (review.status !== "coverage_ready") return;
     expect(review.decisions[0]!.outcome).toBe("no_mortal_entry");
-    expect(review.decisions[0]!.singleCandidateProof).toBeNull();
-    expect(review.decisions[1]!.outcome).toBe("source_row_not_expected");
-    expect(review.decisions[1]!.singleCandidateProof?.shape).toBe(
-      "riichi_declaration_unique_tenpai_discard",
-    );
-    expect(review.decisions[1]!.singleCandidateProof?.candidateCount).toBe(1);
-    expect(uniqueKeep.asked).toBeGreaterThan(0);
-    expect(review.summary.outcomes.source_row_not_expected).toBe(1);
-    expect(review.summary.outcomes.no_mortal_entry).toBe(1);
-  });
-
-  it("shape B fail-closed: one engine error withholds the whole window's proof", async () => {
-    const stream = riichiDeclarationStream();
-    const decisions = replayCanonicalStream(stream);
-    // Tenpai exactly on the discard-4p projection, but the engine throws on
-    // the discard-5p projection. Reading the error as "not tenpai" would
-    // count exactly one candidate and prove — fail-closed must instead
-    // withhold the proof entirely.
-    const flaky = new TenpaiPredicateEngine(
-      (c) => c[12]! === 0 && c[13]! === 1,
-      (c) => c[13]! === 0,
-    );
-    const review = await runMortalFullGameReview({
-      stream,
-      decisions,
-      report: makeReport([], { gameFingerprint: computeCanonicalGameFingerprint(stream) }),
-      engine: flaky,
-    });
-    expect(review.status).toBe("coverage_ready");
-    if (review.status !== "coverage_ready") return;
-    expect(flaky.asked).toBeGreaterThan(0);
-    expect(review.decisions[1]!.outcome).toBe("no_mortal_entry");
-    expect(review.decisions[1]!.singleCandidateProof).toBeNull();
+    expect(review.decisions[1]).toMatchObject({ outcome: "analysis_blocked", reason: "legal_actions_unproven" });
+    expect(review.decisions[1]).not.toHaveProperty("singleCandidateProof");
+    expect(review.summary.outcomes.source_row_not_expected).toBe(0);
+    expect(helper).not.toHaveBeenCalled();
   });
 
   it("partitions response rows out of the self source surface", async () => {
@@ -2200,7 +2190,7 @@ describe("M6-A4.0 source model: source_row_not_expected + source-surface partiti
     expect(responseLedgerRow!.outcome).toBe("no_mortal_entry");
   });
 
-  it("blocks response rows with or without source evidence when ron eligibility is unknown", async () => {
+  it("rejects a response snapshot inconsistent with canonical history, with or without a report", async () => {
     const stream = responseWindowStream();
     const decisions = replayCanonicalStream(stream);
     const base = replayCanonicalResponseWindows(stream).find((decision) => {
@@ -2238,7 +2228,7 @@ describe("M6-A4.0 source model: source_row_not_expected + source-surface partiti
     expect(review.status).toBe("coverage_ready");
     if (review.status !== "coverage_ready") return;
     expect(review.decisions.find((item) => item.surface === "response")).toMatchObject({
-      binding: "bound", outcome: "analysis_blocked", reason: "ron_eligibility_unproven",
+      binding: "bound", outcome: "analysis_blocked", reason: "legal_actions_unproven",
     });
     const missingRow = await runMortalFullGameReview({
       stream, decisions, responseDecisions: [response],
@@ -2248,34 +2238,19 @@ describe("M6-A4.0 source model: source_row_not_expected + source-surface partiti
     expect(missingRow.status).toBe("coverage_ready");
     if (missingRow.status !== "coverage_ready") return;
     expect(missingRow.decisions.find((item) => item.surface === "response")).toMatchObject({
-      binding: "no_mortal_entry", outcome: "analysis_blocked", reason: "ron_eligibility_unproven",
+      binding: "no_mortal_entry", outcome: "analysis_blocked", reason: "legal_actions_unproven",
     });
   });
 
   it("classifies a single-candidate response window as source_row_not_expected", async () => {
-    const stream = responseWindowStream();
+    const stream = responseWindowStream(canonicalTile("7s"));
     const decisions = replayCanonicalStream(stream);
-    const responseWindows = replayCanonicalResponseWindows(stream);
-    const base = responseWindows.find((decision) => {
+    const singleCandidate = scanCanonicalResponseBoundaries(stream).find((decision) => {
       const w = decision.snapshot.privateState.decisionWindow;
-      return w.kind === "discard_response";
-    });
-    expect(base).toBeDefined();
-    // Keep the same source actor but offer a tile absent from the hand, so
-    // the local enumeration proves only `none` is legal.
-    const singleCandidate = {
-      ...base!,
-      snapshot: {
-        ...base!.snapshot,
-        privateState: {
-          ...base!.snapshot.privateState,
-          decisionWindow: {
-            ...base!.snapshot.privateState.decisionWindow,
-            offeredTile: { id: "7s" as const, red: false },
-          },
-        },
-      },
-    } as unknown as ReplayedDecision;
+      return w.kind === "discard_response" && w.sourceActor === 1;
+    })!;
+    expect(singleCandidate).toBeDefined();
+    fixedRules.get(stream)!.set(singleCandidate.decisionEventRef, [actionRow(45, {type:"none"})]);
     const review = await runMortalFullGameReview({
       stream,
       decisions,
@@ -2293,7 +2268,7 @@ describe("M6-A4.0 source model: source_row_not_expected + source-surface partiti
     expect(responseLedgerRow).toBeDefined();
     expect(responseLedgerRow!.outcome).toBe("source_row_not_expected");
     expect(responseLedgerRow!.singleCandidateProof?.shape).toBe(
-      "response_single_candidate",
+      "libriichi_single_candidate",
     );
     expect(review.summary.outcomes.source_row_not_expected).toBeGreaterThan(0);
   });
@@ -2303,7 +2278,7 @@ describe("M6-A4.0 source model: source_row_not_expected + source-surface partiti
 // holds a 9s pair, seat 1 draws (hidden) and discards 9s — a pon-eligible
 // discard_response window opens, closed by the next self draw (pass). Uses
 // the same full turn-cycle event pattern as the response-replay tests.
-function responseWindowStream(): CanonicalEventStream {
+function responseWindowStream(offeredTile: Tile = canonicalTile("9s")): CanonicalEventStream {
   const hand = [
     canonicalTile("1m"), canonicalTile("2m"), canonicalTile("3m"),
     canonicalTile("4m"), canonicalTile("5m"), canonicalTile("6m"),
@@ -2342,14 +2317,14 @@ function responseWindowStream(): CanonicalEventStream {
       riichiDeclarationEventRef: null,
     };
   };
-  return canonicalStream([
+  return rememberRules(canonicalStream([
     ...canonicalStartEvents(hand),
     // self turn 1
     draw(0, true, canonicalTile("5p")),
     discard(0, canonicalTile("5p"), true),
     // seat 1 draws and discards 9s → response opportunity for self
     draw(1, false),
-    discard(1, canonicalTile("9s"), false),
+    discard(1, offeredTile, false),
     // seat 2, seat 3 turns
     draw(2, false),
     discard(2, canonicalTile("1z"), false),
@@ -2357,5 +2332,6 @@ function responseWindowStream(): CanonicalEventStream {
     discard(3, canonicalTile("2z"), false),
     // self draw closes the response window (pass)
     draw(0, true, canonicalTile("3p")),
-  ]);
+    discard(0, canonicalTile("3p"), true),
+  ]),[[discardRow(13,"5p",true),discardRow(8,"9m")],[discardRow(11,"3p",true),discardRow(8,"9m")]],[["game:fixture/0/5/0",responseRows]]);
 }

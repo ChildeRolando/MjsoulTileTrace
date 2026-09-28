@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import { LIBRIICHI_RULE_NORMALIZATION_VERSION, libriichiRuleCanonicalJson, type LibriichiRuleRequest } from "@riichi-coach/contracts";
 import { canonicalStartEvents, canonicalStream } from "./fixtures/canonical-stream.js";
 import { readFile } from "node:fs/promises";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import type {
   CanonicalEventStream,
   CompletedHandFactRequest,
@@ -26,7 +26,7 @@ import {
   replayCanonicalStream,
   type ReplayedDecision,
 } from "../src/replay/stream-replayer.js";
-import { runMortalSingleDecisionReview } from "../src/analysis/mortal-review-service.js";
+import { runBoundMortalDecisionReview, runMortalSingleDecisionReview } from "../src/analysis/mortal-review-service.js";
 
 const ruleIdentity = {implementation:"Equim-chan/Mortal/libriichi" as const,revision:"0".repeat(40),
   nativeArtifactSha256:"1".repeat(64),wrapperSha256:"2".repeat(64),normalizationVersion:LIBRIICHI_RULE_NORMALIZATION_VERSION};
@@ -217,6 +217,19 @@ async function runReview(
 }
 
 describe("runMortalSingleDecisionReview", () => {
+  it("cannot bypass mandatory rules through the bound-review entry point", async () => {
+    const fixture = await setupFixture();
+    const report = makeReport(fixture.raw);
+    const engine = new FailingEngine();
+    const helper = vi.spyOn(engine, "analyzeHand13");
+    const result = await runBoundMortalDecisionReview({
+      stream: fixture.stream, decision: fixture.decision, report,
+      entry: report.kyokus[0]!.entries[0]!, engine,
+    } as unknown as Parameters<typeof runBoundMortalDecisionReview>[0]);
+    expect(result).toEqual({status:"failed",code:"mortal_review_rules_failed",diagnostics:["rules_input_incomplete"]});
+    expect(helper).not.toHaveBeenCalled();
+  });
+
   it("keeps an ordinary self-turn discard ready", async () => {
     const fixture = await setupFixture();
     const report = makeReport(fixture.raw);

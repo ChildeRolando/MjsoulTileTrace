@@ -36,15 +36,6 @@ import {
   type MortalCoverageBranch,
   type MortalCoverageRegistry,
 } from "./mortal-coverage-registry.js";
-import {
-  collectSingleCandidateProofs,
-  type SingleCandidateProof,
-} from "./single-candidate-proof.js";
-import {
-  collectResponseSingleCandidateProofs,
-  type ResponseSingleCandidateProof,
-} from "./response-candidate-enumeration.js";
-import { collectLocalMortalRonCandidateWindows } from "./local-mortal-adapter.js";
 import { createLibriichiRuleProjector } from "./libriichi-rule-projection.js";
 import { actualLibriichiActionRef } from "./local-mortal-rule-scoring.js";
 import {
@@ -103,9 +94,9 @@ export type MortalFullGameLedgerEntry = Readonly<{
   sourceEntryRef: string | null;
   sourceOrdinal: number | null;
   modelSummary: MortalFullGameModelSummary | null;
-  // M6-A4.0: present exactly on source_row_not_expected rows — the local
-  // proof that the window is single-candidate. Null otherwise.
-  readonly singleCandidateProof?: SingleCandidateProof | LibriichiSingleCandidateProof | null;
+  // Bound native singleton evidence, also retained on unexpected-source-row
+  // failures so the contradiction remains auditable.
+  readonly singleCandidateProof?: LibriichiSingleCandidateProof | null;
 }>;
 
 export type MortalSourceDisposition = "bound" | "unbound" | "ambiguous";
@@ -198,7 +189,7 @@ export type MortalFullGameReviewResult =
       readonly retainedAnalyses: readonly MortalFullGameRetainedAnalysis[];
       /** Native census evidence, including boundaries where no action was possible.
        * Kept separate from the seven model-review outcomes. */
-      readonly libriichi?: {
+      readonly libriichi: {
         readonly identity: LibriichiRuleIdentity;
         readonly results: ReadonlyMap<string, LibriichiResolvedDecision>;
         readonly nonActionBoundaries: readonly { surface: "response"; decisionOrdinal: number; decisionEventRef: string; ruleResultId: string }[];
@@ -549,7 +540,7 @@ export async function runMortalFullGameReview(input: {
   readonly stream: CanonicalEventStream;
   readonly decisions: readonly ReplayedDecision[];
   // M6-A4.2: the response surface is a SECOND partition — windows replayed by
-  // replayCanonicalResponseWindows (owner = reviewed player, trigger = an
+  // scanCanonicalResponseBoundaries (owner = reviewed player, trigger = an
   // opponent's discard / kan). Binding + conservation run per partition; the
   // identity tables keep the two surfaces disjoint.
   readonly responseDecisions?: readonly ReplayedDecision[];
@@ -560,15 +551,15 @@ export async function runMortalFullGameReview(input: {
   // recorded. Tests and the acceptance runner inject a registry; production
   // callers get the frozen empty default.
   readonly coverageRegistry?: MortalCoverageRegistry;
-  /** Migration seam: native callers never execute the legacy rule/proof passes.
-   * The optional legacy branch is removed with the production caller migration. */
-  readonly libriichi?: { readonly identity: LibriichiRuleIdentity; readonly results: ReadonlyMap<string, LibriichiResolvedDecision> };
+  /** Every model row and exemption consumes the same bound native census. */
+  readonly libriichi: { readonly identity: LibriichiRuleIdentity; readonly results: ReadonlyMap<string, LibriichiResolvedDecision> };
 }): Promise<MortalFullGameReviewResult> {
   const now = input.now ?? Date.now;
   const registry = input.coverageRegistry ?? EMPTY_MORTAL_COVERAGE_REGISTRY;
   const responseDecisions = input.responseDecisions ?? [];
 
-  const inputError = validateFullGameInputs(input.stream, input.decisions, input.libriichi !== undefined && responseDecisions.length > 0);
+  if (input.libriichi === undefined) return { status: "failed", code: "mortal_full_game_input_invalid" };
+  const inputError = validateFullGameInputs(input.stream, input.decisions, responseDecisions.length > 0);
   if (inputError !== null) {
     return { status: "failed", code: "mortal_full_game_input_invalid" };
   }
@@ -597,45 +588,24 @@ export async function runMortalFullGameReview(input: {
     return { status: "failed", code: "mortal_full_game_input_invalid" };
   }
 
-  // M6-A4.0: the single-candidate proofs are computed BEFORE any source
-  // lookup — whether a window is source_row_not_expected may never depend
-  // on what the source happened to contain. Shape A is engine-free; shape B
-  // asks the trusted hand-structure engine and fails closed on any error.
+  // Rebind the complete native results before any report lookup. A missing
+  // result or failed query cannot inherit an old local singleton proof.
   const ruleResults = new Map<string, LibriichiResolvedDecision>();
-  if (input.libriichi !== undefined) {
-    const boundaries = [...input.decisions, ...responseDecisions];
-    const refs = new Set(boundaries.map(decision => decision.decisionEventRef));
-    if (refs.size !== boundaries.length || [...input.libriichi.results.keys()].some(ref => !refs.has(ref))) {
-      return {status:"failed",code:"mortal_full_game_input_invalid"};
-    }
-    const project = createLibriichiRuleProjector(stream, input.libriichi.identity);
-    for (const decision of boundaries) {
-      try {
-        const supplied = input.libriichi.results.get(decision.decisionEventRef);
-        if (supplied === undefined) throw new Error("rules_result_missing");
-        ruleResults.set(decision.decisionEventRef, rebindLibriichiDecision({project,decision,result:supplied}));
-      } catch {
-        ruleResults.set(decision.decisionEventRef, {request:null,response:{status:"error",code:"rules_input_incomplete"},actions:[]});
-      }
+  const boundaries = [...input.decisions, ...responseDecisions];
+  const refs = new Set(boundaries.map(decision => decision.decisionEventRef));
+  if (refs.size !== boundaries.length || [...input.libriichi.results.keys()].some(ref => !refs.has(ref))) {
+    return {status:"failed",code:"mortal_full_game_input_invalid"};
+  }
+  const project = createLibriichiRuleProjector(stream, input.libriichi.identity);
+  for (const decision of boundaries) {
+    try {
+      const supplied = input.libriichi.results.get(decision.decisionEventRef);
+      if (supplied === undefined) throw new Error("rules_result_missing");
+      ruleResults.set(decision.decisionEventRef, rebindLibriichiDecision({project,decision,result:supplied}));
+    } catch {
+      ruleResults.set(decision.decisionEventRef, {request:null,response:{status:"error",code:"rules_input_incomplete"},actions:[]});
     }
   }
-  const singleCandidateProofs = input.libriichi !== undefined ? new Map<number, SingleCandidateProof>() : await collectSingleCandidateProofs(
-    input.decisions,
-    input.engine,
-  );
-  // M6-A4.2: response-surface single-candidate proofs. The local candidate
-  // enumeration (chi by meld combination, pon, daiminkan, ron, none) mirrors
-  // Mortal's candidate space and is decided BEFORE any source lookup — a
-  // single-candidate response window (only none legal) expects no row.
-  const ronCandidateWindows: Awaited<ReturnType<typeof collectLocalMortalRonCandidateWindows>> = input.libriichi !== undefined ? new Map() : await collectLocalMortalRonCandidateWindows(
-    stream,
-    responseDecisions,
-    input.engine,
-  );
-  const responseSingleCandidateProofs = input.libriichi !== undefined ? new Map<number, ResponseSingleCandidateProof>() : collectResponseSingleCandidateProofs(
-    responseDecisions,
-    ronCandidateWindows,
-  );
 
   const { rows, sourceDegrees, ambiguousSourceOrdinals } =
     buildMortalFullGameBindingPlan(
@@ -687,7 +657,7 @@ export async function runMortalFullGameReview(input: {
   const coverageBranchUncoveredBlocks: Partial<Record<MortalCoverageBranch, number>> = {};
 
   // M6-A4.2: both replay partitions flow through the SAME classification
-  // pipeline — binding → single-candidate proof → support → correspondence →
+  // pipeline — native rules/actual check → binding → singleton → support →
   // candidate surface → coverage gate → analysis. The identity tables keep
   // self and response windows disjoint, so each partition binds only its own
   // source rows. Self rows keep the existing ordinals (H2 continuity); the
@@ -696,85 +666,65 @@ export async function runMortalFullGameReview(input: {
     surface: "self" | "response";
     decisions: readonly ReplayedDecision[];
     rows: MortalBindingPlanRow[];
-    proofs: ReadonlyMap<
-      number,
-      SingleCandidateProof | ResponseSingleCandidateProof
-    >;
   }> = [
     {
       surface: "self",
       decisions: input.decisions,
       rows,
-      proofs: singleCandidateProofs,
     },
     {
       surface: "response",
       decisions: responseDecisions,
       rows: responsePlan === null ? [] : responsePlan.rows,
-      proofs: responseSingleCandidateProofs,
     },
   ];
 
   for (const partition of partitions) {
-      for (const row of partition.rows) {
+    for (const row of partition.rows) {
       const decision = partition.decisions[row.decisionOrdinal]!;
       // LOCAL actual representation support. Kept as its own variable — the
       // source-candidate surface support below is a separate classification
       // stage, and merging them obscured the §21 precedence.
       const local = localSupport(decision);
       const support = local.support;
-      // M6-A4.0: the single-candidate proof is a LOCAL expectation decided
-      // before any source lookup — whether a window expects a source row may
-      // never depend on what the source contained. M6-A4.2: the response
-      // partition's proofs come from the isomorphic local enumeration.
-      const native = ruleResults.get(decision.decisionEventRef);
-      let proof: SingleCandidateProof | LibriichiSingleCandidateProof | null = partition.proofs.get(row.decisionOrdinal) ?? null;
-      if (native !== undefined) {
-        const pushFailure = (outcome: "analysis_blocked" | "binding_mismatch", reason: MortalDecisionReason) => {
-          ledger.push({decisionOrdinal:row.decisionOrdinal,roundOrdinal:row.roundOrdinal,surface:partition.surface,
-            binding:row.binding,support,review:outcome === "analysis_blocked" ? "analysis_blocked" : "not_attempted",
-            outcome,reason,sourceEntryRef:row.sourceEntryRef,sourceOrdinal:row.sourceOrdinal,modelSummary:null});
-          outcomeCounts[outcome] += 1;
-          if (outcome === "analysis_blocked") analysisBlockedReasonCounts.legal_actions_unproven =
-            (analysisBlockedReasonCounts.legal_actions_unproven ?? 0) + 1;
-        };
-        if (native.response.status === "error") {
-          pushFailure("analysis_blocked","legal_actions_unproven");
-          continue;
-        }
-        if (native.response.status === "non_action") {
-          if (partition.surface !== "response" || (decision.actualAction !== null && decision.actualAction.kind !== "pass")) {
-            pushFailure("binding_mismatch","mortal_actual_mismatch");
-          } else if (row.binding !== "no_mortal_entry") {
-            pushFailure("binding_mismatch","unexpected_source_row_present");
-          } else {
-            nonActionBoundaries.push({surface:"response",decisionOrdinal:row.decisionOrdinal,
-              decisionEventRef:decision.decisionEventRef,ruleResultId:native.response.resultId});
-          }
-          continue;
-        }
-        try {
-          // Check choice only after the complete native set has been rebound.
-          actualLibriichiActionRef(decision,native.actions);
-          proof = libriichiSingleCandidateProof(decision,native);
-        } catch {
+      // Only the successfully rebound native set can establish a singleton.
+      const native = ruleResults.get(decision.decisionEventRef)!;
+      let proof: LibriichiSingleCandidateProof | null = null;
+      const pushFailure = (outcome: "analysis_blocked" | "binding_mismatch", reason: MortalDecisionReason) => {
+        ledger.push({decisionOrdinal:row.decisionOrdinal,roundOrdinal:row.roundOrdinal,surface:partition.surface,
+          binding:row.binding,support,review:outcome === "analysis_blocked" ? "analysis_blocked" : "not_attempted",
+          outcome,reason,sourceEntryRef:row.sourceEntryRef,sourceOrdinal:row.sourceOrdinal,modelSummary:null});
+        outcomeCounts[outcome] += 1;
+        if (outcome === "analysis_blocked") analysisBlockedReasonCounts.legal_actions_unproven =
+          (analysisBlockedReasonCounts.legal_actions_unproven ?? 0) + 1;
+      };
+      if (native.request === null || native.response.status === "error") {
+        pushFailure("analysis_blocked","legal_actions_unproven");
+        continue;
+      }
+      if (native.response.status === "non_action") {
+        if (partition.surface !== "response" || (decision.actualAction !== null && decision.actualAction.kind !== "pass")) {
           pushFailure("binding_mismatch","mortal_actual_mismatch");
-          continue;
+        } else if (row.binding !== "no_mortal_entry") {
+          pushFailure("binding_mismatch","unexpected_source_row_present");
+        } else {
+          nonActionBoundaries.push({surface:"response",decisionOrdinal:row.decisionOrdinal,
+            decisionEventRef:decision.decisionEventRef,ruleResultId:native.response.resultId});
         }
+        continue;
+      }
+      try {
+        // Check choice only after the complete native set has been rebound.
+        actualLibriichiActionRef(decision,native.actions);
+        proof = libriichiSingleCandidateProof(decision,native);
+      } catch {
+        pushFailure("binding_mismatch","mortal_actual_mismatch");
+        continue;
       }
 
-      // Precedence (M6-A3 §21, closing round): (1) whole-run identity failures
-      // already returned above; per-row order is (2) M6-A4.0 single-candidate
-      // source-presence failure, (3) binding ambiguity/order failure, (4) no
-      // source entry, (5) LOCAL actual representation support, (6) source
-      // actual ↔ local actual correspondence, (7) source/model candidate
-      // surface support, (8) real coverage gate, (9) completeness, (10)
-      // assembly, (11) analysis_ready. A row with no source entry never
-      // reports as an unsupported action; a local actual with no meaningful
-      // local action to compare may classify before the correspondence check;
-      // a source candidate surface problem may NEVER classify before the
-      // source actual ↔ local actual correspondence — support and coverage
-      // classification must not hide an integrity mismatch.
+      // Native input and actual correspondence have already passed. Source
+      // presence, ambiguity, missing rows, support and coverage are classified
+      // below; report content can never authorize a singleton exemption.
       if (proof !== null && row.binding !== "no_mortal_entry") {
         // A proven single-candidate window expects NO source row. A compatible
         // row existing anyway (bound or ambiguous) contradicts the local
@@ -821,29 +771,6 @@ export async function runMortalFullGameReview(input: {
           modelSummary: null,
         });
         outcomeCounts.binding_mismatch += 1;
-        continue;
-      }
-
-      if (partition.surface === "response"
-        && ronCandidateWindows.get(decision.decisionEventRef)?.status === "unknown") {
-        // Unproven ron legality blocks the local window whether or not a
-        // source row exists. Its absence cannot be called a source mismatch.
-        ledger.push({
-          decisionOrdinal: row.decisionOrdinal,
-          roundOrdinal: row.roundOrdinal,
-          surface: partition.surface,
-          binding: row.binding,
-          support,
-          review: "analysis_blocked",
-          outcome: "analysis_blocked",
-          reason: "ron_eligibility_unproven",
-          sourceEntryRef: row.sourceEntryRef,
-          sourceOrdinal: row.sourceOrdinal,
-          modelSummary: null,
-        });
-        outcomeCounts.analysis_blocked += 1;
-        analysisBlockedReasonCounts.ron_eligibility_unproven =
-          (analysisBlockedReasonCounts.ron_eligibility_unproven ?? 0) + 1;
         continue;
       }
 
@@ -1040,7 +967,7 @@ export async function runMortalFullGameReview(input: {
         engine: input.engine,
         now,
         frozenAt,
-        ...(native?.request == null || native.response.status !== "ok" ? {} : {libriichi:{request:native.request,response:native.response}}),
+        libriichi:{request:native.request,response:native.response},
       });
 
       if (result.status === "ready") {
@@ -1385,7 +1312,7 @@ export async function runMortalFullGameReview(input: {
     decisions: Object.freeze(ledger),
     sourceCoverage,
     retainedAnalyses: Object.freeze(retainedAnalyses),
-    ...(input.libriichi === undefined ? {} : {libriichi:{identity:input.libriichi.identity,results:ruleResults,
-      nonActionBoundaries:Object.freeze(nonActionBoundaries)}}),
+    libriichi:{identity:input.libriichi.identity,results:ruleResults,
+      nonActionBoundaries:Object.freeze(nonActionBoundaries)},
   };
 }

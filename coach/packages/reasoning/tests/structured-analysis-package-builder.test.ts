@@ -46,7 +46,7 @@ describe("M6-C Slice 2 production assembly", () => {
     const { libriichi: _removed, ...withoutRules } = review;
     const { legalActionRules: _identity, ...legacyVersions } = componentVersions;
     expect(() => buildStructuredAnalysisPackage({
-      stream, decisions, review: withoutRules,
+      stream, decisions, review: withoutRules as unknown as typeof review,
       componentVersions: { ...legacyVersions, packageSchema: STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION },
       frozenPolicySnapshot: review.retainedAnalyses[0]!.modelEvaluation.detailPolicy,
     })).toThrow("m6c_builder_requires_native_rules");

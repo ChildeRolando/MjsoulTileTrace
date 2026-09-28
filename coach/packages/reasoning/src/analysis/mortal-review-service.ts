@@ -761,8 +761,11 @@ export async function runBoundMortalDecisionReview(input: {
   readonly engine: HandStructureFactEnginePort;
   readonly now?: () => number;
   readonly frozenAt?: string;
-  readonly libriichi?: {request:LibriichiRuleRequest;response:LibriichiRuleSuccess};
+  readonly libriichi: {request:LibriichiRuleRequest;response:LibriichiRuleSuccess};
 }): Promise<MortalSingleDecisionReviewResult> {
+  if (input.libriichi === undefined) {
+    return {status:"failed",code:"mortal_review_rules_failed",diagnostics:["rules_input_incomplete"]};
+  }
   const now = input.now ?? Date.now;
   try {
     const stream = CanonicalEventStreamSchema.parse(input.stream);
@@ -796,21 +799,18 @@ export async function runBoundMortalDecisionReview(input: {
 
     // P7: pure projection into the candidate normalizer's action-fact shape.
     const actionFacts = projectActionFacts(input.decision);
-    let expectedLegalActionRefs: readonly string[] | undefined;
     let nativeCorrespondence: Extract<ActualModelCorrespondence,{relation:"native_physical_realization"}> | undefined;
-    if (input.libriichi !== undefined) {
-      const {request,response} = input.libriichi;
-      const fresh = createLibriichiRuleProjector(stream,request.identity)(input.decision);
-      if (libriichiRuleCanonicalJson(fresh) !== libriichiRuleCanonicalJson(request)) throw new Error("rules_protocol_invalid");
-      const bound = bindLibriichiRuleResult({request,response,decision:input.decision});
-      expectedLegalActionRefs = bound.actions.map(row=>row.actionRef);
-      const scoredModelActionRef = actualLibriichiActionRef(input.decision,bound.actions);
-      const actual = input.decision.actualAction!;
-      const actualActionRef = canonicalActionRef(actual);
-      if (actual.kind === "discard" && actualActionRef !== scoredModelActionRef) {
-        nativeCorrespondence = {relation:"native_physical_realization",ruleResultId:response.resultId,actualActionRef,
-          scoredModelActionRef:ActionRefSchema.parse(scoredModelActionRef)};
-      }
+    const {request,response} = input.libriichi;
+    const fresh = createLibriichiRuleProjector(stream,request.identity)(input.decision);
+    if (libriichiRuleCanonicalJson(fresh) !== libriichiRuleCanonicalJson(request)) throw new Error("rules_protocol_invalid");
+    const bound = bindLibriichiRuleResult({request,response,decision:input.decision});
+    const expectedLegalActionRefs = bound.actions.map(row=>row.actionRef);
+    const scoredModelActionRef = actualLibriichiActionRef(input.decision,bound.actions);
+    const actual = input.decision.actualAction!;
+    const actualActionRef = canonicalActionRef(actual);
+    if (actual.kind === "discard" && actualActionRef !== scoredModelActionRef) {
+      nativeCorrespondence = {relation:"native_physical_realization",ruleResultId:response.resultId,actualActionRef,
+        scoredModelActionRef:ActionRefSchema.parse(scoredModelActionRef)};
     }
 
     // P8: bind each kakan to its own matching frozen pon, including an
@@ -859,13 +859,11 @@ export async function runBoundMortalDecisionReview(input: {
 
     // Compare the entire normalized score domain before helper/assembly. The
     // report cannot delete an unchosen legal action or add a new one.
-    if (expectedLegalActionRefs !== undefined) {
-      const expected = new Set(expectedLegalActionRefs);
-      const scored = imported.scores.map(score => score.actionRef);
-      if (expected.size !== expectedLegalActionRefs.length || scored.length !== expected.size ||
-          new Set(scored).size !== scored.length || scored.some(ref => !expected.has(ref))) {
-        return {status:"failed",code:"mortal_decision_unsupported_entry",diagnostics:["legal_candidate_mismatch"]};
-      }
+    const expected = new Set(expectedLegalActionRefs);
+    const scored = imported.scores.map(score => score.actionRef);
+    if (expected.size !== expectedLegalActionRefs.length || scored.length !== expected.size ||
+        new Set(scored).size !== scored.length || scored.some(ref => !expected.has(ref))) {
+      return {status:"failed",code:"mortal_decision_unsupported_entry",diagnostics:["legal_candidate_mismatch"]};
     }
 
     // P9: deterministic model evaluation. For a riichi window the actual
@@ -937,8 +935,7 @@ export async function runBoundMortalDecisionReview(input: {
       comparisonSet: imported.comparisonSet,
       modelEvaluation: evaluationBuilt.evaluation,
       factorResult,
-      ...(input.libriichi === undefined ? {} : {legalActionRules:{identity:input.libriichi.request.identity,
-        requestId:input.libriichi.request.requestId,resultId:input.libriichi.response.resultId}}),
+      legalActionRules:{identity:request.identity,requestId:request.requestId,resultId:response.resultId},
     };
   } catch (error) {
     if (error instanceof MortalSourceError) {

@@ -506,3 +506,34 @@ full-game/discovery 的正式切换；新旧包版本与规则来源；物理动
 
 仍待 full-game 旧分支和其他枚举退出、动作表示兼容、雀魂来源证据、大包持久化、
 最终提交完整 CPU spike 与外部独立验收；本切片不能宣称 R14 或总体目标已通过。
+
+## 15. 第十实施切片：整局和已绑定决策入口强制规则依据
+
+- `runMortalFullGameReview` 删除旧 self/response 单候选证明和 ron 资格计算分支。
+  规则结果为必需输入，先绑定完整 canonical 状态，再判断实际行动、单候选与报告覆盖。
+  无规则输入、查询失败、篡改快照都不能继承旧豁免；每窗口失败仍累积进账本。
+- `runBoundMortalDecisionReview` 同样强制规则依据，防止绕过单决策/整局入口后仅凭
+  报告候选进入 ready。完整候选对应检查和规则来源输出改为无条件执行。
+- 旧整局测试迁移为独立于报告的受控规则答案，保留身份、错行、重复/缺评分、单候选、
+  响应分区与守恒断言。原 partial fixture 保持不变；合成完整回合明确标识用途。
+  修改快照但不修改 canonical 的旧禁杠场景，在整局入口必须被拒绝，不能取得豁免。
+  真实 native 规则与历史行为案例继续按既有专项/黄金回归验证，受控答案不自称牌理证明。
+- 七包依赖边不变，未增加架构抽象；INV-002/004/007 由规则绑定和包来源链继续保护。
+  固定封存基线、blob 与退出符号见 retirement 清单第 3 节。
+
+验证日志位于既有源码外迁移目录：
+
+- `native-fullgame-required-red.log`：旧入口缺规则时仍生成单候选豁免，新断言失败。
+- `native-bound-required-red.log`：旧已绑定入口缺规则仍返回 ready，新断言失败。
+- `native-fullgame-bound-focused.log`：4 文件/98 项通过；另 52 项适配回归通过。
+  初次适配迁移的验收产物测试仍断言 v1，按新增规则来源改断言 v2，隐私字段断言保留。
+- 五门本次完整执行均退出 0：`npm run typecheck`、`npm run build`、
+  `npm run check:architecture`（7 包/430 文件/1951 导入/0 违规）、
+  `npm run test:package-import`、`npx --no-install vitest run`（185 文件/2281 项）。
+  日志为 `native-fullgame-final-*.log`。初次类型检查发现旧测试调用缺必需规则字段，
+  完成上述迁移后整命令重跑通过；两项故意遗漏字段的负例显式模拟无类型调用。
+- `git diff --check` 退出 0。本次未运行真实 CPU spike 或禁网演练；四项真实输入
+  黄金回归通过不代替最终提交绑定的 CPU 全语料验收。
+
+旧枚举函数及导出尚未全部退出；动作表示兼容、雀魂来源证据、大包持久化、最终提交
+完整 CPU spike 和外部独立验收仍待完成。本切片不宣称总体目标或 R14 验收通过。
