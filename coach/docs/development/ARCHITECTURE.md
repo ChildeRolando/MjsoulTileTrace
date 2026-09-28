@@ -376,12 +376,15 @@ identity/status schema 仅做内部提取，公共形状和导出保持不变，
 
 M7-B 将上述只读边界落到 `desktop/src/review-session-repository.ts`：Electron main 是
 `review-library/library.sqlite` 的唯一写入者，SQLite v1 逻辑 schema（storage v2 为删除
-receipt 追加 package binding；迁移/兼容见 M7-B §7）只保存 immutable package/report
+receipt 追加 package binding，storage v3 为完整 package JSON 增加有序分块；迁移/兼容见 M7-B §7）只保存 immutable package/report
 bytes、冻结 selection、append-only report ref、显式 active ref 与两阶段 activation
 intent/receipt。打开或恢复时逐层校验 hash/schema/domain identity，并且只调用
 `composeReviewReadBackContext` 从 fresh package projection 装配当前报告；ContextGraph
 仍不落盘。同一次磁盘读回产生的 context 深度冻结后由主进程概览/详情复用，
 不经 IPC 暴露；重新读库或切换报告仍构建新 context，不缓存自报身份对应的校验结论。
+`package-artifact-storage.ts` 是该 repository 内的字节存储实现：64 KiB 块、完整字节哈希、
+事务内写入和旧 inline JSON 读取。固定 `@streamparser/json@0.0.26` 仅用于 main 侧分块解析，
+不进入 renderer 或领域契约；不改变校验与图构建 owner，不新增架构级抽象。
 `desktop/src/privileged-raw-cache.ts` 与资料库共用 main-only 索引，但 raw bytes
 只进入受控 `source-cache/`，命中重新验证路径、长度和 hash；renderer DTO、日志与会话
 artifact 均不携带 raw material。缓存没有 TTL/LRU，只有显式清理。

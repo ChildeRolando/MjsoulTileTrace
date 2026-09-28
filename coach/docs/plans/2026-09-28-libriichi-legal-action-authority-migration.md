@@ -635,3 +635,52 @@ full-game/discovery 的正式切换；新旧包版本与规则来源；物理动
 
 更大分析包的存储边界、雀魂来源缺失证据、最终提交完整真实 CPU spike 与外部
 独立验收仍需完成。本切片未运行系统禁网验证，也未提交外部独立验收。
+
+## 18. 第十三实施切片：完整分析包分块存储
+
+基线 `66a38cf0c9063625d4f7bc48c2e868953185d4a5`。
+
+- 既有 desktop repository 内增加 package 字节编码模块；完整 canonical JSON 分成
+  64 KiB SQLite 块，父行保留版本头与全字节 SHA-256。写入仍与 session 同事务，
+  读回核对全部块/长度/hash 后再执行原领域校验；没有裁剪账本、差异或 provenance。
+- storage v3 前向迁移只增表和版本，不改旧 artifact 字节；旧 inline JSON 继续校验。
+  新旧混合表示拒绝，失败写入回滚，删除通过外键级联。领域 schema、身份和两阶段
+  report activation 不变；新库版本断言同步为 3，新版本拒绝负例同步为 4。
+- 使用固定 MIT 依赖 `@streamparser/json@0.0.26` 做 main 内分块解析；一次读取内
+  有界复用长字符串以控制重复证据 ID 的内存。无新增包、依赖边或领域抽象；
+  M7-B §7、ARCHITECTURE 与 INV-012 记录表示及可执行检查。
+
+证据目录：`LOCALAPPDATA/RiichiCoach/spike-runs/chunked-package-20260928-092437/`。
+
+- `whole-package-red.log`：旧 `saveSession` 在禁止整包 JSON 字符串化时抛出
+  `whole_package_string_limit`，退出 1；新路径 `whole-package-green.log` 退出 0。
+- `mixed-storage-red.log`：旧新表示混用未拒绝，新增负例退出 1；加入读取拒绝后
+  `chunks-focused-final.log` 为 2 文件/44 项全部通过，退出 0。覆盖 UTF-8/转义/特殊
+  对象键、缺块/截断/篡改/多块、不可变、事务失败、迁移回滚和 session 删除。
+- 已有真实 chankan 包 2,353,369,432 字节、122 个决策，实际执行解析、领域校验、
+  序列化、35,910 块写入、读回、再次领域校验和完整 canonical hash 比较；
+  `large-artifact-v2.log` 退出 0，约 191 秒，SHA-256 为
+  `27d8e59dd256e15effe9f23a74c41b7659f1bfdd9d0038a0c97e0b4bec8cfc23`，与原文件一致。
+  Node 24.15.0，仅启用 `--expose-gc`，未提高 heap 上限；本次网络未隔离、未运行模型。
+  这证明完整字节存储和领域校验，不等同完整图/会话/renderer 验收。
+- 首次 `large-artifact.log` 退出 1：诊断脚本误用不存在的 schema 字段，SQLite 参数
+  绑定拒绝；修正脚本后从头完整重跑。原文件/回执未覆盖，未将该失败归咎产品或环境。
+
+- `large-session.log`：同一包经实际 selector 后调用完整 repository `saveSession`，
+  默认 heap 在保存期间耗尽，退出 134；未获得保存/重开成功回执。诊断未提高内存上限，
+  未删减任何包/图字段。这是尚存的产品资源问题，不能记作环境故障；需要进一步定位
+  保存校验、图构建与复制的内存峰值。字节存储通过不代表大包会话可用。
+
+- 五个现有门禁本次全部实际退出 0：`npm run typecheck`、`npm run build`、
+  `npx vitest run`（185 文件/2259 项）、`npm run check:architecture`
+  （7 包/428 文件/1934 导入/0 违规）、`npm run test:package-import`（2 项）。
+  日志依次为 `typecheck-final.log`、`build-final.log`、`vitest-final.log`、
+  `architecture-final.log`、`package-import-final.log`；`diff-check-final.log` 退出 0。
+
+- `npm run test:electron-persistence` 完整执行退出 0（`electron-final.log`），
+  Electron 43.3.0 / Node 24.18.1。原真实来源完整 22 评价/65 规则边界包的保存/重开、
+  kill/WAL 恢复、A→B→A、迁移、坏缓存与零来源/LLM 请求全部通过；原 30 秒
+  独立重开时限不变。该夹具小于上述 2.35 GB 包，不替代超大包完整会话验收。
+
+大包会话资源问题、最终提交 CPU 全语料、来源缺失证据、
+外部独立验收仍未完成；不以分块存储通过替代整体目标。

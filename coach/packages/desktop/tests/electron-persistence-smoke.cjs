@@ -392,7 +392,7 @@ if (!PRODUCTION_CACHE_CHILD) app.whenReady().then(async () => {
       userVersion: Number(db.prepare("PRAGMA user_version").get().user_version),
     };
     db.close();
-    if (values.foreignKeys !== 1 || values.journalMode !== "wal" || values.synchronous !== 2 || values.userVersion !== 2) {
+    if (values.foreignKeys !== 1 || values.journalMode !== "wal" || values.synchronous !== 2 || values.userVersion !== 3) {
       throw new Error(`unexpected sqlite pragmas: ${JSON.stringify(values)}`);
     }
     console.log(`[electron-persistence] PASS electron=${process.versions.electron} node=${process.versions.node} kill-recovery real-main-chain-offline-zero-requests A-B-A complete-partial-evidence migration`);

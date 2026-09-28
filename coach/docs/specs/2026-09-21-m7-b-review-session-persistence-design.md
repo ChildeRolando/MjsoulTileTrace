@@ -109,6 +109,22 @@ P6 不向用户暴露这些操作。repository/controller 仍必须支持：追�
 
 ## 7. migration 与版本兼容
 
+2026-09-28 大包存储修复追加 storage v3，领域 package/report schema 不变：
+
+- 新 package 的 canonical JSON 按 64 KiB 写入 `analysis_package_chunks`，顺序由
+  `(package_ref_id, ordinal)` 唯一约束固定。父行保存 24 字节版本头、块数与完整字节数；
+  `content_hash` 仍是完整 JSON 字节的 SHA-256，不是版本头或各块摘要的拼接。
+- 序列化与解析均不创建整包 JSON 字符串或 Buffer。所有字段、候选账本与差异完整保留；
+  流式解析只在一次读取内有界复用相同长字符串，不缓存领域校验结论。
+- 父行、全部块、session 与 selection 同事务写入；中途失败全部回滚。块禁止 UPDATE，
+  删除包通过外键级联删除块。读回验证版本头、连续序号、精确块长、总长度和完整哈希，
+  再执行原 schema/领域/身份/read-back 校验；失败不暴露部分包。
+- v2 → v3 只增加表、约束和版本号，不改写旧 immutable JSON 字节或哈希。旧包仍按
+  原字节校验；同时存在旧正文与块的混合表示拒绝。相同 package 的重复保存比较完整
+  canonical 内容，不能因新旧 JSON 键顺序不同误报冲突，也不能覆盖已有内容。
+- 分块解决聚合字符串及单 BLOB 大小边界；仍需完整领域对象和派生图的内存，不能由此
+  宣称任意大小包都能在既定桌面资源预算内完成。
+
 COAC-98 删除回执修复在原 v1 逻辑 schema 上追加 storage v2：
 `operation_receipts.package_id TEXT NULL` 保留删除后仍可验证的 package 绑定，
 新操作同时写原始 `session_id`；artifact、引用及所有原约束不变。

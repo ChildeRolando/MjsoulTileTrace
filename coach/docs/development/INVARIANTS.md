@@ -333,13 +333,16 @@ Model/report evidence provider（模型/报告证据来源）
   truth、崩溃后错误报告和秘密/来源材料泄漏。
 - **Owner / boundary**：M7-B spec；`review-session-repository.ts`、
   `privileged-raw-cache.ts` 与 M7-A strict DTO/IPC/preload 边界。
-- **Enforcement**：SQLite v1 逻辑 schema（storage v2 追加 receipt package binding）的唯一/复合 FK、immutable triggers、hash/schema/domain
+- **Enforcement**：SQLite v1 逻辑 schema（storage v2 追加 receipt package binding，v3 追加完整 package 字节分块）的唯一/复合 FK、immutable triggers、hash/schema/domain
   validators、索引列与正文领域 identity 一致性、生成开始时的 durable session/revision CAS、
   intent/receipt；cache 命中重新验证受控路径/非链接/长度/hash，
   无 TTL/LRU，显式清理以 `deleting` 状态幂等恢复；renderer 只解析 strict DTO。
 - **Executable tests**：`review-session-persistence.test.ts` 覆盖离线重开、duplicate
   reportId/ref 寻址、A→B→A、提交一后零 provider 恢复、激活前完整校验、operation 幂等、
   新版本拒绝及 cache dedup/hit/tamper/no-auto-eviction/clear/junction 越界；
+  `package-artifact-storage.test.ts` 检查跨块 JSON 无损、缺块/乱序/篡改/混合表示拒绝、
+  完整哈希和中途写入回滚；repository suite 检查不做整包字符串化、v2 迁移不改旧字节、
+  迁移失败回滚及 session/块原子提交与删除；
   `electron-persistence-smoke.cjs` 在发行 Electron runtime 覆盖 binding/PRAGMA、子进程异常
   终止与 WAL/intent 恢复、complete/evidence-only、不同内容 A→B→A、migration rollback
   及同一真实脱敏 fixture 的生产分析→stub 生成→Overview/List/Detail→独立进程零请求重开；

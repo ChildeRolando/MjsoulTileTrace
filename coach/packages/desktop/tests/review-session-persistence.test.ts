@@ -16,6 +16,19 @@ afterEach(() => { for (const root of roots.splice(0)) rmSync(root, { recursive: 
 const root = () => { const value = mkdtempSync(join(tmpdir(), "riichi-review-")); roots.push(value); return value; };
 const pkg = StructuredAnalysisPackageSchema.parse(JSON.parse(readFileSync(new URL("./fixtures/coach-package.json", import.meta.url), "utf8")));
 const selection = selectReviewDecisions(pkg);
+/** Manufacture the previous on-disk representation, including its exact bytes. */
+function restoreV2Storage(db: DatabaseSync): Buffer {
+  const payload = Buffer.from(JSON.stringify(pkg));
+  db.exec("DROP TRIGGER immutable_package");
+  db.prepare("UPDATE analysis_packages SET payload=?,content_hash=? WHERE package_id=?")
+    .run(payload,createHash("sha256").update(payload).digest("hex"),pkg.packageId);
+  db.exec(`CREATE TRIGGER immutable_package BEFORE UPDATE ON analysis_packages BEGIN SELECT RAISE(ABORT,'immutable_artifact'); END;
+    DROP TABLE analysis_package_chunks;
+    DROP TABLE library_meta;
+    CREATE TABLE library_meta(singleton INTEGER PRIMARY KEY CHECK(singleton=1),format_version INTEGER CHECK(format_version=2),created_at TEXT);
+    INSERT INTO library_meta VALUES(1,2,'original'); PRAGMA user_version=2;`);
+  return payload;
+}
 function canonical(value: unknown): string {
   if (value === null || typeof value !== "object") return JSON.stringify(value);
   if (Array.isArray(value)) return `[${value.map(canonical).join(",")}]`;
@@ -46,6 +59,67 @@ const completeReport = await generateReviewReport(graph, selection, {
 }, "2026-09-23T00:00:00.000Z");
 
 describe("ReviewSession SQLite persistence", () => {
+  it.each([false,true])("migrates v2 inline artifacts without rewriting bytes, rollback=%s", fail => {
+    const dir=root();
+    const repository=createReviewSessionRepository({root:dir});
+    repository.saveSession(pkg,selection);
+    repository.close();
+    const db=new DatabaseSync(join(dir,"library.sqlite"));
+    const legacyBytes=restoreV2Storage(db);
+    if(fail) db.exec("CREATE TABLE library_meta_v3(sentinel TEXT); INSERT INTO library_meta_v3 VALUES('preserve')");
+    db.close();
+    if(fail) expect(()=>createReviewSessionRepository({root:dir})).toThrow();
+    else {
+      const reopened=createReviewSessionRepository({root:dir});
+      try {
+        expect(reopened.openByPackageId(pkg.packageId).analysisPackage).toEqual(pkg);
+        expect(reopened.saveSession(pkg,selection).analysisPackage).toEqual(pkg);
+        expect(()=>reopened.saveSession({...pkg,createdAt:"2026-09-29T00:00:00.000Z"},selection)).toThrow("identity_conflict");
+      } finally { reopened.close(); }
+    }
+    const verify=new DatabaseSync(join(dir,"library.sqlite"));
+    try {
+      expect(Buffer.from(verify.prepare("SELECT payload FROM analysis_packages").get()!.payload as Uint8Array)).toEqual(legacyBytes);
+      expect(verify.prepare("PRAGMA user_version").get()?.user_version).toBe(fail?2:3);
+      if(fail) {
+        expect(verify.prepare("SELECT sentinel FROM library_meta_v3").get()?.sentinel).toBe("preserve");
+        expect(verify.prepare("SELECT name FROM sqlite_master WHERE name='analysis_package_chunks'").get()).toBeUndefined();
+      }
+    } finally { verify.close(); }
+  });
+
+  it("commits chunks with the session and deletes them only with their owning package", () => {
+    const dir=root();
+    const repository=createReviewSessionRepository({root:dir});
+    const db=new DatabaseSync(join(dir,"library.sqlite"));
+    try {
+      db.exec("CREATE TRIGGER fail_chunk BEFORE INSERT ON analysis_package_chunks BEGIN SELECT RAISE(ABORT,'injected_write_failure'); END");
+      expect(()=>repository.saveSession(pkg,selection)).toThrow("injected_write_failure");
+      expect(repository.listSessions()).toEqual([]);
+      expect(db.prepare("SELECT COUNT(*) AS n FROM analysis_packages").get()?.n).toBe(0);
+      db.exec("DROP TRIGGER fail_chunk");
+      repository.saveSession(pkg,selection);
+      expect(db.prepare("SELECT COUNT(*) AS n FROM analysis_package_chunks").get()!.n).toBeGreaterThan(0);
+      repository.deleteSession(pkg.packageId,"delete-chunked");
+      expect(db.prepare("SELECT COUNT(*) AS n FROM analysis_package_chunks").get()?.n).toBe(0);
+    } finally { db.close(); repository.close(); }
+  });
+
+  it("saves a complete package without materializing one whole-package JSON string", () => {
+    const repository = createReviewSessionRepository({ root: root() });
+    const stringify = JSON.stringify;
+    const guard = vi.spyOn(JSON, "stringify").mockImplementation(((value: unknown, ...args: unknown[]) => {
+      if (value !== null && typeof value === "object" && "packageId" in value && "decisions" in value) {
+        throw new RangeError("whole_package_string_limit");
+      }
+      return Reflect.apply(stringify, JSON, [value, ...args]);
+    }) as typeof JSON.stringify);
+    try {
+      expect(repository.saveSession(pkg, selection).analysisPackage).toEqual(pkg);
+      expect(repository.openByPackageId(pkg.packageId).analysisPackage).toEqual(pkg);
+    } finally { guard.mockRestore(); repository.close(); }
+  });
+
   it("owns immutable read-back contexts and revalidates disk on every reopen", () => {
     const dir = root();
     const repository = createReviewSessionRepository({ root: dir, createId: () => "session-a" });
@@ -78,6 +152,7 @@ describe("ReviewSession SQLite persistence", () => {
       repository.saveSession(pkg, selection);
       repository.close();
       const db = new DatabaseSync(join(dir, "library.sqlite"));
+      restoreV2Storage(db);
       db.exec(`ALTER TABLE operation_receipts DROP COLUMN package_id;
         DROP TABLE library_meta;
         CREATE TABLE library_meta(singleton INTEGER PRIMARY KEY CHECK(singleton=1), format_version INTEGER CHECK(format_version=1), created_at TEXT);
@@ -276,11 +351,11 @@ describe("ReviewSession SQLite persistence", () => {
     const dir = root();
     const databasePath = join(dir, "library.sqlite");
     const db = new DatabaseSync(databasePath);
-    db.exec("PRAGMA user_version=3");
+    db.exec("PRAGMA user_version=4");
     db.close();
     expect(() => createReviewSessionRepository({ root: dir })).toThrow("library_newer_version");
     const verify = new DatabaseSync(databasePath);
-    expect((verify.prepare("PRAGMA user_version").get() as { user_version: number }).user_version).toBe(3);
+    expect((verify.prepare("PRAGMA user_version").get() as { user_version: number }).user_version).toBe(4);
     verify.close();
   });
 
