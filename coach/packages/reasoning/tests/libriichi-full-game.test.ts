@@ -14,7 +14,7 @@ import { buildStructuredAnalysisPackage, type BuildStructuredAnalysisPackageInpu
 import { validateStructuredAnalysisPackage } from "../src/validate/structured-package-validator.js";
 import { deriveSemanticContentHash, derivePackageId } from "../src/analysis/package-identity.js";
 import { freezeDetailPolicy } from "../src/policy/detail-policy.js";
-import { replayCanonicalStream, scanCanonicalResponseBoundaries, replayCanonicalResponseWindows } from "../src/replay/stream-replayer.js";
+import { replayCanonicalStream, scanCanonicalResponseBoundaries } from "../src/replay/stream-replayer.js";
 import { acceptedRiichiKanStream } from "./fixtures/accepted-riichi.js";
 import { canonicalTile, canonicalStartEvents, canonicalStream } from "./fixtures/canonical-stream.js";
 import type { HandStructureFactEnginePort } from "../src/fact-engine/port.js";
@@ -78,7 +78,6 @@ describe("native rules own the census and full-game exemptions", () => {
         tile:canonicalTile("7z"),discardMode:"tsumogiri",riichiDeclarationEventRef:null},
       {type:"tile_drawn",eventId:"game:fixture/0/4/0",sourceRecordRef:"record:4",actor:2,tile:{visibility:"hidden"},from:"live_wall"});
     const stream = canonicalStream(events);
-    expect(replayCanonicalResponseWindows(stream)).toHaveLength(0);
     expect(scanCanonicalResponseBoundaries(stream).map(row=>row.decisionEventRef)).toEqual(["game:fixture/0/3/0"]);
     const queryRules = vi.fn(async (request: LibriichiRuleRequest) => nativeResult(request,null));
     const run = await queryCanonicalLibriichiRules({stream,identity,port:{queryRules}});

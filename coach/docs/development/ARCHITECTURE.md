@@ -6,7 +6,9 @@
 [ADR-0006](../adr/0006-libriichi-single-legal-action-authority.md) 已采纳唯一 libriichi
 来源；[规格](../specs/2026-09-28-libriichi-legal-action-authority-design.md) 和
 [计划](../plans/2026-09-28-libriichi-legal-action-authority-migration.md) 定义目标与退出清单。
-下述新职责是批准目标，代码迁移尚未实施。
+规则查询、评分、整局/单决策、新包、remote/discovery 已接入；旧枚举与资格预筛
+已退出，封存位置见实施计划。真实全语料、来源缺失证据及大包持久化仍待收口，
+不因此宣称迁移验收完成。
 
 目标：canonical 事件/可见状态 → 完整性与规则配置核验 → libriichi 无权重规则查询
 → 单一合法动作结果 → 模型请求或单候选证明 → full-game/package。
@@ -64,7 +66,7 @@ mahjong-soul-source ──► CanonicalEventStreamV2
 - 模型评价、比较、偏好和严格分析包；
 - renderer-safe 雀魂会话与目录 DTO。
 - local Mortal runtime strict request/result/error/identity DTO。
-- ADR-0006 目标：独立于模型评分的规则查询结果、规则来源身份及其 proof/package 契约。
+- 独立于模型评分的规则查询结果、规则来源身份及其 proof/package 契约（ADR-0006）。
 
 规则：跨包数据进入下一层前必须经过这里的严格 schema；未知字段默认拒绝。
 
@@ -98,9 +100,9 @@ Mortal model/report evidence provider：报告 schema、URL 校验、指纹与 m
 
 独立 privileged native-model owner：由 Electron main 托管固定 Mortal V4 subprocess 与
 `Yuchen1457/mortal-582500` checkpoint，只接收 contracts-owned canonical/replay request，
-通过 strict `riichi-local-mortal-jsonl/v1` 返回 model evidence。它不解析雀魂/天凤格式，
-现有 v1 不提供独立规则查询。ADR-0006 目标是在同一 owner 内增加独立于权重的
-libriichi 规则操作与版本化结果，模型操作仍只产评分；不与 `mortal-source` 或
+通过严格协议返回 model evidence。它不解析雀魂/天凤格式，
+同一 owner 已提供独立于权重的 libriichi 规则操作与版本化结果，
+模型操作仍只产评分；不与 `mortal-source` 或
 `mahjong-facts` 合并。reasoning 不依赖该包；只
 消费 contracts-owned result 并复用现有 Mortal comparison / `ModelEvaluation` builder。
 renderer/preload 不得启动进程、读取模型、知道 checkpoint 路径或接收 raw stdout/stderr。
@@ -114,7 +116,7 @@ renderer/preload 不得启动进程、读取模型、知道 checkpoint 路径或
 - 重放 canonical stream，冻结决策快照并投影 `KnownGameFacts`；
 - 归一化用户、MJAI、模型和实战动作；
 - 调用固定版本 fact-engine sidecar；
-- ADR-0006 目标：消费唯一规则结果，负责动作身份/格式转换、请求与单候选证明派生，
+- 消费唯一规则结果，负责动作身份/格式转换、请求与单候选证明派生，
   不自行推导另一合法集合；canonical 回放扫描待判定边界，不按本地牌形排窗；
 - 生成五轴账本、防守矩阵、差异和确定性偏好；
 - 构建并验证严格分析包；
@@ -384,8 +386,9 @@ artifact 均不携带 raw material。缓存没有 TTL/LRU，只有显式清理�
 
 ## 当前已知架构缺口
 
-- ADR-0006 唯一 libriichi 来源尚未实施；self/response 开窗、资格预判、单候选和
-  full-game 仍有本地规则计算，按迁移计划整体退出。以下 M6-A4 历史覆盖不证明新目标。
+- ADR-0006 生产入口已切换，旧 self/response 枚举、资格预筛与单候选反证已退出；
+  最终提交真实全语料、大包持久化与来源缺失证据仍需收口。以下 M6-A4 历史覆盖
+  不证明迁移后已完成新验收。
 
 - canonical mapper 的部分流局/杠语义尚需真实牌谱反证（M5 人工验收并行线程）；
 - 响应面已接入（M6-A4.0/A4.1/A4.2：归属过滤拆除、discard_response/kan_response 开窗、响应窗口身份事实表与本地候选枚举同构、守恒不变量升级、响应分支覆盖率矩阵 fail-closed）；A4.3 纯事件 discovery 扫描已落地（`scripts/response-surface-discovery.mjs`，chankan 最早启动、合格局计数按 source 记入 manifest），wave-1 六分支已全部真实 E2E 取证（resp_chi/pon/daiminkan/hora_actual + resp_pass_on_discard 四候选族子覆盖 + resp_chankan_actual，8 份真实报告），wave-2 保持 fail-closed + 降级条款；

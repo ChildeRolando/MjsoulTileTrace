@@ -73,6 +73,19 @@ builder/validator 和 selector；覆盖 65 边界、22 个有评分决策、43 �
 
 #### 现有运行入口与历史回归基线
 
+ADR-0006 当前回归 owner：真实原生规则案例在
+`packages/mortal-runtime/tests/runtime_rules_native_test.py`；输入与规则绑定在
+`libriichi-rule-projection.test.ts`；评分对应在 `local-mortal-rule-scoring.test.ts`；
+历史反例下游效果在 `native-action-regressions.test.ts`；完整真实来源的消费者回放在
+`scripts/native-whole-game-golden.test.mjs`。Electron 持久化冒烟通过同一捕获夹具重算
+v2 包后保存、独立进程重开，继续核验零来源/LLM 请求。捕获回放不是当次 CPU 推理。
+原生测试需显式设置 `COACH_LIBRIICHI_NATIVE_MODULE` 为已验证的 native 路径，用既有
+Python 执行上述测试文件；不下载资产，不加载 torch/model。
+`check:architecture` 拒绝已封存模块原路径及静态导入；package-import 另查旧导出和生成
+文件不存在。删除源文件后旧 dist 文件须清除，不能让增量构建保留可执行旧实现。
+下文 R10–R13 的“本地证明/共享枚举”描述是历史基线，其行为反例迁至上述 owner，
+不得恢复旧生产算法来满足旧实现专用断言。
+
 [冻结规格](../specs/2026-09-24-local-mortal-runtime-production-design.md) 要求 COAC-111
 长期提供两个显式入口：
 

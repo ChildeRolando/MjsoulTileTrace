@@ -41,7 +41,6 @@ import {
 } from "./fixtures/canonical-stream.js";
 import { collectLibriichiRuleResults } from "../src/analysis/libriichi-rule-collection.js";
 import {
-  replayCanonicalResponseWindows,
   scanCanonicalResponseBoundaries,
   replayCanonicalStream,
   type ReplayedDecision,
@@ -2092,7 +2091,7 @@ describe("M6-A4.0 source model: source_row_not_expected + source-surface partiti
   });
 
   // M6-A4.2: the response partition in the full-game review. Response windows
-  // (replayed by replayCanonicalResponseWindows) bind response source rows
+  // (replayed by scanCanonicalResponseBoundaries) bind response source rows
   // through the identity fact table and classify through the same pipeline,
   // and the response source ledger conserves every projected response row.
 
@@ -2102,7 +2101,7 @@ describe("M6-A4.0 source model: source_row_not_expected + source-surface partiti
     // source row carries the same 13-tile hand and the opponent lastActor.
     const stream = responseWindowStream();
     const decisions = replayCanonicalStream(stream);
-    const responseWindows = replayCanonicalResponseWindows(stream);
+    const responseWindows = scanCanonicalResponseBoundaries(stream);
     const ponWindow = responseWindows.find((decision) => {
       const w = decision.snapshot.privateState.decisionWindow;
       return w.kind === "discard_response" && w.sourceActor === 1;
@@ -2164,7 +2163,7 @@ describe("M6-A4.0 source model: source_row_not_expected + source-surface partiti
   it("conserves a response window whose source row is absent as no_mortal_entry", async () => {
     const stream = responseWindowStream();
     const decisions = replayCanonicalStream(stream);
-    const responseWindows = replayCanonicalResponseWindows(stream);
+    const responseWindows = scanCanonicalResponseBoundaries(stream);
     const ponWindow = responseWindows.find((decision) => {
       const w = decision.snapshot.privateState.decisionWindow;
       return w.kind === "discard_response" && w.sourceActor === 1;
@@ -2193,7 +2192,7 @@ describe("M6-A4.0 source model: source_row_not_expected + source-surface partiti
   it("rejects a response snapshot inconsistent with canonical history, with or without a report", async () => {
     const stream = responseWindowStream();
     const decisions = replayCanonicalStream(stream);
-    const base = replayCanonicalResponseWindows(stream).find((decision) => {
+    const base = scanCanonicalResponseBoundaries(stream).find((decision) => {
       const window = decision.snapshot.privateState.decisionWindow;
       return window.kind === "discard_response" && window.sourceActor === 1;
     });

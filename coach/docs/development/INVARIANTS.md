@@ -60,7 +60,8 @@
   resolver` 只消费已注册确定性差异。
 - **Executable tests**：`package-validator` 相关测试（"Factor … is in the wrong
   model bucket"）、`factor-differences.test.ts`、`preference-agreement.test.ts`。
-  `local-mortal-adapter.test.ts` 固化相同输入在投影/评分前后的 facts byte-equivalence。
+  `native-action-regressions.test.ts` 固化规则投影、评分、整局和包生成不修改输入的
+  canonical 状态、决策快照或教学事实。
 - **Status**：machine-enforced（remote report + managed local runtime）。
 
 ## INV-003 game-record 来源协议语义止于 canonical 重放/推理边界
@@ -115,9 +116,9 @@ Model/report evidence provider（模型/报告证据来源）
 > “唯一规则结果 ↔ canonical 规范化动作 ↔ 模型评分项”的身份与全集守恒；不再要求
 > 第二套规则独立检错。actual、preferred、重复/缺失/交叉换位检查继续成立。
 > 请求/单候选/覆盖必须复用同一规则结果；helper 与本地枚举不得增删候选。
-> 现有 identity/schema/checker 仅部分支撑新要求：**唯一来源与封存隔离当前为
-> docs-only，整条新版 INV-004 为 partially enforced**。旧测试不证明新目标完成，
-> 也不构成所有麻将状态的穷举证明。
+> 新入口强制绑定规则结果，旧枚举退出；架构检查拒绝已封存模块原路径与静态导入，
+> package-import 检查旧生成文件和导出不存在。该有限检查不能识别任意改名复制的
+> 规则代码。真实全语料与迁移独立验收仍未完成，不构成所有麻将状态的穷举证明。
 
 - **Statement**：候选通过 `actionRef` 绑定到产生它的决策窗口
   （`DecisionSnapshotV2.decisionEventRef === privateState.decisionWindow.triggerEventRef`）；
@@ -137,15 +138,17 @@ Model/report evidence provider（模型/报告证据来源）
   `candidate-contracts.test.ts`、`comparison-set-builder.test.ts`、M6-A4 binding/conservation
   与 structured package candidate-universe tests。COAC-111 追加 local runtime 的
   duplicate/missing/extra/unknown/ambiguous、跨决策响应、非 argmax preferred action 及
-  self/response actual-correspondence 负例；`local-mortal-adapter.test.ts` 还以真实冻结手牌
+  self/response actual-correspondence 负例；`runtime_rules_native_test.py` 通过真实 native
   固化仅赤五、赤普并存、actual/pass 与 kan-response 只允许 ron/pass 的 Mortal realization。
   pon 的物理消费牌须按固定 Mortal 赤五优先规则从冻结手牌确定，不能依手牌数组顺序取前两张；
   赤普并存时应核验完整 `consumed`/`actionRef`，不能仅核验 runtime index 41。
-- **待增 Executable checks**：规则查询不依赖 checkpoint；全事件边界无旧枚举过滤；
-  请求/proof/full-game 共用结果；跨内容回复与动作表示交换拒绝；架构检查禁止旧枚举
-  与封存代码回流。实施计划 P0–P4 定义回归与真实执行证据。
-- **Status**：partially enforced。现有 canonical/schema/身份检查已执行；唯一来源、
-  无权重规则入口与旧代码退出尚未实施，不能因文档更新标为 machine-enforced。
+- **Executable checks**：`response-replay.test.ts` 检查全边界；`libriichi-rule-projection`、
+  `local-mortal-rule-scoring`、`libriichi-full-game`、`native-action-regressions` 及原生黄金测试
+  检查请求/proof/full-game/package 同结果、跨内容回复和动作表示交换拒绝；
+  `runtime_rules_native_test.py` 检查真实规则不加载 torch/model；`check-architecture`
+  的 `retired_legal_action_authority` 与 package-import 限定检查旧模块回流。
+- **Status**：partially enforced。上述边界有可执行检查；任意新代码重新实现第二套规则
+  仍需评审识别，真实全语料与独立验收未完成。详见迁移计划，不把同源检查称为独立规则证明。
 
 ## INV-005 renderer/UI 不得接收特权原始协议与秘密
 
@@ -180,13 +183,11 @@ Model/report evidence provider（模型/报告证据来源）
   stdout 按 1 MiB byte ceiling 分帧；每个 request 只允许一个换行终止的 JSON response，
   trailing prose、额外 response、未终止 oversize frame 都必须关闭精确子进程并 fail closed。
   manifest 缺失、不可读、畸形或 artifact I/O 失败同样只能返回固定安全 code。
-  响应窗口只有在 hand-structure 与振听证据明确排除荣和时才能减少 ron 候选并签发
-  `response_single_candidate`；未知役条件、响应历史不完整导致的未知振听、引擎失败或缺失 verdict 均不能
-  从候选集合中静默扣除 ron。舍牌振听须用全部结构等待牌与本人牌河核验：本人打过
-  另一张等待牌也排除荣和；牌河证据不完整且无已知交集时保持 `unknown`，不能签发
-  单候选证明。荣和资格仍未知时，full-game ledger 使用
-  `analysis_blocked/ron_eligibility_unproven`，无论来源行是否存在都不能生成
-  `source_row_not_expected` 或 `analysis_ready`。
+  响应窗口的完整动作与荣和资格由同一 native 规则结果决定。必要输入未知、历史不全、
+  引擎失败或结果未绑定时使用 `analysis_blocked/legal_actions_unproven`，不能从候选
+  集合扣除 ron、补 actual，或签发单候选证明。`libriichi_single_candidate` 只由成功且
+  恰有一个动作的结果派生，并核验实际动作对应。旧 `response_single_candidate` 仅供
+  历史包只读验证，新包不可接收。helper 的振听教学事实不反向修改合法集合。
   Tenhou 仅对完整解析并闭合的受支持真实 mjlog 声明响应机会历史 `complete`；
   这只允许逐窗口运行事实引擎和振听推导，不自动宣称荣和合法。资格依赖的手牌、
   役、规则或闭合证据缺失时仍为 `unknown`，不得用 actual 行动或模型输出补足。
@@ -198,10 +199,10 @@ Model/report evidence provider（模型/报告证据来源）
   `canonical-mapper.test.ts`、`report-schema.test.ts`、`fact-engine.test.ts`
   （拒绝任意 sidecar prose）、`mahjong-soul-protocol-compatibility.test.mjs`；COAC-111
   追加每个 `mortal_*` 固定错误与 oversize/extra-prose 负例；
-  `response-binding.test.ts`、`local-mortal-adapter.test.ts` 和
-  `mortal-full-game-review.test.ts` 覆盖未知荣和资格不得获得单候选证明或 ready 结果；
-  `real-logs-corpus.test.ts` 与 `local-mortal-adapter.test.ts` 覆盖真实完整 Tenhou
-  来源声明及逐窗口荣和、抢杠荣和、含荣和候选 pass 资格，同时保留不完整历史负例。
+  `libriichi-rule-projection.test.ts`、`libriichi-full-game.test.ts` 和
+  `mortal-full-game-review.test.ts` 覆盖未知规则输入不得获得单候选证明或 ready 结果；
+  `real-logs-corpus.test.ts`、原生黄金回归和 `runtime_rules_native_test.py` 覆盖真实完整
+  Tenhou 来源、逐窗口荣和、抢杠荣和及 pass，保留不完整历史负例。
 - **Status**：machine-enforced；local runtime strict schema、artifact identity、lifecycle、
   oversize/extra-prose 与固定安全错误均由永久测试覆盖。启动握手为 single-flight；timeout、
   ready 前退出或协议失败会等待 exact child 终止并清空状态，失败后的重试不得伪成功。

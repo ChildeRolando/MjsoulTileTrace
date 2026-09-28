@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { existsSync } from "node:fs";
 
 test("workspace packages import as emitted JavaScript", async () => {
   const contracts = await import("@riichi-coach/contracts");
@@ -84,4 +85,16 @@ test("workspace packages import as emitted JavaScript", async () => {
   assert.equal(typeof desktop.parseMahjongSoulSessionStatus, "function");
   assert.equal(reasoning.bridgeLegacyRegressionEvents, undefined);
   assert.equal(reasoning.buildLegacyRegressionPipelineInput, undefined);
+  for (const name of ["projectLocalMortalRequest", "enumerateResponseCandidates",
+    "enumerateSelfDiscards", "collectSingleCandidateProofs", "collectResponseSingleCandidateProofs",
+    "replayCanonicalResponseWindows"]) assert.equal(reasoning[name], undefined, name);
+});
+
+test("emitted reasoning contains no retired legal-action implementation", () => {
+  for (const path of ["analysis/local-mortal-adapter", "analysis/single-candidate-proof",
+    "analysis/response-candidate-enumeration", "replay/response-eligibility", "factors/win-shape"]) {
+    for (const extension of ["js", "js.map", "d.ts", "d.ts.map"]) {
+      assert.equal(existsSync(new URL(`../packages/reasoning/dist/${path}.${extension}`, import.meta.url)), false, path);
+    }
+  }
 });

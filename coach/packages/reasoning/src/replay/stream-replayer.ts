@@ -12,15 +12,7 @@ import {
   freezeDecisionStreamContext,
   type DecisionStreamContext,
 } from "./decision-snapshot.js";
-import type { ReducedCanonicalState } from "./round-reducer.js";
 import { projectKnownGameFactsV2 } from "../factors/known-game-facts-v2.js";
-import {
-  canChi,
-  canDaiminkan,
-  canPon,
-  canRon,
-  seatDistance,
-} from "./response-eligibility.js";
 
 export interface ReplayedDecision {
   readonly decisionEventRef: string;
@@ -310,49 +302,6 @@ function scanKanResponse(
   return { kind: "unresolved" };
 }
 
-/**
- * Local window eligibility for a response source event. Returns false
- * (fail-closed: do not open) when the private facts are incomplete — the
- * canonical stream of a mapped game always carries the complete concealed
- * hand; fixtures that cannot prove a candidate are skipped rather than
- * guessed. A riichi'd reviewed player keeps only the ron candidate (chi/pon/
- * daiminkan would break riichi).
- */
-function responseWindowEligible(
-  state: ReducedCanonicalState | undefined,
-  source: ResponseSourceEvent,
-  selfActor: number,
-): boolean {
-  if (state === undefined) return false;
-  const privateState = state.privateState;
-  const publicState = state.publicState;
-  if (privateState === null || publicState === null) return false;
-  if (privateState.fields.concealedTiles !== "complete") return false;
-  if (privateState.currentDraw !== null) return false;
-  const concealed = privateState.concealedTiles;
-  const meldCount = publicState.melds.filter(
-    (meld) => meld.actor === selfActor,
-  ).length;
-  const inRiichi = publicState.riichiStates[selfActor]!.status !== "none";
-  if (source.type === "tile_discarded") {
-    const offered = source.tile;
-    const distance = seatDistance(source.actor, selfActor);
-    if (!inRiichi) {
-      // Chi is the next seat's right only; pon/daiminkan are any opponent's
-      // right (M6-A4.1, pinned by H2: the reviewed player at seat distance 3
-      // both pon'd a discard and was given pon candidates by Mortal).
-      if (distance === 1 && canChi(concealed, offered)) return true;
-      if (canPon(concealed, offered) || canDaiminkan(concealed, offered)) {
-        return true;
-      }
-    }
-    return canRon(concealed, meldCount, offered);
-  }
-  // kakan: chankan ron eligibility on the added tile. Ankan chankan (kokushi)
-  // is wave-2 — no ankan source opens a window in A4.1.
-  return canRon(concealed, meldCount, source.addedTile);
-}
-
 function responseActualAction(
   responseKind: "discard" | "kakan",
   source: ResponseSourceEvent,
@@ -444,28 +393,10 @@ function freezeResponseWindow(
   };
 }
 
-/**
- * M6-A4.1: replay the response surface — a discard_response window for every
- * opponent discard where the reviewed player holds a legal non-pass response
- * candidate (chi / pon / daiminkan / ron), and a kan_response window for every
- * opponent kakan where chankan ron is locally possible. The actual resolution
- * (chi / pon / daiminkan / ron / pass) is scanned forward from the trigger.
- * Shares the one streamContext parse+reduce with the self-surface replay
- * (freezeDecisionStreamContext). A stream with no selfActor (no reviewed seat)
- * yields no response windows.
- */
-export function replayCanonicalResponseWindows(
-  stream: CanonicalEventStream,
-): ReplayedDecision[] {
-  return responseWindows(stream, true);
-}
-
-/** All wave-1 opponent event boundaries; no local shape or actual-choice prefilter. */
+/** All wave-1 opponent event boundaries; no local shape or actual-choice prefilter.
+ * Canonical replay establishes what happened. The native rule query determines
+ * whether each boundary permits actions, is non-action, or lacks evidence. */
 export function scanCanonicalResponseBoundaries(stream: CanonicalEventStream): ReplayedDecision[] {
-  return responseWindows(stream, false);
-}
-
-function responseWindows(stream: CanonicalEventStream, legacyEligibility: boolean): ReplayedDecision[] {
   const decisions: ReplayedDecision[] = [];
   if (stream.selfActor === null) return decisions;
   let context: DecisionStreamContext | undefined;
@@ -481,17 +412,6 @@ function responseWindows(stream: CanonicalEventStream, legacyEligibility: boolea
       const resolution = source.type === "tile_discarded"
         ? scanDiscardResponse(stream, index + 1, source.eventId)
         : scanKanResponse(stream, index + 1, source.eventId, source.actor);
-      // Never under-approximate: a window the canonical stream proves the
-      // reviewed player resolved by calling always opens, even when local
-      // eligibility cannot be proven (incomplete private facts).
-      const selfResponded =
-        resolution.kind !== "pass" &&
-        resolution.kind !== "unresolved" &&
-        resolution.responder === stream.selfActor;
-      if (legacyEligibility) {
-        const state = getContext().statesByRef.get(source.eventId);
-        if (!selfResponded && !responseWindowEligible(state, source, stream.selfActor)) continue;
-      }
       const window: DecisionWindow = source.type === "tile_discarded"
         ? {
           kind: "discard_response",

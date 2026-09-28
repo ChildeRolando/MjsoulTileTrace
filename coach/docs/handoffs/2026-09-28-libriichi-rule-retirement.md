@@ -74,3 +74,41 @@ selector。四个行为回归仍覆盖完整链、缺报告行的完整性失败
 
 退出提交为包含本节及对应函数变更的提交，可用本节标题和 `git log -S` 定位。
 本节只封存上述分支；旧枚举函数本体、导出及其剩余默认测试仍待退出，不能宣称整体完成。
+
+## 4. 枚举、资格预筛及旧实现专用测试
+
+封存基线：`57a41f8cdb25797d1e1ac15833b90374d7624787`。路径相对仓库根。
+
+| 路径 | 基线 blob | 退出内容 |
+|---|---|---|
+| `coach/packages/reasoning/src/analysis/local-mortal-adapter.ts` | `be500e79ec9d68c3d3a47f55a6b66e975b02ef56` | 整文件；selfCandidates、enumerateSelfDiscards、四种 collectLocalMortal 资格推导、responseCandidates、旧请求/响应转换 |
+| `coach/packages/reasoning/src/analysis/single-candidate-proof.ts` | `225188b41aacca752cbbeefbbef69e5294ce9f2d` | 整文件；helper 驱动的 self/response 单候选反证和立直资格枚举 |
+| `coach/packages/reasoning/src/analysis/response-candidate-enumeration.ts` | `0eff989dbd9cf3aa3e641b67d832f3dcf3090da0` | 整文件；独立吃碰杠和/pass 枚举与物理消费推导 |
+| `coach/packages/reasoning/src/replay/response-eligibility.ts` | `3a7d914dae0e4a75d87867e7fa5a0eaaacf879bb` | 整文件；canChi/canPon/canDaiminkan/canRon/seatDistance |
+| `coach/packages/reasoning/src/factors/win-shape.ts` | `ce8b5d944b0049736e606113d37182c53190c996` | 整文件；只供旧资格预筛的和牌形状计算 |
+| `coach/packages/reasoning/src/replay/stream-replayer.ts` | `f11e52c84f9d766c35b66594ea73b5b3e60c33db` | responseWindowEligible、replayCanonicalResponseWindows、legacyEligibility 条件及实际行动回填；其余 replay 保留 |
+| `coach/packages/reasoning/tests/local-mortal-adapter.test.ts` | `a0bc8564cf7bb08db4f83294bac8d051f8273478` | 整个旧接口测试文件；行为案例迁往下述原生/消费者回归 |
+| `coach/packages/reasoning/tests/win-shape.test.ts` | `99572785120b80e55bf72c5549ee4c6406863985` | 旧形状预筛测试；牌型正反例迁往真实 native |
+| `coach/packages/reasoning/tests/response-binding.test.ts` | `b6822b47938b19308a0fd99c4fb49d1fdace7855` | 仅旧 response local candidate enumeration describe；身份、覆盖和守恒部分保留 |
+| `coach/packages/desktop/tests/electron-persistence-smoke.cjs` | `0ff1abfa30d3dff97f675a26993d957ae2cef176` | realProductionPackage 的 partial legacy bridge 与旧 full-game 调用；持久化/重开断言保留 |
+
+替代关系：
+
+- `scanCanonicalResponseBoundaries` 扫描完整 opponent discard/kakan 边界；
+  `response-replay.test.ts` 每例先核对全部事件引用，再检查身份与实际结果。
+- 原生 `runtime_rules_native_test.py` 覆盖已立直强制弃牌/合法杠/禁杠、字牌与多分解数牌、
+  自摸并存、喰替后能否弃牌、post-call 单/多候选、桌面四杠、海底暗杠/加杠、河底荣和、
+  多杠选择、赤牌、九种九牌、临时/立直振听和标准/七对/国士正反例。
+- `native-action-regressions.test.ts` 的显式规则答案验证完整集合进入评分、full-game、
+  v2 包以及单候选来源；立直暗杠与开放三暗刻均更换实际选择。答案不由旧枚举或报告生成，
+  不把该受控端口测试当成独立规则正确性证明。请求绑定、异常输入和错分负例继续由
+  `libriichi-rule-projection`、`local-mortal-rule-scoring`、`libriichi-full-game` suites 保护。
+- `scripts/fixtures/native-whole-game.mjs` 共享完整真实来源/捕获回答/真实 helper，供黄金
+  测试和 Electron 保存重开测试使用；65 边界/22 评分全部保留，不截断 package。
+- 架构 R5 防止上述五个整文件原路径或静态导入回流；package-import 拒绝旧 dist 文件
+  和公共导出。不会识别任意改名复制，仍须代码审查。dama discovery 同路径保留的是
+  第 1 节已迁移的新实现，不属于路径禁用清单。
+
+退出提交为包含本节和上述删除的提交；可由
+`git log --diff-filter=D --format=%H -- coach/packages/reasoning/src/analysis/local-mortal-adapter.ts`
+精确定位，无自引用 SHA。原 R10–R14 评审和运行回执均保留，不由此清单改写。

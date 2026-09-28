@@ -151,64 +151,14 @@ async function fixtures() {
 }
 
 async function realProductionPackage() {
-  const contracts = await import("@riichi-coach/contracts");
-  const mortal = await import("@riichi-coach/mortal-source");
-  const reasoning = await import("@riichi-coach/reasoning");
-  const bridge = await import("../../reasoning/dist/import/legacy-event-stream-bridge.js");
-  const raw = JSON.parse(readFileSync(join(__dirname, "../../../fixtures/mortal/c1924cad66f66dd9-east1-turn6-7.json"), "utf8"));
-  const imported = reasoning.importRegressionFixture(raw);
-  const bridged = bridge.bridgeLegacyRegressionEvents(imported.events, imported.selfActor, {
-    sourceKind: "fixture", gameId: "fixture:c1924cad66f66dd9",
-  });
-  if (bridged.status !== "ready") throw new Error(`real production bridge failed: ${bridged.code}`);
-  const stream = bridged.stream;
-  const decisions = reasoning.replayCanonicalStream(stream);
-  const responseDecisions = reasoning.replayCanonicalResponseWindows(stream);
-  const entries = raw.decisions.map((entry) => Object.freeze({
-    roundOrdinal: 0, roundWind: "E", dealer: 0, kyoku: 0, honba: 0,
-    junme: entry.junme, tilesLeft: 46, lastActor: 3, tile: entry.tile,
-    tehai: Object.freeze([...entry.state.tehai]), fuuros: Object.freeze([]),
-    atSelfChiPon: false, atSelfRiichi: false, atOpponentKakan: false,
-    expected: { ...entry.expected }, actual: { ...entry.actual }, isEqual: entry.is_equal,
-    details: Object.freeze(entry.details.map((detail) => ({
-      action: { ...detail.action }, probability: detail.prob, qValue: detail.q_value,
-    }))),
-    shanten: entry.shanten, atFuriten: entry.at_furiten, actualIndex: entry.actual_index,
-  }));
-  const report = Object.freeze({
-    reportId: raw.source.reportId, adapterVersion: "mortal-source/2", engine: "Mortal",
-    version: "1.5.10", modelTag: raw.source.modelTag, playerId: raw.source.playerId,
-    gameFingerprint: mortal.computeMortalGameFingerprint(raw.mjaiLog),
-    kyokus: Object.freeze([{ roundOrdinal: 0, roundWind: "E", dealer: 0, kyoku: 0, honba: 0, entries: Object.freeze(entries) }]),
-  });
-  const engine = new reasoning.JsonlFactEngineClient(new reasoning.ManagedFactEngineTransport(join(__dirname, "../../../resources")));
-  let review;
-  try {
-    review = await reasoning.runMortalFullGameReview({
-      stream, decisions, responseDecisions, report, engine,
-      now: () => Date.parse("2026-09-23T00:10:00.000Z"),
-      coverageRegistry: reasoning.createMortalCoverageRegistry(reasoning.MORTAL_COVERAGE_BRANCHES),
-    });
-  } finally { await engine.close(); }
-  if (review.status !== "coverage_ready") throw new Error(`real production review failed: ${review.code}`);
-  const retained = review.retainedAnalyses[0];
-  const pkg = reasoning.buildStructuredAnalysisPackage({
-    review, stream, decisions, responseDecisions,
-    componentVersions: {
-      packageSchema: contracts.STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION,
-      canonicalReplay: "canonical-riichi-events/v2", mapperAdapter: "legacy-regression-bridge/v2",
-      factEngine: {
-        engine: "mahjong-helper", upstreamCommit: contracts.MAHJONG_HELPER_COMMIT,
-        adapterVersion: contracts.FACT_ENGINE_ADAPTER_VERSION,
-        protocolVersion: contracts.FACT_ENGINE_PROTOCOL_VERSION,
-      },
-      factorPipeline: "factor-pipeline/v1",
-      mortalSourceModel: { identity: contracts.MORTAL_PROVIDER_IDENTITY, version: "mortal-source/2", modelTag: raw.source.modelTag },
-    },
-    frozenPolicySnapshot: retained.modelEvaluation.detailPolicy,
-    now: () => Date.parse("2026-09-23T00:10:00.000Z"),
-  });
-  reasoning.validateStructuredAnalysisPackage(pkg);
+  // Recompute a v2 package from complete real source and captured native/CPU
+  // answers. Persist/reopen the same result; no legacy rules or live model.
+  const { nativeWholeGameFixture } = await import("../../../scripts/fixtures/native-whole-game.mjs");
+  const { reviewPackage } = await nativeWholeGameFixture();
+  const { pkg } = await reviewPackage();
+  assert.equal(pkg.record.status, "complete");
+  assert.equal(pkg.decisions.length, 22);
+  assert.equal(pkg.legalActionEvidence.results.length, 65);
   return pkg;
 }
 
@@ -241,6 +191,7 @@ if (!PRODUCTION_CACHE_CHILD) app.whenReady().then(async () => {
   const root = process.env.RIICHI_ELECTRON_PERSISTENCE_ROOT || mkdtempSync(join(tmpdir(), "riichi-electron-sqlite-"));
 
   if (OFFLINE_REAL_CHILD) {
+    const started = performance.now();
     const { createFixedReviewController } = await import("../dist/fixed-review-controller.js");
     const expected = JSON.parse(readFileSync(join(root, "real-expected.json"), "utf8"));
     let networkRequests = 0;
@@ -253,6 +204,7 @@ if (!PRODUCTION_CACHE_CHILD) app.whenReady().then(async () => {
       repository,
     });
     const snapshot = await controller.openReview(expected.packageId);
+    console.log(`[electron-persistence] offline-open elapsedMs=${Math.round(performance.now()-started)}`);
     const detail = controller.getReviewDetail(expected.packageId, expected.decisionId, snapshot.activeReportRefId);
     const sessions = repository.listSessions();
     if (JSON.stringify(snapshot) !== JSON.stringify(expected.snapshot)
@@ -336,6 +288,7 @@ if (!PRODUCTION_CACHE_CHILD) app.whenReady().then(async () => {
     // and a distinct Electron process that blocks and counts network/LLM.
     const { createFixedReviewController } = await import("../dist/fixed-review-controller.js");
     const realPackage = await realProductionPackage();
+    console.log("[electron-persistence] native package built decisions=22 ruleBoundaries=65");
     const realReport = await stubReportFor(realPackage);
     const realUserData = mkdtempSync(join(tmpdir(), "riichi-electron-real-main-chain-"));
     const realRoot = join(realUserData, "review-library");
@@ -351,6 +304,7 @@ if (!PRODUCTION_CACHE_CHILD) app.whenReady().then(async () => {
       repository: realRepository,
     });
     const beforeGeneration = await realController.openReview(realPackage.packageId);
+    console.log("[electron-persistence] native package saved and opened");
     if (beforeGeneration.activeReportStatus !== "not_generated") throw new Error("real main chain did not start at not_generated");
     const generated = await realController.generateReview(realPackage.packageId, "real-generate-operation");
     if (generated.status !== "ready" || providerRequests !== 1) throw new Error("real stubbed first generation failed");
@@ -376,7 +330,7 @@ if (!PRODUCTION_CACHE_CHILD) app.whenReady().then(async () => {
       timeout: 30_000,
     });
     if (offline.status !== 0 || !offline.stdout.toString().includes("real-offline PASS network=0 llm=0")) {
-      throw new Error(`real offline child failed: ${offline.stderr.toString() || offline.stdout.toString()}`);
+      throw new Error(`real offline child failed: status=${offline.status} signal=${offline.signal} code=${offline.error?.code ?? "none"}: ${offline.stderr.toString() || offline.stdout.toString()}`);
     }
     rmSync(realUserData, { recursive: true, force: true });
     // Exercise the actual production composition root, preload and IPC with a

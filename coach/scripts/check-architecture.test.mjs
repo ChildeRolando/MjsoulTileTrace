@@ -146,6 +146,25 @@ test("import-looking text in template literals never triggers a violation", () =
 
 // --- violations ------------------------------------------------------------
 
+test("retired legal-action implementations cannot return as source files", () => {
+  const root = buildWorkspace();
+  try {
+    write(root, "packages/reasoning/src/analysis/local-mortal-adapter.ts", "export const selfCandidates = () => [];\n");
+    const result = checkWorkspace(root, { allowedEdges: TEST_ALLOWED_EDGES });
+    assert(result.violations.some(row => row.rule === "retired_legal_action_authority"));
+  } finally { clean(root); }
+});
+
+test("retired rule imports fail even in tests and tools when the target is absent", () => {
+  const root = buildWorkspace();
+  try {
+    write(root, "packages/reasoning/tests/legacy.test.ts", 'export * from "../src/analysis/single-candidate-proof.js";\n');
+    write(root, "scripts/legacy.mjs", 'await import("../packages/reasoning/dist/replay/response-eligibility.js");\n');
+    const result = checkWorkspace(root, { allowedEdges: TEST_ALLOWED_EDGES });
+    assert.equal(result.violations.filter(row => row.rule === "retired_legal_action_authority").length, 2);
+  } finally { clean(root); }
+});
+
 test("flags a forbidden reverse package dependency in production src", () => {
   const root = buildWorkspace();
   try {

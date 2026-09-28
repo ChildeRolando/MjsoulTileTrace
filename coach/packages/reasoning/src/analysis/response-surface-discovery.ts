@@ -14,8 +14,8 @@
  * stream already names every seat's candidates — no per-seat private tiles,
  * no replay, no fact engine. Pass branches (resp_pass_on_discard /
  * resp_pass_on_kakan) are deliberately NOT enumerated here: a pass is the
- * absence of a call, which needs the per-seat candidate enumeration
- * (enumerateResponseCandidates) — that is the acceptance E2E's authority,
+ * absence of a call, which needs the per-seat native rule result
+ * (queryCanonicalLibriichiRules) — that is the acceptance E2E's authority,
  * not a discovery guess. The discovery report therefore lists pass branches
  * as locally un-discoverable (uncoveredLocalBranches), exactly like the A3
  * census reports dama_with_tsumo_candidate zero until the private pass runs.

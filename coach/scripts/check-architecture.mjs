@@ -1,7 +1,7 @@
 /**
  * Mechanical architecture boundary check for the coach workspace.
  *
- * Four rules, each mapped to the invariants it protects (see
+ * Rules are mapped to the invariants they protect (see
  * docs/development/INVARIANTS.md and docs/adr/0005-workspace-dependency-
  * boundaries.md):
  *
@@ -44,6 +44,11 @@
  *     named imports; other literal loading forms fail closed, including in
  *     the service itself.
  *
+ *  R5 retired_legal_action_authority (INV-004 / ADR-0006)
+ *     Retired independent rule modules cannot return at their old paths or
+ *     be imported by production, tests or tools. This is a bounded regression
+ *     guard, not a semantic detector for renamed/copied rule implementations.
+ *
  * Parsing is owned by the TypeScript Compiler API (ts.createSourceFile + AST
  * traversal): only real module specifiers are collected, so import-looking
  * text inside comments, string literals, and template literals can never be
@@ -68,7 +73,18 @@ const RULE_IDS = {
   rendererSafeBoundary: "renderer_safe_boundary",
   packageInternalImport: "package_internal_import",
   reviewReportGenerationSeam: "review_report_generation_seam",
+  retiredLegalActionAuthority: "retired_legal_action_authority",
 };
+
+const RETIRED_RULE_MODULES = new Set([
+  "analysis/local-mortal-adapter", "analysis/single-candidate-proof",
+  "analysis/response-candidate-enumeration", "replay/response-eligibility",
+  "factors/win-shape",
+].map(path => `packages/reasoning/src/${path}`));
+
+function isRetiredRuleModule(path) {
+  return RETIRED_RULE_MODULES.has(path.replace("/dist/", "/src/").replace(/\.(?:[cm]?[jt]s)$/, ""));
+}
 
 const REVIEW_GENERATION_INTERNALS = new Set([
   "appendReasoningOverlay",
@@ -357,6 +373,10 @@ export function checkWorkspace(root, opts = {}) {
         relPath.split("/").includes("src");
       const code = readFileSync(file, "utf8");
       scannedFiles += 1;
+      if (isRetiredRuleModule(relPath)) {
+        record(RULE_IDS.retiredLegalActionAuthority, relPath, 1,
+          "Retired independent legal-action implementation must remain in Git history", "INV-004/ADR-0006");
+      }
 
       if (isProductionCode && ownerPackage === "@riichi-coach/desktop") {
         for (const imported of collectImportBindings(code, file)) {
@@ -412,6 +432,14 @@ export function checkWorkspace(root, opts = {}) {
             "Desktop production code must use static named reasoning imports so generation ownership is auditable",
             "INV-001/INV-002/INV-005",
           );
+        }
+
+        const targetPath = specifier.startsWith(".")
+          ? relative(root, resolve(dirname(file), specifier)).split(sep).join("/")
+          : specifier.replace(/^@riichi-coach\/reasoning\//, "packages/reasoning/");
+        if (isRetiredRuleModule(targetPath)) {
+          record(RULE_IDS.retiredLegalActionAuthority, relPath, line,
+            "Retired independent legal-action module cannot be consumed", "INV-004/ADR-0006");
         }
 
         // Builtins and external third-party packages are not governed here.

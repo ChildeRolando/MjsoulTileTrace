@@ -537,3 +537,51 @@ full-game/discovery 的正式切换；新旧包版本与规则来源；物理动
 
 旧枚举函数及导出尚未全部退出；动作表示兼容、雀魂来源证据、大包持久化、最终提交
 完整 CPU spike 和外部独立验收仍待完成。本切片不宣称总体目标或 R14 验收通过。
+
+## 16. 第十一实施切片：旧规则退出与行为回归迁移
+
+基线 `57a41f8cdb25797d1e1ac15833b90374d7624787`，原支持范围保持。
+
+- 删除旧 local adapter、response enumeration、single-candidate proof、response eligibility
+  和仅供后者使用的 win-shape；删除旧导出。保留 native scoring/report 转换、helper 教学
+  计算与旧 v1 包只读验证。没有新增生产抽象、包或依赖边。
+- response replay 只扫描所有 wave-1 opponent discard/kakan；移除牌形资格预筛、
+  legacy 模式和 actual-action 回填。测试先核对全部边界事件，再核对身份和实际行动。
+- 原生回归补入历史立直/杠/海底/河底/食替/振听/和牌/赤牌/多分解反例及正常对照；
+  native action identity 不允许重复。受控端口回归验证完整候选进入评分、整局、v2 包，
+  单候选来源明确，输入 canonical/快照/教学事实不被改写。真实 native 与受控消费者
+  分别检验规则能力和传递契约，不能合称独立双引擎验证。
+- 旧函数、文件及测试的精确基线 blob、退出职责和替代关系见 retirement 清单 §4。
+  已清除五个旧模块的本地 dist JS/声明文件；package-import 检查导出与生成文件不存在。
+  既有架构检查新增 R5 拒绝这些原路径和静态导入；不宣称识别任意改名规则代码。
+- Electron 持久化冒烟发现仍使用旧 response API/partial bridge，改用原生黄金测试共享
+  的完整真实来源和捕获响应，经真实 helper 重算全部 22 个评价、65 个规则边界的 v2 包。
+  保存/重开、A-B-A、损坏缓存、零来源/LLM 请求断言保留，不删除大包内容。
+
+本切片日志在源码外
+`LOCALAPPDATA/RiichiCoach/spike-runs/native-retirement-closeout-20260928-082818/`：
+
+- `node --test --test-name-pattern='retired' scripts/check-architecture.test.mjs`：修改前退出 1，
+  原检查器漏报恢复源码和测试/工具导入；修复后整份 checker 测试退出 0（74 项）。
+  首轮实际架构检查错误地禁用了已迁移同路径的 dama discovery，退出 1；核对该文件
+  只查询 native 后修正清单，最终 7 包/425 文件/1919 导入/0 违规，退出 0。
+- `npm run typecheck`、`npm run build`、`npm run check:architecture`、
+  `npm run test:package-import`、`npx --no-install vitest run` 均退出 0。
+  最终 Vitest 184 文件/2219 项，package-import 2 项（包括无旧产物）；日志分别为
+  `typecheck-final.log`、`build.log`、`architecture-final.log`、`package-import.log`、`vitest-final.log`。
+- 用既有 Python/native 执行 `packages/mortal-runtime/tests/runtime_rules_native_test.py`：
+  33 项及参数化子例通过，退出 0（`native-final.log`）。native SHA-256 为
+  `5ff7f712a45c7288f739af7c7e0613567b467ee4ade2c66c0988e18982cdefad`，
+  回执仍为 `88e5a0210896-1790544126466/receipt.json`；未构建/下载新资产、未加载模型。
+- `npm run test:electron-persistence` **退出 1**：完整包/报告已保存，但独立 Electron
+  重开子进程没有在原 30 秒限时内通过。单独诊断相同资料库的 `openReview` 耗时
+  66,939 ms，证明桌面全包读回耗时超过原限时；原断言/限时未放宽，完整冒烟仍待修复重跑。
+  不是源映射、native 或模型错误，也不能计为环境故障或 PASS。
+- `electron-offline-diagnostic.log`：单独运行相同保存库的重开子进程最终退出 0，
+  Overview/List/Detail/session 相等且来源/LLM 请求为零；不是完整冒烟 PASS 或系统禁网。
+  再用原 30 秒 spawn 条件复现 `ETIMEDOUT`（30,130 ms、SIGTERM、status=null），
+  回执为 `electron-timeout-diagnostic.json`。数据读回正确性与延迟问题分别记录。
+
+当前切片未运行最终提交 CPU spike/禁网演练，未提交独立评审。
+剩余为完整包持久化与桌面消费性能、雀魂原始来源缺失证据、最终完整 CPU 与外部独立验收。
+五门和原生案例通过不能替代这些剩余要求，目标保持进行中。
