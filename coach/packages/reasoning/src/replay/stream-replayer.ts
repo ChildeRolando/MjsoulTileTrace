@@ -76,6 +76,9 @@ function scanSelfResolution(
 ): SelfResolution | null {
   for (let index = startIndex; index < stream.events.length; index += 1) {
     const event = stream.events[index]!;
+    // Indicator publication is a public update, not the player's resolution.
+    // Keep it in source order without losing the following actual action.
+    if (event.type === "dora_revealed") continue;
     if (tileDiscardedBy(event, stream.selfActor)) {
       return { kind: "discard", event };
     }

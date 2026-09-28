@@ -71,11 +71,14 @@ describe("Mahjong Soul stored Record* mapper", () => {
     if (result.status !== "ready") throw new Error("fixture");
     const kanIndex = result.stream.events.findIndex(event => event.type === "daiminkan_called");
     expect(result.stream.events.slice(kanIndex, kanIndex + 4).map(event => event.type))
-      .toEqual(["daiminkan_called", "dora_revealed", "tile_drawn", "tile_discarded"]);
-    expect(result.stream.events[kanIndex + 1]).toMatchObject({
+      .toEqual(publication === "draw"
+        ? ["daiminkan_called", "dora_revealed", "tile_drawn", "tile_discarded"]
+        : ["daiminkan_called", "tile_drawn", "dora_revealed", "tile_discarded"]);
+    expect(result.stream.events[kanIndex + (publication === "draw" ? 1 : 2)]).toMatchObject({
       kanEventRef: result.stream.events[kanIndex]!.eventId, indicator: { id: "2z", red: false },
+      sourceRecordRef: `record:${recordId}:action:${publication === "draw" ? 4 : 5}`,
     });
-    expect(result.stream.events[kanIndex + 2]).toMatchObject({ actor: 1, from: "rinshan" });
+    expect(result.stream.events[kanIndex + (publication === "draw" ? 2 : 1)]).toMatchObject({ actor: 1, from: "rinshan" });
     expect(result.stream.completeness.doraIndicators).toBe("complete");
   });
 
@@ -130,8 +133,11 @@ describe("Mahjong Soul stored Record* mapper", () => {
     const events = result.stream.events;
     const index = events.findIndex(event => event.type === "kakan_declared");
     expect(events[index]).toMatchObject({ upgradedPonEventRef: events.find(event => event.type === "pon_called")!.eventId });
-    expect(events[index + 1]).toMatchObject({ type: "dora_revealed", kanEventRef: events[index]!.eventId, indicator: { id: "2z", red: false } });
-    expect(events[index + 2]).toMatchObject({ type: "tile_drawn", actor: 1, from: "rinshan" });
+    expect(events[index + (publication === "discard" ? 2 : 1)]).toMatchObject({
+      type: "dora_revealed", kanEventRef: events[index]!.eventId, indicator: { id: "2z", red: false },
+      sourceRecordRef: `record:${recordId}:action:${publication === "kan" ? 6 : publication === "draw" ? 7 : 8}`,
+    });
+    expect(events[index + (publication === "discard" ? 1 : 2)]).toMatchObject({ type: "tile_drawn", actor: 1, from: "rinshan" });
     expect(events.filter(event => event.type === "dora_revealed")).toHaveLength(1);
     expect(result.stream.completeness.doraIndicators).toBe("complete");
   });
@@ -169,7 +175,7 @@ describe("Mahjong Soul stored Record* mapper", () => {
   });
 
   it.each(["kan", "draw", "discard"] as const)(
-    "preserves a published kan dora once in the canonical kan slot: %s", async publishedAt => {
+    "preserves a published kan dora once at its source publication: %s", async publishedAt => {
       const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
       const start = newRound(0, 0);
       start.tiles0 = ["1m", "1m", "1m", "1m", "2p", "3p", "4p", "4s", "5s", "6s", "7s", "8s", "9s", "2p"];
@@ -189,11 +195,9 @@ describe("Mahjong Soul stored Record* mapper", () => {
       const updates = events.filter(event => event.type === "dora_revealed");
       expect(updates).toHaveLength(1);
       expect(updates[0]).toMatchObject({ indicator: { id: "2z", red: false }, kanEventRef: kan.eventId });
-      // Canonical normalizes the reveal next to its kan; the original source
-      // bytes (including the later cumulative snapshot) remain hash-bound.
-      expect(updates[0]!.sourceRecordRef).toBe(kan.sourceRecordRef);
+      expect(updates[0]!.sourceRecordRef).toBe(`record:${recordId}:action:${publishedAt === "kan" ? 2 : publishedAt === "draw" ? 3 : 4}`);
       const following = events[events.indexOf(updates[0]!) + 1];
-      expect(following?.type).toBe("tile_drawn");
+      expect(following?.type).toBe(publishedAt === "discard" ? "tile_discarded" : "tile_drawn");
       expect(result.stream.completeness.doraIndicators).toBe("complete");
     },
   );

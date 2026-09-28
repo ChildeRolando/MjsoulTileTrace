@@ -150,7 +150,7 @@ export function mapMahjongSoulRecord(input: {
     let allObservedRoundsClosed = true;
     let doraEvidenceComplete = true;
     let currentDoras: Tile[] = [];
-    const pendingDoraKans: { eventRef: string; ordinal: number; actor: number }[] = [];
+    const pendingDoraKans: { eventRef: string; actor: number }[] = [];
 
     const push = (
       sourceRecordOrdinal: number,
@@ -170,14 +170,12 @@ export function mapMahjongSoulRecord(input: {
       return eventId;
     };
 
-    // Record* carries cumulative public indicator snapshots. As in the Tenhou
-    // mapper, canonical places an evidenced reveal immediately after its kan,
-    // before the rinshan decision. Only that kan or its caller's immediate
-    // draw/discard can supply this snapshot; do not move later-turn knowledge
-    // backward. Repeating a snapshot is not another reveal.
-    const publishDoras = (raw: unknown, actor: number): void => {
+    // A cumulative snapshot attests publication at THIS source action. In
+    // particular, a discard snapshot must never enrich the preceding draw.
+    // Preserve the publication record separately from the associated kan.
+    const publishDoras = (raw: unknown, actor: number, sourceOrdinal: number, firstSub = 0): number => {
       const snapshot = tilesArray(raw).map(parseMajsoulTile);
-      if (snapshot.length === 0) return;
+      if (snapshot.length === 0) return firstSub;
       if (snapshot.length > 5 || snapshot.length < currentDoras.length ||
           currentDoras.some((tile, index) =>
             tile.id !== snapshot[index]!.id || tile.red !== snapshot[index]!.red)) throw mappingFailed();
@@ -187,11 +185,10 @@ export function mapMahjongSoulRecord(input: {
         const kanIndex = events.findIndex(event => event.eventId === kan.eventRef);
         if (kanIndex < 0 || events.slice(kanIndex + 1).some(event =>
           event.type !== "tile_drawn" || event.actor !== actor || event.from !== "rinshan")) throw mappingFailed();
-        push(kan.ordinal, 1, { type: "dora_revealed", indicator, kanEventRef: kan.eventRef });
-        const reveal = events.pop()!;
-        events.splice(kanIndex + 1, 0, reveal);
+        push(sourceOrdinal, firstSub++, { type: "dora_revealed", indicator, kanEventRef: kan.eventRef });
       }
       currentDoras = snapshot;
+      return firstSub;
     };
 
     // Synthesized game boundary before the first source action.
@@ -307,7 +304,7 @@ export function mapMahjongSoulRecord(input: {
       }
 
       if (action.name === "RecordDealTile") {
-        publishDoras(data.doras, seat(data.seat));
+        const nextSub = publishDoras(data.doras, seat(data.seat), ordinal);
         const expected = remainingDraws === null ? null : remainingDraws - 1;
         if (expected !== null && expected < 0) throw mappingFailed();
         const observed = data.left_tile_count;
@@ -326,14 +323,14 @@ export function mapMahjongSoulRecord(input: {
         if (actor === input.selfActor) {
           const tile = typeof data.tile === "string" ? data.tile : undefined;
           if (tile === undefined) throw mappingFailed();
-          push(ordinal, 0, {
+          push(ordinal, nextSub, {
             type: "tile_drawn",
             actor,
             tile: { visibility: "visible", tile: parseMajsoulTile(tile) },
             from,
           });
         } else {
-          push(ordinal, 0, {
+          push(ordinal, nextSub, {
             type: "tile_drawn",
             actor,
             tile: { visibility: "hidden" },
@@ -344,7 +341,7 @@ export function mapMahjongSoulRecord(input: {
       }
 
       if (action.name === "RecordDiscardTile") {
-        publishDoras(data.doras, seat(data.seat));
+        const nextSub = publishDoras(data.doras, seat(data.seat), ordinal);
         const actor = seat(data.seat);
         const tile = parseMajsoulTile(data.tile);
         const isRiichi = data.is_liqi === true;
@@ -355,9 +352,9 @@ export function mapMahjongSoulRecord(input: {
         // stands in the record — so acceptance is synthesized immediately.
         let declarationEventRef: string | null = null;
         if (isRiichi) {
-          declarationEventRef = push(ordinal, 0, { type: "riichi_declared", actor });
+          declarationEventRef = push(ordinal, nextSub, { type: "riichi_declared", actor });
         }
-        push(ordinal, isRiichi ? 1 : 0, {
+        push(ordinal, nextSub + (isRiichi ? 1 : 0), {
           type: "tile_discarded",
           actor,
           tile,
@@ -365,7 +362,7 @@ export function mapMahjongSoulRecord(input: {
           riichiDeclarationEventRef: declarationEventRef,
         });
         if (declarationEventRef !== null) {
-          push(ordinal, 2, { type: "riichi_accepted", actor, declarationEventRef });
+          push(ordinal, nextSub + 2, { type: "riichi_accepted", actor, declarationEventRef });
         }
         continue;
       }
@@ -418,7 +415,7 @@ export function mapMahjongSoulRecord(input: {
             type: "daiminkan_called", actor, targetActor: target,
             calledTile, consumedTiles, calledDiscardEventRef: discard.eventId,
           });
-          pendingDoraKans.push({ eventRef: kanEventRef, ordinal, actor });
+          pendingDoraKans.push({ eventRef: kanEventRef, actor });
           rinshanDrawDue.set(actor, ordinal);
         } else {
           throw mappingFailed();
@@ -440,6 +437,10 @@ export function mapMahjongSoulRecord(input: {
         if (typeof data.tiles !== "string" || data.tiles.length === 0) {
           throw mappingFailed();
         }
+        // Consecutive kans may publish the preceding open kan's indicator on
+        // the next kan record. Bind that publication before the new kan.
+        const precedingSnapshot = tilesArray(data.doras).slice(0, currentDoras.length + pendingDoraKans.length);
+        const nextSub = publishDoras(precedingSnapshot, actor, ordinal);
         if (type === 3) {
           const tile = parseMajsoulTile(data.tiles);
           // A kan of a five cannot be rebuilt from one string: which of the
@@ -449,9 +450,9 @@ export function mapMahjongSoulRecord(input: {
           const kanTiles: [Tile, Tile, Tile, Tile] = [
             { ...tile }, { ...tile }, { ...tile }, { ...tile },
           ];
-          const kanEventRef = push(ordinal, 0, { type: "ankan_declared", actor, tiles: kanTiles });
-          pendingDoraKans.push({ eventRef: kanEventRef, ordinal, actor });
-          publishDoras(data.doras, actor);
+          const kanEventRef = push(ordinal, nextSub, { type: "ankan_declared", actor, tiles: kanTiles });
+          pendingDoraKans.push({ eventRef: kanEventRef, actor });
+          publishDoras(data.doras, actor, ordinal, nextSub + 1);
           rinshanDrawDue.set(actor, ordinal);
           continue;
         }
@@ -464,14 +465,14 @@ export function mapMahjongSoulRecord(input: {
           if (pon === undefined || pon.type !== "pon_called") {
             throw mappingFailed();
           }
-          const kanEventRef = push(ordinal, 0, {
+          const kanEventRef = push(ordinal, nextSub, {
             type: "kakan_declared",
             actor,
             addedTile: { ...addedTile },
             upgradedPonEventRef: pon.eventId,
           });
-          pendingDoraKans.push({ eventRef: kanEventRef, ordinal, actor });
-          publishDoras(data.doras, actor);
+          pendingDoraKans.push({ eventRef: kanEventRef, actor });
+          publishDoras(data.doras, actor, ordinal, nextSub + 1);
           rinshanDrawDue.set(actor, ordinal);
           continue;
         }
@@ -576,7 +577,7 @@ export function mapMahjongSoulRecord(input: {
 
     const parsed = CanonicalEventStreamSchema.safeParse({
       schemaVersion: "canonical-riichi-events/v2",
-      mapperVersion: "mahjong-soul-record-mapper/v4",
+      mapperVersion: "mahjong-soul-record-mapper/v5",
       gameId: input.gameId,
       sourceKind: "mahjong_soul",
       sourceRecordHash,

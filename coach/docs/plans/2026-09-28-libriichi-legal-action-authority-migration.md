@@ -895,3 +895,46 @@ package-import 2 项。`capture-focused.log` 的五文件 35 项通过（其后�
 捕获拒绝用例由上述全量门覆盖）。`capture-native-discovery.log` 实际调用新 CLI
 与已有 native 资产：合成头捕获文件四视角共 32 个 self 边界完成分类、0 引擎错误，
 没有神经网络推理，也不把 0 自摸命中称为自摸覆盖证明。
+
+## 23. COAC-165 / E15-P2-1：保留杠宝牌的来源发布时间
+
+外部 round 15 审查固定提交 `04b4e7b7e50bd93740e86063ef85170d54299a01`，结论为
+ENVIRONMENT_BLOCKED，确认一项 P2：弃牌记录首次公布的新宝牌被移动到此前摸牌。
+同轮五门、R14 补充 native/CPU 回归、2.35 GB 包保存重开通过；完整真实 CPU 命令
+退出 1，原始雀魂规则头和后续宝牌资料仍缺失。原评审及回执未改写。
+
+实现先落 `scripts/kan-dora-chronology.test.mjs`：旧实现两个断言失败，分别是后续
+新宝牌进入早先快照，以及来源引用错指到杠记录。天凤真实 `bug1.xml` 的 DORA
+位置/来源反例也先失败。证据在源码外
+`LOCALAPPDATA/RiichiCoach/spike-runs/dora-timing-20260928/`。
+
+改动 owner 为两个 source mapper 和既有 canonical replay：
+
+- 雀魂累计 doras 的新增项保留实际披露记录，kanEventRef 独立保留关联；揭示事件
+  在同一 draw/discard 记录中的子事件位置明确，不再反插到先前事件。mapper v5。
+- 天凤 DORA 保留原 tag 顺序与引用；删除为了前移宝牌而缓冲岭上摸牌的代码。mapper v2。
+- 回放校验保留尚未公布指示牌的杠关联，允许同一回合稍后揭示；跨回合、重复、错误
+  关联与缺失完整来源的检查仍在。实际动作扫描越过公共揭示事件，避免漏掉后续弃牌。
+- 更新原来认可前移的测试期望；保留完整集合/实际行动和来源断言。R15 指定的
+  `majsoul-dora-replay.test.ts` 增加两份只在未来宝牌不同的对照：此前 public/private
+  状态及规则事件前缀相同，完整来源内容身份仍不同。
+
+INV-003/004 的来源及决策绑定边界由 mapper、canonical validator、跨来源时序回归
+和原生请求前缀回归执行；没有新包、依赖边或第二套合法动作判定。移位后更新的
+native golden 使用现有 native 和 CPU checkpoint 重新采集 65 边界/22 评分，原 XML
+未改动。采集时 HEAD 为上述提交且 dirty=true，不称为最终提交全语料验收；新旧哈希
+和来源在 PACKAGE_FIXTURES.md 中登记。旧包只读数据没有重写。
+
+聚焦运行：4 文件 115 项通过；R15 指定两文件 48 项通过；时序与完整黄金下游 8 项
+通过。复跑 reviewer 的来源探针（仅改 import/输出路径）后，两份未来宝牌对照的
+此前快照均只有旧宝牌，真实 native 各 5 ok/3 non_action；另一个未确认为 finding
+的抢加杠构造仍由既有 win_source_mismatch 拒绝，未宣称该分支已修复。
+完整五门和提交后真实 CPU 回执需另行记录，不能继承 round 15 的结果。
+
+本次完整门禁实际记录在同目录 `gates.json`：typecheck、build、全量 Vitest、
+architecture、package-import、diff-check 全部退出 0。Vitest 为 191 文件/2340 项；
+架构检查 7 包/435 文件/1996 imports，0 违规。`electron-result.json` 记录本次
+Electron 43.3.0 实际 main 链、22 决策/65 规则边界的包保存重开、崩溃恢复、
+A-B-A 与迁移测试退出 0；其零请求检查不是操作系统禁网证明。
+上述均为实现侧验证；当前缺失真实雀魂完整来源的问题仍在，提交后的全量 CPU
+及下一轮外部独立验收另外绑定提交，不把这些门禁视为验收 PASS。

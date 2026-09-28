@@ -3,6 +3,13 @@ import { parse } from "protobufjs";
 import { describe, expect, it } from "vitest";
 import { loadMahjongSoulProtocolBundle, mapMahjongSoulRecord } from "@riichi-coach/mahjong-soul-source";
 import { replayCanonicalStream } from "../src/replay/stream-replayer.js";
+import { createLibriichiRuleProjector } from "../src/analysis/libriichi-rule-projection.js";
+import { LIBRIICHI_RULE_NORMALIZATION_VERSION, type LibriichiRuleIdentity } from "@riichi-coach/contracts";
+
+const identity: LibriichiRuleIdentity = {
+  implementation: "Equim-chan/Mortal/libriichi", revision: "0".repeat(40), nativeArtifactSha256: "1".repeat(64),
+  wrapperSha256: "2".repeat(64), normalizationVersion: LIBRIICHI_RULE_NORMALIZATION_VERSION,
+};
 
 async function mapRound(actions: readonly { name: string; data: Record<string, unknown> }[], selfActor: number) {
   const bundle = await loadMahjongSoulProtocolBundle(fileURLToPath(new URL("../../../vendor/mahjong-soul-protocol/", import.meta.url)));
@@ -55,14 +62,16 @@ describe("Mahjong Soul kan indicator reaches the canonical decision", () => {
     const decisions = replayCanonicalStream(mapped.stream);
     expect(decisions.map(decision => decision.actualAction?.kind)).toEqual(kind === "ankan" ? ["ankan", "discard"] : ["discard"]);
     if (kind === "ankan") expect(decisions[0]!.snapshot.publicState.doraIndicators).toEqual([{ id: "1z", red: false }]);
-    expect(decisions.at(-1)!.snapshot.publicState.doraIndicators).toEqual([{ id: "1z", red: false }, { id: "2z", red: false }]);
+    expect(decisions.at(-1)!.snapshot.publicState.doraIndicators).toEqual(publication === "discard"
+      ? [{ id: "1z", red: false }]
+      : [{ id: "1z", red: false }, { id: "2z", red: false }]);
     expect(mapped.stream.completeness.responseOpportunities).toBe("complete");
   });
 
   it("replays pon, post-call discard, then kakan without changing earlier dora knowledge", async () => {
     const hand = ["1m", "1m", "2p", "3p", "4p", "4s", "5s", "6s", "7s", "8s", "9s", "2p", "9p", "9p"];
     const other = ["7z", "6z", "5z", "4z", "3z", "2z", "1z", "1s", "2s", "3s", "4s", "5s", "6s"];
-    const mapped = await mapRound([
+    const actions = [
       { name: "RecordNewRound", data: { chang: 0, ju: 0, ben: 0, doras: ["1z"], scores: [25000, 25000, 25000, 25000],
         left_tile_count: 69, tiles0: hand, tiles1: other, tiles2: other, tiles3: other } },
       { name: "RecordDiscardTile", data: { seat: 0, tile: "9p", moqie: true } },
@@ -75,20 +84,35 @@ describe("Mahjong Soul kan indicator reaches the canonical decision", () => {
         { name: "RecordDiscardTile", data: { seat, tile: `${seat + 2}z`, moqie: true } },
       ]),
       { name: "RecordDealTile", data: { seat: 0, tile: "1m", left_tile_count: 64 } },
-      { name: "RecordAnGangAddGang", data: { seat: 0, type: 2, tiles: "1m" } },
-      { name: "RecordDealTile", data: { seat: 0, tile: "5p", left_tile_count: 63 } },
+      { name: "RecordAnGangAddGang", data: { seat: 0, type: 2, tiles: "1m", doras: ["1z"] } },
+      { name: "RecordDealTile", data: { seat: 0, tile: "5p", left_tile_count: 63, doras: ["1z"] } },
       { name: "RecordDiscardTile", data: { seat: 0, tile: "5p", moqie: true, doras: ["1z", "2z"] } },
       { name: "RecordHule", data: { hules: [{ seat: 2, zimo: false, hu_tile: "5p" }], delta_scores: [-1000, 0, 1000, 0] } },
-    ], 0);
+    ];
+    const mapped = await mapRound(actions, 0);
     expect(mapped.status).toBe("ready");
     if (mapped.status !== "ready") throw new Error("fixture");
     const decisions = replayCanonicalStream(mapped.stream);
     expect(decisions.map(decision => decision.actualAction?.kind)).toEqual(["discard", "discard", "kakan", "discard"]);
     expect(decisions.map(decision => decision.snapshot.publicState.doraIndicators)).toEqual([
       [{ id: "1z", red: false }], [{ id: "1z", red: false }], [{ id: "1z", red: false }],
-      [{ id: "1z", red: false }, { id: "2z", red: false }],
+      [{ id: "1z", red: false }],
     ]);
     expect(mapped.stream.completeness.doraIndicators).toBe("complete");
     expect(mapped.stream.completeness.responseOpportunities).toBe("complete");
+    const changed = structuredClone(actions);
+    changed.at(-2)!.data.doras = ["1z", "3z"];
+    const remapped = await mapRound(changed, 0);
+    expect(remapped.status).toBe("ready");
+    if (remapped.status !== "ready") throw new Error("fixture");
+    const changedDecision = replayCanonicalStream(remapped.stream).at(-1)!;
+    expect(changedDecision.snapshot.publicState).toEqual(decisions.at(-1)!.snapshot.publicState);
+    expect(changedDecision.snapshot.privateState).toEqual(decisions.at(-1)!.snapshot.privateState);
+    const firstRequest = createLibriichiRuleProjector(mapped.stream, identity)(decisions.at(-1)!);
+    const secondRequest = createLibriichiRuleProjector(remapped.stream, identity)(changedDecision);
+    expect(secondRequest.events).toEqual(firstRequest.events);
+    expect(secondRequest.eventPrefixSha256).toBe(firstRequest.eventPrefixSha256);
+    // The whole source content changes identity, while past observed inputs do not.
+    expect(secondRequest.canonicalStreamIdentity).not.toBe(firstRequest.canonicalStreamIdentity);
   });
 });
