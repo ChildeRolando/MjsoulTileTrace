@@ -51,6 +51,11 @@ type UsableLibriichiResolvedDecision = Extract<
   readonly response: Exclude<LibriichiRuleResponse, { readonly status: "error" }>;
 };
 
+type LocalMortalCoverageReadyReview = Extract<
+  Awaited<ReturnType<typeof runMortalFullGameReview>>,
+  { readonly status: "coverage_ready" }
+>;
+
 /**
  * A rules census may contain a legal response non-action, but it may not
  * silently turn a missing/error boundary into a degraded package. Keep this
@@ -67,6 +72,24 @@ export function assertUsableLocalMortalRuleResult(
   }
   if (resolved.response.status === "error") {
     throw new Error(resolved.response.code);
+  }
+}
+
+/**
+ * `coverage_ready` describes a complete diagnostic census, not necessarily a
+ * usable production package.  The whole-game review intentionally retains
+ * faithful degraded rows for remote diagnostics; the local production seam
+ * must not persist one when its deterministic helper or assembly failed.
+ * Legal non-action/singleton/unsupported rows remain valid because they do not
+ * use either execution-failure reason.
+ */
+function assertProductionAnalysisUsable(
+  review: LocalMortalCoverageReadyReview,
+): void {
+  for (const reason of ["fact_engine_failure", "structured_analysis_assembly_failure"] as const) {
+    if ((review.summary.analysisBlockedReasons[reason] ?? 0) > 0) {
+      throw new Error(reason);
+    }
   }
 }
 
@@ -196,6 +219,7 @@ export function createLocalMortalAnalysisService(input: {
           libriichi: { identity: input.runtime.ruleIdentity, results: rules.rules },
         });
         if (review.status !== "coverage_ready") throw new Error(review.code);
+        assertProductionAnalysisUsable(review);
         const retained = review.retainedAnalyses[0];
         if (retained === undefined) throw new Error("mortal_output_incomplete");
         const pkg = buildStructuredAnalysisPackage({

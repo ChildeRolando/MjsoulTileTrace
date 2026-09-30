@@ -223,8 +223,10 @@ Electron main composition root。`packages/desktop/tests/paipu-import-service.te
 `app-composition.test.ts` 覆盖安全 `review_ready` 身份、失败不导航及 Overview/List/Detail
 到达；ReviewSession 以 `semanticContentHash` 区分同一 package 的 wall-clock 元数据重跑与
 真正语义冲突，保留既有 immutable package/active report；规则 runtime error/unknown result
-经 production analysis owner 进入 `analysis_failed`，不保存 session 或导航，健康重试可重新
-进入 `review_ready`；这些回归不宣称真实 Electron Golden Slice、独立产品 PASS 或
+以及 fact-helper/analysis-assembly execution failure 经 production analysis owner 进入
+`analysis_failed`，不保存 session 或导航，健康重试可重新进入 `review_ready`；合法
+non-action、singleton 和其他忠实 degraded diagnostic row 仍保留；这些回归不宣称真实
+Electron Golden Slice、独立产品 PASS 或
 `DEMOABLE`。
 
 ### MVP Electron Golden Slice（Integration Closeout D，待实现）

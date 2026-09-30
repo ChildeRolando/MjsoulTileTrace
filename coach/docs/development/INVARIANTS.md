@@ -195,6 +195,11 @@ Model/report evidence provider（模型/报告证据来源）
   集合扣除 ron、补 actual，或签发单候选证明。`libriichi_single_candidate` 只由成功且
   恰有一个动作的结果派生，并核验实际动作对应。旧 `response_single_candidate` 仅供
   历史包只读验证，新包不可接收。helper 的振听教学事实不反向修改合法集合。
+  远程/诊断路径可以保留忠实的 `analysis_blocked` degraded row；但 local Mortal
+  production composition 遇到 `fact_engine_failure` 或
+  `structured_analysis_assembly_failure` 必须转入既有 `analysis_failed`，不得保存
+  session 或返回 review-ready。合法 non-action、singleton 与 unsupported 行不因该门禁
+  被误拒绝。
   Tenhou 仅对完整解析并闭合的受支持真实 mjlog 声明响应机会历史 `complete`；
   这只允许逐窗口运行事实引擎和振听推导，不自动宣称荣和合法。资格依赖的手牌、
   役、规则或闭合证据缺失时仍为 `unknown`，不得用 actual 行动或模型输出补足。
@@ -209,7 +214,9 @@ Model/report evidence provider（模型/报告证据来源）
   `libriichi-rule-projection.test.ts`、`libriichi-full-game.test.ts` 和
   `mortal-full-game-review.test.ts` 覆盖未知规则输入不得获得单候选证明或 ready 结果；
   `real-logs-corpus.test.ts`、原生黄金回归和 `runtime_rules_native_test.py` 覆盖真实完整
-  Tenhou 来源、逐窗口荣和、抢杠荣和及 pass，保留不完整历史负例。
+  Tenhou 来源、逐窗口荣和、抢杠荣和及 pass，保留不完整历史负例；
+  `packages/desktop/tests/paipu-import-service.test.ts` 直接触发 production analysis
+  owner 的规则与 fact-helper 失败，核验无 session 的安全重试边界。
 - **Status**：machine-enforced；local runtime strict schema、artifact identity、lifecycle、
   oversize/extra-prose 与固定安全错误均由永久测试覆盖。启动握手为 single-flight；timeout、
   ready 前退出或协议失败会等待 exact child 终止并清空状态，失败后的重试不得伪成功。

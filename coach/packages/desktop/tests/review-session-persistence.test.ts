@@ -400,6 +400,45 @@ describe("ReviewSession SQLite persistence", () => {
     }
   });
 
+  it("rejects a same-package semantic collision without replacing the active report", () => {
+    const repository = createReviewSessionRepository({ root: root(), createId: () => "session-a" });
+    try {
+      const first = persistValidatedReviewSession(repository, pkg);
+      repository.saveReport(pkg.packageId, completeReport, "report-ref-a", "operation-a");
+      const changed = structuredClone(pkg);
+      // This deterministic fact is part of the validated semantic payload but
+      // does not participate in packageId, making it a valid same-id semantic
+      // collision without breaking the model-score contract.
+      changed.decisions[0]!.knownGameFacts.remainingDraws += 1;
+      const semanticDecisions = changed.decisions.map((decision) => decision.outcome === "analysis_ready"
+        ? {
+          ...decision,
+          modelEvaluation: {
+            ...decision.modelEvaluation,
+            detailPolicy: { ...decision.modelEvaluation.detailPolicy, frozenAt: null },
+          },
+        }
+        : decision);
+      changed.semanticContentHash = `sha256:${fixtureHash({
+        analysisKey: changed.analysisKey,
+        record: changed.record,
+        componentVersions: changed.componentVersions,
+        analysisPolicy: changed.analysisPolicy,
+        decisions: semanticDecisions,
+        evidenceRegistry: changed.evidenceRegistry,
+      })}`;
+      expect(changed.packageId).toBe(pkg.packageId);
+      expect(changed.semanticContentHash).not.toBe(pkg.semanticContentHash);
+      expect(() => persistValidatedReviewSession(repository, changed)).toThrow("identity_conflict");
+      const state = repository.openByPackageId(pkg.packageId);
+      expect(state.sessionId).toBe(first.sessionId);
+      expect(state.activeReportRefId).toBe("report-ref-a");
+      expect(state.analysisPackage).toEqual(pkg);
+    } finally {
+      repository.close();
+    }
+  });
+
   it("fails closed when indexed package/report identities disagree with immutable payloads (R3-P2-1)", () => {
     const packageDir = root();
     let repository = createReviewSessionRepository({ root: packageDir, createId: () => "session-a" });

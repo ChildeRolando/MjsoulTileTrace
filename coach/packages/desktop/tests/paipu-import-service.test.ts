@@ -1,19 +1,32 @@
 import { mkdtempSync, rmSync } from "node:fs";
+import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import {
   loadMahjongSoulProtocolBundle,
   mapMahjongSoulRecord,
   unwrapGameDetailRecords,
 } from "@riichi-coach/mahjong-soul-source";
-import { replayCanonicalStream } from "@riichi-coach/reasoning";
+import {
+  CanonicalEventStreamSchema,
+  libriichiRuleCanonicalJson,
+  type LibriichiRuleRequest,
+  type LibriichiRuleResponse,
+} from "@riichi-coach/contracts";
+import {
+  JsonlFactEngineClient,
+  replayCanonicalStream,
+} from "@riichi-coach/reasoning";
 import { createRecordAnalysisStore } from "../src/record-analysis-store.js";
 import {
   assertUsableLocalMortalRuleResult,
   createLocalMortalAnalysisService,
 } from "../src/local-mortal-analysis-service.js";
 import { createMahjongSoulPaipuImportService } from "../src/paipu-import-service.js";
-import { createReviewSessionRepository } from "../src/review-session-repository.js";
+import {
+  createReviewSessionRepository,
+  persistValidatedReviewSession,
+} from "../src/review-session-repository.js";
 import type { ManagedMortalRuntime } from "@riichi-coach/mortal-runtime";
 import {
   bundleRoot,
@@ -39,6 +52,157 @@ const fixtureRecordId = "000000-00000000-0000-0000-0000-000000000001";
 // The _a suffix is the OBFUSCATED token of the scripted head's seat-3
 // account — decode + join resolves the seat automatically.
 const fixtureUrl = fixturePaipuUrl();
+
+const fixtureDigest = (value: unknown): string =>
+  createHash("sha256").update(libriichiRuleCanonicalJson(value)).digest("hex");
+
+const localAnalysisRuntimeIdentity = {
+  runtimeImplementation: "Equim-chan/Mortal" as const,
+  runtimeRevision: "0".repeat(40),
+  runtimeVersion: "Mortal V4" as const,
+  runtimeArtifactSha256: "1".repeat(64),
+  runtimeModelSha256: "2".repeat(64),
+  runtimeEngineSha256: "3".repeat(64),
+  checkpointRepository: "Yuchen1457/mortal-582500" as const,
+  checkpointRevision: "4".repeat(40),
+  checkpointModelTag: "mortal-hpc@582500" as const,
+  checkpointFileSha256: "5".repeat(64),
+  protocolVersion: "riichi-local-mortal-jsonl/v1" as const,
+  adapterVersion: "local-mortal-adapter/v1" as const,
+  nativeArtifactSha256: "6".repeat(64),
+};
+
+function localAnalysisFixtureStream() {
+  return CanonicalEventStreamSchema.parse({
+    schemaVersion: "canonical-riichi-events/v2",
+    mapperVersion: "fixture/v1",
+    gameId: "game:local-analysis-fixture",
+    sourceKind: "fixture",
+    sourceRecordHash: "sha256:source",
+    playerCount: 4,
+    selfActor: 0,
+    completeness: {
+      eventSequence: "complete",
+      ruleSet: "complete",
+      scores: "complete",
+      doraIndicators: "complete",
+      rivers: "complete",
+      calledDiscardMarkers: "complete",
+      melds: "complete",
+      remainingDraws: "complete",
+      settlement: "complete",
+      responseOpportunities: "complete",
+    },
+    ruleSet: {
+      length: "south",
+      redFives: { man: 1, pin: 1, sou: 1 },
+      openTanyao: true,
+      atamahane: false,
+      westExtension: "sudden_death",
+      ippatsuCancelledByAnkan: true,
+    },
+    events: [
+      {
+        type: "game_started",
+        eventId: "game:local-analysis-fixture/0/0/0",
+        sourceRecordRef: "record:0",
+      },
+      {
+        type: "round_started",
+        eventId: "game:local-analysis-fixture/0/1/0",
+        sourceRecordRef: "record:1",
+        roundOrdinal: 0,
+        roundWind: "E",
+        hand: 1,
+        honba: 0,
+        riichiSticks: 0,
+        dealer: 0,
+        scores: [25000, 25000, 25000, 25000],
+        doraIndicator: { id: "1s", red: false },
+        selfHand: [
+          { id: "1m", red: false }, { id: "2m", red: false }, { id: "3m", red: false },
+          { id: "4m", red: false }, { id: "5m", red: false }, { id: "6m", red: false },
+          { id: "7m", red: false }, { id: "8m", red: false }, { id: "9m", red: false },
+          { id: "1p", red: false }, { id: "2p", red: false }, { id: "3p", red: false },
+          { id: "4p", red: false },
+        ],
+        remainingDraws: 70,
+      },
+      {
+        type: "tile_drawn",
+        eventId: "game:local-analysis-fixture/0/2/0",
+        sourceRecordRef: "record:2",
+        actor: 0,
+        tile: { visibility: "visible", tile: { id: "5p", red: false } },
+        from: "live_wall",
+      },
+      {
+        type: "tile_discarded",
+        eventId: "game:local-analysis-fixture/0/3/0",
+        sourceRecordRef: "record:3",
+        actor: 0,
+        tile: { id: "5p", red: false },
+        discardMode: "tsumogiri",
+        riichiDeclarationEventRef: null,
+      },
+    ],
+  });
+}
+
+function createFixtureLocalMortalRuntime(): ManagedMortalRuntime {
+  const ruleIdentity = {
+    implementation: "Equim-chan/Mortal/libriichi" as const,
+    revision: localAnalysisRuntimeIdentity.runtimeRevision,
+    nativeArtifactSha256: localAnalysisRuntimeIdentity.nativeArtifactSha256,
+    wrapperSha256: localAnalysisRuntimeIdentity.runtimeArtifactSha256,
+    normalizationVersion: "libriichi-actions/v2" as const,
+  };
+  return {
+    identity: localAnalysisRuntimeIdentity,
+    ruleIdentity,
+    queryRules: async (request: LibriichiRuleRequest): Promise<LibriichiRuleResponse> => {
+      const actions = [
+        {
+          runtimeAction: { index: 13, variant: null },
+          mjaiActionJson: JSON.stringify({ type: "dahai", actor: 0, pai: "5p", tsumogiri: true }),
+        },
+        {
+          runtimeAction: { index: 0, variant: null },
+          mjaiActionJson: JSON.stringify({ type: "dahai", actor: 0, pai: "1m", tsumogiri: false }),
+        },
+      ];
+      const content = {
+        protocolVersion: request.protocolVersion,
+        requestId: request.requestId,
+        identity: request.identity,
+        status: "ok" as const,
+        actions,
+      };
+      return { ...content, resultId: fixtureDigest(content) };
+    },
+    scoreRules: async (request) => {
+      const candidates = request.ruleResult.actions.map((row, index) => ({
+        runtimeAction: row.runtimeAction,
+        ruleActionId: fixtureDigest({
+          runtimeAction: row.runtimeAction,
+          mjaiActionJson: row.mjaiActionJson,
+          ...(row.physicalAliases === undefined ? {} : { physicalAliases: row.physicalAliases }),
+        }),
+        qValue: index === 0 ? 1 : 0,
+      }));
+      return {
+        protocolVersion: "riichi-local-mortal-scoring-jsonl/v2" as const,
+        requestId: request.requestId,
+        identity: request.identity,
+        status: "ok" as const,
+        ruleResultId: request.ruleResult.resultId,
+        candidates,
+        preferredRuntimeAction: candidates[0]!.runtimeAction,
+      };
+    },
+    close: async () => undefined,
+  } as unknown as ManagedMortalRuntime;
+}
 
 async function makeService(overrides?: {
   readonly createWindow?: () => FakeWindow;
@@ -278,6 +442,47 @@ describe("paipu import service (automatic perspective resolution)", () => {
       expect(attempts).toBe(2);
       expect(repository.listSessions()).toHaveLength(0);
     } finally {
+      repository.close();
+      rmSync(root, { recursive: true, force: true, maxRetries: 20, retryDelay: 100 });
+    }
+  });
+
+  it("routes a production fact-helper failure to analysis_failed, then permits a healthy retry", async () => {
+    const stream = localAnalysisFixtureStream();
+    const decisions = replayCanonicalStream(stream);
+    const localAnalysis = createLocalMortalAnalysisService({
+      runtime: createFixtureLocalMortalRuntime(),
+      factEngineResourcesDir: fileURLToPath(new URL("../../../resources/", import.meta.url)),
+    });
+    const root = mkdtempSync("coac-106-helper-failure-");
+    const repository = createReviewSessionRepository({ root });
+    const helper = vi.spyOn(JsonlFactEngineClient.prototype, "analyzeHand13")
+      .mockImplementationOnce(async () => {
+        throw new Error("injected_fact_helper_failure");
+      });
+    try {
+      await expect(localAnalysis.analyze({
+        recordId: stream.gameId,
+        selfActor: stream.selfActor,
+        stream,
+        decisions,
+      })).rejects.toThrow("fact_engine_failure");
+      // The production analysis owner fails before the composition seam may
+      // call persistValidatedReviewSession; no half-session is observable.
+      expect(repository.listSessions()).toHaveLength(0);
+
+      const healthy = await localAnalysis.analyze({
+        recordId: stream.gameId,
+        selfActor: stream.selfActor,
+        stream,
+        decisions,
+      });
+      expect(healthy.package.decisions.some((row) => row.outcome === "analysis_ready")).toBe(true);
+      const saved = persistValidatedReviewSession(repository, healthy.package);
+      expect(saved.packageId).toBe(healthy.package.packageId);
+      expect(repository.listSessions()).toHaveLength(1);
+    } finally {
+      helper.mockRestore();
       repository.close();
       rmSync(root, { recursive: true, force: true, maxRetries: 20, retryDelay: 100 });
     }
