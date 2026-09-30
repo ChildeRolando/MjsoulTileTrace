@@ -221,7 +221,9 @@ StructuredAnalysisPackage → ReviewSession create/reuse → openReview(packageI
 Electron main composition root。`packages/desktop/tests/paipu-import-service.test.ts`、
 `paipu-import-ipc.test.ts`、`review-session-persistence.test.ts` 与
 `app-composition.test.ts` 覆盖安全 `review_ready` 身份、失败不导航及 Overview/List/Detail
-到达；它们不宣称真实 Electron Golden Slice、独立产品 PASS 或 `DEMOABLE`。
+到达；ReviewSession 以 `semanticContentHash` 区分同一 package 的 wall-clock 元数据重跑与
+真正语义冲突，保留既有 immutable package/active report；它们不宣称真实 Electron Golden
+Slice、独立产品 PASS 或 `DEMOABLE`。
 
 ### MVP Electron Golden Slice（Integration Closeout D，待实现）
 

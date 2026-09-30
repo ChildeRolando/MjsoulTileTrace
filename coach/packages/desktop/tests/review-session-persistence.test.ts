@@ -7,6 +7,7 @@ import { createHash } from "node:crypto";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { StructuredAnalysisPackageSchema } from "@riichi-coach/contracts";
 import { generateReviewReport, projectContextGraph, selectReviewDecisions } from "@riichi-coach/reasoning";
+import { deriveSemanticContentHash } from "../../reasoning/src/analysis/package-identity.js";
 import { createReviewSessionRepository } from "../src/review-session-repository.js";
 import { createPrivilegedRawCache, rawCacheKey, type RawCacheIdentity } from "../src/privileged-raw-cache.js";
 import { createFixedReviewController } from "../src/fixed-review-controller.js";
@@ -74,7 +75,7 @@ describe("ReviewSession SQLite persistence", () => {
       try {
         expect(reopened.openByPackageId(pkg.packageId).analysisPackage).toEqual(pkg);
         expect(reopened.saveSession(pkg,selection).analysisPackage).toEqual(pkg);
-        expect(()=>reopened.saveSession({...pkg,createdAt:"2026-09-29T00:00:00.000Z"},selection)).toThrow("identity_conflict");
+        expect(reopened.saveSession({...pkg,createdAt:"2026-09-29T00:00:00.000Z"},selection).analysisPackage).toEqual(pkg);
       } finally { reopened.close(); }
     }
     const verify=new DatabaseSync(join(dir,"library.sqlite"));
@@ -375,11 +376,51 @@ describe("ReviewSession SQLite persistence", () => {
     verify.close();
   });
 
-  it("rejects the same package identity with different canonical artifact bytes", () => {
+  it("reuses one session across wall-clock metadata while preserving its immutable report", () => {
     const repository = createReviewSessionRepository({ root: root(), createId: () => "session-a" });
-    repository.saveSession(pkg, selection);
-    expect(() => repository.saveSession({ ...pkg, createdAt: "2026-09-23T01:00:00.000Z" }, selection)).toThrow("identity_conflict");
-    repository.close();
+    try {
+      const first = repository.saveSession(pkg, selection);
+      repository.saveReport(pkg.packageId, completeReport, "report-ref-a", "operation-a");
+      const withLaterMetadata = structuredClone(pkg);
+      withLaterMetadata.createdAt = "2026-10-01T00:00:00.000Z";
+      for (const decision of withLaterMetadata.decisions) {
+        if (decision.outcome === "analysis_ready") {
+          decision.modelEvaluation.detailPolicy.frozenAt = "2026-10-01T00:00:00.000Z";
+        }
+      }
+      const reused = repository.saveSession(withLaterMetadata, selectReviewDecisions(withLaterMetadata));
+      expect(reused.sessionId).toBe(first.sessionId);
+      expect(reused.activeReportRefId).toBe("report-ref-a");
+      expect(reused.analysisPackage).toEqual(pkg);
+      expect(repository.openByPackageId(pkg.packageId).analysisPackage.createdAt).toBe(pkg.createdAt);
+    } finally {
+      repository.close();
+    }
+  });
+
+  it("rejects a same-package-id collision with different semantic content", () => {
+    const repository = createReviewSessionRepository({ root: root(), createId: () => "session-a" });
+    try {
+      repository.saveSession(pkg, selection);
+      const changed = structuredClone(pkg);
+      const decision = changed.decisions.find((candidate) => candidate.outcome === "analysis_ready");
+      if (decision === undefined) throw new Error("fixture has no analysis-ready decision");
+      decision.modelEvaluation.candidates[0]!.modelSelectionScore = 81;
+      decision.modelEvaluation.candidates[0]!.rawValues[0]!.value = 0.81;
+      decision.modelEvaluation.errorGap = 61;
+      changed.semanticContentHash = deriveSemanticContentHash({
+        analysisKey: changed.analysisKey,
+        record: changed.record,
+        componentVersions: changed.componentVersions,
+        analysisPolicy: changed.analysisPolicy,
+        decisions: changed.decisions,
+        evidenceRegistry: changed.evidenceRegistry,
+        legalActionEvidence: changed.legalActionEvidence,
+      });
+      expect(() => repository.saveSession(changed, selection)).toThrow("identity_conflict");
+    } finally {
+      repository.close();
+    }
   });
 
   it("fails closed when indexed package/report identities disagree with immutable payloads (R3-P2-1)", () => {

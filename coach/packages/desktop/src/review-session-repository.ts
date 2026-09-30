@@ -293,9 +293,20 @@ export function createReviewSessionRepository(input: {
       const existing = sessionByPackageId(analysisPackage.packageId);
       if (existing !== undefined) {
         const existingPackage = packageRowForSession(existing.session_id);
-        if (existingPackage === undefined
-          || describePackageArtifact(readPackageArtifact(db, existingPackage)).contentHash !== packageArtifact.contentHash
-          || existing.selection_hash !== hash(selectionPayload)) throw new Error("identity_conflict");
+        if (existingPackage === undefined) throw new Error("identity_conflict");
+        // packageId is the stable artifact reference, while createdAt and the
+        // per-decision detailPolicy.frozenAt are intentionally volatile
+        // metadata. Re-importing the same semantic package at a later wall
+        // clock must reopen the existing immutable artifact/session instead
+        // of trying to insert a byte-different copy. A same-id, different
+        // semanticContentHash collision remains fail-closed.
+        const existingAnalysisPackage = readPackageArtifact(db, existingPackage);
+        validateStructuredAnalysisPackage(existingAnalysisPackage);
+        if (
+          existingAnalysisPackage.packageId !== analysisPackage.packageId
+          || existingAnalysisPackage.semanticContentHash !== analysisPackage.semanticContentHash
+          || existing.selection_hash !== hash(selectionPayload)
+        ) throw new Error("identity_conflict");
         return read(existing);
       }
       const packageRefId = `package:${hash(Buffer.from(analysisPackage.packageId))}`;
