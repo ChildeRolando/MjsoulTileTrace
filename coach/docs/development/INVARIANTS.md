@@ -92,7 +92,7 @@ Model/report evidence provider（模型/报告证据来源）
   重放/推理边界之前**——下游只消费 `CanonicalEventStreamV2` 契约。reasoning 不得
   依赖雀魂协议细节、天凤牌谱格式细节或任何 provider 专属局面表示。它**可以**按
   ADR-0005 消费 `mortal-source` 公开导出的模型/报告证据契约（`mortal-source` 只做
-  报告格式解析，不含特权来源能力，不在此边界内）。计划中的 `mortal-runtime` 只能消费
+  报告格式解析，不含特权来源能力，不在此边界内）。已落地的 `mortal-runtime` 只能消费
   contracts-owned canonical/replay request，不得读取任何雀魂/天凤协议或账号 payload；
   reasoning 只消费 contracts-owned runtime result，不依赖 privileged runtime 包。
 - **Why**：game-record 来源可替换性依赖"唯一 canonical 语义"；协议细节泄漏会让新
@@ -100,7 +100,7 @@ Model/report evidence provider（模型/报告证据来源）
   单独裁决，两者不混同。
 - **Owner / boundary**：`@riichi-coach/{mahjong-soul-source,tenhou-source}` 的导出
   面（只导出 canonical 映射与错误码）；`@riichi-coach/mortal-source` 的导出面（只
-  导出报告 schema/URL/指纹/tile 工具）；计划中的 `@riichi-coach/mortal-runtime` 只导出
+  导出报告 schema/URL/指纹/tile 工具）；`@riichi-coach/mortal-runtime` 只导出
   main-owned lifecycle 能力；它们与 `@riichi-coach/reasoning` 的依赖方向（reasoning 只
   允许依赖 contracts 与 mortal-source，不允许依赖 mortal-runtime）。
 - **Enforcement**：canonical mapper fail-closed + `canonical-event-validator`；
@@ -110,13 +110,13 @@ Model/report evidence provider（模型/报告证据来源）
   mortal-source 是 ADR-0005 允许边）。
 - **Executable tests**：`canonical-mapper.test.ts`、`canonical-event-validator.test.ts`、
   `tenhou-source/tests/real-logs-corpus.test.ts`、`malformed-inputs.test.ts`、
-  `npm run check:architecture`。COAC-111 必须扩展 checker 与其自测，拒绝 runtime 导入
+  `npm run check:architecture`。COAC-111 已扩展 checker 与其自测，拒绝 runtime 导入
   game-record providers、reasoning 导入 runtime、renderer/preload 导入 runtime。
 - **Status**：machine-enforced；checker 覆盖 runtime/source/reasoning/renderer/preload 新边。
 
 ## INV-004 候选身份必须绑定其 canonical 决策窗口
 
-> **2026-09-28 权威修订，实施待完成**：按
+> **2026-09-28 权威修订，runtime 实现已合入；全语料仍非穷举证明**：按
 > [ADR-0006](../adr/0006-libriichi-single-legal-action-authority.md)，合法动作全集只由
 > libriichi 产生。以下旧“本地 legal candidates ↔ runtime legal actions”要求替换为
 > “唯一规则结果 ↔ canonical 规范化动作 ↔ 模型评分项”的身份与全集守恒；不再要求
@@ -142,7 +142,7 @@ Model/report evidence provider（模型/报告证据来源）
   "Decision and scene event IDs do not match"。
 - **Executable tests**：`decision-snapshot.test.ts`、`round-state.test.ts`、
   `candidate-contracts.test.ts`、`comparison-set-builder.test.ts`、M6-A4 binding/conservation
-  与 structured package candidate-universe tests。COAC-111 追加 local runtime 的
+  与 structured package candidate-universe tests。COAC-111 已追加 local runtime 的
   duplicate/missing/extra/unknown/ambiguous、跨决策响应、非 argmax preferred action 及
   self/response actual-correspondence 负例；`runtime_rules_native_test.py` 通过真实 native
   固化仅赤五、赤普并存、actual/pass 与 kan-response 只允许 ron/pass 的 Mortal realization。
@@ -237,7 +237,7 @@ Model/report evidence provider（模型/报告证据来源）
   `mortal-coverage-registry.test.ts`、`protocol-bundle.test.ts`、
   `update-packaged-fact-engine-manifest.test.mjs`、
   `structured-analysis-package.test.ts`、`scripts/native-whole-game-golden.test.mjs`；
-  COAC-111 必须增加声明/payload/hash 任一侧篡改，以及 wrapper/model/engine/native 任一
+  COAC-111 已增加声明/payload/hash 任一侧篡改，以及 wrapper/model/engine/native 任一
   artifact 被替换的 local-runtime provenance 负例。
 - **Windows checkout 回归条件**：入库 wrapper 与两份 Tenhou XML fixture 的 SHA-256
   必须等于新 `core.autocrlf=true` worktree 的实际字节；准备 receipt 固定 native hash，

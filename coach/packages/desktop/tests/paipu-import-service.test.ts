@@ -116,6 +116,62 @@ describe("paipu import service (automatic perspective resolution)", () => {
     expect(analysis.getMappedRecord(fixtureRecordId, 3)?.selfActor).toBe(3);
   });
 
+  it("returns review-ready identities only after the main composition callback succeeds", async () => {
+    const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
+    const fixture = loadFixtureWire("real-supported-round");
+    const { createWindow } = scriptedCapture(bundle, { data: fixture.wire });
+    const analysis = createRecordAnalysisStore({
+      mapRecord: (input) => mapMahjongSoulRecord({ ...input, bundle }),
+      replay: replayCanonicalStream,
+    });
+    let prepared: { recordId: string; selfActor: number; eventCount: number; decisionCount: number } | null = null;
+    const service = createMahjongSoulPaipuImportService({
+      bundle,
+      analysis,
+      createWindow,
+      timeoutMs: 5_000,
+      prepareReview: async (input) => {
+        prepared = {
+          recordId: input.recordId,
+          selfActor: input.selfActor,
+          eventCount: input.stream.events.length,
+          decisionCount: input.decisions.length,
+        };
+        return { sessionId: "session-verified", packageId: "package-verified" };
+      },
+    });
+    await expect(service.importPaipu({ shareUrl: fixtureUrl })).resolves.toMatchObject({
+      status: "review_ready",
+      recordId: fixtureRecordId,
+      selfActor: 3,
+      sessionId: "session-verified",
+      packageId: "package-verified",
+    });
+    expect(prepared).toMatchObject({ recordId: fixtureRecordId, selfActor: 3 });
+    const observed = prepared as unknown as { eventCount: number; decisionCount: number };
+    expect(observed.eventCount).toBeGreaterThan(0);
+    expect(observed.decisionCount).toBeGreaterThan(0);
+  });
+
+  it("does not return review-ready when package/session composition fails", async () => {
+    const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
+    const fixture = loadFixtureWire("real-supported-round");
+    const { createWindow } = scriptedCapture(bundle, { data: fixture.wire });
+    const analysis = createRecordAnalysisStore({
+      mapRecord: (input) => mapMahjongSoulRecord({ ...input, bundle }),
+      replay: replayCanonicalStream,
+    });
+    const service = createMahjongSoulPaipuImportService({
+      bundle,
+      analysis,
+      createWindow,
+      timeoutMs: 5_000,
+      prepareReview: async () => { throw new Error("package/session failure"); },
+    });
+    await expect(service.importPaipu({ shareUrl: fixtureUrl }))
+      .resolves.toEqual({ status: "analysis_failed" });
+  });
+
   it("resolves whichever account the URL names — the suffix is an obfuscated token, not a seat", async () => {
     const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
     const fixture = loadFixtureWire("real-supported-round");

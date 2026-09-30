@@ -69,6 +69,13 @@ export class ManagedMortalRuntime {
     };
   }
 
+  /** Main-process composition may record the exact producer identity in a
+   * validated analysis package. This getter does not expose any path or
+   * subprocess capability to preload/renderer code. */
+  get identity(): ManagedMortalRuntimeIdentity {
+    return this.#options.identity;
+  }
+
   #serialize<T>(operation: () => Promise<T>): Promise<T> {
     const generation = this.#closeGeneration;
     const current = this.#operationTail.then(() => {

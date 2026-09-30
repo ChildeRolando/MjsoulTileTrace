@@ -19,6 +19,7 @@ export type PaipuImportUiState =
   | { readonly state: "idle" }
   | { readonly state: "invalid_url" }
   | { readonly state: "pending" }
+  | { readonly state: "review_ready"; readonly decisionCount: number }
   | { readonly state: "analysis_ready"; readonly decisionCount: number }
   | { readonly state: "identity_mismatch" }
   | { readonly state: "unsupported_semantics" }
@@ -32,6 +33,7 @@ export function paipuImportStatusLabel(view: PaipuImportUiState): string {
     case "idle": return "粘贴雀魂牌谱分享链接。";
     case "invalid_url": return "牌谱链接格式无效";
     case "pending": return "正在通过雀魂客户端读取牌谱…";
+    case "review_ready": return `牌谱已生成复盘，可查看 ${view.decisionCount} 个决策点`;
     case "analysis_ready": return `牌谱已导入，可分析 ${view.decisionCount} 个决策点`;
     case "identity_mismatch": return "无法确定这份牌谱的分析视角";
     case "unsupported_semantics": return "这场牌谱包含当前尚未支持的记录类型";
@@ -47,6 +49,13 @@ export function paipuImportUiStateFromResult(result: {
   readonly replayDecisionCount?: number;
 }): PaipuImportUiState {
   switch (result.status) {
+    case "review_ready":
+      return {
+        state: "review_ready",
+        decisionCount: typeof result.replayDecisionCount === "number"
+          ? result.replayDecisionCount
+          : 0,
+      };
     case "analysis_ready":
       return {
         state: "analysis_ready",

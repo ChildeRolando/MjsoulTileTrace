@@ -37,6 +37,7 @@ import {
   JsonlFactEngineClient,
   ManagedFactEngineTransport,
   replayCanonicalStream,
+  selectReviewDecisions,
   serializeMahjongSoulReplayAudit,
 } from "@riichi-coach/reasoning";
 import { createMahjongSoulCatalogService } from "./catalog-service.js";
@@ -89,6 +90,7 @@ import {
 } from "./record-ingestion-service.js";
 import { createRecordAnalysisStore } from "./record-analysis-store.js";
 import { createLocalMortalRuntimeService } from "./local-mortal-runtime-service.js";
+import { createLocalMortalAnalysisService } from "./local-mortal-analysis-service.js";
 import { readCliFlag } from "./diagnostic-flags.js";
 import { registerCoachIpc } from "./coach-ipc.js";
 import { createEnvironmentKeyImporter, createProviderCredentials } from "./llm-provider/credentials.js";
@@ -693,6 +695,44 @@ async function start(): Promise<void> {
     analysis: analysisStore,
     createWindow: createOfficialClientCaptureWindow,
     timeoutMs: 240_000,
+    prepareReview: async ({ recordId, selfActor, stream, decisions }) => {
+      // This is the only production composition point for the local model.
+      // Runtime/checkpoint paths stay in Electron main and are never part of
+      // the import DTO or renderer/preload capability.
+      const artifactRoot = process.env.RIICHI_LOCAL_MORTAL_ROOT
+        ?? join(process.env.LOCALAPPDATA ?? "", "RiichiCoach", "local-mortal-spike");
+      const runtime = await createLocalMortalRuntimeService({
+        pythonExecutable: join(artifactRoot, "python", "Scripts", "python.exe"),
+        packageRoot: fileURLToPath(new URL("../../mortal-runtime/", import.meta.url)),
+        artifactRoot,
+        platformManifest: "mortal-582500.windows-x64.json",
+        ...(process.env.RIICHI_LIBRIICHI_NATIVE_RECEIPT === undefined ? {} : { nativeReceiptPath: process.env.RIICHI_LIBRIICHI_NATIVE_RECEIPT }),
+        ...(process.env.RIICHI_LIBRIICHI_NATIVE_MODULE === undefined ? {} : { nativeModulePath: process.env.RIICHI_LIBRIICHI_NATIVE_MODULE }),
+        startTimeoutMs: 120_000,
+        inferenceTimeoutMs: 30_000,
+      });
+      let runtimeClosed = false;
+      try {
+        const analysis = createLocalMortalAnalysisService({
+          runtime,
+          factEngineResourcesDir: resourcesDir,
+          now: Date.now,
+        });
+        const result = await analysis.analyze({ recordId, selfActor, stream, decisions });
+        // Close the managed sidecar before the durable session transaction so
+        // a lifecycle failure cannot return an apparently successful DTO for
+        // a half-composed review.
+        await runtime.close();
+        runtimeClosed = true;
+        const persisted = reviewRepository.saveSession(
+          result.package,
+          selectReviewDecisions(result.package),
+        );
+        return Object.freeze({ sessionId: persisted.sessionId, packageId: result.package.packageId });
+      } finally {
+        if (!runtimeClosed) await runtime.close().catch(() => undefined);
+      }
+    },
   });
   await service.initialize();
 

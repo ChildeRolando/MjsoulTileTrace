@@ -204,13 +204,7 @@ clearSourceCacheButton.addEventListener("click", () => {
   })();
 });
 
-openReviewButton.addEventListener("click", () => {
-  void (async () => {
-    const packageId = reviewPackageIdInput.value.trim();
-    if (packageId === "") {
-      reviewEntryStatus.textContent = "请输入分析包引用。";
-      return;
-    }
+async function openReviewPackage(packageId: string): Promise<void> {
     openReviewButton.disabled = true;
     leaveReviewButton.hidden = true;
     reviewEntryStatus.textContent = "正在打开整盘复盘…";
@@ -222,9 +216,20 @@ openReviewButton.addEventListener("click", () => {
     } catch {
       leaveReviewButton.hidden = true;
       reviewEntryStatus.textContent = "无法打开该分析包，请确认引用有效。";
+      throw new Error("review_unavailable");
     } finally {
       openReviewButton.disabled = false;
     }
+}
+
+openReviewButton.addEventListener("click", () => {
+  void (async () => {
+    const packageId = reviewPackageIdInput.value.trim();
+    if (packageId === "") {
+      reviewEntryStatus.textContent = "请输入分析包引用。";
+      return;
+    }
+    await openReviewPackage(packageId).catch(() => undefined);
   })();
 });
 leaveReviewButton.addEventListener("click", () => {
@@ -255,9 +260,19 @@ paipuImportButton.addEventListener("click", () => {
     setPaipuPending(true);
     try {
       const result = await window.riichiCoachPaipu.importPaipu({ shareUrl });
-      paipuStatusElement.textContent = paipuImportStatusLabel(
-        paipuImportUiStateFromResult(result),
-      );
+      const uiState = paipuImportUiStateFromResult(result);
+      paipuStatusElement.textContent = paipuImportStatusLabel(uiState);
+      if (result.status === "review_ready") {
+        // The verified main-process package/session identities are the only
+        // navigation authority. The renderer hands packageId to the existing
+        // Review Workspace; it never creates a second review path.
+        reviewPackageIdInput.value = result.packageId;
+        try {
+          await openReviewPackage(result.packageId);
+        } catch {
+          paipuStatusElement.textContent = "复盘已保存，但暂时无法打开，请从已保存复盘重试。";
+        }
+      }
     } catch {
       paipuStatusElement.textContent = paipuImportStatusLabel({ state: "failed" });
     } finally {

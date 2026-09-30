@@ -15,10 +15,11 @@
 
 ## 当前一句话状态
 
-雀魂国区登录、跨重启恢复、最近 30 场可分析目录、牌谱取回、canonical 重放、Mortal
-整盘确定性分析、selector、ContextGraph、grounded ReviewReport、M7-A review UI 与
-M7-B 持久化均已合入；真人 smoke 仍发现 account catalog 与 manual import 没有完整接到
-Review Workspace，**Playable Review MVP 尚不可宣称 demoable**。M7-A 的冻结规格见
+雀魂国区登录、跨重启恢复、最近 30 场可分析目录、牌谱取回、canonical 重放、managed local
+Mortal + `mortal-582500`、整盘确定性分析、selector、ContextGraph、grounded ReviewReport、
+M7-A review UI、M7-B 持久化与 account/share → ReviewSession → Review Workspace 接线均已
+合入当前候选；**Playable Review MVP 尚不可宣称 demoable**，Golden Slice、固定五门、独立
+评审、合并与真人 smoke 仍未完成。M7-A 的冻结规格见
 [`2026-09-21-m7-a-whole-game-fixed-review-ui-design.md`](../specs/2026-09-21-m7-a-whole-game-fixed-review-ui-design.md)，
 M7-B 的冻结规格见
 [`2026-09-21-m7-b-review-session-persistence-design.md`](../specs/2026-09-21-m7-b-review-session-persistence-design.md)，
@@ -26,8 +27,8 @@ M7-B 的冻结规格见
 [`2026-09-24-playable-review-mvp-integration-closeout.md`](../specs/2026-09-24-playable-review-mvp-integration-closeout.md)
 为准；其中 manual-import 的生产模型前置已由
 [`2026-09-24-local-mortal-runtime-production-design.md`](../specs/2026-09-24-local-mortal-runtime-production-design.md)
-冻结为 managed local Mortal + `mortal-582500`。截至 2026-09-28，PR #28 已包含
-runtime 与历史真实 CPU spike，但尚未通过当前完整独立验收，也未合并。
+冻结为 managed local Mortal + `mortal-582500`。PR #28 已合入；本候选只消费其真实
+checkpoint production seam，不把 spike 单独计为产品 PASS。
 
 当前主线是 [libriichi 唯一合法动作来源重构](../specs/2026-09-28-libriichi-legal-action-authority-design.md) 的真实整场可靠性验收：
 第二套本地合法动作推导已退出，helper 教学事实保留。决策见

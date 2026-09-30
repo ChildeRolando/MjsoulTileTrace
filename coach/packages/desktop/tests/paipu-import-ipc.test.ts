@@ -31,6 +31,23 @@ const rendererReady = {
   canonicalEventCount: 1024,
   replayDecisionCount: 116,
 };
+const internalReviewReady: PaipuImportResult = {
+  status: "review_ready",
+  recordId: "260811-00000000-0000-0000-0000-000000000001",
+  selfActor: 3,
+  sessionId: "session-verified",
+  packageId: "package-verified",
+  canonicalEventCount: 1024,
+  replayDecisionCount: 116,
+};
+const rendererReviewReady = {
+  status: "review_ready",
+  recordId: "260811-00000000-0000-0000-0000-000000000001",
+  sessionId: "session-verified",
+  packageId: "package-verified",
+  canonicalEventCount: 1024,
+  replayDecisionCount: 116,
+};
 
 function register(
   service: { importPaipu: (input: unknown) => Promise<unknown> },
@@ -128,6 +145,17 @@ describe("paipu URL import IPC", () => {
       await expect(handler(trustedEvent, request))
         .rejects.toThrow("mahjong_soul_login_protocol_unsupported");
     }
+  });
+
+  it("returns only verified session/package identities for a review-ready import", async () => {
+    const ipc = register({ importPaipu: async () => ({
+      ...internalReviewReady,
+      recordBytes: new Uint8Array([1, 2, 3]),
+      accountId: 100001,
+      perspectiveToken: 4,
+    }) });
+    const handler = ipc.handlers.get("mahjong-soul:import-paipu-url")!;
+    await expect(handler(trustedEvent, request)).resolves.toEqual(rendererReviewReady);
   });
 
   it("collapses service exceptions to the fixed error", async () => {

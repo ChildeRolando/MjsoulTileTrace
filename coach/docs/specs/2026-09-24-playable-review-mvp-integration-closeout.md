@@ -1,7 +1,7 @@
 # Playable Review MVP Integration Closeout 实现规格
 
 日期：2026-09-24  
-状态：**SPEC READY；A/B/D 尚未实现，C 修复已在 PR #23 通过独立评审但尚未合入 `master`**  
+状态：**SPEC READY；A 与 B 的当前实现已进入候选，C 修复已合入；D/Golden Slice 与最终发布验收仍未完成**
 父目标：Playable Review MVP v0.1
 
 ## 1. 权威、现状与范围
@@ -24,14 +24,16 @@
   持有：managed local Mortal + `mortal-582500` 是批准的 M6 native runtime path；本规格
   只在其真实 spike 合入后消费 validated `StructuredAnalysisPackage`，不实现 runtime。
 
-`master` 已包含 M7-A/M7-B（PR #17 / #22），但真人 smoke 证明“内部能力完成”不等于
-“真实应用入口已接通”：账号页把同步失败伪装为空目录；手动导入成功只显示决策点数量，
-没有创建/复用 session 并进入 Review Workspace。MVP 因此仍为 **not demoable**。
+`master` 已包含 M7-A/M7-B（PR #17 / #22）与 local Mortal prerequisite（PR #28）。当前
+组合候选已把账号/分享入口接到安全失败分流；分享导入在 main 中消费真实 managed local
+Mortal 产出的 validated package，创建/复用 session 后自动进入 Review Workspace。MVP
+仍为 **not demoable**，直到 D/Golden Slice、固定五门、fresh independent review、合并与
+获授权真人 smoke 全部完成。
 
-COAC-100 已持久化 `R5-P3-1`，原提交 `cfa2b815` 的等价 normal-polish 提交
-`31100bd089aeff296e04f246342c65732d480bdf` 位于 PR #23。该 PR 当前为 OPEN，
-`Review Loop v2` 为 SUCCESS，独立评审结论为 `NO_P1_P2`；在合入前 C 仍不得标为完成。
-后续 C 只核验、合入并在最终组合中回归，不改 Controller 工单、协议、ledger 或原始证据。
+COAC-100 已持久化 `R5-P3-1`，PR #23 的 C 修复已合入并继续作为现有 controller/UI 回归
+owner；后续组合只核验其 session-list refresh 语义，不改 Controller 工单、协议、ledger
+或原始证据。A/B 当前候选的 focused 回归已落在各自 owner 测试中，D/Golden Slice 仍是
+最终 MVP 发布门。
 
 ## 2. 冻结的组合边界
 
@@ -233,7 +235,7 @@ LLM、重启与重开。断言 generation status 原样保留，确定性 eviden
 
 ## 7. 交付顺序与发布闭合
 
-A 与 B 可以并行；C 复用并合入 PR #23；D 只能建立在 A/B/C 的最终真实入口上。每张实现
+A 与 B 可以并行；当前候选已落地 A/B，C 复用并合入 PR #23；D 只能建立在 A/B/C 的最终真实入口上。每张实现
 票都必须引用本规格的对应章节和已有 M7 owner，不得复制整个规格或扩大 OAuth、
 ReviewSession、analysis architecture。
 
@@ -268,4 +270,5 @@ npm run test:package-import
 - 不实现 regenerate/history picker/A-B UI；
 - 不加入 Longitudinal Learner Model、user memory、adaptive training、M4 chat、Akagi、
   GraphRAG、vector DB、UI framework migration 或发布阶段的新能力；
-- 本规格交付不代表 A/B/D 已实现，也不代表 MVP 已完成。
+- 当前候选的 A/B 接线不代表 MVP 已完成；仍需 D/Golden Slice、固定五门、独立评审、合并
+  与获授权真人 smoke 才能宣称 `DEMOABLE`。
