@@ -58,22 +58,18 @@ const expected = { packageId: pkg.packageId, hash: pkg.semanticContentHash, deci
 mark("loaded", { size, ...expected });
 const selection = selectReviewDecisions(pkg);
 // The selector validates the complete artifact and its policy binding first.
-// Keep the old size regression for legacy data; new data preserves the corpus,
-// not the duplication cost removed by the approved comparison policy.
+// Accept the current automatic-pair production corpus, without a minimum byte
+// size. The obsolete exhaustive archive is not an acceptance input.
 function checkAnalysisScope(artifact) {
-  const comparisonPolicy = artifact.analysisPolicy.automaticComparisonPolicyVersion ?? "legacy-exhaustive";
+  const comparisonPolicy = artifact.analysisPolicy.automaticComparisonPolicyVersion;
   const ready = artifact.decisions.filter(decision => decision.outcome === "analysis_ready");
-  if (comparisonPolicy === "legacy-exhaustive") {
-    assert.ok(size >= 5_490_000_000, "Preserve the R19 legacy package scale");
-  } else {
-    assert.equal(comparisonPolicy, "automatic-comparison/top-pair-v1");
-    assert.ok(ready.length > 0, "The new corpus artifact must contain analyzed decisions");
-    for (const decision of ready) {
-      assert.equal(decision.candidateFactorLedgers.length, 2);
-      assert.equal(decision.automaticComparisonScope.policyVersion, comparisonPolicy);
-      assert.deepEqual(decision.candidateFactorLedgers.map(row => row.actionRef).sort(),
-        [...decision.automaticComparisonScope.actionRefs].sort());
-    }
+  assert.equal(comparisonPolicy, "automatic-comparison/top-pair-v1");
+  assert.ok(ready.length > 0, "The current corpus artifact must contain analyzed decisions");
+  for (const decision of ready) {
+    assert.equal(decision.candidateFactorLedgers.length, 2);
+    assert.equal(decision.automaticComparisonScope.policyVersion, comparisonPolicy);
+    assert.deepEqual(decision.candidateFactorLedgers.map(row => row.actionRef).sort(),
+      [...decision.automaticComparisonScope.actionRefs].sort());
   }
   return { comparisonPolicy, analyzedDecisions: ready.length,
     detailedCandidates: ready.reduce((sum, decision) => sum + decision.candidateFactorLedgers.length, 0),
