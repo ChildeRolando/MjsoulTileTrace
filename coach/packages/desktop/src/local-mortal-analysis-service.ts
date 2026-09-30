@@ -7,6 +7,8 @@ import {
   NATIVE_STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION,
   managedLocalMortalEngineVersion,
   type CanonicalEventStream,
+  type LibriichiRuleRequest,
+  type LibriichiRuleResponse,
   type StructuredAnalysisPackage,
 } from "@riichi-coach/contracts";
 import {
@@ -18,6 +20,7 @@ import {
   queryCanonicalLibriichiRules,
   runMortalFullGameReview,
   validateStructuredAnalysisPackage,
+  type LibriichiResolvedDecision,
   type ReplayedDecision,
 } from "@riichi-coach/reasoning";
 import { computeCanonicalGameFingerprint, type MortalReportDecisionEntry, type MortalReportKyoku } from "@riichi-coach/mortal-source";
@@ -40,6 +43,32 @@ export type LocalMortalAnalysisResult = Readonly<{
   readonly canonicalEventCount: number;
   readonly replayDecisionCount: number;
 }>;
+
+type UsableLibriichiResolvedDecision = Extract<
+  LibriichiResolvedDecision,
+  { readonly request: LibriichiRuleRequest }
+> & {
+  readonly response: Exclude<LibriichiRuleResponse, { readonly status: "error" }>;
+};
+
+/**
+ * A rules census may contain a legal response non-action, but it may not
+ * silently turn a missing/error boundary into a degraded package. Keep this
+ * guard at the production analysis owner so every caller gets the same
+ * fail-closed handoff to the import service's safe analysis_failed path.
+ */
+export function assertUsableLocalMortalRuleResult(
+  resolved: LibriichiResolvedDecision | undefined,
+): asserts resolved is UsableLibriichiResolvedDecision {
+  if (resolved === undefined) throw new Error("rules_result_missing");
+  if (resolved.request === null) {
+    if (resolved.response.status === "error") throw new Error(resolved.response.code);
+    throw new Error("rules_result_missing");
+  }
+  if (resolved.response.status === "error") {
+    throw new Error(resolved.response.code);
+  }
+}
 
 function reportId(stream: CanonicalEventStream, selfActor: number): string {
   return `managed-local-mortal:${createHash("sha256")
@@ -121,9 +150,12 @@ export function createLocalMortalAnalysisService(input: {
       ];
       for (const row of all) {
         const resolved = rules.rules.get(row.decision.decisionEventRef);
-        if (resolved === undefined || resolved.request === null || resolved.response.status !== "ok") {
-          continue;
-        }
+        // A legal native non-action is only valid on a response window. Every
+        // other missing/error result is an analysis/runtime failure: the
+        // importer must fail closed instead of allowing a partial rules census
+        // to become a persisted degraded package.
+        assertUsableLocalMortalRuleResult(resolved);
+        if (resolved.response.status === "non_action") continue;
         // A one-action boundary is accounted for by the existing native-rule
         // proof and does not need model scores or a synthetic report row.
         if (resolved.actions.length < 2) continue;

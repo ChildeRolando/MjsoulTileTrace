@@ -1,3 +1,5 @@
+import { mkdtempSync, rmSync } from "node:fs";
+import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import {
   loadMahjongSoulProtocolBundle,
@@ -6,7 +8,13 @@ import {
 } from "@riichi-coach/mahjong-soul-source";
 import { replayCanonicalStream } from "@riichi-coach/reasoning";
 import { createRecordAnalysisStore } from "../src/record-analysis-store.js";
+import {
+  assertUsableLocalMortalRuleResult,
+  createLocalMortalAnalysisService,
+} from "../src/local-mortal-analysis-service.js";
 import { createMahjongSoulPaipuImportService } from "../src/paipu-import-service.js";
+import { createReviewSessionRepository } from "../src/review-session-repository.js";
+import type { ManagedMortalRuntime } from "@riichi-coach/mortal-runtime";
 import {
   bundleRoot,
   encodeSyntheticRecord,
@@ -170,6 +178,109 @@ describe("paipu import service (automatic perspective resolution)", () => {
     });
     await expect(service.importPaipu({ shareUrl: fixtureUrl }))
       .resolves.toEqual({ status: "analysis_failed" });
+  });
+
+  it("keeps legal non-action distinct from missing/error rules evidence", () => {
+    expect(() => assertUsableLocalMortalRuleResult(undefined)).toThrow("rules_result_missing");
+    expect(() => assertUsableLocalMortalRuleResult({
+      request: null,
+      response: { status: "error", code: "rules_runtime_failed" },
+      actions: [],
+    })).toThrow("rules_runtime_failed");
+    expect(() => assertUsableLocalMortalRuleResult({
+      request: {} as never,
+      response: {
+        status: "non_action",
+        protocolVersion: "riichi-libriichi-rules-jsonl/v2",
+        requestId: "0".repeat(64),
+        resultId: "1".repeat(64),
+        reason: "native_cannot_act",
+        identity: {} as never,
+      },
+      actions: [],
+    })).not.toThrow();
+  });
+
+  it("routes a production rules failure to analysis_failed without saving, then permits a healthy retry", async () => {
+    const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
+    const fixture = loadFixtureWire("real-supported-round");
+    const analysis = createRecordAnalysisStore({
+      mapRecord: (input) => mapMahjongSoulRecord({ ...input, bundle }),
+      replay: replayCanonicalStream,
+    });
+    const artifactIdentity = {
+      runtimeImplementation: "Equim-chan/Mortal" as const,
+      runtimeRevision: "0".repeat(40),
+      runtimeVersion: "Mortal V4" as const,
+      runtimeArtifactSha256: "1".repeat(64),
+      runtimeModelSha256: "3".repeat(64),
+      runtimeEngineSha256: "4".repeat(64),
+      checkpointRepository: "Yuchen1457/mortal-582500" as const,
+      checkpointRevision: "5".repeat(40),
+      checkpointModelTag: "mortal-hpc@582500" as const,
+      checkpointFileSha256: "6".repeat(64),
+      protocolVersion: "riichi-local-mortal-jsonl/v1" as const,
+      adapterVersion: "local-mortal-adapter/v1" as const,
+      nativeArtifactSha256: "2".repeat(64),
+    };
+    const failingRuntime = {
+      identity: artifactIdentity,
+      ruleIdentity: {
+        implementation: "Equim-chan/Mortal/libriichi" as const,
+        revision: "0".repeat(40),
+        nativeArtifactSha256: "2".repeat(64),
+        wrapperSha256: "1".repeat(64),
+        normalizationVersion: "libriichi-actions/v2" as const,
+      },
+      queryRules: async () => { throw new Error("injected_rule_runtime_failure"); },
+      scoreRules: async () => { throw new Error("score_not_reached"); },
+    } as unknown as ManagedMortalRuntime;
+    const localAnalysis = createLocalMortalAnalysisService({
+      runtime: failingRuntime,
+      factEngineResourcesDir: fileURLToPath(new URL("../../../resources/", import.meta.url)),
+    });
+    const root = mkdtempSync("coac-106-rule-failure-");
+    const repository = createReviewSessionRepository({ root });
+    let attempts = 0;
+    try {
+      const service = createMahjongSoulPaipuImportService({
+        bundle,
+        analysis,
+        createWindow: () => scriptedCapture(bundle, { data: fixture.wire }).window,
+        timeoutMs: 5_000,
+        prepareReview: async (input) => {
+          attempts += 1;
+          if (attempts === 1) {
+            // This is the same analysis owner used by Electron main. The
+            // injected first rules boundary must throw before session save.
+            await localAnalysis.analyze({
+              recordId: fixtureRecordId,
+              selfActor: input.selfActor,
+              stream: input.stream,
+              decisions: input.decisions,
+            });
+          }
+          return { sessionId: "session-healthy-retry", packageId: "package-healthy-retry" };
+        },
+      });
+      await expect(service.importPaipu({ shareUrl: fixtureUrl }))
+        .resolves.toEqual({ status: "analysis_failed" });
+      expect(repository.listSessions()).toHaveLength(0);
+
+      await expect(service.importPaipu({ shareUrl: fixtureUrl }))
+        .resolves.toMatchObject({
+          status: "review_ready",
+          recordId: fixtureRecordId,
+          selfActor: 3,
+          sessionId: "session-healthy-retry",
+          packageId: "package-healthy-retry",
+        });
+      expect(attempts).toBe(2);
+      expect(repository.listSessions()).toHaveLength(0);
+    } finally {
+      repository.close();
+      rmSync(root, { recursive: true, force: true, maxRetries: 20, retryDelay: 100 });
+    }
   });
 
   it("resolves whichever account the URL names — the suffix is an obfuscated token, not a seat", async () => {

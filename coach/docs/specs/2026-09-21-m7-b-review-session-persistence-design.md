@@ -75,9 +75,15 @@ app.getPath("userData")/review-library/
 ### 5.1 创建/保存 session
 
 1. 在事务外验证 package，运行既有 selector，验证 selection，并固定两者 bytes/hash。
-2. 单个事务插入 package（或核实完全相同的既有 package）、session、selection snapshot 和 null active 行。
-3. 仅在 commit 成功并按 `session_id` 读回后返回“已保存”。同 `packageId`/ref 但 hash 不同返回 `identity_conflict`，不得覆盖。
-4. 零报告 session 是合法状态；打开它只展示确定性 evidence 和 `not_generated`，不得伪造 `evidence_only` 或自动调用 provider。
+2. 单个事务插入 package（或核实既有 package 的身份）、session、selection snapshot 和 null active 行。
+3. 已有 `packageId` 时，先从磁盘读回并验证既有 immutable package。若其
+   `semanticContentHash` 与新包一致且 selection hash 一致，则复用既有 package/session，
+   不改写原始 artifact bytes；`createdAt` 与各 detail-policy `frozenAt` 等仅创建元数据
+   的差异不得制造第二个 session。若 semantic hash、package identity 或 selection 不一致，
+   返回 `identity_conflict`，不得覆盖或替换既有内容。
+4. 仅在新 session 的 commit 成功并按 `session_id` 读回后返回“已保存”。零报告 session
+   是合法状态；打开它只展示确定性 evidence 和 `not_generated`，不得伪造 `evidence_only`
+   或自动调用 provider。
 
 ### 5.2 首次报告保存与激活
 
@@ -120,8 +126,11 @@ P6 不向用户暴露这些操作。repository/controller 仍必须支持：追�
   删除包通过外键级联删除块。读回验证版本头、连续序号、精确块长、总长度和完整哈希，
   再执行原 schema/领域/身份/read-back 校验；失败不暴露部分包。
 - v2 → v3 只增加表、约束和版本号，不改写旧 immutable JSON 字节或哈希。旧包仍按
-  原字节校验；同时存在旧正文与块的混合表示拒绝。相同 package 的重复保存比较完整
-  canonical 内容，不能因新旧 JSON 键顺序不同误报冲突，也不能覆盖已有内容。
+  原字节校验；同时存在旧正文与块的混合表示拒绝。新 package 仍比较完整 canonical
+  内容；同 `packageId` 的重复保存先比较读回验证后的
+  `semanticContentHash` 与 selection identity。语义相同但仅创建元数据变化时复用原
+  immutable bytes/session；语义或 selection 冲突固定拒绝，不能覆盖已有内容。canonical
+  JSON 的键顺序差异不能制造语义冲突。
 - 分块解决聚合字符串及单 BLOB 大小边界；仍需完整领域对象和派生图的内存，不能由此
   宣称任意大小包都能在既定桌面资源预算内完成。
 

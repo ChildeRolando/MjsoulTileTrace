@@ -346,7 +346,9 @@ Model/report evidence provider（模型/报告证据来源）
   `privileged-raw-cache.ts` 与 M7-A strict DTO/IPC/preload 边界。
 - **Enforcement**：SQLite v1 逻辑 schema（storage v2 追加 receipt package binding，v3 追加完整 package 字节分块）的唯一/复合 FK、immutable triggers、hash/schema/domain
   validators、索引列与正文领域 identity 一致性、生成开始时的 durable session/revision CAS、
-  intent/receipt；cache 命中重新验证受控路径/非链接/长度/hash，
+  intent/receipt；已存在 `packageId` 的重复导入先 read-back 验证并以
+  `semanticContentHash` + selection identity 判定复用，仅允许创建元数据变化，原 immutable
+  package bytes/active report 不变；语义或 selection 冲突固定为 `identity_conflict`；cache 命中重新验证受控路径/非链接/长度/hash，
   无 TTL/LRU，显式清理以 `deleting` 状态幂等恢复；renderer 只解析 strict DTO。
 - **Executable tests**：`review-session-persistence.test.ts` 覆盖离线重开、duplicate
   reportId/ref 寻址、A→B→A、提交一后零 provider 恢复、激活前完整校验、operation 幂等、

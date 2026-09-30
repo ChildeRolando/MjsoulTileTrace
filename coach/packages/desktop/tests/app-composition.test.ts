@@ -259,4 +259,15 @@ describe("account catalog app composition", () => {
     expect(result.reviewOverview).toBe(null);
     expect(result.paipuStatus).toContain("复盘已保存，但暂时无法打开");
   }, 60_000);
+
+  it("keeps the source page when production analysis fails", async () => {
+    const result = await runScenario({
+      initialStatus: "valid", action: "paipu-import",
+      paipuResult: { status: "analysis_failed" },
+    });
+    expect(result.reviewCalls).toEqual({ paipuImport: 1, openReview: 0, detail: 0 });
+    expect(result.reviewOverview).toBe(null);
+    expect(result.reviewDetail).toBe(null);
+    expect(result.paipuStatus).toContain("解析未完成");
+  }, 60_000);
 });
