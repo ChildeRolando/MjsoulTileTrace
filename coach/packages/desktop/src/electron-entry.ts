@@ -37,7 +37,6 @@ import {
   JsonlFactEngineClient,
   ManagedFactEngineTransport,
   replayCanonicalStream,
-  selectReviewDecisions,
   serializeMahjongSoulReplayAudit,
 } from "@riichi-coach/reasoning";
 import { createMahjongSoulCatalogService } from "./catalog-service.js";
@@ -95,7 +94,10 @@ import { readCliFlag } from "./diagnostic-flags.js";
 import { registerCoachIpc } from "./coach-ipc.js";
 import { createEnvironmentKeyImporter, createProviderCredentials } from "./llm-provider/credentials.js";
 import { createCoachService, createPackageReferenceReader } from "./llm-provider/service.js";
-import { createReviewSessionRepository } from "./review-session-repository.js";
+import {
+  createReviewSessionRepository,
+  persistValidatedReviewSession,
+} from "./review-session-repository.js";
 import { createPrivilegedRawCache, type PrivilegedRawCache, type RawCacheIdentity } from "./privileged-raw-cache.js";
 
 const PARTITION = "persist:riichi-coach-mahjong-soul-cn";
@@ -724,11 +726,7 @@ async function start(): Promise<void> {
         // a half-composed review.
         await runtime.close();
         runtimeClosed = true;
-        const persisted = reviewRepository.saveSession(
-          result.package,
-          selectReviewDecisions(result.package),
-        );
-        return Object.freeze({ sessionId: persisted.sessionId, packageId: result.package.packageId });
+        return persistValidatedReviewSession(reviewRepository, result.package);
       } finally {
         if (!runtimeClosed) await runtime.close().catch(() => undefined);
       }

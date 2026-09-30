@@ -7,7 +7,10 @@ import { createHash } from "node:crypto";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { StructuredAnalysisPackageSchema } from "@riichi-coach/contracts";
 import { generateReviewReport, projectContextGraph, selectReviewDecisions } from "@riichi-coach/reasoning";
-import { createReviewSessionRepository } from "../src/review-session-repository.js";
+import {
+  createReviewSessionRepository,
+  persistValidatedReviewSession,
+} from "../src/review-session-repository.js";
 import { createPrivilegedRawCache, rawCacheKey, type RawCacheIdentity } from "../src/privileged-raw-cache.js";
 import { createFixedReviewController } from "../src/fixed-review-controller.js";
 
@@ -378,7 +381,7 @@ describe("ReviewSession SQLite persistence", () => {
   it("reuses one session across wall-clock metadata while preserving its immutable report", () => {
     const repository = createReviewSessionRepository({ root: root(), createId: () => "session-a" });
     try {
-      const first = repository.saveSession(pkg, selection);
+      const first = persistValidatedReviewSession(repository, pkg);
       repository.saveReport(pkg.packageId, completeReport, "report-ref-a", "operation-a");
       const withLaterMetadata = structuredClone(pkg);
       withLaterMetadata.createdAt = "2026-10-01T00:00:00.000Z";
@@ -387,10 +390,10 @@ describe("ReviewSession SQLite persistence", () => {
           decision.modelEvaluation.detailPolicy.frozenAt = "2026-10-01T00:00:00.000Z";
         }
       }
-      const reused = repository.saveSession(withLaterMetadata, selectReviewDecisions(withLaterMetadata));
+      const reused = persistValidatedReviewSession(repository, withLaterMetadata);
       expect(reused.sessionId).toBe(first.sessionId);
-      expect(reused.activeReportRefId).toBe("report-ref-a");
-      expect(reused.analysisPackage).toEqual(pkg);
+      expect(repository.openByPackageId(pkg.packageId).activeReportRefId).toBe("report-ref-a");
+      expect(repository.openByPackageId(pkg.packageId).analysisPackage).toEqual(pkg);
       expect(repository.openByPackageId(pkg.packageId).analysisPackage.createdAt).toBe(pkg.createdAt);
     } finally {
       repository.close();

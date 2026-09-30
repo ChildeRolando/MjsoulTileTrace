@@ -11,6 +11,7 @@ import {
 } from "@riichi-coach/contracts";
 import {
   composeReviewReadBackContext,
+  selectReviewDecisions,
   validateStructuredAnalysisPackage,
   type ReviewReadBackContext,
 } from "@riichi-coach/reasoning";
@@ -452,6 +453,23 @@ export function createReviewSessionRepository(input: {
     },
 
     close(): void { db.close(); },
+  });
+}
+
+/** Main-composition seam used by account/share producers. Selection is always
+ * derived from the validated package, so reruns can reuse the repository's
+ * semantic package/session identity without a second persistence policy. */
+export function persistValidatedReviewSession(
+  repository: Pick<ReturnType<typeof createReviewSessionRepository>, "saveSession">,
+  analysisPackage: StructuredAnalysisPackage,
+): Readonly<{ sessionId: string; packageId: string }> {
+  const persisted = repository.saveSession(
+    analysisPackage,
+    selectReviewDecisions(analysisPackage),
+  );
+  return Object.freeze({
+    sessionId: persisted.sessionId,
+    packageId: analysisPackage.packageId,
   });
 }
 
