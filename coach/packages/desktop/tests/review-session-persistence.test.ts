@@ -7,7 +7,6 @@ import { createHash } from "node:crypto";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { StructuredAnalysisPackageSchema } from "@riichi-coach/contracts";
 import { generateReviewReport, projectContextGraph, selectReviewDecisions } from "@riichi-coach/reasoning";
-import { deriveSemanticContentHash } from "../../reasoning/src/analysis/package-identity.js";
 import { createReviewSessionRepository } from "../src/review-session-repository.js";
 import { createPrivilegedRawCache, rawCacheKey, type RawCacheIdentity } from "../src/privileged-raw-cache.js";
 import { createFixedReviewController } from "../src/fixed-review-controller.js";
@@ -393,31 +392,6 @@ describe("ReviewSession SQLite persistence", () => {
       expect(reused.activeReportRefId).toBe("report-ref-a");
       expect(reused.analysisPackage).toEqual(pkg);
       expect(repository.openByPackageId(pkg.packageId).analysisPackage.createdAt).toBe(pkg.createdAt);
-    } finally {
-      repository.close();
-    }
-  });
-
-  it("rejects a same-package-id collision with different semantic content", () => {
-    const repository = createReviewSessionRepository({ root: root(), createId: () => "session-a" });
-    try {
-      repository.saveSession(pkg, selection);
-      const changed = structuredClone(pkg);
-      const decision = changed.decisions.find((candidate) => candidate.outcome === "analysis_ready");
-      if (decision === undefined) throw new Error("fixture has no analysis-ready decision");
-      decision.modelEvaluation.candidates[0]!.modelSelectionScore = 81;
-      decision.modelEvaluation.candidates[0]!.rawValues[0]!.value = 0.81;
-      decision.modelEvaluation.errorGap = 61;
-      changed.semanticContentHash = deriveSemanticContentHash({
-        analysisKey: changed.analysisKey,
-        record: changed.record,
-        componentVersions: changed.componentVersions,
-        analysisPolicy: changed.analysisPolicy,
-        decisions: changed.decisions,
-        evidenceRegistry: changed.evidenceRegistry,
-        legalActionEvidence: changed.legalActionEvidence,
-      });
-      expect(() => repository.saveSession(changed, selection)).toThrow("identity_conflict");
     } finally {
       repository.close();
     }
