@@ -45,6 +45,16 @@
 
 ## INV-002 模型偏好不得改写确定性事实账本
 
+2026-09-29 用户批准自动报告候选对策略（实施中）：评分可以决定详细计算的候选范围；
+对固定候选、相同 canonical 状态与引擎版本，其确定性事实仍不得被评分改写。
+本条原“删除评分不改变账本”对新策略指固定分析范围内的事实值；不再要求不同选择
+策略生成相同的全候选账本。新范围的版本、确定性选择和精确覆盖必须新增机器校验，
+未完成前不得宣称该修订已 machine-enforced。完整合法结果与评分守恒不变。
+
+2026-09-28 ADR-0006 澄清：libriichi 的确定性规则结果不属于模型偏好。
+它可作为唯一合法动作来源；删除 checkpoint/Q 值仍能查询规则。helper 继续产教学事实。
+规则结果与模型评分必须分别标来源，不能借此允许评分改写任何事实。
+
 - **Statement**：remote report 或 managed local runtime 的 Mortal 分数只决定“模型偏好”；
   删除模型评分不能改变 `KnownGameFacts`、`CandidateFactorLedger` /
   `FactorDifference`，也不得改变教练判断的事实证据基础；`modelReason` 恒为 `unknown`。
@@ -56,12 +66,14 @@
   resolver` 只消费已注册确定性差异。
 - **Executable tests**：`package-validator` 相关测试（"Factor … is in the wrong
   model bucket"）、`factor-differences.test.ts`、`preference-agreement.test.ts`。
-  COAC-111 必须把相同输入在有/无 local Mortal scores 下的 facts/ledgers/differences
-  byte-equivalence 加入 `local-mortal-adapter.test.ts`。
-- **Status**：machine-enforced（现役 report-based path）。本规格没有降低等级；COAC-111
-  只有在同提交加入 local-runtime 等价性门并保持 machine-enforced 后才能宣称实现。
+  `native-action-regressions.test.ts` 固化规则投影、评分、整局和包生成不修改输入的
+  canonical 状态、决策快照或教学事实。
+- **Status**：machine-enforced（remote report + managed local runtime）。
 
 ## INV-003 game-record 来源协议语义止于 canonical 重放/推理边界
+
+ADR-0006 目标将 mortal-runtime 的受管能力扩展为规则结果与模型结果；依赖边不变。
+下列原 v1 描述中的“只返回 runtime model result”不限制新增规则操作；迁移待实施。
 
 来源分两类，规则不同（权威裁决见
 [ADR-0005](../adr/0005-workspace-dependency-boundaries.md)）：
@@ -73,7 +85,7 @@ Game-record providers（牌谱协议来源）
 
 Model/report evidence provider（模型/报告证据来源）
 ├── mortal-source         —— remote Mortal 报告格式解析（reasoning 可消费其公开契约）
-└── mortal-runtime        —— privileged local subprocess/checkpoint（尚未实现；reasoning 不依赖）
+└── mortal-runtime        —— privileged local subprocess/checkpoint（reasoning 不依赖）
 ```
 
 - **Statement**：**game-record provider 的协议语义必须止于 canonical
@@ -100,16 +112,27 @@ Model/report evidence provider（模型/报告证据来源）
   `tenhou-source/tests/real-logs-corpus.test.ts`、`malformed-inputs.test.ts`、
   `npm run check:architecture`。COAC-111 必须扩展 checker 与其自测，拒绝 runtime 导入
   game-record providers、reasoning 导入 runtime、renderer/preload 导入 runtime。
-- **Status**：machine-enforced（现役来源边界）。local runtime 尚不存在；COAC-111 必须让
-  新边先进入同一机械门，禁止以“暂时 partial”接入生产路径。
+- **Status**：machine-enforced；checker 覆盖 runtime/source/reasoning/renderer/preload 新边。
 
 ## INV-004 候选身份必须绑定其 canonical 决策窗口
 
+> **2026-09-28 权威修订，实施待完成**：按
+> [ADR-0006](../adr/0006-libriichi-single-legal-action-authority.md)，合法动作全集只由
+> libriichi 产生。以下旧“本地 legal candidates ↔ runtime legal actions”要求替换为
+> “唯一规则结果 ↔ canonical 规范化动作 ↔ 模型评分项”的身份与全集守恒；不再要求
+> 第二套规则独立检错。actual、preferred、重复/缺失/交叉换位检查继续成立。
+> 请求/单候选/覆盖必须复用同一规则结果；helper 与本地枚举不得增删候选。
+> 新入口强制绑定规则结果，旧枚举退出；架构检查拒绝已封存模块原路径与静态导入，
+> package-import 检查旧生成文件和导出不存在。该有限检查不能识别任意改名复制的
+> 规则代码。真实全语料与迁移独立验收仍未完成，不构成所有麻将状态的穷举证明。
+
 - **Statement**：候选通过 `actionRef` 绑定到产生它的决策窗口
   （`DecisionSnapshotV2.decisionEventRef === privateState.decisionWindow.triggerEventRef`）；
-  身份不得脱离窗口漂移，响应窗口按决策归属配对，绝不按 last_actor 猜。任何 local
-  model evaluation 还必须证明本地 canonical legal candidates ↔ runtime legal actions
-  一一双射及 actual action 唯一 correspondence；不得取交集或静默丢 action。
+  身份不得脱离窗口漂移，响应窗口按决策归属配对，绝不按 last_actor 猜。local/remote
+  model evaluation 必须证明唯一 libriichi 规则结果 ↔ canonical 动作 ↔ 评分项
+  完整对应及 actual action 唯一 correspondence；runtime response 还必须回显同一 request、
+  protocol、完整 runtime identity、decision/window identity、候选全集，并把 preferred action
+  严格绑定到唯一 Q-value argmax；不得取交集、按位置猜测或静默丢 action。
 - **Why**：候选与窗口的绑定是"可追溯比较"的最小单位；脱绑后任何差异、解释、
   验收证据都无法定位。
 - **Owner / boundary**：`contracts` 的 decision snapshot / decision window /
@@ -120,9 +143,19 @@ Model/report evidence provider（模型/报告证据来源）
 - **Executable tests**：`decision-snapshot.test.ts`、`round-state.test.ts`、
   `candidate-contracts.test.ts`、`comparison-set-builder.test.ts`、M6-A4 binding/conservation
   与 structured package candidate-universe tests。COAC-111 追加 local runtime 的
-  duplicate/missing/extra/unknown/ambiguous 及 self/response actual-correspondence 负例。
-- **Status**：machine-enforced（现役 canonical/report/package 路径）。local runtime 尚未
-  实现；其双射负例是 production seam 的先决门，不能先接入后补测试。
+  duplicate/missing/extra/unknown/ambiguous、跨决策响应、非 argmax preferred action 及
+  self/response actual-correspondence 负例；`runtime_rules_native_test.py` 通过真实 native
+  固化仅赤五、赤普并存、actual/pass 与 kan-response 只允许 ron/pass 的 Mortal realization。
+  pon 的物理消费牌须按固定 Mortal 赤五优先规则从冻结手牌确定，不能依手牌数组顺序取前两张；
+  赤普并存时应核验完整 `consumed`/`actionRef`，不能仅核验 runtime index 41。
+- **Executable checks**：`response-replay.test.ts` 检查全边界；`libriichi-rule-projection`、
+  `local-mortal-rule-scoring`、`libriichi-full-game`、`native-action-regressions` 及原生黄金测试
+  检查请求/proof/full-game/package 同结果、跨内容回复和动作表示交换拒绝；
+  `runtime_rules_native_test.py` 检查真实规则不加载 torch/model；`check-architecture`
+  的 `retired_legal_action_authority` 与 package-import 限定检查旧模块回流。
+- **Status**：partially enforced。上述边界有可执行检查；任意新代码重新实现第二套规则
+  仍需评审识别；真实全语料与独立验收结论须绑定候选提交，详见迁移计划及当次回执。
+  不把同源检查称为独立规则证明。
 
 ## INV-005 renderer/UI 不得接收特权原始协议与秘密
 
@@ -146,8 +179,7 @@ Model/report evidence provider（模型/报告证据来源）
   `spawn EPERM` 保留为环境失败；恢复会话并修复三个 P2 后五门实际通过，见 COAC-3
   回执；不修改既有不变量等级。
 - **Status**：machine-enforced（行为测试 + 机械导入规则；注意机械规则只查直接导入，
-  传递泄漏仍靠行为测试）。local runtime 增量在 COAC-111 落地前为 docs-only，完成时必须
-  同提交增加 checker/preload/security 行为负例，不能降低本条等级后宣称完成。
+  传递泄漏仍靠行为测试）。local runtime 的 renderer/preload 负例已进入同一门禁。
 
 ## INV-006 畸形/语义不支持的记录 fail closed，不静默降级
 
@@ -155,6 +187,17 @@ Model/report evidence provider（模型/报告证据来源）
   blocked/unsupported 状态；不猜字段、不降级到宽松解析、不让上游 prose 穿透。
   local Mortal 的 identity/hash、crash、timeout、protocol、candidate/actual mismatch 只能
   映射到冻结的安全 code 与既有 outcome，不得透传 traceback、路径或 stdout/stderr。
+  stdout 按 1 MiB byte ceiling 分帧；每个 request 只允许一个换行终止的 JSON response，
+  trailing prose、额外 response、未终止 oversize frame 都必须关闭精确子进程并 fail closed。
+  manifest 缺失、不可读、畸形或 artifact I/O 失败同样只能返回固定安全 code。
+  响应窗口的完整动作与荣和资格由同一 native 规则结果决定。必要输入未知、历史不全、
+  引擎失败或结果未绑定时使用 `analysis_blocked/legal_actions_unproven`，不能从候选
+  集合扣除 ron、补 actual，或签发单候选证明。`libriichi_single_candidate` 只由成功且
+  恰有一个动作的结果派生，并核验实际动作对应。旧 `response_single_candidate` 仅供
+  历史包只读验证，新包不可接收。helper 的振听教学事实不反向修改合法集合。
+  Tenhou 仅对完整解析并闭合的受支持真实 mjlog 声明响应机会历史 `complete`；
+  这只允许逐窗口运行事实引擎和振听推导，不自动宣称荣和合法。资格依赖的手牌、
+  役、规则或闭合证据缺失时仍为 `unknown`，不得用 actual 行动或模型输出补足。
 - **Why**：宽松解析会悄悄把错误当成分析结果；fail closed 是可复现失败的前提。
 - **Owner / boundary**：所有严格 schema（contracts）与所有来源适配器的错误路径。
 - **Enforcement**：zod strict schema 拒绝未知字段；canonical mapper / 报告解析 /
@@ -162,16 +205,24 @@ Model/report evidence provider（模型/报告证据来源）
 - **Executable tests**：`malformed-inputs.test.ts`（tenhou）、
   `canonical-mapper.test.ts`、`report-schema.test.ts`、`fact-engine.test.ts`
   （拒绝任意 sidecar prose）、`mahjong-soul-protocol-compatibility.test.mjs`；COAC-111
-  追加每个 `mortal_*` 固定错误与 oversize/extra-prose 负例。
-- **Status**：machine-enforced（现役路径）。COAC-111 必须在接入 local runtime 的同一提交
-  机械覆盖新增错误面并保持等级。
+  追加每个 `mortal_*` 固定错误与 oversize/extra-prose 负例；
+  `libriichi-rule-projection.test.ts`、`libriichi-full-game.test.ts` 和
+  `mortal-full-game-review.test.ts` 覆盖未知规则输入不得获得单候选证明或 ready 结果；
+  `real-logs-corpus.test.ts`、原生黄金回归和 `runtime_rules_native_test.py` 覆盖真实完整
+  Tenhou 来源、逐窗口荣和、抢杠荣和及 pass，保留不完整历史负例。
+- **Status**：machine-enforced；local runtime strict schema、artifact identity、lifecycle、
+  oversize/extra-prose 与固定安全错误均由永久测试覆盖。启动握手为 single-flight；timeout、
+  ready 前退出或协议失败会等待 exact child 终止并清空状态，失败后的重试不得伪成功。
+  `close()` 与异步 artifact 验证并发时必须等待该次启动结束，且关闭后不得遗留或延迟启动子进程。
 
 ## INV-007 持久化/可复现分析产物保留版本与来源信息
 
 - **Statement**：任何可复现/可持久化的分析产物（事件流、证据 manifest、验收状态、
   discovery 报告）必须携带 schema 版本、来源/身份与（适用时）内容哈希。local Mortal
   package 必须可恢复 runtime revision/version/artifact SHA-256、checkpoint repository
-  revision/model tag/file SHA-256、protocol 与 adapter version；不得只写 `Mortal`。
+  revision/model tag/file SHA-256、protocol 与 adapter version；runtime identity 必须同时覆盖
+  wrapper、上游 `model.py`、`engine.py` 与本机构建 native module 的 SHA-256，不得只写
+  `Mortal` 或仅绑定 wrapper/checkpoint。
 - **Why**：版本与来源是追溯与"旧产物可否重放"的判据；缺失则审计无法定位到产生它的
   代码版本。
 - **Owner / boundary**：各产物 schema 的 `schemaVersion` / `sourceKind` / `gameId` /
@@ -179,14 +230,25 @@ Model/report evidence provider（模型/报告证据来源）
   component versions 与 evidence provenance 延续该约束。
 - **Enforcement**：schema 字面量版本（如 `canonical-riichi-events/v2`、
   `decision-snapshot/v2`）与 manifest 校验（evidence manifest 含 sha256 与
-  schemaVersion）；协议 bundle manifest 逐字段校验。
+  schemaVersion）；协议 bundle manifest 逐字段校验。managed runtime 将已哈希的
+  `nativeModulePath` 显式传入 wrapper；wrapper 把其父目录置于受控 import 首位并核对
+  `libriichi.__file__` 的真实路径，清空或污染继承 `PYTHONPATH` 均不能改变实际加载文件。
 - **Executable tests**：`mortal-coverage-evidence-manifest.test.ts`、
   `mortal-coverage-registry.test.ts`、`protocol-bundle.test.ts`、
   `update-packaged-fact-engine-manifest.test.mjs`、
-  `structured-analysis-package.test.ts`、`structured-analysis-package-golden.test.ts`；
-  COAC-111 必须增加声明/payload/hash 任一侧篡改的 local-runtime provenance 负例。
-- **Status**：machine-enforced（现役 `StructuredAnalysisPackage` identity）。local runtime
-  provenance schema/validator 是 COAC-111 的前置交付，不能以 declaration-only 进入 package。
+  `structured-analysis-package.test.ts`、`scripts/native-whole-game-golden.test.mjs`；
+  COAC-111 必须增加声明/payload/hash 任一侧篡改，以及 wrapper/model/engine/native 任一
+  artifact 被替换的 local-runtime provenance 负例。
+- **Windows checkout 回归条件**：入库 wrapper 与两份 Tenhou XML fixture 的 SHA-256
+  必须等于新 `core.autocrlf=true` worktree 的实际字节；准备 receipt 固定 native hash，
+  新建 service 不得从当前 native bytes 重新建立可信身份。
+- **真实 spike receipt 的提交身份**：`scripts/local-mortal-production-spike.mjs`
+  从脚本所在 Git 仓库读取完整 HEAD SHA；tracked working tree 必须干净，且传入的
+  `GITHUB_SHA`（若有）必须严格相同。取不到 HEAD、存在 tracked 改动或外部 SHA
+  不符时验收失败，不得把 `working-tree` 或未核对的环境变量写成 commit。
+  `npx vitest run scripts/local-mortal-spike-proof.test.mjs` 固化未设置及错误设置 SHA 的回归。
+- **Status**：machine-enforced；`StructuredAnalysisPackage` validator 交叉核对 local runtime
+  declaration、evaluation producer identity 与 artifact/semantic hashes。
 
 ## INV-008 启发式/估算永不进入确定性偏好
 
@@ -253,11 +315,20 @@ Model/report evidence provider（模型/报告证据来源）
   当前 report overlay，并把 ref resolution 限于 selector-owned、same-decision context；
   无 active report 时只暴露 selector-scoped base evidence，不伪造报告或重算 selection；
   任一不匹配均 fail closed。
+  同一次磁盘读回构建的 context 在 main 内深度冻结后可供概览/详情复用；不进入
+  SQLite 或 IPC。重新打开、报告生成/切换仍从实际存储字节重验并构建新 context，
+  不以 packageId/reportId 命中替代内容校验。
+  完整图的冗余 canonical-event 直连只可由同节点已引用的 request → source 路径替代；
+  全部图节点、原始 provenance 和逐节点有向可达证据集保持，不能以压缩隐藏坏引用。
 - **Executable tests**：`grounding-validator.test.ts` 覆盖同步伪造
   CoachJudgment/CoachInference nodeId + payload self-id、Explanation 内容与 payload
   self-id 篡改、`verbalizes` / `opposes` / `qualifies` endpoint-kind 篡改，以及合法
   endpoint kind 的跨 decision 边；`review-read-back.test.ts` 覆盖 package/report fail-closed、
   无报告 evidence read-back、current-report ref resolution 与 A→B→A 隔离；
+  `review-session-persistence.test.ts` 覆盖深度不可变、每次读回的新 context、调用方
+  输入不被冻结及再次读回拒绝损坏存储；
+  `context-graph-projector.test.ts` 检查完整证据闭包、无替代路径/无关请求保留直连、
+  重叠请求、坏引用拒绝及原始输入不变；
   `check-architecture.test.mjs` 覆盖 presenter
   只允许 read-back seam、拒绝 overlay/generation internals。
 - **Status**：machine-enforced（contracts/reasoning、COAC-3 provider/IPC 与 COAC-4
@@ -273,13 +344,16 @@ Model/report evidence provider（模型/报告证据来源）
   truth、崩溃后错误报告和秘密/来源材料泄漏。
 - **Owner / boundary**：M7-B spec；`review-session-repository.ts`、
   `privileged-raw-cache.ts` 与 M7-A strict DTO/IPC/preload 边界。
-- **Enforcement**：SQLite v1 逻辑 schema（storage v2 追加 receipt package binding）的唯一/复合 FK、immutable triggers、hash/schema/domain
+- **Enforcement**：SQLite v1 逻辑 schema（storage v2 追加 receipt package binding，v3 追加完整 package 字节分块）的唯一/复合 FK、immutable triggers、hash/schema/domain
   validators、索引列与正文领域 identity 一致性、生成开始时的 durable session/revision CAS、
   intent/receipt；cache 命中重新验证受控路径/非链接/长度/hash，
   无 TTL/LRU，显式清理以 `deleting` 状态幂等恢复；renderer 只解析 strict DTO。
 - **Executable tests**：`review-session-persistence.test.ts` 覆盖离线重开、duplicate
   reportId/ref 寻址、A→B→A、提交一后零 provider 恢复、激活前完整校验、operation 幂等、
   新版本拒绝及 cache dedup/hit/tamper/no-auto-eviction/clear/junction 越界；
+  `package-artifact-storage.test.ts` 检查跨块 JSON 无损、缺块/乱序/篡改/混合表示拒绝、
+  完整哈希和中途写入回滚；repository suite 检查不做整包字符串化、v2 迁移不改旧字节、
+  迁移失败回滚及 session/块原子提交与删除；
   `electron-persistence-smoke.cjs` 在发行 Electron runtime 覆盖 binding/PRAGMA、子进程异常
   终止与 WAL/intent 恢复、complete/evidence-only、不同内容 A→B→A、migration rollback
   及同一真实脱敏 fixture 的生产分析→stub 生成→Overview/List/Detail→独立进程零请求重开；

@@ -53,7 +53,7 @@ export const COACH_REASONING_DRAFT_SCHEMA_VERSION =
   "coach-reasoning-draft/v1" as const;
 
 /** The frozen coach review prompt template version (spec "prompt builder"). */
-export const COACH_REVIEW_PROMPT_VERSION = "coach-review-prompt/v1" as const;
+export const COACH_REVIEW_PROMPT_VERSION = "coach-review-prompt/v2" as const;
 
 // ---------------------------------------------------------------------------
 // Reasoning-overlay payload schemas (spec "CoachInference / CoachJudgment /
@@ -480,7 +480,7 @@ export type ExplanationStatus = z.infer<typeof ExplanationStatusSchema>;
 export const ReviewGenerationSchema = z.object({
   providerId: z.string().min(1),
   model: z.string().min(1),
-  promptVersion: z.literal(COACH_REVIEW_PROMPT_VERSION),
+  promptVersion: z.enum(["coach-review-prompt/v1", COACH_REVIEW_PROMPT_VERSION]),
   draftSchemaVersion: z.literal(COACH_REASONING_DRAFT_SCHEMA_VERSION),
   /** Reasoning engine (generator) version. */
   generatorVersion: z.string().min(1),

@@ -19,11 +19,11 @@
  * adapter's private cache and never enter this module's outputs.
  */
 import { createHash } from "node:crypto";
-import type { CanonicalEventStream } from "@riichi-coach/contracts";
+import type { CanonicalEventStream, LibriichiRuleIdentity, LibriichiRulePort } from "@riichi-coach/contracts";
 import type { MortalFetchedReport } from "@riichi-coach/mortal-source";
 import type { HandStructureFactEnginePort } from "../fact-engine/port.js";
-import type { ReplayedDecision } from "../replay/stream-replayer.js";
 import { runMortalFullGameReview } from "./mortal-full-game-review.js";
+import { queryCanonicalLibriichiRules } from "./libriichi-rule-collection.js";
 import {
   MORTAL_COVERAGE_BRANCHES,
   createMortalCoverageRegistry,
@@ -53,11 +53,6 @@ export interface AcceptanceLocalSource {
   readonly opaqueGameId: string;
   readonly selfActor: number;
   readonly canonicalStream: CanonicalEventStream;
-  readonly replayedDecisions: readonly ReplayedDecision[];
-  // M6-A4.2: the response surface partition (replayCanonicalResponseWindows).
-  // Optional so pre-A4.2 adapters keep working; the review treats an absent
-  // response surface as an empty partition.
-  readonly replayedResponseWindows?: readonly ReplayedDecision[];
 }
 
 /** The §23-safe outputs of one accepted sample (§8: no timestamps — the
@@ -123,6 +118,7 @@ export async function runMortalAcceptanceEvidence(input: {
   readonly local: AcceptanceLocalSource;
   readonly report: MortalFetchedReport;
   readonly engine: HandStructureFactEnginePort;
+  readonly rules: { readonly identity: LibriichiRuleIdentity; readonly port: LibriichiRulePort };
   readonly evidenceVersion: string;
   readonly now?: () => number;
 }): Promise<AcceptanceEvidenceRunResult> {
@@ -142,18 +138,24 @@ export async function runMortalAcceptanceEvidence(input: {
     throw error;
   }
 
+  // Census from the independent canonical source. Caller-owned window lists
+  // or report rows cannot suppress an unchosen action or a response boundary.
+  let collected: Awaited<ReturnType<typeof queryCanonicalLibriichiRules>>;
+  try {
+    collected = await queryCanonicalLibriichiRules({ stream: input.local.canonicalStream, ...input.rules });
+  } catch {
+    return { status: "review_failed", code: "mortal_full_game_input_invalid" };
+  }
+
   // Acceptance mode: this core is the evidence PRODUCER, so the coverage
   // gate is wide open HERE ONLY. Production consumers lift from the §16
   // evidence manifest (createMortalCoverageRegistryFromManifest), never
   // from this call.
   const review = await runMortalFullGameReview({
     stream: input.local.canonicalStream,
-    decisions: input.local.replayedDecisions,
-    // M6-A4.2: the response surface partition feeds the same review so
-    // response rows bind + conserve through the shared pipeline.
-    ...(input.local.replayedResponseWindows === undefined
-      ? {}
-      : { responseDecisions: input.local.replayedResponseWindows }),
+    decisions: collected.decisions,
+    responseDecisions: collected.responseDecisions,
+    libriichi: { identity: input.rules.identity, results: collected.rules },
     report: input.report,
     engine: input.engine,
     ...(input.now !== undefined ? { now: input.now } : {}),
@@ -165,10 +167,8 @@ export async function runMortalAcceptanceEvidence(input: {
 
   const evidence = extractAcceptedBranchEvidence({
     stream: input.local.canonicalStream,
-    decisions: input.local.replayedDecisions,
-    ...(input.local.replayedResponseWindows === undefined
-      ? {}
-      : { responseDecisions: input.local.replayedResponseWindows }),
+    decisions: collected.decisions,
+    responseDecisions: collected.responseDecisions,
     report: input.report,
     review,
   });

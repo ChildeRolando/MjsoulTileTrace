@@ -4,7 +4,7 @@
   "type": "module",
   "workspaces": ["packages/*"],
   "scripts": {
-    "build": "npm run build -w @riichi-coach/contracts && npm run build -w @riichi-coach/mahjong-soul-source && npm run build -w @riichi-coach/tenhou-source && npm run build -w @riichi-coach/mortal-source && npm run build -w @riichi-coach/reasoning && npm run build -w @riichi-coach/desktop",
+    "build": "npm run build -w @riichi-coach/contracts && npm run build -w @riichi-coach/mahjong-soul-source && npm run build -w @riichi-coach/tenhou-source && npm run build -w @riichi-coach/mortal-source && npm run build -w @riichi-coach/mortal-runtime && npm run build -w @riichi-coach/reasoning && npm run build -w @riichi-coach/desktop",
     "test": "npm run build && vitest run && npm run test:mahjong-soul-protocol-updater && npm run test:mahjong-soul-protocol-compatibility && npm run test:generate-mahjong-soul-real-fixtures && npm run test:review-loop-protocol && npm run check:architecture",
     "test:mahjong-soul-protocol-updater": "node --test scripts/update-mahjong-soul-protocol.test.mjs",
     "test:mahjong-soul-protocol-compatibility": "node --test scripts/mahjong-soul-protocol-compatibility.test.mjs",
@@ -15,10 +15,12 @@
     "test:golden": "npm run build && vitest run packages/reasoning/tests/golden-vertical-slice.test.ts",
     "test:desktop": "vitest run packages/desktop/tests",
     "test:electron-persistence": "npm run build -w @riichi-coach/desktop && electron packages/desktop/tests/electron-persistence-smoke.cjs",
+    "test:package-persistence-scale": "node packages/desktop/tests/package-persistence-scale.mjs",
     "build:fact-engine": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build-fact-engine.ps1",
     "package:fact-engine": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-fact-engine.ps1",
     "generate:factor-regression-golden": "node scripts/generate-factor-regression-golden.mjs",
     "test:fact-engine": "cd tools/mahjong-facts && go test ./...",
+    "test:fact-engine-reproducibility": "node --test scripts/fact-engine-reproducibility.mjs",
     "test:package-import": "npm run build && node --test smoke/package-import-smoke.mjs",
     "coach": "npm run build && node bin/riichi-coach.mjs",
     "coach:demo": "npm run coach",
@@ -28,7 +30,9 @@
     "desktop:diagnose-mahjong-soul-capture-record": "npm run build && electron packages/desktop/dist/electron-entry.js --diagnose-mahjong-soul-capture-record",
     "desktop:diagnose-mortal-decision": "npm run build && electron packages/desktop/dist/electron-entry.js --diagnose-mortal-decision",
     "desktop:diagnose-mortal-full-game": "npm run build && electron packages/desktop/dist/electron-entry.js --diagnose-mortal-full-game",
-    "typecheck": "tsc --noEmit -p packages/contracts/tsconfig.json && tsc --noEmit -p packages/mahjong-soul-source/tsconfig.json && tsc --noEmit -p packages/tenhou-source/tsconfig.json && tsc --noEmit -p packages/mortal-source/tsconfig.json && tsc --noEmit -p packages/reasoning/tsconfig.json && tsc --noEmit -p packages/desktop/tsconfig.json"
+    "prepare:local-mortal-spike": "node scripts/prepare-local-mortal-spike.mjs",
+    "test:local-mortal-production-spike": "node --max-old-space-size=8192 scripts/local-mortal-production-spike.mjs",
+    "typecheck": "tsc --noEmit -p packages/contracts/tsconfig.json && tsc --noEmit -p packages/mahjong-soul-source/tsconfig.json && tsc --noEmit -p packages/tenhou-source/tsconfig.json && tsc --noEmit -p packages/mortal-source/tsconfig.json && tsc --noEmit -p packages/mortal-runtime/tsconfig.json && tsc --noEmit -p packages/reasoning/tsconfig.json && tsc --noEmit -p packages/desktop/tsconfig.json"
   },
   "devDependencies": {
     "@types/node": "22.15.30",

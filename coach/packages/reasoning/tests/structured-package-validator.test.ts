@@ -86,6 +86,76 @@ async function buildIncompleteFixturePackage(): Promise<StructuredAnalysisPackag
   });
 }
 
+describe("automatic report pair integrity", () => {
+  it("accepts scope object key reordering without changing artifact identity or array order", async () => {
+    const pkg = clonePackage(await buildFixturePackage());
+    const before = { id: pkg.packageId, hash: pkg.semanticContentHash };
+    const decision = readyDecisionOf(pkg);
+    const scope = decision.automaticComparisonScope!;
+    decision.automaticComparisonScope = { actionRefs: scope.actionRefs, reason: scope.reason, policyVersion: scope.policyVersion };
+    expect(() => validateStructuredAnalysisPackage(pkg)).not.toThrow();
+    expect({ id: pkg.packageId, hash: pkg.semanticContentHash }).toEqual(before);
+  });
+
+  it("retains the versioned calculation pair through the full-game package and JSON roundtrip", async () => {
+    const pkg = await buildFixturePackage();
+    const decision = readyDecisionOf(pkg);
+    expect(pkg.analysisPolicy).toHaveProperty("automaticComparisonPolicyVersion", "automatic-comparison/top-pair-v1");
+    expect(decision.automaticComparisonScope?.policyVersion).toBe("automatic-comparison/top-pair-v1");
+    expect(decision.candidateFactorLedgers.map(item => item.actionRef).sort())
+      .toEqual([...decision.automaticComparisonScope!.actionRefs].sort());
+    expect(() => validateStructuredAnalysisPackage(clonePackage(pkg))).not.toThrow();
+  });
+
+  it.each(["reverse", "reason", "duplicate", "version"])("rejects a forged %s pair descriptor", async kind => {
+    const pkg = clonePackage(await buildFixturePackage());
+    const scope = readyDecisionOf(pkg).automaticComparisonScope!;
+    if (kind === "reverse") scope.actionRefs.reverse();
+    if (kind === "reason") scope.reason = scope.reason === "model_agreement" ? "model_disagreement" : "model_agreement";
+    if (kind === "duplicate") scope.actionRefs[1] = scope.actionRefs[0];
+    if (kind === "version") Object.assign(scope, { policyVersion: "unknown-policy" });
+    expect(() => validateStructuredAnalysisPackage(pkg))
+      .toThrow(/m6c_validator_(automatic_comparison_scope|schema)/);
+  });
+
+  it("rejects an omitted selected ledger even though all model scores are present", async () => {
+    const pkg = clonePackage(await buildFixturePackage());
+    const decision = readyDecisionOf(pkg);
+    decision.candidateFactorLedgers.pop();
+    expect(decision.modelEvaluation.candidates.length).toBeGreaterThanOrEqual(2);
+    expect(() => validateStructuredAnalysisPackage(pkg)).toThrow(/m6c_validator_ledger_candidate_missing/);
+  });
+});
+
+describe("R14 JSON artifact integrity", () => {
+  it.each(["hidden-toJSON", "getter", "hidden-property", "symbol"])(
+    "rejects %s on evidence without invoking executable properties", async (kind) => {
+      const pkg = await buildFixturePackage();
+      const record = Object.values(pkg.evidenceRegistry).find((item) => item.kind === "canonical_event")!;
+      const payload = record.payload as object;
+      let invoked = false;
+      if (kind === "hidden-toJSON") Object.defineProperty(payload, "toJSON", {
+        value: () => { invoked = true; return null; }, enumerable: false,
+      });
+      if (kind === "getter") Object.defineProperty(payload, "synthetic", {
+        get: () => { invoked = true; return "changed"; }, enumerable: true,
+      });
+      if (kind === "hidden-property") Object.defineProperty(payload, "synthetic", {
+        value: "not persisted", enumerable: false,
+      });
+      if (kind === "symbol") Object.defineProperty(payload, Symbol("not persisted"), { value: 1 });
+      expect(() => validateStructuredAnalysisPackage(pkg)).toThrow(/json_roundtrip/);
+      expect(invoked).toBe(false);
+    },
+  );
+  it("accepts frozen plain JSON artifacts and their persisted roundtrip", async () => {
+    const pkg = await buildFixturePackage();
+    Object.freeze(pkg);
+    expect(() => validateStructuredAnalysisPackage(pkg)).not.toThrow();
+    expect(() => validateStructuredAnalysisPackage(JSON.parse(JSON.stringify(pkg)))).not.toThrow();
+  });
+});
+
 /** Deep clone (packages are plain JSON) so tampering never touches the
  *  original builder output. */
 function clonePackage<T>(pkg: T): T {
@@ -414,7 +484,7 @@ describe("M6-C Slice 3 acceptance repair: ready-decision reference integrity", (
     (evaluation.candidates[1]! as { actionRef: string }).actionRef =
       "action:v1:foreign-score";
     expect(() => validateStructuredAnalysisPackage(tampered))
-      .toThrow(/m6c_validator_evaluation_action_ref/);
+      .toThrow("m6c_validator_rule_evidence:scored_actions");
   });
 
   it("rejects an actualActionRef outside the candidate universe", async () => {
@@ -438,7 +508,7 @@ describe("M6-C Slice 3 acceptance repair: ready-decision reference integrity", (
     evaluation.scoredActualModelActionRef = evaluation.candidates[1]!.actionRef;
     evaluation.errorGap = 60;
     expect(() => validateStructuredAnalysisPackage(tampered))
-      .toThrow(/m6c_validator_evaluation_action_ref/);
+      .toThrow("m6c_validator_rule_evidence:scored_actual");
   });
 
   it("rejects a DeterministicPreference ref outside the candidate universe", async () => {

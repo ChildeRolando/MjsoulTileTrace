@@ -39,6 +39,31 @@ function lobby(response: Readonly<Record<string, unknown>>): MahjongSoulLobbySes
 }
 
 describe("trusted Mahjong Soul full record fetch", () => {
+  test("retains same-response standard rule evidence bound to the inner bytes", async () => {
+    const result = await fetchMahjongSoulRecord({
+      session: lobby({ data: wrappedBytes, head: { uuid, standard_rule: 2,
+        config: { category: 2, mode: { mode: 2 }, meta: { mode_id: 12 } },
+        accounts: [{ nickname: "must-not-leak", account_id: 99, seat: 0 }] } }),
+      bundle, recordId: uuid, clientVersionString: "web-0.11.252.w",
+      fetchImpl: async () => { throw new Error("unused"); },
+    });
+    expect(result).toMatchObject({ ruleEvidence: {
+      schemaVersion: "mahjong-soul-record-rules/v1", recordId: uuid, recordSha256: result.sha256,
+      standardRule: 2, category: 2, mode: 2, matchModeId: 12, hasCustomRules: false,
+      configurationSha256: expect.stringMatching(/^sha256:[a-f0-9]{64}$/u),
+    } });
+    expect(JSON.stringify(result)).not.toContain("must-not-leak");
+  });
+
+  test("rejects response rule metadata belonging to a different record", async () => {
+    await expect(fetchMahjongSoulRecord({
+      session: lobby({ data: wrappedBytes, head: { uuid: uuid.replace(/1$/u, "2"), standard_rule: 2,
+        config: { category: 2, mode: { mode: 2 }, meta: { mode_id: 12 } } } }),
+      bundle, recordId: uuid, clientVersionString: "web-0.11.252.w",
+      fetchImpl: async () => { throw new Error("unused"); },
+    })).rejects.toThrow("mahjong_soul_record_identity_mismatch");
+  });
+
   test("unwraps the transport wrapper and binds the inner digest", async () => {
     const result = await fetchMahjongSoulRecord({
       session: lobby({ error: null, data: wrappedBytes, data_url: "" }), bundle, recordId: uuid,

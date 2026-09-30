@@ -5,7 +5,6 @@ import { DatabaseSync } from "node:sqlite";
 import {
   ReviewReportSchema,
   ReviewSelectionResultSchema,
-  StructuredAnalysisPackageSchema,
   type ReviewReport,
   type ReviewSelectionResult,
   type StructuredAnalysisPackage,
@@ -13,9 +12,12 @@ import {
 import {
   composeReviewReadBackContext,
   validateStructuredAnalysisPackage,
+  type ReviewReadBackContext,
 } from "@riichi-coach/reasoning";
+import { describePackageArtifact, insertPackageChunks, readPackageArtifact } from "./package-artifact-storage.js";
+import { freezeReviewReadBack } from "./freeze-review-read-back.js";
 
-const LIBRARY_FORMAT_VERSION = 2;
+const LIBRARY_FORMAT_VERSION = 3;
 
 type SessionRow = {
   session_id: string;
@@ -33,7 +35,7 @@ type ArtifactRow = {
   content_hash: string;
   schema_version: string;
 };
-type PackageArtifactRow = ArtifactRow & { package_id: string };
+type PackageArtifactRow = ArtifactRow & { package_ref_id: string; package_id: string };
 type ReportArtifactRow = ArtifactRow & { report_id: string };
 
 type IntentRow = {
@@ -59,6 +61,8 @@ export type PersistedReviewState = Readonly<{
   selection: ReviewSelectionResult;
   activeReportRefId: string | null;
   activeReport: ReviewReport | null;
+  /** Main-only, freshly validated from this read's actual disk bytes. Never persisted or sent over IPC. */
+  readBack: ReviewReadBackContext;
 }>;
 
 export type ReviewSessionSummary = Readonly<{
@@ -133,6 +137,24 @@ function initialize(db: DatabaseSync, now: string): void {
       ALTER TABLE library_meta_v2 RENAME TO library_meta;
       PRAGMA user_version=2;`);
   });
+  if (version < 3) transaction(db, () => {
+    const meta = db.prepare("SELECT format_version FROM library_meta WHERE singleton=1").get();
+    if (meta?.format_version !== 2) throw new Error("library_version_mismatch");
+    db.exec(`
+      CREATE TABLE analysis_package_chunks(
+        package_ref_id TEXT NOT NULL REFERENCES analysis_packages(package_ref_id) ON DELETE CASCADE,
+        ordinal INTEGER NOT NULL CHECK(ordinal>=0),
+        payload BLOB NOT NULL CHECK(length(payload)>0 AND length(payload)<=65536),
+        PRIMARY KEY(package_ref_id,ordinal)
+      );
+      CREATE TRIGGER immutable_package_chunk BEFORE UPDATE ON analysis_package_chunks BEGIN SELECT RAISE(ABORT,'immutable_artifact'); END;
+      CREATE TABLE library_meta_v3(singleton INTEGER PRIMARY KEY CHECK(singleton=1), format_version INTEGER NOT NULL CHECK(format_version=3), created_at TEXT NOT NULL);
+      INSERT INTO library_meta_v3 SELECT singleton,3,created_at FROM library_meta;
+      DROP TABLE library_meta;
+      ALTER TABLE library_meta_v3 RENAME TO library_meta;
+      PRAGMA user_version=3;
+    `);
+  });
   const meta = db.prepare("SELECT format_version FROM library_meta WHERE singleton=1").get() as { format_version?: number } | undefined;
   if (meta?.format_version !== LIBRARY_FORMAT_VERSION) throw new Error("library_version_mismatch");
   const integrity = db.prepare("PRAGMA quick_check").get() as { quick_check?: string };
@@ -154,16 +176,19 @@ export function createReviewSessionRepository(input: {
   catch (error) { db.close(); throw error; }
 
   const packageRowForSession = (sessionId: string) => db.prepare(`
-    SELECT p.package_id,p.payload,p.content_hash,p.schema_version FROM analysis_packages p
+    SELECT p.package_ref_id,p.package_id,p.payload,p.content_hash,p.schema_version FROM analysis_packages p
     JOIN review_sessions s ON s.package_ref_id=p.package_ref_id WHERE s.session_id=?
   `).get(sessionId) as PackageArtifactRow | undefined;
 
   const read = (session: SessionRow): PersistedReviewState => {
     const packageRow = packageRowForSession(session.session_id);
     if (packageRow === undefined) throw new Error("review_unavailable");
-    const packageRaw = assertHash(packageRow, "package_hash_mismatch");
+    const packageRaw = readPackageArtifact(db, packageRow);
     validateStructuredAnalysisPackage(packageRaw);
-    const analysisPackage = StructuredAnalysisPackageSchema.parse(packageRaw);
+    // The validator checks the complete schema and rejects normalization. This
+    // disk-read object is already owned here; another aggregate clone adds no
+    // validation or isolation and can exceed the heap for real whole games.
+    const analysisPackage = packageRaw;
     if (analysisPackage.packageId !== packageRow.package_id) throw new Error("package_identity_mismatch");
     if (analysisPackage.componentVersions.packageSchema !== packageRow.schema_version) throw new Error("package_version_mismatch");
     if (hash(session.selection_payload) !== session.selection_hash) throw new Error("selection_hash_mismatch");
@@ -180,14 +205,15 @@ export function createReviewSessionRepository(input: {
       if (activeReport.reportId !== reportRow.report_id) throw new Error("report_identity_mismatch");
       if (activeReport.schemaVersion !== reportRow.schema_version) throw new Error("report_version_mismatch");
     }
-    composeReviewReadBackContext(analysisPackage, selection, activeReport);
+    const readBack = freezeReviewReadBack(composeReviewReadBackContext(analysisPackage, selection, activeReport));
     return Object.freeze({
       sessionId: session.session_id,
       revision: session.revision,
       analysisPackage,
-      selection,
+      selection: readBack.selection,
       activeReportRefId: session.active_report_ref_id,
       activeReport,
+      readBack,
     });
   };
 
@@ -214,9 +240,9 @@ export function createReviewSessionRepository(input: {
     ) as ReportArtifactRow | undefined;
     if (packageRow === undefined || target === undefined) throw new Error("activation_unavailable");
 
-    const packageRaw = assertHash(packageRow, "package_hash_mismatch");
+    const packageRaw = readPackageArtifact(db, packageRow);
     validateStructuredAnalysisPackage(packageRaw);
-    const analysisPackage = StructuredAnalysisPackageSchema.parse(packageRaw);
+    const analysisPackage = packageRaw;
     if (analysisPackage.packageId !== packageRow.package_id) throw new Error("package_identity_mismatch");
     if (analysisPackage.componentVersions.packageSchema !== packageRow.schema_version) throw new Error("package_version_mismatch");
     if (hash(session.selection_payload) !== session.selection_hash) throw new Error("selection_hash_mismatch");
@@ -257,15 +283,18 @@ export function createReviewSessionRepository(input: {
   return Object.freeze({
     saveSession(analysisPackageInput: unknown, selectionInput: unknown): PersistedReviewState {
       validateStructuredAnalysisPackage(analysisPackageInput);
-      const analysisPackage = StructuredAnalysisPackageSchema.parse(analysisPackageInput);
+      // Validation and serialization are synchronous and never mutate/freeze
+      // the caller's package. The returned state owns a fresh disk read.
+      const analysisPackage = analysisPackageInput;
       const selection = ReviewSelectionResultSchema.parse(selectionInput);
       composeReviewReadBackContext(analysisPackage, selection, null);
-      const packagePayload = bytes(analysisPackage);
+      const packageArtifact = describePackageArtifact(analysisPackage);
       const selectionPayload = bytes(selection);
       const existing = sessionByPackageId(analysisPackage.packageId);
       if (existing !== undefined) {
         const existingPackage = packageRowForSession(existing.session_id);
-        if (existingPackage === undefined || existingPackage.content_hash !== hash(packagePayload)
+        if (existingPackage === undefined
+          || describePackageArtifact(readPackageArtifact(db, existingPackage)).contentHash !== packageArtifact.contentHash
           || existing.selection_hash !== hash(selectionPayload)) throw new Error("identity_conflict");
         return read(existing);
       }
@@ -273,9 +302,10 @@ export function createReviewSessionRepository(input: {
       const sessionId = createId();
       const timestamp = now();
       transaction(db, () => {
-        const byId = db.prepare("SELECT content_hash FROM analysis_packages WHERE package_id=?").get(analysisPackage.packageId) as { content_hash: string } | undefined;
-        if (byId !== undefined && byId.content_hash !== hash(packagePayload)) throw new Error("identity_conflict");
-        db.prepare("INSERT OR IGNORE INTO analysis_packages VALUES(?,?,?,?,?)").run(packageRefId, analysisPackage.packageId, hash(packagePayload), analysisPackage.componentVersions.packageSchema, packagePayload);
+        const byId = db.prepare("SELECT * FROM analysis_packages WHERE package_id=?").get(analysisPackage.packageId) as PackageArtifactRow | undefined;
+        if (byId !== undefined && describePackageArtifact(readPackageArtifact(db, byId)).contentHash !== packageArtifact.contentHash) throw new Error("identity_conflict");
+        const inserted = db.prepare("INSERT OR IGNORE INTO analysis_packages VALUES(?,?,?,?,?)").run(packageRefId, analysisPackage.packageId, packageArtifact.contentHash, analysisPackage.componentVersions.packageSchema, packageArtifact.payload);
+        if (Number(inserted.changes) === 1) insertPackageChunks(db, packageRefId, analysisPackage, packageArtifact);
         db.prepare("INSERT INTO review_sessions VALUES(?,?,?,?,?,?,?)").run(sessionId, packageRefId, hash(selectionPayload), selectionPayload, 0, timestamp, timestamp);
         db.prepare("INSERT INTO session_active_report VALUES(?,?,NULL)").run(sessionId, packageRefId);
       });

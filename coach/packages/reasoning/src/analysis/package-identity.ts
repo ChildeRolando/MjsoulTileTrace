@@ -48,6 +48,7 @@ import type {
   EvidenceRegistry,
   MortalDecisionOutcome,
   RecordAnalysis,
+  LibriichiPackageEvidence,
 } from "@riichi-coach/contracts";
 
 // ---------------------------------------------------------------------------
@@ -74,6 +75,46 @@ export function canonicalJson(value: unknown): string {
 /** SHA-256 hex digest — the second half of the shared identity substrate. */
 export function sha256Hex(value: string): string {
   return createHash("sha256").update(value).digest("hex");
+}
+
+/** Emit the existing canonical byte sequence without a whole-artifact string.
+ * Input must be JSON data (packages are validated before export). A sink may
+ * hash it, buffer bounded chunks, or write it; identity semantics stay shared.
+ */
+export function writeCanonicalJson(value: unknown, write: (part: string) => void): void {
+  if (value === null || typeof value !== "object") {
+    const serialized = JSON.stringify(value);
+    if (serialized === undefined) throw new TypeError("canonical_json_value_invalid");
+    write(serialized);
+    return;
+  }
+  if (Array.isArray(value)) {
+    write("[");
+    value.forEach((entry, index) => {
+      if (index > 0) write(",");
+      writeCanonicalJson(entry, write);
+    });
+    write("]");
+    return;
+  }
+  write("{");
+  Object.entries(value as Record<string, unknown>)
+    .sort(([left], [right]) => left < right ? -1 : left > right ? 1 : 0)
+    .forEach(([key, entry], index) => {
+      if (index > 0) write(",");
+      write(JSON.stringify(key));
+      write(":");
+      writeCanonicalJson(entry, write);
+    });
+  write("}");
+}
+
+/** Hashes the same canonical byte stream as `canonicalJson` without first
+ * materializing a whole-game package as one V8 string. */
+export function sha256CanonicalJson(value: unknown): string {
+  const hash = createHash("sha256");
+  writeCanonicalJson(value, part => { hash.update(part); });
+  return hash.digest("hex");
 }
 
 /** The wall-clock `detailPolicy.frozenAt` value is artifact-creation metadata
@@ -163,11 +204,11 @@ export function derivePackageId(input: {
   componentVersions: ComponentVersions;
   analysisPolicy: AnalysisPolicySnapshot;
 }): string {
-  return `package:sha256:${sha256Hex(canonicalJson({
+  return `package:sha256:${sha256CanonicalJson({
     analysisKey: input.analysisKey,
     componentVersions: input.componentVersions,
     analysisPolicy: input.analysisPolicy,
-  }))}`;
+  })}`;
 }
 
 /** The semantic content hash (CR-5): deterministic content hash over the
@@ -180,13 +221,15 @@ export function deriveSemanticContentHash(input: {
   analysisPolicy: AnalysisPolicySnapshot;
   decisions: readonly DecisionAnalysis[];
   evidenceRegistry: EvidenceRegistry;
+  legalActionEvidence?: LibriichiPackageEvidence | undefined;
 }): string {
-  return `sha256:${sha256Hex(canonicalJson({
+  return `sha256:${sha256CanonicalJson({
     analysisKey: input.analysisKey,
     record: input.record,
     componentVersions: input.componentVersions,
     analysisPolicy: input.analysisPolicy,
     decisions: input.decisions.map(withoutFrozenAt),
     evidenceRegistry: input.evidenceRegistry,
-  }))}`;
+    ...(input.legalActionEvidence === undefined ? {} : {legalActionEvidence:input.legalActionEvidence}),
+  })}`;
 }

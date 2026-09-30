@@ -184,7 +184,7 @@ describe("M6-D2 coach version literals", () => {
     expect(COACH_REASONING_DRAFT_SCHEMA_VERSION).toBe(
       "coach-reasoning-draft/v1",
     );
-    expect(COACH_REVIEW_PROMPT_VERSION).toBe("coach-review-prompt/v1");
+    expect(COACH_REVIEW_PROMPT_VERSION).toBe("coach-review-prompt/v2");
   });
 });
 
@@ -425,7 +425,7 @@ describe("M6-D2 LLM provider port DTOs", () => {
     ).toThrow();
     expect(() =>
       LlmCoachRequestSchema.parse({
-        promptVersion: "coach-review-prompt/v2",
+        promptVersion: "coach-review-prompt/v1",
         draftSchemaVersion: COACH_REASONING_DRAFT_SCHEMA_VERSION,
         prompt: "p",
         temperature: 0,

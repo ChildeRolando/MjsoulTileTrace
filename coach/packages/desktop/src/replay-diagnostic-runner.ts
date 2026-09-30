@@ -6,6 +6,7 @@ import {
   filterAnalyzableRecord,
   type MahjongSoulCanonicalMapperResult,
   type MahjongSoulFetchedRecord,
+  type MahjongSoulRecordRuleEvidence,
   type MahjongSoulLobbySession,
   type MahjongSoulSessionVault,
   type RawRecordListEntry,
@@ -85,6 +86,7 @@ export interface MahjongSoulReplayDiagnosticPorts {
     readonly selfActor: number;
     readonly recordId: string;
     readonly recordBytes: Uint8Array;
+    readonly ruleEvidence?: MahjongSoulRecordRuleEvidence;
   }) => MahjongSoulCanonicalMapperResult;
   readonly replay: (stream: CanonicalEventStream) => ReplayedDecision[];
   readonly serializeAudit: (
@@ -218,6 +220,7 @@ export async function acquireMahjongSoulReplay(
         selfActor: picked.selfSeat,
         recordId: picked.recordId,
         recordBytes: fetched.recordBytes,
+        ...(fetched.ruleEvidence === undefined ? {} : { ruleEvidence: fetched.ruleEvidence }),
       });
       if (mapped.status !== "ready") {
         return acquisitionResult(
@@ -318,6 +321,7 @@ export async function runMahjongSoulReplayDiagnostic(
         selfActor: picked.selfSeat,
         recordId: picked.recordId,
         recordBytes: fetched.recordBytes,
+        ...(fetched.ruleEvidence === undefined ? {} : { ruleEvidence: fetched.ruleEvidence }),
       });
       if (mapped.status !== "ready") {
         return mapped.code === "mahjong_soul_canonical_unsupported_semantics"

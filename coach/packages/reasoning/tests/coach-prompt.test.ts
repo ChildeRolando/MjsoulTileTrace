@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { buildCoachRequest } from "../src/coach-prompt.js";
 
-describe("frozen coach-review-prompt/v1 bytes", () => {
+describe("frozen coach-review-prompt/v2 bytes", () => {
   it("locks the complete template, including zh-CN and model authority, plus canonical slice JSON", () => {
     const request = buildCoachRequest({
       schemaVersion: "graph-context-slice/v1", sliceId: "slice:fixture", packageId: "package:fixture",
@@ -9,11 +9,12 @@ describe("frozen coach-review-prompt/v1 bytes", () => {
     });
     // Independent expected bytes: changes require an explicit golden decision,
     // rather than comparing the builder with another call to itself.
-    expect(request.promptVersion).toBe("coach-review-prompt/v1");
+    expect(request.promptVersion).toBe("coach-review-prompt/v2");
     expect(request.prompt).toBe(`Produce only a JSON object with a decisions array, using the supplied GraphContextSlice.
 Write all user-facing inference statements and explanation text in Simplified Chinese (zh-CN).
 For each selected decision return decisionId and judgment {localId,recommendation,confidence,premiseRefs}.
 recommendation must be a candidate actionRef. confidence is high, medium or low.
+If Decision.automaticComparisonScope exists, recommend only one of its actionRefs and limit teaching comparisons to that pair. Other scored candidates have not been analyzed in this report. Pairwise preference does not prove a best action across all legal choices.
 premiseRefs must reference same-decision evidence nodeIds or local inference ids.
 Copy evidence nodeIds and actionRefs verbatim from the slice; never invent references.
 Optional inferences: [{localId,statement,premiseRefs}]. Optional explanations: [{text,claims,judgmentLocalRef}].

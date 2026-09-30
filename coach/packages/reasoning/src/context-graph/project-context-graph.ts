@@ -46,6 +46,7 @@ import {
   deriveNodeId,
   semanticKeyOfNode,
 } from "./context-graph-ids.js";
+import { canonicalJson, sha256Hex } from "../analysis/package-identity.js";
 
 /** Producer chain names for package-level projection nodes (spec origin/
  *  authority 投影规则: "package schema 生产者" / "factor pipeline 版本"). */
@@ -66,7 +67,7 @@ function makeNode(input: {
   producer: string;
   producerVersion: string;
   payload: unknown;
-  provenance: readonly string[];
+  provenance: string[];
 }): ContextGraphNode {
   return {
     nodeId: deriveNodeId(
@@ -80,7 +81,7 @@ function makeNode(input: {
     producer: input.producer,
     producerVersion: input.producerVersion,
     payload: input.payload,
-    provenance: [...input.provenance],
+    provenance: Object.isFrozen(input.provenance) ? input.provenance : [...input.provenance],
   };
 }
 
@@ -100,6 +101,10 @@ function decisionNodeOf(
       surface: decision.surface,
       roundOrdinal: decision.roundOrdinal,
       normalizedDecisionContext: decision.normalizedDecisionContext,
+      // Product-policy annotation: unlike the replay context above, this is
+      // derived from the contained ModelEvaluation and checked against it.
+      ...(decision.outcome === "analysis_ready" && decision.automaticComparisonScope !== undefined
+        ? { automaticComparisonScope: decision.automaticComparisonScope } : {}),
     },
     provenance: [],
   });
@@ -275,6 +280,12 @@ function evidenceNodeOf(evidenceId: string, record: EvidenceRecord): ContextGrap
 // Edge factories
 // ---------------------------------------------------------------------------
 
+// Millions of structural edges carry these same empty values. They have no
+// per-edge state; immutable sharing preserves every edge and its JSON bytes.
+const EMPTY_EDGE_PROVENANCE: string[] = [];
+Object.freeze(EMPTY_EDGE_PROVENANCE);
+const EMPTY_EDGE_PAYLOAD = Object.freeze({});
+
 function makeEdge(
   edgeKind: ContextGraphEdge["edgeKind"],
   from: string,
@@ -287,17 +298,17 @@ function makeEdge(
     from,
     to,
     origin: "package_projection",
-    provenance: [],
+    provenance: EMPTY_EDGE_PROVENANCE,
     payload,
   };
 }
 
 function containsEdge(from: string, to: string): ContextGraphEdge {
-  return makeEdge("contains", from, to, {});
+  return makeEdge("contains", from, to, EMPTY_EDGE_PAYLOAD);
 }
 
 function appliesToEdge(from: string, to: string): ContextGraphEdge {
-  return makeEdge("applies_to", from, to, {});
+  return makeEdge("applies_to", from, to, EMPTY_EDGE_PAYLOAD);
 }
 
 function comparesEdge(from: string, to: string, side: "left" | "right"): ContextGraphEdge {
@@ -313,11 +324,11 @@ function supportsEdge(
 }
 
 function recommendsEdge(from: string, to: string): ContextGraphEdge {
-  return makeEdge("recommends", from, to, {});
+  return makeEdge("recommends", from, to, EMPTY_EDGE_PAYLOAD);
 }
 
 function derivedFromEdge(from: string, to: string): ContextGraphEdge {
-  return makeEdge("derived_from", from, to, {});
+  return makeEdge("derived_from", from, to, EMPTY_EDGE_PAYLOAD);
 }
 
 // ---------------------------------------------------------------------------
@@ -338,6 +349,34 @@ export function projectContextGraph(
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     throw new Error(`m6d1_projector_schema:${message}`);
+  }
+
+  // The schema parse owns this copy. Complete packages repeat the same source
+  // lists across many facts/differences; share equal immutable lists in this
+  // projection only, without retaining a second list for node.provenance.
+  // The caller's evidence lists are neither frozen nor reused by reference.
+  const evidenceLists = new Map<string, string[]>();
+  const shareEvidence = (refs: string[]): string[] => {
+    const key = sha256Hex(canonicalJson(refs));
+    const existing = evidenceLists.get(key);
+    if (existing !== undefined && existing.length === refs.length
+      && existing.every((ref, index) => ref === refs[index])) return existing;
+    Object.freeze(refs);
+    if (evidenceLists.size >= 4096) evidenceLists.delete(evidenceLists.keys().next().value!);
+    evidenceLists.set(key, refs);
+    return refs;
+  };
+  for (const decision of pkg.decisions) {
+    decision.knownGameFacts.evidenceIds = shareEvidence(decision.knownGameFacts.evidenceIds);
+    if (decision.outcome !== "analysis_ready") continue;
+    for (const ledger of decision.candidateFactorLedgers) {
+      for (const axis of ledger.axes) {
+        for (const fact of axis.facts) fact.evidenceIds = shareEvidence(fact.evidenceIds);
+      }
+    }
+    for (const difference of decision.factorDifferences) {
+      difference.evidenceIds = shareEvidence(difference.evidenceIds);
+    }
   }
 
   const versions = pkg.componentVersions;
@@ -365,6 +404,26 @@ export function projectContextGraph(
     return nodeId;
   };
 
+  /** Keep every provenance field and reachable Evidence node. A canonical
+   * event already reached through a request cited by this same node needs no
+   * second direct edge. Never borrow a request from elsewhere in the package.
+   * Request -> source edges below remain explicit and complete. */
+  const directEvidenceIds = (refs: readonly string[]): readonly string[] => {
+    for (const ref of refs) resolveEvidence(ref);
+    // Preserve the old invalid-graph behavior for duplicate input references;
+    // compaction must not silently repair an invalid provenance list.
+    if (new Set(refs).size !== refs.length) return refs;
+    const covered = new Set<string>();
+    for (const ref of refs) {
+      const record = pkg.evidenceRegistry[ref]!;
+      if (record.kind !== "fact_engine_request") continue;
+      for (const source of record.sourceRefs) {
+        if (pkg.evidenceRegistry[source]?.kind === "canonical_event") covered.add(source);
+      }
+    }
+    return covered.size === 0 ? refs : refs.filter(ref => !covered.has(ref));
+  };
+
   for (const decision of pkg.decisions) {
     const decisionNode = decisionNodeOf(decision, versions);
     nodes.push(decisionNode);
@@ -376,7 +435,7 @@ export function projectContextGraph(
     const factsNode = knownGameFactNodeOf(decision, versions);
     nodes.push(factsNode);
     edges.push(containsEdge(decisionNodeId, factsNode.nodeId));
-    for (const evidenceId of decision.knownGameFacts.evidenceIds) {
+    for (const evidenceId of directEvidenceIds(decision.knownGameFacts.evidenceIds)) {
       edges.push(derivedFromEdge(factsNode.nodeId, resolveEvidence(evidenceId)));
     }
 
@@ -384,7 +443,7 @@ export function projectContextGraph(
     // differences / model evaluation / preference (spec: 仅 analysis_ready
     // 决策投影候选、账本、差异、模型评价与偏好节点).
     if (decision.outcome !== "analysis_ready") continue;
-    projectReadyDecision(decision, versions, decisionNodeId, nodes, edges, resolveEvidence);
+    projectReadyDecision(decision, versions, decisionNodeId, nodes, edges, resolveEvidence, directEvidenceIds);
   }
 
   // fact_engine_request Evidence nodes derive from their canonical source
@@ -428,6 +487,7 @@ function projectReadyDecision(
   nodes: ContextGraphNode[],
   edges: ContextGraphEdge[],
   resolveEvidence: (evidenceId: string) => string,
+  directEvidenceIds: (refs: readonly string[]) => readonly string[],
 ): void {
   const comparison = decision.comparisonSet;
 
@@ -453,7 +513,7 @@ function projectReadyDecision(
   };
 
   // FactorFact nodes: one per ledger axis fact; the fact applies_to its
-  // ledger's CandidateAction; every evidenceId gets a derived_from edge.
+  // ledger's CandidateAction; every evidenceId stays reachable by derived_from.
   for (const ledger of decision.candidateFactorLedgers) {
     const candidateId = resolveCandidate(ledger.actionRef);
     for (const axis of ledger.axes) {
@@ -467,7 +527,7 @@ function projectReadyDecision(
         nodes.push(node);
         edges.push(containsEdge(decisionNodeId, node.nodeId));
         edges.push(appliesToEdge(node.nodeId, candidateId));
-        for (const evidenceId of fact.evidenceIds) {
+        for (const evidenceId of directEvidenceIds(fact.evidenceIds)) {
           edges.push(derivedFromEdge(node.nodeId, resolveEvidence(evidenceId)));
         }
       }
@@ -489,7 +549,7 @@ function projectReadyDecision(
     } else if (difference.direction === "supports_right") {
       edges.push(supportsEdge(node.nodeId, rightId, "supports_right"));
     }
-    for (const evidenceId of difference.evidenceIds) {
+    for (const evidenceId of directEvidenceIds(difference.evidenceIds)) {
       edges.push(derivedFromEdge(node.nodeId, resolveEvidence(evidenceId)));
     }
   }

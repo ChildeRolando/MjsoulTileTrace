@@ -270,7 +270,7 @@ func analyzeThreatRisk(request ThreatRiskRequest) (ThreatRiskResult, error) {
 		RiskScale:            append([]float64(nil), riskScale...),
 		Classifications:      sortedStructuralRisks(classifications),
 		HonorClassifications: honorClassifications(request),
-		LeftNoSujiTile34:     cloneInts(leftNoSuji),
+		LeftNoSujiTile34:     append([]int{}, leftNoSuji...),
 		EvidenceIDs:          append([]string(nil), request.EvidenceIDs...),
 		Limitations: []string{
 			"helper_risk_not_mortal_probability",

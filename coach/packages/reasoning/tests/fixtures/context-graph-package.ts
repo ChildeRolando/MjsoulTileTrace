@@ -2,9 +2,9 @@
  * M6-D1 — shared test packages (spec "Prior art": 投影测试直接消费 M6-C 测试
  * 已证明有效的 package 构造路径 — 不在 M6-D1 重跑 M6-C 的 golden 构建链).
  *
- * The base package is built through the SAME proven M6-C seam as the Slice 2/3
- * tests (`runFixtureReview` + `buildStructuredAnalysisPackage` on the pinned
- * synthetic canonical fixture with the canned fact engine). Derived packages
+ * The base package is saved v1 data produced by the fixed 975d329 M6-C seam.
+ * Reading it exercises backwards compatibility without executing old rules.
+ * Native production assembly is covered by native-whole-game-golden. Derived packages
  * add decisions / change versions on deep clones; every derived package is
  * re-parsed with the frozen `StructuredAnalysisPackageSchema` (the projector's
  * own input contract) before it is returned, so fixtures can never silently
@@ -17,60 +17,24 @@ import {
   type StructuredAnalysisPackage,
 } from "@riichi-coach/contracts";
 import {
-  buildStructuredAnalysisPackage,
-} from "../../src/analysis/structured-analysis-package-builder.js";
-import {
   derivePackageId,
   deriveSemanticContentHash,
 } from "../../src/analysis/package-identity.js";
-import {
-  componentVersions,
-  entryFor,
-  FROZEN_NOW,
-  fixtureSetup,
-  runFixtureReview,
-} from "./structured-review.js";
+import { readLegacyPackage } from "./legacy-package.js";
 
 function clonePackage(pkg: StructuredAnalysisPackage): StructuredAnalysisPackage {
   return JSON.parse(JSON.stringify(pkg)) as StructuredAnalysisPackage;
 }
 
-/** One analysis_ready decision over the pinned canonical fixture (the M6-C
- *  Slice 2/3 positive fixture, built through the real whole-game review seam).
- */
+/** One saved analysis_ready decision from the former M6-C producer. */
 export async function buildSingleDecisionPackage(): Promise<StructuredAnalysisPackage> {
-  const { stream, decisions } = fixtureSetup();
-  const review = await runFixtureReview(stream, decisions, [entryFor(decisions[0]!)]);
-  const retained = review.retainedAnalyses[0]!;
-  return buildStructuredAnalysisPackage({
-    review,
-    stream,
-    decisions,
-    componentVersions,
-    frozenPolicySnapshot: retained.modelEvaluation.detailPolicy,
-    now: () => FROZEN_NOW,
-  });
+  return readLegacyPackage();
 }
 
 /** A no_mortal_entry-only package (record.status integrity_failed; CR-6 still
  *  schema-valid). */
 export async function buildFailedDecisionPackage(): Promise<StructuredAnalysisPackage> {
-  const { stream, decisions } = fixtureSetup();
-  const review = await runFixtureReview(stream, decisions, []);
-  return buildStructuredAnalysisPackage({
-    review,
-    stream,
-    decisions,
-    componentVersions,
-    frozenPolicySnapshot: {
-      threshold: 10,
-      unit: "model_selection_score_points",
-      boundary: "greater_than_or_equal_is_detailed",
-      policyVersion: "mortal-review/v1",
-      frozenAt: new Date(FROZEN_NOW).toISOString(),
-    },
-    now: () => FROZEN_NOW,
-  });
+  return readLegacyPackage("missing");
 }
 
 /** A response-surface no_mortal_entry decision sharing the ready decision's

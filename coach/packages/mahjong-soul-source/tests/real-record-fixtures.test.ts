@@ -34,6 +34,35 @@ function wireBytes(fixture: RealRecordFixture): Uint8Array {
 }
 
 describe("sanitized real stored-record fixtures", () => {
+  it.each([0,1,2,3])("real wall counters agree across 9 rounds and both kans for actor %i",async selfActor=>{
+    const bundle=await loadMahjongSoulProtocolBundle(bundleRoot);
+    const fixture=loadFixture("real-record-wire");
+    const inner=unwrapGameDetailRecords(bundle,wireBytes(fixture));
+    const actions=decodeStoredRecordActions(bundle,inner);
+    let left=0; let draws=0;
+    for(const action of actions) {
+      if(action.name==="RecordNewRound") {
+        expect(action.data.left_tile_count).toBe(69);
+        const dealer=action.data.ju ?? 0;
+        expect([0,1,2,3].map(actor=>(action.data[`tiles${actor}`] as string[]).length)).toEqual([0,1,2,3].map(actor=>actor===dealer?14:13));
+        left=69;
+      } else if(action.name==="RecordDealTile") {
+        left-=1; draws+=1;
+        expect(action.data.left_tile_count ?? 0).toBe(left);
+      }
+    }
+    expect(draws).toBe(466);
+    const result=mapMahjongSoulRecord({gameId:"majsoul:real-wall",selfActor,recordId:fixture.recordId,recordBytes:inner,bundle});
+    expect(result.status).toBe("ready");
+    if(result.status!=="ready") throw new Error("fixture");
+    expect(result.stream.completeness.remainingDraws).toBe("complete");
+    expect(result.stream.events.filter(event=>event.type==="round_started").map(event=>event.remainingDraws)).toEqual(Array(9).fill(70));
+    // Old sanitization removed the extra kan indicators. Wall evidence does
+    // not promote unrelated source evidence to complete.
+    expect(result.stream.completeness.doraIndicators).toBe("partial");
+    expect(result.stream.ruleSet.redFives).toEqual({man:"unknown",pin:"unknown",sou:"unknown"});
+  });
+
   it("fixture A: unwraps and decodes 978 stored actions with ordinal gaps, then maps the full game", async () => {
     const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
     const fixture = loadFixture("real-record-wire");

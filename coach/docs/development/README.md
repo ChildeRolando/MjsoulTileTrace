@@ -26,7 +26,15 @@ M7-B 的冻结规格见
 [`2026-09-24-playable-review-mvp-integration-closeout.md`](../specs/2026-09-24-playable-review-mvp-integration-closeout.md)
 为准；其中 manual-import 的生产模型前置已由
 [`2026-09-24-local-mortal-runtime-production-design.md`](../specs/2026-09-24-local-mortal-runtime-production-design.md)
-冻结为 managed local Mortal + `mortal-582500`，runtime/spike 仍未实现。
+冻结为 managed local Mortal + `mortal-582500`。截至 2026-09-28，PR #28 已包含
+runtime 与历史真实 CPU spike，但尚未通过当前完整独立验收，也未合并。
+
+当前主线是 [libriichi 唯一合法动作来源重构](../specs/2026-09-28-libriichi-legal-action-authority-design.md) 的真实整场可靠性验收：
+第二套本地合法动作推导已退出，helper 教学事实保留。决策见
+[ADR-0006](../adr/0006-libriichi-single-legal-action-authority.md)，执行见
+[迁移计划](../plans/2026-09-28-libriichi-legal-action-authority-migration.md)。
+截至 2026-09-29，唯一来源已接入且真实牌谱来源已补全；完整分析档案的保存重开已通过
+实现侧回归，最终候选全量验证与独立验收尚未完成。具体定位见[当前路线图](ROADMAP.md)。
 
 ## 文档分层
 
@@ -37,6 +45,7 @@ M7-B 的冻结规格见
 - `coach/docs/plans/`：逐文件实施计划，是执行时的历史快照。
 - `coach/docs/handoffs/`：每次接力的事实记录、已知限制和验证结果。
 - `coach/README.md`：推理核心的详细能力清单与命令行原型说明；内容较长，部分里程碑描述可能落后于本目录。
+- [Windows Sandbox 禁网 spike](WINDOWS_SANDBOX_SPIKE.md)：已有 Windows 模型资产的可选离线可用性验证配置、执行与证据回读。
 - `COMPLETION-AUDIT.md`：根目录静态课程的完成审计。
 
 ## 更新责任

@@ -34,6 +34,89 @@ function opponentAnkanEvents(): CanonicalGameEvent[] {
 }
 
 describe("canonical event semantic validator", () => {
+  it.each([false, true])("requires the ankan indicator before accepting a rinshan win: revealed=%s", revealed => {
+    const events: CanonicalGameEvent[] = [...opponentAnkanEvents()];
+    if (revealed) events.push({ type: "dora_revealed", eventId: "game:fixture/0/6/0", sourceRecordRef: "record:6",
+      indicator: canonicalTile("3s"), kanEventRef: "game:fixture/0/5/0" });
+    events.push({ type: "tile_drawn", eventId: "game:fixture/0/7/0", sourceRecordRef: "record:7",
+      actor: 1, tile: { visibility: "hidden" }, from: "rinshan" },
+    { type: "win_declared", eventId: "game:fixture/0/8/0", sourceRecordRef: "record:8",
+      winnerActor: 1, targetActor: null, method: "tsumo", winningTile: canonicalTile("2s"),
+      winSourceEventRef: "game:fixture/0/7/0", scoreDeltas: null },
+    { type: "round_ended", eventId: "game:fixture/0/8/1", sourceRecordRef: "record:8",
+      terminalEventRef: "game:fixture/0/8/0" });
+    expect(validateCanonicalEventStream(canonicalStream(events)))
+      .toEqual(revealed ? { status: "valid" } : { status: "invalid", code: "dora_kan_mismatch", eventRef: "game:fixture/0/8/0" });
+  });
+
+  it("does not require an indicator for a kan robbed before its replacement draw", () => {
+    const events: CanonicalGameEvent[] = [...opponentAnkanEvents(), {
+      type: "win_declared", eventId: "game:fixture/0/6/0", sourceRecordRef: "record:6",
+      winnerActor: 0, targetActor: 1, method: "ron", winningTile: canonicalTile("9s"),
+      winSourceEventRef: "game:fixture/0/5/0", scoreDeltas: null,
+    }];
+    expect(validateCanonicalEventStream(canonicalStream(events), { allowUnclosedStream: true }))
+      .toEqual({ status: "valid" });
+  });
+
+  it.each([false, true])("distinguishes a kan abort from missing evidence after a replacement draw: drawn=%s", drawn => {
+    const events: CanonicalGameEvent[] = [...opponentAnkanEvents()];
+    if (drawn) events.push({ type: "tile_drawn", eventId: "game:fixture/0/6/0", sourceRecordRef: "record:6",
+      actor: 1, tile: { visibility: "hidden" }, from: "rinshan" });
+    events.push({ type: "round_drawn", eventId: "game:fixture/0/7/0", sourceRecordRef: "record:7",
+      reason: "suukaikan", tenpaiActors: [] });
+    expect(validateCanonicalEventStream(canonicalStream(events), { allowUnclosedStream: true }))
+      .toEqual(drawn ? { status: "invalid", code: "dora_kan_mismatch", eventRef: "game:fixture/0/7/0" } : { status: "valid" });
+  });
+
+  it.each(["tsumo", "ron"] as const)("preserves open-kan delayed reveal semantics at %s", method => {
+    const events: CanonicalGameEvent[] = [...canonicalSelfDrawDiscardEvents(), {
+      type: "daiminkan_called", eventId: "game:fixture/0/4/0", sourceRecordRef: "record:4",
+      actor: 1, targetActor: 0, calledTile: canonicalTile("5p"),
+      consumedTiles: [canonicalTile("5p"), canonicalTile("5p"), canonicalTile("5p")],
+      calledDiscardEventRef: "game:fixture/0/3/0",
+    }, { type: "tile_drawn", eventId: "game:fixture/0/5/0", sourceRecordRef: "record:5",
+      actor: 1, tile: { visibility: "hidden" }, from: "rinshan" }];
+    if (method === "ron") events.push({ type: "tile_discarded", eventId: "game:fixture/0/6/0", sourceRecordRef: "record:6",
+      actor: 1, tile: canonicalTile("9s"), discardMode: "tsumogiri", riichiDeclarationEventRef: null });
+    events.push({ type: "win_declared", eventId: "game:fixture/0/7/0", sourceRecordRef: "record:7",
+      winnerActor: method === "tsumo" ? 1 : 2, targetActor: method === "tsumo" ? null : 1, method,
+      winningTile: canonicalTile("9s"), winSourceEventRef: method === "tsumo" ? "game:fixture/0/5/0" : "game:fixture/0/6/0",
+      scoreDeltas: null });
+    expect(validateCanonicalEventStream(canonicalStream(events), { allowUnclosedStream: true }))
+      .toEqual(method === "tsumo" ? { status: "valid" } : { status: "invalid", code: "dora_kan_mismatch", eventRef: "game:fixture/0/7/0" });
+  });
+
+  it.each(["before-discard", "after-discard"] as const)("retains the pending kan through delayed indicator publication: %s", publication => {
+    const events: CanonicalGameEvent[] = [
+      ...canonicalSelfDrawDiscardEvents(),
+      { type: "daiminkan_called", eventId: "game:fixture/0/4/0", sourceRecordRef: "record:4",
+        actor: 1, targetActor: 0, calledTile: canonicalTile("5p"),
+        consumedTiles: [canonicalTile("5p"), canonicalTile("5p"), canonicalTile("5p")],
+        calledDiscardEventRef: "game:fixture/0/3/0" },
+      { type: "tile_drawn", eventId: "game:fixture/0/5/0", sourceRecordRef: "record:5",
+        actor: 1, tile: { visibility: "hidden" }, from: "rinshan" },
+    ];
+    const discard: CanonicalGameEvent = { type: "tile_discarded", eventId: "game:fixture/0/6/0", sourceRecordRef: "record:6",
+      actor: 1, tile: canonicalTile("9s"), discardMode: "tsumogiri", riichiDeclarationEventRef: null };
+    const reveal: CanonicalGameEvent = { type: "dora_revealed", eventId: "game:fixture/0/7/0", sourceRecordRef: "record:7",
+      indicator: canonicalTile("2s"), kanEventRef: "game:fixture/0/4/0" };
+    // IDs follow the sequence for each publication order.
+    const ordered = publication === "before-discard"
+      ? [{ ...reveal, eventId: "game:fixture/0/6/0", sourceRecordRef: "record:6" },
+        { ...discard, eventId: "game:fixture/0/7/0", sourceRecordRef: "record:7" }]
+      : [discard, reveal];
+    expect(validateCanonicalEventStream(canonicalStream([...events, ...ordered]), { allowUnclosedStream: true }))
+      .toEqual({ status: "valid" });
+    expect(validateCanonicalEventStream(canonicalStream([...events, ...ordered, {
+      ...reveal, eventId: "game:fixture/0/8/0", sourceRecordRef: "record:8",
+    }]), { allowUnclosedStream: true })).toMatchObject({ status: "invalid", code: "dora_kan_mismatch" });
+    expect(validateCanonicalEventStream(canonicalStream([...events, discard, {
+      type: "tile_drawn", eventId: "game:fixture/0/7/0", sourceRecordRef: "record:7",
+      actor: 2, tile: { visibility: "hidden" }, from: "live_wall",
+    }]), { allowUnclosedStream: true })).toMatchObject({ status: "invalid", code: "dora_kan_mismatch" });
+  });
+
   it("accepts a valid self draw and discard sequence", () => {
     expect(validateCanonicalEventStream(
       canonicalStream(canonicalSelfDrawDiscardEvents()),

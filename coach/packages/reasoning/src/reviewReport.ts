@@ -92,7 +92,7 @@ import { validateCoachGrounding } from "./groundingValidator.js";
 export const COACH_ENGINE_VERSION = "coach-engine/v1" as const;
 
 /** The grounding / report validator version. */
-export const COACH_GROUNDING_VALIDATOR_VERSION = "coach-grounding/v1" as const;
+export const COACH_GROUNDING_VALIDATOR_VERSION = "coach-grounding/v2" as const;
 
 const COACH_ENGINE_PRODUCER = "coach-engine" as const;
 

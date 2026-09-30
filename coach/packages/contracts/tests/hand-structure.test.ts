@@ -900,6 +900,14 @@ describe("hand-structure/v2 contracts", () => {
     expect(() => HandStructureResultV2Schema.parse(falseBest)).toThrow();
   });
 
+  it("allows structural zero-shanten with no physically possible effective tile", () => {
+    const noPhysicalWait = result();
+    noPhysicalWait.families[0].effectiveTiles = [];
+    noPhysicalWait.waits = [];
+    noPhysicalWait.diagnostics = [];
+    expect(HandStructureResultV2Schema.parse(noPhysicalWait)).toEqual(noPhysicalWait);
+  });
+
   it("rejects wrong concealed counts, unsorted waits and false truncation", () => {
     const open = request();
     open.melds = [{ kind: "pon", tiles34: [31, 31, 31] }];

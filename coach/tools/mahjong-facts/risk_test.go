@@ -1,6 +1,36 @@
 package main
 
-import "testing"
+import (
+	"encoding/json"
+	"testing"
+)
+
+func TestThreatRiskSerializesNoRemainingSujiAsEmptyArray(t *testing.T) {
+	request := wallAndSujiRequest()
+	for tile := range request.SafeTiles34 {
+		request.SafeTiles34[tile] = true
+	}
+	result, err := analyzeThreatRisk(request)
+	if err != nil {
+		t.Fatal(err)
+	}
+	wire, err := json.Marshal(result)
+	if err != nil {
+		t.Fatal(err)
+	}
+	var fields map[string]json.RawMessage
+	if err := json.Unmarshal(wire, &fields); err != nil {
+		t.Fatal(err)
+	}
+	if string(fields["leftNoSujiTile34"]) != "[]" {
+		t.Fatalf("leftNoSujiTile34 = %s, want []", fields["leftNoSujiTile34"])
+	}
+	for tile, risk := range result.RiskScale {
+		if risk != 0 || !hasStructuralRisk(result.Classifications, tile, "genbutsu") {
+			t.Fatalf("safe tile %d lost its zero risk or genbutsu classification", tile)
+		}
+	}
+}
 
 func wallAndSujiRequest() ThreatRiskRequest {
 	safe := make([]bool, 34)

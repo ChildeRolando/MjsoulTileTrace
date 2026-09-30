@@ -1,0 +1,47 @@
+{
+  "version": "local-mortal-real-fixture-set/v2",
+  "fixtures": [
+    {
+      "id": "mahjong-soul-primary",
+      "sourceKind": "mahjong_soul",
+      "source": "../../../../mahjong-soul-source/tests/fixtures/real-record-complete.json",
+      "sha256": "252ed97ab6f85b0b59a3733789924a2d3456edc1205c8b80f3ad5f3732fe5905",
+      "perspectives": [0, 1, 2, 3],
+      "provenance": "Same original nine-round record, freshly captured 2026-09-28 with same-response rule configuration and kan dora; all four perspectives retained. Old stripped fixture retained as real-record-wire.json."
+    },
+    {
+      "id": "tenhou-chankan-supplement",
+      "sourceKind": "tenhou",
+      "source": "tenhou-chankan-2026080804.xml",
+      "sha256": "c4d1f48788f1212257b9def84b92abc9548805e9b8a862364e9e616160ba1ae6",
+      "perspectives": [1],
+      "provenance": "public Tenhou replay 2026080804gm-00a9-0000-71cfcabf; player names replaced"
+    },
+    {
+      "id": "tenhou-ankan-supplement",
+      "sourceKind": "tenhou",
+      "source": "tenhou-ankan-2026081116.xml",
+      "sha256": "2a5754e049fdebb23da8c391d2c7c2f82a02624df54926b4eaf228d94205a4dd",
+      "perspectives": [1, 3],
+      "provenance": "public Tenhou replay 2026081116gm-00a9-0000-19c64a92; complete record, player names replaced"
+    },
+    {
+      "id": "tenhou-pass-daiminkan-supplement",
+      "sourceKind": "tenhou",
+      "source": "tenhou-pass-daiminkan-2026080911.xml",
+      "sha256": "9ff404d03b87f045c8348434a448ae5c6f1f003842bc741e018fbc074b3beaad",
+      "perspectives": [2],
+      "provenance": "round occurrence 4 (zero-based) extract from public Tenhou replay 2026080911gm-00a9-0000-2fc0c419; all round events preserved, player names replaced"
+    },
+    {
+      "id": "tenhou-daiminkan-supplement",
+      "sourceKind": "tenhou",
+      "source": "tenhou-daiminkan-2026080803.xml",
+      "sha256": "800a62abf96ae7c3fc48046818b60ec6b747054398d02ab2e0740db1efd21b03",
+      "perspectives": [1],
+      "provenance": "final-hand extract from public Tenhou replay 2026080803gm-00a9-0000-e96730d7; player names replaced"
+    }
+  ],
+  "privacy": "player names and account identifiers removed; no tokens, cookies, or raw runtime prose",
+  "coverage": ["self_turn", "discard_response", "kan_response", "chi", "pon", "daiminkan", "ron", "pass", "riichi_discard", "ankan", "kakan", "tsumo"]
+}

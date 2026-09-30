@@ -207,6 +207,7 @@ export const GRAPH_SLICE_PAYLOAD_ALLOWLIST = Object.freeze({
     "surface",
     "roundOrdinal",
     "normalizedDecisionContext",
+    "automaticComparisonScope",
   ]),
   CandidateAction: Object.freeze(["actionRef", "action", "origins"]),
   KnownGameFact: Object.freeze([

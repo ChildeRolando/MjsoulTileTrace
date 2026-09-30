@@ -18,7 +18,7 @@
  *   drawn hand already a winning hand?), which is the Go fact engine's
  *   authority and needs the seat's private tiles, not this public walk.
  *   The census reports exactly zero for it and flags
- *   needsHandStructureEngine so downstream code cannot mistake the zero for
+ *   needsRuleEngine so downstream code cannot mistake the zero for
  *   "no such windows exist"; the private pass (replay + fact engine) fills
  *   the branch's candidates later.
  */

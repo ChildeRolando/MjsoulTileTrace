@@ -25,6 +25,7 @@
  */
 import { describe, expect, it } from "vitest";
 import {
+  STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION,
   StructuredAnalysisPackageSchema,
 } from "@riichi-coach/contracts";
 import {
@@ -39,6 +40,39 @@ import {
 } from "./fixtures/structured-review.js";
 
 describe("M6-C Slice 2 production assembly", () => {
+  it("refuses to produce a new legacy package by dropping the rule result", async () => {
+    const { stream, decisions } = fixtureSetup();
+    const review = await runFixtureReview(stream, decisions, [entryFor(decisions[0]!)]);
+    const { libriichi: _removed, ...withoutRules } = review;
+    const { legalActionRules: _identity, ...legacyVersions } = componentVersions;
+    expect(() => buildStructuredAnalysisPackage({
+      stream, decisions, review: withoutRules as unknown as typeof review,
+      componentVersions: { ...legacyVersions, packageSchema: STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION },
+      frozenPolicySnapshot: review.retainedAnalyses[0]!.modelEvaluation.detailPolicy,
+    })).toThrow("m6c_builder_requires_native_rules");
+  });
+
+  it("retains the same complete rule result through review and package assembly", async () => {
+    const { stream, decisions } = fixtureSetup();
+    const review = await runFixtureReview(stream, decisions, [entryFor(decisions[0]!)]);
+    expect(review.libriichi).toBeDefined();
+    const result = review.libriichi!.results.get(decisions[0]!.decisionEventRef)!;
+    expect(result.response.status).toBe("ok");
+    expect(result.actions.map(action => action.action)).toEqual([
+      { kind: "discard", tile: { id: "5p", red: false }, discardMode: "tsumogiri" },
+      { kind: "discard", tile: { id: "9m", red: false }, discardMode: "tedashi" },
+    ]);
+    const pkg = buildStructuredAnalysisPackage({
+      stream, decisions, review, componentVersions,
+      frozenPolicySnapshot: review.retainedAnalyses[0]!.modelEvaluation.detailPolicy,
+    });
+    expect(pkg.componentVersions.packageSchema).toBe("structured-analysis-package/v2");
+    expect(pkg.legalActionEvidence?.results).toHaveLength(1);
+    expect(pkg.legalActionEvidence?.results[0]).toMatchObject({
+      request: result.request, response: result.response,
+    });
+  });
+
   it("coverage_ready retains the full per-decision payload (no drop at the whole-game boundary)", async () => {
     const { stream, decisions } = fixtureSetup();
     const review = await runFixtureReview(stream, decisions, [entryFor(decisions[0]!)]);

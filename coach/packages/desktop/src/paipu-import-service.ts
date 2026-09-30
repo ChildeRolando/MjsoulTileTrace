@@ -131,6 +131,7 @@ export function createMahjongSoulPaipuImportService(input: {
           recordId: parsed.recordId,
           selfActor: perspective.selfActor,
           recordBytes: captured.recordBytes,
+          ...(captured.ruleEvidence === undefined ? {} : { ruleEvidence: captured.ruleEvidence }),
         });
         switch (outcome.status) {
           case "analysis_ready":

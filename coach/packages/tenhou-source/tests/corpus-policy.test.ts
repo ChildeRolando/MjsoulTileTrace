@@ -8,6 +8,9 @@
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
+import { LIBRIICHI_RULE_NORMALIZATION_VERSION } from "@riichi-coach/contracts";
+const ruleIdentity = {implementation:"Equim-chan/Mortal/libriichi" as const, revision:"0".repeat(40),
+  nativeArtifactSha256:"1".repeat(64), wrapperSha256:"2".repeat(64), normalizationVersion:LIBRIICHI_RULE_NORMALIZATION_VERSION};
 import {
   censusCanonicalGame,
   delayBeforeRequestMs,
@@ -117,7 +120,7 @@ describe("discovery policy", () => {
     // Census-side dama_tsumo stays an honest zero pending the engine pass.
     expect(report.branchCandidates.dama_with_tsumo_candidate).toEqual([]);
     expect(report.damaTsumoCandidateWindows).toBe(0);
-    expect(report.needsHandStructureEngine).toBe(true);
+    expect(report.needsRuleEngine).toBe(true);
     // kyuushu does not occur in these three games → honestly uncovered.
     expect(report.uncoveredLocalBranches).toContain("self_turn_kyuushu");
     expect(report.uncoveredLocalBranches).toContain("dama_with_tsumo_candidate");
@@ -164,9 +167,9 @@ describe("discovery policy", () => {
     const merged = mergeDamaTsumoCandidates(
       report,
       [
-        { gameId: "tenhou-fixture:m1", seat: 2, decisionEventRef: "tenhou-fixture:m1/0/12/0" },
-        { gameId: "tenhou-fixture:m1", seat: 2, decisionEventRef: "tenhou-fixture:m1/0/12/0" },
-        { gameId: "tenhou-fixture:m1", seat: 1, decisionEventRef: "tenhou-fixture:m1/2/40/0" },
+        { gameId: "tenhou-fixture:m1", seat: 2, decisionEventRef: "tenhou-fixture:m1/0/12/0", ruleResultId: "a".repeat(64) },
+        { gameId: "tenhou-fixture:m1", seat: 2, decisionEventRef: "tenhou-fixture:m1/0/12/0", ruleResultId: "a".repeat(64) },
+        { gameId: "tenhou-fixture:m1", seat: 1, decisionEventRef: "tenhou-fixture:m1/2/40/0", ruleResultId: "b".repeat(64) },
       ],
       {
         seatsReplayed: 4,
@@ -174,20 +177,26 @@ describe("discovery policy", () => {
         windowsClassified: 260,
         engineFailures: 0,
         engineUsed: true,
+      failureCounts: {},
+      legalActionRules: ruleIdentity,
       },
     );
     // Deduped merge, scan order preserved.
     expect(merged.branchCandidates.dama_with_tsumo_candidate.map(
       (candidate) => candidate.seat,
     )).toEqual([2, 1]);
+    expect(merged.branchCandidates.dama_with_tsumo_candidate.map(row => row.ruleResultId))
+      .toEqual(["a".repeat(64), "b".repeat(64)]);
     expect(merged.damaTsumoCandidateWindows).toBe(2);
-    expect(merged.needsHandStructureEngine).toBe(false);
+    expect(merged.needsRuleEngine).toBe(false);
     expect(merged.damaTsumoPass).toEqual({
       seatsReplayed: 4,
       seatsFailed: 0,
       windowsClassified: 260,
       engineFailures: 0,
       engineUsed: true,
+      failureCounts: {},
+      legalActionRules: ruleIdentity,
     });
     // The merged branch participates in selection and coverage.
     expect(merged.uncoveredLocalBranches).not.toContain("dama_with_tsumo_candidate");

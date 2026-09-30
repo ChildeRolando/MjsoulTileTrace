@@ -5,7 +5,7 @@ import {
   type ReviewReport, type ReviewSelectionResult, type RiichiAction,
   type StructuredAnalysisPackage, type Tile,
 } from "@riichi-coach/contracts";
-import { composeReviewReadBackContext } from "@riichi-coach/reasoning";
+import { composeReviewReadBackContext, type ReviewReadBackContext } from "@riichi-coach/reasoning";
 
 const OUTCOMES = [
   "analysis_ready", "unsupported_action", "source_row_not_expected", "no_mortal_entry",
@@ -431,6 +431,14 @@ export function presentFixedReviewSnapshot(input: {
   activeReportRefId?: string | null;
 }): FixedReviewSnapshotDto {
   const context = composeReviewReadBackContext(input.analysisPackage, input.selection, input.activeReport ?? null);
+  return presentFixedReviewSnapshotFromContext(context, input.activeReportRefId ?? null);
+}
+
+/** Main-only projection of a context already validated at the read-back seam. */
+export function presentFixedReviewSnapshotFromContext(
+  context: ReviewReadBackContext,
+  activeReportRefId: string | null,
+): FixedReviewSnapshotDto {
   const report = context.report;
   const outcomeCounts = Object.fromEntries(OUTCOMES.map((outcome) => [outcome, 0])) as Record<typeof OUTCOMES[number], number>;
   for (const decision of context.analysisPackage.decisions) outcomeCounts[decision.outcome] += 1;
@@ -456,7 +464,7 @@ export function presentFixedReviewSnapshot(input: {
     analysisStatus: context.analysisPackage.record.status,
     outcomeCounts,
     selection: { policyVersion: context.selection.policyVersion, selectedCount: items.length, items },
-    activeReportRefId: input.activeReportRefId ?? null,
+    activeReportRefId,
     activeReportStatus: report?.generationStatus ?? "not_generated",
     explanationCounts,
   }));
@@ -470,16 +478,31 @@ export function presentFixedReviewDetail(input: {
   decisionId: string;
 }): FixedReviewDetailDto {
   const context = composeReviewReadBackContext(input.analysisPackage, input.selection, input.activeReport ?? null);
-  const decision = readyDecision(context.analysisPackage, input.decisionId);
-  const scoped = context.decisionContext(input.decisionId);
+  return presentFixedReviewDetailFromContext(context, input.decisionId, input.activeReportRefId ?? null);
+}
+
+/** Main-only projection; the immutable persisted context belongs to this exact report. */
+export function presentFixedReviewDetailFromContext(
+  context: ReviewReadBackContext,
+  decisionId: string,
+  activeReportRefId: string | null,
+): FixedReviewDetailDto {
+  const decision = readyDecision(context.analysisPackage, decisionId);
+  const scoped = context.decisionContext(decisionId);
+  const scopedNodes = new Map(scoped.nodes.map(node => [node.nodeId, node]));
+  const resolveRef = (ref: string): (typeof scoped.nodes)[number] => {
+    const node = scopedNodes.get(ref);
+    if (node === undefined) throw new Error(`m7a_read_back_unresolved_ref:${decisionId}:${ref}`);
+    return node;
+  };
   const judgments = scoped.nodes.filter((node) => node.nodeKind === "CoachJudgment").map((node) => {
     const payload = node.payload as { recommendation: string; confidence: "high" | "medium" | "low"; premiseRefs: string[] };
-    for (const ref of payload.premiseRefs) context.resolveDecisionRef(input.decisionId, ref);
+    for (const ref of payload.premiseRefs) resolveRef(ref);
     return { recommendation: actionDto(decision, payload.recommendation)!, confidence: payload.confidence, premiseRefs: payload.premiseRefs };
   });
   const explanations = scoped.nodes.filter((node) => node.nodeKind === "Explanation").map((node) => {
     const payload = node.payload as { text: string; claims: Array<{ evidenceRef: string }> };
-    const evidenceRefs = payload.claims.map((claim) => context.resolveDecisionRef(input.decisionId, claim.evidenceRef).nodeId);
+    const evidenceRefs = payload.claims.map((claim) => resolveRef(claim.evidenceRef).nodeId);
     return { segments: explanationSegments(scoped.nodes, payload.text), evidenceRefs };
   });
   const directlyRenderedRefs = new Set<string>();
@@ -501,7 +524,7 @@ export function presentFixedReviewDetail(input: {
     const parentRefs = node.nodeKind === "CoachInference" && Array.isArray(payload.premiseRefs)
       ? payload.premiseRefs.map(String)
       : [];
-    for (const ref of parentRefs) context.resolveDecisionRef(input.decisionId, ref);
+    for (const ref of parentRefs) resolveRef(ref);
     return ({
     displayRef: node.nodeId,
     category: node.nodeKind === "CoachInference" ? "coach_inference" as const
@@ -518,14 +541,14 @@ export function presentFixedReviewDetail(input: {
   return Object.freeze(FixedReviewDetailSchema.parse({
     schemaVersion: "fixed-review-detail/v1",
     packageId: context.analysisPackage.packageId,
-    activeReportRefId: input.activeReportRefId ?? null,
-    decisionId: input.decisionId,
+    activeReportRefId,
+    decisionId,
     actual: actualActionDto(decision),
     mortal: mortalActions(decision),
     coachJudgments: judgments,
     explanations,
     referenceTargets,
     provenance,
-    explanationStatus: explanationStatus(context.report, input.decisionId),
+    explanationStatus: explanationStatus(context.report, decisionId),
   }));
 }

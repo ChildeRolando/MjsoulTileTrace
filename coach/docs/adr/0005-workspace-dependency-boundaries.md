@@ -3,6 +3,12 @@
 日期：2026-08-19；2026-09-24 增补 local Mortal runtime 边界
 状态：已采纳（现役边 docs + 机械强制；2026-09-24 runtime 增量为待实现 target architecture）
 
+> **2026-09-28 增补**：[ADR-0006](0006-libriichi-single-legal-action-authority.md)
+> 在同一 mortal-runtime owner 内增加无权重 libriichi 规则操作，与模型评分操作分离。
+> 这取代下文“只返回 model evidence”的能力限制，不改变依赖方向表：reasoning
+> 仍只消费 contracts 与 main 注入端口，不能导入 runtime 或自行启动 native 进程。
+> 旧 v1 runtime 在 PR #28 已存在；新增规则操作尚未实施。
+
 ## Context
 
 `docs/development/ARCHITECTURE.md` 把 `@riichi-coach/reasoning` 描述为

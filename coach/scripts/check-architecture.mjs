@@ -1,7 +1,7 @@
 /**
  * Mechanical architecture boundary check for the coach workspace.
  *
- * Four rules, each mapped to the invariants it protects (see
+ * Rules are mapped to the invariants they protect (see
  * docs/development/INVARIANTS.md and docs/adr/0005-workspace-dependency-
  * boundaries.md):
  *
@@ -13,13 +13,15 @@
  *     game-record providers (their protocol semantics terminate before the
  *     canonical replay/reasoning boundary). reasoning MAY import
  *     mortal-source — the model/report evidence provider — whose public
- *     report-format contract it consumes (ADR-0005). Nothing below desktop
- *     may import desktop.
+ *     report-format contract it consumes (ADR-0005). The independent
+ *     mortal-runtime owner may import contracts only; reasoning and
+ *     mortal-source cannot acquire its subprocess/checkpoint capability.
+ *     Nothing below desktop may import desktop.
  *
  *  R2 renderer_safe_boundary (INV-005)
  *     Desktop renderer code and the preload entries must not import the
- *     privileged packages (mahjong-soul-source, mortal-source, tenhou-source,
- *     reasoning). They receive only safe DTOs through narrow desktop API
+ *     privileged packages (mahjong-soul-source, mortal-source, mortal-runtime,
+ *     tenhou-source, reasoning). They receive only safe DTOs through narrow desktop API
  *     modules and contracts. Direct-import level by design; transitive
  *     leakage is covered by the preload/security-boundary behavior tests.
  *
@@ -41,6 +43,11 @@
  *     Reasoning access and concrete-provider composition must use static
  *     named imports; other literal loading forms fail closed, including in
  *     the service itself.
+ *
+ *  R5 retired_legal_action_authority (INV-004 / ADR-0006)
+ *     Retired independent rule modules cannot return at their old paths or
+ *     be imported by production, tests or tools. This is a bounded regression
+ *     guard, not a semantic detector for renamed/copied rule implementations.
  *
  * Parsing is owned by the TypeScript Compiler API (ts.createSourceFile + AST
  * traversal): only real module specifiers are collected, so import-looking
@@ -66,7 +73,18 @@ const RULE_IDS = {
   rendererSafeBoundary: "renderer_safe_boundary",
   packageInternalImport: "package_internal_import",
   reviewReportGenerationSeam: "review_report_generation_seam",
+  retiredLegalActionAuthority: "retired_legal_action_authority",
 };
+
+const RETIRED_RULE_MODULES = new Set([
+  "analysis/local-mortal-adapter", "analysis/single-candidate-proof",
+  "analysis/response-candidate-enumeration", "replay/response-eligibility",
+  "factors/win-shape",
+].map(path => `packages/reasoning/src/${path}`));
+
+function isRetiredRuleModule(path) {
+  return RETIRED_RULE_MODULES.has(path.replace("/dist/", "/src/").replace(/\.(?:[cm]?[jt]s)$/, ""));
+}
 
 const REVIEW_GENERATION_INTERNALS = new Set([
   "appendReasoningOverlay",
@@ -84,6 +102,7 @@ export const DEFAULT_ALLOWED_EDGES = Object.freeze({
   "@riichi-coach/mahjong-soul-source": Object.freeze(["@riichi-coach/contracts"]),
   "@riichi-coach/tenhou-source": Object.freeze(["@riichi-coach/contracts"]),
   "@riichi-coach/mortal-source": Object.freeze(["@riichi-coach/contracts"]),
+  "@riichi-coach/mortal-runtime": Object.freeze(["@riichi-coach/contracts"]),
   // reasoning may consume the mortal-source report-format evidence contract
   // (ADR-0005) but must stay clear of game-record provider protocol details.
   "@riichi-coach/reasoning": Object.freeze([
@@ -96,6 +115,7 @@ export const DEFAULT_ALLOWED_EDGES = Object.freeze({
     "@riichi-coach/mahjong-soul-source",
     "@riichi-coach/tenhou-source",
     "@riichi-coach/mortal-source",
+    "@riichi-coach/mortal-runtime",
     "@riichi-coach/reasoning",
   ]),
 });
@@ -104,6 +124,7 @@ export const DEFAULT_ALLOWED_EDGES = Object.freeze({
 export const DEFAULT_PRIVILEGED_PACKAGES = Object.freeze([
   "@riichi-coach/mahjong-soul-source",
   "@riichi-coach/mortal-source",
+  "@riichi-coach/mortal-runtime",
   "@riichi-coach/tenhou-source",
   "@riichi-coach/reasoning",
 ]);
@@ -352,6 +373,10 @@ export function checkWorkspace(root, opts = {}) {
         relPath.split("/").includes("src");
       const code = readFileSync(file, "utf8");
       scannedFiles += 1;
+      if (isRetiredRuleModule(relPath)) {
+        record(RULE_IDS.retiredLegalActionAuthority, relPath, 1,
+          "Retired independent legal-action implementation must remain in Git history", "INV-004/ADR-0006");
+      }
 
       if (isProductionCode && ownerPackage === "@riichi-coach/desktop") {
         for (const imported of collectImportBindings(code, file)) {
@@ -407,6 +432,14 @@ export function checkWorkspace(root, opts = {}) {
             "Desktop production code must use static named reasoning imports so generation ownership is auditable",
             "INV-001/INV-002/INV-005",
           );
+        }
+
+        const targetPath = specifier.startsWith(".")
+          ? relative(root, resolve(dirname(file), specifier)).split(sep).join("/")
+          : specifier.replace(/^@riichi-coach\/reasoning\//, "packages/reasoning/");
+        if (isRetiredRuleModule(targetPath)) {
+          record(RULE_IDS.retiredLegalActionAuthority, relPath, line,
+            "Retired independent legal-action module cannot be consumed", "INV-004/ADR-0006");
         }
 
         // Builtins and external third-party packages are not governed here.

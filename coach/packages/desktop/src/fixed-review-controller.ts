@@ -5,8 +5,8 @@ import {
   type ReviewReport, type ReviewSelectionResult, type StructuredAnalysisPackage,
 } from "@riichi-coach/contracts";
 import { selectReviewDecisions, validateStructuredAnalysisPackage } from "@riichi-coach/reasoning";
-import { presentFixedReviewDetail, presentFixedReviewSnapshot } from "./fixed-review-presenter.js";
-import type { ReviewSessionRepository } from "./review-session-repository.js";
+import { presentFixedReviewDetail, presentFixedReviewSnapshot, presentFixedReviewDetailFromContext, presentFixedReviewSnapshotFromContext } from "./fixed-review-presenter.js";
+import type { PersistedReviewState, ReviewSessionRepository } from "./review-session-repository.js";
 
 type ReportRef = Readonly<{
   reportRefId: string;
@@ -22,6 +22,7 @@ type ViewState = {
   selection: ReviewSelectionResult;
   reportRefs: ReportRef[];
   activeReportRefId: string | null;
+  readBack?: PersistedReviewState["readBack"];
 };
 type Operation = { packageId: string; viewEpoch: number; cancelled: boolean };
 
@@ -50,6 +51,7 @@ export function createFixedReviewController(input: {
       report: persisted.activeReport,
     })],
     activeReportRefId: persisted.activeReportRefId,
+    readBack: persisted.readBack,
   });
 
   const activeRef = (state: ViewState): ReportRef | null => {
@@ -60,6 +62,11 @@ export function createFixedReviewController(input: {
   };
   const snapshot = (state: ViewState): FixedReviewSnapshotDto => {
     const active = activeRef(state);
+    if (state.readBack !== undefined) {
+      if (state.readBack.analysisPackage !== state.analysisPackage || state.readBack.selection !== state.selection
+        || state.readBack.report !== (active?.report ?? null)) throw new Error("review_unavailable");
+      return presentFixedReviewSnapshotFromContext(state.readBack, active?.reportRefId ?? null);
+    }
     return presentFixedReviewSnapshot({
       analysisPackage: state.analysisPackage,
       selection: state.selection,
@@ -189,6 +196,11 @@ export function createFixedReviewController(input: {
       const state = requireState(packageId);
       if (state.activeReportRefId !== requestedActiveRefId) throw new Error("review_unavailable");
       const active = activeRef(state);
+      if (state.readBack !== undefined) {
+        if (state.readBack.analysisPackage !== state.analysisPackage || state.readBack.selection !== state.selection
+          || state.readBack.report !== (active?.report ?? null)) throw new Error("review_unavailable");
+        return presentFixedReviewDetailFromContext(state.readBack, decisionId, active?.reportRefId ?? null);
+      }
       return presentFixedReviewDetail({
         analysisPackage: state.analysisPackage, selection: state.selection,
         activeReport: active?.report ?? null, activeReportRefId: active?.reportRefId ?? null,

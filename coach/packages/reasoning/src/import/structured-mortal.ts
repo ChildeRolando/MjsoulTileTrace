@@ -86,6 +86,8 @@ export function importStructuredMortalComparison(input: {
   facts: KnownActionFacts;
   modelCandidates: StructuredMortalCandidateInput[];
   actual: StructuredMortalActualInput;
+  /** Only the bound native result may supply a physical realization relation. */
+  nativeCorrespondence?: Extract<ActualModelCorrespondence,{relation:"native_physical_realization"}>;
 }): StructuredMortalImportResult {
   const facts = KnownActionFactsSchema.parse(input.facts);
   const modelRows: StructuredMortalModelRow[] = [];
@@ -204,7 +206,13 @@ export function importStructuredMortalComparison(input: {
   // and actionRef equality never encodes the relation; without a declare_riichi
   // row the riichi actual was not model-scored.
   let correspondences: ActualModelCorrespondence[] | undefined;
-  if (actual.candidate.action.kind === "riichi_discard") {
+  if (input.nativeCorrespondence !== undefined) {
+    if (input.nativeCorrespondence.actualActionRef !== actual.candidate.actionRef ||
+        !modelRefs.includes(input.nativeCorrespondence.scoredModelActionRef) || modelRefs.includes(actual.candidate.actionRef)) {
+      return {status:"incomplete",diagnostics:["actual_action_not_scored"]};
+    }
+    correspondences = [input.nativeCorrespondence];
+  } else if (actual.candidate.action.kind === "riichi_discard") {
     const declareRow = modelRows.find((row) =>
       row.normalized.candidate.action.kind === "declare_riichi"
     );

@@ -5,7 +5,7 @@ import type {
   Tile,
 } from "@riichi-coach/contracts";
 import {
-  replayCanonicalResponseWindows,
+  scanCanonicalResponseBoundaries,
   replayCanonicalStream,
 } from "../src/replay/stream-replayer.js";
 import { canonicalStream, canonicalTile } from "./fixtures/canonical-stream.js";
@@ -126,6 +126,13 @@ function streamFromHand(
   ]);
 }
 
+function scanAndCheck(stream: CanonicalEventStream) {
+  const result=scanCanonicalResponseBoundaries(stream);
+  const refs=stream.events.filter(e=>(e.type==="tile_discarded"||e.type==="kakan_declared")&&e.actor!==stream.selfActor).map(e=>e.eventId);
+  expect(result.map(d=>d.decisionEventRef)).toEqual(refs);
+  return result;
+}
+
 // --- tests ----------------------------------------------------------------
 
 describe("M6-A4.1 response window opening (shared streamContext seam)", () => {
@@ -145,10 +152,9 @@ describe("M6-A4.1 response window opening (shared streamContext seam)", () => {
       seat3.draw, seat3.discard,
       selfDraw(canonicalTile("5p")), // no call → next self draw closes the window
     ];
-    const decisions = replayCanonicalResponseWindows(streamFromHand(defaultHand, events));
+    const decisions = scanAndCheck(streamFromHand(defaultHand, events));
 
-    expect(decisions).toHaveLength(1);
-    const decision = decisions[0]!;
+    const decision = decisions.at(-1)!;
     const window = decision.snapshot.privateState.decisionWindow;
     expect(window.kind).toBe("discard_response");
     if (window.kind !== "discard_response") return;
@@ -167,7 +173,7 @@ describe("M6-A4.1 response window opening (shared streamContext seam)", () => {
     expect(decision.facts.concealedTiles).toHaveLength(13);
   });
 
-  it("opens no window when the reviewed player holds no legal candidate", () => {
+  it("keeps all boundaries even when no response looks possible", () => {
     eventSeq = 1;
     const selfTurn = [selfDraw(canonicalTile("5p")), selfTsumogiri(canonicalTile("5p"))];
     const seat1 = opponentTurn(1, canonicalTile("9m"));
@@ -180,8 +186,9 @@ describe("M6-A4.1 response window opening (shared streamContext seam)", () => {
       seat3.draw, seat3.discard,
       selfDraw(canonicalTile("5p")),
     ];
-    const decisions = replayCanonicalResponseWindows(streamFromHand(defaultHand, events));
-    expect(decisions).toHaveLength(0);
+    const decisions = scanAndCheck(streamFromHand(defaultHand, events));
+    expect(decisions).toHaveLength(3);
+    expect(decisions.map(d=>d.actualAction?.kind)).toEqual(["pass","pass","pass"]);
   });
 
   it("resolves the actual as chi when the reviewed player calls the offered tile", () => {
@@ -207,10 +214,9 @@ describe("M6-A4.1 response window opening (shared streamContext seam)", () => {
         calledDiscardEventRef: seat3.discard.eventId,
       } satisfies CanonicalGameEvent,
     ];
-    const decisions = replayCanonicalResponseWindows(streamFromHand(defaultHand, events));
+    const decisions = scanAndCheck(streamFromHand(defaultHand, events));
 
-    expect(decisions).toHaveLength(1);
-    const decision = decisions[0]!;
+    const decision = decisions.at(-1)!;
     expect(decision.actualAction).toEqual({
       kind: "chi",
       calledTile: canonicalTile("5p"),
@@ -239,10 +245,9 @@ describe("M6-A4.1 response window opening (shared streamContext seam)", () => {
       seat2.draw, seat2.discard,
       opponentDraw(3), // after seat 2's discard the next draw is seat 3 → pass
     ];
-    const decisions = replayCanonicalResponseWindows(streamFromHand(hand, events));
+    const decisions = scanAndCheck(streamFromHand(hand, events));
 
-    expect(decisions).toHaveLength(1);
-    const decision = decisions[0]!;
+    const decision = decisions.at(-1)!;
     const window = decision.snapshot.privateState.decisionWindow;
     expect(window.kind).toBe("discard_response");
     if (window.kind !== "discard_response") return;
@@ -277,14 +282,13 @@ describe("M6-A4.1 response window opening (shared streamContext seam)", () => {
       seat3.draw, seat3.discard,
       selfDraw(canonicalTile("5p")), // distance 3 → self is next after seat 3
     ];
-    const decisions = replayCanonicalResponseWindows(streamFromHand(hand, events));
+    const decisions = scanAndCheck(streamFromHand(hand, events));
 
-    expect(decisions).toHaveLength(1);
-    const window = decisions[0]!.snapshot.privateState.decisionWindow;
+    const window = decisions.at(-1)!.snapshot.privateState.decisionWindow;
     expect(window.kind).toBe("discard_response");
     if (window.kind !== "discard_response") return;
     expect(window.sourceActor).toBe(3);
-    expect(decisions[0]!.actualAction).toEqual({
+    expect(decisions.at(-1)!.actualAction).toEqual({
       kind: "pass",
       responseEventRef: seat3.discard.eventId,
       responseKind: "discard",
@@ -319,10 +323,9 @@ describe("M6-A4.1 response window opening (shared streamContext seam)", () => {
         scoreDeltas: null,
       } satisfies CanonicalGameEvent,
     ];
-    const decisions = replayCanonicalResponseWindows(streamFromHand(hand, events));
+    const decisions = scanAndCheck(streamFromHand(hand, events));
 
-    expect(decisions).toHaveLength(1);
-    const decision = decisions[0]!;
+    const decision = decisions.at(-1)!;
     const window = decision.snapshot.privateState.decisionWindow;
     expect(window.kind).toBe("discard_response");
     if (window.kind !== "discard_response") return;
@@ -337,10 +340,10 @@ describe("M6-A4.1 response window opening (shared streamContext seam)", () => {
     });
   });
 
-  it("suppresses pon for a riichi'd reviewed player but keeps the ron window on their wait", () => {
+  it("keeps both riichi response boundaries for native legality, with actual pass", () => {
     // riichi'd tenpai on 2p, holding a 1p triplet. Seat 1 discarding 1p is a
-    // pon opportunity the riichi suppresses (no ron) → no window; discarding
-    // 2p (the wait) keeps a ron window.
+    // pon shape the riichi suppresses (no ron); discarding 2p is the wait.
+    // Both event boundaries must reach native rules, regardless of shape.
     const hand = [
       canonicalTile("1m"), canonicalTile("2m"), canonicalTile("3m"),
       canonicalTile("4m"), canonicalTile("5m"), canonicalTile("6m"),
@@ -369,22 +372,23 @@ describe("M6-A4.1 response window opening (shared streamContext seam)", () => {
       ];
     };
 
-    // 1p discard: riichi blocks the pon, and 1p is not self's wait → no window.
+    // 1p discard: still scanned; only native rules may classify non-action.
     eventSeq = 1;
     const ponPreamble = riichiPreamble();
     const seat1Pon = opponentTurn(1, canonicalTile("1p"));
-    const noWindow = replayCanonicalResponseWindows(streamFromHand(hand, [
+    const noWindow = scanAndCheck(streamFromHand(hand, [
       ...ponPreamble,
       seat1Pon.draw, seat1Pon.discard,
       opponentDraw(2),
     ]));
-    expect(noWindow).toHaveLength(0);
+    expect(noWindow).toHaveLength(1);
+    expect(noWindow[0]!.actualAction?.kind).toBe("pass");
 
     // 2p discard: self's wait → ron window, actual = pass (no call).
     eventSeq = 1;
     const ronPreamble = riichiPreamble();
     const seat1Ron = opponentTurn(1, canonicalTile("2p"));
-    const ronWindow = replayCanonicalResponseWindows(streamFromHand(hand, [
+    const ronWindow = scanAndCheck(streamFromHand(hand, [
       ...ronPreamble,
       seat1Ron.draw, seat1Ron.discard,
       opponentDraw(2),
@@ -467,19 +471,16 @@ describe("M6-A4.1 response window opening (shared streamContext seam)", () => {
         kanEventRef: kakan.eventId,
       } satisfies CanonicalGameEvent,
     ];
-    const decisions = replayCanonicalResponseWindows(streamFromHand(hand, events));
+    const decisions = scanAndCheck(streamFromHand(hand, events));
 
-    // Three response windows: the discard_response on seat 2's 1m (self tenpai
-    // on it — a genuine ron opportunity the pon preempted), the discard_response
-    // on seat 1's post-pon 9m (self holds a concealed triplet — a pon/daiminkan
-    // opportunity at seat distance 3), and the kan_response on seat 1's kakan
-    // added 1m (chankan).
-    expect(decisions).toHaveLength(3);
+    // All five opponent discards and the kakan are preserved. Native rules
+    // classify their legality later; the replay only records identities.
+    expect(decisions).toHaveLength(6);
 
     const discardWindows = decisions.filter((decision) =>
       decision.snapshot.privateState.decisionWindow.kind === "discard_response"
     );
-    expect(discardWindows).toHaveLength(2);
+    expect(discardWindows).toHaveLength(5);
 
     const seat2Window = discardWindows.find((decision) => {
       const w = decision.snapshot.privateState.decisionWindow;
@@ -498,7 +499,7 @@ describe("M6-A4.1 response window opening (shared streamContext seam)", () => {
 
     const seat1Window = discardWindows.find((decision) => {
       const w = decision.snapshot.privateState.decisionWindow;
-      return w.kind === "discard_response" && w.sourceActor === 1;
+      return w.kind === "discard_response" && decision.decisionEventRef === postPonDiscard.eventId;
     });
     expect(seat1Window).toBeDefined();
     const dw2 = seat1Window!.snapshot.privateState.decisionWindow;
@@ -542,7 +543,7 @@ describe("M6-A4.1 response window opening (shared streamContext seam)", () => {
       selfDraw(canonicalTile("5p")),
     ];
     const stream = streamFromHand(defaultHand, events);
-    const response = replayCanonicalResponseWindows(stream);
+    const response = scanCanonicalResponseBoundaries(stream);
     const self = replayCanonicalStream(stream);
 
     // The self-surface replay is unchanged: two visible self draws → two
@@ -553,7 +554,7 @@ describe("M6-A4.1 response window opening (shared streamContext seam)", () => {
     )).toBe(true);
     // The response partition is separate: only response kinds, ordered by
     // their trigger event refs.
-    expect(response).toHaveLength(1);
+    expect(response).toHaveLength(3);
     expect(response[0]!.snapshot.privateState.decisionWindow.kind).toBe("discard_response");
   });
 });

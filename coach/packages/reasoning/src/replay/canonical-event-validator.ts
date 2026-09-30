@@ -330,7 +330,7 @@ function validateRoundEvent(
       }
       if (
         state.pendingKan !== null &&
-        state.doraIndicatorsComplete
+        state.doraIndicatorsComplete && !rinshan
       ) return invalid("dora_kan_mismatch", event);
       if (event.actor === state.selfActor) {
         if (event.tile.visibility !== "visible") {
@@ -348,7 +348,8 @@ function validateRoundEvent(
       state.lastDrawTile = event.tile.visibility === "visible"
         ? event.tile.tile
         : null;
-      state.pendingKan = null;
+      // The replacement draw resolves the kan response, but an indicator can
+      // still be published later in this turn. Keep its identity until then.
       return null;
     }
 
@@ -429,9 +430,15 @@ function validateRoundEvent(
     case "chi_called":
     case "pon_called":
     case "daiminkan_called":
+      if (state.pendingKan !== null && state.doraIndicatorsComplete) {
+        return invalid("dora_kan_mismatch", event);
+      }
       return validateCall(state, event);
 
     case "ankan_declared":
+      if (state.pendingKan !== null && state.doraIndicatorsComplete) {
+        return invalid("dora_kan_mismatch", event);
+      }
       if (state.phase !== "awaiting_action") {
         return invalid("unexpected_event_for_phase", event);
       }
@@ -459,6 +466,9 @@ function validateRoundEvent(
       return null;
 
     case "kakan_declared": {
+      if (state.pendingKan !== null && state.doraIndicatorsComplete) {
+        return invalid("dora_kan_mismatch", event);
+      }
       if (state.phase !== "awaiting_action") {
         return invalid("unexpected_event_for_phase", event);
       }
@@ -497,7 +507,10 @@ function validateRoundEvent(
         state.pendingKan === null ||
         event.kanEventRef !== state.pendingKan.eventRef ||
         (state.phase !== "awaiting_kan_resolution" &&
-          state.phase !== "awaiting_rinshan_draw")
+          state.phase !== "awaiting_rinshan_draw" &&
+          !(state.phase === "awaiting_action" && state.lastDrawActor === state.pendingKan.actor) &&
+          !(state.phase === "awaiting_responses" && state.lastDiscardRef !== null &&
+            state.discards.get(state.lastDiscardRef)?.actor === state.pendingKan.actor))
       ) return invalid("dora_kan_mismatch", event);
       if (!addPublicTile(state, event.indicator)) {
         return conservationInvalid(state, event);
@@ -544,6 +557,9 @@ function validateRoundEvent(
           (state.lastDrawTile !== null &&
             !sameTile(event.winningTile, state.lastDrawTile))
         ) return invalid("win_source_mismatch", event);
+        if (state.pendingKan?.kind === "ankan" && state.doraIndicatorsComplete) {
+          return invalid("dora_kan_mismatch", event);
+        }
       } else if (state.phase === "awaiting_responses") {
         const discard = state.lastDiscardRef === null
           ? undefined
@@ -554,6 +570,9 @@ function validateRoundEvent(
           event.targetActor !== discard.actor ||
           !sameTile(event.winningTile, discard.tile)
         ) return invalid("win_source_mismatch", event);
+        if (state.pendingKan !== null && state.doraIndicatorsComplete) {
+          return invalid("dora_kan_mismatch", event);
+        }
       } else if (state.phase === "awaiting_kan_resolution") {
         if (
           state.pendingKan === null ||
@@ -584,6 +603,11 @@ function validateRoundEvent(
         state.phase === "terminal"
       ) {
         return invalid("unexpected_event_for_phase", event);
+      }
+      if (state.pendingKan !== null && state.doraIndicatorsComplete &&
+          !((event.reason === "suukaikan" || event.reason === "sancha_hou") &&
+            (state.phase === "awaiting_kan_resolution" || state.phase === "awaiting_rinshan_draw"))) {
+        return invalid("dora_kan_mismatch", event);
       }
       state.phase = "terminal";
       state.terminalEventRef = event.eventId;
@@ -679,6 +703,11 @@ export function validateCanonicalEventStream(
   for (const event of stream.events) {
     const result = validateRoundEvent(state, event);
     if (result !== null) return result;
+  }
+  if (state.pendingKan !== null && state.doraIndicatorsComplete &&
+      state.phase !== "terminal" && state.phase !== "between_rounds" && state.phase !== "game_ended" &&
+      options.allowUnclosedStream !== true) {
+    return { status: "invalid", code: "dora_kan_mismatch", eventRef: stream.events.at(-1)?.eventId ?? "" };
   }
   // EOF closing invariant: only between_rounds and game_ended are legal end
   // states. awaiting_draw/awaiting_action/awaiting_responses/terminal mean a
