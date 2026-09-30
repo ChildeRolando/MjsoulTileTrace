@@ -25,8 +25,9 @@
   只在其真实 spike 合入后消费 validated `StructuredAnalysisPackage`，不实现 runtime。
 
 `master` 已包含 M7-A/M7-B（PR #17 / #22）与 local Mortal prerequisite（PR #28）。当前
-组合候选已把账号/分享入口接到安全失败分流；分享导入在 main 中消费真实 managed local
-Mortal 产出的 validated package，创建/复用 session 后自动进入 Review Workspace。MVP
+组合候选已把分享入口接到安全失败分流；分享导入在 main 中消费真实 managed local
+Mortal 产出的 validated package，创建/复用 session 后自动进入 Review Workspace。账号
+`startRecordAnalysis` 仍待接入同一 package/session handoff。MVP
 仍为 **not demoable**，直到 D/Golden Slice、固定五门、fresh independent review、合并与
 获授权真人 smoke 全部完成。
 

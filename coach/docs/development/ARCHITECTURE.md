@@ -402,12 +402,13 @@ artifact 均不携带 raw material。缓存没有 TTL/LRU，只有显式清理�
 
 - canonical mapper 的部分流局/杠语义尚需真实牌谱反证（M5 人工验收并行线程）；
 - 响应面已接入（M6-A4.0/A4.1/A4.2：归属过滤拆除、discard_response/kan_response 开窗、响应窗口身份事实表与本地候选枚举同构、守恒不变量升级、响应分支覆盖率矩阵 fail-closed）；A4.3 纯事件 discovery 扫描已落地（`scripts/response-surface-discovery.mjs`，chankan 最早启动、合格局计数按 source 记入 manifest），wave-1 六分支已全部真实 E2E 取证（resp_chi/pon/daiminkan/hora_actual + resp_pass_on_discard 四候选族子覆盖 + resp_chankan_actual，8 份真实报告），wave-2 保持 fail-closed + 降级条款；
-- mapped/replayed record 的产品接线已随 account/share 来源入口汇入同一 main-only 组合；账号牌谱下载已消费 main-only、
+- mapped/replayed record 的 share-import 产品接线当前候选已汇入同一 main-only 组合；账号牌谱下载已消费 main-only、
   内容去重的 source raw cache，命中仍经 source/canonical 验证，并提供只返回安全计数结果的
   显式清理入口；raw bytes 仍不构成 renderer 或会话 artifact；
 - 整盘 StructuredAnalysisPackage（M6-C）、Typed Context Graph substrate（M6-D1）、M6-D2 唯一端到端生成链、M7-A fixed review UI 与 M7-B SQLite 会话/离线重开 substrate 已实现；真实账号/真实收费 LLM 自动验收未授权，跨平台发布仍未实现（M8）。
-- Playable Review MVP 的 composition root 当前候选已闭合 account/share → validated
-  `StructuredAnalysisPackage` → ReviewSession create/reuse → `openReview`；分享导入只把
-  verified `sessionId/packageId` 交给 renderer，不能以 replay 决策数 prose 结束。固定五门、
+- Playable Review MVP 的 share-import composition root 当前候选已闭合
+  validated `StructuredAnalysisPackage` → ReviewSession create/reuse → `openReview`；分享导入只把
+  verified `sessionId/packageId` 交给 renderer，不能以 replay 决策数 prose 结束。account
+  `startRecordAnalysis` 仍需后续接入同一 package/session handoff。固定五门、
   Golden Slice、独立评审与真人 smoke 仍是发布门。冻结接线与顶层 Electron 验收见
   [Integration Closeout spec](../specs/2026-09-24-playable-review-mvp-integration-closeout.md)。

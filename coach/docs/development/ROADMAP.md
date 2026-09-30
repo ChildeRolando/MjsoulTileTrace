@@ -40,8 +40,8 @@ PR #28、MVP、Golden Slice 不因已有单项通过而自动完成。
 | M3 教学证据 | 未开始 | 仅有策略边界和占位契约 | 冻结资料、引用、版本化教学规则；与 decision fact 两源分离，fixed report 稳定后启动 |
 | M4 受约束追问 | 未开始 | ——（原 M4"LLM 教练"已拆分为 M6-D 解释引擎 + M7-A 固定报告 UI + M4 追问对话） | fixed report 与教学证据层稳定后的 constrained follow-up/chat；context retrieval 将建立在 M6-D1 ContextGraph 上（embeddings/GraphRAG 不是前提） |
 | M5 雀魂国区接入 | 接近完成 | Electron 登录、加密恢复、最近 30 场、取回、canonical mapper、重放、脱敏 replay audit、H1 诊断命令 | 真实牌谱 H1 对照验收；未覆盖流局/杠枚举的 fixture 反证 |
-| M6 模型生产接入 | native runtime 与手动导入生产接缝已合入 | M6-A1–A4、M6-C、DeterministicReviewSelector、M6-D1/D2 与 COAC-111 local Mortal 四视角真实 checkpoint production spike 已落地；B 当前消费 managed local Mortal 生成 validated package | 固定五门、Golden Slice、fresh independent review 与最终人工验收；不得把 spike 单独视为 MVP 完成 |
-| M7 复盘工作台 | 核心能力完成，产品组合候选已接通 | M7-A UI、M7-B SQLite/immutable artifacts/两阶段恢复/离线重开/main-only raw cache 与 account/import → ReviewSession → Review Workspace 接线已落地 | MVP Electron Golden Slice、session-list/重启回归与最终发布门 |
+| M6 模型生产接入 | native runtime prerequisite 已合入；手动导入接缝为当前候选 | M6-A1–A4、M6-C、DeterministicReviewSelector、M6-D1/D2 与 COAC-111 local Mortal 四视角真实 checkpoint production spike 已落地；B 当前消费 managed local Mortal 生成 validated package | 固定五门、Golden Slice、fresh independent review 与最终人工验收；不得把 spike 单独视为 MVP 完成 |
+| M7 复盘工作台 | 核心能力完成，share-import 组合为当前候选 | M7-A UI、M7-B SQLite/immutable artifacts/两阶段恢复/离线重开/main-only raw cache 与 share-import → ReviewSession → Review Workspace 接线已落地；account `startRecordAnalysis` handoff 仍待接入 | MVP Electron Golden Slice、session-list/重启回归与最终发布门 |
 | M8 打包发布 | 未开始 | Electron 与 sidecar 构建基础 | 跨平台安装、升级、日志、发布验收 |
 
 ## 当前关键路径
