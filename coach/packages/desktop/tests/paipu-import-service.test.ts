@@ -180,7 +180,7 @@ function createFixtureLocalMortalRuntime(): ManagedMortalRuntime {
       };
       return { ...content, resultId: fixtureDigest(content) };
     },
-    scoreRules: async (request) => {
+    scoreRules: async (request: Parameters<ManagedMortalRuntime["scoreRules"]>[0]) => {
       const candidates = request.ruleResult.actions.map((row, index) => ({
         runtimeAction: row.runtimeAction,
         ruleActionId: fixtureDigest({

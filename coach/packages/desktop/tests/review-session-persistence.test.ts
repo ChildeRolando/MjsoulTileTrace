@@ -409,7 +409,20 @@ describe("ReviewSession SQLite persistence", () => {
       // This deterministic fact is part of the validated semantic payload but
       // does not participate in packageId, making it a valid same-id semantic
       // collision without breaking the model-score contract.
-      changed.decisions[0]!.knownGameFacts.remainingDraws += 1;
+      const firstDecision = changed.decisions[0];
+      if (firstDecision === undefined || firstDecision.knownGameFacts.remainingDraws === null) {
+        throw new Error("fixture_missing_remaining_draws");
+      }
+      changed.decisions = [
+        {
+          ...firstDecision,
+          knownGameFacts: {
+            ...firstDecision.knownGameFacts,
+            remainingDraws: firstDecision.knownGameFacts.remainingDraws + 1,
+          },
+        },
+        ...changed.decisions.slice(1),
+      ];
       const semanticDecisions = changed.decisions.map((decision) => decision.outcome === "analysis_ready"
         ? {
           ...decision,
