@@ -1,4 +1,4 @@
-import { mkdtempSync, rmSync } from "node:fs";
+import { mkdtempSync, readFileSync, rmSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it, vi } from "vitest";
@@ -8,14 +8,17 @@ import {
   unwrapGameDetailRecords,
 } from "@riichi-coach/mahjong-soul-source";
 import {
-  CanonicalEventStreamSchema,
   libriichiRuleCanonicalJson,
   type LibriichiRuleRequest,
   type LibriichiRuleResponse,
 } from "@riichi-coach/contracts";
 import {
   JsonlFactEngineClient,
+  generateReviewReport,
+  projectContextGraph,
   replayCanonicalStream,
+  selectReviewDecisions,
+  type ReplayedDecision,
 } from "@riichi-coach/reasoning";
 import { createRecordAnalysisStore } from "../src/record-analysis-store.js";
 import {
@@ -29,6 +32,9 @@ import {
 } from "../src/review-session-repository.js";
 import type { ManagedMortalRuntime } from "@riichi-coach/mortal-runtime";
 import {
+  formatMjaiTile,
+} from "@riichi-coach/mortal-source";
+import {
   bundleRoot,
   encodeSyntheticRecord,
   FakeWindow,
@@ -37,6 +43,7 @@ import {
   scriptedCapture,
 } from "./helpers/cdp-capture-harness.js";
 import { encodeMahjongSoulPerspectiveAccountId } from "@riichi-coach/mahjong-soul-source";
+import type { MahjongSoulRecordRuleEvidence } from "@riichi-coach/mahjong-soul-source";
 
 // The paipu-URL ingestion route without manual seat selection. Pins:
 //   1. the request is { shareUrl } only — no seat exists in the API;
@@ -72,84 +79,79 @@ const localAnalysisRuntimeIdentity = {
   nativeArtifactSha256: "6".repeat(64),
 };
 
-function localAnalysisFixtureStream() {
-  return CanonicalEventStreamSchema.parse({
-    schemaVersion: "canonical-riichi-events/v2",
-    mapperVersion: "fixture/v1",
-    gameId: "game:local-analysis-fixture",
-    sourceKind: "fixture",
-    sourceRecordHash: "sha256:source",
-    playerCount: 4,
-    selfActor: 0,
-    completeness: {
-      eventSequence: "complete",
-      ruleSet: "complete",
-      scores: "complete",
-      doraIndicators: "complete",
-      rivers: "complete",
-      calledDiscardMarkers: "complete",
-      melds: "complete",
-      remainingDraws: "complete",
-      settlement: "complete",
-      responseOpportunities: "complete",
+type CompleteRecordFixture = Readonly<{
+  readonly recordId: string;
+  readonly wire: string;
+  readonly ruleEvidence: MahjongSoulRecordRuleEvidence;
+}>;
+
+function loadCompleteRecordFixture(): CompleteRecordFixture {
+  return JSON.parse(readFileSync(new URL(
+    "../../mahjong-soul-source/tests/fixtures/real-record-complete.json",
+    import.meta.url,
+  ), "utf8")) as CompleteRecordFixture;
+}
+
+/**
+ * Keep the production import regression small while using the public,
+ * sanitized record mapper and a real multi-decision canonical prefix. The
+ * prefix ends immediately after the third self discard, so every test still
+ * exercises the same capture -> map -> replay path without shipping another
+ * record or model asset.
+ */
+function createRealPrefixAnalysisStore(
+  bundle: Awaited<ReturnType<typeof loadMahjongSoulProtocolBundle>>,
+  fixture: CompleteRecordFixture,
+) {
+  return createRecordAnalysisStore({
+    mapRecord: (input) => {
+      const mapped = mapMahjongSoulRecord({
+        ...input,
+        bundle,
+        ruleEvidence: fixture.ruleEvidence,
+      });
+      if (mapped.status !== "ready") return mapped;
+      const allDecisions = replayCanonicalStream(mapped.stream);
+      const thirdDecision = allDecisions[2];
+      if (thirdDecision === undefined) throw new Error("fixture_prefix_missing_decision");
+      const triggerIndex = mapped.stream.events.findIndex(
+        (event) => event.eventId === thirdDecision.decisionEventRef,
+      );
+      if (triggerIndex < 0) throw new Error("fixture_prefix_missing_trigger");
+      return {
+        ...mapped,
+        stream: {
+          ...mapped.stream,
+          events: mapped.stream.events.slice(0, triggerIndex + 2),
+        },
+      };
     },
-    ruleSet: {
-      length: "south",
-      redFives: { man: 1, pin: 1, sou: 1 },
-      openTanyao: true,
-      atamahane: false,
-      westExtension: "sudden_death",
-      ippatsuCancelledByAnkan: true,
-    },
-    events: [
-      {
-        type: "game_started",
-        eventId: "game:local-analysis-fixture/0/0/0",
-        sourceRecordRef: "record:0",
-      },
-      {
-        type: "round_started",
-        eventId: "game:local-analysis-fixture/0/1/0",
-        sourceRecordRef: "record:1",
-        roundOrdinal: 0,
-        roundWind: "E",
-        hand: 1,
-        honba: 0,
-        riichiSticks: 0,
-        dealer: 0,
-        scores: [25000, 25000, 25000, 25000],
-        doraIndicator: { id: "1s", red: false },
-        selfHand: [
-          { id: "1m", red: false }, { id: "2m", red: false }, { id: "3m", red: false },
-          { id: "4m", red: false }, { id: "5m", red: false }, { id: "6m", red: false },
-          { id: "7m", red: false }, { id: "8m", red: false }, { id: "9m", red: false },
-          { id: "1p", red: false }, { id: "2p", red: false }, { id: "3p", red: false },
-          { id: "4p", red: false },
-        ],
-        remainingDraws: 70,
-      },
-      {
-        type: "tile_drawn",
-        eventId: "game:local-analysis-fixture/0/2/0",
-        sourceRecordRef: "record:2",
-        actor: 0,
-        tile: { visibility: "visible", tile: { id: "5p", red: false } },
-        from: "live_wall",
-      },
-      {
-        type: "tile_discarded",
-        eventId: "game:local-analysis-fixture/0/3/0",
-        sourceRecordRef: "record:3",
-        actor: 0,
-        tile: { id: "5p", red: false },
-        discardMode: "tsumogiri",
-        riichiDeclarationEventRef: null,
-      },
-    ],
+    replay: replayCanonicalStream,
   });
 }
 
-function createFixtureLocalMortalRuntime(): ManagedMortalRuntime {
+function runtimeTileIndex(tile: { readonly id: string; readonly red: boolean }): number {
+  const rank = Number(tile.id[0]);
+  const suit = tile.id[1];
+  if (tile.red) return 34 + (suit === "m" ? 0 : suit === "p" ? 1 : 2);
+  if (suit === "m") return rank - 1;
+  if (suit === "p") return 9 + rank - 1;
+  if (suit === "s") return 18 + rank - 1;
+  return 27 + rank - 1;
+}
+
+type FixtureRuntimeHarness = Readonly<{
+  readonly runtime: ManagedMortalRuntime;
+  readonly stats: {
+    queryCalls: number;
+    scoreCalls: number;
+    failNextRule(): void;
+  };
+}>;
+
+function createFixtureLocalMortalRuntime(
+  decisions: readonly ReplayedDecision[],
+): FixtureRuntimeHarness {
   const ruleIdentity = {
     implementation: "Equim-chan/Mortal/libriichi" as const,
     revision: localAnalysisRuntimeIdentity.runtimeRevision,
@@ -157,18 +159,58 @@ function createFixtureLocalMortalRuntime(): ManagedMortalRuntime {
     wrapperSha256: localAnalysisRuntimeIdentity.runtimeArtifactSha256,
     normalizationVersion: "libriichi-actions/v2" as const,
   };
-  return {
+  const decisionByRef = new Map(decisions.map((decision) => [decision.decisionEventRef, decision]));
+  let failNextRule = false;
+  const stats = {
+    queryCalls: 0,
+    scoreCalls: 0,
+    failNextRule: () => { failNextRule = true; },
+  };
+  const runtime = {
     identity: localAnalysisRuntimeIdentity,
     ruleIdentity,
     queryRules: async (request: LibriichiRuleRequest): Promise<LibriichiRuleResponse> => {
+      stats.queryCalls += 1;
+      if (failNextRule) {
+        failNextRule = false;
+        throw new Error("injected_rule_runtime_failure");
+      }
+      if (request.decision.surface === "response") {
+        const content = {
+          protocolVersion: request.protocolVersion,
+          requestId: request.requestId,
+          identity: request.identity,
+          status: "non_action" as const,
+          reason: "native_cannot_act" as const,
+        };
+        return { ...content, resultId: fixtureDigest(content) };
+      }
+      const decision = decisionByRef.get(request.decision.decisionId);
+      const actual = decision?.actualAction;
+      if (decision === undefined || actual === null || actual === undefined || actual.kind !== "discard") {
+        throw new Error("fixture_runtime_unknown_decision");
+      }
+      const alternateTile = decision.snapshot.privateState.concealedTiles.find((tile) =>
+        tile.id !== actual.tile.id || tile.red !== actual.tile.red);
+      if (alternateTile === undefined) throw new Error("fixture_runtime_missing_alternate");
       const actions = [
         {
-          runtimeAction: { index: 13, variant: null },
-          mjaiActionJson: JSON.stringify({ type: "dahai", actor: 0, pai: "5p", tsumogiri: true }),
+          runtimeAction: { index: runtimeTileIndex(actual.tile), variant: null },
+          mjaiActionJson: JSON.stringify({
+            type: "dahai",
+            actor: request.decision.selfActor,
+            pai: formatMjaiTile(actual.tile),
+            tsumogiri: actual.discardMode === "tsumogiri",
+          }),
         },
         {
-          runtimeAction: { index: 0, variant: null },
-          mjaiActionJson: JSON.stringify({ type: "dahai", actor: 0, pai: "1m", tsumogiri: false }),
+          runtimeAction: { index: runtimeTileIndex(alternateTile), variant: null },
+          mjaiActionJson: JSON.stringify({
+            type: "dahai",
+            actor: request.decision.selfActor,
+            pai: formatMjaiTile(alternateTile),
+            tsumogiri: false,
+          }),
         },
       ];
       const content = {
@@ -181,6 +223,7 @@ function createFixtureLocalMortalRuntime(): ManagedMortalRuntime {
       return { ...content, resultId: fixtureDigest(content) };
     },
     scoreRules: async (request: Parameters<ManagedMortalRuntime["scoreRules"]>[0]) => {
+      stats.scoreCalls += 1;
       const candidates = request.ruleResult.actions.map((row, index) => ({
         runtimeAction: row.runtimeAction,
         ruleActionId: fixtureDigest({
@@ -202,6 +245,109 @@ function createFixtureLocalMortalRuntime(): ManagedMortalRuntime {
     },
     close: async () => undefined,
   } as unknown as ManagedMortalRuntime;
+  return { runtime, stats };
+}
+
+type ProductionFixtureHarness = Readonly<{
+  readonly bundle: Awaited<ReturnType<typeof loadMahjongSoulProtocolBundle>>;
+  readonly fixture: CompleteRecordFixture;
+  readonly wire: Uint8Array;
+  readonly analysis: ReturnType<typeof createRecordAnalysisStore>;
+  readonly localAnalysis: ReturnType<typeof createLocalMortalAnalysisService>;
+  readonly runtime: FixtureRuntimeHarness;
+  readonly root: string;
+  readonly repository: ReturnType<typeof createReviewSessionRepository>;
+  readonly service: ReturnType<typeof createMahjongSoulPaipuImportService>;
+  readonly baseline: {
+    readonly sessionId: string;
+    readonly packageId: string;
+  };
+  readonly before: ReturnType<ReturnType<typeof createReviewSessionRepository>["openByPackageId"]>;
+  readonly counters: {
+    saveAttempts: number;
+    reviewReadyReturns: number;
+  };
+}>;
+
+async function createProductionFixtureHarness(): Promise<ProductionFixtureHarness> {
+  const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
+  const fixture = loadCompleteRecordFixture();
+  const wire = Uint8Array.from(Buffer.from(fixture.wire, "hex"));
+  const analysis = createRealPrefixAnalysisStore(bundle, fixture);
+  const mapped = analysis.analyzeRecord({
+    recordId: fixture.recordId,
+    selfActor: 3,
+    recordBytes: unwrapGameDetailRecords(bundle, wire),
+    ruleEvidence: fixture.ruleEvidence,
+  });
+  if (mapped.status !== "analysis_ready") throw new Error("fixture_prefix_analysis_failed");
+  expect(mapped.decisions).toHaveLength(3);
+  const runtime = createFixtureLocalMortalRuntime(mapped.decisions);
+  const localAnalysis = createLocalMortalAnalysisService({
+    runtime: runtime.runtime,
+    factEngineResourcesDir: fileURLToPath(new URL("../../../resources/", import.meta.url)),
+  });
+  const root = mkdtempSync("coac-106-production-import-");
+  const repository = createReviewSessionRepository({ root });
+  const baseline = await localAnalysis.analyze({
+    recordId: fixture.recordId,
+    selfActor: 3,
+    stream: mapped.stream,
+    decisions: mapped.decisions,
+  });
+  const persisted = persistValidatedReviewSession(repository, baseline.package);
+  const report = await generateReviewReport(
+    projectContextGraph(baseline.package),
+    selectReviewDecisions(baseline.package),
+    {
+      descriptor: () => ({ providerId: "unconfigured", model: "unconfigured" }),
+      complete: async () => ({ errorCode: "provider_unavailable" as const, transportRetries: 0 as const }),
+    },
+    "2026-10-01T00:00:00.000Z",
+  );
+  repository.saveReport(
+    baseline.package.packageId,
+    report,
+    "production-report-ref",
+    "production-report-operation",
+  );
+  const before = repository.openByPackageId(baseline.package.packageId);
+  const counters = { saveAttempts: 0, reviewReadyReturns: 0 };
+  const service = createMahjongSoulPaipuImportService({
+    bundle,
+    analysis,
+    createWindow: () => scriptedCapture(bundle, { data: wire }).window,
+    timeoutMs: 5_000,
+    prepareReview: async (input) => {
+      const analyzed = await localAnalysis.analyze({
+        recordId: input.recordId,
+        selfActor: input.selfActor,
+        stream: input.stream,
+        decisions: input.decisions,
+      });
+      counters.saveAttempts += 1;
+      const saved = persistValidatedReviewSession(repository, analyzed.package);
+      counters.reviewReadyReturns += 1;
+      return saved;
+    },
+  });
+  // Do not let setup traffic hide the failure matrix's whole-game census.
+  runtime.stats.queryCalls = 0;
+  runtime.stats.scoreCalls = 0;
+  return {
+    bundle,
+    fixture,
+    wire,
+    analysis,
+    localAnalysis,
+    runtime,
+    root,
+    repository,
+    service,
+    baseline: persisted,
+    before,
+    counters,
+  };
 }
 
 async function makeService(overrides?: {
@@ -366,127 +512,95 @@ describe("paipu import service (automatic perspective resolution)", () => {
   });
 
   it("routes a production rules failure to analysis_failed without saving, then permits a healthy retry", async () => {
-    const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
-    const fixture = loadFixtureWire("real-supported-round");
-    const analysis = createRecordAnalysisStore({
-      mapRecord: (input) => mapMahjongSoulRecord({ ...input, bundle }),
-      replay: replayCanonicalStream,
-    });
-    const artifactIdentity = {
-      runtimeImplementation: "Equim-chan/Mortal" as const,
-      runtimeRevision: "0".repeat(40),
-      runtimeVersion: "Mortal V4" as const,
-      runtimeArtifactSha256: "1".repeat(64),
-      runtimeModelSha256: "3".repeat(64),
-      runtimeEngineSha256: "4".repeat(64),
-      checkpointRepository: "Yuchen1457/mortal-582500" as const,
-      checkpointRevision: "5".repeat(40),
-      checkpointModelTag: "mortal-hpc@582500" as const,
-      checkpointFileSha256: "6".repeat(64),
-      protocolVersion: "riichi-local-mortal-jsonl/v1" as const,
-      adapterVersion: "local-mortal-adapter/v1" as const,
-      nativeArtifactSha256: "2".repeat(64),
-    };
-    const failingRuntime = {
-      identity: artifactIdentity,
-      ruleIdentity: {
-        implementation: "Equim-chan/Mortal/libriichi" as const,
-        revision: "0".repeat(40),
-        nativeArtifactSha256: "2".repeat(64),
-        wrapperSha256: "1".repeat(64),
-        normalizationVersion: "libriichi-actions/v2" as const,
-      },
-      queryRules: async () => { throw new Error("injected_rule_runtime_failure"); },
-      scoreRules: async () => { throw new Error("score_not_reached"); },
-    } as unknown as ManagedMortalRuntime;
-    const localAnalysis = createLocalMortalAnalysisService({
-      runtime: failingRuntime,
-      factEngineResourcesDir: fileURLToPath(new URL("../../../resources/", import.meta.url)),
-    });
-    const root = mkdtempSync("coac-106-rule-failure-");
-    const repository = createReviewSessionRepository({ root });
-    let attempts = 0;
+    const harness = await createProductionFixtureHarness();
+    const { repository, runtime, service, before, counters } = harness;
     try {
-      const service = createMahjongSoulPaipuImportService({
-        bundle,
-        analysis,
-        createWindow: () => scriptedCapture(bundle, { data: fixture.wire }).window,
-        timeoutMs: 5_000,
-        prepareReview: async (input) => {
-          attempts += 1;
-          if (attempts === 1) {
-            // This is the same analysis owner used by Electron main. The
-            // injected first rules boundary must throw before session save.
-            await localAnalysis.analyze({
-              recordId: fixtureRecordId,
-              selfActor: input.selfActor,
-              stream: input.stream,
-              decisions: input.decisions,
-            });
-          }
-          return { sessionId: "session-healthy-retry", packageId: "package-healthy-retry" };
-        },
-      });
+      runtime.stats.failNextRule();
       await expect(service.importPaipu({ shareUrl: fixtureUrl }))
         .resolves.toEqual({ status: "analysis_failed" });
-      expect(repository.listSessions()).toHaveLength(0);
+      expect(runtime.stats.queryCalls).toBeGreaterThan(1);
+      expect(counters.saveAttempts).toBe(0);
+      expect(counters.reviewReadyReturns).toBe(0);
+      expect(repository.listSessions()).toHaveLength(1);
+      const afterFailure = repository.openByPackageId(before.analysisPackage.packageId);
+      expect(afterFailure.sessionId).toBe(before.sessionId);
+      expect(afterFailure.analysisPackage).toEqual(before.analysisPackage);
+      expect(afterFailure.analysisPackage.semanticContentHash).toBe(before.analysisPackage.semanticContentHash);
+      expect(afterFailure.activeReportRefId).toBe("production-report-ref");
+      expect(afterFailure.activeReport).toEqual(before.activeReport);
 
       await expect(service.importPaipu({ shareUrl: fixtureUrl }))
         .resolves.toMatchObject({
           status: "review_ready",
           recordId: fixtureRecordId,
           selfActor: 3,
-          sessionId: "session-healthy-retry",
-          packageId: "package-healthy-retry",
+          sessionId: before.sessionId,
+          packageId: before.analysisPackage.packageId,
         });
-      expect(attempts).toBe(2);
-      expect(repository.listSessions()).toHaveLength(0);
+      expect(counters.saveAttempts).toBe(1);
+      expect(counters.reviewReadyReturns).toBe(1);
+      const afterRetry = repository.openByPackageId(before.analysisPackage.packageId);
+      expect(afterRetry.sessionId).toBe(before.sessionId);
+      expect(afterRetry.analysisPackage).toEqual(before.analysisPackage);
+      expect(afterRetry.activeReportRefId).toBe("production-report-ref");
+      expect(afterRetry.activeReport).toEqual(before.activeReport);
     } finally {
       repository.close();
-      rmSync(root, { recursive: true, force: true, maxRetries: 20, retryDelay: 100 });
+      rmSync(harness.root, {
+        recursive: true, force: true, maxRetries: 20, retryDelay: 100,
+      });
     }
-  });
+  }, 30_000);
 
   it("routes a production fact-helper failure to analysis_failed, then permits a healthy retry", async () => {
-    const stream = localAnalysisFixtureStream();
-    const decisions = replayCanonicalStream(stream);
-    const localAnalysis = createLocalMortalAnalysisService({
-      runtime: createFixtureLocalMortalRuntime(),
-      factEngineResourcesDir: fileURLToPath(new URL("../../../resources/", import.meta.url)),
-    });
-    const root = mkdtempSync("coac-106-helper-failure-");
-    const repository = createReviewSessionRepository({ root });
+    const harness = await createProductionFixtureHarness();
+    const { repository, service, before, counters } = harness;
     const helper = vi.spyOn(JsonlFactEngineClient.prototype, "analyzeHand13")
       .mockImplementationOnce(async () => {
         throw new Error("injected_fact_helper_failure");
       });
     try {
-      await expect(localAnalysis.analyze({
-        recordId: stream.gameId,
-        selfActor: stream.selfActor,
-        stream,
-        decisions,
-      })).rejects.toThrow("fact_engine_failure");
-      // The production analysis owner fails before the composition seam may
-      // call persistValidatedReviewSession; no half-session is observable.
-      expect(repository.listSessions()).toHaveLength(0);
-
-      const healthy = await localAnalysis.analyze({
-        recordId: stream.gameId,
-        selfActor: stream.selfActor,
-        stream,
-        decisions,
-      });
-      expect(healthy.package.decisions.some((row) => row.outcome === "analysis_ready")).toBe(true);
-      const saved = persistValidatedReviewSession(repository, healthy.package);
-      expect(saved.packageId).toBe(healthy.package.packageId);
+      await expect(service.importPaipu({ shareUrl: fixtureUrl }))
+        .resolves.toEqual({ status: "analysis_failed" });
+      // The first helper call fails, but the whole-game census still visits
+      // the other decisions and delegates them to the real helper.
+      expect(helper.mock.calls.length).toBeGreaterThan(1);
+      const helperResults = await Promise.allSettled(
+        helper.mock.results.map((result) => result.value as Promise<unknown>),
+      );
+      expect(helperResults[0]?.status).toBe("rejected");
+      expect(helperResults.filter((result) => result.status === "fulfilled").length)
+        .toBeGreaterThanOrEqual(2);
+      expect(counters.saveAttempts).toBe(0);
+      expect(counters.reviewReadyReturns).toBe(0);
       expect(repository.listSessions()).toHaveLength(1);
+      const afterFailure = repository.openByPackageId(before.analysisPackage.packageId);
+      expect(afterFailure.sessionId).toBe(before.sessionId);
+      expect(afterFailure.analysisPackage).toEqual(before.analysisPackage);
+      expect(afterFailure.activeReportRefId).toBe("production-report-ref");
+      expect(afterFailure.activeReport).toEqual(before.activeReport);
+
+      await expect(service.importPaipu({ shareUrl: fixtureUrl }))
+        .resolves.toMatchObject({
+          status: "review_ready",
+          recordId: fixtureRecordId,
+          selfActor: 3,
+          sessionId: before.sessionId,
+          packageId: before.analysisPackage.packageId,
+        });
+      expect(counters.saveAttempts).toBe(1);
+      expect(counters.reviewReadyReturns).toBe(1);
+      const afterRetry = repository.openByPackageId(before.analysisPackage.packageId);
+      expect(afterRetry.sessionId).toBe(before.sessionId);
+      expect(afterRetry.analysisPackage).toEqual(before.analysisPackage);
+      expect(afterRetry.activeReportRefId).toBe("production-report-ref");
+      expect(afterRetry.activeReport).toEqual(before.activeReport);
     } finally {
       helper.mockRestore();
       repository.close();
-      rmSync(root, { recursive: true, force: true, maxRetries: 20, retryDelay: 100 });
+      rmSync(harness.root, { recursive: true, force: true, maxRetries: 20, retryDelay: 100 });
     }
-  });
+  }, 30_000);
 
   it("resolves whichever account the URL names — the suffix is an obfuscated token, not a seat", async () => {
     const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
