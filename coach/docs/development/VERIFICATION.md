@@ -256,7 +256,9 @@ account select 或 share import 起步，不得从 `openReview()` 直接起步�
 全部内存 graph/controller/provider state，再禁网/禁 LLM，并断言同一
 `activeReportRefId`、judgment、explanation、provenance 与零请求。
 
-**当前状态（2026-10-01，D stacked 候选）**：上述命令与 owner 已实现。测试从账号列表“分析”和分享链接“导入并分析”两个真实 app shell 按钮进入；使用 `packages/desktop/tests/fixtures/real-record-complete.json` 的脱敏真实牌谱，经生产 schema、canonical/replay、受控 Mortal 法律动作与 package/session 构建。完整链涵盖 `complete` 且账号重复分析复用唯一 session，降级链涵盖 `evidence_only`；账号分析失败另断言不导航且 SQLite package/session 均为零；每条链在保存并退出后启动新 Electron 进程，在断网及无 provider 情况下从会话列表重开并核对 active report、judgment、explanation、provenance 与零请求。`--mvp-golden-child` 与 `RIICHI_MVP_GOLDEN_TEST=1` 同时存在时才加载 main 的 fixture 适配器，窗口保持隐藏；离线重开不加载该适配器。
+**当前状态（2026-10-01，D stacked 候选）**：上述命令与 owner 已实现。测试从账号列表“分析”和分享链接“导入并分析”两个真实 app shell 按钮进入；使用 `packages/desktop/tests/fixtures/real-record-complete.json` 的脱敏真实原谱，经生产 schema、canonical/replay 后由 main 测试适配器裁剪为 actor 3 的 26 事件前缀（3 个 self、9 个 response 边界），再进入生产分析与 package/session 构建。`packages/desktop/tests/fixtures/native-rule-responses-actor3.json` 冻结对**同一前缀**用真实 native 查询得到的完整规则响应：self 候选 13/13/12，response 为 8 个 non_action、1 个 ok；每次请求除测试身份/requestId 外须与冻结请求完全一致，再重绑定 resultId，4 次可评分边界均进入评分链。模型 `scoreRules` 仍是按 native action index 排序的确定性测试夹具，不代表真实 Mortal CPU 推理。fixture 内的原始回执 SHA-256、原谱 SHA-256 和 canonical SHA-256 用于核对来源。
+
+完整链涵盖 `complete` 且账号重复分析复用唯一 session，降级链涵盖 `evidence_only`；账号分析失败另断言不导航且 SQLite package/session 均为零；每条链在保存并退出后启动新 Electron 进程，在应用级网络拦截及无 provider 情况下从会话列表重开并核对 active report、judgment、explanation、provenance 与零请求。`--mvp-golden-child` 与 `RIICHI_MVP_GOLDEN_TEST=1` 同时存在时才加载 main 的 fixture 适配器，窗口保持隐藏；离线重开不加载该适配器。此测试不证明 OS 级断网或整份原谱都被分析。
 
 本节只陈述候选上的永久门；独立评审、保护检查、依赖合并与真人 smoke 仍由 §7 分别确认，不能据此宣布整体 DEMOABLE。完整语义见
 [Integration Closeout spec](../specs/2026-09-24-playable-review-mvp-integration-closeout.md)。

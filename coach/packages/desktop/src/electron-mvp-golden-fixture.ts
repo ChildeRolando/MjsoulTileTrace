@@ -3,11 +3,10 @@
 // real record and pass through the production mapper/replay and package chain.
 import { readFileSync } from "node:fs";
 import { createHash } from "node:crypto";
-import { libriichiRuleCanonicalJson, AnalyzableRecordSummarySchema, type LibriichiRuleRequest, type LibriichiRuleResponse } from "@riichi-coach/contracts";
+import { libriichiRuleCanonicalJson, LibriichiRuleResponseSchema, AnalyzableRecordSummarySchema, type LibriichiRuleRequest, type LibriichiRuleResponse } from "@riichi-coach/contracts";
 import { mapMahjongSoulRecord, unwrapGameDetailRecords, encodeMahjongSoulPerspectiveAccountId, type MahjongSoulRecordRuleEvidence, type MahjongSoulProtocolBundle } from "@riichi-coach/mahjong-soul-source";
 import { replayCanonicalStream, projectContextGraph, type ReplayedDecision } from "@riichi-coach/reasoning";
 import type { StructuredAnalysisPackage, ReviewSelectionResult } from "@riichi-coach/contracts";
-import { formatMjaiTile } from "@riichi-coach/mortal-source";
 import type { ManagedMortalRuntime } from "@riichi-coach/mortal-runtime";
 import { createRecordAnalysisStore } from "./record-analysis-store.js";
 
@@ -81,14 +80,33 @@ function createRealPrefixAnalysisStore(
   });
 }
 
-function runtimeTileIndex(tile: { readonly id: string; readonly red: boolean }): number {
-  const rank = Number(tile.id[0]);
-  const suit = tile.id[1];
-  if (tile.red) return 34 + (suit === "m" ? 0 : suit === "p" ? 1 : 2);
-  if (suit === "m") return rank - 1;
-  if (suit === "p") return 9 + rank - 1;
-  if (suit === "s") return 18 + rank - 1;
-  return 27 + rank - 1;
+type FrozenRuleQuery = Readonly<{
+  decisionId: string;
+  surface: "self" | "response";
+  request: Omit<LibriichiRuleRequest, "requestId" | "identity">;
+  response: FrozenRuleResponse;
+}>;
+type FrozenRuleResponse = LibriichiRuleResponse extends infer T
+  ? T extends LibriichiRuleResponse ? Omit<T, "requestId" | "identity" | "resultId"> : never
+  : never;
+
+function loadFrozenNativeRules(): readonly FrozenRuleQuery[] {
+  const data = JSON.parse(readFileSync(new URL(
+    "../tests/fixtures/native-rule-responses-actor3.json", import.meta.url,
+  ), "utf8")) as { provenance: { selfActor: number; eventCount: number }; queries: FrozenRuleQuery[] };
+  if (data.provenance.selfActor !== 3 || data.provenance.eventCount !== 26 || data.queries.length !== 12) {
+    throw new Error("golden_native_rule_fixture_scope_mismatch");
+  }
+  const selfCounts = data.queries.filter((query) => query.surface === "self")
+    .map((query) => query.response.status === "ok" ? query.response.actions.length : 0);
+  const responseStatuses = data.queries.filter((query) => query.surface === "response")
+    .map((query) => query.response.status);
+  if (libriichiRuleCanonicalJson(selfCounts) !== libriichiRuleCanonicalJson([13, 13, 12]) ||
+      responseStatuses.filter((status) => status === "ok").length !== 1 ||
+      responseStatuses.filter((status) => status === "non_action").length !== 8) {
+    throw new Error("golden_native_rule_fixture_actions_mismatch");
+  }
+  return data.queries;
 }
 
 type FixtureRuntimeHarness = Readonly<{
@@ -110,8 +128,14 @@ function createFixtureLocalMortalRuntime(
     wrapperSha256: localAnalysisRuntimeIdentity.runtimeArtifactSha256,
     normalizationVersion: "libriichi-actions/v2" as const,
   };
-  const decisionByRef = new Map(decisions.map((decision) => [decision.decisionEventRef, decision]));
+  const frozenQueries = loadFrozenNativeRules();
+  const queryByDecisionId = new Map(frozenQueries.map((query) => [query.decisionId, query]));
+  if (queryByDecisionId.size !== frozenQueries.length ||
+      decisions.some((decision) => !queryByDecisionId.has(decision.decisionEventRef))) {
+    throw new Error("golden_native_rule_fixture_decision_mismatch");
+  }
   let failNextRule = false;
+  let injectedRuleFailure = false;
   const stats = {
     queryCalls: 0,
     scoreCalls: 0,
@@ -124,66 +148,40 @@ function createFixtureLocalMortalRuntime(
       stats.queryCalls += 1;
       if (failNextRule) {
         failNextRule = false;
+        injectedRuleFailure = true;
         throw new Error("injected_rule_runtime_failure");
       }
-      if (request.decision.surface === "response") {
-        const content = {
-          protocolVersion: request.protocolVersion,
-          requestId: request.requestId,
-          identity: request.identity,
-          status: "non_action" as const,
-          reason: "native_cannot_act" as const,
-        };
-        return { ...content, resultId: fixtureDigest(content) };
+      const query = queryByDecisionId.get(request.decision.decisionId);
+      if (query === undefined || query.surface !== request.decision.surface) {
+        throw new Error("golden_native_rule_fixture_unknown_decision");
       }
-      const decision = decisionByRef.get(request.decision.decisionId);
-      const actual = decision?.actualAction;
-      if (decision === undefined || actual === null || actual === undefined || actual.kind !== "discard") {
-        throw new Error("fixture_runtime_unknown_decision");
+      const { requestId: _requestId, identity: _identity, ...boundRequest } = request;
+      if (libriichiRuleCanonicalJson(boundRequest) !== libriichiRuleCanonicalJson(query.request)) {
+        throw new Error(`golden_native_rule_fixture_request_mismatch:${request.decision.decisionId}`);
       }
-      const alternateTile = decision.snapshot.privateState.concealedTiles.find((tile) =>
-        tile.id !== actual.tile.id || tile.red !== actual.tile.red);
-      if (alternateTile === undefined) throw new Error("fixture_runtime_missing_alternate");
-      const actions = [
-        {
-          runtimeAction: { index: runtimeTileIndex(actual.tile), variant: null },
-          mjaiActionJson: JSON.stringify({
-            type: "dahai",
-            actor: request.decision.selfActor,
-            pai: formatMjaiTile(actual.tile),
-            tsumogiri: actual.discardMode === "tsumogiri",
-          }),
-        },
-        {
-          runtimeAction: { index: runtimeTileIndex(alternateTile), variant: null },
-          mjaiActionJson: JSON.stringify({
-            type: "dahai",
-            actor: request.decision.selfActor,
-            pai: formatMjaiTile(alternateTile),
-            tsumogiri: false,
-          }),
-        },
-      ];
       const content = {
-        protocolVersion: request.protocolVersion,
+        ...query.response,
         requestId: request.requestId,
         identity: request.identity,
-        status: "ok" as const,
-        actions,
       };
-      return { ...content, resultId: fixtureDigest(content) };
+      return LibriichiRuleResponseSchema.parse({ ...content, resultId: fixtureDigest(content) });
     },
     scoreRules: async (request: Parameters<ManagedMortalRuntime["scoreRules"]>[0]) => {
       stats.scoreCalls += 1;
-      const candidates = request.ruleResult.actions.map((row, index) => ({
+      const preferredNativeIndex = Math.max(...request.ruleResult.actions.map((row) => row.runtimeAction.index));
+      const candidates = request.ruleResult.actions.map((row) => ({
         runtimeAction: row.runtimeAction,
         ruleActionId: fixtureDigest({
           runtimeAction: row.runtimeAction,
           mjaiActionJson: row.mjaiActionJson,
           ...(row.physicalAliases === undefined ? {} : { physicalAliases: row.physicalAliases }),
         }),
-        qValue: index === 0 ? 0 : 1,
+        // Deterministic scoring fixture: a rule action's native index determines
+        // the rank, independently of the action actually taken in the record.
+        qValue: row.runtimeAction.index === preferredNativeIndex ? 1 : 0,
       }));
+      const preferred = candidates.reduce((best, candidate) =>
+        candidate.qValue > best.qValue ? candidate : best);
       return {
         protocolVersion: "riichi-local-mortal-scoring-jsonl/v2" as const,
         requestId: request.requestId,
@@ -191,10 +189,14 @@ function createFixtureLocalMortalRuntime(
         status: "ok" as const,
         ruleResultId: request.ruleResult.resultId,
         candidates,
-        preferredRuntimeAction: candidates[1]!.runtimeAction,
+        preferredRuntimeAction: preferred.runtimeAction,
       };
     },
-    close: async () => undefined,
+    close: async () => {
+      if (!injectedRuleFailure && (stats.queryCalls !== 12 || stats.scoreCalls !== 4)) {
+        throw new Error(`golden_native_rule_fixture_coverage_mismatch:${stats.queryCalls}:${stats.scoreCalls}`);
+      }
+    },
   } as unknown as ManagedMortalRuntime;
   return { runtime, stats };
 }
