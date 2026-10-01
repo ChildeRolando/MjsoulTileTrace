@@ -1,6 +1,6 @@
 const test = process.env.VITEST === 'true' ? (await import('vitest')).test : (await import('node:test')).test;
 import assert from 'node:assert/strict';
-import { admit, parseResult, parseRejectedReviewResult, parseTransportRecoveryResult, decide, GATES, hash } from './protocol.mjs';
+import { admit, parseResult, parseRejectedReviewResult, parseTransportRecoveryResult, decide, externalReviewTerminal, externalReviewAcceptance, GATES, hash } from './protocol.mjs';
 
 const sha = 'a'.repeat(40), base = 'b'.repeat(40);
 const pr = () => ({ number: 8, state: 'open', draft: false, body: '```review-loop-admission\n' + JSON.stringify({protocol_version:'review-loop/v2.1', authoritative_spec_paths:['coach/docs/specs/example.md'], rubric:'Review all acceptance criteria.'}) + '\n```', base:{sha:base,repo:{full_name:'ChildeRolando/MjsoulTileTrace'}}, head:{sha,ref:'codex/test',repo:{full_name:'ChildeRolando/MjsoulTileTrace'}} });
@@ -90,6 +90,36 @@ test('stale base/head requires fresh round; cap is global per PR', () => {
   assert.equal(decide({...job(),round:3},read(),live).transition,'BLOCKED');
   live.head_sha=sha;live.base_sha='c'.repeat(40);
   assert.equal(decide(job(),read(),live).transition,'DISCARD_AND_REVIEW');
+});
+test('shared external terminal guard accepts only the exact three-round candidate-change history',()=>{
+  const base='b'.repeat(40),heads=['c','d','e'].map(value=>value.repeat(40)),admissionHash=hash('candidate-change admission');
+  const history=[];
+  for(let round=1;round<=3;round++) {
+    const issueId=`review-${round}`,head=heads[round-1],snapshot={sha256:hash(`snapshot-${round}`)},at=`2026-09-2${round}T00:00:00.000Z`;
+    history.push({event:'dispatch',kind:'review',round,head_sha:head,base_sha:base,issue_id:issueId,snapshot,at});
+    history.push({event:'discard',reason:'candidate changed before result consumption',round,head_sha:head,base_sha:base,issue_id:issueId,snapshot,at});
+  }
+  const state={protocol_version:'review-loop/v2.1',pr_number:8,round:3,status:'BLOCKED',reason:'round limit after candidate changed',
+    admission_hash:admissionHash,result:null,history,job:{kind:'review',round:3,pr_number:8,issue_id:'review-3',agent_id:'reviewer',base_sha:base,head_sha:heads[2],admission_hash:admissionHash}};
+  const live={pr_number:8,base_sha:base,head_sha:'f'.repeat(40),admission_hash:admissionHash};
+  assert.equal(externalReviewTerminal(state,live).kind,'candidate-change-exhaustion');
+  for(const mutate of [
+    s=>{s.history.pop();},
+    s=>{s.history[2].issue_id=s.history[0].issue_id;},
+    s=>{s.history[3].head_sha='f'.repeat(40);},
+    s=>{s.history[4].unexpected=true;},
+    s=>{s.result={issue_id:'review-3'};},
+    s=>{s.extra_review_authorization={};},
+    s=>{s.reason='review gates, environment or round limit';},
+  ]) {
+    const malformed=structuredClone(state);mutate(malformed);assert.throws(()=>externalReviewTerminal(malformed,live));
+  }
+  const acceptance={source:'external_independent_review',pr_number:8,review_issue_id:'external-review',comment_id:'external-comment',run_id:'external-run',
+    raw_review_sha256:hash('raw'),issue_contract_sha256:hash('contract'),external_sequence:5,base_sha:live.base_sha,head_sha:live.head_sha,
+    admission_hash:live.admission_hash,approval_ref:'human approval',accepted_at:'2026-10-01T00:00:00.000Z'};
+  const accepted=structuredClone(state);accepted.external_review_acceptance=acceptance;accepted.history.push({event:'accept_external_review',...acceptance});
+  assert.equal(externalReviewAcceptance(accepted,live).source,'external_independent_review');
+  assert.throws(()=>externalReviewAcceptance(accepted,{...live,head_sha:accepted.job.head_sha}),/discarded automatic candidate/);
 });
 test('fixer must push a new live SHA before another review', () => {
   const j={...job(),kind:'fix'}, live=admit(pr());

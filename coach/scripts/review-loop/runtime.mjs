@@ -4,7 +4,7 @@ import { promisify } from 'node:util';
 import { mkdir, readFile, writeFile, rename, open, unlink, realpath, readdir, copyFile, lstat, mkdtemp } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { admit, VERSION, REPOSITORY, hash, isSha, parseResult, parseRejectedReviewResult, parseTransportRecoveryResult, automaticRoundSixTerminal, externalReviewAcceptance } from './protocol.mjs';
+import { admit, VERSION, REPOSITORY, hash, isSha, parseResult, parseRejectedReviewResult, parseTransportRecoveryResult, externalReviewTerminal, externalReviewAcceptance } from './protocol.mjs';
 import { advance, advanceDurability, captureDurability, ensureDispatch, authorizeSixthReview, recoverRejectedTerminalReview, validateTransportRecovery, acceptTransportRecovery, transportReviewJob } from './controller.mjs';
 const exec=promisify(execFile);
 export async function command(file,args,cwd) {
@@ -487,12 +487,16 @@ export async function acceptExternalReviewRun(config,request,ioFactory=makeIO) {
   try {
     const file=path.join(config.state_dir,`pr-${request.pr_number}.json`),state=await readJson(file);
     assert(!state.external_review_acceptance && !state.history.some(e=>e.event === 'accept_external_review'),'external review already accepted');
-    automaticRoundSixTerminal(state);
+    const terminal=externalReviewTerminal(state);
+    assert(request.external_sequence > state.round,'external review sequence must exceed automatic round');
+    if(terminal.kind === 'candidate-change-exhaustion')
+      assert.equal(state.job.agent_id,config.reviewer_id,'external review automatic job reviewer mismatch');
     const io=ioFactory(config,file,config.state_dir),raw=await io.live(request.pr_number),live=admit(raw);
     assert.equal(live.base_sha,request.base_sha,'external-review current base changed');
     assert.equal(live.head_sha,request.head_sha,'external-review current head changed');
     assert.equal(live.admission_hash,request.admission_hash,'external-review admission changed');
     assert.equal(state.admission_hash,request.admission_hash,'external-review ledger admission mismatch');
+    externalReviewTerminal(state,live);
     const issue=await io.issue(request.review_issue_id);
     assert(issue.creator_type === 'member' && issue.project_id === config.project_id,'external review was not independently human-dispatched in this project');
     assert(typeof issue.description === 'string' && hash(issue.description) === request.issue_contract_sha256,'external review issue contract changed');
@@ -510,6 +514,7 @@ export async function acceptExternalReviewRun(config,request,ioFactory=makeIO) {
     assert.equal(current.base_sha,request.base_sha,'external-review current base changed');
     assert.equal(current.head_sha,request.head_sha,'external-review current head changed');
     assert.equal(current.admission_hash,request.admission_hash,'external-review admission changed');
+    externalReviewTerminal(state,current);
     const accepted_at=new Date().toISOString(),acceptance={source:'external_independent_review',pr_number:request.pr_number,review_issue_id:request.review_issue_id,comment_id:result.comment_id,run_id:result.run_id,raw_review_sha256:result.sha256,issue_contract_sha256:request.issue_contract_sha256,external_sequence:request.external_sequence,base_sha:request.base_sha,head_sha:request.head_sha,admission_hash:request.admission_hash,approval_ref:request.approval_ref,accepted_at};
     state.external_review_acceptance=acceptance;state.history.push({event:'accept_external_review',...acceptance});
     externalReviewAcceptance(state,current);
