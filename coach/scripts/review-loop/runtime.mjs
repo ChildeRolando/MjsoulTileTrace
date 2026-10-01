@@ -420,6 +420,14 @@ function standaloneReviewLoopCommonBlocks(description) {
   }
   return blocks;
 }
+function reviewLoopWorktreeIdentity(value,config) {
+  if(typeof value !== 'string' || !path.isAbsolute(value))return null;
+  const absolute=path.resolve(value),root=path.resolve(config.state_dir,'worktrees');
+  if(path.dirname(absolute) !== root)return null;
+  const match=path.basename(absolute).match(/^pr-([1-9][0-9]*)-(review|fix)-([1-9][0-9]*)-([a-f0-9]{12})$/);
+  if(!match)return null;
+  return {pr_number:Number(match[1]),kind:match[2],round:Number(match[3]),head_prefix:match[4]};
+}
 function fixSourcePayloadAfterCommonBlock(block) {
   for(let index=block.endLine+1;index<block.lines.length;index++) {
     const {line,visible}=block.lines[index];
@@ -463,9 +471,10 @@ function issueContractPrNumbers(issue,live,config) {
     return {hints,numbers:[...numbers],common,raw,block};
   });
   const expectedKeys=['protocol_version','repository','pr_number','base_sha','head_sha','round','worktree','authoritative_spec_paths','rubric'];
+  const identityKeys=['protocol_version','repository','pr_number','base_sha','head_sha','round','worktree'];
   const reviewerMatches=issue.assignee_type === 'agent' && issue.assignee_id === config.reviewer_id;
   const fixerMatches=issue.assignee_type === 'agent' && issue.assignee_id === config.fixer_id;
-  const role=reviewerMatches !== fixerMatches ? (reviewerMatches ? 'review' : 'fix') : null;
+  const assignedRole=reviewerMatches !== fixerMatches ? (reviewerMatches ? 'review' : 'fix') : null;
   const trusted=new Set(),ambiguous=new Set(),candidateCounts=new Map();
   for(const value of parsed) {
     const {raw,common,hints,block}=value;
@@ -474,28 +483,34 @@ function issueContractPrNumbers(issue,live,config) {
       continue;
     }
     const exactSchema=Object.keys(common).sort().join('\0') === [...expectedKeys].sort().join('\0');
+    const carriesIdentityFields=identityKeys.every(key=>Object.hasOwn(common,key));
     const validPr=Number.isSafeInteger(common.pr_number) && common.pr_number > 0;
     const markerBound=Boolean(block.marker);
-    const machineBound=exactSchema && common.repository === REPOSITORY;
+    const prHint=common.pr_number === live.pr_number || hints.includes(live.pr_number);
+    const worktreeIdentity=reviewLoopWorktreeIdentity(common.worktree,config);
+    const pathBindsTarget=worktreeIdentity?.pr_number === live.pr_number;
+    const machineBound=common.repository === REPOSITORY
+      && (pathBindsTarget || assignedRole !== null && prHint && carriesIdentityFields);
     if(!markerBound && !machineBound)continue;
     const candidatePrs=new Set(value.numbers);
+    if(worktreeIdentity)candidatePrs.add(worktreeIdentity.pr_number);
     if(!candidatePrs.size)continue;
     for(const prNumber of candidatePrs) {
       const relevant=prNumber === live.pr_number;
       if(!relevant)continue;
       candidateCounts.set(prNumber,(candidateCounts.get(prNumber) ?? 0)+1);
-      let canonical=machineBound && common.protocol_version === VERSION && validPr && common.pr_number === prNumber
-        && Number.isSafeInteger(common.round) && common.round > 0
-        && isSha(common.base_sha) && isSha(common.head_sha)
-        && typeof common.worktree === 'string'
+      let canonical=exactSchema && machineBound && assignedRole !== null && validPr && common.pr_number === prNumber
+        && worktreeIdentity?.pr_number === prNumber && worktreeIdentity.kind === assignedRole
         && Array.isArray(common.authoritative_spec_paths)
         && JSON.stringify(common.authoritative_spec_paths) === JSON.stringify(live.admission.authoritative_spec_paths)
         && common.rubric === live.admission.rubric
-        && role !== null && hints.length === 1 && hints[0] === common.pr_number;
+        && common.protocol_version === VERSION && Number.isSafeInteger(common.round) && common.round === worktreeIdentity.round
+        && isSha(common.base_sha) && isSha(common.head_sha) && worktreeIdentity.head_prefix === common.head_sha.slice(0,12)
+        && hints.length === 1 && hints[0] === common.pr_number;
       canonical &&= expectedKeys.every(key=>[...raw.matchAll(new RegExp(`^\\s*"${key}"\\s*:`, 'gm'))].length === 1);
-      const expectedWorktree=canonical ? path.join(config.state_dir,'worktrees',`pr-${common.pr_number}-${role}-${common.round}-${common.head_sha.slice(0,12)}`) : null;
+      const expectedWorktree=canonical ? path.join(config.state_dir,'worktrees',`pr-${common.pr_number}-${assignedRole}-${common.round}-${common.head_sha.slice(0,12)}`) : null;
       canonical &&= path.isAbsolute(common.worktree) && path.resolve(common.worktree) === path.resolve(expectedWorktree);
-      if(canonical && role === 'fix') {
+      if(canonical && assignedRole === 'fix') {
         const source=block.lines ? fixSourcePayloadAfterCommonBlock(block) : null;
         if(source) {
           const [,sourceIssueId,sourceCommentId,sourceSha,reviewFile]=source;

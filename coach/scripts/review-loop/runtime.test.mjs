@@ -1252,6 +1252,15 @@ function addRenamedRecoveryOrphan(f,kind,status,options={}) {
   f.setRuns(id,options.runs ?? [{id:`${id}-run`,issue_id:id,agent_id:options.run_agent_id ?? job.agent_id,status}]);
   return {issue,job,expectedTitle};
 }
+function editRecoveryCommonBlock(issue,edit) {
+  const description=issue.description,match=description.match(/\n\n\{\n  "protocol_version": "review-loop\/v2\.1",\n  "repository": "[^"]+",\n  "pr_number": [0-9]+/);
+  assert(match,'generated machine common block missing');
+  const start=match.index+2,end=description.indexOf('\n}',start);
+  assert(end > start,'generated machine common block terminator missing');
+  const common=JSON.parse(description.slice(start,end+2));edit(common);
+  issue.description=description.slice(0,start)+JSON.stringify(common,null,2)+description.slice(end+2);
+}
+function addUnknownCommonField(issue,key,value) {editRecoveryCommonBlock(issue,common=>{common[key]=value;});}
 
 test('failed-fix recovery entrypoint exists and performs a fresh Reviewer-to-PASS round without rewriting history',async()=>{
   const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-failed-fix-recovery-'));
@@ -1368,8 +1377,45 @@ test('failed-fix recovery rejects unsafe provenance and candidate preflight with
       issue.description=issue.description.replace('修复附件中针对该 PR 的完整独立评审。','按附件修复这项评审发现。');
       issue.description=issue.description.replace('评审来源：工单','来源被编辑：工单');
     },/active related run/i],
+    ['unknown Reviewer metadata plus edited preamble and heading remains related',f=>{
+      const {issue}=addRenamedRecoveryOrphan(f,'review','running');addUnknownCommonField(issue,'extension','operator note');
+      const heading='\n\n# 本轮固定任务参数\n\n',at=issue.description.indexOf(heading);
+      issue.description='改写后的 Reviewer 序言。\n\n# 固定任务参数\n\n'+issue.description.slice(at+heading.length);
+    },/active related run|ambiguous same-PR.*contract/i],
+    ['unknown Reviewer array metadata keeps a complete common-field subset related',f=>{
+      const {issue}=addRenamedRecoveryOrphan(f,'review','running');addUnknownCommonField(issue,'extensions',['one','two']);
+    },/active related run|ambiguous same-PR.*contract/i],
+    ['unknown Fixer object metadata plus edited preamble and source marker remains related',f=>{
+      const {issue}=addRenamedRecoveryOrphan(f,'fix','running');addUnknownCommonField(issue,'extension',{source:'operator'});
+      issue.description=issue.description.replace('修复附件中针对该 PR 的完整独立评审。','按附件修复这项评审发现。');
+      issue.description=issue.description.replace('评审来源：工单','来源被编辑：工单');
+    },/active related run|ambiguous same-PR.*contract/i],
+    ['unknown Fixer boolean metadata keeps a complete common-field subset related',f=>{
+      const {issue}=addRenamedRecoveryOrphan(f,'fix','running');addUnknownCommonField(issue,'extension',true);
+    },/active related run|ambiguous same-PR.*contract/i],
+    ['missing Reviewer rubric remains ambiguous through repository and worktree identity',f=>{
+      const {issue}=addRenamedRecoveryOrphan(f,'review','running');editRecoveryCommonBlock(issue,common=>{delete common.rubric;});
+      const heading='\n\n# 本轮固定任务参数\n\n',at=issue.description.indexOf(heading);
+      issue.description='改写后的 Reviewer 序言。\n\n# 固定任务参数\n\n'+issue.description.slice(at+heading.length);
+    },/active related run|ambiguous same-PR.*contract/i],
+    ['missing Reviewer base SHA remains ambiguous through its canonical worktree',f=>{
+      const {issue}=addRenamedRecoveryOrphan(f,'review','running');editRecoveryCommonBlock(issue,common=>{delete common.base_sha;});
+      const heading='\n\n# 本轮固定任务参数\n\n',at=issue.description.indexOf(heading);
+      issue.description='改写后的 Reviewer 序言。\n\n# 固定任务参数\n\n'+issue.description.slice(at+heading.length);
+    },/active related run|ambiguous same-PR.*contract/i],
+    ['damaged Fixer spec paths remain ambiguous through repository and worktree identity',f=>{
+      const {issue}=addRenamedRecoveryOrphan(f,'fix','running');editRecoveryCommonBlock(issue,common=>{common.authoritative_spec_paths={edited:true};});
+      issue.description=issue.description.replace('评审来源：工单','来源被编辑：工单');
+    },/active related run|ambiguous same-PR.*contract/i],
+    ['unknown Fixer protocol version remains ambiguous through its canonical worktree',f=>{
+      const {issue}=addRenamedRecoveryOrphan(f,'fix','running');editRecoveryCommonBlock(issue,common=>{common.protocol_version='review-loop/unknown';});
+      issue.description=issue.description.replace('评审来源：工单','来源被编辑：工单');
+    },/active related run|ambiguous same-PR.*contract/i],
+    ['wrong issue assignee remains related through same-PR canonical worktree identity',f=>{
+      const {issue}=addRenamedRecoveryOrphan(f,'review','running');issue.assignee_id='other-agent';
+    },/active related run|ambiguous same-PR.*contract/i],
     ['renamed orphan from an older round/head is still bound to this PR',f=>{addRenamedRecoveryOrphan(f,'review','running',{round:1,head_sha:f.request.original_head_sha});},/active related run/i],
-    ['title says this PR while canonical contract names another PR',f=>{addRenamedRecoveryOrphan(f,'review','running',{pr_number:9,title:'[review-loop/v2.1][审查][第2轮][bbbbbbbbbbbb] '+REPOSITORY+'#8'});},/active related run/i],
+    ['title says this PR while canonical contract names another PR',f=>{addRenamedRecoveryOrphan(f,'review','running',{pr_number:9,title:'[review-loop/v2.1][审查][第2轮][bbbbbbbbbbbb] '+REPOSITORY+'#8'});},/active related run|ambiguous same-PR.*contract/i],
     ['canonical contract says this PR while title names another PR',f=>{addRenamedRecoveryOrphan(f,'fix','running',{title:'[review-loop/v2.1][修复][第2轮][bbbbbbbbbbbb] '+REPOSITORY+'#9'});},/active related run/i],
     ['malformed same-PR machine contract is ambiguous and fails closed',f=>{
       const {issue}=addRenamedRecoveryOrphan(f,'review','running');
