@@ -397,24 +397,27 @@ async function assertNoActiveRecoveryRuns(io,state,request,requestSha,projectId,
 
   let resumableTargetId=null;
   const pending=state.pending;
+  const recoveryReviewTitle='[review-loop/v2.1][审查][第'+(request.round+1)+'轮]['+request.current_head_sha.slice(0,12)+'] '+REPOSITORY+'#'+request.pr_number;
+  const recoveryReviewMatches=issues.filter(issue=>issue.title === recoveryReviewTitle);
+  assert(recoveryReviewMatches.length <= 1,'duplicate failed-fix recovery review identity');
   if(pending?.kind === 'review' && pending.pr_number === request.pr_number && pending.round === request.round+1
     && pending.agent_id === reviewerId && pending.base_sha === request.current_base_sha && pending.head_sha === request.current_head_sha
     && pending.admission_hash === request.admission_hash
     && pending.recovery_binding?.request_sha256 === requestSha && pending.recovery_binding.base_sha === request.current_base_sha
     && pending.recovery_binding.head_sha === request.current_head_sha && pending.recovery_binding.admission_hash === request.admission_hash
     && pending.prepared_at && pending.attempted_at && typeof pending.title === 'string'
-    && pending.title === '[review-loop/v2.1][审查][第'+(request.round+1)+'轮]['+request.current_head_sha.slice(0,12)+'] '+REPOSITORY+'#'+request.pr_number
+    && pending.title === recoveryReviewTitle
     && typeof pending.description === 'string' && pending.description === jobDescription(pending,live)
     && hash(pending.description) === pending.description_hash) {
-    const matches=issues.filter(issue=>issue.title === pending.title);
-    assert(matches.length <= 1,'duplicate failed-fix recovery review identity');
-    if(matches.length) {
-      const issue=matches[0];
+    if(recoveryReviewMatches.length) {
+      const issue=recoveryReviewMatches[0];
       assert(issue.project_id === projectId && issue.assignee_type === 'agent' && issue.assignee_id === pending.agent_id
         && hash(issue.description) === pending.description_hash,'failed-fix recovery pending issue identity conflict');
       resumableTargetId=issue.id;
       add(issue.id);
     }
+  } else {
+    assert.equal(recoveryReviewMatches.length,0,'failed-fix recovery Reviewer issue exists without a prepared attempted pending dispatch');
   }
 
   for(const id of related) {

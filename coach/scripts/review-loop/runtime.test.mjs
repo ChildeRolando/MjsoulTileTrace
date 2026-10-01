@@ -5,7 +5,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { acquireLock, recoverLock, atomicJson, command, makeIO, tick, recoverInvalidReview, recoverTransportResult, authorizeSixthReviewRun, acceptExternalReviewRun } from './runtime.mjs';
 import { GATES, hash, admit, parseResult, VERSION, REPOSITORY, externalReviewAcceptance } from './protocol.mjs';
-import { advance, advanceDurability, captureDurability, jobDescription } from './controller.mjs';
+import { advance, advanceDurability, captureDurability, ensureDispatch, jobDescription } from './controller.mjs';
 test('transport recovery entrypoint exists',async()=>{
   const module=await import('./runtime.mjs');
   assert.equal(typeof module.recoverTransportResult,'function');
@@ -1277,6 +1277,25 @@ test('failed-fix recovery entrypoint exists and performs a fresh Reviewer-to-PAS
   } finally {await rm(dir,{recursive:true,force:true});}
 });
 
+test('failed-fix dispatch cannot reconcile an issue without a persisted attempted intent',async()=>{
+  const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-failed-fix-unattempted-'));
+  try {
+    const f=await failedFixRecoveryFixture(dir),live=admit(f.current);
+    const binding={request_sha256:'d'.repeat(64),base_sha:f.request.current_base_sha,head_sha:f.request.current_head_sha,admission_hash:f.request.admission_hash};
+    const job={kind:'review',pr_number:f.request.pr_number,round:f.request.round+1,base_sha:binding.base_sha,head_sha:binding.head_sha,
+      admission_hash:binding.admission_hash,agent_id:'reviewer',recovery_binding:binding,worktree:path.join(dir,'review-worktree'),prepared_at:'prepared'};
+    job.title='[review-loop/v2.1][审查][第'+job.round+'轮]['+job.head_sha.slice(0,12)+'] '+REPOSITORY+'#'+job.pr_number;
+    job.description=jobDescription(job,live);job.description_hash=hash(job.description);
+    const state={protocol_version:VERSION,pr_number:job.pr_number,round:f.request.round,status:'REVIEWING',admission_hash:binding.admission_hash,
+      pending:job,history:[]};
+    f.issues.push({id:'unattempted-recovery-review',title:job.title,description:job.description,project_id:'project',assignee_type:'agent',assignee_id:'reviewer'});
+    const stateBefore=structuredClone(state);
+    await assert.rejects(()=>ensureDispatch(state,live,'review',f.io,config(dir),undefined,binding),/persisted prepared attempted dispatch intent/);
+    assert.deepEqual(state,stateBefore);
+    assert.equal(f.metrics.saves,0);assert.equal(f.metrics.prepares,0);assert.equal(f.metrics.creates,0);
+  } finally {await rm(dir,{recursive:true,force:true});}
+});
+
 test('failed-fix recovery rejects unsafe provenance and candidate preflight with zero writes',async()=>{
   const cases=[
     ['unknown request field',f=>{f.request.extra=true;},/unexpected\/missing/],
@@ -1291,6 +1310,14 @@ test('failed-fix recovery rejects unsafe provenance and candidate preflight with
     ['live admission changed',f=>{const changed=pr(f.request.current_head_sha,f.request.current_base_sha);changed.body='```review-loop-admission\n'+JSON.stringify({...admission,rubric:'changed admission'})+'\n```';f.setCurrent(changed);},/admission changed/i],
     ['non-ancestor candidate',f=>{f.io.verifyRecoveryAncestry=async()=>{throw new Error('failed Fixer head is not an ancestor of current PR head');};},/ancestor/i],
     ['missing source Review archive',async f=>{await rm(path.join(f.dir,'results','review-issue-'+f.parsedReview.sha256+'.json'));},/archive|source/i],
+    ['orphan inactive same-identity Reviewer issue has no attempted recovery intent',f=>{
+      const live=admit(f.current),job={kind:'review',pr_number:f.request.pr_number,round:f.request.round+1,
+        base_sha:f.request.current_base_sha,head_sha:f.request.current_head_sha,admission_hash:f.request.admission_hash,
+        agent_id:'reviewer',worktree:path.join(f.dir,'review-worktree')};
+      job.title='[review-loop/v2.1][审查][第'+job.round+'轮]['+job.head_sha.slice(0,12)+'] '+REPOSITORY+'#'+job.pr_number;
+      job.description=jobDescription(job,live);
+      f.issues.push({id:'orphan-inactive-review',title:job.title,description:job.description,project_id:'project',assignee_type:'agent',assignee_id:'reviewer'});
+    },/unattempted|without.*attempted|orphan.*Reviewer/i],
     ['related source Reviewer issue has an active writer',f=>{f.setRuns('review-issue',[...f.runMap.get('review-issue'),{id:'concurrent-review-run',issue_id:'review-issue',agent_id:'reviewer',status:'running'}]);},/active related run/i],
     ['related Fixer issue has an active source writer',f=>{f.setRuns('fix-issue',[...f.runMap.get('fix-issue'),{id:'concurrent-fix-run',issue_id:'fix-issue',agent_id:'fixer',status:'running'}]);},/active related run/i],
     ['orphan same-PR Reviewer writer is active',f=>{const id='orphan-review-writer';f.issues.push({id,title:'[review-loop/v2.1][审查][第7轮][bbbbbbbbbbbb] '+REPOSITORY+'#8',project_id:'project',assignee_type:'agent',assignee_id:'reviewer'});f.setRuns(id,[{id:'orphan-run',issue_id:id,agent_id:'reviewer',status:'running'}]);},/active related run/i],

@@ -306,6 +306,10 @@ export async function ensureDispatch(state, live, kind, io, config, result, fail
   assert(matches.length <= 1, 'duplicate dispatch identity');
   let issue=matches[0];
   if(issue) {
+    if(failedFixRecoveryBinding) {
+      assert(state.pending === job && job.recovery_binding && job.prepared_at && job.attempted_at,
+        'failed-fix recovery issue reconcile requires a persisted prepared attempted dispatch intent');
+    }
     assert(issue.project_id === config.project_id && issue.assignee_type === 'agent' && issue.assignee_id === job.agent_id && hash(issue.description) === job.description_hash,'dispatch identity conflict');
   } else {
     assert(!job.attempted_at,'dispatch response unknown; reconcile before retry');
