@@ -230,6 +230,15 @@ describe("account catalog app composition", () => {
     expect(result.catalogDetail).not.toContain("private model failure");
   }, 60_000);
 
+  it("keeps account source visible when a saved review cannot open", async () => {
+    const result = await runScenario({
+      initialStatus: "logged_out", action: "analyze", actionStatus: "valid", sync: "record", reviewOpen: "failed",
+    });
+    expect(result.reviewCalls).toMatchObject({ openReview: 1 });
+    expect(result.reviewHidden).toBe(true);
+    expect(result.catalogDetail).toContain("复盘已保存，但暂时无法打开");
+  }, 60_000);
+
   it("syncs the catalog when a manual status refresh returns valid", async () => {
     const result = await runScenario({
       initialStatus: "logged_out", action: "refresh", actionStatus: "valid", sync: "record",

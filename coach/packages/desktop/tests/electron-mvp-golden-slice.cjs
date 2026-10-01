@@ -51,7 +51,7 @@ async function inPage(mode) {
   const packageId = document.querySelector('#review-package-id').value;
   let snapshot = await window.riichiCoachProvider.openReview({ packageId });
   if (snapshot.selection.selectedCount < 1) throw new Error('golden_no_selected_decisions');
-  if (snapshot.activeReportRefId !== null) throw new Error('golden_fresh_session_has_report');
+  if (snapshot.activeReportRefId !== null || snapshot.activeReportStatus !== 'not_generated') throw new Error('golden_fresh_session_has_report');
   const overview = document.querySelector('#fixed-review .review-overview');
   const generate = [...overview.querySelectorAll('button')].find((button) => button.textContent.includes('生成教练解说'));
   if (!generate) throw new Error('golden_generate_button_missing');
