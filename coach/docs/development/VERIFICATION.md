@@ -260,6 +260,8 @@ account select 或 share import 起步，不得从 `openReview()` 直接起步�
 
 完整链涵盖 `complete` 且账号重复分析复用唯一 session，降级链涵盖 `evidence_only`；账号分析失败另断言不导航且 SQLite package/session 均为零；每条链在保存并退出后启动新 Electron 进程，在应用级网络拦截及无 provider 情况下从会话列表重开并核对 active report、judgment、explanation、provenance 与零请求。`--mvp-golden-child` 与 `RIICHI_MVP_GOLDEN_TEST=1` 同时存在时才加载 main 的 fixture 适配器，窗口保持隐藏；离线重开不加载该适配器。此测试不证明 OS 级断网或整份原谱都被分析。
 
+Golden 从持久化 repository 公开读回同一 package/session 的已验证 package 与 selection，再运行公共 `selectReviewDecisions`，逐项对照保存选择、前后 renderer snapshot 的 decisionId/rank/顺序、Overview 入选数字及 List 每行的 decisionId/顺序；当前夹具的入选数与 replay 决策数不同。`evidence_only` 还固定检查 Detail DTO 中非空的 hard_evidence 局面事实（自家未立直及生产者/引用），实际 DOM 的确定性证据卡可见，完全退出后新进程重开仍逐字段一致。账号重复分析额外核对相同 sessionId/packageId。
+
 本节只陈述候选上的永久门；独立评审、保护检查、依赖合并与真人 smoke 仍由 §7 分别确认，不能据此宣布整体 DEMOABLE。完整语义见
 [Integration Closeout spec](../specs/2026-09-24-playable-review-mvp-integration-closeout.md)。
 

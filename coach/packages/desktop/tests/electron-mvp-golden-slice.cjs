@@ -15,6 +15,29 @@ async function inPage(mode) {
     }
     throw new Error('golden_timeout_' + label + ':' + document.querySelector('#review-entry-status')?.textContent + ':' + document.querySelector('#catalog-detail')?.textContent);
   };
+  const visibleSelection = () => ({
+    overviewCount: Number(document.querySelector('.review-overview .review-selected-count')?.textContent),
+    rows: [...document.querySelectorAll('.review-list tbody tr')].map((row) => ({
+      decisionId: row.dataset.decisionId,
+      rank: Number(/^第 (\d+) 条/.exec(row.cells[0]?.textContent ?? '')?.[1]),
+    })),
+  });
+  const visibleHardEvidence = (detail) => {
+    const fact = detail.provenance.find((item) => item.category === 'hard_evidence' && item.label === '局面事实');
+    const riichi = fact?.details.find((item) => item.label === '自家立直');
+    if (!fact?.displayRef || !fact.producer || !fact.summary.includes('自家未立直') || riichi?.value !== '否') {
+      throw new Error('golden_hard_evidence_payload_missing');
+    }
+    const section = [...document.querySelectorAll('.review-detail details')]
+      .find((node) => node.querySelector('summary')?.textContent === '证据摘要');
+    const card = [...(section?.querySelectorAll('article') ?? [])]
+      .find((node) => node.textContent.includes(fact.summary) && node.textContent.includes('自家立直 · 当前决策：否'));
+    if (!section?.open || !section.textContent.includes('确定性证据') || !card || card.getClientRects().length === 0) {
+      throw new Error('golden_hard_evidence_not_visible');
+    }
+    return { displayRef: fact.displayRef, producer: fact.producer, summary: fact.summary,
+      riichiValue: riichi.value, cardText: card.textContent };
+  };
   if (mode === 'offline') {
     const button = await wait(() => document.querySelector('#review-session-list button'), 'saved_session');
     button.click();
@@ -28,9 +51,12 @@ async function inPage(mode) {
     overview.querySelector('button')?.click();
     const list = document.querySelector('#fixed-review .review-list');
     await wait(() => !list.hidden, 'offline_list');
+    const selectionDom = visibleSelection();
     list.querySelector('button')?.click();
     await wait(() => document.querySelector('#fixed-review .review-detail') !== null, 'offline_detail');
-    return { packageId, snapshot, detail, listVisible: !list.hidden, detailVisible: document.querySelector('#fixed-review .review-detail') !== null };
+    const sessions = await window.riichiCoachProvider.listReviewSessions();
+    return { packageId, snapshot, detail, selectionDom, hardEvidence: visibleHardEvidence(detail), sessions,
+      listVisible: !list.hidden, detailVisible: document.querySelector('#fixed-review .review-detail') !== null };
   }
   if (mode === 'share') {
     await wait(() => !document.querySelector('.paipu-import').hidden, 'share_source');
@@ -66,11 +92,14 @@ async function inPage(mode) {
   document.querySelector('#fixed-review .review-overview button')?.click();
   const list = document.querySelector('#fixed-review .review-list');
   await wait(() => !list.hidden, 'list');
+  const selectionDom = visibleSelection();
   list.querySelector('button')?.click();
   await wait(() => document.querySelector('#fixed-review .review-detail') !== null, 'detail');
+  const hardEvidence = visibleHardEvidence(detail);
   document.querySelector('#leave-review').click();
   await wait(() => document.querySelector('#fixed-review').hidden, 'leave');
   await wait(() => document.querySelector('#review-session-list').textContent.includes('已有教练解说'), 'session_refresh');
+  const savedSessions = await window.riichiCoachProvider.listReviewSessions();
   if (mode === 'account') {
     document.querySelector('#catalog-list button').click();
     await wait(() => !document.querySelector('#fixed-review').hidden, 'reused_account');
@@ -80,8 +109,12 @@ async function inPage(mode) {
     await wait(() => document.querySelector('#fixed-review').hidden, 'reused_leave');
     const sessions = await window.riichiCoachProvider.listReviewSessions();
     if (sessions.length !== 1) throw new Error('golden_duplicate_account_session');
+    if (sessions[0].sessionId !== savedSessions[0]?.sessionId || sessions[0].packageId !== packageId) {
+      throw new Error('golden_account_session_identity_changed');
+    }
   }
-  return { packageId, snapshot, detail, listVisible: true, detailVisible: true, sessionText: document.querySelector('#review-session-list').textContent };
+  return { packageId, snapshot, detail, selectionDom, hardEvidence, sessions: savedSessions,
+    listVisible: true, detailVisible: true, sessionText: document.querySelector('#review-session-list').textContent };
   function assertDecision(value) { if (!value) throw new Error('golden_no_decision'); }
 }
 
@@ -118,7 +151,31 @@ if (process.versions.electron) {
   });
   import('../dist/electron-entry.js').catch((error) => { console.error(error); app.exit(1); });
 } else {
+  void (async () => {
   const electron = require('electron');
+  const { createReviewSessionRepository } = await import('../dist/review-session-repository.js');
+  const { selectReviewDecisions } = await import('@riichi-coach/reasoning');
+  function assertSavedSelection(root, result) {
+    const repository = createReviewSessionRepository({ root: join(root, 'review-library') });
+    try {
+      const saved = repository.openByPackageId(result.packageId);
+      const expected = selectReviewDecisions(saved.analysisPackage);
+      assert.equal(saved.analysisPackage.packageId, result.packageId);
+      assert.deepEqual(saved.selection, expected);
+      assert.equal(saved.activeReportRefId, result.snapshot.activeReportRefId);
+      assert.notEqual(expected.selected.length, saved.analysisPackage.decisions.length);
+      assert.equal(result.snapshot.selection.policyVersion, expected.policyVersion);
+      assert.equal(result.snapshot.selection.selectedCount, expected.selected.length);
+      const selected = expected.selected.map(({ decisionId, rank, selectionReason }) => ({ decisionId, rank, selectionReason }));
+      assert.deepEqual(result.snapshot.selection.items.map(({ decisionId, rank, selectionReason }) => ({ decisionId, rank, selectionReason })), selected);
+      assert.equal(result.selectionDom.overviewCount, expected.selected.length);
+      assert.deepEqual(result.selectionDom.rows, selected.map(({ decisionId, rank }) => ({ decisionId, rank })));
+      assert.equal(result.sessions.length, 1);
+      assert.equal(result.sessions[0].sessionId, saved.sessionId);
+      assert.equal(result.sessions[0].packageId, saved.analysisPackage.packageId);
+      return { sessionId: saved.sessionId, selected };
+    } finally { repository.close(); }
+  }
   function child(root, mode) {
     const result = spawnSync(electron, [__filename, mode === 'offline' ? '--mvp-golden-offline' : '--mvp-golden-child', mode], {
       env: { ...process.env, RIICHI_MVP_GOLDEN_ROOT: root, RIICHI_MVP_GOLDEN_TEST: '1', RIICHI_MVP_GOLDEN_REPORT: mode === 'evidence_only' ? 'evidence_only' : 'complete', RIICHI_MVP_GOLDEN_FAIL_ANALYSIS: mode === 'account_failure' ? '1' : '0', RIICHI_COACH_API_KEY: '' },
@@ -146,12 +203,19 @@ if (process.versions.electron) {
     const root = mkdtempSync(join(tmpdir(), 'riichi-mvp-golden-'));
     try {
       const before = child(root, mode);
+      const beforeOracle = assertSavedSelection(root, before.result);
       const after = child(root, 'offline');
+      const afterOracle = assertSavedSelection(root, after.result);
+      assert.deepEqual(afterOracle, beforeOracle);
       assert.equal(before.networkRequests, 0);
       assert.equal(before.result.snapshot.activeReportStatus, mode === 'evidence_only' ? 'evidence_only' : 'complete');
-      assert(before.result.snapshot.selection.selectedCount > 0);
+      assert.equal(before.result.snapshot.selection.selectedCount, beforeOracle.selected.length);
       assert(before.result.snapshot.activeReportRefId);
-      if (mode === 'evidence_only') assert.equal(before.result.detail.coachJudgments.length, 0);
+      if (mode === 'evidence_only') {
+        assert.equal(before.result.detail.coachJudgments.length, 0);
+        assert.equal(before.result.hardEvidence.riichiValue, '否');
+        assert.deepEqual(after.result.hardEvidence, before.result.hardEvidence);
+      }
       else { assert(before.result.detail.coachJudgments.length > 0); assert(before.result.detail.explanations.length > 0); }
       assert.equal(after.networkRequests, 0);
       assert.equal(after.result.packageId, before.result.packageId);
@@ -165,4 +229,5 @@ if (process.versions.electron) {
       console.log('[electron-mvp-golden] ' + mode + ' PASS status=' + before.result.snapshot.activeReportStatus + ' judgments=' + before.result.detail.coachJudgments.length + ' selected=' + before.result.snapshot.selection.selectedCount + ' offline requests=0');
     } finally { rmSync(root, { recursive: true, force: true, maxRetries: 20, retryDelay: 100 }); }
   }
+  })().catch((error) => { console.error(error); process.exitCode = 1; });
 }
