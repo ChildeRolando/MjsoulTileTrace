@@ -354,32 +354,3 @@ Recoverability：独占锁、写前意图、原子状态、精确 reconcile、�
 Semantic Load：仍是一个版本化 review loop；把原来的模型 Controller 换成程序，避免模型
 重复派发/转述。它隔离跨系统协调，产品 contracts 不拥有该工作流；折入产品运行时代价
 是把开发自动化和用户产品执行路径耦合。新增长期平台、数据库或第二套治理均无必要。
-
-## 2026-10-02：失败 Fixer 的预算内恢复入口
-
-用户授权增加 operator 命令 `node scripts/review-loop/runtime.mjs recover-failed-fix <config> <request.json>`，
-仅用于恢复协议有效、已完成且返回原候选 HEAD 的 Fixer run。配置必须 `enabled:false`，
-Controller 使用独占锁；ledger 必须是 `BLOCKED`，原因精确为
-`fixer did not produce new commit`，当前 job 必须是对应 Fixer，不能已有其他 pending，且必须尚有
-原有 `reviewRoundLimit` 预算。该命令不增加轮次预算、不重置 round、不直接接受 PASS。
-
-request 使用现有 `review-loop/v2.1`，严格字段为 `protocol_version`、`pr_number`、`round`、
-`failed_fix_issue_id`、`comment_id`、`run_id`、`raw_fix_sha256`、`original_base_sha`、
-`original_head_sha`、`current_base_sha`、`current_head_sha`、`admission_hash`、`approval_ref`。
-固定字段顺序计算 request identity，键顺序变化不会创建第二个授权。原始 Review 必须能由唯一、
-有序的 dispatch、`ROUTE_TO_FIXER` 历史、内容寻址 archive、严格解析的真实 Reviewer issue/comment/run
-重新证明；报告需满足现有 `decide` 路由条件、五门全部 PASS/0 且无环境失败。Fixer issue、完成 run、
-原文 hash、同 HEAD 报告和原始 admission 合同也必须重新读取并一致。唯一 completed 结果来源可与
-同一 issue 的 canceled run 共存；相关 active writer 会阻止恢复。
-
-恢复候选必须是当前 live PR 上已推送的 head，base 和冻结 admission 不变，并且原 Fixer head 是其祖先。
-验证原 Fixer worktree clean 且 HEAD 固定在旧候选。执行写入前重新核对 live candidate 和 ledger bytes；
-不确定的并发变化或来源冲突均拒绝。精确的 prepared/attempted pending Reviewer issue 是 create 响应丢失时
-唯一允许 reconcile 的 active run 身份。恢复会备份 ledger、归档原 Fixer 原文、追加一个
-`recover_failed_fix` 审计事件，并沿现有 dispatch 流程派发下一轮 Reviewer。重试复用同一 request 和
-pending candidate；普通 tick 在 Reviewer issue dispatch 前不得用新候选替换它，dispatch 后解除绑定。
-
-此窄授权只允许预算内派发 fresh Reviewer。冻结的 PR admission body、外部评审入口的 no-dispatch 约束、
-现有 review gates 与 `reviewRoundLimit` 均不变；该恢复路径不能产生外部评审接受事件或绕过 Reviewer 直接
-写入 PASS。部署和真实运行由 operator 按独立验收及 disabled 配置、备份和 live-source 复核流程执行；
-只有正式 Reviewer PASS 后才允许合并。

@@ -339,33 +339,3 @@ R5-001：新 PR 在尚未建立 review job 前被准入校验阻断时，发布�
 未派发第六轮，未伪造 PASS，未重置或删除五轮记录。默认三轮、未来 PR 的门禁和
 “评审通过不等于自动合并”的规则均保持不变。当前只验证了真实 review/fix/re-review
 链路，未取得本次端到端 PASS；它是已记录的上线例外，不作为全部验收条件满足的证明。
-
-## 2026-10-02：失败 Fixer 的预算内恢复入口
-
-用户明确授权新增 operator 命令：
-`node scripts/review-loop/runtime.mjs recover-failed-fix <config> <request.json>`。
-它只恢复真实、协议有效的 Fixer 完成 run，且报告 `head_sha` 与 `previous_head_sha` 都等于
-旧 Fixer job 的 HEAD。调用要求 config `enabled:false`、独占 Controller lock、当前 ledger 为
-精确 `BLOCKED / fixer did not produce new commit`、Fixer job/来源匹配、无冲突 pending，并且原
-`reviewRoundLimit` 仍有下一轮预算。
-
-request 使用现有 `review-loop/v2.1`，严格包含：`protocol_version`、`pr_number`、`round`、
-`failed_fix_issue_id`、`comment_id`、`run_id`、`raw_fix_sha256`、`original_base_sha`、
-`original_head_sha`、`current_base_sha`、`current_head_sha`、`admission_hash`、`approval_ref`。
-字段按固定顺序规范化后计算 identity；未知或缺失字段拒绝。运行时必须重新读取 source Reviewer 与 Fixer
-issue、comments、runs 和原文，并从 route/result/dispatch 历史及 content-addressed archive 验证顺序、
-唯一性、严格 schema、合同、原 admission、来源 hash 和同 HEAD 结果。Source Reviewer 的五门必须
-全部 PASS/0、无环境失败，且现有 `decide` 必须仍会路由至 Fixer。原 Fixer worktree 必须 clean 且
-仍停在原 HEAD；当前 PR head 必须已经推送、不同于旧 HEAD、由旧 HEAD 可达，base/admission 不变。
-
-恢复前在锁内重验全部来源、相关活动、remote ancestry、live candidate 和 ledger bytes。先备份 ledger
-与已有结果，再以原 SHA 归档失败 Fixer 原文，随后追加 `recover_failed_fix` 审计事件；恢复只沿普通 Controller 路径派发
-新 Reviewer，不改写旧历史或 `state.result`，不伪造 PASS、不清零轮次或扩充预算。若 prepare/create
-中断，重复相同 request 可继续；唯一严格匹配的 prepared+attempted Reviewer issue 可用于 create 响应丢失
-后的 reconcile。pending recovery binding 固定 base/head/admission/request identity，普通 tick 在该新
-Reviewer 正式 dispatch 前不得换成另一个候选；dispatch 后恢复既有普通循环规则。
-
-external-review acceptance 入口继续遵守 no-dispatch；`recover-failed-fix` 仅派发预算内 fresh
-Reviewer，不接受外部结论，也不能直接写入 PASS。PR admission body 与其中冻结的 external
-`no dispatch` 条款、Agent prompt/config 和 round limit 均不修改。部署及真实运行由 operator 按独立
-验收、disabled 配置、备份和 live-source 复核流程执行；取得正式 Reviewer PASS 后才允许合并。
