@@ -51,7 +51,10 @@ async function chromiumFocusResults(directory: string, scenarios = ["window.run(
 }
 
 describe("fixed review native DOM surface", () => {
-  it.each(["complete", "partial", "evidence_only", "failed"])("refreshes the saved session label after app generation: %s", async (status) => {
+  it.each([
+    ["complete", false], ["partial", false], ["evidence_only", false], ["failed", false],
+    ["complete", true], ["partial", true], ["evidence_only", true],
+  ] as const)("refreshes the saved session label after app generation: %s (refresh failure=%s)", async (status, refreshFailsOnce) => {
     const directory = mkdtempSync(join(tmpdir(), "fixed-review-session-list-"));
     try {
       const snapshot = FixedReviewSnapshotSchema.parse({
@@ -88,18 +91,27 @@ describe("fixed review native DOM surface", () => {
       const setup = `
         let activeReportRefId = null;
         let reads = 0;
+        let opens = 0;
+        let generations = 0;
+        let leaves = 0;
+        const refreshFailsOnce = ${JSON.stringify(refreshFailsOnce)};
         const snapshot = ${JSON.stringify(snapshot)};
         const result = ${JSON.stringify(result)};
         const session = ${JSON.stringify(session)};
         window.riichiCoach = { getSessionStatus: async () => ({ status: "logged_out" }) };
         window.riichiCoachProvider = {
-          listReviewSessions: async () => { reads++; return [{ ...session, activeReportRefId }]; },
-          openReview: async () => snapshot,
+          listReviewSessions: async () => {
+            reads++;
+            if (refreshFailsOnce && reads === 3) throw new Error("private-refresh-diagnostic");
+            return [{ ...session, activeReportRefId }];
+          },
+          openReview: async () => { opens++; return activeReportRefId === null ? snapshot : result.snapshot; },
           generateReview: async () => {
+            generations++;
             if (result.status === "ready") activeReportRefId = result.snapshot.activeReportRefId;
             return result;
           },
-          leaveReview: async () => {},
+          leaveReview: async () => { leaves++; },
         };
         const settle = async () => { for (let i = 0; i < 12; i++) await Promise.resolve(); };
         window.run = async () => {
@@ -111,19 +123,51 @@ describe("fixed review native DOM surface", () => {
           [...document.querySelectorAll("#fixed-review button")].find(b => b.textContent === "生成教练解说").click();
           await settle();
           window.afterGeneration = list.textContent;
+          if (refreshFailsOnce) window.savedAfterRefreshFailure = {
+            activeReportRefId,
+            warning: document.querySelector("#review-entry-status").textContent,
+            overview: document.querySelector("#fixed-review").textContent,
+            alerts: [...document.querySelectorAll('#fixed-review [role="alert"]')].map(e => e.textContent),
+            generateButtons: [...document.querySelectorAll("#fixed-review button")].filter(b => b.textContent === "生成教练解说").length,
+            hidden: document.querySelector("#fixed-review").hidden,
+          };
           document.querySelector("#leave-review").click();
           await settle();
+          if (refreshFailsOnce) {
+            window.firstLeave = { activeReportRefId, hidden: document.querySelector("#fixed-review").hidden };
+            document.querySelector("#open-review").click();
+            await settle();
+            window.recoveredList = list.textContent;
+            document.querySelector("#leave-review").click();
+            await settle();
+          }
           document.activeElement?.blur();
         };
         window.focusResult = () => ({ before: window.before, afterOpen: window.afterOpen,
           afterGeneration: window.afterGeneration, afterLeave: document.querySelector("#review-session-list").textContent,
-          hidden: document.querySelector("#fixed-review").hidden, reads });
+          hidden: document.querySelector("#fixed-review").hidden, reads,
+          ...(refreshFailsOnce ? { savedAfterRefreshFailure: window.savedAfterRefreshFailure,
+            firstLeave: window.firstLeave, recoveredList: window.recoveredList,
+            activeReportRefId, opens, generations, leaves } : {}) });
       `;
       writeFileSync(join(directory, "setup.js"), setup, "utf8");
       writeFileSync(join(directory, "page.html"), html.replace('<script type="module" src="./app.js"></script>', '<script src="./setup.js"></script><script type="module" src="./app.js"></script>'), "utf8");
       const before = "saved-package · 尚未生成教练解说打开";
       const after = status === "failed" ? before : "saved-package · 已有教练解说打开";
-      expect(await chromiumFocusResults(directory, ["window.run()"])).toEqual([{
+      const actual = await chromiumFocusResults(directory, ["window.run()"]);
+      if (refreshFailsOnce) {
+        const saved = (actual[0] as { savedAfterRefreshFailure: { overview: string } }).savedAfterRefreshFailure;
+        expect(saved.overview).toContain({ complete: "入选条目的解说齐全", partial: "部分解说可用", evidence_only: "仅证据可用", failed: "" }[status]);
+        expect(saved.overview).not.toMatch(/未生成|private-refresh-diagnostic/);
+        expect(actual).toEqual([{
+          before, afterOpen: before, afterGeneration: "", afterLeave: after, hidden: true, reads: 4,
+          savedAfterRefreshFailure: { activeReportRefId: "saved-report",
+            warning: "教练解说已生成，暂时无法刷新已保存复盘列表。", overview: saved.overview,
+            alerts: [], generateButtons: 0, hidden: false },
+          firstLeave: { activeReportRefId: "saved-report", hidden: true }, recoveredList: after,
+          activeReportRefId: "saved-report", opens: 2, generations: 1, leaves: 2,
+        }]);
+      } else expect(actual).toEqual([{
         before, afterOpen: before, afterGeneration: after, afterLeave: after, hidden: true,
         reads: status === "failed" ? 2 : 3,
       }]);
