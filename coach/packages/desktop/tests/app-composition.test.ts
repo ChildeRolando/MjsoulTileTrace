@@ -18,7 +18,8 @@ type Scenario = Readonly<{
   list?: "record" | "empty" | "failed";
   sync?: "record" | "empty" | "failed";
   paipuResult?: Record<string, unknown>;
-  reviewOpen?: "ready" | "failed";
+  reviewOpen?: "ready" | "failed" | "failed_once";
+  retrySavedReview?: boolean;
   staleText?: string;
 }>;
 
@@ -100,7 +101,11 @@ async function runScenario(scenario: Scenario): Promise<Record<string, unknown>>
       window.riichiCoachPaipu = { importPaipu: async () => { calls.paipuImport++; return scenario.paipuResult ?? { status: "analysis_failed" }; } };
       window.riichiCoachProvider = {
         listReviewSessions: async () => [],
-        openReview: async ({ packageId }) => { calls.openReview++; if (scenario.reviewOpen === "failed") throw new Error("review unavailable"); return snapshot(packageId); },
+        openReview: async ({ packageId }) => {
+          calls.openReview++;
+          if (scenario.reviewOpen === "failed" || (scenario.reviewOpen === "failed_once" && calls.openReview === 1)) throw new Error("review unavailable");
+          return snapshot(packageId);
+        },
         getReviewDetail: async ({ packageId }) => { calls.detail++; return detail(packageId); },
         leaveReview: async () => ({ status: "acknowledged" }),
         cancelGeneration: async () => ({ status: "acknowledged" }),
@@ -110,6 +115,13 @@ async function runScenario(scenario: Scenario): Promise<Record<string, unknown>>
       const settle = async () => {
         for (let i = 0; i < 20; i++) await new Promise((resolve) => setTimeout(resolve, 0));
       };
+      const reviewVisibility = () => ({
+        reviewHidden: document.querySelector("#fixed-review").hidden,
+        reviewText: document.querySelector("#fixed-review").textContent,
+        sourceHidden: document.querySelector(".paipu-import").hidden,
+        leaveHidden: document.querySelector("#leave-review").hidden,
+      });
+      let failedOpenView = null;
       window.run = async () => {
         await settle();
         if (scenario.action === "login" || scenario.action === "analyze") {
@@ -126,6 +138,11 @@ async function runScenario(scenario: Scenario): Promise<Record<string, unknown>>
           await settle();
         } else if (scenario.action === "paipu-import") {
           await settle();
+          if (scenario.retrySavedReview) {
+            failedOpenView = reviewVisibility();
+            document.querySelector("#open-review").click();
+            await settle();
+          }
           document.querySelector("#fixed-review .review-overview button")?.click();
           await settle();
           document.querySelector("#fixed-review .review-list button")?.click();
@@ -134,6 +151,7 @@ async function runScenario(scenario: Scenario): Promise<Record<string, unknown>>
         document.activeElement?.blur();
       };
       window.focusResult = () => ({
+        ...reviewVisibility(), failedOpenView,
         calls: { getStatus: calls.getStatus, login: calls.login, list: calls.list, sync: calls.sync, analyze: calls.analyze },
         reviewCalls: { paipuImport: calls.paipuImport, openReview: calls.openReview, detail: calls.detail },
         catalogDetail: document.querySelector("#catalog-detail").textContent,
@@ -257,7 +275,33 @@ describe("account catalog app composition", () => {
     });
     expect(result.reviewCalls).toEqual({ paipuImport: 1, openReview: 1, detail: 0 });
     expect(result.reviewOverview).toBe(null);
+    expect(result.reviewDetail).toBe(null);
+    expect(result.reviewHidden).toBe(true);
+    expect(result.reviewText).toBe("");
+    expect(result.sourceHidden).toBe(false);
+    expect(result.leaveHidden).toBe(true);
     expect(result.paipuStatus).toContain("复盘已保存，但暂时无法打开");
+  }, 60_000);
+
+  it("retries the saved package after an automatic open failure without importing again", async () => {
+    const result = await runScenario({
+      initialStatus: "valid", action: "paipu-import", reviewOpen: "failed_once",
+      retrySavedReview: true,
+      paipuResult: {
+        status: "review_ready", recordId: record.recordId, sessionId: "session-verified",
+        packageId: "package-verified", canonicalEventCount: 12, replayDecisionCount: 4,
+      },
+    });
+    expect(result.failedOpenView).toEqual({
+      reviewHidden: true, reviewText: "", sourceHidden: false, leaveHidden: true,
+    });
+    expect(result.reviewCalls).toEqual({ paipuImport: 1, openReview: 2, detail: 1 });
+    expect(result.reviewHidden).toBe(false);
+    expect(result.leaveHidden).toBe(false);
+    expect(result.reviewEntryStatus).toBe("已打开整盘复盘。");
+    expect(result.reviewOverview).toContain("整盘复盘");
+    expect(result.reviewListHidden).toBe(false);
+    expect(result.reviewDetail).toContain("条目详情");
   }, 60_000);
 
   it("keeps the source page when production analysis fails", async () => {

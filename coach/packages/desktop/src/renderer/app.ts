@@ -270,6 +270,9 @@ paipuImportButton.addEventListener("click", () => {
         try {
           await openReviewPackage(result.packageId);
         } catch {
+          // Roll back automatic navigation, preserving the main-owned saved
+          // session. Manual opens retain their existing visible error state.
+          await fixedReviewUi.leave().catch(() => undefined);
           paipuStatusElement.textContent = "复盘已保存，但暂时无法打开，请从已保存复盘重试。";
         }
       }

@@ -225,7 +225,10 @@ Electron main composition root。`packages/desktop/tests/paipu-import-service.te
 真正语义冲突，保留既有 immutable package/active report；规则 runtime error/unknown result
 以及 fact-helper/analysis-assembly execution failure 经 production analysis owner 进入
 `analysis_failed`，不保存 session 或导航，健康重试可重新进入 `review_ready`；合法
-non-action、singleton 和其他忠实 degraded diagnostic row 仍保留；这些回归不宣称真实
+non-action、singleton 和其他忠实 degraded diagnostic row 仍保留。自动打开失败由既有 UI
+leave/reset 回退：来源区保持可见、失败 Workspace 隐藏且清空，已保存 package/session
+仍可重试；`app-composition.test.ts` 在真实 Electron DOM 断言失败可见性及不再导入的
+健康重开，手动打开的错误提示契约保持。上述回归不宣称真实
 Electron Golden Slice、独立产品 PASS 或
 `DEMOABLE`。
 
