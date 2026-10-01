@@ -146,6 +146,7 @@ type FixtureRuntimeHarness = Readonly<{
     queryCalls: number;
     scoreCalls: number;
     failNextRule(): void;
+    mismatchNextSingletonActual(): void;
   };
 }>;
 
@@ -161,10 +162,16 @@ function createFixtureLocalMortalRuntime(
   };
   const decisionByRef = new Map(decisions.map((decision) => [decision.decisionEventRef, decision]));
   let failNextRule = false;
+  let singletonMismatchDecisionId: string | null = null;
   const stats = {
     queryCalls: 0,
     scoreCalls: 0,
     failNextRule: () => { failNextRule = true; },
+    mismatchNextSingletonActual: () => {
+      const decision = decisions.find((candidate) => candidate.actualAction?.kind === "discard");
+      if (decision === undefined) throw new Error("fixture_runtime_missing_discard");
+      singletonMismatchDecisionId = decision.decisionEventRef;
+    },
   };
   const runtime = {
     identity: localAnalysisRuntimeIdentity,
@@ -193,26 +200,23 @@ function createFixtureLocalMortalRuntime(
       const alternateTile = decision.snapshot.privateState.concealedTiles.find((tile) =>
         tile.id !== actual.tile.id || tile.red !== actual.tile.red);
       if (alternateTile === undefined) throw new Error("fixture_runtime_missing_alternate");
-      const actions = [
-        {
-          runtimeAction: { index: runtimeTileIndex(actual.tile), variant: null },
-          mjaiActionJson: JSON.stringify({
-            type: "dahai",
-            actor: request.decision.selfActor,
-            pai: formatMjaiTile(actual.tile),
-            tsumogiri: actual.discardMode === "tsumogiri",
-          }),
-        },
-        {
-          runtimeAction: { index: runtimeTileIndex(alternateTile), variant: null },
-          mjaiActionJson: JSON.stringify({
-            type: "dahai",
-            actor: request.decision.selfActor,
-            pai: formatMjaiTile(alternateTile),
-            tsumogiri: false,
-          }),
-        },
-      ];
+      const actionFor = (tile: typeof actual.tile, tsumogiri: boolean) => ({
+        runtimeAction: { index: runtimeTileIndex(tile), variant: null },
+        mjaiActionJson: JSON.stringify({
+          type: "dahai",
+          actor: request.decision.selfActor,
+          pai: formatMjaiTile(tile),
+          tsumogiri,
+        }),
+      });
+      const singletonActualMismatch = singletonMismatchDecisionId === request.decision.decisionId;
+      if (singletonActualMismatch) singletonMismatchDecisionId = null;
+      const actions = singletonActualMismatch
+        ? [actionFor(alternateTile, false)]
+        : [
+            actionFor(actual.tile, actual.discardMode === "tsumogiri"),
+            actionFor(alternateTile, false),
+          ];
       const content = {
         protocolVersion: request.protocolVersion,
         requestId: request.requestId,
@@ -261,15 +265,17 @@ type ProductionFixtureHarness = Readonly<{
   readonly baseline: {
     readonly sessionId: string;
     readonly packageId: string;
-  };
-  readonly before: ReturnType<ReturnType<typeof createReviewSessionRepository>["openByPackageId"]>;
+  } | null;
+  readonly before: ReturnType<ReturnType<typeof createReviewSessionRepository>["openByPackageId"]> | null;
   readonly counters: {
     saveAttempts: number;
     reviewReadyReturns: number;
   };
 }>;
 
-async function createProductionFixtureHarness(): Promise<ProductionFixtureHarness> {
+async function createProductionFixtureHarness(options?: {
+  readonly seedExistingSession?: boolean;
+}): Promise<ProductionFixtureHarness> {
   const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
   const fixture = loadCompleteRecordFixture();
   const wire = Uint8Array.from(Buffer.from(fixture.wire, "hex"));
@@ -295,23 +301,27 @@ async function createProductionFixtureHarness(): Promise<ProductionFixtureHarnes
     stream: mapped.stream,
     decisions: mapped.decisions,
   });
-  const persisted = persistValidatedReviewSession(repository, baseline.package);
-  const report = await generateReviewReport(
-    projectContextGraph(baseline.package),
-    selectReviewDecisions(baseline.package),
-    {
-      descriptor: () => ({ providerId: "unconfigured", model: "unconfigured" }),
-      complete: async () => ({ errorCode: "provider_unavailable" as const, transportRetries: 0 as const }),
-    },
-    "2026-10-01T00:00:00.000Z",
-  );
-  repository.saveReport(
-    baseline.package.packageId,
-    report,
-    "production-report-ref",
-    "production-report-operation",
-  );
-  const before = repository.openByPackageId(baseline.package.packageId);
+  let persisted: ProductionFixtureHarness["baseline"] = null;
+  let before: ProductionFixtureHarness["before"] = null;
+  if (options?.seedExistingSession !== false) {
+    persisted = persistValidatedReviewSession(repository, baseline.package);
+    const report = await generateReviewReport(
+      projectContextGraph(baseline.package),
+      selectReviewDecisions(baseline.package),
+      {
+        descriptor: () => ({ providerId: "unconfigured", model: "unconfigured" }),
+        complete: async () => ({ errorCode: "provider_unavailable" as const, transportRetries: 0 as const }),
+      },
+      "2026-10-01T00:00:00.000Z",
+    );
+    repository.saveReport(
+      baseline.package.packageId,
+      report,
+      "production-report-ref",
+      "production-report-operation",
+    );
+    before = repository.openByPackageId(baseline.package.packageId);
+  }
   const counters = { saveAttempts: 0, reviewReadyReturns: 0 };
   const service = createMahjongSoulPaipuImportService({
     bundle,
@@ -514,6 +524,7 @@ describe("paipu import service (automatic perspective resolution)", () => {
   it("routes a production rules failure to analysis_failed without saving, then permits a healthy retry", async () => {
     const harness = await createProductionFixtureHarness();
     const { repository, runtime, service, before, counters } = harness;
+    if (before === null) throw new Error("fixture_baseline_missing");
     try {
       runtime.stats.failNextRule();
       await expect(service.importPaipu({ shareUrl: fixtureUrl }))
@@ -555,6 +566,7 @@ describe("paipu import service (automatic perspective resolution)", () => {
   it("routes a production fact-helper failure to analysis_failed, then permits a healthy retry", async () => {
     const harness = await createProductionFixtureHarness();
     const { repository, service, before, counters } = harness;
+    if (before === null) throw new Error("fixture_baseline_missing");
     const helper = vi.spyOn(JsonlFactEngineClient.prototype, "analyzeHand13")
       .mockImplementationOnce(async () => {
         throw new Error("injected_fact_helper_failure");
@@ -597,6 +609,36 @@ describe("paipu import service (automatic perspective resolution)", () => {
       expect(afterRetry.activeReport).toEqual(before.activeReport);
     } finally {
       helper.mockRestore();
+      repository.close();
+      rmSync(harness.root, { recursive: true, force: true, maxRetries: 20, retryDelay: 100 });
+    }
+  }, 30_000);
+
+  it("rejects a singleton actual-action mismatch beside healthy rows before save or review-ready handoff", async () => {
+    const harness = await createProductionFixtureHarness({ seedExistingSession: false });
+    const { repository, runtime, service, counters } = harness;
+    try {
+      runtime.stats.mismatchNextSingletonActual();
+      const rejected = await service.importPaipu({ shareUrl: fixtureUrl });
+      expect(rejected).toEqual({ status: "analysis_failed" });
+      // A package containing this integrity failure must not cross the
+      // source-to-renderer review-ready handoff that would authorize navigation.
+      expect(runtime.stats.queryCalls).toBeGreaterThan(1);
+      expect(runtime.stats.scoreCalls).toBeGreaterThan(0);
+      expect(counters.saveAttempts).toBe(0);
+      expect(counters.reviewReadyReturns).toBe(0);
+      expect(repository.listSessions()).toHaveLength(0);
+
+      const recovered = await service.importPaipu({ shareUrl: fixtureUrl });
+      expect(recovered).toMatchObject({
+        status: "review_ready",
+        recordId: fixtureRecordId,
+        selfActor: 3,
+      });
+      expect(counters.saveAttempts).toBe(1);
+      expect(counters.reviewReadyReturns).toBe(1);
+      expect(repository.listSessions()).toHaveLength(1);
+    } finally {
       repository.close();
       rmSync(harness.root, { recursive: true, force: true, maxRetries: 20, retryDelay: 100 });
     }
