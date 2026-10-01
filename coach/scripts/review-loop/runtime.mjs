@@ -23,6 +23,18 @@ export async function atomicJson(file,data) {
 async function readJson(file,fallback) {
   try{return JSON.parse(await readFile(file,'utf8'));}catch(e){if(e.code === 'ENOENT' && fallback !== undefined)return fallback;throw e;}
 }
+async function candidateChangeSnapshotContents(state,readSnapshot) {
+  if(state?.round !== 3)return undefined;
+  assert.equal(typeof readSnapshot,'function','external review snapshot reader missing');
+  const refs=Array.isArray(state.history) ? state.history
+    .filter(event=>event?.event === 'dispatch' || event?.event === 'discard')
+    .map(event=>event.snapshot).filter(Boolean) : [];
+  const hashes=new Set();
+  for(const ref of refs)if(typeof ref.sha256 === 'string' && /^[a-f0-9]{64}$/.test(ref.sha256))hashes.add(ref.sha256);
+  const contents=new Map();
+  for(const sha256 of hashes)contents.set(sha256,await readSnapshot(sha256));
+  return contents;
+}
 export async function acquireLock(dir) {
   await mkdir(dir,{recursive:true});
   const file=path.join(dir,'controller.lock');
@@ -43,6 +55,14 @@ export function makeIO(config,stateFile,stateDir,runCommand=command) {
   const multica=async args=>JSON.parse(await runCommand(config.multica_path,['--profile',config.profile,'--workspace-id',config.workspace_id,...args,'--output','json'],stateDir));
   const git=async args=>runCommand(config.git_path,args,config.repository_path);
   const api=`repos/${REPOSITORY}`;
+  const readSnapshot=async sha256=>{
+    assert(/^[a-f0-9]{64}$/.test(sha256),'invalid snapshot address');
+    const directory=path.join(stateDir,'snapshots');
+    assert((await lstat(directory)).isDirectory(),'snapshot directory must be a regular directory');
+    const file=path.join(directory,`${sha256}.json`);
+    assert((await lstat(file)).isFile(),'snapshot must be a regular file');
+    return readFile(file);
+  };
   const worktree = job => path.join(stateDir,'worktrees',job.kind === 'durability' ? `durability-${job.identity}` : `pr-${job.pr_number}-${job.kind}-${job.round}-${job.head_sha.slice(0,12)}`);
   async function allIssues() {
     const out=[];
@@ -67,6 +87,7 @@ export function makeIO(config,stateFile,stateDir,runCommand=command) {
       await writeFile(path.join(dir,`${sha256}.json`),content,{mode:0o600});
       return {semantics:'github-rest-json-utf8/v1',sha256,observed_at:new Date().toISOString()};
     },
+    readSnapshot,
     issues:allIssues,
     issue:id=>multica(['issue','get',id]),
     runs:id=>multica(['issue','runs',id]),
@@ -187,7 +208,8 @@ export function makeIO(config,stateFile,stateDir,runCommand=command) {
           if(other) {
             assert(other.protocol_version === VERSION && other.pr_number === current.number,'publication ledger identity mismatch');
             assert(!other.admission_hash || other.admission_hash === live.admission_hash,'publication admission changed');
-            const external=externalReviewAcceptance(other,live);
+            const snapshots=other?.external_review_acceptance ? await candidateChangeSnapshotContents(other,readSnapshot) : undefined;
+            const external=externalReviewAcceptance(other,live,snapshots);
             if(external){member.status='success';member.review_source=external.source;}
             else if(other.status === 'BLOCKED')member.status='failure';
             else if(other.status === 'PASS' && other.job?.pr_number === current.number
@@ -487,16 +509,17 @@ export async function acceptExternalReviewRun(config,request,ioFactory=makeIO) {
   try {
     const file=path.join(config.state_dir,`pr-${request.pr_number}.json`),state=await readJson(file);
     assert(!state.external_review_acceptance && !state.history.some(e=>e.event === 'accept_external_review'),'external review already accepted');
-    const terminal=externalReviewTerminal(state);
+    const io=ioFactory(config,file,config.state_dir),snapshotContents=await candidateChangeSnapshotContents(state,io.readSnapshot);
+    const terminal=externalReviewTerminal(state,undefined,snapshotContents);
     assert(request.external_sequence > state.round,'external review sequence must exceed automatic round');
     if(terminal.kind === 'candidate-change-exhaustion')
       assert.equal(state.job.agent_id,config.reviewer_id,'external review automatic job reviewer mismatch');
-    const io=ioFactory(config,file,config.state_dir),raw=await io.live(request.pr_number),live=admit(raw);
+    const raw=await io.live(request.pr_number),live=admit(raw);
     assert.equal(live.base_sha,request.base_sha,'external-review current base changed');
     assert.equal(live.head_sha,request.head_sha,'external-review current head changed');
     assert.equal(live.admission_hash,request.admission_hash,'external-review admission changed');
     assert.equal(state.admission_hash,request.admission_hash,'external-review ledger admission mismatch');
-    externalReviewTerminal(state,live);
+    externalReviewTerminal(state,live,snapshotContents);
     const issue=await io.issue(request.review_issue_id);
     assert(issue.creator_type === 'member' && issue.project_id === config.project_id,'external review was not independently human-dispatched in this project');
     assert(typeof issue.description === 'string' && hash(issue.description) === request.issue_contract_sha256,'external review issue contract changed');
@@ -514,10 +537,10 @@ export async function acceptExternalReviewRun(config,request,ioFactory=makeIO) {
     assert.equal(current.base_sha,request.base_sha,'external-review current base changed');
     assert.equal(current.head_sha,request.head_sha,'external-review current head changed');
     assert.equal(current.admission_hash,request.admission_hash,'external-review admission changed');
-    externalReviewTerminal(state,current);
+    externalReviewTerminal(state,current,snapshotContents);
     const accepted_at=new Date().toISOString(),acceptance={source:'external_independent_review',pr_number:request.pr_number,review_issue_id:request.review_issue_id,comment_id:result.comment_id,run_id:result.run_id,raw_review_sha256:result.sha256,issue_contract_sha256:request.issue_contract_sha256,external_sequence:request.external_sequence,base_sha:request.base_sha,head_sha:request.head_sha,admission_hash:request.admission_hash,approval_ref:request.approval_ref,accepted_at};
     state.external_review_acceptance=acceptance;state.history.push({event:'accept_external_review',...acceptance});
-    externalReviewAcceptance(state,current);
+    externalReviewAcceptance(state,current,snapshotContents);
     await io.archiveExternalResult(request.review_issue_id,result);await io.save(state);await io.publish(state);
     return {status:'EXTERNAL_REVIEW_ACCEPTED',ledger_status:state.status,pr:state.pr_number,base_sha:acceptance.base_sha,head_sha:acceptance.head_sha,review_issue_id:acceptance.review_issue_id,comment_id:acceptance.comment_id,run_id:acceptance.run_id,raw_review_sha256:acceptance.raw_review_sha256,external_sequence:acceptance.external_sequence};
   } finally {await release();}

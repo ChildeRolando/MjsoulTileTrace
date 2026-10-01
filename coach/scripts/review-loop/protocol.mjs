@@ -58,7 +58,22 @@ export function automaticRoundSixTerminal(state) {
   assert.equal(sources.length,1,'external review automatic round-6 terminal result missing');
   return sources[0];
 }
-function candidateChangeExhaustionTerminal(state,live) {
+function snapshotCandidate(snapshot,contents,state) {
+  keys(snapshot,['semantics','sha256','observed_at']);
+  assert.equal(snapshot.semantics,'github-rest-json-utf8/v1','external review snapshot semantics mismatch');
+  assert(/^[a-f0-9]{64}$/.test(snapshot.sha256) && text(snapshot.observed_at)
+    && Number.isFinite(Date.parse(snapshot.observed_at)),'external review snapshot reference invalid');
+  assert(contents instanceof Map,'external review snapshot bytes missing');
+  const bytes=contents.get(snapshot.sha256);
+  assert(Buffer.isBuffer(bytes) || typeof bytes === 'string','external review snapshot bytes missing');
+  assert.equal(hash(bytes),snapshot.sha256,'external review snapshot content hash mismatch');
+  const source=typeof bytes === 'string' ? bytes : new TextDecoder('utf-8',{fatal:true}).decode(bytes);
+  const candidate=admit(JSON.parse(source));
+  assert.equal(candidate.pr_number,state.pr_number,'external review snapshot PR mismatch');
+  assert.equal(candidate.admission_hash,state.admission_hash,'external review snapshot admission mismatch');
+  return candidate;
+}
+function candidateChangeExhaustionTerminal(state,live,snapshotContents) {
   assert(state.protocol_version === VERSION && state.status === 'BLOCKED' && state.round === 3
     && state.reason === 'round limit after candidate changed' && state.pending == null,
   'external review requires default round-three candidate-change terminal');
@@ -89,9 +104,13 @@ function candidateChangeExhaustionTerminal(state,live) {
       && discard.issue_id === dispatch.issue_id && discard.base_sha === dispatch.base_sha && discard.head_sha === dispatch.head_sha,
     'external review candidate-change dispatch/discard mismatch');
     assert(object(dispatch.snapshot) && object(discard.snapshot)
-      && /^[a-f0-9]{64}$/.test(dispatch.snapshot.sha256) && /^[a-f0-9]{64}$/.test(discard.snapshot.sha256)
       && text(dispatch.at) && text(discard.at) && Number.isFinite(Date.parse(dispatch.at)) && Number.isFinite(Date.parse(discard.at)),
     'external review candidate-change history evidence invalid');
+    const dispatched=snapshotCandidate(dispatch.snapshot,snapshotContents,state),discarded=snapshotCandidate(discard.snapshot,snapshotContents,state);
+    assert(dispatched.base_sha === dispatch.base_sha && dispatched.head_sha === dispatch.head_sha,
+      'external review dispatch snapshot candidate mismatch');
+    assert(discarded.base_sha !== dispatch.base_sha || discarded.head_sha !== dispatch.head_sha,
+      'external review discard snapshot candidate did not change');
   }
   const lastDispatch=state.history[4],lastDiscard=state.history[5];
   assert(lastDispatch.issue_id === job.issue_id && lastDispatch.base_sha === job.base_sha && lastDispatch.head_sha === job.head_sha
@@ -114,17 +133,17 @@ function candidateChangeExhaustionTerminal(state,live) {
   }
   return {kind:'candidate-change-exhaustion',job,last_dispatch:lastDispatch,last_discard:lastDiscard};
 }
-export function externalReviewTerminal(state,live) {
+export function externalReviewTerminal(state,live,snapshotContents) {
   if(state.round === 6)
     return {kind:'automatic-round-6',source:automaticRoundSixTerminal(state)};
-  return candidateChangeExhaustionTerminal(state,live);
+  return candidateChangeExhaustionTerminal(state,live,snapshotContents);
 }
-export function externalReviewAcceptance(state, live) {
+export function externalReviewAcceptance(state, live,snapshotContents) {
   const a=state.external_review_acceptance;
   if(!a)return null;
   keys(a,externalAcceptanceFields);
   assert.equal(a.source,'external_independent_review');
-  externalReviewTerminal(state,live);
+  externalReviewTerminal(state,live,snapshotContents);
   assert(a.pr_number === state.pr_number && Number.isSafeInteger(a.external_sequence) && a.external_sequence > state.round,'invalid external review identity');
   assert(isSha(a.base_sha) && isSha(a.head_sha) && /^[a-f0-9]{64}$/.test(a.raw_review_sha256) && /^[a-f0-9]{64}$/.test(a.issue_contract_sha256) && /^[a-f0-9]{64}$/.test(a.admission_hash),'invalid external review hashes');
   for(const k of ['review_issue_id','comment_id','run_id','approval_ref'])assert(text(a[k]),'missing external review provenance');

@@ -622,10 +622,18 @@ test('external independent review closure preserves automatic BLOCKED and publis
 });
 async function roundThreeCandidateChangeFixture(dir) {
   const file=path.join(dir,'pr-8.json'),base='a'.repeat(40),heads=['b','c','d','e'].map(value=>value.repeat(40));
+  const snapshotsDir=path.join(dir,'snapshots');
+  let snapshotReads=0;
+  const snapshot=async value=>{
+    const bytes=JSON.stringify(value),sha256=hash(bytes);
+    await mkdir(snapshotsDir,{recursive:true});await writeFile(path.join(snapshotsDir,`${sha256}.json`),bytes,'utf8');
+    return {semantics:'github-rest-json-utf8/v1',sha256,observed_at:new Date().toISOString()};
+  };
+  const readSnapshot=sha256=>{snapshotReads++;return readFile(path.join(snapshotsDir,`${sha256}.json`));};
   let observed=pr(heads[0],base),created=0;
   const issues=[];
   const tickIO={
-    openPRs:async()=>[observed],live:async()=>observed,snapshot:async value=>({sha256:hash(value.head.sha)}),checkSpecs:async()=>{},
+    openPRs:async()=>[observed],live:async()=>observed,snapshot,checkSpecs:async()=>{},
     save:state=>atomicJson(file,state),prepare:async job=>path.join(dir,`${job.round}-review`),issues:async()=>issues,
     create:async job=>{created++;const issue={id:`automatic-review-${created}`,identifier:`COAC-R${created}`,title:job.title,description:job.description,project_id:'project',assignee_type:'agent',assignee_id:'reviewer'};issues.push(issue);return issue;},
     runs:async issueId=>[{id:`${issueId}-run`,issue_id:issueId,agent_id:'reviewer',status:'completed'}],publish:async()=>{},
@@ -651,9 +659,9 @@ async function roundThreeCandidateChangeFixture(dir) {
   const request={protocol_version:VERSION,pr_number:8,review_issue_id:issue.id,comment_id:comment.id,run_id:run.id,raw_review_sha256:hash(comment.content),issue_contract_sha256:hash(description),external_sequence:5,base_sha:base,head_sha:observed.head.sha,admission_hash:live.admission_hash,approval_ref:'approved external review after candidate-change exhaustion'};
   const metrics={archives:0,saves:0,publishes:0},after={issue:null,comments:null,runs:null};
   const read=(key,value)=>{after[key]?.();return value;};
-  const acceptIO={live:async()=>observed,issue:async()=>read('issue',issue),comments:async()=>read('comments',[comment]),runs:async()=>read('runs',[run]),archiveExternalResult:async()=>{metrics.archives++;},
-    save:async value=>{metrics.saves++;await atomicJson(file,value);},publish:async value=>{metrics.publishes++;assert(externalReviewAcceptance(value,live));}};
-  return {file,state,raw:observed,live,description,result,comment,issue,run,request,metrics,after,acceptIO,setLive(value){observed=value;}};
+  const acceptIO={live:async()=>observed,readSnapshot,issue:async()=>read('issue',issue),comments:async()=>read('comments',[comment]),runs:async()=>read('runs',[run]),archiveExternalResult:async()=>{metrics.archives++;},
+    save:async value=>{metrics.saves++;await atomicJson(file,value);},publish:async()=>{metrics.publishes++;}};
+  return {file,state,raw:observed,live,description,result,comment,issue,run,request,metrics,after,acceptIO,snapshot,readSnapshot,get snapshotReads(){return snapshotReads;},setLive(value){observed=value;}};
 }
 test('round-three candidate-change exhaustion accepts an external review at sequence five',async()=>{
   const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-external-candidate-change-'));
@@ -677,6 +685,68 @@ test('round-three candidate-change exhaustion accepts an external review at sequ
     };
     await makeIO(config(dir),f.file,dir,runner).publish(saved);
     assert(writes.some(value=>value.sha===f.request.head_sha && value.status==='state=success'));
+  } finally {await rm(dir,{recursive:true,force:true});}
+});
+test('round-three external acceptance validates snapshot bytes, original admission and candidate binding before writes',async()=>{
+  const cases=['missing','corrupt','same-candidate-metadata','same-candidate-snapshot','admission-change','dispatch-candidate-mismatch','pr-mismatch'];
+  for(const mode of cases) {
+    const dir=await mkdtemp(path.join(os.tmpdir(),`review-loop-external-snapshot-${mode}-`));
+    try {
+      const f=await roundThreeCandidateChangeFixture(dir);
+      if(mode === 'missing') {
+        await rm(path.join(dir,'snapshots',`${f.state.history[0].snapshot.sha256}.json`));
+      } else if(mode === 'corrupt') {
+        await writeFile(path.join(dir,'snapshots',`${f.state.history[0].snapshot.sha256}.json`),'{}','utf8');
+      } else if(mode === 'same-candidate-metadata') {
+        for(let round=0;round<3;round++) {
+          const dispatch=f.state.history[round*2],discard=f.state.history[round*2+1];
+          const original=JSON.parse((await f.readSnapshot(dispatch.snapshot.sha256)).toString('utf8'));
+          discard.snapshot=await f.snapshot({...original,marker:`same-candidate-metadata-${round}`});
+        }
+        await atomicJson(f.file,f.state);
+      } else if(mode === 'same-candidate-snapshot') {
+        for(let round=0;round<3;round++)f.state.history[round*2+1].snapshot=f.state.history[round*2].snapshot;
+        await atomicJson(f.file,f.state);
+      } else {
+        const dispatch=f.state.history[0],discard=f.state.history[1];
+        const original=JSON.parse((await f.readSnapshot(dispatch.snapshot.sha256)).toString('utf8'));
+        if(mode === 'admission-change') {
+          original.body=original.body.replace('all criteria','changed criteria');
+          dispatch.snapshot=await f.snapshot(original);
+        } else if(mode === 'dispatch-candidate-mismatch') {
+          original.head.sha='9'.repeat(40);
+          dispatch.snapshot=await f.snapshot(original);
+        } else {
+          original.number=9;
+          dispatch.snapshot=await f.snapshot(original);
+        }
+        await atomicJson(f.file,f.state);
+      }
+      const ledgerBefore=await readFile(f.file,'utf8');
+      await assert.rejects(()=>acceptExternalReviewRun({...config(dir),enabled:false},f.request,()=>f.acceptIO));
+      assert(f.snapshotReads > 0,`${mode} snapshot bytes were not read`);
+      assert.equal(f.metrics.archives,0);assert.equal(f.metrics.saves,0);assert.equal(f.metrics.publishes,0);
+      assert.equal(await readFile(f.file,'utf8'),ledgerBefore);
+    } finally {await rm(dir,{recursive:true,force:true});}
+  }
+});
+test('aggregate publication fails an accepted external review when addressed snapshot bytes are damaged',async()=>{
+  const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-external-aggregate-snapshot-'));
+  try {
+    const f=await roundThreeCandidateChangeFixture(dir),disabled={...config(dir),enabled:false};
+    await acceptExternalReviewRun(disabled,f.request,()=>f.acceptIO);
+    const saved=JSON.parse(await readFile(f.file,'utf8'));
+    await writeFile(path.join(dir,'snapshots',`${saved.history[0].snapshot.sha256}.json`),'{}','utf8');
+    const writes=[];
+    const runner=async(_file,args)=>{
+      if(args.includes('POST')){writes.push({sha:args[1].split('/').at(-1),status:args.find(value=>value.startsWith('state='))});return '{}';}
+      if(args.includes('--paginate'))return JSON.stringify([[f.raw]]);
+      return JSON.stringify(f.raw);
+    };
+    await makeIO(config(dir),f.file,dir,runner).publish(saved);
+    const candidate=writes.filter(value=>value.sha===f.request.head_sha);
+    assert(candidate.some(value=>value.status==='state=failure'));
+    assert(!candidate.some(value=>value.status==='state=success'));
   } finally {await rm(dir,{recursive:true,force:true});}
 });
 test('round-three external acceptance rejects malformed, authorized, result-bearing and nonterminal ledgers',async()=>{
