@@ -1237,6 +1237,22 @@ async function replaceFailedFixReviewReport(f,badData) {
   f.request.raw_fix_sha256=f.parsedFix.sha256;await atomicJson(f.file,f.state);
 }
 
+function addRenamedRecoveryOrphan(f,kind,status,options={}) {
+  const live=admit(f.current),round=options.round ?? f.request.round+1,head=options.head_sha ?? f.request.original_head_sha;
+  const job={kind,pr_number:options.pr_number ?? f.request.pr_number,round,base_sha:options.base_sha ?? f.request.original_base_sha,head_sha:head,
+    admission_hash:f.request.admission_hash,agent_id:kind === 'review' ? 'reviewer' : 'fixer',
+    worktree:path.join(f.dir,'worktrees',`pr-${f.request.pr_number}-${kind}-${round}-${head.slice(0,12)}`)};
+  if(kind === 'fix') Object.assign(job,{source_review_issue_id:f.reviewJob.issue_id,source_comment_id:f.parsedReview.comment_id,
+    raw_review_sha256:f.parsedReview.sha256,review_file:path.join(f.dir,'reviews',f.parsedReview.sha256+'.txt')});
+  const expectedTitle=`[review-loop/v2.1][${kind === 'review' ? '审查' : '修复'}][第${round}轮][${head.slice(0,12)}] ${REPOSITORY}#${job.pr_number}`;
+  const id=options.id ?? `renamed-orphan-${kind}-${status}`;
+  const issue={id,title:options.title ?? `operator renamed ${kind} contract`,description:options.description ?? jobDescription(job,live),
+    project_id:options.project_id ?? 'project',assignee_type:options.assignee_type ?? 'agent',assignee_id:options.assignee_id ?? job.agent_id};
+  f.issues.push(issue);
+  f.setRuns(id,options.runs ?? [{id:`${id}-run`,issue_id:id,agent_id:options.run_agent_id ?? job.agent_id,status}]);
+  return {issue,job,expectedTitle};
+}
+
 test('failed-fix recovery entrypoint exists and performs a fresh Reviewer-to-PASS round without rewriting history',async()=>{
   const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-failed-fix-recovery-'));
   try {
@@ -1249,8 +1265,13 @@ test('failed-fix recovery entrypoint exists and performs a fresh Reviewer-to-PAS
     assert.equal(failedTickState.status,'BLOCKED');assert.equal(failedTickState.reason,'fixer did not produce new commit');
     for(const key of Object.keys(fixture.metrics))fixture.metrics[key]=0;
     const disabled={...config(dir),enabled:false};
+    const renamed=addRenamedRecoveryOrphan(fixture,'review','canceled',
+      {head_sha:fixture.request.current_head_sha,base_sha:fixture.request.current_base_sha,id:'renamed-inactive-same-pr-review'});
+    const unrelated=fixture.issues.find(issue=>issue.id==='unrelated-active-product');
+    unrelated.description='Independent product work mentioning PR #8 and quoted JSON {"pr_number":8}.';
     const recovered=await module.recoverFailedFixRun(disabled,fixture.request,()=>fixture.io);
     assert.equal(recovered.status,'REVIEWING');assert.equal(recovered.round,2);assert.equal(recovered.issue_id,'review-round-2');
+    assert.notEqual(recovered.issue_id,renamed.issue.id,'inactive renamed contract must not be adopted as the new dispatch');
     let saved=JSON.parse(await readFile(fixture.file,'utf8'));
     assert.deepEqual(saved.history.slice(0,fixture.historyPrefix.length),fixture.historyPrefix);
     assert.equal(saved.history.filter(event=>event.event==='recover_failed_fix').length,1);
@@ -1320,6 +1341,26 @@ test('failed-fix recovery rejects unsafe provenance and candidate preflight with
     },/unattempted|without.*attempted|orphan.*Reviewer/i],
     ['related source Reviewer issue has an active writer',f=>{f.setRuns('review-issue',[...f.runMap.get('review-issue'),{id:'concurrent-review-run',issue_id:'review-issue',agent_id:'reviewer',status:'running'}]);},/active related run/i],
     ['related Fixer issue has an active source writer',f=>{f.setRuns('fix-issue',[...f.runMap.get('fix-issue'),{id:'concurrent-fix-run',issue_id:'fix-issue',agent_id:'fixer',status:'running'}]);},/active related run/i],
+    ['renamed orphan Reviewer contract has a queued writer',f=>{addRenamedRecoveryOrphan(f,'review','queued');},/active related run/i],
+    ['renamed orphan Reviewer contract has a running writer',f=>{addRenamedRecoveryOrphan(f,'review','running');},/active related run/i],
+    ['renamed orphan Fixer contract has a queued writer',f=>{addRenamedRecoveryOrphan(f,'fix','queued');},/active related run/i],
+    ['renamed orphan Fixer contract has a running writer',f=>{addRenamedRecoveryOrphan(f,'fix','running');},/active related run/i],
+    ['renamed orphan from an older round/head is still bound to this PR',f=>{addRenamedRecoveryOrphan(f,'review','running',{round:1,head_sha:f.request.original_head_sha});},/active related run/i],
+    ['title says this PR while canonical contract names another PR',f=>{addRenamedRecoveryOrphan(f,'review','running',{pr_number:9,title:'[review-loop/v2.1][审查][第2轮][bbbbbbbbbbbb] '+REPOSITORY+'#8'});},/active related run/i],
+    ['canonical contract says this PR while title names another PR',f=>{addRenamedRecoveryOrphan(f,'fix','running',{title:'[review-loop/v2.1][修复][第2轮][bbbbbbbbbbbb] '+REPOSITORY+'#9'});},/active related run/i],
+    ['malformed same-PR machine contract is ambiguous and fails closed',f=>{
+      const {issue}=addRenamedRecoveryOrphan(f,'review','running');
+      const heading='\n\n# 本轮固定任务参数\n\n',start=issue.description.indexOf(heading)+heading.length;
+      const end=issue.description.indexOf('\n\n',start),lead=issue.description.slice(0,start);
+      issue.description=lead+'{\n  "protocol_version": "review-loop/v2.1",\n  "repository": "'+REPOSITORY+'",\n  "pr_number": 8,\n  "unknown": true\n}'+issue.description.slice(end);
+    },/ambiguous same-PR.*contract/i],
+    ['non-string worktree in same-PR machine contract is ambiguous',f=>{
+      const {issue}=addRenamedRecoveryOrphan(f,'review','running');
+      const heading='\n\n# 本轮固定任务参数\n\n',start=issue.description.indexOf(heading)+heading.length;
+      const end=issue.description.indexOf('\n\n',start),common=JSON.parse(issue.description.slice(start,end));
+      common.worktree={path:'not-a-string'};
+      issue.description=issue.description.slice(0,start)+JSON.stringify(common,null,2)+issue.description.slice(end);
+    },/ambiguous same-PR.*contract/i],
     ['orphan same-PR Reviewer writer is active',f=>{const id='orphan-review-writer';f.issues.push({id,title:'[review-loop/v2.1][审查][第7轮][bbbbbbbbbbbb] '+REPOSITORY+'#8',project_id:'project',assignee_type:'agent',assignee_id:'reviewer'});f.setRuns(id,[{id:'orphan-run',issue_id:id,agent_id:'reviewer',status:'running'}]);},/active related run/i],
     ['orphan same-PR Fixer writer is active',f=>{const id='orphan-fix-writer';f.issues.push({id,title:'[review-loop/v2.1][修复][第7轮][bbbbbbbbbbbb] '+REPOSITORY+'#8',project_id:'project',assignee_type:'agent',assignee_id:'fixer'});f.setRuns(id,[{id:'orphan-run',issue_id:id,agent_id:'fixer',status:'running'}]);},/active related run/i],
     ['orphan same-PR durability writer is active',f=>{const id='orphan-durability-writer';f.issues.push({id,title:'[review-loop/v2.1][知识持久化]['+'a'.repeat(64)+'] '+REPOSITORY+'#8',project_id:'project',assignee_type:'agent',assignee_id:'other'});f.setRuns(id,[{id:'orphan-run',issue_id:id,agent_id:'other',status:'running'}]);},/active related run/i],

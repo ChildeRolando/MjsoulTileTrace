@@ -5,7 +5,7 @@ import { mkdir, readFile, writeFile, rename, open, unlink, realpath, readdir, co
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { admit, VERSION, REPOSITORY, hash, isSha, parseResult, parseRejectedReviewResult, parseTransportRecoveryResult, externalReviewTerminal, externalReviewAcceptance, decide, reviewRoundLimit } from './protocol.mjs';
-import { advance, advanceDurability, captureDurability, ensureDispatch, authorizeSixthReview, recoverRejectedTerminalReview, validateTransportRecovery, acceptTransportRecovery, transportReviewJob, activeStatuses, jobDescription } from './controller.mjs';
+import { advance, advanceDurability, captureDurability, ensureDispatch, authorizeSixthReview, recoverRejectedTerminalReview, validateTransportRecovery, acceptTransportRecovery, transportReviewJob, activeStatuses, jobDescription, reviewerInstructions, fixerInstructions } from './controller.mjs';
 const exec=promisify(execFile);
 export async function command(file,args,cwd) {
   try { return (await exec(file,args,{cwd,windowsHide:true,encoding:'utf8',maxBuffer:32*1024*1024,timeout:120000})).stdout; }
@@ -376,7 +376,61 @@ function assertLiveSourceIssue(issue,job,config,title,description) {
   assert.equal(issue.title,title,'source issue title/contract mismatch');
   assert.equal(issue.description,description,'source issue description/admission contract mismatch');
 }
-async function assertNoActiveRecoveryRuns(io,state,request,requestSha,projectId,reviewerId,live) {
+function issueContractPrNumbers(issue,live,config) {
+  if(issue.project_id !== config.project_id || typeof issue.description !== 'string')return {trusted:[],ambiguous:[]};
+  const description=issue.description;
+  const reviewerPrefix=`${reviewerInstructions}\n\n# 本轮固定任务参数\n\n`;
+  const fixerPrefix=`${fixerInstructions}\n\n`;
+  const kind=description.startsWith(reviewerPrefix) ? 'review' : description.startsWith(fixerPrefix) ? 'fix' : null;
+  if(!kind)return {trusted:[],ambiguous:[]};
+  const start=kind === 'review' ? reviewerPrefix.length : fixerPrefix.length;
+  const end=description.indexOf('\n\n',start);
+  const commonRaw=end < 0 ? description.slice(start) : description.slice(start,end),hints=contractPrNumberHints(commonRaw),numbers=new Set(hints);
+  let common;
+  try{common=JSON.parse(commonRaw);}catch{return {trusted:[],ambiguous:[...new Set(hints)]};}
+  if(Number.isSafeInteger(common?.pr_number) && common.pr_number > 0)numbers.add(common.pr_number);
+
+  // Only an exact Controller machine parameter block is trusted. If the exact
+  // template prefix exposes a same-PR value but the block is malformed, keep it
+  // separate as ambiguous evidence so an active writer fails closed.
+  const expectedKeys=['protocol_version','repository','pr_number','base_sha','head_sha','round','worktree','authoritative_spec_paths','rubric'];
+  let canonical=common && typeof common === 'object' && !Array.isArray(common)
+    && Object.keys(common).sort().join('\0') === [...expectedKeys].sort().join('\0')
+    && common.protocol_version === VERSION && common.repository === REPOSITORY
+    && Number.isSafeInteger(common.pr_number) && common.pr_number > 0
+    && Number.isSafeInteger(common.round) && common.round > 0
+    && isSha(common.base_sha) && isSha(common.head_sha)
+    && typeof common.worktree === 'string'
+    && Array.isArray(common.authoritative_spec_paths)
+    && JSON.stringify(common.authoritative_spec_paths) === JSON.stringify(live.admission.authoritative_spec_paths)
+    && common.rubric === live.admission.rubric;
+  canonical &&= hints.length === 1 && hints[0] === common.pr_number;
+  const expectedWorktree=canonical ? path.join(config.state_dir,'worktrees',`pr-${common.pr_number}-${kind}-${common.round}-${common.head_sha.slice(0,12)}`) : null;
+  canonical &&= path.isAbsolute(common.worktree) && path.resolve(common.worktree) === path.resolve(expectedWorktree);
+  let job=null;
+  if(canonical)job={kind,pr_number:common.pr_number,round:common.round,base_sha:common.base_sha,head_sha:common.head_sha,
+    admission_hash:live.admission_hash,agent_id:kind === 'review' ? config.reviewer_id : config.fixer_id,worktree:common.worktree};
+  if(canonical && kind === 'fix') {
+    const tail=description.slice(end+2);
+    const source=tail.match(/^评审来源：工单 ([^，\r\n]+)，评论 ([^，\r\n]+)，SHA-256 ([a-f0-9]{64})。完整 UTF-8 评审已作为附件提供，本地路径为 ([^\r\n]+?)。读取 findings 前先校验 SHA-256。/);
+    canonical=Boolean(source);
+    if(source) {
+      job.source_review_issue_id=source[1];job.source_comment_id=source[2];job.raw_review_sha256=source[3];job.review_file=source[4];
+      const expectedReviewFile=path.join(config.state_dir,'reviews',`${source[3]}.txt`);
+      canonical &&= /^[a-zA-Z0-9-]+$/.test(source[1]) && /^[a-zA-Z0-9-]+$/.test(source[2])
+        && path.isAbsolute(source[4]) && path.resolve(source[4]) === path.resolve(expectedReviewFile);
+    }
+  }
+  if(canonical) {
+    const expected=jobDescription(job,live);
+    canonical=description === expected || description.startsWith(expected+'\n');
+  }
+  return canonical ? {trusted:[common.pr_number],ambiguous:[]} : {trusted:[],ambiguous:[...numbers]};
+}
+function contractPrNumberHints(value) {
+  return [...value.matchAll(/^\s*"pr_number"\s*:\s*(?:"(\d+)"|(\d+))\s*,?\s*$/gm)].map(match=>Number(match[1] ?? match[2]));
+}
+async function assertNoActiveRecoveryRuns(io,state,request,requestSha,config,live) {
   const issues=await io.issues();assert(Array.isArray(issues),'failed-fix recovery issue listing incomplete');
   const byId=new Map();
   for(const issue of issues) {
@@ -393,7 +447,13 @@ async function assertNoActiveRecoveryRuns(io,state,request,requestSha,projectId,
   const repository=REPOSITORY.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
   const prIdentity=new RegExp(`^\\[review-loop/v2\\.1\\]\\[(?:审查|修复)\\]\\[第[1-9][0-9]*轮\\]\\[[a-f0-9]{12}\\] ${repository}#${request.pr_number}$`);
   const durabilityIdentity=new RegExp(`^\\[review-loop/v2\\.1\\]\\[知识持久化\\]\\[[a-f0-9]{64}\\] ${repository}#${request.pr_number}$`);
-  for(const issue of issues)if(issue.project_id === projectId && (prIdentity.test(issue.title) || durabilityIdentity.test(issue.title)))add(issue.id);
+  const ambiguousContracts=new Set();
+  for(const issue of issues)if(issue.project_id === config.project_id) {
+    if(prIdentity.test(issue.title) || durabilityIdentity.test(issue.title))add(issue.id);
+    const contract=issueContractPrNumbers(issue,live,config);
+    if(contract.trusted.includes(request.pr_number))add(issue.id);
+    if(contract.ambiguous.includes(request.pr_number)){add(issue.id);ambiguousContracts.add(issue.id);}
+  }
 
   let resumableTargetId=null;
   const pending=state.pending;
@@ -401,7 +461,7 @@ async function assertNoActiveRecoveryRuns(io,state,request,requestSha,projectId,
   const recoveryReviewMatches=issues.filter(issue=>issue.title === recoveryReviewTitle);
   assert(recoveryReviewMatches.length <= 1,'duplicate failed-fix recovery review identity');
   if(pending?.kind === 'review' && pending.pr_number === request.pr_number && pending.round === request.round+1
-    && pending.agent_id === reviewerId && pending.base_sha === request.current_base_sha && pending.head_sha === request.current_head_sha
+    && pending.agent_id === config.reviewer_id && pending.base_sha === request.current_base_sha && pending.head_sha === request.current_head_sha
     && pending.admission_hash === request.admission_hash
     && pending.recovery_binding?.request_sha256 === requestSha && pending.recovery_binding.base_sha === request.current_base_sha
     && pending.recovery_binding.head_sha === request.current_head_sha && pending.recovery_binding.admission_hash === request.admission_hash
@@ -411,7 +471,7 @@ async function assertNoActiveRecoveryRuns(io,state,request,requestSha,projectId,
     && hash(pending.description) === pending.description_hash) {
     if(recoveryReviewMatches.length) {
       const issue=recoveryReviewMatches[0];
-      assert(issue.project_id === projectId && issue.assignee_type === 'agent' && issue.assignee_id === pending.agent_id
+      assert(issue.project_id === config.project_id && issue.assignee_type === 'agent' && issue.assignee_id === pending.agent_id
         && hash(issue.description) === pending.description_hash,'failed-fix recovery pending issue identity conflict');
       resumableTargetId=issue.id;
       add(issue.id);
@@ -425,9 +485,11 @@ async function assertNoActiveRecoveryRuns(io,state,request,requestSha,projectId,
     if(!issue)continue;
     const runs=await io.runs(issue.id);assert(Array.isArray(runs),'failed-fix recovery run listing incomplete');
     const active=runs.filter(run=>activeStatuses.has(run.status));
+    if(active.length && ambiguousContracts.has(issue.id) && issue.id !== resumableTargetId)
+      throw new Error('ambiguous same-PR Review Loop issue contract has an active writer');
     if(issue.id === resumableTargetId) {
       assert(active.length <= 1,'duplicate active failed-fix recovery Reviewer run');
-      if(active.length)assert(active[0].issue_id === issue.id && active[0].agent_id === reviewerId,'active failed-fix recovery Reviewer run identity mismatch');
+      if(active.length)assert(active[0].issue_id === issue.id && active[0].agent_id === config.reviewer_id,'active failed-fix recovery Reviewer run identity mismatch');
     }
     else assert(active.length === 0,'active related run prevents failed-fix recovery');
   }
@@ -510,7 +572,7 @@ async function validateFailedFixRecovery(config,state,request,io) {
   const raw=await io.live(request.pr_number),live=admit(raw);
   assertFailedFixRecoveryLive(request,state,live);
   const sources=await loadFailedFixRecoverySources(config,state,request,live,io);
-  await assertNoActiveRecoveryRuns(io,state,request,failedFixRecoveryRequestHash(request),config.project_id,config.reviewer_id,live);
+  await assertNoActiveRecoveryRuns(io,state,request,failedFixRecoveryRequestHash(request),config,live);
   assert.equal(typeof io.verifyRecoveryWorktree,'function','read-only Fixer worktree verifier missing');
   assert.equal(typeof io.verifyRecoveryAncestry,'function','remote Fixer ancestry verifier missing');
   await io.verifyRecoveryWorktree(sources.job);
@@ -520,7 +582,7 @@ async function validateFailedFixRecovery(config,state,request,io) {
   assertFailedFixRecoveryLive(request,state,secondLive);
   await io.verifyRecoveryAncestry(request.original_head_sha,request.current_head_sha,secondLive.branch);
   const secondSources=await loadFailedFixRecoverySources(config,state,request,secondLive,io);
-  await assertNoActiveRecoveryRuns(io,state,request,failedFixRecoveryRequestHash(request),config.project_id,config.reviewer_id,secondLive);
+  await assertNoActiveRecoveryRuns(io,state,request,failedFixRecoveryRequestHash(request),config,secondLive);
   return {live:secondLive,...secondSources};
 }
 export async function recoverFailedFixRun(config,request,ioFactory=makeIO) {
@@ -562,7 +624,7 @@ export async function recoverFailedFixRun(config,request,ioFactory=makeIO) {
     await assertNoConflictingArchives(config.state_dir,job.issue_id,validated.fixResult);
     if(existingFixArchive)assert.deepEqual(existingFixArchive,validated.fixResult,'conflicting failed Fixer archive');
     await io.verifyRecoveryAncestry(request.original_head_sha,request.current_head_sha,validated.live.branch);
-    await assertNoActiveRecoveryRuns(io,state,request,requestSha,config.project_id,config.reviewer_id,validated.live);
+    await assertNoActiveRecoveryRuns(io,state,request,requestSha,config,validated.live);
     const finalRaw=await io.live(request.pr_number),finalLive=admit(finalRaw);
     assertFailedFixRecoveryLive(request,state,finalLive);
     assert.equal(finalLive.branch,validated.live.branch,'failed-fix recovery PR source branch changed');
