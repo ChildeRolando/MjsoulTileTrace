@@ -1268,7 +1268,9 @@ test('failed-fix recovery entrypoint exists and performs a fresh Reviewer-to-PAS
     const renamed=addRenamedRecoveryOrphan(fixture,'review','canceled',
       {head_sha:fixture.request.current_head_sha,base_sha:fixture.request.current_base_sha,id:'renamed-inactive-same-pr-review'});
     const unrelated=fixture.issues.find(issue=>issue.id==='unrelated-active-product');
-    unrelated.description='Independent product work mentioning PR #8 and quoted JSON {"pr_number":8}.';
+    const codeFence=String.fromCharCode(96).repeat(4),fixContract=fixture.issues.find(issue=>issue.id==='fix-issue').description;
+    unrelated.description='Independent product work mentioning PR #8 and quoted JSON {"pr_number":8}.\n\n'
+      +codeFence+'text\n'+renamed.issue.description+'\n\n'+fixContract+'\n'+codeFence;
     const recovered=await module.recoverFailedFixRun(disabled,fixture.request,()=>fixture.io);
     assert.equal(recovered.status,'REVIEWING');assert.equal(recovered.round,2);assert.equal(recovered.issue_id,'review-round-2');
     assert.notEqual(recovered.issue_id,renamed.issue.id,'inactive renamed contract must not be adopted as the new dispatch');
@@ -1345,6 +1347,14 @@ test('failed-fix recovery rejects unsafe provenance and candidate preflight with
     ['renamed orphan Reviewer contract has a running writer',f=>{addRenamedRecoveryOrphan(f,'review','running');},/active related run/i],
     ['renamed orphan Fixer contract has a queued writer',f=>{addRenamedRecoveryOrphan(f,'fix','queued');},/active related run/i],
     ['renamed orphan Fixer contract has a running writer',f=>{addRenamedRecoveryOrphan(f,'fix','running');},/active related run/i],
+    ['edited Reviewer preamble does not hide its active machine contract',f=>{
+      const {issue}=addRenamedRecoveryOrphan(f,'review','running'),heading='\n\n# 本轮固定任务参数\n\n',at=issue.description.indexOf(heading);
+      issue.description='改写后的 Reviewer 序言。'+issue.description.slice(at);
+    },/active related run/i],
+    ['edited Fixer opening does not hide its active machine contract',f=>{
+      const {issue}=addRenamedRecoveryOrphan(f,'fix','running');
+      issue.description=issue.description.replace('修复附件中针对该 PR 的完整独立评审。','按附件修复这项评审发现。');
+    },/active related run/i],
     ['renamed orphan from an older round/head is still bound to this PR',f=>{addRenamedRecoveryOrphan(f,'review','running',{round:1,head_sha:f.request.original_head_sha});},/active related run/i],
     ['title says this PR while canonical contract names another PR',f=>{addRenamedRecoveryOrphan(f,'review','running',{pr_number:9,title:'[review-loop/v2.1][审查][第2轮][bbbbbbbbbbbb] '+REPOSITORY+'#8'});},/active related run/i],
     ['canonical contract says this PR while title names another PR',f=>{addRenamedRecoveryOrphan(f,'fix','running',{title:'[review-loop/v2.1][修复][第2轮][bbbbbbbbbbbb] '+REPOSITORY+'#9'});},/active related run/i],

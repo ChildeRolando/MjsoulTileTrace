@@ -5,7 +5,7 @@ import { mkdir, readFile, writeFile, rename, open, unlink, realpath, readdir, co
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { admit, VERSION, REPOSITORY, hash, isSha, parseResult, parseRejectedReviewResult, parseTransportRecoveryResult, externalReviewTerminal, externalReviewAcceptance, decide, reviewRoundLimit } from './protocol.mjs';
-import { advance, advanceDurability, captureDurability, ensureDispatch, authorizeSixthReview, recoverRejectedTerminalReview, validateTransportRecovery, acceptTransportRecovery, transportReviewJob, activeStatuses, jobDescription, reviewerInstructions, fixerInstructions } from './controller.mjs';
+import { advance, advanceDurability, captureDurability, ensureDispatch, authorizeSixthReview, recoverRejectedTerminalReview, validateTransportRecovery, acceptTransportRecovery, transportReviewJob, activeStatuses, jobDescription } from './controller.mjs';
 const exec=promisify(execFile);
 export async function command(file,args,cwd) {
   try { return (await exec(file,args,{cwd,windowsHide:true,encoding:'utf8',maxBuffer:32*1024*1024,timeout:120000})).stdout; }
@@ -376,26 +376,58 @@ function assertLiveSourceIssue(issue,job,config,title,description) {
   assert.equal(issue.title,title,'source issue title/contract mismatch');
   assert.equal(issue.description,description,'source issue description/admission contract mismatch');
 }
+function reviewLoopIdentityMarkers(description) {
+  const markers=[];let offset=0,fence=null;
+  for(const rawLine of description.split('\n')) {
+    const line=rawLine.replace(/\r$/,''),fenceLine=line.match(/^ {0,3}(`{3,}|~{3,})(.*)$/);
+    if(fence) {
+      if(fenceLine && fenceLine[1][0] === fence.character && fenceLine[1].length >= fence.length && !fenceLine[2].trim())fence=null;
+      offset+=rawLine.length+1;continue;
+    }
+    if(fenceLine) {fence={character:fenceLine[1][0],length:fenceLine[1].length};offset+=rawLine.length+1;continue;}
+    if(!line.startsWith('>')) {
+      if(line === '# 本轮固定任务参数')markers.push({kind:'review',offset,line});
+      const source=line.match(/^评审来源：工单 ([a-zA-Z0-9-]+)，评论 ([a-zA-Z0-9-]+)，SHA-256 ([a-f0-9]{64})。完整 UTF-8 评审已作为附件提供，本地路径为 ([^\r\n]+?)。读取 findings 前先校验 SHA-256。/);
+      if(source)markers.push({kind:'fix',offset,line,source});
+    }
+    offset+=rawLine.length+1;
+  }
+  return markers;
+}
+function commonBlockForIdentityMarker(description,marker) {
+  if(marker.kind === 'review') {
+    const separator=marker.offset+marker.line.length;
+    if(description.slice(separator,separator+2) !== '\n\n')return null;
+    const start=separator+2,end=description.indexOf('\n\n',start);
+    return end < 0 ? null : description.slice(start,end);
+  }
+  const end=description.lastIndexOf('\n\n',marker.offset-1);
+  if(end < 0 || marker.offset !== end+2)return null;
+  const prior=description.lastIndexOf('\n\n',end-1);
+  return prior < 0 ? null : description.slice(prior+2,end);
+}
 function issueContractPrNumbers(issue,live,config) {
   if(issue.project_id !== config.project_id || typeof issue.description !== 'string')return {trusted:[],ambiguous:[]};
-  const description=issue.description;
-  const reviewerPrefix=`${reviewerInstructions}\n\n# 本轮固定任务参数\n\n`;
-  const fixerPrefix=`${fixerInstructions}\n\n`;
-  const kind=description.startsWith(reviewerPrefix) ? 'review' : description.startsWith(fixerPrefix) ? 'fix' : null;
-  if(!kind)return {trusted:[],ambiguous:[]};
-  const start=kind === 'review' ? reviewerPrefix.length : fixerPrefix.length;
-  const end=description.indexOf('\n\n',start);
-  const commonRaw=end < 0 ? description.slice(start) : description.slice(start,end),hints=contractPrNumberHints(commonRaw),numbers=new Set(hints);
-  let common;
-  try{common=JSON.parse(commonRaw);}catch{return {trusted:[],ambiguous:[...new Set(hints)]};}
-  if(Number.isSafeInteger(common?.pr_number) && common.pr_number > 0)numbers.add(common.pr_number);
+  const markers=reviewLoopIdentityMarkers(issue.description);
+  if(!markers.length)return {trusted:[],ambiguous:[]};
+  const blocks=markers.map(marker=>({marker,raw:commonBlockForIdentityMarker(issue.description,marker)}));
+  const parsed=blocks.map(({raw})=>{
+    if(typeof raw !== 'string')return {hints:[],numbers:[],common:null};
+    const hints=contractPrNumberHints(raw);let common=null;
+    try{common=JSON.parse(raw);}catch{}
+    const numbers=new Set(hints);
+    if(Number.isSafeInteger(common?.pr_number) && common.pr_number > 0)numbers.add(common.pr_number);
+    return {hints,numbers:[...numbers],common,raw};
+  });
+  const numbers=[...new Set(parsed.flatMap(value=>value.numbers))];
+  if(markers.length !== 1)return {trusted:[],ambiguous:numbers};
+  const {marker}=blocks[0],{raw,common,hints}=parsed[0];
+  if(!raw || !common || typeof common !== 'object' || Array.isArray(common))return {trusted:[],ambiguous:numbers};
 
-  // Only an exact Controller machine parameter block is trusted. If the exact
-  // template prefix exposes a same-PR value but the block is malformed, keep it
-  // separate as ambiguous evidence so an active writer fails closed.
   const expectedKeys=['protocol_version','repository','pr_number','base_sha','head_sha','round','worktree','authoritative_spec_paths','rubric'];
-  let canonical=common && typeof common === 'object' && !Array.isArray(common)
-    && Object.keys(common).sort().join('\0') === [...expectedKeys].sort().join('\0')
+  const agentId=marker.kind === 'review' ? config.reviewer_id : config.fixer_id;
+  let canonical=Object.keys(common).sort().join('\0') === [...expectedKeys].sort().join('\0')
+    && raw === JSON.stringify(common,null,2)
     && common.protocol_version === VERSION && common.repository === REPOSITORY
     && Number.isSafeInteger(common.pr_number) && common.pr_number > 0
     && Number.isSafeInteger(common.round) && common.round > 0
@@ -403,29 +435,18 @@ function issueContractPrNumbers(issue,live,config) {
     && typeof common.worktree === 'string'
     && Array.isArray(common.authoritative_spec_paths)
     && JSON.stringify(common.authoritative_spec_paths) === JSON.stringify(live.admission.authoritative_spec_paths)
-    && common.rubric === live.admission.rubric;
+    && common.rubric === live.admission.rubric
+    && issue.assignee_type === 'agent' && issue.assignee_id === agentId;
   canonical &&= hints.length === 1 && hints[0] === common.pr_number;
-  const expectedWorktree=canonical ? path.join(config.state_dir,'worktrees',`pr-${common.pr_number}-${kind}-${common.round}-${common.head_sha.slice(0,12)}`) : null;
+  const expectedWorktree=canonical ? path.join(config.state_dir,'worktrees',`pr-${common.pr_number}-${marker.kind}-${common.round}-${common.head_sha.slice(0,12)}`) : null;
   canonical &&= path.isAbsolute(common.worktree) && path.resolve(common.worktree) === path.resolve(expectedWorktree);
-  let job=null;
-  if(canonical)job={kind,pr_number:common.pr_number,round:common.round,base_sha:common.base_sha,head_sha:common.head_sha,
-    admission_hash:live.admission_hash,agent_id:kind === 'review' ? config.reviewer_id : config.fixer_id,worktree:common.worktree};
-  if(canonical && kind === 'fix') {
-    const tail=description.slice(end+2);
-    const source=tail.match(/^评审来源：工单 ([^，\r\n]+)，评论 ([^，\r\n]+)，SHA-256 ([a-f0-9]{64})。完整 UTF-8 评审已作为附件提供，本地路径为 ([^\r\n]+?)。读取 findings 前先校验 SHA-256。/);
-    canonical=Boolean(source);
-    if(source) {
-      job.source_review_issue_id=source[1];job.source_comment_id=source[2];job.raw_review_sha256=source[3];job.review_file=source[4];
-      const expectedReviewFile=path.join(config.state_dir,'reviews',`${source[3]}.txt`);
-      canonical &&= /^[a-zA-Z0-9-]+$/.test(source[1]) && /^[a-zA-Z0-9-]+$/.test(source[2])
-        && path.isAbsolute(source[4]) && path.resolve(source[4]) === path.resolve(expectedReviewFile);
-    }
+  if(canonical && marker.kind === 'fix') {
+    const [,sourceIssueId,sourceCommentId,sourceSha,reviewFile]=marker.source;
+    const expectedReviewFile=path.join(config.state_dir,'reviews',`${sourceSha}.txt`);
+    canonical=/^[a-zA-Z0-9-]+$/.test(sourceIssueId) && /^[a-zA-Z0-9-]+$/.test(sourceCommentId)
+      && path.isAbsolute(reviewFile) && path.resolve(reviewFile) === path.resolve(expectedReviewFile);
   }
-  if(canonical) {
-    const expected=jobDescription(job,live);
-    canonical=description === expected || description.startsWith(expected+'\n');
-  }
-  return canonical ? {trusted:[common.pr_number],ambiguous:[]} : {trusted:[],ambiguous:[...numbers]};
+  return canonical ? {trusted:[common.pr_number],ambiguous:[]} : {trusted:[],ambiguous:numbers};
 }
 function contractPrNumberHints(value) {
   return [...value.matchAll(/^\s*"pr_number"\s*:\s*(?:"(\d+)"|(\d+))\s*,?\s*$/gm)].map(match=>Number(match[1] ?? match[2]));
