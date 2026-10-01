@@ -394,6 +394,41 @@ function reviewLoopIdentityMarkers(description) {
   }
   return markers;
 }
+function visibleDescriptionLines(description) {
+  const lines=[];let offset=0,fence=null;
+  for(const rawLine of description.split('\n')) {
+    const line=rawLine.replace(/\r$/,''),fenceLine=line.match(/^ {0,3}(`{3,}|~{3,})(.*)$/);
+    if(fence) {
+      if(fenceLine && fenceLine[1][0] === fence.character && fenceLine[1].length >= fence.length && !fenceLine[2].trim())fence=null;
+      lines.push({line,offset,visible:false});offset+=rawLine.length+1;continue;
+    }
+    if(fenceLine) {fence={character:fenceLine[1][0],length:fenceLine[1].length};lines.push({line,offset,visible:false});offset+=rawLine.length+1;continue;}
+    lines.push({line,offset,visible:!/^\s*>/.test(line)});offset+=rawLine.length+1;
+  }
+  return lines;
+}
+function standaloneReviewLoopCommonBlocks(description) {
+  const lines=visibleDescriptionLines(description),blocks=[];
+  for(let start=0;start<lines.length;start++) {
+    if(!lines[start].visible || lines[start].line !== '{')continue;
+    for(let end=start+1;end<lines.length;end++) {
+      if(!lines[end].visible)break;
+      if(lines[end].line !== '}')continue;
+      const raw=description.slice(lines[start].offset,lines[end].offset+1);
+      blocks.push({raw,startOffset:lines[start].offset,endLine:end,lines});start=end;break;
+    }
+  }
+  return blocks;
+}
+function fixSourcePayloadAfterCommonBlock(block) {
+  for(let index=block.endLine+1;index<block.lines.length;index++) {
+    const {line,visible}=block.lines[index];
+    if(!visible) return null;
+    if(!line.trim())continue;
+    return line.match(/工单 ([a-zA-Z0-9-]+)，评论 ([a-zA-Z0-9-]+)，SHA-256 ([a-f0-9]{64})。完整 UTF-8 评审已作为附件提供，本地路径为 ([^\r\n]+?)。读取 findings 前先校验 SHA-256。/);
+  }
+  return null;
+}
 function commonBlockForIdentityMarker(description,marker) {
   if(marker.kind === 'review') {
     const separator=marker.offset+marker.line.length;
@@ -408,45 +443,72 @@ function commonBlockForIdentityMarker(description,marker) {
 }
 function issueContractPrNumbers(issue,live,config) {
   if(issue.project_id !== config.project_id || typeof issue.description !== 'string')return {trusted:[],ambiguous:[]};
-  const markers=reviewLoopIdentityMarkers(issue.description);
-  if(!markers.length)return {trusted:[],ambiguous:[]};
-  const blocks=markers.map(marker=>({marker,raw:commonBlockForIdentityMarker(issue.description,marker)}));
-  const parsed=blocks.map(({raw})=>{
+  const markers=reviewLoopIdentityMarkers(issue.description),commonBlocks=standaloneReviewLoopCommonBlocks(issue.description);
+  const blocks=commonBlocks.map(block=>({...block,marker:null}));
+  for(const marker of markers) {
+    const raw=commonBlockForIdentityMarker(issue.description,marker);
+    if(typeof raw === 'string') {
+      const existing=blocks.find(block=>block.raw === raw);
+      if(existing)existing.marker ??= marker;else blocks.push({raw,marker,lines:null,endLine:-1});
+    }
+  }
+  if(!blocks.length)return {trusted:[],ambiguous:[]};
+  const parsed=blocks.map(block=>{
+    const {raw}=block;
     if(typeof raw !== 'string')return {hints:[],numbers:[],common:null};
     const hints=contractPrNumberHints(raw);let common=null;
     try{common=JSON.parse(raw);}catch{}
     const numbers=new Set(hints);
     if(Number.isSafeInteger(common?.pr_number) && common.pr_number > 0)numbers.add(common.pr_number);
-    return {hints,numbers:[...numbers],common,raw};
+    return {hints,numbers:[...numbers],common,raw,block};
   });
-  const numbers=[...new Set(parsed.flatMap(value=>value.numbers))];
-  if(markers.length !== 1)return {trusted:[],ambiguous:numbers};
-  const {marker}=blocks[0],{raw,common,hints}=parsed[0];
-  if(!raw || !common || typeof common !== 'object' || Array.isArray(common))return {trusted:[],ambiguous:numbers};
-
   const expectedKeys=['protocol_version','repository','pr_number','base_sha','head_sha','round','worktree','authoritative_spec_paths','rubric'];
-  const agentId=marker.kind === 'review' ? config.reviewer_id : config.fixer_id;
-  let canonical=Object.keys(common).sort().join('\0') === [...expectedKeys].sort().join('\0')
-    && raw === JSON.stringify(common,null,2)
-    && common.protocol_version === VERSION && common.repository === REPOSITORY
-    && Number.isSafeInteger(common.pr_number) && common.pr_number > 0
-    && Number.isSafeInteger(common.round) && common.round > 0
-    && isSha(common.base_sha) && isSha(common.head_sha)
-    && typeof common.worktree === 'string'
-    && Array.isArray(common.authoritative_spec_paths)
-    && JSON.stringify(common.authoritative_spec_paths) === JSON.stringify(live.admission.authoritative_spec_paths)
-    && common.rubric === live.admission.rubric
-    && issue.assignee_type === 'agent' && issue.assignee_id === agentId;
-  canonical &&= hints.length === 1 && hints[0] === common.pr_number;
-  const expectedWorktree=canonical ? path.join(config.state_dir,'worktrees',`pr-${common.pr_number}-${marker.kind}-${common.round}-${common.head_sha.slice(0,12)}`) : null;
-  canonical &&= path.isAbsolute(common.worktree) && path.resolve(common.worktree) === path.resolve(expectedWorktree);
-  if(canonical && marker.kind === 'fix') {
-    const [,sourceIssueId,sourceCommentId,sourceSha,reviewFile]=marker.source;
-    const expectedReviewFile=path.join(config.state_dir,'reviews',`${sourceSha}.txt`);
-    canonical=/^[a-zA-Z0-9-]+$/.test(sourceIssueId) && /^[a-zA-Z0-9-]+$/.test(sourceCommentId)
-      && path.isAbsolute(reviewFile) && path.resolve(reviewFile) === path.resolve(expectedReviewFile);
+  const reviewerMatches=issue.assignee_type === 'agent' && issue.assignee_id === config.reviewer_id;
+  const fixerMatches=issue.assignee_type === 'agent' && issue.assignee_id === config.fixer_id;
+  const role=reviewerMatches !== fixerMatches ? (reviewerMatches ? 'review' : 'fix') : null;
+  const trusted=new Set(),ambiguous=new Set(),candidateCounts=new Map();
+  for(const value of parsed) {
+    const {raw,common,hints,block}=value;
+    if(!raw || !common || typeof common !== 'object' || Array.isArray(common)) {
+      if(block.marker)for(const prNumber of value.numbers)if(prNumber === live.pr_number)ambiguous.add(prNumber);
+      continue;
+    }
+    const exactSchema=Object.keys(common).sort().join('\0') === [...expectedKeys].sort().join('\0');
+    const validPr=Number.isSafeInteger(common.pr_number) && common.pr_number > 0;
+    const markerBound=Boolean(block.marker);
+    const machineBound=exactSchema && common.repository === REPOSITORY;
+    if(!markerBound && !machineBound)continue;
+    const candidatePrs=new Set(value.numbers);
+    if(!candidatePrs.size)continue;
+    for(const prNumber of candidatePrs) {
+      const relevant=prNumber === live.pr_number;
+      if(!relevant)continue;
+      candidateCounts.set(prNumber,(candidateCounts.get(prNumber) ?? 0)+1);
+      let canonical=machineBound && common.protocol_version === VERSION && validPr && common.pr_number === prNumber
+        && Number.isSafeInteger(common.round) && common.round > 0
+        && isSha(common.base_sha) && isSha(common.head_sha)
+        && typeof common.worktree === 'string'
+        && Array.isArray(common.authoritative_spec_paths)
+        && JSON.stringify(common.authoritative_spec_paths) === JSON.stringify(live.admission.authoritative_spec_paths)
+        && common.rubric === live.admission.rubric
+        && role !== null && hints.length === 1 && hints[0] === common.pr_number;
+      canonical &&= expectedKeys.every(key=>[...raw.matchAll(new RegExp(`^\\s*"${key}"\\s*:`, 'gm'))].length === 1);
+      const expectedWorktree=canonical ? path.join(config.state_dir,'worktrees',`pr-${common.pr_number}-${role}-${common.round}-${common.head_sha.slice(0,12)}`) : null;
+      canonical &&= path.isAbsolute(common.worktree) && path.resolve(common.worktree) === path.resolve(expectedWorktree);
+      if(canonical && role === 'fix') {
+        const source=block.lines ? fixSourcePayloadAfterCommonBlock(block) : null;
+        if(source) {
+          const [,sourceIssueId,sourceCommentId,sourceSha,reviewFile]=source;
+          const expectedReviewFile=path.join(config.state_dir,'reviews',`${sourceSha}.txt`);
+          canonical=/^[a-zA-Z0-9-]+$/.test(sourceIssueId) && /^[a-zA-Z0-9-]+$/.test(sourceCommentId)
+            && path.isAbsolute(reviewFile) && path.resolve(reviewFile) === path.resolve(expectedReviewFile);
+        } else canonical=false;
+      }
+      if(canonical)trusted.add(prNumber);else ambiguous.add(prNumber);
+    }
   }
-  return canonical ? {trusted:[common.pr_number],ambiguous:[]} : {trusted:[],ambiguous:numbers};
+  for(const [prNumber,count] of candidateCounts)if(count > 1){trusted.delete(prNumber);ambiguous.add(prNumber);}
+  return {trusted:[...trusted],ambiguous:[...ambiguous]};
 }
 function contractPrNumberHints(value) {
   return [...value.matchAll(/^\s*"pr_number"\s*:\s*(?:"(\d+)"|(\d+))\s*,?\s*$/gm)].map(match=>Number(match[1] ?? match[2]));

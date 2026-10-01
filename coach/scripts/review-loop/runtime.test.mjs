@@ -1343,17 +1343,30 @@ test('failed-fix recovery rejects unsafe provenance and candidate preflight with
     },/unattempted|without.*attempted|orphan.*Reviewer/i],
     ['related source Reviewer issue has an active writer',f=>{f.setRuns('review-issue',[...f.runMap.get('review-issue'),{id:'concurrent-review-run',issue_id:'review-issue',agent_id:'reviewer',status:'running'}]);},/active related run/i],
     ['related Fixer issue has an active source writer',f=>{f.setRuns('fix-issue',[...f.runMap.get('fix-issue'),{id:'concurrent-fix-run',issue_id:'fix-issue',agent_id:'fixer',status:'running'}]);},/active related run/i],
+    ['edited Fixer source tail remains an active same-PR contract',f=>{
+      const {issue}=addRenamedRecoveryOrphan(f,'fix','running');
+      issue.description=issue.description.replace('完整 UTF-8 评审已作为附件提供','来源附件已损坏');
+    },/active related run|ambiguous same-PR.*contract/i],
+    ['unparseable marked common block retains its same-PR hint',f=>{
+      const {issue}=addRenamedRecoveryOrphan(f,'review','running');
+      issue.description=issue.description.replace('"round": 2','"round": invalid');
+    },/ambiguous same-PR.*contract/i],
+    ['multiple complete same-PR common blocks remain ambiguous',f=>{
+      const {issue}=addRenamedRecoveryOrphan(f,'review','running');
+      issue.description+='\n\n'+issue.description;
+    },/ambiguous same-PR.*contract/i],
     ['renamed orphan Reviewer contract has a queued writer',f=>{addRenamedRecoveryOrphan(f,'review','queued');},/active related run/i],
     ['renamed orphan Reviewer contract has a running writer',f=>{addRenamedRecoveryOrphan(f,'review','running');},/active related run/i],
     ['renamed orphan Fixer contract has a queued writer',f=>{addRenamedRecoveryOrphan(f,'fix','queued');},/active related run/i],
     ['renamed orphan Fixer contract has a running writer',f=>{addRenamedRecoveryOrphan(f,'fix','running');},/active related run/i],
-    ['edited Reviewer preamble does not hide its active machine contract',f=>{
+    ['edited Reviewer preamble and heading do not hide its active machine contract',f=>{
       const {issue}=addRenamedRecoveryOrphan(f,'review','running'),heading='\n\n# 本轮固定任务参数\n\n',at=issue.description.indexOf(heading);
-      issue.description='改写后的 Reviewer 序言。'+issue.description.slice(at);
+      issue.description='改写后的 Reviewer 序言。\n\n# 固定任务参数\n\n'+issue.description.slice(at+heading.length);
     },/active related run/i],
-    ['edited Fixer opening does not hide its active machine contract',f=>{
+    ['edited Fixer opening and source prefix do not hide its active machine contract',f=>{
       const {issue}=addRenamedRecoveryOrphan(f,'fix','running');
       issue.description=issue.description.replace('修复附件中针对该 PR 的完整独立评审。','按附件修复这项评审发现。');
+      issue.description=issue.description.replace('评审来源：工单','来源被编辑：工单');
     },/active related run/i],
     ['renamed orphan from an older round/head is still bound to this PR',f=>{addRenamedRecoveryOrphan(f,'review','running',{round:1,head_sha:f.request.original_head_sha});},/active related run/i],
     ['title says this PR while canonical contract names another PR',f=>{addRenamedRecoveryOrphan(f,'review','running',{pr_number:9,title:'[review-loop/v2.1][审查][第2轮][bbbbbbbbbbbb] '+REPOSITORY+'#8'});},/active related run/i],
