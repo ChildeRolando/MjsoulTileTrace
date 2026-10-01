@@ -237,10 +237,34 @@ export function jobDescription(job, live) {
   return `修复附件中针对该 PR 的完整独立评审。仅在提供的 detached worktree 中工作；编辑前确认本地 HEAD 和远端 PR head 都等于上一候选。\n\n${JSON.stringify(common,null,2)}\n\n评审来源：工单 ${job.source_review_issue_id}，评论 ${job.source_comment_id}，SHA-256 ${job.raw_review_sha256}。完整 UTF-8 评审已作为附件提供，本地路径为 ${job.review_file}。读取 findings 前先校验 SHA-256。完整保留所有 findings；修复全部 P1/P2，并为可机械验证的问题加入持久回归。遵循每项 finding 的 durability metadata，更新指定的权威 owner。保留附件原始评审中的 metadata；工单关闭不能作为知识已进入仓库的证明。读取仓库治理规则和列出的 spec。从 coach 目录运行五门：${JSON.stringify(GATES)}。只提交本工单要求的修复；重新检查远端 PR head 后，将 HEAD 无强推地推送到 origin 的 refs/heads/${live.branch}。若他人已经推送，停止并报告并发冲突。不要合并 PR 或关闭工单。\n\n发表一条最终 Multica 评论，末尾放置 review-loop-fix JSON fence：${JSON.stringify({protocol_version:VERSION,pr_number:job.pr_number,base_sha:job.base_sha,previous_head_sha:job.head_sha,head_sha:'<完整的已推送 SHA>',round:job.round,raw_review_sha256:job.raw_review_sha256})}。将本工单设为 in_review，不要 mention 其他 Agent。如实报告阻碍，不得伪造结果。`;
 }
 
+function assertFailedFixRecoveryBinding(binding,live,job,state,reviewerId) {
+  assert.deepEqual(Object.keys(binding ?? {}).sort(),['admission_hash','base_sha','head_sha','request_sha256'].sort(),'invalid failed-fix recovery binding');
+  assert(/^[a-f0-9]{64}$/.test(binding.request_sha256) && /^[a-f0-9]{64}$/.test(binding.admission_hash)
+    && /^[a-f0-9]{40}$/.test(binding.base_sha) && /^[a-f0-9]{40}$/.test(binding.head_sha),'invalid failed-fix recovery candidate');
+  assert.equal(binding.admission_hash,state.admission_hash,'failed-fix recovery admission changed');
+  assert(live.pr_number === state.pr_number && live.base_sha === binding.base_sha && live.head_sha === binding.head_sha
+    && live.admission_hash === binding.admission_hash,'approved failed-fix recovery candidate changed');
+  if(job) {
+    assert(job.kind === 'review' && job.round === state.round+1 && job.pr_number === state.pr_number
+      && job.base_sha === binding.base_sha && job.head_sha === binding.head_sha && job.admission_hash === binding.admission_hash,
+    'pending failed-fix review does not match approved candidate');
+    assert.equal(job.agent_id,reviewerId,'pending failed-fix review assignment changed');
+    if(job.title)assert.equal(job.title,`[review-loop/v2.1][审查][第${job.round}轮][${binding.head_sha.slice(0,12)}] ${REPOSITORY}#${job.pr_number}`,
+      'pending failed-fix review title changed');
+    if(job.description)assert.equal(job.description,jobDescription(job,live),'pending failed-fix review contract changed');
+    assert.deepEqual(job.recovery_binding,binding,'pending failed-fix recovery binding changed');
+  }
+}
+
 // All effects are recorded before transmission. A lost response is reconciled by
 // exact issue title AND exact description/assignment; it is never blindly retried.
-export async function ensureDispatch(state, live, kind, io, config, result) {
+export async function ensureDispatch(state, live, kind, io, config, result, failedFixRecoveryBinding) {
   let job=state.pending;
+  failedFixRecoveryBinding ??=job?.recovery_binding;
+  if(failedFixRecoveryBinding) {
+    assert(kind === 'review','failed-fix recovery only permits a fresh review');
+    assertFailedFixRecoveryBinding(failedFixRecoveryBinding,live,job,state,config.reviewer_id);
+  }
   const recovery=recoveryCandidate(state);
   const sixth=sixthReviewCandidate(state);
   assert(!(recovery && sixth),'conflicting operator candidate bindings');
@@ -258,6 +282,7 @@ export async function ensureDispatch(state, live, kind, io, config, result) {
     const round=kind === 'review' ? state.round+1 : state.round;
     assert(round >= 1 && round <= reviewRoundLimit(state), 'round limit');
     job={kind,round,pr_number:live.pr_number,base_sha:live.base_sha,head_sha:live.head_sha,admission_hash:live.admission_hash,candidate_snapshot:live.snapshot,agent_id:kind === 'review' ? config.reviewer_id : config.fixer_id};
+    if(failedFixRecoveryBinding)job.recovery_binding=structuredClone(failedFixRecoveryBinding);
     const kindLabel=kind === 'review' ? '审查' : '修复';
     job.title=`[review-loop/v2.1][${kindLabel}][第${round}轮][${live.head_sha.slice(0,12)}] ${REPOSITORY}#${live.pr_number}`;
     // A review replacement must survive worktree preparation transport failures.
@@ -285,6 +310,7 @@ export async function ensureDispatch(state, live, kind, io, config, result) {
   } else {
     assert(!job.attempted_at,'dispatch response unknown; reconcile before retry');
     let current=await observeLive(io,live.pr_number);
+    if(failedFixRecoveryBinding)assertFailedFixRecoveryBinding(failedFixRecoveryBinding,current,job,state,config.reviewer_id);
     assert.equal(current.admission_hash,job.admission_hash,'admission changed before dispatch');
     if(current.head_sha !== job.head_sha || current.base_sha !== job.base_sha) {
       if(recovery)await requireRecoveryCandidate(state,recovery,current,io);
@@ -295,6 +321,7 @@ export async function ensureDispatch(state, live, kind, io, config, result) {
     }
     await io.checkSpecs(current);
     current=await observeLive(io,live.pr_number);
+    if(failedFixRecoveryBinding)assertFailedFixRecoveryBinding(failedFixRecoveryBinding,current,job,state,config.reviewer_id);
     assert.equal(current.admission_hash,job.admission_hash,'admission changed before dispatch');
     if(current.head_sha !== job.head_sha || current.base_sha !== job.base_sha) {
       if(recovery)await requireRecoveryCandidate(state,recovery,current,io);
@@ -308,8 +335,13 @@ export async function ensureDispatch(state, live, kind, io, config, result) {
     issue=await io.create(job);
     assert(issue.id,'missing created issue identity');
   }
+  if(failedFixRecoveryBinding) {
+    const current=await observeLive(io,live.pr_number);
+    assertFailedFixRecoveryBinding(failedFixRecoveryBinding,current,job,state,config.reviewer_id);
+  }
   job.issue_id=issue.id;job.identifier=issue.identifier;
-  state.job=job;state.pending=null;state.round=job.round;state.status=kind === 'review' ? 'REVIEWING' : 'FIXING';
+  state.job={...job};delete state.job.recovery_binding;
+  state.pending=null;state.round=job.round;state.status=kind === 'review' ? 'REVIEWING' : 'FIXING';state.reason=null;delete state.last_error_at;
   state.history.push({event:'dispatch',kind,round:job.round,head_sha:job.head_sha,base_sha:job.base_sha,issue_id:issue.id,snapshot:job.dispatch_snapshot ?? job.candidate_snapshot,at:new Date().toISOString()});
   await io.save(state);
 }

@@ -4,8 +4,8 @@ import { promisify } from 'node:util';
 import { mkdir, readFile, writeFile, rename, open, unlink, realpath, readdir, copyFile, lstat, mkdtemp } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { admit, VERSION, REPOSITORY, hash, isSha, parseResult, parseRejectedReviewResult, parseTransportRecoveryResult, externalReviewTerminal, externalReviewAcceptance } from './protocol.mjs';
-import { advance, advanceDurability, captureDurability, ensureDispatch, authorizeSixthReview, recoverRejectedTerminalReview, validateTransportRecovery, acceptTransportRecovery, transportReviewJob } from './controller.mjs';
+import { admit, VERSION, REPOSITORY, hash, isSha, parseResult, parseRejectedReviewResult, parseTransportRecoveryResult, externalReviewTerminal, externalReviewAcceptance, decide, reviewRoundLimit } from './protocol.mjs';
+import { advance, advanceDurability, captureDurability, ensureDispatch, authorizeSixthReview, recoverRejectedTerminalReview, validateTransportRecovery, acceptTransportRecovery, transportReviewJob, activeStatuses, jobDescription } from './controller.mjs';
 const exec=promisify(execFile);
 export async function command(file,args,cwd) {
   try { return (await exec(file,args,{cwd,windowsHide:true,encoding:'utf8',maxBuffer:32*1024*1024,timeout:120000})).stdout; }
@@ -183,6 +183,25 @@ export function makeIO(config,stateFile,stateDir,runCommand=command) {
         await ancestor(result.data.head_sha,live.head_sha,'fix result is not reachable from current PR head');
       }
     },
+    verifyRecoveryWorktree:async job=>{
+      const expected=worktree(job);
+      assert.equal(await realpath(job.worktree),await realpath(expected),'original Fixer worktree path mismatch');
+      const status=(await runCommand(config.git_path,['status','--porcelain','--untracked-files=all'],job.worktree)).trim();
+      assert.equal(status,'','original Fixer worktree is not clean');
+      const head=(await runCommand(config.git_path,['rev-parse','HEAD'],job.worktree)).trim();
+      assert.equal(head,job.head_sha,'original Fixer worktree HEAD changed');
+    },
+    verifyRecoveryAncestry:async(oldHead,newHead,branch)=>{
+      assert(isSha(oldHead) && isSha(newHead) && typeof branch === 'string' && branch.trim(),'invalid recovery ancestry identity');
+      await git(['fetch','origin']);
+      const advertised=(await git(['ls-remote','--exit-code','origin',`refs/heads/${branch}`])).trim();
+      const [remoteSha,remoteRef,...extra]=advertised.split(/\s+/);
+      assert(isSha(remoteSha) && remoteRef === `refs/heads/${branch}` && extra.length === 0,'invalid current PR branch advertisement');
+      assert.equal(remoteSha,newHead,'current PR head is not the pushed branch head');
+      for(const sha of [oldHead,newHead])assert.equal((await git(['rev-parse',`${sha}^{commit}`])).trim(),sha,'recovery commit is unavailable');
+      try {await git(['merge-base','--is-ancestor',oldHead,newHead]);}
+      catch(error) {if(error.exitCode === 1)throw new Error('failed Fixer head is not an ancestor of current PR head');throw error;}
+    },
     publish:async state=>{
       const j=state.job;if(!j)return;
       assert(isSha(j.head_sha),'invalid publication SHA');
@@ -299,6 +318,280 @@ export async function tick(config,ioFactory=makeIO) {
     await atomicJson(path.join(config.state_dir,'health.json'),report);return report;
   } finally {await release();}
 }
+
+const failedFixRecoveryFields=['protocol_version','pr_number','round','failed_fix_issue_id','comment_id','run_id','raw_fix_sha256',
+  'original_base_sha','original_head_sha','current_base_sha','current_head_sha','admission_hash','approval_ref'];
+function failedFixRecoveryRequestHash(request) {
+  return hash(JSON.stringify(Object.fromEntries(failedFixRecoveryFields.map(key=>[key,request[key]]))));
+}
+function validateFailedFixRecoveryRequest(config,request) {
+  assert.equal(config.protocol_version,VERSION);assert.equal(config.repository,REPOSITORY);
+  assert.equal(config.enabled,false,'failed-fix recovery requires enabled=false');
+  assert(config.reviewer_id && config.fixer_id && config.reviewer_id !== config.fixer_id,'invalid Reviewer/Fixer configuration');
+  assert(path.isAbsolute(config.state_dir) && path.isAbsolute(config.repository_path));
+  assert(request && typeof request === 'object' && !Array.isArray(request),'invalid failed-fix recovery request');
+  assert.deepEqual(Object.keys(request).sort(),[...failedFixRecoveryFields].sort(),'unexpected/missing failed-fix recovery fields');
+  assert.equal(request.protocol_version,VERSION);
+  assert(Number.isSafeInteger(request.pr_number) && request.pr_number > 0 && Number.isSafeInteger(request.round) && request.round > 0,
+    'invalid failed-fix recovery identity');
+  for(const key of ['raw_fix_sha256','admission_hash'])assert(/^[a-f0-9]{64}$/.test(request[key]),'invalid failed-fix recovery hash');
+  for(const key of ['original_base_sha','original_head_sha','current_base_sha','current_head_sha'])
+    assert(isSha(request[key]),'invalid failed-fix recovery candidate SHA');
+  for(const key of ['failed_fix_issue_id','comment_id','run_id','approval_ref'])
+    assert(typeof request[key] === 'string' && request[key].trim() && request[key].length <= 1000,'missing failed-fix recovery provenance');
+  assert.equal(request.current_base_sha,request.original_base_sha,'failed-fix recovery base changed');
+  assert.notEqual(request.current_head_sha,request.original_head_sha,'failed-fix recovery requires a new candidate');
+  return failedFixRecoveryRequestHash(request);
+}
+function assertFailedFixRecoveryLive(request,state,live) {
+  assert.equal(live.pr_number,request.pr_number,'failed-fix recovery PR mismatch');
+  assert.equal(live.base_sha,request.current_base_sha,'failed-fix recovery current base changed');
+  assert.equal(live.head_sha,request.current_head_sha,'failed-fix recovery current head changed');
+  assert.equal(live.admission_hash,request.admission_hash,'failed-fix recovery admission changed');
+  assert.equal(state.admission_hash,request.admission_hash,'failed-fix recovery ledger admission changed');
+}
+function validateFailedFixRecoveryEvent(state,request,requestSha) {
+  const events=(state.history ?? []).filter(event=>event.event === 'recover_failed_fix' && event.failed_fix_issue_id === request.failed_fix_issue_id);
+  assert(events.length <= 1,'duplicate failed-fix recovery event');
+  if(!events.length)return null;
+  const event=events[0];
+  assert(event.request_sha256 === requestSha,'failed-fix recovery request conflicts with prior authorization');
+  for(const key of ['pr_number','round','failed_fix_issue_id','comment_id','run_id','raw_fix_sha256','original_base_sha','original_head_sha',
+    'current_base_sha','current_head_sha','admission_hash','approval_ref'])
+    assert.equal(event[key],request[key],'failed-fix recovery audit event mismatch');
+  assert.equal(event.dispatch_round,request.round+1,'failed-fix recovery dispatch round mismatch');
+  return event;
+}
+function completedFailedFixRecoveryDispatch(state,event,request) {
+  const eventIndex=state.history.indexOf(event);
+  const matches=state.history.slice(eventIndex+1).filter(row=>row.event === 'dispatch' && row.kind === 'review'
+    && row.round === event.dispatch_round && row.base_sha === request.current_base_sha && row.head_sha === request.current_head_sha);
+  assert(matches.length <= 1,'duplicate recovery review dispatch');
+  return matches[0] ?? null;
+}
+function assertLiveSourceIssue(issue,job,config,title,description) {
+  assert(issue && issue.id === job.issue_id,'source issue identity mismatch');
+  assert.equal(issue.project_id,config.project_id,'source issue project mismatch');
+  assert.equal(issue.assignee_type,'agent');assert.equal(issue.assignee_id,job.agent_id,'source issue assignment mismatch');
+  assert.equal(issue.title,title,'source issue title/contract mismatch');
+  assert.equal(issue.description,description,'source issue description/admission contract mismatch');
+}
+async function assertNoActiveRecoveryRuns(io,state,request,requestSha,projectId,reviewerId,live) {
+  const issues=await io.issues();assert(Array.isArray(issues),'failed-fix recovery issue listing incomplete');
+  const byId=new Map();
+  for(const issue of issues) {
+    assert(issue && typeof issue.id === 'string' && issue.id && !byId.has(issue.id),'invalid/duplicate project issue identity');
+    byId.set(issue.id,issue);
+  }
+  const related=new Set();
+  const add=id=>{if(typeof id === 'string' && id)related.add(id);};
+  add(state.job?.issue_id);add(state.job?.source_review_issue_id);
+  add(state.pending?.issue_id);add(state.pending?.source_review_issue_id);
+  for(const event of state.history ?? []) {add(event.issue_id);add(event.source_review_issue_id);}
+  for(const job of state.durability ?? []) {add(job.issue_id);add(job.source_review_issue_id);}
+  add(state.external_review_acceptance?.review_issue_id);
+  const repository=REPOSITORY.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+  const prIdentity=new RegExp(`^\\[review-loop/v2\\.1\\]\\[(?:审查|修复)\\]\\[第[1-9][0-9]*轮\\]\\[[a-f0-9]{12}\\] ${repository}#${request.pr_number}$`);
+  const durabilityIdentity=new RegExp(`^\\[review-loop/v2\\.1\\]\\[知识持久化\\]\\[[a-f0-9]{64}\\] ${repository}#${request.pr_number}$`);
+  for(const issue of issues)if(issue.project_id === projectId && (prIdentity.test(issue.title) || durabilityIdentity.test(issue.title)))add(issue.id);
+
+  let resumableTargetId=null;
+  const pending=state.pending;
+  if(pending?.kind === 'review' && pending.pr_number === request.pr_number && pending.round === request.round+1
+    && pending.agent_id === reviewerId && pending.base_sha === request.current_base_sha && pending.head_sha === request.current_head_sha
+    && pending.admission_hash === request.admission_hash
+    && pending.recovery_binding?.request_sha256 === requestSha && pending.recovery_binding.base_sha === request.current_base_sha
+    && pending.recovery_binding.head_sha === request.current_head_sha && pending.recovery_binding.admission_hash === request.admission_hash
+    && pending.prepared_at && pending.attempted_at && typeof pending.title === 'string'
+    && pending.title === '[review-loop/v2.1][审查][第'+(request.round+1)+'轮]['+request.current_head_sha.slice(0,12)+'] '+REPOSITORY+'#'+request.pr_number
+    && typeof pending.description === 'string' && pending.description === jobDescription(pending,live)
+    && hash(pending.description) === pending.description_hash) {
+    const matches=issues.filter(issue=>issue.title === pending.title);
+    assert(matches.length <= 1,'duplicate failed-fix recovery review identity');
+    if(matches.length) {
+      const issue=matches[0];
+      assert(issue.project_id === projectId && issue.assignee_type === 'agent' && issue.assignee_id === pending.agent_id
+        && hash(issue.description) === pending.description_hash,'failed-fix recovery pending issue identity conflict');
+      resumableTargetId=issue.id;
+      add(issue.id);
+    }
+  }
+
+  for(const id of related) {
+    const issue=byId.get(id);
+    if(!issue)continue;
+    const runs=await io.runs(issue.id);assert(Array.isArray(runs),'failed-fix recovery run listing incomplete');
+    const active=runs.filter(run=>activeStatuses.has(run.status));
+    if(issue.id === resumableTargetId) {
+      assert(active.length <= 1,'duplicate active failed-fix recovery Reviewer run');
+      if(active.length)assert(active[0].issue_id === issue.id && active[0].agent_id === reviewerId,'active failed-fix recovery Reviewer run identity mismatch');
+    }
+    else assert(active.length === 0,'active related run prevents failed-fix recovery');
+  }
+  return issues;
+}
+async function loadFailedFixRecoverySources(config,state,request,live,io) {
+  const job=state.job;
+  assert(job && job.kind === 'fix' && job.pr_number === request.pr_number && job.round === request.round
+    && state.round === request.round && job.issue_id === request.failed_fix_issue_id,'failed-fix recovery job mismatch');
+  assert(job.base_sha === request.original_base_sha && job.head_sha === request.original_head_sha,'failed-fix recovery original candidate mismatch');
+  assert(job.admission_hash === request.admission_hash && state.admission_hash === request.admission_hash,'failed-fix recovery frozen admission mismatch');
+  assert(job.source_review_issue_id && job.source_comment_id && job.raw_review_sha256,'failed-fix source review binding missing');
+  assert(/^[a-f0-9]{64}$/.test(job.raw_review_sha256),'invalid source review hash');
+  assert.equal(hash(job.description),job.description_hash,'original Fixer contract hash mismatch');
+  const historicalLive={...live,base_sha:job.base_sha,head_sha:job.head_sha};
+  const expectedFixTitle='[review-loop/v2.1][修复][第'+job.round+'轮]['+job.head_sha.slice(0,12)+'] '+REPOSITORY+'#'+job.pr_number;
+  assert.equal(job.title,expectedFixTitle,'original Fixer title mismatch');
+  assert.equal(job.description,jobDescription(job,historicalLive),'original Fixer contract/admission mismatch');
+  const expectedReviewFile=path.join(config.state_dir,'reviews',job.raw_review_sha256+'.txt');
+  assert.equal(path.resolve(job.review_file ?? ''),path.resolve(expectedReviewFile),'original Fixer review attachment path mismatch');
+  const reviewBytes=await readFile(expectedReviewFile);assert.equal(hash(reviewBytes),job.raw_review_sha256,'original Fixer review attachment hash mismatch');
+
+  const sourceReviewDispatches=(state.history ?? []).filter(event=>event.event === 'dispatch' && event.kind === 'review'
+    && event.round === job.round && event.issue_id === job.source_review_issue_id);
+  assert.equal(sourceReviewDispatches.length,1,'source review dispatch history mismatch');
+  const sourceReviewDispatch=sourceReviewDispatches[0];
+  assert.equal(sourceReviewDispatch.base_sha,job.base_sha);assert.equal(sourceReviewDispatch.head_sha,job.head_sha);
+  const routeEvents=(state.history ?? []).filter(event=>event.event === 'result' && event.transition === 'ROUTE_TO_FIXER'
+    && event.round === job.round && event.issue_id === job.source_review_issue_id);
+  assert.equal(routeEvents.length,1,'source review route history mismatch');
+  const route=routeEvents[0];
+  const routeHistory=state.history ?? [];
+  assert(routeHistory.indexOf(sourceReviewDispatch)<routeHistory.indexOf(route),'source review route is out of history order');
+  assert(route.comment_id === job.source_comment_id && route.sha256 === job.raw_review_sha256
+    && route.run_id && route.base_sha === job.base_sha && route.head_sha === job.head_sha,'source review history binding mismatch');
+  const archivedReview=await archivedResult(config.state_dir,job.source_review_issue_id,job.raw_review_sha256);
+  assert(archivedReview,'source review archive missing');
+  await assertNoConflictingArchives(config.state_dir,job.source_review_issue_id,archivedReview);
+  const reviewIssue=await io.issue(job.source_review_issue_id);
+  const reviewWorktree=path.join(config.state_dir,'worktrees','pr-'+job.pr_number+'-review-'+job.round+'-'+job.head_sha.slice(0,12));
+  const reviewJob={kind:'review',pr_number:job.pr_number,round:job.round,issue_id:job.source_review_issue_id,agent_id:config.reviewer_id,
+    base_sha:job.base_sha,head_sha:job.head_sha,admission_hash:job.admission_hash,worktree:reviewWorktree};
+  const expectedReviewTitle='[review-loop/v2.1][审查][第'+job.round+'轮]['+job.head_sha.slice(0,12)+'] '+REPOSITORY+'#'+job.pr_number;
+  assertLiveSourceIssue(reviewIssue,reviewJob,config,expectedReviewTitle,jobDescription(reviewJob,historicalLive));
+  const reviewComments=await io.comments(job.source_review_issue_id),reviewRuns=await io.runs(job.source_review_issue_id);
+  const reviewResult=parseResult(reviewJob,reviewIssue,reviewComments,reviewRuns);
+  assert.deepEqual(archivedReview,reviewResult,'source review archive/raw mismatch');
+  assert.equal(reviewResult.comment_id,job.source_comment_id);assert.equal(reviewResult.run_id,route.run_id);
+  assert.equal(reviewResult.sha256,job.raw_review_sha256);
+  assert.equal(reviewResult.data.verdict,'CHANGES_REQUIRED','source review did not require changes');
+  assert(reviewResult.data.findings.P1.length+reviewResult.data.findings.P2.length > 0,'source review has no actionable P1/P2');
+  assert(reviewResult.data.gates.every(gate=>gate.status === 'PASS' && gate.exit_code === 0)
+    && reviewResult.data.environment_failures.length === 0,'source review did not have a fully green gated route');
+  assert.equal(decide(reviewJob,reviewResult,{base_sha:job.base_sha,head_sha:job.head_sha},reviewRoundLimit(state)).transition,
+    'ROUTE_TO_FIXER','source review is not a valid fixer route');
+
+  const fixDispatches=(state.history ?? []).filter(event=>event.event === 'dispatch' && event.kind === 'fix'
+    && event.round === job.round && event.issue_id === job.issue_id);
+  assert.equal(fixDispatches.length,1,'failed Fixer dispatch history mismatch');
+  assert(routeHistory.indexOf(route)<routeHistory.indexOf(fixDispatches[0]),'failed Fixer dispatch precedes its source review route');
+  assert.equal(fixDispatches[0].base_sha,job.base_sha);assert.equal(fixDispatches[0].head_sha,job.head_sha);
+  const fixIssue=await io.issue(job.issue_id);
+  assert(fixIssue && fixIssue.id === job.issue_id,'failed Fixer issue missing');
+  assert.equal(fixIssue.project_id,config.project_id,'failed Fixer project mismatch');
+  assert.equal(fixIssue.assignee_type,'agent');assert.equal(fixIssue.assignee_id,config.fixer_id,'failed Fixer assignment mismatch');
+  assert.equal(fixIssue.title,job.title,'failed Fixer issue title mismatch');
+  assert(typeof fixIssue.description === 'string' && (fixIssue.description === job.description || fixIssue.description.startsWith(job.description+'\n')),
+    'failed Fixer issue contract prefix mismatch');
+  const fixComments=await io.comments(job.issue_id),fixRuns=await io.runs(job.issue_id);
+  const fixResult=parseResult(job,fixIssue,fixComments,fixRuns);
+  assert.equal(fixResult.comment_id,request.comment_id,'failed Fixer comment mismatch');
+  assert.equal(fixResult.run_id,request.run_id,'failed Fixer run mismatch');
+  assert.equal(fixResult.sha256,request.raw_fix_sha256,'failed Fixer raw hash mismatch');
+  assert.equal(fixResult.data.head_sha,job.head_sha,'failed Fixer did not return the original same-head result');
+  assert.equal(fixResult.data.previous_head_sha,job.head_sha,'failed Fixer previous head mismatch');
+  assert.equal(fixResult.data.raw_review_sha256,job.raw_review_sha256,'failed Fixer source Review hash mismatch');
+  return {job,reviewJob,reviewResult,fixIssue,fixResult};
+}
+async function validateFailedFixRecovery(config,state,request,io) {
+  const raw=await io.live(request.pr_number),live=admit(raw);
+  assertFailedFixRecoveryLive(request,state,live);
+  const sources=await loadFailedFixRecoverySources(config,state,request,live,io);
+  await assertNoActiveRecoveryRuns(io,state,request,failedFixRecoveryRequestHash(request),config.project_id,config.reviewer_id,live);
+  assert.equal(typeof io.verifyRecoveryWorktree,'function','read-only Fixer worktree verifier missing');
+  assert.equal(typeof io.verifyRecoveryAncestry,'function','remote Fixer ancestry verifier missing');
+  await io.verifyRecoveryWorktree(sources.job);
+  await io.verifyRecoveryAncestry(request.original_head_sha,request.current_head_sha,live.branch);
+  await io.checkSpecs(live);
+  const secondRaw=await io.live(request.pr_number),secondLive=admit(secondRaw);
+  assertFailedFixRecoveryLive(request,state,secondLive);
+  await io.verifyRecoveryAncestry(request.original_head_sha,request.current_head_sha,secondLive.branch);
+  const secondSources=await loadFailedFixRecoverySources(config,state,request,secondLive,io);
+  await assertNoActiveRecoveryRuns(io,state,request,failedFixRecoveryRequestHash(request),config.project_id,config.reviewer_id,secondLive);
+  return {live:secondLive,...secondSources};
+}
+export async function recoverFailedFixRun(config,request,ioFactory=makeIO) {
+  const requestSha=validateFailedFixRecoveryRequest(config,request);
+  const release=await acquireLock(config.state_dir);assert(release,'controller already running');
+  try {
+    const file=path.join(config.state_dir,'pr-'+request.pr_number+'.json'),initial=await readFile(file);
+    const state=JSON.parse(initial.toString('utf8'));
+    assert.equal(state.protocol_version,VERSION);assert.equal(state.pr_number,request.pr_number);
+    const io=ioFactory(config,file,config.state_dir);
+    const priorEvent=validateFailedFixRecoveryEvent(state,request,requestSha);
+    const done=priorEvent && completedFailedFixRecoveryDispatch(state,priorEvent,request);
+    if(done)return {status:'ALREADY_RECOVERED',pr:state.pr_number,round:done.round,issue_id:done.issue_id,
+      base_sha:done.base_sha,head_sha:done.head_sha,request_sha256:requestSha};
+    const job=state.job;
+    assert(job?.kind === 'fix' && job.issue_id === request.failed_fix_issue_id && job.round === request.round,
+      'failed-fix recovery job mismatch');
+    const pending=state.pending;
+    if(priorEvent) {
+      assert(pending?.kind === 'review' || !pending && state.job?.kind === 'fix','failed-fix recovery resume state mismatch');
+      assert(!pending || pending.round === request.round+1 && pending.recovery_binding?.request_sha256 === requestSha,
+        'failed-fix recovery pending request mismatch');
+      assert(['BLOCKED','REVIEWING'].includes(state.status),'failed-fix recovery resume status mismatch');
+    } else {
+      assert(state.status === 'BLOCKED' && state.reason === 'fixer did not produce new commit','failed-fix recovery requires the exact blocked terminal');
+      assert(!pending,'failed-fix recovery cannot replace an existing pending job');
+    }
+    assert.equal(state.round,request.round,'failed-fix recovery round mismatch');
+    assert(reviewRoundLimit(state)>state.round,'failed-fix recovery has no remaining review budget');
+    const existingFixArchive=await archivedResult(config.state_dir,job.issue_id,request.raw_fix_sha256);
+    const validated=await validateFailedFixRecovery(config,state,request,io);
+    if(priorEvent) {
+      assert.equal(priorEvent.source_review_issue_id,validated.job.source_review_issue_id,'failed-fix recovery source issue audit mismatch');
+      assert.equal(priorEvent.source_comment_id,validated.reviewResult.comment_id,'failed-fix recovery source comment audit mismatch');
+      assert.equal(priorEvent.source_run_id,validated.reviewResult.run_id,'failed-fix recovery source run audit mismatch');
+      assert.equal(priorEvent.source_review_sha256,validated.reviewResult.sha256,'failed-fix recovery source hash audit mismatch');
+    }
+    assert.equal(hash(await readFile(file)),hash(initial),'failed-fix recovery ledger changed during verification');
+    await assertNoConflictingArchives(config.state_dir,job.issue_id,validated.fixResult);
+    if(existingFixArchive)assert.deepEqual(existingFixArchive,validated.fixResult,'conflicting failed Fixer archive');
+    await io.verifyRecoveryAncestry(request.original_head_sha,request.current_head_sha,validated.live.branch);
+    await assertNoActiveRecoveryRuns(io,state,request,requestSha,config.project_id,config.reviewer_id,validated.live);
+    const finalRaw=await io.live(request.pr_number),finalLive=admit(finalRaw);
+    assertFailedFixRecoveryLive(request,state,finalLive);
+    assert.equal(finalLive.branch,validated.live.branch,'failed-fix recovery PR source branch changed');
+    assert.equal(hash(await readFile(file)),hash(initial),'failed-fix recovery ledger changed before write');
+    if(priorEvent) {
+      assert(existingFixArchive,'failed-fix recovery archive missing while resuming');
+      assert.deepEqual(existingFixArchive,validated.fixResult,'failed-fix recovery archive changed');
+    } else {
+      await backupRecoveryState(config.state_dir,file);
+      if(!existingFixArchive)await io.archiveResult(job,validated.fixResult);
+      const event={event:'recover_failed_fix',protocol_version:VERSION,pr_number:request.pr_number,round:request.round,
+        failed_fix_issue_id:request.failed_fix_issue_id,comment_id:request.comment_id,run_id:request.run_id,raw_fix_sha256:request.raw_fix_sha256,
+        original_base_sha:request.original_base_sha,original_head_sha:request.original_head_sha,current_base_sha:request.current_base_sha,
+        current_head_sha:request.current_head_sha,admission_hash:request.admission_hash,approval_ref:request.approval_ref,
+        request_sha256:requestSha,source_review_issue_id:validated.job.source_review_issue_id,source_comment_id:validated.reviewResult.comment_id,
+        source_run_id:validated.reviewResult.run_id,source_review_sha256:validated.reviewResult.sha256,dispatch_round:request.round+1,
+        at:new Date().toISOString()};
+      state.history.push(event);
+    }
+    state.status='REVIEWING';state.reason=null;delete state.last_error_at;
+    const binding={request_sha256:requestSha,base_sha:request.current_base_sha,head_sha:request.current_head_sha,admission_hash:request.admission_hash};
+    await ensureDispatch(state,finalLive,'review',io,config,undefined,binding);
+    assert(state.status === 'REVIEWING' && state.round === request.round+1 && state.job?.kind === 'review',
+      'failed-fix recovery did not dispatch one fresh review');
+    assert(state.job.base_sha === request.current_base_sha && state.job.head_sha === request.current_head_sha,
+      'failed-fix recovery dispatched another candidate');
+    await io.publish(state);
+    return {status:state.status,pr:state.pr_number,round:state.round,issue:state.job.identifier,issue_id:state.job.issue_id,
+      base_sha:state.job.base_sha,head_sha:state.job.head_sha,request_sha256:requestSha};
+  } finally {await release();}
+}
+
 export async function recoverInvalidReview(config,request,ioFactory=makeIO) {
   assert.equal(config.protocol_version,VERSION);assert.equal(config.repository,REPOSITORY);
   assert.equal(config.enabled,false,'operator recovery requires enabled=false');
@@ -555,12 +848,15 @@ if(process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.met
     } else if(process.argv[2] === 'recover-transport-result') {
       const request=await readJson(path.resolve(process.argv[4] ?? 'transport-recovery.json'));
       console.log(JSON.stringify(await recoverTransportResult(config,request)));
+    } else if(process.argv[2] === 'recover-failed-fix') {
+      const request=await readJson(path.resolve(process.argv[4] ?? 'failed-fix-recovery.json'));
+      console.log(JSON.stringify(await recoverFailedFixRun(config,request)));
     } else if(process.argv[2] === 'authorize-sixth-review') {
       const request=await readJson(path.resolve(process.argv[4] ?? 'sixth-review-authorization.json'));
       console.log(JSON.stringify(await authorizeSixthReviewRun(config,request)));
     } else if(process.argv[2] === 'accept-external-review') {
       const request=await readJson(path.resolve(process.argv[4] ?? 'external-review-acceptance.json'));
       console.log(JSON.stringify(await acceptExternalReviewRun(config,request)));
-    } else {assert.equal(process.argv[2],'tick','usage: node runtime.mjs tick <config> | recover-transport-result <config> <request> | recover-invalid-review <config> <request> | authorize-sixth-review <config> <request> | accept-external-review <config> <request>');console.log(JSON.stringify(await tick(config)));}
+    } else {assert.equal(process.argv[2],'tick','usage: node runtime.mjs tick <config> | recover-transport-result <config> <request> | recover-failed-fix <config> <request> | recover-invalid-review <config> <request> | authorize-sixth-review <config> <request> | accept-external-review <config> <request>');console.log(JSON.stringify(await tick(config)));}
   } catch(e) {console.error(e.message);process.exitCode=1;}
 }
