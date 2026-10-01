@@ -240,7 +240,7 @@ Electron Golden Slice、独立产品 PASS 或
 固定安全刷新提示、无重新生成，随后通过既有打开入口恢复列表。该 renderer 测试的
 provider DTO 与已保存引用为模拟边界，不替代 D 的真实主进程、SQLite 与重启验收。
 
-### MVP Electron Golden Slice（Integration Closeout D，待实现）
+### MVP Electron Golden Slice（Integration Closeout D）
 
 永久发布入口冻结为：
 
@@ -256,8 +256,9 @@ account select 或 share import 起步，不得从 `openReview()` 直接起步�
 全部内存 graph/controller/provider state，再禁网/禁 LLM，并断言同一
 `activeReportRefId`、judgment、explanation、provenance 与零请求。
 
-**当前状态（2026-09-24）**：该 package script 与 test owner 尚未实现，命令不可运行，
-不得报告 PASS。D 实现票负责添加二者并删除本 pending 标记。完整语义见
+**当前状态（2026-10-01，D stacked 候选）**：上述命令与 owner 已实现。测试从账号列表“分析”和分享链接“导入并分析”两个真实 app shell 按钮进入；使用 `packages/desktop/tests/fixtures/real-record-complete.json` 的脱敏真实牌谱，经生产 schema、canonical/replay、受控 Mortal 法律动作与 package/session 构建。完整链涵盖 `complete` 且账号重复分析复用唯一 session，降级链涵盖 `evidence_only`；账号分析失败另断言不导航且 SQLite package/session 均为零；每条链在保存并退出后启动新 Electron 进程，在断网及无 provider 情况下从会话列表重开并核对 active report、judgment、explanation、provenance 与零请求。`--mvp-golden-child` 与 `RIICHI_MVP_GOLDEN_TEST=1` 同时存在时才加载 main 的 fixture 适配器，窗口保持隐藏；离线重开不加载该适配器。
+
+本节只陈述候选上的永久门；独立评审、保护检查、依赖合并与真人 smoke 仍由 §7 分别确认，不能据此宣布整体 DEMOABLE。完整语义见
 [Integration Closeout spec](../specs/2026-09-24-playable-review-mvp-integration-closeout.md)。
 
 ### Integration Closeout 固定五门

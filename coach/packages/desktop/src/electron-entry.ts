@@ -75,7 +75,7 @@ import {
   runRecordCaptureDiagnostic,
 } from "./capture-record-diagnostic-runner.js";
 import type { CaptureRecordWindowPort } from "./official-client-record-capture.js";
-import { createMahjongSoulPaipuImportService } from "./paipu-import-service.js";
+import { createMahjongSoulPaipuImportService, type PaipuReviewPreparationInput } from "./paipu-import-service.js";
 import { registerMahjongSoulPaipuImportIpc } from "./ipc.js";
 import { createMahjongSoulSessionService } from "./mahjong-soul-session-service.js";
 import {
@@ -275,6 +275,9 @@ async function start(): Promise<void> {
     await providerCredentials.importCredential().catch(() => undefined);
   }
   const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
+  const goldenWindow = process.env.RIICHI_MVP_GOLDEN_TEST === "1" && (process.argv.includes("--mvp-golden-child") || process.argv.includes("--mvp-golden-offline"));
+  const goldenMode = goldenWindow && process.argv.includes("--mvp-golden-child");
+  const golden = goldenMode ? (await import("./electron-mvp-golden-fixture.js")).createGoldenFixture(bundle) : null;
   const loginProvider = createElectronMahjongSoulLoginProvider({
     bundle,
     createWindow: (options) => new BrowserWindow(
@@ -621,7 +624,7 @@ async function start(): Promise<void> {
     },
     clock: Date.now,
   });
-  const analysisStore = createRecordAnalysisStore({
+  const analysisStore = golden?.analysis ?? createRecordAnalysisStore({
     mapRecord: (mappedInput) => mapMahjongSoulRecord({ ...mappedInput, bundle }),
     replay: replayCanonicalStream,
   });
@@ -689,21 +692,13 @@ async function start(): Promise<void> {
     clearCatalog: () => catalogStore.clear(),
     clock: Date.now,
   });
-  // The paipu-URL ingestion route: official-client capture on the app's
-  // persistent (already authenticated) Mahjong Soul session, converging on
-  // the same shared analysis store as the account/catalog route.
-  const paipuImportService = createMahjongSoulPaipuImportService({
-    bundle,
-    analysis: analysisStore,
-    createWindow: createOfficialClientCaptureWindow,
-    timeoutMs: 240_000,
-    prepareReview: async ({ recordId, selfActor, stream, decisions }) => {
+  const prepareReview = async ({ recordId, selfActor, stream, decisions }: PaipuReviewPreparationInput) => {
       // This is the only production composition point for the local model.
       // Runtime/checkpoint paths stay in Electron main and are never part of
       // the import DTO or renderer/preload capability.
       const artifactRoot = process.env.RIICHI_LOCAL_MORTAL_ROOT
         ?? join(process.env.LOCALAPPDATA ?? "", "RiichiCoach", "local-mortal-spike");
-      const runtime = await createLocalMortalRuntimeService({
+      const runtime = golden === null ? await createLocalMortalRuntimeService({
         pythonExecutable: join(artifactRoot, "python", "Scripts", "python.exe"),
         packageRoot: fileURLToPath(new URL("../../mortal-runtime/", import.meta.url)),
         artifactRoot,
@@ -712,7 +707,7 @@ async function start(): Promise<void> {
         ...(process.env.RIICHI_LIBRIICHI_NATIVE_MODULE === undefined ? {} : { nativeModulePath: process.env.RIICHI_LIBRIICHI_NATIVE_MODULE }),
         startTimeoutMs: 120_000,
         inferenceTimeoutMs: 30_000,
-      });
+      }) : golden.createRuntime(decisions);
       let runtimeClosed = false;
       try {
         const analysis = createLocalMortalAnalysisService({
@@ -730,7 +725,25 @@ async function start(): Promise<void> {
       } finally {
         if (!runtimeClosed) await runtime.close().catch(() => undefined);
       }
-    },
+  };
+  // The paipu-URL ingestion route: official-client capture on the app's
+  // persistent (already authenticated) Mahjong Soul session, converging on
+  // the same shared analysis store as the account/catalog route.
+  const paipuImportService = createMahjongSoulPaipuImportService({
+    bundle,
+    analysis: analysisStore,
+    createWindow: createOfficialClientCaptureWindow,
+    timeoutMs: 240_000,
+    ...(golden === null ? {} : { captureRecord: async () => ({
+      status: "captured" as const,
+      recordBytes: golden.recordBytes,
+      ruleEvidence: golden.fixture.ruleEvidence,
+      recordIdentity: { recordId: golden.fixture.recordId, accounts: [
+        { accountId: 100_001, seat: 0 }, { accountId: 100_002, seat: 1 },
+        { accountId: 100_004, seat: 2 }, { accountId: 123_456_789, seat: 3 },
+      ] },
+    }) }),
+    prepareReview,
   });
   await service.initialize();
 
@@ -738,12 +751,14 @@ async function start(): Promise<void> {
     credentials: providerCredentials, fetchImpl: globalThis.fetch,
     readPackage: createPackageReferenceReader(app.getPath("userData")),
     reviewRepository,
+    ...(golden === null ? {} : { providerFactory: golden.createProvider, clock: () => "2026-10-01T00:00:00.000Z" }),
   });
 
   const createMainWindow = async (): Promise<void> => {
     if (mainWindow !== null && !mainWindow.isDestroyed()) return;
     const window = new BrowserWindow({
       ...createMainWindowOptions(preloadPath),
+      ...(goldenWindow ? { show: false, backgroundThrottling: false } : {}),
       autoHideMenuBar: true,
     });
     mainWindow = window;
@@ -758,15 +773,30 @@ async function start(): Promise<void> {
     });
     ipcRegistration = registerMahjongSoulIpc({
       ipcMain: ipcMain as unknown as IpcMainPort,
-      service,
+      service: golden === null ? service : Object.freeze({
+        getStatus: () => ({ region: "cn" as const, status: "valid" as const, displayName: "Golden Fixture", lastValidatedAt: 1_754_887_700 }),
+        openLogin: async () => ({ region: "cn" as const, status: "valid" as const, displayName: "Golden Fixture", lastValidatedAt: 1_754_887_700 }),
+        logout: async () => ({ region: "cn" as const, status: "logged_out" as const }),
+      }),
       trustedSenderId: window.webContents.id,
     });
     catalogIpcRegistration = registerMahjongSoulCatalogIpc({
       ipcMain: ipcMain as unknown as IpcMainPort,
       service: Object.freeze({
-        syncAnalyzableRecords: () => catalogService.syncAnalyzableRecords(),
-        listAnalyzableRecords: () => catalogService.listAnalyzableRecords(),
-        ingest: (recordId: string) => recordIngestionService.ingest(recordId),
+        syncAnalyzableRecords: () => golden === null ? catalogService.syncAnalyzableRecords() : Promise.resolve([golden.summary]),
+        listAnalyzableRecords: () => golden === null ? catalogService.listAnalyzableRecords() : Promise.resolve([golden.summary]),
+        ingest: async (recordId: string) => {
+          if (golden !== null && recordId !== golden.fixture.recordId) throw new MahjongSoulSourceError("mahjong_soul_record_not_analyzable");
+          const fetched = golden === null ? await recordIngestionService.ingest(recordId) : { recordBytes: golden.recordBytes, ruleEvidence: golden.fixture.ruleEvidence };
+          const stored = golden === null ? await vault.restore() : null;
+          if (golden === null && stored === null) throw new MahjongSoulSourceError("mahjong_soul_record_not_analyzable");
+          const selfActor = golden === null ? requireCatalogSelfSeat(await catalogStore.list(stored!.accountId), recordId) : 3;
+          const outcome = analysisStore.analyzeRecord({ recordId, selfActor, recordBytes: fetched.recordBytes,
+            ...(fetched.ruleEvidence === undefined ? {} : { ruleEvidence: fetched.ruleEvidence }) });
+          if (outcome.status !== "analysis_ready") throw new MahjongSoulSourceError("mahjong_soul_canonical_validation_failed");
+          const prepared = await prepareReview({ recordId, selfActor, stream: outcome.stream, decisions: outcome.decisions });
+          return Object.freeze({ status: "review_ready" as const, ...prepared });
+        },
         clearSourceCache: () => requireRawCache().clear(),
       }),
       trustedSenderId: window.webContents.id,

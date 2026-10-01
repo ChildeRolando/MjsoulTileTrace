@@ -4,13 +4,12 @@ import {
 } from "@riichi-coach/contracts";
 import type { MahjongSoulSessionController } from "@riichi-coach/mahjong-soul-source";
 import { parseMahjongSoulSessionStatus } from "./session-api.js";
-import { parseAnalyzableRecordSummaries, SourceCacheClearResultSchema } from "./catalog-api.js";
+import { parseAnalyzableRecordSummaries, parseAccountReviewResult, SourceCacheClearResultSchema, type AccountReviewResult } from "./catalog-api.js";
 import {
   PAIPU_SHARE_URL_MAX_LENGTH,
   parsePaipuImportResult,
 } from "./paipu-import-api.js";
 import type { MahjongSoulCatalogService } from "./catalog-service.js";
-import type { MahjongSoulRecordIngestionService } from "./record-ingestion-service.js";
 import type { MahjongSoulPaipuImportService } from "./paipu-import-service.js";
 
 const PROTOCOL_ERROR = "mahjong_soul_login_protocol_unsupported" as const;
@@ -122,7 +121,8 @@ export function registerMahjongSoulCatalogIpc(input: {
   readonly service: Pick<
     MahjongSoulCatalogService,
     "syncAnalyzableRecords" | "listAnalyzableRecords"
-  > & Pick<MahjongSoulRecordIngestionService, "ingest"> & Readonly<{
+  > & Readonly<{
+    ingest: (recordId: string) => Promise<AccountReviewResult>;
     clearSourceCache: () => Readonly<{ clearedEntries: number; pendingMaterials: number }>;
   }>;
   readonly trustedSenderId: number;
@@ -181,9 +181,7 @@ export function registerMahjongSoulCatalogIpc(input: {
   ipcMain.handle(MAHJONG_SOUL_CATALOG_IPC_CHANNELS.startRecordAnalysis, async (event, ...args) => {
     try {
       if (senderId(event) !== trustedSenderId || args.length !== 1 || typeof args[0] !== "string") throw fixedError();
-      const fetched = await ingest.call(service, args[0]);
-      if (fetched.recordId !== args[0] || fetched.actionCount < 1) throw fixedError();
-      return Object.freeze({ status: "record_fetched" as const });
+      return parseAccountReviewResult(await ingest.call(service, args[0]));
     } catch (error) {
       throw fixedError(error);
     }

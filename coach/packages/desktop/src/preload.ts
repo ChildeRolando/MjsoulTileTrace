@@ -5,6 +5,7 @@ import {
 } from "./session-api.js";
 import {
   parseAnalyzableRecordSummaries,
+  parseAccountReviewResult,
   SourceCacheClearResultSchema,
   type MahjongSoulCatalogApi,
 } from "./catalog-api.js";
@@ -81,9 +82,7 @@ export function createMahjongSoulCatalogPreloadApi(
       invokeCatalog(MAHJONG_SOUL_CATALOG_IPC_CHANNELS.listAnalyzableRecords),
     startRecordAnalysis: async (recordId: string) => {
       try {
-        const value = await invokePort(MAHJONG_SOUL_CATALOG_IPC_CHANNELS.startRecordAnalysis, recordId);
-        if (value === null || typeof value !== "object" || (value as { status?: unknown }).status !== "record_fetched") throw fixedError();
-        return Object.freeze({ status: "record_fetched" as const });
+        return parseAccountReviewResult(await invokePort(MAHJONG_SOUL_CATALOG_IPC_CHANNELS.startRecordAnalysis, recordId));
       } catch (error) { throw fixedError(error); }
     },
     clearSourceCache: async () => {
