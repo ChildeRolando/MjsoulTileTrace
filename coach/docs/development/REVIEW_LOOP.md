@@ -192,7 +192,7 @@ COAC-134 对 PR #27 的生产恢复继续 blocked。
   原授权上限 fresh independent review；`master` 保护/ruleset 缺失仍单独阻断自动合并启用。
   回归 owner 为 `scripts/review-loop/{protocol,controller,runtime}.test.mjs`，以 spec 的
   机械矩阵为准；没有实际执行的测试不能记录为 PASS。
-- 外部独立审查收口：自动 round 6 已合法 BLOCKED 且用户另行人工创建了独立补充审查时，
+- 外部独立审查收口：自动 round 6 已合法 BLOCKED，或默认三轮均因候选变化而被丢弃并耗尽，且用户另行人工创建了独立补充审查时，
   不得把外部序号改写成自动 round 或继续提高自动上限。按部署流程暂停 Autopilot、设置
   `enabled=false`、确认无活动 Controller、持锁备份，准备严格 JSON：`protocol_version`、
   `pr_number`、`review_issue_id`、`comment_id`、`run_id`、`raw_review_sha256`、
@@ -204,11 +204,16 @@ COAC-134 对 PR #27 的生产恢复继续 blocked。
   schema、空 P1/P2/P3、五门 PASS/0 和空环境失败必须同时匹配。外部 issue、comments、runs
   全部读取并验证后，程序会在任何归档或 ledger 写入前再次严格核对 live base/head/admission；
   读取期间发生的任一漂移均不消耗接纳机会。成功后自动 ledger 仍保持
-  BLOCKED/round 6，另以 `external_independent_review` 来源追加唯一审计事件并归档到
+  原 BLOCKED/round，另以 `external_independent_review` 来源追加唯一审计事件并归档到
   `external-results/`；聚合发布器仅为仍匹配该 base/head/admission 的候选发布 success。
-  “合法 BLOCKED”还要求无 pending、当前 job 是本 PR 的 round 6 review，且 `state.result`
+  round 6 的“合法 BLOCKED”还要求无 pending、当前 job 是本 PR 的 round 6 review，且 `state.result`
   与唯一 round 6 `result`/`BLOCKED` history 事件的 issue/comment/hash/base/head 精确一致；
   作者、来源或协议校验失败仅产生的 BLOCKED 标签，以及残留的上一轮 result，均不得接纳。
+  默认三轮候选变化耗尽则要求 reason 精确为 `round limit after candidate changed`、无
+  pending/result/追加授权，history 完整且仅含按轮次排列的三组唯一 dispatch/discard；
+  每组 issue/base/head 一致，discard reason 精确为 `candidate changed before result consumption`，
+  最后一组与第 3 轮 job 和账本 admission 相符。live 候选必须已不同于末次被丢弃候选。
+  外部序号仍须大于账本实际轮次；其他原因、已有结果、残缺或矛盾历史不得使用该补充。
   重复、并发、stale HEAD、契约/身份/hash 不符、未完成 run、缺门禁或非绿结果均拒绝。
   执行后回读 ledger、外部归档和 GitHub status，恢复 config/Autopilot；正常 merge 仍须独立
   核对 live candidate 和所有 merge gate。入口不合并、不清空历史、不修改 Reviewer 原文。
