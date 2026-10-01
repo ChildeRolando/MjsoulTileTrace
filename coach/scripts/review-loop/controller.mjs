@@ -256,6 +256,11 @@ function assertFailedFixRecoveryBinding(binding,live,job,state,reviewerId) {
   }
 }
 
+function assertDispatchIdentity(issue,job,projectId) {
+  assert(issue.title === job.title && issue.project_id === projectId && issue.assignee_type === 'agent'
+    && issue.assignee_id === job.agent_id && hash(issue.description) === job.description_hash,'dispatch identity conflict');
+}
+
 // All effects are recorded before transmission. A lost response is reconciled by
 // exact issue title AND exact description/assignment; it is never blindly retried.
 export async function ensureDispatch(state, live, kind, io, config, result, failedFixRecoveryBinding) {
@@ -310,7 +315,7 @@ export async function ensureDispatch(state, live, kind, io, config, result, fail
       assert(state.pending === job && job.recovery_binding && job.prepared_at && job.attempted_at,
         'failed-fix recovery issue reconcile requires a persisted prepared attempted dispatch intent');
     }
-    assert(issue.project_id === config.project_id && issue.assignee_type === 'agent' && issue.assignee_id === job.agent_id && hash(issue.description) === job.description_hash,'dispatch identity conflict');
+    assertDispatchIdentity(issue,job,config.project_id);
   } else {
     assert(!job.attempted_at,'dispatch response unknown; reconcile before retry');
     let current=await observeLive(io,live.pr_number);
@@ -337,7 +342,8 @@ export async function ensureDispatch(state, live, kind, io, config, result, fail
     job.dispatch_snapshot=current.snapshot;state.snapshot=current.snapshot;
     job.attempted_at=new Date().toISOString();await io.save(state);
     issue=await io.create(job);
-    assert(issue.id,'missing created issue identity');
+    assert(issue?.id,'missing created issue identity');
+    assertDispatchIdentity(issue,job,config.project_id);
   }
   if(failedFixRecoveryBinding) {
     const current=await observeLive(io,live.pr_number);

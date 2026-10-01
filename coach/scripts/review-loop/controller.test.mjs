@@ -80,6 +80,24 @@ test('reconcile response lost after server created issue',async()=>{
   await assert.rejects(()=>ensureDispatch(s,live,'review',f.io,config));
   await ensureDispatch(s,live,'review',f.io,config);assert.equal(f.creates,1);assert.equal(s.job.issue_id,'id');
 });
+test('newly created issue must match complete dispatch identity before recording dispatch',async()=>{
+  const mismatches=[
+    ['project',issue=>issue.project_id='other'],
+    ['assignee type',issue=>issue.assignee_type='member'],
+    ['assignee id',issue=>issue.assignee_id='other'],
+    ['title',issue=>issue.title='wrong-target'],
+    ['description',issue=>issue.description='wrong-target'],
+  ];
+  for(const [field,mutate] of mismatches) {
+    const f=fake(),s=state(),create=f.io.create;
+    f.io.create=async job=>{const issue=await create(job);mutate(issue);return issue;};
+    await assert.rejects(()=>ensureDispatch(s,live,'review',f.io,config),/dispatch identity conflict/,field);
+    assert.equal(s.job,undefined,field);assert.equal(s.status,'NEW',field);
+    assert.equal(s.history.some(event=>event.event === 'dispatch'),false,field);
+    await assert.rejects(()=>ensureDispatch(s,live,'review',f.io,config),/dispatch identity conflict|response unknown/,field);
+    assert.equal(f.creates,1,field);
+  }
+});
 test('unknown create without visible issue fails closed, never duplicates',async()=>{
   const f=fake(),s=state();f.io.create=async()=>{throw new Error('timeout');};
   await assert.rejects(()=>ensureDispatch(s,live,'review',f.io,config));
