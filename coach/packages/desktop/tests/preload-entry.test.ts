@@ -153,7 +153,16 @@ describe("self-contained sandboxed preload", () => {
       canonicalEventCount: 1024,
       replayDecisionCount: 116,
     };
+    const reviewReady = {
+      status: "review_ready",
+      recordId: "260811-00000000-0000-0000-0000-000000000001",
+      sessionId: "session-verified",
+      packageId: "package-verified",
+      canonicalEventCount: 1024,
+      replayDecisionCount: 116,
+    };
     expect(assertSafePaipuImportResult(ready)).toBeDefined();
+    expect(assertSafePaipuImportResult(reviewReady)).toBeDefined();
     for (const status of ["invalid_url", "identity_mismatch", "no_capture", "unsupported_semantics", "analysis_failed"]) {
       expect(assertSafePaipuImportResult({ status })).toBeDefined();
       // Exactly one key: a status plus anything else is refused.

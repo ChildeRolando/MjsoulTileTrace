@@ -52,8 +52,8 @@ export const fixedReviewUi = createFixedReviewUi({
 let currentSessionStatus: MahjongSoulSessionStatus["status"] = "logged_out";
 
 async function refreshReviewSessions(): Promise<void> {
-  reviewSessionList.textContent = "";
   const sessions = await window.riichiCoachProvider.listReviewSessions();
+  const fragment = document.createDocumentFragment();
   for (const session of sessions) {
     const item = document.createElement("li");
     const label = document.createElement("span");
@@ -63,8 +63,9 @@ async function refreshReviewSessions(): Promise<void> {
     button.textContent = "打开";
     button.addEventListener("click", () => { reviewPackageIdInput.value = session.packageId; openReviewButton.click(); });
     item.append(label, button);
-    reviewSessionList.appendChild(item);
+    fragment.appendChild(item);
   }
+  reviewSessionList.replaceChildren(fragment);
 }
 
 function setPending(pending: boolean): void {
@@ -204,6 +205,30 @@ clearSourceCacheButton.addEventListener("click", () => {
   })();
 });
 
+async function openReviewPackage(packageId: string): Promise<void> {
+    openReviewButton.disabled = true;
+    leaveReviewButton.hidden = true;
+    reviewEntryStatus.textContent = "正在打开整盘复盘…";
+    try {
+      try {
+        await fixedReviewUi.open(packageId);
+      } catch {
+        leaveReviewButton.hidden = true;
+        reviewEntryStatus.textContent = "无法打开该分析包，请确认引用有效。";
+        throw new Error("review_unavailable");
+      }
+      reviewEntryStatus.textContent = "已打开整盘复盘。";
+      leaveReviewButton.hidden = false;
+      try {
+        await refreshReviewSessions();
+      } catch {
+        reviewEntryStatus.textContent = "复盘已打开，但暂时无法刷新已保存复盘列表，请重试。";
+      }
+    } finally {
+      openReviewButton.disabled = false;
+    }
+}
+
 openReviewButton.addEventListener("click", () => {
   void (async () => {
     const packageId = reviewPackageIdInput.value.trim();
@@ -211,20 +236,7 @@ openReviewButton.addEventListener("click", () => {
       reviewEntryStatus.textContent = "请输入分析包引用。";
       return;
     }
-    openReviewButton.disabled = true;
-    leaveReviewButton.hidden = true;
-    reviewEntryStatus.textContent = "正在打开整盘复盘…";
-    try {
-      await fixedReviewUi.open(packageId);
-      reviewEntryStatus.textContent = "已打开整盘复盘。";
-      leaveReviewButton.hidden = false;
-      await refreshReviewSessions();
-    } catch {
-      leaveReviewButton.hidden = true;
-      reviewEntryStatus.textContent = "无法打开该分析包，请确认引用有效。";
-    } finally {
-      openReviewButton.disabled = false;
-    }
+    await openReviewPackage(packageId).catch(() => undefined);
   })();
 });
 leaveReviewButton.addEventListener("click", () => {
@@ -255,9 +267,22 @@ paipuImportButton.addEventListener("click", () => {
     setPaipuPending(true);
     try {
       const result = await window.riichiCoachPaipu.importPaipu({ shareUrl });
-      paipuStatusElement.textContent = paipuImportStatusLabel(
-        paipuImportUiStateFromResult(result),
-      );
+      const uiState = paipuImportUiStateFromResult(result);
+      paipuStatusElement.textContent = paipuImportStatusLabel(uiState);
+      if (result.status === "review_ready") {
+        // The verified main-process package/session identities are the only
+        // navigation authority. The renderer hands packageId to the existing
+        // Review Workspace; it never creates a second review path.
+        reviewPackageIdInput.value = result.packageId;
+        try {
+          await openReviewPackage(result.packageId);
+        } catch {
+          // Roll back automatic navigation, preserving the main-owned saved
+          // session. Manual opens retain their existing visible error state.
+          await fixedReviewUi.leave().catch(() => undefined);
+          paipuStatusElement.textContent = "复盘已保存，但暂时无法打开，请从已保存复盘重试。";
+        }
+      }
     } catch {
       paipuStatusElement.textContent = paipuImportStatusLabel({ state: "failed" });
     } finally {

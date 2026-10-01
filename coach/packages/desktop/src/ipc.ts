@@ -262,7 +262,16 @@ export function registerMahjongSoulPaipuImportIpc(input: {
       // line of defense for the fixed safe shape.
       const result = await operation({ shareUrl });
       return parsePaipuImportResult(
-        result.status === "analysis_ready"
+        result.status === "review_ready"
+          ? {
+            status: result.status,
+            recordId: result.recordId,
+            sessionId: result.sessionId,
+            packageId: result.packageId,
+            canonicalEventCount: result.canonicalEventCount,
+            replayDecisionCount: result.replayDecisionCount,
+          }
+          : result.status === "analysis_ready"
           ? {
             status: result.status,
             recordId: result.recordId,

@@ -4,7 +4,7 @@
 
 ## 产品目标
 
-用户在本机应用登录雀魂国区账号，从近期可分析的四人南风标准规则牌谱中选择一场，获得可回放、可审计、可追问的整盘教练会话。按 ADR-0006，libriichi 提供合法动作，模型提供选择分，helper 与既有事实管线提供候选因素；LLM 在这些有据证据之上完成教练判断，不得发明或改写局面事实。PR #28 已实施唯一动作来源切换，尚待最终候选验收与合入。
+用户在本机应用登录雀魂国区账号，从近期可分析的四人南风标准规则牌谱中选择一场，获得可回放、可审计、可追问的整盘教练会话。按 ADR-0006，libriichi 提供合法动作，模型提供选择分，helper 与既有事实管线提供候选因素；LLM 在这些有据证据之上完成教练判断，不得发明或改写局面事实。PR #28 已合入唯一动作来源切换与 local Mortal prerequisite；当前候选继续完成 Playable Review 组合验收。
 
 ## 2026-09-29 当前优先项：PR #28 真实整场可靠性验收
 
@@ -40,8 +40,8 @@ PR #28、MVP、Golden Slice 不因已有单项通过而自动完成。
 | M3 教学证据 | 未开始 | 仅有策略边界和占位契约 | 冻结资料、引用、版本化教学规则；与 decision fact 两源分离，fixed report 稳定后启动 |
 | M4 受约束追问 | 未开始 | ——（原 M4"LLM 教练"已拆分为 M6-D 解释引擎 + M7-A 固定报告 UI + M4 追问对话） | fixed report 与教学证据层稳定后的 constrained follow-up/chat；context retrieval 将建立在 M6-D1 ContextGraph 上（embeddings/GraphRAG 不是前提） |
 | M5 雀魂国区接入 | 接近完成 | Electron 登录、加密恢复、最近 30 场、取回、canonical mapper、重放、脱敏 replay audit、H1 诊断命令 | 真实牌谱 H1 对照验收；未覆盖流局/杠枚举的 fixture 反证 |
-| M6 模型生产接入 | report-based 核心链完成；native runtime 待合入 | M6-A1–A4、M6-C、DeterministicReviewSelector、M6-D1/D2 已落地；COAC-111 已完成 local Mortal 四视角真实 checkpoint production spike，候选分数可进入 validated package | M6-B 的 COAC-111 实现仍须评审、合入；随后由 Integration Closeout 接产品工作流，不把 spike 视为 MVP 接通 |
-| M7 复盘工作台 | 核心能力完成，产品组合未闭合 | M7-A UI 与 M7-B SQLite/immutable artifacts/两阶段恢复/离线重开/main-only raw cache 已合入 | 按 Integration Closeout 完成 account/import 入口、session-list refresh 与 MVP Electron Golden Slice |
+| M6 模型生产接入 | native runtime prerequisite 已合入；手动导入接缝为当前候选 | M6-A1–A4、M6-C、DeterministicReviewSelector、M6-D1/D2 与 COAC-111 local Mortal 四视角真实 checkpoint production spike 已落地；B 当前消费 managed local Mortal 生成 validated package | 固定五门、Golden Slice、fresh independent review 与最终人工验收；不得把 spike 单独视为 MVP 完成 |
+| M7 复盘工作台 | 核心能力完成，share-import 组合为当前候选 | M7-A UI、M7-B SQLite/immutable artifacts/两阶段恢复/离线重开/main-only raw cache 与 share-import → ReviewSession → Review Workspace 接线已落地；account `startRecordAnalysis` handoff 仍待接入 | MVP Electron Golden Slice、session-list/重启回归与最终发布门 |
 | M8 打包发布 | 未开始 | Electron 与 sidecar 构建基础 | 跨平台安装、升级、日志、发布验收 |
 
 ## 当前关键路径
@@ -216,8 +216,8 @@ COAC-5/COAC-7 共享的 active-report 生命周期。PR #14（merge `3e9bbb7b…
 必须产出或复用真实 ReviewSession 并自动进入 Review Workspace；首次生成后列表即时刷新；
 永久 Electron Golden Slice 必须从 app shell 起步并在清内存、禁网/禁 LLM 后重启重开。
 
-A/B/D 尚未实现。C 已由 COAC-100/PR #23 提供修复并通过独立评审，但在合入与最终组合回归
-前仍未闭合。只有 Integration spec 的 Golden Slice、五门、fresh `NO_P1_P2`、合并与一次
+A/B 的当前实现候选已落地，C 已由 COAC-100/PR #23 提供并合入；D/Golden Slice 与最终组合
+回归仍未闭合。只有 Integration spec 的 Golden Slice、五门、fresh `NO_P1_P2`、合并与一次
 真人 smoke 全部完成，才能标记 `Playable Review MVP v0.1 = DEMOABLE`。
 
 ### 6.2 M6-B Native model runtime prerequisite
@@ -234,8 +234,9 @@ remote Mortal report path 保留作 regression/cross-validation/diagnostic，但
 雀魂协议，也不得与 `mortal-source` 或 deterministic `mahjong-facts` sidecar 合并。真实
 COAC-111 已以四视角真实 `mortal-582500` CPU inference 验证 candidate conservation 与
 validated `StructuredAnalysisPackage`，并建立永久离线/真实 spike 入口；该提交合入 `master`
-前，COAC-106 的 B 路径仍保持 blocked。production spike 通过不等于 Electron 产品工作流、
-Golden Slice 或 MVP 已完成。
+前，COAC-106 的 B 路径保持 blocked；PR #28 合入后 B 才可消费该产物。当前 B 候选已把
+share URL → local Mortal → validated package → ReviewSession → Review Workspace 接通，
+但 production spike 或 focused 接线通过仍不等于 Electron Golden Slice 或 MVP 已完成。
 
 ### 7. M2-next：pull-based deterministic capability pool
 

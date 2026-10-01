@@ -13,10 +13,16 @@ const electron = createRequire(import.meta.url)("electron") as string;
 
 type Scenario = Readonly<{
   initialStatus: "logged_out" | "valid" | "offline_unverified";
-  action?: "login" | "refresh" | "analyze";
+  action?: "login" | "refresh" | "analyze" | "paipu-import" | "open-saved-review";
   actionStatus?: "valid" | "offline_unverified";
   list?: "record" | "empty" | "failed";
   sync?: "record" | "empty" | "failed";
+  paipuResult?: Record<string, unknown>;
+  reviewOpen?: "ready" | "failed" | "failed_once";
+  retrySavedReview?: boolean;
+  retryFromSavedSessionList?: boolean;
+  failSessionListRefreshOnce?: boolean;
+  savedSessions?: ReadonlyArray<{ sessionId: string; packageId: string }>;
   staleText?: string;
 }>;
 
@@ -53,7 +59,7 @@ async function runScenario(scenario: Scenario): Promise<Record<string, unknown>>
     const setup = `
       const scenario = ${JSON.stringify(scenario)};
       const record = ${JSON.stringify(record)};
-      const calls = { getStatus: 0, login: 0, list: 0, sync: 0, analyze: 0 };
+      const calls = { getStatus: 0, login: 0, list: 0, sync: 0, analyze: 0, paipuImport: 0, listReviewSessions: 0, openReview: 0, detail: 0, leaveReview: 0 };
       const status = (value) => value === "logged_out"
         ? { region: "cn", status: value }
         : { region: "cn", status: value, displayName: "fixture" };
@@ -76,32 +82,136 @@ async function runScenario(scenario: Scenario): Promise<Record<string, unknown>>
         startRecordAnalysis: async () => { calls.analyze++; return { status: "record_fetched" }; },
         clearSourceCache: async () => ({ status: "cleared", pendingMaterials: 0 }),
       };
-      window.riichiCoachPaipu = { importPaipu: async () => ({ status: "analysis_failed" }) };
-      window.riichiCoachProvider = { listReviewSessions: async () => [] };
+      const snapshot = (packageId) => ({
+        schemaVersion: "fixed-review-view/v1", packageId, analysisStatus: "degraded",
+        outcomeCounts: { analysis_ready: 1, unsupported_action: 0, source_row_not_expected: 0, no_mortal_entry: 0, binding_mismatch: 0, model_output_incomplete: 0, analysis_blocked: 0 },
+        selection: { policyVersion: "deterministic-review-selector/v1", selectedCount: 1, items: [{
+          decisionId: "decision-1", rank: 1, selectionReason: "model_disagreement_above_threshold",
+          roundOrdinal: 0, decisionWindowKind: "self_turn",
+          actualAction: { actionRef: "discard:1m", label: "1m" },
+          mortalPreferredActions: [{ actionRef: "discard:2m", label: "2m", score: 80, scoreUnit: "模型选择分", scoreMethodLabel: "Mortal 行动概率 × 100" }],
+          errorGap: 20, tags: ["efficiency"], explanationStatus: "not_generated",
+        }] },
+        activeReportRefId: null, activeReportStatus: "not_generated",
+        explanationCounts: { ready: 0, provider_unavailable: 0, request_failed: 0, invalid_output: 0 },
+      });
+      const detail = (packageId) => ({
+        schemaVersion: "fixed-review-detail/v1", packageId, activeReportRefId: null,
+        decisionId: "decision-1", actual: { actionRef: "discard:1m", label: "1m" },
+        mortal: [{ actionRef: "discard:2m", label: "2m", score: 80, scoreUnit: "模型选择分", scoreMethodLabel: "Mortal 行动概率 × 100" }],
+        coachJudgments: [], explanations: [], referenceTargets: [], provenance: [], explanationStatus: "not_generated",
+      });
+      window.riichiCoachPaipu = { importPaipu: async () => { calls.paipuImport++; return scenario.paipuResult ?? { status: "analysis_failed" }; } };
+      window.riichiCoachProvider = {
+        listReviewSessions: async () => {
+          calls.listReviewSessions++;
+          if (scenario.failSessionListRefreshOnce && calls.listReviewSessions === 2) {
+            throw new Error("private session list provider details");
+          }
+          return (scenario.savedSessions ?? []).map((session, index) => ({
+            ...session, analysisStatus: "complete", activeReportRefId: null,
+            updatedAt: "2026-10-01T00:00:0" + index + ".000Z",
+          }));
+        },
+        openReview: async ({ packageId }) => {
+          calls.openReview++;
+          if (scenario.reviewOpen === "failed" || (scenario.reviewOpen === "failed_once" && calls.openReview === 1)) throw new Error("review unavailable");
+          return snapshot(packageId);
+        },
+        getReviewDetail: async ({ packageId }) => { calls.detail++; return detail(packageId); },
+        leaveReview: async () => { calls.leaveReview++; return { status: "acknowledged" }; },
+        cancelGeneration: async () => ({ status: "acknowledged" }),
+        generateReview: async () => ({ status: "failed", code: "generation_failed" }),
+      };
       if (scenario.staleText) document.querySelector("#catalog-list").textContent = scenario.staleText;
       const settle = async () => {
         for (let i = 0; i < 20; i++) await new Promise((resolve) => setTimeout(resolve, 0));
       };
+      const reviewVisibility = () => ({
+        reviewHidden: document.querySelector("#fixed-review").hidden,
+        reviewText: document.querySelector("#fixed-review").textContent,
+        sourceHidden: document.querySelector(".paipu-import").hidden,
+        leaveHidden: document.querySelector("#leave-review").hidden,
+      });
+      const reviewState = () => ({
+        ...reviewVisibility(),
+        reviewEntryStatus: document.querySelector("#review-entry-status").textContent,
+        reviewAlert: document.querySelector("#fixed-review [role='alert']")?.textContent ?? null,
+        reviewOverview: document.querySelector("#fixed-review .review-overview")?.textContent ?? null,
+        reviewListHidden: document.querySelector("#fixed-review .review-list")?.hidden ?? null,
+        reviewDetail: document.querySelector("#fixed-review .review-detail")?.textContent ?? null,
+        sessionListText: document.querySelector("#review-session-list").textContent,
+      });
+      let failedOpenView = null;
+      let failedListRefreshView = null;
+      let afterLeaveView = null;
       window.run = async () => {
         await settle();
         if (scenario.action === "login" || scenario.action === "analyze") {
           document.querySelector("#login").click();
         } else if (scenario.action === "refresh") {
           document.querySelector("#refresh").click();
+        } else if (scenario.action === "paipu-import") {
+          document.querySelector("#paipu-url").value = record.shareUrl;
+          document.querySelector("#paipu-import").click();
+        } else if (scenario.action === "open-saved-review") {
+          document.querySelector("#review-session-list button")?.click();
         }
         await settle();
         if (scenario.action === "analyze") {
           document.querySelector("#catalog-list button").click();
           await settle();
+        } else if (scenario.action === "paipu-import") {
+          await settle();
+          if (scenario.retrySavedReview) {
+            failedOpenView = reviewVisibility();
+            document.querySelector("#open-review").click();
+            await settle();
+          }
+          if (scenario.retryFromSavedSessionList) {
+            failedListRefreshView = reviewState();
+            document.querySelector("#leave-review").click();
+            await settle();
+            afterLeaveView = reviewState();
+            document.querySelector("#review-session-list button")?.click();
+            await settle();
+          }
+          document.querySelector("#fixed-review .review-overview button")?.click();
+          await settle();
+          document.querySelector("#fixed-review .review-list button")?.click();
+          await settle();
+        } else if (scenario.action === "open-saved-review") {
+          if (scenario.retryFromSavedSessionList) {
+            failedListRefreshView = reviewState();
+            document.querySelector("#leave-review").click();
+            await settle();
+            afterLeaveView = reviewState();
+            document.querySelector("#review-session-list button")?.click();
+            await settle();
+          }
+          document.querySelector("#fixed-review .review-overview button")?.click();
+          await settle();
+          document.querySelector("#fixed-review .review-list button")?.click();
+          await settle();
         }
         document.activeElement?.blur();
       };
       window.focusResult = () => ({
-        calls,
+        ...reviewVisibility(), failedOpenView, failedListRefreshView, afterLeaveView,
+        calls: { getStatus: calls.getStatus, login: calls.login, list: calls.list, sync: calls.sync, analyze: calls.analyze },
+        reviewCalls: { paipuImport: calls.paipuImport, openReview: calls.openReview, detail: calls.detail },
+        sessionCalls: { listReviewSessions: calls.listReviewSessions, leaveReview: calls.leaveReview },
         catalogDetail: document.querySelector("#catalog-detail").textContent,
         catalogText: document.querySelector("#catalog-list").textContent,
         catalogTitle: document.querySelector("#catalog-list li")?.title ?? null,
         syncHidden: document.querySelector("#sync").hidden,
+        paipuStatus: document.querySelector("#paipu-status").textContent,
+        reviewEntryStatus: document.querySelector("#review-entry-status").textContent,
+        reviewAlert: document.querySelector("#fixed-review [role='alert']")?.textContent ?? null,
+        reviewOverview: document.querySelector("#fixed-review .review-overview")?.textContent ?? null,
+        reviewListHidden: document.querySelector("#fixed-review .review-list")?.hidden ?? null,
+        reviewDetail: document.querySelector("#fixed-review .review-detail")?.textContent ?? null,
+        reviewSessionListText: document.querySelector("#review-session-list").textContent,
       });
     `;
     writeFileSync(join(directory, "setup.js"), setup, "utf8");
@@ -187,5 +297,144 @@ describe("account catalog app composition", () => {
     expect(result.catalogDetail).toContain("当前离线，仅显示上次缓存");
     expect(result.catalogText).toContain("分析");
     expect(result.syncHidden).toBe(true);
+  }, 60_000);
+
+  it("routes a verified share import through ReviewSession to Overview, List, and Detail", async () => {
+    const result = await runScenario({
+      initialStatus: "valid", action: "paipu-import",
+      paipuResult: {
+        status: "review_ready", recordId: record.recordId, sessionId: "session-verified",
+        packageId: "package-verified", canonicalEventCount: 12, replayDecisionCount: 4,
+      },
+    });
+    expect(result.reviewCalls).toEqual({ paipuImport: 1, openReview: 1, detail: 1 });
+    expect(result.sessionCalls).toEqual({ listReviewSessions: 2, leaveReview: 0 });
+    expect(result.paipuStatus).toContain("牌谱已生成复盘");
+    expect(result.reviewOverview).toContain("整盘复盘");
+    expect(result.reviewListHidden).toBe(false);
+    expect(result.reviewDetail).toContain("条目详情");
+  }, 60_000);
+
+  it("keeps a manually opened review usable when refreshing saved sessions fails, then retries from the preserved list", async () => {
+    const result = await runScenario({
+      initialStatus: "valid", action: "open-saved-review", failSessionListRefreshOnce: true,
+      retryFromSavedSessionList: true,
+      savedSessions: [{ sessionId: "session-kept", packageId: "package-kept" }],
+    });
+    expect(result.failedListRefreshView).toMatchObject({
+      reviewHidden: false, leaveHidden: false,
+      reviewEntryStatus: "复盘已打开，但暂时无法刷新已保存复盘列表，请重试。",
+      sessionListText: expect.stringContaining("package-kept"),
+    });
+    expect(result.afterLeaveView).toMatchObject({
+      reviewHidden: true, leaveHidden: true, reviewEntryStatus: "已离开整盘复盘。",
+      sessionListText: expect.stringContaining("package-kept"),
+    });
+    expect(result.reviewCalls).toEqual({ paipuImport: 0, openReview: 2, detail: 1 });
+    expect(result.sessionCalls).toEqual({ listReviewSessions: 3, leaveReview: 1 });
+    expect(result.reviewHidden).toBe(false);
+    expect(result.leaveHidden).toBe(false);
+    expect(result.reviewEntryStatus).toBe("已打开整盘复盘。");
+    expect(result.reviewOverview).toContain("整盘复盘");
+    expect(result.reviewListHidden).toBe(false);
+    expect(result.reviewDetail).toContain("条目详情");
+  }, 60_000);
+
+  it("keeps automatic share-import navigation after a saved-session refresh failure", async () => {
+    const result = await runScenario({
+      initialStatus: "valid", action: "paipu-import", failSessionListRefreshOnce: true,
+      retryFromSavedSessionList: true,
+      savedSessions: [{ sessionId: "session-kept", packageId: "package-kept" }],
+      paipuResult: {
+        status: "review_ready", recordId: record.recordId, sessionId: "session-imported",
+        packageId: "package-imported", canonicalEventCount: 12, replayDecisionCount: 4,
+      },
+    });
+    expect(result.failedListRefreshView).toMatchObject({
+      reviewHidden: false, leaveHidden: false,
+      reviewEntryStatus: "复盘已打开，但暂时无法刷新已保存复盘列表，请重试。",
+      sessionListText: expect.stringContaining("package-kept"),
+    });
+    expect(result.afterLeaveView).toMatchObject({
+      reviewHidden: true, leaveHidden: true, reviewEntryStatus: "已离开整盘复盘。",
+      sessionListText: expect.stringContaining("package-kept"),
+    });
+    expect(result.reviewCalls).toEqual({ paipuImport: 1, openReview: 2, detail: 1 });
+    expect(result.sessionCalls).toEqual({ listReviewSessions: 3, leaveReview: 1 });
+    expect(result.paipuStatus).toContain("牌谱已生成复盘");
+    expect(result.reviewHidden).toBe(false);
+    expect(result.leaveHidden).toBe(false);
+    expect(result.reviewEntryStatus).toBe("已打开整盘复盘。");
+    expect(result.reviewOverview).toContain("整盘复盘");
+    expect(result.reviewListHidden).toBe(false);
+    expect(result.reviewDetail).toContain("条目详情");
+  }, 60_000);
+
+  it("keeps the visible safe alert and manual status when the review itself cannot open", async () => {
+    const result = await runScenario({
+      initialStatus: "valid", action: "open-saved-review", reviewOpen: "failed",
+      savedSessions: [{ sessionId: "session-kept", packageId: "package-kept" }],
+    });
+    expect(result.reviewCalls).toEqual({ paipuImport: 0, openReview: 1, detail: 0 });
+    expect(result.sessionCalls).toEqual({ listReviewSessions: 1, leaveReview: 0 });
+    expect(result.reviewHidden).toBe(false);
+    expect(result.leaveHidden).toBe(true);
+    expect(result.reviewAlert).toBe("无法打开整盘复盘，请稍后再试。");
+    expect(result.reviewOverview).toBe(null);
+    expect(result.reviewListHidden).toBe(null);
+    expect(result.reviewDetail).toBe(null);
+    expect(result.sourceHidden).toBe(false);
+    expect(result.reviewEntryStatus).toBe("无法打开该分析包，请确认引用有效。");
+    expect(result.reviewSessionListText).toContain("package-kept");
+  }, 60_000);
+
+  it("keeps the source page when opening a saved review fails", async () => {
+    const result = await runScenario({
+      initialStatus: "valid", action: "paipu-import", reviewOpen: "failed",
+      paipuResult: {
+        status: "review_ready", recordId: record.recordId, sessionId: "session-verified",
+        packageId: "package-verified", canonicalEventCount: 12, replayDecisionCount: 4,
+      },
+    });
+    expect(result.reviewCalls).toEqual({ paipuImport: 1, openReview: 1, detail: 0 });
+    expect(result.reviewOverview).toBe(null);
+    expect(result.reviewDetail).toBe(null);
+    expect(result.reviewHidden).toBe(true);
+    expect(result.reviewText).toBe("");
+    expect(result.sourceHidden).toBe(false);
+    expect(result.leaveHidden).toBe(true);
+    expect(result.paipuStatus).toContain("复盘已保存，但暂时无法打开");
+  }, 60_000);
+
+  it("retries the saved package after an automatic open failure without importing again", async () => {
+    const result = await runScenario({
+      initialStatus: "valid", action: "paipu-import", reviewOpen: "failed_once",
+      retrySavedReview: true,
+      paipuResult: {
+        status: "review_ready", recordId: record.recordId, sessionId: "session-verified",
+        packageId: "package-verified", canonicalEventCount: 12, replayDecisionCount: 4,
+      },
+    });
+    expect(result.failedOpenView).toEqual({
+      reviewHidden: true, reviewText: "", sourceHidden: false, leaveHidden: true,
+    });
+    expect(result.reviewCalls).toEqual({ paipuImport: 1, openReview: 2, detail: 1 });
+    expect(result.reviewHidden).toBe(false);
+    expect(result.leaveHidden).toBe(false);
+    expect(result.reviewEntryStatus).toBe("已打开整盘复盘。");
+    expect(result.reviewOverview).toContain("整盘复盘");
+    expect(result.reviewListHidden).toBe(false);
+    expect(result.reviewDetail).toContain("条目详情");
+  }, 60_000);
+
+  it("keeps the source page when production analysis fails", async () => {
+    const result = await runScenario({
+      initialStatus: "valid", action: "paipu-import",
+      paipuResult: { status: "analysis_failed" },
+    });
+    expect(result.reviewCalls).toEqual({ paipuImport: 1, openReview: 0, detail: 0 });
+    expect(result.reviewOverview).toBe(null);
+    expect(result.reviewDetail).toBe(null);
+    expect(result.paipuStatus).toContain("解析未完成");
   }, 60_000);
 });

@@ -11,6 +11,7 @@ import {
 } from "@riichi-coach/contracts";
 import {
   composeReviewReadBackContext,
+  selectReviewDecisions,
   validateStructuredAnalysisPackage,
   type ReviewReadBackContext,
 } from "@riichi-coach/reasoning";
@@ -293,9 +294,20 @@ export function createReviewSessionRepository(input: {
       const existing = sessionByPackageId(analysisPackage.packageId);
       if (existing !== undefined) {
         const existingPackage = packageRowForSession(existing.session_id);
-        if (existingPackage === undefined
-          || describePackageArtifact(readPackageArtifact(db, existingPackage)).contentHash !== packageArtifact.contentHash
-          || existing.selection_hash !== hash(selectionPayload)) throw new Error("identity_conflict");
+        if (existingPackage === undefined) throw new Error("identity_conflict");
+        // packageId is the stable artifact reference, while createdAt and the
+        // per-decision detailPolicy.frozenAt are intentionally volatile
+        // metadata. Re-importing the same semantic package at a later wall
+        // clock must reopen the existing immutable artifact/session instead
+        // of trying to insert a byte-different copy. A same-id, different
+        // semanticContentHash collision remains fail-closed.
+        const existingAnalysisPackage = readPackageArtifact(db, existingPackage);
+        validateStructuredAnalysisPackage(existingAnalysisPackage);
+        if (
+          existingAnalysisPackage.packageId !== analysisPackage.packageId
+          || existingAnalysisPackage.semanticContentHash !== analysisPackage.semanticContentHash
+          || existing.selection_hash !== hash(selectionPayload)
+        ) throw new Error("identity_conflict");
         return read(existing);
       }
       const packageRefId = `package:${hash(Buffer.from(analysisPackage.packageId))}`;
@@ -441,6 +453,23 @@ export function createReviewSessionRepository(input: {
     },
 
     close(): void { db.close(); },
+  });
+}
+
+/** Main-composition seam used by account/share producers. Selection is always
+ * derived from the validated package, so reruns can reuse the repository's
+ * semantic package/session identity without a second persistence policy. */
+export function persistValidatedReviewSession(
+  repository: Pick<ReturnType<typeof createReviewSessionRepository>, "saveSession">,
+  analysisPackage: StructuredAnalysisPackage,
+): Readonly<{ sessionId: string; packageId: string }> {
+  const persisted = repository.saveSession(
+    analysisPackage,
+    selectReviewDecisions(analysisPackage),
+  );
+  return Object.freeze({
+    sessionId: persisted.sessionId,
+    packageId: analysisPackage.packageId,
   });
 }
 

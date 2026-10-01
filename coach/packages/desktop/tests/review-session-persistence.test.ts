@@ -7,7 +7,10 @@ import { createHash } from "node:crypto";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { StructuredAnalysisPackageSchema } from "@riichi-coach/contracts";
 import { generateReviewReport, projectContextGraph, selectReviewDecisions } from "@riichi-coach/reasoning";
-import { createReviewSessionRepository } from "../src/review-session-repository.js";
+import {
+  createReviewSessionRepository,
+  persistValidatedReviewSession,
+} from "../src/review-session-repository.js";
 import { createPrivilegedRawCache, rawCacheKey, type RawCacheIdentity } from "../src/privileged-raw-cache.js";
 import { createFixedReviewController } from "../src/fixed-review-controller.js";
 
@@ -74,7 +77,7 @@ describe("ReviewSession SQLite persistence", () => {
       try {
         expect(reopened.openByPackageId(pkg.packageId).analysisPackage).toEqual(pkg);
         expect(reopened.saveSession(pkg,selection).analysisPackage).toEqual(pkg);
-        expect(()=>reopened.saveSession({...pkg,createdAt:"2026-09-29T00:00:00.000Z"},selection)).toThrow("identity_conflict");
+        expect(reopened.saveSession({...pkg,createdAt:"2026-09-29T00:00:00.000Z"},selection).analysisPackage).toEqual(pkg);
       } finally { reopened.close(); }
     }
     const verify=new DatabaseSync(join(dir,"library.sqlite"));
@@ -375,11 +378,78 @@ describe("ReviewSession SQLite persistence", () => {
     verify.close();
   });
 
-  it("rejects the same package identity with different canonical artifact bytes", () => {
+  it("reuses one session across wall-clock metadata while preserving its immutable report", () => {
     const repository = createReviewSessionRepository({ root: root(), createId: () => "session-a" });
-    repository.saveSession(pkg, selection);
-    expect(() => repository.saveSession({ ...pkg, createdAt: "2026-09-23T01:00:00.000Z" }, selection)).toThrow("identity_conflict");
-    repository.close();
+    try {
+      const first = persistValidatedReviewSession(repository, pkg);
+      repository.saveReport(pkg.packageId, completeReport, "report-ref-a", "operation-a");
+      const withLaterMetadata = structuredClone(pkg);
+      withLaterMetadata.createdAt = "2026-10-01T00:00:00.000Z";
+      for (const decision of withLaterMetadata.decisions) {
+        if (decision.outcome === "analysis_ready") {
+          decision.modelEvaluation.detailPolicy.frozenAt = "2026-10-01T00:00:00.000Z";
+        }
+      }
+      const reused = persistValidatedReviewSession(repository, withLaterMetadata);
+      expect(reused.sessionId).toBe(first.sessionId);
+      expect(repository.openByPackageId(pkg.packageId).activeReportRefId).toBe("report-ref-a");
+      expect(repository.openByPackageId(pkg.packageId).analysisPackage).toEqual(pkg);
+      expect(repository.openByPackageId(pkg.packageId).analysisPackage.createdAt).toBe(pkg.createdAt);
+    } finally {
+      repository.close();
+    }
+  });
+
+  it("rejects a same-package semantic collision without replacing the active report", () => {
+    const repository = createReviewSessionRepository({ root: root(), createId: () => "session-a" });
+    try {
+      const first = persistValidatedReviewSession(repository, pkg);
+      repository.saveReport(pkg.packageId, completeReport, "report-ref-a", "operation-a");
+      const changed = structuredClone(pkg);
+      // This deterministic fact is part of the validated semantic payload but
+      // does not participate in packageId, making it a valid same-id semantic
+      // collision without breaking the model-score contract.
+      const firstDecision = changed.decisions[0];
+      if (firstDecision === undefined || firstDecision.knownGameFacts.remainingDraws === null) {
+        throw new Error("fixture_missing_remaining_draws");
+      }
+      changed.decisions = [
+        {
+          ...firstDecision,
+          knownGameFacts: {
+            ...firstDecision.knownGameFacts,
+            remainingDraws: firstDecision.knownGameFacts.remainingDraws + 1,
+          },
+        },
+        ...changed.decisions.slice(1),
+      ];
+      const semanticDecisions = changed.decisions.map((decision) => decision.outcome === "analysis_ready"
+        ? {
+          ...decision,
+          modelEvaluation: {
+            ...decision.modelEvaluation,
+            detailPolicy: { ...decision.modelEvaluation.detailPolicy, frozenAt: null },
+          },
+        }
+        : decision);
+      changed.semanticContentHash = `sha256:${fixtureHash({
+        analysisKey: changed.analysisKey,
+        record: changed.record,
+        componentVersions: changed.componentVersions,
+        analysisPolicy: changed.analysisPolicy,
+        decisions: semanticDecisions,
+        evidenceRegistry: changed.evidenceRegistry,
+      })}`;
+      expect(changed.packageId).toBe(pkg.packageId);
+      expect(changed.semanticContentHash).not.toBe(pkg.semanticContentHash);
+      expect(() => persistValidatedReviewSession(repository, changed)).toThrow("identity_conflict");
+      const state = repository.openByPackageId(pkg.packageId);
+      expect(state.sessionId).toBe(first.sessionId);
+      expect(state.activeReportRefId).toBe("report-ref-a");
+      expect(state.analysisPackage).toEqual(pkg);
+    } finally {
+      repository.close();
+    }
   });
 
   it("fails closed when indexed package/report identities disagree with immutable payloads (R3-P2-1)", () => {

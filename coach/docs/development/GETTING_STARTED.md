@@ -45,9 +45,10 @@ npm run coach:demo
 npm run desktop
 ```
 
-当前桌面入口已包含雀魂国区登录、目录/牌谱摄取、M7 Review Workspace 与持久会话。
-但真人 smoke 已确认 account catalog 的失败/空目录分流和 manual import → ReviewSession →
-Review Workspace 组合仍未闭合；当前入口不能作为 Playable Review MVP 已完成的证明。
+当前桌面入口已包含雀魂国区登录、目录/牌谱摄取、M7 Review Workspace 与持久会话；
+manual share import 在 main 中使用受管 local Mortal（`mortal-582500`）生成并验证分析包，
+创建/复用 ReviewSession 后自动打开 Overview → List → Detail。该接线通过不等于
+Playable Review MVP 已完成；固定五门、Golden Slice、独立评审与获授权真人 smoke 仍是发布门。
 实现与发布门见
 [`Integration Closeout spec`](../specs/2026-09-24-playable-review-mvp-integration-closeout.md)。
 
