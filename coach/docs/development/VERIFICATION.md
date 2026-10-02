@@ -232,6 +232,14 @@ leave/reset 回退：来源区保持可见、失败 Workspace 隐藏且清空，
 Electron Golden Slice、独立产品 PASS 或
 `DEMOABLE`。
 
+### Session List Refresh（Integration Closeout C）
+
+从 `coach/` 运行 `npx vitest run packages/desktop/tests/fixed-review-renderer.test.ts`。
+既有真实隐藏 Electron 用例覆盖 complete/partial/evidence_only 生成后离开与即时列表更新，
+并分别注入生成后一次列表读取失败：已保存 active report 保持、生成不被误报失败、
+固定安全刷新提示、无重新生成，随后通过既有打开入口恢复列表。该 renderer 测试的
+provider DTO 与已保存引用为模拟边界，不替代 D 的真实主进程、SQLite 与重启验收。
+
 ### MVP Electron Golden Slice（Integration Closeout D，待实现）
 
 永久发布入口冻结为：
