@@ -52,8 +52,8 @@ export const fixedReviewUi = createFixedReviewUi({
 let currentSessionStatus: MahjongSoulSessionStatus["status"] = "logged_out";
 
 async function refreshReviewSessions(): Promise<void> {
-  reviewSessionList.textContent = "";
   const sessions = await window.riichiCoachProvider.listReviewSessions();
+  const fragment = document.createDocumentFragment();
   for (const session of sessions) {
     const item = document.createElement("li");
     const label = document.createElement("span");
@@ -63,8 +63,9 @@ async function refreshReviewSessions(): Promise<void> {
     button.textContent = "打开";
     button.addEventListener("click", () => { reviewPackageIdInput.value = session.packageId; openReviewButton.click(); });
     item.append(label, button);
-    reviewSessionList.appendChild(item);
+    fragment.appendChild(item);
   }
+  reviewSessionList.replaceChildren(fragment);
 }
 
 function setPending(pending: boolean): void {
@@ -216,14 +217,20 @@ async function openReviewPackage(packageId: string): Promise<void> {
     leaveReviewButton.hidden = true;
     reviewEntryStatus.textContent = "正在打开整盘复盘…";
     try {
-      await fixedReviewUi.open(packageId);
+      try {
+        await fixedReviewUi.open(packageId);
+      } catch {
+        leaveReviewButton.hidden = true;
+        reviewEntryStatus.textContent = "无法打开该分析包，请确认引用有效。";
+        throw new Error("review_unavailable");
+      }
       reviewEntryStatus.textContent = "已打开整盘复盘。";
       leaveReviewButton.hidden = false;
-      await refreshReviewSessions();
-    } catch {
-      leaveReviewButton.hidden = true;
-      reviewEntryStatus.textContent = "无法打开该分析包，请确认引用有效。";
-      throw new Error("review_unavailable");
+      try {
+        await refreshReviewSessions();
+      } catch {
+        reviewEntryStatus.textContent = "复盘已打开，但暂时无法刷新已保存复盘列表，请重试。";
+      }
     } finally {
       openReviewButton.disabled = false;
     }
