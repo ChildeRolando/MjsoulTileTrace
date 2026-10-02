@@ -4,6 +4,7 @@ import {
   MahjongSoulCatalogApiSchema,
   parseAnalyzableRecordSummaries,
 } from "../src/catalog-api.js";
+import { createAccountRecordReviewHandoff } from "../src/record-ingestion-service.js";
 import { registerMahjongSoulCatalogIpc } from "../src/ipc.js";
 import { createMahjongSoulCatalogPreloadApi } from "../src/preload.js";
 
@@ -133,6 +134,53 @@ describe("safe Mahjong Soul catalog IPC", () => {
       .resolves.toEqual({ status: "cleared", pendingMaterials: 0 });
     registration.dispose();
     expect(ipc.handlers.size).toBe(0);
+  });
+
+  it("consumes the main ingest-bound seat through the renderer-safe account review handoff", async () => {
+    let activeAccountId = 111;
+    let analyzedSeat: number | undefined;
+    let preparedSeat: number | undefined;
+    const startRecordAnalysis = createAccountRecordReviewHandoff({
+      ingest: async (requestedRecordId) => {
+        expect(requestedRecordId).toBe(recordId);
+        const result = {
+          recordId,
+          recordBytes: Uint8Array.of(11),
+          selfActor: 1,
+        };
+        activeAccountId = 222;
+        return result;
+      },
+      analysisStore: {
+        analyzeRecord(input) {
+          analyzedSeat = input.selfActor;
+          return { status: "analysis_ready", stream: {} as never, decisions: [] };
+        },
+      },
+      prepareReview: async (input) => {
+        preparedSeat = input.selfActor;
+        return { sessionId: "session-account-a", packageId: "package-account-a" };
+      },
+    });
+    const ipc = new FakeIpcMain();
+    const registration = registerMahjongSoulCatalogIpc({
+      ipcMain: ipc,
+      trustedSenderId: 7,
+      service: {
+        syncAnalyzableRecords: async () => [],
+        listAnalyzableRecords: async () => [],
+        ingest: startRecordAnalysis,
+        clearSourceCache: () => ({ clearedEntries: 0, pendingMaterials: 0 }),
+      },
+    });
+
+    const rendererResult = await ipc.handlers.get("mahjong-soul:start-record-analysis")?.({ sender: { id: 7 } }, recordId);
+    expect(rendererResult).toEqual({
+      status: "review_ready", sessionId: "session-account-a", packageId: "package-account-a",
+    });
+    expect(Object.keys(rendererResult as object).sort()).toEqual(["packageId", "sessionId", "status"]);
+    expect({ activeAccountId, analyzedSeat, preparedSeat }).toEqual({ activeAccountId: 222, analyzedSeat: 1, preparedSeat: 1 });
+    registration.dispose();
   });
 
   it("rejects foreign senders, payloads, and unsafe results", async () => {

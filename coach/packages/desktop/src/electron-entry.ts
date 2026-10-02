@@ -84,8 +84,8 @@ import {
 } from "./main.js";
 import { createRecoverableSessionFile } from "./recoverable-session-file.js";
 import {
+  createAccountRecordReviewHandoff,
   createMahjongSoulRecordIngestionService,
-  requireCatalogSelfSeat,
 } from "./record-ingestion-service.js";
 import { createRecordAnalysisStore } from "./record-analysis-store.js";
 import { createLocalMortalRuntimeService } from "./local-mortal-runtime-service.js";
@@ -642,9 +642,7 @@ async function start(): Promise<void> {
     requestParameters: {},
     authenticationPartitionHash: createHash("sha256").update(String(accountId)).digest("hex"),
   });
-  const analyzeFetchedRecord = async (stored: { accountId: number }, recordId: string, fetched: Awaited<ReturnType<typeof fetchMahjongSoulRecord>>) => {
-    const summaries = await catalogStore.list(stored.accountId);
-    const selfActor = requireCatalogSelfSeat(summaries, recordId);
+  const analyzeFetchedRecord = async (recordId: string, fetched: Awaited<ReturnType<typeof fetchMahjongSoulRecord>>, selfActor: number) => {
     const outcome = analysisStore.analyzeRecord({ recordId, selfActor, recordBytes: fetched.recordBytes,
       ...(fetched.ruleEvidence === undefined ? {} : { ruleEvidence: fetched.ruleEvidence }) });
     if (outcome.status !== "analysis_ready") {
@@ -657,19 +655,19 @@ async function start(): Promise<void> {
     catalogStore,
     createSession: createLobbySessionFactory({ bundle }),
     authenticate: authenticateStoredMahjongSoulSession,
-    readCachedRecord: async (stored, recordId) => {
+    readCachedRecord: async (stored, recordId, selfActor) => {
       const bytes = requireRawCache().get(cacheIdentity(recordId, stored.accountId));
       if (bytes === null) return null;
       try {
-        return await analyzeFetchedRecord(stored, recordId, decodeMahjongSoulRecordCache({
+        return await analyzeFetchedRecord(recordId, decodeMahjongSoulRecordCache({
           bundle, recordId, cacheBytes: bytes,
-        }));
+        }), selfActor);
       } catch { return null; }
     },
     writeCachedRecord: (stored, fetched) => {
       requireRawCache().put(cacheIdentity(fetched.recordId, stored.accountId), encodeMahjongSoulRecordCache({ bundle, ...fetched }));
     },
-    fetchRecord: async (lobby, stored, recordId) => {
+    fetchRecord: async (lobby, stored, recordId, selfActor) => {
       const fetched = await fetchMahjongSoulRecord({
         session: lobby,
         bundle,
@@ -677,7 +675,7 @@ async function start(): Promise<void> {
         clientVersionString: stored.recoveryContext.clientVersionString,
         fetchImpl: globalThis.fetch,
       });
-      return analyzeFetchedRecord(stored, recordId, fetched);
+      return analyzeFetchedRecord(recordId, fetched, selfActor);
     },
   });
   const service = createMahjongSoulSessionService({
@@ -745,6 +743,22 @@ async function start(): Promise<void> {
     }) }),
     prepareReview,
   });
+  const accountRecordReviewHandoff = createAccountRecordReviewHandoff({
+    ingest: async (recordId) => {
+      if (golden !== null && recordId !== golden.fixture.recordId) {
+        throw new MahjongSoulSourceError("mahjong_soul_record_not_analyzable");
+      }
+      if (golden === null) return await recordIngestionService.ingest(recordId);
+      return Object.freeze({
+        recordId,
+        recordBytes: golden.recordBytes,
+        ruleEvidence: golden.fixture.ruleEvidence,
+        selfActor: 3,
+      });
+    },
+    analysisStore,
+    prepareReview,
+  });
   await service.initialize();
 
   const coachService = createCoachService({
@@ -785,18 +799,7 @@ async function start(): Promise<void> {
       service: Object.freeze({
         syncAnalyzableRecords: () => golden === null ? catalogService.syncAnalyzableRecords() : Promise.resolve([golden.summary]),
         listAnalyzableRecords: () => golden === null ? catalogService.listAnalyzableRecords() : Promise.resolve([golden.summary]),
-        ingest: async (recordId: string) => {
-          if (golden !== null && recordId !== golden.fixture.recordId) throw new MahjongSoulSourceError("mahjong_soul_record_not_analyzable");
-          const fetched = golden === null ? await recordIngestionService.ingest(recordId) : { recordBytes: golden.recordBytes, ruleEvidence: golden.fixture.ruleEvidence };
-          const stored = golden === null ? await vault.restore() : null;
-          if (golden === null && stored === null) throw new MahjongSoulSourceError("mahjong_soul_record_not_analyzable");
-          const selfActor = golden === null ? requireCatalogSelfSeat(await catalogStore.list(stored!.accountId), recordId) : 3;
-          const outcome = analysisStore.analyzeRecord({ recordId, selfActor, recordBytes: fetched.recordBytes,
-            ...(fetched.ruleEvidence === undefined ? {} : { ruleEvidence: fetched.ruleEvidence }) });
-          if (outcome.status !== "analysis_ready") throw new MahjongSoulSourceError("mahjong_soul_canonical_validation_failed");
-          const prepared = await prepareReview({ recordId, selfActor, stream: outcome.stream, decisions: outcome.decisions });
-          return Object.freeze({ status: "review_ready" as const, ...prepared });
-        },
+        ingest: accountRecordReviewHandoff,
         clearSourceCache: () => requireRawCache().clear(),
       }),
       trustedSenderId: window.webContents.id,
