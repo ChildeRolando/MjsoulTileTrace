@@ -99,6 +99,16 @@ node --test scripts/mahjong-soul-protocol-compatibility.test.mjs
 
 ## 常见问题
 
+### Windows esbuild 本机环境诊断（COAC-13）
+
+从 coach/ 目录执行本地探针：
+
+    node scripts/check-windows-esbuild.mjs
+
+它检查当前 shell 中 Node/cmd 管道与 esbuild transform，是可选环境诊断，不是产品门禁，也不修改沙箱、ACL 或 Multica 配置。--bundle 会真实重建 preload bundle 两次并覆盖生成文件；只在成功 build 后的可丢弃隔离 worktree 中运行。
+
+COAC-13/14 的机器版本、路径、权限和任务配置记录属于历史案例，不构成当前生产或 agent 配置要求。完整原始记录及两文件差异保留在 [PR #6 源提交](https://github.com/ChildeRolando/MjsoulTileTrace/commit/39061117c2a99f121df23da11b72f9f33d60a2f3)。
+
 ### workspace import 指向旧的 `dist`
 
 先运行 `npm run build`，再跑跨 workspace 的 focused 测试。desktop 测试通过包名导入 source 包时，旧 `dist` 会造成看似无法解释的失败。
