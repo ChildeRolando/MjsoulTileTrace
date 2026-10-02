@@ -20,6 +20,7 @@ type Scenario = Readonly<{
   paipuResult?: Record<string, unknown>;
   reviewOpen?: "ready" | "failed" | "failed_once";
   retrySavedReview?: boolean;
+  analysisFails?: boolean;
   retryFromSavedSessionList?: boolean;
   failSessionListRefreshOnce?: boolean;
   savedSessions?: ReadonlyArray<{ sessionId: string; packageId: string }>;
@@ -79,7 +80,7 @@ async function runScenario(scenario: Scenario): Promise<Record<string, unknown>>
       window.riichiCoachCatalog = {
         listAnalyzableRecords: () => catalogResult(scenario.list, "list"),
         syncAnalyzableRecords: () => catalogResult(scenario.sync, "sync"),
-        startRecordAnalysis: async () => { calls.analyze++; return { status: "record_fetched" }; },
+        startRecordAnalysis: async () => { calls.analyze++; if (scenario.analysisFails) throw new Error("private model failure"); return { status: "review_ready", sessionId: "session-1", packageId: "package-1" }; },
         clearSourceCache: async () => ({ status: "cleared", pendingMaterials: 0 }),
       };
       const snapshot = (packageId) => ({
@@ -262,8 +263,29 @@ describe("account catalog app composition", () => {
     expect(result.calls).toEqual({ getStatus: 1, login: 1, list: 0, sync: 1, analyze: 1 });
     expect(result.catalogText).toContain("C（A / B / C / D）分析");
     expect(result.catalogTitle).toBe(record.shareUrl);
-    expect(result.catalogDetail).toBe("牌谱已取得并完成基础解码。");
+    expect(result.catalogDetail).toBe("已打开整盘复盘。");
+    expect(result.reviewCalls).toMatchObject({ openReview: 1 });
+    expect(result.reviewHidden).toBe(false);
     expect(result.syncHidden).toBe(false);
+  }, 60_000);
+
+  it("keeps the account source visible when analysis fails", async () => {
+    const result = await runScenario({
+      initialStatus: "logged_out", action: "analyze", actionStatus: "valid", sync: "record", analysisFails: true,
+    });
+    expect(result.reviewCalls).toMatchObject({ openReview: 0 });
+    expect(result.reviewHidden).toBe(true);
+    expect(result.catalogDetail).toBe("暂时无法分析这场牌谱，请重试。");
+    expect(result.catalogDetail).not.toContain("private model failure");
+  }, 60_000);
+
+  it("keeps account source visible when a saved review cannot open", async () => {
+    const result = await runScenario({
+      initialStatus: "logged_out", action: "analyze", actionStatus: "valid", sync: "record", reviewOpen: "failed",
+    });
+    expect(result.reviewCalls).toMatchObject({ openReview: 1 });
+    expect(result.reviewHidden).toBe(true);
+    expect(result.catalogDetail).toContain("复盘已保存，但暂时无法打开");
   }, 60_000);
 
   it("syncs the catalog when a manual status refresh returns valid", async () => {

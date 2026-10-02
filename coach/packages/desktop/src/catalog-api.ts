@@ -4,13 +4,22 @@ import {
 } from "@riichi-coach/contracts";
 import { z } from "zod";
 
+export const AccountReviewResultSchema = z.object({
+  status: z.literal("review_ready"),
+  sessionId: z.string().min(1).max(200),
+  packageId: z.string().min(1).max(200),
+}).strict();
+export type AccountReviewResult = z.infer<typeof AccountReviewResultSchema>;
+export const parseAccountReviewResult = (value: unknown): AccountReviewResult =>
+  Object.freeze(AccountReviewResultSchema.parse(value));
+
 const CatalogMethodSchema = z.function()
   .args()
   .returns(z.promise(z.array(AnalyzableRecordSummarySchema)));
 
 const StartRecordAnalysisMethodSchema = z.function()
   .args(z.string())
-  .returns(z.promise(z.object({ status: z.literal("record_fetched") }).strict()));
+  .returns(z.promise(AccountReviewResultSchema));
 
 export const SourceCacheClearResultSchema = z.object({
   status: z.literal("cleared"),
@@ -31,7 +40,7 @@ export const MahjongSoulCatalogApiSchema = z.object({
 export interface MahjongSoulCatalogApi {
   syncAnalyzableRecords(): Promise<AnalyzableRecordSummary[]>;
   listAnalyzableRecords(): Promise<AnalyzableRecordSummary[]>;
-  startRecordAnalysis(recordId: string): Promise<Readonly<{ status: "record_fetched" }>>;
+  startRecordAnalysis(recordId: string): Promise<AccountReviewResult>;
   clearSourceCache(): Promise<Readonly<{ status: "cleared"; pendingMaterials: number }>>;
 }
 

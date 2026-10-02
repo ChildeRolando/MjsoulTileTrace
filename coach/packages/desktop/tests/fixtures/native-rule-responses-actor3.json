@@ -1,0 +1,1465 @@
+{
+  "provenance": {
+    "sourceSHA256": "cfaef71741866e18436913f37fb866db7ab8255fad99c27bc5363fc5ada7d1d8",
+    "sourceFixtureSHA256": "252ed97ab6f85b0b59a3733789924a2d3456edc1205c8b80f3ad5f3732fe5905",
+    "canonicalSHA256": "05e4bd988f1c04ae7646024cc09f6690b0d8eedc8f9996eb9eab576a0d367cac",
+    "selfActor": 3,
+    "eventCount": 26,
+    "selfDecisions": 3,
+    "responseBoundaries": 9,
+    "captureType": "frozen native queryRules response; scoreRules is a deterministic test fixture"
+  },
+  "queries": [
+    {
+      "decisionId": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/20/0",
+      "surface": "self",
+      "request": {
+        "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
+        "operation": "legal_actions",
+        "canonicalStreamIdentity": "sha256:05e4bd988f1c04ae7646024cc09f6690b0d8eedc8f9996eb9eab576a0d367cac",
+        "eventPrefixSha256": "b87cc0d3e46d1c6e138491504d9340e453c6da07b17a863c1e151037460ea5be",
+        "decision": {
+          "decisionId": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/20/0",
+          "surface": "self",
+          "windowKind": "self_turn",
+          "triggerEventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/20/0",
+          "selfActor": 3,
+          "roundOrdinal": 0,
+          "riichiPhase": "none"
+        },
+        "ruleSet": {
+          "length": "south",
+          "redFives": {
+            "man": 1,
+            "pin": 1,
+            "sou": 1
+          },
+          "openTanyao": true,
+          "atamahane": "unknown",
+          "westExtension": "sudden_death",
+          "ippatsuCancelledByAnkan": true
+        },
+        "events": [
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/0/0",
+            "json": "{\"names\":[\"p0\",\"p1\",\"p2\",\"p3\"],\"type\":\"start_game\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/10/0",
+            "json": "{\"bakaze\":\"E\",\"dora_marker\":\"6p\",\"honba\":0,\"kyoku\":1,\"kyotaku\":0,\"oya\":0,\"scores\":[25000,25000,25000,25000],\"tehais\":[[\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\"],[\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\"],[\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\"],[\"W\",\"1p\",\"6p\",\"3s\",\"1s\",\"6m\",\"2s\",\"9m\",\"6s\",\"C\",\"2p\",\"3m\",\"6m\"]],\"type\":\"start_kyoku\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/10/1",
+            "json": "{\"actor\":0,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/12/0",
+            "json": "{\"actor\":0,\"pai\":\"N\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/13/0",
+            "json": "{\"actor\":1,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/15/0",
+            "json": "{\"actor\":1,\"pai\":\"N\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/16/0",
+            "json": "{\"actor\":2,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/18/0",
+            "json": "{\"actor\":2,\"pai\":\"1s\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/20/0",
+            "json": "{\"actor\":3,\"pai\":\"E\",\"type\":\"tsumo\"}"
+          }
+        ]
+      },
+      "response": {
+        "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
+        "status": "ok",
+        "actions": [
+          {
+            "runtimeAction": {
+              "index": 2,
+              "variant": null
+            },
+            "mjaiActionJson": "{\"actor\":3,\"pai\":\"3m\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "runtimeAction": {
+              "index": 5,
+              "variant": null
+            },
+            "mjaiActionJson": "{\"actor\":3,\"pai\":\"6m\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "runtimeAction": {
+              "index": 8,
+              "variant": null
+            },
+            "mjaiActionJson": "{\"actor\":3,\"pai\":\"9m\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "runtimeAction": {
+              "index": 9,
+              "variant": null
+            },
+            "mjaiActionJson": "{\"actor\":3,\"pai\":\"1p\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "runtimeAction": {
+              "index": 10,
+              "variant": null
+            },
+            "mjaiActionJson": "{\"actor\":3,\"pai\":\"2p\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "runtimeAction": {
+              "index": 14,
+              "variant": null
+            },
+            "mjaiActionJson": "{\"actor\":3,\"pai\":\"6p\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "runtimeAction": {
+              "index": 18,
+              "variant": null
+            },
+            "mjaiActionJson": "{\"actor\":3,\"pai\":\"1s\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "runtimeAction": {
+              "index": 19,
+              "variant": null
+            },
+            "mjaiActionJson": "{\"actor\":3,\"pai\":\"2s\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "runtimeAction": {
+              "index": 20,
+              "variant": null
+            },
+            "mjaiActionJson": "{\"actor\":3,\"pai\":\"3s\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "runtimeAction": {
+              "index": 23,
+              "variant": null
+            },
+            "mjaiActionJson": "{\"actor\":3,\"pai\":\"6s\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "runtimeAction": {
+              "index": 27,
+              "variant": null
+            },
+            "mjaiActionJson": "{\"actor\":3,\"pai\":\"E\",\"tsumogiri\":true,\"type\":\"dahai\"}"
+          },
+          {
+            "runtimeAction": {
+              "index": 29,
+              "variant": null
+            },
+            "mjaiActionJson": "{\"actor\":3,\"pai\":\"W\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "runtimeAction": {
+              "index": 33,
+              "variant": null
+            },
+            "mjaiActionJson": "{\"actor\":3,\"pai\":\"C\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          }
+        ]
+      }
+    },
+    {
+      "decisionId": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/34/0",
+      "surface": "self",
+      "request": {
+        "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
+        "operation": "legal_actions",
+        "canonicalStreamIdentity": "sha256:05e4bd988f1c04ae7646024cc09f6690b0d8eedc8f9996eb9eab576a0d367cac",
+        "eventPrefixSha256": "29a603bff7bf9b0281648ec1f4554faf9ddbeb48ac4bac5e7b618a69a1c48620",
+        "decision": {
+          "decisionId": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/34/0",
+          "surface": "self",
+          "windowKind": "self_turn",
+          "triggerEventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/34/0",
+          "selfActor": 3,
+          "roundOrdinal": 0,
+          "riichiPhase": "none"
+        },
+        "ruleSet": {
+          "length": "south",
+          "redFives": {
+            "man": 1,
+            "pin": 1,
+            "sou": 1
+          },
+          "openTanyao": true,
+          "atamahane": "unknown",
+          "westExtension": "sudden_death",
+          "ippatsuCancelledByAnkan": true
+        },
+        "events": [
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/0/0",
+            "json": "{\"names\":[\"p0\",\"p1\",\"p2\",\"p3\"],\"type\":\"start_game\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/10/0",
+            "json": "{\"bakaze\":\"E\",\"dora_marker\":\"6p\",\"honba\":0,\"kyoku\":1,\"kyotaku\":0,\"oya\":0,\"scores\":[25000,25000,25000,25000],\"tehais\":[[\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\"],[\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\"],[\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\"],[\"W\",\"1p\",\"6p\",\"3s\",\"1s\",\"6m\",\"2s\",\"9m\",\"6s\",\"C\",\"2p\",\"3m\",\"6m\"]],\"type\":\"start_kyoku\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/10/1",
+            "json": "{\"actor\":0,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/12/0",
+            "json": "{\"actor\":0,\"pai\":\"N\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/13/0",
+            "json": "{\"actor\":1,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/15/0",
+            "json": "{\"actor\":1,\"pai\":\"N\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/16/0",
+            "json": "{\"actor\":2,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/18/0",
+            "json": "{\"actor\":2,\"pai\":\"1s\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/20/0",
+            "json": "{\"actor\":3,\"pai\":\"E\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/22/0",
+            "json": "{\"actor\":3,\"pai\":\"W\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/23/0",
+            "json": "{\"actor\":0,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/25/0",
+            "json": "{\"actor\":0,\"pai\":\"2m\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/26/0",
+            "json": "{\"actor\":1,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/28/0",
+            "json": "{\"actor\":1,\"pai\":\"P\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/31/0",
+            "json": "{\"actor\":2,\"consumed\":[\"P\",\"P\"],\"pai\":\"P\",\"target\":1,\"type\":\"pon\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/33/0",
+            "json": "{\"actor\":2,\"pai\":\"9s\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/34/0",
+            "json": "{\"actor\":3,\"pai\":\"F\",\"type\":\"tsumo\"}"
+          }
+        ]
+      },
+      "response": {
+        "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
+        "status": "ok",
+        "actions": [
+          {
+            "runtimeAction": {
+              "index": 2,
+              "variant": null
+            },
+            "mjaiActionJson": "{\"actor\":3,\"pai\":\"3m\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "runtimeAction": {
+              "index": 5,
+              "variant": null
+            },
+            "mjaiActionJson": "{\"actor\":3,\"pai\":\"6m\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "runtimeAction": {
+              "index": 8,
+              "variant": null
+            },
+            "mjaiActionJson": "{\"actor\":3,\"pai\":\"9m\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "runtimeAction": {
+              "index": 9,
+              "variant": null
+            },
+            "mjaiActionJson": "{\"actor\":3,\"pai\":\"1p\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "runtimeAction": {
+              "index": 10,
+              "variant": null
+            },
+            "mjaiActionJson": "{\"actor\":3,\"pai\":\"2p\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "runtimeAction": {
+              "index": 14,
+              "variant": null
+            },
+            "mjaiActionJson": "{\"actor\":3,\"pai\":\"6p\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "runtimeAction": {
+              "index": 18,
+              "variant": null
+            },
+            "mjaiActionJson": "{\"actor\":3,\"pai\":\"1s\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "runtimeAction": {
+              "index": 19,
+              "variant": null
+            },
+            "mjaiActionJson": "{\"actor\":3,\"pai\":\"2s\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "runtimeAction": {
+              "index": 20,
+              "variant": null
+            },
+            "mjaiActionJson": "{\"actor\":3,\"pai\":\"3s\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "runtimeAction": {
+              "index": 23,
+              "variant": null
+            },
+            "mjaiActionJson": "{\"actor\":3,\"pai\":\"6s\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "runtimeAction": {
+              "index": 27,
+              "variant": null
+            },
+            "mjaiActionJson": "{\"actor\":3,\"pai\":\"E\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "runtimeAction": {
+              "index": 32,
+              "variant": null
+            },
+            "mjaiActionJson": "{\"actor\":3,\"pai\":\"F\",\"tsumogiri\":true,\"type\":\"dahai\"}"
+          },
+          {
+            "runtimeAction": {
+              "index": 33,
+              "variant": null
+            },
+            "mjaiActionJson": "{\"actor\":3,\"pai\":\"C\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          }
+        ]
+      }
+    },
+    {
+      "decisionId": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/47/0",
+      "surface": "self",
+      "request": {
+        "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
+        "operation": "legal_actions",
+        "canonicalStreamIdentity": "sha256:05e4bd988f1c04ae7646024cc09f6690b0d8eedc8f9996eb9eab576a0d367cac",
+        "eventPrefixSha256": "407fc7e1ecb7bc14b9ce0a5c1a7f0ba1857601fe74f5ac388ff4ae2703d5bbb4",
+        "decision": {
+          "decisionId": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/47/0",
+          "surface": "self",
+          "windowKind": "self_turn",
+          "triggerEventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/47/0",
+          "selfActor": 3,
+          "roundOrdinal": 0,
+          "riichiPhase": "none"
+        },
+        "ruleSet": {
+          "length": "south",
+          "redFives": {
+            "man": 1,
+            "pin": 1,
+            "sou": 1
+          },
+          "openTanyao": true,
+          "atamahane": "unknown",
+          "westExtension": "sudden_death",
+          "ippatsuCancelledByAnkan": true
+        },
+        "events": [
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/0/0",
+            "json": "{\"names\":[\"p0\",\"p1\",\"p2\",\"p3\"],\"type\":\"start_game\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/10/0",
+            "json": "{\"bakaze\":\"E\",\"dora_marker\":\"6p\",\"honba\":0,\"kyoku\":1,\"kyotaku\":0,\"oya\":0,\"scores\":[25000,25000,25000,25000],\"tehais\":[[\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\"],[\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\"],[\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\"],[\"W\",\"1p\",\"6p\",\"3s\",\"1s\",\"6m\",\"2s\",\"9m\",\"6s\",\"C\",\"2p\",\"3m\",\"6m\"]],\"type\":\"start_kyoku\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/10/1",
+            "json": "{\"actor\":0,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/12/0",
+            "json": "{\"actor\":0,\"pai\":\"N\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/13/0",
+            "json": "{\"actor\":1,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/15/0",
+            "json": "{\"actor\":1,\"pai\":\"N\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/16/0",
+            "json": "{\"actor\":2,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/18/0",
+            "json": "{\"actor\":2,\"pai\":\"1s\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/20/0",
+            "json": "{\"actor\":3,\"pai\":\"E\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/22/0",
+            "json": "{\"actor\":3,\"pai\":\"W\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/23/0",
+            "json": "{\"actor\":0,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/25/0",
+            "json": "{\"actor\":0,\"pai\":\"2m\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/26/0",
+            "json": "{\"actor\":1,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/28/0",
+            "json": "{\"actor\":1,\"pai\":\"P\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/31/0",
+            "json": "{\"actor\":2,\"consumed\":[\"P\",\"P\"],\"pai\":\"P\",\"target\":1,\"type\":\"pon\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/33/0",
+            "json": "{\"actor\":2,\"pai\":\"9s\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/34/0",
+            "json": "{\"actor\":3,\"pai\":\"F\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/36/0",
+            "json": "{\"actor\":3,\"pai\":\"C\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/37/0",
+            "json": "{\"actor\":0,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/39/0",
+            "json": "{\"actor\":0,\"pai\":\"7m\",\"tsumogiri\":true,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/41/0",
+            "json": "{\"actor\":1,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/43/0",
+            "json": "{\"actor\":1,\"pai\":\"S\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/44/0",
+            "json": "{\"actor\":2,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/46/0",
+            "json": "{\"actor\":2,\"pai\":\"7s\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/47/0",
+            "json": "{\"actor\":3,\"pai\":\"9m\",\"type\":\"tsumo\"}"
+          }
+        ]
+      },
+      "response": {
+        "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
+        "status": "ok",
+        "actions": [
+          {
+            "runtimeAction": {
+              "index": 2,
+              "variant": null
+            },
+            "mjaiActionJson": "{\"actor\":3,\"pai\":\"3m\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "runtimeAction": {
+              "index": 5,
+              "variant": null
+            },
+            "mjaiActionJson": "{\"actor\":3,\"pai\":\"6m\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "runtimeAction": {
+              "index": 8,
+              "variant": null
+            },
+            "mjaiActionJson": "{\"actor\":3,\"pai\":\"9m\",\"tsumogiri\":true,\"type\":\"dahai\"}",
+            "physicalAliases": [
+              "{\"actor\":3,\"pai\":\"9m\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+            ]
+          },
+          {
+            "runtimeAction": {
+              "index": 9,
+              "variant": null
+            },
+            "mjaiActionJson": "{\"actor\":3,\"pai\":\"1p\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "runtimeAction": {
+              "index": 10,
+              "variant": null
+            },
+            "mjaiActionJson": "{\"actor\":3,\"pai\":\"2p\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "runtimeAction": {
+              "index": 14,
+              "variant": null
+            },
+            "mjaiActionJson": "{\"actor\":3,\"pai\":\"6p\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "runtimeAction": {
+              "index": 18,
+              "variant": null
+            },
+            "mjaiActionJson": "{\"actor\":3,\"pai\":\"1s\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "runtimeAction": {
+              "index": 19,
+              "variant": null
+            },
+            "mjaiActionJson": "{\"actor\":3,\"pai\":\"2s\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "runtimeAction": {
+              "index": 20,
+              "variant": null
+            },
+            "mjaiActionJson": "{\"actor\":3,\"pai\":\"3s\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "runtimeAction": {
+              "index": 23,
+              "variant": null
+            },
+            "mjaiActionJson": "{\"actor\":3,\"pai\":\"6s\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "runtimeAction": {
+              "index": 27,
+              "variant": null
+            },
+            "mjaiActionJson": "{\"actor\":3,\"pai\":\"E\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "runtimeAction": {
+              "index": 32,
+              "variant": null
+            },
+            "mjaiActionJson": "{\"actor\":3,\"pai\":\"F\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          }
+        ]
+      }
+    },
+    {
+      "decisionId": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/12/0",
+      "surface": "response",
+      "request": {
+        "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
+        "operation": "legal_actions",
+        "canonicalStreamIdentity": "sha256:05e4bd988f1c04ae7646024cc09f6690b0d8eedc8f9996eb9eab576a0d367cac",
+        "eventPrefixSha256": "081cd7f48c74563250ac9b1e8a29eceeb102991747134df143a3b40b9cb8554e",
+        "decision": {
+          "decisionId": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/12/0",
+          "surface": "response",
+          "windowKind": "discard_response",
+          "triggerEventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/12/0",
+          "selfActor": 3,
+          "roundOrdinal": 0,
+          "riichiPhase": "none"
+        },
+        "ruleSet": {
+          "length": "south",
+          "redFives": {
+            "man": 1,
+            "pin": 1,
+            "sou": 1
+          },
+          "openTanyao": true,
+          "atamahane": "unknown",
+          "westExtension": "sudden_death",
+          "ippatsuCancelledByAnkan": true
+        },
+        "events": [
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/0/0",
+            "json": "{\"names\":[\"p0\",\"p1\",\"p2\",\"p3\"],\"type\":\"start_game\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/10/0",
+            "json": "{\"bakaze\":\"E\",\"dora_marker\":\"6p\",\"honba\":0,\"kyoku\":1,\"kyotaku\":0,\"oya\":0,\"scores\":[25000,25000,25000,25000],\"tehais\":[[\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\"],[\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\"],[\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\"],[\"W\",\"1p\",\"6p\",\"3s\",\"1s\",\"6m\",\"2s\",\"9m\",\"6s\",\"C\",\"2p\",\"3m\",\"6m\"]],\"type\":\"start_kyoku\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/10/1",
+            "json": "{\"actor\":0,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/12/0",
+            "json": "{\"actor\":0,\"pai\":\"N\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          }
+        ]
+      },
+      "response": {
+        "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
+        "status": "non_action",
+        "reason": "native_cannot_act"
+      }
+    },
+    {
+      "decisionId": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/15/0",
+      "surface": "response",
+      "request": {
+        "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
+        "operation": "legal_actions",
+        "canonicalStreamIdentity": "sha256:05e4bd988f1c04ae7646024cc09f6690b0d8eedc8f9996eb9eab576a0d367cac",
+        "eventPrefixSha256": "3852a86a826bd1599b94c0e685aba99d5f38c39003dafd32ca98f599662f928e",
+        "decision": {
+          "decisionId": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/15/0",
+          "surface": "response",
+          "windowKind": "discard_response",
+          "triggerEventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/15/0",
+          "selfActor": 3,
+          "roundOrdinal": 0,
+          "riichiPhase": "none"
+        },
+        "ruleSet": {
+          "length": "south",
+          "redFives": {
+            "man": 1,
+            "pin": 1,
+            "sou": 1
+          },
+          "openTanyao": true,
+          "atamahane": "unknown",
+          "westExtension": "sudden_death",
+          "ippatsuCancelledByAnkan": true
+        },
+        "events": [
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/0/0",
+            "json": "{\"names\":[\"p0\",\"p1\",\"p2\",\"p3\"],\"type\":\"start_game\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/10/0",
+            "json": "{\"bakaze\":\"E\",\"dora_marker\":\"6p\",\"honba\":0,\"kyoku\":1,\"kyotaku\":0,\"oya\":0,\"scores\":[25000,25000,25000,25000],\"tehais\":[[\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\"],[\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\"],[\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\"],[\"W\",\"1p\",\"6p\",\"3s\",\"1s\",\"6m\",\"2s\",\"9m\",\"6s\",\"C\",\"2p\",\"3m\",\"6m\"]],\"type\":\"start_kyoku\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/10/1",
+            "json": "{\"actor\":0,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/12/0",
+            "json": "{\"actor\":0,\"pai\":\"N\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/13/0",
+            "json": "{\"actor\":1,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/15/0",
+            "json": "{\"actor\":1,\"pai\":\"N\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          }
+        ]
+      },
+      "response": {
+        "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
+        "status": "non_action",
+        "reason": "native_cannot_act"
+      }
+    },
+    {
+      "decisionId": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/18/0",
+      "surface": "response",
+      "request": {
+        "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
+        "operation": "legal_actions",
+        "canonicalStreamIdentity": "sha256:05e4bd988f1c04ae7646024cc09f6690b0d8eedc8f9996eb9eab576a0d367cac",
+        "eventPrefixSha256": "4e643ef3af6b75d13071c953e077c0b27a106a070c0edd8221d6b6e85afe9964",
+        "decision": {
+          "decisionId": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/18/0",
+          "surface": "response",
+          "windowKind": "discard_response",
+          "triggerEventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/18/0",
+          "selfActor": 3,
+          "roundOrdinal": 0,
+          "riichiPhase": "none"
+        },
+        "ruleSet": {
+          "length": "south",
+          "redFives": {
+            "man": 1,
+            "pin": 1,
+            "sou": 1
+          },
+          "openTanyao": true,
+          "atamahane": "unknown",
+          "westExtension": "sudden_death",
+          "ippatsuCancelledByAnkan": true
+        },
+        "events": [
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/0/0",
+            "json": "{\"names\":[\"p0\",\"p1\",\"p2\",\"p3\"],\"type\":\"start_game\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/10/0",
+            "json": "{\"bakaze\":\"E\",\"dora_marker\":\"6p\",\"honba\":0,\"kyoku\":1,\"kyotaku\":0,\"oya\":0,\"scores\":[25000,25000,25000,25000],\"tehais\":[[\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\"],[\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\"],[\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\"],[\"W\",\"1p\",\"6p\",\"3s\",\"1s\",\"6m\",\"2s\",\"9m\",\"6s\",\"C\",\"2p\",\"3m\",\"6m\"]],\"type\":\"start_kyoku\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/10/1",
+            "json": "{\"actor\":0,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/12/0",
+            "json": "{\"actor\":0,\"pai\":\"N\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/13/0",
+            "json": "{\"actor\":1,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/15/0",
+            "json": "{\"actor\":1,\"pai\":\"N\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/16/0",
+            "json": "{\"actor\":2,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/18/0",
+            "json": "{\"actor\":2,\"pai\":\"1s\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          }
+        ]
+      },
+      "response": {
+        "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
+        "status": "ok",
+        "actions": [
+          {
+            "runtimeAction": {
+              "index": 38,
+              "variant": null
+            },
+            "mjaiActionJson": "{\"actor\":3,\"consumed\":[\"2s\",\"3s\"],\"pai\":\"1s\",\"target\":2,\"type\":\"chi\"}"
+          },
+          {
+            "runtimeAction": {
+              "index": 45,
+              "variant": null
+            },
+            "mjaiActionJson": "{\"type\":\"none\"}"
+          }
+        ]
+      }
+    },
+    {
+      "decisionId": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/25/0",
+      "surface": "response",
+      "request": {
+        "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
+        "operation": "legal_actions",
+        "canonicalStreamIdentity": "sha256:05e4bd988f1c04ae7646024cc09f6690b0d8eedc8f9996eb9eab576a0d367cac",
+        "eventPrefixSha256": "383e41f5e352556e5d103f06a89abf8f1b9f9eb588c56ce22f12684ec30ed3be",
+        "decision": {
+          "decisionId": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/25/0",
+          "surface": "response",
+          "windowKind": "discard_response",
+          "triggerEventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/25/0",
+          "selfActor": 3,
+          "roundOrdinal": 0,
+          "riichiPhase": "none"
+        },
+        "ruleSet": {
+          "length": "south",
+          "redFives": {
+            "man": 1,
+            "pin": 1,
+            "sou": 1
+          },
+          "openTanyao": true,
+          "atamahane": "unknown",
+          "westExtension": "sudden_death",
+          "ippatsuCancelledByAnkan": true
+        },
+        "events": [
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/0/0",
+            "json": "{\"names\":[\"p0\",\"p1\",\"p2\",\"p3\"],\"type\":\"start_game\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/10/0",
+            "json": "{\"bakaze\":\"E\",\"dora_marker\":\"6p\",\"honba\":0,\"kyoku\":1,\"kyotaku\":0,\"oya\":0,\"scores\":[25000,25000,25000,25000],\"tehais\":[[\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\"],[\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\"],[\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\"],[\"W\",\"1p\",\"6p\",\"3s\",\"1s\",\"6m\",\"2s\",\"9m\",\"6s\",\"C\",\"2p\",\"3m\",\"6m\"]],\"type\":\"start_kyoku\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/10/1",
+            "json": "{\"actor\":0,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/12/0",
+            "json": "{\"actor\":0,\"pai\":\"N\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/13/0",
+            "json": "{\"actor\":1,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/15/0",
+            "json": "{\"actor\":1,\"pai\":\"N\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/16/0",
+            "json": "{\"actor\":2,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/18/0",
+            "json": "{\"actor\":2,\"pai\":\"1s\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/20/0",
+            "json": "{\"actor\":3,\"pai\":\"E\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/22/0",
+            "json": "{\"actor\":3,\"pai\":\"W\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/23/0",
+            "json": "{\"actor\":0,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/25/0",
+            "json": "{\"actor\":0,\"pai\":\"2m\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          }
+        ]
+      },
+      "response": {
+        "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
+        "status": "non_action",
+        "reason": "native_cannot_act"
+      }
+    },
+    {
+      "decisionId": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/28/0",
+      "surface": "response",
+      "request": {
+        "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
+        "operation": "legal_actions",
+        "canonicalStreamIdentity": "sha256:05e4bd988f1c04ae7646024cc09f6690b0d8eedc8f9996eb9eab576a0d367cac",
+        "eventPrefixSha256": "32dc2f4c5f462e7a1d83690ce61dd66976ee3ab042c8915825246fd65c8eb065",
+        "decision": {
+          "decisionId": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/28/0",
+          "surface": "response",
+          "windowKind": "discard_response",
+          "triggerEventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/28/0",
+          "selfActor": 3,
+          "roundOrdinal": 0,
+          "riichiPhase": "none"
+        },
+        "ruleSet": {
+          "length": "south",
+          "redFives": {
+            "man": 1,
+            "pin": 1,
+            "sou": 1
+          },
+          "openTanyao": true,
+          "atamahane": "unknown",
+          "westExtension": "sudden_death",
+          "ippatsuCancelledByAnkan": true
+        },
+        "events": [
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/0/0",
+            "json": "{\"names\":[\"p0\",\"p1\",\"p2\",\"p3\"],\"type\":\"start_game\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/10/0",
+            "json": "{\"bakaze\":\"E\",\"dora_marker\":\"6p\",\"honba\":0,\"kyoku\":1,\"kyotaku\":0,\"oya\":0,\"scores\":[25000,25000,25000,25000],\"tehais\":[[\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\"],[\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\"],[\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\"],[\"W\",\"1p\",\"6p\",\"3s\",\"1s\",\"6m\",\"2s\",\"9m\",\"6s\",\"C\",\"2p\",\"3m\",\"6m\"]],\"type\":\"start_kyoku\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/10/1",
+            "json": "{\"actor\":0,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/12/0",
+            "json": "{\"actor\":0,\"pai\":\"N\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/13/0",
+            "json": "{\"actor\":1,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/15/0",
+            "json": "{\"actor\":1,\"pai\":\"N\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/16/0",
+            "json": "{\"actor\":2,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/18/0",
+            "json": "{\"actor\":2,\"pai\":\"1s\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/20/0",
+            "json": "{\"actor\":3,\"pai\":\"E\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/22/0",
+            "json": "{\"actor\":3,\"pai\":\"W\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/23/0",
+            "json": "{\"actor\":0,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/25/0",
+            "json": "{\"actor\":0,\"pai\":\"2m\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/26/0",
+            "json": "{\"actor\":1,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/28/0",
+            "json": "{\"actor\":1,\"pai\":\"P\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          }
+        ]
+      },
+      "response": {
+        "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
+        "status": "non_action",
+        "reason": "native_cannot_act"
+      }
+    },
+    {
+      "decisionId": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/33/0",
+      "surface": "response",
+      "request": {
+        "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
+        "operation": "legal_actions",
+        "canonicalStreamIdentity": "sha256:05e4bd988f1c04ae7646024cc09f6690b0d8eedc8f9996eb9eab576a0d367cac",
+        "eventPrefixSha256": "2f36918cbf063498114863754254f8b9a9f74a0476f935c5b4da59adf13143b3",
+        "decision": {
+          "decisionId": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/33/0",
+          "surface": "response",
+          "windowKind": "discard_response",
+          "triggerEventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/33/0",
+          "selfActor": 3,
+          "roundOrdinal": 0,
+          "riichiPhase": "none"
+        },
+        "ruleSet": {
+          "length": "south",
+          "redFives": {
+            "man": 1,
+            "pin": 1,
+            "sou": 1
+          },
+          "openTanyao": true,
+          "atamahane": "unknown",
+          "westExtension": "sudden_death",
+          "ippatsuCancelledByAnkan": true
+        },
+        "events": [
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/0/0",
+            "json": "{\"names\":[\"p0\",\"p1\",\"p2\",\"p3\"],\"type\":\"start_game\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/10/0",
+            "json": "{\"bakaze\":\"E\",\"dora_marker\":\"6p\",\"honba\":0,\"kyoku\":1,\"kyotaku\":0,\"oya\":0,\"scores\":[25000,25000,25000,25000],\"tehais\":[[\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\"],[\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\"],[\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\"],[\"W\",\"1p\",\"6p\",\"3s\",\"1s\",\"6m\",\"2s\",\"9m\",\"6s\",\"C\",\"2p\",\"3m\",\"6m\"]],\"type\":\"start_kyoku\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/10/1",
+            "json": "{\"actor\":0,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/12/0",
+            "json": "{\"actor\":0,\"pai\":\"N\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/13/0",
+            "json": "{\"actor\":1,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/15/0",
+            "json": "{\"actor\":1,\"pai\":\"N\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/16/0",
+            "json": "{\"actor\":2,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/18/0",
+            "json": "{\"actor\":2,\"pai\":\"1s\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/20/0",
+            "json": "{\"actor\":3,\"pai\":\"E\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/22/0",
+            "json": "{\"actor\":3,\"pai\":\"W\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/23/0",
+            "json": "{\"actor\":0,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/25/0",
+            "json": "{\"actor\":0,\"pai\":\"2m\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/26/0",
+            "json": "{\"actor\":1,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/28/0",
+            "json": "{\"actor\":1,\"pai\":\"P\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/31/0",
+            "json": "{\"actor\":2,\"consumed\":[\"P\",\"P\"],\"pai\":\"P\",\"target\":1,\"type\":\"pon\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/33/0",
+            "json": "{\"actor\":2,\"pai\":\"9s\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          }
+        ]
+      },
+      "response": {
+        "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
+        "status": "non_action",
+        "reason": "native_cannot_act"
+      }
+    },
+    {
+      "decisionId": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/39/0",
+      "surface": "response",
+      "request": {
+        "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
+        "operation": "legal_actions",
+        "canonicalStreamIdentity": "sha256:05e4bd988f1c04ae7646024cc09f6690b0d8eedc8f9996eb9eab576a0d367cac",
+        "eventPrefixSha256": "8aaae707baf44ca24f00aad0f0c8b85cb7e78ca64872f30fd036ca91b3f7cc5c",
+        "decision": {
+          "decisionId": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/39/0",
+          "surface": "response",
+          "windowKind": "discard_response",
+          "triggerEventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/39/0",
+          "selfActor": 3,
+          "roundOrdinal": 0,
+          "riichiPhase": "none"
+        },
+        "ruleSet": {
+          "length": "south",
+          "redFives": {
+            "man": 1,
+            "pin": 1,
+            "sou": 1
+          },
+          "openTanyao": true,
+          "atamahane": "unknown",
+          "westExtension": "sudden_death",
+          "ippatsuCancelledByAnkan": true
+        },
+        "events": [
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/0/0",
+            "json": "{\"names\":[\"p0\",\"p1\",\"p2\",\"p3\"],\"type\":\"start_game\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/10/0",
+            "json": "{\"bakaze\":\"E\",\"dora_marker\":\"6p\",\"honba\":0,\"kyoku\":1,\"kyotaku\":0,\"oya\":0,\"scores\":[25000,25000,25000,25000],\"tehais\":[[\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\"],[\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\"],[\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\"],[\"W\",\"1p\",\"6p\",\"3s\",\"1s\",\"6m\",\"2s\",\"9m\",\"6s\",\"C\",\"2p\",\"3m\",\"6m\"]],\"type\":\"start_kyoku\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/10/1",
+            "json": "{\"actor\":0,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/12/0",
+            "json": "{\"actor\":0,\"pai\":\"N\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/13/0",
+            "json": "{\"actor\":1,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/15/0",
+            "json": "{\"actor\":1,\"pai\":\"N\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/16/0",
+            "json": "{\"actor\":2,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/18/0",
+            "json": "{\"actor\":2,\"pai\":\"1s\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/20/0",
+            "json": "{\"actor\":3,\"pai\":\"E\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/22/0",
+            "json": "{\"actor\":3,\"pai\":\"W\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/23/0",
+            "json": "{\"actor\":0,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/25/0",
+            "json": "{\"actor\":0,\"pai\":\"2m\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/26/0",
+            "json": "{\"actor\":1,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/28/0",
+            "json": "{\"actor\":1,\"pai\":\"P\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/31/0",
+            "json": "{\"actor\":2,\"consumed\":[\"P\",\"P\"],\"pai\":\"P\",\"target\":1,\"type\":\"pon\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/33/0",
+            "json": "{\"actor\":2,\"pai\":\"9s\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/34/0",
+            "json": "{\"actor\":3,\"pai\":\"F\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/36/0",
+            "json": "{\"actor\":3,\"pai\":\"C\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/37/0",
+            "json": "{\"actor\":0,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/39/0",
+            "json": "{\"actor\":0,\"pai\":\"7m\",\"tsumogiri\":true,\"type\":\"dahai\"}"
+          }
+        ]
+      },
+      "response": {
+        "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
+        "status": "non_action",
+        "reason": "native_cannot_act"
+      }
+    },
+    {
+      "decisionId": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/43/0",
+      "surface": "response",
+      "request": {
+        "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
+        "operation": "legal_actions",
+        "canonicalStreamIdentity": "sha256:05e4bd988f1c04ae7646024cc09f6690b0d8eedc8f9996eb9eab576a0d367cac",
+        "eventPrefixSha256": "15beac881c2d545934dc2a4de12d9233a1c98b069a02831f1dfe3d765f04b426",
+        "decision": {
+          "decisionId": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/43/0",
+          "surface": "response",
+          "windowKind": "discard_response",
+          "triggerEventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/43/0",
+          "selfActor": 3,
+          "roundOrdinal": 0,
+          "riichiPhase": "none"
+        },
+        "ruleSet": {
+          "length": "south",
+          "redFives": {
+            "man": 1,
+            "pin": 1,
+            "sou": 1
+          },
+          "openTanyao": true,
+          "atamahane": "unknown",
+          "westExtension": "sudden_death",
+          "ippatsuCancelledByAnkan": true
+        },
+        "events": [
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/0/0",
+            "json": "{\"names\":[\"p0\",\"p1\",\"p2\",\"p3\"],\"type\":\"start_game\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/10/0",
+            "json": "{\"bakaze\":\"E\",\"dora_marker\":\"6p\",\"honba\":0,\"kyoku\":1,\"kyotaku\":0,\"oya\":0,\"scores\":[25000,25000,25000,25000],\"tehais\":[[\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\"],[\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\"],[\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\"],[\"W\",\"1p\",\"6p\",\"3s\",\"1s\",\"6m\",\"2s\",\"9m\",\"6s\",\"C\",\"2p\",\"3m\",\"6m\"]],\"type\":\"start_kyoku\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/10/1",
+            "json": "{\"actor\":0,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/12/0",
+            "json": "{\"actor\":0,\"pai\":\"N\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/13/0",
+            "json": "{\"actor\":1,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/15/0",
+            "json": "{\"actor\":1,\"pai\":\"N\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/16/0",
+            "json": "{\"actor\":2,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/18/0",
+            "json": "{\"actor\":2,\"pai\":\"1s\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/20/0",
+            "json": "{\"actor\":3,\"pai\":\"E\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/22/0",
+            "json": "{\"actor\":3,\"pai\":\"W\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/23/0",
+            "json": "{\"actor\":0,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/25/0",
+            "json": "{\"actor\":0,\"pai\":\"2m\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/26/0",
+            "json": "{\"actor\":1,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/28/0",
+            "json": "{\"actor\":1,\"pai\":\"P\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/31/0",
+            "json": "{\"actor\":2,\"consumed\":[\"P\",\"P\"],\"pai\":\"P\",\"target\":1,\"type\":\"pon\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/33/0",
+            "json": "{\"actor\":2,\"pai\":\"9s\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/34/0",
+            "json": "{\"actor\":3,\"pai\":\"F\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/36/0",
+            "json": "{\"actor\":3,\"pai\":\"C\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/37/0",
+            "json": "{\"actor\":0,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/39/0",
+            "json": "{\"actor\":0,\"pai\":\"7m\",\"tsumogiri\":true,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/41/0",
+            "json": "{\"actor\":1,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/43/0",
+            "json": "{\"actor\":1,\"pai\":\"S\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          }
+        ]
+      },
+      "response": {
+        "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
+        "status": "non_action",
+        "reason": "native_cannot_act"
+      }
+    },
+    {
+      "decisionId": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/46/0",
+      "surface": "response",
+      "request": {
+        "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
+        "operation": "legal_actions",
+        "canonicalStreamIdentity": "sha256:05e4bd988f1c04ae7646024cc09f6690b0d8eedc8f9996eb9eab576a0d367cac",
+        "eventPrefixSha256": "599029013d6e973b4ecf405291a98e8e86d453acecb71ba5afebdf236b0390cf",
+        "decision": {
+          "decisionId": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/46/0",
+          "surface": "response",
+          "windowKind": "discard_response",
+          "triggerEventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/46/0",
+          "selfActor": 3,
+          "roundOrdinal": 0,
+          "riichiPhase": "none"
+        },
+        "ruleSet": {
+          "length": "south",
+          "redFives": {
+            "man": 1,
+            "pin": 1,
+            "sou": 1
+          },
+          "openTanyao": true,
+          "atamahane": "unknown",
+          "westExtension": "sudden_death",
+          "ippatsuCancelledByAnkan": true
+        },
+        "events": [
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/0/0",
+            "json": "{\"names\":[\"p0\",\"p1\",\"p2\",\"p3\"],\"type\":\"start_game\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/10/0",
+            "json": "{\"bakaze\":\"E\",\"dora_marker\":\"6p\",\"honba\":0,\"kyoku\":1,\"kyotaku\":0,\"oya\":0,\"scores\":[25000,25000,25000,25000],\"tehais\":[[\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\"],[\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\"],[\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\",\"?\"],[\"W\",\"1p\",\"6p\",\"3s\",\"1s\",\"6m\",\"2s\",\"9m\",\"6s\",\"C\",\"2p\",\"3m\",\"6m\"]],\"type\":\"start_kyoku\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/10/1",
+            "json": "{\"actor\":0,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/12/0",
+            "json": "{\"actor\":0,\"pai\":\"N\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/13/0",
+            "json": "{\"actor\":1,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/15/0",
+            "json": "{\"actor\":1,\"pai\":\"N\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/16/0",
+            "json": "{\"actor\":2,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/18/0",
+            "json": "{\"actor\":2,\"pai\":\"1s\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/20/0",
+            "json": "{\"actor\":3,\"pai\":\"E\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/22/0",
+            "json": "{\"actor\":3,\"pai\":\"W\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/23/0",
+            "json": "{\"actor\":0,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/25/0",
+            "json": "{\"actor\":0,\"pai\":\"2m\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/26/0",
+            "json": "{\"actor\":1,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/28/0",
+            "json": "{\"actor\":1,\"pai\":\"P\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/31/0",
+            "json": "{\"actor\":2,\"consumed\":[\"P\",\"P\"],\"pai\":\"P\",\"target\":1,\"type\":\"pon\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/33/0",
+            "json": "{\"actor\":2,\"pai\":\"9s\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/34/0",
+            "json": "{\"actor\":3,\"pai\":\"F\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/36/0",
+            "json": "{\"actor\":3,\"pai\":\"C\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/37/0",
+            "json": "{\"actor\":0,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/39/0",
+            "json": "{\"actor\":0,\"pai\":\"7m\",\"tsumogiri\":true,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/41/0",
+            "json": "{\"actor\":1,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/43/0",
+            "json": "{\"actor\":1,\"pai\":\"S\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/44/0",
+            "json": "{\"actor\":2,\"pai\":\"?\",\"type\":\"tsumo\"}"
+          },
+          {
+            "eventRef": "majsoul:000000-00000000-0000-0000-0000-000000000001/0/46/0",
+            "json": "{\"actor\":2,\"pai\":\"7s\",\"tsumogiri\":false,\"type\":\"dahai\"}"
+          }
+        ]
+      },
+      "response": {
+        "protocolVersion": "riichi-libriichi-rules-jsonl/v2",
+        "status": "non_action",
+        "reason": "native_cannot_act"
+      }
+    }
+  ]
+}

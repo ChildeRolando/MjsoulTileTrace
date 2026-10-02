@@ -256,6 +256,7 @@ export function createFixedReviewUi(input: {
       const body = element(document, "tbody");
       for (const item of next.selection.items) {
         const row = element(document, "tr");
+        row.setAttribute("data-decision-id", item.decisionId);
         const open = element(document, "button", "查看详情");
         open.type = "button";
         open.addEventListener("click", () => void (async () => {

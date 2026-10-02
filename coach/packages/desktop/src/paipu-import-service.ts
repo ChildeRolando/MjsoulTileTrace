@@ -87,6 +87,8 @@ export function createMahjongSoulPaipuImportService(input: {
   readonly analysis: RecordAnalysisStore;
   readonly createWindow: () => CaptureRecordWindowPort;
   readonly timeoutMs: number;
+  /** Deterministic capture adapter for the isolated Electron Golden runner. */
+  readonly captureRecord?: (shareUrl: string) => Promise<OfficialClientCaptureResult>;
   /** Main composition owns local-model/package/session work. The source
    * adapter only hands it the validated canonical/replay result. */
   readonly prepareReview?: (
@@ -118,13 +120,15 @@ export function createMahjongSoulPaipuImportService(input: {
       const operation = (async (): Promise<PaipuImportResult> => {
         let captured: OfficialClientCaptureResult;
         try {
-          captured = await captureRecordViaOfficialClient({
-            bundle: input.bundle,
-            // The exact validated share URL is what gets navigated.
-            url: request.shareUrl,
-            createWindow: input.createWindow,
-            timeoutMs: input.timeoutMs,
-          });
+          captured = input.captureRecord === undefined
+            ? await captureRecordViaOfficialClient({
+              bundle: input.bundle,
+              // The exact validated share URL is what gets navigated.
+              url: request.shareUrl,
+              createWindow: input.createWindow,
+              timeoutMs: input.timeoutMs,
+            })
+            : await input.captureRecord(request.shareUrl);
         } catch (error) {
           // Fixed fail-closed mapping: an unauthenticated window that cannot
           // fetch the replay, a refused navigation, or a protocol violation

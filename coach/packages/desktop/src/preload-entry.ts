@@ -190,8 +190,10 @@ contextBridge.exposeInMainWorld("riichiCoachCatalog", Object.freeze({
   startRecordAnalysis: async (recordId: string) => {
     if (typeof recordId !== "string") throw new Error(PROTOCOL_ERROR);
     const value = await ipcRenderer.invoke(PRELOAD_CHANNELS.startAnalysis, recordId);
-    if (!isRecord(value) || value.status !== "record_fetched" || Object.keys(value).length !== 1) throw new Error(PROTOCOL_ERROR);
-    return Object.freeze({ status: "record_fetched" as const });
+    if (!isRecord(value) || value.status !== "review_ready" || Object.keys(value).sort().join(",") !== "packageId,sessionId,status"
+      || typeof value.sessionId !== "string" || !value.sessionId || value.sessionId.length > 200
+      || typeof value.packageId !== "string" || !value.packageId || value.packageId.length > 200) throw new Error(PROTOCOL_ERROR);
+    return Object.freeze({ status: "review_ready" as const, sessionId: value.sessionId, packageId: value.packageId });
   },
   clearSourceCache: async () => {
     const value = await ipcRenderer.invoke(PRELOAD_CHANNELS.clearSourceCache);

@@ -4,7 +4,7 @@ import { join } from "node:path";
 import {
   CoachProviderConfigSchema, CoachProviderStatusSchema, CoachReportRequestSchema, StructuredAnalysisPackageSchema,
   type CoachProviderConfig, type CoachReportResult,
-  type ReviewSelectionResult, type StructuredAnalysisPackage,
+  type ReviewSelectionResult, type StructuredAnalysisPackage, type LlmCoachProvider,
 } from "@riichi-coach/contracts";
 import { generateReviewReport, projectContextGraph, selectReviewDecisions, validateStructuredAnalysisPackage } from "@riichi-coach/reasoning";
 import type { ProviderCredentials } from "./credentials.js";
@@ -27,6 +27,8 @@ export function createCoachService(input: {
   readPackage: (packageId: string) => Promise<unknown>;
   clock?: () => string;
   reviewRepository?: ReviewSessionRepository;
+  /** A main-owned provider adapter can be supplied for the isolated Electron Golden test. */
+  providerFactory?: (pkg: StructuredAnalysisPackage, selection: ReviewSelectionResult) => LlmCoachProvider;
 }) {
   let settings: CoachProviderConfig | null = null;
   // A credential mutation drains the active generation before returning. No
@@ -43,7 +45,7 @@ export function createCoachService(input: {
   const generateArtifact = async (pkg: StructuredAnalysisPackage, selection: ReviewSelectionResult) => {
     const configuredSettings = settings;
     const graph = projectContextGraph(pkg);
-    const provider = createOpenAiCoachProvider({ settings: configuredSettings, credentials: input.credentials, fetchImpl: input.fetchImpl });
+    const provider = input.providerFactory?.(pkg, selection) ?? createOpenAiCoachProvider({ settings: configuredSettings, credentials: input.credentials, fetchImpl: input.fetchImpl });
     return generateReviewReport(graph, selection, provider, input.clock?.());
   };
   const reviewController = createFixedReviewController({

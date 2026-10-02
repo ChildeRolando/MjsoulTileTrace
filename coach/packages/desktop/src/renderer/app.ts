@@ -116,10 +116,17 @@ function renderCatalog(summaries: readonly import("@riichi-coach/contracts").Ana
       void (async () => {
         setPending(true);
         try {
-          await window.riichiCoachCatalog.startRecordAnalysis(entry.recordId);
-          catalogDetailElement.textContent = "牌谱已取得并完成基础解码。";
+          const result = await window.riichiCoachCatalog.startRecordAnalysis(entry.recordId);
+          reviewPackageIdInput.value = result.packageId;
+          try {
+            await openReviewPackage(result.packageId);
+            catalogDetailElement.textContent = "已打开整盘复盘。";
+          } catch {
+            await fixedReviewUi.leave().catch(() => undefined);
+            catalogDetailElement.textContent = "复盘已保存，但暂时无法打开，请从已保存复盘重试。";
+          }
         } catch {
-          catalogDetailElement.textContent = "暂时无法取得或解析这场牌谱。";
+          catalogDetailElement.textContent = "暂时无法分析这场牌谱，请重试。";
         } finally { setPending(false); }
       })();
     });
