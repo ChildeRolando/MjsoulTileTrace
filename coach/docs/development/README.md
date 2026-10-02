@@ -18,8 +18,10 @@
 雀魂国区登录、跨重启恢复、最近 30 场可分析目录、牌谱取回、canonical 重放、managed local
 Mortal + `mortal-582500`、整盘确定性分析、selector、ContextGraph、grounded ReviewReport、
 M7-A review UI、M7-B 持久化与 share-import → ReviewSession → Review Workspace 接线均已
-落入当前候选；account `startRecordAnalysis` 仍待接入同一 handoff。**Playable Review MVP 尚不可宣称 demoable**，Golden Slice、固定五门、独立
-评审、合并与真人 smoke 仍未完成。M7-A 的冻结规格见
+落入当前候选；B/C 已合入 master。D 已将 account `startRecordAnalysis` 与 share-import
+接入同一 handoff，并提供从 app shell 启动的永久 Electron Golden Slice 命令与测试 owner。精确
+候选门禁须独立验证，真人 provider smoke 仍待执行。**Playable Review MVP 尚不可宣称 demoable**。
+M7-A 的冻结规格见
 [`2026-09-21-m7-a-whole-game-fixed-review-ui-design.md`](../specs/2026-09-21-m7-a-whole-game-fixed-review-ui-design.md)，
 M7-B 的冻结规格见
 [`2026-09-21-m7-b-review-session-persistence-design.md`](../specs/2026-09-21-m7-b-review-session-persistence-design.md)，

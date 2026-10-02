@@ -31,7 +31,8 @@
     "desktop:diagnose-mortal-full-game": "npm run build && electron packages/desktop/dist/electron-entry.js --diagnose-mortal-full-game",
     "prepare:local-mortal-spike": "node scripts/prepare-local-mortal-spike.mjs",
     "test:local-mortal-production-spike": "node --max-old-space-size=8192 scripts/local-mortal-production-spike.mjs",
-    "typecheck": "tsc --noEmit -p packages/contracts/tsconfig.json && tsc --noEmit -p packages/mahjong-soul-source/tsconfig.json && tsc --noEmit -p packages/tenhou-source/tsconfig.json && tsc --noEmit -p packages/mortal-source/tsconfig.json && tsc --noEmit -p packages/mortal-runtime/tsconfig.json && tsc --noEmit -p packages/reasoning/tsconfig.json && tsc --noEmit -p packages/desktop/tsconfig.json"
+    "typecheck": "tsc --noEmit -p packages/contracts/tsconfig.json && tsc --noEmit -p packages/mahjong-soul-source/tsconfig.json && tsc --noEmit -p packages/tenhou-source/tsconfig.json && tsc --noEmit -p packages/mortal-source/tsconfig.json && tsc --noEmit -p packages/mortal-runtime/tsconfig.json && tsc --noEmit -p packages/reasoning/tsconfig.json && tsc --noEmit -p packages/desktop/tsconfig.json",
+    "test:electron-mvp-golden": "npm run build && node packages/desktop/tests/electron-mvp-golden-slice.cjs"
   },
   "devDependencies": {
     "@types/node": "22.15.30",
