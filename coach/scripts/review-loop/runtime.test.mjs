@@ -890,6 +890,21 @@ test('supported round-four through round-six issues bind through canonical title
   }
 });
 
+for(const binding of ['title','worktree'])for(const status of ['running','awaiting'])test(`round-seven external Reviewer ${binding} binding rejects ${status} orphan run before writes`,async()=>{
+  const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-result-terminal-round-seven-'));
+  try {
+    const f=await resultBearingTerminalFixture(dir),head='f'.repeat(40),worktree=path.join(dir,'worktrees',`pr-8-review-7-${head.slice(0,12)}`);
+    const issue={id:`round-seven-${binding}-${status}`,project_id:'project',
+      title:binding === 'title' ? `[${VERSION}][审查][第7轮][${head.slice(0,12)}] ChildeRolando/MjsoulTileTrace#8` : 'renamed external Reviewer issue',
+      description:binding === 'worktree' ? `machine contract\n${JSON.stringify({repository:'ChildeRolando/MjsoulTileTrace',pr_number:8,worktree},null,2)}` : 'ordinary reviewer context'};
+    f.issues.set(issue.id,issue);f.runsByIssue.set(issue.id,[{id:`${issue.id}-run`,issue_id:issue.id,agent_id:'reviewer',status}]);
+    const before=await readFile(f.file,'utf8');
+    await assert.rejects(()=>acceptExternalReviewRun({...config(dir),enabled:false},f.request,()=>f.io),/active or unknown orphan writer/);
+    assert.equal(f.metrics.archives,0);assert.equal(f.metrics.saves,0);assert.equal(f.metrics.publishes,0);
+    assert.equal(await readFile(f.file,'utf8'),before);
+  } finally {await rm(dir,{recursive:true,force:true});}
+});
+
 async function roundThreeCandidateChangeFixture(dir) {
   const file=path.join(dir,'pr-8.json'),base='a'.repeat(40),heads=['b','c','d','e'].map(value=>value.repeat(40));
   const snapshotsDir=path.join(dir,'snapshots');
