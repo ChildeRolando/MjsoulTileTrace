@@ -790,6 +790,36 @@ test('result-bearing round-three acceptance rereads strict historical sources be
     assert(f.metrics.sourceReads>=36);assert(f.metrics.archiveReads>=10);assert(f.metrics.snapshotReads>=6);assert(f.metrics.ancestry>=3);
   } finally {await rm(dir,{recursive:true,force:true});}
 });
+for(const race of [
+  {name:'historical source run',inject:f=>f.runsByIssue.get('fix-2').push({id:'late-run',issue_id:'fix-2',agent_id:'fixer',status:'running'})},
+  {name:'external Reviewer run',inject:f=>f.runsByIssue.get('external-review').push({id:'late-external',issue_id:'external-review',agent_id:'reviewer',status:'running'})},
+  {name:'renamed same-PR orphan run',inject:(f,dir)=>{
+    const head='f'.repeat(40),common={protocol_version:VERSION,repository:'ChildeRolando/MjsoulTileTrace',pr_number:8,base_sha:'a'.repeat(40),head_sha:head,round:1,
+      worktree:path.join(dir,'worktrees',`pr-8-fix-1-${head.slice(0,12)}`),authoritative_spec_paths:admit(f.current).admission.authoritative_spec_paths,rubric:admit(f.current).admission.rubric};
+    const issue={id:'late-orphan',title:'renamed issue',project_id:'project',description:JSON.stringify(common,null,2)};
+    f.issues.set(issue.id,issue);f.runsByIssue.set(issue.id,[{id:'late-orphan-run',issue_id:issue.id,agent_id:'fixer',status:'running'}]);
+  }},
+  {name:'snapshot bytes corrupted',inject:f=>f.snapshots.set(f.state.history[0].snapshot.sha256,Buffer.from('{}'))},
+]) test(`result-bearing acceptance rechecks ${race.name} after Git verification before writes`,async()=>{
+  const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-result-terminal-late-writer-'));
+  try {
+    const f=await resultBearingTerminalFixture(dir);
+    for(const method of ['issue','comments','runs']) {
+      const read=f.io[method];f.io[method]=async(...args)=>structuredClone(await read(...args));
+    }
+    const before=await readFile(f.file),verify=f.io.verifyTerminalCandidate;let injected=false;
+    f.io.verifyTerminalCandidate=async(job,live)=>{
+      const proof=await verify(job,live);
+      if(f.metrics.ancestry===3 && !injected){injected=true;race.inject(f,dir);}
+      return proof;
+    };
+    let rejected=false;try{await acceptExternalReviewRun({...config(dir),enabled:false},f.request,()=>f.io);}catch{rejected=true;}
+    assert(injected,'late writer was not injected during the final Git check');
+    assert.equal(f.metrics.archives,0);assert.equal(f.metrics.saves,0);assert.equal(f.metrics.publishes,0);
+    assert(rejected,'late evidence change did not reject terminal acceptance');
+    assert((await readFile(f.file)).equals(before));
+  } finally {await rm(dir,{recursive:true,force:true});}
+});
 test('result-bearing round-three acceptance rejects source/archive/snapshot/orphan and race evidence before writes',async()=>{
   const mutations=[
     ['missing archive',f=>f.archives.delete(`${f.state.history[1].issue_id}:${f.state.history[1].sha256}`)],

@@ -744,7 +744,16 @@ export async function acceptExternalReviewRun(config,request,ioFactory=makeIO) {
       finalContext={...finalContext,...await io.verifyTerminalCandidate(terminal.job,preGit)};
       const postGit=admit(await io.live(request.pr_number));sameExternalCandidate(postGit,request);
       finalContext={...finalContext,...await io.verifyTerminalCandidate(terminal.job,postGit)};
+      // Git advertisement/fetch may be slow. Re-read every accepted historical
+      // source, snapshot, external Reviewer run and related issue after it, then
+      // perform only the final live/ledger checks before the first write.
+      const finalGitProof={isAncestorBase:finalContext.isAncestorBase,isAncestorHead:finalContext.isAncestorHead,containsLiveBase:finalContext.containsLiveBase};
+      finalSnapshots=await candidateChangeSnapshotContents(state,io.readSnapshot);
+      finalContext={...await resultBearingTerminalSources(state,finalSnapshots,io,config,request.review_issue_id),...finalGitProof};
+      const postGitSource=await readExternalResult();
+      assert.deepEqual(postGitSource,externalSource,'external review source changed during final Git verification');
       current=admit(await io.live(request.pr_number));sameExternalCandidate(current,request);
+      assert.equal(current.branch,postGit.branch,'external review branch changed during final verification');
     }
     externalReviewTerminal(state,current,finalSnapshots,finalContext);
     const result=externalSource.result;
