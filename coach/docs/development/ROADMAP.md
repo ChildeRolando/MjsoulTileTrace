@@ -41,7 +41,7 @@ PR #28、MVP、Golden Slice 不因已有单项通过而自动完成。
 | M4 受约束追问 | 未开始 | ——（原 M4"LLM 教练"已拆分为 M6-D 解释引擎 + M7-A 固定报告 UI + M4 追问对话） | fixed report 与教学证据层稳定后的 constrained follow-up/chat；context retrieval 将建立在 M6-D1 ContextGraph 上（embeddings/GraphRAG 不是前提） |
 | M5 雀魂国区接入 | 接近完成 | Electron 登录、加密恢复、最近 30 场、取回、canonical mapper、重放、脱敏 replay audit、H1 诊断命令 | 真实牌谱 H1 对照验收；未覆盖流局/杠枚举的 fixture 反证 |
 | M6 模型生产接入 | native runtime prerequisite 已合入；手动导入接缝为当前候选 | M6-A1–A4、M6-C、DeterministicReviewSelector、M6-D1/D2 与 COAC-111 local Mortal 四视角真实 checkpoint production spike 已落地；B 当前消费 managed local Mortal 生成 validated package | 固定五门、Golden Slice、fresh independent review 与最终人工验收；不得把 spike 单独视为 MVP 完成 |
-| M7 复盘工作台 | 核心能力完成，share-import 组合为当前候选 | M7-A UI、M7-B SQLite/immutable artifacts/两阶段恢复/离线重开/main-only raw cache 与 share-import → ReviewSession → Review Workspace 接线已落地；account `startRecordAnalysis` handoff 仍待接入 | MVP Electron Golden Slice、session-list/重启回归与最终发布门 |
+| M7 复盘工作台 | B/C 已合入 master；D 核心组合进入候选 | M7-A UI、M7-B SQLite/immutable artifacts/两阶段恢复/离线重开/main-only raw cache；D 中 account 与 share-import 均接入 ReviewSession → Review Workspace，并实现 app-shell Electron Golden Slice 命令与测试 owner | D 精确候选门禁与 fresh independent review、PR 合入及真人 provider smoke；整体尚未 DEMOABLE |
 | M8 打包发布 | 未开始 | Electron 与 sidecar 构建基础 | 跨平台安装、升级、日志、发布验收 |
 
 ## 当前关键路径
@@ -216,9 +216,10 @@ COAC-5/COAC-7 共享的 active-report 生命周期。PR #14（merge `3e9bbb7b…
 必须产出或复用真实 ReviewSession 并自动进入 Review Workspace；首次生成后列表即时刷新；
 永久 Electron Golden Slice 必须从 app shell 起步并在清内存、禁网/禁 LLM 后重启重开。
 
-A/B 的当前实现候选已落地，C 已由 COAC-100/PR #23 提供并合入；D/Golden Slice 与最终组合
-回归仍未闭合。只有 Integration spec 的 Golden Slice、五门、fresh `NO_P1_P2`、合并与一次
-真人 smoke 全部完成，才能标记 `Playable Review MVP v0.1 = DEMOABLE`。
+B/C 已合入 master；D 候选将账号分析与 share-import 接入同一 ReviewSession → Review
+Workspace handoff，并提供 app-shell Electron Golden Slice 命令与测试 owner。D 最终候选须在精确
+commit 上完成 Golden Slice、固定五门与 fresh `NO_P1_P2`；PR 合入及一次真人 provider smoke
+也完成后，才能标记 `Playable Review MVP v0.1 = DEMOABLE`。整体目前尚未 DEMOABLE。
 
 ### 6.2 M6-B Native model runtime prerequisite
 
