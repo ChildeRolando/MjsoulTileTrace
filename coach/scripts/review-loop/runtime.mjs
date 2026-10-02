@@ -88,14 +88,14 @@ function unquotedJsonObjects(description) {
 }
 function terminalIssueBindings(issue,stateDir,prNumber) {
   const bindings=[];
-  const title=typeof issue.title === 'string' && issue.title.match(/^\[review-loop\/v2\.1\]\[(审查|修复)\]\[第([1-3])轮\]\[([a-f0-9]{12})\] ChildeRolando\/MjsoulTileTrace#([1-9][0-9]*)$/);
+  const title=typeof issue.title === 'string' && issue.title.match(/^\[review-loop\/v2\.1\]\[(审查|修复)\]\[第([1-6])轮\]\[([a-f0-9]{12})\] ChildeRolando\/MjsoulTileTrace#([1-9][0-9]*)$/);
   if(title && Number(title[4]) === prNumber)bindings.push({kind:title[1] === '审查' ? 'review' : 'fix',round:Number(title[2]),headPrefix:title[3]});
   const root=path.resolve(stateDir,'worktrees').replaceAll('\\','/').toLowerCase();
   for(const common of unquotedJsonObjects(issue.description)) {
     if(common.repository !== REPOSITORY || common.pr_number !== prNumber || typeof common.worktree !== 'string')continue;
     const worktree=path.resolve(common.worktree).replaceAll('\\','/').toLowerCase();
     const relative=worktree.startsWith(`${root}/`) ? worktree.slice(root.length+1) : '';
-    const match=/^pr-(\d+)-(review|fix)-([1-3])-([a-f0-9]{12})$/.exec(relative);
+    const match=/^pr-(\d+)-(review|fix)-([1-6])-([a-f0-9]{12})$/.exec(relative);
     if(match && Number(match[1]) === prNumber)bindings.push({kind:match[2],round:Number(match[3]),headPrefix:match[4]});
   }
   return bindings;
