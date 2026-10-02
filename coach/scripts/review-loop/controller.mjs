@@ -258,7 +258,8 @@ function assertFailedFixRecoveryBinding(binding,live,job,state,reviewerId) {
 }
 
 function assertDispatchIdentity(issue,job,projectId) {
-  assert(issue.title === job.title && issue.project_id === projectId && issue.assignee_type === 'agent'
+  assert(typeof issue?.id === 'string' && issue.id.trim().length > 0
+    && issue.title === job.title && issue.project_id === projectId && issue.assignee_type === 'agent'
     && issue.assignee_id === job.agent_id && hash(issue.description) === job.description_hash,'dispatch identity conflict');
 }
 
@@ -343,7 +344,6 @@ export async function ensureDispatch(state, live, kind, io, config, result, fail
     job.dispatch_snapshot=current.snapshot;state.snapshot=current.snapshot;
     job.attempted_at=new Date().toISOString();await io.save(state);
     issue=await io.create(job);
-    assert(issue?.id,'missing created issue identity');
     assertDispatchIdentity(issue,job,config.project_id);
   }
   if(failedFixRecoveryBinding) {

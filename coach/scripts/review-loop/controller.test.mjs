@@ -98,6 +98,38 @@ test('newly created issue must match complete dispatch identity before recording
     assert.equal(f.creates,1,field);
   }
 });
+test('dispatch identity requires a nonblank string issue ID on create and reconcile',async()=>{
+  const invalidIds=[['number',42],['object',{}],['null',null],['empty string',''],['whitespace','   '],['missing',undefined]];
+  for(const [field,id] of invalidIds) {
+    const f=fake(),s=state(),create=f.io.create;
+    f.io.create=async job=>{
+      const issue=await create(job);
+      issue.id=structuredClone(id);
+      return issue;
+    };
+    await assert.rejects(()=>ensureDispatch(s,live,'review',f.io,config),/dispatch identity conflict/,`${field} create`);
+    assert.equal(s.pending?.attempted_at !== undefined,true,`${field} attempted intent`);
+    assert.equal(s.job,undefined,`${field} create must not confirm dispatch`);
+    assert.equal(s.history.some(event=>event.event === 'dispatch'),false,`${field} create history`);
+    await assert.rejects(()=>ensureDispatch(s,live,'review',f.io,config),/dispatch identity conflict/,`${field} reconcile`);
+    assert.equal(f.creates,1,`${field} must not blindly retry`);
+    assert.equal(s.job,undefined,`${field} reconcile must not confirm dispatch`);
+    assert.equal(s.history.some(event=>event.event === 'dispatch'),false,`${field} reconcile history`);
+  }
+});
+test('dispatch accepts an opaque string issue ID and preserves it when reconciling a lost response',async()=>{
+  const f=fake(),s=state(),create=f.io.create;
+  f.io.create=async job=>{
+    const issue=await create(job);
+    issue.id='opaque:issue/42';
+    throw new Error('lost response');
+  };
+  await assert.rejects(()=>ensureDispatch(s,live,'review',f.io,config),/lost response/);
+  await ensureDispatch(s,live,'review',f.io,config);
+  assert.equal(f.creates,1);
+  assert.equal(s.job.issue_id,'opaque:issue/42');
+  assert.equal(s.history.at(-1).issue_id,'opaque:issue/42');
+});
 test('unknown create without visible issue fails closed, never duplicates',async()=>{
   const f=fake(),s=state();f.io.create=async()=>{throw new Error('timeout');};
   await assert.rejects(()=>ensureDispatch(s,live,'review',f.io,config));
