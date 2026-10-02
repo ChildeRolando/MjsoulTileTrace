@@ -234,9 +234,9 @@ BLOCKED 原因拒绝；零自动合并写入；新提交 fresh independent revie
 相应回归在缺陷上失败，修复后跑 focused tests、`npm run test:review-loop-protocol` 与
 适用五门；规格冻结不等于尚未实施的用例通过。
 
-自动审查达到第六轮上限后，用户另行人工派发的独立补充审查不属于自动 round，也不得扩大
+自动审查终止后，用户另行人工派发的独立补充审查不属于自动 round，也不得扩大
 `reviewRoundLimit`。受信 operator 只有在 Autopilot 暂停、`enabled=false`、持有同一部署锁且
-自动 ledger 仍为 round 6 BLOCKED 时，才可调用 `accept-external-review`。入口重新读取 live PR
+自动 ledger 满足下述两种明确终态之一时，才可调用 `accept-external-review`。入口重新读取 live PR
 与 admission、人工创建的审查 issue、指定 Reviewer 的唯一结果评论和 completed run；严格校验
 完整 issue description 的 SHA-256、原 admission hash/rubric/spec paths、base/head、外部序号、
 原文 hash、五门 PASS/0、空 P1/P2/P3 与空 environment failures。接受记录以
@@ -246,6 +246,23 @@ BLOCKED、round、job、result、授权链及全部原文保持不变。聚合�
 伪造/错配作者、issue/comment/run/hash/contract、非 completed run、少门禁、非绿结果、重复调用、
 stale candidate 与并发 Controller 均 fail closed。该入口不创建新自动轮次、不直接合并 PR，
 也不能由被审 PR 作者的自评替代指定 Reviewer 结果。
+
+2026-10-01 用户批准的候选变化耗尽接纳补充：除原有合法 round 6 BLOCKED 终态外，
+允许默认三轮均因候选变化而被丢弃的终态使用同一入口。必须为 `BLOCKED/round=3`、
+默认上限 3、reason 精确为 `round limit after candidate changed`，无 pending、已接纳
+result 或追加授权；当前 job 是本 PR 第三轮 review，admission 与账本一致。history 必须
+完整且仅含按 round 1→3 排列的三组唯一 `dispatch` / `discard`；每组 issue/base/head
+精确对应，discard reason 为 `candidate changed before result consumption`，末组与 job
+一致。接纳时的 live base/head 必须不同于末次被丢弃候选。其他 BLOCKED 原因、来源
+校验失败、已接受结果、残缺/重复/不一致历史及授权耗尽均不适用这一补充。
+
+外部序号须大于自动 ledger 的实际 round；不得把 R5 改成自动第 4/5/6 轮。原有成员创建、
+指定 Reviewer、唯一 completed 来源、issue 契约 hash、原 rubric/spec/admission、严格结果、
+空 findings/环境失败、五门 PASS/0、锁和写入前二次 live 核验全部保持。成功只追加同一
+`external_independent_review` 记录及归档；原 BLOCKED/reason、round/job/result、授权与历史
+保持原值，默认自动预算仍为三轮。状态发布继续由同一聚合发布器拥有，新候选使接纳失效；
+入口不派发新审查、不请求合并。受信部署须经过独立审查、disabled read-back、备份和
+实际状态回读，不可为某个 PR 临时绕过 guard。
 
 GitHub `Review Loop v2` commit status 报告 pending/success/failure；同一 GitHub 账号
 可以提交 COMMENT/状态，并不意味着拥有作者自批能力。PASS 仅表示该 base/head 的本轮

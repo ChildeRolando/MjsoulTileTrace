@@ -39,7 +39,7 @@ checkpoint production seam，不把 spike 单独计为产品 PASS。
 
 ## 文档分层
 
-开发自动化：[自动评审与修复](REVIEW_LOOP.md)（部署状态与运行手册）。
+评审接入边界：[Review Loop 接入契约](REVIEW_LOOP.md)。工具实现、测试与发布由独立本地仓维护。
 
 - 本目录：living docs，随当前实现更新。
 - `coach/docs/specs/`：批准的设计规格，解释某个切片要解决什么。

@@ -77,11 +77,10 @@ export function assertUsableLocalMortalRuleResult(
 
 /**
  * `coverage_ready` describes a complete diagnostic census, not necessarily a
- * usable production package.  The whole-game review intentionally retains
- * faithful degraded rows for remote diagnostics; the local production seam
- * must not persist one when its deterministic helper or assembly failed.
- * Legal non-action/singleton/unsupported rows remain valid because they do not
- * use either execution-failure reason.
+ * usable production package. The whole-game review intentionally retains
+ * faithful rows for diagnostics; the local production seam rejects execution
+ * failures and source-binding faults. Legal non-action/singleton rows and
+ * truthful degraded analysis remain valid when no integrity failure exists.
  */
 function assertProductionAnalysisUsable(
   review: LocalMortalCoverageReadyReview,
@@ -90,6 +89,24 @@ function assertProductionAnalysisUsable(
     if ((review.summary.analysisBlockedReasons[reason] ?? 0) > 0) {
       throw new Error(reason);
     }
+  }
+
+  // A complete diagnostic census can still carry source-side binding faults.
+  // Ambiguous rows, unsupported source semantics, identity mismatches, and
+  // response rows without a replayed window cannot authorize production
+  // review. A local terminal row that is explicitly not replayed remains a
+  // truthful degraded-evidence case.
+  if (
+    review.summary.binding.ambiguous > 0
+    || review.sourceCoverage.ambiguousMortalEntryCount > 0
+    || review.sourceCoverage.responseAmbiguousEntryCount > 0
+    || review.sourceCoverage.responseUnboundEntryCount > 0
+    || review.sourceCoverage.entries.some((entry) =>
+      entry.disposition === "unbound"
+      && entry.unboundReason !== "local_terminal_action_not_replayed"
+    )
+  ) {
+    throw new Error("mortal_source_binding_invalid");
   }
 }
 
@@ -250,6 +267,13 @@ export function createLocalMortalAnalysisService(input: {
           ...(input.now === undefined ? {} : { now: input.now }),
         });
         validateStructuredAnalysisPackage(pkg);
+        // Reuse the package builder/validator's authoritative aggregate
+        // integrity status. Diagnostic packages with this truthful status
+        // remain valid artifacts; they simply cannot cross the production
+        // import/save boundary.
+        if (pkg.record.status === "integrity_failed") {
+          throw new Error("analysis_integrity_failed");
+        }
         return Object.freeze({
           package: pkg,
           canonicalEventCount: request.stream.events.length,
