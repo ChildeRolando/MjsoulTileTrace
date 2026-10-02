@@ -160,7 +160,7 @@ describe("fixed review native DOM surface", () => {
         expect(saved.overview).toContain({ complete: "入选条目的解说齐全", partial: "部分解说可用", evidence_only: "仅证据可用", failed: "" }[status]);
         expect(saved.overview).not.toMatch(/未生成|private-refresh-diagnostic/);
         expect(actual).toEqual([{
-          before, afterOpen: before, afterGeneration: "", afterLeave: after, hidden: true, reads: 4,
+          before, afterOpen: before, afterGeneration: before, afterLeave: after, hidden: true, reads: 4,
           savedAfterRefreshFailure: { activeReportRefId: "saved-report",
             warning: "教练解说已生成，暂时无法刷新已保存复盘列表。", overview: saved.overview,
             alerts: [], generateButtons: 0, hidden: false },
