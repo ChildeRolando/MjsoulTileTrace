@@ -14,7 +14,7 @@
 - [当前路线图](docs/development/ROADMAP.md)
 - [系统架构](docs/development/ARCHITECTURE.md)
 - [规格档案](docs/specs/)
-- [自动评审与修复闭环](docs/development/REVIEW_LOOP.md)
+- [Review Loop 产品接入约定](docs/development/REVIEW_LOOP.md)
 - [实施计划档案](docs/plans/)
 - [交接档案](docs/handoffs/)
 
