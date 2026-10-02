@@ -7,6 +7,8 @@ import {
   KnownGameFactsSchema,
   ResponseFuritenAnalysisV2Schema,
   sortTilesCanonical,
+  canonicalActionRef, libriichiRuleCanonicalJson, ActionRefSchema,
+  type LibriichiRuleRequest, type LibriichiRuleSuccess, type LibriichiRuleIdentity, type LibriichiRulePort, type ActualModelCorrespondence,
   type CanonicalEventStream,
   type DecisionSnapshotV2,
   type KnownActionFacts,
@@ -36,10 +38,14 @@ import { deriveResponseFuriten } from "../replay/response-furiten.js";
 import type { ReplayedDecision } from "../replay/stream-replayer.js";
 import { runStructuredAnalysisAssembly } from "./structured-analysis-assembly.js";
 import type { StructuredFactorPipelineResult } from "../factors/structured-factor-pipeline.js";
+import { bindLibriichiRuleResult, createLibriichiRuleProjector } from "./libriichi-rule-projection.js";
+import { actualLibriichiActionRef } from "./local-mortal-rule-scoring.js";
+import { collectLibriichiRuleResults } from "./libriichi-rule-collection.js";
 
 export type MortalReviewFailureCode =
   | MortalSourceErrorCode
   | "mortal_review_engine_failed"
+  | "mortal_review_rules_failed"
   | "mortal_review_assembly_failed";
 
 export type MortalDecisionAnchor = Readonly<{
@@ -57,6 +63,7 @@ export type MortalSingleDecisionReviewResult =
       readonly comparisonSet: StructuredComparisonSet;
       readonly modelEvaluation: ModelEvaluation;
       readonly factorResult: StructuredFactorPipelineResult;
+      readonly legalActionRules?: { readonly identity: LibriichiRuleIdentity; readonly requestId: string; readonly resultId: string };
     }
   | {
       readonly status: "failed";
@@ -338,6 +345,20 @@ export function entryMatchesDecisionIdentity(
   const privateState = snapshot.privateState;
   const publicState = snapshot.publicState;
   const window = privateState.decisionWindow;
+  if (entry.localDecisionIdentity !== undefined) {
+    const expected = {
+      decisionId: decision.decisionEventRef,
+      surface: window.kind === "discard_response" || window.kind === "kan_response" ? "response" : "self",
+      windowKind: window.kind,
+      triggerEventRef: decision.decisionEventRef,
+      selfActor: snapshot.selfActor,
+    };
+    // Managed-local rows already crossed the strict request/response/replay
+    // seam. Their canonical decision identity is stronger than the lossy
+    // remote-report fact table (which has no event ref and may omit draw
+    // counts late in a round), so it is the binding authority for this row.
+    return JSON.stringify(entry.localDecisionIdentity) === JSON.stringify(expected);
+  }
 
   // Round identity: canonical round occurrence, wind, dealer, and honba.
   // These are public facts on both sides and are proven by fingerprint v2,
@@ -740,7 +761,11 @@ export async function runBoundMortalDecisionReview(input: {
   readonly engine: HandStructureFactEnginePort;
   readonly now?: () => number;
   readonly frozenAt?: string;
+  readonly libriichi: {request:LibriichiRuleRequest;response:LibriichiRuleSuccess};
 }): Promise<MortalSingleDecisionReviewResult> {
+  if (input.libriichi === undefined) {
+    return {status:"failed",code:"mortal_review_rules_failed",diagnostics:["rules_input_incomplete"]};
+  }
   const now = input.now ?? Date.now;
   try {
     const stream = CanonicalEventStreamSchema.parse(input.stream);
@@ -774,31 +799,48 @@ export async function runBoundMortalDecisionReview(input: {
 
     // P7: pure projection into the candidate normalizer's action-fact shape.
     const actionFacts = projectActionFacts(input.decision);
+    let nativeCorrespondence: Extract<ActualModelCorrespondence,{relation:"native_physical_realization"}> | undefined;
+    const {request,response} = input.libriichi;
+    const fresh = createLibriichiRuleProjector(stream,request.identity)(input.decision);
+    if (libriichiRuleCanonicalJson(fresh) !== libriichiRuleCanonicalJson(request)) throw new Error("rules_protocol_invalid");
+    const bound = bindLibriichiRuleResult({request,response,decision:input.decision});
+    const expectedLegalActionRefs = bound.actions.map(row=>row.actionRef);
+    const scoredModelActionRef = actualLibriichiActionRef(input.decision,bound.actions);
+    const actual = input.decision.actualAction!;
+    const actualActionRef = canonicalActionRef(actual);
+    if (actual.kind === "discard" && actualActionRef !== scoredModelActionRef) {
+      nativeCorrespondence = {relation:"native_physical_realization",ruleResultId:response.resultId,actualActionRef,
+        scoredModelActionRef:ActionRefSchema.parse(scoredModelActionRef)};
+    }
 
-    // P8: reuse the structured Mortal import. A kakan candidate needs the
-    // upgraded pon ref; the local actual owns it, so it flows in as adapter
-    // context for every model row.
-    const kakanMeldHint = input.decision.actualAction?.kind === "kakan"
-      ? input.decision.actualAction.existingMeldRef
-      : undefined;
+    // P8: bind each kakan to its own matching frozen pon, including an
+    // unchosen kakan. The actual action cannot supply every candidate's ref.
     const decisionLayerRef = `mortal-review:${reportIdHash}:${input.decision.decisionEventRef}`;
     const comparisonSetId = `mortal-comparison:${reportIdHash}:${input.decision.decisionEventRef}`;
     const imported = importStructuredMortalComparison({
       comparisonSetId,
       decisionLayerRef,
       facts: actionFacts,
-      modelCandidates: input.entry.details.map((detail, index) => ({
-        actions: [{
-          eventRef: candidateEventRef(reportIdHash, input.entry, index),
-          action: detail.action,
-        }],
-        probability: detail.probability,
-        qValue: detail.qValue,
-        ...(kakanMeldHint === undefined
-          ? {}
-          : { existingMeldRef: kakanMeldHint }),
-      })),
+      modelCandidates: input.entry.details.map((detail, index) => {
+        const added = detail.action.type === "kakan" && detail.action.pai !== undefined
+          ? parseMjaiTile(detail.action.pai) : null;
+        const pons = added === null ? [] : actionFacts.melds?.filter(meld =>
+          meld.kind === "pon" && meld.tiles.every(tile => tile.id === added.id)) ?? [];
+        const kakanMeldHint = pons.length === 1 ? pons[0]!.meldRef : undefined;
+        return {
+          actions: [{
+            eventRef: candidateEventRef(reportIdHash, input.entry, index),
+            action: detail.action,
+          }],
+          probability: detail.probability,
+          qValue: detail.qValue,
+          ...(kakanMeldHint === undefined
+            ? {}
+            : { existingMeldRef: kakanMeldHint }),
+        };
+      }),
       actual: { actions: localEnvelopes },
+      ...(nativeCorrespondence === undefined ? {} : {nativeCorrespondence}),
     });
     if (imported.status === "incomplete") {
       return {
@@ -813,6 +855,15 @@ export async function runBoundMortalDecisionReview(input: {
         code: imported.code,
         diagnostics: Object.freeze([...imported.windowKinds]),
       };
+    }
+
+    // Compare the entire normalized score domain before helper/assembly. The
+    // report cannot delete an unchosen legal action or add a new one.
+    const expected = new Set(expectedLegalActionRefs);
+    const scored = imported.scores.map(score => score.actionRef);
+    if (expected.size !== expectedLegalActionRefs.length || scored.length !== expected.size ||
+        new Set(scored).size !== scored.length || scored.some(ref => !expected.has(ref))) {
+      return {status:"failed",code:"mortal_decision_unsupported_entry",diagnostics:["legal_candidate_mismatch"]};
     }
 
     // P9: deterministic model evaluation. For a riichi window the actual
@@ -833,7 +884,7 @@ export async function runBoundMortalDecisionReview(input: {
       comparisonSetId: imported.comparisonSet.comparisonSetId,
       decisionLayerRef: imported.comparisonSet.decisionLayerRef,
       engineVersion: input.report.version,
-      adapterVersion: MORTAL_ADAPTER_VERSION,
+      adapterVersion: input.report.adapterVersion,
       actualActionRef: actualCandidate.actionRef,
       scoredActualModelActionRef:
         correspondence?.scoredModelActionRef ?? actualCandidate.actionRef,
@@ -860,6 +911,7 @@ export async function runBoundMortalDecisionReview(input: {
         input.engine,
       );
       factorResult = await runStructuredAnalysisAssembly({
+        automaticReport: true,
         frame: buildFrame(reportIdHash, input.decision, facts),
         comparisonSet: imported.comparisonSet,
         facts,
@@ -884,6 +936,7 @@ export async function runBoundMortalDecisionReview(input: {
       comparisonSet: imported.comparisonSet,
       modelEvaluation: evaluationBuilt.evaluation,
       factorResult,
+      legalActionRules:{identity:request.identity,requestId:request.requestId,resultId:response.resultId},
     };
   } catch (error) {
     if (error instanceof MortalSourceError) {
@@ -913,6 +966,7 @@ export async function runMortalSingleDecisionReview(input: {
   readonly decision: ReplayedDecision;
   readonly report: MortalFetchedReport;
   readonly engine: HandStructureFactEnginePort;
+  readonly rules: { readonly identity: LibriichiRuleIdentity; readonly port: LibriichiRulePort };
   readonly now?: () => number;
 }): Promise<MortalSingleDecisionReviewResult> {
   try {
@@ -929,6 +983,20 @@ export async function runMortalSingleDecisionReview(input: {
     // Whole-report preflight: game identity + perspective.
     validateMortalReportBinding(stream, input.report);
 
+    // Rules are queried from the full canonical state, before source-row lookup.
+    // A missing row or a single reported score is never evidence of a singleton.
+    const resolved = (await collectLibriichiRuleResults({stream,decisions:[input.decision],...input.rules}))
+      .get(input.decision.decisionEventRef)!;
+    if (resolved.request === null || resolved.response.status !== "ok") {
+      return {status:"failed",code:"mortal_review_rules_failed",diagnostics:[
+        resolved.response.status === "error" ? resolved.response.code : "rules_action_mapping_invalid"]};
+    }
+    try { actualLibriichiActionRef(input.decision,resolved.actions); }
+    catch { return {status:"failed",code:"mortal_review_rules_failed",diagnostics:["rules_actual_action_mismatch"]}; }
+    if (resolved.actions.length === 1) {
+      return {status:"not_comparable",code:"fewer_than_two_distinct_actions",diagnostics:[]};
+    }
+
     // P0-1 (M6-A3): the local actual must be a typed action on this surface.
     localActualEnvelopes(input.decision);
 
@@ -944,6 +1012,7 @@ export async function runMortalSingleDecisionReview(input: {
       report: input.report,
       entry: anchored.entry,
       engine: input.engine,
+      libriichi:{request:resolved.request,response:resolved.response},
       ...(input.now === undefined ? {} : { now: input.now }),
     });
   } catch (error) {

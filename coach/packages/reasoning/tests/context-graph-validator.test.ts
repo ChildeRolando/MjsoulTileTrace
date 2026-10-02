@@ -33,12 +33,72 @@ function reasoningNode(overrides: Record<string, unknown> = {}): ContextGraphNod
 }
 
 describe("M6-D1 validateContextGraph", () => {
+  it.each(["hidden-toJSON", "getter", "hidden-property", "symbol"])(
+    "rejects %s before executing or dropping graph payload properties", async kind => {
+      const graph = projectContextGraph(await buildSingleDecisionPackage());
+      const payload = graph.nodes[0]!.payload as Record<string | symbol, unknown>;
+      let calls = 0;
+      if (kind === "hidden-toJSON") Object.defineProperty(payload, "toJSON", {
+        value: () => { calls++; return {}; }, enumerable: false,
+      });
+      if (kind === "getter") Object.defineProperty(payload, "synthetic", {
+        get: () => { calls++; return 1; }, enumerable: true,
+      });
+      if (kind === "hidden-property") Object.defineProperty(payload, "synthetic", {value:1,enumerable:false});
+      if (kind === "symbol") payload[Symbol("synthetic")] = 1;
+      expect(() => validateContextGraph(graph)).toThrow(/m6d1_graph_validator_roundtrip_mismatch/);
+      expect(calls).toBe(0);
+    },
+  );
+
+  it.each(["negative-zero", "undefined", "sparse-array", "array-property", "cycle"])(
+    "rejects JSON-changing %s without whole-graph serialization", async kind => {
+      const graph = projectContextGraph(await buildSingleDecisionPackage());
+      const payload = graph.nodes[0]!.payload as Record<string, unknown>;
+      if (kind === "negative-zero") payload.synthetic = -0;
+      if (kind === "undefined") payload.synthetic = undefined;
+      if (kind === "sparse-array") payload.synthetic = new Array(1);
+      if (kind === "array-property") payload.synthetic = Object.assign([], {extra:1});
+      if (kind === "cycle") payload.synthetic = payload;
+      expect(() => validateContextGraph(graph)).toThrow(/m6d1_graph_validator_roundtrip_mismatch/);
+    },
+  );
+
   it("accepts a builder-produced graph and its JSON roundtrip", async () => {
     const pkg = await buildSingleDecisionPackage();
     const graph = projectContextGraph(pkg);
     expect(() => validateContextGraph(graph)).not.toThrow();
     expect(() => validateContextGraph(clone(graph))).not.toThrow();
   });
+
+  it("accepts frozen plain data and shared acyclic payloads without modifying them", async () => {
+    const graph = projectContextGraph(await buildSingleDecisionPackage());
+    const payload = graph.nodes[0]!.payload as Record<string, unknown>;
+    const shared = Object.freeze({ text: "unchanged", values: Object.freeze([1, null, true]) });
+    payload.first = shared;
+    payload.second = shared;
+    Object.freeze(payload);
+    Object.freeze(graph.nodes);
+    Object.freeze(graph.edges);
+    Object.freeze(graph);
+    const before = JSON.stringify(graph);
+    expect(() => validateContextGraph(graph)).not.toThrow();
+    expect(JSON.stringify(graph)).toBe(before);
+    expect(payload.first).toBe(payload.second);
+  });
+
+  it.each(["header", "node", "edge", "nodes-array", "edges-array"])(
+    "retains strict schema rejection for %s", async kind => {
+      const graph = projectContextGraph(await buildSingleDecisionPackage());
+      const raw = graph as unknown as Record<string, unknown>;
+      if (kind === "header") raw.extra = 1;
+      if (kind === "node") (graph.nodes[0] as unknown as Record<string, unknown>).extra = 1;
+      if (kind === "edge") (graph.edges[0] as unknown as Record<string, unknown>).extra = 1;
+      if (kind === "nodes-array") raw.nodes = {};
+      if (kind === "edges-array") raw.edges = {};
+      expect(() => validateContextGraph(graph)).toThrow(/m6d1_graph_validator_schema/);
+    },
+  );
 
   it("rejects a tampered nodeId that no longer matches the payload (guard 1)", async () => {
     const pkg = await buildSingleDecisionPackage();

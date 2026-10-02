@@ -16,6 +16,7 @@ export const PRELOAD_CHANNELS = Object.freeze({
   syncRecords: "mahjong-soul:sync-analyzable-records",
   listRecords: "mahjong-soul:list-analyzable-records",
   startAnalysis: "mahjong-soul:start-record-analysis",
+  clearSourceCache: "mahjong-soul:clear-source-cache",
   importPaipuUrl: "mahjong-soul:import-paipu-url",
 } as const);
 
@@ -97,6 +98,7 @@ export function assertSafeSummaries(value: unknown): unknown {
 }
 
 const PAIPU_IMPORT_STATUSES: ReadonlySet<string> = new Set([
+  "review_ready",
   "analysis_ready",
   "invalid_url",
   "identity_mismatch",
@@ -106,8 +108,8 @@ const PAIPU_IMPORT_STATUSES: ReadonlySet<string> = new Set([
 ]);
 
 // The fixed safe result of a paipu-URL import: one of the fixed statuses,
-// plus exactly {recordId, canonicalEventCount, replayDecisionCount} when
-// ready. Record bytes, credentials, endpoints, account/perspective ids and
+// plus verified session/package identities and bounded counts when the review
+// is ready. Record bytes, credentials, endpoints, account/perspective ids and
 // raw payloads can never appear in this shape — and the seat never crosses
 // (it is auto-resolved in the main process and is none of the renderer's
 // business).
@@ -122,7 +124,22 @@ export function assertSafePaipuImportResult(value: unknown): unknown {
   for (const key of Object.keys(value)) {
     if (FORBIDDEN_KEYS.has(key)) throw new Error(PROTOCOL_ERROR);
   }
-  if (value.status === "analysis_ready") {
+  if (value.status === "review_ready") {
+    const keys = Object.keys(value).sort();
+    if (keys.length !== 6) throw new Error(PROTOCOL_ERROR);
+    const ids = [value.recordId, value.sessionId, value.packageId];
+    const counts = [value.canonicalEventCount, value.replayDecisionCount];
+    if (
+      ids.some((id) => typeof id !== "string" || id.length === 0 || id.length > 200)
+      || counts.some((count) =>
+        typeof count !== "number"
+        || !Number.isInteger(count)
+        || count < 0
+        || count > 1_000_000)
+    ) {
+      throw new Error(PROTOCOL_ERROR);
+    }
+  } else if (value.status === "analysis_ready") {
     const keys = Object.keys(value).sort();
     if (keys.length !== 4) throw new Error(PROTOCOL_ERROR);
     const recordId = value.recordId;
@@ -175,6 +192,14 @@ contextBridge.exposeInMainWorld("riichiCoachCatalog", Object.freeze({
     const value = await ipcRenderer.invoke(PRELOAD_CHANNELS.startAnalysis, recordId);
     if (!isRecord(value) || value.status !== "record_fetched" || Object.keys(value).length !== 1) throw new Error(PROTOCOL_ERROR);
     return Object.freeze({ status: "record_fetched" as const });
+  },
+  clearSourceCache: async () => {
+    const value = await ipcRenderer.invoke(PRELOAD_CHANNELS.clearSourceCache);
+    if (!isRecord(value) || value.status !== "cleared" || Object.keys(value).sort().join(",") !== "pendingMaterials,status"
+      || typeof value.pendingMaterials !== "number" || !Number.isInteger(value.pendingMaterials) || value.pendingMaterials < 0) {
+      throw new Error(PROTOCOL_ERROR);
+    }
+    return Object.freeze({ status: "cleared" as const, pendingMaterials: value.pendingMaterials });
   },
 }));
 

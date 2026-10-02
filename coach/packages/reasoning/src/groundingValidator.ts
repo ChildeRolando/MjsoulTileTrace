@@ -57,7 +57,9 @@
  * no wall clock, no randomness; the same (graph, draft) always produces the
  * same deep-equal result.
  */
+import { validateAutomaticComparisonScopes } from "./context-graph/validate-context-graph.js";
 import {
+  AutomaticComparisonScopeSchema,
   COACH_EXPLANATION_PLACEHOLDER_PATTERN,
   CoachInferencePayloadSchema,
   CoachJudgmentPayloadSchema,
@@ -119,6 +121,20 @@ function rejection(
  *  slice allow-list filter — the exact data the model was shown for this
  *  decision (M6-D1 reuse; no re-slicing, no boundary relaxation). */
 type DecisionScope = Map<string, { node: ContextGraphNode; payload: Record<string, unknown> }>;
+
+/** Full model candidates remain visible; teaching recommendations stay within
+ * the explicitly analyzed pair. Legacy graphs retain exhaustive semantics. */
+function recommendationActionRefs(scope: DecisionScope): Set<string> {
+  const refs = new Set([...scope.values()]
+    .filter(entry => entry.node.nodeKind === "CandidateAction")
+    .map(entry => entry.payload.actionRef).filter((ref): ref is string => typeof ref === "string"));
+  const descriptor = [...scope.values()].find(entry => entry.node.nodeKind === "Decision")
+    ?.payload.automaticComparisonScope;
+  if (descriptor === undefined) return refs;
+  const parsed = AutomaticComparisonScopeSchema.safeParse(descriptor);
+  if (!parsed.success) return new Set();
+  return new Set(parsed.data.actionRefs.filter(ref => refs.has(ref)));
+}
 
 function decisionNodeOf(
   graph: ContextGraph,
@@ -323,6 +339,11 @@ export function validateCoachGrounding(
 ): CoachGroundingCheckResult {
   const violations: CoachGroundingRejection[] = [];
   const softFindings: CoachSoftFinding[] = [];
+  try {
+    validateAutomaticComparisonScopes(graph);
+  } catch (error) {
+    return { violations: [rejection("invalid_payload", undefined, messageOf(error))], softFindings };
+  }
 
   // Layer 6 / defense in depth: the engine parses the raw model output
   // against the strict draft schema BEFORE grounding; a draft that no longer
@@ -377,12 +398,7 @@ export function validateCoachGrounding(
 
     // Layer 2: recommendation inside the decision's CandidateAction set (the
     // slice allow-list keeps CandidateAction.actionRef).
-    const candidateActionRefs = new Set(
-      [...scope.values()]
-        .filter((entry) => entry.node.nodeKind === "CandidateAction")
-        .map((entry) => entry.payload.actionRef)
-        .filter((ref): ref is string => typeof ref === "string"),
-    );
+    const candidateActionRefs = recommendationActionRefs(scope);
     if (!candidateActionRefs.has(decision.judgment.recommendation)) {
       violations.push(
         rejection("recommendation_not_in_candidates", decision.decisionId, `recommendation ${decision.judgment.recommendation} is not a CandidateAction of the decision`),
@@ -536,6 +552,7 @@ export function validateReviewReport(
   reportInput: unknown,
   graph: ContextGraph,
 ): void {
+  validateAutomaticComparisonScopes(graph);
   const parsed = ReviewReportSchema.safeParse(reportInput);
   if (!parsed.success) {
     throw new Error(`m6d2_report_schema:${zodIssueSummary(parsed.error)}`);
@@ -632,12 +649,7 @@ export function validateReviewReport(
       if (scope === null) {
         groundingThrow("dangling_ref", `decisionId ${payload.decisionId}`);
       }
-      const candidateActionRefs = new Set(
-        [...scope.values()]
-          .filter((entry) => entry.node.nodeKind === "CandidateAction")
-          .map((entry) => entry.payload.actionRef)
-          .filter((ref): ref is string => typeof ref === "string"),
-      );
+      const candidateActionRefs = recommendationActionRefs(scope);
       if (!candidateActionRefs.has(payload.recommendation)) {
         groundingThrow(
           "recommendation_not_in_candidates",

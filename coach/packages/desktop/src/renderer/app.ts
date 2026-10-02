@@ -8,12 +8,15 @@ import {
   paipuImportUiStateFromResult,
   paipuShareUrlLooksValid,
 } from "./paipu-ui-policy.js";
+import { createFixedReviewUi } from "./fixed-review-ui.js";
+import type { CoachDesktopApi } from "@riichi-coach/contracts";
 
 declare global {
   interface Window {
     readonly riichiCoach: MahjongSoulDesktopApi;
     readonly riichiCoachCatalog: MahjongSoulCatalogApi;
     readonly riichiCoachPaipu: MahjongSoulPaipuApi;
+    readonly riichiCoachProvider: CoachDesktopApi;
   }
 }
 
@@ -23,6 +26,7 @@ const loginButton = document.querySelector<HTMLButtonElement>("#login")!;
 const logoutButton = document.querySelector<HTMLButtonElement>("#logout")!;
 const refreshButton = document.querySelector<HTMLButtonElement>("#refresh")!;
 const syncButton = document.querySelector<HTMLButtonElement>("#sync")!;
+const clearSourceCacheButton = document.querySelector<HTMLButtonElement>("#clear-source-cache")!;
 const catalogSection = document.querySelector<HTMLElement>(".catalog")!;
 const catalogDetailElement = document.querySelector<HTMLElement>("#catalog-detail")!;
 const catalogListElement = document.querySelector<HTMLElement>("#catalog-list")!;
@@ -30,8 +34,39 @@ const paipuSection = document.querySelector<HTMLElement>(".paipu-import")!;
 const paipuUrlInput = document.querySelector<HTMLInputElement>("#paipu-url")!;
 const paipuImportButton = document.querySelector<HTMLButtonElement>("#paipu-import")!;
 const paipuStatusElement = document.querySelector<HTMLElement>("#paipu-status")!;
-const buttons = [loginButton, logoutButton, refreshButton, syncButton, paipuImportButton];
+const buttons = [loginButton, logoutButton, refreshButton, syncButton, clearSourceCacheButton, paipuImportButton];
+const reviewRoot = document.querySelector<HTMLElement>("#fixed-review")!;
+const reviewPackageIdInput = document.querySelector<HTMLInputElement>("#review-package-id")!;
+const openReviewButton = document.querySelector<HTMLButtonElement>("#open-review")!;
+const leaveReviewButton = document.querySelector<HTMLButtonElement>("#leave-review")!;
+const reviewEntryStatus = document.querySelector<HTMLElement>("#review-entry-status")!;
+const reviewSessionList = document.querySelector<HTMLElement>("#review-session-list")!;
+export const fixedReviewUi = createFixedReviewUi({
+  document, root: reviewRoot, api: window.riichiCoachProvider,
+  onReportGenerated: () => {
+    void refreshReviewSessions().catch(() => {
+      reviewEntryStatus.textContent = "教练解说已生成，暂时无法刷新已保存复盘列表。";
+    });
+  },
+});
 let currentSessionStatus: MahjongSoulSessionStatus["status"] = "logged_out";
+
+async function refreshReviewSessions(): Promise<void> {
+  const sessions = await window.riichiCoachProvider.listReviewSessions();
+  const fragment = document.createDocumentFragment();
+  for (const session of sessions) {
+    const item = document.createElement("li");
+    const label = document.createElement("span");
+    label.textContent = `${session.packageId} · ${session.activeReportRefId === null ? "尚未生成教练解说" : "已有教练解说"}`;
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = "打开";
+    button.addEventListener("click", () => { reviewPackageIdInput.value = session.packageId; openReviewButton.click(); });
+    item.append(label, button);
+    fragment.appendChild(item);
+  }
+  reviewSessionList.replaceChildren(fragment);
+}
 
 function setPending(pending: boolean): void {
   for (const button of buttons) button.disabled = pending;
@@ -40,7 +75,7 @@ function setPending(pending: boolean): void {
 function applySessionState(status: MahjongSoulSessionStatus["status"]): void {
   const loggedIn = status === "valid" || status === "offline_unverified";
   const busy = status === "authenticating" || status === "session_validating";
-  const policy = sessionUiPolicy(status);
+  const policy = sessionUiPolicy(status, true);
   currentSessionStatus = status;
   loginButton.hidden = status !== "logged_out";
   logoutButton.hidden = !loggedIn;
@@ -61,7 +96,7 @@ function renderCatalog(summaries: readonly import("@riichi-coach/contracts").Ana
   catalogListElement.textContent = "";
   const notice = sessionUiPolicy(currentSessionStatus).catalogNotice;
   if (summaries.length === 0) {
-    catalogDetailElement.textContent = notice ?? "暂无可分析的四人南风对局。";
+    catalogDetailElement.textContent = notice ?? "暂无可分析牌谱。";
     return;
   }
   catalogDetailElement.textContent = notice === null
@@ -98,7 +133,7 @@ async function refreshCatalog(): Promise<void> {
   try {
     renderCatalog(await window.riichiCoachCatalog.listAnalyzableRecords());
   } catch {
-    catalogDetailElement.textContent = "暂无可分析的四人南风对局。";
+    catalogDetailElement.textContent = "牌谱加载失败，请重试。";
   }
 }
 
@@ -135,7 +170,7 @@ async function runSync(): Promise<void> {
   try {
     renderCatalog(await window.riichiCoachCatalog.syncAnalyzableRecords());
   } catch {
-    catalogDetailElement.textContent = "无法同步牌谱，请确认已登录雀魂。";
+    catalogDetailElement.textContent = "牌谱加载失败，请重试。";
   } finally {
     setPending(false);
   }
@@ -144,12 +179,72 @@ async function runSync(): Promise<void> {
 loginButton.addEventListener("click", () => {
   void (async () => {
     const status = await run(() => window.riichiCoach.openMahjongSoulLogin());
-    if (status === "valid" || status === "offline_unverified") await refreshCatalog();
+    if (status === "valid") await runSync();
+    else if (status === "offline_unverified") await refreshCatalog();
   })();
 });
 logoutButton.addEventListener("click", () => void run(() => window.riichiCoach.logoutMahjongSoul()));
-refreshButton.addEventListener("click", () => void run(() => window.riichiCoach.getSessionStatus()));
+refreshButton.addEventListener("click", () => {
+  void (async () => {
+    const status = await run(() => window.riichiCoach.getSessionStatus());
+    if (status === "valid") await runSync();
+    else if (status === "offline_unverified") await refreshCatalog();
+  })();
+});
 syncButton.addEventListener("click", () => void runSync());
+clearSourceCacheButton.addEventListener("click", () => {
+  void (async () => {
+    setPending(true);
+    try {
+      const result = await window.riichiCoachCatalog.clearSourceCache();
+      catalogDetailElement.textContent = result.pendingMaterials === 0
+        ? "来源缓存已清理。"
+        : "部分来源缓存尚未清理完成，请稍后重试。";
+    } catch { catalogDetailElement.textContent = "暂时无法清理来源缓存。"; }
+    finally { setPending(false); }
+  })();
+});
+
+async function openReviewPackage(packageId: string): Promise<void> {
+    openReviewButton.disabled = true;
+    leaveReviewButton.hidden = true;
+    reviewEntryStatus.textContent = "正在打开整盘复盘…";
+    try {
+      try {
+        await fixedReviewUi.open(packageId);
+      } catch {
+        leaveReviewButton.hidden = true;
+        reviewEntryStatus.textContent = "无法打开该分析包，请确认引用有效。";
+        throw new Error("review_unavailable");
+      }
+      reviewEntryStatus.textContent = "已打开整盘复盘。";
+      leaveReviewButton.hidden = false;
+      try {
+        await refreshReviewSessions();
+      } catch {
+        reviewEntryStatus.textContent = "复盘已打开，但暂时无法刷新已保存复盘列表，请重试。";
+      }
+    } finally {
+      openReviewButton.disabled = false;
+    }
+}
+
+openReviewButton.addEventListener("click", () => {
+  void (async () => {
+    const packageId = reviewPackageIdInput.value.trim();
+    if (packageId === "") {
+      reviewEntryStatus.textContent = "请输入分析包引用。";
+      return;
+    }
+    await openReviewPackage(packageId).catch(() => undefined);
+  })();
+});
+leaveReviewButton.addEventListener("click", () => {
+  void fixedReviewUi.leave().then(() => {
+    leaveReviewButton.hidden = true;
+    reviewEntryStatus.textContent = "已离开整盘复盘。";
+  }).catch(() => { reviewEntryStatus.textContent = "暂时无法离开复盘，请重试。"; });
+});
 
 function setPaipuPending(pending: boolean): void {
   paipuImportButton.disabled = pending;
@@ -172,9 +267,22 @@ paipuImportButton.addEventListener("click", () => {
     setPaipuPending(true);
     try {
       const result = await window.riichiCoachPaipu.importPaipu({ shareUrl });
-      paipuStatusElement.textContent = paipuImportStatusLabel(
-        paipuImportUiStateFromResult(result),
-      );
+      const uiState = paipuImportUiStateFromResult(result);
+      paipuStatusElement.textContent = paipuImportStatusLabel(uiState);
+      if (result.status === "review_ready") {
+        // The verified main-process package/session identities are the only
+        // navigation authority. The renderer hands packageId to the existing
+        // Review Workspace; it never creates a second review path.
+        reviewPackageIdInput.value = result.packageId;
+        try {
+          await openReviewPackage(result.packageId);
+        } catch {
+          // Roll back automatic navigation, preserving the main-owned saved
+          // session. Manual opens retain their existing visible error state.
+          await fixedReviewUi.leave().catch(() => undefined);
+          paipuStatusElement.textContent = "复盘已保存，但暂时无法打开，请从已保存复盘重试。";
+        }
+      }
     } catch {
       paipuStatusElement.textContent = paipuImportStatusLabel({ state: "failed" });
     } finally {
@@ -184,6 +292,7 @@ paipuImportButton.addEventListener("click", () => {
 });
 
 void (async () => {
+  await refreshReviewSessions().catch(() => undefined);
   const status = await run(() => window.riichiCoach.getSessionStatus());
   if (status === "valid" || status === "offline_unverified") await refreshCatalog();
 })();

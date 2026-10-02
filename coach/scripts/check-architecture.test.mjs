@@ -32,6 +32,7 @@ function buildWorkspace() {
   makePackage(root, "packages/alpha", "@riichi-coach/alpha");
   makePackage(root, "packages/beta", "@riichi-coach/beta");
   makePackage(root, "packages/reasoning", "@riichi-coach/reasoning");
+  makePackage(root, "packages/mortal-runtime", "@riichi-coach/mortal-runtime");
   makePackage(root, "packages/desktop", "@riichi-coach/desktop", {
     ".": { types: "./src/index.ts", import: "./dist/index.js" },
     "./session-api": { types: "./src/session-api.ts", import: "./dist/session-api.js" },
@@ -44,11 +45,13 @@ const TEST_ALLOWED_EDGES = {
   "@riichi-coach/alpha": ["@riichi-coach/contracts"],
   "@riichi-coach/beta": ["@riichi-coach/contracts"],
   "@riichi-coach/reasoning": ["@riichi-coach/contracts"],
+  "@riichi-coach/mortal-runtime": ["@riichi-coach/contracts"],
   "@riichi-coach/desktop": [
     "@riichi-coach/contracts",
     "@riichi-coach/alpha",
     "@riichi-coach/beta",
     "@riichi-coach/reasoning",
+    "@riichi-coach/mortal-runtime",
   ],
 };
 
@@ -67,7 +70,7 @@ test("clean workspace reports no violations", () => {
 
     const result = checkWorkspace(root, { allowedEdges: TEST_ALLOWED_EDGES });
     assert.deepEqual(result.violations, []);
-    assert.equal(result.packageCount, 5);
+    assert.equal(result.packageCount, 6);
   } finally {
     clean(root);
   }
@@ -143,6 +146,25 @@ test("import-looking text in template literals never triggers a violation", () =
 
 // --- violations ------------------------------------------------------------
 
+test("retired legal-action implementations cannot return as source files", () => {
+  const root = buildWorkspace();
+  try {
+    write(root, "packages/reasoning/src/analysis/local-mortal-adapter.ts", "export const selfCandidates = () => [];\n");
+    const result = checkWorkspace(root, { allowedEdges: TEST_ALLOWED_EDGES });
+    assert(result.violations.some(row => row.rule === "retired_legal_action_authority"));
+  } finally { clean(root); }
+});
+
+test("retired rule imports fail even in tests and tools when the target is absent", () => {
+  const root = buildWorkspace();
+  try {
+    write(root, "packages/reasoning/tests/legacy.test.ts", 'export * from "../src/analysis/single-candidate-proof.js";\n');
+    write(root, "scripts/legacy.mjs", 'await import("../packages/reasoning/dist/replay/response-eligibility.js");\n');
+    const result = checkWorkspace(root, { allowedEdges: TEST_ALLOWED_EDGES });
+    assert.equal(result.violations.filter(row => row.rule === "retired_legal_action_authority").length, 2);
+  } finally { clean(root); }
+});
+
 test("flags a forbidden reverse package dependency in production src", () => {
   const root = buildWorkspace();
   try {
@@ -190,6 +212,37 @@ test("flags preload importing a privileged package", () => {
   }
 });
 
+test("keeps Mortal subprocess/checkpoint capability out of reasoning and mortal-source", () => {
+  const root = buildWorkspace();
+  try {
+    makePackage(root, "packages/mortal-source", "@riichi-coach/mortal-source");
+    const allowed = {
+      ...TEST_ALLOWED_EDGES,
+      "@riichi-coach/mortal-source": ["@riichi-coach/contracts"],
+    };
+    write(root, "packages/reasoning/src/bypass.ts", 'import { ManagedMortalRuntime } from "@riichi-coach/mortal-runtime";\n');
+    write(root, "packages/mortal-source/src/bypass.ts", 'import { ManagedMortalRuntime } from "@riichi-coach/mortal-runtime";\n');
+    const result = checkWorkspace(root, { allowedEdges: allowed });
+    assert.equal(result.violations.length, 2);
+    assert.ok(result.violations.every((violation) => violation.rule === "package_dependency_direction"));
+  } finally {
+    clean(root);
+  }
+});
+
+test("keeps Mortal runtime capability out of renderer and preload", () => {
+  const root = buildWorkspace();
+  try {
+    write(root, "packages/desktop/src/renderer/runtime.ts", 'import { ManagedMortalRuntime } from "@riichi-coach/mortal-runtime";\n');
+    write(root, "packages/desktop/src/preload.ts", 'import { ManagedMortalRuntime } from "@riichi-coach/mortal-runtime";\n');
+    const result = checkWorkspace(root, { allowedEdges: TEST_ALLOWED_EDGES });
+    const violations = result.violations.filter((violation) => violation.rule === "renderer_safe_boundary");
+    assert.equal(violations.length, 2);
+  } finally {
+    clean(root);
+  }
+});
+
 test("flags relative deep imports into another package", () => {
   const root = buildWorkspace();
   try {
@@ -215,6 +268,191 @@ test("flags undeclared subpath imports but allows declared public exports", () =
     assert.equal(violation.rule, "package_internal_import");
     assert.equal(violation.file, "scripts/undeclared.mjs");
     assert.match(violation.message, /not a declared public export/);
+  } finally {
+    clean(root);
+  }
+});
+
+test("only the coach service may use the report generation seam", () => {
+  const root = buildWorkspace();
+  try {
+    write(root, "packages/desktop/src/llm-provider/service.ts", 'import { generateReviewReport } from "@riichi-coach/reasoning";\n');
+    write(root, "packages/desktop/src/coach-ipc.ts", 'import { generateReviewReport, assembleReviewReport } from "@riichi-coach/reasoning";\n');
+    write(root, "packages/desktop/src/bypass.ts", 'import { createOpenAiCoachProvider } from "./llm-provider/openai-compatible.js";\n');
+    const result = checkWorkspace(root, { allowedEdges: TEST_ALLOWED_EDGES });
+    const seamViolations = result.violations.filter(
+      (violation) => violation.rule === "review_report_generation_seam",
+    );
+    assert.equal(seamViolations.length, 3);
+    assert.deepEqual(
+      seamViolations.map((violation) => violation.file),
+      [
+        "packages/desktop/src/bypass.ts",
+        "packages/desktop/src/coach-ipc.ts",
+        "packages/desktop/src/coach-ipc.ts",
+      ],
+    );
+  } finally {
+    clean(root);
+  }
+});
+
+for (const [form, code] of Object.entries({
+  reexport: 'export { createOpenAiCoachProvider } from "./llm-provider/openai-compatible.js";',
+  starReexport: 'export * from "./llm-provider/openai-compatible.js";',
+  namespaceReexport: 'export * as provider from "./llm-provider/openai-compatible.js";',
+  dynamicImport: 'await import("./llm-provider/openai-compatible.js");',
+  require: 'require("./llm-provider/openai-compatible.js");',
+  importEquals: 'import provider = require("./llm-provider/openai-compatible.js");',
+  namespaceImport: 'import * as provider from "./llm-provider/openai-compatible.js";',
+  defaultImport: 'import provider from "./llm-provider/openai-compatible.js";',
+  namedDefaultImport: 'import { default as provider } from "./llm-provider/openai-compatible.js";',
+  mixedDefaultImport: 'import provider, { createOpenAiCoachProvider } from "./llm-provider/openai-compatible.js";',
+  sideEffectImport: 'import "./llm-provider/openai-compatible.js";',
+  templateImport: 'await import(`./llm-provider/openai-compatible.js`);',
+})) {
+  for (const file of ["coach-ipc.ts", "llm-provider/service.ts"]) {
+    test(`concrete provider ownership rejects ${form} in ${file}`, () => {
+      const root = buildWorkspace();
+      const path = `packages/desktop/src/${file}`;
+      try {
+        const providerPath = file === "llm-provider/service.ts"
+          ? "./openai-compatible.js"
+          : "./llm-provider/openai-compatible.js";
+        write(root, path, `// boundary regression\n${code.replaceAll("./llm-provider/openai-compatible.js", providerPath)}\n`);
+        const result = checkWorkspace(root, { allowedEdges: TEST_ALLOWED_EDGES });
+        assert.equal(result.violations.length, 1);
+        assert.equal(result.violations[0].rule, "review_report_generation_seam");
+        assert.equal(result.violations[0].file, path);
+        assert.equal(result.violations[0].line, 2);
+      } finally {
+        clean(root);
+      }
+    });
+  }
+}
+
+test("coach service may statically compose the concrete provider with a named import", () => {
+  const root = buildWorkspace();
+  try {
+    write(
+      root,
+      "packages/desktop/src/llm-provider/service.ts",
+      'import { createOpenAiCoachProvider as createProvider } from "./openai-compatible.js";\n',
+    );
+    const result = checkWorkspace(root, { allowedEdges: TEST_ALLOWED_EDGES });
+    assert.deepEqual(result.violations, []);
+  } finally {
+    clean(root);
+  }
+});
+
+for (const [form, code] of Object.entries({
+  reexport: 'export { generateReviewReport } from "@riichi-coach/reasoning";',
+  starReexport: 'export * from "@riichi-coach/reasoning";',
+  namespaceReexport: 'export * as reasoning from "@riichi-coach/reasoning";',
+  dynamicImport: 'await import("@riichi-coach/reasoning");',
+  require: 'require("@riichi-coach/reasoning");',
+  importEquals: 'import reasoning = require("@riichi-coach/reasoning");',
+  namespaceImport: 'import * as reasoning from "@riichi-coach/reasoning";',
+  defaultImport: 'import reasoning from "@riichi-coach/reasoning";',
+  namedDefaultImport: 'import { default as reasoning } from "@riichi-coach/reasoning";',
+  mixedDefaultImport: 'import reasoning, { validateReviewReport } from "@riichi-coach/reasoning";',
+  sideEffectImport: 'import "@riichi-coach/reasoning";',
+  templateImport: 'await import(`@riichi-coach/reasoning`);',
+})) {
+  for (const file of ["report-store.ts", "llm-provider/service.ts"]) {
+    test(`generation authority rejects ${form} in ${file}`, () => {
+      const root = buildWorkspace();
+      const path = `packages/desktop/src/${file}`;
+      try {
+        write(root, path, `// boundary regression\n${code}\n`);
+        const result = checkWorkspace(root, { allowedEdges: TEST_ALLOWED_EDGES });
+        assert.equal(result.violations.length, 1);
+        assert.equal(result.violations[0].rule, "review_report_generation_seam");
+        assert.equal(result.violations[0].file, path);
+        assert.equal(result.violations[0].line, 2);
+      } finally {
+        clean(root);
+      }
+    });
+  }
+}
+
+test("aliased generation imports retain symbol ownership", () => {
+  const root = buildWorkspace();
+  try {
+    write(root, "packages/desktop/src/llm-provider/service.ts", 'import { generateReviewReport as generate } from "@riichi-coach/reasoning";');
+    write(root, "packages/desktop/src/report-store.ts", 'import { generateReviewReport as generate, assembleReviewReport as assemble } from "@riichi-coach/reasoning";');
+    const result = checkWorkspace(root, { allowedEdges: TEST_ALLOWED_EDGES });
+    assert.equal(result.violations.length, 2);
+    assert.ok(result.violations.every((v) => v.rule === "review_report_generation_seam" && v.file.endsWith("report-store.ts")));
+  } finally {
+    clean(root);
+  }
+});
+
+test("read-back validation remains allowed outside generation", () => {
+  const root = buildWorkspace();
+  try {
+    write(root, "packages/desktop/src/report-store.ts", 'import { validateReviewReport, validateStrictAnalysisPackage as validatePackage } from "@riichi-coach/reasoning";\n');
+    const result = checkWorkspace(root, { allowedEdges: TEST_ALLOWED_EDGES });
+    assert.deepEqual(result.violations, []);
+  } finally {
+    clean(root);
+  }
+});
+
+test("presenter may use only the authorized read-back composition seam", () => {
+  const root = buildWorkspace();
+  try {
+    write(
+      root,
+      "packages/desktop/src/fixed-review-presenter.ts",
+      'import { composeReviewReadBackContext } from "@riichi-coach/reasoning";\n',
+    );
+    write(
+      root,
+      "packages/reasoning/src/review-read-back.ts",
+      [
+        'import { projectContextGraph } from "./context-graph/project-context-graph.js";',
+        'import { validateStructuredAnalysisPackage } from "./validate/structured-package-validator.js";',
+        'import { validateReviewReport } from "./groundingValidator.js";',
+        'import { appendReasoningOverlay } from "./reviewReport.js";',
+      ].join("\n"),
+    );
+    const result = checkWorkspace(root, { allowedEdges: TEST_ALLOWED_EDGES });
+    assert.deepEqual(result.violations, []);
+  } finally {
+    clean(root);
+  }
+});
+
+test("presenter cannot bypass read-back or generation ownership", () => {
+  const root = buildWorkspace();
+  try {
+    write(
+      root,
+      "packages/desktop/src/fixed-review-presenter.ts",
+      [
+        "import {",
+        "  appendReasoningOverlay,",
+        "  assembleReviewReport,",
+        "  buildCoachRequest,",
+        "  buildGraphContextSlice,",
+        "  generateReviewReport,",
+        '} from "@riichi-coach/reasoning";',
+        'import { createOpenAiCoachProvider } from "./llm-provider/openai-compatible.js";',
+      ].join("\n"),
+    );
+    const result = checkWorkspace(root, { allowedEdges: TEST_ALLOWED_EDGES });
+    const seamViolations = result.violations.filter(
+      (violation) => violation.rule === "review_report_generation_seam",
+    );
+    assert.equal(seamViolations.length, 6);
+    assert.ok(seamViolations.every(
+      (violation) => violation.file === "packages/desktop/src/fixed-review-presenter.ts",
+    ));
   } finally {
     clean(root);
   }

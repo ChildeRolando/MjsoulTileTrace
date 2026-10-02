@@ -2,6 +2,8 @@
 
 日期：2026-08-19
 状态：M6-D1 implementation spec（ready-for-agent）
+修订：2026-09-28，完整大包内存故障驱动的溯源表示收敛。下述投影规则以完整
+可达证据集守恒取代重复直连；不删除 package 内容、图节点、节点 provenance 或分析分支。
 依据：[ADR-0004](../adr/0004-context-graph-as-auditable-llm-boundary.md)、
 [Auditable Context Graph Design](./2026-08-18-auditable-context-graph-design.md)、
 [ROADMAP §4 M6-D1](../development/ROADMAP.md)、
@@ -213,9 +215,26 @@ D1 projection 边规则：
 - ModelEvaluation `recommends` 每个 preferred CandidateAction。
 - DeterministicPreference `recommends` 其 actionRefs 对应的每个 CandidateAction。
 - 每个 evidence-bearing 节点（KnownGameFact / FactorFact / FactorDifference）
-  `derived_from` 其每个 evidenceId 对应的 Evidence 节点。
+  通过 `derived_from` 路径到达其每个 evidenceId 对应的 Evidence 节点。每个引用默认
+  直接连边；仅当该节点**自身也引用**一个 fact_engine_request，且该请求的 sourceRefs
+  已明确包含目标 canonical_event 时，省略重复的节点 → canonical_event 直接边，
+  保留节点 → 请求 → 事件的两跳路径。不能借用其他节点引用的请求，不能按数量截断，
+  不能删除无替代路径的直接边。缺失引用或重复输入不能被压缩掩盖。
 - fact_engine_request 类型的 Evidence 节点 `derived_from` 其每个 sourceRef
   对应的 canonical_event Evidence 节点。
+
+所有图节点、节点完整 provenance、原始 package 字段和非溯源边保持原值。对每个
+evidence-bearing 节点，修改前后的**完整有向可达证据集合必须相等**；请求 → 来源边
+仍完整显式存在。该变化只改变重复边的表示，沿用现有节点/边身份派生与 v1 数据形状；
+旧报告引用的节点与同决策可达范围不变，旧 immutable 包/报告字节不重写。
+graph 仍由唯一 projector 整体产生，不改为截取若干决策或保存第三份 canonical artifact。
+
+完整真实包的内存表示允许在单次投影内部复用内容逐项相等的不可变证据列表：
+仅使用 schema parse 所拥有的副本，将 KnownGameFact / FactorFact / FactorDifference
+的 evidenceIds 与节点 provenance 作为只读值共享。字典有界且不跨投影保留；哈希相同
+仍逐项核对，不合并不同列表。调用方原包不被冻结、不被修改，图内共享列表不能被
+就地修改。结构边的空 provenance 和空 payload 也可共享不可变常量，非空 payload
+仍保留各边内容。所有列表元素、顺序、图身份、边和可达性保持原样，JSON 输出不因共享改变。
 
 每个 edge 概念上携带 `edgeId`、`edgeKind`、`from`、`to`、`origin`、
 `provenance`（D1 projection 边为空）、`payload`（kind-specific；D1 只有
@@ -367,7 +386,7 @@ M6-D1 所有失败抛 `m6d1_<模块>_<错误>:<detail>` 风格错误；命名与
   package 两次投影 deep-equal；schema-invalid package fail closed。
 - projector 边规则：analysis_ready 决策存在 Decision contains 六类节点、
   FactorDifference compares/supports 正确方向、ModelEvaluation recommends
-  preferred、derived_from 覆盖全部 evidenceIds、fact-engine Evidence
+  preferred、derived_from 可达集精确覆盖原全部 evidenceIds 及请求来源、fact-engine Evidence
   derived_from 其 canonical sourceRefs。
 - graph validator：篡改 nodeId 留旧 payload、edge 端点悬空、插入 `causes`、
   evidence 节点 origin=llm_reasoning / authority=coach、reasoning 节点
@@ -442,3 +461,19 @@ M6-D1 所有失败抛 `m6d1_<模块>_<错误>:<detail>` 风格错误；命名与
   D1 reasoning 只做 schema/partition validator、slice 同源只以 packageId 证明。
 - 术语一律以 `coach/CONTEXT.md` 词汇表为准；与既有 ADR 矛盾处显式指出，不
   静默覆盖。
+
+## 2026-09-29 批准修订：自动比较范围
+
+依据 M6-C 同日修订，完整 CandidateAction 与 ModelEvaluation 仍投影；详细账本与差异
+只覆盖自动选择的两个动作。Decision payload / slice 白名单增加
+`automaticComparisonScope`（policyVersion、reason、有序 actionRefs）。
+
+该字段是 **M6-C 分析编排根据模型评分生成的产品策略注释**，不是牌谱事实，也不是
+mahjong-helper 计算的牌理事实。Decision 节点的 canonical_replay 来源描述决策身份及
+normalizedDecisionContext；不能据此把附带的策略注释解释为 canonical 生产。策略版本
+在字段内部，评分来源在同一 Decision contains 的 ModelEvaluation 节点。
+
+图校验必须要求唯一、同决策且 contains 绑定的完整 ModelEvaluation，重算范围并比较
+字段内容与动作顺序；对象键序不影响语义。缺评分、重复评分、非法评分、绑定缺失、范围
+被改写均拒绝。旧无范围图按历史语义读取；生产读回始终从通过包校验的档案重新投影，
+不以外来图取代档案作为事实来源。

@@ -14,6 +14,14 @@ export const PAIPU_IMPORT_COUNT_MAX = 1_000_000;
 
 export const PaipuImportResultSchema = z.discriminatedUnion("status", [
   z.object({
+    status: z.literal("review_ready"),
+    recordId: MahjongSoulRecordIdSchema,
+    sessionId: z.string().min(1).max(200),
+    packageId: z.string().min(1).max(200),
+    canonicalEventCount: z.number().int().min(0).max(PAIPU_IMPORT_COUNT_MAX),
+    replayDecisionCount: z.number().int().min(0).max(PAIPU_IMPORT_COUNT_MAX),
+  }).strict(),
+  z.object({
     status: z.literal("analysis_ready"),
     recordId: MahjongSoulRecordIdSchema,
     canonicalEventCount: z.number().int().min(0).max(PAIPU_IMPORT_COUNT_MAX),

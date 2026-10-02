@@ -25,3 +25,8 @@ export * from "./review-selection.js";
 export * from "./context-graph.js";
 export * from "./coach.js";
 export * from "./coach-desktop.js";
+export * from "./fixed-review-view.js";
+export * from "./local-mortal-runtime.js";
+export * from "./libriichi-rules.js";
+export * from "./local-mortal-scoring.js";
+export * from "./automatic-comparison.js";

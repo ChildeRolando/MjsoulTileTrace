@@ -3,6 +3,8 @@ import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import { parse } from "protobufjs";
+import { createHash } from "node:crypto";
+import { decodeMahjongSoulRecordCache, loadMahjongSoulProtocolBundle } from "@riichi-coach/mahjong-soul-source";
 
 // Derives the sanitized real-record fixtures from the raw capture written by
 // --diagnose-mahjong-soul-capture-record (%TEMP%/mahjong-soul-captured-record.pb).
@@ -28,7 +30,8 @@ import { parse } from "protobufjs";
 // tile_states, muyu, the full hule hands, and every other unused field.
 //
 // Usage: node scripts/generate-mahjong-soul-real-fixtures.mjs [raw.pb]
-//          [--input-format inner|outer]   (default: inner)
+//          [--input-format inner|outer|record-cache]   (default: inner)
+// record-cache is the diagnostic's versioned bytes + same-response rule evidence.
 
 // P0-2: fixtures never carry the real replay identifier. The synthetic id is
 // schema-shaped (MahjongSoulRecordIdSchema) so the full chain — including the
@@ -82,13 +85,13 @@ function sanitize(name, data) {
     case ".lq.RecordNewRound":
       return pick(data, ["chang", "ju", "ben", "scores", "liqibang", "doras", "tiles0", "tiles1", "tiles2", "tiles3", "left_tile_count"]);
     case ".lq.RecordDealTile":
-      return pick(data, ["seat", "tile", "left_tile_count"]);
+      return pick(data, ["seat", "tile", "left_tile_count", "doras"]);
     case ".lq.RecordDiscardTile":
-      return pick(data, ["seat", "tile", "is_liqi", "moqie"]);
+      return pick(data, ["seat", "tile", "is_liqi", "moqie", "doras"]);
     case ".lq.RecordChiPengGang":
       return pick(data, ["seat", "type", "tiles", "froms"]);
     case ".lq.RecordAnGangAddGang":
-      return pick(data, ["seat", "type", "tiles"]);
+      return pick(data, ["seat", "type", "tiles", "doras"]);
     case ".lq.RecordHule":
       return {
         ...pick(data, ["delta_scores"]),
@@ -110,7 +113,10 @@ function sanitize(name, data) {
 // The fixture pipeline, separated from argv/file IO so the regression test can
 // drive it: inner bytes -> sanitized fixtures (identical bytes in, identical
 // fixtures out; committed fixtures must regenerate from a fresh capture).
-export function deriveSanitizedFixtures(root, innerBytes) {
+export function deriveSanitizedFixtures(root, innerBytes, ruleEvidence) {
+  if (ruleEvidence !== undefined && ruleEvidence.recordSha256 !== `sha256:${createHash("sha256").update(innerBytes).digest("hex")}`) {
+    throw new Error("source rule evidence binding mismatch");
+  }
   const GDR = root.lookupType("lq.GameDetailRecords");
   const Wrapper = root.lookupType("lq.Wrapper");
   const GameAction = root.lookupType("lq.GameAction");
@@ -188,6 +194,16 @@ export function deriveSanitizedFixtures(root, innerBytes) {
     wire: Buffer.from(encodeActions(chosen.slice)).toString("hex"),
   };
 
+  // The CLI supplies evidence validated by the source cache decoder. Sanitizing
+  // changes bytes and record id, so explicitly rebind both; never retain a real id.
+  if (ruleEvidence !== undefined) {
+    for (const fixture of [fixtureA, fixtureB]) {
+      fixture.fixtureVersion = fixture.fixtureVersion.replace(/\/v1$/u, "/v2");
+      fixture.ruleEvidence = { ...ruleEvidence, recordId: SANITIZED_REAL_RECORD_ID,
+        recordSha256: `sha256:${createHash("sha256").update(toInnerBytes(root, Buffer.from(fixture.wire, "hex"), "outer")).digest("hex")}` };
+    }
+  }
+
   return {
     fixtureA,
     fixtureB,
@@ -203,15 +219,15 @@ export function deriveSanitizedFixtures(root, innerBytes) {
   };
 }
 
-function main() {
+async function main() {
   const positional = [];
   let inputFormat = "inner";
   for (let index = 2; index < process.argv.length; index += 1) {
     const arg = process.argv[index];
     if (arg === "--input-format") {
       const next = process.argv[index + 1];
-      if (next !== "inner" && next !== "outer") {
-        throw new Error("--input-format must be inner or outer");
+      if (next !== "inner" && next !== "outer" && next !== "record-cache") {
+        throw new Error("--input-format must be inner, outer or record-cache");
       }
       inputFormat = next;
       index += 1;
@@ -222,8 +238,16 @@ function main() {
   const rawPath = positional[0] ?? join(tmpdir(), "mahjong-soul-captured-record.pb");
   const root = loadProtoRoot(resolve(PROTO_RELATIVE_PATH));
   const fixturesDir = resolve("packages/mahjong-soul-source/tests/fixtures");
-  const innerBytes = toInnerBytes(root, readFileSync(rawPath), inputFormat);
-  const { fixtureA, fixtureB, stats } = deriveSanitizedFixtures(root, innerBytes);
+  const raw = readFileSync(rawPath);
+  let innerBytes;
+  let ruleEvidence;
+  if (inputFormat === "record-cache") {
+    const bundle = await loadMahjongSoulProtocolBundle(resolve("vendor/mahjong-soul-protocol"));
+    const captured = decodeMahjongSoulRecordCache({ bundle, cacheBytes: raw });
+    innerBytes = captured.recordBytes;
+    ruleEvidence = captured.ruleEvidence;
+  } else innerBytes = toInnerBytes(root, raw, inputFormat);
+  const { fixtureA, fixtureB, stats } = deriveSanitizedFixtures(root, innerBytes, ruleEvidence);
   writeFileSync(join(fixturesDir, "real-record-wire.json"), JSON.stringify(fixtureA, null, 2) + "\n");
   writeFileSync(join(fixturesDir, "real-supported-round.json"), JSON.stringify(fixtureB, null, 2) + "\n");
   console.log(`inputFormat=${inputFormat} raw=${rawPath}`);
@@ -237,5 +261,5 @@ if (
   process.argv[1] !== undefined
   && import.meta.url === pathToFileURL(resolve(process.argv[1])).href
 ) {
-  main();
+  await main();
 }

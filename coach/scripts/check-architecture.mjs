@@ -1,7 +1,7 @@
 /**
  * Mechanical architecture boundary check for the coach workspace.
  *
- * Three rules, each mapped to the invariants it protects (see
+ * Rules are mapped to the invariants they protect (see
  * docs/development/INVARIANTS.md and docs/adr/0005-workspace-dependency-
  * boundaries.md):
  *
@@ -13,13 +13,15 @@
  *     game-record providers (their protocol semantics terminate before the
  *     canonical replay/reasoning boundary). reasoning MAY import
  *     mortal-source — the model/report evidence provider — whose public
- *     report-format contract it consumes (ADR-0005). Nothing below desktop
- *     may import desktop.
+ *     report-format contract it consumes (ADR-0005). The independent
+ *     mortal-runtime owner may import contracts only; reasoning and
+ *     mortal-source cannot acquire its subprocess/checkpoint capability.
+ *     Nothing below desktop may import desktop.
  *
  *  R2 renderer_safe_boundary (INV-005)
  *     Desktop renderer code and the preload entries must not import the
- *     privileged packages (mahjong-soul-source, mortal-source, tenhou-source,
- *     reasoning). They receive only safe DTOs through narrow desktop API
+ *     privileged packages (mahjong-soul-source, mortal-source, mortal-runtime,
+ *     tenhou-source, reasoning). They receive only safe DTOs through narrow desktop API
  *     modules and contracts. Direct-import level by design; transitive
  *     leakage is covered by the preload/security-boundary behavior tests.
  *
@@ -29,6 +31,23 @@
  *     another package's src/dist/tests are violations. A tiny allowlist
  *     covers repository tools that legitimately need a deliberately
  *     non-public bridge (see scripts/generate-factor-regression-golden.mjs).
+ *
+ *  R4 review_report_generation_seam (INV-001 / INV-002 / INV-005 / INV-011)
+ *     Desktop production code may generate a new report only through
+ *     reasoning's `generateReviewReport`; only the main-process coach service
+ *     may call that seam. IPC and other desktop modules cannot import report
+ *     assembly/slice/prompt helpers or the concrete provider directly.
+ *     Presentation/read-back consumers may use the public
+ *     `composeReviewReadBackContext` seam; direct overlay assembly remains an
+ *     internal generation helper.
+ *     Reasoning access and concrete-provider composition must use static
+ *     named imports; other literal loading forms fail closed, including in
+ *     the service itself.
+ *
+ *  R5 retired_legal_action_authority (INV-004 / ADR-0006)
+ *     Retired independent rule modules cannot return at their old paths or
+ *     be imported by production, tests or tools. This is a bounded regression
+ *     guard, not a semantic detector for renamed/copied rule implementations.
  *
  * Parsing is owned by the TypeScript Compiler API (ts.createSourceFile + AST
  * traversal): only real module specifiers are collected, so import-looking
@@ -53,7 +72,29 @@ const RULE_IDS = {
   packageDependencyDirection: "package_dependency_direction",
   rendererSafeBoundary: "renderer_safe_boundary",
   packageInternalImport: "package_internal_import",
+  reviewReportGenerationSeam: "review_report_generation_seam",
+  retiredLegalActionAuthority: "retired_legal_action_authority",
 };
+
+const RETIRED_RULE_MODULES = new Set([
+  "analysis/local-mortal-adapter", "analysis/single-candidate-proof",
+  "analysis/response-candidate-enumeration", "replay/response-eligibility",
+  "factors/win-shape",
+].map(path => `packages/reasoning/src/${path}`));
+
+function isRetiredRuleModule(path) {
+  return RETIRED_RULE_MODULES.has(path.replace("/dist/", "/src/").replace(/\.(?:[cm]?[jt]s)$/, ""));
+}
+
+const REVIEW_GENERATION_INTERNALS = new Set([
+  "appendReasoningOverlay",
+  "assembleReviewReport",
+  "buildCoachRequest",
+  "buildGraphContextSlice",
+  "coachRequestOutcomeFromLlmResult",
+]);
+const COACH_SERVICE_PATH = "packages/desktop/src/llm-provider/service.ts";
+const CONCRETE_PROVIDER_PATH = "/packages/desktop/src/llm-provider/openai-compatible";
 
 /** Allowed riichi-coach dependency edges for production src code. */
 export const DEFAULT_ALLOWED_EDGES = Object.freeze({
@@ -61,6 +102,7 @@ export const DEFAULT_ALLOWED_EDGES = Object.freeze({
   "@riichi-coach/mahjong-soul-source": Object.freeze(["@riichi-coach/contracts"]),
   "@riichi-coach/tenhou-source": Object.freeze(["@riichi-coach/contracts"]),
   "@riichi-coach/mortal-source": Object.freeze(["@riichi-coach/contracts"]),
+  "@riichi-coach/mortal-runtime": Object.freeze(["@riichi-coach/contracts"]),
   // reasoning may consume the mortal-source report-format evidence contract
   // (ADR-0005) but must stay clear of game-record provider protocol details.
   "@riichi-coach/reasoning": Object.freeze([
@@ -73,6 +115,7 @@ export const DEFAULT_ALLOWED_EDGES = Object.freeze({
     "@riichi-coach/mahjong-soul-source",
     "@riichi-coach/tenhou-source",
     "@riichi-coach/mortal-source",
+    "@riichi-coach/mortal-runtime",
     "@riichi-coach/reasoning",
   ]),
 });
@@ -81,6 +124,7 @@ export const DEFAULT_ALLOWED_EDGES = Object.freeze({
 export const DEFAULT_PRIVILEGED_PACKAGES = Object.freeze([
   "@riichi-coach/mahjong-soul-source",
   "@riichi-coach/mortal-source",
+  "@riichi-coach/mortal-runtime",
   "@riichi-coach/tenhou-source",
   "@riichi-coach/reasoning",
 ]);
@@ -107,11 +151,12 @@ const SKIP_DIRECTORIES = new Set(["dist", "node_modules", ".git"]);
  * Compiler API. Recognized AST nodes:
  *  - ImportDeclaration (import ..., import type ..., side-effect import)
  *  - ExportDeclaration with a module specifier (export ... from, export * from)
- *  - CallExpression import("...") with a string-literal first argument
- *  - CallExpression require("...") with a string-literal first argument
- * Comments, string literals, and template literals never produce specifiers
- * because they are not module-specifier syntax nodes.
- * @returns {{ specifier: string, line: number }[]} 1-based line numbers
+ *  - CallExpression import("...") with a literal first argument
+ *  - CallExpression require("...") with a literal first argument
+ *  - ImportEqualsDeclaration (import x = require("..."))
+ * Literal call arguments include template literals without substitutions.
+ * Import-looking text in comments or ordinary strings/templates is ignored.
+ * @returns {{ specifier: string, line: number, namedImport: boolean }[]} 1-based line numbers
  */
 export function collectModuleSpecifiers(code, fileName) {
   const scriptKind = /\.(m?js|cjs)$/u.test(fileName)
@@ -125,36 +170,76 @@ export function collectModuleSpecifiers(code, fileName) {
     scriptKind,
   );
   const specifiers = [];
+  const add = (node, namedImport = false) => specifiers.push({ node, namedImport });
   const visit = (node) => {
     if (ts.isImportDeclaration(node)) {
       const spec = node.moduleSpecifier;
       if (spec !== undefined && ts.isStringLiteral(spec)) {
-        specifiers.push(spec);
+        const clause = node.importClause;
+        add(spec, clause !== undefined && clause.name === undefined &&
+          clause.namedBindings !== undefined && ts.isNamedImports(clause.namedBindings) &&
+          clause.namedBindings.elements.every((element) =>
+            (element.propertyName?.text ?? element.name.text) !== "default"));
       }
     } else if (ts.isExportDeclaration(node)) {
       const spec = node.moduleSpecifier;
       if (spec !== undefined && ts.isStringLiteral(spec)) {
-        specifiers.push(spec);
+        add(spec);
       }
+    } else if (ts.isImportEqualsDeclaration(node) && ts.isExternalModuleReference(node.moduleReference)) {
+      const spec = node.moduleReference.expression;
+      if (spec !== undefined && ts.isStringLiteral(spec)) add(spec);
     } else if (ts.isCallExpression(node)) {
       const expression = node.expression;
       const isDynamicImport = ts.isImportKeyword(expression);
       const isRequire = ts.isIdentifier(expression) && expression.text === "require";
       const argument = node.arguments[0];
-      if ((isDynamicImport || isRequire) && ts.isStringLiteral(argument)) {
-        specifiers.push(argument);
+      if ((isDynamicImport || isRequire) && argument !== undefined &&
+          (ts.isStringLiteral(argument) || ts.isNoSubstitutionTemplateLiteral(argument))) {
+        add(argument);
       }
     }
     ts.forEachChild(node, visit);
   };
   visit(sourceFile);
-  return specifiers.map((node) => ({
+  return specifiers.map(({ node, namedImport }) => ({
     specifier: node.text,
+    namedImport,
     line: ts.getLineAndCharacterOfPosition(
       sourceFile,
       node.getStart(sourceFile),
     ).line + 1,
   }));
+}
+
+/** Collect named/default/namespace bindings from static import declarations. */
+export function collectImportBindings(code, fileName) {
+  const sourceFile = ts.createSourceFile(
+    fileName,
+    code,
+    ts.ScriptTarget.Latest,
+    false,
+    /\.(m?js|cjs)$/u.test(fileName) ? ts.ScriptKind.JS : ts.ScriptKind.TS,
+  );
+  const imports = [];
+  for (const statement of sourceFile.statements) {
+    if (!ts.isImportDeclaration(statement) ||
+        !ts.isStringLiteral(statement.moduleSpecifier)) continue;
+    const names = [];
+    const clause = statement.importClause;
+    if (clause?.name !== undefined) names.push(clause.name.text);
+    const bindings = clause?.namedBindings;
+    if (bindings !== undefined) {
+      if (ts.isNamespaceImport(bindings)) names.push("*");
+      else names.push(...bindings.elements.map((element) => element.propertyName?.text ?? element.name.text));
+    }
+    imports.push({
+      specifier: statement.moduleSpecifier.text,
+      names,
+      line: ts.getLineAndCharacterOfPosition(sourceFile, statement.getStart(sourceFile)).line + 1,
+    });
+  }
+  return imports;
 }
 
 function walkFiles(dir, extensions, out = []) {
@@ -288,9 +373,74 @@ export function checkWorkspace(root, opts = {}) {
         relPath.split("/").includes("src");
       const code = readFileSync(file, "utf8");
       scannedFiles += 1;
+      if (isRetiredRuleModule(relPath)) {
+        record(RULE_IDS.retiredLegalActionAuthority, relPath, 1,
+          "Retired independent legal-action implementation must remain in Git history", "INV-004/ADR-0006");
+      }
 
-      for (const { specifier, line } of collectModuleSpecifiers(code, file)) {
+      if (isProductionCode && ownerPackage === "@riichi-coach/desktop") {
+        for (const imported of collectImportBindings(code, file)) {
+          if (imported.specifier === "@riichi-coach/reasoning") {
+            for (const name of imported.names) {
+              if (REVIEW_GENERATION_INTERNALS.has(name)) {
+                record(
+                  RULE_IDS.reviewReportGenerationSeam,
+                  relPath,
+                  imported.line,
+                  `Desktop production code must not import internal report generator helper "${name}"`,
+                  "INV-001/INV-002",
+                );
+              }
+              if (name === "generateReviewReport" && relPath !== COACH_SERVICE_PATH) {
+                record(
+                  RULE_IDS.reviewReportGenerationSeam,
+                  relPath,
+                  imported.line,
+                  "Only the main-process coach service may call generateReviewReport",
+                  "INV-001/INV-002/INV-005",
+                );
+              }
+            }
+          }
+        }
+      }
+
+      for (const { specifier, line, namedImport } of collectModuleSpecifiers(code, file)) {
         scannedImports += 1;
+
+        if (isProductionCode && ownerPackage === "@riichi-coach/desktop" &&
+            specifier.startsWith(".")) {
+          const resolvedModule = resolve(dirname(file), specifier)
+            .split(sep).join("/")
+            .replace(/\.(?:[cm]?[jt]sx?)$/u, "");
+          if (resolvedModule.endsWith(CONCRETE_PROVIDER_PATH) &&
+              (relPath !== COACH_SERVICE_PATH || !namedImport)) {
+            record(
+              RULE_IDS.reviewReportGenerationSeam,
+              relPath, line,
+              "Only the main-process coach service may load the concrete LLM provider, using a static named import",
+              "INV-005",
+            );
+          }
+        }
+
+        if (isProductionCode && ownerPackage === "@riichi-coach/desktop" &&
+            workspacePackageName(specifier) === "@riichi-coach/reasoning" && !namedImport) {
+          record(
+            RULE_IDS.reviewReportGenerationSeam,
+            relPath, line,
+            "Desktop production code must use static named reasoning imports so generation ownership is auditable",
+            "INV-001/INV-002/INV-005",
+          );
+        }
+
+        const targetPath = specifier.startsWith(".")
+          ? relative(root, resolve(dirname(file), specifier)).split(sep).join("/")
+          : specifier.replace(/^@riichi-coach\/reasoning\//, "packages/reasoning/");
+        if (isRetiredRuleModule(targetPath)) {
+          record(RULE_IDS.retiredLegalActionAuthority, relPath, line,
+            "Retired independent legal-action module cannot be consumed", "INV-004/ADR-0006");
+        }
 
         // Builtins and external third-party packages are not governed here.
         if (isNodeBuiltin(specifier)) continue;

@@ -22,5 +22,43 @@ button:disabled { opacity: .45; cursor: wait; }
 .paipu-form { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
 .paipu-form input[type="text"] { flex: 1 1 240px; padding: 10px 12px; font: inherit; border: 1px solid #b9b4aa; background: white; }
 .paipu-import .detail { margin-top: 12px; }
+.review-entry { margin-top: 36px; border-top: 1px solid #d6d0c2; padding-top: 24px; }
+.review-entry h2 { font-size: 18px; margin: 0 0 8px; }
+.review-entry-form { display: flex; flex-wrap: wrap; gap: 8px; }
+.review-entry-form input { flex: 1 1 240px; min-width: 0; padding: 10px 12px; font: inherit; border: 1px solid #b9b4aa; }
 
 [hidden] { display: none !important; }
+
+.fixed-review { margin-top: 36px; border-top: 2px solid #235b43; padding-top: 28px; }
+.review-overview { display: grid; gap: 12px; }
+.review-overview h2, .review-list h3, .review-detail h3 { margin: 0; }
+.review-selected-count { margin: 8px 0 -12px; color: #235b43; font-size: 56px; font-weight: 760; line-height: 1; }
+.review-overview dl { display: grid; grid-template-columns: max-content 1fr; gap: 8px 16px; margin: 8px 0; }
+.review-overview dt { font-weight: 700; }
+.review-overview dd { margin: 0; }
+.review-warning, .review-alert { padding: 12px; border-left: 4px solid #a94b24; background: #fff0e8; }
+.review-list, .review-detail { margin-top: 28px; }
+.review-list { overflow-x: auto; }
+.review-list table { width: 100%; min-width: 820px; border-collapse: collapse; font-size: 13px; }
+.review-list th, .review-list td { padding: 10px 8px; border-bottom: 1px solid #ded8ca; text-align: left; vertical-align: top; }
+.review-comparison { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.review-comparison section, .review-coach { padding: 16px; background: #f6f3ea; }
+.review-coach { margin-top: 12px; border-left: 4px solid #235b43; }
+.review-detail details, .review-overview details { margin-top: 12px; padding: 10px 0; border-top: 1px solid #ded8ca; }
+@media (max-width: 720px) {
+  body { place-items: start center; }
+  main { width: calc(100vw - 32px); padding: 24px; box-sizing: border-box; }
+  .review-comparison { grid-template-columns: 1fr; }
+  .review-list { overflow-x: visible; }
+  .review-list table, .review-list tbody, .review-list tr, .review-list td { display: block; min-width: 0; }
+  .review-list thead { display: none; }
+  .review-list tr { margin: 12px 0; padding: 8px 0; border-top: 2px solid #ded8ca; }
+  .review-list td { border: 0; padding: 6px 0; }
+  .review-list td::before { display: block; color: #687064; font-size: 11px; font-weight: 700; }
+  .review-list td:nth-child(1)::before { content: "局况 / 决策窗口"; }
+  .review-list td:nth-child(2)::before { content: "我的行动"; }
+  .review-list td:nth-child(3)::before { content: "Mortal 偏好"; }
+  .review-list td:nth-child(4)::before { content: "模型分差 / 固定入选原因"; }
+  .review-list td:nth-child(5)::before { content: "差异维度"; }
+  .review-list td:nth-child(6)::before { content: "解说状态 / 详情"; }
+}

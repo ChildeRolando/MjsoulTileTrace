@@ -44,19 +44,22 @@ function fetchedRecord() {
 }
 
 describe("Mahjong Soul renderer-safe catalog API", () => {
-  it("accepts exactly two catalog methods and one narrow analysis trigger", async () => {
+  it("accepts the narrow catalog, analysis, and explicit cache-clear operations", async () => {
     const api = MahjongSoulCatalogApiSchema.parse({
       syncAnalyzableRecords: async () => [summary()],
       listAnalyzableRecords: async () => [],
       startRecordAnalysis: async () => ({ status: "record_fetched" as const }),
+      clearSourceCache: async () => ({ status: "cleared" as const, pendingMaterials: 0 }),
     });
     await expect(api.syncAnalyzableRecords()).resolves.toEqual([summary()]);
     await expect(api.listAnalyzableRecords()).resolves.toEqual([]);
     await expect(api.startRecordAnalysis(recordId)).resolves.toEqual({ status: "record_fetched" });
+    await expect(api.clearSourceCache()).resolves.toEqual({ status: "cleared", pendingMaterials: 0 });
     expect(Object.keys(api)).toEqual([
       "syncAnalyzableRecords",
       "listAnalyzableRecords",
       "startRecordAnalysis",
+      "clearSourceCache",
     ]);
   });
 
@@ -70,6 +73,7 @@ describe("Mahjong Soul renderer-safe catalog API", () => {
       syncAnalyzableRecords: async () => [{ ...summary(), [field]: value }],
       listAnalyzableRecords: async () => [],
       startRecordAnalysis: async () => ({ status: "record_fetched" as const }),
+      clearSourceCache: async () => ({ status: "cleared" as const, pendingMaterials: 0 }),
     });
     await expect(api.syncAnalyzableRecords()).rejects.toThrow();
   });
@@ -79,6 +83,7 @@ describe("Mahjong Soul renderer-safe catalog API", () => {
       syncAnalyzableRecords: async () => [],
       listAnalyzableRecords: async () => [],
       startRecordAnalysis: async () => ({ status: "record_fetched" as const }),
+      clearSourceCache: async () => ({ status: "cleared" as const, pendingMaterials: 0 }),
       invoke: async () => "token",
     })).toThrow();
   });
@@ -107,6 +112,7 @@ describe("safe Mahjong Soul catalog IPC", () => {
       syncAnalyzableRecords: async () => [summary()],
       listAnalyzableRecords: async () => [summary()],
       ingest: async () => fetchedRecord(),
+      clearSourceCache: () => ({ clearedEntries: 2, pendingMaterials: 0 }),
     };
     const registration = registerMahjongSoulCatalogIpc({
       ipcMain: ipc,
@@ -117,11 +123,14 @@ describe("safe Mahjong Soul catalog IPC", () => {
       "mahjong-soul:sync-analyzable-records",
       "mahjong-soul:list-analyzable-records",
       "mahjong-soul:start-record-analysis",
+      "mahjong-soul:clear-source-cache",
     ]);
     await expect(ipc.handlers.get("mahjong-soul:start-record-analysis")?.({ sender: { id: 7 } }, recordId))
       .resolves.toEqual({ status: "record_fetched" });
     await expect(ipc.handlers.get("mahjong-soul:sync-analyzable-records")?.({ sender: { id: 7 } }))
       .resolves.toEqual([summary()]);
+    await expect(ipc.handlers.get("mahjong-soul:clear-source-cache")?.({ sender: { id: 7 } }))
+      .resolves.toEqual({ status: "cleared", pendingMaterials: 0 });
     registration.dispose();
     expect(ipc.handlers.size).toBe(0);
   });
@@ -135,6 +144,7 @@ describe("safe Mahjong Soul catalog IPC", () => {
         syncAnalyzableRecords: async () => [summary()],
         listAnalyzableRecords: async () => [summary()],
         ingest: async () => fetchedRecord(),
+        clearSourceCache: () => ({ clearedEntries: 0, pendingMaterials: 0 }),
       },
     });
     const handler = ipc.handlers.get("mahjong-soul:list-analyzable-records")!;
@@ -151,6 +161,7 @@ describe("safe Mahjong Soul catalog IPC", () => {
         syncAnalyzableRecords: async () => [summary()],
         listAnalyzableRecords: async () => [{ ...summary(), accessToken: "t" } as never],
         ingest: async () => fetchedRecord(),
+        clearSourceCache: () => ({ clearedEntries: 0, pendingMaterials: 0 }),
       },
     });
     await expect(unsafe.handlers.get("mahjong-soul:list-analyzable-records")?.({ sender: { id: 7 } }))
@@ -166,21 +177,26 @@ describe("Mahjong Soul catalog preload API", () => {
         calls.push(channel);
         return channel.endsWith("start-record-analysis")
           ? { status: "record_fetched" }
+          : channel.endsWith("clear-source-cache")
+            ? { status: "cleared", pendingMaterials: 0 }
           : [summary()];
       },
     });
     await api.syncAnalyzableRecords();
     await api.listAnalyzableRecords();
     await api.startRecordAnalysis(recordId);
+    await api.clearSourceCache();
     expect(calls).toEqual([
       "mahjong-soul:sync-analyzable-records",
       "mahjong-soul:list-analyzable-records",
       "mahjong-soul:start-record-analysis",
+      "mahjong-soul:clear-source-cache",
     ]);
     expect(Object.keys(api)).toEqual([
       "syncAnalyzableRecords",
       "listAnalyzableRecords",
       "startRecordAnalysis",
+      "clearSourceCache",
     ]);
   });
 

@@ -4,9 +4,8 @@ import { describe, expect, it, vi } from "vitest";
 import {
   StructuredAnalysisPackageSchema, SELECTOR_POLICY_VERSION_V1, type ReviewSelectionResult,
 } from "@riichi-coach/contracts";
-import { buildCoachRequest, buildGraphContextSlice, projectContextGraph, validateReviewReport, validateStructuredAnalysisPackage } from "@riichi-coach/reasoning";
+import { buildCoachRequest, buildGraphContextSlice, generateReviewReport, projectContextGraph, validateReviewReport, validateStructuredAnalysisPackage } from "@riichi-coach/reasoning";
 import { createOpenAiCoachProvider } from "../src/llm-provider/openai-compatible.js";
-import { generateReviewReport } from "../src/llm-provider/generate.js";
 import { createCoachService } from "../src/llm-provider/service.js";
 
 // Snapshot from the M6-C/D1 canned fixture with the two model preferences
@@ -70,7 +69,7 @@ describe("main-process OpenAI-compatible provider and narrow generation seam", (
     [429, "rate_limited"], [500, "server_error"], [503, "server_error"], [401, "connection_failed"],
   ] as const)("maps HTTP %s and retries exactly once", async (status, code) => {
     const http = vi.fn<typeof fetch>(async () => new Response(KEY, { status }));
-    expect(await provider(http).complete(request)).toEqual({ errorCode: code });
+    expect(await provider(http).complete(request)).toEqual({ errorCode: code, transportRetries: 1 });
     http.mockClear();
     const report = await generateReviewReport(graph, selection, provider(http), now);
     expect(http).toHaveBeenCalledTimes(2);
@@ -80,7 +79,7 @@ describe("main-process OpenAI-compatible provider and narrow generation seam", (
   });
   it.each([["ECONNRESET", "network_reset"], ["ENOTFOUND", "connection_failed"], ["ETIMEDOUT", "timeout"]] as const)("maps %s without exposing exceptions", async (code, expected) => {
     const http = vi.fn<typeof fetch>(async () => { throw Object.assign(Error(KEY), { cause: { code } }); });
-    expect(await provider(http).complete(request)).toEqual({ errorCode: expected });
+    expect(await provider(http).complete(request)).toEqual({ errorCode: expected, transportRetries: 1 });
   });
   it("bounds even an uncooperative HTTP stub and aborts on timeout", async () => {
     const http = vi.fn<typeof fetch>(() => new Promise(() => undefined));
@@ -167,6 +166,24 @@ describe("main-process OpenAI-compatible provider and narrow generation seam", (
     expect(await service.generate({ packageId: "wrong" })).toEqual({ status: "package_unavailable" });
     expect(http).toHaveBeenCalledTimes(1);
   });
+  it("a fully failed provider leaves the package and decision outcomes deep-equal", async () => {
+    const before = structuredClone(pkg);
+    const http = vi.fn<typeof fetch>(async () => new Response("", { status: 503 }));
+    const service = createCoachService({
+      credentials: { readKey: async () => KEY, importCredential: async () => undefined, clear: async () => undefined },
+      fetchImpl: http,
+      readPackage: async () => pkg,
+      clock: () => now,
+    });
+    await service.configure(settings);
+    const result = await service.generate({ packageId: pkg.packageId });
+    expect(result.status).toBe("ready");
+    if (result.status === "ready") expect(result.report.generationStatus).toBe("evidence_only");
+    expect(http).toHaveBeenCalledTimes(2);
+    expect(pkg).toEqual(before);
+    expect(pkg.decisions.map((decision) => decision.outcome))
+      .toEqual(before.decisions.map((decision) => decision.outcome));
+  });
   it("drains an in-flight generation before a credential clear completes", async () => {
     let resolveHttp!: (value: Response) => void;
     let started!: () => void;
@@ -180,5 +197,57 @@ describe("main-process OpenAI-compatible provider and narrow generation seam", (
     await Promise.resolve(); expect(clear).not.toHaveBeenCalled();
     resolveHttp(response()); await generation; await clearing;
     expect(clear).toHaveBeenCalledTimes(1);
+  });
+
+  it("cancels a queued generation at submission time and does not reopen after leave", async () => {
+    let releaseImport!: () => void;
+    let importStarted!: () => void;
+    const entered = new Promise<void>((resolve) => { importStarted = resolve; });
+    const importPending = new Promise<void>((resolve) => { releaseImport = resolve; });
+    const http = vi.fn<typeof fetch>(async () => response());
+    const service = createCoachService({
+      credentials: {
+        readKey: async () => KEY,
+        importCredential: async () => { importStarted(); await importPending; },
+        clear: async () => undefined,
+      },
+      fetchImpl: http,
+      readPackage: async () => pkg,
+      clock: () => now,
+    });
+    await service.configure(settings);
+    await service.openReview(pkg.packageId);
+    const importing = service.importCredential();
+    await entered;
+    const generation = service.generateReview(pkg.packageId, "queued-op");
+    service.cancelGeneration("queued-op");
+    service.leaveReview(pkg.packageId);
+    releaseImport();
+    await importing;
+    expect(await generation).toEqual({ status: "failed", code: "operation_cancelled" });
+    expect(http).not.toHaveBeenCalled();
+  });
+
+  it("registers cancellation before the initial package read and never revives the left view", async () => {
+    let releaseRead!: (value: typeof pkg) => void;
+    let readStarted!: () => void;
+    const entered = new Promise<void>((resolve) => { readStarted = resolve; });
+    const pendingRead = new Promise<typeof pkg>((resolve) => { releaseRead = resolve; });
+    const http = vi.fn<typeof fetch>(async () => response());
+    const service = createCoachService({
+      credentials: { readKey: async () => KEY, importCredential: async () => undefined, clear: async () => undefined },
+      fetchImpl: http,
+      readPackage: async () => { readStarted(); return pendingRead; },
+      clock: () => now,
+    });
+    await service.configure(settings);
+    const generation = service.generateReview(pkg.packageId, "read-op");
+    await entered;
+    service.cancelGeneration("read-op");
+    service.leaveReview(pkg.packageId);
+    releaseRead(pkg);
+    expect(await generation).toEqual({ status: "failed", code: "operation_cancelled" });
+    expect(http).not.toHaveBeenCalled();
+    expect(() => service.getReviewDetail(pkg.packageId, decisionId, null)).toThrow(/^review_unavailable$/);
   });
 });

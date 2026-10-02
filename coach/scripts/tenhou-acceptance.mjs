@@ -54,7 +54,6 @@ import {
   writeFileSync,
 } from "node:fs";
 import { join } from "node:path";
-import { fileURLToPath } from "node:url";
 import {
   canTransitionAcceptance,
   createEmptyAcceptanceCheckpoint,
@@ -69,13 +68,10 @@ import {
 import { fetchMortalReport } from "@riichi-coach/mortal-source";
 import {
   buildMortalCoverageEvidenceManifest,
-  JsonlFactEngineClient,
-  ManagedFactEngineTransport,
-  replayCanonicalResponseWindows,
   replayCanonicalStream,
-  runMortalAcceptanceEvidence,
 } from "@riichi-coach/reasoning";
 import { mapTenhouRecord } from "@riichi-coach/tenhou-source";
+import { runManagedMortalAcceptanceEvidence } from "./managed-mortal-acceptance.mjs";
 
 function parseArgs(argv) {
   const files = [];
@@ -564,28 +560,21 @@ for (const pair of stagePairs) {
     continue;
   }
 
-  const resourcesDir = fileURLToPath(new URL("../resources/", import.meta.url));
-  const engine = new JsonlFactEngineClient(new ManagedFactEngineTransport(resourcesDir));
   // Shared acceptance core (§5 source-policy correction): review in
   // acceptance mode (coverage gate open HERE only — production consumers
   // lift from the evidence manifest, never from this call) → evidence →
   // redacted artifact → hash → manifest samples. The Tenhou adapter owns
   // only the local side (mapper → replay) and the checkpoint transitions.
-  const evidenceRun = await runMortalAcceptanceEvidence({
+  const evidenceRun = await runManagedMortalAcceptanceEvidence({
     local: {
       sourceKind: "tenhou",
       opaqueGameId: pair.gameId,
       selfActor: pair.seat,
       canonicalStream: local.stream,
-      replayedDecisions: local.decisions,
-      // M6-A4.2: the response surface partition (same canonical stream, zero
-      // extra network).
-      replayedResponseWindows: replayCanonicalResponseWindows(local.stream),
     },
     report: cachedReport,
-    engine,
     evidenceVersion: options.evidenceVersion,
-  }).finally(() => engine.close());
+  });
   if (evidenceRun.status === "local_source_incoherent") {
     // Adapter bug (wrapper ≠ stream): terminal local failure, no retry.
     checkpoint = failPair(checkpoint, pair.gameId, pair.seat, `local_source_incoherent:${evidenceRun.code}`);

@@ -1,4 +1,5 @@
 import { mkdir, writeFile } from "node:fs/promises";
+import { createHash } from "node:crypto";
 import { join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
@@ -13,11 +14,14 @@ import {
 import {
   MahjongSoulSourceError,
   MAHJONG_SOUL_PROTOCOL_BUNDLE_VERSION,
+  MAHJONG_SOUL_RECORD_MAPPER_VERSION,
   createMahjongSoulCatalogStore,
   createMahjongSoulSessionVault,
   createMahjongSoulOAuth2SessionRestorer,
   authenticateStoredMahjongSoulSession,
   fetchMahjongSoulRecord,
+  encodeMahjongSoulRecordCache,
+  decodeMahjongSoulRecordCache,
   loadMahjongSoulProtocolBundle,
   mapMahjongSoulRecord,
   readSessionRestoreRejection,
@@ -84,10 +88,17 @@ import {
   requireCatalogSelfSeat,
 } from "./record-ingestion-service.js";
 import { createRecordAnalysisStore } from "./record-analysis-store.js";
+import { createLocalMortalRuntimeService } from "./local-mortal-runtime-service.js";
+import { createLocalMortalAnalysisService } from "./local-mortal-analysis-service.js";
 import { readCliFlag } from "./diagnostic-flags.js";
 import { registerCoachIpc } from "./coach-ipc.js";
 import { createEnvironmentKeyImporter, createProviderCredentials } from "./llm-provider/credentials.js";
 import { createCoachService, createPackageReferenceReader } from "./llm-provider/service.js";
+import {
+  createReviewSessionRepository,
+  persistValidatedReviewSession,
+} from "./review-session-repository.js";
+import { createPrivilegedRawCache, type PrivilegedRawCache, type RawCacheIdentity } from "./privileged-raw-cache.js";
 
 const PARTITION = "persist:riichi-coach-mahjong-soul-cn";
 const bundleRoot = fileURLToPath(new URL("../../../vendor/mahjong-soul-protocol/", import.meta.url));
@@ -105,6 +116,8 @@ const rendererUrl = pathToFileURL(
 // feature is the standard Electron workaround; the official-client capture
 // window is created while the main window holds focus, exactly the trigger.
 app.commandLine.appendSwitch("disable-features", "CalculateNativeWinOcclusion");
+const hasSingleInstanceLock = app.requestSingleInstanceLock();
+if (!hasSingleInstanceLock) app.quit();
 
 let mainWindow: BrowserWindow | null = null;
 let ipcRegistration: Readonly<{ dispose(): void }> | null = null;
@@ -233,6 +246,25 @@ async function writeReplayAuditFile(
 }
 
 async function start(): Promise<void> {
+  const reviewRepository = createReviewSessionRepository({
+    root: join(app.getPath("userData"), "review-library"),
+  });
+  let privilegedRawCache: PrivilegedRawCache | null = null;
+  try {
+    privilegedRawCache = createPrivilegedRawCache({ root: join(app.getPath("userData"), "review-library") });
+  } catch {
+    // Source material is optional for validated library read-back. Preserve it
+    // for recovery and never log the filesystem exception (which carries paths).
+    console.error("[riichi-coach] raw_cache_unavailable");
+  }
+  const requireRawCache = (): PrivilegedRawCache => {
+    if (privilegedRawCache === null) throw new Error("raw_cache_unavailable");
+    return privilegedRawCache;
+  };
+  app.once("will-quit", () => {
+    privilegedRawCache?.close();
+    reviewRepository.close();
+  });
   const providerCredentials = createProviderCredentials({
     userData: app.getPath("userData"), safeStorage, platform: process.platform,
     importer: createEnvironmentKeyImporter(process.env),
@@ -449,11 +481,23 @@ async function start(): Promise<void> {
     const engine = new JsonlFactEngineClient(
       new ManagedFactEngineTransport(resourcesDir),
     );
+    let rulesRuntime: Awaited<ReturnType<typeof createLocalMortalRuntimeService>> | undefined;
     try {
+      const artifactRoot = process.env.RIICHI_LOCAL_MORTAL_ROOT
+        ?? join(process.env.LOCALAPPDATA ?? "", "RiichiCoach", "local-mortal-spike");
+      rulesRuntime = await createLocalMortalRuntimeService({
+        artifactRoot,
+        packageRoot: fileURLToPath(new URL("../../mortal-runtime/", import.meta.url)),
+        pythonExecutable: join(artifactRoot, "python", "Scripts", "python.exe"),
+        platformManifest: "mortal-582500.windows-x64.json",
+        ...(process.env.RIICHI_LIBRIICHI_NATIVE_RECEIPT === undefined ? {} : { nativeReceiptPath: process.env.RIICHI_LIBRIICHI_NATIVE_RECEIPT }),
+        ...(process.env.RIICHI_LIBRIICHI_NATIVE_MODULE === undefined ? {} : { nativeModulePath: process.env.RIICHI_LIBRIICHI_NATIVE_MODULE }),
+      });
       const result = await runMortalDecisionDiagnostic({
         resultUrlFilePath,
         acquisition,
         engine,
+        rules: { identity: rulesRuntime.ruleIdentity, port: rulesRuntime },
         now: Date.now,
         writeResult: async (serialized) => {
           const resultDir = join(
@@ -470,10 +514,14 @@ async function start(): Promise<void> {
         `[riichi-coach] mortal-decision-diagnostic:${result.status}`
         + (result.resultPath !== undefined ? ` ${result.resultPath}` : ""),
       );
-      app.exit(mortalDecisionDiagnosticExitCode(result.status));
+      process.exitCode = mortalDecisionDiagnosticExitCode(result.status);
+    } catch {
+      console.log("[riichi-coach] mortal-decision-diagnostic:review_failed");
+      process.exitCode = mortalDecisionDiagnosticExitCode("review_failed");
     } finally {
-      await engine.close();
+      try { await rulesRuntime?.close(); } finally { await engine.close(); }
     }
+    app.exit(process.exitCode === undefined ? 39 : Number(process.exitCode));
     return;
   }
   if (process.argv.includes("--diagnose-mortal-full-game")) {
@@ -509,11 +557,23 @@ async function start(): Promise<void> {
     const engine = new JsonlFactEngineClient(
       new ManagedFactEngineTransport(resourcesDir),
     );
+    let rulesRuntime: Awaited<ReturnType<typeof createLocalMortalRuntimeService>> | undefined;
     try {
+      const artifactRoot = process.env.RIICHI_LOCAL_MORTAL_ROOT
+        ?? join(process.env.LOCALAPPDATA ?? "", "RiichiCoach", "local-mortal-spike");
+      rulesRuntime = await createLocalMortalRuntimeService({
+        artifactRoot,
+        packageRoot: fileURLToPath(new URL("../../mortal-runtime/", import.meta.url)),
+        pythonExecutable: join(artifactRoot, "python", "Scripts", "python.exe"),
+        platformManifest: "mortal-582500.windows-x64.json",
+        ...(process.env.RIICHI_LIBRIICHI_NATIVE_RECEIPT === undefined ? {} : { nativeReceiptPath: process.env.RIICHI_LIBRIICHI_NATIVE_RECEIPT }),
+        ...(process.env.RIICHI_LIBRIICHI_NATIVE_MODULE === undefined ? {} : { nativeModulePath: process.env.RIICHI_LIBRIICHI_NATIVE_MODULE }),
+      });
       const result = await runMortalFullGameDiagnostic({
         resultUrlFilePath,
         acquisition,
         engine,
+        rules: { identity: rulesRuntime.ruleIdentity, port: rulesRuntime },
         now: Date.now,
         writeResult: async (serialized) => {
           const resultDir = join(
@@ -530,10 +590,14 @@ async function start(): Promise<void> {
         `[riichi-coach] mortal-full-game-diagnostic:${result.status}`
         + (result.resultPath !== undefined ? ` ${result.resultPath}` : ""),
       );
-      app.exit(mortalFullGameDiagnosticExitCode(result.status));
+      process.exitCode = mortalFullGameDiagnosticExitCode(result.status);
+    } catch {
+      console.log("[riichi-coach] mortal-full-game-diagnostic:coverage_failed");
+      process.exitCode = mortalFullGameDiagnosticExitCode("coverage_failed");
     } finally {
-      await engine.close();
+      try { await rulesRuntime?.close(); } finally { await engine.close(); }
     }
+    app.exit(process.exitCode === undefined ? 49 : Number(process.exitCode));
     return;
   }
   const partitionSession = session.fromPartition(PARTITION, { cache: true });
@@ -561,11 +625,47 @@ async function start(): Promise<void> {
     mapRecord: (mappedInput) => mapMahjongSoulRecord({ ...mappedInput, bundle }),
     replay: replayCanonicalStream,
   });
+  const cacheIdentity = (recordId: string, accountId: number): RawCacheIdentity => ({
+    sourceKind: "mahjong_soul_record",
+    stableRecordIdentityHash: createHash("sha256").update(recordId).digest("hex"),
+    perspective: "all-seats",
+    sourceVersion: MAHJONG_SOUL_PROTOCOL_BUNDLE_VERSION,
+    modelVersion: "not_applicable",
+    schemaVersion: "game-detail-records/v2",
+    // A new mapper/rule projection must not reuse a lossy classification from
+    // an earlier raw-cache producer. Saved review packages remain unchanged.
+    parserVersion: `${MAHJONG_SOUL_PROTOCOL_BUNDLE_VERSION}/${MAHJONG_SOUL_RECORD_MAPPER_VERSION}`,
+    validationVersion: DESKTOP_APP_VERSION,
+    requestParameters: {},
+    authenticationPartitionHash: createHash("sha256").update(String(accountId)).digest("hex"),
+  });
+  const analyzeFetchedRecord = async (stored: { accountId: number }, recordId: string, fetched: Awaited<ReturnType<typeof fetchMahjongSoulRecord>>) => {
+    const summaries = await catalogStore.list(stored.accountId);
+    const selfActor = requireCatalogSelfSeat(summaries, recordId);
+    const outcome = analysisStore.analyzeRecord({ recordId, selfActor, recordBytes: fetched.recordBytes,
+      ...(fetched.ruleEvidence === undefined ? {} : { ruleEvidence: fetched.ruleEvidence }) });
+    if (outcome.status !== "analysis_ready") {
+      throw new MahjongSoulSourceError("mahjong_soul_canonical_validation_failed");
+    }
+    return fetched;
+  };
   const recordIngestionService = createMahjongSoulRecordIngestionService({
     vault,
     catalogStore,
     createSession: createLobbySessionFactory({ bundle }),
     authenticate: authenticateStoredMahjongSoulSession,
+    readCachedRecord: async (stored, recordId) => {
+      const bytes = requireRawCache().get(cacheIdentity(recordId, stored.accountId));
+      if (bytes === null) return null;
+      try {
+        return await analyzeFetchedRecord(stored, recordId, decodeMahjongSoulRecordCache({
+          bundle, recordId, cacheBytes: bytes,
+        }));
+      } catch { return null; }
+    },
+    writeCachedRecord: (stored, fetched) => {
+      requireRawCache().put(cacheIdentity(fetched.recordId, stored.accountId), encodeMahjongSoulRecordCache({ bundle, ...fetched }));
+    },
     fetchRecord: async (lobby, stored, recordId) => {
       const fetched = await fetchMahjongSoulRecord({
         session: lobby,
@@ -574,19 +674,7 @@ async function start(): Promise<void> {
         clientVersionString: stored.recoveryContext.clientVersionString,
         fetchImpl: globalThis.fetch,
       });
-      const summaries = await catalogStore.list(stored.accountId);
-      // The account route's seat comes from the catalog summary; a summary
-      // that vanished mid-fetch fails closed — never a silent seat 0.
-      const selfActor = requireCatalogSelfSeat(summaries, recordId);
-      const outcome = analysisStore.analyzeRecord({
-        recordId,
-        selfActor,
-        recordBytes: fetched.recordBytes,
-      });
-      if (outcome.status !== "analysis_ready") {
-        throw new MahjongSoulSourceError("mahjong_soul_canonical_validation_failed");
-      }
-      return fetched;
+      return analyzeFetchedRecord(stored, recordId, fetched);
     },
   });
   const service = createMahjongSoulSessionService({
@@ -609,12 +697,47 @@ async function start(): Promise<void> {
     analysis: analysisStore,
     createWindow: createOfficialClientCaptureWindow,
     timeoutMs: 240_000,
+    prepareReview: async ({ recordId, selfActor, stream, decisions }) => {
+      // This is the only production composition point for the local model.
+      // Runtime/checkpoint paths stay in Electron main and are never part of
+      // the import DTO or renderer/preload capability.
+      const artifactRoot = process.env.RIICHI_LOCAL_MORTAL_ROOT
+        ?? join(process.env.LOCALAPPDATA ?? "", "RiichiCoach", "local-mortal-spike");
+      const runtime = await createLocalMortalRuntimeService({
+        pythonExecutable: join(artifactRoot, "python", "Scripts", "python.exe"),
+        packageRoot: fileURLToPath(new URL("../../mortal-runtime/", import.meta.url)),
+        artifactRoot,
+        platformManifest: "mortal-582500.windows-x64.json",
+        ...(process.env.RIICHI_LIBRIICHI_NATIVE_RECEIPT === undefined ? {} : { nativeReceiptPath: process.env.RIICHI_LIBRIICHI_NATIVE_RECEIPT }),
+        ...(process.env.RIICHI_LIBRIICHI_NATIVE_MODULE === undefined ? {} : { nativeModulePath: process.env.RIICHI_LIBRIICHI_NATIVE_MODULE }),
+        startTimeoutMs: 120_000,
+        inferenceTimeoutMs: 30_000,
+      });
+      let runtimeClosed = false;
+      try {
+        const analysis = createLocalMortalAnalysisService({
+          runtime,
+          factEngineResourcesDir: resourcesDir,
+          now: Date.now,
+        });
+        const result = await analysis.analyze({ recordId, selfActor, stream, decisions });
+        // Close the managed sidecar before the durable session transaction so
+        // a lifecycle failure cannot return an apparently successful DTO for
+        // a half-composed review.
+        await runtime.close();
+        runtimeClosed = true;
+        return persistValidatedReviewSession(reviewRepository, result.package);
+      } finally {
+        if (!runtimeClosed) await runtime.close().catch(() => undefined);
+      }
+    },
   });
   await service.initialize();
 
   const coachService = createCoachService({
     credentials: providerCredentials, fetchImpl: globalThis.fetch,
     readPackage: createPackageReferenceReader(app.getPath("userData")),
+    reviewRepository,
   });
 
   const createMainWindow = async (): Promise<void> => {
@@ -644,6 +767,7 @@ async function start(): Promise<void> {
         syncAnalyzableRecords: () => catalogService.syncAnalyzableRecords(),
         listAnalyzableRecords: () => catalogService.listAnalyzableRecords(),
         ingest: (recordId: string) => recordIngestionService.ingest(recordId),
+        clearSourceCache: () => requireRawCache().clear(),
       }),
       trustedSenderId: window.webContents.id,
     });
@@ -676,8 +800,8 @@ const isDiagnosticRun = process.argv.includes("--diagnose-mahjong-soul-restore")
   || process.argv.includes("--diagnose-mortal-decision")
   || process.argv.includes("--diagnose-mortal-full-game");
 
-app.whenReady().then(start).catch((error) => {
-  console.error("[riichi-coach] startup failed:", error);
+if (hasSingleInstanceLock) app.whenReady().then(start).catch(() => {
+  console.error("[riichi-coach] startup_unavailable");
   app.exit(1);
 });
 

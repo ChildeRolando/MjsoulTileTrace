@@ -1,9 +1,36 @@
 # Coach（日麻教练）
 
 本机日麻教练应用：登录雀魂国区账号取回牌谱，用可验证的本地事实管线加上生产模型
-（Mortal/Akagi）候选评分，产出可回放、可审计、可追问的整盘教学分析。
+Mortal 候选评分，产出可回放、可审计、可追问的整盘教学分析。当前批准的自动生产来源是
+managed local Mortal + `mortal-582500`；Akagi 仅保留为历史设计语境。
 
 ## Language
+
+### 自动报告比较范围（2026-09-29 用户批准，实施中）
+
+完整合法动作和 Mortal 全量评分继续保留；详细教学分析只计算一个动作对：有异议时
+为 Top1 与玩家行动，无异议时为 Top1 与 Top2。其他对由用户按需在线比较，缺少其
+预计算结果不影响自动报告完整性。并列最优沿用模型最优集合语义，实际/模型表达差异
+沿用已验证对应关系，不能制造两个独立选择。权威修订与验收要求见
+[M6-C 自动比较契约修订](docs/specs/2026-08-18-m6-c-structured-analysis-package-design.md)。
+
+### 合法动作权威（2026-09-28 已接入，验收按候选提交记录）
+
+**唯一合法动作来源**：固定版本 libriichi 的确定性规则组件。它读取 canonical
+事件与足够完整的可见状态，产生合法动作；Mortal 神经网络只评分，helper 只生产
+候选后果与教学事实。详见 [ADR-0006](docs/adr/0006-libriichi-single-legal-action-authority.md)。
+
+**待判定时点**：由 canonical 事件阶段定位、尚未宣称存在合法选择的时点。
+扫描不得用自建牌形/吃碰和规则提前排除窗口。
+
+**合法动作结果**：绑定状态内容、前缀、玩家、窗口、规则配置和引擎版本的一份
+成功完整集合或明确失败；请求、单候选证明和覆盖账本共同消费它。
+
+**单候选证明**：成功规则结果恰有一个动作且实际行动对应的派生证明；
+“程序只找到一个”或“资料不足”不能产生证明。不再用另一套牌理代码反证唯一性。
+
+**封存的本地枚举**：退出运行、构建、导出与默认测试，以 Git 历史和清单保留的
+旧规则代码；不可作生产 fallback 或第二来源裁判。helper 本身不属于整体封存对象。
 
 ### 覆盖账本（full-game coverage ledger）
 
@@ -32,6 +59,8 @@ _Avoid_: 锚定对、匹配对
 **Discovery corpus**：
 本地批量扫描的原始牌谱集合，只跑 mapper/canonical/census，**绝不调用 Mortal**；
 用途是寻找稀有语义分支，不是评审。
+ADR-0006 迁移后，可调用无权重的 libriichi 规则查询作准确合法性筛选；
+“不调用 Mortal”在此指不运行神经网络或请求远端报告。
 
 **Acceptance corpus**：
 从 discovery corpus 中选出的最小完备真实样本集；只对目标 game+seat 提交 Mortal
@@ -48,7 +77,8 @@ _Avoid_: "测试牌谱集"（掩盖两层职责差异）、"语料库"（不区�
 自己 chi/pon 之后、舍牌之前的决策窗口；无摸牌，手牌为副露后的暗牌。
 
 **立直后窗口（post-riichi window）**：
-立直受领后的舍牌决策窗口；选择被"保持听牌形"约束，通常唯一。
+立直阶段的舍牌决策窗口；宣言后待弃牌与受理后的摸牌窗口必须按 canonical phase
+区分，合法集合由 libriichi 决定，不能把所有立直状态一律当成强制摸切。
 
 **终局决策窗口（terminal decision window）**：
 实际行动为 tsumo / ankan / kakan / 九种九牌的自摸回合窗口。荒牌流局等
@@ -89,10 +119,13 @@ _Avoid_: 用 last_actor/最后行动者判定归属（自摸回合恰好重合�
 合法无行。绑定守恒因此是"每个本地窗口要么可绑定、要么有明确无行原因"，
 不是两侧计数相等。
 
+ADR-0006 迁移后，数量来自唯一 libriichi 结果；local 与 remote 共用该依据。
+来源行、模型分数以及本地独立枚举均不得反向成为动作合法性的第二权威。
+
 ### 分析产物（analysis artifacts）
 
 **StructuredAnalysisPackage（M6-C 整盘确定性证据产物）**：
-M6-C 将要固化的**整盘**确定性/可审计分析产物，是 evidence source of truth；
+M6-C 已固化的**整盘**确定性/可审计分析产物，是 evidence source of truth；
 只装确定性/来源/模型分析内容（record/decision identity、确定性生产者版本、
 七值 decision outcome、ledgers/differences/advisory signals/preference/
 modelEvaluation、evidence provenance）。**不是 graph、不是 LLM 产物**。
@@ -113,6 +146,37 @@ canonical/replay、mapper/source adapter、fact-engine、factor pipeline、Morta
 model/source tag 等）；LLM prompt/解释版本（provider/model、prompt version、输出
 schema 版本、validator/generation 版本）属 `ReviewReport`。同一分析包可被不同
 LLM/prompt 重生成多个 ReviewReport。
+
+**ReviewReport（解释侧报告产物）**：
+由唯一 `generateReviewReport` 入口生成，引用而不内嵌 StructuredAnalysisPackage；保存
+生成状态、逐行解释状态、grounded reasoning overlay 与 hash-only audit。selector 决定
+入选与排序，provider 独占一次自动传输重试，assembler/IPC 不得形成第二生成路径。
+_Avoid_: 把它当确定性分析包；绕过 selector 重算入选；保存完整 prompt/response/raw CoT
+
+**ReviewSession（复盘档案）**：
+围绕一份 StructuredAnalysisPackage 组织已保存 ReviewReport 的持久复盘记录，持有分析包引用、报告实例引用集合及当前选中的报告引用。
+_Avoid_: 智能体聊天会话、一次教练生成任务、教练身份、学习单元文件夹
+
+**原始来源缓存（raw Mortal/source cache）**：
+应用保留的原始牌谱或 Mortal 来源材料，用于中断恢复、重新分析及避免重复下载；它与正式分析包和教练报告是不同材料。
+_Avoid_: ReviewSession 内容、教练生成成果、用户可见报告
+
+**Managed local Mortal runtime（受管本地 Mortal 运行时）**：
+Electron main 独占的 privileged subprocess/checkpoint owner；只消费 canonical/replay
+projection，以 strict typed protocol 产生 model evidence，并经既有 Mortal comparison /
+`ModelEvaluation` 进入下游。它不是 game-record source、不是 hard-fact engine，也不是
+`mortal-source` 的本地模式。当前批准 checkpoint 固定为 `Yuchen1457/mortal-582500`。
+_Avoid_: Akagi Native（历史 M6-B 名称）、Mortal fact engine、通用 MahjongAIProvider
+
+**Remote Mortal report path（远端 Mortal 报告路径）**：
+result URL → `@riichi-coach/mortal-source` → report evidence 的现役兼容/回归/诊断路径；
+不拥有 subprocess/checkpoint，且不再是 manual-import MVP 的用户前置。local 与 remote
+只在同一 structured comparison / `ModelEvaluation` contract 合流，不形成两套下游。
+
+**Active ReviewReport（当前报告）**：
+同一 StructuredAnalysisPackage 的多个 immutable ReviewReport 中，当前唯一装配进
+review view 的那一份；切换时先卸载旧 reasoning overlay，再装配并验证目标 overlay。
+_Avoid_: 最新报告、最后一份报告（时间或数组位置都不能隐式决定 active report）
 
 ### 评审选择（review selection）
 

@@ -5,6 +5,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import {
   canonicalActionRef,
+  HandStructureResultV2Schema,
   type CompletedHandFactRequest,
   type CompletedHandFactResult,
   type Hand13FactRequest,
@@ -587,6 +588,160 @@ class ConcurrentIdentityTransport implements FactEngineTransport {
 }
 
 describe("JSONL fact engine client", () => {
+  it.each([0, 31])("accepts structural zero-shanten when all four copies are owned: tile %s", async (tile34) => {
+    const client = new JsonlFactEngineClient(new ManagedFactEngineTransport(
+      fileURLToPath(new URL("../../../resources/", import.meta.url)),
+    ));
+    const request = validHandStructureRequest();
+    request.handTiles34 = Array<number>(34).fill(0);
+    const tiles = tile34 === 31 ? [3,4,5,8,8,8,15,15,15,31] : [0,9,10,11,18,19,20,24,25,26];
+    for (const tile of tiles) request.handTiles34[tile]!++;
+    request.melds = [{kind:"pon", tiles34:[tile34,tile34,tile34]}];
+    try {
+      for (const visibleCountsComplete of [false, true]) {
+        request.visibleCountsComplete = visibleCountsComplete;
+        request.leftTiles34 = visibleCountsComplete
+          ? request.handTiles34.map((count, tile) => 4 - count - (tile === tile34 ? 3 : 0)) : null;
+        const result = await client.analyzeHandStructure(request);
+        expect(result.overallShanten).toBe(0);
+        expect(result.bestFamilies).toEqual(["standard"]);
+        expect(result.families.map(({shanten,effectiveTiles}) => ({shanten,effectiveTiles})))
+          .toEqual([{shanten:0,effectiveTiles:[]},{shanten:null,effectiveTiles:[]},{shanten:null,effectiveTiles:[]}]);
+        expect(result.waits).toEqual([]);
+        expect(result.decompositions.invariantClaims).toContainEqual({kind:"floating",tiles34:[tile34]});
+      }
+    } finally { await client.close(); }
+  });
+
+  it("retains exhausted waits when their copies are outside the owned hand", async () => {
+    const client = new JsonlFactEngineClient(new ManagedFactEngineTransport(
+      fileURLToPath(new URL("../../../resources/", import.meta.url)),
+    ));
+    const request = validHandStructureRequest();
+    request.visibleCountsComplete = true;
+    request.leftTiles34 = request.handTiles34.map(count => 4 - count);
+    request.leftTiles34[23] = request.leftTiles34[26] = 0;
+    try {
+      const result = await client.analyzeHandStructure(request);
+      expect(result.overallShanten).toBe(0);
+      expect(result.waits.map(({tile34,remaining}) => ({tile34,remaining})))
+        .toEqual([{tile34:23,remaining:0},{tile34:26,remaining:0}]);
+    } finally { await client.close(); }
+  });
+
+  it.each([
+    {name:"penchan blocked by the matching ankan", tiles:[0,1,12,13,14,24,25,26,31,31], kans:[2], chis:[]},
+    {name:"kanchan blocked by the matching ankan", tiles:[0,2,12,13,14,24,25,26,31,31], kans:[1], chis:[]},
+    {name:"both ryanmen ends owned", tiles:[1,2,13,14,15,31,31], kans:[0,3], chis:[]},
+    {name:"both distinct shanpon tiles owned", tiles:[0,0,1,1,24,25,26], kans:[], chis:[0,0]},
+    {name:"concealed four remains one-shanten", tiles:[0,1,2,12,13,14,24,25,26,31,31,31,31], kans:[], chis:[], shanten:1},
+  ])("keeps real helper empty waits: $name", async ({tiles,kans,chis,shanten=0}) => {
+    const client = new JsonlFactEngineClient(new ManagedFactEngineTransport(fileURLToPath(new URL("../../../resources/", import.meta.url))));
+    const request = validHandStructureRequest();
+    request.handTiles34 = Array<number>(34).fill(0);
+    for (const tile of tiles) request.handTiles34[tile]!++;
+    request.melds = [
+      ...kans.map(tile => ({kind:"ankan" as const,tiles34:[tile,tile,tile,tile]})),
+      ...chis.map(tile => ({kind:"chi" as const,tiles34:[tile,tile+1,tile+2]})),
+    ];
+    try {
+      const result = await client.analyzeHandStructure(request);
+      expect(result.overallShanten).toBe(shanten);
+      expect(result.waits).toEqual([]);
+      expect(result.decompositions.status).toBe("calculated");
+      expect(result.decompositions.truncated).toBe(false);
+      if (shanten === 1) {
+        const tampered = structuredClone(result);
+        tampered.overallShanten = 0;
+        tampered.families[0].shanten = 0;
+        tampered.families[0].effectiveTiles = [];
+        for (const item of tampered.decompositions.items) item.shanten = 0;
+        expect(HandStructureResultV2Schema.safeParse(tampered).success).toBe(true);
+        expect(() => validateHandStructureResult(request,tampered)).toThrow("hand_structure_result_mismatch");
+      }
+    } finally { await client.close(); }
+  });
+
+  it("rejects empty waits when zero-shanten family effective tiles remain", async () => {
+    const result = validHandStructureResult();
+    result.waits = [];
+    result.diagnostics = [];
+    await expect(new JsonlFactEngineClient(new FixtureTransport(result))
+      .analyzeHandStructure(validHandStructureRequest())).rejects.toThrow("hand_structure_result_mismatch");
+  });
+
+  it("rejects jointly omitted effective tiles and waits without any owned four-copy constraint", () => {
+    const result = validHandStructureResult();
+    result.families[0].effectiveTiles = [];
+    result.waits = [];
+    result.diagnostics = [];
+    expect(() => validateHandStructureResult(validHandStructureRequest(),result))
+      .toThrow("hand_structure_result_mismatch");
+  });
+
+  it.each([
+    {name:"unrelated ankan", tiles:[3,4,5,15,15,15,25,26,31,31], meld:"ankan", waits:[24]},
+    {name:"concealed four with multiple decompositions", tiles:[0,0,0,0,1,2,3,13,14,15,24,25,26], meld:null, waits:[3]},
+    {name:"pon plus fourth tile in a complete sequence", tiles:[0,1,2,12,13,14,24,25,26,31], meld:"pon", waits:[31]},
+    {name:"ryanmen with only one blocked end", tiles:[1,2,12,13,14,24,25,26,31,31], meld:"ankan", waits:[3]},
+    {name:"shanpon with only one blocked pair", tiles:[0,0,31,31,24,25,26], meld:"two_chi", waits:[31]},
+  ] as const)("rejects omitted real waits despite $name", async ({tiles,meld,waits}) => {
+    const transport = new ManagedFactEngineTransport(fileURLToPath(new URL("../../../resources/", import.meta.url)));
+    const request = validHandStructureRequest();
+    request.handTiles34 = Array<number>(34).fill(0);
+    for (const tile of tiles) request.handTiles34[tile]!++;
+    request.melds = meld === null ? [] : meld === "two_chi"
+      ? [{kind:"chi",tiles34:[0,1,2]},{kind:"chi",tiles34:[0,1,2]}]
+      : [{kind:meld,tiles34:meld === "ankan" ? [0,0,0,0] : [0,0,0]}];
+    try {
+      const result = JSON.parse(await transport.request(JSON.stringify(request),10_000)) as HandStructureResultV2;
+      expect(result.overallShanten).toBe(0);
+      expect(result.waits.map(wait=>wait.tile34)).toEqual(waits);
+      expect(() => validateHandStructureResult(request,result)).not.toThrow();
+      result.waits = [];
+      result.diagnostics = [];
+      for (const family of result.families) if (family.shanten === 0) family.effectiveTiles = [];
+      expect(() => validateHandStructureResult(request,result)).toThrow("hand_structure_result_mismatch");
+    } finally { await transport.close(); }
+  });
+
+  it.each(["blocked", "truncated"] as const)("rejects an empty-wait exception with %s decomposition evidence", async mode => {
+    const transport = new ManagedFactEngineTransport(fileURLToPath(new URL("../../../resources/", import.meta.url)));
+    const request = validHandStructureRequest();
+    request.handTiles34 = Array<number>(34).fill(0);
+    for (const tile of [3,4,5,8,8,8,15,15,15,31]) request.handTiles34[tile]!++;
+    request.melds = [{kind:"pon",tiles34:[31,31,31]}];
+    try {
+      const result = JSON.parse(await transport.request(JSON.stringify(request),10_000)) as HandStructureResultV2;
+      expect(() => validateHandStructureResult(request,result)).not.toThrow();
+      if (mode === "blocked") {
+        result.decompositions = {status:"blocked_engine_failure",totalNonDominated:0,truncated:false,items:[],invariantClaims:[],alternativeClaims:[]};
+        result.diagnostics = [];
+      } else {
+        result.decompositions.truncated = true;
+        result.decompositions.totalNonDominated++;
+        result.diagnostics = ["truncated_non_dominated_decompositions"];
+      }
+      expect(HandStructureResultV2Schema.safeParse(result).success).toBe(true);
+      expect(() => validateHandStructureResult(request,result)).toThrow("hand_structure_result_mismatch");
+    } finally { await transport.close(); }
+  });
+
+  it("rejects a fifth owned copy even when effective tiles and waits agree", async () => {
+    const transport = new ManagedFactEngineTransport(fileURLToPath(new URL("../../../resources/", import.meta.url)));
+    const request = validHandStructureRequest();
+    request.handTiles34 = Array<number>(34).fill(0);
+    for (const tile of [3,4,5,8,8,8,15,15,15,31]) request.handTiles34[tile]!++;
+    request.melds = [{kind:"pon",tiles34:[31,31,31]}];
+    try {
+      const result = JSON.parse(await transport.request(JSON.stringify(request),10_000)) as HandStructureResultV2;
+      result.families[0].effectiveTiles = [{tile34:31,remainingStatus:"blocked_missing_facts",remaining:null}];
+      result.waits = [{tile34:31,families:["standard"],waitTypes:["tanki"],remainingStatus:"blocked_missing_facts",
+        remaining:null,baseRonEligibility:"ineligible",decompositionRefs:[result.decompositions.items[0]!.decompositionRef]}];
+      expect(() => validateHandStructureResult(request,result)).toThrow("hand_structure_result_mismatch");
+    } finally { await transport.close(); }
+  });
+
   it("parses a bound hand-structure/v2 result", async () => {
     const client = new JsonlFactEngineClient(
       new FixtureTransport(validHandStructureResult()),
@@ -1056,6 +1211,35 @@ describe("JSONL fact engine client", () => {
     expect(resolved).toMatch(
       /resources[\\/]mahjong-facts[\\/]windows-x64[\\/]mahjong-facts\.exe$/,
     );
+  });
+
+  it.each(["all-safe", "real-late-round"] as const)("accepts an empty remaining no-suji list from the packaged sidecar: %s", async (scenario) => {
+    const resources = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../../resources");
+    const client = new JsonlFactEngineClient(new ManagedFactEngineTransport(resources));
+    const request = validThreatRiskRequest();
+    request.safeTiles34 = scenario === "all-safe" ? Array<boolean>(34).fill(true) :
+      [false,true,true,false,true,false,true,true,true,true,true,false,true,false,true,true,true,false,false,true,true,true,false,false,false,true,true,true,true,false,true,false,true,false];
+    if (scenario === "real-late-round") {
+      request.turns = 17;
+      request.leftTiles34 = [1,1,0,3,1,3,0,0,0,0,2,3,1,4,3,3,1,0,1,0,0,0,2,2,1,0,1,1,2,4,2,2,1,3];
+      request.doraTiles34 = [11,24];
+      request.threatWindTile34 = 28;
+      request.earlyOutsideTiles34 = [26];
+    }
+    try {
+      const result = await client.analyzeThreatRisk(request);
+      expect(result.leftNoSujiTile34).toEqual([]);
+      expect(result.riskScale).toHaveLength(34);
+      expect(result.evidenceIds).toEqual(request.evidenceIds);
+      request.safeTiles34.forEach((safe, tile34) => {
+        if (safe) {
+          expect(result.riskScale[tile34]).toBe(0);
+          expect(result.classifications).toContainEqual({tile34, kind: "genbutsu"});
+        }
+      });
+    } finally {
+      await client.close();
+    }
   });
 
   it("starts the packaged sidecar without Go or a caller-supplied binary path", async () => {

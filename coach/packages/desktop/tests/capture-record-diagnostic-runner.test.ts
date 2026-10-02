@@ -1,10 +1,11 @@
 import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { join, relative, resolve } from "node:path";
 import { parse } from "protobufjs";
 import { describe, expect, it } from "vitest";
 import {
   decodeStoredRecordActions,
+  decodeMahjongSoulRecordCache,
   loadMahjongSoulProtocolBundle,
   mapMahjongSoulRecord,
   unwrapGameDetailRecords,
@@ -25,6 +26,7 @@ import {
   FakeWindow,
   loadFixtureWire,
   scriptedCapture,
+  syntheticRecordHead,
 } from "./helpers/cdp-capture-harness.js";
 
 // Drives the capture diagnostic end to end with the REAL bundle, the REAL
@@ -44,6 +46,56 @@ const inertPipeline = {
 } as const;
 
 describe("capture-record diagnostic runner", () => {
+  it("rejects a captured record that differs from the requested identity before mapping", async () => {
+    const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
+    const fixture = loadFixtureWire("real-supported-round");
+    let mapped = false;
+    const result = await runRecordCaptureDiagnostic({ bundle, url, recordId: fixture.recordId.replace(/1$/u, "2"), selfActor: 0,
+      createWindow: scriptedCapture(bundle, { data: fixture.wire }).createWindow, timeoutMs: 1000,
+      pipeline: { ...inertPipeline, mapRecord: () => { mapped = true; return inertPipeline.mapRecord(); } },
+    });
+    expect(result).toMatchObject({ status: "error", errorCode: "capture_identity_invalid", recordBytesPath: null, recordCachePath: null });
+    expect(mapped).toBe(false);
+  });
+
+  it("preserves source rules in diagnostic replay and its reusable capture artifact", async () => {
+    const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
+    const fixture = loadFixtureWire("real-supported-round");
+    const workDir = await mkdtemp(join(tmpdir(), "majsoul-capture-rules-"));
+    const head = { ...syntheticRecordHead(), standard_rule: 2,
+      config: { category: 2, mode: { mode: 2 }, meta: { mode_id: 12 } } };
+    let mappedRules: unknown;
+    const run = () => runRecordCaptureDiagnostic({ bundle, url, recordId: fixture.recordId, selfActor: 0,
+      createWindow: scriptedCapture(bundle, { data: fixture.wire }, { head }).createWindow,
+      timeoutMs: 1000, recordBytesFile: join(workDir, "record.pb"), debugFile: join(workDir, "debug.log"),
+      pipeline: { mapRecord: input => {
+        const mapped = mapMahjongSoulRecord({ ...input, bundle });
+        if (mapped.status === "ready") mappedRules = mapped.stream.ruleSet;
+        return mapped;
+      }, replay: replayCanonicalStream, serializeAudit: () => "{}", writeAudit: async () => "audit" },
+    });
+    try {
+      const first = await run();
+      expect(first.status).toBe("replay_audit_written");
+      expect(mappedRules).toMatchObject({ openTanyao: true, redFives: { man: 1, pin: 1, sou: 1 } });
+      expect(first).toHaveProperty("recordCachePath", expect.any(String));
+      const path = (first as typeof first & { recordCachePath: string }).recordCachePath;
+      const cacheBytes = await readFile(path);
+      const reopened = decodeMahjongSoulRecordCache({ bundle, recordId: fixture.recordId, cacheBytes });
+      expect(reopened.ruleEvidence).toMatchObject({ matchModeId: 12, standardRule: 2 });
+      expect(reopened.recordBytes).toEqual(unwrapGameDetailRecords(bundle, fixture.wire));
+      const second = await run();
+      expect(second).toHaveProperty("recordCachePath", expect.any(String));
+      expect((second as typeof second & { recordCachePath: string }).recordCachePath).not.toBe(path);
+      expect(await readFile(path)).toEqual(cacheBytes);
+      expect(cacheBytes.toString("utf8")).not.toContain("account_id");
+    } finally {
+      const child = relative(resolve(tmpdir()), resolve(workDir));
+      if (!child.startsWith("majsoul-capture-rules-") || child.includes("..")) throw new Error("unsafe cleanup");
+      await rm(workDir, { recursive: true, force: true });
+    }
+  });
+
   it("runs the supported real round through capture -> map -> replay -> audit", async () => {
     const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
     const fixture = loadFixtureWire("real-supported-round");

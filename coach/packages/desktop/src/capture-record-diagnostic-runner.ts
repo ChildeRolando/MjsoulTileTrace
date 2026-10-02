@@ -1,13 +1,16 @@
 import { appendFileSync, writeFileSync } from "node:fs";
+import { randomUUID } from "node:crypto";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import type { CanonicalEventStream } from "@riichi-coach/contracts";
 import {
   decodeStoredRecordActions,
+  encodeMahjongSoulRecordCache,
   MahjongSoulSourceError,
   type MahjongSoulCanonicalMapperResult,
   type MahjongSoulMapperDiagnostic,
   type MahjongSoulProtocolBundle,
+  type MahjongSoulRecordRuleEvidence,
 } from "@riichi-coach/mahjong-soul-source";
 import type { ReplayedDecision } from "@riichi-coach/reasoning";
 import {
@@ -61,6 +64,7 @@ export type CaptureRecordResult = Readonly<{
   readonly replayDecisionCount: number | null;
   readonly auditPath: string | null;
   readonly recordBytesPath: string | null;
+  readonly recordCachePath: string | null;
   readonly errorCode: string | null;
 }>;
 
@@ -70,6 +74,7 @@ export interface CaptureRecordPipeline {
     readonly selfActor: number;
     readonly recordId: string;
     readonly recordBytes: Uint8Array;
+    readonly ruleEvidence?: MahjongSoulRecordRuleEvidence;
   }) => MahjongSoulCanonicalMapperResult;
   readonly replay: (stream: CanonicalEventStream) => readonly ReplayedDecision[];
   readonly serializeAudit: (input: {
@@ -111,6 +116,7 @@ function result(fields: {
   readonly replayDecisionCount?: number | null;
   readonly auditPath?: string | null;
   readonly recordBytesPath?: string | null;
+  readonly recordCachePath?: string | null;
   readonly errorCode?: string | null;
 }): CaptureRecordResult {
   return Object.freeze({
@@ -122,6 +128,7 @@ function result(fields: {
     replayDecisionCount: fields.replayDecisionCount ?? null,
     auditPath: fields.auditPath ?? null,
     recordBytesPath: fields.recordBytesPath ?? null,
+    recordCachePath: fields.recordCachePath ?? null,
     errorCode: fields.errorCode ?? null,
   });
 }
@@ -142,6 +149,7 @@ function mappingStatusOf(
 async function evaluateCapturedRecord(input: {
   readonly bundle: MahjongSoulProtocolBundle;
   readonly recordBytes: Uint8Array;
+  readonly ruleEvidence?: MahjongSoulRecordRuleEvidence;
   readonly recordId: string;
   readonly selfActor: number;
   readonly pipeline: CaptureRecordPipeline;
@@ -171,6 +179,7 @@ async function evaluateCapturedRecord(input: {
       selfActor: input.selfActor,
       recordId: input.recordId,
       recordBytes: input.recordBytes,
+      ...(input.ruleEvidence === undefined ? {} : { ruleEvidence: input.ruleEvidence }),
     });
   } catch {
     return result({
@@ -305,6 +314,10 @@ export async function runRecordCaptureDiagnostic(input: {
   }
   debug("captured_record");
 
+  if (captured.recordIdentity.recordId !== input.recordId) {
+    return result({ status: "error", errorCode: "capture_identity_invalid" });
+  }
+
   // The generator's input contract: INNER GameDetailRecords bytes. The write
   // is best-effort; the outcome is reported via recordBytesPath.
   let recordBytesPath: string | null = null;
@@ -316,14 +329,29 @@ export async function runRecordCaptureDiagnostic(input: {
     debug("record_bytes_write_failed");
   }
 
+  // Preserve the same-response rule evidence alongside the legacy inner bytes.
+  // Each artifact is new; a later diagnostic cannot overwrite prior evidence.
+  let recordCachePath: string | null = null;
+  try {
+    const path = `${recordBytesFile}.${randomUUID()}.json`;
+    writeFileSync(path, encodeMahjongSoulRecordCache({ bundle: input.bundle, recordId: input.recordId,
+      recordBytes: captured.recordBytes,
+      ...(captured.ruleEvidence === undefined ? {} : { ruleEvidence: captured.ruleEvidence }) }), { flag: "wx" });
+    recordCachePath = path;
+    debug("record_cache_written");
+  } catch {
+    debug("record_cache_write_failed");
+  }
+
   const evaluated = await evaluateCapturedRecord({
     bundle: input.bundle,
     recordBytes: captured.recordBytes,
+    ...(captured.ruleEvidence === undefined ? {} : { ruleEvidence: captured.ruleEvidence }),
     recordId: input.recordId,
     selfActor: input.selfActor,
     pipeline: input.pipeline,
     recordBytesPath,
   });
   debug(`settle_${evaluated.status}`);
-  return evaluated;
+  return Object.freeze({ ...evaluated, recordCachePath });
 }

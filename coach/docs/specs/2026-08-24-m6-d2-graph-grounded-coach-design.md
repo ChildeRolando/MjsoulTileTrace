@@ -1,8 +1,8 @@
 # M6-D2：Graph-grounded Coach + Grounding Validator 实现规格
 
 日期：2026-08-24
-状态：M6-D2 设计规格（implementation spec，ready-for-agent；本文件落盘架构决策与
-实现边界，M6-D2 尚未实现）
+状态：M6-D2 设计规格（implementation spec；2026-09-20 已实现并通过 COAC-4 本地
+验收；Problem Statement 保留实现前的时间语义）
 依据：[ADR-0003](../adr/0003-evidence-first-coaching-judgment-and-authority-layers.md)、
 [ADR-0004](../adr/0004-context-graph-as-auditable-llm-boundary.md)、
 [ADR-0005](../adr/0005-workspace-dependency-boundaries.md)、
@@ -13,6 +13,13 @@
 [DeterministicReviewSelector 规格](./2026-08-19-deterministic-review-selector-design.md)、
 [2026-08-18 grill 决策 E1–E9 / F1–F3](../handoffs/2026-08-18-next-phase-roadmap-grill-decisions.md)。
 术语以 [`coach/CONTEXT.md`](../../CONTEXT.md) 词汇表为准。
+
+> **COAC-4 收口说明（2026-09-20）**：`generateReviewReport` 是 production 唯一的
+> 新报告生成入口，位于 reasoning 包根；desktop main 只装配 package reader、selector
+> 与 provider 后调用它。`assembleReviewReport` 与 provider-result 映射留在 reasoning
+> 内部，不再从包根导出。自动传输重试唯一归 provider：一次初始发送加至多一次重试；
+> 引擎、service 与 IPC 均不重试。持久化读回可独立调用既有 package/report validators，
+> 但不得调用 provider 或发布新报告。
 
 ## Problem Statement
 
@@ -499,3 +506,16 @@ M6-D2 所有失败抛 `m6d2_<模块>_<错误>:<detail>` 风格错误（`m6d2_eng
   draft 之外全部丢弃，audit 只留 hash）。
 - 术语一律以 [`coach/CONTEXT.md`](../../CONTEXT.md) 词汇表为准；与既有 ADR
   矛盾处显式指出，不静默覆盖。
+
+## 2026-09-29 批准修订：自动报告只解释所选比较对
+
+依据 M6-C 同日自动比较策略，提示版本更新为 `coach-review-prompt/v2`，grounding
+版本更新为 `coach-grounding/v2`。新生成请求使用 v2；已保存报告仍兼容 v1 元数据。
+
+GraphContextSlice 携带 Decision.automaticComparisonScope；模型可以看到完整合法候选
+与完整评分，但自动报告推荐必须在所选比较对内，不得把对内确定性偏好表述为所有合法
+动作上的最优证明。其他候选的按需比较不影响本次自动报告是否完备。
+
+生成前校验图的范围与同决策完整 ModelEvaluation 一致；直接 grounding 与报告读回也
+执行同一重算。伪造范围不能扩大推荐权限，未选候选推荐为 invalid_output / 读回拒绝。
+无 scope 的历史图仍保留旧全候选语义；不能用这个兼容分支绕过新版档案的范围校验。

@@ -19,7 +19,7 @@ import {
   type ContextGraphNode,
   type StructuredAnalysisPackage,
 } from "@riichi-coach/contracts";
-import { canonicalJson, sha256Hex } from "../src/analysis/package-identity.js";
+import { canonicalJson, sha256CanonicalJson, sha256Hex } from "../src/analysis/package-identity.js";
 import { deriveEdgeId, deriveNodeId, semanticKeyOfNode } from "../src/context-graph/context-graph-ids.js";
 import { projectContextGraph } from "../src/context-graph/project-context-graph.js";
 import { validateContextGraph } from "../src/context-graph/validate-context-graph.js";
@@ -50,6 +50,17 @@ function outgoing(graph: ContextGraph, nodeId: string): ContextGraphEdge[] {
   return graph.edges.filter((edge) => edge.from === nodeId);
 }
 
+function reachableEvidence(graph: ContextGraph, nodeId: string): string[] {
+  const seen = new Set<string>();
+  const pending = [nodeId];
+  for (let index = 0; index < pending.length; index++) {
+    for (const edge of outgoing(graph, pending[index]!).filter(edge => edge.edgeKind === "derived_from")) {
+      if (!seen.has(edge.to)) { seen.add(edge.to); pending.push(edge.to); }
+    }
+  }
+  return [...seen].sort();
+}
+
 /** The Evidence node whose payload carries the given evidenceId. */
 function evidenceNodeOf(graph: ContextGraph, evidenceId: string): ContextGraphNode {
   const node = graph.nodes.find((candidate) =>
@@ -76,6 +87,78 @@ function candidateNodeOf(
 }
 
 describe("M6-D1 projectContextGraph", () => {
+  it("keeps shared projected evidence immutable without freezing or aliasing caller data", async () => {
+    const pkg = await buildSingleDecisionPackage();
+    const ready = readyDecisionOf(pkg);
+    const facts = ready.candidateFactorLedgers.flatMap(ledger => ledger.axes.flatMap(axis => axis.facts));
+    const first = facts[0]!;
+    const second = facts.find(fact => fact !== first && fact.factorKey !== first.factorKey)!;
+    second.evidenceIds = [...first.evidenceIds];
+    const before = clone(pkg);
+    const graph = projectContextGraph(pkg);
+    const nodes = graph.nodes.filter(node => node.nodeKind === "FactorFact"
+      && [first.factorKey, second.factorKey].includes((node.payload as {factorKey:string}).factorKey));
+    expect(nodes.length).toBeGreaterThanOrEqual(2);
+    for (const node of nodes) {
+      expect(Object.isFrozen(node.provenance)).toBe(true);
+      expect(Object.isFrozen((node.payload as {evidenceIds:string[]}).evidenceIds)).toBe(true);
+      expect(() => node.provenance.push("tampered")).toThrow();
+    }
+    expect(pkg).toEqual(before);
+    expect(Object.isFrozen(first.evidenceIds)).toBe(false);
+    first.evidenceIds.push("caller-only-change");
+    expect(nodes.every(node => !node.provenance.includes("caller-only-change"))).toBe(true);
+    expect(nodes.every(node => !(node.payload as {evidenceIds:string[]}).evidenceIds.includes("caller-only-change"))).toBe(true);
+    expect(clone(graph)).toEqual(graph);
+  });
+
+  it.each(["covered", "overlap", "event_only", "unrelated", "duplicate", "missing", "missing_source"] as const)(
+    "retains exact provenance reachability while compacting only covered direct edges: %s", async mode => {
+      const pkg = await buildSingleDecisionPackage();
+      const ready = readyDecisionOf(pkg);
+      const request = Object.values(pkg.evidenceRegistry).find(record => record.kind === "fact_engine_request" && record.sourceRefs.length > 1)!;
+      const source = request.sourceRefs[0]!;
+      const fact = ready.candidateFactorLedgers[0]!.axes[0]!.facts[0]!;
+      if (mode === "unrelated") request.sourceRefs = request.sourceRefs.filter(ref => ref !== source);
+      fact.evidenceIds = mode === "event_only" ? [source] : [request.evidenceId, source];
+      if (mode === "overlap") {
+        const other = Object.values(pkg.evidenceRegistry).find(record => record.kind === "fact_engine_request" && record.evidenceId !== request.evidenceId)!;
+        other.sourceRefs = [source];
+        fact.evidenceIds.push(other.evidenceId);
+      }
+      if (mode === "missing_source") request.sourceRefs.push("missing-source");
+      if (mode === "duplicate") fact.evidenceIds.push(source);
+      if (mode === "missing") fact.evidenceIds.push("missing-evidence");
+      const before = clone(pkg);
+      if (mode === "missing") {
+        expect(() => projectContextGraph(pkg)).toThrow("m6d1_projector_unresolved_evidence:missing-evidence");
+        return;
+      }
+      if (mode === "duplicate") {
+        expect(() => projectContextGraph(pkg)).toThrow("m6d1_projector_schema");
+        return;
+      }
+      if (mode === "missing_source") {
+        expect(() => projectContextGraph(pkg)).toThrow("m6d1_projector_unresolved_evidence_source_ref");
+        return;
+      }
+      const graph = projectContextGraph(pkg);
+      const node = graph.nodes.find(node => node.nodeKind === "FactorFact"
+        && (node.payload as {actionRef:string;factorKey:string}).actionRef === ready.candidateFactorLedgers[0]!.actionRef
+        && (node.payload as {factorKey:string}).factorKey === fact.factorKey)!;
+      expect(node.provenance).toEqual(fact.evidenceIds);
+      const direct = outgoing(graph, node.nodeId).filter(edge => edge.edgeKind === "derived_from").map(edge => edge.to);
+      const sourceId = evidenceNodeOf(graph, source).nodeId;
+      if (mode === "covered" || mode === "overlap") expect(direct).not.toContain(sourceId);
+      else expect(direct).toContain(sourceId);
+      const expected = new Set(fact.evidenceIds);
+      if (mode !== "event_only") request.sourceRefs.forEach(ref => expected.add(ref));
+      expect(reachableEvidence(graph, node.nodeId)).toEqual([...expected].map(ref => evidenceNodeOf(graph, ref).nodeId).sort());
+      expect(pkg).toEqual(before);
+      expect(() => validateContextGraph(graph)).not.toThrow();
+    },
+  );
+
   it("projects the whole-game-style package to a schema-valid, deterministic ContextGraph with the evidence node kinds the package carries", async () => {
     const pkg = await buildTwoDecisionPackage();
     const graph = projectContextGraph(pkg);
@@ -327,7 +410,7 @@ describe("M6-D1 projectContextGraph", () => {
     }
   });
 
-  it("derived_from covers every evidenceId of every evidence-bearing node, and fact-engine Evidence derives from its canonical sourceRefs", async () => {
+  it("derived_from preserves the complete original evidence closure and every request source edge", async () => {
     const pkg = await buildSingleDecisionPackage();
     const graph = projectContextGraph(pkg);
 
@@ -342,10 +425,19 @@ describe("M6-D1 projectContextGraph", () => {
         .filter((edge) => edge.edgeKind === "derived_from")
         .map((edge) => edge.to)
         .sort();
-      const expected = (node.provenance as string[])
+      const expectedDirect = (node.provenance as string[])
         .map((evidenceId) => evidenceNodeOf(graph, evidenceId).nodeId)
         .sort();
-      expect(derived).toEqual(expected);
+      // Direct edges may only target an original reference. Every original
+      // target remains reachable, including all pre-existing request sources.
+      expect(derived.every(id => expectedDirect.includes(id))).toBe(true);
+      const expectedClosure = new Set(node.provenance);
+      for (const ref of node.provenance) {
+        const record = pkg.evidenceRegistry[ref]!;
+        if (record.kind === "fact_engine_request") record.sourceRefs.forEach(source => expectedClosure.add(source));
+      }
+      expect(reachableEvidence(graph, node.nodeId)).toEqual([...expectedClosure]
+        .map(ref => evidenceNodeOf(graph, ref).nodeId).sort());
     }
 
     // fact_engine_request evidence → canonical sourceRefs.
@@ -411,6 +503,8 @@ describe("M6-D1 projectContextGraph", () => {
       .toBe('{"key":"d1","nodeKind":"Decision"}');
     expect(sha256Hex('{"key":"d1","nodeKind":"Decision"}'))
       .toBe("88e1de2602309460550e58b93a95812082cf809598d9fe43dfad3e2d9244906c");
+    expect(sha256CanonicalJson({ nodeKind: "Decision", nested: [null, true, { key: "d1" }] }))
+      .toBe(sha256Hex(canonicalJson({ nodeKind: "Decision", nested: [null, true, { key: "d1" }] })));
     expect(deriveNodeId("Decision", "d1"))
       .toBe("ctxg:Decision:88e1de2602309460550e58b93a95812082cf809598d9fe43dfad3e2d9244906c");
   });
@@ -456,5 +550,26 @@ describe("M6-D1 projectContextGraph", () => {
         expect(node.producer).toBe("canonical-replay");
       }
     }
+  });
+});
+
+
+describe("immutable structural edge metadata", () => {
+  it("keeps empty provenance and payload immutable without freezing caller data", async () => {
+    const pkg = await buildSingleDecisionPackage();
+    const before = structuredClone(pkg);
+    const graph = projectContextGraph(pkg);
+    const emptyEdges = graph.edges.filter(edge => Object.keys(edge.payload as object).length === 0);
+    expect(emptyEdges.length).toBeGreaterThan(1);
+    for (const edge of emptyEdges) {
+      expect(edge.provenance).toEqual([]);
+      expect(edge.payload).toEqual({});
+      expect(Object.isFrozen(edge.provenance)).toBe(true);
+      expect(Object.isFrozen(edge.payload)).toBe(true);
+      expect(() => edge.provenance.push('changed')).toThrow();
+      expect(() => Object.assign(edge.payload as object, {changed:true})).toThrow();
+    }
+    expect(pkg).toStrictEqual(before);
+    validateContextGraph(graph);
   });
 });

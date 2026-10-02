@@ -1,5 +1,10 @@
 # 验收采用 coverage-driven 两层真实语料（discovery/acceptance），本地侧新增独立的 Tenhou→canonical 入口
 
+> **2026-09-28 权威澄清**：[ADR-0006](0006-libriichi-single-legal-action-authority.md)
+> 保留原始牌谱独立导入与真实覆盖要求；不再将它扩展为必须自建第二套合法动作
+> 引擎。discovery 可使用无权重 libriichi 规则查询，仍不运行神经网络或提交远端。
+> local/remote 合法集合共用该规则来源，同源一致性不声称独立规则正确性验证。
+
 > **2026-08-16 来源政策修正（superseding note）**：本 ADR 的核心决策——本地侧必须
 > 独立生产、绝不从 Mortal 报告内嵌 mjai_log 派生——不变且被强化。但"天凤入口"只是
 > 当时的实现载体，不是验收不变量。修正后：**雀魂官方原始牌谱为首选验收来源**

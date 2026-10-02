@@ -3,7 +3,7 @@
 日期：2026-07-30
 状态：已确认
 
-> **当前权威提示（2026-08-18）**：本文件为历史设计 spec，正文保留用于设计演进
+> **当前权威提示（2026-09-24）**：本文件为历史设计 spec，正文保留用于设计演进
 > 追踪，不再作为当前 LLM/evidence/context 边界的权威。其中
 > “TeachingPolicyEngine / deterministic rules 产生最终教练建议、LLM 主要做
 > 表达”的部分已被
@@ -13,7 +13,11 @@
 > [ADR-0004](../adr/0004-context-graph-as-auditable-llm-boundary.md)、
 > [当前 ROADMAP](../development/ROADMAP.md) 和
 > [Context Graph design spec](./2026-08-18-auditable-context-graph-design.md)
-> 为准。
+> 为准。本文全部 Akagi-specific native-runtime 与“manual Mortal result URL 是 MVP
+> prerequisite”的描述也已被
+> [Local Mortal Runtime 生产规格](./2026-09-24-local-mortal-runtime-production-design.md)
+> supersede：当前 M6-B 是 native model runtime capability，首个 MVP 实现固定为 managed
+> local Mortal + `Yuchen1457/mortal-582500`；remote report adapter 仅作为兼容/诊断路径保留。
 
 补充约束：决策解释、攻守后处理、牌河阅读、证据来源和严格模式必须遵守
 [`2026-07-30-evidence-grounded-coach-reasoning-design.md`](./2026-07-30-evidence-grounded-coach-reasoning-design.md)。

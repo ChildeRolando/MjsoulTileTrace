@@ -16,10 +16,9 @@
  *   immediately (82/82); the declaration-turn discard is the only discard that
  *   carries riichiDeclarationEventRef.
  * - Kan→DORA order: ankan reveals the indicator immediately (5/5) while
- *   kakan/daiminkan reveal it after the rinshan draw (8/8). No decision point
- *   sits between the reveal and the post-kan discard in either order, so the
- *   mapper normalizes the indicator to directly after its kan (the canonical
- *   slot; mjai does the same), keeping the kan association via kanEventRef.
+ *   kakan/daiminkan reveal it after the rinshan draw (8/8). Preserve the DORA
+ *   tag's position and provenance: a later publication must not enrich the
+ *   earlier draw snapshot. kanEventRef separately retains its kan association.
  * - The rinshan draw after a kan belongs to the kan caller (13/13).
  * - The drawable wall is a 70-tile pool: live + rinshan draws together must
  *   reach exactly 70 at every exhaustive round (22/22).
@@ -46,7 +45,7 @@ import { tokenizeMjlog } from "./mjlog-tokenizer.js";
 import { decodeTenhouMeld, type TenhouMeld } from "./meld-codec.js";
 import { tenhouTileCode, tenhouTileList } from "./tile-codec.js";
 
-export const TENHOU_MAPPER_VERSION = "tenhou-mjloggm-mapper/v1" as const;
+export const TENHOU_MAPPER_VERSION = "tenhou-mjloggm-mapper/v3" as const;
 
 const DRAW_SEATS = ["T", "U", "V", "W"] as const;
 const DISCARD_SEATS = ["D", "E", "F", "G"] as const;
@@ -152,8 +151,7 @@ interface RoundState {
   consumedDiscardIds: Set<string>;
   activePonByKey: Map<string, { eventId: string; tiles: Tile[] }>;
   rinshanDueSeat: number | null;
-  pendingKan: { kanEventId: string; kanTagIndex: number } | null;
-  bufferedRinshanDraw: { tagIndex: number; seat: number; code: number } | null;
+  pendingKan: { kanEventId: string } | null;
   chankanCandidate: { eventId: string; actor: number; tile: Tile } | null;
   terminal: TerminalRecord | null;
   selfConcealed: Map<string, number>;
@@ -173,6 +171,7 @@ class MapperEngine {
   private round: RoundState | null = null;
   private previousFinalScores: [number, number, number, number] | null = null;
   private gameEnded = false;
+  private doraIndicatorsComplete = true;
 
   constructor(
     private readonly raw: string,
@@ -238,13 +237,16 @@ class MapperEngine {
         eventSequence: "complete",
         ruleSet: "partial",
         scores: "complete",
-        doraIndicators: "complete",
+        doraIndicators: this.doraIndicatorsComplete ? "complete" : "partial",
         rivers: "complete",
         calledDiscardMarkers: "complete",
         melds: "complete",
         remainingDraws: "complete",
         settlement: "unknown",
-        responseOpportunities: "unknown",
+        // A ready full mjlog has every offered tile and response closure in
+        // canonical order. Eligibility is still proven per window by replay
+        // and the fact engine; this does not assert that every offer is ron.
+        responseOpportunities: "complete",
       },
       ruleSet: {
         length: (this.goType ?? 0) & 0x08 ? "south" : "east",
@@ -342,6 +344,25 @@ class MapperEngine {
     const round = this.round;
     if (round === null || round.terminal === null || this.gameEnded) return;
     const terminal = round.terminal;
+    if (round.pendingKan !== null) {
+      const pendingKanRef = round.pendingKan.kanEventId;
+      const kanIndex = this.events.findIndex(event => event.eventId === pendingKanRef);
+      const kan = this.events[kanIndex];
+      const ending = this.events.find(event => event.eventId === terminal.bindingEventId);
+      const robbed = ending?.type === "win_declared" && ending.method === "ron" &&
+        ending.winSourceEventRef === pendingKanRef;
+      // Tenhou reveals open-kan indicators at discard/the next replacement
+      // draw; an immediate rinshan win need not publish one. Ankan differs.
+      // Never manufacture the missing indicator from the settlement.
+      const deferredRinshanWin = kan?.type !== "ankan_declared" && ending?.type === "win_declared" &&
+        ending.method === "tsumo" && this.events.some(event => event.type === "tile_drawn" &&
+          event.eventId === ending.winSourceEventRef && event.from === "rinshan") &&
+        !this.events.slice(kanIndex + 1).some(event => event.type === "tile_discarded");
+      const abortedBeforeDraw = ending?.type === "round_drawn" &&
+        (ending.reason === "suukaikan" || ending.reason === "sancha_hou") &&
+        round.rinshanDueSeat !== null;
+      if (!robbed && !deferredRinshanWin && !abortedBeforeDraw) this.doraIndicatorsComplete = false;
+    }
     this.push(round.roundOrdinal, terminal.settlementTagIndex, 1, {
       type: "scores_updated",
       scores: terminal.finalScores,
@@ -438,7 +459,6 @@ class MapperEngine {
       activePonByKey: new Map(),
       rinshanDueSeat: null,
       pendingKan: null,
-      bufferedRinshanDraw: null,
       chankanCandidate: null,
       terminal: null,
       selfConcealed,
@@ -472,7 +492,6 @@ class MapperEngine {
         if (round.terminal !== null) {
           throw new TenhouSourceError("tenhou_mapper_invalid_event");
         }
-        this.flushBufferedDraw(round);
         this.consumeDiscard(tag, tagIndex, discardSeat, round);
         return;
       }
@@ -482,7 +501,6 @@ class MapperEngine {
       if (round.terminal !== null) {
         throw new TenhouSourceError("tenhou_mapper_invalid_event");
       }
-      this.flushBufferedDraw(round);
       this.consumeMeld(token, tagIndex, round);
       return;
     }
@@ -491,7 +509,6 @@ class MapperEngine {
       if (round.terminal !== null) {
         throw new TenhouSourceError("tenhou_mapper_invalid_event");
       }
-      this.flushBufferedDraw(round);
       this.consumeRiichi(token, tagIndex, round);
       return;
     }
@@ -500,14 +517,13 @@ class MapperEngine {
       if (round.terminal !== null) {
         throw new TenhouSourceError("tenhou_mapper_invalid_event");
       }
-      this.consumeDora(token, round);
+      this.consumeDora(token, tagIndex, round);
       return;
     }
 
     if (tag === "AGARI") {
       // A consecutive AGARI (double ron) is the only event allowed after a
       // terminal within the same round.
-      this.flushBufferedDraw(round);
       this.consumeAgari(token, tagIndex, round);
       return;
     }
@@ -516,7 +532,6 @@ class MapperEngine {
       if (round.terminal !== null) {
         throw new TenhouSourceError("tenhou_mapper_invalid_event");
       }
-      this.flushBufferedDraw(round);
       this.consumeRyuukyoku(token, tagIndex, round);
       return;
     }
@@ -551,14 +566,8 @@ class MapperEngine {
     if (round.totalDraws > 70) {
       throw new TenhouSourceError("tenhou_mapper_invalid_event");
     }
-    if (from === "rinshan") {
-      // Defer the rinshan draw until a following DORA tag has been emitted so
-      // the normalized indicator keeps canonical positions ordered.
-      round.bufferedRinshanDraw = { tagIndex, seat, code };
-      round.chankanCandidate = null;
-      return;
-    }
-    this.emitDraw(round, tagIndex, seat, code, "live_wall");
+    if (from === "rinshan") round.chankanCandidate = null;
+    this.emitDraw(round, tagIndex, seat, code, from);
   }
 
   private emitDraw(
@@ -582,13 +591,6 @@ class MapperEngine {
       const key = concealedKey(tile);
       round.selfConcealed.set(key, (round.selfConcealed.get(key) ?? 0) + 1);
     }
-  }
-
-  private flushBufferedDraw(round: RoundState): void {
-    const buffered = round.bufferedRinshanDraw;
-    if (buffered === null) return;
-    round.bufferedRinshanDraw = null;
-    this.emitDraw(round, buffered.tagIndex, buffered.seat, buffered.code, "rinshan");
   }
 
   private consumeDiscard(
@@ -660,7 +662,7 @@ class MapperEngine {
     throw new TenhouSourceError("tenhou_mapper_invalid_event");
   }
 
-  private consumeDora(token: MjlogTokenView, round: RoundState): void {
+  private consumeDora(token: MjlogTokenView, tagIndex: number, round: RoundState): void {
     if (round.pendingKan === null) {
       throw new TenhouSourceError("tenhou_mapper_invalid_event");
     }
@@ -671,15 +673,12 @@ class MapperEngine {
       parseCsvInts(token.attrs.hai, 1, "tenhou_mapper_invalid_event")[0]!,
       this.redFivesEnabled,
     );
-    // Normalized indicator slot: directly after its kan, before the rinshan
-    // draw (see module doc). Shares the kan's source position and ref.
-    this.push(round.roundOrdinal, round.pendingKan.kanTagIndex, 1, {
+    this.push(round.roundOrdinal, tagIndex, 0, {
       type: "dora_revealed",
       indicator,
       kanEventRef: round.pendingKan.kanEventId,
     });
     round.pendingKan = null;
-    this.flushBufferedDraw(round);
   }
 
   private consumeMeld(token: MjlogTokenView, tagIndex: number, round: RoundState): void {
@@ -701,7 +700,7 @@ class MapperEngine {
         tiles: [tiles[0]!, tiles[1]!, tiles[2]!, tiles[3]!],
       });
       round.rinshanDueSeat = who;
-      round.pendingKan = { kanEventId: event.eventId, kanTagIndex: tagIndex };
+      round.pendingKan = { kanEventId: event.eventId };
       round.lastDrawCode[who] = null;
       return;
     }
@@ -728,7 +727,7 @@ class MapperEngine {
       });
       round.activePonByKey.delete(key);
       round.rinshanDueSeat = who;
-      round.pendingKan = { kanEventId: event.eventId, kanTagIndex: tagIndex };
+      round.pendingKan = { kanEventId: event.eventId };
       round.chankanCandidate = {
         eventId: event.eventId,
         actor: who,
@@ -789,7 +788,7 @@ class MapperEngine {
         calledDiscardEventRef: candidate.eventId,
       });
       round.rinshanDueSeat = who;
-      round.pendingKan = { kanEventId: event.eventId, kanTagIndex: tagIndex };
+      round.pendingKan = { kanEventId: event.eventId };
     }
     round.lastDrawCode[who] = null;
     round.chankanCandidate = null;

@@ -1,6 +1,7 @@
 import type {
   MahjongSoulCapturedRecordIdentity,
   MahjongSoulProtocolBundle,
+  MahjongSoulRecordRuleEvidence,
 } from "@riichi-coach/mahjong-soul-source";
 import { createCdpRecordObserver } from "./cdp-record-observer.js";
 
@@ -73,6 +74,7 @@ export type OfficialClientCaptureResult =
      * main-process production code.
      */
     readonly recordIdentity: MahjongSoulCapturedRecordIdentity;
+    readonly ruleEvidence?: MahjongSoulRecordRuleEvidence;
   }
   | {
     readonly status: "no_capture";
@@ -139,6 +141,7 @@ export async function captureRecordViaOfficialClient(input: {
           status: "captured",
           recordBytes: Uint8Array.from(captured.recordBytes),
           recordIdentity: captured.recordIdentity,
+          ...(captured.ruleEvidence === undefined ? {} : { ruleEvidence: captured.ruleEvidence }),
         });
       }
     } catch {

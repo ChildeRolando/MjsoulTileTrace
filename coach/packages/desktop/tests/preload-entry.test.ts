@@ -43,13 +43,15 @@ describe("self-contained sandboxed preload", () => {
       "openMahjongSoulLogin",
     ]);
     expect(Object.keys(catalog).sort()).toEqual([
+      "clearSourceCache",
       "listAnalyzableRecords",
       "startRecordAnalysis",
       "syncAnalyzableRecords",
     ]);
     expect(Object.keys(paipu).sort()).toEqual(["importPaipu"]);
     expect(Object.keys(exposed.get("riichiCoachProvider") as object).sort()).toEqual([
-      "clearCredential", "configure", "generate", "importCredential", "status",
+      "cancelGeneration", "clearCredential", "configure", "generateReview",
+      "getReviewDetail", "importCredential", "leaveReview", "listReviewSessions", "openReview", "status",
     ]);
   });
 
@@ -63,6 +65,8 @@ describe("self-contained sandboxed preload", () => {
       .toBe(MAHJONG_SOUL_CATALOG_IPC_CHANNELS.listAnalyzableRecords);
     expect(PRELOAD_CHANNELS.startAnalysis)
       .toBe(MAHJONG_SOUL_CATALOG_IPC_CHANNELS.startRecordAnalysis);
+    expect(PRELOAD_CHANNELS.clearSourceCache)
+      .toBe(MAHJONG_SOUL_CATALOG_IPC_CHANNELS.clearSourceCache);
     expect(PRELOAD_CHANNELS.importPaipuUrl)
       .toBe(MAHJONG_SOUL_PAIPU_IPC_CHANNELS.importPaipuUrl);
   });
@@ -149,7 +153,16 @@ describe("self-contained sandboxed preload", () => {
       canonicalEventCount: 1024,
       replayDecisionCount: 116,
     };
+    const reviewReady = {
+      status: "review_ready",
+      recordId: "260811-00000000-0000-0000-0000-000000000001",
+      sessionId: "session-verified",
+      packageId: "package-verified",
+      canonicalEventCount: 1024,
+      replayDecisionCount: 116,
+    };
     expect(assertSafePaipuImportResult(ready)).toBeDefined();
+    expect(assertSafePaipuImportResult(reviewReady)).toBeDefined();
     for (const status of ["invalid_url", "identity_mismatch", "no_capture", "unsupported_semantics", "analysis_failed"]) {
       expect(assertSafePaipuImportResult({ status })).toBeDefined();
       // Exactly one key: a status plus anything else is refused.

@@ -1,4 +1,5 @@
 import {
+  deriveAutomaticComparisonScope,
   ModelEvaluationSchema,
   StructuredComparisonSetSchema,
   type ModelEvaluation,
@@ -12,6 +13,7 @@ import {
 export interface StructuredAnalysisAssemblyInput
   extends StructuredFactorPipelineInput {
   modelEvaluation: ModelEvaluation | null;
+  automaticReport?: boolean;
 }
 
 export interface StructuredAnalysisAssemblyResult {
@@ -67,6 +69,9 @@ export async function runStructuredAnalysisAssembly(
   if (modelEvaluation !== null) {
     validateEvaluationBinding(modelEvaluation, comparisonSet);
   }
+  if (input.automaticReport && (modelEvaluation === null || comparisonSet.origin !== "automatic_review")) {
+    throw new Error("automatic_comparison_requires_model_evaluation");
+  }
 
   const factorResult = await runStructuredFactorPipeline({
     frame: input.frame,
@@ -74,6 +79,8 @@ export async function runStructuredAnalysisAssembly(
     facts: input.facts,
     responseFuriten: input.responseFuriten,
     engine: input.engine,
+    ...(input.automaticReport && modelEvaluation !== null
+      ? { automaticComparisonScope: deriveAutomaticComparisonScope(modelEvaluation) } : {}),
   });
   return { factorResult, modelEvaluation };
 }

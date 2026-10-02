@@ -6,6 +6,7 @@ import {
 } from "./liqi-codec.js";
 import type { MahjongSoulProtocolBundle } from "./protocol-bundle.js";
 import { unwrapGameDetailRecords } from "./record-wire.js";
+import { extractRecordRuleEvidence, type MahjongSoulRecordRuleEvidence } from "./record-rule-evidence.js";
 
 const PROTOCOL_ERROR = "mahjong_soul_login_protocol_unsupported" as const;
 
@@ -29,6 +30,7 @@ export type RecordCaptureResult = Readonly<{
   readonly status: "record_captured";
   readonly recordBytes: Uint8Array;
   readonly recordIdentity: MahjongSoulCapturedRecordIdentity;
+  readonly ruleEvidence?: MahjongSoulRecordRuleEvidence;
 }>;
 
 export interface MahjongSoulRecordCapture {
@@ -145,11 +147,14 @@ class StatefulRecordCapture implements MahjongSoulRecordCapture {
       // stay unparsed. A data-bearing response without structurally valid
       // identity metadata is a protocol violation and fails closed.
       const recordIdentity = extractRecordIdentity(payload.head);
+      const ruleEvidence = extractRecordRuleEvidence({ bundle: this.#bundle, head: payload.head,
+        recordId: recordIdentity.recordId, recordBytes });
       this.#terminate();
       return Object.freeze({
         status: "record_captured" as const,
         recordBytes: Uint8Array.from(recordBytes),
         recordIdentity,
+        ...(ruleEvidence === undefined ? {} : { ruleEvidence }),
       });
     });
   }

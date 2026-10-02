@@ -4,11 +4,12 @@ import {
 } from "@riichi-coach/contracts";
 import { canonicalJson } from "./analysis/package-identity.js";
 
-// Frozen coach-review-prompt/v1. Change the version before changing these bytes.
+// Frozen coach-review-prompt/v2. Change the version before changing these bytes.
 const TEMPLATE = `Produce only a JSON object with a decisions array, using the supplied GraphContextSlice.
 Write all user-facing inference statements and explanation text in Simplified Chinese (zh-CN).
 For each selected decision return decisionId and judgment {localId,recommendation,confidence,premiseRefs}.
 recommendation must be a candidate actionRef. confidence is high, medium or low.
+If Decision.automaticComparisonScope exists, recommend only one of its actionRefs and limit teaching comparisons to that pair. Other scored candidates have not been analyzed in this report. Pairwise preference does not prove a best action across all legal choices.
 premiseRefs must reference same-decision evidence nodeIds or local inference ids.
 Copy evidence nodeIds and actionRefs verbatim from the slice; never invent references.
 Optional inferences: [{localId,statement,premiseRefs}]. Optional explanations: [{text,claims,judgmentLocalRef}].

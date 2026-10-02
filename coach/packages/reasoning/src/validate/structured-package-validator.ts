@@ -60,7 +60,7 @@
  *     `componentVersions.mortalSourceModel.version`, and every
  *     evidence-registry `producerVersion` against the replay / fact-engine
  *     versions it encodes. Fields with no independent payload provenance
- *     (modelTag, ModelEvaluation.engineVersion, mapperAdapter, factorPipeline)
+ *     (remote modelTag, ModelEvaluation.engineVersion, mapperAdapter, factorPipeline)
  *     stay declaration-only and are NOT invented into checks.
  *  9. READY-DECISION REFERENCE INTEGRITY (repair 2 + closure 2/3). One
  *     `analysis_ready` decision = one internally coherent candidate universe:
@@ -97,13 +97,17 @@
  *
  * Error convention: every failure throws `m6c_validator_<kind>:<detail>`.
  */
-import { isDeepStrictEqual } from "node:util";
+import { isPlainJson } from "./plain-json.js";
+import { validateLibriichiPackageEvidence } from "./libriichi-package-evidence.js";
 import {
+  deriveAutomaticComparisonScope,
   CANONICAL_REPLAY_PRODUCER,
   FACT_ENGINE_PRODUCER,
   MORTAL_PROVIDER_IDENTITY,
+  LOCAL_MORTAL_ADAPTER_VERSION,
+  managedLocalMortalEngineVersion,
   parseCanonicalEventRef,
-  StructuredAnalysisPackageSchema,
+  assertStructuredAnalysisPackageSchema,
   type DecisionAnalysis,
   type EngineIdentity,
   type EvidenceRecord,
@@ -204,17 +208,10 @@ function rejectExplanationSideVersions(input: unknown): void {
 // ---------------------------------------------------------------------------
 
 function assertJsonRoundtrip(pkg: unknown): void {
-  let roundtripped: unknown;
-  try {
-    roundtripped = JSON.parse(JSON.stringify(pkg));
-  } catch {
+  // Preserve the package contract, which permits finite negative zero.
+  if (!isPlainJson(pkg, true)) {
     throw new Error(
-      "m6c_validator_not_json_serializable: package contains a non-JSON value",
-    );
-  }
-  if (!isDeepStrictEqual(roundtripped, pkg)) {
-    throw new Error(
-      "m6c_validator_json_roundtrip_mismatch: package changes under JSON serialization",
+      "m6c_validator_json_roundtrip_mismatch: package contains a non-JSON value",
     );
   }
 }
@@ -444,7 +441,8 @@ function validateCrossReferences(pkg: StructuredAnalysisPackage): void {
  *  provider chain (closure 1) is part of this coherence: the declaration's
  *  `mortalSourceModel.identity` must be the canonical "Mortal" provider, and
  *  every ready decision's `ModelEvaluation.engineId` must be the Mortal
- *  engine. Fields with no independent payload provenance (modelTag,
+ *  engine. Local modelTag also agrees with the checkpoint identity. Fields
+ *  with no independent payload provenance (remote modelTag,
  *  ModelEvaluation.engineVersion, mapperAdapter, factorPipeline) are
  *  intentionally NOT invented into checks. */
 function validateProducerVersions(pkg: StructuredAnalysisPackage): void {
@@ -458,6 +456,19 @@ function validateProducerVersions(pkg: StructuredAnalysisPackage): void {
     throw new Error(
       "m6c_validator_provider_mismatch:mortalSourceModel:identity",
     );
+  }
+  const mortalSource = pkg.componentVersions.mortalSourceModel;
+  if (mortalSource.evidenceSource?.kind === "managed_local_runtime" &&
+      mortalSource.modelTag !== mortalSource.evidenceSource.identity.checkpointModelTag) {
+    throw new Error("m6c_validator_producer_version_mismatch:localMortal:modelTag");
+  }
+  if (mortalSource.version === LOCAL_MORTAL_ADAPTER_VERSION &&
+      mortalSource.evidenceSource?.kind !== "managed_local_runtime") {
+    throw new Error("m6c_validator_producer_version_mismatch:localMortal:evidenceSource");
+  }
+  if (mortalSource.evidenceSource?.kind === "managed_local_runtime" &&
+      mortalSource.version !== LOCAL_MORTAL_ADAPTER_VERSION) {
+    throw new Error("m6c_validator_producer_version_mismatch:localMortal:adapterVersion");
   }
   for (const decision of pkg.decisions) {
     // analysisProvider.kind is schema-pinned to "mortal" by the literal
@@ -538,6 +549,19 @@ function validateProducerVersions(pkg: StructuredAnalysisPackage): void {
       throw new Error(
         `m6c_validator_producer_version_mismatch:mortalSourceModel:${decision.decisionId}:adapterVersion`,
       );
+    }
+    const source = pkg.componentVersions.mortalSourceModel.evidenceSource;
+    if (source?.kind === "managed_local_runtime") {
+      if (decision.modelEvaluation.adapterVersion !== LOCAL_MORTAL_ADAPTER_VERSION) {
+        throw new Error(
+          `m6c_validator_producer_version_mismatch:localMortal:${decision.decisionId}:adapterVersion`,
+        );
+      }
+      if (decision.modelEvaluation.engineVersion !== managedLocalMortalEngineVersion(source.identity)) {
+        throw new Error(
+          `m6c_validator_producer_version_mismatch:localMortal:${decision.decisionId}:engineVersion`,
+        );
+      }
     }
   }
 }
@@ -658,78 +682,6 @@ function validateReadyDecisionReferences(
       .map((candidate) => candidate.actionRef),
   );
 
-  // Candidate ledgers: production emits exactly one ledger per comparison
-  // candidate, so the ledger refs must be a bijection onto the universe.
-  const seenLedgerRefs = new Set<string>();
-  for (const ledger of decision.candidateFactorLedgers) {
-    if (seenLedgerRefs.has(ledger.actionRef)) {
-      throw new Error(
-        `m6c_validator_ledger_duplicate:${decision.decisionId}:${ledger.actionRef}`,
-      );
-    }
-    seenLedgerRefs.add(ledger.actionRef);
-    if (!universe.has(ledger.actionRef)) {
-      throw new Error(
-        `m6c_validator_ledger_candidate_extra:${decision.decisionId}:${ledger.actionRef}`,
-      );
-    }
-  }
-  for (const candidate of comparison.candidates) {
-    if (!seenLedgerRefs.has(candidate.actionRef)) {
-      throw new Error(
-        `m6c_validator_ledger_candidate_missing:${decision.decisionId}:${candidate.actionRef}`,
-      );
-    }
-  }
-
-  // FactorDifference references (closure 3): differenceId values are unique
-  // within the decision (they are the reference targets of
-  // deterministicPreference.decisiveDifferenceIds), and both sides of every
-  // difference belong to the candidate universe.
-  const seenDifferenceIds = new Set<string>();
-  for (const difference of decision.factorDifferences) {
-    if (seenDifferenceIds.has(difference.differenceId)) {
-      throw new Error(
-        `m6c_validator_difference_duplicate:${decision.decisionId}:${difference.differenceId}`,
-      );
-    }
-    seenDifferenceIds.add(difference.differenceId);
-    if (!universe.has(difference.leftActionRef)) {
-      throw new Error(
-        `m6c_validator_difference_action_ref:${decision.decisionId}:${difference.leftActionRef}`,
-      );
-    }
-    if (!universe.has(difference.rightActionRef)) {
-      throw new Error(
-        `m6c_validator_difference_action_ref:${decision.decisionId}:${difference.rightActionRef}`,
-      );
-    }
-  }
-
-  // DeterministicPreference refs belong to the candidate universe (production
-  // derives the maximal set from the ledger/difference candidate refs), and
-  // every decisiveDifferenceIds entry must resolve to a FactorDifference of
-  // the SAME decision (closure 3 — reference-integrity only; which differences
-  // SHOULD be decisive is never inferred or recomputed).
-  if (decision.deterministicPreference !== null) {
-    for (const actionRef of decision.deterministicPreference.actionRefs) {
-      if (!universe.has(actionRef)) {
-        throw new Error(
-          `m6c_validator_preference_action_ref:${decision.decisionId}:${actionRef}`,
-        );
-      }
-    }
-    for (const differenceId of
-      decision.deterministicPreference.decisiveDifferenceIds
-    ) {
-      if (!seenDifferenceIds.has(differenceId)) {
-        throw new Error(
-          `m6c_validator_preference_difference_ref:${decision.decisionId}:${differenceId}`,
-        );
-      }
-    }
-  }
-
   // ModelEvaluation action references resolve through the comparison set's
   // legal model/action correspondence (ADR-0001): scored entries and
   // preferences are model-origin candidates; the actual action is the
@@ -802,6 +754,91 @@ function validateReadyDecisionReferences(
       `m6c_validator_evaluation_action_ref:${decision.decisionId}:${evaluation.scoredActualModelActionRef}`,
     );
   }
+
+  const scope = decision.automaticComparisonScope;
+  const expectedScope = scope === undefined ? undefined : deriveAutomaticComparisonScope(evaluation);
+  if (scope !== undefined && (comparison.origin !== "automatic_review" ||
+      scope.policyVersion !== expectedScope!.policyVersion || scope.reason !== expectedScope!.reason ||
+      scope.actionRefs.some((ref, index) => ref !== expectedScope!.actionRefs[index]))) {
+    throw new Error(`m6c_validator_automatic_comparison_scope:${decision.decisionId}`);
+  }
+  const analyzedUniverse = scope === undefined ? universe : new Set(scope.actionRefs);
+  for (const ref of analyzedUniverse) {
+    if (!universe.has(ref)) throw new Error(`m6c_validator_automatic_comparison_candidate:${decision.decisionId}:${ref}`);
+  }
+  // Legacy artifacts cover their entire universe; pair artifacts cover exactly
+  // the versioned scope derived from the complete evaluation above.
+  const seenLedgerRefs = new Set<string>();
+  for (const ledger of decision.candidateFactorLedgers) {
+    if (seenLedgerRefs.has(ledger.actionRef)) {
+      throw new Error(
+        `m6c_validator_ledger_duplicate:${decision.decisionId}:${ledger.actionRef}`,
+      );
+    }
+    seenLedgerRefs.add(ledger.actionRef);
+    if (!analyzedUniverse.has(ledger.actionRef)) {
+      throw new Error(
+        `m6c_validator_ledger_candidate_extra:${decision.decisionId}:${ledger.actionRef}`,
+      );
+    }
+  }
+  for (const actionRef of analyzedUniverse) {
+    if (!seenLedgerRefs.has(actionRef)) {
+      throw new Error(
+        `m6c_validator_ledger_candidate_missing:${decision.decisionId}:${actionRef}`,
+      );
+    }
+  }
+
+  // FactorDifference references (closure 3): differenceId values are unique
+  // within the decision (they are the reference targets of
+  // deterministicPreference.decisiveDifferenceIds), and both sides of every
+  // difference belong to the candidate universe.
+  const seenDifferenceIds = new Set<string>();
+  for (const difference of decision.factorDifferences) {
+    if (seenDifferenceIds.has(difference.differenceId)) {
+      throw new Error(
+        `m6c_validator_difference_duplicate:${decision.decisionId}:${difference.differenceId}`,
+      );
+    }
+    seenDifferenceIds.add(difference.differenceId);
+    if (!analyzedUniverse.has(difference.leftActionRef)) {
+      throw new Error(
+        `m6c_validator_difference_action_ref:${decision.decisionId}:${difference.leftActionRef}`,
+      );
+    }
+    if (!analyzedUniverse.has(difference.rightActionRef)) {
+      throw new Error(
+        `m6c_validator_difference_action_ref:${decision.decisionId}:${difference.rightActionRef}`,
+      );
+    }
+  }
+
+  // DeterministicPreference refs belong to the candidate universe (production
+  // derives the maximal set from the ledger/difference candidate refs), and
+  // every decisiveDifferenceIds entry must resolve to a FactorDifference of
+  // the SAME decision (closure 3 — reference-integrity only; which differences
+  // SHOULD be decisive is never inferred or recomputed).
+  if (decision.deterministicPreference !== null) {
+    for (const actionRef of decision.deterministicPreference.actionRefs) {
+      if (!analyzedUniverse.has(actionRef)) {
+        throw new Error(
+          `m6c_validator_preference_action_ref:${decision.decisionId}:${actionRef}`,
+        );
+      }
+    }
+    for (const differenceId of
+      decision.deterministicPreference.decisiveDifferenceIds
+    ) {
+      if (!seenDifferenceIds.has(differenceId)) {
+        throw new Error(
+          `m6c_validator_preference_difference_ref:${decision.decisionId}:${differenceId}`,
+        );
+      }
+    }
+  }
+
+
 }
 
 // ---------------------------------------------------------------------------
@@ -877,6 +914,7 @@ function assertPackageIdentity(pkg: StructuredAnalysisPackage): void {
     analysisPolicy: pkg.analysisPolicy,
     decisions: pkg.decisions,
     evidenceRegistry: pkg.evidenceRegistry,
+    ...(pkg.legalActionEvidence === undefined ? {} : {legalActionEvidence:pkg.legalActionEvidence}),
   });
   if (pkg.semanticContentHash !== expectedHash) {
     throw new Error("m6c_validator_semantic_hash_mismatch");
@@ -887,7 +925,10 @@ function assertPackageIdentity(pkg: StructuredAnalysisPackage): void {
 // validateStructuredAnalysisPackage
 // ---------------------------------------------------------------------------
 
-export function validateStructuredAnalysisPackage(input: unknown): void {
+export function validateStructuredAnalysisPackage(input: unknown): asserts input is StructuredAnalysisPackage {
+  // Inspect data descriptors before any schema/walker can execute a getter or
+  // discard non-enumerable/symbol properties. Accepted artifacts are plain JSON.
+  assertJsonRoundtrip(input);
   // Spec-named rejections with dedicated messages, run on the RAW input before
   // schema parse so the failure names the offending key/artifact.
   rejectExplanationSideVersions(input);
@@ -906,15 +947,11 @@ export function validateStructuredAnalysisPackage(input: unknown): void {
   // cause rejection here. Strict schemas reject unknown keys at every level.
   let pkg: StructuredAnalysisPackage;
   try {
-    pkg = StructuredAnalysisPackageSchema.parse(input);
+    assertStructuredAnalysisPackageSchema(input);
+    pkg = input;
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     throw new Error(`m6c_validator_schema:${message}`);
-  }
-  if (!isDeepStrictEqual(pkg, input)) {
-    throw new Error(
-      "m6c_validator_schema_normalization: schema parse must not reshape the package",
-    );
   }
 
   // SERIALIZABILITY (CR-5 / Slice 3): the artifact survives JSON roundtrip.
@@ -936,6 +973,7 @@ export function validateStructuredAnalysisPackage(input: unknown): void {
   // EVIDENCE PROVENANCE REFERENCES (closure 6): registry sourceRefs must not
   // dangle; producers must match the frozen two-kind chain.
   validateEvidenceProvenance(pkg);
+  validateLibriichiPackageEvidence(pkg);
 
   // READY-DECISION REFERENCE INTEGRITY (repair 2 + closure 2/3): one
   // analysis_ready decision = one internally coherent candidate universe.

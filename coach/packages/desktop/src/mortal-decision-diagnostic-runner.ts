@@ -9,15 +9,16 @@ import {
 import {
   classifyModelEvaluationDetail,
   runMortalSingleDecisionReview,
+  replayCanonicalStream,
   type MortalSingleDecisionReviewResult,
 } from "@riichi-coach/reasoning";
 import type { HandStructureFactEnginePort } from "@riichi-coach/reasoning";
 import type { ReplayedDecision } from "@riichi-coach/reasoning";
-import type { CanonicalEventStream } from "@riichi-coach/contracts";
+import type { CanonicalEventStream, LibriichiRuleIdentity, LibriichiRulePort } from "@riichi-coach/contracts";
 import type { MahjongSoulReplayAcquisitionResult } from "./replay-diagnostic-runner.js";
 
 export const MORTAL_DECISION_DIAGNOSTIC_RESULT_VERSION =
-  "mortal-decision-diagnostic/v1" as const;
+  "mortal-decision-diagnostic/v2" as const;
 
 export function buildMortalDecisionResultPath(
   resultDir: string,
@@ -60,6 +61,7 @@ export type MortalDecisionDiagnosticPorts = {
   readonly resultUrlFilePath: string;
   readonly acquisition: MahjongSoulReplayAcquisitionResult;
   readonly engine: HandStructureFactEnginePort;
+  readonly rules: { readonly identity: LibriichiRuleIdentity; readonly port: LibriichiRulePort };
   readonly writeResult: (serialized: string) => Promise<string>;
   readonly now?: () => number;
   readonly fetchImpl?: typeof fetch;
@@ -122,6 +124,7 @@ export function serializeMortalDecisionDiagnosticResult(
   );
   return `${JSON.stringify({
     schemaVersion: MORTAL_DECISION_DIAGNOSTIC_RESULT_VERSION,
+    legalActionRules: review.legalActionRules,
     selfSeat: acquisition.selfSeat,
     decisionKind: decision.snapshot.privateState.decisionWindow.kind,
     candidateCount: review.comparisonSet.candidates.length,
@@ -171,7 +174,9 @@ export async function runMortalDecisionDiagnostic(
   }
   const acquisition = ports.acquisition;
 
-  const decision = pickReviewDecision(acquisition.decisions);
+  let decision: ReplayedDecision | null;
+  try { decision = pickReviewDecision(replayCanonicalStream(acquisition.stream)); }
+  catch { return result("review_failed"); }
   if (decision === null) return result("no_reviewable_decision");
 
   let review: MortalSingleDecisionReviewResult;
@@ -181,6 +186,7 @@ export async function runMortalDecisionDiagnostic(
       decision,
       report,
       engine: ports.engine,
+      rules: ports.rules,
       now,
     });
   } catch {
@@ -202,6 +208,8 @@ export async function runMortalDecisionDiagnostic(
         : "review_failed",
     );
   }
+
+  if (review.legalActionRules === undefined) return result("review_failed");
 
   let resultPath: string;
   try {

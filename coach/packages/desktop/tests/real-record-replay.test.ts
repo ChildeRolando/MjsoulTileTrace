@@ -4,6 +4,7 @@ import {
   loadMahjongSoulProtocolBundle,
   mapMahjongSoulRecord,
   unwrapGameDetailRecords,
+  decodeStoredRecordActions,
 } from "@riichi-coach/mahjong-soul-source";
 import {
   buildMahjongSoulReplayAudit,
@@ -11,6 +12,7 @@ import {
   serializeMahjongSoulReplayAudit,
   validateCanonicalEventStream,
 } from "@riichi-coach/reasoning";
+import { parseCanonicalEventRef } from "@riichi-coach/contracts";
 import { describe, expect, it } from "vitest";
 
 const bundleRoot = fileURLToPath(
@@ -74,11 +76,7 @@ describe("real supported round: full map → replay → audit chain", () => {
     );
   });
 
-  // The FULL real game (1616 actions incl. both kans) maps and passes the
-  // canonical state-machine validation. Replaying its decisions is measured
-  // at ~1s per decision (~2min for the whole game), so the decision/audit
-  // stage stays covered by the single-round test above.
-  it("maps the full real game and passes canonical stream validation", async () => {
+  it.each([0,1,2,3])("full real game actor %i preserves source wall counts at decision boundaries", async selfActor => {
     const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
     const fixture = JSON.parse(readFileSync(new URL(
       "../../mahjong-soul-source/tests/fixtures/real-record-wire.json",
@@ -90,7 +88,7 @@ describe("real supported round: full map → replay → audit chain", () => {
     );
     const mapped = mapMahjongSoulRecord({
       gameId: "majsoul:real-record-full-game",
-      selfActor: 0,
+      selfActor,
       recordId: fixture.recordId,
       recordBytes,
       bundle,
@@ -99,5 +97,16 @@ describe("real supported round: full map → replay → audit chain", () => {
     if (mapped.status !== "ready") return;
     expect(mapped.stream.events.length).toBe(1024);
     expect(validateCanonicalEventStream(mapped.stream)).toEqual({ status: "valid" });
+    const rawActions=new Map(decodeStoredRecordActions(bundle,recordBytes).map(action=>[action.sourceRecordOrdinal,action]));
+    const decisions=replayCanonicalStream(mapped.stream);
+    const draws=decisions.filter(decision=>decision.snapshot.privateState.decisionWindow.kind==="self_turn");
+    expect(draws.length).toBeGreaterThan(100);
+    for(const decision of draws) {
+      const position=parseCanonicalEventRef(decision.decisionEventRef)!.position;
+      const source=rawActions.get(position.sourceRecordOrdinal)!;
+      expect(["RecordNewRound","RecordDealTile"]).toContain(source.name);
+      expect(decision.snapshot.publicState.remainingDraws).toBe(source.data.left_tile_count ?? 0);
+      expect(decision.snapshot.publicState.fields.remainingDraws).toBe("complete");
+    }
   });
 });

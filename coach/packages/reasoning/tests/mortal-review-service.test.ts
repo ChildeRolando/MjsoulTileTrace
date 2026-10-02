@@ -1,5 +1,8 @@
+import { createHash } from "node:crypto";
+import { LIBRIICHI_RULE_NORMALIZATION_VERSION, libriichiRuleCanonicalJson, type LibriichiRuleRequest } from "@riichi-coach/contracts";
+import { canonicalStartEvents, canonicalStream } from "./fixtures/canonical-stream.js";
 import { readFile } from "node:fs/promises";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import type {
   CanonicalEventStream,
   CompletedHandFactRequest,
@@ -13,19 +16,20 @@ import type {
   ThreatRiskFactResult,
 } from "@riichi-coach/contracts";
 import {
-  computeMortalGameFingerprint,
+  computeCanonicalGameFingerprint,
   parseMjaiTile,
   type MortalFetchedReport,
   type MortalReportDecisionEntry,
 } from "@riichi-coach/mortal-source";
 import type { HandStructureFactEnginePort } from "../src/fact-engine/port.js";
-import { bridgeLegacyRegressionEvents } from "../src/import/legacy-event-stream-bridge.js";
-import { importRegressionFixture } from "../src/import/mortal-report.js";
 import {
   replayCanonicalStream,
   type ReplayedDecision,
 } from "../src/replay/stream-replayer.js";
-import { runMortalSingleDecisionReview } from "../src/analysis/mortal-review-service.js";
+import { runBoundMortalDecisionReview, runMortalSingleDecisionReview } from "../src/analysis/mortal-review-service.js";
+
+const ruleIdentity = {implementation:"Equim-chan/Mortal/libriichi" as const,revision:"0".repeat(40),
+  nativeArtifactSha256:"1".repeat(64),wrapperSha256:"2".repeat(64),normalizationVersion:LIBRIICHI_RULE_NORMALIZATION_VERSION};
 
 const fixtureUrl = new URL(
   "../../../fixtures/mortal/c1924cad66f66dd9-east1-turn6-7.json",
@@ -70,6 +74,7 @@ class FailingEngine implements HandStructureFactEnginePort {
 }
 
 type RawLegacyFixture = {
+  syntheticStream?: CanonicalEventStream;
   source: { reportId: string; modelTag: string; playerId: number };
   mjaiLog: unknown[];
   decisions: Array<{
@@ -96,11 +101,11 @@ function legacyEntryToMortalEntry(
   return Object.freeze({
     roundOrdinal: 0,
     roundWind: "E" as const,
-    dealer: 0,
+    dealer: 3,
     kyoku: 0,
     honba: 0,
     junme: raw.junme,
-    tilesLeft: 46,
+    tilesLeft: 69,
     lastActor: 3,
     tile: raw.tile,
     tehai: Object.freeze([...raw.state.tehai]),
@@ -136,11 +141,11 @@ function makeReport(
     version: "1.5.10",
     modelTag: raw.source.modelTag,
     playerId: raw.source.playerId,
-    gameFingerprint: computeMortalGameFingerprint(raw.mjaiLog),
+    gameFingerprint: computeCanonicalGameFingerprint(raw.syntheticStream!),
     kyokus: Object.freeze([{
       roundOrdinal: 0,
       roundWind: "E" as const,
-      dealer: 0,
+      dealer: 3,
       kyoku: 0,
       honba: 0,
       entries: Object.freeze(entries),
@@ -163,26 +168,28 @@ async function setupFixture(): Promise<{
   firstRawDecision: RawLegacyFixture["decisions"][number];
 }> {
   const raw = JSON.parse(await readFile(fixtureUrl, "utf8")) as RawLegacyFixture;
-  const imported = importRegressionFixture(raw as never);
-  const bridged = bridgeLegacyRegressionEvents(
-    imported.events,
-    imported.selfActor,
-    { sourceKind: "fixture", gameId: "fixture:c1924cad66f66dd9" },
-  );
-  if (bridged.status !== "ready") throw new Error("bridge failed");
-  const decisions = replayCanonicalStream(bridged.stream);
+  // A synthetic complete round for binding tests, using the historical hand
+  // and report scores only. Never upgrade the old partial replay to complete.
   const firstRawDecision = raw.decisions[0]!;
-  const targetDraw = parseMjaiTile(firstRawDecision.tile);
-  const decision = decisions.find((entry) =>
-    entry.actualDiscard !== null
-    && entry.snapshot.privateState.currentDraw !== null
-    && entry.snapshot.privateState.currentDraw.tile.id === targetDraw.id
-    && entry.snapshot.privateState.currentDraw.tile.red === targetDraw.red
-  );
-  if (decision === undefined) throw new Error("decision not found");
+  const hand = firstRawDecision.state.tehai.map(parseMjaiTile);
+  const draw = parseMjaiTile(firstRawDecision.tile);
+  const drawIndex = hand.findIndex(tile => tile.id === draw.id && tile.red === draw.red);
+  if (drawIndex < 0) throw new Error("fixture draw missing");
+  hand.splice(drawIndex, 1);
+  const events = canonicalStartEvents(hand);
+  const start = events[1]!;
+  if (start.type !== "round_started") throw new Error("fixture start");
+  start.dealer = 3;
+  events.push({type:"tile_drawn",actor:3,tile:{visibility:"visible",tile:draw},from:"live_wall",
+    eventId:"game:fixture/0/2/0",sourceRecordRef:"record:2"},
+    {type:"tile_discarded",actor:3,tile:parseMjaiTile(firstRawDecision.actual.pai),discardMode:"tedashi",
+      riichiDeclarationEventRef:null,eventId:"game:fixture/0/3/0",sourceRecordRef:"record:3"});
+  const stream = {...canonicalStream(canonicalStartEvents()),events,selfActor:3 as const};
+  raw.syntheticStream = stream;
+  const decision = replayCanonicalStream(stream)[0]!;
   return {
     raw,
-    stream: bridged.stream,
+    stream,
     decision,
     firstRawDecision,
   };
@@ -192,16 +199,71 @@ async function runReview(
   stream: CanonicalEventStream,
   decision: ReplayedDecision,
   report: MortalFetchedReport,
+  engine: HandStructureFactEnginePort = new FailingEngine(),
 ) {
   return await runMortalSingleDecisionReview({
     stream,
     decision,
     report,
-    engine: new FailingEngine(),
+    engine,
+    rules: {identity: ruleIdentity, port: {queryRules: async (request:LibriichiRuleRequest) => {
+      // Frozen controlled legal set, independent of the report under test.
+      const actions = [["6s",23],["9s",26],["2p",10],["7p",15],["7s",24],["3m",2],
+        ["8m",7],["5s",22],["8s",25],["6m",5],["6p",14],["4s",21]].map(([pai,index]) => ({
+          runtimeAction:{index:Number(index),variant:null},mjaiActionJson:JSON.stringify({type:"dahai",actor:3,pai,tsumogiri:pai==="6s"})}));
+      const content={protocolVersion:request.protocolVersion,requestId:request.requestId,identity:ruleIdentity,status:"ok" as const,actions};
+      return {...content,resultId:createHash("sha256").update(libriichiRuleCanonicalJson(content)).digest("hex")};
+    }}},
   });
 }
 
 describe("runMortalSingleDecisionReview", () => {
+  it.each(["first", "second", "last"] as const)(
+    "analyzes only the automatic report pair when actual ranks %s, retaining all legal scores",
+    async (actualRank) => {
+      const fixture = await setupFixture();
+      const original = legacyEntryToMortalEntry(fixture.firstRawDecision);
+      const actualIndex = original.actualIndex;
+      const others = original.details.map((_, index) => index).filter(index => index !== actualIndex);
+      const ranked = actualRank === "first" ? [actualIndex, ...others]
+        : actualRank === "second" ? [others[0]!, actualIndex, ...others.slice(1)]
+        : [...others, actualIndex];
+      const total = ranked.length * (ranked.length + 1) / 2;
+      const entry = cloneEntry(original, {
+        details: original.details.map((detail, index) => ({
+          ...detail, probability: (ranked.length - ranked.indexOf(index)) / total,
+        })),
+        expected: original.details[ranked[0]!]!.action,
+        isEqual: actualRank === "first",
+      });
+      const engine = new FailingEngine();
+      const handCalls = vi.spyOn(engine, "analyzeHand13");
+      const review = await runReview(fixture.stream, fixture.decision, makeReport(fixture.raw, [entry]), engine);
+      expect(review.status).toBe("ready");
+      if (review.status !== "ready") throw new Error(JSON.stringify(review));
+      expect(review.modelEvaluation.candidates).toHaveLength(12);
+      expect(review.comparisonSet.candidates).toHaveLength(12);
+      const scores = [...review.modelEvaluation.candidates].sort((a, b) => b.modelSelectionScore - a.modelSelectionScore);
+      const expected = [scores[0]!.actionRef, actualRank === "first"
+        ? scores[1]!.actionRef : review.modelEvaluation.actualActionRef].sort();
+      expect(review.factorResult.ledgers.map(ledger => ledger.actionRef).sort()).toEqual(expected);
+      expect(handCalls).toHaveBeenCalledTimes(2);
+    },
+  );
+
+  it("cannot bypass mandatory rules through the bound-review entry point", async () => {
+    const fixture = await setupFixture();
+    const report = makeReport(fixture.raw);
+    const engine = new FailingEngine();
+    const helper = vi.spyOn(engine, "analyzeHand13");
+    const result = await runBoundMortalDecisionReview({
+      stream: fixture.stream, decision: fixture.decision, report,
+      entry: report.kyokus[0]!.entries[0]!, engine,
+    } as unknown as Parameters<typeof runBoundMortalDecisionReview>[0]);
+    expect(result).toEqual({status:"failed",code:"mortal_review_rules_failed",diagnostics:["rules_input_incomplete"]});
+    expect(helper).not.toHaveBeenCalled();
+  });
+
   it("keeps an ordinary self-turn discard ready", async () => {
     const fixture = await setupFixture();
     const report = makeReport(fixture.raw);
@@ -420,12 +482,9 @@ describe("runMortalSingleDecisionReview", () => {
     expect(review.code).toBe("mortal_decision_unsupported_entry");
   });
 
-  it("cross-checks a riichi local actual by type correspondence, not as unsupported", async () => {
+  it("rejects a substituted riichi actual absent from the complete rule result", async () => {
     const fixture = await setupFixture();
-    // M6-A3 (ADR-0001): a riichi local actual is first-class. It no longer
-    // fails closed as unsupported; it cross-checks against Mortal's actual by
-    // type — a riichi_discard local expects a reach actual, so this report's
-    // dahai actual fails correspondence.
+    // Changing only the supplied actual cannot authorize a new rule action.
     const riichiDecision = {
       ...fixture.decision,
       actualAction: {
@@ -442,7 +501,8 @@ describe("runMortalSingleDecisionReview", () => {
     );
     expect(review.status).toBe("failed");
     if (review.status !== "failed") return;
-    expect(review.code).toBe("mortal_decision_actual_mismatch");
+    expect(review.code).toBe("mortal_review_rules_failed");
+    expect(review.diagnostics).toEqual(["rules_actual_action_mismatch"]);
   });
 
   it("fails closed when the window has no representable self action", async () => {
@@ -456,6 +516,7 @@ describe("runMortalSingleDecisionReview", () => {
     );
     expect(review.status).toBe("failed");
     if (review.status !== "failed") return;
-    expect(review.code).toBe("mortal_decision_unsupported_entry");
+    expect(review.code).toBe("mortal_review_rules_failed");
+    expect(review.diagnostics).toEqual(["rules_actual_action_mismatch"]);
   });
 });

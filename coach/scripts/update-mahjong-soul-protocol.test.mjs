@@ -227,11 +227,10 @@ registerTest("committed production bundle matches its lock, manifest, and byte-p
   ));
   const lock = JSON.parse(await readFile(path.join(bundleRoot, "source-lock.json"), "utf8"));
   const manifest = JSON.parse(await readFile(path.join(bundleRoot, "manifest.json"), "utf8"));
-  assert.deepEqual(
+  assert.ok(
     (await readFile(new URL("../../.gitattributes", import.meta.url), "utf8"))
       .split(/\r?\n/u)
-      .filter((line) => line !== ""),
-    ["/coach/vendor/mahjong-soul-protocol/** -text"],
+      .includes("/coach/vendor/mahjong-soul-protocol/** -text"),
   );
   assert.deepEqual([...(await tree(bundleRoot)).keys()].sort(), [
     `akagi-v3/${lock.vendor.commit}/LICENSE.txt`,

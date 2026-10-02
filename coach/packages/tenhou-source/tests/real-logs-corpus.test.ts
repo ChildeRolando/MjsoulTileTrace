@@ -52,6 +52,15 @@ function loadRaw(name: string): string {
 
 describe("pinned real Tenhou corpus", () => {
   const names = readdirSync(fixtureDir).filter((name) => name.endsWith(".xml"));
+  it("attests complete response opportunity history only for a fully mapped real log", () => {
+    const ready = mapTenhouRecord({ raw: loadRaw("bug1.xml"), gameId: "tenhou-fixture:complete-history", selfActor: 0 });
+    expect(ready.status).toBe("ready");
+    if (ready.status === "ready") {
+      expect(ready.stream.completeness.eventSequence).toBe("complete");
+      expect(ready.stream.completeness.responseOpportunities).toBe("complete");
+    }
+    expect(mapTenhouRecord({ raw: loadRaw("bye.xml"), gameId: "tenhou-fixture:disconnect", selfActor: 0 }).status).not.toBe("ready");
+  });
   it("covers exactly the pinned fixture set", () => {
     expect(names.length).toBe(
       READY_FIXTURES.size + DISCONNECT_FIXTURES.size,

@@ -1,3 +1,4 @@
+import { ruleIdentity } from "./fixtures/structured-review.js";
 /**
  * Source-policy correction §20 tests A–F: acceptance evidence is valid from
  * ANY approved independent local authority (Mahjong Soul preferred, Tenhou
@@ -26,8 +27,7 @@ import {
   type AcceptanceLocalSource,
 } from "../src/analysis/acceptance-core.js";
 import type { CanonicalEventStream } from "@riichi-coach/contracts";
-import { CanonicalEventStreamSchema } from "@riichi-coach/contracts";
-import type { ReplayedDecision } from "../src/replay/stream-replayer.js";
+import { CanonicalEventStreamSchema, LIBRIICHI_RULE_NORMALIZATION_VERSION } from "@riichi-coach/contracts";
 import type { HandStructureFactEnginePort } from "../src/fact-engine/port.js";
 
 function makeReport(): MortalFetchedReport {
@@ -111,6 +111,7 @@ function makeReview(): AcceptanceReadyReview {
       responseUnboundEntryCount: 0,
       responseAmbiguousEntryCount: 0,
     },
+    libriichi: { identity: ruleIdentity, results: new Map(), nonActionBoundaries: [] },
     retainedAnalyses: [],
   } as AcceptanceReadyReview;
 }
@@ -301,11 +302,15 @@ describe("final-closing §2: wrapper/stream provenance coherence fails closed", 
       opaqueGameId: "majsoul-g:coherence01",
       selfActor: 1,
       canonicalStream: coherenceStream({}),
-      replayedDecisions: [] as readonly ReplayedDecision[],
     };
   }
 
   const stubEngine = {} as HandStructureFactEnginePort;
+  const rules = {
+    identity: { implementation: "Equim-chan/Mortal/libriichi" as const, revision: "0".repeat(40),
+      nativeArtifactSha256: "1".repeat(64), wrapperSha256: "2".repeat(64), normalizationVersion: LIBRIICHI_RULE_NORMALIZATION_VERSION },
+    port: { queryRules: async () => { throw new Error("guard must reject before querying"); } },
+  };
 
   it("A: mahjong_soul wrapper over a tenhou stream → acceptance_local_source_kind_mismatch", async () => {
     const local: AcceptanceLocalSource = {
@@ -319,6 +324,7 @@ describe("final-closing §2: wrapper/stream provenance coherence fails closed", 
       local,
       report: makeReport(),
       engine: stubEngine,
+      rules,
       evidenceVersion: "m6-a3-acceptance/v1",
     });
     expect(run).toEqual({
@@ -339,6 +345,7 @@ describe("final-closing §2: wrapper/stream provenance coherence fails closed", 
       local,
       report: makeReport(),
       engine: stubEngine,
+      rules,
       evidenceVersion: "m6-a3-acceptance/v1",
     });
     expect(run).toEqual({
@@ -359,6 +366,7 @@ describe("final-closing §2: wrapper/stream provenance coherence fails closed", 
       local,
       report: makeReport(),
       engine: stubEngine,
+      rules,
       evidenceVersion: "m6-a3-acceptance/v1",
     });
     expect(run).toEqual({
@@ -377,6 +385,7 @@ describe("final-closing §2: wrapper/stream provenance coherence fails closed", 
       local: coherentLocal(),
       report: makeReport(),
       engine: stubEngine,
+      rules,
       evidenceVersion: "m6-a3-acceptance/v1",
     });
     expect(run.status).not.toBe("local_source_incoherent");

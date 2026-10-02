@@ -51,8 +51,8 @@ export interface AcceptedBranchEvidence {
    * M6-A4.3: candidate-family sub-coverage of this sample's
    * resp_pass_on_discard evidence (A4 spec §分支矩阵 候选族子覆盖). Each
    * family listed was exercised by at least one analysis_ready PASS window
-   * whose bound source row scored a candidate of that family (Mortal is
-   * furiten-aware, so a scored hora is a genuinely legal 能荣而过). Empty
+   * whose bound source row scored a candidate of that family after the
+   * complete native action result matched that row. Empty
    * when the sample evidences no pass windows (or none with a scored
    * non-pass candidate).
    */
@@ -94,13 +94,10 @@ export function extractAcceptedBranchEvidence(input: {
   const evidenced = new Set<MortalCoverageBranch>();
   let analysisReadyRowCount = 0;
   // M6-A4.3: pass-family sub-coverage — one entry per candidate family a pass
-  // window's candidate SET exercised (A4 spec §分支矩阵 候选族子覆盖: none+chi
-  // 与 none+hora 不是同一个验收事实). The acceptance authority is the bound
-  // source row's scored candidates: Mortal is furiten-aware and scores a hora
-  // candidate only when the win was actually legal (能荣而过), whereas the
-  // local shape enumeration cannot prove furiten. The local enumeration stays
-  // the conservation-side isomorphism check (A4.2); the family EVIDENCE is
-  // the report's candidate set.
+  // window's candidate SET exercised (none+chi and none+hora are distinct).
+  // Only analysis_ready rows count: full-game already verified the report's
+  // complete action correspondence to the bound native rule result. This is
+  // coverage of scored alternatives, not a second legality calculation.
   const passFamilies = new Set<ResponsePassFamily>();
 
   for (const ledgerRow of input.review.decisions) {
@@ -224,7 +221,8 @@ export function buildRedactedAcceptanceArtifact(input: {
     }));
 
   return Object.freeze({
-    schemaVersion: MORTAL_ACCEPTANCE_ARTIFACT_VERSION,
+    schemaVersion: input.review.libriichi === undefined ? MORTAL_ACCEPTANCE_ARTIFACT_VERSION : "mortal-acceptance-artifact/v2",
+    ...(input.review.libriichi === undefined ? {} : { legalActionRules: input.review.libriichi.identity }),
     gameId: input.gameId,
     seat: input.seat,
     localSourceType: input.localSourceType,

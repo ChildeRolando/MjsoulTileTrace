@@ -14,16 +14,11 @@ import {
   buildMortalFullGameBindingPlan,
   type MortalBindingPlanRow,
 } from "../src/analysis/mortal-full-game-review.js";
-import {
-  chiCombinations,
-  collectResponseSingleCandidateProofs,
-  enumerateResponseCandidates,
-} from "../src/analysis/response-candidate-enumeration.js";
 import { classifyCoverageBranches } from "../src/analysis/mortal-coverage-registry.js";
 import type { ReplayedDecision } from "../src/replay/stream-replayer.js";
 
-// M6-A4.2: response window identity fact table + isomorphic local candidate
-// enumeration + binding plan partition + conservation gates. The identity
+// M6-A4.2: response window identity + binding partitions + conservation.
+// Legal action cases moved to the native rule and consumer regressions. The identity
 // table binds a response source row (lastActor = the OPPONENT who offered the
 // tile) to the response window (owner = reviewed player, sourceActor =
 // opponent, offeredTile = entry.tile, responseKind = window kind). The local
@@ -296,118 +291,6 @@ describe("M6-A4.2 response window identity fact table", () => {
       }]),
     });
     expect(entryMatchesDecisionIdentity(entry, withFuuro)).toBe(true);
-  });
-});
-
-// --- local candidate enumeration --------------------------------------------
-
-describe("M6-A4.2 response local candidate enumeration (isomorphic to Mortal)", () => {
-  it("expands chi by meld combination (distinct combinations count separately)", () => {
-    // Offered 5p with concealed 3p4p AND 4p6p: two distinct chi combinations.
-    const decision = responseDecision({
-      concealed: [
-        tile("1m"), tile("2m"), tile("3m"), tile("4m"), tile("5m"),
-        tile("6m"), tile("7m"), tile("8m"), tile("9m"),
-        tile("3p"), tile("4p"), tile("4p"), tile("6p"),
-      ],
-    });
-    const combo = chiCombinations(
-      decision.snapshot.privateState.concealedTiles as readonly Tile[],
-      tile("5p"),
-    );
-    expect(combo).toHaveLength(2);
-  });
-
-  it("counts chi combos + pon + daiminkan + ron + none (none always one)", () => {
-    // Hand with a 5p pair (pon) and 3p4p (a 5p chi) — 1m..9m + 5p5p + 3p4p IS
-    // tenpai on 5p (3p4p5p + 5p5p pair), so instead assert pon without a
-    // tenpai trap: 1m..9m + 5p5p + 2s3s on offered 5p → pon + none = 2.
-    const ponOnly = responseDecision({
-      window: { offeredTile: tile("5p") } as unknown as DecisionWindow,
-      concealed: [
-        tile("1m"), tile("2m"), tile("3m"), tile("4m"), tile("5m"),
-        tile("6m"), tile("7m"), tile("8m"), tile("9m"),
-        tile("5p"), tile("5p"), tile("2s"), tile("3s"),
-      ],
-    });
-    const ponEnumeration = enumerateResponseCandidates(ponOnly);
-    expect(ponEnumeration).not.toBeNull();
-    expect(ponEnumeration!.chiCombinations).toHaveLength(0);
-    expect(ponEnumeration!.pon).toBe(true);
-    expect(ponEnumeration!.daiminkan).toBe(false);
-    expect(ponEnumeration!.ron).toBe(false);
-    expect(ponEnumeration!.none).toBe(true);
-    expect(ponEnumeration!.candidateCount).toBe(2);
-
-    // The chi-1 + pon-1 case from the chi test: 1m..9m + 3p4p + 5p5p + 2s is
-    // tenpai on 5p — use it to assert ron is counted when the shape closes.
-    const tenpaiOn5p = responseDecision({
-      window: { offeredTile: tile("5p") } as unknown as DecisionWindow,
-      concealed: [
-        tile("1m"), tile("2m"), tile("3m"), tile("4m"), tile("5m"),
-        tile("6m"), tile("7m"), tile("8m"), tile("9m"),
-        tile("3p"), tile("4p"), tile("5p"), tile("5p"),
-      ],
-    });
-    const tenpaiEnumeration = enumerateResponseCandidates(tenpaiOn5p);
-    expect(tenpaiEnumeration).not.toBeNull();
-    expect(tenpaiEnumeration!.chiCombinations).toHaveLength(1);
-    expect(tenpaiEnumeration!.pon).toBe(true);
-    expect(tenpaiEnumeration!.ron).toBe(true);
-    expect(tenpaiEnumeration!.candidateCount).toBe(4); // chi + pon + ron + none
-  });
-
-  it("proves single-candidate (only none legal) when no non-pass candidate exists", () => {
-    // Offered 7s; hand has no 7s meld and is not tenpai on 7s.
-    const decision = responseDecision({
-      window: { offeredTile: tile("7s") } as unknown as DecisionWindow,
-      concealed: [
-        tile("1m"), tile("2m"), tile("3m"), tile("4m"), tile("5m"),
-        tile("6m"), tile("7m"), tile("8m"), tile("9m"),
-        tile("1p"), tile("2p"), tile("3p"), tile("4p"),
-      ],
-    });
-    const enumeration = enumerateResponseCandidates(decision);
-    expect(enumeration).not.toBeNull();
-    expect(enumeration!.candidateCount).toBe(1);
-    expect(collectResponseSingleCandidateProofs([decision]).get(0)).toEqual({
-      shape: "response_single_candidate",
-      candidateCount: 1,
-    });
-  });
-
-  it("suppresses chi/pon/daiminkan for a riichi'd reviewed player (ron-only space)", () => {
-    // riichi'd tenpai on 2p (1m..9m + 111p + 2p): seat 1 offers 2p — ron only.
-    const riichiDecision = responseDecision({
-      window: { sourceActor: 1, offeredTile: tile("2p") } as unknown as DecisionWindow,
-      concealed: [
-        tile("1m"), tile("2m"), tile("3m"), tile("4m"), tile("5m"),
-        tile("6m"), tile("7m"), tile("8m"), tile("9m"),
-        tile("1p"), tile("1p"), tile("1p"), tile("2p"),
-      ],
-    });
-    const withRiichi = {
-      ...riichiDecision,
-      snapshot: {
-        ...riichiDecision.snapshot,
-        publicState: {
-          ...riichiDecision.snapshot.publicState,
-          riichiStates: [
-            { actor: 0, status: "accepted", declarationEventRef: "r", acceptanceEventRef: "a", ippatsuAlive: null },
-            { actor: 1, status: "none", declarationEventRef: null, acceptanceEventRef: null, ippatsuAlive: null },
-            { actor: 2, status: "none", declarationEventRef: null, acceptanceEventRef: null, ippatsuAlive: null },
-            { actor: 3, status: "none", declarationEventRef: null, acceptanceEventRef: null, ippatsuAlive: null },
-          ],
-        },
-      },
-    } as unknown as ReplayedDecision;
-    const enumeration = enumerateResponseCandidates(withRiichi);
-    expect(enumeration).not.toBeNull();
-    // riichi'd + tenpai on 2p: only ron + none.
-    expect(enumeration!.pon).toBe(false);
-    expect(enumeration!.chiCombinations).toHaveLength(0);
-    expect(enumeration!.ron).toBe(true);
-    expect(enumeration!.candidateCount).toBe(2);
   });
 });
 

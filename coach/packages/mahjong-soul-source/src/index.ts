@@ -105,14 +105,19 @@ export {
 } from "./session-restorer.js";
 export {
   fetchMahjongSoulRecord,
+  validateMahjongSoulRecordBytes,
+  encodeMahjongSoulRecordCache,
+  decodeMahjongSoulRecordCache,
   type MahjongSoulFetchedRecord,
 } from "./record-fetcher.js";
 export { unwrapGameDetailRecords } from "./record-wire.js";
+export type { MahjongSoulRecordRuleEvidence } from "./record-rule-evidence.js";
 export {
   decodeStoredRecordActions,
   type DecodedStoredAction,
 } from "./stored-actions.js";
 export {
+  MAHJONG_SOUL_RECORD_MAPPER_VERSION,
   mapMahjongSoulRecord,
   type MahjongSoulCanonicalMapperResult,
   type MahjongSoulMapperDiagnostic,

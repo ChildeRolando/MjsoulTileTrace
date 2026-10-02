@@ -2,6 +2,19 @@
 
 ## 总览
 
+**2026-09-28 实现状态**：PR #28 规划基线 `67e1dd9` 曾包含本地合法动作推导。
+[ADR-0006](../adr/0006-libriichi-single-legal-action-authority.md) 已采纳唯一 libriichi
+来源；[规格](../specs/2026-09-28-libriichi-legal-action-authority-design.md) 和
+[计划](../plans/2026-09-28-libriichi-legal-action-authority-migration.md) 定义目标与退出清单。
+规则查询、评分、整局/单决策、新包、remote/discovery 已接入；旧枚举与资格预筛
+已退出，封存位置见实施计划。真实完整档案持久化已通过实现侧回归；全语料运行与独立验收
+必须绑定具体候选提交，历史结果不证明后续版本通过。
+
+当前消费链：canonical 事件/可见状态 → 完整性与规则配置核验 → libriichi 无权重规则查询
+→ 单一合法动作结果 → 模型请求或单候选证明 → full-game/package。
+helper 从候选计算教学事实，不参与集合增删；模型只给分数。旧枚举封存于 Git 历史，
+不保留第二来源校验、影子执行或自动回退。原始牌谱来源独立性继续保留。
+
 ```text
 雀魂官方登录 / 牌谱
         │
@@ -13,9 +26,9 @@ mahjong-soul-source ──► CanonicalEventStreamV2
         │                         │
         └─────────────────────────┼──────────────┐
                                   ▼              ▼
-                           reasoning pipeline   model adapter
-                                  │              │
-                                  └──── candidates + scores
+                           reasoning pipeline   model evidence adapter
+                                   │              │
+                                   └──── candidates + scores
                                              │
                                              ▼
                               structured comparison / ledgers
@@ -52,6 +65,8 @@ mahjong-soul-source ──► CanonicalEventStreamV2
 - 已知事实、牌形、振听、防守矩阵和因素账本；
 - 模型评价、比较、偏好和严格分析包；
 - renderer-safe 雀魂会话与目录 DTO。
+- local Mortal runtime strict request/result/error/identity DTO。
+- 独立于模型评分的规则查询结果、规则来源身份及其 proof/package 契约（ADR-0006）。
 
 规则：跨包数据进入下一层前必须经过这里的严格 schema；未知字段默认拒绝。
 
@@ -81,6 +96,19 @@ Mortal model/report evidence provider：报告 schema、URL 校验、指纹与 m
 来源分类与依赖方向的权威裁决见
 [ADR-0005](../adr/0005-workspace-dependency-boundaries.md)。
 
+### `@riichi-coach/mortal-runtime`
+
+独立 privileged native-model owner：由 Electron main 托管固定 Mortal V4 subprocess 与
+`Yuchen1457/mortal-582500` checkpoint，只接收 contracts-owned canonical/replay request，
+通过严格协议返回 model evidence。它不解析雀魂/天凤格式，
+同一 owner 已提供独立于权重的 libriichi 规则操作与版本化结果，
+模型操作仍只产评分；不与 `mortal-source` 或
+`mahjong-facts` 合并。reasoning 不依赖该包；只
+消费 contracts-owned result 并复用现有 Mortal comparison / `ModelEvaluation` builder。
+renderer/preload 不得启动进程、读取模型、知道 checkpoint 路径或接收 raw stdout/stderr。
+完整 owner、identity、候选双射和 spike 门见
+[Local Mortal Runtime 生产规格](../specs/2026-09-24-local-mortal-runtime-production-design.md)。
+
 ### `@riichi-coach/reasoning`
 
 来源无关的麻将推理层：
@@ -88,6 +116,8 @@ Mortal model/report evidence provider：报告 schema、URL 校验、指纹与 m
 - 重放 canonical stream，冻结决策快照并投影 `KnownGameFacts`；
 - 归一化用户、MJAI、模型和实战动作；
 - 调用固定版本 fact-engine sidecar；
+- 消费唯一规则结果，负责动作身份/格式转换、请求与单候选证明派生，
+  不自行推导另一合法集合；canonical 回放扫描待判定边界，不按本地牌形排窗；
 - 生成五轴账本、防守矩阵、差异和确定性偏好；
 - 构建并验证严格分析包；
 - 渲染当前 fixture-only 命令行报告。
@@ -102,12 +132,16 @@ Electron 组合根与本地产品边界：
 - 生产 Lobby、目录、牌谱摄取的依赖接线；
 - 安全 IPC/preload、窗口权限和本地 renderer；
 - 当前在主进程内缓存 mapped/replayed record。
+- 独占 local Mortal subprocess/checkpoint 生命周期与 manifest 校验。
 
 renderer 只能收到安全会话状态、可分析目录摘要和固定操作结果。
 
 ### `coach/tools/mahjong-facts`
 
 固定版本 Go JSONL sidecar。它把 mahjong-helper 的计算投影为结构化事实，不输出教练推荐。应用验证二进制清单、请求身份和响应语义。
+
+ADR-0006 保留向听、进张、打点、结构与防守事实；退出的是它被用于生产候选资格
+的调用以及失去事实消费者的专用适配，不是整个 helper。事实与模型偏好继续分离。
 
 ## 数据流
 
@@ -133,12 +167,15 @@ renderer 只能收到安全会话状态、可分析目录摘要和固定操作�
 2. 未知动作、非法牌、缺失引用或最终 schema 失败均 fail closed。
 3. replayer 在本人可见摸牌处冻结 `DecisionSnapshotV2`。
 4. 每个快照投影 `KnownGameFacts`，并记录之后的实际舍牌。
-5. 目前此处停止：没有生产模型候选时不能构造合法的自动比较。
+5. report-based 路径继续消费既有 Mortal 报告；managed local 路径从 canonical/replay
+   投影到独立 local Mortal runtime，并在同一 comparison / package contract 合流。
+   Electron 产品工作流接线仍属于 Integration Closeout，不因 spike 通过而视为 MVP 已接通。
 
 ### 比较与解释
 
 1. 候选必须先归一化为 canonical action 与稳定 `actionRef`。
-2. 模型评价只表示模型选择；事实管线独立计算麻将因素。
+2. remote report 或 managed local Mortal 的模型评价只表示模型选择；事实管线独立计算
+   麻将因素，两种 Mortal 来源在同一 comparison / `ModelEvaluation` contract 合流。
 3. 每候选生成同构五轴账本，再生成 pairwise differences。
 4. 只有 registered deterministic difference 可进入确定性偏好；确定性偏好是 optional deterministic signal，轴间冲突时为 null——冲突场景交给教练判断层，而非禁止综合。
 5. LLM 教练判断（CoachJudgment）在已有证据之内做跨因素权衡（hard evidence 是约束，advisory signal 是带来源/版本的参考上下文且无否决权）、给出推荐与置信度；不得发明、修改或补全局面事实与候选因素，不得改写差异方向，也不得声称知道模型内部原因。
@@ -272,7 +309,21 @@ v1 不要求新增第三个持久化 canonical artifact。ReviewSession 仍可�
 
 ### 模型和教练分离
 
-Mortal/Akagi 的分数决定“模型偏好”；教练判断（CoachJudgment）由 LLM 在可审计的证据上做出（hard evidence 为约束，advisory signal 为带来源/版本的参考上下文）。删除模型评分不能改变事实账本与差异，也不得改变教练判断的证据基础。
+Mortal 的分数决定“模型偏好”；教练判断（CoachJudgment）由 LLM 在可审计的证据上做出
+（hard evidence 为约束，advisory signal 为带来源/版本的参考上下文）。删除模型评分不能
+改变事实账本与差异，也不得改变教练判断的证据基础。历史 Akagi 契约不代表当前实现范围。
+
+### Local Mortal privileged runtime
+
+Electron main 是唯一 runtime lifecycle owner。启动前必须校验 strict runtime manifest、
+runtime artifact 与 checkpoint SHA-256；request 只含 canonical/replay identity、窗口、合法
+候选与 actual correspondence。每个 self-turn/response window 的本地候选集必须与 runtime
+候选集一一双射；duplicate/missing/extra/unknown/ambiguous 全部 fail closed，不取交集。
+
+local runtime 的 package provenance 必须恢复 runtime source revision/version/artifact hash、
+checkpoint repository revision/model tag/file hash、protocol 与 adapter version，且参与 package
+identity/content hash。crash、timeout、协议或候选不一致只产生固定安全错误；raw prose、路径、
+tensor 与 debug output 不进入 package、ReviewReport、renderer、LLM 或日志。
 
 ### Privileged / renderer 分离
 
@@ -293,20 +344,71 @@ HTTPS URL。非敏感设置在当前 main 生命周期内保留，与密文文�
 `userData/analysis-packages/<sha256(packageId)>.json` 读取已有包，并校验内容与 identity；
 缺失/损坏引用返回 `package_unavailable`。此只读接点不提供新的分析包写入或目录 UI。
 
-窄生成链是 validate → project → select → slice → 冻结 prompt → 最多两次 HTTP
-attempt → 既有 assemble/read-back validator；不保存报告、prompt、response 或 raw CoT。
+唯一生产生成链是 validate package → project → select → `generateReviewReport` →
+slice → 冻结 prompt → provider 内一次初始发送与至多一次自动重试 → grounding →
+append overlay → read-back validator。desktop main 是组合根；service/IPC 不得直接调用
+provider、slice/prompt builder 或 assembler 产生报告。该边界由
+`review_report_generation_seam` 架构规则机械保护。已有 package/report 的 presentation
+读回只能通过 reasoning-owned `composeReviewReadBackContext`：它复用 package/report
+validators、base projection 与 overlay assembly，并验证 selector-owned scope。无 active
+report 时返回 selector-scoped base evidence context；有 active report 时验证 report 与
+selector 的 policy/decision 顺序一致后返回单一 current-report graph。两条路径都提供
+same-decision ref resolution，且不拥有 provider/prompt/selection/retry/generation/publication。
+desktop production 对 reasoning 的静态/literal 模块引用只允许静态 named
+import（允许别名，禁止 default/namespace）；re-export、literal dynamic import、
+`require()` 与 import-equals 均 fail closed，包括 service 自身。
+`generateReviewReport` 绑定与 concrete provider 的加载均仅归
+`llm-provider/service.ts`；两者只允许 static named import，re-export、literal dynamic
+import、`require()`、import-equals、default/namespace import 均 fail closed。generation
+internals（含 `appendReasoningOverlay`）禁止 desktop 获取；presenter 可 named import
+`composeReviewReadBackContext`，持久化校验仍可 named import `validateReviewReport` /
+package validators。
+检查器不解析运行时计算的模块路径，不提供任意 JavaScript 的数据流证明。
+流程不保存完整 prompt、response 或 raw CoT。
 optional usage 先校验形状，畸形 metadata 不会把合法 draft 变成传输失败。被拦截的
 key/prompt 反射只在 main 内保留与本次结果绑定的原文 hash，正文丢弃，audit.outputHash
-继续指向原始模型输出。冻结 v1 prompt 明确要求 zh-CN，且 Mortal/Akagi 内部原因
+继续指向原始模型输出。冻结 v1 prompt 明确要求 zh-CN，且任何 Mortal（以及历史 Akagi）内部原因
 （modelReason）恒 unknown；预期全文 golden 锁定字节。
 模型返回的未知字段不成为产品字段，错误正文不读取，diagnostics 只保留冻结 code 与
 已选 decisionId。IPC 与 preload 两端重解析同一 contracts DTO；contracts 的基础
 identity/status schema 仅做内部提取，公共形状和导出保持不变，`sideEffects: false`
 使沙箱 bundle 不引入未使用的 Node crypto 模块。依赖方向与 renderer allow-list 未扩张。
 
+M7-B 将上述只读边界落到 `desktop/src/review-session-repository.ts`：Electron main 是
+`review-library/library.sqlite` 的唯一写入者，SQLite v1 逻辑 schema（storage v2 为删除
+receipt 追加 package binding，storage v3 为完整 package JSON 增加有序分块；迁移/兼容见 M7-B §7）只保存 immutable package/report
+bytes、冻结 selection、append-only report ref、显式 active ref 与两阶段 activation
+intent/receipt。打开或恢复时逐层校验 hash/schema/domain identity，并且只调用
+`composeReviewReadBackContext` 从 fresh package projection 装配当前报告；ContextGraph
+仍不落盘。同一次磁盘读回产生的 context 深度冻结后由主进程概览/详情复用，
+不经 IPC 暴露；重新读库或切换报告仍构建新 context，不缓存自报身份对应的校验结论。
+完整图投影仅合并可由同节点所引请求的 sourceRefs 证明冗余的 canonical-event 直连：
+保留全部节点、完整 provenance 与请求 → 事件路径，逐节点可达证据集合不变。
+不截断分析包/图或按实际动作过滤；具体规则与回归由 M6-D1 spec/projector owner 持有。
+repository 在完整 package validator 已证明 schema 无归一化之后直接使用本次读回对象，
+不再复制整包；保存调用方仍不被修改/冻结，返回值来自独立磁盘读回。
+`package-artifact-storage.ts` 是该 repository 内的字节存储实现：64 KiB 块、完整字节哈希、
+事务内写入和旧 inline JSON 读取。固定 `@streamparser/json@0.0.26` 仅用于 main 侧分块解析，
+不进入 renderer 或领域契约；不改变校验与图构建 owner，不新增架构级抽象。
+`desktop/src/privileged-raw-cache.ts` 与资料库共用 main-only 索引，但 raw bytes
+只进入受控 `source-cache/`，命中重新验证路径、长度和 hash；renderer DTO、日志与会话
+artifact 均不携带 raw material。缓存没有 TTL/LRU，只有显式清理。
+
 ## 当前已知架构缺口
+
+- ADR-0006 生产入口已切换，旧 self/response 枚举、资格预筛与单候选反证已退出；
+  最终提交真实全语料、大包持久化与来源缺失证据仍需收口。以下 M6-A4 历史覆盖
+  不证明迁移后已完成新验收。
 
 - canonical mapper 的部分流局/杠语义尚需真实牌谱反证（M5 人工验收并行线程）；
 - 响应面已接入（M6-A4.0/A4.1/A4.2：归属过滤拆除、discard_response/kan_response 开窗、响应窗口身份事实表与本地候选枚举同构、守恒不变量升级、响应分支覆盖率矩阵 fail-closed）；A4.3 纯事件 discovery 扫描已落地（`scripts/response-surface-discovery.mjs`，chankan 最早启动、合格局计数按 source 记入 manifest），wave-1 六分支已全部真实 E2E 取证（resp_chi/pon/daiminkan/hora_actual + resp_pass_on_discard 四候选族子覆盖 + resp_chankan_actual，8 份真实报告），wave-2 保持 fail-closed + 降级条款；
-- mapped/replayed record 与 Mortal 报告仍仅在主进程内存/验收缓存中，没有产品级持久化（M7-B）；
-- 整盘 StructuredAnalysisPackage（M6-C）与 Typed Context Graph substrate（M6-D1）已实现；M6-D2 的 contracts/reasoning baseline（严格 Coach/ReviewReport 契约、grounding/read-back validator、append-only overlay、evidence-only degrade）已实现，COAC-3 已接入桌面 provider/BYOK、safeStorage、窄 IPC 与 package 引用生成 seam（五项原样门禁通过、待 controller 复核，未做真实 LLM 验收），COAC-4 完整工作流仍待实现；review UI、SQLite 会话与跨平台发布仍未实现（M7-A / M7-B / M8）。
+- mapped/replayed record 的 share-import 产品接线当前候选已汇入同一 main-only 组合；账号牌谱下载已消费 main-only、
+  内容去重的 source raw cache，命中仍经 source/canonical 验证，并提供只返回安全计数结果的
+  显式清理入口；raw bytes 仍不构成 renderer 或会话 artifact；
+- 整盘 StructuredAnalysisPackage（M6-C）、Typed Context Graph substrate（M6-D1）、M6-D2 唯一端到端生成链、M7-A fixed review UI 与 M7-B SQLite 会话/离线重开 substrate 已实现；真实账号/真实收费 LLM 自动验收未授权，跨平台发布仍未实现（M8）。
+- Playable Review MVP 的 share-import composition root 当前候选已闭合
+  validated `StructuredAnalysisPackage` → ReviewSession create/reuse → `openReview`；分享导入只把
+  verified `sessionId/packageId` 交给 renderer，不能以 replay 决策数 prose 结束。account
+  `startRecordAnalysis` 仍需后续接入同一 package/session handoff。固定五门、
+  Golden Slice、独立评审与真人 smoke 仍是发布门。冻结接线与顶层 Electron 验收见
+  [Integration Closeout spec](../specs/2026-09-24-playable-review-mvp-integration-closeout.md)。

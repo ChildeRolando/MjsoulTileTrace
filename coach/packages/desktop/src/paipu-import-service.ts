@@ -36,6 +36,16 @@ import type { RecordAnalysisStore } from "./record-analysis-store.js";
 
 export type PaipuImportResult = Readonly<
   | {
+    /** Main-process-only success after package validation and session create/reuse. */
+    readonly status: "review_ready";
+    readonly recordId: string;
+    readonly selfActor: number;
+    readonly sessionId: string;
+    readonly packageId: string;
+    readonly canonicalEventCount: number;
+    readonly replayDecisionCount: number;
+  }
+  | {
     readonly status: "analysis_ready";
     readonly recordId: string;
     /**
@@ -60,11 +70,28 @@ export interface MahjongSoulPaipuImportService {
   }): Promise<PaipuImportResult>;
 }
 
+export type PaipuReviewPreparationInput = Readonly<{
+  readonly recordId: string;
+  readonly selfActor: number;
+  readonly stream: NonNullable<Extract<ReturnType<RecordAnalysisStore["analyzeRecord"]>, { status: "analysis_ready" }>['stream']>;
+  readonly decisions: NonNullable<Extract<ReturnType<RecordAnalysisStore["analyzeRecord"]>, { status: "analysis_ready" }>['decisions']>;
+}>;
+
+export type PaipuReviewPreparationResult = Readonly<{
+  readonly sessionId: string;
+  readonly packageId: string;
+}>;
+
 export function createMahjongSoulPaipuImportService(input: {
   readonly bundle: MahjongSoulProtocolBundle;
   readonly analysis: RecordAnalysisStore;
   readonly createWindow: () => CaptureRecordWindowPort;
   readonly timeoutMs: number;
+  /** Main composition owns local-model/package/session work. The source
+   * adapter only hands it the validated canonical/replay result. */
+  readonly prepareReview?: (
+    input: PaipuReviewPreparationInput,
+  ) => Promise<PaipuReviewPreparationResult>;
 }): MahjongSoulPaipuImportService {
   const active = new Map<string, Promise<PaipuImportResult>>();
 
@@ -131,9 +158,34 @@ export function createMahjongSoulPaipuImportService(input: {
           recordId: parsed.recordId,
           selfActor: perspective.selfActor,
           recordBytes: captured.recordBytes,
+          ...(captured.ruleEvidence === undefined ? {} : { ruleEvidence: captured.ruleEvidence }),
         });
         switch (outcome.status) {
           case "analysis_ready":
+            if (input.prepareReview !== undefined) {
+              try {
+                const prepared = await input.prepareReview({
+                  recordId: parsed.recordId,
+                  selfActor: perspective.selfActor,
+                  stream: outcome.stream,
+                  decisions: outcome.decisions,
+                });
+                return Object.freeze({
+                  status: "review_ready" as const,
+                  recordId: parsed.recordId,
+                  selfActor: perspective.selfActor,
+                  sessionId: prepared.sessionId,
+                  packageId: prepared.packageId,
+                  canonicalEventCount: outcome.stream.events.length,
+                  replayDecisionCount: outcome.decisions.length,
+                });
+              } catch {
+                // Package/runtime/session failures collapse to the same safe
+                // source outcome. No navigation occurs because no review-ready
+                // DTO crosses the IPC boundary.
+                return { status: "analysis_failed" };
+              }
+            }
             return Object.freeze({
               status: "analysis_ready" as const,
               recordId: parsed.recordId,

@@ -44,13 +44,18 @@ export type StructuredComparisonCandidate = z.infer<
 // tile-less declare_riichi candidate are different-granularity views of the
 // same alternative. Their relation survives as this explicit typed
 // correspondence — never as an actionRef rewrite of the model row and never
-// via actionRef equality. This milestone admits exactly one correspondence
-// pair kind: riichi_discard realizes declare_riichi.
-export const ActualModelCorrespondenceSchema = z.object({
+// via actionRef equality. Legacy realizes pairs retain their old meaning;
+// physical discard realizations additionally require a native rule-result ID.
+export const ActualModelCorrespondenceSchema = z.discriminatedUnion("relation", [z.object({
   actualActionRef: ActionRefSchema,
   scoredModelActionRef: ActionRefSchema,
   relation: z.literal("realizes"),
-}).strict();
+}).strict(), z.object({
+  actualActionRef: ActionRefSchema,
+  scoredModelActionRef: ActionRefSchema,
+  relation: z.literal("native_physical_realization"),
+  ruleResultId: z.string().regex(/^[a-f0-9]{64}$/),
+}).strict()]);
 export type ActualModelCorrespondence = z.infer<
   typeof ActualModelCorrespondenceSchema
 >;
@@ -140,11 +145,15 @@ export const StructuredComparisonSetSchema = z.object({
       actualCandidate?.action.kind === "kakan" &&
       modelCandidate?.action.kind === "ankan" &&
       actualCandidate.action.addedTile.id === modelCandidate.action.tiles[0]!.id;
-    if (!riichiPair && !kakanPair) {
+    const discardPair = actualCandidate?.action.kind === "discard" && modelCandidate?.action.kind === "discard" &&
+      actualCandidate.action.tile.id === modelCandidate.action.tile.id && actualCandidate.action.tile.red === modelCandidate.action.tile.red &&
+      actualCandidate.action.discardMode !== modelCandidate.action.discardMode;
+    const validPair = correspondence.relation === "native_physical_realization" ? discardPair : riichiPair || kakanPair;
+    if (!validPair) {
       context.addIssue({
         code: z.ZodIssueCode.custom,
         message:
-          "correspondence is limited to a riichi_discard actual realizing a declare_riichi model candidate, or a kakan actual realizing an ankan-of-the-same-tile model candidate",
+          "correspondence must match its admitted action pair and native evidence kind",
         path: ["correspondences", index],
       });
     }

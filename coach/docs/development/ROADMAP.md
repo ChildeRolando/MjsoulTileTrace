@@ -4,7 +4,30 @@
 
 ## 产品目标
 
-用户在本机应用登录雀魂国区账号，从近期可分析的四人南风标准规则牌谱中选择一场，获得可回放、可审计、可追问的整盘教练会话。模型只提供候选动作与选择分；麻将事实与候选间因素差异必须来自可验证的本地确定性管线。LLM 在这些有据证据之上完成跨因素权衡与教练判断（CoachJudgment），不得发明或改写任何局面事实。
+用户在本机应用登录雀魂国区账号，从近期可分析的四人南风标准规则牌谱中选择一场，获得可回放、可审计、可追问的整盘教练会话。按 ADR-0006，libriichi 提供合法动作，模型提供选择分，helper 与既有事实管线提供候选因素；LLM 在这些有据证据之上完成教练判断，不得发明或改写局面事实。PR #28 已合入唯一动作来源切换与 local Mortal prerequisite；当前候选继续完成 Playable Review 组合验收。
+
+## 2026-09-29 当前优先项：PR #28 真实整场可靠性验收
+
+[ADR-0006](../adr/0006-libriichi-single-legal-action-authority.md) 已采纳，
+[规格](../specs/2026-09-28-libriichi-legal-action-authority-design.md) 与
+[实施计划](../plans/2026-09-28-libriichi-legal-action-authority-migration.md) 已落盘。
+顺序：R14 反例固化与无权重规则接口验证 → 契约/受管入口 → 全消费者切换 →
+旧枚举删除与 Git 封存 → 全门禁及最终提交真实 CPU 验证。
+保留 helper 教学能力；local/remote 共用 libriichi，不维持第二动作来源独立检错。
+R14 11 项已落实实现与回归；旧枚举已退出，具体职责见封存清单。
+当前主线仍是 M6-B 本地模型接入，真实整场数据同时触及 M6-C 分析产物、
+M6-D1 证据图和 M7-B 存储。最新状态和逐次失败证据见实施计划 §29 起：
+
+- 真实雀魂完整牌谱及同响应规则配置已取得，来源缺口已补齐。
+- helper 的结构零向听/空等待契约修复已落地；子代理追加发现的无关四枚牌例外
+  已在本实现候选修复并通过聚焦独立复核，最终版本验证仍须执行。
+- 原 5.49 GB 完整单视角分析档案已在默认堆预算下完成保存、关闭、新实例重开，
+  实现侧回归退出 0；最终提交的新 CPU 产物仍需独立复验，不能继承旧包回归 PASS。
+- 用户已授权子代理独立验收，独立工作树已准备；当前没有最终候选的整体 PASS。
+
+退出本阶段须取得完整真实数据保存重开、最新候选全量门禁及真实 CPU、独立
+无 P1/P2 的实际证据。随后才进入下文 Integration Closeout 的产品组合验收；
+PR #28、MVP、Golden Slice 不因已有单项通过而自动完成。
 
 ## 里程碑状态
 
@@ -17,8 +40,8 @@
 | M3 教学证据 | 未开始 | 仅有策略边界和占位契约 | 冻结资料、引用、版本化教学规则；与 decision fact 两源分离，fixed report 稳定后启动 |
 | M4 受约束追问 | 未开始 | ——（原 M4"LLM 教练"已拆分为 M6-D 解释引擎 + M7-A 固定报告 UI + M4 追问对话） | fixed report 与教学证据层稳定后的 constrained follow-up/chat；context retrieval 将建立在 M6-D1 ContextGraph 上（embeddings/GraphRAG 不是前提） |
 | M5 雀魂国区接入 | 接近完成 | Electron 登录、加密恢复、最近 30 场、取回、canonical mapper、重放、脱敏 replay audit、H1 诊断命令 | 真实牌谱 H1 对照验收；未覆盖流局/杠枚举的 fixture 反证 |
-| M6 模型生产接入 | 进行中 | M6-A1：Mortal 单决策切片（安全获取、指纹/视角绑定、比较集 + ModelEvaluation + assembly）；M6-A2：全量自摸面覆盖账本（全局二部绑定、120/113 无丢失、99 个支持对 analysis_ready）；M6-A3：行动支持扩展已落地（declare_riichi 契约与 riichi_discard 实现语义、自摸/杠/九种九牌终局 actual、post_riichi/post_call 决策面、真实 hora 形态钉死、10 分支 fail-closed coverage gate + §16 evidence manifest lift 路径、双平台验收入口（雀魂首选 + Tenhou 补充，共享验收核心）、H2 连续性复跑 125/113 全绑定 0 歧义）；**真实语料验收矩阵 10/10 补满（2026-08-17，双平台 §16 manifest，handoff §15）**；**M6-A4 响应面已收口（2026-08-18，wave-1 六分支 6/6 真实 E2E，详见 [M6-A4.3 wave-1 矩阵](M6-A4.3-wave1-matrix-status.md)）**；**M6-C StructuredAnalysisPackage 固化（stable evidence substrate，Slice 1–4 + whole-game golden）**；**DeterministicReviewSelector（确定性选择策略，policy v1 冻结 + 三 slice + whole-game consumer golden，2026-08-19）**；**M6-D1 Typed Context Graph substrate（2026-08-19，deterministic projection + GraphContextSlice + 三 guard 全绿）**；**M6-D2 contracts/reasoning baseline（2026-08-24，严格契约、grounding/read-back validator、append-only overlay、evidence-only degrade）** | COAC-3 provider/BYOK/IPC 及三个 P2 修复已落盘，五门通过、待复核；COAC-4 完整工作流与 M7 产品接线；M6-B Akagi 后置 |
-| M7 复盘工作台 | 未开始 | 安全 IPC 和最小目录 UI | **M7-A** fixed review UI（三层，原生 DOM；消费 `DeterministicReviewSelector` 输出）；**M7-B** ReviewSession 持久化/重开 + SQLite + 产品内 Mortal 缓存（privileged 边界，ADR-0003/决策 H6） |
+| M6 模型生产接入 | native runtime prerequisite 已合入；手动导入接缝为当前候选 | M6-A1–A4、M6-C、DeterministicReviewSelector、M6-D1/D2 与 COAC-111 local Mortal 四视角真实 checkpoint production spike 已落地；B 当前消费 managed local Mortal 生成 validated package | 固定五门、Golden Slice、fresh independent review 与最终人工验收；不得把 spike 单独视为 MVP 完成 |
+| M7 复盘工作台 | 核心能力完成，share-import 组合为当前候选 | M7-A UI、M7-B SQLite/immutable artifacts/两阶段恢复/离线重开/main-only raw cache 与 share-import → ReviewSession → Review Workspace 接线已落地；account `startRecordAnalysis` handoff 仍待接入 | MVP Electron Golden Slice、session-list/重启回归与最终发布门 |
 | M8 打包发布 | 未开始 | Electron 与 sidecar 构建基础 | 跨平台安装、升级、日志、发布验收 |
 
 ## 当前关键路径
@@ -31,8 +54,9 @@ M5 manual acceptance (parallel)
 → M6-D2
 → M7-A
 → M7-B
+→ M6-B Local Mortal Runtime Production Spike
+→ Playable Review MVP Integration Closeout
 → pull-based M2-next / M3 / M4
-→ M6-B
 → M8
 ```
 
@@ -77,8 +101,8 @@ provider/model、prompt version、输出 schema 版本、validator/generation �
 "引用不内嵌"一致）。
 
 **`MortalDecisionOutcome` 语义**：`source_row_not_expected` 是合法状态——纯由本地
-候选枚举决定（候选数 = 1 → Mortal 按定义不产出行），在任何源行查找前判定；
-`no_mortal_entry` 保持完整性故障语义（本地枚举 ≥2 → 源行必须存在），绿色验收 run
+libriichi 完整规则结果决定（候选数 = 1 → 无需模型行），在任何源行查找前判定；
+`no_mortal_entry` 保持完整性故障语义（需要评分的规则候选 ≥2 → 源行必须存在），绿色验收 run
 中计数必须为 0。
 
 边界：
@@ -141,7 +165,7 @@ typecheck / vitest（1705）/ check:architecture / package-import 全绿。
 
 #### M6-D2 — Graph-grounded Coach + Validator
 
-**状态：contracts/reasoning baseline 已落地（2026-08-24），M6-D2 尚未整体完成。**
+**状态：已落地并完成 COAC-4 本地验收（2026-09-20）。**
 已交付严格 `CoachReasoningDraft` / `ReviewReport` 契约、grounding 与 read-back
 validator、append-only reasoning overlay、确定性 report identity，以及 provider 失败时的
 evidence-only degrade。read-back 会重新推导 `CoachJudgment` / `CoachInference` 节点身份，
@@ -149,18 +173,26 @@ evidence-only degrade。read-back 会重新推导 `CoachJudgment` / `CoachInfere
 `verbalizes` / `opposes` / `qualifies` 强制 endpoint kind 和 same-decision ownership；
 对应篡改场景由 `grounding-validator.test.ts` 永久回归。
 
-COAC-3 实现及三个 P2 修复已落盘（2026-09-19，五项门禁通过、待 controller 复核）：contracts 的
+COAC-3 实现及三个 P2 修复已落盘（2026-09-19）：contracts 的
 `LlmCoachProvider` 在 Electron main 中有单一 OpenAI-compatible 实现；BYOK 通过
 主进程环境 importer 与独立 safeStorage 密文文件保管；窄 IPC/preload 只传非敏感设置、
-无 payload 的导入/删除动作与 package 引用。生成窄 seam 复用 slice、grounding 与
-report assembly，传输最多重试一次，空 selection 不请求，语义失败不重试。
+无 payload 的导入/删除动作与 package 引用。COAC-4 将生成路径收敛为 reasoning 包根
+唯一 `generateReviewReport`：selector 是唯一入选 authority，内部复用 slice、grounding、
+assembly 与 read-back validator；自动传输重试只在 provider 内发生，总发送数最多 2，
+空 selection / provider unavailable / 语义或 read-back 失败均不追加请求。
 详见 [COAC-3 回执](../handoffs/2026-09-19-coac-3-privileged-provider.md)。
 
-剩余：COAC-4 完整生成工作流、上游 package 的产品发现/交接、M7 报告 UI 与会话
-持久化。当前 main-only package reader 只读取已有的严格 package 引用；不生成新的
-分析包，不把原始牌谱当作 package，不实现后台任务/重生成策略。M6-D2 仍未整体验收。
+剩余属于后续里程碑：上游 package 的产品发现/交接、M7 报告 UI 与会话持久化。
+当前 main-only package reader 只读取已有的严格 package 引用；不生成新的分析包，
+不把原始牌谱当作 package，不实现后台任务/重生成策略。
 
 ### 5. M7-A Whole-game fixed review UI
+
+现行 implementation spec：
+[2026-09-21 M7-A Whole-game fixed review UI](../specs/2026-09-21-m7-a-whole-game-fixed-review-ui-design.md)。
+该规格已完成 grill 与审阅，冻结安全 view DTO、三层信息架构、四类 fixture 与
+COAC-5/COAC-7 共享的 active-report 生命周期。PR #14（merge `3e9bbb7b…`）与 PR #15
+（merge `ab379cc…`）已满足 COAC-6 启动门；当前 M7-A 实现候选正在 COAC-6 验收。
 
 - 消费 `DeterministicReviewSelector` 输出（入选决策 + 排序；策略语义见 §3 与
   2026-08-18 grill F1–F3）；UI 不定义"什么值得上评审"。
@@ -173,7 +205,38 @@ report assembly，传输最多重试一次，空 selection 不请求，语义失
 ### 6. M7-B ReviewSession 持久化
 
 - SQLite；ReviewSession 只引用（不内嵌）analysisPackage / ReviewReport；componentVersions 概念清单预留（canonical/replay、Mortal model/source、factor pipeline、selector policy、analysis package schema、LLM provider/model、prompt/schema、review report schema；其中 LLM provider/model、prompt/schema、review report schema 属 ReviewReport 侧，analysis package 只记确定性生产者版本，见 §2 M6-C）。
-- 产品内 Mortal 报告缓存进入：**raw cache 属 privileged source infrastructure，不进 ReviewSession/ReviewReport**（main process only、无 renderer 暴露、无 raw audit payload；eviction 策略实现时定）。
+- 产品内 Mortal 报告缓存进入：**raw cache 属 privileged source infrastructure，不进 ReviewSession/ReviewReport**（main process only、无 renderer 暴露、无 raw audit payload）。COAC-7 已裁决长期保留、无自动过期/容量淘汰，显式清理不得误删共享材料；[M7-B 冻结规格](../specs/2026-09-21-m7-b-review-session-persistence-design.md) 保存 schema、事务、恢复、安全边界和执行门。
+- COAC-8 已把上述 schema/事务落实到 Electron main，并把保存/列表/重启离线重开接入
+  M7-A controller，PR #22 已合入。该内部能力完成不证明真实 app entry 已闭合。
+
+### 6.1 Playable Review MVP Integration Closeout
+
+[Integration Closeout 规格](../specs/2026-09-24-playable-review-mvp-integration-closeout.md)
+冻结最后的 app composition：账号同步必须区分真实空目录与 sync/service failure；手动导入
+必须产出或复用真实 ReviewSession 并自动进入 Review Workspace；首次生成后列表即时刷新；
+永久 Electron Golden Slice 必须从 app shell 起步并在清内存、禁网/禁 LLM 后重启重开。
+
+A/B 的当前实现候选已落地，C 已由 COAC-100/PR #23 提供并合入；D/Golden Slice 与最终组合
+回归仍未闭合。只有 Integration spec 的 Golden Slice、五门、fresh `NO_P1_P2`、合并与一次
+真人 smoke 全部完成，才能标记 `Playable Review MVP v0.1 = DEMOABLE`。
+
+### 6.2 M6-B Native model runtime prerequisite
+
+M6-B 的能力本质是受管 native model runtime，不再绑定历史名称 “Akagi Native”。当前批准
+且唯一的 MVP 实现是 managed local Mortal runtime + `Yuchen1457/mortal-582500`；冻结规格见
+[Local Mortal Runtime 生产规格](../specs/2026-09-24-local-mortal-runtime-production-design.md)。
+remote Mortal report path 保留作 regression/cross-validation/diagnostic，但 manual-import
+产品主链不再等待用户粘贴 result URL。
+
+该 runtime 是独立 privileged owner。现有 v1 产生 model evidence；ADR-0006 目标增加
+无权重规则操作，输出唯一合法动作结果。模型评分仍经既有 structured comparison /
+`ModelEvaluation` 进入 M6-C，不得改写 `KnownGameFacts`、候选因素账本或差异；执行器不得解析
+雀魂协议，也不得与 `mortal-source` 或 deterministic `mahjong-facts` sidecar 合并。真实
+COAC-111 已以四视角真实 `mortal-582500` CPU inference 验证 candidate conservation 与
+validated `StructuredAnalysisPackage`，并建立永久离线/真实 spike 入口；该提交合入 `master`
+前，COAC-106 的 B 路径保持 blocked；PR #28 合入后 B 才可消费该产物。当前 B 候选已把
+share URL → local Mortal → validated package → ReviewSession → Review Workspace 接通，
+但 production spike 或 focused 接线通过仍不等于 Electron Golden Slice 或 MVP 已完成。
 
 ### 7. M2-next：pull-based deterministic capability pool
 
@@ -182,7 +245,10 @@ report assembly，传输最多重试一次，空 selection 不请求，语义失
 
 ### 8. 其后
 
-- M3 教学证据层（与 decision fact 两源分离）→ M4 受约束追问对话 → M6-B Akagi（产品链稳定后）→ M8 打包发布。
+- M3 教学证据层（与 decision fact 两源分离）→ M4 受约束追问对话 → M8 打包发布。
+- 历史路线图曾把 M6-B 写作“Akagi 后置”；2026-09-24 产品裁决保留该时间语义，但把当前
+  能力校准为 native model runtime，并把 local Mortal production spike 前移为 Playable
+  Review MVP 的显式前置。Akagi 不在当前范围。
 - M4 未来 constrained follow-up/chat 的 context retrieval 将建立在 ContextGraph 上：
 
 ```text
@@ -200,6 +266,8 @@ question
 M6-A4 已收口，不再位于关键路径；本条目为完成记录（详见
 [M6-A4.3 wave-1 矩阵](M6-A4.3-wave1-matrix-status.md) 与
 [M6-A4 响应面规格](../specs/2026-08-18-m6-a4-response-surface-design.md)）。
+
+该历史收口不代表 ADR-0006 已完成；下列本地开窗规则、独立枚举与证明是迁移退出对象。
 
 - **A4.0** 修正 Mortal source model：拆除 `report-fetcher.ts` 与 `mortal-review-service.ts` 两处 `last_actor == player` 归属过滤，钉死"全部 entry 为受评者视角决策"；H2 重跑确认 self-turn 绑定不回归、现有 12 个 `no_mortal_entry` 逐个获得解释。**已落地（2026-08-18）**。
 - **A4.1** response replay 开窗（他家舍牌/他家杠响应窗口）。**已落地（2026-08-18）**：`replayCanonicalResponseWindows` 经共享 streamContext 打开 discard_response/kan_response 窗口，开窗权威 = canonical 事件 + 本地规则（开窗权威分离），Mortal 标记仅作源侧绑定锚点。

@@ -236,28 +236,27 @@ describe("Mahjong Soul protocol bundle", () => {
     }
   });
 
-  it("rejects modified or missing upstream and generated assets", async () => {
-    const assets = [
-      `akagi-v3/${commit}/LICENSE.txt`,
-      `akagi-v3/${commit}/NOTICE`,
-      `akagi-v3/${commit}/liqi.proto`,
-      `akagi-v3/${commit}/rpc-map.json`,
-      "endpoints.json",
-    ];
-    for (const asset of assets) {
-      await usingBundle(async (root) => {
-        const target = join(root, ...asset.split("/"));
+  it.each([
+    `akagi-v3/${commit}/LICENSE.txt`,
+    `akagi-v3/${commit}/NOTICE`,
+    `akagi-v3/${commit}/liqi.proto`,
+    `akagi-v3/${commit}/rpc-map.json`,
+    "endpoints.json",
+  ].flatMap((asset) => [
+    { asset, state: "modified" },
+    { asset, state: "missing" },
+  ]))("rejects $state upstream or generated asset $asset", async ({ asset, state }) => {
+    await usingBundle(async (root) => {
+      const target = join(root, ...asset.split("/"));
+      if (state === "modified") {
         const bytes = await readFile(target);
         bytes[0] = (bytes[0] ?? 0) ^ 1;
         await writeFile(target, bytes);
-        await expectFixedFailure(() => loadMahjongSoulProtocolBundle(root));
-      });
-      await usingBundle(async (root) => {
-        const target = join(root, ...asset.split("/"));
+      } else {
         await rm(target);
-        await expectFixedFailure(() => loadMahjongSoulProtocolBundle(root));
-      });
-    }
+      }
+      await expectFixedFailure(() => loadMahjongSoulProtocolBundle(root));
+    });
   });
 
   it("rejects traversal and symbolic-link or junction assets", async () => {

@@ -35,6 +35,8 @@ describe("paipu UI policy", () => {
       .toBe("粘贴雀魂牌谱分享链接。");
     expect(paipuImportStatusLabel({ state: "invalid_url" })).toBe("牌谱链接格式无效");
     expect(paipuImportStatusLabel({ state: "pending" })).toBe("正在通过雀魂客户端读取牌谱…");
+    expect(paipuImportStatusLabel({ state: "review_ready", decisionCount: 116 }))
+      .toBe("牌谱已生成复盘，可查看 116 个决策点");
     expect(paipuImportStatusLabel({ state: "analysis_ready", decisionCount: 116 }))
       .toBe("牌谱已导入，可分析 116 个决策点");
     expect(paipuImportStatusLabel({ state: "identity_mismatch" }))
@@ -46,6 +48,10 @@ describe("paipu UI policy", () => {
   });
 
   it("maps the fixed safe IPC result to UI states, unknown statuses to failure", () => {
+    expect(paipuImportUiStateFromResult({
+      status: "review_ready",
+      replayDecisionCount: 8,
+    })).toEqual({ state: "review_ready", decisionCount: 8 });
     expect(paipuImportUiStateFromResult({
       status: "analysis_ready",
       replayDecisionCount: 8,
