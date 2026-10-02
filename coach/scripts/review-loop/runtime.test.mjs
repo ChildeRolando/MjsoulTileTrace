@@ -1,11 +1,13 @@
 const test = process.env.VITEST === 'true' ? (await import('vitest')).test : (await import('node:test')).test;
+const testWithTimeout=(name,fn,timeout)=>process.env.VITEST === 'true' ? test(name,fn,timeout) : test(name,{timeout},fn);
 import assert from 'node:assert/strict';
+import { execFileSync } from 'node:child_process';
 import { mkdir, mkdtemp, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
-import { acquireLock, recoverLock, atomicJson, command, makeIO, tick, recoverInvalidReview, recoverTransportResult, authorizeSixthReviewRun, acceptExternalReviewRun } from './runtime.mjs';
+import { acquireLock, recoverLock, atomicJson, command, makeIO, tick, recoverInvalidReview, recoverTransportResult, authorizeSixthReviewRun, acceptExternalReviewRun, historicalIssueDescriptionMatches } from './runtime.mjs';
 import { GATES, hash, admit, parseResult, VERSION, externalReviewAcceptance } from './protocol.mjs';
-import { advance, advanceDurability, captureDurability } from './controller.mjs';
+import { advance, advanceDurability, captureDurability, jobDescription } from './controller.mjs';
 test('transport recovery entrypoint exists',async()=>{
   const module=await import('./runtime.mjs');
   assert.equal(typeof module.recoverTransportResult,'function');
@@ -619,6 +621,224 @@ test('external independent review closure preserves automatic BLOCKED and publis
     assert.equal(f.archives,1);assert.equal(f.saves,1);assert.equal(f.publishes,1);
     await assert.rejects(()=>acceptExternalReviewRun(disabled,f.request,()=>f.io),/already accepted/);assert.equal(f.publishes,1);
   } finally {await rm(dir,{recursive:true,force:true});}
+});
+async function resultBearingTerminalFixture(dir) {
+  const base='a'.repeat(40),heads=['b','c','d'].map(value=>value.repeat(40)),finalHead='e'.repeat(40),admissionHash=admit(pr(heads[0],base)).admission_hash;
+  const snapshots=new Map(),archives=new Map(),issues=new Map(),comments=new Map(),runsByIssue=new Map();
+  let clock=Date.parse('2026-10-01T00:00:00.000Z');const stamp=()=>new Date(clock+=1000).toISOString();
+  const snapshot=(candidateBase,head)=>{
+    const bytes=Buffer.from(JSON.stringify(pr(head,candidateBase))),sha256=hash(bytes);
+    snapshots.set(sha256,bytes);return {semantics:'github-rest-json-utf8/v1',sha256,observed_at:stamp()};
+  };
+  const reviewerData=(round,head)=>({protocol_version:VERSION,pr_number:8,base_sha:base,head_sha:head,round,verdict:'CHANGES_REQUIRED',
+    findings:{P1:[],P2:[{id:`p2-${round}`,path:'coach/scripts/review-loop/runtime.mjs',line:1,scenario:'source mismatch',consequence:'terminal source is untrusted',minimal_fix:'verify source',durability:'repository_required',durable_owner:'coach/scripts/review-loop/runtime.mjs',regression:null,basis:'explicit_contract_violation'}],P3:[]},
+    gates:Object.entries(GATES).map(([id,command])=>({id,command,status:'PASS',exit_code:0})),environment_failures:[]});
+  const source=(job,data,attachmentSha)=>{
+    const name=job.kind === 'review' ? 'review-loop-result' : 'review-loop-fix';
+    const content=`source\n\`\`\`${name}\n${JSON.stringify(data)}\n\`\`\``;
+    const comment={id:`${job.issue_id}-comment`,issue_id:job.issue_id,author_type:'agent',author_id:job.agent_id,source_task_id:`${job.issue_id}-run`,content};
+    const run={id:comment.source_task_id,issue_id:job.issue_id,agent_id:job.agent_id,status:'completed'};
+    const issue={id:job.issue_id,project_id:'project',assignee_type:'agent',assignee_id:job.agent_id,
+      title:`[${VERSION}][${job.kind === 'review' ? '审查' : '修复'}][第${job.round}轮][${job.head_sha.slice(0,12)}] ChildeRolando/MjsoulTileTrace#8`};
+    issue.description=jobDescription(job,admit(pr(job.head_sha,job.base_sha)));
+    if(job.kind === 'fix')issue.description+=`\n\n!file[${attachmentSha}.txt](https://multica.ai/api/attachments/00000000-0000-4000-8000-000000000000/download)`;
+    const parsed=parseResult(job,issue,[comment],[run]),key=`${job.issue_id}:${parsed.sha256}`;
+    issues.set(job.issue_id,issue);comments.set(job.issue_id,[comment]);runsByIssue.set(job.issue_id,[run]);archives.set(key,Buffer.from(JSON.stringify(parsed)));
+    return parsed;
+  };
+  const history=[];let lastReview;
+  for(let round=1;round<=3;round++) {
+    const before=heads[round-1],reviewId=`review-${round}`,reviewJob={kind:'review',round,pr_number:8,issue_id:reviewId,agent_id:'reviewer',base_sha:base,head_sha:before,admission_hash:admissionHash,
+      worktree:path.join(dir,'worktrees',`pr-8-review-${round}-${before.slice(0,12)}`)};
+    history.push({event:'dispatch',kind:'review',round,head_sha:before,base_sha:base,issue_id:reviewId,snapshot:snapshot(base,before),at:stamp()});
+    const reviewParsed=source(reviewJob,reviewerData(round,before));
+    history.push({event:'result',transition:round<3?'ROUTE_TO_FIXER':'BLOCKED',issue_id:reviewId,comment_id:reviewParsed.comment_id,run_id:reviewParsed.run_id,sha256:reviewParsed.sha256,
+      head_sha:before,base_sha:base,round,snapshot:snapshot(base,before),at:stamp()});
+    lastReview={job:reviewJob,parsed:reviewParsed};
+    if(round===3)break;
+    const after=heads[round],fixId=`fix-${round}`,fixJob={kind:'fix',round,pr_number:8,issue_id:fixId,agent_id:'fixer',base_sha:base,head_sha:before,raw_review_sha256:reviewParsed.sha256,
+      source_review_issue_id:reviewId,source_comment_id:reviewParsed.comment_id,review_file:path.join(dir,'reviews',`${reviewParsed.sha256}.txt`),
+      worktree:path.join(dir,'worktrees',`pr-8-fix-${round}-${before.slice(0,12)}`)};
+    history.push({event:'dispatch',kind:'fix',round,head_sha:before,base_sha:base,issue_id:fixId,snapshot:snapshot(base,before),at:stamp()});
+    const fixParsed=source(fixJob,{protocol_version:VERSION,pr_number:8,base_sha:base,previous_head_sha:before,head_sha:after,round,raw_review_sha256:reviewParsed.sha256},reviewParsed.sha256);
+    history.push({event:'result',transition:'DISCARD_AND_REVIEW',issue_id:fixId,comment_id:fixParsed.comment_id,run_id:fixParsed.run_id,sha256:fixParsed.sha256,
+      head_sha:before,base_sha:base,round,snapshot:snapshot(base,after),at:stamp()});
+  }
+  const state={protocol_version:VERSION,pr_number:8,round:3,status:'BLOCKED',reason:'review gates, environment or round limit',admission_hash:admissionHash,pending:null,history,
+    job:lastReview.job,result:{issue_id:lastReview.job.issue_id,comment_id:lastReview.parsed.comment_id,sha256:lastReview.parsed.sha256}};
+  const current=pr(finalHead,base),live=admit(current),description=`Independent review contract\n${live.admission.rubric}\n${live.admission.authoritative_spec_paths.join('\n')}`;
+  const externalData={protocol_version:VERSION,pr_number:8,base_sha:base,head_sha:finalHead,round:4,verdict:'NO_P1_P2',findings:{P1:[],P2:[],P3:[]},
+    gates:Object.entries(GATES).map(([id,command])=>({id,command,status:'PASS',exit_code:0})),environment_failures:[]};
+  const externalComment={id:'external-comment',issue_id:'external-review',author_type:'agent',author_id:'reviewer',source_task_id:'external-run',content:`review\n\`\`\`review-loop-result\n${JSON.stringify(externalData)}\n\`\`\``};
+  const externalIssue={id:'external-review',creator_type:'member',project_id:'project',assignee_type:'agent',assignee_id:'reviewer',description};
+  const externalRun={id:'external-run',issue_id:'external-review',agent_id:'reviewer',status:'completed'};
+  issues.set(externalIssue.id,externalIssue);comments.set(externalIssue.id,[externalComment]);runsByIssue.set(externalIssue.id,[externalRun]);
+  const otherCommon={protocol_version:VERSION,repository:'ChildeRolando/MjsoulTileTrace',pr_number:9,base_sha:'1'.repeat(40),head_sha:'f'.repeat(40),round:1,
+    worktree:path.join(dir,'worktrees','pr-9-review-1-ffffffffffff'),authoritative_spec_paths:admit(current).admission.authoritative_spec_paths,rubric:admit(current).admission.rubric};
+  const unrelated=[
+    {id:'other-pr-active',title:'[review-loop/v2.1][审查][第1轮][ffffffffffff] ChildeRolando/MjsoulTileTrace#9',description:`prompt\n${JSON.stringify(otherCommon,null,2)}`},
+    {id:'plain-unrelated-active',title:'Product implementation task',description:'This mentions ChildeRolando/MjsoulTileTrace#8 as background.'},
+    {id:'fenced-unrelated-active',title:'Product example',description:`Example:\n\`\`\`json\n${JSON.stringify({...otherCommon,pr_number:8,worktree:otherCommon.worktree.replace('pr-9-','pr-8-')},null,2)}\n\`\`\``},
+    {id:'quoted-unrelated-active',title:'Product quote',description:`> ${JSON.stringify({...otherCommon,pr_number:8,worktree:otherCommon.worktree.replace('pr-9-','pr-8-')})}`},
+  ];
+  for(const issue of unrelated) {issue.project_id='project';issues.set(issue.id,issue);runsByIssue.set(issue.id,[{id:`${issue.id}-run`,issue_id:issue.id,agent_id:'other-agent',status:'running'}]);}
+  const request={protocol_version:VERSION,pr_number:8,review_issue_id:externalIssue.id,comment_id:externalComment.id,run_id:externalRun.id,raw_review_sha256:hash(externalComment.content),
+    issue_contract_sha256:hash(description),external_sequence:4,base_sha:base,head_sha:finalHead,admission_hash:live.admission_hash,approval_ref:'approved terminal acceptance'};
+  const file=path.join(dir,'pr-8.json');await atomicJson(file,state);
+  const metrics={archives:0,saves:0,publishes:0,lives:0,sourceReads:0,archiveReads:0,snapshotReads:0,ancestry:0};
+  let observed=current,afterRead=null;
+  const io={live:async()=>{metrics.lives++;return observed;},issue:async id=>{metrics.sourceReads++;await afterRead?.('issue',id);return issues.get(id);},
+    comments:async id=>{metrics.sourceReads++;await afterRead?.('comments',id);return comments.get(id);},runs:async id=>{metrics.sourceReads++;await afterRead?.('runs',id);return runsByIssue.get(id);},
+    issues:async()=>[...issues.values()],readSnapshot:async sha256=>{metrics.snapshotReads++;const value=snapshots.get(sha256);assert(value,'fixture snapshot missing');return Buffer.from(value);},
+    readResultArchive:async(issueId,sha256)=>{metrics.archiveReads++;const value=archives.get(`${issueId}:${sha256}`);assert(value,'fixture result archive missing');return Buffer.from(value);},
+    verifyTerminalCandidate:async(job,observedLive)=>{metrics.ancestry++;assert.equal(job.kind,'review');assert.equal(observedLive.head_sha,finalHead);return {isAncestorBase:true,isAncestorHead:true,containsLiveBase:true};},
+    archiveExternalResult:async()=>{metrics.archives++;},save:async value=>{metrics.saves++;await atomicJson(file,value);},publish:async()=>{metrics.publishes++;}};
+  return {file,state,current,live,request,issues,comments,runsByIssue,archives,snapshots,metrics,io,setLive(value){observed=value;},setAfterRead(fn){afterRead=fn;}};
+}
+function isolatedGit(cwd,...args) {
+  return execFileSync('git',args,{cwd,encoding:'utf8',windowsHide:true}).trim();
+}
+async function terminalGitFixture(dir,shape='same-base',publication='current') {
+  const bare=path.join(dir,'origin.git'),repo=path.join(dir,'repo');
+  await mkdir(repo,{recursive:true});
+  isolatedGit(dir,'init','--bare','--initial-branch=main',bare);
+  isolatedGit(dir,'init','--initial-branch=main',repo);
+  isolatedGit(repo,'config','user.name','Review Loop Test');isolatedGit(repo,'config','user.email','review-loop-test@example.invalid');
+  await writeFile(path.join(repo,'base.txt'),'base\n');isolatedGit(repo,'add','base.txt');isolatedGit(repo,'commit','-m','base');
+  const originalBase=isolatedGit(repo,'rev-parse','HEAD');
+  await writeFile(path.join(repo,'candidate.txt'),'candidate\n');isolatedGit(repo,'add','candidate.txt');isolatedGit(repo,'commit','-m','original reviewed candidate');
+  const originalHead=isolatedGit(repo,'rev-parse','HEAD');
+  let liveBase=originalBase,liveHead=originalHead;
+  if(shape==='same-base') {
+    await writeFile(path.join(repo,'followup.txt'),'followup\n');isolatedGit(repo,'add','followup.txt');isolatedGit(repo,'commit','-m','followup');liveHead=isolatedGit(repo,'rev-parse','HEAD');
+  } else if(shape==='successor-base') {
+    isolatedGit(repo,'checkout','-b','successor-base',originalBase);
+    await writeFile(path.join(repo,'base-update.txt'),'base update\n');isolatedGit(repo,'add','base-update.txt');isolatedGit(repo,'commit','-m','successor base');
+    liveBase=isolatedGit(repo,'rev-parse','HEAD');isolatedGit(repo,'checkout','main');isolatedGit(repo,'merge','--no-ff','successor-base','-m','merge successor base');
+    liveHead=isolatedGit(repo,'rev-parse','HEAD');
+  } else if(shape==='unrelated-base' || shape==='unrelated-head') {
+    isolatedGit(repo,'checkout','--orphan','unrelated');
+    await rm(path.join(repo,'base.txt'),{force:true});await rm(path.join(repo,'candidate.txt'),{force:true});
+    await writeFile(path.join(repo,'unrelated.txt'),'unrelated root\n');isolatedGit(repo,'add','unrelated.txt');isolatedGit(repo,'commit','-m','unrelated root');
+    const unrelated=isolatedGit(repo,'rev-parse','HEAD');
+    if(shape==='unrelated-base') {
+      liveBase=unrelated;isolatedGit(repo,'checkout','main');isolatedGit(repo,'merge','--no-ff','--allow-unrelated-histories','unrelated','-m','merge unrelated base');
+      liveHead=isolatedGit(repo,'rev-parse','HEAD');
+    } else {liveHead=unrelated;}
+  } else throw new Error(`unknown isolated Git shape: ${shape}`);
+  isolatedGit(repo,'remote','add','origin',bare);
+  const remoteHead=publication==='old-candidate' ? originalHead : liveHead;
+  isolatedGit(repo,'push','origin',`${remoteHead}:refs/heads/reviewed`);
+  return {bare,repo,originalBase,originalHead,liveBase,liveHead,remoteHead};
+}
+testWithTimeout('makeIO result-terminal verifier proves actual pushed Git ancestry and rejects stale or incomplete graphs',async()=>{
+  const positive=[['same base', 'same-base'],['successor base containing original and live candidates','successor-base']];
+  for(const [label,shape] of positive) {
+    const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-terminal-git-positive-'));
+    try {
+      const f=await terminalGitFixture(dir,shape),io=makeIO({git_path:'git',repository_path:f.repo,state_dir:path.join(dir,'state')},path.join(dir,'state','ledger.json'),path.join(dir,'state'));
+      const proof=await io.verifyTerminalCandidate({kind:'review',pr_number:8,base_sha:f.originalBase,head_sha:f.originalHead},
+        {branch:'reviewed',base_sha:f.liveBase,head_sha:f.liveHead});
+      assert.deepEqual(proof,{isAncestorBase:true,isAncestorHead:true,containsLiveBase:true},label);
+    } finally {await rm(dir,{recursive:true,force:true});}
+  }
+  const negative=[
+    ['unrelated live base','unrelated-base','current',null],
+    ['unrelated live head','unrelated-head','current',null],
+    ['missing historical commit','same-base','current','missing'],
+    ['live head has not been pushed','same-base','old-candidate',null],
+  ];
+  for(const [label,shape,publication,missing] of negative) {
+    const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-terminal-git-negative-'));
+    try {
+      const f=await terminalGitFixture(dir,shape,publication),io=makeIO({git_path:'git',repository_path:f.repo,state_dir:path.join(dir,'state')},path.join(dir,'state','ledger.json'),path.join(dir,'state'));
+      const job={kind:'review',pr_number:8,base_sha:f.originalBase,head_sha:missing ? '1'.repeat(40) : f.originalHead};
+      await assert.rejects(()=>io.verifyTerminalCandidate(job,{branch:'reviewed',base_sha:f.liveBase,head_sha:f.liveHead}),undefined,label);
+    } finally {await rm(dir,{recursive:true,force:true});}
+  }
+  const dirtyDir=await mkdtemp(path.join(os.tmpdir(),'review-loop-terminal-git-dirty-'));
+  try {
+    const f=await terminalGitFixture(dirtyDir),io=makeIO({git_path:'git',repository_path:f.repo,state_dir:path.join(dirtyDir,'state')},path.join(dirtyDir,'state','ledger.json'),path.join(dirtyDir,'state'));
+    await writeFile(path.join(f.repo,'untracked.txt'),'dirty\n');
+    await assert.rejects(()=>io.verifyTerminalCandidate({kind:'review',pr_number:8,base_sha:f.originalBase,head_sha:f.originalHead},
+      {branch:'reviewed',base_sha:f.liveBase,head_sha:f.liveHead}),/not clean/);
+  } finally {await rm(dirtyDir,{recursive:true,force:true});}
+  const raceDir=await mkdtemp(path.join(os.tmpdir(),'review-loop-terminal-git-stale-advertisement-'));
+  try {
+    const f=await terminalGitFixture(raceDir),config={git_path:'git',repository_path:f.repo,state_dir:path.join(raceDir,'state')};let moved=false;
+    const runner=async(file,args,cwd)=>{
+      if(file==='git' && args[0]==='fetch' && !moved) {moved=true;isolatedGit(raceDir,'--git-dir',f.bare,'update-ref','refs/heads/reviewed',f.originalHead);}
+      return command(file,args,cwd);
+    };
+    const io=makeIO(config,path.join(raceDir,'state','ledger.json'),path.join(raceDir,'state'),runner);
+    await assert.rejects(()=>io.verifyTerminalCandidate({kind:'review',pr_number:8,base_sha:f.originalBase,head_sha:f.originalHead},
+      {branch:'reviewed',base_sha:f.liveBase,head_sha:f.liveHead}),/changed during verification/);
+    assert(moved);
+  } finally {await rm(raceDir,{recursive:true,force:true});}
+},60_000);
+test('result-bearing round-three acceptance rereads strict historical sources before its first write',async()=>{
+  const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-result-terminal-'));
+  try {
+    const f=await resultBearingTerminalFixture(dir),historic=f.state.history[0].issue_id;
+    f.runsByIssue.get(historic).push({id:'prior-failure',issue_id:historic,agent_id:'reviewer',status:'failed'},
+      {id:'prior-cancellation',issue_id:historic,agent_id:'reviewer',status:'cancelled'});
+    const receipt=await acceptExternalReviewRun({...config(dir),enabled:false},f.request,()=>f.io);
+    const saved=JSON.parse(await readFile(f.file,'utf8'));
+    assert.equal(receipt.status,'EXTERNAL_REVIEW_ACCEPTED');assert.equal(saved.status,'BLOCKED');assert.equal(saved.round,3);
+    assert.deepEqual(saved.history.slice(0,10),f.state.history);assert.deepEqual(saved.result,f.state.result);
+    assert.equal(saved.history.length,11);assert.equal(f.metrics.archives,1);assert.equal(f.metrics.saves,1);assert.equal(f.metrics.publishes,1);
+    assert(f.metrics.sourceReads>=36);assert(f.metrics.archiveReads>=10);assert(f.metrics.snapshotReads>=6);assert(f.metrics.ancestry>=3);
+  } finally {await rm(dir,{recursive:true,force:true});}
+});
+test('result-bearing round-three acceptance rejects source/archive/snapshot/orphan and race evidence before writes',async()=>{
+  const mutations=[
+    ['missing archive',f=>f.archives.delete(`${f.state.history[1].issue_id}:${f.state.history[1].sha256}`)],
+    ['corrupt archive',f=>f.archives.set(`${f.state.history[1].issue_id}:${f.state.history[1].sha256}`,Buffer.from('{'))],
+    ['corrupt snapshot',f=>f.snapshots.set(f.state.history[0].snapshot.sha256,Buffer.from('{}'))],
+    ['active source run',f=>{f.runsByIssue.get(f.state.history[1].issue_id)[0].status='running';}],
+    ['unknown historical source run status',f=>{const id=f.state.history[0].issue_id;f.runsByIssue.get(id).push({id:'unknown-source-run',issue_id:id,agent_id:'reviewer',status:'awaiting'});}],
+    ['missing historical source run status',f=>{const id=f.state.history[0].issue_id;f.runsByIssue.get(id).push({id:'missing-status-source-run',issue_id:id,agent_id:'reviewer'});}],
+    ['source contract change',f=>{f.issues.get(f.state.history[0].issue_id).description+=' arbitrary text';}],
+    ['unrecognized fixer attachment suffix',f=>{const issue=f.issues.get(f.state.history[2].issue_id);issue.description+='\n\nextra attachment';}],
+    ['active external reviewer run',f=>{f.runsByIssue.get('external-review').push({id:'second-run',issue_id:'external-review',agent_id:'reviewer',status:'running'});}],
+    ['unknown external reviewer run status',f=>{f.runsByIssue.get('external-review').push({id:'unknown-external-run',issue_id:'external-review',agent_id:'reviewer',status:'awaiting'});}],
+  ];
+  for(const [label,mutate] of mutations) {
+    const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-result-terminal-reject-'));
+    try {
+      const f=await resultBearingTerminalFixture(dir);mutate(f);const before=await readFile(f.file,'utf8');
+      await assert.rejects(()=>acceptExternalReviewRun({...config(dir),enabled:false},f.request,()=>f.io),undefined,label);
+      assert.equal(f.metrics.archives,0,label);assert.equal(f.metrics.saves,0,label);assert.equal(f.metrics.publishes,0,label);
+      assert.equal(await readFile(f.file,'utf8'),before,label);
+    } finally {await rm(dir,{recursive:true,force:true});}
+  }
+  for(const [label,duplicate,status] of [['renamed active same-PR orphan',false,'running'],['unknown same-PR orphan run status',false,'awaiting'],['untracked duplicate source',true,'completed']]) {
+    const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-result-terminal-orphan-'));
+    try {
+      const f=await resultBearingTerminalFixture(dir),head=duplicate?'b'.repeat(40):'f'.repeat(40);
+      const common={protocol_version:VERSION,repository:'ChildeRolando/MjsoulTileTrace',pr_number:8,base_sha:'a'.repeat(40),head_sha:head,round:1,
+        worktree:path.join(dir,'worktrees',`pr-8-review-1-${head.slice(0,12)}`),authoritative_spec_paths:admit(f.current).admission.authoritative_spec_paths,rubric:admit(f.current).admission.rubric};
+      const issue={id:'renamed-orphan',title:'renamed issue',project_id:'project',description:`machine contract\n${JSON.stringify(common,null,2)}`};
+      f.issues.set(issue.id,issue);f.runsByIssue.set(issue.id,[{id:'orphan-run',issue_id:issue.id,agent_id:'other-agent',status}]);
+      const before=await readFile(f.file,'utf8');
+      await assert.rejects(()=>acceptExternalReviewRun({...config(dir),enabled:false},f.request,()=>f.io),duplicate?/untracked duplicate/:/active or unknown orphan writer/);
+      assert.equal(f.metrics.archives,0);assert.equal(f.metrics.saves,0);assert.equal(f.metrics.publishes,0);assert.equal(await readFile(f.file,'utf8'),before);
+    } finally {await rm(dir,{recursive:true,force:true});}
+  }
+  for(const [label,change] of [
+    ['source becomes active during final read',async f=>f.setAfterRead(async(kind,id)=>{if(kind==='runs'&&id==='fix-2')f.runsByIssue.get(id)[0].status='running';})],
+    ['live candidate drifts after source reads',async f=>f.setAfterRead(async(kind,id)=>{if(kind==='runs'&&id==='external-review')f.setLive(pr('9'.repeat(40),'a'.repeat(40)));})],
+    ['ledger changes during source reads',async f=>f.setAfterRead(async(kind,id)=>{if(kind==='runs'&&id==='external-review')await atomicJson(f.file,{...f.state,reason:'concurrent edit'});})],
+    ['candidate ancestry is not proven',async f=>{f.io.verifyTerminalCandidate=async()=>({isAncestorBase:false,isAncestorHead:false,containsLiveBase:false});}],
+  ]) {
+    const dir=await mkdtemp(path.join(os.tmpdir(),'review-loop-result-terminal-race-'));
+    try {
+      const f=await resultBearingTerminalFixture(dir);await change(f);const before=await readFile(f.file,'utf8');
+      await assert.rejects(()=>acceptExternalReviewRun({...config(dir),enabled:false},f.request,()=>f.io),undefined,label);
+      assert.equal(f.metrics.archives,0,label);assert.equal(f.metrics.saves,0,label);assert.equal(f.metrics.publishes,0,label);
+      if(label!=='ledger changes during source reads')assert.equal(await readFile(f.file,'utf8'),before,label);
+    } finally {await rm(dir,{recursive:true,force:true});}
+  }
 });
 async function roundThreeCandidateChangeFixture(dir) {
   const file=path.join(dir,'pr-8.json'),base='a'.repeat(40),heads=['b','c','d','e'].map(value=>value.repeat(40));

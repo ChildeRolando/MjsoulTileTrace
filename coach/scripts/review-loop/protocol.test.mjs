@@ -133,6 +133,114 @@ test('shared external terminal guard accepts only the exact three-round candidat
   assert.equal(externalReviewAcceptance(accepted,live,snapshotContents).source,'external_independent_review');
   assert.throws(()=>externalReviewAcceptance(accepted,{...live,head_sha:accepted.job.head_sha},snapshotContents),/discarded automatic candidate/);
 });
+
+function resultBearingTerminalFixture() {
+  const base='a'.repeat(40),heads=['b','c','d'].map(value=>value.repeat(40)),admissionHash=admit(pr()).admission_hash;
+  const snapshotContents=new Map(),resultArchives=new Map(),sources=new Map(),history=[];
+  const candidateSnapshot=(candidateBase,head,round)=>{
+    const raw={...pr(),base:{...pr().base,sha:candidateBase},head:{...pr().head,sha:head}};
+    const bytes=Buffer.from(JSON.stringify(raw)),ref={semantics:'github-rest-json-utf8/v1',sha256:hash(bytes),observed_at:`2026-10-0${round}T00:00:00.000Z`};
+    snapshotContents.set(ref.sha256,bytes);return ref;
+  };
+  const archive=(job,data,id)=>{
+    const name=job.kind === 'review' ? 'review-loop-result' : 'review-loop-fix';
+    const content=`source\n\`\`\`${name}\n${JSON.stringify(data)}\n\`\`\``;
+    const comment={id:`${id}-comment`,issue_id:job.issue_id,author_type:'agent',author_id:job.agent_id,source_task_id:`${id}-run`,content};
+    const run={id:comment.source_task_id,issue_id:job.issue_id,agent_id:job.agent_id,status:'completed'};
+    const issue={id:job.issue_id,assignee_type:'agent',assignee_id:job.agent_id};
+    const parsed=parseResult(job,issue,[comment],[run]);
+    const key=`${job.issue_id}:${parsed.sha256}`;
+    resultArchives.set(key,Buffer.from(JSON.stringify(parsed)));sources.set(key,{issue,comments:[comment],runs:[run]});
+    return parsed;
+  };
+  const review=(round,head)=>({kind:'review',pr_number:8,round,issue_id:`review-${round}`,agent_id:'reviewer',base_sha:base,head_sha:head,admission_hash:admissionHash});
+  const fix=(round,head,id,rawReviewSha)=>({kind:'fix',pr_number:8,round,issue_id:`fix-${round}`,agent_id:'fixer',base_sha:base,head_sha:head,raw_review_sha256:rawReviewSha});
+  let clock=Date.parse('2026-10-01T00:00:00.000Z');
+  const stamp=()=>new Date(clock+=1000).toISOString();
+  const transitionResult=(job,transition,parsed,snapshot)=>({event:'result',transition,issue_id:job.issue_id,comment_id:parsed.comment_id,run_id:parsed.run_id,sha256:parsed.sha256,
+    head_sha:job.head_sha,base_sha:job.base_sha,round:job.round,snapshot,at:stamp()});
+  for(let round=1;round<=2;round++) {
+    const before=heads[round-1],after=heads[round],reviewJob=review(round,before),reviewSnapshot=candidateSnapshot(base,before,round);
+    const reviewData={...result(),base_sha:base,head_sha:before,round,verdict:'CHANGES_REQUIRED',findings:{P1:[],P2:[{id:`p2-${round}`,path:'coach/a.ts',line:1,scenario:'gap',consequence:'blocks review',minimal_fix:'repair',durability:'repository_required',durable_owner:'coach/a.ts',regression:null,basis:'explicit_contract_violation'}],P3:[]}};
+    const reviewResult=archive(reviewJob,reviewData,`review-${round}`);
+    history.push({event:'dispatch',kind:'review',round,head_sha:before,base_sha:base,issue_id:reviewJob.issue_id,snapshot:reviewSnapshot,at:stamp()});
+    history.push(transitionResult(reviewJob,'ROUTE_TO_FIXER',reviewResult,candidateSnapshot(base,before,round)));
+    const fixJob=fix(round,before,`f${round}`,reviewResult.sha256),fixSnapshot=candidateSnapshot(base,before,round);
+    const fixData={protocol_version:'review-loop/v2.1',pr_number:8,base_sha:base,previous_head_sha:before,head_sha:after,round,raw_review_sha256:reviewResult.sha256};
+    const fixResult=archive(fixJob,fixData,`fix-${round}`);
+    history.push({event:'dispatch',kind:'fix',round,head_sha:before,base_sha:base,issue_id:fixJob.issue_id,snapshot:fixSnapshot,at:stamp()});
+    history.push(transitionResult(fixJob,'DISCARD_AND_REVIEW',fixResult,candidateSnapshot(base,after,round)));
+  }
+  const reviewJob=review(3,heads[2]),reviewSnapshot=candidateSnapshot(base,heads[2],3);
+  const reviewData={...result(),base_sha:base,head_sha:heads[2],round:3,verdict:'CHANGES_REQUIRED',findings:{P1:[],P2:[{id:'p2-3',path:'coach/a.ts',line:1,scenario:'gap',consequence:'blocks review',minimal_fix:'repair',durability:'repository_required',durable_owner:'coach/a.ts',regression:null,basis:'explicit_contract_violation'}],P3:[]}};
+  const reviewResult=archive(reviewJob,reviewData,'review-3');
+  history.push({event:'dispatch',kind:'review',round:3,head_sha:heads[2],base_sha:base,issue_id:reviewJob.issue_id,snapshot:reviewSnapshot,at:stamp()});
+  history.push(transitionResult(reviewJob,'BLOCKED',reviewResult,candidateSnapshot(base,heads[2],3)));
+  const state={protocol_version:'review-loop/v2.1',pr_number:8,round:3,status:'BLOCKED',reason:'review gates, environment or round limit',admission_hash:admissionHash,
+    pending:null,history,job:{...reviewJob},result:{issue_id:reviewJob.issue_id,comment_id:reviewResult.comment_id,sha256:reviewResult.sha256}};
+  const live=admit({...pr(),base:{...pr().base,sha:base},head:{...pr().head,sha:'e'.repeat(40)}});
+  return {state,live,snapshotContents,resultArchives,sources,actors:{reviewerId:'reviewer',fixerId:'fixer'},reviewJob,reviewResult,base,heads,
+    context:{sources,resultArchives,reviewerId:'reviewer',fixerId:'fixer',isAncestorBase:true,isAncestorHead:true,containsLiveBase:true}};
+}
+
+test('result-bearing round-three terminal verifies the archived ten-event source chain and real snapshots',()=>{
+  const f=resultBearingTerminalFixture();
+  assert.equal(externalReviewTerminal(f.state,f.live,f.snapshotContents,f.context).kind,'result-bearing-exhaustion');
+  const accepted=structuredClone(f.state),acceptance={source:'external_independent_review',pr_number:8,review_issue_id:'external-review',comment_id:'external-comment',run_id:'external-run',
+    raw_review_sha256:hash('external raw'),issue_contract_sha256:hash('external contract'),external_sequence:5,base_sha:f.live.base_sha,head_sha:f.live.head_sha,
+    admission_hash:f.live.admission_hash,approval_ref:'explicitly approved',accepted_at:'2026-10-03T01:00:00.000Z'};
+  accepted.external_review_acceptance=acceptance;accepted.history.push({event:'accept_external_review',...acceptance});
+  assert.equal(externalReviewAcceptance(accepted,f.live,f.snapshotContents,f.context).source,'external_independent_review');
+});
+
+test('result-bearing terminal rejects forged archives, source transitions, snapshots and non-green terminal results',()=>{
+  const f=resultBearingTerminalFixture();
+  for(const mutate of [
+    state=>{state.history[9].transition='ROUTE_TO_FIXER';},
+    state=>{state.history[7].sha256='f'.repeat(64);},
+    state=>{state.history[5].issue_id=state.history[0].issue_id;},
+    state=>{state.result.comment_id='wrong-comment';},
+    state=>{state.reason='other BLOCKED reason';},
+    state=>{state.extra_review_authorization={};},
+    state=>{state.pending={kind:'review'};},
+  ]) {
+    const changed=structuredClone(f.state);mutate(changed);
+    assert.throws(()=>externalReviewTerminal(changed,f.live,f.snapshotContents,f.context));
+  }
+  for(const kind of ['missing-archive','corrupt-archive','wrong-raw-hash','non-green-result','snapshot-mismatch','missing-snapshot']) {
+    const archives=new Map(f.resultArchives),snapshots=new Map(f.snapshotContents),changed=structuredClone(f.state),event=changed.history[9],key=`${event.issue_id}:${event.sha256}`;
+    if(kind === 'missing-archive')archives.delete(key);
+    else if(kind === 'corrupt-archive')archives.set(key,Buffer.from('{'));
+    else if(kind === 'wrong-raw-hash') {
+      const parsed=JSON.parse(archives.get(key).toString('utf8'));parsed.raw+='tampered';archives.set(key,Buffer.from(JSON.stringify(parsed)));
+    } else if(kind === 'non-green-result') {
+      const parsed=JSON.parse(archives.get(key).toString('utf8')),data={...parsed.data,environment_failures:['blocked']};
+      parsed.raw=`source\n\`\`\`review-loop-result\n${JSON.stringify(data)}\n\`\`\``;parsed.data=data;parsed.sha256=hash(parsed.raw);
+      archives.delete(key);archives.set(`${event.issue_id}:${parsed.sha256}`,Buffer.from(JSON.stringify(parsed)));event.sha256=parsed.sha256;event.comment_id=parsed.comment_id;changed.result.sha256=parsed.sha256;
+    } else if(kind === 'snapshot-mismatch') {
+      const dispatch=changed.history[0],bytes=Buffer.from(JSON.stringify({...pr(),base:{...pr().base,sha:dispatch.base_sha},head:{...pr().head,sha:'f'.repeat(40)}})),sha256=hash(bytes);
+      snapshots.set(sha256,bytes);dispatch.snapshot={...dispatch.snapshot,sha256};
+    } else snapshots.delete(event.snapshot.sha256);
+    const context={...f.context,resultArchives:archives};
+    assert.throws(()=>externalReviewTerminal(changed,f.live,snapshots,context),undefined,kind);
+  }
+});
+
+test('result-bearing terminal accepts known failed or cancelled history runs and rejects unknown or missing run states',()=>{
+  const f=resultBearingTerminalFixture(),[key,source]=f.sources.entries().next().value;
+  const knownSources=new Map(f.sources);knownSources.set(key,{...source,runs:[...source.runs,
+    {id:'known-failure',issue_id:source.issue.id,agent_id:source.runs[0].agent_id,status:'failed'},
+    {id:'known-cancellation',issue_id:source.issue.id,agent_id:source.runs[0].agent_id,status:'cancelled'}]});
+  assert.equal(externalReviewTerminal(f.state,f.live,f.snapshotContents,{...f.context,sources:knownSources}).kind,'result-bearing-exhaustion');
+  for(const extra of [
+    {id:'unknown-state',issue_id:source.issue.id,agent_id:source.runs[0].agent_id,status:'awaiting'},
+    {id:'missing-state',issue_id:source.issue.id,agent_id:source.runs[0].agent_id},
+  ]) {
+    const sources=new Map(f.sources);sources.set(key,{...source,runs:[...source.runs,extra]});
+    assert.throws(()=>externalReviewTerminal(f.state,f.live,f.snapshotContents,{...f.context,sources}),/unknown or foreign run/);
+  }
+});
+
 test('fixer must push a new live SHA before another review', () => {
   const j={...job(),kind:'fix'}, live=admit(pr());
   assert.equal(decide(j,{data:{head_sha:sha}},live).transition,'BLOCKED');

@@ -192,7 +192,7 @@ COAC-134 对 PR #27 的生产恢复继续 blocked。
   原授权上限 fresh independent review；`master` 保护/ruleset 缺失仍单独阻断自动合并启用。
   回归 owner 为 `scripts/review-loop/{protocol,controller,runtime}.test.mjs`，以 spec 的
   机械矩阵为准；没有实际执行的测试不能记录为 PASS。
-- 外部独立审查收口：自动 round 6 已合法 BLOCKED，或默认三轮均因候选变化而被丢弃并耗尽，且用户另行人工创建了独立补充审查时，
+- 外部独立审查收口：自动 round 6 已合法 BLOCKED、默认三轮均因候选变化而被丢弃并耗尽，或默认第三轮 Reviewer 已形成真实结果并进入受控 BLOCKED，且用户另行人工创建了独立补充审查时，
   不得把外部序号改写成自动 round 或继续提高自动上限。按部署流程暂停 Autopilot、设置
   `enabled=false`、确认无活动 Controller、持锁备份，准备严格 JSON：`protocol_version`、
   `pr_number`、`review_issue_id`、`comment_id`、`run_id`、`raw_review_sha256`、
@@ -213,7 +213,22 @@ COAC-134 对 PR #27 的生产恢复继续 blocked。
   pending/result/追加授权，history 完整且仅含按轮次排列的三组唯一 dispatch/discard；
   每组 issue/base/head 一致，discard reason 精确为 `candidate changed before result consumption`，
   最后一组与第 3 轮 job 和账本 admission 相符。live 候选必须已不同于末次被丢弃候选。
-  外部序号仍须大于账本实际轮次；其他原因、已有结果、残缺或矛盾历史不得使用该补充。
+  2026-10-02 用户批准的结果型第三轮终态另要求：`BLOCKED/round=3`、默认上限 3、无 pending/
+  额外授权，reason 精确为 `review gates, environment or round limit`；当前 job/result 必须
+  与唯一第三轮 Reviewer `BLOCKED` history 记录一致。history 恰好为十条有序事件：R1 review
+  `ROUTE_TO_FIXER`、R1 fix `DISCARD_AND_REVIEW`、R2 review `ROUTE_TO_FIXER`、R2 fix
+  `DISCARD_AND_REVIEW`、R3 review `BLOCKED`，每组均为 dispatch/result。入口重新读取五个历史
+  issue、comments、runs、归档原始字节和全部 snapshot 原始字节，用严格 `parseResult`、SHA、
+  admission/candidate 绑定及现有 `decide` 验证来源和转移；R3 Reviewer 必须 `CHANGES_REQUIRED`、
+  五门 PASS/0、无环境失败。历史额外 runs 只接纳已知 terminal `completed`/`failed`/`cancelled`；
+  active、unknown 或缺失状态拒绝。历史源缺失、损坏、冲突或不能重读验证时，在归档、ledger、
+  status 任一写入前拒绝。
+  live base 可保持原第三轮 base 或为其 Git 可证后继；live head 必须是已推送、不同于原第三轮
+  候选、从原第三轮 head 可达且包含当前 base 的提交。检查本地受信仓库 clean、提交对象、remote
+  branch 精确 SHA 和祖先关系；unrelated base/head、缺对象、未推送、远端 ref 读取/抓取期间漂移、
+  脏工作树均拒绝。写入前再次读取 live、来源 runs 和 ledger bytes。成功沿用既有外部独立审查
+  合同，并只追加既有 external acceptance 与归档；不重写自动 history/result/reason/round。
+  外部序号仍须大于账本实际轮次；其他 BLOCKED 原因、已有/冲突结果、残缺历史及追加预算不得使用。
   重复、并发、stale HEAD、契约/身份/hash 不符、未完成 run、缺门禁或非绿结果均拒绝。
   执行后回读 ledger、外部归档和 GitHub status，恢复 config/Autopilot；正常 merge 仍须独立
   核对 live candidate 和所有 merge gate。入口不合并、不清空历史、不修改 Reviewer 原文。

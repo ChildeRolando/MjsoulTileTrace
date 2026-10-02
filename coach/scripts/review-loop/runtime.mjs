@@ -4,8 +4,8 @@ import { promisify } from 'node:util';
 import { mkdir, readFile, writeFile, rename, open, unlink, realpath, readdir, copyFile, lstat, mkdtemp } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { admit, VERSION, REPOSITORY, hash, isSha, parseResult, parseRejectedReviewResult, parseTransportRecoveryResult, externalReviewTerminal, externalReviewAcceptance } from './protocol.mjs';
-import { advance, advanceDurability, captureDurability, ensureDispatch, authorizeSixthReview, recoverRejectedTerminalReview, validateTransportRecovery, acceptTransportRecovery, transportReviewJob } from './controller.mjs';
+import { admit, VERSION, REPOSITORY, hash, isSha, isTerminalRunStatus, parseResult, parseRejectedReviewResult, parseTransportRecoveryResult, externalReviewTerminal, externalReviewAcceptance } from './protocol.mjs';
+import { advance, advanceDurability, captureDurability, ensureDispatch, authorizeSixthReview, recoverRejectedTerminalReview, validateTransportRecovery, acceptTransportRecovery, transportReviewJob, jobDescription } from './controller.mjs';
 const exec=promisify(execFile);
 export async function command(file,args,cwd) {
   try { return (await exec(file,args,{cwd,windowsHide:true,encoding:'utf8',maxBuffer:32*1024*1024,timeout:120000})).stdout; }
@@ -27,13 +27,155 @@ async function candidateChangeSnapshotContents(state,readSnapshot) {
   if(state?.round !== 3)return undefined;
   assert.equal(typeof readSnapshot,'function','external review snapshot reader missing');
   const refs=Array.isArray(state.history) ? state.history
-    .filter(event=>event?.event === 'dispatch' || event?.event === 'discard')
+    .filter(event=>event?.event === 'dispatch' || event?.event === 'discard'
+      || state.result != null && event?.event === 'result')
     .map(event=>event.snapshot).filter(Boolean) : [];
   const hashes=new Set();
   for(const ref of refs)if(typeof ref.sha256 === 'string' && /^[a-f0-9]{64}$/.test(ref.sha256))hashes.add(ref.sha256);
   const contents=new Map();
   for(const sha256 of hashes)contents.set(sha256,await readSnapshot(sha256));
   return contents;
+}
+function worktreePath(stateDir,job) {
+  return path.join(stateDir,'worktrees',job.kind === 'durability' ? `durability-${job.identity}` : `pr-${job.pr_number}-${job.kind}-${job.round}-${job.head_sha.slice(0,12)}`);
+}
+function assertTerminalRuns(issueId,agentId,runs) {
+  assert(Array.isArray(runs),'historical issue run list missing');
+  const active=new Set(['queued','running','pending','in_progress','starting']);
+  assert(runs.every(run=>run.issue_id === issueId && run.agent_id === agentId
+    && isTerminalRunStatus(run.status) && !active.has(run.status)),
+  'historical issue has an active, unknown or foreign run');
+  assert.equal(runs.filter(run=>run.status === 'completed').length,1,'historical issue completed source is ambiguous');
+}
+export function historicalIssueDescriptionMatches(kind,expected,actual,rawReviewSha256) {
+  if(actual === expected)return true;
+  if(kind !== 'fix' || typeof actual !== 'string' || !actual.startsWith(expected))return false;
+  const suffix=actual.slice(expected.length);
+  const escaped=rawReviewSha256.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+  return new RegExp(`^\\r?\\n\\r?\\n!file\\[${escaped}\\.txt\\]\\(https://multica\\.ai/api/attachments/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/download\\)$`,'i').test(suffix);
+}
+function unquotedJsonObjects(description) {
+  if(typeof description !== 'string')return [];
+  let fenced=false;
+  const visible=description.split(/\r?\n/).map(line=>{
+    if(/^\s*```/.test(line)){fenced=!fenced;return '';}
+    if(fenced || /^\s*>/.test(line))return '';
+    return line.replace(/(`+)(.*?)\1/g,'');
+  }).join('\n');
+  const objects=[];
+  for(let start=0;start<visible.length;start++) {
+    if(visible[start] !== '{')continue;
+    let depth=0,inString=false,escaped=false,end=-1;
+    for(let index=start;index<visible.length;index++) {
+      const char=visible[index];
+      if(inString) {
+        if(escaped)escaped=false;
+        else if(char === '\\')escaped=true;
+        else if(char === '"')inString=false;
+        continue;
+      }
+      if(char === '"'){inString=true;continue;}
+      if(char === '{')depth++;
+      else if(char === '}' && --depth === 0){end=index+1;break;}
+    }
+    if(end > start) {
+      try {const value=JSON.parse(visible.slice(start,end));if(value && typeof value === 'object' && !Array.isArray(value))objects.push(value);}
+      catch {}
+      start=end-1;
+    }
+  }
+  return objects;
+}
+function terminalIssueBindings(issue,stateDir,prNumber) {
+  const bindings=[];
+  const title=typeof issue.title === 'string' && issue.title.match(/^\[review-loop\/v2\.1\]\[(审查|修复)\]\[第([1-3])轮\]\[([a-f0-9]{12})\] ChildeRolando\/MjsoulTileTrace#([1-9][0-9]*)$/);
+  if(title && Number(title[4]) === prNumber)bindings.push({kind:title[1] === '审查' ? 'review' : 'fix',round:Number(title[2]),headPrefix:title[3]});
+  const root=path.resolve(stateDir,'worktrees').replaceAll('\\','/').toLowerCase();
+  for(const common of unquotedJsonObjects(issue.description)) {
+    if(common.repository !== REPOSITORY || common.pr_number !== prNumber || typeof common.worktree !== 'string')continue;
+    const worktree=path.resolve(common.worktree).replaceAll('\\','/').toLowerCase();
+    const relative=worktree.startsWith(`${root}/`) ? worktree.slice(root.length+1) : '';
+    const match=/^pr-(\d+)-(review|fix)-([1-3])-([a-f0-9]{12})$/.exec(relative);
+    if(match && Number(match[1]) === prNumber)bindings.push({kind:match[2],round:Number(match[3]),headPrefix:match[4]});
+  }
+  return bindings;
+}
+async function assertNoRelatedTerminalWriters(state,io,config,knownIssueIds) {
+  assert.equal(typeof io.issues,'function','terminal related-issue reader missing');
+  const listed=await io.issues();assert(Array.isArray(listed),'terminal related-issue list incomplete');
+  const known=new Set(knownIssueIds),expected=new Set(state.history.filter(event=>event.event === 'dispatch')
+    .map(event=>`${event.kind}:${event.round}:${event.head_sha.slice(0,12)}`));
+  const seen=new Set(),active=new Set(['queued','running','pending','in_progress','starting']);
+  for(const issue of listed) {
+    assert(typeof issue.id === 'string' && !seen.has(issue.id),'terminal related-issue list identity invalid');seen.add(issue.id);
+    if(issue.project_id !== config.project_id || known.has(issue.id))continue;
+    const bindings=terminalIssueBindings(issue,config.state_dir,state.pr_number);
+    if(!bindings.length)continue;
+    if(bindings.some(binding=>expected.has(`${binding.kind}:${binding.round}:${binding.headPrefix}`)))
+      assert.fail('untracked duplicate result-terminal source issue');
+    const runs=await io.runs(issue.id);
+    assert(Array.isArray(runs),'related terminal issue run list incomplete');
+    assert(runs.every(run=>isTerminalRunStatus(run.status)),'same-PR terminal source has an active or unknown orphan writer');
+  }
+}
+async function resultBearingTerminalSources(state,snapshotContents,io,config,externalIssueId) {
+  assert(state?.round === 3 && state.result && Array.isArray(state.history) && state.history.length >= 10,
+    'result-bearing terminal source history missing');
+  assert.equal(typeof io.readResultArchive,'function','historical result archive reader missing');
+  const sources=new Map(),resultArchives=new Map();
+  let previousReview=null;
+  for(let index=0;index<5;index++) {
+    const round=Math.floor(index/2)+1,kind=index%2 === 0 ? 'review' : 'fix';
+    const dispatch=state.history[index*2],resultEvent=state.history[index*2+1];
+    assert(dispatch && resultEvent && dispatch.kind === kind && dispatch.round === round
+      && typeof dispatch.issue_id === 'string' && typeof dispatch.snapshot?.sha256 === 'string',
+    'result-bearing terminal source dispatch is malformed');
+    const bytes=snapshotContents?.get(dispatch.snapshot.sha256);
+    assert(Buffer.isBuffer(bytes) || typeof bytes === 'string','historical dispatch snapshot bytes missing');
+    const rawSnapshot=typeof bytes === 'string' ? bytes : new TextDecoder('utf-8',{fatal:true}).decode(bytes);
+    const live=admit(JSON.parse(rawSnapshot));
+    assert.equal(live.pr_number,state.pr_number,'historical source snapshot PR mismatch');
+    assert.equal(live.admission_hash,state.admission_hash,'historical source snapshot admission mismatch');
+    const agentId=kind === 'review' ? config.reviewer_id : config.fixer_id;
+    const job={kind,round,pr_number:state.pr_number,issue_id:dispatch.issue_id,agent_id:agentId,
+      base_sha:dispatch.base_sha,head_sha:dispatch.head_sha,admission_hash:state.admission_hash,
+      worktree:worktreePath(config.state_dir,{kind,round,pr_number:state.pr_number,head_sha:dispatch.head_sha})};
+    if(kind === 'fix') {
+      assert(previousReview,'historical Fixer lacks prior Reviewer result');
+      job.source_review_issue_id=previousReview.job.issue_id;
+      job.source_comment_id=previousReview.parsed.comment_id;
+      job.raw_review_sha256=previousReview.parsed.sha256;
+      job.review_file=path.join(config.state_dir,'reviews',`${job.raw_review_sha256}.txt`);
+    }
+    const [issue,comments,runs,archiveBytes]=await Promise.all([
+      io.issue(dispatch.issue_id),io.comments(dispatch.issue_id),io.runs(dispatch.issue_id),
+      io.readResultArchive(dispatch.issue_id,resultEvent.sha256),
+    ]);
+    assert.equal(issue.project_id,config.project_id,'historical issue project mismatch');
+    assert.equal(issue.assignee_type,'agent','historical issue is not agent assigned');
+    assert.equal(issue.assignee_id,agentId,'historical issue assignee mismatch');
+    const kindLabel=kind === 'review' ? '审查' : '修复';
+    assert.equal(issue.title,`[${VERSION}][${kindLabel}][第${round}轮][${dispatch.head_sha.slice(0,12)}] ${REPOSITORY}#${state.pr_number}`,
+      'historical issue title contract mismatch');
+    assert(historicalIssueDescriptionMatches(kind,jobDescription(job,live),issue.description,job.raw_review_sha256),
+      'historical issue description contract mismatch');
+    assertTerminalRuns(dispatch.issue_id,agentId,runs);
+    const parsed=parseResult(job,issue,comments,runs);
+    assert.equal(parsed.comment_id,resultEvent.comment_id,'historical result comment mismatch');
+    assert.equal(parsed.run_id,resultEvent.run_id,'historical result run mismatch');
+    assert.equal(parsed.sha256,resultEvent.sha256,'historical result hash mismatch');
+    const key=`${dispatch.issue_id}:${resultEvent.sha256}`;
+    sources.set(key,{issue,comments,runs});resultArchives.set(key,archiveBytes);
+    previousReview=kind === 'review' ? {job,parsed} : previousReview;
+  }
+  await assertNoRelatedTerminalWriters(state,io,config,[...new Set([...state.history.filter(event=>event.event === 'dispatch').map(event=>event.issue_id),externalIssueId].filter(Boolean))]);
+  return {sources,resultArchives,reviewerId:config.reviewer_id,fixerId:config.fixer_id};
+}
+function sameExternalCandidate(live,request) {
+  assert.equal(live.pr_number,request.pr_number,'external-review PR changed');
+  assert.equal(live.base_sha,request.base_sha,'external-review current base changed');
+  assert.equal(live.head_sha,request.head_sha,'external-review current head changed');
+  assert.equal(live.admission_hash,request.admission_hash,'external-review admission changed');
 }
 export async function acquireLock(dir) {
   await mkdir(dir,{recursive:true});
@@ -63,7 +205,7 @@ export function makeIO(config,stateFile,stateDir,runCommand=command) {
     assert((await lstat(file)).isFile(),'snapshot must be a regular file');
     return readFile(file);
   };
-  const worktree = job => path.join(stateDir,'worktrees',job.kind === 'durability' ? `durability-${job.identity}` : `pr-${job.pr_number}-${job.kind}-${job.round}-${job.head_sha.slice(0,12)}`);
+  const worktree = job => worktreePath(stateDir,job);
   async function allIssues() {
     const out=[];
     for(let offset=0;offset<10000;) {
@@ -74,7 +216,7 @@ export function makeIO(config,stateFile,stateDir,runCommand=command) {
     }
     throw new Error('issue pagination limit');
   }
-  return {
+  const io={
     live: n=>gh([`${api}/pulls/${n}`]),
     openPRs: async()=>{
       const pages=await gh([`${api}/pulls?state=open&per_page=100`,'--paginate','--slurp']);
@@ -88,6 +230,45 @@ export function makeIO(config,stateFile,stateDir,runCommand=command) {
       return {semantics:'github-rest-json-utf8/v1',sha256,observed_at:new Date().toISOString()};
     },
     readSnapshot,
+    readResultArchive:async(issueId,sha256)=>{
+      assert(/^[a-zA-Z0-9-]+$/.test(issueId) && /^[a-f0-9]{64}$/.test(sha256),'invalid result archive identity');
+      const file=path.join(stateDir,'results',`${issueId}-${sha256}.json`);
+      assert((await lstat(file)).isFile(),'historical result archive must be a regular file');
+      return readFile(file);
+    },
+    verifyTerminalCandidate:async(job,live)=>{
+      assert(job?.kind === 'review' && Number.isSafeInteger(job.pr_number) && isSha(job.base_sha) && isSha(job.head_sha),
+        'invalid result-terminal source candidate');
+      assert(isSha(live.base_sha) && isSha(live.head_sha) && typeof live.branch === 'string'
+        && live.branch.length > 0 && !/[\s\\]/.test(live.branch),'invalid result-terminal live ref');
+      const ref=`refs/heads/${live.branch}`;
+      await git(['check-ref-format',ref]);
+      const clean=async()=>assert.equal((await git(['status','--porcelain','--untracked-files=all'])).trim(),'',
+        'result-terminal source checkout is not clean');
+      await clean();
+      const advertised=(await git(['ls-remote','--exit-code','origin',ref])).trim().split(/\r?\n/);
+      assert.equal(advertised.length,1,'result-terminal remote ref advertisement is ambiguous');
+      const [advertisedSha,advertisedRef,...extra]=advertised[0].split(/\s+/);
+      assert(isSha(advertisedSha) && advertisedRef === ref && extra.length === 0,'invalid result-terminal remote ref advertisement');
+      assert.equal(advertisedSha,live.head_sha,'result-terminal live head is not the pushed branch head');
+      await git(['fetch','--no-tags','origin',ref]);
+      const fetched=(await git(['rev-parse','FETCH_HEAD^{commit}'])).trim();
+      assert.equal(fetched,advertisedSha,'result-terminal remote ref changed during verification');
+      const commit=async sha=>{
+        try {assert.equal((await git(['rev-parse',`${sha}^{commit}`])).trim(),sha);}
+        catch(error) {if(error.exitCode === 128)throw new Error('result-terminal commit object is missing');throw error;}
+      };
+      for(const sha of [job.base_sha,job.head_sha,live.base_sha,live.head_sha])await commit(sha);
+      const ancestor=async(from,to,message)=>{
+        try {await git(['merge-base','--is-ancestor',from,to]);return true;}
+        catch(error) {if(error.exitCode === 1)throw new Error(message);throw error;}
+      };
+      const baseDescendant=await ancestor(job.base_sha,live.base_sha,'result-terminal live base is not an original-base descendant');
+      const headDescendant=await ancestor(job.head_sha,live.head_sha,'result-terminal live head is not an original-head descendant');
+      const containsLiveBase=await ancestor(live.base_sha,live.head_sha,'result-terminal live head does not contain its base');
+      await clean();
+      return {isAncestorBase:baseDescendant,isAncestorHead:headDescendant,containsLiveBase};
+    },
     issues:allIssues,
     issue:id=>multica(['issue','get',id]),
     runs:id=>multica(['issue','runs',id]),
@@ -209,7 +390,12 @@ export function makeIO(config,stateFile,stateDir,runCommand=command) {
             assert(other.protocol_version === VERSION && other.pr_number === current.number,'publication ledger identity mismatch');
             assert(!other.admission_hash || other.admission_hash === live.admission_hash,'publication admission changed');
             const snapshots=other?.external_review_acceptance ? await candidateChangeSnapshotContents(other,readSnapshot) : undefined;
-            const external=externalReviewAcceptance(other,live,snapshots);
+            let context;
+            if(other?.external_review_acceptance && other.round === 3 && other.result != null) {
+              context=await resultBearingTerminalSources(other,snapshots,io,config,other.external_review_acceptance.review_issue_id);
+              context={...context,...await io.verifyTerminalCandidate(other.job,live)};
+            }
+            const external=externalReviewAcceptance(other,live,snapshots,context);
             if(external){member.status='success';member.review_source=external.source;}
             else if(other.status === 'BLOCKED')member.status='failure';
             else if(other.status === 'PASS' && other.job?.pr_number === current.number
@@ -234,6 +420,7 @@ export function makeIO(config,stateFile,stateDir,runCommand=command) {
       }
     },
   };
+  return io;
 }
 export async function tick(config,ioFactory=makeIO) {
   assert.equal(config.protocol_version,VERSION);assert.equal(config.repository,REPOSITORY);
@@ -507,40 +694,64 @@ export async function acceptExternalReviewRun(config,request,ioFactory=makeIO) {
   for(const key of ['review_issue_id','comment_id','run_id','approval_ref'])assert(typeof request[key] === 'string' && request[key].trim(),'missing external-review provenance');
   const release=await acquireLock(config.state_dir);assert(release,'controller already running');
   try {
-    const file=path.join(config.state_dir,`pr-${request.pr_number}.json`),state=await readJson(file);
+    const file=path.join(config.state_dir,`pr-${request.pr_number}.json`),initialLedger=await readFile(file),state=JSON.parse(initialLedger.toString('utf8'));
     assert(!state.external_review_acceptance && !state.history.some(e=>e.event === 'accept_external_review'),'external review already accepted');
     const io=ioFactory(config,file,config.state_dir),snapshotContents=await candidateChangeSnapshotContents(state,io.readSnapshot);
-    const terminal=externalReviewTerminal(state,undefined,snapshotContents);
+    let terminalContext;
+    if(state.round === 3 && state.result != null)
+      terminalContext=await resultBearingTerminalSources(state,snapshotContents,io,config,request.review_issue_id);
+    const terminal=externalReviewTerminal(state,undefined,snapshotContents,terminalContext);
     assert(request.external_sequence > state.round,'external review sequence must exceed automatic round');
     if(terminal.kind === 'candidate-change-exhaustion')
       assert.equal(state.job.agent_id,config.reviewer_id,'external review automatic job reviewer mismatch');
     const raw=await io.live(request.pr_number),live=admit(raw);
-    assert.equal(live.base_sha,request.base_sha,'external-review current base changed');
-    assert.equal(live.head_sha,request.head_sha,'external-review current head changed');
-    assert.equal(live.admission_hash,request.admission_hash,'external-review admission changed');
+    sameExternalCandidate(live,request);
     assert.equal(state.admission_hash,request.admission_hash,'external-review ledger admission mismatch');
-    externalReviewTerminal(state,live,snapshotContents);
-    const issue=await io.issue(request.review_issue_id);
-    assert(issue.creator_type === 'member' && issue.project_id === config.project_id,'external review was not independently human-dispatched in this project');
-    assert(typeof issue.description === 'string' && hash(issue.description) === request.issue_contract_sha256,'external review issue contract changed');
-    assert(issue.description.includes(live.admission.rubric),'external review contract missing original rubric');
-    for(const spec of live.admission.authoritative_spec_paths)assert(issue.description.includes(spec),'external review contract missing authoritative spec');
+    if(terminal.kind === 'result-bearing-exhaustion') {
+      assert.equal(typeof io.verifyTerminalCandidate,'function','result-terminal Git ancestry verifier missing');
+      terminalContext={...terminalContext,...await io.verifyTerminalCandidate(terminal.job,live)};
+    }
+    externalReviewTerminal(state,live,snapshotContents,terminalContext);
     const job={kind:'review',pr_number:request.pr_number,base_sha:request.base_sha,head_sha:request.head_sha,round:request.external_sequence,issue_id:request.review_issue_id,agent_id:config.reviewer_id,admission_hash:request.admission_hash};
-    const result=parseResult(job,issue,await io.comments(request.review_issue_id),await io.runs(request.review_issue_id));
-    assert.equal(result.comment_id,request.comment_id,'external-review comment mismatch');
-    assert.equal(result.run_id,request.run_id,'external-review run mismatch');
-    assert.equal(result.sha256,request.raw_review_sha256,'external-review raw hash mismatch');
-    assert.equal(result.data.verdict,'NO_P1_P2','external review did not pass');
-    assert(Object.values(result.data.findings).every(findings=>findings.length === 0),'external review has findings');
-    assert(result.data.gates.every(g=>g.status === 'PASS' && g.exit_code === 0) && result.data.environment_failures.length === 0,'external review gates not green');
-    const current=admit(await io.live(request.pr_number));
-    assert.equal(current.base_sha,request.base_sha,'external-review current base changed');
-    assert.equal(current.head_sha,request.head_sha,'external-review current head changed');
-    assert.equal(current.admission_hash,request.admission_hash,'external-review admission changed');
-    externalReviewTerminal(state,current,snapshotContents);
+    const readExternalResult=async()=>{
+      const [issue,comments,runs]=await Promise.all([
+        io.issue(request.review_issue_id),io.comments(request.review_issue_id),io.runs(request.review_issue_id),
+      ]);
+      assert(issue.creator_type === 'member' && issue.project_id === config.project_id,'external review was not independently human-dispatched in this project');
+      assert(typeof issue.description === 'string' && hash(issue.description) === request.issue_contract_sha256,'external review issue contract changed');
+      assert(issue.description.includes(live.admission.rubric),'external review contract missing original rubric');
+      for(const spec of live.admission.authoritative_spec_paths)assert(issue.description.includes(spec),'external review contract missing authoritative spec');
+      if(terminal.kind === 'result-bearing-exhaustion')assertTerminalRuns(request.review_issue_id,config.reviewer_id,runs);
+      const result=parseResult(job,issue,comments,runs);
+      assert.equal(result.comment_id,request.comment_id,'external-review comment mismatch');
+      assert.equal(result.run_id,request.run_id,'external-review run mismatch');
+      assert.equal(result.sha256,request.raw_review_sha256,'external-review raw hash mismatch');
+      assert.equal(result.data.verdict,'NO_P1_P2','external review did not pass');
+      assert(Object.values(result.data.findings).every(findings=>findings.length === 0),'external review has findings');
+      assert(result.data.gates.every(g=>g.status === 'PASS' && g.exit_code === 0) && result.data.environment_failures.length === 0,'external review gates not green');
+      return {issue,comments,runs,result};
+    };
+    const externalSource=await readExternalResult();
+    let current=admit(await io.live(request.pr_number));sameExternalCandidate(current,request);
+    externalReviewTerminal(state,current,snapshotContents,terminalContext);
+    let finalSnapshots=snapshotContents,finalContext=terminalContext;
+    if(terminal.kind === 'result-bearing-exhaustion') {
+      finalSnapshots=await candidateChangeSnapshotContents(state,io.readSnapshot);
+      finalContext=await resultBearingTerminalSources(state,finalSnapshots,io,config,request.review_issue_id);
+      const finalSource=await readExternalResult();
+      assert.deepEqual(finalSource,externalSource,'external review source changed during acceptance');
+      const preGit=admit(await io.live(request.pr_number));sameExternalCandidate(preGit,request);
+      finalContext={...finalContext,...await io.verifyTerminalCandidate(terminal.job,preGit)};
+      const postGit=admit(await io.live(request.pr_number));sameExternalCandidate(postGit,request);
+      finalContext={...finalContext,...await io.verifyTerminalCandidate(terminal.job,postGit)};
+      current=admit(await io.live(request.pr_number));sameExternalCandidate(current,request);
+    }
+    externalReviewTerminal(state,current,finalSnapshots,finalContext);
+    const result=externalSource.result;
     const accepted_at=new Date().toISOString(),acceptance={source:'external_independent_review',pr_number:request.pr_number,review_issue_id:request.review_issue_id,comment_id:result.comment_id,run_id:result.run_id,raw_review_sha256:result.sha256,issue_contract_sha256:request.issue_contract_sha256,external_sequence:request.external_sequence,base_sha:request.base_sha,head_sha:request.head_sha,admission_hash:request.admission_hash,approval_ref:request.approval_ref,accepted_at};
     state.external_review_acceptance=acceptance;state.history.push({event:'accept_external_review',...acceptance});
-    externalReviewAcceptance(state,current,snapshotContents);
+    externalReviewAcceptance(state,current,finalSnapshots,finalContext);
+    assert.equal(hash(await readFile(file)),hash(initialLedger),'external-review ledger changed during verification');
     await io.archiveExternalResult(request.review_issue_id,result);await io.save(state);await io.publish(state);
     return {status:'EXTERNAL_REVIEW_ACCEPTED',ledger_status:state.status,pr:state.pr_number,base_sha:acceptance.base_sha,head_sha:acceptance.head_sha,review_issue_id:acceptance.review_issue_id,comment_id:acceptance.comment_id,run_id:acceptance.run_id,raw_review_sha256:acceptance.raw_review_sha256,external_sequence:acceptance.external_sequence};
   } finally {await release();}

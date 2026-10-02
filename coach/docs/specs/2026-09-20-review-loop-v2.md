@@ -236,7 +236,7 @@ BLOCKED 原因拒绝；零自动合并写入；新提交 fresh independent revie
 
 自动审查终止后，用户另行人工派发的独立补充审查不属于自动 round，也不得扩大
 `reviewRoundLimit`。受信 operator 只有在 Autopilot 暂停、`enabled=false`、持有同一部署锁且
-自动 ledger 满足下述两种明确终态之一时，才可调用 `accept-external-review`。入口重新读取 live PR
+自动 ledger 满足下述三种明确终态之一时，才可调用 `accept-external-review`。入口重新读取 live PR
 与 admission、人工创建的审查 issue、指定 Reviewer 的唯一结果评论和 completed run；严格校验
 完整 issue description 的 SHA-256、原 admission hash/rubric/spec paths、base/head、外部序号、
 原文 hash、五门 PASS/0、空 P1/P2/P3 与空 environment failures。接受记录以
@@ -263,6 +263,26 @@ result 或追加授权；当前 job 是本 PR 第三轮 review，admission 与�
 保持原值，默认自动预算仍为三轮。状态发布继续由同一聚合发布器拥有，新候选使接纳失效；
 入口不派发新审查、不请求合并。受信部署须经过独立审查、disabled read-back、备份和
 实际状态回读，不可为某个 PR 临时绕过 guard。
+
+2026-10-02 用户批准的结果型第三轮终态：默认三轮中，第三轮 Reviewer 已形成真实
+`CHANGES_REQUIRED` 结果并因现有 gates/environment/round-limit 规则进入 `BLOCKED` 时，
+可由同一 `accept-external-review` 入口处理；仍要求默认上限 3、无 pending、无额外授权，
+reason 精确为 `review gates, environment or round limit`。history 必须恰好按顺序包含五组
+`dispatch/result`：R1 review `ROUTE_TO_FIXER`、R1 fix `DISCARD_AND_REVIEW`、R2 review
+`ROUTE_TO_FIXER`、R2 fix `DISCARD_AND_REVIEW`、R3 review `BLOCKED`。每个结果都须同时由
+唯一匹配的真实 issue/comment/completed run、严格 `parseResult`、原始结果归档字节/hash、
+原始 content-addressed snapshot 字节/hash 证明，并满足既有 `decide` 转移及相邻候选绑定；
+R3 Reviewer 必须为 `CHANGES_REQUIRED`、五门 PASS/0 且无环境失败。历史中的额外 run 仅允许
+已知终态 `completed`、`failed`、`cancelled`；活动、未知或缺失状态拒绝。缺失、损坏、冲突、
+顺序错误或无法从实际来源复核的证据，在任何归档/ledger/status 写入前 fail closed。
+
+该终态允许 live base 等于原第三轮 base，或为 Git 可证的后继；live head 必须是不同于原候选、
+由原第三轮 head 可达且包含 live base 的提交。受信本地 checkout 必须 clean，live branch 必须
+精确指向已推送 remote ref；缺少对象、非祖先、不包含当前 base、未推送、远端 ref 漂移或
+脏 checkout 均拒绝。原 history/result/reason/round 不改写；成功仍只追加原有
+`external_independent_review` 事件与归档，且保留现有独立 Reviewer 的严格成员/合同/唯一结果、
+空 findings 与五门要求。此扩展不增自动预算、不派发自动轮次、不直接 PASS、不修改 agent/config、
+admission 或保护规则；原 round 6 和三轮 candidate-change 终态保持原行为。
 
 GitHub `Review Loop v2` commit status 报告 pending/success/failure；同一 GitHub 账号
 可以提交 COMMENT/状态，并不意味着拥有作者自批能力。PASS 仅表示该 base/head 的本轮

@@ -6,6 +6,8 @@ export const REPOSITORY = 'ChildeRolando/MjsoulTileTrace';
 export const GATES = Object.freeze({typecheck:'npm run typecheck',build:'npm run build',vitest:'npx vitest run',architecture:'npm run check:architecture','package-import':'npm run test:package-import'});
 export const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 export const isSha = value => typeof value === 'string' && /^[0-9a-f]{40}$/.test(value);
+const terminalRunStatuses=new Set(['completed','failed','cancelled']);
+export const isTerminalRunStatus = status => terminalRunStatuses.has(status);
 const text = v => typeof v === 'string' && v.trim().length > 0;
 const object = v => v && typeof v === 'object' && !Array.isArray(v);
 const externalAcceptanceFields=['source','pr_number','review_issue_id','comment_id','run_id','raw_review_sha256','issue_contract_sha256','external_sequence','base_sha','head_sha','admission_hash','approval_ref','accepted_at'];
@@ -133,17 +135,138 @@ function candidateChangeExhaustionTerminal(state,live,snapshotContents) {
   }
   return {kind:'candidate-change-exhaustion',job,last_dispatch:lastDispatch,last_discard:lastDiscard};
 }
-export function externalReviewTerminal(state,live,snapshotContents) {
+function resultBearingExhaustionTerminal(state,live,snapshotContents,context) {
+  assert(state.protocol_version === VERSION && state.status === 'BLOCKED' && state.round === 3
+    && state.reason === 'review gates, environment or round limit' && state.pending == null,
+  'external review requires exhausted default round-three result terminal');
+  assert(state.extra_review_authorization == null && state.recovery_candidate == null
+    && state.sixth_review_candidate == null && state.recovered_review_job == null,
+  'external review result terminal has extra authorization');
+  assert.equal(reviewRoundLimit(state),3,'external review result terminal must use the default round limit');
+  const job=state.job,result=state.result;
+  assert(job?.kind === 'review' && job.round === 3 && job.pr_number === state.pr_number
+    && text(job.issue_id) && text(job.agent_id) && isSha(job.base_sha) && isSha(job.head_sha)
+    && /^[a-f0-9]{64}$/.test(state.admission_hash) && job.admission_hash === state.admission_hash,
+  'external review result terminal job mismatch');
+  assert(result?.issue_id === job.issue_id && text(result.comment_id) && /^[a-f0-9]{64}$/.test(result.sha256),
+    'external review result terminal accepted result mismatch');
+  assert(Array.isArray(state.history),'external review result terminal history missing');
+  const acceptance=state.external_review_acceptance;
+  assert.equal(state.history.length,10+(acceptance == null ? 0 : 1),'external review result terminal history length mismatch');
+  const expected=[['review','ROUTE_TO_FIXER'],['fix','DISCARD_AND_REVIEW'],['review','ROUTE_TO_FIXER'],['fix','DISCARD_AND_REVIEW'],['review','BLOCKED']];
+  const seenIssues=new Set(),sources=context?.sources,resultArchives=context?.resultArchives;
+  assert(sources instanceof Map && resultArchives instanceof Map,'external review historical source evidence missing');
+  assert(text(context.reviewerId) && text(context.fixerId) && context.reviewerId !== context.fixerId,
+    'external review historical source agents missing');
+  assert.equal(job.agent_id,context.reviewerId,'external review terminal job reviewer mismatch');
+  const sourceResults=[];
+  let previousFixCandidate=null,priorReviewCandidate=null;
+  for(let index=0;index<5;index++) {
+    const round=Math.floor(index/2)+1,kind=index%2 === 0 ? 'review' : 'fix',at=index*2;
+    const dispatch=state.history[at],terminal=state.history[at+1],transition=expected[index][1];
+    keys(dispatch,['event','kind','round','head_sha','base_sha','issue_id','snapshot','at']);
+    keys(terminal,['event','transition','issue_id','comment_id','run_id','sha256','head_sha','base_sha','round','snapshot','at']);
+    assert(dispatch.event === 'dispatch' && dispatch.kind === kind && dispatch.round === round
+      && terminal.event === 'result' && terminal.transition === transition && terminal.round === round,
+    'external review result terminal history transition mismatch');
+    assert(text(dispatch.issue_id) && !seenIssues.has(dispatch.issue_id),'external review result terminal issue missing or duplicated');
+    seenIssues.add(dispatch.issue_id);
+    assert(isSha(dispatch.base_sha) && isSha(dispatch.head_sha) && terminal.issue_id === dispatch.issue_id
+      && terminal.base_sha === dispatch.base_sha && terminal.head_sha === dispatch.head_sha,
+    'external review result terminal dispatch/result identity mismatch');
+    for(const event of [dispatch,terminal]) {
+      assert(object(event.snapshot) && text(event.at) && Number.isFinite(Date.parse(event.at)),
+        'external review result terminal event evidence invalid');
+    }
+    assert(Date.parse(terminal.at) >= Date.parse(dispatch.at),'external review result terminal event order mismatch');
+    const dispatched=snapshotCandidate(dispatch.snapshot,snapshotContents,state);
+    const observed=snapshotCandidate(terminal.snapshot,snapshotContents,state);
+    assert(dispatched.base_sha === dispatch.base_sha && dispatched.head_sha === dispatch.head_sha,
+      'external review result terminal dispatch snapshot mismatch');
+    if(previousFixCandidate)assert(dispatched.base_sha === previousFixCandidate.base_sha
+      && dispatched.head_sha === previousFixCandidate.head_sha,'external review result terminal candidate chain mismatch');
+    if(kind === 'fix')assert(priorReviewCandidate && dispatched.base_sha === priorReviewCandidate.base_sha
+      && dispatched.head_sha === priorReviewCandidate.head_sha,'external review result terminal fixer candidate mismatch');
+    const agentId=kind === 'review' ? context.reviewerId : context.fixerId;
+    const sourceKey=`${dispatch.issue_id}:${terminal.sha256}`,source=sources.get(sourceKey),archiveBytes=resultArchives.get(sourceKey);
+    assert(source && (Buffer.isBuffer(archiveBytes) || typeof archiveBytes === 'string'),
+      'external review historical result archive/source missing');
+    assert.equal(source.issue?.id,dispatch.issue_id,'external review historical issue mismatch');
+    assert(Array.isArray(source.comments) && Array.isArray(source.runs),'external review historical comments/runs missing');
+    const active=new Set(['queued','running','pending','in_progress','starting']);
+    assert(source.runs.every(run=>run.issue_id === dispatch.issue_id && run.agent_id === agentId
+      && isTerminalRunStatus(run.status) && !active.has(run.status)),'external review historical source has active, unknown or foreign run');
+    assert.equal(source.runs.filter(run=>run.status === 'completed').length,1,
+      'external review historical source has ambiguous completed runs');
+    const sourceJob={kind,pr_number:state.pr_number,round,issue_id:dispatch.issue_id,agent_id:agentId,
+      base_sha:dispatch.base_sha,head_sha:dispatch.head_sha,admission_hash:state.admission_hash};
+    if(kind === 'fix') {
+      const reviewResult=sourceResults.at(-1);
+      assert(reviewResult && reviewResult.kind === 'review' && reviewResult.round === round,
+        'external review historical fixer lacks its source review');
+      sourceJob.raw_review_sha256=reviewResult.parsed.sha256;
+    }
+    const parsed=parseResult(sourceJob,source.issue,source.comments,source.runs);
+    assert.equal(parsed.comment_id,terminal.comment_id,'external review historical comment mismatch');
+    assert.equal(parsed.run_id,terminal.run_id,'external review historical run mismatch');
+    assert.equal(parsed.sha256,terminal.sha256,'external review historical raw hash mismatch');
+    let archived;
+    try {
+      const bytes=typeof archiveBytes === 'string' ? archiveBytes : new TextDecoder('utf-8',{fatal:true}).decode(archiveBytes);
+      archived=JSON.parse(bytes);
+    } catch {assert.fail('external review historical archive is corrupt');}
+    keys(archived,['data','raw','sha256','comment_id','run_id']);
+    assert.deepEqual(archived,parsed,'external review historical archive/source mismatch');
+    assert.equal(hash(archived.raw),terminal.sha256,'external review historical archive raw hash mismatch');
+    const decision=decide(sourceJob,parsed,observed,3);
+    assert.equal(decision.transition,terminal.transition,'external review historical result transition mismatch');
+    if(kind === 'review') {
+      assert.equal(parsed.data.verdict,'CHANGES_REQUIRED','external review historical reviewer did not require changes');
+      priorReviewCandidate=dispatched;
+      if(round === 3)assert(parsed.data.gates.every(g=>g.status === 'PASS' && g.exit_code === 0)
+        && parsed.data.environment_failures.length === 0,
+      'external review terminal Reviewer result is not fully green');
+    } else {
+      assert.equal(parsed.data.head_sha,observed.head_sha,'external review historical Fixer candidate mismatch');
+      previousFixCandidate=observed;
+    }
+    sourceResults.push({kind,round,job:sourceJob,parsed,dispatch,terminal,dispatched,observed});
+  }
+  const lastDispatch=state.history[8],lastResult=state.history[9];
+  assert(lastDispatch.issue_id === job.issue_id && lastDispatch.base_sha === job.base_sha && lastDispatch.head_sha === job.head_sha
+    && lastResult.issue_id === job.issue_id && lastResult.comment_id === result.comment_id && lastResult.sha256 === result.sha256,
+  'external review result terminal job/history mismatch');
+  assert.equal(sources.size,5,'external review historical source set is ambiguous');
+  if(acceptance != null) {
+    keys(acceptance,externalAcceptanceFields);
+    const event=state.history[10];
+    keys(event,['event',...externalAcceptanceFields]);
+    assert(event.event === 'accept_external_review','external review result acceptance event missing');
+    for(const field of externalAcceptanceFields)assert.equal(event[field],acceptance[field],`external review result acceptance ${field} history mismatch`);
+  }
+  if(live) {
+    assert(live.pr_number === state.pr_number && live.admission_hash === state.admission_hash,
+      'external review result terminal live admission mismatch');
+    assert(live.base_sha === job.base_sha || context.isAncestorBase === true,
+      'external review result terminal live base is not a descendant');
+    assert(live.head_sha !== job.head_sha && context.isAncestorHead === true && context.containsLiveBase === true,
+      'external review result terminal live head ancestry mismatch');
+  }
+  return {kind:'result-bearing-exhaustion',job,last_dispatch:lastDispatch,last_result:lastResult,source_results:sourceResults};
+}
+export function externalReviewTerminal(state,live,snapshotContents,context) {
   if(state.round === 6)
     return {kind:'automatic-round-6',source:automaticRoundSixTerminal(state)};
+  if(state.round === 3 && state.result != null)
+    return resultBearingExhaustionTerminal(state,live,snapshotContents,context);
   return candidateChangeExhaustionTerminal(state,live,snapshotContents);
 }
-export function externalReviewAcceptance(state, live,snapshotContents) {
+export function externalReviewAcceptance(state, live,snapshotContents,context) {
   const a=state.external_review_acceptance;
   if(!a)return null;
   keys(a,externalAcceptanceFields);
   assert.equal(a.source,'external_independent_review');
-  externalReviewTerminal(state,live,snapshotContents);
+  externalReviewTerminal(state,live,snapshotContents,context);
   assert(a.pr_number === state.pr_number && Number.isSafeInteger(a.external_sequence) && a.external_sequence > state.round,'invalid external review identity');
   assert(isSha(a.base_sha) && isSha(a.head_sha) && /^[a-f0-9]{64}$/.test(a.raw_review_sha256) && /^[a-f0-9]{64}$/.test(a.issue_contract_sha256) && /^[a-f0-9]{64}$/.test(a.admission_hash),'invalid external review hashes');
   for(const k of ['review_issue_id','comment_id','run_id','approval_ref'])assert(text(a[k]),'missing external review provenance');
