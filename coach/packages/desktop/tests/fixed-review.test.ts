@@ -123,6 +123,7 @@ function fakeDom() {
 function apiThroughIpc(snapshot: ReturnType<typeof presentFixedReviewSnapshot>, detail?: ReturnType<typeof presentFixedReviewDetail>) {
   const handlers = new Map<string, (event: unknown, ...args: unknown[]) => Promise<unknown>>();
   const service = {
+    status: async () => ({ configured: true, settings: null }),
     openReview: async () => snapshot,
     generateReview: async () => ({ status: "ready" as const, snapshot }),
     cancelGeneration: () => undefined,
@@ -264,7 +265,7 @@ describe("fixed review presenter", () => {
     const ui = createFixedReviewUi({
       document: dom.document as unknown as Document,
       root: dom.root as unknown as HTMLElement,
-      api: { openReview: async () => snapshot, getReviewDetail: async () => detail } as unknown as CoachDesktopApi,
+      api: { status: async () => ({ configured: true, settings: null }), openReview: async () => snapshot, getReviewDetail: async () => detail } as unknown as CoachDesktopApi,
     });
     await ui.open(parsed.packageId);
     nodes(dom.root).find((node) => node.textContent === "查看复盘条目")!.listeners.get("click")!();
@@ -566,6 +567,7 @@ describe("fixed review presenter", () => {
       document: dom.document as unknown as Document,
       root: dom.root as unknown as HTMLElement,
       api: {
+        status: async () => ({ configured: true, settings: null }),
         openReview: async ({ packageId }: { packageId: string }) => packageId === pkg.packageId ? snapshotA : snapshotB,
         generateReview: async () => pendingGeneration,
         cancelGeneration,
@@ -617,17 +619,17 @@ describe("fixed review presenter", () => {
     const ui = createFixedReviewUi({
       document: dom.document as unknown as Document,
       root: dom.root as unknown as HTMLElement,
-      api: { openReview: async () => snapshot, generateReview } as unknown as CoachDesktopApi,
+      api: { status: async () => ({ configured: true, settings: null }), openReview: async () => snapshot, generateReview } as unknown as CoachDesktopApi,
     });
     await ui.open(pkg.packageId);
     const generate = nodes(dom.root).find((node) => node.textContent === "生成教练解说")!;
     const before = dom.root.textContent;
     generate.listeners.get("click")!();
-    expect(dom.root.textContent).toContain("正在生成教练解说…");
+    expect(dom.root.textContent).toContain("正在检查教练服务…");
     await Promise.resolve(); await Promise.resolve();
 
     expect(generate.disabled).toBe(false);
-    expect(dom.root.textContent).not.toContain("正在生成教练解说…");
+    expect(dom.root.textContent).not.toContain("等待解说和 Token 统计");
     expect(dom.root.textContent).toContain("教练解说未生成，可以稍后重试。");
     expect(dom.root.textContent).toContain("尚未生成教练解说");
     expect(dom.root.textContent).toContain("查看复盘条目");
@@ -643,6 +645,7 @@ describe("fixed review presenter", () => {
       document: dom.document as unknown as Document,
       root: dom.root as unknown as HTMLElement,
       api: {
+        status: async () => ({ configured: true, settings: null }),
         openReview: async ({ packageId }: { packageId: string }) => {
           if (packageId === "missing") throw new Error("private backend prose");
           return snapshotA;

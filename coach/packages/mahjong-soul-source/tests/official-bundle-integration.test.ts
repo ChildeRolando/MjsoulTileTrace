@@ -35,8 +35,8 @@ function toHex(value: Uint8Array): string {
   return Buffer.from(value).toString("hex");
 }
 
-describe("official Mahjong Soul bundle synthetic frames", () => {
-  it("decodes the fixed official wire surface without network or credentials", async () => {
+describe("synthetic Mahjong Soul frames encoded with the official bundle", () => {
+  it("decodes the fixed protobuf wire surface without network or credentials", async () => {
     const fixture = JSON.parse(await readFile(fixtureUrl, "utf8")) as FrameFixture;
     expect(fixture.fixtureVersion)
       .toBe("mahjong-soul-official-bundle-frames/v1");
@@ -130,9 +130,9 @@ describe("official Mahjong Soul bundle synthetic frames", () => {
       },
     });
     if (next.kind !== "response") throw new Error("unexpected fixture");
-    const capturedEntry = (next.payload.entries as readonly Record<string, unknown>[])[0]!;
-    expect(SUPPORTED_RECORD_VERSIONS).toContain(capturedEntry.version);
-    expect(SUPPORTED_STANDARD_RULES).toContain(capturedEntry.standard_rule);
+    const syntheticEntry = (next.payload.entries as readonly Record<string, unknown>[])[0]!;
+    expect(SUPPORTED_RECORD_VERSIONS).toContain(syntheticEntry.version);
+    expect(SUPPORTED_STANDARD_RULES).toContain(syntheticEntry.standard_rule);
 
     expect(toHex(codec.encodeRequest({
       requestId: 12,

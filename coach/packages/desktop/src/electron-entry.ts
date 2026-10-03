@@ -1,6 +1,9 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import { join } from "node:path";
+import { createRecordAnalysisTimingStore } from "./record-analysis-timing-store.js";
+import { createRecordAnalysisProgressTracker } from "./record-analysis-progress.js";
+import { createCoachSettingsStore } from "./llm-provider/settings-store.js";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
 import {
@@ -26,6 +29,7 @@ import {
   mapMahjongSoulRecord,
   readSessionRestoreRejection,
   syncRecentCatalog,
+  type MahjongSoulProtocolBundle,
   type MahjongSoulLobbySession,
   type RawRecordListEntry,
 } from "@riichi-coach/mahjong-soul-source";
@@ -221,6 +225,7 @@ const DESKTOP_APP_VERSION = "0.1.0";
 
 async function syncRecentCatalogEntries(
   session: MahjongSoulLobbySession,
+  bundle: MahjongSoulProtocolBundle,
   now: number,
 ): Promise<RawRecordListEntry[]> {
   let endTime = Math.min(0xffff_ffff, Math.floor(now / 1000));
@@ -228,7 +233,7 @@ async function syncRecentCatalogEntries(
   const entries = new Map<string, RawRecordListEntry>();
   for (let window = 0; window < 8 && endTime >= 1 && entries.size < 30; window += 1) {
     const beginTime = Math.max(1, endTime - windowSeconds + 1);
-    const catalog = await syncRecentCatalog({ session, beginTime, endTime });
+    const catalog = await syncRecentCatalog({ session, bundle, beginTime, endTime });
     for (const candidate of catalog.entries) entries.set(candidate.uuid, candidate);
     if (beginTime === 1) break;
     endTime = beginTime - 1;
@@ -419,7 +424,7 @@ async function start(): Promise<void> {
         }
         return status;
       },
-      syncCatalog: syncRecentCatalogEntries,
+      syncCatalog: (lobby, now) => syncRecentCatalogEntries(lobby, bundle, now),
       fetchRecord: (lobby, stored, recordId) => fetchMahjongSoulRecord({
         session: lobby,
         bundle,
@@ -468,7 +473,7 @@ async function start(): Promise<void> {
       vault,
       createSession: createLobbySessionFactory({ bundle }),
       authenticate: authenticateStoredMahjongSoulSession,
-      syncCatalog: syncRecentCatalogEntries,
+      syncCatalog: (lobby, now) => syncRecentCatalogEntries(lobby, bundle, now),
       fetchRecord: (lobby, stored, recordId) => fetchMahjongSoulRecord({
         session: lobby,
         bundle,
@@ -544,7 +549,7 @@ async function start(): Promise<void> {
       vault,
       createSession: createLobbySessionFactory({ bundle }),
       authenticate: authenticateStoredMahjongSoulSession,
-      syncCatalog: syncRecentCatalogEntries,
+      syncCatalog: (lobby, now) => syncRecentCatalogEntries(lobby, bundle, now),
       fetchRecord: (lobby, stored, recordId) => fetchMahjongSoulRecord({
         session: lobby,
         bundle,
@@ -614,6 +619,7 @@ async function start(): Promise<void> {
     }),
   });
   const catalogService = createMahjongSoulCatalogService({
+    bundle,
     vault,
     catalogStore,
     sessionFactory: createMahjongSoulCatalogSessionFactory({
@@ -688,7 +694,7 @@ async function start(): Promise<void> {
     clearCatalog: () => catalogStore.clear(),
     clock: Date.now,
   });
-  const prepareReview = async ({ recordId, selfActor, stream, decisions }: PaipuReviewPreparationInput) => {
+  const prepareReview = async ({ recordId, selfActor, stream, decisions, onProgress }: PaipuReviewPreparationInput) => {
       // This is the only production composition point for the local model.
       // Runtime/checkpoint paths stay in Electron main and are never part of
       // the import DTO or renderer/preload capability.
@@ -710,6 +716,7 @@ async function start(): Promise<void> {
           runtime,
           factEngineResourcesDir: resourcesDir,
           now: Date.now,
+          ...(onProgress === undefined ? {} : { onProgress }),
         });
         const result = await analysis.analyze({ recordId, selfActor, stream, decisions });
         // Close the managed sidecar before the durable session transaction so
@@ -717,6 +724,7 @@ async function start(): Promise<void> {
         // a half-composed review.
         await runtime.close();
         runtimeClosed = true;
+        onProgress?.({ stage: "saving", completed: 0, total: null });
         return persistValidatedReviewSession(reviewRepository, result.package);
       } finally {
         if (!runtimeClosed) await runtime.close().catch(() => undefined);
@@ -759,13 +767,18 @@ async function start(): Promise<void> {
   });
   await service.initialize();
 
+  const coachSettings = createCoachSettingsStore(app.getPath("userData"));
   const coachService = createCoachService({
     credentials: providerCredentials, fetchImpl: globalThis.fetch,
     readPackage: createPackageReferenceReader(app.getPath("userData")),
     reviewRepository,
+    initialSettings: coachSettings.load() ?? { providerId: "codex-cli", modelName: "gpt-6-luna", reasoningEffort: "max" },
+    saveSettings: value => coachSettings.save(value),
     ...(golden === null ? {} : { providerFactory: golden.createProvider, clock: () => "2026-10-01T00:00:00.000Z" }),
   });
 
+  const timingStore = createRecordAnalysisTimingStore(app.getPath("userData"));
+  const progressTracker = createRecordAnalysisProgressTracker({ history: timingStore.load(), onHistory: history => timingStore.save(history) });
   const createMainWindow = async (): Promise<void> => {
     if (mainWindow !== null && !mainWindow.isDestroyed()) return;
     const window = new BrowserWindow({
@@ -794,6 +807,7 @@ async function start(): Promise<void> {
     });
     catalogIpcRegistration = registerMahjongSoulCatalogIpc({
       ipcMain: ipcMain as unknown as IpcMainPort,
+      progressTracker,
       service: Object.freeze({
         syncAnalyzableRecords: () => golden === null ? catalogService.syncAnalyzableRecords() : Promise.resolve([golden.summary]),
         listAnalyzableRecords: () => golden === null ? catalogService.listAnalyzableRecords() : Promise.resolve([golden.summary]),

@@ -223,7 +223,14 @@ LLM 追加的 CoachInference / CoachJudgment / Explanation relation 集合；只
 append，可以引用 evidence subgraph，但不得修改、删除或覆盖其中节点/边。
 
 **GraphContextSlice**：
-从 ContextGraph 通过确定性 allow-list / traversal 选出的单次 LLM 输入。
+从 ContextGraph 通过确定性 allow-list / traversal 选出的单次教练上下文来源。
+2026-10-04 起完整 slice 留在本地，用于审计与 grounding；外发表示由 CoachContext 派生。
+
+**CoachContext**：
+从已验证 GraphContextSlice 派生的教学输入；包含局面、候选、评分、所选比较对的
+事实/差异及必要关系，引用使用短编号。由 reasoning 生产，各 LLM provider 消费。
+完整审计来源及短编号到 canonical 身份的查找表留在本地；教练输出经还原后继续
+由原图校验，持久化报告仍使用 canonical 引用。
 
 **Reasoning trace / argument trace**：
 面向产品保存和审计的显式结构化推理路径。

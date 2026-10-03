@@ -61,11 +61,13 @@ import { validateAutomaticComparisonScopes } from "./context-graph/validate-cont
 import {
   AutomaticComparisonScopeSchema,
   COACH_EXPLANATION_PLACEHOLDER_PATTERN,
+  COACH_REVIEW_PROMPT_VERSION,
   CoachInferencePayloadSchema,
   CoachJudgmentPayloadSchema,
   CoachReasoningDraftSchema,
   CoachExplanationPayloadSchema,
   ReviewReportSchema,
+  SELECTOR_POLICY_VERSION_V1,
   type CoachGroundingCheckResult,
   type CoachGroundingRejectedCode,
   type CoachGroundingRejection,
@@ -79,8 +81,10 @@ import type { ZodError } from "zod";
 import { canonicalJson, sha256Hex } from "./analysis/package-identity.js";
 import { deriveEdgeId, deriveNodeId } from "./context-graph/context-graph-ids.js";
 import { getDecisionSubgraph } from "./context-graph/get-decision-subgraph.js";
+import { buildGraphContextSlice } from "./context-graph/build-graph-context-slice.js";
 import { filterNodePayloadForSlice } from "./context-graph/slice-payload.js";
 import { validateReasoningOverlayPartition } from "./context-graph/validate-reasoning-overlay-partition.js";
+import { prepareCoachRequest } from "./coach-prompt.js";
 
 // ---------------------------------------------------------------------------
 // Shared helpers
@@ -566,6 +570,31 @@ export function validateReviewReport(
   for (const decisionId of report.selectedDecisionIds) {
     if (decisionNodeOf(graph, decisionId) === undefined) {
       throw new Error(`m6d2_report_decision_unresolved:${decisionId}`);
+    }
+  }
+
+  if (report.generation.promptVersion === COACH_REVIEW_PROMPT_VERSION) {
+    // Rebuild the exact M6-D1 source slice and provider-neutral DTO from the
+    // persisted selection. Selection reasons and package status do not enter
+    // the slice identity, so safe canonical placeholders are sufficient here.
+    const selection = {
+      policyVersion: SELECTOR_POLICY_VERSION_V1,
+      analysisPackageId: graph.packageId,
+      analysisPackageStatus: "complete" as const,
+      selected: report.selectedDecisionIds.map((decisionId, index) => ({
+        decisionId,
+        rank: index + 1,
+        selectionReason: "model_disagreement_above_threshold" as const,
+      })),
+    };
+    const slice = buildGraphContextSlice(graph, selection);
+    const expectedSliceHash = `sha256:${sha256Hex(canonicalJson(slice))}`;
+    if (report.audit.inputSliceHash !== expectedSliceHash) {
+      throw new Error("m6d2_report_input_slice_hash_mismatch");
+    }
+    const expectedRequestContext = prepareCoachRequest(slice).requestContext;
+    if (canonicalJson(report.audit.requestContext) !== canonicalJson(expectedRequestContext)) {
+      throw new Error("m6d2_report_request_context_mismatch");
     }
   }
 

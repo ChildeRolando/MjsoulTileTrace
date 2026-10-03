@@ -5,7 +5,7 @@ import {
   unwrapGameDetailRecords,
   type MahjongSoulCanonicalMapperResult,
 } from "@riichi-coach/mahjong-soul-source";
-import { replayCanonicalStream } from "@riichi-coach/reasoning";
+import { replayCanonicalStream, validateCanonicalEventStream } from "@riichi-coach/reasoning";
 import { createRecordAnalysisStore } from "../src/record-analysis-store.js";
 import {
   bundleRoot,
@@ -37,6 +37,67 @@ async function realStore() {
 }
 
 describe("record analysis store", () => {
+  it.each(["absolute", "old_only", "delta_only"])("accounts for the accepted riichi deposit in single and double ron: %s", async evidence => {
+    const { bundle, store } = await realStore();
+    for (const doubleRon of [false, true]) {
+      const hand = ["1m", "2m", "3m", "4m", "5m", "6m", "7m", "8m", "9m", "1p", "2p", "3p", "4p"];
+      const other = ["7z", "6z", "5z", "4z", "3z", "2z", "1z", "1s", "2s", "3s", "4s", "5s", "6s"];
+      const final = doubleRon ? [26000, 23000, 26000, 25000] : [27000, 23000, 25000, 25000];
+      const wireDelta = doubleRon ? [2000, -2000, 1000, 0] : [3000, -2000, 0, 0];
+      const bytes = encodeSyntheticRecord(bundle, [
+        { name: "RecordNewRound", data: { chang: 0, ju: 0, ben: 0, liqibang: 0,
+          doras: ["5z"], scores: [25000, 25000, 25000, 25000], left_tile_count: 69,
+          tiles0: [...hand, "1z"], tiles1: other, tiles2: hand, tiles3: other } },
+        { name: "RecordDiscardTile", data: { seat: 0, tile: "1z", moqie: true, is_liqi: true } },
+        { name: "RecordDealTile", data: { seat: 1, tile: "4p", left_tile_count: 68 } },
+        { name: "RecordDiscardTile", data: { seat: 1, tile: "4p", moqie: true } },
+        { name: "RecordHule", data: { hules: [ { seat: 0, zimo: false, hu_tile: "4p" },
+          ...(doubleRon ? [{ seat: 2, zimo: false, hu_tile: "4p" }] : []) ], delta_scores: wireDelta,
+          ...(evidence === "delta_only" ? {} : { old_scores: [24000, 25000, 25000, 25000] }),
+          ...(evidence === "absolute" ? { scores: final } : {}) } },
+      ]);
+      const outcome = store.analyzeRecord({ recordId, selfActor: 0, recordBytes: Uint8Array.from(unwrapGameDetailRecords(bundle, bytes)) });
+      expect(outcome.status).toBe("analysis_ready");
+      if (outcome.status !== "analysis_ready") throw new Error("riichi settlement failed");
+      expect(validateCanonicalEventStream(outcome.stream)).toEqual({ status: "valid" });
+      expect(outcome.stream.events.at(-1)).toMatchObject({ type: "game_ended", scores: final });
+      const wins = outcome.stream.events.filter(event => event.type === "win_declared");
+      expect(wins.map(event => event.scoreDeltas)).toEqual(doubleRon ? [null, null] : [[2000, -2000, 0, 0]]);
+      if (doubleRon) expect(outcome.stream.events.find(event => event.type === "scores_updated")).toMatchObject({ scores: final });
+    }
+  });
+
+  it.each([0, 1, 2, 3])("replays a complete double ron without duplicating its aggregate settlement: seat %s", async selfActor => {
+    const { bundle, store } = await realStore();
+    const hand = ["1m", "2m", "3m", "4m", "5m", "6m", "7m", "8m", "9m", "1p", "2p", "3p", "4p"];
+    const bytes = encodeSyntheticRecord(bundle, [
+      { name: "RecordNewRound", data: { chang: 0, ju: 0, ben: 0, liqibang: 0,
+        doras: ["1z"], scores: [25000, 25000, 25000, 25000], left_tile_count: 69,
+        tiles0: [...hand, "5p"], tiles1: hand, tiles2: hand, tiles3: hand } },
+      { name: "RecordDiscardTile", data: { seat: 0, tile: "5p", moqie: true } },
+      { name: "RecordHule", data: { hules: [
+        { seat: 1, zimo: false, hu_tile: "5p" }, { seat: 2, zimo: false, hu_tile: "5p" },
+      ], delta_scores: [-3000, 1000, 2000, 0] } },
+    ]);
+    const outcome = store.analyzeRecord({ recordId, selfActor,
+      recordBytes: Uint8Array.from(unwrapGameDetailRecords(bundle, bytes)) });
+    expect(outcome.status).toBe("analysis_ready");
+    if (outcome.status !== "analysis_ready") throw new Error("double ron did not reach analysis");
+    expect(validateCanonicalEventStream(outcome.stream)).toEqual({ status: "valid" });
+    const wins = outcome.stream.events.filter(event => event.type === "win_declared");
+    expect(wins.map(event => [event.winnerActor, event.targetActor, event.scoreDeltas])).toEqual([
+      [1, 0, null], [2, 0, null],
+    ]);
+    expect(wins[0]!.winSourceEventRef).toBe(wins[1]!.winSourceEventRef);
+    expect(outcome.stream.events.find(event => event.type === "scores_updated")).toMatchObject({
+      settlementEventRef: wins[0]!.eventId, scores: [22000, 26000, 27000, 25000],
+    });
+    expect(outcome.stream.events.find(event => event.type === "round_ended")).toMatchObject({ terminalEventRef: wins[0]!.eventId });
+    expect(outcome.stream.events.at(-1)).toMatchObject({ type: "game_ended", scores: [22000, 26000, 27000, 25000] });
+    expect(store.getMappedRecord(recordId, selfActor)).toBe(outcome.stream);
+    expect(store.getReplayedDecisions(recordId, selfActor)).toEqual(outcome.decisions);
+  });
+
   it("analyzes a supported record and caches stream + decisions per seat", async () => {
     const { bundle, store } = await realStore();
     const inner = innerFixtureBytes(bundle);

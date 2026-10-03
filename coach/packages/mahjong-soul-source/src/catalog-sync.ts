@@ -1,5 +1,7 @@
 import { MahjongSoulSourceError } from "./errors.js";
 import type { MahjongSoulLobbySession } from "./lobby-session.js";
+import { createMahjongSoulCatalogRuleInspector } from "./record-rule-evidence.js";
+import type { MahjongSoulProtocolBundle } from "./protocol-bundle.js";
 import type { RawRecordListEntry } from "./record-filter.js";
 
 const CATALOG_SYNC_FAILED = "mahjong_soul_catalog_sync_failed" as const;
@@ -10,6 +12,7 @@ const RECENT_CATALOG_LIMIT = 30;
 
 export interface CatalogSyncInput {
   readonly session: MahjongSoulLobbySession;
+  readonly bundle: MahjongSoulProtocolBundle;
   readonly pageSize?: number;
   readonly maxPages?: number;
   readonly beginTime?: number;
@@ -26,6 +29,7 @@ type RawListEntryWithoutMode = Omit<
   | "game_mode_ai"
   | "game_mode_extendinfo"
   | "game_mode_detail_rule_present"
+  | "game_mode_detail_rule_override"
 >;
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -79,6 +83,7 @@ export async function syncRecentCatalog(
   input: CatalogSyncInput,
 ): Promise<CatalogSyncResult> {
   const session = input.session;
+  const bundle = input.bundle;
   const pageSize = input.pageSize ?? 100;
   const maxPages = input.maxPages ?? MAX_PAGES;
   const beginTime = input.beginTime ?? 1;
@@ -86,6 +91,8 @@ export async function syncRecentCatalog(
   if (
     !isObjectLike(session)
     || typeof session.call !== "function"
+    || !isObjectLike(bundle)
+    || typeof bundle.protoText !== "string"
     || !Number.isInteger(pageSize)
     || pageSize < 1
     || pageSize > MAX_PAGE_SIZE
@@ -97,6 +104,13 @@ export async function syncRecentCatalog(
     || !isUint32(endTime)
     || endTime < beginTime
   ) {
+    throw catalogFailed();
+  }
+
+  let inspectRuleMetadata: ReturnType<typeof createMahjongSoulCatalogRuleInspector>;
+  try {
+    inspectRuleMetadata = createMahjongSoulCatalogRuleInspector(bundle);
+  } catch {
     throw catalogFailed();
   }
 
@@ -179,48 +193,47 @@ export async function syncRecentCatalog(
   }
   const detailsByUuid = new Map<string, {
     mode: number;
-    standardRule: number;
     ai: boolean;
     extendinfo: string;
     detailRulePresent: boolean;
+    detailRuleHasOverride: boolean;
+    supportsRankedSouth: boolean;
   }>();
+  const entriesByUuid = new Map(entries.map(entry => [entry.uuid, entry]));
   for (const raw of detailResult.record_list) {
     if (!isRecord(raw) || typeof raw.uuid !== "string" || detailsByUuid.has(raw.uuid)) {
       throw catalogFailed();
     }
-    const config = raw.config;
-    const modeContainer = isRecord(config) ? config.mode : undefined;
-    const mode = isRecord(modeContainer) ? modeContainer.mode : undefined;
-    const ai = isRecord(modeContainer) ? modeContainer.ai : undefined;
-    const extendinfo = isRecord(modeContainer) ? modeContainer.extendinfo : undefined;
-    const detailRule = isRecord(modeContainer) ? modeContainer.detail_rule : undefined;
-    if (
-      !isUint32(mode)
-      || typeof ai !== "boolean"
-      || typeof extendinfo !== "string"
-      || !isUint32(raw.standard_rule)
-      || (detailRule !== null && detailRule !== undefined)
-    ) throw catalogFailed();
+    const entry = entriesByUuid.get(raw.uuid);
+    if (entry === undefined || !isUint32(raw.standard_rule)
+      || (raw.standard_rule !== 0 && raw.standard_rule !== entry.standard_rule)) throw catalogFailed();
+    let metadata: ReturnType<typeof inspectRuleMetadata>;
+    try {
+      metadata = inspectRuleMetadata(entry.standard_rule, raw.config);
+    } catch {
+      throw catalogFailed();
+    }
     detailsByUuid.set(raw.uuid, {
-      mode,
-      standardRule: raw.standard_rule,
-      ai,
-      extendinfo,
-      detailRulePresent: false,
+      mode: metadata.mode,
+      ai: metadata.ai,
+      extendinfo: metadata.extendinfo,
+      detailRulePresent: metadata.detailRulePresent,
+      detailRuleHasOverride: metadata.detailRuleHasOverride,
+      supportsRankedSouth: metadata.supportsRankedSouth,
     });
   }
   return {
     entries: entries.map((entry) => {
       const detail = detailsByUuid.get(entry.uuid);
-      if (detail === undefined || detail.standardRule !== entry.standard_rule) {
-        throw catalogFailed();
-      }
+      if (detail === undefined) throw catalogFailed();
       return Object.freeze({
         ...entry,
         game_mode: detail.mode,
         game_mode_ai: detail.ai,
         game_mode_extendinfo: detail.extendinfo,
         game_mode_detail_rule_present: detail.detailRulePresent,
+        game_mode_detail_rule_override: detail.detailRuleHasOverride,
+        catalog_rule_profile: detail.supportsRankedSouth ? "ranked_south_v1" as const : "unsupported" as const,
       });
     }),
   };

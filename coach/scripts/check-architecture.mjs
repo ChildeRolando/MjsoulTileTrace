@@ -90,11 +90,13 @@ const REVIEW_GENERATION_INTERNALS = new Set([
   "appendReasoningOverlay",
   "assembleReviewReport",
   "buildCoachRequest",
+  "prepareCoachRequest",
+  "decodeCoachReasoningDraft",
   "buildGraphContextSlice",
   "coachRequestOutcomeFromLlmResult",
 ]);
 const COACH_SERVICE_PATH = "packages/desktop/src/llm-provider/service.ts";
-const CONCRETE_PROVIDER_PATH = "/packages/desktop/src/llm-provider/openai-compatible";
+const CONCRETE_PROVIDER_PATHS = ["/packages/desktop/src/llm-provider/openai-compatible", "/packages/desktop/src/llm-provider/codex-cli"];
 
 /** Allowed riichi-coach dependency edges for production src code. */
 export const DEFAULT_ALLOWED_EDGES = Object.freeze({
@@ -413,7 +415,7 @@ export function checkWorkspace(root, opts = {}) {
           const resolvedModule = resolve(dirname(file), specifier)
             .split(sep).join("/")
             .replace(/\.(?:[cm]?[jt]sx?)$/u, "");
-          if (resolvedModule.endsWith(CONCRETE_PROVIDER_PATH) &&
+          if (CONCRETE_PROVIDER_PATHS.some(providerPath => resolvedModule.endsWith(providerPath)) &&
               (relPath !== COACH_SERVICE_PATH || !namedImport)) {
             record(
               RULE_IDS.reviewReportGenerationSeam,

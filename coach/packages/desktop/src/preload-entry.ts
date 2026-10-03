@@ -1,5 +1,6 @@
 import { contextBridge, ipcRenderer } from "electron";
 import { createCoachPreloadApi } from "./session-api.js";
+import { RecordAnalysisSnapshotSchema } from "./catalog-api.js";
 
 contextBridge.exposeInMainWorld("riichiCoachProvider", createCoachPreloadApi(ipcRenderer));
 
@@ -16,6 +17,7 @@ export const PRELOAD_CHANNELS = Object.freeze({
   syncRecords: "mahjong-soul:sync-analyzable-records",
   listRecords: "mahjong-soul:list-analyzable-records",
   startAnalysis: "mahjong-soul:start-record-analysis",
+  analysisProgress: "mahjong-soul:get-record-analysis-progress",
   clearSourceCache: "mahjong-soul:clear-source-cache",
   importPaipuUrl: "mahjong-soul:import-paipu-url",
 } as const);
@@ -195,13 +197,19 @@ contextBridge.exposeInMainWorld("riichiCoach", Object.freeze({
 contextBridge.exposeInMainWorld("riichiCoachCatalog", Object.freeze({
   syncAnalyzableRecords: () => invokeCatalog(PRELOAD_CHANNELS.syncRecords),
   listAnalyzableRecords: () => invokeCatalog(PRELOAD_CHANNELS.listRecords),
+  getRecordAnalysisProgress: async () => {
+    try { return Object.freeze(RecordAnalysisSnapshotSchema.parse(await ipcRenderer.invoke(PRELOAD_CHANNELS.analysisProgress))); }
+    catch (error) { throw fixedError(error, PRELOAD_CHANNELS.analysisProgress); }
+  },
   startRecordAnalysis: async (recordId: string) => {
+    try {
     if (typeof recordId !== "string") throw new Error(PROTOCOL_ERROR);
     const value = await ipcRenderer.invoke(PRELOAD_CHANNELS.startAnalysis, recordId);
     if (!isRecord(value) || value.status !== "review_ready" || Object.keys(value).sort().join(",") !== "packageId,sessionId,status"
       || typeof value.sessionId !== "string" || !value.sessionId || value.sessionId.length > 200
       || typeof value.packageId !== "string" || !value.packageId || value.packageId.length > 200) throw new Error(PROTOCOL_ERROR);
     return Object.freeze({ status: "review_ready" as const, sessionId: value.sessionId, packageId: value.packageId });
+    } catch (error) { throw fixedError(error, PRELOAD_CHANNELS.startAnalysis); }
   },
   clearSourceCache: async () => {
     const value = await ipcRenderer.invoke(PRELOAD_CHANNELS.clearSourceCache);

@@ -677,11 +677,13 @@ describe("runMortalFullGameReview", () => {
 
   it("accounts every local decision when no source rows match", async () => {
     const fixture = await legacySetup();
+    const progress: { completed: number; total: number }[] = [];
     const review = await runMortalFullGameReview({
       stream: fixture.stream,
       decisions: fixture.decisions,
       report: legacyReport(fixture.raw, []),
       engine: new FailingEngine(),
+      onProgress: counts => progress.push(counts),
     });
     expect(review.status).toBe("coverage_ready");
     if (review.status !== "coverage_ready") return;
@@ -689,6 +691,7 @@ describe("runMortalFullGameReview", () => {
     expect(review.summary.sourceConservation).toBe(0);
     expect(review.summary.outcomes.no_mortal_entry).toBe(fixture.decisions.length);
     expect(review.decisions.length).toBe(fixture.decisions.length);
+    expect(progress.at(-1)).toEqual({ completed: fixture.decisions.length, total: fixture.decisions.length });
   });
 
   it("derives conservation totals from actual outcomes and source dispositions", async () => {

@@ -21,6 +21,8 @@ import {
   type ReplayedDecision,
 } from "@riichi-coach/reasoning";
 import { createRecordAnalysisStore } from "../src/record-analysis-store.js";
+import { createRecordAnalysisProgressTracker } from "../src/record-analysis-progress.js";
+import type { RecordAnalysisProgress } from "../src/catalog-api.js";
 import {
   assertUsableLocalMortalRuleResult,
   createLocalMortalAnalysisService,
@@ -275,6 +277,7 @@ type ProductionFixtureHarness = Readonly<{
 
 async function createProductionFixtureHarness(options?: {
   readonly seedExistingSession?: boolean;
+  readonly onProgress?: (progress: RecordAnalysisProgress) => void;
 }): Promise<ProductionFixtureHarness> {
   const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
   const fixture = loadCompleteRecordFixture();
@@ -292,6 +295,7 @@ async function createProductionFixtureHarness(options?: {
   const localAnalysis = createLocalMortalAnalysisService({
     runtime: runtime.runtime,
     factEngineResourcesDir: fileURLToPath(new URL("../../../resources/", import.meta.url)),
+    ...(options?.onProgress === undefined ? {} : { onProgress: options.onProgress }),
   });
   const root = mkdtempSync("coac-106-production-import-");
   const repository = createReviewSessionRepository({ root });
@@ -384,6 +388,21 @@ async function makeService(overrides?: {
 }
 
 describe("paipu import service (automatic perspective resolution)", () => {
+  it("retains final facts counts from the production review emitter in the phase tracker", async () => {
+    const tracker = createRecordAnalysisProgressTracker();
+    tracker.start();
+    const harness = await createProductionFixtureHarness({ seedExistingSession: false, onProgress: progress => tracker.update(progress) });
+    try {
+      const snapshot = tracker.snapshot();
+      const facts = snapshot.steps.find(step => step.stage === "facts")!;
+      const rules = snapshot.steps.find(step => step.stage === "rules")!;
+      expect(snapshot.stage).toBe("packaging");
+      expect(facts.status).toBe("complete");
+      expect(facts.total).toBe(rules.total);
+      expect(facts.total).toBeGreaterThan(0);
+      expect(facts.completed).toBe(facts.total);
+    } finally { harness.repository.close(); rmSync(harness.root, { recursive: true, force: true }); }
+  });
   it("accepts the exact CN share URL shape and rejects every deviation without opening a window", async () => {
     const { service, windows } = await makeService({ timeoutMs: 25 });
     const id = "260811-00000000-0000-0000-0000-000000000001";

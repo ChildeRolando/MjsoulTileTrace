@@ -2,6 +2,7 @@ import { z } from "zod";
 import { RecordAnalysisStatusSchema } from "./analysis-identity-contract.js";
 import { GraphAuthoritySchema } from "./context-graph.js";
 import { ReviewSelectionReasonSchema, SELECTOR_POLICY_VERSION_V1 } from "./review-selection.js";
+import { LlmTokenUsageSchema, LlmProviderDescriptorSchema } from "./coach.js";
 
 export const FIXED_REVIEW_VIEW_SCHEMA_VERSION = "fixed-review-view/v1" as const;
 export const FIXED_REVIEW_DETAIL_SCHEMA_VERSION = "fixed-review-detail/v1" as const;
@@ -107,6 +108,8 @@ export const FixedReviewSnapshotSchema = z.object({
   }).strict(),
   activeReportRefId: z.string().min(1).nullable(),
   activeReportStatus: FixedReviewActiveReportStatusSchema,
+  coachUsage: LlmTokenUsageSchema.nullable().optional(),
+  coachProvider: LlmProviderDescriptorSchema.nullable().optional(),
   explanationCounts: z.object({
     ready: z.number().int().nonnegative(),
     provider_unavailable: z.number().int().nonnegative(),

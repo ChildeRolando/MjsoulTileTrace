@@ -42,6 +42,7 @@ app.whenReady().then(async () => {
     },
   };
   const catalog = catalogModule.createMahjongSoulCatalogService({
+    bundle: await source.loadMahjongSoulProtocolBundle(join(input.repoRoot, "vendor", "mahjong-soul-protocol")),
     vault: {
       async restore() { return stored; },
       async save() {},

@@ -174,6 +174,19 @@ export function createFixedReviewUi(input: {
     definition(document, status, "分析状态", ANALYSIS_LABELS[next.analysisStatus]);
     definition(document, status, "教练解说", REPORT_LABELS[next.activeReportStatus]);
     definition(document, status, "可用解说", `${next.explanationCounts.ready} / ${next.selection.selectedCount}`);
+    const usage = element(document, "section");
+    usage.className = "coach-token-usage";
+    usage.append(element(document, "h3", "教练 Token 用量"));
+    const tokenFields = element(document, "dl");
+    const tokenLabel = (value: number | undefined) => value === undefined ? "未知" : value.toLocaleString("zh-CN");
+    definition(document, tokenFields, "输入", tokenLabel(next.coachUsage?.inputTokens));
+    definition(document, tokenFields, "输出", tokenLabel(next.coachUsage?.outputTokens));
+    definition(document, tokenFields, "总量", tokenLabel(next.coachUsage?.totalTokens));
+    definition(document, tokenFields, "缓存输入（已包含在输入中）", tokenLabel(next.coachUsage?.cachedInputTokens));
+    if (next.coachProvider != null) usage.append(element(document, "p", `模型：${next.coachProvider.model}${next.coachProvider.reasoningEffort === undefined ? "" : ` · 推理强度 ${next.coachProvider.reasoningEffort}`}`));
+    usage.append(tokenFields, element(document, "p", next.activeReportRefId === null
+      ? "尚未生成；服务返回用量后显示，随报告保存。"
+      : "本报告请求的服务返回用量。未返回统计的失败或重试可能不包含；这不是账号剩余额度。"));
     const live = element(document, "p");
     live.className = "review-live";
     live.setAttribute("aria-live", "polite");
@@ -206,17 +219,80 @@ export function createFixedReviewUi(input: {
       element(document, "p", `解说未通过校验：${next.explanationCounts.invalid_output}`),
     );
     overview.append(analysisDetails, explanationDetails);
+    overview.append(usage);
     if (next.activeReportRefId === null) {
+      const settingsCard = element(document, "details");
+      settingsCard.className = "coach-settings";
+      settingsCard.append(element(document, "summary", "教练服务设置"));
+      const provider = element(document, "select");
+      provider.id = "coach-provider-kind";
+      for (const [value, label] of [["codex-cli", "本机 Codex 登录 · gpt-6-luna · max"], ["openai-compatible", "OpenAI-compatible 服务"]] as const) {
+        const option = element(document, "option", label); option.value = value; provider.append(option);
+      }
+      const providerLabel = element(document, "label", "解说服务 "); providerLabel.htmlFor = provider.id; providerLabel.append(provider);
+      const apiFields = element(document, "div"); apiFields.hidden = true;
+      const address = element(document, "input"); address.id = "coach-base-url"; address.type = "url";
+      address.placeholder = "https://服务地址/v1";
+      const model = element(document, "input"); model.id = "coach-model-name"; model.placeholder = "模型名称";
+      const addressLabel = element(document, "label", "服务地址 "); addressLabel.htmlFor = address.id; addressLabel.append(address);
+      const modelLabel = element(document, "label", "模型名称 "); modelLabel.htmlFor = model.id; modelLabel.append(model);
+      const importKey = element(document, "button", "从本机环境导入 API key"); importKey.type = "button";
+      apiFields.append(addressLabel, modelLabel, element(document, "p", "API key 通过启动环境 RIICHI_COACH_API_KEY 安全导入，不在页面输入或显示。"), importKey);
+      let settingsEdited = false;
+      provider.addEventListener("change", () => { settingsEdited = true; apiFields.hidden = provider.value !== "openai-compatible"; });
+      address.addEventListener("input", () => { settingsEdited = true; });
+      model.addEventListener("input", () => { settingsEdited = true; });
+      const configStatus = element(document, "p", "正在检查教练服务…"); configStatus.setAttribute("aria-live", "polite");
+      const save = element(document, "button", "保存教练设置"); save.type = "button"; save.className = "coach-config-save";
+      settingsCard.append(providerLabel, element(document, "p", "Codex 使用本机已有登录；生成在云端进行并消耗该账号额度。仅点击生成后才请求解说。"), apiFields, save, configStatus);
+      overview.append(settingsCard);
       const generate = element(document, "button", "生成教练解说");
       generate.type = "button";
+      const renderEpoch = viewEpoch;
+      const currentCard = () => isCurrent(renderEpoch, next.packageId) && snapshot === next;
+      const applyProviderStatus = (value: Awaited<ReturnType<CoachDesktopApi["status"]>>, populate = false) => {
+        if (!currentCard()) return;
+        if (populate && !settingsEdited && value.settings !== null) {
+          provider.value = "providerId" in value.settings ? "codex-cli" : "openai-compatible";
+          if (!("providerId" in value.settings)) { address.value = value.settings.baseUrl; model.value = value.settings.modelName; }
+          apiFields.hidden = provider.value !== "openai-compatible";
+        }
+        configStatus.textContent = value.configured ? "教练服务已就绪。" : "教练服务未就绪。Codex 请先完成本机登录；其它服务请保存地址、模型并导入凭据。";
+        if (!value.configured) settingsCard.open = true;
+      };
+      void input.api.status().then(value => applyProviderStatus(value, true)).catch(() => {
+        if (currentCard()) { settingsCard.open = true; configStatus.textContent = "无法检查教练服务，请稍后重试。"; }
+      });
+      save.addEventListener("click", () => void (async () => {
+        save.disabled = true;
+        try {
+          const value = await input.api.configure(provider.value === "codex-cli"
+            ? { providerId: "codex-cli", modelName: "gpt-6-luna", reasoningEffort: "max" }
+            : { baseUrl: address.value.trim(), modelName: model.value.trim() });
+          applyProviderStatus(value);
+        } catch { if (currentCard()) configStatus.textContent = "设置未保存，请检查服务地址和模型名称。"; }
+        finally { if (currentCard()) save.disabled = false; }
+      })());
+      importKey.addEventListener("click", () => void (async () => {
+        importKey.disabled = true;
+        try { applyProviderStatus(await input.api.importCredential()); }
+        catch { if (currentCard()) configStatus.textContent = "凭据未导入，请检查本机启动环境。"; }
+        finally { if (currentCard()) importKey.disabled = false; }
+      })());
       generate.addEventListener("click", () => void (async () => {
         generate.disabled = true;
-        live.textContent = "正在生成教练解说…";
+        save.disabled = true; importKey.disabled = true;
+        live.textContent = "正在检查教练服务…";
         const requestEpoch = viewEpoch;
         const requestPackageId = next.packageId;
         const requestOperationId = globalThis.crypto.randomUUID();
         operationId = requestOperationId;
         try {
+          const readiness = await input.api.status();
+          if (!isCurrent(requestEpoch, requestPackageId) || operationId !== requestOperationId) return;
+          applyProviderStatus(readiness);
+          if (!readiness.configured) { live.textContent = "请先配置就绪的教练服务，再生成解说。"; return; }
+          live.textContent = "正在生成教练解说；等待解说和 Token 统计…";
           const result = await input.api.generateReview({ packageId: requestPackageId, operationId: requestOperationId });
           if (!isCurrent(requestEpoch, requestPackageId) || operationId !== requestOperationId) return;
           if (result.status === "ready") {
@@ -236,6 +312,7 @@ export function createFixedReviewUi(input: {
           if (isCurrent(requestEpoch, requestPackageId) && operationId === requestOperationId) {
             operationId = null;
             generate.disabled = false;
+            save.disabled = false; importKey.disabled = false;
           }
         }
       })());

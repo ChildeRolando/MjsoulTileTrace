@@ -27,6 +27,30 @@ import {
 } from "../src/ipc.js";
 
 describe("self-contained sandboxed preload", () => {
+  it("polls strict safe progress through the actual preload and preserves known analysis errors", async () => {
+    const catalog = exposed.get("riichiCoachCatalog") as {
+      getRecordAnalysisProgress(): Promise<unknown>; startRecordAnalysis(id: string): Promise<unknown>;
+    };
+    const progress = {
+      stage: "scoring", completed: 2, total: 5, elapsedMs: 3000,
+      estimatedTotalMs: 8000, remainingMs: 5000, estimateSource: "history",
+      steps: ["fetching", "replaying", "rules", "scoring", "facts", "packaging", "saving"].map((stage, index) => ({
+        stage, status: index < 3 ? "complete" : index === 3 ? "running" : "waiting",
+        completed: index === 3 ? 2 : 0, total: index === 3 ? 5 : null,
+        elapsedMs: index === 3 ? 3000 : 0,
+      })),
+    };
+    invoke.mockResolvedValueOnce(progress);
+    await expect(catalog.getRecordAnalysisProgress()).resolves.toEqual(progress);
+    expect(invoke).toHaveBeenLastCalledWith(MAHJONG_SOUL_CATALOG_IPC_CHANNELS.getRecordAnalysisProgress);
+    for (const invalid of [{ ...progress, rawRecord: "private" }, { ...progress, completed: 6 }, { ...progress, stage: "secret" }]) {
+      invoke.mockResolvedValueOnce(invalid);
+      await expect(catalog.getRecordAnalysisProgress()).rejects.toThrow("mahjong_soul_login_protocol_unsupported");
+    }
+    invoke.mockRejectedValueOnce(new Error("Error invoking remote method 'mahjong-soul:start-record-analysis': Error: mahjong_soul_canonical_validation_failed"));
+    await expect(catalog.startRecordAnalysis("fixture")).rejects.toThrow("mahjong_soul_canonical_validation_failed");
+  });
+
   it("exposes exactly four renderer globals with the right methods", () => {
     expect([...exposed.keys()].sort()).toEqual([
       "riichiCoach",
@@ -44,6 +68,7 @@ describe("self-contained sandboxed preload", () => {
     ]);
     expect(Object.keys(catalog).sort()).toEqual([
       "clearSourceCache",
+      "getRecordAnalysisProgress",
       "listAnalyzableRecords",
       "startRecordAnalysis",
       "syncAnalyzableRecords",
