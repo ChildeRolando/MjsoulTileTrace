@@ -47,7 +47,7 @@ async function runElectronRecoveryHarness(unknownMode: string): Promise<Record<s
 }
 
 describe("real Electron catalog session rejection path", () => {
-  it.each(["transport_exception", "unknown_reply"])("preserves the production authentication path and local data for %s", async (unknownMode) => {
+  it.each(["transport_exception", "unknown_reply", "invalid_error_no_account"])("preserves the production authentication path and local data for %s", async (unknownMode) => {
     const result = await runElectronRecoveryHarness(unknownMode);
     expect(result.initialStatus).toBe("账号已连接");
     expect(result.initialDetail).toBe("fixture · 令牌仅保存在本机");

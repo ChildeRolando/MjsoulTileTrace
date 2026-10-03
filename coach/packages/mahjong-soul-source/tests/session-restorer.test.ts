@@ -34,6 +34,25 @@ function session(responses: Readonly<Record<string, unknown>>[]) {
 }
 
 describe("headless Mahjong Soul OAuth2 restore", () => {
+  test.each([
+    { error: { code: "unknown" }, has_account: false },
+    { error: { code: -1 }, has_account: false },
+    { error: { code: 1.5 }, has_account: false },
+    { error: { code: 0x1_0000_0000 }, has_account: false },
+    { error: {}, has_account: false },
+  ])("keeps malformed error replies unverified despite no account: %j", async (reply) => {
+    const lobby = session([reply]);
+    await expect(authenticateStoredMahjongSoulSession(lobby.value, stored)).resolves.toBe("unverified");
+    expect(lobby.calls).toHaveLength(1);
+    expect(lobby.closed()).toBe(false);
+  });
+
+  test("rejects a successful check explicitly reporting no account", async () => {
+    const lobby = session([{ error: null, has_account: false }]);
+    await expect(authenticateStoredMahjongSoulSession(lobby.value, stored)).resolves.toBe("rejected");
+    expect(lobby.calls).toHaveLength(1);
+  });
+
   test("restores the stored identity without opening a login provider", async () => {
     const lobby = session([
       { error: null, has_account: true },

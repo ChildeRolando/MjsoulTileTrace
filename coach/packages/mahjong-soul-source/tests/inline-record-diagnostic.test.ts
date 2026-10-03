@@ -94,6 +94,18 @@ function rejectionSession(
 }
 
 describe("one-time inline Mahjong Soul record smoke", () => {
+  test("keeps an invalid check reply inconclusive even when has_account is false", async () => {
+    const fake = rejectionSession([{ error: { code: "unknown" }, has_account: false }]);
+    const actual = await diagnoseMahjongSoulInlineRecord({
+      credential: candidate(), bundle, createSession: async () => fake.session,
+      now: () => 100_000,
+    });
+    expect(actual).toEqual({ status: "inconclusive" });
+    expect(fake.calls).toEqual([".lq.Lobby.oauth2Check"]);
+    expect(fake.closed()).toBe(true);
+    expect(JSON.stringify(actual)).not.toContain(tokenText);
+  });
+
   test("verifies one analyzable inline record and closes without exposing it", async () => {
     const fake = responses();
     const result = await diagnoseMahjongSoulInlineRecord({

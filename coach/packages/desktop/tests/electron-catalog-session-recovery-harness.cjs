@@ -67,6 +67,7 @@ app.whenReady().then(async () => {
             if (attempt === 0) return { error: { code: 151 }, has_account: false };
             if (attempt === 1) {
               if (input.unknownMode === "transport_exception") throw new Error("private upstream prose");
+              if (input.unknownMode === "invalid_error_no_account") return { error: { code: "unknown" }, has_account: false };
               return { error: null };
             }
             return { error: null, has_account: true };
