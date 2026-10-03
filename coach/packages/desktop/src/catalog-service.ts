@@ -6,6 +6,7 @@ import {
   type MahjongSoulCatalogStore,
   type MahjongSoulLobbySession,
   type MahjongSoulSessionVault,
+  type MahjongSoulProtocolBundle,
   type StoredMahjongSoulSession,
 } from "@riichi-coach/mahjong-soul-source";
 
@@ -15,6 +16,7 @@ const INITIAL_WINDOW_SECONDS = 30 * 24 * 60 * 60;
 const MAX_WINDOWS = 8;
 
 export interface MahjongSoulCatalogServiceInput {
+  readonly bundle: MahjongSoulProtocolBundle;
   readonly vault: MahjongSoulSessionVault;
   readonly catalogStore: MahjongSoulCatalogStore;
   readonly sessionFactory: (
@@ -42,12 +44,15 @@ export function createMahjongSoulCatalogService(
   input: MahjongSoulCatalogServiceInput,
 ): MahjongSoulCatalogService {
   const vault = input.vault;
+  const bundle = input.bundle;
   const catalogStore = input.catalogStore;
   const sessionFactory = input.sessionFactory;
   const clock = input.clock;
   if (
     !isObjectLike(vault)
     || typeof vault.restore !== "function"
+    || !isObjectLike(bundle)
+    || typeof bundle.protoText !== "string"
     || !isObjectLike(catalogStore)
     || typeof catalogStore.replaceSummaries !== "function"
     || typeof catalogStore.list !== "function"
@@ -81,7 +86,7 @@ export function createMahjongSoulCatalogService(
       const entriesById = new Map<string, Awaited<ReturnType<typeof syncRecentCatalog>>["entries"][number]>();
       for (let window = 0; window < MAX_WINDOWS && endTime >= 1; window += 1) {
         const beginTime = Math.max(1, endTime - windowSeconds + 1);
-        const result = await syncRecentCatalog({ session: lobby, beginTime, endTime });
+        const result = await syncRecentCatalog({ session: lobby, bundle, beginTime, endTime });
         for (const entry of result.entries) {
           const existing = entriesById.get(entry.uuid);
           if (existing !== undefined && JSON.stringify(existing) !== JSON.stringify(entry)) {

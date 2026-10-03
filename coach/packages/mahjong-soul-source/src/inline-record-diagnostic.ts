@@ -97,7 +97,7 @@ export async function diagnoseMahjongSoulInlineRecord(input: {
     const entries = new Map<string, Awaited<ReturnType<typeof syncRecentCatalog>>["entries"][number]>();
     for (let window = 0; window < 8 && endTime >= 1 && entries.size < 30; window += 1) {
       const beginTime = Math.max(1, endTime - windowSeconds + 1);
-      const catalog = await syncRecentCatalog({ session, beginTime, endTime });
+      const catalog = await syncRecentCatalog({ session, bundle: input.bundle, beginTime, endTime });
       for (const candidate of catalog.entries) entries.set(candidate.uuid, candidate);
       if (beginTime === 1) break;
       endTime = beginTime - 1;

@@ -1,18 +1,26 @@
-import { describe, expect, it } from "vitest";
+import { beforeAll, describe, expect, it } from "vitest";
+import { fileURLToPath } from "node:url";
 import {
   MAHJONG_SOUL_CN_CLIENT_VERSION,
   MAHJONG_SOUL_PROTOCOL_ADAPTER_VERSION,
   SecretString,
+  loadMahjongSoulProtocolBundle,
   type MahjongSoulCatalogStore,
   type MahjongSoulLobbySession,
   type MahjongSoulSessionVault,
   type RawRecordListEntry,
   type StoredMahjongSoulSession,
 } from "@riichi-coach/mahjong-soul-source";
+import type { MahjongSoulProtocolBundle } from "@riichi-coach/mahjong-soul-source";
 import { createMahjongSoulCatalogService } from "../src/catalog-service.js";
 
 const firstId = "260811-00000000-0000-0000-0000-000000000001";
 const secondId = "260811-00000000-0000-0000-0000-000000000002";
+const bundleRoot = fileURLToPath(new URL("../../../vendor/mahjong-soul-protocol/", import.meta.url));
+let protocolBundle: MahjongSoulProtocolBundle;
+beforeAll(async () => {
+  protocolBundle = await loadMahjongSoulProtocolBundle(bundleRoot);
+});
 
 function rawEntry(id: string): RawRecordListEntry {
   return {
@@ -105,12 +113,16 @@ function lobbyReturning(
           record_list: entries.map((entry) => ({
             uuid: entry.uuid,
             standard_rule: entry.standard_rule,
-            config: { mode: {
-              mode: entry.game_mode,
-              ai: entry.game_mode_ai,
-              extendinfo: entry.game_mode_extendinfo,
-              detail_rule: null,
-            } },
+            config: {
+              category: 2,
+              mode: {
+                mode: entry.game_mode,
+                ai: entry.game_mode_ai,
+                extendinfo: entry.game_mode_extendinfo,
+                detail_rule: null,
+              },
+              meta: { mode_id: 6 },
+            },
           })),
         };
       }
@@ -131,6 +143,7 @@ describe("Mahjong Soul catalog service", () => {
       { ...rawEntry(secondId), version: 9 },
     ]);
     const service = createMahjongSoulCatalogService({
+      bundle: protocolBundle,
       vault: vaultReturning(storedSession),
       catalogStore: store,
       sessionFactory: async () => lobby,
@@ -143,10 +156,30 @@ describe("Mahjong Soul catalog service", () => {
     expect(closed()).toBe(true);
   });
 
+  it("passes the current list profile through catalog sync into renderer-safe summaries", async () => {
+    const store = new FakeCatalogStore();
+    const current = { ...rawEntry(firstId), version: 202408, standard_rule: 1 };
+    const { lobby } = lobbyReturning([current]);
+    const service = createMahjongSoulCatalogService({
+      bundle: protocolBundle,
+      vault: vaultReturning(storedSession),
+      catalogStore: store,
+      sessionFactory: async () => lobby,
+      clock: () => 2_000_000,
+    });
+
+    const summaries = await service.syncAnalyzableRecords();
+    expect(summaries).toHaveLength(1);
+    expect(summaries[0]).toMatchObject({ recordId: firstId, selfSeat: 2, rule: { length: "south" } });
+    expect(JSON.stringify(summaries)).not.toContain("catalog_rule_profile");
+    expect(JSON.stringify(summaries)).not.toContain("standard_rule");
+  });
+
   it("fails closed when no session is restored", async () => {
     const store = new FakeCatalogStore();
     const { lobby } = lobbyReturning([]);
     const service = createMahjongSoulCatalogService({
+      bundle: protocolBundle,
       vault: vaultReturning(null),
       catalogStore: store,
       sessionFactory: async () => lobby,
@@ -160,6 +193,7 @@ describe("Mahjong Soul catalog service", () => {
     const store = new FakeCatalogStore();
     const { lobby, closed } = lobbyReturning([], { failSync: true });
     const service = createMahjongSoulCatalogService({
+      bundle: protocolBundle,
       vault: vaultReturning(storedSession),
       catalogStore: store,
       sessionFactory: async () => lobby,
@@ -174,6 +208,7 @@ describe("Mahjong Soul catalog service", () => {
     const store = new FakeCatalogStore();
     const { lobby } = lobbyReturning([rawEntry(firstId)]);
     const service = createMahjongSoulCatalogService({
+      bundle: protocolBundle,
       vault: vaultReturning(storedSession),
       catalogStore: store,
       sessionFactory: async () => lobby,
@@ -187,6 +222,7 @@ describe("Mahjong Soul catalog service", () => {
   it("maps a session-factory failure to a fixed code", async () => {
     const store = new FakeCatalogStore();
     const service = createMahjongSoulCatalogService({
+      bundle: protocolBundle,
       vault: vaultReturning(storedSession),
       catalogStore: store,
       sessionFactory: async () => {
@@ -202,6 +238,7 @@ describe("Mahjong Soul catalog service", () => {
     const store = new FakeCatalogStore();
     const { lobby } = lobbyReturning([rawEntry(firstId)]);
     const service = createMahjongSoulCatalogService({
+      bundle: protocolBundle,
       vault: vaultReturning(storedSession),
       catalogStore: store,
       sessionFactory: async () => lobby,
@@ -218,6 +255,7 @@ describe("Mahjong Soul catalog service", () => {
     const { lobby } = lobbyReturning([rawEntry(firstId)]);
     let factoryCalls = 0;
     const service = createMahjongSoulCatalogService({
+      bundle: protocolBundle,
       vault: vaultReturning(storedSession),
       catalogStore: store,
       sessionFactory: async () => { factoryCalls += 1; return lobby; },
@@ -239,6 +277,7 @@ describe("Mahjong Soul catalog service", () => {
       releaseFactory = resolve;
     });
     const service = createMahjongSoulCatalogService({
+      bundle: protocolBundle,
       vault: vaultReturning(storedSession),
       catalogStore: store,
       sessionFactory: async () => {
@@ -263,6 +302,7 @@ describe("Mahjong Soul catalog service", () => {
     const store = new FakeCatalogStore();
     const { lobby } = lobbyReturning([rawEntry(firstId)]);
     const service = createMahjongSoulCatalogService({
+      bundle: protocolBundle,
       vault: vaultReturning(storedSession),
       catalogStore: store,
       sessionFactory: async () => lobby,
@@ -305,12 +345,13 @@ describe("Mahjong Soul catalog service", () => {
         return { record_list: ids.map((uuid) => ({
           uuid,
           standard_rule: 2,
-          config: { mode: { mode: 2, ai: false, extendinfo: "", detail_rule: null } },
+          config: { category: 2, mode: { mode: 2, ai: false, extendinfo: "", detail_rule: null }, meta: { mode_id: 6 } },
         })) };
       }
       return await originalCall(method, payload);
     };
     const service = createMahjongSoulCatalogService({
+      bundle: protocolBundle,
       vault: vaultReturning(storedSession),
       catalogStore: store,
       sessionFactory: async () => lobby,

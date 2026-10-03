@@ -26,6 +26,7 @@ import {
   mapMahjongSoulRecord,
   readSessionRestoreRejection,
   syncRecentCatalog,
+  type MahjongSoulProtocolBundle,
   type MahjongSoulLobbySession,
   type RawRecordListEntry,
 } from "@riichi-coach/mahjong-soul-source";
@@ -218,6 +219,7 @@ const DESKTOP_APP_VERSION = "0.1.0";
 
 async function syncRecentCatalogEntries(
   session: MahjongSoulLobbySession,
+  bundle: MahjongSoulProtocolBundle,
   now: number,
 ): Promise<RawRecordListEntry[]> {
   let endTime = Math.min(0xffff_ffff, Math.floor(now / 1000));
@@ -225,7 +227,7 @@ async function syncRecentCatalogEntries(
   const entries = new Map<string, RawRecordListEntry>();
   for (let window = 0; window < 8 && endTime >= 1 && entries.size < 30; window += 1) {
     const beginTime = Math.max(1, endTime - windowSeconds + 1);
-    const catalog = await syncRecentCatalog({ session, beginTime, endTime });
+    const catalog = await syncRecentCatalog({ session, bundle, beginTime, endTime });
     for (const candidate of catalog.entries) entries.set(candidate.uuid, candidate);
     if (beginTime === 1) break;
     endTime = beginTime - 1;
@@ -416,7 +418,7 @@ async function start(): Promise<void> {
         }
         return status;
       },
-      syncCatalog: syncRecentCatalogEntries,
+      syncCatalog: (lobby, now) => syncRecentCatalogEntries(lobby, bundle, now),
       fetchRecord: (lobby, stored, recordId) => fetchMahjongSoulRecord({
         session: lobby,
         bundle,
@@ -465,7 +467,7 @@ async function start(): Promise<void> {
       vault,
       createSession: createLobbySessionFactory({ bundle }),
       authenticate: authenticateStoredMahjongSoulSession,
-      syncCatalog: syncRecentCatalogEntries,
+      syncCatalog: (lobby, now) => syncRecentCatalogEntries(lobby, bundle, now),
       fetchRecord: (lobby, stored, recordId) => fetchMahjongSoulRecord({
         session: lobby,
         bundle,
@@ -541,7 +543,7 @@ async function start(): Promise<void> {
       vault,
       createSession: createLobbySessionFactory({ bundle }),
       authenticate: authenticateStoredMahjongSoulSession,
-      syncCatalog: syncRecentCatalogEntries,
+      syncCatalog: (lobby, now) => syncRecentCatalogEntries(lobby, bundle, now),
       fetchRecord: (lobby, stored, recordId) => fetchMahjongSoulRecord({
         session: lobby,
         bundle,
@@ -611,6 +613,7 @@ async function start(): Promise<void> {
     }),
   });
   const catalogService = createMahjongSoulCatalogService({
+    bundle,
     vault,
     catalogStore,
     sessionFactory: async (stored) => {
