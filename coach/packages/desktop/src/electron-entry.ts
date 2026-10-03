@@ -39,7 +39,10 @@ import {
   replayCanonicalStream,
   serializeMahjongSoulReplayAudit,
 } from "@riichi-coach/reasoning";
-import { createMahjongSoulCatalogService } from "./catalog-service.js";
+import {
+  createMahjongSoulCatalogService,
+  createMahjongSoulCatalogSessionFactory,
+} from "./catalog-service.js";
 import { createElectronSessionKeyProtector, type SafeStoragePort } from "./electron-safe-storage.js";
 import {
   registerMahjongSoulCatalogIpc,
@@ -613,15 +616,10 @@ async function start(): Promise<void> {
   const catalogService = createMahjongSoulCatalogService({
     vault,
     catalogStore,
-    sessionFactory: async (stored) => {
-      const lobby = await createLobbySessionFactory({ bundle })();
-      const restored = await authenticateStoredMahjongSoulSession(lobby, stored);
-      if (restored !== "authenticated") {
-        await lobby.close();
-        throw new MahjongSoulSourceError("mahjong_soul_catalog_sync_failed");
-      }
-      return lobby;
-    },
+    sessionFactory: createMahjongSoulCatalogSessionFactory({
+      createSession: createLobbySessionFactory({ bundle }),
+      authenticate: authenticateStoredMahjongSoulSession,
+    }),
     clock: Date.now,
   });
   const analysisStore = golden?.analysis ?? createRecordAnalysisStore({

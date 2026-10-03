@@ -50,7 +50,7 @@ export function classifyRestoreResponseError(
 ): "success" | "rejected" | "invalid" {
   const error = value.error;
   if (error === undefined || error === null) return "success";
-  if (!isRecord(error) || !Number.isInteger(error.code)) return "invalid";
+  if (!isRecord(error) || !isUint32(error.code)) return "invalid";
   return error.code === 0 ? "success" : "rejected";
 }
 

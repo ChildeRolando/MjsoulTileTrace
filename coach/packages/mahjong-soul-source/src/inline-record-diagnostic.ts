@@ -71,6 +71,7 @@ export async function diagnoseMahjongSoulInlineRecord(input: {
       access_token: credential.accessToken.reveal(),
     });
     const checkError = classifyRestoreResponseError(check);
+    if (checkError === "invalid") return result("inconclusive");
     if (checkError === "rejected" || check.has_account === false) {
       return result("oauth2_check_rejected", snapshotRestoreRejection(check, null));
     }

@@ -26,6 +26,7 @@ export async function authenticateStoredMahjongSoulSession(
       access_token: session.accessToken.reveal(),
     });
     const checkError = classifyRestoreResponseError(check);
+    if (checkError === "invalid") return "unverified";
     if (checkError === "rejected" || check.has_account === false) return "rejected";
     if (checkError !== "success" || check.has_account !== true) return "unverified";
     const login = await lobby.call(
