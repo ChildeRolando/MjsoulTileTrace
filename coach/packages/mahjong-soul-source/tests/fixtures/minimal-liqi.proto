@@ -81,7 +81,20 @@ message RecordGame {
 }
 
 message Error {
-  int32 code = 1;
+  uint32 code = 1;
+}
+
+message ReqRequestConnection {
+  uint32 type = 2;
+  string route_id = 3;
+  uint64 timestamp = 4;
+  string platform = 6;
+}
+
+message ResRequestConnection {
+  .lq.Error error = 1;
+  uint64 timestamp = 2;
+  uint32 result = 3;
 }
 
 // Field ids mirror the real vendored protocol: head = 3, data = 4.
@@ -98,4 +111,8 @@ message ReqDeleteAccount {
 message NotifyRoom {
   string room = 1;
   bytes marker = 2;
+}
+
+service Route {
+  rpc requestConnection(ReqRequestConnection) returns (ResRequestConnection);
 }

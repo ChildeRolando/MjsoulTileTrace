@@ -158,10 +158,24 @@ IPC 结果不得包含 token、Cookie、授权头、原始 RPC 帧或完整原�
 
 1. 解锁本机会话保险库；
 2. 读取令牌但不发送给渲染进程；
-3. 调用轻量账号身份接口验证会话；
-4. 成功则进入已登录状态并开始增量同步；
-5. 明确失效时只做一次受控恢复；
-6. 恢复仍失败则删除会话并要求重新登录。
+3. 从固定国区发现端点选出候选 route，并从同一候选取得已通过 manifest 校验的
+   `wss` URL 与非空 route ID；
+4. 建立新 Lobby WebSocket，先发送固定 `.lq.Route.requestConnection` 请求：
+   `type=1`、`platform=Web`、所选 route ID 和本地 Unix 毫秒时间戳；只有响应
+   `error.code=0` 且 `result=1` 后才允许发送 Lobby RPC；
+5. 调用轻量账号身份接口验证会话；
+6. 成功则进入已登录状态并开始增量同步；
+7. 明确失效时只做一次受控恢复；
+8. 恢复仍失败则删除会话并要求重新登录。
+
+Route 初始化失败、响应未知、超时或取消时必须关闭新连接并返回固定同步错误；
+服务端 route 不得扩大 manifest 的 origin/authority allowlist。route ID 与 URL 必须
+由同一候选投影，不能用规范化 URL 反查原始 route 列表。
+
+锁定的官方 `liqi.json` schema 快照不含 `ReqRequestConnection.platform`，但已观察到的
+Web 客户端握手请求包含 `platform=Web`。required-surface v4 只允许 pinned vendor
+proto 中精确的 tag 6 `string platform` 这一项增补；其他字段或 Route 请求/响应绑定
+变化仍须拒绝。
 
 网络暂时不可用不能删除仍可能有效的令牌，只进入 `offline_unverified` 状态。
 

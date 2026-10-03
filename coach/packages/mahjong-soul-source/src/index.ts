@@ -27,9 +27,11 @@ export {
   type MahjongSoulInlineRecordStatus,
 } from "./inline-record-diagnostic.js";
 export {
+  discoverMahjongSoulCnLobbyRoute,
   discoverMahjongSoulCnLobbyUrl,
   type GatewayDiscoveryFetch,
   type GatewayDiscoveryResponse,
+  type MahjongSoulCnLobbyRoute,
 } from "./gateway-discovery.js";
 export {
   createMahjongSoulLoginCapture,

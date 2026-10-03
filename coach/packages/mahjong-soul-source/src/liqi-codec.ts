@@ -12,6 +12,7 @@ const MAX_FRAME_BYTES = 4 * 1024 * 1024;
 const MAX_PENDING_REQUESTS = 4096;
 
 export const MAHJONG_SOUL_SAFE_DIRECT_CALL_METHODS = Object.freeze([
+  ".lq.Route.requestConnection",
   ".lq.Lobby.oauth2Check",
   ".lq.Lobby.oauth2Login",
   ".lq.Lobby.fetchInfo",

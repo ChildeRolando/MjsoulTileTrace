@@ -150,7 +150,8 @@ ADR-0006 保留向听、进张、打点、结构与防守事实；退出的是�
 1. Electron 打开隔离的雀魂国区官方页面。
 2. 只捕获恢复所需的受限登录结果和上下文。
 3. OS 安全后端包裹密钥；会话以 account-bound envelope 跨重启保存。
-4. 重启时使用全新 Lobby 执行 OAuth2 恢复并再次核对账号。
+4. 重启时从同一 allowlisted route 候选取得 `wss` URL 与 route ID；新 Lobby 首先
+   完成 `.lq.Route.requestConnection` 握手，再执行 OAuth2 恢复并核对账号。
 5. 注销会先停止目录同步，再清浏览器状态、目录和凭据。
 
 ### 目录与牌谱

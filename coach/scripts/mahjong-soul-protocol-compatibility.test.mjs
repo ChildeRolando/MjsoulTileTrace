@@ -16,6 +16,13 @@ syntax = "proto3";
 package lq;
 
 message Error { uint32 code = 1; }
+message ReqRequestConnection {
+  uint32 type = 2; string route_id = 3; uint64 timestamp = 4;
+  string platform = 6;
+}
+message ResRequestConnection {
+  Error error = 1; uint64 timestamp = 2; uint32 result = 3;
+}
 message Account { uint32 account_id = 1; string nickname = 2; }
 message ClientDeviceInfo {}
 message ClientVersionInfo {}
@@ -192,9 +199,13 @@ service Lobby {
   rpc loginBeat(ReqLoginBeat) returns (ResCommon);
   rpc logout(ReqLogout) returns (ResLogout);
 }
+service Route {
+  rpc requestConnection(ReqRequestConnection) returns (ResRequestConnection);
+}
 `;
 
 const ROUTES = Object.freeze({
+  ".lq.Route.requestConnection": { req: ".lq.ReqRequestConnection", resp: ".lq.ResRequestConnection" },
   ".lq.Lobby.login": { req: ".lq.ReqLogin", resp: ".lq.ResLogin" },
   ".lq.Lobby.oauth2Check": { req: ".lq.ReqOauth2Check", resp: ".lq.ResOauth2Check" },
   ".lq.Lobby.oauth2Login": { req: ".lq.ReqOauth2Login", resp: ".lq.ResLogin" },
@@ -212,7 +223,10 @@ const hash = (value) => createHash("sha256").update(value).digest("hex");
 
 function fixture() {
   const vendorProtoBytes = bytes(SURFACE_PROTO);
-  const official = protobuf.parse(SURFACE_PROTO, { keepCase: true }).root.toJSON();
+  const official = protobuf.parse(
+    SURFACE_PROTO.replace("  string platform = 6;\n", ""),
+    { keepCase: true },
+  ).root.toJSON();
   const officialSchemaBytes = bytes(JSON.stringify(official));
   const vendorRpcMapBytes = bytes(JSON.stringify(ROUTES));
   return {
@@ -242,7 +256,7 @@ registerTest("returns a frozen six-field report bound to all three byte sources"
     officialSchemaSha256: hash(input.officialSchemaBytes),
     vendorProtoSha256: hash(input.vendorProtoBytes),
     vendorRpcMapSha256: hash(input.vendorRpcMapBytes),
-    requiredSurfaceVersion: "mahjong-soul-required-surface/v3",
+    requiredSurfaceVersion: "mahjong-soul-required-surface/v4",
   });
   assert.equal(Object.isFrozen(report), true);
 });
@@ -338,6 +352,39 @@ registerTest("rejects independent official, proto, and runtime-map surface drift
       const routes = structuredClone(ROUTES);
       routes[".lq.Lobby.fetchGameRecord"].resp = ".lq.ResCommon";
       input.vendorRpcMapBytes = bytes(JSON.stringify(routes));
+    },
+    (input) => {
+      const routes = structuredClone(ROUTES);
+      delete routes[".lq.Route.requestConnection"];
+      input.vendorRpcMapBytes = bytes(JSON.stringify(routes));
+    },
+    (input) => {
+      const routes = structuredClone(ROUTES);
+      routes[".lq.Route.requestConnection"].req = ".lq.ReqCommon";
+      input.vendorRpcMapBytes = bytes(JSON.stringify(routes));
+    },
+    (input) => {
+      const routes = structuredClone(ROUTES);
+      routes[".lq.Route.requestConnection"].resp = ".lq.ResCommon";
+      input.vendorRpcMapBytes = bytes(JSON.stringify(routes));
+    },
+    (input) => {
+      input.vendorProtoBytes = bytes(SURFACE_PROTO.replace(
+        "uint32 type = 2; string route_id = 3; uint64 timestamp = 4;",
+        "uint32 type = 2; string route_id = 7; uint64 timestamp = 4;",
+      ));
+    },
+    (input) => {
+      input.vendorProtoBytes = bytes(SURFACE_PROTO.replace(
+        "string platform = 6;",
+        "uint32 platform = 6;",
+      ));
+    },
+    (input) => {
+      input.vendorProtoBytes = bytes(SURFACE_PROTO.replace(
+        "string platform = 6;",
+        "string platform = 6; string extra = 7;",
+      ));
     },
     (input) => {
       input.vendorProtoBytes = bytes(SURFACE_PROTO.replace(

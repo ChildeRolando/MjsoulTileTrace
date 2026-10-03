@@ -19,6 +19,11 @@ export type GatewayDiscoveryFetch = (
   init?: Readonly<Record<string, unknown>>,
 ) => Promise<GatewayDiscoveryResponse>;
 
+export interface MahjongSoulCnLobbyRoute {
+  readonly url: string;
+  readonly routeId: string;
+}
+
 function failed(): MahjongSoulSourceError {
   return new MahjongSoulSourceError(CATALOG_SYNC_FAILED);
 }
@@ -106,11 +111,29 @@ function exactWebSocketUrl(
   return url.href;
 }
 
-export async function discoverMahjongSoulCnLobbyUrl(input: {
+function exactRouteId(value: unknown): string | null {
+  if (!isRecord(value)) return null;
+  const routeId = value.id;
+  if (
+    typeof routeId !== "string"
+    || routeId.length < 1
+    || routeId.length > 256
+    || routeId.trim().length === 0
+    || /[\u0000-\u001f\u007f]/u.test(routeId)
+  ) {
+    return null;
+  }
+  return routeId;
+}
+
+async function discover(input: {
   readonly bundle: MahjongSoulProtocolBundle;
   readonly fetchImpl: GatewayDiscoveryFetch;
   readonly timeoutMs?: number;
-}): Promise<string> {
+}, requireRouteId: boolean): Promise<{
+  readonly url: string;
+  readonly routeId: string | null;
+}> {
   let body: ReadableStream<Uint8Array> | null = null;
   let timer: ReturnType<typeof setTimeout> | undefined;
   const controller = new AbortController();
@@ -168,7 +191,10 @@ export async function discoverMahjongSoulCnLobbyUrl(input: {
     const allowed = new Set(input.bundle.endpoints.lobbyWebSocketOrigins);
     for (const route of routes) {
       const url = exactWebSocketUrl(route, allowed);
-      if (url !== null) return url;
+      if (url === null) continue;
+      const routeId = exactRouteId(route);
+      if (requireRouteId && routeId === null) continue;
+      return { url, routeId };
     }
     throw failed();
   } catch {
@@ -176,4 +202,22 @@ export async function discoverMahjongSoulCnLobbyUrl(input: {
   } finally {
     if (timer !== undefined) clearTimeout(timer);
   }
+}
+
+export async function discoverMahjongSoulCnLobbyRoute(input: {
+  readonly bundle: MahjongSoulProtocolBundle;
+  readonly fetchImpl: GatewayDiscoveryFetch;
+  readonly timeoutMs?: number;
+}): Promise<MahjongSoulCnLobbyRoute> {
+  const selected = await discover(input, true);
+  if (selected.routeId === null) throw failed();
+  return Object.freeze({ url: selected.url, routeId: selected.routeId });
+}
+
+export async function discoverMahjongSoulCnLobbyUrl(input: {
+  readonly bundle: MahjongSoulProtocolBundle;
+  readonly fetchImpl: GatewayDiscoveryFetch;
+  readonly timeoutMs?: number;
+}): Promise<string> {
+  return (await discover(input, false)).url;
 }

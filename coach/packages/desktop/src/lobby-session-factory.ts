@@ -1,7 +1,7 @@
 import {
   MahjongSoulSourceError,
   createMahjongSoulLobbySession,
-  discoverMahjongSoulCnLobbyUrl,
+  discoverMahjongSoulCnLobbyRoute,
   type GatewayDiscoveryFetch,
   type MahjongSoulLobbySession,
   type MahjongSoulProtocolBundle,
@@ -25,6 +25,7 @@ export function createLobbySessionFactory(input: {
   readonly WebSocketImpl?: LobbyWebSocketConstructor;
   readonly connectTimeoutMs?: number;
   readonly requestTimeoutMs?: number;
+  readonly now?: () => number;
 }): LobbySessionFactory {
   const fetchImpl = input.fetchImpl
     ?? (globalThis as unknown as { fetch?: GatewayDiscoveryFetch }).fetch;
@@ -32,12 +33,12 @@ export function createLobbySessionFactory(input: {
   return async () => {
     let transport: ReturnType<typeof createWebSocketLobbyTransport> | null = null;
     try {
-      const url = await discoverMahjongSoulCnLobbyUrl({
+      const route = await discoverMahjongSoulCnLobbyRoute({
         bundle: input.bundle,
         fetchImpl,
       });
       transport = createWebSocketLobbyTransport({
-        url,
+        url: route.url,
         ...(input.WebSocketImpl === undefined
           ? {}
           : { WebSocketImpl: input.WebSocketImpl }),
@@ -45,13 +46,19 @@ export function createLobbySessionFactory(input: {
           ? {}
           : { connectTimeoutMs: input.connectTimeoutMs }),
       });
-      return createMahjongSoulLobbySession({
+      await transport.ready;
+      const timestamp = (input.now ?? Date.now)();
+      if (!Number.isSafeInteger(timestamp) || timestamp < 0) throw failed();
+      const session = createMahjongSoulLobbySession({
         bundle: input.bundle,
         transport,
+        routeBootstrap: { routeId: route.routeId, timestamp },
         ...(input.requestTimeoutMs === undefined
           ? {}
           : { requestTimeoutMs: input.requestTimeoutMs }),
       });
+      await session.ready;
+      return session;
     } catch {
       if (transport !== null) {
         try { await transport.close(); } catch { /* fixed error below */ }

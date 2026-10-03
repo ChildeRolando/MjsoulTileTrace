@@ -1,4 +1,5 @@
 {
+  ".lq.Route.requestConnection": { "req": ".lq.ReqRequestConnection", "resp": ".lq.ResRequestConnection" },
   ".lq.Lobby.login": { "req": ".lq.ReqLogin", "resp": ".lq.ResLogin" },
   ".lq.Lobby.oauth2Check": { "req": ".lq.ReqEmpty", "resp": ".lq.ResEmpty" },
   ".lq.Lobby.oauth2Login": { "req": ".lq.ReqOauth2Login", "resp": ".lq.ResLogin" },
