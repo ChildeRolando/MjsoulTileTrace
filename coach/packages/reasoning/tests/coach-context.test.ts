@@ -19,11 +19,11 @@ import {
   type ReviewSelectionResult,
   type StructuredAnalysisPackage,
 } from "@riichi-coach/contracts";
-import { buildCoachRequest, prepareCoachRequest } from "../src/coach-prompt.js";
+import { buildCoachRequest, decodeCoachReasoningDraft, prepareCoachRequest } from "../src/coach-prompt.js";
 import { canonicalJson, sha256Hex } from "../src/analysis/package-identity.js";
 import { buildGraphContextSlice } from "../src/context-graph/build-graph-context-slice.js";
 import { projectContextGraph } from "../src/context-graph/project-context-graph.js";
-import { validateReviewReport } from "../src/groundingValidator.js";
+import { validateCoachGrounding, validateReviewReport } from "../src/groundingValidator.js";
 import { assembleReviewReport } from "../src/reviewReport.js";
 import { projectKnownGameFactsV2 } from "../src/factors/known-game-facts-v2.js";
 import { buildSingleDecisionPackage, buildTwoReadyPackage } from "./fixtures/context-graph-package.js";
@@ -464,6 +464,22 @@ function wireDecision(context: ReturnType<typeof prepareCoachRequest>["context"]
   };
 }
 
+function differenceRefPair(
+  slice: GraphContextSlice,
+  context: ReturnType<typeof prepareCoachRequest>["context"],
+  sourceNode: ContextGraphNode,
+): { alias: string; canonicalId: string } {
+  const sourceDifferences = slice.nodes.filter((node) => node.nodeKind === "FactorDifference");
+  const contextDifferences = context.nodes.filter((node) => node.nodeKind === "FactorDifference");
+  const index = sourceDifferences.findIndex((node) => node.nodeId === sourceNode.nodeId);
+  const binding = contextDifferences[index];
+  if (index < 0 || binding === undefined) throw new Error("missing difference alias");
+  return {
+    alias: binding.ref,
+    canonicalId: recordOf(sourceNode.payload).differenceId as string,
+  };
+}
+
 function updateReportId(report: Record<string, unknown>): void {
   report.reportId = `review-report:${sha256Hex(canonicalJson({
     packageId: report.packageId,
@@ -886,6 +902,121 @@ describe("CoachContext compact transmission", () => {
       node.nodeKind === "CandidateAction" && node.decisionRef === currentDecisionRef);
     validAliasInference.decisions[0]!.inferences![0]!.statement = `当前行动为${currentAction!.ref}。`;
     expect(prepared.decode(validAliasInference)).toBeNull();
+  });
+
+  it.each([
+    ["number", "leftValue", 0],
+    ["boolean", "rightValue", false],
+    ["classification", "leftValue", "applicable"],
+  ] as const)("normalizes the bound %s %s wrapper to its scalar value", async (kind, side, expectedValue) => {
+    const { graph, selection, slice } = await artifacts();
+    const prepared = prepareCoachRequest(slice);
+    const differenceNode = slice.nodes.find((node) => {
+      if (node.nodeKind !== "FactorDifference") return false;
+      const value = recordOf(node.payload)[side];
+      return value !== null && typeof value === "object" && !Array.isArray(value) &&
+        recordOf(value).kind === kind && Object.is(recordOf(value).value, expectedValue);
+    });
+    expect(differenceNode).toBeDefined();
+    const { alias, canonicalId } = differenceRefPair(slice, prepared.context, differenceNode!);
+    const decisionRef = prepared.context.selectedDecisionRefs[0]!;
+    const wire = { decisions: [wireDecision(prepared.context, decisionRef)] };
+    wire.decisions[0]!.explanations[0]!.text = `该差异值为 {diff:${alias}.${side}}。`;
+    const raw = JSON.stringify(wire);
+    const draft = decodeCoachReasoningDraft(prepared, wire);
+    expect(draft).not.toBeNull();
+    expect(draft!.decisions[0]!.explanations![0]!.text)
+      .toBe(`该差异值为 {diff:${canonicalId}.${side}.value}。`);
+    expect(validateCoachGrounding(graph, draft!).violations).toEqual([]);
+
+    const report = assembleReviewReport({
+      graph,
+      selection,
+      preparedCoachRequest: prepared,
+      outcome: { kind: "generated", content: raw, transportRetries: 0 },
+      provider: { providerId: "fake", model: "fake" },
+      generatedAt: "2026-10-04T00:00:00.000Z",
+    });
+    expect(report.generationStatus).toBe("complete");
+    expect(report.audit.outputHash).toBe(`sha256:${sha256Hex(raw)}`);
+    validateReviewReport(report, graph);
+  });
+
+  it.each(["string_set", "tile_counts"] as const)(
+    "keeps compound %s and unregistered difference paths for original grounding to reject",
+    async (kind) => {
+      const { graph, slice } = await artifacts();
+      const prepared = prepareCoachRequest(slice);
+      const differenceNode = slice.nodes.find((node) => {
+        if (node.nodeKind !== "FactorDifference") return false;
+        const value = recordOf(node.payload).leftValue;
+        return value !== null && typeof value === "object" && !Array.isArray(value) &&
+          recordOf(value).kind === kind;
+      });
+      expect(differenceNode).toBeDefined();
+      const { alias } = differenceRefPair(slice, prepared.context, differenceNode!);
+      const decisionRef = prepared.context.selectedDecisionRefs[0]!;
+      const compoundWire = { decisions: [wireDecision(prepared.context, decisionRef)] };
+      compoundWire.decisions[0]!.explanations[0]!.text = `复合值 {diff:${alias}.leftValue}。`;
+      const compoundDraft = decodeCoachReasoningDraft(prepared, compoundWire);
+      expect(compoundDraft).not.toBeNull();
+      expect(compoundDraft!.decisions[0]!.explanations![0]!.text)
+        .toBe(`复合值 {diff:${recordOf(differenceNode!.payload).differenceId}.leftValue}。`);
+      expect(validateCoachGrounding(graph, compoundDraft!).violations.map((entry) => entry.code))
+        .toContain("unresolvable_placeholder");
+
+      const unregisteredWire = { decisions: [wireDecision(prepared.context, decisionRef)] };
+      unregisteredWire.decisions[0]!.explanations[0]!.text = `未知字段 {diff:${alias}.notAField}。`;
+      const unregisteredDraft = decodeCoachReasoningDraft(prepared, unregisteredWire);
+      expect(unregisteredDraft).not.toBeNull();
+      expect(unregisteredDraft!.decisions[0]!.explanations![0]!.text)
+        .toContain(`{diff:${recordOf(differenceNode!.payload).differenceId}.notAField}`);
+      expect(validateCoachGrounding(graph, unregisteredDraft!).violations.map((entry) => entry.code))
+        .toContain("unresolvable_placeholder");
+    },
+  );
+
+  it("keeps canonical difference placeholders strict and rejects cross-decision or wrong-kind aliases", async () => {
+    const { graph, slice } = await artifacts(true);
+    const prepared = prepareCoachRequest(slice);
+    const [currentDecisionRef, otherDecisionRef] = prepared.context.selectedDecisionRefs;
+    const otherDifference = prepared.context.nodes.find((node) =>
+      node.nodeKind === "FactorDifference" && node.decisionRef === otherDecisionRef)!;
+    const currentCandidate = prepared.context.nodes.find((node) =>
+      node.nodeKind === "CandidateAction" && node.decisionRef === currentDecisionRef)!;
+    const sourceNumberDifference = slice.nodes.find((node) => {
+      if (node.nodeKind !== "FactorDifference") return false;
+      const value = recordOf(node.payload).leftValue;
+      return value !== null && typeof value === "object" && !Array.isArray(value) &&
+        recordOf(value).kind === "number";
+    })!;
+    const sourceNumberRef = differenceRefPair(slice, prepared.context, sourceNumberDifference);
+
+    const canonicalWire = { decisions: [wireDecision(prepared.context, currentDecisionRef!)] };
+    canonicalWire.decisions[0]!.explanations[0]!.text =
+      `规范路径 {diff:${sourceNumberRef.canonicalId}.leftValue.value}。`;
+    const canonicalDraft = decodeCoachReasoningDraft(prepared, canonicalWire);
+    expect(canonicalDraft).not.toBeNull();
+    expect(canonicalDraft!.decisions[0]!.explanations![0]!.text)
+      .toBe(`规范路径 {diff:${sourceNumberRef.canonicalId}.leftValue.value}。`);
+    expect(validateCoachGrounding(graph, canonicalDraft!).violations).toEqual([]);
+
+    const canonicalShorthand = { decisions: [wireDecision(prepared.context, currentDecisionRef!)] };
+    canonicalShorthand.decisions[0]!.explanations[0]!.text =
+      `不得缩短规范路径 {diff:${sourceNumberRef.canonicalId}.leftValue}。`;
+    const strictDraft = decodeCoachReasoningDraft(prepared, canonicalShorthand);
+    expect(strictDraft).not.toBeNull();
+    expect(validateCoachGrounding(graph, strictDraft!).violations.map((entry) => entry.code))
+      .toContain("unresolvable_placeholder");
+
+    const foreignWire = { decisions: [wireDecision(prepared.context, currentDecisionRef!)] };
+    foreignWire.decisions[0]!.explanations[0]!.text = `越界 {diff:${otherDifference.ref}.leftValue}。`;
+    expect(decodeCoachReasoningDraft(prepared, foreignWire)).toBeNull();
+
+    const wrongKindWire = { decisions: [wireDecision(prepared.context, currentDecisionRef!)] };
+    wrongKindWire.decisions[0]!.explanations[0]!.text =
+      `类型错误 {diff:${currentCandidate.ref}.leftValue}。`;
+    expect(decodeCoachReasoningDraft(prepared, wrongKindWire)).toBeNull();
   });
 
   it("keeps aliases isolated across concurrent requests and keeps same-action decisions scoped", async () => {

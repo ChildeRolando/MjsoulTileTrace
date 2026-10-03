@@ -575,6 +575,9 @@ GraphContextSlice 携带 Decision.automaticComparisonScope；模型可以看到�
   解说正文内若包含当前决策的动作短引用，通用解码器将其转换为既有动作占位符，
   由原展示层格式化为可读动作名称；未知、跨决策或其他类型的正文短引用拒绝。
   推断正文不经过解说占位符展示链，因此拒绝其中的短引用，不向用户展示内部别名。
+  wire 的差异侧值简写 leftValue/rightValue 仅在当前决策的已绑定差异、严格通过
+  FactorValueSchema 且属于 number/boolean/classification 单标量时，映射到对应 .value
+  叶子。列表、复合结果与未知值不推测字段；canonical grounding 仍只接受真实标量叶子。
   为兼容既有 typed draft 调用方，解码器也接受当前请求、当前决策的同类型 canonical
   身份；这不增加上下文暴露，也不允许未绑定身份、跨决策引用或跳过 grounding。
 - 编码和还原均不属于 Codex 或 HTTP adapter；两类 provider 消费同一请求契约。

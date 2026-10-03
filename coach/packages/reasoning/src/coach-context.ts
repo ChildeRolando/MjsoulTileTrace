@@ -4,6 +4,7 @@ import {
   COACH_CONTEXT_PAYLOAD_ALLOWLIST,
   CoachContextSchema,
   CoachFactSourceSchema,
+  FactorValueSchema,
   type CoachContext,
   type CoachContextEvent,
   type CoachContextNode,
@@ -25,9 +26,12 @@ interface ScopedBindings {
   readonly actionByAlias: ReadonlyMap<string, string>;
   readonly differenceByCanonicalId: ReadonlyMap<string, string>;
   readonly differenceByAlias: ReadonlyMap<string, string>;
+  readonly scalarDifferenceFieldsByAlias: ReadonlyMap<string, ReadonlySet<DifferenceValueField>>;
   readonly meldByCanonicalId: ReadonlyMap<string, string>;
   readonly meldByAlias: ReadonlyMap<string, string>;
 }
+
+type DifferenceValueField = "leftValue" | "rightValue";
 
 export interface CoachContextBindings {
   readonly context: CoachContext;
@@ -304,6 +308,7 @@ function createNodeBindings(slice: GraphContextSlice, owners: ReadonlyMap<string
     actionByAlias: Map<string, string>;
     differenceByCanonicalId: Map<string, string>;
     differenceByAlias: Map<string, string>;
+    scalarDifferenceFieldsByAlias: Map<string, Set<DifferenceValueField>>;
     meldByCanonicalId: Map<string, string>;
     meldByAlias: Map<string, string>;
   }>();
@@ -317,6 +322,7 @@ function createNodeBindings(slice: GraphContextSlice, owners: ReadonlyMap<string
         nodeByCanonicalId: new Map(), nodeByAlias: new Map(),
         actionByCanonicalId: new Map(), actionByAlias: new Map(),
         differenceByCanonicalId: new Map(), differenceByAlias: new Map(),
+        scalarDifferenceFieldsByAlias: new Map(),
         meldByCanonicalId: new Map(), meldByAlias: new Map(),
       };
       perDecision.set(owner, tables);
@@ -341,6 +347,19 @@ function createNodeBindings(slice: GraphContextSlice, owners: ReadonlyMap<string
       if (typeof differenceId !== "string") throw new Error("coach_context_difference_id_missing");
       tables.differenceByCanonicalId.set(differenceId, alias);
       tables.differenceByAlias.set(alias, differenceId);
+      const payload = node.payload as Record<string, unknown>;
+      const scalarFields = new Set<DifferenceValueField>();
+      for (const field of ["leftValue", "rightValue"] as const) {
+        const parsed = FactorValueSchema.safeParse(payload[field]);
+        if (!parsed.success) continue;
+        const factorValue = parsed.data;
+        if ((factorValue.kind === "number" && typeof factorValue.value === "number") ||
+            (factorValue.kind === "boolean" && typeof factorValue.value === "boolean") ||
+            (factorValue.kind === "classification" && typeof factorValue.value === "string")) {
+          scalarFields.add(field);
+        }
+      }
+      tables.scalarDifferenceFieldsByAlias.set(alias, scalarFields);
     }
   }
 
@@ -671,7 +690,11 @@ function decodeWireDraft(
         if (kind === "diff") {
           const canonical = aliasOrTypedCanonical(identity, "F", scoped.differenceByCanonicalId, scoped.differenceByAlias);
           if (canonical === null) { valid = false; return token; }
-          return `{diff:${canonical}.${field}}`;
+          const scalarField = (field === "leftValue" || field === "rightValue") &&
+            scoped.scalarDifferenceFieldsByAlias.get(identity)?.has(field) === true
+            ? `${field}.value`
+            : field;
+          return `{diff:${canonical}.${scalarField}}`;
         }
         const canonical = aliasOrTypedCanonical(identity, "A", scoped.actionByCanonicalId, scoped.actionByAlias);
         if (canonical === null) { valid = false; return token; }
