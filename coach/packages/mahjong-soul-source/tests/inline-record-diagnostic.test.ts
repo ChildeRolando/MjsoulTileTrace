@@ -62,7 +62,11 @@ function responses(record: Readonly<Record<string, unknown>> = {
     }] },
     { error: null, record_list: [{
       uuid: recordId, standard_rule: 2,
-      config: { mode: { mode: 2, ai: false, extendinfo: "", detail_rule: null } },
+      config: {
+        category: 2,
+        mode: { mode: 2, ai: false, extendinfo: "", detail_rule: null },
+        meta: { mode_id: 6 },
+      },
     }] },
     record,
   ];

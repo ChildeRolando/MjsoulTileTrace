@@ -58,10 +58,15 @@ describe("analyzable Mahjong Soul record filter", () => {
   it("rejects an unsupported record version", () => {
     expect(filterAnalyzableRecord({ ...validEntry, version: 9 }, 103, now))
       .toEqual({ status: "not_analyzable", reason: "unsupported_record_version" });
+    expect(filterAnalyzableRecord({ ...validEntry, version: 202408 }, 103, now))
+      .toEqual({ status: "not_analyzable", reason: "unsupported_record_version" });
   });
 
   it("rejects a non-standard rule flag", () => {
     expect(filterAnalyzableRecord({ ...validEntry, standard_rule: 1 }, 103, now))
+      .toEqual({ status: "not_analyzable", reason: "unsupported_standard_rule" });
+    expect(filterAnalyzableRecord({ ...validEntry, standard_rule: 3,
+      catalog_rule_profile: "unsupported", game_mode_detail_rule_override: false }, 103, now))
       .toEqual({ status: "not_analyzable", reason: "unsupported_standard_rule" });
   });
 
