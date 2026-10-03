@@ -146,6 +146,28 @@ describe("self-contained sandboxed preload", () => {
     }
   });
 
+  it("extracts one exact fixed code from Electron's invoke rejection envelope", async () => {
+    const catalog = exposed.get("riichiCoachCatalog") as {
+      syncAnalyzableRecords(): Promise<unknown>;
+    };
+    const channel = "mahjong-soul:sync-analyzable-records";
+    invoke.mockImplementationOnce(() => {
+      throw new Error(`Error invoking remote method '${channel}': Error: mahjong_soul_session_invalid`);
+    });
+    await expect(catalog.syncAnalyzableRecords()).rejects.toThrow("mahjong_soul_session_invalid");
+
+    for (const message of [
+      `Error invoking remote method '${channel}': Error: backend says mahjong_soul_session_invalid`,
+      `Error invoking remote method 'mahjong-soul:list-analyzable-records': Error: mahjong_soul_session_invalid`,
+      `Error invoking remote method '${channel}': Error: mahjong_soul_session_invalid-extra`,
+      "Error invoking remote method 'mahjong-soul:sync-analyzable-records': accessToken=secret",
+    ]) {
+      invoke.mockImplementationOnce(() => { throw new Error(message); });
+      await expect(catalog.syncAnalyzableRecords())
+        .rejects.toThrow("mahjong_soul_login_protocol_unsupported");
+    }
+  });
+
   it("accepts only the fixed safe paipu import result shape", () => {
     const ready = {
       status: "analysis_ready",

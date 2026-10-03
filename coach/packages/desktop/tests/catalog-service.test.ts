@@ -9,7 +9,10 @@ import {
   type RawRecordListEntry,
   type StoredMahjongSoulSession,
 } from "@riichi-coach/mahjong-soul-source";
-import { createMahjongSoulCatalogService } from "../src/catalog-service.js";
+import {
+  createMahjongSoulCatalogService,
+  createMahjongSoulCatalogSessionFactory,
+} from "../src/catalog-service.js";
 
 const firstId = "260811-00000000-0000-0000-0000-000000000001";
 const secondId = "260811-00000000-0000-0000-0000-000000000002";
@@ -124,6 +127,43 @@ function lobbyReturning(
 }
 
 describe("Mahjong Soul catalog service", () => {
+  it("keeps explicit auth rejection distinct from unverified restoration and ignores close errors", async () => {
+    let closeCalls = 0;
+    const lobby = {
+      async authenticate() {},
+      async call() { return {}; },
+      async close() { closeCalls += 1; throw new Error("private close failure"); },
+    } as unknown as MahjongSoulLobbySession;
+
+    for (const [status, expected] of [
+      ["rejected", "mahjong_soul_session_invalid"],
+      ["unverified", "mahjong_soul_catalog_sync_failed"],
+    ] as const) {
+      closeCalls = 0;
+      const sessionFactory = createMahjongSoulCatalogSessionFactory({
+        createSession: async () => lobby,
+        authenticate: async () => status,
+      });
+      await expect(sessionFactory(storedSession)).rejects.toThrow(expected);
+      expect(closeCalls).toBe(1);
+    }
+
+    const authenticationFailure = createMahjongSoulCatalogSessionFactory({
+      createSession: async () => lobby,
+      authenticate: async () => { throw new Error("private transport diagnostic"); },
+    });
+    closeCalls = 0;
+    await expect(authenticationFailure(storedSession))
+      .rejects.toThrow("mahjong_soul_catalog_sync_failed");
+    expect(closeCalls).toBe(1);
+
+    const authenticated = createMahjongSoulCatalogSessionFactory({
+      createSession: async () => lobby,
+      authenticate: async () => "authenticated",
+    });
+    await expect(authenticated(storedSession)).resolves.toBe(lobby);
+  });
+
   it("syncs, filters, and merges analyzable entries only", async () => {
     const store = new FakeCatalogStore();
     const { lobby, closed } = lobbyReturning([

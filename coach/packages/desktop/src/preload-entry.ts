@@ -64,9 +64,18 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return value !== null && typeof value === "object" && !Array.isArray(value);
 }
 
-function fixedError(error: unknown): Error {
-  if (error instanceof Error && ERROR_CODES.has(error.message)) {
-    return new Error(error.message);
+function fixedError(error: unknown, channel?: string): Error {
+  if (!(error instanceof Error)) return new Error(PROTOCOL_ERROR);
+  if (ERROR_CODES.has(error.message)) return new Error(error.message);
+  if (
+    channel !== undefined
+    && Object.values(PRELOAD_CHANNELS).includes(channel as typeof PRELOAD_CHANNELS[keyof typeof PRELOAD_CHANNELS])
+  ) {
+    const prefix = `Error invoking remote method '${channel}': Error: `;
+    if (error.message.startsWith(prefix)) {
+      const code = error.message.slice(prefix.length);
+      if (ERROR_CODES.has(code)) return new Error(code);
+    }
   }
   return new Error(PROTOCOL_ERROR);
 }
@@ -166,7 +175,7 @@ async function invokeSession(channel: string): Promise<unknown> {
   try {
     return assertSafeSessionStatus(await ipcRenderer.invoke(channel));
   } catch (error) {
-    throw fixedError(error);
+    throw fixedError(error, channel);
   }
 }
 
@@ -174,7 +183,7 @@ async function invokeCatalog(channel: string): Promise<unknown> {
   try {
     return assertSafeSummaries(await ipcRenderer.invoke(channel));
   } catch (error) {
-    throw fixedError(error);
+    throw fixedError(error, channel);
   }
 }
 
@@ -225,7 +234,7 @@ contextBridge.exposeInMainWorld("riichiCoachPaipu", Object.freeze({
         await ipcRenderer.invoke(PRELOAD_CHANNELS.importPaipuUrl, input),
       );
     } catch (error) {
-      throw fixedError(error);
+      throw fixedError(error, PRELOAD_CHANNELS.importPaipuUrl);
     }
   },
 }));
