@@ -84,6 +84,7 @@ function normalizedConfigTypes(bundle: MahjongSoulProtocolBundle): {
   readonly detailRule: Type;
 } {
   const root = parseProtobuf(bundle.protoText, { keepCase: true }).root;
+  root.resolveAll();
   return { config: root.lookupType("lq.GameConfig"), detailRule: root.lookupType("lq.GameDetailRule") };
 }
 

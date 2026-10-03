@@ -85,7 +85,7 @@ class ProtocolSocket extends FakeSocket {
 
     const responseType = root.lookupType(route.resp);
     const responsePayload = wrapper.name === ".lq.Route.requestConnection"
-      ? { error: { code: 0 }, result: 1 }
+      ? { result: 1 }
       : { error: { code: 0 }, account_id: "1" };
     const responseData = responseType.encode(
       responseType.fromObject(responsePayload),

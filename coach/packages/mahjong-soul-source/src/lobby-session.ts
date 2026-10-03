@@ -6,6 +6,7 @@ import {
 } from "./liqi-codec.js";
 import type { MahjongSoulProtocolBundle } from "./protocol-bundle.js";
 import { SecretString } from "./secret-string.js";
+import { classifyRestoreResponseError } from "./restore-diagnostic.js";
 
 const CATALOG_SYNC_FAILED = "mahjong_soul_catalog_sync_failed" as const;
 const SESSION_INVALID = "mahjong_soul_session_invalid" as const;
@@ -277,8 +278,7 @@ export function createMahjongSoulLobbySession(input: {
         platform: "Web",
       }, true);
       if (
-        !isRecord(response.error)
-        || response.error.code !== 0
+        classifyRestoreResponseError(response) !== "success"
         || response.result !== 1
       ) {
         throw catalogFailed();

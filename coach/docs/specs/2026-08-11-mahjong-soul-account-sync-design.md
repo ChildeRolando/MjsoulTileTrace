@@ -162,7 +162,7 @@ IPC 结果不得包含 token、Cookie、授权头、原始 RPC 帧或完整原�
    `wss` URL 与非空 route ID；
 4. 建立新 Lobby WebSocket，先发送固定 `.lq.Route.requestConnection` 请求：
    `type=1`、`platform=Web`、所选 route ID 和本地 Unix 毫秒时间戳；只有响应
-   `error.code=0` 且 `result=1` 后才允许发送 Lobby RPC；
+   无错误（省略错误对象，或 `error.code=0`）且 `result=1` 后才允许发送 Lobby RPC；
 5. 调用轻量账号身份接口验证会话；
 6. 成功则进入已登录状态并开始增量同步；
 7. 明确失效时只做一次受控恢复；

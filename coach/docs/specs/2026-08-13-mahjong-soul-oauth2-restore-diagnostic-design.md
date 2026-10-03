@@ -49,7 +49,7 @@ WebSocket 上按官方客户端的自动登录序列重新建立已认证会话�
    中已有的 `wss` URL 与非空 route ID；
 4. 诊断器建立全新 Lobby 连接，先发送 `.lq.Route.requestConnection`，字段固定为
    `type=1`、`platform=Web`、候选 route ID 和本地 Unix 毫秒时间戳；要求响应
-   `error.code=0` 且 `result=1`；
+   无错误（省略错误对象，或 `error.code=0`）且 `result=1`；
 5. 发送 `oauth2Check {type, access_token}`，要求无错误且账号存在；
 6. 发送与固定客户端版本匹配的 `oauth2Login`，要求无错误且 `account_id` 与捕获值
    相同；

@@ -105,7 +105,7 @@ const token = SecretString.from("super-secret-token");
 
 describe("restricted Mahjong Soul lobby session", () => {
 
-  it("waits for the exact route bootstrap before sending a Lobby call", async () => {
+  it.each([null, { code: 0 }])("waits for a successful route bootstrap before sending a Lobby call: %j", async (error) => {
     const transport = new FakeTransport();
     const timestamp = 1_791_000_040_373;
     const session = createMahjongSoulLobbySession({
@@ -128,7 +128,7 @@ describe("restricted Mahjong Soul lobby session", () => {
     });
 
     transport.deliver(responseFrame(1, ".lq.ResRequestConnection", {
-      error: { code: 0 },
+      error,
       result: 1,
     }));
     await expect(session.ready).resolves.toBeUndefined();
@@ -146,7 +146,6 @@ describe("restricted Mahjong Soul lobby session", () => {
     { error: { code: 9 }, result: 1 },
     { error: { code: 0 }, result: 0 },
     { error: { code: 0 }, result: 2 },
-    { error: null, result: 1 },
   ])("closes with a fixed error for a rejected route handshake %#", async (payload) => {
     const transport = new FakeTransport();
     const session = createMahjongSoulLobbySession({
