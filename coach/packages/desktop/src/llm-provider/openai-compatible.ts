@@ -1,9 +1,10 @@
 import {
-  CoachProviderConfigSchema, LlmCoachRequestSchema, LlmTokenUsageSchema,
+  OpenAiCoachProviderConfigSchema, LlmCoachRequestSchema,
   type CoachProviderConfig, type LlmCoachProvider, type LlmCoachResult, type LlmCoachErrorCode, type LlmCoachRequest,
 } from "@riichi-coach/contracts";
 import type { ProviderCredentials } from "./credentials.js";
 import { redactCoachOutput } from "./redacted-output.js";
+import { normalizeTokenUsage } from "./token-usage.js";
 
 function transportError(error: unknown, timedOut: boolean): LlmCoachErrorCode {
   if (timedOut) return "timeout";
@@ -33,7 +34,7 @@ export function createOpenAiCoachProvider(input: {
   fetchImpl: typeof fetch;
   timeoutMs?: number;
 }): LlmCoachProvider {
-  const parsed = CoachProviderConfigSchema.safeParse(input.settings);
+  const parsed = OpenAiCoachProviderConfigSchema.safeParse(input.settings);
   const settings = parsed.success ? parsed.data : null;
   return Object.freeze({
     descriptor: () => ({ providerId: "openai-compatible", model: settings?.modelName ?? "unconfigured" }),
@@ -83,10 +84,13 @@ export function createOpenAiCoachProvider(input: {
             // never discard valid content or be classified as a transport error.
             if (usage === null || typeof usage !== "object" || Array.isArray(usage)) return { content, transportRetries };
             const fields = usage as Record<string, unknown>;
-            const tokens = LlmTokenUsageSchema.safeParse({
+            const details = fields.prompt_tokens_details;
+            const tokens = normalizeTokenUsage({
               inputTokens: fields.prompt_tokens, outputTokens: fields.completion_tokens, totalTokens: fields.total_tokens,
+              ...(details !== null && typeof details === "object" && !Array.isArray(details)
+                ? { cachedInputTokens: (details as Record<string, unknown>).cached_tokens } : {}),
             });
-            return tokens.success ? { content, usage: tokens.data, transportRetries } : { content, transportRetries };
+            return tokens === undefined ? { content, transportRetries } : { content, usage: tokens, transportRetries };
           } catch (error) { return { errorCode: transportError(error, timedOut), transportRetries }; }
         };
         try { return await Promise.race([send(), timeout]); }

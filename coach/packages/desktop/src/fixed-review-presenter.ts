@@ -466,6 +466,13 @@ export function presentFixedReviewSnapshotFromContext(
     selection: { policyVersion: context.selection.policyVersion, selectedCount: items.length, items },
     activeReportRefId,
     activeReportStatus: report?.generationStatus ?? "not_generated",
+    coachUsage: report?.audit.usage ?? null,
+    coachProvider: report === null ? null : {
+      providerId: report.generation.providerId,
+      model: report.generation.model,
+      ...(report.generation.reasoningEffort === undefined ? {} : { reasoningEffort: report.generation.reasoningEffort }),
+      ...(report.generation.samplingMode === undefined ? {} : { samplingMode: report.generation.samplingMode }),
+    },
     explanationCounts,
   }));
 }

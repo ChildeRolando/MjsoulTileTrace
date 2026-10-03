@@ -6,6 +6,7 @@ import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import { ModuleKind, ScriptTarget, transpileModule } from "typescript";
+import { createIdleRecordAnalysisSnapshot } from "../src/catalog-api.js";
 
 const html = readFileSync(new URL("../src/renderer/index.html", import.meta.url), "utf8");
 const harness = fileURLToPath(new URL("./electron-focus-harness.cjs", import.meta.url));
@@ -78,6 +79,7 @@ async function runScenario(scenario: Scenario): Promise<Record<string, unknown>>
         return kind === "record" ? [record] : [];
       };
       window.riichiCoachCatalog = {
+        getRecordAnalysisProgress: async () => (${JSON.stringify(createIdleRecordAnalysisSnapshot())}),
         listAnalyzableRecords: () => catalogResult(scenario.list, "list"),
         syncAnalyzableRecords: () => catalogResult(scenario.sync, "sync"),
         startRecordAnalysis: async () => { calls.analyze++; if (scenario.analysisFails) throw new Error("private model failure"); return { status: "review_ready", sessionId: "session-1", packageId: "package-1" }; },
@@ -104,6 +106,7 @@ async function runScenario(scenario: Scenario): Promise<Record<string, unknown>>
       });
       window.riichiCoachPaipu = { importPaipu: async () => { calls.paipuImport++; return scenario.paipuResult ?? { status: "analysis_failed" }; } };
       window.riichiCoachProvider = {
+        status: async () => ({ configured: true, settings: null }),
         listReviewSessions: async () => {
           calls.listReviewSessions++;
           if (scenario.failSessionListRefreshOnce && calls.listReviewSessions === 2) {

@@ -65,6 +65,51 @@ describe("main-process OpenAI-compatible provider and narrow generation seam", (
     expect(report.audit.usage).toBeUndefined();
     expect(http).toHaveBeenCalledTimes(1);
   });
+  it("retains provider cached-input usage without counting it again in the total", async () => {
+    const http = vi.fn<typeof fetch>(async () => new Response(JSON.stringify({
+      choices: [{ message: { content: JSON.stringify(draft()) } }],
+      usage: { prompt_tokens: 12, completion_tokens: 8, total_tokens: 20, prompt_tokens_details: { cached_tokens: 9, secret: KEY } },
+    })));
+    const report = await generateReviewReport(graph, selection, provider(http), now);
+    expect(report.audit.usage).toEqual({ inputTokens: 12, outputTokens: 8, totalTokens: 20, cachedInputTokens: 9 });
+    expect(report.generationStatus).toBe("complete");
+    expect(JSON.stringify(report)).not.toContain(KEY);
+    expect(http).toHaveBeenCalledTimes(1);
+  });
+  it("keeps valid counters when a provider reports malformed optional cached usage", async () => {
+    const http = vi.fn<typeof fetch>(async () => new Response(JSON.stringify({
+      choices: [{ message: { content: JSON.stringify(draft()) } }],
+      usage: { prompt_tokens: 12, completion_tokens: 8, total_tokens: 20, prompt_tokens_details: { cached_tokens: 100 } },
+    })));
+    const report = await generateReviewReport(graph, selection, provider(http), now);
+    expect(report.audit.usage).toEqual({ inputTokens: 12, outputTokens: 8, totalTokens: 20 });
+    expect(report.generationStatus).toBe("complete");
+    expect(http).toHaveBeenCalledTimes(1);
+  });
+  it("does not consume the first generation before the configured service is ready", async () => {
+    let availableKey: string | null = null;
+    const http = vi.fn<typeof fetch>(async () => response());
+    const service = createCoachService({ credentials: { readKey: async () => availableKey, importCredential: async () => undefined, clear: async () => undefined }, fetchImpl: http, readPackage: async () => pkg, clock: () => now });
+    await service.configure(settings);
+    expect(await service.generateReview(pkg.packageId, "not-ready")).toEqual({ status: "failed", code: "generation_failed" });
+    expect((await service.openReview(pkg.packageId)).activeReportRefId).toBeNull();
+    expect(http).not.toHaveBeenCalled();
+    availableKey = KEY;
+    expect((await service.generateReview(pkg.packageId, "ready")).status).toBe("ready");
+    expect((await service.openReview(pkg.packageId)).coachUsage).toEqual({ inputTokens: 12, outputTokens: 8, totalTokens: 20 });
+    expect(http).toHaveBeenCalledTimes(1);
+  });
+  it("checks Codex login without reading a BYOK credential or requesting a model", async () => {
+    const readKey = vi.fn(async () => KEY);
+    const http = vi.fn<typeof fetch>();
+    const codexAvailable = vi.fn(async () => false);
+    const settings = { providerId: "codex-cli" as const, modelName: "gpt-6-luna" as const, reasoningEffort: "max" as const };
+    const service = createCoachService({ initialSettings: settings, codexAvailable, credentials: { readKey, importCredential: async () => undefined, clear: async () => undefined }, fetchImpl: http, readPackage: async () => pkg });
+    expect(await service.status()).toEqual({ configured: false, settings });
+    expect(await service.generateReview(pkg.packageId, "codex-unavailable")).toEqual({ status: "failed", code: "generation_failed" });
+    expect((await service.openReview(pkg.packageId)).activeReportRefId).toBeNull();
+    expect(readKey).not.toHaveBeenCalled(); expect(http).not.toHaveBeenCalled();
+  });
   it.each([
     [429, "rate_limited"], [500, "server_error"], [503, "server_error"], [401, "connection_failed"],
   ] as const)("maps HTTP %s and retries exactly once", async (status, code) => {

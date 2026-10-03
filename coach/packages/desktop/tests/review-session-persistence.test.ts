@@ -13,6 +13,7 @@ import {
 } from "../src/review-session-repository.js";
 import { createPrivilegedRawCache, rawCacheKey, type RawCacheIdentity } from "../src/privileged-raw-cache.js";
 import { createFixedReviewController } from "../src/fixed-review-controller.js";
+import { presentFixedReviewSnapshot } from "../src/fixed-review-presenter.js";
 
 const roots: string[] = [];
 afterEach(() => { for (const root of roots.splice(0)) rmSync(root, { recursive: true, force: true }); });
@@ -50,7 +51,7 @@ const candidate = decisionNodes.find((node) => node.nodeKind === "CandidateActio
 const premise = decisionNodes.find((node) => node.nodeKind === "KnownGameFact")!;
 const difference = decisionNodes.find((node) => node.nodeKind === "FactorDifference" && typeof (node.payload as { leftValue?: { value?: unknown } }).leftValue?.value === "number")!;
 const completeReport = await generateReviewReport(graph, selection, {
-  descriptor: () => ({ providerId: "stub", model: "stub" }),
+  descriptor: () => ({ providerId: "codex-cli", model: "gpt-6-luna", reasoningEffort: "max" as const, samplingMode: "provider_default" as const }),
   complete: async () => ({
     content: JSON.stringify({ decisions: [{
       decisionId: selectedDecisionId,
@@ -58,6 +59,7 @@ const completeReport = await generateReviewReport(graph, selection, {
       explanations: [{ text: `牌效值 {diff:${(difference.payload as { differenceId: string }).differenceId}.leftValue.value}`, claims: [{ kind: "factor_difference", evidenceRef: difference.nodeId }], judgmentLocalRef: "judgment-0" }],
     }] }),
     transportRetries: 0 as const,
+    usage: { inputTokens: 1200, cachedInputTokens: 300, outputTokens: 80, totalTokens: 1280 },
   }),
 }, "2026-09-23T00:00:00.000Z");
 
@@ -240,6 +242,12 @@ describe("ReviewSession SQLite persistence", () => {
     expect(state.selection).toEqual(selection);
     expect(state.activeReport).toEqual(completeReport);
     expect(state.activeReport?.generationStatus).toBe("complete");
+    const snapshot = presentFixedReviewSnapshot({ analysisPackage: state.analysisPackage, selection: state.selection, activeReport: state.activeReport, activeReportRefId: state.activeReportRefId });
+    expect(snapshot.coachUsage).toEqual({ inputTokens: 1200, cachedInputTokens: 300, outputTokens: 80, totalTokens: 1280 });
+    expect(snapshot.coachProvider).toEqual({ providerId: "codex-cli", model: "gpt-6-luna", reasoningEffort: "max", samplingMode: "provider_default" });
+    const withoutUsage = presentFixedReviewSnapshot({ analysisPackage: pkg, selection, activeReport: report, activeReportRefId: "other" });
+    expect(withoutUsage.coachUsage).toBeNull();
+    expect(presentFixedReviewSnapshot({ analysisPackage: pkg, selection }).coachProvider).toBeNull();
     expect(state.activeReport?.decisionEntries[0]).toMatchObject({ explanationStatus: "ready" });
     expect(state.activeReport?.reasoningOverlay.nodes.map((node) => node.nodeKind)).toEqual(
       expect.arrayContaining(["CoachJudgment", "Explanation"]),

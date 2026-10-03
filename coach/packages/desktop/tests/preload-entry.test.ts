@@ -31,7 +31,15 @@ describe("self-contained sandboxed preload", () => {
     const catalog = exposed.get("riichiCoachCatalog") as {
       getRecordAnalysisProgress(): Promise<unknown>; startRecordAnalysis(id: string): Promise<unknown>;
     };
-    const progress = { stage: "scoring", completed: 2, total: 5 };
+    const progress = {
+      stage: "scoring", completed: 2, total: 5, elapsedMs: 3000,
+      estimatedTotalMs: 8000, remainingMs: 5000, estimateSource: "history",
+      steps: ["fetching", "replaying", "rules", "scoring", "facts", "packaging", "saving"].map((stage, index) => ({
+        stage, status: index < 3 ? "complete" : index === 3 ? "running" : "waiting",
+        completed: index === 3 ? 2 : 0, total: index === 3 ? 5 : null,
+        elapsedMs: index === 3 ? 3000 : 0,
+      })),
+    };
     invoke.mockResolvedValueOnce(progress);
     await expect(catalog.getRecordAnalysisProgress()).resolves.toEqual(progress);
     expect(invoke).toHaveBeenLastCalledWith(MAHJONG_SOUL_CATALOG_IPC_CHANNELS.getRecordAnalysisProgress);

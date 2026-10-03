@@ -5,6 +5,7 @@ import {
 import type { MahjongSoulSessionController } from "@riichi-coach/mahjong-soul-source";
 import { parseMahjongSoulSessionStatus } from "./session-api.js";
 import { parseAnalyzableRecordSummaries, parseAccountReviewResult, SourceCacheClearResultSchema, RecordAnalysisProgressSchema, type RecordAnalysisProgress, type AccountReviewResult } from "./catalog-api.js";
+import { createRecordAnalysisProgressTracker } from "./record-analysis-progress.js";
 import {
   PAIPU_SHARE_URL_MAX_LENGTH,
   parsePaipuImportResult,
@@ -127,6 +128,7 @@ export function registerMahjongSoulCatalogIpc(input: {
     clearSourceCache: () => Readonly<{ clearedEntries: number; pendingMaterials: number }>;
   }>;
   readonly trustedSenderId: number;
+  readonly progressTracker?: ReturnType<typeof createRecordAnalysisProgressTracker>;
 }): Readonly<{ dispose(): void }> {
   const { ipcMain, service, trustedSenderId } = input;
   const syncAnalyzableRecords = service?.syncAnalyzableRecords;
@@ -180,15 +182,17 @@ export function registerMahjongSoulCatalogIpc(input: {
     operations.listAnalyzableRecords,
   );
   let analysisPending = false;
+  const progressTracker = input.progressTracker ?? createRecordAnalysisProgressTracker();
   let progress: RecordAnalysisProgress = { stage: "idle", completed: 0, total: null };
   ipcMain.handle(MAHJONG_SOUL_CATALOG_IPC_CHANNELS.getRecordAnalysisProgress, async (event, ...args) => {
     if (senderId(event) !== trustedSenderId || args.length !== 0) throw fixedError();
-    return Object.freeze(RecordAnalysisProgressSchema.parse(progress));
+    return Object.freeze(progressTracker.snapshot());
   });
   ipcMain.handle(MAHJONG_SOUL_CATALOG_IPC_CHANNELS.startRecordAnalysis, async (event, ...args) => {
     // Reject competing jobs before touching the active job's state.
     if (senderId(event) !== trustedSenderId || args.length !== 1 || typeof args[0] !== "string" || analysisPending) throw fixedError();
     analysisPending = true;
+    progressTracker.start();
     progress = { stage: "fetching", completed: 0, total: null };
     const startedAt = Date.now();
     let phaseStartedAt = startedAt;
@@ -196,6 +200,7 @@ export function registerMahjongSoulCatalogIpc(input: {
     const updateProgress = (update: RecordAnalysisProgress): void => {
       if (!active) return;
       const next = RecordAnalysisProgressSchema.parse(update);
+      progressTracker.update(next);
       if (next.stage !== progress.stage) {
         console.info(JSON.stringify({ event: "record_analysis_phase", stage: progress.stage,
           elapsedMs: Date.now() - phaseStartedAt, completed: progress.completed, total: progress.total }));

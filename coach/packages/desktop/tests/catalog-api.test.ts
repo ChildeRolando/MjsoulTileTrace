@@ -3,6 +3,8 @@ import type { AnalyzableRecordSummary } from "@riichi-coach/contracts";
 import {
   MahjongSoulCatalogApiSchema,
   RecordAnalysisProgressSchema,
+  RecordAnalysisSnapshotSchema,
+  createIdleRecordAnalysisSnapshot,
   parseAnalyzableRecordSummaries,
 } from "../src/catalog-api.js";
 import { createAccountRecordReviewHandoff } from "../src/record-ingestion-service.js";
@@ -112,6 +114,32 @@ describe("safe Mahjong Soul catalog IPC", () => {
     removeHandler(channel: string): void { this.handlers.delete(channel); }
   }
 
+  it("retains every phase and elapsed time even when phases finish between polls", async () => {
+    const ipc = new FakeIpcMain();
+    registerMahjongSoulCatalogIpc({ ipcMain: ipc, trustedSenderId: 7, service: {
+      syncAnalyzableRecords: async () => [], listAnalyzableRecords: async () => [],
+      clearSourceCache: () => ({ clearedEntries: 0, pendingMaterials: 0 }),
+      ingest: async (_id, report) => {
+        report?.({ stage: "replaying", completed: 0, total: null });
+        report?.({ stage: "rules", completed: 4, total: 4 });
+        report?.({ stage: "scoring", completed: 2, total: 2 });
+        report?.({ stage: "facts", completed: 4, total: 4 });
+        report?.({ stage: "packaging", completed: 0, total: null });
+        report?.({ stage: "saving", completed: 0, total: null });
+        return { status: "review_ready", sessionId: "fixture", packageId: "fixture" };
+      },
+    } });
+    await ipc.handlers.get(MAHJONG_SOUL_CATALOG_IPC_CHANNELS.startRecordAnalysis)!({ sender: { id: 7 } }, recordId);
+    const snapshot = await ipc.handlers.get(MAHJONG_SOUL_CATALOG_IPC_CHANNELS.getRecordAnalysisProgress)!({ sender: { id: 7 } }) as {
+      steps: Array<{ stage: string; status: string; elapsedMs: number; completed: number }>;
+      elapsedMs: number; remainingMs: number | null;
+    };
+    expect(snapshot.steps?.map(step => step.stage)).toEqual(["fetching", "replaying", "rules", "scoring", "facts", "packaging", "saving"]);
+    expect(snapshot.steps.every(step => step.status === "complete" && step.elapsedMs >= 0)).toBe(true);
+    expect(snapshot.steps[2]?.completed).toBe(4);
+    expect(snapshot.elapsedMs).toBeGreaterThanOrEqual(0);
+    expect(snapshot.remainingMs).toBe(0);
+  });
   it("registers two trusted catalog operations and one narrow analysis trigger", async () => {
     const ipc = new FakeIpcMain();
     const service = {
@@ -156,21 +184,25 @@ describe("safe Mahjong Soul catalog IPC", () => {
     const sender = { sender: { id: 7 } };
     const start = ipc.handlers.get(MAHJONG_SOUL_CATALOG_IPC_CHANNELS.startRecordAnalysis)!;
     const read = ipc.handlers.get(MAHJONG_SOUL_CATALOG_IPC_CHANNELS.getRecordAnalysisProgress)!;
+    const readCurrent = async () => {
+      const { stage, completed, total } = RecordAnalysisSnapshotSchema.parse(await read(sender));
+      return { stage, completed, total };
+    };
     const pending = start(sender, recordId);
     updates!({ stage: "scoring", completed: 2, total: 5 });
-    await expect(read(sender)).resolves.toEqual({ stage: "scoring", completed: 2, total: 5 });
+    await expect(readCurrent()).resolves.toEqual({ stage: "scoring", completed: 2, total: 5 });
     await expect(read({ sender: { id: 8 } })).rejects.toThrow();
     await expect(read(sender, "unexpected")).rejects.toThrow();
     await expect(start(sender, recordId)).rejects.toThrow();
     expect(starts).toBe(1);
-    await expect(read(sender)).resolves.toEqual({ stage: "scoring", completed: 2, total: 5 });
+    await expect(readCurrent()).resolves.toEqual({ stage: "scoring", completed: 2, total: 5 });
     fail!(new Error("private failure"));
     await expect(pending).rejects.toThrow("mahjong_soul_login_protocol_unsupported");
-    await expect(read(sender)).resolves.toEqual({ stage: "failed", completed: 0, total: null });
+    await expect(readCurrent()).resolves.toEqual({ stage: "failed", completed: 0, total: null });
     const retry = start(sender, recordId);
     finish!({ status: "review_ready", sessionId: "fixture", packageId: "fixture" });
     await expect(retry).resolves.toMatchObject({ status: "review_ready" });
-    await expect(read(sender)).resolves.toEqual({ stage: "complete", completed: 1, total: 1 });
+    await expect(readCurrent()).resolves.toEqual({ stage: "complete", completed: 1, total: 1 });
     for (const value of [ { stage: "scoring", completed: 6, total: 5 },
       { stage: "scoring", completed: 0, total: null, accessToken: "private" } ]) {
       expect(RecordAnalysisProgressSchema.safeParse(value).success).toBe(false);

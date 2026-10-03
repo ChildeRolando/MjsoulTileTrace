@@ -94,9 +94,10 @@ describe("coach narrow IPC and preload", () => {
   });
 
   it("enforces first-generation-only through the real IPC/preload/service boundary", async () => {
+    const fetchImpl = vi.fn<typeof fetch>(async () => new Response(JSON.stringify({ choices: [{ message: { content: "{}" } }] })));
     const service = createCoachService({
-      credentials: { readKey: async () => null, importCredential: async () => undefined, clear: async () => undefined },
-      fetchImpl: vi.fn<typeof fetch>(async () => { throw new Error("must not call provider"); }),
+      credentials: { readKey: async () => "fixture-key", importCredential: async () => undefined, clear: async () => undefined },
+      fetchImpl,
       readPackage: async () => packageFixture,
       clock: () => "2026-09-22T00:00:00.000Z",
     });
@@ -109,8 +110,13 @@ describe("coach narrow IPC and preload", () => {
     const event = { sender: { id: 17, mainFrame: frame }, senderFrame: frame };
     const api = createCoachPreloadApi({ invoke: async (channel, ...args) => handlers.get(channel)!(event, ...args) });
     await api.openReview({ packageId: packageFixture.packageId as string });
+    expect(await api.generateReview({ packageId: packageFixture.packageId as string, operationId: "unconfigured" })).toEqual({ status: "failed", code: "generation_failed" });
+    expect((await api.openReview({ packageId: packageFixture.packageId as string })).activeReportRefId).toBeNull();
+    expect(fetchImpl).not.toHaveBeenCalled();
+    await api.configure({ baseUrl: "https://fixture.example/v1", modelName: "fixture" });
     expect((await api.generateReview({ packageId: packageFixture.packageId as string, operationId: "first" })).status).toBe("ready");
     expect(await api.generateReview({ packageId: packageFixture.packageId as string, operationId: "second" })).toEqual({ status: "failed", code: "generation_failed" });
+    expect(fetchImpl).toHaveBeenCalledTimes(1);
     registration.dispose();
   });
 });

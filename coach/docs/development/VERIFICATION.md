@@ -17,7 +17,30 @@ compatibility 测试与**架构边界检查（`npm run check:architecture`）**�
 中自动发现执行，**不在全量门禁内重复运行**；`npm run test:architecture-checker`
 是同一套测试的聚焦命令（node --test），供单独调试使用。
 
-### 架构边界检查
+### 桌面工作台、教练接入与用量（2026-10-04）
+
+先 build 刷新跨包 contracts/reasoning，再运行聚焦验证：
+
+```powershell
+npx vitest run packages/desktop/tests/record-analysis-progress.test.ts packages/desktop/tests/catalog-api.test.ts packages/desktop/tests/preload-entry.test.ts
+npx vitest run packages/desktop/tests/coach-settings-store.test.ts packages/desktop/tests/coach-provider.test.ts packages/desktop/tests/codex-coach-provider.test.ts packages/desktop/tests/fixed-review.test.ts packages/desktop/tests/review-session-persistence.test.ts
+npx vitest run packages/desktop/tests/fixed-review-renderer.test.ts
+```
+
+用可控单调时钟证明七阶段即时展示、跨轮询保留快阶段、终态不变、失败不训练估时、
+冷启动估时未知、保存后历史/当前速率估时，估时不决定完成。
+原生隐藏 Electron 测试验证八条分页、刷新/忙状态、悬挂与迟到轮询、终态保留、
+未就绪阻止首次生成，以及生成等待用量、数值/未知显示和再打开显示。
+provider 测试仅用 fake process/HTTP，无真实云端请求、CLI 登录读取或模型下载；
+断言工具禁用参数、严格流解析、实际 close 后重试、超时/输出上限、秘密不外泄。
+SQLite 重启读回验证 Token/model 元数据绑定当前 report，无模型调用。
+
+真实 Codex smoke 单独运行 main-owned adapter 和既有生成/grounding/保存/读回链，
+使用已批准的模型/max。回执记录代码 SHA、CLI 版本、实际状态、数值用量、耗时及安全错误，
+不保留原始 prompt/JSONL/CoT/认证信息。CLI 登录成功、stub PASS、Mortal CPU 成功均不能
+代替真实教练生成成功；失败应保留环境/协议/grounding 原因，不能声明 GUI 验收完成。
+
+### 架构边界检查规则
 
 `npm run check:architecture` 机械强制包依赖方向、renderer 安全边界与包内深导入
 规则（规则与对应 INV-\* 见 `docs/development/INVARIANTS.md` 与
@@ -369,3 +392,17 @@ node tests/lesson-0001-smoke.mjs
 ## 如何描述测试结果
 
 优先写命令和通过/失败，不把测试数量当长期常量。数量只应写入带日期的 handoff；living docs 不锁定会迅速过期的测试总数。
+
+### 真实 Coach 单决策 mintest 的验收边界
+
+使用已分析档案中的真实入选决策，绑定代码提交、package ID 和来源内容哈希；
+通过生产 slice/request/provider 生成，核验 grounding、服务回报的 Token、隔离库保存和重开。
+诊断选择单决策只用于 mintest，不改变生产 selector 的入选范围；不得写回用户原库。
+请求字节数不是 Token，服务没有回报的计数保持未知。换 provider 仍通过同一
+`LlmTokenUsage`、report audit、presenter 和 IPC 契约读取，只有 wire 字段映射属于 adapter。
+
+2026-10-04 本机真实档案测量发现，默认十决策合并请求为 29,300,006 UTF-8 字节，
+最小单决策为 675,599 字节；默认请求超过当前 Codex adapter 的 1 MiB 输入上限。
+因此单决策 mintest 即使通过，也不代表整盘批量解说或完整 H1 已通过。
+批量上下文仍是收口阻塞，需在保留候选、事实及证据引用语义的前提下另行解决和验收，
+不得靠提高上限、截断证据或减少生产入选局面宣称完成。

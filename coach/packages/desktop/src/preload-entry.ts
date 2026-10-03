@@ -1,6 +1,6 @@
 import { contextBridge, ipcRenderer } from "electron";
 import { createCoachPreloadApi } from "./session-api.js";
-import { RecordAnalysisProgressSchema } from "./catalog-api.js";
+import { RecordAnalysisSnapshotSchema } from "./catalog-api.js";
 
 contextBridge.exposeInMainWorld("riichiCoachProvider", createCoachPreloadApi(ipcRenderer));
 
@@ -198,7 +198,7 @@ contextBridge.exposeInMainWorld("riichiCoachCatalog", Object.freeze({
   syncAnalyzableRecords: () => invokeCatalog(PRELOAD_CHANNELS.syncRecords),
   listAnalyzableRecords: () => invokeCatalog(PRELOAD_CHANNELS.listRecords),
   getRecordAnalysisProgress: async () => {
-    try { return Object.freeze(RecordAnalysisProgressSchema.parse(await ipcRenderer.invoke(PRELOAD_CHANNELS.analysisProgress))); }
+    try { return Object.freeze(RecordAnalysisSnapshotSchema.parse(await ipcRenderer.invoke(PRELOAD_CHANNELS.analysisProgress))); }
     catch (error) { throw fixedError(error, PRELOAD_CHANNELS.analysisProgress); }
   },
   startRecordAnalysis: async (recordId: string) => {

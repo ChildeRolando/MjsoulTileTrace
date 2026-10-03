@@ -21,6 +21,29 @@
 > 引擎、service 与 IPC 均不重试。持久化读回可独立调用既有 package/report validators，
 > 但不得调用 provider 或发布新报告。
 
+## 2026-10-04 桌面接入修订（用户批准）
+
+本次扩展仅为用户已选择的本机 Codex 登录、`gpt-6-luna` / `max` 和 Token 用量展示。
+它取代本文“v1 单 provider / 第二 provider out”的范围限制，不改变唯一生成入口、
+selection、grounding、权限分层、首次生成与只读复盘契约。HTTP provider 的既有请求行为保持。
+
+- Codex 使用云端推理及已有 ChatGPT 登录，main-only adapter 不接收或暴露登录令牌。
+- 冻结 prompt / draft 不变。CLI 不暴露本适配器可控的 temperature 和输出 Token 限额；
+  请求 DTO 中这两个字段对 HTTP 生效，Codex 不伪装执行，而在 generation 记录
+  `samplingMode:provider_default` / `reasoningEffort:max`，以运行时间、输出字节上限保护本地进程。
+- outer provider 至多启动两次 CLI；CLI 内部 HTTP 重试不能从 `transportRetries` 得知，
+  该字段对 CLI 表示额外子进程启动次数。语义/grounding 拒绝不重试。
+- 公共设置独立持久化；界面和 main 都在首次生成前检查是否就绪。未就绪不生成报告，
+  不消费首次生成资格；已经产生的 complete/partial/evidence_only 报告不原地重生成。
+- `audit.usage` 为服务返回的 input/output/total/cached-input 数字，缺失为未知。
+  cached-input 已包含于 input，不再加到 total。失败结果可携带已收到的用量；
+  不推算未报告的失败/重试成本，不等同账号剩余额度、价格或计费账单。
+- 概览仅投影当前已校验报告的用量和非敏感 generation 元数据；重新打开读取原报告，
+  不调用模型。无报告/历史报告没有 usage 时显示未知，生成时显示等待统计。
+
+实现和验证入口见 [ARCHITECTURE](../development/ARCHITECTURE.md) 与
+[VERIFICATION](../development/VERIFICATION.md)；真实 CLI 验证与默认 stub 测试分开。
+
 ## Problem Statement
 
 M6-D1 交付了 substrate：`StructuredAnalysisPackage` 可以确定性投影为

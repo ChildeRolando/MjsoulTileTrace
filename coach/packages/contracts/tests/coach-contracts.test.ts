@@ -22,6 +22,7 @@ import {
   LlmCoachRequestSchema,
   LlmCoachResultSchema,
   LlmProviderDescriptorSchema,
+  LlmTokenUsageSchema,
   REASONING_GRAPH_NODE_KINDS,
   REASONING_PAYLOAD_SCHEMAS,
   REVIEW_REPORT_SCHEMA_VERSION,
@@ -388,6 +389,13 @@ describe("M6-D2 grounding diagnostic contracts", () => {
 });
 
 describe("M6-D2 LLM provider port DTOs", () => {
+  it("accepts cached usage and failed-turn usage while preserving unknown counters", () => {
+    expect(LlmTokenUsageSchema.parse({ inputTokens: 10, cachedInputTokens: 4 })).toEqual({ inputTokens: 10, cachedInputTokens: 4 });
+    expect(LlmTokenUsageSchema.parse({})).toEqual({});
+    for (const invalid of [{ inputTokens: 10, cachedInputTokens: 11 }, { inputTokens: Number.MAX_SAFE_INTEGER + 1 }, { outputTokens: -1 }, { totalTokens: 1.5 }, { inputTokens: 10, secret: "x" }]) expect(LlmTokenUsageSchema.safeParse(invalid).success).toBe(false);
+    expect(LlmCoachResultSchema.parse({ errorCode: "server_error", transportRetries: 0, usage: { inputTokens: 10 } })).toMatchObject({ usage: { inputTokens: 10 } });
+    expect(LlmProviderDescriptorSchema.parse({ providerId: "codex-cli", model: "gpt-6-luna", reasoningEffort: "max", samplingMode: "provider_default" })).toMatchObject({ reasoningEffort: "max", samplingMode: "provider_default" });
+  });
   it("descriptor carries identity only — no key material", () => {
     expect(() =>
       LlmProviderDescriptorSchema.parse({

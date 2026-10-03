@@ -9,13 +9,20 @@ import {
 } from "./fixed-review-view.js";
 
 /** Public configuration contains no authentication, query, fragment or userinfo. */
-export const CoachProviderConfigSchema = z.object({
+export const OpenAiCoachProviderConfigSchema = z.object({
   baseUrl: z.string().max(2048).url().refine((value) => {
     const url = new URL(value);
     return url.protocol === "https:" && !url.username && !url.password && !url.search && !url.hash;
   }),
   modelName: z.string().min(1).max(200).regex(/^[A-Za-z0-9][A-Za-z0-9._:/-]*$/),
 }).strict();
+export const CodexCoachProviderConfigSchema = z.object({
+  providerId: z.literal("codex-cli"),
+  modelName: z.literal("gpt-6-luna"),
+  reasoningEffort: z.literal("max"),
+}).strict();
+export type CodexCoachProviderConfig = z.infer<typeof CodexCoachProviderConfigSchema>;
+export const CoachProviderConfigSchema = z.union([OpenAiCoachProviderConfigSchema, CodexCoachProviderConfigSchema]);
 export type CoachProviderConfig = z.infer<typeof CoachProviderConfigSchema>;
 export const CoachProviderStatusSchema = z.object({
   configured: z.boolean(),

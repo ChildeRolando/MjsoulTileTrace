@@ -1140,6 +1140,10 @@ export async function runMortalFullGameReview(input: {
       }
     }
 
+  // The loop reports counts before each boundary. Publish its actual final
+  // count as well, including classified failures and non-action boundaries.
+  input.onProgress?.({ completed: ledger.length + nonActionBoundaries.length, total: boundaries.length });
+
   // Source-side conservation ledger. Dispositions come from the bipartite
   // compatibility graph, not from the final local ledger: a source involved
   // in any local ambiguity is itself ambiguous.

@@ -1,6 +1,6 @@
 import { spawn, spawnSync } from "node:child_process";
-import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
-import { join } from "node:path";
+import { mkdirSync, mkdtempSync, readFileSync, rmSync, statSync, writeFileSync } from "node:fs";
+import { join, resolve } from "node:path";
 import { tmpdir } from "node:os";
 import { fileURLToPath } from "node:url";
 import { createRequire } from "node:module";
@@ -12,14 +12,49 @@ const source = readFileSync(new URL("../src/renderer/fixed-review-ui.ts", import
 const html = readFileSync(new URL("../src/renderer/index.html", import.meta.url), "utf8");
 const app = readFileSync(new URL("../src/renderer/app.ts", import.meta.url), "utf8");
 const styles = readFileSync(new URL("../src/renderer/styles.css", import.meta.url), "utf8");
+const analysisStages = ["fetching", "replaying", "rules", "scoring", "facts", "packaging", "saving"] as const;
 
-async function chromiumFocusResults(directory: string, scenarios = ["window.run(true)", "window.run(false)"]) {
+function analysisSnapshot(input: {
+  stage: string;
+  completed?: number;
+  total?: number | null;
+  elapsedMs?: number;
+  estimatedTotalMs?: number | null;
+  remainingMs?: number | null;
+  estimateSource?: "learning" | "history" | "current_rate";
+  failedAt?: number;
+}): unknown {
+  const activeIndex = analysisStages.indexOf(input.stage as typeof analysisStages[number]);
+  const terminal = input.stage === "complete" || input.stage === "failed";
+  const failedAt = input.failedAt ?? 3;
+  const steps = analysisStages.map((stage, index) => {
+    const status = input.stage === "complete" ? "complete"
+      : input.stage === "failed" ? index < failedAt ? "complete" : index === failedAt ? "failed" : "skipped"
+        : index < activeIndex ? "complete" : index === activeIndex ? "running" : "waiting";
+    const current = index === activeIndex;
+    const stepTotal = status === "complete" ? 4 : current ? input.total ?? null : null;
+    return {
+      stage, status, completed: status === "complete" ? 4 : current ? input.completed ?? 0 : 0,
+      total: stepTotal, elapsedMs: status === "complete" ? 1000 + index * 250 : current ? 1700 : 0,
+    };
+  });
+  const elapsedMs = input.elapsedMs ?? 5500;
+  return {
+    stage: input.stage, completed: input.completed ?? 0, total: input.total ?? null, steps,
+    elapsedMs, estimatedTotalMs: input.estimatedTotalMs ?? null,
+    remainingMs: input.remainingMs ?? null,
+    estimateSource: input.estimateSource ?? "learning",
+  };
+}
+
+async function chromiumFocusResults(directory: string, scenarios = ["window.run(true)", "window.run(false)"], capture?: { path: string; width?: number; height?: number }) {
   // Use the project's pinned Chromium runtime and native keyboard input. The
   // system Edge CDP transport can accept a socket yet never answer its first
   // command; an unbounded request also prevents the old finally cleanup.
   const profile = mkdtempSync(join(tmpdir(), "fixed-review-browser-profile-"));
   const config = join(directory, "focus-input.json");
-  writeFileSync(config, JSON.stringify({ directory, profile, scenarios }));
+  writeFileSync(config, JSON.stringify({ directory, profile, scenarios,
+    ...(capture === undefined ? {} : { capturePath: capture.path, width: capture.width, height: capture.height }) }));
   const executable = createRequire(import.meta.url)("electron") as string;
   const harness = fileURLToPath(new URL("./electron-focus-harness.cjs", import.meta.url));
   try {
@@ -62,15 +97,19 @@ describe("fixed review native DOM surface", () => {
       }
       const setup = `
         const settle = async () => { await new Promise(resolve => setTimeout(resolve, 0)); };
-        let calls = 0, rejectAnalysis, resolveAnalysis;
+        let calls = 0, progressReads = 0, intervalPoll, rejectAnalysis, resolveAnalysis;
+        window.setInterval = (callback, delay) => { intervalPoll = callback; window.pollIntervalMs = delay; return 1; };
+        window.clearInterval = () => { intervalPoll = undefined; };
+        let progress = ${JSON.stringify(analysisSnapshot({ stage: "scoring", completed: 2, total: 5, elapsedMs: 5500, estimatedTotalMs: 12500, remainingMs: 7000, estimateSource: "history" }))};
         window.riichiCoach = { getSessionStatus: async () => ({ status: "valid", displayName: "fixture" }) };
         window.riichiCoachProvider = { listReviewSessions: async () => [],
+          status: async () => ({ configured: true, settings: null }),
           openReview: async () => { throw new Error("private-open-error"); }, leaveReview: async () => {} };
         window.riichiCoachCatalog = { listAnalyzableRecords: async () => [0,1].map(i => ({
           recordId: "fixture" + i, startedAt: 1, selfSeat: 0, shareUrl: "fixture",
           players: [{ displayName: "fixture" }] })),
           startRecordAnalysis: () => { calls++; return new Promise((resolve,reject) => { resolveAnalysis=resolve; rejectAnalysis=reject; }); },
-          getRecordAnalysisProgress: async () => ({ stage: "scoring", completed: 2, total: 5 }) };
+          getRecordAnalysisProgress: async () => { progressReads++; return progress; } };
         const state = () => ({ calls, text: document.querySelector("#catalog-detail").textContent,
           busy: document.querySelector(".catalog").getAttribute("aria-busy"),
           disabled: ["logout", "refresh", "sync", "clear-source-cache"].map(id => document.querySelector("#"+id).disabled),
@@ -78,29 +117,475 @@ describe("fixed review native DOM surface", () => {
           labels: [...document.querySelectorAll("#catalog-list button")].map(b => b.textContent),
           progressShown: !document.querySelector("#analysis-progress").hidden,
           progressValue: document.querySelector("#analysis-progress-bar").value,
-          progressMax: document.querySelector("#analysis-progress-bar").max });
+          progressMax: document.querySelector("#analysis-progress-bar").max,
+          stepStatuses: [...document.querySelectorAll("#analysis-progress-steps li")].map(item => item.dataset.stage + ":" + item.dataset.status),
+          estimate: document.querySelector("#analysis-progress-estimate").textContent,
+          summary: document.querySelector("#analysis-progress-summary").textContent });
         window.run = async () => {
           await settle(); const buttons = document.querySelectorAll("#catalog-list button");
-          buttons[0].click(); await new Promise(resolve => setTimeout(resolve, 1200)); window.pending=state(); buttons[1].click();
+          buttons[0].click();
+          window.immediateProgress = { shown: !document.querySelector("#analysis-progress").hidden,
+            steps: [...document.querySelectorAll("#analysis-progress-steps li")].map(item => item.dataset.stage + ":" + item.dataset.status) };
+          await settle(); intervalPoll(); await settle(); window.pending=state(); buttons[1].click();
           window.progressLabel=document.querySelector("#analysis-progress-label").textContent;
           window.afterDuplicate=calls;
-          ${completion === "saved_open_failed" ? 'resolveAnalysis({ status: "review_ready", packageId: "fixture", sessionId: "fixture" });' : `rejectAnalysis(new Error(${JSON.stringify(completion === "validation_failed" ? "mahjong_soul_canonical_validation_failed" : "private-analysis-error")}));`}
+          ${completion === "saved_open_failed"
+            ? `progress=${JSON.stringify(analysisSnapshot({ stage: "complete", elapsedMs: 7000, estimatedTotalMs: 7000, remainingMs: 0, estimateSource: "history" }))}; resolveAnalysis({ status: "review_ready", packageId: "fixture", sessionId: "fixture" });`
+            : `progress=${JSON.stringify(analysisSnapshot({ stage: "failed", elapsedMs: 6500, failedAt: 3 }))}; rejectAnalysis(new Error(${JSON.stringify(completion === "validation_failed" ? "mahjong_soul_canonical_validation_failed" : "private-analysis-error")}));`}
           await settle(); window.finished=state(); document.activeElement?.blur();
         };
-        window.focusResult = () => ({ pending: window.pending, afterDuplicate: window.afterDuplicate, finished: window.finished, progressLabel: window.progressLabel });
+        window.focusResult = () => ({ pending: window.pending, afterDuplicate: window.afterDuplicate, finished: window.finished,
+          progressLabel: window.progressLabel,
+          pollIntervalMs: window.pollIntervalMs, progressReads,
+          immediateProgress: window.immediateProgress,
+          progressEstimate: document.querySelector("#analysis-progress-estimate").textContent,
+          progressSummary: document.querySelector("#analysis-progress-summary").textContent });
       `;
       writeFileSync(join(directory, "setup.js"), setup);
       writeFileSync(join(directory, "page.html"), html.replace('<script type="module" src="./app.js"></script>', '<script src="./setup.js"></script><script type="module" src="./app.js"></script>'));
       expect(await chromiumFocusResults(directory, ["window.run()"])).toEqual([{
         pending: { calls: 1, text: "正在分析这场牌谱…整盘分析可能需要较长时间，请稍候。", busy: "true",
-          disabled: [true, true, true, true], recordButtonsDisabled: [true, true], labels: ["分析中…", "分析"], progressShown: true, progressValue: 2, progressMax: 5 },
-        progressLabel: expect.stringMatching(/^正在进行模型评分 · 2\/5 · 已用时 0分\d+秒$/),
+          disabled: [true, true, true, true], recordButtonsDisabled: [true, true], labels: ["分析中…", "分析"], progressShown: true, progressValue: 2, progressMax: 5,
+          stepStatuses: ["fetching:complete", "replaying:complete", "rules:complete", "scoring:running", "facts:waiting", "packaging:waiting", "saving:waiting"],
+          estimate: "预计总时长 0分12秒 · 预计剩余 0分7秒 · 根据本机历史分析",
+          summary: "已开始分析，正在读取主进程的阶段进度。" },
+        immediateProgress: { shown: true, steps: ["fetching:running", "replaying:waiting", "rules:waiting", "scoring:waiting", "facts:waiting", "packaging:waiting", "saving:waiting"] },
+        progressLabel: "正在进行模型评分 · 2/5 · 总用时 0分5秒",
+        pollIntervalMs: 1000, progressReads: 3,
         afterDuplicate: 1,
         finished: { calls: 1, text: completion === "failed" ? "暂时无法分析这场牌谱，请重试。" : completion === "validation_failed" ? "这场牌谱未通过转换或重放校验，分析未完成。请保留牌谱并反馈此问题。" : "复盘已保存，但暂时无法打开，请从已保存复盘重试。",
-          busy: "false", disabled: [false, false, false, false], recordButtonsDisabled: [false, false], labels: ["分析", "分析"], progressShown: false, progressValue: 2, progressMax: 5 },
+          busy: "false", disabled: [false, false, false, false], recordButtonsDisabled: [false, false], labels: ["分析", "分析"], progressShown: true, progressValue: 0, progressMax: 5,
+          stepStatuses: completion === "saved_open_failed"
+            ? ["fetching:complete", "replaying:complete", "rules:complete", "scoring:complete", "facts:complete", "packaging:complete", "saving:complete"]
+            : ["fetching:complete", "replaying:complete", "rules:complete", "scoring:failed", "facts:skipped", "packaging:skipped", "saving:skipped"],
+          estimate: completion === "saved_open_failed"
+            ? "预计总时长 0分7秒 · 预计剩余 0分0秒 · 根据本机历史分析"
+            : "总用时 0分6秒 · 正在建立本机参考，暂无法估算总时长和剩余时间。",
+          summary: completion === "saved_open_failed"
+            ? "整盘分析已完成，复盘已保存；请从已保存复盘列表打开。"
+            : "分析未完成，阶段记录已保留；你可以重新尝试。" },
+        progressEstimate: completion === "saved_open_failed"
+          ? "预计总时长 0分7秒 · 预计剩余 0分0秒 · 根据本机历史分析"
+          : "总用时 0分6秒 · 正在建立本机参考，暂无法估算总时长和剩余时间。",
+        progressSummary: completion === "saved_open_failed"
+          ? "整盘分析已完成，复盘已保存；请从已保存复盘列表打开。"
+          : "分析未完成，阶段记录已保留；你可以重新尝试。",
       }]);
     } finally { rmSync(directory, { recursive: true, force: true, maxRetries: 20, retryDelay: 100 }); }
   });
+
+  it("paginates cached catalog entries in groups of eight and guards identity while analysis is pending", async () => {
+    const directory = mkdtempSync(join(tmpdir(), "catalog-renderer-pages-"));
+    try {
+      for (const name of ["app", "fixed-review-ui", "session-ui-policy", "paipu-ui-policy"]) {
+        const text = readFileSync(new URL(`../src/renderer/${name}.ts`, import.meta.url), "utf8");
+        writeFileSync(join(directory, `${name}.js`), transpileModule(text, {
+          compilerOptions: { module: ModuleKind.ES2022, target: ScriptTarget.ES2022 },
+        }).outputText, "utf8");
+      }
+      const records = Array.from({ length: 10 }, (_, index) => ({
+        recordId: `record-${index}`, startedAt: 1_790_000_000 + index * 60, selfSeat: 0,
+        shareUrl: "fixture", players: [{ displayName: `player-${index}` }],
+      }));
+      const setup = `
+        const settle = async () => { await new Promise(resolve => setTimeout(resolve, 50)); };
+        window.errors = [];
+        window.addEventListener("unhandledrejection", event => window.errors.push(String(event.reason?.stack || event.reason)));
+        window.addEventListener("error", event => window.errors.push(String(event.error?.stack || event.message)));
+        let listCalls = 0, syncCalls = 0, startCalls = [], records = ${JSON.stringify(records)};
+        let resolveAnalysis;
+        window.riichiCoach = { getSessionStatus: async () => ({ status: "valid", displayName: "fixture" }) };
+        window.riichiCoachProvider = { listReviewSessions: async () => [], openReview: async () => { throw new Error("unused"); }, leaveReview: async () => {} };
+        window.riichiCoachCatalog = {
+          listAnalyzableRecords: async () => { listCalls++; return records; },
+          syncAnalyzableRecords: async () => {
+            syncCalls++;
+            records = syncCalls === 1 ? records.slice(0, 3) : syncCalls === 2 ? [] : ${JSON.stringify(records)};
+            return records;
+          },
+          startRecordAnalysis: recordId => { startCalls.push(recordId); return new Promise(resolve => { resolveAnalysis = resolve; }); },
+          getRecordAnalysisProgress: async () => (${JSON.stringify(analysisSnapshot({ stage: "scoring", completed: 2, total: 5, elapsedMs: 5500, estimatedTotalMs: 12500, remainingMs: 7000, estimateSource: "history" }))}),
+        };
+        window.run = async () => {
+          await settle();
+          const rows = () => [...document.querySelectorAll("#catalog-list li")].map(row => row.textContent);
+          const page = () => document.querySelector("#catalog-pagination-status").textContent;
+          window.initial = { rows: rows().length, names: rows().join("|"), page: page(), listCalls };
+          document.querySelector("#catalog-page-next").click();
+          window.secondPage = { rows: rows().length, names: rows().join("|"), page: page(), listCalls,
+            previousDisabled: document.querySelector("#catalog-page-previous").disabled,
+            nextDisabled: document.querySelector("#catalog-page-next").disabled };
+          document.querySelector("#sync").click(); await settle();
+          window.shrunk = { rows: rows().length, page: page(), navHidden: document.querySelector("#catalog-pagination").hidden };
+          document.querySelector("#sync").click(); await settle();
+          window.empty = { rows: rows().length, page: page(), navHidden: document.querySelector("#catalog-pagination").hidden,
+            detail: document.querySelector("#catalog-detail").textContent };
+          document.querySelector("#sync").click(); await settle();
+          window.readyForAnalysis = { busy: document.querySelector(".catalog").getAttribute("aria-busy"), disabled: document.querySelector("#catalog-page-next").disabled };
+          document.querySelector("#catalog-page-next").click();
+          const selected = document.querySelector("#catalog-list li button");
+          selected.click();
+          window.pending = { page: page(), started: startCalls, navDisabled: [
+            document.querySelector("#catalog-page-previous").disabled,
+            document.querySelector("#catalog-page-next").disabled],
+            duplicateButtonDisabled: selected.disabled, busy: document.querySelector(".catalog").getAttribute("aria-busy"),
+            progressShown: !document.querySelector("#analysis-progress").hidden,
+            summary: document.querySelector("#analysis-progress-summary").textContent };
+          selected.click(); document.querySelector("#catalog-page-previous").click(); await settle();
+          window.afterDuplicateAndFlip = { started: startCalls, page: page(), rows: rows().length };
+        };
+        window.focusResult = () => ({ initial: window.initial, secondPage: window.secondPage, shrunk: window.shrunk,
+          empty: window.empty, readyForAnalysis: window.readyForAnalysis, pending: window.pending,
+          afterDuplicateAndFlip: window.afterDuplicateAndFlip, syncCalls, errors: window.errors });
+      `;
+      writeFileSync(join(directory, "setup.js"), setup, "utf8");
+      writeFileSync(join(directory, "page.html"), html.replace('<script type="module" src="./app.js"></script>', '<script src="./setup.js"></script><script type="module" src="./app.js"></script>'));
+      expect(await chromiumFocusResults(directory, ["window.run()"])) .toEqual([{
+        initial: { rows: 8, names: expect.stringContaining("player-7"), page: "第 1 / 2 页 · 共 10 场", listCalls: 1 },
+        secondPage: { rows: 2, names: expect.stringContaining("player-8"), page: "第 2 / 2 页 · 共 10 场", listCalls: 1, previousDisabled: false, nextDisabled: true },
+        shrunk: { rows: 3, page: "第 1 / 1 页 · 共 3 场", navHidden: true },
+        empty: { rows: 0, page: "", navHidden: true, detail: "暂无可分析牌谱。" },
+        readyForAnalysis: { busy: "false", disabled: false },
+        pending: { page: "第 2 / 2 页 · 共 10 场", started: ["record-8"], navDisabled: [true, true], duplicateButtonDisabled: true, busy: "true",
+          progressShown: true, summary: "已开始分析，正在读取主进程的阶段进度。" },
+        afterDuplicateAndFlip: { started: ["record-8"], page: "第 2 / 2 页 · 共 10 场", rows: 2 },
+        syncCalls: 3, errors: [],
+      }]);
+    } finally { rmSync(directory, { recursive: true, force: true, maxRetries: 20, retryDelay: 100 }); }
+  }, 90_000);
+
+  it("does not wait for a hung progress poll and discards its late reply after the next analysis starts", async () => {
+    const directory = mkdtempSync(join(tmpdir(), "catalog-progress-late-reply-"));
+    try {
+      for (const name of ["app", "fixed-review-ui", "session-ui-policy", "paipu-ui-policy"]) {
+        const text = readFileSync(new URL(`../src/renderer/${name}.ts`, import.meta.url), "utf8");
+        writeFileSync(join(directory, `${name}.js`), transpileModule(text, {
+          compilerOptions: { module: ModuleKind.ES2022, target: ScriptTarget.ES2022 },
+        }).outputText, "utf8");
+      }
+      const records = Array.from({ length: 2 }, (_, index) => ({
+        recordId: `record-${index}`, startedAt: 1_790_000_000 + index * 60, selfSeat: 0,
+        shareUrl: "fixture", players: [{ displayName: `player-${index}` }],
+      }));
+      const snapshot = FixedReviewSnapshotSchema.parse({
+        schemaVersion: "fixed-review-view/v1", packageId: "package-0", analysisStatus: "complete",
+        outcomeCounts: { analysis_ready: 0, unsupported_action: 0, source_row_not_expected: 0, no_mortal_entry: 0, binding_mismatch: 0, model_output_incomplete: 0, analysis_blocked: 0 },
+        activeReportRefId: null, activeReportStatus: "not_generated",
+        explanationCounts: { ready: 0, provider_unavailable: 0, request_failed: 0, invalid_output: 0 },
+        selection: { policyVersion: "deterministic-review-selector/v1", selectedCount: 0, items: [] },
+      });
+      const lateProgress = analysisSnapshot({ stage: "facts", completed: 7, total: 9, elapsedMs: 777_000 });
+      const currentProgress = analysisSnapshot({ stage: "fetching", completed: 0, total: 1, elapsedMs: 2200 });
+      const setup = `
+        const settle = async () => { await new Promise(resolve => setTimeout(resolve, 60)); };
+        let progressCalls = 0, activeReads = 0, maxActiveReads = 0, resolveLateProgress;
+        let resolveFirstAnalysis;
+        let analysisCalls = [];
+        window.riichiCoach = { getSessionStatus: async () => ({ status: "valid", displayName: "fixture" }) };
+        window.riichiCoachProvider = { status: async () => ({ configured: true, settings: null }),
+          listReviewSessions: async () => [], openReview: async () => snapshot,
+          leaveReview: async () => {}, cancelGeneration: async () => {} };
+        window.riichiCoachCatalog = {
+          listAnalyzableRecords: async () => ${JSON.stringify(records)}, syncAnalyzableRecords: async () => ${JSON.stringify(records)},
+          startRecordAnalysis: recordId => {
+            analysisCalls.push(recordId);
+            if (recordId === "record-0") return new Promise(resolve => { resolveFirstAnalysis = resolve; });
+            return new Promise(() => {});
+          },
+          getRecordAnalysisProgress: () => {
+            progressCalls++; activeReads++; maxActiveReads = Math.max(maxActiveReads, activeReads);
+            if (progressCalls === 1) return new Promise(resolve => { resolveLateProgress = value => { activeReads--; resolve(value); }; });
+            return Promise.resolve(${JSON.stringify(currentProgress)}).finally(() => { activeReads--; });
+          },
+        };
+        window.run = async () => {
+          await settle();
+          const analyze = [...document.querySelectorAll("#catalog-list button")];
+          analyze[0].click(); await settle();
+          window.firstAnalysisPending = { calls: analysisCalls.slice(), busy: document.querySelector(".catalog").getAttribute("aria-busy"), progressCalls };
+          resolveFirstAnalysis({ status: "review_ready", packageId: "package-0", sessionId: "session-0" });
+          await settle();
+          window.firstAnalysisFinished = { calls: analysisCalls.slice(), busy: document.querySelector(".catalog").getAttribute("aria-busy"),
+            progressShown: !document.querySelector("#analysis-progress").hidden };
+          document.querySelectorAll("#catalog-list button")[1].click(); await settle();
+          window.secondAnalysisBeforeOldReply = { calls: analysisCalls.slice(), busy: document.querySelector(".catalog").getAttribute("aria-busy"),
+            steps: [...document.querySelectorAll("#analysis-progress-steps li")].map(item => item.dataset.stage + ":" + item.dataset.status), progressCalls };
+          resolveLateProgress(${JSON.stringify(lateProgress)});
+          await settle();
+          window.secondAnalysisAfterOldReply = { label: document.querySelector("#analysis-progress-label").textContent,
+            steps: [...document.querySelectorAll("#analysis-progress-steps li")].map(item => item.dataset.stage + ":" + item.dataset.status),
+            progressCalls, maxActiveReads };
+        };
+        window.focusResult = () => ({ firstAnalysisPending: window.firstAnalysisPending, firstAnalysisFinished: window.firstAnalysisFinished,
+          secondAnalysisBeforeOldReply: window.secondAnalysisBeforeOldReply, secondAnalysisAfterOldReply: window.secondAnalysisAfterOldReply });
+      `;
+      writeFileSync(join(directory, "setup.js"), setup, "utf8");
+      writeFileSync(join(directory, "page.html"), html.replace('<script type="module" src="./app.js"></script>', '<script src="./setup.js"></script><script type="module" src="./app.js"></script>'));
+      expect(await chromiumFocusResults(directory, ["window.run()"])) .toEqual([{
+        firstAnalysisPending: { calls: ["record-0"], busy: "true", progressCalls: 1 },
+        firstAnalysisFinished: { calls: ["record-0"], busy: "false", progressShown: true },
+        secondAnalysisBeforeOldReply: { calls: ["record-0", "record-1"], busy: "true",
+          steps: ["fetching:running", "replaying:waiting", "rules:waiting", "scoring:waiting", "facts:waiting", "packaging:waiting", "saving:waiting"], progressCalls: 1 },
+        secondAnalysisAfterOldReply: { label: "正在进行读取牌谱 · 0/1 · 总用时 0分2秒",
+          steps: ["fetching:running", "replaying:waiting", "rules:waiting", "scoring:waiting", "facts:waiting", "packaging:waiting", "saving:waiting"],
+          progressCalls: 3, maxActiveReads: 1 },
+      }]);
+    } finally { rmSync(directory, { recursive: true, force: true, maxRetries: 20, retryDelay: 100 }); }
+  }, 90_000);
+
+  it("paginates saved reviews and resets the page after opening a saved item refreshes the list", async () => {
+    const directory = mkdtempSync(join(tmpdir(), "saved-review-renderer-pages-"));
+    try {
+      for (const name of ["app", "fixed-review-ui", "session-ui-policy", "paipu-ui-policy"]) {
+        const text = readFileSync(new URL(`../src/renderer/${name}.ts`, import.meta.url), "utf8");
+        writeFileSync(join(directory, `${name}.js`), transpileModule(text, {
+          compilerOptions: { module: ModuleKind.ES2022, target: ScriptTarget.ES2022 },
+        }).outputText, "utf8");
+      }
+      const sessions = Array.from({ length: 10 }, (_, index) => ({
+        sessionId: `session-${index}`, packageId: `saved-${index}`, analysisStatus: "complete",
+        activeReportRefId: null, updatedAt: "2026-10-04T00:00:00.000Z",
+      }));
+      const snapshot = FixedReviewSnapshotSchema.parse({
+        schemaVersion: "fixed-review-view/v1", packageId: "saved-9", analysisStatus: "complete",
+        outcomeCounts: { analysis_ready: 0, unsupported_action: 0, source_row_not_expected: 0, no_mortal_entry: 0, binding_mismatch: 0, model_output_incomplete: 0, analysis_blocked: 0 },
+        activeReportRefId: null, activeReportStatus: "not_generated",
+        explanationCounts: { ready: 0, provider_unavailable: 0, request_failed: 0, invalid_output: 0 },
+        selection: { policyVersion: "deterministic-review-selector/v1", selectedCount: 0, items: [] },
+      });
+      const setup = `
+        let reads = 0;
+        const sessions = ${JSON.stringify(sessions)};
+        const snapshot = ${JSON.stringify(snapshot)};
+        window.riichiCoach = { getSessionStatus: async () => ({ status: "logged_out" }) };
+        window.riichiCoachProvider = {
+          status: async () => ({ configured: true, settings: null }),
+          listReviewSessions: async () => ++reads === 1 ? sessions : [sessions[9]],
+          openReview: async () => snapshot, leaveReview: async () => {},
+        };
+        window.riichiCoachCatalog = { getRecordAnalysisProgress: async () => (${JSON.stringify(analysisSnapshot({ stage: "idle", elapsedMs: 0 }))}) };
+        window.run = async () => {
+          const settle = async () => { await new Promise(resolve => setTimeout(resolve, 50)); };
+          await settle();
+          const rows = () => [...document.querySelectorAll("#review-session-list li")].map(row => row.textContent);
+          const page = () => document.querySelector("#review-session-pagination-status").textContent;
+          window.firstPage = { count: rows().length, names: rows().join("|"), page: page() };
+          document.querySelector("#review-session-page-next").click();
+          window.secondPage = { count: rows().length, names: rows().join("|"), page: page(),
+            previousDisabled: document.querySelector("#review-session-page-previous").disabled,
+            nextDisabled: document.querySelector("#review-session-page-next").disabled };
+          document.querySelector("#review-session-list button").click(); await settle();
+          window.refreshed = { count: rows().length, names: rows().join("|"), page: page(), reads,
+            reviewVisible: !document.querySelector("#fixed-review").hidden };
+        };
+        window.focusResult = () => ({ firstPage: window.firstPage, secondPage: window.secondPage, refreshed: window.refreshed });
+      `;
+      writeFileSync(join(directory, "setup.js"), setup, "utf8");
+      writeFileSync(join(directory, "page.html"), html.replace('<script type="module" src="./app.js"></script>', '<script src="./setup.js"></script><script type="module" src="./app.js"></script>'));
+      expect(await chromiumFocusResults(directory, ["window.run()"])) .toEqual([{
+        firstPage: { count: 8, names: expect.stringContaining("saved-7"), page: "第 1 / 2 页 · 共 10 条" },
+        secondPage: { count: 2, names: expect.stringContaining("saved-8"), page: "第 2 / 2 页 · 共 10 条", previousDisabled: false, nextDisabled: true },
+        refreshed: { count: 1, names: expect.stringContaining("saved-9"), page: "第 1 / 1 页 · 共 1 条", reads: 2, reviewVisible: true },
+      }]);
+    } finally { rmSync(directory, { recursive: true, force: true, maxRetries: 20, retryDelay: 100 }); }
+  }, 90_000);
+
+  it("captures the desktop workbench and seven-step analysis panel in the fixed hidden Electron window", async () => {
+    const directory = mkdtempSync(join(tmpdir(), "desktop-workbench-capture-"));
+    const evidenceDirectory = resolve(process.cwd(), "..", "..", "coach-acceptance-evidence", "desktop-workbench-20261004");
+    const capturePath = join(evidenceDirectory, "desktop-workbench.png");
+    try {
+      mkdirSync(evidenceDirectory, { recursive: true });
+      for (const name of ["app", "fixed-review-ui", "session-ui-policy", "paipu-ui-policy"]) {
+        const text = readFileSync(new URL(`../src/renderer/${name}.ts`, import.meta.url), "utf8");
+        writeFileSync(join(directory, `${name}.js`), transpileModule(text, {
+          compilerOptions: { module: ModuleKind.ES2022, target: ScriptTarget.ES2022 },
+        }).outputText, "utf8");
+      }
+      const records = Array.from({ length: 10 }, (_, index) => ({
+        recordId: `demo-${index}`, startedAt: 1_790_000_000 + index * 60, selfSeat: 0, shareUrl: "fixture",
+        players: [0, 1, 2, 3].map(seat => ({ displayName: seat === 0 ? `本机玩家 ${index + 1}` : `对手 ${seat}` })),
+      }));
+      const setup = `
+        const settle = (delay = 80) => new Promise(resolve => setTimeout(resolve, delay));
+        window.riichiCoach = { getSessionStatus: async () => ({ status: "valid", displayName: "演示账号" }) };
+        window.riichiCoachProvider = { status: async () => ({ configured: true, settings: null }),
+          listReviewSessions: async () => [{ sessionId: "demo-session", packageId: "演示复盘", activeReportRefId: null }] };
+        window.riichiCoachCatalog = {
+          listAnalyzableRecords: async () => ${JSON.stringify(records)}, syncAnalyzableRecords: async () => ${JSON.stringify(records)},
+          startRecordAnalysis: () => new Promise(() => {}),
+          getRecordAnalysisProgress: async () => (${JSON.stringify(analysisSnapshot({ stage: "scoring", completed: 2, total: 5, elapsedMs: 95_000, estimatedTotalMs: 210_000, remainingMs: 115_000, estimateSource: "history" }))}),
+        };
+        window.run = async () => {
+          await settle();
+          document.querySelector("#catalog-list button").click();
+          await settle(120);
+          document.activeElement?.blur();
+        };
+        window.focusResult = () => ({ width: document.querySelector(".workspace").getBoundingClientRect().width,
+          sidebarWidth: document.querySelector(".sidebar").getBoundingClientRect().width,
+          recordCount: document.querySelectorAll("#catalog-list li").length,
+          page: document.querySelector("#catalog-pagination-status").textContent,
+          stepCount: document.querySelectorAll("#analysis-progress-steps li").length,
+          stepText: document.querySelector("#analysis-progress-steps").textContent,
+          progressEstimate: document.querySelector("#analysis-progress-estimate").textContent });
+      `;
+      writeFileSync(join(directory, "setup.js"), setup, "utf8");
+      writeFileSync(join(directory, "styles.css"), styles, "utf8");
+      writeFileSync(join(directory, "page.html"), html.replace('<script type="module" src="./app.js"></script>', '<script src="./setup.js"></script><script type="module" src="./app.js"></script>'));
+      const results = await chromiumFocusResults(directory, ["window.run()"], { path: capturePath, width: 1440, height: 1120 });
+      expect(results).toEqual([expect.objectContaining({
+        width: expect.any(Number), sidebarWidth: expect.any(Number), recordCount: 8,
+        page: "第 1 / 2 页 · 共 10 场", stepCount: 7,
+        stepText: expect.stringContaining("模型评分"),
+        progressEstimate: "预计总时长 3分30秒 · 预计剩余 1分55秒 · 根据本机历史分析",
+      })]);
+      expect((results[0] as { width: number }).width).toBeGreaterThan(800);
+      expect((results[0] as { sidebarWidth: number }).sidebarWidth).toBeGreaterThan(240);
+      expect(statSync(capturePath).size).toBeGreaterThan(15_000);
+    } finally { rmSync(directory, { recursive: true, force: true, maxRetries: 20, retryDelay: 100 }); }
+  }, 90_000);
+
+  it("keeps first-report generation blocked until the local coach service is configured", async () => {
+    const directory = mkdtempSync(join(tmpdir(), "fixed-review-provider-readiness-"));
+    try {
+      const snapshot = FixedReviewSnapshotSchema.parse({
+        schemaVersion: "fixed-review-view/v1", packageId: "first-package", analysisStatus: "complete",
+        outcomeCounts: { analysis_ready: 1, unsupported_action: 0, source_row_not_expected: 0, no_mortal_entry: 0, binding_mismatch: 0, model_output_incomplete: 0, analysis_blocked: 0 },
+        activeReportRefId: null, activeReportStatus: "not_generated",
+        explanationCounts: { ready: 0, provider_unavailable: 0, request_failed: 0, invalid_output: 0 },
+        selection: { policyVersion: "deterministic-review-selector/v1", selectedCount: 1, items: [{
+          decisionId: "decision-1", rank: 1, selectionReason: "model_disagreement_above_threshold", roundOrdinal: 0,
+          decisionWindowKind: "self_turn", actualAction: { actionRef: "action-1", label: "打牌 1m" },
+          mortalPreferredActions: [], errorGap: 12, tags: ["efficiency"], explanationStatus: "not_generated",
+        }] },
+      });
+      for (const name of ["app", "fixed-review-ui", "session-ui-policy", "paipu-ui-policy"]) {
+        const text = readFileSync(new URL(`../src/renderer/${name}.ts`, import.meta.url), "utf8");
+        writeFileSync(join(directory, `${name}.js`), transpileModule(text, {
+          compilerOptions: { module: ModuleKind.ES2022, target: ScriptTarget.ES2022 },
+        }).outputText, "utf8");
+      }
+      const setup = `
+        let generations = 0, statusReads = 0, activeReportRefId = null;
+        const session = { sessionId: "first-session", packageId: "first-package", analysisStatus: "complete", activeReportRefId, updatedAt: "2026-10-04T00:00:00.000Z" };
+        window.riichiCoach = { getSessionStatus: async () => ({ status: "logged_out" }) };
+        window.riichiCoachProvider = {
+          status: async () => { statusReads++; return { configured: false, settings: null }; },
+          listReviewSessions: async () => [{ ...session, activeReportRefId }],
+          openReview: async () => (${JSON.stringify(snapshot)}),
+          generateReview: async () => { generations++; activeReportRefId = "first-report"; throw new Error("must-not-run"); },
+          leaveReview: async () => {},
+        };
+        const settle = async () => { for (let i = 0; i < 16; i++) await Promise.resolve(); };
+        window.run = async () => {
+          await settle();
+          document.querySelector("#review-session-list button").click();
+          await settle();
+          const button = [...document.querySelectorAll("#fixed-review button")].find(item => item.textContent === "生成教练解说");
+          button.click();
+          await settle();
+          window.afterAttempt = {
+            generations, statusReads, activeReportRefId,
+            configShown: document.querySelector(".coach-settings") !== null && document.querySelector(".coach-settings").open,
+            configText: document.querySelector(".coach-settings")?.textContent ?? "",
+            hasProviderChoice: document.querySelector("#coach-provider-kind") !== null,
+            generateButtons: [...document.querySelectorAll("#fixed-review button")].filter(item => item.textContent === "生成教练解说").length,
+          };
+          document.activeElement?.blur();
+        };
+        window.focusResult = () => window.afterAttempt;
+      `;
+      writeFileSync(join(directory, "setup.js"), setup, "utf8");
+      writeFileSync(join(directory, "page.html"), html.replace('<script type="module" src="./app.js"></script>', '<script src="./setup.js"></script><script type="module" src="./app.js"></script>'), "utf8");
+      const actual = await chromiumFocusResults(directory, ["window.run()"]);
+      expect(actual).toEqual([expect.objectContaining({
+        generations: 0, statusReads: expect.any(Number), activeReportRefId: null,
+        configShown: true, configText: expect.stringMatching(/配置|教练模型|服务/),
+        hasProviderChoice: true, generateButtons: 1,
+      })]);
+    } finally { rmSync(directory, { recursive: true, force: true, maxRetries: 20, retryDelay: 100 }); }
+  }, 90_000);
+
+  it("shows unknown usage while generation waits and retains provider usage after reopening the report", async () => {
+    const directory = mkdtempSync(join(tmpdir(), "fixed-review-token-usage-"));
+    try {
+      const snapshot = FixedReviewSnapshotSchema.parse({
+        schemaVersion: "fixed-review-view/v1", packageId: "usage-package", analysisStatus: "complete",
+        outcomeCounts: { analysis_ready: 1, unsupported_action: 0, source_row_not_expected: 0, no_mortal_entry: 0, binding_mismatch: 0, model_output_incomplete: 0, analysis_blocked: 0 },
+        activeReportRefId: null, activeReportStatus: "not_generated",
+        explanationCounts: { ready: 0, provider_unavailable: 0, request_failed: 0, invalid_output: 0 },
+        selection: { policyVersion: "deterministic-review-selector/v1", selectedCount: 1, items: [{
+          decisionId: "usage-decision", rank: 1, selectionReason: "model_disagreement_above_threshold", roundOrdinal: 0,
+          decisionWindowKind: "self_turn", actualAction: { actionRef: "usage-action", label: "打牌 1m" },
+          mortalPreferredActions: [], errorGap: 12, tags: ["efficiency"], explanationStatus: "not_generated",
+        }] },
+      });
+      const generated = FixedReviewSnapshotSchema.parse({
+        ...snapshot, activeReportRefId: "saved-report", activeReportStatus: "evidence_only",
+        coachUsage: { inputTokens: 321, totalTokens: 366 },
+        coachProvider: { providerId: "codex-cli", model: "gpt-6-luna", reasoningEffort: "max" },
+        explanationCounts: { ready: 0, provider_unavailable: 1, request_failed: 0, invalid_output: 0 },
+        selection: { ...snapshot.selection, items: snapshot.selection.items.map(item => ({ ...item, explanationStatus: "provider_unavailable" as const })) },
+      });
+      for (const name of ["app", "fixed-review-ui", "session-ui-policy", "paipu-ui-policy"]) {
+        const text = readFileSync(new URL(`../src/renderer/${name}.ts`, import.meta.url), "utf8");
+        writeFileSync(join(directory, `${name}.js`), transpileModule(text, {
+          compilerOptions: { module: ModuleKind.ES2022, target: ScriptTarget.ES2022 },
+        }).outputText, "utf8");
+      }
+      const setup = `
+        let generations = 0, opens = 0, activeReportRefId = null, resolveGeneration;
+        const session = { sessionId: "usage-session", packageId: "usage-package", analysisStatus: "complete", activeReportRefId, updatedAt: "2026-10-04T00:00:00.000Z" };
+        const usageSnapshot = ${JSON.stringify(snapshot)};
+        const generated = ${JSON.stringify(generated)};
+        const usageValues = () => [...document.querySelectorAll(".coach-token-usage dd")].map(item => item.textContent);
+        const settle = async () => { for (let i = 0; i < 20; i++) await Promise.resolve(); };
+        window.riichiCoach = { getSessionStatus: async () => ({ status: "logged_out" }) };
+        window.riichiCoachProvider = {
+          status: async () => ({ configured: true, settings: { providerId: "codex-cli", modelName: "gpt-6-luna", reasoningEffort: "max" } }),
+          listReviewSessions: async () => [{ ...session, activeReportRefId }],
+          openReview: async () => { opens++; return activeReportRefId === null ? usageSnapshot : generated; },
+          generateReview: async () => {
+            generations++;
+            return new Promise(resolve => { resolveGeneration = () => { activeReportRefId = "saved-report"; resolve({ status: "ready", snapshot: generated }); }; });
+          },
+          leaveReview: async () => {},
+        };
+        window.run = async () => {
+          await settle();
+          document.querySelector("#review-session-list button").click();
+          await settle();
+          window.before = { values: usageValues(), text: document.querySelector(".coach-token-usage").textContent };
+          const generate = [...document.querySelectorAll("#fixed-review button")].find(item => item.textContent === "生成教练解说");
+          generate.click(); await settle();
+          window.waiting = { generations, disabled: generate.disabled,
+            live: document.querySelector("#fixed-review .review-live").textContent, values: usageValues() };
+          resolveGeneration(); await settle();
+          window.afterGeneration = { generations, activeReportRefId, values: usageValues(),
+            provider: document.querySelector(".coach-token-usage").textContent,
+            note: document.querySelector(".coach-token-usage p:last-child").textContent };
+          document.querySelector("#leave-review").click(); await settle();
+          document.querySelector("#review-session-list button").click(); await settle();
+          window.reopened = { opens, activeReportRefId, values: usageValues(),
+            provider: document.querySelector(".coach-token-usage").textContent };
+          document.activeElement?.blur();
+        };
+        window.focusResult = () => ({ before: window.before, waiting: window.waiting,
+          afterGeneration: window.afterGeneration, reopened: window.reopened });
+      `;
+      writeFileSync(join(directory, "setup.js"), setup, "utf8");
+      writeFileSync(join(directory, "page.html"), html.replace('<script type="module" src="./app.js"></script>', '<script src="./setup.js"></script><script type="module" src="./app.js"></script>'), "utf8");
+      expect(await chromiumFocusResults(directory, ["window.run()"])).toEqual([{
+        before: { values: ["未知", "未知", "未知", "未知"], text: expect.stringContaining("尚未生成") },
+        waiting: { generations: 1, disabled: true, live: "正在生成教练解说；等待解说和 Token 统计…", values: ["未知", "未知", "未知", "未知"] },
+        afterGeneration: { generations: 1, activeReportRefId: "saved-report", values: ["321", "未知", "366", "未知"],
+          provider: expect.stringContaining("模型：gpt-6-luna · 推理强度 max"), note: expect.stringContaining("本报告请求") },
+        reopened: { opens: 2, activeReportRefId: "saved-report", values: ["321", "未知", "366", "未知"],
+          provider: expect.stringContaining("模型：gpt-6-luna · 推理强度 max") },
+      }]);
+    } finally { rmSync(directory, { recursive: true, force: true, maxRetries: 20, retryDelay: 100 }); }
+  }, 90_000);
 
   it.each([
     ["complete", false], ["partial", false], ["evidence_only", false], ["failed", false],
@@ -151,6 +636,7 @@ describe("fixed review native DOM surface", () => {
         const session = ${JSON.stringify(session)};
         window.riichiCoach = { getSessionStatus: async () => ({ status: "logged_out" }) };
         window.riichiCoachProvider = {
+          status: async () => ({ configured: true, settings: null }),
           listReviewSessions: async () => {
             reads++;
             if (refreshFailsOnce && reads === 3) throw new Error("private-refresh-diagnostic");
@@ -229,6 +715,8 @@ describe("fixed review native DOM surface", () => {
 
   it("ships semantic three-level landmarks and safe text-only rendering", () => {
     expect(html).toContain('id="fixed-review"');
+    expect(html).toContain("复盘保存在本机");
+    expect(html).not.toContain("仅本机处理");
     expect(source).toContain("review-overview");
     expect(source).toContain("review-list");
     expect(source).toContain("review-detail");
@@ -285,7 +773,10 @@ describe("fixed review native DOM surface", () => {
           const old = document.getElementById("root");
           const root = old.cloneNode(false); old.replaceWith(root);
           const snapshot = { ...base, selection: { policyVersion: "deterministic-review-selector/v1", selectedCount: populated ? 1 : 0, items: populated ? [item] : [] } };
-          const ui = createFixedReviewUi({ document, root, api: { openReview: async () => snapshot } });
+          const ui = createFixedReviewUi({ document, root, api: {
+            openReview: async () => snapshot,
+            status: async () => ({ configured: true, settings: null }),
+          } });
           await ui.open(snapshot.packageId);
           const go = [...document.querySelectorAll("button")].find((button) => button.textContent === "查看复盘条目");
           go.id = "go-list"; go.focus();
@@ -329,6 +820,7 @@ describe("fixed review native DOM surface", () => {
           const root = old.cloneNode(false); old.replaceWith(root);
           const ui = createFixedReviewUi({ document, root, api: {
             openReview: async () => snapshot,
+            status: async () => ({ configured: true, settings: null }),
             generateReview: async () => ({ status: "ready", snapshot: generated }),
           } });
           await ui.open(snapshot.packageId);

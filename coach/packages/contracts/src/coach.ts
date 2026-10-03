@@ -352,15 +352,20 @@ export type CoachGroundingCheckResult = z.infer<
 export const LlmProviderDescriptorSchema = z.object({
   providerId: z.string().min(1),
   model: z.string().min(1),
+  reasoningEffort: z.literal("max").optional(),
+  samplingMode: z.literal("provider_default").optional(),
 }).strict();
 export type LlmProviderDescriptor = z.infer<typeof LlmProviderDescriptorSchema>;
 
-/** Provider-reported token cost (optional — some endpoints omit it). */
+/** Provider-reported token usage; cached input is a subset, not an extra cost.
+ * Missing counters mean unknown, never zero or an account allowance. */
 export const LlmTokenUsageSchema = z.object({
-  inputTokens: z.number().int().nonnegative().optional(),
-  outputTokens: z.number().int().nonnegative().optional(),
-  totalTokens: z.number().int().nonnegative().optional(),
-}).strict();
+  inputTokens: z.number().int().nonnegative().max(Number.MAX_SAFE_INTEGER).optional(),
+  cachedInputTokens: z.number().int().nonnegative().max(Number.MAX_SAFE_INTEGER).optional(),
+  outputTokens: z.number().int().nonnegative().max(Number.MAX_SAFE_INTEGER).optional(),
+  totalTokens: z.number().int().nonnegative().max(Number.MAX_SAFE_INTEGER).optional(),
+}).strict().refine(value => value.cachedInputTokens === undefined || value.inputTokens === undefined
+  || value.cachedInputTokens <= value.inputTokens, "cached input cannot exceed input");
 export type LlmTokenUsage = z.infer<typeof LlmTokenUsageSchema>;
 
 /** Provider-owned transport metadata. `transportRetries` is the number of
@@ -417,6 +422,7 @@ export type LlmCoachSuccess = z.infer<typeof LlmCoachSuccessSchema>;
 /** The failure variant. */
 export const LlmCoachFailureSchema = z.object({
   errorCode: LlmCoachErrorCodeSchema,
+  usage: LlmTokenUsageSchema.optional(),
 }).merge(LlmCoachTransportAuditSchema.omit({ outputHash: true })).strict();
 export type LlmCoachFailure = z.infer<typeof LlmCoachFailureSchema>;
 
@@ -480,6 +486,8 @@ export type ExplanationStatus = z.infer<typeof ExplanationStatusSchema>;
 export const ReviewGenerationSchema = z.object({
   providerId: z.string().min(1),
   model: z.string().min(1),
+  reasoningEffort: z.literal("max").optional(),
+  samplingMode: z.literal("provider_default").optional(),
   promptVersion: z.enum(["coach-review-prompt/v1", COACH_REVIEW_PROMPT_VERSION]),
   draftSchemaVersion: z.literal(COACH_REASONING_DRAFT_SCHEMA_VERSION),
   /** Reasoning engine (generator) version. */

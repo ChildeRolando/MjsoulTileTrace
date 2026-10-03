@@ -1,6 +1,9 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import { join } from "node:path";
+import { createRecordAnalysisTimingStore } from "./record-analysis-timing-store.js";
+import { createRecordAnalysisProgressTracker } from "./record-analysis-progress.js";
+import { createCoachSettingsStore } from "./llm-provider/settings-store.js";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
 import {
@@ -764,13 +767,18 @@ async function start(): Promise<void> {
   });
   await service.initialize();
 
+  const coachSettings = createCoachSettingsStore(app.getPath("userData"));
   const coachService = createCoachService({
     credentials: providerCredentials, fetchImpl: globalThis.fetch,
     readPackage: createPackageReferenceReader(app.getPath("userData")),
     reviewRepository,
+    initialSettings: coachSettings.load() ?? { providerId: "codex-cli", modelName: "gpt-6-luna", reasoningEffort: "max" },
+    saveSettings: value => coachSettings.save(value),
     ...(golden === null ? {} : { providerFactory: golden.createProvider, clock: () => "2026-10-01T00:00:00.000Z" }),
   });
 
+  const timingStore = createRecordAnalysisTimingStore(app.getPath("userData"));
+  const progressTracker = createRecordAnalysisProgressTracker({ history: timingStore.load(), onHistory: history => timingStore.save(history) });
   const createMainWindow = async (): Promise<void> => {
     if (mainWindow !== null && !mainWindow.isDestroyed()) return;
     const window = new BrowserWindow({
@@ -799,6 +807,7 @@ async function start(): Promise<void> {
     });
     catalogIpcRegistration = registerMahjongSoulCatalogIpc({
       ipcMain: ipcMain as unknown as IpcMainPort,
+      progressTracker,
       service: Object.freeze({
         syncAnalyzableRecords: () => golden === null ? catalogService.syncAnalyzableRecords() : Promise.resolve([golden.summary]),
         listAnalyzableRecords: () => golden === null ? catalogService.listAnalyzableRecords() : Promise.resolve([golden.summary]),

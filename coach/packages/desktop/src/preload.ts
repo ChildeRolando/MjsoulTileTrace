@@ -7,7 +7,7 @@ import {
   parseAnalyzableRecordSummaries,
   parseAccountReviewResult,
   SourceCacheClearResultSchema,
-  RecordAnalysisProgressSchema,
+  RecordAnalysisSnapshotSchema,
   type MahjongSoulCatalogApi,
 } from "./catalog-api.js";
 import {
@@ -87,7 +87,7 @@ export function createMahjongSoulCatalogPreloadApi(
       } catch (error) { throw fixedError(error); }
     },
     getRecordAnalysisProgress: async () => {
-      try { return RecordAnalysisProgressSchema.parse(await invokePort(MAHJONG_SOUL_CATALOG_IPC_CHANNELS.getRecordAnalysisProgress)); }
+      try { return RecordAnalysisSnapshotSchema.parse(await invokePort(MAHJONG_SOUL_CATALOG_IPC_CHANNELS.getRecordAnalysisProgress)); }
       catch (error) { throw fixedError(error); }
     },
     clearSourceCache: async () => {

@@ -116,7 +116,7 @@ const EMPTY_OUTPUT_HASH = `sha256:${sha256Hex("")}`;
  *  transport retry count; `generated` carries the raw model output. */
 export type CoachRequestOutcome =
   | { kind: "provider_unavailable" }
-  | { kind: "request_failed"; transportRetries: 0 | 1 }
+  | { kind: "request_failed"; transportRetries: 0 | 1; usage?: LlmTokenUsage }
   | {
       kind: "generated";
       content: string;
@@ -151,7 +151,8 @@ export function coachRequestOutcomeFromLlmResult(
   if (result.errorCode === "provider_unavailable") {
     return { kind: "provider_unavailable" };
   }
-  return { kind: "request_failed", transportRetries: result.transportRetries };
+  return { kind: "request_failed", transportRetries: result.transportRetries,
+    ...(result.usage === undefined ? {} : { usage: result.usage }) };
 }
 
 // ---------------------------------------------------------------------------
@@ -507,6 +508,8 @@ export function assembleReviewReport(
   const generation: ReviewGeneration = {
     providerId: provider.providerId,
     model: provider.model,
+    ...(provider.reasoningEffort === undefined ? {} : { reasoningEffort: provider.reasoningEffort }),
+    ...(provider.samplingMode === undefined ? {} : { samplingMode: provider.samplingMode }),
     promptVersion: COACH_REVIEW_PROMPT_VERSION,
     draftSchemaVersion: COACH_REASONING_DRAFT_SCHEMA_VERSION,
     generatorVersion: COACH_ENGINE_VERSION,
@@ -534,6 +537,7 @@ export function assembleReviewReport(
   } else if (input.outcome.kind === "request_failed") {
     // Degrade path 2: transport failed after the recorded retries.
     transportRetries = input.outcome.transportRetries;
+    if (input.outcome.usage !== undefined) usage = input.outcome.usage;
     rows = selectedDecisionIds.map((decisionId) =>
       rowOf(decisionId, "request_failed"),
     );

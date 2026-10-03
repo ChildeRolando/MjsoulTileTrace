@@ -157,10 +157,13 @@ ADR-0006 保留向听、进张、打点、结构与防守事实；退出的是�
 ### 目录与牌谱
 
 账号目录分析的运行进度由 Electron main 的既有目录 IPC 注册拥有：一次只允许一个
-分析任务，可信窗口可以轮询阶段和该阶段的完成数/总数。状态只存在内存；注销、
+分析任务，可信窗口可以轮询完整七阶段、每阶段的完成数/总数、状态与耗时。任务状态只存在内存；注销、
 浏览器会话、原始牌谱、账号标识、模型输出与路径均不进入进度 DTO。规则查询和
 full-game 的计数回调只报告实际处理的边界，模型阶段只统计需评分的多候选决策。
-renderer 展示分阶段进度及本次已用时间，不将无法估计的阶段换算为整体百分比；
+renderer 从启动时展示全部阶段并保留终态，展示本次已用时间；没有完整耗时参考时显示
+“首次分析，正在建立估时参考”。main 在 userData 独立保存最多五次完整任务的阶段耗时和计数，
+不含牌谱或账号身份，按当前工作量与实际处理速率估计总耗时/剩余时间，并标明估算来源。
+计时参考不影响分析契约、报告 identity 或任务是否完成，不将未知阶段换算为整体百分比；
 至多一条轮询请求在途，任务结束时停止轮询，防止迟到回复覆盖下一次任务。
 运行日志仅记录阶段耗时及计数，供定位慢点；这些信息不是分析结果或验收证明。
 
@@ -347,14 +350,15 @@ Linux 弱后端、损坏/解密失败、加密/写入失败均不可用；失败
 停止使用凭据，成功重新导入或经校验的重启才能恢复。删除/替换操作等待在途生成结束。
 
 `riichiCoachProvider` 只暴露 configure/status/importCredential/clearCredential/generate。
-configure 是严格 `{baseUrl, modelName}`；baseUrl 只允许无认证信息、query、fragment 的
-HTTPS URL。非敏感设置在当前 main 生命周期内保留，与密文文件独立；重启后需重新配置
-设置。导入/删除不接收参数。generate 只接收 `{packageId}`，主进程从
+configure 接收严格 `{baseUrl, modelName}` 或 `{providerId:"codex-cli", modelName:"gpt-6-luna", reasoningEffort:"max"}`；
+baseUrl 只允许无认证信息、query、fragment 的 HTTPS URL。非敏感设置由 main 独立原子保存到
+`coach-provider-settings-v1.json`；凭据仍由原安全存储拥有。Codex 分支使用已有登录，
+不读取 BYOK key。导入/删除不接收参数。generate 只接收 `{packageId}`，主进程从
 `userData/analysis-packages/<sha256(packageId)>.json` 读取已有包，并校验内容与 identity；
 缺失/损坏引用返回 `package_unavailable`。此只读接点不提供新的分析包写入或目录 UI。
 
 唯一生产生成链是 validate package → project → select → `generateReviewReport` →
-slice → 冻结 prompt → provider 内一次初始发送与至多一次自动重试 → grounding →
+slice → 冻结 prompt → provider 内一次初始调用与至多一次自动重试 → grounding →
 append overlay → read-back validator。desktop main 是组合根；service/IPC 不得直接调用
 provider、slice/prompt builder 或 assembler 产生报告。该边界由
 `review_report_generation_seam` 架构规则机械保护。已有 package/report 的 presentation
@@ -374,6 +378,16 @@ internals（含 `appendReasoningOverlay`）禁止 desktop 获取；presenter 可
 package validators。
 检查器不解析运行时计算的模块路径，不提供任意 JavaScript 的数据流证明。
 流程不保存完整 prompt、response 或 raw CoT。
+Codex 是第二个 main-only adapter：固定模型/max、临时空工作目录、read-only、忽略用户配置，
+单次禁用 CLI 工具和外部上下文功能，提示词经 stdin 输入。JSONL 只在内存解析；只接受
+完成的最终 assistant 内容、数值用量和固定错误语义，工具调用事件立即拒绝，且等子进程
+退出后才允许外层重试。临时目录清理，原始流、认证参数、stderr/CoT 不进入报告或 renderer。
+CLI 自身的 HTTP 重试不受 adapter 的外层一次重试计数覆盖；`transportRetries` 对此分支表示
+额外 CLI 启动次数，不能用它推算云端实际发送次数。CLI 不提供本适配器可控的 temperature/
+输出 Token 上限；generation 显式记录 `samplingMode:provider_default` 与 `reasoningEffort:max`，
+不声称等同 HTTP 的 temperature=0/max_tokens。输出字节与运行时间仍受本地上限约束。
+桌面在请求前检查就绪状态，main 再检查；未就绪时不发布报告，不消费首次生成资格。
+一旦生成报告，仍遵守既有首次生成/不可原地重生成契约。
 optional usage 先校验形状，畸形 metadata 不会把合法 draft 变成传输失败。被拦截的
 key/prompt 反射只在 main 内保留与本次结果绑定的原文 hash，正文丢弃，audit.outputHash
 继续指向原始模型输出。冻结 v1 prompt 明确要求 zh-CN，且任何 Mortal（以及历史 Akagi）内部原因
