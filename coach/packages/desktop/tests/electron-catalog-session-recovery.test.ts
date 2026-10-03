@@ -9,11 +9,11 @@ import { describe, expect, it } from "vitest";
 const electron = createRequire(import.meta.url)("electron") as string;
 const harness = fileURLToPath(new URL("./electron-catalog-session-recovery-harness.cjs", import.meta.url));
 
-async function runElectronRecoveryHarness(): Promise<Record<string, unknown>> {
+async function runElectronRecoveryHarness(unknownMode: string): Promise<Record<string, unknown>> {
   const directory = mkdtempSync(join(tmpdir(), "catalog-session-recovery-"));
   const profile = join(directory, "profile");
   const config = join(directory, "input.json");
-  writeFileSync(config, JSON.stringify({ profile, repoRoot: fileURLToPath(new URL("../../..", import.meta.url)) }));
+  writeFileSync(config, JSON.stringify({ profile, unknownMode, repoRoot: fileURLToPath(new URL("../../..", import.meta.url)) }));
   try {
     return await new Promise<Record<string, unknown>>((resolve, reject) => {
       const child = spawn(electron, [harness, config], {
@@ -47,8 +47,8 @@ async function runElectronRecoveryHarness(): Promise<Record<string, unknown>> {
 }
 
 describe("real Electron catalog session rejection path", () => {
-  it("shows a relogin action through production IPC and preload without clearing local data", async () => {
-    const result = await runElectronRecoveryHarness();
+  it.each(["transport_exception", "unknown_reply"])("preserves the production authentication path and local data for %s", async (unknownMode) => {
+    const result = await runElectronRecoveryHarness(unknownMode);
     expect(result.initialStatus).toBe("账号已连接");
     expect(result.initialDetail).toBe("fixture · 令牌仅保存在本机");
     expect(result.initialLoginHidden).toBe(true);
@@ -65,6 +65,10 @@ describe("real Electron catalog session rejection path", () => {
     expect(result.catalogReplaceCallsAfterReject).toBe(0);
     expect(result.catalogClearCallsAfterReject).toBe(0);
     expect(result.logoutCallsAfterReject).toBe(0);
+    expect(result.sourceCacheClearCallsAfterReject).toBe(0);
+    expect(result.checkCallsAfterReject).toBe(1);
+    expect(result.loginCallsAfterReject).toBe(0);
+    expect(result.catalogCallsAfterReject).toBe(0);
     expect(result.reloginCalls).toBe(1);
     expect(result.unverifiedText).toBe("牌谱加载失败，请重试。");
     expect(result.unverifiedStatus).toBe("账号已连接");
@@ -79,6 +83,10 @@ describe("real Electron catalog session rejection path", () => {
     expect(result.catalogReplaceCallsAfterUnverified).toBe(0);
     expect(result.catalogClearCallsAfterUnverified).toBe(0);
     expect(result.logoutCallsAfterUnverified).toBe(0);
+    expect(result.sourceCacheClearCallsAfterUnverified).toBe(0);
+    expect(result.checkCallsAfterUnverified).toBe(2);
+    expect(result.loginCallsAfterUnverified).toBe(0);
+    expect(result.catalogCallsAfterUnverified).toBe(0);
     expect(result.recoveredStatus).toBe("账号已连接");
     expect(result.recoveredDetail).toBe("fixture · 令牌仅保存在本机");
     expect(result.loginHiddenAfterRecovery).toBe(true);
@@ -88,6 +96,11 @@ describe("real Electron catalog session rejection path", () => {
     expect(result.vaultClearCallsAfterRecovery).toBe(0);
     expect(result.catalogClearCallsAfterRecovery).toBe(0);
     expect(result.logoutCallsAfterRecovery).toBe(0);
+    expect(result.sourceCacheClearCallsAfterRecovery).toBe(0);
+    expect(result.checkCallsAfterRecovery).toBe(3);
+    expect(result.loginCallsAfterRecovery).toBe(1);
+    expect(result.catalogCallsAfterRecovery).toBe(2);
+    expect(result.authenticationPayloadsValid).toBe(true);
     expect(result.syncHiddenAfterRecovery).toBe(false);
     expect(result.syncDisabledAfterRecovery).toBe(false);
     expect(result.leakedText).toBe(false);

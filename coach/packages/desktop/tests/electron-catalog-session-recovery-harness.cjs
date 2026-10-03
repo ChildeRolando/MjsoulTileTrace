@@ -14,9 +14,10 @@ const status = () => ({
 
 app.setPath("userData", input.profile);
 app.whenReady().then(async () => {
-  const [ipc, catalogModule] = await Promise.all([
+  const [ipc, catalogModule, source] = await Promise.all([
     import(pathToFileURL(join(dist, "ipc.js")).href),
     import(pathToFileURL(join(dist, "catalog-service.js")).href),
+    import(pathToFileURL(join(input.repoRoot, "packages", "mahjong-soul-source", "dist", "index.js")).href),
   ]);
   let getStatusCalls = 0;
   let reloginCalls = 0;
@@ -25,8 +26,21 @@ app.whenReady().then(async () => {
   let catalogReplaceCalls = 0;
   let catalogClearCalls = 0;
   let logoutCalls = 0;
-  const authOutcomes = ["rejected", "unverified", "authenticated"];
-  const stored = { region: "cn", accountId: 101, displayName: "fixture" };
+  let sourceCacheClearCalls = 0;
+  let checkCalls = 0;
+  let loginCalls = 0;
+  let catalogCalls = 0;
+  let authenticationPayloadsValid = true;
+  const stored = {
+    region: "cn", loginMethod: "login", authType: 0, accountId: 101,
+    displayName: "fixture", accessToken: source.SecretString.from("fixture-raw-secret"),
+    adapterVersion: "0.1.0", clientVersion: "0.11.252.w", createdAt: 1, lastValidatedAt: 1,
+    recoveryContext: {
+      device: { platform: "pc", hardware: "pc", os: "windows", osVersion: "10", isBrowser: true, software: "Chrome", salePlatform: "web", hardwareVendor: "fixture", modelNumber: "fixture", screenWidth: 1, screenHeight: 1, userAgent: "fixture", screenType: 0 },
+      clientVersion: { resource: "0.11.252.w", package: "" },
+      currencyPlatforms: [2], version: 1, clientVersionString: "web-0.11.252.w", tag: "chs_t",
+    },
+  };
   const catalog = catalogModule.createMahjongSoulCatalogService({
     vault: {
       async restore() { return stored; },
@@ -40,9 +54,28 @@ app.whenReady().then(async () => {
       async clear() { catalogClearCalls += 1; },
     },
     sessionFactory: catalogModule.createMahjongSoulCatalogSessionFactory({
-      createSession: async () => ({
-        async authenticate() {},
-        async call(method) {
+      createSession: async () => {
+        const attempt = authCalls++;
+        return {
+        async authenticate() { throw new Error("legacy authentication is outside production restore"); },
+        async call(method, payload) {
+          if (method === ".lq.Lobby.oauth2Check" || method === ".lq.Lobby.oauth2Login") {
+            authenticationPayloadsValid &&= payload.type === stored.authType && payload.access_token === stored.accessToken.reveal();
+          }
+          if (method === ".lq.Lobby.oauth2Check") {
+            checkCalls += 1;
+            if (attempt === 0) return { error: { code: 151 }, has_account: false };
+            if (attempt === 1) {
+              if (input.unknownMode === "transport_exception") throw new Error("private upstream prose");
+              return { error: null };
+            }
+            return { error: null, has_account: true };
+          }
+          if (method === ".lq.Lobby.oauth2Login") {
+            loginCalls += 1;
+            return { error: null, account_id: stored.accountId };
+          }
+          if (method.startsWith(".lq.Lobby.fetch")) catalogCalls += 1;
           if (method === ".lq.Lobby.fetchGameRecordListV2") {
             return { iterator: "fixture-iterator", iterator_expire: 60, actual_begin_time: 1, actual_end_time: 2 };
           }
@@ -50,12 +83,9 @@ app.whenReady().then(async () => {
           throw new Error("unexpected lobby request");
         },
         async close() {},
-      }),
-      async authenticate() {
-        const outcome = authOutcomes[authCalls];
-        authCalls += 1;
-        return outcome;
+        };
       },
+      authenticate: source.authenticateStoredMahjongSoulSession,
     }),
     clock: () => 2_000,
   });
@@ -84,7 +114,7 @@ app.whenReady().then(async () => {
     service: {
       ...catalog,
       async ingest() { throw new Error("analysis is outside this harness"); },
-      clearSourceCache() { return { clearedEntries: 0, pendingMaterials: 0 }; },
+      clearSourceCache() { sourceCacheClearCalls += 1; return { clearedEntries: 0, pendingMaterials: 0 }; },
     },
   });
   try {
@@ -121,6 +151,10 @@ app.whenReady().then(async () => {
       catalogReplaceCallsAfterReject: catalogReplaceCalls,
       catalogClearCallsAfterReject: catalogClearCalls,
       logoutCallsAfterReject: logoutCalls,
+      sourceCacheClearCallsAfterReject: sourceCacheClearCalls,
+      checkCallsAfterReject: checkCalls,
+      loginCallsAfterReject: loginCalls,
+      catalogCallsAfterReject: catalogCalls,
     };
     const reconnected = await window.webContents.executeJavaScript(`(async () => {
       const settle = async () => {
@@ -144,6 +178,10 @@ app.whenReady().then(async () => {
       catalogReplaceCallsAfterUnverified: catalogReplaceCalls,
       catalogClearCallsAfterUnverified: catalogClearCalls,
       logoutCallsAfterUnverified: logoutCalls,
+      sourceCacheClearCallsAfterUnverified: sourceCacheClearCalls,
+      checkCallsAfterUnverified: checkCalls,
+      loginCallsAfterUnverified: loginCalls,
+      catalogCallsAfterUnverified: catalogCalls,
     };
     const recovered = await window.webContents.executeJavaScript(`(async () => {
       const settle = async () => {
@@ -172,6 +210,11 @@ app.whenReady().then(async () => {
       vaultClearCallsAfterRecovery: vaultClearCalls,
       catalogClearCallsAfterRecovery: catalogClearCalls,
       logoutCallsAfterRecovery: logoutCalls,
+      sourceCacheClearCallsAfterRecovery: sourceCacheClearCalls,
+      checkCallsAfterRecovery: checkCalls,
+      loginCallsAfterRecovery: loginCalls,
+      catalogCallsAfterRecovery: catalogCalls,
+      authenticationPayloadsValid,
     };
     console.log(`CATALOG_RECOVERY_RESULT=${JSON.stringify(result)}`);
   } finally {
