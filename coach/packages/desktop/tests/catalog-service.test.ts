@@ -229,6 +229,15 @@ describe("Mahjong Soul catalog service", () => {
 
   it("maps a close-only failure to the fixed sync error", async () => {
     const store = new FakeCatalogStore();
+    const { lobby: initialLobby } = lobbyReturning([rawEntry(secondId)]);
+    const initialService = createMahjongSoulCatalogService({
+      vault: vaultReturning(storedSession),
+      catalogStore: store,
+      sessionFactory: async () => initialLobby,
+      clock: () => 2_000_000,
+    });
+    await initialService.syncAnalyzableRecords();
+    const previousSummaries = [...store.summaries];
     const { lobby, closed } = lobbyReturning([rawEntry(firstId)], { failClose: true });
     const service = createMahjongSoulCatalogService({
       vault: vaultReturning(storedSession),
@@ -240,6 +249,7 @@ describe("Mahjong Soul catalog service", () => {
     await expect(service.syncAnalyzableRecords())
       .rejects.toThrow("mahjong_soul_catalog_sync_failed");
     expect(closed()).toBe(true);
+    expect(store.summaries).toEqual(previousSummaries);
   });
 
   it("lists the stored catalog without re-syncing", async () => {

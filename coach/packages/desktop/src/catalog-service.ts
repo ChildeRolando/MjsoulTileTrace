@@ -154,6 +154,19 @@ export function createMahjongSoulCatalogService(
       ) {
         throw new MahjongSoulSourceError("mahjong_soul_catalog_sync_failed");
       }
+      // Close successfully before committing so a close failure cannot report
+      // a failed sync after replacing the previously persisted catalog.
+      await lobby.close();
+      if (activeLobby === lobby) activeLobby = null;
+      lobby = null;
+      const stillCurrent = await vault.restore();
+      if (
+        generation !== expectedGeneration
+        || stillCurrent === null
+        || stillCurrent.accountId !== stored.accountId
+      ) {
+        throw new MahjongSoulSourceError("mahjong_soul_catalog_sync_failed");
+      }
       await catalogStore.replaceSummaries(stored.accountId, summaries);
       return await catalogStore.list(stored.accountId);
     } catch (error) {

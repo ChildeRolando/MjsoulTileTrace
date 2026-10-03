@@ -23,6 +23,8 @@ app.whenReady().then(async () => {
   let authCalls = 0;
   let vaultClearCalls = 0;
   let catalogReplaceCalls = 0;
+  let catalogClearCalls = 0;
+  let logoutCalls = 0;
   const authOutcomes = ["rejected", "unverified", "authenticated"];
   const stored = { region: "cn", accountId: 101, displayName: "fixture" };
   const catalog = catalogModule.createMahjongSoulCatalogService({
@@ -35,7 +37,7 @@ app.whenReady().then(async () => {
     catalogStore: {
       async replaceSummaries() { catalogReplaceCalls += 1; },
       async list() { return []; },
-      async clear() {},
+      async clear() { catalogClearCalls += 1; },
     },
     sessionFactory: catalogModule.createMahjongSoulCatalogSessionFactory({
       createSession: async () => ({
@@ -73,7 +75,7 @@ app.whenReady().then(async () => {
     service: {
       async getStatus() { getStatusCalls += 1; return status(); },
       async openLogin() { reloginCalls += 1; return status(); },
-      async logout() { return { region: "cn", status: "logged_out" }; },
+      async logout() { logoutCalls += 1; return { region: "cn", status: "logged_out" }; },
     },
   });
   const catalogRegistration = ipc.registerMahjongSoulCatalogIpc({
@@ -93,15 +95,22 @@ app.whenReady().then(async () => {
       };
       await settle();
       const initialStatus = document.querySelector("#status").textContent;
+      const initialDetail = document.querySelector("#detail").textContent;
       const initialLoginHidden = document.querySelector("#login").hidden;
       document.querySelector("#sync").click();
       await settle();
       return {
         initialStatus,
+        initialDetail,
         initialLoginHidden,
+        rejectedStatus: document.querySelector("#status").textContent,
+        rejectedDetail: document.querySelector("#detail").textContent,
         rejectedText: document.querySelector("#catalog-detail").textContent,
         rejectedLoginHidden: document.querySelector("#login").hidden,
         rejectedLoginLabel: document.querySelector("#login").textContent,
+        rejectedSyncHidden: document.querySelector("#sync").hidden,
+        rejectedSyncDisabled: document.querySelector("#sync").disabled,
+        rejectedLoginDisabled: document.querySelector("#login").disabled,
         leakedText: /fixture-raw-secret|private upstream prose|mahjong_soul_session_invalid|mahjong_soul_catalog_sync_failed/.test(document.body.textContent),
       };
     })()`);
@@ -110,6 +119,8 @@ app.whenReady().then(async () => {
       getStatusCallsAfterReject: getStatusCalls,
       vaultClearCallsAfterReject: vaultClearCalls,
       catalogReplaceCallsAfterReject: catalogReplaceCalls,
+      catalogClearCallsAfterReject: catalogClearCalls,
+      logoutCallsAfterReject: logoutCalls,
     };
     const reconnected = await window.webContents.executeJavaScript(`(async () => {
       const settle = async () => {
@@ -118,9 +129,12 @@ app.whenReady().then(async () => {
       document.querySelector("#login").click();
       await settle();
       return {
+        unverifiedStatus: document.querySelector("#status").textContent,
+        unverifiedDetail: document.querySelector("#detail").textContent,
         unverifiedText: document.querySelector("#catalog-detail").textContent,
         loginHiddenAfterUnverified: document.querySelector("#login").hidden,
         syncHiddenAfterUnverified: document.querySelector("#sync").hidden,
+        syncDisabledAfterUnverified: document.querySelector("#sync").disabled,
       };
     })()`);
     const afterUnverified = {
@@ -128,6 +142,8 @@ app.whenReady().then(async () => {
       getStatusCallsAfterUnverified: getStatusCalls,
       vaultClearCallsAfterUnverified: vaultClearCalls,
       catalogReplaceCallsAfterUnverified: catalogReplaceCalls,
+      catalogClearCallsAfterUnverified: catalogClearCalls,
+      logoutCallsAfterUnverified: logoutCalls,
     };
     const recovered = await window.webContents.executeJavaScript(`(async () => {
       const settle = async () => {
@@ -136,9 +152,13 @@ app.whenReady().then(async () => {
       document.querySelector("#sync").click();
       await settle();
       return {
+        recoveredStatus: document.querySelector("#status").textContent,
+        recoveredDetail: document.querySelector("#detail").textContent,
         loginHiddenAfterRecovery: document.querySelector("#login").hidden,
         loginLabelAfterRecovery: document.querySelector("#login").textContent,
         catalogTextAfterRecovery: document.querySelector("#catalog-detail").textContent,
+        syncHiddenAfterRecovery: document.querySelector("#sync").hidden,
+        syncDisabledAfterRecovery: document.querySelector("#sync").disabled,
       };
     })()`);
     const result = {
@@ -150,6 +170,8 @@ app.whenReady().then(async () => {
       authCalls,
       catalogReplaceCallsAfterRecovery: catalogReplaceCalls,
       vaultClearCallsAfterRecovery: vaultClearCalls,
+      catalogClearCallsAfterRecovery: catalogClearCalls,
+      logoutCallsAfterRecovery: logoutCalls,
     };
     console.log(`CATALOG_RECOVERY_RESULT=${JSON.stringify(result)}`);
   } finally {

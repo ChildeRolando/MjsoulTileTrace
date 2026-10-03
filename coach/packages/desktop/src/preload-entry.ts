@@ -66,7 +66,6 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 
 function fixedError(error: unknown, channel?: string): Error {
   if (!(error instanceof Error)) return new Error(PROTOCOL_ERROR);
-  if (ERROR_CODES.has(error.message)) return new Error(error.message);
   if (
     channel !== undefined
     && Object.values(PRELOAD_CHANNELS).includes(channel as typeof PRELOAD_CHANNELS[keyof typeof PRELOAD_CHANNELS])

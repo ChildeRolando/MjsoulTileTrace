@@ -125,7 +125,7 @@ describe("self-contained sandboxed preload", () => {
     expect(invoke).toHaveBeenCalledWith("mahjong-soul:get-session-status");
   });
 
-  it("passes every fixed source error code through verbatim", async () => {
+  it("does not treat raw fixed source codes as Electron rejections", async () => {
     const passthrough = [
       "mahjong_soul_record_container_invalid",
       "mahjong_soul_canonical_unsupported_semantics",
@@ -142,7 +142,8 @@ describe("self-contained sandboxed preload", () => {
     };
     for (const code of passthrough) {
       invoke.mockImplementationOnce(() => { throw new Error(code); });
-      await expect(paipu.importPaipu(request)).rejects.toThrow(code);
+      await expect(paipu.importPaipu(request))
+        .rejects.toThrow("mahjong_soul_login_protocol_unsupported");
     }
   });
 
@@ -160,6 +161,8 @@ describe("self-contained sandboxed preload", () => {
       `Error invoking remote method '${channel}': Error: backend says mahjong_soul_session_invalid`,
       `Error invoking remote method 'mahjong-soul:list-analyzable-records': Error: mahjong_soul_session_invalid`,
       `Error invoking remote method '${channel}': Error: mahjong_soul_session_invalid-extra`,
+      `Error invoking remote method '${channel}': Error: mahjong_soul_session_invalid trailing`,
+      `prefix Error invoking remote method '${channel}': Error: mahjong_soul_session_invalid`,
       "Error invoking remote method 'mahjong-soul:sync-analyzable-records': accessToken=secret",
     ]) {
       invoke.mockImplementationOnce(() => { throw new Error(message); });
@@ -240,8 +243,8 @@ describe("self-contained sandboxed preload", () => {
     // Arbitrary error messages collapse to the fixed protocol error.
     invoke.mockImplementationOnce(() => { throw new Error("leaky message"); });
     await expect(paipu.importPaipu(request)).rejects.toThrow("mahjong_soul_login_protocol_unsupported");
-    // Fixed source error codes pass through.
+    // A raw backend code without Electron's channel envelope is not trusted.
     invoke.mockImplementationOnce(() => { throw new Error("mahjong_soul_canonical_unsupported_semantics"); });
-    await expect(paipu.importPaipu(request)).rejects.toThrow("mahjong_soul_canonical_unsupported_semantics");
+    await expect(paipu.importPaipu(request)).rejects.toThrow("mahjong_soul_login_protocol_unsupported");
   });
 });
