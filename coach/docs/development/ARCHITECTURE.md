@@ -43,7 +43,14 @@ mahjong-soul-source ──► CanonicalEventStreamV2
                                      GraphContextSlice
                                              │
                                              ▼
+                               CoachContext + 本地引用查找表
+                                             │
+                                 仅教学 DTO 外发，审计链留本地
+                                             ▼
                                          LLM Coach
+                                             │
+                                             ▼
+                                引用还原 + 原图 grounding
                                              │
                                              ▼
                             Reasoning overlay / ReviewReport
@@ -53,6 +60,17 @@ mahjong-soul-source ──► CanonicalEventStreamV2
 ```
 
 系统刻意把“数据来源”“局面事实”“候选因素与差异”“模型选择”和“自然语言表达”分开；教练判断（CoachJudgment）位于证据之上、表达之下——可以综合与权衡证据，但不能倒写证据层事实。
+
+2026-10-04 用户批准将审计与模型消费分离，见 M6-D2 规格同日修订。
+`GraphContextSlice` 保留全部可追溯来源，`CoachContext/v1` 是其显式教学投影，
+使用短引用而不携带完整 Evidence、provenance、生成方/版本/哈希或查找表。
+硬证据/建议的权威级别、未知/限制、候选与评分、已选比较事实/差异及必要教学关系
+仍须保留；raw_replay/user_asserted 等事实来源类别与立直前后/鸣牌的教学时序
+不能误归为审计字段删除。材料性事件关系使用短引用或已有座位/河牌序号表示。
+不改变 selector 和自动比较范围。编码、解码、请求计量在通用 reasoning
+接口中，各 provider 只负责传输与回报 Token。输出还原后由原图 grounding 验证；
+未知、错类型、跨决策引用失败封闭。报告保存 canonical 引用及实际请求元数据，
+旧 v1/v2 报告继续离线校验，不重新生成。
 
 ## Workspace 边界
 
@@ -358,7 +376,7 @@ baseUrl 只允许无认证信息、query、fragment 的 HTTPS URL。非敏感设
 缺失/损坏引用返回 `package_unavailable`。此只读接点不提供新的分析包写入或目录 UI。
 
 唯一生产生成链是 validate package → project → select → `generateReviewReport` →
-slice → 冻结 prompt → provider 内一次初始调用与至多一次自动重试 → grounding →
+slice → CoachContext/短引用绑定 → 冻结 prompt → provider 内一次初始调用与至多一次自动重试 → 引用还原/grounding →
 append overlay → read-back validator。desktop main 是组合根；service/IPC 不得直接调用
 provider、slice/prompt builder 或 assembler 产生报告。该边界由
 `review_report_generation_seam` 架构规则机械保护。已有 package/report 的 presentation
@@ -379,6 +397,10 @@ package validators。
 检查器不解析运行时计算的模块路径，不提供任意 JavaScript 的数据流证明。
 流程不保存完整 prompt、response 或 raw CoT。
 Codex 是第二个 main-only adapter：固定模型/max、临时空工作目录、read-only、忽略用户配置，
+原生子进程只继承必要系统路径和既有网络代理变量，API key、MCP/控制命令环境不继承。
+CLI 必需的 code_mode_host 基础设施保持默认；独立 code_mode 保持关闭，工具能力仍禁用。
+严格结构化输出要求所有 object properties 列入 required，空数组仍可表达无额外推断，
+原始最终 JSON 不经 provider 特例改写，以保留 wire 输出哈希。
 单次禁用 CLI 工具和外部上下文功能，提示词经 stdin 输入。JSONL 只在内存解析；只接受
 完成的最终 assistant 内容、数值用量和固定错误语义，工具调用事件立即拒绝，且等子进程
 退出后才允许外层重试。临时目录清理，原始流、认证参数、stderr/CoT 不进入报告或 renderer。

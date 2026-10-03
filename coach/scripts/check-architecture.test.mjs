@@ -460,6 +460,21 @@ test("presenter cannot bypass read-back or generation ownership", () => {
   }
 });
 
+for (const file of ["fixed-review-presenter.ts", "coach-ipc.ts", "llm-provider/service.ts"]) {
+  for (const internal of ["prepareCoachRequest", "decodeCoachReasoningDraft"]) {
+    test(`desktop ${file} cannot acquire compact context internals ${internal}`, () => {
+      const root = buildWorkspace();
+      try {
+        write(root, `packages/desktop/src/${file}`, `import { ${internal} } from "@riichi-coach/reasoning";`);
+        const result = checkWorkspace(root, { allowedEdges: TEST_ALLOWED_EDGES });
+        const violations = result.violations.filter(item => item.rule === "review_report_generation_seam");
+        assert.equal(violations.length, 1);
+        assert.equal(violations[0].file, `packages/desktop/src/${file}`);
+      } finally { clean(root); }
+    });
+  }
+}
+
 test("declared subpath imports still obey dependency direction", () => {
   const root = buildWorkspace();
   try {

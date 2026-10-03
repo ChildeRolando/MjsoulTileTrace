@@ -1,6 +1,7 @@
 /**
- * M6-D1 — `buildGraphContextSlice`: the ONLY LLM-context slice seam (spec:
- * 两个平级新增 seam 之二; 唯一 LLM 上下文切片构建入口; M6-D2 的 LLM 传输边界).
+ * M6-D1 — `buildGraphContextSlice`: the auditable, local grounding source
+ * slice (spec: 两个平级新增 seam 之二; 唯一可审计切片构建入口). The
+ * provider receives a separately derived, compact CoachContext/v1 DTO.
  *
  *   ContextGraph + ReviewSelectionResult → deterministic GraphContextSlice
  *

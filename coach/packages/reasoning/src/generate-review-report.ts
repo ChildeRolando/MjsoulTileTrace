@@ -7,7 +7,7 @@ import {
   type ReviewReport,
   type ReviewSelectionResult,
 } from "@riichi-coach/contracts";
-import { buildCoachRequest } from "./coach-prompt.js";
+import { prepareCoachRequest, type PreparedCoachRequest } from "./coach-prompt.js";
 import { buildGraphContextSlice } from "./context-graph/build-graph-context-slice.js";
 import { validateContextGraph } from "./context-graph/validate-context-graph.js";
 import { validateReviewReport } from "./groundingValidator.js";
@@ -32,16 +32,18 @@ export async function generateReviewReport(
 ): Promise<ReviewReport> {
   validateContextGraph(graph);
   const slice = buildGraphContextSlice(graph, selection);
+  const preparedCoachRequest = prepareCoachRequest(slice);
   const descriptor = LlmProviderDescriptorSchema.parse(provider.descriptor());
   const result = slice.selectedDecisionIds.length === 0
     ? { errorCode: "provider_unavailable" as const, transportRetries: 0 as const }
-    : LlmCoachResultSchema.parse(await provider.complete(buildCoachRequest(slice)));
+    : LlmCoachResultSchema.parse(await provider.complete(preparedCoachRequest.request));
   const report = assembleReviewReport({
     graph,
     selection,
     provider: descriptor,
     generatedAt,
     outcome: coachRequestOutcomeFromLlmResult(result),
+    preparedCoachRequest,
   });
   // Rejected model prose never leaves the generation boundary. Diagnostics
   // retain only frozen codes and selected decision identities.

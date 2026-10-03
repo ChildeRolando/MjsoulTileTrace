@@ -5,7 +5,7 @@ import { mkdtemp, rm, stat } from "node:fs/promises";
 import { PassThrough } from "node:stream";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import {
   CoachReasoningDraftSchema, COACH_REASONING_DRAFT_SCHEMA_VERSION, COACH_REVIEW_PROMPT_VERSION,
   type LlmCoachRequest,
@@ -169,6 +169,25 @@ function matchesCodexOutputSchema(value: unknown, schema: Record<string, unknown
   return true;
 }
 
+function hasClosedRequiredObjectProperties(value: unknown): boolean {
+  if (value === null || typeof value !== "object") return true;
+  if (Array.isArray(value)) return value.every(hasClosedRequiredObjectProperties);
+  const schema = value as Record<string, unknown>;
+  if (schema.type === "object") {
+    const properties = schema.properties;
+    const required = schema.required;
+    if (properties === null || typeof properties !== "object" || Array.isArray(properties)
+      || !Array.isArray(required) || schema.additionalProperties !== false) return false;
+    const propertyNames = Object.keys(properties as Record<string, unknown>).sort();
+    const requiredNames = required.filter((key): key is string => typeof key === "string").sort();
+    if (propertyNames.length !== requiredNames.length
+      || propertyNames.some((name, index) => name !== requiredNames[index])) return false;
+    return Object.values(properties as Record<string, unknown>).every(hasClosedRequiredObjectProperties);
+  }
+  if (schema.type === "array") return hasClosedRequiredObjectProperties(schema.items);
+  return true;
+}
+
 describe("Codex CLI coach provider", () => {
   it("reports fixed provider metadata and captures only the final assistant item and normalized usage", async () => {
     const fake = fakePort();
@@ -196,6 +215,10 @@ describe("Codex CLI coach provider", () => {
       explanations: [{ text: "保留高效形状", claims: [{ kind: "factor_fact", evidenceRef: "evidence:1" }], judgmentLocalRef: "j1" }],
     }] });
     expect(matchesCodexOutputSchema(draft, CODEX_COACH_OUTPUT_SCHEMA as unknown as Record<string, unknown>)).toBe(true);
+  });
+
+  it("marks exactly every property as required in each closed JSON-schema object", () => {
+    expect(hasClosedRequiredObjectProperties(CODEX_COACH_OUTPUT_SCHEMA)).toBe(true);
   });
 
   it("pins model and effort, disables every verified tool feature, and passes the frozen prompt only over stdin", async () => {
@@ -233,6 +256,51 @@ describe("Codex CLI coach provider", () => {
     ]);
     await expect(stat(schemaPath)).rejects.toThrow();
     for (const directory of fake.directories) await expect(stat(directory)).rejects.toThrow();
+  });
+
+  it("keeps the Codex execution host available while every model tool surface stays disabled", async () => {
+    const fake = fakePort();
+    await createCodexCoachProvider({ settings, processPort: fake.port }).complete(request);
+    const args = fake.records.find(record => record.args[0] === "exec")!.args;
+
+    expect(featureDisabled(args, "code_mode_host")).toBe(false);
+    expect(args).not.toContain("--enable");
+    for (const feature of [
+      "apps", "auth_elicitation", "browser_use", "browser_use_external", "browser_use_full_cdp_access",
+      "computer_use", "plugins", "remote_plugin", "shell_tool", "tool_call_mcp_elicitation",
+      "unified_exec", "unified_exec_tty", "workspace_dependencies",
+    ]) {
+      expect(featureDisabled(args, feature), `${feature} remains disabled`).toBe(true);
+    }
+    expect(args).toContain("read-only");
+    expect(args).toContain("web_search=disabled");
+  });
+
+  it("forwards only existing proxy environment names to native CLI children", async () => {
+    const proxyNames = [
+      "HTTP_PROXY", "HTTPS_PROXY", "ALL_PROXY", "NO_PROXY",
+      "http_proxy", "https_proxy", "all_proxy", "no_proxy",
+    ];
+    const privateNames = ["OPENAI_API_KEY", "CODEX_API_KEY", "MCP_SERVER_TOKEN", "MULTICA_COMMAND"];
+    proxyNames.forEach(name => vi.stubEnv(name, "synthetic-proxy-value"));
+    privateNames.forEach((name, index) => vi.stubEnv(name, `synthetic-secret-${index}`));
+    try {
+      const fake = fakePort();
+      await createCodexCoachProvider({ settings, processPort: fake.port }).complete(request);
+      const everyChildReceivesProxyContract = fake.records.every(record => {
+        const env = record.options.env ?? {};
+        return proxyNames.every(name => env[name] === "synthetic-proxy-value");
+      });
+      const noPrivateVariablesEscape = fake.records.every(record => {
+        const env = record.options.env ?? {};
+        return privateNames.every(name => !Object.hasOwn(env, name));
+      });
+
+      expect(everyChildReceivesProxyContract).toBe(true);
+      expect(noPrivateVariablesEscape).toBe(true);
+    } finally {
+      vi.unstubAllEnvs();
+    }
   });
 
   it("requires the verified CLI version and a ChatGPT login without starting a model turn", async () => {

@@ -25,7 +25,11 @@ compatibility 测试与**架构边界检查（`npm run check:architecture`）**�
 npx vitest run packages/desktop/tests/record-analysis-progress.test.ts packages/desktop/tests/catalog-api.test.ts packages/desktop/tests/preload-entry.test.ts
 npx vitest run packages/desktop/tests/coach-settings-store.test.ts packages/desktop/tests/coach-provider.test.ts packages/desktop/tests/codex-coach-provider.test.ts packages/desktop/tests/fixed-review.test.ts packages/desktop/tests/review-session-persistence.test.ts
 npx vitest run packages/desktop/tests/fixed-review-renderer.test.ts
+npx vitest run packages/reasoning/tests/coach-context.test.ts packages/reasoning/tests/coach-prompt.test.ts packages/desktop/tests/electron-mvp-golden-rule-requests.test.ts
 ```
+
+新增教学上下文的关系压缩须验证原教学边与字段表示多重集等价，覆盖缺失、多余和
+方向错配拒绝；不能靠删关系降低请求大小。
 
 用可控单调时钟证明七阶段即时展示、跨轮询保留快阶段、终态不变、失败不训练估时、
 冷启动估时未知、保存后历史/当前速率估时，估时不决定完成。
@@ -34,6 +38,14 @@ npx vitest run packages/desktop/tests/fixed-review-renderer.test.ts
 provider 测试仅用 fake process/HTTP，无真实云端请求、CLI 登录读取或模型下载；
 断言工具禁用参数、严格流解析、实际 close 后重试、超时/输出上限、秘密不外泄。
 SQLite 重启读回验证 Token/model 元数据绑定当前 report，无模型调用。
+
+CoachContext 重构还须验证：不发送完整审计身份/链/字典；保留来源类别、教学事件
+对应与时序、权威/未知/限制、合法候选/评分与比较对；引用注册表按决策与角色闭合。
+拒绝不存在或跨决策的候选、错误 kind、伪造来源/查找表、保留 namespace 的 local IDs
+和错误占位符。输出恢复后仍通过原图 grounding，并保留原 wire 哈希。
+v3 请求元数据须由同一来源重建核验，历史 v1/v2 报告仍可离线打开。
+新函数 `prepareCoachRequest` / `decodeCoachReasoningDraft` 不允许 desktop 绕过
+`generateReviewReport` 直接调用，架构自测必须覆盖 presenter、IPC 与 service。
 
 真实 Codex smoke 单独运行 main-owned adapter 和既有生成/grounding/保存/读回链，
 使用已批准的模型/max。回执记录代码 SHA、CLI 版本、实际状态、数值用量、耗时及安全错误，
@@ -401,8 +413,10 @@ node tests/lesson-0001-smoke.mjs
 请求字节数不是 Token，服务没有回报的计数保持未知。换 provider 仍通过同一
 `LlmTokenUsage`、report audit、presenter 和 IPC 契约读取，只有 wire 字段映射属于 adapter。
 
-2026-10-04 本机真实档案测量发现，默认十决策合并请求为 29,300,006 UTF-8 字节，
+2026-10-04 重构前本机真实档案测量发现，默认十决策合并请求为 29,300,006 UTF-8 字节，
 最小单决策为 675,599 字节；默认请求超过当前 Codex adapter 的 1 MiB 输入上限。
 因此单决策 mintest 即使通过，也不代表整盘批量解说或完整 H1 已通过。
-批量上下文仍是收口阻塞，需在保留候选、事实及证据引用语义的前提下另行解决和验收，
-不得靠提高上限、截断证据或减少生产入选局面宣称完成。
+新版 CoachContext 须测量默认 selector 的完整请求，确认在输入上限内，且所有教学
+事实、候选与关系完整。单决策真实生成、完整请求尺寸通过和整盘真实生成是三个
+不同的验收事实；实际结果绑定提交保存于非源码回执。
+不得靠提高上限、截断事实或减少生产入选局面宣称完成。

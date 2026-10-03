@@ -17,8 +17,9 @@
  *    partial graph.
  *  - `assembleReviewReport(input)` — the deterministic half of the
  *    `generateReviewReport` seam (spec item 1): slice building (M6-D1
- *    `buildGraphContextSlice` reuse — the slice stays the ONLY LLM transport
- *    boundary), strict draft parsing, grounding (`validateCoachGrounding`
+ *    `buildGraphContextSlice` reuse as the local grounding source; a compact
+ *    CoachContext/v1 is prepared for transport), strict draft parsing,
+ *    grounding (`validateCoachGrounding`
  *    reuse), draft → overlay mapping with ENGINE-derived node/edge ids,
  *    row-status assembly and the evidence-only degrade paths.
  *
@@ -50,7 +51,6 @@
 import {
   COACH_REASONING_DRAFT_SCHEMA_VERSION,
   COACH_REVIEW_PROMPT_VERSION,
-  CoachReasoningDraftSchema,
   REVIEW_REPORT_SCHEMA_VERSION,
   ReviewReportSchema,
   ReviewSelectionResultSchema,
@@ -82,6 +82,11 @@ import { buildGraphContextSlice } from "./context-graph/build-graph-context-slic
 import { validateContextGraph } from "./context-graph/validate-context-graph.js";
 import { validateReasoningOverlayPartition } from "./context-graph/validate-reasoning-overlay-partition.js";
 import { validateCoachGrounding } from "./groundingValidator.js";
+import {
+  decodeCoachReasoningDraft,
+  prepareCoachRequest,
+  type PreparedCoachRequest,
+} from "./coach-prompt.js";
 
 // ---------------------------------------------------------------------------
 // Frozen generation-side versions (the report is the sole owner of LLM-side
@@ -451,6 +456,9 @@ export interface AssembleReviewReportInput {
   /** The non-sensitive provider identity attempted; defaults to the explicit
    *  unconfigured marker on degrade paths. */
   provider?: LlmProviderDescriptor;
+  /** The exact request prepared by generateReviewReport; direct pure-function
+   * callers may omit it and the same DTO is rebuilt from graph + selection. */
+  preparedCoachRequest?: PreparedCoachRequest;
   /** Wall-clock display metadata, caller-owned (injected clock keeps the
    *  assembly pure); never participates in reportId. */
   generatedAt: string;
@@ -460,15 +468,14 @@ export interface AssembleReviewReportInput {
  *  Anything outside the structured draft — including any reasoning / CoT
  *  fields — is dropped here (guard 3); a parse failure is `invalid_output`,
  *  never retried. */
-function parseDraftContent(content: string): CoachReasoningDraft | null {
+function parseDraftContent(content: string, prepared: PreparedCoachRequest): CoachReasoningDraft | null {
   let raw: unknown;
   try {
     raw = JSON.parse(content);
   } catch {
     return null;
   }
-  const parsed = CoachReasoningDraftSchema.safeParse(raw);
-  return parsed.success ? parsed.data : null;
+  return decodeCoachReasoningDraft(prepared, raw);
 }
 
 /**
@@ -499,10 +506,11 @@ export function assembleReviewReport(
   const selectedDecisionIds = ranked.map((item) => item.decisionId);
   const selectedSet = new Set(selectedDecisionIds);
 
-  // M6-D1 reuse: the slice stays the single LLM transport boundary; the audit
-  // records only its canonical-JSON hash (grill E2 — hash-only audit).
+  // M6-D1 reuse: retain the full slice locally for grounding and its audit
+  // hash. Only the derived CoachContext/v1 is sent through the provider.
   const slice = buildGraphContextSlice(input.graph, selection);
   const inputSliceHash = `sha256:${sha256Hex(canonicalJson(slice))}`;
+  const preparedCoachRequest = input.preparedCoachRequest ?? prepareCoachRequest(slice);
 
   const provider = input.provider ?? UNCONFIGURED_COACH_PROVIDER;
   const generation: ReviewGeneration = {
@@ -545,7 +553,7 @@ export function assembleReviewReport(
     transportRetries = input.outcome.transportRetries;
     if (input.outcome.usage !== undefined) usage = input.outcome.usage;
     outputHash = input.outcome.outputHash ?? `sha256:${sha256Hex(input.outcome.content)}`;
-    const draft = parseDraftContent(input.outcome.content);
+    const draft = parseDraftContent(input.outcome.content, preparedCoachRequest);
     if (draft === null) {
       // Degrade path 3: unparseable output — invalid_output, no retry.
       rows = selectedDecisionIds.map((decisionId) =>
@@ -555,7 +563,7 @@ export function assembleReviewReport(
         rejection(
           "invalid_payload",
           undefined,
-          "model output is not a schema-valid coach-reasoning-draft/v1",
+          "model output is not a schema-valid coach-reasoning-draft/v2 wire payload",
         ),
       );
     } else {
@@ -665,6 +673,7 @@ export function assembleReviewReport(
     inputSliceHash,
     outputHash,
     transportRetries,
+    requestContext: preparedCoachRequest.requestContext,
   };
   if (usage !== undefined) audit.usage = usage;
 

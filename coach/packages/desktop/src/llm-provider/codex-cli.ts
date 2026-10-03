@@ -24,6 +24,8 @@ const KILL_GRACE_MS = 1_000;
  * Only tool-like stable features present in the validated 0.155.1 catalog are
  * disabled here. These are per-invocation overrides, not writes to config.toml.
  * Authentication storage stays enabled so an existing ChatGPT login can be used.
+ * `code_mode_host` stays at its default: the CLI needs that host for `exec`,
+ * while the separate `code_mode` feature remains disabled and tool surfaces below stay off.
  */
 export const CODEX_DISABLED_FEATURES = Object.freeze([
   "apps",
@@ -31,7 +33,6 @@ export const CODEX_DISABLED_FEATURES = Object.freeze([
   "browser_use",
   "browser_use_external",
   "browser_use_full_cdp_access",
-  "code_mode_host",
   "computer_use",
   "fast_mode",
   "goals",
@@ -128,11 +129,11 @@ export const CODEX_COACH_OUTPUT_SCHEMA = {
                 },
                 judgmentLocalRef: { type: "string", minLength: 1 },
               },
-              required: ["text", "claims"],
+              required: ["text", "claims", "judgmentLocalRef"],
             },
           },
         },
-        required: ["decisionId", "judgment"],
+        required: ["decisionId", "judgment", "inferences", "explanations"],
       },
     },
   },
@@ -196,6 +197,8 @@ function safeEnvironment(): NodeJS.ProcessEnv {
   const source = process.env;
   const result: NodeJS.ProcessEnv = {};
   const names = [
+    "HTTP_PROXY", "HTTPS_PROXY", "ALL_PROXY", "NO_PROXY",
+    "http_proxy", "https_proxy", "all_proxy", "no_proxy",
     "APPDATA", "LOCALAPPDATA", "USERPROFILE", "HOMEDRIVE", "HOMEPATH",
     "HOME", "CODEX_HOME", "TEMP", "TMP", "SystemRoot", "WINDIR",
   ] as const;

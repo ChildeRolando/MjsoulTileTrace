@@ -90,6 +90,8 @@ const REVIEW_GENERATION_INTERNALS = new Set([
   "appendReasoningOverlay",
   "assembleReviewReport",
   "buildCoachRequest",
+  "prepareCoachRequest",
+  "decodeCoachReasoningDraft",
   "buildGraphContextSlice",
   "coachRequestOutcomeFromLlmResult",
 ]);

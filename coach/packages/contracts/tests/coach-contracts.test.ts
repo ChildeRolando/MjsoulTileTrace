@@ -9,6 +9,7 @@ import { describe, expect, it } from "vitest";
 import {
   COACH_EXPLANATION_PLACEHOLDER_PATTERN,
   COACH_REASONING_DRAFT_SCHEMA_VERSION,
+  COACH_REASONING_DRAFT_SCHEMA_VERSION_V1,
   COACH_REVIEW_PROMPT_VERSION,
   CoachDraftDecisionSchema,
   CoachEvidenceClaimSchema,
@@ -125,7 +126,7 @@ function generationBlock(): Record<string, unknown> {
 function minimalReport(
   overrides: Record<string, unknown> = {},
 ): Record<string, unknown> {
-  return {
+  const report: Record<string, unknown> = {
     schemaVersion: REVIEW_REPORT_SCHEMA_VERSION,
     reportId: "review-report:sha256:test",
     packageId: "package:sha256:test",
@@ -154,11 +155,36 @@ function minimalReport(
       inputSliceHash: "sha256:slice",
       outputHash: "sha256:output",
       transportRetries: 0,
+      requestContext: {
+        coachContextVersion: "coach-context/v1",
+        inputContextHash: `sha256:${"0".repeat(64)}`,
+        promptBytes: 0,
+        contextBytes: 0,
+        decisionCount: 1,
+        nodeCount: 1,
+        semanticEdgeCount: 0,
+      },
     },
     diagnostics: [],
     generatedAt: "2026-08-24T12:00:00.000Z",
     ...overrides,
   };
+  report.audit = {
+    inputSliceHash: "sha256:slice",
+    outputHash: "sha256:output",
+    transportRetries: 0,
+    requestContext: {
+      coachContextVersion: "coach-context/v1",
+      inputContextHash: `sha256:${"0".repeat(64)}`,
+      promptBytes: 0,
+      contextBytes: 0,
+      decisionCount: 1,
+      nodeCount: 1,
+      semanticEdgeCount: 0,
+    },
+    ...(overrides.audit as Record<string, unknown> | undefined),
+  };
+  return report;
 }
 
 function evidenceOnlyReport(
@@ -183,9 +209,10 @@ describe("M6-D2 coach version literals", () => {
   it("freezes the spec schema / prompt version literals", () => {
     expect(REVIEW_REPORT_SCHEMA_VERSION).toBe("review-report/v1");
     expect(COACH_REASONING_DRAFT_SCHEMA_VERSION).toBe(
-      "coach-reasoning-draft/v1",
+      "coach-reasoning-draft/v2",
     );
-    expect(COACH_REVIEW_PROMPT_VERSION).toBe("coach-review-prompt/v2");
+    expect(COACH_REASONING_DRAFT_SCHEMA_VERSION_V1).toBe("coach-reasoning-draft/v1");
+    expect(COACH_REVIEW_PROMPT_VERSION).toBe("coach-review-prompt/v3");
   });
 });
 
