@@ -691,7 +691,7 @@ async function start(): Promise<void> {
     clearCatalog: () => catalogStore.clear(),
     clock: Date.now,
   });
-  const prepareReview = async ({ recordId, selfActor, stream, decisions }: PaipuReviewPreparationInput) => {
+  const prepareReview = async ({ recordId, selfActor, stream, decisions, onProgress }: PaipuReviewPreparationInput) => {
       // This is the only production composition point for the local model.
       // Runtime/checkpoint paths stay in Electron main and are never part of
       // the import DTO or renderer/preload capability.
@@ -713,6 +713,7 @@ async function start(): Promise<void> {
           runtime,
           factEngineResourcesDir: resourcesDir,
           now: Date.now,
+          ...(onProgress === undefined ? {} : { onProgress }),
         });
         const result = await analysis.analyze({ recordId, selfActor, stream, decisions });
         // Close the managed sidecar before the durable session transaction so
@@ -720,6 +721,7 @@ async function start(): Promise<void> {
         // a half-composed review.
         await runtime.close();
         runtimeClosed = true;
+        onProgress?.({ stage: "saving", completed: 0, total: null });
         return persistValidatedReviewSession(reviewRepository, result.package);
       } finally {
         if (!runtimeClosed) await runtime.close().catch(() => undefined);

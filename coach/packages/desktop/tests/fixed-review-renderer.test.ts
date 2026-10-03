@@ -51,6 +51,57 @@ async function chromiumFocusResults(directory: string, scenarios = ["window.run(
 }
 
 describe("fixed review native DOM surface", () => {
+  it.each(["failed", "validation_failed", "saved_open_failed"])("shows pending account analysis, blocks duplicate starts, and recovers controls: %s", async completion => {
+    const directory = mkdtempSync(join(tmpdir(), "catalog-analysis-pending-"));
+    try {
+      for (const name of ["app", "fixed-review-ui", "session-ui-policy", "paipu-ui-policy"]) {
+        const text = readFileSync(new URL(`../src/renderer/${name}.ts`, import.meta.url), "utf8");
+        writeFileSync(join(directory, `${name}.js`), transpileModule(text, {
+          compilerOptions: { module: ModuleKind.ES2022, target: ScriptTarget.ES2022 },
+        }).outputText, "utf8");
+      }
+      const setup = `
+        const settle = async () => { await new Promise(resolve => setTimeout(resolve, 0)); };
+        let calls = 0, rejectAnalysis, resolveAnalysis;
+        window.riichiCoach = { getSessionStatus: async () => ({ status: "valid", displayName: "fixture" }) };
+        window.riichiCoachProvider = { listReviewSessions: async () => [],
+          openReview: async () => { throw new Error("private-open-error"); }, leaveReview: async () => {} };
+        window.riichiCoachCatalog = { listAnalyzableRecords: async () => [0,1].map(i => ({
+          recordId: "fixture" + i, startedAt: 1, selfSeat: 0, shareUrl: "fixture",
+          players: [{ displayName: "fixture" }] })),
+          startRecordAnalysis: () => { calls++; return new Promise((resolve,reject) => { resolveAnalysis=resolve; rejectAnalysis=reject; }); },
+          getRecordAnalysisProgress: async () => ({ stage: "scoring", completed: 2, total: 5 }) };
+        const state = () => ({ calls, text: document.querySelector("#catalog-detail").textContent,
+          busy: document.querySelector(".catalog").getAttribute("aria-busy"),
+          disabled: ["logout", "refresh", "sync", "clear-source-cache"].map(id => document.querySelector("#"+id).disabled),
+          recordButtonsDisabled: [...document.querySelectorAll("#catalog-list button")].map(b => b.disabled),
+          labels: [...document.querySelectorAll("#catalog-list button")].map(b => b.textContent),
+          progressShown: !document.querySelector("#analysis-progress").hidden,
+          progressValue: document.querySelector("#analysis-progress-bar").value,
+          progressMax: document.querySelector("#analysis-progress-bar").max });
+        window.run = async () => {
+          await settle(); const buttons = document.querySelectorAll("#catalog-list button");
+          buttons[0].click(); await new Promise(resolve => setTimeout(resolve, 1200)); window.pending=state(); buttons[1].click();
+          window.progressLabel=document.querySelector("#analysis-progress-label").textContent;
+          window.afterDuplicate=calls;
+          ${completion === "saved_open_failed" ? 'resolveAnalysis({ status: "review_ready", packageId: "fixture", sessionId: "fixture" });' : `rejectAnalysis(new Error(${JSON.stringify(completion === "validation_failed" ? "mahjong_soul_canonical_validation_failed" : "private-analysis-error")}));`}
+          await settle(); window.finished=state(); document.activeElement?.blur();
+        };
+        window.focusResult = () => ({ pending: window.pending, afterDuplicate: window.afterDuplicate, finished: window.finished, progressLabel: window.progressLabel });
+      `;
+      writeFileSync(join(directory, "setup.js"), setup);
+      writeFileSync(join(directory, "page.html"), html.replace('<script type="module" src="./app.js"></script>', '<script src="./setup.js"></script><script type="module" src="./app.js"></script>'));
+      expect(await chromiumFocusResults(directory, ["window.run()"])).toEqual([{
+        pending: { calls: 1, text: "正在分析这场牌谱…整盘分析可能需要较长时间，请稍候。", busy: "true",
+          disabled: [true, true, true, true], recordButtonsDisabled: [true, true], labels: ["分析中…", "分析"], progressShown: true, progressValue: 2, progressMax: 5 },
+        progressLabel: expect.stringMatching(/^正在进行模型评分 · 2\/5 · 已用时 0分\d+秒$/),
+        afterDuplicate: 1,
+        finished: { calls: 1, text: completion === "failed" ? "暂时无法分析这场牌谱，请重试。" : completion === "validation_failed" ? "这场牌谱未通过转换或重放校验，分析未完成。请保留牌谱并反馈此问题。" : "复盘已保存，但暂时无法打开，请从已保存复盘重试。",
+          busy: "false", disabled: [false, false, false, false], recordButtonsDisabled: [false, false], labels: ["分析", "分析"], progressShown: false, progressValue: 2, progressMax: 5 },
+      }]);
+    } finally { rmSync(directory, { recursive: true, force: true, maxRetries: 20, retryDelay: 100 }); }
+  });
+
   it.each([
     ["complete", false], ["partial", false], ["evidence_only", false], ["failed", false],
     ["complete", true], ["partial", true], ["evidence_only", true],

@@ -4,7 +4,7 @@ import {
 } from "@riichi-coach/contracts";
 import type { MahjongSoulSessionController } from "@riichi-coach/mahjong-soul-source";
 import { parseMahjongSoulSessionStatus } from "./session-api.js";
-import { parseAnalyzableRecordSummaries, parseAccountReviewResult, SourceCacheClearResultSchema, type AccountReviewResult } from "./catalog-api.js";
+import { parseAnalyzableRecordSummaries, parseAccountReviewResult, SourceCacheClearResultSchema, RecordAnalysisProgressSchema, type RecordAnalysisProgress, type AccountReviewResult } from "./catalog-api.js";
 import {
   PAIPU_SHARE_URL_MAX_LENGTH,
   parsePaipuImportResult,
@@ -24,6 +24,7 @@ export const MAHJONG_SOUL_CATALOG_IPC_CHANNELS = Object.freeze({
   syncAnalyzableRecords: "mahjong-soul:sync-analyzable-records",
   listAnalyzableRecords: "mahjong-soul:list-analyzable-records",
   startRecordAnalysis: "mahjong-soul:start-record-analysis",
+  getRecordAnalysisProgress: "mahjong-soul:get-record-analysis-progress",
   clearSourceCache: "mahjong-soul:clear-source-cache",
 } as const);
 
@@ -122,7 +123,7 @@ export function registerMahjongSoulCatalogIpc(input: {
     MahjongSoulCatalogService,
     "syncAnalyzableRecords" | "listAnalyzableRecords"
   > & Readonly<{
-    ingest: (recordId: string) => Promise<AccountReviewResult>;
+    ingest: (recordId: string, onProgress?: (progress: RecordAnalysisProgress) => void) => Promise<AccountReviewResult>;
     clearSourceCache: () => Readonly<{ clearedEntries: number; pendingMaterials: number }>;
   }>;
   readonly trustedSenderId: number;
@@ -178,12 +179,41 @@ export function registerMahjongSoulCatalogIpc(input: {
     MAHJONG_SOUL_CATALOG_IPC_CHANNELS.listAnalyzableRecords,
     operations.listAnalyzableRecords,
   );
+  let analysisPending = false;
+  let progress: RecordAnalysisProgress = { stage: "idle", completed: 0, total: null };
+  ipcMain.handle(MAHJONG_SOUL_CATALOG_IPC_CHANNELS.getRecordAnalysisProgress, async (event, ...args) => {
+    if (senderId(event) !== trustedSenderId || args.length !== 0) throw fixedError();
+    return Object.freeze(RecordAnalysisProgressSchema.parse(progress));
+  });
   ipcMain.handle(MAHJONG_SOUL_CATALOG_IPC_CHANNELS.startRecordAnalysis, async (event, ...args) => {
+    // Reject competing jobs before touching the active job's state.
+    if (senderId(event) !== trustedSenderId || args.length !== 1 || typeof args[0] !== "string" || analysisPending) throw fixedError();
+    analysisPending = true;
+    progress = { stage: "fetching", completed: 0, total: null };
+    const startedAt = Date.now();
+    let phaseStartedAt = startedAt;
+    let active = true;
+    const updateProgress = (update: RecordAnalysisProgress): void => {
+      if (!active) return;
+      const next = RecordAnalysisProgressSchema.parse(update);
+      if (next.stage !== progress.stage) {
+        console.info(JSON.stringify({ event: "record_analysis_phase", stage: progress.stage,
+          elapsedMs: Date.now() - phaseStartedAt, completed: progress.completed, total: progress.total }));
+        phaseStartedAt = Date.now();
+      }
+      progress = next;
+    };
     try {
-      if (senderId(event) !== trustedSenderId || args.length !== 1 || typeof args[0] !== "string") throw fixedError();
-      return parseAccountReviewResult(await ingest.call(service, args[0]));
+      const result = parseAccountReviewResult(await ingest.call(service, args[0], updateProgress));
+      updateProgress({ stage: "complete", completed: 1, total: 1 });
+      return result;
     } catch (error) {
+      updateProgress({ stage: "failed", completed: 0, total: null });
       throw fixedError(error);
+    } finally {
+      active = false;
+      analysisPending = false;
+      console.info(JSON.stringify({ event: "record_analysis_finished", stage: progress.stage, elapsedMs: Date.now() - startedAt }));
     }
   });
   ipcMain.handle(MAHJONG_SOUL_CATALOG_IPC_CHANNELS.clearSourceCache, async (event, ...args) => {

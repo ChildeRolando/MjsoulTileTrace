@@ -546,6 +546,7 @@ export async function runMortalFullGameReview(input: {
   readonly responseDecisions?: readonly ReplayedDecision[];
   readonly report: MortalFetchedReport;
   readonly engine: HandStructureFactEnginePort;
+  readonly onProgress?: (counts: { completed: number; total: number }) => void;
   readonly now?: () => number;
   // M6-A3: branches stay fail-closed until real E2E acceptance evidence is
   // recorded. Tests and the acceptance runner inject a registry; production
@@ -681,6 +682,7 @@ export async function runMortalFullGameReview(input: {
 
   for (const partition of partitions) {
     for (const row of partition.rows) {
+      input.onProgress?.({ completed: ledger.length + nonActionBoundaries.length, total: boundaries.length });
       const decision = partition.decisions[row.decisionOrdinal]!;
       // LOCAL actual representation support. Kept as its own variable — the
       // source-candidate surface support below is a separate classification

@@ -24,7 +24,11 @@
           <button id="sync" type="button" class="quiet">同步最近牌谱</button>
           <button id="clear-source-cache" type="button" class="quiet">清理来源缓存</button>
         </div>
-        <p id="catalog-detail" class="detail">仅显示四人南风标准规则的可分析对局。</p>
+        <p id="catalog-detail" class="detail" role="status" aria-live="polite">仅显示四人南风标准规则的可分析对局。</p>
+        <div id="analysis-progress" hidden>
+          <p id="analysis-progress-label" class="detail" role="status" aria-live="polite"></p>
+          <progress id="analysis-progress-bar" aria-label="当前分析阶段进度" style="width: 100%"></progress>
+        </div>
         <ul id="catalog-list" class="catalog-list"></ul>
       </section>
       <section class="paipu-import" hidden>

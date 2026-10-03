@@ -175,19 +175,27 @@ export function createLocalMortalAnalysisService(input: {
   readonly runtime: ManagedMortalRuntime;
   readonly factEngineResourcesDir: string;
   readonly now?: () => number;
+  readonly onProgress?: (progress: import("./catalog-api.js").RecordAnalysisProgress) => void;
 }) {
   return Object.freeze({
     async analyze(request: LocalMortalAnalysisInput): Promise<LocalMortalAnalysisResult> {
+      input.onProgress?.({ stage: "rules", completed: 0, total: null });
       const rules = await queryCanonicalLibriichiRules({
         stream: request.stream,
         identity: input.runtime.ruleIdentity,
         port: input.runtime,
+        onProgress: counts => input.onProgress?.({ stage: "rules", ...counts }),
       });
       const entries: MortalReportDecisionEntry[] = [];
       const all = [
         ...rules.decisions.map((decision) => ({ decision, surface: "self" as const })),
         ...rules.responseDecisions.map((decision) => ({ decision, surface: "response" as const })),
       ];
+      const scoringTotal = all.filter(row => {
+        const resolved = rules.rules.get(row.decision.decisionEventRef);
+        return resolved?.response.status === "ok" && resolved.actions.length >= 2;
+      }).length;
+      input.onProgress?.({ stage: "scoring", completed: 0, total: scoringTotal });
       for (const row of all) {
         const resolved = rules.rules.get(row.decision.decisionEventRef);
         // A legal native non-action is only valid on a response window. Every
@@ -213,6 +221,7 @@ export function createLocalMortalAnalysisService(input: {
           response: scoringResponse,
           decision: row.decision,
         }));
+        input.onProgress?.({ stage: "scoring", completed: entries.length, total: scoringTotal });
       }
       if (entries.length === 0) throw new Error("mortal_output_incomplete");
 
@@ -226,17 +235,20 @@ export function createLocalMortalAnalysisService(input: {
         new ManagedFactEngineTransport(input.factEngineResourcesDir),
       );
       try {
+        input.onProgress?.({ stage: "facts", completed: 0, total: all.length });
         const review = await runMortalFullGameReview({
           stream: request.stream,
           decisions: rules.decisions,
           responseDecisions: rules.responseDecisions,
           report,
           engine: factEngine,
+          onProgress: counts => input.onProgress?.({ stage: "facts", ...counts }),
           ...(input.now === undefined ? {} : { now: input.now }),
           libriichi: { identity: input.runtime.ruleIdentity, results: rules.rules },
         });
         if (review.status !== "coverage_ready") throw new Error(review.code);
         assertProductionAnalysisUsable(review);
+        input.onProgress?.({ stage: "packaging", completed: 0, total: null });
         const retained = review.retainedAnalyses[0];
         if (retained === undefined) throw new Error("mortal_output_incomplete");
         const pkg = buildStructuredAnalysisPackage({

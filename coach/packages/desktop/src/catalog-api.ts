@@ -4,6 +4,14 @@ import {
 } from "@riichi-coach/contracts";
 import { z } from "zod";
 
+// Operational status only: no account, record payload, credentials or model facts.
+export const RecordAnalysisProgressSchema = z.object({
+  stage: z.enum(["idle", "fetching", "replaying", "rules", "scoring", "facts", "packaging", "saving", "complete", "failed"]),
+  completed: z.number().int().nonnegative(),
+  total: z.number().int().nonnegative().nullable(),
+}).strict().refine(value => value.total === null || value.completed <= value.total);
+export type RecordAnalysisProgress = z.infer<typeof RecordAnalysisProgressSchema>;
+
 export const AccountReviewResultSchema = z.object({
   status: z.literal("review_ready"),
   sessionId: z.string().min(1).max(200),
@@ -34,6 +42,7 @@ export const MahjongSoulCatalogApiSchema = z.object({
   syncAnalyzableRecords: CatalogMethodSchema,
   listAnalyzableRecords: CatalogMethodSchema,
   startRecordAnalysis: StartRecordAnalysisMethodSchema,
+  getRecordAnalysisProgress: z.function().args().returns(z.promise(RecordAnalysisProgressSchema)),
   clearSourceCache: ClearSourceCacheMethodSchema,
 }).strict();
 
@@ -41,6 +50,7 @@ export interface MahjongSoulCatalogApi {
   syncAnalyzableRecords(): Promise<AnalyzableRecordSummary[]>;
   listAnalyzableRecords(): Promise<AnalyzableRecordSummary[]>;
   startRecordAnalysis(recordId: string): Promise<AccountReviewResult>;
+  getRecordAnalysisProgress(): Promise<RecordAnalysisProgress>;
   clearSourceCache(): Promise<Readonly<{ status: "cleared"; pendingMaterials: number }>>;
 }
 

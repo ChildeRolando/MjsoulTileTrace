@@ -71,6 +71,7 @@ export interface MahjongSoulPaipuImportService {
 }
 
 export type PaipuReviewPreparationInput = Readonly<{
+  readonly onProgress?: (progress: import("./catalog-api.js").RecordAnalysisProgress) => void;
   readonly recordId: string;
   readonly selfActor: number;
   readonly stream: NonNullable<Extract<ReturnType<RecordAnalysisStore["analyzeRecord"]>, { status: "analysis_ready" }>['stream']>;

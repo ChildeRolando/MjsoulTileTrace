@@ -30,6 +30,9 @@ const clearSourceCacheButton = document.querySelector<HTMLButtonElement>("#clear
 const catalogSection = document.querySelector<HTMLElement>(".catalog")!;
 const catalogDetailElement = document.querySelector<HTMLElement>("#catalog-detail")!;
 const catalogListElement = document.querySelector<HTMLElement>("#catalog-list")!;
+const analysisProgressElement = document.querySelector<HTMLElement>("#analysis-progress")!;
+const analysisProgressLabel = document.querySelector<HTMLElement>("#analysis-progress-label")!;
+const analysisProgressBar = document.querySelector<HTMLProgressElement>("#analysis-progress-bar")!;
 const paipuSection = document.querySelector<HTMLElement>(".paipu-import")!;
 const paipuUrlInput = document.querySelector<HTMLInputElement>("#paipu-url")!;
 const paipuImportButton = document.querySelector<HTMLButtonElement>("#paipu-import")!;
@@ -50,6 +53,38 @@ export const fixedReviewUi = createFixedReviewUi({
   },
 });
 let currentSessionStatus: MahjongSoulSessionStatus["status"] = "logged_out";
+let operationPending = false;
+
+function watchAnalysisProgress(): () => void {
+  const startedAt = Date.now();
+  let stopped = false;
+  let polling = false;
+  let progress: import("../catalog-api.js").RecordAnalysisProgress = { stage: "fetching", completed: 0, total: null };
+  const labels = { idle: "等待分析", fetching: "正在读取牌谱", replaying: "正在重放牌谱",
+    rules: "正在检查合法动作", scoring: "正在进行模型评分", facts: "正在计算教学分析",
+    packaging: "正在整理分析档案", saving: "正在保存复盘", complete: "分析已完成", failed: "分析未完成" };
+  const paint = (): void => {
+    const seconds = Math.floor((Date.now() - startedAt) / 1000);
+    const counts = progress.total === null ? "" : ` · ${progress.completed}/${progress.total}`;
+    analysisProgressLabel.textContent = `${labels[progress.stage]}${counts} · 已用时 ${Math.floor(seconds / 60)}分${seconds % 60}秒`;
+    if (progress.total !== null && progress.total > 0) {
+      analysisProgressBar.max = progress.total;
+      analysisProgressBar.value = progress.completed;
+    } else { analysisProgressBar.removeAttribute("value"); }
+  };
+  analysisProgressElement.hidden = false;
+  paint();
+  const timer = window.setInterval(() => {
+    paint();
+    // A busy main process may take time to answer; allow only one poll in flight.
+    if (polling) return;
+    polling = true;
+    void window.riichiCoachCatalog.getRecordAnalysisProgress().then(update => {
+      if (!stopped) { progress = update; paint(); }
+    }).catch(() => undefined).finally(() => { polling = false; });
+  }, 1000);
+  return () => { stopped = true; window.clearInterval(timer); analysisProgressElement.hidden = true; };
+}
 
 async function refreshReviewSessions(): Promise<void> {
   const sessions = await window.riichiCoachProvider.listReviewSessions();
@@ -69,7 +104,11 @@ async function refreshReviewSessions(): Promise<void> {
 }
 
 function setPending(pending: boolean): void {
+  operationPending = pending;
   for (const button of buttons) button.disabled = pending;
+  for (const button of catalogListElement.querySelectorAll<HTMLButtonElement>("button")) button.disabled = pending;
+  paipuUrlInput.disabled = pending;
+  catalogSection.setAttribute("aria-busy", String(pending));
 }
 
 function applySessionState(status: MahjongSoulSessionStatus["status"]): void {
@@ -113,9 +152,14 @@ function renderCatalog(summaries: readonly import("@riichi-coach/contracts").Ana
     text.textContent = label;
     button.type = "button";
     button.textContent = "分析";
+    button.disabled = operationPending;
     button.addEventListener("click", () => {
+      if (operationPending) return;
       void (async () => {
         setPending(true);
+        button.textContent = "分析中…";
+        catalogDetailElement.textContent = "正在分析这场牌谱…整盘分析可能需要较长时间，请稍候。";
+        const stopProgress = watchAnalysisProgress();
         try {
           const result = await window.riichiCoachCatalog.startRecordAnalysis(entry.recordId);
           reviewPackageIdInput.value = result.packageId;
@@ -126,9 +170,11 @@ function renderCatalog(summaries: readonly import("@riichi-coach/contracts").Ana
             await fixedReviewUi.leave().catch(() => undefined);
             catalogDetailElement.textContent = "复盘已保存，但暂时无法打开，请从已保存复盘重试。";
           }
-        } catch {
-          catalogDetailElement.textContent = "暂时无法分析这场牌谱，请重试。";
-        } finally { setPending(false); }
+        } catch (error) {
+          catalogDetailElement.textContent = error instanceof Error && error.message === "mahjong_soul_canonical_validation_failed"
+            ? "这场牌谱未通过转换或重放校验，分析未完成。请保留牌谱并反馈此问题。"
+            : "暂时无法分析这场牌谱，请重试。";
+        } finally { stopProgress(); button.textContent = "分析"; setPending(false); }
       })();
     });
     item.append(text, button);
