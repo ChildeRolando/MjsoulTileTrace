@@ -608,13 +608,60 @@ function decodeWireDraft(
     };
     const premises = decodeRefs(rawDecision.judgment.premiseRefs);
     if (premises === null) return null;
+    const proseAliasPattern = /(^|[^A-Za-z0-9_])([DNAFME][0-9]+)(?=$|[^A-Za-z0-9_])/g;
+    const prosePlaceholderPattern = /^\{(?:diff|candidate):[^{}.]+\.[^{}]+\}$/;
+
+    const decodeProseAliases = (
+      text: string,
+      expandActionAliases: boolean,
+      protectPlaceholders: boolean,
+    ): string | null => {
+      let valid = true;
+      const transform = (segment: string): string => {
+        proseAliasPattern.lastIndex = 0;
+        return segment.replace(
+          proseAliasPattern,
+        (match: string, separator: string, alias: string) => {
+          if (!expandActionAliases || !alias.startsWith("A")) {
+            valid = false;
+            return match;
+          }
+          const canonical = scoped.actionByAlias.get(alias);
+          if (canonical === undefined) {
+            valid = false;
+            return match;
+          }
+          return `${separator}{candidate:${canonical}.action.kind}`;
+        },
+        );
+      };
+      const segments = protectPlaceholders ? text.split(/(\{[^{}]*\})/g) : [text];
+      const mapped = segments.map((segment, index) => {
+        if (!protectPlaceholders || index % 2 === 0) {
+          return transform(segment);
+        }
+        if (prosePlaceholderPattern.test(segment)) return segment;
+        const body = segment.slice(1, -1);
+        proseAliasPattern.lastIndex = 0;
+        const containsAlias = proseAliasPattern.test(body);
+        proseAliasPattern.lastIndex = 0;
+        if (!containsAlias) return segment;
+        // A brace-delimited short alias is prose, not an evidence placeholder.
+        // Drop only that ordinary brace pair so the expanded action placeholder
+        // remains a single valid token for the existing renderer.
+        return transform(body);
+      }).join("");
+      return valid ? mapped : null;
+    };
 
     const inferences: unknown = rawDecision.inferences === undefined
       ? undefined
       : (rawDecision.inferences as unknown[]).map((inference) => {
         if (!isObject(inference)) return null;
         const premiseRefs = decodeRefs(inference.premiseRefs);
-        return premiseRefs === null ? null : { ...inference, premiseRefs };
+        if (premiseRefs === null || typeof inference.statement !== "string") return null;
+        const statement = decodeProseAliases(inference.statement, false, false);
+        return statement === null ? null : { ...inference, statement, premiseRefs };
       });
     if (Array.isArray(inferences) && inferences.some((entry) => entry === null)) return null;
 
@@ -630,7 +677,7 @@ function decodeWireDraft(
         if (canonical === null) { valid = false; return token; }
         return `{candidate:${canonical}.${field}}`;
       });
-      return valid ? mapped : null;
+      return valid ? decodeProseAliases(mapped, true, true) : null;
     };
 
     const explanations: unknown = rawDecision.explanations === undefined

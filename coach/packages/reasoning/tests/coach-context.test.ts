@@ -790,6 +790,104 @@ describe("CoachContext compact transmission", () => {
     expect(prepared.decode(escapedScope)).toBeNull();
   });
 
+  it("expands prose action aliases through action placeholders and preserves tile and numeric text", async () => {
+    const { graph, selection, slice } = await artifacts();
+    const prepared = prepareCoachRequest(slice);
+    const decisionRef = prepared.context.selectedDecisionRefs[0]!;
+    const actions = prepared.context.nodes.filter((node) =>
+      node.nodeKind === "CandidateAction" && node.decisionRef === decisionRef);
+    expect(actions.length).toBeGreaterThanOrEqual(2);
+    const sourceActionRefs = slice.nodes
+      .filter((node) => node.nodeKind === "CandidateAction")
+      .map((node) => recordOf(node.payload).actionRef as string);
+    const firstAlias = actions[0]!.ref;
+    const secondAlias = actions[1]!.ref;
+    const firstActionRef = sourceActionRefs[0]!;
+    const secondActionRef = sourceActionRefs[1]!;
+    const numericDifferenceIndex = slice.nodes
+      .filter((node) => node.nodeKind === "FactorDifference")
+      .findIndex((node) => {
+        const payload = recordOf(node.payload);
+        const leftValue = payload.leftValue;
+        return leftValue !== null && typeof leftValue === "object" && !Array.isArray(leftValue) &&
+          recordOf(leftValue).kind === "number";
+      });
+    expect(numericDifferenceIndex).toBeGreaterThanOrEqual(0);
+    const sourceDifferences = slice.nodes.filter((node) => node.nodeKind === "FactorDifference");
+    const contextDifferences = prepared.context.nodes.filter((node) =>
+      node.nodeKind === "FactorDifference" && node.decisionRef === decisionRef);
+    const numericDifferenceAlias = contextDifferences[numericDifferenceIndex]!.ref;
+    const numericDifferenceId = recordOf(sourceDifferences[numericDifferenceIndex]!.payload).differenceId;
+    const wire = { decisions: [wireDecision(prepared.context, decisionRef)] };
+    wire.decisions[0]!.explanations[0]!.text =
+      `在限定的两项选择中，${firstAlias}的七对子路线更快，${secondAlias}为另一条路线。` +
+      `括号别名{${firstAlias}}也展开；自然牌面1m、赤5p保持原样；数值 {diff:${numericDifferenceAlias}.leftValue.value}。`;
+    const raw = JSON.stringify(wire);
+    const decoded = prepared.decode(wire);
+    expect(decoded).not.toBeNull();
+    const decision = recordOf((decoded as { decisions: unknown[] }).decisions[0]);
+    const explanation = recordOf((decision.explanations as unknown[])[0]);
+    expect(explanation.text).toBe(
+      `在限定的两项选择中，{candidate:${firstActionRef}.action.kind}的七对子路线更快，` +
+      `{candidate:${secondActionRef}.action.kind}为另一条路线。` +
+      `括号别名{candidate:${firstActionRef}.action.kind}也展开；自然牌面1m、赤5p保持原样；` +
+      `数值 {diff:${numericDifferenceId}.leftValue.value}。`,
+    );
+
+    const report = assembleReviewReport({
+      graph,
+      selection,
+      preparedCoachRequest: prepared,
+      outcome: { kind: "generated", content: raw, transportRetries: 0 },
+      provider: { providerId: "fake", model: "fake" },
+      generatedAt: "2026-10-04T00:00:00.000Z",
+    });
+    expect(report.generationStatus).toBe("complete");
+    expect(report.audit.outputHash).toBe(`sha256:${sha256Hex(raw)}`);
+    const explanationNode = report.reasoningOverlay.nodes.find((node) => node.nodeKind === "Explanation");
+    expect(explanationNode).toBeDefined();
+    expect(recordOf(explanationNode!.payload).text).toBe(explanation.text);
+  });
+
+  it.each([
+    ["unknown action alias", "A999"],
+    ["wrong-kind difference alias", "F1"],
+  ])("rejects %s in explanation prose and inference statements", async (_label, alias) => {
+    const { slice } = await artifacts();
+    const prepared = prepareCoachRequest(slice);
+    const decisionRef = prepared.context.selectedDecisionRefs[0]!;
+    const wire = { decisions: [wireDecision(prepared.context, decisionRef)] };
+
+    for (const proseAlias of [alias, `{${alias}}`]) {
+      const explanationAlias = JSON.parse(JSON.stringify(wire)) as typeof wire;
+      explanationAlias.decisions[0]!.explanations[0]!.text = `这项选择为${proseAlias}。`;
+      expect(prepared.decode(explanationAlias)).toBeNull();
+
+      const inferenceAlias = JSON.parse(JSON.stringify(wire)) as typeof wire;
+      inferenceAlias.decisions[0]!.inferences![0]!.statement = `这项选择为${proseAlias}。`;
+      expect(prepared.decode(inferenceAlias)).toBeNull();
+    }
+  });
+
+  it("rejects a valid action alias from another decision and any action alias in inference prose", async () => {
+    const { slice } = await artifacts(true);
+    const prepared = prepareCoachRequest(slice);
+    const [currentDecisionRef, otherDecisionRef] = prepared.context.selectedDecisionRefs;
+    const otherAction = prepared.context.nodes.find((node) =>
+      node.nodeKind === "CandidateAction" && node.decisionRef === otherDecisionRef);
+    expect(otherAction).toBeDefined();
+
+    const foreignExplanation = { decisions: [wireDecision(prepared.context, currentDecisionRef!)] };
+    foreignExplanation.decisions[0]!.explanations[0]!.text = `另一项路线是${otherAction!.ref}。`;
+    expect(prepared.decode(foreignExplanation)).toBeNull();
+
+    const validAliasInference = { decisions: [wireDecision(prepared.context, currentDecisionRef!)] };
+    const currentAction = prepared.context.nodes.find((node) =>
+      node.nodeKind === "CandidateAction" && node.decisionRef === currentDecisionRef);
+    validAliasInference.decisions[0]!.inferences![0]!.statement = `当前行动为${currentAction!.ref}。`;
+    expect(prepared.decode(validAliasInference)).toBeNull();
+  });
+
   it("keeps aliases isolated across concurrent requests and keeps same-action decisions scoped", async () => {
     const { graph, slice, decisionIds, selection } = await artifacts(true);
     const first = prepareCoachRequest(slice);
