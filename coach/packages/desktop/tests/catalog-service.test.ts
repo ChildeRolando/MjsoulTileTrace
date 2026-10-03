@@ -85,7 +85,7 @@ function vaultReturning(session: StoredMahjongSoulSession | null): MahjongSoulSe
 
 function lobbyReturning(
   entries: RawRecordListEntry[],
-  options: { failSync?: boolean } = {},
+  options: { failSync?: boolean; failClose?: boolean } = {},
 ): { lobby: MahjongSoulLobbySession; closed: () => boolean } {
   let isClosed = false;
   const lobby: MahjongSoulLobbySession = {
@@ -121,6 +121,7 @@ function lobbyReturning(
     },
     async close() {
       isClosed = true;
+      if (options.failClose) throw new Error("private close diagnostic");
     },
   };
   return { lobby, closed: () => isClosed };
@@ -205,6 +206,37 @@ describe("Mahjong Soul catalog service", () => {
       sessionFactory: async () => lobby,
       clock: () => 2_000_000,
     });
+    await expect(service.syncAnalyzableRecords())
+      .rejects.toThrow("mahjong_soul_catalog_sync_failed");
+    expect(closed()).toBe(true);
+  });
+
+  it("preserves the fixed sync error when closing a failed lobby also throws", async () => {
+    const store = new FakeCatalogStore();
+    const { lobby, closed } = lobbyReturning([], { failSync: true, failClose: true });
+    const service = createMahjongSoulCatalogService({
+      vault: vaultReturning(storedSession),
+      catalogStore: store,
+      sessionFactory: async () => lobby,
+      clock: () => 2_000_000,
+    });
+
+    await expect(service.syncAnalyzableRecords())
+      .rejects.toThrow("mahjong_soul_catalog_sync_failed");
+    expect(closed()).toBe(true);
+    expect(store.summaries).toEqual([]);
+  });
+
+  it("maps a close-only failure to the fixed sync error", async () => {
+    const store = new FakeCatalogStore();
+    const { lobby, closed } = lobbyReturning([rawEntry(firstId)], { failClose: true });
+    const service = createMahjongSoulCatalogService({
+      vault: vaultReturning(storedSession),
+      catalogStore: store,
+      sessionFactory: async () => lobby,
+      clock: () => 2_000_000,
+    });
+
     await expect(service.syncAnalyzableRecords())
       .rejects.toThrow("mahjong_soul_catalog_sync_failed");
     expect(closed()).toBe(true);

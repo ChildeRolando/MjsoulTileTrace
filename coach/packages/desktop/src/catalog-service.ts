@@ -108,6 +108,7 @@ export function createMahjongSoulCatalogService(
     const stored = await vault.restore();
     if (stored === null || generation !== expectedGeneration) throw invalid();
     let lobby: MahjongSoulLobbySession | null = null;
+    let operationFailure: MahjongSoulSourceError | null = null;
     try {
       lobby = await sessionFactory(stored);
       activeLobby = lobby;
@@ -156,11 +157,21 @@ export function createMahjongSoulCatalogService(
       await catalogStore.replaceSummaries(stored.accountId, summaries);
       return await catalogStore.list(stored.accountId);
     } catch (error) {
-      if (error instanceof MahjongSoulSourceError) throw error;
-      throw new MahjongSoulSourceError("mahjong_soul_catalog_sync_failed");
+      operationFailure = error instanceof MahjongSoulSourceError
+        ? error
+        : new MahjongSoulSourceError("mahjong_soul_catalog_sync_failed");
+      throw operationFailure;
     } finally {
       if (activeLobby === lobby) activeLobby = null;
-      if (lobby !== null) await lobby.close();
+      if (lobby !== null) {
+        try {
+          await lobby.close();
+        } catch {
+          if (operationFailure === null) {
+            throw new MahjongSoulSourceError("mahjong_soul_catalog_sync_failed");
+          }
+        }
+      }
     }
   }
 
