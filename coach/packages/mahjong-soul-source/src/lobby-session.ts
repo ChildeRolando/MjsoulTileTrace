@@ -11,6 +11,7 @@ const CATALOG_SYNC_FAILED = "mahjong_soul_catalog_sync_failed" as const;
 const SESSION_INVALID = "mahjong_soul_session_invalid" as const;
 const MAX_REQUEST_ID = 0xffff;
 const DEFAULT_REQUEST_TIMEOUT_MS = 15_000;
+const ROUTE_BOOTSTRAP_METHOD = ".lq.Route.requestConnection" as const;
 
 export interface LobbyTransport {
   sendFrame(frame: Uint8Array): Promise<void>;
@@ -53,6 +54,9 @@ export interface MahjongSoulLobbySession {
   close(): Promise<void>;
 }
 
+type InternalDirectCallMethod = LobbyDirectCallMethod
+  | typeof ROUTE_BOOTSTRAP_METHOD;
+
 interface PendingCall {
   resolve(payload: Readonly<Record<string, unknown>>): void;
   reject(error: Error): void;
@@ -89,15 +93,20 @@ function sessionInvalid(): MahjongSoulSourceError {
 export function createMahjongSoulLobbySession(input: {
   readonly bundle: MahjongSoulProtocolBundle;
   readonly transport: LobbyTransport;
+  readonly routeBootstrap?: Readonly<{
+    readonly routeId: string;
+    readonly timestamp: number;
+  }>;
   readonly requestTimeoutMs?: number;
   readonly setTimer?: (callback: () => void, milliseconds: number) => unknown;
   readonly clearTimer?: (handle: unknown) => void;
-}): MahjongSoulLobbySession {
+}): MahjongSoulLobbySession & { readonly ready: Promise<void> } {
   const bundle = input.bundle;
   const transport = input.transport;
   const requestTimeoutMs = input.requestTimeoutMs ?? DEFAULT_REQUEST_TIMEOUT_MS;
   const setTimer = input.setTimer ?? ((callback, milliseconds) => setTimeout(callback, milliseconds));
   const clearTimer = input.clearTimer ?? ((handle) => clearTimeout(handle as ReturnType<typeof setTimeout>));
+  const routeBootstrap = input.routeBootstrap;
   if (
     !isObjectLike(transport)
     || typeof transport.sendFrame !== "function"
@@ -109,6 +118,20 @@ export function createMahjongSoulLobbySession(input: {
     || requestTimeoutMs > 120_000
     || typeof setTimer !== "function"
     || typeof clearTimer !== "function"
+    || (routeBootstrap !== undefined && (
+      !isRecord(routeBootstrap)
+      || Object.keys(routeBootstrap).length !== 2
+      || !Object.hasOwn(routeBootstrap, "routeId")
+      || !Object.hasOwn(routeBootstrap, "timestamp")
+      || typeof routeBootstrap.routeId !== "string"
+      || routeBootstrap.routeId.length < 1
+      || routeBootstrap.routeId.length > 256
+      || routeBootstrap.routeId.trim().length === 0
+      || /[\u0000-\u001f\u007f]/u.test(routeBootstrap.routeId)
+      || typeof routeBootstrap.timestamp !== "number"
+      || !Number.isSafeInteger(routeBootstrap.timestamp)
+      || routeBootstrap.timestamp < 0
+    ))
   ) {
     throw catalogFailed();
   }
@@ -116,7 +139,9 @@ export function createMahjongSoulLobbySession(input: {
   let codec: LiqiCodec;
   try {
     codec = createLiqiCodec(bundle, {
-      directCallMethods: [...LOBBY_DIRECT_CALL_METHODS],
+      directCallMethods: routeBootstrap === undefined
+        ? [...LOBBY_DIRECT_CALL_METHODS]
+        : [...LOBBY_DIRECT_CALL_METHODS, ROUTE_BOOTSTRAP_METHOD],
       surfacedNotifications: [],
     });
   } catch {
@@ -126,6 +151,7 @@ export function createMahjongSoulLobbySession(input: {
   const pending = new Map<number, PendingCall>();
   let nextRequestId = 1;
   let closed = false;
+  let routeReady = Promise.resolve();
 
   function allocateRequestId(): number {
     for (let attempts = 0; attempts <= MAX_REQUEST_ID; attempts += 1) {
@@ -168,11 +194,25 @@ export function createMahjongSoulLobbySession(input: {
   });
 
   async function callInternal(
-    method: LobbyDirectCallMethod,
+    method: InternalDirectCallMethod,
     payload: Readonly<Record<string, unknown>>,
+    duringBootstrap = false,
   ): Promise<Readonly<Record<string, unknown>>> {
     if (closed) throw catalogFailed();
-    if (!LOBBY_DIRECT_CALL_METHODS.includes(method)) throw catalogFailed();
+    if (
+      routeBootstrap !== undefined
+      && method !== ROUTE_BOOTSTRAP_METHOD
+      && !duringBootstrap
+    ) {
+      await routeReady;
+    }
+    if (
+      (method === ROUTE_BOOTSTRAP_METHOD && routeBootstrap === undefined)
+      || (method !== ROUTE_BOOTSTRAP_METHOD && !LOBBY_DIRECT_CALL_METHODS.includes(method))
+      || (method === ROUTE_BOOTSTRAP_METHOD && !duringBootstrap)
+    ) {
+      throw catalogFailed();
+    }
     const requestId = allocateRequestId();
     let frame: Uint8Array;
     try {
@@ -227,7 +267,32 @@ export function createMahjongSoulLobbySession(input: {
     }
   }
 
+  async function bootstrapSelectedRoute(): Promise<void> {
+    if (routeBootstrap === undefined) return;
+    try {
+      const response = await callInternal(ROUTE_BOOTSTRAP_METHOD, {
+        type: 1,
+        route_id: routeBootstrap.routeId,
+        timestamp: routeBootstrap.timestamp,
+        platform: "Web",
+      }, true);
+      if (
+        !isRecord(response.error)
+        || response.error.code !== 0
+        || response.result !== 1
+      ) {
+        throw catalogFailed();
+      }
+    } catch {
+      await close();
+      throw catalogFailed();
+    }
+  }
+
+  routeReady = bootstrapSelectedRoute();
+
   return Object.freeze({
+    ready: routeReady,
     async authenticate(inputValue: {
       readonly loginMethod: "login" | "oauth2Login";
       readonly token: SecretString;

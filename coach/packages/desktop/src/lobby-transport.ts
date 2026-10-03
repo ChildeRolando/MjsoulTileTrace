@@ -57,7 +57,7 @@ export function createWebSocketLobbyTransport(input: {
   readonly url: string;
   readonly WebSocketImpl?: LobbyWebSocketConstructor;
   readonly connectTimeoutMs?: number;
-}): LobbyTransport {
+}): LobbyTransport & { readonly ready: Promise<void> } {
   try {
     const url = validateUrl(input.url);
     const WebSocketImpl = input.WebSocketImpl
@@ -120,6 +120,7 @@ export function createWebSocketLobbyTransport(input: {
       }
     };
     return Object.freeze({
+      ready: opened,
       async sendFrame(frame: Uint8Array) {
         if (closed || !(frame instanceof Uint8Array)) throw failed();
         try {

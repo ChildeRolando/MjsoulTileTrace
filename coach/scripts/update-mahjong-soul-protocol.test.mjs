@@ -55,9 +55,14 @@ const fixtureVendorRoot = new URL(
 );
 const fixtureProto = await readFile(new URL("liqi.proto", fixtureVendorRoot));
 const fixtureRpcMap = await readFile(new URL("rpc-map.json", fixtureVendorRoot));
-const fixtureOfficialSchema = json(
-  protobuf.parse(fixtureProto.toString("utf8"), { keepCase: true }).root.toJSON(),
-);
+const fixtureOfficialSchemaObject = protobuf.parse(
+  fixtureProto.toString("utf8"),
+  { keepCase: true },
+).root.toJSON();
+// The locked official JSON snapshot predates the observed Web platform field;
+// the pinned vendor proto carries the exact additive tag-6 string field.
+delete fixtureOfficialSchemaObject.nested.lq.nested.ReqRequestConnection.fields.platform;
+const fixtureOfficialSchema = json(fixtureOfficialSchemaObject);
 
 function fixture() {
   const commit = "1".repeat(40);
@@ -314,7 +319,7 @@ registerTest("vendors only pinned assets and emits the narrow CN endpoint policy
     officialSchemaSha256: input.lock.official.liqiSha256,
     vendorProtoSha256: input.lock.vendor.files[2].sha256,
     vendorRpcMapSha256: input.lock.vendor.files[3].sha256,
-    requiredSurfaceVersion: "mahjong-soul-required-surface/v3",
+    requiredSurfaceVersion: "mahjong-soul-required-surface/v4",
   });
   const files = [...(await tree(input.outputDir)).keys()].sort();
   assert.deepEqual(files, [
