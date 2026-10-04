@@ -271,3 +271,40 @@ COAC-8 只有在 COAC-6 accepted/merged、COAC-7 本规格 reviewed/frozen/accep
 技术审阅已逐项核对实体关系、schema/复合引用、两阶段事务、migration、崩溃恢复、validator/read-back、raw-cache 生命周期、安全边界和主链/降级验收；没有剩余产品决策。实现期仍须选择并实测 Electron-compatible SQLite binding，但该选择不得改变本规格的表语义、边界或验收，属于实现任务而非 spec blocker。
 
 明确不做：用户级 regenerate/history/A-B switch；多请求粒度和生成断点；自动 cache TTL/LRU/cap；内置备份；自选数据目录/搬迁；云同步、多用户、跨设备、服务端托管；GraphDB/向量检索；M4 对话；真实 provider 自动测试；将 graph、raw source 或完整 prompt/response 持久化为产品 artifact。
+
+
+## 2026-10-05 用户批准修订：单行动教练生成与可读牌谱标题
+
+本节取代此前 P6 的“仅首次整盘生成”以及 M7-B 的“多请求粒度不属于范围”限制。
+不增加历史报告切换、A/B 比较或自由对话能力。
+
+- selector 的固定入选集合、候选及确定性事实不变；用户可以为其中一个行动生成解说。
+  单行动按钮指一个决策窗口，而非重新选择或删除该窗口里的合法候选。
+- renderer 只传 packageId、operationId、可选 decisionId；main 核实成员资格。
+  请求范围是固定选集的有序子集，重新编号 rank；唯一生成入口仍为 generateReviewReport。
+- 单行动生成只请求一条；全盘生成只请求尚无 ready 解说的条目；失败可重试，已 ready
+  的条目不重复请求。离开、取消及迟到结果仍依照原 operation/view epoch 规则拒绝。
+- 每次请求产生独立 immutable ReviewReport，保留其范围、provider、usage 和审计。
+  SQLite 的显式 decision→reportRef 映射决定显示内容；最新 activeReportRefId 仍作为
+  页面版本。不得伪造合并报告、用最后一份单行动报告覆盖其它已完成解说，或按时间猜引用。
+- 多报告消费由 reasoning 拥有的会话 read-back seam 校验；旧完整选集 compose 契约保持严格。
+  各报告的范围、同包身份、grounding、引用与合成图均须验证。恢复只处理已保存引用，零 LLM。
+- 页面用量显示最近一次请求的服务回报，不把单次统计冒充全盘累计或账号剩余额度。
+- 标题/四人名次/姓名/最终分数使用来源目录中已验证的摘要，本人高亮。
+  元数据独立保存，不修改分析 artifact，不送教练，不依赖重新登录或网络读取。
+  旧档案无目录元数据时显示可读保存日期标题；打开后可利用已验证 recordId 与同视角目录
+  补齐。缺失分数、姓名、名次保持未知，不按分数猜排名，不把包创建时间当对局开始时间。
+
+验收新增：两条分别生成并保留其它条目、全盘补剩余、已有 ready 不重发、失败重试、
+关闭重开零请求、旧库迁移、intent/CAS/坏引用拒绝、IPC 只传身份、DOM 单行动/并发/切换边界，
+及目录和保存列表可读标题/四人真实顺位分数/本人高亮。
+本修订不等于 UI 卡顿、证据树、检索式 tool loop 或完整 H1 已验收。
+
+存储实现补充：v4 增加 `session_decision_reports` 显式索引以及
+`review_sessions.decision_report_map_hash`，按确定顺序核验完整索引；缺行也应拒绝。
+旧 active 报告迁移须严格匹配旧完整选集、policy、hash/identity，失败回滚；不改旧正文。
+标题采用可选 `review_session_labels` 本地展示表，通过 session/package 复合外键绑定；
+列表只读此轻量表，不为了标题同步载入整份分析档案。无目录时不能覆盖已保存玩家结算摘要。
+目录关联只将 schema 合法的 `majsoul:<rawRecordId>` 映射为雀魂目录编号；不改包身份，不猜其它来源前缀。
+controller 对已存在的生成 operation receipt 拒绝重发；repository 的同 intent/receipt
+本地恢复保持幂等，未知结果通过重新打开会话查看，不能以旧编号改范围发新模型请求。

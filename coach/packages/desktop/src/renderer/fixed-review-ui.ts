@@ -30,14 +30,20 @@ const WINDOW_LABELS: Readonly<Record<string, string>> = {
   post_call_discard: "副露后打牌", post_riichi_discard: "立直宣言后打牌",
 };
 
+function remainingExplanationCount(snapshot: FixedReviewSnapshotDto): number {
+  return snapshot.selection.items.filter((item) => item.explanationStatus !== "ready").length;
+}
+
 function element<K extends keyof HTMLElementTagNameMap>(document: Document, tag: K, text?: string) {
   const node = document.createElement(tag);
   if (text !== undefined) node.textContent = text;
   return node;
 }
 
-function definition(document: Document, list: HTMLElement, term: string, value: string): void {
-  list.append(element(document, "dt", term), element(document, "dd", value));
+function definition(document: Document, list: HTMLElement, term: string, value: string): HTMLElement {
+  const display = element(document, "dd", value);
+  list.append(element(document, "dt", term), display);
+  return display;
 }
 
 export function createFixedReviewUi(input: {
@@ -50,9 +56,33 @@ export function createFixedReviewUi(input: {
   let operationId: string | null = null;
   let currentPackageId: string | null = null;
   let viewEpoch = 0;
+  let clearDisplayedUsage = () => {};
+  let generationBusy = false;
+  let settingsBusy = false;
+  let generationButtons = new Set<HTMLButtonElement>();
+  let settingsControls = new Set<HTMLInputElement | HTMLSelectElement | HTMLButtonElement>();
+  let updateProviderStatus: (value: Awaited<ReturnType<CoachDesktopApi["status"]>>) => void = () => {};
   const document = input.document;
   const isCurrent = (epoch: number, packageId: string) =>
     viewEpoch === epoch && currentPackageId === packageId;
+
+  const syncInteractionState = () => {
+    const disabled = generationBusy || settingsBusy;
+    generationButtons.forEach((button) => { button.disabled = disabled; });
+    settingsControls.forEach((control) => { control.disabled = disabled; });
+  };
+
+  const addGenerationButton = (label: string, decisionId?: string, reopenDetail = false) => {
+    const button = element(document, "button", label);
+    button.type = "button";
+    button.className = decisionId === undefined ? "review-generate-remaining" : "review-generate-one";
+    generationButtons.add(button);
+    button.addEventListener("click", () => { void startGeneration(decisionId, reopenDetail); });
+    syncInteractionState();
+    return button;
+  };
+
+  let startGeneration: (decisionId?: string, reopenDetail?: boolean) => Promise<void> = async () => {};
 
   const showError = (message: string) => {
     const alert = element(document, "p", message);
@@ -79,6 +109,10 @@ export function createFixedReviewUi(input: {
     coach.className = "review-coach";
     coach.append(element(document, "h4", "教练建议"));
     if (detail.coachJudgments.length === 0) coach.append(element(document, "p", EXPLANATION_LABELS[detail.explanationStatus]));
+    const selectedItem = snapshot?.selection.items.find((item) => item.decisionId === detail.decisionId);
+    if (selectedItem !== undefined && selectedItem.explanationStatus !== "ready") {
+      coach.append(addGenerationButton("生成本条教练解说", selectedItem.decisionId, true));
+    }
     const evidenceTargets = new Map<string, HTMLElement>();
     const revealEvidenceTarget = (ref: string) => {
       const target = evidenceTargets.get(ref);
@@ -153,13 +187,28 @@ export function createFixedReviewUi(input: {
     section.append(heading, comparison, coach, evidence, metadata);
     input.root.querySelector(".review-detail")?.remove();
     input.root.append(section);
+    syncInteractionState();
     heading.tabIndex = -1;
     heading.focus();
+  };
+
+  const openDetail = async (decisionId: string, requestEpoch = viewEpoch, expectedSnapshot = snapshot) => {
+    if (expectedSnapshot === null || expectedSnapshot === undefined) return;
+    const packageId = expectedSnapshot.packageId;
+    const activeReportRefId = expectedSnapshot.activeReportRefId;
+    try {
+      const detail = await input.api.getReviewDetail({ packageId, decisionId, activeReportRefId });
+      if (isCurrent(requestEpoch, packageId) && snapshot === expectedSnapshot) renderDetail(detail);
+    } catch {
+      if (isCurrent(requestEpoch, packageId) && snapshot === expectedSnapshot) showError("无法打开这条复盘，请返回后重试。");
+    }
   };
 
   const render = (next: FixedReviewSnapshotDto, focusReviewEntry = false) => {
     snapshot = next;
     currentPackageId = next.packageId;
+    generationButtons = new Set();
+    settingsControls = new Set();
     input.root.textContent = "";
     input.root.hidden = false;
     const overview = element(document, "section");
@@ -179,14 +228,23 @@ export function createFixedReviewUi(input: {
     usage.append(element(document, "h3", "教练 Token 用量"));
     const tokenFields = element(document, "dl");
     const tokenLabel = (value: number | undefined) => value === undefined ? "未知" : value.toLocaleString("zh-CN");
-    definition(document, tokenFields, "输入", tokenLabel(next.coachUsage?.inputTokens));
-    definition(document, tokenFields, "输出", tokenLabel(next.coachUsage?.outputTokens));
-    definition(document, tokenFields, "总量", tokenLabel(next.coachUsage?.totalTokens));
-    definition(document, tokenFields, "缓存输入（已包含在输入中）", tokenLabel(next.coachUsage?.cachedInputTokens));
-    if (next.coachProvider != null) usage.append(element(document, "p", `模型：${next.coachProvider.model}${next.coachProvider.reasoningEffort === undefined ? "" : ` · 推理强度 ${next.coachProvider.reasoningEffort}`}`));
+    const usageValues = [
+      definition(document, tokenFields, "输入", tokenLabel(next.coachUsage?.inputTokens)),
+      definition(document, tokenFields, "输出", tokenLabel(next.coachUsage?.outputTokens)),
+      definition(document, tokenFields, "总量", tokenLabel(next.coachUsage?.totalTokens)),
+      definition(document, tokenFields, "缓存输入（已包含在输入中）", tokenLabel(next.coachUsage?.cachedInputTokens)),
+    ];
+    const usageProvider = element(document, "p", next.coachProvider == null ? "模型：未知"
+      : `模型：${next.coachProvider.model}${next.coachProvider.reasoningEffort === undefined ? "" : ` · 推理强度 ${next.coachProvider.reasoningEffort}`}`);
+    usageProvider.className = "coach-token-provider";
+    usage.append(usageProvider);
+    clearDisplayedUsage = () => {
+      usageValues.forEach(value => { value.textContent = "未知"; });
+      usageProvider.textContent = "模型：本次请求尚未返回信息";
+    };
     usage.append(tokenFields, element(document, "p", next.activeReportRefId === null
-      ? "尚未生成；服务返回用量后显示，随报告保存。"
-      : "本报告请求的服务返回用量。未返回统计的失败或重试可能不包含；这不是账号剩余额度。"));
+      ? "尚未生成；最近一次请求的服务用量会随报告显示。"
+      : "最近一次请求返回的服务用量。未返回统计的失败或重试可能不包含；这不是账号剩余额度。"));
     const live = element(document, "p");
     live.className = "review-live";
     live.setAttribute("aria-live", "polite");
@@ -218,106 +276,82 @@ export function createFixedReviewUi(input: {
       element(document, "p", `解说请求未成功：${next.explanationCounts.request_failed}`),
       element(document, "p", `解说未通过校验：${next.explanationCounts.invalid_output}`),
     );
-    overview.append(analysisDetails, explanationDetails);
-    overview.append(usage);
-    if (next.activeReportRefId === null) {
-      const settingsCard = element(document, "details");
-      settingsCard.className = "coach-settings";
-      settingsCard.append(element(document, "summary", "教练服务设置"));
-      const provider = element(document, "select");
-      provider.id = "coach-provider-kind";
-      for (const [value, label] of [["codex-cli", "本机 Codex 登录 · gpt-6-luna · max"], ["openai-compatible", "OpenAI-compatible 服务"]] as const) {
-        const option = element(document, "option", label); option.value = value; provider.append(option);
-      }
-      const providerLabel = element(document, "label", "解说服务 "); providerLabel.htmlFor = provider.id; providerLabel.append(provider);
-      const apiFields = element(document, "div"); apiFields.hidden = true;
-      const address = element(document, "input"); address.id = "coach-base-url"; address.type = "url";
-      address.placeholder = "https://服务地址/v1";
-      const model = element(document, "input"); model.id = "coach-model-name"; model.placeholder = "模型名称";
-      const addressLabel = element(document, "label", "服务地址 "); addressLabel.htmlFor = address.id; addressLabel.append(address);
-      const modelLabel = element(document, "label", "模型名称 "); modelLabel.htmlFor = model.id; modelLabel.append(model);
-      const importKey = element(document, "button", "从本机环境导入 API key"); importKey.type = "button";
-      apiFields.append(addressLabel, modelLabel, element(document, "p", "API key 通过启动环境 RIICHI_COACH_API_KEY 安全导入，不在页面输入或显示。"), importKey);
-      let settingsEdited = false;
-      provider.addEventListener("change", () => { settingsEdited = true; apiFields.hidden = provider.value !== "openai-compatible"; });
-      address.addEventListener("input", () => { settingsEdited = true; });
-      model.addEventListener("input", () => { settingsEdited = true; });
-      const configStatus = element(document, "p", "正在检查教练服务…"); configStatus.setAttribute("aria-live", "polite");
-      const save = element(document, "button", "保存教练设置"); save.type = "button"; save.className = "coach-config-save";
-      settingsCard.append(providerLabel, element(document, "p", "Codex 使用本机已有登录；生成在云端进行并消耗该账号额度。仅点击生成后才请求解说。"), apiFields, save, configStatus);
-      overview.append(settingsCard);
-      const generate = element(document, "button", "生成教练解说");
-      generate.type = "button";
-      const renderEpoch = viewEpoch;
-      const currentCard = () => isCurrent(renderEpoch, next.packageId) && snapshot === next;
-      const applyProviderStatus = (value: Awaited<ReturnType<CoachDesktopApi["status"]>>, populate = false) => {
-        if (!currentCard()) return;
-        if (populate && !settingsEdited && value.settings !== null) {
-          provider.value = "providerId" in value.settings ? "codex-cli" : "openai-compatible";
-          if (!("providerId" in value.settings)) { address.value = value.settings.baseUrl; model.value = value.settings.modelName; }
-          apiFields.hidden = provider.value !== "openai-compatible";
-        }
-        configStatus.textContent = value.configured ? "教练服务已就绪。" : "教练服务未就绪。Codex 请先完成本机登录；其它服务请保存地址、模型并导入凭据。";
-        if (!value.configured) settingsCard.open = true;
-      };
-      void input.api.status().then(value => applyProviderStatus(value, true)).catch(() => {
-        if (currentCard()) { settingsCard.open = true; configStatus.textContent = "无法检查教练服务，请稍后重试。"; }
-      });
-      save.addEventListener("click", () => void (async () => {
-        save.disabled = true;
-        try {
-          const value = await input.api.configure(provider.value === "codex-cli"
-            ? { providerId: "codex-cli", modelName: "gpt-6-luna", reasoningEffort: "max" }
-            : { baseUrl: address.value.trim(), modelName: model.value.trim() });
-          applyProviderStatus(value);
-        } catch { if (currentCard()) configStatus.textContent = "设置未保存，请检查服务地址和模型名称。"; }
-        finally { if (currentCard()) save.disabled = false; }
-      })());
-      importKey.addEventListener("click", () => void (async () => {
-        importKey.disabled = true;
-        try { applyProviderStatus(await input.api.importCredential()); }
-        catch { if (currentCard()) configStatus.textContent = "凭据未导入，请检查本机启动环境。"; }
-        finally { if (currentCard()) importKey.disabled = false; }
-      })());
-      generate.addEventListener("click", () => void (async () => {
-        generate.disabled = true;
-        save.disabled = true; importKey.disabled = true;
-        live.textContent = "正在检查教练服务…";
-        const requestEpoch = viewEpoch;
-        const requestPackageId = next.packageId;
-        const requestOperationId = globalThis.crypto.randomUUID();
-        operationId = requestOperationId;
-        try {
-          const readiness = await input.api.status();
-          if (!isCurrent(requestEpoch, requestPackageId) || operationId !== requestOperationId) return;
-          applyProviderStatus(readiness);
-          if (!readiness.configured) { live.textContent = "请先配置就绪的教练服务，再生成解说。"; return; }
-          live.textContent = "正在生成教练解说；等待解说和 Token 统计…";
-          const result = await input.api.generateReview({ packageId: requestPackageId, operationId: requestOperationId });
-          if (!isCurrent(requestEpoch, requestPackageId) || operationId !== requestOperationId) return;
-          if (result.status === "ready") {
-            render(result.snapshot, true);
-            input.onReportGenerated?.();
-          }
-          else {
-            live.textContent = "教练解说未生成，可以稍后重试。";
-            showError("本次解说未生成，当前证据和已有内容保持不变。你可以稍后再试。");
-          }
-        } catch {
-          if (isCurrent(requestEpoch, requestPackageId) && operationId === requestOperationId) {
-            live.textContent = "教练解说未生成，可以稍后重试。";
-            showError("本次操作未完成，请稍后再试。");
-          }
-        } finally {
-          if (isCurrent(requestEpoch, requestPackageId) && operationId === requestOperationId) {
-            operationId = null;
-            generate.disabled = false;
-            save.disabled = false; importKey.disabled = false;
-          }
-        }
-      })());
-      overview.append(generate);
+    overview.append(analysisDetails, explanationDetails, usage);
+    const settingsCard = element(document, "details");
+    settingsCard.className = "coach-settings";
+    settingsCard.append(element(document, "summary", "教练服务设置"));
+    const provider = element(document, "select");
+    provider.id = "coach-provider-kind";
+    for (const [value, label] of [["codex-cli", "本机 Codex 登录 · gpt-6-luna · max"], ["openai-compatible", "OpenAI-compatible 服务"]] as const) {
+      const option = element(document, "option", label); option.value = value; provider.append(option);
     }
+    const providerLabel = element(document, "label", "解说服务 "); providerLabel.htmlFor = provider.id; providerLabel.append(provider);
+    const apiFields = element(document, "div"); apiFields.hidden = true;
+    const address = element(document, "input"); address.id = "coach-base-url"; address.type = "url";
+    address.placeholder = "https://服务地址/v1";
+    const model = element(document, "input"); model.id = "coach-model-name"; model.placeholder = "模型名称";
+    const addressLabel = element(document, "label", "服务地址 "); addressLabel.htmlFor = address.id; addressLabel.append(address);
+    const modelLabel = element(document, "label", "模型名称 "); modelLabel.htmlFor = model.id; modelLabel.append(model);
+    const importKey = element(document, "button", "从本机环境导入 API key"); importKey.type = "button";
+    apiFields.append(addressLabel, modelLabel, element(document, "p", "API key 通过启动环境 RIICHI_COACH_API_KEY 安全导入，不在页面输入或显示。"), importKey);
+    let settingsEdited = false;
+    provider.addEventListener("change", () => { settingsEdited = true; apiFields.hidden = provider.value !== "openai-compatible"; });
+    address.addEventListener("input", () => { settingsEdited = true; });
+    model.addEventListener("input", () => { settingsEdited = true; });
+    const configStatus = element(document, "p", "正在检查教练服务…"); configStatus.setAttribute("aria-live", "polite");
+    const save = element(document, "button", "保存教练设置"); save.type = "button"; save.className = "coach-config-save";
+    settingsCard.append(providerLabel, element(document, "p", "Codex 使用本机已有登录；生成在云端进行并消耗该账号额度。仅点击生成后才请求解说。"), apiFields, save, configStatus);
+    overview.append(settingsCard);
+    settingsControls.add(provider);
+    settingsControls.add(address);
+    settingsControls.add(model);
+    settingsControls.add(importKey);
+    settingsControls.add(save);
+    const renderEpoch = viewEpoch;
+    const currentCard = () => isCurrent(renderEpoch, next.packageId) && snapshot === next;
+    const applyProviderStatus = (value: Awaited<ReturnType<CoachDesktopApi["status"]>>, populate = false) => {
+      if (!currentCard()) return;
+      if (populate && !settingsEdited && !generationBusy && !settingsBusy && value.settings !== null) {
+        provider.value = "providerId" in value.settings ? "codex-cli" : "openai-compatible";
+        if (!("providerId" in value.settings)) { address.value = value.settings.baseUrl; model.value = value.settings.modelName; }
+        apiFields.hidden = provider.value !== "openai-compatible";
+      }
+      configStatus.textContent = value.configured ? "教练服务已就绪。" : "教练服务未就绪。Codex 请先完成本机登录；其它服务请保存地址、模型并导入凭据。";
+      if (!value.configured) settingsCard.open = true;
+    };
+    updateProviderStatus = (value) => applyProviderStatus(value);
+    void input.api.status().then(value => applyProviderStatus(value, true)).catch(() => {
+      if (currentCard()) { settingsCard.open = true; configStatus.textContent = "无法检查教练服务，请稍后重试。"; }
+    });
+    save.addEventListener("click", () => void (async () => {
+      if (generationBusy || settingsBusy || !currentCard()) return;
+      settingsBusy = true;
+      syncInteractionState();
+      try {
+        const value = await input.api.configure(provider.value === "codex-cli"
+          ? { providerId: "codex-cli", modelName: "gpt-6-luna", reasoningEffort: "max" }
+          : { baseUrl: address.value.trim(), modelName: model.value.trim() });
+        applyProviderStatus(value);
+      } catch { if (currentCard()) configStatus.textContent = "设置未保存，请检查服务地址和模型名称。"; }
+      finally { if (currentCard()) { settingsBusy = false; syncInteractionState(); } }
+    })());
+    importKey.addEventListener("click", () => void (async () => {
+      if (generationBusy || settingsBusy || !currentCard()) return;
+      settingsBusy = true;
+      syncInteractionState();
+      try { applyProviderStatus(await input.api.importCredential()); }
+      catch { if (currentCard()) configStatus.textContent = "凭据未导入，请检查本机启动环境。"; }
+      finally { if (currentCard()) { settingsBusy = false; syncInteractionState(); } }
+    })());
+    const remaining = remainingExplanationCount(next);
+    const generationScopeText = remaining === 0
+      ? (next.selection.selectedCount === 0 ? "当前没有入选条目。" : "所有入选条目都已有可用解说。")
+      : `还有 ${remaining} 条未获得可用解说。可逐条生成，或生成剩余 ${remaining} 条；已有可用解说的条目会跳过。`;
+    const generationScope = element(document, "p", generationScopeText);
+    generationScope.className = "review-generation-scope";
+    overview.append(generationScope);
+    if (remaining > 0) overview.append(addGenerationButton(`生成剩余 ${remaining} 条教练解说`));
+    syncInteractionState();
     const list = element(document, "section");
     list.className = "review-list";
     list.hidden = true;
@@ -336,16 +370,10 @@ export function createFixedReviewUi(input: {
         row.setAttribute("data-decision-id", item.decisionId);
         const open = element(document, "button", "查看详情");
         open.type = "button";
-        open.addEventListener("click", () => void (async () => {
-          const requestEpoch = viewEpoch;
-          try {
-            const detail = await input.api.getReviewDetail({ packageId: next.packageId, decisionId: item.decisionId, activeReportRefId: next.activeReportRefId });
-            if (isCurrent(requestEpoch, next.packageId) && snapshot?.activeReportRefId === next.activeReportRefId) renderDetail(detail);
-          } catch {
-            if (isCurrent(requestEpoch, next.packageId)) showError("无法打开这条复盘，请返回后重试。");
-          }
-        })());
-        const last = element(document, "td", `${EXPLANATION_LABELS[item.explanationStatus]} `); last.append(open);
+        open.addEventListener("click", () => { void openDetail(item.decisionId, viewEpoch, next); });
+        const last = element(document, "td", `${EXPLANATION_LABELS[item.explanationStatus]} `);
+        last.append(open);
+        if (item.explanationStatus !== "ready") last.append(addGenerationButton("生成本条教练解说", item.decisionId, true));
         row.append(
           element(document, "td", `第 ${item.rank} 条 · 第 ${item.roundOrdinal + 1} 局 · ${WINDOW_LABELS[item.decisionWindowKind] ?? "决策窗口"}`),
           element(document, "td", item.actualAction?.label ?? "无"),
@@ -361,6 +389,76 @@ export function createFixedReviewUi(input: {
     goList.addEventListener("click", () => { list.hidden = false; list.querySelector<HTMLElement>("button, h3")?.focus(); });
     input.root.append(overview, list);
     if (focusReviewEntry) goList.focus();
+    syncInteractionState();
+  };
+
+  startGeneration = async (decisionId, reopenDetail = false) => {
+    const sourceSnapshot = snapshot;
+    if (sourceSnapshot === null || generationBusy || settingsBusy) return;
+    const selectedItem = decisionId === undefined
+      ? undefined
+      : sourceSnapshot.selection.items.find((item) => item.decisionId === decisionId);
+    if (decisionId !== undefined && (selectedItem === undefined || selectedItem.explanationStatus === "ready")) return;
+    const live = input.root.querySelector<HTMLElement>(".review-live");
+    if (live === null) return;
+
+    const requestEpoch = viewEpoch;
+    const requestPackageId = sourceSnapshot.packageId;
+    const requestOperationId = globalThis.crypto.randomUUID();
+    const scope = decisionId === undefined
+      ? `正在生成剩余 ${remainingExplanationCount(sourceSnapshot)} 条教练解说`
+      : `正在为第 ${selectedItem?.rank ?? "当前"} 条复盘生成本条教练解说`;
+    const requestIsCurrent = () => isCurrent(requestEpoch, requestPackageId)
+      && operationId === requestOperationId && snapshot === sourceSnapshot;
+    operationId = requestOperationId;
+    generationBusy = true;
+    clearDisplayedUsage();
+    syncInteractionState();
+    live.textContent = `${scope}；正在检查教练服务…`;
+    try {
+      const readiness = await input.api.status();
+      if (!requestIsCurrent()) return;
+      updateProviderStatus(readiness);
+      if (!readiness.configured) {
+        live.textContent = `${scope}；教练服务未就绪，请先配置服务。`;
+        return;
+      }
+      live.textContent = `${scope}；等待最近一次请求返回解说和 Token 用量…`;
+      const usageNote = input.root.querySelector<HTMLElement>(".coach-token-usage p:last-child");
+      if (usageNote !== null) usageNote.textContent = "正在等待最近一次请求返回服务用量；未返回统计的失败或重试可能不包含。这不是账号剩余额度。";
+      const request = decisionId === undefined
+        ? { packageId: requestPackageId, operationId: requestOperationId }
+        : { packageId: requestPackageId, operationId: requestOperationId, decisionId };
+      const result = await input.api.generateReview(request);
+      if (!requestIsCurrent()) return;
+      if (result.status === "ready") {
+        operationId = null;
+        generationBusy = false;
+        syncInteractionState();
+        render(result.snapshot, decisionId === undefined);
+        input.onReportGenerated?.();
+        if (reopenDetail && decisionId !== undefined && isCurrent(requestEpoch, requestPackageId)) {
+          await openDetail(decisionId, requestEpoch, result.snapshot);
+        }
+      } else {
+        live.textContent = `${scope}未生成，可以稍后重试。`;
+        if (usageNote !== null) usageNote.textContent = "最近一次请求未返回可用用量。失败或重试可能不包含统计；这不是账号剩余额度。";
+        showError("本次解说未生成，当前证据和已有内容保持不变。你可以稍后再试。");
+      }
+    } catch {
+      if (requestIsCurrent()) {
+        live.textContent = `${scope}未生成，可以稍后重试。`;
+        const usageNote = input.root.querySelector<HTMLElement>(".coach-token-usage p:last-child");
+        if (usageNote !== null) usageNote.textContent = "最近一次请求未返回可用用量。失败或重试可能不包含统计；这不是账号剩余额度。";
+        showError("本次操作未完成，请稍后再试。");
+      }
+    } finally {
+      if (isCurrent(requestEpoch, requestPackageId) && operationId === requestOperationId) {
+        operationId = null;
+        generationBusy = false;
+        syncInteractionState();
+      }
+    }
   };
 
   const renderOpenState = (message: string, role: "status" | "alert") => {
@@ -380,6 +478,10 @@ export function createFixedReviewUi(input: {
       const previousOperationId = operationId;
       currentPackageId = packageId;
       operationId = null;
+      generationBusy = false;
+      settingsBusy = false;
+      generationButtons = new Set();
+      settingsControls = new Set();
       snapshot = null;
       renderOpenState("正在打开整盘复盘…", "status");
       try {
@@ -403,6 +505,10 @@ export function createFixedReviewUi(input: {
       viewEpoch += 1;
       snapshot = null;
       operationId = null;
+      generationBusy = false;
+      settingsBusy = false;
+      generationButtons = new Set();
+      settingsControls = new Set();
       currentPackageId = null;
       input.root.textContent = "";
       input.root.hidden = true;

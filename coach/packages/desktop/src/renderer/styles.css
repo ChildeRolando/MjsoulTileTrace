@@ -137,6 +137,11 @@ h1 { margin: 8px 0 7px; color: #1c3126; font-size: clamp(32px, 3vw, 42px); font-
 }
 .catalog-list li > span { min-width: 0; overflow-wrap: anywhere; }
 .catalog-list li > button { flex: 0 0 auto; min-width: 72px; min-height: 34px; padding: 7px 12px; }
+.catalog-record-metadata { display: grid; gap: 7px; min-width: 0; }
+.catalog-record-title { font-weight: 720; color: #34453a; }
+.catalog-record-players { display: flex; flex-wrap: wrap; gap: 6px 12px; color: #68736a; font-size: 11px; }
+.catalog-record-player { font-weight: 450; }
+.catalog-record-player-self { color: var(--green-dark); font-weight: 760; }
 .pagination { display: flex; align-items: center; justify-content: flex-end; gap: 12px; padding: 13px 2px 0; color: #69736b; font-size: 11px; }
 .pagination button { min-height: 32px; padding: 6px 11px; font-size: 11px; }
 #catalog-pagination-status, #review-session-pagination-status { min-width: 120px; text-align: center; }
@@ -145,6 +150,11 @@ h1 { margin: 8px 0 7px; color: #1c3126; font-size: clamp(32px, 3vw, 42px); font-
 .saved-local-label { border-radius: 99px; padding: 7px 10px; background: #f3f5ef; }
 .saved-review-list:empty::before { content: "暂无已保存复盘。"; padding: 13px 2px; color: var(--muted); font-size: 12px; }
 .saved-review-list li { background: #faf9f4; }
+.saved-review-metadata { display: grid; gap: 7px; min-width: 0; }
+.saved-review-title { font-weight: 720; color: #34453a; }
+.saved-review-players { display: flex; flex-wrap: wrap; gap: 6px 12px; color: #68736a; font-size: 11px; }
+.saved-review-player { font-weight: 450; }
+.saved-review-player-self { color: var(--green-dark); font-weight: 760; }
 
 .analysis-progress { display: grid; gap: 11px; margin: 18px 0 20px; border: 1px solid #dce5dc; border-radius: 13px; padding: 18px; background: linear-gradient(130deg, #f4f7f1, #fbfaf4); }
 .progress-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; }

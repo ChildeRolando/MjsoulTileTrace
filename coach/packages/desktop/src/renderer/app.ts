@@ -2,7 +2,7 @@ import type { MahjongSoulDesktopApi } from "../session-api.js";
 import type { MahjongSoulCatalogApi } from "../catalog-api.js";
 import type { RecordAnalysisSnapshot } from "../catalog-api.js";
 import type { MahjongSoulPaipuApi } from "../paipu-import-api.js";
-import type { MahjongSoulSessionStatus } from "@riichi-coach/contracts";
+import type { MahjongSoulSessionStatus, RecordLabel } from "@riichi-coach/contracts";
 import { sessionUiPolicy } from "./session-ui-policy.js";
 import {
   paipuImportStatusLabel,
@@ -10,6 +10,7 @@ import {
   paipuShareUrlLooksValid,
 } from "./paipu-ui-policy.js";
 import { createFixedReviewUi } from "./fixed-review-ui.js";
+import { recordLabelView } from "./record-label.js";
 import type { CoachDesktopApi } from "@riichi-coach/contracts";
 
 declare global {
@@ -216,13 +217,34 @@ function renderReviewSessionPage(): void {
   const fragment = document.createDocumentFragment();
   for (const session of visibleSessions) {
     const item = document.createElement("li");
+    const metadata = document.createElement("div");
+    metadata.className = "saved-review-metadata";
     const label = document.createElement("span");
-    label.textContent = `${session.packageId} · ${session.activeReportRefId === null ? "尚未生成教练解说" : "已有教练解说"}`;
+    label.className = "saved-review-title";
+    const presentation = recordLabelView(session.recordLabel, session.updatedAt);
+    label.textContent = `${presentation.title} · ${session.activeReportRefId === null ? "尚未生成教练解说" : "已有教练解说"}`;
+    const players = document.createElement("div");
+    players.className = "saved-review-players";
+    for (const player of presentation.players) {
+      if (player.isSelf) {
+        const strong = document.createElement("strong");
+        strong.className = "saved-review-player saved-review-player-self";
+        strong.title = "本人";
+        strong.textContent = player.text;
+        players.appendChild(strong);
+      } else {
+        const span = document.createElement("span");
+        span.className = "saved-review-player";
+        span.textContent = player.text;
+        players.appendChild(span);
+      }
+    }
+    metadata.append(label, players);
     const button = document.createElement("button");
     button.type = "button";
     button.textContent = "打开";
     button.addEventListener("click", () => { reviewPackageIdInput.value = session.packageId; openReviewButton.click(); });
-    item.append(label, button);
+    item.append(metadata, button);
     fragment.appendChild(item);
   }
   if (reviewSessions.length === 0) {
@@ -270,11 +292,36 @@ function renderCatalogPage(): void {
   for (const entry of catalogSummaries.slice(start, start + RECORDS_PER_PAGE)) {
     const item = document.createElement("li");
     const button = document.createElement("button");
-    const scores = entry.players.map((player) => player.displayName).join(" / ");
-    const self = entry.players[entry.selfSeat];
-    const label = `${formatStartedAt(entry.startedAt)} · 你为 ${self?.displayName ?? "?"}（${scores}）`;
-    const text = document.createElement("span");
-    text.textContent = label;
+    const recordLabel: RecordLabel = {
+      title: `${formatStartedAt(entry.startedAt)} · ${entry.rule.displayLabel}`,
+      recordId: entry.recordId,
+      selfSeat: entry.selfSeat,
+      startedAt: entry.startedAt,
+      players: entry.players,
+    };
+    const presentation = recordLabelView(recordLabel, "");
+    const metadata = document.createElement("div");
+    metadata.className = "catalog-record-metadata";
+    const title = document.createElement("span");
+    title.className = "catalog-record-title";
+    title.textContent = presentation.title;
+    const players = document.createElement("div");
+    players.className = "catalog-record-players";
+    for (const player of presentation.players) {
+      if (player.isSelf) {
+        const strong = document.createElement("strong");
+        strong.className = "catalog-record-player catalog-record-player-self";
+        strong.title = "本人";
+        strong.textContent = player.text;
+        players.appendChild(strong);
+      } else {
+        const span = document.createElement("span");
+        span.className = "catalog-record-player";
+        span.textContent = player.text;
+        players.appendChild(span);
+      }
+    }
+    metadata.append(title, players);
     button.type = "button";
     button.textContent = "分析";
     button.disabled = operationPending;
@@ -309,7 +356,7 @@ function renderCatalogPage(): void {
         }
       })();
     });
-    item.append(text, button);
+    item.append(metadata, button);
     item.title = entry.shareUrl;
     fragment.appendChild(item);
   }

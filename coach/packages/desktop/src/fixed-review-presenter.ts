@@ -453,7 +453,7 @@ export function presentFixedReviewSnapshotFromContext(
       mortalPreferredActions: mortalActions(decision),
       errorGap: decision.modelEvaluation.errorGap,
       tags: AXES.filter((axis) => presentAxes.has(axis)),
-      explanationStatus: explanationStatus(report, selected.decisionId),
+      explanationStatus: explanationStatus(context.reportForDecision(selected.decisionId), selected.decisionId),
     };
   });
   const explanationCounts = { ready: 0, provider_unavailable: 0, request_failed: 0, invalid_output: 0 };
@@ -465,7 +465,9 @@ export function presentFixedReviewSnapshotFromContext(
     outcomeCounts,
     selection: { policyVersion: context.selection.policyVersion, selectedCount: items.length, items },
     activeReportRefId,
-    activeReportStatus: report?.generationStatus ?? "not_generated",
+    activeReportStatus: report === null ? "not_generated"
+      : items.length > 0 && explanationCounts.ready === items.length ? "complete"
+        : explanationCounts.ready > 0 ? "partial" : "evidence_only",
     coachUsage: report?.audit.usage ?? null,
     coachProvider: report === null ? null : {
       providerId: report.generation.providerId,
@@ -556,6 +558,6 @@ export function presentFixedReviewDetailFromContext(
     explanations,
     referenceTargets,
     provenance,
-    explanationStatus: explanationStatus(context.report, decisionId),
+    explanationStatus: explanationStatus(context.reportForDecision(decisionId), decisionId),
   }));
 }

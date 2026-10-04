@@ -52,7 +52,7 @@ async function runScenario(scenario: Scenario): Promise<Record<string, unknown>>
   const directory = mkdtempSync(join(tmpdir(), "account-catalog-composition-"));
   const profile = mkdtempSync(join(tmpdir(), "account-catalog-profile-"));
   try {
-    for (const name of ["app", "fixed-review-ui", "session-ui-policy", "paipu-ui-policy"]) {
+    for (const name of ["app", "fixed-review-ui", "record-label", "session-ui-policy", "paipu-ui-policy"]) {
       const source = readFileSync(new URL(`../src/renderer/${name}.ts`, import.meta.url), "utf8");
       writeFileSync(join(directory, `${name}.js`), transpileModule(source, {
         compilerOptions: { module: ModuleKind.ES2022, target: ScriptTarget.ES2022 },
@@ -264,7 +264,10 @@ describe("account catalog app composition", () => {
       initialStatus: "logged_out", action: "analyze", actionStatus: "valid", sync: "record",
     });
     expect(result.calls).toEqual({ getStatus: 1, login: 1, list: 0, sync: 1, analyze: 1 });
-    expect(result.catalogText).toContain("C（A / B / C / D）分析");
+    expect(result.catalogText).toContain("四人南风");
+    expect(result.catalogText).toContain("东位 · A · 第1名 · 32,000点");
+    expect(result.catalogText).toContain("西位 · C · 第3名 · 23,000点");
+    expect(result.catalogText).not.toContain("你为");
     expect(result.catalogTitle).toBe(record.shareUrl);
     expect(result.catalogDetail).toBe("已打开整盘复盘。");
     expect(result.reviewCalls).toMatchObject({ openReview: 1 });
@@ -349,11 +352,11 @@ describe("account catalog app composition", () => {
     expect(result.failedListRefreshView).toMatchObject({
       reviewHidden: false, leaveHidden: false,
       reviewEntryStatus: "复盘已打开，但暂时无法刷新已保存复盘列表，请重试。",
-      sessionListText: expect.stringContaining("package-kept"),
+      sessionListText: expect.stringContaining("牌谱复盘 · 保存于 2026-10-01"),
     });
     expect(result.afterLeaveView).toMatchObject({
       reviewHidden: true, leaveHidden: true, reviewEntryStatus: "已离开整盘复盘。",
-      sessionListText: expect.stringContaining("package-kept"),
+      sessionListText: expect.stringContaining("牌谱复盘 · 保存于 2026-10-01"),
     });
     expect(result.reviewCalls).toEqual({ paipuImport: 0, openReview: 2, detail: 1 });
     expect(result.sessionCalls).toEqual({ listReviewSessions: 3, leaveReview: 1 });
@@ -378,11 +381,11 @@ describe("account catalog app composition", () => {
     expect(result.failedListRefreshView).toMatchObject({
       reviewHidden: false, leaveHidden: false,
       reviewEntryStatus: "复盘已打开，但暂时无法刷新已保存复盘列表，请重试。",
-      sessionListText: expect.stringContaining("package-kept"),
+      sessionListText: expect.stringContaining("牌谱复盘 · 保存于 2026-10-01"),
     });
     expect(result.afterLeaveView).toMatchObject({
       reviewHidden: true, leaveHidden: true, reviewEntryStatus: "已离开整盘复盘。",
-      sessionListText: expect.stringContaining("package-kept"),
+      sessionListText: expect.stringContaining("牌谱复盘 · 保存于 2026-10-01"),
     });
     expect(result.reviewCalls).toEqual({ paipuImport: 1, openReview: 2, detail: 1 });
     expect(result.sessionCalls).toEqual({ listReviewSessions: 3, leaveReview: 1 });
@@ -410,7 +413,8 @@ describe("account catalog app composition", () => {
     expect(result.reviewDetail).toBe(null);
     expect(result.sourceHidden).toBe(false);
     expect(result.reviewEntryStatus).toBe("无法打开该分析包，请确认引用有效。");
-    expect(result.reviewSessionListText).toContain("package-kept");
+    expect(result.reviewSessionListText).toContain("牌谱复盘 · 保存于 2026-10-01");
+    expect(result.reviewSessionListText).not.toContain("package-kept");
   }, 60_000);
 
   it("keeps the source page when opening a saved review fails", async () => {

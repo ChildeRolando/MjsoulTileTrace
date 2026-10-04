@@ -11,7 +11,8 @@ import type { ProviderCredentials } from "./credentials.js";
 import { createOpenAiCoachProvider } from "./openai-compatible.js";
 import { createCodexCoachProvider, getCodexCoachAvailability } from "./codex-cli.js";
 import { createFixedReviewController } from "../fixed-review-controller.js";
-import type { ReviewSessionRepository } from "../review-session-repository.js";
+import type { ReviewSessionRepository, ReviewSessionSummary } from "../review-session-repository.js";
+import type { ReviewSessionSummaryDto } from "@riichi-coach/contracts";
 
 /** Main-only read-back adapter. A renderer supplies identity, never a file path.
  * Package production/catalog UI remain upstream/M7 work; missing references fail closed. */
@@ -28,6 +29,11 @@ export function createCoachService(input: {
   readPackage: (packageId: string) => Promise<unknown>;
   clock?: () => string;
   reviewRepository?: ReviewSessionRepository;
+  /** Local display metadata only; never participates in prompts or analysis. */
+  recordLabels?: {
+    observePackage(pkg: StructuredAnalysisPackage): void;
+    enrichSession(summary: ReviewSessionSummary): ReviewSessionSummaryDto;
+  };
   /** A main-owned provider adapter can be supplied for the isolated Electron Golden test. */
   providerFactory?: (pkg: StructuredAnalysisPackage, selection: ReviewSelectionResult) => LlmCoachProvider;
   initialSettings?: CoachProviderConfig;
@@ -63,6 +69,7 @@ export function createCoachService(input: {
   const reviewController = createFixedReviewController({
     readPackage: input.readPackage,
     generateReport: generateArtifact,
+    ...(input.recordLabels === undefined ? {} : { observePackage: input.recordLabels.observePackage }),
     ...(input.reviewRepository === undefined ? {} : { repository: input.reviewRepository }),
   });
   return Object.freeze({
@@ -91,7 +98,7 @@ export function createCoachService(input: {
       } catch { return { status: "package_unavailable" }; }
     }),
     openReview: (packageId: string) => reviewController.openReview(packageId),
-    generateReview: (packageId: string, operationId: string) => {
+    generateReview: (packageId: string, operationId: string, decisionId?: string) => {
       if (queuedGenerations.has(operationId)) return Promise.resolve({ status: "failed" as const, code: "generation_failed" as const });
       const token = { packageId, cancelled: false };
       queuedGenerations.set(operationId, token);
@@ -100,7 +107,7 @@ export function createCoachService(input: {
           if (token.cancelled) return { status: "failed" as const, code: "operation_cancelled" as const };
           if (!(await status()).configured) return { status: "failed" as const, code: "generation_failed" as const };
           if (token.cancelled) return { status: "failed" as const, code: "operation_cancelled" as const };
-          return await reviewController.generateReview(packageId, operationId);
+          return await reviewController.generateReview(packageId, operationId, decisionId);
         } finally {
           queuedGenerations.delete(operationId);
         }
@@ -117,7 +124,7 @@ export function createCoachService(input: {
       for (const token of queuedGenerations.values()) if (token.packageId === packageId) token.cancelled = true;
       reviewController.leaveReview(packageId);
     },
-    listReviewSessions: () => input.reviewRepository?.listSessions() ?? [],
+    listReviewSessions: () => (input.reviewRepository?.listSessions() ?? []).map(session => input.recordLabels?.enrichSession(session) ?? session),
   });
 }
 export type CoachService = ReturnType<typeof createCoachService>;

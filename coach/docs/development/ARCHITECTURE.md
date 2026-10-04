@@ -457,3 +457,11 @@ artifact 均不携带 raw material。缓存没有 TTL/LRU，只有显式清理�
   `startRecordAnalysis` 仍需后续接入同一 package/session handoff。固定五门、
   Golden Slice、独立评审与真人 smoke 仍是发布门。冻结接线与顶层 Electron 验收见
   [Integration Closeout spec](../specs/2026-09-24-playable-review-mvp-integration-closeout.md)。
+
+
+### 单行动消费范围（2026-10-05）
+
+固定 selector 选集 → main 验证生成子集 → 既有 CoachContext/唯一生成入口 →
+独立 immutable reports → 显式 decision/reportRef 映射 → reasoning 会话 read-back →
+窄 presenter/IPC → 单行动解说及全盘完成状态。最新请求用量与全盘可用解说数分别展示。
+来源目录的牌谱标题/玩家结算摘要单独本地保存，仅服务列表展示，不进入分析事实或模型输入。

@@ -11,14 +11,17 @@ import {
 } from "@riichi-coach/contracts";
 import {
   composeReviewReadBackContext,
+  composeReviewSessionReadBackContext,
   selectReviewDecisions,
   validateStructuredAnalysisPackage,
   type ReviewReadBackContext,
+  type ReviewSessionDecisionReportRef,
+  type ReviewSessionReportInput,
 } from "@riichi-coach/reasoning";
 import { describePackageArtifact, insertPackageChunks, readPackageArtifact } from "./package-artifact-storage.js";
 import { freezeReviewReadBack } from "./freeze-review-read-back.js";
 
-const LIBRARY_FORMAT_VERSION = 3;
+const LIBRARY_FORMAT_VERSION = 4;
 
 type SessionRow = {
   session_id: string;
@@ -29,6 +32,7 @@ type SessionRow = {
   created_at: string;
   updated_at: string;
   active_report_ref_id: string | null;
+  decision_report_map_hash: string;
 };
 
 type ArtifactRow = {
@@ -38,6 +42,16 @@ type ArtifactRow = {
 };
 type PackageArtifactRow = ArtifactRow & { package_ref_id: string; package_id: string };
 type ReportArtifactRow = ArtifactRow & { report_id: string };
+type ReportRefRow = Readonly<{
+  report_ref_id: string;
+  report_id: string;
+  created_at: string;
+}>;
+type DecisionReportRow = Readonly<{
+  decision_id: string;
+  report_ref_id: string;
+  package_ref_id: string;
+}>;
 
 type IntentRow = {
   session_id: string;
@@ -62,6 +76,12 @@ export type PersistedReviewState = Readonly<{
   selection: ReviewSelectionResult;
   activeReportRefId: string | null;
   activeReport: ReviewReport | null;
+  reportRefs: readonly Readonly<{
+    reportRefId: string;
+    reportId: string;
+    generatedAt: string;
+  }>[];
+  decisionReportRefs: readonly ReviewSessionDecisionReportRef[];
   /** Main-only, freshly validated from this read's actual disk bytes. Never persisted or sent over IPC. */
   readBack: ReviewReadBackContext;
 }>;
@@ -80,6 +100,14 @@ function bytes(value: unknown): Buffer {
 
 function hash(value: Uint8Array): string {
   return createHash("sha256").update(value).digest("hex");
+}
+
+function decisionReportMapHash(mappings: readonly ReviewSessionDecisionReportRef[]): string {
+  const sorted = [...mappings].sort((left, right) =>
+    left.decisionId < right.decisionId ? -1 : left.decisionId > right.decisionId ? 1
+      : left.reportRefId < right.reportRefId ? -1 : left.reportRefId > right.reportRefId ? 1 : 0,
+  );
+  return hash(bytes(sorted.map(({ decisionId, reportRefId }) => ({ decisionId, reportRefId }))));
 }
 
 function decode(value: Uint8Array): unknown {
@@ -156,6 +184,71 @@ function initialize(db: DatabaseSync, now: string): void {
       PRAGMA user_version=3;
     `);
   });
+  if (version < 4) transaction(db, () => {
+    const meta = db.prepare("SELECT format_version FROM library_meta WHERE singleton=1").get();
+    if (meta?.format_version !== 3) throw new Error("library_version_mismatch");
+    db.exec(`
+      CREATE TABLE session_decision_reports(
+        session_id TEXT NOT NULL,
+        package_ref_id TEXT NOT NULL,
+        decision_id TEXT NOT NULL,
+        report_ref_id TEXT NOT NULL,
+        PRIMARY KEY(session_id,decision_id),
+        FOREIGN KEY(session_id,package_ref_id) REFERENCES review_sessions(session_id,package_ref_id) ON DELETE CASCADE,
+        FOREIGN KEY(session_id,package_ref_id,report_ref_id) REFERENCES session_report_refs(session_id,package_ref_id,report_ref_id) ON DELETE CASCADE
+      );
+      ALTER TABLE review_sessions ADD COLUMN decision_report_map_hash TEXT NOT NULL DEFAULT '';
+    `);
+    const activeRows = db.prepare(`SELECT s.session_id,s.package_ref_id,s.selection_hash,s.selection_payload,
+        p.package_id,a.active_report_ref_id
+      FROM review_sessions s JOIN analysis_packages p ON p.package_ref_id=s.package_ref_id
+      JOIN session_active_report a ON a.session_id=s.session_id
+      WHERE a.active_report_ref_id IS NOT NULL ORDER BY s.session_id`).all() as Array<{
+        session_id: string; package_ref_id: string; selection_hash: string; selection_payload: Uint8Array;
+        package_id: string; active_report_ref_id: string;
+      }>;
+    const reportForRef = db.prepare(`SELECT r.report_ref_id,r.report_id,r.content_hash,r.schema_version,r.payload
+      FROM review_reports r JOIN session_report_refs x
+        ON x.report_ref_id=r.report_ref_id AND x.package_ref_id=r.package_ref_id
+      WHERE x.session_id=? AND x.package_ref_id=? AND x.report_ref_id=?`);
+    const insertMapping = db.prepare("INSERT INTO session_decision_reports VALUES(?,?,?,?)");
+    for (const session of activeRows) {
+      if (hash(session.selection_payload) !== session.selection_hash) throw new Error("selection_hash_mismatch");
+      const selection = ReviewSelectionResultSchema.parse(decode(session.selection_payload));
+      if (selection.analysisPackageId !== session.package_id) throw new Error("m7a_read_back_selection_package_mismatch");
+      const row = reportForRef.get(session.session_id, session.package_ref_id, session.active_report_ref_id) as ReportArtifactRow & { report_ref_id: string } | undefined;
+      if (row === undefined) throw new Error("migration_active_report_unresolved");
+      const report = ReviewReportSchema.parse(assertHash(row, "report_hash_mismatch"));
+      if (report.reportId !== row.report_id) throw new Error("report_identity_mismatch");
+      if (report.schemaVersion !== row.schema_version) throw new Error("report_version_mismatch");
+      const selectedIds = selection.selected.map((item) => item.decisionId);
+      if (report.packageId !== session.package_id
+        || report.selectorPolicyVersion !== selection.policyVersion
+        || report.selectedDecisionIds.length !== selectedIds.length
+        || report.selectedDecisionIds.some((decisionId, index) => decisionId !== selectedIds[index])) {
+        throw new Error("migration_active_report_selection_mismatch");
+      }
+      for (const decisionId of selectedIds) {
+        insertMapping.run(session.session_id, session.package_ref_id, decisionId, session.active_report_ref_id);
+      }
+    }
+    const mapSessions = db.prepare("SELECT session_id FROM review_sessions ORDER BY session_id").all() as Array<{ session_id: string }>;
+    const mapRows = db.prepare("SELECT decision_id,report_ref_id FROM session_decision_reports WHERE session_id=? ORDER BY decision_id");
+    const saveMapHash = db.prepare("UPDATE review_sessions SET decision_report_map_hash=? WHERE session_id=?");
+    for (const session of mapSessions) {
+      const rows = mapRows.all(session.session_id) as Array<{
+        decision_id: string; report_ref_id: string;
+      }>;
+      saveMapHash.run(decisionReportMapHash(rows.map((row) => ({ decisionId: row.decision_id, reportRefId: row.report_ref_id }))), session.session_id);
+    }
+    db.exec(`
+      CREATE TABLE library_meta_v4(singleton INTEGER PRIMARY KEY CHECK(singleton=1), format_version INTEGER NOT NULL CHECK(format_version=4), created_at TEXT NOT NULL);
+      INSERT INTO library_meta_v4 SELECT singleton,4,created_at FROM library_meta;
+      DROP TABLE library_meta;
+      ALTER TABLE library_meta_v4 RENAME TO library_meta;
+      PRAGMA user_version=4;
+    `);
+  });
   const meta = db.prepare("SELECT format_version FROM library_meta WHERE singleton=1").get() as { format_version?: number } | undefined;
   if (meta?.format_version !== LIBRARY_FORMAT_VERSION) throw new Error("library_version_mismatch");
   const integrity = db.prepare("PRAGMA quick_check").get() as { quick_check?: string };
@@ -181,6 +274,21 @@ export function createReviewSessionRepository(input: {
     JOIN review_sessions s ON s.package_ref_id=p.package_ref_id WHERE s.session_id=?
   `).get(sessionId) as PackageArtifactRow | undefined;
 
+  const reportRowForRef = (sessionId: string, packageRefId: string, reportRefId: string) => db.prepare(`
+    SELECT r.report_ref_id,r.report_id,r.payload,r.content_hash,r.schema_version FROM review_reports r
+    JOIN session_report_refs x ON x.report_ref_id=r.report_ref_id AND x.package_ref_id=r.package_ref_id
+    WHERE x.session_id=? AND x.package_ref_id=? AND x.report_ref_id=?
+  `).get(sessionId, packageRefId, reportRefId) as (ReportArtifactRow & { report_ref_id: string }) | undefined;
+
+  const validatedReportForRef = (sessionId: string, packageRefId: string, reportRefId: string): ReviewReport => {
+    const row = reportRowForRef(sessionId, packageRefId, reportRefId);
+    if (row === undefined || row.report_ref_id !== reportRefId) throw new Error("review_unavailable");
+    const report = ReviewReportSchema.parse(assertHash(row, "report_hash_mismatch"));
+    if (report.reportId !== row.report_id) throw new Error("report_identity_mismatch");
+    if (report.schemaVersion !== row.schema_version) throw new Error("report_version_mismatch");
+    return report;
+  };
+
   const read = (session: SessionRow): PersistedReviewState => {
     const packageRow = packageRowForSession(session.session_id);
     if (packageRow === undefined) throw new Error("review_unavailable");
@@ -194,26 +302,57 @@ export function createReviewSessionRepository(input: {
     if (analysisPackage.componentVersions.packageSchema !== packageRow.schema_version) throw new Error("package_version_mismatch");
     if (hash(session.selection_payload) !== session.selection_hash) throw new Error("selection_hash_mismatch");
     const selection = ReviewSelectionResultSchema.parse(decode(session.selection_payload));
-    let activeReport: ReviewReport | null = null;
-    if (session.active_report_ref_id !== null) {
-      const reportRow = db.prepare(`SELECT r.report_id,r.payload,r.content_hash,r.schema_version FROM review_reports r
-        JOIN session_report_refs x ON x.report_ref_id=r.report_ref_id
-        WHERE x.session_id=? AND x.package_ref_id=? AND x.report_ref_id=?`).get(
-        session.session_id, session.package_ref_id, session.active_report_ref_id,
-      ) as ReportArtifactRow | undefined;
-      if (reportRow === undefined) throw new Error("review_unavailable");
-      activeReport = ReviewReportSchema.parse(assertHash(reportRow, "report_hash_mismatch"));
-      if (activeReport.reportId !== reportRow.report_id) throw new Error("report_identity_mismatch");
-      if (activeReport.schemaVersion !== reportRow.schema_version) throw new Error("report_version_mismatch");
+    const reportRefs = db.prepare(`SELECT x.report_ref_id,r.report_id,r.created_at
+      FROM session_report_refs x JOIN review_reports r ON r.report_ref_id=x.report_ref_id AND r.package_ref_id=x.package_ref_id
+      WHERE x.session_id=? AND x.package_ref_id=? ORDER BY x.append_ordinal`).all(
+      session.session_id, session.package_ref_id,
+    ) as ReportRefRow[];
+    const reportRefIds = new Set(reportRefs.map((row) => row.report_ref_id));
+    const mappingRows = db.prepare(`SELECT session_id,package_ref_id,decision_id,report_ref_id
+      FROM session_decision_reports WHERE session_id=? ORDER BY decision_id`).all(session.session_id) as Array<{
+        session_id: string; package_ref_id: string; decision_id: string; report_ref_id: string;
+      }>;
+    const decisionReportRefs: ReviewSessionDecisionReportRef[] = mappingRows.map((row) => {
+      if (row.package_ref_id !== session.package_ref_id || !reportRefIds.has(row.report_ref_id)) {
+        throw new Error("decision_report_mapping_identity_mismatch");
+      }
+      return Object.freeze({ decisionId: row.decision_id, reportRefId: row.report_ref_id });
+    });
+    if (decisionReportMapHash(decisionReportRefs) !== session.decision_report_map_hash) {
+      throw new Error("decision_report_mapping_hash_mismatch");
     }
-    const readBack = freezeReviewReadBack(composeReviewReadBackContext(analysisPackage, selection, activeReport));
+    const refsToLoad = new Set(decisionReportRefs.map((mapping) => mapping.reportRefId));
+    if (session.active_report_ref_id !== null) refsToLoad.add(session.active_report_ref_id);
+    const reports: ReviewSessionReportInput[] = [];
+    for (const reportRef of reportRefs) {
+      if (!refsToLoad.has(reportRef.report_ref_id)) continue;
+      reports.push(Object.freeze({
+        reportRefId: reportRef.report_ref_id,
+        report: validatedReportForRef(session.session_id, session.package_ref_id, reportRef.report_ref_id),
+      }));
+    }
+    const readBack = freezeReviewReadBack(composeReviewSessionReadBackContext(
+      analysisPackage,
+      selection,
+      {
+        reports,
+        decisionReportRefs,
+        activeReportRefId: session.active_report_ref_id,
+      },
+    ));
     return Object.freeze({
       sessionId: session.session_id,
       revision: session.revision,
       analysisPackage,
       selection: readBack.selection,
       activeReportRefId: session.active_report_ref_id,
-      activeReport,
+      activeReport: readBack.report,
+      reportRefs: Object.freeze(reportRefs.map((row) => Object.freeze({
+        reportRefId: row.report_ref_id,
+        reportId: row.report_id,
+        generatedAt: row.created_at,
+      }))),
+      decisionReportRefs: Object.freeze(decisionReportRefs),
       readBack,
     });
   };
@@ -229,29 +368,41 @@ export function createReviewSessionRepository(input: {
     if (intent !== undefined) activate(intent.operation_id);
   };
 
-  const validateActivationReadBack = (intent: IntentRow, session: SessionRow): void => {
+  const validateActivationReadBack = (intent: IntentRow, session: SessionRow): Readonly<{
+    targetDecisionIds: readonly string[];
+    decisionReportRefs: readonly ReviewSessionDecisionReportRef[];
+  }> => {
     if (session.session_id !== intent.session_id || session.package_ref_id !== intent.package_ref_id) {
       throw new Error("activation_unavailable");
     }
-    const packageRow = packageRowForSession(session.session_id);
-    const target = db.prepare(`SELECT r.report_id,r.payload,r.content_hash,r.schema_version FROM review_reports r
-      JOIN session_report_refs x ON x.report_ref_id=r.report_ref_id AND x.package_ref_id=r.package_ref_id
-      WHERE x.session_id=? AND x.package_ref_id=? AND x.report_ref_id=?`).get(
-      intent.session_id, intent.package_ref_id, intent.target_report_ref_id,
-    ) as ReportArtifactRow | undefined;
-    if (packageRow === undefined || target === undefined) throw new Error("activation_unavailable");
-
-    const packageRaw = readPackageArtifact(db, packageRow);
-    validateStructuredAnalysisPackage(packageRaw);
-    const analysisPackage = packageRaw;
-    if (analysisPackage.packageId !== packageRow.package_id) throw new Error("package_identity_mismatch");
-    if (analysisPackage.componentVersions.packageSchema !== packageRow.schema_version) throw new Error("package_version_mismatch");
-    if (hash(session.selection_payload) !== session.selection_hash) throw new Error("selection_hash_mismatch");
-    const selection = ReviewSelectionResultSchema.parse(decode(session.selection_payload));
-    const report = ReviewReportSchema.parse(assertHash(target, "report_hash_mismatch"));
-    if (report.reportId !== target.report_id) throw new Error("report_identity_mismatch");
-    if (report.schemaVersion !== target.schema_version) throw new Error("report_version_mismatch");
-    composeReviewReadBackContext(analysisPackage, selection, report);
+    const current = read(session);
+    const targetReport = validatedReportForRef(session.session_id, session.package_ref_id, intent.target_report_ref_id);
+    const targetDecisionIds = [...targetReport.selectedDecisionIds];
+    const targetIds = new Set(targetDecisionIds);
+    const nextMappings = current.decisionReportRefs.filter((mapping) => !targetIds.has(mapping.decisionId));
+    for (const decisionId of targetDecisionIds) {
+      nextMappings.push(Object.freeze({ decisionId, reportRefId: intent.target_report_ref_id }));
+    }
+    const reportsByRef = new Map(current.readBack.reports
+      .filter((item) => item.reportRefId !== null)
+      .map((item) => [item.reportRefId!, item.report] as const));
+    reportsByRef.set(intent.target_report_ref_id, targetReport);
+    const neededRefs = new Set(nextMappings.map((mapping) => mapping.reportRefId));
+    neededRefs.add(intent.target_report_ref_id);
+    const reports: ReviewSessionReportInput[] = [...neededRefs].map((reportRefId) => {
+      const report = reportsByRef.get(reportRefId);
+      if (report === undefined) throw new Error("activation_unavailable");
+      return Object.freeze({ reportRefId, report });
+    });
+    composeReviewSessionReadBackContext(current.analysisPackage, current.selection, {
+      reports,
+      decisionReportRefs: nextMappings,
+      activeReportRefId: intent.target_report_ref_id,
+    });
+    return Object.freeze({
+      targetDecisionIds: Object.freeze(targetDecisionIds),
+      decisionReportRefs: Object.freeze(nextMappings),
+    });
   };
 
   const activate = (operationId: string): PersistedReviewState => {
@@ -268,11 +419,21 @@ export function createReviewSessionRepository(input: {
       throw new Error("operation_identity_conflict");
     }
     const session = db.prepare("SELECT s.*,a.active_report_ref_id FROM review_sessions s JOIN session_active_report a ON a.session_id=s.session_id WHERE s.session_id=?").get(intent.session_id) as SessionRow;
-    validateActivationReadBack(intent, session);
+    const activationReadBack = validateActivationReadBack(intent, session);
     transaction(db, () => {
+      const updateDecisionReport = db.prepare(`INSERT INTO session_decision_reports
+        (session_id,package_ref_id,decision_id,report_ref_id) VALUES(?,?,?,?)
+        ON CONFLICT(session_id,decision_id) DO UPDATE SET
+          package_ref_id=excluded.package_ref_id,report_ref_id=excluded.report_ref_id`);
+      for (const decisionId of activationReadBack.targetDecisionIds) {
+        updateDecisionReport.run(intent.session_id, intent.package_ref_id, decisionId, intent.target_report_ref_id);
+      }
       const result = db.prepare("UPDATE session_active_report SET active_report_ref_id=? WHERE session_id=? AND package_ref_id=? AND active_report_ref_id IS ?").run(intent.target_report_ref_id, intent.session_id, intent.package_ref_id, intent.previous_report_ref_id);
       if (Number(result.changes) !== 1) throw new Error("activation_conflict");
-      const revision = db.prepare("UPDATE review_sessions SET revision=revision+1,updated_at=? WHERE session_id=? AND revision=?").run(now(), intent.session_id, intent.expected_revision);
+      const revision = db.prepare(`UPDATE review_sessions SET revision=revision+1,updated_at=?,decision_report_map_hash=?
+        WHERE session_id=? AND revision=?`).run(
+        now(), decisionReportMapHash(activationReadBack.decisionReportRefs), intent.session_id, intent.expected_revision,
+      );
       if (Number(revision.changes) !== 1) throw new Error("activation_conflict");
       db.prepare("DELETE FROM activation_intents WHERE operation_id=?").run(operationId);
       db.prepare("UPDATE operation_receipts SET state='activated',committed_revision=? WHERE operation_id=? AND state='report_saved'").run(intent.expected_revision + 1, operationId);
@@ -318,7 +479,9 @@ export function createReviewSessionRepository(input: {
         if (byId !== undefined && describePackageArtifact(readPackageArtifact(db, byId)).contentHash !== packageArtifact.contentHash) throw new Error("identity_conflict");
         const inserted = db.prepare("INSERT OR IGNORE INTO analysis_packages VALUES(?,?,?,?,?)").run(packageRefId, analysisPackage.packageId, packageArtifact.contentHash, analysisPackage.componentVersions.packageSchema, packageArtifact.payload);
         if (Number(inserted.changes) === 1) insertPackageChunks(db, packageRefId, analysisPackage, packageArtifact);
-        db.prepare("INSERT INTO review_sessions VALUES(?,?,?,?,?,?,?)").run(sessionId, packageRefId, hash(selectionPayload), selectionPayload, 0, timestamp, timestamp);
+        db.prepare(`INSERT INTO review_sessions
+          (session_id,package_ref_id,selection_hash,selection_payload,revision,created_at,updated_at,decision_report_map_hash)
+          VALUES(?,?,?,?,?,?,?,?)`).run(sessionId, packageRefId, hash(selectionPayload), selectionPayload, 0, timestamp, timestamp, decisionReportMapHash([]));
         db.prepare("INSERT INTO session_active_report VALUES(?,?,NULL)").run(sessionId, packageRefId);
       });
       return read(sessionByPackageId(analysisPackage.packageId)!);
@@ -359,6 +522,7 @@ export function createReviewSessionRepository(input: {
       reportRefId: string,
       operationId: string,
       expectedSession?: Readonly<{ sessionId: string; revision: number }>,
+      expectedDecisionIds?: readonly string[],
     ): PersistedReviewState {
       const prior = db.prepare("SELECT state,session_id,report_ref_id FROM operation_receipts WHERE operation_id=?").get(operationId) as { state: string; session_id: string; report_ref_id: string | null } | undefined;
       if (prior !== undefined) {
@@ -372,7 +536,34 @@ export function createReviewSessionRepository(input: {
         throw new Error("session_binding_conflict");
       }
       const report = ReviewReportSchema.parse(reportInput);
-      composeReviewReadBackContext(state.analysisPackage, state.selection, report);
+      if (state.reportRefs.some((item) => item.reportRefId === reportRefId)) throw new Error("duplicate_report_ref");
+      if (expectedDecisionIds !== undefined
+        && (report.selectedDecisionIds.length !== expectedDecisionIds.length
+          || report.selectedDecisionIds.some((decisionId, index) => decisionId !== expectedDecisionIds[index]))) {
+        throw new Error("report_selection_mismatch");
+      }
+      const targetIds = new Set(report.selectedDecisionIds);
+      const nextMappings = state.decisionReportRefs.filter((mapping) => !targetIds.has(mapping.decisionId));
+      for (const decisionId of report.selectedDecisionIds) {
+        nextMappings.push(Object.freeze({ decisionId, reportRefId }));
+      }
+      const reportsByRef = new Map(state.readBack.reports
+        .filter((item) => item.reportRefId !== null)
+        .map((item) => [item.reportRefId!, item.report] as const));
+      if (reportsByRef.has(reportRefId)) throw new Error("duplicate_report_ref");
+      reportsByRef.set(reportRefId, report);
+      const neededRefs = new Set(nextMappings.map((mapping) => mapping.reportRefId));
+      neededRefs.add(reportRefId);
+      const reports: ReviewSessionReportInput[] = [...neededRefs].map((refId) => {
+        const existing = reportsByRef.get(refId);
+        if (existing === undefined) throw new Error("report_selection_unavailable");
+        return Object.freeze({ reportRefId: refId, report: existing });
+      });
+      composeReviewSessionReadBackContext(state.analysisPackage, state.selection, {
+        reports,
+        decisionReportRefs: nextMappings,
+        activeReportRefId: reportRefId,
+      });
       const payload = bytes(report);
       const timestamp = now();
       transaction(db, () => {
@@ -423,6 +614,7 @@ export function createReviewSessionRepository(input: {
       transaction(db, () => {
         db.prepare("UPDATE session_active_report SET active_report_ref_id=NULL WHERE session_id=?").run(session.session_id);
         db.prepare("DELETE FROM activation_intents WHERE session_id=?").run(session.session_id);
+        db.prepare("DELETE FROM session_decision_reports WHERE session_id=?").run(session.session_id);
         db.prepare("DELETE FROM session_report_refs WHERE session_id=?").run(session.session_id);
         db.prepare("DELETE FROM review_reports WHERE package_ref_id=?").run(session.package_ref_id);
         db.prepare("DELETE FROM session_active_report WHERE session_id=?").run(session.session_id);
@@ -441,7 +633,9 @@ export function createReviewSessionRepository(input: {
         FROM session_report_refs x JOIN review_reports r ON r.report_ref_id=x.report_ref_id
         WHERE x.session_id=? ORDER BY x.append_ordinal`).all(session.session_id);
       const intents = db.prepare("SELECT operation_id,target_report_ref_id FROM activation_intents WHERE session_id=?").all(session.session_id);
-      const receipts = db.prepare("SELECT operation_id,report_ref_id,state,committed_revision FROM operation_receipts WHERE session_id=? ORDER BY created_at").all(session.session_id);
+      const receipts = db.prepare("SELECT operation_id,kind,report_ref_id,state,committed_revision FROM operation_receipts WHERE session_id=? ORDER BY created_at,operation_id").all(session.session_id);
+      const decisionMappings = db.prepare(`SELECT decision_id,report_ref_id FROM session_decision_reports
+        WHERE session_id=? ORDER BY decision_id`).all(session.session_id);
       const reportRefs = refs.map((row) => ({
         reportRefId: String(row.report_ref_id),
         appendOrdinal: Number(row.append_ordinal),
@@ -449,7 +643,7 @@ export function createReviewSessionRepository(input: {
         packageId,
         generatedAt: String(row.created_at),
       }));
-      return Object.freeze({ activeReportRefId: session.active_report_ref_id, revision: session.revision, reportRefs, refs, intents, receipts });
+      return Object.freeze({ activeReportRefId: session.active_report_ref_id, revision: session.revision, reportRefs, refs, intents, receipts, decisionMappings });
     },
 
     close(): void { db.close(); },

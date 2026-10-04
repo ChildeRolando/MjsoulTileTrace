@@ -27,6 +27,7 @@ export * from "./coach.js";
 export * from "./coach-context.js";
 export * from "./coach-desktop.js";
 export * from "./fixed-review-view.js";
+export * from "./record-label.js";
 export * from "./local-mortal-runtime.js";
 export * from "./libriichi-rules.js";
 export * from "./local-mortal-scoring.js";

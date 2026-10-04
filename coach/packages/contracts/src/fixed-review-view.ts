@@ -1,5 +1,6 @@
 import { z } from "zod";
-import { RecordAnalysisStatusSchema } from "./analysis-identity-contract.js";
+import { RecordLabelSchema } from "./record-label.js";
+import { DecisionIdSchema, RecordAnalysisStatusSchema } from "./analysis-identity-contract.js";
 import { GraphAuthoritySchema } from "./context-graph.js";
 import { ReviewSelectionReasonSchema, SELECTOR_POLICY_VERSION_V1 } from "./review-selection.js";
 import { LlmTokenUsageSchema, LlmProviderDescriptorSchema } from "./coach.js";
@@ -135,6 +136,7 @@ export const FixedReviewDetailSchema = z.object({
 export const FixedReviewOpenRequestSchema = z.object({ packageId: z.string().min(1).max(200) }).strict();
 export const FixedReviewGenerateRequestSchema = z.object({
   packageId: z.string().min(1).max(200), operationId: z.string().min(1).max(200),
+  decisionId: DecisionIdSchema.optional(),
 }).strict();
 export const FixedReviewCancelRequestSchema = z.object({ operationId: z.string().min(1).max(200) }).strict();
 export const FixedReviewDetailRequestSchema = z.object({
@@ -143,6 +145,7 @@ export const FixedReviewDetailRequestSchema = z.object({
 export const FixedReviewLeaveRequestSchema = FixedReviewOpenRequestSchema;
 export const FixedReviewAcknowledgementSchema = z.object({ status: z.literal("acknowledged") }).strict();
 export const ReviewSessionSummarySchema = z.object({
+  recordLabel: RecordLabelSchema.optional(),
   sessionId: z.string().min(1),
   packageId: z.string().min(1),
   analysisStatus: RecordAnalysisStatusSchema,

@@ -85,11 +85,21 @@ async function chromiumFocusResults(directory: string, scenarios = ["window.run(
   }
 }
 
+function writeFixedReviewBrowserFixture(directory: string, setup: string): void {
+  writeFileSync(join(directory, "fixed-review-ui.mjs"), transpileModule(source, {
+    compilerOptions: { module: ModuleKind.ES2022, target: ScriptTarget.ES2022 },
+  }).outputText, "utf8");
+  writeFileSync(join(directory, "page.html"), `<!doctype html><html><body><main id="root"></main><script type="module">
+    import { createFixedReviewUi } from "./fixed-review-ui.mjs";
+    ${setup}
+  </script></body></html>`, "utf8");
+}
+
 describe("fixed review native DOM surface", () => {
   it.each(["failed", "validation_failed", "saved_open_failed"])("shows pending account analysis, blocks duplicate starts, and recovers controls: %s", async completion => {
     const directory = mkdtempSync(join(tmpdir(), "catalog-analysis-pending-"));
     try {
-      for (const name of ["app", "fixed-review-ui", "session-ui-policy", "paipu-ui-policy"]) {
+      for (const name of ["app", "fixed-review-ui", "record-label", "session-ui-policy", "paipu-ui-policy"]) {
         const text = readFileSync(new URL(`../src/renderer/${name}.ts`, import.meta.url), "utf8");
         writeFileSync(join(directory, `${name}.js`), transpileModule(text, {
           compilerOptions: { module: ModuleKind.ES2022, target: ScriptTarget.ES2022 },
@@ -107,7 +117,8 @@ describe("fixed review native DOM surface", () => {
           openReview: async () => { throw new Error("private-open-error"); }, leaveReview: async () => {} };
         window.riichiCoachCatalog = { listAnalyzableRecords: async () => [0,1].map(i => ({
           recordId: "fixture" + i, startedAt: 1, selfSeat: 0, shareUrl: "fixture",
-          players: [{ displayName: "fixture" }] })),
+          rule: { displayLabel: "四人南风" },
+          players: [0,1,2,3].map(seat => ({seat, displayName: "fixture", rank: seat + 1, finalScore: 25000})) })),
           startRecordAnalysis: () => { calls++; return new Promise((resolve,reject) => { resolveAnalysis=resolve; rejectAnalysis=reject; }); },
           getRecordAnalysisProgress: async () => { progressReads++; return progress; } };
         const state = () => ({ calls, text: document.querySelector("#catalog-detail").textContent,
@@ -177,7 +188,7 @@ describe("fixed review native DOM surface", () => {
   it("paginates cached catalog entries in groups of eight and guards identity while analysis is pending", async () => {
     const directory = mkdtempSync(join(tmpdir(), "catalog-renderer-pages-"));
     try {
-      for (const name of ["app", "fixed-review-ui", "session-ui-policy", "paipu-ui-policy"]) {
+      for (const name of ["app", "fixed-review-ui", "record-label", "session-ui-policy", "paipu-ui-policy"]) {
         const text = readFileSync(new URL(`../src/renderer/${name}.ts`, import.meta.url), "utf8");
         writeFileSync(join(directory, `${name}.js`), transpileModule(text, {
           compilerOptions: { module: ModuleKind.ES2022, target: ScriptTarget.ES2022 },
@@ -185,7 +196,8 @@ describe("fixed review native DOM surface", () => {
       }
       const records = Array.from({ length: 10 }, (_, index) => ({
         recordId: `record-${index}`, startedAt: 1_790_000_000 + index * 60, selfSeat: 0,
-        shareUrl: "fixture", players: [{ displayName: `player-${index}` }],
+        shareUrl: "fixture", rule: {displayLabel: "四人南风"},
+        players: [0,1,2,3].map(seat => ({seat, displayName: seat === 0 ? `player-${index}` : `opponent-${seat}`, rank: seat + 1, finalScore: 25000})),
       }));
       const setup = `
         const settle = async () => { await new Promise(resolve => setTimeout(resolve, 50)); };
@@ -257,7 +269,7 @@ describe("fixed review native DOM surface", () => {
   it("does not wait for a hung progress poll and discards its late reply after the next analysis starts", async () => {
     const directory = mkdtempSync(join(tmpdir(), "catalog-progress-late-reply-"));
     try {
-      for (const name of ["app", "fixed-review-ui", "session-ui-policy", "paipu-ui-policy"]) {
+      for (const name of ["app", "fixed-review-ui", "record-label", "session-ui-policy", "paipu-ui-policy"]) {
         const text = readFileSync(new URL(`../src/renderer/${name}.ts`, import.meta.url), "utf8");
         writeFileSync(join(directory, `${name}.js`), transpileModule(text, {
           compilerOptions: { module: ModuleKind.ES2022, target: ScriptTarget.ES2022 },
@@ -265,7 +277,8 @@ describe("fixed review native DOM surface", () => {
       }
       const records = Array.from({ length: 2 }, (_, index) => ({
         recordId: `record-${index}`, startedAt: 1_790_000_000 + index * 60, selfSeat: 0,
-        shareUrl: "fixture", players: [{ displayName: `player-${index}` }],
+        shareUrl: "fixture", rule: {displayLabel: "四人南风"},
+        players: [0,1,2,3].map(seat => ({seat, displayName: seat === 0 ? `player-${index}` : `opponent-${seat}`, rank: seat + 1, finalScore: 25000})),
       }));
       const snapshot = FixedReviewSnapshotSchema.parse({
         schemaVersion: "fixed-review-view/v1", packageId: "package-0", analysisStatus: "complete",
@@ -336,7 +349,7 @@ describe("fixed review native DOM surface", () => {
   it("paginates saved reviews and resets the page after opening a saved item refreshes the list", async () => {
     const directory = mkdtempSync(join(tmpdir(), "saved-review-renderer-pages-"));
     try {
-      for (const name of ["app", "fixed-review-ui", "session-ui-policy", "paipu-ui-policy"]) {
+      for (const name of ["app", "fixed-review-ui", "record-label", "session-ui-policy", "paipu-ui-policy"]) {
         const text = readFileSync(new URL(`../src/renderer/${name}.ts`, import.meta.url), "utf8");
         writeFileSync(join(directory, `${name}.js`), transpileModule(text, {
           compilerOptions: { module: ModuleKind.ES2022, target: ScriptTarget.ES2022 },
@@ -354,14 +367,14 @@ describe("fixed review native DOM surface", () => {
         selection: { policyVersion: "deterministic-review-selector/v1", selectedCount: 0, items: [] },
       });
       const setup = `
-        let reads = 0;
+        let reads = 0, openedPackageIds = [];
         const sessions = ${JSON.stringify(sessions)};
         const snapshot = ${JSON.stringify(snapshot)};
         window.riichiCoach = { getSessionStatus: async () => ({ status: "logged_out" }) };
         window.riichiCoachProvider = {
           status: async () => ({ configured: true, settings: null }),
           listReviewSessions: async () => ++reads === 1 ? sessions : [sessions[9]],
-          openReview: async () => snapshot, leaveReview: async () => {},
+          openReview: async ({ packageId }) => { openedPackageIds.push(packageId); return snapshot; }, leaveReview: async () => {},
         };
         window.riichiCoachCatalog = { getRecordAnalysisProgress: async () => (${JSON.stringify(analysisSnapshot({ stage: "idle", elapsedMs: 0 }))}) };
         window.run = async () => {
@@ -376,16 +389,16 @@ describe("fixed review native DOM surface", () => {
             nextDisabled: document.querySelector("#review-session-page-next").disabled };
           document.querySelector("#review-session-list button").click(); await settle();
           window.refreshed = { count: rows().length, names: rows().join("|"), page: page(), reads,
-            reviewVisible: !document.querySelector("#fixed-review").hidden };
+            reviewVisible: !document.querySelector("#fixed-review").hidden, openedPackageIds };
         };
         window.focusResult = () => ({ firstPage: window.firstPage, secondPage: window.secondPage, refreshed: window.refreshed });
       `;
       writeFileSync(join(directory, "setup.js"), setup, "utf8");
       writeFileSync(join(directory, "page.html"), html.replace('<script type="module" src="./app.js"></script>', '<script src="./setup.js"></script><script type="module" src="./app.js"></script>'));
       expect(await chromiumFocusResults(directory, ["window.run()"])) .toEqual([{
-        firstPage: { count: 8, names: expect.stringContaining("saved-7"), page: "第 1 / 2 页 · 共 10 条" },
-        secondPage: { count: 2, names: expect.stringContaining("saved-8"), page: "第 2 / 2 页 · 共 10 条", previousDisabled: false, nextDisabled: true },
-        refreshed: { count: 1, names: expect.stringContaining("saved-9"), page: "第 1 / 1 页 · 共 1 条", reads: 2, reviewVisible: true },
+        firstPage: { count: 8, names: expect.stringContaining("牌谱复盘"), page: "第 1 / 2 页 · 共 10 条" },
+        secondPage: { count: 2, names: expect.stringContaining("牌谱复盘"), page: "第 2 / 2 页 · 共 10 条", previousDisabled: false, nextDisabled: true },
+        refreshed: { count: 1, names: expect.stringContaining("牌谱复盘"), page: "第 1 / 1 页 · 共 1 条", reads: 2, reviewVisible: true, openedPackageIds: ["saved-8"] },
       }]);
     } finally { rmSync(directory, { recursive: true, force: true, maxRetries: 20, retryDelay: 100 }); }
   }, 90_000);
@@ -396,7 +409,7 @@ describe("fixed review native DOM surface", () => {
     const capturePath = join(evidenceDirectory, "desktop-workbench.png");
     try {
       mkdirSync(evidenceDirectory, { recursive: true });
-      for (const name of ["app", "fixed-review-ui", "session-ui-policy", "paipu-ui-policy"]) {
+      for (const name of ["app", "fixed-review-ui", "record-label", "session-ui-policy", "paipu-ui-policy"]) {
         const text = readFileSync(new URL(`../src/renderer/${name}.ts`, import.meta.url), "utf8");
         writeFileSync(join(directory, `${name}.js`), transpileModule(text, {
           compilerOptions: { module: ModuleKind.ES2022, target: ScriptTarget.ES2022 },
@@ -404,7 +417,8 @@ describe("fixed review native DOM surface", () => {
       }
       const records = Array.from({ length: 10 }, (_, index) => ({
         recordId: `demo-${index}`, startedAt: 1_790_000_000 + index * 60, selfSeat: 0, shareUrl: "fixture",
-        players: [0, 1, 2, 3].map(seat => ({ displayName: seat === 0 ? `本机玩家 ${index + 1}` : `对手 ${seat}` })),
+        rule: {displayLabel: "四人南风"},
+        players: [0, 1, 2, 3].map(seat => ({ seat, displayName: seat === 0 ? `本机玩家 ${index + 1}` : `对手 ${seat}`, rank: seat + 1, finalScore: 25000 })),
       }));
       const setup = `
         const settle = (delay = 80) => new Promise(resolve => setTimeout(resolve, delay));
@@ -460,7 +474,7 @@ describe("fixed review native DOM surface", () => {
           mortalPreferredActions: [], errorGap: 12, tags: ["efficiency"], explanationStatus: "not_generated",
         }] },
       });
-      for (const name of ["app", "fixed-review-ui", "session-ui-policy", "paipu-ui-policy"]) {
+      for (const name of ["app", "fixed-review-ui", "record-label", "session-ui-policy", "paipu-ui-policy"]) {
         const text = readFileSync(new URL(`../src/renderer/${name}.ts`, import.meta.url), "utf8");
         writeFileSync(join(directory, `${name}.js`), transpileModule(text, {
           compilerOptions: { module: ModuleKind.ES2022, target: ScriptTarget.ES2022 },
@@ -482,7 +496,7 @@ describe("fixed review native DOM surface", () => {
           await settle();
           document.querySelector("#review-session-list button").click();
           await settle();
-          const button = [...document.querySelectorAll("#fixed-review button")].find(item => item.textContent === "生成教练解说");
+          const button = document.querySelector("#fixed-review .review-generate-remaining");
           button.click();
           await settle();
           window.afterAttempt = {
@@ -490,7 +504,7 @@ describe("fixed review native DOM surface", () => {
             configShown: document.querySelector(".coach-settings") !== null && document.querySelector(".coach-settings").open,
             configText: document.querySelector(".coach-settings")?.textContent ?? "",
             hasProviderChoice: document.querySelector("#coach-provider-kind") !== null,
-            generateButtons: [...document.querySelectorAll("#fixed-review button")].filter(item => item.textContent === "生成教练解说").length,
+            generateButtons: document.querySelectorAll("#fixed-review .review-generate-remaining").length,
           };
           document.activeElement?.blur();
         };
@@ -528,7 +542,7 @@ describe("fixed review native DOM surface", () => {
         explanationCounts: { ready: 0, provider_unavailable: 1, request_failed: 0, invalid_output: 0 },
         selection: { ...snapshot.selection, items: snapshot.selection.items.map(item => ({ ...item, explanationStatus: "provider_unavailable" as const })) },
       });
-      for (const name of ["app", "fixed-review-ui", "session-ui-policy", "paipu-ui-policy"]) {
+      for (const name of ["app", "fixed-review-ui", "record-label", "session-ui-policy", "paipu-ui-policy"]) {
         const text = readFileSync(new URL(`../src/renderer/${name}.ts`, import.meta.url), "utf8");
         writeFileSync(join(directory, `${name}.js`), transpileModule(text, {
           compilerOptions: { module: ModuleKind.ES2022, target: ScriptTarget.ES2022 },
@@ -557,10 +571,11 @@ describe("fixed review native DOM surface", () => {
           document.querySelector("#review-session-list button").click();
           await settle();
           window.before = { values: usageValues(), text: document.querySelector(".coach-token-usage").textContent };
-          const generate = [...document.querySelectorAll("#fixed-review button")].find(item => item.textContent === "生成教练解说");
+          const generate = document.querySelector("#fixed-review .review-generate-remaining");
           generate.click(); await settle();
           window.waiting = { generations, disabled: generate.disabled,
-            live: document.querySelector("#fixed-review .review-live").textContent, values: usageValues() };
+            live: document.querySelector("#fixed-review .review-live").textContent, values: usageValues(),
+            usageNote: document.querySelector(".coach-token-usage p:last-child").textContent };
           resolveGeneration(); await settle();
           window.afterGeneration = { generations, activeReportRefId, values: usageValues(),
             provider: document.querySelector(".coach-token-usage").textContent,
@@ -578,9 +593,10 @@ describe("fixed review native DOM surface", () => {
       writeFileSync(join(directory, "page.html"), html.replace('<script type="module" src="./app.js"></script>', '<script src="./setup.js"></script><script type="module" src="./app.js"></script>'), "utf8");
       expect(await chromiumFocusResults(directory, ["window.run()"])).toEqual([{
         before: { values: ["未知", "未知", "未知", "未知"], text: expect.stringContaining("尚未生成") },
-        waiting: { generations: 1, disabled: true, live: "正在生成教练解说；等待解说和 Token 统计…", values: ["未知", "未知", "未知", "未知"] },
+        waiting: { generations: 1, disabled: true, live: "正在生成剩余 1 条教练解说；等待最近一次请求返回解说和 Token 用量…", values: ["未知", "未知", "未知", "未知"],
+          usageNote: expect.stringContaining("最近一次请求") },
         afterGeneration: { generations: 1, activeReportRefId: "saved-report", values: ["321", "未知", "366", "未知"],
-          provider: expect.stringContaining("模型：gpt-6-luna · 推理强度 max"), note: expect.stringContaining("本报告请求") },
+          provider: expect.stringContaining("模型：gpt-6-luna · 推理强度 max"), note: expect.stringContaining("最近一次请求") },
         reopened: { opens: 2, activeReportRefId: "saved-report", values: ["321", "未知", "366", "未知"],
           provider: expect.stringContaining("模型：gpt-6-luna · 推理强度 max") },
       }]);
@@ -618,7 +634,7 @@ describe("fixed review native DOM surface", () => {
         sessionId: "saved-session", packageId: snapshot.packageId, analysisStatus: "complete",
         activeReportRefId: null, updatedAt: "2026-09-23T00:00:00.000Z",
       });
-      for (const name of ["app", "fixed-review-ui", "session-ui-policy", "paipu-ui-policy"]) {
+      for (const name of ["app", "fixed-review-ui", "record-label", "session-ui-policy", "paipu-ui-policy"]) {
         const text = readFileSync(new URL(`../src/renderer/${name}.ts`, import.meta.url), "utf8");
         writeFileSync(join(directory, `${name}.js`), transpileModule(text, {
           compilerOptions: { module: ModuleKind.ES2022, target: ScriptTarget.ES2022 },
@@ -657,7 +673,7 @@ describe("fixed review native DOM surface", () => {
           list.querySelector("button").click();
           await settle();
           window.afterOpen = list.textContent;
-          [...document.querySelectorAll("#fixed-review button")].find(b => b.textContent === "生成教练解说").click();
+          document.querySelector("#fixed-review .review-generate-remaining").click();
           await settle();
           window.afterGeneration = list.textContent;
           if (refreshFailsOnce) window.savedAfterRefreshFailure = {
@@ -665,7 +681,7 @@ describe("fixed review native DOM surface", () => {
             warning: document.querySelector("#review-entry-status").textContent,
             overview: document.querySelector("#fixed-review").textContent,
             alerts: [...document.querySelectorAll('#fixed-review [role="alert"]')].map(e => e.textContent),
-            generateButtons: [...document.querySelectorAll("#fixed-review button")].filter(b => b.textContent === "生成教练解说").length,
+            generateButtons: document.querySelectorAll("#fixed-review .review-generate-remaining").length,
             hidden: document.querySelector("#fixed-review").hidden,
           };
           document.querySelector("#leave-review").click();
@@ -689,8 +705,8 @@ describe("fixed review native DOM surface", () => {
       `;
       writeFileSync(join(directory, "setup.js"), setup, "utf8");
       writeFileSync(join(directory, "page.html"), html.replace('<script type="module" src="./app.js"></script>', '<script src="./setup.js"></script><script type="module" src="./app.js"></script>'), "utf8");
-      const before = "saved-package · 尚未生成教练解说打开";
-      const after = status === "failed" ? before : "saved-package · 已有教练解说打开";
+      const before = "牌谱复盘 · 保存于 2026-09-23 · 尚未生成教练解说打开";
+      const after = status === "failed" ? before : "牌谱复盘 · 保存于 2026-09-23 · 已有教练解说打开";
       const actual = await chromiumFocusResults(directory, ["window.run()"]);
       if (refreshFailsOnce) {
         const saved = (actual[0] as { savedAfterRefreshFailure: { overview: string } }).savedAfterRefreshFailure;
@@ -700,7 +716,7 @@ describe("fixed review native DOM surface", () => {
           before, afterOpen: before, afterGeneration: before, afterLeave: after, hidden: true, reads: 4,
           savedAfterRefreshFailure: { activeReportRefId: "saved-report",
             warning: "教练解说已生成，暂时无法刷新已保存复盘列表。", overview: saved.overview,
-            alerts: [], generateButtons: 0, hidden: false },
+            alerts: [], generateButtons: status === "complete" ? 0 : 1, hidden: false },
           firstLeave: { activeReportRefId: "saved-report", hidden: true }, recoveredList: after,
           activeReportRefId: "saved-report", opens: 2, generations: 1, leaves: 2,
         }]);
@@ -711,6 +727,273 @@ describe("fixed review native DOM surface", () => {
     } finally {
       rmSync(directory, { recursive: true, force: true, maxRetries: 20, retryDelay: 100 });
     }
+  }, 90_000);
+
+  it("generates one selected action by decision id and reopens its detail from the returned snapshot", async () => {
+    const directory = mkdtempSync(join(tmpdir(), "fixed-review-single-generation-"));
+    try {
+      writeFixedReviewBrowserFixture(directory, `
+        const item = { decisionId: "decision-single", rank: 2, selectionReason: "model_disagreement_above_threshold", roundOrdinal: 1,
+          decisionWindowKind: "self_turn", actualAction: { actionRef: "action-single", label: "打牌 4m" }, mortalPreferredActions: [],
+          errorGap: 12, tags: ["efficiency"], explanationStatus: "not_generated" };
+        const snapshot = { schemaVersion: "fixed-review-view/v1", packageId: "single-package", analysisStatus: "complete",
+          outcomeCounts: { analysis_ready: 1, unsupported_action: 0, source_row_not_expected: 0, no_mortal_entry: 0, binding_mismatch: 0, model_output_incomplete: 0, analysis_blocked: 0 },
+          activeReportRefId: null, activeReportStatus: "not_generated",
+          explanationCounts: { ready: 0, provider_unavailable: 0, request_failed: 0, invalid_output: 0 },
+          selection: { policyVersion: "deterministic-review-selector/v1", selectedCount: 1, items: [item] } };
+        const generated = { ...snapshot, activeReportRefId: "single-report", activeReportStatus: "complete",
+          explanationCounts: { ready: 1, provider_unavailable: 0, request_failed: 0, invalid_output: 0 },
+          selection: { ...snapshot.selection, items: [{ ...item, explanationStatus: "ready" }] } };
+        const detail = { schemaVersion: "fixed-review-view/v1", packageId: "single-package", decisionId: "decision-single",
+          activeReportRefId: "single-report", actual: item.actualAction, mortal: [], explanationStatus: "ready",
+          coachJudgments: [], explanations: [{ segments: [{ kind: "text", text: "单条解说已更新" }], evidenceRefs: [] }],
+          referenceTargets: [], provenance: [] };
+        let request, detailRequests = [];
+        const ui = createFixedReviewUi({ document, root: document.querySelector("#root"), api: {
+          openReview: async () => snapshot,
+          status: async () => ({ configured: true, settings: null }),
+          generateReview: async value => { request = value; return { status: "ready", snapshot: generated }; },
+          getReviewDetail: async value => { detailRequests.push(value); return detail; },
+        } });
+        window.run = async () => {
+          await ui.open("single-package");
+          document.querySelector(".review-overview button").click();
+          document.querySelector('[data-decision-id="decision-single"] button:not(.review-generate-one)').click();
+          await new Promise(resolve => setTimeout(resolve, 0));
+          document.querySelector(".review-detail .review-generate-one").click();
+          await new Promise(resolve => setTimeout(resolve, 0));
+          window.result = { request, detailRequests, detailText: document.querySelector(".review-detail")?.textContent,
+            generationButtons: document.querySelectorAll(".review-detail .review-generate-one").length };
+          document.activeElement?.blur();
+        };
+        window.focusResult = () => window.result;
+      `);
+      expect(await chromiumFocusResults(directory, ["window.run()"])).toEqual([{
+        request: { packageId: "single-package", operationId: expect.any(String), decisionId: "decision-single" },
+        detailRequests: [
+          { packageId: "single-package", decisionId: "decision-single", activeReportRefId: null },
+          { packageId: "single-package", decisionId: "decision-single", activeReportRefId: "single-report" },
+        ],
+        detailText: expect.stringContaining("单条解说已更新"), generationButtons: 0,
+      }]);
+    } finally { rmSync(directory, { recursive: true, force: true, maxRetries: 20, retryDelay: 100 }); }
+  }, 90_000);
+
+  it("shows the remaining count, disables every generation and settings control while busy, and refreshes partial progress", async () => {
+    const directory = mkdtempSync(join(tmpdir(), "fixed-review-remaining-generation-"));
+    try {
+      writeFixedReviewBrowserFixture(directory, `
+        const items = [
+          { decisionId: "ready-1", rank: 1, selectionReason: "model_disagreement_above_threshold", roundOrdinal: 0,
+            decisionWindowKind: "self_turn", actualAction: { actionRef: "a1", label: "打牌 1m" }, mortalPreferredActions: [], errorGap: 12, tags: ["efficiency"], explanationStatus: "ready" },
+          { decisionId: "failed-2", rank: 2, selectionReason: "model_disagreement_above_threshold", roundOrdinal: 0,
+            decisionWindowKind: "self_turn", actualAction: { actionRef: "a2", label: "打牌 2m" }, mortalPreferredActions: [], errorGap: 11, tags: ["value"], explanationStatus: "request_failed" },
+          { decisionId: "missing-3", rank: 3, selectionReason: "model_disagreement_above_threshold", roundOrdinal: 0,
+            decisionWindowKind: "self_turn", actualAction: { actionRef: "a3", label: "打牌 3m" }, mortalPreferredActions: [], errorGap: 10, tags: ["defense"], explanationStatus: "not_generated" },
+        ];
+        const snapshot = { schemaVersion: "fixed-review-view/v1", packageId: "partial-package", analysisStatus: "complete",
+          outcomeCounts: { analysis_ready: 3, unsupported_action: 0, source_row_not_expected: 0, no_mortal_entry: 0, binding_mismatch: 0, model_output_incomplete: 0, analysis_blocked: 0 },
+          activeReportRefId: "existing-report", activeReportStatus: "partial",
+          explanationCounts: { ready: 1, provider_unavailable: 0, request_failed: 1, invalid_output: 0 },
+          selection: { policyVersion: "deterministic-review-selector/v1", selectedCount: 3, items } };
+        const generated = { ...snapshot, activeReportRefId: "updated-report", activeReportStatus: "partial",
+          explanationCounts: { ready: 2, provider_unavailable: 0, request_failed: 0, invalid_output: 1 },
+          selection: { ...snapshot.selection, items: items.map((item, index) => ({ ...item,
+            explanationStatus: index < 2 ? "ready" : "invalid_output" })) } };
+        let request, resolveGeneration, configurationCalls = 0;
+        const ui = createFixedReviewUi({ document, root: document.querySelector("#root"), api: {
+          openReview: async () => snapshot,
+          status: async () => ({ configured: true, settings: null }),
+          configure: async () => { configurationCalls++; return { configured: true, settings: null }; },
+          generateReview: value => { request = value; return new Promise(resolve => { resolveGeneration = () => resolve({ status: "ready", snapshot: generated }); }); },
+        } });
+        window.run = async () => {
+          await ui.open("partial-package");
+          document.querySelector(".review-overview button").click();
+          const generate = document.querySelector(".review-generate-remaining");
+          const before = { label: generate.textContent, scope: document.querySelector(".review-generation-scope").textContent,
+            perRowButtons: document.querySelectorAll(".review-generate-one").length, settingsVisible: document.querySelector(".coach-settings") !== null };
+          generate.click();
+          for (let i = 0; i < 24; i++) await Promise.resolve();
+          window.waiting = { requestKeys: Object.keys(request).sort(), operationId: request.operationId,
+            generationDisabled: [...document.querySelectorAll(".review-generate-remaining,.review-generate-one")].map(button => button.disabled),
+            settingsDisabled: [...document.querySelectorAll(".coach-settings select,.coach-settings input,.coach-settings button")].map(control => control.disabled),
+            live: document.querySelector(".review-live").textContent };
+          resolveGeneration();
+          await new Promise(resolve => setTimeout(resolve, 0));
+          window.after = { bulkLabel: document.querySelector(".review-generate-remaining")?.textContent,
+            scope: document.querySelector(".review-generation-scope").textContent,
+            readyRowButtons: ["ready-1", "failed-2"].map(id => document.querySelector('[data-decision-id="' + id + '"] .review-generate-one') !== null),
+            singleButtonCount: document.querySelectorAll(".review-generate-one").length,
+            settingsVisible: document.querySelector(".coach-settings") !== null };
+          document.querySelector(".coach-settings").open = true;
+          document.querySelector(".coach-config-save").click();
+          await new Promise(resolve => setTimeout(resolve, 0));
+          window.after.settingsSaveCalls = configurationCalls;
+          document.activeElement?.blur();
+          window.result = { before, waiting: window.waiting, after: window.after };
+        };
+        window.focusResult = () => window.result;
+      `);
+      expect(await chromiumFocusResults(directory, ["window.run()"])).toEqual([{
+        before: { label: "生成剩余 2 条教练解说", scope: expect.stringContaining("剩余 2 条"), perRowButtons: 2, settingsVisible: true },
+        waiting: { requestKeys: ["operationId", "packageId"], operationId: expect.any(String),
+          generationDisabled: [true, true, true], settingsDisabled: [true, true, true, true, true],
+          live: "正在生成剩余 2 条教练解说；等待最近一次请求返回解说和 Token 用量…" },
+        after: { bulkLabel: "生成剩余 1 条教练解说", scope: expect.stringContaining("剩余 1 条"),
+          readyRowButtons: [false, false], singleButtonCount: 1, settingsVisible: true, settingsSaveCalls: 1 },
+      }]);
+    } finally { rmSync(directory, { recursive: true, force: true, maxRetries: 20, retryDelay: 100 }); }
+  }, 90_000);
+
+  it("cancels a generation when switching packages and discards its late report snapshot", async () => {
+    const directory = mkdtempSync(join(tmpdir(), "fixed-review-generation-stale-"));
+    try {
+      writeFixedReviewBrowserFixture(directory, `
+        const makeSnapshot = (packageId, decisionId, explanationStatus = "not_generated") => ({
+          schemaVersion: "fixed-review-view/v1", packageId, analysisStatus: "complete",
+          outcomeCounts: { analysis_ready: 1, unsupported_action: 0, source_row_not_expected: 0, no_mortal_entry: 0, binding_mismatch: 0, model_output_incomplete: 0, analysis_blocked: 0 },
+          activeReportRefId: explanationStatus === "ready" ? packageId + "-report" : null,
+          activeReportStatus: explanationStatus === "ready" ? "complete" : "not_generated",
+          explanationCounts: { ready: explanationStatus === "ready" ? 1 : 0, provider_unavailable: 0, request_failed: 0, invalid_output: 0 },
+          selection: { policyVersion: "deterministic-review-selector/v1", selectedCount: 1, items: [{ decisionId, rank: 1,
+            selectionReason: "model_disagreement_above_threshold", roundOrdinal: 0, decisionWindowKind: "self_turn",
+            actualAction: { actionRef: decisionId + "-action", label: "打牌 1m" }, mortalPreferredActions: [], errorGap: 12,
+            tags: ["efficiency"], explanationStatus }] },
+        });
+        const first = makeSnapshot("first-package", "first-decision");
+        const second = makeSnapshot("second-package", "second-decision");
+        const lateFirstReport = makeSnapshot("first-package", "first-decision", "ready");
+        let request, resolveGeneration, notifyStarted, cancelled = [], left = [];
+        const started = new Promise(resolve => { notifyStarted = resolve; });
+        const ui = createFixedReviewUi({ document, root: document.querySelector("#root"), api: {
+          openReview: async ({ packageId }) => packageId === "first-package" ? first : second,
+          status: async () => ({ configured: true, settings: null }),
+          generateReview: value => { request = value; notifyStarted(); return new Promise(resolve => { resolveGeneration = () => resolve({ status: "ready", snapshot: lateFirstReport }); }); },
+          cancelGeneration: async ({ operationId }) => { cancelled.push(operationId); },
+          leaveReview: async ({ packageId }) => { left.push(packageId); },
+        } });
+        window.run = async () => {
+          await ui.open("first-package");
+          document.querySelector(".review-overview button").click();
+          document.querySelector('[data-decision-id="first-decision"] .review-generate-one').click();
+          await started;
+          await ui.open("second-package");
+          resolveGeneration();
+          await new Promise(resolve => setTimeout(resolve, 0));
+          window.result = { request, cancelled, left, row: document.querySelector(".review-list [data-decision-id]")?.dataset.decisionId,
+            scope: document.querySelector(".review-generation-scope").textContent,
+            status: document.querySelector(".review-overview dl").textContent,
+            alerts: document.querySelectorAll('#root [role="alert"]').length };
+          document.activeElement?.blur();
+        };
+        window.focusResult = () => window.result;
+      `);
+      expect(await chromiumFocusResults(directory, ["window.run()"])).toEqual([{
+        request: { packageId: "first-package", operationId: expect.any(String), decisionId: "first-decision" },
+        cancelled: [expect.any(String)], left: ["first-package"], row: "second-decision",
+        scope: expect.stringContaining("剩余 1 条"), status: expect.stringContaining("尚未生成教练解说"), alerts: 0,
+      }]);
+    } finally { rmSync(directory, { recursive: true, force: true, maxRetries: 20, retryDelay: 100 }); }
+  }, 90_000);
+
+  it("clears previous report usage during a new single request, keeps failed usage unknown, and displays the new response", async () => {
+    const directory = mkdtempSync(join(tmpdir(), "fixed-review-current-request-usage-"));
+    try {
+      writeFixedReviewBrowserFixture(directory, `
+        const items = ["done", "pending"].map((decisionId, index) => ({ decisionId, rank: index + 1,
+          selectionReason: "model_disagreement_above_threshold", roundOrdinal: 0, decisionWindowKind: "self_turn",
+          actualAction: { actionRef: "a-" + index, label: "打牌 1m" }, mortalPreferredActions: [], errorGap: 12,
+          tags: ["efficiency"], explanationStatus: index === 0 ? "ready" : "not_generated" }));
+        const snapshot = { schemaVersion: "fixed-review-view/v1", packageId: "usage-package", analysisStatus: "complete",
+          outcomeCounts: { analysis_ready: 2, unsupported_action: 0, source_row_not_expected: 0, no_mortal_entry: 0,
+            binding_mismatch: 0, model_output_incomplete: 0, analysis_blocked: 0 },
+          activeReportRefId: "first", activeReportStatus: "partial", coachUsage: { inputTokens: 111, outputTokens: 22, totalTokens: 133 },
+          coachProvider: { providerId: "provider-one", model: "first-model" },
+          explanationCounts: { ready: 1, provider_unavailable: 0, request_failed: 0, invalid_output: 0 },
+          selection: { policyVersion: "deterministic-review-selector/v1", selectedCount: 2, items } };
+        const generated = { ...snapshot, activeReportRefId: "second", activeReportStatus: "complete",
+          coachUsage: {inputTokens: 222, outputTokens: 33, totalTokens: 255, cachedInputTokens: 0},
+          coachProvider: {providerId: "provider-two", model: "second-model"},
+          explanationCounts: {ready: 2, provider_unavailable: 0, request_failed: 0, invalid_output: 0},
+          selection: {...snapshot.selection, items: items.map(item => ({...item, explanationStatus: "ready"}))} };
+        let release;
+        const requests = [];
+        const ui = createFixedReviewUi({document, root: document.querySelector("#root"), api: {
+          openReview: async () => snapshot, status: async () => ({configured: true, settings: null}),
+          generateReview: request => { requests.push(request); return new Promise(resolve => {release = resolve;}); },
+          getReviewDetail: async () => ({decisionId: "pending", actual: items[1].actualAction, mortal: [],
+            coachJudgments: [], explanations: [], provenance: [], referenceTargets: [], explanationStatus: "ready"}),
+        }});
+        const usage = () => ({ values: [...document.querySelectorAll(".coach-token-usage dd")].map(node => node.textContent),
+          model: document.querySelector(".coach-token-provider").textContent });
+        const settle = () => new Promise(resolve => setTimeout(resolve, 0));
+        window.run = async () => {
+          await ui.open("usage-package");
+          const before = usage();
+          document.querySelector('[data-decision-id="pending"] .review-generate-one').click();
+          await settle(); const waiting = usage();
+          release({status: "failed", code: "generation_failed"}); await settle(); const failed = usage();
+          document.querySelector('[data-decision-id="pending"] .review-generate-one').click(); await settle();
+          release({status: "ready", snapshot: generated}); await settle();
+          window.result = {before, waiting, failed, success: usage(), requests: requests.map(request => request.decisionId)};
+        };
+        window.focusResult = () => window.result;
+      `);
+      expect(await chromiumFocusResults(directory, ["window.run()"])).toEqual([{
+        before: {values: ["111", "22", "133", "未知"], model: "模型：first-model"},
+        waiting: {values: ["未知", "未知", "未知", "未知"], model: "模型：本次请求尚未返回信息"},
+        failed: {values: ["未知", "未知", "未知", "未知"], model: "模型：本次请求尚未返回信息"},
+        success: {values: ["222", "33", "255", "0"], model: "模型：second-model"}, requests: ["pending", "pending"],
+      }]);
+    } finally { rmSync(directory, { recursive: true, force: true, maxRetries: 20, retryDelay: 100 }); }
+  }, 90_000);
+
+  it("keeps a failed row action available for a fresh retry", async () => {
+    const directory = mkdtempSync(join(tmpdir(), "fixed-review-generation-retry-"));
+    try {
+      writeFixedReviewBrowserFixture(directory, `
+        const item = { decisionId: "retry-decision", rank: 1, selectionReason: "model_disagreement_above_threshold", roundOrdinal: 0,
+          decisionWindowKind: "self_turn", actualAction: { actionRef: "retry-action", label: "打牌 1m" }, mortalPreferredActions: [],
+          errorGap: 12, tags: ["efficiency"], explanationStatus: "request_failed" };
+        const snapshot = { schemaVersion: "fixed-review-view/v1", packageId: "retry-package", analysisStatus: "complete",
+          outcomeCounts: { analysis_ready: 1, unsupported_action: 0, source_row_not_expected: 0, no_mortal_entry: 0, binding_mismatch: 0, model_output_incomplete: 0, analysis_blocked: 0 },
+          activeReportRefId: "retry-report", activeReportStatus: "partial",
+          explanationCounts: { ready: 0, provider_unavailable: 0, request_failed: 1, invalid_output: 0 },
+          selection: { policyVersion: "deterministic-review-selector/v1", selectedCount: 1, items: [item] } };
+        const generated = { ...snapshot, activeReportRefId: "retry-report-2", activeReportStatus: "complete",
+          explanationCounts: { ready: 1, provider_unavailable: 0, request_failed: 0, invalid_output: 0 },
+          selection: { ...snapshot.selection, items: [{ ...item, explanationStatus: "ready" }] } };
+        let requests = [];
+        const ui = createFixedReviewUi({ document, root: document.querySelector("#root"), api: {
+          openReview: async () => snapshot,
+          status: async () => ({ configured: true, settings: null }),
+          generateReview: async request => { requests.push(request); return requests.length === 1
+            ? { status: "failed", code: "generation_failed" }
+            : { status: "ready", snapshot: generated }; },
+        } });
+        window.run = async () => {
+          await ui.open("retry-package");
+          document.querySelector('[data-decision-id="retry-decision"] .review-generate-one').click();
+          await new Promise(resolve => setTimeout(resolve, 0));
+          const retryButton = document.querySelector('[data-decision-id="retry-decision"] .review-generate-one');
+          window.afterFailure = { enabled: retryButton.disabled === false,
+            live: document.querySelector(".review-live").textContent, alert: document.querySelector('[role="alert"]')?.textContent };
+          retryButton.click();
+          await new Promise(resolve => setTimeout(resolve, 0));
+          window.result = { afterFailure: window.afterFailure,
+            decisionIds: requests.map(request => request.decisionId), distinctOperations: requests[0].operationId !== requests[1].operationId,
+            remaining: document.querySelector(".review-generation-scope").textContent };
+          document.activeElement?.blur();
+        };
+        window.focusResult = () => window.result;
+      `);
+      expect(await chromiumFocusResults(directory, ["window.run()"])).toEqual([{
+        afterFailure: { enabled: true, live: expect.stringContaining("未生成，可以稍后重试"), alert: expect.stringContaining("你可以稍后再试") },
+        decisionIds: ["retry-decision", "retry-decision"], distinctOperations: true,
+        remaining: "所有入选条目都已有可用解说。",
+      }]);
+    } finally { rmSync(directory, { recursive: true, force: true, maxRetries: 20, retryDelay: 100 }); }
   }, 90_000);
 
   it("ships semantic three-level landmarks and safe text-only rendering", () => {
@@ -824,7 +1107,7 @@ describe("fixed review native DOM surface", () => {
             generateReview: async () => ({ status: "ready", snapshot: generated }),
           } });
           await ui.open(snapshot.packageId);
-          [...document.querySelectorAll("button")].find((button) => button.textContent === "生成教练解说").focus();
+          document.querySelector(".review-generate-remaining").focus();
         };
         window.run = window.runGeneration;
       </script></body></html>`, "utf8");
@@ -877,7 +1160,9 @@ describe("fixed review native DOM surface", () => {
         window.runEvidence = async (label) => {
           const old = document.getElementById("root");
           const root = old.cloneNode(false); old.replaceWith(root);
-          const ui = createFixedReviewUi({ document, root, api: { openReview: async () => snapshot, getReviewDetail: async () => detail } });
+          const ui = createFixedReviewUi({ document, root, api: {
+            openReview: async () => snapshot, status: async () => ({ configured: true, settings: null }), getReviewDetail: async () => detail,
+          } });
           await ui.open(snapshot.packageId);
           [...document.querySelectorAll("button")].find((button) => button.textContent === "查看复盘条目").click();
           [...document.querySelectorAll("button")].find((button) => button.textContent === "查看详情").click();

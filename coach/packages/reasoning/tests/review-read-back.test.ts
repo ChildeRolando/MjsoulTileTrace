@@ -79,6 +79,8 @@ describe("M7-A authorized report read-back composition", () => {
     const readBack = composeReviewReadBackContext(pkg, selection);
 
     expect(readBack.report).toBeNull();
+    expect(readBack.reportForDecision(decisionId)).toBeNull();
+    expect(readBack.reports).toEqual([]);
     expect(readBack.selection).toEqual(selection);
     expect(readBack.baseGraph).toEqual(graph);
     expect(readBack.currentGraph).toEqual(graph);
@@ -101,6 +103,8 @@ describe("M7-A authorized report read-back composition", () => {
     )!;
 
     expect(readBack.baseGraph).toEqual(graph);
+    expect(readBack.reportForDecision(decisionId)).toBe(report);
+    expect(readBack.reports).toMatchObject([{ reportRefId: null, selectedDecisionIds: [decisionId], mappedDecisionIds: [decisionId] }]);
     expect(readBack.currentGraph.nodes).toHaveLength(
       graph.nodes.length + report.reasoningOverlay.nodes.length,
     );

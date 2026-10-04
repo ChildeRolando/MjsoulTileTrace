@@ -1,6 +1,7 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import { join } from "node:path";
+import { createReviewSessionLabelStore } from "./review-session-labels.js";
 import { createRecordAnalysisTimingStore } from "./record-analysis-timing-store.js";
 import { createRecordAnalysisProgressTracker } from "./record-analysis-progress.js";
 import { createCoachSettingsStore } from "./llm-provider/settings-store.js";
@@ -257,6 +258,7 @@ async function start(): Promise<void> {
   const reviewRepository = createReviewSessionRepository({
     root: join(app.getPath("userData"), "review-library"),
   });
+  const recordLabels = createReviewSessionLabelStore({ root: join(app.getPath("userData"), "review-library") });
   let privilegedRawCache: PrivilegedRawCache | null = null;
   try {
     privilegedRawCache = createPrivilegedRawCache({ root: join(app.getPath("userData"), "review-library") });
@@ -271,6 +273,7 @@ async function start(): Promise<void> {
   };
   app.once("will-quit", () => {
     privilegedRawCache?.close();
+    recordLabels.close();
     reviewRepository.close();
   });
   const providerCredentials = createProviderCredentials({
@@ -618,7 +621,7 @@ async function start(): Promise<void> {
       root: join(app.getPath("userData"), "mahjong-soul-catalog"),
     }),
   });
-  const catalogService = createMahjongSoulCatalogService({
+  const catalogSource = createMahjongSoulCatalogService({
     bundle,
     vault,
     catalogStore,
@@ -628,6 +631,20 @@ async function start(): Promise<void> {
     }),
     clock: Date.now,
   });
+  const catalogService = Object.freeze({
+    ...catalogSource,
+    async syncAnalyzableRecords() {
+      const summaries = await catalogSource.syncAnalyzableRecords();
+      recordLabels.rememberCatalog(summaries);
+      return summaries;
+    },
+    async listAnalyzableRecords() {
+      const summaries = await catalogSource.listAnalyzableRecords();
+      recordLabels.rememberCatalog(summaries);
+      return summaries;
+    },
+  });
+  if (golden !== null) recordLabels.rememberCatalog([golden.summary]);
   const analysisStore = golden?.analysis ?? createRecordAnalysisStore({
     mapRecord: (mappedInput) => mapMahjongSoulRecord({ ...mappedInput, bundle }),
     replay: replayCanonicalStream,
@@ -725,7 +742,9 @@ async function start(): Promise<void> {
         await runtime.close();
         runtimeClosed = true;
         onProgress?.({ stage: "saving", completed: 0, total: null });
-        return persistValidatedReviewSession(reviewRepository, result.package);
+        const saved = persistValidatedReviewSession(reviewRepository, result.package);
+        recordLabels.observePackage(result.package);
+        return saved;
       } finally {
         if (!runtimeClosed) await runtime.close().catch(() => undefined);
       }
@@ -772,6 +791,7 @@ async function start(): Promise<void> {
     credentials: providerCredentials, fetchImpl: globalThis.fetch,
     readPackage: createPackageReferenceReader(app.getPath("userData")),
     reviewRepository,
+    recordLabels,
     initialSettings: coachSettings.load() ?? { providerId: "codex-cli", modelName: "gpt-6-luna", reasoningEffort: "max" },
     saveSettings: value => coachSettings.save(value),
     ...(golden === null ? {} : { providerFactory: golden.createProvider, clock: () => "2026-10-01T00:00:00.000Z" }),

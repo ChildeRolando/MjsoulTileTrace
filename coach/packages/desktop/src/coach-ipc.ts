@@ -28,7 +28,7 @@ export function registerCoachIpc(input: {
         if (operation === "generate") {
           if (args.length !== 1) throw Error();
           const request = FixedReviewGenerateRequestSchema.parse(args[0]);
-          return FixedReviewOperationResultSchema.parse(await input.service.generateReview(request.packageId, request.operationId));
+          return FixedReviewOperationResultSchema.parse(await input.service.generateReview(request.packageId, request.operationId, request.decisionId));
         }
         if (operation === "openReview") {
           if (args.length !== 1) throw Error();

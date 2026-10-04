@@ -99,6 +99,18 @@ class FakeNode {
     }
     return null;
   }
+  querySelectorAll(selector: string): FakeNode[] {
+    const candidates = selector.split(",").map((value) => value.trim());
+    const matches = (node: FakeNode) => candidates.some((candidate) => candidate.startsWith(".")
+      ? node.className.split(" ").includes(candidate.slice(1))
+      : node.tagName === candidate.toUpperCase());
+    const found: FakeNode[] = [];
+    for (const child of this.children) {
+      if (matches(child)) found.push(child);
+      found.push(...child.querySelectorAll(selector));
+    }
+    return found;
+  }
   remove() { if (this.parent !== null) this.parent.children = this.parent.children.filter((child) => child !== this); }
   focus() {
     if (this.document !== undefined && (this.tagName === "BUTTON" || this.assignedTabIndex !== null)) this.document.activeElement = this;
@@ -342,7 +354,7 @@ describe("fixed review presenter", () => {
     const ui = createFixedReviewUi({
       document: dom.document as unknown as Document,
       root: dom.root as unknown as HTMLElement,
-      api: { openReview: async () => snapshot, getReviewDetail: async () => detail } as unknown as CoachDesktopApi,
+      api: { status: async () => ({ configured: true, settings: null }), openReview: async () => snapshot, getReviewDetail: async () => detail } as unknown as CoachDesktopApi,
     });
     await ui.open(pkg.packageId);
     nodes(dom.root).find((node) => node.textContent === "查看复盘条目")!.listeners.get("click")!();
@@ -405,6 +417,7 @@ describe("fixed review presenter", () => {
       document: dom.document as unknown as Document,
       root: dom.root as unknown as HTMLElement,
       api: {
+        status: async () => ({ configured: true, settings: null }),
         openReview: async () => presentFixedReviewSnapshot({ analysisPackage: pkg, selection, activeReport: generated, activeReportRefId: "premises" }),
         getReviewDetail: async () => detail,
       } as unknown as CoachDesktopApi,
@@ -438,7 +451,7 @@ describe("fixed review presenter", () => {
     const graph = projectContextGraph(pkg);
     const evidenceSnapshot = presentFixedReviewSnapshot({ analysisPackage: pkg, selection, activeReport: report, activeReportRefId: "evidence" });
     const evidenceDom = fakeDom();
-    await createFixedReviewUi({ document: evidenceDom.document as unknown as Document, root: evidenceDom.root as unknown as HTMLElement, api: { openReview: async () => evidenceSnapshot } as unknown as CoachDesktopApi }).open(pkg.packageId);
+    await createFixedReviewUi({ document: evidenceDom.document as unknown as Document, root: evidenceDom.root as unknown as HTMLElement, api: { status: async () => ({ configured: true, settings: null }), openReview: async () => evidenceSnapshot } as unknown as CoachDesktopApi }).open(pkg.packageId);
     expect(evidenceDom.root.textContent).toContain("仅证据可用");
     expect(evidenceDom.root.textContent).toContain("解说服务未就绪");
     const complete = await generateReviewReport(graph, selection, respondingProvider(draftFor(graph, selection)), "2026-09-22T01:00:00.000Z");
@@ -449,7 +462,7 @@ describe("fixed review presenter", () => {
     const ui = createFixedReviewUi({
       document: dom.document as unknown as Document,
       root: dom.root as unknown as HTMLElement,
-      api: { openReview: async () => completeSnapshot, getReviewDetail: async () => completeDetail } as unknown as CoachDesktopApi,
+      api: { status: async () => ({ configured: true, settings: null }), openReview: async () => completeSnapshot, getReviewDetail: async () => completeDetail } as unknown as CoachDesktopApi,
     });
     await ui.open(pkg.packageId);
     expect(dom.root.textContent).toContain("整盘复盘");
@@ -519,7 +532,7 @@ describe("fixed review presenter", () => {
     expect(partialSnapshot.analysisStatus).toBe("degraded");
     expect(partialSnapshot.outcomeCounts).toMatchObject({ unsupported_action: 1, source_row_not_expected: 1 });
     const partialDom = fakeDom();
-    await createFixedReviewUi({ document: partialDom.document as unknown as Document, root: partialDom.root as unknown as HTMLElement, api: { openReview: async () => partialSnapshot } as unknown as CoachDesktopApi }).open(two.packageId);
+    await createFixedReviewUi({ document: partialDom.document as unknown as Document, root: partialDom.root as unknown as HTMLElement, api: { status: async () => ({ configured: true, settings: null }), openReview: async () => partialSnapshot } as unknown as CoachDesktopApi }).open(two.packageId);
     expect(partialDom.root.textContent).toContain("部分决策未作完整比较");
     expect(partialDom.root.textContent).toContain("只有一种候选，无需模型比较");
     expect(partialDom.root.textContent).toContain("部分解说可用");
@@ -535,7 +548,7 @@ describe("fixed review presenter", () => {
     expect(emptySnapshot.activeReportStatus).toBe("evidence_only");
     expect(providerCalls).toBe(0);
     const emptyDom = fakeDom();
-    await createFixedReviewUi({ document: emptyDom.document as unknown as Document, root: emptyDom.root as unknown as HTMLElement, api: { openReview: async () => emptySnapshot } as unknown as CoachDesktopApi }).open(pkg.packageId);
+    await createFixedReviewUi({ document: emptyDom.document as unknown as Document, root: emptyDom.root as unknown as HTMLElement, api: { status: async () => ({ configured: true, settings: null }), openReview: async () => emptySnapshot } as unknown as CoachDesktopApi }).open(pkg.packageId);
     expect(emptyDom.root.textContent).toContain("当前策略未选出复盘条目");
     expect(emptyDom.root.textContent).toContain("仅证据可用");
     expect(emptyDom.root.textContent).not.toContain("服务故障");
@@ -575,7 +588,7 @@ describe("fixed review presenter", () => {
       } as unknown as CoachDesktopApi,
     });
     await ui.open(pkg.packageId);
-    nodes(dom.root).find((node) => node.textContent === "生成教练解说")!.listeners.get("click")!();
+    nodes(dom.root).find((node) => node.textContent.startsWith("生成剩余"))!.listeners.get("click")!();
     await Promise.resolve();
     await ui.open("package-b");
     expect(cancelGeneration).toHaveBeenCalledTimes(1);
@@ -595,6 +608,7 @@ describe("fixed review presenter", () => {
       document: detailDom.document as unknown as Document,
       root: detailDom.root as unknown as HTMLElement,
       api: {
+        status: async () => ({ configured: true, settings: null }),
         openReview: async () => detailSnapshot,
         getReviewDetail: async () => pendingDetail,
         leaveReview: async () => ({ status: "acknowledged" as const }),
@@ -622,7 +636,7 @@ describe("fixed review presenter", () => {
       api: { status: async () => ({ configured: true, settings: null }), openReview: async () => snapshot, generateReview } as unknown as CoachDesktopApi,
     });
     await ui.open(pkg.packageId);
-    const generate = nodes(dom.root).find((node) => node.textContent === "生成教练解说")!;
+    const generate = nodes(dom.root).find((node) => node.textContent.startsWith("生成剩余"))!;
     const before = dom.root.textContent;
     generate.listeners.get("click")!();
     expect(dom.root.textContent).toContain("正在检查教练服务…");
@@ -701,14 +715,14 @@ describe("fixed review lifecycle controller", () => {
     expect(controller.activateReport(pkg.packageId, "ref-1").activeReportRefId).toBe("ref-1");
   });
 
-  it("restores distinct judgment, explanation, provenance and refs across A→B→A", async () => {
+  it("replaces a failed result and switches back without leaking a newer overlay", async () => {
     const graph = projectContextGraph(pkg);
     const draftA = draftFor(graph, selection);
     const draftB = structuredClone(draftA);
     const candidates = graph.nodes.filter((node) => node.nodeKind === "CandidateAction" && (node.payload as { decisionId?: string }).decisionId === selection.selected[0]!.decisionId);
     draftB.decisions[0]!.judgment.recommendation = (candidates[1]!.payload as { actionRef: string }).actionRef;
     draftB.decisions[0]!.explanations![0]!.text = `另一份解释：${draftA.decisions[0]!.explanations![0]!.text}`;
-    const reportA = await generateReviewReport(graph, selection, respondingProvider(draftA), "2026-09-22T04:00:00.000Z");
+    const reportA = report;
     const reportB = await generateReviewReport(graph, selection, respondingProvider(draftB), "2026-09-22T05:00:00.000Z");
     expect(reportA.reportId).not.toBe(reportB.reportId);
     const reports = [reportA, reportB];
@@ -723,7 +737,10 @@ describe("fixed review lifecycle controller", () => {
     await controller.generateReviewForLifecycle(pkg.packageId, "b");
     const detailB = controller.getReviewDetail(pkg.packageId, selection.selected[0]!.decisionId, "isolation-2");
     expect(detailB).not.toEqual(detailA);
-    expect(detailB.coachJudgments[0]!.recommendation).not.toEqual(detailA.coachJudgments[0]!.recommendation);
+    expect(detailA.explanationStatus).toBe("provider_unavailable");
+    expect(detailA.coachJudgments).toEqual([]);
+    expect(detailB.explanationStatus).toBe("ready");
+    expect(detailB.coachJudgments).toHaveLength(1);
     expect(detailB.explanations).not.toEqual(detailA.explanations);
     controller.activateReport(pkg.packageId, "isolation-1");
     expect(controller.getReviewDetail(pkg.packageId, selection.selected[0]!.decisionId, "isolation-1")).toEqual(detailA);
@@ -743,12 +760,14 @@ describe("fixed review lifecycle controller", () => {
     expect(controller.inspect(pkg.packageId)).toMatchObject({ activeReportRefId: "ref-a", reportRefs: [{ reportRefId: "ref-a" }] });
   });
 
-  it("enforces first-generation-only at the renderer-facing controller boundary", async () => {
-    const controller = createFixedReviewController({ readPackage: async () => pkg, generateReport: async () => report });
+  it("retries a selected decision after a provider-failure report", async () => {
+    const generateReport = vi.fn(async () => report);
+    const controller = createFixedReviewController({ readPackage: async () => pkg, generateReport });
     await controller.openReview(pkg.packageId);
     expect((await controller.generateReview(pkg.packageId, "first")).status).toBe("ready");
-    expect(await controller.generateReview(pkg.packageId, "second")).toEqual({ status: "failed", code: "generation_failed" });
-    expect(controller.inspect(pkg.packageId).reportRefs).toHaveLength(1);
+    expect((await controller.generateReview(pkg.packageId, "second")).status).toBe("ready");
+    expect(generateReport).toHaveBeenCalledTimes(2);
+    expect(controller.inspect(pkg.packageId).reportRefs).toHaveLength(2);
   });
 
   it("drops a late result after leave", async () => {
