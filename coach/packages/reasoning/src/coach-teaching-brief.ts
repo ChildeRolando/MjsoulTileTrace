@@ -137,4 +137,3 @@ export function validateCoachTeachingBriefAgainstContext(
   });
   return brief;
 }
-
