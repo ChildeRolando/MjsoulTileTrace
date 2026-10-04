@@ -429,3 +429,14 @@ node tests/lesson-0001-smoke.mjs
 失败可重试、已有 ready 拒绝重发、退出后迟到结果不保存及重启零 LLM 读回。
 DOM/IPC 边界须核验 decisionId 传递和 renderer 无法注入事实，标题及四人结算用目录真实字段。
 用量展示为最近一次请求，不继承旧生成回执，不声称全盘真实生成已验证。
+
+### 大档案存储与后台复盘（2026-10-05）
+
+验证 RCPKG02 无损 roundtrip、不可压缩回退、旧格式兼容、缺块/篡改/长度或编码错误与
+解压上限；旧包压缩的事务失败必须保留原块、hash、报告和映射及不可变 trigger。
+复用测试须检查深层冻结、报告新增后复用，以及外部连接写入/损坏后失效与拒绝。
+worker 测试覆盖 strict DTO、取消/离开、退出、超时、凭据边界；Electron Golden 必须
+走生产 worker 接线。真实大包仅在隔离库测量 cold/warm open、单行动生成、保存重开，
+记录源包 byte/hash、语义计数、压缩大小、阶段耗时及 main/renderer 各自 heartbeat。
+worker ping 排队时间不代表 UI 冻结；未测得的 renderer 指标不能用 main 指标代替。
+stub provider 性能实验不宣称真实云端解说或人工交互已验收。

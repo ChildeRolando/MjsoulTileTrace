@@ -54,7 +54,7 @@ function subsetSelection(selection: ReviewSelectionResult, decisionIds: readonly
 
 export function createFixedReviewController(input: {
   readPackage(packageId: string): Promise<unknown>;
-  generateReport(pkg: StructuredAnalysisPackage, selection: ReviewSelectionResult): Promise<unknown>;
+  generateReport(pkg: StructuredAnalysisPackage, selection: ReviewSelectionResult, context: ReviewReadBackContext): Promise<unknown>;
   observePackage?(pkg: StructuredAnalysisPackage): void;
   createReportRefId?: () => string;
   repository?: ReviewSessionRepository;
@@ -247,7 +247,7 @@ export function createFixedReviewController(input: {
         ? undefined
         : Object.freeze({ sessionId: state.sessionId, revision: state.revision });
       const requestedIds = generationSelection.selected.map((item) => item.decisionId);
-      const rawReport = await input.generateReport(state.analysisPackage, generationSelection);
+      const rawReport = await input.generateReport(state.analysisPackage, generationSelection, state.readBack);
       const current = views.get(packageId);
       if (current !== state || !isCurrent()) {
         return { status: "failed", code: "operation_cancelled" };

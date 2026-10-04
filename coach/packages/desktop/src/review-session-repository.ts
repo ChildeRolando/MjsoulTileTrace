@@ -11,15 +11,15 @@ import {
 } from "@riichi-coach/contracts";
 import {
   composeReviewReadBackContext,
-  composeReviewSessionReadBackContext,
+  createReviewSessionReadBackComposer,
   selectReviewDecisions,
   validateStructuredAnalysisPackage,
   type ReviewReadBackContext,
   type ReviewSessionDecisionReportRef,
   type ReviewSessionReportInput,
+  type ReviewSessionReadBackInput,
 } from "@riichi-coach/reasoning";
 import { describePackageArtifact, insertPackageChunks, readPackageArtifact } from "./package-artifact-storage.js";
-import { freezeReviewReadBack } from "./freeze-review-read-back.js";
 
 const LIBRARY_FORMAT_VERSION = 4;
 
@@ -269,6 +269,45 @@ export function createReviewSessionRepository(input: {
   try { initialize(db, now()); }
   catch (error) { db.close(); throw error; }
 
+  // One immutable package at a time. PRAGMA data_version changes on writes by
+  // other connections (including tamper); report writes on this connection do
+  // not invalidate the unchanged package. No persisted validation receipt is
+  // trusted, and a new process always reads and validates the actual bytes.
+  let preparedPackage: {
+    binding: string;
+    dataVersion: number;
+    composer: ReturnType<typeof createReviewSessionReadBackComposer>;
+  } | null = null;
+  let storageReclaimPending = false;
+  const dataVersion = () => Number(db.prepare("PRAGMA data_version").get()!.data_version);
+  const recompose = (state: PersistedReviewState, sessionInput: ReviewSessionReadBackInput) => {
+    if (preparedPackage === null || preparedPackage.composer.analysisPackage !== state.analysisPackage
+      || preparedPackage.dataVersion !== dataVersion()) throw new Error("review_changed_during_read");
+    return preparedPackage.composer.compose(sessionInput);
+  };
+  const compactLegacyPackage = (row: PackageArtifactRow, value: StructuredAnalysisPackage, expectedDataVersion: number): void => {
+    const oldHeader = Buffer.from(row.payload);
+    if (oldHeader.length !== 24 || oldHeader.subarray(0, 8).toString("ascii") !== "RCPKG01\0") return;
+    const compact = describePackageArtifact(value);
+    if (compact.payload.equals(oldHeader)) return;
+    // Only the storage representation changes: decoded canonical bytes must
+    // keep their original hash. Inline legacy byte encodings are untouched.
+    if (compact.contentHash !== row.content_hash) throw new Error("package_compaction_hash_mismatch");
+    transaction(db, () => {
+      if (dataVersion() !== expectedDataVersion) throw new Error("review_changed_during_read");
+      const current = db.prepare("SELECT payload,content_hash FROM analysis_packages WHERE package_ref_id=?").get(row.package_ref_id);
+      if (current?.content_hash !== row.content_hash || !Buffer.from(current.payload as Uint8Array).equals(oldHeader)) throw new Error("package_compaction_conflict");
+      // The schema lock and rollback cover the temporary removal of this
+      // repository-owned trigger. Report/session identities are never touched.
+      db.exec("DROP TRIGGER immutable_package");
+      db.prepare("DELETE FROM analysis_package_chunks WHERE package_ref_id=?").run(row.package_ref_id);
+      db.prepare("UPDATE analysis_packages SET payload=? WHERE package_ref_id=?").run(compact.payload, row.package_ref_id);
+      insertPackageChunks(db, row.package_ref_id, value, compact);
+      db.exec("CREATE TRIGGER immutable_package BEFORE UPDATE ON analysis_packages BEGIN SELECT RAISE(ABORT,'immutable_artifact'); END");
+    });
+    storageReclaimPending = true;
+  };
+
   const packageRowForSession = (sessionId: string) => db.prepare(`
     SELECT p.package_ref_id,p.package_id,p.payload,p.content_hash,p.schema_version FROM analysis_packages p
     JOIN review_sessions s ON s.package_ref_id=p.package_ref_id WHERE s.session_id=?
@@ -290,18 +329,32 @@ export function createReviewSessionRepository(input: {
   };
 
   const read = (session: SessionRow): PersistedReviewState => {
+    const version = dataVersion();
+    const freshSession = db.prepare(`SELECT s.*,a.active_report_ref_id FROM review_sessions s
+      JOIN session_active_report a ON a.session_id=s.session_id WHERE s.session_id=?`).get(session.session_id) as SessionRow | undefined;
+    if (freshSession === undefined || freshSession.package_ref_id !== session.package_ref_id) throw new Error("review_unavailable");
+    session = freshSession;
     const packageRow = packageRowForSession(session.session_id);
     if (packageRow === undefined) throw new Error("review_unavailable");
-    const packageRaw = readPackageArtifact(db, packageRow);
-    validateStructuredAnalysisPackage(packageRaw);
-    // The validator checks the complete schema and rejects normalization. This
-    // disk-read object is already owned here; another aggregate clone adds no
-    // validation or isolation and can exceed the heap for real whole games.
-    const analysisPackage = packageRaw;
-    if (analysisPackage.packageId !== packageRow.package_id) throw new Error("package_identity_mismatch");
-    if (analysisPackage.componentVersions.packageSchema !== packageRow.schema_version) throw new Error("package_version_mismatch");
     if (hash(session.selection_payload) !== session.selection_hash) throw new Error("selection_hash_mismatch");
     const selection = ReviewSelectionResultSchema.parse(decode(session.selection_payload));
+    const binding = JSON.stringify([packageRow.package_ref_id, packageRow.package_id,
+      packageRow.content_hash, packageRow.schema_version, session.selection_hash]);
+    if (preparedPackage?.binding !== binding || preparedPackage.dataVersion !== version) {
+      preparedPackage = null;
+      const raw = readPackageArtifact(db, packageRow);
+      const identity = raw as Partial<StructuredAnalysisPackage> | null;
+      if (identity?.packageId !== undefined && identity.packageId !== packageRow.package_id) throw new Error("package_identity_mismatch");
+      if (identity?.componentVersions?.packageSchema !== undefined
+        && identity.componentVersions.packageSchema !== packageRow.schema_version) throw new Error("package_version_mismatch");
+      const composer = createReviewSessionReadBackComposer(raw, selection);
+      if (composer.analysisPackage.packageId !== packageRow.package_id) throw new Error("package_identity_mismatch");
+      if (composer.analysisPackage.componentVersions.packageSchema !== packageRow.schema_version) throw new Error("package_version_mismatch");
+      if (dataVersion() !== version) throw new Error("review_changed_during_read");
+      compactLegacyPackage(packageRow, composer.analysisPackage, version);
+      preparedPackage = { binding, dataVersion: version, composer };
+    }
+    const analysisPackage = preparedPackage.composer.analysisPackage;
     const reportRefs = db.prepare(`SELECT x.report_ref_id,r.report_id,r.created_at
       FROM session_report_refs x JOIN review_reports r ON r.report_ref_id=x.report_ref_id AND r.package_ref_id=x.package_ref_id
       WHERE x.session_id=? AND x.package_ref_id=? ORDER BY x.append_ordinal`).all(
@@ -331,15 +384,12 @@ export function createReviewSessionRepository(input: {
         report: validatedReportForRef(session.session_id, session.package_ref_id, reportRef.report_ref_id),
       }));
     }
-    const readBack = freezeReviewReadBack(composeReviewSessionReadBackContext(
-      analysisPackage,
-      selection,
-      {
+    const readBack = preparedPackage.composer.compose({
         reports,
         decisionReportRefs,
         activeReportRefId: session.active_report_ref_id,
-      },
-    ));
+      });
+    if (dataVersion() !== version) { preparedPackage = null; throw new Error("review_changed_during_read"); }
     return Object.freeze({
       sessionId: session.session_id,
       revision: session.revision,
@@ -394,7 +444,7 @@ export function createReviewSessionRepository(input: {
       if (report === undefined) throw new Error("activation_unavailable");
       return Object.freeze({ reportRefId, report });
     });
-    composeReviewSessionReadBackContext(current.analysisPackage, current.selection, {
+    recompose(current, {
       reports,
       decisionReportRefs: nextMappings,
       activeReportRefId: intent.target_report_ref_id,
@@ -559,7 +609,7 @@ export function createReviewSessionRepository(input: {
         if (existing === undefined) throw new Error("report_selection_unavailable");
         return Object.freeze({ reportRefId: refId, report: existing });
       });
-      composeReviewSessionReadBackContext(state.analysisPackage, state.selection, {
+      recompose(state, {
         reports,
         decisionReportRefs: nextMappings,
         activeReportRefId: reportRefId,
@@ -603,6 +653,7 @@ export function createReviewSessionRepository(input: {
     },
 
     deleteSession(packageId: string, operationId: string): Readonly<{ status: "deleted" }> {
+      preparedPackage = null;
       const prior = db.prepare("SELECT state,kind,session_id,package_id FROM operation_receipts WHERE operation_id=?").get(operationId) as (ReceiptRow & { package_id: string | null }) | undefined;
       const session = sessionByPackageId(packageId);
       if (prior !== undefined) {
@@ -646,7 +697,20 @@ export function createReviewSessionRepository(input: {
       return Object.freeze({ activeReportRefId: session.active_report_ref_id, revision: session.revision, reportRefs, refs, intents, receipts, decisionMappings });
     },
 
-    close(): void { db.close(); },
+    /** Background owner calls after a successful cold open, never in renderer.
+     * Busy readers may defer reclamation; canonical data is already durable. */
+    reclaimUnusedStorage(): boolean {
+      if (!storageReclaimPending) return false;
+      try {
+        db.exec("VACUUM");
+        const checkpoint = db.prepare("PRAGMA wal_checkpoint(TRUNCATE)").get();
+        if (Number(checkpoint?.busy) !== 0) return false;
+        storageReclaimPending = false;
+        return true;
+      } catch { return false; }
+    },
+
+    close(): void { preparedPackage = null; db.close(); },
   });
 }
 

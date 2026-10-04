@@ -248,6 +248,51 @@ export function composeReviewSessionReadBackContext(
   sessionInput: ReviewSessionReadBackInput,
 ): ReviewReadBackContext {
   const base = composeReviewReadBackContext(packageInput, selectionInput, null);
+  return composeSessionFromBase(base, sessionInput);
+}
+
+/** Own this validated disk read for one repository connection. Frozen objects
+ * are reused; each new report and decision mapping is still fully validated. */
+export function createReviewSessionReadBackComposer(packageInput: unknown, selectionInput: unknown) {
+  const base = freezeReviewReadBack(composeReviewReadBackContext(packageInput, selectionInput, null));
+  return Object.freeze({
+    analysisPackage: base.analysisPackage,
+    compose: (sessionInput: ReviewSessionReadBackInput) =>
+      freezeReviewReadBack(composeSessionFromBase(base, sessionInput)),
+  });
+}
+
+// Retain only completed context roots and their direct fields, not a visited
+// entry for every fact in a large graph. A caller's shallow Object.freeze
+// cannot authorize reuse of unvisited mutable children.
+const deeplyFrozen = new WeakSet<object>();
+export function freezeReviewReadBack(context: ReviewReadBackContext): ReviewReadBackContext {
+  const active = new WeakSet<object>();
+  let completed = new WeakSet<object>();
+  let completedCount = 0;
+  const freeze = (value: unknown): void => {
+    if (value === null || typeof value !== "object" || deeplyFrozen.has(value) || completed.has(value) || active.has(value)) return;
+    active.add(value);
+    if (Array.isArray(value)) {
+      for (const child of value) freeze(child);
+    } else {
+      for (const child of Object.values(value)) freeze(child);
+    }
+    Object.freeze(value);
+    active.delete(value);
+    if (completedCount === 65_536) { completed = new WeakSet<object>(); completedCount = 0; }
+    completed.add(value);
+    completedCount++;
+  };
+  freeze(context);
+  deeplyFrozen.add(context);
+  for (const value of Object.values(context)) {
+    if (value !== null && typeof value === "object") deeplyFrozen.add(value);
+  }
+  return context;
+}
+
+function composeSessionFromBase(base: ReviewReadBackContext, sessionInput: ReviewSessionReadBackInput): ReviewReadBackContext {
   const selectedIds = base.selection.selected.map((item) => item.decisionId);
   const reportByRef = new Map<string, ReviewReadBackReport>();
 

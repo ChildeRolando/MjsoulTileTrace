@@ -218,12 +218,24 @@ export function createGoldenFixture(bundle: MahjongSoulProtocolBundle) {
     analysisStatus: "not_analyzed" as const,
     lastSyncedAt: 1_754_887_700,
   });
-  const createProvider = (pkg: StructuredAnalysisPackage, selection: ReviewSelectionResult) => {
-    const graph = projectContextGraph(pkg);
-    const degraded = process.env.RIICHI_MVP_GOLDEN_REPORT === "evidence_only";
-    return {
-      descriptor: () => ({ providerId: "electron-golden-stub", model: degraded ? "degraded" : "complete" }),
-      complete: async () => degraded ? { errorCode: "provider_unavailable" as const, transportRetries: 0 as const } : {
+  return Object.freeze({ fixture, recordBytes, analysis, summary, createProvider: createGoldenProvider, createRuntime: (decisions: readonly ReplayedDecision[]) => {
+    const harness = createFixtureLocalMortalRuntime(decisions);
+    if (process.env.RIICHI_MVP_GOLDEN_FAIL_ANALYSIS === "1") harness.stats.failNextRule();
+    return harness.runtime;
+  } });
+}
+
+/** Private deterministic provider used only by the explicit Electron Golden harness. */
+export function createGoldenProvider(pkg: StructuredAnalysisPackage, selection: ReviewSelectionResult) {
+  const graph = projectContextGraph(pkg);
+  const degraded = process.env.RIICHI_MVP_GOLDEN_REPORT === "evidence_only";
+  const delayCandidate = Number(process.env.RIICHI_MVP_GOLDEN_PROVIDER_DELAY_MS ?? 0);
+  const delayMs = Number.isFinite(delayCandidate) ? Math.max(0, Math.min(5_000, Math.floor(delayCandidate))) : 0;
+  return {
+    descriptor: () => ({ providerId: "electron-golden-stub", model: degraded ? "degraded" : "complete" }),
+    complete: async () => {
+      if (delayMs > 0) await new Promise<void>((resolve) => setTimeout(resolve, delayMs));
+      return degraded ? { errorCode: "provider_unavailable" as const, transportRetries: 0 as const } : {
         content: JSON.stringify({ decisions: selection.selected.map(({ decisionId }, index) => {
           const nodes = graph.nodes.filter((node) => (node.payload as { decisionId?: string } | null)?.decisionId === decisionId);
           const scope = (nodes.find((node) => node.nodeKind === "Decision")?.payload as { automaticComparisonScope?: { actionRefs: string[] } } | undefined)?.automaticComparisonScope;
@@ -237,12 +249,7 @@ export function createGoldenFixture(bundle: MahjongSoulProtocolBundle) {
             explanations: [{ text: "这条判断由真实牌谱的可审计差异支持。", claims: [{ kind: "factor_difference", evidenceRef: difference.nodeId }], judgmentLocalRef: `golden-judgment-${index}` }],
           };
         }) }), transportRetries: 0 as const,
-      },
-    };
+      };
+    },
   };
-  return Object.freeze({ fixture, recordBytes, analysis, summary, createProvider, createRuntime: (decisions: readonly ReplayedDecision[]) => {
-    const harness = createFixtureLocalMortalRuntime(decisions);
-    if (process.env.RIICHI_MVP_GOLDEN_FAIL_ANALYSIS === "1") harness.stats.failNextRule();
-    return harness.runtime;
-  } });
 }

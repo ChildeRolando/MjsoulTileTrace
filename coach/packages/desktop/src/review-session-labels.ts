@@ -199,7 +199,7 @@ export function createReviewSessionLabelStore(input: { readonly root: string }):
         if (existing === undefined) {
           db.prepare(`INSERT INTO review_session_labels(session_id,package_ref_id,label_payload)
             VALUES(?,?,?)`).run(row.session_id, row.package_ref_id, payload);
-        } else {
+        } else if (existing.label_payload !== payload) {
           db.prepare(`UPDATE review_session_labels SET label_payload=?
             WHERE session_id=? AND package_ref_id=?`).run(payload, row.session_id, row.package_ref_id);
         }

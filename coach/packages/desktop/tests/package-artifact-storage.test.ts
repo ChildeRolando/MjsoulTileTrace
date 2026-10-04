@@ -1,4 +1,5 @@
 import { createHash } from "node:crypto";
+import { brotliCompressSync, constants as zlibConstants } from "node:zlib";
 import { spawnSync } from "node:child_process";
 import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
@@ -6,7 +7,7 @@ import { join } from "node:path";
 import { DatabaseSync } from "node:sqlite";
 import { afterEach, describe, expect, it } from "vitest";
 import { createReviewSessionRepository } from "../src/review-session-repository.js";
-import { describePackageArtifact, insertPackageChunks, parsePackageJsonChunks, readPackageArtifact, PACKAGE_CHUNK_BYTES } from "../src/package-artifact-storage.js";
+import { describePackageArtifact, insertPackageChunks, parsePackageJsonChunks, readPackageArtifact, PACKAGE_CHUNK_BYTES, PACKAGE_RAW_BLOCK_BYTES } from "../src/package-artifact-storage.js";
 
 const roots: string[] = [];
 afterEach(() => { for (const root of roots.splice(0)) rmSync(root, { recursive:true, force:true }); });
@@ -27,6 +28,15 @@ function store(db: DatabaseSync, value: unknown) {
     db.exec("COMMIT");
   } catch (error) { db.exec("ROLLBACK"); throw error; }
   return row;
+}
+function highEntropyValue() {
+  const entropy = Buffer.alloc(100_000);
+  let state = 0x5eed1234;
+  for (let index = 0; index < entropy.length; index++) {
+    state ^= state << 13; state ^= state >>> 17; state ^= state << 5;
+    entropy[index] = state & 0xff;
+  }
+  return { payload: entropy.toString("base64") };
 }
 
 describe("complete package bytes in bounded SQLite chunks", () => {
@@ -112,7 +122,7 @@ describe("complete package bytes in bounded SQLite chunks", () => {
   });
 
   it("roundtrips every field, exact canonical bytes and SHA across multiple chunks", () => {
-    const value = {a:[true,null,1.25], z:"白🀄\\\"\n".repeat(30_000)};
+    const value = {a:[true,null,1.25], z:"白🀄\\\"\n".repeat(1_000_000)};
     const expected = Buffer.from(JSON.stringify(value));
     const db = database();
     try {
@@ -120,18 +130,87 @@ describe("complete package bytes in bounded SQLite chunks", () => {
       const chunks = db.prepare("SELECT ordinal,payload FROM analysis_package_chunks ORDER BY ordinal").all();
       expect(chunks.length).toBeGreaterThan(2);
       expect(chunks.every((chunk,index)=>chunk.ordinal===index && (chunk.payload as Uint8Array).length<=PACKAGE_CHUNK_BYTES)).toBe(true);
-      const bytes = Buffer.concat(chunks.map(chunk=>Buffer.from(chunk.payload as Uint8Array)));
-      expect(bytes).toEqual(expected);
+      expect(Buffer.from(row.payload).subarray(0, 8).toString("ascii")).toBe("RCPKG02\0");
+      expect(chunks.every(chunk => Buffer.from(chunk.payload as Uint8Array)[0] === 1)).toBe(true);
+      expect(row.payload.readBigUInt64LE(8)).toBe(BigInt(chunks.length));
+      expect(row.payload.readBigUInt64LE(16)).toBe(BigInt(expected.length));
       expect(row.content_hash).toBe(hash(expected));
       expect(readPackageArtifact(db,row)).toStrictEqual(value);
       expect(() => db.prepare("UPDATE analysis_package_chunks SET payload=? WHERE ordinal=0").run(Buffer.from("changed"))).toThrow("immutable_artifact");
     } finally { db.close(); }
   });
 
+  it("stores high-entropy canonical JSON as bounded raw fallback rows", () => {
+    const value = highEntropyValue();
+    const db = database();
+    try {
+      const row = store(db, value);
+      const chunks = db.prepare("SELECT ordinal,payload FROM analysis_package_chunks ORDER BY ordinal").all();
+      expect(chunks.length).toBeGreaterThan(1);
+      for (const item of chunks) {
+        const payload = Buffer.from(item.payload as Uint8Array);
+        expect(item.ordinal).toBe(chunks.indexOf(item));
+        expect(payload.length).toBeLessThanOrEqual(PACKAGE_CHUNK_BYTES);
+        expect(payload[0]).toBe(0);
+        expect(payload.readUInt32LE(1)).toBeLessThanOrEqual(PACKAGE_CHUNK_BYTES - 5);
+        expect(payload.length).toBe(5 + payload.readUInt32LE(1));
+      }
+      expect(readPackageArtifact(db, row)).toStrictEqual(value);
+    } finally { db.close(); }
+  });
+
+  it.each(["bad-flag", "trailing", "truncated", "oversized-output", "wrong-count"])("rejects malformed RCPKG02 rows: %s", kind => {
+    const db = database();
+    try {
+      const row = store(db, { payload: "repeated-evidence:".repeat(20_000) });
+      const first = db.prepare("SELECT payload FROM analysis_package_chunks WHERE ordinal=0").get()!.payload as Uint8Array;
+      const payload = Buffer.from(first);
+      expect(payload[0]).toBe(1);
+      db.exec("DROP TRIGGER immutable_package_chunk");
+      if (kind === "bad-flag") { payload[0] = 2; }
+      if (kind === "trailing") { db.prepare("UPDATE analysis_package_chunks SET payload=? WHERE ordinal=0").run(Buffer.concat([payload, Buffer.from([0])])); }
+      if (kind === "truncated") { db.prepare("UPDATE analysis_package_chunks SET payload=? WHERE ordinal=0").run(payload.subarray(0, payload.length - 1)); }
+      if (kind === "oversized-output") { payload.writeUInt32LE(PACKAGE_RAW_BLOCK_BYTES + 1, 1); }
+      if (kind === "wrong-count") { row.payload.writeBigUInt64LE(2n, 8); }
+      if (kind !== "trailing" && kind !== "truncated" && kind !== "wrong-count") {
+        db.prepare("UPDATE analysis_package_chunks SET payload=? WHERE ordinal=0").run(payload);
+      }
+      expect(() => readPackageArtifact(db, row)).toThrow(/package_(chunks_invalid|payload_invalid)/);
+    } finally { db.close(); }
+  });
+
+  it("rejects a complete Brotli frame with trailing bytes", () => {
+    const encoded = brotliCompressSync(Buffer.from("x".repeat(1000)), { params: {
+      [zlibConstants.BROTLI_PARAM_QUALITY]: 5,
+      [zlibConstants.BROTLI_PARAM_MODE]: zlibConstants.BROTLI_MODE_TEXT,
+    } });
+    const db = database();
+    try {
+      const row = store(db, { value: "x".repeat(90_000) });
+      const first = db.prepare("SELECT payload FROM analysis_package_chunks WHERE ordinal=0").get()!.payload as Uint8Array;
+      const payload = Buffer.from(first);
+      payload[0] = 1;
+      payload.writeUInt32LE(1000, 1);
+      const forged = Buffer.concat([payload.subarray(0, 5), encoded, Buffer.from([0])]);
+      db.exec("DROP TRIGGER immutable_package_chunk");
+      db.prepare("UPDATE analysis_package_chunks SET payload=? WHERE ordinal=0").run(forged);
+      expect(() => readPackageArtifact(db, row)).toThrow(/package_(chunks_invalid|payload_invalid)/);
+    } finally { db.close(); }
+  });
+
+  it("checks the complete canonical SHA after successful RCPKG02 decompression", () => {
+    const db = database();
+    try {
+      const row = store(db, { value: "verified compressed payload".repeat(500) });
+      row.content_hash = "0".repeat(64);
+      expect(() => readPackageArtifact(db, row)).toThrow("package_hash_mismatch");
+    } finally { db.close(); }
+  });
+
   it.each(["missing","truncated","changed","extra","header"])("rejects %s chunks without exposing a partial value", kind => {
     const db=database();
     try {
-      const row=store(db,{value:"x".repeat(PACKAGE_CHUNK_BYTES*3)});
+      const row=store(db,highEntropyValue());
       if(kind==="missing") db.exec("DELETE FROM analysis_package_chunks WHERE ordinal=1");
       if(kind==="truncated") db.exec("DELETE FROM analysis_package_chunks WHERE ordinal=(SELECT MAX(ordinal) FROM analysis_package_chunks)");
       if(kind==="changed") {
@@ -148,7 +227,7 @@ describe("complete package bytes in bounded SQLite chunks", () => {
     const db=database();
     try {
       db.exec("CREATE TRIGGER fail_chunk BEFORE INSERT ON analysis_package_chunks WHEN NEW.ordinal=1 BEGIN SELECT RAISE(ABORT,'injected_write_failure'); END");
-      expect(() => store(db,{value:"x".repeat(PACKAGE_CHUNK_BYTES*3)})).toThrow("injected_write_failure");
+      expect(() => store(db,highEntropyValue())).toThrow("injected_write_failure");
       expect(db.prepare("SELECT COUNT(*) AS n FROM analysis_packages").get()?.n).toBe(0);
       expect(db.prepare("SELECT COUNT(*) AS n FROM analysis_package_chunks").get()?.n).toBe(0);
     } finally { db.close(); }
@@ -163,6 +242,27 @@ describe("complete package bytes in bounded SQLite chunks", () => {
       expect(readPackageArtifact(db,row)).toStrictEqual(JSON.parse(payload.toString()));
       expect(Buffer.from(db.prepare("SELECT payload FROM analysis_packages").get()!.payload as Uint8Array)).toEqual(payload);
       expect(db.prepare("SELECT COUNT(*) AS n FROM analysis_package_chunks").get()?.n).toBe(0);
+    } finally { db.close(); }
+  });
+
+  it("reads existing RCPKG01 chunked bytes without rewriting them", () => {
+    const db = database();
+    try {
+      const bytes = Buffer.from(JSON.stringify({ old: "v1 bytes".repeat(20_000) }));
+      const count = Math.ceil(bytes.length / PACKAGE_CHUNK_BYTES);
+      const header = Buffer.alloc(24);
+      Buffer.from("RCPKG01\0", "ascii").copy(header);
+      header.writeBigUInt64LE(BigInt(count), 8);
+      header.writeBigUInt64LE(BigInt(bytes.length), 16);
+      const row = { package_ref_id: "legacy-ref", payload: header, content_hash: hash(bytes) };
+      db.prepare("INSERT INTO analysis_packages VALUES(?,?,?,?,?)")
+        .run(row.package_ref_id, "legacy-id", row.content_hash, "legacy-schema", header);
+      for (let ordinal = 0; ordinal < count; ordinal++) {
+        db.prepare("INSERT INTO analysis_package_chunks VALUES(?,?,?)")
+          .run(row.package_ref_id, ordinal, bytes.subarray(ordinal * PACKAGE_CHUNK_BYTES, Math.min((ordinal + 1) * PACKAGE_CHUNK_BYTES, bytes.length)));
+      }
+      expect(readPackageArtifact(db, row)).toStrictEqual(JSON.parse(bytes.toString("utf8")));
+      expect(Buffer.from(db.prepare("SELECT payload FROM analysis_packages").get()!.payload as Uint8Array)).toEqual(header);
     } finally { db.close(); }
   });
 

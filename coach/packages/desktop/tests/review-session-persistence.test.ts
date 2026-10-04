@@ -94,6 +94,88 @@ const completeReport = await generateReviewReport(graph, selection, {
 }, "2026-09-23T00:00:00.000Z");
 
 describe("ReviewSession SQLite persistence", () => {
+  it.each([false, true])("compacts legacy chunks losslessly and atomically, injected failure=%s", fail => {
+    const dir = root();
+    let repository = createReviewSessionRepository({ root: dir });
+    repository.saveSession(pkg, selection);
+    repository.saveReport(pkg.packageId, completeReport, "compact-report", "compact-op");
+    repository.close();
+    const db = new DatabaseSync(join(dir, "library.sqlite"));
+    const original = db.prepare("SELECT * FROM analysis_packages").get()!;
+    const reports = db.prepare("SELECT * FROM review_reports").all();
+    const mappings = db.prepare("SELECT * FROM session_decision_reports").all();
+    const bytes = Buffer.from(canonical(pkg));
+    const header = Buffer.alloc(24);
+    header.write("RCPKG01\0");
+    header.writeBigUInt64LE(BigInt(Math.ceil(bytes.length / 65536)), 8);
+    header.writeBigUInt64LE(BigInt(bytes.length), 16);
+    db.exec("DROP TRIGGER immutable_package; DELETE FROM analysis_package_chunks");
+    db.prepare("UPDATE analysis_packages SET payload=?").run(header);
+    const insert = db.prepare("INSERT INTO analysis_package_chunks VALUES(?,?,?)");
+    for (let offset = 0; offset < bytes.length; offset += 65536) {
+      insert.run(original.package_ref_id!, offset / 65536, bytes.subarray(offset, offset + 65536));
+    }
+    db.exec("CREATE TRIGGER immutable_package BEFORE UPDATE ON analysis_packages BEGIN SELECT RAISE(ABORT,'immutable_artifact'); END");
+    if (fail) db.exec("CREATE TRIGGER fail_compact BEFORE INSERT ON analysis_package_chunks BEGIN SELECT RAISE(ABORT,'injected_compaction_failure'); END");
+    repository = createReviewSessionRepository({ root: dir });
+    try {
+      if (fail) {
+        expect(() => repository.openByPackageId(pkg.packageId)).toThrow("injected_compaction_failure");
+        expect(Buffer.from(db.prepare("SELECT payload FROM analysis_packages").get()!.payload as Uint8Array)).toEqual(header);
+        expect(Buffer.concat(db.prepare("SELECT payload FROM analysis_package_chunks ORDER BY ordinal").all().map(row => Buffer.from(row.payload as Uint8Array)))).toEqual(bytes);
+        expect(() => db.exec("UPDATE analysis_packages SET content_hash='wrong'")).toThrow("immutable_artifact");
+        db.exec("DROP TRIGGER fail_compact");
+      }
+      const reopened = repository.openByPackageId(pkg.packageId);
+      expect(reopened.analysisPackage).toEqual(pkg);
+      expect(reopened.activeReportRefId).toBe("compact-report");
+      const compact = db.prepare("SELECT * FROM analysis_packages").get()!;
+      expect(Buffer.from(compact.payload as Uint8Array).subarray(0, 8).toString()).toBe("RCPKG02\0");
+      expect(compact.content_hash).toBe(original.content_hash);
+      expect(compact.package_id).toBe(original.package_id);
+      expect(db.prepare("SELECT * FROM review_reports").all()).toEqual(reports);
+      expect(db.prepare("SELECT * FROM session_decision_reports").all()).toEqual(mappings);
+      expect(repository.reclaimUnusedStorage()).toBe(true);
+      expect(repository.reclaimUnusedStorage()).toBe(false);
+    } finally { repository.close(); db.close(); }
+    repository = createReviewSessionRepository({ root: dir });
+    try { expect(repository.openByPackageId(pkg.packageId).analysisPackage).toEqual(pkg); }
+    finally { repository.close(); }
+  });
+
+  it("reuses only the owned immutable package and graph while validating fresh report mappings", () => {
+    const repository = createReviewSessionRepository({root: root()});
+    try {
+      const first = repository.saveSession(pkg, selection);
+      const reopened = repository.openByPackageId(pkg.packageId);
+      expect(reopened.analysisPackage).toBe(first.analysisPackage);
+      expect(reopened.readBack.baseGraph).toBe(first.readBack.baseGraph);
+      expect(Object.isFrozen(first.analysisPackage.decisions[0])).toBe(true);
+      expect(Object.isFrozen(first.readBack.baseGraph.nodes)).toBe(true);
+      const generated = repository.saveReport(pkg.packageId, completeReport, "cache-report", "cache-op");
+      expect(generated.analysisPackage).toBe(first.analysisPackage);
+      expect(generated.readBack.baseGraph).toBe(first.readBack.baseGraph);
+      expect(generated.activeReportRefId).toBe("cache-report");
+      expect(generated.decisionReportRefs).toEqual(selection.selected.map(row => ({decisionId: row.decisionId, reportRefId: "cache-report"})));
+    } finally { repository.close(); }
+  });
+
+  it("invalidates owned package reuse after an external write and rejects subsequent damaged bytes", () => {
+    const dir = root();
+    const repository = createReviewSessionRepository({root: dir});
+    const external = new DatabaseSync(join(dir, "library.sqlite"));
+    try {
+      const first = repository.saveSession(pkg, selection);
+      external.prepare("UPDATE review_sessions SET updated_at=?").run("2026-10-05T00:00:00.000Z");
+      const reread = repository.openByPackageId(pkg.packageId);
+      expect(reread.analysisPackage).not.toBe(first.analysisPackage);
+      expect(reread.analysisPackage).toEqual(first.analysisPackage);
+      external.exec("DROP TRIGGER immutable_package_chunk");
+      external.exec("UPDATE analysis_package_chunks SET payload=zeroblob(length(payload)) WHERE ordinal=0");
+      expect(() => repository.openByPackageId(pkg.packageId)).toThrow();
+    } finally { external.close(); repository.close(); }
+  });
+
   it.each([false,true])("migrates v2 inline artifacts without rewriting bytes, rollback=%s", fail => {
     const dir=root();
     const repository=createReviewSessionRepository({root:dir});

@@ -101,7 +101,8 @@ import { createLocalMortalAnalysisService } from "./local-mortal-analysis-servic
 import { readCliFlag } from "./diagnostic-flags.js";
 import { registerCoachIpc } from "./coach-ipc.js";
 import { createEnvironmentKeyImporter, createProviderCredentials } from "./llm-provider/credentials.js";
-import { createCoachService, createPackageReferenceReader } from "./llm-provider/service.js";
+import { createCoachWorkerHost } from "./coach-worker-host.js";
+import { createCoachWorkerClient, type CoachWorkerClient } from "./coach-worker-client.js";
 import {
   createReviewSessionRepository,
   persistValidatedReviewSession,
@@ -132,6 +133,7 @@ let ipcRegistration: Readonly<{ dispose(): void }> | null = null;
 let catalogIpcRegistration: Readonly<{ dispose(): void }> | null = null;
 let paipuIpcRegistration: Readonly<{ dispose(): void }> | null = null;
 let coachIpcRegistration: Readonly<{ dispose(): void }> | null = null;
+let coachWorkerClient: CoachWorkerClient | null = null;
 
 // The official-client window used by BOTH record-capture routes (the paipu
 // URL import and the capture diagnostic): the app's persistent Mahjong Soul
@@ -636,11 +638,13 @@ async function start(): Promise<void> {
     async syncAnalyzableRecords() {
       const summaries = await catalogSource.syncAnalyzableRecords();
       recordLabels.rememberCatalog(summaries);
+      if (coachWorkerClient !== null) await coachWorkerClient.rememberCatalog(summaries);
       return summaries;
     },
     async listAnalyzableRecords() {
       const summaries = await catalogSource.listAnalyzableRecords();
       recordLabels.rememberCatalog(summaries);
+      if (coachWorkerClient !== null) await coachWorkerClient.rememberCatalog(summaries);
       return summaries;
     },
   });
@@ -787,14 +791,30 @@ async function start(): Promise<void> {
   await service.initialize();
 
   const coachSettings = createCoachSettingsStore(app.getPath("userData"));
-  const coachService = createCoachService({
-    credentials: providerCredentials, fetchImpl: globalThis.fetch,
-    readPackage: createPackageReferenceReader(app.getPath("userData")),
-    reviewRepository,
-    recordLabels,
-    initialSettings: coachSettings.load() ?? { providerId: "codex-cli", modelName: "gpt-6-luna", reasoningEffort: "max" },
-    saveSettings: value => coachSettings.save(value),
-    ...(golden === null ? {} : { providerFactory: golden.createProvider, clock: () => "2026-10-01T00:00:00.000Z" }),
+  const coachWorker = createCoachWorkerHost({
+    workerData: {
+      userData: app.getPath("userData"),
+      reviewRoot: join(app.getPath("userData"), "review-library"),
+      initialSettings: coachSettings.load() ?? { providerId: "codex-cli", modelName: "gpt-6-luna", reasoningEffort: "max" },
+      initialCatalog: golden === null ? [] : [golden.summary],
+      goldenTestMode: goldenMode,
+    },
+    mainBridge: {
+      readCredentialKey: () => providerCredentials.readKey(),
+      importCredential: () => providerCredentials.importCredential(),
+      clearCredential: () => providerCredentials.clear(),
+      saveSettings: value => coachSettings.save(value),
+    },
+  });
+  const coachService = createCoachWorkerClient(coachWorker);
+  coachWorkerClient = coachService;
+  await coachService.ready();
+  let coachWorkerShutdownStarted = false;
+  app.on("before-quit", (event) => {
+    if (coachWorkerShutdownStarted || coachWorkerClient === null) return;
+    coachWorkerShutdownStarted = true;
+    event.preventDefault();
+    void coachWorkerClient.close().catch(() => undefined).finally(() => app.quit());
   });
 
   const timingStore = createRecordAnalysisTimingStore(app.getPath("userData"));

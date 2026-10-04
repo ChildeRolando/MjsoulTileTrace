@@ -393,3 +393,12 @@ Model/report evidence provider（模型/报告证据来源）
 每请求报告及用量独立保存，行动报告显式引用不能按时间猜测；新会话消费 seam 校验范围、
 同包/同决策引用、原图 grounding 与合成 overlay。已有完整选集 compose 不放宽。
 元数据标题不进入牌理事实或 CoachContext；来源缺失保持未知。验收映射见 M7-A/B 同日修订。
+
+### 档案消费性能修订（2026-10-05，INV-011/012）
+
+完整审计档案及派生图只由后台复盘 worker 消费，renderer/main 响应只含既有 strict DTO；
+主进程凭据权限仍独立。单连接可复用一份自行验证并深冻结的 package/baseGraph，任何
+外部 DB 写入使其失效；报告/行动映射/grounding 继续逐次验证，禁止持久化校验豁免。
+RCPKG02 只无损压缩存储字节，canonical hash/领域 ID 不变；旧块表示迁移必须原子回滚，
+每块解压有上限。由 package-artifact-storage、review-session-persistence 和 coach-worker
+回归保护；真实大档案响应指标记录于绑定版本的外部回执，不用小 fixture 替代。

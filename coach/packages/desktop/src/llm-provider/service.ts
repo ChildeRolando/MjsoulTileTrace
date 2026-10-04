@@ -6,7 +6,7 @@ import {
   type CoachProviderConfig, type CoachReportResult,
   type ReviewSelectionResult, type StructuredAnalysisPackage, type LlmCoachProvider,
 } from "@riichi-coach/contracts";
-import { generateReviewReport, projectContextGraph, selectReviewDecisions, validateStructuredAnalysisPackage } from "@riichi-coach/reasoning";
+import { generateReviewReport, projectContextGraph, selectReviewDecisions, validateStructuredAnalysisPackage, type ReviewReadBackContext } from "@riichi-coach/reasoning";
 import type { ProviderCredentials } from "./credentials.js";
 import { createOpenAiCoachProvider } from "./openai-compatible.js";
 import { createCodexCoachProvider, getCodexCoachAvailability } from "./codex-cli.js";
@@ -58,9 +58,12 @@ export function createCoachService(input: {
     } catch { configured = false; }
     return CoachProviderStatusSchema.parse({ configured, settings: currentSettings });
   };
-  const generateArtifact = async (pkg: StructuredAnalysisPackage, selection: ReviewSelectionResult) => {
+  const generateArtifact = async (pkg: StructuredAnalysisPackage, selection: ReviewSelectionResult, context?: ReviewReadBackContext) => {
     const configuredSettings = settings;
-    const graph = projectContextGraph(pkg);
+    if (context !== undefined && (context.analysisPackage !== pkg || context.baseGraph.packageId !== pkg.packageId)) {
+      throw new Error("review_unavailable");
+    }
+    const graph = context?.baseGraph ?? projectContextGraph(pkg);
     const provider = input.providerFactory?.(pkg, selection) ?? (configuredSettings !== null && "providerId" in configuredSettings
       ? createCodexCoachProvider({ settings: configuredSettings })
       : createOpenAiCoachProvider({ settings: configuredSettings, credentials: input.credentials, fetchImpl: input.fetchImpl }));

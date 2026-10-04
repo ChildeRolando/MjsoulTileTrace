@@ -1,11 +1,23 @@
 import { createHash } from "node:crypto";
+import { brotliCompressSync, brotliDecompressSync, constants as zlibConstants } from "node:zlib";
 import type { DatabaseSync } from "node:sqlite";
 import { JSONParser } from "@streamparser/json";
 import { writeCanonicalJson } from "@riichi-coach/reasoning";
 
-/** Storage representation only: domain package schemas and identities do not change. */
+/** Maximum payload size enforced by analysis_package_chunks. */
 export const PACKAGE_CHUNK_BYTES = 64 * 1024;
-const MAGIC = Buffer.from("RCPKG01\0", "ascii");
+/** Bound on the raw bytes held and encoded as one independent storage block. */
+export const PACKAGE_RAW_BLOCK_BYTES = 4 * 1024 * 1024;
+const RAW_ROW_BYTES = PACKAGE_CHUNK_BYTES - 5;
+const ROW_HEADER_BYTES = 5;
+const MAGIC_V1 = Buffer.from("RCPKG01\0", "ascii");
+const MAGIC_V2 = Buffer.from("RCPKG02\0", "ascii");
+const CODEC_RAW = 0;
+const CODEC_BROTLI = 1;
+const BROTLI_OPTIONS = { params: {
+  [zlibConstants.BROTLI_PARAM_QUALITY]: 5,
+  [zlibConstants.BROTLI_PARAM_MODE]: zlibConstants.BROTLI_MODE_TEXT,
+} };
 
 export type PackageArtifactRow = {
   package_ref_id: string;
@@ -14,40 +26,65 @@ export type PackageArtifactRow = {
 };
 
 type Description = { payload: Buffer; contentHash: string; byteLength: number; chunks: number };
+type StreamReceipt = { digest?: string };
+
+function encodeRow(flag: number, rawLength: number, data: Uint8Array): Buffer {
+  if (!Number.isSafeInteger(rawLength) || rawLength < 1 || rawLength > PACKAGE_RAW_BLOCK_BYTES) {
+    throw new Error("package_chunks_invalid");
+  }
+  const row = Buffer.allocUnsafe(ROW_HEADER_BYTES + data.byteLength);
+  row[0] = flag;
+  row.writeUInt32LE(rawLength, 1);
+  Buffer.from(data.buffer, data.byteOffset, data.byteLength).copy(row, ROW_HEADER_BYTES);
+  return row;
+}
 
 function serialize(value: unknown, consume?: (chunk: Buffer, ordinal: number) => void): Description {
-  const buffer = Buffer.allocUnsafe(PACKAGE_CHUNK_BYTES);
+  const rawBlock = Buffer.allocUnsafe(PACKAGE_RAW_BLOCK_BYTES);
   const hash = createHash("sha256");
   let used = 0;
   let byteLength = 0;
   let chunks = 0;
-  const flush = () => {
-    const chunk = buffer.subarray(0, used);
-    hash.update(chunk);
-    consume?.(chunk, chunks);
-    byteLength += used;
+  const writeRow = (row: Buffer) => {
+    if (row.length > PACKAGE_CHUNK_BYTES) throw new Error("package_chunks_invalid");
+    consume?.(row, chunks);
     chunks++;
-    used = 0;
+  };
+  const flush = (raw: Buffer) => {
+    hash.update(raw);
+    byteLength += raw.length;
+    const compressed = brotliCompressSync(raw, BROTLI_OPTIONS);
+    if (compressed.length < raw.length && compressed.length <= RAW_ROW_BYTES) {
+      writeRow(encodeRow(CODEC_BROTLI, raw.length, compressed));
+      return;
+    }
+    for (let offset = 0; offset < raw.length; offset += RAW_ROW_BYTES) {
+      const part = raw.subarray(offset, Math.min(offset + RAW_ROW_BYTES, raw.length));
+      writeRow(encodeRow(CODEC_RAW, part.length, part));
+    }
   };
   writeCanonicalJson(value, part => {
     const bytes = Buffer.from(part, "utf8");
     for (let offset = 0; offset < bytes.length;) {
-      const count = Math.min(buffer.length - used, bytes.length - offset);
-      bytes.copy(buffer, used, offset, offset + count);
+      const count = Math.min(rawBlock.length - used, bytes.length - offset);
+      bytes.copy(rawBlock, used, offset, offset + count);
       offset += count;
       used += count;
-      if (used === buffer.length) flush();
+      if (used === rawBlock.length) {
+        flush(rawBlock);
+        used = 0;
+      }
     }
   });
-  if (used > 0) flush();
+  if (used > 0) flush(rawBlock.subarray(0, used));
   const payload = Buffer.alloc(24);
-  MAGIC.copy(payload);
+  MAGIC_V2.copy(payload);
   payload.writeBigUInt64LE(BigInt(chunks), 8);
   payload.writeBigUInt64LE(BigInt(byteLength), 16);
   return { payload, contentHash: hash.digest("hex"), byteLength, chunks };
 }
 
-/** First pass fixes bytes/hash before entering the repository's transaction. */
+/** First pass fixes canonical bytes/hash and the exact storage-row count before the repository transaction. */
 export function describePackageArtifact(value: unknown): Description {
   return serialize(value);
 }
@@ -104,41 +141,113 @@ export function parsePackageJsonChunks(chunks: Iterable<Uint8Array>): unknown {
   } catch { throw new Error("package_payload_invalid"); }
 }
 
+function parseChunkHeader(header: Buffer): { count: number; byteLength: number } {
+  if (header.length !== 24) throw new Error("package_storage_version_mismatch");
+  const count = Number(header.readBigUInt64LE(8));
+  const byteLength = Number(header.readBigUInt64LE(16));
+  if (!Number.isSafeInteger(count) || !Number.isSafeInteger(byteLength)
+    || count < 1 || byteLength < 1 || count > byteLength) {
+    throw new Error("package_chunks_invalid");
+  }
+  return { count, byteLength };
+}
+
+function* legacyChunks(db: DatabaseSync, ref: string, count: number, byteLength: number, receipt: StreamReceipt): Generator<Uint8Array> {
+  if (count !== Math.ceil(byteLength / PACKAGE_CHUNK_BYTES)) throw new Error("package_chunks_invalid");
+  let seen = 0;
+  let bytes = 0;
+  const hash = createHash("sha256");
+  for (const raw of db.prepare("SELECT ordinal,payload FROM analysis_package_chunks WHERE package_ref_id=? ORDER BY ordinal").iterate(ref)) {
+    const chunk = raw.payload as Uint8Array;
+    const expectedLength = seen === count - 1 ? byteLength - seen * PACKAGE_CHUNK_BYTES : PACKAGE_CHUNK_BYTES;
+    if (raw.ordinal !== seen || seen >= count || !(chunk instanceof Uint8Array) || chunk.length !== expectedLength) {
+      throw new Error("package_chunks_invalid");
+    }
+    hash.update(chunk);
+    bytes += chunk.length;
+    seen++;
+    yield chunk;
+  }
+  if (seen !== count || bytes !== byteLength) throw new Error("package_chunks_invalid");
+  receipt.digest = hash.digest("hex");
+}
+
+function decodeV2Row(payload: Uint8Array): Buffer {
+  const row = Buffer.from(payload.buffer, payload.byteOffset, payload.byteLength);
+  if (row.length <= ROW_HEADER_BYTES || row.length > PACKAGE_CHUNK_BYTES) throw new Error("package_chunks_invalid");
+  const flag = row[0]!;
+  const rawLength = row.readUInt32LE(1);
+  const data = row.subarray(ROW_HEADER_BYTES);
+  if (!Number.isSafeInteger(rawLength) || rawLength < 1 || rawLength > PACKAGE_RAW_BLOCK_BYTES) {
+    throw new Error("package_chunks_invalid");
+  }
+  if (flag === CODEC_RAW) {
+    if (rawLength > RAW_ROW_BYTES || data.length !== rawLength) throw new Error("package_chunks_invalid");
+    return data;
+  }
+  if (flag !== CODEC_BROTLI || data.length > RAW_ROW_BYTES || data.length >= rawLength) {
+    throw new Error("package_chunks_invalid");
+  }
+  try {
+    const decompressWithInfo = brotliDecompressSync as unknown as (
+      input: Uint8Array,
+      options: { maxOutputLength: number; info: true },
+    ) => { buffer: Buffer; engine: { bytesWritten: number } };
+    const decoded = decompressWithInfo(data, { maxOutputLength: rawLength, info: true });
+    if (decoded.engine.bytesWritten !== data.length || decoded.buffer.length !== rawLength) {
+      throw new Error("package_chunks_invalid");
+    }
+    return decoded.buffer;
+  } catch {
+    throw new Error("package_chunks_invalid");
+  }
+}
+
+function* compressedChunks(db: DatabaseSync, ref: string, count: number, byteLength: number, receipt: StreamReceipt): Generator<Uint8Array> {
+  let seen = 0;
+  let bytes = 0;
+  const hash = createHash("sha256");
+  for (const raw of db.prepare("SELECT ordinal,payload FROM analysis_package_chunks WHERE package_ref_id=? ORDER BY ordinal").iterate(ref)) {
+    if (raw.ordinal !== seen || seen >= count) throw new Error("package_chunks_invalid");
+    const chunk = decodeV2Row(raw.payload as Uint8Array);
+    if (bytes + chunk.length > byteLength) throw new Error("package_chunks_invalid");
+    hash.update(chunk);
+    bytes += chunk.length;
+    seen++;
+    yield chunk;
+  }
+  if (seen !== count || bytes !== byteLength) throw new Error("package_chunks_invalid");
+  receipt.digest = hash.digest("hex");
+}
+
 export function readPackageArtifact(db: DatabaseSync, row: PackageArtifactRow): unknown {
   const header = Buffer.from(row.payload);
-  if (!header.subarray(0, 5).equals(MAGIC.subarray(0, 5))) {
-    // v1/v2 immutable bytes remain untouched and retain their original hash.
+  if (header.subarray(0, MAGIC_V2.length).equals(MAGIC_V2)) {
+    const { count, byteLength } = parseChunkHeader(header);
+    const receipt: StreamReceipt = {};
+    const decoded = compressedChunks(db, row.package_ref_id, count, byteLength, receipt);
+    const value = parsePackageJsonChunks(decoded);
+    if (receipt.digest !== row.content_hash) throw new Error("package_hash_mismatch");
+    return value;
+  }
+  if (header.subarray(0, MAGIC_V1.length).equals(MAGIC_V1)) {
+    const { count, byteLength } = parseChunkHeader(header);
+    const receipt: StreamReceipt = {};
+    const decoded = legacyChunks(db, row.package_ref_id, count, byteLength, receipt);
+    const value = parsePackageJsonChunks(decoded);
+    if (receipt.digest !== row.content_hash) throw new Error("package_hash_mismatch");
+    return value;
+  }
+  if (header.subarray(0, 5).equals(MAGIC_V2.subarray(0, 5)) || header.subarray(0, 5).equals(MAGIC_V1.subarray(0, 5))) {
     if (db.prepare("SELECT 1 FROM analysis_package_chunks WHERE package_ref_id=? LIMIT 1").get(row.package_ref_id)) {
       throw new Error("package_chunks_invalid");
     }
-    if (createHash("sha256").update(header).digest("hex") !== row.content_hash) throw new Error("package_hash_mismatch");
-    try { return JSON.parse(header.toString("utf8")); }
-    catch { throw new Error("package_payload_invalid"); }
+    throw new Error("package_storage_version_mismatch");
   }
-  if (header.length !== 24 || !header.subarray(0, 8).equals(MAGIC)) throw new Error("package_storage_version_mismatch");
-  const count = Number(header.readBigUInt64LE(8));
-  const byteLength = Number(header.readBigUInt64LE(16));
-  if (!Number.isSafeInteger(count) || !Number.isSafeInteger(byteLength) || count < 1
-    || byteLength < 1 || count !== Math.ceil(byteLength / PACKAGE_CHUNK_BYTES)) throw new Error("package_chunks_invalid");
-  const hash = createHash("sha256");
-  let seen = 0;
-  let bytes = 0;
-  function* chunks(): Generator<Uint8Array> {
-    for (const raw of db.prepare("SELECT ordinal,payload FROM analysis_package_chunks WHERE package_ref_id=? ORDER BY ordinal").iterate(row.package_ref_id)) {
-      const chunk = raw.payload as Uint8Array;
-      const expectedLength = seen === count - 1 ? byteLength - seen * PACKAGE_CHUNK_BYTES : PACKAGE_CHUNK_BYTES;
-      if (raw.ordinal !== seen || seen >= count || !(chunk instanceof Uint8Array) || chunk.length !== expectedLength) {
-        throw new Error("package_chunks_invalid");
-      }
-      hash.update(chunk);
-      bytes += chunk.length;
-      seen++;
-      yield chunk;
-    }
+  if (db.prepare("SELECT 1 FROM analysis_package_chunks WHERE package_ref_id=? LIMIT 1").get(row.package_ref_id)) {
+    throw new Error("package_chunks_invalid");
   }
-  // Parser failures and framing failures stay unavailable; no partial package escapes.
-  const value = parsePackageJsonChunks(chunks());
-  if (seen !== count || bytes !== byteLength) throw new Error("package_chunks_invalid");
-  if (hash.digest("hex") !== row.content_hash) throw new Error("package_hash_mismatch");
-  return value;
+  if (createHash("sha256").update(header).digest("hex") !== row.content_hash) throw new Error("package_hash_mismatch");
+  try { return JSON.parse(header.toString("utf8")); }
+  catch { throw new Error("package_payload_invalid"); }
 }

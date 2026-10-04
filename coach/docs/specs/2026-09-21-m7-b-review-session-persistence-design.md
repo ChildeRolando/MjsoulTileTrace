@@ -308,3 +308,25 @@ COAC-8 只有在 COAC-6 accepted/merged、COAC-7 本规格 reviewed/frozen/accep
 目录关联只将 schema 合法的 `majsoul:<rawRecordId>` 映射为雀魂目录编号；不改包身份，不猜其它来源前缀。
 controller 对已存在的生成 operation receipt 拒绝重发；repository 的同 intent/receipt
 本地恢复保持幂等，未知结果通过重新打开会话查看，不能以旧编号改范围发新模型请求。
+
+## 2026-10-05 档案性能修订
+
+完整分析档案保留审计事实，renderer 只消费既有 strict overview/list/detail DTO。
+生产复盘 repository、package 校验、ContextGraph 投影和教练生成由专用 Node worker
+拥有；主进程保存凭据/设置权限，通过私有 allowlist RPC 提供服务。完整 package/graph
+不跨 worker 边界，凭据不跨 renderer 边界。worker 退出、超时或协议错误必须结束等待。
+
+每个 repository 连接最多复用一份自行读取、完整校验并深冻结的 package/baseGraph。
+绑定 package ref、ID、内容 hash、schema、selection hash 及 SQLite data_version；外部
+连接写入会使复用失效。每次读取仍检查会话、报告正文、hash、映射和 grounding；报告
+追加/激活仍以原 session/revision CAS 保证时序。不持久化“已校验”标志或 ContextGraph。
+
+新增 RCPKG02 存储封装：canonical 字节流按最多 4 MiB 分段 Brotli 压缩，每 SQLite
+块最多 64 KiB；不可压缩段分割为 raw frame。24 字节头记录实际块数及解压后总长度。
+逐块限制解压上限、检查顺序/长度/编码，并对还原后的完整 canonical 字节校验原 hash。
+领域 schema、package ID 和所有审计事实均不变；继续读取 inline JSON 与 RCPKG01。
+
+已完整验证的 RCPKG01 在同一事务内替换为 RCPKG02，仅允许 canonical hash 完全相同。
+替换期间临时移除并恢复 repository 所有的 immutable_package trigger，失败连同原块
+和 trigger 一起回滚；不改 report/session/行动映射。旧 inline 编码保持原字节。
+空闲空间回收在后台尝试，busy 时保留数据并延后；回收失败不能冒充数据迁移失败。
