@@ -384,7 +384,7 @@ type FixedReviewListItemDto = {
 };
 
 type FixedReviewDetailDto = {
-  schemaVersion: "fixed-review-detail/v2";
+  schemaVersion: "fixed-review-detail/v3";
   packageId: string;
   activeReportRefId: string | null;
   decisionId: string;
@@ -919,3 +919,18 @@ sandbox/contextIsolation 保持开启，nodeIntegration 关闭；隐藏测试窗
 UI 等待状态应能及时绘制，耗时不能占据 Electron main 事件循环。取消/离开保留原迟到
 结果拒绝语义；worker 失败应返回既有安全错误并解除等待，不静默挂起。
 本修订不增减入选决策、不改变生成范围，不把存储压缩后字节数当成 LLM Token。
+
+## 2026-10-05 证据阅读顺序修订
+
+用户批准以层次化证据替代平铺明细。证据摘要入口默认展开；当前局面默认展开，
+牌效与速度、打点与价值、防守与风险、顺位条件、后续选择和教练推断按主题折叠。
+主题内继续区分确定性证据、估计参考信号和教练推断。比较先展示有差别的指标；
+两种行动相同的指标集中折叠，逐行动的计算明细再按行动分层展开，全部条目保留。
+比较值在桌面并列、窄屏顺排；进张牌面与数量可直接阅读。缺信息、计算失败、未算指标
+分别标记，不能把这些状态当作合法动作是否存在的结论。
+
+detail/v3 新增 topic/kind/availability/valueRelation，由已验证 package/graph 投影，
+renderer 不推导牌理或比较方向。FactorFact 主题来自其原始候选轴账本，不凭中文文案猜测。
+来源版本不再另设面向用户的来源信息列表；原审计数据保留后台。解释/判断/推断引用点击
+时自动展开目标的所有祖先层并聚焦，必须支持键盘；不能因折叠导致引用不可达。
+本修订替代 P4 的“每项默认平铺”呈现方式，不删除教学明细、不改变解释 grounding。

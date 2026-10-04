@@ -364,6 +364,8 @@ export type CoachContext = z.infer<typeof CoachContextSchema>;
  * context payload, or local identity dictionary. */
 export const CoachRequestContextAuditSchema = z.object({
   coachContextVersion: z.literal(COACH_CONTEXT_SCHEMA_VERSION),
+  /** Present on new v4 requests; absent on persisted v3 CoachContext reports. */
+  teachingBriefVersion: z.literal("coach-teaching-brief/v1").optional(),
   inputContextHash: z.string().regex(/^sha256:[0-9a-f]{64}$/),
   promptBytes: z.number().int().nonnegative().max(Number.MAX_SAFE_INTEGER),
   contextBytes: z.number().int().nonnegative().max(Number.MAX_SAFE_INTEGER),

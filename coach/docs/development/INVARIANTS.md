@@ -292,7 +292,8 @@ Model/report evidence provider（模型/报告证据来源）
 
 - **Statement**：生产覆盖率 registry 只能由 `createMortalCoverageRegistryFromManifest`
   从经审核的 evidence manifest 提升；验收模式使用宽口径 registry，但宽口径结果
-  永不直接成为生产覆盖率。
+  永不直接成为生产覆盖率。registry 只描述验收证据，缺少登记不能否决 libriichi
+  合法动作、跳过模型评价，或把决策标成 `unsupported_action`。
 - **Why**：覆盖率是"该语义分支已被真实 E2E 命中"的声明；只有来自 manifest 的提升
   才能保证每条覆盖率背后有可审计证据。
 - **Owner / boundary**：`mortal-coverage-registry` / `mortal-coverage-evidence-
@@ -300,7 +301,8 @@ Model/report evidence provider（模型/报告证据来源）
 - **Enforcement**：`createMortalCoverageRegistryFromManifest` 解析并校验 manifest
   schema（失败即抛错）；manifest schema strict，含 schemaVersion 与证据哈希。
 - **Executable tests**：`acceptance-core.test.ts`（提升路径 + 非法 manifest 抛错）、
-  `mortal-coverage-evidence-manifest.test.ts`。
+  `mortal-coverage-evidence-manifest.test.ts`、`mortal-full-game-review.test.ts`
+  （空 registry 不阻断分析，真实输入/绑定/模型错误仍保留原语义）。
 - **Status**：machine-enforced。
 
 ## INV-011 reasoning overlay read-back 必须重建身份与决策归属

@@ -102,3 +102,4 @@ export {
   UNCONFIGURED_COACH_PROVIDER,
 } from "./reviewReport.js";
 export * from "./coach-prompt.js";
+export * from "./coach-teaching-brief.js";

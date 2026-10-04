@@ -8,7 +8,9 @@ import {
   KnownGameFactsSchema,
   RiichiActionSchema,
   COACH_REASONING_DRAFT_SCHEMA_VERSION_V1,
+  COACH_REVIEW_PROMPT_VERSION_V3,
   CoachContextSchema,
+  CoachTeachingBriefSchema,
   SELECTOR_POLICY_VERSION_V1,
   canonicalActionRef,
   parseCanonicalEventRef,
@@ -20,6 +22,8 @@ import {
   type StructuredAnalysisPackage,
 } from "@riichi-coach/contracts";
 import { buildCoachRequest, decodeCoachReasoningDraft, prepareCoachRequest } from "../src/coach-prompt.js";
+import { validateCoachTeachingBriefAgainstContext } from "../src/coach-teaching-brief.js";
+import { buildCoachRequestContextV3 } from "../src/coach-prompt.js";
 import { canonicalJson, sha256Hex } from "../src/analysis/package-identity.js";
 import { buildGraphContextSlice } from "../src/context-graph/build-graph-context-slice.js";
 import { projectContextGraph } from "../src/context-graph/project-context-graph.js";
@@ -497,7 +501,7 @@ describe("CoachContext compact transmission", () => {
     const request = buildCoachRequest(legacySlice);
 
     expect(legacyBytes).toBeGreaterThan(1_000_000);
-    expect(request.promptVersion).toBe("coach-review-prompt/v3");
+    expect(request.promptVersion).toBe("coach-review-prompt/v4");
     expect(Buffer.byteLength(request.prompt, "utf8")).toBeLessThan(1_000_000);
     for (const privateMarker of [
       "PRIVATE_PRODUCER_",
@@ -514,7 +518,7 @@ describe("CoachContext compact transmission", () => {
   it("preserves teaching values, source classes, and event/meld timing while removing audit identities", async () => {
     const { graph, slice, selection } = await artifacts();
     const prepared = prepareCoachRequest(slice);
-    const json = canonicalJson(prepared.context);
+    const json = canonicalJson(prepared.brief);
     const knownSource = slice.nodes.find((node) => node.nodeKind === "KnownGameFact")!;
     const knownDto = prepared.context.nodes.find((node) => node.nodeKind === "KnownGameFact")!;
     const source = recordOf(knownSource.payload);
@@ -612,6 +616,80 @@ describe("CoachContext compact transmission", () => {
     expect(prepared.context.edges).toHaveLength(relationCounts.applies_to!);
     expect(prepared.requestContext.semanticEdgeCount).toBe(originalRelations.length);
     expect(selection.selected).toHaveLength(1);
+    expect(prepared.requestContext.inputContextHash).toBe(`sha256:${sha256Hex(json)}`);
+    expect(prepared.requestContext.contextBytes).toBe(Buffer.byteLength(json, "utf8"));
+    expect(prepared.requestContext.nodeCount).toBe(prepared.context.nodes.length);
+  });
+
+  it("builds a reversible decision tree with every context node and semantic relation exactly once", async () => {
+    const { slice } = await artifacts(true);
+    const prepared = prepareCoachRequest(slice);
+    const context = prepared.context;
+    const brief = prepared.brief;
+
+    expect(CoachTeachingBriefSchema.parse(brief)).toEqual(brief);
+    expect(brief.selectedDecisionRefs).toEqual(context.selectedDecisionRefs);
+    expect(brief.decisions.map((entry) => entry.decision.ref)).toEqual(context.selectedDecisionRefs);
+    expect(brief.events).toEqual(context.events);
+    expect(brief.edges).toEqual(context.edges);
+
+    const collected = [
+      ...brief.decisions.flatMap((entry) => [
+        entry.decision,
+        ...entry.situation,
+        ...entry.actions.flatMap((action) => [
+          action.candidate,
+          ...action.facts.certain,
+          ...action.facts.estimated,
+          ...action.facts.missing,
+        ]),
+        ...entry.comparisons.flatMap((group) => group.differences),
+        ...entry.model,
+        ...entry.preference,
+      ]),
+    ];
+    expect(collected).toHaveLength(context.nodes.length);
+    expect(new Set(collected.map((node) => node.ref)).size).toBe(context.nodes.length);
+    expect([...collected].sort((a, b) => a.ref.localeCompare(b.ref))).toEqual(
+      [...context.nodes].sort((a, b) => a.ref.localeCompare(b.ref)),
+    );
+    expect(brief.decisions.every((entry) => entry.actions.length >= 2)).toBe(true);
+    expect(brief.decisions.every((entry) => entry.model.length === 1)).toBe(true);
+    expect(brief.decisions.flatMap((entry) => entry.comparisons.flatMap((group) => group.differences))
+      .map((node) => node.ref).sort()).toEqual(
+      context.nodes.filter((node) => node.nodeKind === "FactorDifference").map((node) => node.ref).sort(),
+    );
+    expect(brief.edges.every((edge) => edge.edgeKind === "applies_to")).toBe(true);
+
+    const serialized = canonicalJson(brief);
+    expect(prepared.request.prompt.endsWith(serialized)).toBe(true);
+    expect(prepared.request.prompt).not.toContain(canonicalJson(context));
+    expect(serialized).not.toContain("producer");
+    expect(serialized).not.toContain("provenance");
+    expect(serialized).not.toContain("sourceRefs");
+
+    const omitted = JSON.parse(JSON.stringify(brief)) as typeof brief;
+    const firstAction = omitted.decisions[0]!.actions[0]!;
+    const firstBucket = firstAction.facts.certain.length > 0 ? "certain"
+      : firstAction.facts.estimated.length > 0 ? "estimated" : "missing";
+    firstAction.facts[firstBucket].pop();
+    expect(() => validateCoachTeachingBriefAgainstContext(context, omitted)).toThrow();
+
+    const duplicated = JSON.parse(JSON.stringify(brief)) as typeof brief;
+    const duplicateSource = duplicated.decisions[0]!.situation[0]!;
+    duplicated.decisions[0]!.situation.push(duplicateSource);
+    expect(() => CoachTeachingBriefSchema.parse(duplicated)).toThrow();
+
+    const crossedDecision = JSON.parse(JSON.stringify(brief)) as typeof brief;
+    crossedDecision.decisions[0]!.situation[0]!.decisionRef = crossedDecision.decisions[1]!.decision.ref;
+    expect(() => CoachTeachingBriefSchema.parse(crossedDecision)).toThrow();
+
+    const crossedEdge = JSON.parse(JSON.stringify(brief)) as typeof brief;
+    const edgeIndex = crossedEdge.edges.findIndex((edge) => edge.edgeKind === "applies_to");
+    const edge = crossedEdge.edges[edgeIndex]!;
+    const otherCandidate = crossedEdge.decisions[0]!.actions.find((action) => action.candidate.ref !== edge.toRef)!;
+    crossedEdge.edges[edgeIndex] = { ...edge, toRef: otherCandidate.candidate.ref };
+    expect(() => validateCoachTeachingBriefAgainstContext(context, crossedEdge)).toThrow();
   });
 
   it.each(["raw_replay", "user_asserted", "mixed", "legacy_regression_bridge_only"] as const)(
@@ -1060,7 +1138,7 @@ describe("CoachContext compact transmission", () => {
     expect(selection.selected).toHaveLength(2);
   });
 
-  it("fails closed on changed v3 audit bindings and still reads historical v1/v2 prompt reports", async () => {
+  it("fails closed on changed v4 audit bindings and reads saved v3 plus historical v1/v2 reports", async () => {
     const { graph, slice, selection } = await artifacts();
     const prepared = prepareCoachRequest(slice);
     const wire = { decisions: [wireDecision(prepared.context, prepared.context.selectedDecisionRefs[0]!)] };
@@ -1084,6 +1162,13 @@ describe("CoachContext compact transmission", () => {
     const badSliceHash = JSON.parse(JSON.stringify(report)) as Record<string, unknown>;
     recordOf(badSliceHash.audit).inputSliceHash = `sha256:${"0".repeat(64)}`;
     expect(() => validateReviewReport(badSliceHash, graph)).toThrow("m6d2_report_input_slice_hash_mismatch");
+
+    const savedV3 = JSON.parse(JSON.stringify(report)) as Record<string, unknown>;
+    const savedV3Generation = recordOf(savedV3.generation);
+    savedV3Generation.promptVersion = COACH_REVIEW_PROMPT_VERSION_V3;
+    recordOf(savedV3.audit).requestContext = buildCoachRequestContextV3(slice);
+    updateReportId(savedV3);
+    expect(() => validateReviewReport(savedV3, graph)).not.toThrow();
 
     for (const promptVersion of ["coach-review-prompt/v1", "coach-review-prompt/v2"] as const) {
       const historic = JSON.parse(JSON.stringify(report)) as Record<string, unknown>;

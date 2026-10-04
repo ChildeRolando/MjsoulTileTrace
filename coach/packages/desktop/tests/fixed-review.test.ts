@@ -156,6 +156,47 @@ function apiThroughIpc(snapshot: ReturnType<typeof presentFixedReviewSnapshot>, 
 }
 
 describe("fixed review presenter", () => {
+  it("organizes every evidence item by topic and preserves nested action details without audit prose", async () => {
+    const snapshot = presentFixedReviewSnapshot({ analysisPackage: pkg, selection });
+    const detail = presentFixedReviewDetail({ analysisPackage: pkg, selection, decisionId: selection.selected[0]!.decisionId });
+    const decision = pkg.decisions[0]!;
+    if (decision.outcome !== "analysis_ready") throw new Error("fixture must be ready");
+    const scoped = projectContextGraph(pkg).nodes.filter(node =>
+      (node.payload as { decisionId?: string }).decisionId === decision.decisionId
+      && ["KnownGameFact", "FactorFact", "FactorDifference"].includes(node.nodeKind));
+    expect(detail.provenance.map(item => item.displayRef).sort()).toEqual(scoped.map(node => node.nodeId).sort());
+    const shapeDifference = scoped.find(node => node.nodeKind === "FactorDifference" && (node.payload as { dimension: string }).dimension === "shape_claims")!;
+    const shapeCard = detail.provenance.find(item => item.displayRef === shapeDifference.nodeId)!;
+    // Equal counts must not hide different structures behind identical summaries.
+    expect(shapeCard.details[0]!.value).not.toEqual(shapeCard.details[1]!.value);
+    expect(shapeCard.details.every(item => item.value.includes("分解"))).toBe(true);
+    expect(shapeCard.details.every(item => !/^\d+ 项牌形组成$/.test(item.value))).toBe(true);
+    for (const node of scoped.filter(node => node.nodeKind === "FactorFact")) {
+      const payload = node.payload as { actionRef: string; factorKey: string; status: string };
+      const axis = decision.candidateFactorLedgers.find(ledger => ledger.actionRef === payload.actionRef)!.axes
+        .find(axis => axis.facts.some(fact => fact.factorKey === payload.factorKey))!;
+      expect(detail.provenance.find(item => item.displayRef === node.nodeId)).toMatchObject({
+        topic: axis.axis, kind: "candidate",
+        availability: payload.status === "calculated" ? "available" : payload.status === "blocked_missing_facts"
+          ? "missing" : payload.status === "blocked_engine_failure" ? "failed" : "not_calculated",
+      });
+    }
+    const dom = fakeDom();
+    const boundary = apiThroughIpc(snapshot, detail);
+    const ui = createFixedReviewUi({ document: dom.document as unknown as Document, root: dom.root as unknown as HTMLElement, api: boundary.api });
+    await ui.open(pkg.packageId);
+    nodes(dom.root).find(node => node.textContent === "查看详情")!.listeners.get("click")!();
+    await Promise.resolve(); await Promise.resolve();
+    await vi.waitFor(() => expect(dom.root.querySelectorAll(".evidence-card")).toHaveLength(detail.provenance.length));
+    const topics = dom.root.querySelectorAll(".evidence-topic");
+    expect(topics.find(node => node.attributes.get("data-topic") === "context")?.open).toBe(true);
+    expect(topics.filter(node => node.attributes.get("data-topic") !== "context").every(node => !node.open)).toBe(true);
+    expect(dom.root.textContent).toContain("逐个行动的计算明细");
+    expect(dom.root.textContent).not.toContain("来源信息");
+    expect(dom.root.textContent).not.toContain("fact_engine_request");
+    boundary.dispose();
+  });
+
   it("projects selector order, fixed counts and evidence-only detail through authorized read-back", () => {
     const snapshot = presentFixedReviewSnapshot({ analysisPackage: pkg, selection, activeReport: report, activeReportRefId: "ref-a" });
     expect(snapshot.selection.items.map((item) => item.decisionId)).toEqual(selection.selected.map((item) => item.decisionId));
@@ -166,7 +207,7 @@ describe("fixed review presenter", () => {
     JSON.stringify(snapshot, (key, value) => { if (key !== "") keys.push(key); return value; });
     expect(keys).not.toEqual(expect.arrayContaining(["reportCatalog", "reportRefs", "generatedAt", "providerId", "model", "prompt", "raw"]));
     const detail = presentFixedReviewDetail({ analysisPackage: pkg, selection, activeReport: report, activeReportRefId: "ref-a", decisionId: selection.selected[0]!.decisionId });
-    expect(detail.schemaVersion).toBe("fixed-review-detail/v2");
+    expect(detail.schemaVersion).toBe("fixed-review-detail/v3");
     expect(detail.explanationStatus).toBe("provider_unavailable");
     expect(detail.coachJudgments).toEqual([]);
     expect(detail.provenance.length).toBeGreaterThan(0);

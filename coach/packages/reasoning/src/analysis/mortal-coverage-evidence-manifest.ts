@@ -1,12 +1,12 @@
 // M6-A3 §16 P0 — versioned coverage evidence manifest.
 //
-// The production coverage registry may only be lifted from ACCEPTED REAL
-// evidence, never from developer intent. This module defines that artifact:
+// Coverage reporting may only be lifted from ACCEPTED REAL evidence, never
+// from developer intent. This module defines that artifact:
 // a versioned manifest listing, per semantic branch, every accepted real E2E
 // sample (full chain: local independent pipeline → canonical → binding →
 // comparison/ModelEvaluation/assembly → redacted output) with the audit fields
 // the spec requires. `createMortalCoverageRegistryFromManifest` is the only
-// sanctioned mechanical path from evidence to a lifted registry.
+// sanctioned mechanical path from evidence to a registry used for reporting.
 //
 // Privacy (§16/§23): entries carry version/hash/source-type/adapter/model-tag
 // metadata only — never raw report ids, URLs, nicknames, account ids, or any

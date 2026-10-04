@@ -592,3 +592,35 @@ GraphContextSlice 携带 Decision.automaticComparisonScope；模型可以看到�
 跨决策与恶意引用拒绝、历史报告兼容、通用 provider/report/UI usage 链、真实档案
 前后字节与分词测量、最终提交单决策 mintest，以及新提交独立验收。
 单决策成功不能替代整盘请求可用性和真人完整 H1。
+
+## 2026-10-05 批准修订：树形教学 brief 与 v3 报告回读
+
+生产请求提示版本升为 `coach-review-prompt/v4`，wire draft 继续使用
+`coach-reasoning-draft/v2`。`GraphContextSlice` 和 `CoachContext/v1` 仍是唯一
+验证来源及本地 canonical binding；新增 provider-neutral `CoachTeachingBrief/v1`
+仅调整发送给模型的阅读结构，不改图、节点身份、所选决策、候选集合或比较策略。
+
+- 每个 selected decision 按 `decision`、`situation`、`actions`、`comparisons`、
+  `model`、`preference` 分组；actions 保留每个现有 CandidateAction 及其全部
+  FactorFact，按原 status/authority 归入 `certain`、`estimated`、`missing`；
+  comparisons 仅分组已有 FactorDifference，使用节点上已有 axis。没有发送的轴或
+  状态不补空组、不推造缺证结论。模型评分完整保留。所有节点在 Brief 中恰好出现一次。
+- 顶层 events 与短引用语义 edges 从 CoachContext 原样带入。节点 payload、D/N/A/F/M/E
+  短引用以及事件顺序不重新解释；比较对照抄 `automaticComparisonScope.actionRefs`，
+  并保留 FactorDifference 的左右动作、direction 与值。全量候选和评分仍可见，推荐仍受
+  所选比较对约束。
+- canonical 身份索引、完整图与审计 provenance 留在本地。Brief 不添加
+  producer/provenance/sourceRefs/证据登记表，不把本地 alias 查找表发送给模型。旧
+  CoachContext 解码映射保持 canonical grounding 的入口；Brief 构造须校验选集顺序、
+  节点集合与值逐项等价、单次出现、决策归属、FactorFact→CandidateAction 边及比较关系，
+  收集后再执行现有 CoachContext 引用校验。
+- 新 audit 保留 `coachContextVersion=coach-context/v1`，并增加
+  `teachingBriefVersion=coach-teaching-brief/v1`。`inputContextHash` 与 `contextBytes`
+  针对实际 canonical Brief JSON；`promptBytes` 计实际 v4 guide 加 Brief；`nodeCount`
+  仍计源 CoachContext 节点；`semanticEdgeCount` 仍计源 slice 中经验证的非
+  `derived_from` 教学关系，不代表 Brief 的 edge 行数。prompt、完整图和短引用查找表仍不入 audit。
+- 已保存 `coach-review-prompt/v3` 报告保留 wire v2，并由只读 v3 重算路径按旧平铺
+  CoachContext 模板校验其请求 audit；当前生产默认仅生成 v4。更早 v1/v2 报告继续走既有
+  canonical draft 兼容路径。报告最终引用仍还原为完整 canonical 身份。
+
+本修订冻结的是输入结构、来源边界和读回校验，不构成模型解释质量已提升的验收结论。

@@ -166,11 +166,11 @@ export type MortalFullGameCoverageSummary = Readonly<{
   modelIncompleteReasons: Readonly<Partial<Record<MortalModelIncompleteReason, number>>>;
   analysisBlockedReasons: Readonly<Partial<Record<MortalAnalysisBlockedReason, number>>>;
   sourceUnboundReasons: Readonly<Partial<Record<MortalSourceUnboundReason, number>>>;
-  // M6-A3 coverage matrix accounting: encounters count bound rows that
-  // exercised a branch THROUGH the local-actual cross-check (a row whose
-  // Mortal actual mismatches is a data-integrity failure, not a coverage
-  // hit); uncoveredBlocks counts rows fail-closed because the branch has no
-  // recorded real E2E hit.
+  // Acceptance accounting: encounters count bound rows that exercised a
+  // branch THROUGH local-actual and candidate-surface validation. The
+  // historically named `coverageBranchUncoveredBlocks` counts encounters
+  // without a recorded real E2E hit; it is diagnostic only and never blocks
+  // production analysis.
   coverageBranchEncounters: Readonly<Partial<Record<MortalCoverageBranch, number>>>;
   coverageBranchUncoveredBlocks: Readonly<Partial<Record<MortalCoverageBranch, number>>>;
 }>;
@@ -548,9 +548,10 @@ export async function runMortalFullGameReview(input: {
   readonly engine: HandStructureFactEnginePort;
   readonly onProgress?: (counts: { completed: number; total: number }) => void;
   readonly now?: () => number;
-  // M6-A3: branches stay fail-closed until real E2E acceptance evidence is
-  // recorded. Tests and the acceptance runner inject a registry; production
-  // callers get the frozen empty default.
+  // M6-A3: tests and acceptance runners may provide recorded branch evidence
+  // for coverage reporting. Missing registration is diagnostic only; the
+  // default empty registry reports missing evidence without changing review
+  // outcomes.
   readonly coverageRegistry?: MortalCoverageRegistry;
   /** Every model row and exemption consumes the same bound native census. */
   readonly libriichi: { readonly identity: LibriichiRuleIdentity; readonly results: ReadonlyMap<string, LibriichiResolvedDecision> };
@@ -659,7 +660,7 @@ export async function runMortalFullGameReview(input: {
 
   // M6-A4.2: both replay partitions flow through the SAME classification
   // pipeline — native rules/actual check → binding → singleton → support →
-  // candidate surface → coverage gate → analysis. The identity tables keep
+  // candidate surface → coverage accounting → analysis. The identity tables keep
   // self and response windows disjoint, so each partition binds only its own
   // source rows. Self rows keep the existing ordinals (H2 continuity); the
   // response partition appends its own rows with surface = "response".
@@ -907,16 +908,17 @@ export async function runMortalFullGameReview(input: {
         continue;
       }
 
-      // M6-A3 coverage gate: classify which semantic branches this bound row
-      // exercises; any branch without a recorded real E2E hit fails the row
-      // closed. Synthetic fixtures can never lift the registry.
+      // M6-A3 acceptance accounting: classify which semantic branches this
+      // already-bound, supported row exercises. Synthetic fixtures cannot
+      // lift the acceptance registry, but a missing hit is not a legality or
+      // production-analysis failure.
       const windowKind = decision.snapshot.privateState.decisionWindow.kind;
       // M6-A4.2: response window kinds now bind in the identity matcher, so the
-      // coverage gate classifies them into the response branches (resp_*_actual /
+      // coverage accounting classifies them into the response branches (resp_*_actual /
       // resp_pass_on_discard / resp_chankan_actual / resp_pass_on_kakan) — added
       // to the matrix BEFORE response binding was enabled (A4.2 guard), so bound
-      // response rows go through coverage accounting and stay fail-closed until
-      // A4.3 records real E2E evidence for each branch.
+      // response rows go through coverage accounting. Missing A4.3 E2E evidence
+      // remains visible in the report without blocking a valid review.
       const coverageWindowKind =
         windowKind === "self_turn"
         || windowKind === "post_call_discard"
@@ -937,28 +939,9 @@ export async function runMortalFullGameReview(input: {
       const uncoveredBranches = coverageBranches.filter(
         (branch) => !registry.isCovered(branch),
       );
-      if (uncoveredBranches.length > 0) {
-        for (const branch of uncoveredBranches) {
-          coverageBranchUncoveredBlocks[branch] =
-            (coverageBranchUncoveredBlocks[branch] ?? 0) + 1;
-        }
-        ledger.push({
-          decisionOrdinal: row.decisionOrdinal,
-          roundOrdinal: row.roundOrdinal,
-          surface: partition.surface,
-          binding: row.binding,
-          support,
-          review: "not_attempted",
-          outcome: "unsupported_action",
-          reason: "coverage_branch_uncovered",
-          sourceEntryRef: row.sourceEntryRef,
-          sourceOrdinal: row.sourceOrdinal,
-          modelSummary: null,
-        });
-        outcomeCounts.unsupported_action += 1;
-        unsupportedReasonCounts.coverage_branch_uncovered =
-          (unsupportedReasonCounts.coverage_branch_uncovered ?? 0) + 1;
-        continue;
+      for (const branch of uncoveredBranches) {
+        coverageBranchUncoveredBlocks[branch] =
+          (coverageBranchUncoveredBlocks[branch] ?? 0) + 1;
       }
 
       const result = await runBoundMortalDecisionReview({

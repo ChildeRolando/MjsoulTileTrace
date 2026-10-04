@@ -49,8 +49,10 @@ import { CoachRequestContextAuditSchema } from "./coach-context.js";
 /** The current ReviewReport schema version (contract-owned literal). */
 export const REVIEW_REPORT_SCHEMA_VERSION = "review-report/v1" as const;
 
-/** The frozen coach review prompt template version (spec "prompt builder"). */
-export const COACH_REVIEW_PROMPT_VERSION = "coach-review-prompt/v3" as const;
+/** The previous compact flat context prompt remains readable on report readback. */
+export const COACH_REVIEW_PROMPT_VERSION_V3 = "coach-review-prompt/v3" as const;
+/** The current nested teaching brief prompt template version. */
+export const COACH_REVIEW_PROMPT_VERSION = "coach-review-prompt/v4" as const;
 
 /** The canonical in-process / stored draft remains v1. Wire v2 uses compact
  * request-scoped aliases and is decoded back to this canonical shape before
@@ -535,6 +537,7 @@ export const ReviewGenerationSchema = z.object({
   promptVersion: z.enum([
     "coach-review-prompt/v1",
     "coach-review-prompt/v2",
+    COACH_REVIEW_PROMPT_VERSION_V3,
     COACH_REVIEW_PROMPT_VERSION,
   ]),
   draftSchemaVersion: z.enum([
@@ -638,13 +641,23 @@ export const ReviewReportSchema = z.object({
 
     if (report.generation.promptVersion === COACH_REVIEW_PROMPT_VERSION
       && report.audit.requestContext === undefined) {
-      addIssue("coach-review-prompt/v3 requires requestContext audit metadata", ["audit", "requestContext"]);
+      addIssue("coach-review-prompt/v4 requires requestContext audit metadata", ["audit", "requestContext"]);
     }
     if (report.generation.promptVersion === COACH_REVIEW_PROMPT_VERSION
       && report.generation.draftSchemaVersion !== COACH_REASONING_WIRE_DRAFT_SCHEMA_VERSION) {
-      addIssue("coach-review-prompt/v3 requires coach-reasoning-draft/v2 wire metadata", ["generation", "draftSchemaVersion"]);
+      addIssue("coach-review-prompt/v4 requires coach-reasoning-draft/v2 wire metadata", ["generation", "draftSchemaVersion"]);
     }
-    if (report.generation.promptVersion !== COACH_REVIEW_PROMPT_VERSION
+    if (report.generation.promptVersion === COACH_REVIEW_PROMPT_VERSION
+      && report.audit.requestContext?.teachingBriefVersion !== "coach-teaching-brief/v1") {
+      addIssue("coach-review-prompt/v4 requires teaching brief audit metadata", ["audit", "requestContext", "teachingBriefVersion"]);
+    }
+    if (report.generation.promptVersion === COACH_REVIEW_PROMPT_VERSION_V3
+      && (report.audit.requestContext === undefined ||
+        report.generation.draftSchemaVersion !== COACH_REASONING_WIRE_DRAFT_SCHEMA_VERSION)) {
+      addIssue("coach-review-prompt/v3 requires flat context audit and wire v2 metadata", ["generation"]);
+    }
+    if (report.generation.promptVersion !== COACH_REVIEW_PROMPT_VERSION &&
+      report.generation.promptVersion !== COACH_REVIEW_PROMPT_VERSION_V3
       && report.generation.draftSchemaVersion !== COACH_REASONING_DRAFT_SCHEMA_VERSION_V1) {
       addIssue("historical coach prompt versions require coach-reasoning-draft/v1 metadata", ["generation", "draftSchemaVersion"]);
     }

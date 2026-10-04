@@ -11,6 +11,7 @@ import {
   COACH_REASONING_DRAFT_SCHEMA_VERSION,
   COACH_REASONING_DRAFT_SCHEMA_VERSION_V1,
   COACH_REVIEW_PROMPT_VERSION,
+  COACH_REVIEW_PROMPT_VERSION_V3,
   CoachDraftDecisionSchema,
   CoachEvidenceClaimSchema,
   CoachExplanationPayloadSchema,
@@ -157,6 +158,7 @@ function minimalReport(
       transportRetries: 0,
       requestContext: {
         coachContextVersion: "coach-context/v1",
+        teachingBriefVersion: "coach-teaching-brief/v1",
         inputContextHash: `sha256:${"0".repeat(64)}`,
         promptBytes: 0,
         contextBytes: 0,
@@ -175,6 +177,7 @@ function minimalReport(
     transportRetries: 0,
     requestContext: {
       coachContextVersion: "coach-context/v1",
+      teachingBriefVersion: "coach-teaching-brief/v1",
       inputContextHash: `sha256:${"0".repeat(64)}`,
       promptBytes: 0,
       contextBytes: 0,
@@ -200,6 +203,16 @@ function evidenceOnlyReport(
       inputSliceHash: "sha256:slice",
       outputHash: "sha256:none",
       transportRetries: 0,
+      requestContext: {
+        coachContextVersion: "coach-context/v1",
+        teachingBriefVersion: "coach-teaching-brief/v1",
+        inputContextHash: `sha256:${"0".repeat(64)}`,
+        promptBytes: 0,
+        contextBytes: 0,
+        decisionCount: 1,
+        nodeCount: 1,
+        semanticEdgeCount: 0,
+      },
     },
     ...overrides,
   });
@@ -212,7 +225,19 @@ describe("M6-D2 coach version literals", () => {
       "coach-reasoning-draft/v2",
     );
     expect(COACH_REASONING_DRAFT_SCHEMA_VERSION_V1).toBe("coach-reasoning-draft/v1");
-    expect(COACH_REVIEW_PROMPT_VERSION).toBe("coach-review-prompt/v3");
+    expect(COACH_REVIEW_PROMPT_VERSION).toBe("coach-review-prompt/v4");
+    expect(COACH_REVIEW_PROMPT_VERSION_V3).toBe("coach-review-prompt/v3");
+  });
+
+  it("keeps saved v3 flat-context audits readable and requires brief metadata on v4", () => {
+    const savedV3 = minimalReport();
+    (savedV3.generation as Record<string, unknown>).promptVersion = COACH_REVIEW_PROMPT_VERSION_V3;
+    delete ((savedV3.audit as Record<string, unknown>).requestContext as Record<string, unknown>).teachingBriefVersion;
+    expect(() => ReviewReportSchema.parse(savedV3)).not.toThrow();
+
+    const missingV4Brief = minimalReport();
+    delete ((missingV4Brief.audit as Record<string, unknown>).requestContext as Record<string, unknown>).teachingBriefVersion;
+    expect(() => ReviewReportSchema.parse(missingV4Brief)).toThrow();
   });
 });
 

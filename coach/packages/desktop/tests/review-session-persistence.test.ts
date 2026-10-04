@@ -50,6 +50,31 @@ function canonical(value: unknown): string {
   return `{${Object.entries(value as Record<string, unknown>).sort(([a], [b]) => a < b ? -1 : a > b ? 1 : 0).map(([key, item]) => `${JSON.stringify(key)}:${canonical(item)}`).join(",")}}`;
 }
 const fixtureHash = (value: unknown) => createHash("sha256").update(canonical(value)).digest("hex");
+function withFactorPipeline(source: typeof pkg, factorPipeline: string): typeof pkg {
+  const componentVersions = { ...source.componentVersions, factorPipeline };
+  const decisions = source.decisions.map((decision) => decision.outcome === "analysis_ready"
+    ? { ...decision, modelEvaluation: { ...decision.modelEvaluation, detailPolicy: { ...decision.modelEvaluation.detailPolicy, frozenAt: null } } }
+    : decision);
+  const semanticContent = {
+    analysisKey: source.analysisKey,
+    record: source.record,
+    componentVersions,
+    analysisPolicy: source.analysisPolicy,
+    decisions,
+    evidenceRegistry: source.evidenceRegistry,
+    ...(source.legalActionEvidence === undefined ? {} : { legalActionEvidence: source.legalActionEvidence }),
+  };
+  return StructuredAnalysisPackageSchema.parse({
+    ...source,
+    componentVersions,
+    packageId: `package:sha256:${fixtureHash({
+      analysisKey: source.analysisKey,
+      componentVersions,
+      analysisPolicy: source.analysisPolicy,
+    })}`,
+    semanticContentHash: `sha256:${fixtureHash(semanticContent)}`,
+  });
+}
 function addSecondReadyDecision(source: typeof pkg): typeof pkg {
   const result = structuredClone(source);
   const second = structuredClone(result.decisions[0]!);
@@ -94,6 +119,28 @@ const completeReport = await generateReviewReport(graph, selection, {
 }, "2026-09-23T00:00:00.000Z");
 
 describe("ReviewSession SQLite persistence", () => {
+  it("keeps the stored v1 artifact open while saving same-record v2 under a distinct package identity", () => {
+    expect(pkg.componentVersions.factorPipeline).toBe("factor-pipeline/v1");
+    const refreshed = withFactorPipeline(pkg, "factor-pipeline/v2");
+    expect(refreshed.analysisKey).toBe(pkg.analysisKey);
+    expect(refreshed.record).toEqual(pkg.record);
+    expect(refreshed.packageId).not.toBe(pkg.packageId);
+
+    const repository = createReviewSessionRepository({ root: root() });
+    try {
+      repository.saveSession(pkg, selection);
+      expect(repository.openByPackageId(pkg.packageId).analysisPackage).toEqual(pkg);
+
+      const savedV2 = repository.saveSession(refreshed, selectReviewDecisions(refreshed));
+      expect(savedV2.analysisPackage.packageId).toBe(refreshed.packageId);
+      expect(repository.openByPackageId(refreshed.packageId).analysisPackage).toEqual(refreshed);
+      expect(repository.openByPackageId(pkg.packageId).analysisPackage).toEqual(pkg);
+      expect(repository.listSessions().map((session) => session.packageId)).toEqual(
+        expect.arrayContaining([pkg.packageId, refreshed.packageId]),
+      );
+    } finally { repository.close(); }
+  });
+
   it.each([false, true])("compacts legacy chunks losslessly and atomically, injected failure=%s", fail => {
     const dir = root();
     let repository = createReviewSessionRepository({ root: dir });

@@ -6,7 +6,7 @@ import { ReviewSelectionReasonSchema, SELECTOR_POLICY_VERSION_V1 } from "./revie
 import { LlmTokenUsageSchema, LlmProviderDescriptorSchema } from "./coach.js";
 
 export const FIXED_REVIEW_VIEW_SCHEMA_VERSION = "fixed-review-view/v1" as const;
-export const FIXED_REVIEW_DETAIL_SCHEMA_VERSION = "fixed-review-detail/v2" as const;
+export const FIXED_REVIEW_DETAIL_SCHEMA_VERSION = "fixed-review-detail/v3" as const;
 
 export const FixedReviewExplanationStatusSchema = z.enum([
   "not_generated", "ready", "provider_unavailable", "request_failed", "invalid_output",
@@ -42,6 +42,10 @@ export const RendererExplanationSchema = z.object({
 }).strict();
 export const RendererProvenanceItemSchema = z.object({
   displayRef: z.string().min(1),
+  topic: z.enum(["context", "efficiency", "value", "defense", "placement", "option_value", "inference"]),
+  kind: z.enum(["context", "comparison", "candidate", "inference"]),
+  availability: z.enum(["available", "missing", "failed", "not_calculated"]),
+  valueRelation: z.enum(["ordered", "equal", "different"]).nullable(),
   category: z.enum(["hard_evidence", "advisory_signal", "coach_inference"]),
   label: z.string().min(1),
   summary: z.string().min(1),

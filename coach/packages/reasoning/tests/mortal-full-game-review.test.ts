@@ -1532,7 +1532,7 @@ describe("M6-A3 per-window-kind identity tables", () => {
 });
 
 describe("M6-A3 runMortalFullGameReview new surfaces", () => {
-  it("fails the riichi and post-riichi windows closed until the coverage branches are lifted", async () => {
+  it("records missing riichi and post-riichi acceptance coverage without blocking supported rows", async () => {
     const stream = riichiDeclarationStream();
     const decisions = replayCanonicalStream(stream);
     const report = makeReport(riichiPairEntries(decisions), {
@@ -1547,14 +1547,14 @@ describe("M6-A3 runMortalFullGameReview new surfaces", () => {
     });
     expect(review.status).toBe("coverage_ready");
     if (review.status !== "coverage_ready") return;
-    // Both windows bind their entries but stay fail-closed: no real E2E hit
-    // has lifted riichi_window / post_riichi yet.
+    // Missing E2E registration is an acceptance diagnostic, not an action
+    // authority. Both supported rows reach fact analysis, which this test's
+    // deliberately failing engine blocks.
     for (const row of review.decisions) {
       expect(row.binding).toBe("bound");
-      expect(row.outcome).toBe("unsupported_action");
-      expect(row.reason).toBe("coverage_branch_uncovered");
+      expect(row.outcome).toBe("analysis_blocked");
     }
-    expect(review.summary.unsupportedReasons.coverage_branch_uncovered).toBe(2);
+    expect(review.summary.coverageBranchUncoveredBlocks).toEqual({ riichi_window: 1, post_riichi: 1 });
   });
 
   it("runs the riichi window through the import once its coverage branch is lifted", async () => {
@@ -1574,12 +1574,11 @@ describe("M6-A3 runMortalFullGameReview new surfaces", () => {
     expect(review.status).toBe("coverage_ready");
     if (review.status !== "coverage_ready") return;
     const selfTurnRow = review.decisions[0]!;
-    // Past the coverage gate and past the structured import (the riichi
-    // unification ran); only the deliberately failing engine stops analysis.
+    // Past the riichi coverage registration; the deliberately failing engine
+    // stops both supported rows. Registration only changes acceptance metrics.
     expect(selfTurnRow.outcome).toBe("analysis_blocked");
-    // The post-riichi branch is still uncovered: fail closed.
-    expect(review.decisions[1]!.outcome).toBe("unsupported_action");
-    expect(review.decisions[1]!.reason).toBe("coverage_branch_uncovered");
+    expect(review.decisions[1]!.outcome).toBe("analysis_blocked");
+    expect(review.summary.coverageBranchUncoveredBlocks).toEqual({ post_riichi: 1 });
   });
 
   it("cross-checks the riichi actual by type correspondence, not tile equality", async () => {
@@ -1616,7 +1615,7 @@ describe("M6-A3 runMortalFullGameReview new surfaces", () => {
     expect(review.decisions[0]!.reason).toBe("mortal_actual_mismatch");
   });
 
-  it("binds a tsumo terminal window and gates it on its coverage branch", async () => {
+  it("binds a tsumo terminal window and reports missing coverage without blocking it", async () => {
     const stream = tsumoTerminalStream();
     const decisions = replayCanonicalStream(stream);
     expect(decisions).toHaveLength(1);
@@ -1646,8 +1645,8 @@ describe("M6-A3 runMortalFullGameReview new surfaces", () => {
     expect(gated.status).toBe("coverage_ready");
     if (gated.status !== "coverage_ready") return;
     expect(gated.decisions[0]!.binding).toBe("bound");
-    expect(gated.decisions[0]!.outcome).toBe("unsupported_action");
-    expect(gated.decisions[0]!.reason).toBe("coverage_branch_uncovered");
+    expect(gated.decisions[0]!.outcome).toBe("analysis_blocked");
+    expect(gated.summary.coverageBranchUncoveredBlocks).toEqual({ self_turn_tsumo_actual: 1 });
 
     const lifted = await runMortalFullGameReview({
       stream,

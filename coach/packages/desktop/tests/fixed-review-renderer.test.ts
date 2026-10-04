@@ -1140,11 +1140,11 @@ describe("fixed review native DOM surface", () => {
           selection: { policyVersion: "deterministic-review-selector/v1", selectedCount: 1, items: [item] },
         };
         const evidence = (displayRef, label, summary, category = "hard_evidence", parentRefs = []) => ({
-          displayRef, category, label, summary, relatedAction: null, details: [], producer: "fixture",
+          displayRef, topic: category === "coach_inference" ? "inference" : "efficiency", kind: category === "coach_inference" ? "inference" : "comparison", availability: "available", valueRelation: null, category, label, summary, relatedAction: null, details: [], producer: "fixture",
           producerVersion: "v1", parentRefs,
         });
         const detail = {
-          schemaVersion: "fixed-review-detail/v2", packageId: "focus-package", decisionId: "d1", activeReportRefId: "ref",
+          schemaVersion: "fixed-review-detail/v3", packageId: "focus-package", decisionId: "d1", activeReportRefId: "ref",
           actual: action, mortal: [scoredAction],
           explanationStatus: "ready",
           coachJudgments: [{ recommendation: action, confidence: "medium", premiseRefs: ["fact"] }],
@@ -1170,7 +1170,7 @@ describe("fixed review native DOM surface", () => {
           const details = [...document.querySelectorAll("details")];
           window.evidenceSummary = details.find((node) => node.querySelector("summary")?.textContent === "证据摘要");
           window.evidenceSummary.open = false;
-          if (label === "查看父项") details.find((node) => node.querySelector("summary")?.textContent === "来源信息").open = true;
+          if (label === "查看父项") { window.evidenceSummary.open = true; details.filter(node => node.dataset.topic === "inference").forEach(node => { node.open = true; }); }
           [...document.querySelectorAll("button")].find((button) => button.textContent === label).focus();
         };
         window.run = window.runEvidence;

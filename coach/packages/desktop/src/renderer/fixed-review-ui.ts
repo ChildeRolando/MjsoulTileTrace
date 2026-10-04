@@ -155,36 +155,106 @@ export function createFixedReviewUi(input: {
       coach.append(paragraph);
     }
     const evidence = element(document, "details");
+    evidence.className = "review-evidence";
     evidence.open = true;
     evidence.append(element(document, "summary", "证据摘要"));
-    const groups = [
-      ["hard_evidence", "确定性证据"], ["advisory_signal", "参考信号"], ["coach_inference", "教练推断"],
+    evidence.append(element(document, "p", "先看局面，再比较行动。确定事实与估计信号分开列出；没有算出的内容会明确标记。"));
+    const topics = [
+      ["context", "当前局面", "手牌、牌河与场况"],
+      ["efficiency", "牌效与速度", "向听、进张与听牌形状"],
+      ["value", "打点与价值", "得分、役种与宝牌"],
+      ["defense", "防守与风险", "按威胁对象查看安全依据"],
+      ["placement", "顺位条件", "点数与名次目标"],
+      ["option_value", "后续选择", "保留或失去的行动空间"],
+      ["inference", "教练推断", "基于上述证据的判断"],
     ] as const;
-    for (const [category, label] of groups) {
-      const items = detail.provenance.filter((item) => item.category === category);
-      if (items.length === 0) continue;
-      evidence.append(element(document, "h5", label));
-      for (const item of items) {
-        const card = element(document, "article");
-        card.tabIndex = -1;
-        evidenceTargets.set(item.displayRef, card);
-        card.append(element(document, "p", `${item.label}${item.relatedAction === null ? "" : `（${item.relatedAction.label}）`}：${item.summary}`));
-        for (const detailItem of item.details) {
-          const line = element(document, "p", `${detailItem.label}${detailItem.scope === null ? "" : ` · ${detailItem.scope}`}：${detailItem.value}`);
-          if (detailItem.tiles.length > 0) line.append(document.createTextNode(`（${detailItem.tiles.map((tile) => `${tile.tile} ${tile.count === null ? "剩余张数未知" : `${tile.count} 张`}`).join("、")}）`));
-          card.append(line);
-        }
-        evidence.append(card);
+    const groups = [
+      ["hard_evidence", "确定性证据"], ["advisory_signal", "参考信号 · 估计，不是保证"], ["coach_inference", "教练推断"],
+    ] as const;
+    const availabilityLabels = { available: "已计算", missing: "信息不足", failed: "计算失败", not_calculated: "未计算此指标" } as const;
+    const tree = element(document, "div");
+    tree.className = "evidence-tree";
+    const makeCard = (item: FixedReviewDetailDto["provenance"][number]) => {
+      const card = element(document, "article");
+      card.className = `evidence-card evidence-${item.kind}`;
+      card.tabIndex = -1;
+      evidenceTargets.set(item.displayRef, card);
+      const title = element(document, "p", item.relatedAction === null && item.summary.startsWith(`${item.label}：`)
+        ? item.summary : `${item.label}${item.relatedAction === null ? "" : `（${item.relatedAction.label}）`}：${item.summary}`);
+      title.className = "evidence-card-title";
+      card.append(title);
+      if (item.availability !== "available") {
+        const state = element(document, "p", availabilityLabels[item.availability]);
+        state.className = "evidence-unavailable";
+        card.append(state);
       }
+      const values = element(document, "div");
+      values.className = "evidence-values";
+      for (const detailItem of item.details) {
+        const line = element(document, "p", `${detailItem.label}${detailItem.scope === null ? "" : ` · ${detailItem.scope}`}：${detailItem.value}`);
+        line.className = "evidence-value";
+        if (detailItem.tiles.length > 0) {
+          const tiles = element(document, "span");
+          tiles.className = "evidence-tiles";
+          for (const tile of detailItem.tiles) {
+            const chip = element(document, "span", `${tile.tile} · ${tile.count === null ? "张数未知" : `${tile.count} 张`}`);
+            chip.className = "evidence-tile";
+            tiles.append(chip);
+          }
+          line.append(tiles);
+        }
+        values.append(line);
+      }
+      card.append(values);
+      for (const ref of item.parentRefs) card.append(evidenceButton(ref, "查看父项"));
+      return card;
+    };
+    for (const [topic, label, description] of topics) {
+      const items = detail.provenance.filter(item => item.topic === topic);
+      if (items.length === 0) continue;
+      const branch = element(document, "details");
+      branch.className = "evidence-topic";
+      branch.open = topic === "context";
+      branch.setAttribute("data-topic", topic);
+      branch.append(element(document, "summary", `${label} · ${items.length} 项`));
+      branch.append(element(document, "p", description));
+      for (const [category, groupLabel] of groups) {
+        const grouped = items.filter(item => item.category === category);
+        if (grouped.length === 0) continue;
+        const group = element(document, "section");
+        group.className = `evidence-group evidence-${category}`;
+        group.append(element(document, "h5", groupLabel));
+        const primary = grouped.filter(item => item.kind !== "candidate" && item.valueRelation !== "equal");
+        for (const item of primary) group.append(makeCard(item));
+        const equal = grouped.filter(item => item.valueRelation === "equal");
+        if (equal.length > 0) {
+          const equalBranch = element(document, "details");
+          equalBranch.className = "evidence-equal";
+          equalBranch.append(element(document, "summary", `两种行动相同的指标 · ${equal.length} 项`));
+          for (const item of equal) equalBranch.append(makeCard(item));
+          group.append(equalBranch);
+        }
+        const candidates = grouped.filter(item => item.kind === "candidate");
+        if (candidates.length > 0) {
+          const ledger = element(document, "details");
+          ledger.className = "evidence-candidates";
+          ledger.append(element(document, "summary", `逐个行动的计算明细 · ${candidates.length} 项`));
+          const actions = [...new Set(candidates.map(item => item.relatedAction?.actionRef ?? ""))];
+          for (const action of actions) {
+            const records = candidates.filter(item => (item.relatedAction?.actionRef ?? "") === action);
+            const actionBranch = element(document, "details");
+            actionBranch.append(element(document, "summary", records[0]!.relatedAction?.label ?? "行动信息未知"));
+            for (const item of records) actionBranch.append(makeCard(item));
+            ledger.append(actionBranch);
+          }
+          group.append(ledger);
+        }
+        branch.append(group);
+      }
+      tree.append(branch);
     }
-    const metadata = element(document, "details");
-    metadata.append(element(document, "summary", "来源信息"));
-    for (const item of detail.provenance) {
-      const line = element(document, "p", `${item.label} · ${item.producer} ${item.producerVersion}`);
-      for (const ref of item.parentRefs) line.append(document.createTextNode(" "), evidenceButton(ref, "查看父项"));
-      metadata.append(line);
-    }
-    section.append(heading, comparison, coach, evidence, metadata);
+    evidence.append(tree);
+    section.append(heading, comparison, coach, evidence);
     input.root.querySelector(".review-detail")?.remove();
     input.root.append(section);
     syncInteractionState();
