@@ -281,7 +281,9 @@ analysis_blocked
 #### Evidence 展开与可追溯明细（P4，2026-09-22 产品 owner 裁决：B + 明细可达）
 
 - 硬证据、参考信号、教练推断分组的证据摘要默认展开；各项生产者/版本、显示引用、
-  父项关系等来源信息默认折叠，可按项展开。缺少解说不关闭已有证据；无当前报告
+  父项关系默认折叠，可按项展开。底层来源 ID（package evidence `sourceRefs` 与 graph
+  `provenance`）只留在持久化 package 及后台派生 graph，不投影到 renderer，也不在界面展示；教学摘要、
+  细项和通过显示引用完成的解释跳转仍保留。缺少解说不关闭已有证据；无当前报告
   推断时显示明确空状态，不沿用旧报告内容。
 - 对已有可信细项支撑的汇总值，尽可能提供到构成明细、计算口径和来源的可读路径。
   “摘要展开”不能止步于一个无法检查的总数；既有安全 allow-list 仍适用于全部层级，
@@ -382,7 +384,7 @@ type FixedReviewListItemDto = {
 };
 
 type FixedReviewDetailDto = {
-  schemaVersion: "fixed-review-detail/v1";
+  schemaVersion: "fixed-review-detail/v2";
   packageId: string;
   activeReportRefId: string | null;
   decisionId: string;

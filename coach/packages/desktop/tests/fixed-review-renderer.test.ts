@@ -1141,10 +1141,10 @@ describe("fixed review native DOM surface", () => {
         };
         const evidence = (displayRef, label, summary, category = "hard_evidence", parentRefs = []) => ({
           displayRef, category, label, summary, relatedAction: null, details: [], producer: "fixture",
-          producerVersion: "v1", sourceRefs: [], parentRefs,
+          producerVersion: "v1", parentRefs,
         });
         const detail = {
-          schemaVersion: "fixed-review-view/v1", packageId: "focus-package", decisionId: "d1", activeReportRefId: "ref",
+          schemaVersion: "fixed-review-detail/v2", packageId: "focus-package", decisionId: "d1", activeReportRefId: "ref",
           actual: action, mortal: [scoredAction],
           explanationStatus: "ready",
           coachJudgments: [{ recommendation: action, confidence: "medium", premiseRefs: ["fact"] }],

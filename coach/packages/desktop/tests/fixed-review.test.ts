@@ -166,9 +166,14 @@ describe("fixed review presenter", () => {
     JSON.stringify(snapshot, (key, value) => { if (key !== "") keys.push(key); return value; });
     expect(keys).not.toEqual(expect.arrayContaining(["reportCatalog", "reportRefs", "generatedAt", "providerId", "model", "prompt", "raw"]));
     const detail = presentFixedReviewDetail({ analysisPackage: pkg, selection, activeReport: report, activeReportRefId: "ref-a", decisionId: selection.selected[0]!.decisionId });
+    expect(detail.schemaVersion).toBe("fixed-review-detail/v2");
     expect(detail.explanationStatus).toBe("provider_unavailable");
     expect(detail.coachJudgments).toEqual([]);
     expect(detail.provenance.length).toBeGreaterThan(0);
+    expect(detail.provenance.every((item) => !Object.hasOwn(item, "sourceRefs"))).toBe(true);
+    const auditedSource = Object.values(pkg.evidenceRegistry).find((record) => record.kind === "fact_engine_request" && record.sourceRefs.length > 0);
+    expect(auditedSource).toBeDefined();
+    expect(projectContextGraph(pkg).nodes.some((node) => node.provenance.includes(auditedSource!.evidenceId))).toBe(true);
     expect(detail.mortal[0]?.scoreMethodLabel).toBe("Mortal 行动概率 × 100");
     expect(JSON.stringify(detail.provenance)).not.toContain("undefined");
     const ukeire = detail.provenance.find((item) => item.relatedAction !== null && item.summary.includes("有效进张") && item.details.some((entry) => entry.tiles.length > 0));

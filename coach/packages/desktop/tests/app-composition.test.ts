@@ -99,7 +99,7 @@ async function runScenario(scenario: Scenario): Promise<Record<string, unknown>>
         explanationCounts: { ready: 0, provider_unavailable: 0, request_failed: 0, invalid_output: 0 },
       });
       const detail = (packageId) => ({
-        schemaVersion: "fixed-review-detail/v1", packageId, activeReportRefId: null,
+        schemaVersion: "fixed-review-detail/v2", packageId, activeReportRefId: null,
         decisionId: "decision-1", actual: { actionRef: "discard:1m", label: "1m" },
         mortal: [{ actionRef: "discard:2m", label: "2m", score: 80, scoreUnit: "模型选择分", scoreMethodLabel: "Mortal 行动概率 × 100" }],
         coachJudgments: [], explanations: [], referenceTargets: [], provenance: [], explanationStatus: "not_generated",

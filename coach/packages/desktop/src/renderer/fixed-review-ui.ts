@@ -180,7 +180,7 @@ export function createFixedReviewUi(input: {
     const metadata = element(document, "details");
     metadata.append(element(document, "summary", "来源信息"));
     for (const item of detail.provenance) {
-      const line = element(document, "p", `${item.label} · ${item.producer} ${item.producerVersion} · 来源 ${item.sourceRefs.join("、") || "无上游引用"}`);
+      const line = element(document, "p", `${item.label} · ${item.producer} ${item.producerVersion}`);
       for (const ref of item.parentRefs) line.append(document.createTextNode(" "), evidenceButton(ref, "查看父项"));
       metadata.append(line);
     }

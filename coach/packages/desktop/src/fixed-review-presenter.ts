@@ -545,10 +545,9 @@ export function presentFixedReviewDetailFromContext(
     parentRefs,
     producer: node.producer,
     producerVersion: node.producerVersion,
-    sourceRefs: [...node.provenance],
   }); });
   return Object.freeze(FixedReviewDetailSchema.parse({
-    schemaVersion: "fixed-review-detail/v1",
+    schemaVersion: "fixed-review-detail/v2",
     packageId: context.analysisPackage.packageId,
     activeReportRefId,
     decisionId,
