@@ -69,7 +69,7 @@ let currentSessionStatus: MahjongSoulSessionStatus["status"] = "logged_out";
 let operationPending = false;
 const RECORDS_PER_PAGE = 8;
 const ANALYSIS_STAGE_LABELS: Readonly<Record<Exclude<RecordAnalysisSnapshot["stage"], "idle" | "complete" | "failed">, string>> = {
-  fetching: "读取牌谱", replaying: "重放牌谱", rules: "检查合法动作", scoring: "模型评分",
+  fetching: "读取牌谱", replaying: "重放牌谱", rules: "重放牌谱", scoring: "模型评分",
   facts: "计算教学分析", packaging: "整理分析档案", saving: "保存复盘",
 };
 const ANALYSIS_STEP_STATUS_LABELS = {
@@ -101,6 +101,21 @@ function initialAnalysisSnapshot(): RecordAnalysisSnapshot {
   };
 }
 
+// Native rule preparation is part of replay, not a second action validator.
+// Keep operational timing/history intact while presenting one replay step.
+function visibleAnalysisSteps(snapshot: RecordAnalysisSnapshot): RecordAnalysisSnapshot["steps"] {
+  const replay = snapshot.steps.find(step => step.stage === "replaying")!;
+  const rules = snapshot.steps.find(step => step.stage === "rules")!;
+  const usesRulesProgress = rules.status !== "waiting" && rules.status !== "skipped";
+  return snapshot.steps.filter(step => step.stage !== "rules").map(step => step.stage === "replaying" ? {
+    ...step,
+    status: usesRulesProgress ? rules.status : replay.status,
+    completed: usesRulesProgress ? rules.completed : replay.completed,
+    total: usesRulesProgress ? rules.total : replay.total,
+    elapsedMs: replay.elapsedMs + rules.elapsedMs,
+  } : step);
+}
+
 function renderAnalysisProgress(snapshot: RecordAnalysisSnapshot): void {
   const activeLabel = snapshot.stage === "idle" ? "等待开始"
     : snapshot.stage === "complete" ? "整盘分析已完成"
@@ -123,7 +138,7 @@ function renderAnalysisProgress(snapshot: RecordAnalysisSnapshot): void {
     analysisProgressEstimate.textContent = `总用时 ${formatDuration(snapshot.elapsedMs)} · 正在建立本机参考，暂无法估算总时长和剩余时间。`;
   }
   const fragment = document.createDocumentFragment();
-  for (const step of snapshot.steps) {
+  for (const step of visibleAnalysisSteps(snapshot)) {
     const item = document.createElement("li");
     item.dataset.stage = step.stage;
     item.dataset.status = step.status;

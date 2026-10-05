@@ -96,6 +96,51 @@ function writeFixedReviewBrowserFixture(directory: string, setup: string): void 
 }
 
 describe("fixed review native DOM surface", () => {
+  it.each(["running", "failed"])("keeps native rule preparation progress and failures within replay: %s", async status => {
+    const directory = mkdtempSync(join(tmpdir(), "catalog-replay-progress-"));
+    try {
+      for (const name of ["app", "fixed-review-ui", "record-label", "session-ui-policy", "paipu-ui-policy"]) {
+        writeFileSync(join(directory, `${name}.js`), transpileModule(
+          readFileSync(new URL(`../src/renderer/${name}.ts`, import.meta.url), "utf8"), {
+            compilerOptions: { module: ModuleKind.ES2022, target: ScriptTarget.ES2022 },
+          }).outputText, "utf8");
+      }
+      const progress = analysisSnapshot({ stage: status === "failed" ? "failed" : "rules", completed: 2, total: 5, failedAt: 2 }) as { steps: { stage: string; elapsedMs: number; completed: number; total: number | null }[] };
+      Object.assign(progress.steps[2]!, { elapsedMs: 1700, completed: 2, total: 5 });
+      writeFileSync(join(directory, "setup.js"), `
+        const settle = () => new Promise(resolve => setTimeout(resolve, 0));
+        let poll;
+        window.setInterval = callback => { poll = callback; return 1; };
+        window.clearInterval = () => {};
+        window.riichiCoach = { getSessionStatus: async () => ({ status: "valid", displayName: "fixture" }) };
+        window.riichiCoachProvider = { listReviewSessions: async () => [], status: async () => ({ configured: true, settings: null }) };
+        window.riichiCoachCatalog = {
+          listAnalyzableRecords: async () => [{ recordId: "fixture", startedAt: 1, selfSeat: 0, shareUrl: "fixture", rule: { displayLabel: "四人南风" }, players: [0,1,2,3].map(seat => ({ seat, displayName: "fixture", rank: seat+1, finalScore: 25000 })) }],
+          startRecordAnalysis: () => new Promise(() => {}),
+          getRecordAnalysisProgress: async () => (${JSON.stringify(progress)})
+        };
+        window.run = async () => { await settle(); document.querySelector("#catalog-list button").click(); await settle(); poll(); await settle(); };
+        window.focusResult = () => {
+          const steps = [...document.querySelectorAll("#analysis-progress-steps li")];
+          const replay = steps[1];
+          return { stages: steps.map(step => step.dataset.stage), replayStatus: replay.dataset.status,
+            replayName: replay.querySelector(".progress-step-name").textContent,
+            replayProgress: replay.querySelector(".progress-step-state").textContent,
+            replayTime: replay.querySelector(".progress-step-time").textContent,
+            label: document.querySelector("#analysis-progress-label").textContent,
+            obsoleteLabel: document.querySelector("#analysis-progress").textContent.includes("检查合法动作") };
+        };
+      `);
+      writeFileSync(join(directory, "page.html"), html.replace('<script type="module" src="./app.js"></script>', '<script src="./setup.js"></script><script type="module" src="./app.js"></script>'));
+      expect(await chromiumFocusResults(directory, ["window.run()"])).toEqual([{
+        stages: ["fetching", "replaying", "scoring", "facts", "packaging", "saving"], replayStatus: status,
+        replayName: "重放牌谱", replayProgress: `${status === "running" ? "进行中" : "失败"} · 2/5`,
+        replayTime: "耗时 0分2秒", obsoleteLabel: false,
+        label: expect.stringContaining(status === "running" ? "正在进行重放牌谱 · 2/5" : "整盘分析未完成"),
+      }]);
+    } finally { rmSync(directory, { recursive: true, force: true }); }
+  });
+
   it.each(["failed", "validation_failed", "saved_open_failed"])("shows pending account analysis, blocks duplicate starts, and recovers controls: %s", async completion => {
     const directory = mkdtempSync(join(tmpdir(), "catalog-analysis-pending-"));
     try {
@@ -157,18 +202,18 @@ describe("fixed review native DOM surface", () => {
       expect(await chromiumFocusResults(directory, ["window.run()"])).toEqual([{
         pending: { calls: 1, text: "正在分析这场牌谱…整盘分析可能需要较长时间，请稍候。", busy: "true",
           disabled: [true, true, true, true], recordButtonsDisabled: [true, true], labels: ["分析中…", "分析"], progressShown: true, progressValue: 2, progressMax: 5,
-          stepStatuses: ["fetching:complete", "replaying:complete", "rules:complete", "scoring:running", "facts:waiting", "packaging:waiting", "saving:waiting"],
+          stepStatuses: ["fetching:complete", "replaying:complete", "scoring:running", "facts:waiting", "packaging:waiting", "saving:waiting"],
           estimate: "预计总时长 0分12秒 · 预计剩余 0分7秒 · 根据本机历史分析",
           summary: "已开始分析，正在读取主进程的阶段进度。" },
-        immediateProgress: { shown: true, steps: ["fetching:running", "replaying:waiting", "rules:waiting", "scoring:waiting", "facts:waiting", "packaging:waiting", "saving:waiting"] },
+        immediateProgress: { shown: true, steps: ["fetching:running", "replaying:waiting", "scoring:waiting", "facts:waiting", "packaging:waiting", "saving:waiting"] },
         progressLabel: "正在进行模型评分 · 2/5 · 总用时 0分5秒",
         pollIntervalMs: 1000, progressReads: 3,
         afterDuplicate: 1,
         finished: { calls: 1, text: completion === "failed" ? "暂时无法分析这场牌谱，请重试。" : completion === "validation_failed" ? "这场牌谱未通过转换或重放校验，分析未完成。请保留牌谱并反馈此问题。" : "复盘已保存，但暂时无法打开，请从已保存复盘重试。",
           busy: "false", disabled: [false, false, false, false], recordButtonsDisabled: [false, false], labels: ["分析", "分析"], progressShown: true, progressValue: 0, progressMax: 5,
           stepStatuses: completion === "saved_open_failed"
-            ? ["fetching:complete", "replaying:complete", "rules:complete", "scoring:complete", "facts:complete", "packaging:complete", "saving:complete"]
-            : ["fetching:complete", "replaying:complete", "rules:complete", "scoring:failed", "facts:skipped", "packaging:skipped", "saving:skipped"],
+            ? ["fetching:complete", "replaying:complete", "scoring:complete", "facts:complete", "packaging:complete", "saving:complete"]
+            : ["fetching:complete", "replaying:complete", "scoring:failed", "facts:skipped", "packaging:skipped", "saving:skipped"],
           estimate: completion === "saved_open_failed"
             ? "预计总时长 0分7秒 · 预计剩余 0分0秒 · 根据本机历史分析"
             : "总用时 0分6秒 · 正在建立本机参考，暂无法估算总时长和剩余时间。",
@@ -338,9 +383,9 @@ describe("fixed review native DOM surface", () => {
         firstAnalysisPending: { calls: ["record-0"], busy: "true", progressCalls: 1 },
         firstAnalysisFinished: { calls: ["record-0"], busy: "false", progressShown: true },
         secondAnalysisBeforeOldReply: { calls: ["record-0", "record-1"], busy: "true",
-          steps: ["fetching:running", "replaying:waiting", "rules:waiting", "scoring:waiting", "facts:waiting", "packaging:waiting", "saving:waiting"], progressCalls: 1 },
+          steps: ["fetching:running", "replaying:waiting", "scoring:waiting", "facts:waiting", "packaging:waiting", "saving:waiting"], progressCalls: 1 },
         secondAnalysisAfterOldReply: { label: "正在进行读取牌谱 · 0/1 · 总用时 0分2秒",
-          steps: ["fetching:running", "replaying:waiting", "rules:waiting", "scoring:waiting", "facts:waiting", "packaging:waiting", "saving:waiting"],
+          steps: ["fetching:running", "replaying:waiting", "scoring:waiting", "facts:waiting", "packaging:waiting", "saving:waiting"],
           progressCalls: 3, maxActiveReads: 1 },
       }]);
     } finally { rmSync(directory, { recursive: true, force: true, maxRetries: 20, retryDelay: 100 }); }
@@ -403,7 +448,7 @@ describe("fixed review native DOM surface", () => {
     } finally { rmSync(directory, { recursive: true, force: true, maxRetries: 20, retryDelay: 100 }); }
   }, 90_000);
 
-  it("captures the desktop workbench and seven-step analysis panel in the fixed hidden Electron window", async () => {
+  it("captures the desktop workbench and six-step analysis panel in the fixed hidden Electron window", async () => {
     const directory = mkdtempSync(join(tmpdir(), "desktop-workbench-capture-"));
     const evidenceDirectory = resolve(process.cwd(), "..", "..", "coach-acceptance-evidence", "desktop-workbench-20261004");
     const capturePath = join(evidenceDirectory, "desktop-workbench.png");
@@ -450,7 +495,7 @@ describe("fixed review native DOM surface", () => {
       const results = await chromiumFocusResults(directory, ["window.run()"], { path: capturePath, width: 1440, height: 1120 });
       expect(results).toEqual([expect.objectContaining({
         width: expect.any(Number), sidebarWidth: expect.any(Number), recordCount: 8,
-        page: "第 1 / 2 页 · 共 10 场", stepCount: 7,
+        page: "第 1 / 2 页 · 共 10 场", stepCount: 6,
         stepText: expect.stringContaining("模型评分"),
         progressEstimate: "预计总时长 3分30秒 · 预计剩余 1分55秒 · 根据本机历史分析",
       })]);
