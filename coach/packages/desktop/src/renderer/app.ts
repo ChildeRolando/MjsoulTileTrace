@@ -77,6 +77,7 @@ function applySessionState(status: MahjongSoulSessionStatus["status"]): void {
   const busy = status === "authenticating" || status === "session_validating";
   const policy = sessionUiPolicy(status, true);
   currentSessionStatus = status;
+  loginButton.textContent = "登录雀魂";
   loginButton.hidden = status !== "logged_out";
   logoutButton.hidden = !loggedIn;
   refreshButton.hidden = busy;
@@ -176,8 +177,17 @@ async function runSync(): Promise<void> {
   setPending(true);
   try {
     renderCatalog(await window.riichiCoachCatalog.syncAnalyzableRecords());
-  } catch {
-    catalogDetailElement.textContent = "牌谱加载失败，请重试。";
+  } catch (error) {
+    if (error instanceof Error && error.message === "mahjong_soul_session_invalid") {
+      statusElement.textContent = "会话需要重新连接";
+      detailElement.textContent = "本机保存的数据仍会保留。";
+      catalogDetailElement.textContent = "当前雀魂会话无法恢复，请重新连接后再同步。";
+      loginButton.textContent = "重新连接";
+      loginButton.hidden = false;
+      syncButton.hidden = true;
+    } else {
+      catalogDetailElement.textContent = "牌谱加载失败，请重试。";
+    }
   } finally {
     setPending(false);
   }

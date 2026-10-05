@@ -30,6 +30,48 @@ export interface MahjongSoulCatalogService {
   resume(): void;
 }
 
+export type StoredMahjongSoulCatalogAuthentication =
+  | "authenticated"
+  | "rejected"
+  | "unverified";
+
+export function createMahjongSoulCatalogSessionFactory(input: {
+  readonly createSession: () => Promise<MahjongSoulLobbySession>;
+  readonly authenticate: (
+    lobby: MahjongSoulLobbySession,
+    session: StoredMahjongSoulSession,
+  ) => Promise<StoredMahjongSoulCatalogAuthentication>;
+}): MahjongSoulCatalogServiceInput["sessionFactory"] {
+  if (typeof input?.createSession !== "function" || typeof input.authenticate !== "function") {
+    throw new MahjongSoulSourceError("mahjong_soul_catalog_sync_failed");
+  }
+
+  return async (session) => {
+    let lobby: MahjongSoulLobbySession;
+    try {
+      lobby = await input.createSession();
+    } catch {
+      throw new MahjongSoulSourceError("mahjong_soul_catalog_sync_failed");
+    }
+
+    let authentication: StoredMahjongSoulCatalogAuthentication;
+    try {
+      authentication = await input.authenticate(lobby, session);
+    } catch {
+      try { await lobby.close(); } catch { /* Preserve the fixed auth result. */ }
+      throw new MahjongSoulSourceError("mahjong_soul_catalog_sync_failed");
+    }
+
+    if (authentication === "authenticated") return lobby;
+    try { await lobby.close(); } catch { /* Closing cannot change auth classification. */ }
+    throw new MahjongSoulSourceError(
+      authentication === "rejected"
+        ? SESSION_INVALID
+        : "mahjong_soul_catalog_sync_failed",
+    );
+  };
+}
+
 function invalid(): MahjongSoulSourceError {
   return new MahjongSoulSourceError(SESSION_INVALID);
 }
@@ -66,6 +108,7 @@ export function createMahjongSoulCatalogService(
     const stored = await vault.restore();
     if (stored === null || generation !== expectedGeneration) throw invalid();
     let lobby: MahjongSoulLobbySession | null = null;
+    let operationFailure: MahjongSoulSourceError | null = null;
     try {
       lobby = await sessionFactory(stored);
       activeLobby = lobby;
@@ -111,14 +154,37 @@ export function createMahjongSoulCatalogService(
       ) {
         throw new MahjongSoulSourceError("mahjong_soul_catalog_sync_failed");
       }
+      // Close successfully before committing so a close failure cannot report
+      // a failed sync after replacing the previously persisted catalog.
+      await lobby.close();
+      if (activeLobby === lobby) activeLobby = null;
+      lobby = null;
+      const stillCurrent = await vault.restore();
+      if (
+        generation !== expectedGeneration
+        || stillCurrent === null
+        || stillCurrent.accountId !== stored.accountId
+      ) {
+        throw new MahjongSoulSourceError("mahjong_soul_catalog_sync_failed");
+      }
       await catalogStore.replaceSummaries(stored.accountId, summaries);
       return await catalogStore.list(stored.accountId);
     } catch (error) {
-      if (error instanceof MahjongSoulSourceError) throw error;
-      throw new MahjongSoulSourceError("mahjong_soul_catalog_sync_failed");
+      operationFailure = error instanceof MahjongSoulSourceError
+        ? error
+        : new MahjongSoulSourceError("mahjong_soul_catalog_sync_failed");
+      throw operationFailure;
     } finally {
       if (activeLobby === lobby) activeLobby = null;
-      if (lobby !== null) await lobby.close();
+      if (lobby !== null) {
+        try {
+          await lobby.close();
+        } catch {
+          if (operationFailure === null) {
+            throw new MahjongSoulSourceError("mahjong_soul_catalog_sync_failed");
+          }
+        }
+      }
     }
   }
 

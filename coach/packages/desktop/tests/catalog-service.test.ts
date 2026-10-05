@@ -9,7 +9,10 @@ import {
   type RawRecordListEntry,
   type StoredMahjongSoulSession,
 } from "@riichi-coach/mahjong-soul-source";
-import { createMahjongSoulCatalogService } from "../src/catalog-service.js";
+import {
+  createMahjongSoulCatalogService,
+  createMahjongSoulCatalogSessionFactory,
+} from "../src/catalog-service.js";
 
 const firstId = "260811-00000000-0000-0000-0000-000000000001";
 const secondId = "260811-00000000-0000-0000-0000-000000000002";
@@ -82,7 +85,7 @@ function vaultReturning(session: StoredMahjongSoulSession | null): MahjongSoulSe
 
 function lobbyReturning(
   entries: RawRecordListEntry[],
-  options: { failSync?: boolean } = {},
+  options: { failSync?: boolean; failClose?: boolean } = {},
 ): { lobby: MahjongSoulLobbySession; closed: () => boolean } {
   let isClosed = false;
   const lobby: MahjongSoulLobbySession = {
@@ -118,12 +121,50 @@ function lobbyReturning(
     },
     async close() {
       isClosed = true;
+      if (options.failClose) throw new Error("private close diagnostic");
     },
   };
   return { lobby, closed: () => isClosed };
 }
 
 describe("Mahjong Soul catalog service", () => {
+  it("keeps explicit auth rejection distinct from unverified restoration and ignores close errors", async () => {
+    let closeCalls = 0;
+    const lobby = {
+      async authenticate() {},
+      async call() { return {}; },
+      async close() { closeCalls += 1; throw new Error("private close failure"); },
+    } as unknown as MahjongSoulLobbySession;
+
+    for (const [status, expected] of [
+      ["rejected", "mahjong_soul_session_invalid"],
+      ["unverified", "mahjong_soul_catalog_sync_failed"],
+    ] as const) {
+      closeCalls = 0;
+      const sessionFactory = createMahjongSoulCatalogSessionFactory({
+        createSession: async () => lobby,
+        authenticate: async () => status,
+      });
+      await expect(sessionFactory(storedSession)).rejects.toThrow(expected);
+      expect(closeCalls).toBe(1);
+    }
+
+    const authenticationFailure = createMahjongSoulCatalogSessionFactory({
+      createSession: async () => lobby,
+      authenticate: async () => { throw new Error("private transport diagnostic"); },
+    });
+    closeCalls = 0;
+    await expect(authenticationFailure(storedSession))
+      .rejects.toThrow("mahjong_soul_catalog_sync_failed");
+    expect(closeCalls).toBe(1);
+
+    const authenticated = createMahjongSoulCatalogSessionFactory({
+      createSession: async () => lobby,
+      authenticate: async () => "authenticated",
+    });
+    await expect(authenticated(storedSession)).resolves.toBe(lobby);
+  });
+
   it("syncs, filters, and merges analyzable entries only", async () => {
     const store = new FakeCatalogStore();
     const { lobby, closed } = lobbyReturning([
@@ -168,6 +209,47 @@ describe("Mahjong Soul catalog service", () => {
     await expect(service.syncAnalyzableRecords())
       .rejects.toThrow("mahjong_soul_catalog_sync_failed");
     expect(closed()).toBe(true);
+  });
+
+  it("preserves the fixed sync error when closing a failed lobby also throws", async () => {
+    const store = new FakeCatalogStore();
+    const { lobby, closed } = lobbyReturning([], { failSync: true, failClose: true });
+    const service = createMahjongSoulCatalogService({
+      vault: vaultReturning(storedSession),
+      catalogStore: store,
+      sessionFactory: async () => lobby,
+      clock: () => 2_000_000,
+    });
+
+    await expect(service.syncAnalyzableRecords())
+      .rejects.toThrow("mahjong_soul_catalog_sync_failed");
+    expect(closed()).toBe(true);
+    expect(store.summaries).toEqual([]);
+  });
+
+  it("maps a close-only failure to the fixed sync error", async () => {
+    const store = new FakeCatalogStore();
+    const { lobby: initialLobby } = lobbyReturning([rawEntry(secondId)]);
+    const initialService = createMahjongSoulCatalogService({
+      vault: vaultReturning(storedSession),
+      catalogStore: store,
+      sessionFactory: async () => initialLobby,
+      clock: () => 2_000_000,
+    });
+    await initialService.syncAnalyzableRecords();
+    const previousSummaries = [...store.summaries];
+    const { lobby, closed } = lobbyReturning([rawEntry(firstId)], { failClose: true });
+    const service = createMahjongSoulCatalogService({
+      vault: vaultReturning(storedSession),
+      catalogStore: store,
+      sessionFactory: async () => lobby,
+      clock: () => 2_000_000,
+    });
+
+    await expect(service.syncAnalyzableRecords())
+      .rejects.toThrow("mahjong_soul_catalog_sync_failed");
+    expect(closed()).toBe(true);
+    expect(store.summaries).toEqual(previousSummaries);
   });
 
   it("lists the stored catalog without re-syncing", async () => {
