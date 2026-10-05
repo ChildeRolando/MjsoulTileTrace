@@ -503,12 +503,12 @@ export function mapMahjongSoulRecord(input: {
         if (currentScores === null || roundStartScores === null) throw mappingFailed();
         const oldScores = optionalScoreQuads(data.old_scores);
         const finalScores = optionalScoreQuads(data.scores);
-        const baseline = oldScores ?? currentScores;
-        const derivedScores = baseline.map((value, actor) => value + scoreDeltas[actor]!) as [number, number, number, number];
-        if (oldScores !== null && finalScores !== null && finalScores.some((value, actor) => value !== derivedScores[actor])) throw mappingFailed();
+        if (oldScores !== null && oldScores.some((value, actor) => value !== currentScores![actor])) throw mappingFailed();
+        const derivedScores = currentScores.map((value, actor) => value + scoreDeltas[actor]!) as [number, number, number, number];
+        if (finalScores !== null && finalScores.some((value, actor) => value !== derivedScores[actor])) throw mappingFailed();
         const settledScores = finalScores ?? derivedScores;
         // Canonical deltas use round-start scores. The wire delta instead uses
-        // old_scores, which can already include this round's riichi deposits.
+        // the replayed scores, which include this round's riichi deposits.
         const canonicalDeltas = settledScores.map((value, actor) => value - roundStartScores![actor]!) as [number, number, number, number];
         let subEvent = 0;
         for (const raw of hules) {

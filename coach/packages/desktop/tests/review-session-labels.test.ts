@@ -67,7 +67,7 @@ const summary = AnalyzableRecordSummarySchema.parse({
   lastSyncedAt: 1_791_200_000,
 });
 
-function packageIdentity(packageId: string, id = recordId, selfActor = 2): StructuredAnalysisPackage {
+function packageIdentity(packageId: string, id = `majsoul:${recordId}`, selfActor = 2): StructuredAnalysisPackage {
   return { packageId, record: { recordId: id, selfActor } } as StructuredAnalysisPackage;
 }
 
@@ -138,6 +138,23 @@ describe("local saved review labels", () => {
         seat, displayName: null, rank: null, finalScore: null,
       })));
     } finally { reopened.close(); }
+  });
+
+  it("does not associate an unprefixed package ID with a matching MahjongSoul catalog entry", () => {
+    const rootPath = root();
+    createLibrary(rootPath);
+    const store = labelStore(rootPath);
+    try {
+      store.rememberCatalog([summary]);
+      store.observePackage(packageIdentity("package-a", recordId));
+
+      const label = store.enrichSession(sessionSummary("package-a", "session-a")).recordLabel;
+      expect(label.recordId).toBe(recordId);
+      expect(label.startedAt).toBeNull();
+      expect(label.players).toEqual(Array.from({ length: 4 }, (_, seat) => ({
+        seat, displayName: null, rank: null, finalScore: null,
+      })));
+    } finally { store.close(); }
   });
 
   it("uses a human saved-date fallback for legacy sessions without reading package contents", () => {

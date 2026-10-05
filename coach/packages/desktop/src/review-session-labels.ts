@@ -49,6 +49,13 @@ function catalogRecordId(recordId: string): string | null {
   return MahjongSoulRecordIdSchema.safeParse(rawRecordId).success ? rawRecordId : null;
 }
 
+function packageCatalogRecordId(recordId: string): string | null {
+  const prefix = "majsoul:";
+  if (!recordId.startsWith(prefix)) return null;
+  const rawRecordId = recordId.slice(prefix.length);
+  return MahjongSoulRecordIdSchema.safeParse(rawRecordId).success ? rawRecordId : null;
+}
+
 function sameRecordId(left: string, right: string): boolean {
   const normalizedLeft = catalogRecordId(left);
   const normalizedRight = catalogRecordId(right);
@@ -174,7 +181,7 @@ export function createReviewSessionLabelStore(input: { readonly root: string }):
         recordId: pkg.record.recordId,
         selfActor: pkg.record.selfActor,
       });
-      const sourceRecordId = catalogRecordId(identity.recordId);
+      const sourceRecordId = packageCatalogRecordId(identity.recordId);
       const summary = sourceRecordId === null ? undefined : catalogByRecordId.get(sourceRecordId);
       const label = summary !== undefined && summary.selfSeat === identity.selfActor
         ? labelFromSummary(summary)

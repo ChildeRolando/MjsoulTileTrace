@@ -60,6 +60,7 @@ describe("Mahjong Soul stored Record* mapper", () => {
     { scores: [28000, 24000, 24000] },
     { old_scores: [25000, 25000, 25000] },
     { old_scores: [25000, 25000, 25000, 25000], scores: [28000, 24000, 24000, 23999] },
+    { scores: [28000, 24000, 24000, 23999] },
   ])("rejects malformed or contradictory whole-action settlement: %j", async settlement => {
     const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
     const result = mapMahjongSoulRecord({ gameId: "game:settlement", selfActor: 1, recordId, bundle,
@@ -68,6 +69,20 @@ describe("Mahjong Soul stored Record* mapper", () => {
         { name: "RecordDealTile", data: { seat: 1, tile: "5m" } },
         { name: "RecordHule", data: { hules: [{ seat: 1, zimo: true, hu_tile: "5m" }],
           delta_scores: [3000, -1000, -1000, -1000], ...settlement } },
+      ]) });
+    expect(result).toEqual({ status: "invalid", code: "mahjong_soul_canonical_mapping_failed" });
+  });
+
+  it("rejects old_scores that omit an accepted riichi deposit", async () => {
+    const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
+    const result = mapMahjongSoulRecord({ gameId: "game:riichi-settlement", selfActor: 1, recordId, bundle,
+      recordBytes: encodeRecord(bundle, [
+        { name: "RecordNewRound", data: newRound(1, 0) },
+        { name: "RecordDealTile", data: { seat: 1, tile: "5m" } },
+        { name: "RecordDiscardTile", data: { seat: 1, tile: "5m", is_liqi: true, moqie: true } },
+        { name: "RecordDealTile", data: { seat: 1, tile: "5p" } },
+        { name: "RecordHule", data: { hules: [{ seat: 1, zimo: true, hu_tile: "5p" }],
+          old_scores: [25000, 25000, 25000, 25000], delta_scores: [-1000, 3000, -1000, -1000] } },
       ]) });
     expect(result).toEqual({ status: "invalid", code: "mahjong_soul_canonical_mapping_failed" });
   });
