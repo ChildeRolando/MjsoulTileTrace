@@ -9,6 +9,7 @@ import {
   RiichiActionSchema,
   COACH_REASONING_DRAFT_SCHEMA_VERSION_V1,
   COACH_REVIEW_PROMPT_VERSION_V3,
+  COACH_REVIEW_PROMPT_VERSION_V4,
   CoachContextSchema,
   CoachTeachingBriefSchema,
   SELECTOR_POLICY_VERSION_V1,
@@ -23,7 +24,8 @@ import {
 } from "@riichi-coach/contracts";
 import { buildCoachRequest, decodeCoachReasoningDraft, prepareCoachRequest } from "../src/coach-prompt.js";
 import { validateCoachTeachingBriefAgainstContext } from "../src/coach-teaching-brief.js";
-import { buildCoachRequestContextV3 } from "../src/coach-prompt.js";
+import { buildCoachRequestContextV3, buildCoachRequestContextV4 } from "../src/coach-prompt.js";
+import { buildCoachExplanationPlaceholderCatalog } from "../src/coach-placeholder-catalog.js";
 import { canonicalJson, sha256Hex } from "../src/analysis/package-identity.js";
 import { buildGraphContextSlice } from "../src/context-graph/build-graph-context-slice.js";
 import { projectContextGraph } from "../src/context-graph/project-context-graph.js";
@@ -501,7 +503,7 @@ describe("CoachContext compact transmission", () => {
     const request = buildCoachRequest(legacySlice);
 
     expect(legacyBytes).toBeGreaterThan(1_000_000);
-    expect(request.promptVersion).toBe("coach-review-prompt/v4");
+    expect(request.promptVersion).toBe("coach-review-prompt/v5");
     expect(Buffer.byteLength(request.prompt, "utf8")).toBeLessThan(1_000_000);
     for (const privateMarker of [
       "PRIVATE_PRODUCER_",
@@ -1138,7 +1140,7 @@ describe("CoachContext compact transmission", () => {
     expect(selection.selected).toHaveLength(2);
   });
 
-  it("fails closed on changed v4 audit bindings and reads saved v3 plus historical v1/v2 reports", async () => {
+  it("fails closed on changed v5 audit bindings and reads saved v3/v4 plus historical v1/v2 reports", async () => {
     const { graph, slice, selection } = await artifacts();
     const prepared = prepareCoachRequest(slice);
     const wire = { decisions: [wireDecision(prepared.context, prepared.context.selectedDecisionRefs[0]!)] };
@@ -1170,6 +1172,17 @@ describe("CoachContext compact transmission", () => {
     updateReportId(savedV3);
     expect(() => validateReviewReport(savedV3, graph)).not.toThrow();
 
+    const savedV4 = JSON.parse(JSON.stringify(report)) as Record<string, unknown>;
+    recordOf(savedV4.generation).promptVersion = COACH_REVIEW_PROMPT_VERSION_V4;
+    recordOf(savedV4.audit).requestContext = buildCoachRequestContextV4(slice);
+    updateReportId(savedV4);
+    expect(() => validateReviewReport(savedV4, graph)).not.toThrow();
+    // Merely changing the label must not launder the new catalog audit as v4.
+    const mislabeledV4 = JSON.parse(JSON.stringify(report)) as Record<string, unknown>;
+    recordOf(mislabeledV4.generation).promptVersion = COACH_REVIEW_PROMPT_VERSION_V4;
+    updateReportId(mislabeledV4);
+    expect(() => validateReviewReport(mislabeledV4, graph)).toThrow("m6d2_report_request_context_mismatch");
+
     for (const promptVersion of ["coach-review-prompt/v1", "coach-review-prompt/v2"] as const) {
       const historic = JSON.parse(JSON.stringify(report)) as Record<string, unknown>;
       const generation = recordOf(historic.generation);
@@ -1179,6 +1192,27 @@ describe("CoachContext compact transmission", () => {
       updateReportId(historic);
       expect(() => validateReviewReport(historic, graph)).not.toThrow();
     }
+  });
+
+  it("catalogs scalar evidence leaves while retaining rejection of the real tile-count wrapper failure", async () => {
+    const { graph, slice } = await artifacts();
+    const prepared = prepareCoachRequest(slice);
+    const catalog = buildCoachExplanationPlaceholderCatalog(prepared.context);
+    expect(catalog.decisions.map(entry => entry.decisionRef)).toEqual(prepared.context.selectedDecisionRefs);
+    const differenceNode = slice.nodes.find(node => node.nodeKind === "FactorDifference" &&
+      recordOf(recordOf(node.payload).leftValue).kind === "tile_counts")!;
+    const { alias } = differenceRefPair(slice, prepared.context, differenceNode);
+    const entry = catalog.decisions[0]!.differences.find(item => item.ref === alias)!;
+    expect(entry.fields).toEqual(["direction", "leftActionRef", "rightActionRef"]);
+    expect(catalog.decisions[0]!.differences.some(item => item.fields.includes("leftValue.value"))).toBe(true);
+    expect(JSON.stringify(catalog)).not.toMatch(/sourceRefs|eventRef|meldRef|\.length|\.total|\.0|"value":/);
+    const wire = { decisions: [wireDecision(prepared.context, prepared.context.selectedDecisionRefs[0]!)] };
+    wire.decisions[0]!.explanations[0]!.text = `左侧 {diff:${alias}.leftValue}，右侧 {diff:${alias}.rightValue}。`;
+    const decoded = prepared.decode(wire)!;
+    expect(validateCoachGrounding(graph, decoded).violations.map(issue => issue.code))
+      .toEqual(["unresolvable_placeholder", "unresolvable_placeholder"]);
+    wire.decisions[0]!.explanations[0]!.text = `比较方向为 {diff:${alias}.direction}。`;
+    expect(validateCoachGrounding(graph, prepared.decode(wire)!).violations).toEqual([]);
   });
 
   it("lets full grounding report an ordinary dangling premise at decision scope", async () => {

@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { describe, expect, it, vi } from "vitest";
 import { RiichiActionSchema, StructuredAnalysisPackageSchema, type CoachDesktopApi, type ContextGraph, type DecisionAnalysis, type ReviewReport, type ReviewSelectionResult, type StructuredAnalysisPackage } from "@riichi-coach/contracts";
-import { generateReviewReport, projectContextGraph, selectReviewDecisions, validateReviewReport, validateStructuredAnalysisPackage } from "@riichi-coach/reasoning";
+import { generateReviewReport, projectContextGraph, selectReviewDecisions, validateReviewReport, validateStructuredAnalysisPackage, buildGraphContextSlice, prepareCoachRequest } from "@riichi-coach/reasoning";
 import { createFixedReviewController } from "../src/fixed-review-controller.js";
 import { actionLabel, presentFixedReviewDetail, presentFixedReviewSnapshot } from "../src/fixed-review-presenter.js";
 import { createFixedReviewUi } from "../src/renderer/fixed-review-ui.js";
@@ -156,6 +156,33 @@ function apiThroughIpc(snapshot: ReturnType<typeof presentFixedReviewSnapshot>, 
 }
 
 describe("fixed review presenter", () => {
+  it("renders every catalog path through generation, grounding and saved-report detail without compound placeholders", async () => {
+    const graph = projectContextGraph(pkg);
+    const prepared = prepareCoachRequest(buildGraphContextSlice(graph, selection));
+    const catalog = JSON.parse(prepared.request.prompt.split("CoachExplanationPlaceholderCatalog/v1:\n")[1]!
+      .split("\nCoachTeachingBrief/v1:\n")[0]!) as { decisions: { decisionRef: string; candidates: { ref: string; fields: string[] }[]; differences: { ref: string; fields: string[] }[] }[] };
+    const content = JSON.stringify({ decisions: catalog.decisions.map(entry => ({
+      decisionId: entry.decisionRef,
+      judgment: { localId: "j1", recommendation: entry.candidates[0]!.ref, confidence: "medium", premiseRefs: [entry.differences[0]!.ref] },
+      explanations: [{ judgmentLocalRef: "j1", text: "证据值：" + [
+        ...entry.candidates.flatMap(item => item.fields.map(field => `{candidate:${item.ref}.${field}}`)),
+        ...entry.differences.flatMap(item => item.fields.map(field => `{diff:${item.ref}.${field}}`)),
+      ].join("；"), claims: entry.differences.map(item => ({ kind: "factor_difference", evidenceRef: item.ref })) }],
+    })) });
+    const completion = vi.fn(async () => ({ content, transportRetries: 0 as const }));
+    const generated = await generateReviewReport(graph, selection, { descriptor: () => ({ providerId: "fixture", model: "fixture" }), complete: completion });
+    expect(completion).toHaveBeenCalledTimes(1);
+    expect(generated.generationStatus).toBe("complete");
+    expect(generated.decisionEntries.every(entry => entry.explanationStatus === "ready")).toBe(true);
+    validateReviewReport(generated, graph);
+    const detail = presentFixedReviewDetail({ analysisPackage: pkg, selection, activeReport: generated, activeReportRefId: "catalog-report", decisionId: selection.selected[0]!.decisionId });
+    expect(detail.explanationStatus).toBe("ready");
+    expect(detail.explanations[0]!.segments.filter(segment => segment.kind === "evidence_value"))
+      .toHaveLength(catalog.decisions[0]!.candidates.reduce((n, item) => n + item.fields.length, 0) +
+        catalog.decisions[0]!.differences.reduce((n, item) => n + item.fields.length, 0));
+    expect(detail.explanations[0]!.segments.map(segment => segment.text).join("")).not.toContain("{diff:");
+  });
+
   it("organizes every evidence item by topic and preserves nested action details without audit prose", async () => {
     const snapshot = presentFixedReviewSnapshot({ analysisPackage: pkg, selection });
     const detail = presentFixedReviewDetail({ analysisPackage: pkg, selection, decisionId: selection.selected[0]!.decisionId });

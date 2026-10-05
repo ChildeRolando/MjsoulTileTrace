@@ -319,3 +319,11 @@ Facts 按原 status/authority 分组，节点与短引用值保持完整，事�
 canonical alias map 仍只用于本地解码和 grounding。请求 audit 对应实际 Brief JSON，并保留
 源节点数与教学关系数；已保存 v3 报告用旧平铺请求重算后继续校验。此变更冻结输入结构及
 回读边界，不代表模型解释质量已通过实测。
+
+### 2026-10-05 解说证据值占位符修订
+
+真实模型把 tile_counts 的整个 leftValue/rightValue 对象写入正文，占位符校验拒绝。
+prompt/v5 从当前已验证 CoachContext 派生按决策分组的可显示标量字段清单；
+清单不重复值、不穿数组、不提供虚构总量或未知字段。复合值保留教学内容与 claims，
+正文按已有方向作定性表述。原解码、scalar grounding 和展示契约继续生效。
+历史 v3/v4 请求分别按冻结提示模板重算审计；新提示不改写历史报告。

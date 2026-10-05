@@ -63,6 +63,7 @@ import {
   COACH_EXPLANATION_PLACEHOLDER_PATTERN,
   COACH_REVIEW_PROMPT_VERSION,
   COACH_REVIEW_PROMPT_VERSION_V3,
+  COACH_REVIEW_PROMPT_VERSION_V4,
   CoachInferencePayloadSchema,
   CoachJudgmentPayloadSchema,
   CoachReasoningDraftSchema,
@@ -85,7 +86,7 @@ import { getDecisionSubgraph } from "./context-graph/get-decision-subgraph.js";
 import { buildGraphContextSlice } from "./context-graph/build-graph-context-slice.js";
 import { filterNodePayloadForSlice } from "./context-graph/slice-payload.js";
 import { validateReasoningOverlayPartition } from "./context-graph/validate-reasoning-overlay-partition.js";
-import { buildCoachRequestContextV3, prepareCoachRequest } from "./coach-prompt.js";
+import { buildCoachRequestContextV3, buildCoachRequestContextV4, prepareCoachRequest } from "./coach-prompt.js";
 
 // ---------------------------------------------------------------------------
 // Shared helpers
@@ -575,10 +576,12 @@ export function validateReviewReport(
   }
 
   if (report.generation.promptVersion === COACH_REVIEW_PROMPT_VERSION ||
+    report.generation.promptVersion === COACH_REVIEW_PROMPT_VERSION_V4 ||
     report.generation.promptVersion === COACH_REVIEW_PROMPT_VERSION_V3) {
     // Rebuild the exact M6-D1 source slice and version-matched provider-neutral
-    // DTO from the persisted selection. v3 reports hash the old flat context;
-    // v4 reports hash the nested brief. The source slice identity is unchanged.
+    // DTO from the persisted selection. v3 uses the old flat context; v4 uses
+    // the frozen tree guide; v5 includes the scalar-path catalog in promptBytes.
+    // The source slice identity and brief context hashes remain unchanged.
     const selection = {
       policyVersion: SELECTOR_POLICY_VERSION_V1,
       analysisPackageId: graph.packageId,
@@ -596,7 +599,9 @@ export function validateReviewReport(
     }
     const expectedRequestContext = report.generation.promptVersion === COACH_REVIEW_PROMPT_VERSION_V3
       ? buildCoachRequestContextV3(slice)
-      : prepareCoachRequest(slice).requestContext;
+      : report.generation.promptVersion === COACH_REVIEW_PROMPT_VERSION_V4
+        ? buildCoachRequestContextV4(slice)
+        : prepareCoachRequest(slice).requestContext;
     if (canonicalJson(report.audit.requestContext) !== canonicalJson(expectedRequestContext)) {
       throw new Error("m6d2_report_request_context_mismatch");
     }

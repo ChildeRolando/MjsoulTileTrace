@@ -18,6 +18,7 @@ import {
 import { canonicalJson, sha256Hex } from "./analysis/package-identity.js";
 import { buildCoachContext } from "./coach-context.js";
 import { buildCoachTeachingBrief } from "./coach-teaching-brief.js";
+import { buildCoachExplanationPlaceholderCatalog } from "./coach-placeholder-catalog.js";
 
 // Retained only to recompute persisted coach-review-prompt/v3 request audits.
 const TEMPLATE_V3 = `Produce only a JSON object with a decisions array, using the supplied CoachContext/v1. The output uses coach-reasoning-draft/v2 wire references.
@@ -53,6 +54,13 @@ events 的 sequenceGroup 和 sequence 只表示源已证明的先后；没有这
 CoachTeachingBrief/v1:
 `;
 
+// Keep the v4 bytes above intact for saved-report audit reconstruction.
+const TEMPLATE_V5 = TEMPLATE_V4.replace(/CoachTeachingBrief\/v1:\n$/, `正文占位符必须使用下面本决策清单中的 ref 和 fields：candidates 生成 {candidate:<ref>.<field>}，differences 生成 {diff:<ref>.<field>}。只使用清单列出的路径，不添加 payload 前缀，不猜字段。
+number/boolean/classification 的侧值使用完整的 leftValue.value 或 rightValue.value 路径；其他标量路径（如 remainingCount/category）严格照清单。leftValue/rightValue 本身是对象，不能直接作为正文值。tile_counts、string_set、integer_ids、shape_claims、wait_details 等列表/复合值不能作为占位符；不能索引数组、引用 length、猜 total/总张数或填补未知值。
+没有可显示侧值的差异仍可通过 claims 引用，并按已有 direction 作定性描述；不要为它制造数字占位符。N# FactorFact 只用于 claims/前提，不能写成 diff 占位符。清单不新增事实，不改变候选、比较范围或证据权威。
+CoachExplanationPlaceholderCatalog/v1:
+`);
+
 export interface PreparedCoachRequest {
   readonly request: LlmCoachRequest;
   readonly context: CoachContext;
@@ -74,7 +82,8 @@ export function prepareCoachRequest(sliceInput: GraphContextSlice): PreparedCoac
   const context = bindings.context;
   const brief = buildCoachTeachingBrief(context);
   const briefJson = canonicalJson(brief);
-  const prompt = TEMPLATE_V4 + briefJson;
+  const catalogJson = canonicalJson(buildCoachExplanationPlaceholderCatalog(context));
+  const prompt = TEMPLATE_V5 + catalogJson + "\nCoachTeachingBrief/v1:\n" + briefJson;
   const request = LlmCoachRequestSchema.parse({
     promptVersion: COACH_REVIEW_PROMPT_VERSION,
     draftSchemaVersion: COACH_REASONING_DRAFT_SCHEMA_VERSION,
@@ -104,6 +113,23 @@ export function prepareCoachRequest(sliceInput: GraphContextSlice): PreparedCoac
       const canonical = CoachReasoningDraftSchema.safeParse(decoded);
       return canonical.success ? canonical.data : null;
     },
+  });
+}
+
+/** Recompute the exact tree request audit used by persisted v4 reports. */
+export function buildCoachRequestContextV4(sliceInput: GraphContextSlice): CoachRequestContextAudit {
+  const slice = GraphContextSliceSchema.parse(sliceInput);
+  const context = buildCoachContext(slice).context;
+  const briefJson = canonicalJson(buildCoachTeachingBrief(context));
+  return CoachRequestContextAuditSchema.parse({
+    coachContextVersion: COACH_CONTEXT_SCHEMA_VERSION,
+    teachingBriefVersion: COACH_TEACHING_BRIEF_SCHEMA_VERSION,
+    inputContextHash: `sha256:${sha256Hex(briefJson)}`,
+    promptBytes: utf8Bytes(TEMPLATE_V4 + briefJson),
+    contextBytes: utf8Bytes(briefJson),
+    decisionCount: context.selectedDecisionRefs.length,
+    nodeCount: context.nodes.length,
+    semanticEdgeCount: slice.edges.filter((edge) => edge.edgeKind !== "derived_from").length,
   });
 }
 

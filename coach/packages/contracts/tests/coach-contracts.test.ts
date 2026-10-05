@@ -12,6 +12,7 @@ import {
   COACH_REASONING_DRAFT_SCHEMA_VERSION_V1,
   COACH_REVIEW_PROMPT_VERSION,
   COACH_REVIEW_PROMPT_VERSION_V3,
+  COACH_REVIEW_PROMPT_VERSION_V4,
   CoachDraftDecisionSchema,
   CoachEvidenceClaimSchema,
   CoachExplanationPayloadSchema,
@@ -225,19 +226,24 @@ describe("M6-D2 coach version literals", () => {
       "coach-reasoning-draft/v2",
     );
     expect(COACH_REASONING_DRAFT_SCHEMA_VERSION_V1).toBe("coach-reasoning-draft/v1");
-    expect(COACH_REVIEW_PROMPT_VERSION).toBe("coach-review-prompt/v4");
+    expect(COACH_REVIEW_PROMPT_VERSION).toBe("coach-review-prompt/v5");
     expect(COACH_REVIEW_PROMPT_VERSION_V3).toBe("coach-review-prompt/v3");
+    expect(COACH_REVIEW_PROMPT_VERSION_V4).toBe("coach-review-prompt/v4");
   });
 
-  it("keeps saved v3 flat-context audits readable and requires brief metadata on v4", () => {
+  it("keeps saved v3/v4 audits readable and requires brief metadata on v4/v5", () => {
     const savedV3 = minimalReport();
     (savedV3.generation as Record<string, unknown>).promptVersion = COACH_REVIEW_PROMPT_VERSION_V3;
     delete ((savedV3.audit as Record<string, unknown>).requestContext as Record<string, unknown>).teachingBriefVersion;
     expect(() => ReviewReportSchema.parse(savedV3)).not.toThrow();
 
-    const missingV4Brief = minimalReport();
-    delete ((missingV4Brief.audit as Record<string, unknown>).requestContext as Record<string, unknown>).teachingBriefVersion;
-    expect(() => ReviewReportSchema.parse(missingV4Brief)).toThrow();
+    for (const version of [COACH_REVIEW_PROMPT_VERSION_V4, COACH_REVIEW_PROMPT_VERSION]) {
+      const valid = minimalReport();
+      (valid.generation as Record<string, unknown>).promptVersion = version;
+      expect(() => ReviewReportSchema.parse(valid)).not.toThrow();
+      delete ((valid.audit as Record<string, unknown>).requestContext as Record<string, unknown>).teachingBriefVersion;
+      expect(() => ReviewReportSchema.parse(valid)).toThrow();
+    }
   });
 });
 

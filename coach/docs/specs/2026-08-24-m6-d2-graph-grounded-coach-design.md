@@ -624,3 +624,25 @@ GraphContextSlice 携带 Decision.automaticComparisonScope；模型可以看到�
   canonical draft 兼容路径。报告最终引用仍还原为完整 canonical 身份。
 
 本修订冻结的是输入结构、来源边界和读回校验，不构成模型解释质量已提升的验收结论。
+
+## 2026-10-05 修复修订：正文可显示值清单
+
+真实单行动解说在 v4 下将 `tile_counts` 对象作为 `{diff:F#.leftValue}` / rightValue
+正文值，触发 `unresolvable_placeholder`。原标量输出契约和教学数据保持一致；
+提示缺少复合值与标量路径的明确指引，不能通过放宽 grounding 让对象直接进入正文。
+
+- 生产提示升为 v5，基于当前已验证 CoachContext 生成按 D# 分组、只含 A#/F# 和
+  既有可显示字段路径的清单。字段来自固定展示支持路径，并须落在现有真实标量；
+  不枚举事件/副露身份、不重复教学值、不穿数组、不新增 length/total 或补全未知值。
+- number/boolean/classification 侧值使用 `.leftValue.value` / `.rightValue.value`；
+  honor_safety 的 remainingCount/category 按清单使用。tile_counts、string_set、
+  integer_ids、shape_claims、wait_details 的复合值继续用 claims 引用并作已有方向的
+  定性解释，不生成对象/列表正文占位符。N# FactorFact 只用于 claims/前提。
+- 清单属于通用提示构造，与 provider 无关。图、Brief/v1、短引用解码、完整候选、
+  事实、比较范围与 scalar grounding/展示规则保持原契约。原非法复合值回归仍须失败。
+- promptBytes 计实际 v5 指引、字段清单与 Brief。context hash/bytes 仍绑定原 Brief；
+  清单可由同一已验证上下文重算。v3/v4 历史报告分别使用原冻结模板和原 audit 口径，
+  禁止把新提示审计套在旧报告上或改写历史结果。
+
+验收需覆盖：真实失败复现、复合值仍拒绝、每条清单路径经通用生成/grounding/展示可消费、
+同决策引用与历史 v3/v4 校验、真实单行动模型生成、整盘请求字节限额及独立验收。
