@@ -106,7 +106,10 @@ export function createFixedReviewController(input: {
     const active = activeRef(state);
     if (state.readBack.analysisPackage !== state.analysisPackage || state.readBack.selection !== state.selection
       || state.readBack.report !== (active?.report ?? null)) throw new Error("review_unavailable");
-    return presentFixedReviewSnapshotFromContext(state.readBack, active?.reportRefId ?? null);
+    let coachUsageHistory: FixedReviewSnapshotDto["coachUsageHistory"] = null;
+    try { coachUsageHistory = input.repository?.getCoachUsageHistory() ?? null; }
+    catch { /* A historical counter failure must not invalidate the current review. */ }
+    return { ...presentFixedReviewSnapshotFromContext(state.readBack, active?.reportRefId ?? null), coachUsageHistory };
   };
   const requireState = (packageId: string): ViewState => {
     const state = views.get(packageId);

@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import { brotliCompressSync, brotliDecompressSync, constants as zlibConstants } from "node:zlib";
 import type { DatabaseSync } from "node:sqlite";
 import { JSONParser } from "@streamparser/json";
+import { RecordAnalysisSchema, type RecordAnalysis } from "@riichi-coach/contracts";
 import { writeCanonicalJson } from "@riichi-coach/reasoning";
 
 /** Maximum payload size enforced by analysis_package_chunks. */
@@ -250,4 +251,46 @@ export function readPackageArtifact(db: DatabaseSync, row: PackageArtifactRow): 
   if (createHash("sha256").update(header).digest("hex") !== row.content_hash) throw new Error("package_hash_mismatch");
   try { return JSON.parse(header.toString("utf8")); }
   catch { throw new Error("package_payload_invalid"); }
+}
+
+/** Read only the record identity for historical usage. Validate storage bytes
+ * without materializing the analysis/evidence trees or sending them to UI. */
+export function readPackageRecordIdentity(db: DatabaseSync, row: PackageArtifactRow & { package_id: string; schema_version: string }): RecordAnalysis {
+  const header = Buffer.from(row.payload);
+  const receipt: StreamReceipt = {};
+  let chunks: Iterable<Uint8Array>;
+  if (header.subarray(0, MAGIC_V2.length).equals(MAGIC_V2)) {
+    const { count, byteLength } = parseChunkHeader(header);
+    chunks = compressedChunks(db, row.package_ref_id, count, byteLength, receipt);
+  } else if (header.subarray(0, MAGIC_V1.length).equals(MAGIC_V1)) {
+    const { count, byteLength } = parseChunkHeader(header);
+    chunks = legacyChunks(db, row.package_ref_id, count, byteLength, receipt);
+  } else {
+    if (header.subarray(0, 5).equals(MAGIC_V2.subarray(0, 5)) ||
+      db.prepare("SELECT 1 FROM analysis_package_chunks WHERE package_ref_id=? LIMIT 1").get(row.package_ref_id)) {
+      throw new Error("package_storage_version_mismatch");
+    }
+    receipt.digest = createHash("sha256").update(header).digest("hex");
+    chunks = [header];
+  }
+  const parser = new JSONParser({ paths: ["$.record", "$.packageId", "$.componentVersions.packageSchema"], keepStack: false, stringBufferSize: 64 * 1024 });
+  let record: unknown;
+  let packageId: unknown;
+  let packageSchema: unknown;
+  parser.onValue = value => {
+    if (value.key === "record") record = value.value;
+    if (value.key === "packageId") packageId = value.value;
+    if (value.key === "packageSchema") packageSchema = value.value;
+  };
+  try {
+    for (const chunk of chunks) parser.write(chunk);
+    if (!parser.isEnded) parser.end();
+  } catch (error) {
+    if (error instanceof Error && error.message.startsWith("package_")) throw error;
+    throw new Error("package_payload_invalid");
+  }
+  if (receipt.digest !== row.content_hash) throw new Error("package_hash_mismatch");
+  if (packageId !== row.package_id) throw new Error("package_identity_mismatch");
+  if (packageSchema !== row.schema_version) throw new Error("package_version_mismatch");
+  return RecordAnalysisSchema.parse(record);
 }

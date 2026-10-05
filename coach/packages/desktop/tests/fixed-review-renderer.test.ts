@@ -573,6 +573,9 @@ describe("fixed review native DOM surface", () => {
         schemaVersion: "fixed-review-view/v1", packageId: "usage-package", analysisStatus: "complete",
         outcomeCounts: { analysis_ready: 1, unsupported_action: 0, source_row_not_expected: 0, no_mortal_entry: 0, binding_mismatch: 0, model_output_incomplete: 0, analysis_blocked: 0 },
         activeReportRefId: null, activeReportStatus: "not_generated",
+        coachUsageHistory: { schemaVersion: "coach-usage-history/v1", requestCount: 2, readyDecisionCount: 1, explainedRecordCount: 1,
+          inputTokens: { known: 1100, unknownRequests: 0 }, outputTokens: { known: 50, unknownRequests: 1 },
+          totalTokens: { known: 1150, unknownRequests: 1 }, cachedInputTokens: { known: 200, unknownRequests: 1 } },
         explanationCounts: { ready: 0, provider_unavailable: 0, request_failed: 0, invalid_output: 0 },
         selection: { policyVersion: "deterministic-review-selector/v1", selectedCount: 1, items: [{
           decisionId: "usage-decision", rank: 1, selectionReason: "model_disagreement_above_threshold", roundOrdinal: 0,
@@ -582,6 +585,9 @@ describe("fixed review native DOM surface", () => {
       });
       const generated = FixedReviewSnapshotSchema.parse({
         ...snapshot, activeReportRefId: "saved-report", activeReportStatus: "evidence_only",
+          coachUsageHistory: { ...snapshot.coachUsageHistory!, requestCount: 3,
+            inputTokens: { known: 1421, unknownRequests: 0 }, outputTokens: { known: 50, unknownRequests: 2 },
+            totalTokens: { known: 1516, unknownRequests: 1 }, cachedInputTokens: { known: 200, unknownRequests: 2 } },
         coachUsage: { inputTokens: 321, totalTokens: 366 },
         coachProvider: { providerId: "codex-cli", model: "gpt-6-luna", reasoningEffort: "max" },
         explanationCounts: { ready: 0, provider_unavailable: 1, request_failed: 0, invalid_output: 0 },
@@ -599,6 +605,7 @@ describe("fixed review native DOM surface", () => {
         const usageSnapshot = ${JSON.stringify(snapshot)};
         const generated = ${JSON.stringify(generated)};
         const usageValues = () => [...document.querySelectorAll(".coach-token-usage dd")].map(item => item.textContent);
+          const historyValues = () => [...document.querySelectorAll(".coach-usage-history dd")].map(item => item.textContent);
         const settle = async () => { for (let i = 0; i < 20; i++) await Promise.resolve(); };
         window.riichiCoach = { getSessionStatus: async () => ({ status: "logged_out" }) };
         window.riichiCoachProvider = {
@@ -615,12 +622,12 @@ describe("fixed review native DOM surface", () => {
           await settle();
           document.querySelector("#review-session-list button").click();
           await settle();
-          window.before = { values: usageValues(), text: document.querySelector(".coach-token-usage").textContent };
+          window.before = { values: usageValues(), text: document.querySelector(".coach-token-usage").textContent, history: historyValues() };
           const generate = document.querySelector("#fixed-review .review-generate-remaining");
           generate.click(); await settle();
           window.waiting = { generations, disabled: generate.disabled,
             live: document.querySelector("#fixed-review .review-live").textContent, values: usageValues(),
-            usageNote: document.querySelector(".coach-token-usage p:last-child").textContent };
+            usageNote: document.querySelector(".coach-token-usage p:last-child").textContent, history: historyValues() };
           resolveGeneration(); await settle();
           window.afterGeneration = { generations, activeReportRefId, values: usageValues(),
             provider: document.querySelector(".coach-token-usage").textContent,
@@ -632,14 +639,18 @@ describe("fixed review native DOM surface", () => {
           document.activeElement?.blur();
         };
         window.focusResult = () => ({ before: window.before, waiting: window.waiting,
-          afterGeneration: window.afterGeneration, reopened: window.reopened });
+          afterGeneration: window.afterGeneration, reopened: window.reopened,
+          finalHistory: historyValues() });
       `;
       writeFileSync(join(directory, "setup.js"), setup, "utf8");
       writeFileSync(join(directory, "page.html"), html.replace('<script type="module" src="./app.js"></script>', '<script src="./setup.js"></script><script type="module" src="./app.js"></script>'), "utf8");
       expect(await chromiumFocusResults(directory, ["window.run()"])).toEqual([{
-        before: { values: ["未知", "未知", "未知", "未知"], text: expect.stringContaining("尚未生成") },
+        finalHistory: ["1,421", "已知 50，另 2 次请求未知", "已知 1,516，另 1 次请求未知", "已知 200，另 2 次请求未知", "1", "1", "3"],
+        before: { values: ["未知", "未知", "未知", "未知"], text: expect.stringContaining("尚未生成"),
+          history: ["1,100", "已知 50，另 1 次请求未知", "已知 1,150，另 1 次请求未知", "已知 200，另 1 次请求未知", "1", "1", "2"] },
         waiting: { generations: 1, disabled: true, live: "正在生成剩余 1 条教练解说；等待最近一次请求返回解说和 Token 用量…", values: ["未知", "未知", "未知", "未知"],
-          usageNote: expect.stringContaining("最近一次请求") },
+          usageNote: expect.stringContaining("最近一次请求"),
+          history: ["1,100", "已知 50，另 1 次请求未知", "已知 1,150，另 1 次请求未知", "已知 200，另 1 次请求未知", "1", "1", "2"] },
         afterGeneration: { generations: 1, activeReportRefId: "saved-report", values: ["321", "未知", "366", "未知"],
           provider: expect.stringContaining("模型：gpt-6-luna · 推理强度 max"), note: expect.stringContaining("最近一次请求") },
         reopened: { opens: 2, activeReportRefId: "saved-report", values: ["321", "未知", "366", "未知"],

@@ -119,6 +119,30 @@ const completeReport = await generateReviewReport(graph, selection, {
 }, "2026-09-23T00:00:00.000Z");
 
 describe("ReviewSession SQLite persistence", () => {
+  it("persists cumulative usage, deduplicates explanations and does not charge reopens or operation replay", async () => {
+    const dir = root();
+    let repository = createReviewSessionRepository({ root: dir });
+    try {
+      repository.saveSession(pkg, selection);
+      expect(repository.getCoachUsageHistory()).toMatchObject({ requestCount: 0, readyDecisionCount: 0, explainedRecordCount: 0 });
+      repository.saveReport(pkg.packageId, completeReport, "history-1", "history-op-1");
+      repository.saveReport(pkg.packageId, completeReport, "history-1", "history-op-1");
+      repository.saveReport(pkg.packageId, completeReport, "history-2", "history-op-2");
+      const counts = { known: 2560, unknownRequests: 0 };
+      const expected = repository.getCoachUsageHistory();
+      expect(expected).toMatchObject({ requestCount: 2, readyDecisionCount: 1, explainedRecordCount: 1,
+        totalTokens: counts, inputTokens: { known: 2400, unknownRequests: 0 }, cachedInputTokens: { known: 600, unknownRequests: 0 } });
+      repository.openByPackageId(pkg.packageId);
+      expect(repository.getCoachUsageHistory()).toEqual(expected);
+      repository.close();
+      repository = createReviewSessionRepository({ root: dir });
+      expect(repository.getCoachUsageHistory()).toEqual(expected);
+      const controller = createFixedReviewController({ readPackage: async () => pkg, generateReport: async () => completeReport, repository });
+      expect((await controller.openReview(pkg.packageId)).coachUsageHistory).toEqual(expected);
+      expect(repository.getCoachUsageHistory()).toEqual(expected);
+    } finally { repository.close(); }
+  });
+
   it("keeps the stored v1 artifact open while saving same-record v2 under a distinct package identity", () => {
     expect(pkg.componentVersions.factorPipeline).toBe("factor-pipeline/v1");
     const refreshed = withFactorPipeline(pkg, "factor-pipeline/v2");

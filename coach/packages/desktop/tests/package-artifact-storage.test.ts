@@ -7,7 +7,7 @@ import { join } from "node:path";
 import { DatabaseSync } from "node:sqlite";
 import { afterEach, describe, expect, it } from "vitest";
 import { createReviewSessionRepository } from "../src/review-session-repository.js";
-import { describePackageArtifact, insertPackageChunks, parsePackageJsonChunks, readPackageArtifact, PACKAGE_CHUNK_BYTES, PACKAGE_RAW_BLOCK_BYTES } from "../src/package-artifact-storage.js";
+import { describePackageArtifact, insertPackageChunks, parsePackageJsonChunks, readPackageArtifact, readPackageRecordIdentity, PACKAGE_CHUNK_BYTES, PACKAGE_RAW_BLOCK_BYTES } from "../src/package-artifact-storage.js";
 
 const roots: string[] = [];
 afterEach(() => { for (const root of roots.splice(0)) rmSync(root, { recursive:true, force:true }); });
@@ -40,6 +40,23 @@ function highEntropyValue() {
 }
 
 describe("complete package bytes in bounded SQLite chunks", () => {
+  it("reads only record identity across chunks and retains hash/schema failures", () => {
+    const db = database();
+    try {
+      const record = { recordId: "historical-record", selfActor: 0, status: "complete" };
+      const metadata = { packageId: "test-id", componentVersions: { packageSchema: "test-schema" } };
+      const row = { ...store(db, { ...metadata, record, decisions: Array.from({ length: 20_000 }, (_, i) => ({ decisionId: `d${i}`, ignoredEvidence: ["value", i] })) }), package_id: "test-id", schema_version: "test-schema" };
+      expect(readPackageRecordIdentity(db, row)).toEqual(record);
+      expect(() => readPackageRecordIdentity(db, { ...row, content_hash: "invalid" })).toThrow("package_hash_mismatch");
+      expect(() => readPackageRecordIdentity(db, { ...row, package_id: "wrong" })).toThrow("package_identity_mismatch");
+      expect(() => readPackageRecordIdentity(db, { ...row, schema_version: "wrong" })).toThrow("package_version_mismatch");
+      const legacy = Buffer.from(JSON.stringify({ ...metadata, record, ignored: [1, 2, 3] }));
+      expect(readPackageRecordIdentity(db, { ...row, package_ref_id: "unchunked", payload: legacy, content_hash: hash(legacy) })).toEqual(record);
+      const missing = Buffer.from(JSON.stringify({ ...metadata, record: { ...record, recordId: undefined } }));
+      expect(() => readPackageRecordIdentity(db, { ...row, package_ref_id: "missing", payload: missing, content_hash: hash(missing) })).toThrow();
+    } finally { db.close(); }
+  });
+
   it("does not retain array growth capacity for repeated evidence lists", () => {
     const moduleUrl = new URL("../src/package-artifact-storage.ts", import.meta.url).href;
     const script = `

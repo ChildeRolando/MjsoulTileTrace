@@ -100,6 +100,23 @@ const OutcomeCountsSchema = z.object({
   analysis_blocked: CountSchema,
 }).strict();
 
+const HistoricalTokenCounterSchema = z.object({
+  known: z.number().int().nonnegative().max(Number.MAX_SAFE_INTEGER),
+  unknownRequests: z.number().int().nonnegative().max(Number.MAX_SAFE_INTEGER),
+}).strict();
+/** Saved request instances are counted once; explanation coverage is deduplicated. */
+export const CoachUsageHistorySchema = z.object({
+  schemaVersion: z.literal("coach-usage-history/v1"),
+  requestCount: z.number().int().nonnegative().max(Number.MAX_SAFE_INTEGER),
+  readyDecisionCount: z.number().int().nonnegative().max(Number.MAX_SAFE_INTEGER),
+  explainedRecordCount: z.number().int().nonnegative().max(Number.MAX_SAFE_INTEGER),
+  inputTokens: HistoricalTokenCounterSchema,
+  outputTokens: HistoricalTokenCounterSchema,
+  totalTokens: HistoricalTokenCounterSchema,
+  cachedInputTokens: HistoricalTokenCounterSchema,
+}).strict();
+export type CoachUsageHistory = z.infer<typeof CoachUsageHistorySchema>;
+
 export const FixedReviewSnapshotSchema = z.object({
   schemaVersion: z.literal(FIXED_REVIEW_VIEW_SCHEMA_VERSION),
   packageId: z.string().min(1),
@@ -114,6 +131,7 @@ export const FixedReviewSnapshotSchema = z.object({
   activeReportStatus: FixedReviewActiveReportStatusSchema,
   coachUsage: LlmTokenUsageSchema.nullable().optional(),
   coachProvider: LlmProviderDescriptorSchema.nullable().optional(),
+  coachUsageHistory: CoachUsageHistorySchema.nullable().optional(),
   explanationCounts: z.object({
     ready: z.number().int().nonnegative(),
     provider_unavailable: z.number().int().nonnegative(),

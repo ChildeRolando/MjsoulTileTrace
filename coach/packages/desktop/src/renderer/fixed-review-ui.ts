@@ -315,6 +315,26 @@ export function createFixedReviewUi(input: {
     usage.append(tokenFields, element(document, "p", next.activeReportRefId === null
       ? "尚未生成；最近一次请求的服务用量会随报告显示。"
       : "最近一次请求返回的服务用量。未返回统计的失败或重试可能不包含；这不是账号剩余额度。"));
+    const history = element(document, "section");
+    history.className = "coach-usage-history";
+    history.append(element(document, "h3", "历史累计"));
+    if (next.coachUsageHistory == null) {
+      history.append(element(document, "p", "历史统计暂不可用。"));
+    } else {
+      const stats = next.coachUsageHistory;
+      const fields = element(document, "dl");
+      const historicalTokenLabel = (counter: { known: number; unknownRequests: number }) =>
+        counter.unknownRequests === 0 ? counter.known.toLocaleString("zh-CN")
+          : `已知 ${counter.known.toLocaleString("zh-CN")}，另 ${counter.unknownRequests.toLocaleString("zh-CN")} 次请求未知`;
+      definition(document, fields, "输入 Token", historicalTokenLabel(stats.inputTokens));
+      definition(document, fields, "输出 Token", historicalTokenLabel(stats.outputTokens));
+      definition(document, fields, "总 Token", historicalTokenLabel(stats.totalTokens));
+      definition(document, fields, "缓存输入（已包含在输入中）", historicalTokenLabel(stats.cachedInputTokens));
+      definition(document, fields, "已解说手数（行动）", stats.readyDecisionCount.toLocaleString("zh-CN"));
+      definition(document, fields, "已解说盘数", stats.explainedRecordCount.toLocaleString("zh-CN"));
+      definition(document, fields, "已保存请求数", stats.requestCount.toLocaleString("zh-CN"));
+      history.append(fields, element(document, "p", "统计本机已保存的全部教练请求，包括未通过校验的请求用量。重复生成累加 Token；成功解说的行动与牌谱去重，一盘至少有一条可用解说才计入。未保存或未返回的用量不包含在已知累计中。"));
+    }
     const live = element(document, "p");
     live.className = "review-live";
     live.setAttribute("aria-live", "polite");
@@ -346,7 +366,7 @@ export function createFixedReviewUi(input: {
       element(document, "p", `解说请求未成功：${next.explanationCounts.request_failed}`),
       element(document, "p", `解说未通过校验：${next.explanationCounts.invalid_output}`),
     );
-    overview.append(analysisDetails, explanationDetails, usage);
+    overview.append(analysisDetails, explanationDetails, usage, history);
     const settingsCard = element(document, "details");
     settingsCard.className = "coach-settings";
     settingsCard.append(element(document, "summary", "教练服务设置"));

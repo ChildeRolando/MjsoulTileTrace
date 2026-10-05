@@ -19,7 +19,8 @@ import {
   type ReviewSessionReportInput,
   type ReviewSessionReadBackInput,
 } from "@riichi-coach/reasoning";
-import { describePackageArtifact, insertPackageChunks, readPackageArtifact } from "./package-artifact-storage.js";
+import { describePackageArtifact, insertPackageChunks, readPackageArtifact, readPackageRecordIdentity } from "./package-artifact-storage.js";
+import { aggregateCoachUsageHistory } from "./coach-usage-history.js";
 
 const LIBRARY_FORMAT_VERSION = 4;
 
@@ -280,6 +281,7 @@ export function createReviewSessionRepository(input: {
   } | null = null;
   let storageReclaimPending = false;
   const dataVersion = () => Number(db.prepare("PRAGMA data_version").get()!.data_version);
+  const usageRecordIdentities = new Map<string, { contentHash: string; dataVersion: number; recordId: string }>();
   const recompose = (state: PersistedReviewState, sessionInput: ReviewSessionReadBackInput) => {
     if (preparedPackage === null || preparedPackage.composer.analysisPackage !== state.analysisPackage
       || preparedPackage.dataVersion !== dataVersion()) throw new Error("review_changed_during_read");
@@ -355,6 +357,9 @@ export function createReviewSessionRepository(input: {
       preparedPackage = { binding, dataVersion: version, composer };
     }
     const analysisPackage = preparedPackage.composer.analysisPackage;
+    usageRecordIdentities.set(packageRow.package_ref_id, {
+      contentHash: packageRow.content_hash, dataVersion: version, recordId: analysisPackage.record.recordId,
+    });
     const reportRefs = db.prepare(`SELECT x.report_ref_id,r.report_id,r.created_at
       FROM session_report_refs x JOIN review_reports r ON r.report_ref_id=x.report_ref_id AND r.package_ref_id=x.package_ref_id
       WHERE x.session_id=? AND x.package_ref_id=? ORDER BY x.append_ordinal`).all(
@@ -564,6 +569,33 @@ export function createReviewSessionRepository(input: {
         activeReportRefId: row.active_report_ref_id,
         updatedAt: row.updated_at,
       })));
+    },
+
+    getCoachUsageHistory() {
+      const version = dataVersion();
+      const history: Parameters<typeof aggregateCoachUsageHistory>[0][number][] = [];
+      const rows = db.prepare(`SELECT r.report_ref_id,r.report_id,r.package_ref_id,r.payload,r.content_hash,r.schema_version,
+        p.package_id,p.payload AS package_payload,p.content_hash AS package_content_hash,p.schema_version AS package_schema_version
+        FROM review_reports r JOIN session_report_refs x ON x.report_ref_id=r.report_ref_id AND x.package_ref_id=r.package_ref_id
+        JOIN review_sessions s ON s.session_id=x.session_id AND s.package_ref_id=x.package_ref_id
+        JOIN analysis_packages p ON p.package_ref_id=r.package_ref_id`).iterate();
+      for (const raw of rows) {
+        const row = raw as ReportArtifactRow & { report_ref_id: string; package_ref_id: string; package_id: string; package_payload: Uint8Array; package_content_hash: string; package_schema_version: string };
+        const report = ReviewReportSchema.parse(assertHash(row, "report_hash_mismatch"));
+        if (report.reportId !== row.report_id || report.packageId !== row.package_id || report.schemaVersion !== row.schema_version) {
+          throw new Error("report_identity_mismatch");
+        }
+        let identity = usageRecordIdentities.get(row.package_ref_id);
+        if (identity?.contentHash !== row.package_content_hash || identity.dataVersion !== version) {
+          const record = readPackageRecordIdentity(db, { package_ref_id: row.package_ref_id, payload: row.package_payload,
+            content_hash: row.package_content_hash, package_id: row.package_id, schema_version: row.package_schema_version });
+          identity = { contentHash: row.package_content_hash, dataVersion: version, recordId: record.recordId };
+          usageRecordIdentities.set(row.package_ref_id, identity);
+        }
+        history.push({ reportRefId: row.report_ref_id, recordId: identity.recordId, report });
+      }
+      if (dataVersion() !== version) throw new Error("review_changed_during_read");
+      return aggregateCoachUsageHistory(history);
     },
 
     saveReport(
