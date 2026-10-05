@@ -120,6 +120,35 @@ function expectFixed(operation: () => unknown, forbidden: readonly string[] = []
 }
 
 describe("Liqi wire codec", () => {
+  test("encodes the exact Route bootstrap request and fields", () => {
+    const subject = codec([".lq.Route.requestConnection"]);
+    const timestamp = 1_791_000_040_373;
+    const frame = subject.encodeRequest({
+      requestId: 7,
+      method: ".lq.Route.requestConnection",
+      payload: {
+        type: 1,
+        route_id: "selected-route",
+        timestamp,
+        platform: "Web",
+      },
+    });
+    const decodedWrapper = wrapperType.toObject(
+      wrapperType.decode(frame.slice(3)),
+      { bytes: Uint8Array },
+    ) as { name: string; data: Uint8Array };
+    expect(decodedWrapper.name).toBe(".lq.Route.requestConnection");
+    expect(root.lookupType("lq.ReqRequestConnection").toObject(
+      root.lookupType("lq.ReqRequestConnection").decode(decodedWrapper.data),
+      { defaults: true, longs: String },
+    )).toMatchObject({
+      type: 1,
+      route_id: "selected-route",
+      timestamp: String(timestamp),
+      platform: "Web",
+    });
+  });
+
   test("encodes request frames with a little-endian uint16 id and exact route", () => {
     const subject = codec([".lq.Lobby.fetchGameRecord"]);
     const payload = { game_uuid: "fixture-game" };
@@ -368,6 +397,7 @@ describe("Liqi wire codec", () => {
 
   test("freezes exact package-owned capability sets", () => {
     expect(MAHJONG_SOUL_SAFE_DIRECT_CALL_METHODS).toEqual([
+      ".lq.Route.requestConnection",
       ".lq.Lobby.oauth2Check",
       ".lq.Lobby.oauth2Login",
       ".lq.Lobby.fetchInfo",

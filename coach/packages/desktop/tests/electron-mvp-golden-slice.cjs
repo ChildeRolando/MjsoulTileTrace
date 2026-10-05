@@ -79,14 +79,40 @@ async function inPage(mode) {
   if (snapshot.selection.selectedCount !== 2) throw new Error('golden_selection_mismatch:' + JSON.stringify(snapshot.selection));
   if (snapshot.activeReportRefId !== null || snapshot.activeReportStatus !== 'not_generated') throw new Error('golden_fresh_session_has_report');
   const overview = document.querySelector('#fixed-review .review-overview');
-  const generate = [...overview.querySelectorAll('button')].find((button) => button.textContent.includes('生成教练解说'));
-  if (!generate) throw new Error('golden_generate_button_missing');
-  generate.click();
-  await wait(() => !document.querySelector('#fixed-review').hidden && !overview.querySelector('button')?.textContent.includes('生成教练解说'), 'generation');
-  snapshot = await wait(async () => {
-    const value = await window.riichiCoachProvider.openReview({ packageId });
-    return value.activeReportRefId !== null ? value : null;
-  }, 'saved_report');
+  if (mode === 'single_action') {
+    overview.querySelector('button').click();
+    const firstDecisionId = snapshot.selection.items[0].decisionId;
+    const firstRow = [...document.querySelectorAll('.review-list tr')].find(row => row.dataset.decisionId === firstDecisionId);
+    firstRow.querySelector('.review-generate-one').click();
+    const first = await wait(async () => {
+      const value = await window.riichiCoachProvider.openReview({packageId});
+      return value.explanationCounts.ready === 1 ? value : null;
+    }, 'single_report');
+    if (first.selection.items[1].explanationStatus !== 'not_generated') throw new Error('golden_single_scope_leaked');
+    const firstDetail = await window.riichiCoachProvider.getReviewDetail({packageId, decisionId: firstDecisionId, activeReportRefId: first.activeReportRefId});
+    const remaining = await wait(() => {
+      const button = document.querySelector('.review-generate-remaining');
+      return button && !button.disabled && button.textContent.includes('剩余 1 条') ? button : null;
+    }, 'remaining_one');
+    remaining.click();
+    snapshot = await wait(async () => {
+      const value = await window.riichiCoachProvider.openReview({packageId});
+      return value.explanationCounts.ready === 2 ? value : null;
+    }, 'remaining_report');
+    if (snapshot.activeReportRefId === first.activeReportRefId) throw new Error('golden_single_new_report_ref_missing');
+    const kept = await window.riichiCoachProvider.getReviewDetail({packageId, decisionId: firstDecisionId, activeReportRefId: snapshot.activeReportRefId});
+    if (JSON.stringify(firstDetail.coachJudgments) !== JSON.stringify(kept.coachJudgments)
+      || JSON.stringify(firstDetail.explanations) !== JSON.stringify(kept.explanations)) throw new Error('golden_single_content_lost');
+  } else {
+    const generate = overview.querySelector('.review-generate-remaining');
+    if (!generate) throw new Error('golden_generate_button_missing');
+    generate.click();
+    snapshot = await wait(async () => {
+      const value = await window.riichiCoachProvider.openReview({ packageId });
+      return value.activeReportRefId !== null ? value : null;
+    }, 'saved_report');
+  }
+  await wait(() => !document.querySelector('#fixed-review .review-generate-remaining')?.disabled && !document.querySelector('#fixed-review .review-live')?.textContent.includes('正在生成'), 'generation');
   const decisionId = snapshot.selection.items[0].decisionId;
   const detail = await window.riichiCoachProvider.getReviewDetail({ packageId, decisionId, activeReportRefId: snapshot.activeReportRefId });
   document.querySelector('#fixed-review .review-overview button')?.click();
@@ -100,6 +126,12 @@ async function inPage(mode) {
   await wait(() => document.querySelector('#fixed-review').hidden, 'leave');
   await wait(() => document.querySelector('#review-session-list').textContent.includes('已有教练解说'), 'session_refresh');
   const savedSessions = await window.riichiCoachProvider.listReviewSessions();
+  const recordLabel = savedSessions.find(item => item.packageId === packageId)?.recordLabel;
+  if (!recordLabel || recordLabel.players.length !== 4 || recordLabel.players.some(player => player.rank === null || player.finalScore === null)
+    || recordLabel.selfSeat !== 3 || recordLabel.title.includes('sha256')) throw new Error('golden_saved_record_label_missing:' + JSON.stringify(recordLabel));
+  if (document.querySelector('#review-session-list').textContent.includes('sha256')
+    || document.querySelectorAll('#review-session-list .saved-review-player-self').length !== 1) throw new Error('golden_saved_record_label_dom');
+
   if (mode === 'account') {
     document.querySelector('#catalog-list button').click();
     await wait(() => !document.querySelector('#fixed-review').hidden, 'reused_account');
@@ -120,7 +152,7 @@ async function inPage(mode) {
 
 if (process.versions.electron) {
   const { app } = require('electron');
-  const mode = process.argv.find((arg) => ['account','share','evidence_only','account_failure','offline'].includes(arg));
+  const mode = process.argv.find((arg) => ['account','share','evidence_only','account_failure','single_action','offline'].includes(arg));
   const root = process.env.RIICHI_MVP_GOLDEN_ROOT;
   if (!mode || !root) throw new Error('golden_child_arguments_missing');
   app.setPath('userData', root);
@@ -173,7 +205,13 @@ if (process.versions.electron) {
       assert.equal(result.sessions.length, 1);
       assert.equal(result.sessions[0].sessionId, saved.sessionId);
       assert.equal(result.sessions[0].packageId, saved.analysisPackage.packageId);
-      return { sessionId: saved.sessionId, selected };
+      const reportScopes = saved.readBack.reports.map(report => [...report.selectedDecisionIds]).sort((a,b) => a.join('|').localeCompare(b.join('|')));
+      if (result.singleAction === true) {
+        assert.equal(reportScopes.length, 2);
+        assert(reportScopes.every(scope => scope.length === 1));
+        assert.equal(saved.decisionReportRefs.length, 2);
+      }
+      return { sessionId: saved.sessionId, selected, reportScopes, recordLabel: result.sessions[0].recordLabel };
     } finally { repository.close(); }
   }
   function child(root, mode) {
@@ -199,10 +237,11 @@ if (process.versions.electron) {
     } finally { database.close(); }
     console.log('[electron-mvp-golden] account_failure PASS packages=0 sessions=0');
   } finally { rmSync(failedRoot, { recursive: true, force: true, maxRetries: 20, retryDelay: 100 }); }
-  for (const mode of ['account', 'share', 'evidence_only']) {
+  for (const mode of ['account', 'share', 'evidence_only', 'single_action']) {
     const root = mkdtempSync(join(tmpdir(), 'riichi-mvp-golden-'));
     try {
       const before = child(root, mode);
+      if (mode === 'single_action') before.result.singleAction = true;
       const beforeOracle = assertSavedSelection(root, before.result);
       const after = child(root, 'offline');
       const afterOracle = assertSavedSelection(root, after.result);

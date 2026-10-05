@@ -53,8 +53,9 @@ _Avoid_: 锚定对、匹配对
 
 **语义覆盖矩阵（semantic coverage matrix)**：
 按"窗口种类 × 行动分支"列出的验收清单（立直/黙听、chi 后弃牌、pon 后弃牌、
-立直后、自摸、暗杠、加杠、九种九牌……）。某分支的 production fail-closed 只有
-在其取得**真实 E2E 命中**后解除；矩阵无空格才是验收完成，corpus 场数不是。
+立直后、自摸、暗杠、加杠、九种九牌……）。分支登记只记录**真实 E2E 命中**与验收缺口，
+不能否决 libriichi 已确认的合法动作，也不作为生产分析的准入门槛。
+矩阵无空格才表示该矩阵的真实语料覆盖完成，corpus 场数不是。
 
 **Discovery corpus**：
 本地批量扫描的原始牌谱集合，只跑 mapper/canonical/census，**绝不调用 Mortal**；
@@ -223,7 +224,14 @@ LLM 追加的 CoachInference / CoachJudgment / Explanation relation 集合；只
 append，可以引用 evidence subgraph，但不得修改、删除或覆盖其中节点/边。
 
 **GraphContextSlice**：
-从 ContextGraph 通过确定性 allow-list / traversal 选出的单次 LLM 输入。
+从 ContextGraph 通过确定性 allow-list / traversal 选出的单次教练上下文来源。
+2026-10-04 起完整 slice 留在本地，用于审计与 grounding；外发表示由 CoachContext 派生。
+
+**CoachContext**：
+从已验证 GraphContextSlice 派生的教学输入；包含局面、候选、评分、所选比较对的
+事实/差异及必要关系，引用使用短编号。由 reasoning 生产，各 LLM provider 消费。
+完整审计来源及短编号到 canonical 身份的查找表留在本地；教练输出经还原后继续
+由原图校验，持久化报告仍使用 canonical 引用。
 
 **Reasoning trace / argument trace**：
 面向产品保存和审计的显式结构化推理路径。
@@ -241,7 +249,11 @@ append，可以引用 evidence subgraph，但不得修改、删除或覆盖其�
 
 **局面事实（KnownGameFacts）**：
 从 canonical 重放直接投影出的客观局面状态（巡目、手牌、河牌、立直状态、
-分数、场风/自风、当前动作）。
+分数、场风/自风、当前动作）。每个决策可携带当前四家点数（按 actor 0–3
+排列）以及场风、局序、本场和供托；点数只取该决策快照，不能用和牌结算或
+终局点数覆盖。新增 `scores`、`currentRound` 使用显式 `known` / `unknown`
+状态。来源 completeness 不足时只输出 `unknown`，旧归档省略这两个可选字段，
+legacy 桥也不得根据占位值推测。
 _Avoid_: 把候选分析值称为 fact（那是候选因素）
 
 **候选因素账本（CandidateFactorLedger / FactorFact）**：
@@ -292,3 +304,53 @@ CoachJudgment 的综合层；LLM 根据真实 KnownGameFacts（舍牌顺序、�
 
 **顺位 EV（placement EV）**：
 依赖模拟的顺位期望值；版本化估算，属参考信号，永不进入确定性偏好。
+
+
+### 2026-10-05 单行动解说与标题修订
+
+用户批准替代 M7-A/B 首次整盘生成限制：固定选集可逐条生成，全盘补齐未 ready 条目；
+每次请求独立报告/用量，显式行动→报告引用保存，reasoning 校验多报告消费。
+标题来源目录摘要独立本地保存，四人真实顺位/分数与本人高亮；旧元数据缺失明确降级。
+复盘读取和生成的后台隔离、不可变投影复用及档案无损压缩见 M7-A/B 的同日性能修订。
+证据阅读按“局面 → 比较 → 分主题依据 → 行动明细”组织；LLM 教学结构与人类可视化分别
+投影，不修改原始事实、合法动作或图身份。按需工具检索仍是后续能力，不在本次实现中。
+
+### 2026-10-05 CoachTeachingBrief/v1
+
+生产 Coach prompt 升为 v4：已验证的 CoachContext/v1 本地派生树形
+CoachTeachingBrief/v1，按决策、局面、候选事实、已有比较差异、模型评分和确定性偏好组织；
+Facts 按原 status/authority 分组，节点与短引用值保持完整，事件和关系短边原样保留。
+canonical alias map 仍只用于本地解码和 grounding。请求 audit 对应实际 Brief JSON，并保留
+源节点数与教学关系数；已保存 v3 报告用旧平铺请求重算后继续校验。此变更冻结输入结构及
+回读边界，不代表模型解释质量已通过实测。
+
+### 2026-10-05 解说证据值占位符修订
+
+真实模型把 tile_counts 的整个 leftValue/rightValue 对象写入正文，占位符校验拒绝。
+prompt/v5 从当前已验证 CoachContext 派生按决策分组的可显示标量字段清单；
+清单不重复值、不穿数组、不提供虚构总量或未知字段。复合值保留教学内容与 claims，
+正文按已有方向作定性表述。原解码、scalar grounding 和展示契约继续生效。
+历史 v3/v4 请求分别按冻结提示模板重算审计；新提示不改写历史报告。
+
+### 2026-10-06 历史教练用量
+
+历史统计由本机已保存的不可变 ReviewReport 派生。Token 按 reportRefId 请求实例累计，
+重复生成消耗继续计入；各字段独立保留已知总量与未知次数，缓存输入不叠加为额外 Token。
+用户确认“手数”为成功解说的单行动/决策数，按 recordId + decisionId 去重；盘数为至少
+一条可用解说的独立牌谱数，同牌谱重分析/不同版本包不重复计数。
+统计覆盖本机仍保存的报告，不表示账号全部历史账单，未保存用量不可补猜。
+复盘后台 worker 只发送计数 DTO；历史牌谱身份读取只提取 record 并检查存储 hash，
+不重建全部证据/图；这不是完整档案领域校验或 grounding 的替代。旧报告不改写。
+
+### 2026-10-06 决策点数与无确定性差异解说
+
+KnownGameFacts 从 canonical 决策快照生产各家当前点数（actor 0..3 顺序）与局次、
+本场、供托；只有对应字段完整才为 known，否则显式 unknown。不得用终局点数倒填，
+历史档案缺失字段保持缺失。生产 factorPipeline/v3 使新增事实拥有新的包身份。
+领先保位与落后追分属于教练据真实局面作的判断，不是进张统计自动证明的最优策略。
+
+prompt/v6 允许 claims 严格引用同一决策的 KnownGameFact、ModelEvaluation；原
+FactorFact、FactorDifference 引用继续适用。没有确定性差异时可以解释已有局面与模型
+建议，但不得虚构因素、把未知说成相等或把模型偏好当作 EV。grounding/v3 与 provider
+输出 schema 消费同一领域契约，换 provider 不绕过校验。历史 v3/v4/v5 请求模板及
+审计重建冻结，旧版本报告不接受新 claim 类型，不改写历史解说。

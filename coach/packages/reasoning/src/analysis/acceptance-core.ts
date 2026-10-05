@@ -147,10 +147,10 @@ export async function runMortalAcceptanceEvidence(input: {
     return { status: "review_failed", code: "mortal_full_game_input_invalid" };
   }
 
-  // Acceptance mode: this core is the evidence PRODUCER, so the coverage
-  // gate is wide open HERE ONLY. Production consumers lift from the §16
-  // evidence manifest (createMortalCoverageRegistryFromManifest), never
-  // from this call.
+  // Acceptance mode: this core is the evidence PRODUCER, so all semantic
+  // branches are enabled for evidence extraction here. Production consumers
+  // may derive coverage reporting from the §16 manifest, but registration
+  // never gates a validated libriichi action or production review outcome.
   const review = await runMortalFullGameReview({
     stream: input.local.canonicalStream,
     decisions: collected.decisions,

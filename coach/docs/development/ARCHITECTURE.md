@@ -43,7 +43,14 @@ mahjong-soul-source ──► CanonicalEventStreamV2
                                      GraphContextSlice
                                              │
                                              ▼
+                               CoachContext + 本地引用查找表
+                                             │
+                                 仅教学 DTO 外发，审计链留本地
+                                             ▼
                                          LLM Coach
+                                             │
+                                             ▼
+                                引用还原 + 原图 grounding
                                              │
                                              ▼
                             Reasoning overlay / ReviewReport
@@ -53,6 +60,17 @@ mahjong-soul-source ──► CanonicalEventStreamV2
 ```
 
 系统刻意把“数据来源”“局面事实”“候选因素与差异”“模型选择”和“自然语言表达”分开；教练判断（CoachJudgment）位于证据之上、表达之下——可以综合与权衡证据，但不能倒写证据层事实。
+
+2026-10-04 用户批准将审计与模型消费分离，见 M6-D2 规格同日修订。
+`GraphContextSlice` 保留全部可追溯来源，`CoachContext/v1` 是其显式教学投影，
+使用短引用而不携带完整 Evidence、provenance、生成方/版本/哈希或查找表。
+硬证据/建议的权威级别、未知/限制、候选与评分、已选比较事实/差异及必要教学关系
+仍须保留；raw_replay/user_asserted 等事实来源类别与立直前后/鸣牌的教学时序
+不能误归为审计字段删除。材料性事件关系使用短引用或已有座位/河牌序号表示。
+不改变 selector 和自动比较范围。编码、解码、请求计量在通用 reasoning
+接口中，各 provider 只负责传输与回报 Token。输出还原后由原图 grounding 验证；
+未知、错类型、跨决策引用失败封闭。报告保存 canonical 引用及实际请求元数据，
+旧 v1/v2 报告继续离线校验，不重新生成。
 
 ## Workspace 边界
 
@@ -150,10 +168,22 @@ ADR-0006 保留向听、进张、打点、结构与防守事实；退出的是�
 1. Electron 打开隔离的雀魂国区官方页面。
 2. 只捕获恢复所需的受限登录结果和上下文。
 3. OS 安全后端包裹密钥；会话以 account-bound envelope 跨重启保存。
-4. 重启时使用全新 Lobby 执行 OAuth2 恢复并再次核对账号。
+4. 重启时从同一 allowlisted route 候选取得 `wss` URL 与 route ID；新 Lobby 首先
+   完成 `.lq.Route.requestConnection` 握手，再执行 OAuth2 恢复并核对账号。
 5. 注销会先停止目录同步，再清浏览器状态、目录和凭据。
 
 ### 目录与牌谱
+
+账号目录分析的运行进度由 Electron main 的既有目录 IPC 注册拥有：一次只允许一个
+分析任务，可信窗口可以轮询完整七阶段、每阶段的完成数/总数、状态与耗时。任务状态只存在内存；注销、
+浏览器会话、原始牌谱、账号标识、模型输出与路径均不进入进度 DTO。规则查询和
+full-game 的计数回调只报告实际处理的边界，模型阶段只统计需评分的多候选决策。
+renderer 从启动时展示全部阶段并保留终态，展示本次已用时间；没有完整耗时参考时显示
+“首次分析，正在建立估时参考”。main 在 userData 独立保存最多五次完整任务的阶段耗时和计数，
+不含牌谱或账号身份，按当前工作量与实际处理速率估计总耗时/剩余时间，并标明估算来源。
+计时参考不影响分析契约、报告 identity 或任务是否完成，不将未知阶段换算为整体百分比；
+至多一条轮询请求在途，任务结束时停止轮询，防止迟到回复覆盖下一次任务。
+运行日志仅记录阶段耗时及计数，供定位慢点；这些信息不是分析结果或验收证明。
 
 1. 目录服务按时间窗完整分页，权威选择最近 30 场。
 2. 只保留已证明为支持规则的四人南风条目。
@@ -338,14 +368,15 @@ Linux 弱后端、损坏/解密失败、加密/写入失败均不可用；失败
 停止使用凭据，成功重新导入或经校验的重启才能恢复。删除/替换操作等待在途生成结束。
 
 `riichiCoachProvider` 只暴露 configure/status/importCredential/clearCredential/generate。
-configure 是严格 `{baseUrl, modelName}`；baseUrl 只允许无认证信息、query、fragment 的
-HTTPS URL。非敏感设置在当前 main 生命周期内保留，与密文文件独立；重启后需重新配置
-设置。导入/删除不接收参数。generate 只接收 `{packageId}`，主进程从
+configure 接收严格 `{baseUrl, modelName}` 或 `{providerId:"codex-cli", modelName:"gpt-6-luna", reasoningEffort:"max"}`；
+baseUrl 只允许无认证信息、query、fragment 的 HTTPS URL。非敏感设置由 main 独立原子保存到
+`coach-provider-settings-v1.json`；凭据仍由原安全存储拥有。Codex 分支使用已有登录，
+不读取 BYOK key。导入/删除不接收参数。generate 只接收 `{packageId}`，主进程从
 `userData/analysis-packages/<sha256(packageId)>.json` 读取已有包，并校验内容与 identity；
 缺失/损坏引用返回 `package_unavailable`。此只读接点不提供新的分析包写入或目录 UI。
 
 唯一生产生成链是 validate package → project → select → `generateReviewReport` →
-slice → 冻结 prompt → provider 内一次初始发送与至多一次自动重试 → grounding →
+slice → CoachContext/短引用绑定 → 冻结 prompt → provider 内一次初始调用与至多一次自动重试 → 引用还原/grounding →
 append overlay → read-back validator。desktop main 是组合根；service/IPC 不得直接调用
 provider、slice/prompt builder 或 assembler 产生报告。该边界由
 `review_report_generation_seam` 架构规则机械保护。已有 package/report 的 presentation
@@ -365,6 +396,20 @@ internals（含 `appendReasoningOverlay`）禁止 desktop 获取；presenter 可
 package validators。
 检查器不解析运行时计算的模块路径，不提供任意 JavaScript 的数据流证明。
 流程不保存完整 prompt、response 或 raw CoT。
+Codex 是第二个 main-only adapter：固定模型/max、临时空工作目录、read-only、忽略用户配置，
+原生子进程只继承必要系统路径和既有网络代理变量，API key、MCP/控制命令环境不继承。
+CLI 必需的 code_mode_host 基础设施保持默认；独立 code_mode 保持关闭，工具能力仍禁用。
+严格结构化输出要求所有 object properties 列入 required，空数组仍可表达无额外推断，
+原始最终 JSON 不经 provider 特例改写，以保留 wire 输出哈希。
+单次禁用 CLI 工具和外部上下文功能，提示词经 stdin 输入。JSONL 只在内存解析；只接受
+完成的最终 assistant 内容、数值用量和固定错误语义，工具调用事件立即拒绝，且等子进程
+退出后才允许外层重试。临时目录清理，原始流、认证参数、stderr/CoT 不进入报告或 renderer。
+CLI 自身的 HTTP 重试不受 adapter 的外层一次重试计数覆盖；`transportRetries` 对此分支表示
+额外 CLI 启动次数，不能用它推算云端实际发送次数。CLI 不提供本适配器可控的 temperature/
+输出 Token 上限；generation 显式记录 `samplingMode:provider_default` 与 `reasoningEffort:max`，
+不声称等同 HTTP 的 temperature=0/max_tokens。输出字节与运行时间仍受本地上限约束。
+桌面在请求前检查就绪状态，main 再检查；未就绪时不发布报告，不消费首次生成资格。
+一旦生成报告，仍遵守既有首次生成/不可原地重生成契约。
 optional usage 先校验形状，畸形 metadata 不会把合法 draft 变成传输失败。被拦截的
 key/prompt 反射只在 main 内保留与本次结果绑定的原文 hash，正文丢弃，audit.outputHash
 继续指向原始模型输出。冻结 v1 prompt 明确要求 zh-CN，且任何 Mortal（以及历史 Akagi）内部原因
@@ -412,3 +457,11 @@ artifact 均不携带 raw material。缓存没有 TTL/LRU，只有显式清理�
   `startRecordAnalysis` 仍需后续接入同一 package/session handoff。固定五门、
   Golden Slice、独立评审与真人 smoke 仍是发布门。冻结接线与顶层 Electron 验收见
   [Integration Closeout spec](../specs/2026-09-24-playable-review-mvp-integration-closeout.md)。
+
+
+### 单行动消费范围（2026-10-05）
+
+固定 selector 选集 → main 验证生成子集 → 既有 CoachContext/唯一生成入口 →
+独立 immutable reports → 显式 decision/reportRef 映射 → reasoning 会话 read-back →
+窄 presenter/IPC → 单行动解说及全盘完成状态。最新请求用量与全盘可用解说数分别展示。
+来源目录的牌谱标题/玩家结算摘要单独本地保存，仅服务列表展示，不进入分析事实或模型输入。

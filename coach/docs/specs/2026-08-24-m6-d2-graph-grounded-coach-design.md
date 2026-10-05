@@ -21,6 +21,29 @@
 > 引擎、service 与 IPC 均不重试。持久化读回可独立调用既有 package/report validators，
 > 但不得调用 provider 或发布新报告。
 
+## 2026-10-04 桌面接入修订（用户批准）
+
+本次扩展仅为用户已选择的本机 Codex 登录、`gpt-6-luna` / `max` 和 Token 用量展示。
+它取代本文“v1 单 provider / 第二 provider out”的范围限制，不改变唯一生成入口、
+selection、grounding、权限分层、首次生成与只读复盘契约。HTTP provider 的既有请求行为保持。
+
+- Codex 使用云端推理及已有 ChatGPT 登录，main-only adapter 不接收或暴露登录令牌。
+- 冻结 prompt / draft 不变。CLI 不暴露本适配器可控的 temperature 和输出 Token 限额；
+  请求 DTO 中这两个字段对 HTTP 生效，Codex 不伪装执行，而在 generation 记录
+  `samplingMode:provider_default` / `reasoningEffort:max`，以运行时间、输出字节上限保护本地进程。
+- outer provider 至多启动两次 CLI；CLI 内部 HTTP 重试不能从 `transportRetries` 得知，
+  该字段对 CLI 表示额外子进程启动次数。语义/grounding 拒绝不重试。
+- 公共设置独立持久化；界面和 main 都在首次生成前检查是否就绪。未就绪不生成报告，
+  不消费首次生成资格；已经产生的 complete/partial/evidence_only 报告不原地重生成。
+- `audit.usage` 为服务返回的 input/output/total/cached-input 数字，缺失为未知。
+  cached-input 已包含于 input，不再加到 total。失败结果可携带已收到的用量；
+  不推算未报告的失败/重试成本，不等同账号剩余额度、价格或计费账单。
+- 概览仅投影当前已校验报告的用量和非敏感 generation 元数据；重新打开读取原报告，
+  不调用模型。无报告/历史报告没有 usage 时显示未知，生成时显示等待统计。
+
+实现和验证入口见 [ARCHITECTURE](../development/ARCHITECTURE.md) 与
+[VERIFICATION](../development/VERIFICATION.md)；真实 CLI 验证与默认 stub 测试分开。
+
 ## Problem Statement
 
 M6-D1 交付了 substrate：`StructuredAnalysisPackage` 可以确定性投影为
@@ -519,3 +542,118 @@ GraphContextSlice 携带 Decision.automaticComparisonScope；模型可以看到�
 生成前校验图的范围与同决策完整 ModelEvaluation 一致；直接 grounding 与报告读回也
 执行同一重算。伪造范围不能扩大推荐权限，未选候选推荐为 invalid_output / 读回拒绝。
 无 scope 的历史图仍保留旧全候选语义；不能用这个兼容分支绕过新版档案的范围校验。
+
+## 2026-10-04 批准修订：教学上下文与本地审计分离
+
+用户授权重新设计教练输入：证据使用短索引，本地维护查找表；完整审计链不发送给教练。
+实测旧请求单决策 675,599 字节、整场十个入选决策 29,300,006 字节。
+这不是扩大模型能力或减少入选范围；只改变生产请求的表示和消费边界。
+
+- `GraphContextSlice` 继续是按已验证图与 selector 构造的唯一来源投影，并留在本地。
+  新增通用 `CoachContext/v1` 教学 DTO，提示版本为 `coach-review-prompt/v3`；
+  本修订取代先前“直接把完整 slice JSON 发给模型”的传输方式。
+  模型 wire draft 版本更新为 `coach-reasoning-draft/v2` 以接受短引用；
+  还原后仍须通过原 canonical draft 的严格动作身份契约，不放宽 ActionRef 或报告引用。
+- 完整 canonical package、图、Evidence、provenance、sourceRefs、生成方、版本和哈希
+  仍由本地审计、grounding 和报告读回消费。教练请求不含完整审计链、查找表或原始日志。
+- DTO 保留所有入选决策、完整合法候选与模型评分、所选比较对的已有事实/差异、
+  局面事实、硬证据/建议的权威边界、限制及未知状态，以及这些语义之间的关联。
+  不依靠删候选、截断事实、改变比较策略或把未知改成确定来满足输入限额。
+- 区分审计链与教学来源类别：KnownGameFacts 的 raw_replay/user_asserted/mixed/legacy
+  类别保留为短语义字段，不能因同名 provenance 而删掉信任区别。
+  立直前后、摸牌/鸣牌对应等教学时序关系也须保留，材料性事件引用使用短索引或
+  已有 actor/riverOrdinal 语义表示，不以递归删除所有 eventId/ref 的方式压缩。
+- 图节点、决策、动作和差异使用稳定短引用；本地查找表绑定当前图、slice 和选择。
+  图的 `derived_from` 审计关系不发送，教学关联使用短引用表示。
+  教学关系可编码为节点归属、因素所属动作、差异左右动作/方向和偏好动作列表，
+  避免同一关系同时作为字段和边重复发送。编码前逐条核验与源教学边的多重集等价；
+  缺失、多余或方向不符必须拒绝。审计的 semanticEdgeCount 计被等价编码的关系数量，
+  不把它冒充实际序列化边行数。
+- 模型只返回结构化解说及短引用。通用 reasoning 边界负责解析和还原引用，
+  再由既有 full-graph grounding 校验。未知、错误类型、错决策或不合法引用失败封闭；
+  模型的局部推理 ID 不得被误当成事实引用。数值占位符也须还原并通过原校验。
+  解说正文内若包含当前决策的动作短引用，通用解码器将其转换为既有动作占位符，
+  由原展示层格式化为可读动作名称；未知、跨决策或其他类型的正文短引用拒绝。
+  推断正文不经过解说占位符展示链，因此拒绝其中的短引用，不向用户展示内部别名。
+  wire 的差异侧值简写 leftValue/rightValue 仅在当前决策的已绑定差异、严格通过
+  FactorValueSchema 且属于 number/boolean/classification 单标量时，映射到对应 .value
+  叶子。列表、复合结果与未知值不推测字段；canonical grounding 仍只接受真实标量叶子。
+  为兼容既有 typed draft 调用方，解码器也接受当前请求、当前决策的同类型 canonical
+  身份；这不增加上下文暴露，也不允许未绑定身份、跨决策引用或跳过 grounding。
+- 编码和还原均不属于 Codex 或 HTTP adapter；两类 provider 消费同一请求契约。
+  输入 Token、缓存 Token、输出 Token 和总量仍由 provider 回报，通过通用 usage 接口记录。
+  字节数与本地分词估计不能替代服务回报，也不能用于伪造计费量。
+- report.audit 保留完整源 slice 哈希和原始结构化模型输出的哈希，另记录通用请求
+  上下文版本、实际上下文哈希、字节数与决策/节点/教学关系计数；不保存 prompt、查找表或 CoT。
+- 已保存 v1/v2 报告继续校验和离线打开，不发送新请求。新 v3 报告按当前教学 DTO
+  重建并核验请求元数据，最终持久化的引用仍是完整 canonical 身份。
+
+验收：固定提示字节、无审计信息出境、引用闭合及数值/权威/候选/评分/比较范围保真、
+跨决策与恶意引用拒绝、历史报告兼容、通用 provider/report/UI usage 链、真实档案
+前后字节与分词测量、最终提交单决策 mintest，以及新提交独立验收。
+单决策成功不能替代整盘请求可用性和真人完整 H1。
+
+## 2026-10-05 批准修订：树形教学 brief 与 v3 报告回读
+
+生产请求提示版本升为 `coach-review-prompt/v4`，wire draft 继续使用
+`coach-reasoning-draft/v2`。`GraphContextSlice` 和 `CoachContext/v1` 仍是唯一
+验证来源及本地 canonical binding；新增 provider-neutral `CoachTeachingBrief/v1`
+仅调整发送给模型的阅读结构，不改图、节点身份、所选决策、候选集合或比较策略。
+
+- 每个 selected decision 按 `decision`、`situation`、`actions`、`comparisons`、
+  `model`、`preference` 分组；actions 保留每个现有 CandidateAction 及其全部
+  FactorFact，按原 status/authority 归入 `certain`、`estimated`、`missing`；
+  comparisons 仅分组已有 FactorDifference，使用节点上已有 axis。没有发送的轴或
+  状态不补空组、不推造缺证结论。模型评分完整保留。所有节点在 Brief 中恰好出现一次。
+- 顶层 events 与短引用语义 edges 从 CoachContext 原样带入。节点 payload、D/N/A/F/M/E
+  短引用以及事件顺序不重新解释；比较对照抄 `automaticComparisonScope.actionRefs`，
+  并保留 FactorDifference 的左右动作、direction 与值。全量候选和评分仍可见，推荐仍受
+  所选比较对约束。
+- canonical 身份索引、完整图与审计 provenance 留在本地。Brief 不添加
+  producer/provenance/sourceRefs/证据登记表，不把本地 alias 查找表发送给模型。旧
+  CoachContext 解码映射保持 canonical grounding 的入口；Brief 构造须校验选集顺序、
+  节点集合与值逐项等价、单次出现、决策归属、FactorFact→CandidateAction 边及比较关系，
+  收集后再执行现有 CoachContext 引用校验。
+- 新 audit 保留 `coachContextVersion=coach-context/v1`，并增加
+  `teachingBriefVersion=coach-teaching-brief/v1`。`inputContextHash` 与 `contextBytes`
+  针对实际 canonical Brief JSON；`promptBytes` 计实际 v4 guide 加 Brief；`nodeCount`
+  仍计源 CoachContext 节点；`semanticEdgeCount` 仍计源 slice 中经验证的非
+  `derived_from` 教学关系，不代表 Brief 的 edge 行数。prompt、完整图和短引用查找表仍不入 audit。
+- 已保存 `coach-review-prompt/v3` 报告保留 wire v2，并由只读 v3 重算路径按旧平铺
+  CoachContext 模板校验其请求 audit；当前生产默认仅生成 v4。更早 v1/v2 报告继续走既有
+  canonical draft 兼容路径。报告最终引用仍还原为完整 canonical 身份。
+
+本修订冻结的是输入结构、来源边界和读回校验，不构成模型解释质量已提升的验收结论。
+
+## 2026-10-05 修复修订：正文可显示值清单
+
+真实单行动解说在 v4 下将 `tile_counts` 对象作为 `{diff:F#.leftValue}` / rightValue
+正文值，触发 `unresolvable_placeholder`。原标量输出契约和教学数据保持一致；
+提示缺少复合值与标量路径的明确指引，不能通过放宽 grounding 让对象直接进入正文。
+
+- 生产提示升为 v5，基于当前已验证 CoachContext 生成按 D# 分组、只含 A#/F# 和
+  既有可显示字段路径的清单。字段来自固定展示支持路径，并须落在现有真实标量；
+  不枚举事件/副露身份、不重复教学值、不穿数组、不新增 length/total 或补全未知值。
+- number/boolean/classification 侧值使用 `.leftValue.value` / `.rightValue.value`；
+  honor_safety 的 remainingCount/category 按清单使用。tile_counts、string_set、
+  integer_ids、shape_claims、wait_details 的复合值继续用 claims 引用并作已有方向的
+  定性解释，不生成对象/列表正文占位符。N# FactorFact 只用于 claims/前提。
+- 清单属于通用提示构造，与 provider 无关。图、Brief/v1、短引用解码、完整候选、
+  事实、比较范围与 scalar grounding/展示规则保持原契约。原非法复合值回归仍须失败。
+- promptBytes 计实际 v5 指引、字段清单与 Brief。context hash/bytes 仍绑定原 Brief；
+  清单可由同一已验证上下文重算。v3/v4 历史报告分别使用原冻结模板和原 audit 口径，
+  禁止把新提示审计套在旧报告上或改写历史结果。
+
+验收需覆盖：真实失败复现、复合值仍拒绝、每条清单路径经通用生成/grounding/展示可消费、
+同决策引用与历史 v3/v4 校验、真实单行动模型生成、整盘请求字节限额及独立验收。
+
+
+## 2026-10-06 用户批准的解说契约增补
+
+原 E6 两值 claims 是历史版本契约，prompt v6 对当前生产增加 `known_game_fact` → KnownGameFact 与 `model_evaluation` → ModelEvaluation。两者与既有 `factor_fact` / `factor_difference` 一样必须是同决策、实际送入 context 的节点且类型完全匹配；非空证据要求不变。模型证据保留 model authority，不能充作硬牌理或已知模型理由。
+
+没有确定性候选差异时，允许解释现有局面事实与模型建议，必须明示“现有证据未给出可区分的确定性优势”；未知、未计算与相同不可混同。不得捏造 F#/FactorFact 来满足输出结构。候选仍限制于既有自动比较对。
+
+当前点数是局面事实，由 canonical decision snapshot 生产 `KnownGameFacts.scores`；当前局次、本场、供托由 `currentRound` 提供。字段以 optional known/unknown 状态兼容旧档案：不能用终局点数或段位信息补当前局面，旧档案缺失不表示各家 25000 点。领先保位与落后追分属于教练权衡，不是固定牌理优劣结论。此次不扩展通用数值占位符能力；局面数字不通过猜测新的占位符路径输出。
+
+旧 v3/v4/v5 提示及请求审计按对应冻结模板重建，旧报告不改写，也不接受其版本没有定义的新 claims。当前 grounding 标记 v3。

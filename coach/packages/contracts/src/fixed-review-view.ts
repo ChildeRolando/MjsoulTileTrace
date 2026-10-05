@@ -1,10 +1,12 @@
 import { z } from "zod";
-import { RecordAnalysisStatusSchema } from "./analysis-identity-contract.js";
+import { RecordLabelSchema } from "./record-label.js";
+import { DecisionIdSchema, RecordAnalysisStatusSchema } from "./analysis-identity-contract.js";
 import { GraphAuthoritySchema } from "./context-graph.js";
 import { ReviewSelectionReasonSchema, SELECTOR_POLICY_VERSION_V1 } from "./review-selection.js";
+import { LlmTokenUsageSchema, LlmProviderDescriptorSchema } from "./coach.js";
 
 export const FIXED_REVIEW_VIEW_SCHEMA_VERSION = "fixed-review-view/v1" as const;
-export const FIXED_REVIEW_DETAIL_SCHEMA_VERSION = "fixed-review-detail/v1" as const;
+export const FIXED_REVIEW_DETAIL_SCHEMA_VERSION = "fixed-review-detail/v3" as const;
 
 export const FixedReviewExplanationStatusSchema = z.enum([
   "not_generated", "ready", "provider_unavailable", "request_failed", "invalid_output",
@@ -40,6 +42,10 @@ export const RendererExplanationSchema = z.object({
 }).strict();
 export const RendererProvenanceItemSchema = z.object({
   displayRef: z.string().min(1),
+  topic: z.enum(["context", "efficiency", "value", "defense", "placement", "option_value", "inference"]),
+  kind: z.enum(["context", "comparison", "candidate", "inference"]),
+  availability: z.enum(["available", "missing", "failed", "not_calculated"]),
+  valueRelation: z.enum(["ordered", "equal", "different"]).nullable(),
   category: z.enum(["hard_evidence", "advisory_signal", "coach_inference"]),
   label: z.string().min(1),
   summary: z.string().min(1),
@@ -56,7 +62,6 @@ export const RendererProvenanceItemSchema = z.object({
   parentRefs: z.array(z.string().min(1)),
   producer: z.string().min(1),
   producerVersion: z.string().min(1),
-  sourceRefs: z.array(z.string().min(1)),
 }).strict();
 
 export const RendererReferenceTargetSchema = z.object({
@@ -95,6 +100,23 @@ const OutcomeCountsSchema = z.object({
   analysis_blocked: CountSchema,
 }).strict();
 
+const HistoricalTokenCounterSchema = z.object({
+  known: z.number().int().nonnegative().max(Number.MAX_SAFE_INTEGER),
+  unknownRequests: z.number().int().nonnegative().max(Number.MAX_SAFE_INTEGER),
+}).strict();
+/** Saved request instances are counted once; explanation coverage is deduplicated. */
+export const CoachUsageHistorySchema = z.object({
+  schemaVersion: z.literal("coach-usage-history/v1"),
+  requestCount: z.number().int().nonnegative().max(Number.MAX_SAFE_INTEGER),
+  readyDecisionCount: z.number().int().nonnegative().max(Number.MAX_SAFE_INTEGER),
+  explainedRecordCount: z.number().int().nonnegative().max(Number.MAX_SAFE_INTEGER),
+  inputTokens: HistoricalTokenCounterSchema,
+  outputTokens: HistoricalTokenCounterSchema,
+  totalTokens: HistoricalTokenCounterSchema,
+  cachedInputTokens: HistoricalTokenCounterSchema,
+}).strict();
+export type CoachUsageHistory = z.infer<typeof CoachUsageHistorySchema>;
+
 export const FixedReviewSnapshotSchema = z.object({
   schemaVersion: z.literal(FIXED_REVIEW_VIEW_SCHEMA_VERSION),
   packageId: z.string().min(1),
@@ -107,6 +129,9 @@ export const FixedReviewSnapshotSchema = z.object({
   }).strict(),
   activeReportRefId: z.string().min(1).nullable(),
   activeReportStatus: FixedReviewActiveReportStatusSchema,
+  coachUsage: LlmTokenUsageSchema.nullable().optional(),
+  coachProvider: LlmProviderDescriptorSchema.nullable().optional(),
+  coachUsageHistory: CoachUsageHistorySchema.nullable().optional(),
   explanationCounts: z.object({
     ready: z.number().int().nonnegative(),
     provider_unavailable: z.number().int().nonnegative(),
@@ -132,6 +157,7 @@ export const FixedReviewDetailSchema = z.object({
 export const FixedReviewOpenRequestSchema = z.object({ packageId: z.string().min(1).max(200) }).strict();
 export const FixedReviewGenerateRequestSchema = z.object({
   packageId: z.string().min(1).max(200), operationId: z.string().min(1).max(200),
+  decisionId: DecisionIdSchema.optional(),
 }).strict();
 export const FixedReviewCancelRequestSchema = z.object({ operationId: z.string().min(1).max(200) }).strict();
 export const FixedReviewDetailRequestSchema = z.object({
@@ -140,6 +166,7 @@ export const FixedReviewDetailRequestSchema = z.object({
 export const FixedReviewLeaveRequestSchema = FixedReviewOpenRequestSchema;
 export const FixedReviewAcknowledgementSchema = z.object({ status: z.literal("acknowledged") }).strict();
 export const ReviewSessionSummarySchema = z.object({
+  recordLabel: RecordLabelSchema.optional(),
   sessionId: z.string().min(1),
   packageId: z.string().min(1),
   analysisStatus: RecordAnalysisStatusSchema,

@@ -92,8 +92,15 @@ describe("native rules to scores to report without a second action enumerator", 
         componentVersions:{packageSchema:"structured-analysis-package/v2",legalActionRules:input.ruleRequest.identity,
           canonicalReplay:"canonical-riichi-events/v2",mapperAdapter:input.stream.mapperVersion,
           factEngine:{engine:"mahjong-helper",upstreamCommit:MAHJONG_HELPER_COMMIT,adapterVersion:FACT_ENGINE_ADAPTER_VERSION,protocolVersion:FACT_ENGINE_PROTOCOL_VERSION},
-          factorPipeline:"factor-pipeline/v1",mortalSourceModel:{identity:"Mortal",version:identity.adapterVersion,modelTag:identity.checkpointModelTag,
+          factorPipeline:"factor-pipeline/v2",mortalSourceModel:{identity:"Mortal",version:identity.adapterVersion,modelTag:identity.checkpointModelTag,
             evidenceSource:{kind:"managed_local_runtime",identity}}},frozenPolicySnapshot:retained.modelEvaluation.detailPolicy});
+      const priorPipelinePackageId = derivePackageId({
+        analysisKey:pkg.analysisKey,
+        componentVersions:{...pkg.componentVersions,factorPipeline:"factor-pipeline/v1"},
+        analysisPolicy:pkg.analysisPolicy,
+      });
+      expect(pkg.componentVersions.factorPipeline).toBe("factor-pipeline/v2");
+      expect(pkg.packageId).not.toBe(priorPipelinePackageId);
       expect(()=>validateStructuredAnalysisPackage(pkg)).not.toThrow();
       expect(pkg.decisions[0]!.normalizedDecisionContext.actualAction).toMatchObject({kind:"discard",discardMode:"tedashi"});
       const decision = pkg.decisions[0]!;
@@ -113,7 +120,7 @@ describe("native rules to scores to report without a second action enumerator", 
     } finally { await engine.close(); }
   });
 
-  it("R14 nine-terminals reaches the native full-game consumer", async () => {
+  it("R14 nine-terminals reaches the native full-game consumer without coverage registration", async () => {
     const events = canonicalSelfDrawDiscardEvents();
     const start = events[1]!;
     const drawn = events[2]!;
@@ -140,7 +147,6 @@ describe("native rules to scores to report without a second action enumerator", 
     try {
       const reviewInput = { stream:input.stream, decisions:[input.decision], responseDecisions:[], engine,
         libriichi:{identity:input.ruleRequest.identity,results:rules},
-        coverageRegistry:createMortalCoverageRegistry(["self_turn_kyuushu","dama_with_riichi_candidate"]),
         report:{reportId:"native-nine-terminals-regression",adapterVersion:identity.adapterVersion,engine:"Mortal" as const,
           version:managedLocalMortalEngineVersion(identity),modelTag:identity.checkpointModelTag,playerId:0,
           gameFingerprint:computeCanonicalGameFingerprint(input.stream),
@@ -163,6 +169,8 @@ describe("native rules to scores to report without a second action enumerator", 
       expect(review.status).toBe("coverage_ready");
       if (review.status !== "coverage_ready") throw new Error("review failed");
       expect(review.decisions.map(row => row.outcome)).toEqual(["analysis_ready"]);
+      expect(review.summary.coverageBranchEncounters).toEqual({ dama_with_riichi_candidate: 1, self_turn_kyuushu: 1 });
+      expect(review.summary.coverageBranchUncoveredBlocks).toEqual({ dama_with_riichi_candidate: 1, self_turn_kyuushu: 1 });
       expect(review.summary.outcomes.no_mortal_entry).toBe(0);
       const retained = review.retainedAnalyses[0]!;
       expect(retained.modelEvaluation.candidates).toHaveLength(16);
@@ -170,7 +178,7 @@ describe("native rules to scores to report without a second action enumerator", 
         componentVersions:{packageSchema:NATIVE_STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION,
           legalActionRules:input.ruleRequest.identity,canonicalReplay:"canonical-riichi-events/v2",
           mapperAdapter:input.stream.mapperVersion,factEngine:{engine:"mahjong-helper" as const,upstreamCommit:MAHJONG_HELPER_COMMIT,
-            adapterVersion:FACT_ENGINE_ADAPTER_VERSION,protocolVersion:FACT_ENGINE_PROTOCOL_VERSION},factorPipeline:"factor-pipeline/v1",
+            adapterVersion:FACT_ENGINE_ADAPTER_VERSION,protocolVersion:FACT_ENGINE_PROTOCOL_VERSION},factorPipeline:"factor-pipeline/v2",
           mortalSourceModel:{identity:"Mortal",version:identity.adapterVersion,modelTag:identity.checkpointModelTag,
             evidenceSource:{kind:"managed_local_runtime" as const,identity}}},
         frozenPolicySnapshot:retained.modelEvaluation.detailPolicy};

@@ -238,6 +238,32 @@ export function projectKnownGameFactsV2(
     roundWind: publicState.roundWind,
     seatWind: publicState.seatWinds[snapshot.selfActor],
     dealer: publicState.dealer === snapshot.selfActor,
+    // Score completeness is independent of the visible placeholder values in
+    // PublicRoundState. Use only the score snapshot frozen at this decision;
+    // never substitute settlement or game_ended totals.
+    scores: publicState.fields.scores === "complete"
+      ? {
+          status: "known" as const,
+          byActor: [
+            publicState.scores[0],
+            publicState.scores[1],
+            publicState.scores[2],
+            publicState.scores[3],
+          ] as [number, number, number, number],
+        }
+      : { status: "unknown" as const },
+    // Round details use their canonical field completeness. In the unknown
+    // branch none of the stored placeholder values are read.
+    currentRound: publicState.fields.roundContext === "complete"
+      ? {
+          status: "known" as const,
+          roundOrdinal: publicState.roundOrdinal,
+          roundWind: publicState.roundWind as "E" | "S",
+          hand: publicState.hand,
+          honba: publicState.honba,
+          riichiSticks: publicState.riichiSticks,
+        }
+      : { status: "unknown" as const },
     remainingDraws: publicState.fields.remainingDraws === "complete"
       ? publicState.remainingDraws
       : null,

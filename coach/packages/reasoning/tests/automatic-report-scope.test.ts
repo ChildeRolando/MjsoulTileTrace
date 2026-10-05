@@ -6,7 +6,24 @@ import { selectReviewDecisions } from "../src/selector/select-review-decisions.j
 import { generateReviewReport } from "../src/generate-review-report.js";
 import { validateCoachGrounding, validateReviewReport } from "../src/groundingValidator.js";
 import { validateContextGraph } from "../src/context-graph/validate-context-graph.js";
+import { canonicalJson, sha256Hex } from "../src/analysis/package-identity.js";
 import { componentVersions, entryFor, FROZEN_NOW, fixtureSetup, runFixtureReview } from "./fixtures/structured-review.js";
+
+function reportIdOf(report: {
+  packageId: string;
+  selectorPolicyVersion: string;
+  generation: unknown;
+  decisionEntries: unknown;
+  reasoningOverlay: unknown;
+}): string {
+  return `review-report:${sha256Hex(canonicalJson({
+    packageId: report.packageId,
+    selectorPolicyVersion: report.selectorPolicyVersion,
+    generation: report.generation,
+    decisionEntries: report.decisionEntries,
+    reasoningOverlay: report.reasoningOverlay,
+  }))}`;
+}
 
 describe("automatic pair report boundary", () => {
   it.each([false, true])("only permits a recommendation inside the analyzed pair (outside=%s)", async outside => {
@@ -83,12 +100,25 @@ describe("automatic pair report boundary", () => {
       const legacyDecision = legacyGraph.nodes.find(node => node.nodeKind === "Decision")!;
       delete (legacyDecision.payload as Record<string, unknown>).automaticComparisonScope;
       const unselected = decision.comparisonSet.candidates.find(item => !pair.actionRefs.includes(item.actionRef))!.actionRef;
-      const legacyReport = await generateReviewReport(legacyGraph, selection, {
+      const generatedWithoutScope = await generateReviewReport(legacyGraph, selection, {
         descriptor: () => ({ providerId: "fixture", model: "fixture" }),
         complete: async () => ({ content: JSON.stringify({ decisions: [{ decisionId: decision.decisionId,
           judgment: { localId: "j", recommendation: unselected, confidence: "medium", premiseRefs: [premise.nodeId] } }] }), transportRetries: 0 }),
       }, "2026-09-29T00:00:00.000Z");
-      expect(legacyReport.decisionEntries[0]!.explanationStatus).toBe("ready");
+      expect(generatedWithoutScope.decisionEntries[0]!.explanationStatus).toBe("ready");
+      expect(() => validateReviewReport(generatedWithoutScope, legacyGraph)).not.toThrow();
+      expect(() => validateReviewReport(generatedWithoutScope, graph))
+        .toThrow("m6d2_report_input_slice_hash_mismatch");
+
+      // A genuine historical report is exempt from the v3 source/request hash
+      // binding. Re-tag a canonical v1 draft under a supported old prompt
+      // version, remove v3-only request metadata, and recompute report identity
+      // before checking the preserved legacy recommendation boundary.
+      const legacyReport = structuredClone(generatedWithoutScope);
+      legacyReport.generation.promptVersion = "coach-review-prompt/v2";
+      legacyReport.generation.draftSchemaVersion = "coach-reasoning-draft/v1";
+      delete legacyReport.audit.requestContext;
+      legacyReport.reportId = reportIdOf(legacyReport);
       expect(() => validateReviewReport(legacyReport, legacyGraph)).not.toThrow();
       expect(() => validateReviewReport(legacyReport, graph)).toThrow(/recommendation_not_in_candidates/);
     }

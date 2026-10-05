@@ -30,7 +30,7 @@ describe("fixed review renderer contracts", () => {
 
   it("keeps detail typed and strict", () => {
     const detail = {
-      schemaVersion: "fixed-review-detail/v1", packageId: "package:1", activeReportRefId: null,
+      schemaVersion: "fixed-review-detail/v3", packageId: "package:1", activeReportRefId: null,
       decisionId: "decision:1", actual: null, mortal: [], coachJudgments: [], explanations: [],
       referenceTargets: [{ displayRef: "node:1", authority: "model", label: "模型评估", summary: "模型偏好：打牌 1m", relatedAction: null }],
       provenance: [], explanationStatus: "not_generated",
@@ -38,5 +38,17 @@ describe("fixed review renderer contracts", () => {
     expect(FixedReviewDetailSchema.parse(detail)).toEqual(detail);
     expect(() => FixedReviewDetailSchema.parse({ ...detail, graph: { nodes: [] } })).toThrow();
     expect(() => FixedReviewDetailSchema.parse({ ...detail, referenceTargets: [{ ...detail.referenceTargets[0], payload: { raw: true } }] })).toThrow();
+    const evidence = {
+      displayRef: "node:2", topic: "context", kind: "context", availability: "available", valueRelation: null, category: "hard_evidence", label: "证据", summary: "教学摘要",
+      relatedAction: null, details: [], parentRefs: [], producer: "fixture", producerVersion: "v1",
+    };
+    expect(FixedReviewDetailSchema.safeParse({ ...detail, provenance: [evidence] }).success).toBe(true);
+    expect(() => FixedReviewDetailSchema.parse({
+      ...detail,
+      provenance: [{
+        ...evidence,
+        sourceRefs: ["audit-only-source-id"],
+      }],
+    })).toThrow();
   });
 });

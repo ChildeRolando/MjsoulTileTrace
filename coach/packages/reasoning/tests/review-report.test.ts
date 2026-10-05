@@ -524,6 +524,7 @@ describe("M6-D2 assembleReviewReport (LLM failure degrades)", () => {
       inputSliceHash: report.audit.inputSliceHash,
       outputHash: `sha256:${sha256Hex("")}`,
       transportRetries: 0,
+      requestContext: report.audit.requestContext,
     });
 
     // The analysis package content is never polluted by an LLM failure.
@@ -578,7 +579,7 @@ describe("M6-D2 assembleReviewReport (LLM failure degrades)", () => {
     expect(report.diagnostics).toEqual([{
       kind: "grounding_rejected",
       code: "invalid_payload",
-      detail: "model output is not a schema-valid coach-reasoning-draft/v1",
+      detail: "model output is not a schema-valid coach-reasoning-draft/v2 wire payload",
     }]);
     // The raw output is still hashed (audit truth), but nothing entered the overlay.
     expect(report.audit.outputHash).toBe(`sha256:${sha256Hex("not json {{")}`);
@@ -662,7 +663,7 @@ describe("M6-D2 assembleReviewReport (LLM failure degrades)", () => {
     });
   });
 
-  it("a draft entry outside the selection is dropped with a dangling_ref diagnostic and never enters the overlay", async () => {
+  it("a draft entry outside the prepared selection fails closed before grounding", async () => {
     const pkg = await buildTwoReadyPackage();
     const graph = projectContextGraph(pkg);
     const [first, second] = pkg.decisions;
@@ -680,19 +681,16 @@ describe("M6-D2 assembleReviewReport (LLM failure degrades)", () => {
       generatedAt: GENERATED_AT,
     });
 
-    // Only the selected decision has a row; the report stays complete.
+    // The short-reference binding contains only selected decisions. A typed
+    // canonical ID outside that binding invalidates the whole response.
     expect(report.decisionEntries)
-      .toEqual([{ decisionId: first.decisionId, explanationStatus: "ready" }]);
-    expect(report.generationStatus).toBe("complete");
-    const overlayDecisionIds = report.reasoningOverlay.nodes.map(
-      (node) => (node.payload as { decisionId: string }).decisionId,
-    );
-    expect(new Set(overlayDecisionIds)).toEqual(new Set([first.decisionId]));
+      .toEqual([{ decisionId: first.decisionId, explanationStatus: "invalid_output" }]);
+    expect(report.generationStatus).toBe("evidence_only");
+    expect(report.reasoningOverlay).toEqual({ nodes: [], edges: [] });
     expect(report.diagnostics).toContainEqual({
       kind: "grounding_rejected",
-      code: "dangling_ref",
-      decisionId: second.decisionId,
-      detail: `draft decision ${second.decisionId} is outside the selection`,
+      code: "invalid_payload",
+      detail: "model output is not a schema-valid coach-reasoning-draft/v2 wire payload",
     });
   });
 

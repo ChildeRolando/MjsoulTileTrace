@@ -69,7 +69,7 @@ export async function nativeWholeGameFixture() {
     canonicalReplay:"canonical-riichi-events/v2",mapperAdapter:stream.mapperVersion,
     factEngine:{engine:"mahjong-helper",upstreamCommit:MAHJONG_HELPER_COMMIT,
       adapterVersion:FACT_ENGINE_ADAPTER_VERSION,protocolVersion:FACT_ENGINE_PROTOCOL_VERSION},
-    factorPipeline:"factor-pipeline/v1",mortalSourceModel:{identity:"Mortal",version:captured.modelIdentity.adapterVersion,
+    factorPipeline:"factor-pipeline/v2",mortalSourceModel:{identity:"Mortal",version:captured.modelIdentity.adapterVersion,
       modelTag:captured.modelIdentity.checkpointModelTag,evidenceSource:{kind:"managed_local_runtime",identity:captured.modelIdentity}}};
 
   async function reviewPackage(sourceReport = report) {

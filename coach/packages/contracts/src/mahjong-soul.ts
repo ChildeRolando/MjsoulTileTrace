@@ -84,6 +84,14 @@ const PlayerSchema = z.object({
   displayName: z.string().min(1).max(64),
   finalScore: z.number().int().min(-2_147_483_648).max(2_147_483_647),
   rank: z.number().int().min(1).max(4),
+  // `GameEndResult.PlayerItem.grading_score` is a rank-point / Soul Pearl
+  // delta in protocol units; the raw `RecordPlayerResult.pt` meaning is not
+  // assumed here. Omitted metadata remains unknown rather than zero.
+  gradingScore: z.number().int().min(-2_147_483_648).max(2_147_483_647).nullable().default(null),
+  // Derived from this same record's ranked mode and AccountInfo level IDs.
+  // Soul Pearl scores are stored in protocol hundredths. Unknown IDs carry
+  // their amount only as opaque metadata and are never displayed as pt.
+  gradingScoreUnit: z.enum(["dan_pt", "soul_pearl", "unknown"]).nullable().default(null),
 }).strict();
 
 export const AnalyzableRecordSummarySchema = z.object({
@@ -95,10 +103,17 @@ export const AnalyzableRecordSummarySchema = z.object({
   rule: z.object({
     playerCount: z.literal(4),
     length: z.literal("south"),
+    // `GameMode.mode` is the round length (2 = South); it is not a room ID.
     modeId: z.literal(2),
     detailRuleHash: MahjongSoulSha256Schema,
     displayLabel: z.literal("四人南风"),
   }).strict(),
+  // `GameMetaData.mode_id` is retained independently from GameMode.mode.
+  // The optional label comes from the isolated, versioned source resolver.
+  rankedMode: z.object({
+    id: z.number().int().min(0).max(0xffff_ffff),
+    label: z.string().min(1).max(64).nullable(),
+  }).strict().nullable().default(null),
   analysisStatus: z.enum([
     "not_analyzed",
     "queued",

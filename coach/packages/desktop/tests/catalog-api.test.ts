@@ -2,10 +2,13 @@ import { describe, expect, it } from "vitest";
 import type { AnalyzableRecordSummary } from "@riichi-coach/contracts";
 import {
   MahjongSoulCatalogApiSchema,
+  RecordAnalysisProgressSchema,
+  RecordAnalysisSnapshotSchema,
+  createIdleRecordAnalysisSnapshot,
   parseAnalyzableRecordSummaries,
 } from "../src/catalog-api.js";
 import { createAccountRecordReviewHandoff } from "../src/record-ingestion-service.js";
-import { registerMahjongSoulCatalogIpc } from "../src/ipc.js";
+import { registerMahjongSoulCatalogIpc, MAHJONG_SOUL_CATALOG_IPC_CHANNELS } from "../src/ipc.js";
 import { createMahjongSoulCatalogPreloadApi } from "../src/preload.js";
 
 const recordId = "260811-00000000-0000-0000-0000-000000000001";
@@ -16,12 +19,13 @@ function summary(): AnalyzableRecordSummary {
     shareUrl: `https://game.maj-soul.com/1/?paipu=${recordId}_a1`,
     startedAt: 1_000,
     players: [
-      { seat: 0, displayName: "A", finalScore: 32_000, rank: 1 },
-      { seat: 1, displayName: "B", finalScore: 27_000, rank: 2 },
-      { seat: 2, displayName: "C", finalScore: 23_000, rank: 3 },
-      { seat: 3, displayName: "D", finalScore: 18_000, rank: 4 },
+      { seat: 0, displayName: "A", finalScore: 32_000, rank: 1, gradingScore: null, gradingScoreUnit: null },
+      { seat: 1, displayName: "B", finalScore: 27_000, rank: 2, gradingScore: null, gradingScoreUnit: null },
+      { seat: 2, displayName: "C", finalScore: 23_000, rank: 3, gradingScore: null, gradingScoreUnit: null },
+      { seat: 3, displayName: "D", finalScore: 18_000, rank: 4, gradingScore: null, gradingScoreUnit: null },
     ],
     selfSeat: 2,
+    rankedMode: null,
     rule: {
       playerCount: 4,
       length: "south",
@@ -49,6 +53,7 @@ describe("Mahjong Soul renderer-safe catalog API", () => {
     const api = MahjongSoulCatalogApiSchema.parse({
       syncAnalyzableRecords: async () => [summary()],
       listAnalyzableRecords: async () => [],
+      getRecordAnalysisProgress: async () => ({ stage: "idle" as const, completed: 0, total: null }),
       startRecordAnalysis: async () => ({ status: "review_ready", sessionId: "session-1", packageId: "package-1" as const }),
       clearSourceCache: async () => ({ status: "cleared" as const, pendingMaterials: 0 }),
     });
@@ -60,6 +65,7 @@ describe("Mahjong Soul renderer-safe catalog API", () => {
       "syncAnalyzableRecords",
       "listAnalyzableRecords",
       "startRecordAnalysis",
+      "getRecordAnalysisProgress",
       "clearSourceCache",
     ]);
   });
@@ -73,6 +79,7 @@ describe("Mahjong Soul renderer-safe catalog API", () => {
     const api = MahjongSoulCatalogApiSchema.parse({
       syncAnalyzableRecords: async () => [{ ...summary(), [field]: value }],
       listAnalyzableRecords: async () => [],
+      getRecordAnalysisProgress: async () => ({ stage: "idle" as const, completed: 0, total: null }),
       startRecordAnalysis: async () => ({ status: "review_ready", sessionId: "session-1", packageId: "package-1" as const }),
       clearSourceCache: async () => ({ status: "cleared" as const, pendingMaterials: 0 }),
     });
@@ -83,6 +90,7 @@ describe("Mahjong Soul renderer-safe catalog API", () => {
     expect(() => MahjongSoulCatalogApiSchema.parse({
       syncAnalyzableRecords: async () => [],
       listAnalyzableRecords: async () => [],
+      getRecordAnalysisProgress: async () => ({ stage: "idle" as const, completed: 0, total: null }),
       startRecordAnalysis: async () => ({ status: "review_ready", sessionId: "session-1", packageId: "package-1" as const }),
       clearSourceCache: async () => ({ status: "cleared" as const, pendingMaterials: 0 }),
       invoke: async () => "token",
@@ -107,6 +115,32 @@ describe("safe Mahjong Soul catalog IPC", () => {
     removeHandler(channel: string): void { this.handlers.delete(channel); }
   }
 
+  it("retains every phase and elapsed time even when phases finish between polls", async () => {
+    const ipc = new FakeIpcMain();
+    registerMahjongSoulCatalogIpc({ ipcMain: ipc, trustedSenderId: 7, service: {
+      syncAnalyzableRecords: async () => [], listAnalyzableRecords: async () => [],
+      clearSourceCache: () => ({ clearedEntries: 0, pendingMaterials: 0 }),
+      ingest: async (_id, report) => {
+        report?.({ stage: "replaying", completed: 0, total: null });
+        report?.({ stage: "rules", completed: 4, total: 4 });
+        report?.({ stage: "scoring", completed: 2, total: 2 });
+        report?.({ stage: "facts", completed: 4, total: 4 });
+        report?.({ stage: "packaging", completed: 0, total: null });
+        report?.({ stage: "saving", completed: 0, total: null });
+        return { status: "review_ready", sessionId: "fixture", packageId: "fixture" };
+      },
+    } });
+    await ipc.handlers.get(MAHJONG_SOUL_CATALOG_IPC_CHANNELS.startRecordAnalysis)!({ sender: { id: 7 } }, recordId);
+    const snapshot = await ipc.handlers.get(MAHJONG_SOUL_CATALOG_IPC_CHANNELS.getRecordAnalysisProgress)!({ sender: { id: 7 } }) as {
+      steps: Array<{ stage: string; status: string; elapsedMs: number; completed: number }>;
+      elapsedMs: number; remainingMs: number | null;
+    };
+    expect(snapshot.steps?.map(step => step.stage)).toEqual(["fetching", "replaying", "rules", "scoring", "facts", "packaging", "saving"]);
+    expect(snapshot.steps.every(step => step.status === "complete" && step.elapsedMs >= 0)).toBe(true);
+    expect(snapshot.steps[2]?.completed).toBe(4);
+    expect(snapshot.elapsedMs).toBeGreaterThanOrEqual(0);
+    expect(snapshot.remainingMs).toBe(0);
+  });
   it("registers two trusted catalog operations and one narrow analysis trigger", async () => {
     const ipc = new FakeIpcMain();
     const service = {
@@ -123,6 +157,7 @@ describe("safe Mahjong Soul catalog IPC", () => {
     expect([...ipc.handlers.keys()]).toEqual([
       "mahjong-soul:sync-analyzable-records",
       "mahjong-soul:list-analyzable-records",
+      "mahjong-soul:get-record-analysis-progress",
       "mahjong-soul:start-record-analysis",
       "mahjong-soul:clear-source-cache",
     ]);
@@ -134,6 +169,45 @@ describe("safe Mahjong Soul catalog IPC", () => {
       .resolves.toEqual({ status: "cleared", pendingMaterials: 0 });
     registration.dispose();
     expect(ipc.handlers.size).toBe(0);
+  });
+
+  it("isolates progress to the trusted window, rejects concurrent jobs and preserves failure/retry", async () => {
+    const ipc = new FakeIpcMain();
+    let fail: ((error: Error) => void) | undefined;
+    let finish: ((value: { status: "review_ready"; sessionId: string; packageId: string }) => void) | undefined;
+    let updates: ((value: import("../src/catalog-api.js").RecordAnalysisProgress) => void) | undefined;
+    let starts = 0;
+    registerMahjongSoulCatalogIpc({ ipcMain: ipc, trustedSenderId: 7, service: {
+      syncAnalyzableRecords: async () => [], listAnalyzableRecords: async () => [],
+      clearSourceCache: () => ({ clearedEntries: 0, pendingMaterials: 0 }),
+      ingest: (_id, onProgress) => { starts++; updates = onProgress; return new Promise((resolve, reject) => { finish = resolve; fail = reject; }); },
+    } });
+    const sender = { sender: { id: 7 } };
+    const start = ipc.handlers.get(MAHJONG_SOUL_CATALOG_IPC_CHANNELS.startRecordAnalysis)!;
+    const read = ipc.handlers.get(MAHJONG_SOUL_CATALOG_IPC_CHANNELS.getRecordAnalysisProgress)!;
+    const readCurrent = async () => {
+      const { stage, completed, total } = RecordAnalysisSnapshotSchema.parse(await read(sender));
+      return { stage, completed, total };
+    };
+    const pending = start(sender, recordId);
+    updates!({ stage: "scoring", completed: 2, total: 5 });
+    await expect(readCurrent()).resolves.toEqual({ stage: "scoring", completed: 2, total: 5 });
+    await expect(read({ sender: { id: 8 } })).rejects.toThrow();
+    await expect(read(sender, "unexpected")).rejects.toThrow();
+    await expect(start(sender, recordId)).rejects.toThrow();
+    expect(starts).toBe(1);
+    await expect(readCurrent()).resolves.toEqual({ stage: "scoring", completed: 2, total: 5 });
+    fail!(new Error("private failure"));
+    await expect(pending).rejects.toThrow("mahjong_soul_login_protocol_unsupported");
+    await expect(readCurrent()).resolves.toEqual({ stage: "failed", completed: 0, total: null });
+    const retry = start(sender, recordId);
+    finish!({ status: "review_ready", sessionId: "fixture", packageId: "fixture" });
+    await expect(retry).resolves.toMatchObject({ status: "review_ready" });
+    await expect(readCurrent()).resolves.toEqual({ stage: "complete", completed: 1, total: 1 });
+    for (const value of [ { stage: "scoring", completed: 6, total: 5 },
+      { stage: "scoring", completed: 0, total: null, accessToken: "private" } ]) {
+      expect(RecordAnalysisProgressSchema.safeParse(value).success).toBe(false);
+    }
   });
 
   it("consumes the main ingest-bound seat through the renderer-safe account review handoff", async () => {
@@ -255,6 +329,7 @@ describe("Mahjong Soul catalog preload API", () => {
       "syncAnalyzableRecords",
       "listAnalyzableRecords",
       "startRecordAnalysis",
+      "getRecordAnalysisProgress",
       "clearSourceCache",
     ]);
   });

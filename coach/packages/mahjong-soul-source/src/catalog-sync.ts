@@ -1,6 +1,9 @@
 import { MahjongSoulSourceError } from "./errors.js";
 import type { MahjongSoulLobbySession } from "./lobby-session.js";
+import { createMahjongSoulCatalogRuleInspector } from "./record-rule-evidence.js";
+import type { MahjongSoulProtocolBundle } from "./protocol-bundle.js";
 import type { RawRecordListEntry } from "./record-filter.js";
+import { resolveMahjongSoulGradingUnit, type MahjongSoulGradingUnit } from "./record-grading-unit.js";
 
 const CATALOG_SYNC_FAILED = "mahjong_soul_catalog_sync_failed" as const;
 
@@ -10,6 +13,7 @@ const RECENT_CATALOG_LIMIT = 30;
 
 export interface CatalogSyncInput {
   readonly session: MahjongSoulLobbySession;
+  readonly bundle: MahjongSoulProtocolBundle;
   readonly pageSize?: number;
   readonly maxPages?: number;
   readonly beginTime?: number;
@@ -26,6 +30,10 @@ type RawListEntryWithoutMode = Omit<
   | "game_mode_ai"
   | "game_mode_extendinfo"
   | "game_mode_detail_rule_present"
+  | "game_mode_detail_rule_override"
+  | "ranked_mode_id"
+  | "grading_score_by_seat"
+  | "grading_unit_by_seat"
 >;
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -41,6 +49,57 @@ function isUint32(value: unknown): value is number {
     && Number.isInteger(value)
     && value >= 0
     && value <= 0xffff_ffff;
+}
+
+function isInt32(value: unknown): value is number {
+  return typeof value === "number" && Number.isInteger(value)
+    && value >= -0x8000_0000 && value <= 0x7fff_ffff;
+}
+
+function gradingScoresBySeat(value: unknown): readonly (number | null)[] {
+  const scores: Array<number | null> = [null, null, null, null];
+  const seen = new Set<number>();
+  const ambiguous = new Set<number>();
+  const players = isRecord(value) && Array.isArray(value.players) ? value.players : [];
+  for (const raw of players) {
+    if (!isRecord(raw) || !isUint32(raw.seat) || raw.seat > 3) continue;
+    const seat = raw.seat;
+    if (seen.has(seat)) {
+      ambiguous.add(seat);
+      continue;
+    }
+    seen.add(seat);
+    if (isInt32(raw.grading_score)) scores[seat] = raw.grading_score;
+  }
+  for (const seat of ambiguous) scores[seat] = null;
+  return Object.freeze(scores);
+}
+
+function gradingUnitsBySeat(
+  accountsValue: unknown,
+  modeId: number | null,
+  scores: readonly (number | null)[],
+): readonly (MahjongSoulGradingUnit | null)[] {
+  const units: Array<MahjongSoulGradingUnit | null> = [null, null, null, null];
+  const seen = new Set<number>();
+  const ambiguous = new Set<number>();
+  const accounts = Array.isArray(accountsValue) ? accountsValue : [];
+  for (const raw of accounts) {
+    if (!isRecord(raw) || !isUint32(raw.seat) || raw.seat > 3) continue;
+    const seat = raw.seat;
+    if (seen.has(seat)) { ambiguous.add(seat); continue; }
+    seen.add(seat);
+    const levelId = isRecord(raw.level) ? raw.level.id : undefined;
+    const level3Id = isRecord(raw.level3) ? raw.level3.id : undefined;
+    units[seat] = scores[seat] === null
+      ? null
+      : resolveMahjongSoulGradingUnit(modeId, levelId, level3Id);
+  }
+  for (const seat of ambiguous) units[seat] = scores[seat] === null ? null : "unknown";
+  for (let seat = 0; seat < units.length; seat += 1) {
+    if (scores[seat] !== null && !seen.has(seat)) units[seat] = "unknown";
+  }
+  return Object.freeze(units);
 }
 
 function isObjectLike(value: unknown): value is object {
@@ -79,6 +138,7 @@ export async function syncRecentCatalog(
   input: CatalogSyncInput,
 ): Promise<CatalogSyncResult> {
   const session = input.session;
+  const bundle = input.bundle;
   const pageSize = input.pageSize ?? 100;
   const maxPages = input.maxPages ?? MAX_PAGES;
   const beginTime = input.beginTime ?? 1;
@@ -86,6 +146,8 @@ export async function syncRecentCatalog(
   if (
     !isObjectLike(session)
     || typeof session.call !== "function"
+    || !isObjectLike(bundle)
+    || typeof bundle.protoText !== "string"
     || !Number.isInteger(pageSize)
     || pageSize < 1
     || pageSize > MAX_PAGE_SIZE
@@ -97,6 +159,13 @@ export async function syncRecentCatalog(
     || !isUint32(endTime)
     || endTime < beginTime
   ) {
+    throw catalogFailed();
+  }
+
+  let inspectRuleMetadata: ReturnType<typeof createMahjongSoulCatalogRuleInspector>;
+  try {
+    inspectRuleMetadata = createMahjongSoulCatalogRuleInspector(bundle);
+  } catch {
     throw catalogFailed();
   }
 
@@ -179,48 +248,57 @@ export async function syncRecentCatalog(
   }
   const detailsByUuid = new Map<string, {
     mode: number;
-    standardRule: number;
+    matchModeId: number | null;
+    gradingScoreBySeat: readonly (number | null)[];
+    gradingUnitBySeat: readonly (MahjongSoulGradingUnit | null)[];
     ai: boolean;
     extendinfo: string;
     detailRulePresent: boolean;
+    detailRuleHasOverride: boolean;
+    supportsRankedSouth: boolean;
   }>();
+  const entriesByUuid = new Map(entries.map(entry => [entry.uuid, entry]));
   for (const raw of detailResult.record_list) {
     if (!isRecord(raw) || typeof raw.uuid !== "string" || detailsByUuid.has(raw.uuid)) {
       throw catalogFailed();
     }
-    const config = raw.config;
-    const modeContainer = isRecord(config) ? config.mode : undefined;
-    const mode = isRecord(modeContainer) ? modeContainer.mode : undefined;
-    const ai = isRecord(modeContainer) ? modeContainer.ai : undefined;
-    const extendinfo = isRecord(modeContainer) ? modeContainer.extendinfo : undefined;
-    const detailRule = isRecord(modeContainer) ? modeContainer.detail_rule : undefined;
-    if (
-      !isUint32(mode)
-      || typeof ai !== "boolean"
-      || typeof extendinfo !== "string"
-      || !isUint32(raw.standard_rule)
-      || (detailRule !== null && detailRule !== undefined)
-    ) throw catalogFailed();
+    const entry = entriesByUuid.get(raw.uuid);
+    if (entry === undefined || !isUint32(raw.standard_rule)
+      || (raw.standard_rule !== 0 && raw.standard_rule !== entry.standard_rule)) throw catalogFailed();
+    let metadata: ReturnType<typeof inspectRuleMetadata>;
+    try {
+      metadata = inspectRuleMetadata(entry.standard_rule, raw.config);
+    } catch {
+      throw catalogFailed();
+    }
+    const gradingScoreBySeat = gradingScoresBySeat(raw.result);
     detailsByUuid.set(raw.uuid, {
-      mode,
-      standardRule: raw.standard_rule,
-      ai,
-      extendinfo,
-      detailRulePresent: false,
+      mode: metadata.mode,
+      matchModeId: metadata.matchModeId,
+      gradingScoreBySeat,
+      gradingUnitBySeat: gradingUnitsBySeat(raw.accounts, metadata.matchModeId, gradingScoreBySeat),
+      ai: metadata.ai,
+      extendinfo: metadata.extendinfo,
+      detailRulePresent: metadata.detailRulePresent,
+      detailRuleHasOverride: metadata.detailRuleHasOverride,
+      supportsRankedSouth: metadata.supportsRankedSouth,
     });
   }
   return {
     entries: entries.map((entry) => {
       const detail = detailsByUuid.get(entry.uuid);
-      if (detail === undefined || detail.standardRule !== entry.standard_rule) {
-        throw catalogFailed();
-      }
+      if (detail === undefined) throw catalogFailed();
       return Object.freeze({
         ...entry,
         game_mode: detail.mode,
+        ...(detail.matchModeId === null ? {} : { ranked_mode_id: detail.matchModeId }),
+        grading_score_by_seat: detail.gradingScoreBySeat,
+        grading_unit_by_seat: detail.gradingUnitBySeat,
         game_mode_ai: detail.ai,
         game_mode_extendinfo: detail.extendinfo,
         game_mode_detail_rule_present: detail.detailRulePresent,
+        game_mode_detail_rule_override: detail.detailRuleHasOverride,
+        catalog_rule_profile: detail.supportsRankedSouth ? "ranked_south_v1" as const : "unsupported" as const,
       });
     }),
   };

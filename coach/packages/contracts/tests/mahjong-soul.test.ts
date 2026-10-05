@@ -15,10 +15,10 @@ const summary = {
   shareUrl,
   startedAt: 1_754_877_600,
   players: [
-    { seat: 0, displayName: "A", finalScore: 32_000, rank: 1 },
-    { seat: 1, displayName: "B", finalScore: 27_000, rank: 2 },
-    { seat: 2, displayName: "C", finalScore: 23_000, rank: 3 },
-    { seat: 3, displayName: "D", finalScore: 18_000, rank: 4 },
+    { seat: 0, displayName: "A", finalScore: 32_000, rank: 1, gradingScore: null, gradingScoreUnit: null },
+    { seat: 1, displayName: "B", finalScore: 27_000, rank: 2, gradingScore: null, gradingScoreUnit: null },
+    { seat: 2, displayName: "C", finalScore: 23_000, rank: 3, gradingScore: -5, gradingScoreUnit: "dan_pt" },
+    { seat: 3, displayName: "D", finalScore: 18_000, rank: 4, gradingScore: null, gradingScoreUnit: null },
   ],
   selfSeat: 2,
   rule: {
@@ -28,6 +28,7 @@ const summary = {
     detailRuleHash: "sha256:7a53cc5deb60512f3dacacc7695dd5072077c6f4984dbedbff76e27092393b1c",
     displayLabel: "四人南风",
   },
+  rankedMode: { id: 6, label: "四人银之间 · 半庄" },
   analysisStatus: "not_analyzed",
   lastSyncedAt: 1_754_877_700,
 } as const;

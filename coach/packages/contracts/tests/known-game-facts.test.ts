@@ -120,6 +120,77 @@ describe("KnownGameFactsSchema", () => {
     expect(parsed.provenance).toBe("raw_replay");
   });
 
+  it("keeps new current-score and round facts optional for archived payloads", () => {
+    const archived = KnownGameFactsSchema.parse(baseFacts());
+
+    expect(Object.hasOwn(archived, "scores")).toBe(false);
+    expect(Object.hasOwn(archived, "currentRound")).toBe(false);
+    expect(KnownGameFactsSchema.parse({
+      ...baseFacts(),
+      scores: { status: "unknown" },
+      currentRound: { status: "unknown" },
+      completeness: { ...baseFacts().completeness, roundContext: false },
+    })).toMatchObject({
+      scores: { status: "unknown" },
+      currentRound: { status: "unknown" },
+    });
+  });
+
+  it("accepts complete seat-indexed points and round context, and rejects contradictions", () => {
+    const decisionEventRef = "game:fixture/0/58/0";
+    const canonicalFacts = {
+      ...baseFacts(),
+      decisionEventRef,
+      decisionWindow: {
+        kind: "self_turn" as const,
+        actor: 3,
+        triggerEventRef: decisionEventRef,
+      },
+      currentDraw: { tile: tile("6s"), eventRef: decisionEventRef },
+      scores: { status: "known" as const, byActor: [30000, 24000, 26000, 20000] as const },
+      currentRound: {
+        status: "known" as const,
+        roundOrdinal: 0,
+        roundWind: "E" as const,
+        hand: 4,
+        honba: 2,
+        riichiSticks: 3,
+      },
+    };
+    expect(KnownGameFactsSchema.parse(canonicalFacts)).toMatchObject({
+      scores: { status: "known", byActor: [30000, 24000, 26000, 20000] },
+      currentRound: {
+        status: "known", roundOrdinal: 0, roundWind: "E", hand: 4,
+        honba: 2, riichiSticks: 3,
+      },
+    });
+
+    expect(() => KnownGameFactsSchema.parse({
+      ...canonicalFacts,
+      currentRound: { ...canonicalFacts.currentRound, roundOrdinal: 1 },
+    })).toThrow("Known current round ordinal must match the decision event");
+    expect(() => KnownGameFactsSchema.parse({
+      ...canonicalFacts,
+      currentRound: { ...canonicalFacts.currentRound, roundWind: "S" },
+    })).toThrow("Known current round wind must equal the legacy round wind fact");
+    expect(() => KnownGameFactsSchema.parse({
+      ...canonicalFacts,
+      completeness: { ...canonicalFacts.completeness, roundContext: false },
+    })).toThrow("Known current round requires complete round context");
+    expect(() => KnownGameFactsSchema.parse({
+      ...canonicalFacts,
+      currentRound: { status: "unknown" },
+    })).toThrow("Complete round context requires known current round");
+    expect(() => KnownGameFactsSchema.parse({
+      ...canonicalFacts,
+      scores: { status: "known", byActor: [30000, 24000, 26000] },
+    })).toThrow();
+    expect(() => KnownGameFactsSchema.parse({
+      ...canonicalFacts,
+      currentRound: { ...canonicalFacts.currentRound, guessedRank: 1 },
+    })).toThrow();
+  });
+
   it("accepts a four-tile kakan as known state", () => {
     const parsed = KnownGameFactsSchema.parse({
       ...baseFacts(),

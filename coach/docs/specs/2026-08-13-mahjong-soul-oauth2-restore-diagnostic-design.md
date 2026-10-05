@@ -30,7 +30,8 @@ WebSocket 上按官方客户端的自动登录序列重新建立已认证会话�
 - 只使用已关联成功响应中现有的 `SecretString` 访问令牌、账号 ID、显示名和认证类型；
 - 网关发现 URL 与 WebSocket authority 必须来自已验证的国区 endpoint manifest；
 - 服务端返回的 route 不得扩大 allowlist，不允许 `ws:`、任意域名、任意端口或重定向；
-- 诊断 RPC 固定为 `oauth2Check`、`oauth2Login`、`fetchInfo`、
+- 连接初始化仅允许固定 `.lq.Route.requestConnection`，使用发现候选中同一项的
+  route ID；诊断 Lobby RPC 固定为 `oauth2Check`、`oauth2Login`、`fetchInfo`、
   `fetchGameRecordListV2`；调用方不能扩展；
 - 日志和 UI 只允许固定阶段与固定项目错误码，不得包含令牌、原始请求、原始响应、
   URL、账号 ID、昵称或服务端 prose；
@@ -44,9 +45,11 @@ WebSocket 上按官方客户端的自动登录序列重新建立已认证会话�
 
 1. 用户在隔离的官方 Electron 窗口完成一次正常登录；
 2. 现有观察器产出 `CapturedMahjongSoulCredential`；
-3. 诊断器通过固定国区发现端点取得候选 route，并严格映射到 manifest 中已有的
-   `wss` origin；
-4. 诊断器建立全新 Lobby 连接；
+3. 诊断器通过固定国区发现端点取得候选 route，并从同一候选严格映射 manifest
+   中已有的 `wss` URL 与非空 route ID；
+4. 诊断器建立全新 Lobby 连接，先发送 `.lq.Route.requestConnection`，字段固定为
+   `type=1`、`platform=Web`、候选 route ID 和本地 Unix 毫秒时间戳；要求响应
+   无错误（省略错误对象，或 `error.code=0`）且 `result=1`；
 5. 发送 `oauth2Check {type, access_token}`，要求无错误且账号存在；
 6. 发送与固定客户端版本匹配的 `oauth2Login`，要求无错误且 `account_id` 与捕获值
    相同；
@@ -72,7 +75,7 @@ WebSocket 上按官方客户端的自动登录序列重新建立已认证会话�
 
 自动测试先用完全虚构令牌和固定 protobuf 帧覆盖：
 
-- 精确 RPC 顺序、请求字段和身份绑定；
+- 精确 Route 初始化及 Lobby RPC 顺序、请求字段和身份绑定；
 - 每个阶段的失败关闭与资源释放；
 - 任意 gateway、`ws:`、未知端口、重定向和恶意 prose 拒绝；
 - 日志/错误/inspect/JSON 不出现虚构令牌；

@@ -61,11 +61,17 @@ import { validateAutomaticComparisonScopes } from "./context-graph/validate-cont
 import {
   AutomaticComparisonScopeSchema,
   COACH_EXPLANATION_PLACEHOLDER_PATTERN,
+  COACH_CLAIM_NODE_KINDS,
+  COACH_REVIEW_PROMPT_VERSION_V5,
+  COACH_REVIEW_PROMPT_VERSION,
+  COACH_REVIEW_PROMPT_VERSION_V3,
+  COACH_REVIEW_PROMPT_VERSION_V4,
   CoachInferencePayloadSchema,
   CoachJudgmentPayloadSchema,
   CoachReasoningDraftSchema,
   CoachExplanationPayloadSchema,
   ReviewReportSchema,
+  SELECTOR_POLICY_VERSION_V1,
   type CoachGroundingCheckResult,
   type CoachGroundingRejectedCode,
   type CoachGroundingRejection,
@@ -79,8 +85,10 @@ import type { ZodError } from "zod";
 import { canonicalJson, sha256Hex } from "./analysis/package-identity.js";
 import { deriveEdgeId, deriveNodeId } from "./context-graph/context-graph-ids.js";
 import { getDecisionSubgraph } from "./context-graph/get-decision-subgraph.js";
+import { buildGraphContextSlice } from "./context-graph/build-graph-context-slice.js";
 import { filterNodePayloadForSlice } from "./context-graph/slice-payload.js";
 import { validateReasoningOverlayPartition } from "./context-graph/validate-reasoning-overlay-partition.js";
+import { buildCoachRequestContextV3, buildCoachRequestContextV4, buildCoachRequestContextV5, prepareCoachRequest } from "./coach-prompt.js";
 
 // ---------------------------------------------------------------------------
 // Shared helpers
@@ -469,7 +477,7 @@ export function validateCoachGrounding(
         const scoped = scope.get(claim.evidenceRef);
         if (scoped !== undefined) {
           const expectedKind =
-            claim.kind === "factor_difference" ? "FactorDifference" : "FactorFact";
+            COACH_CLAIM_NODE_KINDS[claim.kind];
           if (scoped.node.nodeKind !== expectedKind) {
             violations.push(
               rejection("claim_kind_mismatch", decision.decisionId, `claim kind ${claim.kind} disagrees with target nodeKind ${scoped.node.nodeKind}`),
@@ -566,6 +574,41 @@ export function validateReviewReport(
   for (const decisionId of report.selectedDecisionIds) {
     if (decisionNodeOf(graph, decisionId) === undefined) {
       throw new Error(`m6d2_report_decision_unresolved:${decisionId}`);
+    }
+  }
+
+  if (report.generation.promptVersion === COACH_REVIEW_PROMPT_VERSION ||
+    report.generation.promptVersion === COACH_REVIEW_PROMPT_VERSION_V4 ||
+    report.generation.promptVersion === COACH_REVIEW_PROMPT_VERSION_V5 ||
+    report.generation.promptVersion === COACH_REVIEW_PROMPT_VERSION_V3) {
+    // Rebuild the exact M6-D1 source slice and version-matched provider-neutral
+    // DTO from the persisted selection. v3 uses the old flat context; v4 uses
+    // the frozen tree guide; v5 includes the scalar-path catalog in promptBytes.
+    // The source slice identity and brief context hashes remain unchanged.
+    const selection = {
+      policyVersion: SELECTOR_POLICY_VERSION_V1,
+      analysisPackageId: graph.packageId,
+      analysisPackageStatus: "complete" as const,
+      selected: report.selectedDecisionIds.map((decisionId, index) => ({
+        decisionId,
+        rank: index + 1,
+        selectionReason: "model_disagreement_above_threshold" as const,
+      })),
+    };
+    const slice = buildGraphContextSlice(graph, selection);
+    const expectedSliceHash = `sha256:${sha256Hex(canonicalJson(slice))}`;
+    if (report.audit.inputSliceHash !== expectedSliceHash) {
+      throw new Error("m6d2_report_input_slice_hash_mismatch");
+    }
+    const expectedRequestContext = report.generation.promptVersion === COACH_REVIEW_PROMPT_VERSION_V3
+      ? buildCoachRequestContextV3(slice)
+      : report.generation.promptVersion === COACH_REVIEW_PROMPT_VERSION_V4
+        ? buildCoachRequestContextV4(slice)
+        : report.generation.promptVersion === COACH_REVIEW_PROMPT_VERSION_V5
+          ? buildCoachRequestContextV5(slice)
+          : prepareCoachRequest(slice).requestContext;
+    if (canonicalJson(report.audit.requestContext) !== canonicalJson(expectedRequestContext)) {
+      throw new Error("m6d2_report_request_context_mismatch");
     }
   }
 
@@ -718,7 +761,7 @@ export function validateReviewReport(
         );
       }
       const expectedKind =
-        claim.kind === "factor_difference" ? "FactorDifference" : "FactorFact";
+        COACH_CLAIM_NODE_KINDS[claim.kind];
       if (scoped.node.nodeKind !== expectedKind) {
         groundingThrow(
           "claim_kind_mismatch",

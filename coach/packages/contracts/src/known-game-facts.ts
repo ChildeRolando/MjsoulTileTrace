@@ -23,6 +23,32 @@ const KnownFactsCompletenessSchema = z.object({
   roundContext: z.boolean().default(false),
 }).strict();
 
+const KnownScoresSchema = z.discriminatedUnion("status", [
+  z.object({
+    status: z.literal("known"),
+    /** Seat-indexed current points: index 0 is actor 0, through actor 3. */
+    byActor: z.tuple([
+      z.number().int(),
+      z.number().int(),
+      z.number().int(),
+      z.number().int(),
+    ]),
+  }).strict(),
+  z.object({ status: z.literal("unknown") }).strict(),
+]);
+
+const CurrentRoundSchema = z.discriminatedUnion("status", [
+  z.object({
+    status: z.literal("known"),
+    roundOrdinal: z.number().int().nonnegative(),
+    roundWind: z.enum(["E", "S"]),
+    hand: z.number().int().min(1).max(4),
+    honba: z.number().int().nonnegative(),
+    riichiSticks: z.number().int().nonnegative(),
+  }).strict(),
+  z.object({ status: z.literal("unknown") }).strict(),
+]);
+
 export const KnownGameFactsSchema = z.object({
   factSetId: z.string().min(1),
   provenance: z.enum([
@@ -51,6 +77,10 @@ export const KnownGameFactsSchema = z.object({
   seatWind: WindSchema,
   dealer: z.boolean(),
   remainingDraws: z.number().int().nonnegative().nullable(),
+  /** Added for new projections; absent on archived facts created before this contract. */
+  scores: KnownScoresSchema.optional(),
+  /** Added for new projections; absent on archived facts created before this contract. */
+  currentRound: CurrentRoundSchema.optional(),
   completeness: KnownFactsCompletenessSchema,
   evidenceIds: z.array(z.string().min(1)).min(1),
 }).strict().superRefine((facts, context) => {
@@ -67,6 +97,41 @@ export const KnownGameFactsSchema = z.object({
       message: "Decision event must equal the window trigger event",
       path: ["decisionWindow", "triggerEventRef"],
     });
+  }
+  if (facts.currentRound !== undefined) {
+    if (facts.currentRound.status === "known") {
+      if (!facts.completeness.roundContext) {
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Known current round requires complete round context",
+          path: ["currentRound"],
+        });
+      }
+      if (facts.currentRound.roundWind !== facts.roundWind) {
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Known current round wind must equal the legacy round wind fact",
+          path: ["currentRound", "roundWind"],
+        });
+      }
+      const decisionPosition = parseCanonicalEventRef(facts.decisionEventRef);
+      if (
+        decisionPosition !== null &&
+        decisionPosition.position.roundOrdinal !== facts.currentRound.roundOrdinal
+      ) {
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Known current round ordinal must match the decision event",
+          path: ["currentRound", "roundOrdinal"],
+        });
+      }
+    } else if (facts.completeness.roundContext) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Complete round context requires known current round",
+        path: ["currentRound"],
+      });
+    }
   }
   if (
     facts.decisionWindow.kind === "self_turn" &&

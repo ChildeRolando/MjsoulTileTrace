@@ -3,7 +3,7 @@ import {
   sortTilesCanonical,
   type FixedReviewDetailDto, type FixedReviewSnapshotDto,
   type ReviewReport, type ReviewSelectionResult, type RiichiAction,
-  type StructuredAnalysisPackage, type Tile,
+  type StructuredAnalysisPackage, type Tile, type FactorValue,
 } from "@riichi-coach/contracts";
 import { composeReviewReadBackContext, type ReviewReadBackContext } from "@riichi-coach/reasoning";
 
@@ -290,7 +290,7 @@ function stringSetValue(values: unknown[], dimension: string): string {
   return `${members.length} 项`;
 }
 
-function evidenceValue(value: unknown, dimension: unknown): { value: string; tiles: Array<{ tile: string; count: number | null }> } {
+function evidenceValue(value: unknown, dimension: unknown, expanded = false): { value: string; tiles: Array<{ tile: string; count: number | null }> } {
   if (value === undefined) return { value: "暂不可用", tiles: [] };
   if (value === null || typeof value !== "object" || Array.isArray(value)) return { value: String(value), tiles: [] };
   const item = value as Record<string, unknown>;
@@ -323,8 +323,20 @@ function evidenceValue(value: unknown, dimension: unknown): { value: string; til
   if (item.kind === "honor_safety" && Number.isInteger(item.remainingCount) && (item.category === "yakuhai" || item.category === "guest_wind")) {
     return { value: `${item.category === "yakuhai" ? "役牌" : "客风牌"}，剩余 ${item.remainingCount} 张`, tiles: [] };
   }
-  if (item.kind === "shape_claims" && Array.isArray(item.claims)) return { value: `${item.claims.length} 项牌形组成`, tiles: [] };
-  if (item.kind === "wait_details" && Array.isArray(item.waits)) return { value: item.waits.length === 0 ? "无" : `${item.waits.length} 种听牌`, tiles: [] };
+  if (item.kind === "shape_claims" && Array.isArray(item.claims)) {
+    const shapes = value as Extract<FactorValue, { kind: "shape_claims" }>;
+    const labels = { sequence: "顺子", triplet: "刻子", pair_candidate: "对子候选", ryanmen_taatsu: "两面搭子", kanchan_taatsu: "嵌张搭子", penchan_taatsu: "边张搭子", floating: "浮牌" };
+    return { value: expanded ? shapes.claims.map(claim =>
+      `${labels[claim.group.kind]} ${claim.group.tiles34.map(tile34Label).join("-")} · ${claim.certainty === "invariant" ? "已列分解均有" : "部分分解出现"}（分解 ${claim.decompositionOrdinals.map(n => n + 1).join("、")}，同形第 ${claim.group.occurrence} 组）`
+    ).join("\n") || "无" : `${shapes.claims.length} 项牌形组成`, tiles: [] };
+  }
+  if (item.kind === "wait_details" && Array.isArray(item.waits)) {
+    const waits = value as Extract<FactorValue, { kind: "wait_details" }>;
+    const labels = { ryanmen: "两面", kanchan: "嵌张", penchan: "边张", shanpon: "双碰", tanki: "单骑", kokushi_single: "国士单面", kokushi_thirteen_sided: "国士十三面" };
+    return { value: expanded ? waits.waits.map(wait =>
+      `${tile34Label(wait.tile34)} · ${wait.waitTypes.map(kind => labels[kind]).join("、")} · ${wait.families.map(family => FAMILY_LABELS[family]).join("、")} · ${wait.remaining === null ? "剩余张数未知" : `剩余 ${wait.remaining} 张`} · 基础荣和资格：${CLASSIFICATION_LABELS[wait.baseRonEligibility]}`
+    ).join("\n") || "无" : waits.waits.length === 0 ? "无" : `${waits.waits.length} 种听牌`, tiles: [] };
+  }
   return { value: "已记录（详细结构不在本页面展示）", tiles: [] };
 }
 
@@ -410,12 +422,12 @@ function provenanceDetails(node: GraphNode, decision: ReadyDecision) {
   const payload = node.payload as Record<string, unknown>;
   if (node.nodeKind === "KnownGameFact") return knownGameFactDetails(payload);
   if (node.nodeKind === "FactorFact") {
-    const rendered = evidenceValue(payload.value, payload.dimension);
+    const rendered = evidenceValue(payload.value, payload.dimension, true);
     return [{ label: dimensionLabel(payload.dimension), value: rendered.value, scope: scopeLabel(payload.dimension), tiles: rendered.tiles }];
   }
   if (node.nodeKind === "FactorDifference") {
-    const left = evidenceValue(payload.leftValue, payload.dimension);
-    const right = evidenceValue(payload.rightValue, payload.dimension);
+    const left = evidenceValue(payload.leftValue, payload.dimension, true);
+    const right = evidenceValue(payload.rightValue, payload.dimension, true);
     return [
       { label: `左侧 ${actionDto(decision, String(payload.leftActionRef))!.label}`, value: left.value, scope: scopeLabel(payload.dimension), tiles: left.tiles },
       { label: `右侧 ${actionDto(decision, String(payload.rightActionRef))!.label}`, value: right.value, scope: scopeLabel(payload.dimension), tiles: right.tiles },
@@ -453,7 +465,7 @@ export function presentFixedReviewSnapshotFromContext(
       mortalPreferredActions: mortalActions(decision),
       errorGap: decision.modelEvaluation.errorGap,
       tags: AXES.filter((axis) => presentAxes.has(axis)),
-      explanationStatus: explanationStatus(report, selected.decisionId),
+      explanationStatus: explanationStatus(context.reportForDecision(selected.decisionId), selected.decisionId),
     };
   });
   const explanationCounts = { ready: 0, provider_unavailable: 0, request_failed: 0, invalid_output: 0 };
@@ -465,7 +477,16 @@ export function presentFixedReviewSnapshotFromContext(
     outcomeCounts,
     selection: { policyVersion: context.selection.policyVersion, selectedCount: items.length, items },
     activeReportRefId,
-    activeReportStatus: report?.generationStatus ?? "not_generated",
+    activeReportStatus: report === null ? "not_generated"
+      : items.length > 0 && explanationCounts.ready === items.length ? "complete"
+        : explanationCounts.ready > 0 ? "partial" : "evidence_only",
+    coachUsage: report?.audit.usage ?? null,
+    coachProvider: report === null ? null : {
+      providerId: report.generation.providerId,
+      model: report.generation.model,
+      ...(report.generation.reasoningEffort === undefined ? {} : { reasoningEffort: report.generation.reasoningEffort }),
+      ...(report.generation.samplingMode === undefined ? {} : { samplingMode: report.generation.samplingMode }),
+    },
     explanationCounts,
   }));
 }
@@ -525,8 +546,21 @@ export function presentFixedReviewDetailFromContext(
       ? payload.premiseRefs.map(String)
       : [];
     for (const ref of parentRefs) resolveRef(ref);
+    const topic = node.nodeKind === "KnownGameFact" ? "context"
+      : node.nodeKind === "CoachInference" ? "inference"
+        : node.nodeKind === "FactorDifference" ? AXES.find(axis => axis === payload.axis)
+          : decision.candidateFactorLedgers.find(ledger => ledger.actionRef === actionRef)?.axes
+            .find(axis => axis.facts.some(fact => fact.factorKey === payload.factorKey))?.axis;
+    if (topic === undefined) throw new Error("fixed_review_evidence_topic_unresolved");
     return ({
     displayRef: node.nodeId,
+    topic,
+    valueRelation: node.nodeKind === "FactorDifference" ? payload.valueRelation : null,
+    kind: node.nodeKind === "KnownGameFact" ? "context" : node.nodeKind === "CoachInference" ? "inference"
+      : node.nodeKind === "FactorDifference" ? "comparison" : "candidate",
+    availability: payload.status === "blocked_engine_failure" ? "failed"
+      : payload.status === "blocked_missing_facts" ? "missing"
+        : typeof payload.status === "string" && payload.status !== "calculated" ? "not_calculated" : "available",
     category: node.nodeKind === "CoachInference" ? "coach_inference" as const
       : node.authority === "advisory" ? "advisory_signal" as const : "hard_evidence" as const,
     label: node.nodeKind === "KnownGameFact" ? "局面事实" : node.nodeKind === "FactorDifference" ? "候选差异" : node.nodeKind === "FactorFact" ? "候选事实" : "教练推断",
@@ -536,10 +570,9 @@ export function presentFixedReviewDetailFromContext(
     parentRefs,
     producer: node.producer,
     producerVersion: node.producerVersion,
-    sourceRefs: [...node.provenance],
   }); });
   return Object.freeze(FixedReviewDetailSchema.parse({
-    schemaVersion: "fixed-review-detail/v1",
+    schemaVersion: "fixed-review-detail/v3",
     packageId: context.analysisPackage.packageId,
     activeReportRefId,
     decisionId,
@@ -549,6 +582,6 @@ export function presentFixedReviewDetailFromContext(
     explanations,
     referenceTargets,
     provenance,
-    explanationStatus: explanationStatus(context.report, decisionId),
+    explanationStatus: explanationStatus(context.reportForDecision(decisionId), decisionId),
   }));
 }

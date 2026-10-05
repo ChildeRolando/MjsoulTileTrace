@@ -12,6 +12,7 @@ const MAX_FRAME_BYTES = 4 * 1024 * 1024;
 const MAX_PENDING_REQUESTS = 4096;
 
 export const MAHJONG_SOUL_SAFE_DIRECT_CALL_METHODS = Object.freeze([
+  ".lq.Route.requestConnection",
   ".lq.Lobby.oauth2Check",
   ".lq.Lobby.oauth2Login",
   ".lq.Lobby.fetchInfo",
@@ -286,7 +287,51 @@ function toPayload(type: Type, message: Message): DecodedPayload {
     bytes: Uint8Array,
   });
   if (!isRecord(payload)) throw unsupported();
+  preserveKnownOptionalNumericPresence(type, message as unknown as Record<string, unknown>, payload);
   return payload;
+}
+
+/**
+ * protobufjs `defaults: true` is important for ordinary Mahjong defaults such
+ * as seat 0, so it cannot be disabled globally. Preserve wire absence for the
+ * few result fields where zero is meaningful display metadata. The enclosing
+ * message still uses the regular default-filled projection.
+ */
+function preserveKnownOptionalNumericPresence(
+  type: Type,
+  source: Record<string, unknown>,
+  target: Record<string, unknown>,
+): void {
+  const optionalFields = type.fullName === ".lq.RecordPlayerResult"
+    ? ["pt"]
+    : type.fullName === ".lq.GameEndResult.PlayerItem"
+      ? ["grading_score"]
+      : [];
+  for (const fieldName of optionalFields) {
+    if (!Object.prototype.hasOwnProperty.call(source, fieldName)) delete target[fieldName];
+  }
+  for (const field of type.fieldsArray) {
+    if (!(field.resolvedType instanceof Type)) continue;
+    const sourceValue = source[field.name];
+    const targetValue = target[field.name];
+    if (field.repeated && Array.isArray(sourceValue) && Array.isArray(targetValue)) {
+      for (let index = 0; index < Math.min(sourceValue.length, targetValue.length); index += 1) {
+        const sourceChild = sourceValue[index];
+        const targetChild = targetValue[index];
+        if (sourceChild !== null && typeof sourceChild === "object"
+          && targetChild !== null && typeof targetChild === "object") {
+          preserveKnownOptionalNumericPresence(
+            field.resolvedType, sourceChild as Record<string, unknown>, targetChild as Record<string, unknown>,
+          );
+        }
+      }
+    } else if (sourceValue !== null && typeof sourceValue === "object"
+      && targetValue !== null && typeof targetValue === "object") {
+      preserveKnownOptionalNumericPresence(
+        field.resolvedType, sourceValue as Record<string, unknown>, targetValue as Record<string, unknown>,
+      );
+    }
+  }
 }
 
 function lookupType(root: Root, name: string): Type {
@@ -396,6 +441,16 @@ class StatefulLiqiCodec implements LiqiCodec {
     surfacedNotifications: ReadonlySet<string>,
   ) {
     this.#root = parseProtobuf(bundle.protoText, { keepCase: true }).root;
+    for (const [typeName, fieldName] of [
+      [".lq.RecordPlayerResult", "pt"],
+      [".lq.GameEndResult.PlayerItem", "grading_score"],
+    ] as const) {
+      const type = this.#root.lookup(typeName);
+      if (!(type instanceof Type)) continue;
+      const field = type.fields[fieldName];
+      if (field === undefined) continue;
+      field.setOption("features.field_presence", "EXPLICIT");
+    }
     this.#wrapperType = lookupType(this.#root, ".lq.Wrapper");
     this.#rpcMap = bundle.rpcMap;
     this.#directCallMethods = directCallMethods;

@@ -17,7 +17,48 @@ compatibility 测试与**架构边界检查（`npm run check:architecture`）**�
 中自动发现执行，**不在全量门禁内重复运行**；`npm run test:architecture-checker`
 是同一套测试的聚焦命令（node --test），供单独调试使用。
 
-### 架构边界检查
+### 桌面工作台、教练接入与用量（2026-10-04）
+
+先 build 刷新跨包 contracts/reasoning，再运行聚焦验证：
+
+```powershell
+npx vitest run packages/desktop/tests/record-analysis-progress.test.ts packages/desktop/tests/catalog-api.test.ts packages/desktop/tests/preload-entry.test.ts
+npx vitest run packages/desktop/tests/coach-settings-store.test.ts packages/desktop/tests/coach-provider.test.ts packages/desktop/tests/codex-coach-provider.test.ts packages/desktop/tests/fixed-review.test.ts packages/desktop/tests/review-session-persistence.test.ts
+npx vitest run packages/desktop/tests/fixed-review-renderer.test.ts
+npx vitest run packages/reasoning/tests/coach-context.test.ts packages/reasoning/tests/coach-prompt.test.ts packages/desktop/tests/electron-mvp-golden-rule-requests.test.ts
+```
+
+新增教学上下文的关系压缩须验证原教学边与字段表示多重集等价，覆盖缺失、多余和
+方向错配拒绝；不能靠删关系降低请求大小。
+
+用可控单调时钟证明内部七阶段计时、跨轮询保留快阶段、终态不变、失败不训练估时、
+冷启动估时未知、保存后历史/当前速率估时，估时不决定完成。
+原生隐藏 Electron 测试验证六步即时展示（规则状态准备并入重放，进度/耗时/失败不丢失）、
+八条分页、刷新/忙状态、悬挂与迟到轮询、终态保留、
+未就绪阻止首次生成，以及生成等待用量、数值/未知显示和再打开显示。
+provider 测试仅用 fake process/HTTP，无真实云端请求、CLI 登录读取或模型下载；
+断言工具禁用参数、严格流解析、实际 close 后重试、超时/输出上限、秘密不外泄。
+SQLite 重启读回验证 Token/model 元数据绑定当前 report，无模型调用。
+
+历史用量聚合须覆盖不同 provider、失败/未知用量、同 reportId 不同请求实例、幂等重放、
+同牌谱多报告/多版本包的行动与盘数去重、缓存不重复累加、安全整数溢出拒绝及输入不变。
+SQLite 冷重启和打开复盘不增加计数；原生 UI 在生成等待期保留历史累计，生成后与重开更新。
+历史身份读取必须跨块守住 hash/格式检查，不物化完整证据树或提供领域校验豁免。
+
+CoachContext 重构还须验证：不发送完整审计身份/链/字典；保留来源类别、教学事件
+对应与时序、权威/未知/限制、合法候选/评分与比较对；引用注册表按决策与角色闭合。
+拒绝不存在或跨决策的候选、错误 kind、伪造来源/查找表、保留 namespace 的 local IDs
+和错误占位符。输出恢复后仍通过原图 grounding，并保留原 wire 哈希。
+v3 请求元数据须由同一来源重建核验，历史 v1/v2 报告仍可离线打开。
+新函数 `prepareCoachRequest` / `decodeCoachReasoningDraft` 不允许 desktop 绕过
+`generateReviewReport` 直接调用，架构自测必须覆盖 presenter、IPC 与 service。
+
+真实 Codex smoke 单独运行 main-owned adapter 和既有生成/grounding/保存/读回链，
+使用已批准的模型/max。回执记录代码 SHA、CLI 版本、实际状态、数值用量、耗时及安全错误，
+不保留原始 prompt/JSONL/CoT/认证信息。CLI 登录成功、stub PASS、Mortal CPU 成功均不能
+代替真实教练生成成功；失败应保留环境/协议/grounding 原因，不能声明 GUI 验收完成。
+
+### 架构边界检查规则
 
 `npm run check:architecture` 机械强制包依赖方向、renderer 安全边界与包内深导入
 规则（规则与对应 INV-\* 见 `docs/development/INVARIANTS.md` 与
@@ -369,3 +410,63 @@ node tests/lesson-0001-smoke.mjs
 ## 如何描述测试结果
 
 优先写命令和通过/失败，不把测试数量当长期常量。数量只应写入带日期的 handoff；living docs 不锁定会迅速过期的测试总数。
+
+### 真实 Coach 单决策 mintest 的验收边界
+
+使用已分析档案中的真实入选决策，绑定代码提交、package ID 和来源内容哈希；
+通过生产 slice/request/provider 生成，核验 grounding、服务回报的 Token、隔离库保存和重开。
+诊断选择单决策只用于 mintest，不改变生产 selector 的入选范围；不得写回用户原库。
+请求字节数不是 Token，服务没有回报的计数保持未知。换 provider 仍通过同一
+`LlmTokenUsage`、report audit、presenter 和 IPC 契约读取，只有 wire 字段映射属于 adapter。
+
+2026-10-04 重构前本机真实档案测量发现，默认十决策合并请求为 29,300,006 UTF-8 字节，
+最小单决策为 675,599 字节；默认请求超过当前 Codex adapter 的 1 MiB 输入上限。
+因此单决策 mintest 即使通过，也不代表整盘批量解说或完整 H1 已通过。
+新版 CoachContext 须测量默认 selector 的完整请求，确认在输入上限内，且所有教学
+事实、候选与关系完整。单决策真实生成、完整请求尺寸通过和整盘真实生成是三个
+不同的验收事实；实际结果绑定提交保存于非源码回执。
+不得靠提高上限、截断事实或减少生产入选局面宣称完成。
+
+
+### 单行动生成（2026-10-05 范围修订）
+
+生产 UI 已允许固定入选集合中的单行动生成；本节替代上文“单决策仅诊断”的范围描述。
+回归须核验实际请求仅包含指定一条、其它已完成解说保留、默认批量仅补未 ready 条目、
+失败可重试、已有 ready 拒绝重发、退出后迟到结果不保存及重启零 LLM 读回。
+DOM/IPC 边界须核验 decisionId 传递和 renderer 无法注入事实，标题及四人结算用目录真实字段。
+用量展示为最近一次请求，不继承旧生成回执，不声称全盘真实生成已验证。
+
+### 大档案存储与后台复盘（2026-10-05）
+
+验证 RCPKG02 无损 roundtrip、不可压缩回退、旧格式兼容、缺块/篡改/长度或编码错误与
+解压上限；旧包压缩的事务失败必须保留原块、hash、报告和映射及不可变 trigger。
+复用测试须检查深层冻结、报告新增后复用，以及外部连接写入/损坏后失效与拒绝。
+worker 测试覆盖 strict DTO、取消/离开、退出、超时、凭据边界；Electron Golden 必须
+走生产 worker 接线。真实大包仅在隔离库测量 cold/warm open、单行动生成、保存重开，
+记录源包 byte/hash、语义计数、压缩大小、阶段耗时及 main/renderer 各自 heartbeat。
+worker ping 排队时间不代表 UI 冻结；未测得的 renderer 指标不能用 main 指标代替。
+stub provider 性能实验不宣称真实云端解说或人工交互已验收。
+
+### 证据组织与动作权威（2026-10-05）
+
+LLM 教学树须验证节点及语义关系守恒、同决策引用闭合、事实/估计/缺证分层，禁止因分组
+省略数据或捏造事实；旧报告按其原提示版本校验，新旧 provider 共用转换与用量契约。
+renderer 主题/行动层须覆盖原所有证据，比较左右值与范围不变；同值折叠不能影响解释
+引用跳转。验证键盘自动展开、真实 Chromium 排版及无审计来源泄漏。
+生产分支无真实验收登记时不能被 coverage registry 判 unsupported；登记只影响验收统计。
+保留实际规则/身份/评分完整性负例，并验证新版本身份不会复用旧“不支持”分析结果。
+
+### 决策点数、无因素解说与标题统计（2026-10-06）
+
+当前点数与局次须经 canonical 快照 → KnownGameFacts → graph/slice → CoachContext →
+TeachingBrief → 请求完整传递；覆盖立直押金/供托及终局不能倒填、不完整字段 unknown，
+并核验事实改变时包版本身份分离。历史缺失字段和 prompt/v3/v4/v5 审计保持原样。
+无 FactorFact/FactorDifference 的真实决策须可严格引用已有同决策局面/模型节点，走
+生产生成、grounding、保存重开；错类型、跨决策和伪造引用仍拒绝。
+
+标题吻合率须核验 model-scored actual 映射、并列最优、有效多候选分母和无样本状态；
+不计未评分、单候选和其它引擎。旧标签缺失/损坏须结束 pending，后台刷新保留页码。
+用隔离库检查真实已保存档案回填及一次独立计数对照，不能为标题把完整档案发给 renderer。
+目录合并按实际包源身份与本人座位绑定，泛用同编号包不得冒充雀魂目录。
+房间/段位变化使用原始目录详情，protobuf 字段缺失与真实零值须分开；未知展示元数据
+不得改变原有可分析范围，桌分、段位 pt 与魂珠单位不得混用。

@@ -4,22 +4,24 @@ import {
   MahjongSoulRecordIdSchema,
   type AnalyzableRecordSummary,
 } from "@riichi-coach/contracts";
+import { resolveMahjongSoulRecordModeLabel } from "./record-mode-label.js";
 
 // `game_mode` is enriched from the metadata-only `fetchGameRecordsDetail` call.
 // Independent decoder evidence pinned at Akagi commit
 // 8a96bb5faa672ffb04946a31068c18cb0bebd63a, src/history/aggregator.rs,
 // defines match mode 2 as four-player East-South. Unknown,
 // East-only, and three-player modes never enter the renderer-safe catalog.
-// The fixed official-bundle frame was generated independently from the
-// runtime codec and carries the current catalog wire values. Keep these
-// allowlists narrow until another version/rule has its own captured fixture.
-export const SUPPORTED_RECORD_VERSIONS: readonly number[] = Object.freeze([210715]);
+// 210715 remains the bounded historical synthetic-list compatibility path.
+// 202408 is the observed RecordListEntry metadata version and requires the
+// pinned-bundle ranked-profile classification attached by catalog sync.
+export const SUPPORTED_RECORD_VERSIONS: readonly number[] = Object.freeze([210715, 202408]);
 export const SUPPORTED_STANDARD_RULES: readonly number[] = Object.freeze([2]);
+const PROFILE_SUPPORTED_STANDARD_RULES: readonly number[] = Object.freeze([1, 2]);
 const SHARE_URL_PERSPECTIVE_ACCOUNT_ID = 1;
 export const FOUR_PLAYER_SOUTH_MODE_ID = 2;
 export const STANDARD_EMPTY_DETAIL_RULE_HASH =
-  // SHA-256 of the canonical protobuf GameMode bytes `08 02`: mode=2 and
-  // absent ai/extendinfo/detail_rule. It is a wire fingerprint, not a guess.
+  // SHA-256 of the canonical protobuf GameMode projection `08 02` (mode=2).
+  // This names the normalized standard preset, not the complete raw config wire.
   "sha256:7a53cc5deb60512f3dacacc7695dd5072077c6f4984dbedbff76e27092393b1c";
 
 export interface RawRecordPlayerResult {
@@ -28,6 +30,8 @@ export interface RawRecordPlayerResult {
   readonly nickname: string;
   readonly seat: number;
   readonly point: number;
+  /** Optional list decoration; its meaning is not used for analyzability. */
+  readonly pt?: unknown;
 }
 
 export interface RawRecordListEntry {
@@ -43,6 +47,14 @@ export interface RawRecordListEntry {
   readonly game_mode_ai: boolean;
   readonly game_mode_extendinfo: string;
   readonly game_mode_detail_rule_present: boolean;
+  readonly game_mode_detail_rule_override?: boolean;
+  readonly catalog_rule_profile?: "ranked_south_v1" | "unsupported";
+  /** Raw GameMetaData.mode_id; distinct from GameMode.mode (round length). */
+  readonly ranked_mode_id?: unknown;
+  /** Seat-indexed GameEndResult.PlayerItem.grading_score values from record metadata. */
+  readonly grading_score_by_seat?: unknown;
+  /** Seat-indexed unit classifications derived from the same record's ranked mode and AccountInfo levels. */
+  readonly grading_unit_by_seat?: unknown;
 }
 
 export type FilterResult =
@@ -132,6 +144,12 @@ function isRawEntry(value: unknown): value is RawRecordListEntry {
   if (typeof value.game_mode_ai !== "boolean") return false;
   if (typeof value.game_mode_extendinfo !== "string") return false;
   if (typeof value.game_mode_detail_rule_present !== "boolean") return false;
+  if (value.game_mode_detail_rule_override !== undefined
+    && typeof value.game_mode_detail_rule_override !== "boolean") return false;
+  if (value.catalog_rule_profile !== undefined
+    && value.catalog_rule_profile !== "ranked_south_v1"
+    && value.catalog_rule_profile !== "unsupported") return false;
+  if (value.catalog_rule_profile !== undefined && typeof value.game_mode_detail_rule_override !== "boolean") return false;
   return true;
 }
 
@@ -147,14 +165,26 @@ export function filterAnalyzableRecord(
   if (!SUPPORTED_RECORD_VERSIONS.includes(entry.version)) {
     return { status: "not_analyzable", reason: "unsupported_record_version" };
   }
-  if (!SUPPORTED_STANDARD_RULES.includes(entry.standard_rule)) {
+  const hasCatalogProfile = entry.catalog_rule_profile !== undefined;
+  if (entry.version === 202408 && !hasCatalogProfile) {
+    return { status: "not_analyzable", reason: "unsupported_record_version" };
+  }
+  const supportedRules = hasCatalogProfile
+    ? PROFILE_SUPPORTED_STANDARD_RULES
+    : SUPPORTED_STANDARD_RULES;
+  if (!supportedRules.includes(entry.standard_rule)) {
     return { status: "not_analyzable", reason: "unsupported_standard_rule" };
+  }
+  if (entry.catalog_rule_profile === "unsupported") {
+    return { status: "not_analyzable", reason: "unsupported_game_mode" };
   }
   if (
     entry.game_mode !== FOUR_PLAYER_SOUTH_MODE_ID
     || entry.game_mode_ai
     || entry.game_mode_extendinfo !== ""
-    || entry.game_mode_detail_rule_present
+    || (hasCatalogProfile
+      ? entry.game_mode_detail_rule_override === true
+      : entry.game_mode_detail_rule_present)
   ) return { status: "not_analyzable", reason: "unsupported_game_mode" };
   if (!MahjongSoulRecordIdSchema.safeParse(entry.uuid).success) {
     return { status: "not_analyzable", reason: "invalid_record_id" };
@@ -182,6 +212,16 @@ export function filterAnalyzableRecord(
       displayName: player.nickname,
       finalScore: player.point,
       rank: player.rank,
+      gradingScore: Array.isArray(entry.grading_score_by_seat)
+        && isInt32(entry.grading_score_by_seat[player.seat])
+        ? entry.grading_score_by_seat[player.seat] as number
+        : null,
+      gradingScoreUnit: Array.isArray(entry.grading_unit_by_seat)
+        && (entry.grading_unit_by_seat[player.seat] === "dan_pt"
+          || entry.grading_unit_by_seat[player.seat] === "soul_pearl"
+          || entry.grading_unit_by_seat[player.seat] === "unknown")
+        ? entry.grading_unit_by_seat[player.seat] as "dan_pt" | "soul_pearl" | "unknown"
+        : null,
     })),
     selfSeat,
     rule: {
@@ -190,6 +230,10 @@ export function filterAnalyzableRecord(
       modeId: FOUR_PLAYER_SOUTH_MODE_ID,
       detailRuleHash: STANDARD_EMPTY_DETAIL_RULE_HASH,
       displayLabel: "四人南风",
+    },
+    rankedMode: !isUint32(entry.ranked_mode_id) ? null : {
+      id: entry.ranked_mode_id,
+      label: resolveMahjongSoulRecordModeLabel(entry.ranked_mode_id),
     },
     analysisStatus: "not_analyzed",
     lastSyncedAt: now,

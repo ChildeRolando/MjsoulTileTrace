@@ -13,6 +13,7 @@ import {
 } from "../src/review-session-repository.js";
 import { createPrivilegedRawCache, rawCacheKey, type RawCacheIdentity } from "../src/privileged-raw-cache.js";
 import { createFixedReviewController } from "../src/fixed-review-controller.js";
+import { presentFixedReviewSnapshot } from "../src/fixed-review-presenter.js";
 
 const roots: string[] = [];
 afterEach(() => { for (const root of roots.splice(0)) rmSync(root, { recursive: true, force: true }); });
@@ -27,10 +28,21 @@ function restoreV2Storage(db: DatabaseSync): Buffer {
     .run(payload,createHash("sha256").update(payload).digest("hex"),pkg.packageId);
   db.exec(`CREATE TRIGGER immutable_package BEFORE UPDATE ON analysis_packages BEGIN SELECT RAISE(ABORT,'immutable_artifact'); END;
     DROP TABLE analysis_package_chunks;
+    DROP TABLE session_decision_reports;
+    ALTER TABLE review_sessions DROP COLUMN decision_report_map_hash;
     DROP TABLE library_meta;
     CREATE TABLE library_meta(singleton INTEGER PRIMARY KEY CHECK(singleton=1),format_version INTEGER CHECK(format_version=2),created_at TEXT);
     INSERT INTO library_meta VALUES(1,2,'original'); PRAGMA user_version=2;`);
   return payload;
+}
+function restoreV3Storage(db: DatabaseSync): void {
+  const createdAt = String(db.prepare("SELECT created_at FROM library_meta WHERE singleton=1").get()!.created_at);
+  db.exec(`DROP TABLE session_decision_reports;
+    ALTER TABLE review_sessions DROP COLUMN decision_report_map_hash;
+    DROP TABLE library_meta;
+    CREATE TABLE library_meta(singleton INTEGER PRIMARY KEY CHECK(singleton=1), format_version INTEGER NOT NULL CHECK(format_version=3), created_at TEXT NOT NULL);`);
+  db.prepare("INSERT INTO library_meta VALUES(1,3,?)").run(createdAt);
+  db.exec("PRAGMA user_version=3");
 }
 function canonical(value: unknown): string {
   if (value === null || typeof value !== "object") return JSON.stringify(value);
@@ -38,6 +50,50 @@ function canonical(value: unknown): string {
   return `{${Object.entries(value as Record<string, unknown>).sort(([a], [b]) => a < b ? -1 : a > b ? 1 : 0).map(([key, item]) => `${JSON.stringify(key)}:${canonical(item)}`).join(",")}}`;
 }
 const fixtureHash = (value: unknown) => createHash("sha256").update(canonical(value)).digest("hex");
+function withFactorPipeline(source: typeof pkg, factorPipeline: string): typeof pkg {
+  const componentVersions = { ...source.componentVersions, factorPipeline };
+  const decisions = source.decisions.map((decision) => decision.outcome === "analysis_ready"
+    ? { ...decision, modelEvaluation: { ...decision.modelEvaluation, detailPolicy: { ...decision.modelEvaluation.detailPolicy, frozenAt: null } } }
+    : decision);
+  const semanticContent = {
+    analysisKey: source.analysisKey,
+    record: source.record,
+    componentVersions,
+    analysisPolicy: source.analysisPolicy,
+    decisions,
+    evidenceRegistry: source.evidenceRegistry,
+    ...(source.legalActionEvidence === undefined ? {} : { legalActionEvidence: source.legalActionEvidence }),
+  };
+  return StructuredAnalysisPackageSchema.parse({
+    ...source,
+    componentVersions,
+    packageId: `package:sha256:${fixtureHash({
+      analysisKey: source.analysisKey,
+      componentVersions,
+      analysisPolicy: source.analysisPolicy,
+    })}`,
+    semanticContentHash: `sha256:${fixtureHash(semanticContent)}`,
+  });
+}
+function addSecondReadyDecision(source: typeof pkg): typeof pkg {
+  const result = structuredClone(source);
+  const second = structuredClone(result.decisions[0]!);
+  if (second.outcome !== "analysis_ready") throw new Error("fixture_decision_not_ready");
+  const triggerEventRef = second.normalizedDecisionContext.triggerEventRef;
+  second.decisionId = ["decision", result.record.recordId, `self${result.record.selfActor}`, "self", "post_riichi_discard", triggerEventRef].join(":");
+  second.normalizedDecisionContext = { ...second.normalizedDecisionContext, decisionWindowKind: "post_riichi_discard" };
+  second.knownGameFacts = { ...second.knownGameFacts, decisionWindow: { ...second.knownGameFacts.decisionWindow, kind: "post_riichi_discard" } };
+  second.comparisonSet = { ...second.comparisonSet, decisionWindow: { ...second.comparisonSet.decisionWindow, kind: "post_riichi_discard" } };
+  result.decisions.push(second);
+  const decisions = result.decisions.map((decision) => decision.outcome === "analysis_ready"
+    ? { ...decision, modelEvaluation: { ...decision.modelEvaluation, detailPolicy: { ...decision.modelEvaluation.detailPolicy, frozenAt: null } } }
+    : decision);
+  result.semanticContentHash = `sha256:${fixtureHash({
+    analysisKey: result.analysisKey, record: result.record, componentVersions: result.componentVersions,
+    analysisPolicy: result.analysisPolicy, decisions, evidenceRegistry: result.evidenceRegistry,
+  })}`;
+  return StructuredAnalysisPackageSchema.parse(result);
+}
 const provider = {
   descriptor: () => ({ providerId: "unconfigured", model: "unconfigured" }),
   complete: async () => ({ errorCode: "provider_unavailable" as const, transportRetries: 0 as const }),
@@ -50,7 +106,7 @@ const candidate = decisionNodes.find((node) => node.nodeKind === "CandidateActio
 const premise = decisionNodes.find((node) => node.nodeKind === "KnownGameFact")!;
 const difference = decisionNodes.find((node) => node.nodeKind === "FactorDifference" && typeof (node.payload as { leftValue?: { value?: unknown } }).leftValue?.value === "number")!;
 const completeReport = await generateReviewReport(graph, selection, {
-  descriptor: () => ({ providerId: "stub", model: "stub" }),
+  descriptor: () => ({ providerId: "codex-cli", model: "gpt-6-luna", reasoningEffort: "max" as const, samplingMode: "provider_default" as const }),
   complete: async () => ({
     content: JSON.stringify({ decisions: [{
       decisionId: selectedDecisionId,
@@ -58,10 +114,139 @@ const completeReport = await generateReviewReport(graph, selection, {
       explanations: [{ text: `牌效值 {diff:${(difference.payload as { differenceId: string }).differenceId}.leftValue.value}`, claims: [{ kind: "factor_difference", evidenceRef: difference.nodeId }], judgmentLocalRef: "judgment-0" }],
     }] }),
     transportRetries: 0 as const,
+    usage: { inputTokens: 1200, cachedInputTokens: 300, outputTokens: 80, totalTokens: 1280 },
   }),
 }, "2026-09-23T00:00:00.000Z");
 
 describe("ReviewSession SQLite persistence", () => {
+  it("persists cumulative usage, deduplicates explanations and does not charge reopens or operation replay", async () => {
+    const dir = root();
+    let repository = createReviewSessionRepository({ root: dir });
+    try {
+      repository.saveSession(pkg, selection);
+      expect(repository.getCoachUsageHistory()).toMatchObject({ requestCount: 0, readyDecisionCount: 0, explainedRecordCount: 0 });
+      repository.saveReport(pkg.packageId, completeReport, "history-1", "history-op-1");
+      repository.saveReport(pkg.packageId, completeReport, "history-1", "history-op-1");
+      repository.saveReport(pkg.packageId, completeReport, "history-2", "history-op-2");
+      const counts = { known: 2560, unknownRequests: 0 };
+      const expected = repository.getCoachUsageHistory();
+      expect(expected).toMatchObject({ requestCount: 2, readyDecisionCount: 1, explainedRecordCount: 1,
+        totalTokens: counts, inputTokens: { known: 2400, unknownRequests: 0 }, cachedInputTokens: { known: 600, unknownRequests: 0 } });
+      repository.openByPackageId(pkg.packageId);
+      expect(repository.getCoachUsageHistory()).toEqual(expected);
+      repository.close();
+      repository = createReviewSessionRepository({ root: dir });
+      expect(repository.getCoachUsageHistory()).toEqual(expected);
+      const controller = createFixedReviewController({ readPackage: async () => pkg, generateReport: async () => completeReport, repository });
+      expect((await controller.openReview(pkg.packageId)).coachUsageHistory).toEqual(expected);
+      expect(repository.getCoachUsageHistory()).toEqual(expected);
+    } finally { repository.close(); }
+  });
+
+  it("keeps the stored v1 artifact open while saving same-record v3 under a distinct package identity", () => {
+    expect(pkg.componentVersions.factorPipeline).toBe("factor-pipeline/v1");
+    const refreshed = withFactorPipeline(pkg, "factor-pipeline/v3");
+    expect(refreshed.analysisKey).toBe(pkg.analysisKey);
+    expect(refreshed.record).toEqual(pkg.record);
+    expect(refreshed.packageId).not.toBe(pkg.packageId);
+
+    const repository = createReviewSessionRepository({ root: root() });
+    try {
+      repository.saveSession(pkg, selection);
+      expect(repository.openByPackageId(pkg.packageId).analysisPackage).toEqual(pkg);
+
+      const savedV2 = repository.saveSession(refreshed, selectReviewDecisions(refreshed));
+      expect(savedV2.analysisPackage.packageId).toBe(refreshed.packageId);
+      expect(repository.openByPackageId(refreshed.packageId).analysisPackage).toEqual(refreshed);
+      expect(repository.openByPackageId(pkg.packageId).analysisPackage).toEqual(pkg);
+      expect(repository.listSessions().map((session) => session.packageId)).toEqual(
+        expect.arrayContaining([pkg.packageId, refreshed.packageId]),
+      );
+    } finally { repository.close(); }
+  });
+
+  it.each([false, true])("compacts legacy chunks losslessly and atomically, injected failure=%s", fail => {
+    const dir = root();
+    let repository = createReviewSessionRepository({ root: dir });
+    repository.saveSession(pkg, selection);
+    repository.saveReport(pkg.packageId, completeReport, "compact-report", "compact-op");
+    repository.close();
+    const db = new DatabaseSync(join(dir, "library.sqlite"));
+    const original = db.prepare("SELECT * FROM analysis_packages").get()!;
+    const reports = db.prepare("SELECT * FROM review_reports").all();
+    const mappings = db.prepare("SELECT * FROM session_decision_reports").all();
+    const bytes = Buffer.from(canonical(pkg));
+    const header = Buffer.alloc(24);
+    header.write("RCPKG01\0");
+    header.writeBigUInt64LE(BigInt(Math.ceil(bytes.length / 65536)), 8);
+    header.writeBigUInt64LE(BigInt(bytes.length), 16);
+    db.exec("DROP TRIGGER immutable_package; DELETE FROM analysis_package_chunks");
+    db.prepare("UPDATE analysis_packages SET payload=?").run(header);
+    const insert = db.prepare("INSERT INTO analysis_package_chunks VALUES(?,?,?)");
+    for (let offset = 0; offset < bytes.length; offset += 65536) {
+      insert.run(original.package_ref_id!, offset / 65536, bytes.subarray(offset, offset + 65536));
+    }
+    db.exec("CREATE TRIGGER immutable_package BEFORE UPDATE ON analysis_packages BEGIN SELECT RAISE(ABORT,'immutable_artifact'); END");
+    if (fail) db.exec("CREATE TRIGGER fail_compact BEFORE INSERT ON analysis_package_chunks BEGIN SELECT RAISE(ABORT,'injected_compaction_failure'); END");
+    repository = createReviewSessionRepository({ root: dir });
+    try {
+      if (fail) {
+        expect(() => repository.openByPackageId(pkg.packageId)).toThrow("injected_compaction_failure");
+        expect(Buffer.from(db.prepare("SELECT payload FROM analysis_packages").get()!.payload as Uint8Array)).toEqual(header);
+        expect(Buffer.concat(db.prepare("SELECT payload FROM analysis_package_chunks ORDER BY ordinal").all().map(row => Buffer.from(row.payload as Uint8Array)))).toEqual(bytes);
+        expect(() => db.exec("UPDATE analysis_packages SET content_hash='wrong'")).toThrow("immutable_artifact");
+        db.exec("DROP TRIGGER fail_compact");
+      }
+      const reopened = repository.openByPackageId(pkg.packageId);
+      expect(reopened.analysisPackage).toEqual(pkg);
+      expect(reopened.activeReportRefId).toBe("compact-report");
+      const compact = db.prepare("SELECT * FROM analysis_packages").get()!;
+      expect(Buffer.from(compact.payload as Uint8Array).subarray(0, 8).toString()).toBe("RCPKG02\0");
+      expect(compact.content_hash).toBe(original.content_hash);
+      expect(compact.package_id).toBe(original.package_id);
+      expect(db.prepare("SELECT * FROM review_reports").all()).toEqual(reports);
+      expect(db.prepare("SELECT * FROM session_decision_reports").all()).toEqual(mappings);
+      expect(repository.reclaimUnusedStorage()).toBe(true);
+      expect(repository.reclaimUnusedStorage()).toBe(false);
+    } finally { repository.close(); db.close(); }
+    repository = createReviewSessionRepository({ root: dir });
+    try { expect(repository.openByPackageId(pkg.packageId).analysisPackage).toEqual(pkg); }
+    finally { repository.close(); }
+  });
+
+  it("reuses only the owned immutable package and graph while validating fresh report mappings", () => {
+    const repository = createReviewSessionRepository({root: root()});
+    try {
+      const first = repository.saveSession(pkg, selection);
+      const reopened = repository.openByPackageId(pkg.packageId);
+      expect(reopened.analysisPackage).toBe(first.analysisPackage);
+      expect(reopened.readBack.baseGraph).toBe(first.readBack.baseGraph);
+      expect(Object.isFrozen(first.analysisPackage.decisions[0])).toBe(true);
+      expect(Object.isFrozen(first.readBack.baseGraph.nodes)).toBe(true);
+      const generated = repository.saveReport(pkg.packageId, completeReport, "cache-report", "cache-op");
+      expect(generated.analysisPackage).toBe(first.analysisPackage);
+      expect(generated.readBack.baseGraph).toBe(first.readBack.baseGraph);
+      expect(generated.activeReportRefId).toBe("cache-report");
+      expect(generated.decisionReportRefs).toEqual(selection.selected.map(row => ({decisionId: row.decisionId, reportRefId: "cache-report"})));
+    } finally { repository.close(); }
+  });
+
+  it("invalidates owned package reuse after an external write and rejects subsequent damaged bytes", () => {
+    const dir = root();
+    const repository = createReviewSessionRepository({root: dir});
+    const external = new DatabaseSync(join(dir, "library.sqlite"));
+    try {
+      const first = repository.saveSession(pkg, selection);
+      external.prepare("UPDATE review_sessions SET updated_at=?").run("2026-10-05T00:00:00.000Z");
+      const reread = repository.openByPackageId(pkg.packageId);
+      expect(reread.analysisPackage).not.toBe(first.analysisPackage);
+      expect(reread.analysisPackage).toEqual(first.analysisPackage);
+      external.exec("DROP TRIGGER immutable_package_chunk");
+      external.exec("UPDATE analysis_package_chunks SET payload=zeroblob(length(payload)) WHERE ordinal=0");
+      expect(() => repository.openByPackageId(pkg.packageId)).toThrow();
+    } finally { external.close(); repository.close(); }
+  });
+
   it.each([false,true])("migrates v2 inline artifacts without rewriting bytes, rollback=%s", fail => {
     const dir=root();
     const repository=createReviewSessionRepository({root:dir});
@@ -83,7 +268,7 @@ describe("ReviewSession SQLite persistence", () => {
     const verify=new DatabaseSync(join(dir,"library.sqlite"));
     try {
       expect(Buffer.from(verify.prepare("SELECT payload FROM analysis_packages").get()!.payload as Uint8Array)).toEqual(legacyBytes);
-      expect(verify.prepare("PRAGMA user_version").get()?.user_version).toBe(fail?2:3);
+      expect(verify.prepare("PRAGMA user_version").get()?.user_version).toBe(fail?2:4);
       if(fail) {
         expect(verify.prepare("SELECT sentinel FROM library_meta_v3").get()?.sentinel).toBe("preserve");
         expect(verify.prepare("SELECT name FROM sqlite_master WHERE name='analysis_package_chunks'").get()).toBeUndefined();
@@ -197,6 +382,72 @@ describe("ReviewSession SQLite persistence", () => {
       }
     }
   });
+
+  it("migrates a v3 active report to explicit decision mappings without rewriting artifacts", () => {
+    const dir = root();
+    const repository = createReviewSessionRepository({ root: dir, createId: () => "session-v3" });
+    repository.saveSession(pkg, selection);
+    repository.saveReport(pkg.packageId, completeReport, "report-v3", "operation-v3");
+    repository.close();
+    const db = new DatabaseSync(join(dir, "library.sqlite"));
+    const reportBytes = Buffer.from(db.prepare("SELECT payload FROM review_reports WHERE report_ref_id='report-v3'").get()!.payload as Uint8Array);
+    restoreV3Storage(db);
+    db.close();
+
+    const migrated = createReviewSessionRepository({ root: dir });
+    try {
+      const state = migrated.openByPackageId(pkg.packageId);
+      expect(state.activeReportRefId).toBe("report-v3");
+      expect(state.decisionReportRefs).toEqual(selection.selected.map((item) => ({ decisionId: item.decisionId, reportRefId: "report-v3" })));
+      expect(state.readBack.reports.map((item) => item.report)).toEqual([completeReport]);
+      const verify = new DatabaseSync(join(dir, "library.sqlite"));
+      try {
+        expect(Buffer.from(verify.prepare("SELECT payload FROM review_reports WHERE report_ref_id='report-v3'").get()!.payload as Uint8Array)).toEqual(reportBytes);
+        expect(verify.prepare("PRAGMA user_version").get()?.user_version).toBe(4);
+      } finally { verify.close(); }
+    } finally { migrated.close(); }
+  });
+
+  it("rolls back v3 migration when an old active report has a partial or mismatched scope", async () => {
+    const legacyPackage = addSecondReadyDecision(pkg);
+    const legacySelection = selectReviewDecisions(legacyPackage);
+    const onlyFirst = { ...legacySelection, selected: [{ ...legacySelection.selected[0]!, rank: 1 }] };
+    const partial = await generateReviewReport(projectContextGraph(legacyPackage), onlyFirst, provider, "2026-09-23T00:00:00.000Z");
+    const dir = root();
+    const repository = createReviewSessionRepository({ root: dir, createId: () => "session-v3-bad" });
+    repository.saveSession(legacyPackage, legacySelection);
+    repository.saveReport(legacyPackage.packageId, partial, "report-v3-bad", "operation-v3-bad", undefined,
+      [legacySelection.selected[0]!.decisionId]);
+    repository.close();
+    const db = new DatabaseSync(join(dir, "library.sqlite"));
+    const reportBytes = Buffer.from(db.prepare("SELECT payload FROM review_reports WHERE report_ref_id='report-v3-bad'").get()!.payload as Uint8Array);
+    restoreV3Storage(db);
+    db.close();
+
+    expect(() => createReviewSessionRepository({ root: dir })).toThrow("migration_active_report_selection_mismatch");
+    const verify = new DatabaseSync(join(dir, "library.sqlite"));
+    try {
+      expect(verify.prepare("PRAGMA user_version").get()?.user_version).toBe(3);
+      expect(verify.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='session_decision_reports'").get()).toBeUndefined();
+      expect(verify.prepare("PRAGMA table_info(review_sessions)").all().some((column) => column.name === "decision_report_map_hash")).toBe(false);
+      expect(Buffer.from(verify.prepare("SELECT payload FROM review_reports WHERE report_ref_id='report-v3-bad'").get()!.payload as Uint8Array)).toEqual(reportBytes);
+    } finally { verify.close(); }
+  });
+
+  it("fails closed when an explicit decision mapping row is deleted", () => {
+    const dir = root();
+    const repository = createReviewSessionRepository({ root: dir });
+    repository.saveSession(pkg, selection);
+    repository.saveReport(pkg.packageId, completeReport, "report-map", "operation-map");
+    repository.close();
+    const db = new DatabaseSync(join(dir, "library.sqlite"));
+    // The artifact ref is unique within this session and identifies its mapping rows.
+    db.prepare("DELETE FROM session_decision_reports WHERE decision_id=?").run(selection.selected[0]!.decisionId);
+    db.close();
+    const reopened = createReviewSessionRepository({ root: dir });
+    try { expect(() => reopened.openByPackageId(pkg.packageId)).toThrow("decision_report_mapping_hash_mismatch"); }
+    finally { reopened.close(); }
+  });
   it("binds deletion retries to both the original package and session across restart (R4-P2-1)", () => {
     const dir = root();
     let repository = createReviewSessionRepository({ root: dir });
@@ -240,6 +491,12 @@ describe("ReviewSession SQLite persistence", () => {
     expect(state.selection).toEqual(selection);
     expect(state.activeReport).toEqual(completeReport);
     expect(state.activeReport?.generationStatus).toBe("complete");
+    const snapshot = presentFixedReviewSnapshot({ analysisPackage: state.analysisPackage, selection: state.selection, activeReport: state.activeReport, activeReportRefId: state.activeReportRefId });
+    expect(snapshot.coachUsage).toEqual({ inputTokens: 1200, cachedInputTokens: 300, outputTokens: 80, totalTokens: 1280 });
+    expect(snapshot.coachProvider).toEqual({ providerId: "codex-cli", model: "gpt-6-luna", reasoningEffort: "max", samplingMode: "provider_default" });
+    const withoutUsage = presentFixedReviewSnapshot({ analysisPackage: pkg, selection, activeReport: report, activeReportRefId: "other" });
+    expect(withoutUsage.coachUsage).toBeNull();
+    expect(presentFixedReviewSnapshot({ analysisPackage: pkg, selection }).coachProvider).toBeNull();
     expect(state.activeReport?.decisionEntries[0]).toMatchObject({ explanationStatus: "ready" });
     expect(state.activeReport?.reasoningOverlay.nodes.map((node) => node.nodeKind)).toEqual(
       expect.arrayContaining(["CoachJudgment", "Explanation"]),
@@ -283,7 +540,7 @@ describe("ReviewSession SQLite persistence", () => {
     second.close();
   });
 
-  it("recovers a committed report before generation and never calls the provider twice", async () => {
+  it("recovers a committed report before duplicate-operation replay without another provider call", async () => {
     const dir = root();
     const first = createReviewSessionRepository({
       root: dir, createId: () => "session-a",
@@ -301,7 +558,7 @@ describe("ReviewSession SQLite persistence", () => {
       repository,
       createReportRefId: () => "must-not-be-created",
     });
-    expect(await controller.generateReview(pkg.packageId, "retry-operation")).toEqual({
+    expect(await controller.generateReview(pkg.packageId, "operation-a")).toEqual({
       status: "failed", code: "generation_failed",
     });
     expect(generateReport).not.toHaveBeenCalled();
@@ -370,11 +627,11 @@ describe("ReviewSession SQLite persistence", () => {
     const dir = root();
     const databasePath = join(dir, "library.sqlite");
     const db = new DatabaseSync(databasePath);
-    db.exec("PRAGMA user_version=4");
+    db.exec("PRAGMA user_version=5");
     db.close();
     expect(() => createReviewSessionRepository({ root: dir })).toThrow("library_newer_version");
     const verify = new DatabaseSync(databasePath);
-    expect((verify.prepare("PRAGMA user_version").get() as { user_version: number }).user_version).toBe(4);
+    expect((verify.prepare("PRAGMA user_version").get() as { user_version: number }).user_version).toBe(5);
     verify.close();
   });
 

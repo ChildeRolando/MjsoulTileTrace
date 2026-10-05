@@ -317,7 +317,7 @@ reducer 同时跟踪预期 actor 和阶段：摸牌、自摸后弃牌、他家�
 
 役资格计算使用独立的严格上下文账本：`windsStatus` 只有在场风和自风同时已知时为 `known`；`riichiStatus` 区分已接受、未立直和未知；`openTanyaoStatus` 区分启用、禁用和未知。已接受立直与吃、碰、大明杠、加杠等开放副露冲突，暗杠仍保持门清。`ronContext` 仅允许 `complete_none | known_kakan_chankan | known_ankan_chankan | known_houtei | unknown_future`。
 
-这些字段必须由权威 `KnownGameFacts V2` 的分项 completeness 投影。当前最小 `KnownGameFacts` 会丢失一部分“已知/未知”来源，投影层不得提前猜值；该 missingness 边界在 M2-A Task 6 随共享 request builder 一并修复。
+这些字段必须由权威 `KnownGameFacts V2` 的分项 completeness 投影。当前点数通过可选 `scores` 以 `known` / `unknown` 表达，且只读取决策快照中 `fields.scores` 完整时的值；局次通过 `currentRound` 以相同状态表达，只有 `fields.roundContext` 完整时才读取 roundOrdinal、roundWind、hand、honba 与 riichiSticks。决策后的结算和终局分数不能回填较早决策。旧归档保留字段缺省，legacy 桥不得从旧记录占位值推测。
 
 ### 8.5 候选动作边界
 

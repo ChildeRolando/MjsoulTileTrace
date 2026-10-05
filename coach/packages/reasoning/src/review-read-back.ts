@@ -6,7 +6,7 @@ import type {
   ReviewSelectionResult,
   StructuredAnalysisPackage,
 } from "@riichi-coach/contracts";
-import { ReviewSelectionResultSchema } from "@riichi-coach/contracts";
+import { ReviewReportSchema, ReviewSelectionResultSchema } from "@riichi-coach/contracts";
 import { getDecisionSubgraph } from "./context-graph/get-decision-subgraph.js";
 import { projectContextGraph } from "./context-graph/project-context-graph.js";
 import { validateContextGraph } from "./context-graph/validate-context-graph.js";
@@ -20,6 +20,15 @@ export type ReviewDecisionReadBack = Readonly<{
   edges: readonly ContextGraphEdge[];
 }>;
 
+export type ReviewReadBackReport = Readonly<{
+  reportRefId: string | null;
+  /** The immutable scope recorded inside this report. */
+  selectedDecisionIds: readonly string[];
+  /** The decisions currently assigned to this report by the session index. */
+  mappedDecisionIds: readonly string[];
+  report: ReviewReport;
+}>;
+
 /**
  * Validated, read-only composition of one existing analysis package, its
  * selector-owned scope, and an optional existing report. This is the
@@ -30,11 +39,29 @@ export type ReviewDecisionReadBack = Readonly<{
 export type ReviewReadBackContext = Readonly<{
   analysisPackage: StructuredAnalysisPackage;
   selection: ReviewSelectionResult;
+  /** The latest explicitly active report; its usage remains the latest request usage. */
   report: ReviewReport | null;
+  /** Individually validated report artifacts used by the current session view. */
+  reports: readonly ReviewReadBackReport[];
   baseGraph: ContextGraph;
   currentGraph: ContextGraph;
+  reportForDecision(decisionId: string): ReviewReport | null;
   decisionContext(decisionId: string): ReviewDecisionReadBack;
   resolveDecisionRef(decisionId: string, nodeId: string): ContextGraphNode;
+}>;
+
+export type ReviewSessionReportInput = Readonly<{
+  reportRefId: string;
+  report: unknown;
+}>;
+export type ReviewSessionDecisionReportRef = Readonly<{
+  decisionId: string;
+  reportRefId: string;
+}>;
+export type ReviewSessionReadBackInput = Readonly<{
+  reports: readonly ReviewSessionReportInput[];
+  decisionReportRefs: readonly ReviewSessionDecisionReportRef[];
+  activeReportRefId: string | null;
 }>;
 
 function decisionIdOf(node: ContextGraphNode): string | undefined {
@@ -125,6 +152,22 @@ export function composeReviewReadBackContext(
     validateContextGraph(baseGraph);
   }
 
+  const reports: readonly ReviewReadBackReport[] = report === null
+    ? Object.freeze([])
+    : Object.freeze([Object.freeze({
+      reportRefId: null,
+      selectedDecisionIds: Object.freeze([...selectedDecisionIds]),
+      mappedDecisionIds: Object.freeze([...selectedDecisionIds]),
+      report,
+    })]);
+
+  const reportForDecision = (decisionId: string): ReviewReport | null => {
+    if (!selectedDecisionIds.includes(decisionId)) {
+      throw new Error(`m7a_read_back_unselected_decision:${decisionId}`);
+    }
+    return report !== null && selectedDecisionIds.includes(decisionId) ? report : null;
+  };
+
   const decisionContext = (decisionId: string): ReviewDecisionReadBack => {
     if (!selectedDecisionIds.includes(decisionId)) {
       throw new Error(`m7a_read_back_unselected_decision:${decisionId}`);
@@ -165,8 +208,228 @@ export function composeReviewReadBackContext(
     analysisPackage,
     selection,
     report,
+    reports,
     baseGraph,
     currentGraph,
+    reportForDecision,
+    decisionContext,
+    resolveDecisionRef,
+  });
+}
+
+function selectionForDecisionIds(
+  selection: ReviewSelectionResult,
+  decisionIds: readonly string[],
+): ReviewSelectionResult {
+  if (new Set(decisionIds).size !== decisionIds.length) {
+    throw new Error("m7a_read_back_duplicate_report_scope");
+  }
+  const requested = new Set(decisionIds);
+  const selected = selection.selected.filter((item) => requested.has(item.decisionId));
+  if (selected.length !== requested.size) {
+    throw new Error("m7a_read_back_report_scope_outside_selection");
+  }
+  return ReviewSelectionResultSchema.parse({
+    ...selection,
+    selected: selected.map((item, index) => ({ ...item, rank: index + 1 })),
+  });
+}
+
+/**
+ * Compose the current ReviewSession view from independently generated,
+ * immutable reports. Each artifact is revalidated against its original
+ * selector-ordered subset; the explicit decision-to-report index determines
+ * which portions remain current after later reports replace individual rows.
+ * No merged ReviewReport or merged usage/audit is constructed.
+ */
+export function composeReviewSessionReadBackContext(
+  packageInput: unknown,
+  selectionInput: unknown,
+  sessionInput: ReviewSessionReadBackInput,
+): ReviewReadBackContext {
+  const base = composeReviewReadBackContext(packageInput, selectionInput, null);
+  return composeSessionFromBase(base, sessionInput);
+}
+
+/** Own this validated disk read for one repository connection. Frozen objects
+ * are reused; each new report and decision mapping is still fully validated. */
+export function createReviewSessionReadBackComposer(packageInput: unknown, selectionInput: unknown) {
+  const base = freezeReviewReadBack(composeReviewReadBackContext(packageInput, selectionInput, null));
+  return Object.freeze({
+    analysisPackage: base.analysisPackage,
+    compose: (sessionInput: ReviewSessionReadBackInput) =>
+      freezeReviewReadBack(composeSessionFromBase(base, sessionInput)),
+  });
+}
+
+// Retain only completed context roots and their direct fields, not a visited
+// entry for every fact in a large graph. A caller's shallow Object.freeze
+// cannot authorize reuse of unvisited mutable children.
+const deeplyFrozen = new WeakSet<object>();
+export function freezeReviewReadBack(context: ReviewReadBackContext): ReviewReadBackContext {
+  const active = new WeakSet<object>();
+  let completed = new WeakSet<object>();
+  let completedCount = 0;
+  const freeze = (value: unknown): void => {
+    if (value === null || typeof value !== "object" || deeplyFrozen.has(value) || completed.has(value) || active.has(value)) return;
+    active.add(value);
+    if (Array.isArray(value)) {
+      for (const child of value) freeze(child);
+    } else {
+      for (const child of Object.values(value)) freeze(child);
+    }
+    Object.freeze(value);
+    active.delete(value);
+    if (completedCount === 65_536) { completed = new WeakSet<object>(); completedCount = 0; }
+    completed.add(value);
+    completedCount++;
+  };
+  freeze(context);
+  deeplyFrozen.add(context);
+  for (const value of Object.values(context)) {
+    if (value !== null && typeof value === "object") deeplyFrozen.add(value);
+  }
+  return context;
+}
+
+function composeSessionFromBase(base: ReviewReadBackContext, sessionInput: ReviewSessionReadBackInput): ReviewReadBackContext {
+  const selectedIds = base.selection.selected.map((item) => item.decisionId);
+  const reportByRef = new Map<string, ReviewReadBackReport>();
+
+  for (const reportInput of sessionInput.reports) {
+    if (typeof reportInput.reportRefId !== "string" || reportInput.reportRefId.length === 0
+      || reportByRef.has(reportInput.reportRefId)) {
+      throw new Error("m7a_read_back_duplicate_report_ref");
+    }
+    let report: ReviewReport;
+    try {
+      report = ReviewReportSchema.parse(reportInput.report);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      throw new Error(`m7a_read_back_report_schema:${message}`);
+    }
+    const reportSelection = selectionForDecisionIds(base.selection, report.selectedDecisionIds);
+    const expectedIds = reportSelection.selected.map((item) => item.decisionId);
+    if (report.selectedDecisionIds.length !== expectedIds.length
+      || report.selectedDecisionIds.some((decisionId, index) => decisionId !== expectedIds[index])) {
+      throw new Error("m7a_read_back_report_scope_order_mismatch");
+    }
+    if (report.selectorPolicyVersion !== base.selection.policyVersion) {
+      throw new Error("m7a_read_back_report_selection_policy_mismatch");
+    }
+    validateReviewReport(report, base.baseGraph);
+    reportByRef.set(reportInput.reportRefId, Object.freeze({
+      reportRefId: reportInput.reportRefId,
+      selectedDecisionIds: Object.freeze([...report.selectedDecisionIds]),
+      mappedDecisionIds: Object.freeze([]),
+      report,
+    }));
+  }
+
+  if (sessionInput.activeReportRefId !== null && !reportByRef.has(sessionInput.activeReportRefId)) {
+    throw new Error("m7a_read_back_active_report_unresolved");
+  }
+  const mappedByDecision = new Map<string, string>();
+  for (const mapping of sessionInput.decisionReportRefs) {
+    if (!selectedIds.includes(mapping.decisionId)) {
+      throw new Error(`m7a_read_back_mapping_unselected_decision:${mapping.decisionId}`);
+    }
+    if (mappedByDecision.has(mapping.decisionId)) {
+      throw new Error(`m7a_read_back_duplicate_decision_mapping:${mapping.decisionId}`);
+    }
+    const report = reportByRef.get(mapping.reportRefId);
+    if (report === undefined) {
+      throw new Error(`m7a_read_back_mapping_report_unresolved:${mapping.reportRefId}`);
+    }
+    if (!report.selectedDecisionIds.includes(mapping.decisionId)) {
+      throw new Error(`m7a_read_back_mapping_outside_report_scope:${mapping.decisionId}`);
+    }
+    mappedByDecision.set(mapping.decisionId, mapping.reportRefId);
+  }
+
+  const reports = [...reportByRef.values()].map((report) => {
+    const mappedDecisionIds = selectedIds.filter((decisionId) =>
+      mappedByDecision.get(decisionId) === report.reportRefId,
+    );
+    if (mappedDecisionIds.length === 0
+      && report.reportRefId !== sessionInput.activeReportRefId) {
+      throw new Error(`m7a_read_back_unreferenced_report:${report.reportRefId}`);
+    }
+    if (report.reportRefId === sessionInput.activeReportRefId
+      && (mappedDecisionIds.length !== report.selectedDecisionIds.length
+        || report.selectedDecisionIds.some((decisionId, index) => mappedDecisionIds[index] !== decisionId))) {
+      throw new Error("m7a_read_back_active_report_scope_mismatch");
+    }
+    return Object.freeze({ ...report, mappedDecisionIds: Object.freeze(mappedDecisionIds) });
+  });
+
+  const overlayNodes: ContextGraphNode[] = [];
+  const overlayEdges: ContextGraphEdge[] = [];
+  const baseNodeIds = new Set(base.baseGraph.nodes.map((node) => node.nodeId));
+  for (const report of reports) {
+    const mapped = new Set(report.mappedDecisionIds);
+    if (mapped.size === 0) continue;
+    const includedNodeIds = new Set(baseNodeIds);
+    for (const node of report.report.reasoningOverlay.nodes) {
+      if (mapped.has(decisionIdOf(node) ?? "")) {
+        overlayNodes.push(node);
+        includedNodeIds.add(node.nodeId);
+      }
+    }
+    for (const edge of report.report.reasoningOverlay.edges) {
+      if (includedNodeIds.has(edge.from) && includedNodeIds.has(edge.to)) {
+        overlayEdges.push(edge);
+      }
+    }
+  }
+  const currentGraph = overlayNodes.length === 0
+    ? base.baseGraph
+    : appendReasoningOverlay(base.baseGraph, overlayNodes, overlayEdges);
+
+  const reportForDecision = (decisionId: string): ReviewReport | null => {
+    if (!selectedIds.includes(decisionId)) {
+      throw new Error(`m7a_read_back_unselected_decision:${decisionId}`);
+    }
+    const reportRef = mappedByDecision.get(decisionId);
+    if (reportRef === undefined) return null;
+    const report = reports.find((item) => item.reportRefId === reportRef);
+    if (report === undefined) throw new Error(`m7a_read_back_mapping_report_unresolved:${reportRef}`);
+    return report.report;
+  };
+
+  const decisionContext = (decisionId: string): ReviewDecisionReadBack => {
+    if (!selectedIds.includes(decisionId)) {
+      throw new Error(`m7a_read_back_unselected_decision:${decisionId}`);
+    }
+    const evidence = getDecisionSubgraph(base.baseGraph, decisionId);
+    const nodeIds = new Set(evidence.nodes.map((node) => node.nodeId));
+    for (const node of currentGraph.nodes) {
+      if (decisionIdOf(node) === decisionId) nodeIds.add(node.nodeId);
+    }
+    return Object.freeze({
+      decisionId,
+      nodes: Object.freeze(currentGraph.nodes.filter((node) => nodeIds.has(node.nodeId))),
+      edges: Object.freeze(currentGraph.edges.filter((edge) => nodeIds.has(edge.from) && nodeIds.has(edge.to))),
+    });
+  };
+
+  const activeReport = sessionInput.activeReportRefId === null
+    ? null
+    : reports.find((report) => report.reportRefId === sessionInput.activeReportRefId)?.report ?? null;
+  const resolveDecisionRef = (decisionId: string, nodeId: string): ContextGraphNode => {
+    const node = decisionContext(decisionId).nodes.find((candidate) => candidate.nodeId === nodeId);
+    if (node === undefined) throw new Error(`m7a_read_back_unresolved_ref:${decisionId}:${nodeId}`);
+    return node;
+  };
+
+  return Object.freeze({
+    analysisPackage: base.analysisPackage,
+    selection: base.selection,
+    report: activeReport,
+    reports: Object.freeze(reports),
+    baseGraph: base.baseGraph,
+    currentGraph,
+    reportForDecision,
     decisionContext,
     resolveDecisionRef,
   });

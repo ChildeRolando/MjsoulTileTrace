@@ -312,6 +312,120 @@ describe("V2 snapshot to KnownGameFacts projection", () => {
     });
   });
 
+  it.each([
+    { label: "leading", openingScores: [35000, 23000, 23000, 17000] as const,
+      expectedScores: [34000, 23000, 23000, 17000] as const },
+    { label: "chasing", openingScores: [21000, 32000, 23000, 22000] as const,
+      expectedScores: [20000, 32000, 23000, 22000] as const },
+  ])("projects decision-time South 4 points after riichi deduction for $label seat", ({ openingScores, expectedScores }) => {
+    const decisionEventRef = "game:fixture/0/18/0";
+    const start = canonicalStartEvents();
+    const roundStart = start[1]!;
+    if (roundStart.type !== "round_started") throw new Error("round start missing");
+    start[1] = {
+      ...roundStart,
+      roundWind: "S",
+      hand: 4,
+      honba: 2,
+      riichiSticks: 2,
+      scores: [...openingScores],
+    };
+    const event = (
+      type: CanonicalGameEvent["type"],
+      record: number,
+      value: Omit<CanonicalGameEvent, "type" | "eventId" | "sourceRecordRef">,
+    ): CanonicalGameEvent => ({
+      type,
+      eventId: `game:fixture/0/${record}/0`,
+      sourceRecordRef: `record:${record}`,
+      ...value,
+    } as CanonicalGameEvent);
+    const events: CanonicalGameEvent[] = [
+      ...start,
+      event("tile_drawn", 2, {
+        actor: 0,
+        tile: { visibility: "visible", tile: canonicalTile("5p") },
+        from: "live_wall",
+      }),
+      event("riichi_declared", 3, { actor: 0 }),
+      event("tile_discarded", 4, {
+        actor: 0,
+        tile: canonicalTile("5p"),
+        discardMode: "tsumogiri",
+        riichiDeclarationEventRef: "game:fixture/0/3/0",
+      }),
+      event("riichi_accepted", 5, {
+        actor: 0,
+        declarationEventRef: "game:fixture/0/3/0",
+      }),
+      ...[1, 2, 3].flatMap((actor, index) => [
+        event("tile_drawn", 6 + index * 4, {
+          actor,
+          tile: { visibility: "hidden" },
+          from: "live_wall",
+        }),
+        event("tile_discarded", 7 + index * 4, {
+          actor,
+          tile: canonicalTile(actor === 1 ? "9s" : actor === 2 ? "8s" : "7s"),
+          discardMode: "tedashi",
+          riichiDeclarationEventRef: null,
+        }),
+      ]),
+      event("tile_drawn", 18, {
+        actor: 0,
+        tile: { visibility: "visible", tile: canonicalTile("6p") },
+        from: "live_wall",
+      }),
+      // Later settlement deliberately disagrees with the decision snapshot.
+      event("win_declared", 19, {
+        winnerActor: 0,
+        targetActor: null,
+        method: "tsumo",
+        winningTile: canonicalTile("6p"),
+        winSourceEventRef: decisionEventRef,
+        scoreDeltas: null,
+      }),
+      event("scores_updated", 20, {
+        scores: [48000, 18000, 22000, 12000],
+        settlementEventRef: "game:fixture/0/19/0",
+      }),
+      event("round_ended", 21, {
+        terminalEventRef: "game:fixture/0/19/0",
+      }),
+      event("game_ended", 22, { scores: [48000, 18000, 22000, 12000] }),
+    ];
+    const stream = canonicalStream(events);
+    const window = {
+      kind: "self_turn" as const,
+      actor: 0,
+      triggerEventRef: decisionEventRef,
+    };
+
+    const facts = projectKnownGameFactsV2({ stream, decisionWindow: window });
+    expect(facts.scores).toEqual({ status: "known", byActor: expectedScores });
+    expect(facts.currentRound).toEqual({
+      status: "known",
+      roundOrdinal: 0,
+      roundWind: "S",
+      hand: 4,
+      honba: 2,
+      riichiSticks: 3,
+    });
+
+    const incompleteScores = {
+      ...stream,
+      completeness: { ...stream.completeness, scores: "partial" as const },
+    };
+    expect(projectKnownGameFactsV2({ stream: incompleteScores, decisionWindow: window }).scores)
+      .toEqual({ status: "unknown" });
+    const incompleteRound = {
+      ...stream,
+      completeness: { ...stream.completeness, eventSequence: "partial" as const },
+    };
+    expect(projectKnownGameFactsV2({ stream: incompleteRound, decisionWindow: window }).currentRound)
+      .toEqual({ status: "unknown" });
+  });
+
   it("preserves the East 1 hand, river, threat and completeness facts", async () => {
     const raw = JSON.parse(await readFile(fixtureUrl, "utf8")) as RegressionFixture;
     const { selfActor, events, decisions } = importRegressionFixture(raw);

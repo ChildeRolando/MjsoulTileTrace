@@ -1,6 +1,7 @@
 import { describe, expect, test, vi } from "vitest";
 
 import {
+  discoverMahjongSoulCnLobbyRoute,
   discoverMahjongSoulCnLobbyUrl,
   type GatewayDiscoveryFetch,
 } from "../src/gateway-discovery.js";
@@ -58,6 +59,48 @@ function response(body: unknown, overrides: Partial<{
 }
 
 describe("restricted Mahjong Soul CN gateway discovery", () => {
+  test("keeps the selected route id attached to its normalized allowed URL", async () => {
+    await expect(discoverMahjongSoulCnLobbyRoute({
+      bundle: bundle(),
+      fetchImpl: async () => response({
+        data: { routes: [
+          { id: "selected-route", domain: "route-2.maj-soul.com:443", ssl: true, state: "idle" },
+          { id: "other-route", domain: "route-3.maj-soul.com:8443", ssl: true, state: "idle" },
+        ] },
+      }),
+    })).resolves.toEqual({
+      url: "wss://route-2.maj-soul.com/gateway",
+      routeId: "selected-route",
+    });
+  });
+
+  test("selects URL and id from one candidate when earlier route metadata is incomplete", async () => {
+    await expect(discoverMahjongSoulCnLobbyRoute({
+      bundle: bundle(),
+      fetchImpl: async () => response({
+        data: { routes: [
+          { domain: "route-2.maj-soul.com:443", ssl: true, state: "idle" },
+          { id: "route-three-id", domain: "route-3.maj-soul.com:8443", ssl: true, state: "idle" },
+        ] },
+      }),
+    })).resolves.toEqual({
+      url: "wss://route-3.maj-soul.com:8443/gateway",
+      routeId: "route-three-id",
+    });
+  });
+
+  test.each([undefined, "", "  ", 17])(
+    "does not select an allowed URL without a valid route id (%#)",
+    async (id) => {
+      await expect(discoverMahjongSoulCnLobbyRoute({
+        bundle: bundle(),
+        fetchImpl: async () => response({
+          data: { routes: [{ id, domain: "route-2.maj-soul.com:443", ssl: true, state: "idle" }] },
+        }),
+      })).rejects.toThrow(fixedCode);
+    },
+  );
+
   test("accepts the native fetch Response shape without trusting its prototype", async () => {
     const requestUrl = "https://route-2.maj-soul.com/api/clientgate/routes?platform=Web&version=4.0.46&lang=chs_t";
     const native = new Response(JSON.stringify({

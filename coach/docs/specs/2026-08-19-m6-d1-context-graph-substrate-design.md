@@ -322,6 +322,12 @@ allow-list 过滤：
 | DeterministicPreference | actionRefs、scope、decisiveDifferenceIds、coverage |
 | Evidence | evidenceId、kind、producer、producerVersion、sourceRefs、payload |
 
+KnownGameFact 的 `scores` 保存决策时按 actor 0–3 排列的四家点数，`currentRound`
+保存 roundOrdinal、roundWind、hand、honba 和 riichiSticks；两者通过 graph 与
+slice allow-list 原样进入 CoachContext / CoachTeachingBrief。字段以显式
+`known` / `unknown` 表达来源完整性。点数来自决策快照，不读取之后的结算或终局分数；
+旧归档缺少这些可选字段时保持缺省，legacy 桥不得补猜。
+
 slice 校验器拒绝 allow-list 之外的键、任何 URL、任何 privileged 载荷；reasoning
 节点在 D1 不会被 slice 选中（projection 无 reasoning 节点）。
 

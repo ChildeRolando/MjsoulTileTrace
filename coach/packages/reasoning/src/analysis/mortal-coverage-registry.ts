@@ -1,15 +1,16 @@
 // M6-A3 semantic coverage matrix (spec: 2026-08-16-m6-a3, ADR-0002).
-// Every new decision branch stays production fail-closed until at least one
-// REAL E2E hit (tenhou/majsoul corpus → canonical → binding → assembly →
-// redacted output) is recorded against it. Synthetic fixtures can never lift
-// the gate: they only prove regression behavior.
+// This registry tracks real E2E acceptance evidence
+// (tenhou/majsoul corpus → canonical → binding → assembly → redacted output).
+// Missing evidence is reported as an acceptance coverage gap and never gates
+// production legality or analysis. Synthetic fixtures can never lift the
+// evidence registry: they only prove regression behavior.
 //
 // M6-A4.2: the response surface (discard_response / kan_response windows)
 // joins the matrix — wave-1 six branches per the A4 spec (resp_chi_actual /
 // resp_pon_actual / resp_daiminkan_actual / resp_hora_actual /
 // resp_pass_on_discard / resp_chankan_actual) plus the wave-2
-// resp_pass_on_kakan entry. They stay fail-closed (production default is the
-// empty registry) until A4.3 records real E2E evidence for each.
+// resp_pass_on_kakan entry. They remain uncovered in acceptance statistics
+// until A4.3 records real E2E evidence for each.
 
 export const MORTAL_COVERAGE_BRANCHES = [
   "riichi_window",
@@ -144,8 +145,8 @@ export function createMortalCoverageRegistry(
   });
 }
 
-// Production default: nothing is lifted until real E2E acceptance evidence
-// is recorded by the corpus runner. The default registry is frozen so no
-// runtime path can silently mark a branch covered.
+// Default reporting state: no real E2E acceptance evidence is registered.
+// The frozen empty registry reports that gap; it does not affect production
+// action validation or analysis outcomes.
 export const EMPTY_MORTAL_COVERAGE_REGISTRY: MortalCoverageRegistry =
   createMortalCoverageRegistry([]);

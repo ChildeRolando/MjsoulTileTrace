@@ -42,7 +42,8 @@ describe("native whole-game golden",()=>{
     expect(second.pkg.packageId).toBe(baseline.pkg.packageId);
     expect(second.pkg.semanticContentHash).toBe(baseline.pkg.semanticContentHash);
     expect(selectReviewDecisions(second.pkg)).toEqual(selectReviewDecisions(baseline.pkg));
-    const other=buildStructuredAnalysisPackage({...baseline.input,componentVersions:{...versions,factorPipeline:"factor-pipeline/v2"}});
+    expect(versions.factorPipeline).toBe("factor-pipeline/v2");
+    const other=buildStructuredAnalysisPackage({...baseline.input,componentVersions:{...versions,factorPipeline:"factor-pipeline/v1"}});
     expect(other.packageId).not.toBe(baseline.pkg.packageId);
     expect(other.semanticContentHash).not.toBe(baseline.pkg.semanticContentHash);
   },120000);

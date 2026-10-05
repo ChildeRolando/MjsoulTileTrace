@@ -50,14 +50,15 @@ export function createAccountRecordReviewHandoff(input: {
   readonly ingest: (recordId: string) => Promise<AccountRecordReviewInput>;
   readonly analysisStore: Pick<RecordAnalysisStore, "analyzeRecord">;
   readonly prepareReview: (input: PaipuReviewPreparationInput) => Promise<PaipuReviewPreparationResult>;
-}): (recordId: string) => Promise<Readonly<{
+}): (recordId: string, onProgress?: (progress: import("./catalog-api.js").RecordAnalysisProgress) => void) => Promise<Readonly<{
   status: "review_ready";
   sessionId: string;
   packageId: string;
 }>> {
-  return async (recordId) => {
+  return async (recordId, onProgress) => {
     const ingested = await input.ingest(recordId);
     if (ingested.recordId !== recordId) throw error("mahjong_soul_record_not_analyzable");
+    onProgress?.({ stage: "replaying", completed: 0, total: null });
     const outcome = input.analysisStore.analyzeRecord({
       recordId,
       selfActor: ingested.selfActor,
@@ -72,6 +73,7 @@ export function createAccountRecordReviewHandoff(input: {
       selfActor: ingested.selfActor,
       stream: outcome.stream,
       decisions: outcome.decisions,
+      ...(onProgress === undefined ? {} : { onProgress }),
     });
     return Object.freeze({ status: "review_ready" as const, ...prepared });
   };

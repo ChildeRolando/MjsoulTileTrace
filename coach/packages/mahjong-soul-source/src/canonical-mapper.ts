@@ -22,7 +22,7 @@ import {
 const MAPPING_ERROR = "mahjong_soul_canonical_mapping_failed" as const;
 const VALIDATION_ERROR = "mahjong_soul_canonical_validation_failed" as const;
 const UNSUPPORTED_SEMANTICS = "mahjong_soul_canonical_unsupported_semantics" as const;
-export const MAHJONG_SOUL_RECORD_MAPPER_VERSION = "mahjong-soul-record-mapper/v6" as const;
+export const MAHJONG_SOUL_RECORD_MAPPER_VERSION = "mahjong-soul-record-mapper/v7" as const;
 
 export type MahjongSoulMapperDiagnostic =
   | "mahjong_soul_canonical_mapping_failed"
@@ -84,6 +84,10 @@ function scoreQuads(value: unknown): [number, number, number, number] {
   throw mappingFailed();
 }
 
+function optionalScoreQuads(value: unknown): [number, number, number, number] | null {
+  return value === undefined || (Array.isArray(value) && value.length === 0) ? null : scoreQuads(value);
+}
+
 function sourceRef(recordId: string, sourceRecordOrdinal: number): string {
   return `record:${recordId}:action:${sourceRecordOrdinal}`;
 }
@@ -132,17 +136,17 @@ export function mapMahjongSoulRecord(input: {
     // Events of the current round only: kan/pon provenance never crosses a
     // round boundary.
     let roundStartEventIndex = 0;
-    // The event that terminated the current round (last win of a hule, or the
+    // The event that started the current terminal (FIRST win of a hule, or
     // round_drawn); the follow-up round_ended binds to it before the next
     // round_started. The synthesized round_ended continues the terminal's own
     // source position (next contiguous sub-event ordinal) because the stream
     // schema binds each source position to exactly one sourceRecordRef.
     let lastTerminalEventRef: string | null = null;
     let terminalContinuation: { readonly ordinal: number; readonly nextSub: number } | null = null;
-    // Running seat scores (from each RecordNewRound plus every RecordHule's
-    // delta_scores, applied once per hule action) — the source for the final
-    // game_ended settlement, never fabricated.
+    // Running seat scores: source round start, accepted riichi deposits, then
+    // each Hule's absolute/derived aggregate settlement applied once.
     let currentScores: [number, number, number, number] | null = null;
+    let roundStartScores: [number, number, number, number] | null = null;
     // Whether the current round's terminal settles scores on the wire (a
     // hule does; a sanitized RecordNoTile carries no payment data).
     let terminalSettlesScores = false;
@@ -277,6 +281,7 @@ export function mapMahjongSoulRecord(input: {
         roundWind = parseMajsoulRoundWind(chang);
         roundDealer = dealer;
         currentScores = [...scores];
+        roundStartScores = [...scores];
         push(ordinal, 0, {
           type: "round_started",
           roundOrdinal: currentRoundOrdinal,
@@ -364,6 +369,7 @@ export function mapMahjongSoulRecord(input: {
         });
         if (declarationEventRef !== null) {
           push(ordinal, nextSub + 2, { type: "riichi_accepted", actor, declarationEventRef });
+          if (currentScores !== null) currentScores[actor] = currentScores[actor]! - 1000;
         }
         continue;
       }
@@ -494,6 +500,16 @@ export function mapMahjongSoulRecord(input: {
         const scoreDeltas = [
           deltaValues[0], deltaValues[1], deltaValues[2], deltaValues[3],
         ] as [number, number, number, number];
+        if (currentScores === null || roundStartScores === null) throw mappingFailed();
+        const oldScores = optionalScoreQuads(data.old_scores);
+        const finalScores = optionalScoreQuads(data.scores);
+        if (oldScores !== null && oldScores.some((value, actor) => value !== currentScores![actor])) throw mappingFailed();
+        const derivedScores = currentScores.map((value, actor) => value + scoreDeltas[actor]!) as [number, number, number, number];
+        if (finalScores !== null && finalScores.some((value, actor) => value !== derivedScores[actor])) throw mappingFailed();
+        const settledScores = finalScores ?? derivedScores;
+        // Canonical deltas use round-start scores. The wire delta instead uses
+        // the replayed scores, which include this round's riichi deposits.
+        const canonicalDeltas = settledScores.map((value, actor) => value - roundStartScores![actor]!) as [number, number, number, number];
         let subEvent = 0;
         for (const raw of hules) {
           if (!isRecord(raw)) throw mappingFailed();
@@ -510,29 +526,32 @@ export function mapMahjongSoulRecord(input: {
           const targetActor = !zimo && source.type === "tile_discarded"
             ? source.actor
             : null;
-          lastTerminalEventRef = push(ordinal, subEvent, {
+          const winEventRef = push(ordinal, subEvent, {
             type: "win_declared",
             winnerActor: winner,
             targetActor,
             method: zimo ? "tsumo" : "ron",
             winningTile: tile,
             winSourceEventRef: source.eventId,
-            scoreDeltas,
+            // The wire delta belongs to the whole RecordHule, not each winner.
+            // Multi-ron has no attested per-winner payment decomposition.
+            scoreDeltas: hules.length === 1 ? canonicalDeltas : null,
           });
+          // Further ron winners continue the same terminal. Canonical closure
+          // and settlement are bound to its first event (also used by Tenhou).
+          if (subEvent === 0) lastTerminalEventRef = winEventRef;
           subEvent += 1;
         }
         if (subEvent === 0) throw mappingFailed();
         terminalContinuation = { ordinal, nextSub: subEvent };
         terminalSettlesScores = true;
-        // Apply this hule's seat deltas ONCE (a double-ron shares the action's
-        // delta_scores) to keep the running settlement for game_ended honest.
-        if (currentScores !== null) {
-          currentScores = [
-            currentScores[0] + scoreDeltas[0],
-            currentScores[1] + scoreDeltas[1],
-            currentScores[2] + scoreDeltas[2],
-            currentScores[3] + scoreDeltas[3],
-          ];
+        // Apply the whole action settlement once, preferring attested absolute
+        // scores. Legacy delta-only records use the replayed deposit baseline.
+        currentScores = [...settledScores];
+        if (hules.length > 1) {
+          push(ordinal, subEvent, { type: "scores_updated",
+            scores: [...currentScores], settlementEventRef: lastTerminalEventRef! });
+          terminalContinuation = { ordinal, nextSub: subEvent + 1 };
         }
         continue;
       }

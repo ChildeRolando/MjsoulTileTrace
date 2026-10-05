@@ -3,9 +3,10 @@ import { createHash } from "node:crypto";
 import protobuf from "protobufjs";
 
 const FAILURE = "mahjong_soul_protocol_compatibility_failed";
-const SURFACE_VERSION = "mahjong-soul-required-surface/v3";
+const SURFACE_VERSION = "mahjong-soul-required-surface/v4";
 
 const REQUIRED_ROUTES = Object.freeze({
+  ".lq.Route.requestConnection": Object.freeze({ req: ".lq.ReqRequestConnection", resp: ".lq.ResRequestConnection" }),
   ".lq.Lobby.login": Object.freeze({ req: ".lq.ReqLogin", resp: ".lq.ResLogin" }),
   ".lq.Lobby.oauth2Check": Object.freeze({ req: ".lq.ReqOauth2Check", resp: ".lq.ResOauth2Check" }),
   ".lq.Lobby.oauth2Login": Object.freeze({ req: ".lq.ReqOauth2Login", resp: ".lq.ResLogin" }),
@@ -22,6 +23,7 @@ const REQUIRED_MESSAGES = Object.freeze([
   ".lq.Wrapper",
   ".lq.ReqLogin",
   ".lq.ResLogin",
+  ".lq.ResRequestConnection",
   ".lq.ReqOauth2Check",
   ".lq.ResOauth2Check",
   ".lq.ReqOauth2Login",
@@ -60,6 +62,11 @@ const REQUIRED_MESSAGES = Object.freeze([
 const CRITICAL_FIELDS = Object.freeze({
   ".lq.Error": Object.freeze({
     code: Object.freeze({ id: 1, type: "uint32", repeated: false }),
+  }),
+  ".lq.ResRequestConnection": Object.freeze({
+    error: Object.freeze({ id: 1, type: ".lq.Error", repeated: false }),
+    timestamp: Object.freeze({ id: 2, type: "uint64", repeated: false }),
+    result: Object.freeze({ id: 3, type: "uint32", repeated: false }),
   }),
   ".lq.Account": Object.freeze({
     nickname: Object.freeze({ id: 2, type: "string", repeated: false }),
@@ -208,6 +215,33 @@ function assertCriticalFields(root) {
   }
 }
 
+function assertExactFields(root, typeName, expectedFields) {
+  const actual = canonicalFields(lookupType(root, typeName));
+  const actualNames = Object.keys(actual);
+  const expectedNames = Object.keys(expectedFields);
+  if (actualNames.length !== expectedNames.length) fail();
+  for (const fieldName of expectedNames) {
+    if (!sameJson(actual[fieldName], expectedFields[fieldName])) fail();
+  }
+}
+
+function verifyRouteRequestFields(official, vendor) {
+  const officialFields = {
+    type: Object.freeze({ id: 2, type: "uint32", repeated: false }),
+    route_id: Object.freeze({ id: 3, type: "string", repeated: false }),
+    timestamp: Object.freeze({ id: 4, type: "uint64", repeated: false }),
+  };
+  // The locked liqi.json snapshot omits platform; the observed Web request
+  // sets it, and the pinned vendor proto assigns it tag 6. Permit only that
+  // exact source-specific field addition.
+  const vendorFields = {
+    ...officialFields,
+    platform: Object.freeze({ id: 6, type: "string", repeated: false }),
+  };
+  assertExactFields(official, ".lq.ReqRequestConnection", officialFields);
+  assertExactFields(vendor, ".lq.ReqRequestConnection", vendorFields);
+}
+
 function lookupRoute(root, routeName) {
   const lastDot = routeName.lastIndexOf(".");
   const serviceName = routeName.slice(0, lastDot);
@@ -260,6 +294,7 @@ function verifyRequiredSurface(official, vendor, rpcMap) {
     const vendorFields = canonicalFields(lookupType(vendor, typeName));
     if (!sameJson(officialFields, vendorFields)) fail();
   }
+  verifyRouteRequestFields(official, vendor);
   assertCriticalFields(official);
   assertCriticalFields(vendor);
 

@@ -21,10 +21,12 @@ export type LibriichiResolvedDecision = {
 export async function collectLibriichiRuleResults(input: {
   stream: CanonicalEventStream; decisions: readonly ReplayedDecision[];
   identity: LibriichiRuleIdentity; port: LibriichiRulePort;
+  onProgress?: (counts: { completed: number; total: number }) => void;
 }): Promise<ReadonlyMap<string, LibriichiResolvedDecision>> {
   const project = createLibriichiRuleProjector(input.stream, input.identity);
   const results = new Map<string, LibriichiResolvedDecision>();
   for (const decision of input.decisions) {
+    input.onProgress?.({ completed: results.size, total: input.decisions.length });
     if (results.has(decision.decisionEventRef)) throw new Error("rules_duplicate_boundary");
     let request: LibriichiRuleRequest;
     try { request = project(decision); }
@@ -39,12 +41,14 @@ export async function collectLibriichiRuleResults(input: {
       results.set(decision.decisionEventRef, {request:null,response:{status:"error",code:"rules_action_mapping_invalid"},actions:[]});
     }
   }
+  input.onProgress?.({ completed: results.size, total: input.decisions.length });
   return results;
 }
 
 /** Production census uses event boundaries, including native non-action results. */
 export async function queryCanonicalLibriichiRules(input: {
   stream: CanonicalEventStream; identity: LibriichiRuleIdentity; port: LibriichiRulePort;
+  onProgress?: (counts: { completed: number; total: number }) => void;
 }) {
   const decisions = replayCanonicalStream(input.stream);
   const responseDecisions = scanCanonicalResponseBoundaries(input.stream);

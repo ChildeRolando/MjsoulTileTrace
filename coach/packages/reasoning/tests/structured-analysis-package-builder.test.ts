@@ -251,9 +251,18 @@ describe("M6-C Slice 2 production assembly", () => {
       ...base,
       componentVersions: {
         ...componentVersions,
-        factorPipeline: "factor-pipeline/v2",
+        factorPipeline: "factor-pipeline/v3",
       },
       now: () => FROZEN_NOW,
+    });
+    expect(otherPipeline.decisions[0]?.knownGameFacts.scores).toEqual({
+      status: "known",
+      byActor: [25000, 25000, 25000, 25000],
+    });
+    expect(otherPipeline.decisions[0]?.knownGameFacts.currentRound).toMatchObject({
+      status: "known",
+      roundWind: "E",
+      hand: 1,
     });
     expect(otherPipeline.packageId).not.toBe(first.packageId);
     expect(otherPipeline.semanticContentHash).not.toBe(first.semanticContentHash);

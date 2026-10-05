@@ -9,7 +9,10 @@ import { describe, expect, it } from "vitest";
 import {
   COACH_EXPLANATION_PLACEHOLDER_PATTERN,
   COACH_REASONING_DRAFT_SCHEMA_VERSION,
+  COACH_REASONING_DRAFT_SCHEMA_VERSION_V1,
   COACH_REVIEW_PROMPT_VERSION,
+  COACH_REVIEW_PROMPT_VERSION_V3,
+  COACH_REVIEW_PROMPT_VERSION_V4,
   CoachDraftDecisionSchema,
   CoachEvidenceClaimSchema,
   CoachExplanationPayloadSchema,
@@ -22,6 +25,7 @@ import {
   LlmCoachRequestSchema,
   LlmCoachResultSchema,
   LlmProviderDescriptorSchema,
+  LlmTokenUsageSchema,
   REASONING_GRAPH_NODE_KINDS,
   REASONING_PAYLOAD_SCHEMAS,
   REVIEW_REPORT_SCHEMA_VERSION,
@@ -124,7 +128,7 @@ function generationBlock(): Record<string, unknown> {
 function minimalReport(
   overrides: Record<string, unknown> = {},
 ): Record<string, unknown> {
-  return {
+  const report: Record<string, unknown> = {
     schemaVersion: REVIEW_REPORT_SCHEMA_VERSION,
     reportId: "review-report:sha256:test",
     packageId: "package:sha256:test",
@@ -153,11 +157,38 @@ function minimalReport(
       inputSliceHash: "sha256:slice",
       outputHash: "sha256:output",
       transportRetries: 0,
+      requestContext: {
+        coachContextVersion: "coach-context/v1",
+        teachingBriefVersion: "coach-teaching-brief/v1",
+        inputContextHash: `sha256:${"0".repeat(64)}`,
+        promptBytes: 0,
+        contextBytes: 0,
+        decisionCount: 1,
+        nodeCount: 1,
+        semanticEdgeCount: 0,
+      },
     },
     diagnostics: [],
     generatedAt: "2026-08-24T12:00:00.000Z",
     ...overrides,
   };
+  report.audit = {
+    inputSliceHash: "sha256:slice",
+    outputHash: "sha256:output",
+    transportRetries: 0,
+    requestContext: {
+      coachContextVersion: "coach-context/v1",
+      teachingBriefVersion: "coach-teaching-brief/v1",
+      inputContextHash: `sha256:${"0".repeat(64)}`,
+      promptBytes: 0,
+      contextBytes: 0,
+      decisionCount: 1,
+      nodeCount: 1,
+      semanticEdgeCount: 0,
+    },
+    ...(overrides.audit as Record<string, unknown> | undefined),
+  };
+  return report;
 }
 
 function evidenceOnlyReport(
@@ -173,6 +204,16 @@ function evidenceOnlyReport(
       inputSliceHash: "sha256:slice",
       outputHash: "sha256:none",
       transportRetries: 0,
+      requestContext: {
+        coachContextVersion: "coach-context/v1",
+        teachingBriefVersion: "coach-teaching-brief/v1",
+        inputContextHash: `sha256:${"0".repeat(64)}`,
+        promptBytes: 0,
+        contextBytes: 0,
+        decisionCount: 1,
+        nodeCount: 1,
+        semanticEdgeCount: 0,
+      },
     },
     ...overrides,
   });
@@ -182,9 +223,27 @@ describe("M6-D2 coach version literals", () => {
   it("freezes the spec schema / prompt version literals", () => {
     expect(REVIEW_REPORT_SCHEMA_VERSION).toBe("review-report/v1");
     expect(COACH_REASONING_DRAFT_SCHEMA_VERSION).toBe(
-      "coach-reasoning-draft/v1",
+      "coach-reasoning-draft/v2",
     );
-    expect(COACH_REVIEW_PROMPT_VERSION).toBe("coach-review-prompt/v2");
+    expect(COACH_REASONING_DRAFT_SCHEMA_VERSION_V1).toBe("coach-reasoning-draft/v1");
+    expect(COACH_REVIEW_PROMPT_VERSION).toBe("coach-review-prompt/v6");
+    expect(COACH_REVIEW_PROMPT_VERSION_V3).toBe("coach-review-prompt/v3");
+    expect(COACH_REVIEW_PROMPT_VERSION_V4).toBe("coach-review-prompt/v4");
+  });
+
+  it("keeps saved v3/v4 audits readable and requires brief metadata on v4/v5", () => {
+    const savedV3 = minimalReport();
+    (savedV3.generation as Record<string, unknown>).promptVersion = COACH_REVIEW_PROMPT_VERSION_V3;
+    delete ((savedV3.audit as Record<string, unknown>).requestContext as Record<string, unknown>).teachingBriefVersion;
+    expect(() => ReviewReportSchema.parse(savedV3)).not.toThrow();
+
+    for (const version of [COACH_REVIEW_PROMPT_VERSION_V4, COACH_REVIEW_PROMPT_VERSION]) {
+      const valid = minimalReport();
+      (valid.generation as Record<string, unknown>).promptVersion = version;
+      expect(() => ReviewReportSchema.parse(valid)).not.toThrow();
+      delete ((valid.audit as Record<string, unknown>).requestContext as Record<string, unknown>).teachingBriefVersion;
+      expect(() => ReviewReportSchema.parse(valid)).toThrow();
+    }
   });
 });
 
@@ -388,6 +447,13 @@ describe("M6-D2 grounding diagnostic contracts", () => {
 });
 
 describe("M6-D2 LLM provider port DTOs", () => {
+  it("accepts cached usage and failed-turn usage while preserving unknown counters", () => {
+    expect(LlmTokenUsageSchema.parse({ inputTokens: 10, cachedInputTokens: 4 })).toEqual({ inputTokens: 10, cachedInputTokens: 4 });
+    expect(LlmTokenUsageSchema.parse({})).toEqual({});
+    for (const invalid of [{ inputTokens: 10, cachedInputTokens: 11 }, { inputTokens: Number.MAX_SAFE_INTEGER + 1 }, { outputTokens: -1 }, { totalTokens: 1.5 }, { inputTokens: 10, secret: "x" }]) expect(LlmTokenUsageSchema.safeParse(invalid).success).toBe(false);
+    expect(LlmCoachResultSchema.parse({ errorCode: "server_error", transportRetries: 0, usage: { inputTokens: 10 } })).toMatchObject({ usage: { inputTokens: 10 } });
+    expect(LlmProviderDescriptorSchema.parse({ providerId: "codex-cli", model: "gpt-6-luna", reasoningEffort: "max", samplingMode: "provider_default" })).toMatchObject({ reasoningEffort: "max", samplingMode: "provider_default" });
+  });
   it("descriptor carries identity only — no key material", () => {
     expect(() =>
       LlmProviderDescriptorSchema.parse({

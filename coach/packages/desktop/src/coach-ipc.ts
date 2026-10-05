@@ -9,9 +9,20 @@ import {
 import type { IpcMainPort } from "./ipc.js";
 import type { CoachService } from "./llm-provider/service.js";
 
+type SyncOrAsyncMethod<T> = T extends (...args: infer Arguments) => infer Result
+  ? (...args: Arguments) => Result | Promise<Awaited<Result>>
+  : never;
+
+/** Existing test services may stay synchronous; a private worker proxy is async for every operation. */
+export type CoachServiceBoundary = Omit<{
+  [Key in keyof CoachService]: SyncOrAsyncMethod<CoachService[Key]>;
+}, "generate" | "listReviewSessions"> & {
+  listReviewSessions?: SyncOrAsyncMethod<CoachService["listReviewSessions"]>;
+};
+
 export function registerCoachIpc(input: {
   ipcMain: IpcMainPort;
-  service: Omit<CoachService, "listReviewSessions"> & Partial<Pick<CoachService, "listReviewSessions">>;
+  service: CoachServiceBoundary;
   trustedSenderId: number;
 }) {
   if (!Number.isInteger(input.trustedSenderId) || input.trustedSenderId < 0) throw new Error("provider_unavailable");
@@ -28,7 +39,7 @@ export function registerCoachIpc(input: {
         if (operation === "generate") {
           if (args.length !== 1) throw Error();
           const request = FixedReviewGenerateRequestSchema.parse(args[0]);
-          return FixedReviewOperationResultSchema.parse(await input.service.generateReview(request.packageId, request.operationId));
+          return FixedReviewOperationResultSchema.parse(await input.service.generateReview(request.packageId, request.operationId, request.decisionId));
         }
         if (operation === "openReview") {
           if (args.length !== 1) throw Error();
@@ -38,23 +49,23 @@ export function registerCoachIpc(input: {
         if (operation === "cancelGeneration") {
           if (args.length !== 1) throw Error();
           const request = FixedReviewCancelRequestSchema.parse(args[0]);
-          input.service.cancelGeneration(request.operationId);
+          await input.service.cancelGeneration(request.operationId);
           return FixedReviewAcknowledgementSchema.parse({ status: "acknowledged" });
         }
         if (operation === "getReviewDetail") {
           if (args.length !== 1) throw Error();
           const request = FixedReviewDetailRequestSchema.parse(args[0]);
-          return FixedReviewDetailSchema.parse(input.service.getReviewDetail(request.packageId, request.decisionId, request.activeReportRefId));
+          return FixedReviewDetailSchema.parse(await input.service.getReviewDetail(request.packageId, request.decisionId, request.activeReportRefId));
         }
         if (operation === "leaveReview") {
           if (args.length !== 1) throw Error();
           const request = FixedReviewLeaveRequestSchema.parse(args[0]);
-          input.service.leaveReview(request.packageId);
+          await input.service.leaveReview(request.packageId);
           return FixedReviewAcknowledgementSchema.parse({ status: "acknowledged" });
         }
         if (operation === "listReviewSessions") {
           if (args.length !== 0) throw Error();
-          return ReviewSessionListSchema.parse(input.service.listReviewSessions?.() ?? []);
+          return ReviewSessionListSchema.parse(await input.service.listReviewSessions?.() ?? []);
         }
         if (args.length !== 0) throw Error();
         const result = operation === "status" ? await input.service.status()

@@ -44,16 +44,30 @@ import {
 } from "./context-graph.js";
 import { SELECTOR_POLICY_VERSION_V1 } from "./review-selection.js";
 import { DecisionIdSchema } from "./analysis-identity-contract.js";
+import { CoachRequestContextAuditSchema } from "./coach-context.js";
 
 /** The current ReviewReport schema version (contract-owned literal). */
 export const REVIEW_REPORT_SCHEMA_VERSION = "review-report/v1" as const;
 
-/** The model-side draft output schema version (contract-owned literal). */
-export const COACH_REASONING_DRAFT_SCHEMA_VERSION =
-  "coach-reasoning-draft/v1" as const;
+/** The previous compact flat context prompt remains readable on report readback. */
+export const COACH_REVIEW_PROMPT_VERSION_V3 = "coach-review-prompt/v3" as const;
+/** The previous nested teaching brief prompt remains readable on report readback. */
+export const COACH_REVIEW_PROMPT_VERSION_V4 = "coach-review-prompt/v4" as const;
+/** Frozen scalar-path prompt for saved-report audits. */
+export const COACH_REVIEW_PROMPT_VERSION_V5 = "coach-review-prompt/v5" as const;
+/** Current prompt supports grounded scene/model explanations without factor differences. */
+export const COACH_REVIEW_PROMPT_VERSION = "coach-review-prompt/v6" as const;
 
-/** The frozen coach review prompt template version (spec "prompt builder"). */
-export const COACH_REVIEW_PROMPT_VERSION = "coach-review-prompt/v2" as const;
+/** The canonical in-process / stored draft remains v1. Wire v2 uses compact
+ * request-scoped aliases and is decoded back to this canonical shape before
+ * grounding or report assembly. */
+export const COACH_REASONING_DRAFT_SCHEMA_VERSION_V1 =
+  "coach-reasoning-draft/v1" as const;
+export const COACH_REASONING_WIRE_DRAFT_SCHEMA_VERSION =
+  "coach-reasoning-draft/v2" as const;
+/** Current request metadata version. */
+export const COACH_REASONING_DRAFT_SCHEMA_VERSION =
+  COACH_REASONING_WIRE_DRAFT_SCHEMA_VERSION;
 
 // ---------------------------------------------------------------------------
 // Reasoning-overlay payload schemas (spec "CoachInference / CoachJudgment /
@@ -115,26 +129,34 @@ export const CoachJudgmentPayloadSchema = z.object({
 export type CoachJudgmentPayload = z.infer<typeof CoachJudgmentPayloadSchema>;
 
 /**
- * grill E6 — the frozen two-value evidence-claim vocabulary. The value is the
+ * Grounded claim vocabulary: factors, source scene facts and model evaluations. The value is the
  * model's DECLARATION; the grounding validator re-checks it against the
- * target node's nodeKind (factor_difference → FactorDifference,
- * factor_fact → FactorFact) so the model cannot relabel an efficiency
+ * target node's nodeKind through COACH_CLAIM_NODE_KINDS so the model cannot relabel an efficiency
  * difference as a defense fact. Axes / directions are always read back from
  * the evidence node, never declared here.
  */
 export const CoachEvidenceClaimKindSchema = z.enum([
   "factor_difference",
   "factor_fact",
+  "known_game_fact",
+  "model_evaluation",
 ]);
+/** Claims preserve source identity and authority; a model claim never becomes a hard fact. */
+export const COACH_CLAIM_NODE_KINDS = {
+  factor_difference: "FactorDifference",
+  factor_fact: "FactorFact",
+  known_game_fact: "KnownGameFact",
+  model_evaluation: "ModelEvaluation",
+} as const;
 export type CoachEvidenceClaimKind = z.infer<
   typeof CoachEvidenceClaimKindSchema
 >;
 
 /** One evidence claim inside an Explanation: a kind declaration plus the
- *  graph nodeId of the evidence node it renders from. */
+ *  graph nodeId of the source node it renders from. */
 export const CoachEvidenceClaimSchema = z.object({
   kind: CoachEvidenceClaimKindSchema,
-  /** Graph nodeId of a FactorDifference / FactorFact evidence node. */
+  /** Graph nodeId of a FactorDifference, FactorFact, KnownGameFact or ModelEvaluation node. */
   evidenceRef: z.string().min(1),
 }).strict();
 export type CoachEvidenceClaim = z.infer<typeof CoachEvidenceClaimSchema>;
@@ -242,6 +264,42 @@ export const CoachReasoningDraftSchema = z.object({
   decisions: z.array(CoachDraftDecisionSchema),
 }).strict();
 export type CoachReasoningDraft = z.infer<typeof CoachReasoningDraftSchema>;
+
+/** Strict wire-only counterpart for prompt/v3. It accepts compact aliases
+ * alongside the exact canonical identities retained for typed compatibility
+ * at the reasoning boundary. It is never used as an overlay/report payload. */
+const CoachWireDraftJudgmentSchema = z.object({
+  localId: z.string().min(1),
+  recommendation: z.union([
+    ActionRefSchema,
+    z.string().regex(/^A[1-9][0-9]*$/),
+  ]),
+  confidence: CoachConfidenceSchema,
+  premiseRefs: z.array(z.string().min(1)).min(1),
+}).strict();
+const CoachWireDraftInferenceSchema = z.object({
+  localId: z.string().min(1),
+  statement: z.string().min(1),
+  premiseRefs: z.array(z.string().min(1)),
+}).strict();
+const CoachWireDraftExplanationSchema = z.object({
+  text: z.string().min(1),
+  claims: z.array(CoachEvidenceClaimSchema),
+  judgmentLocalRef: z.string().min(1).optional(),
+}).strict();
+const CoachWireDraftDecisionSchema = z.object({
+  decisionId: z.union([
+    DecisionIdSchema,
+    z.string().regex(/^D[1-9][0-9]*$/),
+  ]),
+  judgment: CoachWireDraftJudgmentSchema,
+  inferences: z.array(CoachWireDraftInferenceSchema).optional(),
+  explanations: z.array(CoachWireDraftExplanationSchema).optional(),
+}).strict();
+export const CoachReasoningWireDraftSchema = z.object({
+  decisions: z.array(CoachWireDraftDecisionSchema),
+}).strict();
+export type CoachReasoningWireDraft = z.infer<typeof CoachReasoningWireDraftSchema>;
 
 // ---------------------------------------------------------------------------
 // Grounding validator I/O contracts (spec "Grounding validator")
@@ -352,15 +410,20 @@ export type CoachGroundingCheckResult = z.infer<
 export const LlmProviderDescriptorSchema = z.object({
   providerId: z.string().min(1),
   model: z.string().min(1),
+  reasoningEffort: z.literal("max").optional(),
+  samplingMode: z.literal("provider_default").optional(),
 }).strict();
 export type LlmProviderDescriptor = z.infer<typeof LlmProviderDescriptorSchema>;
 
-/** Provider-reported token cost (optional — some endpoints omit it). */
+/** Provider-reported token usage; cached input is a subset, not an extra cost.
+ * Missing counters mean unknown, never zero or an account allowance. */
 export const LlmTokenUsageSchema = z.object({
-  inputTokens: z.number().int().nonnegative().optional(),
-  outputTokens: z.number().int().nonnegative().optional(),
-  totalTokens: z.number().int().nonnegative().optional(),
-}).strict();
+  inputTokens: z.number().int().nonnegative().max(Number.MAX_SAFE_INTEGER).optional(),
+  cachedInputTokens: z.number().int().nonnegative().max(Number.MAX_SAFE_INTEGER).optional(),
+  outputTokens: z.number().int().nonnegative().max(Number.MAX_SAFE_INTEGER).optional(),
+  totalTokens: z.number().int().nonnegative().max(Number.MAX_SAFE_INTEGER).optional(),
+}).strict().refine(value => value.cachedInputTokens === undefined || value.inputTokens === undefined
+  || value.cachedInputTokens <= value.inputTokens, "cached input cannot exceed input");
 export type LlmTokenUsage = z.infer<typeof LlmTokenUsageSchema>;
 
 /** Provider-owned transport metadata. `transportRetries` is the number of
@@ -397,7 +460,7 @@ export type LlmCoachErrorCode = z.infer<typeof LlmCoachErrorCodeSchema>;
  */
 export const LlmCoachRequestSchema = z.object({
   promptVersion: z.literal(COACH_REVIEW_PROMPT_VERSION),
-  draftSchemaVersion: z.literal(COACH_REASONING_DRAFT_SCHEMA_VERSION),
+  draftSchemaVersion: z.literal(COACH_REASONING_WIRE_DRAFT_SCHEMA_VERSION),
   /** The rendered frozen template + slice canonical JSON — nothing else. */
   prompt: z.string().min(1),
   temperature: z.literal(0),
@@ -417,6 +480,7 @@ export type LlmCoachSuccess = z.infer<typeof LlmCoachSuccessSchema>;
 /** The failure variant. */
 export const LlmCoachFailureSchema = z.object({
   errorCode: LlmCoachErrorCodeSchema,
+  usage: LlmTokenUsageSchema.optional(),
 }).merge(LlmCoachTransportAuditSchema.omit({ outputHash: true })).strict();
 export type LlmCoachFailure = z.infer<typeof LlmCoachFailureSchema>;
 
@@ -480,8 +544,20 @@ export type ExplanationStatus = z.infer<typeof ExplanationStatusSchema>;
 export const ReviewGenerationSchema = z.object({
   providerId: z.string().min(1),
   model: z.string().min(1),
-  promptVersion: z.enum(["coach-review-prompt/v1", COACH_REVIEW_PROMPT_VERSION]),
-  draftSchemaVersion: z.literal(COACH_REASONING_DRAFT_SCHEMA_VERSION),
+  reasoningEffort: z.literal("max").optional(),
+  samplingMode: z.literal("provider_default").optional(),
+  promptVersion: z.enum([
+    "coach-review-prompt/v1",
+    "coach-review-prompt/v2",
+    COACH_REVIEW_PROMPT_VERSION_V3,
+    COACH_REVIEW_PROMPT_VERSION_V4,
+    COACH_REVIEW_PROMPT_VERSION_V5,
+    COACH_REVIEW_PROMPT_VERSION,
+  ]),
+  draftSchemaVersion: z.enum([
+    COACH_REASONING_DRAFT_SCHEMA_VERSION_V1,
+    COACH_REASONING_WIRE_DRAFT_SCHEMA_VERSION,
+  ]),
   /** Reasoning engine (generator) version. */
   generatorVersion: z.string().min(1),
   /** Grounding / report validator version. */
@@ -524,6 +600,9 @@ export const ReviewAuditSchema = z.object({
   outputHash: z.string().min(1),
   usage: LlmTokenUsageSchema.optional(),
   transportRetries: z.union([z.literal(0), z.literal(1)]),
+  /** Compact model-visible request summary. The full slice remains locally
+   * bound by inputSliceHash; neither prompt bytes nor the short-ref map persist. */
+  requestContext: CoachRequestContextAuditSchema.optional(),
 }).strict();
 export type ReviewAudit = z.infer<typeof ReviewAuditSchema>;
 
@@ -573,6 +652,49 @@ export const ReviewReportSchema = z.object({
   .superRefine((report, context) => {
     const addIssue = (message: string, path: (string | number)[]) =>
       context.addIssue({ code: z.ZodIssueCode.custom, message, path });
+
+    if ((report.generation.promptVersion === COACH_REVIEW_PROMPT_VERSION_V4 ||
+      report.generation.promptVersion === COACH_REVIEW_PROMPT_VERSION_V5 ||
+      report.generation.promptVersion === COACH_REVIEW_PROMPT_VERSION)
+      && report.audit.requestContext === undefined) {
+      addIssue(`${report.generation.promptVersion} requires requestContext audit metadata`, ["audit", "requestContext"]);
+    }
+    if ((report.generation.promptVersion === COACH_REVIEW_PROMPT_VERSION_V4 ||
+      report.generation.promptVersion === COACH_REVIEW_PROMPT_VERSION_V5 ||
+      report.generation.promptVersion === COACH_REVIEW_PROMPT_VERSION)
+      && report.generation.draftSchemaVersion !== COACH_REASONING_WIRE_DRAFT_SCHEMA_VERSION) {
+      addIssue(`${report.generation.promptVersion} requires coach-reasoning-draft/v2 wire metadata`, ["generation", "draftSchemaVersion"]);
+    }
+    if ((report.generation.promptVersion === COACH_REVIEW_PROMPT_VERSION_V4 ||
+      report.generation.promptVersion === COACH_REVIEW_PROMPT_VERSION_V5 ||
+      report.generation.promptVersion === COACH_REVIEW_PROMPT_VERSION)
+      && report.audit.requestContext?.teachingBriefVersion !== "coach-teaching-brief/v1") {
+      addIssue(`${report.generation.promptVersion} requires teaching brief audit metadata`, ["audit", "requestContext", "teachingBriefVersion"]);
+    }
+    if (report.generation.promptVersion === COACH_REVIEW_PROMPT_VERSION_V3
+      && (report.audit.requestContext === undefined ||
+        report.generation.draftSchemaVersion !== COACH_REASONING_WIRE_DRAFT_SCHEMA_VERSION)) {
+      addIssue("coach-review-prompt/v3 requires flat context audit and wire v2 metadata", ["generation"]);
+    }
+    if (report.generation.promptVersion !== COACH_REVIEW_PROMPT_VERSION &&
+      report.generation.promptVersion !== COACH_REVIEW_PROMPT_VERSION_V4 &&
+      report.generation.promptVersion !== COACH_REVIEW_PROMPT_VERSION_V5 &&
+      report.generation.promptVersion !== COACH_REVIEW_PROMPT_VERSION_V3
+      && report.generation.draftSchemaVersion !== COACH_REASONING_DRAFT_SCHEMA_VERSION_V1) {
+      addIssue("historical coach prompt versions require coach-reasoning-draft/v1 metadata", ["generation", "draftSchemaVersion"]);
+    }
+
+    // Saved versions only admit the claim vocabulary they actually requested.
+    if (report.generation.promptVersion !== COACH_REVIEW_PROMPT_VERSION) {
+      report.reasoningOverlay.nodes.forEach((node, index) => {
+        if (node.nodeKind !== "Explanation") return;
+        const payload = CoachExplanationPayloadSchema.safeParse(node.payload);
+        if (payload.success && payload.data.claims.some(claim =>
+          claim.kind === "known_game_fact" || claim.kind === "model_evaluation")) {
+          addIssue("historical coach prompts do not support scene/model claims", ["reasoningOverlay", "nodes", index, "payload", "claims"]);
+        }
+      });
+    }
 
     // Selection uniqueness (order itself is an engine builder contract,
     // exactly like the slice's rank order).

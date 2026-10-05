@@ -1,11 +1,23 @@
 # ADR-0004: Typed Context Graph as the Auditable LLM and Reasoning Boundary
 
 日期：2026-08-18
-状态：已冻结（docs-only architecture/roadmap update）
+状态：已采纳；2026-10-04 用户批准教学传输边界修订
 术语与上下文：以 [`coach/CONTEXT.md`](../../CONTEXT.md) 词汇表为准；证据权威分层沿用
 [ADR-0003](./0003-evidence-first-coaching-judgment-and-authority-layers.md)。
 
 ## Decision
+
+### 2026-10-04 传输修订
+
+完整图与 GraphContextSlice 继续服务本地审计和 grounding。模型侧改为消费
+从 validated slice 派生的 `CoachContext/v1`，短引用查找表留在本地。
+模型不接收 Evidence/provenance/来源哈希等审计链；它仍接收事实、候选、评分、
+已选比较差异、权威/未知/限制和必要教学关系，并返回可还原校验的结构化短引用。
+这取代下文历史设计中“slice 直接成为 LLM 输入”的表示方式，保留来源投影、
+不可倒写证据、完整本地来源审计及不保存 raw CoT 的决定。
+理由：真实单决策旧请求 675,599 字节，默认十决策 29,300,006 字节；
+主要传输成本来自重复身份与审计关联。用户明确批准把后端审计与教练消费分开。
+详见 M6-D2 同日修订；不能据此减少候选、事实或 selector 范围。
 
 采用 typed ContextGraph 作为 `StructuredAnalysisPackage` 与 LLM Coach 之间的
 上下文/审计层。

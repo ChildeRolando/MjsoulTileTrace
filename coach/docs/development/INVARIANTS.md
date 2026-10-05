@@ -292,7 +292,8 @@ Model/report evidence provider（模型/报告证据来源）
 
 - **Statement**：生产覆盖率 registry 只能由 `createMortalCoverageRegistryFromManifest`
   从经审核的 evidence manifest 提升；验收模式使用宽口径 registry，但宽口径结果
-  永不直接成为生产覆盖率。
+  永不直接成为生产覆盖率。registry 只描述验收证据，缺少登记不能否决 libriichi
+  合法动作、跳过模型评价，或把决策标成 `unsupported_action`。
 - **Why**：覆盖率是"该语义分支已被真实 E2E 命中"的声明；只有来自 manifest 的提升
   才能保证每条覆盖率背后有可审计证据。
 - **Owner / boundary**：`mortal-coverage-registry` / `mortal-coverage-evidence-
@@ -300,7 +301,8 @@ Model/report evidence provider（模型/报告证据来源）
 - **Enforcement**：`createMortalCoverageRegistryFromManifest` 解析并校验 manifest
   schema（失败即抛错）；manifest schema strict，含 schemaVersion 与证据哈希。
 - **Executable tests**：`acceptance-core.test.ts`（提升路径 + 非法 manifest 抛错）、
-  `mortal-coverage-evidence-manifest.test.ts`。
+  `mortal-coverage-evidence-manifest.test.ts`、`mortal-full-game-review.test.ts`
+  （空 registry 不阻断分析，真实输入/绑定/模型错误仍保留原语义）。
 - **Status**：machine-enforced。
 
 ## INV-011 reasoning overlay read-back 必须重建身份与决策归属
@@ -385,3 +387,20 @@ Model/report evidence provider（模型/报告证据来源）
    受影响 INV-\* 与保护它们的检查。
 3. 把 docs-only / partial 升级为 machine-enforced 时，同提交补齐检查与测试。
 4. 本表只收架构级不变量；功能级规则进各自模块文档，不收进本表。
+
+
+### 单行动生成批准修订（2026-10-05）
+
+生成范围只能是已验证固定选集的有序子集；没有 renderer 注入事实或候选的新入口。
+每请求报告及用量独立保存，行动报告显式引用不能按时间猜测；新会话消费 seam 校验范围、
+同包/同决策引用、原图 grounding 与合成 overlay。已有完整选集 compose 不放宽。
+元数据标题不进入牌理事实或 CoachContext；来源缺失保持未知。验收映射见 M7-A/B 同日修订。
+
+### 档案消费性能修订（2026-10-05，INV-011/012）
+
+完整审计档案及派生图只由后台复盘 worker 消费，renderer/main 响应只含既有 strict DTO；
+主进程凭据权限仍独立。单连接可复用一份自行验证并深冻结的 package/baseGraph，任何
+外部 DB 写入使其失效；报告/行动映射/grounding 继续逐次验证，禁止持久化校验豁免。
+RCPKG02 只无损压缩存储字节，canonical hash/领域 ID 不变；旧块表示迁移必须原子回滚，
+每块解压有上限。由 package-artifact-storage、review-session-persistence 和 coach-worker
+回归保护；真实大档案响应指标记录于绑定版本的外部回执，不用小 fixture 替代。

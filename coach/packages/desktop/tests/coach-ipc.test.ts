@@ -5,6 +5,7 @@ import { registerCoachIpc } from "../src/coach-ipc.js";
 import { createCoachPreloadApi } from "../src/session-api.js";
 import type { CoachService } from "../src/llm-provider/service.js";
 import { createCoachService } from "../src/llm-provider/service.js";
+import { projectContextGraph } from "@riichi-coach/reasoning";
 
 const packageFixture = JSON.parse(readFileSync(new URL("./fixtures/coach-package.json", import.meta.url), "utf8"));
 
@@ -40,6 +41,15 @@ function fixture() {
   return { service, registration, handlers, invoke, event, api: createCoachPreloadApi({ invoke }) };
 }
 describe("coach narrow IPC and preload", () => {
+  it("transports a single decision identity without accepting renderer supplied facts", async () => {
+    const f = fixture();
+    const decisionId = packageFixture.decisions[0].decisionId as string;
+    await f.api.generateReview({ packageId: "package-ref", operationId: "single", decisionId });
+    expect(f.service.generateReview).toHaveBeenCalledWith("package-ref", "single", decisionId);
+    await expect(f.handlers.get(COACH_IPC_CHANNELS.generate)!(f.event,
+      { packageId: "package-ref", operationId: "forged", decisionId, facts: [] })).rejects.toThrow(/^provider_unavailable$/);
+    expect(f.service.generateReview).toHaveBeenCalledTimes(1);
+  });
   it("exposes only settings/status, payload-free import/clear, and package-reference generation", async () => {
     const f = fixture();
     expect([...f.handlers.keys()].sort()).toEqual(Object.values(COACH_IPC_CHANNELS).sort());
@@ -93,10 +103,55 @@ describe("coach narrow IPC and preload", () => {
     expect(f.invoke).not.toHaveBeenCalled();
   });
 
-  it("enforces first-generation-only through the real IPC/preload/service boundary", async () => {
+  it("generates and reads a scoped coach report through production service, IPC and preload", async () => {
+    const scopes: string[][] = [];
+    const graph = projectContextGraph(packageFixture);
     const service = createCoachService({
-      credentials: { readKey: async () => null, importCredential: async () => undefined, clear: async () => undefined },
-      fetchImpl: vi.fn<typeof fetch>(async () => { throw new Error("must not call provider"); }),
+      credentials: { readKey: async () => "fixture-key", importCredential: async () => undefined, clear: async () => undefined },
+      fetchImpl: vi.fn(async () => { throw Error("unexpected HTTP"); }),
+      readPackage: async () => packageFixture,
+      initialSettings: settings,
+      providerFactory: (_pkg, chosen) => ({
+        descriptor: () => ({ providerId: "fixture-compatible", model: "fixture" }),
+        complete: async request => {
+          scopes.push(chosen.selected.map(row => row.decisionId));
+          expect(request.prompt).toContain('"selectedDecisionRefs":["D1"]');
+          expect(request.prompt).not.toContain('"decisionRef":"D2"');
+          const draft = { decisions: chosen.selected.map(({ decisionId }) => {
+            const nodes = graph.nodes.filter(node => (node.payload as {decisionId?: string}).decisionId === decisionId);
+            const candidate = nodes.find(node => node.nodeKind === "CandidateAction")!;
+            const premise = nodes.find(node => node.nodeKind === "KnownGameFact")!;
+            return { decisionId, judgment: { localId: "judgment", recommendation: (candidate.payload as {actionRef: string}).actionRef,
+              confidence: "medium", premiseRefs: [premise.nodeId] }, explanations: [{text: "可以结合局面事实权衡这个选择。", claims: [], judgmentLocalRef: "judgment"}] };
+          }) };
+          return { content: JSON.stringify(draft), transportRetries: 0, usage: { inputTokens: 123, outputTokens: 45, totalTokens: 168 } };
+        },
+      }),
+    });
+    const handlers = new Map<string, (event: unknown, ...args: unknown[]) => Promise<unknown>>();
+    const registration = registerCoachIpc({ trustedSenderId: 17, service,
+      ipcMain: { handle: (channel, handler) => { handlers.set(channel, handler); }, removeHandler: channel => { handlers.delete(channel); } } });
+    const frame = {};
+    const event = { sender: {id: 17, mainFrame: frame}, senderFrame: frame };
+    const api = createCoachPreloadApi({ invoke: async (channel, ...args) => handlers.get(channel)!(event, ...args) });
+    const opened = await api.openReview({packageId: packageFixture.packageId as string});
+    const decisionId = opened.selection.items[0]!.decisionId;
+    const result = await api.generateReview({packageId: opened.packageId, operationId: "one", decisionId});
+    expect(result.status).toBe("ready");
+    if (result.status !== "ready") throw Error("generation rejected");
+    expect(result.snapshot.explanationCounts.ready).toBe(1);
+    expect(result.snapshot.coachUsage).toEqual({inputTokens: 123, outputTokens: 45, totalTokens: 168});
+    expect((await api.getReviewDetail({packageId: opened.packageId, decisionId, activeReportRefId: result.snapshot.activeReportRefId})).explanations).toHaveLength(1);
+    expect(await api.generateReview({packageId: opened.packageId, operationId: "paid-again", decisionId})).toEqual({status: "failed", code: "generation_failed"});
+    expect(scopes).toEqual([[decisionId]]);
+    registration.dispose();
+  });
+
+  it("allows retrying rejected output through the real IPC/preload/service boundary", async () => {
+    const fetchImpl = vi.fn<typeof fetch>(async () => new Response(JSON.stringify({ choices: [{ message: { content: "{}" } }] })));
+    const service = createCoachService({
+      credentials: { readKey: async () => "fixture-key", importCredential: async () => undefined, clear: async () => undefined },
+      fetchImpl,
       readPackage: async () => packageFixture,
       clock: () => "2026-09-22T00:00:00.000Z",
     });
@@ -109,8 +164,14 @@ describe("coach narrow IPC and preload", () => {
     const event = { sender: { id: 17, mainFrame: frame }, senderFrame: frame };
     const api = createCoachPreloadApi({ invoke: async (channel, ...args) => handlers.get(channel)!(event, ...args) });
     await api.openReview({ packageId: packageFixture.packageId as string });
+    expect(await api.generateReview({ packageId: packageFixture.packageId as string, operationId: "unconfigured" })).toEqual({ status: "failed", code: "generation_failed" });
+    expect((await api.openReview({ packageId: packageFixture.packageId as string })).activeReportRefId).toBeNull();
+    expect(fetchImpl).not.toHaveBeenCalled();
+    await api.configure({ baseUrl: "https://fixture.example/v1", modelName: "fixture" });
     expect((await api.generateReview({ packageId: packageFixture.packageId as string, operationId: "first" })).status).toBe("ready");
-    expect(await api.generateReview({ packageId: packageFixture.packageId as string, operationId: "second" })).toEqual({ status: "failed", code: "generation_failed" });
+    expect((await api.generateReview({ packageId: packageFixture.packageId as string, operationId: "second" })).status).toBe("ready");
+    expect(fetchImpl).toHaveBeenCalledTimes(2);
+    expect((await api.openReview({ packageId: packageFixture.packageId as string })).explanationCounts.invalid_output).toBeGreaterThan(0);
     registration.dispose();
   });
 });
