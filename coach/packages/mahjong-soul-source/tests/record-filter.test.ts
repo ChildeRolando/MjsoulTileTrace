@@ -48,11 +48,40 @@ describe("analyzable Mahjong Soul record filter", () => {
       lastSyncedAt: now,
     });
     expect(result.summary.players).toEqual([
-      { seat: 0, displayName: "A", finalScore: 32_000, rank: 1 },
-      { seat: 1, displayName: "B", finalScore: 27_000, rank: 2 },
-      { seat: 2, displayName: "C", finalScore: 23_000, rank: 3 },
-      { seat: 3, displayName: "D", finalScore: 18_000, rank: 4 },
+      { seat: 0, displayName: "A", finalScore: 32_000, rank: 1, gradingScore: null, gradingScoreUnit: null },
+      { seat: 1, displayName: "B", finalScore: 27_000, rank: 2, gradingScore: null, gradingScoreUnit: null },
+      { seat: 2, displayName: "C", finalScore: 23_000, rank: 3, gradingScore: null, gradingScoreUnit: null },
+      { seat: 3, displayName: "D", finalScore: 18_000, rank: 4, gradingScore: null, gradingScoreUnit: null },
     ]);
+  });
+
+  it("keeps room and score metadata display-only, including missing and unknown mode IDs", () => {
+    const profileEntry: RawRecordListEntry = {
+      ...validEntry,
+      version: 202408,
+      standard_rule: 1,
+      catalog_rule_profile: "ranked_south_v1",
+      game_mode_detail_rule_override: false,
+      grading_score_by_seat: [8, null, 0, -5],
+      grading_unit_by_seat: ["dan_pt", null, "soul_pearl", "unknown"],
+      players: validEntry.players.map(player => ({ ...player, pt: "unmapped legacy value" })),
+    };
+    for (const modeId of [undefined, 0, 99, "future-mode"] as const) {
+      const result = filterAnalyzableRecord({ ...profileEntry, ranked_mode_id: modeId }, 103, now);
+      expect(result.status).toBe("analyzable");
+      if (result.status !== "analyzable") continue;
+      expect(result.summary.rankedMode).toEqual(
+        typeof modeId === "number" ? { id: modeId, label: null } : null,
+      );
+      expect(result.summary.players.map(player => player.gradingScore)).toEqual([8, null, 0, -5]);
+      expect(result.summary.players.map(player => player.gradingScoreUnit)).toEqual(["dan_pt", null, "soul_pearl", "unknown"]);
+    }
+  });
+
+  it("does not interpret GameMode.mode=2 as a ranked room ID", () => {
+    const result = filterAnalyzableRecord(validEntry, 103, now);
+    expect(result.status).toBe("analyzable");
+    if (result.status === "analyzable") expect(result.summary.rankedMode).toBeNull();
   });
 
   it("rejects an unsupported record version", () => {

@@ -17,10 +17,10 @@ const record = {
   shareUrl: "https://game.maj-soul.com/1/?paipu=261005-00000000-0000-0000-0000-000000000001_a1",
   startedAt,
   players: [
-    { seat: 0, displayName: "Alpha", finalScore: 27_000, rank: 2 },
-    { seat: 1, displayName: "Beta", finalScore: 18_000, rank: 4 },
-    { seat: 2, displayName: "Gamma", finalScore: 32_000, rank: 1 },
-    { seat: 3, displayName: "Delta", finalScore: 23_000, rank: 3 },
+    { seat: 0, displayName: "Alpha", finalScore: 27_000, rank: 2, gradingScore: null, gradingScoreUnit: null },
+    { seat: 1, displayName: "Beta", finalScore: 18_000, rank: 4, gradingScore: null, gradingScoreUnit: null },
+    { seat: 2, displayName: "Gamma", finalScore: 32_000, rank: 1, gradingScore: -123, gradingScoreUnit: "soul_pearl" },
+    { seat: 3, displayName: "Delta", finalScore: 23_000, rank: 3, gradingScore: null, gradingScoreUnit: null },
   ],
   selfSeat: 2,
   rule: {
@@ -30,6 +30,7 @@ const record = {
     detailRuleHash: "sha256:7a53cc5deb60512f3dacacc7695dd5072077c6f4984dbedbff76e27092393b1c",
     displayLabel: "四人南风",
   },
+  rankedMode: { id: 6, label: "四人银之间 · 半庄" },
   analysisStatus: "not_analyzed",
   lastSyncedAt: startedAt + 100,
 };
@@ -141,9 +142,9 @@ async function renderCatalogCard(): Promise<CatalogCard> {
 describe("catalog record label renderer", () => {
   it("renders date and rule plus all players ordered by rank with the actual self seat highlighted", async () => {
     const card = await renderCatalogCard();
-    expect(card.title).toBe(`${expectedStartedAt()} · 四人南风`);
+    expect(card.title).toBe(`${expectedStartedAt()} · 四人南风 · 四人银之间 · 半庄 · 本局魂珠 -1.23`);
     expect(card.players.map(player => player.text)).toEqual([
-      "西位 · Gamma · 第1名 · 32,000点",
+      "西位 · Gamma · 第1名 · 32,000点 · 魂珠 -1.23",
       "东位 · Alpha · 第2名 · 27,000点",
       "北位 · Delta · 第3名 · 23,000点",
       "南位 · Beta · 第4名 · 18,000点",

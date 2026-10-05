@@ -230,6 +230,8 @@ export const GRAPH_SLICE_PAYLOAD_ALLOWLIST = Object.freeze({
     "seatWind",
     "dealer",
     "remainingDraws",
+    "scores",
+    "currentRound",
     "completeness",
   ]),
   FactorFact: Object.freeze([

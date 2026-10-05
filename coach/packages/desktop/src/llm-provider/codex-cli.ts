@@ -4,7 +4,7 @@ import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { delimiter, join, relative, resolve, sep } from "node:path";
 import {
-  CodexCoachProviderConfigSchema, LlmCoachRequestSchema,
+  COACH_CLAIM_NODE_KINDS, CodexCoachProviderConfigSchema, LlmCoachRequestSchema,
   type CodexCoachProviderConfig, type LlmCoachErrorCode, type LlmCoachProvider,
   type LlmCoachRequest, type LlmCoachResult, type LlmProviderDescriptor,
   type LlmTokenUsage,
@@ -121,7 +121,7 @@ export const CODEX_COACH_OUTPUT_SCHEMA = {
                     type: "object",
                     additionalProperties: false,
                     properties: {
-                      kind: { enum: ["factor_difference", "factor_fact"] },
+                      kind: { enum: Object.keys(COACH_CLAIM_NODE_KINDS) },
                       evidenceRef: { type: "string", minLength: 1 },
                     },
                     required: ["kind", "evidenceRef"],

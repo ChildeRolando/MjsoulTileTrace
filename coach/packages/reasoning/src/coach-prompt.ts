@@ -61,6 +61,14 @@ number/boolean/classification 的侧值使用完整的 leftValue.value 或 right
 CoachExplanationPlaceholderCatalog/v1:
 `);
 
+// Preserve v5 bytes for immutable historical request audits.
+const TEMPLATE_V6 = TEMPLATE_V5.replace("kind 只能是 factor_difference 或 factor_fact，且必须与对应 F# 或 N# 节点类型一致。",
+  "kind 为 factor_difference、factor_fact、known_game_fact 或 model_evaluation，分别严格对应 FactorDifference、FactorFact、KnownGameFact 或 ModelEvaluation 节点；用节点 ref 引用，不猜类型。")
+  .replace("CoachExplanationPlaceholderCatalog/v1:\n", `无确定性差异、因素相同或没有 FactorFact 时，仍可解释已有局面事实和模型建议：claims 引用 situation 中 KnownGameFact 或 model 中 ModelEvaluation；premiseRefs 同样引用已有节点，不制造 F# 或空 claims。明确说明现有证据未给出可区分的确定性优势，不能把缺失当作相同，也不能把模型评分写成期望收益或已证明的牌理理由；modelReason 保持 unknown。
+局面点数以 situation 中本决策的 scores 为准，按 actor 绑定各家当前点数；currentRound 提供当前局次、本场和供托。领先守位和落后追分是教练权衡，不能作为固定牌理结论。字段缺失或 unknown 时不得从终局分数、玩家段位或模型分数补全当前局面。
+CoachExplanationPlaceholderCatalog/v1:
+`);
+
 export interface PreparedCoachRequest {
   readonly request: LlmCoachRequest;
   readonly context: CoachContext;
@@ -83,7 +91,7 @@ export function prepareCoachRequest(sliceInput: GraphContextSlice): PreparedCoac
   const brief = buildCoachTeachingBrief(context);
   const briefJson = canonicalJson(brief);
   const catalogJson = canonicalJson(buildCoachExplanationPlaceholderCatalog(context));
-  const prompt = TEMPLATE_V5 + catalogJson + "\nCoachTeachingBrief/v1:\n" + briefJson;
+  const prompt = TEMPLATE_V6 + catalogJson + "\nCoachTeachingBrief/v1:\n" + briefJson;
   const request = LlmCoachRequestSchema.parse({
     promptVersion: COACH_REVIEW_PROMPT_VERSION,
     draftSchemaVersion: COACH_REASONING_DRAFT_SCHEMA_VERSION,
@@ -114,6 +122,13 @@ export function prepareCoachRequest(sliceInput: GraphContextSlice): PreparedCoac
       return canonical.success ? canonical.data : null;
     },
   });
+}
+
+/** Recompute frozen v5 catalog + brief audit without adopting v6 instructions. */
+export function buildCoachRequestContextV5(sliceInput: GraphContextSlice): CoachRequestContextAudit {
+  const prepared = prepareCoachRequest(sliceInput);
+  const prompt = TEMPLATE_V5 + canonicalJson(buildCoachExplanationPlaceholderCatalog(prepared.context)) + "\nCoachTeachingBrief/v1:\n" + canonicalJson(prepared.brief);
+  return CoachRequestContextAuditSchema.parse({ ...prepared.requestContext, promptBytes: utf8Bytes(prompt) });
 }
 
 /** Recompute the exact tree request audit used by persisted v4 reports. */

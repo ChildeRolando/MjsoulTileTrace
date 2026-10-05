@@ -127,7 +127,9 @@ export function createCoachService(input: {
       for (const token of queuedGenerations.values()) if (token.packageId === packageId) token.cancelled = true;
       reviewController.leaveReview(packageId);
     },
-    listReviewSessions: () => (input.reviewRepository?.listSessions() ?? []).map(session => input.recordLabels?.enrichSession(session) ?? session),
+    listReviewSessions: (): ReviewSessionSummaryDto[] => (input.reviewRepository?.listSessions() ?? []).map(session =>
+      input.recordLabels?.enrichSession(session) ?? session,
+    ),
   });
 }
 export type CoachService = ReturnType<typeof createCoachService>;

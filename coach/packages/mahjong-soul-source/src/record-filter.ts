@@ -4,6 +4,7 @@ import {
   MahjongSoulRecordIdSchema,
   type AnalyzableRecordSummary,
 } from "@riichi-coach/contracts";
+import { resolveMahjongSoulRecordModeLabel } from "./record-mode-label.js";
 
 // `game_mode` is enriched from the metadata-only `fetchGameRecordsDetail` call.
 // Independent decoder evidence pinned at Akagi commit
@@ -29,6 +30,8 @@ export interface RawRecordPlayerResult {
   readonly nickname: string;
   readonly seat: number;
   readonly point: number;
+  /** Optional list decoration; its meaning is not used for analyzability. */
+  readonly pt?: unknown;
 }
 
 export interface RawRecordListEntry {
@@ -46,6 +49,12 @@ export interface RawRecordListEntry {
   readonly game_mode_detail_rule_present: boolean;
   readonly game_mode_detail_rule_override?: boolean;
   readonly catalog_rule_profile?: "ranked_south_v1" | "unsupported";
+  /** Raw GameMetaData.mode_id; distinct from GameMode.mode (round length). */
+  readonly ranked_mode_id?: unknown;
+  /** Seat-indexed GameEndResult.PlayerItem.grading_score values from record metadata. */
+  readonly grading_score_by_seat?: unknown;
+  /** Seat-indexed unit classifications derived from the same record's ranked mode and AccountInfo levels. */
+  readonly grading_unit_by_seat?: unknown;
 }
 
 export type FilterResult =
@@ -203,6 +212,16 @@ export function filterAnalyzableRecord(
       displayName: player.nickname,
       finalScore: player.point,
       rank: player.rank,
+      gradingScore: Array.isArray(entry.grading_score_by_seat)
+        && isInt32(entry.grading_score_by_seat[player.seat])
+        ? entry.grading_score_by_seat[player.seat] as number
+        : null,
+      gradingScoreUnit: Array.isArray(entry.grading_unit_by_seat)
+        && (entry.grading_unit_by_seat[player.seat] === "dan_pt"
+          || entry.grading_unit_by_seat[player.seat] === "soul_pearl"
+          || entry.grading_unit_by_seat[player.seat] === "unknown")
+        ? entry.grading_unit_by_seat[player.seat] as "dan_pt" | "soul_pearl" | "unknown"
+        : null,
     })),
     selfSeat,
     rule: {
@@ -211,6 +230,10 @@ export function filterAnalyzableRecord(
       modeId: FOUR_PLAYER_SOUTH_MODE_ID,
       detailRuleHash: STANDARD_EMPTY_DETAIL_RULE_HASH,
       displayLabel: "四人南风",
+    },
+    rankedMode: !isUint32(entry.ranked_mode_id) ? null : {
+      id: entry.ranked_mode_id,
+      label: resolveMahjongSoulRecordModeLabel(entry.ranked_mode_id),
     },
     analysisStatus: "not_analyzed",
     lastSyncedAt: now,

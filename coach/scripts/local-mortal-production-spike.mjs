@@ -317,7 +317,7 @@ try {
           canonicalReplay: "canonical-riichi-events/v2",
           mapperAdapter: stream.mapperVersion,
           factEngine: { engine: "mahjong-helper", upstreamCommit: MAHJONG_HELPER_COMMIT, adapterVersion: FACT_ENGINE_ADAPTER_VERSION, protocolVersion: FACT_ENGINE_PROTOCOL_VERSION },
-          factorPipeline: "factor-pipeline/v2",
+          factorPipeline: "factor-pipeline/v3",
           mortalSourceModel: {
             identity: "Mortal", version: manifest.identity.adapterVersion, modelTag: manifest.identity.checkpointModelTag,
             evidenceSource: { kind: "managed_local_runtime", identity: runtimeIdentity },

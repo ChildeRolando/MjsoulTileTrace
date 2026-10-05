@@ -16,7 +16,7 @@ const emptySlice = {
 describe("versioned coach prompt bytes", () => {
   it("locks the short Chinese reading guide and nested teaching brief", () => {
     const request = buildCoachRequest(emptySlice);
-    expect(request.promptVersion).toBe("coach-review-prompt/v5");
+    expect(request.promptVersion).toBe("coach-review-prompt/v6");
     expect(request.draftSchemaVersion).toBe("coach-reasoning-draft/v2");
     const legacyPrompt = `只输出符合 coach-reasoning-draft/v2 的 JSON 对象，顶层为 decisions 数组。所有面向用户的内容使用简体中文。
 CoachTeachingBrief/v1 按 decision 分组：decision 是局面节点；situation 是已知局面事实；actions 列出全部候选及其事实；comparisons 只含现有差异并按五轴分组；model 保留完整模型评分；preference 是确定性偏好信号。events 与 edges 提供短引用关系。
@@ -38,6 +38,9 @@ CoachTeachingBrief/v1:
     expect(request.prompt).toContain("不能直接作为正文值");
     expect(request.prompt).toContain('"schemaVersion":"coach-explanation-placeholder-catalog/v1"');
     expect(request.prompt).toContain("CoachTeachingBrief/v1:\n");
+    expect(request.prompt).toContain("known_game_fact 或 model_evaluation");
+    expect(request.prompt).toContain("不能把缺失当作相同");
+    expect(request.prompt).toContain("不得从终局分数、玩家段位或模型分数补全当前局面");
   });
 
   it("hashes and measures the serialized brief while retaining source node counts", () => {

@@ -1,6 +1,7 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { DatabaseSync } from "node:sqlite";
+import { isMainThread } from "node:worker_threads";
 import { z } from "zod";
 import {
   AnalyzableRecordSummarySchema,
@@ -8,9 +9,12 @@ import {
   RecordLabelSchema,
   type AnalyzableRecordSummary,
   type RecordLabel,
+  type RecordLabelMortalAgreement,
   type StructuredAnalysisPackage,
 } from "@riichi-coach/contracts";
 import type { ReviewSessionSummary } from "./review-session-repository.js";
+import { readPackageMortalAgreementMetadata } from "./package-artifact-storage.js";
+import { summarizeMortalAgreement } from "./record-mortal-agreement.js";
 
 const PackageLabelIdentitySchema = z.object({
   packageId: z.string().min(1).max(200),
@@ -41,14 +45,6 @@ function formatLocalStart(startedAt: number): string | null {
   return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}`;
 }
 
-function catalogRecordId(recordId: string): string | null {
-  if (MahjongSoulRecordIdSchema.safeParse(recordId).success) return recordId;
-  const prefix = "majsoul:";
-  if (!recordId.startsWith(prefix)) return null;
-  const rawRecordId = recordId.slice(prefix.length);
-  return MahjongSoulRecordIdSchema.safeParse(rawRecordId).success ? rawRecordId : null;
-}
-
 function packageCatalogRecordId(recordId: string): string | null {
   const prefix = "majsoul:";
   if (!recordId.startsWith(prefix)) return null;
@@ -57,14 +53,14 @@ function packageCatalogRecordId(recordId: string): string | null {
 }
 
 function sameRecordId(left: string, right: string): boolean {
-  const normalizedLeft = catalogRecordId(left);
-  const normalizedRight = catalogRecordId(right);
-  if (normalizedLeft !== null && normalizedRight !== null) return normalizedLeft === normalizedRight;
-  return left === right;
+  // `right` is the actual loaded package identity. A legacy raw-ID sidecar
+  // may be retained only after that package establishes its majsoul namespace.
+  const sourceRecordId = packageCatalogRecordId(right);
+  return left === right || (sourceRecordId !== null && left === sourceRecordId);
 }
 
 function dateFromMahjongSoulRecordId(recordId: string): string | null {
-  const rawRecordId = catalogRecordId(recordId);
+  const rawRecordId = packageCatalogRecordId(recordId);
   if (rawRecordId === null) return null;
   const match = /^(\d{2})(\d{2})(\d{2})-/u.exec(rawRecordId);
   if (match === null) return null;
@@ -76,14 +72,14 @@ function dateFromMahjongSoulRecordId(recordId: string): string | null {
   return `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
 }
 
-function labelFromSummary(summary: AnalyzableRecordSummary): RecordLabel {
+function labelFromSummary(summary: AnalyzableRecordSummary, packageRecordId = summary.recordId): RecordLabel {
   const started = formatLocalStart(summary.startedAt);
   const title = started === null
     ? `雀魂牌谱 · ${summary.rule.displayLabel}`
     : `${started} · ${summary.rule.displayLabel}`;
   return RecordLabelSchema.parse({
     title,
-    recordId: summary.recordId,
+    recordId: packageRecordId,
     selfSeat: summary.selfSeat,
     startedAt: summary.startedAt,
     players: summary.players.map(player => ({
@@ -91,18 +87,41 @@ function labelFromSummary(summary: AnalyzableRecordSummary): RecordLabel {
       displayName: player.displayName,
       finalScore: player.finalScore,
       rank: player.rank,
+      gradingScore: player.gradingScore,
+      gradingScoreUnit: player.gradingScoreUnit,
     })),
+    rankedMode: summary.rankedMode,
+    mortalAgreementStatus: "not_applicable",
+    mortalAgreement: null,
+  });
+}
+
+function labelWithMortalAgreement(
+  label: RecordLabel,
+  status: RecordLabel["mortalAgreementStatus"],
+  agreement: RecordLabelMortalAgreement | null,
+): RecordLabel {
+  return RecordLabelSchema.parse({
+    ...label,
+    mortalAgreementStatus: status,
+    mortalAgreement: agreement,
   });
 }
 
 function labelWithoutCatalog(recordId: string, selfSeat: number): RecordLabel {
-  const date = dateFromMahjongSoulRecordId(recordId);
+  const rawRecordId = packageCatalogRecordId(recordId);
+  const date = rawRecordId === null ? null : dateFromMahjongSoulRecordId(recordId);
   return RecordLabelSchema.parse({
-    title: date === null ? "雀魂牌谱 · 日期未知" : `雀魂牌谱 · ${date}`,
+    title: rawRecordId === null
+      ? "牌谱 · 日期未知"
+      : date === null ? "雀魂牌谱 · 日期未知" : `雀魂牌谱 · ${date}`,
     recordId,
     selfSeat,
     startedAt: null,
     players: unknownPlayers(),
+    rankedMode: null,
+    mortalAgreementStatus: "pending",
+    mortalAgreement: null,
   });
 }
 
@@ -116,6 +135,9 @@ function labelForMissingSessionDate(updatedAt: string): RecordLabel {
     selfSeat: null,
     startedAt: null,
     players: unknownPlayers(),
+    rankedMode: null,
+    mortalAgreementStatus: "not_applicable",
+    mortalAgreement: null,
   });
 }
 
@@ -126,6 +148,16 @@ function isPackageLabelIdentity(pkg: StructuredAnalysisPackage): boolean {
     recordId: pkg.record.recordId,
     selfActor: pkg.record.selfActor,
   }).success;
+}
+
+function readStoredLabel(payload: string | null | undefined): RecordLabel | null {
+  if (payload === null || payload === undefined) return null;
+  try {
+    const parsed = RecordLabelSchema.safeParse(JSON.parse(payload));
+    return parsed.success ? parsed.data : null;
+  } catch {
+    return null;
+  }
 }
 
 /**
@@ -154,6 +186,109 @@ export function createReviewSessionLabelStore(input: { readonly root: string }):
   }
 
   let catalogByRecordId = new Map<string, AnalyzableRecordSummary>();
+  type BackfillSession = Pick<ReviewSessionSummary, "sessionId" | "packageId" | "updatedAt">;
+  const backfillQueue: BackfillSession[] = [];
+  const queuedBackfills = new Set<string>();
+  let backfillRunning = false;
+
+  const enqueueBackfill = (summary: ReviewSessionSummary): void => {
+    // listReviewSessions runs in coach-service-worker's Node Worker. Guard the
+    // storage scan here as well so a future main-process caller can never
+    // synchronously walk package chunks on Electron's UI thread.
+    if (isMainThread || db === null) return;
+    const key = `${summary.sessionId}\0${summary.packageId}`;
+    if (queuedBackfills.has(key)) return;
+    queuedBackfills.add(key);
+    backfillQueue.push({ sessionId: summary.sessionId, packageId: summary.packageId, updatedAt: summary.updatedAt });
+    if (!backfillRunning) {
+      backfillRunning = true;
+      setImmediate(runNextBackfill);
+    }
+  };
+
+  const writeBackfillLabel = (
+    summary: BackfillSession,
+    label: RecordLabel,
+    database: DatabaseSync,
+  ): void => {
+    const row = database.prepare(`SELECT s.package_ref_id FROM review_sessions s
+      JOIN analysis_packages p ON p.package_ref_id=s.package_ref_id
+      WHERE s.session_id=? AND p.package_id=?`).get(summary.sessionId, summary.packageId) as { package_ref_id: string } | undefined;
+    if (row === undefined) return;
+    const payload = JSON.stringify(label);
+    database.prepare(`INSERT INTO review_session_labels(session_id,package_ref_id,label_payload)
+      VALUES(?,?,?) ON CONFLICT(session_id,package_ref_id) DO UPDATE SET label_payload=excluded.label_payload`)
+      .run(summary.sessionId, row.package_ref_id, payload);
+  };
+
+  function runNextBackfill(): void {
+    const summary = backfillQueue.shift();
+    if (summary === undefined || db === null) {
+      backfillRunning = false;
+      return;
+    }
+    const database = db;
+    const key = `${summary.sessionId}\0${summary.packageId}`;
+    try {
+      const row = database.prepare(`SELECT p.package_ref_id,p.payload,p.content_hash,
+          p.package_id,p.schema_version
+        FROM review_sessions s JOIN analysis_packages p ON p.package_ref_id=s.package_ref_id
+        WHERE s.session_id=? AND p.package_id=?`).get(summary.sessionId, summary.packageId) as {
+          package_ref_id: string; payload: Uint8Array; content_hash: string; package_id: string; schema_version: string;
+        } | undefined;
+      if (row === undefined) throw new Error("package_identity_missing");
+      const metadata = readPackageMortalAgreementMetadata(database, row);
+      const currentRow = database.prepare(`SELECT label_payload FROM review_session_labels
+        WHERE session_id=? AND package_ref_id=?`).get(summary.sessionId, row.package_ref_id) as { label_payload: string } | undefined;
+      const current = readStoredLabel(currentRow?.label_payload);
+      const identity = PackageLabelIdentitySchema.safeParse({
+        packageId: summary.packageId,
+        recordId: metadata.record.recordId,
+        selfActor: metadata.record.selfActor,
+      });
+      if (!identity.success) throw new Error("package_identity_missing");
+      const sourceRecordId = packageCatalogRecordId(identity.data.recordId);
+      const catalogSummary = sourceRecordId === null ? undefined : catalogByRecordId.get(sourceRecordId);
+      const currentIdMatchesPackage = current !== null && (
+        current.recordId === identity.data.recordId
+        || (sourceRecordId !== null && current.recordId === sourceRecordId)
+      );
+      const currentMatchesPackage = currentIdMatchesPackage && current?.selfSeat === identity.data.selfActor;
+      const preservedCurrent = currentMatchesPackage && current !== null
+        ? RecordLabelSchema.parse({ ...current, recordId: identity.data.recordId })
+        : null;
+      const base = catalogSummary !== undefined && catalogSummary.selfSeat === identity.data.selfActor
+        ? labelFromSummary(catalogSummary, identity.data.recordId)
+        : preservedCurrent !== null
+          ? preservedCurrent
+          : labelWithoutCatalog(identity.data.recordId, identity.data.selfActor);
+      writeBackfillLabel(summary, labelWithMortalAgreement(base, "ready", metadata.agreement), database);
+    } catch {
+      try {
+        if (db !== database) throw new Error("label_store_closed");
+        const packageRow = database.prepare(`SELECT p.package_ref_id FROM review_sessions s
+          JOIN analysis_packages p ON p.package_ref_id=s.package_ref_id
+          WHERE s.session_id=? AND p.package_id=?`).get(summary.sessionId, summary.packageId) as { package_ref_id: string } | undefined;
+        if (packageRow !== undefined) {
+          const currentRow = database.prepare(`SELECT label_payload FROM review_session_labels
+            WHERE session_id=? AND package_ref_id=?`).get(summary.sessionId, packageRow.package_ref_id) as { label_payload: string } | undefined;
+          const parsed = readStoredLabel(currentRow?.label_payload);
+          const base = parsed !== null
+            ? parsed
+            : labelWithMortalAgreement(labelForMissingSessionDate(summary.updatedAt), "pending", null);
+          if (base.mortalAgreementStatus === "pending") {
+            writeBackfillLabel(summary, labelWithMortalAgreement(base, "unavailable", null), database);
+          }
+        }
+      } catch {
+        // A missing/corrupt optional label cannot hide the saved review.
+      }
+    } finally {
+      queuedBackfills.delete(key);
+      if (backfillQueue.length === 0) backfillRunning = false;
+      else setImmediate(runNextBackfill);
+    }
+  }
 
   const store: ReviewSessionLabelStore = {
     rememberCatalog(summaries) {
@@ -172,6 +307,34 @@ export function createReviewSessionLabelStore(input: { readonly root: string }):
         if (!next.has(parsed.data.recordId)) next.set(parsed.data.recordId, parsed.data);
       }
       catalogByRecordId = next;
+      if (db !== null) {
+        try {
+          const rows = db.prepare(`SELECT session_id,package_ref_id,label_payload
+            FROM review_session_labels`).all() as Array<{
+              session_id: string; package_ref_id: string; label_payload: string;
+            }>;
+          for (const row of rows) {
+            const existing = readStoredLabel(row.label_payload);
+            if (existing === null || existing.recordId === null || existing.selfSeat === null) continue;
+            const recordId = packageCatalogRecordId(existing.recordId);
+            if (recordId === null) continue;
+            const summary = next.get(recordId);
+            if (summary === undefined || summary.selfSeat !== existing.selfSeat) continue;
+            const refreshed = labelWithMortalAgreement(
+              labelFromSummary(summary, existing.recordId),
+              existing.mortalAgreementStatus,
+              existing.mortalAgreement,
+            );
+            const payload = JSON.stringify(refreshed);
+            if (payload !== row.label_payload) {
+              db.prepare(`UPDATE review_session_labels SET label_payload=?
+                WHERE session_id=? AND package_ref_id=?`).run(payload, row.session_id, row.package_ref_id);
+            }
+          }
+        } catch {
+          // A presentation-only refresh never blocks catalog synchronization.
+        }
+      }
     },
 
     observePackage(pkg) {
@@ -184,8 +347,14 @@ export function createReviewSessionLabelStore(input: { readonly root: string }):
       const sourceRecordId = packageCatalogRecordId(identity.recordId);
       const summary = sourceRecordId === null ? undefined : catalogByRecordId.get(sourceRecordId);
       const label = summary !== undefined && summary.selfSeat === identity.selfActor
-        ? labelFromSummary(summary)
+        ? labelFromSummary(summary, identity.recordId)
         : labelWithoutCatalog(identity.recordId, identity.selfActor);
+      let storedLabel = label;
+      try {
+        storedLabel = labelWithMortalAgreement(label, "ready", summarizeMortalAgreement(pkg.decisions));
+      } catch {
+        storedLabel = labelWithMortalAgreement(label, "unavailable", null);
+      }
       try {
         const rows = db.prepare(`SELECT s.session_id,s.package_ref_id
           FROM review_sessions s JOIN analysis_packages p ON p.package_ref_id=s.package_ref_id
@@ -195,14 +364,20 @@ export function createReviewSessionLabelStore(input: { readonly root: string }):
         const existing = db.prepare(`SELECT label_payload FROM review_session_labels
           WHERE session_id=? AND package_ref_id=?`).get(row.session_id, row.package_ref_id) as { label_payload: string } | undefined;
         if (existing !== undefined) {
-          const parsedExisting = RecordLabelSchema.safeParse(JSON.parse(existing.label_payload));
-          if (!parsedExisting.success
-            || parsedExisting.data.recordId === null
-            || !sameRecordId(parsedExisting.data.recordId, identity.recordId)
-            || parsedExisting.data.selfSeat !== identity.selfActor) return;
-          if (summary === undefined || summary.selfSeat !== identity.selfActor) return;
+          const parsedExisting = readStoredLabel(existing.label_payload);
+          if (parsedExisting !== null
+            && parsedExisting.recordId !== null
+            && sameRecordId(parsedExisting.recordId, identity.recordId)
+            && parsedExisting.selfSeat === identity.selfActor
+            && (summary === undefined || summary.selfSeat !== identity.selfActor)) {
+            storedLabel = labelWithMortalAgreement(
+              RecordLabelSchema.parse({ ...parsedExisting, recordId: identity.recordId }),
+              storedLabel.mortalAgreementStatus,
+              storedLabel.mortalAgreement,
+            );
+          }
         }
-        const payload = JSON.stringify(label);
+        const payload = JSON.stringify(storedLabel);
         if (existing === undefined) {
           db.prepare(`INSERT INTO review_session_labels(session_id,package_ref_id,label_payload)
             VALUES(?,?,?)`).run(row.session_id, row.package_ref_id, payload);
@@ -216,6 +391,8 @@ export function createReviewSessionLabelStore(input: { readonly root: string }):
     },
 
     enrichSession(summary) {
+      let label = labelForMissingSessionDate(summary.updatedAt);
+      let needsBackfill = false;
       if (db !== null) {
         try {
           const row = db.prepare(`SELECT l.label_payload FROM review_session_labels l
@@ -223,20 +400,48 @@ export function createReviewSessionLabelStore(input: { readonly root: string }):
             JOIN analysis_packages p ON p.package_ref_id=s.package_ref_id
             WHERE s.session_id=? AND p.package_id=?`).get(summary.sessionId, summary.packageId) as { label_payload: string } | undefined;
           if (row !== undefined) {
-            const parsed = RecordLabelSchema.safeParse(JSON.parse(row.label_payload));
-            if (parsed.success) return Object.freeze({ ...summary, recordLabel: parsed.data });
+            const parsed = readStoredLabel(row.label_payload);
+            if (parsed !== null) {
+              label = parsed;
+              const rawSidecarId = MahjongSoulRecordIdSchema.safeParse(label.recordId);
+              const cachedCatalog = rawSidecarId.success ? catalogByRecordId.get(rawSidecarId.data) : undefined;
+              const requiresCanonicalIdentityRecovery = cachedCatalog !== undefined
+                && cachedCatalog.selfSeat === label.selfSeat
+                && label.mortalAgreementStatus === "not_applicable";
+              needsBackfill = label.mortalAgreementStatus === "pending" || requiresCanonicalIdentityRecovery;
+              if (requiresCanonicalIdentityRecovery) {
+                label = labelWithMortalAgreement(label, "pending", null);
+              }
+              if (!needsBackfill) return Object.freeze({ ...summary, recordLabel: label });
+            } else {
+              label = labelWithMortalAgreement(label, "pending", null);
+              needsBackfill = true;
+            }
+          } else {
+            label = labelWithMortalAgreement(label, "pending", null);
+            needsBackfill = true;
           }
         } catch {
-          // Older/corrupt optional labels fall back without reading package bytes.
+          // Older/corrupt optional labels fall back to a safe async backfill.
+          label = labelWithMortalAgreement(label, "pending", null);
+          needsBackfill = true;
         }
       }
-      return Object.freeze({ ...summary, recordLabel: labelForMissingSessionDate(summary.updatedAt) });
+      if (needsBackfill) {
+        if (db !== null) {
+          try { writeBackfillLabel(summary, label, db); } catch { /* The next worker read retries this small sidecar write. */ }
+        }
+        enqueueBackfill(summary);
+      }
+      return Object.freeze({ ...summary, recordLabel: label });
     },
 
     close() {
       try { db?.close(); } catch { /* Shutdown should not hide a usable saved session. */ }
       db = null;
       catalogByRecordId = new Map();
+      backfillQueue.splice(0);
+      queuedBackfills.clear();
     },
   };
   return Object.freeze(store);

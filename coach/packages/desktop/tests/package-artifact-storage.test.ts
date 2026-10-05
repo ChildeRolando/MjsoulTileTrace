@@ -7,7 +7,7 @@ import { join } from "node:path";
 import { DatabaseSync } from "node:sqlite";
 import { afterEach, describe, expect, it } from "vitest";
 import { createReviewSessionRepository } from "../src/review-session-repository.js";
-import { describePackageArtifact, insertPackageChunks, parsePackageJsonChunks, readPackageArtifact, readPackageRecordIdentity, PACKAGE_CHUNK_BYTES, PACKAGE_RAW_BLOCK_BYTES } from "../src/package-artifact-storage.js";
+import { describePackageArtifact, insertPackageChunks, parsePackageJsonChunks, readPackageArtifact, readPackageMortalAgreement, readPackageMortalAgreementMetadata, readPackageRecordIdentity, PACKAGE_CHUNK_BYTES, PACKAGE_RAW_BLOCK_BYTES } from "../src/package-artifact-storage.js";
 
 const roots: string[] = [];
 afterEach(() => { for (const root of roots.splice(0)) rmSync(root, { recursive:true, force:true }); });
@@ -57,8 +57,218 @@ describe("complete package bytes in bounded SQLite chunks", () => {
     } finally { db.close(); }
   });
 
+  it("streams Mortal agreement from decision/model fields and ignores large factor payloads", () => {
+    const db = database();
+    try {
+      const scored = "action:v1:declare_riichi";
+      const other = "action:v1:discard:other";
+      const disagreement = "action:v1:discard:scored";
+      const value = {
+        packageId: "test-id",
+        componentVersions: { packageSchema: "test-schema" },
+        record: { recordId: "streamed-record", selfActor: 0, status: "complete" },
+        decisions: [
+          {
+            decisionId: "ready-tie",
+            outcome: "analysis_ready",
+            modelEvaluation: {
+              engineId: "mortal",
+              candidates: [
+                { actionRef: scored, rawValues: [{ metric: "probability", value: 0.5 }], modelSelectionScore: 50 },
+                { actionRef: other, rawValues: [{ metric: "probability", value: 0.5 }], modelSelectionScore: 50 },
+              ],
+              preferredActions: [scored, other],
+              actualActionRef: "action:v1:riichi_discard:5p",
+              scoredActualModelActionRef: scored,
+            },
+            candidateFactorLedgers: Array.from({ length: 10_000 }, (_, index) => ({
+              factorKey: `ignored-factor-${index}`,
+              evidenceIds: [`ignored-evidence-${index}`],
+              value: { kind: "number", value: index },
+            })),
+          },
+          {
+            decisionId: "ready-disagree",
+            outcome: "analysis_ready",
+            modelEvaluation: {
+              engineId: "mortal",
+              candidates: [
+                { actionRef: disagreement, rawValues: [{ metric: "probability", value: 0.3 }], modelSelectionScore: 30 },
+                { actionRef: other, rawValues: [{ metric: "probability", value: 0.7 }], modelSelectionScore: 70 },
+              ],
+              preferredActions: [other],
+              actualActionRef: disagreement,
+              scoredActualModelActionRef: disagreement,
+            },
+            ignoredDifferences: Array.from({ length: 10_000 }, (_, index) => ({
+              differenceId: `ignored-difference-${index}`,
+              value: index,
+            })),
+          },
+          {
+            decisionId: "ready-native",
+            outcome: "analysis_ready",
+            modelEvaluation: {
+              engineId: "akagi_native",
+              candidates: [
+                { actionRef: "native-a", rawValues: [{ metric: "q_value", value: 0.5 }], modelSelectionScore: 50 },
+                { actionRef: "native-b", rawValues: [{ metric: "q_value", value: 0.4 }], modelSelectionScore: 40 },
+              ],
+              preferredActions: ["native-a"],
+              actualActionRef: "native-b",
+              scoredActualModelActionRef: "native-b",
+            },
+          },
+          { decisionId: "failed", outcome: "no_mortal_entry" },
+        ],
+      };
+      const row = {
+        ...store(db, value),
+        package_id: "test-id",
+        schema_version: "test-schema",
+      };
+      expect(readPackageMortalAgreement(db, row)).toEqual({
+        agreementCount: 1,
+        scoredDecisionCount: 2,
+      });
+      expect(readPackageMortalAgreementMetadata(db, row)).toEqual({
+        record: value.record,
+        agreement: {
+          agreementCount: 1,
+          scoredDecisionCount: 2,
+        },
+      });
+      expect(() => readPackageMortalAgreement(db, { ...row, content_hash: "0".repeat(64) }))
+        .toThrow("package_hash_mismatch");
+      expect(() => readPackageMortalAgreement(db, { ...row, package_id: "wrong-id" }))
+        .toThrow("package_identity_mismatch");
+      expect(() => readPackageMortalAgreement(db, { ...row, schema_version: "wrong-schema" }))
+        .toThrow("package_version_mismatch");
+    } finally { db.close(); }
+  });
+
+  it("streams Mortal metadata with a generic record identity and rejects invalid records", () => {
+    const db = database();
+    try {
+      const value = {
+        packageId: "test-id",
+        componentVersions: { packageSchema: "test-schema" },
+        record: { recordId: "raw-source-record-17", selfActor: 2, status: "complete" },
+        decisions: [{ decisionId: "single", outcome: "no_mortal_entry" }],
+        ignoredEvidence: Array.from({ length: 10_000 }, (_, index) => ({ index })),
+      };
+      const row = {
+        ...store(db, value),
+        package_id: "test-id",
+        schema_version: "test-schema",
+      };
+      expect(readPackageMortalAgreementMetadata(db, row)).toEqual({
+        record: value.record,
+        agreement: { agreementCount: 0, scoredDecisionCount: 0 },
+      });
+
+      const invalidValue = {
+        ...value,
+        record: { recordId: "raw-source-record-17", selfActor: 4, status: "complete" },
+      };
+      const invalidBytes = Buffer.from(JSON.stringify({
+        ...invalidValue,
+        packageId: "invalid-id",
+      }));
+      const invalidRow = {
+        package_ref_id: "invalid-ref",
+        payload: invalidBytes,
+        content_hash: hash(invalidBytes),
+        package_id: "invalid-id",
+        schema_version: "test-schema",
+      };
+      expect(() => readPackageMortalAgreementMetadata(db, invalidRow)).toThrow();
+    } finally { db.close(); }
+  });
+
+  it("reads Mortal agreement from inline JSON and archived RCPKG01 rows", () => {
+    const db = database();
+    try {
+      const value = {
+        packageId: "history-id",
+        componentVersions: { packageSchema: "history-schema" },
+        decisions: [{
+          decisionId: "history-decision",
+          outcome: "analysis_ready",
+          modelEvaluation: {
+            engineId: "mortal",
+            candidates: [
+              { actionRef: "history:scored", rawValues: [{ metric: "probability", value: 0.7 }], modelSelectionScore: 70 },
+              { actionRef: "history:other", rawValues: [{ metric: "probability", value: 0.3 }], modelSelectionScore: 30 },
+            ],
+            preferredActions: ["history:scored"],
+            scoredActualModelActionRef: "history:scored",
+          },
+        }],
+      };
+      const bytes = Buffer.from(JSON.stringify(value));
+      const inlineRow = {
+        package_ref_id: "agreement-inline",
+        payload: bytes,
+        content_hash: hash(bytes),
+        package_id: "history-id",
+        schema_version: "history-schema",
+      };
+      expect(readPackageMortalAgreement(db, inlineRow)).toEqual({
+        agreementCount: 1,
+        scoredDecisionCount: 1,
+      });
+
+      const count = Math.ceil(bytes.length / PACKAGE_CHUNK_BYTES);
+      const header = Buffer.alloc(24);
+      Buffer.from("RCPKG01\0", "ascii").copy(header);
+      header.writeBigUInt64LE(BigInt(count), 8);
+      header.writeBigUInt64LE(BigInt(bytes.length), 16);
+      const archivedRow = {
+        ...inlineRow,
+        package_ref_id: "agreement-rcpkg01",
+        payload: header,
+      };
+      db.prepare("INSERT INTO analysis_packages VALUES(?,?,?,?,?)").run(
+        archivedRow.package_ref_id,
+        archivedRow.package_id,
+        archivedRow.content_hash,
+        archivedRow.schema_version,
+        archivedRow.payload,
+      );
+      for (let ordinal = 0; ordinal < count; ordinal++) {
+        db.prepare("INSERT INTO analysis_package_chunks VALUES(?,?,?)").run(
+          archivedRow.package_ref_id,
+          ordinal,
+          bytes.subarray(ordinal * PACKAGE_CHUNK_BYTES, Math.min((ordinal + 1) * PACKAGE_CHUNK_BYTES, bytes.length)),
+        );
+      }
+      expect(readPackageMortalAgreement(db, archivedRow)).toEqual({
+        agreementCount: 1,
+        scoredDecisionCount: 1,
+      });
+    } finally { db.close(); }
+  });
+
+  it("fails closed when a ready decision lacks the streamed agreement fields", () => {
+    const db = database();
+    try {
+      const value = {
+        packageId: "test-id",
+        componentVersions: { packageSchema: "test-schema" },
+        decisions: [{ decisionId: "incomplete", outcome: "analysis_ready" }],
+      };
+      const row = {
+        ...store(db, value),
+        package_id: "test-id",
+        schema_version: "test-schema",
+      };
+      expect(() => readPackageMortalAgreement(db, row)).toThrow("package_payload_invalid");
+    } finally { db.close(); }
+  });
+
   it("does not retain array growth capacity for repeated evidence lists", () => {
-    const moduleUrl = new URL("../src/package-artifact-storage.ts", import.meta.url).href;
+    const moduleUrl = new URL("../dist/package-artifact-storage.js", import.meta.url).href;
     const script = `
       import assert from 'node:assert/strict';
       import { parsePackageJsonChunks } from ${JSON.stringify(moduleUrl)};
@@ -85,7 +295,7 @@ describe("complete package bytes in bounded SQLite chunks", () => {
   }, 35_000);
 
   it("reads repeated short evidence strings within a bounded process heap", () => {
-    const moduleUrl = new URL("../src/package-artifact-storage.ts", import.meta.url).href;
+    const moduleUrl = new URL("../dist/package-artifact-storage.js", import.meta.url).href;
     const script = `
       import assert from 'node:assert/strict';
       import { parsePackageJsonChunks } from ${JSON.stringify(moduleUrl)};

@@ -47,7 +47,7 @@ export const COACH_CONTEXT_PAYLOAD_ALLOWLIST = Object.freeze({
     "factSource", "actor", "selfRiichi", "handStructureYakuContext", "decisionEventRef", "decisionWindow",
     "concealedTiles", "currentDraw", "melds", "doraIndicators", "rivers",
     "furitenSelfRiver", "threats", "defenseThreats", "roundWind", "seatWind",
-    "dealer", "remainingDraws", "completeness",
+    "dealer", "remainingDraws", "scores", "currentRound", "completeness",
   ]),
   FactorFact: Object.freeze([
     "factorKey", "dimension", "status", "evidenceClass", "preferenceEligibility",

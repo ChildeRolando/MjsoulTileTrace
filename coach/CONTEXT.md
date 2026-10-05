@@ -249,7 +249,11 @@ append，可以引用 evidence subgraph，但不得修改、删除或覆盖其�
 
 **局面事实（KnownGameFacts）**：
 从 canonical 重放直接投影出的客观局面状态（巡目、手牌、河牌、立直状态、
-分数、场风/自风、当前动作）。
+分数、场风/自风、当前动作）。每个决策可携带当前四家点数（按 actor 0–3
+排列）以及场风、局序、本场和供托；点数只取该决策快照，不能用和牌结算或
+终局点数覆盖。新增 `scores`、`currentRound` 使用显式 `known` / `unknown`
+状态。来源 completeness 不足时只输出 `unknown`，旧归档省略这两个可选字段，
+legacy 桥也不得根据占位值推测。
 _Avoid_: 把候选分析值称为 fact（那是候选因素）
 
 **候选因素账本（CandidateFactorLedger / FactorFact）**：
@@ -337,3 +341,16 @@ prompt/v5 从当前已验证 CoachContext 派生按决策分组的可显示标�
 统计覆盖本机仍保存的报告，不表示账号全部历史账单，未保存用量不可补猜。
 复盘后台 worker 只发送计数 DTO；历史牌谱身份读取只提取 record 并检查存储 hash，
 不重建全部证据/图；这不是完整档案领域校验或 grounding 的替代。旧报告不改写。
+
+### 2026-10-06 决策点数与无确定性差异解说
+
+KnownGameFacts 从 canonical 决策快照生产各家当前点数（actor 0..3 顺序）与局次、
+本场、供托；只有对应字段完整才为 known，否则显式 unknown。不得用终局点数倒填，
+历史档案缺失字段保持缺失。生产 factorPipeline/v3 使新增事实拥有新的包身份。
+领先保位与落后追分属于教练据真实局面作的判断，不是进张统计自动证明的最优策略。
+
+prompt/v6 允许 claims 严格引用同一决策的 KnownGameFact、ModelEvaluation；原
+FactorFact、FactorDifference 引用继续适用。没有确定性差异时可以解释已有局面与模型
+建议，但不得虚构因素、把未知说成相等或把模型偏好当作 EV。grounding/v3 与 provider
+输出 schema 消费同一领域契约，换 provider 不绕过校验。历史 v3/v4/v5 请求模板及
+审计重建冻结，旧版本报告不接受新 claim 类型，不改写历史解说。

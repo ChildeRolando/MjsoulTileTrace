@@ -143,9 +143,9 @@ describe("ReviewSession SQLite persistence", () => {
     } finally { repository.close(); }
   });
 
-  it("keeps the stored v1 artifact open while saving same-record v2 under a distinct package identity", () => {
+  it("keeps the stored v1 artifact open while saving same-record v3 under a distinct package identity", () => {
     expect(pkg.componentVersions.factorPipeline).toBe("factor-pipeline/v1");
-    const refreshed = withFactorPipeline(pkg, "factor-pipeline/v2");
+    const refreshed = withFactorPipeline(pkg, "factor-pipeline/v3");
     expect(refreshed.analysisKey).toBe(pkg.analysisKey);
     expect(refreshed.record).toEqual(pkg.record);
     expect(refreshed.packageId).not.toBe(pkg.packageId);

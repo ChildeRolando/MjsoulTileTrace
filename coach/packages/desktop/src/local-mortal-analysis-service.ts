@@ -267,7 +267,7 @@ export function createLocalMortalAnalysisService(input: {
               adapterVersion: FACT_ENGINE_ADAPTER_VERSION,
               protocolVersion: FACT_ENGINE_PROTOCOL_VERSION,
             },
-            factorPipeline: "factor-pipeline/v2",
+            factorPipeline: "factor-pipeline/v3",
             mortalSourceModel: {
               identity: "Mortal",
               version: LOCAL_MORTAL_ADAPTER_VERSION,

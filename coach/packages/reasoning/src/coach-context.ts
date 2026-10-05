@@ -718,6 +718,12 @@ function decodeWireDraft(
           if (claim.kind === "factor_fact") {
             return binding?.nodeKind === "FactorFact" ? { ...claim, evidenceRef: binding.canonicalId } : null;
           }
+          if (claim.kind === "known_game_fact") {
+            return binding?.nodeKind === "KnownGameFact" ? { ...claim, evidenceRef: binding.canonicalId } : null;
+          }
+          if (claim.kind === "model_evaluation") {
+            return binding?.nodeKind === "ModelEvaluation" ? { ...claim, evidenceRef: binding.canonicalId } : null;
+          }
           return null;
         });
         if (claims.some((claim) => claim === null)) return null;

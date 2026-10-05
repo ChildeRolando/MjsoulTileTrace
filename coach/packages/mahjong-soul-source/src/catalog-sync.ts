@@ -3,6 +3,7 @@ import type { MahjongSoulLobbySession } from "./lobby-session.js";
 import { createMahjongSoulCatalogRuleInspector } from "./record-rule-evidence.js";
 import type { MahjongSoulProtocolBundle } from "./protocol-bundle.js";
 import type { RawRecordListEntry } from "./record-filter.js";
+import { resolveMahjongSoulGradingUnit, type MahjongSoulGradingUnit } from "./record-grading-unit.js";
 
 const CATALOG_SYNC_FAILED = "mahjong_soul_catalog_sync_failed" as const;
 
@@ -30,6 +31,9 @@ type RawListEntryWithoutMode = Omit<
   | "game_mode_extendinfo"
   | "game_mode_detail_rule_present"
   | "game_mode_detail_rule_override"
+  | "ranked_mode_id"
+  | "grading_score_by_seat"
+  | "grading_unit_by_seat"
 >;
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -45,6 +49,57 @@ function isUint32(value: unknown): value is number {
     && Number.isInteger(value)
     && value >= 0
     && value <= 0xffff_ffff;
+}
+
+function isInt32(value: unknown): value is number {
+  return typeof value === "number" && Number.isInteger(value)
+    && value >= -0x8000_0000 && value <= 0x7fff_ffff;
+}
+
+function gradingScoresBySeat(value: unknown): readonly (number | null)[] {
+  const scores: Array<number | null> = [null, null, null, null];
+  const seen = new Set<number>();
+  const ambiguous = new Set<number>();
+  const players = isRecord(value) && Array.isArray(value.players) ? value.players : [];
+  for (const raw of players) {
+    if (!isRecord(raw) || !isUint32(raw.seat) || raw.seat > 3) continue;
+    const seat = raw.seat;
+    if (seen.has(seat)) {
+      ambiguous.add(seat);
+      continue;
+    }
+    seen.add(seat);
+    if (isInt32(raw.grading_score)) scores[seat] = raw.grading_score;
+  }
+  for (const seat of ambiguous) scores[seat] = null;
+  return Object.freeze(scores);
+}
+
+function gradingUnitsBySeat(
+  accountsValue: unknown,
+  modeId: number | null,
+  scores: readonly (number | null)[],
+): readonly (MahjongSoulGradingUnit | null)[] {
+  const units: Array<MahjongSoulGradingUnit | null> = [null, null, null, null];
+  const seen = new Set<number>();
+  const ambiguous = new Set<number>();
+  const accounts = Array.isArray(accountsValue) ? accountsValue : [];
+  for (const raw of accounts) {
+    if (!isRecord(raw) || !isUint32(raw.seat) || raw.seat > 3) continue;
+    const seat = raw.seat;
+    if (seen.has(seat)) { ambiguous.add(seat); continue; }
+    seen.add(seat);
+    const levelId = isRecord(raw.level) ? raw.level.id : undefined;
+    const level3Id = isRecord(raw.level3) ? raw.level3.id : undefined;
+    units[seat] = scores[seat] === null
+      ? null
+      : resolveMahjongSoulGradingUnit(modeId, levelId, level3Id);
+  }
+  for (const seat of ambiguous) units[seat] = scores[seat] === null ? null : "unknown";
+  for (let seat = 0; seat < units.length; seat += 1) {
+    if (scores[seat] !== null && !seen.has(seat)) units[seat] = "unknown";
+  }
+  return Object.freeze(units);
 }
 
 function isObjectLike(value: unknown): value is object {
@@ -193,6 +248,9 @@ export async function syncRecentCatalog(
   }
   const detailsByUuid = new Map<string, {
     mode: number;
+    matchModeId: number | null;
+    gradingScoreBySeat: readonly (number | null)[];
+    gradingUnitBySeat: readonly (MahjongSoulGradingUnit | null)[];
     ai: boolean;
     extendinfo: string;
     detailRulePresent: boolean;
@@ -213,8 +271,12 @@ export async function syncRecentCatalog(
     } catch {
       throw catalogFailed();
     }
+    const gradingScoreBySeat = gradingScoresBySeat(raw.result);
     detailsByUuid.set(raw.uuid, {
       mode: metadata.mode,
+      matchModeId: metadata.matchModeId,
+      gradingScoreBySeat,
+      gradingUnitBySeat: gradingUnitsBySeat(raw.accounts, metadata.matchModeId, gradingScoreBySeat),
       ai: metadata.ai,
       extendinfo: metadata.extendinfo,
       detailRulePresent: metadata.detailRulePresent,
@@ -229,6 +291,9 @@ export async function syncRecentCatalog(
       return Object.freeze({
         ...entry,
         game_mode: detail.mode,
+        ...(detail.matchModeId === null ? {} : { ranked_mode_id: detail.matchModeId }),
+        grading_score_by_seat: detail.gradingScoreBySeat,
+        grading_unit_by_seat: detail.gradingUnitBySeat,
         game_mode_ai: detail.ai,
         game_mode_extendinfo: detail.extendinfo,
         game_mode_detail_rule_present: detail.detailRulePresent,

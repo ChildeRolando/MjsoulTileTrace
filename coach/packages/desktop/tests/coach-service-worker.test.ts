@@ -2,11 +2,18 @@ import { createHash } from "node:crypto";
 import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { DatabaseSync } from "node:sqlite";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { afterEach, describe, expect, it } from "vitest";
-import { CoachProviderConfigSchema, AnalyzableRecordSummarySchema } from "@riichi-coach/contracts";
+import {
+  CoachProviderConfigSchema,
+  AnalyzableRecordSummarySchema,
+  StructuredAnalysisPackageSchema,
+} from "@riichi-coach/contracts";
+import { validateStructuredAnalysisPackage } from "@riichi-coach/reasoning";
 import { createCoachWorkerHost, type CoachWorkerMainBridge, type CoachWorkerTimer } from "../src/coach-worker-host.js";
 import { createCoachWorkerClient } from "../src/coach-worker-client.js";
+import { recordLabelView } from "../src/renderer/record-label.js";
 
 const codexSettings = CoachProviderConfigSchema.parse({
   providerId: "codex-cli", modelName: "gpt-6-luna", reasoningEffort: "max",
@@ -15,8 +22,7 @@ const compatibleSettings = CoachProviderConfigSchema.parse({
   baseUrl: "https://fixture.example/v1", modelName: "fixture",
 });
 
-function catalogSummary() {
-  const recordId = "000000-00000000-0000-0000-0000-000000000001";
+function catalogSummary(recordId = "000000-00000000-0000-0000-0000-000000000001") {
   return AnalyzableRecordSummarySchema.parse({
     recordId,
     shareUrl: `https://game.maj-soul.com/1/?paipu=${recordId}_a1`,
@@ -75,14 +81,49 @@ class ManualTimer implements CoachWorkerTimer {
 const activeRoots = new Set<string>();
 const activeClients = new Set<ReturnType<typeof createCoachWorkerClient>>();
 
-async function makeReviewFiles(): Promise<{ root: string; userData: string; packageId: string }> {
+async function makeReviewFiles(recordId?: string): Promise<{ root: string; userData: string; packageId: string }> {
   const root = await mkdtemp(join(tmpdir(), "coach-worker-test-"));
   activeRoots.add(root);
   const userData = join(root, "user-data");
   const packageDir = join(userData, "analysis-packages");
   await mkdir(packageDir, { recursive: true });
-  const packageBytes = await readFile(new URL("./fixtures/coach-package.json", import.meta.url));
-  const pkg = JSON.parse(packageBytes.toString("utf8")) as { packageId: string };
+  const fixtureBytes = await readFile(new URL("./fixtures/coach-package.json", import.meta.url));
+  let fixtureValue = JSON.parse(fixtureBytes.toString("utf8")) as Record<string, unknown>;
+  if (recordId !== undefined) {
+    const originalRecordId = "game:fixture";
+    const replaceStrings = (value: unknown): unknown => {
+      if (typeof value === "string") return value.replaceAll(originalRecordId, recordId);
+      if (Array.isArray(value)) return value.map(replaceStrings);
+      if (value !== null && typeof value === "object") {
+        return Object.fromEntries(Object.entries(value).map(([key, item]) => [
+          key.replaceAll(originalRecordId, recordId),
+          replaceStrings(item),
+        ]));
+      }
+      return value;
+    };
+    fixtureValue = replaceStrings(fixtureValue) as Record<string, unknown>;
+    const parsed = StructuredAnalysisPackageSchema.parse(fixtureValue);
+    // Pre-generated identities for these two frozen fixture transformations.
+    // The production validator below independently checks all IDs and hashes;
+    // fixture construction does not import another package's private helpers.
+    const identities: Record<string, { packageId: string; semanticContentHash: string }> = {
+      "261005-86c19037-4ff0-431d-9111-5a2e2b7dac4d": {
+        packageId: "package:sha256:042242005eaa387e8502bdbeaa827471ab084958dd994a808f8013aa888f558d",
+        semanticContentHash: "sha256:d3818da2d3ab2d7e6e23733c3becd4582411be0eac77c0a8f2b61471d5c5c001",
+      },
+      "majsoul:261005-86c19037-4ff0-431d-9111-5a2e2b7dac4d": {
+        packageId: "package:sha256:0b9b9c44b7974b3bea2f4b3dad6392fa06ede14c53254976b9073c9b7de0fd06",
+        semanticContentHash: "sha256:1e209d8a9bf7dc455c1d5ee354f3c09e79bbe2ccc80322e8766a4cf10bd3bb05",
+      },
+    };
+    const identity = identities[recordId];
+    if (identity === undefined) throw new Error("unknown_worker_record_fixture");
+    fixtureValue = { ...parsed, ...identity };
+    validateStructuredAnalysisPackage(fixtureValue);
+  }
+  const pkg = StructuredAnalysisPackageSchema.parse(fixtureValue);
+  const packageBytes = Buffer.from(JSON.stringify(pkg), "utf8");
   const name = createHash("sha256").update(pkg.packageId).digest("hex");
   await writeFile(join(packageDir, `${name}.json`), packageBytes);
   return { root, userData, packageId: pkg.packageId };
@@ -150,6 +191,141 @@ afterEach(async () => {
 });
 
 describe("Coach review service worker", () => {
+  it("recovers an older raw-ID sidecar only after canonical package identity and seat match", async () => {
+    const rawRecordId = "261005-86c19037-4ff0-431d-9111-5a2e2b7dac4d";
+    const canonicalRecordId = `majsoul:${rawRecordId}`;
+    const files = await makeReviewFiles(canonicalRecordId);
+    const client = createActualClient({ ...files, goldenTestMode: true });
+    const reviewRoot = join(files.root, "review-library");
+    try {
+      await client.ready();
+      await client.rememberCatalog([catalogSummary(rawRecordId)]);
+      await client.openReview(files.packageId);
+      const oldLabel = {
+        title: "旧保存标题",
+        recordId: rawRecordId,
+        selfSeat: 0,
+        startedAt: null,
+        players: Array.from({ length: 4 }, (_, seat) => ({
+          seat, displayName: `旧玩家${seat}`, finalScore: null, rank: null, gradingScore: null, gradingScoreUnit: null,
+        })),
+        rankedMode: null,
+        mortalAgreementStatus: "not_applicable",
+        mortalAgreement: null,
+      };
+      const database = new DatabaseSync(join(reviewRoot, "library.sqlite"));
+      try {
+        database.exec("PRAGMA busy_timeout=5000");
+        database.prepare("UPDATE review_session_labels SET label_payload=?").run(JSON.stringify(oldLabel));
+      } finally { database.close(); }
+
+      const pending = await client.listReviewSessions();
+      expect(pending[0]?.recordLabel?.mortalAgreementStatus).toBe("pending");
+      let recovered: Awaited<ReturnType<typeof client.listReviewSessions>>[number] | undefined;
+      for (let attempt = 0; attempt < 100; attempt++) {
+        const sessions = await client.listReviewSessions();
+        recovered = sessions[0];
+        if (recovered?.recordLabel?.mortalAgreementStatus === "ready") break;
+        await new Promise(resolve => setTimeout(resolve, 20));
+      }
+      expect(recovered?.recordLabel).toMatchObject({
+        title: expect.stringContaining("四人南风"),
+        recordId: canonicalRecordId,
+        selfSeat: 0,
+        players: expect.arrayContaining([expect.objectContaining({ seat: 0, displayName: "A" })]),
+        mortalAgreementStatus: "ready",
+        mortalAgreement: { agreementCount: 0, scoredDecisionCount: 1 },
+      });
+    } finally {
+      await client.close().catch(() => undefined);
+      activeClients.delete(client);
+    }
+  }, 15_000);
+
+  it("backfills missing and corrupt labels through the real worker without assigning generic IDs to the catalog", async () => {
+    const files = await makeReviewFiles();
+    const client = createActualClient({ ...files, goldenTestMode: true });
+    const reviewRoot = join(files.root, "review-library");
+    try {
+      await client.ready();
+      await client.openReview(files.packageId);
+      const database = new DatabaseSync(join(reviewRoot, "library.sqlite"));
+      try {
+        database.exec("PRAGMA busy_timeout=5000");
+        database.prepare("DELETE FROM review_session_labels").run();
+      } finally { database.close(); }
+
+      const waitForReadyLabel = async () => {
+        for (let attempt = 0; attempt < 100; attempt++) {
+          const sessions = await client.listReviewSessions();
+          const label = sessions[0]?.recordLabel;
+          if (label?.mortalAgreementStatus === "ready") return { session: sessions[0]!, label };
+          await new Promise(resolve => setTimeout(resolve, 20));
+        }
+        throw new Error("worker_mortal_label_backfill_timeout");
+      };
+
+      const missing = await client.listReviewSessions();
+      expect(missing[0]?.recordLabel?.mortalAgreementStatus).toBe("pending");
+      const firstReady = await waitForReadyLabel();
+      expect(firstReady.label.recordId).toBe("game:fixture");
+      expect(firstReady.label.selfSeat).toBe(0);
+      expect(firstReady.label.mortalAgreement).toMatchObject({ agreementCount: 0, scoredDecisionCount: 1 });
+      const firstReadyView = recordLabelView(firstReady.label, firstReady.session.updatedAt);
+      expect(firstReadyView.title).toContain("Mortal 0%（0/1）");
+      expect(firstReady.label.title).not.toContain("雀魂牌谱");
+
+      const corruptDb = new DatabaseSync(join(reviewRoot, "library.sqlite"));
+      try {
+        corruptDb.exec("PRAGMA busy_timeout=5000");
+        corruptDb.prepare("UPDATE review_session_labels SET label_payload='not-json'").run();
+      } finally { corruptDb.close(); }
+      const corrupt = await client.listReviewSessions();
+      expect(corrupt[0]?.recordLabel?.mortalAgreementStatus).toBe("pending");
+      const repaired = await waitForReadyLabel();
+      expect(repaired.label.recordId).toBe("game:fixture");
+      expect(repaired.label.mortalAgreement).toMatchObject({ agreementCount: 0, scoredDecisionCount: 1 });
+    } finally {
+      await client.close().catch(() => undefined);
+      activeClients.delete(client);
+    }
+  }, 15_000);
+
+  it("keeps a raw UUID package unbound to the same-ID catalog while its saved stats stay ready", async () => {
+    const rawRecordId = "261005-86c19037-4ff0-431d-9111-5a2e2b7dac4d";
+    const files = await makeReviewFiles(rawRecordId);
+    const client = createActualClient({ ...files, goldenTestMode: true });
+    try {
+      await client.ready();
+      await client.rememberCatalog([catalogSummary(rawRecordId)]);
+      await client.openReview(files.packageId);
+      const waitForReady = async () => {
+        for (let attempt = 0; attempt < 100; attempt++) {
+          const sessions = await client.listReviewSessions();
+          const label = sessions[0]?.recordLabel;
+          if (label?.mortalAgreementStatus === "ready") return { session: sessions[0]!, label };
+          await new Promise(resolve => setTimeout(resolve, 20));
+        }
+        throw new Error("worker_mortal_label_backfill_timeout");
+      };
+      const ready = await waitForReady();
+      expect(ready.label).toMatchObject({
+        recordId: rawRecordId,
+        selfSeat: 0,
+        mortalAgreementStatus: "ready",
+        mortalAgreement: { agreementCount: 0, scoredDecisionCount: 1 },
+      });
+      expect(recordLabelView(ready.label, ready.session.updatedAt).title).not.toContain("四人南风");
+
+      const repeated = await client.listReviewSessions();
+      expect(repeated[0]?.recordLabel?.mortalAgreementStatus).toBe("ready");
+      expect(repeated[0]?.recordLabel?.mortalAgreement).toEqual(ready.label.mortalAgreement);
+    } finally {
+      await client.close().catch(() => undefined);
+      activeClients.delete(client);
+    }
+  }, 15_000);
+
   it("runs review read-back and generation in the worker, with a live main heartbeat and working cancel/leave", async () => {
     const env = {
       golden: process.env.RIICHI_MVP_GOLDEN_TEST,

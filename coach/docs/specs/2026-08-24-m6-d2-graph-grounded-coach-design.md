@@ -646,3 +646,14 @@ GraphContextSlice 携带 Decision.automaticComparisonScope；模型可以看到�
 
 验收需覆盖：真实失败复现、复合值仍拒绝、每条清单路径经通用生成/grounding/展示可消费、
 同决策引用与历史 v3/v4 校验、真实单行动模型生成、整盘请求字节限额及独立验收。
+
+
+## 2026-10-06 用户批准的解说契约增补
+
+原 E6 两值 claims 是历史版本契约，prompt v6 对当前生产增加 `known_game_fact` → KnownGameFact 与 `model_evaluation` → ModelEvaluation。两者与既有 `factor_fact` / `factor_difference` 一样必须是同决策、实际送入 context 的节点且类型完全匹配；非空证据要求不变。模型证据保留 model authority，不能充作硬牌理或已知模型理由。
+
+没有确定性候选差异时，允许解释现有局面事实与模型建议，必须明示“现有证据未给出可区分的确定性优势”；未知、未计算与相同不可混同。不得捏造 F#/FactorFact 来满足输出结构。候选仍限制于既有自动比较对。
+
+当前点数是局面事实，由 canonical decision snapshot 生产 `KnownGameFacts.scores`；当前局次、本场、供托由 `currentRound` 提供。字段以 optional known/unknown 状态兼容旧档案：不能用终局点数或段位信息补当前局面，旧档案缺失不表示各家 25000 点。领先保位与落后追分属于教练权衡，不是固定牌理优劣结论。此次不扩展通用数值占位符能力；局面数字不通过猜测新的占位符路径输出。
+
+旧 v3/v4/v5 提示及请求审计按对应冻结模板重建，旧报告不改写，也不接受其版本没有定义的新 claims。当前 grounding 标记 v3。

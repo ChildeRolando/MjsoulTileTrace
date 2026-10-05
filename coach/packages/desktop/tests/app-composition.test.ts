@@ -24,7 +24,9 @@ type Scenario = Readonly<{
   analysisFails?: boolean;
   retryFromSavedSessionList?: boolean;
   failSessionListRefreshOnce?: boolean;
-  savedSessions?: ReadonlyArray<{ sessionId: string; packageId: string }>;
+  savedSessions?: ReadonlyArray<{ sessionId: string; packageId: string; updatedAt?: string; recordLabel?: Record<string, unknown> }>;
+  pollPendingLabels?: boolean;
+  waitForMortalPoll?: boolean;
   staleText?: string;
 }>;
 
@@ -33,10 +35,10 @@ const record = {
   shareUrl: "https://game.maj-soul.com/1/?paipu=260811-00000000-0000-0000-0000-000000000001_a1",
   startedAt: 1_754_877_600,
   players: [
-    { seat: 0, displayName: "A", finalScore: 32_000, rank: 1 },
-    { seat: 1, displayName: "B", finalScore: 27_000, rank: 2 },
-    { seat: 2, displayName: "C", finalScore: 23_000, rank: 3 },
-    { seat: 3, displayName: "D", finalScore: 18_000, rank: 4 },
+    { seat: 0, displayName: "A", finalScore: 32_000, rank: 1, gradingScore: null, gradingScoreUnit: null },
+    { seat: 1, displayName: "B", finalScore: 27_000, rank: 2, gradingScore: null, gradingScoreUnit: null },
+    { seat: 2, displayName: "C", finalScore: 23_000, rank: 3, gradingScore: null, gradingScoreUnit: null },
+    { seat: 3, displayName: "D", finalScore: 18_000, rank: 4, gradingScore: null, gradingScoreUnit: null },
   ],
   selfSeat: 2,
   rule: {
@@ -44,6 +46,7 @@ const record = {
     detailRuleHash: "sha256:7a53cc5deb60512f3dacacc7695dd5072077c6f4984dbedbff76e27092393b1c",
     displayLabel: "四人南风",
   },
+  rankedMode: { id: 6, label: "四人银之间 · 半庄" },
   analysisStatus: "not_analyzed",
   lastSyncedAt: 1_754_887_700,
 };
@@ -112,10 +115,18 @@ async function runScenario(scenario: Scenario): Promise<Record<string, unknown>>
           if (scenario.failSessionListRefreshOnce && calls.listReviewSessions === 2) {
             throw new Error("private session list provider details");
           }
-          return (scenario.savedSessions ?? []).map((session, index) => ({
-            ...session, analysisStatus: "complete", activeReportRefId: null,
-            updatedAt: "2026-10-01T00:00:0" + index + ".000Z",
-          }));
+          return (scenario.savedSessions ?? []).map((session, index) => {
+            const label = session.recordLabel;
+            const recordLabel = scenario.pollPendingLabels && calls.listReviewSessions > 1
+              && label?.mortalAgreementStatus === "pending"
+              ? { ...label, mortalAgreementStatus: "ready", mortalAgreement: { agreementCount: 1, scoredDecisionCount: 2 } }
+              : label;
+            return {
+              ...session, ...(recordLabel === undefined ? {} : { recordLabel }),
+              analysisStatus: "complete", activeReportRefId: null,
+              updatedAt: session.updatedAt ?? "2026-10-01T00:00:0" + index + ".000Z",
+            };
+          });
         },
         openReview: async ({ packageId }) => {
           calls.openReview++;
@@ -151,6 +162,12 @@ async function runScenario(scenario: Scenario): Promise<Record<string, unknown>>
       let afterLeaveView = null;
       window.run = async () => {
         await settle();
+        if (scenario.waitForMortalPoll) {
+          document.querySelector("#review-session-page-next").click();
+          for (let i = 0; i < 650 && !document.querySelector("#review-session-list").textContent.includes("Mortal 50%"); i++) {
+            await new Promise(resolve => setTimeout(resolve, 10));
+          }
+        }
         if (scenario.action === "login" || scenario.action === "analyze") {
           document.querySelector("#login").click();
         } else if (scenario.action === "refresh") {
@@ -208,6 +225,8 @@ async function runScenario(scenario: Scenario): Promise<Record<string, unknown>>
         catalogDetail: document.querySelector("#catalog-detail").textContent,
         catalogText: document.querySelector("#catalog-list").textContent,
         catalogTitle: document.querySelector("#catalog-list li")?.title ?? null,
+        catalogRecordTitle: document.querySelector(".catalog-record-title")?.textContent ?? null,
+        reviewSessionPagination: document.querySelector("#review-session-pagination-status").textContent,
         syncHidden: document.querySelector("#sync").hidden,
         paipuStatus: document.querySelector("#paipu-status").textContent,
         reviewEntryStatus: document.querySelector("#review-entry-status").textContent,
@@ -259,6 +278,127 @@ async function runScenario(scenario: Scenario): Promise<Record<string, unknown>>
 }
 
 describe("account catalog app composition", () => {
+  it("refreshes saved Mortal labels without changing the session page and shows matching stats in the catalog", async () => {
+    const pendingLabel = (index: number) => ({
+      title: `saved-${index + 1}`,
+      recordId: index === 0 ? `majsoul:${record.recordId}` : null,
+      selfSeat: index === 0 ? record.selfSeat : null,
+      startedAt: index === 0 ? record.startedAt : null,
+      players: Array.from({ length: 4 }, (_, seat) => ({
+        seat, displayName: null, finalScore: null, rank: null, gradingScore: null, gradingScoreUnit: null,
+      })),
+      rankedMode: null,
+      mortalAgreementStatus: "pending",
+      mortalAgreement: null,
+    });
+    const result = await runScenario({
+      initialStatus: "valid",
+      list: "record",
+      pollPendingLabels: true,
+      waitForMortalPoll: true,
+      savedSessions: Array.from({ length: 9 }, (_, index) => ({
+        sessionId: `session-${index + 1}`,
+        packageId: `package-${index + 1}`,
+        recordLabel: pendingLabel(index),
+      })),
+    });
+    expect(result.catalogRecordTitle).toContain("四人银之间 · 半庄");
+    expect(result.catalogRecordTitle).toContain("Mortal 50%（1/2）");
+    expect(result.reviewSessionPagination).toBe("第 2 / 2 页 · 共 9 条");
+    expect(result.reviewSessionListText).toContain("saved-9");
+    expect(result.reviewSessionListText).toContain("Mortal 50%（1/2）");
+  }, 20_000);
+
+  it("uses the newest matching saved Mortal result for the catalog title", async () => {
+    const saved = (title: string, status: string, agreement: { agreementCount: number; scoredDecisionCount: number } | null) => ({
+      title,
+      recordId: `majsoul:${record.recordId}`,
+      selfSeat: record.selfSeat,
+      startedAt: record.startedAt,
+      players: record.players,
+      rankedMode: record.rankedMode,
+      mortalAgreementStatus: status,
+      mortalAgreement: agreement,
+    });
+    const result = await runScenario({
+      initialStatus: "valid",
+      list: "record",
+      savedSessions: [
+        { sessionId: "older", packageId: "package-older", recordLabel: saved("older", "ready", { agreementCount: 1, scoredDecisionCount: 1 }) },
+        { sessionId: "newer", packageId: "package-newer", recordLabel: saved("newer", "pending", null) },
+      ],
+    });
+    expect(result.catalogRecordTitle).toContain("Mortal统计中");
+    expect(result.catalogRecordTitle).not.toContain("Mortal 100%");
+  }, 20_000);
+
+  it("uses a newer ready result when older analyses disagree", async () => {
+    const saved = (agreementCount: number, scoredDecisionCount: number) => ({
+      title: "saved",
+      recordId: `majsoul:${record.recordId}`,
+      selfSeat: record.selfSeat,
+      startedAt: record.startedAt,
+      players: record.players,
+      rankedMode: record.rankedMode,
+      mortalAgreementStatus: "ready",
+      mortalAgreement: { agreementCount, scoredDecisionCount },
+    });
+    const result = await runScenario({
+      initialStatus: "valid",
+      list: "record",
+      savedSessions: [
+        { sessionId: "older", packageId: "package-older", recordLabel: saved(0, 2) },
+        { sessionId: "newer", packageId: "package-newer", recordLabel: saved(1, 2) },
+      ],
+    });
+    expect(result.catalogRecordTitle).toContain("Mortal 50%（1/2）");
+  }, 20_000);
+
+  it("marks conflicting latest ties unavailable", async () => {
+    const saved = (status: string, agreement: { agreementCount: number; scoredDecisionCount: number } | null) => ({
+      title: "saved",
+      recordId: `majsoul:${record.recordId}`,
+      selfSeat: record.selfSeat,
+      startedAt: record.startedAt,
+      players: record.players,
+      rankedMode: record.rankedMode,
+      mortalAgreementStatus: status,
+      mortalAgreement: agreement,
+    });
+    const sameUpdatedAt = "2026-10-06T00:00:00.000Z";
+    const result = await runScenario({
+      initialStatus: "valid",
+      list: "record",
+      savedSessions: [
+        { sessionId: "tie-a", packageId: "package-tie-a", updatedAt: sameUpdatedAt, recordLabel: saved("ready", { agreementCount: 1, scoredDecisionCount: 1 }) },
+        { sessionId: "tie-b", packageId: "package-tie-b", updatedAt: sameUpdatedAt, recordLabel: saved("pending", null) },
+      ],
+    });
+    expect(result.catalogRecordTitle).toContain("Mortal统计不可用");
+  }, 20_000);
+
+  it("does not merge catalog metrics from raw package IDs or another seat", async () => {
+    const saved = (recordId: string, selfSeat: number) => ({
+      title: "saved",
+      recordId,
+      selfSeat,
+      startedAt: record.startedAt,
+      players: record.players,
+      rankedMode: record.rankedMode,
+      mortalAgreementStatus: "ready",
+      mortalAgreement: { agreementCount: 1, scoredDecisionCount: 1 },
+    });
+    const result = await runScenario({
+      initialStatus: "valid",
+      list: "record",
+      savedSessions: [
+        { sessionId: "raw-id", packageId: "package-raw", recordLabel: saved(record.recordId, record.selfSeat) },
+        { sessionId: "wrong-seat", packageId: "package-wrong-seat", recordLabel: saved(`majsoul:${record.recordId}`, 1) },
+      ],
+    });
+    expect(result.catalogRecordTitle).not.toContain("Mortal 100%");
+  }, 20_000);
+
   it("syncs a valid first login, renders the safe record, and continues to analysis", async () => {
     const result = await runScenario({
       initialStatus: "logged_out", action: "analyze", actionStatus: "valid", sync: "record",
@@ -317,6 +457,17 @@ describe("account catalog app composition", () => {
     });
     expect(result.catalogDetail).toBe("牌谱加载失败，请重试。");
     expect(result.catalogText).toBe("已缓存牌谱");
+  }, 60_000);
+
+  it("keeps a successful catalog sync when optional saved-review statistics cannot refresh", async () => {
+    const result = await runScenario({
+      initialStatus: "logged_out", action: "login", actionStatus: "valid",
+      sync: "record", failSessionListRefreshOnce: true,
+    });
+    expect(result.catalogDetail).toBe("共 1 场可分析对局。");
+    expect(result.catalogText).toContain("分析");
+    expect(result.calls).toEqual({ getStatus: 1, login: 1, list: 0, sync: 1, analyze: 0 });
+    expect(result.sessionCalls).toEqual({ listReviewSessions: 2, leaveReview: 0 });
   }, 60_000);
 
   it("uses only the verified local cache while offline and never claims a sync", async () => {

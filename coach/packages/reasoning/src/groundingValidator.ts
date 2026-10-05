@@ -61,6 +61,8 @@ import { validateAutomaticComparisonScopes } from "./context-graph/validate-cont
 import {
   AutomaticComparisonScopeSchema,
   COACH_EXPLANATION_PLACEHOLDER_PATTERN,
+  COACH_CLAIM_NODE_KINDS,
+  COACH_REVIEW_PROMPT_VERSION_V5,
   COACH_REVIEW_PROMPT_VERSION,
   COACH_REVIEW_PROMPT_VERSION_V3,
   COACH_REVIEW_PROMPT_VERSION_V4,
@@ -86,7 +88,7 @@ import { getDecisionSubgraph } from "./context-graph/get-decision-subgraph.js";
 import { buildGraphContextSlice } from "./context-graph/build-graph-context-slice.js";
 import { filterNodePayloadForSlice } from "./context-graph/slice-payload.js";
 import { validateReasoningOverlayPartition } from "./context-graph/validate-reasoning-overlay-partition.js";
-import { buildCoachRequestContextV3, buildCoachRequestContextV4, prepareCoachRequest } from "./coach-prompt.js";
+import { buildCoachRequestContextV3, buildCoachRequestContextV4, buildCoachRequestContextV5, prepareCoachRequest } from "./coach-prompt.js";
 
 // ---------------------------------------------------------------------------
 // Shared helpers
@@ -475,7 +477,7 @@ export function validateCoachGrounding(
         const scoped = scope.get(claim.evidenceRef);
         if (scoped !== undefined) {
           const expectedKind =
-            claim.kind === "factor_difference" ? "FactorDifference" : "FactorFact";
+            COACH_CLAIM_NODE_KINDS[claim.kind];
           if (scoped.node.nodeKind !== expectedKind) {
             violations.push(
               rejection("claim_kind_mismatch", decision.decisionId, `claim kind ${claim.kind} disagrees with target nodeKind ${scoped.node.nodeKind}`),
@@ -577,6 +579,7 @@ export function validateReviewReport(
 
   if (report.generation.promptVersion === COACH_REVIEW_PROMPT_VERSION ||
     report.generation.promptVersion === COACH_REVIEW_PROMPT_VERSION_V4 ||
+    report.generation.promptVersion === COACH_REVIEW_PROMPT_VERSION_V5 ||
     report.generation.promptVersion === COACH_REVIEW_PROMPT_VERSION_V3) {
     // Rebuild the exact M6-D1 source slice and version-matched provider-neutral
     // DTO from the persisted selection. v3 uses the old flat context; v4 uses
@@ -601,7 +604,9 @@ export function validateReviewReport(
       ? buildCoachRequestContextV3(slice)
       : report.generation.promptVersion === COACH_REVIEW_PROMPT_VERSION_V4
         ? buildCoachRequestContextV4(slice)
-        : prepareCoachRequest(slice).requestContext;
+        : report.generation.promptVersion === COACH_REVIEW_PROMPT_VERSION_V5
+          ? buildCoachRequestContextV5(slice)
+          : prepareCoachRequest(slice).requestContext;
     if (canonicalJson(report.audit.requestContext) !== canonicalJson(expectedRequestContext)) {
       throw new Error("m6d2_report_request_context_mismatch");
     }
@@ -756,7 +761,7 @@ export function validateReviewReport(
         );
       }
       const expectedKind =
-        claim.kind === "factor_difference" ? "FactorDifference" : "FactorFact";
+        COACH_CLAIM_NODE_KINDS[claim.kind];
       if (scoped.node.nodeKind !== expectedKind) {
         groundingThrow(
           "claim_kind_mismatch",

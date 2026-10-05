@@ -214,7 +214,12 @@ describe("Codex CLI coach provider", () => {
       inferences: [{ localId: "i1", statement: "可见牌数较少", premiseRefs: ["evidence:1"] }],
       explanations: [{ text: "保留高效形状", claims: [{ kind: "factor_fact", evidenceRef: "evidence:1" }], judgmentLocalRef: "j1" }],
     }] });
-    expect(matchesCodexOutputSchema(draft, CODEX_COACH_OUTPUT_SCHEMA as unknown as Record<string, unknown>)).toBe(true);
+    for (const kind of ["factor_fact", "factor_difference", "known_game_fact", "model_evaluation"] as const) {
+      const variant = structuredClone(draft);
+      variant.decisions[0]!.explanations![0]!.claims[0]!.kind = kind;
+      expect(CoachReasoningDraftSchema.safeParse(variant).success).toBe(true);
+      expect(matchesCodexOutputSchema(variant, CODEX_COACH_OUTPUT_SCHEMA as unknown as Record<string, unknown>)).toBe(true);
+    }
   });
 
   it("marks exactly every property as required in each closed JSON-schema object", () => {

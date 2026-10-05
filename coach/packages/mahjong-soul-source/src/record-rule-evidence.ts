@@ -32,6 +32,10 @@ export interface MahjongSoulRankedRuleProfile {
 
 export interface MahjongSoulCatalogRuleMetadata {
   readonly mode: number;
+  /** Raw GameMetaData.mode_id (room/round match type), not GameMode.mode. */
+  readonly matchModeId: number | null;
+  /** Raw GameMetaData.room_id, which is a custom friend-room number. */
+  readonly roomId: number | null;
   readonly ai: boolean;
   readonly extendinfo: string;
   readonly detailRulePresent: boolean;
@@ -156,8 +160,13 @@ export function createMahjongSoulCatalogRuleInspector(bundle: MahjongSoulProtoco
     const detailRuleHasOverride = detailRuleOverride(detailRuleType, mode);
     const hasCustomRules = configHasCustomRules(config, detailRuleHasOverride);
     const meta = record(config.meta) ? config.meta : {};
+    const rawMeta = record(rawConfig.meta) ? rawConfig.meta : {};
+    const matchModeId = uint32.safeParse(rawMeta.mode_id);
+    const roomId = uint32.safeParse(rawMeta.room_id);
     return Object.freeze({
       mode: modeId,
+      matchModeId: matchModeId.success ? matchModeId.data : null,
+      roomId: roomId.success ? roomId.data : null,
       ai: mode.ai,
       extendinfo: mode.extendinfo,
       detailRulePresent: mode.detail_rule !== null && mode.detail_rule !== undefined,

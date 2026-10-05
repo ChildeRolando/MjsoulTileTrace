@@ -53,8 +53,10 @@ export const REVIEW_REPORT_SCHEMA_VERSION = "review-report/v1" as const;
 export const COACH_REVIEW_PROMPT_VERSION_V3 = "coach-review-prompt/v3" as const;
 /** The previous nested teaching brief prompt remains readable on report readback. */
 export const COACH_REVIEW_PROMPT_VERSION_V4 = "coach-review-prompt/v4" as const;
-/** The current nested brief prompt includes request-scoped displayable value paths. */
-export const COACH_REVIEW_PROMPT_VERSION = "coach-review-prompt/v5" as const;
+/** Frozen scalar-path prompt for saved-report audits. */
+export const COACH_REVIEW_PROMPT_VERSION_V5 = "coach-review-prompt/v5" as const;
+/** Current prompt supports grounded scene/model explanations without factor differences. */
+export const COACH_REVIEW_PROMPT_VERSION = "coach-review-prompt/v6" as const;
 
 /** The canonical in-process / stored draft remains v1. Wire v2 uses compact
  * request-scoped aliases and is decoded back to this canonical shape before
@@ -127,26 +129,34 @@ export const CoachJudgmentPayloadSchema = z.object({
 export type CoachJudgmentPayload = z.infer<typeof CoachJudgmentPayloadSchema>;
 
 /**
- * grill E6 — the frozen two-value evidence-claim vocabulary. The value is the
+ * Grounded claim vocabulary: factors, source scene facts and model evaluations. The value is the
  * model's DECLARATION; the grounding validator re-checks it against the
- * target node's nodeKind (factor_difference → FactorDifference,
- * factor_fact → FactorFact) so the model cannot relabel an efficiency
+ * target node's nodeKind through COACH_CLAIM_NODE_KINDS so the model cannot relabel an efficiency
  * difference as a defense fact. Axes / directions are always read back from
  * the evidence node, never declared here.
  */
 export const CoachEvidenceClaimKindSchema = z.enum([
   "factor_difference",
   "factor_fact",
+  "known_game_fact",
+  "model_evaluation",
 ]);
+/** Claims preserve source identity and authority; a model claim never becomes a hard fact. */
+export const COACH_CLAIM_NODE_KINDS = {
+  factor_difference: "FactorDifference",
+  factor_fact: "FactorFact",
+  known_game_fact: "KnownGameFact",
+  model_evaluation: "ModelEvaluation",
+} as const;
 export type CoachEvidenceClaimKind = z.infer<
   typeof CoachEvidenceClaimKindSchema
 >;
 
 /** One evidence claim inside an Explanation: a kind declaration plus the
- *  graph nodeId of the evidence node it renders from. */
+ *  graph nodeId of the source node it renders from. */
 export const CoachEvidenceClaimSchema = z.object({
   kind: CoachEvidenceClaimKindSchema,
-  /** Graph nodeId of a FactorDifference / FactorFact evidence node. */
+  /** Graph nodeId of a FactorDifference, FactorFact, KnownGameFact or ModelEvaluation node. */
   evidenceRef: z.string().min(1),
 }).strict();
 export type CoachEvidenceClaim = z.infer<typeof CoachEvidenceClaimSchema>;
@@ -541,6 +551,7 @@ export const ReviewGenerationSchema = z.object({
     "coach-review-prompt/v2",
     COACH_REVIEW_PROMPT_VERSION_V3,
     COACH_REVIEW_PROMPT_VERSION_V4,
+    COACH_REVIEW_PROMPT_VERSION_V5,
     COACH_REVIEW_PROMPT_VERSION,
   ]),
   draftSchemaVersion: z.enum([
@@ -643,16 +654,19 @@ export const ReviewReportSchema = z.object({
       context.addIssue({ code: z.ZodIssueCode.custom, message, path });
 
     if ((report.generation.promptVersion === COACH_REVIEW_PROMPT_VERSION_V4 ||
+      report.generation.promptVersion === COACH_REVIEW_PROMPT_VERSION_V5 ||
       report.generation.promptVersion === COACH_REVIEW_PROMPT_VERSION)
       && report.audit.requestContext === undefined) {
       addIssue(`${report.generation.promptVersion} requires requestContext audit metadata`, ["audit", "requestContext"]);
     }
     if ((report.generation.promptVersion === COACH_REVIEW_PROMPT_VERSION_V4 ||
+      report.generation.promptVersion === COACH_REVIEW_PROMPT_VERSION_V5 ||
       report.generation.promptVersion === COACH_REVIEW_PROMPT_VERSION)
       && report.generation.draftSchemaVersion !== COACH_REASONING_WIRE_DRAFT_SCHEMA_VERSION) {
       addIssue(`${report.generation.promptVersion} requires coach-reasoning-draft/v2 wire metadata`, ["generation", "draftSchemaVersion"]);
     }
     if ((report.generation.promptVersion === COACH_REVIEW_PROMPT_VERSION_V4 ||
+      report.generation.promptVersion === COACH_REVIEW_PROMPT_VERSION_V5 ||
       report.generation.promptVersion === COACH_REVIEW_PROMPT_VERSION)
       && report.audit.requestContext?.teachingBriefVersion !== "coach-teaching-brief/v1") {
       addIssue(`${report.generation.promptVersion} requires teaching brief audit metadata`, ["audit", "requestContext", "teachingBriefVersion"]);
@@ -664,9 +678,22 @@ export const ReviewReportSchema = z.object({
     }
     if (report.generation.promptVersion !== COACH_REVIEW_PROMPT_VERSION &&
       report.generation.promptVersion !== COACH_REVIEW_PROMPT_VERSION_V4 &&
+      report.generation.promptVersion !== COACH_REVIEW_PROMPT_VERSION_V5 &&
       report.generation.promptVersion !== COACH_REVIEW_PROMPT_VERSION_V3
       && report.generation.draftSchemaVersion !== COACH_REASONING_DRAFT_SCHEMA_VERSION_V1) {
       addIssue("historical coach prompt versions require coach-reasoning-draft/v1 metadata", ["generation", "draftSchemaVersion"]);
+    }
+
+    // Saved versions only admit the claim vocabulary they actually requested.
+    if (report.generation.promptVersion !== COACH_REVIEW_PROMPT_VERSION) {
+      report.reasoningOverlay.nodes.forEach((node, index) => {
+        if (node.nodeKind !== "Explanation") return;
+        const payload = CoachExplanationPayloadSchema.safeParse(node.payload);
+        if (payload.success && payload.data.claims.some(claim =>
+          claim.kind === "known_game_fact" || claim.kind === "model_evaluation")) {
+          addIssue("historical coach prompts do not support scene/model claims", ["reasoningOverlay", "nodes", index, "payload", "claims"]);
+        }
+      });
     }
 
     // Selection uniqueness (order itself is an engine builder contract,

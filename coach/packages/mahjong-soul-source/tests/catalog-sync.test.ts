@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { parse as parseProtobuf } from "protobufjs";
+import { parse as parseProtobuf, type Root } from "protobufjs";
 import { fileURLToPath } from "node:url";
 import {
   filterAnalyzableRecord,
@@ -91,6 +91,112 @@ function responseFrame(bundleValue: Awaited<ReturnType<typeof bundle>>, requestI
   const response = responseType.encode(responseType.fromObject(payload)).finish();
   const wrapper = root.lookupType("lq.Wrapper").encode({ name: "", data: response }).finish();
   return Uint8Array.from([3, requestId & 0xff, requestId >>> 8, ...wrapper]);
+}
+
+function concatBytes(...parts: readonly Uint8Array[]): Uint8Array {
+  const output = new Uint8Array(parts.reduce((sum, part) => sum + part.length, 0));
+  let offset = 0;
+  for (const part of parts) {
+    output.set(part, offset);
+    offset += part.length;
+  }
+  return output;
+}
+
+function wireVarint(value: number | bigint): Uint8Array {
+  let remaining = BigInt.asUintN(64, BigInt(value));
+  const bytes: number[] = [];
+  while (remaining > 0x7fn) {
+    bytes.push(Number(remaining & 0x7fn) | 0x80);
+    remaining >>= 7n;
+  }
+  bytes.push(Number(remaining));
+  return Uint8Array.from(bytes);
+}
+
+function wireBytesField(fieldNumber: number, value: Uint8Array): Uint8Array {
+  return concatBytes(wireVarint((fieldNumber << 3) | 2), wireVarint(value.length), value);
+}
+
+function wireInt32Field(fieldNumber: number, value: number): Uint8Array {
+  return concatBytes(wireVarint(fieldNumber << 3), wireVarint(value));
+}
+
+function messageWithRepeatedChildren(
+  root: Root,
+  typeName: string,
+  value: Record<string, unknown>,
+  repeatedFieldName: string,
+  repeatedFieldNumber: number,
+  children: readonly Uint8Array[],
+): Uint8Array {
+  const type = root.lookupType(typeName);
+  const base = type.encode(type.fromObject({ ...value, [repeatedFieldName]: [] })).finish();
+  return concatBytes(base, ...children.map(child => wireBytesField(repeatedFieldNumber, child)));
+}
+
+function responseFrameWithRawBody(
+  bundleValue: Awaited<ReturnType<typeof bundle>>,
+  requestId: number,
+  method: string,
+  responseBody: Uint8Array,
+): Uint8Array {
+  const route = bundleValue.rpcMap[method];
+  if (route === undefined) throw new Error("missing fixture route");
+  const root = parseProtobuf(bundleValue.protoText, { keepCase: true }).root;
+  const wrapper = root.lookupType("lq.Wrapper").encode({ name: "", data: responseBody }).finish();
+  return Uint8Array.from([3, requestId & 0xff, requestId >>> 8, ...wrapper]);
+}
+
+function listResponseWithExplicitZeroPt(
+  bundleValue: Awaited<ReturnType<typeof bundle>>,
+  requestId: number,
+  value: Record<string, unknown>,
+): Uint8Array {
+  const root = parseProtobuf(bundleValue.protoText, { keepCase: true }).root;
+  const entryValue = value as RawEntry;
+  const playerType = root.lookupType("lq.RecordPlayerResult");
+  const players = entryValue.players.map((playerValue, index) => {
+    const player = playerValue as Record<string, unknown>;
+    const { pt, ...withoutPt } = player;
+    const base = playerType.encode(playerType.fromObject(withoutPt)).finish();
+    return index === 0 && pt === 0 ? concatBytes(base, wireInt32Field(7, 0))
+      : pt === undefined ? base
+        : playerType.encode(playerType.fromObject(player)).finish();
+  });
+  const entryBytes = messageWithRepeatedChildren(root, "lq.RecordListEntry", entryValue, "players", 7, players);
+  const route = bundleValue.rpcMap[".lq.Lobby.fetchNextGameRecordList"]!;
+  const response = messageWithRepeatedChildren(
+    root, route.resp, { iterator_expire: 600 }, "entries", 3, [entryBytes],
+  );
+  return responseFrameWithRawBody(bundleValue, requestId, ".lq.Lobby.fetchNextGameRecordList", response);
+}
+
+function detailResponseWithExplicitZeroGradingScore(
+  bundleValue: Awaited<ReturnType<typeof bundle>>,
+  requestId: number,
+  uuid: string,
+): Uint8Array {
+  const root = parseProtobuf(bundleValue.protoText, { keepCase: true }).root;
+  const playerType = root.lookupType("lq.GameEndResult.PlayerItem");
+  const players = [0, 1, 2, 3].map(seat => {
+    const player = {
+      seat,
+      ...(seat === 0 ? { grading_score: 8 } : seat === 2 ? { grading_score: 0 } : seat === 3 ? { grading_score: -5 } : {}),
+    };
+    const { grading_score: gradingScore, ...withoutScore } = player;
+    const base = playerType.encode(playerType.fromObject(withoutScore)).finish();
+    return seat === 2 ? concatBytes(base, wireInt32Field(5, 0))
+      : gradingScore === undefined ? base
+        : playerType.encode(playerType.fromObject(player)).finish();
+  });
+  const gameEnd = messageWithRepeatedChildren(root, "lq.GameEndResult", {}, "players", 1, players);
+  const recordType = root.lookupType("lq.RecordGame");
+  const recordBase = recordType.encode(recordType.fromObject(observedRankedDetail(uuid, {}))).finish();
+  const record = concatBytes(recordBase, wireBytesField(12, gameEnd));
+  const route = bundleValue.rpcMap[".lq.Lobby.fetchGameRecordsDetail"]!;
+  const response = messageWithRepeatedChildren(root, route.resp, {}, "record_list", 2, [record]);
+  return responseFrameWithRawBody(bundleValue, requestId, ".lq.Lobby.fetchGameRecordsDetail", response);
 }
 
 function entryAt(uuid: string, startTime: number): RawEntry {
@@ -434,6 +540,90 @@ describe("recent Mahjong Soul catalog sync", () => {
     expect(result.entries).toHaveLength(1);
     expect(result.entries[0]).toMatchObject({ version: 202408, standard_rule: 1, catalog_rule_profile: "ranked_south_v1" });
     expect(filterAnalyzableRecord(result.entries[0]!, 103, 2_000).status).toBe("analyzable");
+    codec.close();
+  });
+
+  it("preserves list-pt and grading-score wire presence while projecting grading results by seat", async () => {
+    const loaded = await bundle();
+    const methods = [
+      ".lq.Lobby.fetchGameRecordListV2",
+      ".lq.Lobby.fetchNextGameRecordList",
+      ".lq.Lobby.fetchGameRecordsDetail",
+    ];
+    const codec = createLiqiCodec(loaded, { directCallMethods: methods, surfacedNotifications: [] });
+    const id = fixtureRecordId(42);
+    const listEntry = observedRankedEntry(id);
+    listEntry.players = listEntry.players.map((playerValue, index) => {
+      const player = playerValue !== null && typeof playerValue === "object"
+        ? playerValue as Record<string, unknown>
+        : {};
+      return {
+        ...player,
+        ...(index === 0 ? { pt: 0 } : index === 2 ? { pt: -7 } : {}),
+      };
+    });
+    let requestId = 1;
+    const decodedPayloads: {
+      list?: Record<string, unknown>;
+      detail?: Record<string, unknown>;
+    } = {};
+    const session: MahjongSoulLobbySession = {
+      async authenticate() {},
+      async call(method, payload) {
+        const currentId = requestId++;
+        codec.encodeRequest({ requestId: currentId, method, payload });
+        const responsePayload = method === ".lq.Lobby.fetchGameRecordListV2"
+          ? { iterator: "fixture-iter", iterator_expire: 600, actual_begin_time: payload.begin_time, actual_end_time: payload.end_time }
+          : method === ".lq.Lobby.fetchNextGameRecordList"
+            ? { next: false, iterator_expire: 600, entries: [listEntry] }
+            : { record_list: [] };
+        const frame = method === ".lq.Lobby.fetchNextGameRecordList"
+          ? listResponseWithExplicitZeroPt(loaded, currentId, listEntry)
+          : method === ".lq.Lobby.fetchGameRecordsDetail"
+            ? detailResponseWithExplicitZeroGradingScore(loaded, currentId, id)
+            : responseFrame(loaded, currentId, method, responsePayload);
+        if (method === ".lq.Lobby.fetchNextGameRecordList") {
+          const protoRoot = parseProtobuf(loaded.protoText, { keepCase: true }).root;
+          const wrapperMessage = protoRoot.lookupType("lq.Wrapper").decode(frame.subarray(3)) as unknown as { data: Uint8Array };
+          const rawResponse = protoRoot.lookupType(loaded.rpcMap[method]!.resp).decode(wrapperMessage.data) as unknown as {
+            entries?: Array<{ players?: Array<Record<string, unknown>> }>;
+          };
+          expect(rawResponse.entries?.[0]?.players?.[0]).toHaveProperty("pt", 0);
+          // protobufjs' default proto3 projection drops an explicit scalar zero;
+          // the production codec opts these two metadata fields into presence.
+          expect(Object.hasOwn(rawResponse.entries?.[0]?.players?.[0] ?? {}, "pt")).toBe(false);
+        }
+        const decoded = codec.decodeServerFrame(frame);
+        if (decoded.kind !== "response") throw new Error("unexpected codec fixture response");
+        if (method === ".lq.Lobby.fetchNextGameRecordList") decodedPayloads.list = decoded.payload as Record<string, unknown>;
+        if (method === ".lq.Lobby.fetchGameRecordsDetail") decodedPayloads.detail = decoded.payload as Record<string, unknown>;
+        return decoded.payload;
+      },
+      async close() { codec.close(); },
+    };
+
+    const result = await syncRecentCatalog({ session, bundle: loaded });
+    const entry = result.entries[0]!;
+    const decodedListEntry = (decodedPayloads.list?.entries as Array<Record<string, unknown>> | undefined)?.[0];
+    const decodedPlayers = decodedListEntry?.players as Array<Record<string, unknown>> | undefined;
+    expect(decodedPlayers?.[0]).toHaveProperty("pt", 0);
+    expect(Object.hasOwn(decodedPlayers?.[0] ?? {}, "pt")).toBe(true);
+    expect(Object.hasOwn(decodedPlayers?.[1] ?? {}, "pt")).toBe(false);
+    const decodedRecord = (decodedPayloads.detail?.record_list as Array<Record<string, unknown>> | undefined)?.[0];
+    const decodedResultPlayers = (decodedRecord?.result as Record<string, unknown> | undefined)?.players as Array<Record<string, unknown>> | undefined;
+    expect(decodedResultPlayers?.[2]).toHaveProperty("grading_score", 0);
+    expect(Object.hasOwn(decodedResultPlayers?.[2] ?? {}, "grading_score")).toBe(true);
+    expect(Object.hasOwn(decodedResultPlayers?.[1] ?? {}, "grading_score")).toBe(false);
+    expect(entry.players[0]).toHaveProperty("pt", 0);
+    expect(entry.players[1]).not.toHaveProperty("pt");
+    expect(entry.players[2]).toHaveProperty("pt", -7);
+    expect(entry.grading_score_by_seat).toEqual([8, null, 0, -5]);
+    const filtered = filterAnalyzableRecord(entry, 103, 2_000);
+    expect(filtered.status).toBe("analyzable");
+    if (filtered.status === "analyzable") {
+      expect(filtered.summary.players.map(player => player.gradingScore)).toEqual([8, null, 0, -5]);
+      expect(filtered.summary.rankedMode).toEqual({ id: 6, label: "四人银之间 · 半庄" });
+    }
     codec.close();
   });
 

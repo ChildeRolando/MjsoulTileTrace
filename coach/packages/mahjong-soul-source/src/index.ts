@@ -113,6 +113,15 @@ export {
   type MahjongSoulFetchedRecord,
 } from "./record-fetcher.js";
 export { unwrapGameDetailRecords } from "./record-wire.js";
+export {
+  MAHJONG_SOUL_MODE_LABEL_MAP_VERSION,
+  resolveMahjongSoulRecordModeLabel,
+} from "./record-mode-label.js";
+export {
+  MAHJONG_SOUL_GRADING_UNIT_MAP_VERSION,
+  resolveMahjongSoulGradingUnit,
+  type MahjongSoulGradingUnit,
+} from "./record-grading-unit.js";
 export type { MahjongSoulRecordRuleEvidence } from "./record-rule-evidence.js";
 export {
   decodeStoredRecordActions,

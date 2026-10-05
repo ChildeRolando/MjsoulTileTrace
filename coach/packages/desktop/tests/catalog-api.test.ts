@@ -19,12 +19,13 @@ function summary(): AnalyzableRecordSummary {
     shareUrl: `https://game.maj-soul.com/1/?paipu=${recordId}_a1`,
     startedAt: 1_000,
     players: [
-      { seat: 0, displayName: "A", finalScore: 32_000, rank: 1 },
-      { seat: 1, displayName: "B", finalScore: 27_000, rank: 2 },
-      { seat: 2, displayName: "C", finalScore: 23_000, rank: 3 },
-      { seat: 3, displayName: "D", finalScore: 18_000, rank: 4 },
+      { seat: 0, displayName: "A", finalScore: 32_000, rank: 1, gradingScore: null, gradingScoreUnit: null },
+      { seat: 1, displayName: "B", finalScore: 27_000, rank: 2, gradingScore: null, gradingScoreUnit: null },
+      { seat: 2, displayName: "C", finalScore: 23_000, rank: 3, gradingScore: null, gradingScoreUnit: null },
+      { seat: 3, displayName: "D", finalScore: 18_000, rank: 4, gradingScore: null, gradingScoreUnit: null },
     ],
     selfSeat: 2,
+    rankedMode: null,
     rule: {
       playerCount: 4,
       length: "south",

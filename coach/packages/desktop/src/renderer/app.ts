@@ -78,9 +78,12 @@ const ANALYSIS_STEP_STATUS_LABELS = {
 const ESTIMATE_SOURCE_LABELS = { learning: "本机参考尚在建立", history: "根据本机历史分析", current_rate: "根据当前分析速度" } as const;
 const ANALYSIS_STAGES = ["fetching", "replaying", "rules", "scoring", "facts", "packaging", "saving"] as const;
 let catalogSummaries: readonly import("@riichi-coach/contracts").AnalyzableRecordSummary[] = [];
+let catalogHasLoaded = false;
 let catalogPage = 1;
 let reviewSessions: Awaited<ReturnType<CoachDesktopApi["listReviewSessions"]>> = [];
 let reviewSessionPage = 1;
+let reviewSessionRefreshInFlight: Promise<void> | null = null;
+let mortalLabelPollTimer: number | null = null;
 let analysisProgressRun = 0;
 let analysisProgressPollInFlight = false;
 let queuedAnalysisProgressPolls: { run: number; terminal: boolean; request: () => void }[] = [];
@@ -218,10 +221,31 @@ function watchAnalysisProgress(): (summary: string) => void {
   };
 }
 
-async function refreshReviewSessions(): Promise<void> {
-  reviewSessions = await window.riichiCoachProvider.listReviewSessions();
-  reviewSessionPage = 1;
-  renderReviewSessionPage();
+function scheduleMortalLabelRefresh(): void {
+  if (mortalLabelPollTimer !== null) {
+    window.clearTimeout(mortalLabelPollTimer);
+    mortalLabelPollTimer = null;
+  }
+  if (!reviewSessions.some(session => session.recordLabel?.mortalAgreementStatus === "pending")) return;
+  mortalLabelPollTimer = window.setTimeout(() => {
+    mortalLabelPollTimer = null;
+    void refreshReviewSessions({ preservePage: true }).catch(() => scheduleMortalLabelRefresh());
+  }, 5_000);
+}
+
+function refreshReviewSessions(options: { preservePage?: boolean } = {}): Promise<void> {
+  if (reviewSessionRefreshInFlight !== null) return reviewSessionRefreshInFlight;
+  const request = (async () => {
+    reviewSessions = await window.riichiCoachProvider.listReviewSessions();
+    if (options.preservePage !== true) reviewSessionPage = 1;
+    renderReviewSessionPage();
+    if (catalogHasLoaded) renderCatalogPage();
+    scheduleMortalLabelRefresh();
+  })();
+  reviewSessionRefreshInFlight = request.finally(() => {
+    reviewSessionRefreshInFlight = null;
+  });
+  return reviewSessionRefreshInFlight;
 }
 
 function renderReviewSessionPage(): void {
@@ -238,6 +262,7 @@ function renderReviewSessionPage(): void {
     label.className = "saved-review-title";
     const presentation = recordLabelView(session.recordLabel, session.updatedAt);
     label.textContent = `${presentation.title} · ${session.activeReportRefId === null ? "尚未生成教练解说" : "已有教练解说"}`;
+    if (presentation.agreementDescription !== null) label.title = presentation.agreementDescription;
     const players = document.createElement("div");
     players.className = "saved-review-players";
     for (const player of presentation.players) {
@@ -299,6 +324,28 @@ function updateCatalogPagination(): void {
   catalogNextButton.disabled = operationPending || catalogPage >= pageCount;
 }
 
+function catalogAgreement(entry: import("@riichi-coach/contracts").AnalyzableRecordSummary): Pick<
+  RecordLabel,
+  "mortalAgreementStatus" | "mortalAgreement"
+> {
+  const canonicalId = `majsoul:${entry.recordId}`;
+  const matches = reviewSessions.flatMap(session => {
+    const label = session.recordLabel;
+    return label?.recordId === canonicalId && label.selfSeat === entry.selfSeat
+      ? [{ updatedAt: session.updatedAt, label }] : [];
+  });
+  if (matches.length === 0) return { mortalAgreementStatus: "not_applicable", mortalAgreement: null };
+  matches.sort((left, right) => right.updatedAt.localeCompare(left.updatedAt));
+  const latestAt = matches[0]!.updatedAt;
+  const latest = matches.filter(match => match.updatedAt === latestAt).map(match => match.label);
+  const first = latest[0]!;
+  const fingerprint = JSON.stringify({ status: first.mortalAgreementStatus, agreement: first.mortalAgreement });
+  if (latest.some(label => JSON.stringify({ status: label.mortalAgreementStatus, agreement: label.mortalAgreement }) !== fingerprint)) {
+    return { mortalAgreementStatus: "unavailable", mortalAgreement: null };
+  }
+  return { mortalAgreementStatus: first.mortalAgreementStatus, mortalAgreement: first.mortalAgreement };
+}
+
 function renderCatalogPage(): void {
   const pageCount = Math.max(1, Math.ceil(catalogSummaries.length / RECORDS_PER_PAGE));
   catalogPage = Math.min(catalogPage, pageCount);
@@ -313,6 +360,8 @@ function renderCatalogPage(): void {
       selfSeat: entry.selfSeat,
       startedAt: entry.startedAt,
       players: entry.players,
+      rankedMode: entry.rankedMode,
+      ...catalogAgreement(entry),
     };
     const presentation = recordLabelView(recordLabel, "");
     const metadata = document.createElement("div");
@@ -320,6 +369,7 @@ function renderCatalogPage(): void {
     const title = document.createElement("span");
     title.className = "catalog-record-title";
     title.textContent = presentation.title;
+    if (presentation.agreementDescription !== null) title.title = presentation.agreementDescription;
     const players = document.createElement("div");
     players.className = "catalog-record-players";
     for (const player of presentation.players) {
@@ -423,6 +473,7 @@ function formatStartedAt(startedAt: number): string {
 
 function renderCatalog(summaries: readonly import("@riichi-coach/contracts").AnalyzableRecordSummary[]): void {
   catalogSummaries = [...summaries];
+  catalogHasLoaded = true;
   catalogPage = 1;
   const notice = sessionUiPolicy(currentSessionStatus).catalogNotice;
   if (summaries.length === 0) {
@@ -475,6 +526,8 @@ async function runSync(): Promise<void> {
   setPending(true);
   try {
     renderCatalog(await window.riichiCoachCatalog.syncAnalyzableRecords());
+    // Saved-review statistics are optional enrichment of a successfully synced catalog.
+    await refreshReviewSessions({ preservePage: true }).catch(() => scheduleMortalLabelRefresh());
   } catch (error) {
     if (error instanceof Error && error.message === "mahjong_soul_session_invalid") {
       statusElement.textContent = "会话需要重新连接";

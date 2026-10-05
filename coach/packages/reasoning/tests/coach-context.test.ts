@@ -10,6 +10,7 @@ import {
   COACH_REASONING_DRAFT_SCHEMA_VERSION_V1,
   COACH_REVIEW_PROMPT_VERSION_V3,
   COACH_REVIEW_PROMPT_VERSION_V4,
+  COACH_REVIEW_PROMPT_VERSION_V5,
   CoachContextSchema,
   CoachTeachingBriefSchema,
   SELECTOR_POLICY_VERSION_V1,
@@ -24,7 +25,7 @@ import {
 } from "@riichi-coach/contracts";
 import { buildCoachRequest, decodeCoachReasoningDraft, prepareCoachRequest } from "../src/coach-prompt.js";
 import { validateCoachTeachingBriefAgainstContext } from "../src/coach-teaching-brief.js";
-import { buildCoachRequestContextV3, buildCoachRequestContextV4 } from "../src/coach-prompt.js";
+import { buildCoachRequestContextV3, buildCoachRequestContextV4, buildCoachRequestContextV5 } from "../src/coach-prompt.js";
 import { buildCoachExplanationPlaceholderCatalog } from "../src/coach-placeholder-catalog.js";
 import { canonicalJson, sha256Hex } from "../src/analysis/package-identity.js";
 import { buildGraphContextSlice } from "../src/context-graph/build-graph-context-slice.js";
@@ -503,7 +504,7 @@ describe("CoachContext compact transmission", () => {
     const request = buildCoachRequest(legacySlice);
 
     expect(legacyBytes).toBeGreaterThan(1_000_000);
-    expect(request.promptVersion).toBe("coach-review-prompt/v5");
+    expect(request.promptVersion).toBe("coach-review-prompt/v6");
     expect(Buffer.byteLength(request.prompt, "utf8")).toBeLessThan(1_000_000);
     for (const privateMarker of [
       "PRIVATE_PRODUCER_",
@@ -1140,7 +1141,7 @@ describe("CoachContext compact transmission", () => {
     expect(selection.selected).toHaveLength(2);
   });
 
-  it("fails closed on changed v5 audit bindings and reads saved v3/v4 plus historical v1/v2 reports", async () => {
+  it("fails closed on changed v6 audit bindings and reads saved v3/v4/v5 plus historical v1/v2 reports", async () => {
     const { graph, slice, selection } = await artifacts();
     const prepared = prepareCoachRequest(slice);
     const wire = { decisions: [wireDecision(prepared.context, prepared.context.selectedDecisionRefs[0]!)] };
@@ -1177,6 +1178,16 @@ describe("CoachContext compact transmission", () => {
     recordOf(savedV4.audit).requestContext = buildCoachRequestContextV4(slice);
     updateReportId(savedV4);
     expect(() => validateReviewReport(savedV4, graph)).not.toThrow();
+    const savedV5 = JSON.parse(JSON.stringify(report)) as Record<string, unknown>;
+    recordOf(savedV5.generation).promptVersion = COACH_REVIEW_PROMPT_VERSION_V5;
+    recordOf(savedV5.audit).requestContext = buildCoachRequestContextV5(slice);
+    updateReportId(savedV5);
+    expect(() => validateReviewReport(savedV5, graph)).not.toThrow();
+    const mislabeledV5 = JSON.parse(JSON.stringify(report)) as Record<string, unknown>;
+    recordOf(mislabeledV5.generation).promptVersion = COACH_REVIEW_PROMPT_VERSION_V5;
+    updateReportId(mislabeledV5);
+    expect(() => validateReviewReport(mislabeledV5, graph)).toThrow("m6d2_report_request_context_mismatch");
+
     // Merely changing the label must not launder the new catalog audit as v4.
     const mislabeledV4 = JSON.parse(JSON.stringify(report)) as Record<string, unknown>;
     recordOf(mislabeledV4.generation).promptVersion = COACH_REVIEW_PROMPT_VERSION_V4;

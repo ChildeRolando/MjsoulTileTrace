@@ -226,7 +226,7 @@ describe("M6-D2 coach version literals", () => {
       "coach-reasoning-draft/v2",
     );
     expect(COACH_REASONING_DRAFT_SCHEMA_VERSION_V1).toBe("coach-reasoning-draft/v1");
-    expect(COACH_REVIEW_PROMPT_VERSION).toBe("coach-review-prompt/v5");
+    expect(COACH_REVIEW_PROMPT_VERSION).toBe("coach-review-prompt/v6");
     expect(COACH_REVIEW_PROMPT_VERSION_V3).toBe("coach-review-prompt/v3");
     expect(COACH_REVIEW_PROMPT_VERSION_V4).toBe("coach-review-prompt/v4");
   });

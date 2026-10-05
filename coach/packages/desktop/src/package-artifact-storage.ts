@@ -1,9 +1,17 @@
 import { createHash } from "node:crypto";
 import { brotliCompressSync, brotliDecompressSync, constants as zlibConstants } from "node:zlib";
 import type { DatabaseSync } from "node:sqlite";
-import { JSONParser } from "@streamparser/json";
-import { RecordAnalysisSchema, type RecordAnalysis } from "@riichi-coach/contracts";
+import { JSONParser, type ParsedElementInfo } from "@streamparser/json";
+import {
+  RecordAnalysisSchema,
+  type RecordAnalysis,
+  type RecordLabelMortalAgreement,
+} from "@riichi-coach/contracts";
 import { writeCanonicalJson } from "@riichi-coach/reasoning";
+import {
+  summarizeMortalAgreement,
+  type MortalAgreementDecision,
+} from "./record-mortal-agreement.js";
 
 /** Maximum payload size enforced by analysis_package_chunks. */
 export const PACKAGE_CHUNK_BYTES = 64 * 1024;
@@ -253,9 +261,24 @@ export function readPackageArtifact(db: DatabaseSync, row: PackageArtifactRow): 
   catch { throw new Error("package_payload_invalid"); }
 }
 
-/** Read only the record identity for historical usage. Validate storage bytes
- * without materializing the analysis/evidence trees or sending them to UI. */
-export function readPackageRecordIdentity(db: DatabaseSync, row: PackageArtifactRow & { package_id: string; schema_version: string }): RecordAnalysis {
+type IdentifiedPackageArtifactRow = PackageArtifactRow & {
+  package_id: string;
+  schema_version: string;
+};
+
+function selectedPath(info: ParsedElementInfo): Array<string | number | undefined> {
+  return [...info.stack.slice(1).map(entry => entry.key), info.key];
+}
+
+/** Decode selected package fields while validating the complete stored bytes,
+ * their SHA, and the immutable parent package/schema identity. keepStack=false
+ * lets each selected value be released as soon as its callback completes. */
+function readPackageMetadata(
+  db: DatabaseSync,
+  row: IdentifiedPackageArtifactRow,
+  projectionPaths: readonly string[],
+  onProjectionValue: (info: ParsedElementInfo) => void,
+): void {
   const header = Buffer.from(row.payload);
   const receipt: StreamReceipt = {};
   let chunks: Iterable<Uint8Array>;
@@ -273,14 +296,23 @@ export function readPackageRecordIdentity(db: DatabaseSync, row: PackageArtifact
     receipt.digest = createHash("sha256").update(header).digest("hex");
     chunks = [header];
   }
-  const parser = new JSONParser({ paths: ["$.record", "$.packageId", "$.componentVersions.packageSchema"], keepStack: false, stringBufferSize: 64 * 1024 });
-  let record: unknown;
+  const parser = new JSONParser({
+    paths: [
+      ...projectionPaths,
+      "$.packageId",
+      "$.componentVersions.packageSchema",
+    ],
+    keepStack: false,
+    stringBufferSize: 64 * 1024,
+  });
   let packageId: unknown;
   let packageSchema: unknown;
   parser.onValue = value => {
-    if (value.key === "record") record = value.value;
-    if (value.key === "packageId") packageId = value.value;
-    if (value.key === "packageSchema") packageSchema = value.value;
+    const path = selectedPath(value);
+    if (path.length === 1 && path[0] === "packageId") packageId = value.value;
+    else if (path.length === 2 && path[0] === "componentVersions" &&
+      path[1] === "packageSchema") packageSchema = value.value;
+    else onProjectionValue(value);
   };
   try {
     for (const chunk of chunks) parser.write(chunk);
@@ -292,5 +324,198 @@ export function readPackageRecordIdentity(db: DatabaseSync, row: PackageArtifact
   if (receipt.digest !== row.content_hash) throw new Error("package_hash_mismatch");
   if (packageId !== row.package_id) throw new Error("package_identity_mismatch");
   if (packageSchema !== row.schema_version) throw new Error("package_version_mismatch");
+}
+
+/** Read only the record identity for historical usage. Validate storage bytes
+ * without materializing the analysis/evidence trees or sending them to UI. */
+export function readPackageRecordIdentity(db: DatabaseSync, row: IdentifiedPackageArtifactRow): RecordAnalysis {
+  let record: unknown;
+  readPackageMetadata(db, row, ["$.record"], info => {
+    if (info.key === "record") record = info.value;
+  });
   return RecordAnalysisSchema.parse(record);
+}
+
+type DecisionProjection = {
+  decisionId?: string;
+  outcome?: string;
+  modelEvaluation?: MutableModelEvaluationProjection;
+};
+
+type MutableModelEvaluationProjection = {
+  engineId?: "mortal" | "akagi_native";
+  candidates?: Array<{ actionRef: string }>;
+  preferredActions?: string[];
+  scoredActualModelActionRef?: string;
+};
+
+function decisionIndex(info: ParsedElementInfo): number {
+  const path = selectedPath(info);
+  if (path[0] !== "decisions" || typeof path[1] !== "number") {
+    throw new Error("package_payload_invalid");
+  }
+  return path[1];
+}
+
+function requireModelEvaluation(decision: DecisionProjection): MutableModelEvaluationProjection {
+  decision.modelEvaluation ??= {};
+  return decision.modelEvaluation;
+}
+
+type PackageMortalAgreementMetadata = {
+  readonly record: RecordAnalysis;
+  readonly agreement: RecordLabelMortalAgreement;
+};
+
+function readPackageMortalAgreementProjection(
+  db: DatabaseSync,
+  row: IdentifiedPackageArtifactRow,
+  includeRecord: true,
+): PackageMortalAgreementMetadata;
+function readPackageMortalAgreementProjection(
+  db: DatabaseSync,
+  row: IdentifiedPackageArtifactRow,
+  includeRecord: false,
+): { readonly agreement: RecordLabelMortalAgreement };
+function readPackageMortalAgreementProjection(
+  db: DatabaseSync,
+  row: IdentifiedPackageArtifactRow,
+  includeRecord: boolean,
+): { readonly record?: RecordAnalysis; readonly agreement: RecordLabelMortalAgreement } {
+  const byIndex = new Map<number, DecisionProjection>();
+  let recordValue: unknown;
+  let hasRecord = false;
+  const getDecision = (index: number): DecisionProjection => {
+    const existing = byIndex.get(index);
+    if (existing !== undefined) return existing;
+    const created: DecisionProjection = {};
+    byIndex.set(index, created);
+    return created;
+  };
+  readPackageMetadata(db, row, [
+    ...(includeRecord ? ["$.record"] : []),
+    "$.decisions.*.decisionId",
+    "$.decisions.*.outcome",
+    "$.decisions.*.modelEvaluation.engineId",
+    "$.decisions.*.modelEvaluation.candidates.*",
+    "$.decisions.*.modelEvaluation.preferredActions.*",
+    "$.decisions.*.modelEvaluation.scoredActualModelActionRef",
+  ], info => {
+    const path = selectedPath(info);
+    if (includeRecord && path.length === 1 && path[0] === "record") {
+      if (hasRecord) throw new Error("package_payload_invalid");
+      hasRecord = true;
+      recordValue = info.value;
+      return;
+    }
+    const index = decisionIndex(info);
+    const decision = getDecision(index);
+    if (path[2] === "decisionId") {
+      if (decision.decisionId !== undefined || typeof info.value !== "string" ||
+        info.value.length === 0) throw new Error("package_payload_invalid");
+      decision.decisionId = info.value;
+    } else if (path[2] === "outcome") {
+      if (decision.outcome !== undefined || typeof info.value !== "string") {
+        throw new Error("package_payload_invalid");
+      }
+      decision.outcome = info.value;
+    } else if (path[2] === "modelEvaluation" && path[3] === "engineId" &&
+      path.length === 4) {
+      const evaluation = requireModelEvaluation(decision);
+      if (evaluation.engineId !== undefined ||
+        (info.value !== "mortal" && info.value !== "akagi_native")) {
+        throw new Error("package_payload_invalid");
+      }
+      evaluation.engineId = info.value;
+    } else if (path[2] === "modelEvaluation" && path[3] === "candidates" &&
+      path.length === 5) {
+      const evaluation = requireModelEvaluation(decision);
+      const actionRef = info.value !== null && typeof info.value === "object" &&
+          !Array.isArray(info.value)
+        ? (info.value as Record<string, unknown>).actionRef
+        : undefined;
+      if (info.value === null || typeof info.value !== "object" ||
+        Array.isArray(info.value) || typeof actionRef !== "string") {
+        throw new Error("package_payload_invalid");
+      }
+      (evaluation.candidates ??= []).push({
+        actionRef,
+      });
+    } else if (path[2] === "modelEvaluation" && path[3] === "preferredActions" &&
+      path.length === 5) {
+      const evaluation = requireModelEvaluation(decision);
+      if (typeof info.value !== "string") throw new Error("package_payload_invalid");
+      (evaluation.preferredActions ??= []).push(info.value);
+    } else if (path[2] === "modelEvaluation" &&
+      path[3] === "scoredActualModelActionRef" && path.length === 4) {
+      const evaluation = requireModelEvaluation(decision);
+      if (evaluation.scoredActualModelActionRef !== undefined ||
+        typeof info.value !== "string") throw new Error("package_payload_invalid");
+      evaluation.scoredActualModelActionRef = info.value;
+    } else {
+      throw new Error("package_payload_invalid");
+    }
+  });
+
+  const indices = [...byIndex.keys()].sort((left, right) => left - right);
+  if (indices.some((index, ordinal) => index !== ordinal)) {
+    throw new Error("package_payload_invalid");
+  }
+  const decisions: MortalAgreementDecision[] = indices.map(index => {
+    const decision = byIndex.get(index)!;
+    if (decision.decisionId === undefined || decision.outcome === undefined) {
+      throw new Error("package_payload_invalid");
+    }
+    if (decision.outcome === "analysis_ready" &&
+      decision.modelEvaluation?.engineId === undefined) {
+      throw new Error("package_payload_invalid");
+    }
+    if (decision.outcome !== "analysis_ready" && decision.modelEvaluation !== undefined) {
+      throw new Error("package_payload_invalid");
+    }
+    const evaluation = decision.modelEvaluation;
+    const modelEvaluation: MortalAgreementDecision["modelEvaluation"] =
+      evaluation === undefined || evaluation.engineId === undefined
+        ? undefined
+        : {
+          engineId: evaluation.engineId,
+          ...(evaluation.candidates === undefined ? {} : { candidates: evaluation.candidates }),
+          ...(evaluation.preferredActions === undefined ? {} : { preferredActions: evaluation.preferredActions }),
+          ...(evaluation.scoredActualModelActionRef === undefined ? {} : {
+            scoredActualModelActionRef: evaluation.scoredActualModelActionRef,
+          }),
+        };
+    if (evaluation !== undefined && modelEvaluation === undefined) {
+      throw new Error("package_payload_invalid");
+    }
+    return {
+      outcome: decision.outcome as MortalAgreementDecision["outcome"],
+      ...(modelEvaluation === undefined ? {} : { modelEvaluation }),
+    };
+  });
+  const agreement = summarizeMortalAgreement(decisions);
+  if (includeRecord) {
+    if (!hasRecord) throw new Error("package_payload_invalid");
+    return { record: RecordAnalysisSchema.parse(recordValue), agreement };
+  }
+  return { agreement };
+}
+
+/** Stream decision scoring evidence and record identity from one pass while
+ * validating the complete package bytes and stored parent identity. Only the
+ * small RecordAnalysis object and compact decision projections are retained. */
+export function readPackageMortalAgreementMetadata(
+  db: DatabaseSync,
+  row: IdentifiedPackageArtifactRow,
+): PackageMortalAgreementMetadata {
+  return readPackageMortalAgreementProjection(db, row, true);
+}
+
+/** Stream only the compact Mortal preference evidence needed by the title
+ * label. Factor ledgers and the rest of each decision are never materialized. */
+export function readPackageMortalAgreement(
+  db: DatabaseSync,
+  row: IdentifiedPackageArtifactRow,
+): RecordLabelMortalAgreement {
+  return readPackageMortalAgreementProjection(db, row, false).agreement;
 }

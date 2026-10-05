@@ -86,7 +86,7 @@ describe("local saved review labels", () => {
     const enriched = store.enrichSession(sessionSummary("package-a", "session-a"));
     expect(enriched.recordLabel).toMatchObject({
       title: expect.stringContaining("四人南风"),
-      recordId,
+      recordId: `majsoul:${recordId}`,
       selfSeat: 2,
       startedAt: summary.startedAt,
       players: summary.players,
@@ -135,7 +135,7 @@ describe("local saved review labels", () => {
         startedAt: null,
       });
       expect(fallback.players).toEqual(Array.from({ length: 4 }, (_, seat) => ({
-        seat, displayName: null, rank: null, finalScore: null,
+        seat, displayName: null, rank: null, finalScore: null, gradingScore: null, gradingScoreUnit: null,
       })));
     } finally { reopened.close(); }
   });
@@ -152,7 +152,7 @@ describe("local saved review labels", () => {
       expect(label.recordId).toBe(recordId);
       expect(label.startedAt).toBeNull();
       expect(label.players).toEqual(Array.from({ length: 4 }, (_, seat) => ({
-        seat, displayName: null, rank: null, finalScore: null,
+        seat, displayName: null, rank: null, finalScore: null, gradingScore: null, gradingScoreUnit: null,
       })));
     } finally { store.close(); }
   });
@@ -170,10 +170,36 @@ describe("local saved review labels", () => {
         startedAt: null,
       });
       const view = recordLabelView(enriched.recordLabel, enriched.updatedAt);
-      expect(view.title).toBe("牌谱复盘 · 保存于 2025-12-31");
+      expect(view.title).toBe("牌谱复盘 · 保存于 2025-12-31 · Mortal统计中");
       expect(view.players).toEqual([]);
       expect(view.title).not.toContain("package-b");
     } finally { store.close(); }
+  });
+
+  it("updates agreement and preserves a legacy raw-ID label from the actual canonical package without a catalog", () => {
+    const rootPath = root();
+    createLibrary(rootPath);
+    const store = labelStore(rootPath);
+    store.rememberCatalog([summary]);
+    store.observePackage(packageIdentity("package-a"));
+    const before = store.enrichSession(sessionSummary("package-a", "session-a")).recordLabel;
+    const legacy = { ...before, recordId, mortalAgreementStatus: undefined, mortalAgreement: undefined };
+    const db = new DatabaseSync(join(rootPath, "library.sqlite"));
+    try {
+      db.prepare("UPDATE review_session_labels SET label_payload=? WHERE session_id='session-a'").run(JSON.stringify(legacy));
+    } finally { db.close(); }
+    store.rememberCatalog([]);
+    const loaded = Object.assign(packageIdentity("package-a"), { decisions: [{
+      outcome: "analysis_ready", modelEvaluation: {
+        engineId: "mortal", candidates: [{ actionRef: "action:actual" }, { actionRef: "action:other" }],
+        preferredActions: ["action:actual"], scoredActualModelActionRef: "action:actual",
+      },
+    }] });
+    store.observePackage(loaded);
+    const after = store.enrichSession(sessionSummary("package-a", "session-a")).recordLabel;
+    expect(after).toMatchObject({ title: before.title, players: before.players, startedAt: before.startedAt,
+      recordId: `majsoul:${recordId}`, selfSeat: 2,
+      mortalAgreementStatus: "ready", mortalAgreement: { agreementCount: 1, scoredDecisionCount: 1 } });
   });
 
   it("creates a dated unknown-player fallback for an opened package with no remembered catalog", () => {
@@ -182,7 +208,7 @@ describe("local saved review labels", () => {
     const store = labelStore(rootPath);
     try {
       store.rememberCatalog([]);
-      expect(() => store.observePackage(packageIdentity("package-b", "261005-86c19037-4ff0-431d-9111-5a2e2b7dac4d", 2))).not.toThrow();
+    expect(() => store.observePackage(packageIdentity("package-b", "majsoul:261005-86c19037-4ff0-431d-9111-5a2e2b7dac4d", 2))).not.toThrow();
       const label = store.enrichSession(sessionSummary("package-b", "session-b")).recordLabel;
       expect(label.title).toBe("雀魂牌谱 · 2026-10-05");
       expect(label.startedAt).toBeNull();
@@ -199,8 +225,10 @@ describe("local saved review labels", () => {
     try {
       store.rememberCatalog([]);
       expect(() => store.observePackage(packageIdentity("package-b", id, 0))).not.toThrow();
-      expect(store.enrichSession(sessionSummary("package-b", "session-b")).recordLabel.title)
-        .toBe("雀魂牌谱 · 日期未知");
+      const session = store.enrichSession(sessionSummary("package-b", "session-b"));
+      expect(session.recordLabel.title).toBe("牌谱 · 日期未知");
+      expect(session.recordLabel.mortalAgreementStatus).toBe("unavailable");
+      expect(recordLabelView(session.recordLabel, session.updatedAt).title).toContain("Mortal统计不可用");
     } finally { store.close(); }
   });
 
@@ -222,6 +250,43 @@ describe("local saved review labels", () => {
 
       expect(store.enrichSession(sessionSummary("package-a", "session-a")).recordLabel).toEqual(before);
     } finally { store.close(); }
+  });
+
+  it("does not associate raw-ID or wrong-seat package labels with a catalog entry", () => {
+    const rootPath = root();
+    createLibrary(rootPath);
+    const store = labelStore(rootPath);
+    try {
+      store.rememberCatalog([summary]);
+      store.observePackage(packageIdentity("package-a", recordId, 2));
+      const rawIdLabel = store.enrichSession(sessionSummary("package-a", "session-a")).recordLabel;
+      expect(rawIdLabel.recordId).toBe(recordId);
+      expect(rawIdLabel.title).toBe("牌谱 · 日期未知");
+      expect(rawIdLabel.title).not.toContain("四人南风");
+
+      store.observePackage(packageIdentity("package-b", `majsoul:${recordId}`, 1));
+      const wrongSeatLabel = store.enrichSession(sessionSummary("package-b", "session-b")).recordLabel;
+      expect(wrongSeatLabel.recordId).toBe(`majsoul:${recordId}`);
+      expect(wrongSeatLabel.selfSeat).toBe(1);
+      expect(wrongSeatLabel.title).not.toContain("四人南风");
+    } finally { store.close(); }
+  });
+
+  it("shows unknown room without exposing the opaque mode ID", () => {
+    const label = RecordLabelSchema.parse({
+      title: "2026-10-05 · 四人南风",
+      recordId: `majsoul:${recordId}`,
+      selfSeat: 2,
+      startedAt: summary.startedAt,
+      players: summary.players,
+      rankedMode: { id: 4_294_967_000, label: null },
+      mortalAgreementStatus: "not_applicable",
+      mortalAgreement: null,
+    });
+    const title = recordLabelView(label, "2026-10-05T00:00:00.000Z").title;
+    expect(title).toContain("段位房间未知");
+    expect(title).not.toContain("mode_id");
+    expect(title).not.toContain("4294967000");
   });
 
   it("keeps missing values explicit and highlights the actual self seat in the renderer projection", () => {
@@ -246,5 +311,24 @@ describe("local saved review labels", () => {
     expect(view.players[3]?.text).toContain("名次未知");
     expect(view.players[3]?.text).toContain("分数未知");
     expect(() => RecordLabelSchema.parse({ ...label, players: label.players.map((player, index) => ({ ...player, rank: index < 2 ? 1 : player.rank })) })).toThrow();
+  });
+
+  it("shows saved Mortal agreement on a generic fallback without inventing catalog identity", () => {
+    const label = RecordLabelSchema.parse({
+      title: "牌谱复盘 · 保存于 2026-10-05",
+      recordId: null,
+      selfSeat: null,
+      startedAt: null,
+      players: Array.from({ length: 4 }, (_, seat) => ({
+        seat, displayName: null, finalScore: null, rank: null, gradingScore: null,
+      })),
+      mortalAgreementStatus: "ready",
+      mortalAgreement: { agreementCount: 1, scoredDecisionCount: 2 },
+    });
+    const view = recordLabelView(label, "2026-10-05T00:00:00.000Z");
+    expect(view.title).toBe("牌谱复盘 · 保存于 2026-10-05 · Mortal 50%（1/2）");
+    expect(view.agreementDescription).toContain("有效评分且至少有两个候选动作");
+    expect(view.agreementDescription).toContain("不读取教练偏好");
+    expect(view.players).toEqual([]);
   });
 });
