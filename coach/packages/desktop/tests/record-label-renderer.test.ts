@@ -142,7 +142,7 @@ async function renderCatalogCard(): Promise<CatalogCard> {
 describe("catalog record label renderer", () => {
   it("renders date and rule plus all players ordered by rank with the actual self seat highlighted", async () => {
     const card = await renderCatalogCard();
-    expect(card.title).toBe(`${expectedStartedAt()} · 四人南风 · 四人银之间 · 半庄 · 本局魂珠 -1.23`);
+    expect(card.title).toBe(`${expectedStartedAt()} · 四人南风 · 银之间 · 本局魂珠 -1.23`);
     expect(card.players.map(player => player.text)).toEqual([
       "西位 · Gamma · 第1名 · 32,000点 · 魂珠 -1.23",
       "东位 · Alpha · 第2名 · 27,000点",

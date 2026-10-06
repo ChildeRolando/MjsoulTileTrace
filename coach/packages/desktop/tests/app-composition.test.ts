@@ -302,7 +302,7 @@ describe("account catalog app composition", () => {
         recordLabel: pendingLabel(index),
       })),
     });
-    expect(result.catalogRecordTitle).toContain("四人银之间 · 半庄");
+    expect(result.catalogRecordTitle).toContain("四人南风 · 银之间");
     expect(result.catalogRecordTitle).toContain("Mortal 50%（1/2）");
     expect(result.reviewSessionPagination).toBe("第 2 / 2 页 · 共 9 条");
     expect(result.reviewSessionListText).toContain("saved-9");
