@@ -23,6 +23,7 @@ function encodeRecord(
   const gameActionType = root.lookupType("lq.GameAction");
   const recordsType = root.lookupType("lq.GameDetailRecords");
   const gameActions = actions.map(({ name, data }) => {
+    if (name.length === 0) return gameActionType.fromObject({});
     const actionType = root.lookupType(`lq.${name}`);
     const actionBytes = actionType.encode(actionType.fromObject(data)).finish();
     const wrapper = wrapperType.fromObject({ name: `.lq.${name}`, data: actionBytes });
@@ -40,11 +41,11 @@ const selfHand = [
   "1p", "2p", "3p", "4p",
 ];
 
-function newRound(selfActor: number, dealer: number): Record<string, unknown> {
+function newRound(selfActor: number, dealer: number, dealerDrawTile = "1z"): Record<string, unknown> {
   const other = ["7z", "6z", "5z", "4z", "3z", "2z", "1z", "1s", "2s", "3s", "4s", "5s", "6s"];
   const tiles: string[][] = [];
   for (let seat = 0; seat < 4; seat += 1) {
-    if (seat === dealer) tiles.push([...selfHand, "1z"]);
+    if (seat === dealer) tiles.push([...selfHand, dealerDrawTile]);
     else if (seat === selfActor) tiles.push([...selfHand]);
     else tiles.push([...other]);
   }
@@ -315,6 +316,134 @@ describe("Mahjong Soul stored Record* mapper", () => {
     const draws = result.stream.events.filter((event) => event.type === "tile_drawn");
     expect(draws[0]?.tile).toEqual({ visibility: "hidden" });
     expect(draws[1]?.tile).toEqual({ visibility: "visible", tile: { id: "5p", red: false } });
+  });
+
+  it.each([
+    { label: "seat zero self view", selfActor: 0, dealerDraw: "1z", discard: "1z", expectedRed: false },
+    { label: "non-self dealer view", selfActor: 2, dealerDraw: "0m", discard: "0m", expectedRed: true },
+  ])("recognizes the exact synthetic dealer draw as the opening tsumogiri ($label)", async fixture => {
+    const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
+    const recordBytes = encodeRecord(bundle, [
+      { name: "RecordNewRound", data: newRound(fixture.selfActor, 0, fixture.dealerDraw) },
+      { name: "RecordDiscardTile", data: { seat: 0, tile: fixture.discard, moqie: false } },
+    ]);
+    const result = mapMahjongSoulRecord({
+      gameId: "game:opening-tsumogiri", selfActor: fixture.selfActor, recordId, recordBytes, bundle,
+    });
+    expect(result.status).toBe("ready");
+    if (result.status !== "ready") return;
+    const events = result.stream.events;
+    const draw = events.find(event => event.type === "tile_drawn");
+    const discard = events.find(event => event.type === "tile_discarded");
+    expect(draw).toMatchObject({
+      actor: 0,
+      tile: fixture.selfActor === 0
+        ? { visibility: "visible", tile: { id: fixture.expectedRed ? "5m" : "1z", red: fixture.expectedRed } }
+        : { visibility: "hidden" },
+      sourceRecordRef: "record:" + recordId + ":action:1",
+    });
+    expect(discard).toMatchObject({
+      actor: 0,
+      tile: { id: fixture.expectedRed ? "5m" : "1z", red: fixture.expectedRed },
+      discardMode: "tsumogiri",
+      sourceRecordRef: "record:" + recordId + ":action:2",
+    });
+  });
+
+  it("recognizes the drawn tile when the starting hand already contains an indistinguishable copy", async () => {
+    const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
+    const start = newRound(0, 0, "1z");
+    start.tiles0 = [...selfHand.slice(0, 12), "1z", "1z"];
+    const result = mapMahjongSoulRecord({
+      gameId: "game:opening-duplicate", selfActor: 0, recordId, bundle,
+      recordBytes: encodeRecord(bundle, [
+        { name: "RecordNewRound", data: start },
+        { name: "RecordDiscardTile", data: { seat: 0, tile: "1z", moqie: false } },
+      ]),
+    });
+    expect(result.status).toBe("ready");
+    if (result.status !== "ready") return;
+    expect(result.stream.events.find(event => event.type === "tile_discarded"))
+      .toMatchObject({ tile: { id: "1z", red: false }, discardMode: "tsumogiri" });
+  });
+
+  it("expires opening draw evidence when another source action intervenes", async () => {
+    const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
+    const result = mapMahjongSoulRecord({
+      gameId: "game:opening-intervening", selfActor: 0, recordId, bundle,
+      recordBytes: encodeRecord(bundle, [
+        { name: "RecordNewRound", data: newRound(0, 0) },
+        { name: "RecordDealTile", data: { seat: 0, tile: "2p", left_tile_count: 68 } },
+        { name: "RecordDiscardTile", data: { seat: 0, tile: "1z", moqie: false } },
+      ]),
+    });
+    expect(result.status).toBe("ready");
+    if (result.status !== "ready") return;
+    expect(result.stream.events.find(event => event.type === "tile_discarded"))
+      .toMatchObject({ tile: { id: "1z", red: false }, discardMode: "tedashi" });
+  });
+
+  it("uses decoded-action adjacency while preserving source ordinals across empty wire actions", async () => {
+    const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
+    const result = mapMahjongSoulRecord({
+      gameId: "game:opening-empty-action", selfActor: 0, recordId, bundle,
+      recordBytes: encodeRecord(bundle, [
+        { name: "RecordNewRound", data: newRound(0, 0) },
+        { name: "", data: {} },
+        { name: "RecordDiscardTile", data: { seat: 0, tile: "1z", moqie: false } },
+      ]),
+    });
+    expect(result.status).toBe("ready");
+    if (result.status !== "ready") return;
+    expect(result.stream.events.find(event => event.type === "tile_discarded"))
+      .toMatchObject({
+        tile: { id: "1z", red: false },
+        discardMode: "tsumogiri",
+        sourceRecordRef: "record:" + recordId + ":action:3",
+      });
+  });
+
+  it.each([
+    {
+      label: "same five but different red identity",
+      start: () => newRound(0, 0, "0m"),
+      actions: [{ name: "RecordDiscardTile", data: { seat: 0, tile: "5m", moqie: false } }],
+    },
+    {
+      label: "other opening tile",
+      start: () => newRound(0, 0, "1z"),
+      actions: [{ name: "RecordDiscardTile", data: { seat: 0, tile: "2p", moqie: false } }],
+    },
+    {
+      label: "later matching discard",
+      start: () => newRound(0, 0, "1z"),
+      actions: [
+        { name: "RecordDiscardTile", data: { seat: 0, tile: "2p", moqie: false } },
+        { name: "RecordDiscardTile", data: { seat: 0, tile: "1z", moqie: false } },
+      ],
+    },
+    {
+      label: "missing fourteenth starting tile",
+      start: () => {
+        const round = newRound(0, 0, "1z");
+        round.tiles0 = selfHand;
+        return round;
+      },
+      actions: [{ name: "RecordDiscardTile", data: { seat: 0, tile: "1z", moqie: false } }],
+    },
+  ])("does not infer tsumogiri without exact opening evidence ($label)", async fixture => {
+    const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
+    const result = mapMahjongSoulRecord({
+      gameId: "game:opening-tedashi", selfActor: 0, recordId, bundle,
+      recordBytes: encodeRecord(bundle, [
+        { name: "RecordNewRound", data: fixture.start() },
+        ...fixture.actions,
+      ]),
+    });
+    expect(result.status).toBe("ready");
+    if (result.status !== "ready") return;
+    const discards = result.stream.events.filter(event => event.type === "tile_discarded");
+    expect(discards.map(event => event.discardMode)).toEqual(fixture.actions.map(() => "tedashi"));
   });
 
   it.each([0, 1, 2, 3] as const)("selects tiles%d as the self hand for selfActor=%d", async (selfActor) => {

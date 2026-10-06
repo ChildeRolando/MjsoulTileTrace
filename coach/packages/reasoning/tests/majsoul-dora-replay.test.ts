@@ -11,19 +11,48 @@ const identity: LibriichiRuleIdentity = {
   wrapperSha256: "2".repeat(64), normalizationVersion: LIBRIICHI_RULE_NORMALIZATION_VERSION,
 };
 
-async function mapRound(actions: readonly { name: string; data: Record<string, unknown> }[], selfActor: number) {
+async function mapRound(actions: readonly { name: string; data: Record<string, unknown> }[], selfActor: number, openingEmptyActions = 0) {
   const bundle = await loadMahjongSoulProtocolBundle(fileURLToPath(new URL("../../../vendor/mahjong-soul-protocol/", import.meta.url)));
   const root = parse(bundle.protoText, { keepCase: true }).root;
   const wrapper = root.lookupType("lq.Wrapper");
   const records = root.lookupType("lq.GameDetailRecords");
-  const recordBytes = records.encode(records.fromObject({ version: 210715, actions: actions.map(action => {
+  const recordBytes = records.encode(records.fromObject({ version: 210715, actions: actions.flatMap(action => {
     const type = root.lookupType(`lq.${action.name}`);
-    return { result: wrapper.encode(wrapper.fromObject({ name: `.lq.${action.name}`,
+    const encoded = { result: wrapper.encode(wrapper.fromObject({ name: `.lq.${action.name}`,
       data: type.encode(type.fromObject(action.data)).finish() })).finish() };
+    return [encoded, ...(action.name === "RecordNewRound" ? Array.from({ length: openingEmptyActions }, () => ({})) : [])];
   }) })).finish();
   return mapMahjongSoulRecord({ gameId: "majsoul:dora-replay", selfActor,
     recordId: "000000-00000000-0000-0000-0000-000000000001", recordBytes, bundle });
 }
+
+describe("Mahjong Soul dealer opening discard reaches replay", () => {
+  it.each([0, 2])("replays the stored tedashi of the split fourteenth tile at seat %s", async dealer => {
+    // Reproduces the opening boundary in the two 2026-10-07 captures. All
+    // fourteen tiles are dealt together, so the stored first discard is
+    // tedashi even when canonical replay split that tile into an initial draw.
+    const hand = ["1m", "2m", "3m", "4m", "5m", "6m", "7m", "8m", "9m", "1p", "2p", "3p", "4p"];
+    const hands = [hand, hand, hand, hand].map((tiles, seat) => seat === dealer ? [...tiles, "3z"] : tiles);
+    const mapped = await mapRound([
+      { name: "RecordNewRound", data: { chang: 0, ju: dealer, doras: ["7z"],
+        scores: [25000, 25000, 25000, 25000], left_tile_count: 69,
+        tiles0: hands[0], tiles1: hands[1], tiles2: hands[2], tiles3: hands[3] } },
+      { name: "RecordDiscardTile", data: { seat: dealer, tile: "3z", moqie: false } },
+      { name: "RecordHule", data: { hules: [{ seat: (dealer + 1) % 4, zimo: false, hu_tile: "3z" }],
+        delta_scores: [0, 1, 2, 3].map(seat => seat === dealer ? -1000 : seat === (dealer + 1) % 4 ? 1000 : 0) } },
+    ], dealer, dealer === 0 ? 2 : 1);
+    expect(mapped.status).toBe("ready");
+    if (mapped.status !== "ready") throw new Error("fixture");
+    const decisions = replayCanonicalStream(mapped.stream);
+    expect(decisions).toHaveLength(1);
+    expect(decisions[0]!.actualAction).toMatchObject({ kind: "discard", tile: { id: "3z", red: false } });
+    expect(decisions[0]!.snapshot.privateState.concealedTiles).toHaveLength(13);
+    expect(decisions[0]!.snapshot.privateState.currentDraw?.tile).toEqual({ id: "3z", red: false });
+    expect(decisions[0]!.snapshot.publicState.roundOrdinal).toBe(0);
+    expect(mapped.stream.events.find(event => event.type === "tile_discarded")!.sourceRecordRef)
+      .toBe(`record:000000-00000000-0000-0000-0000-000000000001:action:${dealer === 0 ? 4 : 3}`);
+  });
+});
 
 // Synthetic protocol/replay regression, not a replacement for real source
 // capture. The record finishes with another player's ron on our discard.
