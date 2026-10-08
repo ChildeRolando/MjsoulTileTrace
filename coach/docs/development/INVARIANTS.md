@@ -376,6 +376,15 @@ Model/report evidence provider（模型/报告证据来源）
   security/architecture suites 保护 P6/DTO 边界。
 - **Status**：machine-enforced；真实收费 provider 未授权且不属于默认 suite。
 
+## INV-013 Blind Discard Arena 标签隔离
+
+- **Statement**：Arena Coach/provider、helper MCP 与 RAG 只能读显式白名单投影的决策时观察和完整合法切牌集合；Mortal 最终动作、实战动作及未来事件只能由 grader 在 Coach submission 锁定后读取。Arena run 和 grader artifact 不进入生产 ReviewReport/ReviewSession。
+- **Why**：答案可从 case identity、工具结果、排序、路径或生产复盘 artifact 侧漏；混用生产生成/保存 seam 也会改变既有语义。
+- **Owner / boundary**：[Blind Discard Arena spec](../specs/2026-10-09-blind-discard-arena.md)；Arena 的本地 main/CLI 运行路径；生产 generation/persistence 仍由 INV-011/012 与 ADR-0005 拥有。
+- **Enforcement**：当前没有 Arena implementation 或 executable check；Stage 1 为 docs-only。T1–T4 必须在各自边界添加 label-mutation/allow-list、MCP 越权、RAG off/local 和预算回归；若新增 provider seam，T3 同步 `check-architecture` 与其自测，保留 production `generateReviewReport` 唯一语义。
+- **Executable tests**：未来 owner 与命令见 Arena spec §11；生产回归继续由 `review-report.test.ts`、`automatic-report-scope.test.ts`、`coach-provider.test.ts` 和 `codex-coach-provider.test.ts` 保护。
+- **Status**：docs-only，直至 Arena code 与其 focused regressions 落地；不得宣称已 machine-enforced。
+
 ---
 
 ## 维护规则
