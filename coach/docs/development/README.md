@@ -15,12 +15,12 @@
 
 ## 当前一句话状态
 
-雀魂国区登录、跨重启恢复、最近 30 场可分析目录、牌谱取回、canonical 重放、managed local
-Mortal + `mortal-582500`、整盘确定性分析、selector、ContextGraph、grounded ReviewReport、
-M7-A review UI、M7-B 持久化与 share-import → ReviewSession → Review Workspace 接线均已
-落入当前候选；B/C 已合入 master。D 已将 account `startRecordAnalysis` 与 share-import
-接入同一 handoff，并提供从 app shell 启动的永久 Electron Golden Slice 命令与测试 owner。精确
-候选门禁须独立验证，真人 provider smoke 仍待执行。**Playable Review MVP 尚不可宣称 demoable**。
+雀魂目录与牌谱分析、managed local Mortal、grounded ReviewReport、M7-A/B，以及 account 与
+share-import 到 Review Workspace 的 A–D 组合均已合入 master；最终候选的 Electron Golden Slice、
+固定五门和 fresh independent review 均已通过。真人 smoke 目前只绑定较早候选
+`d302c383`，其后的最终候选改动尚未由真人账号/provider 流程覆盖。**Playable Review MVP
+仍为 not DEMOABLE；唯一剩余发布门是对最终合并版本完成获授权的真人 smoke。** 当前证据和
+逐项 §7 对照见[路线图](ROADMAP.md)与[发布验证记录](VERIFICATION.md)。
 M7-A 的冻结规格见
 [`2026-09-21-m7-a-whole-game-fixed-review-ui-design.md`](../specs/2026-09-21-m7-a-whole-game-fixed-review-ui-design.md)，
 M7-B 的冻结规格见
@@ -29,15 +29,18 @@ M7-B 的冻结规格见
 [`2026-09-24-playable-review-mvp-integration-closeout.md`](../specs/2026-09-24-playable-review-mvp-integration-closeout.md)
 为准；其中 manual-import 的生产模型前置已由
 [`2026-09-24-local-mortal-runtime-production-design.md`](../specs/2026-09-24-local-mortal-runtime-production-design.md)
-冻结为 managed local Mortal + `mortal-582500`。PR #28 已合入；本候选只消费其真实
-checkpoint production seam，不把 spike 单独计为产品 PASS。
+冻结为 managed local Mortal + `mortal-582500`。PR #28 已合入；产品主链消费其真实
+checkpoint production seam；spike 本身不替代 §7 的组合发布验收。
 
-当前主线是 [libriichi 唯一合法动作来源重构](../specs/2026-09-28-libriichi-legal-action-authority-design.md) 的真实整场可靠性验收：
+### 历史开发阶段记录（2026-09-29）
+
+[libriichi 唯一合法动作来源重构](../specs/2026-09-28-libriichi-legal-action-authority-design.md) 的真实整场可靠性验收当时是开发主线：
 第二套本地合法动作推导已退出，helper 教学事实保留。决策见
 [ADR-0006](../adr/0006-libriichi-single-legal-action-authority.md)，执行见
 [迁移计划](../plans/2026-09-28-libriichi-legal-action-authority-migration.md)。
 截至 2026-09-29，唯一来源已接入且真实牌谱来源已补全；完整分析档案的保存重开已通过
-实现侧回归，最终候选全量验证与独立验收尚未完成。具体定位见[当前路线图](ROADMAP.md)。
+实现侧回归。该阶段随后完成；当前 Playable Review 发布状态与实际剩余门见[当前路线图](ROADMAP.md)
+及[发布验证记录](VERIFICATION.md)。
 
 ## 文档分层
 
