@@ -6,6 +6,10 @@
 
 用户在本机应用登录雀魂国区账号，从近期可分析的四人南风标准规则牌谱中选择一场，获得可回放、可审计、可追问的整盘教练会话。按 ADR-0006，libriichi 提供合法动作，模型提供选择分，helper 与既有事实管线提供候选因素；LLM 在这些有据证据之上完成教练判断，不得发明或改写局面事实。PR #28 已合入唯一动作来源切换与 local Mortal prerequisite；当前候选继续完成 Playable Review 组合验收。
 
+## 并行研究线：Blind Discard Arena
+
+COAC-219 建立了不改变生产复盘语义的离线何切实验台工作线。阶段 1 契约见 [Blind Discard Arena spec](../specs/2026-10-09-blind-discard-arena.md)；当前分支只提出该契约，runtime、MCP、RAG 与真实 tool-loop 演示都尚未实现或验收。后续按父票阶段顺序执行 T1–T5。此实验线独立于下方 M6/M7 production critical path；其 Mortal 匹配率不能作为专家正确率或生产 MVP 完成证据。
+
 ## 2026-09-29 当前优先项：PR #28 真实整场可靠性验收
 
 [ADR-0006](../adr/0006-libriichi-single-legal-action-authority.md) 已采纳，
