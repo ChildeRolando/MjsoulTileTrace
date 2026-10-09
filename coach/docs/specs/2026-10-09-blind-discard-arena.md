@@ -44,8 +44,8 @@ Mortal 选择是比较标签，不是“正确答案”或专家正确性证明�
 以下是角色契约，不强制类型或 package 名称。T1 确定最小实际 DTO；后续票只依赖该 DTO 和本规格，不另立事实源。
 
 1. **Case selector** 只读取决定时的 frozen snapshot、规则身份和完整合法动作集合。Selector 输出 `included` 或带稳定 reason code 的 `excluded`，并统计所有排除原因。先筛选、定序并冻结 case set，之后才允许读取 Mortal label。
-2. **Blind observation** 只含 opaque caseRef、decision-time observation、规则/候选说明、完整候选 actionRef 与中立显示信息、工具说明和本题支持的分析能力。caseRef 不得含 gameId、decisionEventRef、Mortal label、文件名或可从其排序推断答案的内容。
-3. **Tool binding** 是 runner/server 私有的 caseRef 到 frozen decision state / 合法候选映射。工具输入不接受牌谱、路径或自由状态；工具不持有 Mortal scoring result。MCP 输出仅引用 caseRef、候选、维度、值/单位、evidence/source ref、producer/version 和明确的 available / unsupported / unavailable 状态。
+2. **Blind observation** 只含 opaque caseRef、decision-time observation、规则/候选说明、完整候选 actionRef 与中立显示信息、工具说明和本题支持的分析能力。caseRef 不得含 gameId、decisionEventRef、Mortal label、文件名或可从其排序推断答案的内容。所有 Coach-visible 的来源身份引用（包括 canonical event/evidence/source refs、MCP/RAG 引用与诊断引用）也必须是每次 run 独立生成的不透明 alias；不得包含原始 gameId、recordId 或其它来源身份。
+3. **Tool binding** 是 runner/server 私有的 caseRef 到 frozen decision state / 合法候选映射。工具输入不接受牌谱、路径或自由状态；工具不持有 Mortal scoring result。MCP 输出仅引用 caseRef、候选、维度、值/单位、每次 run 的 opaque evidence/source ref、producer/version 和明确的 available / unsupported / unavailable 状态；canonical/source identity 必须先经私有 alias map 映射，不能直接透传。
 4. **Reference label** 由独立 grader 私有持有，包含经验证的 Mortal `preferredRuntimeAction` → canonical actionRef 和完整 runtime/checkpoint/config identity。label 是否成功不能反向改变资格、顺序、观察、工具结果或 RAG 结果。
 5. **Coach submission** 在当前 case 内提交一个 offered actionRef、简短且可检查的依据、实际使用的 evidence/source refs、一个有比较价值时的主要备选及未选理由、重要不确定性。没有备选时允许明确为空。引用必须属于同一 case 与本次观察到的工具/知识结果；不保存 provider 的 hidden reasoning/CoT。
 6. **Finalization** 先严格校验并锁定 submission；随后才向 grader 交付 submission 和 reference label。grader 产物不得回送同次 provider/tool loop。
@@ -80,7 +80,7 @@ Blind observation 从 `DecisionSnapshotV2` 的决策前状态做**显式白名�
 - 决策后的摸牌、和牌/流局结算、之后的场况以及当时不可见的他家暗手；
 - 原始牌谱 bytes、原始 source path、账号/牌谱 URL、secret 和 grader map。
 
-校验不可只扫描关键字或删除字段。任何 observation/tool/RAG DTO 均从 allow-list 构建且以 strict schema 验证。caseRef 在 Coach-visible 侧为不含来源语义的 per-run opaque ref；内部 grader/source mapping 不导出。对同一个 frozen snapshot 改动 actual、label、Q 值或后续事件，不得改变 observation bytes、候选顺序和任何 helper/tool/RAG 结果。
+校验不可只扫描关键字或删除字段。任何 observation/tool/RAG DTO 均从 allow-list 构建且以 strict schema 验证。所有 Coach/provider 可见的来源身份引用均使用每次 run 独立生成的 opaque alias，包括 `caseRef`、canonical event/evidence/source refs（例如 `canonicalEventId` 与 `sourceRecordRef`）、MCP/RAG 返回的 citation/ref，以及可见的诊断与错误文本。alias 不得包含、拼接、可逆编码或以排序关系泄漏原始 `gameId`、`recordId`、`decisionEventRef`、文件名、账号/牌谱 URL、Mortal label 或答案顺序。由于现有 `canonicalEventId` 与 `sourceRecordRef` 可包含原始 game/record identity，它们不得直接穿过该边界。trusted runner 在读 Mortal label 前为选定 case 建立私有 alias map；同一 run 内同一身份映射到稳定 alias，不同 run 不共享 alias。该 map 只供受信 runner/helper/grader 解析引用和校验，不得发给 provider，也不得出现在 Coach-visible DTO、MCP/RAG 输出或工具错误信息中。对一个固定 alias map 和 frozen decision-time state，注入原始 gameId/recordId canaries 或仅改动 actual、label、Q 值、后续事件，都不得改变发出的 blind observation、MCP/helper 与 RAG bytes；其中实际/标签变化必须 byte-for-byte 保持相同，候选顺序也不得改变。
 
 ## 6. 真实 MCP 与资源界限
 
@@ -169,19 +169,19 @@ holdout acceptance 至少使用另一个不同的完整 gameId；只能从仓库
 
 ## 11. 永久回归 owner 与命令
 
-Stage 1 只写契约，不添加 Arena runtime 测试。T1–T5 必须在实际实现 owner 同步添加以下 focused regressions，并把具体文件纳入每张票的回执：
+Stage 1 只冻结契约，不实现或测试 Arena runtime。这里的 specification-contract tests 只锁定要求已写入唯一权威 spec，不证明运行时已隔离；T1/T2 必须在相同 owner 扩展为真实字节级行为回归，并把具体文件纳入每张票的回执：
 
 | 不变量 | 新测试 owner（建议精确路径） | 现有基线 |
 |---|---|---|
-| 改 label/actual/Q/future events 不改变 blind bytes、候选次序与 tool/RAG 结果；allow-list 不泄漏 | `coach/packages/desktop/tests/blind-discard-arena-case.test.ts` | `packages/reasoning/tests/stream-replayer.test.ts` |
+| 原始 gameId/recordId canary 不出现在任一 Coach-visible ref；固定 alias map 下改 label/actual/Q/future events 保持 blind bytes、候选次序与 MCP/helper/RAG 结果逐字节相同；allow-list 不泄漏 | `coach/packages/desktop/tests/blind-discard-arena-case.test.ts`（Stage 1 spec-contract；T1 行为回归） | `packages/reasoning/tests/stream-replayer.test.ts` |
 | 完整合法动作、赤牌/物理实现 mapping、非法/重复/跨 case actionRef 与 label binding | `coach/packages/desktop/tests/blind-discard-arena-case.test.ts` | `packages/reasoning/tests/libriichi-rule-projection.test.ts`、`local-mortal-rule-scoring.test.ts`、`libriichi-full-game.test.ts`、`packages/mortal-runtime/tests/managed-runtime.test.ts` |
 | invalid/missing/timeout/tool error/budget stop 始终进入主分母并离线重算 | `coach/packages/desktop/tests/blind-discard-arena-scorer.test.ts` | 新 scorer suite；现有生产 test 不覆盖 Arena 分母 |
-| 实际 MCP stdio 协议、case/action 权限、超时/断连/大结果拒绝、同 helper direct parity | `coach/packages/desktop/tests/blind-discard-arena-mcp.test.ts` | `packages/reasoning/tests/fact-engine-client.test.ts` 与 `npm run test:fact-engine` |
+| 实际 MCP stdio 协议、只输出 per-run opaque source/evidence refs、case/action 权限、超时/断连/大结果拒绝、同 helper direct parity | `coach/packages/desktop/tests/blind-discard-arena-mcp.test.ts`（Stage 1 spec-contract；T2 行为回归） | `packages/reasoning/tests/fact-engine-client.test.ts` 与 `npm run test:fact-engine` |
 | RAG off 不读 corpus、local no-hit 与 hit 可区分、有来源、bounded output、prompt injection 不取得权限 | `coach/packages/desktop/tests/blind-discard-arena-rag.test.ts` | Arena 新 suite |
 | tool loop 不预取全矩阵；turn/call/context/output/time/cancel 都有界 | `coach/packages/desktop/tests/blind-discard-arena-runner.test.ts` | Arena 新 suite |
 | production ReviewReport 的一次 completion、provider retry、保存/读取与 UI 语义不变 | 继续维护现有 owner | `npx vitest run packages/reasoning/tests/review-report.test.ts packages/reasoning/tests/automatic-report-scope.test.ts packages/desktop/tests/coach-provider.test.ts packages/desktop/tests/codex-coach-provider.test.ts` |
 
-从 `coach/` 运行。每票的 focused Arena command 为 `npx vitest run` 加该票实际新增的测试路径。跨依赖修改另按 [verification gate](../development/VERIFICATION.md) 跑对应的 `npm run typecheck`、`npm test`、`npm run check:architecture`、`npm run test:package-import`；若改变 architecture checker，同步其自测 `npm run test:architecture-checker`。真实 runtime/helper/provider/fixture 变更按现有 Local Mortal、helper、协议及 external/H1 gate 执行。当前 Stage 1 的文档验证命令是 `git diff --check`，无需运行 production suite。
+从 `coach/` 运行。每票的 focused Arena command 为 `npx vitest run` 加该票实际新增的测试路径。跨依赖修改另按 [verification gate](../development/VERIFICATION.md) 跑对应的 `npm run typecheck`、`npm test`、`npm run check:architecture`、`npm run test:package-import`；若改变 architecture checker，同步其自测 `npm run test:architecture-checker`。真实 runtime/helper/provider/fixture 变更按现有 Local Mortal、helper、协议及 external/H1 gate 执行。当前 Stage 1 验证为 `npx vitest run packages/desktop/tests/blind-discard-arena-case.test.ts packages/desktop/tests/blind-discard-arena-mcp.test.ts`（仅检查契约文本）与 `git diff --check`；无需运行 Arena runtime 或 production suite。
 
 ## 12. 非目标与停止条件
 
