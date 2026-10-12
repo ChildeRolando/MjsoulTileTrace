@@ -4,9 +4,9 @@
 
 ## 产品目标
 
-用户在本机应用登录雀魂国区账号，从近期可分析的四人南风标准规则牌谱中选择一场，获得可回放、可审计、可追问的整盘教练会话。按 ADR-0006，libriichi 提供合法动作，模型提供选择分，helper 与既有事实管线提供候选因素；LLM 在这些有据证据之上完成教练判断，不得发明或改写局面事实。PR #28 已合入唯一动作来源切换与 local Mortal prerequisite；当前候选继续完成 Playable Review 组合验收。
+用户在本机应用登录雀魂国区账号，从近期可分析的四人南风标准规则牌谱中选择一场，获得可回放、可审计、可追问的整盘教练会话。按 ADR-0006，libriichi 提供合法动作，模型提供选择分，helper 与既有事实管线提供候选因素；LLM 在这些有据证据之上完成教练判断，不得发明或改写局面事实。PR #28 已合入唯一动作来源切换与 local Mortal prerequisite；Playable Review MVP 当前发布状态及剩余门见 §6.1。
 
-## 2026-09-29 当前优先项：PR #28 真实整场可靠性验收
+## 2026-09-29 历史记录：PR #28 真实整场可靠性验收
 
 [ADR-0006](../adr/0006-libriichi-single-legal-action-authority.md) 已采纳，
 [规格](../specs/2026-09-28-libriichi-legal-action-authority-design.md) 与
@@ -15,7 +15,7 @@
 旧枚举删除与 Git 封存 → 全门禁及最终提交真实 CPU 验证。
 保留 helper 教学能力；local/remote 共用 libriichi，不维持第二动作来源独立检错。
 R14 11 项已落实实现与回归；旧枚举已退出，具体职责见封存清单。
-当前主线仍是 M6-B 本地模型接入，真实整场数据同时触及 M6-C 分析产物、
+当时主线是 M6-B 本地模型接入，真实整场数据同时触及 M6-C 分析产物、
 M6-D1 证据图和 M7-B 存储。最新状态和逐次失败证据见实施计划 §29 起：
 
 - 真实雀魂完整牌谱及同响应规则配置已取得，来源缺口已补齐。
@@ -23,11 +23,11 @@ M6-D1 证据图和 M7-B 存储。最新状态和逐次失败证据见实施计�
   已在本实现候选修复并通过聚焦独立复核，最终版本验证仍须执行。
 - 原 5.49 GB 完整单视角分析档案已在默认堆预算下完成保存、关闭、新实例重开，
   实现侧回归退出 0；最终提交的新 CPU 产物仍需独立复验，不能继承旧包回归 PASS。
-- 用户已授权子代理独立验收，独立工作树已准备；当前没有最终候选的整体 PASS。
+- 用户已授权子代理独立验收，独立工作树已准备；当时没有最终候选的整体 PASS。
 
-退出本阶段须取得完整真实数据保存重开、最新候选全量门禁及真实 CPU、独立
-无 P1/P2 的实际证据。随后才进入下文 Integration Closeout 的产品组合验收；
-PR #28、MVP、Golden Slice 不因已有单项通过而自动完成。
+当时退出条件是取得完整真实数据保存重开、最新候选全量门禁及真实 CPU、独立
+无 P1/P2 的实际证据，随后进入 Integration Closeout 产品组合验收。该历史阶段已结束；
+当前 MVP 发布门按下文 §6.1 与 VERIFICATION 的读回记录判定。
 
 ## 里程碑状态
 
@@ -40,8 +40,8 @@ PR #28、MVP、Golden Slice 不因已有单项通过而自动完成。
 | M3 教学证据 | 未开始 | 仅有策略边界和占位契约 | 冻结资料、引用、版本化教学规则；与 decision fact 两源分离，fixed report 稳定后启动 |
 | M4 受约束追问 | 未开始 | ——（原 M4"LLM 教练"已拆分为 M6-D 解释引擎 + M7-A 固定报告 UI + M4 追问对话） | fixed report 与教学证据层稳定后的 constrained follow-up/chat；context retrieval 将建立在 M6-D1 ContextGraph 上（embeddings/GraphRAG 不是前提） |
 | M5 雀魂国区接入 | 接近完成 | Electron 登录、加密恢复、最近 30 场、取回、canonical mapper、重放、脱敏 replay audit、H1 诊断命令 | 真实牌谱 H1 对照验收；未覆盖流局/杠枚举的 fixture 反证 |
-| M6 模型生产接入 | native runtime prerequisite 已合入；手动导入接缝为当前候选 | M6-A1–A4、M6-C、DeterministicReviewSelector、M6-D1/D2 与 COAC-111 local Mortal 四视角真实 checkpoint production spike 已落地；B 当前消费 managed local Mortal 生成 validated package | 固定五门、Golden Slice、fresh independent review 与最终人工验收；不得把 spike 单独视为 MVP 完成 |
-| M7 复盘工作台 | B/C 已合入 master；D 核心组合进入候选 | M7-A UI、M7-B SQLite/immutable artifacts/两阶段恢复/离线重开/main-only raw cache；D 中 account 与 share-import 均接入 ReviewSession → Review Workspace，并实现 app-shell Electron Golden Slice 命令与测试 owner | D 精确候选门禁与 fresh independent review、PR 合入及真人 provider smoke；整体尚未 DEMOABLE |
+| M6 模型生产接入 | native runtime prerequisite 与手动导入接缝已合入 | M6-A1–A4、M6-C、DeterministicReviewSelector、M6-D1/D2 与 COAC-111 local Mortal 四视角真实 checkpoint production spike 已落地；B 消费 managed local Mortal 生成 validated package | M6-B 后续模型来源仍按独立路线推进；spike 不单独代表 MVP 完成 |
+| M7 复盘工作台 | A–D 已合入 master；自动发布门与独立评审通过 | M7-A UI、M7-B SQLite/immutable artifacts/两阶段恢复/离线重开/main-only raw cache；账号与 share-import 接入 ReviewSession → Review Workspace，并有 app-shell Electron Golden Slice 命令与测试 owner | 仅缺绑定最终合并版本的获授权真人 provider smoke；整体仍未 DEMOABLE |
 | M8 打包发布 | 未开始 | Electron 与 sidecar 构建基础 | 跨平台安装、升级、日志、发布验收 |
 
 ## 当前关键路径
@@ -192,7 +192,8 @@ assembly 与 read-back validator；自动传输重试只在 provider 内发生�
 [2026-09-21 M7-A Whole-game fixed review UI](../specs/2026-09-21-m7-a-whole-game-fixed-review-ui-design.md)。
 该规格已完成 grill 与审阅，冻结安全 view DTO、三层信息架构、四类 fixture 与
 COAC-5/COAC-7 共享的 active-report 生命周期。PR #14（merge `3e9bbb7b…`）与 PR #15
-（merge `ab379cc…`）已满足 COAC-6 启动门；当前 M7-A 实现候选正在 COAC-6 验收。
+（merge `ab379cc…`）已满足 COAC-6 启动门；M7-A 已完成并合入 master。整个
+Playable Review MVP 的发布状态见 §6.1。
 
 - 消费 `DeterministicReviewSelector` 输出（入选决策 + 排序；策略语义见 §3 与
   2026-08-18 grill F1–F3）；UI 不定义"什么值得上评审"。
@@ -216,10 +217,15 @@ COAC-5/COAC-7 共享的 active-report 生命周期。PR #14（merge `3e9bbb7b…
 必须产出或复用真实 ReviewSession 并自动进入 Review Workspace；首次生成后列表即时刷新；
 永久 Electron Golden Slice 必须从 app shell 起步并在清内存、禁网/禁 LLM 后重启重开。
 
-B/C 已合入 master；D 候选将账号分析与 share-import 接入同一 ReviewSession → Review
-Workspace handoff，并提供 app-shell Electron Golden Slice 命令与测试 owner。D 最终候选须在精确
-commit 上完成 Golden Slice、固定五门与 fresh `NO_P1_P2`；PR 合入及一次真人 provider smoke
-也完成后，才能标记 `Playable Review MVP v0.1 = DEMOABLE`。整体目前尚未 DEMOABLE。
+A–D 均已合入 master：PR #35/#36/#37/#6/#42/#43 已合并。PR #43 最终候选
+`8f14427a782076fda4a6ad42d04bd3d4635cfe23`（merge `57e55012fb33ff72b14802aa6d2298ee0a3d8863`）
+上的 app-shell Electron Golden Slice、固定五门与 fresh independent `NO_P1_P2` 均有正式回执。
+真人 smoke 的维护者确认绑定较早候选 `d302c3833e00a5e9d9df346b8de0d121b56708f3`；之后的
+`74ff961` 与 `8f14427` 修改了牌谱/结算验证、解释上下文及报告存储/标签路径，不能把较早
+版本的真人操作推定为覆盖最终合并版本。故 `Playable Review MVP v0.1` 仍为 **not DEMOABLE**。
+唯一剩余发布门是在最终合并版本上再次完成获授权的真人 smoke：真实支持牌谱进入 Overview/List/Detail，
+真实 provider 首次生成并保存，确认列表刷新，退出后离线重启并重开同一 report/evidence。
+逐项回执与证据边界见 [VERIFICATION § Integration Closeout 发布读回](VERIFICATION.md)。
 
 ### 6.2 M6-B Native model runtime prerequisite
 
