@@ -22,7 +22,7 @@ import {
 const MAPPING_ERROR = "mahjong_soul_canonical_mapping_failed" as const;
 const VALIDATION_ERROR = "mahjong_soul_canonical_validation_failed" as const;
 const UNSUPPORTED_SEMANTICS = "mahjong_soul_canonical_unsupported_semantics" as const;
-export const MAHJONG_SOUL_RECORD_MAPPER_VERSION = "mahjong-soul-record-mapper/v7" as const;
+export const MAHJONG_SOUL_RECORD_MAPPER_VERSION = "mahjong-soul-record-mapper/v8" as const;
 
 export type MahjongSoulMapperDiagnostic =
   | "mahjong_soul_canonical_mapping_failed"
@@ -130,6 +130,18 @@ export function mapMahjongSoulRecord(input: {
     let roundWind: "E" | "S" | "W" = "E";
     let roundDealer = 0;
     const consumedDiscards = new Set<string>();
+    // RecordNewRound stores the dealer's initial 14th tile in the starting
+    // hand. Its canonical tile_drawn is synthesized from that explicit
+    // snapshot, so only the immediately following decoded action may bind an
+    // equal dealer discard to that synthetic draw. Empty wire actions are
+    // skipped by the decoder but keep their source ordinals intact.
+    let openingDealerDraw: {
+      readonly nextDecodedActionIndex: number;
+      readonly actor: number;
+      readonly tile: Tile;
+      readonly eventId: string;
+      readonly sourceRecordRef: string;
+    } | null = null;
     // After a kan, the kan actor's next RecordDealTile is the replacement
     // (rinshan) draw — the canonical state machine rejects it as live_wall.
     const rinshanDrawDue = new Map<number, number>();
@@ -225,11 +237,16 @@ export function mapMahjongSoulRecord(input: {
       terminalSettlesScores = false;
     };
 
-    for (const action of actions) {
+    for (const [actionIndex, action] of actions.entries()) {
       const ordinal = action.sourceRecordOrdinal;
       const data = action.data;
+      if (openingDealerDraw !== null
+        && (openingDealerDraw.nextDecodedActionIndex !== actionIndex || action.name !== "RecordDiscardTile")) {
+        openingDealerDraw = null;
+      }
 
       if (action.name === "RecordNewRound") {
+        openingDealerDraw = null;
         if (nextRoundOrdinal > 0 && lastTerminalEventRef === null) allObservedRoundsClosed = false;
         if (pendingDoraKans.length > 0) doraEvidenceComplete = false;
         pendingDoraKans.length = 0;
@@ -297,7 +314,7 @@ export function mapMahjongSoulRecord(input: {
         });
         rinshanDrawDue.clear();
         if (dealerDraw !== undefined) {
-          push(ordinal, 1, {
+          const drawEventId = push(ordinal, 1, {
             type: "tile_drawn",
             actor: dealer,
             tile: dealer === input.selfActor
@@ -305,6 +322,15 @@ export function mapMahjongSoulRecord(input: {
               : { visibility: "hidden" },
             from: "live_wall",
           });
+          if (fullDeal) {
+            openingDealerDraw = {
+              nextDecodedActionIndex: actionIndex + 1,
+              actor: dealer,
+              tile: dealerDraw,
+              eventId: drawEventId,
+              sourceRecordRef: sourceRef(input.recordId, ordinal),
+            };
+          }
         }
         continue;
       }
@@ -352,6 +378,19 @@ export function mapMahjongSoulRecord(input: {
         const tile = parseMajsoulTile(data.tile);
         const isRiichi = data.is_liqi === true;
         const moqie = data.moqie === true;
+        const initialDealerDraw = openingDealerDraw;
+        openingDealerDraw = null;
+        const initialDrawEvent = initialDealerDraw === null
+          ? undefined
+          : events.find(event => event.eventId === initialDealerDraw.eventId);
+        const matchesSyntheticOpeningDraw = initialDealerDraw !== null
+          && initialDealerDraw.nextDecodedActionIndex === actionIndex
+          && initialDealerDraw.actor === actor
+          && initialDealerDraw.tile.id === tile.id
+          && initialDealerDraw.tile.red === tile.red
+          && initialDrawEvent?.type === "tile_drawn"
+          && initialDrawEvent.actor === actor
+          && initialDrawEvent.sourceRecordRef === initialDealerDraw.sourceRecordRef;
         // The stored record marks riichi on the discard itself; the canonical
         // model splits it into declaration → discard → acceptance. The stored
         // wire has no reach_accepted equivalent — the stick definitively
@@ -364,7 +403,10 @@ export function mapMahjongSoulRecord(input: {
           type: "tile_discarded",
           actor,
           tile,
-          discardMode: moqie ? "tsumogiri" : "tedashi",
+          // The opening 14th dealer tile is synthetic in the canonical stream.
+          // Normalize the exact matching immediate discard to that draw even
+          // when the wire's defaulted moqie flag is absent/false.
+          discardMode: moqie || matchesSyntheticOpeningDraw ? "tsumogiri" : "tedashi",
           riichiDeclarationEventRef: declarationEventRef,
         });
         if (declarationEventRef !== null) {

@@ -71,3 +71,7 @@
 - `ActionLiuJu` 一律 `kyuushu_kyuuhai` 是**占位错误**。现已整条返回 `mahjong_soul_canonical_unsupported_semantics`。
 
 `ActionHule` 也已加强（布尔 `zimo`、0..3 winner、四条整数 `delta_scores`）。真实牌谱命中这些枚举时，先补脱敏 fixture 再放宽；详见 `2026-08-14-mahjong-soul-replay-acceptance-handoff.md`。
+
+## 版本 v8：庄家开局合成摸牌归一化（2026-10-07）
+
+当 RecordNewRound 提供完整 14/13/13/13 起手时，mapper 将庄家第 14 张牌拆成 canonical tile_drawn。若紧接着的下一条成功解码来源动作是庄家弃牌，且牌种与红牌标记都精确匹配第 14 张牌，则即使 moqie 缺省或为 false，也映射为 tsumogiri。这是对 canonical 合成摸牌身份的归一化，不推断其它动作的摸切意图。若起手证据不完整、首弃不同牌、红牌标记不匹配，或下一条解码动作不是弃牌，仍按 wire moqie 映射；后续同牌弃牌不继承此证据。来源 ordinal 保持原值，canonical mapper 版本升至 mahjong-soul-record-mapper/v8。

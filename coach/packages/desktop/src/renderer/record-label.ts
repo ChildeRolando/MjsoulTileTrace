@@ -117,7 +117,8 @@ export function recordLabelView(
   if (!hasSessionFallback && isMahjongSoulRecord(label.recordId)) {
     const room = label.rankedMode === null
       ? "段位房间未知"
-      : label.rankedMode.label ?? "段位房间未知";
+      : label.rankedMode.label?.replace(/^(?:四人|三人)/u, "")
+        .replace(/ · (?:半庄|东风)$/u, "") ?? "段位房间未知";
     const self = label.selfSeat === null ? undefined : label.players[label.selfSeat];
     const selfGrade = self === undefined ? null : gradeText(self.gradingScore, self.gradingScoreUnit);
     const grade = selfGrade === null ? "本局段位变化未知" : `本局${selfGrade}`;
