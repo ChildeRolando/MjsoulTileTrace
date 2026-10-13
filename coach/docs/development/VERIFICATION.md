@@ -297,7 +297,7 @@ account select 或 share import 起步，不得从 `openReview()` 直接起步�
 全部内存 graph/controller/provider state，再禁网/禁 LLM，并断言同一
 `activeReportRefId`、judgment、explanation、provenance 与零请求。
 
-**当前状态（2026-10-01，D stacked 候选）**：上述命令与 owner 已实现。测试从账号列表“分析”和分享链接“导入并分析”两个真实 app shell 按钮进入；使用 `packages/mahjong-soul-source/tests/fixtures/real-record-complete.json` 的脱敏真实原谱，经生产 schema、canonical/replay 后由 main 测试适配器裁剪为 actor 3 的 26 事件前缀（3 个 self、9 个 response 边界），再进入生产分析与 package/session 构建。`packages/desktop/tests/fixtures/native-rule-responses-actor3.json` 冻结对**同一前缀**用真实 native 查询得到的完整规则响应：self 候选 13/13/12，response 为 8 个 non_action、1 个 ok；每次请求除测试身份/requestId 外须与冻结请求完全一致，再重绑定 resultId，4 次可评分边界均进入评分链。模型 `scoreRules` 仍是按 native action index 排序的确定性测试夹具，不代表真实 Mortal CPU 推理。fixture 内的原始回执 SHA-256、原谱 SHA-256 和 canonical SHA-256 用于核对来源。
+**当前状态（2026-10-01，D stacked 候选）**：上述命令与 owner 已实现。测试从账号列表“分析”和分享链接“导入并分析”两个真实 app shell 按钮进入；使用 `packages/desktop/tests/fixtures/real-record-complete.json` 的脱敏真实原谱，经生产 schema、canonical/replay 后由 main 测试适配器裁剪为 actor 3 的 26 事件前缀（3 个 self、9 个 response 边界），再进入生产分析与 package/session 构建。`packages/desktop/tests/fixtures/native-rule-responses-actor3.json` 冻结对**同一前缀**用真实 native 查询得到的完整规则响应：self 候选 13/13/12，response 为 8 个 non_action、1 个 ok；每次请求除测试身份/requestId 外须与冻结请求完全一致，再重绑定 resultId，4 次可评分边界均进入评分链。模型 `scoreRules` 仍是按 native action index 排序的确定性测试夹具，不代表真实 Mortal CPU 推理。fixture 内的原始回执 SHA-256、原谱 SHA-256 和 canonical SHA-256 用于核对来源。
 
 完整链涵盖 `complete` 且账号重复分析复用唯一 session，降级链涵盖 `evidence_only`；账号分析失败另断言不导航且 SQLite package/session 均为零；每条链在保存并退出后启动新 Electron 进程，在应用级网络拦截及无 provider 情况下从会话列表重开并核对 active report、judgment、explanation、provenance 与零请求。`--mvp-golden-child` 与 `RIICHI_MVP_GOLDEN_TEST=1` 同时存在时才加载 main 的 fixture 适配器，窗口保持隐藏；离线重开不加载该适配器。此测试不证明 OS 级断网或整份原谱都被分析。
 
@@ -320,6 +320,21 @@ npm run test:package-import
 
 发布闭合还要求 fresh independent `NO_P1_P2`、代码合入及一次获授权的真人 smoke；真实
 provider 不进入默认自动 suite。
+
+### Integration Closeout 发布读回（2026-10-08）
+
+按规格 §7 对当前主线逐项核验。下表区分已绑定最终候选的自动/独立证据与真人 smoke 的版本边界；
+它不把历史回执改写成当前版本的现场操作记录。
+
+| §7 条件 | 当前证据 | 状态 |
+|---|---|---|
+| A account、B import、C session refresh 的 app-shell 路径 | PR #35/#36/#37/#6/#42/#43 已合并；最终 PR #43 包含账号与 share-import 的完整组合 | 已满足 |
+| Electron Golden Slice 与固定五门 | COAC-209 对 base `2cc41808625bbb3f480eb4fd6abcca5166d99fe0` / head `8f14427a782076fda4a6ad42d04bd3d4635cfe23` 的正式回执：Golden Slice 及五门均 PASS/0；全量 208 files / 2645 tests PASS。五门原命令见上文 | 已满足 |
+| fresh independent `NO_P1_P2` | COAC-209 第 2 轮完整 base..head 独立评审裁决 `NO_P1_P2`，P1/P2/P3 均空；Review Loop v2 对该 head 为 SUCCESS | 已满足 |
+| 最终代码已合入 master | PR #43 head `8f14427a782076fda4a6ad42d04bd3d4635cfe23` 以 merge `57e55012fb33ff72b14802aa6d2298ee0a3d8863` 合入；后续 master 为 `75b9a56` | 已满足 |
+| 获授权真人 smoke 覆盖最终合并版本 | 维护者确认的 smoke 绑定 `d302c3833e00a5e9d9df346b8de0d121b56708f3`。其后 `74ff961` 与 `8f14427` 改动了牌谱/结算身份验证、解释上下文及报告存储/标签路径，可能影响本规格要求的真实来源、生成和保存重开链；没有最终版本真人 smoke 证据 | 未满足 |
+
+因此，Playable Review MVP v0.1 仍是 **not DEMOABLE**。唯一剩余发布门是在最终合并版本上再次完成 §7 真人 smoke：从真实账号或 share link 进入 Overview/List/Detail，使用真实 provider 首次生成、保存并确认列表刷新，退出后离线重启并重开同一 report/evidence。真人 smoke 不得由 Golden、五门或独立评审替代；没有额外逐项日志、OS 级断网证明或 provider 调用数的推断。
 
 ## 按改动范围选择门禁
 
