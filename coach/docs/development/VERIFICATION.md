@@ -321,6 +321,21 @@ npm run test:package-import
 发布闭合还要求 fresh independent `NO_P1_P2`、代码合入及一次获授权的真人 smoke；真实
 provider 不进入默认自动 suite。
 
+### Integration Closeout 发布读回（2026-10-08）
+
+按规格 §7 对当前主线逐项核验。下表区分已绑定最终候选的自动/独立证据与真人 smoke 的版本边界；
+它不把历史回执改写成当前版本的现场操作记录。
+
+| §7 条件 | 当前证据 | 状态 |
+|---|---|---|
+| A account、B import、C session refresh 的 app-shell 路径 | PR #35/#36/#37/#6/#42/#43 已合并；最终 PR #43 包含账号与 share-import 的完整组合 | 已满足 |
+| Electron Golden Slice 与固定五门 | COAC-209 对 base `2cc41808625bbb3f480eb4fd6abcca5166d99fe0` / head `8f14427a782076fda4a6ad42d04bd3d4635cfe23` 的正式回执：Golden Slice 及五门均 PASS/0；全量 208 files / 2645 tests PASS。五门原命令见上文 | 已满足 |
+| fresh independent `NO_P1_P2` | COAC-209 第 2 轮完整 base..head 独立评审裁决 `NO_P1_P2`，P1/P2/P3 均空；Review Loop v2 对该 head 为 SUCCESS | 已满足 |
+| 最终代码已合入 master | PR #43 head `8f14427a782076fda4a6ad42d04bd3d4635cfe23` 以 merge `57e55012fb33ff72b14802aa6d2298ee0a3d8863` 合入；后续 master 为 `75b9a56` | 已满足 |
+| 获授权真人 smoke 覆盖最终合并版本 | 维护者确认的 smoke 绑定 `d302c3833e00a5e9d9df346b8de0d121b56708f3`。其后 `74ff961` 与 `8f14427` 改动了牌谱/结算身份验证、解释上下文及报告存储/标签路径，可能影响本规格要求的真实来源、生成和保存重开链；没有最终版本真人 smoke 证据 | 未满足 |
+
+因此，Playable Review MVP v0.1 仍是 **not DEMOABLE**。唯一剩余发布门是在最终合并版本上再次完成 §7 真人 smoke：从真实账号或 share link 进入 Overview/List/Detail，使用真实 provider 首次生成、保存并确认列表刷新，退出后离线重启并重开同一 report/evidence。真人 smoke 不得由 Golden、五门或独立评审替代；没有额外逐项日志、OS 级断网证明或 provider 调用数的推断。
+
 ## 按改动范围选择门禁
 
 | 改动范围 | 最低 focused 门禁 | 合并前门禁 |
