@@ -72,6 +72,14 @@ contract → producer/source → validator → consumer → composition root →
 - 命令变化：更新 `GETTING_STARTED.md` / `VERIFICATION.md`；
 - 接力时：新增 handoff，记录提交、真实门禁、待核实项和下一步。
 
+完成前确认本次发现中仍有未来维护价值的知识已进入对应仓库 owner；外部工单、
+评论和聊天用于协调，不能成为重要项目知识的唯一副本。
+可机械验证的缺陷优先由先失败、修复后通过的回归检查承载；规范变化更新既有
+contract/schema/invariant，设计取舍写 ADR 或修订原 spec，状态与验收结果进入
+roadmap/handoff/acceptance artifact。已有 owner 时更新或引用它，不复制全文。
+没有未来决策价值的临时探索日志无需加入产品文档；owner 无法写入时明确报告
+待落盘内容，不能用仅存在于外部评论的 PASS 代替完成。
+
 ## 信任边界清单
 
 ### 外部输入
@@ -168,3 +176,4 @@ contract → producer/source → validator → consumer → composition root →
 3. 是否存在 direct schema bypass、旧 fallback 或第二套 truth；
 4. 并发、超时、注销和跨重启是否会提交陈旧结果；
 5. 文档是否把 fixture、骨架或诊断误写成生产完成。
+6. 重要发现是否已进入对应仓库 owner；机械可测的缺陷是否由回归检查保护。
