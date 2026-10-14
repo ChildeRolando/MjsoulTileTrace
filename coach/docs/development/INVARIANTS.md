@@ -1,5 +1,15 @@
 # 架构不变量登记表
 
+2026-10-14 用户批准 INV-011/012 的本地展示路径修订：完整验证过的应用本地结果允许
+跨重启复用版本化展示缓存；普通打开不重新读取/散列原包、重建图或自动后台审计。
+下文“重开重验”“禁止持久化校验豁免”只继续适用于完整上下文读回/生成入口，
+不适用于 `openPresentation`。缓存绑定 session/revision、内容身份、selection/映射与
+active ref、验证/展示版本；应用写入更新、缺失/失效重建、删除级联。ContextGraph
+仍不落盘，DTO 仍经 strict IPC schema。实现与永久回归见
+`review-presentation-cache.ts` / `review-presentation-cache.test.ts` 及
+[M7-B 修订](../specs/2026-09-21-m7-b-review-session-persistence-design.md)。
+不承诺发现绕过应用且保持元数据不变的本地字节改写。
+
 本页是 coach 的**唯一权威不变量登记表**。它不重复 [ARCHITECTURE.md](ARCHITECTURE.md)
 的完整描述，只抽取**已由代码/测试/机械检查支撑**的架构级不变量，并给出每条不变量的
 机器化程度。任何改动（尤其 AI 生成的改动）都必须回答：是否触及下列 INV-\*，由哪条

@@ -21,6 +21,7 @@ import {
 } from "@riichi-coach/reasoning";
 import { describePackageArtifact, insertPackageChunks, readPackageArtifact, readPackageRecordIdentity } from "./package-artifact-storage.js";
 import { aggregateCoachUsageHistory } from "./coach-usage-history.js";
+import { createReviewPresentationCache } from "./review-presentation-cache.js";
 
 const LIBRARY_FORMAT_VERSION = 4;
 
@@ -267,13 +268,14 @@ export function createReviewSessionRepository(input: {
   const db = new DatabaseSync(join(input.root, "library.sqlite"));
   const now = input.now ?? (() => new Date().toISOString());
   const createId = input.createId ?? randomUUID;
-  try { initialize(db, now()); }
+  let presentationCache: ReturnType<typeof createReviewPresentationCache>;
+  try { initialize(db, now()); presentationCache = createReviewPresentationCache(db); }
   catch (error) { db.close(); throw error; }
 
   // One immutable package at a time. PRAGMA data_version changes on writes by
   // other connections (including tamper); report writes on this connection do
-  // not invalidate the unchanged package. No persisted validation receipt is
-  // trusted, and a new process always reads and validates the actual bytes.
+  // not invalidate the unchanged package. Full-context reads validate actual
+  // bytes; ordinary display reuses the separately persisted presentation.
   let preparedPackage: {
     binding: string;
     dataVersion: number;
@@ -395,7 +397,7 @@ export function createReviewSessionRepository(input: {
         activeReportRefId: session.active_report_ref_id,
       });
     if (dataVersion() !== version) { preparedPackage = null; throw new Error("review_changed_during_read"); }
-    return Object.freeze({
+    const state: PersistedReviewState = Object.freeze({
       sessionId: session.session_id,
       revision: session.revision,
       analysisPackage,
@@ -410,6 +412,8 @@ export function createReviewSessionRepository(input: {
       decisionReportRefs: Object.freeze(decisionReportRefs),
       readBack,
     });
+    presentationCache.save(state);
+    return state;
   };
 
   const sessionByPackageId = (packageId: string): SessionRow | undefined => db.prepare(`
@@ -498,6 +502,24 @@ export function createReviewSessionRepository(input: {
   };
 
   return Object.freeze({
+    isPresentationCurrent(packageId: string, sessionId: string, revision: number): boolean {
+      const current = sessionByPackageId(packageId);
+      return current?.session_id === sessionId && current.revision === revision;
+    },
+    /** Fast display read. Only a miss/version change rebuilds from full evidence. */
+    openPresentation(packageId: string) {
+      const session = sessionByPackageId(packageId);
+      if (session === undefined) return null;
+      recover(session.session_id);
+      let presentation = presentationCache.load(packageId);
+      if (presentation === null) {
+        presentationCache.invalidate(packageId);
+        read(sessionByPackageId(packageId)!);
+        presentation = presentationCache.load(packageId);
+      }
+      return presentation;
+    },
+
     saveSession(analysisPackageInput: unknown, selectionInput: unknown): PersistedReviewState {
       validateStructuredAnalysisPackage(analysisPackageInput);
       // Validation and serialization are synchronous and never mutate/freeze
@@ -575,21 +597,27 @@ export function createReviewSessionRepository(input: {
       const version = dataVersion();
       const history: Parameters<typeof aggregateCoachUsageHistory>[0][number][] = [];
       const rows = db.prepare(`SELECT r.report_ref_id,r.report_id,r.package_ref_id,r.payload,r.content_hash,r.schema_version,
-        p.package_id,p.payload AS package_payload,p.content_hash AS package_content_hash,p.schema_version AS package_schema_version
+        p.package_id,p.content_hash AS package_content_hash,p.schema_version AS package_schema_version
         FROM review_reports r JOIN session_report_refs x ON x.report_ref_id=r.report_ref_id AND x.package_ref_id=r.package_ref_id
         JOIN review_sessions s ON s.session_id=x.session_id AND s.package_ref_id=x.package_ref_id
         JOIN analysis_packages p ON p.package_ref_id=r.package_ref_id`).iterate();
       for (const raw of rows) {
-        const row = raw as ReportArtifactRow & { report_ref_id: string; package_ref_id: string; package_id: string; package_payload: Uint8Array; package_content_hash: string; package_schema_version: string };
+        const row = raw as ReportArtifactRow & { report_ref_id: string; package_ref_id: string; package_id: string; package_content_hash: string; package_schema_version: string };
         const report = ReviewReportSchema.parse(assertHash(row, "report_hash_mismatch"));
         if (report.reportId !== row.report_id || report.packageId !== row.package_id || report.schemaVersion !== row.schema_version) {
           throw new Error("report_identity_mismatch");
         }
         let identity = usageRecordIdentities.get(row.package_ref_id);
         if (identity?.contentHash !== row.package_content_hash || identity.dataVersion !== version) {
-          const record = readPackageRecordIdentity(db, { package_ref_id: row.package_ref_id, payload: row.package_payload,
-            content_hash: row.package_content_hash, package_id: row.package_id, schema_version: row.package_schema_version });
-          identity = { contentHash: row.package_content_hash, dataVersion: version, recordId: record.recordId };
+          const saved = db.prepare("SELECT record_id FROM package_record_identities WHERE package_ref_id=? AND content_hash=?")
+            .get(row.package_ref_id, row.package_content_hash);
+          const recordId = saved ? String(saved.record_id) : readPackageRecordIdentity(db,
+            db.prepare("SELECT * FROM analysis_packages WHERE package_ref_id=?").get(row.package_ref_id) as PackageArtifactRow,
+          ).recordId;
+          db.prepare(`INSERT INTO package_record_identities VALUES(?,?,?) ON CONFLICT(package_ref_id)
+            DO UPDATE SET content_hash=excluded.content_hash,record_id=excluded.record_id`)
+            .run(row.package_ref_id, row.package_content_hash, recordId);
+          identity = { contentHash: row.package_content_hash, dataVersion: version, recordId };
           usageRecordIdentities.set(row.package_ref_id, identity);
         }
         history.push({ reportRefId: row.report_ref_id, recordId: identity.recordId, report });

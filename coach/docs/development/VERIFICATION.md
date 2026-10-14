@@ -485,3 +485,15 @@ TeachingBrief → 请求完整传递；覆盖立直押金/供托及终局不能�
 目录合并按实际包源身份与本人座位绑定，泛用同编号包不得冒充雀魂目录。
 房间/段位变化使用原始目录详情，protobuf 字段缺失与真实零值须分开；未知展示元数据
 不得改变原有可分析范围，桌分、段位 pt 与魂珠单位不得混用。
+
+## 2026-10-14 跨重启复盘性能
+
+运行 `npx vitest run packages/desktop/tests/review-presentation-cache.test.ts`，验证缓存命中
+不读取原包、概览/全部详情与原 presenter 一致、缺失/旧版本/不可读缓存只重建一次，以及
+报告激活与删除。完整读回的原 artifact 负例继续保留；普通展示不再承担字节篡改审计。
+既有 scoped generation、worker、renderer、Electron Golden 仍须通过。
+
+旧库准备：先备份资料库，再执行 `npm run prepare:review-cache -- <review-library目录>`。
+每包一个进程，产生耗时 JSON；不调用 provider。性能验收使用真实库副本，分别记录
+准备耗时、缓存大小、新 worker/新进程打开及首个详情（含舍牌损失），与相同样本基线比较。
+有缓存的新进程代表跨重启测试，不代表物理冷磁盘；不得混用这两个口径。

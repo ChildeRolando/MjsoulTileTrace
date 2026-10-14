@@ -465,3 +465,15 @@ artifact 均不携带 raw material。缓存没有 TTL/LRU，只有显式清理�
 独立 immutable reports → 显式 decision/reportRef 映射 → reasoning 会话 read-back →
 窄 presenter/IPC → 单行动解说及全盘完成状态。最新请求用量与全盘可用解说数分别展示。
 来源目录的牌谱标题/玩家结算摘要单独本地保存，仅服务列表展示，不进入分析事实或模型输入。
+
+## 2026-10-14 本地复盘展示快路径
+
+正常打开：SQLite 版本化展示缓存 → 既有 snapshot/detail DTO → worker/IPC → renderer。
+缓存由既有 repository 在完整验证后的保存/读回处生成，包含全部入选局面，应用更新报告
+时刷新；跨重启不重新解压、hash、语义验证或构图。原包和报告仍是重建与新解说的来源。
+缺失/版本失效才完整读回一次。此规则优先于本文旧的“每次重开重建”描述，详见 M7-B
+2026-10-14 修订。缓存是可重建投影，不是新的事实来源；ContextGraph 仍仅在内存。
+
+舍牌损失从 reasoning 公共 API `prepareDiscardLossInput` 提取所需事实、候选和原规则
+结果，存于 main-only 缓存；`calculateDiscardLossFromInput` 复用原计算，不加载整包。
+历史用量的 recordId 由 repository 存为轻量身份，避免打开时读取其他分析包。

@@ -9,9 +9,28 @@ const tile = (n: number): Tile => ({id: `${n < 27 ? n % 9 + 1 : n - 26}${n < 9 ?
 /** Teaching consequences only. The caller supplies an already validated package;
  * current legal actions come exclusively from its recorded native rules result. */
 export async function calculateDiscardLoss(pkg: StructuredAnalysisPackage, decisionId: string, engine: MahjongFactEnginePort): Promise<DiscardLossDto> {
+  return calculateDiscardLossFromInput(prepareDiscardLossInput(pkg, decisionId), engine);
+}
+
+type ReadyDecision = Extract<StructuredAnalysisPackage["decisions"][number], { outcome: "analysis_ready" }>;
+/** Main-owned calculation input. No graph, candidate ledgers or whole-game package needed. */
+export type DiscardLossInput = {
+  decision: Pick<ReadyDecision, "knownGameFacts" | "comparisonSet"> | null;
+  evidence: NonNullable<StructuredAnalysisPackage["legalActionEvidence"]>["results"][number] | null;
+};
+
+export function prepareDiscardLossInput(pkg: StructuredAnalysisPackage, decisionId: string): DiscardLossInput {
   const decision = pkg.decisions.find(d => d.decisionId === decisionId);
-  if (decision?.outcome !== "analysis_ready") return {status:"unavailable",reason:"not_discard_window"};
-  const evidence = pkg.legalActionEvidence?.results.find(r => r.decisionId === decisionId);
+  return {
+    decision: decision?.outcome === "analysis_ready"
+      ? { knownGameFacts: decision.knownGameFacts, comparisonSet: decision.comparisonSet } : null,
+    evidence: pkg.legalActionEvidence?.results.find(r => r.decisionId === decisionId) ?? null,
+  };
+}
+
+export async function calculateDiscardLossFromInput(input: DiscardLossInput, engine: MahjongFactEnginePort): Promise<DiscardLossDto> {
+  const { decision, evidence } = input;
+  if (decision === null) return {status:"unavailable",reason:"not_discard_window"};
   if (!evidence?.request || evidence.response.status !== "ok") return {status:"unavailable",reason:"legal_actions_missing"};
   const facts = decision.knownGameFacts;
   if (!facts.completeness.concealedTiles || !facts.completeness.rivers || !facts.completeness.melds || !facts.completeness.doraIndicators || !facts.completeness.calledDiscardMarkers) return {status:"unavailable",reason:"facts_missing"};

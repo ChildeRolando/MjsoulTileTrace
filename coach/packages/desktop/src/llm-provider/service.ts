@@ -6,7 +6,7 @@ import {
   type CoachProviderConfig, type CoachReportResult,
   type ReviewSelectionResult, type StructuredAnalysisPackage, type LlmCoachProvider,
 } from "@riichi-coach/contracts";
-import { calculateDiscardLoss, generateReviewReport, projectContextGraph, selectReviewDecisions, validateStructuredAnalysisPackage, type MahjongFactEnginePort, type ReviewReadBackContext } from "@riichi-coach/reasoning";
+import { calculateDiscardLossFromInput, generateReviewReport, projectContextGraph, selectReviewDecisions, validateStructuredAnalysisPackage, type MahjongFactEnginePort, type ReviewReadBackContext } from "@riichi-coach/reasoning";
 import type { ProviderCredentials } from "./credentials.js";
 import { createOpenAiCoachProvider } from "./openai-compatible.js";
 import { createCodexCoachProvider, getCodexCoachAvailability } from "./codex-cli.js";
@@ -76,15 +76,15 @@ export function createCoachService(input: {
     ...(input.recordLabels === undefined ? {} : { observePackage: input.recordLabels.observePackage }),
     ...(input.reviewRepository === undefined ? {} : { repository: input.reviewRepository }),
   });
-  const lossCache = new Map<string, Awaited<ReturnType<typeof calculateDiscardLoss>>>();
-  const lossPending = new Map<string, ReturnType<typeof calculateDiscardLoss>>();
+  const lossCache = new Map<string, Awaited<ReturnType<typeof calculateDiscardLossFromInput>>>();
+  const lossPending = new Map<string, ReturnType<typeof calculateDiscardLossFromInput>>();
   const loadLoss = async (packageId: string, decisionId: string) => {
     const key = JSON.stringify([packageId,decisionId]);
     const cached = lossCache.get(key);
     if (cached) return cached;
     let pending = lossPending.get(key);
     if (!pending) {
-      pending = calculateDiscardLoss(reviewController.reviewCalculationPackage(packageId),decisionId,input.reviewFactEngine!).then(result => {
+      pending = calculateDiscardLossFromInput(reviewController.reviewDiscardLossInput(packageId,decisionId),input.reviewFactEngine!).then(result => {
         if (result.status === "ready") {
           lossCache.set(key,result);
           if (lossCache.size > 64) lossCache.delete(lossCache.keys().next().value!);

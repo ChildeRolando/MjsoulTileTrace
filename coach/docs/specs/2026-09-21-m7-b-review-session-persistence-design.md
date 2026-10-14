@@ -330,3 +330,38 @@ controller 对已存在的生成 operation receipt 拒绝重发；repository 的
 替换期间临时移除并恢复 repository 所有的 immutable_package trigger，失败连同原块
 和 trigger 一起回滚；不改 report/session/行动映射。旧 inline 编码保持原字节。
 空闲空间回收在后台尝试，busy 时保留数据并延后；回收失败不能冒充数据迁移失败。
+
+## 2026-10-14 用户批准修订：可信本地展示缓存
+
+本节替代本文中“每次重开从原始字节完整验证”“禁止持久化验证结论”的展示路径约束。
+用户明确选择以正常打开体验为优先：本应用完整验证过的本地结果，在应用管理的内容身份与
+验证版本有效时跨重启复用。正常打开不解压原包、不重算整包 hash、不重新验证语义或构图，
+也不在打开后自动全量审计。外部工具绕过应用修改字节且保留身份，不属于缓存检测目标。
+
+`review-session-repository` 拥有可删除、可重建的 `review_presentation_cache`，保存生产
+presenter 输出的概览与全部入选详情，以及 main-only 的舍牌损失最小输入；ContextGraph
+仍不落盘，也不发给 renderer。`package_record_identities` 保存已读取的 recordId，避免
+历史用量统计为身份重复读取整包。缓存绑定 sessionId、revision、package ref/content hash/
+schema、selection hash、decision-report-map hash、active ref 和显式验证/展示版本。
+这里的 hash 是应用保存的身份字段，命中时不重新扫描源内容。
+
+保存新 session、激活报告后由已验证 read-back 同步生成缓存；源事务先提交，崩溃留下的
+旧缓存因 revision 不符而不能命中。删除 session/package 通过外键级联删除派生缓存。
+缓存缺失、格式不可读或相关版本失效时完整读回一次后重建；生成新解说继续使用完整
+事实与 grounding 验证链。修改验证语义或展示/计算投影时必须更新
+`REVIEW_PRESENTATION_VERSION`，普通代码发布不随意失效全部存档。
+
+旧资料库部署时先运行 `npm run prepare:review-cache -- <review-library目录>`。
+该准备逐包独立进程执行，不调用 LLM、不重新分析牌谱、不改写报告。未准备的旧包首次
+打开仍需重建，不能将该次耗时宣称为亚秒。验收分别记录一次准备和重启后的常规打开。
+
+永久回归：`review-presentation-cache.test.ts`（跨重启零原包读取、逐字段页面一致、缓存
+失效与重建、报告切换/删除），既有 session/generation/worker/renderer 与 Electron Golden
+覆盖生产链。原始 artifact 损坏检查继续适用于显式完整读回及生成，不再要求普通展示触发。
+
+补充：LLM 工具分析所需的剩余数据保留在完整原包，展示缓存不裁剪源数据。当前没有通用
+问答工具入口；本次不新增工具框架。已有舍牌损失使用局面级输入，已有解说生成按需加载
+完整上下文并在当前 worker 内复用。普通打开后不自动预载整包。未来问答工具优先声明
+局面级所需字段；确实依赖整包/图的工具应使用独立计算任务、single-flight 和取消/版本
+绑定，避免其同步准备阻塞展示 worker 的详情请求。当前 worker 内首次生成的同步准备
+仍可能延迟同 worker 后续请求；主线程/renderer 不同步执行该工作，不能称为完全无感知。
