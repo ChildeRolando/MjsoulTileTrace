@@ -79,7 +79,7 @@ export type LibriichiBoundAction = LibriichiRuleSuccess["actions"][number] & {
   physicalRealizations: readonly {action: RiichiAction; actionRef: string}[];
 };
 
-function actionFacts(decision: ReplayedDecision): KnownActionFacts {
+function actionFacts(decision: Pick<ReplayedDecision, "snapshot">): KnownActionFacts {
   const { privateState, publicState } = decision.snapshot;
   return {
     decisionWindow: privateState.decisionWindow,
@@ -118,7 +118,7 @@ function encodedIndex(action: RiichiAction): number {
 export function bindLibriichiRuleResult(input: {
   request: LibriichiRuleRequest;
   response: LibriichiRuleResponse;
-  decision: ReplayedDecision;
+  decision: Pick<ReplayedDecision, "snapshot" | "facts" | "decisionEventRef">;
 }): { response: LibriichiRuleResponse; actions: readonly LibriichiBoundAction[] } {
   const {request,response} = validateLibriichiRuleBinding(input.request,input.response);
   const snapshot = input.decision.snapshot;
