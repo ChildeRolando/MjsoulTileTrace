@@ -9,6 +9,7 @@ import { createReviewSessionRepository } from "../src/review-session-repository.
 import { createFixedReviewController } from "../src/fixed-review-controller.js";
 import * as storage from "../src/package-artifact-storage.js";
 import { presentFixedReviewDetailFromContext, presentFixedReviewSnapshotFromContext } from "../src/fixed-review-presenter.js";
+import { REVIEW_PRESENTATION_VERSION, REVIEW_VALIDATION_VERSION } from "../src/review-presentation-cache.js";
 
 const roots: string[] = [];
 afterEach(() => { vi.restoreAllMocks(); for (const dir of roots.splice(0)) rmSync(dir, { recursive: true, force: true }); });
@@ -17,6 +18,31 @@ const selection = selectReviewDecisions(pkg);
 const controller = (repository: ReturnType<typeof createReviewSessionRepository>) => createFixedReviewController({
   repository, readPackage: async () => { throw new Error("unexpected external read"); },
   generateReport: async () => { throw new Error("unexpected provider"); },
+});
+
+it("upgrades v2 display fields and completed proof across restart without decoding a package", () => {
+  const root = mkdtempSync(join(tmpdir(), "coach-ui-cache-upgrade-")); roots.push(root);
+  let repository = createReviewSessionRepository({ root });
+  const state = repository.saveSession(pkg, selection);
+  repository.rememberCompletedAnalysis("prior-ui-analysis", state);
+  const expected = repository.openPresentation(pkg.packageId);
+  repository.close();
+  const db = new DatabaseSync(join(root, "library.sqlite"));
+  try {
+    db.exec("UPDATE review_presentation_cache SET version='validation/1:presentation/2'; UPDATE completed_local_analyses SET validation_version='validation/1:presentation/2'");
+  } finally { db.close(); }
+  repository = createReviewSessionRepository({ root });
+  const read = vi.spyOn(storage, "readPackageArtifact").mockImplementation(() => { throw new Error("UI upgrade must not decode evidence"); });
+  try {
+    expect(repository.findCompletedAnalysis("prior-ui-analysis")).toEqual({ sessionId: state.sessionId, packageId: pkg.packageId });
+    expect(repository.openPresentation(pkg.packageId)).toEqual(expected);
+    expect(read).not.toHaveBeenCalled();
+  } finally { repository.close(); }
+  const check = new DatabaseSync(join(root, "library.sqlite"));
+  try {
+    expect(check.prepare("SELECT version FROM review_presentation_cache").get()?.version).toBe(REVIEW_PRESENTATION_VERSION);
+    expect(check.prepare("SELECT validation_version FROM completed_local_analyses").get()?.validation_version).toBe(REVIEW_VALIDATION_VERSION);
+  } finally { check.close(); }
 });
 
 it("reuses a completed analysis across restart without reading the full package, preserving the saved session", () => {

@@ -3,7 +3,7 @@ import {
   sortTilesCanonical,
   type FixedReviewDetailDto, type FixedReviewSnapshotDto,
   type ReviewReport, type ReviewSelectionResult, type RiichiAction,
-  type StructuredAnalysisPackage, type Tile, type FactorValue,
+  type StructuredAnalysisPackage, type Tile, type FactorValue, type KnownGameFacts,
 } from "@riichi-coach/contracts";
 import { composeReviewReadBackContext, type ReviewReadBackContext } from "@riichi-coach/reasoning";
 
@@ -23,6 +23,21 @@ function boardLabels(decision: ReadyDecision) {
     // A river count is not a turn count after calls; name the observable fact.
     turnLabel: facts.completeness.rivers ? `已打 ${facts.rivers[facts.actor]!.length} 张` : "巡目未知",
   };
+}
+
+/** Reused by bounded display-cache upgrades; source references stay main-only. */
+export function presentReviewMelds(facts: KnownGameFacts) {
+  return facts.melds.map(meld => {
+    // Resolve only the recorded discard reference, never guess from tile faces.
+    const discard = meld.calledDiscardEventRef
+      ? facts.rivers.flat().find(x => x.eventId === meld.calledDiscardEventRef) : undefined;
+    const valid = meld.kind !== "ankan" && discard && discard.actor !== meld.actor
+      && meld.tiles.some(t => t.id === discard.tile.id && t.red === discard.tile.red);
+    return {actor:meld.actor ?? null, kind:meld.kind,
+      label:({chi:"吃",pon:"碰",daiminkan:"明杠",ankan:"暗杠",kakan:"加杠"})[meld.kind],tiles:meld.tiles,
+      sourceActor:valid ? discard.actor : null, calledTile:valid ? discard.tile : null,
+      addedTile:meld.kind === "kakan" ? meld.tiles.at(-1)! : null};
+  });
 }
 
 export function presentReviewBoard(decision: ReadyDecision) {
@@ -45,7 +60,7 @@ export function presentReviewBoard(decision: ReadyDecision) {
           : index === declarationDiscard,
       }));
     }),
-    melds: facts.melds.map(meld => ({actor:meld.actor ?? null, label:({chi:"吃",pon:"碰",daiminkan:"明杠",ankan:"暗杠",kakan:"加杠"})[meld.kind],tiles:meld.tiles})),
+    melds: presentReviewMelds(facts),
     riichiActors: [...new Set([...facts.threats.filter(t=>t.riichi).map(t=>t.actor),...(facts.selfRiichi?[facts.actor]:[])])],
     complete: facts.completeness.concealedTiles && facts.completeness.rivers && facts.completeness.melds && facts.completeness.doraIndicators,
     actualDiscardMode: action?.kind === "discard" || action?.kind === "riichi_discard" ? action.discardMode : undefined,

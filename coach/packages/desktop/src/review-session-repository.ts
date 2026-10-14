@@ -21,7 +21,7 @@ import {
 } from "@riichi-coach/reasoning";
 import { describePackageArtifact, insertPackageChunks, stagePackageArtifact, readPackageArtifact, readPackageRecordIdentity } from "./package-artifact-storage.js";
 import { aggregateCoachUsageHistory } from "./coach-usage-history.js";
-import { createReviewPresentationCache, REVIEW_PRESENTATION_VERSION } from "./review-presentation-cache.js";
+import { createReviewPresentationCache, REVIEW_VALIDATION_VERSION } from "./review-presentation-cache.js";
 
 const LIBRARY_FORMAT_VERSION = 4;
 
@@ -522,14 +522,17 @@ export function createReviewSessionRepository(input: {
       const session = sessionByPackageId(packageId);
       if (!session) return null;
       recover(session.session_id);
-      if (row.validation_version !== REVIEW_PRESENTATION_VERSION || !presentationCache.load(packageId)) {
+      const validProof = row.validation_version === REVIEW_VALIDATION_VERSION
+        || row.validation_version === "validation/1:presentation/2";
+      if (!validProof || !presentationCache.load(packageId)) {
         // An expired/missing proof revalidates the saved result, rather than
         // recomputing native output for the same immutable package slot.
         const state = read(sessionByPackageId(packageId)!);
         if (state.analysisPackage.record.status === "integrity_failed") return null;
-        db.prepare("UPDATE completed_local_analyses SET validation_version=? WHERE input_key=?")
-          .run(REVIEW_PRESENTATION_VERSION, inputKey);
       }
+      if (row.validation_version !== REVIEW_VALIDATION_VERSION) db.prepare(
+        "UPDATE completed_local_analyses SET validation_version=? WHERE input_key=?")
+        .run(REVIEW_VALIDATION_VERSION, inputKey);
       return { sessionId: session.session_id, packageId };
     },
     rememberCompletedAnalysis(inputKey: string, state: PersistedReviewState): void {
@@ -541,7 +544,7 @@ export function createReviewSessionRepository(input: {
       db.prepare(`INSERT INTO completed_local_analyses VALUES(?,?,?,?) ON CONFLICT(input_key)
         DO UPDATE SET package_ref_id=excluded.package_ref_id,content_hash=excluded.content_hash,
           validation_version=excluded.validation_version`)
-        .run(inputKey, row.package_ref_id, row.content_hash, REVIEW_PRESENTATION_VERSION);
+        .run(inputKey, row.package_ref_id, row.content_hash, REVIEW_VALIDATION_VERSION);
     },
     isPresentationCurrent(packageId: string, sessionId: string, revision: number): boolean {
       const current = sessionByPackageId(packageId);

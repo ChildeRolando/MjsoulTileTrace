@@ -1,4 +1,4 @@
-import { createReviewWorkspace, rememberedDecision } from "./review-workspace.js";
+import { createReviewWorkspace, rememberedDecision, tileName } from "./review-workspace.js";
 import type { CoachDesktopApi, FixedReviewDetailDto, FixedReviewSnapshotDto } from "@riichi-coach/contracts";
 
 const ANALYSIS_LABELS = {
@@ -108,7 +108,24 @@ export function createFixedReviewUi(input: {
     actual.append(element(document, "h4", "你的选择"), element(document, "p", detail.actual?.label ?? "没有可展示的行动"));
     const mortal = element(document, "section");
     mortal.append(element(document, "h4", "Mortal 偏好"));
-    for (const action of detail.mortal) mortal.append(element(document, "p", `${action.label} · ${action.score.toFixed(2)} ${action.scoreUnit} · 评分口径：${action.scoreMethodLabel}`));
+    for (const action of detail.mortal) {
+      if (input.workspaceMode) {
+        mortal.append(element(document,"p",action.label));
+        const score=element(document,"details");score.className="comparison-score";
+        score.append(element(document,"summary","模型选择分与口径"),element(document,"p",`${action.score.toFixed(2)} ${action.scoreUnit} · 评分口径：${action.scoreMethodLabel}`));
+        mortal.append(score);
+      } else mortal.append(element(document, "p", `${action.label} · ${action.score.toFixed(2)} ${action.scoreUnit} · 评分口径：${action.scoreMethodLabel}`));
+    }
+    if (input.workspaceMode && detail.board) {
+      const showTiles=(host:HTMLElement,tiles:NonNullable<FixedReviewDetailDto["board"]>["hand"])=>{
+        if(!tiles.length)return;
+        const strip=element(document,"div");strip.className="comparison-tiles";
+        for(const tile of tiles){const image=element(document,"img");image.className="tile";image.src=`./tiles/${tile.red ? "0"+tile.id[1] : tile.id}.svg`;image.alt=tileName(tile);image.draggable=false;strip.append(image);}
+        host.append(strip);
+      };
+      showTiles(actual,detail.board.actualTile ? [detail.board.actualTile] : []);
+      showTiles(mortal,(detail.board.mortalDiscards??[]).map(x=>x.tile));
+    }
     comparison.append(actual, mortal);
     const coach = element(document, "section");
     coach.className = "review-coach";

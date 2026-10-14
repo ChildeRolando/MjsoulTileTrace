@@ -2,11 +2,13 @@ import type { DatabaseSync } from "node:sqlite";
 import { FixedReviewDetailSchema, FixedReviewSnapshotSchema, type FixedReviewDetailDto, type FixedReviewSnapshotDto } from "@riichi-coach/contracts";
 import { prepareDiscardLossInput, type DiscardLossInput } from "@riichi-coach/reasoning";
 import type { PersistedReviewState } from "./review-session-repository.js";
-import { presentFixedReviewDetailFromContext, presentFixedReviewSnapshotFromContext } from "./fixed-review-presenter.js";
+import { presentFixedReviewDetailFromContext, presentFixedReviewSnapshotFromContext, presentReviewMelds } from "./fixed-review-presenter.js";
 
 // Bump validation when previously accepted evidence must be rechecked; bump
 // presentation when DTO projection or discard-loss input semantics change.
-export const REVIEW_PRESENTATION_VERSION = "validation/1:presentation/2";
+export const REVIEW_VALIDATION_VERSION = "validation/1";
+export const REVIEW_PRESENTATION_VERSION = `${REVIEW_VALIDATION_VERSION}:presentation/3`;
+const PREVIOUS_PRESENTATION_VERSION = "validation/1:presentation/2";
 export type ReviewPresentation = {
   sessionId: string;
   revision: number;
@@ -34,7 +36,8 @@ export function createReviewPresentationCache(db: DatabaseSync) {
     const current = identity(packageId);
     if (!current) return null;
     const row = db.prepare("SELECT version,binding,payload FROM review_presentation_cache WHERE session_id=?").get(current.session_id!);
-    if (!row || row.version !== REVIEW_PRESENTATION_VERSION || row.binding !== JSON.stringify(current)) return null;
+    if (!row || (row.version !== REVIEW_PRESENTATION_VERSION && row.version !== PREVIOUS_PRESENTATION_VERSION)
+      || row.binding !== JSON.stringify(current)) return null;
     try {
       const value = JSON.parse(String(row.payload)) as ReviewPresentation;
       value.snapshot = FixedReviewSnapshotSchema.parse(value.snapshot);
@@ -46,6 +49,18 @@ export function createReviewPresentationCache(db: DatabaseSync) {
         detail.packageId !== packageId || detail.decisionId !== selected[index]!.decisionId
         || detail.activeReportRefId !== value.snapshot.activeReportRefId
         || !value.lossInputs?.[detail.decisionId])) return null;
+      if (row.version === PREVIOUS_PRESENTATION_VERSION) {
+        // v2 already saved validated local facts for discard-loss calculation.
+        // Reproject only the new display fields; no package read or graph rebuild.
+        value.details = value.details.map(detail => {
+          if (!detail.board) return detail;
+          const facts = value.lossInputs[detail.decisionId]!.decision?.knownGameFacts;
+          if (!facts) throw new Error("presentation_upgrade_unavailable");
+          return FixedReviewDetailSchema.parse({ ...detail, board: { ...detail.board, melds: presentReviewMelds(facts) } });
+        });
+        db.prepare("UPDATE review_presentation_cache SET version=?,payload=? WHERE session_id=? AND version=? AND binding=?")
+          .run(REVIEW_PRESENTATION_VERSION, JSON.stringify(value), value.sessionId, row.version!, row.binding!);
+      }
       return value;
     } catch { return null; }
   };
