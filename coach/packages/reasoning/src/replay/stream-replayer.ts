@@ -10,6 +10,7 @@ import type {
 import {
   freezeDecisionSnapshotInContext,
   freezeDecisionStreamContext,
+  useDecisionStreamContext,
   type DecisionStreamContext,
 } from "./decision-snapshot.js";
 import { projectKnownGameFactsV2 } from "../factors/known-game-facts-v2.js";
@@ -399,10 +400,10 @@ function freezeResponseWindow(
 /** All wave-1 opponent event boundaries; no local shape or actual-choice prefilter.
  * Canonical replay establishes what happened. The native rule query determines
  * whether each boundary permits actions, is non-action, or lacks evidence. */
-export function scanCanonicalResponseBoundaries(stream: CanonicalEventStream): ReplayedDecision[] {
+export function scanCanonicalResponseBoundaries(stream: CanonicalEventStream, streamContext?: DecisionStreamContext): ReplayedDecision[] {
   const decisions: ReplayedDecision[] = [];
   if (stream.selfActor === null) return decisions;
-  let context: DecisionStreamContext | undefined;
+  let context: DecisionStreamContext | undefined = streamContext === undefined ? undefined : useDecisionStreamContext(stream, streamContext);
   const getContext = (): DecisionStreamContext =>
     (context ??= freezeDecisionStreamContext(stream));
   for (let index = 0; index < stream.events.length; index += 1) {
@@ -452,6 +453,7 @@ export function scanCanonicalResponseBoundaries(stream: CanonicalEventStream): R
 // criterion) without requiring a model.
 export function replayCanonicalStream(
   stream: CanonicalEventStream,
+  streamContext?: DecisionStreamContext,
 ): ReplayedDecision[] {
   const decisions: ReplayedDecision[] = [];
   // Parse + reduce once, lazily: built on the FIRST window so a stream with
@@ -459,7 +461,7 @@ export function replayCanonicalStream(
   // all parsing/validation the same way). Every window below then shares the
   // one reduction — re-reducing per window made the replay O(windows ×
   // events²), ~172s per seat on corpus games — with identical outputs.
-  let context: DecisionStreamContext | undefined;
+  let context: DecisionStreamContext | undefined = streamContext === undefined ? undefined : useDecisionStreamContext(stream, streamContext);
   const getContext = (): DecisionStreamContext =>
     (context ??= freezeDecisionStreamContext(stream));
   for (let index = 0; index < stream.events.length; index += 1) {

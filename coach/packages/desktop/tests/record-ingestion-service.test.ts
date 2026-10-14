@@ -38,6 +38,22 @@ function setup(list: readonly unknown[] = [summary]) {
 }
 
 describe("account-bound Mahjong Soul record ingestion", () => {
+  test.each([
+    { status: "mapping_failed" as const, code: "mahjong_soul_canonical_mapping_failed" as const },
+    { status: "unsupported_semantics" as const, code: "mahjong_soul_canonical_unsupported_semantics" as const },
+    { status: "validation_failed" as const, code: "mahjong_soul_canonical_validation_failed" as const },
+  ])("reports $status in replaying after successful ingestion, without invoking inference", async outcome => {
+    const stages: string[] = [];
+    let preparations = 0;
+    const handoff = createAccountRecordReviewHandoff({
+      ingest: async () => ({ recordId: id, selfActor: 1, recordBytes: Uint8Array.of(1) }),
+      analysisStore: { analyzeRecord: async () => outcome },
+      prepareReview: async () => { preparations++; throw new Error("must not infer"); },
+    });
+    await expect(handoff(id, value => stages.push(value.stage))).rejects.toThrow(outcome.code);
+    expect(stages).toEqual(["replaying"]);
+    expect(preparations).toBe(0);
+  });
   test("fetches only a record in the current account catalog and closes lobby", async () => {
     const value = setup();
     await expect(value.service.ingest(id)).resolves.toMatchObject({ recordId: id, actionCount: 1, selfActor: 0 });

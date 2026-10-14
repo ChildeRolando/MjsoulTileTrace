@@ -103,3 +103,6 @@ export {
 } from "./reviewReport.js";
 export * from "./coach-prompt.js";
 export * from "./coach-teaching-brief.js";
+export * from "./factors/discard-loss.js";
+
+export { cloneWithSharedPackageEvidence } from "./analysis/shared-package-evidence.js";

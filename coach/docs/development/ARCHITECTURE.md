@@ -1,5 +1,18 @@
 # 系统架构
 
+2026-10-15 最新牌谱修复：mapper v9 区分被荣和的立直声明与成立；原始读取与
+转换/重放阶段分离。完整验证并保存的本地分析绑定实际输入、组件/策略身份和
+内容身份，跨重启复用原 session；过期证明重验原包。同身份不同内容的保存拒绝
+仍然保留。详见 [修复边界与验证](../plans/2026-10-15-latest-record-analysis-repair.md)。
+
+2026-10-14 用户批准分析 Worker 与共享证据 P2 并案：首次校验/重放及完整分析、
+组包/保存运行在独立特权 Worker；窗口只收进度和结果编号，展示/问答 Worker 独立。
+既有分析合同、证据编号及 semanticContentHash 不变；新 RCPKG03 仅将重复证据集合
+和事件历史编码为共享引用，content_hash 绑定编码字节。旧档案不强制迁移/重分析，
+历史 RCPKG01 压缩仍保留原哈希。构图可直接消费验证器私有不可变包；外部可变输入
+仍验证 schema 并取得私有副本。详见
+[变更控制与验证](../plans/2026-10-14-analysis-worker-shared-evidence.md)。
+
 ## 总览
 
 **2026-09-28 实现状态**：PR #28 规划基线 `67e1dd9` 曾包含本地合法动作推导。
@@ -465,3 +478,31 @@ artifact 均不携带 raw material。缓存没有 TTL/LRU，只有显式清理�
 独立 immutable reports → 显式 decision/reportRef 映射 → reasoning 会话 read-back →
 窄 presenter/IPC → 单行动解说及全盘完成状态。最新请求用量与全盘可用解说数分别展示。
 来源目录的牌谱标题/玩家结算摘要单独本地保存，仅服务列表展示，不进入分析事实或模型输入。
+
+## 2026-10-14 本地复盘展示快路径
+
+正常打开：SQLite 版本化展示缓存 → 既有 snapshot/detail DTO → worker/IPC → renderer。
+缓存由既有 repository 在完整验证后的保存/读回处生成，包含全部入选局面，应用更新报告
+时刷新；跨重启不重新解压、hash、语义验证或构图。原包和报告仍是重建与新解说的来源。
+缺失/版本失效才完整读回一次。此规则优先于本文旧的“每次重开重建”描述，详见 M7-B
+2026-10-14 修订。缓存是可重建投影，不是新的事实来源；ContextGraph 仍仅在内存。
+
+舍牌损失从 reasoning 公共 API `prepareDiscardLossInput` 提取所需事实、候选和原规则
+结果，存于 main-only 缓存；`calculateDiscardLossFromInput` 复用原计算，不加载整包。
+历史用量的 recordId 由 repository 存为轻量身份，避免打开时读取其他分析包。
+
+
+### 2026-10-14 牌谱分析上下文与新包写入
+
+本次分析显式传递已有 DecisionStreamContext，其 stream 为独立不可变副本；评分、
+规则投影、回放和振听复用同一还原，不能跨 stream 使用。各局面绑定仍重新检查，
+振听只消费当前决策前缀。没有全局强引用回放缓存。
+
+包验证器可准备独立、深度冻结的验证结果，只有其私有弱引用登记的对象身份允许
+复用验证结论。可变输入、调用方自行冻结输入和反序列化数据不获得豁免。desktop
+新包保存一次构图、一次编码暂存，以原 SQLite 事务插入 immutable artifact/块和 session，
+随后复用本次 composer 生成展示缓存；其他连接变化仍使完整上下文缓存失效。
+临时编码文件不成为事实源，正常完成与失败均关闭清理；原存档格式保持不变。
+
+受管 Mortal 以完整响应、requestId、schema、identity 和候选全集决定返回，不附加
+20 ms 静默等待。迟到异常立即使当前 child 失效，不能作为下一次请求的成功响应。

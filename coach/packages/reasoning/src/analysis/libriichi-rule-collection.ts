@@ -4,6 +4,7 @@ import {
   type LibriichiRuleRequest, type LibriichiRuleResponse, type LibriichiRuleSuccess,
 } from "@riichi-coach/contracts";
 import { replayCanonicalStream, scanCanonicalResponseBoundaries, type ReplayedDecision } from "../replay/stream-replayer.js";
+import { useDecisionStreamContext, type DecisionStreamContext } from "../replay/decision-snapshot.js";
 import { bindLibriichiRuleResult, createLibriichiRuleProjector, type LibriichiBoundAction } from "./libriichi-rule-projection.js";
 import { actualLibriichiActionRef } from "./local-mortal-rule-scoring.js";
 
@@ -19,11 +20,12 @@ export type LibriichiResolvedDecision = {
 
 /** Query every given boundary before any report lookup; accumulate failures. */
 export async function collectLibriichiRuleResults(input: {
+  streamContext?: DecisionStreamContext;
   stream: CanonicalEventStream; decisions: readonly ReplayedDecision[];
   identity: LibriichiRuleIdentity; port: LibriichiRulePort;
   onProgress?: (counts: { completed: number; total: number }) => void;
 }): Promise<ReadonlyMap<string, LibriichiResolvedDecision>> {
-  const project = createLibriichiRuleProjector(input.stream, input.identity);
+  const project = createLibriichiRuleProjector(input.stream, input.identity, input.streamContext);
   const results = new Map<string, LibriichiResolvedDecision>();
   for (const decision of input.decisions) {
     input.onProgress?.({ completed: results.size, total: input.decisions.length });
@@ -47,12 +49,15 @@ export async function collectLibriichiRuleResults(input: {
 
 /** Production census uses event boundaries, including native non-action results. */
 export async function queryCanonicalLibriichiRules(input: {
+  streamContext?: DecisionStreamContext;
   stream: CanonicalEventStream; identity: LibriichiRuleIdentity; port: LibriichiRulePort;
   onProgress?: (counts: { completed: number; total: number }) => void;
 }) {
-  const decisions = replayCanonicalStream(input.stream);
-  const responseDecisions = scanCanonicalResponseBoundaries(input.stream);
-  const rules = await collectLibriichiRuleResults({...input,decisions:[...decisions,...responseDecisions]});
+  const streamContext = useDecisionStreamContext(input.stream, input.streamContext);
+  const stream = streamContext.stream;
+  const decisions = replayCanonicalStream(stream, streamContext);
+  const responseDecisions = scanCanonicalResponseBoundaries(stream, streamContext);
+  const rules = await collectLibriichiRuleResults({...input,stream,streamContext,decisions:[...decisions,...responseDecisions]});
   return {decisions,responseDecisions,rules};
 }
 

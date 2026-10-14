@@ -1,4 +1,6 @@
 import { parentPort, workerData } from "node:worker_threads";
+import { fileURLToPath } from "node:url";
+import { JsonlFactEngineClient, ManagedFactEngineTransport } from "@riichi-coach/reasoning";
 import { CoachProviderConfigSchema } from "@riichi-coach/contracts";
 import {
   COACH_WORKER_PROTOCOL_VERSION,
@@ -42,6 +44,7 @@ async function runWorker(): Promise<void> {
   let repository: ReturnType<typeof createReviewSessionRepository> | null = null;
   let labels: ReturnType<typeof createReviewSessionLabelStore> | null = null;
   let closing = false;
+  const reviewEngine = new JsonlFactEngineClient(new ManagedFactEngineTransport(fileURLToPath(new URL("../../../resources/",import.meta.url))));
 
   const mainCall = async (operation: CoachWorkerMainOperation, rawPayload: unknown): Promise<unknown> => {
     const payload = parseCoachWorkerMainRequestPayload(operation, rawPayload);
@@ -133,6 +136,7 @@ async function runWorker(): Promise<void> {
       item.reject(unavailable());
     }
     mainPending.clear();
+    await reviewEngine.close();
     try { labels?.close(); } finally { labels = null; }
     try { repository?.close(); } finally { repository = null; }
     port.postMessage({ type: "closed", id });
@@ -175,6 +179,7 @@ async function runWorker(): Promise<void> {
   });
 
   async function closeResources(): Promise<void> {
+    await reviewEngine.close().catch(() => undefined);
     for (const item of mainPending.values()) {
       clearTimeout(item.timeout);
       item.reject(unavailable());
@@ -202,6 +207,7 @@ async function runWorker(): Promise<void> {
       clear: async () => { await mainCall("credentials.clear", null); },
     };
     service = createCoachService({
+      reviewFactEngine: reviewEngine,
       credentials,
       fetchImpl: globalThis.fetch,
       readPackage: createPackageReferenceReader(data.userData),

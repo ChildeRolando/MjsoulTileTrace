@@ -174,6 +174,7 @@ export const Hand13FactRequestSchema = z.object({
   ...RequestIdentityShape,
   ...HandContextShape,
   kind: z.literal("hand13"),
+  calculationMode: z.literal("efficiency-v1").optional(),
   handTiles34: Tile34CountsSchema,
   leftTiles34: Tile34CountsSchema.nullable(),
   visibleCountsComplete: z.boolean(),
@@ -408,6 +409,7 @@ const ImproveSchema = z.object({
 export const Hand13FactResultSchema = z.object({
   ...ResultIdentityShape,
   kind: z.literal("hand13_result"),
+  calculationMode: z.literal("efficiency-v1").optional(),
   shanten: z.number().int().min(-1).max(8),
   effectiveTile34: StrictTile34IndexesSchema,
   waitsRemainingStatus: z.enum([

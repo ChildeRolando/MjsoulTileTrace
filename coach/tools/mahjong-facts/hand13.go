@@ -19,12 +19,13 @@ type RequestBase struct {
 type Hand13Request struct {
 	RequestBase
 	HandContext
-	HandTiles34           []int `json:"handTiles34"`
-	LeftTiles34           []int `json:"leftTiles34"`
-	VisibleCountsComplete bool  `json:"visibleCountsComplete"`
-	DoraTilesComplete     bool  `json:"doraTilesComplete"`
-	SelfDiscardsComplete  bool  `json:"selfDiscardsComplete"`
-	RemainingDraws        *int  `json:"remainingDraws"`
+	CalculationMode       string `json:"calculationMode,omitempty"`
+	HandTiles34           []int  `json:"handTiles34"`
+	LeftTiles34           []int  `json:"leftTiles34"`
+	VisibleCountsComplete bool   `json:"visibleCountsComplete"`
+	DoraTilesComplete     bool   `json:"doraTilesComplete"`
+	SelfDiscardsComplete  bool   `json:"selfDiscardsComplete"`
+	RemainingDraws        *int   `json:"remainingDraws"`
 }
 
 type TileCount struct {
@@ -58,6 +59,7 @@ var pinnedYakuNames = [...]string{
 }
 
 type Hand13Result struct {
+	CalculationMode      string                 `json:"calculationMode,omitempty"`
 	Kind                 string                 `json:"kind"`
 	RequestID            string                 `json:"requestId"`
 	ProtocolVersion      string                 `json:"protocolVersion"`
@@ -234,6 +236,12 @@ func validateHand13Request(request Hand13Request) error {
 func analyzeHand13(request Hand13Request) (Hand13Result, error) {
 	if err := validateHand13Request(request); err != nil {
 		return Hand13Result{}, err
+	}
+	if request.CalculationMode == "efficiency-v1" {
+		return analyzeEfficiency13(request)
+	}
+	if request.CalculationMode != "" {
+		return Hand13Result{}, fmt.Errorf("unsupported calculationMode")
 	}
 	theoreticalLeft := theoreticalLeftTiles34(request.HandTiles34, request.Melds)
 	if err := validateCounts34(theoreticalLeft, "theoreticalLeftTiles34"); err != nil {

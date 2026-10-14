@@ -1,3 +1,4 @@
+import { cloneWithSharedPackageEvidence } from "../analysis/shared-package-evidence.js";
 /**
  * M6-C Slice 3 — `validateStructuredAnalysisPackage`: the package validator /
  * provenance gate (spec "Slice 3 — serialization / validator / provenance" and
@@ -156,11 +157,14 @@ const EXPLANATION_VERSION_KEYS = [
 function containsForbiddenKey(
   value: unknown,
   forbidden: readonly string[],
+  seen = new WeakSet<object>(),
 ): string | null {
   if (value === null || typeof value !== "object") return null;
+  if (seen.has(value)) return null;
+  seen.add(value);
   if (Array.isArray(value)) {
     for (const entry of value) {
-      const hit = containsForbiddenKey(entry, forbidden);
+      const hit = containsForbiddenKey(entry, forbidden, seen);
       if (hit !== null) return hit;
     }
     return null;
@@ -168,21 +172,23 @@ function containsForbiddenKey(
   const record = value as Record<string, unknown>;
   for (const key of Object.keys(record)) {
     if (forbidden.includes(key)) return key;
-    const hit = containsForbiddenKey(record[key], forbidden);
+    const hit = containsForbiddenKey(record[key], forbidden, seen);
     if (hit !== null) return hit;
   }
   return null;
 }
 
-function containsUrl(value: unknown): boolean {
+function containsUrl(value: unknown, seen = new WeakSet<object>()): boolean {
   if (typeof value === "string") {
     const lower = value.toLowerCase();
     return lower.includes("http://") || lower.includes("https://");
   }
   if (value === null || typeof value !== "object") return false;
-  if (Array.isArray(value)) return value.some((entry) => containsUrl(entry));
+  if (seen.has(value)) return false;
+  seen.add(value);
+  if (Array.isArray(value)) return value.some((entry) => containsUrl(entry, seen));
   return Object.values(value as Record<string, unknown>)
-    .some((entry) => containsUrl(entry));
+    .some((entry) => containsUrl(entry, seen));
 }
 
 /** Explanation-side versions are rejected before schema parse so the failure
@@ -306,19 +312,25 @@ function collectReferencedEvidenceIds(
   pkg: StructuredAnalysisPackage,
 ): Set<string> {
   const referenced = new Set<string>();
+  const seen = new WeakSet<readonly string[]>();
+  const add = (ids: readonly string[]) => {
+    if (seen.has(ids)) return;
+    seen.add(ids);
+    for (const id of ids) referenced.add(id);
+  };
   for (const decision of pkg.decisions) {
-    for (const id of decision.knownGameFacts.evidenceIds) referenced.add(id);
+    add(decision.knownGameFacts.evidenceIds);
     if (decision.outcome !== "analysis_ready") continue;
-    for (const id of decision.evidenceIds) referenced.add(id);
+    add(decision.evidenceIds);
     for (const ledger of decision.candidateFactorLedgers) {
       for (const axis of ledger.axes) {
         for (const fact of axis.facts) {
-          for (const id of fact.evidenceIds) referenced.add(id);
+          add(fact.evidenceIds);
         }
       }
     }
     for (const difference of decision.factorDifferences) {
-      for (const id of difference.evidenceIds) referenced.add(id);
+      add(difference.evidenceIds);
     }
   }
   return referenced;
@@ -925,7 +937,33 @@ function assertPackageIdentity(pkg: StructuredAnalysisPackage): void {
 // validateStructuredAnalysisPackage
 // ---------------------------------------------------------------------------
 
+// Only privately owned, deeply immutable copies can reuse a validation result.
+// Mutable inputs, deserialized bytes and caller-frozen objects still validate.
+const validatedImmutablePackages = new WeakSet<object>();
+
+/** Internal projector fast path; caller freezing never grants ownership. */
+export function isPreparedStructuredAnalysisPackage(value: unknown): value is StructuredAnalysisPackage {
+  return value !== null && typeof value === "object" && validatedImmutablePackages.has(value);
+}
+
+export function prepareValidatedStructuredAnalysisPackage(input: unknown): StructuredAnalysisPackage {
+  if (input !== null && typeof input === "object" && validatedImmutablePackages.has(input)) {
+    return input as StructuredAnalysisPackage;
+  }
+  validateStructuredAnalysisPackage(input);
+  const owned = cloneWithSharedPackageEvidence(input);
+  const freeze = (value: unknown): void => {
+    if (value === null || typeof value !== "object" || Object.isFrozen(value)) return;
+    for (const child of Object.values(value)) freeze(child);
+    Object.freeze(value);
+  };
+  freeze(owned);
+  validatedImmutablePackages.add(owned);
+  return owned;
+}
+
 export function validateStructuredAnalysisPackage(input: unknown): asserts input is StructuredAnalysisPackage {
+  if (input !== null && typeof input === "object" && validatedImmutablePackages.has(input)) return;
   // Inspect data descriptors before any schema/walker can execute a getter or
   // discard non-enumerable/symbol properties. Accepted artifacts are plain JSON.
   assertJsonRoundtrip(input);

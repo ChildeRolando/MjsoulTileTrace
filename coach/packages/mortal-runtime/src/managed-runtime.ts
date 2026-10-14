@@ -22,7 +22,6 @@ import {
 import { ManagedMortalRuntimeError, verifyManagedLibriichiArtifacts, verifyManagedMortalArtifacts } from "./manifest.js";
 
 const MAX_LINE_BYTES = 1_048_576;
-const RESPONSE_QUIET_PERIOD_MS = 20;
 
 export type ManagedMortalRuntimeOptions = Readonly<{
   executable: string;
@@ -150,7 +149,6 @@ export class ManagedMortalRuntime {
     child.stdout.on("data", (chunk: Buffer) => this.#acceptStdout(chunk));
     try {
       const ready = await this.#nextLine(this.#options.startTimeoutMs ?? 30_000, "mortal_runtime_unavailable");
-      await this.#waitForQuietBoundary();
       if (ready !== JSON.stringify({ ready: true, protocolVersion: this.#options.identity.protocolVersion })) {
         throw new ManagedMortalRuntimeError("mortal_protocol_invalid");
       }
@@ -203,7 +201,6 @@ export class ManagedMortalRuntime {
       }
       this.#child!.stdin.write(`${payload}\n`);
       const line = await this.#nextLine(this.#options.inferenceTimeoutMs ?? 30_000, "mortal_runtime_timeout");
-      await this.#waitForQuietBoundary();
       this.#assertNoUnsolicitedOutput();
       let decoded: unknown;
       decoded = JSON.parse(line);
@@ -286,7 +283,6 @@ export class ManagedMortalRuntime {
       if (Buffer.byteLength(payload) > MAX_LINE_BYTES) throw new ManagedMortalRuntimeError("mortal_protocol_invalid");
       this.#child!.stdin.write(`${payload}\n`);
       const line = await this.#nextLine(this.#options.inferenceTimeoutMs ?? 30_000, "mortal_runtime_timeout");
-      await this.#waitForQuietBoundary();
       this.#assertNoUnsolicitedOutput();
       const response = LocalMortalScoringResponseSchema.parse(JSON.parse(line));
       if (response.requestId !== requestId) throw new ManagedMortalRuntimeError("mortal_protocol_invalid");
@@ -339,7 +335,6 @@ export class ManagedMortalRuntime {
       if (Buffer.byteLength(payload) > MAX_LINE_BYTES) throw new ManagedMortalRuntimeError("mortal_protocol_invalid");
       this.#child!.stdin.write(`${payload}\n`);
       const line = await this.#nextLine(this.#options.inferenceTimeoutMs ?? 30_000, "mortal_runtime_timeout");
-      await this.#waitForQuietBoundary();
       this.#assertNoUnsolicitedOutput();
       const response = LibriichiRuleResponseSchema.parse(JSON.parse(line));
       if (response.requestId !== requestId) throw new ManagedMortalRuntimeError("mortal_protocol_invalid");
@@ -377,6 +372,9 @@ export class ManagedMortalRuntime {
         const waiter = this.#lineWaiter;
         this.#lineWaiter = null;
         waiter.resolve(line);
+      } else if (this.#ready) {
+        // Late output invalidates the child without delaying a completed reply.
+        return this.#failProtocol();
       } else if (this.#pendingLine === null) {
         this.#pendingLine = line;
       } else {
@@ -403,13 +401,6 @@ export class ManagedMortalRuntime {
       this.#failProtocol();
       throw new ManagedMortalRuntimeError("mortal_protocol_invalid");
     }
-  }
-
-  async #waitForQuietBoundary(): Promise<void> {
-    await new Promise<void>((resolve) => {
-      const handle = setTimeout(resolve, RESPONSE_QUIET_PERIOD_MS);
-      handle.unref();
-    });
   }
 
   async #nextLine(timeoutMs: number, timeoutCode: "mortal_runtime_unavailable" | "mortal_runtime_timeout"): Promise<string> {

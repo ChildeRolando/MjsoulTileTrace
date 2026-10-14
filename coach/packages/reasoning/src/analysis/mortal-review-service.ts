@@ -35,6 +35,7 @@ import { importStructuredMortalComparison } from "../import/structured-mortal.js
 import { buildMortalModelEvaluation } from "../model/model-evaluation-builder.js";
 import { freezeDetailPolicy } from "../policy/detail-policy.js";
 import { deriveResponseFuriten } from "../replay/response-furiten.js";
+import { useDecisionStreamContext, type DecisionStreamContext } from "../replay/decision-snapshot.js";
 import type { ReplayedDecision } from "../replay/stream-replayer.js";
 import { runStructuredAnalysisAssembly } from "./structured-analysis-assembly.js";
 import type { StructuredFactorPipelineResult } from "../factors/structured-factor-pipeline.js";
@@ -76,7 +77,7 @@ export type MortalSingleDecisionReviewResult =
       readonly diagnostics: readonly string[];
     };
 
-const DECISION_DETAIL_POLICY_VERSION = "mortal-review/v1" as const;
+export const DECISION_DETAIL_POLICY_VERSION = "mortal-review/v1" as const;
 
 function hashMortalReportId(reportId: string): string {
   return `sha256:${createHash("sha256").update(reportId).digest("hex")}`;
@@ -700,6 +701,7 @@ async function deriveReviewResponseFuriten(
   stream: CanonicalEventStream,
   facts: KnownGameFacts,
   engine: HandStructureFactEnginePort,
+  streamContext: DecisionStreamContext,
 ): Promise<ResponseFuritenAnalysisV2> {
   // `deriveResponseFuriten` binds to canonical-v2 fact-set ids, which is the
   // production path for Mahjong Soul records. Fixture / user-asserted streams
@@ -711,6 +713,7 @@ async function deriveReviewResponseFuriten(
       stream,
       facts.decisionEventRef,
       engine,
+      streamContext,
     );
   }
   return ResponseFuritenAnalysisV2Schema.parse({
@@ -754,6 +757,7 @@ export function validateMortalReportBinding(
 }
 
 export async function runBoundMortalDecisionReview(input: {
+  readonly streamContext?: DecisionStreamContext;
   readonly stream: CanonicalEventStream;
   readonly decision: ReplayedDecision;
   readonly report: MortalFetchedReport;
@@ -768,7 +772,8 @@ export async function runBoundMortalDecisionReview(input: {
   }
   const now = input.now ?? Date.now;
   try {
-    const stream = CanonicalEventStreamSchema.parse(input.stream);
+    const streamContext = useDecisionStreamContext(input.stream, input.streamContext);
+    const stream = streamContext.stream;
     const snapshot = DecisionSnapshotV2Schema.parse(input.decision.snapshot);
     const facts = KnownGameFactsSchema.parse(input.decision.facts);
     if (snapshot.decisionEventRef !== input.decision.decisionEventRef) {
@@ -801,7 +806,7 @@ export async function runBoundMortalDecisionReview(input: {
     const actionFacts = projectActionFacts(input.decision);
     let nativeCorrespondence: Extract<ActualModelCorrespondence,{relation:"native_physical_realization"}> | undefined;
     const {request,response} = input.libriichi;
-    const fresh = createLibriichiRuleProjector(stream,request.identity)(input.decision);
+    const fresh = createLibriichiRuleProjector(stream,request.identity,streamContext)(input.decision);
     if (libriichiRuleCanonicalJson(fresh) !== libriichiRuleCanonicalJson(request)) throw new Error("rules_protocol_invalid");
     const bound = bindLibriichiRuleResult({request,response,decision:input.decision});
     const expectedLegalActionRefs = bound.actions.map(row=>row.actionRef);
@@ -909,6 +914,7 @@ export async function runBoundMortalDecisionReview(input: {
         stream,
         facts,
         input.engine,
+        streamContext,
       );
       factorResult = await runStructuredAnalysisAssembly({
         automaticReport: true,

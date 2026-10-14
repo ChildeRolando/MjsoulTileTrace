@@ -400,6 +400,7 @@ export async function deriveResponseFuriten(
   rawStream: CanonicalEventStream,
   decisionEventRef: string,
   engine: HandStructureFactEnginePort,
+  streamContext?: import("./decision-snapshot.js").DecisionStreamContext,
 ): Promise<ResponseFuritenAnalysis> {
   const rawEvents = (rawStream as { events?: unknown }).events;
   if (!Array.isArray(rawEvents)) {
@@ -412,16 +413,21 @@ export async function deriveResponseFuriten(
   if (targetIndex < 0) {
     throw new CanonicalReplayError("response_furiten_decision_event_not_found");
   }
-  const parsed = CanonicalEventStreamSchema.safeParse({
+  if (streamContext !== undefined && streamContext.stream !== rawStream) {
+    throw new CanonicalReplayError("decision_stream_context_mismatch");
+  }
+  const parsed = streamContext === undefined ? CanonicalEventStreamSchema.safeParse({
     ...rawStream,
     events: rawEvents.slice(0, targetIndex + 1),
-  });
+  }) : { success: true as const, data: { ...streamContext.stream, events: rawEvents.slice(0, targetIndex + 1) } };
   if (!parsed.success) {
     throw new CanonicalReplayError("canonical_stream_schema_invalid");
   }
   const stream = parsed.data;
   const prefix = stream.events;
-  const reduced = reduceCanonicalEventStream(stream);
+  // Only prefix states are exposed to furiten derivation; later events cannot
+  // close a response window or clear furiten in this decision's history.
+  const reduced = streamContext?.states.slice(0, targetIndex + 1) ?? reduceCanonicalEventStream(stream);
   const targetState = reduced[targetIndex];
   if (targetState === undefined) {
     throw new CanonicalReplayError("response_furiten_decision_state_not_found");

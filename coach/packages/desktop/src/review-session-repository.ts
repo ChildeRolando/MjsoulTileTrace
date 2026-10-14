@@ -10,8 +10,8 @@ import {
   type StructuredAnalysisPackage,
 } from "@riichi-coach/contracts";
 import {
-  composeReviewReadBackContext,
   createReviewSessionReadBackComposer,
+  prepareValidatedStructuredAnalysisPackage,
   selectReviewDecisions,
   validateStructuredAnalysisPackage,
   type ReviewReadBackContext,
@@ -19,8 +19,9 @@ import {
   type ReviewSessionReportInput,
   type ReviewSessionReadBackInput,
 } from "@riichi-coach/reasoning";
-import { describePackageArtifact, insertPackageChunks, readPackageArtifact, readPackageRecordIdentity } from "./package-artifact-storage.js";
+import { describePackageArtifact, insertPackageChunks, stagePackageArtifact, readPackageArtifact, readPackageRecordIdentity } from "./package-artifact-storage.js";
 import { aggregateCoachUsageHistory } from "./coach-usage-history.js";
+import { createReviewPresentationCache, REVIEW_VALIDATION_VERSION } from "./review-presentation-cache.js";
 
 const LIBRARY_FORMAT_VERSION = 4;
 
@@ -83,7 +84,7 @@ export type PersistedReviewState = Readonly<{
     generatedAt: string;
   }>[];
   decisionReportRefs: readonly ReviewSessionDecisionReportRef[];
-  /** Main-only, freshly validated from this read's actual disk bytes. Never persisted or sent over IPC. */
+  /** Main-only immutable context from validated disk bytes or this exact new write. */
   readBack: ReviewReadBackContext;
 }>;
 
@@ -267,13 +268,20 @@ export function createReviewSessionRepository(input: {
   const db = new DatabaseSync(join(input.root, "library.sqlite"));
   const now = input.now ?? (() => new Date().toISOString());
   const createId = input.createId ?? randomUUID;
-  try { initialize(db, now()); }
+  let presentationCache: ReturnType<typeof createReviewPresentationCache>;
+  try {
+    initialize(db, now()); presentationCache = createReviewPresentationCache(db);
+    db.exec(`CREATE TABLE IF NOT EXISTS completed_local_analyses(
+      input_key TEXT PRIMARY KEY, package_ref_id TEXT NOT NULL REFERENCES analysis_packages(package_ref_id) ON DELETE CASCADE,
+      content_hash TEXT NOT NULL, validation_version TEXT NOT NULL
+    );`);
+  }
   catch (error) { db.close(); throw error; }
 
   // One immutable package at a time. PRAGMA data_version changes on writes by
   // other connections (including tamper); report writes on this connection do
-  // not invalidate the unchanged package. No persisted validation receipt is
-  // trusted, and a new process always reads and validates the actual bytes.
+  // not invalidate the unchanged package. Full-context reads validate actual
+  // bytes; ordinary display reuses the separately persisted presentation.
   let preparedPackage: {
     binding: string;
     dataVersion: number;
@@ -290,7 +298,9 @@ export function createReviewSessionRepository(input: {
   const compactLegacyPackage = (row: PackageArtifactRow, value: StructuredAnalysisPackage, expectedDataVersion: number): void => {
     const oldHeader = Buffer.from(row.payload);
     if (oldHeader.length !== 24 || oldHeader.subarray(0, 8).toString("ascii") !== "RCPKG01\0") return;
-    const compact = describePackageArtifact(value);
+    // Historical compaction preserves the original canonical storage SHA;
+    // only newly saved packages opt into shared-reference encoding.
+    const compact = describePackageArtifact(value, false);
     if (compact.payload.equals(oldHeader)) return;
     // Only the storage representation changes: decoded canonical bytes must
     // keep their original hash. Inline legacy byte encodings are untouched.
@@ -395,7 +405,7 @@ export function createReviewSessionRepository(input: {
         activeReportRefId: session.active_report_ref_id,
       });
     if (dataVersion() !== version) { preparedPackage = null; throw new Error("review_changed_during_read"); }
-    return Object.freeze({
+    const state: PersistedReviewState = Object.freeze({
       sessionId: session.session_id,
       revision: session.revision,
       analysisPackage,
@@ -410,6 +420,8 @@ export function createReviewSessionRepository(input: {
       decisionReportRefs: Object.freeze(decisionReportRefs),
       readBack,
     });
+    presentationCache.save(state);
+    return state;
   };
 
   const sessionByPackageId = (packageId: string): SessionRow | undefined => db.prepare(`
@@ -498,14 +510,65 @@ export function createReviewSessionRepository(input: {
   };
 
   return Object.freeze({
+    /** Only previously saved, validated, unchanged local artifacts qualify.
+     * Preserve session/report history; never regenerate to compare float tails. */
+    findCompletedAnalysis(inputKey: string): { sessionId: string; packageId: string } | null {
+      const row = db.prepare(`SELECT p.package_id,c.validation_version FROM completed_local_analyses c
+        JOIN analysis_packages p ON p.package_ref_id=c.package_ref_id
+        WHERE c.input_key=? AND c.content_hash=p.content_hash`)
+        .get(inputKey);
+      if (!row) return null;
+      const packageId = String(row.package_id);
+      const session = sessionByPackageId(packageId);
+      if (!session) return null;
+      recover(session.session_id);
+      const validProof = row.validation_version === REVIEW_VALIDATION_VERSION
+        || row.validation_version === "validation/1:presentation/2";
+      if (!validProof || !presentationCache.load(packageId)) {
+        // An expired/missing proof revalidates the saved result, rather than
+        // recomputing native output for the same immutable package slot.
+        const state = read(sessionByPackageId(packageId)!);
+        if (state.analysisPackage.record.status === "integrity_failed") return null;
+      }
+      if (row.validation_version !== REVIEW_VALIDATION_VERSION) db.prepare(
+        "UPDATE completed_local_analyses SET validation_version=? WHERE input_key=?")
+        .run(REVIEW_VALIDATION_VERSION, inputKey);
+      return { sessionId: session.session_id, packageId };
+    },
+    rememberCompletedAnalysis(inputKey: string, state: PersistedReviewState): void {
+      const row = packageRowForSession(state.sessionId);
+      if (!row || row.package_id !== state.analysisPackage.packageId
+        || preparedPackage?.composer.analysisPackage !== state.analysisPackage
+        || preparedPackage.dataVersion !== dataVersion()
+        || state.analysisPackage.record.status === "integrity_failed") throw new Error("analysis_cache_unavailable");
+      db.prepare(`INSERT INTO completed_local_analyses VALUES(?,?,?,?) ON CONFLICT(input_key)
+        DO UPDATE SET package_ref_id=excluded.package_ref_id,content_hash=excluded.content_hash,
+          validation_version=excluded.validation_version`)
+        .run(inputKey, row.package_ref_id, row.content_hash, REVIEW_VALIDATION_VERSION);
+    },
+    isPresentationCurrent(packageId: string, sessionId: string, revision: number): boolean {
+      const current = sessionByPackageId(packageId);
+      return current?.session_id === sessionId && current.revision === revision;
+    },
+    /** Fast display read. Only a miss/version change rebuilds from full evidence. */
+    openPresentation(packageId: string) {
+      const session = sessionByPackageId(packageId);
+      if (session === undefined) return null;
+      recover(session.session_id);
+      let presentation = presentationCache.load(packageId);
+      if (presentation === null) {
+        presentationCache.invalidate(packageId);
+        read(sessionByPackageId(packageId)!);
+        presentation = presentationCache.load(packageId);
+      }
+      return presentation;
+    },
+
     saveSession(analysisPackageInput: unknown, selectionInput: unknown): PersistedReviewState {
-      validateStructuredAnalysisPackage(analysisPackageInput);
-      // Validation and serialization are synchronous and never mutate/freeze
-      // the caller's package. The returned state owns a fresh disk read.
-      const analysisPackage = analysisPackageInput;
+      // Own an immutable copy; caller-frozen or mutable inputs do not confer
+      // trust. A package prepared by the analysis owner reuses that proof.
+      const analysisPackage = prepareValidatedStructuredAnalysisPackage(analysisPackageInput);
       const selection = ReviewSelectionResultSchema.parse(selectionInput);
-      composeReviewReadBackContext(analysisPackage, selection, null);
-      const packageArtifact = describePackageArtifact(analysisPackage);
       const selectionPayload = bytes(selection);
       const existing = sessionByPackageId(analysisPackage.packageId);
       if (existing !== undefined) {
@@ -529,16 +592,29 @@ export function createReviewSessionRepository(input: {
       const packageRefId = `package:${hash(Buffer.from(analysisPackage.packageId))}`;
       const sessionId = createId();
       const timestamp = now();
-      transaction(db, () => {
+      const version = dataVersion();
+      const composer = createReviewSessionReadBackComposer(analysisPackage, selection);
+      const staged = stagePackageArtifact(analysisPackage);
+      const packageArtifact = staged.description;
+      try { transaction(db, () => {
+        if (dataVersion() !== version) throw new Error("review_changed_during_read");
         const byId = db.prepare("SELECT * FROM analysis_packages WHERE package_id=?").get(analysisPackage.packageId) as PackageArtifactRow | undefined;
         if (byId !== undefined && describePackageArtifact(readPackageArtifact(db, byId)).contentHash !== packageArtifact.contentHash) throw new Error("identity_conflict");
         const inserted = db.prepare("INSERT OR IGNORE INTO analysis_packages VALUES(?,?,?,?,?)").run(packageRefId, analysisPackage.packageId, packageArtifact.contentHash, analysisPackage.componentVersions.packageSchema, packageArtifact.payload);
-        if (Number(inserted.changes) === 1) insertPackageChunks(db, packageRefId, analysisPackage, packageArtifact);
+        if (Number(inserted.changes) === 1) staged.insert(db, packageRefId);
         db.prepare(`INSERT INTO review_sessions
           (session_id,package_ref_id,selection_hash,selection_payload,revision,created_at,updated_at,decision_report_map_hash)
           VALUES(?,?,?,?,?,?,?,?)`).run(sessionId, packageRefId, hash(selectionPayload), selectionPayload, 0, timestamp, timestamp, decisionReportMapHash([]));
         db.prepare("INSERT INTO session_active_report VALUES(?,?,NULL)").run(sessionId, packageRefId);
-      });
+      }); } finally { staged.close(); }
+      // Own-connection commits do not change data_version. A concurrent writer
+      // invalidates this seed and read() follows the ordinary disk path.
+      if (dataVersion() === version) preparedPackage = {
+        binding: JSON.stringify([packageRefId, analysisPackage.packageId,
+          packageArtifact.contentHash, analysisPackage.componentVersions.packageSchema, hash(selectionPayload)]),
+        dataVersion: version,
+        composer,
+      };
       return read(sessionByPackageId(analysisPackage.packageId)!);
     },
 
@@ -575,21 +651,27 @@ export function createReviewSessionRepository(input: {
       const version = dataVersion();
       const history: Parameters<typeof aggregateCoachUsageHistory>[0][number][] = [];
       const rows = db.prepare(`SELECT r.report_ref_id,r.report_id,r.package_ref_id,r.payload,r.content_hash,r.schema_version,
-        p.package_id,p.payload AS package_payload,p.content_hash AS package_content_hash,p.schema_version AS package_schema_version
+        p.package_id,p.content_hash AS package_content_hash,p.schema_version AS package_schema_version
         FROM review_reports r JOIN session_report_refs x ON x.report_ref_id=r.report_ref_id AND x.package_ref_id=r.package_ref_id
         JOIN review_sessions s ON s.session_id=x.session_id AND s.package_ref_id=x.package_ref_id
         JOIN analysis_packages p ON p.package_ref_id=r.package_ref_id`).iterate();
       for (const raw of rows) {
-        const row = raw as ReportArtifactRow & { report_ref_id: string; package_ref_id: string; package_id: string; package_payload: Uint8Array; package_content_hash: string; package_schema_version: string };
+        const row = raw as ReportArtifactRow & { report_ref_id: string; package_ref_id: string; package_id: string; package_content_hash: string; package_schema_version: string };
         const report = ReviewReportSchema.parse(assertHash(row, "report_hash_mismatch"));
         if (report.reportId !== row.report_id || report.packageId !== row.package_id || report.schemaVersion !== row.schema_version) {
           throw new Error("report_identity_mismatch");
         }
         let identity = usageRecordIdentities.get(row.package_ref_id);
         if (identity?.contentHash !== row.package_content_hash || identity.dataVersion !== version) {
-          const record = readPackageRecordIdentity(db, { package_ref_id: row.package_ref_id, payload: row.package_payload,
-            content_hash: row.package_content_hash, package_id: row.package_id, schema_version: row.package_schema_version });
-          identity = { contentHash: row.package_content_hash, dataVersion: version, recordId: record.recordId };
+          const saved = db.prepare("SELECT record_id FROM package_record_identities WHERE package_ref_id=? AND content_hash=?")
+            .get(row.package_ref_id, row.package_content_hash);
+          const recordId = saved ? String(saved.record_id) : readPackageRecordIdentity(db,
+            db.prepare("SELECT * FROM analysis_packages WHERE package_ref_id=?").get(row.package_ref_id) as PackageArtifactRow,
+          ).recordId;
+          db.prepare(`INSERT INTO package_record_identities VALUES(?,?,?) ON CONFLICT(package_ref_id)
+            DO UPDATE SET content_hash=excluded.content_hash,record_id=excluded.record_id`)
+            .run(row.package_ref_id, row.package_content_hash, recordId);
+          identity = { contentHash: row.package_content_hash, dataVersion: version, recordId };
           usageRecordIdentities.set(row.package_ref_id, identity);
         }
         history.push({ reportRefId: row.report_ref_id, recordId: identity.recordId, report });
@@ -750,13 +832,15 @@ export function createReviewSessionRepository(input: {
  * derived from the validated package, so reruns can reuse the repository's
  * semantic package/session identity without a second persistence policy. */
 export function persistValidatedReviewSession(
-  repository: Pick<ReturnType<typeof createReviewSessionRepository>, "saveSession">,
+  repository: Pick<ReturnType<typeof createReviewSessionRepository>, "saveSession" | "rememberCompletedAnalysis">,
   analysisPackage: StructuredAnalysisPackage,
+  completedAnalysisKey?: string,
 ): Readonly<{ sessionId: string; packageId: string }> {
   const persisted = repository.saveSession(
     analysisPackage,
     selectReviewDecisions(analysisPackage),
   );
+  if (completedAnalysisKey !== undefined) repository.rememberCompletedAnalysis(completedAnalysisKey, persisted);
   return Object.freeze({
     sessionId: persisted.sessionId,
     packageId: analysisPackage.packageId,

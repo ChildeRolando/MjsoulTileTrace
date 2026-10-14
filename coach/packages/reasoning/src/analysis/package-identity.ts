@@ -82,31 +82,41 @@ export function sha256Hex(value: string): string {
  * hash it, buffer bounded chunks, or write it; identity semantics stay shared.
  */
 export function writeCanonicalJson(value: unknown, write: (part: string) => void): void {
-  if (value === null || typeof value !== "object") {
-    const serialized = JSON.stringify(value);
-    if (serialized === undefined) throw new TypeError("canonical_json_value_invalid");
-    write(serialized);
-    return;
-  }
-  if (Array.isArray(value)) {
-    write("[");
-    value.forEach((entry, index) => {
-      if (index > 0) write(",");
-      writeCanonicalJson(entry, write);
-    });
-    write("]");
-    return;
-  }
-  write("{");
-  Object.entries(value as Record<string, unknown>)
-    .sort(([left], [right]) => left < right ? -1 : left > right ? 1 : 0)
-    .forEach(([key, entry], index) => {
-      if (index > 0) write(",");
-      write(JSON.stringify(key));
-      write(":");
-      writeCanonicalJson(entry, write);
-    });
-  write("}");
+  const lists = new WeakMap<object, string>();
+  let cachedChars = 0;
+  const emit = (value: unknown): void => {
+    if (value === null || typeof value !== "object") {
+      const serialized = JSON.stringify(value);
+      if (serialized === undefined) throw new TypeError("canonical_json_value_invalid");
+      write(serialized);
+      return;
+    }
+    if (Array.isArray(value)) {
+      const cached = lists.get(value);
+      if (cached !== undefined) { write(cached); return; }
+      if (value.length > 1 && Object.keys(value).length === value.length && value.every(entry => typeof entry === "string")) {
+        const serialized = JSON.stringify(value);
+        if (cachedChars + serialized.length <= 16 * 1024 * 1024) {
+          lists.set(value, serialized); cachedChars += serialized.length;
+        }
+        write(serialized);
+        return;
+      }
+      write("[");
+      value.forEach((entry, index) => { if (index > 0) write(","); emit(entry); });
+      write("]");
+      return;
+    }
+    write("{");
+    Object.entries(value as Record<string, unknown>)
+      .sort(([left], [right]) => left < right ? -1 : left > right ? 1 : 0)
+      .forEach(([key, entry], index) => {
+        if (index > 0) write(",");
+        write(JSON.stringify(key)); write(":"); emit(entry);
+      });
+    write("}");
+  };
+  emit(value);
 }
 
 /** Hashes the same canonical byte stream as `canonicalJson` without first

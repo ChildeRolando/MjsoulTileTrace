@@ -26,6 +26,9 @@ if mode == "bad_ready":
     print("not-json", flush=True)
     sys.exit(0)
 print(json.dumps({"ready": True, "protocolVersion": "riichi-local-mortal-jsonl/v1"}, separators=(",", ":")), flush=True)
+if os.environ.get("MORTAL_FAKE_PID_FILE"):
+    with open(os.environ["MORTAL_FAKE_PID_FILE"], "w", encoding="utf-8") as handle:
+        handle.write(str(os.getpid()))
 if mode == "idle_protocol_failure":
     with open(os.environ["MORTAL_FAKE_PID_FILE"], "w", encoding="utf-8") as handle:
         handle.write(str(os.getpid()))
@@ -104,6 +107,12 @@ for line in sys.stdin:
         print("forbidden prose", flush=True)
     if mode == "oversize":
         print("x" * 1048577, flush=True)
+    if mode in ("trailing_prose_buffered", "extra_response_buffered"):
+        encoded = json.dumps(response, separators=(",", ":")) + "\n"
+        encoded += "TRAILING_UNSOLICITED_PROSE\n" if mode == "trailing_prose_buffered" else json.dumps(response, separators=(",", ":")) + "\n"
+        sys.stdout.write(encoded)
+        sys.stdout.flush()
+        continue
     print(json.dumps(response, separators=(",", ":")), flush=True)
     if mode == "trailing_prose":
         print("TRAILING_UNSOLICITED_PROSE", flush=True)

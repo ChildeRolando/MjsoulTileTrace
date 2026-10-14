@@ -13,13 +13,17 @@ import {
 } from "@riichi-coach/contracts";
 import {
   buildStructuredAnalysisPackage,
+  freezeDecisionStreamContext,
   JsonlFactEngineClient,
   ManagedFactEngineTransport,
   localMortalRuleScoresToReportEntry,
   projectLocalMortalRuleScoring,
   queryCanonicalLibriichiRules,
   runMortalFullGameReview,
-  validateStructuredAnalysisPackage,
+  prepareValidatedStructuredAnalysisPackage,
+  writeCanonicalJson,
+  DEFAULT_ERROR_DETAIL_THRESHOLD,
+  DECISION_DETAIL_POLICY_VERSION,
   type LibriichiResolvedDecision,
   type ReplayedDecision,
 } from "@riichi-coach/reasoning";
@@ -27,7 +31,7 @@ import { computeCanonicalGameFingerprint, type MortalReportDecisionEntry, type M
 import type { ManagedMortalRuntime } from "@riichi-coach/mortal-runtime";
 
 /**
- * Main-process-only production composition for a captured canonical record.
+ * Privileged analysis-worker production composition for a captured canonical record.
  * The service consumes canonical/replay data and the managed runtime; it does
  * not know how Mahjong Soul bytes were captured and it never crosses IPC.
  */
@@ -116,6 +120,35 @@ function reportId(stream: CanonicalEventStream, selfActor: number): string {
     .digest("hex")}`;
 }
 
+type AnalysisRuntimeIdentity = Pick<ManagedMortalRuntime, "identity" | "ruleIdentity">;
+
+function componentVersions(stream: CanonicalEventStream, runtime: AnalysisRuntimeIdentity) {
+  return {
+    packageSchema: NATIVE_STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION,
+    legalActionRules: runtime.ruleIdentity,
+    canonicalReplay: "canonical-riichi-events/v2",
+    mapperAdapter: stream.mapperVersion,
+    factEngine: { engine: "mahjong-helper" as const, upstreamCommit: MAHJONG_HELPER_COMMIT,
+      adapterVersion: FACT_ENGINE_ADAPTER_VERSION, protocolVersion: FACT_ENGINE_PROTOCOL_VERSION },
+    factorPipeline: "factor-pipeline/v3",
+    mortalSourceModel: { identity: "Mortal" as const, version: LOCAL_MORTAL_ADAPTER_VERSION,
+      modelTag: runtime.identity.checkpointModelTag,
+      evidenceSource: { kind: "managed_local_runtime" as const, identity: runtime.identity } },
+  };
+}
+
+/** Operational reuse identity, separate from immutable package identity. Bind
+ * actual source/replay inputs and every producer/policy version before invoking
+ * native inference. Wall-clock time is deliberately absent. */
+export function localMortalAnalysisCacheKey(request: LocalMortalAnalysisInput, runtime: AnalysisRuntimeIdentity): string {
+  const digest = createHash("sha256");
+  writeCanonicalJson({ version: "completed-local-analysis/v1", request,
+    componentVersions: componentVersions(request.stream, runtime),
+    policy: { version: DECISION_DETAIL_POLICY_VERSION, threshold: DEFAULT_ERROR_DETAIL_THRESHOLD } },
+  part => { digest.update(part); });
+  return digest.digest("hex");
+}
+
 function reportKyokuKey(entry: MortalReportDecisionEntry): string {
   return [entry.roundOrdinal, entry.roundWind, entry.dealer, entry.kyoku, entry.honba].join(":");
 }
@@ -180,8 +213,11 @@ export function createLocalMortalAnalysisService(input: {
   return Object.freeze({
     async analyze(request: LocalMortalAnalysisInput): Promise<LocalMortalAnalysisResult> {
       input.onProgress?.({ stage: "rules", completed: 0, total: null });
+      const streamContext = freezeDecisionStreamContext(request.stream);
+      const stream = streamContext.stream;
       const rules = await queryCanonicalLibriichiRules({
-        stream: request.stream,
+        stream,
+        streamContext,
         identity: input.runtime.ruleIdentity,
         port: input.runtime,
         onProgress: counts => input.onProgress?.({ stage: "rules", ...counts }),
@@ -208,7 +244,8 @@ export function createLocalMortalAnalysisService(input: {
         // proof and does not need model scores or a synthetic report row.
         if (resolved.actions.length < 2) continue;
         const scoringRequest = projectLocalMortalRuleScoring({
-          stream: request.stream,
+          stream,
+          streamContext,
           decision: row.decision,
           identity: input.runtime.identity,
           ruleRequest: resolved.request,
@@ -237,7 +274,8 @@ export function createLocalMortalAnalysisService(input: {
       try {
         input.onProgress?.({ stage: "facts", completed: 0, total: all.length });
         const review = await runMortalFullGameReview({
-          stream: request.stream,
+          stream,
+          streamContext,
           decisions: rules.decisions,
           responseDecisions: rules.responseDecisions,
           report,
@@ -251,34 +289,17 @@ export function createLocalMortalAnalysisService(input: {
         input.onProgress?.({ stage: "packaging", completed: 0, total: null });
         const retained = review.retainedAnalyses[0];
         if (retained === undefined) throw new Error("mortal_output_incomplete");
-        const pkg = buildStructuredAnalysisPackage({
+        const built = buildStructuredAnalysisPackage({
           review,
-          stream: request.stream,
+          stream,
+          streamContext,
           decisions: rules.decisions,
           responseDecisions: rules.responseDecisions,
-          componentVersions: {
-            packageSchema: NATIVE_STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION,
-            legalActionRules: input.runtime.ruleIdentity,
-            canonicalReplay: "canonical-riichi-events/v2",
-            mapperAdapter: request.stream.mapperVersion,
-            factEngine: {
-              engine: "mahjong-helper",
-              upstreamCommit: MAHJONG_HELPER_COMMIT,
-              adapterVersion: FACT_ENGINE_ADAPTER_VERSION,
-              protocolVersion: FACT_ENGINE_PROTOCOL_VERSION,
-            },
-            factorPipeline: "factor-pipeline/v3",
-            mortalSourceModel: {
-              identity: "Mortal",
-              version: LOCAL_MORTAL_ADAPTER_VERSION,
-              modelTag: input.runtime.identity.checkpointModelTag,
-              evidenceSource: { kind: "managed_local_runtime", identity: input.runtime.identity },
-            },
-          },
+          componentVersions: componentVersions(request.stream, input.runtime),
           frozenPolicySnapshot: retained.modelEvaluation.detailPolicy,
           ...(input.now === undefined ? {} : { now: input.now }),
         });
-        validateStructuredAnalysisPackage(pkg);
+        const pkg = prepareValidatedStructuredAnalysisPackage(built);
         // Reuse the package builder/validator's authoritative aggregate
         // integrity status. Diagnostic packages with this truthful status
         // remain valid artifacts; they simply cannot cross the production

@@ -12,6 +12,7 @@ import {
   projectAnalyzedKnownGameFactsV2,
 } from "../src/factors/known-game-facts-v2.js";
 import { deriveResponseFuriten } from "../src/replay/response-furiten.js";
+import { freezeDecisionStreamContext } from "../src/replay/decision-snapshot.js";
 import {
   canonicalStartEvents,
   canonicalStream,
@@ -310,6 +311,20 @@ class FixtureHandStructureEngine implements HandStructureFactEnginePort {
 }
 
 describe("response-opportunity furiten", () => {
+  it.each([false, true])("shares prefix states without future closures or resets (riichi=%s)", async riichi => {
+    const raw = streamWith(continuedToSelfDraw(riichi));
+    const context = freezeDecisionStreamContext(raw);
+    for (const event of context.stream.events.slice(1)) {
+      const freshEngine = new FixtureHandStructureEngine();
+      const sharedEngine = new FixtureHandStructureEngine();
+      const fresh = await deriveResponseFuriten(context.stream, event.eventId, freshEngine);
+      const shared = await deriveResponseFuriten(context.stream, event.eventId, sharedEngine, context);
+      expect(shared).toEqual(fresh);
+      expect(sharedEngine.requests).toEqual(freshEngine.requests);
+    }
+    await expect(deriveResponseFuriten(raw, raw.events.at(-1)!.eventId, new FixtureHandStructureEngine(), context))
+      .rejects.toThrow("decision_stream_context_mismatch");
+  });
   it("binds the analysis and every historical proof to exact replay prefixes", async () => {
     const engine = new FixtureHandStructureEngine();
     const analysis = await deriveResponseFuriten(

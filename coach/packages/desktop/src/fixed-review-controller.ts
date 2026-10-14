@@ -13,6 +13,7 @@ import {
 import {
   composeReviewSessionReadBackContext,
   selectReviewDecisions,
+  prepareDiscardLossInput,
   validateStructuredAnalysisPackage,
   type ReviewReadBackContext,
   type ReviewSessionDecisionReportRef,
@@ -20,6 +21,7 @@ import {
 import { presentFixedReviewDetailFromContext, presentFixedReviewSnapshotFromContext } from "./fixed-review-presenter.js";
 import type { PersistedReviewState, ReviewSessionRepository } from "./review-session-repository.js";
 import { freezeReviewReadBack } from "./freeze-review-read-back.js";
+import type { ReviewPresentation } from "./review-presentation-cache.js";
 
 type ReportRef = Readonly<{
   reportRefId: string;
@@ -60,6 +62,7 @@ export function createFixedReviewController(input: {
   repository?: ReviewSessionRepository;
 }) {
   const views = new Map<string, ViewState>();
+  const presentations = new Map<string, ReviewPresentation>();
   const viewEpochs = new Map<string, number>();
   const operations = new Map<string, Operation>();
   // Operation IDs are one-shot capabilities. Reuse must never trigger another
@@ -147,6 +150,16 @@ export function createFixedReviewController(input: {
     expectedEpoch = viewEpoch(packageId),
     isCurrent: () => boolean = () => viewEpoch(packageId) === expectedEpoch,
   ): Promise<FixedReviewSnapshotDto> => {
+    if (input.repository !== undefined) {
+      const presentation = input.repository.openPresentation(packageId);
+      if (presentation !== null) {
+        if (!isCurrent() || viewEpoch(packageId) !== expectedEpoch) throw new Error("operation_cancelled");
+        presentations.set(packageId, presentation);
+        let coachUsageHistory: FixedReviewSnapshotDto["coachUsageHistory"] = null;
+        try { coachUsageHistory = input.repository.getCoachUsageHistory(); } catch { /* optional historical totals */ }
+        return { ...presentation.snapshot, coachUsageHistory };
+      }
+    }
     const existing = views.get(packageId);
     if (existing !== undefined) return snapshot(existing);
     const persisted = input.repository?.tryOpenByPackageId(packageId) ?? null;
@@ -204,7 +217,7 @@ export function createFixedReviewController(input: {
       && viewEpoch(packageId) === operation.viewEpoch;
     try {
       let state = views.get(packageId);
-      if (state === undefined) {
+      if (state === undefined && input.repository === undefined) {
         await open(packageId, operation.viewEpoch, isCurrent);
         state = requireState(packageId);
       }
@@ -213,7 +226,9 @@ export function createFixedReviewController(input: {
         if (persisted === null) throw new Error("review_unavailable");
         state = fromPersisted(persisted);
         views.set(packageId, state);
+        presentations.delete(packageId);
       }
+      if (state === undefined) throw new Error("review_unavailable");
       if (!isCurrent()) return { status: "failed", code: "operation_cancelled" };
 
       if (input.repository !== undefined) {
@@ -321,6 +336,14 @@ export function createFixedReviewController(input: {
     },
 
     getReviewDetail(packageId: string, decisionId: string, requestedActiveRefId: string | null): FixedReviewDetailDto {
+      const presentation = presentations.get(packageId);
+      if (presentation !== undefined) {
+        if (!input.repository?.isPresentationCurrent(packageId, presentation.sessionId, presentation.revision)) throw new Error("review_unavailable");
+        if (presentation.snapshot.activeReportRefId !== requestedActiveRefId) throw new Error("review_unavailable");
+        const detail = presentation.details.find(item => item.decisionId === decisionId);
+        if (detail === undefined) throw new Error("review_unavailable");
+        return detail;
+      }
       const state = requireState(packageId);
       if (state.activeReportRefId !== requestedActiveRefId) throw new Error("review_unavailable");
       if (state.readBack.analysisPackage !== state.analysisPackage || state.readBack.selection !== state.selection) {
@@ -329,12 +352,24 @@ export function createFixedReviewController(input: {
       return presentFixedReviewDetailFromContext(state.readBack, decisionId, state.activeReportRefId);
     },
 
+    /** Internal calculation input; never exposed through IPC or preload. */
+    reviewDiscardLossInput(packageId: string, decisionId: string) {
+      const presentation = presentations.get(packageId);
+      if (presentation !== undefined) {
+        const input = presentation.lossInputs[decisionId];
+        if (input === undefined) throw new Error("review_unavailable");
+        return input;
+      }
+      return prepareDiscardLossInput(requireState(packageId).analysisPackage, decisionId);
+    },
+
     /** Internal lifecycle capability only; intentionally absent from IPC/preload. */
     activateReport(packageId: string, targetReportRefId: string): FixedReviewSnapshotDto {
       if (input.repository !== undefined) {
         const persisted = input.repository.activateExisting(packageId, targetReportRefId, randomUUID());
         const state = fromPersisted(persisted);
         views.set(packageId, state);
+        presentations.delete(packageId);
         return snapshot(state);
       }
       const state = requireState(packageId);
@@ -363,6 +398,7 @@ export function createFixedReviewController(input: {
         if (operation.packageId === packageId) operation.cancelled = true;
       }
       views.delete(packageId);
+      presentations.delete(packageId);
     },
 
     /** Test-only read view: immutable metadata, never exposed to renderer. */

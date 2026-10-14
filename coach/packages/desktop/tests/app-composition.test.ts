@@ -55,7 +55,7 @@ async function runScenario(scenario: Scenario): Promise<Record<string, unknown>>
   const directory = mkdtempSync(join(tmpdir(), "account-catalog-composition-"));
   const profile = mkdtempSync(join(tmpdir(), "account-catalog-profile-"));
   try {
-    for (const name of ["app", "fixed-review-ui", "record-label", "session-ui-policy", "paipu-ui-policy"]) {
+    for (const name of ["app", "fixed-review-ui", "review-workspace", "record-label", "session-ui-policy", "paipu-ui-policy"]) {
       const source = readFileSync(new URL(`../src/renderer/${name}.ts`, import.meta.url), "utf8");
       writeFileSync(join(directory, `${name}.js`), transpileModule(source, {
         compilerOptions: { module: ModuleKind.ES2022, target: ScriptTarget.ES2022 },
@@ -199,7 +199,7 @@ async function runScenario(scenario: Scenario): Promise<Record<string, unknown>>
           }
           document.querySelector("#fixed-review .review-overview button")?.click();
           await settle();
-          document.querySelector("#fixed-review .review-list button")?.click();
+          // Workspace opens the first detail automatically; no second fetch is needed.
           await settle();
         } else if (scenario.action === "open-saved-review") {
           if (scenario.retryFromSavedSessionList) {
@@ -212,7 +212,7 @@ async function runScenario(scenario: Scenario): Promise<Record<string, unknown>>
           }
           document.querySelector("#fixed-review .review-overview button")?.click();
           await settle();
-          document.querySelector("#fixed-review .review-list button")?.click();
+          // Workspace opens the first detail automatically; no second fetch is needed.
           await settle();
         }
         document.activeElement?.blur();
@@ -491,7 +491,7 @@ describe("account catalog app composition", () => {
     expect(result.paipuStatus).toContain("牌谱已生成复盘");
     expect(result.reviewOverview).toContain("整盘复盘");
     expect(result.reviewListHidden).toBe(false);
-    expect(result.reviewDetail).toContain("条目详情");
+    expect(result.reviewDetail).toContain("这一手的选择");
   }, 60_000);
 
   it("keeps a manually opened review usable when refreshing saved sessions fails, then retries from the preserved list", async () => {
@@ -509,14 +509,14 @@ describe("account catalog app composition", () => {
       reviewHidden: true, leaveHidden: true, reviewEntryStatus: "已离开整盘复盘。",
       sessionListText: expect.stringContaining("牌谱复盘 · 保存于 2026-10-01"),
     });
-    expect(result.reviewCalls).toEqual({ paipuImport: 0, openReview: 2, detail: 1 });
+    expect(result.reviewCalls).toEqual({ paipuImport: 0, openReview: 2, detail: 2 });
     expect(result.sessionCalls).toEqual({ listReviewSessions: 3, leaveReview: 1 });
     expect(result.reviewHidden).toBe(false);
     expect(result.leaveHidden).toBe(false);
     expect(result.reviewEntryStatus).toBe("已打开整盘复盘。");
     expect(result.reviewOverview).toContain("整盘复盘");
     expect(result.reviewListHidden).toBe(false);
-    expect(result.reviewDetail).toContain("条目详情");
+    expect(result.reviewDetail).toContain("这一手的选择");
   }, 60_000);
 
   it("keeps automatic share-import navigation after a saved-session refresh failure", async () => {
@@ -538,7 +538,7 @@ describe("account catalog app composition", () => {
       reviewHidden: true, leaveHidden: true, reviewEntryStatus: "已离开整盘复盘。",
       sessionListText: expect.stringContaining("牌谱复盘 · 保存于 2026-10-01"),
     });
-    expect(result.reviewCalls).toEqual({ paipuImport: 1, openReview: 2, detail: 1 });
+    expect(result.reviewCalls).toEqual({ paipuImport: 1, openReview: 2, detail: 2 });
     expect(result.sessionCalls).toEqual({ listReviewSessions: 3, leaveReview: 1 });
     expect(result.paipuStatus).toContain("牌谱已生成复盘");
     expect(result.reviewHidden).toBe(false);
@@ -546,7 +546,7 @@ describe("account catalog app composition", () => {
     expect(result.reviewEntryStatus).toBe("已打开整盘复盘。");
     expect(result.reviewOverview).toContain("整盘复盘");
     expect(result.reviewListHidden).toBe(false);
-    expect(result.reviewDetail).toContain("条目详情");
+    expect(result.reviewDetail).toContain("这一手的选择");
   }, 60_000);
 
   it("keeps the visible safe alert and manual status when the review itself cannot open", async () => {
@@ -604,7 +604,7 @@ describe("account catalog app composition", () => {
     expect(result.reviewEntryStatus).toBe("已打开整盘复盘。");
     expect(result.reviewOverview).toContain("整盘复盘");
     expect(result.reviewListHidden).toBe(false);
-    expect(result.reviewDetail).toContain("条目详情");
+    expect(result.reviewDetail).toContain("这一手的选择");
   }, 60_000);
 
   it("keeps the source page when production analysis fails", async () => {

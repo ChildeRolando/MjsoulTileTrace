@@ -1,4 +1,4 @@
-import { copyFile, mkdir } from "node:fs/promises";
+import { copyFile, mkdir, cp } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 
 const source = fileURLToPath(new URL("../src/renderer/", import.meta.url));
@@ -7,4 +7,8 @@ await mkdir(target, { recursive: true });
 await Promise.all([
   copyFile(`${source}index.html`, `${target}index.html`),
   copyFile(`${source}styles.css`, `${target}styles.css`),
+  copyFile(`${source}workspace.css`, `${target}workspace.css`),
+  copyFile(`${source}skins.css`, `${target}skins.css`),
+  copyFile(`${source}skin-othercide.css`, `${target}skin-othercide.css`),
+  cp(`${source}tiles`, `${target}tiles`, { recursive: true }),
 ]);

@@ -4,6 +4,7 @@ import { DecisionIdSchema, RecordAnalysisStatusSchema } from "./analysis-identit
 import { GraphAuthoritySchema } from "./context-graph.js";
 import { ReviewSelectionReasonSchema, SELECTOR_POLICY_VERSION_V1 } from "./review-selection.js";
 import { LlmTokenUsageSchema, LlmProviderDescriptorSchema } from "./coach.js";
+import { TileSchema } from "./tiles.js";
 
 export const FIXED_REVIEW_VIEW_SCHEMA_VERSION = "fixed-review-view/v1" as const;
 export const FIXED_REVIEW_DETAIL_SCHEMA_VERSION = "fixed-review-detail/v3" as const;
@@ -73,6 +74,8 @@ export const RendererReferenceTargetSchema = z.object({
 }).strict();
 
 export const FixedReviewListItemSchema = z.object({
+  roundLabel: z.string().optional(),
+  turnLabel: z.string().optional(),
   decisionId: z.string().min(1),
   rank: z.number().int().min(1),
   selectionReason: ReviewSelectionReasonSchema,
@@ -140,7 +143,51 @@ export const FixedReviewSnapshotSchema = z.object({
   }).strict(),
 }).strict();
 
+const LostTileSchema = z.object({
+  tile: TileSchema, count: z.number().int().min(1).max(4),
+  degradedToImprovement: z.boolean(),
+}).strict();
+export const DiscardLossSchema = z.discriminatedUnion("status", [
+  z.object({status:z.literal("unavailable"),reason:z.enum(["legal_actions_missing","facts_missing","engine_failed","not_discard_window"])}).strict(),
+  z.object({
+    status:z.literal("ready"), baselineShanten:z.number().int().min(0).max(13),
+    candidates:z.array(z.object({
+      tile:TileSchema, discardMode:z.enum(["tedashi","tsumogiri"]), shanten:z.number().int().min(0).max(13),
+      directLost:z.array(LostTileSchema), improvementLost:z.array(LostTileSchema),
+    }).strict()),
+  }).strict(),
+]);
+export type DiscardLossDto = z.infer<typeof DiscardLossSchema>;
+
+/** Display-only projection of known facts; no raw source payload or private hands. */
+export const ReviewBoardSchema = z.object({
+  actor: z.number().int().min(0).max(3),
+  seatWind: z.enum(["E", "S", "W", "N"]),
+  roundLabel: z.string(),
+  turnLabel: z.string(),
+  honba: z.number().int().nonnegative().nullable(),
+  riichiSticks: z.number().int().nonnegative().nullable(),
+  scores: z.array(z.number().int()).length(4).nullable(),
+  hand: z.array(TileSchema),
+  draw: TileSchema.nullable(),
+  dora: z.array(TileSchema),
+  rivers: z.array(z.array(z.object({tile: TileSchema, tsumogiri: z.boolean(), riichiDeclaration:z.boolean().optional()}).strict())).length(4),
+  melds: z.array(z.object({actor:z.number().int().min(0).max(3).nullable(),label:z.string(),tiles:z.array(TileSchema),
+    kind:z.enum(["chi","pon","daiminkan","ankan","kakan"]).optional(),
+    sourceActor:z.number().int().min(0).max(3).nullable().optional(),
+    calledTile:TileSchema.nullable().optional(),
+    addedTile:TileSchema.nullable().optional()}).strict()),
+  riichiActors: z.array(z.number().int().min(0).max(3)),
+  complete: z.boolean(),
+  actualTile: TileSchema.nullable(),
+  actualDiscardMode: z.enum(["tsumogiri", "tedashi"]).optional(),
+  mortalDiscards: z.array(z.object({tile: TileSchema, discardMode: z.enum(["tsumogiri", "tedashi"])}).strict()).optional(),
+  discardLoss: DiscardLossSchema.optional(),
+}).strict();
+export type ReviewBoardDto = z.infer<typeof ReviewBoardSchema>;
+
 export const FixedReviewDetailSchema = z.object({
+  board: ReviewBoardSchema.optional(),
   schemaVersion: z.literal(FIXED_REVIEW_DETAIL_SCHEMA_VERSION),
   packageId: z.string().min(1),
   activeReportRefId: z.string().min(1).nullable(),

@@ -57,6 +57,60 @@ function newRound(selfActor: number, dealer: number, dealerDrawTile = "1z"): Rec
 }
 
 describe("Mahjong Soul stored Record* mapper", () => {
+  it.each([false, true])("does not accept riichi when its declaration discard is won by ron (multiple winners: %s)", async multiple => {
+    const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
+    const result = mapMahjongSoulRecord({ gameId: "game:riichi-ron", selfActor: 1, recordId, bundle,
+      recordBytes: encodeRecord(bundle, [
+        { name: "RecordNewRound", data: newRound(1, 0) },
+        { name: "RecordDealTile", data: { seat: 1, tile: "4p" } },
+        { name: "RecordDiscardTile", data: { seat: 1, tile: "4p", is_liqi: true, moqie: true } },
+        { name: "", data: {} },
+        { name: "RecordHule", data: { hules: [{ seat: 3, zimo: false, hu_tile: "4p" },
+          ...(multiple ? [{ seat: 2, zimo: false, hu_tile: "4p" }] : [])],
+          old_scores: [25000, 25000, 25000, 25000],
+          delta_scores: multiple ? [0, -2000, 1000, 1000] : [0, -1000, 0, 1000] } },
+      ]) });
+    expect(result.status).toBe("ready");
+    if (result.status !== "ready") throw new Error("fixture");
+    expect(result.stream.events.filter(e => e.type === "riichi_declared")).toHaveLength(1);
+    expect(result.stream.events.filter(e => e.type === "riichi_accepted")).toHaveLength(0);
+    expect(result.stream.events.find(e => e.type === "tile_discarded")).toMatchObject({
+      riichiDeclarationEventRef: result.stream.events.find(e => e.type === "riichi_declared")!.eventId,
+      sourceRecordRef: `record:${recordId}:action:3`,
+    });
+    expect(result.stream.events.filter(e => e.type === "win_declared")).toHaveLength(multiple ? 2 : 1);
+  });
+
+  it("keeps earlier accepted riichi deposits when a later declaration is won by ron", async () => {
+    const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
+    const result = mapMahjongSoulRecord({ gameId: "game:riichi-standing", selfActor: 1, recordId, bundle,
+      recordBytes: encodeRecord(bundle, [
+        { name: "RecordNewRound", data: newRound(1, 0) },
+        { name: "RecordDiscardTile", data: { seat: 0, tile: "1z", is_liqi: true } },
+        { name: "RecordDealTile", data: { seat: 1, tile: "4p" } },
+        { name: "RecordDiscardTile", data: { seat: 1, tile: "4p", is_liqi: true } },
+        { name: "RecordHule", data: { hules: [{ seat: 3, zimo: false, hu_tile: "4p" }],
+          old_scores: [24000, 25000, 25000, 25000], delta_scores: [0, -1000, 0, 2000] } },
+      ]) });
+    expect(result.status).toBe("ready");
+    if (result.status !== "ready") throw new Error("fixture");
+    expect(result.stream.events.filter(e => e.type === "riichi_accepted")).toEqual([
+      expect.objectContaining({ actor: 0 }),
+    ]);
+  });
+
+  it("still rejects a deposit deducted for a declaration won by ron", async () => {
+    const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
+    expect(mapMahjongSoulRecord({ gameId: "game:riichi-ron-bad-scores", selfActor: 1, recordId, bundle,
+      recordBytes: encodeRecord(bundle, [
+        { name: "RecordNewRound", data: newRound(1, 0) },
+        { name: "RecordDealTile", data: { seat: 1, tile: "4p" } },
+        { name: "RecordDiscardTile", data: { seat: 1, tile: "4p", is_liqi: true } },
+        { name: "RecordHule", data: { hules: [{ seat: 3, zimo: false, hu_tile: "4p" }],
+          old_scores: [25000, 24000, 25000, 25000], delta_scores: [0, -1000, 0, 1000] } },
+      ]) })).toEqual({ status: "invalid", code: "mahjong_soul_canonical_mapping_failed" });
+  });
+
   it.each([
     { scores: [28000, 24000, 24000] },
     { old_scores: [25000, 25000, 25000] },

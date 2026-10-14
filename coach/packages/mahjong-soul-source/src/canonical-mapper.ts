@@ -22,7 +22,7 @@ import {
 const MAPPING_ERROR = "mahjong_soul_canonical_mapping_failed" as const;
 const VALIDATION_ERROR = "mahjong_soul_canonical_validation_failed" as const;
 const UNSUPPORTED_SEMANTICS = "mahjong_soul_canonical_unsupported_semantics" as const;
-export const MAHJONG_SOUL_RECORD_MAPPER_VERSION = "mahjong-soul-record-mapper/v8" as const;
+export const MAHJONG_SOUL_RECORD_MAPPER_VERSION = "mahjong-soul-record-mapper/v9" as const;
 
 export type MahjongSoulMapperDiagnostic =
   | "mahjong_soul_canonical_mapping_failed"
@@ -392,9 +392,17 @@ export function mapMahjongSoulRecord(input: {
           && initialDrawEvent.actor === actor
           && initialDrawEvent.sourceRecordRef === initialDealerDraw.sourceRecordRef;
         // The stored record marks riichi on the discard itself; the canonical
-        // model splits it into declaration → discard → acceptance. The stored
-        // wire has no reach_accepted equivalent — the stick definitively
-        // stands in the record — so acceptance is synthesized immediately.
+        // model splits it into declaration → discard → acceptance. A ron on
+        // this very discard cancels acceptance and the 1000-point deposit.
+        // Look at the next decoded action (empty wire entries are skipped),
+        // preserving the original source ordinals and all settlement checks.
+        const nextAction = actions[actionIndex + 1];
+        const declarationWonByRon = isRiichi && nextAction?.name === "RecordHule"
+          && Array.isArray(nextAction.data.hules) && nextAction.data.hules.some(hule => {
+            if (!isRecord(hule) || hule.zimo === true || seat(hule.seat) === actor) return false;
+            const winningTile = parseMajsoulTile(hule.hu_tile);
+            return winningTile.id === tile.id && winningTile.red === tile.red;
+          });
         let declarationEventRef: string | null = null;
         if (isRiichi) {
           declarationEventRef = push(ordinal, nextSub, { type: "riichi_declared", actor });
@@ -409,7 +417,7 @@ export function mapMahjongSoulRecord(input: {
           discardMode: moqie || matchesSyntheticOpeningDraw ? "tsumogiri" : "tedashi",
           riichiDeclarationEventRef: declarationEventRef,
         });
-        if (declarationEventRef !== null) {
+        if (declarationEventRef !== null && !declarationWonByRon) {
           push(ordinal, nextSub + 2, { type: "riichi_accepted", actor, declarationEventRef });
           if (currentScores !== null) currentScores[actor] = currentScores[actor]! - 1000;
         }

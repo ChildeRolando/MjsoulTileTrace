@@ -20,6 +20,8 @@ import { createLibriichiRuleProjector } from "../src/analysis/libriichi-rule-pro
 import { collectLibriichiRuleResults } from "../src/analysis/libriichi-rule-collection.js";
 import { projectLocalMortalRuleScoring, bindLocalMortalRuleScores, localMortalRuleScoresToReportEntry } from "../src/analysis/local-mortal-rule-scoring.js";
 import { replayCanonicalStream } from "../src/replay/stream-replayer.js";
+import { freezeDecisionStreamContext } from "../src/replay/decision-snapshot.js";
+import * as reducer from "../src/replay/round-reducer.js";
 import { deriveSemanticContentHash, derivePackageId } from "../src/analysis/package-identity.js";
 import { canonicalStream, canonicalSelfDrawDiscardEvents, canonicalTile } from "./fixtures/canonical-stream.js";
 
@@ -55,6 +57,20 @@ function fixture(stream: CanonicalEventStream = canonicalStream(canonicalSelfDra
 }
 
 describe("native rules to scores to report without a second action enumerator", () => {
+  it("reuses the immutable stream without another reduction or changed scoring request", () => {
+    const input = fixture();
+    const context = freezeDecisionStreamContext(input.stream);
+    const reduce = vi.spyOn(reducer, "reduceCanonicalEventStream");
+    try {
+      for (let i = 0; i < 10; i++) expect(projectLocalMortalRuleScoring({
+        ...input, stream: context.stream, streamContext: context,
+      })).toEqual(input.request);
+      expect(reduce).not.toHaveBeenCalled();
+      expect(() => projectLocalMortalRuleScoring({ ...input, streamContext: context })).toThrow("decision_stream_context_mismatch");
+      expect(() => { context.stream.selfActor = 3; }).toThrow();
+      expect(input.stream.selfActor).toBe(0);
+    } finally { reduce.mockRestore(); }
+  });
   it("same-tile tedashi keeps one score carrier and its actual identity through the native package", async () => {
     const events = canonicalSelfDrawDiscardEvents();
     const draw = events[2]!; const discard = events[3]!;

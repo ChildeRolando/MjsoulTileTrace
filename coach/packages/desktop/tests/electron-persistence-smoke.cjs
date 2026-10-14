@@ -352,9 +352,14 @@ if (!PRODUCTION_CACHE_CHILD) app.whenReady().then(async () => {
     });
     const cacheSnapshot = await cacheController.openReview(fixture.packageId);
     const cacheDecision = cacheSnapshot.selection.items[0].decisionId;
+    const cacheDetail = cacheController.getReviewDetail(fixture.packageId, cacheDecision, cacheSnapshot.activeReportRefId);
+    // The production service adds the loss result; this legacy fixture has no
+    // native rules evidence. Assert its exact unavailable result, not omission.
+    assert.equal(fixture.legalActionEvidence, undefined);
+    assert(cacheDetail.board);
     writeFileSync(join(cacheRoot, "real-expected.json"), JSON.stringify({
       packageId: fixture.packageId, decisionId: cacheDecision, snapshot: cacheSnapshot,
-      detail: cacheController.getReviewDetail(fixture.packageId, cacheDecision, cacheSnapshot.activeReportRefId),
+      detail: { ...cacheDetail, board: { ...cacheDetail.board, discardLoss: { status: "unavailable", reason: "legal_actions_missing" } } },
     }));
     cacheRepository.close();
     for (const damage of ["file", "junction"]) {

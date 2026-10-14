@@ -7,6 +7,7 @@ import { join } from "node:path";
 import { DatabaseSync } from "node:sqlite";
 import { afterEach, describe, expect, it } from "vitest";
 import { createReviewSessionRepository } from "../src/review-session-repository.js";
+import { stagePackageArtifact } from "../src/package-artifact-storage.js";
 import { describePackageArtifact, insertPackageChunks, parsePackageJsonChunks, readPackageArtifact, readPackageMortalAgreement, readPackageMortalAgreementMetadata, readPackageRecordIdentity, PACKAGE_CHUNK_BYTES, PACKAGE_RAW_BLOCK_BYTES } from "../src/package-artifact-storage.js";
 
 const roots: string[] = [];
@@ -40,6 +41,41 @@ function highEntropyValue() {
 }
 
 describe("complete package bytes in bounded SQLite chunks", () => {
+  it("roundtrips shared RCPKG03 evidence/history and projects metadata without expanding factors", () => {
+    const db = database();
+    const ids = Array.from({ length: 1000 }, (_, i) => `event-${i}`);
+    const event = { eventRef: "event-0", json: '{"type":"start_game"}' };
+    const value = { analysisKey: "slot", packageId: "test-id", componentVersions: { packageSchema: "test-schema" },
+      record: { recordId: "shared-record", selfActor: 0, status: "complete" }, evidenceRegistry: {},
+      decisions: [{ evidenceIds: ids, request: { events: [event] } }, { evidenceIds: [...ids], request: { events: [{ ...event }] } }] };
+    try {
+      const row = { ...store(db, value), package_id: "test-id", schema_version: "test-schema" };
+      expect(Buffer.from(row.payload).subarray(0, 8).toString("ascii")).toBe("RCPKG03\0");
+      const decoded = readPackageArtifact(db, row) as typeof value;
+      expect(decoded).toEqual(value);
+      expect(decoded.decisions[0]!.evidenceIds).toBe(decoded.decisions[1]!.evidenceIds);
+      expect(decoded.decisions[0]!.request.events).toBe(decoded.decisions[1]!.request.events);
+      expect(readPackageRecordIdentity(db, row)).toEqual(value.record);
+      expect(() => readPackageArtifact(db, { ...row, content_hash: "wrong" })).toThrow("package_hash_mismatch");
+    } finally { db.close(); }
+  });
+  it.each([() => ({ payload: "牌谱".repeat(50_000) }), highEntropyValue])("stages one encoding with unchanged bytes and bounded rows", makeValue => {
+    const db = database();
+    const value = makeValue();
+    const staged = stagePackageArtifact(value);
+    try {
+      expect(staged.description).toEqual(describePackageArtifact(value));
+      db.exec("BEGIN IMMEDIATE");
+      const { payload, contentHash } = staged.description;
+      db.prepare("INSERT INTO analysis_packages VALUES(?,?,?,?,?)").run("staged", "staged-id", contentHash, "test-schema", payload);
+      staged.insert(db, "staged");
+      db.exec("COMMIT");
+      expect(readPackageArtifact(db, { package_ref_id: "staged", payload, content_hash: contentHash })).toEqual(value);
+      expect(Number(db.prepare("SELECT MAX(length(payload)) AS size FROM analysis_package_chunks").get()!.size)).toBeLessThanOrEqual(PACKAGE_CHUNK_BYTES);
+      staged.close();
+      expect(() => staged.insert(db, "staged")).toThrow("package_staging_closed");
+    } finally { staged.close(); db.close(); }
+  });
   it("reads only record identity across chunks and retains hash/schema failures", () => {
     const db = database();
     try {

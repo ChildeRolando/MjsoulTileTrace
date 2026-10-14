@@ -1,4 +1,8 @@
+import { encodeSharedPackageStorage, decodeSharedPackageStorage } from "./shared-package-storage.js";
 import { createHash } from "node:crypto";
+import { closeSync, mkdtempSync, openSync, readSync, rmdirSync, unlinkSync, writeSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { brotliCompressSync, brotliDecompressSync, constants as zlibConstants } from "node:zlib";
 import type { DatabaseSync } from "node:sqlite";
 import { JSONParser, type ParsedElementInfo } from "@streamparser/json";
@@ -21,6 +25,7 @@ const RAW_ROW_BYTES = PACKAGE_CHUNK_BYTES - 5;
 const ROW_HEADER_BYTES = 5;
 const MAGIC_V1 = Buffer.from("RCPKG01\0", "ascii");
 const MAGIC_V2 = Buffer.from("RCPKG02\0", "ascii");
+const MAGIC_V3 = Buffer.from("RCPKG03\0", "ascii");
 const CODEC_RAW = 0;
 const CODEC_BROTLI = 1;
 const BROTLI_OPTIONS = { params: {
@@ -48,8 +53,12 @@ function encodeRow(flag: number, rawLength: number, data: Uint8Array): Buffer {
   return row;
 }
 
-function serialize(value: unknown, consume?: (chunk: Buffer, ordinal: number) => void): Description {
-  const rawBlock = Buffer.allocUnsafe(PACKAGE_RAW_BLOCK_BYTES);
+function serialize(value: unknown, consume?: (chunk: Buffer, ordinal: number) => void, sharedReferences = true): Description {
+  const shared = sharedReferences && value !== null && typeof value === "object" && "analysisKey" in value && "evidenceRegistry" in value;
+  const encoded = shared ? encodeSharedPackageStorage(value) : value;
+  // Unique compact data compresses less than duplicated provenance. Keep v3
+  // blocks within one row even when compression cannot fit; v2 stays intact.
+  const rawBlock = Buffer.allocUnsafe(shared ? RAW_ROW_BYTES : PACKAGE_RAW_BLOCK_BYTES);
   const hash = createHash("sha256");
   let used = 0;
   let byteLength = 0;
@@ -72,7 +81,7 @@ function serialize(value: unknown, consume?: (chunk: Buffer, ordinal: number) =>
       writeRow(encodeRow(CODEC_RAW, part.length, part));
     }
   };
-  writeCanonicalJson(value, part => {
+  writeCanonicalJson(encoded, part => {
     const bytes = Buffer.from(part, "utf8");
     for (let offset = 0; offset < bytes.length;) {
       const count = Math.min(rawBlock.length - used, bytes.length - offset);
@@ -87,21 +96,77 @@ function serialize(value: unknown, consume?: (chunk: Buffer, ordinal: number) =>
   });
   if (used > 0) flush(rawBlock.subarray(0, used));
   const payload = Buffer.alloc(24);
-  MAGIC_V2.copy(payload);
+  (shared ? MAGIC_V3 : MAGIC_V2).copy(payload);
   payload.writeBigUInt64LE(BigInt(chunks), 8);
   payload.writeBigUInt64LE(BigInt(byteLength), 16);
   return { payload, contentHash: hash.digest("hex"), byteLength, chunks };
 }
 
 /** First pass fixes canonical bytes/hash and the exact storage-row count before the repository transaction. */
-export function describePackageArtifact(value: unknown): Description {
-  return serialize(value);
+export function describePackageArtifact(value: unknown, sharedReferences = true): Description {
+  return serialize(value, undefined, sharedReferences);
+}
+
+/** Encode once before the transaction. Staging keeps memory bounded even for
+ * incompressible packages; SQLite receives exactly those encoded rows. */
+export function stagePackageArtifact(value: unknown) {
+  const directory = mkdtempSync(join(tmpdir(), "riichi-package-"));
+  const path = join(directory, "chunks");
+  let fd: number | undefined;
+  let closed = false;
+  const close = () => {
+    if (closed) return;
+    closed = true;
+    if (fd !== undefined) { closeSync(fd); fd = undefined; }
+    try { unlinkSync(path); } finally { rmdirSync(directory); }
+  };
+  try {
+    fd = openSync(path, "wx+", 0o600);
+    const length = Buffer.alloc(4);
+    const write = (data: Buffer) => {
+      for (let offset = 0; offset < data.length;) offset += writeSync(fd!, data, offset, data.length - offset);
+    };
+    const description = serialize(value, chunk => {
+      length.writeUInt32LE(chunk.length);
+      write(length);
+      write(chunk);
+    });
+    return {
+      description,
+      insert(db: DatabaseSync, ref: string): void {
+        if (fd === undefined) throw new Error("package_staging_closed");
+        const insert = db.prepare("INSERT INTO analysis_package_chunks(package_ref_id,ordinal,payload) VALUES(?,?,?)");
+        const row = Buffer.allocUnsafe(PACKAGE_CHUNK_BYTES);
+        let position = 0;
+        const read = (data: Buffer, count: number) => {
+          for (let offset = 0; offset < count;) {
+            const bytes = readSync(fd!, data, offset, count - offset, position);
+            if (bytes === 0) throw new Error("package_staging_invalid");
+            offset += bytes;
+            position += bytes;
+          }
+        };
+        for (let ordinal = 0; ordinal < description.chunks; ordinal++) {
+          read(length, 4);
+          const size = length.readUInt32LE();
+          if (size < ROW_HEADER_BYTES || size > PACKAGE_CHUNK_BYTES) throw new Error("package_staging_invalid");
+          read(row, size);
+          insert.run(ref, ordinal, row.subarray(0, size));
+        }
+      },
+      close,
+    };
+  } catch (error) {
+    if (fd !== undefined) close();
+    else rmdirSync(directory);
+    throw error;
+  }
 }
 
 /** Called inside the same transaction that inserts the immutable parent row. */
 export function insertPackageChunks(db: DatabaseSync, ref: string, value: unknown, expected: Description): void {
   const insert = db.prepare("INSERT INTO analysis_package_chunks(package_ref_id,ordinal,payload) VALUES(?,?,?)");
-  const written = serialize(value, (chunk, ordinal) => { insert.run(ref, ordinal, chunk); });
+  const written = serialize(value, (chunk, ordinal) => { insert.run(ref, ordinal, chunk); }, expected.payload.subarray(0, 8).equals(MAGIC_V3));
   if (written.contentHash !== expected.contentHash || !written.payload.equals(expected.payload)) {
     throw new Error("package_write_mismatch");
   }
@@ -231,13 +296,13 @@ function* compressedChunks(db: DatabaseSync, ref: string, count: number, byteLen
 
 export function readPackageArtifact(db: DatabaseSync, row: PackageArtifactRow): unknown {
   const header = Buffer.from(row.payload);
-  if (header.subarray(0, MAGIC_V2.length).equals(MAGIC_V2)) {
+  if (header.subarray(0, MAGIC_V2.length).equals(MAGIC_V2) || header.subarray(0, MAGIC_V3.length).equals(MAGIC_V3)) {
     const { count, byteLength } = parseChunkHeader(header);
     const receipt: StreamReceipt = {};
     const decoded = compressedChunks(db, row.package_ref_id, count, byteLength, receipt);
     const value = parsePackageJsonChunks(decoded);
     if (receipt.digest !== row.content_hash) throw new Error("package_hash_mismatch");
-    return value;
+    return header.subarray(0, MAGIC_V3.length).equals(MAGIC_V3) ? decodeSharedPackageStorage(value) : value;
   }
   if (header.subarray(0, MAGIC_V1.length).equals(MAGIC_V1)) {
     const { count, byteLength } = parseChunkHeader(header);
@@ -282,7 +347,7 @@ function readPackageMetadata(
   const header = Buffer.from(row.payload);
   const receipt: StreamReceipt = {};
   let chunks: Iterable<Uint8Array>;
-  if (header.subarray(0, MAGIC_V2.length).equals(MAGIC_V2)) {
+  if (header.subarray(0, MAGIC_V2.length).equals(MAGIC_V2) || header.subarray(0, MAGIC_V3.length).equals(MAGIC_V3)) {
     const { count, byteLength } = parseChunkHeader(header);
     chunks = compressedChunks(db, row.package_ref_id, count, byteLength, receipt);
   } else if (header.subarray(0, MAGIC_V1.length).equals(MAGIC_V1)) {

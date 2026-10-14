@@ -1,5 +1,14 @@
 # 测试与发布门禁
 
+2026-10-15 最新牌谱修复的测试范围、冻结请求身份重绑及真实牌谱隔离验证见
+[修复边界与验证](../plans/2026-10-15-latest-record-analysis-repair.md)。
+
+2026-10-14 分析 Worker / 共享证据 P2：参见
+[实施与变更控制](../plans/2026-10-14-analysis-worker-shared-evidence.md)。
+线程/取消、真实 preflight 等价、新旧存储与图/复盘回归纳入全量 Vitest；隐藏 Electron
+`electron-analysis-responsiveness.cjs` 以固定真实响应测窗口请求和主线程间隔（均 <200ms），
+包含首次 preflight，并记录 CPU/存储/RSS。性能实验不能冒充真实推理总耗时。
+
 ## 日常门禁
 
 在 `coach/` 运行：
@@ -485,3 +494,33 @@ TeachingBrief → 请求完整传递；覆盖立直押金/供托及终局不能�
 目录合并按实际包源身份与本人座位绑定，泛用同编号包不得冒充雀魂目录。
 房间/段位变化使用原始目录详情，protobuf 字段缺失与真实零值须分开；未知展示元数据
 不得改变原有可分析范围，桌分、段位 pt 与魂珠单位不得混用。
+
+## 2026-10-14 跨重启复盘性能
+
+运行 `npx vitest run packages/desktop/tests/review-presentation-cache.test.ts`，验证缓存命中
+不读取原包、概览/全部详情与原 presenter 一致、缺失/旧版本/不可读缓存只重建一次，以及
+报告激活与删除。完整读回的原 artifact 负例继续保留；普通展示不再承担字节篡改审计。
+既有 scoped generation、worker、renderer、Electron Golden 仍须通过。
+
+旧库准备：先备份资料库，再执行 `npm run prepare:review-cache -- <review-library目录>`。
+每包一个进程，产生耗时 JSON；不调用 provider。性能验收使用真实库副本，分别记录
+准备耗时、缓存大小、新 worker/新进程打开及首个详情（含舍牌损失），与相同样本基线比较。
+有缓存的新进程代表跨重启测试，不代表物理冷磁盘；不得混用这两个口径。
+
+
+### 2026-10-14 牌谱分析 P0/P1
+
+聚焦回归包括 local-mortal-rule-scoring、response-furiten、review-presentation-cache、
+package-artifact-storage 与 managed-runtime：共享上下文拒绝跨 stream，全部目标前缀
+与独立还原结果/请求一致，私有不可变验证结果不能由浅冻结/反序列化冒充，新包保存
+不立即读取原 artifact，暂存写失败回滚，原编码字节/哈希/64 KiB 行边界一致。
+
+运行时把即时多余输出与迟到输出分开验收：前者在当前调用拒绝；后者允许正确响应
+已完成后才暴露，但必须立即使 child 失效并拒绝继续使用。取消/关闭、崩溃、超时、
+候选守恒和身份错配测试继续执行，不用固定等待替代协议绑定检查。
+
+性能验证从真实完整 fixture 映射到持久保存与展示缓存，不减少规则/评分/详细分析
+数量。基准与优化使用独立新资料库，分别记录阶段、调用数、完整输出对照和限制。
+固定相同 native/helper 响应重放旧/新链，要求完整包和 semanticContentHash 相等，
+避免把 helper 浮点尾数波动误归因于重构。原生 Electron Golden、持久化/离线重启、
+全量 Vitest 与已有门禁继续执行；benchmark 耗时不作为脆弱的单次单元测试门禁。

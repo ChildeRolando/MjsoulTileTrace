@@ -48,6 +48,8 @@ function analysisSnapshot(input: {
 }
 
 async function chromiumFocusResults(directory: string, scenarios = ["window.run(true)", "window.run(false)"], capture?: { path: string; width?: number; height?: number }) {
+  writeFileSync(join(directory,"review-workspace.js"),transpileModule(readFileSync(new URL("../src/renderer/review-workspace.ts",import.meta.url),"utf8"),{compilerOptions:{module:ModuleKind.ES2022,target:ScriptTarget.ES2022}}).outputText);
+  writeFileSync(join(directory,"workspace.css"),readFileSync(new URL("../src/renderer/workspace.css",import.meta.url),"utf8"));
   // Use the project's pinned Chromium runtime and native keyboard input. The
   // system Edge CDP transport can accept a socket yet never answer its first
   // command; an unbounded request also prevents the old finally cleanup.
@@ -86,6 +88,9 @@ async function chromiumFocusResults(directory: string, scenarios = ["window.run(
 }
 
 function writeFixedReviewBrowserFixture(directory: string, setup: string): void {
+  writeFileSync(join(directory, "review-workspace.js"), transpileModule(readFileSync(new URL("../src/renderer/review-workspace.ts",import.meta.url),"utf8"), {
+    compilerOptions: { module: ModuleKind.ES2022, target: ScriptTarget.ES2022 },
+  }).outputText,"utf8");
   writeFileSync(join(directory, "fixed-review-ui.mjs"), transpileModule(source, {
     compilerOptions: { module: ModuleKind.ES2022, target: ScriptTarget.ES2022 },
   }).outputText, "utf8");
@@ -99,7 +104,7 @@ describe("fixed review native DOM surface", () => {
   it.each(["running", "failed"])("keeps native rule preparation progress and failures within replay: %s", async status => {
     const directory = mkdtempSync(join(tmpdir(), "catalog-replay-progress-"));
     try {
-      for (const name of ["app", "fixed-review-ui", "record-label", "session-ui-policy", "paipu-ui-policy"]) {
+      for (const name of ["app", "fixed-review-ui", "review-workspace", "record-label", "session-ui-policy", "paipu-ui-policy"]) {
         writeFileSync(join(directory, `${name}.js`), transpileModule(
           readFileSync(new URL(`../src/renderer/${name}.ts`, import.meta.url), "utf8"), {
             compilerOptions: { module: ModuleKind.ES2022, target: ScriptTarget.ES2022 },
@@ -113,7 +118,7 @@ describe("fixed review native DOM surface", () => {
         window.setInterval = callback => { poll = callback; return 1; };
         window.clearInterval = () => {};
         window.riichiCoach = { getSessionStatus: async () => ({ status: "valid", displayName: "fixture" }) };
-        window.riichiCoachProvider = { listReviewSessions: async () => [], status: async () => ({ configured: true, settings: null }) };
+        window.riichiCoachProvider = { getReviewDetail: async request => ({ schemaVersion:"fixed-review-detail/v3", ...request, actual:null, mortal:[], coachJudgments:[], explanations:[], referenceTargets:[], provenance:[], explanationStatus:request.activeReportRefId?"ready":"not_generated" }), listReviewSessions: async () => [], status: async () => ({ configured: true, settings: null }) };
         window.riichiCoachCatalog = {
           listAnalyzableRecords: async () => [{ recordId: "fixture", startedAt: 1, selfSeat: 0, shareUrl: "fixture", rule: { displayLabel: "四人南风" }, players: [0,1,2,3].map(seat => ({ seat, displayName: "fixture", rank: seat+1, finalScore: 25000 })) }],
           startRecordAnalysis: () => new Promise(() => {}),
@@ -144,7 +149,7 @@ describe("fixed review native DOM surface", () => {
   it.each(["failed", "validation_failed", "saved_open_failed"])("shows pending account analysis, blocks duplicate starts, and recovers controls: %s", async completion => {
     const directory = mkdtempSync(join(tmpdir(), "catalog-analysis-pending-"));
     try {
-      for (const name of ["app", "fixed-review-ui", "record-label", "session-ui-policy", "paipu-ui-policy"]) {
+      for (const name of ["app", "fixed-review-ui", "review-workspace", "record-label", "session-ui-policy", "paipu-ui-policy"]) {
         const text = readFileSync(new URL(`../src/renderer/${name}.ts`, import.meta.url), "utf8");
         writeFileSync(join(directory, `${name}.js`), transpileModule(text, {
           compilerOptions: { module: ModuleKind.ES2022, target: ScriptTarget.ES2022 },
@@ -157,7 +162,7 @@ describe("fixed review native DOM surface", () => {
         window.clearInterval = () => { intervalPoll = undefined; };
         let progress = ${JSON.stringify(analysisSnapshot({ stage: "scoring", completed: 2, total: 5, elapsedMs: 5500, estimatedTotalMs: 12500, remainingMs: 7000, estimateSource: "history" }))};
         window.riichiCoach = { getSessionStatus: async () => ({ status: "valid", displayName: "fixture" }) };
-        window.riichiCoachProvider = { listReviewSessions: async () => [],
+        window.riichiCoachProvider = { getReviewDetail: async request => ({ schemaVersion:"fixed-review-detail/v3", ...request, actual:null, mortal:[], coachJudgments:[], explanations:[], referenceTargets:[], provenance:[], explanationStatus:request.activeReportRefId?"ready":"not_generated" }), listReviewSessions: async () => [],
           status: async () => ({ configured: true, settings: null }),
           openReview: async () => { throw new Error("private-open-error"); }, leaveReview: async () => {} };
         window.riichiCoachCatalog = { listAnalyzableRecords: async () => [0,1].map(i => ({
@@ -204,7 +209,7 @@ describe("fixed review native DOM surface", () => {
           disabled: [true, true, true, true], recordButtonsDisabled: [true, true], labels: ["分析中…", "分析"], progressShown: true, progressValue: 2, progressMax: 5,
           stepStatuses: ["fetching:complete", "replaying:complete", "scoring:running", "facts:waiting", "packaging:waiting", "saving:waiting"],
           estimate: "预计总时长 0分12秒 · 预计剩余 0分7秒 · 根据本机历史分析",
-          summary: "已开始分析，正在读取主进程的阶段进度。" },
+          summary: "已开始分析，正在读取分析进度。" },
         immediateProgress: { shown: true, steps: ["fetching:running", "replaying:waiting", "scoring:waiting", "facts:waiting", "packaging:waiting", "saving:waiting"] },
         progressLabel: "正在进行模型评分 · 2/5 · 总用时 0分5秒",
         pollIntervalMs: 1000, progressReads: 3,
@@ -233,7 +238,7 @@ describe("fixed review native DOM surface", () => {
   it("paginates cached catalog entries in groups of eight and guards identity while analysis is pending", async () => {
     const directory = mkdtempSync(join(tmpdir(), "catalog-renderer-pages-"));
     try {
-      for (const name of ["app", "fixed-review-ui", "record-label", "session-ui-policy", "paipu-ui-policy"]) {
+      for (const name of ["app", "fixed-review-ui", "review-workspace", "record-label", "session-ui-policy", "paipu-ui-policy"]) {
         const text = readFileSync(new URL(`../src/renderer/${name}.ts`, import.meta.url), "utf8");
         writeFileSync(join(directory, `${name}.js`), transpileModule(text, {
           compilerOptions: { module: ModuleKind.ES2022, target: ScriptTarget.ES2022 },
@@ -252,7 +257,7 @@ describe("fixed review native DOM surface", () => {
         let listCalls = 0, syncCalls = 0, startCalls = [], records = ${JSON.stringify(records)};
         let resolveAnalysis;
         window.riichiCoach = { getSessionStatus: async () => ({ status: "valid", displayName: "fixture" }) };
-        window.riichiCoachProvider = { listReviewSessions: async () => [], openReview: async () => { throw new Error("unused"); }, leaveReview: async () => {} };
+        window.riichiCoachProvider = { getReviewDetail: async request => ({ schemaVersion:"fixed-review-detail/v3", ...request, actual:null, mortal:[], coachJudgments:[], explanations:[], referenceTargets:[], provenance:[], explanationStatus:request.activeReportRefId?"ready":"not_generated" }), listReviewSessions: async () => [], openReview: async () => { throw new Error("unused"); }, leaveReview: async () => {} };
         window.riichiCoachCatalog = {
           listAnalyzableRecords: async () => { listCalls++; return records; },
           syncAnalyzableRecords: async () => {
@@ -304,7 +309,7 @@ describe("fixed review native DOM surface", () => {
         empty: { rows: 0, page: "", navHidden: true, detail: "暂无可分析牌谱。" },
         readyForAnalysis: { busy: "false", disabled: false },
         pending: { page: "第 2 / 2 页 · 共 10 场", started: ["record-8"], navDisabled: [true, true], duplicateButtonDisabled: true, busy: "true",
-          progressShown: true, summary: "已开始分析，正在读取主进程的阶段进度。" },
+          progressShown: true, summary: "已开始分析，正在读取分析进度。" },
         afterDuplicateAndFlip: { started: ["record-8"], page: "第 2 / 2 页 · 共 10 场", rows: 2 },
         syncCalls: 3, errors: [],
       }]);
@@ -314,7 +319,7 @@ describe("fixed review native DOM surface", () => {
   it("does not wait for a hung progress poll and discards its late reply after the next analysis starts", async () => {
     const directory = mkdtempSync(join(tmpdir(), "catalog-progress-late-reply-"));
     try {
-      for (const name of ["app", "fixed-review-ui", "record-label", "session-ui-policy", "paipu-ui-policy"]) {
+      for (const name of ["app", "fixed-review-ui", "review-workspace", "record-label", "session-ui-policy", "paipu-ui-policy"]) {
         const text = readFileSync(new URL(`../src/renderer/${name}.ts`, import.meta.url), "utf8");
         writeFileSync(join(directory, `${name}.js`), transpileModule(text, {
           compilerOptions: { module: ModuleKind.ES2022, target: ScriptTarget.ES2022 },
@@ -340,7 +345,7 @@ describe("fixed review native DOM surface", () => {
         let resolveFirstAnalysis;
         let analysisCalls = [];
         window.riichiCoach = { getSessionStatus: async () => ({ status: "valid", displayName: "fixture" }) };
-        window.riichiCoachProvider = { status: async () => ({ configured: true, settings: null }),
+        window.riichiCoachProvider = { getReviewDetail: async request => ({ schemaVersion:"fixed-review-detail/v3", ...request, actual:null, mortal:[], coachJudgments:[], explanations:[], referenceTargets:[], provenance:[], explanationStatus:request.activeReportRefId?"ready":"not_generated" }), status: async () => ({ configured: true, settings: null }),
           listReviewSessions: async () => [], openReview: async () => snapshot,
           leaveReview: async () => {}, cancelGeneration: async () => {} };
         window.riichiCoachCatalog = {
@@ -394,7 +399,7 @@ describe("fixed review native DOM surface", () => {
   it("paginates saved reviews and resets the page after opening a saved item refreshes the list", async () => {
     const directory = mkdtempSync(join(tmpdir(), "saved-review-renderer-pages-"));
     try {
-      for (const name of ["app", "fixed-review-ui", "record-label", "session-ui-policy", "paipu-ui-policy"]) {
+      for (const name of ["app", "fixed-review-ui", "review-workspace", "record-label", "session-ui-policy", "paipu-ui-policy"]) {
         const text = readFileSync(new URL(`../src/renderer/${name}.ts`, import.meta.url), "utf8");
         writeFileSync(join(directory, `${name}.js`), transpileModule(text, {
           compilerOptions: { module: ModuleKind.ES2022, target: ScriptTarget.ES2022 },
@@ -416,7 +421,7 @@ describe("fixed review native DOM surface", () => {
         const sessions = ${JSON.stringify(sessions)};
         const snapshot = ${JSON.stringify(snapshot)};
         window.riichiCoach = { getSessionStatus: async () => ({ status: "logged_out" }) };
-        window.riichiCoachProvider = {
+        window.riichiCoachProvider = { getReviewDetail: async request => ({ schemaVersion:"fixed-review-detail/v3", ...request, actual:null, mortal:[], coachJudgments:[], explanations:[], referenceTargets:[], provenance:[], explanationStatus:request.activeReportRefId?"ready":"not_generated" }),
           status: async () => ({ configured: true, settings: null }),
           listReviewSessions: async () => ++reads === 1 ? sessions : [sessions[9]],
           openReview: async ({ packageId }) => { openedPackageIds.push(packageId); return snapshot; }, leaveReview: async () => {},
@@ -454,7 +459,7 @@ describe("fixed review native DOM surface", () => {
     const capturePath = join(evidenceDirectory, "desktop-workbench.png");
     try {
       mkdirSync(evidenceDirectory, { recursive: true });
-      for (const name of ["app", "fixed-review-ui", "record-label", "session-ui-policy", "paipu-ui-policy"]) {
+      for (const name of ["app", "fixed-review-ui", "review-workspace", "record-label", "session-ui-policy", "paipu-ui-policy"]) {
         const text = readFileSync(new URL(`../src/renderer/${name}.ts`, import.meta.url), "utf8");
         writeFileSync(join(directory, `${name}.js`), transpileModule(text, {
           compilerOptions: { module: ModuleKind.ES2022, target: ScriptTarget.ES2022 },
@@ -468,7 +473,7 @@ describe("fixed review native DOM surface", () => {
       const setup = `
         const settle = (delay = 80) => new Promise(resolve => setTimeout(resolve, delay));
         window.riichiCoach = { getSessionStatus: async () => ({ status: "valid", displayName: "演示账号" }) };
-        window.riichiCoachProvider = { status: async () => ({ configured: true, settings: null }),
+        window.riichiCoachProvider = { getReviewDetail: async request => ({ schemaVersion:"fixed-review-detail/v3", ...request, actual:null, mortal:[], coachJudgments:[], explanations:[], referenceTargets:[], provenance:[], explanationStatus:request.activeReportRefId?"ready":"not_generated" }), status: async () => ({ configured: true, settings: null }),
           listReviewSessions: async () => [{ sessionId: "demo-session", packageId: "演示复盘", activeReportRefId: null }] };
         window.riichiCoachCatalog = {
           listAnalyzableRecords: async () => ${JSON.stringify(records)}, syncAnalyzableRecords: async () => ${JSON.stringify(records)},
@@ -500,7 +505,7 @@ describe("fixed review native DOM surface", () => {
         progressEstimate: "预计总时长 3分30秒 · 预计剩余 1分55秒 · 根据本机历史分析",
       })]);
       expect((results[0] as { width: number }).width).toBeGreaterThan(800);
-      expect((results[0] as { sidebarWidth: number }).sidebarWidth).toBeGreaterThan(240);
+      expect((results[0] as { sidebarWidth: number }).sidebarWidth).toBe(208);
       expect(statSync(capturePath).size).toBeGreaterThan(15_000);
     } finally { rmSync(directory, { recursive: true, force: true, maxRetries: 20, retryDelay: 100 }); }
   }, 90_000);
@@ -519,7 +524,7 @@ describe("fixed review native DOM surface", () => {
           mortalPreferredActions: [], errorGap: 12, tags: ["efficiency"], explanationStatus: "not_generated",
         }] },
       });
-      for (const name of ["app", "fixed-review-ui", "record-label", "session-ui-policy", "paipu-ui-policy"]) {
+      for (const name of ["app", "fixed-review-ui", "review-workspace", "record-label", "session-ui-policy", "paipu-ui-policy"]) {
         const text = readFileSync(new URL(`../src/renderer/${name}.ts`, import.meta.url), "utf8");
         writeFileSync(join(directory, `${name}.js`), transpileModule(text, {
           compilerOptions: { module: ModuleKind.ES2022, target: ScriptTarget.ES2022 },
@@ -529,7 +534,7 @@ describe("fixed review native DOM surface", () => {
         let generations = 0, statusReads = 0, activeReportRefId = null;
         const session = { sessionId: "first-session", packageId: "first-package", analysisStatus: "complete", activeReportRefId, updatedAt: "2026-10-04T00:00:00.000Z" };
         window.riichiCoach = { getSessionStatus: async () => ({ status: "logged_out" }) };
-        window.riichiCoachProvider = {
+        window.riichiCoachProvider = { getReviewDetail: async request => ({ schemaVersion:"fixed-review-detail/v3", ...request, actual:null, mortal:[], coachJudgments:[], explanations:[], referenceTargets:[], provenance:[], explanationStatus:request.activeReportRefId?"ready":"not_generated" }),
           status: async () => { statusReads++; return { configured: false, settings: null }; },
           listReviewSessions: async () => [{ ...session, activeReportRefId }],
           openReview: async () => (${JSON.stringify(snapshot)}),
@@ -593,7 +598,7 @@ describe("fixed review native DOM surface", () => {
         explanationCounts: { ready: 0, provider_unavailable: 1, request_failed: 0, invalid_output: 0 },
         selection: { ...snapshot.selection, items: snapshot.selection.items.map(item => ({ ...item, explanationStatus: "provider_unavailable" as const })) },
       });
-      for (const name of ["app", "fixed-review-ui", "record-label", "session-ui-policy", "paipu-ui-policy"]) {
+      for (const name of ["app", "fixed-review-ui", "review-workspace", "record-label", "session-ui-policy", "paipu-ui-policy"]) {
         const text = readFileSync(new URL(`../src/renderer/${name}.ts`, import.meta.url), "utf8");
         writeFileSync(join(directory, `${name}.js`), transpileModule(text, {
           compilerOptions: { module: ModuleKind.ES2022, target: ScriptTarget.ES2022 },
@@ -608,7 +613,7 @@ describe("fixed review native DOM surface", () => {
           const historyValues = () => [...document.querySelectorAll(".coach-usage-history dd")].map(item => item.textContent);
         const settle = async () => { for (let i = 0; i < 20; i++) await Promise.resolve(); };
         window.riichiCoach = { getSessionStatus: async () => ({ status: "logged_out" }) };
-        window.riichiCoachProvider = {
+        window.riichiCoachProvider = { getReviewDetail: async request => ({ schemaVersion:"fixed-review-detail/v3", ...request, actual:null, mortal:[], coachJudgments:[], explanations:[], referenceTargets:[], provenance:[], explanationStatus:request.activeReportRefId?"ready":"not_generated" }),
           status: async () => ({ configured: true, settings: { providerId: "codex-cli", modelName: "gpt-6-luna", reasoningEffort: "max" } }),
           listReviewSessions: async () => [{ ...session, activeReportRefId }],
           openReview: async () => { opens++; return activeReportRefId === null ? usageSnapshot : generated; },
@@ -690,7 +695,7 @@ describe("fixed review native DOM surface", () => {
         sessionId: "saved-session", packageId: snapshot.packageId, analysisStatus: "complete",
         activeReportRefId: null, updatedAt: "2026-09-23T00:00:00.000Z",
       });
-      for (const name of ["app", "fixed-review-ui", "record-label", "session-ui-policy", "paipu-ui-policy"]) {
+      for (const name of ["app", "fixed-review-ui", "review-workspace", "record-label", "session-ui-policy", "paipu-ui-policy"]) {
         const text = readFileSync(new URL(`../src/renderer/${name}.ts`, import.meta.url), "utf8");
         writeFileSync(join(directory, `${name}.js`), transpileModule(text, {
           compilerOptions: { module: ModuleKind.ES2022, target: ScriptTarget.ES2022 },
@@ -707,7 +712,7 @@ describe("fixed review native DOM surface", () => {
         const result = ${JSON.stringify(result)};
         const session = ${JSON.stringify(session)};
         window.riichiCoach = { getSessionStatus: async () => ({ status: "logged_out" }) };
-        window.riichiCoachProvider = {
+        window.riichiCoachProvider = { getReviewDetail: async request => ({ schemaVersion:"fixed-review-detail/v3", ...request, actual:null, mortal:[], coachJudgments:[], explanations:[], referenceTargets:[], provenance:[], explanationStatus:request.activeReportRefId?"ready":"not_generated" }),
           status: async () => ({ configured: true, settings: null }),
           listReviewSessions: async () => {
             reads++;
@@ -1249,4 +1254,31 @@ describe("fixed review native DOM surface", () => {
       rmSync(directory, { recursive: true, force: true, maxRetries: 20, retryDelay: 100 });
     }
   }, 90_000);
+});
+
+
+describe("review workspace integration", () => {
+  it("renders ten dynamic decisions, restores position, and ignores late detail responses", async () => {
+    const directory=mkdtempSync(join(tmpdir(),"workspace-ten-"));
+    try {
+      writeFixedReviewBrowserFixture(directory, `
+        const pause=()=>new Promise(r=>setTimeout(r,0));
+        const snapshot={packageId:"workspace-fixture",analysisStatus:"complete",selection:{selectedCount:10,items:Array.from({length:10},(_,i)=>({decisionId:"decision-"+i,rank:i+1,roundOrdinal:0,decisionWindowKind:"self_turn",actualAction:null,mortalPreferredActions:[],errorGap:12,selectionReason:"model_disagreement_above_threshold",tags:["efficiency"],explanationStatus:"not_generated"}))},activeReportRefId:null,activeReportStatus:"not_generated",explanationCounts:{ready:0,provider_unavailable:0,request_failed:0,invalid_output:0},outcomeCounts:{analysis_ready:10,unsupported_action:0,source_row_not_expected:0,no_mortal_entry:0,binding_mismatch:0,model_output_incomplete:0,analysis_blocked:0}};
+        const detail=id=>({packageId:snapshot.packageId,decisionId:id,activeReportRefId:null,actual:null,mortal:[],coachJudgments:[],explanations:[],referenceTargets:[],provenance:[],explanationStatus:"not_generated",board:{actor:0,seatWind:"E",roundLabel:id,turnLabel:"已打 4 张",honba:0,riichiSticks:0,scores:[25000,25000,25000,25000],hand:Array.from({length:13},()=>({id:"1m",red:false})),draw:{id:"5p",red:true},dora:[],rivers:[[{tile:{id:"1m",red:false},tsumogiri:false,riichiDeclaration:true}],[{tile:{id:"5p",red:false},tsumogiri:true}],[],[]],melds:[{actor:3,label:"碰",tiles:Array.from({length:3},()=>({id:"1z",red:false}))}],riichiActors:[0],complete:true,actualTile:{id:"5p",red:true},actualDiscardMode:"tsumogiri",mortalDiscards:[{tile:{id:"1m",red:false},discardMode:"tedashi"}],discardLoss:{status:"ready",baselineShanten:1,candidates:[{tile:{id:"1m",red:false},discardMode:"tedashi",shanten:1,directLost:[{tile:{id:"2m",red:false},count:3,degradedToImprovement:false}],improvementLost:[{tile:{id:"3m",red:false},count:2,degradedToImprovement:false}]}]}}});
+        let resolveSlow;
+        const api={openReview:async()=>snapshot,status:async()=>({configured:true,settings:null}),leaveReview:async()=>{},getReviewDetail:async({decisionId})=>decisionId==="decision-1"?new Promise(r=>resolveSlow=r):detail(decisionId)};
+        const ui=createFixedReviewUi({document,root:document.querySelector("#root"),api,workspaceMode:true});
+        window.run=async()=>{await ui.open(snapshot.packageId);await pause();
+          document.querySelectorAll(".decision-node")[1].click();
+          document.querySelectorAll(".decision-node")[9].click();await pause();
+          resolveSlow(detail("decision-1"));await pause();
+          document.querySelector(".workspace-hand button").click();
+          window.latest={you:document.querySelectorAll(".you-badge").length,mortal:document.querySelectorAll(".mortal-badge").length,removed:!document.querySelector(".hand-caption,.board-caption,.loss-basis")&&!document.querySelector(".board-heading").textContent.includes("你的视角"),sideways:document.querySelectorAll(".river-tile.sideways").length,gray:document.querySelectorAll(".river-tile.tsumogiri").length,leftMelds:document.querySelectorAll(".table-melds.left .meld").length,loss:!!document.querySelector('.hand-loss .loss-group[aria-label="直接进张 · 损 3 枚 / 1 种"]') && !!document.querySelector('.hand-loss .loss-group[aria-label="改良张 · 损 2 枚 / 1 种"]'),heading:document.querySelector(".board-heading h1").textContent,count:document.querySelectorAll(".decision-node").length,hand:document.querySelectorAll(".workspace-hand button").length,counter:document.querySelector(".timeline-controls span").textContent,nextDisabled:document.querySelector('[aria-label="下一手分歧打牌"]').disabled};
+          await ui.leave();await ui.open(snapshot.packageId);await pause();document.activeElement?.blur();
+        };
+        window.focusResult=()=>({...window.latest,restored:document.querySelector(".board-heading h1").textContent});
+      `);
+      expect(await chromiumFocusResults(directory,["window.run()"])) .toEqual([{you:1,mortal:1,removed:true,sideways:1,gray:1,leftMelds:1,loss:true,heading:"decision-9 / 已打 4 张",count:10,hand:14,counter:"10 / 10",nextDisabled:true,restored:"decision-9 / 已打 4 张"}]);
+    } finally {rmSync(directory,{recursive:true,force:true,maxRetries:20,retryDelay:100});}
+  },90_000);
 });

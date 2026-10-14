@@ -52,7 +52,7 @@ async function renderCatalogCard(): Promise<CatalogCard> {
   const directory = mkdtempSync(join(tmpdir(), "record-label-catalog-renderer-"));
   const profile = mkdtempSync(join(tmpdir(), "record-label-catalog-profile-"));
   try {
-    for (const name of ["app", "fixed-review-ui", "record-label", "session-ui-policy", "paipu-ui-policy"]) {
+    for (const name of ["app", "fixed-review-ui", "review-workspace", "record-label", "session-ui-policy", "paipu-ui-policy"]) {
       const source = readFileSync(new URL(`${name}.ts`, rendererRoot), "utf8");
       writeFileSync(join(directory, `${name}.js`), transpileModule(source, {
         compilerOptions: { module: ModuleKind.ES2022, target: ScriptTarget.ES2022 },

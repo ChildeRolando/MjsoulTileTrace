@@ -3,7 +3,7 @@ import {
   sortTilesCanonical,
   type FixedReviewDetailDto, type FixedReviewSnapshotDto,
   type ReviewReport, type ReviewSelectionResult, type RiichiAction,
-  type StructuredAnalysisPackage, type Tile, type FactorValue,
+  type StructuredAnalysisPackage, type Tile, type FactorValue, type KnownGameFacts,
 } from "@riichi-coach/contracts";
 import { composeReviewReadBackContext, type ReviewReadBackContext } from "@riichi-coach/reasoning";
 
@@ -14,6 +14,65 @@ const OUTCOMES = [
 const AXES = ["efficiency", "value", "defense", "placement", "option_value"] as const;
 
 type ReadyDecision = Extract<StructuredAnalysisPackage["decisions"][number], { outcome: "analysis_ready" }>;
+
+function boardLabels(decision: ReadyDecision) {
+  const facts = decision.knownGameFacts;
+  const round = facts.currentRound;
+  return {
+    roundLabel: round?.status === "known" ? `${round.roundWind === "E" ? "东" : "南"} ${round.hand} 局` : `第 ${decision.roundOrdinal + 1} 局`,
+    // A river count is not a turn count after calls; name the observable fact.
+    turnLabel: facts.completeness.rivers ? `已打 ${facts.rivers[facts.actor]!.length} 张` : "巡目未知",
+  };
+}
+
+/** Reused by bounded display-cache upgrades; source references stay main-only. */
+export function presentReviewMelds(facts: KnownGameFacts) {
+  return facts.melds.map(meld => {
+    // Resolve only the recorded discard reference, never guess from tile faces.
+    const discard = meld.calledDiscardEventRef
+      ? facts.rivers.flat().find(x => x.eventId === meld.calledDiscardEventRef) : undefined;
+    const valid = meld.kind !== "ankan" && discard && discard.actor !== meld.actor
+      && meld.tiles.some(t => t.id === discard.tile.id && t.red === discard.tile.red);
+    return {actor:meld.actor ?? null, kind:meld.kind,
+      label:({chi:"吃",pon:"碰",daiminkan:"明杠",ankan:"暗杠",kakan:"加杠"})[meld.kind],tiles:meld.tiles,
+      sourceActor:valid ? discard.actor : null, calledTile:valid ? discard.tile : null,
+      addedTile:meld.kind === "kakan" ? meld.tiles.at(-1)! : null};
+  });
+}
+
+export function presentReviewBoard(decision: ReadyDecision) {
+  const facts = decision.knownGameFacts;
+  const round = facts.currentRound;
+  const action = decision.normalizedDecisionContext.actualAction;
+  return {
+    ...boardLabels(decision), actor: facts.actor, seatWind: facts.seatWind,
+    honba: round?.status === "known" ? round.honba : null,
+    riichiSticks: round?.status === "known" ? round.riichiSticks : null,
+    scores: facts.scores?.status === "known" ? facts.scores.byActor : null,
+    hand: sortTilesCanonical(facts.concealedTiles), draw: facts.currentDraw?.tile ?? null,
+    dora: facts.doraIndicators,
+    rivers: facts.rivers.map((river,actor) => {
+      const declaration = facts.threats.find(t => t.actor === actor && t.riichi)?.declarationEventId;
+      const declarationDiscard = declaration == null ? -1 : river.findIndex(d => d.eventId === declaration || d.afterRiichiEventIds.includes(declaration));
+      return river.map(({tile,tsumogiri},index) => ({tile,tsumogiri,
+        riichiDeclaration:actor === facts.actor
+          ? facts.furitenSelfRiver?.[index]?.riichiDeclarationEventRef != null
+          : index === declarationDiscard,
+      }));
+    }),
+    melds: presentReviewMelds(facts),
+    riichiActors: [...new Set([...facts.threats.filter(t=>t.riichi).map(t=>t.actor),...(facts.selfRiichi?[facts.actor]:[])])],
+    complete: facts.completeness.concealedTiles && facts.completeness.rivers && facts.completeness.melds && facts.completeness.doraIndicators,
+    actualDiscardMode: action?.kind === "discard" || action?.kind === "riichi_discard" ? action.discardMode : undefined,
+    mortalDiscards: decision.modelEvaluation.scoreMethod === "mortal_probability_x100"
+      ? decision.modelEvaluation.preferredActions.flatMap(ref => {
+          const preferred = decision.comparisonSet.candidates.find(c => c.actionRef === ref)?.action;
+          return preferred?.kind === "discard" || preferred?.kind === "riichi_discard"
+            ? [{tile: preferred.tile, discardMode: preferred.discardMode}] : [];
+        }) : [],
+    actualTile: action?.kind === "discard" || action?.kind === "riichi_discard" ? action.tile : null,
+  };
+}
 type GraphNode = ReturnType<typeof composeReviewReadBackContext>["currentGraph"]["nodes"][number];
 
 function tileLabel(tile: Tile): string {
@@ -459,6 +518,7 @@ export function presentFixedReviewSnapshotFromContext(
     const presentAxes = new Set(decision.factorDifferences.map((difference) => difference.axis));
     return {
       ...selected,
+      ...boardLabels(decision),
       roundOrdinal: decision.roundOrdinal,
       decisionWindowKind: decision.normalizedDecisionContext.decisionWindowKind,
       actualAction: actualActionDto(decision),
@@ -573,6 +633,7 @@ export function presentFixedReviewDetailFromContext(
   }); });
   return Object.freeze(FixedReviewDetailSchema.parse({
     schemaVersion: "fixed-review-detail/v3",
+    board: presentReviewBoard(decision),
     packageId: context.analysisPackage.packageId,
     activeReportRefId,
     decisionId,

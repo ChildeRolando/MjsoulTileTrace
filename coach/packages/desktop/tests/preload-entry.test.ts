@@ -1,4 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
+import { MahjongSoulSourceErrorCodeSchema } from "@riichi-coach/contracts";
 
 const { exposed, invoke } = vi.hoisted(() => ({
   exposed: new Map<string, unknown>(),
@@ -47,8 +48,10 @@ describe("self-contained sandboxed preload", () => {
       invoke.mockResolvedValueOnce(invalid);
       await expect(catalog.getRecordAnalysisProgress()).rejects.toThrow("mahjong_soul_login_protocol_unsupported");
     }
-    invoke.mockRejectedValueOnce(new Error("Error invoking remote method 'mahjong-soul:start-record-analysis': Error: mahjong_soul_canonical_validation_failed"));
-    await expect(catalog.startRecordAnalysis("fixture")).rejects.toThrow("mahjong_soul_canonical_validation_failed");
+    for (const code of MahjongSoulSourceErrorCodeSchema.options) {
+      invoke.mockRejectedValueOnce(new Error(`Error invoking remote method 'mahjong-soul:start-record-analysis': Error: ${code}`));
+      await expect(catalog.startRecordAnalysis("fixture")).rejects.toThrow(code);
+    }
   });
 
   it("exposes exactly four renderer globals with the right methods", () => {

@@ -181,7 +181,11 @@ describe("ReviewSession SQLite persistence", () => {
     header.writeBigUInt64LE(BigInt(Math.ceil(bytes.length / 65536)), 8);
     header.writeBigUInt64LE(BigInt(bytes.length), 16);
     db.exec("DROP TRIGGER immutable_package; DELETE FROM analysis_package_chunks");
-    db.prepare("UPDATE analysis_packages SET payload=?").run(header);
+    // The synthetic legacy artifact's hash must bind its legacy bytes, rather
+    // than the RCPKG03 encoding produced by the initial save above.
+    const legacyHash = createHash("sha256").update(bytes).digest("hex");
+    original.content_hash = legacyHash;
+    db.prepare("UPDATE analysis_packages SET payload=?,content_hash=?").run(header, legacyHash);
     const insert = db.prepare("INSERT INTO analysis_package_chunks VALUES(?,?,?)");
     for (let offset = 0; offset < bytes.length; offset += 65536) {
       insert.run(original.package_ref_id!, offset / 65536, bytes.subarray(offset, offset + 65536));
