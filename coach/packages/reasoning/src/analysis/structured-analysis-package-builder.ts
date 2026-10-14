@@ -1,3 +1,4 @@
+import { cloneWithSharedPackageEvidence } from "./shared-package-evidence.js";
 /**
  * M6-C Slice 2: `buildStructuredAnalysisPackage` — the ONLY package build
  * entry (spec seam: "新增 seam = buildStructuredAnalysisPackage：直接消费整盘
@@ -65,7 +66,7 @@ import {
   NATIVE_STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION,
   LibriichiPackageEvidenceSchema,
   libriichiRuleCanonicalJson,
-  StructuredAnalysisPackageSchema,
+  assertStructuredAnalysisPackageSchema,
   type CanonicalEventStream,
   type CanonicalGameEvent,
   type ComponentVersions,
@@ -487,28 +488,13 @@ export function buildStructuredAnalysisPackage(
     DecisionAnalysisSchema.parse(decision) as DecisionAnalysis,
   );
 
-  const semanticContentHash = deriveSemanticContentHash({
-    analysisKey,
-    record,
-    componentVersions: input.componentVersions,
-    analysisPolicy,
-    decisions,
-    evidenceRegistry: registry,
-    legalActionEvidence,
+  const content = cloneWithSharedPackageEvidence({
+    analysisKey, record, componentVersions: input.componentVersions,
+    analysisPolicy, decisions, evidenceRegistry: registry, legalActionEvidence,
   });
-
-  const pkg = StructuredAnalysisPackageSchema.parse({
-    analysisKey,
-    packageId,
-    createdAt: new Date(now()).toISOString(),
-    semanticContentHash,
-    record,
-    componentVersions: input.componentVersions,
-    analysisPolicy,
-    decisions,
-    evidenceRegistry: registry,
-    legalActionEvidence,
-  });
+  const semanticContentHash = deriveSemanticContentHash(content);
+  const pkg = { ...content, packageId, createdAt: new Date(now()).toISOString(), semanticContentHash };
+  assertStructuredAnalysisPackageSchema(pkg);
   validateLibriichiPackageEvidence(pkg);
   return pkg;
 }

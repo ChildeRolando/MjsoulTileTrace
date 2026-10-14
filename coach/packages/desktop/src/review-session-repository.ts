@@ -292,7 +292,9 @@ export function createReviewSessionRepository(input: {
   const compactLegacyPackage = (row: PackageArtifactRow, value: StructuredAnalysisPackage, expectedDataVersion: number): void => {
     const oldHeader = Buffer.from(row.payload);
     if (oldHeader.length !== 24 || oldHeader.subarray(0, 8).toString("ascii") !== "RCPKG01\0") return;
-    const compact = describePackageArtifact(value);
+    // Historical compaction preserves the original canonical storage SHA;
+    // only newly saved packages opt into shared-reference encoding.
+    const compact = describePackageArtifact(value, false);
     if (compact.payload.equals(oldHeader)) return;
     // Only the storage representation changes: decoded canonical bytes must
     // keep their original hash. Inline legacy byte encodings are untouched.

@@ -10,6 +10,7 @@ import {
   type OfficialClientCaptureResult,
 } from "./official-client-record-capture.js";
 import type { RecordAnalysisStore } from "./record-analysis-store.js";
+import type { RecordAnalysisStorePort } from "./record-analysis-worker-store.js";
 
 // The paipu-URL ingestion route: paste a Mahjong Soul share URL and the app
 // rides its own official-client session to obtain the record, resolves the
@@ -85,7 +86,7 @@ export type PaipuReviewPreparationResult = Readonly<{
 
 export function createMahjongSoulPaipuImportService(input: {
   readonly bundle: MahjongSoulProtocolBundle;
-  readonly analysis: RecordAnalysisStore;
+  readonly analysis: RecordAnalysisStorePort;
   readonly createWindow: () => CaptureRecordWindowPort;
   readonly timeoutMs: number;
   /** Deterministic capture adapter for the isolated Electron Golden runner. */
@@ -159,7 +160,7 @@ export function createMahjongSoulPaipuImportService(input: {
 
         // 4. The shared analysis path is byte-identical to the account
         //    fetch route; only the seat differs (auto-resolved).
-        const outcome = input.analysis.analyzeRecord({
+        const outcome = await input.analysis.analyzeRecord({
           recordId: parsed.recordId,
           selfActor: perspective.selfActor,
           recordBytes: captured.recordBytes,

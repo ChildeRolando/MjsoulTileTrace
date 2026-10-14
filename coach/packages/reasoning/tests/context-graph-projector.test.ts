@@ -23,6 +23,7 @@ import { canonicalJson, sha256CanonicalJson, sha256Hex } from "../src/analysis/p
 import { deriveEdgeId, deriveNodeId, semanticKeyOfNode } from "../src/context-graph/context-graph-ids.js";
 import { projectContextGraph } from "../src/context-graph/project-context-graph.js";
 import { validateContextGraph } from "../src/context-graph/validate-context-graph.js";
+import { prepareValidatedStructuredAnalysisPackage } from "../src/validate/structured-package-validator.js";
 import {
   buildFailedDecisionPackage,
   buildSingleDecisionPackage,
@@ -32,6 +33,19 @@ import {
 function clone<T>(value: T): T {
   return JSON.parse(JSON.stringify(value)) as T;
 }
+
+it("projects owned shared evidence without changing graph values or freezing caller input", async () => {
+  const input = await buildSingleDecisionPackage();
+  const ordinary = projectContextGraph(input);
+  const prepared = prepareValidatedStructuredAnalysisPackage(input);
+  const shared = projectContextGraph(prepared);
+  expect(shared).toEqual(ordinary);
+  expect(() => validateContextGraph(shared)).not.toThrow();
+  expect(Object.isFrozen(input)).toBe(false);
+  expect(Object.isFrozen(prepared)).toBe(true);
+  const factNode = shared.nodes.find(node => node.nodeKind === "KnownGameFact")!;
+  expect(factNode.provenance).toBe(prepared.decisions[0]!.knownGameFacts.evidenceIds);
+});
 
 function nodeOfKind(graph: ContextGraph, kind: ContextGraphNode["nodeKind"]): ContextGraphNode[] {
   return graph.nodes.filter((node) => node.nodeKind === kind);

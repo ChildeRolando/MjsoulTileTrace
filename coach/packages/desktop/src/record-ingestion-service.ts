@@ -6,7 +6,7 @@ import {
   type MahjongSoulSessionVault,
   type StoredMahjongSoulSession,
 } from "@riichi-coach/mahjong-soul-source";
-import type { RecordAnalysisStore } from "./record-analysis-store.js";
+import type { RecordAnalysisStorePort } from "./record-analysis-worker-store.js";
 import type {
   PaipuReviewPreparationInput,
   PaipuReviewPreparationResult,
@@ -48,7 +48,7 @@ type AccountRecordReviewInput = Readonly<Pick<
 
 export function createAccountRecordReviewHandoff(input: {
   readonly ingest: (recordId: string) => Promise<AccountRecordReviewInput>;
-  readonly analysisStore: Pick<RecordAnalysisStore, "analyzeRecord">;
+  readonly analysisStore: Pick<RecordAnalysisStorePort, "analyzeRecord">;
   readonly prepareReview: (input: PaipuReviewPreparationInput) => Promise<PaipuReviewPreparationResult>;
 }): (recordId: string, onProgress?: (progress: import("./catalog-api.js").RecordAnalysisProgress) => void) => Promise<Readonly<{
   status: "review_ready";
@@ -59,7 +59,7 @@ export function createAccountRecordReviewHandoff(input: {
     const ingested = await input.ingest(recordId);
     if (ingested.recordId !== recordId) throw error("mahjong_soul_record_not_analyzable");
     onProgress?.({ stage: "replaying", completed: 0, total: null });
-    const outcome = input.analysisStore.analyzeRecord({
+    const outcome = await input.analysisStore.analyzeRecord({
       recordId,
       selfActor: ingested.selfActor,
       recordBytes: ingested.recordBytes,

@@ -1,5 +1,11 @@
 # 测试与发布门禁
 
+2026-10-14 分析 Worker / 共享证据 P2：参见
+[实施与变更控制](../plans/2026-10-14-analysis-worker-shared-evidence.md)。
+线程/取消、真实 preflight 等价、新旧存储与图/复盘回归纳入全量 Vitest；隐藏 Electron
+`electron-analysis-responsiveness.cjs` 以固定真实响应测窗口请求和主线程间隔（均 <200ms），
+包含首次 preflight，并记录 CPU/存储/RSS。性能实验不能冒充真实推理总耗时。
+
 ## 日常门禁
 
 在 `coach/` 运行：

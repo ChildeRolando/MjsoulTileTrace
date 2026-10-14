@@ -1,7 +1,6 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import { join } from "node:path";
-import { createReviewSessionLabelStore } from "./review-session-labels.js";
 import { createRecordAnalysisTimingStore } from "./record-analysis-timing-store.js";
 import { createRecordAnalysisProgressTracker } from "./record-analysis-progress.js";
 import { createCoachSettingsStore } from "./llm-provider/settings-store.js";
@@ -95,9 +94,9 @@ import {
   createAccountRecordReviewHandoff,
   createMahjongSoulRecordIngestionService,
 } from "./record-ingestion-service.js";
-import { createRecordAnalysisStore } from "./record-analysis-store.js";
+import { createRecordAnalysisWorkerStore } from "./record-analysis-worker-store.js";
 import { createLocalMortalRuntimeService } from "./local-mortal-runtime-service.js";
-import { createLocalMortalAnalysisService } from "./local-mortal-analysis-service.js";
+import { createAnalysisWorkerHost } from "./analysis-worker-host.js";
 import { readCliFlag } from "./diagnostic-flags.js";
 import { registerCoachIpc } from "./coach-ipc.js";
 import { createEnvironmentKeyImporter, createProviderCredentials } from "./llm-provider/credentials.js";
@@ -105,7 +104,6 @@ import { createCoachWorkerHost } from "./coach-worker-host.js";
 import { createCoachWorkerClient, type CoachWorkerClient } from "./coach-worker-client.js";
 import {
   createReviewSessionRepository,
-  persistValidatedReviewSession,
 } from "./review-session-repository.js";
 import { createPrivilegedRawCache, type PrivilegedRawCache, type RawCacheIdentity } from "./privileged-raw-cache.js";
 
@@ -260,7 +258,6 @@ async function start(): Promise<void> {
   const reviewRepository = createReviewSessionRepository({
     root: join(app.getPath("userData"), "review-library"),
   });
-  const recordLabels = createReviewSessionLabelStore({ root: join(app.getPath("userData"), "review-library") });
   let privilegedRawCache: PrivilegedRawCache | null = null;
   try {
     privilegedRawCache = createPrivilegedRawCache({ root: join(app.getPath("userData"), "review-library") });
@@ -275,7 +272,6 @@ async function start(): Promise<void> {
   };
   app.once("will-quit", () => {
     privilegedRawCache?.close();
-    recordLabels.close();
     reviewRepository.close();
   });
   const providerCredentials = createProviderCredentials({
@@ -637,22 +633,17 @@ async function start(): Promise<void> {
     ...catalogSource,
     async syncAnalyzableRecords() {
       const summaries = await catalogSource.syncAnalyzableRecords();
-      recordLabels.rememberCatalog(summaries);
       if (coachWorkerClient !== null) await coachWorkerClient.rememberCatalog(summaries);
       return summaries;
     },
     async listAnalyzableRecords() {
       const summaries = await catalogSource.listAnalyzableRecords();
-      recordLabels.rememberCatalog(summaries);
       if (coachWorkerClient !== null) await coachWorkerClient.rememberCatalog(summaries);
       return summaries;
     },
   });
-  if (golden !== null) recordLabels.rememberCatalog([golden.summary]);
-  const analysisStore = golden?.analysis ?? createRecordAnalysisStore({
-    mapRecord: (mappedInput) => mapMahjongSoulRecord({ ...mappedInput, bundle }),
-    replay: replayCanonicalStream,
-  });
+  const recordAnalysisWorkerStore = golden === null ? createRecordAnalysisWorkerStore() : null;
+  const analysisStore = golden?.analysis ?? recordAnalysisWorkerStore!;
   const cacheIdentity = (recordId: string, accountId: number): RawCacheIdentity => ({
     sourceKind: "mahjong_soul_record",
     stableRecordIdentityHash: createHash("sha256").update(recordId).digest("hex"),
@@ -668,7 +659,7 @@ async function start(): Promise<void> {
     authenticationPartitionHash: createHash("sha256").update(String(accountId)).digest("hex"),
   });
   const analyzeFetchedRecord = async (recordId: string, fetched: Awaited<ReturnType<typeof fetchMahjongSoulRecord>>, selfActor: number) => {
-    const outcome = analysisStore.analyzeRecord({ recordId, selfActor, recordBytes: fetched.recordBytes,
+    const outcome = await analysisStore.analyzeRecord({ recordId, selfActor, recordBytes: fetched.recordBytes,
       ...(fetched.ruleEvidence === undefined ? {} : { ruleEvidence: fetched.ruleEvidence }) });
     if (outcome.status !== "analysis_ready") {
       throw new MahjongSoulSourceError("mahjong_soul_canonical_validation_failed");
@@ -715,43 +706,24 @@ async function start(): Promise<void> {
     clearCatalog: () => catalogStore.clear(),
     clock: Date.now,
   });
-  const prepareReview = async ({ recordId, selfActor, stream, decisions, onProgress }: PaipuReviewPreparationInput) => {
-      // This is the only production composition point for the local model.
-      // Runtime/checkpoint paths stay in Electron main and are never part of
-      // the import DTO or renderer/preload capability.
-      const artifactRoot = process.env.RIICHI_LOCAL_MORTAL_ROOT
-        ?? join(process.env.LOCALAPPDATA ?? "", "RiichiCoach", "local-mortal-spike");
-      const runtime = golden === null ? await createLocalMortalRuntimeService({
+  const analysisWorker = createAnalysisWorkerHost();
+  const prepareReview = async ({ onProgress, ...request }: PaipuReviewPreparationInput) => {
+    const artifactRoot = process.env.RIICHI_LOCAL_MORTAL_ROOT
+      ?? join(process.env.LOCALAPPDATA ?? "", "RiichiCoach", "local-mortal-spike");
+    const catalog = golden === null
+      ? await catalogSource.listAnalyzableRecords().catch(() => []) : [golden.summary];
+    return await analysisWorker.run({
+      request, resourcesDir, reviewRoot: join(app.getPath("userData"), "review-library"),
+      catalog, goldenTestMode: goldenMode,
+      runtimeOptions: {
         pythonExecutable: join(artifactRoot, "python", "Scripts", "python.exe"),
         packageRoot: fileURLToPath(new URL("../../mortal-runtime/", import.meta.url)),
-        artifactRoot,
-        platformManifest: "mortal-582500.windows-x64.json",
+        artifactRoot, platformManifest: "mortal-582500.windows-x64.json",
         ...(process.env.RIICHI_LIBRIICHI_NATIVE_RECEIPT === undefined ? {} : { nativeReceiptPath: process.env.RIICHI_LIBRIICHI_NATIVE_RECEIPT }),
         ...(process.env.RIICHI_LIBRIICHI_NATIVE_MODULE === undefined ? {} : { nativeModulePath: process.env.RIICHI_LIBRIICHI_NATIVE_MODULE }),
-        startTimeoutMs: 120_000,
-        inferenceTimeoutMs: 30_000,
-      }) : golden.createRuntime(decisions);
-      let runtimeClosed = false;
-      try {
-        const analysis = createLocalMortalAnalysisService({
-          runtime,
-          factEngineResourcesDir: resourcesDir,
-          now: Date.now,
-          ...(onProgress === undefined ? {} : { onProgress }),
-        });
-        const result = await analysis.analyze({ recordId, selfActor, stream, decisions });
-        // Close the managed sidecar before the durable session transaction so
-        // a lifecycle failure cannot return an apparently successful DTO for
-        // a half-composed review.
-        await runtime.close();
-        runtimeClosed = true;
-        onProgress?.({ stage: "saving", completed: 0, total: null });
-        const saved = persistValidatedReviewSession(reviewRepository, result.package);
-        recordLabels.observePackage(result.package);
-        return saved;
-      } finally {
-        if (!runtimeClosed) await runtime.close().catch(() => undefined);
-      }
+        startTimeoutMs: 120_000, inferenceTimeoutMs: 30_000,
+      },
+    }, onProgress);
   };
   // The paipu-URL ingestion route: official-client capture on the app's
   // persistent (already authenticated) Mahjong Soul session, converging on
@@ -814,7 +786,7 @@ async function start(): Promise<void> {
     if (coachWorkerShutdownStarted || coachWorkerClient === null) return;
     coachWorkerShutdownStarted = true;
     event.preventDefault();
-    void coachWorkerClient.close().catch(() => undefined).finally(() => app.quit());
+    void Promise.allSettled([recordAnalysisWorkerStore?.close(), analysisWorker.close(), coachWorkerClient.close()]).finally(() => app.quit());
   });
 
   const timingStore = createRecordAnalysisTimingStore(app.getPath("userData"));

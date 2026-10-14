@@ -3,10 +3,12 @@
  * arrays are not. No whole-document string or cloned document is allocated. */
 export function isPlainJson(value: unknown, allowNegativeZero = false): boolean {
   const active = new WeakSet<object>();
+  const validObjects = new WeakSet<object>();
   const visit = (value: unknown): boolean => {
     if (value === null || typeof value === "string" || typeof value === "boolean") return true;
     if (typeof value === "number") return Number.isFinite(value) && (allowNegativeZero || !Object.is(value, -0));
     if (typeof value !== "object" || active.has(value)) return false;
+    if (validObjects.has(value)) return true;
     active.add(value);
     const array = Array.isArray(value);
     let valid = Object.getPrototypeOf(value) === (array ? Array.prototype : Object.prototype);
@@ -28,6 +30,7 @@ export function isPlainJson(value: unknown, allowNegativeZero = false): boolean 
     }
     if (array && entries !== value.length) valid = false;
     active.delete(value);
+    if (valid) validObjects.add(value);
     return valid;
   };
   return visit(value);

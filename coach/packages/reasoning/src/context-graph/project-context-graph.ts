@@ -1,3 +1,5 @@
+import { cloneWithSharedPackageEvidence } from "../analysis/shared-package-evidence.js";
+import { isPreparedStructuredAnalysisPackage } from "../validate/structured-package-validator.js";
 /**
  * M6-D1 — `projectContextGraph`: the ONLY evidence-subgraph projection seam
  * (spec: 两个平级新增 seam 之一; 唯一 evidence-subgraph 构建入口).
@@ -26,7 +28,7 @@
 import {
   CANONICAL_REPLAY_PRODUCER,
   FACT_ENGINE_PRODUCER,
-  StructuredAnalysisPackageSchema,
+  assertStructuredAnalysisPackageSchema,
   type AnalysisReadyDecision,
   type ComponentVersions,
   type ContextGraph,
@@ -345,38 +347,29 @@ export function projectContextGraph(
   // schema-invalid package fail closed，而不是产出部分 graph).
   let pkg: StructuredAnalysisPackage;
   try {
-    pkg = StructuredAnalysisPackageSchema.parse(packageInput);
+    if (isPreparedStructuredAnalysisPackage(packageInput)) pkg = packageInput;
+    else {
+      assertStructuredAnalysisPackageSchema(packageInput);
+      pkg = cloneWithSharedPackageEvidence(packageInput);
+    }
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     throw new Error(`m6d1_projector_schema:${message}`);
   }
 
-  // The schema parse owns this copy. Complete packages repeat the same source
-  // lists across many facts/differences; share equal immutable lists in this
-  // projection only, without retaining a second list for node.provenance.
-  // The caller's evidence lists are neither frozen nor reused by reference.
-  const evidenceLists = new Map<string, string[]>();
-  const shareEvidence = (refs: string[]): string[] => {
-    const key = sha256Hex(canonicalJson(refs));
-    const existing = evidenceLists.get(key);
-    if (existing !== undefined && existing.length === refs.length
-      && existing.every((ref, index) => ref === refs[index])) return existing;
-    Object.freeze(refs);
-    if (evidenceLists.size >= 4096) evidenceLists.delete(evidenceLists.keys().next().value!);
-    evidenceLists.set(key, refs);
-    return refs;
-  };
+  // Owned immutable packages preserve their shared lists directly. Untrusted
+  // schema-valid inputs above receive a private shared copy; caller data is
+  // never frozen or used as mutable graph payload.
+  const freezeRefs = (refs: string[]) => { if (!Object.isFrozen(refs)) Object.freeze(refs); };
   for (const decision of pkg.decisions) {
-    decision.knownGameFacts.evidenceIds = shareEvidence(decision.knownGameFacts.evidenceIds);
+    freezeRefs(decision.knownGameFacts.evidenceIds);
     if (decision.outcome !== "analysis_ready") continue;
     for (const ledger of decision.candidateFactorLedgers) {
       for (const axis of ledger.axes) {
-        for (const fact of axis.facts) fact.evidenceIds = shareEvidence(fact.evidenceIds);
+        for (const fact of axis.facts) freezeRefs(fact.evidenceIds);
       }
     }
-    for (const difference of decision.factorDifferences) {
-      difference.evidenceIds = shareEvidence(difference.evidenceIds);
-    }
+    for (const difference of decision.factorDifferences) freezeRefs(difference.evidenceIds);
   }
 
   const versions = pkg.componentVersions;
@@ -408,7 +401,10 @@ export function projectContextGraph(
    * event already reached through a request cited by this same node needs no
    * second direct edge. Never borrow a request from elsewhere in the package.
    * Request -> source edges below remain explicit and complete. */
+  const directEvidenceCache = new WeakMap<readonly string[], readonly string[]>();
   const directEvidenceIds = (refs: readonly string[]): readonly string[] => {
+    const cached = directEvidenceCache.get(refs);
+    if (cached !== undefined) return cached;
     for (const ref of refs) resolveEvidence(ref);
     // Preserve the old invalid-graph behavior for duplicate input references;
     // compaction must not silently repair an invalid provenance list.
@@ -421,7 +417,9 @@ export function projectContextGraph(
         if (pkg.evidenceRegistry[source]?.kind === "canonical_event") covered.add(source);
       }
     }
-    return covered.size === 0 ? refs : refs.filter(ref => !covered.has(ref));
+    const direct = covered.size === 0 ? refs : refs.filter(ref => !covered.has(ref));
+    directEvidenceCache.set(refs, direct);
+    return direct;
   };
 
   for (const decision of pkg.decisions) {

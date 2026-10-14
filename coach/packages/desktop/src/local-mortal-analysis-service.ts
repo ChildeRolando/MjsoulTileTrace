@@ -28,7 +28,7 @@ import { computeCanonicalGameFingerprint, type MortalReportDecisionEntry, type M
 import type { ManagedMortalRuntime } from "@riichi-coach/mortal-runtime";
 
 /**
- * Main-process-only production composition for a captured canonical record.
+ * Privileged analysis-worker production composition for a captured canonical record.
  * The service consumes canonical/replay data and the managed runtime; it does
  * not know how Mahjong Soul bytes were captured and it never crosses IPC.
  */
