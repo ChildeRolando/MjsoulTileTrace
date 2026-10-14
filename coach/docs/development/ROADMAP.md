@@ -45,7 +45,7 @@ M6-D1 证据图和 M7-B 存储。最新状态和逐次失败证据见实施计�
 | M4 受约束追问 | 未开始 | ——（原 M4"LLM 教练"已拆分为 M6-D 解释引擎 + M7-A 固定报告 UI + M4 追问对话） | fixed report 与教学证据层稳定后的 constrained follow-up/chat；context retrieval 将建立在 M6-D1 ContextGraph 上（embeddings/GraphRAG 不是前提） |
 | M5 雀魂国区接入 | 接近完成 | Electron 登录、加密恢复、最近 30 场、取回、canonical mapper、重放、脱敏 replay audit、H1 诊断命令 | 真实牌谱 H1 对照验收；未覆盖流局/杠枚举的 fixture 反证 |
 | M6 模型生产接入 | native runtime prerequisite 与手动导入接缝已合入 | M6-A1–A4、M6-C、DeterministicReviewSelector、M6-D1/D2 与 COAC-111 local Mortal 四视角真实 checkpoint production spike 已落地；B 消费 managed local Mortal 生成 validated package | M6-B 后续模型来源仍按独立路线推进；spike 不单独代表 MVP 完成 |
-| M7 复盘工作台 | A–D 已合入 master；自动发布门与独立评审通过 | M7-A UI、M7-B SQLite/immutable artifacts/两阶段恢复/离线重开/main-only raw cache；账号与 share-import 接入 ReviewSession → Review Workspace，并有 app-shell Electron Golden Slice 命令与测试 owner | 仅缺绑定最终合并版本的获授权真人 provider smoke；整体仍未 DEMOABLE |
+| M7 复盘工作台 | A–D 与 PR #50 已合入；Playable Review MVP v0.1 closeout 完成，DEMOABLE | M7-A UI、M7-B SQLite/immutable artifacts/两阶段恢复/离线重开/main-only raw cache；账号与 share-import 接入 ReviewSession → Review Workspace，并有 app-shell Electron Golden Slice 命令与测试 owner | 最终版本真人全链路与外部独立验收由维护者确认；外部原始回执未附仓库 |
 | M8 打包发布 | 未开始 | Electron 与 sidecar 构建基础 | 跨平台安装、升级、日志、发布验收 |
 
 ## 当前关键路径
@@ -221,14 +221,22 @@ Playable Review MVP 的发布状态见 §6.1。
 必须产出或复用真实 ReviewSession 并自动进入 Review Workspace；首次生成后列表即时刷新；
 永久 Electron Golden Slice 必须从 app shell 起步并在清内存、禁网/禁 LLM 后重启重开。
 
-A–D 均已合入 master：PR #35/#36/#37/#6/#42/#43 已合并。PR #43 最终候选
+A–D 均已合入 master：PR #35/#36/#37/#6/#42/#43 已合并。PR #43 当时候选
 `8f14427a782076fda4a6ad42d04bd3d4635cfe23`（merge `57e55012fb33ff72b14802aa6d2298ee0a3d8863`）
 上的 app-shell Electron Golden Slice、固定五门与 fresh independent `NO_P1_P2` 均有正式回执。
-真人 smoke 的维护者确认绑定较早候选 `d302c3833e00a5e9d9df346b8de0d121b56708f3`；之后的
-`74ff961` 与 `8f14427` 修改了牌谱/结算验证、解释上下文及报告存储/标签路径，不能把较早
-版本的真人操作推定为覆盖最终合并版本。故 `Playable Review MVP v0.1` 仍为 **not DEMOABLE**。
-唯一剩余发布门是在最终合并版本上再次完成获授权的真人 smoke：真实支持牌谱进入 Overview/List/Detail，
-真实 provider 首次生成并保存，确认列表刷新，退出后离线重启并重开同一 report/evidence。
+较早的真人 smoke 只绑定 `d302c3833e00a5e9d9df346b8de0d121b56708f3`，不覆盖后续代码。
+其后 PR #50 将复盘工作区、后台分析和牌谱修复合入 master：head
+`c73aa8bbc0445df990ae120c071ef145beefa771`，merge
+`78dfe0b7eb244c4c3f444fc163c6875dd4fb36f0`，二者 tree 均为
+`c82ba4092d7249a154e869693f888e4afb32b2df`。维护者于 2026-10-14 在
+COAC-102 评论 `01a13b8c-c3e9-74c1-b4bd-15b076cb139d` 及回复
+`01a13b90-285f-79d5-8a53-0c046622b096` 明确确认 **PR #50 最终版本的真人全链路验收通过**。
+此为维护者现场验收确认；没有逐项原始日志、provider 调用数或 OS 级断网证明，不能补造。
+PR #50 的固定五门与 Electron Golden 有作者直接验证，GitHub `Review Loop v2` 为 SUCCESS。
+维护者在 COAC-102 回复 `01a13b98-0407-7a08-8f12-8cc847f3e033` 进一步确认 PR #50 代码
+已在外部独立验收通过，并要求直接关闭 MVP；该外部原始回执未附仓库，因此只记录维护者的验收
+结论，不把 PR #43 的独立 PASS 改写为 PR #50 回执。结合最终版本真人验收确认，
+`Playable Review MVP v0.1` 的 closeout 结论为 **DEMOABLE**。
 逐项回执与证据边界见 [VERIFICATION § Integration Closeout 发布读回](VERIFICATION.md)。
 
 ### 6.2 M6-B Native model runtime prerequisite

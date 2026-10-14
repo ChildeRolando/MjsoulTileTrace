@@ -330,20 +330,23 @@ npm run test:package-import
 发布闭合还要求 fresh independent `NO_P1_P2`、代码合入及一次获授权的真人 smoke；真实
 provider 不进入默认自动 suite。
 
-### Integration Closeout 发布读回（2026-10-08）
+### Integration Closeout 发布读回（2026-10-15）
 
-按规格 §7 对当前主线逐项核验。下表区分已绑定最终候选的自动/独立证据与真人 smoke 的版本边界；
-它不把历史回执改写成当前版本的现场操作记录。
+按规格 §7 对当前主线逐项核验。下表区分 PR #50 最终代码的直接验证、旧版本独立评审与
+维护者的真人验收确认；它不把历史回执改写成当前版本的独立评审或原始现场日志。
 
 | §7 条件 | 当前证据 | 状态 |
 |---|---|---|
-| A account、B import、C session refresh 的 app-shell 路径 | PR #35/#36/#37/#6/#42/#43 已合并；最终 PR #43 包含账号与 share-import 的完整组合 | 已满足 |
-| Electron Golden Slice 与固定五门 | COAC-209 对 base `2cc41808625bbb3f480eb4fd6abcca5166d99fe0` / head `8f14427a782076fda4a6ad42d04bd3d4635cfe23` 的正式回执：Golden Slice 及五门均 PASS/0；全量 208 files / 2645 tests PASS。五门原命令见上文 | 已满足 |
-| fresh independent `NO_P1_P2` | COAC-209 第 2 轮完整 base..head 独立评审裁决 `NO_P1_P2`，P1/P2/P3 均空；Review Loop v2 对该 head 为 SUCCESS | 已满足 |
-| 最终代码已合入 master | PR #43 head `8f14427a782076fda4a6ad42d04bd3d4635cfe23` 以 merge `57e55012fb33ff72b14802aa6d2298ee0a3d8863` 合入；后续 master 为 `75b9a56` | 已满足 |
-| 获授权真人 smoke 覆盖最终合并版本 | 维护者确认的 smoke 绑定 `d302c3833e00a5e9d9df346b8de0d121b56708f3`。其后 `74ff961` 与 `8f14427` 改动了牌谱/结算身份验证、解释上下文及报告存储/标签路径，可能影响本规格要求的真实来源、生成和保存重开链；没有最终版本真人 smoke 证据 | 未满足 |
+| A account、B import、C session refresh 的 app-shell 路径 | PR #35/#36/#37/#6/#42/#43/#50 已合并；账号与 share-import 组合位于 master | 已满足 |
+| Electron Golden Slice 与固定五门 | PR #50 head `c73aa8bbc0445df990ae120c071ef145beefa771` 的作者直接验证：固定五门、218 files / 2727 tests 与 Electron Golden PASS；回执 `coach-acceptance-evidence/ui-integration-20261015/receipt.json`。COAC-209 正式回执只绑定较早 PR #43 head `8f14427a782076fda4a6ad42d04bd3d4635cfe23` | 作者自验已通过 |
+| fresh independent `NO_P1_P2` | COAC-209 第 2 轮 `NO_P1_P2` 只绑定 PR #43 head `8f14427`，不能继承给 PR #50。维护者在 COAC-102 回复 `01a13b98-0407-7a08-8f12-8cc847f3e033` 明确确认 PR #50 代码已经外部独立验收并要求关闭 MVP；本仓库未附该外部原始回执，故此处记录维护者的验收结论，不伪造精确 verdict 或测试命令 | 维护者接受外部验收；原始回执未附 |
+| 最终代码已合入 master | PR #50 head `c73aa8bbc0445df990ae120c071ef145beefa771` 于 2026-10-14T17:47:40Z 普通合入，merge `78dfe0b7eb244c4c3f444fc163c6875dd4fb36f0`；head/merge tree 均为 `c82ba4092d7249a154e869693f888e4afb32b2df` | 已满足 |
+| 获授权真人 smoke 覆盖最终合并版本 | 维护者在 COAC-102 评论 `01a13b8c-c3e9-74c1-b4bd-15b076cb139d` 与回复 `01a13b90-285f-79d5-8a53-0c046622b096` 明确确认 PR #50 最终版本的真人全链路验收通过。早前 `d302c383` 验收只属旧版本；本次确认未附逐项原始日志 | 维护者确认通过 |
 
-因此，Playable Review MVP v0.1 仍是 **not DEMOABLE**。唯一剩余发布门是在最终合并版本上再次完成 §7 真人 smoke：从真实账号或 share link 进入 Overview/List/Detail，使用真实 provider 首次生成、保存并确认列表刷新，退出后离线重启并重开同一 report/evidence。真人 smoke 不得由 Golden、五门或独立评审替代；没有额外逐项日志、OS 级断网证明或 provider 调用数的推断。
+维护者已接受 PR #50 最终版本的真人全链路与外部独立验收，要求直接关闭 MVP；据此
+Playable Review MVP v0.1 的 closeout 状态为 **DEMOABLE**。这是维护者的发布验收决定，
+不从简短确认推断 OS 级断网证明、provider 调用数、逐项日志或未提供的外部独立回执内容；
+PR #43 历史独立 verdict 和 PR #50 的作者自验仍各自按原范围保留。
 
 ## 按改动范围选择门禁
 
