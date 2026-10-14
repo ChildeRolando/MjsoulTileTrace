@@ -413,9 +413,9 @@ Model/report evidence provider（模型/报告证据来源）
 - **Statement**：Arena Coach/provider、helper MCP 与 RAG 只能读显式白名单投影的决策时观察和完整合法切牌集合；Coach-visible 的 case、canonical event、evidence/source、MCP/RAG 与诊断引用必须使用 per-run opaque alias，原始 gameId/recordId 及 alias map 不得越过受信边界。Mortal 最终动作可由受信 grader 提前计算并私有封存，只能在 Coach submission 锁定后用于比较；Coach/provider、helper MCP 与 RAG 始终不可访问标签。实战动作及未来事件不得进入盲输入。Arena run 和 grader artifact 不进入生产 ReviewReport/ReviewSession。
 - **Why**：答案可从 case identity、工具结果、排序、路径或生产复盘 artifact 侧漏；混用生产生成/保存 seam 也会改变既有语义。
 - **Owner / boundary**：[Blind Discard Arena spec](../specs/2026-10-09-blind-discard-arena.md)；Arena 的本地 main/CLI 运行路径；生产 generation/persistence 仍由 INV-011/012 与 ADR-0005 拥有。
-- **Enforcement**：当前没有 Arena runtime implementation 或 executable behavior check；Stage 1 为契约文档加 specification-contract tests。T1/T2 必须在各自边界添加 label-mutation、原始 gameId/recordId canary、alias-only output、allow-list 与 MCP 越权回归；T3/T4 覆盖 RAG off/local 和预算边界。若新增 provider seam，T3 同步 `check-architecture` 与其自测，保留 production `generateReviewReport` 唯一语义。
-- **Executable tests**：Stage 1 的 `blind-discard-arena-case.test.ts` 与 `blind-discard-arena-mcp.test.ts` 只锁定 spec-contract 文本，不构成行为门禁；T1/T2 必须在这两个 owner 增加真实字节级运行时回归，命令见 Arena spec §11。生产回归继续由 `review-report.test.ts`、`automatic-report-scope.test.ts`、`coach-provider.test.ts` 和 `codex-coach-provider.test.ts` 保护。
-- **Status**：docs-only，直至 Arena code 与其 focused regressions 落地；不得宣称已 machine-enforced。
+- **Enforcement**：T1 desktop main boundary 严格解析 case/rule inputs，拒绝 actual/label 与 whole-stream rule identity，要求 prefix-bound native request；显式 allow-list 投影并以每次 run 的 alias vault 改写 Coach-visible source refs；独立 grader 在 submission 校验后映射现有 physical-realization 等价关系，并把每个纳入 case 计入主分母。T2 MCP 权限/传输、T3 tool loop、T4 retrieval 与 T5 run archive/CLI 尚未实现；不得将 T1 enforcement 扩大声称为端到端隔离。
+- **Executable tests**：T1 行为回归由 `blind-discard-arena-case.test.ts`（canary、alias、future/actual/action-order 稳定性、prefix rule request、allow-list、筛题、赤牌）与 `blind-discard-arena-scorer.test.ts`（failure denominator、label binding、physical equivalence、离线重算）保护；命令见 Arena spec §11。生产回归继续由 `review-report.test.ts`、`automatic-report-scope.test.ts`、`coach-provider.test.ts` 和 `codex-coach-provider.test.ts` 保护。
+- **Status**：T1 部分 machine-enforced；INV-013 的 MCP、RAG、tool-loop 和 run lifecycle 仍待 T2–T5 的边界测试验证。
 
 ---
 

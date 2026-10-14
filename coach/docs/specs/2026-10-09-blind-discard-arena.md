@@ -2,7 +2,7 @@
 
 日期：2026-10-09
 
-状态：阶段 1 契约候选；父票接受后作为 T1–T5 的唯一 Arena 设计与验收事实源。
+状态：阶段 1 规格已由 PR #47 合入；T1 最小契约、筛题、盲观察、隔离标签与离线 scorer 已在 COAC-220 实现。T2–T5 不因此视为完成；本文件仍是唯一 Arena 设计与验收事实源。
 
 本规格只拥有 Blind Discard Arena 的新增契约。已有生产事实仍以代码、schema、测试及相应权威文档为准；canonical 回放与动作权威、Mortal runtime 身份、Coach production generation seam、依赖方向和 renderer 安全边界分别继续归属现有 owner。工单只引用本文件，不复制本文件内容。
 
@@ -12,7 +12,7 @@
 
 Mortal 选择是比较标签，不是“正确答案”或专家正确性证明。匹配率不设通过门槛。此实验台不取代或扩展生产复盘，不改生产报告、重试、保存、重开、Mortal adapter 或 UI 语义。
 
-当前工作树有可复用的 canonical replay、libriichi 规则、managed Mortal runtime、helper sidecar 与 completion-only provider；还没有 Arena case/runner schema、MCP server/client、工具循环、RAG retriever 或 Arena run archive。本规格冻结这些后续工作的边界，不声称功能已经实现。
+当前工作树已有可复用的 canonical replay、libriichi 规则、managed Mortal runtime、helper sidecar 与 completion-only provider。COAC-220 增加了 Arena case/observation/label/submission/scoring DTO、label-blind case screening、opaque alias、私有 tool binding 与离线 scorer；还没有 Arena MCP server/client、工具循环、RAG retriever、run archive 或演示 CLI。
 
 ## 2. 仓库复用基线
 
@@ -50,6 +50,16 @@ Mortal 选择是比较标签，不是“正确答案”或专家正确性证明�
 5. **Coach submission** 在当前 case 内提交一个 offered actionRef、简短且可检查的依据、实际使用的 evidence/source refs、一个有比较价值时的主要备选及未选理由、重要不确定性。没有备选时允许明确为空。引用必须属于同一 case 与本次观察到的工具/知识结果；不保存 provider 的 hidden reasoning/CoT。
 6. **Finalization** 先严格校验并锁定 submission；随后才向 grader 交付 submission 和 reference label。grader 产物不得回送同次 provider/tool loop。
 
+初始 observation 中已展示的引用无需工具调用即可使用。`sourceRefs` 接收本题牌河的
+`sourceRef`、`riichiDeclarationRef`、`calledByRef`，当前摸牌的 `sourceRef`，副露的
+`createdEventRef`、`latestEventRef`、`calledDiscardEventRef`、`upgradedPonEventRef`，
+以及立直状态的 `declarationEventRef`、`acceptanceEventRef`（仅非空值）。这些公开事件
+也可作为 `evidenceRefs`；后者另接收 `self.evidenceRefs`、振听各分量的 `evidenceIds`、
+`self.meldRefs` 与公开副露的 `meldRef`。副露身份或仅作为证据展示的引用不自动取得
+source 权限。工具/知识结果新增引用继续分别按 evidence/source 分类登记；白名单只取
+当前题已展示字段与该题已观察结果，不取整个 run alias map，未知或仅在其他题出现的
+引用仍须拒绝。
+
 ### T1–T5 接口责任
 
 | 票 | 读取 / 产出 | 不得接管的责任 |
@@ -67,6 +77,8 @@ Mortal 选择是比较标签，不是“正确答案”或专家正确性证明�
 case qualification 不读 actual action、Mortal label/Q 值/排名、product selector 入选原因、`errorGap`、旧报告或之后事件。候选展示顺序使用固定、与标签无关的 canonical 顺序或记录 seed 的 shuffle；不得沿用 Mortal 分数顺序。`actionRef` 是 model 输出唯一合法动作身份。对齐 native 最终动作只使用 canonical ref 与已验证 `physicalRealizations` 关系；例如赤五与普通五保留差异。
 
 不合格决策仍记录稳定排除原因与计数，不能只展示成功题。筛题范围由事前输入状态与完整规则动作空间决定，不按 Mortal 决策或 Coach 预期表现选题。样本中须保留普通决策，不得只用产品 selector 挑出的高分歧点。
+
+T1 稳定排除 reason code 为 `rules_unavailable`、`non_action`、`not_pre_action_snapshot`、`fewer_than_two_candidates`、`contains_non_discard_action`、`invalid_action_binding` 与 `case_limit_reached`。先按 canonical decision order 对完整数据集筛题，纳入最早最多 3 题，再把超额合格题记为 `case_limit_reached`；label 只可在全量选择结果冻结后计算。候选 actionRef 始终按 canonical 字符串序排序。Arena native rule query 要先将 `canonicalStreamIdentity` 收窄为仅承诺 `eventPrefixSha256`、决策身份、规则集与 rule identity 的前缀身份，并重算 requestId；拒绝仍带 whole-stream identity 的规则请求，避免未来事件改变规则请求字节。
 
 ## 5. Blind observation 与隔离裁判
 
@@ -155,6 +167,19 @@ npm run arena -- inspect <runId>
 
 固定 smoke 数据来源优先从现有脱敏完整记录 `coach/packages/mahjong-soul-source/tests/fixtures/real-record-complete.json` canonical replay；当前 `paipu-import-service.test.ts` 读取的就是该路径。该 fixture 只证明 source/canonical 回放输入，不得复用测试中冻结的 rule response / scoring stub 冒充真实 Mortal。case builder 按第 4 节完整规则动作空间筛选，在符合条件的完整记录内按 canonical 决策顺序选最早最多 3 个 case；筛选全程不读 Mortal label。dataset manifest 冻结 source hash、case refs、分组和 seed。off/local 两次运行消费完全相同的 case set 和候选顺序。
 
+T1 已使用 fixture 的真实 record bytes、managed native libriichi 规则查询和固定 Mortal checkpoint 冻结首个 smoke/dev case set。只扫描规则输入与结果后，先将完整 125 个 replay decision 交给 label-blind selector 并冻结纳入集；随后才为三道入选题查询并绑定 Mortal label。以下 receipt 不含 label actionRef、Q 值或分数：
+
+| 字段 | 冻结结果 |
+|---|---|
+| source | `coach/packages/mahjong-soul-source/tests/fixtures/real-record-complete.json`；sourceRecordHash `sha256:fe547cc2b42f0ea83230feaa0fbbdf9bab7281838a66f051cb7a8609687e1c33`；selfActor `0` |
+| scan | 125 个 canonical decisions，完整扫描至 order 124；纳入最早的 orders `0`, `1`, `2`；三题均为 `self_turn`、roundOrdinal `0`，各有 13 个完整合法候选 |
+| selected candidate-set digest | 对按 actionRef 排序后的数组运行 `SHA-256(UTF-8(libriichiRuleCanonicalJson(actionRefs)))`：order 0 `5e5412f923b1d7e8bd8cd19b397b2c9c3604ea68d3a51723d0d3430de1244f7f`；order 1 `6bdbf9f931bfb365057adcfc94527dea012e0a1f03efd5a286065d210e5f51a1`；order 2 `339c792bfbc2200cec25278223b217b5093b060637c52e16be088b2171b466e5` |
+| exclusions | 122 个：`case_limit_reached` 107（decision orders 3–13、24–32、34、36–63、67–124），`contains_non_discard_action` 6（14、33、35、64–66），`fewer_than_two_candidates` 9（15–23）；其余 reason 为 0。区间逐 decision 展开后即可还原每个稳定 reason code；三道入选题在 label 解封前确定 |
+| rule runtime | libriichi revision `0cff2b52982be5b1163aa9a62fb01f03ce91e0d2`；native artifact SHA-256 `5ff7f712a45c7288f739af7c7e0613567b467ee4ade2c66c0988e18982cdefad` |
+| Mortal reference runtime | Mortal revision `0cff2b52982be5b1163aa9a62fb01f03ce91e0d2`；checkpoint revision `7386c9f5c751a3ea75efea99737cef5a5ef950f1`；checkpoint file SHA-256 `738e0d6e3c0ce9671629554ad39abd147d2ffbac676e80b194c83f2acc0fea20`；runtime config SHA-256 `1c4d2711033cbc897602655907548ba47876b356723a52efc7ab05a30f6a35df`；三道 label 均经候选全集 binding 验证 |
+
+每次运行仍须为 caseRef 生成新的 opaque alias；canonical decision order 与 candidate-set digest 仅用于 fixture 版本回归，不传给 Coach。T5 若更改 fixture、规则/native identity、checkpoint、runtime config 或 selector，必须提升 dataset/case-set version 并重新保存 receipt。以上为单牌局 smoke/dev 集，不构成 holdout acceptance。
+
 holdout acceptance 至少使用另一个不同的完整 gameId；只能从仓库已有且获准的脱敏真实语料或经授权加入的新记录选择。先按 gameId 固定 dev/acceptance split，再从 accept game 按同一 label-blind 规则取最多 3 个合格 case。若仓库语料不够两个完整且有合格动作的独立牌局，必须报告缺少 holdout 样本，不得把同一牌局按 decision 切分或把模拟数据叫真实验收。case set 无合格项时，T5 必须报告空集及筛题原因。
 
 同一已验收代码 SHA 的实际 demo 至少留下以下可核结果：
@@ -169,19 +194,19 @@ holdout acceptance 至少使用另一个不同的完整 gameId；只能从仓库
 
 ## 11. 永久回归 owner 与命令
 
-Stage 1 只冻结契约，不实现或测试 Arena runtime。这里的 specification-contract tests 只锁定要求已写入唯一权威 spec，不证明运行时已隔离；T1/T2 必须在相同 owner 扩展为真实字节级行为回归，并把具体文件纳入每张票的回执：
+行为测试在权威 owner 中扩展了 T1 的 allow-list、alias、规则请求 future-prefix 隔离、完整候选筛选、submission binding 与 scorer denominator；它们不证明后续 MCP/tool loop/RAG/CLI 已完成。回归 owner：
 
 | 不变量 | 新测试 owner（建议精确路径） | 现有基线 |
 |---|---|---|
-| 原始 gameId/recordId canary 不出现在任一 Coach-visible ref；固定 alias map 下改 label/actual/Q/future events 保持 blind bytes、候选次序与 MCP/helper/RAG 结果逐字节相同；allow-list 不泄漏 | `coach/packages/desktop/tests/blind-discard-arena-case.test.ts`（Stage 1 spec-contract；T1 行为回归） | `packages/reasoning/tests/stream-replayer.test.ts` |
-| 完整合法动作、赤牌/物理实现 mapping、非法/重复/跨 case actionRef 与 label binding | `coach/packages/desktop/tests/blind-discard-arena-case.test.ts` | `packages/reasoning/tests/libriichi-rule-projection.test.ts`、`local-mortal-rule-scoring.test.ts`、`libriichi-full-game.test.ts`、`packages/mortal-runtime/tests/managed-runtime.test.ts` |
-| invalid/missing/timeout/tool error/budget stop 始终进入主分母并离线重算 | `coach/packages/desktop/tests/blind-discard-arena-scorer.test.ts` | 新 scorer suite；现有生产 test 不覆盖 Arena 分母 |
+| 原始 gameId/recordId canary 不出现在 Coach observation；固定 alias map 下 actual/label/future event 不改变 observation/candidate 顺序；规则请求只承诺决策前缀身份；strict allow-list 与隐藏字段拒绝 | `coach/packages/desktop/tests/blind-discard-arena-case.test.ts`（T1 行为回归） | `packages/reasoning/tests/stream-replayer.test.ts` |
+| 完整合法动作、赤牌区分、已验证物理实现 mapping、submission action/case/source/evidence binding 与 Mortal label binding | `coach/packages/desktop/tests/blind-discard-arena-case.test.ts`、`coach/packages/desktop/tests/blind-discard-arena-scorer.test.ts` | `packages/reasoning/tests/libriichi-rule-projection.test.ts`、`local-mortal-rule-scoring.test.ts`、`libriichi-full-game.test.ts`、`packages/mortal-runtime/tests/managed-runtime.test.ts` |
+| invalid/missing/timeout/tool error/budget stop 始终进入主分母；label 不可用及绑定失败分别计数；固定提交可离线重算 | `coach/packages/desktop/tests/blind-discard-arena-scorer.test.ts` | 新 scorer suite；现有生产 test 不覆盖 Arena 分母 |
 | 实际 MCP stdio 协议、只输出 per-run opaque source/evidence refs、case/action 权限、超时/断连/大结果拒绝、同 helper direct parity | `coach/packages/desktop/tests/blind-discard-arena-mcp.test.ts`（Stage 1 spec-contract；T2 行为回归） | `packages/reasoning/tests/fact-engine-client.test.ts` 与 `npm run test:fact-engine` |
 | RAG off 不读 corpus、local no-hit 与 hit 可区分、有来源、bounded output、prompt injection 不取得权限 | `coach/packages/desktop/tests/blind-discard-arena-rag.test.ts` | Arena 新 suite |
 | tool loop 不预取全矩阵；turn/call/context/output/time/cancel 都有界 | `coach/packages/desktop/tests/blind-discard-arena-runner.test.ts` | Arena 新 suite |
 | production ReviewReport 的一次 completion、provider retry、保存/读取与 UI 语义不变 | 继续维护现有 owner | `npx vitest run packages/reasoning/tests/review-report.test.ts packages/reasoning/tests/automatic-report-scope.test.ts packages/desktop/tests/coach-provider.test.ts packages/desktop/tests/codex-coach-provider.test.ts` |
 
-从 `coach/` 运行。每票的 focused Arena command 为 `npx vitest run` 加该票实际新增的测试路径。跨依赖修改另按 [verification gate](../development/VERIFICATION.md) 跑对应的 `npm run typecheck`、`npm test`、`npm run check:architecture`、`npm run test:package-import`；若改变 architecture checker，同步其自测 `npm run test:architecture-checker`。真实 runtime/helper/provider/fixture 变更按现有 Local Mortal、helper、协议及 external/H1 gate 执行。当前 Stage 1 验证为 `npx vitest run packages/desktop/tests/blind-discard-arena-case.test.ts packages/desktop/tests/blind-discard-arena-mcp.test.ts`（仅检查契约文本）与 `git diff --check`；无需运行 Arena runtime 或 production suite。
+从 `coach/` 运行。每票的 focused Arena command 为 `npm exec -- vitest run` 加该票实际新增的测试路径。跨依赖修改另按 [verification gate](../development/VERIFICATION.md) 运行适用的 `npm run typecheck`、`npm test`、`npm run check:architecture`、`npm run test:package-import`；若改变 architecture checker，同步其自测 `npm run test:architecture-checker`。真实 runtime/helper/provider/fixture 变更按现有 Local Mortal、helper、协议及 external/H1 gate 执行。T1 已运行 focused case/scorer tests（13/13）、`npm run typecheck`、`npm run build`、`npm run check:architecture`、`npm run test:package-import`（2/2）与 `git diff --check`。全量 `npm test` 的并行运行结果为 215 个 test files 通过、4 个失败；2737 个测试中 2728 通过、9 个因超时或 fake-runtime `pid.txt` ENOENT 失败，Arena suites 未失败。将这 4 个受影响文件用 `--no-file-parallelism --maxWorkers=1` 单独重跑后，131/131 通过；因此此处不把那次全量并行运行记为 PASS。真实样例 selection receipt 的 runtime identity 和排除计数见第 10 节。
 
 ## 12. 非目标与停止条件
 

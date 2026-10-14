@@ -32,4 +32,5 @@ export * from "./record-label.js";
 export * from "./local-mortal-runtime.js";
 export * from "./libriichi-rules.js";
 export * from "./local-mortal-scoring.js";
+export * from "./blind-discard-arena.js";
 export * from "./automatic-comparison.js";

@@ -4,6 +4,14 @@
   "private": true,
   "type": "module",
   "exports": {
+    "./blind-discard-arena": {
+      "types": "./src/blind-discard-arena.ts",
+      "import": "./dist/blind-discard-arena.js"
+    },
+    "./blind-discard-arena-scorer": {
+      "types": "./src/blind-discard-arena-scorer.ts",
+      "import": "./dist/blind-discard-arena-scorer.js"
+    },
     "./session-api": {
       "types": "./src/session-api.ts",
       "import": "./dist/session-api.js"
