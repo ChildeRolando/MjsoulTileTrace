@@ -19,6 +19,26 @@ function tileImage(d: Document, t: Tile) {
     image.draggable = false;
     return image;
 }
+type BoardMeld = ReviewBoardDto["melds"][number];
+export function meldTileSlots(meld: BoardMeld): Array<{tile:Tile;sideways:boolean;added?:Tile|undefined;back:boolean}> {
+    const tiles = [...meld.tiles];
+    if (meld.kind === "ankan") return tiles.map((tile,i)=>({tile,sideways:false,back:i===0||i===tiles.length-1}));
+    const relative = meld.actor != null && meld.sourceActor != null ? (meld.sourceActor - meld.actor + 4) % 4 : 0;
+    if (!relative || !meld.calledTile || (meld.kind === "chi" && relative !== 3))
+        return tiles.map(tile=>({tile,sideways:false,back:false}));
+    let added:Tile|undefined;
+    if (meld.kind === "kakan" && meld.addedTile) {
+        const i=tiles.findLastIndex(t=>t.id===meld.addedTile!.id&&t.red===meld.addedTile!.red);
+        if(i>=0) added=tiles.splice(i,1)[0];
+    }
+    const calledIndex=tiles.findIndex(t=>t.id===meld.calledTile!.id&&t.red===meld.calledTile!.red);
+    if(calledIndex<0) return meld.tiles.map(tile=>({tile,sideways:false,back:false}));
+    const called=tiles.splice(calledIndex,1)[0]!;
+    const slots=tiles.map(tile=>({tile,sideways:false,back:false,added:undefined as Tile|undefined}));
+    const position=relative===3?0:relative===2?1:slots.length;
+    slots.splice(position,0,{tile:called,sideways:true,back:false,added});
+    return slots;
+}
 // Match physical slots rather than decorating every copy of the same tile.
 export function handBadgeSlots(board: ReviewBoardDto) {
     const tiles = [...board.hand, ...(board.draw ? [board.draw] : [])];
@@ -177,9 +197,19 @@ export function createReviewWorkspace(d: Document, root: HTMLElement, snapshot: 
             const melds = make(d,"div",`table-melds ${position}`);
             melds.setAttribute("aria-label",`${["你的","下家","对家","上家"][offset]}副露`);
             b.melds.filter(m => m.actor === actor).forEach(m => {
-                const group = make(d,"div","meld"); group.title = m.label;
-                group.setAttribute("aria-label",m.label);
-                m.tiles.forEach(t => group.append(tileImage(d,t))); melds.append(group);
+                const group = make(d,"div","meld");
+                const relative = m.sourceActor != null ? (m.sourceActor - actor + 4) % 4 : 0;
+                const source = m.kind === "ankan" ? "" : relative ? ` · 来自${["","下家","对家","上家"][relative]}` : " · 来源未记录";
+                group.title = m.label + source;
+                group.setAttribute("aria-label",m.label + source);
+                meldTileSlots(m).forEach(slot => {
+                    const cell = make(d,"span",`meld-tile${slot.sideways ? " sideways" : ""}${slot.added ? " added-kan" : ""}`);
+                    if(slot.back) {const back=make(d,"span","tile-back");back.setAttribute("aria-label","暗杠牌背");cell.append(back);}
+                    else cell.append(tileImage(d,slot.tile));
+                    if(slot.added) cell.append(tileImage(d,slot.added));
+                    group.append(cell);
+                });
+                melds.append(group);
             });
             table.append(seat, river, melds);
         });

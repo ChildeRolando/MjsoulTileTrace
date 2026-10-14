@@ -1,13 +1,13 @@
 <!doctype html><html lang="zh-CN"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
-<title>Coach · 复盘工作区</title><link rel="stylesheet" href="./styles.css"><link rel="stylesheet" href="./workspace.css"><link rel="stylesheet" href="./skins.css"></head>
+<title>Coach · 复盘工作区</title><link rel="stylesheet" href="./styles.css"><link rel="stylesheet" href="./workspace.css"><link rel="stylesheet" href="./skins.css"><link rel="stylesheet" href="./skin-othercide.css"></head>
 <body data-page="new"><div class="app-shell"><aside class="sidebar" aria-label="主导航">
 <a class="brand-lockup" href="#/new"><span class="brand-mark" aria-hidden="true">中</span><strong>Coach</strong></a>
 <a class="nav-new" href="#/new">＋ 新复盘</a><nav><a href="#/library">牌谱库</a><a href="#/notes">学习笔记</a></nav>
 <p class="side-caption">最近复盘</p><div id="recent-reviews"></div>
 <p class="side-caption">复盘保存在本机</p><div class="sidebar-bottom"><a href="#/settings">设置</a><a class="account-link" href="#/account"><span id="account-link-label">连接雀魂</span><small>账号与登录</small></a></div>
-</aside><main class="workspace"><header class="workspace-header"><button id="nav-toggle" class="quiet" type="button" aria-label="打开导航">☰</button><a href="#/library">牌谱库</a><span>›</span><span id="workspace-page-title">新复盘</span><label class="skin-picker">皮肤 <select aria-label="界面皮肤" data-skin-select><option value="orbit">孤星 · 轨道任务</option><option value="rhine">莱茵生命</option><option value="classic">经典工作区</option></select></label><button id="theme-toggle" class="quiet" type="button" aria-label="切换明暗主题">◐</button></header>
+</aside><main class="workspace"><header class="workspace-header"><button id="nav-toggle" class="quiet" type="button" aria-label="打开导航">☰</button><a href="#/library">牌谱库</a><span>›</span><span id="workspace-page-title">新复盘</span><label class="skin-picker">皮肤 <select aria-label="界面皮肤" data-skin-select><option value="othercide">Othercide · 夜幕</option><option value="orbit">孤星 · 轨道任务</option><option value="rhine">莱茵生命</option><option value="classic">经典工作区</option></select></label><button id="theme-toggle" class="quiet" type="button" aria-label="切换明暗主题">◐</button></header>
 <section class="route-page" data-route="new"><div class="page-heading"><h1>开始一次新复盘</h1><p>读取雀魂近期牌谱，或粘贴一盘分享链接。</p></div>
 <div class="source-tabs" role="tablist" aria-label="牌谱来源"><button type="button" data-source="recent" role="tab" aria-selected="true">雀魂牌谱</button><button type="button" data-source="link" role="tab" aria-selected="false">分享链接</button></div>
 <div id="source-recent"><p id="connect-prompt">登录雀魂后读取近期牌谱。<a href="#/account">连接账号 →</a></p><section class="catalog" aria-labelledby="catalog-heading" hidden>
@@ -81,7 +81,7 @@
             <button id="refresh" type="button" class="quiet">刷新状态</button>
           </div>
         </section><a href="#/new">返回新复盘 →</a></section>
-<section class="route-page" data-route="settings"><div class="page-heading"><h1>设置</h1><p>本机维护与复盘引用。教练服务设置位于复盘右侧的“复盘信息与教练设置”。</p></div><div class="skin-settings"><label class="skin-picker">皮肤 <select aria-label="界面皮肤" data-skin-select><option value="orbit">孤星 · 轨道任务</option><option value="rhine">莱茵生命</option><option value="classic">经典工作区</option></select></label></div><details class="advanced-tools">
+<section class="route-page" data-route="settings"><div class="page-heading"><h1>设置</h1><p>本机维护与复盘引用。教练服务设置位于复盘右侧的“复盘信息与教练设置”。</p></div><div class="skin-settings"><label class="skin-picker">皮肤 <select aria-label="界面皮肤" data-skin-select><option value="othercide">Othercide · 夜幕</option><option value="orbit">孤星 · 轨道任务</option><option value="rhine">莱茵生命</option><option value="classic">经典工作区</option></select></label><p id="skin-mode-note" class="detail" hidden>Othercide 仅支持夜间模式；其他皮肤保留原来的明暗偏好。</p></div><details class="advanced-tools">
           <summary>高级引用与本机维护</summary>
           <div class="advanced-panel">
             <section class="review-entry" aria-labelledby="review-entry-heading">

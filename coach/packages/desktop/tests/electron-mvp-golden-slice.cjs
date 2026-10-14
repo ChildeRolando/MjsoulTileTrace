@@ -160,6 +160,56 @@ async function inPage(mode) {
   function assertDecision(value) { if (!value) throw new Error('golden_no_decision'); }
 }
 
+// Exercise the shipped renderer and its persisted preferences in a real Electron page.
+async function checkWorkspaceSkin() {
+  const check=(condition,label)=>{if(!condition)throw new Error('workspace_skin_'+label);};
+  if(document.querySelector('#fixed-review').hidden)document.querySelector('#review-session-list button').click();
+  for(let i=0;i<100&&!document.querySelector('.workspace-hand button');i++)await new Promise(resolve=>setTimeout(resolve,100));
+  check(!!document.querySelector('.workspace-hand button'),'reopen_board');
+  const choose=(id)=>{
+    const select=document.querySelector('[data-skin-select]');
+    select.value=id;select.dispatchEvent(new Event('change',{bubbles:true}));
+    check([...document.querySelectorAll('[data-skin-select]')].every(x=>x.value===id),'selectors');
+  };
+  choose('classic');
+  if(document.documentElement.dataset.theme!=='light')document.querySelector('#theme-toggle').click();
+  const lightPreference=localStorage.getItem('coach-workspace-theme');
+  choose('othercide');
+  check(document.documentElement.dataset.theme==='dark','night_only');
+  check(document.querySelector('#theme-toggle').hidden,'night_toggle');
+  check(localStorage.getItem('coach-workspace-theme')===lightPreference,'preserve_light_preference');
+  check(getComputedStyle(document.querySelector('.workspace')).backgroundColor==='rgb(20, 19, 21)','othercide_asset');
+  choose('rhine');
+  check(document.documentElement.dataset.theme==='light','restore_light');
+  document.querySelector('#theme-toggle').click();
+  choose('othercide');choose('orbit');
+  check(document.documentElement.dataset.theme==='dark','restore_dark');
+  choose('othercide');
+  const input=document.querySelector('#coach-base-url');
+  if(input){
+    for(let parent=input.parentElement;parent;parent=parent.parentElement){if(parent.tagName==='DETAILS')parent.open=true;}
+    input.focus();
+    check(getComputedStyle(input).outlineOffset==='0px','single_focus_edge');
+    check(getComputedStyle(input).boxShadow==='none','no_inner_shadow');
+    for(let parent=input.parentElement;parent;parent=parent.parentElement){if(parent.tagName==='DETAILS')parent.open=false;}
+  }
+  const buttons=[...document.querySelectorAll('.workspace-hand button')];
+  let readyLoss=false;
+  for(const button of buttons){
+    button.click();
+    const groups=[...document.querySelectorAll('.hand-loss .loss-group')];
+    if(groups.length===2){
+      check(getComputedStyle(groups[1]).borderTopWidth==='1px','group_separator');
+      check(getComputedStyle(groups[1]).borderBottomWidth==='0px','no_footer_separator');
+      check(getComputedStyle(groups[1]).paddingBottom==='0px','no_footer_gap');
+      check(getComputedStyle(groups[1]).marginBottom==='0px','no_footer_margin');
+      readyLoss=true;break;
+    }
+  }
+  check(readyLoss,'real_loss_groups:'+buttons.length+':'+document.querySelector('.hand-loss')?.textContent);
+  return {nightOnly:true,lightAndDarkRestored:true,singleFocusEdge:true,lossFooterTrimmed:true};
+}
+
 if (process.versions.electron) {
   const { app } = require('electron');
   const mode = process.argv.find((arg) => ['account','share','evidence_only','account_failure','single_action','offline'].includes(arg));
@@ -183,6 +233,9 @@ if (process.versions.electron) {
     window.webContents.once('did-finish-load', async () => {
       try {
         const result = await window.webContents.executeJavaScript('(' + inPage.toString() + ')(' + JSON.stringify(mode) + ')');
+        if(mode!=='account_failure') {
+          result.skinChecks=await window.webContents.executeJavaScript('(' + checkWorkspaceSkin.toString() + ')()');
+        }
         assert.equal(networkRequests, 0);
         finished = true;
         clearTimeout(timeout);

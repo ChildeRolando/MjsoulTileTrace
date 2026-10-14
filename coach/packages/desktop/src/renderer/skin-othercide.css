@@ -1,0 +1,63 @@
+/* Othercide / Nightfall: restrained permanent surfaces, expressive loss hints. */
+html[data-skin=othercide]{color-scheme:dark;--green:#ee7787;--green-dark:#ee7787;--green-soft:#38242c;--ink:#e9e5df;--muted:#b4acb2;--line:#494249;--paper:#1c1a1e;--canvas:#141315;--rail:#111012;--table:#211e23;--skin-accent:#ee7787;--skin-ink:#141315;--table-ink:#e4dfe2;--table-line:#49414b;--skin-brand:'OTHERCIDE / 夜幕';--skin-motto:'';--blood:#ad1932}
+html[data-skin=othercide] .sidebar{color:var(--ink);border-right-color:#383239}
+html[data-skin=othercide] .brand-lockup{height:148px;min-height:148px;padding:20px 22px 40px;background:linear-gradient(90deg,#ad1932 0 22px,#8d768255 22px 54px,transparent 54px) left 22px bottom 16px/65px 1px no-repeat;border-bottom:1px solid var(--line);gap:12px;overflow:hidden;color:var(--ink)}
+html[data-skin=othercide] .brand-lockup strong{font:400 30px Georgia,'Times New Roman',serif;letter-spacing:.08em}
+html[data-skin=othercide] .brand-lockup:after{bottom:28px;color:var(--muted);font-size:9px;letter-spacing:.13em}
+html[data-skin=othercide] .brand-lockup:before{content:'';position:absolute;right:-32px;top:21px;width:78px;height:78px;border:1px solid #7b626e33;transform:rotate(45deg);pointer-events:none}
+html[data-skin=othercide] .brand-mark{height:29px;width:15px;position:relative;transform:rotate(25deg);border:1px solid #9d8e98;background:none;font-size:0;box-shadow:none;flex:none}
+html[data-skin=othercide] .brand-mark:after{content:'';position:absolute;inset:5px;background:var(--blood)}
+html[data-skin=othercide] .sidebar a:hover,html[data-skin=othercide] .sidebar a[aria-current=page]{background:#242025;color:var(--ink)}
+html[data-skin=othercide] .sidebar .nav-new{background:none;border:1px solid #796a75;color:var(--ink);font-weight:500}
+html[data-skin=othercide] .side-caption,html[data-skin=othercide] .account-link small{color:var(--muted)}
+html[data-skin=othercide] .workspace-header{background:#141315;color:var(--ink);border-bottom:1px solid #3c343c}
+html[data-skin=othercide] .skin-picker select{background:#211d22;border-color:#62565f}
+html[data-skin=othercide] .board-lane{background-image:none}
+html[data-skin=othercide] .board-heading{padding-top:0;margin-bottom:24px}
+html[data-skin=othercide] .board-heading:before{content:none}
+html[data-skin=othercide] .board-heading h1{font:400 28px 'Songti SC','SimSun',serif;letter-spacing:.04em}
+html[data-skin=othercide] .board-heading h1:after{content:'';display:inline-block;width:5px;height:5px;border:1px solid #bd8a96;margin:0 0 5px 18px;transform:rotate(45deg)}
+html[data-skin=othercide] button{background:var(--blood);color:#fff0f2;border-color:var(--blood);font-weight:500}
+html[data-skin=othercide] button:hover:not(:disabled){background:#c32742;color:#fff}
+html[data-skin=othercide] button.quiet,html[data-skin=othercide] button.secondary,html[data-skin=othercide] .icon-button{background:none;border-color:#62535e;color:var(--ink)}
+html[data-skin=othercide] .source-tabs button{background:none;color:var(--muted);border:0;border-bottom:2px solid transparent}
+html[data-skin=othercide] .source-tabs button[aria-selected=true]{color:var(--ink);border-bottom-color:var(--ink)}
+html[data-skin=othercide] .mahjong-table{border:1px solid #49404a;background:#211e23;background-image:none;box-shadow:none}
+html[data-skin=othercide] .mahjong-table:before{content:'';position:absolute;inset:12px;border:1px solid #51455055;pointer-events:none}
+html[data-skin=othercide] .mahjong-table:after{content:'';position:absolute;inset:5px;pointer-events:none;background:linear-gradient(#b6a49d88,#b6a49d88) left top/24px 1px no-repeat,linear-gradient(#b6a49d88,#b6a49d88) left top/1px 24px no-repeat,linear-gradient(#b6a49d88,#b6a49d88) right bottom/24px 1px no-repeat,linear-gradient(#b6a49d88,#b6a49d88) right bottom/1px 24px no-repeat,linear-gradient(#92263d,#92263d) right top/34px 2px no-repeat,linear-gradient(#92263d,#92263d) left bottom/34px 2px no-repeat}
+html[data-skin=othercide] .table-center{border:1px solid #6b5a66;background:#29252b;outline:1px solid #8a75832b;outline-offset:5px;box-shadow:none}
+html[data-skin=othercide] .table-center strong{font:400 28px 'Songti SC','SimSun',serif}
+html[data-skin=othercide] .table-center:before{content:'';position:absolute;left:50%;top:-9px;width:6px;height:6px;background:#9c8593;border:2px solid var(--table);transform:translateX(-50%) rotate(45deg);pointer-events:none}
+html[data-skin=othercide] .table-center span,html[data-skin=othercide] .table-center small{color:#b7adb5}
+html[data-skin=othercide] .table-seat .wind{background:none;border:1px solid #75636f;border-radius:0;color:var(--table-ink)}
+html[data-skin=othercide] .table-seat strong{font-weight:400}
+html[data-skin=othercide] .workspace-hand-zone{background:none;border:0;padding-top:18px}
+html[data-skin=othercide] .workspace-hand button,html[data-skin=othercide] .workspace-hand button:hover{background:none;border:0}
+html[data-skin=othercide] .you-badge{background:#38252e;color:#ffc1cb;border-color:#b45b6d}
+html[data-skin=othercide] .mortal-badge{background:#262227;color:#e6dfe3;border-color:#887782}
+html[data-skin=othercide] .decision-timeline{border-top:1px solid #49404a;border-image:linear-gradient(90deg,#ad1932 0 28px,#49404a 28px 100%) 1;padding-top:17px}
+html[data-skin=othercide] .decision-node{color:var(--ink);font-weight:400}
+html[data-skin=othercide] .decision-node.active{color:var(--green);background:#252025!important}
+html[data-skin=othercide] .decision-node:before{border-radius:0;transform:rotate(45deg);width:7px;height:7px}
+html[data-skin=othercide] .decision-node.active:before{box-shadow:none}
+html[data-skin=othercide] .workspace-coach{background:#1b191d;border-left:1px solid var(--line);border-top:0;box-shadow:none}
+html[data-skin=othercide] .workspace-coach-header{background:#1b191d;border-top:0}
+html[data-skin=othercide] .workspace-coach-header strong{font:400 22px Georgia,serif;letter-spacing:.08em}
+html[data-skin=othercide] .workspace-detail-host h3,html[data-skin=othercide] .review-coach h4{font:400 27px/1.55 'Songti SC','SimSun',serif;letter-spacing:.04em}
+html[data-skin=othercide] .review-coach p{color:#d1c9ce}
+html[data-skin=othercide] .review-comparison{background:none;border:0;border-top:1px solid #62535e;border-bottom:1px solid #49404a;padding:20px 0}
+html[data-skin=othercide] .page-heading{position:relative;border-bottom:1px solid var(--line);padding-bottom:23px}
+html[data-skin=othercide] .page-heading:after{content:'';position:absolute;bottom:-1px;left:0;width:32px;height:2px;background:#92263d;pointer-events:none}
+html[data-skin=othercide] .page-heading h1{font:400 31px 'Songti SC','SimSun',serif;letter-spacing:.04em}
+html[data-skin=othercide] .catalog-list>li{background:none;border-color:var(--line)}
+html[data-skin=othercide] .catalog-list>li:hover{background:#242025}
+html[data-skin=othercide] .analysis-progress,html[data-skin=othercide] .evidence-card{background:#262128}
+html[data-skin=othercide] .hand-loss{background:#242025;color:var(--ink);border:1px solid #685763;border-top:1px solid #e9e5df;box-shadow:6px 9px 0 #0005;padding:23px 21px 19px;isolation:isolate;border-radius:0}
+html[data-skin=othercide] .hand-loss:before{content:'';position:absolute;left:0;right:0;top:0;height:5px;background:#e9e5df;clip-path:polygon(0 0,31% 45%,40% 0,43% 50%,75% 10%,90% 40%,100% 0,100% 40%,80% 65%,42% 95%,0 45%);opacity:.85;pointer-events:none}
+html[data-skin=othercide] .hand-loss:after{content:'';position:absolute;right:20px;top:0;width:8px;height:67px;background:var(--blood);clip-path:polygon(0 0,100% 0,80% 100%,28% 77%);pointer-events:none;z-index:-1}
+html[data-skin=othercide] .hand-loss>strong{display:block;font:400 23px 'Songti SC','SimSun',serif;letter-spacing:.03em;padding-right:25px}
+html[data-skin=othercide] .loss-group p{font-weight:500}
+html[data-skin=othercide] .loss-tile span{color:#f296a4}
+html[data-skin=othercide] .loss-regression{color:#ffc1ca}
+@media(max-width:1199px){html[data-skin=othercide] .brand-lockup strong{font-size:26px}}
+@media(max-width:720px){html[data-skin=othercide] .board-heading h1{font-size:22px}html[data-skin=othercide] .table-center strong{font-size:20px;white-space:nowrap}html[data-skin=othercide] .table-center{outline-offset:3px}}

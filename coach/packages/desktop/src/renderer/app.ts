@@ -708,11 +708,19 @@ document.querySelectorAll<HTMLButtonElement>("[data-source]").forEach(b=>b.addEv
   document.querySelector<HTMLElement>("#source-recent")!.hidden=b.dataset.source!=="recent";
   document.querySelector<HTMLElement>("#source-link")!.hidden=b.dataset.source!=="link";
 }));
-const skinIds = ["classic", "rhine", "orbit"] as const;
+const skinIds = ["classic", "rhine", "orbit", "othercide"] as const;
+let preferredTheme = "light";
+try { preferredTheme = localStorage.getItem("coach-workspace-theme") === "dark" ? "dark" : "light"; } catch {}
 let skinId = "orbit";
 try { const saved = localStorage.getItem("coach-workspace-skin"); if (saved && skinIds.some(id => id === saved)) skinId = saved; } catch {}
 const applySkin = () => {
   document.documentElement.dataset.skin = skinId;
+  const nightOnly = skinId === "othercide";
+  document.documentElement.dataset.theme = nightOnly ? "dark" : preferredTheme;
+  const toggle = document.querySelector<HTMLButtonElement>("#theme-toggle");
+  if (toggle) {toggle.hidden = nightOnly; toggle.disabled = nightOnly;}
+  const modeNote = document.querySelector<HTMLElement>("#skin-mode-note");
+  if (modeNote) modeNote.hidden = !nightOnly;
   document.querySelectorAll<HTMLSelectElement>("[data-skin-select]").forEach(select => { select.value = skinId; });
 };
 applySkin();
@@ -721,8 +729,11 @@ document.querySelectorAll<HTMLSelectElement>("[data-skin-select]").forEach(selec
   skinId = select.value; applySkin();
   try { localStorage.setItem("coach-workspace-skin", skinId); } catch {}
 }));
-try{document.documentElement.dataset.theme=localStorage.getItem("coach-workspace-theme")??"light";}catch{}
-document.querySelector("#theme-toggle")?.addEventListener("click",()=>{const theme=document.documentElement.dataset.theme==="dark"?"light":"dark";document.documentElement.dataset.theme=theme;try{localStorage.setItem("coach-workspace-theme",theme);}catch{}});
+document.querySelector("#theme-toggle")?.addEventListener("click",()=>{
+  if (skinId === "othercide") return;
+  preferredTheme = preferredTheme === "dark" ? "light" : "dark";
+  applySkin(); try{localStorage.setItem("coach-workspace-theme",preferredTheme);}catch{}
+});
 renderWorkspaceRoute();
 
 void (async () => {
