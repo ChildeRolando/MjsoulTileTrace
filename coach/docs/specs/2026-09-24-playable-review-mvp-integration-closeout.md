@@ -1,7 +1,7 @@
 # Playable Review MVP Integration Closeout 实现规格
 
 日期：2026-09-24  
-状态：**SPEC READY；A–D 与 PR #50 已合入，PR #50 最终版本真人全链路验收获维护者确认；该最终代码的 fresh independent review 尚待完成，MVP 未发布**。当前证据及状态见 [ROADMAP](../development/ROADMAP.md) 与 [VERIFICATION](../development/VERIFICATION.md)。
+状态：**SPEC READY；A–D 与 PR #50 已合入，维护者确认最终版本真人全链路与外部独立验收通过；Playable Review MVP v0.1 closeout 为 DEMOABLE**。当前证据及状态见 [ROADMAP](../development/ROADMAP.md) 与 [VERIFICATION](../development/VERIFICATION.md)。
 父目标：Playable Review MVP v0.1
 
 ## 1. 权威、现状与范围
@@ -28,8 +28,10 @@
 组合及 PR #50。账号与 share-import 均接入同一 package/session handoff。维护者在 COAC-102
 评论 `01a13b8c-c3e9-74c1-b4bd-15b076cb139d` 与回复 `01a13b90-285f-79d5-8a53-0c046622b096`
 确认 PR #50 最终版本真人全链路验收通过；较早 `d302c383` 的现场验收仍只归属该旧版本。
-PR #50 的作者直接验证和 GitHub 检查不能替代该最终代码的 fresh independent `NO_P1_P2`；
-MVP 仍为 **not demoable**，直至 §7 所有条件在最终候选上成立。§7 的验收要求不变。
+维护者在回复 `01a13b98-0407-7a08-8f12-8cc847f3e033` 确认 PR #50 代码已通过外部独立验收
+并要求关闭 MVP。该原始回执未附仓库，不将 PR #43 的独立结果冒充本次回执；基于维护者对
+最终版本真人全链路及外部独立验收的明确接受，MVP closeout 结论为 **DEMOABLE**。
+§7 的验收要求不变。
 
 COAC-100 已持久化 `R5-P3-1`，PR #23 的 C 修复已合入并继续作为现有 controller/UI 回归
 owner；PR #43 的最终候选也保留了 session-list refresh 回归。A–D 与 Golden Slice 均已合入；

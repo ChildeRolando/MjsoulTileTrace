@@ -17,9 +17,9 @@
 
 雀魂目录与牌谱分析、managed local Mortal、grounded ReviewReport、M7-A/B，以及 account 与
 share-import 到 Review Workspace 的 A–D 组合及 PR #50 均已合入 master。维护者已确认
-PR #50 最终版本的真人全链路验收通过；PR #50 的 Electron Golden Slice 与固定五门有作者
-直接验证，较早 PR #43 的 fresh independent review 不能继承至 PR #50。**Playable Review MVP
-仍为 not DEMOABLE；尚待 PR #50 最终代码的 fresh independent `NO_P1_P2`。** 当前证据和
+PR #50 最终版本的真人全链路验收通过，并确认代码已完成外部独立验收；PR #50 的 Electron
+Golden Slice 与固定五门有作者直接验证。**Playable Review MVP v0.1 已完成 closeout，状态为
+DEMOABLE。** 独立验收的原始回执尚未附在本仓库，结论来源为维护者在 COAC-102 的确认。当前证据和
 逐项 §7 对照见[路线图](ROADMAP.md)与[发布验证记录](VERIFICATION.md)。
 M7-A 的冻结规格见
 [`2026-09-21-m7-a-whole-game-fixed-review-ui-design.md`](../specs/2026-09-21-m7-a-whole-game-fixed-review-ui-design.md)，

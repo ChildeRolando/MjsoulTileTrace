@@ -338,12 +338,15 @@ provider 不进入默认自动 suite。
 | §7 条件 | 当前证据 | 状态 |
 |---|---|---|
 | A account、B import、C session refresh 的 app-shell 路径 | PR #35/#36/#37/#6/#42/#43/#50 已合并；账号与 share-import 组合位于 master | 已满足 |
-| Electron Golden Slice 与固定五门 | PR #50 head `c73aa8bbc0445df990ae120c071ef145beefa771` 的作者直接验证：固定五门、218 files / 2727 tests 与 Electron Golden PASS；回执 `coach-acceptance-evidence/ui-integration-20261015/receipt.json`。COAC-209 正式回执只绑定较早 PR #43 head `8f14427a782076fda4a6ad42d04bd3d4635cfe23` | 作者自验已通过；最终独立复核待完成 |
-| fresh independent `NO_P1_P2` | COAC-209 第 2 轮 `NO_P1_P2` 只绑定 PR #43 head `8f14427`。PR #50 说明和本地回执是 Direct Codex verification；GitHub `Review Loop v2` SUCCESS 不能代替 PR #50 完整新差异的独立裁决。COAC-242 已按 PR #50 固定 head 创建独立验收 | 待完成 |
+| Electron Golden Slice 与固定五门 | PR #50 head `c73aa8bbc0445df990ae120c071ef145beefa771` 的作者直接验证：固定五门、218 files / 2727 tests 与 Electron Golden PASS；回执 `coach-acceptance-evidence/ui-integration-20261015/receipt.json`。COAC-209 正式回执只绑定较早 PR #43 head `8f14427a782076fda4a6ad42d04bd3d4635cfe23` | 作者自验已通过 |
+| fresh independent `NO_P1_P2` | COAC-209 第 2 轮 `NO_P1_P2` 只绑定 PR #43 head `8f14427`，不能继承给 PR #50。维护者在 COAC-102 回复 `01a13b98-0407-7a08-8f12-8cc847f3e033` 明确确认 PR #50 代码已经外部独立验收并要求关闭 MVP；本仓库未附该外部原始回执，故此处记录维护者的验收结论，不伪造精确 verdict 或测试命令 | 维护者接受外部验收；原始回执未附 |
 | 最终代码已合入 master | PR #50 head `c73aa8bbc0445df990ae120c071ef145beefa771` 于 2026-10-14T17:47:40Z 普通合入，merge `78dfe0b7eb244c4c3f444fc163c6875dd4fb36f0`；head/merge tree 均为 `c82ba4092d7249a154e869693f888e4afb32b2df` | 已满足 |
 | 获授权真人 smoke 覆盖最终合并版本 | 维护者在 COAC-102 评论 `01a13b8c-c3e9-74c1-b4bd-15b076cb139d` 与回复 `01a13b90-285f-79d5-8a53-0c046622b096` 明确确认 PR #50 最终版本的真人全链路验收通过。早前 `d302c383` 验收只属旧版本；本次确认未附逐项原始日志 | 维护者确认通过 |
 
-因此，Playable Review MVP v0.1 暂仍是 **not DEMOABLE**。真人全链路门已有维护者对 PR #50 最终版本的明确确认；剩余发布门是对该最终代码取得 fresh independent `NO_P1_P2`，并复核 §7 全部条件。不从简短的真人确认推断 OS 级断网证明、provider 调用数或逐项日志，也不以作者自验或 GitHub 状态代替独立裁决。
+维护者已接受 PR #50 最终版本的真人全链路与外部独立验收，要求直接关闭 MVP；据此
+Playable Review MVP v0.1 的 closeout 状态为 **DEMOABLE**。这是维护者的发布验收决定，
+不从简短确认推断 OS 级断网证明、provider 调用数、逐项日志或未提供的外部独立回执内容；
+PR #43 历史独立 verdict 和 PR #50 的作者自验仍各自按原范围保留。
 
 ## 按改动范围选择门禁
 
