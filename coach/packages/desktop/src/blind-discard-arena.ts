@@ -388,11 +388,30 @@ export function validateArenaSubmission(input: {
   if (submission.mainAlternative !== null && !offered.has(submission.mainAlternative.actionRef)) {
     return { status: "invalid", reason: "alternative_not_offered" };
   }
+  const state = input.observation.visibleState;
+  // Only explicit event/source fields are sources. Public events also support
+  // evidence citations; an opaque alias alone never grants citation permission.
+  const initialSources = [
+    state.self.currentDraw?.sourceRef,
+    ...state.rivers.flatMap((river) => river.flatMap((discard) => [
+      discard.sourceRef, discard.riichiDeclarationRef, discard.calledByRef,
+    ])),
+    ...state.melds.flatMap((meld) => [
+      meld.createdEventRef, meld.latestEventRef,
+      ...("calledDiscardEventRef" in meld ? [meld.calledDiscardEventRef] : []),
+      ...("upgradedPonEventRef" in meld ? [meld.upgradedPonEventRef] : []),
+    ]),
+    ...state.riichiStates.flatMap((riichi) => [riichi.declarationEventRef, riichi.acceptanceEventRef]),
+  ].filter((ref): ref is string => ref != null);
   const allowedEvidence = new Set([
-    ...input.observation.visibleState.self.evidenceRefs,
+    ...initialSources,
+    ...state.self.evidenceRefs,
+    ...Object.values(state.self.furiten).flatMap((component) => component.evidenceIds),
+    ...state.self.meldRefs,
+    ...state.melds.map((meld) => meld.meldRef),
     ...(input.additionalEvidenceRefs ?? []),
   ]);
-  const allowedSources = new Set(input.additionalSourceRefs ?? []);
+  const allowedSources = new Set([...initialSources, ...(input.additionalSourceRefs ?? [])]);
   if (submission.evidenceRefs.some((ref) => !allowedEvidence.has(ref)) ||
       submission.sourceRefs.some((ref) => !allowedSources.has(ref))) {
     return { status: "invalid", reason: "reference_not_observed" };

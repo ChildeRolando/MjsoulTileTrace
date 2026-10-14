@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import {
   CANONICAL_EVENT_SCHEMA_VERSION,
+  ArenaBlindObservationSchema,
   LIBRIICHI_RULE_NORMALIZATION_VERSION,
   CanonicalEventStreamSchema,
   LibriichiRuleResponseSchema,
@@ -25,6 +26,7 @@ import {
   createArenaBlindObservation,
   createArenaToolBinding,
   screenArenaDecisions,
+  validateArenaSubmission,
 } from "../src/blind-discard-arena.js";
 
 const spec = readFileSync(
@@ -137,6 +139,86 @@ function firstDecisionOutput(decision: ReplayedDecision, request: LibriichiRuleR
 }
 
 describe("Blind Discard Arena case and observation contract", () => {
+  it("accepts initial public river citations without a tool call and rejects unobserved references", () => {
+    const { stream, decision, request } = realPrefixFixture();
+    const { observation, aliases } = firstDecisionOutput(decision, request);
+    const riverRef = observation.visibleState.rivers[1]![0]!.sourceRef;
+    const raw = {
+      caseRef: observation.caseRef, actionRef: observation.candidates[0]!.actionRef,
+      rationale: "The opponent's public discard informs this choice.",
+      evidenceRefs: [riverRef], sourceRefs: [riverRef], mainAlternative: null, uncertainty: "",
+    };
+    expect(observation.visibleState.self.evidenceRefs).not.toContain(riverRef);
+    expect(validateArenaSubmission({ raw, observation }).status).toBe("valid");
+
+    // This later draw is visible in case 1 but not in case 0, using the same run vault.
+    const earlierDecision = replayCanonicalStream(stream)[0]!;
+    const earlierRequest = createArenaBlindRuleRequest(createLibriichiRuleProjector(stream, ruleIdentity)(earlierDecision));
+    const earlierSelected = screenArenaDecisions([screenInput(earlierDecision, earlierRequest)]).selected[0]!;
+    const earlier = createArenaBlindObservation({ selected: earlierSelected, aliases });
+    const laterDrawRef = observation.visibleState.self.currentDraw!.sourceRef;
+    const otherRunRef = firstDecisionOutput(decision, request).observation.visibleState.rivers[1]![0]!.sourceRef;
+    for (const field of ["evidenceRefs", "sourceRefs"] as const) {
+      for (const ref of [aliases.reference("unobserved"), otherRunRef]) {
+        expect(validateArenaSubmission({ raw: { ...raw, [field]: [ref] }, observation }))
+          .toEqual({ status: "invalid", reason: "reference_not_observed" });
+      }
+      expect(validateArenaSubmission({
+        raw: { ...raw, caseRef: earlier.caseRef, evidenceRefs: [], sourceRefs: [], [field]: [laterDrawRef] },
+        observation: earlier,
+      })).toEqual({ status: "invalid", reason: "reference_not_observed" });
+    }
+  });
+
+  it("classifies initial state evidence and event sources without widening tool citation permissions", () => {
+    const { decision, request } = realPrefixFixture();
+    const { observation, aliases } = firstDecisionOutput(decision, request);
+    const ref = (name: string) => aliases.reference(name);
+    const state = observation.visibleState;
+    state.rivers[1]![0]!.riichiDeclarationRef = ref("river-riichi");
+    state.rivers[1]![0]!.calledByRef = ref("river-call");
+    state.melds.push({
+      kind: "kakan", actor: 0, targetActor: 1, meldRef: ref("meld"),
+      createdEventRef: ref("meld-created"), latestEventRef: ref("meld-latest"),
+      calledDiscardEventRef: ref("meld-discard"), upgradedPonEventRef: ref("meld-pon"),
+      calledTile: tile("9s"), consumedTiles: [tile("9s"), tile("9s")], addedTile: tile("9s"),
+    });
+    state.self.meldRefs = [ref("meld")];
+    state.riichiStates[2] = {
+      actor: 2, status: "accepted", declarationEventRef: ref("riichi-declared"),
+      acceptanceEventRef: ref("riichi-accepted"), ippatsuAlive: false,
+    };
+    state.self.furiten.temporary = { status: "confirmed", evidenceIds: [ref("furiten")] };
+    const parsedObservation = ArenaBlindObservationSchema.parse(observation);
+    const sourceRefs = [
+      state.self.currentDraw!.sourceRef, ref("river-riichi"), ref("river-call"),
+      ref("meld-created"), ref("meld-latest"), ref("meld-discard"), ref("meld-pon"),
+      ref("riichi-declared"), ref("riichi-accepted"),
+    ];
+    const evidenceOnlyRefs = [ref("meld"), ref("furiten"), ...state.self.evidenceRefs];
+    const raw = {
+      caseRef: observation.caseRef, actionRef: observation.candidates[0]!.actionRef,
+      rationale: "Use the observed state and its public events.",
+      evidenceRefs: [...new Set([...sourceRefs, ...evidenceOnlyRefs])], sourceRefs,
+      mainAlternative: null, uncertainty: "",
+    };
+    expect(validateArenaSubmission({ raw, observation: parsedObservation }).status).toBe("valid");
+    for (const evidenceRef of [ref("meld"), ref("furiten")]) {
+      expect(validateArenaSubmission({ raw: { ...raw, sourceRefs: [evidenceRef] }, observation }))
+        .toEqual({ status: "invalid", reason: "reference_not_observed" });
+    }
+    const additionalEvidenceRefs = [ref("tool-evidence")];
+    const additionalSourceRefs = [ref("tool-source")];
+    expect(validateArenaSubmission({
+      raw: { ...raw, evidenceRefs: additionalEvidenceRefs, sourceRefs: additionalSourceRefs },
+      observation, additionalEvidenceRefs, additionalSourceRefs,
+    }).status).toBe("valid");
+    expect(validateArenaSubmission({
+      raw: { ...raw, evidenceRefs: additionalSourceRefs, sourceRefs: additionalEvidenceRefs },
+      observation, additionalEvidenceRefs, additionalSourceRefs,
+    })).toEqual({ status: "invalid", reason: "reference_not_observed" });
+  });
+
   it("keeps the durable spec as the single contract owner", () => {
     expect(spec).toContain("所有 Coach/provider 可见的来源身份引用均使用每次 run 独立生成的 opaque alias");
     expect(spec).toContain("实际/标签变化必须 byte-for-byte 保持相同");

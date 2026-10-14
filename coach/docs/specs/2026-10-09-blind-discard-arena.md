@@ -50,6 +50,16 @@ Mortal 选择是比较标签，不是“正确答案”或专家正确性证明�
 5. **Coach submission** 在当前 case 内提交一个 offered actionRef、简短且可检查的依据、实际使用的 evidence/source refs、一个有比较价值时的主要备选及未选理由、重要不确定性。没有备选时允许明确为空。引用必须属于同一 case 与本次观察到的工具/知识结果；不保存 provider 的 hidden reasoning/CoT。
 6. **Finalization** 先严格校验并锁定 submission；随后才向 grader 交付 submission 和 reference label。grader 产物不得回送同次 provider/tool loop。
 
+初始 observation 中已展示的引用无需工具调用即可使用。`sourceRefs` 接收本题牌河的
+`sourceRef`、`riichiDeclarationRef`、`calledByRef`，当前摸牌的 `sourceRef`，副露的
+`createdEventRef`、`latestEventRef`、`calledDiscardEventRef`、`upgradedPonEventRef`，
+以及立直状态的 `declarationEventRef`、`acceptanceEventRef`（仅非空值）。这些公开事件
+也可作为 `evidenceRefs`；后者另接收 `self.evidenceRefs`、振听各分量的 `evidenceIds`、
+`self.meldRefs` 与公开副露的 `meldRef`。副露身份或仅作为证据展示的引用不自动取得
+source 权限。工具/知识结果新增引用继续分别按 evidence/source 分类登记；白名单只取
+当前题已展示字段与该题已观察结果，不取整个 run alias map，未知或仅在其他题出现的
+引用仍须拒绝。
+
 ### T1–T5 接口责任
 
 | 票 | 读取 / 产出 | 不得接管的责任 |
