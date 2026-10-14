@@ -29,6 +29,7 @@ import {
   MORTAL_COVERAGE_BRANCHES,
   buildStructuredAnalysisPackage,
   createMortalCoverageRegistry,
+  freezeDecisionStreamContext,
   actualLibriichiActionRef,
   localMortalRuleScoresToReportEntry,
   projectLocalMortalRuleScoring,
@@ -193,9 +194,10 @@ try {
       runSummary.phase = "source-mapping";
       const mapped = fixtureRun.map();
       if (mapped.status !== "ready") fail(`production mapper failed: ${mapped.code}`);
-      const stream = mapped.stream;
+      const streamContext = freezeDecisionStreamContext(mapped.stream);
+      const stream = streamContext.stream;
       runSummary.phase = "rules";
-      const {decisions,responseDecisions,rules} = await queryCanonicalLibriichiRules({stream,identity:runtime.ruleIdentity,port:runtime});
+      const {decisions,responseDecisions,rules} = await queryCanonicalLibriichiRules({stream,streamContext,identity:runtime.ruleIdentity,port:runtime});
       for (const decision of [...decisions, ...responseDecisions]) {
         const window = decision.snapshot.privateState.decisionWindow;
         const actualKind = decision.actualAction?.kind ?? "missing";
@@ -220,7 +222,7 @@ try {
         try {
           actualLibriichiActionRef(row.decision,result.actions);
           if (result.actions.length === 1) {ruleCounts.singleton++;continue;}
-          const request = projectLocalMortalRuleScoring({stream,decision:row.decision,identity:runtimeIdentity,
+          const request = projectLocalMortalRuleScoring({stream,streamContext,decision:row.decision,identity:runtimeIdentity,
             ruleRequest:result.request,ruleResult:result.response});
           const response = await runtime.scoreRules(request);
           if (response.status === "error") {
@@ -265,7 +267,7 @@ try {
       try {
         runSummary.phase = "full-game";
         review = await runMortalFullGameReview({
-          stream, decisions, responseDecisions, report,
+          stream, streamContext, decisions, responseDecisions, report,
           libriichi:{identity:runtime.ruleIdentity,results:rules},
           engine: factEngine, now: () => Date.parse("2026-09-24T00:00:00.000Z"),
           coverageRegistry: createMortalCoverageRegistry(MORTAL_COVERAGE_BRANCHES),
@@ -310,7 +312,7 @@ try {
       }
       runSummary.phase = "package-build";
       const pkg = buildStructuredAnalysisPackage({
-        review, stream, decisions, responseDecisions,
+        review, stream, streamContext, decisions, responseDecisions,
         componentVersions: {
           packageSchema: NATIVE_STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION,
           legalActionRules:runtime.ruleIdentity,

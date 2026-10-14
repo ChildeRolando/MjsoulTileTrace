@@ -14,7 +14,7 @@ import {
   type KnownActionFacts,
 } from "@riichi-coach/contracts";
 import { parseMjaiTile } from "@riichi-coach/mortal-source";
-import { freezeDecisionSnapshotInContext, freezeDecisionStreamContext } from "../replay/decision-snapshot.js";
+import { freezeDecisionSnapshotInContext, useDecisionStreamContext, type DecisionStreamContext } from "../replay/decision-snapshot.js";
 import type { ReplayedDecision } from "../replay/stream-replayer.js";
 import { projectLocalMortalEvent } from "./local-mortal-events.js";
 import { adaptMjaiActionSequence } from "../import/mjai-action.js";
@@ -25,8 +25,8 @@ import { projectKnownGameFactsV2 } from "../factors/known-game-facts-v2.js";
 const digest = (value: unknown): string => createHash("sha256").update(libriichiRuleCanonicalJson(value)).digest("hex");
 
 /** Freeze one canonical stream once; no report, actual choice, helper or model input. */
-export function createLibriichiRuleProjector(rawStream: CanonicalEventStream, identity: LibriichiRuleIdentity) {
-  const context = freezeDecisionStreamContext(rawStream);
+export function createLibriichiRuleProjector(rawStream: CanonicalEventStream, identity: LibriichiRuleIdentity, streamContext?: DecisionStreamContext) {
+  const context = useDecisionStreamContext(rawStream, streamContext);
   const stream = context.stream;
   // Unlike the public report fingerprint this includes private draws, rules,
   // completeness and every canonical field that can affect rule execution.

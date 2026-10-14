@@ -13,13 +13,14 @@ import {
 } from "@riichi-coach/contracts";
 import {
   buildStructuredAnalysisPackage,
+  freezeDecisionStreamContext,
   JsonlFactEngineClient,
   ManagedFactEngineTransport,
   localMortalRuleScoresToReportEntry,
   projectLocalMortalRuleScoring,
   queryCanonicalLibriichiRules,
   runMortalFullGameReview,
-  validateStructuredAnalysisPackage,
+  prepareValidatedStructuredAnalysisPackage,
   type LibriichiResolvedDecision,
   type ReplayedDecision,
 } from "@riichi-coach/reasoning";
@@ -180,8 +181,11 @@ export function createLocalMortalAnalysisService(input: {
   return Object.freeze({
     async analyze(request: LocalMortalAnalysisInput): Promise<LocalMortalAnalysisResult> {
       input.onProgress?.({ stage: "rules", completed: 0, total: null });
+      const streamContext = freezeDecisionStreamContext(request.stream);
+      const stream = streamContext.stream;
       const rules = await queryCanonicalLibriichiRules({
-        stream: request.stream,
+        stream,
+        streamContext,
         identity: input.runtime.ruleIdentity,
         port: input.runtime,
         onProgress: counts => input.onProgress?.({ stage: "rules", ...counts }),
@@ -208,7 +212,8 @@ export function createLocalMortalAnalysisService(input: {
         // proof and does not need model scores or a synthetic report row.
         if (resolved.actions.length < 2) continue;
         const scoringRequest = projectLocalMortalRuleScoring({
-          stream: request.stream,
+          stream,
+          streamContext,
           decision: row.decision,
           identity: input.runtime.identity,
           ruleRequest: resolved.request,
@@ -237,7 +242,8 @@ export function createLocalMortalAnalysisService(input: {
       try {
         input.onProgress?.({ stage: "facts", completed: 0, total: all.length });
         const review = await runMortalFullGameReview({
-          stream: request.stream,
+          stream,
+          streamContext,
           decisions: rules.decisions,
           responseDecisions: rules.responseDecisions,
           report,
@@ -251,9 +257,10 @@ export function createLocalMortalAnalysisService(input: {
         input.onProgress?.({ stage: "packaging", completed: 0, total: null });
         const retained = review.retainedAnalyses[0];
         if (retained === undefined) throw new Error("mortal_output_incomplete");
-        const pkg = buildStructuredAnalysisPackage({
+        const built = buildStructuredAnalysisPackage({
           review,
-          stream: request.stream,
+          stream,
+          streamContext,
           decisions: rules.decisions,
           responseDecisions: rules.responseDecisions,
           componentVersions: {
@@ -278,7 +285,7 @@ export function createLocalMortalAnalysisService(input: {
           frozenPolicySnapshot: retained.modelEvaluation.detailPolicy,
           ...(input.now === undefined ? {} : { now: input.now }),
         });
-        validateStructuredAnalysisPackage(pkg);
+        const pkg = prepareValidatedStructuredAnalysisPackage(built);
         // Reuse the package builder/validator's authoritative aggregate
         // integrity status. Diagnostic packages with this truthful status
         // remain valid artifacts; they simply cannot cross the production

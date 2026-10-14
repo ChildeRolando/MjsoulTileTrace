@@ -6,6 +6,7 @@ import {
   type LocalMortalScoringRequest, type LocalMortalScoringResponse, type ManagedMortalRuntimeIdentity,
 } from "@riichi-coach/contracts";
 import type { ReplayedDecision } from "../replay/stream-replayer.js";
+import type { DecisionStreamContext } from "../replay/decision-snapshot.js";
 import { bindLibriichiRuleResult, createLibriichiRuleProjector } from "./libriichi-rule-projection.js";
 import { buildLocalMortalReportEntry, stableMortalSoftmax } from "./local-mortal-report.js";
 import type { MortalSourceAction } from "@riichi-coach/mortal-source";
@@ -15,13 +16,14 @@ const key = libriichiRuleCanonicalJson;
 
 /** Actual choice is deliberately absent: the identical state gets identical scores. */
 export function projectLocalMortalRuleScoring(input: {
+  streamContext?: DecisionStreamContext;
   stream: CanonicalEventStream; decision: ReplayedDecision; identity: ManagedMortalRuntimeIdentity;
   ruleRequest: LibriichiRuleRequest; ruleResult: LibriichiRuleSuccess;
 }): LocalMortalScoringRequest {
   const identity = input.ruleRequest.identity;
   if (identity.revision !== input.identity.runtimeRevision || identity.nativeArtifactSha256 !== input.identity.nativeArtifactSha256 ||
       identity.wrapperSha256 !== input.identity.runtimeArtifactSha256) throw new Error("mortal_runtime_identity_mismatch");
-  const fresh = createLibriichiRuleProjector(input.stream, identity)(input.decision);
+  const fresh = createLibriichiRuleProjector(input.stream, identity, input.streamContext)(input.decision);
   if (key(fresh) !== key(input.ruleRequest)) throw new Error("mortal_protocol_invalid");
   const bound = bindLibriichiRuleResult({ request: fresh, response: input.ruleResult, decision: input.decision });
   if (bound.response.status !== "ok" || bound.actions.length < 2) throw new Error("mortal_source_row_not_expected");

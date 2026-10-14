@@ -106,6 +106,7 @@ function assertWindowMatchesEvent(
  */
 export interface DecisionStreamContext {
   readonly stream: CanonicalEventStream;
+  readonly states: readonly ReducedCanonicalState[];
   readonly eventsByRef: ReadonlyMap<string, CanonicalGameEvent>;
   readonly statesByRef: ReadonlyMap<string, ReducedCanonicalState>;
 }
@@ -117,7 +118,7 @@ export function freezeDecisionStreamContext(
   if (!parsedStream.success) {
     throw new CanonicalReplayError("canonical_stream_schema_invalid");
   }
-  const stream = parsedStream.data;
+  const stream = deepFreeze(parsedStream.data);
   const states = reduceCanonicalEventStream(stream);
   // find()-first semantics: a duplicated ref resolves to the earliest entry.
   const eventsByRef = new Map<string, CanonicalGameEvent>();
@@ -128,7 +129,17 @@ export function freezeDecisionStreamContext(
   for (const state of states) {
     if (!statesByRef.has(state.eventRef)) statesByRef.set(state.eventRef, state);
   }
-  return { stream, eventsByRef, statesByRef };
+  return { stream, states, eventsByRef, statesByRef };
+}
+
+/** Reuse is scoped to the exact immutable stream owned by this context. */
+export function useDecisionStreamContext(
+  stream: CanonicalEventStream,
+  context?: DecisionStreamContext,
+): DecisionStreamContext {
+  if (context === undefined) return freezeDecisionStreamContext(stream);
+  if (context.stream !== stream) throw new CanonicalReplayError("decision_stream_context_mismatch");
+  return context;
 }
 
 export function freezeDecisionSnapshotInContext(

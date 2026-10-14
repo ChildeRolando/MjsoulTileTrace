@@ -1,4 +1,7 @@
 import { createHash } from "node:crypto";
+import { closeSync, mkdtempSync, openSync, readSync, rmdirSync, unlinkSync, writeSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { brotliCompressSync, brotliDecompressSync, constants as zlibConstants } from "node:zlib";
 import type { DatabaseSync } from "node:sqlite";
 import { JSONParser, type ParsedElementInfo } from "@streamparser/json";
@@ -96,6 +99,62 @@ function serialize(value: unknown, consume?: (chunk: Buffer, ordinal: number) =>
 /** First pass fixes canonical bytes/hash and the exact storage-row count before the repository transaction. */
 export function describePackageArtifact(value: unknown): Description {
   return serialize(value);
+}
+
+/** Encode once before the transaction. Staging keeps memory bounded even for
+ * incompressible packages; SQLite receives exactly those encoded rows. */
+export function stagePackageArtifact(value: unknown) {
+  const directory = mkdtempSync(join(tmpdir(), "riichi-package-"));
+  const path = join(directory, "chunks");
+  let fd: number | undefined;
+  let closed = false;
+  const close = () => {
+    if (closed) return;
+    closed = true;
+    if (fd !== undefined) { closeSync(fd); fd = undefined; }
+    try { unlinkSync(path); } finally { rmdirSync(directory); }
+  };
+  try {
+    fd = openSync(path, "wx+", 0o600);
+    const length = Buffer.alloc(4);
+    const write = (data: Buffer) => {
+      for (let offset = 0; offset < data.length;) offset += writeSync(fd!, data, offset, data.length - offset);
+    };
+    const description = serialize(value, chunk => {
+      length.writeUInt32LE(chunk.length);
+      write(length);
+      write(chunk);
+    });
+    return {
+      description,
+      insert(db: DatabaseSync, ref: string): void {
+        if (fd === undefined) throw new Error("package_staging_closed");
+        const insert = db.prepare("INSERT INTO analysis_package_chunks(package_ref_id,ordinal,payload) VALUES(?,?,?)");
+        const row = Buffer.allocUnsafe(PACKAGE_CHUNK_BYTES);
+        let position = 0;
+        const read = (data: Buffer, count: number) => {
+          for (let offset = 0; offset < count;) {
+            const bytes = readSync(fd!, data, offset, count - offset, position);
+            if (bytes === 0) throw new Error("package_staging_invalid");
+            offset += bytes;
+            position += bytes;
+          }
+        };
+        for (let ordinal = 0; ordinal < description.chunks; ordinal++) {
+          read(length, 4);
+          const size = length.readUInt32LE();
+          if (size < ROW_HEADER_BYTES || size > PACKAGE_CHUNK_BYTES) throw new Error("package_staging_invalid");
+          read(row, size);
+          insert.run(ref, ordinal, row.subarray(0, size));
+        }
+      },
+      close,
+    };
+  } catch (error) {
+    if (fd !== undefined) close();
+    else rmdirSync(directory);
+    throw error;
+  }
 }
 
 /** Called inside the same transaction that inserts the immutable parent row. */

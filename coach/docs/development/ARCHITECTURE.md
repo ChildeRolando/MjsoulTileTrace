@@ -477,3 +477,19 @@ artifact 均不携带 raw material。缓存没有 TTL/LRU，只有显式清理�
 舍牌损失从 reasoning 公共 API `prepareDiscardLossInput` 提取所需事实、候选和原规则
 结果，存于 main-only 缓存；`calculateDiscardLossFromInput` 复用原计算，不加载整包。
 历史用量的 recordId 由 repository 存为轻量身份，避免打开时读取其他分析包。
+
+
+### 2026-10-14 牌谱分析上下文与新包写入
+
+本次分析显式传递已有 DecisionStreamContext，其 stream 为独立不可变副本；评分、
+规则投影、回放和振听复用同一还原，不能跨 stream 使用。各局面绑定仍重新检查，
+振听只消费当前决策前缀。没有全局强引用回放缓存。
+
+包验证器可准备独立、深度冻结的验证结果，只有其私有弱引用登记的对象身份允许
+复用验证结论。可变输入、调用方自行冻结输入和反序列化数据不获得豁免。desktop
+新包保存一次构图、一次编码暂存，以原 SQLite 事务插入 immutable artifact/块和 session，
+随后复用本次 composer 生成展示缓存；其他连接变化仍使完整上下文缓存失效。
+临时编码文件不成为事实源，正常完成与失败均关闭清理；原存档格式保持不变。
+
+受管 Mortal 以完整响应、requestId、schema、identity 和候选全集决定返回，不附加
+20 ms 静默等待。迟到异常立即使当前 child 失效，不能作为下一次请求的成功响应。

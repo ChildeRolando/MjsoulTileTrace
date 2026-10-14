@@ -3,7 +3,7 @@ import { copyFile, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promi
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   LOCAL_MORTAL_ADAPTER_VERSION,
   LOCAL_MORTAL_PROTOCOL_VERSION,
@@ -127,8 +127,8 @@ describe("managed scoring of the sole native rule result", () => {
     ["score_swapped_action_id", "mortal_candidate_mismatch"], ["score_wrong_identity", "mortal_runtime_identity_mismatch"],
     ["duplicate", "mortal_candidate_mismatch"], ["missing", "mortal_protocol_invalid"],
     ["unknown_preferred", "mortal_candidate_mismatch"], ["score_wrong_preferred", "mortal_candidate_mismatch"],
-    ["extra_field", "mortal_protocol_invalid"], ["trailing_prose", "mortal_protocol_invalid"],
-    ["extra_response", "mortal_protocol_invalid"], ["timeout", "mortal_runtime_timeout"], ["crash", "mortal_runtime_crash"],
+    ["extra_field", "mortal_protocol_invalid"], ["trailing_prose_buffered", "mortal_protocol_invalid"], ["extra_response_buffered", "mortal_protocol_invalid"],
+    ["timeout", "mortal_runtime_timeout"], ["crash", "mortal_runtime_crash"],
   ])(
     "rejects %s and cleans up", async (mode, code) => {
       const { runtime, request } = await setup(mode);
@@ -213,6 +213,19 @@ describe("managed libriichi rule operation", () => {
 });
 
 describe("managed Mortal exact-child protocol", () => {
+  it.each(["extra_response", "trailing_prose", "unterminated_oversize"])("invalidates the child on late %s without a quiet-period wait", async mode => {
+    const { runtime, request, environment, dir } = await setup(mode);
+    const pidFile = join(dir, "pid.txt"); environment.MORTAL_FAKE_PID_FILE = pidFile;
+    try {
+      const outcome = await runtime.infer(request).then(value => ({value}), error => ({error}));
+      if("value" in outcome) expect(outcome.value.status).toBe("ok");
+      else expect(outcome.error).toHaveProperty("code", "mortal_protocol_invalid");
+      const pid = Number(await readFile(pidFile,"utf8"));
+      await vi.waitFor(() => { expect(() => process.kill(pid, 0)).toThrow(); }, {timeout:2000,interval:10});
+      if("value" in outcome) await expect(runtime.infer(request)).rejects.toHaveProperty("code", "mortal_protocol_invalid");
+    } finally { await runtime.close(); }
+  });
+
   for (const operation of ["infer", "close"] as const) {
     it(`R14: ${operation} settles after an idle protocol failure already terminated the child`, async () => {
       const { runtime, request, environment, dir } = await setup("idle_protocol_failure");
@@ -280,8 +293,8 @@ describe("managed Mortal exact-child protocol", () => {
     ["unknown_preferred", "mortal_candidate_mismatch"],
     ["extra_field", "mortal_protocol_invalid"], ["extra_prose", "mortal_protocol_invalid"],
     ["oversize", "mortal_protocol_invalid"], ["crash", "mortal_runtime_crash"],
-    ["trailing_prose", "mortal_protocol_invalid"], ["extra_response", "mortal_protocol_invalid"],
-    ["unterminated_oversize", "mortal_protocol_invalid"],
+    ["trailing_prose_buffered", "mortal_protocol_invalid"], ["extra_response_buffered", "mortal_protocol_invalid"],
+
     ["timeout", "mortal_runtime_timeout"],
   ] as const) {
     it(`fails closed on ${mode}`, async () => {

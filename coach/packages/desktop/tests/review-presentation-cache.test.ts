@@ -4,7 +4,7 @@ import { join } from "node:path";
 import { DatabaseSync } from "node:sqlite";
 import { afterEach, expect, it, vi } from "vitest";
 import { StructuredAnalysisPackageSchema } from "@riichi-coach/contracts";
-import { generateReviewReport, projectContextGraph, selectReviewDecisions, prepareDiscardLossInput } from "@riichi-coach/reasoning";
+import { generateReviewReport, projectContextGraph, selectReviewDecisions, prepareDiscardLossInput, prepareValidatedStructuredAnalysisPackage, validateStructuredAnalysisPackage } from "@riichi-coach/reasoning";
 import { createReviewSessionRepository } from "../src/review-session-repository.js";
 import { createFixedReviewController } from "../src/fixed-review-controller.js";
 import * as storage from "../src/package-artifact-storage.js";
@@ -17,6 +17,60 @@ const selection = selectReviewDecisions(pkg);
 const controller = (repository: ReturnType<typeof createReviewSessionRepository>) => createFixedReviewController({
   repository, readPackage: async () => { throw new Error("unexpected external read"); },
   generateReport: async () => { throw new Error("unexpected provider"); },
+});
+
+it("prepares immutable validation results without trusting caller-frozen or deserialized objects", () => {
+  const input = structuredClone(pkg);
+  const prepared = prepareValidatedStructuredAnalysisPackage(input);
+  expect(prepared).toEqual(pkg);
+  expect(prepared).not.toBe(input);
+  expect(prepareValidatedStructuredAnalysisPackage(prepared)).toBe(prepared);
+  expect(() => { prepared.record.recordId = "changed"; }).toThrow();
+  input.record.recordId = "changed";
+  expect(prepared.record.recordId).toBe(pkg.record.recordId);
+  expect(() => prepareValidatedStructuredAnalysisPackage(Object.freeze(input))).toThrow();
+  const decoded = JSON.parse(JSON.stringify(prepared)); decoded.record.recordId = "changed";
+  expect(() => validateStructuredAnalysisPackage(decoded)).toThrow();
+});
+
+it("saves a new package and presentation without immediately decoding the artifact again", () => {
+  const root = mkdtempSync(join(tmpdir(), "coach-presentation-")); roots.push(root);
+  const repository = createReviewSessionRepository({ root });
+  const read = vi.spyOn(storage, "readPackageArtifact").mockImplementation(() => { throw new Error("unexpected readback"); });
+  try {
+    const state = repository.saveSession(pkg, selection);
+    expect(state.analysisPackage).toEqual(pkg);
+    expect(repository.openPresentation(pkg.packageId)?.details).toHaveLength(selection.selected.length);
+    expect(repository.openByPackageId(pkg.packageId).analysisPackage).toBe(state.analysisPackage);
+    expect(read).not.toHaveBeenCalled();
+  } finally { repository.close(); read.mockRestore(); }
+  const reopened = createReviewSessionRepository({ root });
+  try { expect(reopened.openByPackageId(pkg.packageId).analysisPackage).toEqual(pkg); }
+  finally { reopened.close(); }
+});
+
+it("rolls back failed staged writes and closes staging before a successful retry", () => {
+  const root = mkdtempSync(join(tmpdir(), "coach-presentation-")); roots.push(root);
+  const repository = createReviewSessionRepository({ root });
+  const original = storage.stagePackageArtifact;
+  const close = vi.fn();
+  const stage = vi.spyOn(storage, "stagePackageArtifact").mockImplementation(value => {
+    const staged = original(value);
+    return { ...staged, insert(db, ref) { staged.insert(db, ref); throw new Error("test_write_failed"); },
+      close() { staged.close(); close(); } };
+  });
+  try {
+    expect(() => repository.saveSession(pkg, selection)).toThrow("test_write_failed");
+    expect(close).toHaveBeenCalledTimes(1);
+    expect(repository.listSessions()).toEqual([]);
+    const db = new DatabaseSync(join(root, "library.sqlite"));
+    try {
+      expect(db.prepare("SELECT count(*) AS count FROM analysis_packages").get()!.count).toBe(0);
+      expect(db.prepare("SELECT count(*) AS count FROM analysis_package_chunks").get()!.count).toBe(0);
+    } finally { db.close(); }
+    stage.mockRestore();
+    expect(repository.saveSession(pkg, selection).analysisPackage).toEqual(pkg);
+  } finally { stage.mockRestore(); repository.close(); }
 });
 
 it("reopens saved snapshot and every detail after restart without reading any package artifact", async () => {

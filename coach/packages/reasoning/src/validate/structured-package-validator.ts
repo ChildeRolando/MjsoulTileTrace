@@ -925,7 +925,28 @@ function assertPackageIdentity(pkg: StructuredAnalysisPackage): void {
 // validateStructuredAnalysisPackage
 // ---------------------------------------------------------------------------
 
+// Only privately owned, deeply immutable copies can reuse a validation result.
+// Mutable inputs, deserialized bytes and caller-frozen objects still validate.
+const validatedImmutablePackages = new WeakSet<object>();
+
+export function prepareValidatedStructuredAnalysisPackage(input: unknown): StructuredAnalysisPackage {
+  if (input !== null && typeof input === "object" && validatedImmutablePackages.has(input)) {
+    return input as StructuredAnalysisPackage;
+  }
+  validateStructuredAnalysisPackage(input);
+  const owned = structuredClone(input);
+  const freeze = (value: unknown): void => {
+    if (value === null || typeof value !== "object" || Object.isFrozen(value)) return;
+    for (const child of Object.values(value)) freeze(child);
+    Object.freeze(value);
+  };
+  freeze(owned);
+  validatedImmutablePackages.add(owned);
+  return owned;
+}
+
 export function validateStructuredAnalysisPackage(input: unknown): asserts input is StructuredAnalysisPackage {
+  if (input !== null && typeof input === "object" && validatedImmutablePackages.has(input)) return;
   // Inspect data descriptors before any schema/walker can execute a getter or
   // discard non-enumerable/symbol properties. Accepted artifacts are plain JSON.
   assertJsonRoundtrip(input);

@@ -7,6 +7,7 @@ import { join } from "node:path";
 import { DatabaseSync } from "node:sqlite";
 import { afterEach, describe, expect, it } from "vitest";
 import { createReviewSessionRepository } from "../src/review-session-repository.js";
+import { stagePackageArtifact } from "../src/package-artifact-storage.js";
 import { describePackageArtifact, insertPackageChunks, parsePackageJsonChunks, readPackageArtifact, readPackageMortalAgreement, readPackageMortalAgreementMetadata, readPackageRecordIdentity, PACKAGE_CHUNK_BYTES, PACKAGE_RAW_BLOCK_BYTES } from "../src/package-artifact-storage.js";
 
 const roots: string[] = [];
@@ -40,6 +41,23 @@ function highEntropyValue() {
 }
 
 describe("complete package bytes in bounded SQLite chunks", () => {
+  it.each([() => ({ payload: "牌谱".repeat(50_000) }), highEntropyValue])("stages one encoding with unchanged bytes and bounded rows", makeValue => {
+    const db = database();
+    const value = makeValue();
+    const staged = stagePackageArtifact(value);
+    try {
+      expect(staged.description).toEqual(describePackageArtifact(value));
+      db.exec("BEGIN IMMEDIATE");
+      const { payload, contentHash } = staged.description;
+      db.prepare("INSERT INTO analysis_packages VALUES(?,?,?,?,?)").run("staged", "staged-id", contentHash, "test-schema", payload);
+      staged.insert(db, "staged");
+      db.exec("COMMIT");
+      expect(readPackageArtifact(db, { package_ref_id: "staged", payload, content_hash: contentHash })).toEqual(value);
+      expect(Number(db.prepare("SELECT MAX(length(payload)) AS size FROM analysis_package_chunks").get()!.size)).toBeLessThanOrEqual(PACKAGE_CHUNK_BYTES);
+      staged.close();
+      expect(() => staged.insert(db, "staged")).toThrow("package_staging_closed");
+    } finally { staged.close(); db.close(); }
+  });
   it("reads only record identity across chunks and retains hash/schema failures", () => {
     const db = database();
     try {

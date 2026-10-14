@@ -10,8 +10,8 @@ import {
   type StructuredAnalysisPackage,
 } from "@riichi-coach/contracts";
 import {
-  composeReviewReadBackContext,
   createReviewSessionReadBackComposer,
+  prepareValidatedStructuredAnalysisPackage,
   selectReviewDecisions,
   validateStructuredAnalysisPackage,
   type ReviewReadBackContext,
@@ -19,7 +19,7 @@ import {
   type ReviewSessionReportInput,
   type ReviewSessionReadBackInput,
 } from "@riichi-coach/reasoning";
-import { describePackageArtifact, insertPackageChunks, readPackageArtifact, readPackageRecordIdentity } from "./package-artifact-storage.js";
+import { describePackageArtifact, insertPackageChunks, stagePackageArtifact, readPackageArtifact, readPackageRecordIdentity } from "./package-artifact-storage.js";
 import { aggregateCoachUsageHistory } from "./coach-usage-history.js";
 import { createReviewPresentationCache } from "./review-presentation-cache.js";
 
@@ -84,7 +84,7 @@ export type PersistedReviewState = Readonly<{
     generatedAt: string;
   }>[];
   decisionReportRefs: readonly ReviewSessionDecisionReportRef[];
-  /** Main-only, freshly validated from this read's actual disk bytes. Never persisted or sent over IPC. */
+  /** Main-only immutable context from validated disk bytes or this exact new write. */
   readBack: ReviewReadBackContext;
 }>;
 
@@ -521,13 +521,10 @@ export function createReviewSessionRepository(input: {
     },
 
     saveSession(analysisPackageInput: unknown, selectionInput: unknown): PersistedReviewState {
-      validateStructuredAnalysisPackage(analysisPackageInput);
-      // Validation and serialization are synchronous and never mutate/freeze
-      // the caller's package. The returned state owns a fresh disk read.
-      const analysisPackage = analysisPackageInput;
+      // Own an immutable copy; caller-frozen or mutable inputs do not confer
+      // trust. A package prepared by the analysis owner reuses that proof.
+      const analysisPackage = prepareValidatedStructuredAnalysisPackage(analysisPackageInput);
       const selection = ReviewSelectionResultSchema.parse(selectionInput);
-      composeReviewReadBackContext(analysisPackage, selection, null);
-      const packageArtifact = describePackageArtifact(analysisPackage);
       const selectionPayload = bytes(selection);
       const existing = sessionByPackageId(analysisPackage.packageId);
       if (existing !== undefined) {
@@ -551,16 +548,29 @@ export function createReviewSessionRepository(input: {
       const packageRefId = `package:${hash(Buffer.from(analysisPackage.packageId))}`;
       const sessionId = createId();
       const timestamp = now();
-      transaction(db, () => {
+      const version = dataVersion();
+      const composer = createReviewSessionReadBackComposer(analysisPackage, selection);
+      const staged = stagePackageArtifact(analysisPackage);
+      const packageArtifact = staged.description;
+      try { transaction(db, () => {
+        if (dataVersion() !== version) throw new Error("review_changed_during_read");
         const byId = db.prepare("SELECT * FROM analysis_packages WHERE package_id=?").get(analysisPackage.packageId) as PackageArtifactRow | undefined;
         if (byId !== undefined && describePackageArtifact(readPackageArtifact(db, byId)).contentHash !== packageArtifact.contentHash) throw new Error("identity_conflict");
         const inserted = db.prepare("INSERT OR IGNORE INTO analysis_packages VALUES(?,?,?,?,?)").run(packageRefId, analysisPackage.packageId, packageArtifact.contentHash, analysisPackage.componentVersions.packageSchema, packageArtifact.payload);
-        if (Number(inserted.changes) === 1) insertPackageChunks(db, packageRefId, analysisPackage, packageArtifact);
+        if (Number(inserted.changes) === 1) staged.insert(db, packageRefId);
         db.prepare(`INSERT INTO review_sessions
           (session_id,package_ref_id,selection_hash,selection_payload,revision,created_at,updated_at,decision_report_map_hash)
           VALUES(?,?,?,?,?,?,?,?)`).run(sessionId, packageRefId, hash(selectionPayload), selectionPayload, 0, timestamp, timestamp, decisionReportMapHash([]));
         db.prepare("INSERT INTO session_active_report VALUES(?,?,NULL)").run(sessionId, packageRefId);
-      });
+      }); } finally { staged.close(); }
+      // Own-connection commits do not change data_version. A concurrent writer
+      // invalidates this seed and read() follows the ordinary disk path.
+      if (dataVersion() === version) preparedPackage = {
+        binding: JSON.stringify([packageRefId, analysisPackage.packageId,
+          packageArtifact.contentHash, analysisPackage.componentVersions.packageSchema, hash(selectionPayload)]),
+        dataVersion: version,
+        composer,
+      };
       return read(sessionByPackageId(analysisPackage.packageId)!);
     },
 

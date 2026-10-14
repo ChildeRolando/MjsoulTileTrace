@@ -76,6 +76,7 @@ import {
   type StructuredAnalysisPackage,
   parseCanonicalEventRef,
 } from "@riichi-coach/contracts";
+import type { DecisionStreamContext } from "../replay/decision-snapshot.js";
 import type { ReplayedDecision } from "../replay/stream-replayer.js";
 import type {
   MortalFullGameLedgerEntry,
@@ -94,6 +95,7 @@ import { rebindLibriichiDecision } from "./libriichi-rule-collection.js";
 import { validateLibriichiPackageEvidence } from "../validate/libriichi-package-evidence.js";
 
 export type BuildStructuredAnalysisPackageInput = {
+  readonly streamContext?: DecisionStreamContext;
   /** The coverage_ready whole-game review result, with retained payloads. */
   readonly review: Extract<MortalFullGameReviewResult, { status: "coverage_ready" }>;
   /** The canonical stream the review consumed (identity + event descriptors).
@@ -363,7 +365,7 @@ export function buildStructuredAnalysisPackage(
   }
   const all = [...input.decisions,...responseDecisions];
   if (native.results.size !== all.length) throw new Error("m6c_builder_rule_census_mismatch");
-  const project = createLibriichiRuleProjector(stream,native.identity);
+  const project = createLibriichiRuleProjector(stream,native.identity,input.streamContext);
   const legalActionEvidence = LibriichiPackageEvidenceSchema.parse({identity:native.identity,results:all.map(decision=> {
     const supplied = native.results.get(decision.decisionEventRef);
     if (supplied === undefined) throw new Error("m6c_builder_rule_census_mismatch");

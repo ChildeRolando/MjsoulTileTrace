@@ -21,6 +21,7 @@ import {
 } from "@riichi-coach/mortal-source";
 import type { HandStructureFactEnginePort } from "../fact-engine/port.js";
 import type { StructuredFactorPipelineResult } from "../factors/structured-factor-pipeline.js";
+import { useDecisionStreamContext, type DecisionStreamContext } from "../replay/decision-snapshot.js";
 import type { ReplayedDecision } from "../replay/stream-replayer.js";
 import {
   entryMatchesDecisionIdentity,
@@ -537,6 +538,7 @@ function analysisBlockedReason(
 }
 
 export async function runMortalFullGameReview(input: {
+  readonly streamContext?: DecisionStreamContext;
   readonly stream: CanonicalEventStream;
   readonly decisions: readonly ReplayedDecision[];
   // M6-A4.2: the response surface is a SECOND partition — windows replayed by
@@ -573,7 +575,8 @@ export async function runMortalFullGameReview(input: {
   if (responseInputError !== null) {
     return { status: "failed", code: "mortal_full_game_input_invalid" };
   }
-  const stream = CanonicalEventStreamSchema.parse(input.stream);
+  const streamContext = useDecisionStreamContext(input.stream, input.streamContext);
+  const stream = streamContext.stream;
 
   try {
     validateMortalReportBinding(stream, input.report);
@@ -598,7 +601,7 @@ export async function runMortalFullGameReview(input: {
   if (refs.size !== boundaries.length || [...input.libriichi.results.keys()].some(ref => !refs.has(ref))) {
     return {status:"failed",code:"mortal_full_game_input_invalid"};
   }
-  const project = createLibriichiRuleProjector(stream, input.libriichi.identity);
+  const project = createLibriichiRuleProjector(stream, input.libriichi.identity, streamContext);
   for (const decision of boundaries) {
     try {
       const supplied = input.libriichi.results.get(decision.decisionEventRef);
@@ -946,6 +949,7 @@ export async function runMortalFullGameReview(input: {
 
       const result = await runBoundMortalDecisionReview({
         stream,
+        streamContext,
         decision,
         report: input.report,
         entry: row.sourceEntry,
