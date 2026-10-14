@@ -176,6 +176,8 @@ export const ReviewBoardSchema = z.object({
   riichiActors: z.array(z.number().int().min(0).max(3)),
   complete: z.boolean(),
   actualTile: TileSchema.nullable(),
+  actualDiscardMode: z.enum(["tsumogiri", "tedashi"]).optional(),
+  mortalDiscards: z.array(z.object({tile: TileSchema, discardMode: z.enum(["tsumogiri", "tedashi"])}).strict()).optional(),
   discardLoss: DiscardLossSchema.optional(),
 }).strict();
 export type ReviewBoardDto = z.infer<typeof ReviewBoardSchema>;

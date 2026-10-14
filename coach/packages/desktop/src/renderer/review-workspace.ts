@@ -1,4 +1,4 @@
-import type { FixedReviewDetailDto, FixedReviewSnapshotDto, Tile } from "@riichi-coach/contracts";
+import type { FixedReviewDetailDto, FixedReviewSnapshotDto, ReviewBoardDto, Tile } from "@riichi-coach/contracts";
 const winds = ["东", "南", "西", "北"];
 const windIds = ["E", "S", "W", "N"];
 const tags: Record<string, string> = { efficiency: "牌效", value: "打点", defense: "防守", placement: "顺位", option_value: "选择空间" };
@@ -18,6 +18,19 @@ function tileImage(d: Document, t: Tile) {
     image.alt = tileName(t);
     image.draggable = false;
     return image;
+}
+// Match physical slots rather than decorating every copy of the same tile.
+export function handBadgeSlots(board: ReviewBoardDto) {
+    const tiles = [...board.hand, ...(board.draw ? [board.draw] : [])];
+    const slot = (tile: Tile, mode?: "tsumogiri" | "tedashi") => {
+        const matches = (t: Tile) => t.id === tile.id && t.red === tile.red;
+        if (mode === "tsumogiri") return board.draw && matches(board.draw) ? tiles.length - 1 : -1;
+        const inHand = board.hand.findIndex(matches);
+        if (inHand >= 0 || mode === "tedashi") return inHand;
+        return board.draw && matches(board.draw) ? tiles.length - 1 : -1;
+    };
+    return { actual: board.actualTile ? slot(board.actualTile, board.actualDiscardMode) : -1,
+        mortal: new Set((board.mortalDiscards ?? []).map(a => slot(a.tile, a.discardMode)).filter(i => i >= 0)) };
 }
 export function readWorkspaceNotes(): Array<{
     packageId: string;
@@ -127,7 +140,7 @@ export function createReviewWorkspace(d: Document, root: HTMLElement, snapshot: 
         }
         const heading = make(d, "div", "board-heading");
         const title = make(d, "div", "");
-        title.append(make(d, "h1", "", `${b.roundLabel} / ${b.turnLabel}`), make(d, "p", "", `你的视角 · ${winds[windIds.indexOf(b.seatWind)]}家`));
+        title.append(make(d, "h1", "", `${b.roundLabel} / ${b.turnLabel}`));
         const note = make(d, "button", "quiet");
         note.type = "button";
         const updateNote = () => { note.textContent = readWorkspaceNotes().some(x => x.packageId === detail.packageId && x.decisionId === detail.decisionId) ? "✓ 已读" : "标记已读"; };
@@ -176,18 +189,22 @@ export function createReviewWorkspace(d: Document, root: HTMLElement, snapshot: 
         table.append(dora);
         const handZone = make(d, "div", "workspace-hand-zone");
         const hand = make(d, "div", "workspace-hand");
-        handZone.append(make(d, "p", "hand-caption", "你的手牌 · 悬浮或点按查看"), hand);
+        handZone.append(hand);
         const loss = make(d, "div", "hand-loss");
         loss.hidden = true;
         loss.setAttribute("role", "status");
         const handTiles = [...b.hand, ...(b.draw ? [b.draw] : [])];
+        const badgeSlots = handBadgeSlots(b);
         handTiles.forEach((t, i) => {
             const button = make(d, "button", b.draw && i === handTiles.length - 1 ? "drawn" : "");
             button.type = "button";
             button.setAttribute("aria-label", `查看${tileName(t)}`);
             button.append(tileImage(d, t));
-            if (b.actualTile?.id === t.id && b.actualTile.red === t.red)
-                button.classList.add("actual-tile");
+            const badges = make(d,"span","hand-badges");
+            if (badgeSlots.actual === i) badges.append(make(d,"span","you-badge","你"));
+            if (badgeSlots.mortal.has(i)) badges.append(make(d,"span","mortal-badge","mortal"));
+            button.append(badges);
+            button.setAttribute("aria-label", `查看${tileName(t)}${badgeSlots.actual === i ? "，你的选择" : ""}${badgeSlots.mortal.has(i) ? "，mortal 推荐" : ""}`);
             const show = () => {
                 loss.replaceChildren(make(d,"strong","",`打出 ${tileName(t)}`));
                 const result = b.discardLoss;
@@ -212,7 +229,6 @@ export function createReviewWorkspace(d: Document, root: HTMLElement, snapshot: 
                             section.append(list); loss.append(section);
                         };
                         group("直接进张",candidate.directLost); group("改良张",candidate.improvementLost);
-                        loss.append(make(d,"small","loss-basis","相对摸牌后可保留的机会；改良仅指不进向听、后续进张增加。枚数按已知可见牌计算。"));
                     }
                 }
                 loss.hidden = false;
@@ -229,7 +245,9 @@ export function createReviewWorkspace(d: Document, root: HTMLElement, snapshot: 
             loss.hidden = true; });
         handZone.append(loss);
         if (b.melds.some(m => m.actor === null)) handZone.append(make(d,"small","","部分副露归属未记录，未摆放到玩家位置。"));
-        boardHost.append(heading, make(d, "p", "board-caption", b.complete ? "决策前的牌桌" : "局面数据不完整，以下仅显示已知牌面"), table, handZone);
+        boardHost.append(heading);
+        if (!b.complete) boardHost.append(make(d, "p", "board-caption", "局面数据不完整，以下仅显示已知牌面"));
+        boardHost.append(table, handZone);
     };
     return { detailHost, statusHost, meta, showBoard, select, showLoading: (id: string) => { select(id); boardHost.replaceChildren(make(d, "p", "workspace-empty", "正在读取这手牌…")); detailHost.replaceChildren(make(d, "p", "workspace-empty", "正在读取教练解说…")); } };
 }

@@ -708,6 +708,19 @@ document.querySelectorAll<HTMLButtonElement>("[data-source]").forEach(b=>b.addEv
   document.querySelector<HTMLElement>("#source-recent")!.hidden=b.dataset.source!=="recent";
   document.querySelector<HTMLElement>("#source-link")!.hidden=b.dataset.source!=="link";
 }));
+const skinIds = ["classic", "rhine", "orbit"] as const;
+let skinId = "orbit";
+try { const saved = localStorage.getItem("coach-workspace-skin"); if (saved && skinIds.some(id => id === saved)) skinId = saved; } catch {}
+const applySkin = () => {
+  document.documentElement.dataset.skin = skinId;
+  document.querySelectorAll<HTMLSelectElement>("[data-skin-select]").forEach(select => { select.value = skinId; });
+};
+applySkin();
+document.querySelectorAll<HTMLSelectElement>("[data-skin-select]").forEach(select => select.addEventListener("change", () => {
+  if (!skinIds.some(id => id === select.value)) return;
+  skinId = select.value; applySkin();
+  try { localStorage.setItem("coach-workspace-skin", skinId); } catch {}
+}));
 try{document.documentElement.dataset.theme=localStorage.getItem("coach-workspace-theme")??"light";}catch{}
 document.querySelector("#theme-toggle")?.addEventListener("click",()=>{const theme=document.documentElement.dataset.theme==="dark"?"light":"dark";document.documentElement.dataset.theme=theme;try{localStorage.setItem("coach-workspace-theme",theme);}catch{}});
 renderWorkspaceRoute();

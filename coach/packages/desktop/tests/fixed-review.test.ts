@@ -20,6 +20,18 @@ const provider = {
 const report = await generateReviewReport(projectContextGraph(pkg), selection, provider, "2026-09-22T00:00:00.000Z");
 
 describe("safe board projection", () => {
+  it("projects actual and Mortal discard markers from actions, excluding other engines and non-discards", () => {
+    const original = pkg.decisions.find(d => d.outcome === "analysis_ready")!;
+    if (original.outcome !== "analysis_ready") throw new Error("missing fixture");
+    const decision=structuredClone(original);
+    expect(presentReviewBoard(decision)).toMatchObject({actualTile:{id:"5p",red:false},actualDiscardMode:"tsumogiri",mortalDiscards:[{tile:{id:"9m",red:false},discardMode:"tedashi"}]});
+    decision.modelEvaluation.scoreMethod="akagi_softmax_x100" as typeof decision.modelEvaluation.scoreMethod;
+    expect(presentReviewBoard(decision).mortalDiscards).toEqual([]);
+    decision.modelEvaluation.scoreMethod="mortal_probability_x100";
+    const preferred=decision.comparisonSet.candidates.find(c=>c.actionRef===decision.modelEvaluation.preferredActions[0])!;
+    preferred.action={kind:"tsumo",winningTile:{id:"9m",red:false},drawEventRef:"test-draw"};
+    expect(presentReviewBoard(decision).mortalDiscards).toEqual([]);
+  });
   it("marks only the declaration discard and preserves each discard's draw flag", () => {
     const original = pkg.decisions.find(d => d.outcome === "analysis_ready")!;
     if (original.outcome !== "analysis_ready") throw new Error("fixture missing ready decision");

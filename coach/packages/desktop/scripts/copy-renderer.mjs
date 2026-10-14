@@ -8,5 +8,6 @@ await Promise.all([
   copyFile(`${source}index.html`, `${target}index.html`),
   copyFile(`${source}styles.css`, `${target}styles.css`),
   copyFile(`${source}workspace.css`, `${target}workspace.css`),
+  copyFile(`${source}skins.css`, `${target}skins.css`),
   cp(`${source}tiles`, `${target}tiles`, { recursive: true }),
 ]);

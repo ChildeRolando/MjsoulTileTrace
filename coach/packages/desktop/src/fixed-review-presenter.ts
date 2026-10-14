@@ -48,6 +48,13 @@ export function presentReviewBoard(decision: ReadyDecision) {
     melds: facts.melds.map(meld => ({actor:meld.actor ?? null, label:({chi:"吃",pon:"碰",daiminkan:"明杠",ankan:"暗杠",kakan:"加杠"})[meld.kind],tiles:meld.tiles})),
     riichiActors: [...new Set([...facts.threats.filter(t=>t.riichi).map(t=>t.actor),...(facts.selfRiichi?[facts.actor]:[])])],
     complete: facts.completeness.concealedTiles && facts.completeness.rivers && facts.completeness.melds && facts.completeness.doraIndicators,
+    actualDiscardMode: action?.kind === "discard" || action?.kind === "riichi_discard" ? action.discardMode : undefined,
+    mortalDiscards: decision.modelEvaluation.scoreMethod === "mortal_probability_x100"
+      ? decision.modelEvaluation.preferredActions.flatMap(ref => {
+          const preferred = decision.comparisonSet.candidates.find(c => c.actionRef === ref)?.action;
+          return preferred?.kind === "discard" || preferred?.kind === "riichi_discard"
+            ? [{tile: preferred.tile, discardMode: preferred.discardMode}] : [];
+        }) : [],
     actualTile: action?.kind === "discard" || action?.kind === "riichi_discard" ? action.tile : null,
   };
 }
