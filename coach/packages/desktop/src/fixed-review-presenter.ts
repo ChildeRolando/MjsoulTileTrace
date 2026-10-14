@@ -36,7 +36,15 @@ export function presentReviewBoard(decision: ReadyDecision) {
     scores: facts.scores?.status === "known" ? facts.scores.byActor : null,
     hand: sortTilesCanonical(facts.concealedTiles), draw: facts.currentDraw?.tile ?? null,
     dora: facts.doraIndicators,
-    rivers: facts.rivers.map(river => river.map(({tile,tsumogiri}) => ({tile,tsumogiri}))),
+    rivers: facts.rivers.map((river,actor) => {
+      const declaration = facts.threats.find(t => t.actor === actor && t.riichi)?.declarationEventId;
+      const declarationDiscard = declaration == null ? -1 : river.findIndex(d => d.eventId === declaration || d.afterRiichiEventIds.includes(declaration));
+      return river.map(({tile,tsumogiri},index) => ({tile,tsumogiri,
+        riichiDeclaration:actor === facts.actor
+          ? facts.furitenSelfRiver?.[index]?.riichiDeclarationEventRef != null
+          : index === declarationDiscard,
+      }));
+    }),
     melds: facts.melds.map(meld => ({actor:meld.actor ?? null, label:({chi:"吃",pon:"碰",daiminkan:"明杠",ankan:"暗杠",kakan:"加杠"})[meld.kind],tiles:meld.tiles})),
     riichiActors: [...new Set([...facts.threats.filter(t=>t.riichi).map(t=>t.actor),...(facts.selfRiichi?[facts.actor]:[])])],
     complete: facts.completeness.concealedTiles && facts.completeness.rivers && facts.completeness.melds && facts.completeness.doraIndicators,

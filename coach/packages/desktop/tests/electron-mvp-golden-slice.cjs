@@ -26,6 +26,9 @@ async function inPage(mode) {
     if (!detail.board || document.querySelectorAll('.workspace-hand .tile').length !== detail.board.hand.length + (detail.board.draw ? 1 : 0)) {
       throw new Error('golden_workspace_board_dto_mismatch');
     }
+    if (detail.board.discardLoss?.status !== 'ready' || !detail.board.discardLoss.candidates.length) {
+      throw new Error('golden_workspace_real_efficiency_missing:' + detail.board.discardLoss?.reason);
+    }
     const fact = detail.provenance.find((item) => item.category === 'hard_evidence' && item.label === '局面事实');
     const riichi = fact?.details.find((item) => item.label === '自家立直');
     if (!fact?.displayRef || !fact.producer || !fact.summary.includes('自家未立直') || riichi?.value !== '否') {

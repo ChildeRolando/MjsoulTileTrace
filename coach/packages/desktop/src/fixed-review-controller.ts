@@ -329,6 +329,11 @@ export function createFixedReviewController(input: {
       return presentFixedReviewDetailFromContext(state.readBack, decisionId, state.activeReportRefId);
     },
 
+    /** Internal calculation input; never exposed through IPC or preload. */
+    reviewCalculationPackage(packageId: string): StructuredAnalysisPackage {
+      return requireState(packageId).analysisPackage;
+    },
+
     /** Internal lifecycle capability only; intentionally absent from IPC/preload. */
     activateReport(packageId: string, targetReportRefId: string): FixedReviewSnapshotDto {
       if (input.repository !== undefined) {

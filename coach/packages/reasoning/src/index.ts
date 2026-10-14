@@ -103,3 +103,4 @@ export {
 } from "./reviewReport.js";
 export * from "./coach-prompt.js";
 export * from "./coach-teaching-brief.js";
+export * from "./factors/discard-loss.js";

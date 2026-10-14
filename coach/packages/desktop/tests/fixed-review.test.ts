@@ -20,6 +20,23 @@ const provider = {
 const report = await generateReviewReport(projectContextGraph(pkg), selection, provider, "2026-09-22T00:00:00.000Z");
 
 describe("safe board projection", () => {
+  it("marks only the declaration discard and preserves each discard's draw flag", () => {
+    const original = pkg.decisions.find(d => d.outcome === "analysis_ready")!;
+    if (original.outcome !== "analysis_ready") throw new Error("fixture missing ready decision");
+    const decision = structuredClone(original), facts = decision.knownGameFacts;
+    facts.actor = 0;
+    const tile = {id:"1m" as const,red:false};
+    facts.rivers = [[{tile,actor:0,tsumogiri:false,eventId:"self-discard",afterRiichiEventIds:["self-reach"]}],
+      [{tile,actor:1,tsumogiri:false,eventId:"before",afterRiichiEventIds:[]},
+       {tile,actor:1,tsumogiri:true,eventId:"declaration",afterRiichiEventIds:["opponent-reach"]},
+       {tile,actor:1,tsumogiri:true,eventId:"later",afterRiichiEventIds:["opponent-reach"]}],[],[]];
+    facts.furitenSelfRiver=[{tile,actor:0,discardMode:"tedashi",eventRef:"self-discard",riichiDeclarationEventRef:"self-reach",calledByEventRef:null}];
+    facts.threats=[{actor:1,riichi:true,declarationEventId:"opponent-reach"} as typeof facts.threats[number]];
+    const board=presentReviewBoard(decision);
+    expect(board.rivers[0]!.map(d=>d.riichiDeclaration)).toEqual([true]);
+    expect(board.rivers[1]!.map(d=>d.riichiDeclaration)).toEqual([false,true,false]);
+    expect(board.rivers[1]!.map(d=>d.tsumogiri)).toEqual([false,true,true]);
+  });
   it("preserves known tiles, red draw and actor-indexed scores without source references", () => {
     const original = pkg.decisions.find(d => d.outcome === "analysis_ready")!;
     if (original.outcome !== "analysis_ready") throw new Error("fixture missing ready decision");
@@ -36,7 +53,7 @@ describe("safe board projection", () => {
     expect(board.roundLabel).toBe("南 1 局");
     expect(board.honba).toBe(2);
     expect(board.riichiSticks).toBe(1);
-    expect(board.rivers).toEqual(facts.rivers.map(river => river.map(({tile,tsumogiri}) => ({tile,tsumogiri}))));
+    expect(board.rivers.map(river => river.map(({tile,tsumogiri}) => ({tile,tsumogiri})))).toEqual(facts.rivers.map(river => river.map(({tile,tsumogiri}) => ({tile,tsumogiri}))));
     expect(JSON.stringify(board)).not.toContain("eventRef");
     expect(JSON.stringify(board)).not.toContain("evidenceIds");
     expect(JSON.stringify(board)).not.toContain("private-source-event");

@@ -143,6 +143,22 @@ export const FixedReviewSnapshotSchema = z.object({
   }).strict(),
 }).strict();
 
+const LostTileSchema = z.object({
+  tile: TileSchema, count: z.number().int().min(1).max(4),
+  degradedToImprovement: z.boolean(),
+}).strict();
+export const DiscardLossSchema = z.discriminatedUnion("status", [
+  z.object({status:z.literal("unavailable"),reason:z.enum(["legal_actions_missing","facts_missing","engine_failed","not_discard_window"])}).strict(),
+  z.object({
+    status:z.literal("ready"), baselineShanten:z.number().int().min(0).max(13),
+    candidates:z.array(z.object({
+      tile:TileSchema, discardMode:z.enum(["tedashi","tsumogiri"]), shanten:z.number().int().min(0).max(13),
+      directLost:z.array(LostTileSchema), improvementLost:z.array(LostTileSchema),
+    }).strict()),
+  }).strict(),
+]);
+export type DiscardLossDto = z.infer<typeof DiscardLossSchema>;
+
 /** Display-only projection of known facts; no raw source payload or private hands. */
 export const ReviewBoardSchema = z.object({
   actor: z.number().int().min(0).max(3),
@@ -155,11 +171,12 @@ export const ReviewBoardSchema = z.object({
   hand: z.array(TileSchema),
   draw: TileSchema.nullable(),
   dora: z.array(TileSchema),
-  rivers: z.array(z.array(z.object({tile: TileSchema, tsumogiri: z.boolean()}).strict())).length(4),
+  rivers: z.array(z.array(z.object({tile: TileSchema, tsumogiri: z.boolean(), riichiDeclaration:z.boolean().optional()}).strict())).length(4),
   melds: z.array(z.object({actor:z.number().int().min(0).max(3).nullable(),label:z.string(),tiles:z.array(TileSchema)}).strict()),
   riichiActors: z.array(z.number().int().min(0).max(3)),
   complete: z.boolean(),
   actualTile: TileSchema.nullable(),
+  discardLoss: DiscardLossSchema.optional(),
 }).strict();
 export type ReviewBoardDto = z.infer<typeof ReviewBoardSchema>;
 

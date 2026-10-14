@@ -339,6 +339,7 @@ export function validateHand13Result(
   if (!parsed.success) rejectInvalidResponse();
   const result = parsed.data;
   validateBoundResult(request, result);
+  if (result.calculationMode !== request.calculationMode) rejectInvalidResponse();
   return result;
 }
 

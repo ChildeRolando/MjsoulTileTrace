@@ -154,8 +154,21 @@ export function createReviewWorkspace(d: Document, root: HTMLElement, snapshot: 
                 seat.append(make(d, "span", "riichi", "立直"));
             const river = make(d, "div", `table-river ${position}`);
             river.setAttribute("aria-label", `${["你的", "下家", "对家", "上家"][offset]}牌河`);
-            b.rivers[actor]!.forEach(x => { const img = tileImage(d, x.tile); img.title = x.tsumogiri ? "摸切" : "手切"; river.append(img); });
-            table.append(seat, river);
+            let riverRow: HTMLElement;
+            b.rivers[actor]!.forEach((x,index) => {
+                if (index % 6 === 0) { riverRow = make(d,"div","river-row"); river.append(riverRow); }
+                const cell = make(d,"span",`river-tile${x.tsumogiri ? " tsumogiri" : ""}${x.riichiDeclaration ? " sideways" : ""}`);
+                cell.title = `${tileName(x.tile)} · ${x.tsumogiri ? "摸切" : "手切"}${x.riichiDeclaration ? " · 立直宣言" : ""}`;
+                cell.append(tileImage(d,x.tile)); riverRow!.append(cell);
+            });
+            const melds = make(d,"div",`table-melds ${position}`);
+            melds.setAttribute("aria-label",`${["你的","下家","对家","上家"][offset]}副露`);
+            b.melds.filter(m => m.actor === actor).forEach(m => {
+                const group = make(d,"div","meld"); group.title = m.label;
+                group.setAttribute("aria-label",m.label);
+                m.tiles.forEach(t => group.append(tileImage(d,t))); melds.append(group);
+            });
+            table.append(seat, river, melds);
         });
         const dora = make(d, "div", "table-dora");
         dora.append(make(d, "small", "", "宝牌指示"));
@@ -175,7 +188,35 @@ export function createReviewWorkspace(d: Document, root: HTMLElement, snapshot: 
             button.append(tileImage(d, t));
             if (b.actualTile?.id === t.id && b.actualTile.red === t.red)
                 button.classList.add("actual-tile");
-            const show = () => { loss.replaceChildren(make(d, "strong", "", `打出 ${tileName(t)}`), make(d, "p", "", "直接进张：尚无完整损失数据"), make(d, "p", "", "改良张：尚无完整损失数据"), make(d, "small", "", "当前保存的候选对分析不足以建立全手机会基准；不将缺失数据记为 0。")); loss.hidden = false; };
+            const show = () => {
+                loss.replaceChildren(make(d,"strong","",`打出 ${tileName(t)}`));
+                const result = b.discardLoss;
+                if (!result || result.status !== "ready") {
+                    const reason = result?.status === "unavailable" ? result.reason : "facts_missing";
+                    loss.append(make(d,"p","",({legal_actions_missing:"旧复盘缺少完整合法切牌记录，请重新分析牌谱。",facts_missing:"可见牌记录不完整，暂不能计算损失。",engine_failed:"计算暂时失败，重新打开这手牌可重试。",not_discard_window:"当前局面不是打牌窗口。"})[reason]));
+                } else {
+                    const mode = b.draw && i === handTiles.length - 1 ? "tsumogiri" : "tedashi";
+                    const candidate = result.candidates.find(c => c.tile.id === t.id && c.tile.red === t.red && c.discardMode === mode);
+                    if (!candidate) loss.append(make(d,"p","","当前不能打出这张牌。"));
+                    else {
+                        if (candidate.shanten > result.baselineShanten) loss.append(make(d,"p","loss-regression",`退向听：${result.baselineShanten} → ${candidate.shanten}`));
+                        const group = (label:string,tiles:typeof candidate.directLost) => {
+                            const section = make(d,"section","loss-group");
+                            section.append(make(d,"p","",`${label} · 损 ${tiles.reduce((n,x)=>n+x.count,0)} 枚${tiles.length ? ` / ${tiles.length} 种` : ""}`));
+                            const list = make(d,"div","loss-tiles");
+                            tiles.forEach(x => {
+                                const item = make(d,"div","loss-tile"); item.append(tileImage(d,x.tile),make(d,"span","",`损 ${x.count}`));
+                                if (x.degradedToImprovement) item.append(make(d,"small","","降为改良"));
+                                list.append(item);
+                            });
+                            section.append(list); loss.append(section);
+                        };
+                        group("直接进张",candidate.directLost); group("改良张",candidate.improvementLost);
+                        loss.append(make(d,"small","loss-basis","相对摸牌后可保留的机会；改良仅指不进向听、后续进张增加。枚数按已知可见牌计算。"));
+                    }
+                }
+                loss.hidden = false;
+            };
             button.addEventListener("pointerenter", show);
             button.addEventListener("focus", show);
             button.addEventListener("click", show);
@@ -187,11 +228,7 @@ export function createReviewWorkspace(d: Document, root: HTMLElement, snapshot: 
         handZone.addEventListener("focusout", e => { if (!handZone.contains(e.relatedTarget as Node))
             loss.hidden = true; });
         handZone.append(loss);
-        if (b.melds.length) {
-            const melds = make(d, "div", "workspace-melds");
-            b.melds.forEach(m => { const group = make(d, "div", "meld"); group.append(make(d, "small", "", `${m.actor === null ? "归属未记录" : m.actor === b.actor ? "你" : `玩家 ${m.actor + 1}`} · ${m.label}`)); m.tiles.forEach(t => group.append(tileImage(d, t))); melds.append(group); });
-            handZone.append(melds);
-        }
+        if (b.melds.some(m => m.actor === null)) handZone.append(make(d,"small","","部分副露归属未记录，未摆放到玩家位置。"));
         boardHost.append(heading, make(d, "p", "board-caption", b.complete ? "决策前的牌桌" : "局面数据不完整，以下仅显示已知牌面"), table, handZone);
     };
     return { detailHost, statusHost, meta, showBoard, select, showLoading: (id: string) => { select(id); boardHost.replaceChildren(make(d, "p", "workspace-empty", "正在读取这手牌…")); detailHost.replaceChildren(make(d, "p", "workspace-empty", "正在读取教练解说…")); } };
