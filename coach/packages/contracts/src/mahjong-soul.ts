@@ -68,6 +68,8 @@ export const MahjongSoulSourceErrorCodeSchema = z.enum([
   "mahjong_soul_catalog_sync_failed",
   "mahjong_soul_record_not_analyzable",
   "mahjong_soul_record_fetch_failed",
+  "mahjong_soul_record_analysis_failed",
+  "mahjong_soul_record_save_failed",
   "unsupported_mahjong_soul_record_version",
   "mahjong_soul_record_identity_mismatch",
   "mahjong_soul_record_container_invalid",

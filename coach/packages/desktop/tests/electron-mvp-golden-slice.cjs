@@ -78,7 +78,7 @@ async function inPage(mode) {
     button.click();
   }
   if (mode === 'account_failure') {
-    await wait(() => document.querySelector('#catalog-detail').textContent.includes('暂时无法分析'), 'account_failure');
+    await wait(() => document.querySelector('#catalog-detail').textContent.includes('计算分析时发生错误'), 'account_failure');
     const sessions = await window.riichiCoachProvider.listReviewSessions();
     if (sessions.length !== 0 || !document.querySelector('#fixed-review').hidden) throw new Error('golden_failure_partial_navigation');
     return { sessions: sessions.length, sourceVisible: !document.querySelector('#catalog-list').hidden };

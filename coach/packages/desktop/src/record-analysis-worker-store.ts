@@ -11,8 +11,8 @@ export type RecordAnalysisStorePort = Omit<RecordAnalysisStore, "analyzeRecord">
 };
 
 /** The existing mapper/replay owner runs off main as well. Only canonical
- * input context crosses back, never a structured analysis package. Account
- * fetch validation and subsequent handoff share the same byte-bound result. */
+ * input context crosses back, never a structured analysis package. Ingestion
+ * handoffs share this byte-bound result after authenticated source decoding. */
 export function createRecordAnalysisWorkerStore(options: { workerEntry?: URL } = {}): RecordAnalysisStorePort & { close(): Promise<void> } {
   const prepared = new Map<string, { identity: string; outcome: RecordAnalysisOutcome }>();
   const active = new Map<string, Promise<RecordAnalysisOutcome>>();

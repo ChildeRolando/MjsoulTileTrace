@@ -2,10 +2,12 @@ import { parentPort, workerData } from "node:worker_threads";
 import { fileURLToPath } from "node:url";
 import { loadMahjongSoulProtocolBundle } from "@riichi-coach/mahjong-soul-source";
 import { createLocalMortalRuntimeService } from "./local-mortal-runtime-service.js";
-import { createLocalMortalAnalysisService } from "./local-mortal-analysis-service.js";
+import { createLocalMortalAnalysisService, localMortalAnalysisCacheKey } from "./local-mortal-analysis-service.js";
 import { createReviewSessionRepository, persistValidatedReviewSession } from "./review-session-repository.js";
 import { createReviewSessionLabelStore } from "./review-session-labels.js";
 import type { AnalysisWorkerData } from "./analysis-worker-host.js";
+
+let failureCode = "mahjong_soul_record_analysis_failed";
 
 async function run(): Promise<void> {
   if (parentPort === null) throw new Error("analysis_unavailable");
@@ -25,16 +27,23 @@ async function run(): Promise<void> {
       runtime = golden.createRuntime(data.request.decisions);
     } else runtime = await createLocalMortalRuntimeService(data.runtimeOptions);
     if (cancelled) throw new Error("analysis_cancelled");
+    repository = createReviewSessionRepository({ root: data.reviewRoot });
+    const inputKey = localMortalAnalysisCacheKey(data.request, runtime);
+    const completed = repository.findCompletedAnalysis(inputKey);
+    if (completed !== null) {
+      port.postMessage({ type: "result", result: completed });
+      return;
+    }
     const analysis = createLocalMortalAnalysisService({ runtime, factEngineResourcesDir: data.resourcesDir,
       onProgress: progress => port.postMessage({ type: "progress", progress }) });
     const analyzed = await analysis.analyze(data.request);
     await runtime.close();
     if (cancelled) throw new Error("analysis_cancelled");
     port.postMessage({ type: "progress", progress: { stage: "saving", completed: 0, total: null } });
-    repository = createReviewSessionRepository({ root: data.reviewRoot });
+    failureCode = "mahjong_soul_record_save_failed";
     labels = createReviewSessionLabelStore({ root: data.reviewRoot });
     labels.rememberCatalog(data.catalog);
-    result = persistValidatedReviewSession(repository, analyzed.package);
+    result = persistValidatedReviewSession(repository, analyzed.package, inputKey);
     labels.observePackage(analyzed.package);
   } finally {
     await runtime?.close().catch(() => undefined);
@@ -44,5 +53,5 @@ async function run(): Promise<void> {
   port.postMessage({ type: "result", result });
 }
 
-void run().catch(() => parentPort?.postMessage({ type: "failed" }))
+void run().catch(() => parentPort?.postMessage({ type: "failed", code: failureCode }))
   .finally(() => parentPort?.close());

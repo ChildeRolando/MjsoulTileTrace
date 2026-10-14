@@ -19,6 +19,31 @@ const controller = (repository: ReturnType<typeof createReviewSessionRepository>
   generateReport: async () => { throw new Error("unexpected provider"); },
 });
 
+it("reuses a completed analysis across restart without reading the full package, preserving the saved session", () => {
+  const root = mkdtempSync(join(tmpdir(), "coach-analysis-reuse-")); roots.push(root);
+  let repository = createReviewSessionRepository({ root });
+  const state = repository.saveSession(pkg, selection);
+  repository.rememberCompletedAnalysis("source-and-version-key", state);
+  const expected = { sessionId: state.sessionId, packageId: pkg.packageId };
+  repository.close();
+  repository = createReviewSessionRepository({ root });
+  try {
+    const read = vi.spyOn(storage, "readPackageArtifact").mockImplementation(() => { throw new Error("must not recompute or decode"); });
+    expect(repository.findCompletedAnalysis("source-and-version-key")).toEqual(expected);
+    expect(repository.findCompletedAnalysis("changed-source-or-version-key")).toBeNull();
+    expect(repository.listSessions()).toHaveLength(1);
+    expect(read).not.toHaveBeenCalled();
+    read.mockRestore();
+    const db = new DatabaseSync(join(root, "library.sqlite"));
+    try { db.prepare("UPDATE completed_local_analyses SET validation_version='expired'").run(); }
+    finally { db.close(); }
+    const revalidate = vi.spyOn(storage, "readPackageArtifact");
+    expect(repository.findCompletedAnalysis("source-and-version-key")).toEqual(expected);
+    expect(revalidate).toHaveBeenCalled();
+    expect(repository.openByPackageId(pkg.packageId).analysisPackage).toEqual(pkg);
+  } finally { repository.close(); }
+});
+
 it("prepares immutable validation results without trusting caller-frozen or deserialized objects", () => {
   const input = structuredClone(pkg);
   const prepared = prepareValidatedStructuredAnalysisPackage(input);
@@ -121,7 +146,8 @@ it("refreshes cached report state after generation/activation and removes it wit
   const root = mkdtempSync(join(tmpdir(), "coach-presentation-")); roots.push(root);
   const repository = createReviewSessionRepository({ root });
   try {
-    repository.saveSession(pkg, selection);
+    const saved = repository.saveSession(pkg, selection);
+    repository.rememberCompletedAnalysis("completed-with-reports", saved);
     const report = await generateReviewReport(projectContextGraph(pkg), selection, {
       descriptor: () => ({ providerId: "unconfigured", model: "unconfigured" }),
       complete: async () => ({ errorCode: "provider_unavailable" as const, transportRetries: 0 as const }),
@@ -136,9 +162,12 @@ it("refreshes cached report state after generation/activation and removes it wit
     repository.saveReport(pkg.packageId, report, "second", "op-second");
     expect(view.activateReport(pkg.packageId, "first").activeReportRefId).toBe("first");
     expect((await view.openReview(pkg.packageId)).activeReportRefId).toBe("first");
+    expect(repository.findCompletedAnalysis("completed-with-reports")).toEqual({ sessionId: saved.sessionId, packageId: pkg.packageId });
+    expect(repository.openPresentation(pkg.packageId)?.snapshot.activeReportRefId).toBe("first");
     view.leaveReview(pkg.packageId);
     repository.deleteSession(pkg.packageId, "delete");
     expect(repository.openPresentation(pkg.packageId)).toBeNull();
+    expect(repository.findCompletedAnalysis("completed-with-reports")).toBeNull();
     const db = new DatabaseSync(join(root, "library.sqlite"));
     expect(db.prepare("SELECT * FROM review_presentation_cache").all()).toEqual([]);
     db.close();

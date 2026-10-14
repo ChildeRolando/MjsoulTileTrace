@@ -21,7 +21,7 @@ import {
 } from "@riichi-coach/reasoning";
 import { describePackageArtifact, insertPackageChunks, stagePackageArtifact, readPackageArtifact, readPackageRecordIdentity } from "./package-artifact-storage.js";
 import { aggregateCoachUsageHistory } from "./coach-usage-history.js";
-import { createReviewPresentationCache } from "./review-presentation-cache.js";
+import { createReviewPresentationCache, REVIEW_PRESENTATION_VERSION } from "./review-presentation-cache.js";
 
 const LIBRARY_FORMAT_VERSION = 4;
 
@@ -269,7 +269,13 @@ export function createReviewSessionRepository(input: {
   const now = input.now ?? (() => new Date().toISOString());
   const createId = input.createId ?? randomUUID;
   let presentationCache: ReturnType<typeof createReviewPresentationCache>;
-  try { initialize(db, now()); presentationCache = createReviewPresentationCache(db); }
+  try {
+    initialize(db, now()); presentationCache = createReviewPresentationCache(db);
+    db.exec(`CREATE TABLE IF NOT EXISTS completed_local_analyses(
+      input_key TEXT PRIMARY KEY, package_ref_id TEXT NOT NULL REFERENCES analysis_packages(package_ref_id) ON DELETE CASCADE,
+      content_hash TEXT NOT NULL, validation_version TEXT NOT NULL
+    );`);
+  }
   catch (error) { db.close(); throw error; }
 
   // One immutable package at a time. PRAGMA data_version changes on writes by
@@ -504,6 +510,39 @@ export function createReviewSessionRepository(input: {
   };
 
   return Object.freeze({
+    /** Only previously saved, validated, unchanged local artifacts qualify.
+     * Preserve session/report history; never regenerate to compare float tails. */
+    findCompletedAnalysis(inputKey: string): { sessionId: string; packageId: string } | null {
+      const row = db.prepare(`SELECT p.package_id,c.validation_version FROM completed_local_analyses c
+        JOIN analysis_packages p ON p.package_ref_id=c.package_ref_id
+        WHERE c.input_key=? AND c.content_hash=p.content_hash`)
+        .get(inputKey);
+      if (!row) return null;
+      const packageId = String(row.package_id);
+      const session = sessionByPackageId(packageId);
+      if (!session) return null;
+      recover(session.session_id);
+      if (row.validation_version !== REVIEW_PRESENTATION_VERSION || !presentationCache.load(packageId)) {
+        // An expired/missing proof revalidates the saved result, rather than
+        // recomputing native output for the same immutable package slot.
+        const state = read(sessionByPackageId(packageId)!);
+        if (state.analysisPackage.record.status === "integrity_failed") return null;
+        db.prepare("UPDATE completed_local_analyses SET validation_version=? WHERE input_key=?")
+          .run(REVIEW_PRESENTATION_VERSION, inputKey);
+      }
+      return { sessionId: session.session_id, packageId };
+    },
+    rememberCompletedAnalysis(inputKey: string, state: PersistedReviewState): void {
+      const row = packageRowForSession(state.sessionId);
+      if (!row || row.package_id !== state.analysisPackage.packageId
+        || preparedPackage?.composer.analysisPackage !== state.analysisPackage
+        || preparedPackage.dataVersion !== dataVersion()
+        || state.analysisPackage.record.status === "integrity_failed") throw new Error("analysis_cache_unavailable");
+      db.prepare(`INSERT INTO completed_local_analyses VALUES(?,?,?,?) ON CONFLICT(input_key)
+        DO UPDATE SET package_ref_id=excluded.package_ref_id,content_hash=excluded.content_hash,
+          validation_version=excluded.validation_version`)
+        .run(inputKey, row.package_ref_id, row.content_hash, REVIEW_PRESENTATION_VERSION);
+    },
     isPresentationCurrent(packageId: string, sessionId: string, revision: number): boolean {
       const current = sessionByPackageId(packageId);
       return current?.session_id === sessionId && current.revision === revision;
@@ -790,13 +829,15 @@ export function createReviewSessionRepository(input: {
  * derived from the validated package, so reruns can reuse the repository's
  * semantic package/session identity without a second persistence policy. */
 export function persistValidatedReviewSession(
-  repository: Pick<ReturnType<typeof createReviewSessionRepository>, "saveSession">,
+  repository: Pick<ReturnType<typeof createReviewSessionRepository>, "saveSession" | "rememberCompletedAnalysis">,
   analysisPackage: StructuredAnalysisPackage,
+  completedAnalysisKey?: string,
 ): Readonly<{ sessionId: string; packageId: string }> {
   const persisted = repository.saveSession(
     analysisPackage,
     selectReviewDecisions(analysisPackage),
   );
+  if (completedAnalysisKey !== undefined) repository.rememberCompletedAnalysis(completedAnalysisKey, persisted);
   return Object.freeze({
     sessionId: persisted.sessionId,
     packageId: analysisPackage.packageId,

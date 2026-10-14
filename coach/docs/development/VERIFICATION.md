@@ -1,5 +1,8 @@
 # 测试与发布门禁
 
+2026-10-15 最新牌谱修复的测试范围、冻结请求身份重绑及真实牌谱隔离验证见
+[修复边界与验证](../plans/2026-10-15-latest-record-analysis-repair.md)。
+
 2026-10-14 分析 Worker / 共享证据 P2：参见
 [实施与变更控制](../plans/2026-10-14-analysis-worker-shared-evidence.md)。
 线程/取消、真实 preflight 等价、新旧存储与图/复盘回归纳入全量 Vitest；隐藏 Electron

@@ -21,6 +21,9 @@ import {
   queryCanonicalLibriichiRules,
   runMortalFullGameReview,
   prepareValidatedStructuredAnalysisPackage,
+  writeCanonicalJson,
+  DEFAULT_ERROR_DETAIL_THRESHOLD,
+  DECISION_DETAIL_POLICY_VERSION,
   type LibriichiResolvedDecision,
   type ReplayedDecision,
 } from "@riichi-coach/reasoning";
@@ -115,6 +118,35 @@ function reportId(stream: CanonicalEventStream, selfActor: number): string {
   return `managed-local-mortal:${createHash("sha256")
     .update(`${stream.gameId}#${selfActor}`, "utf8")
     .digest("hex")}`;
+}
+
+type AnalysisRuntimeIdentity = Pick<ManagedMortalRuntime, "identity" | "ruleIdentity">;
+
+function componentVersions(stream: CanonicalEventStream, runtime: AnalysisRuntimeIdentity) {
+  return {
+    packageSchema: NATIVE_STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION,
+    legalActionRules: runtime.ruleIdentity,
+    canonicalReplay: "canonical-riichi-events/v2",
+    mapperAdapter: stream.mapperVersion,
+    factEngine: { engine: "mahjong-helper" as const, upstreamCommit: MAHJONG_HELPER_COMMIT,
+      adapterVersion: FACT_ENGINE_ADAPTER_VERSION, protocolVersion: FACT_ENGINE_PROTOCOL_VERSION },
+    factorPipeline: "factor-pipeline/v3",
+    mortalSourceModel: { identity: "Mortal" as const, version: LOCAL_MORTAL_ADAPTER_VERSION,
+      modelTag: runtime.identity.checkpointModelTag,
+      evidenceSource: { kind: "managed_local_runtime" as const, identity: runtime.identity } },
+  };
+}
+
+/** Operational reuse identity, separate from immutable package identity. Bind
+ * actual source/replay inputs and every producer/policy version before invoking
+ * native inference. Wall-clock time is deliberately absent. */
+export function localMortalAnalysisCacheKey(request: LocalMortalAnalysisInput, runtime: AnalysisRuntimeIdentity): string {
+  const digest = createHash("sha256");
+  writeCanonicalJson({ version: "completed-local-analysis/v1", request,
+    componentVersions: componentVersions(request.stream, runtime),
+    policy: { version: DECISION_DETAIL_POLICY_VERSION, threshold: DEFAULT_ERROR_DETAIL_THRESHOLD } },
+  part => { digest.update(part); });
+  return digest.digest("hex");
 }
 
 function reportKyokuKey(entry: MortalReportDecisionEntry): string {
@@ -263,25 +295,7 @@ export function createLocalMortalAnalysisService(input: {
           streamContext,
           decisions: rules.decisions,
           responseDecisions: rules.responseDecisions,
-          componentVersions: {
-            packageSchema: NATIVE_STRUCTURED_ANALYSIS_PACKAGE_SCHEMA_VERSION,
-            legalActionRules: input.runtime.ruleIdentity,
-            canonicalReplay: "canonical-riichi-events/v2",
-            mapperAdapter: request.stream.mapperVersion,
-            factEngine: {
-              engine: "mahjong-helper",
-              upstreamCommit: MAHJONG_HELPER_COMMIT,
-              adapterVersion: FACT_ENGINE_ADAPTER_VERSION,
-              protocolVersion: FACT_ENGINE_PROTOCOL_VERSION,
-            },
-            factorPipeline: "factor-pipeline/v3",
-            mortalSourceModel: {
-              identity: "Mortal",
-              version: LOCAL_MORTAL_ADAPTER_VERSION,
-              modelTag: input.runtime.identity.checkpointModelTag,
-              evidenceSource: { kind: "managed_local_runtime", identity: input.runtime.identity },
-            },
-          },
+          componentVersions: componentVersions(request.stream, input.runtime),
           frozenPolicySnapshot: retained.modelEvaluation.detailPolicy,
           ...(input.now === undefined ? {} : { now: input.now }),
         });

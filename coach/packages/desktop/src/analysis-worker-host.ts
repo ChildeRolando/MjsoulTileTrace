@@ -17,7 +17,9 @@ const ResultSchema = z.object({ sessionId: z.string().min(1).max(200), packageId
 const MessageSchema = z.discriminatedUnion("type", [
   z.object({ type: z.literal("progress"), progress: RecordAnalysisProgressSchema }).strict(),
   z.object({ type: z.literal("result"), result: ResultSchema }).strict(),
-  z.object({ type: z.literal("failed") }).strict(),
+  z.object({ type: z.literal("failed"), code: z.enum([
+    "mahjong_soul_record_analysis_failed", "mahjong_soul_record_save_failed",
+  ]) }).strict(),
 ]);
 
 /** Separate from the presentation/LLM worker: neither window IPC nor coach
@@ -34,6 +36,7 @@ export function createAnalysisWorkerHost(options: { workerEntry?: URL } = {}) {
       const task = new Promise<PaipuReviewPreparationResult>((resolve, reject) => {
         let result: PaipuReviewPreparationResult | undefined;
         let failed = false;
+        let failureCode = "mahjong_soul_record_analysis_failed";
         const timer = setTimeout(() => { failed = true; worker.postMessage({ type: "cancel" }); }, 30 * 60_000);
         worker.on("message", raw => {
           const parsed = MessageSchema.safeParse(raw);
@@ -42,13 +45,13 @@ export function createAnalysisWorkerHost(options: { workerEntry?: URL } = {}) {
           if (message.type === "progress") {
             try { onProgress?.(message.progress); } catch { failed = true; worker.postMessage({ type: "cancel" }); }
           } else if (message.type === "result") result = message.result;
-          else failed = true;
+          else { failed = true; failureCode = message.code; }
         });
         worker.on("error", () => { failed = true; });
         worker.on("exit", code => {
           clearTimeout(timer);
           if (code === 0 && result !== undefined && !failed) resolve(Object.freeze(result));
-          else reject(new Error("analysis_failed"));
+          else reject(new Error(failureCode));
         });
       });
       active.set(worker, task);

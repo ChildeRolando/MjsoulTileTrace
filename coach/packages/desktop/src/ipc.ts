@@ -209,12 +209,19 @@ export function registerMahjongSoulCatalogIpc(input: {
       progress = next;
     };
     try {
-      const result = parseAccountReviewResult(await ingest.call(service, args[0], updateProgress));
+      const prepared = await ingest.call(service, args[0], updateProgress);
+      let result: AccountReviewResult;
+      try { result = parseAccountReviewResult(prepared); } catch { throw fixedError(); }
       updateProgress({ stage: "complete", completed: 1, total: 1 });
       return result;
     } catch (error) {
+      const failedStage = progress.stage;
       updateProgress({ stage: "failed", completed: 0, total: null });
-      throw fixedError(error);
+      const safe = fixedError(error);
+      throw error instanceof Error && MahjongSoulSourceErrorCodeSchema.safeParse(error.message).success
+        ? safe : new Error(failedStage === "fetching"
+        ? "mahjong_soul_record_fetch_failed" : failedStage === "saving"
+          ? "mahjong_soul_record_save_failed" : "mahjong_soul_record_analysis_failed");
     } finally {
       active = false;
       analysisPending = false;

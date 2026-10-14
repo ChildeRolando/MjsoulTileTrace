@@ -106,14 +106,15 @@ describe("Mahjong Soul renderer-safe catalog API", () => {
   });
 });
 
-describe("safe Mahjong Soul catalog IPC", () => {
-  class FakeIpcMain {
+class FakeIpcMain {
     readonly handlers = new Map<string, (event: unknown, ...args: unknown[]) => Promise<unknown>>();
     handle(channel: string, handler: (event: unknown, ...args: unknown[]) => Promise<unknown>): void {
       this.handlers.set(channel, handler);
     }
     removeHandler(channel: string): void { this.handlers.delete(channel); }
-  }
+}
+
+describe("safe Mahjong Soul catalog IPC", () => {
 
   it("retains every phase and elapsed time even when phases finish between polls", async () => {
     const ipc = new FakeIpcMain();
@@ -198,7 +199,7 @@ describe("safe Mahjong Soul catalog IPC", () => {
     expect(starts).toBe(1);
     await expect(readCurrent()).resolves.toEqual({ stage: "scoring", completed: 2, total: 5 });
     fail!(new Error("private failure"));
-    await expect(pending).rejects.toThrow("mahjong_soul_login_protocol_unsupported");
+    await expect(pending).rejects.toThrow("mahjong_soul_record_analysis_failed");
     await expect(readCurrent()).resolves.toEqual({ stage: "failed", completed: 0, total: null });
     const retry = start(sender, recordId);
     finish!({ status: "review_ready", sessionId: "fixture", packageId: "fixture" });
@@ -303,6 +304,25 @@ describe("safe Mahjong Soul catalog IPC", () => {
 });
 
 describe("Mahjong Soul catalog preload API", () => {
+  it.each([
+    ["fetching", "mahjong_soul_record_fetch_failed"],
+    ["replaying", "mahjong_soul_record_analysis_failed"],
+    ["saving", "mahjong_soul_record_save_failed"],
+  ] as const)("reports an internal failure in %s without a misleading login protocol error", async (stage, expected) => {
+    const ipc = new FakeIpcMain();
+    registerMahjongSoulCatalogIpc({ ipcMain: ipc, trustedSenderId: 7, service: {
+      syncAnalyzableRecords: async () => [], listAnalyzableRecords: async () => [],
+      ingest: async (_recordId, onProgress) => {
+        if (stage !== "fetching") onProgress?.({ stage, completed: 0, total: null });
+        throw new Error("private_failure_with_path");
+      },
+      clearSourceCache: () => ({ clearedEntries: 0, pendingMaterials: 0 }),
+    } });
+    await expect(ipc.handlers.get("mahjong-soul:start-record-analysis")!({ sender: { id: 7 } }, recordId))
+      .rejects.toThrow(expected);
+    const progress = await ipc.handlers.get("mahjong-soul:get-record-analysis-progress")!({ sender: { id: 7 } });
+    expect(RecordAnalysisSnapshotSchema.parse(progress).steps.find(step => step.stage === stage)?.status).toBe("failed");
+  });
   it("exposes exactly the catalog channels", async () => {
     const calls: string[] = [];
     const api = createMahjongSoulCatalogPreloadApi({

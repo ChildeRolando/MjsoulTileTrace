@@ -13,8 +13,8 @@ const frozenFixtureUrl = new URL(
   "./fixtures/native-rule-responses-actor3.json",
   import.meta.url,
 );
-const mapperV8CanonicalSHA256 =
-  "184524628be548d90dc04d7bba482dd40bdf58d2e1a5c4cbbd7951de617dd095";
+const mapperV9CanonicalSHA256 =
+  "a90610f162388010d36df434c18cca2c4e1aa6a1badfbbe90d32b80fd422f031";
 
 type FrozenQuery = {
   decisionId: string;
@@ -65,7 +65,7 @@ describe("Electron MVP Golden native rule request binding", () => {
     expect(frozen.provenance.eventCount).toBe(26);
     expect(frozen.provenance.selfDecisions).toBe(3);
     expect(frozen.provenance.responseBoundaries).toBe(9);
-    expect(frozen.provenance.canonicalSHA256).toBe(mapperV8CanonicalSHA256);
+    expect(frozen.provenance.canonicalSHA256).toBe(mapperV9CanonicalSHA256);
     expect(frozen.queries).toHaveLength(12);
 
     const bundle = await loadMahjongSoulProtocolBundle(bundleRoot);
@@ -78,7 +78,7 @@ describe("Electron MVP Golden native rule request binding", () => {
     });
     expect(mapped.status).toBe("analysis_ready");
     if (mapped.status !== "analysis_ready") return;
-    expect(mapped.stream.mapperVersion).toBe("mahjong-soul-record-mapper/v8");
+    expect(mapped.stream.mapperVersion).toBe("mahjong-soul-record-mapper/v9");
     expect(mapped.stream.events).toHaveLength(frozen.provenance.eventCount);
 
     const frozenByDecisionId = new Map(
@@ -128,7 +128,7 @@ describe("Electron MVP Golden native rule request binding", () => {
       errorCodes: [],
     });
     expect([...actualCanonicalIdentities]).toEqual([
-      `sha256:${mapperV8CanonicalSHA256}`,
+      `sha256:${mapperV9CanonicalSHA256}`,
     ]);
     const selfActionCounts = result.decisions.map((decision) => {
       const entry = result.rules.get(decision.decisionEventRef);

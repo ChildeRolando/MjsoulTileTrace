@@ -658,40 +658,31 @@ async function start(): Promise<void> {
     requestParameters: {},
     authenticationPartitionHash: createHash("sha256").update(String(accountId)).digest("hex"),
   });
-  const analyzeFetchedRecord = async (recordId: string, fetched: Awaited<ReturnType<typeof fetchMahjongSoulRecord>>, selfActor: number) => {
-    const outcome = await analysisStore.analyzeRecord({ recordId, selfActor, recordBytes: fetched.recordBytes,
-      ...(fetched.ruleEvidence === undefined ? {} : { ruleEvidence: fetched.ruleEvidence }) });
-    if (outcome.status !== "analysis_ready") {
-      throw new MahjongSoulSourceError("mahjong_soul_canonical_validation_failed");
-    }
-    return fetched;
-  };
   const recordIngestionService = createMahjongSoulRecordIngestionService({
     vault,
     catalogStore,
     createSession: createLobbySessionFactory({ bundle }),
     authenticate: authenticateStoredMahjongSoulSession,
-    readCachedRecord: async (stored, recordId, selfActor) => {
+    readCachedRecord: async (stored, recordId) => {
       const bytes = requireRawCache().get(cacheIdentity(recordId, stored.accountId));
       if (bytes === null) return null;
       try {
-        return await analyzeFetchedRecord(recordId, decodeMahjongSoulRecordCache({
+        return decodeMahjongSoulRecordCache({
           bundle, recordId, cacheBytes: bytes,
-        }), selfActor);
+        });
       } catch { return null; }
     },
     writeCachedRecord: (stored, fetched) => {
       requireRawCache().put(cacheIdentity(fetched.recordId, stored.accountId), encodeMahjongSoulRecordCache({ bundle, ...fetched }));
     },
-    fetchRecord: async (lobby, stored, recordId, selfActor) => {
-      const fetched = await fetchMahjongSoulRecord({
+    fetchRecord: async (lobby, stored, recordId) => {
+      return await fetchMahjongSoulRecord({
         session: lobby,
         bundle,
         recordId,
         clientVersionString: stored.recoveryContext.clientVersionString,
         fetchImpl: globalThis.fetch,
       });
-      return analyzeFetchedRecord(recordId, fetched, selfActor);
     },
   });
   const service = createMahjongSoulSessionService({

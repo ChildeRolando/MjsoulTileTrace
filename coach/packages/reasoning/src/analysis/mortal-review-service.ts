@@ -77,7 +77,7 @@ export type MortalSingleDecisionReviewResult =
       readonly diagnostics: readonly string[];
     };
 
-const DECISION_DETAIL_POLICY_VERSION = "mortal-review/v1" as const;
+export const DECISION_DETAIL_POLICY_VERSION = "mortal-review/v1" as const;
 
 function hashMortalReportId(reportId: string): string {
   return `sha256:${createHash("sha256").update(reportId).digest("hex")}`;

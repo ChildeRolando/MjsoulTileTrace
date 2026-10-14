@@ -66,7 +66,8 @@ export function createAccountRecordReviewHandoff(input: {
       ...(ingested.ruleEvidence === undefined ? {} : { ruleEvidence: ingested.ruleEvidence }),
     });
     if (outcome.status !== "analysis_ready") {
-      throw new MahjongSoulSourceError("mahjong_soul_canonical_validation_failed");
+      throw new MahjongSoulSourceError(outcome.status === "replay_failed"
+        ? "mahjong_soul_canonical_validation_failed" : outcome.code);
     }
     const prepared = await input.prepareReview({
       recordId,

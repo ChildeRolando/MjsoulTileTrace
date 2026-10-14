@@ -13,14 +13,19 @@ describe("dedicated analysis worker host", () => {
   });
   it.each(["crash", "invalid"])("rejects %s without leaking a path or full package to the caller", async mode => {
     const host = createAnalysisWorkerHost({ workerEntry: fixture });
-    try { await expect(host.run(data(mode))).rejects.toThrow("analysis_failed"); }
+    try { await expect(host.run(data(mode))).rejects.toThrow("mahjong_soul_record_analysis_failed"); }
     finally { await host.close(); }
   });
   it("drains cancellation and refuses new jobs after shutdown", async () => {
     const host = createAnalysisWorkerHost({ workerEntry: fixture });
     const task = host.run(data("cancel"));
-    const rejected = expect(task).rejects.toThrow("analysis_failed");
+    const rejected = expect(task).rejects.toThrow("mahjong_soul_record_analysis_failed");
     await host.close(); await rejected;
     await expect(host.run(data("success"))).rejects.toThrow("analysis_unavailable");
+  });
+  it("preserves the safe save failure without exposing the internal cause", async () => {
+    const host = createAnalysisWorkerHost({ workerEntry: fixture });
+    try { await expect(host.run(data("save-failed"))).rejects.toThrow("mahjong_soul_record_save_failed"); }
+    finally { await host.close(); }
   });
 });

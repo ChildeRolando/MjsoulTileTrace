@@ -419,9 +419,16 @@ function renderCatalogPage(): void {
             progressSummary = "整盘分析已完成，复盘已保存；请从已保存复盘列表打开。";
           }
         } catch (error) {
-          catalogDetailElement.textContent = error instanceof Error && error.message === "mahjong_soul_canonical_validation_failed"
-            ? "这场牌谱未通过转换或重放校验，分析未完成。请保留牌谱并反馈此问题。"
-            : "暂时无法分析这场牌谱，请重试。";
+          const code = error instanceof Error ? error.message : "";
+          catalogDetailElement.textContent = code === "mahjong_soul_record_save_failed"
+            ? "分析结果未能保存，请重试；已有复盘仍然保留。"
+            : code === "mahjong_soul_record_analysis_failed"
+              ? "计算分析时发生错误，请重试。"
+              : ["mahjong_soul_canonical_mapping_failed", "mahjong_soul_canonical_validation_failed",
+                "mahjong_soul_canonical_unsupported_semantics"].includes(code)
+                ? "这场牌谱未通过转换或重放校验，分析未完成。请保留牌谱并反馈此问题。"
+                : code === "mahjong_soul_record_fetch_failed"
+                  ? "暂时无法读取这场牌谱，请重试。" : "暂时无法分析这场牌谱，请重试。";
         } finally {
           stopProgress(progressSummary);
           button.textContent = "分析";
