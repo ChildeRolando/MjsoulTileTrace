@@ -1,3 +1,4 @@
+import { createReviewWorkspace, rememberedDecision } from "./review-workspace.js";
 import type { CoachDesktopApi, FixedReviewDetailDto, FixedReviewSnapshotDto } from "@riichi-coach/contracts";
 
 const ANALYSIS_LABELS = {
@@ -51,7 +52,11 @@ export function createFixedReviewUi(input: {
   root: HTMLElement;
   api: CoachDesktopApi;
   onReportGenerated?: () => void;
+  workspaceMode?: boolean;
 }) {
+  let workspace: ReturnType<typeof createReviewWorkspace> | null = null;
+  let detailRequest = 0;
+  let selectedDecisionId: string | null = null;
   let snapshot: FixedReviewSnapshotDto | null = null;
   let operationId: string | null = null;
   let currentPackageId: string | null = null;
@@ -88,14 +93,14 @@ export function createFixedReviewUi(input: {
     const alert = element(document, "p", message);
     alert.className = "review-alert";
     alert.setAttribute("role", "alert");
-    input.root.prepend(alert);
+    (workspace?.statusHost ?? input.root).prepend(alert);
   };
 
   const renderDetail = (detail: FixedReviewDetailDto) => {
     const section = element(document, "section");
     section.className = "review-detail";
     section.setAttribute("aria-labelledby", "review-detail-heading");
-    const heading = element(document, "h3", "条目详情");
+    const heading = element(document, "h3", input.workspaceMode ? "这一手的选择" : "条目详情");
     heading.id = "review-detail-heading";
     const comparison = element(document, "div");
     comparison.className = "review-comparison";
@@ -156,7 +161,7 @@ export function createFixedReviewUi(input: {
     }
     const evidence = element(document, "details");
     evidence.className = "review-evidence";
-    evidence.open = true;
+    evidence.open = !input.workspaceMode;
     evidence.append(element(document, "summary", "证据摘要"));
     evidence.append(element(document, "p", "先看局面，再比较行动。确定事实与估计信号分开列出；没有算出的内容会明确标记。"));
     const topics = [
@@ -256,21 +261,25 @@ export function createFixedReviewUi(input: {
     evidence.append(tree);
     section.append(heading, comparison, coach, evidence);
     input.root.querySelector(".review-detail")?.remove();
-    input.root.append(section);
+    if (workspace) { workspace.showBoard(detail); workspace.detailHost.replaceChildren(section); }
+    else input.root.append(section);
     syncInteractionState();
     heading.tabIndex = -1;
-    heading.focus();
+    if (!workspace) heading.focus();
   };
 
   const openDetail = async (decisionId: string, requestEpoch = viewEpoch, expectedSnapshot = snapshot) => {
     if (expectedSnapshot === null || expectedSnapshot === undefined) return;
+    const request = ++detailRequest;
+    selectedDecisionId = decisionId;
+    workspace?.showLoading(decisionId);
     const packageId = expectedSnapshot.packageId;
     const activeReportRefId = expectedSnapshot.activeReportRefId;
     try {
       const detail = await input.api.getReviewDetail({ packageId, decisionId, activeReportRefId });
-      if (isCurrent(requestEpoch, packageId) && snapshot === expectedSnapshot) renderDetail(detail);
+      if (isCurrent(requestEpoch, packageId) && snapshot === expectedSnapshot && request === detailRequest) renderDetail(detail);
     } catch {
-      if (isCurrent(requestEpoch, packageId) && snapshot === expectedSnapshot) showError("无法打开这条复盘，请返回后重试。");
+      if (isCurrent(requestEpoch, packageId) && snapshot === expectedSnapshot && request === detailRequest) showError("无法打开这条复盘，请返回后重试。");
     }
   };
 
@@ -281,6 +290,7 @@ export function createFixedReviewUi(input: {
     settingsControls = new Set();
     input.root.textContent = "";
     input.root.hidden = false;
+    workspace = null;
     const overview = element(document, "section");
     overview.className = "review-overview";
     overview.setAttribute("aria-labelledby", "review-heading");
@@ -477,8 +487,16 @@ export function createFixedReviewUi(input: {
       table.append(body); list.append(table);
     }
     goList.addEventListener("click", () => { list.hidden = false; list.querySelector<HTMLElement>("button, h3")?.focus(); });
-    input.root.append(overview, list);
-    if (focusReviewEntry) goList.focus();
+    if (input.workspaceMode) {
+      workspace = createReviewWorkspace(document,input.root,next,id=>{void openDetail(id,viewEpoch,next);});
+      workspace.meta.append(overview,list);
+      workspace.statusHost.append(live);
+      goList.textContent = "查看完整条目清单";
+      const wanted = selectedDecisionId ?? rememberedDecision(next.packageId);
+      const selected = next.selection.items.find(item=>item.decisionId===wanted) ?? next.selection.items[0];
+      if (selected) void openDetail(selected.decisionId,viewEpoch,next);
+    } else input.root.append(overview, list);
+    if (focusReviewEntry && !workspace) goList.focus();
     syncInteractionState();
   };
 
@@ -510,6 +528,7 @@ export function createFixedReviewUi(input: {
       if (!requestIsCurrent()) return;
       updateProviderStatus(readiness);
       if (!readiness.configured) {
+        if (workspace) workspace.meta.open = true;
         live.textContent = `${scope}；教练服务未就绪，请先配置服务。`;
         return;
       }
@@ -564,6 +583,8 @@ export function createFixedReviewUi(input: {
   return Object.freeze({
     async open(packageId: string) {
       const epoch = ++viewEpoch;
+      detailRequest++;
+      selectedDecisionId = rememberedDecision(packageId);
       const previousPackageId = currentPackageId;
       const previousOperationId = operationId;
       currentPackageId = packageId;
@@ -593,6 +614,8 @@ export function createFixedReviewUi(input: {
       const packageId = currentPackageId;
       const cancelledOperationId = operationId;
       viewEpoch += 1;
+      detailRequest++;
+      workspace = null;
       snapshot = null;
       operationId = null;
       generationBusy = false;

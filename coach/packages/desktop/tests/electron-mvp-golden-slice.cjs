@@ -23,6 +23,9 @@ async function inPage(mode) {
     })),
   });
   const visibleHardEvidence = (detail) => {
+    if (!detail.board || document.querySelectorAll('.workspace-hand .tile').length !== detail.board.hand.length + (detail.board.draw ? 1 : 0)) {
+      throw new Error('golden_workspace_board_dto_mismatch');
+    }
     const fact = detail.provenance.find((item) => item.category === 'hard_evidence' && item.label === '局面事实');
     const riichi = fact?.details.find((item) => item.label === '自家立直');
     if (!fact?.displayRef || !fact.producer || !fact.summary.includes('自家未立直') || riichi?.value !== '否') {
@@ -30,6 +33,7 @@ async function inPage(mode) {
     }
     const section = [...document.querySelectorAll('.review-detail details')]
       .find((node) => node.querySelector('summary')?.textContent === '证据摘要');
+    if (section && !section.open) section.querySelector('summary').click();
     const card = [...(section?.querySelectorAll('article') ?? [])]
       .find((node) => node.textContent.includes(fact.summary) && node.textContent.includes('自家立直 · 当前决策：否'));
     if (!section?.open || !section.textContent.includes('确定性证据') || !card || card.getClientRects().length === 0) {
@@ -39,6 +43,8 @@ async function inPage(mode) {
       riichiValue: riichi.value, cardText: card.textContent };
   };
   if (mode === 'offline') {
+    document.querySelector('.sidebar a[href="#/library"]').click();
+    await wait(() => document.body.dataset.page === 'library', 'library_route');
     const button = await wait(() => document.querySelector('#review-session-list button'), 'saved_session');
     button.click();
     await wait(() => !document.querySelector('#fixed-review').hidden, 'reopen');
@@ -59,6 +65,7 @@ async function inPage(mode) {
       listVisible: !list.hidden, detailVisible: document.querySelector('#fixed-review .review-detail') !== null };
   }
   if (mode === 'share') {
+    document.querySelector('[data-source="link"]').click();
     await wait(() => !document.querySelector('.paipu-import').hidden, 'share_source');
     const catalog = await window.riichiCoachCatalog.listAnalyzableRecords();
     document.querySelector('#paipu-url').value = catalog[0].shareUrl;

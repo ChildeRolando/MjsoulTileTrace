@@ -1,6 +1,6 @@
 export interface MainWindowOptions {
-  readonly width: 920;
-  readonly height: 680;
+  readonly width: 1440;
+  readonly height: 960;
   readonly show: true;
   readonly webPreferences: Readonly<{
     preload: string;
@@ -17,8 +17,8 @@ export function createMainWindowOptions(preloadPath: string): MainWindowOptions 
     throw new Error("mahjong_soul_login_protocol_unsupported");
   }
   return Object.freeze({
-    width: 920,
-    height: 680,
+    width: 1440,
+    height: 960,
     show: true,
     webPreferences: Object.freeze({
       preload: preloadPath,

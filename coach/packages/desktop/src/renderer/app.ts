@@ -1,3 +1,4 @@
+import { readWorkspaceNotes, rememberDecision } from "./review-workspace.js";
 import type { MahjongSoulDesktopApi } from "../session-api.js";
 import type { MahjongSoulCatalogApi } from "../catalog-api.js";
 import type { RecordAnalysisSnapshot } from "../catalog-api.js";
@@ -58,7 +59,7 @@ const reviewSessionPreviousButton = document.querySelector<HTMLButtonElement>("#
 const reviewSessionNextButton = document.querySelector<HTMLButtonElement>("#review-session-page-next")!;
 const reviewSessionPaginationStatus = document.querySelector<HTMLElement>("#review-session-pagination-status")!;
 export const fixedReviewUi = createFixedReviewUi({
-  document, root: reviewRoot, api: window.riichiCoachProvider,
+  document, root: reviewRoot, api: window.riichiCoachProvider, workspaceMode: true,
   onReportGenerated: () => {
     void refreshReviewSessions().catch(() => {
       reviewEntryStatus.textContent = "教练解说已生成，暂时无法刷新已保存复盘列表。";
@@ -207,7 +208,7 @@ function watchAnalysisProgress(): (summary: string) => void {
   };
   activeAnalysisProgressRequest = () => poll();
   analysisProgressElement.hidden = false;
-  analysisProgressSummary.textContent = "已开始分析，正在读取主进程的阶段进度。";
+  analysisProgressSummary.textContent = "已开始分析，正在读取分析进度。";
   renderAnalysisProgress(initial);
   poll();
   const timer = window.setInterval(() => activeAnalysisProgressRequest?.(), 1000);
@@ -294,6 +295,12 @@ function renderReviewSessionPage(): void {
     fragment.appendChild(empty);
   }
   reviewSessionList.replaceChildren(fragment);
+  const recent=document.querySelector<HTMLElement>("#recent-reviews")!;recent.replaceChildren();
+  for(const session of reviewSessions.slice(0,5)) {
+    const link=document.createElement("a");link.href=`#/review/${encodeURIComponent(session.packageId)}`;
+    link.textContent=recordLabelView(session.recordLabel,session.updatedAt).title;
+    recent.append(link);
+  }
   reviewSessionPaginationElement.hidden = reviewSessions.length <= RECORDS_PER_PAGE;
   reviewSessionPaginationStatus.textContent = reviewSessions.length === 0
     ? "" : `第 ${reviewSessionPage} / ${pageCount} 页 · 共 ${reviewSessions.length} 条`;
@@ -407,6 +414,7 @@ function renderCatalogPage(): void {
             catalogDetailElement.textContent = "已打开整盘复盘。";
           } catch {
             await fixedReviewUi.leave().catch(() => undefined);
+            activeWorkspacePackage = null; setWorkspaceRoute("new");
             catalogDetailElement.textContent = "复盘已保存，但暂时无法打开，请从已保存复盘重试。";
             progressSummary = "整盘分析已完成，复盘已保存；请从已保存复盘列表打开。";
           }
@@ -455,6 +463,9 @@ function applySessionState(status: MahjongSoulSessionStatus["status"]): void {
   const busy = status === "authenticating" || status === "session_validating";
   const policy = sessionUiPolicy(status, true);
   currentSessionStatus = status;
+  document.querySelector<HTMLElement>("#connect-prompt")!.hidden = loggedIn;
+  document.querySelector<HTMLElement>(".source-login-help")!.hidden = loggedIn;
+  document.querySelector<HTMLElement>("#account-link-label")!.textContent = loggedIn ? "雀魂已连接" : "登录雀魂";
   loginButton.textContent = "登录雀魂";
   loginButton.hidden = status !== "logged_out";
   logoutButton.hidden = !loggedIn;
@@ -578,16 +589,19 @@ async function openReviewPackage(packageId: string): Promise<void> {
     leaveReviewButton.hidden = true;
     reviewEntryStatus.textContent = "正在打开整盘复盘…";
     try {
+      activeWorkspacePackage = packageId;
+      setWorkspaceRoute(`review/${encodeURIComponent(packageId)}`);
       try {
         await fixedReviewUi.open(packageId);
       } catch {
+        activeWorkspacePackage = null;
         leaveReviewButton.hidden = true;
         reviewEntryStatus.textContent = "无法打开该分析包，请确认引用有效。";
         throw new Error("review_unavailable");
       }
       reviewEntryStatus.textContent = "已打开整盘复盘。";
       leaveReviewButton.hidden = false;
-      reviewRoot.scrollIntoView({ behavior: "smooth", block: "start" });
+      document.querySelector<HTMLElement>("#workspace-page-title")!.textContent = "复盘工作区";
       try {
         await refreshReviewSessions();
       } catch {
@@ -612,6 +626,7 @@ leaveReviewButton.addEventListener("click", () => {
   void fixedReviewUi.leave().then(() => {
     leaveReviewButton.hidden = true;
     reviewEntryStatus.textContent = "已离开整盘复盘。";
+    activeWorkspacePackage = null; setWorkspaceRoute("library");
   }).catch(() => { reviewEntryStatus.textContent = "暂时无法离开复盘，请重试。"; });
 });
 
@@ -649,6 +664,7 @@ paipuImportButton.addEventListener("click", () => {
           // Roll back automatic navigation, preserving the main-owned saved
           // session. Manual opens retain their existing visible error state.
           await fixedReviewUi.leave().catch(() => undefined);
+          activeWorkspacePackage = null; setWorkspaceRoute("new");
           paipuStatusElement.textContent = "复盘已保存，但暂时无法打开，请从已保存复盘重试。";
         }
       }
@@ -659,6 +675,42 @@ paipuImportButton.addEventListener("click", () => {
     }
   })();
 });
+
+
+let activeWorkspacePackage: string | null = null;
+function setWorkspaceRoute(route:string) {
+  if(location.hash!==`#/${route}`) history.pushState(null,"",`#/${route}`);
+  renderWorkspaceRoute();
+}
+function renderWorkspaceRoute() {
+  const path=location.hash.slice(2)||"new";
+  const page=path.startsWith("review/")?"review":["new","library","notes","account","settings"].includes(path)?path:"new";
+  document.body.dataset.page=page;
+  document.querySelectorAll<HTMLElement>(".route-page").forEach(n=>n.hidden=n.dataset.route!==page);
+  document.querySelector(".sidebar")?.classList.remove("open");
+  document.querySelectorAll<HTMLAnchorElement>(".sidebar a").forEach(n=>{if(n.hash===location.hash)n.setAttribute("aria-current","page");else n.removeAttribute("aria-current");});
+  document.querySelector<HTMLElement>("#workspace-page-title")!.textContent=({new:"新复盘",library:"牌谱库",notes:"学习笔记",account:"连接雀魂",settings:"设置",review:"复盘工作区"} as Record<string,string>)[page]!;
+  if(page==="review") {
+    let id="";try{id=decodeURIComponent(path.slice(7));}catch{}
+    if(id && id!==activeWorkspacePackage) void openReviewPackage(id).catch(()=>undefined);
+  }
+  if(page==="notes") {
+    const host=document.querySelector<HTMLElement>("#workspace-notes")!;host.replaceChildren();
+    const notes=readWorkspaceNotes();
+    if(!notes.length){const empty=document.createElement("p");empty.textContent="复盘时标记已读，之后可以从这里返回。";host.append(empty);}
+    for(const n of notes){const link=document.createElement("a");link.className="note-row";link.textContent=n.title+" →";link.href=`#/review/${encodeURIComponent(n.packageId)}`;link.addEventListener("click",()=>{rememberDecision(n.packageId,n.decisionId);activeWorkspacePackage=null;});host.append(link);}
+  }
+}
+window.addEventListener("hashchange",renderWorkspaceRoute);
+document.querySelector("#nav-toggle")?.addEventListener("click",()=>document.querySelector(".sidebar")?.classList.toggle("open"));
+document.querySelectorAll<HTMLButtonElement>("[data-source]").forEach(b=>b.addEventListener("click",()=>{
+  document.querySelectorAll<HTMLButtonElement>("[data-source]").forEach(n=>n.setAttribute("aria-selected",String(n===b)));
+  document.querySelector<HTMLElement>("#source-recent")!.hidden=b.dataset.source!=="recent";
+  document.querySelector<HTMLElement>("#source-link")!.hidden=b.dataset.source!=="link";
+}));
+try{document.documentElement.dataset.theme=localStorage.getItem("coach-workspace-theme")??"light";}catch{}
+document.querySelector("#theme-toggle")?.addEventListener("click",()=>{const theme=document.documentElement.dataset.theme==="dark"?"light":"dark";document.documentElement.dataset.theme=theme;try{localStorage.setItem("coach-workspace-theme",theme);}catch{}});
+renderWorkspaceRoute();
 
 void (async () => {
   await refreshReviewSessions().catch(() => undefined);

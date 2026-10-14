@@ -4,7 +4,7 @@ import { describe, expect, it, vi } from "vitest";
 import { RiichiActionSchema, StructuredAnalysisPackageSchema, type CoachDesktopApi, type ContextGraph, type DecisionAnalysis, type ReviewReport, type ReviewSelectionResult, type StructuredAnalysisPackage } from "@riichi-coach/contracts";
 import { generateReviewReport, projectContextGraph, selectReviewDecisions, validateReviewReport, validateStructuredAnalysisPackage, buildGraphContextSlice, prepareCoachRequest } from "@riichi-coach/reasoning";
 import { createFixedReviewController } from "../src/fixed-review-controller.js";
-import { actionLabel, presentFixedReviewDetail, presentFixedReviewSnapshot } from "../src/fixed-review-presenter.js";
+import { actionLabel, presentFixedReviewDetail, presentFixedReviewSnapshot, presentReviewBoard } from "../src/fixed-review-presenter.js";
 import { createFixedReviewUi } from "../src/renderer/fixed-review-ui.js";
 import { registerCoachIpc } from "../src/coach-ipc.js";
 import { createCoachPreloadApi } from "../src/session-api.js";
@@ -18,6 +18,47 @@ const provider = {
   complete: async () => ({ errorCode: "provider_unavailable" as const, transportRetries: 0 as const }),
 };
 const report = await generateReviewReport(projectContextGraph(pkg), selection, provider, "2026-09-22T00:00:00.000Z");
+
+describe("safe board projection", () => {
+  it("preserves known tiles, red draw and actor-indexed scores without source references", () => {
+    const original = pkg.decisions.find(d => d.outcome === "analysis_ready")!;
+    if (original.outcome !== "analysis_ready") throw new Error("fixture missing ready decision");
+    const decision = structuredClone(original);
+    const facts = decision.knownGameFacts;
+    facts.currentDraw = { tile: { id: "5p", red: true }, eventRef: "private-source-event" };
+    facts.scores = { status: "known", byActor: [26000, 23000, 27000, 24000] };
+    facts.currentRound = { status: "known", roundOrdinal: 4, roundWind: "S", hand: 1, honba: 2, riichiSticks: 1 };
+    const board = presentReviewBoard(decision);
+    expect(board.hand).toHaveLength(facts.concealedTiles.length);
+    expect(board.hand).toEqual(expect.arrayContaining(facts.concealedTiles));
+    expect(board.draw).toEqual({ id: "5p", red: true });
+    expect(board.scores).toEqual([26000, 23000, 27000, 24000]);
+    expect(board.roundLabel).toBe("南 1 局");
+    expect(board.honba).toBe(2);
+    expect(board.riichiSticks).toBe(1);
+    expect(board.rivers).toEqual(facts.rivers.map(river => river.map(({tile,tsumogiri}) => ({tile,tsumogiri}))));
+    expect(JSON.stringify(board)).not.toContain("eventRef");
+    expect(JSON.stringify(board)).not.toContain("evidenceIds");
+    expect(JSON.stringify(board)).not.toContain("private-source-event");
+  });
+
+  it("keeps missing historic fields unknown instead of inventing scores or a draw", () => {
+    const original = pkg.decisions.find(d => d.outcome === "analysis_ready")!;
+    if (original.outcome !== "analysis_ready") throw new Error("fixture missing ready decision");
+    const decision = structuredClone(original);
+    delete decision.knownGameFacts.scores;
+    delete decision.knownGameFacts.currentRound;
+    decision.knownGameFacts.currentDraw = null;
+    decision.knownGameFacts.completeness.rivers = false;
+    const board = presentReviewBoard(decision);
+    expect(board.scores).toBeNull();
+    expect(board.draw).toBeNull();
+    expect(board.honba).toBeNull();
+    expect(board.riichiSticks).toBeNull();
+    expect(board.complete).toBe(false);
+    expect(board.turnLabel).toBe("巡目未知");
+  });
+});
 
 function fixtureDecisionId(input: { recordId: string; selfActor: number; surface: string; windowKind: string; triggerEventRef: string }) {
   return ["decision", input.recordId, `self${input.selfActor}`, input.surface, input.windowKind, input.triggerEventRef].join(":");

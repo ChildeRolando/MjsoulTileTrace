@@ -14,6 +14,35 @@ const OUTCOMES = [
 const AXES = ["efficiency", "value", "defense", "placement", "option_value"] as const;
 
 type ReadyDecision = Extract<StructuredAnalysisPackage["decisions"][number], { outcome: "analysis_ready" }>;
+
+function boardLabels(decision: ReadyDecision) {
+  const facts = decision.knownGameFacts;
+  const round = facts.currentRound;
+  return {
+    roundLabel: round?.status === "known" ? `${round.roundWind === "E" ? "东" : "南"} ${round.hand} 局` : `第 ${decision.roundOrdinal + 1} 局`,
+    // A river count is not a turn count after calls; name the observable fact.
+    turnLabel: facts.completeness.rivers ? `已打 ${facts.rivers[facts.actor]!.length} 张` : "巡目未知",
+  };
+}
+
+export function presentReviewBoard(decision: ReadyDecision) {
+  const facts = decision.knownGameFacts;
+  const round = facts.currentRound;
+  const action = decision.normalizedDecisionContext.actualAction;
+  return {
+    ...boardLabels(decision), actor: facts.actor, seatWind: facts.seatWind,
+    honba: round?.status === "known" ? round.honba : null,
+    riichiSticks: round?.status === "known" ? round.riichiSticks : null,
+    scores: facts.scores?.status === "known" ? facts.scores.byActor : null,
+    hand: sortTilesCanonical(facts.concealedTiles), draw: facts.currentDraw?.tile ?? null,
+    dora: facts.doraIndicators,
+    rivers: facts.rivers.map(river => river.map(({tile,tsumogiri}) => ({tile,tsumogiri}))),
+    melds: facts.melds.map(meld => ({actor:meld.actor ?? null, label:({chi:"吃",pon:"碰",daiminkan:"明杠",ankan:"暗杠",kakan:"加杠"})[meld.kind],tiles:meld.tiles})),
+    riichiActors: [...new Set([...facts.threats.filter(t=>t.riichi).map(t=>t.actor),...(facts.selfRiichi?[facts.actor]:[])])],
+    complete: facts.completeness.concealedTiles && facts.completeness.rivers && facts.completeness.melds && facts.completeness.doraIndicators,
+    actualTile: action?.kind === "discard" || action?.kind === "riichi_discard" ? action.tile : null,
+  };
+}
 type GraphNode = ReturnType<typeof composeReviewReadBackContext>["currentGraph"]["nodes"][number];
 
 function tileLabel(tile: Tile): string {
@@ -459,6 +488,7 @@ export function presentFixedReviewSnapshotFromContext(
     const presentAxes = new Set(decision.factorDifferences.map((difference) => difference.axis));
     return {
       ...selected,
+      ...boardLabels(decision),
       roundOrdinal: decision.roundOrdinal,
       decisionWindowKind: decision.normalizedDecisionContext.decisionWindowKind,
       actualAction: actualActionDto(decision),
@@ -573,6 +603,7 @@ export function presentFixedReviewDetailFromContext(
   }); });
   return Object.freeze(FixedReviewDetailSchema.parse({
     schemaVersion: "fixed-review-detail/v3",
+    board: presentReviewBoard(decision),
     packageId: context.analysisPackage.packageId,
     activeReportRefId,
     decisionId,

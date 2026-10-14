@@ -8,8 +8,8 @@ import {
 describe("desktop main-window boundary", () => {
   it("uses a fixed local preload with an isolated renderer", () => {
     expect(createMainWindowOptions("C:\\app\\preload-entry.js")).toEqual({
-      width: 920,
-      height: 680,
+      width: 1440,
+      height: 960,
       show: true,
       webPreferences: {
         preload: "C:\\app\\preload-entry.js",
