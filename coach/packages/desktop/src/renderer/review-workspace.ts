@@ -123,8 +123,28 @@ export function createReviewWorkspace(d: Document, root: HTMLElement, snapshot: 
     const coach = make(d, "aside", "workspace-coach");
     coach.setAttribute("aria-label", "当前局面教练");
     const coachHeader = make(d, "div", "workspace-coach-header");
-    coachHeader.append(make(d, "strong", "", "Coach"), make(d, "span", "", "跟随当前局面"));
+    const coachTitle=make(d,"div","workspace-coach-title");
+    coachTitle.append(make(d, "strong", "", "Coach"), make(d, "span", "", "跟随当前局面"));
+    const tabs=make(d,"div","workspace-coach-tabs");tabs.setAttribute("role","tablist");tabs.setAttribute("aria-label","教练内容");
+    const coachTab=make(d,"button","active","教练解释"),compareTab=make(d,"button","","候选比较");
+    coachTab.id="workspace-coach-tab";compareTab.id="workspace-compare-tab";
+    coach.dataset.panel="coach";
+    for(const tab of [coachTab,compareTab]){
+        tab.type="button";tab.tabIndex=tab===coachTab?0:-1;tab.setAttribute("role","tab");tab.setAttribute("aria-selected",String(tab===coachTab));tab.setAttribute("aria-controls","workspace-coach-panel");
+        tab.addEventListener("click",()=>{
+            coach.dataset.panel=tab===coachTab?"coach":"compare";
+            for(const item of [coachTab,compareTab]){item.classList.toggle("active",item===tab);item.setAttribute("aria-selected",String(item===tab));item.tabIndex=item===tab?0:-1;}
+            detailHost.setAttribute("aria-labelledby",tab.id);
+        });
+        tab.addEventListener("keydown",e=>{
+            if(!["ArrowLeft","ArrowRight","Home","End"].includes(e.key))return;
+            e.preventDefault();const next=e.key==="Home"?coachTab:e.key==="End"?compareTab:tab===coachTab?compareTab:coachTab;
+            next.click();next.focus();
+        });
+    }
+    tabs.append(coachTab,compareTab);coachHeader.append(coachTitle,tabs);
     const detailHost = make(d, "div", "workspace-detail-host");
+    detailHost.id="workspace-coach-panel";detailHost.setAttribute("role","tabpanel");detailHost.setAttribute("aria-labelledby",coachTab.id);
     detailHost.append(make(d, "p", "workspace-empty", items.length ? "正在读取当前局面…" : "暂无入选条目"));
     const statusHost = make(d, "div", "workspace-status-host");
     const meta = make(d, "details", "workspace-review-meta");
@@ -236,32 +256,48 @@ export function createReviewWorkspace(d: Document, root: HTMLElement, snapshot: 
             button.append(badges);
             button.setAttribute("aria-label", `查看${tileName(t)}${badgeSlots.actual === i ? "，你的选择" : ""}${badgeSlots.mortal.has(i) ? "，mortal 推荐" : ""}`);
             const show = () => {
-                loss.replaceChildren(make(d,"strong","",`打出 ${tileName(t)}`));
+                const content = make(d,"div","loss-content");
+                const heading = make(d,"div","loss-heading");
+                heading.append(make(d,"strong","",`打出 ${tileName(t)}`));
+                content.append(heading); loss.replaceChildren(content);
                 const result = b.discardLoss;
                 if (!result || result.status !== "ready") {
                     const reason = result?.status === "unavailable" ? result.reason : "facts_missing";
-                    loss.append(make(d,"p","",({legal_actions_missing:"旧复盘缺少完整合法切牌记录，请重新分析牌谱。",facts_missing:"可见牌记录不完整，暂不能计算损失。",engine_failed:"计算暂时失败，重新打开这手牌可重试。",not_discard_window:"当前局面不是打牌窗口。"})[reason]));
+                    content.append(make(d,"p","",({legal_actions_missing:"旧复盘缺少完整合法切牌记录，请重新分析牌谱。",facts_missing:"可见牌记录不完整，暂不能计算损失。",engine_failed:"计算暂时失败，重新打开这手牌可重试。",not_discard_window:"当前局面不是打牌窗口。"})[reason]));
                 } else {
                     const mode = b.draw && i === handTiles.length - 1 ? "tsumogiri" : "tedashi";
                     const candidate = result.candidates.find(c => c.tile.id === t.id && c.tile.red === t.red && c.discardMode === mode);
-                    if (!candidate) loss.append(make(d,"p","","当前不能打出这张牌。"));
+                    if (!candidate) content.append(make(d,"p","","当前不能打出这张牌。"));
                     else {
-                        if (candidate.shanten > result.baselineShanten) loss.append(make(d,"p","loss-regression",`退向听：${result.baselineShanten} → ${candidate.shanten}`));
+                        if (candidate.shanten > result.baselineShanten) content.append(make(d,"p","loss-regression",`退向听：${result.baselineShanten} → ${candidate.shanten}`));
                         const group = (label:string,tiles:typeof candidate.directLost) => {
                             const section = make(d,"section","loss-group");
-                            section.append(make(d,"p","",`${label} · 损 ${tiles.reduce((n,x)=>n+x.count,0)} 枚${tiles.length ? ` / ${tiles.length} 种` : ""}`));
+                            const count = tiles.reduce((n,x)=>n+x.count,0);
+                            section.setAttribute("aria-label",`${label} · 损 ${count} 枚${tiles.length ? ` / ${tiles.length} 种` : ""}`);
+                            const summary = make(d,"div","loss-summary");
+                            summary.append(make(d,"strong","",label));
+                            const total = make(d,"span","");
+                            if(tiles.length) total.append(d.createTextNode("损 "),make(d,"b","",String(count)),d.createTextNode(" 枚"),make(d,"em","",`${tiles.length} 种`));
+                            else total.textContent="不损";
+                            summary.append(total); section.append(summary);
                             const list = make(d,"div","loss-tiles");
                             tiles.forEach(x => {
-                                const item = make(d,"div","loss-tile"); item.append(tileImage(d,x.tile),make(d,"span","",`损 ${x.count}`));
+                                const item = make(d,"div","loss-tile"); const amount=make(d,"span","");amount.append(d.createTextNode("损 "),make(d,"b","",String(x.count)),d.createTextNode(" 枚"));
+                                item.append(tileImage(d,x.tile),amount);
                                 if (x.degradedToImprovement) item.append(make(d,"small","","降为改良"));
                                 list.append(item);
                             });
-                            section.append(list); loss.append(section);
+                            section.append(tiles.length ? list : make(d,"div","loss-zero","全部保留")); content.append(section);
                         };
                         group("直接进张",candidate.directLost); group("改良张",candidate.improvementLost);
                     }
                 }
                 loss.hidden = false;
+                const anchor=button.getBoundingClientRect(),box=loss.getBoundingClientRect();
+                const left=Math.max(10,Math.min(window.innerWidth-box.width-10,anchor.left+(anchor.width-box.width)/2));
+                const above=anchor.top-box.height-12;
+                const top=above>=10 ? above : Math.max(10,Math.min(window.innerHeight-box.height-10,anchor.bottom+12));
+                loss.style.left=`${left}px`;loss.style.top=`${top}px`;
             };
             button.addEventListener("pointerenter", show);
             button.addEventListener("focus", show);

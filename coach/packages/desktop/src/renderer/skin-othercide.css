@@ -61,3 +61,27 @@ html[data-skin=othercide] .loss-tile span{color:#f296a4}
 html[data-skin=othercide] .loss-regression{color:#ffc1ca}
 @media(max-width:1199px){html[data-skin=othercide] .brand-lockup strong{font-size:26px}}
 @media(max-width:720px){html[data-skin=othercide] .board-heading h1{font-size:22px}html[data-skin=othercide] .table-center strong{font-size:20px;white-space:nowrap}html[data-skin=othercide] .table-center{outline-offset:3px}}
+/* Transient ornament and typography must survive the shared skin rules. */
+html[data-skin=othercide]{--table-muted:#b7adb5;--table-center:#29252b;--loss-color:#f296a4}
+html[data-skin=othercide] .brand-lockup{height:148px;min-height:148px}
+html[data-skin=othercide] .brand-lockup:after{content:none}
+html[data-skin=othercide] .skin-brand-label{color:var(--muted);font-size:9px;letter-spacing:.13em}
+html[data-skin=othercide] .sidebar-bottom{padding-top:35px}
+html[data-skin=othercide] .sidebar-bottom:before,html[data-skin=othercide] .page-heading h1:before,html[data-skin=othercide] .timeline-heading>strong:before,html[data-skin=othercide] .loss-heading:before{content:none}
+html[data-skin=othercide] .loss-content{max-height:calc(100dvh - 72px)}
+html[data-skin=othercide] .loss-heading strong{font:400 23px 'Songti SC','SimSun',serif;letter-spacing:.03em}
+html[data-skin=othercide] .loss-heading{padding-right:25px}
+html[data-skin=othercide] .loss-summary b{color:#f296a4;font:25px Georgia,serif}
+html[data-skin=othercide] .loss-group{border-color:#63515f}
+html[data-skin=othercide] .hand-loss:before{left:-1px;right:-1px;top:-5px;height:7px}
+html[data-skin=othercide] .table-seat strong{font-weight:400}
+html[data-skin=othercide] .workspace-coach-header strong{font:400 22px Georgia,serif;letter-spacing:.08em}
+html[data-skin=othercide] .workspace-detail-host{padding:28px 25px}
+html[data-skin=othercide] .review-coach p{font-size:14px;line-height:2}
+html[data-skin=othercide] .review-comparison h4{font-weight:400}
+@media(max-height:900px) and (min-width:721px){html[data-skin=othercide] .brand-lockup{height:148px;min-height:148px}}
+html[data-skin=othercide] .mahjong-table{max-height:510px}
+html[data-skin=othercide] .skin-brand-label{font-weight:400}
+html[data-skin=othercide] .workspace-coach-tabs button{font-weight:400}
+html[data-skin=othercide] .workspace-coach-tabs button.active{border-bottom:1px solid var(--ink)}
+html[data-skin=othercide] .workspace-coach-tabs button.active:after{content:'';position:absolute;width:4px;height:4px;bottom:-3px;left:50%;background:#bc9ca7;transform:rotate(45deg);pointer-events:none}

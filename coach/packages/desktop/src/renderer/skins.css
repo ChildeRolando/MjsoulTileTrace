@@ -8,3 +8,64 @@ html:not([data-skin=classic]) .workspace-header{background:var(--skin-ink);color
 html:not([data-skin=classic]) .mahjong-table{border:1px solid var(--line);border-radius:0;color:var(--table-ink);max-height:540px;background-image:linear-gradient(var(--table-line) 1px,transparent 1px),linear-gradient(90deg,var(--table-line) 1px,transparent 1px);background-size:48px 48px}html[data-skin=orbit] .mahjong-table{border:6px solid #68757b;background-image:radial-gradient(ellipse at center,transparent 28%,#9aaeb533 28.2%,transparent 28.5%,transparent 48%,#9aaeb529 48.2%,transparent 48.5%),linear-gradient(var(--table-line) 1px,transparent 1px),linear-gradient(90deg,var(--table-line) 1px,transparent 1px);background-size:100% 100%,40px 40px,40px 40px}html:not([data-skin=classic]) .table-center{border-radius:0;border:1px solid var(--table-line);border-top:3px solid var(--skin-accent);background:var(--table)}html:not([data-skin=classic]) .table-dora small{color:var(--table-ink)}html:not([data-skin=classic]) .workspace-hand-zone{background:var(--paper);border:1px solid var(--line);border-top:3px solid var(--skin-accent);margin-top:10px;padding-top:18px}html:not([data-skin=classic]) .workspace-coach{border-top:5px solid var(--skin-accent)}html:not([data-skin=classic]) .workspace-coach-header strong{text-transform:uppercase;letter-spacing:.06em}html:not([data-skin=classic]) .hand-loss{border-radius:0;border-top:3px solid var(--skin-accent)}html:not([data-skin=classic]) .review-comparison{background:var(--canvas);border-left:3px solid var(--green);padding:12px}html:not([data-skin=classic]) .decision-timeline{border:0}html[data-skin=rhine] .decision-node:before{border-radius:0;transform:rotate(45deg)}
 @media(max-width:720px){.skin-picker{font-size:0;gap:0}.skin-picker select{max-width:135px;font-size:12px}#workspace-page-title{max-width:90px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.workspace-header{gap:7px}html:not([data-skin=classic]) .board-heading h1{font-size:20px}html:not([data-skin=classic]) .board-heading:before{font-size:8px}html[data-skin=orbit] .mahjong-table{border-width:3px}}
 html:not([data-skin=classic]) .table-center span,html:not([data-skin=classic]) .table-center small{color:var(--table-ink)}
+/* Approved skin detail mapping, in addition to the shared business layout. */
+html:not([data-skin=classic]) body{letter-spacing:.012em}
+html:not([data-skin=classic]) .skin-brand-label{color:#d2dce2}
+html:not([data-skin=classic]) .brand-lockup{height:160px;min-height:160px;padding-bottom:40px}
+html:not([data-skin=classic]) .brand-lockup:after{content:var(--skin-motto);bottom:14px;font-size:9px;letter-spacing:.14em}
+html[data-skin=classic] .skin-brand-label{display:none}
+html:not([data-skin=classic]) .workspace-header{height:56px;min-height:56px}
+html:not([data-skin=classic]) .sidebar-bottom{position:relative;padding-top:90px}
+html:not([data-skin=classic]) .sidebar-bottom:before{content:'R.L.\A COACH';white-space:pre;position:absolute;top:0;left:6px;font:700 37px/.85 'Segoe UI',sans-serif;letter-spacing:-.06em;color:var(--line);pointer-events:none}
+html[data-skin=orbit] .sidebar-bottom:before{content:'AD ASTRA\A / 019';color:#526572;font:28px/1.1 Consolas,monospace}
+html[data-skin=orbit] .brand-lockup{overflow:hidden;background:radial-gradient(ellipse at 85% 15%,#617382 0,transparent 60%),#122330}
+html[data-skin=orbit] .brand-lockup:before{content:'';position:absolute;width:160px;height:160px;border:1px solid #bdcbd055;border-radius:50%;right:-60px;top:-70px;box-shadow:0 0 0 13px #bdcbd012,0 0 0 27px #bdcbd015;pointer-events:none}
+html[data-skin=orbit] .brand-mark{width:43px;height:43px;border-color:#c2d0d5;flex:none}
+html[data-skin=orbit] .brand-mark:before{content:'';position:absolute;inset:9px -8px;border:1px solid var(--skin-accent);border-radius:50%}
+html[data-skin=orbit] .brand-mark:after{position:absolute;inset:3px;text-align:center;font:30px Consolas;color:#f6ede0}
+html:not([data-skin=classic]) .brand-glyph{display:none}
+html[data-skin=rhine] .brand-mark{width:44px;height:54px;border:0;flex:none}
+html[data-skin=rhine] .brand-mark svg{display:block;width:44px;height:54px;stroke:var(--skin-accent);stroke-width:2.2;fill:none}
+html[data-skin=rhine] .skin-brand-label{color:var(--skin-accent)}
+html[data-skin=rhine] .brand-lockup:after{color:#bcc9b0}
+html[data-skin=rhine]{--table-muted:#536249;--table-center:#f6f8f0;--loss-color:#895321}
+html[data-skin=rhine][data-theme=dark]{--table-muted:#becfb0;--table-center:#253022;--skin-ink:#101913;--loss-color:#e2bb7f}
+html[data-skin=orbit]{--table-muted:#b9c6cd;--table-center:#233541;--loss-color:#97531a}
+html[data-skin=orbit][data-theme=dark]{--table-center:#20343f;--loss-color:#e2bb7f}
+html:not([data-skin=classic]) .mahjong-table:before{content:'';position:absolute;inset:12px;border:1px solid var(--table-line);pointer-events:none}
+html:not([data-skin=classic]) .mahjong-table:after{content:'OBSERVATION FIELD / 04';position:absolute;bottom:12px;left:15px;font:9px Consolas,monospace;color:var(--table-muted);letter-spacing:.12em;pointer-events:none}
+html[data-skin=orbit] .mahjong-table:after{content:'ORB / 04    •    DECISION TELEMETRY';letter-spacing:.15em;color:#c4d0d5}
+html:not([data-skin=classic]) .table-center{background:var(--table-center)}
+html[data-skin=orbit] .table-center{box-shadow:0 0 0 5px var(--table),0 0 0 6px #85959a}
+html:not([data-skin=classic]) .table-seat strong{font-weight:600}
+html:not([data-skin=classic]) .table-dora small{color:var(--table-muted)}
+html:not([data-skin=classic]) .workspace-coach-header strong{font-size:19px}
+html[data-skin=orbit] .workspace-coach-header strong{font-family:Consolas,'Microsoft YaHei UI',monospace;letter-spacing:.04em}
+html[data-skin=orbit] .workspace-coach-header strong:before{content:'FLIGHT DIRECTOR';display:block;font:9px Consolas;color:var(--muted);letter-spacing:.15em;margin-bottom:7px}
+html:not([data-skin=classic]) .loss-heading:before{content:'Δ / ';font-family:Consolas;color:var(--green)}
+html:not([data-skin=classic]) .loss-summary b{font-family:Consolas,monospace}
+html:not([data-skin=classic]) .hand-loss{border-top:4px solid var(--skin-accent);box-shadow:7px 7px 0 #182a1722}
+html:not([data-skin=classic]) .page-heading h1{font-size:32px;letter-spacing:-.03em}
+html[data-skin=rhine] .page-heading h1:before{content:'R.L. / ';color:var(--green);font-family:Consolas;font-weight:400}
+html[data-skin=orbit] .page-heading h1:before{content:'ORB / ';color:var(--green);font-family:Consolas;font-weight:400}
+html:not([data-skin=classic]) .decision-timeline{border-top:1px solid var(--line)}
+html:not([data-skin=classic]) .timeline-heading>strong:before{content:'03 / ';font:11px Consolas;color:var(--green)}
+@media(min-width:1200px){html:not([data-skin=classic]) .app-shell{grid-template-columns:232px minmax(0,1fr)}}
+@media(min-width:1550px){html:not([data-skin=classic]) .review-layout{grid-template-columns:minmax(0,1fr) 410px}}
+@media(max-height:900px) and (min-width:721px){html:not([data-skin=classic]) .brand-lockup{height:132px;min-height:132px}html:not([data-skin=classic]) .sidebar-bottom{padding-top:65px}}
+@media(max-width:1199px){html:not([data-skin=classic]) .brand-lockup strong{font-size:23px}html:not([data-skin=classic]) .skin-brand-label{font-size:8px}}
+@media(max-width:720px){html:not([data-skin=classic]) .sidebar-bottom{padding-top:50px}html:not([data-skin=classic]) .sidebar-bottom:before{font-size:24px}html:not([data-skin=classic]) .mahjong-table:after{font-size:7px;letter-spacing:.04em}}
+html:not([data-skin=classic]) .brand-mark{position:relative}
+/* Match the prototype's quiet field texture, rather than a full-opacity grid. */
+html[data-skin=rhine] .board-lane{background-image:radial-gradient(var(--line) .65px,transparent .65px);background-size:16px 16px}
+html[data-skin=orbit] .board-lane{background-image:linear-gradient(90deg,transparent 39px,#71828b13 40px),linear-gradient(transparent 39px,#71828b13 40px);background-size:40px 40px}
+html[data-skin=rhine] .mahjong-table,html[data-skin=orbit] .mahjong-table{background-image:none;max-height:510px}
+html[data-skin=rhine] .mahjong-table:before{inset:10px;border-color:var(--line);background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:48px 48px;opacity:.26}
+html[data-skin=orbit] .mahjong-table:before{inset:12px;border-color:#8096a066;background-image:radial-gradient(ellipse at center,transparent 28%,#9aaeb533 28.2%,transparent 28.5%,transparent 48%,#9aaeb529 48.2%,transparent 48.5%),linear-gradient(#8096a018 1px,transparent 1px),linear-gradient(90deg,#8096a018 1px,transparent 1px);background-size:100% 100%,40px 40px,40px 40px}
+html[data-skin=orbit] .brand-lockup strong{font-weight:600;letter-spacing:.08em}
+html[data-skin=rhine] .brand-lockup strong{font-weight:750;letter-spacing:.025em}
+html[data-skin=rhine] .board-heading h1{font-size:29px;font-weight:650;letter-spacing:-.045em}
+html[data-skin=orbit] .board-heading h1{font-size:29px;font-weight:600;letter-spacing:-.03em}
+@media(max-height:900px) and (min-width:721px){html[data-skin=rhine] .board-heading h1,html[data-skin=orbit] .board-heading h1{font-size:24px}}
+@media(max-width:1199px){html[data-skin=rhine] .board-heading h1,html[data-skin=orbit] .board-heading h1{font-size:24px}}
+@media(max-width:720px){html[data-skin=rhine] .board-heading h1,html[data-skin=orbit] .board-heading h1{font-size:21px}}

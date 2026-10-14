@@ -185,6 +185,15 @@ async function checkWorkspaceSkin() {
   choose('othercide');choose('orbit');
   check(document.documentElement.dataset.theme==='dark','restore_dark');
   choose('othercide');
+  const tableBefore=document.querySelector('.mahjong-table');
+  const tabs=document.querySelectorAll('.workspace-coach-tabs button');
+  check(tabs.length===2,'coach_tabs');
+  tabs[1].click();
+  check(document.querySelector('.workspace-coach').dataset.panel==='compare','compare_panel');
+  check(document.querySelector('.mahjong-table')===tableBefore,'tab_preserves_board');
+  tabs[0].click();
+  check(document.querySelector('.workspace-coach').dataset.panel==='coach','coach_panel');
+  check(document.querySelectorAll('.review-comparison .comparison-tiles .tile').length>0,'comparison_tiles');
   const input=document.querySelector('#coach-base-url');
   if(input){
     for(let parent=input.parentElement;parent;parent=parent.parentElement){if(parent.tagName==='DETAILS')parent.open=true;}
@@ -199,7 +208,7 @@ async function checkWorkspaceSkin() {
     button.click();
     const groups=[...document.querySelectorAll('.hand-loss .loss-group')];
     if(groups.length===2){
-      check(getComputedStyle(groups[1]).borderTopWidth==='1px','group_separator');
+      check(getComputedStyle(groups[0]).borderBottomWidth==='1px','group_separator');
       check(getComputedStyle(groups[1]).borderBottomWidth==='0px','no_footer_separator');
       check(getComputedStyle(groups[1]).paddingBottom==='0px','no_footer_gap');
       check(getComputedStyle(groups[1]).marginBottom==='0px','no_footer_margin');
@@ -207,7 +216,43 @@ async function checkWorkspaceSkin() {
     }
   }
   check(readyLoss,'real_loss_groups:'+buttons.length+':'+document.querySelector('.hand-loss')?.textContent);
-  return {nightOnly:true,lightAndDarkRestored:true,singleFocusEdge:true,lossFooterTrimmed:true};
+  const expected={
+    classic:{background:'rgb(37, 39, 41)',color:'rgb(233, 235, 236)',line:'rgb(65, 69, 72)',number:'Segoe UI',numberSize:'22px',titleSize:'15px'},
+    orbit:{background:'rgb(29, 42, 53)',color:'rgb(244, 238, 227)',line:'rgb(73, 92, 104)',number:'Consolas',numberSize:'22px',titleSize:'15px'},
+    rhine:{background:'rgb(36, 46, 39)',color:'rgb(239, 243, 230)',line:'rgb(72, 91, 71)',number:'Consolas',numberSize:'22px',titleSize:'15px'},
+    othercide:{background:'rgb(36, 32, 37)',color:'rgb(233, 229, 223)',line:'rgb(99, 81, 95)',number:'Georgia',numberSize:'25px',titleSize:'23px'}
+  };
+  for(const [skin,reference] of Object.entries(expected)){
+    choose(skin);
+    const card=document.querySelector('.hand-loss'),style=getComputedStyle(card);
+    check(style.backgroundColor===reference.background,skin+'_loss_background');
+    check(style.color===reference.color,skin+'_loss_text');
+    check(style.width==='306px',skin+'_loss_width');
+    const title=getComputedStyle(card.querySelector('.loss-heading strong'));
+    check(title.fontSize===reference.titleSize,skin+'_loss_title');
+    const number=card.querySelector('.loss-summary b');
+    check(!!number,skin+'_number_structure');
+    check(getComputedStyle(number).fontFamily.includes(reference.number),skin+'_number_font');
+    check(getComputedStyle(number).fontSize===reference.numberSize,skin+'_number_size');
+    check(getComputedStyle(card.querySelector('.loss-group')).borderBottomColor===reference.line,skin+'_separator_color');
+    check(getComputedStyle(card.querySelector('.loss-tile .tile')).width==='34px',skin+'_tile_size');
+    if(skin==='othercide'){
+      check(style.overflow==='visible','unclipped_loss_edge');
+      check(getComputedStyle(card,'::before').height==='7px','bone_edge_height');
+      check(getComputedStyle(card,'::before').top==='-5px','bone_edge_position');
+      check(getComputedStyle(card,'::after').backgroundColor==='rgb(173, 25, 50)','scar_color');
+      check(getComputedStyle(card.querySelector('.loss-tile span')).color==='rgb(242, 150, 164)','loss_color');
+    }
+  }
+  choose('classic');document.querySelector('#theme-toggle').click();
+  const light={classic:['rgb(255, 255, 255)','rgb(37, 41, 44)'],orbit:['rgb(248, 245, 237)','rgb(32, 43, 53)'],rhine:['rgb(252, 253, 248)','rgb(34, 43, 32)']};
+  for(const [skin,[background,color]] of Object.entries(light)){
+    choose(skin);const style=getComputedStyle(document.querySelector('.hand-loss'));
+    check(style.backgroundColor===background,skin+'_light_loss_background');
+    check(style.color===color,skin+'_light_loss_text');
+  }
+  choose('othercide');
+  return {nightOnly:true,lightAndDarkRestored:true,singleFocusEdge:true,lossFooterTrimmed:true,visualParity:7};
 }
 
 if (process.versions.electron) {

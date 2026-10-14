@@ -67,3 +67,31 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
 .hand-loss .loss-group:last-child{padding-bottom:0;margin-bottom:0;border-bottom:0}
 @media(max-width:1199px){.table-melds{--meld-w:18px}}
 @media(max-width:720px){.table-melds{--meld-w:15px}}
+/* Visual parity with the approved interactive loss card. The scrollable content
+   is inside the shell so the transient skin's torn edge cannot be clipped. */
+.hand-loss{position:fixed;left:0;top:0;bottom:auto;transform:none;width:306px;max-width:calc(100vw - 20px);max-height:none;overflow:visible;padding:17px 18px;box-shadow:0 12px 40px #0f231f30;font-size:14px;letter-spacing:inherit}
+.loss-content{max-height:calc(100dvh - 66px);overflow:auto;scrollbar-width:none}.loss-content::-webkit-scrollbar{display:none}
+.loss-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:7px;font-size:15px}.loss-heading strong{font-weight:600}
+.hand-loss .loss-group{margin:0;padding:13px 0;border:0;border-bottom:1px solid var(--line)}
+.hand-loss .loss-group+.loss-group{border-top:0}
+.hand-loss .loss-group:last-child{border-bottom:0;padding-bottom:0;margin-bottom:0}
+.loss-summary{display:flex;align-items:baseline;justify-content:space-between;gap:10px;font-size:13px}
+.loss-summary strong{font-weight:600}.loss-summary>span{font-size:12px;color:var(--loss-color,#97531a)}
+.loss-summary b{font-size:22px;font-weight:650;line-height:normal;font-variant-numeric:tabular-nums;letter-spacing:-.03em;margin:0 2px}
+.loss-summary em{font-size:11px;font-style:normal;color:var(--muted);margin-left:5px}
+.hand-loss .loss-tiles{display:flex;flex-wrap:wrap;gap:17px;margin-top:12px}.loss-tile{gap:5px;min-width:34px}
+.hand-loss .loss-tile .tile{width:34px;height:46px}.hand-loss .loss-tile span{font-size:12px;color:var(--loss-color,#97531a)}
+.loss-tile b{font-size:15px;font-weight:600;font-variant-numeric:tabular-nums}.loss-zero{font-size:12px;margin-top:10px;color:var(--muted)}
+html[data-theme=dark]{--loss-color:#e2bb7f}
+.brand-type{display:flex;flex-direction:column;gap:8px}.skin-brand-label{font:9px Consolas,'Microsoft YaHei UI',monospace;letter-spacing:.06em;color:var(--muted)}
+.brand-mark svg{display:none}.brand-glyph{display:block}
+@media(max-width:720px){.hand-loss{width:282px;padding:14px 16px}.hand-loss .loss-tile .tile{width:32px;height:43px}.loss-content{max-height:calc(100dvh - 60px)}}
+.review-comparison .comparison-tiles{display:flex;gap:4px;margin-top:10px;flex-wrap:wrap}.comparison-tiles .tile{width:32px;height:43px}
+.review-comparison .comparison-score{font-size:11px;margin-top:8px;border:0;padding:0;color:var(--muted)}.comparison-score summary{cursor:pointer}.comparison-score p{font-size:11px}
+.hand-badges{flex-direction:row;gap:2px;line-height:17px}
+.workspace-hand-zone{padding-bottom:34px}.decision-timeline{margin-top:0}
+/* Shared review tabs retain the same table and decision context. */
+.workspace-coach-header{display:flex;flex-direction:column;padding-bottom:0}.workspace-coach-title{display:flex;align-items:center;justify-content:space-between;gap:15px;width:100%}
+.workspace-coach-tabs{display:flex;gap:22px;margin-top:18px}.workspace-coach .workspace-coach-tabs button{background:none;color:var(--muted);border:0;border-radius:0;padding:0 0 15px;position:relative;font-size:13px;font-weight:500}
+.workspace-coach .workspace-coach-tabs button.active{border-bottom:3px solid var(--green);color:var(--ink)}
+.workspace-coach[data-panel=compare] .review-coach,.workspace-coach[data-panel=compare] .review-detail>h3{display:none}

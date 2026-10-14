@@ -715,6 +715,8 @@ let skinId = "orbit";
 try { const saved = localStorage.getItem("coach-workspace-skin"); if (saved && skinIds.some(id => id === saved)) skinId = saved; } catch {}
 const applySkin = () => {
   document.documentElement.dataset.skin = skinId;
+  const brand = document.querySelector<HTMLElement>(".skin-brand-label");
+  if (brand) brand.textContent = ({classic:"WORKSPACE / 复盘工作区",rhine:"RHINE LAB / 莱茵生命",orbit:"ORBITAL / 孤星计划",othercide:"OTHERCIDE / 夜幕"} as Record<string,string>)[skinId] ?? "";
   const nightOnly = skinId === "othercide";
   document.documentElement.dataset.theme = nightOnly ? "dark" : preferredTheme;
   const toggle = document.querySelector<HTMLButtonElement>("#theme-toggle");
