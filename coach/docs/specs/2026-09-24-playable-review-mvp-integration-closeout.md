@@ -1,7 +1,7 @@
 # Playable Review MVP Integration Closeout 实现规格
 
 日期：2026-09-24  
-状态：**SPEC READY；A–D、Golden Slice、固定五门、fresh independent review 与代码合并均已完成；绑定最终合并版本的真人 smoke 尚未完成**。当前证据及状态见 [ROADMAP](../development/ROADMAP.md) 与 [VERIFICATION](../development/VERIFICATION.md)。
+状态：**SPEC READY；A–D 与 PR #50 已合入，PR #50 最终版本真人全链路验收获维护者确认；该最终代码的 fresh independent review 尚待完成，MVP 未发布**。当前证据及状态见 [ROADMAP](../development/ROADMAP.md) 与 [VERIFICATION](../development/VERIFICATION.md)。
 父目标：Playable Review MVP v0.1
 
 ## 1. 权威、现状与范围
@@ -25,10 +25,11 @@
   只在其真实 spike 合入后消费 validated `StructuredAnalysisPackage`，不实现 runtime。
 
 `master` 已包含 M7-A/M7-B（PR #17 / #22）、local Mortal prerequisite（PR #28）以及 A–D
-组合。账号与 share-import 均接入同一 package/session handoff；app-shell Golden Slice、固定五门、
-fresh independent review 与代码合并均已完成。获授权真人 smoke 的确认绑定较早候选
-`d302c383`，不是最终 `8f14427` 合并候选；MVP 仍为 **not demoable**，直至最终合并版本的真人
-smoke 通过。§7 的验收要求不变。
+组合及 PR #50。账号与 share-import 均接入同一 package/session handoff。维护者在 COAC-102
+评论 `01a13b8c-c3e9-74c1-b4bd-15b076cb139d` 与回复 `01a13b90-285f-79d5-8a53-0c046622b096`
+确认 PR #50 最终版本真人全链路验收通过；较早 `d302c383` 的现场验收仍只归属该旧版本。
+PR #50 的作者直接验证和 GitHub 检查不能替代该最终代码的 fresh independent `NO_P1_P2`；
+MVP 仍为 **not demoable**，直至 §7 所有条件在最终候选上成立。§7 的验收要求不变。
 
 COAC-100 已持久化 `R5-P3-1`，PR #23 的 C 修复已合入并继续作为现有 controller/UI 回归
 owner；PR #43 的最终候选也保留了 session-list refresh 回归。A–D 与 Golden Slice 均已合入；
