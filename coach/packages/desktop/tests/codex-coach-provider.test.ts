@@ -80,6 +80,27 @@ it("Arena waits through CLI reconnect progress for a completed structured respon
   expect(JSON.stringify(result)).not.toContain("PRIVATE_");
 });
 
+it("Arena uses the final structured assistant message after progress messages and still validates it", async () => {
+  const selected = { name: "submit_decision", arguments: "{}", decisionSummary: "提交选择。" };
+  const fake = fakePort({ onExec: transcript([{ type: "thread.started" }, { type: "turn.started" },
+    { type: "item.completed", item: { type: "agent_message", text: "PUBLIC_PROGRESS" } },
+    { type: "item.completed", item: { type: "agent_message", text: JSON.stringify(selected) } },
+    { type: "turn.completed", usage: { input_tokens: 10, output_tokens: 3 } }]) });
+  const provider = createCodexArenaToolCallProvider({ modelName: "gpt-6-luna", reasoningEffort: "high", processPort: fake.port });
+  const input = { messages: [{ role: "system" as const, content: "Arena" }, { role: "user" as const, content: "observation" }],
+    tools: [{ type: "function" as const, function: { name: "submit_decision", description: "Lock", parameters: {} } }],
+    maxInputBytes: 65536, maxOutputBytes: 16384, maxOutputTokens: 2048 };
+  const result = await provider.request(input, new AbortController().signal);
+  expect(result).toMatchObject({ status: "ready", call: { name: "submit_decision", arguments: "{}" } });
+  expect(JSON.stringify(result)).not.toContain("PUBLIC_PROGRESS");
+  expect(fake.execCount).toBe(1);
+  const malformed = fakePort({ onExec: transcript([{ type: "thread.started" }, { type: "turn.started" },
+    { type: "item.completed", item: { type: "agent_message", text: JSON.stringify(selected) } },
+    { type: "item.completed", item: { type: "agent_message", text: "invalid final" } }, { type: "turn.completed" }]) });
+  const invalid = createCodexArenaToolCallProvider({ modelName: "gpt-6-luna", reasoningEffort: "high", processPort: malformed.port });
+  expect(await invalid.request(input, new AbortController().signal)).toMatchObject({ status: "provider_error", failureCode: "invalid_model_response" });
+});
+
 it.each(["fatal", "incomplete", "failed"] as const)("Arena still fails a %s stream after reconnect progress", async kind => {
   const tail = kind === "fatal" ? [{ type: "error", message: "Fatal PRIVATE_ERROR" }]
     : kind === "failed" ? [{ type: "turn.failed", error: { code: "server_error", message: "PRIVATE_ERROR" }, usage: { input_tokens: 10, output_tokens: 3 } }] : [];

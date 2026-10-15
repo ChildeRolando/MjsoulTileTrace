@@ -242,6 +242,8 @@ COAC-223 P2 清理截止竞态复修验证（2026-10-15）：runner 在剩余 ru
 
 调用失败修复：Arena 的 Codex 结构化入口接受 CLI `error` 事件中已识别的 `Reconnecting... n/m` 进度，继续等待同一进程的最终终态，原有时间/字节/取消边界不变，未增加整题重试。可选 `provider_turn.reconnectCount` 记录连接重试数；`failureCode` 仅允许固定诊断枚举，失败时已报告的 usage 继续归档。未知错误、工具事件、非零退出与缺失终态仍失败；不保存原始错误文本。旧失败记录不追填推测结论，生产 provider 的固定版本与解析策略不变。
 
+Arena 的同一 CLI 轮可包含多条助手消息，收到完整终态后只校验最后一条的工具选择 JSON；早期进度消息不执行、不归档，最后一条无效不回退到早期消息。此兼容限定在 Arena 结构化入口，真实工具仍只由 runner 执行。
+
 COAC-224 的真实模型入口补充（2026-10-15 用户授权）：本机 Codex/ChatGPT 订阅，`gpt-6-luna`、reasoning effort `high`；通过现有 main-owned Codex 进程执行一次结构化 Arena 工具选择，再由 runner 调用真实 MCP/RAG。仍使用原 Arena DTO/预算/提交后评分边界，不调用生产 report seam，不暴露 CLI 工具或 grader 标签。当前工作树归档累计已报告 token 的报警线为 100,000,000，缓存为输入子集，未知用量不填零；报警不等于自动停机。此补充不把 smoke/dev 案例变成独立验收集，牌局隔离与真实演示结果仍须如实记录。
 
 本轮不做大规模教材搜集/爬虫、第二麻将算法/合法动作引擎、Mortal/LLM 训练微调、多 Agent 辩论、长期用户模型、web dashboard/生产 UI、精确顺位 EV、通用反事实模拟器或“匹配 Mortal 即证明专家正确”的判断。

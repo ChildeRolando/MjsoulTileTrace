@@ -47,6 +47,8 @@ npm run coach:demo
 
 调用失败诊断：新归档中的 `provider_turn.failureCode` 区分 CLI 事件/进程错误、模型输出格式错误与上游终态；已报告 token 在失败时也计入用量。Arena 允许当前 CLI 在同一进程中发出的 `Reconnecting... n/m` 进度通知，记录 `reconnectCount`，继续等待最终完成或失败；不会因此重新调用整个 provider，也不延长总时限。未知错误、缺失终态和非零退出仍失败。旧归档只有笼统 `provider_error` 的不补写推测原因。
 
+同一轮出现多条助手消息时，Arena 等 `turn.completed` 后只校验最后一条结构化消息，再交给 runner 执行一次所选操作；早期过程消息不当作工具调用，也不写入轨迹。最后一条格式错误仍失败，不回退使用更早的有效消息。
+
 ```powershell
 npm run arena -- run --dataset blind-discard-smoke-v1 --rag off
 npm run arena -- run --dataset blind-discard-smoke-v1 --rag local

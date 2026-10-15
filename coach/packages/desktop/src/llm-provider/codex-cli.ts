@@ -450,7 +450,7 @@ function parseEvent(
     terminalFailure?: InternalFailure;
     reconnectCount?: number;
   },
-  allowReconnectProgress = false,
+  arenaStructuredOutput = false,
 ): InternalFailure | null {
   if (state.turnCompleted || state.terminalFailure !== undefined) {
     return { errorCode: "connection_failed", retryable: false };
@@ -476,9 +476,11 @@ function parseEvent(
       }
       // Reasoning item payloads are deliberately never copied out of the event.
       if (event.type === "item.completed" && item.type === "agent_message") {
-        if (state.finalText !== undefined || typeof item.text !== "string" || item.text.length === 0) {
+        if ((!arenaStructuredOutput && state.finalText !== undefined) || typeof item.text !== "string" || item.text.length === 0) {
           return { errorCode: "connection_failed", retryable: false, diagnosticCode: state.finalText !== undefined ? "cli_multiple_messages" : "cli_invalid_event" };
         }
+        // Arena waits for turn.completed and validates only the final message;
+        // earlier progress messages are never exposed as a tool selection.
         state.finalText = item.text;
       }
       return null;
@@ -501,7 +503,7 @@ function parseEvent(
     case "error":
       // Arena's current CLI emits error events for its own bounded reconnect progress.
       // Await the terminal event in this same process; never treat arbitrary errors as success.
-      if (allowReconnectProgress && state.threadStarted && state.turnStarted && typeof event.message === "string"
+      if (arenaStructuredOutput && state.threadStarted && state.turnStarted && typeof event.message === "string"
           && /^Reconnecting\.\.\. [1-9]\d?\/[1-9]\d?(?:\s|$)/.test(event.message)) {
         state.reconnectCount = (state.reconnectCount ?? 0) + 1;
         return null;
@@ -542,7 +544,7 @@ async function runExecAttempt(input: {
   executable: string;
   request: Pick<LlmCoachRequest, "prompt">;
   outputSchema?: object;
-  allowReconnectProgress?: boolean;
+  arenaStructuredOutput?: boolean;
   modelName: string;
   reasoningEffort: string;
   timeoutMs: number;
@@ -667,7 +669,7 @@ async function runExecAttempt(input: {
           failAndKill({ errorCode: "connection_failed", retryable: false, diagnosticCode: "cli_invalid_event" });
           return;
         }
-        const problem = parseEvent(event, state, input.allowReconnectProgress);
+        const problem = parseEvent(event, state, input.arenaStructuredOutput);
         if (problem !== null) {
           if (event.type === "turn.failed") {
             state.terminalFailure = problem;
@@ -778,7 +780,7 @@ async function runCodexStructuredTurn(input: {
   if (executable === null || input.signal.aborted) return failure("provider_unavailable");
   return runExecAttempt({
     port, executable, request: { prompt: input.prompt }, outputSchema: input.outputSchema,
-    allowReconnectProgress: true,
+    arenaStructuredOutput: true,
     modelName: input.modelName, reasoningEffort: input.reasoningEffort,
     timeoutMs: Math.max(1, Math.min(input.timeoutMs ?? DEFAULT_TURN_TIMEOUT_MS, DEFAULT_TURN_TIMEOUT_MS)),
     maxOutputBytes: MAX_STDIO_BYTES, signal: input.signal, cancelled: () => input.signal.aborted,
