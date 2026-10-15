@@ -8,6 +8,31 @@
 
 ## 1. 目标与边界
 
+### 2026-10-16：实验类型与公开场面展示
+
+现有 `blind-discard-dev-v1` 的 110 个开发案例来自同一完整牌局，原始盲观察已包含
+四家牌河、鸣牌、立直、分数和局况，不能称为纯平面何切。历史实验继续读取原档，
+控制台单列为“旧版混合题库”，不改写类型或成绩。
+
+新增 `blind-discard-flat-v1`（平面何切／基础牌效场景：四家均无立直、无鸣牌）与
+`blind-discard-spatial-v1`（立体何切：四家中有已宣言／成立的立直或鸣牌，含杠）。
+二者是对既有真实牌谱事前快照的互斥分组，并非新增独立牌局或专家标注题；基础组
+仍保留所有当时可见信息，不宣称是只输入手牌的纯平面测验。筛选只读公开状态，
+不读实际弃牌、未来事件或 Mortal 标签；之后再按各组内部顺序分批，RAG Off／Local
+使用同组同范围。未入本组的已合格场面记 `different_experiment_type`。
+
+类型通过独立 dataset ID 绑定 manifest、dataset scan、case-set digest、CLI 与归档；
+看板和结果按所选类型统计，Token 报警线仍覆盖所有类型。题库和案例日志必须展示
+四家分数／座风／庄家、立直、按顺序的牌河、摸切与被鸣标记、鸣牌及完整性状态。
+展示只消费既有盲观察，不增加对手暗牌、牌墙、actual 或比较答案。
+
+变更边界为 desktop 的 Arena 筛题／归档和本地 CLI／控制台；不增加 package、
+provider 权限或架构抽象，不改生产报告与 Mortal/helper 权威。标签隔离和候选全集
+继续由 `blind-discard-arena-case.test.ts`、scorer/runner/MCP 测试与 architecture checker
+约束；分组互斥、组内分页、类型参数传递、历史可读和指标隔离分别由
+`arena-dataset.test.mjs`、`arena-console.test.mjs`、`blind-discard-arena-archive.test.ts`
+和 `arena-presentation.test.mjs` 保护。无独立验收牌局仍是当前实验限制。
+
 建立一个本机离线实验入口，输入决策时可见局面和完整合法切牌集合，让 Coach 自主按需调用真实 helper MCP 与可选本地知识检索，先固定一个合法 actionRef 和简短公开依据，再由隔离裁判揭示并比较固定 Mortal runtime 的最终选择。
 
 Mortal 选择是比较标签，不是“正确答案”或专家正确性证明。匹配率不设通过门槛。此实验台不取代或扩展生产复盘，不改生产报告、重试、保存、重开、Mortal adapter 或 UI 语义。

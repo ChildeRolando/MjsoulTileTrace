@@ -32,6 +32,7 @@ import {
   createArenaToolBinding,
   ArenaRunAliasVault,
   screenArenaDecisions,
+  arenaScenarioType,
 } from "@riichi-coach/desktop/blind-discard-arena";
 import {
   createArenaMcpRunnerTool,
@@ -51,6 +52,8 @@ import {
   summarizeArenaArchive,
   arenaTokenBudget,
   ArenaCaseCatalogSchema,
+  ARENA_EXPERIMENTS,
+  DatasetIdSchema,
 } from "@riichi-coach/desktop/blind-discard-arena-archive";
 
 const coachRoot = resolve(fileURLToPath(new URL("..", import.meta.url)));
@@ -83,6 +86,8 @@ function usage() {
     "",
     "Run options:",
     "  --dataset blind-discard-dev-v1   full development bank; smoke-v1 remains frozen at 3 cases",
+    "  --dataset blind-discard-flat-v1  no riichi/meld scenarios (full visible context retained)",
+    "  --dataset blind-discard-spatial-v1  riichi/meld scenarios with public table context",
     "  --max-cases <1..128>             development batch size, default 10",
     "  --case-offset <0..127>           start index among eligible development cases, default 0",
     "  --provider codex-cli             local ChatGPT subscription (no API key)",
@@ -132,7 +137,7 @@ export function parseArgs(argv) {
     throw new Error("arena_option_unknown");
   }
   const datasetId = options["--dataset"];
-  if (!["blind-discard-smoke-v1", "blind-discard-dev-v1"].includes(datasetId) || !["off", "local"].includes(options["--rag"])) {
+  if (!DatasetIdSchema.safeParse(datasetId).success || !["off", "local"].includes(options["--rag"])) {
     throw new Error("arena_dataset_or_rag_invalid");
   }
   const maxCases = options["--max-cases"] ?? (datasetId === "blind-discard-smoke-v1" ? 3 : 10);
@@ -277,6 +282,17 @@ export function selectDatasetBatch(pool, maxCases, caseOffset) {
   return { selected, excluded };
 }
 
+export function selectExperimentPool(pool, datasetId) {
+  const type = Object.keys(ARENA_EXPERIMENTS).find(key => ARENA_EXPERIMENTS[key].datasetId === datasetId);
+  if (!type) return pool; // Frozen smoke and legacy archives retain their original selection.
+  const selected = [], excluded = [...pool.excluded];
+  for (const row of pool.selected) {
+    if (arenaScenarioType(row.snapshot.publicState) === type) selected.push(row);
+    else excluded.push({ canonicalDecisionOrder: row.canonicalDecisionOrder, reason: 'different_experiment_type' });
+  }
+  return { selected, excluded };
+}
+
 async function makeFrozenDataset(runtime, options = { datasetId: "blind-discard-smoke-v1", maxCases: 3, caseOffset: 0 }) {
   const fixtureBytes = await readFile(fixturePath);
   const fixture = JSON.parse(fixtureBytes.toString("utf8"));
@@ -325,7 +341,7 @@ async function makeFrozenDataset(runtime, options = { datasetId: "blind-discard-
       ruleResponse,
     });
   }
-  const pool = screenArenaDecisions(ruleInputs, { maxIncluded: 128 });
+  const pool = selectExperimentPool(screenArenaDecisions(ruleInputs, { maxIncluded: 128 }), options.datasetId);
   const screening = selectDatasetBatch(pool, options.maxCases, options.caseOffset);
   const byOrder = new Map(ruleInputs.map((input) => [input.canonicalDecisionOrder, input]));
   const labels = new Map();
@@ -629,10 +645,25 @@ async function catalogCommand() {
           tools: { description: "Label-free question preview.", supportedCapabilities: ["analyze_candidates", "search_knowledge"] } }) })),
     });
     await mkdir(ARCHIVE_ROOT, { recursive: true });
-    const path = join(ARCHIVE_ROOT, "case-catalog.json"), temporary = path + ".tmp";
-    await writeFile(temporary, JSON.stringify(catalog), { encoding: "utf8", mode: 0o600 });
-    await rename(temporary, path);
-    process.stdout.write(`${JSON.stringify({ datasetId: catalog.datasetId, availableCaseCount: catalog.cases.length, developmentGames: 1, acceptanceGames: 0 })}\n`);
+    const catalogs = { legacy: catalog };
+    for (const [type, definition] of Object.entries(ARENA_EXPERIMENTS)) {
+      const cases = catalog.cases.filter(row => arenaScenarioType(row.observation.visibleState) === type);
+      const orders = new Set(cases.map(row => row.canonicalDecisionOrder));
+      const excluded = [...catalog.excluded, ...catalog.cases.filter(row => !orders.has(row.canonicalDecisionOrder))
+        .map(row => ({ canonicalDecisionOrder: row.canonicalDecisionOrder, reason: 'different_experiment_type' }))]
+        .sort((a, b) => a.canonicalDecisionOrder - b.canonicalDecisionOrder);
+      catalogs[type] = ArenaCaseCatalogSchema.parse({ ...catalog, datasetId: definition.datasetId, cases, excluded,
+        caseSetDigest: canonicalDigest({ datasetVersion: definition.datasetId, sourceRecordHash: catalog.sourceRecordHash,
+          ruleIdentity: runtime.ruleIdentity, selected: cases.map((row, caseOrdinal) => ({ caseOrdinal,
+            canonicalDecisionOrder: row.canonicalDecisionOrder, candidateCount: row.observation.candidates.length,
+            candidateSetDigest: canonicalDigest(row.observation.candidates.map(candidate => candidate.actionRef).sort()) })), excluded }) });
+    }
+    for (const [type, bank] of Object.entries(catalogs)) {
+      const path = join(ARCHIVE_ROOT, type === 'legacy' ? 'case-catalog.json' : `case-catalog-${type}.json`), temporary = path + '.tmp';
+      await writeFile(temporary, JSON.stringify(bank), { encoding: 'utf8', mode: 0o600 }); await rename(temporary, path);
+    }
+    process.stdout.write(`${JSON.stringify({ datasetId: catalog.datasetId, availableCaseCount: catalog.cases.length,
+      experimentCounts: Object.fromEntries(Object.entries(catalogs).map(([type, bank]) => [type, bank.cases.length])), developmentGames: 1, acceptanceGames: 0 })}\n`);
   } finally { await runtime.close(); }
 }
 

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { aggregateMetrics, runMetrics, sortedTiles, tileAsset } from '../arena-console/presentation.mjs';
+import { aggregateMetrics, runMetrics, sortedTiles, tileAsset, experimentTypeForDataset } from '../arena-console/presentation.mjs';
 
 test('execution failures lower reliability without lowering agreement among successful cases', () => {
   const summary = { selectedCaseCount: 10, terminalStatuses: { completed: 6 },
@@ -11,6 +11,20 @@ test('execution failures lower reliability without lowering agreement among succ
   assert.deepEqual(total, { selected: 13, succeeded: 8, matched: 7, missingLabels: 1, archived: 2, incomplete: 1 });
   assert.equal(runMetrics(null), null);
   assert.deepEqual(aggregateMetrics([]), { selected: 0, succeeded: 0, matched: 0, missingLabels: 0, archived: 0, incomplete: 0 });
+});
+
+test('experiment metrics never mix flat, spatial, and legacy runs', () => {
+  const run = (id, selected, succeeded, matched) => ({ manifest: { dataset: { id } }, summary: {
+    selectedCaseCount: selected, terminalStatuses: { completed: succeeded },
+    score: { matchedCaseCount: matched, conditionalMatchRate: { denominator: succeeded } },
+  } });
+  const runs = [run('blind-discard-flat-v1', 10, 8, 7), run('blind-discard-spatial-v1', 5, 3, 2), run('blind-discard-dev-v1', 100, 90, 90)];
+  assert.equal(aggregateMetrics(runs, 'flat').selected, 10);
+  assert.equal(aggregateMetrics(runs, 'spatial').succeeded, 3);
+  assert.equal(aggregateMetrics(runs, 'spatial').matched, 2);
+  assert.equal(aggregateMetrics(runs, 'legacy').selected, 100);
+  assert.equal(experimentTypeForDataset('blind-discard-smoke-v1'), 'legacy');
+  assert.equal(experimentTypeForDataset('unknown'), 'legacy');
 });
 
 test('visual hand sorting preserves the archive and maps red fives to existing artwork', () => {

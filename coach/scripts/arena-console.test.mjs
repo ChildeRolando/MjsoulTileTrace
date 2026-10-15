@@ -31,6 +31,10 @@ test('console persists public settings, never returns or saves the API key, and 
   assert.equal((await f.post('/api/start', { mode: 'local' }, 'https://foreign.example')).status, 403);
   assert.equal((await f.post('/api/config', { maxProviderTurns: 13 })).status, 400);
   assert.equal((await f.post('/api/start', { mode: 'local', maxCases: 129 })).status, 400);
+  assert.equal((await f.post('/api/start', { mode: 'local', experimentType: 'unknown' })).status, 400);
+  assert.equal((await fetch(f.url + '/api/catalog?type=unknown')).status, 400);
+  assert.equal((await f.state()).catalogs.spatial.datasetId, 'blind-discard-spatial-v1');
+  assert.equal((await f.state()).catalogs.flat.ready, false);
   assert.equal((await fetch(f.url + '/api/run/not-a-run')).status, 404);
   assert.equal((await fetch(f.url + '/presentation.mjs')).status, 200);
   const tile = await fetch(f.url + '/tiles/0p.svg');
@@ -40,14 +44,15 @@ test('console persists public settings, never returns or saves the API key, and 
 
 test('console starts a real owned process once and stop waits for its exit', async t => {
   const f = await fixture(t);
-  assert.equal((await f.post('/api/start', { mode: 'compare', maxCases: 25, caseOffset: 10 })).status, 202);
+  assert.equal((await f.post('/api/start', { mode: 'compare', experimentType: 'spatial', maxCases: 25, caseOffset: 10 })).status, 202);
   assert.equal((await f.state()).job.maxCases, 25); assert.equal((await f.state()).job.caseOffset, 10);
   assert.equal((await f.post('/api/start', { mode: 'local' })).status, 409);
   assert.equal((await f.state()).job.status, 'running');
   assert.equal((await f.post('/api/shutdown', {})).status, 409);
   let args;
   for (let i = 0; i < 100; i++) { try { args = JSON.parse(await readFile(join(f.root, 'received-args.json'), 'utf8')); break; } catch { await setTimeout(50); } }
-  assert.equal(args[args.indexOf('--dataset') + 1], 'blind-discard-dev-v1');
+  assert.equal(args[args.indexOf('--dataset') + 1], 'blind-discard-spatial-v1');
+  assert.equal((await f.state()).job.experimentType, 'spatial');
   assert.equal(args[args.indexOf('--max-cases') + 1], '25');
   assert.equal(args[args.indexOf('--case-offset') + 1], '10');
   assert.equal((await f.post('/api/stop', {})).status, 202);

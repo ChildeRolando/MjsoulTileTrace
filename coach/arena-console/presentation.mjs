@@ -7,7 +7,13 @@ export function runMetrics(summary) {
     missingLabels: Math.max(0, succeeded - summary.score.conditionalMatchRate.denominator) };
 }
 
-export function aggregateMetrics(runs) {
+export function experimentTypeForDataset(id) {
+  return id === 'blind-discard-flat-v1' ? 'flat' : id === 'blind-discard-spatial-v1' ? 'spatial' : 'legacy';
+}
+export const experimentLabels = { flat: '平面何切', spatial: '立体何切', legacy: '旧版混合题库' };
+
+export function aggregateMetrics(runs, type) {
+  if (type) runs = runs.filter(run => experimentTypeForDataset(run.manifest?.dataset.id) === type);
   return runs.reduce((total, run) => {
     const row = runMetrics(run.summary);
     if (!row) { total.incomplete++; return total; }

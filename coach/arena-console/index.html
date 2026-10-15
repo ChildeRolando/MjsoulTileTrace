@@ -15,6 +15,7 @@
   <div class="content">
     <div class="heading"><div><div class="eyebrow">EXPERIMENT OVERVIEW <span class="line"></span></div><h1>实验控制台<span class="heading-dot">.</span></h1><p>从一次可追溯的运行，观察模型如何寻找证据、作出选择。</p></div><div class="sync"><span class="status-dot" aria-hidden="true"></span><span id="sync-status">正在连接本机服务</span></div></div>
     <div id="message" class="message" role="status" hidden></div>
+    <p class="field-hint" id="overview-scope"></p>
     <section class="metrics" aria-label="实验概览指标">
       <article class="metric budget-metric"><div class="metric-label">累计已报告模型用量 <span class="small-tag">TOKENS</span></div><div class="metric-value" id="tokens">—</div><div class="budget-track" role="progressbar" aria-label="Token 报警线占比" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="budget-fill"></span></div><div class="metric-bottom"><span id="budget-caption">报警线 100M</span><span id="budget-percent">—</span></div><p id="unknown-note" class="micro">按本工作区实验归档统计</p></article>
       <article class="metric"><div class="metric-label">已归档实验 <span class="metric-symbol" aria-hidden="true">↗</span></div><div class="metric-value" id="runs-count">—</div><div class="metric-bottom"><span id="cases-count">等待归档数据</span></div><p class="micro">失败与未完成记录始终保留</p></article>
@@ -23,7 +24,9 @@
     </section>
     <div class="workspace-grid">
       <section class="panel launch-panel" aria-labelledby="launch-title"><div class="panel-heading"><div><span class="section-index">01</span><h2 id="launch-title">启动实验</h2></div><span class="tag" id="bank-count">开发题库</span></div>
-        <div class="catalog-actions"><button class="text-button" id="browse-bank">浏览题库</button><button class="text-button" id="refresh-bank">刷新题库</button><span class="field-hint">刷新只筛题，不调用模型。</span></div>
+        <label for="experiment-type" class="field-label">实验类型</label><select id="experiment-type"><option value="flat">平面何切 · 基础牌效场景</option><option value="spatial" selected>立体何切 · 立直／副露场面</option></select>
+        <p class="field-hint" id="type-hint"></p>
+        <div class="catalog-actions"><button class="text-button" id="browse-bank">浏览题库</button><button class="text-button" id="refresh-bank">刷新题库</button><span class="field-hint">刷新两个题库，不调用模型。</span></div>
         <div class="form-grid batch-fields"><label>本次题量<input id="batch-size" type="number" min="1" max="128" value="10" required></label><label>起始题号<input id="batch-start" type="number" min="1" max="128" value="1" required></label></div>
         <p class="field-hint" id="batch-hint">按题库顺序分批运行。Off / Local 使用相同范围。</p>
         <label for="experiment-mode" class="field-label">实验方案</label><select id="experiment-mode"><option value="compare">RAG 对照 · Off → Local</option><option value="local">单次实验 · Local RAG</option><option value="off">单次实验 · RAG Off</option><option value="fault">受控故障 · 首次 helper 超时</option></select>
@@ -38,6 +41,8 @@
       </section>
     </div>
     <section class="panel results-panel" id="results" aria-labelledby="results-title"><div class="panel-heading"><div><span class="section-index">03</span><h2 id="results-title">实验结果</h2><span id="result-total" class="count">0</span></div><div class="filters" aria-label="结果筛选"><button class="filter selected" data-filter="all" aria-pressed="true">全部</button><button class="filter" data-filter="local" aria-pressed="false">Local</button><button class="filter" data-filter="off" aria-pressed="false">Off</button><button class="filter" data-filter="fault" aria-pressed="false">受控故障</button></div></div>
+      <label class="result-type-label">统计与结果类型<select id="results-type"><option value="flat">平面何切</option><option value="spatial" selected>立体何切</option><option value="legacy">旧版混合题库</option></select></label>
+      <p class="field-hint" id="metric-scope">看板成功率与匹配率仅统计所选类型，累计 Token 预算覆盖所有类型。</p>
       <div id="results-body" class="result-loading">正在读取实验归档…</div>
       <div class="result-footnote"><span>执行成功率含失败；匹配率仅统计成功案例。未知用量不按零计算。</span><span>样本状态 <b>开发集 · 独立验收待完成</b></span></div>
     </section>
@@ -55,5 +60,5 @@
   </form>
 </dialog>
 <dialog id="result-dialog" class="detail-dialog" aria-labelledby="detail-title"><div class="dialog-heading"><div><div class="eyebrow">RUN DETAIL</div><h2 id="detail-title">实验详情</h2></div><button class="close-button" data-close="result-dialog" aria-label="关闭实验详情">×</button></div><div id="detail-body"></div></dialog>
-<dialog id="catalog-dialog" aria-labelledby="catalog-title"><div class="dialog-heading"><h2 id="catalog-title">开发题库</h2><button class="close-button" data-close="catalog-dialog" aria-label="关闭题库">×</button></div><p class="field-hint" id="catalog-note"></p><label>选择题目<select id="catalog-case"></select></label><div id="catalog-preview"></div></dialog>
+<dialog id="catalog-dialog" class="detail-dialog" aria-labelledby="catalog-title"><div class="dialog-heading"><h2 id="catalog-title">开发题库</h2><button class="close-button" data-close="catalog-dialog" aria-label="关闭题库">×</button></div><div class="catalog-body"><p class="field-hint" id="catalog-note"></p><label>选择题目<select id="catalog-case"></select></label><div id="catalog-preview"></div></div></dialog>
 </body></html>

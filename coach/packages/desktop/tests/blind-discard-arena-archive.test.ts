@@ -153,6 +153,17 @@ function manifest() {
   });
 }
 
+it("preserves typed datasets and scenario exclusions while accepting unchanged legacy manifests", () => {
+  const legacy = manifest();
+  expect(legacy.dataset.id).toBe("blind-discard-smoke-v1");
+  for (const id of ["blind-discard-flat-v1", "blind-discard-spatial-v1"]) {
+    const typed = ArenaArchiveManifestSchema.parse({ ...legacy, dataset: { ...legacy.dataset, id,
+      excluded: [{ canonicalDecisionOrder: 9, reason: "different_experiment_type" }] } });
+    expect(typed.dataset.id).toBe(id);
+    expect(typed.dataset.excluded[0]?.reason).toBe("different_experiment_type");
+  }
+});
+
 function scanEvent() {
   return ArenaArchiveEventSchema.parse({
     schemaVersion: "blind-discard-arena-archive-event/v1",

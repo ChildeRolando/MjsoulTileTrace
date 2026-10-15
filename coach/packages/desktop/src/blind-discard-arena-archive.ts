@@ -18,7 +18,11 @@ import {
 
 const Sha256Schema = z.string().regex(/^[0-9a-f]{64}$/);
 const SourceRecordHashSchema = z.string().regex(/^sha256:[0-9a-f]{64}$/);
-const DatasetIdSchema = z.enum(["blind-discard-smoke-v1", "blind-discard-dev-v1"]);
+export const ARENA_EXPERIMENTS = {
+  flat: { datasetId: "blind-discard-flat-v1", label: "平面何切", description: "基础牌效场景：四家均无立直、副露。仍保留当时可见牌河与局况，并非只给手牌的纯平面测验。" },
+  spatial: { datasetId: "blind-discard-spatial-v1", label: "立体何切", description: "四家中已有立直或副露的真实场面，结合牌河、分数、局况及公开鸣牌进行决策。" },
+} as const;
+export const DatasetIdSchema = z.enum(["blind-discard-smoke-v1", "blind-discard-dev-v1", "blind-discard-flat-v1", "blind-discard-spatial-v1"]);
 const DatasetCaseSchema = z.object({
   canonicalDecisionOrder: z.number().int().nonnegative(),
   candidateCount: z.number().int().min(2).max(46),
@@ -85,7 +89,7 @@ export type ArenaArchiveManifest = z.infer<typeof ArenaArchiveManifestSchema>;
 /** Label-free question catalog; it never carries Mortal answers or future game state. */
 export const ArenaCaseCatalogSchema = z.object({
   schemaVersion: z.literal("blind-discard-arena-catalog/v1"),
-  datasetId: z.literal("blind-discard-dev-v1"),
+  datasetId: DatasetIdSchema.exclude(["blind-discard-smoke-v1"]),
   codeSha: z.string().regex(/^[0-9a-f]{40}$/),
   createdAt: z.string().datetime(),
   caseSetDigest: Sha256Schema,
@@ -94,7 +98,7 @@ export const ArenaCaseCatalogSchema = z.object({
   developmentGames: z.literal(1),
   acceptanceGames: z.literal(0),
   inputCaseCount: z.number().int().nonnegative(),
-  cases: z.array(z.object({ canonicalDecisionOrder: z.number().int().nonnegative(), observation: ArenaBlindObservationSchema }).strict()).min(1).max(128),
+  cases: z.array(z.object({ canonicalDecisionOrder: z.number().int().nonnegative(), observation: ArenaBlindObservationSchema }).strict()).max(128),
   excluded: z.array(ExclusionSchema).max(1000),
 }).strict();
 

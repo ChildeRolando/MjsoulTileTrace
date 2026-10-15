@@ -1,4 +1,4 @@
-import { runMetrics, aggregateMetrics, sortedTiles, tileAsset } from '/presentation.mjs';
+import { runMetrics, aggregateMetrics, sortedTiles, tileAsset, experimentTypeForDataset, experimentLabels } from '/presentation.mjs';
 const $ = selector => document.querySelector(selector);
 const esc = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
 const number = value => new Intl.NumberFormat('en-US').format(value);
@@ -26,16 +26,20 @@ function tokenText(summary) {
   return total === undefined ? '未知' : `${compact(total)}${usage.status === 'unknown' ? ' + 未知' : ''}`;
 }
 function running() { return ['running', 'stopping'].includes(state?.job?.status); }
+const selectedBank = () => state?.catalogs?.[$('#experiment-type').value];
 function buttons() {
-  $('#start').disabled = pending || !state || running(); $('#stop').disabled = pending || state?.job?.status !== 'running';
-  $('#refresh-bank').disabled = pending || !state || running(); $('#browse-bank').disabled = !state?.catalog;
+  $('#start').disabled = pending || !state || running() || !selectedBank()?.ready || !selectedBank()?.availableCaseCount; $('#stop').disabled = pending || state?.job?.status !== 'running';
+  $('#experiment-type').disabled = pending || running();
+  $('#refresh-bank').disabled = pending || !state || running(); $('#browse-bank').disabled = !selectedBank()?.ready || !selectedBank()?.availableCaseCount;
   $('#start span:last-child').textContent = pending ? '正在提交…' : running() ? '实验运行中' : '启动实验';
 }
 function render() {
   const { runs, budget, config, job } = state;
-  $('#bank-count').textContent = state.catalog ? `${state.catalog.availableCaseCount} 道开发题` : '题库待建立';
-  $('#batch-hint').textContent = state.catalog ? `${state.catalog.availableCaseCount} 道真实案例 · ${state.catalog.developmentGames} 个开发牌局 · 非独立验收集。Off / Local 使用相同范围。` : '请先刷新题库；刷新只运行本机规则筛选，不调用模型。';
-  for (const id of ['#batch-size', '#batch-start']) $(id).max = state.catalog?.availableCaseCount ?? 128;
+  const bank = selectedBank(), resultType = $('#results-type').value;
+  $('#type-hint').textContent = bank?.description ?? '按场面分组，保留完整公开上下文。请刷新题库。';
+  $('#bank-count').textContent = bank?.ready ? `${bank.availableCaseCount} 道${experimentLabels[$('#experiment-type').value]}` : '题库待建立';
+  $('#batch-hint').textContent = bank?.ready ? `${bank.availableCaseCount} 道真实案例 · ${bank.developmentGames} 个开发牌局 · 非独立验收集。Off / Local 使用该类型相同范围。` : '请先刷新题库；刷新只运行本机规则筛选，不调用模型。';
+  for (const id of ['#batch-size', '#batch-start']) $(id).max = Math.max(1, bank?.availableCaseCount ?? 128);
   $('#tokens').textContent = compact(budget.knownTotalTokens);
   $('#tokens').title = `${number(budget.knownTotalTokens)} 已报告 tokens`;
   const percent = budget.knownTotalTokens / budget.warningThreshold * 100;
@@ -45,21 +49,24 @@ function render() {
   $('.budget-track').setAttribute('aria-valuenow', Math.min(100, percent));
   $('.budget-metric').classList.toggle('warning', budget.warning);
   $('#unknown-note').textContent = budget.unknownRunCount ? `另有 ${budget.unknownRunCount} 份用量未知或不完整，当前为已知下限` : '模型输入 + 模型输出；缓存输入为输入子集';
-  const metrics = aggregateMetrics(runs);
+  const metrics = aggregateMetrics(runs, resultType);
+  $('#metric-scope').textContent = `当前统计：${experimentLabels[resultType]}。看板成功率与匹配率仅统计此类型；累计 Token 预算覆盖所有类型。`;
+  $('#overview-scope').textContent = `当前看板：${experimentLabels[resultType]} · 累计模型用量覆盖所有类型`;
+  $('#cases-count').title = experimentLabels[resultType];
   $('#runs-count').textContent = number(metrics.archived);
   $('#cases-count').textContent = `${metrics.selected} 题纳入 · ${metrics.succeeded} 题执行成功${metrics.incomplete ? ` · ${metrics.incomplete} 份未完成` : ''}`;
   $('#execution-rate').textContent = rate(metrics.succeeded, metrics.selected);
   $('#execution-fraction').textContent = `${metrics.succeeded} / ${metrics.selected} 题执行成功`;
   $('#match-rate').textContent = rate(metrics.matched, metrics.succeeded);
   $('#match-fraction').textContent = metrics.succeeded ? `${metrics.matched} / ${metrics.succeeded} 个成功案例${metrics.missingLabels ? ` · ${metrics.missingLabels} 题缺少标签` : ''}` : '尚无成功案例';
-  $('#nav-count').textContent = runs.length; $('#result-total').textContent = runs.length;
+  $('#nav-count').textContent = runs.length; $('#result-total').textContent = runs.filter(run => experimentTypeForDataset(run.manifest.dataset.id) === resultType).length;
   $('#provider-model').textContent = config.model;
   $('#provider-route').textContent = config.provider === 'codex-cli' ? `Codex 订阅 · ${config.reasoningEffort}` : 'OpenAI-compatible API';
   $('#limit-time').textContent = `${config.maxRunMs / 1000}s`; $('#limit-turns').textContent = config.maxProviderTurns; $('#limit-tools').textContent = config.maxToolCalls;
   $('#job-badge').textContent = labels[job?.status] ?? '空闲';
   if (job) {
     $('#job-content').className = 'job-steps';
-    $('#job-content').innerHTML = `<h3>${esc(labels[job.mode])} <span class="micro">${job.mode === "catalog" ? "本机规则 · 无模型调用" : esc(job.model)}</span></h3><div class="job-time">${date(job.startedAt)} 开始${job.endedAt ? ` · ${date(job.endedAt)} 结束` : ''}</div>${job.steps.map((step, index) => `<div class="job-step"><span class="step-dot" aria-hidden="true">${step.status === 'completed' ? '✓' : index + 1}</span><span>${esc(labels[step.mode])}</span><span class="tag">${esc(labels[step.status])}</span></div>${step.error ? `<p class="job-desc">${esc(friendlyError(step.error))}</p>` : ''}`).join('')}<p class="job-desc">${job.status === 'running' ? (job.mode === 'catalog' ? '正在扫描真实牌谱与合法候选，不调用模型。' : '模型正在取证与决策，逐题结束后写入归档。') : job.status === 'stopping' ? '正在终止本次实验及子进程，请稍候。' : job.status === 'completed' ? (job.mode === 'catalog' ? '题库已更新，可浏览题目或设置本次范围。' : '本次执行结束。有效回答、失败原因和匹配情况见结果详情；执行结束不等于验收通过。') : '保留已有归档，可查看实际结果或调整配置后重新运行。'}</p>`;
+    $('#job-content').innerHTML = `<h3>${job.mode === "catalog" ? "" : esc(experimentLabels[job.experimentType] ?? "旧版混合题库") + " · "}${esc(labels[job.mode])} <span class="micro">${job.mode === "catalog" ? "本机规则 · 无模型调用" : esc(job.model)}</span></h3><div class="job-time">${date(job.startedAt)} 开始${job.endedAt ? ` · ${date(job.endedAt)} 结束` : ''}</div>${job.steps.map((step, index) => `<div class="job-step"><span class="step-dot" aria-hidden="true">${step.status === 'completed' ? '✓' : index + 1}</span><span>${esc(labels[step.mode])}</span><span class="tag">${esc(labels[step.status])}</span></div>${step.error ? `<p class="job-desc">${esc(friendlyError(step.error))}</p>` : ''}`).join('')}<p class="job-desc">${job.status === 'running' ? (job.mode === 'catalog' ? '正在扫描真实牌谱与合法候选，不调用模型。' : '模型正在取证与决策，逐题结束后写入归档。') : job.status === 'stopping' ? '正在终止本次实验及子进程，请稍候。' : job.status === 'completed' ? (job.mode === 'catalog' ? '题库已更新，可浏览题目或设置本次范围。' : '本次执行结束。有效回答、失败原因和匹配情况见结果详情；执行结束不等于验收通过。') : '保留已有归档，可查看实际结果或调整配置后重新运行。'}</p>`;
   }
   renderRuns(); buttons();
   if (budget.warning) message(`已达到 ${compact(budget.warningThreshold)} Token 报警线。当前已报告 ${number(budget.knownTotalTokens)}，实验不会自动停止。`);
@@ -68,7 +75,8 @@ function friendlyError(code) {
   return ({ arena_requires_clean_git_worktree: '源码存在未提交改动。请先完成代码提交，再启动可追溯实验。', mcp_connection_failed: 'MCP 工具连接失败，本次未生成完整结果。', arena_pinned_native_receipt_missing_or_ambiguous: '本机规则引擎未就绪，需要检查安装记录。', arena_run_failed: '实验未完成，请检查模型配置及本机运行环境。' })[code] ?? `实验未完成（${code}）`;
 }
 function renderRuns() {
-  const rows = state.runs.filter(row => filter === 'all' || (filter === 'fault' ? row.manifest.controlledFault !== 'none' : row.manifest.rag.mode === filter && row.manifest.controlledFault === 'none'));
+  const rows = state.runs.filter(row => experimentTypeForDataset(row.manifest.dataset.id) === $('#results-type').value)
+    .filter(row => filter === 'all' || (filter === 'fault' ? row.manifest.controlledFault !== 'none' : row.manifest.rag.mode === filter && row.manifest.controlledFault === 'none'));
   if (!rows.length) { $('#results-body').innerHTML = `<div class="empty-state"><strong>${state.runs.length ? '该筛选下暂无记录' : '还没有实验结果'}</strong>${state.runs.length ? '试试其他筛选条件。' : '启动一次实验，结果将自动显示在这里。'}</div>`; return; }
   $('#results-body').innerHTML = `<table class="result-table"><thead><tr><th>运行 / 模式</th><th class="model-column">模型</th><th>执行成功率</th><th>Mortal 匹配率</th><th class="token-column">TOKENS</th><th class="time-column">耗时</th><th aria-label="操作"></th></tr></thead><tbody>${rows.map(row => {
     const summary = row.summary, m = row.manifest, metrics = runMetrics(summary);
@@ -105,9 +113,9 @@ $('#settings-form').addEventListener('submit', async event => {
 $('#start').addEventListener('click', async () => {
   if (!$('#batch-size').reportValidity() || !$('#batch-start').reportValidity()) return;
   const maxCases = Number($('#batch-size').value), caseOffset = Number($('#batch-start').value) - 1;
-  if (state.catalog && maxCases + caseOffset > state.catalog.availableCaseCount) { message('所选范围超出题库，请减少题量或调整起始题号。', true); return; }
+  if (selectedBank() && maxCases + caseOffset > selectedBank().availableCaseCount) { message('所选范围超出题库，请减少题量或调整起始题号。', true); return; }
   pending = true; buttons(); message('正在启动实验…');
-  try { await api('/api/start', { mode: $('#experiment-mode').value, maxCases, caseOffset }); message(`实验已启动：题库第 ${caseOffset + 1}–${caseOffset + maxCases} 题。刷新页面不会重复启动。`); await refresh(); }
+  try { await api('/api/start', { mode: $('#experiment-mode').value, experimentType: $('#experiment-type').value, maxCases, caseOffset }); message(`${experimentLabels[$('#experiment-type').value]}已启动：题库第 ${caseOffset + 1}–${caseOffset + maxCases} 题。刷新页面不会重复启动。`); await refresh(); }
   catch (error) { message(error.message, true); } finally { pending = false; buttons(); }
 });
 $('#refresh-bank').addEventListener('click', async () => {
@@ -121,12 +129,20 @@ function renderCatalogCase() {
 }
 $('#catalog-case').addEventListener('change', renderCatalogCase);
 $('#browse-bank').addEventListener('click', async () => {
-  try { catalogData = await api('/api/catalog');
+  try { catalogData = await api(`/api/catalog?type=${$('#experiment-type').value}`);
+    $('#catalog-title').textContent = `${experimentLabels[$('#experiment-type').value]}题库`;
     $('#catalog-note').textContent = `${catalogData.cases.length} 道真实决策 · ${catalogData.developmentGames} 个开发牌局。只预览当时可见的信息，不包含 Mortal 答案。`;
     $('#catalog-case').innerHTML = catalogData.cases.map((row, index) => `<option value="${index}">第 ${index + 1} 题 · ${esc(({ E: '东', S: '南', W: '西' })[row.observation.visibleState.roundWind])}${row.observation.visibleState.hand}局 · ${row.observation.candidates.length} 个候选</option>`).join('');
     renderCatalogCase(); $('#catalog-dialog').showModal();
   } catch (error) { message(error.message, true); }
 });
+$('#experiment-type').addEventListener('change', () => {
+  $('#batch-start').value = 1;
+  $('#batch-size').value = Math.max(1, Math.min(10, selectedBank()?.availableCaseCount ?? 10));
+  $('#results-type').value = $('#experiment-type').value;
+  render();
+});
+$('#results-type').addEventListener('change', render);
 $('#stop').addEventListener('click', async () => {
   pending = true; buttons();
   try { await api('/api/stop', {}); message('已请求停止，正在等待实验子进程退出。'); await refresh(); }
@@ -158,7 +174,22 @@ function tileImages(tiles, label) {
 }
 function observationView(observation) {
   const state = observation.visibleState;
-  return `<div class="observation-summary"><p><b>${esc(({ E: '东', S: '南', W: '西' })[state.roundWind])}${state.hand}局 · ${state.honba}本场</b> · 剩余摸牌 ${state.remainingDraws ?? '未知'}</p>${tileImages(sortedTiles(state.self.concealedTiles), '手牌（已理牌）')}<div class="visible-tiles">${tileImages(state.self.currentDraw ? [state.self.currentDraw.tile] : [], '当前摸牌')}${tileImages(state.doraIndicators, '宝牌指示')}</div><p class="field-hint">候选：${observation.candidates.map(candidate => esc(actionText(candidate.actionRef))).join(' / ')}</p></div>`;
+  return `<div class="observation-summary"><p><b>${esc(({ E: '东', S: '南', W: '西' })[state.roundWind])}${state.hand}局 · ${state.honba}本场</b> · 供托 ${state.riichiSticks} · 剩余摸牌 ${state.remainingDraws ?? '未知'}</p>${tileImages(sortedTiles(state.self.concealedTiles), '手牌（已理牌）')}<div class="visible-tiles">${tileImages(state.self.currentDraw ? [state.self.currentDraw.tile] : [], '当前摸牌')}${tileImages(state.doraIndicators, '宝牌指示')}</div>${publicTableView(observation)}<p class="field-hint">候选：${observation.candidates.map(candidate => esc(actionText(candidate.actionRef))).join(' / ')}</p></div>`;
+}
+const completenessText = value => ({ complete: '完整', partial: '部分', unknown: '未知', missing: '缺失' })[value] ?? value;
+function publicTableView(observation) {
+  const state = observation.visibleState, self = observation.decision.selfActor;
+  const wind = { E: '东', S: '南', W: '西', N: '北' };
+  const relative = ['自家', '下家', '对家', '上家'];
+  const meldNames = { chi: '吃', pon: '碰', daiminkan: '大明杠', ankan: '暗杠', kakan: '加杠' };
+  return `<section class="public-table" aria-label="四家公开场面"><h4>四家公开场面</h4><p class="field-hint">牌河按出牌顺序排列；↓ 为摸切，红色边框为立直宣言牌，取走标记表示该牌已被鸣走。</p><div class="table-players">${Array.from({ length: 4 }, (_, offset) => {
+    const actor = (self + offset) % 4, riichi = state.riichiStates.find(row => row.actor === actor);
+    const melds = state.melds.filter(row => row.actor === actor);
+    return `<article class="table-player ${riichi?.status !== 'none' ? 'has-riichi' : ''}"><h5>${relative[offset]} · ${wind[state.seatWinds[actor]] ?? '未知'}家 ${actor === state.dealer ? '· 庄' : ''}<span>${number(state.scores[actor])} 点 · ${riichi?.status === 'accepted' ? '立直成立' : riichi?.status === 'declared' ? '立直宣言' : riichi?.status === 'none' ? '未立直' : '立直状态未知'}</span></h5><div class="river-tiles" aria-label="${relative[offset]}牌河">${state.rivers[actor].map(discard => `<span class="river-tile ${discard.riichiDeclarationRef ? 'riichi-discard' : ''}"><img src="${tileAsset(discard.tile)}" alt="${esc(tileText(discard.tile))}${discard.discardMode === 'tsumogiri' ? '，摸切' : '，手切'}${discard.calledByRef ? '，已被鸣走' : ''}${discard.riichiDeclarationRef ? '，立直宣言牌' : ''}" width="24" height="32"><small>${discard.calledByRef ? '取走' : discard.discardMode === 'tsumogiri' ? '↓' : ''}</small></span>`).join('') || '<span class="field-hint">尚无弃牌</span>'}</div><div class="player-melds">${melds.map(meld => {
+      const tiles = meld.kind === 'ankan' ? meld.tiles : [...meld.consumedTiles, meld.calledTile, ...(meld.kind === 'kakan' ? [meld.addedTile] : [])];
+      return tileImages(tiles, meldNames[meld.kind]);
+    }).join('') || '<span class="field-hint">无副露／杠</span>'}</div></article>`;
+  }).join('')}</div><p class="field-hint">信息完整性：牌河 ${esc(completenessText(state.completeness.rivers))} · 鸣牌 ${esc(completenessText(state.completeness.melds))} · 分数 ${esc(completenessText(state.completeness.scores))}</p></section>`;
 }
 function matchBadge(score) {
   return score?.status === 'matched' ? '<span class="match-badge is-match">Mortal 匹配</span>' : score?.status === 'not_matched' ? '<span class="match-badge is-mismatch">Mortal 不匹配</span>' : '<span class="match-badge">未评分</span>';
@@ -199,7 +230,7 @@ function renderDetail(data) {
   if (detailSignature === signature) return;
   detailSignature = signature;
   const metrics = runMetrics(s);
-  $('#detail-title').textContent = `实验 ${data.id.slice(0, 8)}`;
+  $('#detail-title').textContent = `${experimentLabels[experimentTypeForDataset(m.dataset.id)]} · 实验 ${data.id.slice(0, 8)}`;
   body.innerHTML = `<div class="detail-meta"><span>${date(m.startedAt)}</span><span>${esc(m.coach.model)} · ${esc(m.coach.reasoningEffort ?? m.coach.providerId)}</span><span>RAG ${esc(m.rag.mode)}</span><span>代码 ${m.codeSha.slice(0, 8)}</span></div><div class="detail-stat"><div>执行成功率<strong>${metrics ? rate(metrics.succeeded, metrics.selected) : '待归档'}</strong><span>${metrics ? `${metrics.succeeded}/${metrics.selected} 纳入案例` : ''}</span></div><div>Mortal 一选匹配率<strong>${metrics ? rate(metrics.matched, metrics.succeeded) : '待评分'}</strong><span>${metrics ? `${metrics.matched}/${metrics.succeeded} 成功案例${metrics.missingLabels ? ` · ${metrics.missingLabels} 缺标签` : ''}` : ''}</span></div><div>模型用量（各轮合计）<strong>${tokenText(s)}</strong><span>其中缓存输入：${s?.tokenUsage.status === 'not_called' ? '未调用' : usageCount((s?.tokenUsage.status === 'reported' ? s.tokenUsage.tokens : s?.tokenUsage.reportedPartial)?.cachedInputTokens, 'tokens')}${s?.tokenUsage.status === 'unknown' ? '（已报告部分）' : ''}</span><span>缓存是输入子集，不重复计入合计</span></div></div><p class="field-hint">开发样本；未进行专家质量验收。${s ? `Helper 查询 ${s.evidence.helperQueries} 次，RAG 查询 ${s.evidence.ragQueries} 次、命中 ${s.evidence.ragHits} 次。` : '归档尚未完成，保留已发生的步骤，不据此判断成功。'}</p><div class="trace-controls"><label><input type="checkbox" id="trace-auto" ${auto ? 'checked' : ''}> 自动刷新过程</label><button id="refresh-detail" class="quiet-button">刷新过程</button><button id="expand-cases" class="quiet-button">展开案例</button><button id="collapse-cases" class="quiet-button">折叠案例</button><span id="trace-sync" role="status"></span></div><p class="field-hint">展示公开摘要和实际工具记录；不包含模型内部私有思维链。工具参数与返回可完整展开。</p>${m.dataset.selected.length > 10 ? `<label>查看案例<select id="detail-case">${m.dataset.selected.map((row, ordinal) => `<option value="${ordinal}" ${ordinal === detailCase ? "selected" : ""}>案例 ${ordinal + 1} · 题库第 ${(m.dataset.selection?.offset ?? 0) + ordinal + 1} 题</option>`).join("")}</select></label>` : ""}${m.dataset.selected.map((item, ordinal) => {
     if (m.dataset.selected.length > 10 && ordinal !== detailCase) return "";
     const result = finalized.get(ordinal), records = result?.events ?? live.get(ordinal) ?? [];
