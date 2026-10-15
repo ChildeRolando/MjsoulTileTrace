@@ -50,10 +50,21 @@ test('console persists public settings, never returns or saves the API key, and 
   assert.equal((await fetch(f.url + '/api/run/not-a-run')).status, 404);
   assert.equal((await fetch(f.url + '/presentation.mjs')).status, 200);
   for (const path of ['/mistakes', '/mistakes.mjs', '/case-view.mjs']) assert.equal((await fetch(f.url + path)).status, 200);
+  const titles = ['实验控制台', '实验结果', '错题集', '模型与 API 配置', '模型运行配置'];
+  for (const path of ['/', '/results', '/mistakes', '/settings', '/model-info']) {
+    const response = await fetch(f.url + path); assert.equal(response.status, 200);
+    const html = await response.text();
+    const nav = html.match(/<nav aria-label="主导航">([\s\S]*?)<\/nav>/)[1];
+    for (const title of titles) assert.ok(nav.includes(title));
+    assert.equal((nav.match(/aria-current="page"/g) ?? []).length, 1);
+    assert.equal(html.includes('<dialog'), false);
+  }
   const mistakes = await fetch(f.url + '/api/mistakes').then(r => r.json());
   assert.equal(mistakes.questions.length, 0);
   assert.equal(mistakes.totals.errors, 0);
   assert.equal((await fetch(f.url + '/api/mistakes?type=invalid')).status, 400);
+  assert.equal((await f.post('/api/start', { mode: 'local', experimentType: 'mistakes', questionIds: ['0'.repeat(64)] })).status, 400);
+  assert.equal((await f.state()).job, null);
   const tile = await fetch(f.url + '/tiles/0p.svg');
   assert.equal(tile.status, 200); assert.equal(tile.headers.get('content-type'), 'image/svg+xml');
   assert.equal((await fetch(f.url + '/tiles/8z.svg')).status, 404);

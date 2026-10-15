@@ -27,6 +27,9 @@ test('one question merges batches and dataset views by source decision, not run 
   assert.deepEqual([q.errors, q.scored, q.matched, q.attempts, q.executionFailures, q.missingLabels], [2, 3, 1, 5, 1, 1]);
   assert.equal(q.errorRate, 2 / 3);
   assert.equal(q.snapshots.length, q.errors);
+  assert.equal(q.history.length, 5);
+  assert.ok(q.history.some(s => s.scoreStatus === 'matched'));
+  assert.ok(q.history.some(s => s.status === 'provider_error'));
   assert.deepEqual(q.snapshots.map(s => [s.runId, s.caseOrdinal, s.actionRef]), [['local', 0, 'chosen-local'], ['off', 2, 'chosen-off']]);
   assert.equal(JSON.stringify(records), original);
 });
@@ -60,4 +63,14 @@ test('legacy archives without observations retain an exact reference instead of 
   assert.equal(q.preview, null);
   assert.equal(q.snapshots[0].hasObservation, false);
   assert.equal(q.snapshots[0].runId, 'one');
+});
+
+test('a matching rerun lowers the error rate without deleting prior mistakes or run snapshots', () => {
+  const records = [archive({ id: 'wrong-1' }), archive({ id: 'wrong-2' })];
+  const before = collectArenaMistakes(records).questions[0];
+  const after = collectArenaMistakes([...records, archive({ id: 'rerun', score: 'matched' })]).questions[0];
+  assert.equal(before.errorRate, 1);
+  assert.equal(after.id, before.id);
+  assert.equal(after.errors, 2); assert.equal(after.errorRate, 2/3);
+  assert.equal(after.history.length, 3); assert.equal(after.snapshots.length, 2);
 });

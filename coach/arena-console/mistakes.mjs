@@ -1,10 +1,12 @@
+import { api as request, jobView, labels } from '/client.mjs';
 import { esc, actionText, tileImages, observationView, mortalTable, traceEvent, structured } from '/case-view.mjs';
 import { experimentLabels, sortedTiles } from '/presentation.mjs';
 const $ = s => document.querySelector(s);
 const rate = (n, d) => d ? `${(100 * n / d).toFixed(1)}%` : '—';
 const date = value => new Date(value).toLocaleString('zh-CN', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+const verdict = s => s.status !== 'completed' ? (labels[s.status] ?? s.status) : s.scoreStatus === 'matched' ? 'Mortal 匹配' : s.scoreStatus === 'not_matched' ? 'Mortal 不匹配' : '缺少标签';
 const attemptId = s => `${s.runId}:${s.caseOrdinal}`;
-let data, currentQuestion, currentSnapshot, page = 0, loading = 0, snapshotLoading = 0;
+let data, currentQuestion, currentSnapshot, page = 0, loading = 0, snapshotLoading = 0, replayBusy = false;
 const pageSize = 20;
 async function api(path) {
   const response = await fetch(path);
@@ -50,15 +52,17 @@ function questionFrame(q, selectedAttempt) {
   $('#snapshot-title').textContent = `原局决策 ${q.canonicalDecisionOrder + 1} · ${q.id.slice(0, 6)}`;
   $('#snapshot-body').innerHTML = `<div class="question-stats"><div><span>错误次数</span><strong>${q.errors}<small> 次</small></strong></div><div><span>错误率</span><strong>${rate(q.errors, q.scored)}</strong></div><div><span>有效评分</span><strong>${q.scored}<small> 次</small></strong></div></div>
     <p class="field-hint question-counts">同题共 ${q.attempts} 次执行记录 · ${q.matched} 次匹配 · ${q.executionFailures} 次执行失败 · ${q.missingLabels} 次成功但缺标签。计数遵循上方筛选条件。</p>
-    <label class="snapshot-picker">每次错误的案例快照<select id="snapshot-attempt">${q.snapshots.map((s, index) => `<option value="${index}" ${attemptId(s) === selectedAttempt ? 'selected' : ''}>${date(s.at)} · ${esc(s.model)} · ${s.ragMode === 'local' ? 'Local' : 'Off'} · ${esc(actionText(s.actionRef))}${s.controlledFault !== 'none' ? ' · 受控故障' : ''}</option>`).join('')}</select><span class="field-hint">共 ${q.snapshots.length} 份独立快照，按出错时间倒序；每份对应一次实际运行。</span></label>
-    <div id="snapshot-record" aria-busy="true"><p class="snapshot-loading" role="status">正在读取当次错误快照…</p></div>`;
-  $('#snapshot-attempt').addEventListener('change', () => showSnapshot(q.snapshots[Number($('#snapshot-attempt').value)]));
+    <div class="question-rerun"><label>本次知识检索<select id="rerun-mode"><option value="local">Local</option><option value="off">Off</option></select></label><button id="rerun-question" class="primary-button">重跑这一题</button><a href="/?bank=mistakes" class="quiet-button">在实验控制台批量重跑 ↗</a><p class="field-hint">使用当前模型与预算；不覆盖历史记录。</p></div><label class="snapshot-picker">每次运行的历史快照<select id="snapshot-attempt">${q.history.map((s, index) => `<option value="${index}" ${attemptId(s) === selectedAttempt ? 'selected' : ''}>${date(s.at)} · ${esc(verdict(s))} · ${esc(s.model)} · ${s.ragMode === 'local' ? 'Local' : 'Off'} · ${esc(actionText(s.actionRef))}${s.controlledFault !== 'none' ? ' · 受控故障' : ''}</option>`).join('')}</select><span class="field-hint">共 ${q.history.length} 份运行快照（${q.errors} 次错误），按时间倒序；匹配、未匹配与执行失败均保留。</span></label>
+    <div id="snapshot-record" aria-busy="true"><p class="snapshot-loading" role="status">正在读取当次运行快照…</p></div>`;
+  $('#rerun-question').disabled=replayBusy;
+  $('#rerun-question').addEventListener('click', async () => { const b=$('#rerun-question'); b.disabled=true; try { await request('/api/start',{experimentType:'mistakes',mode:$('#rerun-mode').value,questionIds:[q.id],maxCases:1}); await pollJob(); } catch(e) { $('#mistakes-status').textContent=e.message; } finally { if(document.contains(b))b.disabled=replayBusy; } });
+  $('#snapshot-attempt').addEventListener('change', () => showSnapshot(q.history[Number($('#snapshot-attempt').value)]));
 }
 async function selectQuestion(id, { focus = false, attempt } = {}) {
   const q = data.questions.find(q => q.id === id);
   if (!q) return;
   currentQuestion = q;
-  const selected = q.snapshots.find(s => attemptId(s) === attempt) ?? q.snapshots[0];
+  const selected = q.history.find(s => attemptId(s) === attempt) ?? q.history[0];
   questionFrame(q, attemptId(selected)); renderList();
   if (focus) { $('#snapshot-title').focus({ preventScroll: true }); $('#snapshot-title').scrollIntoView({ block: 'start' }); }
   await showSnapshot(selected);
@@ -68,17 +72,17 @@ async function showSnapshot(snapshot) {
   const request = ++snapshotLoading, questionId = currentQuestion.id;
   const target = $('#snapshot-record');
   target.setAttribute('aria-busy', 'true');
-  target.innerHTML = '<p class="snapshot-loading" role="status">正在读取当次错误快照…</p>';
+  target.innerHTML = '<p class="snapshot-loading" role="status">正在读取当次运行快照…</p>';
   try {
     const run = await api(`/api/run/${snapshot.runId}`);
     if (request !== snapshotLoading || questionId !== currentQuestion?.id) return;
     const result = run.events.find(e => e.type === 'case_run' && e.caseOrdinal === snapshot.caseOrdinal)?.result;
-    if (!result || result.status !== 'completed' || result.score.cases[0]?.status !== 'not_matched') throw new Error('原归档与错题索引不一致，请刷新归档。');
+    if (!result || result.status !== snapshot.status || result.score.cases[0]?.status !== snapshot.scoreStatus) throw new Error('原归档与错题索引不一致，请刷新归档。');
     const m = run.manifest, observation = result.events.find(e => e.type === 'run_started')?.observation;
     const submission = result.attempt.submission, mortal = run.mortalDetails?.cases.find(c => c.caseOrdinal === snapshot.caseOrdinal);
-    target.innerHTML = `<div class="snapshot-meta"><span class="match-badge is-mismatch">Mortal 不匹配</span><span>${esc(date(snapshot.at))}</span><span>${esc(m.coach.model)} · ${esc(m.coach.reasoningEffort ?? m.coach.providerId)}</span><span>RAG ${esc(m.rag.mode)}</span>${m.controlledFault !== 'none' ? '<span class="tag">受控故障</span>' : ''}</div>
-      <div class="snapshot-provenance"><span>实验 ${esc(snapshot.runId.slice(0, 8))} / 案例 ${snapshot.caseOrdinal + 1}</span><span>代码 ${esc(m.codeSha.slice(0, 8))} · ${esc(m.coach.promptVersion)}</span><a href="/?run=${encodeURIComponent(snapshot.runId)}&case=${snapshot.caseOrdinal}">查看原实验 ↗</a></div>
-      <div class="choice-comparison"><article><span>当时模型所选</span><strong>${esc(actionText(submission.actionRef))}</strong><p>${esc(submission.rationale)}</p></article><article><span>Mortal 一选</span><strong>${mortal ? esc(actionText(mortal.preferredActionRef)) : '原归档未保存 Top 10'}</strong><p>${mortal ? '按当次固定 Mortal 版本评分；不代表专家唯一正确答案。' : '不按当前模型推测历史答案；可到原实验补算展示评分。'}</p></article></div>
+    target.innerHTML = `<div class="snapshot-meta"><span class="match-badge ${snapshot.scoreStatus === 'matched' ? 'is-match' : 'is-mismatch'}">${esc(verdict(snapshot))}</span><span>${esc(date(snapshot.at))}</span><span>${esc(m.coach.model)} · ${esc(m.coach.reasoningEffort ?? m.coach.providerId)}</span><span>RAG ${esc(m.rag.mode)}</span>${m.controlledFault !== 'none' ? '<span class="tag">受控故障</span>' : ''}</div>
+      <div class="snapshot-provenance"><span>实验 ${esc(snapshot.runId.slice(0, 8))} / 案例 ${snapshot.caseOrdinal + 1}</span><span>代码 ${esc(m.codeSha.slice(0, 8))} · ${esc(m.coach.promptVersion)}</span><a href="/results?run=${encodeURIComponent(snapshot.runId)}&case=${snapshot.caseOrdinal}">查看原实验 ↗</a></div>
+      <div class="choice-comparison"><article><span>当时模型所选</span><strong>${esc(actionText(submission?.actionRef))}</strong><p>${esc(submission?.rationale ?? '本次执行没有有效提交；失败记录保留在下方过程。')}</p></article><article><span>Mortal 一选</span><strong>${mortal ? esc(actionText(mortal.preferredActionRef)) : '原归档未保存 Top 10'}</strong><p>${mortal ? '按当次固定 Mortal 版本评分；不代表专家唯一正确答案。' : '不按当前模型推测历史答案；可到原实验补算展示评分。'}</p></article></div>
       ${result.toolFailureCount ? `<p class="snapshot-warning">当次有 ${result.toolFailureCount} 次工具失败，最终提交有效。展开下方过程可查看错误与后续处理。</p>` : ''}
       <details class="snapshot-section" open><summary>当时的案例牌面</summary>${observation ? observationView(observation) : '<p class="field-hint">这份旧归档未保存当时的牌面，无法还原；下方仅展示原有提交与过程。</p>'}</details>
       ${mortalTable(run, snapshot.caseOrdinal, result)}
@@ -92,7 +96,7 @@ async function showSnapshot(snapshot) {
     $('#retry-snapshot').addEventListener('click', () => showSnapshot(snapshot));
   }
 }
-async function load({ restore = false } = {}) {
+async function load({ restore = false, latest = false } = {}) {
   const request = ++loading;
   ++snapshotLoading;
   $('#reload-mistakes').disabled = true;
@@ -113,7 +117,7 @@ async function load({ restore = false } = {}) {
     $('#mistakes-status').textContent = `已整理 ${data.runCount} 份运行归档 · ${data.totals.questions} 道错题、${data.totals.errors} 次错误${data.excludedFaultRuns ? ` · 已排除 ${data.excludedFaultRuns} 份受控故障` : ''}${data.unreadableRuns.length ? ` · ${data.unreadableRuns.length} 份归档不完整或无法读取，未计入` : ''}`;
     const previousId = restore ? params.get('q') : currentQuestion?.id;
     const selected = data.questions.find(q => q.id === previousId) ?? rows()[0];
-    const previousAttempt = restore ? params.get('attempt') : currentSnapshot && attemptId(currentSnapshot);
+    const previousAttempt = latest ? undefined : restore ? params.get('attempt') : currentSnapshot && attemptId(currentSnapshot);
     page = selected ? Math.floor(rows().findIndex(q => q.id === selected.id) / pageSize) : 0;
     if (selected) await selectQuestion(selected.id, { attempt: previousAttempt });
     else {
@@ -144,3 +148,19 @@ for (const [id, key] of [['#mistake-type', 'type'], ['#mistake-rag', 'rag'], ['#
 if (initial.get('model') && initial.get('model') !== 'all') $('#mistake-model').add(new Option(initial.get('model'), initial.get('model'), true, true));
 $('#include-faults').checked = initial.get('faults') === 'include';
 await load({ restore: true });
+
+let jobSignature='', pollingJob=false;
+async function pollJob(){
+ if(pollingJob)return;pollingJob=true;
+ try{const state=await request('/api/state'),job=state.job;const active=['running','stopping'].includes(job?.status);
+ replayBusy=active;const button=$('#rerun-question');if(button)button.disabled=active;
+ $('#rerun-status').hidden=job?.experimentType!=='mistakes';
+ if(job?.experimentType==='mistakes'){
+  $('#rerun-status-body').innerHTML=jobView(job);
+  const signature=JSON.stringify(job);
+  if(jobSignature&&signature!==jobSignature&&job.steps.some(s=>s.status==='completed'))await load({latest:true});
+  jobSignature=signature;
+ }
+ }catch(e){$('#mistakes-status').textContent=e.message;}finally{pollingJob=false;}
+}
+await pollJob();setInterval(pollJob,3000);

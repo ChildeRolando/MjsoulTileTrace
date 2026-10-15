@@ -1,0 +1,21 @@
+/* Every page grows with its content; the document owns vertical scrolling. */
+.rail .nav-number{font-size:12px;width:20px;color:#a3b9b5;letter-spacing:1px}
+.rail nav a:nth-child(2){display:flex}.rail nav{width:100%}
+.heading{flex-wrap:wrap;gap:18px}.heading>div{min-width:0}.heading [role=status]{font-size:12px;color:var(--muted)}
+.quiet-button,.text-button{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;min-height:44px}
+.console-budget{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:24px;margin-bottom:24px}.console-budget strong{display:block;font-size:28px;margin:6px 0}.console-budget .tiny-label{color:var(--muted)}
+.settings-panel{padding:28px;max-width:1000px}.page-intro{margin-bottom:26px}.page-intro p{margin-top:8px}.settings-panel form>label,.settings-panel form>div>label{display:block}
+.inline-catalog,.inline-result,.rerun-status{padding:24px;margin-top:24px;scroll-margin-top:16px;min-width:0}.inline-result>.dialog-heading{align-items:center;flex-wrap:wrap}
+#detail-body,#catalog-dialog .catalog-body,.catalog-body,#catalog-preview pre,.case-detail pre,pre,.job-steps{height:auto;max-height:none;overflow:visible;overscroll-behavior:auto}
+#detail-body{padding:0}.catalog-body{padding:0}.inline-catalog .panel-heading{padding:0;margin-bottom:20px}.inline-catalog label{display:block;margin-bottom:16px}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;min-width:0}
+.notebook-layout{grid-template-columns:1fr}.notebook-list{position:static;overflow:visible}
+#mistake-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;max-height:none;height:auto;overflow:visible;padding:0 20px 20px}
+.mistake-card{margin:0}.notebook-detail{overflow:visible}.notebook-detail-heading{position:static}
+.question-rerun{display:flex;align-items:end;gap:12px;flex-wrap:wrap;margin:20px 0}.question-rerun label{min-width:130px}.question-rerun select{margin-top:5px}.question-rerun p{width:100%}
+.rerun-status>h2{margin-bottom:14px}.job-step{flex-wrap:wrap;gap:10px}.job-step p{width:100%}.activity-panel #job-content{padding:20px 0;min-height:0}
+.mortal-ranking td:last-child{min-width:0}.results-panel{overflow:visible}.result-table .view-button{white-space:normal}
+.result-table{width:100%;table-layout:fixed}.result-table th,.result-table td{overflow-wrap:anywhere}
+@media(max-width:1100px){#mistake-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:850px){.rail nav{width:auto;flex-wrap:wrap;justify-content:flex-end}.rail{flex-wrap:wrap;gap:14px}.nav-item .nav-number{display:none}.workspace-grid{grid-template-columns:1fr}}
+@media(max-width:650px){.rail nav{width:100%;justify-content:flex-start;gap:6px}.nav-item{font-size:13px}.rail nav a:nth-child(2){display:flex}#mistake-list{grid-template-columns:1fr;padding:0 12px 16px}.console-budget{padding:18px;flex-wrap:wrap}.settings-panel,.inline-catalog,.inline-result,.rerun-status{padding:18px}.question-rerun{align-items:stretch}.question-rerun>*{flex:1 1 140px}.mortal-ranking table{table-layout:fixed}.heading h1{font-size:27px}}
