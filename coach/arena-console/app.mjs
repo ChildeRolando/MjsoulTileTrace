@@ -1,3 +1,4 @@
+import { runMetrics, aggregateMetrics, sortedTiles, tileAsset } from '/presentation.mjs';
 const $ = selector => document.querySelector(selector);
 const esc = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
 const number = value => new Intl.NumberFormat('en-US').format(value);
@@ -44,14 +45,13 @@ function render() {
   $('.budget-track').setAttribute('aria-valuenow', Math.min(100, percent));
   $('.budget-metric').classList.toggle('warning', budget.warning);
   $('#unknown-note').textContent = budget.unknownRunCount ? `另有 ${budget.unknownRunCount} 份用量未知或不完整，当前为已知下限` : '输入 + 输出；缓存输入不重复累计';
-  const summaries = runs.filter(row => row.summary).map(row => row.summary);
-  const included = summaries.reduce((n, row) => n + row.score.includedCaseCount, 0);
-  const matched = summaries.reduce((n, row) => n + row.score.matchedCaseCount, 0);
-  const valid = summaries.reduce((n, row) => n + row.score.conditionalMatchRate.denominator, 0);
-  $('#runs-count').textContent = number(summaries.length);
-  $('#cases-count').textContent = `${included} 题纳入 · ${valid} 题有效回答${runs.length > summaries.length ? ` · ${runs.length - summaries.length} 份未完成` : ''}`;
-  $('#match-rate').textContent = rate(matched, included);
-  $('#match-fraction').textContent = included ? `${matched} / ${included} · 含失败与不匹配` : '尚无已归档评分';
+  const metrics = aggregateMetrics(runs);
+  $('#runs-count').textContent = number(metrics.archived);
+  $('#cases-count').textContent = `${metrics.selected} 题纳入 · ${metrics.succeeded} 题执行成功${metrics.incomplete ? ` · ${metrics.incomplete} 份未完成` : ''}`;
+  $('#execution-rate').textContent = rate(metrics.succeeded, metrics.selected);
+  $('#execution-fraction').textContent = `${metrics.succeeded} / ${metrics.selected} 题执行成功`;
+  $('#match-rate').textContent = rate(metrics.matched, metrics.succeeded);
+  $('#match-fraction').textContent = metrics.succeeded ? `${metrics.matched} / ${metrics.succeeded} 个成功案例${metrics.missingLabels ? ` · ${metrics.missingLabels} 题缺少标签` : ''}` : '尚无成功案例';
   $('#nav-count').textContent = runs.length; $('#result-total').textContent = runs.length;
   $('#provider-model').textContent = config.model;
   $('#provider-route').textContent = config.provider === 'codex-cli' ? `Codex 订阅 · ${config.reasoningEffort}` : 'OpenAI-compatible API';
@@ -70,9 +70,9 @@ function friendlyError(code) {
 function renderRuns() {
   const rows = state.runs.filter(row => filter === 'all' || (filter === 'fault' ? row.manifest.controlledFault !== 'none' : row.manifest.rag.mode === filter && row.manifest.controlledFault === 'none'));
   if (!rows.length) { $('#results-body').innerHTML = `<div class="empty-state"><strong>${state.runs.length ? '该筛选下暂无记录' : '还没有实验结果'}</strong>${state.runs.length ? '试试其他筛选条件。' : '启动一次实验，结果将自动显示在这里。'}</div>`; return; }
-  $('#results-body').innerHTML = `<table class="result-table"><thead><tr><th>运行 / 模式</th><th class="model-column">模型</th><th>执行结果</th><th>Mortal 匹配</th><th class="token-column">TOKENS</th><th class="time-column">耗时</th><th aria-label="操作"></th></tr></thead><tbody>${rows.map(row => {
-    const summary = row.summary, m = row.manifest;
-    return `<tr><td><div class="result-id">${esc(row.id.slice(0, 8))} <span class="tag">${m.controlledFault !== 'none' ? '故障' : m.rag.mode === 'local' ? 'Local' : 'Off'}</span></div><div class="result-date">${date(m.startedAt)}</div></td><td class="model-column result-model">${esc(m.coach.model)}<div class="result-date">${esc(m.coach.reasoningEffort ?? m.coach.providerId)}</div></td><td><span class="tag">${!summary ? '归档未完成' : summary.terminalStatuses.completed === summary.selectedCaseCount ? '运行完成' : `${summary.terminalStatuses.completed}/${summary.selectedCaseCount} 完成`}</span>${summary?.toolFailureCount ? `<div class="result-date tool-warning">${summary.toolFailureCount} 次工具失败</div>` : ''}</td><td>${summary ? rate(summary.score.matchedCaseCount, summary.score.includedCaseCount) : '—'}<div class="result-date">${summary ? `${summary.score.matchedCaseCount}/${summary.score.includedCaseCount} 题` : '等待结果'}</div></td><td class="token-column">${tokenText(summary)}</td><td class="time-column">${summary ? `${(summary.elapsedMs / 1000).toFixed(1)}s` : '—'}</td><td><button class="text-button view-button" data-run="${row.id}" aria-label="查看实验 ${row.id.slice(0, 8)}">查看 ↗</button></td></tr>`;
+  $('#results-body').innerHTML = `<table class="result-table"><thead><tr><th>运行 / 模式</th><th class="model-column">模型</th><th>执行成功率</th><th>Mortal 匹配率</th><th class="token-column">TOKENS</th><th class="time-column">耗时</th><th aria-label="操作"></th></tr></thead><tbody>${rows.map(row => {
+    const summary = row.summary, m = row.manifest, metrics = runMetrics(summary);
+    return `<tr><td><div class="result-id">${esc(row.id.slice(0, 8))} <span class="tag">${m.controlledFault !== 'none' ? '故障' : m.rag.mode === 'local' ? 'Local' : 'Off'}</span></div><div class="result-date">${date(m.startedAt)}</div></td><td class="model-column result-model">${esc(m.coach.model)}<div class="result-date">${esc(m.coach.reasoningEffort ?? m.coach.providerId)}</div></td><td><span class="tag">${!metrics ? '归档未完成' : rate(metrics.succeeded, metrics.selected)}</span>${metrics ? `<div class="result-date">${metrics.succeeded}/${metrics.selected} 执行成功</div>` : ''}${summary?.toolFailureCount ? `<div class="result-date tool-warning">${summary.toolFailureCount} 次工具失败</div>` : ''}</td><td>${metrics ? rate(metrics.matched, metrics.succeeded) : '—'}<div class="result-date">${summary ? `${metrics.matched}/${metrics.succeeded} 成功案例${metrics.missingLabels ? ` · ${metrics.missingLabels} 缺标签` : ''}` : '等待结果'}</div></td><td class="token-column">${tokenText(summary)}</td><td class="time-column">${summary ? `${(summary.elapsedMs / 1000).toFixed(1)}s` : '—'}</td><td><button class="text-button view-button" data-run="${row.id}" aria-label="查看实验 ${row.id.slice(0, 8)}">查看 ↗</button></td></tr>`;
   }).join('')}</tbody></table>`;
 }
 async function refresh() {
@@ -150,9 +150,18 @@ function actionText(ref) {
 function structured(key, title, value) {
   return `<details data-detail-key="${esc(key)}"><summary>${esc(title)}</summary><pre>${esc(JSON.stringify(value, null, 2) ?? '未记录')}</pre></details>`;
 }
+function tileImages(tiles, label) {
+  return `<div class="tile-group"><span class="tile-label">${label}</span><div class="tile-row" role="group" aria-label="${label}">${tiles.map(tile => {
+    const asset = tileAsset(tile), text = esc(tileText(tile));
+    return asset ? `<img class="mahjong-tile" src="${asset}" alt="${text}" title="${text}" width="36" height="48">` : `<span>${text}</span>`;
+  }).join('') || '<span class="field-hint">无</span>'}</div></div>`;
+}
 function observationView(observation) {
   const state = observation.visibleState;
-  return `<div class="observation-summary"><p><b>${esc(({ E: '东', S: '南', W: '西' })[state.roundWind])}${state.hand}局 · ${state.honba}本场</b> · 剩余摸牌 ${state.remainingDraws ?? '未知'}</p><p>手牌：${state.self.concealedTiles.map(tile => esc(tileText(tile))).join(' · ')}</p><p>当前摸牌：${state.self.currentDraw ? esc(tileText(state.self.currentDraw.tile)) : '无'}　宝牌指示：${state.doraIndicators.map(tile => esc(tileText(tile))).join(' · ') || '无'}</p><p class="field-hint">候选：${observation.candidates.map(candidate => esc(actionText(candidate.actionRef))).join(' / ')}</p></div>`;
+  return `<div class="observation-summary"><p><b>${esc(({ E: '东', S: '南', W: '西' })[state.roundWind])}${state.hand}局 · ${state.honba}本场</b> · 剩余摸牌 ${state.remainingDraws ?? '未知'}</p>${tileImages(sortedTiles(state.self.concealedTiles), '手牌（已理牌）')}<div class="visible-tiles">${tileImages(state.self.currentDraw ? [state.self.currentDraw.tile] : [], '当前摸牌')}${tileImages(state.doraIndicators, '宝牌指示')}</div><p class="field-hint">候选：${observation.candidates.map(candidate => esc(actionText(candidate.actionRef))).join(' / ')}</p></div>`;
+}
+function matchBadge(score) {
+  return score?.status === 'matched' ? '<span class="match-badge is-match">Mortal 匹配</span>' : score?.status === 'not_matched' ? '<span class="match-badge is-mismatch">Mortal 不匹配</span>' : '<span class="match-badge">未评分</span>';
 }
 function traceEvent(event, index, ordinal, events) {
   const diagnostic = `${event.failureCode ? `<p class="tool-warning">错误码：${esc(event.failureCode)}</p>` : ''}${event.reconnectCount ? `<p class="field-hint">CLI 连接重试 ${event.reconnectCount} 次 · 同一进程内等待最终结果</p>` : ''}`;
@@ -176,24 +185,27 @@ function renderDetail(data) {
   const finalized = new Map(events.filter(item => item.type === 'case_run').map(item => [item.caseOrdinal, item.result]));
   const live = new Map(); for (const row of trace) { if (!live.has(row.caseOrdinal)) live.set(row.caseOrdinal, []); live.get(row.caseOrdinal).push(row.event); }
   const body = $('#detail-body'), dialog = $('#result-dialog');
+  const knownKeys = new Set([...body.querySelectorAll('details')].map(node => node.dataset.detailKey));
   const openKeys = new Set([...body.querySelectorAll('details[open]')].map(node => node.dataset.detailKey));
-  const scroll = dialog.scrollTop, activeKey = document.activeElement?.closest('details')?.dataset.detailKey, focusedId = document.activeElement?.id;
+  const scroll = body.scrollTop, activeKey = document.activeElement?.closest('details')?.dataset.detailKey, focusedId = document.activeElement?.id;
   const auto = $('#trace-auto')?.checked ?? true;
   const signature = JSON.stringify(data);
   selectedResult = data;
   if (detailSignature === signature) return;
   detailSignature = signature;
+  const metrics = runMetrics(s);
   $('#detail-title').textContent = `实验 ${data.id.slice(0, 8)}`;
-  body.innerHTML = `<div class="detail-meta"><span>${date(m.startedAt)}</span><span>${esc(m.coach.model)} · ${esc(m.coach.reasoningEffort ?? m.coach.providerId)}</span><span>RAG ${esc(m.rag.mode)}</span><span>代码 ${m.codeSha.slice(0, 8)}</span></div><div class="detail-stat"><div>有效回答<strong>${s ? `${s.score.conditionalMatchRate.denominator}/${s.selectedCaseCount}` : '待归档'}</strong></div><div>Mortal 匹配<strong>${s ? `${s.score.matchedCaseCount}/${s.score.includedCaseCount}` : '待评分'}</strong></div><div>Token 用量<strong>${tokenText(s)}</strong></div></div><p class="field-hint">开发样本；未进行专家质量验收。${s ? `Helper 查询 ${s.evidence.helperQueries} 次，RAG 查询 ${s.evidence.ragQueries} 次、命中 ${s.evidence.ragHits} 次。` : '归档尚未完成，保留已发生的步骤，不据此判断成功。'}</p><div class="trace-controls"><label><input type="checkbox" id="trace-auto" ${auto ? 'checked' : ''}> 自动刷新过程</label><button id="refresh-detail" class="quiet-button">刷新过程</button><span id="trace-sync" role="status"></span></div><p class="field-hint">展示公开摘要和实际工具记录；不包含模型内部私有思维链。工具参数与返回可完整展开。</p>${m.dataset.selected.length > 10 ? `<label>查看案例<select id="detail-case">${m.dataset.selected.map((row, ordinal) => `<option value="${ordinal}" ${ordinal === detailCase ? "selected" : ""}>案例 ${ordinal + 1} · 题库第 ${(m.dataset.selection?.offset ?? 0) + ordinal + 1} 题</option>`).join("")}</select></label>` : ""}${m.dataset.selected.map((item, ordinal) => {
+  body.innerHTML = `<div class="detail-meta"><span>${date(m.startedAt)}</span><span>${esc(m.coach.model)} · ${esc(m.coach.reasoningEffort ?? m.coach.providerId)}</span><span>RAG ${esc(m.rag.mode)}</span><span>代码 ${m.codeSha.slice(0, 8)}</span></div><div class="detail-stat"><div>执行成功率<strong>${metrics ? rate(metrics.succeeded, metrics.selected) : '待归档'}</strong><span>${metrics ? `${metrics.succeeded}/${metrics.selected} 纳入案例` : ''}</span></div><div>Mortal 一选匹配率<strong>${metrics ? rate(metrics.matched, metrics.succeeded) : '待评分'}</strong><span>${metrics ? `${metrics.matched}/${metrics.succeeded} 成功案例${metrics.missingLabels ? ` · ${metrics.missingLabels} 缺标签` : ''}` : ''}</span></div><div>Token 用量<strong>${tokenText(s)}</strong></div></div><p class="field-hint">开发样本；未进行专家质量验收。${s ? `Helper 查询 ${s.evidence.helperQueries} 次，RAG 查询 ${s.evidence.ragQueries} 次、命中 ${s.evidence.ragHits} 次。` : '归档尚未完成，保留已发生的步骤，不据此判断成功。'}</p><div class="trace-controls"><label><input type="checkbox" id="trace-auto" ${auto ? 'checked' : ''}> 自动刷新过程</label><button id="refresh-detail" class="quiet-button">刷新过程</button><button id="expand-cases" class="quiet-button">展开案例</button><button id="collapse-cases" class="quiet-button">折叠案例</button><span id="trace-sync" role="status"></span></div><p class="field-hint">展示公开摘要和实际工具记录；不包含模型内部私有思维链。工具参数与返回可完整展开。</p>${m.dataset.selected.length > 10 ? `<label>查看案例<select id="detail-case">${m.dataset.selected.map((row, ordinal) => `<option value="${ordinal}" ${ordinal === detailCase ? "selected" : ""}>案例 ${ordinal + 1} · 题库第 ${(m.dataset.selection?.offset ?? 0) + ordinal + 1} 题</option>`).join("")}</select></label>` : ""}${m.dataset.selected.map((item, ordinal) => {
     if (m.dataset.selected.length > 10 && ordinal !== detailCase) return "";
     const result = finalized.get(ordinal), records = result?.events ?? live.get(ordinal) ?? [];
     const score = result?.score.cases[0];
-    return `<article class="case-detail"><h3>案例 ${ordinal + 1} <span class="tag">${result ? esc(labels[result.status] ?? result.status) : records.length ? '尚无最终结果' : '尚无执行记录'}</span></h3><div class="detail-meta"><span>${item.candidateCount} 个候选动作</span>${result ? `<span>${result.providerTurnCount} 轮模型调用 · ${result.toolCallCount} 次工具调用 · ${(result.elapsedMs / 1000).toFixed(1)}s</span><span>${score?.status === 'matched' ? 'Mortal 匹配' : score?.status === 'not_matched' ? 'Mortal 不匹配' : '未得到匹配评分'}</span>` : ''}</div>${records.length ? `<ol class="trace-list">${records.map((row, index) => traceEvent(row, index, ordinal, records)).join('')}</ol>` : '<p class="field-hint">尚未收到本题事件。停止或中断的实验可能不会继续产生记录。</p>'}${result && !records.some(row => row.type === 'submission_locked') && result.attempt.submission ? structured(`${ordinal}-legacy-answer`, '旧归档中的最终提交', result.attempt.submission) : ''}</article>`;
+    return `<details class="case-detail" data-detail-key="case-${ordinal}" ${ordinal === 0 ? 'open' : ''}><summary class="case-summary"><span class="case-title">案例 ${ordinal + 1}</span><span class="tag">${result ? esc(labels[result.status] ?? result.status) : records.length ? '尚无最终结果' : '尚无执行记录'}</span>${matchBadge(score)}<span class="case-chevron" aria-hidden="true">⌄</span></summary><div class="case-body"><div class="detail-meta"><span>${item.candidateCount} 个候选动作</span>${result ? `<span>${result.providerTurnCount} 轮模型调用 · ${result.toolCallCount} 次工具调用 · ${(result.elapsedMs / 1000).toFixed(1)}s</span>` : ''}</div>${records.length ? `<ol class="trace-list">${records.map((row, index) => traceEvent(row, index, ordinal, records)).join('')}</ol>` : '<p class="field-hint">尚未收到本题事件。停止或中断的实验可能不会继续产生记录。</p>'}${result && !records.some(row => row.type === 'submission_locked') && result.attempt.submission ? structured(`${ordinal}-legacy-answer`, '旧归档中的最终提交', result.attempt.submission) : ''}</div></details>`;
   }).join('')}${structured('archive', '查看运行元数据与汇总', { manifest: m, summary: s })}<button id="download-result" class="quiet-button">下载本次结果 JSON</button>`;
-  for (const node of body.querySelectorAll('details')) { node.open = openKeys.has(node.dataset.detailKey); if (activeKey === node.dataset.detailKey) node.querySelector('summary').focus({ preventScroll: true }); }
+  for (const node of body.querySelectorAll('details')) { if (knownKeys.has(node.dataset.detailKey)) node.open = openKeys.has(node.dataset.detailKey); if (activeKey === node.dataset.detailKey) node.querySelector('summary').focus({ preventScroll: true }); }
   if (focusedId && body.querySelector(`#${CSS.escape(focusedId)}`)) body.querySelector(`#${CSS.escape(focusedId)}`).focus({ preventScroll: true });
-  dialog.scrollTop = scroll;
+  body.scrollTop = scroll;
   $('#detail-case')?.addEventListener('change', event => { detailCase = Number(event.target.value); detailSignature = ''; renderDetail(selectedResult); });
+  for (const [id, open] of [['#expand-cases', true], ['#collapse-cases', false]]) $(id).addEventListener('click', () => { for (const node of body.querySelectorAll('.case-detail')) node.open = open; });
   $('#refresh-detail').addEventListener('click', () => refreshDetail().catch(() => { $('#trace-sync').textContent = '刷新失败，请重试'; }));
   $('#download-result').addEventListener('click', () => { const url = URL.createObjectURL(new Blob([JSON.stringify(selectedResult, null, 2)], { type: 'application/json' })); const link = document.createElement('a'); link.href = url; link.download = `arena-${selectedResult.id}.json`; link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000); });
 }
@@ -212,7 +224,7 @@ $('#results-body').addEventListener('click', async event => {
     detailCase = 0; detailSignature = ''; $('#detail-body').innerHTML = '';
     renderDetail(await api(`/api/run/${button.dataset.run}`));
     $('#result-dialog').showModal();
-    $('#result-dialog').scrollTop = 0;
+    $('#detail-body').scrollTop = 0;
   } catch (error) { message(error.message, true); } finally { button.disabled = false; }
 });
 await refresh();

@@ -139,7 +139,12 @@ export async function createArenaConsole({ coachRoot = fileURLToPath(new URL('..
         if (!child || !job || job.status !== 'running') throw fail('当前没有正在运行的实验。', 409);
         stopping = true; job.status = 'stopping'; terminate(); await persistJob(); return json(response, 202, publicJob());
       }
-      const file = { '/': ['index.html', 'text/html; charset=utf-8'], '/app.mjs': ['app.mjs', 'text/javascript; charset=utf-8'], '/style.css': ['style.css', 'text/css; charset=utf-8'] }[url.pathname];
+      if (request.method === 'GET' && /^\/tiles\/(?:[0-9][mps]|[1-7]z)\.svg$/.test(url.pathname)) {
+        const svg = await readFile(join(coachRoot, 'packages/desktop/src/renderer', url.pathname.slice(1)));
+        response.writeHead(200, { 'Content-Type': 'image/svg+xml', 'Cache-Control': 'public, max-age=3600' });
+        return response.end(svg);
+      }
+      const file = { '/': ['index.html', 'text/html; charset=utf-8'], '/app.mjs': ['app.mjs', 'text/javascript; charset=utf-8'], '/presentation.mjs': ['presentation.mjs', 'text/javascript; charset=utf-8'], '/style.css': ['style.css', 'text/css; charset=utf-8'] }[url.pathname];
       if (request.method !== 'GET' || !file) throw fail('页面不存在。', 404);
       response.writeHead(200, { 'Content-Type': file[1], 'Cache-Control': 'no-cache' }); response.end(await readFile(join(assets, file[0])));
     } catch (error) { json(response, error.status ?? 500, { error: error.status ? error.message : '操作未完成，请检查配置或稍后重试。' }); }

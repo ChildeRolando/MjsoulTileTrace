@@ -10,6 +10,7 @@ import {
   CanonicalEventStreamSchema,
   LibriichiRuleResponseSchema,
   canonicalActionRef,
+  sortTilesCanonical,
   libriichiRuleCanonicalJson,
   type CanonicalEventStream,
   type CanonicalGameEvent,
@@ -277,10 +278,13 @@ describe("Blind Discard Arena case and observation contract", () => {
 
   it("keeps known decision-time information while aliasing source identities", () => {
     const { decision, request } = realPrefixFixture();
+    const originalSnapshot = JSON.stringify(decision.snapshot);
     const { observation, binding } = firstDecisionOutput(decision, request);
     const serialized = JSON.stringify(observation);
 
-    expect(observation.visibleState.self.concealedTiles).toEqual(decision.snapshot.privateState.concealedTiles);
+    expect(observation.visibleState.self.concealedTiles).toEqual(sortTilesCanonical(decision.snapshot.privateState.concealedTiles));
+    expect(observation.visibleState.self.concealedTiles).not.toBe(decision.snapshot.privateState.concealedTiles);
+    expect(JSON.stringify(decision.snapshot)).toBe(originalSnapshot);
     expect(observation.visibleState.self.currentDraw?.tile).toEqual(decision.snapshot.privateState.currentDraw?.tile);
     expect(observation.visibleState.rivers.flat()).toHaveLength(4);
     expect(observation.visibleState.rivers[1]![0]!.tile).toEqual(tile("9s"));

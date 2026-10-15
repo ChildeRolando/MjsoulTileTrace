@@ -18,7 +18,8 @@
     <section class="metrics" aria-label="实验概览指标">
       <article class="metric budget-metric"><div class="metric-label">累计已报告用量 <span class="small-tag">TOKENS</span></div><div class="metric-value" id="tokens">—</div><div class="budget-track" role="progressbar" aria-label="Token 报警线占比" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="budget-fill"></span></div><div class="metric-bottom"><span id="budget-caption">报警线 100M</span><span id="budget-percent">—</span></div><p id="unknown-note" class="micro">按本工作区实验归档统计</p></article>
       <article class="metric"><div class="metric-label">已归档实验 <span class="metric-symbol" aria-hidden="true">↗</span></div><div class="metric-value" id="runs-count">—</div><div class="metric-bottom"><span id="cases-count">等待归档数据</span></div><p class="micro">失败与未完成记录始终保留</p></article>
-      <article class="metric"><div class="metric-label">Mortal 一选匹配 <span class="small-tag">全部纳入题目</span></div><div class="metric-value" id="match-rate">—</div><div class="metric-bottom"><span id="match-fraction">尚无已归档评分</span></div><p class="micro">作为实验比较，不等于专家正确率</p></article>
+      <article class="metric"><div class="metric-label">执行成功率 <span class="small-tag">可靠性</span></div><div class="metric-value" id="execution-rate">—</div><div class="metric-bottom"><span id="execution-fraction">尚无已归档结果</span></div><p class="micro">成功提交并完成执行 / 纳入案例</p></article>
+      <article class="metric"><div class="metric-label">Mortal 一选匹配率 <span class="small-tag">决策匹配</span></div><div class="metric-value" id="match-rate">—</div><div class="metric-bottom"><span id="match-fraction">尚无已归档评分</span></div><p class="micro">仅以执行成功案例为分母；非专家正确率</p></article>
     </section>
     <div class="workspace-grid">
       <section class="panel launch-panel" aria-labelledby="launch-title"><div class="panel-heading"><div><span class="section-index">01</span><h2 id="launch-title">启动实验</h2></div><span class="tag" id="bank-count">开发题库</span></div>
@@ -38,7 +39,7 @@
     </div>
     <section class="panel results-panel" id="results" aria-labelledby="results-title"><div class="panel-heading"><div><span class="section-index">03</span><h2 id="results-title">实验结果</h2><span id="result-total" class="count">0</span></div><div class="filters" aria-label="结果筛选"><button class="filter selected" data-filter="all" aria-pressed="true">全部</button><button class="filter" data-filter="local" aria-pressed="false">Local</button><button class="filter" data-filter="off" aria-pressed="false">Off</button><button class="filter" data-filter="fault" aria-pressed="false">受控故障</button></div></div>
       <div id="results-body" class="result-loading">正在读取实验归档…</div>
-      <div class="result-footnote"><span>统计包含失败与不匹配；未知用量不按零计算。</span><span>样本状态 <b>开发集 · 独立验收待完成</b></span></div>
+      <div class="result-footnote"><span>执行成功率含失败；匹配率仅统计成功案例。未知用量不按零计算。</span><span>样本状态 <b>开发集 · 独立验收待完成</b></span></div>
     </section>
     <footer class="page-footer"><span>ARENA LAB <span class="footer-divider">/</span> 可复查的本地实验</span><span>运行记录来自真实归档，无模拟数据</span></footer>
   </div>

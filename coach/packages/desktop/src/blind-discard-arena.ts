@@ -13,6 +13,7 @@ import {
   LibriichiRuleRequestSchema,
   LibriichiRuleResponseSchema,
   canonicalActionRef,
+  sortTilesCanonical,
   libriichiRuleCanonicalJson,
   type ArenaBlindDiscardCandidate,
   type ArenaBlindObservation,
@@ -311,7 +312,7 @@ export function createArenaBlindObservation(input: {
       melds: publicState.melds.map((meld) => aliasedMeld(meld, input.aliases)),
       riichiStates: publicState.riichiStates.map((state) => aliasedRiichiState(state, input.aliases)),
       self: {
-        concealedTiles: privateState.concealedTiles,
+        concealedTiles: sortTilesCanonical(privateState.concealedTiles),
         currentDraw: privateState.currentDraw === null ? null : {
           tile: privateState.currentDraw.tile,
           sourceRef: input.aliases.reference(privateState.currentDraw.eventRef),

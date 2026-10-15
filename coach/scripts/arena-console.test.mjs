@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
+import { mkdtemp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { setTimeout } from 'node:timers/promises';
@@ -9,6 +9,8 @@ import { createArenaConsole } from '../bin/blind-discard-arena-console.mjs';
 async function fixture(t) {
   const root = await mkdtemp(join(tmpdir(), 'arena-console-test-'));
   const cliPath = join(root, 'experiment.mjs');
+  await mkdir(join(root, 'packages/desktop/src/renderer/tiles'), { recursive: true });
+  await writeFile(join(root, 'packages/desktop/src/renderer/tiles/0p.svg'), '<svg xmlns="http://www.w3.org/2000/svg"/>');
   await writeFile(cliPath, "import { writeFileSync } from 'node:fs'; writeFileSync('received-args.json', JSON.stringify(process.argv.slice(2))); setInterval(()=>{},1000);");
   const console = await createArenaConsole({ coachRoot: root, archiveRoot: join(root, 'archives'), cliPath });
   await new Promise(resolve => console.server.listen(0, '127.0.0.1', resolve));
@@ -30,6 +32,10 @@ test('console persists public settings, never returns or saves the API key, and 
   assert.equal((await f.post('/api/config', { maxProviderTurns: 13 })).status, 400);
   assert.equal((await f.post('/api/start', { mode: 'local', maxCases: 129 })).status, 400);
   assert.equal((await fetch(f.url + '/api/run/not-a-run')).status, 404);
+  assert.equal((await fetch(f.url + '/presentation.mjs')).status, 200);
+  const tile = await fetch(f.url + '/tiles/0p.svg');
+  assert.equal(tile.status, 200); assert.equal(tile.headers.get('content-type'), 'image/svg+xml');
+  assert.equal((await fetch(f.url + '/tiles/8z.svg')).status, 404);
 });
 
 test('console starts a real owned process once and stop waits for its exit', async t => {
