@@ -21,6 +21,7 @@ import {
   type ArenaReferenceLabel,
   type ArenaToolBinding,
   type DecisionSnapshotV2,
+  type KnownGameFacts,
   type LibriichiRuleRequest,
   type LibriichiRuleIdentity,
   type ManagedMortalRuntimeManifest,
@@ -119,6 +120,7 @@ export type ArenaExclusionReason = z.infer<typeof ArenaExclusionReasonSchema>;
 export type ArenaSelectedDecision = Readonly<{
   canonicalDecisionOrder: number;
   snapshot: DecisionSnapshotV2;
+  facts: KnownGameFacts;
   ruleIdentity: LibriichiRuleIdentity;
   candidates: readonly LibriichiBoundAction[];
 }>;
@@ -229,6 +231,7 @@ export function screenArenaDecisions(raw: unknown, options: { readonly maxInclud
     selected.push({
       canonicalDecisionOrder: input.canonicalDecisionOrder,
       snapshot,
+      facts: input.decision.facts,
       ruleIdentity: input.ruleRequest.identity,
       candidates: [...bound.actions].sort((left, right) => compareStable(left.actionRef, right.actionRef)),
     });

@@ -2,7 +2,7 @@
 
 日期：2026-10-09
 
-状态：阶段 1 规格已由 PR #47 合入；T1 最小契约、筛题、盲观察、隔离标签与离线 scorer 已在 COAC-220 实现。T2–T5 不因此视为完成；本文件仍是唯一 Arena 设计与验收事实源。
+状态：阶段 1 规格已由 PR #47 合入；T1 最小契约、筛题、盲观察、隔离标签与离线 scorer 已在 COAC-220 实现；T2 的真实 stdio MCP helper 薄适配已由 COAC-221 实现并待独立评审。T3–T5 仍待实现；本文件仍是唯一 Arena 设计与验收事实源。
 
 本规格只拥有 Blind Discard Arena 的新增契约。已有生产事实仍以代码、schema、测试及相应权威文档为准；canonical 回放与动作权威、Mortal runtime 身份、Coach production generation seam、依赖方向和 renderer 安全边界分别继续归属现有 owner。工单只引用本文件，不复制本文件内容。
 
@@ -12,7 +12,7 @@
 
 Mortal 选择是比较标签，不是“正确答案”或专家正确性证明。匹配率不设通过门槛。此实验台不取代或扩展生产复盘，不改生产报告、重试、保存、重开、Mortal adapter 或 UI 语义。
 
-当前工作树已有可复用的 canonical replay、libriichi 规则、managed Mortal runtime、helper sidecar 与 completion-only provider。COAC-220 增加了 Arena case/observation/label/submission/scoring DTO、label-blind case screening、opaque alias、私有 tool binding 与离线 scorer；还没有 Arena MCP server/client、工具循环、RAG retriever、run archive 或演示 CLI。
+当前工作树已有可复用的 canonical replay、libriichi 规则、managed Mortal runtime、helper sidecar 与 completion-only provider。COAC-220 增加了 Arena case/observation/label/submission/scoring DTO、label-blind case screening、opaque alias、私有 tool binding 与离线 scorer；COAC-221 增加 Arena MCP server/client。工具循环、RAG retriever、run archive 与演示 CLI 仍未实现。
 
 ## 2. 仓库复用基线
 
@@ -101,6 +101,10 @@ helper MCP 必须由真正的 MCP client/server 协议调用；现有 JSONL help
 工具职责保持少量、面向问题，例如按需取得允许的局面细节、对少量指定候选/维度分析、或检索资料。初始观察已足够回答的问题不强迫调用。每条事实包括 actionRef、维度、值、单位、evidence/source ref、计算器及版本；不支持的能力返回 `unsupported`/`unavailable`，不补造数字。
 
 MCP server 仅允许读取当前授权 case 的冻结事前状态和提供的合法 actionRefs。拒绝越权/未知 caseRef、非法或重复 actionRef、任意路径、shell、完整牌谱读取、未来事件、Mortal 查询与任意模型评分。每次 actionRefs 与 dimensions 数量、返回字节数、helper timeout 和整 run tool-call/总时长都必须有有限上限；实现将上限写入版本化配置并测试超限拒绝，超过结果上限时返回错误状态，不能截断后假装完整。相同 frozen request 可以做确定性缓存，但缓存键和返回物不得包含或依赖 label。
+
+COAC-221 的 v1 实现只注册 `analyze_candidates`：strict 输入为 `caseRef`、1–3 个 offered `actionRefs` 与 1–4 个请求维度；维度目前为 `shanten`、`effective_tiles`、`remaining_waits`、`dora_count`。未知维度逐项返回 `unsupported`，事实不足返回 `unavailable`，不会补造数值。server 从绑定的决策时 facts 与已验证候选调用现有 `projectCandidate`/`MahjongFactEnginePort.analyzeHand13`，并以现有 `validateHand13Result` 校验；输出只包含请求的候选/维度、值与单位、per-run opaque `sourceRef`/`evidenceRefs`、helper identity 或 adapter 版本及状态，不暴露原始 helper 请求身份或错误 prose。
+
+限制固定在 `blind-discard-arena-mcp-limits/v1`：每 run 最多 8 次工具调用、12 次 helper 调用；每 call 最多 3 个候选和 4 个维度；单结果上限 16 KiB（超出返回 `result_too_large`，不截断）；helper 单次 2 秒、单次工具 10 秒、helper 累计 20 秒、run 5 分钟。只处理一个并发请求；忙时返回 `helper_busy`。server 要求组合方提供立即释放 helper 的回调（受管 client 的普通 `close()` 可能排在当前请求之后）；helper 超时、stdio client 断连或 run deadline 时调用该回调并关闭 server。运行时调用者只能降低这些上限，不能抬高 v1 上限。
 
 helper direct call 与 MCP 返回在相同输入上语义一致。至少一个测试通过真实 stdio MCP protocol server/client，并验证访问控制、超时、断连、helper 错误、超大结果和 unsupported dimension。
 
@@ -194,14 +198,14 @@ holdout acceptance 至少使用另一个不同的完整 gameId；只能从仓库
 
 ## 11. 永久回归 owner 与命令
 
-行为测试在权威 owner 中扩展了 T1 的 allow-list、alias、规则请求 future-prefix 隔离、完整候选筛选、submission binding 与 scorer denominator；它们不证明后续 MCP/tool loop/RAG/CLI 已完成。回归 owner：
+行为测试在权威 owner 中覆盖 T1 的 allow-list、alias、规则请求 future-prefix 隔离、完整候选筛选、submission binding 与 scorer denominator，以及 T2 MCP 协议/权限/资源边界；它们不证明后续 tool loop/RAG/CLI 已完成。回归 owner：
 
 | 不变量 | 新测试 owner（建议精确路径） | 现有基线 |
 |---|---|---|
 | 原始 gameId/recordId canary 不出现在 Coach observation；固定 alias map 下 actual/label/future event 不改变 observation/candidate 顺序；规则请求只承诺决策前缀身份；strict allow-list 与隐藏字段拒绝 | `coach/packages/desktop/tests/blind-discard-arena-case.test.ts`（T1 行为回归） | `packages/reasoning/tests/stream-replayer.test.ts` |
 | 完整合法动作、赤牌区分、已验证物理实现 mapping、submission action/case/source/evidence binding 与 Mortal label binding | `coach/packages/desktop/tests/blind-discard-arena-case.test.ts`、`coach/packages/desktop/tests/blind-discard-arena-scorer.test.ts` | `packages/reasoning/tests/libriichi-rule-projection.test.ts`、`local-mortal-rule-scoring.test.ts`、`libriichi-full-game.test.ts`、`packages/mortal-runtime/tests/managed-runtime.test.ts` |
 | invalid/missing/timeout/tool error/budget stop 始终进入主分母；label 不可用及绑定失败分别计数；固定提交可离线重算 | `coach/packages/desktop/tests/blind-discard-arena-scorer.test.ts` | 新 scorer suite；现有生产 test 不覆盖 Arena 分母 |
-| 实际 MCP stdio 协议、只输出 per-run opaque source/evidence refs、case/action 权限、超时/断连/大结果拒绝、同 helper direct parity | `coach/packages/desktop/tests/blind-discard-arena-mcp.test.ts`（Stage 1 spec-contract；T2 行为回归） | `packages/reasoning/tests/fact-engine-client.test.ts` 与 `npm run test:fact-engine` |
+| 实际 MCP stdio 协议、只输出 per-run opaque source/evidence refs、case/action 权限、超时/断连/大结果拒绝、同 packaged helper direct parity | `coach/packages/desktop/tests/blind-discard-arena-mcp.test.ts`（T2 行为回归） | `packages/reasoning/tests/fact-engine-client.test.ts` 与 `npm run test:fact-engine` |
 | RAG off 不读 corpus、local no-hit 与 hit 可区分、有来源、bounded output、prompt injection 不取得权限 | `coach/packages/desktop/tests/blind-discard-arena-rag.test.ts` | Arena 新 suite |
 | tool loop 不预取全矩阵；turn/call/context/output/time/cancel 都有界 | `coach/packages/desktop/tests/blind-discard-arena-runner.test.ts` | Arena 新 suite |
 | production ReviewReport 的一次 completion、provider retry、保存/读取与 UI 语义不变 | 继续维护现有 owner | `npx vitest run packages/reasoning/tests/review-report.test.ts packages/reasoning/tests/automatic-report-scope.test.ts packages/desktop/tests/coach-provider.test.ts packages/desktop/tests/codex-coach-provider.test.ts` |
