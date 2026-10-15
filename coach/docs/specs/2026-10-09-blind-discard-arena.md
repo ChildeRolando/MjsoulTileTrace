@@ -309,3 +309,11 @@ COAC-224 的真实模型入口补充（2026-10-15 用户授权）：本机 Codex
 - Blind Discard Arena 的唯一 normative owner：本文件。
 - 生产数据/依赖/报告语义继续归 `coach/docs/development/ARCHITECTURE.md`、`coach/docs/development/INVARIANTS.md`、ADR-0005/0006、生产 Coach 与 local Mortal specs 及实现/tests。
 - Roadmap 只记当前状态并链接本文件；工作票只记执行范围及本文件路径，不复制 contract。
+
+
+### 本地控制台：评分明细与运行配置（2026-10-16）
+
+- 每个案例结束后，`mortal-details.json` 保存最多 10 个真实 Q 评分；不进入模型、MCP 或 RAG 输入。Q 不是胜率或预期得点。侧文件写入失败不丢弃原始实验归档。
+- 旧归档可用 `mortal-details <runId>` 补算；校验原牌面、案例集合及 Mortal 身份一致后另存明细，不修改原结论或用量。页面仅返回已有最终案例事件的评分。
+- 单轮输出 Token 接受正安全整数，不再固定为 2048/4096。API 模式传递 `max_tokens`；Codex 订阅模式为可见响应提示要求，仍核验已报告用量。独立字节、时间与工具预算保持有效。
+- `/model-info` 展示当前代码实际 system prompt、Codex 适配前缀、MCP 能力与预算、本地 RAG 语料及参数。当前配置用于新实验，历史参数以实验 manifest 为准；不显示凭据。

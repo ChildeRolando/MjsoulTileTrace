@@ -48,3 +48,9 @@ test('eligible case offsets give disjoint deterministic batches and retain every
   assert.throws(() => selectDatasetBatch(pool, 10, 110), /arena_case_offset_out_of_range/);
   assert.equal(JSON.stringify(pool), before);
 });
+
+ test('output token configuration accepts model-sized budgets and rejects unsafe values', () => {
+   const args = ['run', '--dataset', 'blind-discard-dev-v1', '--rag', 'off', '--max-provider-output-tokens'];
+   assert.equal(parseArgs([...args, '8192']).budget.maxProviderOutputTokens, 8192);
+   for (const value of ['0', '1.5', '9007199254740992']) assert.throws(() => parseArgs([...args, value]));
+ });

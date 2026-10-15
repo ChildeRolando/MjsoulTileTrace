@@ -4,7 +4,13 @@ import { readFile, writeFile, readdir, mkdir } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { randomUUID } from 'node:crypto';
-import { ArenaArchiveManifestSchema, ArenaArchiveSummarySchema, ArenaCaseCatalogSchema, parseArenaArchiveEvents, parseArenaCaseTrace, arenaTokenBudget, ARENA_EXPERIMENTS } from '@riichi-coach/desktop/blind-discard-arena-archive';
+import { visibleArenaMortalDetails, ArenaArchiveManifestSchema, ArenaArchiveSummarySchema, ArenaCaseCatalogSchema, parseArenaArchiveEvents, parseArenaCaseTrace, arenaTokenBudget, ARENA_EXPERIMENTS } from '@riichi-coach/desktop/blind-discard-arena-archive';
+
+import { ARENA_TOOL_CALL_PROMPT, ARENA_TOOL_CALL_PROMPT_VERSION, arenaCodexTurnInstructions } from '@riichi-coach/desktop/blind-discard-arena-provider';
+import { ARENA_MCP_TOOL_DESCRIPTION, ARENA_MCP_LIMITS_V1, SupportedDimensionSchema } from '@riichi-coach/desktop/blind-discard-arena-mcp';
+import { ARENA_RUN_LIMITS_V1, ARENA_RAG_TOOL_PARAMETERS } from '@riichi-coach/desktop/blind-discard-arena-runner';
+import { ARENA_RAG_LIMITS_V1, ARENA_RAG_RETRIEVER_VERSION } from '@riichi-coach/desktop/blind-discard-arena-rag';
+import { BLIND_DISCARD_ARENA_RAG_SEED_CORPUS } from '@riichi-coach/desktop/blind-discard-arena-rag-seed';
 
 const DEFAULTS = { provider: 'codex-cli', model: 'gpt-6-luna', reasoningEffort: 'high', baseUrl: '',
   tokenWarningThreshold: 100_000_000, maxProviderTurns: 6, maxToolCalls: 4, maxProviderOutputTokens: 2048, maxRunMs: 300000 };
@@ -19,7 +25,7 @@ function settings(raw) {
     || !['low', 'medium', 'high', 'xhigh', 'max'].includes(value.reasoningEffort)) throw fail('请检查服务类型、模型名称和推理强度。');
   if (typeof value.baseUrl !== 'string') throw fail('接口地址格式不正确。');
   if (value.baseUrl) { const url = new URL(value.baseUrl); if (!['http:', 'https:'].includes(url.protocol) || url.username || url.password || url.search || url.hash) throw fail('接口地址仅支持不含凭据的 HTTP 或 HTTPS 地址。'); }
-  for (const [key, maximum] of Object.entries({ tokenWarningThreshold: Number.MAX_SAFE_INTEGER, maxProviderTurns: 12, maxToolCalls: 16, maxProviderOutputTokens: 2048, maxRunMs: 300000 })) {
+  for (const [key, maximum] of Object.entries({ tokenWarningThreshold: Number.MAX_SAFE_INTEGER, maxProviderTurns: 12, maxToolCalls: 16, maxProviderOutputTokens: Number.MAX_SAFE_INTEGER, maxRunMs: 300000 })) {
     if (!Number.isSafeInteger(value[key]) || value[key] < 1 || value[key] > maximum) throw fail('实验预算超出支持范围。');
   }
   return Object.fromEntries(Object.keys(DEFAULTS).map(key => [key, typeof value[key] === 'string' ? value[key].trim() : value[key]]));
@@ -71,6 +77,7 @@ export async function createArenaConsole({ coachRoot = fileURLToPath(new URL('..
       '--max-tool-calls', String(snapshot.maxToolCalls), '--max-provider-output-tokens', String(snapshot.maxProviderOutputTokens), '--max-run-ms', String(snapshot.maxRunMs)];
     if (snapshot.provider === 'openai-compatible') args.push('--base-url', snapshot.baseUrl);
     if (mode === 'fault') args.push('--fault', 'first-helper-timeout');
+    if (mode === 'mortal-details') args.splice(0, args.length, cliPath, 'mortal-details', snapshot.runId);
     if (mode === 'catalog') args.splice(0, args.length, cliPath, 'catalog');
     const step = { mode, status: 'running', startedAt: new Date().toISOString() }; job.steps.push(step);
     let stdout = '', stderr = '', exceeded = false;
@@ -91,16 +98,18 @@ export async function createArenaConsole({ coachRoot = fileURLToPath(new URL('..
   });
   const start = async (mode, selection = {}) => {
     if (job?.status === 'running' || job?.status === 'stopping') throw fail('已有实验正在运行，请先停止或等待完成。', 409);
-    if (!['compare', 'off', 'local', 'fault', 'catalog'].includes(mode)) throw fail('请选择实验模式。');
+    if (!['compare', 'off', 'local', 'fault', 'catalog', 'mortal-details'].includes(mode)) throw fail('请选择实验模式。');
+    const maintenance = ['catalog', 'mortal-details'].includes(mode);
+    if (mode === 'mortal-details' && (!UUID.test(selection.runId ?? '') || !(await runs()).some(r => r.id === selection.runId))) throw fail('找不到该实验。', 404);
     const experimentType = selection.experimentType ?? 'flat';
     if (typeof experimentType !== 'string' || !Object.hasOwn(ARENA_EXPERIMENTS, experimentType)) throw fail('请选择平面何切或立体何切。');
-    if (mode !== 'catalog' && config.provider === 'openai-compatible' && (!config.baseUrl || !apiKey)) throw fail('请先保存 API 地址和密钥。');
+    if (!maintenance && config.provider === 'openai-compatible' && (!config.baseUrl || !apiKey)) throw fail('请先保存 API 地址和密钥。');
     const maxCases = selection.maxCases ?? 10, caseOffset = selection.caseOffset ?? 0;
     if (!Number.isSafeInteger(maxCases) || maxCases < 1 || maxCases > 128 || !Number.isSafeInteger(caseOffset) || caseOffset < 0 || caseOffset > 127) throw fail('请检查题量和起始题号。');
     const bank = await catalog(experimentType);
-    if (mode !== 'catalog' && bank && (caseOffset >= bank.cases.length || caseOffset + maxCases > bank.cases.length)) throw fail('所选范围超出题库，请减少题量或调整起始题号。');
+    if (!maintenance && bank && (caseOffset >= bank.cases.length || caseOffset + maxCases > bank.cases.length)) throw fail('所选范围超出题库，请减少题量或调整起始题号。');
     if (job?.status === 'running' || job?.status === 'stopping') throw fail('已有实验正在运行，请先停止或等待完成。', 409);
-    const snapshot = { ...config, maxCases, caseOffset, experimentType }, key = mode === 'catalog' ? '' : apiKey;
+    const snapshot = { ...config, maxCases, caseOffset, experimentType, runId: selection.runId }, key = maintenance ? '' : apiKey;
     job = { id: randomUUID(), mode, experimentType, status: 'running', startedAt: new Date().toISOString(), steps: [], model: snapshot.model, provider: snapshot.provider, maxCases, caseOffset };
     stopping = false;
     const execute = async () => {
@@ -120,6 +129,17 @@ export async function createArenaConsole({ coachRoot = fileURLToPath(new URL('..
       if (host !== `127.0.0.1:${server.address().port}` && host !== `localhost:${server.address().port}`) throw fail('仅支持本机访问。', 403);
       const url = new URL(request.url, `http://${host}`);
       if (request.method === 'POST' && request.headers.origin !== `http://${host}`) throw fail('请从本机控制台提交操作。', 403);
+      if (request.method === 'GET' && url.pathname === '/api/model-info') return json(response, 200, {
+        scope: 'current', config: publicConfig(), promptVersion: ARENA_TOOL_CALL_PROMPT_VERSION,
+        systemPrompt: ARENA_TOOL_CALL_PROMPT,
+        codexInstructions: config.provider === 'codex-cli' ? arenaCodexTurnInstructions(config.maxProviderOutputTokens) : null,
+        mcp: { name: 'analyze_candidates', transport: 'stdio', description: ARENA_MCP_TOOL_DESCRIPTION,
+          dimensions: SupportedDimensionSchema.options, limits: ARENA_MCP_LIMITS_V1 },
+        rag: { retrieverVersion: ARENA_RAG_RETRIEVER_VERSION, limits: ARENA_RAG_LIMITS_V1,
+          parameters: ARENA_RAG_TOOL_PARAMETERS, corpus: BLIND_DISCARD_ARENA_RAG_SEED_CORPUS },
+        limits: { ...ARENA_RUN_LIMITS_V1, maxProviderOutputTokens: config.maxProviderOutputTokens,
+          maxProviderTurns: config.maxProviderTurns, maxToolCalls: config.maxToolCalls, maxRunElapsedMs: config.maxRunMs }
+      });
       if (request.method === 'GET' && url.pathname === '/api/state') {
         const results = await runs(), bank = await catalog();
         const catalogs = {};
@@ -144,7 +164,11 @@ export async function createArenaConsole({ coachRoot = fileURLToPath(new URL('..
         let events = []; try { const text = await readFile(join(archiveRoot, id, 'events.jsonl'), 'utf8'); if (text.length <= 64 * 1024 * 1024) events = parseArenaArchiveEvents(text); } catch { /* partial events are not complete evidence */ }
         let trace = []; try { trace = parseArenaCaseTrace(await readFile(join(archiveRoot, id, 'case-trace.jsonl'), 'utf8'))
           .filter(row => row.caseOrdinal < run.manifest.dataset.selected.length); } catch { /* old or incomplete live trace; final records still own facts */ }
-        return json(response, 200, { ...run, events, trace });
+        let mortalDetails = null;
+        try {
+          mortalDetails = visibleArenaMortalDetails(JSON.parse(await readFile(join(archiveRoot, id, 'mortal-details.json'), 'utf8')), run.manifest, events);
+        } catch { /* old runs can rebuild display evidence without changing the original archive */ }
+        return json(response, 200, { ...run, events, trace, mortalDetails });
       }
       if (request.method === 'POST' && url.pathname === '/api/config') {
         const raw = await body(request), next = settings(raw);
@@ -168,7 +192,7 @@ export async function createArenaConsole({ coachRoot = fileURLToPath(new URL('..
         response.writeHead(200, { 'Content-Type': 'image/svg+xml', 'Cache-Control': 'public, max-age=3600' });
         return response.end(svg);
       }
-      const file = { '/': ['index.html', 'text/html; charset=utf-8'], '/app.mjs': ['app.mjs', 'text/javascript; charset=utf-8'], '/presentation.mjs': ['presentation.mjs', 'text/javascript; charset=utf-8'], '/style.css': ['style.css', 'text/css; charset=utf-8'] }[url.pathname];
+      const file = { '/model-info': ['model-info.html', 'text/html; charset=utf-8'], '/model-info.mjs': ['model-info.mjs', 'text/javascript; charset=utf-8'], '/': ['index.html', 'text/html; charset=utf-8'], '/app.mjs': ['app.mjs', 'text/javascript; charset=utf-8'], '/presentation.mjs': ['presentation.mjs', 'text/javascript; charset=utf-8'], '/style.css': ['style.css', 'text/css; charset=utf-8'] }[url.pathname];
       if (request.method !== 'GET' || !file) throw fail('页面不存在。', 404);
       response.writeHead(200, { 'Content-Type': file[1], 'Cache-Control': 'no-cache' }); response.end(await readFile(join(assets, file[0])));
     } catch (error) { json(response, error.status ?? 500, { error: error.status ? error.message : '操作未完成，请检查配置或稍后重试。' }); }

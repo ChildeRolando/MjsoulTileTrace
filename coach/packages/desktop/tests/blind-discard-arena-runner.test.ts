@@ -12,7 +12,7 @@ import {
   type ArenaRunnerTool,
   type ArenaRunEvent,
 } from "../src/blind-discard-arena-runner.js";
-import type { ArenaProviderMessage, ArenaProviderRequest, ArenaToolCallProvider } from "../src/blind-discard-arena-provider.js";
+import { ArenaProviderRequestSchema, type ArenaProviderMessage, type ArenaProviderRequest, type ArenaToolCallProvider } from "../src/blind-discard-arena-provider.js";
 import { createArenaRagRetriever } from "../src/blind-discard-arena-rag.js";
 import { arenaFixtureCanaries, makeArenaMcpCase } from "./fixtures/arena-mcp-case.js";
 
@@ -801,4 +801,19 @@ describe("Blind Discard Arena runner", () => {
     expect(result.providerUsage).toMatchObject({ status: "unknown", providerTurnCount: 0, unreportedTurnCount: 0 });
     expect(ARENA_RUN_LIMITS_V1.schemaVersion).toBe("blind-discard-arena-run-limits/v1");
   });
+});
+
+it("passes an 8192 token budget through the runner and provider contract without leaking grading data", async () => {
+  const c = makeArenaMcpCase();
+  const provider = immediateSubmissionProvider(c.observation.caseRef, c.observation.candidates.map(r => r.actionRef));
+  const result = await runBlindCoachCase({ observation: c.observation,
+    grading: { binding: c.authorizedCase.binding, reference: { status: "unavailable", reason: "mortal_unavailable" } },
+    limits: { maxProviderOutputTokens: 8192 }, tools: [],
+    provider: { ...provider, async request(request, signal) {
+      expect(ArenaProviderRequestSchema.parse(request).maxOutputTokens).toBe(8192);
+      expect(JSON.stringify(request)).not.toContain('qValue');
+      return provider.request(request, signal);
+    } },
+  });
+  expect(result.status).toBe("completed");
 });

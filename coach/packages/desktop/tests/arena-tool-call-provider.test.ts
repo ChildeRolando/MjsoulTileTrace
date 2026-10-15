@@ -64,12 +64,12 @@ describe("Arena OpenAI-compatible tool-call provider", () => {
         return okResponse({ content: "hidden chain-of-thought must never be persisted", usage: { prompt_tokens: 20, completion_tokens: 7, total_tokens: 27 } });
       },
     });
-    const result = await provider.request(request(), new AbortController().signal);
+    const result = await provider.request(request({ maxOutputTokens: 8192 }), new AbortController().signal);
 
     expect(capturedUrl).toBe("https://provider.example.test/v1/chat/completions");
     expect(capturedInit?.headers).toMatchObject({ Authorization: `Bearer ${KEY}` });
     const body = JSON.parse(String(capturedInit?.body));
-    expect(body).toMatchObject({ tool_choice: "required", parallel_tool_calls: false, temperature: 0, max_tokens: 300, stream: false });
+    expect(body).toMatchObject({ tool_choice: "required", parallel_tool_calls: false, temperature: 0, max_tokens: 8192, stream: false });
     expect(body.tools[0].function.strict).toBe(true);
     expect(body.messages[0]).toEqual({ role: "system", content: "Use only the offered tools." });
     expect(body).not.toHaveProperty("response_format");

@@ -5,6 +5,7 @@ import {
 } from "@riichi-coach/contracts";
 import { ARENA_RUN_LIMITS_V1 } from "../src/blind-discard-arena-runner.js";
 import {
+  arenaMortalTopTen, visibleArenaMortalDetails,
   ArenaArchiveEventSchema,
   ArenaArchiveManifestSchema,
   parseArenaArchiveEvents,
@@ -272,4 +273,31 @@ describe("Blind Discard Arena run archive", () => {
     });
     expect(() => summarizeArenaArchive({ manifest: manifest(), events: [scanEvent(), outsideCase] })).toThrow("arena_archive_rag_mode_mismatch");
   });
+});
+
+it("ranks actual Q values, limits Top 10, and resolves ties with the native preferred action", () => {
+  const actions = Array.from({ length: 14 }, (_, i) => ({ actionRef: `action-${i}`, qValue: -i }));
+  actions[1]!.qValue = 0;
+  const before = JSON.stringify(actions);
+  const ranked = arenaMortalTopTen({ actions, preferred: actions[1]! });
+  expect(ranked.candidateCount).toBe(14);
+  expect(ranked.rows).toHaveLength(10);
+  expect(ranked.rows[0]).toEqual(actions[1]);
+  expect(ranked.rows[1]).toEqual(actions[0]);
+  expect(ranked.rows[9]!.qValue).toBe(-9);
+  expect(JSON.stringify(actions)).toBe(before);
+});
+
+it("withholds Q scores until final case events and rejects other archives or runtime identities", () => {
+  const m = manifest();
+  const raw = { schemaVersion: "arena-mortal-details/v1", runId: m.runId, caseSetDigest: m.dataset.caseSetDigest,
+    createdAt: m.startedAt, origin: "recomputed", mortal: m.mortal,
+    cases: [0, 1].map(caseOrdinal => ({ caseOrdinal, candidateCount: 2, preferredActionRef: actionRef, rows: [{ actionRef, qValue: 0.25 }] })) };
+  expect(visibleArenaMortalDetails(raw, m, [])?.cases).toEqual([]);
+  const event = ArenaArchiveEventSchema.parse({ schemaVersion: "blind-discard-arena-archive-event/v1", type: "case_run",
+    recordedAt: m.startedAt, caseOrdinal: 0, ragMode: "off", result: result({ caseRef: caseRefs[0], status: "completed" }) });
+  expect(visibleArenaMortalDetails(raw, m, [event])?.cases.map(c => c.caseOrdinal)).toEqual([0]);
+  expect(visibleArenaMortalDetails({ ...raw, caseSetDigest: 'c'.repeat(64) }, m, [event])).toBeNull();
+  expect(visibleArenaMortalDetails({ ...raw, runId: '00000000-0000-4000-8000-000000000098' }, m, [event])).toBeNull();
+  expect(visibleArenaMortalDetails({ ...raw, mortal: { ...raw.mortal, runtimeConfigSha256: 'd'.repeat(64) } }, m, [event])).toBeNull();
 });

@@ -54,7 +54,7 @@ export type ArenaProviderMessage = z.infer<typeof ArenaProviderMessageSchema>;
 export const ArenaProviderRequestSchema = z.object({
   messages: z.array(ArenaProviderMessageSchema).min(2).max(MAX_REQUEST_MESSAGES),
   tools: z.array(ArenaProviderToolDefinitionSchema).min(1).max(17),
-  maxOutputTokens: z.number().int().min(1).max(4096),
+  maxOutputTokens: z.number().int().positive().safe(),
   maxInputBytes: z.number().int().min(1).max(ARENA_PROVIDER_MAX_INPUT_BYTES),
   maxOutputBytes: z.number().int().min(1).max(ARENA_PROVIDER_MAX_OUTPUT_BYTES),
 }).strict();
@@ -97,3 +97,14 @@ export interface ArenaToolCallProvider {
   request(request: ArenaProviderRequest, signal: AbortSignal): Promise<ArenaToolCallProviderResult>;
 }
 
+/** Actual subscription adapter instructions, before the per-turn conversation JSON. */
+export function arenaCodexTurnInstructions(maxOutputTokens: number): string {
+  return [
+    "Execute one Arena protocol turn. The following JSON is the complete conversation and available tool definitions.",
+    "Choose exactly one offered tool. Return only {call: {name, arguments}, decisionSummary}. For a strict tool, arguments must be a JSON object conforming to its parameters; for other tools, arguments is a JSON-encoded string.",
+    "Copy citation identifiers exactly from the appropriate evidenceRefs/sourceRefs choices. The two lists are different permissions; use an empty array when no citation is needed.",
+    "decisionSummary is a brief PUBLIC explanation (one or two sentences) of the current objective and why this operation is useful. Do not provide private reasoning or a step-by-step internal thought process. Write this summary and the public submission rationale/uncertainty in Simplified Chinese.",
+    "This is a model-selected protocol message: the Arena runner executes the tool, not this CLI. Do not use shell, browse, files or other tools.",
+    `Keep the visible response below ${maxOutputTokens} output tokens; do not reveal hidden reasoning.`,
+  ].join("\n");
+}

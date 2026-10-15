@@ -67,7 +67,7 @@ const ArenaMcpLimitsSchema = z.object({
   maxRunElapsedMs: z.number().int().min(1),
 }).strict();
 
-const SupportedDimensionSchema = z.enum([
+export const SupportedDimensionSchema = z.enum([
   "shanten",
   "effective_tiles",
   "remaining_waits",
@@ -462,7 +462,7 @@ export function createArenaMcpServer(options: ArenaMcpServerOptions) {
 
   server.registerTool("analyze_candidates", {
     title: "Analyze selected discard candidates",
-    description: "Return requested hand facts for a small set of discard actionRefs in an authorized frozen case. Supports shanten, effective_tiles, remaining_waits, ukeire, dora_count. Request ukeire for improving tile IDs, remaining unseen copies per tile, and their total. No record, file, score, or arbitrary calculation access is available.",
+    description: ARENA_MCP_TOOL_DESCRIPTION,
     inputSchema: ArenaMcpCallInputObjectSchema,
     annotations: { readOnlyHint: true, destructiveHint: false, openWorldHint: false },
   }, async (rawInput) => {
@@ -736,3 +736,5 @@ export class ArenaMcpClient {
     }
   }
 }
+
+export const ARENA_MCP_TOOL_DESCRIPTION = "Return requested hand facts for a small set of discard actionRefs in an authorized frozen case. Supports shanten, effective_tiles, remaining_waits, ukeire, dora_count. Request ukeire for improving tile IDs, remaining unseen copies per tile, and their total. No record, file, score, or arbitrary calculation access is available.";

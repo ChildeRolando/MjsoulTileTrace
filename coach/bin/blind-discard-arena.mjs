@@ -46,6 +46,7 @@ import { createArenaRagRetriever, ARENA_RAG_RETRIEVER_VERSION } from "@riichi-co
 import { ARENA_TOOL_CALL_PROMPT_VERSION } from "@riichi-coach/desktop/blind-discard-arena-provider";
 import { createArenaToolCallProvider } from "@riichi-coach/desktop/llm-provider/service";
 import {
+  ArenaMortalDetailsSchema, arenaMortalTopTen,
   ArenaArchiveEventSchema,
   ArenaArchiveManifestSchema,
   parseArenaArchiveEvents,
@@ -82,6 +83,7 @@ function usage() {
     "  npm run arena -- run --dataset blind-discard-smoke-v1 --rag off [options]",
     "  npm run arena -- run --dataset blind-discard-smoke-v1 --rag local [options]",
     "  npm run arena -- inspect <runId>",
+    "  npm run arena -- mortal-details <runId>  rebuild post-run Q scores without model calls",
     "  npm run arena -- catalog         build the label-free development question catalog (no model calls)",
     "",
     "Run options:",
@@ -96,7 +98,7 @@ function usage() {
     "  --base-url <url>                  OpenAI-compatible endpoint",
     "  --model <name>                    model name",
     "  --max-provider-turns <1..12>      default 4",
-    "  --max-provider-output-tokens <1..2048>  default 512",
+    "  --max-provider-output-tokens <positive integer>  default 512",
     "  --max-tool-calls <1..16>          default 2",
     "  --max-run-ms <1..300000>          default 120000",
     "  --fault first-helper-timeout      controlled helper timeout path",
@@ -109,7 +111,7 @@ export function parseArgs(argv) {
   if (argv.length === 0 || argv.includes("--help") || argv.includes("-h")) return { command: "help" };
   const [command, ...rest] = argv;
   if (command === "catalog") { if (rest.length) throw new Error("arena_option_invalid"); return { command }; }
-  if (command === "inspect") {
+  if (command === "inspect" || command === "mortal-details") {
     if (rest.length !== 1 || !/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/u.test(rest[0])) {
       throw new Error("arena_inspect_run_id_invalid");
     }
@@ -154,7 +156,7 @@ export function parseArgs(argv) {
     maxRunElapsedMs: options["--max-run-ms"] ?? DEFAULT_BUDGET.maxRunElapsedMs,
   };
   if (budget.maxProviderTurns < 1 || budget.maxProviderTurns > ARENA_RUN_LIMITS_V1.maxProviderTurns ||
-      budget.maxProviderOutputTokens < 1 || budget.maxProviderOutputTokens > ARENA_RUN_LIMITS_V1.maxProviderOutputTokens ||
+      budget.maxProviderOutputTokens < 1 || !Number.isSafeInteger(budget.maxProviderOutputTokens) ||
       budget.maxToolCalls < 1 || budget.maxToolCalls > ARENA_RUN_LIMITS_V1.maxToolCalls ||
       budget.maxRunElapsedMs < 1 || budget.maxRunElapsedMs > ARENA_RUN_LIMITS_V1.maxRunElapsedMs) {
     throw new Error("arena_budget_invalid");
@@ -545,6 +547,7 @@ async function runCommand(options) {
     await writeJson(manifestPath, manifest);
     await writeFile(eventsPath, `${JSON.stringify(datasetScan)}\n`, { encoding: "utf8", mode: 0o600, flag: "wx" });
 
+    const mortalDetails = { schemaVersion: "arena-mortal-details/v1", runId, caseSetDigest: manifest.dataset.caseSetDigest, createdAt: new Date().toISOString(), origin: "run", mortal: manifest.mortal, cases: [] };
     for (const entry of dataset.selected) {
       const aliases = new ArenaRunAliasVault();
       const observation = createArenaBlindObservation({
@@ -594,6 +597,10 @@ async function runCommand(options) {
           result,
         });
         await appendFile(eventsPath, `${JSON.stringify(event)}\n`, { encoding: "utf8" });
+        if (savedLabel?.status === "available") {
+          mortalDetails.cases.push({ caseOrdinal: entry.caseOrdinal, ...arenaMortalTopTen(savedLabel.boundScores) });
+          await saveMortalDetails(runDirectory, mortalDetails).catch(() => process.stderr.write("arena_mortal_details_write_failed\n"));
+        }
       } finally {
         if (mcp !== null) await mcp.cleanup();
       }
@@ -611,6 +618,36 @@ async function runCommand(options) {
     apiKey = null;
     if (runtime !== undefined) await runtime.close().catch(() => undefined);
   }
+}
+
+async function saveMortalDetails(directory, details) {
+  const path = join(directory, "mortal-details.json"), temporary = path + ".tmp";
+  await writeFile(temporary, JSON.stringify(ArenaMortalDetailsSchema.parse(details)), { encoding: "utf8", mode: 0o600 });
+  await rename(temporary, path);
+}
+
+async function mortalDetailsCommand(runId) {
+  const directory = join(ARCHIVE_ROOT, runId);
+  const manifest = ArenaArchiveManifestSchema.parse(JSON.parse(await readFile(join(directory, "manifest.json"), "utf8")));
+  const events = parseArenaArchiveEvents(await readFile(join(directory, "events.jsonl"), "utf8"));
+  const completed = new Set(events.filter(e => e.type === "case_run").map(e => e.caseOrdinal));
+  if (!completed.size) throw new Error("arena_no_completed_cases");
+  const prepared = await createPinnedRuntime(), runtime = prepared.runtime;
+  try {
+    const mortal = { runtimeIdentity: runtime.identity, ruleIdentity: runtime.ruleIdentity,
+      runtimeConfigSha256: canonicalDigest({ geometry: prepared.runtimeManifest.geometry, inference: prepared.runtimeManifest.inference }) };
+    if (canonicalDigest(mortal) !== canonicalDigest(manifest.mortal)) throw new Error("arena_mortal_identity_mismatch");
+    const dataset = await makeFrozenDataset(runtime, { datasetId: manifest.dataset.id, maxCases: manifest.budget.maxCases, caseOffset: manifest.dataset.selection?.offset ?? 0 });
+    if (dataset.caseSetDigest !== manifest.dataset.caseSetDigest || dataset.fixtureSha256 !== manifest.dataset.source.fixtureSha256 || dataset.sourceRecordHash !== manifest.dataset.source.sourceRecordHash) throw new Error("arena_mortal_dataset_mismatch");
+    const cases = dataset.selected.filter(e => completed.has(e.caseOrdinal)).map(e => {
+      const label = dataset.labels.get(e.selected.canonicalDecisionOrder);
+      if (label?.status !== "available") throw new Error("arena_mortal_unavailable");
+      return { caseOrdinal: e.caseOrdinal, ...arenaMortalTopTen(label.boundScores) };
+    });
+    await saveMortalDetails(directory, { schemaVersion: "arena-mortal-details/v1", runId, caseSetDigest: dataset.caseSetDigest,
+      createdAt: new Date().toISOString(), origin: "recomputed", mortal, cases });
+    process.stdout.write(JSON.stringify({ runId, cases: cases.length }) + "\n");
+  } finally { await runtime.close(); }
 }
 
 async function inspectCommand(runId) {
@@ -679,6 +716,7 @@ async function reportedTokenBudget(root, threshold) {
 
 async function main() {
   const options = parseArgs(process.argv.slice(2));
+  if (options.command === "mortal-details") { await mortalDetailsCommand(options.runId); return; }
   if (options.command === "catalog") { await catalogCommand(); return; }
   if (options.command === "help") {
     process.stdout.write(`${usage()}\n`);

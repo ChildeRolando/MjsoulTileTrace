@@ -406,3 +406,32 @@ export function summarizeArenaArchive(input: {
     tokenUsage,
   });
 }
+
+/** Post-terminal display evidence. Never included in the model conversation. */
+export const ArenaMortalDetailsSchema = z.object({
+  schemaVersion: z.literal("arena-mortal-details/v1"),
+  runId: z.string().uuid(), caseSetDigest: Sha256Schema,
+  createdAt: z.string().datetime(), origin: z.enum(["run", "recomputed"]),
+  mortal: ArenaArchiveManifestSchema.shape.mortal,
+  cases: z.array(z.object({
+    caseOrdinal: z.number().int().nonnegative(), candidateCount: z.number().int().positive(),
+    preferredActionRef: z.string(),
+    rows: z.array(z.object({ actionRef: z.string(), qValue: z.number().finite() }).strict()).min(1).max(10),
+  }).strict()),
+}).strict();
+
+export function arenaMortalTopTen(bound: { actions: readonly { actionRef: string; qValue: number }[]; preferred: { actionRef: string } }) {
+  return { candidateCount: bound.actions.length, preferredActionRef: bound.preferred.actionRef,
+    rows: [...bound.actions].sort((a, b) => b.qValue - a.qValue ||
+      Number(b.actionRef === bound.preferred.actionRef) - Number(a.actionRef === bound.preferred.actionRef) ||
+      a.actionRef.localeCompare(b.actionRef)).slice(0, 10).map(({ actionRef, qValue }) => ({ actionRef, qValue })) };
+}
+
+/** Only completed cases belonging to this exact archive may expose display scores. */
+export function visibleArenaMortalDetails(raw: unknown, manifest: z.infer<typeof ArenaArchiveManifestSchema>, events: readonly z.infer<typeof ArenaArchiveEventSchema>[]) {
+  const details = ArenaMortalDetailsSchema.parse(raw);
+  if (details.runId !== manifest.runId || details.caseSetDigest !== manifest.dataset.caseSetDigest ||
+      JSON.stringify(details.mortal) !== JSON.stringify(manifest.mortal)) return null;
+  const completed = new Set(events.filter(e => e.type === "case_run").map(e => e.caseOrdinal));
+  return { ...details, cases: details.cases.filter(c => c.caseOrdinal < manifest.dataset.selected.length && completed.has(c.caseOrdinal)) };
+}

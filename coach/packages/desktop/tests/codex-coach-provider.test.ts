@@ -37,7 +37,7 @@ it("Arena constrains final citation arguments as an object in the actual CLI out
   const provider = createCodexArenaToolCallProvider({ modelName: "gpt-6-luna", reasoningEffort: "high", processPort: fake.port });
   const input = { messages: [{ role: "system" as const, content: "Arena" }, { role: "user" as const, content: "observation" }],
     tools: [{ type: "function" as const, function: { name: "submit_decision", description: "Lock", strict: true, parameters } }],
-    maxInputBytes: 65536, maxOutputBytes: 16384, maxOutputTokens: 2048 };
+    maxInputBytes: 65536, maxOutputBytes: 16384, maxOutputTokens: 8192 };
   expect(await provider.request(input, new AbortController().signal)).toMatchObject({ status: "ready", call: { name: "submit_decision", arguments: JSON.stringify(args) } });
   const schema = JSON.parse(fake.schemaContents[0]!);
   expect(schema.properties.call.anyOf[0].properties.arguments).toEqual(parameters);

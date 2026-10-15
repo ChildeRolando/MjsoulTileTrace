@@ -24,9 +24,20 @@ async function fixture(t) {
 test('console persists public settings, never returns or saves the API key, and rejects cross-origin control', async t => {
   const f = await fixture(t);
   assert.equal((await f.state()).config.reasoningEffort, 'high');
+  assert.equal((await f.post('/api/config', { maxProviderOutputTokens: 8192 })).status, 200);
+  assert.equal((await f.state()).config.maxProviderOutputTokens, 8192);
+  const info = await fetch(f.url + '/api/model-info').then(r => r.json());
+  assert.equal(info.limits.maxProviderOutputTokens, 8192);
+  assert.match(info.codexInstructions, /8192 output tokens/);
+  assert.match(info.systemPrompt, /blind riichi-mahjong/);
+  assert.ok(info.mcp.dimensions.includes('ukeire'));
+  assert.ok(info.rag.corpus.passages.length > 0);
+  assert.equal((await fetch(f.url + '/model-info')).status, 200);
+  for (const limit of [0, -1, 1.5, Number.MAX_SAFE_INTEGER + 1]) assert.equal((await f.post('/api/config', { maxProviderOutputTokens: limit })).status, 400);
   const response = await f.post('/api/config', { provider: 'openai-compatible', model: 'tool-model', baseUrl: 'http://127.0.0.1:8000/v1', apiKey: 'PRIVATE_TEST_KEY' });
   assert.equal(response.status, 200); assert.equal((await response.json()).keyConfigured, true);
   assert.equal(JSON.stringify(await f.state()).includes('PRIVATE_TEST_KEY'), false);
+  assert.equal((await fetch(f.url + '/api/model-info').then(r => r.text())).includes('PRIVATE_TEST_KEY'), false);
   assert.equal((await readFile(join(f.root, 'archives/console-settings.json'), 'utf8')).includes('PRIVATE_TEST_KEY'), false);
   assert.equal((await f.post('/api/start', { mode: 'local' }, 'https://foreign.example')).status, 403);
   assert.equal((await f.post('/api/config', { maxProviderTurns: 13 })).status, 400);
@@ -44,6 +55,7 @@ test('console persists public settings, never returns or saves the API key, and 
 
 test('console starts a real owned process once and stop waits for its exit', async t => {
   const f = await fixture(t);
+  await f.post('/api/config', { maxProviderOutputTokens: 8192 });
   assert.equal((await f.post('/api/start', { mode: 'compare', experimentType: 'spatial', maxCases: 25, caseOffset: 10 })).status, 202);
   assert.equal((await f.state()).job.maxCases, 25); assert.equal((await f.state()).job.caseOffset, 10);
   assert.equal((await f.post('/api/start', { mode: 'local' })).status, 409);
@@ -54,6 +66,7 @@ test('console starts a real owned process once and stop waits for its exit', asy
   assert.equal(args[args.indexOf('--dataset') + 1], 'blind-discard-spatial-v1');
   assert.equal((await f.state()).job.experimentType, 'spatial');
   assert.equal(args[args.indexOf('--max-cases') + 1], '25');
+  assert.equal(args[args.indexOf('--max-provider-output-tokens') + 1], '8192');
   assert.equal(args[args.indexOf('--case-offset') + 1], '10');
   assert.equal((await f.post('/api/stop', {})).status, 202);
   let job;

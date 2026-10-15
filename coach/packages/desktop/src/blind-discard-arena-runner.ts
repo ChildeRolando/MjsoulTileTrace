@@ -76,7 +76,7 @@ const ArenaRunLimitsSchema = z.object({
   maxProviderTurns: z.number().int().min(1),
   maxToolCalls: z.number().int().min(1),
   maxContextInputBytes: z.number().int().min(1),
-  maxProviderOutputTokens: z.number().int().min(1),
+  maxProviderOutputTokens: z.number().int().positive().safe(),
   maxProviderOutputBytesPerTurn: z.number().int().min(1),
   maxProviderOutputBytesPerRun: z.number().int().min(1),
   maxToolCallInputBytes: z.number().int().min(1),
@@ -269,7 +269,7 @@ class ArenaRunAbort extends Error {
 function resolveRunLimits(raw: Partial<ArenaRunLimits> | undefined): ArenaRunLimits {
   const limits = ArenaRunLimitsSchema.parse({ ...ARENA_RUN_LIMITS_V1, ...raw });
   for (const key of Object.keys(ARENA_RUN_LIMITS_V1) as Array<keyof ArenaRunLimits>) {
-    if (key === "schemaVersion") continue;
+    if (key === "schemaVersion" || key === "maxProviderOutputTokens") continue;
     if (limits[key] > ARENA_RUN_LIMITS_V1[key]) throw new Error("arena_run_limit_exceeds_v1_maximum");
   }
   return limits;
@@ -475,7 +475,7 @@ export async function createArenaMcpRunnerTool(input: {
   });
 }
 
-const ARENA_RAG_TOOL_PARAMETERS = {
+export const ARENA_RAG_TOOL_PARAMETERS = {
   type: "object",
   properties: {
     query: { type: "string", minLength: 1, maxLength: 400 },

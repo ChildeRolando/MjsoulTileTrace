@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { ArenaProviderRequestSchema, ArenaToolCallProviderResultSchema, type ArenaProviderRequest, type ArenaProviderFailureCode, type ArenaToolCallProvider, type ArenaToolCallProviderResult } from "../blind-discard-arena-provider.js";
+import { arenaCodexTurnInstructions, ArenaProviderRequestSchema, ArenaToolCallProviderResultSchema, type ArenaProviderRequest, type ArenaProviderFailureCode, type ArenaToolCallProvider, type ArenaToolCallProviderResult } from "../blind-discard-arena-provider.js";
 import { spawn, type ChildProcessWithoutNullStreams } from "node:child_process";
 import { existsSync, rmSync } from "node:fs";
 import { mkdtemp, rm, writeFile } from "node:fs/promises";
@@ -881,15 +881,7 @@ export function createCodexArenaToolCallProvider(input: {
       const parsed = ArenaProviderRequestSchema.safeParse(raw);
       if (!parsed.success) return { status: "provider_error" };
       const request = parsed.data;
-      const prompt = [
-        "Execute one Arena protocol turn. The following JSON is the complete conversation and available tool definitions.",
-        "Choose exactly one offered tool. Return only {call: {name, arguments}, decisionSummary}. For a strict tool, arguments must be a JSON object conforming to its parameters; for other tools, arguments is a JSON-encoded string.",
-        "Copy citation identifiers exactly from the appropriate evidenceRefs/sourceRefs choices. The two lists are different permissions; use an empty array when no citation is needed.",
-        "decisionSummary is a brief PUBLIC explanation (one or two sentences) of the current objective and why this operation is useful. Do not provide private reasoning or a step-by-step internal thought process. Write this summary and the public submission rationale/uncertainty in Simplified Chinese.",
-        "This is a model-selected protocol message: the Arena runner executes the tool, not this CLI. Do not use shell, browse, files or other tools.",
-        `Keep the visible response below ${request.maxOutputTokens} output tokens; do not reveal hidden reasoning.`,
-        JSON.stringify({ messages: request.messages, tools: request.tools }),
-      ].join("\n");
+      const prompt = arenaCodexTurnInstructions(request.maxOutputTokens) + "\n" + JSON.stringify({ messages: request.messages, tools: request.tools });
       if (Buffer.byteLength(prompt, "utf8") > request.maxInputBytes) return { status: "input_too_large" };
       // Strict arguments must reach the decoder as an object: a JSON string
       // would discard the runner's per-turn citation and candidate constraints.
