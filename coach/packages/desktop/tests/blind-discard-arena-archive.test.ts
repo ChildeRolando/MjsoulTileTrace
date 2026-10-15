@@ -181,6 +181,16 @@ function scanEvent() {
 }
 
 describe("Blind Discard Arena run archive", () => {
+  it("keeps old summary bytes stable and counts scenario exclusions only for grouped datasets", () => {
+    const legacy = manifest(), scan = scanEvent();
+    const old = summarizeArenaArchive({ manifest: legacy, events: [scan] });
+    expect(Object.hasOwn(old.exclusionCounts, "different_experiment_type")).toBe(false);
+    const exclusions = [...legacy.dataset.excluded, { canonicalDecisionOrder: 9, reason: "different_experiment_type" }];
+    const grouped = summarizeArenaArchive({ manifest: { ...legacy, dataset: { ...legacy.dataset, id: "blind-discard-spatial-v1", excluded: exclusions } },
+      events: [{ ...scan, datasetId: "blind-discard-spatial-v1", excluded: exclusions }] });
+    expect(grouped.exclusionCounts.different_experiment_type).toBe(1);
+    expect(legacy.dataset.id).toBe("blind-discard-smoke-v1");
+  });
   it("recomputes a 110-case development archive without changing old archive identities", () => {
     const base = manifest();
     const selected = Array.from({ length: 110 }, (_, canonicalDecisionOrder) => ({ ...base.dataset.selected[0]!, canonicalDecisionOrder }));

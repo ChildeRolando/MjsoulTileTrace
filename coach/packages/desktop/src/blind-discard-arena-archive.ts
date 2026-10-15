@@ -285,7 +285,9 @@ export function summarizeArenaArchive(input: {
   }
 
   const exclusionCounts = Object.fromEntries(
-    ArenaExclusionReasonSchema.options.map((reason) => [reason, 0]),
+    ArenaExclusionReasonSchema.options.filter(reason => reason !== "different_experiment_type" ||
+      Object.values(ARENA_EXPERIMENTS).some(type => type.datasetId === manifest.dataset.id) ||
+      scan.excluded.some(row => row.reason === reason)).map((reason) => [reason, 0]),
   ) as Record<z.infer<typeof ArenaExclusionReasonSchema>, number>;
   for (const excluded of scan.excluded) exclusionCounts[excluded.reason] += 1;
   const terminalStatuses = Object.fromEntries(RUN_STATUSES.map((status) => [status, 0])) as Record<(typeof RUN_STATUSES)[number], number>;

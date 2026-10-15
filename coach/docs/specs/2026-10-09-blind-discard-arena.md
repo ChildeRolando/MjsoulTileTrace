@@ -33,6 +33,13 @@ provider 权限或架构抽象，不改生产报告与 Mortal/helper 权威。�
 `arena-dataset.test.mjs`、`arena-console.test.mjs`、`blind-discard-arena-archive.test.ts`
 和 `arena-presentation.test.mjs` 保护。无独立验收牌局仍是当前实验限制。
 
+本次验证：9 项 Node 检查、23 项 Arena case/archive/scorer 测试及 architecture checker
+通过；真实本机规则重建为 55 道基础场景与 55 道立体场景，互斥且覆盖原 110 题。
+立体组 25 题有立直、48 题有鸣牌（有重叠）。13 份已完成历史归档离线重算后与原汇总
+逐字节一致；新的排除原因不会为旧汇总补零字段。浏览器验证了两类型切换、旧成绩
+单独查看、四家场面／立直宣言牌、图片加载及滚动时固定关闭按钮。本次未调用模型；
+组内真实模型质量与跨牌局独立验收仍未验证。
+
 建立一个本机离线实验入口，输入决策时可见局面和完整合法切牌集合，让 Coach 自主按需调用真实 helper MCP 与可选本地知识检索，先固定一个合法 actionRef 和简短公开依据，再由隔离裁判揭示并比较固定 Mortal runtime 的最终选择。
 
 Mortal 选择是比较标签，不是“正确答案”或专家正确性证明。匹配率不设通过门槛。此实验台不取代或扩展生产复盘，不改生产报告、重试、保存、重开、Mortal adapter 或 UI 语义。
