@@ -2,7 +2,7 @@
       <section class="panel launch-panel" aria-labelledby="launch-title"><div class="panel-heading"><div><span class="section-index">01</span><h2 id="launch-title">启动实验</h2></div><span class="tag" id="bank-count">开发题库</span></div>
         <label for="experiment-type" class="field-label">实验类型</label><select id="experiment-type"><option value="mistakes">错题集 · 逐题重跑</option><option value="flat">平面何切 · 基础牌效场景</option><option value="spatial" selected>立体何切 · 立直／副露场面</option></select>
         <p class="field-hint" id="type-hint"></p>
-        <div class="catalog-actions"><button class="text-button" id="browse-bank">浏览题库</button><button class="text-button" id="refresh-bank">刷新题库</button><span class="field-hint">刷新两个题库，不调用模型。</span></div>
+        <div class="catalog-actions"><button class="text-button" id="browse-bank">浏览题库</button><button class="text-button" id="refresh-bank">刷新题库</button><span class="field-hint">刷新开发题库或错题列表，不调用模型。</span></div>
         <div class="form-grid batch-fields"><label>本次题量<input id="batch-size" type="number" min="1" max="128" value="10" required></label><label>起始题号<input id="batch-start" type="number" min="1" max="128" value="1" required></label></div>
         <p class="field-hint" id="batch-hint">按题库顺序分批运行。Off / Local 使用相同范围。</p>
         <label for="experiment-mode" class="field-label">实验方案</label><select id="experiment-mode"><option value="compare">RAG 对照 · Off → Local</option><option value="local">单次实验 · Local RAG</option><option value="off">单次实验 · RAG Off</option><option value="fault">受控故障 · 首次 helper 超时</option></select>
