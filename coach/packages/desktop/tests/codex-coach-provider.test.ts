@@ -53,11 +53,11 @@ it("Arena fails a non-offered tool and timeout without another paid call", async
     maxInputBytes: 65536, maxOutputBytes: 16384, maxOutputTokens: 2048 };
   const fake = fakePort({ onExec: successfulTranscript(JSON.stringify({ name: "shell", arguments: "{}", decisionSummary: "测试未提供的工具。" })) });
   const provider = createCodexArenaToolCallProvider({ modelName: "gpt-6-luna", reasoningEffort: "high", processPort: fake.port });
-  expect(await provider.request(request, new AbortController().signal)).toEqual({ status: "provider_error" });
+  expect(await provider.request(request, new AbortController().signal)).toMatchObject({ status: "provider_error", failureCode: "invalid_model_response", usage: { totalTokens: 13 } });
   expect(fake.execCount).toBe(1);
   const timeoutFake = fakePort({ onExec: () => {} });
   const timed = createCodexArenaToolCallProvider({ modelName: "gpt-6-luna", reasoningEffort: "high", processPort: timeoutFake.port, timeoutMs: 10 });
-  expect(await timed.request(request, new AbortController().signal)).toEqual({ status: "timeout" });
+  expect(await timed.request(request, new AbortController().signal)).toEqual({ status: "timeout", failureCode: "timeout" });
   expect(timeoutFake.execCount).toBe(1);
 });
 

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { ArenaProviderRequestSchema, ArenaToolCallProviderResultSchema, type ArenaProviderRequest, type ArenaToolCallProvider, type ArenaToolCallProviderResult } from "../blind-discard-arena-provider.js";
+import { ArenaProviderRequestSchema, ArenaToolCallProviderResultSchema, type ArenaProviderRequest, type ArenaProviderFailureCode, type ArenaToolCallProvider, type ArenaToolCallProviderResult } from "../blind-discard-arena-provider.js";
 import { spawn, type ChildProcessWithoutNullStreams } from "node:child_process";
 import { existsSync, rmSync } from "node:fs";
 import { mkdtemp, rm, writeFile } from "node:fs/promises";
@@ -237,6 +237,7 @@ type InternalFailure = {
   errorCode: LlmCoachErrorCode;
   retryable: boolean;
   usage?: LlmTokenUsage;
+  diagnosticCode?: ArenaProviderFailureCode;
 };
 
 type ExecResult =
@@ -469,12 +470,12 @@ function parseEvent(
       }
       const item = event.item;
       if (item.type !== "agent_message" && item.type !== "reasoning") {
-        return { errorCode: "connection_failed", retryable: false };
+        return { errorCode: "connection_failed", retryable: false, diagnosticCode: "cli_unexpected_item" };
       }
       // Reasoning item payloads are deliberately never copied out of the event.
       if (event.type === "item.completed" && item.type === "agent_message") {
         if (state.finalText !== undefined || typeof item.text !== "string" || item.text.length === 0) {
-          return { errorCode: "connection_failed", retryable: false };
+          return { errorCode: "connection_failed", retryable: false, diagnosticCode: state.finalText !== undefined ? "cli_multiple_messages" : "cli_invalid_event" };
         }
         state.finalText = item.text;
       }
@@ -496,7 +497,7 @@ function parseEvent(
       return error;
     }
     default:
-      return { errorCode: "connection_failed", retryable: false };
+      return { errorCode: "connection_failed", retryable: false, diagnosticCode: "cli_unexpected_event" };
   }
 }
 
@@ -603,7 +604,7 @@ async function runExecAttempt(input: {
           return;
         }
         if (processError || code !== 0 || exitCode !== 0) {
-          resolvePromise(failure("connection_failed", false, state.usage));
+          resolvePromise({ kind: "failure", failure: { errorCode: "connection_failed", retryable: false, diagnosticCode: "cli_process_failed", ...(state.usage === undefined ? {} : { usage: state.usage }) } });
           return;
         }
         if (pending.length > 0) {
@@ -619,7 +620,7 @@ async function runExecAttempt(input: {
           }
         }
         if (!state.turnCompleted || state.finalText === undefined) {
-          resolvePromise(failure("connection_failed", false, state.usage));
+          resolvePromise({ kind: "failure", failure: { errorCode: "connection_failed", retryable: false, diagnosticCode: "cli_incomplete_turn", ...(state.usage === undefined ? {} : { usage: state.usage }) } });
           return;
         }
         resolvePromise({ kind: "success", content: state.finalText, ...(state.usage === undefined ? {} : { usage: state.usage }) });
@@ -648,7 +649,7 @@ async function runExecAttempt(input: {
         }
         const event = eventRecord(line);
         if (event === null) {
-          failAndKill({ errorCode: "connection_failed", retryable: false });
+          failAndKill({ errorCode: "connection_failed", retryable: false, diagnosticCode: "cli_invalid_event" });
           return;
         }
         const problem = parseEvent(event, state);
@@ -882,14 +883,16 @@ export function createCodexArenaToolCallProvider(input: {
         ...(input.timeoutMs === undefined ? {} : { timeoutMs: input.timeoutMs }),
       });
       if (signal.aborted) return { status: "cancelled" };
-      if (result.kind === "failure") return { status: result.failure.errorCode === "timeout" ? "timeout" : "provider_error" };
+      if (result.kind === "failure") return { status: result.failure.errorCode === "timeout" ? "timeout" : "provider_error",
+        failureCode: result.failure.diagnosticCode ?? result.failure.errorCode,
+        ...(result.failure.usage === undefined ? {} : { usage: result.failure.usage }) };
       const outputBytes = Buffer.byteLength(result.content, "utf8");
       if (outputBytes > request.maxOutputBytes) return { status: "output_too_large" };
       try {
         const parsed = z.object({ name: z.enum(request.tools.map(tool => tool.function.name) as [string, ...string[]]), arguments: z.string(), decisionSummary: z.string().min(1).max(600) }).strict().parse(JSON.parse(result.content));
         const { decisionSummary, ...call } = parsed;
         return ArenaToolCallProviderResultSchema.parse({ status: "ready", call, outputBytes, decisionSummary, ...(result.usage === undefined ? {} : { usage: result.usage }) });
-      } catch { return { status: "provider_error" }; }
+      } catch { return { status: "provider_error", failureCode: "invalid_model_response", ...(result.usage === undefined ? {} : { usage: result.usage }) }; }
     },
   });
 }

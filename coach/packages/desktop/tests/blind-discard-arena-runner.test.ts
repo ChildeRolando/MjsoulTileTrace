@@ -132,6 +132,17 @@ function scriptedProvider(input: {
 }
 
 describe("Blind Discard Arena runner", () => {
+  it("preserves reported tokens and a bounded diagnostic code on a failed model call", async () => {
+    const testCase = makeArenaMcpCase();
+    const result = await runBlindCoachCase({ observation: testCase.observation,
+      grading: { binding: testCase.authorizedCase.binding, reference: { status: "unavailable", reason: "mortal_unavailable" } },
+      provider: { descriptor: () => ({ providerId: "test-provider", model: "failure-test", protocolVersion: "arena-function-call/v1" }),
+        async request() { return { status: "provider_error", failureCode: "invalid_model_response", usage: { inputTokens: 10, outputTokens: 3, totalTokens: 13 } }; } },
+      tools: [offRagTool(testCase.observation.caseRef)] });
+    expect(result.status).toBe("provider_error");
+    expect(result.providerUsage).toMatchObject({ status: "reported", tokens: { totalTokens: 13 }, providerTurnCount: 1 });
+    expect(result.events).toContainEqual(expect.objectContaining({ type: "provider_turn", failureCode: "invalid_model_response", usage: { inputTokens: 10, outputTokens: 3, totalTokens: 13 } }));
+  });
   it("lets the model choose local retrieval and real stdio MCP queries before locking and grading", async () => {
     const testCase = makeArenaMcpCase();
     const client = await startMcp(testCase.authorizedCase);

@@ -26,6 +26,7 @@ import type { ArenaRagRetriever } from "./blind-discard-arena-rag.js";
 import {
   ARENA_TOOL_CALL_PROMPT,
   ARENA_TOOL_CALL_PROMPT_VERSION,
+  ArenaProviderFailureCodeSchema,
   ArenaProviderRequestSchema,
   ArenaProviderToolDefinitionSchema,
   ArenaToolCallProviderResultSchema,
@@ -165,6 +166,7 @@ export const ArenaRunEventSchema = z.discriminatedUnion("type", [
     toolName: z.string().regex(TOOL_NAME).optional(),
     usage: LlmTokenUsageSchema.optional(),
     decisionSummary: z.string().min(1).max(600).optional(),
+    failureCode: ArenaProviderFailureCodeSchema.optional(),
   }).strict(),
   z.object({
     type: z.literal("tool_call"),
@@ -817,7 +819,7 @@ export async function runBlindCoachCase(input: {
         finished = true;
         break;
       }
-      if (response.status === "ready" && response.usage !== undefined) usages.push(response.usage);
+      if (response.usage !== undefined) usages.push(response.usage);
       if (response.status === "ready" && response.usage?.outputTokens !== undefined &&
           response.usage.outputTokens > limits.maxProviderOutputTokens) {
         terminalStatus = "budget_exhausted";
@@ -843,7 +845,8 @@ export async function runBlindCoachCase(input: {
         ...(response.status === "ready" ? { outputBytes } : {}),
         result: response.status === "ready" ? "tool_call" : response.status,
         ...(response.status === "ready" ? { toolName: response.call.name } : {}),
-        ...(response.status === "ready" && response.usage !== undefined ? { usage: response.usage } : {}),
+        ...(response.usage !== undefined ? { usage: response.usage } : {}),
+        ...(response.status !== "ready" && response.failureCode !== undefined ? { failureCode: response.failureCode } : {}),
         ...(response.status === "ready" && response.decisionSummary !== undefined ? { decisionSummary: response.decisionSummary } : {}),
       });
       if (eventBudgetExceeded) {

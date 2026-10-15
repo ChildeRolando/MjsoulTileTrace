@@ -60,6 +60,13 @@ export const ArenaProviderRequestSchema = z.object({
 }).strict();
 export type ArenaProviderRequest = z.infer<typeof ArenaProviderRequestSchema>;
 
+export const ArenaProviderFailureCodeSchema = z.enum([
+  "provider_unavailable", "connection_failed", "timeout", "rate_limited", "server_error", "network_reset",
+  "cli_multiple_messages", "cli_unexpected_event", "cli_unexpected_item", "cli_invalid_event",
+  "cli_incomplete_turn", "cli_process_failed", "invalid_model_response",
+]);
+export type ArenaProviderFailureCode = z.infer<typeof ArenaProviderFailureCodeSchema>;
+const failureFields = { failureCode: ArenaProviderFailureCodeSchema.optional(), usage: LlmTokenUsageSchema.optional() };
 export const ArenaToolCallProviderResultSchema = z.discriminatedUnion("status", [
   z.object({
     status: z.literal("ready"),
@@ -68,12 +75,12 @@ export const ArenaToolCallProviderResultSchema = z.discriminatedUnion("status", 
     decisionSummary: z.string().min(1).max(600).optional(),
     usage: LlmTokenUsageSchema.optional(),
   }).strict(),
-  z.object({ status: z.literal("provider_unavailable") }).strict(),
-  z.object({ status: z.literal("provider_error") }).strict(),
-  z.object({ status: z.literal("timeout") }).strict(),
-  z.object({ status: z.literal("cancelled") }).strict(),
-  z.object({ status: z.literal("input_too_large") }).strict(),
-  z.object({ status: z.literal("output_too_large") }).strict(),
+  z.object({ status: z.literal("provider_unavailable"), ...failureFields }).strict(),
+  z.object({ status: z.literal("provider_error"), ...failureFields }).strict(),
+  z.object({ status: z.literal("timeout"), ...failureFields }).strict(),
+  z.object({ status: z.literal("cancelled"), ...failureFields }).strict(),
+  z.object({ status: z.literal("input_too_large"), ...failureFields }).strict(),
+  z.object({ status: z.literal("output_too_large"), ...failureFields }).strict(),
 ]);
 export type ArenaToolCallProviderResult = z.infer<typeof ArenaToolCallProviderResultSchema>;
 
