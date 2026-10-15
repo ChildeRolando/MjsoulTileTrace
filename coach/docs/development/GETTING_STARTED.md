@@ -43,6 +43,8 @@ npm run coach:demo
 
 本地控制台：运行 `npm run arena:console`，打开 `http://127.0.0.1:4318`。页面提供归档用量/结果看板、RAG 对照与受控故障实验的启动/停止，以及 Codex/API 配置。默认 `gpt-6-luna/high` 与 100M tokens 报警线；同一时间只运行一个实验。配置和历史保存在被忽略的 `reports/blind-discard-arena`，API Key 仅留在本次服务进程内存；关闭服务后需重填。停止会终止本次 CLI 及其子进程，不将未完成归档标为成功。此独立本地页面不接入生产 UI；服务仅监听本机，启动和停止均由用户操作，不安装定时任务。
 
+题库：点“刷新题库”或运行 `npm run arena -- catalog`，从现有脱敏真实牌谱生成不含答案的开发题库目录。可先“浏览题库”查看任意题的当时可见牌面与合法候选；刷新和浏览均不调用模型。控制台默认每次 10 题，可设置本次题量及从 1 开始的起始题号；Off/Local 对照使用相同范围。新版本为 `blind-discard-dev-v1`，CLI 示例：`npm run arena -- run --dataset blind-discard-dev-v1 --rag local --max-cases 10 --case-offset 10 --provider codex-cli --model gpt-6-luna --reasoning-effort high`，其中 CLI offset 从 0 开始。`blind-discard-smoke-v1` 仍固定原来的 3 题，旧归档和摘要继续兼容。当前语料来自一个开发牌局，不构成多牌局独立验收。超过 10 题的运行详情按案例选择查看，下载保留完整轨迹。
+
 结果列表的“查看”按案例展示执行时间线：盲测输入、每轮公开决策摘要、完整工具参数/返回与错误、最终提交/拒绝原因、耗时、token 和 Mortal 匹配。新运行通过 `case-trace.jsonl` 实时写入已经校验的公开事件；每题最终 `case_run` 仍是评分和统计的唯一来源，刷新不会重复计数。详情支持自动刷新、保留展开位置及 JSON 下载。旧归档没有记录的输入、逐轮摘要或时间不会补造。Codex 私有 reasoning 事件继续丢弃，只让模型额外返回一两句公开摘要，不保存内部思维链。
 
 调用失败诊断：新归档中的 `provider_turn.failureCode` 区分 CLI 事件/进程错误、模型输出格式错误与上游终态；已报告 token 在失败时也计入用量。Arena 允许当前 CLI 在同一进程中发出的 `Reconnecting... n/m` 进度通知，记录 `reconnectCount`，继续等待最终完成或失败；不会因此重新调用整个 provider，也不延长总时限。未知错误、缺失终态和非零退出仍失败。旧归档只有笼统 `provider_error` 的不补写推测原因。

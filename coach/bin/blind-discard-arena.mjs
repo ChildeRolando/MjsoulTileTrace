@@ -1,7 +1,7 @@
 import { createHash, randomUUID } from "node:crypto";
 import { appendFileSync } from "node:fs";
 import { execFileSync } from "node:child_process";
-import { mkdtemp, mkdir, readFile, readdir, rm, stat, writeFile, appendFile } from "node:fs/promises";
+import { mkdtemp, mkdir, readFile, readdir, rm, stat, writeFile, appendFile, rename } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { basename, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -50,6 +50,7 @@ import {
   parseArenaArchiveEvents,
   summarizeArenaArchive,
   arenaTokenBudget,
+  ArenaCaseCatalogSchema,
 } from "@riichi-coach/desktop/blind-discard-arena-archive";
 
 const coachRoot = resolve(fileURLToPath(new URL("..", import.meta.url)));
@@ -78,8 +79,12 @@ function usage() {
     "  npm run arena -- run --dataset blind-discard-smoke-v1 --rag off [options]",
     "  npm run arena -- run --dataset blind-discard-smoke-v1 --rag local [options]",
     "  npm run arena -- inspect <runId>",
+    "  npm run arena -- catalog         build the label-free development question catalog (no model calls)",
     "",
     "Run options:",
+    "  --dataset blind-discard-dev-v1   full development bank; smoke-v1 remains frozen at 3 cases",
+    "  --max-cases <1..128>             development batch size, default 10",
+    "  --case-offset <0..127>           start index among eligible development cases, default 0",
     "  --provider codex-cli             local ChatGPT subscription (no API key)",
     "  --reasoning-effort high          Codex reasoning effort (default high)",
     "  --token-warning-threshold <n>    cumulative reported tokens, default 100000000; warning only",
@@ -95,9 +100,10 @@ function usage() {
   ].join("\n");
 }
 
-function parseArgs(argv) {
+export function parseArgs(argv) {
   if (argv.length === 0 || argv.includes("--help") || argv.includes("-h")) return { command: "help" };
   const [command, ...rest] = argv;
+  if (command === "catalog") { if (rest.length) throw new Error("arena_option_invalid"); return { command }; }
   if (command === "inspect") {
     if (rest.length !== 1 || !/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/u.test(rest[0])) {
       throw new Error("arena_inspect_run_id_invalid");
@@ -117,7 +123,7 @@ function parseArgs(argv) {
       index += 1;
       continue;
     }
-    if (["--max-provider-turns", "--max-provider-output-tokens", "--max-tool-calls", "--max-run-ms", "--token-warning-threshold"].includes(key)) {
+    if (["--max-cases", "--case-offset", "--max-provider-turns", "--max-provider-output-tokens", "--max-tool-calls", "--max-run-ms", "--token-warning-threshold"].includes(key)) {
       if (options[key] !== undefined || !/^\d+$/u.test(value)) throw new Error("arena_budget_invalid");
       options[key] = Number(value);
       index += 1;
@@ -125,9 +131,14 @@ function parseArgs(argv) {
     }
     throw new Error("arena_option_unknown");
   }
-  if (options["--dataset"] !== "blind-discard-smoke-v1" || !["off", "local"].includes(options["--rag"])) {
+  const datasetId = options["--dataset"];
+  if (!["blind-discard-smoke-v1", "blind-discard-dev-v1"].includes(datasetId) || !["off", "local"].includes(options["--rag"])) {
     throw new Error("arena_dataset_or_rag_invalid");
   }
+  const maxCases = options["--max-cases"] ?? (datasetId === "blind-discard-smoke-v1" ? 3 : 10);
+  const caseOffset = options["--case-offset"] ?? 0;
+  if (!Number.isSafeInteger(maxCases) || maxCases < 1 || maxCases > 128 || !Number.isSafeInteger(caseOffset) || caseOffset < 0 || caseOffset > 127
+      || (datasetId === "blind-discard-smoke-v1" && (maxCases !== 3 || caseOffset !== 0))) throw new Error("arena_case_selection_invalid");
   if (options["--fault"] !== undefined && options["--fault"] !== "first-helper-timeout") {
     throw new Error("arena_fault_invalid");
   }
@@ -159,6 +170,7 @@ function parseArgs(argv) {
   if (providerSettings !== null && !providerSettings.success) throw new Error("arena_provider_settings_invalid");
   return {
     command,
+    datasetId, maxCases, caseOffset,
     ragMode: options["--rag"],
     fault: options["--fault"] ?? "none",
     budget,
@@ -255,7 +267,17 @@ async function createPinnedRuntime() {
   return { runtime, runtimeManifest, nativeReceiptPath: nativeReceipt.path };
 }
 
-async function makeFrozenDataset(runtime) {
+export function selectDatasetBatch(pool, maxCases, caseOffset) {
+  if (caseOffset >= pool.selected.length) throw new Error("arena_case_offset_out_of_range");
+  const selected = pool.selected.slice(caseOffset, caseOffset + maxCases);
+  const orders = new Set(selected.map(row => row.canonicalDecisionOrder));
+  const excluded = [...pool.excluded, ...pool.selected.filter(row => !orders.has(row.canonicalDecisionOrder))
+    .map(row => ({ canonicalDecisionOrder: row.canonicalDecisionOrder, reason: "case_limit_reached" }))]
+    .sort((left, right) => left.canonicalDecisionOrder - right.canonicalDecisionOrder);
+  return { selected, excluded };
+}
+
+async function makeFrozenDataset(runtime, options = { datasetId: "blind-discard-smoke-v1", maxCases: 3, caseOffset: 0 }) {
   const fixtureBytes = await readFile(fixturePath);
   const fixture = JSON.parse(fixtureBytes.toString("utf8"));
   if (typeof fixture.recordId !== "string" || typeof fixture.wire !== "string" || !/^(?:[0-9a-f]{2})+$/iu.test(fixture.wire)) {
@@ -303,10 +325,12 @@ async function makeFrozenDataset(runtime) {
       ruleResponse,
     });
   }
-  const screening = screenArenaDecisions(ruleInputs, { maxIncluded: 3 });
+  const pool = screenArenaDecisions(ruleInputs, { maxIncluded: 128 });
+  const screening = selectDatasetBatch(pool, options.maxCases, options.caseOffset);
   const byOrder = new Map(ruleInputs.map((input) => [input.canonicalDecisionOrder, input]));
   const labels = new Map();
   for (const selected of screening.selected) {
+    if (options.catalog) continue;
     const frozen = byOrder.get(selected.canonicalDecisionOrder);
     if (frozen === undefined || frozen.ruleResponse.status !== "ok") throw new Error("arena_selected_case_binding_invalid");
     try {
@@ -333,7 +357,7 @@ async function makeFrozenDataset(runtime) {
     };
   });
   const caseSetDigest = canonicalDigest({
-    datasetVersion: "blind-discard-smoke-v1",
+    datasetVersion: options.datasetId,
     sourceRecordHash: mapped.stream.sourceRecordHash,
     ruleIdentity: runtime.ruleIdentity,
     selected: selected.map(({ caseOrdinal, selected: row, candidateCount, candidateSetDigest }) => ({
@@ -350,6 +374,7 @@ async function makeFrozenDataset(runtime) {
     stream: mapped.stream,
     decisions,
     screening,
+    poolSize: pool.selected.length,
     labels,
     selected,
     caseSetDigest,
@@ -421,7 +446,7 @@ async function runCommand(options) {
   try {
     const prepared = await createPinnedRuntime();
     runtime = prepared.runtime;
-    const dataset = await makeFrozenDataset(runtime);
+    const dataset = await makeFrozenDataset(runtime, options);
     const computedRuntimeConfigSha256 = canonicalDigest({
       geometry: prepared.runtimeManifest.geometry,
       inference: prepared.runtimeManifest.inference,
@@ -445,9 +470,10 @@ async function runCommand(options) {
       startedAt,
       codeSha,
       dataset: {
-        id: "blind-discard-smoke-v1",
+        id: options.datasetId,
+        ...(options.datasetId === "blind-discard-smoke-v1" ? {} : { selection: { offset: options.caseOffset, poolSize: dataset.poolSize } }),
         caseSetDigest: dataset.caseSetDigest,
-        split: { unit: "complete_game", developmentGames: 1, acceptanceGames: 0, status: "smoke_dev_only" },
+        split: { unit: "complete_game", developmentGames: 1, acceptanceGames: 0, status: options.datasetId === "blind-discard-smoke-v1" ? "smoke_dev_only" : "development_only" },
         source: {
           kind: "sanitized_mahjong_soul_fixture",
           fixtureSha256: dataset.fixtureSha256,
@@ -481,13 +507,13 @@ async function runCommand(options) {
         retrieverVersion: options.ragMode === "local" ? ARENA_RAG_RETRIEVER_VERSION : "disabled",
       },
       controlledFault: options.fault,
-      budget: { maxCases: 3, limits, selectionSeed: null, tokenWarningThreshold: options.tokenWarningThreshold },
+      budget: { maxCases: options.maxCases, limits, selectionSeed: null, tokenWarningThreshold: options.tokenWarningThreshold },
     });
     const datasetScan = ArenaArchiveEventSchema.parse({
       schemaVersion: "blind-discard-arena-archive-event/v1",
       type: "dataset_scan",
       recordedAt: new Date().toISOString(),
-      datasetId: "blind-discard-smoke-v1",
+      datasetId: options.datasetId,
       sourceRecordHash: dataset.sourceRecordHash,
       inputCaseCount: dataset.decisions.length,
       selected: dataset.selected.map(({ caseOrdinal, candidateCount, candidateSetDigest }) => ({
@@ -586,6 +612,30 @@ async function inspectCommand(runId) {
   process.stdout.write(`${JSON.stringify({ ...recomputed, tokenBudget }, null, 2)}\n`);
 }
 
+async function catalogCommand() {
+  const codeSha = requireCleanGitHead();
+  const { runtime } = await createPinnedRuntime();
+  try {
+    const dataset = await makeFrozenDataset(runtime, { datasetId: "blind-discard-dev-v1", maxCases: 128, caseOffset: 0, catalog: true });
+    const aliases = new ArenaRunAliasVault();
+    const catalog = ArenaCaseCatalogSchema.parse({
+      schemaVersion: "blind-discard-arena-catalog/v1", datasetId: "blind-discard-dev-v1", codeSha,
+      createdAt: new Date().toISOString(), caseSetDigest: dataset.caseSetDigest,
+      fixtureSha256: dataset.fixtureSha256, sourceRecordHash: dataset.sourceRecordHash,
+      developmentGames: 1, acceptanceGames: 0, inputCaseCount: dataset.decisions.length,
+      excluded: dataset.screening.excluded,
+      cases: dataset.selected.map(entry => ({ canonicalDecisionOrder: entry.selected.canonicalDecisionOrder,
+        observation: createArenaBlindObservation({ selected: entry.selected, aliases,
+          tools: { description: "Label-free question preview.", supportedCapabilities: ["analyze_candidates", "search_knowledge"] } }) })),
+    });
+    await mkdir(ARCHIVE_ROOT, { recursive: true });
+    const path = join(ARCHIVE_ROOT, "case-catalog.json"), temporary = path + ".tmp";
+    await writeFile(temporary, JSON.stringify(catalog), { encoding: "utf8", mode: 0o600 });
+    await rename(temporary, path);
+    process.stdout.write(`${JSON.stringify({ datasetId: catalog.datasetId, availableCaseCount: catalog.cases.length, developmentGames: 1, acceptanceGames: 0 })}\n`);
+  } finally { await runtime.close(); }
+}
+
 async function reportedTokenBudget(root, threshold) {
   const summaries = [];
   for (const entry of await readdir(root, { withFileTypes: true })) {
@@ -598,6 +648,7 @@ async function reportedTokenBudget(root, threshold) {
 
 async function main() {
   const options = parseArgs(process.argv.slice(2));
+  if (options.command === "catalog") { await catalogCommand(); return; }
   if (options.command === "help") {
     process.stdout.write(`${usage()}\n`);
     return;
@@ -609,7 +660,7 @@ async function main() {
   await runCommand(options);
 }
 
-main().catch((error) => {
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) main().catch((error) => {
   const code = error instanceof Error && /^[a-z0-9_]+$/u.test(error.message) ? error.message : "arena_run_failed";
   process.stderr.write(`${code}\n`);
   process.exitCode = 1;

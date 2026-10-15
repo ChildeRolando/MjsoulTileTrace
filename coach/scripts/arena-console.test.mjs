@@ -9,7 +9,7 @@ import { createArenaConsole } from '../bin/blind-discard-arena-console.mjs';
 async function fixture(t) {
   const root = await mkdtemp(join(tmpdir(), 'arena-console-test-'));
   const cliPath = join(root, 'experiment.mjs');
-  await writeFile(cliPath, 'setInterval(()=>{},1000);');
+  await writeFile(cliPath, "import { writeFileSync } from 'node:fs'; writeFileSync('received-args.json', JSON.stringify(process.argv.slice(2))); setInterval(()=>{},1000);");
   const console = await createArenaConsole({ coachRoot: root, archiveRoot: join(root, 'archives'), cliPath });
   await new Promise(resolve => console.server.listen(0, '127.0.0.1', resolve));
   const url = `http://127.0.0.1:${console.server.address().port}`;
@@ -28,14 +28,21 @@ test('console persists public settings, never returns or saves the API key, and 
   assert.equal((await readFile(join(f.root, 'archives/console-settings.json'), 'utf8')).includes('PRIVATE_TEST_KEY'), false);
   assert.equal((await f.post('/api/start', { mode: 'local' }, 'https://foreign.example')).status, 403);
   assert.equal((await f.post('/api/config', { maxProviderTurns: 13 })).status, 400);
+  assert.equal((await f.post('/api/start', { mode: 'local', maxCases: 129 })).status, 400);
   assert.equal((await fetch(f.url + '/api/run/not-a-run')).status, 404);
 });
 
 test('console starts a real owned process once and stop waits for its exit', async t => {
   const f = await fixture(t);
-  assert.equal((await f.post('/api/start', { mode: 'compare' })).status, 202);
+  assert.equal((await f.post('/api/start', { mode: 'compare', maxCases: 25, caseOffset: 10 })).status, 202);
+  assert.equal((await f.state()).job.maxCases, 25); assert.equal((await f.state()).job.caseOffset, 10);
   assert.equal((await f.post('/api/start', { mode: 'local' })).status, 409);
   assert.equal((await f.state()).job.status, 'running');
+  let args;
+  for (let i = 0; i < 100; i++) { try { args = JSON.parse(await readFile(join(f.root, 'received-args.json'), 'utf8')); break; } catch { await setTimeout(50); } }
+  assert.equal(args[args.indexOf('--dataset') + 1], 'blind-discard-dev-v1');
+  assert.equal(args[args.indexOf('--max-cases') + 1], '25');
+  assert.equal(args[args.indexOf('--case-offset') + 1], '10');
   assert.equal((await f.post('/api/stop', {})).status, 202);
   let job;
   for (let i = 0; i < 100; i++) { job = (await f.state()).job; if (job.status === 'stopped') break; await setTimeout(50); }

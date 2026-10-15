@@ -236,6 +236,8 @@ COAC-223 P2 清理截止竞态复修验证（2026-10-15）：runner 在剩余 ru
 
 ## 12. 非目标与停止条件
 
+2026-10-15 用户追加扩充题库：在原 fixture/native identity 上增加 `blind-discard-dev-v1`，扫描全部合格决策形成开发题库，按稳定顺序、offset 与 maxCases 在解封 Mortal labels 前冻结本次范围；默认每批 10 题，单批最多 128 题，实际题数由真实规则筛选决定。旧 `blind-discard-smoke-v1` 的 3 题和 case-set digest 保持原样，不将新范围冒充旧版本。manifest 可选 selection 记录 offset/poolSize，归档/实时轨迹相应支持最多 128 个案例。`catalog` 只运行真实规则筛选并保存公开盲测输入，不调用模型或计算 Mortal 答案；控制台复用同一进程入口刷新目录、浏览题目和选批次。仍只有一个开发牌局，不改变完整牌局隔离或独立 holdout 的验收要求。
+
 2026-10-15 用户追加本地实验控制台：沿用 T5 CLI 与归档 owner，提供预算/结果看板、实验启停和模型/API 配置，不改生产复盘 UI。控制台默认本机 Codex `gpt-6-luna/high`、累计归档已报告 token 报警线 100M；串行执行同一开发案例集的 off/local 或受控故障运行，不自动生成额外实验。实验“运行完成”、独立验收、专家质量审查保持不同事实；工具失败与未完成归档必须可见。API Key 仅保留在本次服务进程内存，manifest 和配置文件不存密钥。
 
 同日追加逐案例执行轨迹：可选的 `run_started.observation`、`provider_turn.decisionSummary` 与工具事件相对开始时间向后兼容旧归档。`decisionSummary` 只是一两句公开操作说明；provider 的私有 reasoning/raw content 仍不保存。CLI 将已通过 runner schema 的事件同步追加到诊断文件 `case-trace.jsonl`，实时读忽略末尾未完成行；最终 `case_run` 是评分/用量的唯一 owner，不从实时副本叠加指标。逐题显示真实工具请求/返回、提交/拒绝、评分与耗时；缺失字段明确显示未记录，不还原或编造旧轨迹。参考界面组织：[DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness)、[Multica execution logs](https://github.com/multica-ai/multica#stay-in-the-loop)，不引入它们的运行时依赖。

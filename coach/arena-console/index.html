@@ -21,7 +21,10 @@
       <article class="metric"><div class="metric-label">Mortal 一选匹配 <span class="small-tag">全部纳入题目</span></div><div class="metric-value" id="match-rate">—</div><div class="metric-bottom"><span id="match-fraction">尚无已归档评分</span></div><p class="micro">作为实验比较，不等于专家正确率</p></article>
     </section>
     <div class="workspace-grid">
-      <section class="panel launch-panel" aria-labelledby="launch-title"><div class="panel-heading"><div><span class="section-index">01</span><h2 id="launch-title">启动实验</h2></div><span class="tag">3 题开发样本</span></div>
+      <section class="panel launch-panel" aria-labelledby="launch-title"><div class="panel-heading"><div><span class="section-index">01</span><h2 id="launch-title">启动实验</h2></div><span class="tag" id="bank-count">开发题库</span></div>
+        <div class="catalog-actions"><button class="text-button" id="browse-bank">浏览题库</button><button class="text-button" id="refresh-bank">刷新题库</button><span class="field-hint">刷新只筛题，不调用模型。</span></div>
+        <div class="form-grid batch-fields"><label>本次题量<input id="batch-size" type="number" min="1" max="128" value="10" required></label><label>起始题号<input id="batch-start" type="number" min="1" max="128" value="1" required></label></div>
+        <p class="field-hint" id="batch-hint">按题库顺序分批运行。Off / Local 使用相同范围。</p>
         <label for="experiment-mode" class="field-label">实验方案</label><select id="experiment-mode"><option value="compare">RAG 对照 · Off → Local</option><option value="local">单次实验 · Local RAG</option><option value="off">单次实验 · RAG Off</option><option value="fault">受控故障 · 首次 helper 超时</option></select>
         <p class="field-hint" id="mode-hint">使用同一组案例，依次运行关闭检索与本地检索两种模式。</p>
         <div class="provider-strip"><div class="provider-icon" aria-hidden="true">⌘</div><div><strong id="provider-model">gpt-6-luna</strong><span id="provider-route">Codex 订阅 · High</span></div><button class="text-button" id="settings-inline">更改</button></div>
@@ -51,4 +54,5 @@
   </form>
 </dialog>
 <dialog id="result-dialog" class="detail-dialog" aria-labelledby="detail-title"><div class="dialog-heading"><div><div class="eyebrow">RUN DETAIL</div><h2 id="detail-title">实验详情</h2></div><button class="close-button" data-close="result-dialog" aria-label="关闭实验详情">×</button></div><div id="detail-body"></div></dialog>
+<dialog id="catalog-dialog" aria-labelledby="catalog-title"><div class="dialog-heading"><h2 id="catalog-title">开发题库</h2><button class="close-button" data-close="catalog-dialog" aria-label="关闭题库">×</button></div><p class="field-hint" id="catalog-note"></p><label>选择题目<select id="catalog-case"></select></label><div id="catalog-preview"></div></dialog>
 </body></html>

@@ -170,6 +170,20 @@ function scanEvent() {
 }
 
 describe("Blind Discard Arena run archive", () => {
+  it("recomputes a 110-case development archive without changing old archive identities", () => {
+    const base = manifest();
+    const selected = Array.from({ length: 110 }, (_, canonicalDecisionOrder) => ({ ...base.dataset.selected[0]!, canonicalDecisionOrder }));
+    const expanded = ArenaArchiveManifestSchema.parse({ ...base,
+      dataset: { ...base.dataset, id: "blind-discard-dev-v1", inputCaseCount: 110, selected, excluded: [], selection: { offset: 0, poolSize: 110 },
+        split: { ...base.dataset.split, status: "development_only" } }, budget: { ...base.budget, maxCases: 110 } });
+    const scan = { ...scanEvent(), datasetId: "blind-discard-dev-v1", inputCaseCount: 110, selected: selected.map((row, caseOrdinal) => ({ ...row, caseOrdinal })), excluded: [] };
+    const events = [scan, ...selected.map((_, caseOrdinal) => ({ schemaVersion: "blind-discard-arena-archive-event/v1", type: "case_run", recordedAt: "2026-10-15T00:00:01.000Z", caseOrdinal, ragMode: "local",
+      result: result({ caseRef: `arena-case:v1:00000000-0000-4000-8000-${String(caseOrdinal + 1000).padStart(12, "0")}`, status: "completed", matched: true }) }))];
+    const parsed = parseArenaArchiveEvents(events.map(row => JSON.stringify(row)).join("\n"));
+    const summary = summarizeArenaArchive({ manifest: expanded, events: parsed });
+    expect(summary).toMatchObject({ datasetId: "blind-discard-dev-v1", selectedCaseCount: 110, recordedRunCount: 110, score: { matchedCaseCount: 110 } });
+    expect(manifest().dataset.id).toBe("blind-discard-smoke-v1");
+  });
   it("reads complete public trace records without treating a partially appended line as an event", () => {
     const record = { schemaVersion: "blind-discard-arena-case-trace/v1", caseOrdinal: 0,
       event: { type: "provider_turn", turn: 1, elapsedMs: 10, inputBytes: 20, result: "tool_call", decisionSummary: "查询公开资料。" } };
@@ -177,8 +191,9 @@ describe("Blind Discard Arena run archive", () => {
     expect(parseArenaCaseTrace(`${wire}\n${wire.slice(0, 40)}`)).toEqual([record]);
     expect(parseArenaCaseTrace("")).toEqual([]);
     expect(() => parseArenaCaseTrace(`${JSON.stringify({ ...record, privateReasoning: "not allowed" })}\n`)).toThrow();
-    expect(() => parseArenaCaseTrace(`${JSON.stringify({ ...record, caseOrdinal: 3 })}\n`)).toThrow();
-    expect(() => parseArenaCaseTrace(`${wire}\n`.repeat(193))).toThrow();
+    expect(parseArenaCaseTrace(`${JSON.stringify({ ...record, caseOrdinal: 109 })}\n`)).toHaveLength(1);
+    expect(() => parseArenaCaseTrace(`${JSON.stringify({ ...record, caseOrdinal: 128 })}\n`)).toThrow();
+    expect(() => parseArenaCaseTrace(`${wire}\n`.repeat(8193))).toThrow();
   });
   it("warns at cumulative reported tokens, does not double count cache, and retains unknown use", () => {
     const base = summarizeArenaArchive({ manifest: manifest(), events: [scanEvent()] });

@@ -1,6 +1,7 @@
 import { z } from "zod";
 import {
   ArenaBatchScoreSchema,
+  ArenaBlindObservationSchema,
   ArenaFailureCountsSchema,
   ArenaRagModeSchema,
   ArenaRateSchema,
@@ -17,6 +18,7 @@ import {
 
 const Sha256Schema = z.string().regex(/^[0-9a-f]{64}$/);
 const SourceRecordHashSchema = z.string().regex(/^sha256:[0-9a-f]{64}$/);
+const DatasetIdSchema = z.enum(["blind-discard-smoke-v1", "blind-discard-dev-v1"]);
 const DatasetCaseSchema = z.object({
   canonicalDecisionOrder: z.number().int().nonnegative(),
   candidateCount: z.number().int().min(2).max(46),
@@ -33,13 +35,14 @@ export const ArenaArchiveManifestSchema = z.object({
   startedAt: z.string().datetime(),
   codeSha: z.string().regex(/^[0-9a-f]{40}$/),
   dataset: z.object({
-    id: z.literal("blind-discard-smoke-v1"),
+    id: DatasetIdSchema,
+    selection: z.object({ offset: z.number().int().min(0).max(127), poolSize: z.number().int().min(1).max(128) }).strict().optional(),
     caseSetDigest: Sha256Schema,
     split: z.object({
       unit: z.literal("complete_game"),
       developmentGames: z.number().int().nonnegative(),
       acceptanceGames: z.number().int().nonnegative(),
-      status: z.literal("smoke_dev_only"),
+      status: z.enum(["smoke_dev_only", "development_only"]),
     }).strict(),
     source: z.object({
       kind: z.literal("sanitized_mahjong_soul_fixture"),
@@ -47,7 +50,7 @@ export const ArenaArchiveManifestSchema = z.object({
       sourceRecordHash: SourceRecordHashSchema,
     }).strict(),
     inputCaseCount: z.number().int().nonnegative(),
-    selected: z.array(DatasetCaseSchema).max(3),
+    selected: z.array(DatasetCaseSchema).max(128),
     excluded: z.array(ExclusionSchema).max(1000),
   }).strict(),
   mortal: z.object({
@@ -71,7 +74,7 @@ export const ArenaArchiveManifestSchema = z.object({
   }).strict(),
   controlledFault: z.enum(["none", "first-helper-timeout"]),
   budget: z.object({
-    maxCases: z.number().int().min(1).max(3),
+    maxCases: z.number().int().min(1).max(128),
     limits: ArenaCoachRunResultSchema.shape.limits,
     selectionSeed: z.null(),
     tokenWarningThreshold: z.number().int().positive().safe().optional(),
@@ -79,18 +82,34 @@ export const ArenaArchiveManifestSchema = z.object({
 }).strict();
 export type ArenaArchiveManifest = z.infer<typeof ArenaArchiveManifestSchema>;
 
+/** Label-free question catalog; it never carries Mortal answers or future game state. */
+export const ArenaCaseCatalogSchema = z.object({
+  schemaVersion: z.literal("blind-discard-arena-catalog/v1"),
+  datasetId: z.literal("blind-discard-dev-v1"),
+  codeSha: z.string().regex(/^[0-9a-f]{40}$/),
+  createdAt: z.string().datetime(),
+  caseSetDigest: Sha256Schema,
+  sourceRecordHash: SourceRecordHashSchema,
+  fixtureSha256: Sha256Schema,
+  developmentGames: z.literal(1),
+  acceptanceGames: z.literal(0),
+  inputCaseCount: z.number().int().nonnegative(),
+  cases: z.array(z.object({ canonicalDecisionOrder: z.number().int().nonnegative(), observation: ArenaBlindObservationSchema }).strict()).min(1).max(128),
+  excluded: z.array(ExclusionSchema).max(1000),
+}).strict();
+
 export const ArenaArchiveEventSchema = z.discriminatedUnion("type", [
   z.object({
     schemaVersion: z.literal("blind-discard-arena-archive-event/v1"),
     type: z.literal("dataset_scan"),
     recordedAt: z.string().datetime(),
-    datasetId: z.literal("blind-discard-smoke-v1"),
+    datasetId: DatasetIdSchema,
     sourceRecordHash: SourceRecordHashSchema,
     inputCaseCount: z.number().int().nonnegative(),
     selected: z.array(z.object({
       caseOrdinal: z.number().int().nonnegative(),
       ...DatasetCaseSchema.shape,
-    }).strict()).max(3),
+    }).strict()).max(128),
     excluded: z.array(ExclusionSchema).max(1000),
   }).strict(),
   z.object({
@@ -107,16 +126,16 @@ export type ArenaArchiveEvent = z.infer<typeof ArenaArchiveEventSchema>;
 /** Live observation only. Final case_run events remain the scoring/statistics owner. */
 export const ArenaCaseTraceSchema = z.object({
   schemaVersion: z.literal("blind-discard-arena-case-trace/v1"),
-  caseOrdinal: z.number().int().min(0).max(2),
+  caseOrdinal: z.number().int().min(0).max(127),
   event: ArenaRunEventSchema,
 }).strict();
 export function parseArenaCaseTrace(text: string) {
-  if (Buffer.byteLength(text, "utf8") > 8 * 1024 * 1024) throw new Error("arena_trace_too_large");
+  if (Buffer.byteLength(text, "utf8") > 64 * 1024 * 1024) throw new Error("arena_trace_too_large");
   // A polling reader can observe the last append before its newline is written.
   const complete = text.slice(0, text.lastIndexOf("\n") + 1).trim();
   if (!complete) return [];
   const rows = complete.split("\n");
-  if (rows.length > 192) throw new Error("arena_trace_too_large");
+  if (rows.length > 8192) throw new Error("arena_trace_too_large");
   return rows.map(row => ArenaCaseTraceSchema.parse(JSON.parse(row)));
 }
 
@@ -149,7 +168,7 @@ const TokenTotalsSchema = z.discriminatedUnion("status", [
 export const ArenaArchiveSummarySchema = z.object({
   schemaVersion: z.literal("blind-discard-arena-run-summary/v1"),
   runId: z.string().uuid(),
-  datasetId: z.literal("blind-discard-smoke-v1"),
+  datasetId: DatasetIdSchema,
   datasetCaseSetDigest: Sha256Schema,
   ragMode: ArenaRagModeSchema,
   inputCaseCount: z.number().int().nonnegative(),
@@ -224,7 +243,7 @@ function addTokenFields(target: Record<string, number>, value: unknown): void {
 /** Parse one bounded JSON object per line; inspection never initializes a provider or tool. */
 export function parseArenaArchiveEvents(jsonl: string): ArenaArchiveEvent[] {
   const rows = jsonl.split(/\r?\n/u).filter((line) => line.length > 0);
-  if (rows.length === 0 || rows.length > 128) throw new Error("arena_archive_events_invalid");
+  if (rows.length === 0 || rows.length > 129) throw new Error("arena_archive_events_invalid");
   return rows.map((line) => {
     let value: unknown;
     try { value = JSON.parse(line) as unknown; } catch { throw new Error("arena_archive_events_invalid"); }

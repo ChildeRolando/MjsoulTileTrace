@@ -157,7 +157,7 @@ export function screenArenaDecisions(raw: unknown, options: { readonly maxInclud
     throw new Error("arena_screen_input_invalid");
   }
   const maxIncluded = options.maxIncluded ?? 3;
-  if (!Number.isInteger(maxIncluded) || maxIncluded < 1 || maxIncluded > 100) {
+  if (!Number.isInteger(maxIncluded) || maxIncluded < 1 || maxIncluded > 128) {
     throw new Error("arena_case_limit_invalid");
   }
   const inputs = [...parsed.data].sort((left, right) => left.canonicalDecisionOrder - right.canonicalDecisionOrder);

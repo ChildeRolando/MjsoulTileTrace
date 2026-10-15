@@ -6,8 +6,8 @@ const rate = (n, d) => d ? `${(100 * n / d).toFixed(1)}%` : '—';
 const date = value => new Date(value).toLocaleString('zh-CN', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
 const labels = { running: '运行中', stopping: '正在停止', stopped: '已停止', completed: '执行完成', failed: '执行失败',
   timeout: '超时', provider_error: '模型调用失败', provider_unavailable: '模型不可用', cancelled: '已取消', budget_exhausted: '达到逐题预算',
-  tool_failure: '工具失败', invalid_submission: '提交无效', label_binding_failure: '标签绑定失败', off: 'RAG Off', local: 'Local RAG', fault: '受控故障', compare: 'RAG 对照' };
-let state, filter = 'all', pending = false, selectedResult, detailSignature = '';
+  tool_failure: '工具失败', invalid_submission: '提交无效', label_binding_failure: '标签绑定失败', off: 'RAG Off', local: 'Local RAG', fault: '受控故障', compare: 'RAG 对照', catalog: '刷新题库' };
+let state, filter = 'all', pending = false, selectedResult, detailSignature = '', detailCase = 0, catalogData;
 
 async function api(path, data) {
   const response = await fetch(path, data === undefined ? {} : { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
@@ -27,10 +27,14 @@ function tokenText(summary) {
 function running() { return ['running', 'stopping'].includes(state?.job?.status); }
 function buttons() {
   $('#start').disabled = pending || !state || running(); $('#stop').disabled = pending || state?.job?.status !== 'running';
+  $('#refresh-bank').disabled = pending || !state || running(); $('#browse-bank').disabled = !state?.catalog;
   $('#start span:last-child').textContent = pending ? '正在提交…' : running() ? '实验运行中' : '启动实验';
 }
 function render() {
   const { runs, budget, config, job } = state;
+  $('#bank-count').textContent = state.catalog ? `${state.catalog.availableCaseCount} 道开发题` : '题库待建立';
+  $('#batch-hint').textContent = state.catalog ? `${state.catalog.availableCaseCount} 道真实案例 · ${state.catalog.developmentGames} 个开发牌局 · 非独立验收集。Off / Local 使用相同范围。` : '请先刷新题库；刷新只运行本机规则筛选，不调用模型。';
+  for (const id of ['#batch-size', '#batch-start']) $(id).max = state.catalog?.availableCaseCount ?? 128;
   $('#tokens').textContent = compact(budget.knownTotalTokens);
   $('#tokens').title = `${number(budget.knownTotalTokens)} 已报告 tokens`;
   const percent = budget.knownTotalTokens / budget.warningThreshold * 100;
@@ -55,7 +59,7 @@ function render() {
   $('#job-badge').textContent = labels[job?.status] ?? '空闲';
   if (job) {
     $('#job-content').className = 'job-steps';
-    $('#job-content').innerHTML = `<h3>${esc(labels[job.mode])} <span class="micro">${esc(job.model)}</span></h3><div class="job-time">${date(job.startedAt)} 开始${job.endedAt ? ` · ${date(job.endedAt)} 结束` : ''}</div>${job.steps.map((step, index) => `<div class="job-step"><span class="step-dot" aria-hidden="true">${step.status === 'completed' ? '✓' : index + 1}</span><span>${esc(labels[step.mode])}</span><span class="tag">${esc(labels[step.status])}</span></div>${step.error ? `<p class="job-desc">${esc(friendlyError(step.error))}</p>` : ''}`).join('')}<p class="job-desc">${job.status === 'running' ? '模型正在取证与决策，逐题结束后写入归档。' : job.status === 'stopping' ? '正在终止本次实验及子进程，请稍候。' : job.status === 'completed' ? '本次执行结束。有效回答、失败原因和匹配情况见结果详情；执行结束不等于验收通过。' : '保留已有归档，可查看实际结果或调整配置后重新运行。'}</p>`;
+    $('#job-content').innerHTML = `<h3>${esc(labels[job.mode])} <span class="micro">${job.mode === "catalog" ? "本机规则 · 无模型调用" : esc(job.model)}</span></h3><div class="job-time">${date(job.startedAt)} 开始${job.endedAt ? ` · ${date(job.endedAt)} 结束` : ''}</div>${job.steps.map((step, index) => `<div class="job-step"><span class="step-dot" aria-hidden="true">${step.status === 'completed' ? '✓' : index + 1}</span><span>${esc(labels[step.mode])}</span><span class="tag">${esc(labels[step.status])}</span></div>${step.error ? `<p class="job-desc">${esc(friendlyError(step.error))}</p>` : ''}`).join('')}<p class="job-desc">${job.status === 'running' ? (job.mode === 'catalog' ? '正在扫描真实牌谱与合法候选，不调用模型。' : '模型正在取证与决策，逐题结束后写入归档。') : job.status === 'stopping' ? '正在终止本次实验及子进程，请稍候。' : job.status === 'completed' ? (job.mode === 'catalog' ? '题库已更新，可浏览题目或设置本次范围。' : '本次执行结束。有效回答、失败原因和匹配情况见结果详情；执行结束不等于验收通过。') : '保留已有归档，可查看实际结果或调整配置后重新运行。'}</p>`;
   }
   renderRuns(); buttons();
   if (budget.warning) message(`已达到 ${compact(budget.warningThreshold)} Token 报警线。当前已报告 ${number(budget.knownTotalTokens)}，实验不会自动停止。`);
@@ -99,9 +103,29 @@ $('#settings-form').addEventListener('submit', async event => {
   finally { submit.disabled = false; }
 });
 $('#start').addEventListener('click', async () => {
+  if (!$('#batch-size').reportValidity() || !$('#batch-start').reportValidity()) return;
+  const maxCases = Number($('#batch-size').value), caseOffset = Number($('#batch-start').value) - 1;
+  if (state.catalog && maxCases + caseOffset > state.catalog.availableCaseCount) { message('所选范围超出题库，请减少题量或调整起始题号。', true); return; }
   pending = true; buttons(); message('正在启动实验…');
-  try { await api('/api/start', { mode: $('#experiment-mode').value }); message('实验已启动。可以离开详情页，运行不会因页面刷新而重复创建。'); await refresh(); }
+  try { await api('/api/start', { mode: $('#experiment-mode').value, maxCases, caseOffset }); message(`实验已启动：题库第 ${caseOffset + 1}–${caseOffset + maxCases} 题。刷新页面不会重复启动。`); await refresh(); }
   catch (error) { message(error.message, true); } finally { pending = false; buttons(); }
+});
+$('#refresh-bank').addEventListener('click', async () => {
+  pending = true; buttons();
+  try { await api('/api/start', { mode: 'catalog' }); message('正在用本机规则建立题库，不会调用模型。'); await refresh(); }
+  catch (error) { message(error.message, true); } finally { pending = false; buttons(); }
+});
+function renderCatalogCase() {
+  const ordinal = Number($('#catalog-case').value), row = catalogData.cases[ordinal];
+  $('#catalog-preview').innerHTML = `${observationView(row.observation)}${structured('catalog-case', '完整盲测输入（不含答案）', row.observation)}`;
+}
+$('#catalog-case').addEventListener('change', renderCatalogCase);
+$('#browse-bank').addEventListener('click', async () => {
+  try { catalogData = await api('/api/catalog');
+    $('#catalog-note').textContent = `${catalogData.cases.length} 道真实决策 · ${catalogData.developmentGames} 个开发牌局。只预览当时可见的信息，不包含 Mortal 答案。`;
+    $('#catalog-case').innerHTML = catalogData.cases.map((row, index) => `<option value="${index}">第 ${index + 1} 题 · ${esc(({ E: '东', S: '南', W: '西' })[row.observation.visibleState.roundWind])}${row.observation.visibleState.hand}局 · ${row.observation.candidates.length} 个候选</option>`).join('');
+    renderCatalogCase(); $('#catalog-dialog').showModal();
+  } catch (error) { message(error.message, true); }
 });
 $('#stop').addEventListener('click', async () => {
   pending = true; buttons();
@@ -160,14 +184,16 @@ function renderDetail(data) {
   if (detailSignature === signature) return;
   detailSignature = signature;
   $('#detail-title').textContent = `实验 ${data.id.slice(0, 8)}`;
-  body.innerHTML = `<div class="detail-meta"><span>${date(m.startedAt)}</span><span>${esc(m.coach.model)} · ${esc(m.coach.reasoningEffort ?? m.coach.providerId)}</span><span>RAG ${esc(m.rag.mode)}</span><span>代码 ${m.codeSha.slice(0, 8)}</span></div><div class="detail-stat"><div>有效回答<strong>${s ? `${s.score.conditionalMatchRate.denominator}/${s.selectedCaseCount}` : '待归档'}</strong></div><div>Mortal 匹配<strong>${s ? `${s.score.matchedCaseCount}/${s.score.includedCaseCount}` : '待评分'}</strong></div><div>Token 用量<strong>${tokenText(s)}</strong></div></div><p class="field-hint">开发样本；未进行专家质量验收。${s ? `Helper 查询 ${s.evidence.helperQueries} 次，RAG 查询 ${s.evidence.ragQueries} 次、命中 ${s.evidence.ragHits} 次。` : '归档尚未完成，保留已发生的步骤，不据此判断成功。'}</p><div class="trace-controls"><label><input type="checkbox" id="trace-auto" ${auto ? 'checked' : ''}> 自动刷新过程</label><button id="refresh-detail" class="quiet-button">刷新过程</button><span id="trace-sync" role="status"></span></div><p class="field-hint">展示公开摘要和实际工具记录；不包含模型内部私有思维链。工具参数与返回可完整展开。</p>${m.dataset.selected.map((item, ordinal) => {
+  body.innerHTML = `<div class="detail-meta"><span>${date(m.startedAt)}</span><span>${esc(m.coach.model)} · ${esc(m.coach.reasoningEffort ?? m.coach.providerId)}</span><span>RAG ${esc(m.rag.mode)}</span><span>代码 ${m.codeSha.slice(0, 8)}</span></div><div class="detail-stat"><div>有效回答<strong>${s ? `${s.score.conditionalMatchRate.denominator}/${s.selectedCaseCount}` : '待归档'}</strong></div><div>Mortal 匹配<strong>${s ? `${s.score.matchedCaseCount}/${s.score.includedCaseCount}` : '待评分'}</strong></div><div>Token 用量<strong>${tokenText(s)}</strong></div></div><p class="field-hint">开发样本；未进行专家质量验收。${s ? `Helper 查询 ${s.evidence.helperQueries} 次，RAG 查询 ${s.evidence.ragQueries} 次、命中 ${s.evidence.ragHits} 次。` : '归档尚未完成，保留已发生的步骤，不据此判断成功。'}</p><div class="trace-controls"><label><input type="checkbox" id="trace-auto" ${auto ? 'checked' : ''}> 自动刷新过程</label><button id="refresh-detail" class="quiet-button">刷新过程</button><span id="trace-sync" role="status"></span></div><p class="field-hint">展示公开摘要和实际工具记录；不包含模型内部私有思维链。工具参数与返回可完整展开。</p>${m.dataset.selected.length > 10 ? `<label>查看案例<select id="detail-case">${m.dataset.selected.map((row, ordinal) => `<option value="${ordinal}" ${ordinal === detailCase ? "selected" : ""}>案例 ${ordinal + 1} · 题库第 ${(m.dataset.selection?.offset ?? 0) + ordinal + 1} 题</option>`).join("")}</select></label>` : ""}${m.dataset.selected.map((item, ordinal) => {
+    if (m.dataset.selected.length > 10 && ordinal !== detailCase) return "";
     const result = finalized.get(ordinal), records = result?.events ?? live.get(ordinal) ?? [];
     const score = result?.score.cases[0];
     return `<article class="case-detail"><h3>案例 ${ordinal + 1} <span class="tag">${result ? esc(labels[result.status] ?? result.status) : records.length ? '尚无最终结果' : '尚无执行记录'}</span></h3><div class="detail-meta"><span>${item.candidateCount} 个候选动作</span>${result ? `<span>${result.providerTurnCount} 轮模型调用 · ${result.toolCallCount} 次工具调用 · ${(result.elapsedMs / 1000).toFixed(1)}s</span><span>${score?.status === 'matched' ? 'Mortal 匹配' : score?.status === 'not_matched' ? 'Mortal 不匹配' : '未得到匹配评分'}</span>` : ''}</div>${records.length ? `<ol class="trace-list">${records.map((row, index) => traceEvent(row, index, ordinal, records)).join('')}</ol>` : '<p class="field-hint">尚未收到本题事件。停止或中断的实验可能不会继续产生记录。</p>'}${result && !records.some(row => row.type === 'submission_locked') && result.attempt.submission ? structured(`${ordinal}-legacy-answer`, '旧归档中的最终提交', result.attempt.submission) : ''}</article>`;
-  }).join('')}${structured('archive', '查看可离线复查的结构化结果', data)}<button id="download-result" class="quiet-button">下载本次结果 JSON</button>`;
+  }).join('')}${structured('archive', '查看运行元数据与汇总', { manifest: m, summary: s })}<button id="download-result" class="quiet-button">下载本次结果 JSON</button>`;
   for (const node of body.querySelectorAll('details')) { node.open = openKeys.has(node.dataset.detailKey); if (activeKey === node.dataset.detailKey) node.querySelector('summary').focus({ preventScroll: true }); }
   if (focusedId && body.querySelector(`#${CSS.escape(focusedId)}`)) body.querySelector(`#${CSS.escape(focusedId)}`).focus({ preventScroll: true });
   dialog.scrollTop = scroll;
+  $('#detail-case')?.addEventListener('change', event => { detailCase = Number(event.target.value); detailSignature = ''; renderDetail(selectedResult); });
   $('#refresh-detail').addEventListener('click', () => refreshDetail().catch(() => { $('#trace-sync').textContent = '刷新失败，请重试'; }));
   $('#download-result').addEventListener('click', () => { const url = URL.createObjectURL(new Blob([JSON.stringify(selectedResult, null, 2)], { type: 'application/json' })); const link = document.createElement('a'); link.href = url; link.download = `arena-${selectedResult.id}.json`; link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000); });
 }
@@ -183,7 +209,7 @@ $('#results-body').addEventListener('click', async event => {
   const button = event.target.closest('[data-run]'); if (!button) return;
   button.disabled = true;
   try {
-    detailSignature = ''; $('#detail-body').innerHTML = '';
+    detailCase = 0; detailSignature = ''; $('#detail-body').innerHTML = '';
     renderDetail(await api(`/api/run/${button.dataset.run}`));
     $('#result-dialog').showModal();
     $('#result-dialog').scrollTop = 0;

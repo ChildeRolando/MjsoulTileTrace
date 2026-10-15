@@ -4,7 +4,7 @@ import { readFile, writeFile, readdir, mkdir } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { randomUUID } from 'node:crypto';
-import { ArenaArchiveManifestSchema, ArenaArchiveSummarySchema, parseArenaArchiveEvents, parseArenaCaseTrace, arenaTokenBudget } from '@riichi-coach/desktop/blind-discard-arena-archive';
+import { ArenaArchiveManifestSchema, ArenaArchiveSummarySchema, ArenaCaseCatalogSchema, parseArenaArchiveEvents, parseArenaCaseTrace, arenaTokenBudget } from '@riichi-coach/desktop/blind-discard-arena-archive';
 
 const DEFAULTS = { provider: 'codex-cli', model: 'gpt-6-luna', reasoningEffort: 'high', baseUrl: '',
   tokenWarningThreshold: 100_000_000, maxProviderTurns: 6, maxToolCalls: 4, maxProviderOutputTokens: 2048, maxRunMs: 300000 };
@@ -39,6 +39,7 @@ export async function createArenaConsole({ coachRoot = fileURLToPath(new URL('..
   try { config = settings(JSON.parse(await readFile(configPath, 'utf8'))); } catch { /* first launch uses documented defaults */ }
   const publicConfig = () => ({ ...config, keyConfigured: apiKey.length > 0 });
   const publicJob = () => job === null ? null : structuredClone(job);
+  const catalog = async () => { try { return ArenaCaseCatalogSchema.parse(JSON.parse(await readFile(join(archiveRoot, 'case-catalog.json'), 'utf8'))); } catch { return null; } };
   const runs = async () => {
     const found = [];
     for (const entry of await readdir(archiveRoot, { withFileTypes: true })) {
@@ -59,12 +60,13 @@ export async function createArenaConsole({ coachRoot = fileURLToPath(new URL('..
     else { try { process.kill(-child.pid, 'SIGTERM'); } catch { child.kill(); } }
   };
   const runStep = (mode, snapshot, key) => new Promise(resolveStep => {
-    const args = [cliPath, 'run', '--dataset', 'blind-discard-smoke-v1', '--rag', mode === 'fault' ? 'local' : mode,
+    const args = [cliPath, 'run', '--dataset', 'blind-discard-dev-v1', '--max-cases', String(snapshot.maxCases), '--case-offset', String(snapshot.caseOffset), '--rag', mode === 'fault' ? 'local' : mode,
       '--provider', snapshot.provider, '--model', snapshot.model, '--reasoning-effort', snapshot.reasoningEffort,
       '--token-warning-threshold', String(snapshot.tokenWarningThreshold), '--max-provider-turns', String(snapshot.maxProviderTurns),
       '--max-tool-calls', String(snapshot.maxToolCalls), '--max-provider-output-tokens', String(snapshot.maxProviderOutputTokens), '--max-run-ms', String(snapshot.maxRunMs)];
     if (snapshot.provider === 'openai-compatible') args.push('--base-url', snapshot.baseUrl);
     if (mode === 'fault') args.push('--fault', 'first-helper-timeout');
+    if (mode === 'catalog') args.splice(0, args.length, cliPath, 'catalog');
     const step = { mode, status: 'running', startedAt: new Date().toISOString() }; job.steps.push(step);
     let stdout = '', stderr = '', exceeded = false;
     const owned = spawn(process.execPath, args, { cwd: coachRoot, env: { ...process.env, RIICHI_COACH_API_KEY: key },
@@ -82,12 +84,17 @@ export async function createArenaConsole({ coachRoot = fileURLToPath(new URL('..
     };
     owned.on('error', () => complete(null)); owned.on('close', complete);
   });
-  const start = async mode => {
+  const start = async (mode, selection = {}) => {
     if (job?.status === 'running' || job?.status === 'stopping') throw fail('已有实验正在运行，请先停止或等待完成。', 409);
-    if (!['compare', 'off', 'local', 'fault'].includes(mode)) throw fail('请选择实验模式。');
-    if (config.provider === 'openai-compatible' && (!config.baseUrl || !apiKey)) throw fail('请先保存 API 地址和密钥。');
-    const snapshot = { ...config }, key = apiKey;
-    job = { id: randomUUID(), mode, status: 'running', startedAt: new Date().toISOString(), steps: [], model: snapshot.model, provider: snapshot.provider };
+    if (!['compare', 'off', 'local', 'fault', 'catalog'].includes(mode)) throw fail('请选择实验模式。');
+    if (mode !== 'catalog' && config.provider === 'openai-compatible' && (!config.baseUrl || !apiKey)) throw fail('请先保存 API 地址和密钥。');
+    const maxCases = selection.maxCases ?? 10, caseOffset = selection.caseOffset ?? 0;
+    if (!Number.isSafeInteger(maxCases) || maxCases < 1 || maxCases > 128 || !Number.isSafeInteger(caseOffset) || caseOffset < 0 || caseOffset > 127) throw fail('请检查题量和起始题号。');
+    const bank = await catalog();
+    if (mode !== 'catalog' && bank && (caseOffset >= bank.cases.length || caseOffset + maxCases > bank.cases.length)) throw fail('所选范围超出题库，请减少题量或调整起始题号。');
+    if (job?.status === 'running' || job?.status === 'stopping') throw fail('已有实验正在运行，请先停止或等待完成。', 409);
+    const snapshot = { ...config, maxCases, caseOffset }, key = mode === 'catalog' ? '' : apiKey;
+    job = { id: randomUUID(), mode, status: 'running', startedAt: new Date().toISOString(), steps: [], model: snapshot.model, provider: snapshot.provider, maxCases, caseOffset };
     stopping = false;
     const execute = async () => {
       try {
@@ -107,14 +114,16 @@ export async function createArenaConsole({ coachRoot = fileURLToPath(new URL('..
       const url = new URL(request.url, `http://${host}`);
       if (request.method === 'POST' && request.headers.origin !== `http://${host}`) throw fail('请从本机控制台提交操作。', 403);
       if (request.method === 'GET' && url.pathname === '/api/state') {
-        const results = await runs();
+        const results = await runs(), bank = await catalog();
         return json(response, 200, { config: publicConfig(), job: publicJob(), runs: results,
+          catalog: bank ? { availableCaseCount: bank.cases.length, developmentGames: bank.developmentGames, acceptanceGames: bank.acceptanceGames, createdAt: bank.createdAt } : null,
           budget: arenaTokenBudget(results.map(run => run.summary), config.tokenWarningThreshold) });
       }
+      if (request.method === 'GET' && url.pathname === '/api/catalog') { const bank = await catalog(); if (!bank) throw fail('题库尚未建立，请先刷新题库。', 404); return json(response, 200, bank); }
       if (request.method === 'GET' && url.pathname.startsWith('/api/run/')) {
         const id = url.pathname.slice('/api/run/'.length); if (!UUID.test(id)) throw fail('找不到该实验。', 404);
         const results = await runs(), run = results.find(row => row.id === id); if (!run) throw fail('找不到该实验。', 404);
-        let events = []; try { const text = await readFile(join(archiveRoot, id, 'events.jsonl'), 'utf8'); if (text.length <= 8 * 1024 * 1024) events = parseArenaArchiveEvents(text); } catch { /* partial events are not complete evidence */ }
+        let events = []; try { const text = await readFile(join(archiveRoot, id, 'events.jsonl'), 'utf8'); if (text.length <= 64 * 1024 * 1024) events = parseArenaArchiveEvents(text); } catch { /* partial events are not complete evidence */ }
         let trace = []; try { trace = parseArenaCaseTrace(await readFile(join(archiveRoot, id, 'case-trace.jsonl'), 'utf8'))
           .filter(row => row.caseOrdinal < run.manifest.dataset.selected.length); } catch { /* old or incomplete live trace; final records still own facts */ }
         return json(response, 200, { ...run, events, trace });
@@ -125,7 +134,7 @@ export async function createArenaConsole({ coachRoot = fileURLToPath(new URL('..
         if (raw.clearApiKey === true) apiKey = ''; else if (raw.apiKey?.trim()) apiKey = raw.apiKey.trim();
         await writeFile(configPath, JSON.stringify(next, null, 2)); config = next; return json(response, 200, publicConfig());
       }
-      if (request.method === 'POST' && url.pathname === '/api/start') return json(response, 202, await start((await body(request)).mode));
+      if (request.method === 'POST' && url.pathname === '/api/start') { const raw = await body(request); return json(response, 202, await start(raw.mode, raw)); }
       if (request.method === 'POST' && url.pathname === '/api/stop') {
         if (!child || !job || job.status !== 'running') throw fail('当前没有正在运行的实验。', 409);
         stopping = true; job.status = 'stopping'; terminate(); await persistJob(); return json(response, 202, publicJob());
