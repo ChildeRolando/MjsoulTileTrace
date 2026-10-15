@@ -57,6 +57,7 @@ export const ArenaArchiveManifestSchema = z.object({
   coach: z.object({
     providerId: z.string().min(1).max(80),
     model: z.string().min(1).max(200),
+    reasoningEffort: z.enum(["low", "medium", "high", "xhigh", "max"]).optional(),
     protocolVersion: z.string().min(1).max(80),
     promptVersion: z.string().min(1).max(80),
     submissionSchemaVersion: z.literal("blind-discard-arena-submission/v1"),
@@ -72,6 +73,7 @@ export const ArenaArchiveManifestSchema = z.object({
     maxCases: z.number().int().min(1).max(3),
     limits: ArenaCoachRunResultSchema.shape.limits,
     selectionSeed: z.null(),
+    tokenWarningThreshold: z.number().int().positive().safe().optional(),
   }).strict(),
 }).strict();
 export type ArenaArchiveManifest = z.infer<typeof ArenaArchiveManifestSchema>;
@@ -165,6 +167,27 @@ export const ArenaArchiveSummarySchema = z.object({
   tokenUsage: TokenTotalsSchema,
 }).strict();
 export type ArenaArchiveSummary = z.infer<typeof ArenaArchiveSummarySchema>;
+
+/** Reported input already includes cached input. Unknown use remains a lower bound. */
+export function arenaTokenBudget(summaries: readonly unknown[], warningThreshold = 100_000_000) {
+  if (!Number.isSafeInteger(warningThreshold) || warningThreshold < 1) throw new Error("arena_budget_invalid");
+  let knownTotalTokens = 0;
+  let unknownRunCount = 0;
+  for (const raw of summaries) {
+    const parsed = ArenaArchiveSummarySchema.safeParse(raw);
+    if (!parsed.success) { unknownRunCount++; continue; }
+    const usage = parsed.data.tokenUsage;
+    if (usage.status === "not_called") continue;
+    const tokens = usage.status === "reported" ? usage.tokens : usage.reportedPartial;
+    const total = tokens?.totalTokens ?? (tokens?.inputTokens !== undefined && tokens.outputTokens !== undefined
+      ? tokens.inputTokens + tokens.outputTokens : undefined);
+    if (total !== undefined) knownTotalTokens += total;
+    if (usage.status === "unknown" || total === undefined) unknownRunCount++;
+    if (!Number.isSafeInteger(knownTotalTokens)) throw new Error("arena_token_total_overflow");
+  }
+  return { scope: "archives_in_this_workspace", warningThreshold, knownTotalTokens, unknownRunCount,
+    warning: knownTotalTokens >= warningThreshold };
+}
 
 function makeRate(numerator: number, denominator: number): z.infer<typeof ArenaRateSchema> {
   return denominator === 0

@@ -47,6 +47,14 @@ npm run arena -- run --dataset blind-discard-smoke-v1 --rag local
 npm run arena -- inspect <runId>
 ```
 
+使用本机已登录的 Codex 订阅时，不需要 API key：
+
+```powershell
+npm run arena -- run --dataset blind-discard-smoke-v1 --rag local --provider codex-cli --model gpt-6-luna --reasoning-effort high --max-provider-output-tokens 2048
+```
+
+该适配复用已有隐藏 Codex 进程与结构化输出解析；每轮只返回一个模型选择的 Arena 查询/提交，真实 MCP/RAG 仍由 runner 执行。不会把 CLI 的 shell、文件或其他连接器交给模型，也不改变生产复盘 provider。manifest 保存模型及 reasoning effort。当前工作树的归档累计以已报告 input + output 为准，缓存输入不重复累计；缺失用量保持 unknown。`--token-warning-threshold` 默认 100,000,000，达到后在运行/离线复查输出报警，仅提醒，不自动停止或重跑；它不是全账户或开发/评审聊天的用量统计。原有逐题时间、调用和输出预算继续有效。
+
 Arena 使用固定脱敏 smoke/dev 牌局、真实 managed libriichi 和 Mortal runtime，并把 manifest、事件及可离线重算的 summary 写入 `reports/blind-discard-arena/<runId>/`。两种 RAG 模式必须各自记录 runId；`inspect` 不会启动模型或 helper。设置获授权的 OpenAI-compatible provider 时，分别用 `RIICHI_COACH_ARENA_BASE_URL`、`RIICHI_COACH_ARENA_MODEL` 配置端点与模型，并通过 `RIICHI_COACH_API_KEY` 提供密钥；密钥不会写入 archive，也不会传给 MCP 子进程。若配置或授权凭据缺失，archive 会记录 provider unavailable，真实模型演示仍待完成，不得据此宣称 Arena 总体验收通过。边界与验收事实见 [Blind Discard Arena spec](../specs/2026-10-09-blind-discard-arena.md)。
 
 ### Electron 桌面应用

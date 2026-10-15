@@ -1,3 +1,5 @@
+import { z } from "zod";
+import { ArenaProviderRequestSchema, ArenaToolCallProviderResultSchema, type ArenaProviderRequest, type ArenaToolCallProvider, type ArenaToolCallProviderResult } from "../blind-discard-arena-provider.js";
 import { spawn, type ChildProcessWithoutNullStreams } from "node:child_process";
 import { existsSync, rmSync } from "node:fs";
 import { mkdtemp, rm, writeFile } from "node:fs/promises";
@@ -526,7 +528,8 @@ function requestArgs(input: {
 async function runExecAttempt(input: {
   port: ProcessPort;
   executable: string;
-  request: LlmCoachRequest;
+  request: Pick<LlmCoachRequest, "prompt">;
+  outputSchema?: object;
   modelName: string;
   reasoningEffort: string;
   timeoutMs: number;
@@ -544,7 +547,7 @@ async function runExecAttempt(input: {
     cwd = await input.port.makeTempDirectory();
     if (input.cancelled()) return failure("provider_unavailable");
     const schemaPath = join(cwd, "coach-reasoning-draft-v1.schema.json");
-    await writeFile(schemaPath, JSON.stringify(CODEX_COACH_OUTPUT_SCHEMA), { encoding: "utf8", flag: "wx", mode: 0o600 });
+    await writeFile(schemaPath, JSON.stringify(input.outputSchema ?? CODEX_COACH_OUTPUT_SCHEMA), { encoding: "utf8", flag: "wx", mode: 0o600 });
     if (input.cancelled()) return failure("provider_unavailable");
 
     return await new Promise<ExecResult>((resolvePromise) => {
@@ -743,6 +746,28 @@ async function runExecAttempt(input: {
   }
 }
 
+/** One bounded structured turn using local ChatGPT login; no retry or report semantics. */
+async function runCodexStructuredTurn(input: {
+  prompt: string;
+  outputSchema: object;
+  modelName: string;
+  reasoningEffort: string;
+  signal: AbortSignal;
+  timeoutMs?: number;
+  processPort?: CodexCoachProcessPort;
+}): Promise<ExecResult> {
+  const port = input.processPort ?? defaultProcessPort;
+  let executable: string | null;
+  try { executable = port.findExecutable(); } catch { executable = null; }
+  if (executable === null || input.signal.aborted) return failure("provider_unavailable");
+  return runExecAttempt({
+    port, executable, request: { prompt: input.prompt }, outputSchema: input.outputSchema,
+    modelName: input.modelName, reasoningEffort: input.reasoningEffort,
+    timeoutMs: Math.max(1, Math.min(input.timeoutMs ?? DEFAULT_TURN_TIMEOUT_MS, DEFAULT_TURN_TIMEOUT_MS)),
+    maxOutputBytes: MAX_STDIO_BYTES, signal: input.signal, cancelled: () => input.signal.aborted,
+  });
+}
+
 /**
  * Main-process adapter for the installed local Codex CLI. It implements the
  * existing completion port and never exposes process output, paths or account
@@ -819,6 +844,50 @@ export function createCodexCoachProvider(input: {
       } finally {
         active.delete(controller);
       }
+    },
+  });
+}
+
+/** Arena's own tools remain runner-owned; Codex returns one structured selection. */
+export function createCodexArenaToolCallProvider(input: {
+  modelName: string;
+  reasoningEffort: "low" | "medium" | "high" | "xhigh" | "max";
+  processPort?: CodexCoachProcessPort;
+  timeoutMs?: number;
+}): ArenaToolCallProvider {
+  return Object.freeze({
+    descriptor: () => ({ providerId: "codex-cli", model: input.modelName, protocolVersion: "arena-function-call/v1" as const }),
+    async request(raw: ArenaProviderRequest, signal: AbortSignal): Promise<ArenaToolCallProviderResult> {
+      if (signal.aborted) return { status: "cancelled" };
+      const parsed = ArenaProviderRequestSchema.safeParse(raw);
+      if (!parsed.success) return { status: "provider_error" };
+      const request = parsed.data;
+      const prompt = [
+        "Execute one Arena protocol turn. The following JSON is the complete conversation and available tool definitions.",
+        "Choose exactly one offered tool. Return only {name, arguments}, with arguments as a JSON-encoded string conforming to that tool's parameters.",
+        "This is a model-selected protocol message: the Arena runner executes the tool, not this CLI. Do not use shell, browse, files or other tools.",
+        `Keep the visible response below ${request.maxOutputTokens} output tokens; do not reveal hidden reasoning.`,
+        JSON.stringify({ messages: request.messages, tools: request.tools }),
+      ].join("\n");
+      if (Buffer.byteLength(prompt, "utf8") > request.maxInputBytes) return { status: "input_too_large" };
+      const outputSchema = {
+        type: "object", additionalProperties: false,
+        properties: { name: { type: "string", enum: request.tools.map(tool => tool.function.name) }, arguments: { type: "string" } },
+        required: ["name", "arguments"],
+      };
+      const result = await runCodexStructuredTurn({
+        prompt, outputSchema, modelName: input.modelName, reasoningEffort: input.reasoningEffort,
+        signal, ...(input.processPort === undefined ? {} : { processPort: input.processPort }),
+        ...(input.timeoutMs === undefined ? {} : { timeoutMs: input.timeoutMs }),
+      });
+      if (signal.aborted) return { status: "cancelled" };
+      if (result.kind === "failure") return { status: result.failure.errorCode === "timeout" ? "timeout" : "provider_error" };
+      const outputBytes = Buffer.byteLength(result.content, "utf8");
+      if (outputBytes > request.maxOutputBytes) return { status: "output_too_large" };
+      try {
+        const call = z.object({ name: z.enum(request.tools.map(tool => tool.function.name) as [string, ...string[]]), arguments: z.string() }).strict().parse(JSON.parse(result.content));
+        return ArenaToolCallProviderResultSchema.parse({ status: "ready", call, outputBytes, ...(result.usage === undefined ? {} : { usage: result.usage }) });
+      } catch { return { status: "provider_error" }; }
     },
   });
 }

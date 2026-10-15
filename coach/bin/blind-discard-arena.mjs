@@ -48,6 +48,7 @@ import {
   ArenaArchiveManifestSchema,
   parseArenaArchiveEvents,
   summarizeArenaArchive,
+  arenaTokenBudget,
 } from "@riichi-coach/desktop/blind-discard-arena-archive";
 
 const coachRoot = resolve(fileURLToPath(new URL("..", import.meta.url)));
@@ -67,6 +68,7 @@ const expectedRuntime = {
 const ARCHIVE_ROOT = join(coachRoot, "reports/blind-discard-arena");
 const MCP_SERVER_PATH = join(coachRoot, "bin/blind-discard-arena-mcp-server.mjs");
 const DEFAULT_BUDGET = Object.freeze({ maxProviderTurns: 4, maxToolCalls: 2, maxProviderOutputTokens: 512, maxRunElapsedMs: 120_000 });
+const DEFAULT_TOKEN_WARNING = 100_000_000;
 
 function usage() {
   return [
@@ -77,6 +79,9 @@ function usage() {
     "  npm run arena -- inspect <runId>",
     "",
     "Run options:",
+    "  --provider codex-cli             local ChatGPT subscription (no API key)",
+    "  --reasoning-effort high          Codex reasoning effort (default high)",
+    "  --token-warning-threshold <n>    cumulative reported tokens, default 100000000; warning only",
     "  --base-url <url>                  OpenAI-compatible endpoint",
     "  --model <name>                    model name",
     "  --max-provider-turns <1..12>      default 4",
@@ -105,13 +110,13 @@ function parseArgs(argv) {
     if (!key?.startsWith("--")) throw new Error("arena_option_invalid");
     const value = rest[index + 1];
     if (value === undefined || value.startsWith("--")) throw new Error("arena_option_value_missing");
-    if (["--dataset", "--rag", "--base-url", "--model", "--fault"].includes(key)) {
+    if (["--dataset", "--rag", "--base-url", "--model", "--fault", "--provider", "--reasoning-effort"].includes(key)) {
       if (options[key] !== undefined) throw new Error("arena_option_duplicate");
       options[key] = value;
       index += 1;
       continue;
     }
-    if (["--max-provider-turns", "--max-provider-output-tokens", "--max-tool-calls", "--max-run-ms"].includes(key)) {
+    if (["--max-provider-turns", "--max-provider-output-tokens", "--max-tool-calls", "--max-run-ms", "--token-warning-threshold"].includes(key)) {
       if (options[key] !== undefined || !/^\d+$/u.test(value)) throw new Error("arena_budget_invalid");
       options[key] = Number(value);
       index += 1;
@@ -137,9 +142,15 @@ function parseArgs(argv) {
       budget.maxRunElapsedMs < 1 || budget.maxRunElapsedMs > ARENA_RUN_LIMITS_V1.maxRunElapsedMs) {
     throw new Error("arena_budget_invalid");
   }
-  const rawBaseUrl = options["--base-url"] ?? process.env.RIICHI_COACH_ARENA_BASE_URL;
+  const provider = options["--provider"] ?? "openai-compatible";
+  if (!["codex-cli", "openai-compatible"].includes(provider)) throw new Error("arena_provider_settings_invalid");
+  const reasoningEffort = options["--reasoning-effort"] ?? "high";
+  if (!["low", "medium", "high", "xhigh", "max"].includes(reasoningEffort)) throw new Error("arena_provider_settings_invalid");
+  const tokenWarningThreshold = options["--token-warning-threshold"] ?? DEFAULT_TOKEN_WARNING;
+  if (!Number.isSafeInteger(tokenWarningThreshold) || tokenWarningThreshold < 1) throw new Error("arena_budget_invalid");
+  const rawBaseUrl = provider === "codex-cli" ? undefined : options["--base-url"] ?? process.env.RIICHI_COACH_ARENA_BASE_URL;
   const rawModel = options["--model"] ?? process.env.RIICHI_COACH_ARENA_MODEL;
-  if ((rawBaseUrl === undefined) !== (rawModel === undefined)) throw new Error("arena_provider_settings_incomplete");
+  if (provider !== "codex-cli" && (rawBaseUrl === undefined) !== (rawModel === undefined)) throw new Error("arena_provider_settings_incomplete");
   const providerSettings = rawBaseUrl === undefined ? null : OpenAiCoachProviderConfigSchema.safeParse({
     baseUrl: rawBaseUrl,
     modelName: rawModel,
@@ -150,6 +161,8 @@ function parseArgs(argv) {
     ragMode: options["--rag"],
     fault: options["--fault"] ?? "none",
     budget,
+    tokenWarningThreshold,
+    arenaCodex: provider === "codex-cli" ? { modelName: rawModel ?? "gpt-6-luna", reasoningEffort } : undefined,
     providerSettings: providerSettings?.data ?? null,
   };
 }
@@ -342,8 +355,8 @@ async function makeFrozenDataset(runtime) {
   };
 }
 
-function providerFor(settings, credentials) {
-  const adapter = createArenaToolCallProvider({ settings, credentials, fetchImpl: fetch });
+function providerFor(settings, credentials, arenaCodex) {
+  const adapter = createArenaToolCallProvider({ settings, credentials, fetchImpl: fetch, arenaCodex });
   if (adapter !== null) return adapter;
   return Object.freeze({
     descriptor: () => ({ providerId: "openai-compatible", model: "unconfigured", protocolVersion: "arena-function-call/v1" }),
@@ -415,12 +428,12 @@ async function runCommand(options) {
     if (computedRuntimeConfigSha256 !== expectedRuntime.runtimeConfigSha256) {
       throw new Error("arena_pinned_mortal_config_mismatch");
     }
-    const descriptorProvider = providerFor(options.providerSettings, { readKey: async () => apiKey });
+    const descriptorProvider = providerFor(options.providerSettings, { readKey: async () => apiKey }, options.arenaCodex);
     const descriptor = descriptorProvider.descriptor();
     const ragCorpusVersion = options.ragMode === "local"
       ? (await import("@riichi-coach/desktop/blind-discard-arena-rag-seed")).BLIND_DISCARD_ARENA_RAG_SEED_CORPUS.corpusVersion
       : null;
-    const credentialStatus = options.providerSettings === null
+    const credentialStatus = options.arenaCodex !== undefined ? "available" : options.providerSettings === null
       ? "not_configured"
       : apiKey === null || apiKey.trim().length === 0 ? "missing" : "available";
     const limits = getRunLimits(options.budget);
@@ -454,6 +467,7 @@ async function runCommand(options) {
       coach: {
         providerId: descriptor.providerId,
         model: descriptor.model,
+        ...(options.arenaCodex === undefined ? {} : { reasoningEffort: options.arenaCodex.reasoningEffort }),
         protocolVersion: descriptor.protocolVersion,
         promptVersion: ARENA_TOOL_CALL_PROMPT_VERSION,
         submissionSchemaVersion: "blind-discard-arena-submission/v1",
@@ -465,7 +479,7 @@ async function runCommand(options) {
         retrieverVersion: options.ragMode === "local" ? ARENA_RAG_RETRIEVER_VERSION : "disabled",
       },
       controlledFault: options.fault,
-      budget: { maxCases: 3, limits, selectionSeed: null },
+      budget: { maxCases: 3, limits, selectionSeed: null, tokenWarningThreshold: options.tokenWarningThreshold },
     });
     const datasetScan = ArenaArchiveEventSchema.parse({
       schemaVersion: "blind-discard-arena-archive-event/v1",
@@ -533,8 +547,10 @@ async function runCommand(options) {
     const storedEvents = parseArenaArchiveEvents(await readFile(eventsPath, "utf8"));
     const summary = summarizeArenaArchive({ manifest: storedManifest, events: storedEvents });
     await writeJson(join(runDirectory, "summary.json"), summary);
+    const tokenBudget = await reportedTokenBudget(ARCHIVE_ROOT, options.tokenWarningThreshold);
+    if (tokenBudget.warning) process.stderr.write(`arena_token_budget_warning ${JSON.stringify(tokenBudget)}\n`);
     archiveComplete = true;
-    process.stdout.write(`${JSON.stringify({ runId, archive: `coach/reports/blind-discard-arena/${runId}`, summary }, null, 2)}\n`);
+    process.stdout.write(`${JSON.stringify({ runId, archive: `coach/reports/blind-discard-arena/${runId}`, summary, tokenBudget }, null, 2)}\n`);
   } finally {
     if (!archiveComplete) await rm(runDirectory, { recursive: true, force: true }).catch(() => undefined);
     apiKey = null;
@@ -552,7 +568,19 @@ async function inspectCommand(runId) {
   const recomputed = summarizeArenaArchive({ manifest, events });
   const saved = JSON.parse(await readFile(join(runDirectory, "summary.json"), "utf8"));
   if (JSON.stringify(saved) !== JSON.stringify(recomputed)) throw new Error("arena_archive_summary_mismatch");
-  process.stdout.write(`${JSON.stringify(recomputed, null, 2)}\n`);
+  const tokenBudget = await reportedTokenBudget(ARCHIVE_ROOT, manifest.budget.tokenWarningThreshold ?? DEFAULT_TOKEN_WARNING);
+  if (tokenBudget.warning) process.stderr.write(`arena_token_budget_warning ${JSON.stringify(tokenBudget)}\n`);
+  process.stdout.write(`${JSON.stringify({ ...recomputed, tokenBudget }, null, 2)}\n`);
+}
+
+async function reportedTokenBudget(root, threshold) {
+  const summaries = [];
+  for (const entry of await readdir(root, { withFileTypes: true })) {
+    if (!entry.isDirectory() || !/^[0-9a-f-]{36}$/u.test(entry.name)) continue;
+    try { summaries.push(JSON.parse(await readFile(join(root, entry.name, "summary.json"), "utf8"))); }
+    catch { summaries.push(null); }
+  }
+  return arenaTokenBudget(summaries, threshold);
 }
 
 async function main() {

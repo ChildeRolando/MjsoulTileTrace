@@ -9,6 +9,7 @@ import {
   ArenaArchiveManifestSchema,
   parseArenaArchiveEvents,
   summarizeArenaArchive,
+  arenaTokenBudget,
 } from "../src/blind-discard-arena-archive.js";
 
 const caseRefs = [
@@ -168,6 +169,15 @@ function scanEvent() {
 }
 
 describe("Blind Discard Arena run archive", () => {
+  it("warns at cumulative reported tokens, does not double count cache, and retains unknown use", () => {
+    const base = summarizeArenaArchive({ manifest: manifest(), events: [scanEvent()] });
+    const reported = { ...base, tokenUsage: { status: "reported", tokens: { inputTokens: 80, cachedInputTokens: 60, outputTokens: 20, totalTokens: 100 }, providerTurnCount: 1 } };
+    const partial = { ...base, tokenUsage: { status: "unknown", reportedPartial: { inputTokens: 10, outputTokens: 5 }, providerTurnCount: 2, unreportedRunCount: 1 } };
+    expect(arenaTokenBudget([reported], 101)).toMatchObject({ knownTotalTokens: 100, warning: false, unknownRunCount: 0 });
+    expect(arenaTokenBudget([reported, partial, null], 115)).toMatchObject({ knownTotalTokens: 115, warning: true, unknownRunCount: 2 });
+    expect(arenaTokenBudget([base])).toMatchObject({ warningThreshold: 100_000_000, warning: false });
+  });
+
   it("recomputes complete denominators, failures, helper/RAG events, and unknown usage offline", () => {
     const events = [
       scanEvent(),
