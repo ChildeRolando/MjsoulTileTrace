@@ -226,6 +226,8 @@ COAC-223 T3 验证（2026-10-15）：Arena case/scorer、MCP、RAG、runner/prov
 
 COAC-223 P2 修复验证（2026-10-15）：`npm exec -- vitest run packages/desktop/tests/blind-discard-arena-rag.test.ts packages/desktop/tests/blind-discard-arena-runner.test.ts packages/desktop/tests/blind-discard-arena-mcp.test.ts --no-file-parallelism --maxWorkers=1`（3 files / 33 tests）、`npm run typecheck`、`npm run build`、`npm run check:architecture`（7 packages / 517 files / 2,495 imports / 0 violations）、`node --test smoke/package-import-smoke.mjs`（2/2）与 `git diff --check` 通过。定向回归覆盖无词项命中时 topic/applicability context 不返回命中、context 只重排词项命中、final/tool-timeout cleanup 的慢或永不结束 dispose 受限、清理中取消，以及真实 MCP stdio 子进程强制关闭。未运行真实云端模型；T5 archive/CLI 仍待后续实现。
 
+COAC-223 P2 清理截止竞态复修验证（2026-10-15）：runner 在剩余 run 预算充当清理 timer 时立即锁定 `timeout`；250 ms 独立清理宽限仍保留原有 force-dispose 恢复语义。新增 fake-timer 回归，固定 clock 让清理 timer 在总 deadline 前触发；去掉修复时该用例稳定得到 `completed` 并失败，修复后 RAG/runner/MCP 3 suites 共 34 项通过。`npm run typecheck`、`npm run build`、`npm run check:architecture`（7 packages / 517 files / 2,495 imports / 0 violations）及 `node --test smoke/package-import-smoke.mjs`（2/2）通过；未运行真实云端模型，T5 archive/CLI 仍待后续实现。
+
 真实样例 selection receipt 的 runtime identity 和排除计数见第 10 节。
 
 ## 12. 非目标与停止条件

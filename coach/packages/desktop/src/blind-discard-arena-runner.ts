@@ -638,9 +638,15 @@ export async function runBlindCoachCase(input: {
     if (runController.signal.aborted) onRunAbort();
     const disposal = Promise.resolve().then(() => tool.dispose!(cleanupController.signal));
     let graceExpired = false;
+    const cleanupDeadlineIsRunDeadline = remainingRunMs <= RUNNER_DISPOSE_GRACE_MS;
     const graceTimer = runController.signal.aborted
       ? undefined
       : setTimeout(() => {
+        if (cleanupDeadlineIsRunDeadline) {
+          abortStatus = "timeout";
+          runController.abort();
+          return;
+        }
         graceExpired = true;
         cleanupController.abort();
       }, Math.max(1, Math.min(RUNNER_DISPOSE_GRACE_MS, remainingRunMs)));

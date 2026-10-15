@@ -473,6 +473,52 @@ describe("Blind Discard Arena runner", () => {
     expect(forceDispose).toHaveBeenCalledTimes(1);
   });
 
+  it("locks timeout when cleanup reaches the run deadline before the clock does", async () => {
+    vi.useFakeTimers();
+    try {
+      const testCase = makeArenaMcpCase();
+      const actionRefs = testCase.observation.candidates.map((candidate) => candidate.actionRef);
+      let now = 1_000;
+      let signalDisposeStarted!: () => void;
+      const disposeStarted = new Promise<void>((resolve) => { signalDisposeStarted = resolve; });
+      const forceDispose = vi.fn();
+      const stuckDisposer: ArenaRunnerTool = {
+        ...offRagTool(testCase.observation.caseRef),
+        async dispose() {
+          signalDisposeStarted();
+          await new Promise<void>(() => undefined);
+        },
+        forceDispose,
+      };
+      const provider: ArenaToolCallProvider = {
+        descriptor: () => ({ providerId: "test-provider", model: "cleanup-deadline-test", protocolVersion: "arena-function-call/v1" }),
+        async request() {
+          now += 1;
+          return toolCall("submit_decision", finalSubmission(testCase.observation.caseRef, actionRefs));
+        },
+      };
+      const run = runBlindCoachCase({
+        observation: testCase.observation,
+        grading: { binding: testCase.authorizedCase.binding, reference: { status: "unavailable", reason: "mortal_unavailable" } },
+        provider,
+        tools: [stuckDisposer],
+        clock: () => now,
+        limits: { maxRunElapsedMs: 30 },
+      });
+
+      await disposeStarted;
+      await vi.advanceTimersByTimeAsync(29);
+      const result = await run;
+
+      expect(result.status).toBe("timeout");
+      expect(result.attempt.status).toBe("timeout");
+      expect(result.score.failures.timeout).toBe(1);
+      expect(forceDispose).toHaveBeenCalledTimes(1);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
   it("cancels cleanup waits and force disposes when the caller aborts", async () => {
     const testCase = makeArenaMcpCase();
     const actionRefs = testCase.observation.candidates.map((candidate) => candidate.actionRef);
