@@ -5,6 +5,8 @@ import {
   CANONICAL_EVENT_SCHEMA_VERSION,
   ArenaBlindObservationSchema,
   LIBRIICHI_RULE_NORMALIZATION_VERSION,
+  LOCAL_MORTAL_ADAPTER_VERSION,
+  LOCAL_MORTAL_PROTOCOL_VERSION,
   CanonicalEventStreamSchema,
   LibriichiRuleResponseSchema,
   canonicalActionRef,
@@ -13,6 +15,7 @@ import {
   type CanonicalGameEvent,
   type LibriichiRuleIdentity,
   type LibriichiRuleRequest,
+  type ManagedMortalRuntimeIdentity,
   type Tile,
 } from "@riichi-coach/contracts";
 import {
@@ -28,6 +31,7 @@ import {
   screenArenaDecisions,
   validateArenaSubmission,
 } from "../src/blind-discard-arena.js";
+import { projectArenaLocalMortalRuleScoring } from "../src/blind-discard-arena-scorer.js";
 
 const spec = readFileSync(
   new URL("../../../docs/specs/2026-10-09-blind-discard-arena.md", import.meta.url),
@@ -43,6 +47,21 @@ const ruleIdentity: LibriichiRuleIdentity = {
   nativeArtifactSha256: "1".repeat(64),
   wrapperSha256: "2".repeat(64),
   normalizationVersion: LIBRIICHI_RULE_NORMALIZATION_VERSION,
+};
+const mortalIdentity: ManagedMortalRuntimeIdentity = {
+  runtimeImplementation: "Equim-chan/Mortal",
+  runtimeRevision: ruleIdentity.revision,
+  runtimeVersion: "Mortal V4",
+  runtimeArtifactSha256: ruleIdentity.wrapperSha256,
+  nativeArtifactSha256: ruleIdentity.nativeArtifactSha256,
+  runtimeModelSha256: "3".repeat(64),
+  runtimeEngineSha256: "4".repeat(64),
+  checkpointRepository: "Yuchen1457/mortal-582500",
+  checkpointRevision: "5".repeat(40),
+  checkpointFileSha256: "6".repeat(64),
+  checkpointModelTag: "mortal-hpc@582500",
+  protocolVersion: LOCAL_MORTAL_PROTOCOL_VERSION,
+  adapterVersion: LOCAL_MORTAL_ADAPTER_VERSION,
 };
 const tile = (id: Tile["id"], red = false): Tile => ({ id, red });
 
@@ -139,6 +158,36 @@ function firstDecisionOutput(decision: ReplayedDecision, request: LibriichiRuleR
 }
 
 describe("Blind Discard Arena case and observation contract", () => {
+  it("projects Mortal labels from the same blinded native request frozen before screening", () => {
+    const { stream, decision, request } = realPrefixFixture();
+    const ruleResult = discardRows(request);
+    const scoringRequest = projectArenaLocalMortalRuleScoring({
+      identity: mortalIdentity,
+      decision,
+      ruleRequest: request,
+      ruleResult,
+    });
+
+    expect(scoringRequest.ruleRequest).toEqual(request);
+    expect(scoringRequest.ruleResult).toEqual(ruleResult);
+    expect(scoringRequest.identity).toEqual(mortalIdentity);
+    expect(scoringRequest.requestId).toBe(digest({
+      protocolVersion: scoringRequest.protocolVersion,
+      operation: scoringRequest.operation,
+      identity: scoringRequest.identity,
+      ruleRequest: scoringRequest.ruleRequest,
+      ruleResult: scoringRequest.ruleResult,
+    }));
+
+    const fullStreamRequest = createLibriichiRuleProjector(stream, ruleIdentity)(decision);
+    expect(() => projectArenaLocalMortalRuleScoring({
+      identity: mortalIdentity,
+      decision,
+      ruleRequest: fullStreamRequest,
+      ruleResult: discardRows(fullStreamRequest),
+    })).toThrow("arena_mortal_rule_request_not_blinded");
+  });
+
   it("accepts initial public river citations without a tool call and rejects unobserved references", () => {
     const { stream, decision, request } = realPrefixFixture();
     const { observation, aliases } = firstDecisionOutput(decision, request);

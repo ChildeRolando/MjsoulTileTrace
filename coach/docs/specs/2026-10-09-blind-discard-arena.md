@@ -178,7 +178,7 @@ npm run arena -- inspect <runId>
 
 固定 smoke 数据来源优先从现有脱敏完整记录 `coach/packages/mahjong-soul-source/tests/fixtures/real-record-complete.json` canonical replay；当前 `paipu-import-service.test.ts` 读取的就是该路径。该 fixture 只证明 source/canonical 回放输入，不得复用测试中冻结的 rule response / scoring stub 冒充真实 Mortal。case builder 按第 4 节完整规则动作空间筛选，在符合条件的完整记录内按 canonical 决策顺序选最早最多 3 个 case；筛选全程不读 Mortal label。dataset manifest 冻结 source hash、case refs、分组和 seed。off/local 两次运行消费完全相同的 case set 和候选顺序。
 
-T1 已使用 fixture 的真实 record bytes、managed native libriichi 规则查询和固定 Mortal checkpoint 冻结首个 smoke/dev case set。只扫描规则输入与结果后，先将完整 125 个 replay decision 交给 label-blind selector 并冻结纳入集；随后才为三道入选题查询并绑定 Mortal label。以下 receipt 不含 label actionRef、Q 值或分数：
+T1 已使用 fixture 的真实 record bytes、managed native libriichi 规则查询和固定 Mortal checkpoint 冻结首个 smoke/dev case set。只扫描规则输入与结果后，先将完整 125 个 replay decision 交给 label-blind selector 并冻结纳入集；随后才为三道入选题查询并绑定 Mortal label。评分请求只能使用已筛题的 blinded native request/result，不得为评分恢复 whole-stream identity。以下 receipt 不含 label actionRef、Q 值或分数：
 
 | 字段 | 冻结结果 |
 |---|---|
@@ -216,6 +216,7 @@ holdout acceptance 至少使用另一个不同的完整 gameId；只能从仓库
 | RAG off 不读 corpus、local no-hit 与 hit 可区分、context 不能替代词项命中且只调整词项命中结果排序、有来源、bounded output、prompt injection 不取得权限 | `coach/packages/desktop/tests/blind-discard-arena-rag.test.ts` | Arena 新 suite；COAC-222 实现 |
 | 模型选择真实 MCP/RAG 查询，无预取矩阵；只用已观察 refs 锁定 submission，之后才评分；断连/工具超时以 sanitized event 保留并允许安全恢复；清理受剩余 run 时限、取消和有界 force-dispose 约束 | `coach/packages/desktop/tests/blind-discard-arena-runner.test.ts` | Arena 新 suite；COAC-223 实现 |
 | Arena provider 每轮最多一个函数调用；凭据留在主进程、无自动重试，不保存 provider 原始 content/hidden CoT | `coach/packages/desktop/tests/arena-tool-call-provider.test.ts`、`coach/scripts/check-architecture.test.mjs` | Arena provider contract；COAC-223 实现 |
+| Mortal reference scoring 仅接受 label-blind 筛题所用的 prefix-bound native request/result，且在 selector 冻结后生成评分请求 | `coach/packages/desktop/tests/blind-discard-arena-case.test.ts` | Arena Mortal label projection seam；COAC-224 实现 |
 | archive event/manifest schema 校验、失败终态与 helper/RAG/tool 计数离线重算；inspect 不依赖运行中的 provider/MCP/RAG | `coach/packages/desktop/tests/blind-discard-arena-archive.test.ts` | T5 archive summary contract；COAC-224 实现 |
 | production ReviewReport 的一次 completion、provider retry、保存/读取与 UI 语义不变 | 继续维护现有 owner | `npx vitest run packages/reasoning/tests/review-report.test.ts packages/reasoning/tests/automatic-report-scope.test.ts packages/desktop/tests/coach-provider.test.ts packages/desktop/tests/codex-coach-provider.test.ts` |
 

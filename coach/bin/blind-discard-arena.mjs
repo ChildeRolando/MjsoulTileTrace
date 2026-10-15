@@ -18,7 +18,6 @@ import {
 import {
   bindLocalMortalRuleScores,
   createLibriichiRuleProjector,
-  projectLocalMortalRuleScoring,
   replayCanonicalStream,
 } from "@riichi-coach/reasoning";
 import {
@@ -39,6 +38,7 @@ import {
   runBlindCoachCase,
   ARENA_RUN_LIMITS_V1,
 } from "@riichi-coach/desktop/blind-discard-arena-runner";
+import { projectArenaLocalMortalRuleScoring } from "@riichi-coach/desktop/blind-discard-arena-scorer";
 import { ArenaMcpClient } from "@riichi-coach/desktop/blind-discard-arena-mcp";
 import { createArenaRagRetriever, ARENA_RAG_RETRIEVER_VERSION } from "@riichi-coach/desktop/blind-discard-arena-rag";
 import { ARENA_TOOL_CALL_PROMPT_VERSION } from "@riichi-coach/desktop/blind-discard-arena-provider";
@@ -296,8 +296,7 @@ async function makeFrozenDataset(runtime) {
     const frozen = byOrder.get(selected.canonicalDecisionOrder);
     if (frozen === undefined || frozen.ruleResponse.status !== "ok") throw new Error("arena_selected_case_binding_invalid");
     try {
-      const request = projectLocalMortalRuleScoring({
-        stream: mapped.stream,
+      const request = projectArenaLocalMortalRuleScoring({
         decision: decisions[selected.canonicalDecisionOrder],
         identity: runtime.identity,
         ruleRequest: frozen.ruleRequest,
