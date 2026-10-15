@@ -47,7 +47,7 @@ npm run arena -- run --dataset blind-discard-smoke-v1 --rag local
 npm run arena -- inspect <runId>
 ```
 
-Arena 使用固定脱敏 smoke/dev 牌局、真实 managed libriichi 和 Mortal runtime，并把 manifest、事件及可离线重算的 summary 写入 `reports/blind-discard-arena/<runId>/`。两种 RAG 模式必须各自记录 runId；`inspect` 不会启动模型或 helper。获授权的 OpenAI-compatible provider 由现有本机设置配置；若没有可用授权凭据，archive 会记录 provider unavailable，真实模型演示仍待完成，不得据此宣称 Arena 总体验收通过。边界与验收事实见 [Blind Discard Arena spec](../specs/2026-10-09-blind-discard-arena.md)。
+Arena 使用固定脱敏 smoke/dev 牌局、真实 managed libriichi 和 Mortal runtime，并把 manifest、事件及可离线重算的 summary 写入 `reports/blind-discard-arena/<runId>/`。两种 RAG 模式必须各自记录 runId；`inspect` 不会启动模型或 helper。设置获授权的 OpenAI-compatible provider 时，分别用 `RIICHI_COACH_ARENA_BASE_URL`、`RIICHI_COACH_ARENA_MODEL` 配置端点与模型，并通过 `RIICHI_COACH_API_KEY` 提供密钥；密钥不会写入 archive，也不会传给 MCP 子进程。若配置或授权凭据缺失，archive 会记录 provider unavailable，真实模型演示仍待完成，不得据此宣称 Arena 总体验收通过。边界与验收事实见 [Blind Discard Arena spec](../specs/2026-10-09-blind-discard-arena.md)。
 
 ### Electron 桌面应用
 
