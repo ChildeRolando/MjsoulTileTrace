@@ -52,6 +52,8 @@ it("the actual Arena CLI MCP server starts and queries the packaged helper", asy
   try {
     await client.connect(new StdioClientTransport({ command: process.execPath,
       args: [resolve(coachDir, "bin/blind-discard-arena-mcp-server.mjs"), configPath], stderr: "pipe" }));
+    const tools = await client.listTools();
+    expect(tools[0]!.inputSchema).toMatchObject({ properties: { caseRef: { type: "string" }, actionRefs: { type: "array" }, dimensions: { type: "array" } } });
     const result = await client.analyzeCandidates({ caseRef: authorizedCase.binding.caseRef,
       actionRefs: [authorizedCase.binding.candidates[0]!.actionRef], dimensions: ["shanten"] });
     expect(result.facts[0]).toMatchObject({ dimension: "shanten", status: "available" });

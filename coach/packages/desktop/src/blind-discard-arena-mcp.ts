@@ -74,12 +74,13 @@ const SupportedDimensionSchema = z.enum([
 ]);
 export type ArenaMcpSupportedDimension = z.infer<typeof SupportedDimensionSchema>;
 
-export const ArenaMcpCallInputSchema = z.object({
+const ArenaMcpCallInputObjectSchema = z.object({
   caseRef: ArenaCaseRefSchema,
   actionRefs: z.array(ActionRefSchema).min(1).max(ARENA_MCP_LIMITS_V1.maxActionRefsPerCall),
   dimensions: z.array(z.string().min(1).max(32).regex(/^[a-z][a-z0-9_]{0,31}$/))
     .min(1).max(ARENA_MCP_LIMITS_V1.maxDimensionsPerCall),
-}).strict().superRefine((input, context) => {
+}).strict();
+export const ArenaMcpCallInputSchema = ArenaMcpCallInputObjectSchema.superRefine((input, context) => {
   if (new Set(input.actionRefs).size !== input.actionRefs.length) {
     context.addIssue({ code: z.ZodIssueCode.custom, path: ["actionRefs"], message: "duplicate_action_ref" });
   }
@@ -442,7 +443,7 @@ export function createArenaMcpServer(options: ArenaMcpServerOptions) {
   server.registerTool("analyze_candidates", {
     title: "Analyze selected discard candidates",
     description: "Return requested hand facts for a small set of discard actionRefs in an authorized frozen case. No record, file, score, or arbitrary calculation access is available.",
-    inputSchema: ArenaMcpCallInputSchema,
+    inputSchema: ArenaMcpCallInputObjectSchema,
     annotations: { readOnlyHint: true, destructiveHint: false, openWorldHint: false },
   }, async (rawInput) => {
     toolCallCount += 1;

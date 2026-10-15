@@ -41,6 +41,8 @@ npm run coach:demo
 
 ### Blind Discard Arena 本地实验台
 
+本地控制台：运行 `npm run arena:console`，打开 `http://127.0.0.1:4318`。页面提供归档用量/结果看板、RAG 对照与受控故障实验的启动/停止，以及 Codex/API 配置。默认 `gpt-6-luna/high` 与 100M tokens 报警线；同一时间只运行一个实验。配置和历史保存在被忽略的 `reports/blind-discard-arena`，API Key 仅留在本次服务进程内存；关闭服务后需重填。停止会终止本次 CLI 及其子进程，不将未完成归档标为成功。此独立本地页面不接入生产 UI；服务仅监听本机，启动和停止均由用户操作，不安装定时任务。
+
 ```powershell
 npm run arena -- run --dataset blind-discard-smoke-v1 --rag off
 npm run arena -- run --dataset blind-discard-smoke-v1 --rag local
