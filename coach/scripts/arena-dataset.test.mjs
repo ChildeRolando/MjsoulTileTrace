@@ -1,4 +1,4 @@
-import test from 'node:test';
+const test = process.env.VITEST === 'true' ? (await import('vitest')).test : (await import('node:test')).test;
 import assert from 'node:assert/strict';
 import { parseArgs, selectDatasetBatch, selectExperimentPool, arenaDatasetSource } from '../bin/blind-discard-arena.mjs';
 

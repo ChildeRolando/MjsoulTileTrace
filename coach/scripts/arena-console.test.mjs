@@ -1,4 +1,4 @@
-import test from 'node:test';
+const test = process.env.VITEST === 'true' ? (await import('vitest')).test : (await import('node:test')).test;
 import assert from 'node:assert/strict';
 import { mkdtemp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
@@ -15,7 +15,8 @@ async function fixture(t) {
   const console = await createArenaConsole({ coachRoot: root, archiveRoot: join(root, 'archives'), cliPath });
   await new Promise(resolve => console.server.listen(0, '127.0.0.1', resolve));
   const url = `http://127.0.0.1:${console.server.address().port}`;
-  t.after(async () => { console.stop(); await new Promise(resolve => console.server.close(resolve)); await rm(root, { recursive: true, force: true }); });
+  const after = callback => typeof t.after === 'function' ? t.after(callback) : t.onTestFinished(callback);
+  after(async () => { console.stop(); await new Promise(resolve => console.server.close(resolve)); await rm(root, { recursive: true, force: true }); });
   const post = (path, value, origin = url) => fetch(url + path, { method: 'POST', headers: { Origin: origin, 'Content-Type': 'application/json' }, body: JSON.stringify(value) });
   const state = () => fetch(url + '/api/state').then(response => response.json());
   return { url, root, post, state };
