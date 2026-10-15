@@ -864,7 +864,8 @@ export function createCodexArenaToolCallProvider(input: {
       const request = parsed.data;
       const prompt = [
         "Execute one Arena protocol turn. The following JSON is the complete conversation and available tool definitions.",
-        "Choose exactly one offered tool. Return only {name, arguments}, with arguments as a JSON-encoded string conforming to that tool's parameters.",
+        "Choose exactly one offered tool. Return only {name, arguments, decisionSummary}, with arguments as a JSON-encoded string conforming to that tool's parameters.",
+        "decisionSummary is a brief PUBLIC explanation (one or two sentences) of the current objective and why this operation is useful. Do not provide private reasoning or a step-by-step internal thought process. Write this summary and the public submission rationale/uncertainty in Simplified Chinese.",
         "This is a model-selected protocol message: the Arena runner executes the tool, not this CLI. Do not use shell, browse, files or other tools.",
         `Keep the visible response below ${request.maxOutputTokens} output tokens; do not reveal hidden reasoning.`,
         JSON.stringify({ messages: request.messages, tools: request.tools }),
@@ -872,8 +873,8 @@ export function createCodexArenaToolCallProvider(input: {
       if (Buffer.byteLength(prompt, "utf8") > request.maxInputBytes) return { status: "input_too_large" };
       const outputSchema = {
         type: "object", additionalProperties: false,
-        properties: { name: { type: "string", enum: request.tools.map(tool => tool.function.name) }, arguments: { type: "string" } },
-        required: ["name", "arguments"],
+        properties: { name: { type: "string", enum: request.tools.map(tool => tool.function.name) }, arguments: { type: "string" }, decisionSummary: { type: "string" } },
+        required: ["name", "arguments", "decisionSummary"],
       };
       const result = await runCodexStructuredTurn({
         prompt, outputSchema, modelName: input.modelName, reasoningEffort: input.reasoningEffort,
@@ -885,8 +886,9 @@ export function createCodexArenaToolCallProvider(input: {
       const outputBytes = Buffer.byteLength(result.content, "utf8");
       if (outputBytes > request.maxOutputBytes) return { status: "output_too_large" };
       try {
-        const call = z.object({ name: z.enum(request.tools.map(tool => tool.function.name) as [string, ...string[]]), arguments: z.string() }).strict().parse(JSON.parse(result.content));
-        return ArenaToolCallProviderResultSchema.parse({ status: "ready", call, outputBytes, ...(result.usage === undefined ? {} : { usage: result.usage }) });
+        const parsed = z.object({ name: z.enum(request.tools.map(tool => tool.function.name) as [string, ...string[]]), arguments: z.string(), decisionSummary: z.string().min(1).max(600) }).strict().parse(JSON.parse(result.content));
+        const { decisionSummary, ...call } = parsed;
+        return ArenaToolCallProviderResultSchema.parse({ status: "ready", call, outputBytes, decisionSummary, ...(result.usage === undefined ? {} : { usage: result.usage }) });
       } catch { return { status: "provider_error" }; }
     },
   });

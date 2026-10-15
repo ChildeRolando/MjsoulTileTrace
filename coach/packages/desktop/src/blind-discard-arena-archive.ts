@@ -12,6 +12,7 @@ import { ArenaExclusionReasonSchema } from "./blind-discard-arena.js";
 import {
   ArenaCoachRunResultSchema,
   ArenaRunTerminalStatusSchema,
+  ArenaRunEventSchema,
 } from "./blind-discard-arena-runner.js";
 
 const Sha256Schema = z.string().regex(/^[0-9a-f]{64}$/);
@@ -102,6 +103,22 @@ export const ArenaArchiveEventSchema = z.discriminatedUnion("type", [
   }).strict(),
 ]);
 export type ArenaArchiveEvent = z.infer<typeof ArenaArchiveEventSchema>;
+
+/** Live observation only. Final case_run events remain the scoring/statistics owner. */
+export const ArenaCaseTraceSchema = z.object({
+  schemaVersion: z.literal("blind-discard-arena-case-trace/v1"),
+  caseOrdinal: z.number().int().min(0).max(2),
+  event: ArenaRunEventSchema,
+}).strict();
+export function parseArenaCaseTrace(text: string) {
+  if (Buffer.byteLength(text, "utf8") > 8 * 1024 * 1024) throw new Error("arena_trace_too_large");
+  // A polling reader can observe the last append before its newline is written.
+  const complete = text.slice(0, text.lastIndexOf("\n") + 1).trim();
+  if (!complete) return [];
+  const rows = complete.split("\n");
+  if (rows.length > 192) throw new Error("arena_trace_too_large");
+  return rows.map(row => ArenaCaseTraceSchema.parse(JSON.parse(row)));
+}
 
 const RUN_STATUSES = [
   "completed", "invalid_submission", "provider_unavailable", "provider_error",

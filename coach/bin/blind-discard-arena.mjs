@@ -1,4 +1,5 @@
 import { createHash, randomUUID } from "node:crypto";
+import { appendFileSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 import { mkdtemp, mkdir, readFile, readdir, rm, stat, writeFile, appendFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
@@ -430,6 +431,7 @@ async function runCommand(options) {
     }
     const descriptorProvider = providerFor(options.providerSettings, { readKey: async () => apiKey }, options.arenaCodex);
     const descriptor = descriptorProvider.descriptor();
+    let liveTraceAvailable = true;
     const ragCorpusVersion = options.ragMode === "local"
       ? (await import("@riichi-coach/desktop/blind-discard-arena-rag-seed")).BLIND_DISCARD_ARENA_RAG_SEED_CORPUS.corpusVersion
       : null;
@@ -529,6 +531,17 @@ async function runCommand(options) {
           provider: descriptorProvider,
           tools,
           limits,
+          onEvent(event) {
+            if (!liveTraceAvailable) return;
+            try {
+              appendFileSync(join(runDirectory, "case-trace.jsonl"), `${JSON.stringify({
+                schemaVersion: "blind-discard-arena-case-trace/v1", caseOrdinal: entry.caseOrdinal, event,
+              })}\n`, { encoding: "utf8", mode: 0o600 });
+            } catch {
+              liveTraceAvailable = false;
+              process.stderr.write("arena_live_trace_unavailable\n");
+            }
+          },
         });
         const event = ArenaArchiveEventSchema.parse({
           schemaVersion: "blind-discard-arena-archive-event/v1",

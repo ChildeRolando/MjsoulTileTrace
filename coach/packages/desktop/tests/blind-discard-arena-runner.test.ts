@@ -10,13 +10,14 @@ import {
   createArenaRagRunnerTool,
   runBlindCoachCase,
   type ArenaRunnerTool,
+  type ArenaRunEvent,
 } from "../src/blind-discard-arena-runner.js";
 import type { ArenaProviderMessage, ArenaProviderRequest, ArenaToolCallProvider } from "../src/blind-discard-arena-provider.js";
 import { createArenaRagRetriever } from "../src/blind-discard-arena-rag.js";
 import { arenaFixtureCanaries, makeArenaMcpCase } from "./fixtures/arena-mcp-case.js";
 
 function toolCall(name: string, args: unknown, outputBytes = 200) {
-  return { status: "ready" as const, call: { name, arguments: JSON.stringify(args) }, outputBytes };
+  return { status: "ready" as const, call: { name, arguments: JSON.stringify(args) }, outputBytes, decisionSummary: "根据可见输入选择下一步操作。" };
 }
 
 function finalSubmission(caseRef: string, actionRefs: readonly ActionRef[]): ArenaCoachSubmission {
@@ -144,6 +145,7 @@ describe("Blind Discard Arena runner", () => {
     const seenRequests: string[] = [];
     const actionRefs = testCase.observation.candidates.map((candidate) => candidate.actionRef);
     const provider = scriptedProvider({ actionRefs, seenRequests });
+    const observed: ArenaRunEvent[] = [];
     const result = await runBlindCoachCase({
       observation: testCase.observation,
       grading: {
@@ -152,8 +154,15 @@ describe("Blind Discard Arena runner", () => {
       },
       provider,
       tools: [mcpTool, ragTool],
+      onEvent(event) { observed.push(structuredClone(event)); if (event.type === "provider_turn") event.decisionSummary = "observer mutation"; },
     });
 
+    expect(observed).toEqual(result.events);
+    expect(observed[0]).toMatchObject({ type: "run_started", observation: testCase.observation });
+    expect(observed.find(event => event.type === "provider_turn")).toMatchObject({ decisionSummary: "根据可见输入选择下一步操作。" });
+    expect(observed.filter(event => event.type === "tool_call" || event.type === "tool_result").every(event => "elapsedMs" in event && typeof event.elapsedMs === "number")).toBe(true);
+    expect(JSON.stringify(observed)).not.toContain(arenaFixtureCanaries.gameIdCanary);
+    expect(JSON.stringify(observed)).not.toContain(arenaFixtureCanaries.recordIdCanary);
     expect(result.status).toBe("completed");
     expect(result.attempt.status).toBe("submitted");
     expect(result.providerTurnCount).toBe(3);

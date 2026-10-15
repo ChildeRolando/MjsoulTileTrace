@@ -153,6 +153,7 @@ export const ArenaRunEventSchema = z.discriminatedUnion("type", [
     promptVersion: z.string().min(1).max(80),
     limits: ArenaRunLimitsSchema,
     toolNames: z.array(z.string().regex(TOOL_NAME)).max(16),
+    observation: ArenaBlindObservationSchema.optional(),
   }).strict(),
   z.object({
     type: z.literal("provider_turn"),
@@ -163,6 +164,7 @@ export const ArenaRunEventSchema = z.discriminatedUnion("type", [
     outputBytes: z.number().int().nonnegative().optional(),
     toolName: z.string().regex(TOOL_NAME).optional(),
     usage: LlmTokenUsageSchema.optional(),
+    decisionSummary: z.string().min(1).max(600).optional(),
   }).strict(),
   z.object({
     type: z.literal("tool_call"),
@@ -170,6 +172,7 @@ export const ArenaRunEventSchema = z.discriminatedUnion("type", [
     turn: z.number().int().positive(),
     toolName: z.string().regex(TOOL_NAME),
     request: z.unknown().nullable(),
+    elapsedMs: z.number().int().nonnegative().optional(),
   }).strict(),
   z.object({
     type: z.literal("tool_result"),
@@ -179,6 +182,7 @@ export const ArenaRunEventSchema = z.discriminatedUnion("type", [
     status: z.enum(["ok", "error"]),
     code: ArenaToolFailureCodeSchema.optional(),
     result: z.unknown().optional(),
+    elapsedMs: z.number().int().nonnegative().optional(),
   }).strict(),
   z.object({
     type: z.literal("submission_locked"),
@@ -560,6 +564,8 @@ export async function runBlindCoachCase(input: {
   limits?: Partial<ArenaRunLimits>;
   signal?: AbortSignal;
   clock?: () => number;
+  /** Receives only already validated public events; no provider raw stream or grader label. */
+  onEvent?: (event: ArenaRunEvent) => void;
 }): Promise<ArenaCoachRunResult> {
   const observation = ArenaBlindObservationSchema.parse(input.observation);
   const limits = resolveRunLimits(input.limits);
@@ -602,7 +608,8 @@ export async function runBlindCoachCase(input: {
   const disposalStarted = new WeakSet<ArenaRunnerTool>();
 
   const append = (raw: ArenaRunEvent): boolean => {
-    const event = ArenaRunEventSchema.parse(raw);
+    const event = ArenaRunEventSchema.parse(raw.type === "tool_call" || raw.type === "tool_result"
+      ? { ...raw, elapsedMs: Math.max(0, clock() - startedAtMs) } : raw);
     const serialized = serializeEvent(event);
     if (totalEventBytes + Buffer.byteLength(serialized, "utf8") > limits.maxRunEventBytes) {
       eventBudgetExceeded = true;
@@ -610,6 +617,7 @@ export async function runBlindCoachCase(input: {
     }
     totalEventBytes += Buffer.byteLength(serialized, "utf8");
     events.push(event);
+    input.onEvent?.(structuredClone(event));
     return true;
   };
 
@@ -690,6 +698,7 @@ export async function runBlindCoachCase(input: {
     promptVersion: ARENA_TOOL_CALL_PROMPT_VERSION,
     limits,
     toolNames: [...toolMap.keys()],
+    observation,
   });
   let finished = false;
   if (eventBudgetExceeded) {
@@ -835,6 +844,7 @@ export async function runBlindCoachCase(input: {
         result: response.status === "ready" ? "tool_call" : response.status,
         ...(response.status === "ready" ? { toolName: response.call.name } : {}),
         ...(response.status === "ready" && response.usage !== undefined ? { usage: response.usage } : {}),
+        ...(response.status === "ready" && response.decisionSummary !== undefined ? { decisionSummary: response.decisionSummary } : {}),
       });
       if (eventBudgetExceeded) {
         terminalStatus = "budget_exhausted";

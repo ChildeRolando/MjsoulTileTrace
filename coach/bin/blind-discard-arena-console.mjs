@@ -4,7 +4,7 @@ import { readFile, writeFile, readdir, mkdir } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { randomUUID } from 'node:crypto';
-import { ArenaArchiveManifestSchema, ArenaArchiveSummarySchema, parseArenaArchiveEvents, arenaTokenBudget } from '@riichi-coach/desktop/blind-discard-arena-archive';
+import { ArenaArchiveManifestSchema, ArenaArchiveSummarySchema, parseArenaArchiveEvents, parseArenaCaseTrace, arenaTokenBudget } from '@riichi-coach/desktop/blind-discard-arena-archive';
 
 const DEFAULTS = { provider: 'codex-cli', model: 'gpt-6-luna', reasoningEffort: 'high', baseUrl: '',
   tokenWarningThreshold: 100_000_000, maxProviderTurns: 6, maxToolCalls: 4, maxProviderOutputTokens: 2048, maxRunMs: 300000 };
@@ -115,7 +115,9 @@ export async function createArenaConsole({ coachRoot = fileURLToPath(new URL('..
         const id = url.pathname.slice('/api/run/'.length); if (!UUID.test(id)) throw fail('找不到该实验。', 404);
         const results = await runs(), run = results.find(row => row.id === id); if (!run) throw fail('找不到该实验。', 404);
         let events = []; try { const text = await readFile(join(archiveRoot, id, 'events.jsonl'), 'utf8'); if (text.length <= 8 * 1024 * 1024) events = parseArenaArchiveEvents(text); } catch { /* partial events are not complete evidence */ }
-        return json(response, 200, { ...run, events });
+        let trace = []; try { trace = parseArenaCaseTrace(await readFile(join(archiveRoot, id, 'case-trace.jsonl'), 'utf8'))
+          .filter(row => row.caseOrdinal < run.manifest.dataset.selected.length); } catch { /* old or incomplete live trace; final records still own facts */ }
+        return json(response, 200, { ...run, events, trace });
       }
       if (request.method === 'POST' && url.pathname === '/api/config') {
         const raw = await body(request), next = settings(raw);

@@ -10,6 +10,7 @@ import {
   parseArenaArchiveEvents,
   summarizeArenaArchive,
   arenaTokenBudget,
+  parseArenaCaseTrace,
 } from "../src/blind-discard-arena-archive.js";
 
 const caseRefs = [
@@ -169,6 +170,16 @@ function scanEvent() {
 }
 
 describe("Blind Discard Arena run archive", () => {
+  it("reads complete public trace records without treating a partially appended line as an event", () => {
+    const record = { schemaVersion: "blind-discard-arena-case-trace/v1", caseOrdinal: 0,
+      event: { type: "provider_turn", turn: 1, elapsedMs: 10, inputBytes: 20, result: "tool_call", decisionSummary: "查询公开资料。" } };
+    const wire = JSON.stringify(record);
+    expect(parseArenaCaseTrace(`${wire}\n${wire.slice(0, 40)}`)).toEqual([record]);
+    expect(parseArenaCaseTrace("")).toEqual([]);
+    expect(() => parseArenaCaseTrace(`${JSON.stringify({ ...record, privateReasoning: "not allowed" })}\n`)).toThrow();
+    expect(() => parseArenaCaseTrace(`${JSON.stringify({ ...record, caseOrdinal: 3 })}\n`)).toThrow();
+    expect(() => parseArenaCaseTrace(`${wire}\n`.repeat(193))).toThrow();
+  });
   it("warns at cumulative reported tokens, does not double count cache, and retains unknown use", () => {
     const base = summarizeArenaArchive({ manifest: manifest(), events: [scanEvent()] });
     const reported = { ...base, tokenUsage: { status: "reported", tokens: { inputTokens: 80, cachedInputTokens: 60, outputTokens: 20, totalTokens: 100 }, providerTurnCount: 1 } };

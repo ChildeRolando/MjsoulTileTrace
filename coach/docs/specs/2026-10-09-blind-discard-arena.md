@@ -238,6 +238,8 @@ COAC-223 P2 清理截止竞态复修验证（2026-10-15）：runner 在剩余 ru
 
 2026-10-15 用户追加本地实验控制台：沿用 T5 CLI 与归档 owner，提供预算/结果看板、实验启停和模型/API 配置，不改生产复盘 UI。控制台默认本机 Codex `gpt-6-luna/high`、累计归档已报告 token 报警线 100M；串行执行同一开发案例集的 off/local 或受控故障运行，不自动生成额外实验。实验“运行完成”、独立验收、专家质量审查保持不同事实；工具失败与未完成归档必须可见。API Key 仅保留在本次服务进程内存，manifest 和配置文件不存密钥。
 
+同日追加逐案例执行轨迹：可选的 `run_started.observation`、`provider_turn.decisionSummary` 与工具事件相对开始时间向后兼容旧归档。`decisionSummary` 只是一两句公开操作说明；provider 的私有 reasoning/raw content 仍不保存。CLI 将已通过 runner schema 的事件同步追加到诊断文件 `case-trace.jsonl`，实时读忽略末尾未完成行；最终 `case_run` 是评分/用量的唯一 owner，不从实时副本叠加指标。逐题显示真实工具请求/返回、提交/拒绝、评分与耗时；缺失字段明确显示未记录，不还原或编造旧轨迹。参考界面组织：[DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness)、[Multica execution logs](https://github.com/multica-ai/multica#stay-in-the-loop)，不引入它们的运行时依赖。
+
 COAC-224 的真实模型入口补充（2026-10-15 用户授权）：本机 Codex/ChatGPT 订阅，`gpt-6-luna`、reasoning effort `high`；通过现有 main-owned Codex 进程执行一次结构化 Arena 工具选择，再由 runner 调用真实 MCP/RAG。仍使用原 Arena DTO/预算/提交后评分边界，不调用生产 report seam，不暴露 CLI 工具或 grader 标签。当前工作树归档累计已报告 token 的报警线为 100,000,000，缓存为输入子集，未知用量不填零；报警不等于自动停机。此补充不把 smoke/dev 案例变成独立验收集，牌局隔离与真实演示结果仍须如实记录。
 
 本轮不做大规模教材搜集/爬虫、第二麻将算法/合法动作引擎、Mortal/LLM 训练微调、多 Agent 辩论、长期用户模型、web dashboard/生产 UI、精确顺位 EV、通用反事实模拟器或“匹配 Mortal 即证明专家正确”的判断。

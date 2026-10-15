@@ -7,7 +7,7 @@ const date = value => new Date(value).toLocaleString('zh-CN', { month: '2-digit'
 const labels = { running: '运行中', stopping: '正在停止', stopped: '已停止', completed: '执行完成', failed: '执行失败',
   timeout: '超时', provider_error: '模型调用失败', provider_unavailable: '模型不可用', cancelled: '已取消', budget_exhausted: '达到逐题预算',
   tool_failure: '工具失败', invalid_submission: '提交无效', label_binding_failure: '标签绑定失败', off: 'RAG Off', local: 'Local RAG', fault: '受控故障', compare: 'RAG 对照' };
-let state, filter = 'all', pending = false, selectedResult;
+let state, filter = 'all', pending = false, selectedResult, detailSignature = '';
 
 async function api(path, data) {
   const response = await fetch(path, data === undefined ? {} : { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
@@ -72,7 +72,9 @@ function renderRuns() {
   }).join('')}</tbody></table>`;
 }
 async function refresh() {
-  try { state = await api('/api/state'); render(); $('#sync-status').textContent = `已同步 ${new Date().toLocaleTimeString('zh-CN', { hour12: false })}`; }
+  try { state = await api('/api/state'); render(); $('#sync-status').textContent = `已同步 ${new Date().toLocaleTimeString('zh-CN', { hour12: false })}`;
+    if ($('#result-dialog').open && $('#trace-auto')?.checked) await refreshDetail();
+  }
   catch { $('#sync-status').textContent = '本机服务未连接'; message('无法连接控制台服务，正在重试。已有归档不受影响。', true); }
 }
 function openSettings() {
@@ -110,15 +112,80 @@ $('#experiment-mode').addEventListener('change', event => {
   $('#mode-hint').textContent = ({ compare: '使用同一组案例，依次运行关闭检索与本地检索两种模式。', local: '允许模型按需查询本地知识与真实 helper MCP。', off: '关闭知识检索，仍允许按需调用真实 helper MCP。', fault: '在模型首次调用 helper 时注入超时，观察恢复或实际失败。模型未查询时不宣称故障已触发。' })[event.target.value];
 });
 for (const button of document.querySelectorAll('[data-filter]')) button.addEventListener('click', () => { filter = button.dataset.filter; for (const other of document.querySelectorAll('[data-filter]')) { other.classList.toggle('selected', other === button); other.setAttribute('aria-pressed', other === button); } renderRuns(); });
+function tileText(tile) {
+  const id = typeof tile === 'string' ? tile : tile?.id;
+  if (!id) return '未知牌';
+  return `${tile?.red ? '赤' : ''}${({ '1z': '东', '2z': '南', '3z': '西', '4z': '北', '5z': '白', '6z': '发', '7z': '中' })[id] ?? id.replace(/([mps])$/, suit => ({ m: '万', p: '筒', s: '索' })[suit])}`;
+}
+function actionText(ref) {
+  try { const value = JSON.parse(decodeURIComponent(ref.slice('action:v1:'.length)));
+    if (ref.startsWith('action:v1:') && value[0] === 'discard') return `${value[2] === 'tsumogiri' ? '摸切' : '手切'} ${tileText({ id: value[1][0], red: value[1][1] })}`;
+  } catch { /* old or unknown action stays inspectable in structured data */ }
+  return '查看动作原始记录';
+}
+function structured(key, title, value) {
+  return `<details data-detail-key="${esc(key)}"><summary>${esc(title)}</summary><pre>${esc(JSON.stringify(value, null, 2) ?? '未记录')}</pre></details>`;
+}
+function observationView(observation) {
+  const state = observation.visibleState;
+  return `<div class="observation-summary"><p><b>${esc(({ E: '东', S: '南', W: '西' })[state.roundWind])}${state.hand}局 · ${state.honba}本场</b> · 剩余摸牌 ${state.remainingDraws ?? '未知'}</p><p>手牌：${state.self.concealedTiles.map(tile => esc(tileText(tile))).join(' · ')}</p><p>当前摸牌：${state.self.currentDraw ? esc(tileText(state.self.currentDraw.tile)) : '无'}　宝牌指示：${state.doraIndicators.map(tile => esc(tileText(tile))).join(' · ') || '无'}</p><p class="field-hint">候选：${observation.candidates.map(candidate => esc(actionText(candidate.actionRef))).join(' / ')}</p></div>`;
+}
+function traceEvent(event, index, ordinal, events) {
+  const key = `${ordinal}-${index}`, time = event.elapsedMs === undefined ? '' : ` · ${(event.elapsedMs / 1000).toFixed(2)}s`;
+  if (event.type === 'run_started') return `<li class="trace-item"><div class="trace-heading">开始案例 <span>${esc(date(event.startedAt))}</span></div>${event.observation ? `${observationView(event.observation)}${structured(key, '展开完整案例输入', event.observation)}` : '<p class="field-hint">旧归档未记录案例输入。</p>'}</li>`;
+  if (event.type === 'provider_turn') return `<li class="trace-item"><div class="trace-heading">第 ${event.turn} 轮模型调用 <span>${esc(labels[event.result] ?? (event.result === 'tool_call' ? '选择操作' : event.result))}${time}</span></div><div class="decision-summary"><span class="micro">公开决策摘要</span><p>${esc(event.decisionSummary ?? '旧归档未记录本轮公开摘要。')}</p></div><p class="field-hint">${event.toolName ? `选择 ${esc(event.toolName)} · ` : ''}${event.usage ? `输入 ${event.usage.inputTokens === undefined ? '未知' : number(event.usage.inputTokens)} / 输出 ${event.usage.outputTokens === undefined ? '未知' : number(event.usage.outputTokens)} tokens` : '本轮 token 用量未报告'} · 输入 ${number(event.inputBytes)} bytes${event.outputBytes === undefined ? '' : ` / 输出 ${number(event.outputBytes)} bytes`}</p></li>`;
+  if (event.type === 'tool_call') return `<li class="trace-item"><div class="trace-heading">工具调用 #${event.ordinal} <span>第 ${event.turn} 轮${time}</span></div><strong class="tool-name">${esc(event.toolName)}</strong>${event.request === null ? '<p class="tool-warning">请求未通过校验；未保留未经验证的原始参数。</p>' : structured(key, '查看完整调用参数', event.request)}</li>`;
+  if (event.type === 'tool_result') {
+    const call = events.find(row => row.type === 'tool_call' && row.ordinal === event.ordinal);
+    const duration = call?.elapsedMs !== undefined && event.elapsedMs !== undefined ? ` · 耗时 ${event.elapsedMs - call.elapsedMs}ms` : '';
+    return `<li class="trace-item ${event.status === 'error' ? 'trace-error' : ''}"><div class="trace-heading">工具返回 #${event.ordinal} <span>${event.status === 'ok' ? '成功' : '失败'}${time}${duration}</span></div><strong class="tool-name">${esc(event.toolName)}</strong>${event.code ? `<p class="tool-warning">${esc(event.code)}</p>` : ''}${event.result === undefined ? '<p class="field-hint">本次没有返回可用的数据。</p>' : structured(key, '查看完整返回结果', event.result)}</li>`;
+  }
+  if (event.type === 'submission_locked') { const answer = event.submission;
+    return `<li class="trace-item"><div class="trace-heading">最终提交 <span>已锁定</span></div><strong class="answer-action">${esc(actionText(answer.actionRef))}</strong><p>${esc(answer.rationale)}</p>${answer.mainAlternative ? `<p><b>备选：${esc(actionText(answer.mainAlternative.actionRef))}</b><br>${esc(answer.mainAlternative.reasonNotChosen)}</p>` : ''}<p><b>不确定性：</b>${esc(answer.uncertainty || '未填写')}</p><p class="field-hint">${answer.evidenceRefs.length} 个证据引用 · ${answer.sourceRefs.length} 个来源引用</p>${structured(key, '查看提交及全部引用', answer)}</li>`;
+  }
+  if (event.type === 'submission_rejected') return `<li class="trace-item trace-error"><div class="trace-heading">提交被拒绝</div><p>${esc(({ schema_invalid: '提交格式无效', case_mismatch: '案例绑定不符', action_not_offered: '选择了候选集以外的动作', alternative_not_offered: '备选动作不在候选集中', reference_not_observed: '引用了未实际取得的证据或来源' })[event.reason] ?? event.reason)}</p><code>${esc(event.reason)}</code></li>`;
+  return `<li class="trace-item"><div class="trace-heading">案例执行结束 <span>${esc(labels[event.status] ?? event.status)}${time}</span></div></li>`;
+}
+function renderDetail(data) {
+  const { manifest: m, summary: s, events, trace = [] } = data;
+  const finalized = new Map(events.filter(item => item.type === 'case_run').map(item => [item.caseOrdinal, item.result]));
+  const live = new Map(); for (const row of trace) { if (!live.has(row.caseOrdinal)) live.set(row.caseOrdinal, []); live.get(row.caseOrdinal).push(row.event); }
+  const body = $('#detail-body'), dialog = $('#result-dialog');
+  const openKeys = new Set([...body.querySelectorAll('details[open]')].map(node => node.dataset.detailKey));
+  const scroll = dialog.scrollTop, activeKey = document.activeElement?.closest('details')?.dataset.detailKey, focusedId = document.activeElement?.id;
+  const auto = $('#trace-auto')?.checked ?? true;
+  const signature = JSON.stringify(data);
+  selectedResult = data;
+  if (detailSignature === signature) return;
+  detailSignature = signature;
+  $('#detail-title').textContent = `实验 ${data.id.slice(0, 8)}`;
+  body.innerHTML = `<div class="detail-meta"><span>${date(m.startedAt)}</span><span>${esc(m.coach.model)} · ${esc(m.coach.reasoningEffort ?? m.coach.providerId)}</span><span>RAG ${esc(m.rag.mode)}</span><span>代码 ${m.codeSha.slice(0, 8)}</span></div><div class="detail-stat"><div>有效回答<strong>${s ? `${s.score.conditionalMatchRate.denominator}/${s.selectedCaseCount}` : '待归档'}</strong></div><div>Mortal 匹配<strong>${s ? `${s.score.matchedCaseCount}/${s.score.includedCaseCount}` : '待评分'}</strong></div><div>Token 用量<strong>${tokenText(s)}</strong></div></div><p class="field-hint">开发样本；未进行专家质量验收。${s ? `Helper 查询 ${s.evidence.helperQueries} 次，RAG 查询 ${s.evidence.ragQueries} 次、命中 ${s.evidence.ragHits} 次。` : '归档尚未完成，保留已发生的步骤，不据此判断成功。'}</p><div class="trace-controls"><label><input type="checkbox" id="trace-auto" ${auto ? 'checked' : ''}> 自动刷新过程</label><button id="refresh-detail" class="quiet-button">刷新过程</button><span id="trace-sync" role="status"></span></div><p class="field-hint">展示公开摘要和实际工具记录；不包含模型内部私有思维链。工具参数与返回可完整展开。</p>${m.dataset.selected.map((item, ordinal) => {
+    const result = finalized.get(ordinal), records = result?.events ?? live.get(ordinal) ?? [];
+    const score = result?.score.cases[0];
+    return `<article class="case-detail"><h3>案例 ${ordinal + 1} <span class="tag">${result ? esc(labels[result.status] ?? result.status) : records.length ? '尚无最终结果' : '尚无执行记录'}</span></h3><div class="detail-meta"><span>${item.candidateCount} 个候选动作</span>${result ? `<span>${result.providerTurnCount} 轮模型调用 · ${result.toolCallCount} 次工具调用 · ${(result.elapsedMs / 1000).toFixed(1)}s</span><span>${score?.status === 'matched' ? 'Mortal 匹配' : score?.status === 'not_matched' ? 'Mortal 不匹配' : '未得到匹配评分'}</span>` : ''}</div>${records.length ? `<ol class="trace-list">${records.map((row, index) => traceEvent(row, index, ordinal, records)).join('')}</ol>` : '<p class="field-hint">尚未收到本题事件。停止或中断的实验可能不会继续产生记录。</p>'}${result && !records.some(row => row.type === 'submission_locked') && result.attempt.submission ? structured(`${ordinal}-legacy-answer`, '旧归档中的最终提交', result.attempt.submission) : ''}</article>`;
+  }).join('')}${structured('archive', '查看可离线复查的结构化结果', data)}<button id="download-result" class="quiet-button">下载本次结果 JSON</button>`;
+  for (const node of body.querySelectorAll('details')) { node.open = openKeys.has(node.dataset.detailKey); if (activeKey === node.dataset.detailKey) node.querySelector('summary').focus({ preventScroll: true }); }
+  if (focusedId && body.querySelector(`#${CSS.escape(focusedId)}`)) body.querySelector(`#${CSS.escape(focusedId)}`).focus({ preventScroll: true });
+  dialog.scrollTop = scroll;
+  $('#refresh-detail').addEventListener('click', () => refreshDetail().catch(() => { $('#trace-sync').textContent = '刷新失败，请重试'; }));
+  $('#download-result').addEventListener('click', () => { const url = URL.createObjectURL(new Blob([JSON.stringify(selectedResult, null, 2)], { type: 'application/json' })); const link = document.createElement('a'); link.href = url; link.download = `arena-${selectedResult.id}.json`; link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000); });
+}
+let refreshingDetail = false;
+async function refreshDetail() {
+  if (!selectedResult || refreshingDetail) return;
+  refreshingDetail = true;
+  const id = selectedResult.id;
+  try { const data = await api(`/api/run/${id}`); if (!$('#result-dialog').open || selectedResult.id !== id) return; renderDetail(data); $('#trace-sync').textContent = `已同步 ${new Date().toLocaleTimeString('zh-CN', { hour12: false })}`; }
+  finally { refreshingDetail = false; }
+}
 $('#results-body').addEventListener('click', async event => {
   const button = event.target.closest('[data-run]'); if (!button) return;
   button.disabled = true;
   try {
-    selectedResult = await api(`/api/run/${button.dataset.run}`); const { manifest: m, summary: s, events } = selectedResult;
-    $('#detail-title').textContent = `实验 ${selectedResult.id.slice(0, 8)}`;
-    $('#detail-body').innerHTML = `<div class="detail-meta"><span>${date(m.startedAt)}</span><span>${esc(m.coach.model)} · ${esc(m.coach.reasoningEffort ?? m.coach.providerId)}</span><span>RAG ${m.rag.mode}</span><span>代码 ${m.codeSha.slice(0, 8)}</span></div><div class="detail-stat"><div>有效回答<strong>${s ? `${s.score.conditionalMatchRate.denominator}/${s.selectedCaseCount}` : '—'}</strong></div><div>Mortal 匹配<strong>${s ? `${s.score.matchedCaseCount}/${s.score.includedCaseCount}` : '—'}</strong></div><div>Token 用量<strong>${tokenText(s)}</strong></div></div><p class="field-hint">开发样本；未进行专家质量验收。${s ? `Helper 查询 ${s.evidence.helperQueries} 次，RAG 查询 ${s.evidence.ragQueries} 次、命中 ${s.evidence.ragHits} 次。` : '本次归档未完成，不能据此判断成功。'}</p>${events.filter(item => item.type === 'case_run').map(item => { const r = item.result, answer = r.attempt.submission; return `<article class="case-detail"><h3>案例 ${item.caseOrdinal + 1} <span class="tag">${esc(labels[r.status] ?? r.status)}</span></h3><div class="detail-meta"><span>${r.providerTurnCount} 轮模型调用</span><span>${r.toolCallCount} 次工具调用</span><span>${(r.elapsedMs / 1000).toFixed(1)}s</span></div>${answer ? `<p>${esc(answer.rationale)}</p><div class="detail-meta"><span>动作 ${esc(answer.actionRef)}</span><span>${answer.sourceRefs.length} 个来源引用</span></div><p>${esc(answer.uncertainty)}</p>` : '<p>没有有效提交；该题仍保留在实验统计中。</p>'}</article>`; }).join('')}<details><summary>查看可离线复查的结构化结果</summary><pre>${esc(JSON.stringify(selectedResult, null, 2))}</pre></details><button id="download-result" class="quiet-button">下载本次结果 JSON</button>`;
-    $('#download-result').addEventListener('click', () => { const url = URL.createObjectURL(new Blob([JSON.stringify(selectedResult, null, 2)], { type: 'application/json' })); const link = document.createElement('a'); link.href = url; link.download = `arena-${selectedResult.id}.json`; link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000); });
+    detailSignature = ''; $('#detail-body').innerHTML = '';
+    renderDetail(await api(`/api/run/${button.dataset.run}`));
     $('#result-dialog').showModal();
+    $('#result-dialog').scrollTop = 0;
   } catch (error) { message(error.message, true); } finally { button.disabled = false; }
 });
 await refresh();

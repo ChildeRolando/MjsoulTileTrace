@@ -29,7 +29,7 @@ const finalDraft = JSON.stringify({ decisions: [] });
 
 it("Arena uses the authorized Luna/high structured turn with observed tools, no retry or report contract", async () => {
   const selected = { name: "search_knowledge", arguments: JSON.stringify({ query: "牌效" }) };
-  const fake = fakePort({ version: "codex-cli 0.162.1\n", onExec: successfulTranscript(JSON.stringify(selected)) });
+  const fake = fakePort({ version: "codex-cli 0.162.1\n", onExec: successfulTranscript(JSON.stringify({ ...selected, decisionSummary: "查询本地资料，补充可引用的基础概念。" })) });
   const provider = createCodexArenaToolCallProvider({ modelName: "gpt-6-luna", reasoningEffort: "high", processPort: fake.port });
   const result = await provider.request({
     messages: [{ role: "system", content: "Only observed evidence." }, { role: "user", content: "BLIND_OBSERVATION" }],
@@ -37,6 +37,7 @@ it("Arena uses the authorized Luna/high structured turn with observed tools, no 
     maxInputBytes: 64 * 1024, maxOutputBytes: 16384, maxOutputTokens: 2048,
   }, new AbortController().signal);
   expect(result).toMatchObject({ status: "ready", call: selected, usage: { inputTokens: 10, outputTokens: 3, totalTokens: 13 } });
+  expect(result).toHaveProperty("decisionSummary", "查询本地资料，补充可引用的基础概念。");
   expect(JSON.stringify(result)).not.toContain("PRIVATE_COT");
   expect(fake.execCount).toBe(1);
   expect(fake.records[0]!.args).toEqual(expect.arrayContaining(["gpt-6-luna", "model_reasoning_effort=high", "--ignore-user-config", "read-only"]));
@@ -50,7 +51,7 @@ it("Arena fails a non-offered tool and timeout without another paid call", async
   const request = { messages: [{ role: "system" as const, content: "Arena only" }, { role: "user" as const, content: "observation" }],
     tools: [{ type: "function" as const, function: { name: "submit_decision", description: "Lock choice", parameters: {} } }],
     maxInputBytes: 65536, maxOutputBytes: 16384, maxOutputTokens: 2048 };
-  const fake = fakePort({ onExec: successfulTranscript(JSON.stringify({ name: "shell", arguments: "{}" })) });
+  const fake = fakePort({ onExec: successfulTranscript(JSON.stringify({ name: "shell", arguments: "{}", decisionSummary: "测试未提供的工具。" })) });
   const provider = createCodexArenaToolCallProvider({ modelName: "gpt-6-luna", reasoningEffort: "high", processPort: fake.port });
   expect(await provider.request(request, new AbortController().signal)).toEqual({ status: "provider_error" });
   expect(fake.execCount).toBe(1);
