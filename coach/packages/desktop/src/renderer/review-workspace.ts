@@ -14,7 +14,7 @@ export function tileName(t: Tile): string {
 }
 function tileImage(d: Document, t: Tile) {
     const image = make(d, "img", "tile");
-    image.src = `./tiles/${t.red ? "0" + t.id[1] : t.id}.svg`;
+    image.src = `./tiles/${t.red ? "0" + t.id[1] : t.id}.svg?v=flat-b-4`;
     image.alt = tileName(t);
     image.draggable = false;
     return image;

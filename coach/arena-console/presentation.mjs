@@ -25,5 +25,5 @@ export function sortedTiles(tiles) {
 
 export function tileAsset(tile) {
   if (!/^(?:[1-9][mps]|[1-7]z)$/.test(tile?.id ?? '')) return null;
-  return `/tiles/${tile.red && tile.id[0] === '5' ? '0' + tile.id[1] : tile.id}.svg`;
+  return `/tiles/${tile.red && tile.id[0] === '5' ? '0' + tile.id[1] : tile.id}.svg?v=flat-b-4`;
 }

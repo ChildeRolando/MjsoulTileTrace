@@ -18,7 +18,7 @@ test('visual hand sorting preserves the archive and maps red fives to existing a
   const before = JSON.stringify(tiles);
   assert.deepEqual(sortedTiles(tiles).map(tile => tile.id + tile.red), ['2mfalse', '5pfalse', '5ptrue', '4zfalse']);
   assert.equal(JSON.stringify(tiles), before);
-  assert.equal(tileAsset(tiles[1]), '/tiles/0p.svg');
-  assert.equal(tileAsset(tiles[0]), '/tiles/4z.svg');
+  assert.equal(tileAsset(tiles[1]), '/tiles/0p.svg?v=flat-b-4');
+  assert.equal(tileAsset(tiles[0]), '/tiles/4z.svg?v=flat-b-4');
   assert.equal(tileAsset({ id: '../app.mjs' }), null);
 });
