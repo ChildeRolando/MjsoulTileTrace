@@ -14,11 +14,11 @@
 
 Coach与Arena项目已显式映射。默认 `review.engine=multica`；隐藏任务 `ReviewLoopReview` 等本票编码run结束，将现有业务票所有权交给Reviewer并启动一次fresh普通run。Reviewer用本机入口context取得固定候选、工作树、结果路径；依据本票接受条件评审，只原子提交内部结果文件。中台定时读取结果，负责平台状态流转、同票修复交接、GitHub评论/检查发布、正常合并并确认merged后关票。Reviewer不执行平台写操作，complete入口已移除，也不主动调用run、reconcile或delivery submit。
 
-P1/P2须有本票接受条件和可复核证据。阻断待Reviewer本次run结束后直接交原票编码执行器，最小修复及相关验证、正常推送原分支，再登记新head交Reviewer复审。复用未受影响的独立结论，默认最多两轮评审及一次修复；环境阻塞、等待超限或问题未解决时保留结果，不无限重派或自动切换Codex。已准备的结果文件可由后台继续收尾，同head不重复派发，等待中的PR不挡其他业务票。
+P1/P2须有本票接受条件和可复核证据。阻断待Reviewer本次run结束后直接交原票编码执行器，最小修复及相关验证、正常推送原分支，再登记新head交Reviewer复审。复用未受影响的独立结论，明确P1/P2持续触发同票修复和复审，直到验收通过，不按轮数或修复次数截断；P3仍是建议。实际环境阻塞、缺结果或缺新候选时如实停止，不自动切换Codex。临时断线保留当前阶段并返回RETRY_IO，下次定时对账接续；晚到的结果仍会接收。发送结果不明先读回既有run或GitHub评论，避免重复派发和重复发布。旧读取错误或旧轮数上限造成的停滞记录也由既有入口恢复，保留轮次和原发现。已准备的结果文件可由后台继续收尾，同head不重复派发，等待中的PR不挡其他业务票。
 
-当前Reviewer system prompt来源为工具仓的 `multica-reviewer-system-prompt.md`（review-loop/reviewer-direct/v2）。它替代日常评审中的旧Controller授权、固定五门、规则/会话哈希回执和旧结果fence；结果只包含候选、裁决、发现、适用检查及限制。旧prompt与协议保留供历史查询。
+当前Reviewer system prompt来源为工具仓的 `multica-reviewer-system-prompt.md`（review-loop/reviewer-direct/v3）。它替代日常评审中的旧Controller授权、固定五门、规则/会话哈希回执和旧结果fence；结果只包含候选、裁决、发现、适用检查及限制。旧prompt与协议保留供历史查询。
 
-操作员明确使用 `register-codex <config> <PR> <业务票> [worktree]` 后才走本机Codex备用评审；已有原生评审或修复待处理时不能直接覆盖。备用每次模型调用25分钟，沿用两轮评审及一次修复预算，不改变默认路线。
+操作员明确使用 `register-codex <config> <PR> <业务票> [worktree]` 后才走本机Codex备用评审；已有原生评审或修复待处理时不能直接覆盖。备用每次模型调用25分钟，明确P1/P2持续修复复审至通过，不改变默认路线。
 
 定时发现仅是登记遗漏的补救：同仓库、非draft、标题/正文唯一COAC编号、已映射项目、in_review且无活动run。多业务票PR由执行器显式登记；编码结束回复须区分已推送/已登记/待独立评审与最终通过。
 
