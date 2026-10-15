@@ -250,13 +250,14 @@ async function makeFrozenDataset(runtime) {
   const bundle = await loadMahjongSoulProtocolBundle(join(coachRoot, "vendor/mahjong-soul-protocol"));
   const recordBytes = unwrapGameDetailRecords(bundle, Uint8Array.from(Buffer.from(fixture.wire, "hex")));
   const mapped = mapMahjongSoulRecord({
+    gameId: "majsoul:blind-discard-smoke-v1",
     recordId: fixture.recordId,
     selfActor: 0,
     recordBytes,
     ruleEvidence: fixture.ruleEvidence,
     bundle,
   });
-  if (mapped.status !== "analysis_ready" || mapped.stream.sourceRecordHash !== expectedSourceRecordHash) {
+  if (mapped.status !== "ready" || mapped.stream.sourceRecordHash !== expectedSourceRecordHash) {
     throw new Error("arena_pinned_fixture_identity_mismatch");
   }
   const decisions = replayCanonicalStream(mapped.stream);
