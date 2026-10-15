@@ -201,6 +201,8 @@ holdout acceptance 至少使用另一个不同的完整 gameId；只能从仓库
 4. 至少一条受控 helper failure/timeout/budget-stop 路径，保留真实失败状态，无伪造事实或成功结果。
 5. `inspect` 在无 provider/MCP/RAG 启动条件下离线重算同一 run summary。
 
+COAC-224 本地 partial verification（2026-10-15，代码 SHA `7faaa81e5ba4041fb0ce8ae2b01b08a526aa3636`）：off run `41320535-eccd-4aa4-b8e8-f40bac9f48f2` 与 local run `ff4e0566-8ece-4274-a30b-3ec5c5f12571` 使用相同 case-set digest `cb38694fab4191f9d40b8174148852aebff268c377991fc14ff85caca8d8192a`；各扫描 125 个 decisions，label-blind 选择 3 题、排除 122 题；每次均有 3/3 个固定 Mortal labels 成功绑定，failure/label-binding 计数如实列入归档。off manifest 明确为 `corpusVersion: null` / `retrieverVersion: disabled`；local manifest 固定 `blind-discard-arena-seeds/v1` / `arena-local-terms/v1`。两次均因 provider 未配置而记录 3 个 `provider_unavailable`，helper/RAG query 均为 0；off 与 local `inspect` 均离线重算成功。此轮没有产生模型提交、真实 MCP/RAG 查询或受控 helper failure，因此这只是 CLI、archive、真实 Mortal labels 与 inspect 的部分验证，真实授权模型演示和相关 tool-loop 验收仍待完成，不构成 Arena 总体 PASS。
+
 真实 Mortal final labels、helper MCP 和获授权且有预算的真实 LLM 是不同验收事实；stub、登录成功、Mortal 成功或历史 receipt 均不能替代真实 LLM tool loop。未获授权或缺凭据时把该栏标成“待真实模型演示”，不宣称总体 PASS。
 
 ## 11. 永久回归 owner 与命令
