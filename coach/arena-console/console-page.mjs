@@ -1,3 +1,4 @@
+import { compactContent, paginate } from '/compact-view.mjs';
 import {api,$,compact,message,jobView,labels} from '/client.mjs';
 import {observationView,structured} from '/case-view.mjs';
 import {experimentLabels} from '/presentation.mjs';
@@ -17,7 +18,7 @@ function render(){
  $('#start span:last-child').textContent=pending?'正在提交…':running?'实验运行中':'启动实验';
  $('#provider-model').textContent=c.model;$('#provider-route').textContent=c.provider==='codex-cli'?`Codex 订阅 · ${c.reasoningEffort}`:'OpenAI-compatible API';
  $('#limit-time').textContent=c.maxRunMs/1000+'s';$('#limit-turns').textContent=c.maxProviderTurns;$('#limit-tools').textContent=c.maxToolCalls;
- $('#job-badge').textContent=labels[state.job?.status]??'空闲';$('#job-content').className='';$('#job-content').innerHTML=jobView(state.job);
+ $('#job-badge').textContent=labels[state.job?.status]??'空闲';$('#job-content').className='';$('#job-content').innerHTML=jobView(state.job);paginate($('#job-content'),[...$('#job-content').querySelectorAll('.job-step')],4,'console-job-'+state.job?.id,'个步骤');
  $('#experiment-mode').querySelector('[value=fault]').disabled=isMistakes();
  if(state.budget.warning)message('已达到 Token 报警线。请查看模型与 API 配置中的预算。',true);
 }
@@ -31,9 +32,9 @@ $('#stop').addEventListener('click',async()=>{pending=true;render();try{await ap
 $('#experiment-type').addEventListener('change',()=>{$('#batch-start').value=1;$('#batch-size').value=Math.max(1,Math.min(10,bank()?.availableCaseCount??10));if(isMistakes()&&$('#experiment-mode').value==='fault')$('#experiment-mode').value='local';render();});
 $('#experiment-mode').addEventListener('change',()=>{$('#mode-hint').textContent=$('#experiment-mode').value==='compare'?'对同一批案例依次运行 Off / Local。':$('#experiment-mode').value==='fault'?'首次 helper 调用注入超时，保留实际失败记录。':'使用当前模型和预算进行一次实际运行。';});
 $('#refresh-bank').addEventListener('click',async()=>{pending=true;render();try{if(!isMistakes())await api('/api/start',{mode:'catalog'});await refresh();message(isMistakes()?'错题库已更新。':'正在更新开发题库。');}catch(e){message(e.message,true);}finally{pending=false;render();}});
-$('#browse-bank').addEventListener('click',async()=>{if(isMistakes()){location.href='/mistakes';return;}try{catalog=await api('/api/catalog?type='+$('#experiment-type').value);$('#catalog-case').innerHTML=catalog.cases.map((c,i)=>`<option value="${i}">第 ${i+1} 题 · 原局决策 ${c.canonicalDecisionOrder+1}</option>`).join('');$('#catalog-panel').hidden=false;showCase();$('#catalog-panel').scrollIntoView({block:'start'});}catch(e){message(e.message,true);}});
-function showCase(){const row=catalog.cases[Number($('#catalog-case').value)];$('#catalog-preview').innerHTML=observationView(row.observation)+structured('preview','完整盲测输入',row.observation);}
-$('#catalog-case').addEventListener('change',showCase);$('#close-catalog').addEventListener('click',()=>$('#catalog-panel').hidden=true);
+$('#browse-bank').addEventListener('click',async()=>{if(isMistakes()){location.href='/mistakes';return;}try{catalog=await api('/api/catalog?type='+$('#experiment-type').value);$('#catalog-case').innerHTML=catalog.cases.map((c,i)=>`<option value="${i}">第 ${i+1} 题 · 原局决策 ${c.canonicalDecisionOrder+1}</option>`).join('');$('#catalog-panel').hidden=false;document.body.classList.add('catalog-view');showCase();window.scrollTo(0,0);}catch(e){message(e.message,true);}});
+function showCase(){const row=catalog.cases[Number($('#catalog-case').value)];$('#catalog-preview').innerHTML=observationView(row.observation)+structured('preview','完整盲测输入',row.observation);compactContent($('#catalog-preview'),'catalog-'+row.canonicalDecisionOrder);}
+$('#catalog-case').addEventListener('change',showCase);$('#close-catalog').addEventListener('click',()=>{$('#catalog-panel').hidden=true;document.body.classList.remove('catalog-view');$('#browse-bank').focus();});
 const params=new URLSearchParams(location.search);if(params.get('bank')==='mistakes')$('#experiment-type').value='mistakes';
 if(params.get('run'))location.replace('/results?'+params);
 await refresh();if(isMistakes())$('#batch-size').value=Math.max(1,Math.min(10,bank().availableCaseCount));

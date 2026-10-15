@@ -8,6 +8,6 @@
       <label class="result-type-label">统计与结果类型<select id="results-type"><option value="all" selected>全部实验</option><option value="mistakes">错题重跑</option><option value="flat">平面何切</option><option value="spatial">立体何切</option><option value="legacy">旧版混合题库</option><option value="holdout">独立牌局验收</option></select></label>
       <p class="field-hint" id="metric-scope">看板成功率与匹配率仅统计所选类型，累计 Token 预算覆盖所有类型。</p>
       <div id="results-body" class="result-loading">正在读取实验归档…</div>
-      <div class="result-footnote"><span>执行成功率含失败；匹配率仅统计成功案例。未知用量不按零计算。</span><span>样本状态 <b>开发与独立牌局验收分开统计</b></span></div>
+      <nav id="results-pagination" class="compact-pager" aria-label="实验结果翻页" hidden><button id="prev-results" class="quiet-button">上一页</button><span id="results-page" role="status"></span><button id="next-results" class="quiet-button">下一页</button></nav><details class="result-footnote"><summary>查看统计口径</summary><span>执行成功率含失败；匹配率仅统计成功案例。未知用量不按零计算。</span><span>样本状态 <b>开发与独立牌局验收分开统计</b></span></details>
     </section>
 <section id="result-detail" class="panel inline-result" hidden aria-labelledby="detail-title"><div class="dialog-heading"><h2 id="detail-title" tabindex="-1">实验详情</h2><a class="quiet-button" href="/results">返回结果列表</a></div><div id="detail-body"></div></section><footer class="page-footer"><span>ARENA LAB / 本机实验工作台</span><span>真实归档 · 可追溯复查</span></footer></div></main></body></html>

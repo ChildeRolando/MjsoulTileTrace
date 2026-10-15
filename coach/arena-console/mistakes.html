@@ -26,10 +26,10 @@
       <label>排序<select id="mistake-sort"><option value="errors">错误次数最多</option><option value="rate">错误率最高</option><option value="latest">最近出错</option></select></label>
       <label class="checkbox-label"><input type="checkbox" id="include-faults">包含受控故障</label>
     </section>
-    <p class="mistake-definition">“错误”指执行成功且有标签、但未匹配 Mortal 一选；错误率 = 错误次数 / 同题有效评分次数。执行失败、缺标签另列，不进入该分母。默认合并模型与检索模式，可用筛选缩小范围；非专家正确率。</p>
-    <section id="rerun-status" class="panel rerun-status" hidden><h2>错题重跑进度</h2><div id="rerun-status-body"></div></section><div class="notebook-layout">
+    <details class="mistake-definition"><summary>错误定义与统计口径</summary><p>“错误”指执行成功且有标签、但未匹配 Mortal 一选；错误率 = 错误次数 / 同题有效评分次数。执行失败、缺标签另列，不进入该分母。默认合并模型与检索模式，可用筛选缩小范围；非专家正确率。</p></details>
+    <details id="rerun-status" class="panel rerun-status" hidden><summary>最近的错题重跑 · 查看进度</summary><div id="rerun-status-body"></div></details><div class="notebook-layout">
       <section class="panel notebook-list" aria-labelledby="notebook-title"><div class="panel-heading"><div><h2 id="notebook-title">待复查场面</h2><span id="list-count" class="count">0</span></div></div><div id="mistake-list" aria-busy="true"><div class="empty-state">正在读取归档…</div></div><div id="mistake-pagination" class="mistake-pagination" hidden><button id="prev-mistakes" class="quiet-button">上一页</button><span id="mistake-page"></span><button id="next-mistakes" class="quiet-button">下一页</button></div></section>
-      <section class="panel notebook-detail" aria-labelledby="snapshot-title"><header class="notebook-detail-heading"><div><div class="eyebrow">ERROR SNAPSHOT</div><h2 id="snapshot-title" tabindex="-1">选择一道错题</h2></div><a href="#notebook-title" class="text-button">返回题目列表</a></header><div id="snapshot-body"><div class="empty-state">选择左侧场面，查看错误次数与每次错误的案例快照。</div></div></section>
+      <section class="panel notebook-detail" aria-labelledby="snapshot-title"><header class="notebook-detail-heading"><div><div class="eyebrow">ERROR SNAPSHOT</div><h2 id="snapshot-title" tabindex="-1">选择一道错题</h2></div><button id="back-mistakes" class="quiet-button">返回错题列表</button></header><div id="snapshot-body"><div class="empty-state">选择左侧场面，查看错误次数与每次错误的案例快照。</div></div></section>
     </div>
     <footer class="page-footer"><span>ARENA LAB / 错题归档</span><span>归档只读复查 · 重跑会调用模型</span></footer>
   </div>

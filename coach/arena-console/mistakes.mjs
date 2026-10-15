@@ -1,3 +1,4 @@
+import { tabs, compactContent, paginate } from '/compact-view.mjs';
 import { api as request, jobView, labels } from '/client.mjs';
 import { esc, actionText, tileImages, observationView, mortalTable, traceEvent, structured } from '/case-view.mjs';
 import { experimentLabels, sortedTiles } from '/presentation.mjs';
@@ -7,7 +8,9 @@ const date = value => new Date(value).toLocaleString('zh-CN', { year: 'numeric',
 const verdict = s => s.status !== 'completed' ? (labels[s.status] ?? s.status) : s.scoreStatus === 'matched' ? 'Mortal 匹配' : s.scoreStatus === 'not_matched' ? 'Mortal 不匹配' : '缺少标签';
 const attemptId = s => `${s.runId}:${s.caseOrdinal}`;
 let data, currentQuestion, currentSnapshot, page = 0, loading = 0, snapshotLoading = 0, replayBusy = false;
-const pageSize = 20;
+const pageSize = 3;
+let detailOpen = new URLSearchParams(location.search).has('q');
+document.body.classList.toggle('mistake-detail-view', detailOpen);
 async function api(path) {
   const response = await fetch(path);
   const body = await response.json();
@@ -20,8 +23,8 @@ function filters() {
 }
 function setUrl() {
   const params = filters();
-  if (currentQuestion) params.set('q', currentQuestion.id);
-  if (currentSnapshot) params.set('attempt', attemptId(currentSnapshot));
+  if (currentQuestion && detailOpen) params.set('q', currentQuestion.id);
+  if (currentSnapshot && detailOpen) params.set('attempt', attemptId(currentSnapshot));
   params.set('sort', $('#mistake-sort').value);
   history.replaceState(null, '', `/mistakes?${params}`);
 }
@@ -61,10 +64,12 @@ function questionFrame(q, selectedAttempt) {
 async function selectQuestion(id, { focus = false, attempt } = {}) {
   const q = data.questions.find(q => q.id === id);
   if (!q) return;
+  if (focus) detailOpen = true;
+  document.body.classList.toggle('mistake-detail-view', detailOpen);
   currentQuestion = q;
   const selected = q.history.find(s => attemptId(s) === attempt) ?? q.history[0];
   questionFrame(q, attemptId(selected)); renderList();
-  if (focus) { $('#snapshot-title').focus({ preventScroll: true }); $('#snapshot-title').scrollIntoView({ block: 'start' }); }
+  if (focus) { $('#snapshot-title').focus({ preventScroll: true }); window.scrollTo(0,0); }
   await showSnapshot(selected);
 }
 async function showSnapshot(snapshot) {
@@ -82,12 +87,15 @@ async function showSnapshot(snapshot) {
     const submission = result.attempt.submission, mortal = run.mortalDetails?.cases.find(c => c.caseOrdinal === snapshot.caseOrdinal);
     target.innerHTML = `<div class="snapshot-meta"><span class="match-badge ${snapshot.scoreStatus === 'matched' ? 'is-match' : 'is-mismatch'}">${esc(verdict(snapshot))}</span><span>${esc(date(snapshot.at))}</span><span>${esc(m.coach.model)} · ${esc(m.coach.reasoningEffort ?? m.coach.providerId)}</span><span>RAG ${esc(m.rag.mode)}</span>${m.controlledFault !== 'none' ? '<span class="tag">受控故障</span>' : ''}</div>
       <div class="snapshot-provenance"><span>实验 ${esc(snapshot.runId.slice(0, 8))} / 案例 ${snapshot.caseOrdinal + 1}</span><span>代码 ${esc(m.codeSha.slice(0, 8))} · ${esc(m.coach.promptVersion)}</span><a href="/results?run=${encodeURIComponent(snapshot.runId)}&case=${snapshot.caseOrdinal}">查看原实验 ↗</a></div>
-      <div class="choice-comparison"><article><span>当时模型所选</span><strong>${esc(submission ? actionText(submission.actionRef) : '无有效提交')}</strong><p>${esc(submission?.rationale ?? '本次执行没有有效提交；失败记录保留在下方过程。')}</p></article><article><span>Mortal 一选</span><strong>${mortal ? esc(actionText(mortal.preferredActionRef)) : '原归档未保存 Top 10'}</strong><p>${mortal ? '按当次固定 Mortal 版本评分；不代表专家唯一正确答案。' : '不按当前模型推测历史答案；可到原实验补算展示评分。'}</p></article></div>
+      <div class="snapshot-workspace"><section class="snapshot-verdict"><div class="choice-comparison"><article><span>当时模型所选</span><strong>${esc(submission ? actionText(submission.actionRef) : '无有效提交')}</strong><p>${esc(submission?.rationale ?? '本次执行没有有效提交；失败记录保留在下方过程。')}</p></article><article><span>Mortal 一选</span><strong>${mortal ? esc(actionText(mortal.preferredActionRef)) : '原归档未保存 Top 10'}</strong><p>${mortal ? '按当次固定 Mortal 版本评分；不代表专家唯一正确答案。' : '不按当前模型推测历史答案；可到原实验补算展示评分。'}</p></article></div>
       ${result.toolFailureCount ? `<p class="snapshot-warning">当次有 ${result.toolFailureCount} 次工具失败，最终提交有效。展开下方过程可查看错误与后续处理。</p>` : ''}
-      <details class="snapshot-section" open><summary>当时的案例牌面</summary>${observation ? observationView(observation) : '<p class="field-hint">这份旧归档未保存当时的牌面，无法还原；下方仅展示原有提交与过程。</p>'}</details>
-      ${mortalTable(run, snapshot.caseOrdinal, result)}
-      <details class="snapshot-section"><summary>当次公开摘要与完整工具过程 · ${result.providerTurnCount} 轮模型 / ${result.toolCallCount} 次工具</summary><ol class="trace-list">${result.events.filter(e => e.type !== 'run_started').map((e, i, events) => traceEvent(e, i, snapshot.caseOrdinal, events)).join('')}</ol></details>
-      ${structured('error-snapshot', '查看完整案例快照 JSON', { runId: snapshot.runId, caseOrdinal: snapshot.caseOrdinal, manifest: m, result, mortalDetails: mortal ?? null })}`;
+      </section><section class="snapshot-board">${observation ? observationView(observation) : '<p class="field-hint">这份旧归档未保存当时的牌面，无法还原；下方仅展示原有提交与过程。</p>'}</section>
+      <section class="snapshot-scores">${mortalTable(run, snapshot.caseOrdinal, result)}</section>
+      <section class="snapshot-process"><p class="field-hint">当次公开摘要与工具过程 · ${result.providerTurnCount} 轮模型 / ${result.toolCallCount} 次工具</p><ol class="trace-list">${result.events.filter(e => e.type !== 'run_started').map((e, i, events) => traceEvent(e, i, snapshot.caseOrdinal, events)).join('')}</ol></section>
+      <section class="snapshot-raw">${structured('error-snapshot', '查看完整案例快照 JSON', { runId: snapshot.runId, caseOrdinal: snapshot.caseOrdinal, manifest: m, result, mortalDetails: mortal ?? null })}</section></div>`;
+    const workspace=target.querySelector(".snapshot-workspace");
+    tabs(workspace, [["snapshot-verdict","决策对照"],["snapshot-board","案例牌面"],["snapshot-scores","Mortal Top 10"],["snapshot-process","模型与工具过程"],["snapshot-raw","完整快照"]].map(([name,title])=>({title,node:workspace.querySelector("."+name)})), "snapshot-sections");
+    compactContent(target, attemptId(snapshot));
     target.setAttribute('aria-busy', 'false');
   } catch (error) {
     if (request !== snapshotLoading) return;
@@ -138,6 +146,7 @@ $('#mistake-list').addEventListener('click', event => {
 });
 for (const id of ['#mistake-type', '#mistake-model', '#mistake-rag', '#include-faults']) $(id).addEventListener('change', () => { page = 0; void load(); });
 $('#mistake-sort').addEventListener('change', () => { page = 0; renderList(); setUrl(); });
+$('#back-mistakes').addEventListener('click',()=>{detailOpen=false;document.body.classList.remove('mistake-detail-view');setUrl();window.scrollTo(0,0);$('#notebook-title').tabIndex=-1;$('#notebook-title').focus({preventScroll:true});});
 $('#reload-mistakes').addEventListener('click', () => load());
 $('#prev-mistakes').addEventListener('click', () => { page--; renderList(); });
 $('#next-mistakes').addEventListener('click', () => { page++; renderList(); });
@@ -156,7 +165,7 @@ async function pollJob(){
  replayBusy=active;const button=$('#rerun-question');if(button)button.disabled=active;
  $('#rerun-status').hidden=job?.experimentType!=='mistakes';
  if(job?.experimentType==='mistakes'){
-  $('#rerun-status-body').innerHTML=jobView(job);
+  $('#rerun-status-body').innerHTML=jobView(job);paginate($('#rerun-status-body'),[...$('#rerun-status-body').querySelectorAll('.job-step')],3,'mistake-job-'+job.id,'个步骤');
   const signature=JSON.stringify(job);
   if(jobSignature&&signature!==jobSignature&&job.steps.some(s=>s.status==='completed'))await load({latest:true});
   jobSignature=signature;
