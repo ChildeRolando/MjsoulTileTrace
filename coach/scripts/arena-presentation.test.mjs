@@ -18,7 +18,9 @@ test('experiment metrics never mix flat, spatial, and legacy runs', () => {
     selectedCaseCount: selected, terminalStatuses: { completed: succeeded },
     score: { matchedCaseCount: matched, conditionalMatchRate: { denominator: succeeded } },
   } });
-  const runs = [run('blind-discard-flat-v1', 10, 8, 7), run('blind-discard-spatial-v1', 5, 3, 2), run('blind-discard-dev-v1', 100, 90, 90)];
+  const runs = [run('blind-discard-flat-v1', 10, 8, 7), run('blind-discard-spatial-v1', 5, 3, 2), run('blind-discard-dev-v1', 100, 90, 90), run('blind-discard-holdout-v1', 3, 3, 2)];
+  assert.equal(aggregateMetrics(runs, 'holdout').selected, 3);
+  assert.equal(aggregateMetrics(runs, 'legacy').selected, 100);
   assert.equal(aggregateMetrics(runs, 'flat').selected, 10);
   assert.equal(aggregateMetrics(runs, 'spatial').succeeded, 3);
   assert.equal(aggregateMetrics(runs, 'spatial').matched, 2);

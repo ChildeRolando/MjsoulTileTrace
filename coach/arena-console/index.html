@@ -41,10 +41,10 @@
       </section>
     </div>
     <section class="panel results-panel" id="results" aria-labelledby="results-title"><div class="panel-heading"><div><span class="section-index">03</span><h2 id="results-title">实验结果</h2><span id="result-total" class="count">0</span></div><div class="filters" aria-label="结果筛选"><button class="filter selected" data-filter="all" aria-pressed="true">全部</button><button class="filter" data-filter="local" aria-pressed="false">Local</button><button class="filter" data-filter="off" aria-pressed="false">Off</button><button class="filter" data-filter="fault" aria-pressed="false">受控故障</button></div></div>
-      <label class="result-type-label">统计与结果类型<select id="results-type"><option value="flat">平面何切</option><option value="spatial" selected>立体何切</option><option value="legacy">旧版混合题库</option></select></label>
+      <label class="result-type-label">统计与结果类型<select id="results-type"><option value="flat">平面何切</option><option value="spatial" selected>立体何切</option><option value="legacy">旧版混合题库</option><option value="holdout">独立牌局验收</option></select></label>
       <p class="field-hint" id="metric-scope">看板成功率与匹配率仅统计所选类型，累计 Token 预算覆盖所有类型。</p>
       <div id="results-body" class="result-loading">正在读取实验归档…</div>
-      <div class="result-footnote"><span>执行成功率含失败；匹配率仅统计成功案例。未知用量不按零计算。</span><span>样本状态 <b>开发集 · 独立验收待完成</b></span></div>
+      <div class="result-footnote"><span>执行成功率含失败；匹配率仅统计成功案例。未知用量不按零计算。</span><span>样本状态 <b>开发与独立牌局验收分开统计</b></span></div>
     </section>
     <footer class="page-footer"><span>ARENA LAB <span class="footer-divider">/</span> 可复查的本地实验</span><span>运行记录来自真实归档，无模拟数据</span></footer>
   </div>

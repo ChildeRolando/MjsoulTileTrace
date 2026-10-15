@@ -2,7 +2,7 @@
 
 日期：2026-10-09
 
-状态：阶段 1 规格已由 PR #47 合入；T1 最小契约、筛题、盲观察、隔离标签与离线 scorer 已在 COAC-220 实现；T2 的真实 stdio MCP helper 薄适配已由 COAC-221 实现并待独立评审；T4 的 off/local 有界本地检索已由 COAC-222 实现并待独立评审；T3 的隔离 runner/provider loop 已由 COAC-223 实现并待独立评审，且通过真实 stdio MCP 与 local RAG 回归验证；T5 的本地 CLI、run archive 和离线 inspect 已由 COAC-224 实现。T5 的真实模型 tool loop 演示仍待获授权凭据后执行；本文件仍是唯一 Arena 设计与验收事实源。
+状态：阶段 1 规格及 T1–T4 已实现；COAC-224 已具备真实 Codex 订阅、MCP、RAG、归档与控制台。2026-10-16 正在冻结最终小批量验收；结果与关票依据见 [T5 验收记录](../development/2026-10-16-arena-t5-acceptance.md)。本文件仍是唯一 Arena 设计与验收事实源。
 
 本规格只拥有 Blind Discard Arena 的新增契约。已有生产事实仍以代码、schema、测试及相应权威文档为准；canonical 回放与动作权威、Mortal runtime 身份、Coach production generation seam、依赖方向和 renderer 安全边界分别继续归属现有 owner。工单只引用本文件，不复制本文件内容。
 
@@ -184,7 +184,7 @@ Arena tool-call provider/loop 可复用 main-owned credential custody，但它�
 
 COAC-223 的 `runBlindCoachCase` 接收一份 strict blind observation、私有 grader binding/reference、Arena provider 与本次 run 的 tool registry。初始 provider 输入只含决策时 observation 和实际注册的工具名；runner 不预取候选 × 维度矩阵。模型每轮最多发起一个 function call；真实 MCP adapter 先确认 server 仅公开 `analyze_candidates`，RAG adapter 对 strict retrieval request 及返回 caseRef/sourceRefs 做验证。动态 `submit_decision` 只允许本题 offered actionRef 和当前已观察到的 source/evidence refs。submission 通过校验后立即锁定并结束求解；runner 之后才把私有 grader binding/reference 交给既有离线 scorer，评分结果不返回同一次 provider 循环。
 
-T3 的 `blind-discard-arena-run-limits/v1` 默认上限为：5 分钟、12 个 provider turn、16 次工具调用、每轮 64 KiB provider context、每轮 2,048 output tokens、每轮 16 KiB 与整 run 64 KiB provider output、8 KiB 工具输入、16 KiB 工具结果、单次工具 10 秒、512 KiB 有序事件轨迹。调用者可降低但不能提高上限。超时、取消、MCP/RAG 错误和预算耗尽保留终态、已有事件及 scorer 分母；错误 prose 不透传。OpenAI-compatible adapter 每次只发送一个 `tool_choice: required` function call，不自动重试，只保留经验证的工具调用参数和安全 token usage，不保留 provider content/hidden CoT 或凭据。当前 T3 返回有界的内存事件轨迹，不写 T5 的 run archive；真实模型调用尚未执行。
+T3 的 `blind-discard-arena-run-limits/v1` 默认上限为：5 分钟、12 个 provider turn、16 次工具调用、每轮 64 KiB provider context、每轮 2,048 output tokens、每轮 16 KiB 与整 run 64 KiB provider output、8 KiB 工具输入、16 KiB 工具结果、单次工具 10 秒、512 KiB 有序事件轨迹。时间、字节和调用次数可降低但不能提高；输出 Token 使用调用者指定的正安全整数，模型能力仍由 provider 决定。超时、取消、MCP/RAG 错误和预算耗尽保留终态、已有事件及 scorer 分母；错误 prose 不透传。OpenAI-compatible adapter 每次只发送一个 `tool_choice: required` function call，不自动重试，只保留经验证的工具调用参数和安全 token usage，不保留 provider content/hidden CoT 或凭据。T3 返回有界的内存轨迹；T5 CLI 将其保存到 run archive。
 
 ## 9. 评分、数据和可复查产物
 
@@ -213,7 +213,7 @@ run archive 位于被根 `.gitignore` 忽略的 `coach/reports/blind-discard-are
 
 ## 10. T5 固定本地演示与验收样例
 
-T5 提供仓库原生、无 Web UI 的本地命令。当前 CLI 模式参考 `coach/bin/riichi-coach.mjs`；为保证生产 prototype 原样，新增 Arena 命令而不改 `coach:demo`。拟冻结的使用形态为：
+T5 提供仓库原生本地命令，并按用户后续要求提供复用该 CLI 的本地控制台。当前 CLI 模式参考 `coach/bin/riichi-coach.mjs`；为保证生产 prototype 原样，新增 Arena 命令而不改 `coach:demo`。拟冻结的使用形态为：
 
 ```powershell
 cd coach
@@ -300,7 +300,7 @@ Arena 的同一 CLI 轮可包含多条助手消息，收到完整终态后只校
 
 COAC-224 的真实模型入口补充（2026-10-15 用户授权）：本机 Codex/ChatGPT 订阅，`gpt-6-luna`、reasoning effort `high`；通过现有 main-owned Codex 进程执行一次结构化 Arena 工具选择，再由 runner 调用真实 MCP/RAG。仍使用原 Arena DTO/预算/提交后评分边界，不调用生产 report seam，不暴露 CLI 工具或 grader 标签。当前工作树归档累计已报告 token 的报警线为 100,000,000，缓存为输入子集，未知用量不填零；报警不等于自动停机。此补充不把 smoke/dev 案例变成独立验收集，牌局隔离与真实演示结果仍须如实记录。
 
-本轮不做大规模教材搜集/爬虫、第二麻将算法/合法动作引擎、Mortal/LLM 训练微调、多 Agent 辩论、长期用户模型、web dashboard/生产 UI、精确顺位 EV、通用反事实模拟器或“匹配 Mortal 即证明专家正确”的判断。
+本轮不做大规模教材搜集/爬虫、第二麻将算法/合法动作引擎、Mortal/LLM 训练微调、多 Agent 辩论、长期用户模型、web dashboard/生产 UI、精确顺位 EV、通用反事实模拟器或“匹配 Mortal 即证明专家正确”的判断。本地实验控制台已由用户后续明确纳入范围，生产 UI 仍不在本票范围。
 
 五票达到第 10 节的真实验收后停止扩框架；下一步由真实失败样本决定补工具、知识、检索、方法或模型能力，不默认扩张 RAG。
 
@@ -317,3 +317,12 @@ COAC-224 的真实模型入口补充（2026-10-15 用户授权）：本机 Codex
 - 旧归档可用 `mortal-details <runId>` 补算；校验原牌面、案例集合及 Mortal 身份一致后另存明细，不修改原结论或用量。页面仅返回已有最终案例事件的评分。
 - 单轮输出 Token 接受正安全整数，不再固定为 2048/4096。API 模式传递 `max_tokens`；Codex 订阅模式为可见响应提示要求，仍核验已报告用量。独立字节、时间与工具预算保持有效。
 - `/model-info` 展示当前代码实际 system prompt、Codex 适配前缀、MCP 能力与预算、本地 RAG 语料及参数。当前配置用于新实验，历史参数以实验 manifest 为准；不显示凭据。
+
+
+### T5 冻结验收方法（2026-10-16）
+
+- `blind-discard-arena-method/v2` 说明真实知识库主题（进张计数、复合牌形）和中文词项查询方式；模型使用一般教学原则时应取得适用来源，disabled/no-hit 如实说明。查询内容与候选选择仍由模型决定，不预填答案或检索结果。v1 历史结果保持原样。
+- `blind-discard-holdout-v1` 来自本机已有完整真实记录，通过原 sanitizer 脱敏。来源在查看标签和模型输出前冻结；选择证据为 `packages/mahjong-soul-source/tests/fixtures/arena-holdout-selection.json`，完整样本为同目录 `arena-holdout-complete.json`。源曾用于生产解析/分析回归，未用于 Arena 方法调参；因此独立性限定为本次 Arena 实验。
+- 以完整牌局源哈希固定 dev/acceptance 分组，验收全局 selfActor=0，按原 label-blind 规则取最早 3 个合格决策。不同座位或牌局片段不作为另一独立牌局。manifest 记录 disjoint groups；页面单列独立牌局验收，不混入开发集指标。
+- 固定代码、模型 gpt-6-luna/high、6 轮、4 工具调用、8192 输出 tokens、逐题 300 秒，分别跑开发三题 Off/Local、开发一题受控 helper timeout、验收三题 Off/Local。Token 报警线沿用 100M。验收结果披露后，不再用此牌局调参后宣称新的未见验收；保留为验收快照及回归资料。
+- 不要求 Mortal 匹配率或 RAG 提升达到阈值；专业内容仍标“未专家验收”。停止条件是同一冻结版本具备真实 helper 与来源链、off disabled、完整统计与故障记录、离线复算、相关回归和审核完成。

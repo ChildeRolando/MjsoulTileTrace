@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { parseArgs, selectDatasetBatch, selectExperimentPool } from '../bin/blind-discard-arena.mjs';
+import { parseArgs, selectDatasetBatch, selectExperimentPool, arenaDatasetSource } from '../bin/blind-discard-arena.mjs';
 
 test('expanded development batches do not change the frozen three-case smoke command', () => {
   const smoke = parseArgs(['run', '--dataset', 'blind-discard-smoke-v1', '--rag', 'off']);
@@ -54,3 +54,25 @@ test('eligible case offsets give disjoint deterministic batches and retain every
    assert.equal(parseArgs([...args, '8192']).budget.maxProviderOutputTokens, 8192);
    for (const value of ['0', '1.5', '9007199254740992']) assert.throws(() => parseArgs([...args, value]));
  });
+
+
+test('frozen holdout uses a different complete real game, with disjoint groups and no labels', async () => {
+  const { readFile } = await import('node:fs/promises');
+  const { loadMahjongSoulProtocolBundle, mapMahjongSoulRecord, unwrapGameDetailRecords } = await import('@riichi-coach/mahjong-soul-source');
+  const bundle = await loadMahjongSoulProtocolBundle('vendor/mahjong-soul-protocol');
+  const dev = arenaDatasetSource('blind-discard-dev-v1'), holdout = arenaDatasetSource('blind-discard-holdout-v1');
+  assert.notEqual(dev.fixturePath, holdout.fixturePath);
+  assert.notEqual(dev.expectedSourceRecordHash, holdout.expectedSourceRecordHash);
+  assert.deepEqual(holdout.split.groups.development, [dev.expectedSourceRecordHash]);
+  assert.deepEqual(holdout.split.groups.acceptance, [holdout.expectedSourceRecordHash]);
+  const fixture = JSON.parse(await readFile(holdout.fixturePath, 'utf8'));
+  const mapped = mapMahjongSoulRecord({ gameId: holdout.gameId, recordId: fixture.recordId, selfActor: 0,
+    recordBytes: unwrapGameDetailRecords(bundle, Buffer.from(fixture.wire, 'hex')), ruleEvidence: fixture.ruleEvidence, bundle });
+  assert.equal(mapped.status, 'ready');
+  assert.equal(mapped.stream.sourceRecordHash, holdout.expectedSourceRecordHash);
+  assert.equal(mapped.stream.events.at(-1).type, 'game_ended');
+  assert.equal(mapped.stream.events.filter(e => e.type === 'round_started').length, 11);
+  assert.equal(fixture.recordId, '000000-00000000-0000-0000-0000-000000000002');
+  assert.deepEqual(Object.keys(fixture).sort(), ['description','fixtureVersion','recordId','ruleEvidence','wire'].sort());
+  assert.equal(parseArgs(['run', '--dataset', 'blind-discard-holdout-v1', '--max-cases', '3', '--rag', 'off']).maxCases, 3);
+});

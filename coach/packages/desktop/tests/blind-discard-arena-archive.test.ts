@@ -301,3 +301,15 @@ it("withholds Q scores until final case events and rejects other archives or run
   expect(visibleArenaMortalDetails({ ...raw, runId: '00000000-0000-4000-8000-000000000098' }, m, [event])).toBeNull();
   expect(visibleArenaMortalDetails({ ...raw, mortal: { ...raw.mortal, runtimeConfigSha256: 'd'.repeat(64) } }, m, [event])).toBeNull();
 });
+
+it("rejects overlapping or unbound holdout groups while accepting legacy manifests", () => {
+  const m = manifest();
+  expect(ArenaArchiveManifestSchema.safeParse(m).success).toBe(true);
+  const split = { unit: "complete_game", status: "frozen_holdout", developmentGames: 1, acceptanceGames: 1,
+    groups: { development: ['sha256:' + 'a'.repeat(64)], acceptance: ['sha256:' + 'b'.repeat(64)] } };
+  const input = { ...m, dataset: { ...m.dataset, id: "blind-discard-holdout-v1", split } };
+  expect(ArenaArchiveManifestSchema.safeParse(input).success).toBe(true);
+  split.groups.acceptance = split.groups.development;
+  expect(ArenaArchiveManifestSchema.safeParse(input).success).toBe(false);
+  expect(ArenaArchiveManifestSchema.safeParse({ ...input, dataset: { ...input.dataset, split: { ...split, groups: undefined } } }).success).toBe(false);
+});

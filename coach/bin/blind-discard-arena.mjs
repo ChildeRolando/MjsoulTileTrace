@@ -59,7 +59,18 @@ import {
 
 const coachRoot = resolve(fileURLToPath(new URL("..", import.meta.url)));
 const repoRoot = resolve(coachRoot, "..");
-const fixturePath = join(coachRoot, "packages/mahjong-soul-source/tests/fixtures/real-record-complete.json");
+const fixturesRoot = join(coachRoot, "packages/mahjong-soul-source/tests/fixtures");
+const holdoutSourceRecordHash = "sha256:4df4cb710b32c4327efab6171826f2ef74a8805ac40a13e3238024d85590e968";
+export function arenaDatasetSource(datasetId) {
+  DatasetIdSchema.parse(datasetId);
+  const holdout = datasetId === "blind-discard-holdout-v1";
+  return { fixturePath: join(fixturesRoot, holdout ? "arena-holdout-complete.json" : "real-record-complete.json"),
+    expectedSourceRecordHash: holdout ? holdoutSourceRecordHash : expectedSourceRecordHash,
+    gameId: holdout ? "majsoul:arena-holdout-v1" : "majsoul:blind-discard-smoke-v1",
+    split: holdout ? { unit: "complete_game", developmentGames: 1, acceptanceGames: 1, status: "frozen_holdout",
+      groups: { development: [expectedSourceRecordHash], acceptance: [holdoutSourceRecordHash] } }
+      : { unit: "complete_game", developmentGames: 1, acceptanceGames: 0, status: datasetId === "blind-discard-smoke-v1" ? "smoke_dev_only" : "development_only" } };
+}
 const packageRoot = join(coachRoot, "packages/mortal-runtime");
 const platformManifest = "mortal-582500.windows-x64.json";
 const expectedSourceRecordHash = "sha256:fe547cc2b42f0ea83230feaa0fbbdf9bab7281838a66f051cb7a8609687e1c33";
@@ -87,6 +98,7 @@ function usage() {
     "  npm run arena -- catalog         build the label-free development question catalog (no model calls)",
     "",
     "Run options:",
+    "  --dataset blind-discard-holdout-v1  frozen independent complete game; first 3 cases for acceptance",
     "  --dataset blind-discard-dev-v1   full development bank; smoke-v1 remains frozen at 3 cases",
     "  --dataset blind-discard-flat-v1  no riichi/meld scenarios (full visible context retained)",
     "  --dataset blind-discard-spatial-v1  riichi/meld scenarios with public table context",
@@ -296,7 +308,8 @@ export function selectExperimentPool(pool, datasetId) {
 }
 
 async function makeFrozenDataset(runtime, options = { datasetId: "blind-discard-smoke-v1", maxCases: 3, caseOffset: 0 }) {
-  const fixtureBytes = await readFile(fixturePath);
+  const source = arenaDatasetSource(options.datasetId);
+  const fixtureBytes = await readFile(source.fixturePath);
   const fixture = JSON.parse(fixtureBytes.toString("utf8"));
   if (typeof fixture.recordId !== "string" || typeof fixture.wire !== "string" || !/^(?:[0-9a-f]{2})+$/iu.test(fixture.wire)) {
     throw new Error("arena_fixture_invalid");
@@ -304,14 +317,14 @@ async function makeFrozenDataset(runtime, options = { datasetId: "blind-discard-
   const bundle = await loadMahjongSoulProtocolBundle(join(coachRoot, "vendor/mahjong-soul-protocol"));
   const recordBytes = unwrapGameDetailRecords(bundle, Uint8Array.from(Buffer.from(fixture.wire, "hex")));
   const mapped = mapMahjongSoulRecord({
-    gameId: "majsoul:blind-discard-smoke-v1",
+    gameId: source.gameId,
     recordId: fixture.recordId,
     selfActor: 0,
     recordBytes,
     ruleEvidence: fixture.ruleEvidence,
     bundle,
   });
-  if (mapped.status !== "ready" || mapped.stream.sourceRecordHash !== expectedSourceRecordHash) {
+  if (mapped.status !== "ready" || mapped.stream.sourceRecordHash !== source.expectedSourceRecordHash) {
     throw new Error("arena_pinned_fixture_identity_mismatch");
   }
   const decisions = replayCanonicalStream(mapped.stream);
@@ -491,7 +504,7 @@ async function runCommand(options) {
         id: options.datasetId,
         ...(options.datasetId === "blind-discard-smoke-v1" ? {} : { selection: { offset: options.caseOffset, poolSize: dataset.poolSize } }),
         caseSetDigest: dataset.caseSetDigest,
-        split: { unit: "complete_game", developmentGames: 1, acceptanceGames: 0, status: options.datasetId === "blind-discard-smoke-v1" ? "smoke_dev_only" : "development_only" },
+        split: arenaDatasetSource(options.datasetId).split,
         source: {
           kind: "sanitized_mahjong_soul_fixture",
           fixtureSha256: dataset.fixtureSha256,

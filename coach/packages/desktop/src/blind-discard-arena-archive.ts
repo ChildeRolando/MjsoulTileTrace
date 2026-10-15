@@ -22,7 +22,7 @@ export const ARENA_EXPERIMENTS = {
   flat: { datasetId: "blind-discard-flat-v1", label: "平面何切", description: "基础牌效场景：四家均无立直、副露。仍保留当时可见牌河与局况，并非只给手牌的纯平面测验。" },
   spatial: { datasetId: "blind-discard-spatial-v1", label: "立体何切", description: "四家中已有立直或副露的真实场面，结合牌河、分数、局况及公开鸣牌进行决策。" },
 } as const;
-export const DatasetIdSchema = z.enum(["blind-discard-smoke-v1", "blind-discard-dev-v1", "blind-discard-flat-v1", "blind-discard-spatial-v1"]);
+export const DatasetIdSchema = z.enum(["blind-discard-smoke-v1", "blind-discard-dev-v1", "blind-discard-flat-v1", "blind-discard-spatial-v1", "blind-discard-holdout-v1"]);
 const DatasetCaseSchema = z.object({
   canonicalDecisionOrder: z.number().int().nonnegative(),
   candidateCount: z.number().int().min(2).max(46),
@@ -46,8 +46,15 @@ export const ArenaArchiveManifestSchema = z.object({
       unit: z.literal("complete_game"),
       developmentGames: z.number().int().nonnegative(),
       acceptanceGames: z.number().int().nonnegative(),
-      status: z.enum(["smoke_dev_only", "development_only"]),
-    }).strict(),
+      status: z.enum(["smoke_dev_only", "development_only", "frozen_holdout"]),
+      groups: z.object({ development: z.array(SourceRecordHashSchema).min(1), acceptance: z.array(SourceRecordHashSchema).min(1) }).strict().optional(),
+    }).strict().superRefine((split, context) => {
+      if (split.status === "frozen_holdout" && (!split.groups || split.developmentGames !== split.groups.development.length || split.acceptanceGames !== split.groups.acceptance.length ||
+          new Set(split.groups.development).size !== split.groups.development.length || new Set(split.groups.acceptance).size !== split.groups.acceptance.length ||
+          split.groups.acceptance.some(hash => split.groups!.development.includes(hash)))) {
+        context.addIssue({ code: z.ZodIssueCode.custom, message: "arena_holdout_split_invalid" });
+      }
+    }),
     source: z.object({
       kind: z.literal("sanitized_mahjong_soul_fixture"),
       fixtureSha256: Sha256Schema,
