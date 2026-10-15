@@ -404,6 +404,7 @@ async function runCommand(options) {
   let apiKey = process.env.RIICHI_COACH_API_KEY ?? null;
   delete process.env.RIICHI_COACH_API_KEY;
   let runtime;
+  let archiveComplete = false;
   try {
     const prepared = await createPinnedRuntime();
     runtime = prepared.runtime;
@@ -422,7 +423,7 @@ async function runCommand(options) {
       : null;
     const credentialStatus = options.providerSettings === null
       ? "not_configured"
-      : apiKey === null ? "missing" : "available";
+      : apiKey === null || apiKey.trim().length === 0 ? "missing" : "available";
     const limits = getRunLimits(options.budget);
     const manifest = ArenaArchiveManifestSchema.parse({
       schemaVersion: "blind-discard-arena-run-manifest/v1",
@@ -499,16 +500,21 @@ async function runCommand(options) {
       const reference = savedLabel?.status === "available"
         ? { status: "available", label: createArenaReferenceLabel({ caseRef: observation.caseRef, boundScores: savedLabel.boundScores, runtimeManifest: prepared.runtimeManifest }) }
         : { status: "unavailable", reason: savedLabel?.reason ?? "mortal_error" };
-      const mcp = await startMcpClient({ binding, facts: entry.selected.facts }, options.fault);
+      const mcp = credentialStatus === "available"
+        ? await startMcpClient({ binding, facts: entry.selected.facts }, options.fault)
+        : null;
       try {
-        const mcpTool = await createArenaMcpRunnerTool({ client: mcp.client, caseRef: observation.caseRef });
+        const tools = [];
+        if (mcp !== null) {
+          tools.push(await createArenaMcpRunnerTool({ client: mcp.client, caseRef: observation.caseRef }));
+        }
         const retriever = createArenaRagRetriever({ mode: options.ragMode, caseRef: observation.caseRef, aliases });
-        const ragTool = createArenaRagRunnerTool({ retriever, caseRef: observation.caseRef });
+        tools.push(createArenaRagRunnerTool({ retriever, caseRef: observation.caseRef }));
         const result = await runBlindCoachCase({
           observation,
           grading: { binding, reference },
           provider: descriptorProvider,
-          tools: [mcpTool, ragTool],
+          tools,
           limits,
         });
         const event = ArenaArchiveEventSchema.parse({
@@ -521,15 +527,17 @@ async function runCommand(options) {
         });
         await appendFile(eventsPath, `${JSON.stringify(event)}\n`, { encoding: "utf8" });
       } finally {
-        await mcp.cleanup();
+        if (mcp !== null) await mcp.cleanup();
       }
     }
     const storedManifest = JSON.parse(await readFile(manifestPath, "utf8"));
     const storedEvents = parseArenaArchiveEvents(await readFile(eventsPath, "utf8"));
     const summary = summarizeArenaArchive({ manifest: storedManifest, events: storedEvents });
     await writeJson(join(runDirectory, "summary.json"), summary);
+    archiveComplete = true;
     process.stdout.write(`${JSON.stringify({ runId, archive: `coach/reports/blind-discard-arena/${runId}`, summary }, null, 2)}\n`);
   } finally {
+    if (!archiveComplete) await rm(runDirectory, { recursive: true, force: true }).catch(() => undefined);
     apiKey = null;
     if (runtime !== undefined) await runtime.close().catch(() => undefined);
   }
