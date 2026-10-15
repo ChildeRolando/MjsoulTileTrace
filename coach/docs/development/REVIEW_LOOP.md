@@ -12,11 +12,11 @@
 & 'E:/IDE/NodeJS/node.exe' 'C:/Users/Roland/.multica/review-loop-v2/review-queue.mjs' register 'C:/Users/Roland/.multica/review-loop-v2/config.json' <PR编号> <业务票ID或COAC编号>
 ```
 
-Coach与Arena项目已显式映射。默认 `review.engine=multica`；隐藏任务 `ReviewLoopReview` 等本票编码run结束，将现有业务票所有权交给Reviewer并启动一次fresh普通run。Reviewer用本机入口context取得固定候选、工作树、结果路径和完成命令；依据本票接受条件评审，自行写内部结果并调用complete，通过后发布GitHub检查、正常合并并回读关票。
+Coach与Arena项目已显式映射。默认 `review.engine=multica`；隐藏任务 `ReviewLoopReview` 等本票编码run结束，将现有业务票所有权交给Reviewer并启动一次fresh普通run。Reviewer用本机入口context取得固定候选、工作树、结果路径；依据本票接受条件评审，只原子提交内部结果文件。中台定时读取结果，负责平台状态流转、同票修复交接、GitHub评论/检查发布、正常合并并确认merged后关票。Reviewer不执行平台写操作，complete入口已移除，也不主动调用run、reconcile或delivery submit。
 
 P1/P2须有本票接受条件和可复核证据。阻断待Reviewer本次run结束后直接交原票编码执行器，最小修复及相关验证、正常推送原分支，再登记新head交Reviewer复审。复用未受影响的独立结论，默认最多两轮评审及一次修复；环境阻塞、等待超限或问题未解决时保留结果，不无限重派或自动切换Codex。已准备的结果文件可由后台继续收尾，同head不重复派发，等待中的PR不挡其他业务票。
 
-当前Reviewer system prompt来源为工具仓的 `multica-reviewer-system-prompt.md`。它替代日常评审中的旧Controller授权、固定五门、规则/会话哈希回执和旧结果fence；结果只包含候选、裁决、发现、适用检查及限制。旧prompt与协议保留供历史查询。
+当前Reviewer system prompt来源为工具仓的 `multica-reviewer-system-prompt.md`（review-loop/reviewer-direct/v2）。它替代日常评审中的旧Controller授权、固定五门、规则/会话哈希回执和旧结果fence；结果只包含候选、裁决、发现、适用检查及限制。旧prompt与协议保留供历史查询。
 
 操作员明确使用 `register-codex <config> <PR> <业务票> [worktree]` 后才走本机Codex备用评审；已有原生评审或修复待处理时不能直接覆盖。备用每次模型调用25分钟，沿用两轮评审及一次修复预算，不改变默认路线。
 
@@ -28,7 +28,7 @@ P1/P2须有本票接受条件和可复核证据。阻断待Reviewer本次run结�
 & 'E:/IDE/NodeJS/node.exe' 'C:/Users/Roland/.multica/review-loop-v2/delivery.mjs' submit 'C:/Users/Roland/.multica/review-loop-v2/config.json' '<已有验收请求.json>'
 ```
 
-请求由执行者准备，使用前可将 `submit` 换为 `preview` 只读回核对。命令不要求 `review-loop-admission`、`scope_proof`、模型会话或规则 hash；已接受的验收不会因此重新审查。维护者接受已知问题使用 `owner_accepted`，保留原发现和失败检查，不伪造无问题的评审结论。
+Reviewer只提交结论。请求由Mika或执行负责人复用验收后准备，使用前可将 `submit` 换为 `preview` 只读回核对。命令不要求 `review-loop-admission`、`scope_proof`、模型会话或规则 hash；已接受的验收不会因此重新审查。维护者接受已知问题使用 `owner_accepted`，保留原发现和失败检查，不伪造无问题的评审结论。
 
 GitHub `Review Loop v2` 名称暂作兼容：绿色表示所引用的验收或维护者接受支持当前交付；description/证据入口说明范围，不声称重新执行了全量产品门禁。其他 GitHub 保护仍由平台执行。候选变化停止相关写动作；响应丢失由程序回读。已有验收的 `ReviewLoopDelivery` 空队列只读本地；评审发现程序空闲时会读平台，无新候选不调用模型。两个定时器均无窗口启动，使用Roland当前Windows登录会话，不弹cmd。
 
@@ -36,7 +36,7 @@ GitHub `Review Loop v2` 名称暂作兼容：绿色表示所引用的验收或�
 
 - 独立本地工具仓拥有 Review Loop 源码、工具测试和发布版本。管理员部署固定版本；配置、凭据、ledger、结果和快照保存在 Coach/GitHub 共享仓之外的私有状态目录。
 - Coach 拥有产品 PR 的目标、接受条件和产品验收门禁；检查按[实际改动范围](VERIFICATION.md#按改动范围选择门禁)选择。
-- Multica Reviewer负责日常质量判断；本地队列只做直接交接和结果收尾。交付模块只消费有效验收，不再重复审查。同候选已有适用验收直接复用；Codex保留为明确启用的备用，检查按实际任务范围选择。
+- Multica Reviewer只负责日常质量判断和结果提交；本机程序中台负责状态流转、同票派修复、检查发布、合并和关票。交付模块只消费有效验收，不再重复审查。同候选已有适用验收直接复用；Codex保留为明确启用的备用，检查按实际任务范围选择。
 
 产品发布等需要完整验收时，五门如下；普通文档只使用适用的文档检查，不要求以下五门：
 
