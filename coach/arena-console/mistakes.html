@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Arena Lab · 错题集</title><link rel="stylesheet" href="/style.css"><script type="module" src="/mistakes.mjs"></script></head>
+<body class="mistakes-page">
+<a class="skip" href="#main">跳转到错题集</a>
+<aside class="rail">
+  <a class="brand" href="/" aria-label="Arena Lab 首页"><span class="brand-mark" aria-hidden="true">A</span><span>ARENA<span class="brand-sub">LAB / 实验工作台</span></span></a>
+  <div class="rail-caption">WORKSPACE</div>
+  <nav aria-label="主导航"><a class="nav-item" href="/">实验概览</a><a class="nav-item" href="/#results">运行记录</a><a class="nav-item active" href="/mistakes" aria-current="page">错题集</a><a class="nav-item" href="/model-info">模型运行配置</a></nav>
+  <section class="rail-note"><span class="tiny-label">CASE NOTEBOOK</span><strong>找到反复出错的场面。</strong><p>按原局决策归题<br>逐次记录错误<br>回看当时完整快照</p><span class="tag">真实归档 · 只读复查</span></section>
+</aside>
+<main id="main">
+  <header class="topbar"><div class="breadcrumb">工作空间 <span>/</span> 错题集</div><a class="quiet-button" href="/">返回控制台</a></header>
+  <div class="content">
+    <div class="heading"><div><div class="eyebrow">CASE NOTEBOOK <span class="line"></span></div><h1>错题集<span class="heading-dot">.</span></h1><p>从重复失误中找到线索，回到每一次决策发生的现场。</p></div><button id="reload-mistakes" class="quiet-button">刷新归档</button></div>
+    <p id="mistakes-status" role="status" aria-live="polite" aria-atomic="true">正在整理已有实验…</p>
+    <section class="mistake-metrics" aria-label="错题概览">
+      <article class="metric"><div class="metric-label">错题数</div><div class="metric-value" id="question-count">—</div><p class="micro">至少出现一次不匹配的场面</p></article>
+      <article class="metric"><div class="metric-label">累计错误次数</div><div class="metric-value" id="error-count">—</div><p class="micro">每次错误均保留独立案例快照</p></article>
+      <article class="metric"><div class="metric-label">错题范围内错误率</div><div class="metric-value" id="error-rate">—</div><p class="micro" id="error-fraction">错误次数 / 有效评分次数</p></article>
+    </section>
+    <section class="panel mistake-filters" aria-label="错题筛选">
+      <label>实验类型<select id="mistake-type"><option value="all">全部类型</option><option value="flat">平面何切</option><option value="spatial">立体何切</option><option value="legacy">旧版混合题库</option><option value="holdout">独立牌局验收</option></select></label>
+      <label>模型<select id="mistake-model"><option value="all">全部模型</option></select></label>
+      <label>知识检索<select id="mistake-rag"><option value="all">Off 与 Local</option><option value="off">Off</option><option value="local">Local</option></select></label>
+      <label>排序<select id="mistake-sort"><option value="errors">错误次数最多</option><option value="rate">错误率最高</option><option value="latest">最近出错</option></select></label>
+      <label class="checkbox-label"><input type="checkbox" id="include-faults">包含受控故障</label>
+    </section>
+    <p class="mistake-definition">“错误”指执行成功且有标签、但未匹配 Mortal 一选；错误率 = 错误次数 / 同题有效评分次数。执行失败、缺标签另列，不进入该分母。默认合并模型与检索模式，可用筛选缩小范围；非专家正确率。</p>
+    <div class="notebook-layout">
+      <section class="panel notebook-list" aria-labelledby="notebook-title"><div class="panel-heading"><div><h2 id="notebook-title">待复查场面</h2><span id="list-count" class="count">0</span></div></div><div id="mistake-list" aria-busy="true"><div class="empty-state">正在读取归档…</div></div><div id="mistake-pagination" class="mistake-pagination" hidden><button id="prev-mistakes" class="quiet-button">上一页</button><span id="mistake-page"></span><button id="next-mistakes" class="quiet-button">下一页</button></div></section>
+      <section class="panel notebook-detail" aria-labelledby="snapshot-title"><header class="notebook-detail-heading"><div><div class="eyebrow">ERROR SNAPSHOT</div><h2 id="snapshot-title" tabindex="-1">选择一道错题</h2></div><a href="#notebook-title" class="text-button">返回题目列表</a></header><div id="snapshot-body"><div class="empty-state">选择左侧场面，查看错误次数与每次错误的案例快照。</div></div></section>
+    </div>
+    <footer class="page-footer"><span>ARENA LAB / 错题归档</span><span>从已有实验聚合 · 不调用模型</span></footer>
+  </div>
+</main>
+</body></html>

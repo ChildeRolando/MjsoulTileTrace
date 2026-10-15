@@ -49,6 +49,11 @@ test('console persists public settings, never returns or saves the API key, and 
   assert.equal((await f.state()).catalogs.flat.ready, false);
   assert.equal((await fetch(f.url + '/api/run/not-a-run')).status, 404);
   assert.equal((await fetch(f.url + '/presentation.mjs')).status, 200);
+  for (const path of ['/mistakes', '/mistakes.mjs', '/case-view.mjs']) assert.equal((await fetch(f.url + path)).status, 200);
+  const mistakes = await fetch(f.url + '/api/mistakes').then(r => r.json());
+  assert.equal(mistakes.questions.length, 0);
+  assert.equal(mistakes.totals.errors, 0);
+  assert.equal((await fetch(f.url + '/api/mistakes?type=invalid')).status, 400);
   const tile = await fetch(f.url + '/tiles/0p.svg');
   assert.equal(tile.status, 200); assert.equal(tile.headers.get('content-type'), 'image/svg+xml');
   assert.equal((await fetch(f.url + '/tiles/8z.svg')).status, 404);

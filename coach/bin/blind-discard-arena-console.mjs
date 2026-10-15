@@ -4,6 +4,7 @@ import { readFile, writeFile, readdir, mkdir } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { randomUUID } from 'node:crypto';
+import { readArenaMistakes } from './arena-mistakes.mjs';
 import { visibleArenaMortalDetails, ArenaArchiveManifestSchema, ArenaArchiveSummarySchema, ArenaCaseCatalogSchema, parseArenaArchiveEvents, parseArenaCaseTrace, arenaTokenBudget, ARENA_EXPERIMENTS } from '@riichi-coach/desktop/blind-discard-arena-archive';
 
 import { ARENA_TOOL_CALL_PROMPT, ARENA_TOOL_CALL_PROMPT_VERSION, arenaCodexTurnInstructions } from '@riichi-coach/desktop/blind-discard-arena-provider';
@@ -158,6 +159,12 @@ export async function createArenaConsole({ coachRoot = fileURLToPath(new URL('..
         if (type !== 'legacy' && !Object.hasOwn(ARENA_EXPERIMENTS, type)) throw fail('题库类型无效。');
         const bank = await catalog(type); if (!bank) throw fail('该类型题库尚未建立，请先刷新题库。', 404); return json(response, 200, bank);
       }
+      if (request.method === 'GET' && url.pathname === '/api/mistakes') {
+        const filters = { type: url.searchParams.get('type') ?? 'all', model: url.searchParams.get('model') ?? 'all',
+          rag: url.searchParams.get('rag') ?? 'all', includeFaults: url.searchParams.get('faults') === 'include' };
+        if (!['all', 'flat', 'spatial', 'legacy', 'holdout'].includes(filters.type) || !['all', 'off', 'local'].includes(filters.rag) || filters.model.length > 200) throw fail('错题筛选条件无效。');
+        return json(response, 200, await readArenaMistakes(archiveRoot, await runs(), filters));
+      }
       if (request.method === 'GET' && url.pathname.startsWith('/api/run/')) {
         const id = url.pathname.slice('/api/run/'.length); if (!UUID.test(id)) throw fail('找不到该实验。', 404);
         const results = await runs(), run = results.find(row => row.id === id); if (!run) throw fail('找不到该实验。', 404);
@@ -192,7 +199,7 @@ export async function createArenaConsole({ coachRoot = fileURLToPath(new URL('..
         response.writeHead(200, { 'Content-Type': 'image/svg+xml', 'Cache-Control': 'public, max-age=3600' });
         return response.end(svg);
       }
-      const file = { '/model-info': ['model-info.html', 'text/html; charset=utf-8'], '/model-info.mjs': ['model-info.mjs', 'text/javascript; charset=utf-8'], '/': ['index.html', 'text/html; charset=utf-8'], '/app.mjs': ['app.mjs', 'text/javascript; charset=utf-8'], '/presentation.mjs': ['presentation.mjs', 'text/javascript; charset=utf-8'], '/style.css': ['style.css', 'text/css; charset=utf-8'] }[url.pathname];
+      const file = { '/mistakes': ['mistakes.html', 'text/html; charset=utf-8'], '/mistakes.mjs': ['mistakes.mjs', 'text/javascript; charset=utf-8'], '/case-view.mjs': ['case-view.mjs', 'text/javascript; charset=utf-8'], '/model-info': ['model-info.html', 'text/html; charset=utf-8'], '/model-info.mjs': ['model-info.mjs', 'text/javascript; charset=utf-8'], '/': ['index.html', 'text/html; charset=utf-8'], '/app.mjs': ['app.mjs', 'text/javascript; charset=utf-8'], '/presentation.mjs': ['presentation.mjs', 'text/javascript; charset=utf-8'], '/style.css': ['style.css', 'text/css; charset=utf-8'] }[url.pathname];
       if (request.method !== 'GET' || !file) throw fail('页面不存在。', 404);
       response.writeHead(200, { 'Content-Type': file[1], 'Cache-Control': 'no-cache' }); response.end(await readFile(join(assets, file[0])));
     } catch (error) { json(response, error.status ?? 500, { error: error.status ? error.message : '操作未完成，请检查配置或稍后重试。' }); }

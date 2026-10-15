@@ -326,3 +326,13 @@ COAC-224 的真实模型入口补充（2026-10-15 用户授权）：本机 Codex
 - 以完整牌局源哈希固定 dev/acceptance 分组，验收全局 selfActor=0，按原 label-blind 规则取最早 3 个合格决策。不同座位或牌局片段不作为另一独立牌局。manifest 记录 disjoint groups；页面单列独立牌局验收，不混入开发集指标。
 - 固定代码、模型 gpt-6-luna/high、6 轮、4 工具调用、8192 输出 tokens、逐题 300 秒，分别跑开发三题 Off/Local、开发一题受控 helper timeout、验收三题 Off/Local。Token 报警线沿用 100M。验收结果披露后，不再用此牌局调参后宣称新的未见验收；保留为验收快照及回归资料。
 - 不要求 Mortal 匹配率或 RAG 提升达到阈值；专业内容仍标“未专家验收”。停止条件是同一冻结版本具备真实 helper 与来源链、off disabled、完整统计与故障记录、离线复算、相关回归和审核完成。
+
+### 错题集（2026-10-16）
+
+控制台 `/mistakes` 从已有归档只读聚合错题，不调用模型、Mortal 或 helper，不新增数据库，也不改写原实验。问题身份由完整牌局源哈希、原 canonicalDecisionOrder、候选集合 digest 与完整 Mortal 身份组成；不同批次局部题号、dataset 类型、opaque caseRef 不产生重复问题，评分基准变化则单列。当前 CLI 固定 selfActor=0。
+
+错误只计 `completed` 且评分为 `not_matched` 的案例。每题错误率为该题错误次数 / 执行成功且可评分次数（matched + not_matched）；执行失败、成功但缺标签分别列示。看板汇总仅涵盖至少错过一次的题目，不代表整个实验题库错误率。默认合并各模型/Off/Local，筛选后重算分子与分母；受控故障默认排除，可显式纳入。排序支持错误次数、错误率及最近出错。
+
+每次错误以原 runId + caseOrdinal 引用不可变案例记录：当时可见手牌/摸牌/牌河/鸣牌/局况、模型提交与理由、原 Mortal Top 10、公开摘要、工具参数/返回、用量和版本。按时间切换快照，支持分享当前题目/快照 URL 及返回原实验精确案例。原档没有的牌面或评分明确标缺失，不以当前题库或模型重建历史。中断批次内已完成且验证通过的 case_run 仍可计入；不可读取的归档数量明确显示，不冒充零错误。原实验与错题页复用 `arena-console/case-view.mjs` 显示事实。
+
+实现 owner：`bin/arena-mistakes.mjs` 与 `arena-console/mistakes.*`。验证：`scripts/arena-mistakes.test.mjs` 覆盖跨批次归题、基准隔离、条件分母、筛选与故障排除、旧快照缺失；`scripts/arena-console.test.mjs` 覆盖只读 API 和页面路由。2026-10-16 本机真实归档验证为 3 道错题 / 6 次错误 / 6 份精确案例快照（默认范围），另有 1 次同题执行失败；87 个原归档文件复核未变，未新增模型调用。
