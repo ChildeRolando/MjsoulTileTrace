@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it, vi } from "vitest";
 import {
+  type ArenaRagApplicability,
   ArenaRagResultSchema,
   type ArenaRagTopic,
 } from "@riichi-coach/contracts";
@@ -37,6 +38,7 @@ function syntheticPassage(input: {
   readonly title?: string;
   readonly location?: string;
   readonly topics?: readonly ArenaRagTopic[];
+  readonly applicableWhen?: readonly ArenaRagApplicability[];
   readonly content: string;
 }) {
   return {
@@ -48,7 +50,7 @@ function syntheticPassage(input: {
     attributedReferences: [],
     rightsBasis: "Test-only synthetic content; not a production seed or evaluation case.",
     topics: input.topics ?? ["tile-efficiency" as const],
-    applicableWhen: ["general-discard-choice" as const],
+    applicableWhen: input.applicableWhen ?? ["general-discard-choice" as const],
     content: input.content,
   };
 }
@@ -109,25 +111,75 @@ describe("Blind Discard Arena RAG retrieval", () => {
     expect(result.retrieverVersion).toBe(ARENA_RAG_RETRIEVER_VERSION);
   });
 
-  it("does not let topic or applicability context create a lexical hit", async () => {
-    const retriever = localRetriever({ corpus: BLIND_DISCARD_ARENA_RAG_SEED_CORPUS });
-
-    const topicOnly = await retriever.query({
-      query: "unrelated lunar gardening text",
-      context: { topic: "tile-efficiency" },
-      limit: 2,
-    });
-    const applicabilityOnly = await retriever.query({
-      query: "unrelated lunar gardening text",
-      context: { appliesTo: "general-discard-choice" },
-      limit: 2,
+  it("does not let context create hits when no query term matches", async () => {
+    const aliases = new ArenaRunAliasVault();
+    const retriever = createArenaRagRetriever({
+      mode: "local",
+      caseRef: aliases.caseRef("context-no-hit-case"),
+      aliases,
     });
 
-    for (const result of [topicOnly, applicabilityOnly]) {
+    const [topicResult, applicabilityResult] = await Promise.all([
+      retriever.query({
+        query: "unrelated lunar gardening text",
+        context: { topic: "tile-efficiency" },
+        limit: 2,
+      }),
+      retriever.query({
+        query: "unrelated lunar gardening text",
+        context: { appliesTo: "general-discard-choice" },
+        limit: 2,
+      }),
+    ]);
+
+    for (const result of [topicResult, applicabilityResult]) {
       expect(result.status).toBe("no_hits");
       expect(result.passages).toEqual([]);
       expect(result.sourceRefs).toEqual([]);
     }
+  });
+
+  it("uses context to rank lexical matches without replacing lexical relevance", async () => {
+    const retriever = localRetriever({
+      corpus: {
+        corpusVersion: "context-ranking/v1",
+        passages: [
+          syntheticPassage({
+            id: "a-general",
+            sourceId: "test.general",
+            title: "general lexical match",
+            topics: ["tile-efficiency"],
+            applicableWhen: ["general-discard-choice"],
+            content: "有效牌种共享概念。",
+          }),
+          syntheticPassage({
+            id: "b-context-match",
+            sourceId: "test.context-match",
+            title: "context-ranked match",
+            topics: ["shape-flexibility"],
+            applicableWhen: ["complete-visibility-only"],
+            content: "有效牌种共享概念。",
+          }),
+        ],
+      },
+    });
+
+    const topicMatch = await retriever.query({
+      query: "有效牌种",
+      context: { topic: "shape-flexibility" },
+      limit: 1,
+    });
+    const applicabilityMatch = await retriever.query({
+      query: "有效牌种",
+      context: { appliesTo: "complete-visibility-only" },
+      limit: 1,
+    });
+
+    expect(topicMatch.status).toBe("hits");
+    expect(topicMatch.passages[0]?.sourceTitle).toBe("context-ranked match");
+    expect(applicabilityMatch.status).toBe("hits");
+    expect(applicabilityMatch.passages[0]?.sourceTitle).toBe("context-ranked match");
+    expect(applicabilityMatch.passages[0]?.applicableWhen).toEqual(["complete-visibility-only"]);
   });
 
   it("retrieves curated passages with opaque per-run refs, locations, and versions", async () => {
@@ -293,7 +345,6 @@ describe("Blind Discard Arena RAG retrieval", () => {
       ...valid,
       retrieval: { ...valid.retrieval, resultRefs: [] },
     }).success).toBe(false);
-    expect(spec).toContain("off 不读 corpus、local no-hit 与 hit 可区分、有来源、bounded output、prompt injection 不取得权限");
-    expect(spec).toContain("受限 context 只能重排这些词项命中，不能单独产生命中");
+    expect(spec).toContain("off 不读 corpus、local no-hit 与 hit 可区分、context 不能替代词项命中且只调整词项命中结果排序、有来源、bounded output、prompt injection 不取得权限");
   });
 });
