@@ -2,7 +2,7 @@
 
 日期：2026-10-09
 
-状态：阶段 1 规格及 T1–T4 已实现；COAC-224 已具备真实 Codex 订阅、MCP、RAG、归档与控制台。2026-10-16 正在冻结最终小批量验收；结果与关票依据见 [T5 验收记录](../development/2026-10-16-arena-t5-acceptance.md)。本文件仍是唯一 Arena 设计与验收事实源。
+状态：阶段 1 规格及 T1–T5 已实现；2026-10-16 在冻结代码 85b9cf7 上完成真实 Codex/MCP/RAG、独立牌局 Off/Local、受控故障与离线复算验收。开发组各 3/3 成功且匹配；独立组各 3/3 成功、1/3 匹配，不宣称专家正确性或 RAG 提升。结果、初始失败及修复、审核与交付依据见 [T5 验收记录](../development/2026-10-16-arena-t5-acceptance.md)。本文件仍是唯一 Arena 设计与验收事实源。
 
 本规格只拥有 Blind Discard Arena 的新增契约。已有生产事实仍以代码、schema、测试及相应权威文档为准；canonical 回放与动作权威、Mortal runtime 身份、Coach production generation seam、依赖方向和 renderer 安全边界分别继续归属现有 owner。工单只引用本文件，不复制本文件内容。
 
