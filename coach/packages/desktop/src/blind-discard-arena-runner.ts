@@ -508,7 +508,7 @@ export function createArenaRagRunnerTool(input: {
 }): ArenaRunnerTool {
   return {
     name: "search_knowledge",
-    description: "Search the small local teaching corpus for one bounded, sourced passage relevant to this discard decision.",
+    description: "Search local Chinese teaching summaries about 进张计数 (effective tile counts) or 复合牌形 (overlapping shapes). Use a short Chinese concept query to check a general principle before citing it; this corpus contains no case answers. Off mode returns disabled.",
     parameters: ARENA_RAG_TOOL_PARAMETERS,
     parseInput(raw) {
       const parsed = ArenaRagRequestSchema.safeParse(raw);
