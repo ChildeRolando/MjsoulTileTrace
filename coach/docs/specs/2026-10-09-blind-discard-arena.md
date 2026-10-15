@@ -134,7 +134,23 @@ helper MCP 必须由真正的 MCP client/server 协议调用；现有 JSONL help
 
 MCP server 仅允许读取当前授权 case 的冻结事前状态和提供的合法 actionRefs。拒绝越权/未知 caseRef、非法或重复 actionRef、任意路径、shell、完整牌谱读取、未来事件、Mortal 查询与任意模型评分。每次 actionRefs 与 dimensions 数量、返回字节数、helper timeout 和整 run tool-call/总时长都必须有有限上限；实现将上限写入版本化配置并测试超限拒绝，超过结果上限时返回错误状态，不能截断后假装完整。相同 frozen request 可以做确定性缓存，但缓存键和返回物不得包含或依赖 label。
 
-COAC-221 的 v1 实现只注册 `analyze_candidates`：strict 输入为 `caseRef`、1–3 个 offered `actionRefs` 与 1–4 个请求维度；维度目前为 `shanten`、`effective_tiles`、`remaining_waits`、`dora_count`。未知维度逐项返回 `unsupported`，事实不足返回 `unavailable`，不会补造数值。server 从绑定的决策时 facts 与已验证候选调用现有 `projectCandidate`/`MahjongFactEnginePort.analyzeHand13`，并以现有 `validateHand13Result` 校验；输出只包含请求的候选/维度、值与单位、per-run opaque `sourceRef`/`evidenceRefs`、helper identity 或 adapter 版本及状态，不暴露原始 helper 请求身份或错误 prose。
+COAC-221 的 v1 实现只注册 `analyze_candidates`：strict 输入为 `caseRef`、1–3 个 offered `actionRefs` 与 1–4 个请求维度；维度目前为 `shanten`、`effective_tiles`、`remaining_waits`、`ukeire`、`dora_count`。未知维度逐项返回 `unsupported`，事实不足返回 `unavailable`，不会补造数值。server 从绑定的决策时 facts 与已验证候选调用现有 `projectCandidate`/`MahjongFactEnginePort.analyzeHand13`，并以现有 `validateHand13Result` 校验；输出只包含请求的候选/维度、值与单位、per-run opaque `sourceRef`/`evidenceRefs`、helper identity 或 adapter 版本及状态，不暴露原始 helper 请求身份或错误 prose。
+
+2026-10-16 修复 `ukeire` 漏映射：该维度复用 helper 的 `effectiveTile34` 与
+`waitsRemaining`，不另写向听／进张算法。`available` 的 `value` 包含 `shanten`、
+`effectiveTileTypeCount`、`nonExhaustedTileTypeCount`、`totalRemainingCopies`，以及
+`tiles: [{ tile34, tileId, remainingCopies }]`；耗尽的有效牌保留在列表中，张数为零。
+单位 `unseen_tile_copies` 与 `countBasis: unseen_copies_not_wall_count` 表示扣除自家
+已知牌与公开可见牌后的未见枚数，不等于真实牌墙中的枚数。helper 缺少可见信息时
+返回 `unavailable/helper_missing_visibility`，不再因维度漏接返回 `unsupported`，也
+不把未知记零。工具说明和输入 schema 同时公布此能力。原日志保留历史返回，后续
+实验通过新启动的 MCP 子进程使用修复；未增加工具权限、计算 owner 或生产路径。
+
+验证：31 项 MCP／runner 测试及构建、架构检查通过；包含真实 CLI MCP 子进程与
+打包 helper 的一致性、缺少可见信息和零枚有效牌。历史实验
+`084f2ef9-71ff-498e-a190-35a80857a0d2` 案例 0 的两个失败候选，使用原牌谱前缀与
+真实规则重新绑定后均返回 `available`（16 种、52 张），逐牌结果与直接 helper 一致。
+复测不调用模型，也不重写旧实验成绩。
 
 限制固定在 `blind-discard-arena-mcp-limits/v1`：每 run 最多 8 次工具调用、12 次 helper 调用；每 call 最多 3 个候选和 4 个维度；单结果上限 16 KiB（超出返回 `result_too_large`，不截断）；helper 单次 2 秒、单次工具 10 秒、helper 累计 20 秒、run 5 分钟。只处理一个并发请求；忙时返回 `helper_busy`。server 要求组合方提供立即释放 helper 的回调（受管 client 的普通 `close()` 可能排在当前请求之后）；helper 超时、stdio client 断连或 run deadline 时调用该回调并关闭 server。运行时调用者只能降低这些上限，不能抬高 v1 上限。
 

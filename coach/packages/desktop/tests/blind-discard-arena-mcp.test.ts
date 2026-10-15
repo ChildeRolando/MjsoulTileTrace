@@ -55,8 +55,11 @@ it("the actual Arena CLI MCP server starts and queries the packaged helper", asy
     const tools = await client.listTools();
     expect(tools[0]!.inputSchema).toMatchObject({ properties: { caseRef: { type: "string" }, actionRefs: { type: "array" }, dimensions: { type: "array" } } });
     const result = await client.analyzeCandidates({ caseRef: authorizedCase.binding.caseRef,
-      actionRefs: [authorizedCase.binding.candidates[0]!.actionRef], dimensions: ["shanten"] });
+      actionRefs: [authorizedCase.binding.candidates[0]!.actionRef], dimensions: ["shanten", "ukeire"] });
     expect(result.facts[0]).toMatchObject({ dimension: "shanten", status: "available" });
+    expect(result.facts[1]).toMatchObject({ dimension: "ukeire", status: "available", value: {
+      totalRemainingCopies: expect.any(Number), tiles: expect.arrayContaining([expect.objectContaining({ tileId: expect.any(String), remainingCopies: expect.any(Number) })]),
+    } });
   } finally { await client.close(); await rm(directory, { recursive: true, force: true }); }
 });
 const recordIdCanary = "recordId-CANARY-blind-arena";
@@ -157,7 +160,7 @@ const coachDir = resolve(fileURLToPath(new URL(".", import.meta.url)), "../../..
 async function startMcp(input: {
   authorizedCase: ArenaMcpAuthorizedCase;
   helper?: "fixture" | "packaged";
-  behavior?: "normal" | "error" | "timeout";
+  behavior?: "normal" | "error" | "timeout" | "ukeire-edge";
   limits?: Partial<typeof ARENA_MCP_LIMITS_V1>;
 }) {
   const context = JSON.stringify({
@@ -318,9 +321,9 @@ describe("Blind Discard Arena MCP adapter", () => {
       const result = await server.client.analyzeCandidates({
         caseRef: authorizedCase.binding.caseRef,
         actionRefs: [actionRef],
-        dimensions: ["shanten"],
+        dimensions: ["shanten", "ukeire", "effective_tiles", "remaining_waits"],
       });
-      expect(result.facts).toHaveLength(1);
+      expect(result.facts).toHaveLength(4);
       expect(result.facts[0]).toMatchObject({
         actionRef,
         dimension: "shanten",
@@ -329,12 +332,48 @@ describe("Blind Discard Arena MCP adapter", () => {
         unit: "shanten",
         producer: { kind: "helper", identity: directIdentity },
       });
+      expect(result.facts[1]).toMatchObject({ dimension: "ukeire", status: "available", unit: "unseen_tile_copies",
+        value: {
+          shanten: directResult.shanten,
+          effectiveTileTypeCount: directResult.effectiveTile34.length,
+          nonExhaustedTileTypeCount: directResult.waitsRemaining.filter(row => row.count > 0).length,
+          totalRemainingCopies: directResult.waitsRemaining.reduce((total, row) => total + row.count, 0),
+          countBasis: "unseen_copies_not_wall_count",
+          tiles: directResult.waitsRemaining.map(row => ({ tile34: row.tile34, remainingCopies: row.count, tileId: expect.stringMatching(/^[1-9][mpsz]$/) })),
+        }, producer: { kind: "helper", identity: directIdentity },
+      });
+      expect(result.facts[2]?.value).toEqual(directResult.effectiveTile34);
+      expect(result.facts[3]?.value).toEqual({ status: "calculated", counts: directResult.waitsRemaining });
     } finally {
       await server.client.close();
       expect(await waitForHelperClose(server.stderr), server.stderr()).toBe(true);
       await direct.close();
     }
   }, 15_000);
+
+  it("reports missing ukeire visibility as unavailable instead of unsupported or a fabricated zero", async () => {
+    const { authorizedCase } = makeAuthorizedCase();
+    const server = await startMcp({ authorizedCase });
+    try {
+      const result = await server.client.analyzeCandidates({ caseRef: authorizedCase.binding.caseRef,
+        actionRefs: [authorizedCase.binding.candidates[0]!.actionRef], dimensions: ["ukeire"] });
+      expect(result.facts[0]).toMatchObject({ dimension: "ukeire", status: "unavailable", reason: "helper_missing_visibility" });
+      expect(result.facts[0]).not.toHaveProperty("value");
+    } finally { await server.client.close(); }
+  });
+
+  it("retains exhausted effective tiles without counting them as remaining ukeire", async () => {
+    const { authorizedCase } = makeAuthorizedCase();
+    const server = await startMcp({ authorizedCase, behavior: "ukeire-edge" });
+    try {
+      const result = await server.client.analyzeCandidates({ caseRef: authorizedCase.binding.caseRef,
+        actionRefs: [authorizedCase.binding.candidates[0]!.actionRef], dimensions: ["ukeire"] });
+      expect(result.facts[0]).toMatchObject({ status: "available", value: {
+        effectiveTileTypeCount: 2, nonExhaustedTileTypeCount: 1, totalRemainingCopies: 2,
+        tiles: [{ tile34: 3, tileId: "4m", remainingCopies: 0 }, { tile34: 4, tileId: "5m", remainingCopies: 2 }],
+      } });
+    } finally { await server.client.close(); }
+  });
 
   it("enforces caller-lowered candidate and dimension limits", async () => {
     const { authorizedCase } = makeAuthorizedCase();
