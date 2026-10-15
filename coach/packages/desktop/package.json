@@ -12,6 +12,10 @@
       "types": "./src/blind-discard-arena-scorer.ts",
       "import": "./dist/blind-discard-arena-scorer.js"
     },
+    "./blind-discard-arena-mcp": {
+      "types": "./src/blind-discard-arena-mcp.ts",
+      "import": "./dist/blind-discard-arena-mcp.js"
+    },
     "./session-api": {
       "types": "./src/session-api.ts",
       "import": "./dist/session-api.js"
@@ -22,6 +26,7 @@
     "build": "tsc -p tsconfig.build.json && node scripts/copy-renderer.mjs && node scripts/bundle-preload.mjs"
   },
   "dependencies": {
+    "@modelcontextprotocol/sdk": "1.32.1",
     "@riichi-coach/contracts": "0.1.0",
     "@riichi-coach/mahjong-soul-source": "0.1.0",
     "@riichi-coach/mortal-runtime": "0.1.0",

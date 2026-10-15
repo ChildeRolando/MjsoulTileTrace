@@ -8,7 +8,7 @@
 
 ## 并行研究线：Blind Discard Arena
 
-COAC-219 建立了不改变生产复盘语义的离线何切实验台工作线。阶段 1 契约见 [Blind Discard Arena spec](../specs/2026-10-09-blind-discard-arena.md)；T1 的 DTO、label-blind selector、blind allow-list/alias、私有 tool binding、独立 scorer 与 focused behavior regressions 已在 COAC-220 实现，并以真实 native rules/Mortal runtime 冻结三道 dev smoke cases。T2 helper MCP、T3 runner/provider tool loop、T4 RAG 与 T5 archive/CLI/真实模型演示仍未实现或验收。此实验线独立于下方 M6/M7 production critical path；其 Mortal 匹配率不能作为专家正确率或生产 MVP 完成证据。
+COAC-219 建立了不改变生产复盘语义的离线何切实验台工作线。阶段 1 契约见 [Blind Discard Arena spec](../specs/2026-10-09-blind-discard-arena.md)；T1 的 DTO、label-blind selector、blind allow-list/alias、私有 tool binding、独立 scorer 与 focused behavior regressions 已在 COAC-220 实现，并以真实 native rules/Mortal runtime 冻结三道 dev smoke cases。T2 helper MCP 的真实 stdio server/client 薄适配已由 COAC-221 实现，覆盖 packaged helper parity、权限与有界资源，并待独立评审；T3 runner/provider tool loop、T4 RAG 与 T5 archive/CLI/真实模型演示仍未实现或验收。此实验线独立于下方 M6/M7 production critical path；其 Mortal 匹配率不能作为专家正确率或生产 MVP 完成证据。
 
 ## 2026-09-29 历史记录：PR #28 真实整场可靠性验收
 
