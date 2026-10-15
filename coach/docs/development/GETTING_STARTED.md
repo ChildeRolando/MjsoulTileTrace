@@ -137,6 +137,10 @@ node --test scripts/mahjong-soul-protocol-compatibility.test.mjs
 
 COAC-13/14 的机器版本、路径、权限和任务配置记录属于历史案例，不构成当前生产或 agent 配置要求。完整原始记录及两文件差异保留在 [PR #6 源提交](https://github.com/ChildeRolando/MjsoulTileTrace/commit/39061117c2a99f121df23da11b72f9f33d60a2f3)。
 
+### Arena 控制台启停
+
+在 `coach/` 使用 `./bin/arena-console-control.ps1 -Action start`；`stop`、`restart`、`status` 使用同一入口。Node 不在 PATH 时追加 `-NodePath 'E:/IDE/NodeJS/node.exe'`。脚本启动隐藏窗口，将日志和服务回执放入 `reports/blind-discard-arena/`；停止通过同源本机 `POST /api/shutdown` 正常关闭 HTTP 服务。实验运行中返回 409，先在页面停止实验或等其完成。没有后台定时任务，也不按 PID 强制终止服务。
+
 ### workspace import 指向旧的 `dist`
 
 先运行 `npm run build`，再跑跨 workspace 的 focused 测试。desktop 测试通过包名导入 source 包时，旧 `dist` 会造成看似无法解释的失败。

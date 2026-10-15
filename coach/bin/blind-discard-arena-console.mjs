@@ -135,6 +135,12 @@ export async function createArenaConsole({ coachRoot = fileURLToPath(new URL('..
         await writeFile(configPath, JSON.stringify(next, null, 2)); config = next; return json(response, 200, publicConfig());
       }
       if (request.method === 'POST' && url.pathname === '/api/start') { const raw = await body(request); return json(response, 202, await start(raw.mode, raw)); }
+      if (request.method === 'POST' && url.pathname === '/api/shutdown') {
+        if (job?.status === 'running' || job?.status === 'stopping') throw fail('实验运行中，请先停止或等待完成再关闭控制台。', 409);
+        json(response, 202, { status: 'shutting_down' });
+        server.close(); server.closeIdleConnections();
+        return;
+      }
       if (request.method === 'POST' && url.pathname === '/api/stop') {
         if (!child || !job || job.status !== 'running') throw fail('当前没有正在运行的实验。', 409);
         stopping = true; job.status = 'stopping'; terminate(); await persistJob(); return json(response, 202, publicJob());

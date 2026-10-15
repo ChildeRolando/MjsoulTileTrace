@@ -44,6 +44,7 @@ test('console starts a real owned process once and stop waits for its exit', asy
   assert.equal((await f.state()).job.maxCases, 25); assert.equal((await f.state()).job.caseOffset, 10);
   assert.equal((await f.post('/api/start', { mode: 'local' })).status, 409);
   assert.equal((await f.state()).job.status, 'running');
+  assert.equal((await f.post('/api/shutdown', {})).status, 409);
   let args;
   for (let i = 0; i < 100; i++) { try { args = JSON.parse(await readFile(join(f.root, 'received-args.json'), 'utf8')); break; } catch { await setTimeout(50); } }
   assert.equal(args[args.indexOf('--dataset') + 1], 'blind-discard-dev-v1');
@@ -54,4 +55,13 @@ test('console starts a real owned process once and stop waits for its exit', asy
   for (let i = 0; i < 100; i++) { job = (await f.state()).job; if (job.status === 'stopped') break; await setTimeout(50); }
   assert.equal(job.status, 'stopped'); assert.equal(job.steps.length, 1); assert.equal(job.steps[0].status, 'stopped');
   assert.equal((await f.post('/api/stop', {})).status, 409);
+});
+
+test('idle console shuts down through its same-origin lifecycle hook', async t => {
+  const f = await fixture(t);
+  assert.equal((await f.post('/api/shutdown', {}, 'https://foreign.example')).status, 403);
+  const response = await f.post('/api/shutdown', {});
+  assert.equal(response.status, 202);
+  assert.deepEqual(await response.json(), { status: 'shutting_down' });
+  await assert.rejects(() => f.state());
 });
