@@ -32,6 +32,14 @@ Reviewer只提交结论。请求由Mika或执行负责人复用验收后准备�
 
 GitHub `Review Loop v2` 名称暂作兼容：绿色表示所引用的验收或维护者接受支持当前交付；description/证据入口说明范围，不声称重新执行了全量产品门禁。其他 GitHub 保护仍由平台执行。候选变化停止相关写动作；响应丢失由程序回读。已有验收的 `ReviewLoopDelivery` 空队列只读本地；评审发现程序空闲时会读平台，无新候选不调用模型。两个定时器均无窗口启动，使用Roland当前Windows登录会话，不弹cmd。
 
+## 运维与历史收口（2026-10-15）
+
+运维使用独立的 `maintenance.mjs inventory|resource-preview|storage-gc` 及既有固定版本发布入口，不进入每分钟交付关键路径，不启动旧Controller或新增流程票。旧PR账本与评审原文保留为历史；已关闭PR的旧pending不再执行，旧CHANGES_REQUIRED不会改成PASS。已交付的历史评审票结束评审阶段，被替代的旧实现/恢复路线及放弃PR的未完成修复以cancelled收口。
+
+安装器不再永久pin每次发布；current/previous、人工pin和实际引用仍保护版本。已登记、无人工pin的被替换版本，首次确认被替换时写入30天后的expires_at，重复安装不延长。到期后仍由既有移除入口核对完整launcher/producer清单及活动，缺完整历史清单则保留；不按版本数量或创建年龄删目录。
+
+目录和Git登记均已不存在、无lease/pin的已登记资源，storage-gc只回读修正removed/CONFIRMED_ABSENT，不删除文件或重放评审。恢复备份、独有或脏工作树、正在使用的资源继续保留。历史诊断文件归档不等于原审查通过。
+
 ## 所有权
 
 - 独立本地工具仓拥有 Review Loop 源码、工具测试和发布版本。管理员部署固定版本；配置、凭据、ledger、结果和快照保存在 Coach/GitHub 共享仓之外的私有状态目录。
