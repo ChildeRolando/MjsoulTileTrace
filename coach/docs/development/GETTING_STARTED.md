@@ -39,6 +39,16 @@ npm run coach:demo
 
 它使用仓库内置的东一局 fixture 和打包 sidecar 输出结构化/Markdown 报告。这个入口是回归原型，不是通用雀魂导入器。
 
+### Blind Discard Arena 本地实验台
+
+```powershell
+npm run arena -- run --dataset blind-discard-smoke-v1 --rag off
+npm run arena -- run --dataset blind-discard-smoke-v1 --rag local
+npm run arena -- inspect <runId>
+```
+
+Arena 使用固定脱敏 smoke/dev 牌局、真实 managed libriichi 和 Mortal runtime，并把 manifest、事件及可离线重算的 summary 写入 `reports/blind-discard-arena/<runId>/`。两种 RAG 模式必须各自记录 runId；`inspect` 不会启动模型或 helper。获授权的 OpenAI-compatible provider 由现有本机设置配置；若没有可用授权凭据，archive 会记录 provider unavailable，真实模型演示仍待完成，不得据此宣称 Arena 总体验收通过。边界与验收事实见 [Blind Discard Arena spec](../specs/2026-10-09-blind-discard-arena.md)。
+
 ### Electron 桌面应用
 
 ```powershell

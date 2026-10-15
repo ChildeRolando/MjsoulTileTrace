@@ -24,6 +24,22 @@
       "types": "./src/blind-discard-arena-runner.ts",
       "import": "./dist/blind-discard-arena-runner.js"
     },
+    "./blind-discard-arena-archive": {
+      "types": "./src/blind-discard-arena-archive.ts",
+      "import": "./dist/blind-discard-arena-archive.js"
+    },
+    "./blind-discard-arena-provider": {
+      "types": "./src/blind-discard-arena-provider.ts",
+      "import": "./dist/blind-discard-arena-provider.js"
+    },
+    "./blind-discard-arena-rag-seed": {
+      "types": "./src/blind-discard-arena-rag-seed.ts",
+      "import": "./dist/blind-discard-arena-rag-seed.js"
+    },
+    "./llm-provider/service": {
+      "types": "./src/llm-provider/service.ts",
+      "import": "./dist/llm-provider/service.js"
+    },
     "./session-api": {
       "types": "./src/session-api.ts",
       "import": "./dist/session-api.js"

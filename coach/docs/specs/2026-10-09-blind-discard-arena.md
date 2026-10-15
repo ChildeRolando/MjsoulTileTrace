@@ -2,7 +2,7 @@
 
 日期：2026-10-09
 
-状态：阶段 1 规格已由 PR #47 合入；T1 最小契约、筛题、盲观察、隔离标签与离线 scorer 已在 COAC-220 实现；T2 的真实 stdio MCP helper 薄适配已由 COAC-221 实现并待独立评审；T4 的 off/local 有界本地检索已由 COAC-222 实现并待独立评审；T3 的隔离 runner/provider loop 已由 COAC-223 实现并待独立评审，且通过真实 stdio MCP 与 local RAG 回归验证。T5 archive/CLI 与真实模型演示仍待实现或验收；本文件仍是唯一 Arena 设计与验收事实源。
+状态：阶段 1 规格已由 PR #47 合入；T1 最小契约、筛题、盲观察、隔离标签与离线 scorer 已在 COAC-220 实现；T2 的真实 stdio MCP helper 薄适配已由 COAC-221 实现并待独立评审；T4 的 off/local 有界本地检索已由 COAC-222 实现并待独立评审；T3 的隔离 runner/provider loop 已由 COAC-223 实现并待独立评审，且通过真实 stdio MCP 与 local RAG 回归验证；T5 的本地 CLI、run archive 和离线 inspect 已由 COAC-224 实现。T5 的真实模型 tool loop 演示仍待获授权凭据后执行；本文件仍是唯一 Arena 设计与验收事实源。
 
 本规格只拥有 Blind Discard Arena 的新增契约。已有生产事实仍以代码、schema、测试及相应权威文档为准；canonical 回放与动作权威、Mortal runtime 身份、Coach production generation seam、依赖方向和 renderer 安全边界分别继续归属现有 owner。工单只引用本文件，不复制本文件内容。
 
@@ -174,7 +174,7 @@ npm run arena -- run --dataset blind-discard-smoke-v1 --rag local
 npm run arena -- inspect <runId>
 ```
 
-脚本尚不存在；T5 落地后须在 `coach/package.json` 与 `GETTING_STARTED.md` 定义同一命令，不得把这里的规划命令报告成当前可执行入口。
+当前入口定义于 `coach/package.json` 和 `coach/GETTING_STARTED.md`，并新增于 `coach/bin/blind-discard-arena.mjs`；它不改动 `coach:demo`。每个 run 在 `coach/reports/blind-discard-arena/<runId>/` 写入 manifest、事件轨迹和 summary，`inspect` 只读取这些归档并重算 summary，不启动 provider、MCP 或 RAG。
 
 固定 smoke 数据来源优先从现有脱敏完整记录 `coach/packages/mahjong-soul-source/tests/fixtures/real-record-complete.json` canonical replay；当前 `paipu-import-service.test.ts` 读取的就是该路径。该 fixture 只证明 source/canonical 回放输入，不得复用测试中冻结的 rule response / scoring stub 冒充真实 Mortal。case builder 按第 4 节完整规则动作空间筛选，在符合条件的完整记录内按 canonical 决策顺序选最早最多 3 个 case；筛选全程不读 Mortal label。dataset manifest 冻结 source hash、case refs、分组和 seed。off/local 两次运行消费完全相同的 case set 和候选顺序。
 
@@ -216,6 +216,7 @@ holdout acceptance 至少使用另一个不同的完整 gameId；只能从仓库
 | RAG off 不读 corpus、local no-hit 与 hit 可区分、context 不能替代词项命中且只调整词项命中结果排序、有来源、bounded output、prompt injection 不取得权限 | `coach/packages/desktop/tests/blind-discard-arena-rag.test.ts` | Arena 新 suite；COAC-222 实现 |
 | 模型选择真实 MCP/RAG 查询，无预取矩阵；只用已观察 refs 锁定 submission，之后才评分；断连/工具超时以 sanitized event 保留并允许安全恢复；清理受剩余 run 时限、取消和有界 force-dispose 约束 | `coach/packages/desktop/tests/blind-discard-arena-runner.test.ts` | Arena 新 suite；COAC-223 实现 |
 | Arena provider 每轮最多一个函数调用；凭据留在主进程、无自动重试，不保存 provider 原始 content/hidden CoT | `coach/packages/desktop/tests/arena-tool-call-provider.test.ts`、`coach/scripts/check-architecture.test.mjs` | Arena provider contract；COAC-223 实现 |
+| archive event/manifest schema 校验、失败终态与 helper/RAG/tool 计数离线重算；inspect 不依赖运行中的 provider/MCP/RAG | `coach/packages/desktop/tests/blind-discard-arena-archive.test.ts` | T5 archive summary contract；COAC-224 实现 |
 | production ReviewReport 的一次 completion、provider retry、保存/读取与 UI 语义不变 | 继续维护现有 owner | `npx vitest run packages/reasoning/tests/review-report.test.ts packages/reasoning/tests/automatic-report-scope.test.ts packages/desktop/tests/coach-provider.test.ts packages/desktop/tests/codex-coach-provider.test.ts` |
 
 从 `coach/` 运行。每票的 focused Arena command 为 `npm exec -- vitest run` 加该票实际新增的测试路径。跨依赖修改另按 [verification gate](../development/VERIFICATION.md) 运行适用的 `npm run typecheck`、`npm test`、`npm run check:architecture`、`npm run test:package-import`；若改变 architecture checker，同步其自测 `npm run test:architecture-checker`。真实 runtime/helper/provider/fixture 变更按现有 Local Mortal、helper、协议及 external/H1 gate 执行。T1 已运行 focused case/scorer tests（13/13）、`npm run typecheck`、`npm run build`、`npm run check:architecture`、`npm run test:package-import`（2/2）与 `git diff --check`。全量 `npm test` 的并行运行结果为 215 个 test files 通过、4 个失败；2737 个测试中 2728 通过、9 个因超时或 fake-runtime `pid.txt` ENOENT 失败，Arena suites 未失败。将这 4 个受影响文件用 `--no-file-parallelism --maxWorkers=1` 单独重跑后，131/131 通过；因此此处不把那次全量并行运行记为 PASS。真实样例 selection receipt 的 runtime identity 和排除计数见第 10 节。
