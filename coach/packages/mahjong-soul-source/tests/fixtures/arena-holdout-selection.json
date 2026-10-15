@@ -1,0 +1,12 @@
+{
+  "frozenAt": "2026-10-15T18:25:33.852Z",
+  "selection": "First lexically sorted cached complete game; selected before viewing labels or model output. Previously used only for production parser/analysis regression, never Arena tuning.",
+  "sourceGroupHash": "89271e577b582d8f79821bc713e622a353a502162ac3381e31e81b6740a1fcaf",
+  "sourceCacheSha256": "3ab5382581ef68827c26a5c77e9ac3c033d6be532624ce7fd60457c142e0ff62",
+  "sourceRecordHash": "sha256:4df4cb710b32c4327efab6171826f2ef74a8805ac40a13e3238024d85590e968",
+  "developmentSourceRecordHash": "sha256:fe547cc2b42f0ea83230feaa0fbbdf9bab7281838a66f051cb7a8609687e1c33",
+  "rounds": 11,
+  "complete": "game_ended",
+  "decisionRule": "selfActor 0; first 3 qualifying discard-only decisions; label-blind selection",
+  "sanitizer": "scripts/generate-mahjong-soul-real-fixtures.mjs#deriveSanitizedFixtures"
+}

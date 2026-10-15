@@ -1,11 +1,49 @@
+import { createHash } from "node:crypto";
 import {
   ArenaScoringCaseInputSchema,
   ArenaBatchScoreSchema,
+  LibriichiRuleRequestSchema,
+  LibriichiRuleResponseSchema,
+  LocalMortalScoringRequestSchema,
+  LOCAL_MORTAL_SCORING_PROTOCOL_VERSION,
+  libriichiRuleCanonicalJson,
   type ArenaBatchScore,
   type ArenaScoringCaseInput,
   type ArenaToolBinding,
   type ArenaBlindObservation,
+  type ManagedMortalRuntimeIdentity,
+  type LocalMortalScoringRequest,
 } from "@riichi-coach/contracts";
+import { bindLibriichiRuleResult, type ReplayedDecision } from "@riichi-coach/reasoning";
+import { createArenaBlindRuleRequest } from "./blind-discard-arena.js";
+
+const digest = (value: unknown) => createHash("sha256").update(libriichiRuleCanonicalJson(value)).digest("hex");
+
+/** Project a post-selection Mortal label request from the exact blinded native result screened by Arena. */
+export function projectArenaLocalMortalRuleScoring(input: {
+  identity: ManagedMortalRuntimeIdentity;
+  decision: ReplayedDecision;
+  ruleRequest: unknown;
+  ruleResult: unknown;
+}): LocalMortalScoringRequest {
+  const ruleRequest = LibriichiRuleRequestSchema.parse(input.ruleRequest);
+  const ruleResult = LibriichiRuleResponseSchema.parse(input.ruleResult);
+  if (libriichiRuleCanonicalJson(createArenaBlindRuleRequest(ruleRequest)) !== libriichiRuleCanonicalJson(ruleRequest)) {
+    throw new Error("arena_mortal_rule_request_not_blinded");
+  }
+  const bound = bindLibriichiRuleResult({ request: ruleRequest, response: ruleResult, decision: input.decision });
+  if (bound.response.status !== "ok" || bound.actions.length < 2) {
+    throw new Error("arena_mortal_rule_result_not_scorable");
+  }
+  const content = {
+    protocolVersion: LOCAL_MORTAL_SCORING_PROTOCOL_VERSION,
+    operation: "score_actions" as const,
+    identity: input.identity,
+    ruleRequest,
+    ruleResult: bound.response,
+  };
+  return LocalMortalScoringRequestSchema.parse({ ...content, requestId: digest(content) });
+}
 
 function resolveCandidate(actionRef: string, candidates: ArenaScoringCaseInput["candidates"]): number {
   return candidates.findIndex((candidate) => candidate.physicalRealizations.some((realization) => realization.actionRef === actionRef));

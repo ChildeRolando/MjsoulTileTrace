@@ -120,7 +120,7 @@ export function createFixedReviewUi(input: {
       const showTiles=(host:HTMLElement,tiles:NonNullable<FixedReviewDetailDto["board"]>["hand"])=>{
         if(!tiles.length)return;
         const strip=element(document,"div");strip.className="comparison-tiles";
-        for(const tile of tiles){const image=element(document,"img");image.className="tile";image.src=`./tiles/${tile.red ? "0"+tile.id[1] : tile.id}.svg`;image.alt=tileName(tile);image.draggable=false;strip.append(image);}
+        for(const tile of tiles){const image=element(document,"img");image.className="tile";image.src=`./tiles/${tile.red ? "0"+tile.id[1] : tile.id}.svg?v=flat-b-4`;image.alt=tileName(tile);image.draggable=false;strip.append(image);}
         host.append(strip);
       };
       showTiles(actual,detail.board.actualTile ? [detail.board.actualTile] : []);

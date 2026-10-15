@@ -9,7 +9,7 @@ export const testHelperIdentity: Readonly<{
 }>;
 
 export function createArenaMcpTestEngine(options?: {
-  behavior?: "normal" | "error" | "timeout";
+  behavior?: "normal" | "error" | "timeout" | "ukeire-edge";
   emitCloseMarker?: boolean;
 }): {
   engine: MahjongFactEnginePort;

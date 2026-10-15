@@ -10,13 +10,14 @@ import {
   createArenaRagRunnerTool,
   runBlindCoachCase,
   type ArenaRunnerTool,
+  type ArenaRunEvent,
 } from "../src/blind-discard-arena-runner.js";
-import type { ArenaProviderMessage, ArenaProviderRequest, ArenaToolCallProvider } from "../src/blind-discard-arena-provider.js";
+import { ArenaProviderRequestSchema, type ArenaProviderMessage, type ArenaProviderRequest, type ArenaToolCallProvider } from "../src/blind-discard-arena-provider.js";
 import { createArenaRagRetriever } from "../src/blind-discard-arena-rag.js";
 import { arenaFixtureCanaries, makeArenaMcpCase } from "./fixtures/arena-mcp-case.js";
 
 function toolCall(name: string, args: unknown, outputBytes = 200) {
-  return { status: "ready" as const, call: { name, arguments: JSON.stringify(args) }, outputBytes };
+  return { status: "ready" as const, call: { name, arguments: JSON.stringify(args) }, outputBytes, decisionSummary: "根据可见输入选择下一步操作。" };
 }
 
 function finalSubmission(caseRef: string, actionRefs: readonly ActionRef[]): ArenaCoachSubmission {
@@ -131,6 +132,66 @@ function scriptedProvider(input: {
 }
 
 describe("Blind Discard Arena runner", () => {
+  it("keeps large observed citation sets constrained and still rejects source/evidence mixups", async () => {
+    const testCase = makeArenaMcpCase();
+    const sourceRefs = Array.from({ length: 130 }, (_, i) => testCase.aliases.reference(`source-only-${i}`));
+    let turn = 0;
+    const result = await runBlindCoachCase({ observation: testCase.observation,
+      grading: { binding: testCase.authorizedCase.binding, reference: { status: "unavailable", reason: "mortal_unavailable" } },
+      provider: { descriptor: () => ({ providerId: "test-provider", model: "citation-test", protocolVersion: "arena-function-call/v1" }),
+        async request(request) {
+          turn += 1;
+          if (turn === 1) return toolCall("search_knowledge", { query: "牌效", limit: 1 });
+          const final = request.tools.find(tool => tool.function.name === "submit_decision")!;
+          const properties = final.function.parameters.properties as Record<string, { items: { enum?: string[] } }>;
+          expect(properties.sourceRefs!.items.enum).toEqual(expect.arrayContaining(sourceRefs));
+          expect(properties.evidenceRefs!.items.enum).not.toContain(sourceRefs[129]);
+          const submission = finalSubmission(testCase.observation.caseRef, testCase.observation.candidates.map(row => row.actionRef));
+          // A reference returned as a source is not automatically evidence.
+          return toolCall("submit_decision", { ...submission, evidenceRefs: [sourceRefs[129]], sourceRefs: [sourceRefs[129]] });
+        } },
+      tools: [{ ...offRagTool(testCase.observation.caseRef),
+        async execute() { return { sourceRefs }; }, parseOutput: raw => raw,
+        references: () => ({ evidenceRefs: [], sourceRefs }) }],
+    });
+    expect(result.status).toBe("invalid_submission");
+    expect(result.providerTurnCount).toBe(2);
+    expect(result.events).toContainEqual({ type: "submission_rejected", reason: "reference_not_observed" });
+    expect(result.events.some(row => row.type === "submission_locked")).toBe(false);
+  });
+
+  it("advertises empty citation arrays when the observation contains no references", async () => {
+    const testCase = makeArenaMcpCase();
+    const observation = structuredClone(testCase.observation);
+    observation.visibleState.self.currentDraw = null;
+    observation.visibleState.self.evidenceRefs = [];
+    observation.visibleState.self.meldRefs = [];
+    observation.visibleState.rivers = [[], [], [], []];
+    observation.visibleState.melds = [];
+    for (const state of observation.visibleState.riichiStates) { state.declarationEventRef = null; state.acceptanceEventRef = null; }
+    for (const state of Object.values(observation.visibleState.self.furiten)) state.evidenceIds = [];
+    const result = await runBlindCoachCase({ observation,
+      grading: { binding: testCase.authorizedCase.binding, reference: { status: "unavailable", reason: "mortal_unavailable" } },
+      provider: { descriptor: () => ({ providerId: "test-provider", model: "empty-citation-test", protocolVersion: "arena-function-call/v1" }),
+        async request(request) {
+          const final = request.tools.find(tool => tool.function.name === "submit_decision")!;
+          expect(final.function.parameters).toMatchObject({ properties: { evidenceRefs: { maxItems: 0 }, sourceRefs: { maxItems: 0 } } });
+          return toolCall("submit_decision", finalSubmission(observation.caseRef, observation.candidates.map(row => row.actionRef)));
+        } }, tools: [] });
+    expect(result.status).toBe("completed");
+  });
+
+  it("preserves reported tokens and a bounded diagnostic code on a failed model call", async () => {
+    const testCase = makeArenaMcpCase();
+    const result = await runBlindCoachCase({ observation: testCase.observation,
+      grading: { binding: testCase.authorizedCase.binding, reference: { status: "unavailable", reason: "mortal_unavailable" } },
+      provider: { descriptor: () => ({ providerId: "test-provider", model: "failure-test", protocolVersion: "arena-function-call/v1" }),
+        async request() { return { status: "provider_error", failureCode: "invalid_model_response", usage: { inputTokens: 10, outputTokens: 3, totalTokens: 13 } }; } },
+      tools: [offRagTool(testCase.observation.caseRef)] });
+    expect(result.status).toBe("provider_error");
+    expect(result.providerUsage).toMatchObject({ status: "reported", tokens: { totalTokens: 13 }, providerTurnCount: 1 });
+    expect(result.events).toContainEqual(expect.objectContaining({ type: "provider_turn", failureCode: "invalid_model_response", usage: { inputTokens: 10, outputTokens: 3, totalTokens: 13 } }));
+  });
   it("lets the model choose local retrieval and real stdio MCP queries before locking and grading", async () => {
     const testCase = makeArenaMcpCase();
     const client = await startMcp(testCase.authorizedCase);
@@ -144,6 +205,7 @@ describe("Blind Discard Arena runner", () => {
     const seenRequests: string[] = [];
     const actionRefs = testCase.observation.candidates.map((candidate) => candidate.actionRef);
     const provider = scriptedProvider({ actionRefs, seenRequests });
+    const observed: ArenaRunEvent[] = [];
     const result = await runBlindCoachCase({
       observation: testCase.observation,
       grading: {
@@ -152,8 +214,15 @@ describe("Blind Discard Arena runner", () => {
       },
       provider,
       tools: [mcpTool, ragTool],
+      onEvent(event) { observed.push(structuredClone(event)); if (event.type === "provider_turn") event.decisionSummary = "observer mutation"; },
     });
 
+    expect(observed).toEqual(result.events);
+    expect(observed[0]).toMatchObject({ type: "run_started", observation: testCase.observation });
+    expect(observed.find(event => event.type === "provider_turn")).toMatchObject({ decisionSummary: "根据可见输入选择下一步操作。" });
+    expect(observed.filter(event => event.type === "tool_call" || event.type === "tool_result").every(event => "elapsedMs" in event && typeof event.elapsedMs === "number")).toBe(true);
+    expect(JSON.stringify(observed)).not.toContain(arenaFixtureCanaries.gameIdCanary);
+    expect(JSON.stringify(observed)).not.toContain(arenaFixtureCanaries.recordIdCanary);
     expect(result.status).toBe("completed");
     expect(result.attempt.status).toBe("submitted");
     expect(result.providerTurnCount).toBe(3);
@@ -732,4 +801,19 @@ describe("Blind Discard Arena runner", () => {
     expect(result.providerUsage).toMatchObject({ status: "unknown", providerTurnCount: 0, unreportedTurnCount: 0 });
     expect(ARENA_RUN_LIMITS_V1.schemaVersion).toBe("blind-discard-arena-run-limits/v1");
   });
+});
+
+it("passes an 8192 token budget through the runner and provider contract without leaking grading data", async () => {
+  const c = makeArenaMcpCase();
+  const provider = immediateSubmissionProvider(c.observation.caseRef, c.observation.candidates.map(r => r.actionRef));
+  const result = await runBlindCoachCase({ observation: c.observation,
+    grading: { binding: c.authorizedCase.binding, reference: { status: "unavailable", reason: "mortal_unavailable" } },
+    limits: { maxProviderOutputTokens: 8192 }, tools: [],
+    provider: { ...provider, async request(request, signal) {
+      expect(ArenaProviderRequestSchema.parse(request).maxOutputTokens).toBe(8192);
+      expect(JSON.stringify(request)).not.toContain('qValue');
+      return provider.request(request, signal);
+    } },
+  });
+  expect(result.status).toBe("completed");
 });

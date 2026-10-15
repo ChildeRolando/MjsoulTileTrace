@@ -13,6 +13,7 @@ import {
   EngineIdentitySchema,
   Hand13FactRequestSchema,
   KnownGameFactsSchema,
+  TileIdSchema,
   libriichiRuleCanonicalJson,
   type ArenaToolBinding,
   type EngineIdentity,
@@ -66,20 +67,23 @@ const ArenaMcpLimitsSchema = z.object({
   maxRunElapsedMs: z.number().int().min(1),
 }).strict();
 
-const SupportedDimensionSchema = z.enum([
+export const SupportedDimensionSchema = z.enum([
   "shanten",
   "effective_tiles",
   "remaining_waits",
+  "ukeire",
   "dora_count",
 ]);
 export type ArenaMcpSupportedDimension = z.infer<typeof SupportedDimensionSchema>;
 
-export const ArenaMcpCallInputSchema = z.object({
+const ArenaMcpCallInputObjectSchema = z.object({
   caseRef: ArenaCaseRefSchema,
   actionRefs: z.array(ActionRefSchema).min(1).max(ARENA_MCP_LIMITS_V1.maxActionRefsPerCall),
   dimensions: z.array(z.string().min(1).max(32).regex(/^[a-z][a-z0-9_]{0,31}$/))
-    .min(1).max(ARENA_MCP_LIMITS_V1.maxDimensionsPerCall),
-}).strict().superRefine((input, context) => {
+    .min(1).max(ARENA_MCP_LIMITS_V1.maxDimensionsPerCall)
+    .describe("Supported dimensions: shanten, effective_tiles, remaining_waits, ukeire, dora_count. ukeire returns shanten-reducing tile IDs, unseen copies per tile, and their total; unseen copies are not guaranteed live-wall tiles."),
+}).strict();
+export const ArenaMcpCallInputSchema = ArenaMcpCallInputObjectSchema.superRefine((input, context) => {
   if (new Set(input.actionRefs).size !== input.actionRefs.length) {
     context.addIssue({ code: z.ZodIssueCode.custom, path: ["actionRefs"], message: "duplicate_action_ref" });
   }
@@ -298,6 +302,23 @@ function makeHelperFact(input: {
       return result.waitsRemainingStatus === "calculated"
         ? { ...base, status: "available", value: { status: "calculated", counts: result.waitsRemaining }, unit: "tile34_remaining_copies" }
         : { ...base, status: "unavailable", reason: "helper_missing_visibility" };
+    case "ukeire": {
+      if (result.waitsRemainingStatus !== "calculated") {
+        return { ...base, status: "unavailable", reason: "helper_missing_visibility" };
+      }
+      const counts = new Map(result.waitsRemaining.map(row => [row.tile34, row.count]));
+      if (counts.size !== result.effectiveTile34.length || result.effectiveTile34.some(tile => !counts.has(tile))) {
+        throw new Error("arena_ukeire_helper_result_incomplete");
+      }
+      return { ...base, status: "available", unit: "unseen_tile_copies", value: {
+        shanten: result.shanten,
+        effectiveTileTypeCount: result.effectiveTile34.length,
+        nonExhaustedTileTypeCount: result.waitsRemaining.filter(row => row.count > 0).length,
+        totalRemainingCopies: result.waitsRemaining.reduce((total, row) => total + row.count, 0),
+        tiles: result.waitsRemaining.map(row => ({ tile34: row.tile34, tileId: TileIdSchema.options[row.tile34], remainingCopies: row.count })),
+        countBasis: "unseen_copies_not_wall_count",
+      } };
+    }
     case "dora_count":
       return result.doraCountStatus === "calculated" && result.doraCount !== null
         ? { ...base, status: "available", value: result.doraCount, unit: "dora_count" }
@@ -441,8 +462,8 @@ export function createArenaMcpServer(options: ArenaMcpServerOptions) {
 
   server.registerTool("analyze_candidates", {
     title: "Analyze selected discard candidates",
-    description: "Return requested hand facts for a small set of discard actionRefs in an authorized frozen case. No record, file, score, or arbitrary calculation access is available.",
-    inputSchema: ArenaMcpCallInputSchema,
+    description: ARENA_MCP_TOOL_DESCRIPTION,
+    inputSchema: ArenaMcpCallInputObjectSchema,
     annotations: { readOnlyHint: true, destructiveHint: false, openWorldHint: false },
   }, async (rawInput) => {
     toolCallCount += 1;
@@ -715,3 +736,5 @@ export class ArenaMcpClient {
     }
   }
 }
+
+export const ARENA_MCP_TOOL_DESCRIPTION = "Return requested hand facts for a small set of discard actionRefs in an authorized frozen case. Supports shanten, effective_tiles, remaining_waits, ukeire, dora_count. Request ukeire for improving tile IDs, remaining unseen copies per tile, and their total. No record, file, score, or arbitrary calculation access is available.";

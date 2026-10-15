@@ -1,3 +1,5 @@
+import { z } from "zod";
+import { arenaCodexTurnInstructions, ArenaProviderRequestSchema, ArenaToolCallProviderResultSchema, type ArenaProviderRequest, type ArenaProviderFailureCode, type ArenaToolCallProvider, type ArenaToolCallProviderResult } from "../blind-discard-arena-provider.js";
 import { spawn, type ChildProcessWithoutNullStreams } from "node:child_process";
 import { existsSync, rmSync } from "node:fs";
 import { mkdtemp, rm, writeFile } from "node:fs/promises";
@@ -235,11 +237,12 @@ type InternalFailure = {
   errorCode: LlmCoachErrorCode;
   retryable: boolean;
   usage?: LlmTokenUsage;
+  diagnosticCode?: ArenaProviderFailureCode;
 };
 
-type ExecResult =
+type ExecResult = (
   | { kind: "success"; content: string; usage?: LlmTokenUsage }
-  | { kind: "failure"; failure: InternalFailure };
+  | { kind: "failure"; failure: InternalFailure }) & { reconnectCount?: number };
 
 function failure(errorCode: LlmCoachErrorCode, retryable = false, usage?: LlmTokenUsage): ExecResult {
   return { kind: "failure", failure: { errorCode, retryable, ...(usage === undefined ? {} : { usage }) } };
@@ -445,7 +448,9 @@ function parseEvent(
     finalText?: string;
     usage?: LlmTokenUsage;
     terminalFailure?: InternalFailure;
+    reconnectCount?: number;
   },
+  arenaStructuredOutput = false,
 ): InternalFailure | null {
   if (state.turnCompleted || state.terminalFailure !== undefined) {
     return { errorCode: "connection_failed", retryable: false };
@@ -467,13 +472,15 @@ function parseEvent(
       }
       const item = event.item;
       if (item.type !== "agent_message" && item.type !== "reasoning") {
-        return { errorCode: "connection_failed", retryable: false };
+        return { errorCode: "connection_failed", retryable: false, diagnosticCode: "cli_unexpected_item" };
       }
       // Reasoning item payloads are deliberately never copied out of the event.
       if (event.type === "item.completed" && item.type === "agent_message") {
-        if (state.finalText !== undefined || typeof item.text !== "string" || item.text.length === 0) {
-          return { errorCode: "connection_failed", retryable: false };
+        if ((!arenaStructuredOutput && state.finalText !== undefined) || typeof item.text !== "string" || item.text.length === 0) {
+          return { errorCode: "connection_failed", retryable: false, diagnosticCode: state.finalText !== undefined ? "cli_multiple_messages" : "cli_invalid_event" };
         }
+        // Arena waits for turn.completed and validates only the final message;
+        // earlier progress messages are never exposed as a tool selection.
         state.finalText = item.text;
       }
       return null;
@@ -493,8 +500,17 @@ function parseEvent(
       if (usage !== undefined) error.usage = usage;
       return error;
     }
+    case "error":
+      // Arena's current CLI emits error events for its own bounded reconnect progress.
+      // Await the terminal event in this same process; never treat arbitrary errors as success.
+      if (arenaStructuredOutput && state.threadStarted && state.turnStarted && typeof event.message === "string"
+          && /^Reconnecting\.\.\. [1-9]\d?\/[1-9]\d?(?:\s|$)/.test(event.message)) {
+        state.reconnectCount = (state.reconnectCount ?? 0) + 1;
+        return null;
+      }
+      return { errorCode: "connection_failed", retryable: false, diagnosticCode: "cli_unexpected_event" };
     default:
-      return { errorCode: "connection_failed", retryable: false };
+      return { errorCode: "connection_failed", retryable: false, diagnosticCode: "cli_unexpected_event" };
   }
 }
 
@@ -526,7 +542,9 @@ function requestArgs(input: {
 async function runExecAttempt(input: {
   port: ProcessPort;
   executable: string;
-  request: LlmCoachRequest;
+  request: Pick<LlmCoachRequest, "prompt">;
+  outputSchema?: object;
+  arenaStructuredOutput?: boolean;
   modelName: string;
   reasoningEffort: string;
   timeoutMs: number;
@@ -544,10 +562,10 @@ async function runExecAttempt(input: {
     cwd = await input.port.makeTempDirectory();
     if (input.cancelled()) return failure("provider_unavailable");
     const schemaPath = join(cwd, "coach-reasoning-draft-v1.schema.json");
-    await writeFile(schemaPath, JSON.stringify(CODEX_COACH_OUTPUT_SCHEMA), { encoding: "utf8", flag: "wx", mode: 0o600 });
+    await writeFile(schemaPath, JSON.stringify(input.outputSchema ?? CODEX_COACH_OUTPUT_SCHEMA), { encoding: "utf8", flag: "wx", mode: 0o600 });
     if (input.cancelled()) return failure("provider_unavailable");
 
-    return await new Promise<ExecResult>((resolvePromise) => {
+    return await new Promise<ExecResult>((resolveResult) => {
       const state: {
         threadStarted: boolean;
         turnStarted: boolean;
@@ -555,7 +573,10 @@ async function runExecAttempt(input: {
         finalText?: string;
         usage?: LlmTokenUsage;
         terminalFailure?: InternalFailure;
+        reconnectCount?: number;
       } = { threadStarted: false, turnStarted: false, turnCompleted: false };
+      const resolvePromise = (result: ExecResult) => resolveResult({ ...result,
+        ...(state.reconnectCount ? { reconnectCount: state.reconnectCount } : {}) });
       let settled = false;
       let forcedFailure: InternalFailure | undefined;
       let totalBytes = 0;
@@ -600,7 +621,7 @@ async function runExecAttempt(input: {
           return;
         }
         if (processError || code !== 0 || exitCode !== 0) {
-          resolvePromise(failure("connection_failed", false, state.usage));
+          resolvePromise({ kind: "failure", failure: { errorCode: "connection_failed", retryable: false, diagnosticCode: "cli_process_failed", ...(state.usage === undefined ? {} : { usage: state.usage }) } });
           return;
         }
         if (pending.length > 0) {
@@ -616,7 +637,7 @@ async function runExecAttempt(input: {
           }
         }
         if (!state.turnCompleted || state.finalText === undefined) {
-          resolvePromise(failure("connection_failed", false, state.usage));
+          resolvePromise({ kind: "failure", failure: { errorCode: "connection_failed", retryable: false, diagnosticCode: "cli_incomplete_turn", ...(state.usage === undefined ? {} : { usage: state.usage }) } });
           return;
         }
         resolvePromise({ kind: "success", content: state.finalText, ...(state.usage === undefined ? {} : { usage: state.usage }) });
@@ -645,10 +666,10 @@ async function runExecAttempt(input: {
         }
         const event = eventRecord(line);
         if (event === null) {
-          failAndKill({ errorCode: "connection_failed", retryable: false });
+          failAndKill({ errorCode: "connection_failed", retryable: false, diagnosticCode: "cli_invalid_event" });
           return;
         }
-        const problem = parseEvent(event, state);
+        const problem = parseEvent(event, state, input.arenaStructuredOutput);
         if (problem !== null) {
           if (event.type === "turn.failed") {
             state.terminalFailure = problem;
@@ -743,6 +764,29 @@ async function runExecAttempt(input: {
   }
 }
 
+/** One bounded structured turn using local ChatGPT login; no retry or report semantics. */
+async function runCodexStructuredTurn(input: {
+  prompt: string;
+  outputSchema: object;
+  modelName: string;
+  reasoningEffort: string;
+  signal: AbortSignal;
+  timeoutMs?: number;
+  processPort?: CodexCoachProcessPort;
+}): Promise<ExecResult> {
+  const port = input.processPort ?? defaultProcessPort;
+  let executable: string | null;
+  try { executable = port.findExecutable(); } catch { executable = null; }
+  if (executable === null || input.signal.aborted) return failure("provider_unavailable");
+  return runExecAttempt({
+    port, executable, request: { prompt: input.prompt }, outputSchema: input.outputSchema,
+    arenaStructuredOutput: true,
+    modelName: input.modelName, reasoningEffort: input.reasoningEffort,
+    timeoutMs: Math.max(1, Math.min(input.timeoutMs ?? DEFAULT_TURN_TIMEOUT_MS, DEFAULT_TURN_TIMEOUT_MS)),
+    maxOutputBytes: MAX_STDIO_BYTES, signal: input.signal, cancelled: () => input.signal.aborted,
+  });
+}
+
 /**
  * Main-process adapter for the installed local Codex CLI. It implements the
  * existing completion port and never exposes process output, paths or account
@@ -819,6 +863,64 @@ export function createCodexCoachProvider(input: {
       } finally {
         active.delete(controller);
       }
+    },
+  });
+}
+
+/** Arena's own tools remain runner-owned; Codex returns one structured selection. */
+export function createCodexArenaToolCallProvider(input: {
+  modelName: string;
+  reasoningEffort: "low" | "medium" | "high" | "xhigh" | "max";
+  processPort?: CodexCoachProcessPort;
+  timeoutMs?: number;
+}): ArenaToolCallProvider {
+  return Object.freeze({
+    descriptor: () => ({ providerId: "codex-cli", model: input.modelName, protocolVersion: "arena-function-call/v1" as const }),
+    async request(raw: ArenaProviderRequest, signal: AbortSignal): Promise<ArenaToolCallProviderResult> {
+      if (signal.aborted) return { status: "cancelled" };
+      const parsed = ArenaProviderRequestSchema.safeParse(raw);
+      if (!parsed.success) return { status: "provider_error" };
+      const request = parsed.data;
+      const prompt = arenaCodexTurnInstructions(request.maxOutputTokens) + "\n" + JSON.stringify({ messages: request.messages, tools: request.tools });
+      if (Buffer.byteLength(prompt, "utf8") > request.maxInputBytes) return { status: "input_too_large" };
+      // Strict arguments must reach the decoder as an object: a JSON string
+      // would discard the runner's per-turn citation and candidate constraints.
+      const outputSchema = {
+        type: "object", additionalProperties: false,
+        properties: {
+          call: { anyOf: request.tools.map(tool => ({
+            type: "object", additionalProperties: false,
+            properties: {
+              name: { type: "string", enum: [tool.function.name] },
+              arguments: tool.function.strict === true ? tool.function.parameters : { type: "string" },
+            },
+            required: ["name", "arguments"],
+          })) },
+          decisionSummary: { type: "string", minLength: 1, maxLength: 600 },
+        },
+        required: ["call", "decisionSummary"],
+      };
+      const result = await runCodexStructuredTurn({
+        prompt, outputSchema, modelName: input.modelName, reasoningEffort: input.reasoningEffort,
+        signal, ...(input.processPort === undefined ? {} : { processPort: input.processPort }),
+        ...(input.timeoutMs === undefined ? {} : { timeoutMs: input.timeoutMs }),
+      });
+      if (signal.aborted) return { status: "cancelled" };
+      if (result.kind === "failure") return { status: result.failure.errorCode === "timeout" ? "timeout" : "provider_error",
+        failureCode: result.failure.diagnosticCode ?? result.failure.errorCode,
+        ...(result.reconnectCount === undefined ? {} : { reconnectCount: result.reconnectCount }),
+        ...(result.failure.usage === undefined ? {} : { usage: result.failure.usage }) };
+      const outputBytes = Buffer.byteLength(result.content, "utf8");
+      if (outputBytes > request.maxOutputBytes) return { status: "output_too_large", ...(result.reconnectCount === undefined ? {} : { reconnectCount: result.reconnectCount }), ...(result.usage === undefined ? {} : { usage: result.usage }) };
+      try {
+        const parsed = z.object({ call: z.object({ name: z.enum(request.tools.map(tool => tool.function.name) as [string, ...string[]]), arguments: z.union([z.string(), z.record(z.unknown())]) }).strict(), decisionSummary: z.string().min(1).max(600) }).strict().parse(JSON.parse(result.content));
+        const { decisionSummary } = parsed;
+        const strict = request.tools.find(tool => tool.function.name === parsed.call.name)!.function.strict === true;
+        const structuredArguments = typeof parsed.call.arguments !== "string";
+        if (strict !== structuredArguments) throw new Error("arena_argument_shape_invalid");
+        const call = { name: parsed.call.name, arguments: typeof parsed.call.arguments === "string" ? parsed.call.arguments : JSON.stringify(parsed.call.arguments) };
+        return ArenaToolCallProviderResultSchema.parse({ status: "ready", call, outputBytes, decisionSummary, ...(result.reconnectCount === undefined ? {} : { reconnectCount: result.reconnectCount }), ...(result.usage === undefined ? {} : { usage: result.usage }) });
+      } catch { return { status: "provider_error", failureCode: "invalid_model_response", ...(result.reconnectCount === undefined ? {} : { reconnectCount: result.reconnectCount }), ...(result.usage === undefined ? {} : { usage: result.usage }) }; }
     },
   });
 }

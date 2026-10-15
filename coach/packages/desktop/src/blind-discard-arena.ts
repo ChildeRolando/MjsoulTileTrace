@@ -13,6 +13,7 @@ import {
   LibriichiRuleRequestSchema,
   LibriichiRuleResponseSchema,
   canonicalActionRef,
+  sortTilesCanonical,
   libriichiRuleCanonicalJson,
   type ArenaBlindDiscardCandidate,
   type ArenaBlindObservation,
@@ -114,6 +115,7 @@ export const ArenaExclusionReasonSchema = z.enum([
   "contains_non_discard_action",
   "invalid_action_binding",
   "case_limit_reached",
+  "different_experiment_type",
 ]);
 export type ArenaExclusionReason = z.infer<typeof ArenaExclusionReasonSchema>;
 
@@ -130,6 +132,11 @@ export type ArenaDecisionScreening = Readonly<{
   excluded: readonly Readonly<{ canonicalDecisionOrder: number; reason: ArenaExclusionReason }>[];
   exclusionCounts: Readonly<Record<ArenaExclusionReason, number>>;
 }>;
+
+/** Scenario grouping only: never remove visible context or consult a label. */
+export function arenaScenarioType(state: Pick<DecisionSnapshotV2["publicState"], "melds" | "riichiStates">): "flat" | "spatial" {
+  return state.melds.length > 0 || state.riichiStates.some(row => row.status !== "none") ? "spatial" : "flat";
+}
 
 function isCanonicalBoundAction(action: LibriichiBoundAction): boolean {
   if (action.actionRef !== canonicalActionRef(action.action) || action.physicalRealizations.length === 0) return false;
@@ -157,7 +164,7 @@ export function screenArenaDecisions(raw: unknown, options: { readonly maxInclud
     throw new Error("arena_screen_input_invalid");
   }
   const maxIncluded = options.maxIncluded ?? 3;
-  if (!Number.isInteger(maxIncluded) || maxIncluded < 1 || maxIncluded > 100) {
+  if (!Number.isInteger(maxIncluded) || maxIncluded < 1 || maxIncluded > 128) {
     throw new Error("arena_case_limit_invalid");
   }
   const inputs = [...parsed.data].sort((left, right) => left.canonicalDecisionOrder - right.canonicalDecisionOrder);
@@ -175,6 +182,7 @@ export function screenArenaDecisions(raw: unknown, options: { readonly maxInclud
     contains_non_discard_action: 0,
     invalid_action_binding: 0,
     case_limit_reached: 0,
+    different_experiment_type: 0,
   };
   const exclude = (canonicalDecisionOrder: number, reason: ArenaExclusionReason) => {
     excluded.push({ canonicalDecisionOrder, reason });
@@ -311,7 +319,7 @@ export function createArenaBlindObservation(input: {
       melds: publicState.melds.map((meld) => aliasedMeld(meld, input.aliases)),
       riichiStates: publicState.riichiStates.map((state) => aliasedRiichiState(state, input.aliases)),
       self: {
-        concealedTiles: privateState.concealedTiles,
+        concealedTiles: sortTilesCanonical(privateState.concealedTiles),
         currentDraw: privateState.currentDraw === null ? null : {
           tile: privateState.currentDraw.tile,
           sourceRef: input.aliases.reference(privateState.currentDraw.eventRef),

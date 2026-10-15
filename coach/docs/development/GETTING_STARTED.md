@@ -39,6 +39,34 @@ npm run coach:demo
 
 它使用仓库内置的东一局 fixture 和打包 sidecar 输出结构化/Markdown 报告。这个入口是回归原型，不是通用雀魂导入器。
 
+### Blind Discard Arena 本地实验台
+
+本地控制台：运行 `npm run arena:console`，打开 `http://127.0.0.1:4318`。页面提供归档用量/结果看板、RAG 对照与受控故障实验的启动/停止，以及 Codex/API 配置。默认 `gpt-6-luna/high` 与 100M tokens 报警线；同一时间只运行一个实验。配置和历史保存在被忽略的 `reports/blind-discard-arena`，API Key 仅留在本次服务进程内存；关闭服务后需重填。停止会终止本次 CLI 及其子进程，不将未完成归档标为成功。此独立本地页面不接入生产 UI；服务仅监听本机，启动和停止均由用户操作，不安装定时任务。
+
+题库：点“刷新题库”或运行 `npm run arena -- catalog`，从现有脱敏真实牌谱生成不含答案的开发题库目录。可先“浏览题库”查看任意题的当时可见牌面与合法候选；刷新和浏览均不调用模型。控制台默认每次 10 题，可设置本次题量及从 1 开始的起始题号；Off/Local 对照使用相同范围。新版本为 `blind-discard-dev-v1`，CLI 示例：`npm run arena -- run --dataset blind-discard-dev-v1 --rag local --max-cases 10 --case-offset 10 --provider codex-cli --model gpt-6-luna --reasoning-effort high`，其中 CLI offset 从 0 开始。`blind-discard-smoke-v1` 仍固定原来的 3 题，旧归档和摘要继续兼容。当前语料来自一个开发牌局，不构成多牌局独立验收。超过 10 题的运行详情按案例选择查看，下载保留完整轨迹。
+
+结果列表的“查看”按案例展示执行时间线：盲测输入、每轮公开决策摘要、完整工具参数/返回与错误、最终提交/拒绝原因、耗时、token 和 Mortal 匹配。新运行通过 `case-trace.jsonl` 实时写入已经校验的公开事件；每题最终 `case_run` 仍是评分和统计的唯一来源，刷新不会重复计数。详情支持自动刷新、保留展开位置及 JSON 下载。旧归档没有记录的输入、逐轮摘要或时间不会补造。Codex 私有 reasoning 事件继续丢弃，只让模型额外返回一两句公开摘要，不保存内部思维链。
+
+调用失败诊断：新归档中的 `provider_turn.failureCode` 区分 CLI 事件/进程错误、模型输出格式错误与上游终态；已报告 token 在失败时也计入用量。Arena 允许当前 CLI 在同一进程中发出的 `Reconnecting... n/m` 进度通知，记录 `reconnectCount`，继续等待最终完成或失败；不会因此重新调用整个 provider，也不延长总时限。未知错误、缺失终态和非零退出仍失败。旧归档只有笼统 `provider_error` 的不补写推测原因。
+
+同一轮出现多条助手消息时，Arena 等 `turn.completed` 后只校验最后一条结构化消息，再交给 runner 执行一次所选操作；早期过程消息不当作工具调用，也不写入轨迹。最后一条格式错误仍失败，不回退使用更早的有效消息。
+
+```powershell
+npm run arena -- run --dataset blind-discard-smoke-v1 --rag off
+npm run arena -- run --dataset blind-discard-smoke-v1 --rag local
+npm run arena -- inspect <runId>
+```
+
+使用本机已登录的 Codex 订阅时，不需要 API key：
+
+```powershell
+npm run arena -- run --dataset blind-discard-smoke-v1 --rag local --provider codex-cli --model gpt-6-luna --reasoning-effort high --max-provider-output-tokens 2048
+```
+
+该适配复用已有隐藏 Codex 进程与结构化输出解析；每轮只返回一个模型选择的 Arena 查询/提交，真实 MCP/RAG 仍由 runner 执行。不会把 CLI 的 shell、文件或其他连接器交给模型，也不改变生产复盘 provider。manifest 保存模型及 reasoning effort。当前工作树的归档累计以已报告 input + output 为准，缓存输入不重复累计；缺失用量保持 unknown。`--token-warning-threshold` 默认 100,000,000，达到后在运行/离线复查输出报警，仅提醒，不自动停止或重跑；它不是全账户或开发/评审聊天的用量统计。原有逐题时间、调用和输出预算继续有效。
+
+Arena 使用固定脱敏 smoke/dev 牌局、真实 managed libriichi 和 Mortal runtime，并把 manifest、事件及可离线重算的 summary 写入 `reports/blind-discard-arena/<runId>/`。两种 RAG 模式必须各自记录 runId；`inspect` 不会启动模型或 helper。设置获授权的 OpenAI-compatible provider 时，分别用 `RIICHI_COACH_ARENA_BASE_URL`、`RIICHI_COACH_ARENA_MODEL` 配置端点与模型，并通过 `RIICHI_COACH_API_KEY` 提供密钥；密钥不会写入 archive，也不会传给 MCP 子进程。若配置或授权凭据缺失，archive 会记录 provider unavailable，真实模型演示仍待完成，不得据此宣称 Arena 总体验收通过。边界与验收事实见 [Blind Discard Arena spec](../specs/2026-10-09-blind-discard-arena.md)。
+
 ### Electron 桌面应用
 
 ```powershell
@@ -108,6 +136,10 @@ node --test scripts/mahjong-soul-protocol-compatibility.test.mjs
 它检查当前 shell 中 Node/cmd 管道与 esbuild transform，是可选环境诊断，不是产品门禁，也不修改沙箱、ACL 或 Multica 配置。--bundle 会真实重建 preload bundle 两次并覆盖生成文件；只在成功 build 后的可丢弃隔离 worktree 中运行。
 
 COAC-13/14 的机器版本、路径、权限和任务配置记录属于历史案例，不构成当前生产或 agent 配置要求。完整原始记录及两文件差异保留在 [PR #6 源提交](https://github.com/ChildeRolando/MjsoulTileTrace/commit/39061117c2a99f121df23da11b72f9f33d60a2f3)。
+
+### Arena 控制台启停
+
+在 `coach/` 使用 `./bin/arena-console-control.ps1 -Action start`；`stop`、`restart`、`status` 使用同一入口。Node 不在 PATH 时追加 `-NodePath 'E:/IDE/NodeJS/node.exe'`。脚本启动隐藏窗口，将日志和服务回执放入 `reports/blind-discard-arena/`；停止通过同源本机 `POST /api/shutdown` 正常关闭 HTTP 服务。实验运行中返回 409，先在页面停止实验或等其完成。没有后台定时任务，也不按 PID 强制终止服务。
 
 ### workspace import 指向旧的 `dist`
 
