@@ -27,9 +27,29 @@ const request: LlmCoachRequest = {
 };
 const finalDraft = JSON.stringify({ decisions: [] });
 
+it("Arena constrains final citation arguments as an object in the actual CLI output schema", async () => {
+  const args = { evidenceRefs: ["observed-evidence"], sourceRefs: ["observed-source"] };
+  const parameters = { type: "object", additionalProperties: false, properties: {
+    evidenceRefs: { type: "array", items: { type: "string", enum: ["observed-evidence"] } },
+    sourceRefs: { type: "array", items: { type: "string", enum: ["observed-source"] } },
+  }, required: ["evidenceRefs", "sourceRefs"] };
+  const fake = fakePort({ onExec: successfulTranscript(JSON.stringify({ call: { name: "submit_decision", arguments: args }, decisionSummary: "引用已取得的证据。" })) });
+  const provider = createCodexArenaToolCallProvider({ modelName: "gpt-6-luna", reasoningEffort: "high", processPort: fake.port });
+  const input = { messages: [{ role: "system" as const, content: "Arena" }, { role: "user" as const, content: "observation" }],
+    tools: [{ type: "function" as const, function: { name: "submit_decision", description: "Lock", strict: true, parameters } }],
+    maxInputBytes: 65536, maxOutputBytes: 16384, maxOutputTokens: 2048 };
+  expect(await provider.request(input, new AbortController().signal)).toMatchObject({ status: "ready", call: { name: "submit_decision", arguments: JSON.stringify(args) } });
+  const schema = JSON.parse(fake.schemaContents[0]!);
+  expect(schema.properties.call.anyOf[0].properties.arguments).toEqual(parameters);
+  expect(schema.properties.call.anyOf[0].properties.name.enum).toEqual(["submit_decision"]);
+  const escaped = fakePort({ onExec: successfulTranscript(JSON.stringify({ call: { name: "submit_decision", arguments: JSON.stringify(args) }, decisionSummary: "字符串不能绕过引用约束。" })) });
+  expect(await createCodexArenaToolCallProvider({ modelName: "gpt-6-luna", reasoningEffort: "high", processPort: escaped.port }).request(input, new AbortController().signal))
+    .toMatchObject({ status: "provider_error", failureCode: "invalid_model_response", usage: { totalTokens: 13 } });
+});
+
 it("Arena uses the authorized Luna/high structured turn with observed tools, no retry or report contract", async () => {
   const selected = { name: "search_knowledge", arguments: JSON.stringify({ query: "牌效" }) };
-  const fake = fakePort({ version: "codex-cli 0.162.1\n", onExec: successfulTranscript(JSON.stringify({ ...selected, decisionSummary: "查询本地资料，补充可引用的基础概念。" })) });
+  const fake = fakePort({ version: "codex-cli 0.162.1\n", onExec: successfulTranscript(JSON.stringify({ call: selected, decisionSummary: "查询本地资料，补充可引用的基础概念。" })) });
   const provider = createCodexArenaToolCallProvider({ modelName: "gpt-6-luna", reasoningEffort: "high", processPort: fake.port });
   const result = await provider.request({
     messages: [{ role: "system", content: "Only observed evidence." }, { role: "user", content: "BLIND_OBSERVATION" }],
@@ -43,7 +63,7 @@ it("Arena uses the authorized Luna/high structured turn with observed tools, no 
   expect(fake.records[0]!.args).toEqual(expect.arrayContaining(["gpt-6-luna", "model_reasoning_effort=high", "--ignore-user-config", "read-only"]));
   for (const feature of CODEX_DISABLED_FEATURES) expect(fake.records[0]!.args).toContain(feature);
   expect(Buffer.concat(fake.records[0]!.child.input).toString()).toContain("BLIND_OBSERVATION");
-  expect(JSON.parse(fake.schemaContents[0]!)).toMatchObject({ properties: { name: { enum: ["search_knowledge"] } } });
+  expect(JSON.parse(fake.schemaContents[0]!)).toMatchObject({ properties: { call: { anyOf: [{ properties: { name: { enum: ["search_knowledge"] } } }] } } });
   expect(fake.records[0]!.options.windowsHide).toBe(true);
 });
 
@@ -51,7 +71,7 @@ it("Arena fails a non-offered tool and timeout without another paid call", async
   const request = { messages: [{ role: "system" as const, content: "Arena only" }, { role: "user" as const, content: "observation" }],
     tools: [{ type: "function" as const, function: { name: "submit_decision", description: "Lock choice", parameters: {} } }],
     maxInputBytes: 65536, maxOutputBytes: 16384, maxOutputTokens: 2048 };
-  const fake = fakePort({ onExec: successfulTranscript(JSON.stringify({ name: "shell", arguments: "{}", decisionSummary: "测试未提供的工具。" })) });
+  const fake = fakePort({ onExec: successfulTranscript(JSON.stringify({ call: { name: "shell", arguments: "{}" }, decisionSummary: "测试未提供的工具。" })) });
   const provider = createCodexArenaToolCallProvider({ modelName: "gpt-6-luna", reasoningEffort: "high", processPort: fake.port });
   expect(await provider.request(request, new AbortController().signal)).toMatchObject({ status: "provider_error", failureCode: "invalid_model_response", usage: { totalTokens: 13 } });
   expect(fake.execCount).toBe(1);
@@ -67,7 +87,7 @@ it("Arena waits through CLI reconnect progress for a completed structured respon
     { type: "thread.started", thread_id: "test" }, { type: "turn.started" },
     { type: "error", message: "Reconnecting... 1/5 (request timed out; PRIVATE_URL_AND_ERROR)" },
     { type: "item.completed", item: { type: "reasoning", text: "PRIVATE_COT" } },
-    { type: "item.completed", item: { type: "agent_message", text: JSON.stringify(selected) } },
+    { type: "item.completed", item: { type: "agent_message", text: JSON.stringify({ call: { name: selected.name, arguments: selected.arguments }, decisionSummary: selected.decisionSummary }) } },
     { type: "turn.completed", usage: { input_tokens: 10, output_tokens: 3 } },
   ]) });
   const provider = createCodexArenaToolCallProvider({ modelName: "gpt-6-luna", reasoningEffort: "high", processPort: fake.port });
@@ -84,7 +104,7 @@ it("Arena uses the final structured assistant message after progress messages an
   const selected = { name: "submit_decision", arguments: "{}", decisionSummary: "提交选择。" };
   const fake = fakePort({ onExec: transcript([{ type: "thread.started" }, { type: "turn.started" },
     { type: "item.completed", item: { type: "agent_message", text: "PUBLIC_PROGRESS" } },
-    { type: "item.completed", item: { type: "agent_message", text: JSON.stringify(selected) } },
+    { type: "item.completed", item: { type: "agent_message", text: JSON.stringify({ call: { name: selected.name, arguments: selected.arguments }, decisionSummary: selected.decisionSummary }) } },
     { type: "turn.completed", usage: { input_tokens: 10, output_tokens: 3 } }]) });
   const provider = createCodexArenaToolCallProvider({ modelName: "gpt-6-luna", reasoningEffort: "high", processPort: fake.port });
   const input = { messages: [{ role: "system" as const, content: "Arena" }, { role: "user" as const, content: "observation" }],
@@ -95,7 +115,7 @@ it("Arena uses the final structured assistant message after progress messages an
   expect(JSON.stringify(result)).not.toContain("PUBLIC_PROGRESS");
   expect(fake.execCount).toBe(1);
   const malformed = fakePort({ onExec: transcript([{ type: "thread.started" }, { type: "turn.started" },
-    { type: "item.completed", item: { type: "agent_message", text: JSON.stringify(selected) } },
+    { type: "item.completed", item: { type: "agent_message", text: JSON.stringify({ call: { name: selected.name, arguments: selected.arguments }, decisionSummary: selected.decisionSummary }) } },
     { type: "item.completed", item: { type: "agent_message", text: "invalid final" } }, { type: "turn.completed" }]) });
   const invalid = createCodexArenaToolCallProvider({ modelName: "gpt-6-luna", reasoningEffort: "high", processPort: malformed.port });
   expect(await invalid.request(input, new AbortController().signal)).toMatchObject({ status: "provider_error", failureCode: "invalid_model_response" });

@@ -883,17 +883,30 @@ export function createCodexArenaToolCallProvider(input: {
       const request = parsed.data;
       const prompt = [
         "Execute one Arena protocol turn. The following JSON is the complete conversation and available tool definitions.",
-        "Choose exactly one offered tool. Return only {name, arguments, decisionSummary}, with arguments as a JSON-encoded string conforming to that tool's parameters.",
+        "Choose exactly one offered tool. Return only {call: {name, arguments}, decisionSummary}. For a strict tool, arguments must be a JSON object conforming to its parameters; for other tools, arguments is a JSON-encoded string.",
+        "Copy citation identifiers exactly from the appropriate evidenceRefs/sourceRefs choices. The two lists are different permissions; use an empty array when no citation is needed.",
         "decisionSummary is a brief PUBLIC explanation (one or two sentences) of the current objective and why this operation is useful. Do not provide private reasoning or a step-by-step internal thought process. Write this summary and the public submission rationale/uncertainty in Simplified Chinese.",
         "This is a model-selected protocol message: the Arena runner executes the tool, not this CLI. Do not use shell, browse, files or other tools.",
         `Keep the visible response below ${request.maxOutputTokens} output tokens; do not reveal hidden reasoning.`,
         JSON.stringify({ messages: request.messages, tools: request.tools }),
       ].join("\n");
       if (Buffer.byteLength(prompt, "utf8") > request.maxInputBytes) return { status: "input_too_large" };
+      // Strict arguments must reach the decoder as an object: a JSON string
+      // would discard the runner's per-turn citation and candidate constraints.
       const outputSchema = {
         type: "object", additionalProperties: false,
-        properties: { name: { type: "string", enum: request.tools.map(tool => tool.function.name) }, arguments: { type: "string" }, decisionSummary: { type: "string", minLength: 1, maxLength: 600 } },
-        required: ["name", "arguments", "decisionSummary"],
+        properties: {
+          call: { anyOf: request.tools.map(tool => ({
+            type: "object", additionalProperties: false,
+            properties: {
+              name: { type: "string", enum: [tool.function.name] },
+              arguments: tool.function.strict === true ? tool.function.parameters : { type: "string" },
+            },
+            required: ["name", "arguments"],
+          })) },
+          decisionSummary: { type: "string", minLength: 1, maxLength: 600 },
+        },
+        required: ["call", "decisionSummary"],
       };
       const result = await runCodexStructuredTurn({
         prompt, outputSchema, modelName: input.modelName, reasoningEffort: input.reasoningEffort,
@@ -908,8 +921,12 @@ export function createCodexArenaToolCallProvider(input: {
       const outputBytes = Buffer.byteLength(result.content, "utf8");
       if (outputBytes > request.maxOutputBytes) return { status: "output_too_large", ...(result.reconnectCount === undefined ? {} : { reconnectCount: result.reconnectCount }), ...(result.usage === undefined ? {} : { usage: result.usage }) };
       try {
-        const parsed = z.object({ name: z.enum(request.tools.map(tool => tool.function.name) as [string, ...string[]]), arguments: z.string(), decisionSummary: z.string().min(1).max(600) }).strict().parse(JSON.parse(result.content));
-        const { decisionSummary, ...call } = parsed;
+        const parsed = z.object({ call: z.object({ name: z.enum(request.tools.map(tool => tool.function.name) as [string, ...string[]]), arguments: z.union([z.string(), z.record(z.unknown())]) }).strict(), decisionSummary: z.string().min(1).max(600) }).strict().parse(JSON.parse(result.content));
+        const { decisionSummary } = parsed;
+        const strict = request.tools.find(tool => tool.function.name === parsed.call.name)!.function.strict === true;
+        const structuredArguments = typeof parsed.call.arguments !== "string";
+        if (strict !== structuredArguments) throw new Error("arena_argument_shape_invalid");
+        const call = { name: parsed.call.name, arguments: typeof parsed.call.arguments === "string" ? parsed.call.arguments : JSON.stringify(parsed.call.arguments) };
         return ArenaToolCallProviderResultSchema.parse({ status: "ready", call, outputBytes, decisionSummary, ...(result.reconnectCount === undefined ? {} : { reconnectCount: result.reconnectCount }), ...(result.usage === undefined ? {} : { usage: result.usage }) });
       } catch { return { status: "provider_error", failureCode: "invalid_model_response", ...(result.reconnectCount === undefined ? {} : { reconnectCount: result.reconnectCount }), ...(result.usage === undefined ? {} : { usage: result.usage }) }; }
     },

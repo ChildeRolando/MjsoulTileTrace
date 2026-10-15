@@ -327,9 +327,8 @@ function finalSubmissionTool(input: {
   const candidateRefs = input.observation.candidates.map((candidate) => candidate.actionRef);
   const referenceArray = (references: ReadonlySet<string>) => ({
     type: "array",
-    maxItems: 64,
-    uniqueItems: true,
-    items: references.size > 0 && references.size <= 128
+    maxItems: references.size === 0 ? 0 : 64,
+    items: references.size > 0
       ? { type: "string", enum: [...references] }
       : { type: "string" },
   });

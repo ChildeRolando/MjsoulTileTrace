@@ -132,6 +132,55 @@ function scriptedProvider(input: {
 }
 
 describe("Blind Discard Arena runner", () => {
+  it("keeps large observed citation sets constrained and still rejects source/evidence mixups", async () => {
+    const testCase = makeArenaMcpCase();
+    const sourceRefs = Array.from({ length: 130 }, (_, i) => testCase.aliases.reference(`source-only-${i}`));
+    let turn = 0;
+    const result = await runBlindCoachCase({ observation: testCase.observation,
+      grading: { binding: testCase.authorizedCase.binding, reference: { status: "unavailable", reason: "mortal_unavailable" } },
+      provider: { descriptor: () => ({ providerId: "test-provider", model: "citation-test", protocolVersion: "arena-function-call/v1" }),
+        async request(request) {
+          turn += 1;
+          if (turn === 1) return toolCall("search_knowledge", { query: "牌效", limit: 1 });
+          const final = request.tools.find(tool => tool.function.name === "submit_decision")!;
+          const properties = final.function.parameters.properties as Record<string, { items: { enum?: string[] } }>;
+          expect(properties.sourceRefs!.items.enum).toEqual(expect.arrayContaining(sourceRefs));
+          expect(properties.evidenceRefs!.items.enum).not.toContain(sourceRefs[129]);
+          const submission = finalSubmission(testCase.observation.caseRef, testCase.observation.candidates.map(row => row.actionRef));
+          // A reference returned as a source is not automatically evidence.
+          return toolCall("submit_decision", { ...submission, evidenceRefs: [sourceRefs[129]], sourceRefs: [sourceRefs[129]] });
+        } },
+      tools: [{ ...offRagTool(testCase.observation.caseRef),
+        async execute() { return { sourceRefs }; }, parseOutput: raw => raw,
+        references: () => ({ evidenceRefs: [], sourceRefs }) }],
+    });
+    expect(result.status).toBe("invalid_submission");
+    expect(result.providerTurnCount).toBe(2);
+    expect(result.events).toContainEqual({ type: "submission_rejected", reason: "reference_not_observed" });
+    expect(result.events.some(row => row.type === "submission_locked")).toBe(false);
+  });
+
+  it("advertises empty citation arrays when the observation contains no references", async () => {
+    const testCase = makeArenaMcpCase();
+    const observation = structuredClone(testCase.observation);
+    observation.visibleState.self.currentDraw = null;
+    observation.visibleState.self.evidenceRefs = [];
+    observation.visibleState.self.meldRefs = [];
+    observation.visibleState.rivers = [[], [], [], []];
+    observation.visibleState.melds = [];
+    for (const state of observation.visibleState.riichiStates) { state.declarationEventRef = null; state.acceptanceEventRef = null; }
+    for (const state of Object.values(observation.visibleState.self.furiten)) state.evidenceIds = [];
+    const result = await runBlindCoachCase({ observation,
+      grading: { binding: testCase.authorizedCase.binding, reference: { status: "unavailable", reason: "mortal_unavailable" } },
+      provider: { descriptor: () => ({ providerId: "test-provider", model: "empty-citation-test", protocolVersion: "arena-function-call/v1" }),
+        async request(request) {
+          const final = request.tools.find(tool => tool.function.name === "submit_decision")!;
+          expect(final.function.parameters).toMatchObject({ properties: { evidenceRefs: { maxItems: 0 }, sourceRefs: { maxItems: 0 } } });
+          return toolCall("submit_decision", finalSubmission(observation.caseRef, observation.candidates.map(row => row.actionRef)));
+        } }, tools: [] });
+    expect(result.status).toBe("completed");
+  });
+
   it("preserves reported tokens and a bounded diagnostic code on a failed model call", async () => {
     const testCase = makeArenaMcpCase();
     const result = await runBlindCoachCase({ observation: testCase.observation,
