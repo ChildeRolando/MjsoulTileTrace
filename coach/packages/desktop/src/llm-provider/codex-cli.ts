@@ -873,7 +873,7 @@ export function createCodexArenaToolCallProvider(input: {
       if (Buffer.byteLength(prompt, "utf8") > request.maxInputBytes) return { status: "input_too_large" };
       const outputSchema = {
         type: "object", additionalProperties: false,
-        properties: { name: { type: "string", enum: request.tools.map(tool => tool.function.name) }, arguments: { type: "string" }, decisionSummary: { type: "string" } },
+        properties: { name: { type: "string", enum: request.tools.map(tool => tool.function.name) }, arguments: { type: "string" }, decisionSummary: { type: "string", minLength: 1, maxLength: 600 } },
         required: ["name", "arguments", "decisionSummary"],
       };
       const result = await runCodexStructuredTurn({
