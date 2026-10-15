@@ -2,7 +2,7 @@
 
 日期：2026-10-09
 
-状态：阶段 1 规格已由 PR #47 合入；T1 最小契约、筛题、盲观察、隔离标签与离线 scorer 已在 COAC-220 实现；T2 的真实 stdio MCP helper 薄适配已由 COAC-221 实现并待独立评审；T4 的 off/local 有界本地检索已由 COAC-222 实现并待独立评审。T3 runner/provider tool loop 与 T5 archive/CLI/真实模型演示仍待实现；本文件仍是唯一 Arena 设计与验收事实源。
+状态：阶段 1 规格已由 PR #47 合入；T1 最小契约、筛题、盲观察、隔离标签与离线 scorer 已在 COAC-220 实现；T2 的真实 stdio MCP helper 薄适配已由 COAC-221 实现并待独立评审；T4 的 off/local 有界本地检索已由 COAC-222 实现并待独立评审；T3 的隔离 runner/provider loop 已由 COAC-223 实现并待独立评审，且通过真实 stdio MCP 与 local RAG 回归验证。T5 archive/CLI 与真实模型演示仍待实现或验收；本文件仍是唯一 Arena 设计与验收事实源。
 
 本规格只拥有 Blind Discard Arena 的新增契约。已有生产事实仍以代码、schema、测试及相应权威文档为准；canonical 回放与动作权威、Mortal runtime 身份、Coach production generation seam、依赖方向和 renderer 安全边界分别继续归属现有 owner。工单只引用本文件，不复制本文件内容。
 
@@ -12,7 +12,7 @@
 
 Mortal 选择是比较标签，不是“正确答案”或专家正确性证明。匹配率不设通过门槛。此实验台不取代或扩展生产复盘，不改生产报告、重试、保存、重开、Mortal adapter 或 UI 语义。
 
-当前工作树已有可复用的 canonical replay、libriichi 规则、managed Mortal runtime、helper sidecar 与 completion-only provider。COAC-220 增加了 Arena case/observation/label/submission/scoring DTO、label-blind case screening、opaque alias、私有 tool binding 与离线 scorer；COAC-221 增加 Arena MCP server/client。工具循环、RAG retriever、run archive 与演示 CLI 仍未实现。
+当前工作树已有可复用的 canonical replay、libriichi 规则、managed Mortal runtime、helper sidecar 与 completion-only provider。COAC-220 增加 Arena case/observation/label/submission/scoring DTO、label-blind case screening、opaque alias、私有 tool binding 与离线 scorer；COAC-221 增加 Arena MCP server/client；COAC-222 增加 off/local RAG retriever 与本地课程摘要；COAC-223 增加独立 provider protocol、main-owned OpenAI-compatible function-call adapter，以及可按需调用真实 MCP/RAG 并在 submission 锁定后评分的 runner。T5 run archive、离线 inspect 与演示 CLI 仍未实现，尚无真实模型运行结果。
 
 ## 2. 仓库复用基线
 
@@ -25,7 +25,7 @@ Mortal 选择是比较标签，不是“正确答案”或专家正确性证明�
 | 动作身份与 equivalence | contracts `canonicalActionTuple` / `canonicalActionRef`（`action-codec.ts`）；tuple 编码动作种类、牌 id、赤牌标记和 discard mode。`LibriichiBoundAction.physicalRealizations` 由 `normalizeLibriichiRuleActions` 验证 native 暴露的物理实现映射。 | Coach 输出必须是本题候选 actionRef。评分使用相同 canonical ref；只允许现有已验证 physical realization 映射。不得按牌名/自然语言匹配或抹去赤牌差异。 |
 | Mortal 最终选择 | `LocalMortalScoringPort.scoreRules` 与 `preferredRuntimeAction` schema；`ManagedMortalRuntime`；reasoning `projectLocalMortalRuleScoring`、`bindLocalMortalRuleScores`、`localMortalRuleScoresToReportEntry`。runtime 验证候选全集与 preferred action；生产 `LocalMortalAnalysisService.analyze` 随后把它们装入含 actual/expected/details 的生产报告。checkpoint/runtime 固定身份见 [local Mortal runtime spec](2026-09-24-local-mortal-runtime-production-design.md)。 | label 只从经验证的 `preferredRuntimeAction` 投影到本题规范 actionRef；不按 Q 值、概率或显示分数重新排序。报告里的 expected、actual、Q 值、概率和 selector 信息不进入 Coach、工具或 RAG。执行 Mortal 可以先于模型，但 label 必须封存在 grader 边界直到提交锁定。 |
 | helper 公共接口与实现 | contracts `fact-engine.ts`；reasoning `MahjongFactEnginePort`、`JsonlFactEngineClient`、`ManagedFactEngineTransport`；Go adapter `tools/mahjong-facts` 固定 `mahjong-helper` upstream commit。当前接口有 `analyzeHand13`、可选 `analyzeHandStructure`、`analyzeCompletedHand`、`analyzeThreatRisk` 与 `identity`。 | 复用这些请求、结果、单位、诊断和 producer identity。当前 managed transport 是受管本地 JSONL sidecar，**不是 MCP**；它也没有按 caseRef/actionRef 授权的模型工具 server。T2 必须通过真实 MCP 协议包一层，内部再调用既有 helper/client，不复制计算。 |
-| Coach provider 与生成 seam | contracts `LlmCoachProvider.complete(LlmCoachRequest)` 是单次 completion。reasoning `generateReviewReport` 只调用一次 provider-level completion；语义、grounding 和 read-back 失败不重试，transport retry 归 provider。OpenAI-compatible adapter 发 `stream: false` 的 JSON completion；Codex CLI adapter 关闭 shell/tool/MCP tool feature。 | 当前没有 provider tool-call DTO 或可由 runner 驱动的多轮工具循环。T3 需要独立 Arena tool-call provider/runner seam；凭据仍留在 desktop main 的现有 privilege owner。不得改变 `generateReviewReport` 的次数、重试或报告语义，也不得通过绕过架构检查来调用 production provider 内部。 |
+| Coach provider 与生成 seam | contracts `LlmCoachProvider.complete(LlmCoachRequest)` 是单次 completion。reasoning `generateReviewReport` 只调用一次 provider-level completion；语义、grounding 和 read-back 失败不重试，transport retry 归 provider。OpenAI-compatible adapter 发 `stream: false` 的 JSON completion；Codex CLI adapter 关闭 shell/tool/MCP tool feature。 | T3 在 desktop 增加与 production completion 分离的 Arena provider DTO/prompt 和 OpenAI-compatible function-call adapter；main-owned service 使用既有凭据 owner 创建 adapter，runner 只依赖非特权 protocol contract。不得改变 `generateReviewReport` 的次数、重试或报告语义，也不得绕过 architecture checker 导入 concrete provider。 |
 | RAG | `buildGraphContextSlice` 是从当前分析图按 allow-list 投影上下文，不是教材语料检索。Arena 的 `contracts` 拥有严格 retrieval DTO，`desktop` 拥有可关闭的 `ArenaRagRetriever` 与本地种子；T4 不改生产图投影、MCP/helper、scorer 或 Coach 主循环。 | T3 runner 只依赖窄查询/结果契约，不依赖种子文件或具体检索算法。切换为 `off` 时不加载 corpus；替换 corpus/retriever 不改其它 Arena 边界。 |
 | schema、测试与记录 | 生产 `StructuredAnalysisPackageSchema`、`ReviewReportSchema`、`ReviewSession` SQLite repository 属于复盘档案；不能承载盲测，因为生产 artifact 会记录 actual 与 expected。`coach/bin/riichi-coach.mjs` 是 fixture-oriented 五轴 prototype CLI，默认输出 `coach/reports`，不是通用记录导入器。仓库根 `.gitignore` 已忽略 `coach/reports/`。 | 不复用或扩展生产 ReviewSession/ReviewReport 保存语义。run 使用 `coach/reports/blind-discard-arena/<runId>/` 下有界的本地 JSON artifacts；这里不存完整牌谱、secret 或 hidden CoT。 |
 
@@ -134,6 +134,10 @@ helper direct call 与 MCP 返回在相同输入上语义一致。至少一个�
 
 Arena tool-call provider/loop 可复用 main-owned credential custody，但它必须是新且隔离的 Arena seam。不要扩展 `LlmCoachProvider.complete` 使生产行为变成 tool loop；不要改 `generateReviewReport` 的 one-completion/transport retry/semantic failure 语义。若既有获授权 provider 无法支持所需工具循环，则如实标注真实 LLM 演示待办，不用 stub 代替。
 
+COAC-223 的 `runBlindCoachCase` 接收一份 strict blind observation、私有 grader binding/reference、Arena provider 与本次 run 的 tool registry。初始 provider 输入只含决策时 observation 和实际注册的工具名；runner 不预取候选 × 维度矩阵。模型每轮最多发起一个 function call；真实 MCP adapter 先确认 server 仅公开 `analyze_candidates`，RAG adapter 对 strict retrieval request 及返回 caseRef/sourceRefs 做验证。动态 `submit_decision` 只允许本题 offered actionRef 和当前已观察到的 source/evidence refs。submission 通过校验后立即锁定并结束求解；runner 之后才把私有 grader binding/reference 交给既有离线 scorer，评分结果不返回同一次 provider 循环。
+
+T3 的 `blind-discard-arena-run-limits/v1` 默认上限为：5 分钟、12 个 provider turn、16 次工具调用、每轮 64 KiB provider context、每轮 2,048 output tokens、每轮 16 KiB 与整 run 64 KiB provider output、8 KiB 工具输入、16 KiB 工具结果、单次工具 10 秒、512 KiB 有序事件轨迹。调用者可降低但不能提高上限。超时、取消、MCP/RAG 错误和预算耗尽保留终态、已有事件及 scorer 分母；错误 prose 不透传。OpenAI-compatible adapter 每次只发送一个 `tool_choice: required` function call，不自动重试，只保留经验证的工具调用参数和安全 token usage，不保留 provider content/hidden CoT 或凭据。当前 T3 返回有界的内存事件轨迹，不写 T5 的 run archive；真实模型调用尚未执行。
+
 ## 9. 评分、数据和可复查产物
 
 ### 9.1 批量指标
@@ -201,7 +205,7 @@ holdout acceptance 至少使用另一个不同的完整 gameId；只能从仓库
 
 ## 11. 永久回归 owner 与命令
 
-行为测试在权威 owner 中覆盖 T1 的 allow-list、alias、规则请求 future-prefix 隔离、完整候选筛选、submission binding 与 scorer denominator，T2 MCP 协议/权限/资源边界，以及 T4 off/local retrieval 边界；它们不证明尚未实现的 T3 tool-loop 接线与 T5 CLI/run lifecycle 已完成。回归 owner：
+行为测试在权威 owner 中覆盖 T1 的 allow-list、alias、规则请求 future-prefix 隔离、完整候选筛选、submission binding 与 scorer denominator，T2 MCP 协议/权限/资源边界，T4 off/local retrieval 边界，以及 T3 实际 MCP/RAG tool loop、submission-before-grading、错误隔离和预算/取消终态；它们不证明决策策略正确、真实模型演示或 T5 CLI/run archive 已完成。回归 owner：
 
 | 不变量 | 新测试 owner（建议精确路径） | 现有基线 |
 |---|---|---|
@@ -210,12 +214,16 @@ holdout acceptance 至少使用另一个不同的完整 gameId；只能从仓库
 | invalid/missing/timeout/tool error/budget stop 始终进入主分母；label 不可用及绑定失败分别计数；固定提交可离线重算 | `coach/packages/desktop/tests/blind-discard-arena-scorer.test.ts` | 新 scorer suite；现有生产 test 不覆盖 Arena 分母 |
 | 实际 MCP stdio 协议、只输出 per-run opaque source/evidence refs、case/action 权限、超时/断连/大结果拒绝、同 packaged helper direct parity | `coach/packages/desktop/tests/blind-discard-arena-mcp.test.ts`（T2 行为回归） | `packages/reasoning/tests/fact-engine-client.test.ts` 与 `npm run test:fact-engine` |
 | RAG off 不读 corpus、local no-hit 与 hit 可区分、有来源、bounded output、prompt injection 不取得权限 | `coach/packages/desktop/tests/blind-discard-arena-rag.test.ts` | Arena 新 suite；COAC-222 实现 |
-| tool loop 不预取全矩阵；turn/call/context/output/time/cancel 都有界 | `coach/packages/desktop/tests/blind-discard-arena-runner.test.ts` | Arena 新 suite |
+| 模型选择真实 MCP/RAG 查询，无预取矩阵；只用已观察 refs 锁定 submission，之后才评分；断连/工具超时以 sanitized event 保留并允许安全恢复 | `coach/packages/desktop/tests/blind-discard-arena-runner.test.ts` | Arena 新 suite；COAC-223 实现 |
+| runner turn/call/context/provider-output/tool-input/result/event/time/cancel budgets 有界；超限、取消与超时进入正确 scorer failure denominator | `coach/packages/desktop/tests/blind-discard-arena-runner.test.ts` | Arena 新 suite；COAC-223 实现 |
+| Arena provider 每轮最多一个函数调用；凭据留在主进程、无自动重试，不保存 provider 原始 content/hidden CoT | `coach/packages/desktop/tests/arena-tool-call-provider.test.ts`、`coach/scripts/check-architecture.test.mjs` | Arena provider contract；COAC-223 实现 |
 | production ReviewReport 的一次 completion、provider retry、保存/读取与 UI 语义不变 | 继续维护现有 owner | `npx vitest run packages/reasoning/tests/review-report.test.ts packages/reasoning/tests/automatic-report-scope.test.ts packages/desktop/tests/coach-provider.test.ts packages/desktop/tests/codex-coach-provider.test.ts` |
 
 从 `coach/` 运行。每票的 focused Arena command 为 `npm exec -- vitest run` 加该票实际新增的测试路径。跨依赖修改另按 [verification gate](../development/VERIFICATION.md) 运行适用的 `npm run typecheck`、`npm test`、`npm run check:architecture`、`npm run test:package-import`；若改变 architecture checker，同步其自测 `npm run test:architecture-checker`。真实 runtime/helper/provider/fixture 变更按现有 Local Mortal、helper、协议及 external/H1 gate 执行。T1 已运行 focused case/scorer tests（13/13）、`npm run typecheck`、`npm run build`、`npm run check:architecture`、`npm run test:package-import`（2/2）与 `git diff --check`。全量 `npm test` 的并行运行结果为 215 个 test files 通过、4 个失败；2737 个测试中 2728 通过、9 个因超时或 fake-runtime `pid.txt` ENOENT 失败，Arena suites 未失败。将这 4 个受影响文件用 `--no-file-parallelism --maxWorkers=1` 单独重跑后，131/131 通过；因此此处不把那次全量并行运行记为 PASS。真实样例 selection receipt 的 runtime identity 和排除计数见第 10 节。
 
 COAC-222 T4 验证（2026-10-15）：RAG focused suite 7/7，T1 case/scorer 与 T2 MCP 相邻回归 23/23；`npm run typecheck`、`npm run build`、`npm run check:architecture`（7 packages / 511 files / 2,459 imports / 0 violations）、`node --test smoke/package-import-smoke.mjs`（2/2）与 `git diff --check` 通过。全量 `npm test` 的并行 Vitest 阶段有 218/220 files、2,747/2,753 tests 通过；`fixed-review-renderer.test.ts` 出现 `spawn EBUSY` 与 5 秒超时，`app-composition.test.ts` 有 20 秒超时。以 `--no-file-parallelism --maxWorkers=1` 重跑这两文件后 51/51 通过。由于完整命令在并行 Vitest 阶段退出，后续协议更新器、协议兼容性和真实 fixture 生成器分别单独运行并通过（26/26、4/4、6/6）；因此保留并行全量结果为有资源竞争的非 PASS 记录，不把它写成整体 PASS。
+
+COAC-223 T3 验证（2026-10-15）：Arena case/scorer、MCP、RAG、runner/provider focused suite 6 files / 44 tests passed；production report/provider adjacent regressions 4 files / 74 tests passed。另通过 `npm run typecheck`、`npm run build`、`npm run check:architecture`（7 packages / 517 files / 2,495 imports / 0 violations）、`npm run test:architecture-checker`（128/128）与 `npm run test:package-import`（2/2）。最新全量 `npm test` 并行运行有 221/222 files、2,790/2,791 tests 通过；唯一失败是 `fixed-review-renderer.test.ts` 中的 Chromium `UnknownVizError`，该文件用 `--no-file-parallelism --maxWorkers=1` 重跑后 31/31 通过。并行全量结果仍记录为非 PASS，不把它写成整体 PASS；未执行真实云 provider/model 调用，未验证 T5 archive/CLI。
 
 真实样例 selection receipt 的 runtime identity 和排除计数见第 10 节。
 

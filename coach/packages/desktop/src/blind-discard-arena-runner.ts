@@ -5,6 +5,8 @@ import {
   ArenaCaseRefSchema,
   ArenaOpaqueReferenceSchema,
   ArenaCoachSubmissionSchema,
+  ArenaRagRequestSchema,
+  ArenaRagResultSchema,
   LlmTokenUsageSchema,
   type ArenaBatchScore,
   type ArenaBlindObservation,
@@ -20,6 +22,7 @@ import {
   ArenaMcpClient,
   ArenaMcpResultSchema,
 } from "./blind-discard-arena-mcp.js";
+import type { ArenaRagRetriever } from "./blind-discard-arena-rag.js";
 import {
   ARENA_TOOL_CALL_PROMPT,
   ARENA_TOOL_CALL_PROMPT_VERSION,
@@ -116,6 +119,8 @@ const ArenaToolFailureCodeSchema = z.enum([
   "case_mismatch",
   "tool_failed",
   "tool_timeout",
+  "run_timeout",
+  "run_cancelled",
   "tool_budget_exhausted",
   "result_too_large",
 ]);
@@ -152,7 +157,7 @@ export const ArenaRunEventSchema = z.discriminatedUnion("type", [
     turn: z.number().int().positive(),
     elapsedMs: z.number().int().nonnegative(),
     inputBytes: z.number().int().nonnegative(),
-    result: z.enum(["tool_call", "provider_unavailable", "provider_error", "timeout", "cancelled", "input_too_large", "output_too_large"]),
+    result: z.enum(["tool_call", "provider_unavailable", "provider_error", "timeout", "cancelled", "input_too_large", "output_too_large", "token_budget_exhausted"]),
     outputBytes: z.number().int().nonnegative().optional(),
     toolName: z.string().regex(TOOL_NAME).optional(),
     usage: LlmTokenUsageSchema.optional(),
@@ -244,7 +249,6 @@ export type ArenaCoachRunResult = z.infer<typeof ArenaCoachRunResultSchema>;
 export class ArenaToolInputError extends Error {
   constructor(readonly code: "invalid_request" | "case_mismatch") { super(code); }
 }
-
 export class ArenaToolExecutionError extends Error {
   constructor(readonly code: ArenaToolFailureCode, readonly fatal = false) { super(code); }
 }
@@ -462,6 +466,63 @@ export async function createArenaMcpRunnerTool(input: {
   });
 }
 
+const ARENA_RAG_TOOL_PARAMETERS = {
+  type: "object",
+  properties: {
+    query: { type: "string", minLength: 1, maxLength: 400 },
+    context: {
+      type: "object",
+      properties: {
+        topic: { type: "string", enum: ["tile-efficiency", "shape-flexibility"] },
+        appliesTo: { type: "string", enum: ["general-discard-choice", "complete-visibility-only"] },
+      },
+      additionalProperties: false,
+    },
+    filter: {
+      type: "object",
+      properties: {
+        topics: { type: "array", maxItems: 2, items: { type: "string", enum: ["tile-efficiency", "shape-flexibility"] } },
+        appliesTo: { type: "array", maxItems: 2, items: { type: "string", enum: ["general-discard-choice", "complete-visibility-only"] } },
+      },
+      additionalProperties: false,
+    },
+    limit: { type: "integer", minimum: 1, maximum: 5 },
+  },
+  required: ["query", "limit"],
+  additionalProperties: false,
+} as const satisfies Readonly<Record<string, unknown>>;
+
+/** Bind the local retrieval contract to this run's case and alias vault. */
+export function createArenaRagRunnerTool(input: {
+  retriever: ArenaRagRetriever;
+  caseRef: string;
+}): ArenaRunnerTool {
+  return {
+    name: "search_knowledge",
+    description: "Search the small local teaching corpus for one bounded, sourced passage relevant to this discard decision.",
+    parameters: ARENA_RAG_TOOL_PARAMETERS,
+    parseInput(raw) {
+      const parsed = ArenaRagRequestSchema.safeParse(raw);
+      if (!parsed.success) throw new ArenaToolInputError("invalid_request");
+      return parsed.data;
+    },
+    async execute(raw, context) {
+      if (context.caseRef !== input.caseRef) throw new ArenaToolInputError("case_mismatch");
+      return await input.retriever.query(raw);
+    },
+    parseOutput(raw) {
+      const result = ArenaRagResultSchema.parse(raw);
+      if (result.caseRef !== input.caseRef) throw new ArenaToolExecutionError("case_mismatch", true);
+      return result;
+    },
+    references(raw) {
+      const result = ArenaRagResultSchema.parse(raw);
+      if (result.caseRef !== input.caseRef) throw new ArenaToolExecutionError("case_mismatch", true);
+      return { evidenceRefs: [], sourceRefs: result.sourceRefs };
+    },
+  };
+}
+
 function summarizeProviderUsage(input: {
   providerTurnCount: number;
   usages: readonly LlmTokenUsage[];
@@ -571,6 +632,12 @@ export async function runBlindCoachCase(input: {
     limits,
     toolNames: [...toolMap.keys()],
   });
+  let finished = false;
+  if (eventBudgetExceeded) {
+    terminalStatus = "budget_exhausted";
+    attempt = { status: "budget_exhausted" };
+    finished = true;
+  }
 
   const modelObservation = ArenaBlindObservationSchema.parse({
     ...observation,
@@ -586,9 +653,9 @@ export async function runBlindCoachCase(input: {
 
   const toolDefinitions = [...toolMap.values()].map(providerTool);
   const finalDefinition = () => finalSubmissionTool({ observation, evidenceRefs: allowedEvidenceRefs, sourceRefs: allowedSourceRefs });
-  let finished = false;
   try {
     for (let turn = 1; turn <= limits.maxProviderTurns; turn += 1) {
+      if (finished) break;
       if (runController.signal.aborted) {
         const interrupted = abortStatus ?? "cancelled";
         terminalStatus = interrupted;
@@ -683,6 +750,23 @@ export async function runBlindCoachCase(input: {
         break;
       }
       if (response.status === "ready" && response.usage !== undefined) usages.push(response.usage);
+      if (response.status === "ready" && response.usage?.outputTokens !== undefined &&
+          response.usage.outputTokens > limits.maxProviderOutputTokens) {
+        terminalStatus = "budget_exhausted";
+        attempt = { status: "budget_exhausted" };
+        append({
+          type: "provider_turn",
+          turn,
+          elapsedMs: Math.max(0, clock() - startedAtMs),
+          inputBytes: contextBytes,
+          result: "token_budget_exhausted",
+          outputBytes,
+          toolName: response.call.name,
+          usage: response.usage,
+        });
+        finished = true;
+        break;
+      }
       append({
         type: "provider_turn",
         turn,
@@ -693,6 +777,12 @@ export async function runBlindCoachCase(input: {
         ...(response.status === "ready" ? { toolName: response.call.name } : {}),
         ...(response.status === "ready" && response.usage !== undefined ? { usage: response.usage } : {}),
       });
+      if (eventBudgetExceeded) {
+        terminalStatus = "budget_exhausted";
+        attempt = { status: "budget_exhausted" };
+        finished = true;
+        break;
+      }
       if (response.status !== "ready") {
         if (response.status === "provider_unavailable") {
           terminalStatus = "provider_unavailable";
@@ -734,6 +824,10 @@ export async function runBlindCoachCase(input: {
           terminalStatus = "invalid_submission";
           append({ type: "submission_rejected", reason: validation.reason });
         }
+        if (eventBudgetExceeded) {
+          terminalStatus = "budget_exhausted";
+          attempt = { status: "budget_exhausted" };
+        }
         finished = true;
         break;
       }
@@ -766,6 +860,7 @@ export async function runBlindCoachCase(input: {
       let resultText: string;
       let failureCode: ArenaToolFailureCode | undefined;
       let fatalToolFailure = false;
+      let toolCallEventAppended = false;
       try {
         if (Buffer.byteLength(call.arguments, "utf8") > limits.maxToolCallInputBytes) {
           throw new ArenaToolInputError("invalid_request");
@@ -773,6 +868,20 @@ export async function runBlindCoachCase(input: {
         const raw = parseJson(call.arguments);
         if (raw === null) throw new ArenaToolInputError("invalid_request");
         parsedInput = tool.parseInput(raw);
+        append({
+          type: "tool_call",
+          ordinal: callOrdinal,
+          turn,
+          toolName: call.name,
+          request: parsedInput,
+        });
+        toolCallEventAppended = true;
+        if (eventBudgetExceeded) {
+          terminalStatus = "budget_exhausted";
+          attempt = { status: "budget_exhausted" };
+          finished = true;
+          break;
+        }
         const output = await withToolTimeout({
           operation: (signal) => tool.execute(parsedInput, { caseRef: observation.caseRef, signal }),
           runSignal: runController.signal,
@@ -794,9 +903,20 @@ export async function runBlindCoachCase(input: {
         for (const ref of resultReferences.sourceRefs) allowedSourceRefs.add(ref);
       } catch (error) {
         if (runController.signal.aborted) {
-          const interrupted = abortStatus ?? "cancelled";
+          const interrupted = (abortStatus as "timeout" | "cancelled" | null) ?? "cancelled";
           terminalStatus = interrupted;
           attempt = { status: interrupted };
+          if (!toolCallEventAppended) {
+            append({ type: "tool_call", ordinal: callOrdinal, turn, toolName: call.name, request: null });
+          }
+          append({
+            type: "tool_result",
+            ordinal: callOrdinal,
+            turn,
+            toolName: call.name,
+            status: "error",
+            code: interrupted === "timeout" ? "run_timeout" : "run_cancelled",
+          });
           finished = true;
           break;
         }
@@ -818,13 +938,13 @@ export async function runBlindCoachCase(input: {
         }
         resultText = stableJson({ status: "error", code: failureCode });
       }
-      append({
-        type: "tool_call",
-        ordinal: callOrdinal,
-        turn,
-        toolName: call.name,
-        request: failureCode === undefined ? parsedInput : null,
-      });
+      if (!toolCallEventAppended) append({
+          type: "tool_call",
+          ordinal: callOrdinal,
+          turn,
+          toolName: call.name,
+          request: null,
+        });
       append({
         type: "tool_result",
         ordinal: callOrdinal,
@@ -866,11 +986,20 @@ export async function runBlindCoachCase(input: {
     reference: input.grading.reference,
     attempt,
   });
-  const score = scoreArenaBatch([scoringInput]);
+  let score = scoreArenaBatch([scoringInput]);
   if (terminalStatus === "completed" && score.failures.labelBindingFailure > 0) {
     terminalStatus = "label_binding_failure";
   }
-  append({ type: "run_terminal", status: terminalStatus, attemptStatus: attempt.status, elapsedMs });
+  if (!append({ type: "run_terminal", status: terminalStatus, attemptStatus: attempt.status, elapsedMs })) {
+    terminalStatus = "budget_exhausted";
+    attempt = { status: "budget_exhausted" };
+    score = scoreArenaBatch([createArenaScoringCaseInput({
+      observation,
+      toolBinding: input.grading.binding,
+      reference: input.grading.reference,
+      attempt,
+    })]);
+  }
   return ArenaCoachRunResultSchema.parse({
     schemaVersion: "blind-discard-arena-run-result/v1",
     caseRef: observation.caseRef,
@@ -890,13 +1019,4 @@ export async function runBlindCoachCase(input: {
     providerUsage: summarizeProviderUsage({ providerTurnCount, usages }),
     events,
   });
-}
-
-export function createArenaMcpRunnerToolForTest(input: {
-  client: ArenaMcpClient;
-  caseRef: string;
-  description: string;
-  inputSchema: Readonly<Record<string, unknown>>;
-}): ArenaRunnerTool {
-  return makeMcpRunnerTool(input);
 }
