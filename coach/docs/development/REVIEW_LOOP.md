@@ -1,10 +1,10 @@
-# Review Loop 接入、Codex 评审与轻量交付
+# Review Loop 接入、Multica 直接评审与轻量交付
 
 本页说明 Coach 产品与本地交付工具的边界。工具源码、测试和发布由独立本地工具仓维护。
 
 ## 当前交付方式（2026-10-15）
 
-执行和审核在 Codex 完成，负责人直接复用已有验收交付，不再创建 Multica 执行/审核工单，也无需本人 @Controller。编码后的待审PR进入本机Codex队列；旧Controller Autopilot已暂停。轻量通道是本地程序调用GitHub / Multica CLI，不是Multica GPT MCP。
+本次工具改造和验证由Codex完成；日常自动评审仍在Multica的Reviewer run中执行。编码结束直接交Reviewer，通过后合并关同一业务票，阻断直接回本票编码执行器，不经过Controller、不新增流程工单。Codex评审是明确启用的备用入口。轻量程序通过GitHub / Multica CLI交接及交付，不是Multica GPT MCP；旧Controller Autopilot保持暂停。
 
 编码执行器完成相关实现、验证、现有owner更新和正常推送后，创建或更新同业务票PR，在原票记录真实结果并设为in_review（no-start），自行登记，无需用户填写JSON：
 
@@ -12,7 +12,13 @@
 & 'E:/IDE/NodeJS/node.exe' 'C:/Users/Roland/.multica/review-loop-v2/review-queue.mjs' register 'C:/Users/Roland/.multica/review-loop-v2/config.json' <PR编号> <业务票ID或COAC编号>
 ```
 
-Coach与Arena项目已显式映射。隐藏任务 `ReviewLoopCodexReview` 每分钟检查队列，等本票编码run结束后，在独立工作树运行Codex评审。P1/P2需有本票接受条件和可复核证据；必要时Codex最小修复，程序正常推送原分支，再对新head独立复审。复审复用此前独立评审未受影响的结论，通过后接下面的合并关票入口。默认最多两轮评审、一次修复，每次模型调用25分钟；阻塞或超限保留结果，不无限重试。相同head不重复调用模型，不创建平台执行/审核票。
+Coach与Arena项目已显式映射。默认 `review.engine=multica`；隐藏任务 `ReviewLoopReview` 等本票编码run结束，将现有业务票所有权交给Reviewer并启动一次fresh普通run。Reviewer用本机入口context取得固定候选、工作树、结果路径和完成命令；依据本票接受条件评审，自行写内部结果并调用complete，通过后发布GitHub检查、正常合并并回读关票。
+
+P1/P2须有本票接受条件和可复核证据。阻断待Reviewer本次run结束后直接交原票编码执行器，最小修复及相关验证、正常推送原分支，再登记新head交Reviewer复审。复用未受影响的独立结论，默认最多两轮评审及一次修复；环境阻塞、等待超限或问题未解决时保留结果，不无限重派或自动切换Codex。已准备的结果文件可由后台继续收尾，同head不重复派发，等待中的PR不挡其他业务票。
+
+当前Reviewer system prompt来源为工具仓的 `multica-reviewer-system-prompt.md`。它替代日常评审中的旧Controller授权、固定五门、规则/会话哈希回执和旧结果fence；结果只包含候选、裁决、发现、适用检查及限制。旧prompt与协议保留供历史查询。
+
+操作员明确使用 `register-codex <config> <PR> <业务票> [worktree]` 后才走本机Codex备用评审；已有原生评审或修复待处理时不能直接覆盖。备用每次模型调用25分钟，沿用两轮评审及一次修复预算，不改变默认路线。
 
 定时发现仅是登记遗漏的补救：同仓库、非draft、标题/正文唯一COAC编号、已映射项目、in_review且无活动run。多业务票PR由执行器显式登记；编码结束回复须区分已推送/已登记/待独立评审与最终通过。
 
@@ -30,7 +36,7 @@ GitHub `Review Loop v2` 名称暂作兼容：绿色表示所引用的验收或�
 
 - 独立本地工具仓拥有 Review Loop 源码、工具测试和发布版本。管理员部署固定版本；配置、凭据、ledger、结果和快照保存在 Coach/GitHub 共享仓之外的私有状态目录。
 - Coach 拥有产品 PR 的目标、接受条件和产品验收门禁；检查按[实际改动范围](VERIFICATION.md#按改动范围选择门禁)选择。
-- 本地评审队列负责调用Codex形成当前候选的质量判断；交付模块只消费有效验收，不再重复审查。同候选已有适用验收直接复用，无需为交付重新启动AI审查；检查按实际任务范围选择。
+- Multica Reviewer负责日常质量判断；本地队列只做直接交接和结果收尾。交付模块只消费有效验收，不再重复审查。同候选已有适用验收直接复用；Codex保留为明确启用的备用，检查按实际任务范围选择。
 
 产品发布等需要完整验收时，五门如下；普通文档只使用适用的文档检查，不要求以下五门：
 
