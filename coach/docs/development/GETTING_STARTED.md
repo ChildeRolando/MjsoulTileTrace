@@ -45,6 +45,8 @@ npm run coach:demo
 
 结果列表的“查看”按案例展示执行时间线：盲测输入、每轮公开决策摘要、完整工具参数/返回与错误、最终提交/拒绝原因、耗时、token 和 Mortal 匹配。新运行通过 `case-trace.jsonl` 实时写入已经校验的公开事件；每题最终 `case_run` 仍是评分和统计的唯一来源，刷新不会重复计数。详情支持自动刷新、保留展开位置及 JSON 下载。旧归档没有记录的输入、逐轮摘要或时间不会补造。Codex 私有 reasoning 事件继续丢弃，只让模型额外返回一两句公开摘要，不保存内部思维链。
 
+调用失败诊断：新归档中的 `provider_turn.failureCode` 区分 CLI 事件/进程错误、模型输出格式错误与上游终态；已报告 token 在失败时也计入用量。Arena 允许当前 CLI 在同一进程中发出的 `Reconnecting... n/m` 进度通知，记录 `reconnectCount`，继续等待最终完成或失败；不会因此重新调用整个 provider，也不延长总时限。未知错误、缺失终态和非零退出仍失败。旧归档只有笼统 `provider_error` 的不补写推测原因。
+
 ```powershell
 npm run arena -- run --dataset blind-discard-smoke-v1 --rag off
 npm run arena -- run --dataset blind-discard-smoke-v1 --rag local

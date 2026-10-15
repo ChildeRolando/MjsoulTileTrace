@@ -66,7 +66,7 @@ export const ArenaProviderFailureCodeSchema = z.enum([
   "cli_incomplete_turn", "cli_process_failed", "invalid_model_response",
 ]);
 export type ArenaProviderFailureCode = z.infer<typeof ArenaProviderFailureCodeSchema>;
-const failureFields = { failureCode: ArenaProviderFailureCodeSchema.optional(), usage: LlmTokenUsageSchema.optional() };
+const failureFields = { failureCode: ArenaProviderFailureCodeSchema.optional(), usage: LlmTokenUsageSchema.optional(), reconnectCount: z.number().int().positive().max(100).optional() };
 export const ArenaToolCallProviderResultSchema = z.discriminatedUnion("status", [
   z.object({
     status: z.literal("ready"),
@@ -74,6 +74,7 @@ export const ArenaToolCallProviderResultSchema = z.discriminatedUnion("status", 
     outputBytes: z.number().int().nonnegative().max(ARENA_PROVIDER_MAX_OUTPUT_BYTES),
     decisionSummary: z.string().min(1).max(600).optional(),
     usage: LlmTokenUsageSchema.optional(),
+    reconnectCount: z.number().int().positive().max(100).optional(),
   }).strict(),
   z.object({ status: z.literal("provider_unavailable"), ...failureFields }).strict(),
   z.object({ status: z.literal("provider_error"), ...failureFields }).strict(),

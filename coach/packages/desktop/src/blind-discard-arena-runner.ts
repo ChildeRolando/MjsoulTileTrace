@@ -167,6 +167,7 @@ export const ArenaRunEventSchema = z.discriminatedUnion("type", [
     usage: LlmTokenUsageSchema.optional(),
     decisionSummary: z.string().min(1).max(600).optional(),
     failureCode: ArenaProviderFailureCodeSchema.optional(),
+    reconnectCount: z.number().int().positive().max(100).optional(),
   }).strict(),
   z.object({
     type: z.literal("tool_call"),
@@ -847,6 +848,7 @@ export async function runBlindCoachCase(input: {
         ...(response.status === "ready" ? { toolName: response.call.name } : {}),
         ...(response.usage !== undefined ? { usage: response.usage } : {}),
         ...(response.status !== "ready" && response.failureCode !== undefined ? { failureCode: response.failureCode } : {}),
+        ...(response.reconnectCount !== undefined ? { reconnectCount: response.reconnectCount } : {}),
         ...(response.status === "ready" && response.decisionSummary !== undefined ? { decisionSummary: response.decisionSummary } : {}),
       });
       if (eventBudgetExceeded) {

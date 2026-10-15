@@ -240,9 +240,9 @@ type InternalFailure = {
   diagnosticCode?: ArenaProviderFailureCode;
 };
 
-type ExecResult =
+type ExecResult = (
   | { kind: "success"; content: string; usage?: LlmTokenUsage }
-  | { kind: "failure"; failure: InternalFailure };
+  | { kind: "failure"; failure: InternalFailure }) & { reconnectCount?: number };
 
 function failure(errorCode: LlmCoachErrorCode, retryable = false, usage?: LlmTokenUsage): ExecResult {
   return { kind: "failure", failure: { errorCode, retryable, ...(usage === undefined ? {} : { usage }) } };
@@ -448,7 +448,9 @@ function parseEvent(
     finalText?: string;
     usage?: LlmTokenUsage;
     terminalFailure?: InternalFailure;
+    reconnectCount?: number;
   },
+  allowReconnectProgress = false,
 ): InternalFailure | null {
   if (state.turnCompleted || state.terminalFailure !== undefined) {
     return { errorCode: "connection_failed", retryable: false };
@@ -496,6 +498,15 @@ function parseEvent(
       if (usage !== undefined) error.usage = usage;
       return error;
     }
+    case "error":
+      // Arena's current CLI emits error events for its own bounded reconnect progress.
+      // Await the terminal event in this same process; never treat arbitrary errors as success.
+      if (allowReconnectProgress && state.threadStarted && state.turnStarted && typeof event.message === "string"
+          && /^Reconnecting\.\.\. [1-9]\d?\/[1-9]\d?(?:\s|$)/.test(event.message)) {
+        state.reconnectCount = (state.reconnectCount ?? 0) + 1;
+        return null;
+      }
+      return { errorCode: "connection_failed", retryable: false, diagnosticCode: "cli_unexpected_event" };
     default:
       return { errorCode: "connection_failed", retryable: false, diagnosticCode: "cli_unexpected_event" };
   }
@@ -531,6 +542,7 @@ async function runExecAttempt(input: {
   executable: string;
   request: Pick<LlmCoachRequest, "prompt">;
   outputSchema?: object;
+  allowReconnectProgress?: boolean;
   modelName: string;
   reasoningEffort: string;
   timeoutMs: number;
@@ -551,7 +563,7 @@ async function runExecAttempt(input: {
     await writeFile(schemaPath, JSON.stringify(input.outputSchema ?? CODEX_COACH_OUTPUT_SCHEMA), { encoding: "utf8", flag: "wx", mode: 0o600 });
     if (input.cancelled()) return failure("provider_unavailable");
 
-    return await new Promise<ExecResult>((resolvePromise) => {
+    return await new Promise<ExecResult>((resolveResult) => {
       const state: {
         threadStarted: boolean;
         turnStarted: boolean;
@@ -559,7 +571,10 @@ async function runExecAttempt(input: {
         finalText?: string;
         usage?: LlmTokenUsage;
         terminalFailure?: InternalFailure;
+        reconnectCount?: number;
       } = { threadStarted: false, turnStarted: false, turnCompleted: false };
+      const resolvePromise = (result: ExecResult) => resolveResult({ ...result,
+        ...(state.reconnectCount ? { reconnectCount: state.reconnectCount } : {}) });
       let settled = false;
       let forcedFailure: InternalFailure | undefined;
       let totalBytes = 0;
@@ -652,7 +667,7 @@ async function runExecAttempt(input: {
           failAndKill({ errorCode: "connection_failed", retryable: false, diagnosticCode: "cli_invalid_event" });
           return;
         }
-        const problem = parseEvent(event, state);
+        const problem = parseEvent(event, state, input.allowReconnectProgress);
         if (problem !== null) {
           if (event.type === "turn.failed") {
             state.terminalFailure = problem;
@@ -763,6 +778,7 @@ async function runCodexStructuredTurn(input: {
   if (executable === null || input.signal.aborted) return failure("provider_unavailable");
   return runExecAttempt({
     port, executable, request: { prompt: input.prompt }, outputSchema: input.outputSchema,
+    allowReconnectProgress: true,
     modelName: input.modelName, reasoningEffort: input.reasoningEffort,
     timeoutMs: Math.max(1, Math.min(input.timeoutMs ?? DEFAULT_TURN_TIMEOUT_MS, DEFAULT_TURN_TIMEOUT_MS)),
     maxOutputBytes: MAX_STDIO_BYTES, signal: input.signal, cancelled: () => input.signal.aborted,
@@ -885,14 +901,15 @@ export function createCodexArenaToolCallProvider(input: {
       if (signal.aborted) return { status: "cancelled" };
       if (result.kind === "failure") return { status: result.failure.errorCode === "timeout" ? "timeout" : "provider_error",
         failureCode: result.failure.diagnosticCode ?? result.failure.errorCode,
+        ...(result.reconnectCount === undefined ? {} : { reconnectCount: result.reconnectCount }),
         ...(result.failure.usage === undefined ? {} : { usage: result.failure.usage }) };
       const outputBytes = Buffer.byteLength(result.content, "utf8");
-      if (outputBytes > request.maxOutputBytes) return { status: "output_too_large" };
+      if (outputBytes > request.maxOutputBytes) return { status: "output_too_large", ...(result.reconnectCount === undefined ? {} : { reconnectCount: result.reconnectCount }), ...(result.usage === undefined ? {} : { usage: result.usage }) };
       try {
         const parsed = z.object({ name: z.enum(request.tools.map(tool => tool.function.name) as [string, ...string[]]), arguments: z.string(), decisionSummary: z.string().min(1).max(600) }).strict().parse(JSON.parse(result.content));
         const { decisionSummary, ...call } = parsed;
-        return ArenaToolCallProviderResultSchema.parse({ status: "ready", call, outputBytes, decisionSummary, ...(result.usage === undefined ? {} : { usage: result.usage }) });
-      } catch { return { status: "provider_error", failureCode: "invalid_model_response", ...(result.usage === undefined ? {} : { usage: result.usage }) }; }
+        return ArenaToolCallProviderResultSchema.parse({ status: "ready", call, outputBytes, decisionSummary, ...(result.reconnectCount === undefined ? {} : { reconnectCount: result.reconnectCount }), ...(result.usage === undefined ? {} : { usage: result.usage }) });
+      } catch { return { status: "provider_error", failureCode: "invalid_model_response", ...(result.reconnectCount === undefined ? {} : { reconnectCount: result.reconnectCount }), ...(result.usage === undefined ? {} : { usage: result.usage }) }; }
     },
   });
 }

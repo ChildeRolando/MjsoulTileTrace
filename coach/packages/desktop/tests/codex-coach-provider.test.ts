@@ -61,6 +61,41 @@ it("Arena fails a non-offered tool and timeout without another paid call", async
   expect(timeoutFake.execCount).toBe(1);
 });
 
+it("Arena waits through CLI reconnect progress for a completed structured response without a second process", async () => {
+  const selected = { name: "submit_decision", arguments: "{}", decisionSummary: "提交已有证据支持的选择。" };
+  const fake = fakePort({ onExec: transcript([
+    { type: "thread.started", thread_id: "test" }, { type: "turn.started" },
+    { type: "error", message: "Reconnecting... 1/5 (request timed out; PRIVATE_URL_AND_ERROR)" },
+    { type: "item.completed", item: { type: "reasoning", text: "PRIVATE_COT" } },
+    { type: "item.completed", item: { type: "agent_message", text: JSON.stringify(selected) } },
+    { type: "turn.completed", usage: { input_tokens: 10, output_tokens: 3 } },
+  ]) });
+  const provider = createCodexArenaToolCallProvider({ modelName: "gpt-6-luna", reasoningEffort: "high", processPort: fake.port });
+  const result = await provider.request({ messages: [{ role: "system", content: "Arena" }, { role: "user", content: "observation" }],
+    tools: [{ type: "function", function: { name: "submit_decision", description: "Lock", parameters: {} } }],
+    maxInputBytes: 65536, maxOutputBytes: 16384, maxOutputTokens: 2048 }, new AbortController().signal);
+  expect(result).toMatchObject({ status: "ready", reconnectCount: 1, usage: { totalTokens: 13 } });
+  expect(fake.execCount).toBe(1);
+  expect(fake.records[0]!.child.killed).toBe(false);
+  expect(JSON.stringify(result)).not.toContain("PRIVATE_");
+});
+
+it.each(["fatal", "incomplete", "failed"] as const)("Arena still fails a %s stream after reconnect progress", async kind => {
+  const tail = kind === "fatal" ? [{ type: "error", message: "Fatal PRIVATE_ERROR" }]
+    : kind === "failed" ? [{ type: "turn.failed", error: { code: "server_error", message: "PRIVATE_ERROR" }, usage: { input_tokens: 10, output_tokens: 3 } }] : [];
+  const fake = fakePort({ onExec: transcript([{ type: "thread.started" }, { type: "turn.started" },
+    { type: "error", message: "Reconnecting... 1/5 (request timed out)" }, ...tail]) });
+  const provider = createCodexArenaToolCallProvider({ modelName: "gpt-6-luna", reasoningEffort: "high", processPort: fake.port });
+  const result = await provider.request({ messages: [{ role: "system", content: "Arena" }, { role: "user", content: "observation" }],
+    tools: [{ type: "function", function: { name: "submit_decision", description: "Lock", parameters: {} } }],
+    maxInputBytes: 65536, maxOutputBytes: 16384, maxOutputTokens: 2048 }, new AbortController().signal);
+  expect(result).toMatchObject({ status: "provider_error", reconnectCount: 1,
+    failureCode: kind === "fatal" ? "cli_unexpected_event" : kind === "failed" ? "server_error" : "cli_incomplete_turn" });
+  if (kind === "failed") expect(result).toHaveProperty("usage.totalTokens", 13);
+  expect(fake.execCount).toBe(1);
+  expect(JSON.stringify(result)).not.toContain("PRIVATE_");
+});
+
 type SpawnRecord = { executable: string; args: string[]; options: SpawnOptions; child: FakeChild };
 type Transcript = (prompt: string, child: FakeChild, args: string[]) => void;
 
