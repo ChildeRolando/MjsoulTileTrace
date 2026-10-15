@@ -34,7 +34,7 @@ GitHub `Review Loop v2` 名称暂作兼容：绿色表示所引用的验收或�
 
 ## 运维与历史收口（2026-10-15）
 
-运维使用独立的 `maintenance.mjs inventory|resource-preview|storage-gc` 及既有固定版本发布入口，不进入每分钟交付关键路径，不启动旧Controller或新增流程票。旧PR账本与评审原文保留为历史；已关闭PR的旧pending不再执行，旧CHANGES_REQUIRED不会改成PASS。已交付的历史评审票结束评审阶段，被替代的旧实现/恢复路线及放弃PR的未完成修复以cancelled收口。
+运维使用独立的 `maintenance.mjs inventory|resource-preview|storage-gc` 及既有固定版本发布入口，不进入每分钟交付关键路径，不启动旧Controller或新增流程票。旧PR账本与评审原文保留为历史；已关闭PR的旧pending不再执行，旧CHANGES_REQUIRED不会改成PASS。批量收口先停旧自定义wakeup、先结束父流程票再关闭子票，防止内建children_done接续；no-start不取消其他票的监听。已交付的历史评审票结束评审阶段，被替代的旧实现/恢复路线及放弃PR的未完成修复以cancelled收口。
 
 安装器不再永久pin每次发布；current/previous、人工pin和实际引用仍保护版本。已登记、无人工pin的被替换版本，首次确认被替换时写入30天后的expires_at，重复安装不延长。到期后仍由既有移除入口核对完整launcher/producer清单及活动，缺完整历史清单则保留；不按版本数量或创建年龄删目录。
 
