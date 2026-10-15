@@ -353,3 +353,95 @@ export const ArenaBatchScoreSchema = z.object({
   cases: z.array(ArenaCaseScoreSchema),
 }).strict();
 export type ArenaBatchScore = z.infer<typeof ArenaBatchScoreSchema>;
+
+export const ArenaRagModeSchema = z.enum(["off", "local"]);
+export type ArenaRagMode = z.infer<typeof ArenaRagModeSchema>;
+
+export const ArenaRagStatusSchema = z.enum(["disabled", "no_hits", "hits"]);
+export type ArenaRagStatus = z.infer<typeof ArenaRagStatusSchema>;
+
+export const ArenaRagTopicSchema = z.enum(["tile-efficiency", "shape-flexibility"]);
+export type ArenaRagTopic = z.infer<typeof ArenaRagTopicSchema>;
+
+export const ArenaRagApplicabilitySchema = z.enum([
+  "general-discard-choice",
+  "complete-visibility-only",
+]);
+export type ArenaRagApplicability = z.infer<typeof ArenaRagApplicabilitySchema>;
+
+export const ArenaRagContextSchema = z.object({
+  topic: ArenaRagTopicSchema.optional(),
+  appliesTo: ArenaRagApplicabilitySchema.optional(),
+}).strict();
+export type ArenaRagContext = z.infer<typeof ArenaRagContextSchema>;
+
+export const ArenaRagFilterSchema = z.object({
+  topics: z.array(ArenaRagTopicSchema).max(2).optional(),
+  appliesTo: z.array(ArenaRagApplicabilitySchema).max(2).optional(),
+}).strict();
+export type ArenaRagFilter = z.infer<typeof ArenaRagFilterSchema>;
+
+/** Query fields intentionally exclude snapshots, records, paths, and tool permissions. */
+export const ArenaRagRequestSchema = z.object({
+  query: z.string().trim().min(1).max(400),
+  context: ArenaRagContextSchema.optional(),
+  filter: ArenaRagFilterSchema.optional(),
+  limit: z.number().int().min(1).max(5),
+}).strict();
+export type ArenaRagRequest = z.infer<typeof ArenaRagRequestSchema>;
+
+export const ArenaRagPassageSchema = z.object({
+  sourceRef: ArenaOpaqueReferenceSchema,
+  sourceTitle: z.string().trim().min(1).max(160),
+  documentLocation: z.string().trim().min(1).max(160),
+  content: z.string().trim().min(1).max(1000),
+  applicableWhen: z.array(ArenaRagApplicabilitySchema).max(4),
+  corpusVersion: z.string().trim().min(1).max(80),
+  retrieverVersion: z.string().trim().min(1).max(80),
+}).strict();
+export type ArenaRagPassage = z.infer<typeof ArenaRagPassageSchema>;
+
+export const ArenaRagRetrievalMetadataSchema = z.object({
+  query: z.string().trim().min(1).max(400),
+  context: ArenaRagContextSchema.nullable(),
+  filter: ArenaRagFilterSchema.nullable(),
+  limit: z.number().int().min(1).max(5),
+  resultRefs: z.array(ArenaOpaqueReferenceSchema).max(5),
+}).strict();
+export type ArenaRagRetrievalMetadata = z.infer<typeof ArenaRagRetrievalMetadataSchema>;
+
+export const ArenaRagResultSchema = z.object({
+  schemaVersion: z.literal("blind-discard-arena-rag-result/v1"),
+  caseRef: ArenaCaseRefSchema,
+  mode: ArenaRagModeSchema,
+  status: ArenaRagStatusSchema,
+  passages: z.array(ArenaRagPassageSchema).max(5),
+  sourceRefs: z.array(ArenaOpaqueReferenceSchema).max(5),
+  retrieval: ArenaRagRetrievalMetadataSchema,
+  corpusVersion: z.string().trim().min(1).max(80).nullable(),
+  retrieverVersion: z.string().trim().min(1).max(80),
+}).strict().superRefine((result, context) => {
+  const passageRefs = result.passages.map((passage) => passage.sourceRef);
+  const refsMatch = JSON.stringify(result.sourceRefs) === JSON.stringify(passageRefs) &&
+    JSON.stringify(result.retrieval.resultRefs) === JSON.stringify(passageRefs);
+  if (!refsMatch || new Set(passageRefs).size !== passageRefs.length) {
+    context.addIssue({ code: z.ZodIssueCode.custom, path: ["sourceRefs"], message: "arena_rag_refs_mismatch" });
+  }
+
+  if (result.mode === "off") {
+    if (result.status !== "disabled" || result.passages.length !== 0 || result.corpusVersion !== null ||
+        result.retrieverVersion !== "disabled") {
+      context.addIssue({ code: z.ZodIssueCode.custom, path: ["status"], message: "arena_rag_disabled_result_invalid" });
+    }
+  } else if (result.status === "disabled" || result.corpusVersion === null ||
+             (result.status === "hits") !== (result.passages.length > 0)) {
+    context.addIssue({ code: z.ZodIssueCode.custom, path: ["status"], message: "arena_rag_local_result_invalid" });
+  }
+
+  result.passages.forEach((passage, index) => {
+    if (passage.corpusVersion !== result.corpusVersion || passage.retrieverVersion !== result.retrieverVersion) {
+      context.addIssue({ code: z.ZodIssueCode.custom, path: ["passages", index], message: "arena_rag_passage_version_mismatch" });
+    }
+  });
+});
+export type ArenaRagResult = z.infer<typeof ArenaRagResultSchema>;
