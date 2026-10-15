@@ -37,6 +37,7 @@ import { combineReportedTokenUsage } from "./llm-provider/token-usage.js";
 
 const TOOL_NAME = /^[a-z][a-z0-9_]{0,63}$/;
 const FINAL_TOOL_NAME = "submit_decision";
+const RUNNER_DISPOSE_GRACE_MS = 250;
 
 export type ArenaRunLimits = Readonly<{
   schemaVersion: "blind-discard-arena-run-limits/v1";
@@ -97,7 +98,8 @@ export type ArenaRunnerTool = Readonly<{
   execute(input: unknown, context: { caseRef: string; signal: AbortSignal }): Promise<unknown>;
   parseOutput(raw: unknown): unknown;
   references(output: unknown): ArenaToolReferences;
-  dispose?(): Promise<void>;
+  dispose?(signal: AbortSignal): Promise<void>;
+  forceDispose?(): void;
 }>;
 
 export const ArenaRunTerminalStatusSchema = z.enum([
@@ -447,6 +449,7 @@ function makeMcpRunnerTool(input: {
       };
     },
     dispose: () => input.client.close(),
+    forceDispose: () => input.client.forceClose(),
   };
 }
 
@@ -576,6 +579,7 @@ export async function runBlindCoachCase(input: {
 
   const clock = input.clock ?? Date.now;
   const startedAtMs = clock();
+  const runDeadlineAt = startedAtMs + limits.maxRunElapsedMs;
   const startedAt = new Date(startedAtMs).toISOString();
   const provider = input.provider.descriptor();
   const events: ArenaRunEvent[] = [];
@@ -594,6 +598,8 @@ export async function runBlindCoachCase(input: {
   let attempt: ArenaScoringCaseInput["attempt"] = { status: "missing_submission" };
   let terminalStatus: ArenaRunTerminalStatus = "budget_exhausted";
   let eventBudgetExceeded = false;
+  let cleanupFailed = false;
+  const disposalStarted = new WeakSet<ArenaRunnerTool>();
 
   const append = (raw: ArenaRunEvent): boolean => {
     const event = ArenaRunEventSchema.parse(raw);
@@ -607,9 +613,56 @@ export async function runBlindCoachCase(input: {
     return true;
   };
 
+  const forceDisposeTool = (tool: ArenaRunnerTool): boolean => {
+    if (tool.forceDispose === undefined) return false;
+    try {
+      tool.forceDispose();
+      return true;
+    } catch {
+      return false;
+    }
+  };
+  const disposeTool = async (tool: ArenaRunnerTool): Promise<void> => {
+    if (tool.dispose === undefined || disposalStarted.has(tool)) return;
+    disposalStarted.add(tool);
+
+    const remainingRunMs = runDeadlineAt - clock();
+    if (remainingRunMs <= 0 && !runController.signal.aborted) {
+      abortStatus = "timeout";
+      runController.abort();
+    }
+
+    const cleanupController = new AbortController();
+    const onRunAbort = () => cleanupController.abort();
+    runController.signal.addEventListener("abort", onRunAbort, { once: true });
+    if (runController.signal.aborted) onRunAbort();
+    const disposal = Promise.resolve().then(() => tool.dispose!(cleanupController.signal));
+    let graceExpired = false;
+    const graceTimer = runController.signal.aborted
+      ? undefined
+      : setTimeout(() => {
+        graceExpired = true;
+        cleanupController.abort();
+      }, Math.max(1, Math.min(RUNNER_DISPOSE_GRACE_MS, remainingRunMs)));
+
+    try {
+      if (runController.signal.aborted) {
+        void disposal.catch(() => undefined);
+        if (!forceDisposeTool(tool)) cleanupFailed = true;
+        return;
+      }
+      await awaitWithAbort(disposal, cleanupController.signal, () => abortStatus ?? "tool_timeout");
+    } catch {
+      const forceReleased = forceDisposeTool(tool);
+      if (!runController.signal.aborted && (!graceExpired || !forceReleased)) cleanupFailed = true;
+    } finally {
+      if (graceTimer !== undefined) clearTimeout(graceTimer);
+      runController.signal.removeEventListener("abort", onRunAbort);
+    }
+  };
   const disposeTools = async (): Promise<void> => {
     const disposableTools = [...new Set(toolMap.values())].filter((tool) => tool.dispose !== undefined);
-    await Promise.allSettled(disposableTools.map((tool) => Promise.resolve().then(() => tool.dispose!())));
+    await Promise.all(disposableTools.map(disposeTool));
   };
 
   const onCallerAbort = () => {
@@ -928,7 +981,7 @@ export async function runBlindCoachCase(input: {
           if (fatalToolFailure) recoverableToolFailureCount -= 1;
         } else if (error instanceof ArenaRunAbort && error.status === "tool_timeout") {
           failureCode = "tool_timeout";
-          await tool.dispose?.().catch(() => undefined);
+          await disposeTool(tool);
         } else if (error instanceof ArenaToolInputError) {
           failureCode = error.code;
         } else if (error instanceof Error && error.message === "result_too_large") {
@@ -972,9 +1025,21 @@ export async function runBlindCoachCase(input: {
       attempt = { status: "budget_exhausted" };
     }
   } finally {
+    await disposeTools();
+    if (!runController.signal.aborted && clock() - startedAtMs >= limits.maxRunElapsedMs) {
+      abortStatus = "timeout";
+      runController.abort();
+    }
+    if (runController.signal.aborted) {
+      const interrupted = abortStatus ?? "cancelled";
+      terminalStatus = interrupted;
+      attempt = { status: interrupted };
+    } else if (cleanupFailed) {
+      terminalStatus = "tool_failure";
+      attempt = { status: "tool_failure" };
+    }
     clearTimeout(deadlineTimer);
     input.signal?.removeEventListener("abort", onCallerAbort);
-    await disposeTools();
   }
 
   const endedAtMs = clock();

@@ -574,12 +574,17 @@ export class ArenaMcpClientError extends Error {
 export class ArenaMcpClient {
   readonly #client = new Client({ name: "blind-discard-arena-runner", version: "1.0.0" });
   #connected = false;
+  #transport: Transport | null = null;
+  #childPid: number | null = null;
 
   async connect(transport: Transport): Promise<void> {
     if (this.#connected) throw new ArenaMcpClientError("client_already_connected");
     try {
       await this.#client.connect(transport, { timeout: 10_000 });
       this.#connected = true;
+      this.#transport = transport;
+      const processTransport = transport as Transport & { pid?: number | null };
+      this.#childPid = typeof processTransport.pid === "number" ? processTransport.pid : null;
     } catch (error) {
       throw new ArenaMcpClientError("mcp_connection_failed", { cause: error });
     }
@@ -663,6 +668,50 @@ export class ArenaMcpClient {
   async close(): Promise<void> {
     if (!this.#connected) return;
     this.#connected = false;
-    await this.#client.close();
+    try {
+      await this.#client.close();
+    } finally {
+      this.#transport = null;
+      this.#childPid = null;
+    }
+  }
+
+  /** Immediately stop the owned stdio child when graceful MCP shutdown exceeds the run budget. */
+  forceClose(): void {
+    this.#connected = false;
+    const transport = this.#transport;
+    if (transport === null) return;
+
+    if (this.#childPid !== null) {
+      try {
+        process.kill(this.#childPid, "SIGKILL");
+      } catch (error) {
+        const code = typeof error === "object" && error !== null && "code" in error
+          ? error.code
+          : undefined;
+        if (code !== "ESRCH") throw new ArenaMcpClientError("mcp_force_close_failed", { cause: error });
+      }
+    }
+
+    try {
+      void transport.close().then(
+        () => {
+          if (this.#transport === transport) {
+            this.#transport = null;
+            this.#childPid = null;
+          }
+        },
+        () => {
+          if (this.#transport === transport) {
+            this.#transport = null;
+            this.#childPid = null;
+          }
+        },
+      );
+    } catch (error) {
+      this.#transport = null;
+      this.#childPid = null;
+      throw new ArenaMcpClientError("mcp_force_close_failed", { cause: error });
+    }
   }
 }

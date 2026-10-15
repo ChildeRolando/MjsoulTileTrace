@@ -98,17 +98,22 @@ function filterPassage(passage: SeedPassage, request: ArenaRagRequest): boolean 
   return true;
 }
 
-function rankPassage(passage: SeedPassage, queryTerms: readonly string[], request: ArenaRagRequest): number {
+function rankPassage(
+  passage: SeedPassage,
+  queryTerms: readonly string[],
+  request: ArenaRagRequest,
+): { lexicalScore: number; score: number } {
   const title = new Set(tokenize(passage.sourceTitle));
   const body = new Set(tokenize(passage.content));
-  let score = 0;
+  let lexicalScore = 0;
   for (const term of queryTerms) {
-    if (title.has(term)) score += 4;
-    if (body.has(term)) score += 2;
+    if (title.has(term)) lexicalScore += 4;
+    if (body.has(term)) lexicalScore += 2;
   }
+  let score = lexicalScore;
   if (request.context?.topic !== undefined && passage.topics.includes(request.context.topic)) score += 3;
   if (request.context?.appliesTo !== undefined && passage.applicableWhen.includes(request.context.appliesTo)) score += 1;
-  return score;
+  return { lexicalScore, score };
 }
 
 function retrievalMetadata(request: ArenaRagRequest, resultRefs: readonly string[]) {
@@ -159,8 +164,8 @@ export function createArenaRagRetriever(options: ArenaRagRetrieverOptions): Aren
       const queryTerms = tokenize(request.query);
       const ranked = corpus.passages
         .filter((passage) => filterPassage(passage, request))
-        .map((passage) => ({ passage, score: rankPassage(passage, queryTerms, request) }))
-        .filter(({ score }) => score > 0)
+        .map((passage) => ({ passage, ...rankPassage(passage, queryTerms, request) }))
+        .filter(({ lexicalScore }) => lexicalScore > 0)
         .sort((left, right) => right.score - left.score ||
           (left.passage.id < right.passage.id ? -1 : left.passage.id > right.passage.id ? 1 : 0))
         .slice(0, request.limit);

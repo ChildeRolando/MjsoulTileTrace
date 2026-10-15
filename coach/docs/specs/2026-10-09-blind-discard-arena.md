@@ -116,7 +116,7 @@ helper direct call 与 MCP 返回在相同输入上语义一致。至少一个�
 - **local**：在少量有来源、可使用、被本地整理的种子材料上做真实检索；可从简单全文/词项检索开始，不要求 embeddings、远程服务或外部数据库。已加载 corpus 但没有词项命中时回 `no_hits`。
 - 请求只含有界 query、受限 topic/applicability context/filter 和 limit；不接受牌谱、冻结状态、文件路径、候选集、答案或工具权限。v1 限 query 400 字符、最多 5 个结果、单 passage 1,000 字符、corpus 最多 20 个 passage。
 - 命中 passage 有有界 content、每次 run 的 opaque `sourceRef`、来源标题/文档位置、适用条件、corpus version、retriever version；metadata 记录 query/context/filter/limit 与结果 refs。所有 source refs 由 run-local alias vault 生成，seed/source id 不出现在结果中。
-- v1 retriever `arena-local-terms/v1` 使用 NFKC/case-folded Unicode terms，汉字连续词按重叠双字词项匹配；先过滤，按标题/正文词项分数和受限 context 提示排序，再按隐藏 passage id 确定性打破平手。limit 截取最终有界结果。此检索只负责资料召回，不计算牌效或唯一弃牌。
+- v1 retriever `arena-local-terms/v1` 使用 NFKC/case-folded Unicode terms，汉字连续词按重叠双字词项匹配；先过滤，只有至少一个 query 词项命中的 passage 才有资格进入结果，受限 context 只能重排这些词项命中，不能单独产生命中；再按隐藏 passage id 确定性打破平手。limit 截取最终有界结果。此检索只负责资料召回，不计算牌效或唯一弃牌。
 - 牌例题干、关键状态、解释及适用限制作为一个有语义关联的 passage 保持完整，不以切块制造错误上下文。v1 的两个 seed 都是概念摘要，不含具体题干、牌谱或答案；检索器按登记 passage 原样返回，不会自动切块。
 - corpus 是不可信数据，不能改变 system instruction、case 权限或工具名单；不得包含评测 case、Mortal label、候选排名或针对验收题生成的答案解释。检索 DTO 为 strict allow-list，不包含工具权限字段。
 - `blind-discard-arena-seeds/v1` 仅收录仓库课程作者的短摘要，分别对应 `course/lessons/0001-effective-tiles-and-live-counts.html`「本课只记一条 / 概念说明」与 `course/lessons/0006-compound-shapes-abcd-abbc.html` 同名位置。归属/许可依据是同仓库课程内容的本地摘要；没有复制外部教材、练习题或答案文本，不表示可重新发布外部来源内容。原课程的技术参考记录在 `course/docs/RESOURCES.md`（MahjongRepository/mahjong、Daina Chiba《Riichi Book I》）。种子本身保留来源位置与 rights basis。
@@ -130,7 +130,7 @@ helper direct call 与 MCP 返回在相同输入上语义一致。至少一个�
 
 不得在 runner 预填候选 × 维度矩阵。provider 只在 Arena 专属的 tool-call contract 下返回 tool request 或 final structured submission。工具请求必须由 run registry 验证；未知工具名、格式错误、case mismatch 或超额调用都拒绝并记录。Final schema 拒绝非本题 actionRef、跨 case 引用、重复/缺失字段、超长文本与凭空声称的工具/资料引用。
 
-运行必须有可设置且有限的总时间、provider turn 数、工具调用数、上下文/输入字节和输出 token/字节上限，以及取消信号。每次 tool call 另受第 6、7 节限制。预算在开始前绑定并落 manifest；耗尽/超时/取消后保留已发生的证据和准确终态，绝不构造默认选择、伪造事实或把失败写成 complete。Provider 用量缺失时为 unknown，不推算精确费用。
+运行必须有可设置且有限的总时间、provider turn 数、工具调用数、上下文/输入字节和输出 token/字节上限，以及取消信号。每次 tool call 另受第 6、7 节限制。预算在开始前绑定并落 manifest；耗尽/超时/取消后保留已发生的证据和准确终态，绝不构造默认选择、伪造事实或把失败写成 complete。注册工具的清理也在 run 总时限内：runner 将取消信号传给 dispose，单次最多等待 250 ms 且不得越过剩余 run 时间；等待超时或 run 取消时触发 forceDispose。清理失败不能报告为 completed，超时/取消期间仍以对应终态结束。Provider 用量缺失时为 unknown，不推算精确费用。
 
 Arena tool-call provider/loop 可复用 main-owned credential custody，但它必须是新且隔离的 Arena seam。不要扩展 `LlmCoachProvider.complete` 使生产行为变成 tool loop；不要改 `generateReviewReport` 的 one-completion/transport retry/semantic failure 语义。若既有获授权 provider 无法支持所需工具循环，则如实标注真实 LLM 演示待办，不用 stub 代替。
 
@@ -213,9 +213,8 @@ holdout acceptance 至少使用另一个不同的完整 gameId；只能从仓库
 | 完整合法动作、赤牌区分、已验证物理实现 mapping、submission action/case/source/evidence binding 与 Mortal label binding | `coach/packages/desktop/tests/blind-discard-arena-case.test.ts`、`coach/packages/desktop/tests/blind-discard-arena-scorer.test.ts` | `packages/reasoning/tests/libriichi-rule-projection.test.ts`、`local-mortal-rule-scoring.test.ts`、`libriichi-full-game.test.ts`、`packages/mortal-runtime/tests/managed-runtime.test.ts` |
 | invalid/missing/timeout/tool error/budget stop 始终进入主分母；label 不可用及绑定失败分别计数；固定提交可离线重算 | `coach/packages/desktop/tests/blind-discard-arena-scorer.test.ts` | 新 scorer suite；现有生产 test 不覆盖 Arena 分母 |
 | 实际 MCP stdio 协议、只输出 per-run opaque source/evidence refs、case/action 权限、超时/断连/大结果拒绝、同 packaged helper direct parity | `coach/packages/desktop/tests/blind-discard-arena-mcp.test.ts`（T2 行为回归） | `packages/reasoning/tests/fact-engine-client.test.ts` 与 `npm run test:fact-engine` |
-| RAG off 不读 corpus、local no-hit 与 hit 可区分、有来源、bounded output、prompt injection 不取得权限 | `coach/packages/desktop/tests/blind-discard-arena-rag.test.ts` | Arena 新 suite；COAC-222 实现 |
-| 模型选择真实 MCP/RAG 查询，无预取矩阵；只用已观察 refs 锁定 submission，之后才评分；断连/工具超时以 sanitized event 保留并允许安全恢复 | `coach/packages/desktop/tests/blind-discard-arena-runner.test.ts` | Arena 新 suite；COAC-223 实现 |
-| runner turn/call/context/provider-output/tool-input/result/event/time/cancel budgets 有界；超限、取消与超时进入正确 scorer failure denominator | `coach/packages/desktop/tests/blind-discard-arena-runner.test.ts` | Arena 新 suite；COAC-223 实现 |
+| RAG off 不读 corpus、local no-hit 与 hit 可区分、有来源、bounded output、prompt injection 不取得权限；无词项命中时 context 不产生命中、context 可重排词项命中 | `coach/packages/desktop/tests/blind-discard-arena-rag.test.ts` | Arena 新 suite；COAC-222 实现 |
+| 模型选择真实 MCP/RAG 查询，无预取矩阵；只用已观察 refs 锁定 submission，之后才评分；断连/工具超时以 sanitized event 保留并允许安全恢复；清理受剩余 run 时限、取消和有界 force-dispose 约束 | `coach/packages/desktop/tests/blind-discard-arena-runner.test.ts` | Arena 新 suite；COAC-223 实现 |
 | Arena provider 每轮最多一个函数调用；凭据留在主进程、无自动重试，不保存 provider 原始 content/hidden CoT | `coach/packages/desktop/tests/arena-tool-call-provider.test.ts`、`coach/scripts/check-architecture.test.mjs` | Arena provider contract；COAC-223 实现 |
 | production ReviewReport 的一次 completion、provider retry、保存/读取与 UI 语义不变 | 继续维护现有 owner | `npx vitest run packages/reasoning/tests/review-report.test.ts packages/reasoning/tests/automatic-report-scope.test.ts packages/desktop/tests/coach-provider.test.ts packages/desktop/tests/codex-coach-provider.test.ts` |
 
@@ -224,6 +223,8 @@ holdout acceptance 至少使用另一个不同的完整 gameId；只能从仓库
 COAC-222 T4 验证（2026-10-15）：RAG focused suite 7/7，T1 case/scorer 与 T2 MCP 相邻回归 23/23；`npm run typecheck`、`npm run build`、`npm run check:architecture`（7 packages / 511 files / 2,459 imports / 0 violations）、`node --test smoke/package-import-smoke.mjs`（2/2）与 `git diff --check` 通过。全量 `npm test` 的并行 Vitest 阶段有 218/220 files、2,747/2,753 tests 通过；`fixed-review-renderer.test.ts` 出现 `spawn EBUSY` 与 5 秒超时，`app-composition.test.ts` 有 20 秒超时。以 `--no-file-parallelism --maxWorkers=1` 重跑这两文件后 51/51 通过。由于完整命令在并行 Vitest 阶段退出，后续协议更新器、协议兼容性和真实 fixture 生成器分别单独运行并通过（26/26、4/4、6/6）；因此保留并行全量结果为有资源竞争的非 PASS 记录，不把它写成整体 PASS。
 
 COAC-223 T3 验证（2026-10-15）：Arena case/scorer、MCP、RAG、runner/provider focused suite 6 files / 44 tests passed；production report/provider adjacent regressions 4 files / 74 tests passed。另通过 `npm run typecheck`、`npm run build`、`npm run check:architecture`（7 packages / 517 files / 2,495 imports / 0 violations）、`npm run test:architecture-checker`（128/128）与 `npm run test:package-import`（2/2）。最新全量 `npm test` 并行运行有 221/222 files、2,790/2,791 tests 通过；唯一失败是 `fixed-review-renderer.test.ts` 中的 Chromium `UnknownVizError`，该文件用 `--no-file-parallelism --maxWorkers=1` 重跑后 31/31 通过。并行全量结果仍记录为非 PASS，不把它写成整体 PASS；未执行真实云 provider/model 调用，未验证 T5 archive/CLI。
+
+COAC-223 P2 修复验证（2026-10-15）：`npm exec -- vitest run packages/desktop/tests/blind-discard-arena-rag.test.ts packages/desktop/tests/blind-discard-arena-runner.test.ts packages/desktop/tests/blind-discard-arena-mcp.test.ts --no-file-parallelism --maxWorkers=1`（3 files / 33 tests）、`npm run typecheck`、`npm run build`、`npm run check:architecture`（7 packages / 517 files / 2,495 imports / 0 violations）、`node --test smoke/package-import-smoke.mjs`（2/2）与 `git diff --check` 通过。定向回归覆盖无词项命中时 topic/applicability context 不返回命中、context 只重排词项命中、final/tool-timeout cleanup 的慢或永不结束 dispose 受限、清理中取消，以及真实 MCP stdio 子进程强制关闭。未运行真实云端模型；T5 archive/CLI 仍待后续实现。
 
 真实样例 selection receipt 的 runtime identity 和排除计数见第 10 节。
 

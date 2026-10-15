@@ -4,7 +4,7 @@ import { resolve } from "node:path";
 import { readFileSync } from "node:fs";
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import {
   CANONICAL_EVENT_SCHEMA_VERSION,
   LIBRIICHI_RULE_NORMALIZATION_VERSION,
@@ -260,6 +260,28 @@ describe("Blind Discard Arena MCP adapter", () => {
       expect(await waitForHelperClose(stderr), stderr()).toBe(true);
     }
   }, 15_000);
+
+  it("force closes its owned stdio child when graceful cleanup is abandoned", async () => {
+    const { authorizedCase } = makeAuthorizedCase();
+    const { client, transport } = await startMcp({ authorizedCase });
+    const childPid = transport.pid;
+    if (childPid === null) throw new Error("arena_test_mcp_child_pid_missing");
+
+    client.forceClose();
+
+    await expect(client.listTools()).rejects.toThrow("client_not_connected");
+    await vi.waitFor(() => {
+      let stillRunning = true;
+      try {
+        process.kill(childPid, 0);
+      } catch (error) {
+        const code = typeof error === "object" && error !== null && "code" in error ? error.code : undefined;
+        if (code === "ESRCH") stillRunning = false;
+        else throw error;
+      }
+      expect(stillRunning).toBe(false);
+    }, { timeout: 1000, interval: 10 });
+  });
 
   it("matches the packaged helper direct result through the real stdio MCP protocol", async () => {
     const { authorizedCase } = makeAuthorizedCase();

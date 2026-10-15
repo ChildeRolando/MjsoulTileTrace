@@ -41,6 +41,15 @@ function offRagTool(caseRef: string): ArenaRunnerTool {
   });
 }
 
+function immediateSubmissionProvider(caseRef: string, actionRefs: readonly ActionRef[]): ArenaToolCallProvider {
+  return {
+    descriptor: () => ({ providerId: "test-provider", model: "cleanup-test", protocolVersion: "arena-function-call/v1" }),
+    async request() {
+      return toolCall("submit_decision", finalSubmission(caseRef, actionRefs));
+    },
+  };
+}
+
 function messagesWithLastToolResult(messages: readonly ArenaProviderMessage[]): string {
   const tools = messages.filter((message) => message.role === "tool");
   return tools.map((message) => message.role === "tool" ? message.content : "").join("\n");
@@ -325,6 +334,47 @@ describe("Blind Discard Arena runner", () => {
     }));
   });
 
+  it("bounds cleanup after a tool timeout and continues after force disposal", async () => {
+    const testCase = makeArenaMcpCase();
+    const actionRefs = testCase.observation.candidates.map((candidate) => candidate.actionRef);
+    let turn = 0;
+    const provider: ArenaToolCallProvider = {
+      descriptor: () => ({ providerId: "test-provider", model: "cleanup-timeout-test", protocolVersion: "arena-function-call/v1" }),
+      async request() {
+        turn += 1;
+        return turn === 1
+          ? toolCall("search_knowledge", { query: "shape", limit: 1 })
+          : toolCall("submit_decision", finalSubmission(testCase.observation.caseRef, actionRefs));
+      },
+    };
+    const forceDispose = vi.fn();
+    const stuckDisposer: ArenaRunnerTool = {
+      ...offRagTool(testCase.observation.caseRef),
+      async execute(_input, context) {
+        return await new Promise((_resolve, reject) => {
+          context.signal.addEventListener("abort", () => reject(new Error("tool operation stopped")), { once: true });
+        });
+      },
+      async dispose() {
+        await new Promise<void>(() => undefined);
+      },
+      forceDispose,
+    };
+
+    const result = await runBlindCoachCase({
+      observation: testCase.observation,
+      grading: { binding: testCase.authorizedCase.binding, reference: { status: "unavailable", reason: "mortal_unavailable" } },
+      provider,
+      tools: [stuckDisposer],
+      limits: { maxToolCallDurationMs: 20, maxRunElapsedMs: 5000 },
+    });
+
+    expect(result.status).toBe("completed");
+    expect(result.toolFailureCount).toBe(1);
+    expect(result.elapsedMs).toBeLessThan(1000);
+    expect(forceDispose).toHaveBeenCalledTimes(1);
+  });
+
   it("preserves a cancelled tool request and terminal status", async () => {
     const testCase = makeArenaMcpCase();
     const controller = new AbortController();
@@ -369,6 +419,94 @@ describe("Blind Discard Arena runner", () => {
       code: "run_cancelled",
     }));
     expect(result.score.failures.cancelled).toBe(1);
+  });
+
+  it("keeps slow tool cleanup inside the run deadline and force disposes on timeout", async () => {
+    const testCase = makeArenaMcpCase();
+    const actionRefs = testCase.observation.candidates.map((candidate) => candidate.actionRef);
+    const forceDispose = vi.fn();
+    const slowDisposer: ArenaRunnerTool = {
+      ...offRagTool(testCase.observation.caseRef),
+      async dispose() {
+        await new Promise<void>((resolve) => setTimeout(resolve, 200));
+      },
+      forceDispose,
+    };
+
+    const result = await runBlindCoachCase({
+      observation: testCase.observation,
+      grading: { binding: testCase.authorizedCase.binding, reference: { status: "unavailable", reason: "mortal_unavailable" } },
+      provider: immediateSubmissionProvider(testCase.observation.caseRef, actionRefs),
+      tools: [slowDisposer],
+      limits: { maxRunElapsedMs: 30 },
+    });
+
+    expect(result.status).toBe("timeout");
+    expect(result.attempt.status).toBe("timeout");
+    expect(result.score.failures.timeout).toBe(1);
+    expect(forceDispose).toHaveBeenCalledTimes(1);
+  });
+
+  it("returns on the run deadline when a disposer never settles", async () => {
+    const testCase = makeArenaMcpCase();
+    const actionRefs = testCase.observation.candidates.map((candidate) => candidate.actionRef);
+    const forceDispose = vi.fn();
+    const stuckDisposer: ArenaRunnerTool = {
+      ...offRagTool(testCase.observation.caseRef),
+      async dispose() {
+        await new Promise<void>(() => undefined);
+      },
+      forceDispose,
+    };
+
+    const result = await runBlindCoachCase({
+      observation: testCase.observation,
+      grading: { binding: testCase.authorizedCase.binding, reference: { status: "unavailable", reason: "mortal_unavailable" } },
+      provider: immediateSubmissionProvider(testCase.observation.caseRef, actionRefs),
+      tools: [stuckDisposer],
+      limits: { maxRunElapsedMs: 30 },
+    });
+
+    expect(result.status).toBe("timeout");
+    expect(result.attempt.status).toBe("timeout");
+    expect(result.score.failures.timeout).toBe(1);
+    expect(forceDispose).toHaveBeenCalledTimes(1);
+  });
+
+  it("cancels cleanup waits and force disposes when the caller aborts", async () => {
+    const testCase = makeArenaMcpCase();
+    const actionRefs = testCase.observation.candidates.map((candidate) => candidate.actionRef);
+    const controller = new AbortController();
+    const forceDispose = vi.fn();
+    let signalDisposeStarted!: () => void;
+    const disposeStarted = new Promise<void>((resolve) => { signalDisposeStarted = resolve; });
+    const cancellableDisposer: ArenaRunnerTool = {
+      ...offRagTool(testCase.observation.caseRef),
+      async dispose(signal) {
+        signalDisposeStarted();
+        await new Promise<void>((_resolve, reject) => {
+          signal.addEventListener("abort", () => reject(new Error("cleanup_cancelled")), { once: true });
+        });
+      },
+      forceDispose,
+    };
+
+    const run = runBlindCoachCase({
+      observation: testCase.observation,
+      grading: { binding: testCase.authorizedCase.binding, reference: { status: "unavailable", reason: "mortal_unavailable" } },
+      provider: immediateSubmissionProvider(testCase.observation.caseRef, actionRefs),
+      tools: [cancellableDisposer],
+      signal: controller.signal,
+      limits: { maxRunElapsedMs: 1000 },
+    });
+    await disposeStarted;
+    controller.abort();
+    const result = await run;
+
+    expect(result.status).toBe("cancelled");
+    expect(result.attempt.status).toBe("cancelled");
+    expect(result.score.failures.cancelled).toBe(1);
+    expect(forceDispose).toHaveBeenCalledTimes(1);
   });
 
   it("classifies context, elapsed-time, and provider-turn exhaustion in the scorer denominator", async () => {
