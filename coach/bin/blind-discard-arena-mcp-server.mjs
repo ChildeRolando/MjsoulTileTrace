@@ -3,7 +3,8 @@ import { isAbsolute, resolve, sep } from "node:path";
 import { tmpdir } from "node:os";
 import { fileURLToPath } from "node:url";
 import { JsonlFactEngineClient, ManagedFactEngineTransport } from "@riichi-coach/reasoning";
-import { ArenaRunAliasVault, createArenaMcpServer } from "@riichi-coach/desktop/blind-discard-arena-mcp";
+import { ArenaRunAliasVault } from "@riichi-coach/desktop/blind-discard-arena";
+import { createArenaMcpServer } from "@riichi-coach/desktop/blind-discard-arena-mcp";
 
 const MAX_CASE_CONFIG_BYTES = 256 * 1024;
 const resourcesRoot = fileURLToPath(new URL("../resources/", import.meta.url));

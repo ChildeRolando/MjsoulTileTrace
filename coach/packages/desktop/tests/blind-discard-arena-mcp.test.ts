@@ -1,6 +1,8 @@
 import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
 import { resolve } from "node:path";
+import { mkdtemp, writeFile, rm } from "node:fs/promises";
+import { tmpdir } from "node:os";
 import { readFileSync } from "node:fs";
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
@@ -40,6 +42,21 @@ const spec = readFileSync(
   "utf8",
 );
 const gameIdCanary = "gameId-CANARY-blind-arena";
+
+it("the actual Arena CLI MCP server starts and queries the packaged helper", async () => {
+  const { authorizedCase } = makeAuthorizedCase();
+  const directory = await mkdtemp(resolve(tmpdir(), "arena-mcp-"));
+  const configPath = resolve(directory, "authorized-case.json");
+  await writeFile(configPath, JSON.stringify({ authorizedCases: [authorizedCase], fault: "none" }));
+  const client = new ArenaMcpClient();
+  try {
+    await client.connect(new StdioClientTransport({ command: process.execPath,
+      args: [resolve(coachDir, "bin/blind-discard-arena-mcp-server.mjs"), configPath], stderr: "pipe" }));
+    const result = await client.analyzeCandidates({ caseRef: authorizedCase.binding.caseRef,
+      actionRefs: [authorizedCase.binding.candidates[0]!.actionRef], dimensions: ["shanten"] });
+    expect(result.facts[0]).toMatchObject({ dimension: "shanten", status: "available" });
+  } finally { await client.close(); await rm(directory, { recursive: true, force: true }); }
+});
 const recordIdCanary = "recordId-CANARY-blind-arena";
 const ruleIdentity: LibriichiRuleIdentity = {
   implementation: "Equim-chan/Mortal/libriichi",
