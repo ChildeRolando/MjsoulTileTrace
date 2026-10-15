@@ -1,0 +1,21 @@
+schemaVersion: question-lab-config/v1
+name: 已立直唯一行动与扣点核验
+seed: 11
+scene:
+  selfActor: { fixed: 0 }
+  round: { fixed: 0 }
+  honba: { fixed: 2 }
+  turn: { fixed: 5 }
+  players:
+    - actor: 0
+      riichi: { fixed: true }
+constraints:
+  all:
+    - { field: selfRiichi, op: eq, value: 1 }
+    - { field: score, op: eq, value: 24000 }
+    - { field: riichiSticks, op: eq, value: 1 }
+budget:
+  count: 1
+  maxAttempts: 20
+  timeLimitSeconds: 120
+  refinementRounds: 0

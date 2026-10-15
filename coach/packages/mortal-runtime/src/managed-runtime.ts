@@ -290,6 +290,11 @@ export class ManagedMortalRuntime {
         this.#modelArtifactsVerified = false;
         return response;
       }
+      // Research can score one rule-forced action; the production protocol's
+      // original minimum and error semantics remain unchanged.
+      if (request.operation === "score_actions" && response.candidates.length < 2) {
+        throw new ManagedMortalRuntimeError("mortal_protocol_invalid");
+      }
       if (key(response.identity) !== key(request.identity) || response.ruleResultId !== resultId) {
         throw new ManagedMortalRuntimeError("mortal_runtime_identity_mismatch");
       }

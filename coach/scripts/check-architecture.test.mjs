@@ -61,6 +61,20 @@ function clean(root) {
 
 // --- valid cases -----------------------------------------------------------
 
+test("research composition is allowed while production and renderer cannot acquire it", () => {
+  const root = buildWorkspace();
+  try {
+    makePackage(root,"packages/question-lab","@riichi-coach/question-lab");
+    write(root,"packages/question-lab/src/index.ts",'import { x } from "@riichi-coach/mortal-runtime";\n');
+    assert.equal(checkWorkspace(root).violations.length,0);
+    write(root,"packages/reasoning/src/research.ts",'import { x } from "@riichi-coach/question-lab";\n');
+    write(root,"packages/desktop/src/renderer/research.ts",'import { x } from "@riichi-coach/question-lab";\n');
+    const violations=checkWorkspace(root).violations;
+    assert.ok(violations.some(v=>v.rule==="package_dependency_direction"));
+    assert.ok(violations.some(v=>v.rule==="renderer_safe_boundary"));
+  } finally { clean(root); }
+});
+
 test("clean workspace reports no violations", () => {
   const root = buildWorkspace();
   try {

@@ -1,0 +1,10 @@
+schemaVersion: question-lab-config/v1
+name: 真实闭环冒烟
+seed: 1016
+scene:
+  turn: { range: [2, 5] }
+budget:
+  count: 12
+  maxAttempts: 100
+  timeLimitSeconds: 120
+  refinementRounds: 0

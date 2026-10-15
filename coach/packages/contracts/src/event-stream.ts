@@ -81,6 +81,7 @@ export const CanonicalSourceKindSchema = z.enum([
   "mjai",
   "user_asserted",
   "fixture",
+  "synthetic",
 ]);
 export type CanonicalSourceKind = z.infer<typeof CanonicalSourceKindSchema>;
 
