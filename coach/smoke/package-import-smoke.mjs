@@ -9,6 +9,7 @@ test("workspace packages import as emitted JavaScript", async () => {
   const mortalRuntime = await import("@riichi-coach/mortal-runtime");
   const desktop = await import("@riichi-coach/desktop/session-api");
   const arenaMcp = await import("@riichi-coach/desktop/blind-discard-arena-mcp");
+  const arenaRag = await import("@riichi-coach/desktop/blind-discard-arena-rag");
 
   assert.equal(typeof contracts.AnalysisRequestSchema.parse, "function");
   assert.equal(typeof contracts.ModelEvaluationSchema.parse, "function");
@@ -36,6 +37,8 @@ test("workspace packages import as emitted JavaScript", async () => {
   assert.equal(typeof arenaMcp.createArenaMcpServer, "function");
   assert.equal(typeof arenaMcp.ArenaMcpClient, "function");
   assert.equal(arenaMcp.ARENA_MCP_LIMITS_V1.schemaVersion, "blind-discard-arena-mcp-limits/v1");
+  assert.equal(typeof arenaRag.createArenaRagRetriever, "function");
+  assert.equal(arenaRag.ARENA_RAG_LIMITS_V1.schemaVersion, "blind-discard-arena-rag-limits/v1");
   assert.equal(typeof reasoning.buildAkagiModelEvaluation, "function");
   assert.equal(typeof reasoning.freezeDetailPolicy, "function");
   assert.equal(typeof reasoning.classifyModelEvaluationDetail, "function");

@@ -16,6 +16,10 @@
       "types": "./src/blind-discard-arena-mcp.ts",
       "import": "./dist/blind-discard-arena-mcp.js"
     },
+    "./blind-discard-arena-rag": {
+      "types": "./src/blind-discard-arena-rag.ts",
+      "import": "./dist/blind-discard-arena-rag.js"
+    },
     "./session-api": {
       "types": "./src/session-api.ts",
       "import": "./dist/session-api.js"
