@@ -311,7 +311,7 @@ for (const [form, code] of Object.entries({
   sideEffectImport: 'import "./llm-provider/openai-compatible.js";',
   templateImport: 'await import(`./llm-provider/openai-compatible.js`);',
 })) {
-  for (const providerName of ["openai-compatible", "codex-cli"]) {
+  for (const providerName of ["openai-compatible", "arena-tool-call", "codex-cli"]) {
   for (const file of ["coach-ipc.ts", "llm-provider/service.ts"]) {
     test(`concrete provider ownership rejects ${providerName} ${form} in ${file}`, () => {
       const root = buildWorkspace();
@@ -340,7 +340,7 @@ test("coach service may statically compose the concrete provider with a named im
     write(
       root,
       "packages/desktop/src/llm-provider/service.ts",
-      'import { createOpenAiCoachProvider as createProvider } from "./openai-compatible.js";\nimport { createCodexCoachProvider } from "./codex-cli.js";\n',
+      'import { createOpenAiCoachProvider as createProvider } from "./openai-compatible.js";\nimport { createCodexCoachProvider } from "./codex-cli.js";\nimport { createOpenAiArenaToolCallProvider } from "./arena-tool-call.js";\n',
     );
     const result = checkWorkspace(root, { allowedEdges: TEST_ALLOWED_EDGES });
     assert.deepEqual(result.violations, []);

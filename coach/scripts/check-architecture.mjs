@@ -96,7 +96,11 @@ const REVIEW_GENERATION_INTERNALS = new Set([
   "coachRequestOutcomeFromLlmResult",
 ]);
 const COACH_SERVICE_PATH = "packages/desktop/src/llm-provider/service.ts";
-const CONCRETE_PROVIDER_PATHS = ["/packages/desktop/src/llm-provider/openai-compatible", "/packages/desktop/src/llm-provider/codex-cli"];
+const CONCRETE_PROVIDER_PATHS = [
+  "/packages/desktop/src/llm-provider/openai-compatible",
+  "/packages/desktop/src/llm-provider/arena-tool-call",
+  "/packages/desktop/src/llm-provider/codex-cli",
+];
 
 /** Allowed riichi-coach dependency edges for production src code. */
 export const DEFAULT_ALLOWED_EDGES = Object.freeze({

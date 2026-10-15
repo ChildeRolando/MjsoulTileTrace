@@ -74,7 +74,7 @@ const SupportedDimensionSchema = z.enum([
 ]);
 export type ArenaMcpSupportedDimension = z.infer<typeof SupportedDimensionSchema>;
 
-const ArenaMcpCallInputSchema = z.object({
+export const ArenaMcpCallInputSchema = z.object({
   caseRef: ArenaCaseRefSchema,
   actionRefs: z.array(ActionRefSchema).min(1).max(ARENA_MCP_LIMITS_V1.maxActionRefsPerCall),
   dimensions: z.array(z.string().min(1).max(32).regex(/^[a-z][a-z0-9_]{0,31}$/))
@@ -132,7 +132,7 @@ const ArenaMcpFactSchema = z.object({
   }
 });
 
-const ArenaMcpResultSchema = z.object({
+export const ArenaMcpResultSchema = z.object({
   schemaVersion: z.literal("blind-discard-arena-mcp-result/v1"),
   caseRef: ArenaCaseRefSchema,
   facts: z.array(ArenaMcpFactSchema).min(1).max(
@@ -574,18 +574,23 @@ export class ArenaMcpClientError extends Error {
 export class ArenaMcpClient {
   readonly #client = new Client({ name: "blind-discard-arena-runner", version: "1.0.0" });
   #connected = false;
+  #transport: Transport | null = null;
+  #childPid: number | null = null;
 
   async connect(transport: Transport): Promise<void> {
     if (this.#connected) throw new ArenaMcpClientError("client_already_connected");
     try {
       await this.#client.connect(transport, { timeout: 10_000 });
       this.#connected = true;
+      this.#transport = transport;
+      const processTransport = transport as Transport & { pid?: number | null };
+      this.#childPid = typeof processTransport.pid === "number" ? processTransport.pid : null;
     } catch (error) {
       throw new ArenaMcpClientError("mcp_connection_failed", { cause: error });
     }
   }
 
-  async analyzeCandidates(raw: unknown): Promise<ArenaMcpResult> {
+  async analyzeCandidates(raw: unknown, options: { signal?: AbortSignal } = {}): Promise<ArenaMcpResult> {
     if (!this.#connected) throw new ArenaMcpClientError("client_not_connected");
     const request = ArenaMcpCallInputSchema.parse(raw);
     let result;
@@ -593,7 +598,7 @@ export class ArenaMcpClient {
       result = await this.#client.callTool({
         name: "analyze_candidates",
         arguments: request,
-      }, CallToolResultSchema);
+      }, CallToolResultSchema, options.signal === undefined ? undefined : { signal: options.signal });
     } catch (error) {
       throw new ArenaMcpClientError("mcp_call_failed", { cause: error });
     }
@@ -637,13 +642,24 @@ export class ArenaMcpClient {
     return response.data;
   }
 
-  async listTools(): Promise<readonly Readonly<{ name: string; description?: string }>[]> {
+  async listTools(): Promise<readonly Readonly<{
+    name: string;
+    description?: string;
+    inputSchema: Readonly<Record<string, unknown>>;
+  }>[]> {
     if (!this.#connected) throw new ArenaMcpClientError("client_not_connected");
     try {
       const response = await this.#client.listTools();
-      return response.tools.map((tool) => tool.description === undefined
-        ? { name: tool.name }
-        : { name: tool.name, description: tool.description });
+      return response.tools.map((tool) => {
+        if (tool.inputSchema === null || typeof tool.inputSchema !== "object" || Array.isArray(tool.inputSchema)) {
+          throw new ArenaMcpClientError("mcp_tool_schema_invalid");
+        }
+        return {
+          name: tool.name,
+          ...(tool.description === undefined ? {} : { description: tool.description }),
+          inputSchema: tool.inputSchema as Readonly<Record<string, unknown>>,
+        };
+      });
     } catch (error) {
       throw new ArenaMcpClientError("mcp_list_tools_failed", { cause: error });
     }
@@ -652,6 +668,50 @@ export class ArenaMcpClient {
   async close(): Promise<void> {
     if (!this.#connected) return;
     this.#connected = false;
-    await this.#client.close();
+    try {
+      await this.#client.close();
+    } finally {
+      this.#transport = null;
+      this.#childPid = null;
+    }
+  }
+
+  /** Immediately stop the owned stdio child when graceful MCP shutdown exceeds the run budget. */
+  forceClose(): void {
+    this.#connected = false;
+    const transport = this.#transport;
+    if (transport === null) return;
+
+    if (this.#childPid !== null) {
+      try {
+        process.kill(this.#childPid, "SIGKILL");
+      } catch (error) {
+        const code = typeof error === "object" && error !== null && "code" in error
+          ? error.code
+          : undefined;
+        if (code !== "ESRCH") throw new ArenaMcpClientError("mcp_force_close_failed", { cause: error });
+      }
+    }
+
+    try {
+      void transport.close().then(
+        () => {
+          if (this.#transport === transport) {
+            this.#transport = null;
+            this.#childPid = null;
+          }
+        },
+        () => {
+          if (this.#transport === transport) {
+            this.#transport = null;
+            this.#childPid = null;
+          }
+        },
+      );
+    } catch (error) {
+      this.#transport = null;
+      this.#childPid = null;
+      throw new ArenaMcpClientError("mcp_force_close_failed", { cause: error });
+    }
   }
 }

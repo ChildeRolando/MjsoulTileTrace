@@ -2,13 +2,15 @@ import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import {
-  CoachProviderConfigSchema, CoachProviderStatusSchema, CoachReportRequestSchema, StructuredAnalysisPackageSchema,
+  CoachProviderConfigSchema, CoachProviderStatusSchema, CoachReportRequestSchema, OpenAiCoachProviderConfigSchema, StructuredAnalysisPackageSchema,
   type CoachProviderConfig, type CoachReportResult,
   type ReviewSelectionResult, type StructuredAnalysisPackage, type LlmCoachProvider,
 } from "@riichi-coach/contracts";
 import { calculateDiscardLossFromInput, generateReviewReport, projectContextGraph, selectReviewDecisions, validateStructuredAnalysisPackage, type MahjongFactEnginePort, type ReviewReadBackContext } from "@riichi-coach/reasoning";
 import type { ProviderCredentials } from "./credentials.js";
 import { createOpenAiCoachProvider } from "./openai-compatible.js";
+import { createOpenAiArenaToolCallProvider } from "./arena-tool-call.js";
+import type { ArenaToolCallProvider } from "../blind-discard-arena-provider.js";
 import { createCodexCoachProvider, getCodexCoachAvailability } from "./codex-cli.js";
 import { createFixedReviewController } from "../fixed-review-controller.js";
 import type { ReviewSessionRepository, ReviewSessionSummary } from "../review-session-repository.js";
@@ -21,6 +23,21 @@ export function createPackageReferenceReader(userData: string) {
     const name = createHash("sha256").update(packageId).digest("hex");
     return JSON.parse(await readFile(join(userData, "analysis-packages", `${name}.json`), "utf8"));
   };
+}
+
+/** Main-owned factory for the isolated Arena loop; it does not alter report generation. */
+export function createArenaToolCallProvider(input: {
+  settings: CoachProviderConfig | null;
+  credentials: Pick<ProviderCredentials, "readKey">;
+  fetchImpl: typeof fetch;
+}): ArenaToolCallProvider | null {
+  const settings = OpenAiCoachProviderConfigSchema.safeParse(input.settings);
+  if (!settings.success) return null;
+  return createOpenAiArenaToolCallProvider({
+    settings: settings.data,
+    credentials: input.credentials,
+    fetchImpl: input.fetchImpl,
+  });
 }
 
 export function createCoachService(input: {
