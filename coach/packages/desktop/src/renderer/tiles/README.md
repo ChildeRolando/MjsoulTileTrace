@@ -1,6 +1,8 @@
 # Shared Mahjong tiles
 
-Arena and Coach use this same directory. `1m`–`9s` and `1z`–`7z` are
+Arena, Coach, and the offline Question Lab report use this same directory.
+Question Lab embeds each unchanged SVG once as an isolated data image, retaining
+this directory as the artwork owner and including LICENSE.txt in its report. `1m`–`9s` and `1z`–`7z` are
 self-contained SVG containers of the selected B artwork, including its original
 one-bamboo bird. The embedded PNGs are unchanged from
 [zddd312/mahjong-tiles](https://github.com/zddd312/mahjong-tiles/tree/7629eeeba620ba9f0a98907bc40c0776523af989).

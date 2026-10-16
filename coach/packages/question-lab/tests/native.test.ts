@@ -20,9 +20,10 @@ import {
   bindLocalMortalRuleScores,
 } from "@riichi-coach/reasoning";
 import { LabBatch, readSamples, sampleValidationStats } from "../src/batch.js";
-import { mkdtemp, readFile, rm } from "node:fs/promises";
+import { mkdtemp, readFile, rm, cp } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { acquisitionBoundaries, fitBoundaries, refineBatch } from "../src/learning.js";
 
 describe.skipIf(process.env.COACH_QUESTION_LAB_NATIVE !== "1")(
   "real pinned native and Mortal research path",
@@ -361,6 +362,71 @@ describe.skipIf(process.env.COACH_QUESTION_LAB_NATIVE !== "1")(
         ]);
       }
     }, 60000);
+    it("resumes active refinement with the frozen pre-round model and identical sample selection", async () => {
+      const root = await mkdtemp(join(tmpdir(), "lab-refine-resume-"));
+      const baseline = join(root, "baseline"), continuous = join(root, "continuous"), interrupted = join(root, "interrupted");
+      const config = QuestionLabConfigSchema.parse({
+        schemaVersion: "question-lab-config/v1", seed: 938,
+        scene: { turn: { range: [1, 8] } },
+        budget: { count: 60, maxAttempts: 160, refinementRounds: 1, refinementCount: 8, timeLimitSeconds: 600 },
+        learning: { minClassSamples: 2, minGroups: 5 },
+      });
+      try {
+        const initial = await LabBatch.open(config, baseline);
+        try {
+          await initial.generate();
+          // A partial label set must not freeze or train an initial split.
+          await expect(fitBoundaries(initial.archive, config)).rejects.toThrow("learning_requires_complete_labels");
+          expect(await initial.archive.read("split.json")).toBeNull();
+          await initial.label();
+          const fitted = await acquisitionBoundaries(initial.archive, config, 1);
+          expect(Object.values(fitted.tasks).some(t => t.status === "fitted")).toBe(true);
+        } finally { await initial.close(); }
+        await cp(baseline, continuous, { recursive: true });
+        await cp(baseline, interrupted, { recursive: true });
+        const whole = await LabBatch.open(config, continuous);
+        let expected: unknown;
+        try {
+          await refineBatch(whole);
+          expected = (await readSamples(whole.archive)).map(s => [s.sampleId, s.acquisition]);
+          expect((await readSamples(whole.archive)).filter(s => s.round === 1)).toHaveLength(8);
+        } finally { await whole.close(); }
+        const first = await LabBatch.open(config, interrupted);
+        const snapshotPath = "refinement-acquisition/round-1.json";
+        const before = await first.archive.readSource(snapshotPath);
+        try {
+          const generate = first.generate.bind(first);
+          first.generate = async (round, filter) => {
+            let accepted = 0;
+            return generate(round, sample => {
+              const selected = filter!(sample);
+              if (selected && ++accepted === 3) throw new Error("simulated_refinement_interruption");
+              return selected;
+            });
+          };
+          await expect(refineBatch(first)).rejects.toThrow("simulated_refinement_interruption");
+          await first.label();
+          expect((await readSamples(first.archive)).filter(s => s.round === 1)).toHaveLength(2);
+        } finally { await first.close(); }
+        const resumed = await LabBatch.open(config, interrupted);
+        let calls = 0;
+        for (const w of resumed.workers) {
+          const score = w.mortal.scoreRules.bind(w.mortal);
+          w.mortal.scoreRules = async request => { calls++; return score(request); };
+        }
+        try {
+          await refineBatch(resumed);
+          expect((await readSamples(resumed.archive)).map(s => [s.sampleId, s.acquisition])).toEqual(expected);
+          expect(await resumed.archive.readSource(snapshotPath)).toBe(before);
+          expect(calls).toBe(6);
+          const records = await resumed.archive.read("refinements.json") as { completed: number; rounds: unknown[] };
+          expect(records.completed).toBe(1);
+          expect(records.rounds).toHaveLength(1);
+          const runs = await resumed.archive.read("learning-runs.json") as unknown[];
+          expect(runs).toHaveLength(1);
+        } finally { await resumed.close(); }
+      } finally { await rm(root, { recursive: true, force: true }); }
+    }, 180000);
     it("hidden stock and hands do not change the question, features or scoring request", async () => {
       const w = await createLabWorker();
       try {

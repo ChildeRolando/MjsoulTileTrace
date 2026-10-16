@@ -74,10 +74,12 @@ def fit_task(rows, features, options, evaluate):
             "trainGroups": len(set(groups)), "featureNames": features}
     if len(counts) < 2 or min(counts.values(), default=0) < options["minClassSamples"] or len(set(groups)) < options["minGroups"]:
         return dict(base, status="insufficient_evidence")
+    if min(counts.values()) < 3:
+        return dict(base, status="insufficient_evidence", reason="grouped_cv_requires_three_per_class")
     x = np.asarray([[s["features"][f] for f in features] for s, _ in train], dtype=np.float64)
     y = np.asarray([y for _, y in train])
     folds = list(StratifiedGroupKFold(n_splits=3, shuffle=True, random_state=19).split(x, y, groups))
-    if any(len(set(y[a])) < 2 or not len(b) for a, b in folds):
+    if any(set(y[a]) != set(y) or not len(b) for a, b in folds):
         return dict(base, status="insufficient_evidence", reason="grouped_folds_missing_class")
     candidates = []
     for kernel in ("linear", "rbf"):

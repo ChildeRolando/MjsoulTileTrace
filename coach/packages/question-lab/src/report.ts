@@ -9,6 +9,7 @@ import { Archive } from "./archive.js";
 import { readSamples, readLabels } from "./batch.js";
 import { pendingDecision } from "./projection.js";
 import type { Boundaries } from "./learning.js";
+import { tileArtDefinitions, tileArtName } from "./tile-art.js";
 
 const escape = (v: unknown) =>
   String(v ?? "")
@@ -57,41 +58,10 @@ const actionNames: Record<string, string> = {
   kyuushu_kyuuhai: "九种九牌",
 };
 export function tileImage(tile: string): string {
-  const honor: Record<string, string> = {
-    E: "東",
-    S: "南",
-    W: "西",
-    N: "北",
-    P: "白",
-    F: "發",
-    C: "中",
-  };
-  const red = tile.endsWith("r"),
-    rank = Number(tile[0]),
-    suit = tile[1];
-  let inner = "";
-  if (honor[tile])
-    inner = `<text x="20" y="37" text-anchor="middle" font-size="29" fill="${tile === "C" ? "#ba3030" : tile === "F" ? "#1b7357" : "#203d50"}">${honor[tile]}</text>`;
-  else if (suit === "m")
-    inner = `<text x="20" y="24" text-anchor="middle" font-size="21" fill="${red ? "#ba3030" : "#203d50"}">${"一二三四五六七八九"[rank - 1]}</text><text x="20" y="46" text-anchor="middle" font-size="20" fill="#b33b3b">萬</text>`;
-  else {
-    const positions =
-      rank === 1
-        ? [[20, 29]]
-        : Array.from({ length: rank }, (_, i) => [
-            rank <= 3 ? 20 : 12 + (i % 3) * 8,
-            rank <= 3 ? 16 + i * 13 : 15 + Math.floor(i / 3) * 13,
-          ]);
-    inner = positions
-      .map(([x, y]) =>
-        suit === "p"
-          ? `<circle cx="${x}" cy="${y}" r="${rank === 1 ? 10 : 3.5}" fill="none" stroke="${red ? "#b33b3b" : "#235c8a"}" stroke-width="2"/>`
-          : `<path d="M${x},${y! - 4}v8m-2,-6h4m-4,4h4" stroke="${red ? "#b33b3b" : "#26714f"}" stroke-width="2"/>`,
-      )
-      .join("");
-  }
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="56" viewBox="0 0 40 56"><rect x="1" y="1" width="38" height="53" rx="4" fill="#fffdf6" stroke="#b6b8b0"/><path d="M3 51h34" stroke="#759180" stroke-width="3"/><g font-family="Microsoft YaHei,serif">${inner}</g></svg>`;
-  return `<img class="tile" loading="lazy" width="40" height="56" alt="${escape(honor[tile] ?? `${rank}${suit === "m" ? "万" : suit === "p" ? "筒" : "索"}${red ? "赤" : ""}`)}" src="data:image/svg+xml,${encodeURIComponent(svg)}">`;
+  const name = tileArtName(tile);
+  const honors: Record<string, string> = { E: "東", S: "南", W: "西", N: "北", P: "白", F: "發", C: "中" };
+  const label = honors[tile] ?? `${tile[0]}${tile[1] === "m" ? "万" : tile[1] === "p" ? "筒" : "索"}${tile.endsWith("r") ? "赤" : ""}`;
+  return `<svg class="tile" viewBox="0 0 272 360" role="img" aria-label="${escape(label)}"><use href="#tile-art-${name}"/></svg>`;
 }
 function sampleCard(
   s: LabSample,
@@ -115,7 +85,7 @@ function sampleCard(
             .join("")}</div>`,
       )
       .join("")}</div>
-    <div style="overflow-x:auto"><table><thead><tr><th>行动</th><th>向听</th><th>有效牌余枚</th><th>宝牌</th><th>立直打点估计</th><th>Q</th>${s.hypotheses.map((h) => `<th>${escape(hypothesisNames[h.id] ?? h.id)}</th>`).join("")}</tr></thead><tbody>${s.candidates.map((c) => `<tr${selected.includes(c.actionRef) ? ' class="best"' : ""}><td>${"tile" in c.action ? tileImage(formatMjaiTile(c.action.tile)) : escape(actionNames[c.action.kind] ?? c.action.kind)} ${selected.includes(c.actionRef) ? "Mortal 最优" : ""}</td><td>${c.metrics.shanten ?? "未知"}</td><td>${c.metrics.ukeire ?? "未知"}</td><td>${c.metrics.dora ?? "未知"}</td><td>${c.metrics.valueEstimate === null ? "未知" : Math.round(c.metrics.valueEstimate).toLocaleString("zh-CN")}</td><td>${label?.scores.find((q) => q.actionRef === c.actionRef)?.qValue.toFixed(5) ?? "未评分"}</td>${s.hypotheses.map((h) => `<td>${h.actionRefs.includes(c.actionRef) ? "✓" : ""}</td>`).join("")}</tr>`).join("")}</tbody></table></div><p>模式主张：${s.hypotheses.map((h) => `${escape(hypothesisNames[h.id] ?? h.id)}：${h.applicable ? `${h.actionRefs.length} 个行动` : "不适用"}`).join("；")}</p>${s.variant > 0 ? `<p>相对基础局面的实际变化：${s.changed.map(escape).join("、") || "无可见变化"}。</p>` : ""}<p class="muted">合法构造；自然出现频率未校准。打点为 helper 启发式估计。构造见证与标签分别存档。</p></details>`;
+    <p class="candidate-hint muted">窄屏可横向滚动查看全部候选指标和 Q 值。</p><div class="candidate-table" tabindex="0" role="region" aria-label="完整候选评分表" style="overflow-x:auto"><table><thead><tr><th>行动</th><th>向听</th><th>有效牌余枚</th><th>宝牌</th><th>立直打点估计</th><th>Q</th>${s.hypotheses.map((h) => `<th>${escape(hypothesisNames[h.id] ?? h.id)}</th>`).join("")}</tr></thead><tbody>${s.candidates.map((c) => `<tr${selected.includes(c.actionRef) ? ' class="best"' : ""}><td>${"tile" in c.action ? `${escape(actionNames[c.action.kind] ?? c.action.kind)} ${tileImage(formatMjaiTile(c.action.tile))}` : escape(actionNames[c.action.kind] ?? c.action.kind)} ${selected.includes(c.actionRef) ? "Mortal 最优" : ""}</td><td>${c.metrics.shanten ?? "未知"}</td><td>${c.metrics.ukeire ?? "未知"}</td><td>${c.metrics.dora ?? "未知"}</td><td>${c.metrics.valueEstimate === null ? "未知" : Math.round(c.metrics.valueEstimate).toLocaleString("zh-CN")}</td><td>${label?.scores.find((q) => q.actionRef === c.actionRef)?.qValue.toFixed(5) ?? "未评分"}</td>${s.hypotheses.map((h) => `<td>${h.actionRefs.includes(c.actionRef) ? "✓" : ""}</td>`).join("")}</tr>`).join("")}</tbody></table></div><p>模式主张：${s.hypotheses.map((h) => `${escape(hypothesisNames[h.id] ?? h.id)}：${h.applicable ? `${h.actionRefs.length} 个行动` : "不适用"}`).join("；")}</p>${s.variant > 0 ? `<p>相对基础局面的实际变化：${s.changed.map(escape).join("、") || "无可见变化"}。</p>` : ""}<p class="muted">合法构造；自然出现频率未校准。打点为 helper 启发式估计。构造见证与标签分别存档。</p></details>`;
 }
 function slicePlot(
   samples: LabSample[],
@@ -174,6 +144,7 @@ export async function renderReport(
   config: QuestionLabConfig,
 ) {
   const started = performance.now();
+  const art = await tileArtDefinitions();
   const samples = await readSamples(archive),
     labels = await readLabels(archive, samples),
     boundaries = ((await archive.read("boundaries-final.json")) ??
@@ -283,15 +254,16 @@ export async function renderReport(
     })
     .join("");
   const html = `<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escape(config.name)}</title><style>
-  :root{font-family:"Microsoft YaHei",system-ui,sans-serif;color:#243332;background:#f3f2ed;line-height:1.65}body{margin:0 auto;padding:36px 24px 80px;max-width:1120px}h1{font-size:28px;line-height:1.3}h2{font-size:21px}header{border-top:5px solid #276d63;padding:18px 0}section,.case{background:#fff;padding:22px;margin:20px 0;border:1px solid #deded5;border-radius:8px}.muted{font-size:13px;color:#68736e}.stats{display:flex;gap:36px;flex-wrap:wrap}.stats strong{font-size:30px;display:block}summary{cursor:pointer;font-weight:600}summary:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #468f82;outline-offset:3px}.tile{vertical-align:middle;max-width:40px;height:auto}.tiles{margin:22px 0;display:flex;flex-wrap:wrap;gap:2px}.draw{margin-left:14px}.rivers .tile{width:26px}.rivers>div{padding:5px 0}.rivers>div>span:first-child{display:inline-block;min-width:100px}.meld{display:inline-block;margin-left:12px}.best{background:#e6f3ed}table{width:100%;border-collapse:collapse;text-align:left;font-size:14px}th,td{border-bottom:1px solid #ddd;padding:8px}td .tile{width:24px}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f5f6f2;padding:14px;font-size:12px}a{color:#276d63}input{width:min(90%,500px);padding:10px;border:1px solid #889b93;border-radius:4px}svg{max-width:700px;width:100%;font-size:13px}details[open] summary{margin-bottom:20px}@media(max-width:600px){body{padding:20px 12px}.case,section{padding:12px}table{font-size:12px}th,td{padding:4px}.tile{width:30px}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
-  </style><header><p class="muted">QUESTION LAB · 离线研究档案</p><h1>${escape(config.name)}</h1><p>固定 Mortal 版本在已覆盖局面范围内的可观察选择规律。边界解释不代表模型内部原因或因果证明。</p><div class="stats"><div><strong>${samples.length}</strong>合法样本</div><div><strong>${labels.size}</strong>已标注</div><div><strong>${new Set(samples.filter((s) => s.split === "test").map((s) => s.groupId)).size}</strong>独立测试来源组</div><div><strong>${[...labels.values()].filter((l) => l.sensitive).length}</strong>分差敏感</div></div></header>
+  :root{font-family:"Microsoft YaHei",system-ui,sans-serif;color:#243332;background:#f3f2ed;line-height:1.65}body{margin:0 auto;padding:36px 24px 80px;max-width:1120px}h1{font-size:28px;line-height:1.3}h2{font-size:21px}header{border-top:5px solid #276d63;padding:18px 0}section,.case{background:#fff;padding:22px;margin:20px 0;border:1px solid #deded5;border-radius:8px}.muted{font-size:13px;color:#68736e}.stats{display:flex;gap:36px;flex-wrap:wrap}.stats strong{font-size:30px;display:block}summary{cursor:pointer;font-weight:600}summary:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #468f82;outline-offset:3px}.tile.tile{vertical-align:middle;width:40px;max-width:40px;height:auto;aspect-ratio:272/360;flex-shrink:0}.tile-definitions{position:absolute;width:0;height:0;overflow:hidden}.tiles{margin:22px 0;display:flex;flex-wrap:wrap;gap:2px}.draw{margin-left:14px}.rivers .tile.tile{width:26px}.rivers>div{padding:5px 0}.rivers>div>span:first-child{display:inline-block;min-width:100px}.meld{display:inline-block;margin-left:12px}.best{background:#e6f3ed}.case table{min-width:740px}.candidate-hint{display:none}.candidate-table:focus-visible{outline:3px solid #468f82;outline-offset:3px}table{width:100%;border-collapse:collapse;text-align:left;font-size:14px}th,td{border-bottom:1px solid #ddd;padding:8px}td .tile.tile{width:24px}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f5f6f2;padding:14px;font-size:12px}a{color:#276d63}input{width:min(90%,500px);padding:10px;border:1px solid #889b93;border-radius:4px}svg{max-width:700px;width:100%;font-size:13px}details[open] summary{margin-bottom:20px}@media(max-width:600px){.candidate-hint{display:block}body{padding:20px 12px}.case,section{padding:12px}table{font-size:12px}th,td{padding:4px}.tile.tile{width:30px}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+  </style>${art.html}<header><p class="muted">QUESTION LAB · 离线研究档案</p><h1>${escape(config.name)}</h1><p>固定 Mortal 版本在已覆盖局面范围内的可观察选择规律。边界解释不代表模型内部原因或因果证明。</p><div class="stats"><div><strong>${samples.length}</strong>合法样本</div><div><strong>${labels.size}</strong>已标注</div><div><strong>${new Set(samples.filter((s) => s.split === "test").map((s) => s.groupId)).size}</strong>独立测试来源组</div><div><strong>${[...labels.values()].filter((l) => l.sensitive).length}</strong>分差敏感</div></div></header>
   <section><h2>生成与覆盖</h2><pre>${escape(JSON.stringify(generation, null, 2))}</pre><p>训练／测试按基础牌形来源组隔离。置换牌种和同源变体不能跨组。无稳定边界属于有效研究结果。</p><details><summary>实际可见事实覆盖范围</summary><p>以下仅为成功样本的观测范围；不表示范围内均匀覆盖或每个组合都有样本。</p><table><thead><tr><th>事实</th><th>最小值</th><th>最大值</th><th>不同取值数</th></tr></thead><tbody>${coverage}</tbody></table></details>${combinations ? `<details><summary>模式共同获支持的组合</summary><p>${boundaries?.evaluated ? "最终全部已标注样本" : "仅训练样本"}；计数描述 Mortal 对模式行动集合的支持关系，不表示全局优先级。</p><table><thead><tr><th>获支持组合</th><th>题数</th></tr></thead><tbody>${combinations}</tbody></table></details>` : ""}</section>${tasks}
   <section><h2>局面题目</h2><label for="search">按样本编号或模式筛选</label><p><input id="search" placeholder="输入样本编号或模式名称"></p><p class="muted">点击边界牌例链接会展开对应题目。</p></section>${samples.map((s) => sampleCard(s, labels.get(s.sampleId), Object.fromEntries(config.hypotheses.map((h) => [h.id, h.name])))).join("")}
-  <details><summary>实验与生产者身份</summary><pre>${escape(JSON.stringify({ name: config.name, seed: config.seed, experiment: config.experiment, budget: config.budget, producers: (manifest as { identity?: { producers?: unknown } } | null)?.identity?.producers }, null, 2))}</pre><p>完整配置与全知构造见证保留在本地审计档案，未嵌入题面。</p></details><script>document.querySelector('#search').addEventListener('input',e=>{const q=e.target.value.toLowerCase();document.querySelectorAll('.case').forEach(x=>x.hidden=!x.dataset.search.toLowerCase().includes(q))});function reveal(){const id=location.hash.slice(1);const el=document.getElementById(id);if(el&&el.classList.contains('case')){el.hidden=false;el.open=true}}addEventListener('hashchange',reveal);reveal();</script></html>`;
+  <details><summary>共享牌面与许可</summary><p>使用 Coach / Arena 的同一套 B 版牌面，包括一索鸟与赤五。所有图片均已嵌入，可离线查看。</p><p>素材来源：zddd312/mahjong-tiles（7629eeeba620ba9f0a98907bc40c0776523af989）；赤五轮廓另含 lietxia/mahjong_graphic（3e275804ff58325306710bef3a7406860444bc6a）。</p><pre>${escape(art.license)}</pre></details><details><summary>实验与生产者身份</summary><pre>${escape(JSON.stringify({ name: config.name, seed: config.seed, experiment: config.experiment, budget: config.budget, producers: (manifest as { identity?: { producers?: unknown } } | null)?.identity?.producers }, null, 2))}</pre><p>完整配置与全知构造见证保留在本地审计档案，未嵌入题面。</p></details><script>document.querySelector('#search').addEventListener('input',e=>{const q=e.target.value.toLowerCase();document.querySelectorAll('.case').forEach(x=>x.hidden=!x.dataset.search.toLowerCase().includes(q))});function reveal(){const id=location.hash.slice(1);const el=document.getElementById(id);if(el&&el.classList.contains('case')){el.hidden=false;el.open=true}}addEventListener('hashchange',reveal);reveal();</script></html>`;
   await writeFile(archive.path("report.html"), html, "utf8");
   await archive.write("report-timing.json", {
     schemaVersion: "question-lab-report-timing/v1",
     sampleCount: samples.length,
+    tileArtwork: art.identity,
     durationMs: performance.now() - started,
   });
   return archive.path("report.html");

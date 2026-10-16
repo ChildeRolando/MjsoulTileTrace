@@ -9,7 +9,7 @@ import {
 import { readSamples, readLabels, type LabBatch } from "./batch.js";
 import { Archive } from "./archive.js";
 import { digest } from "./config.js";
-import { labRoot } from "./runtime.js";
+import { labRoot, learningCodeHash } from "./runtime.js";
 import { groupedSplit, type Split } from "./groups.js";
 import { observedFamily } from "./projection.js";
 
@@ -122,9 +122,12 @@ export async function fitBoundaries(
   config: QuestionLabConfig,
   evaluate = false,
 ): Promise<Boundaries> {
+  await assertLearningIdentity(archive, config);
   const samples = await readSamples(archive),
-    labels = await readLabels(archive, samples),
-    split = await freezeSplit(archive, samples);
+    labels = await readLabels(archive, samples);
+  if (!samples.length) throw new Error("learning_requires_generated_samples");
+  if (labels.size !== samples.length) throw new Error("learning_requires_complete_labels");
+  const split = await freezeSplit(archive, samples);
   const request = {
     operation: "fit",
     samples,
@@ -208,21 +211,70 @@ export function boundaryDistance(
     }
   return Math.min(...distances);
 }
+export async function assertLearningIdentity(archive: Archive, config: QuestionLabConfig) {
+  const manifest = await archive.read("manifest.json") as {
+    identity?: { configHash?: string; producers?: { learningCodeHash?: string } };
+  } | null;
+  if (manifest?.identity?.configHash !== digest(config))
+    throw new Error("archive_config_mismatch");
+  if (manifest.identity.producers?.learningCodeHash !== await learningCodeHash())
+    throw new Error("archive_learning_identity_mismatch");
+}
+
+// Acquisition must use the model from BEFORE this round, including after a crash.
+// Bind only prior-round data: current-round labels and mutable group aliases must
+// not change the saved acquisition model while the round is in progress.
+export async function acquisitionBoundaries(
+  archive: Archive, config: QuestionLabConfig, round: number,
+): Promise<Boundaries> {
+  await assertLearningIdentity(archive, config);
+  const samples = await readSamples(archive),
+    prior = samples.filter((s) => s.round < round),
+    labels = await readLabels(archive, prior),
+    inputHash = digest({ config, round, samples: prior.map((s) => s.sampleId), labels: [...labels.values()] }),
+    path = `refinement-acquisition/round-${round}.json`,
+    saved = await archive.read(path) as {
+      inputHash: string; boundaries: Boundaries; boundariesHash: string;
+    } | null;
+  if (saved) {
+    if (saved.inputHash !== inputHash || saved.boundariesHash !== digest(saved.boundaries))
+      throw new Error("refinement_acquisition_identity_mismatch");
+    const { schemaVersion, status, evaluated, tasks, ...metadata } = saved.boundaries;
+    // The full result has additional validated coverage fields. Validate the
+    // original Python protocol object by removing only our archive metadata.
+    const { datasetHash, labelsHash, split, learningSourceHash, featureAuthority, ...result } = metadata;
+    LabBoundariesSchema.parse({ schemaVersion, status, evaluated, tasks, ...result });
+    if (evaluated) throw new Error("refinement_acquisition_uses_holdout");
+    return saved.boundaries;
+  }
+  if (samples.some((s) => s.round >= round))
+    throw new Error("refinement_acquisition_missing_for_partial_round");
+  const boundaries = await fitBoundaries(archive, config, false);
+  await archive.write(path, {
+    schemaVersion: "question-lab-acquisition/v1", round, inputHash,
+    boundariesHash: digest(boundaries), boundaries,
+  });
+  return boundaries;
+}
 export async function refineBatch(batch: LabBatch) {
   if (await batch.archive.read("boundaries-final.json"))
     throw new Error("holdout_already_evaluated_create_new_experiment");
-  let boundaries = await fitBoundaries(batch.archive, batch.config, false);
+  const initial = await readSamples(batch.archive);
+  if (!initial.some((s) => s.round === 0))
+    throw new Error("refinement_requires_initial_samples");
   const rounds = (await batch.archive.read("refinements.json")) as {
     completed: number;
-    rounds: unknown[];
+    rounds: { round: number; [key: string]: unknown }[];
   } | null;
-  const records = rounds?.rounds ?? [];
+  let records = rounds?.rounds ?? [];
+  let boundaries = (await batch.archive.read("boundaries.json")) as Boundaries | null;
   for (
     let round = (rounds?.completed ?? 0) + 1;
     round <= batch.config.budget.refinementRounds;
     round++
   ) {
     if (batch.remainingMs <= 0) break;
+    boundaries = await acquisitionBoundaries(batch.archive, batch.config, round);
     const previous = await readSamples(batch.archive);
     let near = previous.filter(
         (s) => s.round === round && s.acquisition === "boundary",
@@ -261,8 +313,7 @@ export async function refineBatch(batch: LabBatch) {
     const samples = await batch.generate(round, filter);
     await batch.label();
     await batch.checkpointBudget();
-    if (batch.remainingMs > 0)
-      boundaries = await fitBoundaries(batch.archive, batch.config, false);
+    records = records.filter((r) => r.round !== round);
     records.push({
       round,
       nearBoundary: fitted.length ? near : 0,

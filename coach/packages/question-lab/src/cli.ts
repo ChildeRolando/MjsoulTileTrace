@@ -2,7 +2,7 @@ import { readFile, mkdir } from "node:fs/promises";
 import { join, resolve } from "node:path";
 import { spawn } from "node:child_process";
 import { readLabConfig, digest } from "./config.js";
-import { LabBatch } from "./batch.js";
+import { LabBatch, readSamples, readLabels } from "./batch.js";
 import { Archive } from "./archive.js";
 import { coachRoot, labRoot } from "./runtime.js";
 import { fitBoundaries, refineBatch, learningPython } from "./learning.js";
@@ -110,8 +110,11 @@ export async function main(args = process.argv.slice(2)) {
     if (["generate", "run", "resume"].includes(command)) await batch.generate();
     if (["label", "run", "resume", "refine"].includes(command))
       await batch.label();
+    const samples = await readSamples(batch.archive);
+    const labels = await readLabels(batch.archive, samples);
     if (
       ["run", "resume", "refine"].includes(command) &&
+      samples.length > 0 && labels.size === samples.length &&
       !(await batch.archive.read("boundaries-final.json")) &&
       batch.remainingMs > 0
     ) {

@@ -50,6 +50,12 @@ class BoundaryTests(unittest.TestCase):
             label["preferredActionRefs"] = ["a"]
         self.assertEqual(learn.fit(request)["status"], "insufficient_evidence")
 
+    def test_small_multiclass_has_insufficient_evidence_instead_of_cv_exception(self):
+        rows = [({"groupId": str(i), "split": "train", "features": {"x": i}}, str(i // 2)) for i in range(6)]
+        result = learn.fit_task(rows, ["x"], {"minClassSamples": 2, "minGroups": 5}, False)
+        self.assertEqual(result["status"], "insufficient_evidence")
+        self.assertEqual(result["reason"], "grouped_cv_requires_three_per_class")
+
 
 if __name__ == "__main__":
     unittest.main()

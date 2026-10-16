@@ -72,30 +72,31 @@ export async function createLabWorker() {
   };
 }
 export type LabWorker = Awaited<ReturnType<typeof createLabWorker>>;
+async function hashFiles(dir: string): Promise<unknown[]> {
+  const out: unknown[] = [];
+  for (const entry of (await readdir(dir, { withFileTypes: true })).sort(
+    (a, b) => a.name.localeCompare(b.name),
+  )) {
+    if (entry.name === "__pycache__") continue;
+    if (entry.isDirectory())
+      out.push([entry.name, await hashFiles(join(dir, entry.name))]);
+    else if (
+      entry.name.endsWith(".js") || entry.name.endsWith(".py") ||
+      entry.name === "requirements.txt"
+    ) out.push([entry.name, await readFile(join(dir, entry.name), "utf8")]);
+  }
+  return out;
+}
+export async function learningCodeHash() {
+  return digest(await hashFiles(join(labRoot, "python")));
+}
 export async function producerIdentity(worker: LabWorker) {
-  const hashFiles = async (dir: string): Promise<unknown[]> => {
-    const out: unknown[] = [];
-    for (const entry of (await readdir(dir, { withFileTypes: true })).sort(
-      (a, b) => a.name.localeCompare(b.name),
-    )) {
-      if (entry.name === "__pycache__") continue;
-      if (entry.isDirectory())
-        out.push([entry.name, await hashFiles(join(dir, entry.name))]);
-      else if (
-        entry.name.endsWith(".js") ||
-        entry.name.endsWith(".py") ||
-        entry.name === "requirements.txt"
-      )
-        out.push([entry.name, await readFile(join(dir, entry.name), "utf8")]);
-    }
-    return out;
-  };
   return {
     construction: worker.constructor.identity,
     model: worker.mortal.identity,
     facts: await worker.engine.identity(),
     researchMetricVersion: "visible-metrics/v1-heuristic-12-significant-digits",
     labCodeHash: digest(await hashFiles(join(labRoot, "dist"))),
-    learningCodeHash: digest(await hashFiles(join(labRoot, "python"))),
+    learningCodeHash: await learningCodeHash(),
   };
 }

@@ -27,20 +27,49 @@ export class Archive {
       lock = await open(lockPath, "wx");
     } catch (error) {
       if ((error as NodeJS.ErrnoException).code !== "EEXIST") throw error;
-      const owner = JSON.parse(await readFile(lockPath, "utf8")) as {
-        pid: number;
-      };
-      let alive = true;
+      // Serialize stale-lock reclamation. Without this gate two rescuers can
+      // both observe a dead owner, then one unlinks the other's new live lock.
+      const recoveryPath = join(directory, ".writer-recovery");
+      let recovery: FileHandle;
       try {
-        process.kill(owner.pid, 0);
+        recovery = await open(recoveryPath, "wx");
       } catch (e) {
-        alive = (e as NodeJS.ErrnoException).code !== "ESRCH";
+        if ((e as NodeJS.ErrnoException).code === "EEXIST")
+          throw new Error("archive_recovery_locked");
+        throw e;
       }
-      if (alive) throw new Error("archive_locked");
-      await unlink(lockPath);
-      lock = await open(lockPath, "wx");
+      try {
+        await recovery.writeFile(JSON.stringify({ pid: process.pid }));
+        // Re-read under the gate; the writer seen before acquiring it may
+        // already have been replaced by another recovery attempt.
+        let owner: { pid: number } | null;
+        try {
+          owner = JSON.parse(await readFile(lockPath, "utf8"));
+        } catch (e) {
+          if ((e as NodeJS.ErrnoException).code !== "ENOENT") throw e;
+          owner = null;
+        }
+        if (owner) {
+          if (!Number.isSafeInteger(owner.pid) || owner.pid <= 0)
+            throw new Error("archive_lock_owner_invalid");
+          let alive = true;
+          try { process.kill(owner.pid, 0); }
+          catch (e) { alive = (e as NodeJS.ErrnoException).code !== "ESRCH"; }
+          if (alive) throw new Error("archive_locked");
+          await unlink(lockPath);
+        }
+        lock = await open(lockPath, "wx");
+        // Publish the owner before releasing the reclamation gate.
+        await lock.writeFile(JSON.stringify({ pid: process.pid }));
+      } finally {
+        await recovery.close();
+        await unlink(recoveryPath);
+      }
     }
-    await lock.writeFile(JSON.stringify({ pid: process.pid }));
+    // A recovered lock already contains its owner. Truncation is deliberately
+    // avoided: a concurrent reader must never see a temporarily empty lock.
+    if ((await lock.stat()).size === 0)
+      await lock.writeFile(JSON.stringify({ pid: process.pid }));
     const archive = new Archive(directory, lock);
     try {
       const existing = await archive.read("manifest.json");
