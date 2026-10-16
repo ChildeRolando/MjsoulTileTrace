@@ -1,5 +1,13 @@
 # libriichi 规则配置兼容补丁
 
+2026-10-16 增加 `libriichi.arena.ResearchBoard`。它只包装同一版本的 `Board/BoardState`，
+接受完整 136 张牌、起始局况与点数，验证库存和点数守恒，再逐步由原生规则验证行动。
+栈方向在此窄接口转换为消费顺序；构造成功不意味着实战频率已校准。
+Question Lab 的构造工作进程不导入 torch 或 checkpoint，脚本、wrapper 与 native 身份均受检。
+此接口包含在同一个补丁与 native 构建回执中，不另建合法动作实现。
+研究评分显式使用 `score_research_actions`，完整原生集合即使只有一个行动也保留真实 Q；
+生产 `score_actions` 仍拒绝单行动请求。两者共用受管模型进程与相同分数绑定，不裁剪候选。
+
 上游：Equim-chan/Mortal，固定提交
 `0cff2b52982be5b1163aa9a62fb01f03ce91e0d2`，AGPL-3.0-or-later。
 `coach-rule-config.patch` 是该源码的衍生修改；原仓库许可和署名继续适用。

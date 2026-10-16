@@ -2,9 +2,11 @@
   "name": "riichi-coach",
   "private": true,
   "type": "module",
-  "workspaces": ["packages/*"],
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "build": "npm run build -w @riichi-coach/contracts && npm run build -w @riichi-coach/mahjong-soul-source && npm run build -w @riichi-coach/tenhou-source && npm run build -w @riichi-coach/mortal-source && npm run build -w @riichi-coach/mortal-runtime && npm run build -w @riichi-coach/reasoning && npm run build -w @riichi-coach/desktop",
+    "build": "npm run build -w @riichi-coach/contracts && npm run build -w @riichi-coach/mahjong-soul-source && npm run build -w @riichi-coach/tenhou-source && npm run build -w @riichi-coach/mortal-source && npm run build -w @riichi-coach/mortal-runtime && npm run build -w @riichi-coach/reasoning && npm run build -w @riichi-coach/question-lab && npm run build -w @riichi-coach/desktop",
     "test": "npm run build && vitest run && npm run test:mahjong-soul-protocol-updater && npm run test:mahjong-soul-protocol-compatibility && npm run test:generate-mahjong-soul-real-fixtures && npm run check:architecture",
     "test:mahjong-soul-protocol-updater": "node --test scripts/update-mahjong-soul-protocol.test.mjs",
     "test:mahjong-soul-protocol-compatibility": "node --test scripts/mahjong-soul-protocol-compatibility.test.mjs",
@@ -35,8 +37,10 @@
     "desktop:diagnose-mortal-full-game": "npm run build && electron packages/desktop/dist/electron-entry.js --diagnose-mortal-full-game",
     "prepare:local-mortal-spike": "node scripts/prepare-local-mortal-spike.mjs",
     "test:local-mortal-production-spike": "node --max-old-space-size=8192 scripts/local-mortal-production-spike.mjs",
-    "typecheck": "tsc --noEmit -p packages/contracts/tsconfig.json && tsc --noEmit -p packages/mahjong-soul-source/tsconfig.json && tsc --noEmit -p packages/tenhou-source/tsconfig.json && tsc --noEmit -p packages/mortal-source/tsconfig.json && tsc --noEmit -p packages/mortal-runtime/tsconfig.json && tsc --noEmit -p packages/reasoning/tsconfig.json && tsc --noEmit -p packages/desktop/tsconfig.json",
-    "test:electron-mvp-golden": "npm run build && node packages/desktop/tests/electron-mvp-golden-slice.cjs"
+    "typecheck": "tsc --noEmit -p packages/contracts/tsconfig.json && tsc --noEmit -p packages/mahjong-soul-source/tsconfig.json && tsc --noEmit -p packages/tenhou-source/tsconfig.json && tsc --noEmit -p packages/mortal-source/tsconfig.json && tsc --noEmit -p packages/mortal-runtime/tsconfig.json && tsc --noEmit -p packages/reasoning/tsconfig.json && tsc --noEmit -p packages/question-lab/tsconfig.json && tsc --noEmit -p packages/desktop/tsconfig.json",
+    "test:electron-mvp-golden": "npm run build && node packages/desktop/tests/electron-mvp-golden-slice.cjs",
+    "question-lab": "node packages/question-lab/dist/cli.js",
+    "test:question-lab": "vitest run packages/question-lab/tests packages/contracts/tests/question-lab.test.ts"
   },
   "devDependencies": {
     "@types/node": "22.15.30",

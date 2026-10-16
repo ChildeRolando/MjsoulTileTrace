@@ -9,6 +9,18 @@
 `electron-analysis-responsiveness.cjs` 以固定真实响应测窗口请求和主线程间隔（均 <200ms），
 包含首次 preflight，并记录 CPU/存储/RSS。性能实验不能冒充真实推理总耗时。
 
+## Question Lab 独立研究验收（2026-10-16）
+
+`npm run test:question-lab -- --maxWorkers=1 --no-file-parallelism` 覆盖严格配置、构造库存、
+可见投影、单写者档案及同源分组。设置 `COACH_QUESTION_LAB_NATIVE=1` 后增加真实 pinned
+Board、吃碰／三类杠／立直、指定副露后暗手、全候选 Mortal、隐藏牌山不变性和中断恢复回归。
+独立学习 Python 执行 `packages/question-lab/python/test_learn.py` 验证已知边界与留出标签隔离。
+
+真实批次须保留配置／生产者身份、样本与标签、构造见证、失败计数、冻结分组、学习结果与
+`pipeline-summary.json` 分段测量。百题／千题吞吐以该批次实际计时为准，不能以合成单元测试
+或某一次推理耗时替代。单类别或小样本的 `insufficient_evidence` 是诚实结果，不是边界成功。
+最终独立测试揭示之后不得用同一档案继续主动补样。生产门禁仍单独执行下文检查。
+
 ## 日常门禁
 
 在 `coach/` 运行：

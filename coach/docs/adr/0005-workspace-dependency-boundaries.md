@@ -51,6 +51,7 @@ review`），因此代码中 `reasoning → @riichi-coach/mortal-source` 已是�
 | `@riichi-coach/reasoning` | contracts、mortal-source（仅报告格式解析） |
 | `@riichi-coach/mortal-runtime`（计划；尚未实现） | contracts |
 | `@riichi-coach/desktop` | 全部（组合根） |
+| `@riichi-coach/question-lab` | contracts、reasoning、mortal-runtime、mortal-source（离线研究组合根；2026-10-16） |
 
 - renderer 安全集合（`desktop/src/renderer/**`、`preload.ts`、`preload-entry.ts`）
   的直接导入只允许 contracts 与桌面安全 API 模块；禁止 mahjong-soul-source、
@@ -58,6 +59,9 @@ review`），因此代码中 `reasoning → @riichi-coach/mortal-source` 已是�
 - reasoning 不得依赖 mortal-runtime；mortal-runtime 不得依赖 reasoning、任一 game-record
   provider、mortal-source 或 deterministic `mahjong-facts` owner。desktop main 只能经其包根
   lifecycle API 接线，renderer/preload 禁止直接或传递获得 subprocess/checkpoint capability。
+- Question Lab 在本地 CLI 内接线同一个 runtime owner，拥有独立研究档案与学习进程；
+  它不是 desktop 的依赖，不获得账号／来源 provider 或生产报告生成权限。其他包不得
+  反向依赖 question-lab，renderer/preload 的 privileged 集合显式包含它。
 - 跨包导入必须使用包根 exports 面（desktop 的 `./session-api` 是已声明的公共
   子路径例外）；深导入只允许 `scripts/` 的 allowlisted 工具
   （`generate-factor-regression-golden.mjs` 需要刻意不公开的 legacy bridge）。

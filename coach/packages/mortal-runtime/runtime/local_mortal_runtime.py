@@ -230,7 +230,7 @@ def score_rules(request, native, engine):
     """
     failure = {"protocolVersion": SCORING_PROTOCOL, "requestId": request["requestId"], "status": "error"}
     content = {key: value for key, value in request.items() if key != "requestId"}
-    if (request.get("protocolVersion") != SCORING_PROTOCOL or request.get("operation") != "score_actions"
+    if (request.get("protocolVersion") != SCORING_PROTOCOL or request.get("operation") not in ("score_actions", "score_research_actions")
             or rule_digest(content) != request["requestId"]):
         return dict(failure, code="mortal_protocol_invalid")
     rules_input, expected = request["ruleRequest"], request["ruleResult"]
@@ -240,7 +240,8 @@ def score_rules(request, native, engine):
             or rules_input["identity"]["wrapperSha256"] != identity["runtimeArtifactSha256"]):
         return dict(failure, code="mortal_runtime_identity_mismatch")
     verified = query_rules(rules_input, native)
-    if verified != expected or verified["status"] != "ok" or len(verified["actions"]) < 2:
+    minimum = 1 if request["operation"] == "score_research_actions" else 2
+    if verified != expected or verified["status"] != "ok" or len(verified["actions"]) < minimum:
         return dict(failure, code="mortal_candidate_mismatch")
 
     # An unknown profile can have equal legal actions but different observations
@@ -352,7 +353,7 @@ def main():
             request = json.loads(line)
             if request.get("operation") == "legal_actions":
                 response = query_rules(request, native)
-            elif request.get("operation") == "score_actions":
+            elif request.get("operation") in ("score_actions", "score_research_actions"):
                 response = score_rules(request, native, get_engine)
             else:
                 get_engine()
@@ -362,7 +363,7 @@ def main():
             response = ({"protocolVersion": RULE_PROTOCOL, "requestId": request_id, "status": "error", "code": "rules_runtime_failed"}
                         if isinstance(request, dict) and request.get("operation") == "legal_actions"
                         else {"protocolVersion": SCORING_PROTOCOL, "requestId": request_id, "status": "error", "code": "mortal_protocol_invalid"}
-                        if isinstance(request, dict) and request.get("operation") == "score_actions"
+                        if isinstance(request, dict) and request.get("operation") in ("score_actions", "score_research_actions")
                         else fail(request_id, "mortal_protocol_invalid"))
         print(json.dumps(response, separators=(",", ":"), allow_nan=False), flush=True)
 

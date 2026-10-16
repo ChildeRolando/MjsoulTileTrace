@@ -9,12 +9,15 @@ export const LOCAL_MORTAL_SCORING_PROTOCOL_VERSION = "riichi-local-mortal-scorin
 const Sha256 = z.string().regex(/^[a-f0-9]{64}$/);
 export const LocalMortalScoringRequestSchema = z.object({
   protocolVersion: z.literal(LOCAL_MORTAL_SCORING_PROTOCOL_VERSION),
-  operation: z.literal("score_actions"),
+  operation: z.enum(["score_actions", "score_research_actions"]),
   requestId: Sha256,
   identity: ManagedMortalRuntimeIdentitySchema,
   ruleRequest: LibriichiRuleRequestSchema,
-  ruleResult: LibriichiRuleSuccessSchema.extend({ actions: LibriichiRuleSuccessSchema.shape.actions.min(2) }),
+  ruleResult: LibriichiRuleSuccessSchema,
 }).strict().superRefine((request, ctx) => {
+  if (request.operation === "score_actions" && request.ruleResult.actions.length < 2) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, message: "mortal_source_row_not_expected" });
+  }
   const native = request.ruleRequest.identity;
   if (native.revision !== request.identity.runtimeRevision || native.nativeArtifactSha256 !== request.identity.nativeArtifactSha256 ||
       native.wrapperSha256 !== request.identity.runtimeArtifactSha256 ||
@@ -37,7 +40,7 @@ export const LocalMortalScoringSuccessSchema = z.object({
     ruleActionId: Sha256,
     qValue: z.number().finite(),
     kanSelectionQValue: z.number().finite().optional(),
-  }).strict()).min(2).max(46),
+  }).strict()).min(1).max(46),
   preferredRuntimeAction: LocalMortalRuntimeActionSchema,
 }).strict();
 export type LocalMortalScoringSuccess = z.infer<typeof LocalMortalScoringSuccessSchema>;

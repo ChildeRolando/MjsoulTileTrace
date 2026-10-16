@@ -18,7 +18,7 @@ import { buildStructuredAnalysisPackage } from "../src/analysis/structured-analy
 import { validateStructuredAnalysisPackage } from "../src/validate/structured-package-validator.js";
 import { createLibriichiRuleProjector } from "../src/analysis/libriichi-rule-projection.js";
 import { collectLibriichiRuleResults } from "../src/analysis/libriichi-rule-collection.js";
-import { projectLocalMortalRuleScoring, bindLocalMortalRuleScores, localMortalRuleScoresToReportEntry } from "../src/analysis/local-mortal-rule-scoring.js";
+import { projectLocalMortalRuleScoring, projectResearchMortalRuleScoring, bindLocalMortalRuleScores, localMortalRuleScoresToReportEntry } from "../src/analysis/local-mortal-rule-scoring.js";
 import { replayCanonicalStream } from "../src/replay/stream-replayer.js";
 import { freezeDecisionStreamContext } from "../src/replay/decision-snapshot.js";
 import * as reducer from "../src/replay/round-reducer.js";
@@ -57,6 +57,18 @@ function fixture(stream: CanonicalEventStream = canonicalStream(canonicalSelfDra
 }
 
 describe("native rules to scores to report without a second action enumerator", () => {
+  it("requires an explicit research operation to score a forced action", () => {
+    const input = fixture();
+    const { resultId: _old, ...content } = input.ruleResult;
+    content.actions = content.actions.slice(0, 1);
+    input.ruleResult = { ...content, resultId: digest(content) };
+    expect(() => projectLocalMortalRuleScoring(input)).toThrow("mortal_source_row_not_expected");
+    const request = projectResearchMortalRuleScoring(input);
+    expect(request.operation).toBe("score_research_actions");
+    const response = { ...input.response, requestId: request.requestId, ruleResultId: input.ruleResult.resultId,
+      candidates: input.response.candidates.slice(0, 1), preferredRuntimeAction: content.actions[0]!.runtimeAction };
+    expect(bindLocalMortalRuleScores({ request, response, decision: input.decision }).actions).toHaveLength(1);
+  });
   it("reuses the immutable stream without another reduction or changed scoring request", () => {
     const input = fixture();
     const context = freezeDecisionStreamContext(input.stream);

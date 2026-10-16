@@ -1,5 +1,7 @@
 /coach/vendor/mahjong-soul-protocol/** -text
 /coach/packages/mortal-runtime/runtime/local_mortal_runtime.py -text
+/coach/packages/mortal-runtime/runtime/research_worker.py -text
+/coach/packages/question-lab/python/*.py text eol=lf
 /coach/packages/mortal-runtime/native/*.patch -text
 /coach/packages/reasoning/tests/fixtures/local-mortal/tenhou-*.xml -text
 /coach/packages/reasoning/tests/fixtures/local-mortal/native-daiminkan-golden.json -text

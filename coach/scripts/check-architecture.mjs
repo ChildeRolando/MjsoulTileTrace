@@ -115,6 +115,10 @@ export const DEFAULT_ALLOWED_EDGES = Object.freeze({
     "@riichi-coach/contracts",
     "@riichi-coach/mortal-source",
   ]),
+  // Offline research composition root; never a production/renderer dependency.
+  "@riichi-coach/question-lab": Object.freeze([
+    "@riichi-coach/contracts", "@riichi-coach/reasoning", "@riichi-coach/mortal-runtime", "@riichi-coach/mortal-source",
+  ]),
   // desktop is the composition root: it may wire every importer.
   "@riichi-coach/desktop": Object.freeze([
     "@riichi-coach/contracts",
@@ -128,6 +132,7 @@ export const DEFAULT_ALLOWED_EDGES = Object.freeze({
 
 /** Packages whose raw protocol/secrets must never reach renderer code. */
 export const DEFAULT_PRIVILEGED_PACKAGES = Object.freeze([
+  "@riichi-coach/question-lab",
   "@riichi-coach/mahjong-soul-source",
   "@riichi-coach/mortal-source",
   "@riichi-coach/mortal-runtime",

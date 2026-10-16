@@ -10,6 +10,11 @@ test("workspace packages import as emitted JavaScript", async () => {
   const desktop = await import("@riichi-coach/desktop/session-api");
   const arenaMcp = await import("@riichi-coach/desktop/blind-discard-arena-mcp");
   const arenaRag = await import("@riichi-coach/desktop/blind-discard-arena-rag");
+  const questionLab = await import("@riichi-coach/question-lab");
+  assert.equal(typeof questionLab.LabBatch.open,"function");
+  assert.equal(typeof questionLab.readLabConfig,"function");
+  assert.equal(typeof questionLab.renderReport,"function");
+  assert.equal(typeof mortalRuntime.ManagedResearchRuntime.create,"function");
 
   assert.equal(typeof contracts.AnalysisRequestSchema.parse, "function");
   assert.equal(typeof contracts.ModelEvaluationSchema.parse, "function");

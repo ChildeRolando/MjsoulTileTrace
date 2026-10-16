@@ -420,6 +420,20 @@ Model/report evidence provider（模型/报告证据来源）
 
 ---
 
+## INV-014 研究局面、全知构造见证与模型标签分别绑定
+
+- **Statement**：Question Lab 的合成题必须有原生 libriichi 验证的构造历史，并停在未行动窗口；
+  模型请求、学习特征与题面只能消费决策时可见投影。暗手／未来牌山留在私有 witness；
+  Mortal 标签不进入特征。原始事实证据保存独立哈希，研究特征精度有版本；同源变体和手牌
+  同构按整组留出，已冻结测试来源不能进入补样训练。
+- **Why**：防止不可达局面、隐藏信息泄漏、答案泄漏或同构泄漏制造虚假的模式边界。
+- **Owner**：question-lab 的 projection/archive/groups/learning；原生动作权威仍为 ADR-0006。
+- **Enforcement**：strict contracts、native Board 动作验证、canonical 重放、完整规则／评分绑定、
+  白名单特征、逐题事实读回重建、冻结分组与测试来源碰撞拒绝。
+- **Executable tests**：`question-lab/tests/construction.test.ts`、`groups.test.ts`、`archive.test.ts`；
+  `COACH_QUESTION_LAB_NATIVE=1` 的 `native.test.ts`；独立 Python 的 `test_learn.py`。
+- **Status**：machine-enforced；真实 native 与 Python 回归需要对应本地受管资源。
+
 ## 维护规则
 
 1. 新增不变量必须给出 Statement / Why / Owner / Enforcement / Executable tests /

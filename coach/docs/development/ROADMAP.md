@@ -6,6 +6,14 @@
 
 用户在本机应用登录雀魂国区账号，从近期可分析的四人南风标准规则牌谱中选择一场，获得可回放、可审计、可追问的整盘教练会话。按 ADR-0006，libriichi 提供合法动作，模型提供选择分，helper 与既有事实管线提供候选因素；LLM 在这些有据证据之上完成教练判断，不得发明或改写局面事实。PR #28 已合入唯一动作来源切换与 local Mortal prerequisite；Playable Review MVP 当前发布状态及剩余门见 §6.1。
 
+## 独立研究工具：定向局面与边界学习（2026-10-16）
+
+Question Lab 实现从零合法构造、条件／对照／冲突批次、完整 Mortal 标注、分组 SVM、
+合法补样、断点恢复与离线报告。背景包括四家副露、立直和三类杠；复杂历史的命中率
+受显式预算和提示影响。研究入口与生产复盘独立，Mortal 拟合表现不代表专家正确率。
+配置与命令见 [Question Lab README](../../packages/question-lab/README.md)，
+需求见 [规格](../specs/2026-10-16-question-lab.md)，最终测量与门禁以对应验收记录为准。
+
 ## 并行研究线：Blind Discard Arena
 
 COAC-219 建立了不改变生产复盘语义的离线何切实验台工作线。阶段 1 契约见 [Blind Discard Arena spec](../specs/2026-10-09-blind-discard-arena.md)；T1 的 DTO、label-blind selector、blind allow-list/alias、私有 tool binding、独立 scorer 与 focused behavior regressions 已在 COAC-220 实现，并以真实 native rules/Mortal runtime 冻结三道 dev smoke cases。T2 helper MCP 的真实 stdio server/client 薄适配已由 COAC-221 实现，覆盖 packaged helper parity、权限与有界资源，并待独立评审；T4 的 off/local 有界检索、课程摘要种子与 retrieval regressions 已由 COAC-222 实现并待独立评审；T3 独立 provider/runner 已由 COAC-223 实现，通过真实 stdio MCP 与 local RAG 的回归验证并待独立评审。真实模型演示、run archive、离线 inspect 与 CLI 仍属 T5 待办。此实验线独立于下方 M6/M7 production critical path；其 Mortal 匹配率不能作为专家正确率或生产 MVP 完成证据。

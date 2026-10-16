@@ -1,0 +1,10 @@
+schemaVersion: question-lab-config/v1
+name: 千题生成与标注测量
+seed: 20261020
+scene:
+  turn: { range: [2, 10] }
+budget:
+  count: 1000
+  maxAttempts: 3000
+  timeLimitSeconds: 600
+  refinementRounds: 0

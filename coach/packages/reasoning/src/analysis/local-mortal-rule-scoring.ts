@@ -15,19 +15,27 @@ const digest = (value: unknown) => createHash("sha256").update(libriichiRuleCano
 const key = libriichiRuleCanonicalJson;
 
 /** Actual choice is deliberately absent: the identical state gets identical scores. */
-export function projectLocalMortalRuleScoring(input: {
+type ScoringInput = {
   streamContext?: DecisionStreamContext;
   stream: CanonicalEventStream; decision: ReplayedDecision; identity: ManagedMortalRuntimeIdentity;
   ruleRequest: LibriichiRuleRequest; ruleResult: LibriichiRuleSuccess;
-}): LocalMortalScoringRequest {
+};
+export function projectLocalMortalRuleScoring(input: ScoringInput): LocalMortalScoringRequest {
+  return projectScoring(input, "score_actions");
+}
+/** Offline research also retains the model Q for a rule-forced action. */
+export function projectResearchMortalRuleScoring(input: ScoringInput): LocalMortalScoringRequest {
+  return projectScoring(input, "score_research_actions");
+}
+function projectScoring(input: ScoringInput, operation: LocalMortalScoringRequest["operation"]): LocalMortalScoringRequest {
   const identity = input.ruleRequest.identity;
   if (identity.revision !== input.identity.runtimeRevision || identity.nativeArtifactSha256 !== input.identity.nativeArtifactSha256 ||
       identity.wrapperSha256 !== input.identity.runtimeArtifactSha256) throw new Error("mortal_runtime_identity_mismatch");
   const fresh = createLibriichiRuleProjector(input.stream, identity, input.streamContext)(input.decision);
   if (key(fresh) !== key(input.ruleRequest)) throw new Error("mortal_protocol_invalid");
   const bound = bindLibriichiRuleResult({ request: fresh, response: input.ruleResult, decision: input.decision });
-  if (bound.response.status !== "ok" || bound.actions.length < 2) throw new Error("mortal_source_row_not_expected");
-  const content = { protocolVersion: LOCAL_MORTAL_SCORING_PROTOCOL_VERSION, operation: "score_actions" as const,
+  if (bound.response.status !== "ok" || bound.actions.length < (operation === "score_actions" ? 2 : 1)) throw new Error("mortal_source_row_not_expected");
+  const content = { protocolVersion: LOCAL_MORTAL_SCORING_PROTOCOL_VERSION, operation,
     identity: input.identity, ruleRequest: fresh, ruleResult: input.ruleResult };
   return LocalMortalScoringRequestSchema.parse({ ...content, requestId: digest(content) });
 }
@@ -38,6 +46,9 @@ export function bindLocalMortalRuleScores(input: {
 }) {
   const request = LocalMortalScoringRequestSchema.parse(input.request);
   const response = LocalMortalScoringResponseSchema.parse(input.response);
+  if (request.operation === "score_actions" && response.status === "ok" && response.candidates.length < 2) {
+    throw new Error("mortal_protocol_invalid");
+  }
   const { requestId, ...content } = request;
   if (requestId !== digest(content) || response.requestId !== requestId) throw new Error("mortal_protocol_invalid");
   const bound = bindLibriichiRuleResult({ request: request.ruleRequest, response: request.ruleResult, decision: input.decision });
