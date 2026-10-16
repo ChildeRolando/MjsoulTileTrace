@@ -1,4 +1,4 @@
-import { tabs, compactContent, paginate } from '/compact-view.mjs';
+import { tabs, compactContent, paginate, roomyLayout } from '/compact-view.mjs';
 import { api as request, jobView, labels } from '/client.mjs';
 import { esc, actionText, tileImages, observationView, mortalTable, traceEvent, structured } from '/case-view.mjs';
 import { experimentLabels, sortedTiles } from '/presentation.mjs';
@@ -94,7 +94,7 @@ async function showSnapshot(snapshot) {
       <section class="snapshot-process"><p class="field-hint">当次公开摘要与工具过程 · ${result.providerTurnCount} 轮模型 / ${result.toolCallCount} 次工具</p><ol class="trace-list">${result.events.filter(e => e.type !== 'run_started').map((e, i, events) => traceEvent(e, i, snapshot.caseOrdinal, events)).join('')}</ol></section>
       <section class="snapshot-raw">${structured('error-snapshot', '查看完整案例快照 JSON', { runId: snapshot.runId, caseOrdinal: snapshot.caseOrdinal, manifest: m, result, mortalDetails: mortal ?? null })}</section></div>`;
     const workspace=target.querySelector(".snapshot-workspace");
-    tabs(workspace, [["snapshot-verdict","决策对照"],["snapshot-board","案例牌面"],["snapshot-scores","Mortal Top 10"],["snapshot-process","模型与工具过程"],["snapshot-raw","完整快照"]].map(([name,title])=>({title,node:workspace.querySelector("."+name)})), "snapshot-sections");
+    tabs(workspace, [["snapshot-verdict","决策对照"],["snapshot-board","案例牌面"],["snapshot-scores","Mortal Top 10"],["snapshot-process","模型与工具过程"],["snapshot-raw","完整快照"]].map(([name,title])=>({title,node:workspace.querySelector("."+name)})), "snapshot-sections", roomyLayout() ? 1 : 0);
     compactContent(target, attemptId(snapshot));
     target.setAttribute('aria-busy', 'false');
   } catch (error) {

@@ -1,4 +1,4 @@
-import { tabs, textPages, paginate } from '/compact-view.mjs';
+import { tabs, textPages, paginate, roomyLayout } from '/compact-view.mjs';
 const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);
 const pre = value => `<pre>${esc(typeof value === 'string' ? value : JSON.stringify(value, null, 2))}</pre>`;
 const detail = (title, value) => `<details><summary>${esc(title)}</summary>${pre(value)}</details>`;
@@ -14,8 +14,9 @@ async function load() {
       <section id="knowledge" class="panel inspector-section"><div class="panel-heading"><h2>RAG 本地知识库</h2><span class="tag">${d.rag.corpus.passages.length} 个片段</span></div><p>在控制台选择 Off / Local / 对照实验。Off 返回检索关闭；Local 使用本地教学摘要与词项检索，不调用在线向量服务。</p><p class="field-hint">语料版本 ${esc(d.rag.corpus.corpusVersion)} · 检索器 ${esc(d.rag.retrieverVersion)}</p>${detail('search_knowledge 参数契约', d.rag.parameters)}${detail('检索预算', d.rag.limits)}${d.rag.corpus.passages.map(p => `<details class="passage"><summary>${esc(p.sourceTitle)} · ${esc(p.id)}</summary><p>${esc(p.content)}</p><p class="field-hint">来源位置：${esc(p.localSourcePath)}<br>适用范围：${esc(p.applicableWhen.join(' / '))}<br>权利依据：${esc(p.rightsBasis)}</p>${detail('片段完整来源信息', p)}</details>`).join('')}</section>`;
     const root=document.querySelector('#info-content');
     tabs(root, [['connection','连接与预算'],['prompts','System prompt'],['tools','MCP 工具'],['knowledge','RAG 知识库']].map(([id,title])=>({title,node:root.querySelector('#'+id)})), 'runtime-sections');
-    const knowledge=root.querySelector('#knowledge'); paginate(knowledge,[...knowledge.querySelectorAll(':scope > .passage')],3,'knowledge-passages','个片段');
+    const knowledge=root.querySelector('#knowledge'); paginate(knowledge,[...knowledge.querySelectorAll(':scope > .passage')],()=>roomyLayout()?6:3,'knowledge-passages','个片段');
     textPages(root);
+    root.querySelector('#connection > details').open = roomyLayout();
     status.textContent = '已读取 · ' + new Date().toLocaleTimeString('zh-CN');
   } catch (error) { status.textContent = error.message; }
   finally { button.disabled = false; }

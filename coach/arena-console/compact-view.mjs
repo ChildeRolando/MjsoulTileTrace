@@ -1,10 +1,21 @@
 // Presentation-only state: never changes archived results or experiment inputs.
 const positions = new Map();
-export function tabs(root, sections, key) {
+export const roomyLayout = () => innerWidth >= 1600 && innerHeight >= 950;
+const responsiveViews = new Map();
+function responsive(root, key, render) {
+  for (const [id, view] of responsiveViews) if (!view.root.isConnected) responsiveViews.delete(id);
+  responsiveViews.set(key, { root, render });
+}
+window.addEventListener('resize', () => {
+  for (const [key, view] of responsiveViews) {
+    if (view.root.isConnected) view.render(); else responsiveViews.delete(key);
+  }
+});
+export function tabs(root, sections, key, initial = 0) {
   const nav = document.createElement('div'); nav.className = 'section-tabs';
   nav.setAttribute('role', 'tablist'); nav.setAttribute('aria-label', '内容分区');
   const entries = sections.filter(s => s.node);
-  let selected = Math.min(positions.get(key) ?? 0, entries.length - 1);
+  let selected = Math.min(positions.get(key) ?? initial, entries.length - 1);
   function select(index, focus = false) {
     selected = index; positions.set(key, index);
     entries.forEach((entry, i) => {
@@ -29,19 +40,22 @@ export function tabs(root, sections, key) {
 }
 
 export function paginate(root, items, size, key, label = '记录') {
-  if (items.length <= size) return;
+  const pageSize = () => typeof size === 'function' ? size() : size;
+  if (typeof size !== 'function' && items.length <= size) return;
   const nav = document.createElement('nav'); nav.className = 'compact-pager'; nav.setAttribute('aria-label', `${label}翻页`);
   const previous = document.createElement('button'), next = document.createElement('button'), count = document.createElement('span');
   previous.textContent = '上一页'; next.textContent = '下一页'; previous.type = next.type = 'button';
   previous.className = next.className = 'quiet-button'; count.setAttribute('role', 'status');
-  let page = Math.min(positions.get(key) ?? 0, Math.ceil(items.length / size) - 1);
+  let page = Math.min(positions.get(key) ?? 0, Math.max(0, Math.ceil(items.length / pageSize()) - 1));
   function render() {
-    positions.set(key, page); items.forEach((node, i) => node.hidden = i < page * size || i >= (page + 1) * size);
-    count.textContent = `${page + 1} / ${Math.ceil(items.length / size)} 页 · ${items.length} ${label}`;
-    previous.disabled = page === 0; next.disabled = (page + 1) * size >= items.length;
+    const limit = pageSize(); page = Math.min(page, Math.max(0, Math.ceil(items.length / limit) - 1));
+    positions.set(key, page); items.forEach((node, i) => node.hidden = i < page * limit || i >= (page + 1) * limit);
+    count.textContent = `${page + 1} / ${Math.ceil(items.length / limit)} 页 · ${items.length} ${label}`;
+    previous.disabled = page === 0; next.disabled = (page + 1) * limit >= items.length; nav.hidden = items.length <= limit;
   }
   previous.onclick = () => { page--; render(); }; next.onclick = () => { page++; render(); };
   nav.append(previous, count, next); root.append(nav); render();
+  if (typeof size === 'function') responsive(root, key, render);
 }
 
 export function textPages(root) {
@@ -49,8 +63,8 @@ export function textPages(root) {
     pre.dataset.paged = 'true';
     const full = pre.textContent;
     const inCase = Boolean(pre.closest('.case-workspace, .snapshot-workspace'));
-    const charLimit = pre.tagName === 'PRE' ? (inCase ? 300 : 650) : 400;
-    const lineLimit = inCase ? 6 : 12;
+    const charLimit = pre.tagName === 'PRE' ? (roomyLayout() ? 1800 : inCase ? 300 : 650) : roomyLayout() ? 1000 : 400;
+    const lineLimit = roomyLayout() ? 22 : inCase ? 6 : 12;
     // Keep every character, including line breaks; page breaks are presentation only.
     const pages = []; let chunk = '', lines = 0;
     for (const char of full) {
@@ -79,15 +93,19 @@ export function compactContent(root, key) {
     paginate(list.parentElement, [...list.children], 1, `${key}-trace-${index}`, '步骤');
   }
   for (const [index, ranking] of [...root.querySelectorAll('.mortal-ranking')].entries()) {
-    paginate(ranking, [...ranking.querySelectorAll('tbody tr')], 5, `${key}-mortal-${index}`, '个评分');
+    paginate(ranking, [...ranking.querySelectorAll('tbody tr')], () => roomyLayout() ? 10 : 5, `${key}-mortal-${index}`, '个评分');
   }
   for (const [index, observation] of [...root.querySelectorAll('.observation-summary')].entries()) {
     const table = observation.querySelector('.public-table'); if (!table) continue;
     const hand = document.createElement('div');
     for (const node of [...observation.childNodes]) if (node !== table) hand.append(node);
-    observation.append(hand);
-    tabs(observation, [{ title: '手牌与候选', node: hand }, { title: '四家牌河与副露', node: table }], `${key}-board-${index}`);
-    paginate(table, [...table.querySelectorAll('.table-player')], 2, `${key}-players-${index}`, '位玩家');
+    hand.className = 'observation-hand';
+    const context = document.createElement('details'), summary = document.createElement('summary');
+    context.className = 'board-context'; summary.textContent = '四家牌河与副露'; context.append(summary, table);
+    observation.append(hand, context);
+    let wide = roomyLayout(); context.open = wide;
+    responsive(observation, `${key}-board-${index}`, () => { if (wide !== roomyLayout()) { wide = roomyLayout(); context.open = wide; } });
+    paginate(table, [...table.querySelectorAll('.table-player')], () => roomyLayout() ? 4 : 2, `${key}-players-${index}`, '位玩家');
   }
   for (const usage of root.querySelectorAll('.usage-scope')) {
     const detail = document.createElement('details'), summary = document.createElement('summary');

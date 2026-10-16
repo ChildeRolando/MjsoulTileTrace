@@ -1,11 +1,12 @@
-import { tabs, compactContent } from '/compact-view.mjs';
+import { tabs, compactContent, roomyLayout } from '/compact-view.mjs';
 import { api, $, esc, number, compact, rate, date, labels, message } from '/client.mjs';
 import { runMetrics, aggregateMetrics, experimentTypeForDataset, experimentLabels } from '/presentation.mjs';
 import { observationView, structured, mortalTable, traceEvent, matchBadge, usageCount } from '/case-view.mjs';
 let state, filter = 'all', selectedResult, detailSignature = '', detailCase = 0, resultPage = 0;
-let resultPageSize = innerHeight < 741 ? 2 : 3;
+const rowsPerPage = () => roomyLayout() ? 8 : innerHeight >= 900 ? 5 : innerHeight < 741 ? 2 : 3;
+let resultPageSize = rowsPerPage();
 window.addEventListener('resize', () => {
-  const size = innerHeight < 741 ? 2 : 3;
+  const size = rowsPerPage();
   if (size !== resultPageSize) { resultPageSize = size; resultPage = 0; if (state) renderRuns(); }
 });
 function tokenText(summary) {

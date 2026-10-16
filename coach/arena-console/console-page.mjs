@@ -1,12 +1,13 @@
-import { compactContent, paginate } from '/compact-view.mjs';
-import {api,$,compact,message,jobView,labels} from '/client.mjs';
+import { compactContent, paginate, roomyLayout } from '/compact-view.mjs';
+import {api,$,compact,message,jobView,labels,esc,date} from '/client.mjs';
 import {observationView,structured} from '/case-view.mjs';
-import {experimentLabels} from '/presentation.mjs';
+import {experimentLabels,runMetrics} from '/presentation.mjs';
 let state,pending=false,catalog;
 const isMistakes=()=>$('#experiment-type').value==='mistakes';
 function bank(){return isMistakes()?{ready:true,availableCaseCount:state?.mistakeBank.availableCaseCount??0}:state?.catalogs[$('#experiment-type').value];}
 function render(){
  const c=state.config,b=bank(),running=['running','stopping'].includes(state.job?.status);
+ $('#recent-runs').innerHTML=state.runs.slice(0,3).map(run=>{const m=runMetrics(run.summary);return `<a class="recent-run" href="/results?run=${run.id}"><span>${date(run.manifest.startedAt)} · ${esc(run.manifest.rag.mode)}</span><strong>${esc(run.manifest.coach.model)} <span class="tag">${run.id.slice(0,8)}</span></strong><span>${m?`${m.succeeded}/${m.selected} 执行成功 · ${m.matched}/${m.succeeded} Mortal 匹配`:'归档未完成'}</span></a>`;}).join('')||'<p class="field-hint">尚无实验归档。完成首轮后将在此展示。</p>';
  $('#console-tokens').textContent=compact(state.budget.knownTotalTokens);
  $('#console-budget-note').textContent=`报警线 ${compact(state.budget.warningThreshold)} tokens${state.budget.unknownRunCount?` · ${state.budget.unknownRunCount} 份用量不完整`:''}`;
  $('#bank-count').textContent=`${b?.availableCaseCount??0} 道${isMistakes()?'错题':experimentLabels[$('#experiment-type').value]}`;
@@ -37,5 +38,7 @@ function showCase(){const row=catalog.cases[Number($('#catalog-case').value)];$(
 $('#catalog-case').addEventListener('change',showCase);$('#close-catalog').addEventListener('click',()=>{$('#catalog-panel').hidden=true;document.body.classList.remove('catalog-view');$('#browse-bank').focus();});
 const params=new URLSearchParams(location.search);if(params.get('bank')==='mistakes')$('#experiment-type').value='mistakes';
 if(params.get('run'))location.replace('/results?'+params);
+document.querySelector('.launch-help').open=roomyLayout();
+document.querySelector('.activity-panel').insertBefore(document.querySelector('.console-recent'), document.querySelector('.activity-footer'));
 await refresh();if(isMistakes())$('#batch-size').value=Math.max(1,Math.min(10,bank().availableCaseCount));
 setInterval(refresh,3000);
