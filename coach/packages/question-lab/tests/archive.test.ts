@@ -5,6 +5,18 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { Archive } from "../src/archive.js";
 describe("research archive", () => {
+  it("reads source archives without creating a writer lock or allowing writes", async () => {
+    const dir = await mkdtemp(join(tmpdir(), "lab-source-"));
+    try {
+      const a = await Archive.open(dir, { producer: "v1" });
+      await a.write("record.json", { a: 1 }); await a.close();
+      const source = Archive.readOnly(dir);
+      expect(await source.read("record.json")).toEqual({ a: 1 });
+      await expect(source.write("record.json", { a: 2 })).rejects.toThrow("archive_read_only");
+      await source.close();
+      await expect(readFile(join(dir, ".writer-lock"))).rejects.toMatchObject({ code: "ENOENT" });
+    } finally { await rm(dir, { recursive: true, force: true }); }
+  });
   it("allows only one stale-lock rescuer and never removes the surviving writer's lock", async () => {
     const dir = await mkdtemp(join(tmpdir(), "lab-stale-lock-"));
     const exited = spawnSync(process.execPath, ["-e", ""], { windowsHide: true });

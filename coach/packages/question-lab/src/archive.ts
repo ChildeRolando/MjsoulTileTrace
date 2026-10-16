@@ -16,8 +16,9 @@ export class Archive {
   #sequence = 0;
   private constructor(
     readonly directory: string,
-    private lock: FileHandle,
+    private lock: FileHandle | null,
   ) {}
+  static readOnly(directory: string) { return new Archive(resolve(directory), null); }
   static async open(directory: string, identity: unknown): Promise<Archive> {
     directory = resolve(directory);
     await mkdir(directory, { recursive: true });
@@ -99,6 +100,7 @@ export class Archive {
     return path;
   }
   write(name: string, value: unknown): Promise<void> {
+    if (!this.lock) return Promise.reject(new Error("archive_read_only"));
     const operation = this.#writes.then(async () => {
       const path = this.path(name);
       await mkdir(dirname(path), { recursive: true });
@@ -153,6 +155,7 @@ export class Archive {
   }
   async close() {
     await this.#writes;
+    if (!this.lock) return;
     await this.lock.close();
     await unlink(join(this.directory, ".writer-lock"));
   }

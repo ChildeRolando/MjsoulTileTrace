@@ -1,7 +1,9 @@
+import { PairStudyConfigSchema, QuestionLabConfigSchema } from "@riichi-coach/contracts";
+import { runPairCommand } from "./pair-cli.js";
 import { readFile, mkdir } from "node:fs/promises";
 import { join, resolve } from "node:path";
 import { spawn } from "node:child_process";
-import { readLabConfig, digest } from "./config.js";
+import { readLabDocument, digest } from "./config.js";
 import { LabBatch, readSamples, readLabels } from "./batch.js";
 import { Archive } from "./archive.js";
 import { coachRoot, labRoot } from "./runtime.js";
@@ -55,15 +57,26 @@ export async function main(args = process.argv.slice(2)) {
     "refine",
     "report",
     "resume",
+    "scan",
     "run",
   ];
   if (!command || !commands.includes(command) || !configPath)
     throw new Error(
-      "用法：question-lab <validate|generate|label|fit|refine|report|resume|run> <config.json|yaml> [--out <目录>]；setup 安装独立学习环境",
+      "用法：question-lab <validate|generate|label|fit|scan|refine|report|resume|run> <config.json|yaml> [--out <目录>]；setup 安装独立学习环境",
     );
   if (rest.length && !(rest.length === 2 && rest[0] === "--out" && rest[1]))
     throw new Error("unknown_cli_arguments");
-  const config = await readLabConfig(resolve(configPath)),
+  const raw = await readLabDocument(resolve(configPath));
+  const pairMode = (raw as { schemaVersion?: string })?.schemaVersion === "question-lab-pairs-config/v2";
+  const parsed = pairMode ? PairStudyConfigSchema.parse(raw) : QuestionLabConfigSchema.parse(raw);
+  if (pairMode) {
+    const config = PairStudyConfigSchema.parse(parsed);
+    if (command === "validate") { process.stdout.write(JSON.stringify({ status: "valid", configHash: digest(config), config }, null, 2) + "\n"); return; }
+    await runPairCommand(command, config, resolve(rest[1] ?? join(coachRoot, "reports/question-lab", `pairs-${digest(config).slice(0, 12)}`)));
+    return;
+  }
+  if (command === "scan") throw new Error("scan_requires_pair_study_v2");
+  const config = QuestionLabConfigSchema.parse(parsed),
     directory = resolve(
       rest[1] ??
         join(

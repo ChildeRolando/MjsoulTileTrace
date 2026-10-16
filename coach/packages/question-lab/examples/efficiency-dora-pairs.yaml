@@ -1,0 +1,25 @@
+schemaVersion: question-lab-pairs-config/v2
+name: 牌效率与保宝的真实竞争和合法翻转
+seed: 20261020
+initialCount: 1000
+budget:
+  maxAttempts: 40000
+  timeLimitSeconds: 3600
+  reserveSeconds: 300
+  concurrency: 2
+  refinementRounds: 3
+  refinementCount: 200
+learning:
+  sensitiveGap: 0.01
+  robustGap: 0.05
+  maxTrainPairs: 6000
+scans:
+  anchorCount: 24
+  variantsPerAnchor: 48
+  threats: true
+# 可移除此项，完全从新样本选择锚点；填写后必须有对应只读档案。
+developmentArchives:
+  - reports/question-lab-pr63-final-study-20261016
+  - reports/pair-study-pilot-20261016
+  - reports/pair-study-pilot-final-20261016
+  - reports/pair-study-ui-final-20261016

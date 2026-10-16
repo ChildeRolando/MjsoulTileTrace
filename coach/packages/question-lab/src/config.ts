@@ -10,7 +10,7 @@ import {
 
 export const digest = (value: unknown): string =>
   createHash("sha256").update(libriichiRuleCanonicalJson(value)).digest("hex");
-export async function readLabConfig(file: string): Promise<QuestionLabConfig> {
+export async function readLabDocument(file: string): Promise<unknown> {
   const text = await readFile(file, "utf8");
   if (Buffer.byteLength(text) > 1024 * 1024)
     throw new Error("config_too_large");
@@ -23,7 +23,10 @@ export async function readLabConfig(file: string): Promise<QuestionLabConfig> {
       for (const child of Object.values(v)) depth(child, n + 1);
   };
   depth(raw);
-  return QuestionLabConfigSchema.parse(raw);
+  return raw;
+}
+export async function readLabConfig(file: string): Promise<QuestionLabConfig> {
+  return QuestionLabConfigSchema.parse(await readLabDocument(file));
 }
 export class Random {
   constructor(private value: number) {}

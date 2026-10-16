@@ -90,7 +90,7 @@ mahjong-soul-source ──► CanonicalEventStreamV2
 ### `@riichi-coach/question-lab`
 
 本地离线研究组合入口：严格条件配置 → 原生 Board 合成 → canonical 待决策快照 →
-完整规则结果与 Mortal 评分 → 可见事实特征 → 独立 Python SVM → 合法补样和离线报告。
+完整规则结果与 Mortal 评分 → 可见事实特征 → 独立 Python SVM／SVR → 合法补样和离线报告。
 允许依赖 contracts、reasoning、mortal-runtime 与 mortal-source 的公开 tile 工具；
 生产包和 renderer 不依赖它。原生进程仍由 mortal-runtime owner 管理，学习依赖不进入
 Mortal 的虚拟环境。研究档案不写入 ReviewSession，也不借用 actual-action 比较路径。
@@ -100,6 +100,11 @@ Mortal 的虚拟环境。研究档案不写入 ReviewSession，也不借用 actu
 起手。题面和学习只消费决策时可见事实；Mortal 标签独立保存。实际暗手同构和同源变体
 按整组留出，补样不得进入冻结的测试来源。原始 helper 估计保留证据哈希；研究启发式
 特征另有明确数值精度版本，避免把无序浮点累加的末位差异误当作新局面。
+
+v2 配对研究在同一 owner 内承载有序主张、连续 Q 差、受控历史扫描和 SVR；v1 分类语义不变。
+配对特征与标签分离，构造缓存和扫描／补样快照按完整输入与生产者身份绑定。
+首次标注前冻结来源组，主研究与解释冻结后才揭示独立集；威胁扩展只评估外推。
+见 [配对研究变更记录](../plans/2026-10-16-efficiency-dora-pairs.md)。
 
 ### `@riichi-coach/contracts`
 

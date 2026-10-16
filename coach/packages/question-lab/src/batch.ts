@@ -92,7 +92,12 @@ export function sampleIdentity(
     hypotheses: sample.hypotheses,
   });
 }
-export async function readSamples(archive: Archive): Promise<LabSample[]> {
+export async function readSamples(archive: Archive, deadlineAt?: number): Promise<LabSample[]> {
+  const manifest = await archive.read("manifest.json") as { identity?: { producers?: { facts?: unknown } } } | null;
+  const expectedFacts = manifest?.identity?.producers?.facts;
+  const checkProducer = (sample: LabSample) => {
+    if (expectedFacts && digest(sample.factIdentity) !== digest(expectedFacts)) throw new Error("sample_fact_producer_mismatch");
+  };
   let cache = sampleCaches.get(archive);
   if (!cache) {
     cache = { entries: new Map(), bytes: 0, hits: 0, validations: 0 };
@@ -100,6 +105,7 @@ export async function readSamples(archive: Archive): Promise<LabSample[]> {
   }
   const out: LabSample[] = [];
   for (const name of await archive.list("samples")) {
+    if (deadlineAt !== undefined && Date.now() >= deadlineAt) throw new Error("report_budget_exhausted");
     const source = await archive.readSource(`samples/${name}`);
     if (source === null) throw new Error("sample_unavailable");
     const bytes = Buffer.byteLength(source),
@@ -109,6 +115,7 @@ export async function readSamples(archive: Archive): Promise<LabSample[]> {
       process.env.RIICHI_LAB_DISABLE_READ_CACHE !== "1" &&
       cached?.hash === hash
     ) {
+      checkProducer(cached.sample);
       cache.hits++;
       cache.entries.delete(name);
       cache.entries.set(name, cached);
@@ -126,6 +133,7 @@ export async function readSamples(archive: Archive): Promise<LabSample[]> {
       digest(sample.candidates.map((c) => c.result))
     )
       throw new Error("sample_fact_evidence_mismatch");
+    checkProducer(sample);
     const d = pendingDecision(sample.stream),
       bound = bindLibriichiRuleResult({
         request: sample.ruleRequest,
@@ -177,16 +185,20 @@ export async function readSamples(archive: Archive): Promise<LabSample[]> {
 export async function readLabels(
   archive: Archive,
   samples: LabSample[],
+  deadlineAt?: number,
 ): Promise<Map<string, LabLabel>> {
   const manifest = (await archive.read("manifest.json")) as {
-    identity: { config: QuestionLabConfig };
+    identity: { config: QuestionLabConfig; producers?: { model?: unknown } };
   };
   const sensitiveGap = manifest.identity.config.learning.sensitiveGap;
   const out = new Map<string, LabLabel>();
   for (const sample of samples) {
+    if (deadlineAt !== undefined && Date.now() >= deadlineAt) throw new Error("report_budget_exhausted");
     const raw = await archive.read(`labels/${sample.sampleId}.json`);
     if (!raw) continue;
     const label = LabLabelSchema.parse(raw);
+    if (manifest.identity.producers?.model && digest(label.request.identity) !== digest(manifest.identity.producers.model))
+      throw new Error("label_model_producer_mismatch");
     if (label.sampleId !== sample.sampleId)
       throw new Error("label_sample_mismatch");
     {
@@ -667,55 +679,7 @@ export class LabBatch {
       const results = await Promise.allSettled(
         rows.map(async (sample, i) => {
           if (labels.has(sample.sampleId)) return null;
-          const w = this.workers[i]!,
-            start = performance.now(),
-            d = pendingDecision(sample.stream);
-          const request = projectResearchMortalRuleScoring({
-            stream: sample.stream,
-            decision: d,
-            identity: w.mortal.identity,
-            ruleRequest: sample.ruleRequest,
-            ruleResult: sample.ruleResult,
-          });
-          const response = await w.mortal.scoreRules(request),
-            bound = bindLocalMortalRuleScores({
-              request,
-              response,
-              decision: d,
-            });
-          const best = Math.max(...bound.actions.map((a) => a.qValue)),
-            sorted = bound.actions.map((a) => a.qValue).sort((a, b) => b - a),
-            bestGap = sorted.length > 1 ? best - sorted[1]! : 0;
-          const preferredActionRefs = bound.actions
-            .filter(
-              (a) =>
-                a.qValue === best &&
-                (a.kanSelectionQValue === undefined ||
-                  a.kanSelectionQValue ===
-                    Math.max(
-                      ...bound.actions
-                        .filter((k) => k.kanSelectionQValue !== undefined)
-                        .map((k) => k.kanSelectionQValue!),
-                    )),
-            )
-            .map((a) => a.actionRef);
-          return LabLabelSchema.parse({
-            schemaVersion: "question-lab-label/v1",
-            sampleId: sample.sampleId,
-            request: bound.request,
-            response: bound.response,
-            preferredActionRefs,
-            preferredActionRef: bound.preferred.actionRef,
-            scores: bound.actions.map((a) => ({
-              actionRef: a.actionRef,
-              qValue: a.qValue,
-            })),
-            bestGap,
-            sensitive:
-              sorted.length > 1 && bestGap < this.config.learning.sensitiveGap,
-            otherChoice: bound.preferred.action.kind !== "discard",
-            durationMs: performance.now() - start,
-          });
+          return scoreLabSample(sample, this.workers[i]!, this.config.learning.sensitiveGap);
         }),
       );
       for (const result of results) {
@@ -784,4 +748,55 @@ export class LabBatch {
     await this.archive.write("pipeline-summary.json", summary);
     return summary;
   }
+}
+
+export async function scoreLabSample(sample: LabSample, w: LabWorker, sensitiveGap: number): Promise<LabLabel> {
+  const start = performance.now(),
+    d = pendingDecision(sample.stream);
+  const request = projectResearchMortalRuleScoring({
+    stream: sample.stream,
+    decision: d,
+    identity: w.mortal.identity,
+    ruleRequest: sample.ruleRequest,
+    ruleResult: sample.ruleResult,
+  });
+  const response = await w.mortal.scoreRules(request),
+    bound = bindLocalMortalRuleScores({
+      request,
+      response,
+      decision: d,
+    });
+  const best = Math.max(...bound.actions.map((a) => a.qValue)),
+    sorted = bound.actions.map((a) => a.qValue).sort((a, b) => b - a),
+    bestGap = sorted.length > 1 ? best - sorted[1]! : 0;
+  const preferredActionRefs = bound.actions
+    .filter(
+      (a) =>
+        a.qValue === best &&
+        (a.kanSelectionQValue === undefined ||
+          a.kanSelectionQValue ===
+            Math.max(
+              ...bound.actions
+                .filter((k) => k.kanSelectionQValue !== undefined)
+                .map((k) => k.kanSelectionQValue!),
+            )),
+    )
+    .map((a) => a.actionRef);
+  return LabLabelSchema.parse({
+    schemaVersion: "question-lab-label/v1",
+    sampleId: sample.sampleId,
+    request: bound.request,
+    response: bound.response,
+    preferredActionRefs,
+    preferredActionRef: bound.preferred.actionRef,
+    scores: bound.actions.map((a) => ({
+      actionRef: a.actionRef,
+      qValue: a.qValue,
+    })),
+    bestGap,
+    sensitive:
+      sorted.length > 1 && bestGap < sensitiveGap,
+    otherChoice: bound.preferred.action.kind !== "discard",
+    durationMs: performance.now() - start,
+  });
 }
