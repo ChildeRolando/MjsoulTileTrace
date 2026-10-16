@@ -1,7 +1,7 @@
 import { digest } from "./config.js";
 import type { PairStudyConfig } from "@riichi-coach/contracts";
 import { PairStudy } from "./pair-study.js";
-import { renderPairReport } from "./pair-report.js";
+import { renderPairReport, renderPairBudgetStop } from "./pair-report.js";
 
 export async function runPairCommand(command: string, config: PairStudyConfig, directory: string) {
   const study = await PairStudy.open(config, directory);
@@ -30,6 +30,7 @@ export async function runPairCommand(command: string, config: PairStudyConfig, d
         if (config.scans.threats && study.searching) await study.scan(true);
         const freeze = await study.archive.read("research-frozen.json") as { trainingInputHash: string; modelsHash: string };
         if (freeze.trainingInputHash !== digest(study.learningRows().filter(r => r.split === "train"))) throw new Error("frozen_training_input_changed");
+        if (study.remainingMs <= 0 && !final) throw new Error("experiment_budget_exhausted");
         const result = await study.fit(true);
         const modelHash = digest(result ? Object.fromEntries(Object.entries(result.models).map(([k, m]) => [k, m.model ?? null])) : null);
         if (modelHash !== freeze.modelsHash) throw new Error("frozen_model_changed_during_evaluation");
@@ -39,7 +40,13 @@ export async function runPairCommand(command: string, config: PairStudyConfig, d
       if (!["learning_timeout", "experiment_budget_exhausted"].includes(message)) throw e;
       await study.archive.write("stage-stop.json", { reason: message });
     }
-    const summary = await renderPairReport(study);
+    let summary;
+    try {
+      summary = await renderPairReport(study, ["run", "resume"].includes(command) ? { deadlineAt: Date.now() + study.remainingMs } : {});
+    } catch (e) {
+      if ((e as Error).message !== "report_budget_exhausted") throw e;
+      summary = await renderPairBudgetStop(study);
+    }
     process.stdout.write(JSON.stringify(summary) + "\n");
   } finally { await study.close(); }
 }

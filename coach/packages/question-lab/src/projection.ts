@@ -206,9 +206,26 @@ export function canonicalFromConstruction(
     events,
   });
 }
+// Reuse only this process's immutable projection of the complete visible input.
+// Weak keys cannot retain discarded proposals; a mutation changes the hash.
+const pendingProjections = new WeakMap<CanonicalEventStream, { hash: string; decision: ReplayedDecision }>();
+let pendingHits = 0, pendingReplays = 0;
+export const pendingDecisionCacheStats = () => ({ hits: pendingHits, replays: pendingReplays });
+function freezeProjection<T>(value: T): T {
+  if (value && typeof value === "object" && !Object.isFrozen(value)) {
+    Object.freeze(value);
+    for (const nested of Object.values(value)) freezeProjection(nested);
+  }
+  return value;
+}
 export function pendingDecision(
   stream: CanonicalEventStream,
 ): ReplayedDecision {
+  const disabled = process.env.RIICHI_LAB_DISABLE_PENDING_CACHE === "1";
+  const hash = disabled ? "" : digest({ producer: "lab-pending-projection/v1", stream });
+  const prior = disabled ? undefined : pendingProjections.get(stream);
+  if (prior?.hash === hash) { pendingHits++; return prior.decision; }
+  pendingReplays++;
   const decision = replayCanonicalStream(stream).at(-1);
   if (
     !decision ||
@@ -216,7 +233,10 @@ export function pendingDecision(
     decision.actualAction !== null
   )
     throw new Error("construction_not_pending_decision");
-  return decision;
+  if (disabled) return decision;
+  const immutable = freezeProjection(decision);
+  pendingProjections.set(stream, { hash, decision: immutable });
+  return immutable;
 }
 export function observedFamily(sample: Pick<LabSample, "stream">) {
   return handFamily(

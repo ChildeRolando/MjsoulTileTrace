@@ -92,7 +92,12 @@ export function sampleIdentity(
     hypotheses: sample.hypotheses,
   });
 }
-export async function readSamples(archive: Archive): Promise<LabSample[]> {
+export async function readSamples(archive: Archive, deadlineAt?: number): Promise<LabSample[]> {
+  const manifest = await archive.read("manifest.json") as { identity?: { producers?: { facts?: unknown } } } | null;
+  const expectedFacts = manifest?.identity?.producers?.facts;
+  const checkProducer = (sample: LabSample) => {
+    if (expectedFacts && digest(sample.factIdentity) !== digest(expectedFacts)) throw new Error("sample_fact_producer_mismatch");
+  };
   let cache = sampleCaches.get(archive);
   if (!cache) {
     cache = { entries: new Map(), bytes: 0, hits: 0, validations: 0 };
@@ -100,6 +105,7 @@ export async function readSamples(archive: Archive): Promise<LabSample[]> {
   }
   const out: LabSample[] = [];
   for (const name of await archive.list("samples")) {
+    if (deadlineAt !== undefined && Date.now() >= deadlineAt) throw new Error("report_budget_exhausted");
     const source = await archive.readSource(`samples/${name}`);
     if (source === null) throw new Error("sample_unavailable");
     const bytes = Buffer.byteLength(source),
@@ -109,6 +115,7 @@ export async function readSamples(archive: Archive): Promise<LabSample[]> {
       process.env.RIICHI_LAB_DISABLE_READ_CACHE !== "1" &&
       cached?.hash === hash
     ) {
+      checkProducer(cached.sample);
       cache.hits++;
       cache.entries.delete(name);
       cache.entries.set(name, cached);
@@ -126,6 +133,7 @@ export async function readSamples(archive: Archive): Promise<LabSample[]> {
       digest(sample.candidates.map((c) => c.result))
     )
       throw new Error("sample_fact_evidence_mismatch");
+    checkProducer(sample);
     const d = pendingDecision(sample.stream),
       bound = bindLibriichiRuleResult({
         request: sample.ruleRequest,
@@ -177,16 +185,20 @@ export async function readSamples(archive: Archive): Promise<LabSample[]> {
 export async function readLabels(
   archive: Archive,
   samples: LabSample[],
+  deadlineAt?: number,
 ): Promise<Map<string, LabLabel>> {
   const manifest = (await archive.read("manifest.json")) as {
-    identity: { config: QuestionLabConfig };
+    identity: { config: QuestionLabConfig; producers?: { model?: unknown } };
   };
   const sensitiveGap = manifest.identity.config.learning.sensitiveGap;
   const out = new Map<string, LabLabel>();
   for (const sample of samples) {
+    if (deadlineAt !== undefined && Date.now() >= deadlineAt) throw new Error("report_budget_exhausted");
     const raw = await archive.read(`labels/${sample.sampleId}.json`);
     if (!raw) continue;
     const label = LabLabelSchema.parse(raw);
+    if (manifest.identity.producers?.model && digest(label.request.identity) !== digest(manifest.identity.producers.model))
+      throw new Error("label_model_producer_mismatch");
     if (label.sampleId !== sample.sampleId)
       throw new Error("label_sample_mismatch");
     {

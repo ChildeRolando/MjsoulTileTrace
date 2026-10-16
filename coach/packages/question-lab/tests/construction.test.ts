@@ -4,6 +4,7 @@ import { resolveScene, createBoard } from "../src/construct.js";
 import {
   canonicalFromConstruction,
   pendingDecision,
+  pendingDecisionCacheStats,
 } from "../src/projection.js";
 import { digest } from "../src/config.js";
 
@@ -58,5 +59,15 @@ describe("synthetic physical construction and visible projection", () => {
     const c = canonicalFromConstruction(changed, 0);
     expect(digest(a)).toBe(digest(c));
     expect(pendingDecision(a).actualAction).toBeNull();
+    const before = pendingDecisionCacheStats(), first = pendingDecision(a);
+    expect(pendingDecision(a)).toBe(first);
+    expect(pendingDecisionCacheStats().hits).toBeGreaterThan(before.hits);
+    expect(() => first.facts.concealedTiles.push(first.facts.concealedTiles[0]!)).toThrow();
+    const round = a.events.find(e => e.type === "round_started")!;
+    if (round.type !== "round_started") throw new Error("fixture_round_missing");
+    round.scores![0] = 26000; round.scores![1] = 24000;
+    const updated = pendingDecision(a);
+    expect(updated).not.toBe(first);
+    expect(updated.facts.scores).toMatchObject({ status: "known", byActor: [26000, 24000, 25000, 25000] });
   });
 });

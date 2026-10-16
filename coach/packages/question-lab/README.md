@@ -49,6 +49,11 @@ RBF gamma=scale，来源组加权 MAE 选参，线性距最优不超过 0.01 Q �
 v2 的 `fit` 只做训练内选择；`run`／`resume` 串联全部阶段及最终测试。`generate`、`label`、`scan`、
 `refine` 可分段运行，`report` 重建自包含 HTML。已冻结的主研究不能继续生成／扫描／补样。
 HTML 沿用 Coach/Arena 共享牌面，可直接离线打开；重建 v2 报告需本机受管资源以校验生产者身份。
+run/resume 的报告阶段服从剩余时限，读取、重验与逐题渲染间检查截止；耗尽时保存
+`report-budget-stop.json` 和不完整摘要，不丢弃既有科学记录。独立 `report` 可随后重建完整报告，
+不会重新评分或训练。牌例通过一次渲染加入配对说明，页脚展示实际 v2 实验参数。
+同进程的 canonical 前缀快照以完整可见输入哈希及投影版本绑定，深冻结且仅保留弱引用；
+输入改变即重放。逐记录事实／模型生产者核对不因缓存命中而省略，缓存不包含评分或 helper 输出。
 归档另含 `pairs/`、`pair-labels/`、完整构造缓存、`sources/`、`scan-plans/`、`scan-results/`、
 `scan-flips.json`、`acquisition/`、`pair-weights*.json`、训练／最终拟合及 `research-frozen.json`。
 配对权重记录为均值 1，与 Python 拟合一致；全部成功样本、完整数据评估与失败目标保留。

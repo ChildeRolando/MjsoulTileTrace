@@ -1,11 +1,11 @@
 import { digest } from "./config.js";
-import { readFile, writeFile } from "node:fs/promises";
+import { writeFile } from "node:fs/promises";
 import { QuestionLabConfigSchema, type PairScanCoordinate } from "@riichi-coach/contracts";
 import { renderReport, tileImage } from "./report.js";
 import { pairObservations, pairTargets, predictPair, pairWeights } from "./pair-features.js";
 import type { PairStudy } from "./pair-study.js";
 import { formatMjaiTile } from "@riichi-coach/mortal-source";
-import type { PairFitResult, LabSample } from "@riichi-coach/contracts";
+import type { PairFitResult, LabSample, LabLabel } from "@riichi-coach/contracts";
 const esc = (v: unknown) => String(v ?? "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
 type ScanRecord = { coordinate: PairScanCoordinate; status: string; sampleId?: string; reason?: string; changed?: string[] };
 export function compareFlips(study: Pick<PairStudy, "config" | "labels">, a: LabSample, b: LabSample) {
@@ -26,13 +26,18 @@ export function compareFlips(study: Pick<PairStudy, "config" | "labels">, a: Lab
   return { pairFlips, sensitiveFlips, finalSideFlip,
     status: !bp.length ? "竞争消失" : sb.side === "third" ? "第三选择胜出" : sb.side === "both" ? "两侧并列" : sb.side };
 }
-export async function renderPairReport(study: PairStudy) {
+export async function renderPairReport(study: PairStudy, options: { deadlineAt?: number } = {}) {
   const started = performance.now();
+  const checkBudget = () => {
+    if (options.deadlineAt !== undefined && Date.now() >= options.deadlineAt) throw new Error("report_budget_exhausted");
+  };
+  checkBudget();
   const stages = await Promise.all([0, 1, 2, 3].map(n => study.archive.read(`generation/round-${n}.json`)));
   const proposalCounts: Record<string, Record<string, number>> = {};
   for (let round = 0; round <= study.config.budget.refinementRounds; round++) {
     const files = await study.archive.list(`attempts/round-${round}`), counts: Record<string, number> = {};
     for (let i = 0; i < files.length; i += 128) {
+      checkBudget();
       const attempts = await Promise.all(files.slice(i, i + 128).map(name => study.archive.read(`attempts/round-${round}/${name}`)));
       for (const a of attempts as { status: string }[]) counts[a.status] = (counts[a.status] ?? 0) + 1;
     }
@@ -94,8 +99,6 @@ export async function renderPairReport(study: PairStudy) {
   };
   await study.archive.write("generation-summary.json", summary);
   const nativeConfig = QuestionLabConfigSchema.parse({ schemaVersion: "question-lab-config/v1", name: study.config.name, seed: study.config.seed });
-  await renderReport(study.archive, nativeConfig, { maskHoldout: !latest?.result.evaluated });
-  let html = await readFile(study.archive.path("report.html"), "utf8");
   const metrics = Object.entries(latest?.result.models ?? {}).map(([name, model]) => `<tr><td>${esc(name)}</td><td>${model.status}</td><td>${esc(model.model?.kernel)}</td><td>${model.train?.mae.toFixed(4) ?? "—"}</td><td>${model.test?.mae.toFixed(4) ?? "未评估"}</td><td>${model.test?.rmse.toFixed(4) ?? "未评估"}</td><td>${model.test?.signAccuracy.toFixed(3) ?? "未评估"}</td></tr>`).join("");
   const calibrationRows = latest?.result.models.full?.test?.calibration ?? [];
   const calibrationScale = Math.max(1, ...calibrationRows.flatMap(r => [Math.abs(r.predicted), Math.abs(r.actual)]));
@@ -114,6 +117,7 @@ export async function renderPairReport(study: PairStudy) {
     return `<p>向听差 ${difference}（${difference === 0 ? "同向听" : "跨向听"}）：${subset.length} 对、${groups.size} 个来源组；效率正分差 ${positive.size} 组、保宝正分差 ${negative.size} 组。${error}${Math.min(positive.size, negative.size) < 10 ? "双侧证据不足，不能宣称稳定边界。" : "是否稳定仍须结合独立测试和反例。"}</p>`;
   }).join("");
   const scanSections = (anchors?.ids ?? []).map(id => {
+    checkBudget();
     const base = study.samples.find(s => s.sampleId === id)!;
     const relevant = records.filter(r => r.coordinate.anchorId === id);
     const observed = relevant.map(r => {
@@ -158,24 +162,35 @@ export async function renderPairReport(study: PairStudy) {
   }
   const extensionMae = threatErrors.size ? [...threatErrors.values()].map(v => v.reduce((a, b) => a + b, 0) / v.length).reduce((a, b) => a + b, 0) / threatErrors.size : null;
   const studySection = `<section id="pair-study"><h2>严格竞争配对 · SVR</h2><p>E：最小向听 → 最大可见有效牌；D：最多保宝 → 最小向听 → 最大可见有效牌。推荐集合有交集时不进入主实验。y=Q(E弃牌)−Q(D弃牌)。</p><pre>${esc(JSON.stringify(summary, null, 2))}</pre><p>缺失估值以标记表达；双方估值为零只说明 helper 没有区分能力。跨向听时有效牌差不是可直接比较的效率优势。敏感区 ±${study.config.learning.sensitiveGap} Q；最终侧翻转要求侧外优势 >${study.config.learning.robustGap} Q，均非概率或因果证明。</p>${slices}<h3>固定分组消融</h3><p class="candidate-hint muted">窄屏可横向滚动比较全部特征版本。</p><div class="candidate-table" tabindex="0" role="region" aria-label="配对模型比较表" style="overflow-x:auto"><table style="min-width:680px"><thead><tr><th>特征</th><th>状态</th><th>核</th><th>训练 MAE</th><th>独立 MAE</th><th>独立 RMSE</th><th>独立胜负一致率</th></tr></thead><tbody>${metrics}</tbody></table></div><p>同源组总权重一致；三种版本共用划分、训练配对与预算。混淆矩阵为原始计数，行表示真实类别，列表示预测类别，顺序均为保宝／敏感区／效率；误差与胜负一致率按来源组加权。最终独立集只在研究冻结后评估。</p>${calibration ? `<svg viewBox="0 0 420 360" aria-label="Q 分差校准"><path d="M45 180h330M210 15v330M60 330L360 30" stroke="#aaa" fill="none"/><g fill="#276d63">${calibration}</g><text x="10" y="355">横轴预测分差，纵轴实际分差，范围 ±${calibrationScale.toFixed(2)} Q；悬停查看分箱</text></svg>` : ""}<pre>${esc(JSON.stringify(latest?.result.models.full?.test ?? { status: "未评估或证据不足" }, null, 2))}</pre><h3>解释与忠实度</h3><p>浅层树拟合训练组模型输出；忠实度用预测差的 MAE 表达。解释贴近 SVR 不代表 SVR 对 Mortal 的拟合良好。</p><pre>${esc(JSON.stringify({ trainingFidelityMae: explanation?.trainingFidelityMae, testFidelityMae: explanation?.testFidelityMae, weights, constantFeatures: explanation?.constantFeatures }, null, 2))}</pre><pre>${esc(explanation?.tree)}</pre><h3>威胁扩展</h3><p>${threats.length} 个合法变体，${threatErrors.size} 个有配对来源组；冻结主模型的来源组加权外推 MAE ${extensionMae?.toFixed(4) ?? "证据不足"}。该扩展不参与主模型调参。</p></section><section><h2>从真实反例出发的合法扫描</h2><p>固定配对翻转与 Mortal 最终选择侧翻转分别统计；时间推进包含新增历史，不能声称其他条件完全相同。只观察到一个胜负方向、没有翻转或预算不足均保留为真实结果。</p>${scanSections || "没有满足条件的训练锚点，证据不足。"}</section>`;
-  html = html.replace("</header>", `</header>${studySection}`);
-  for (const s of study.samples) {
-    if (!latest?.result.evaluated && s.split === "test") continue;
-    const pairs = pairObservations(s).pairs;
-    if (!pairs.length) continue;
-    const targets = study.labels.has(s.sampleId) ? pairTargets(s, study.labels.get(s.sampleId)!, study.config.learning.sensitiveGap) : null;
-    const caseStart = html.indexOf(`id="case-${s.sampleId}"`), summaryEnd = html.indexOf("</summary>", caseStart);
-    const sideNames = { efficiency: "效率侧胜出", dora: "保宝侧胜出", both: "两侧并列", third: "第三选择胜出" };
-    if (targets && caseStart >= 0 && summaryEnd >= 0)
-      html = html.slice(0, summaryEnd) + ` · ${sideNames[targets.summary.side]}` + html.slice(summaryEnd);
-    const table = pairs.map(p => {
-      const a = s.candidates.find(c => c.actionRef === p.eRef)!, b = s.candidates.find(c => c.actionRef === p.dRef)!;
-      return `<tr><td>${a.action.kind === "discard" ? tileImage(formatMjaiTile(a.action.tile)) : ""}</td><td>${b.action.kind === "discard" ? tileImage(formatMjaiTile(b.action.tile)) : ""}</td><td>${p.features.deltaU}</td><td>${p.features.deltaS}</td><td>${p.features.deltaD}</td><td>${p.features.valuePairKnown ? `${p.features.deltaV}${p.features.valueBothZero ? "（helper 双零）" : ""}` : "未知"}</td><td>${targets?.targets.find(t => t.pairId === p.pairId)?.y.toFixed(5) ?? "未标注"}</td></tr>`;
-    }).join("");
-    const start = html.indexOf(`id="case-${s.sampleId}"`), end = html.indexOf("</details>", start);
-    if (start >= 0 && end >= 0) html = html.slice(0, end) + `<p>集合最高分差 ${targets?.summary.setGap?.toFixed(5) ?? "未知"}；最终侧 ${esc(targets?.summary.side)}。以下为全部真实配对。</p><div style="overflow:auto"><table><thead><tr><th>E 弃牌</th><th>D 弃牌</th><th>有效牌差</th><th>向听差</th><th>宝牌差</th><th>估值差</th><th>Q 差</th></tr></thead><tbody>${table}</tbody></table></div>` + html.slice(end);
-  }
-  await writeFile(study.archive.path("report.html"), html);
+  await renderReport(study.archive, nativeConfig, {
+    ...(options.deadlineAt !== undefined ? { deadlineAt: options.deadlineAt } : {}),
+    maskHoldout: !latest?.result.evaluated, afterHeader: studySection,
+    experimentMetadata: { schemaVersion: study.config.schemaVersion, reportSchemaVersion: "question-lab-pair-report/v2.1", name: study.config.name, seed: study.config.seed,
+      initialCount: study.config.initialCount, budget: study.config.budget, learning: study.config.learning, scans: study.config.scans,
+      developmentSourceCount: study.config.developmentArchives.length },
+    decorateCase: (sample, label) => pairCaseDecoration(sample, label, study.config.learning.sensitiveGap),
+  });
   await study.archive.write("study-summary.json", { ...summary, reportMs: performance.now() - started });
   return { ...summary, report: study.archive.path("report.html") };
+}
+
+export async function renderPairBudgetStop(study: Pick<PairStudy, "archive" | "config" | "samples" | "labels">) {
+  const summary = { status: "partial", reason: "report_budget_exhausted", samples: study.samples.length,
+    labelled: study.labels.size, reportIncomplete: true };
+  await study.archive.write("report-budget-stop.json", summary);
+  await writeFile(study.archive.path("report.html"), `<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(study.config.name)}</title><main><h1>${esc(study.config.name)}</h1><p>本次预算已用尽，完整报告尚未生成。</p><p>已完成的 ${summary.samples} 个局面、${summary.labelled} 个标注及已有模型保存在同一档案。使用相同版本单独运行 report 命令可重建完整报告。</p></main></html>`);
+  return { ...summary, report: study.archive.path("report.html") };
+}
+
+export function pairCaseDecoration(s: LabSample, label: LabLabel | undefined, sensitiveGap: number): { summary?: string; body?: string } {
+  const pairs = pairObservations(s).pairs;
+  if (!pairs.length) return {};
+  const targets = label ? pairTargets(s, label, sensitiveGap) : null;
+  const sideNames = { efficiency: "效率侧胜出", dora: "保宝侧胜出", both: "两侧并列", third: "第三选择胜出" };
+  const table = pairs.map(p => {
+    const a = s.candidates.find(c => c.actionRef === p.eRef)!, b = s.candidates.find(c => c.actionRef === p.dRef)!;
+    return `<tr><td>${a.action.kind === "discard" ? tileImage(formatMjaiTile(a.action.tile)) : ""}</td><td>${b.action.kind === "discard" ? tileImage(formatMjaiTile(b.action.tile)) : ""}</td><td>${p.features.deltaU}</td><td>${p.features.deltaS}</td><td>${p.features.deltaD}</td><td>${p.features.valuePairKnown ? `${p.features.deltaV}${p.features.valueBothZero ? "（helper 双零）" : ""}` : "未知"}</td><td>${targets?.targets.find(t => t.pairId === p.pairId)?.y.toFixed(5) ?? "未标注"}</td></tr>`;
+  }).join("");
+  return { ...(targets ? { summary: sideNames[targets.summary.side] } : {}),
+    body: `<p>集合最高分差 ${targets?.summary.setGap?.toFixed(5) ?? "未知"}；最终侧 ${esc(targets?.summary.side)}。以下为全部真实配对。</p><div style="overflow:auto"><table><thead><tr><th>E 弃牌</th><th>D 弃牌</th><th>有效牌差</th><th>向听差</th><th>宝牌差</th><th>估值差</th><th>Q 差</th></tr></thead><tbody>${table}</tbody></table></div>` };
 }

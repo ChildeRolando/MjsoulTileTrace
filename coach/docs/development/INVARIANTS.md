@@ -439,6 +439,9 @@ Model/report evidence provider（模型/报告证据来源）
   保护配对、权重、标签隔离与拟合及序列化预测一致性；
   原生 `pair-native.test.ts`、`pair-resume.test.ts`、`pair-scan-resume.test.ts` 保护合法扫描、完整 Q、
   威胁时序、留出遮蔽和恢复不重复推理。旧 v1 冲突／SVM 档案语义不变。
+  `construction.test.ts` 保护前缀快照不可变及输入修改后失效；`pair-native.test.ts` 拒绝内容自洽
+  但生产者身份不符的事实／标签（含缓存命中）。`pair-report-budget.test.ts` 保护报告截止、
+  部分报告标记与科学记录保留，不能用缩短验证替代时限控制。
 - **Status**：machine-enforced；真实 native 与 Python 回归需要对应本地受管资源。
 
 ## 维护规则

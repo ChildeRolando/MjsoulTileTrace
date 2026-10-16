@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { LAB_FEATURES, PairObservationSchema, PairStudyConfigSchema, type LabSample, type LabLabel } from "@riichi-coach/contracts";
 import { pairObservations, pairTargets, pairWeights } from "../src/pair-features.js";
-import { compareFlips } from "../src/pair-report.js";
+import { compareFlips, pairCaseDecoration } from "../src/pair-report.js";
 import { pairAcquisition } from "../src/pair-study.js";
 
 function sample(rows: number[][]): LabSample {
@@ -51,6 +51,11 @@ describe("strict hypothesis competition and continuous pair labels", () => {
     const first = pairTargets(s, label(s, [3, 1, 3, 0]), .01);
     expect(first.targets.map(t => t.y)).toEqual([2, 0]);
     expect(first.summary.setGap).toBe(0);
+    const decoration = pairCaseDecoration(s, label(s, [3, 1, 3, 0]), .01);
+    expect(decoration.summary).toBe("两侧并列");
+    expect(decoration.body).toContain("2.00000");
+    expect(decoration.body).toContain("0.00000");
+    expect(decoration.body!.match(/<tr>/g)).toHaveLength(3); // header plus every E×D pair
     pairTargets(s, label(s, [-7, 3, 4, 8]), .01);
     expect(pairObservations(s).pairs).toEqual(before);
     expect(() => PairObservationSchema.parse({ ...p.pairs[0], features: { ...p.pairs[0]!.features, q: 2 } })).toThrow();

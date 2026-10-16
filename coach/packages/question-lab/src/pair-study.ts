@@ -319,7 +319,8 @@ export class PairStudy {
     if (!evaluate && await this.archive.read("fit-final.json")) throw new Error("holdout_already_evaluated_create_new_experiment");
     const rows = this.learningRows();
     if (!rows.length) return null;
-    if (this.samples.filter(s => this.sources[s.sampleId]!.phase !== "threat").some(s => !this.labels.has(s.sampleId))) throw new Error("learning_requires_complete_labels");
+    if (this.samples.filter(s => this.sources[s.sampleId]!.phase !== "threat").some(s => !this.labels.has(s.sampleId)))
+      throw new Error(this.remainingMs <= 0 ? "experiment_budget_exhausted" : "learning_requires_complete_labels");
     const inputHash = digest(rows);
     const path = evaluate ? "fit-final.json" : "fit.json";
     const writeWeights = async (result: PairFitResult) => {
