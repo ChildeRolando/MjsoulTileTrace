@@ -53,6 +53,8 @@ HTML 沿用 Coach/Arena 共享牌面，可直接离线打开；重建 v2 报告�
 `scan-flips.json`、`acquisition/`、`pair-weights*.json`、训练／最终拟合及 `research-frozen.json`。
 配对权重记录为均值 1，与 Python 拟合一致；全部成功样本、完整数据评估与失败目标保留。
 代码、模型、事实引擎、配置或源档案身份变化必须使用新目录，不能在旧研究中替换生产者。
+测试组先以 `split-plan.json` 原子封存，完成全部样本／配对标记后写 `split.json`；中断只补完同一计划。
+分段 `label` 会冻结当时初始数据，之后不能继续增加初始配额；需要扩展时另建实验，避免重划已看过的测试集。
 
 设计、边界和本次执行证据见 [配对研究变更记录](../../docs/plans/2026-10-16-efficiency-dora-pairs.md)。
 

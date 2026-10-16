@@ -68,6 +68,12 @@ export class PairStudy {
       study.samples.sort((a, b) => a.round - b.round || a.attempt - b.attempt || a.sampleId.localeCompare(b.sampleId));
       study.labels = await readLabels(archive, study.samples);
       study.split = await archive.read("split.json") as Split | null;
+      const splitPlan = await archive.read("split-plan.json") as { split: Split; hash: string } | null;
+      if (splitPlan && (splitPlan.hash !== digest(splitPlan.split) || (study.split && digest(study.split) !== splitPlan.hash)))
+        throw new Error("pair_split_plan_identity_mismatch");
+      const pendingSplit = !!splitPlan && !study.split;
+      if (pendingSplit && study.labels.size) throw new Error("pair_split_incomplete_after_labelling");
+      study.split ??= splitPlan?.split ?? null;
       if (study.split && (new Set(study.split.testGroups).size !== study.split.testGroups.length ||
           study.split.testGroups.some(g => study.split!.developmentGroups.includes(g)))) throw new Error("pair_holdout_development_collision");
       for (const s of study.samples) {
@@ -75,16 +81,22 @@ export class PairStudy {
         const source = sourceRecord?.source;
         if (sourceRecord && sourceRecord.hash !== digest(source)) throw new Error("pair_source_identity_mismatch");
         if (!source) throw new Error("pair_sample_source_missing");
-        if (s.groupId !== observedFamily(s) || (study.split && s.split !== (study.split.testGroups.includes(s.groupId) ? "test" : "train")))
+        const oldPairs = pairObservations(s).pairs;
+        const expectedSplit = study.split?.testGroups.includes(s.groupId) ? "test" : "train";
+        if (s.groupId !== observedFamily(s) || (study.split && !pendingSplit && s.split !== expectedSplit))
           throw new Error("pair_split_identity_mismatch");
+        if (pendingSplit) s.split = expectedSplit;
         study.sources[s.sampleId] = source;
         if (s.configHash !== digest(config)) throw new Error("pair_sample_config_mismatch");
         const expected = pairObservations(s).pairs;
         const prior = await archive.read(`pairs/${s.sampleId}.json`);
-        if (prior && digest(prior) !== digest(expected.map(p => PairObservationSchema.parse(p)))) throw new Error("pair_features_mismatch");
-        if (!prior) await archive.write(`pairs/${s.sampleId}.json`, expected);
+        if (prior && digest(prior) !== digest(expected.map(p => PairObservationSchema.parse(p))) &&
+          !(pendingSplit && digest(prior) === digest(oldPairs))) throw new Error("pair_features_mismatch");
+        if (pendingSplit) await archive.write(`samples/${s.sampleId}.json`, s);
+        if (!prior || pendingSplit) await archive.write(`pairs/${s.sampleId}.json`, expected);
         if (study.labels.has(s.sampleId)) await study.writeTargets(s);
       }
+      if (pendingSplit) await archive.write("split.json", study.split);
       await archive.write("config.expanded.json", config);
       return study;
     } catch (e) { await Promise.allSettled(workers.map(w => w.close())); if (archive) await archive.close(); throw e; }
@@ -171,12 +183,15 @@ export class PairStudy {
       .filter(g => !developmentGroups.includes(g)).sort((a, b) => digest([this.config.seed, a, "holdout"]).localeCompare(digest([this.config.seed, b, "holdout"])));
     if (!this.samples.length) return; // Never freeze an empty dataset.
     this.split = { testGroups: groups.length >= 5 ? groups.slice(0, Math.round(groups.length * .2)) : [], developmentGroups, initialGroups: groups };
-    await this.archive.write("split.json", this.split);
+    // Publish the deterministic plan before touching children; split.json is the
+    // commit record. Open can finish a torn materialization without re-splitting.
+    await this.archive.write("split-plan.json", { split: this.split, hash: digest(this.split) });
     for (const s of this.samples) {
       s.split = this.split.testGroups.includes(s.groupId) ? "test" : "train";
       await this.archive.write(`samples/${s.sampleId}.json`, s);
       await this.archive.write(`pairs/${s.sampleId}.json`, pairObservations(s).pairs);
     }
+    await this.archive.write("split.json", this.split);
   }
   async generate(round = 0, acquisition?: PairFitResult | null) {
     if (round === 0) await this.importDevelopment();
@@ -186,6 +201,8 @@ export class PairStudy {
       const rows = this.samples.filter(s => this.sources[s.sampleId]!.phase === phase && (round === 0 || s.round === round));
       return { rows, same: rows.filter(s => this.sources[s.sampleId]!.sameShanten).length };
     };
+    if (round === 0 && this.split && this.searching && counts().rows.length < target)
+      throw new Error("initial_split_already_frozen_start_new_experiment");
     const existingAttempts = await this.archive.list(`attempts/round-${round}`);
     let next = existingAttempts.length ? Math.max(...existingAttempts.map(n => Number(n.slice(0, -5)))) + 1 : 0;
     while (counts().rows.length < target && this.searching) {

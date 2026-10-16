@@ -14,9 +14,29 @@ describe.skipIf(process.env.COACH_QUESTION_LAB_NATIVE !== "1")("pair acquisition
       scans: { anchorCount: 0, variantsPerAnchor: 0, threats: false } });
     const baseline = join(root, "base"), continuous = join(root, "whole"), interrupted = join(root, "interrupted");
     try {
+      const preparing = await PairStudy.open(config, baseline);
+      try {
+        await preparing.generate();
+        const write = preparing.archive.write.bind(preparing.archive);
+        preparing.archive.write = async (path, value) => {
+          if (path.startsWith("pairs/")) throw new Error("simulated_split_interrupt");
+          return write(path, value);
+        };
+        await expect(preparing.freezeSplit()).rejects.toThrow("simulated_split_interrupt");
+        preparing.archive.write = write;
+        expect(await preparing.archive.read("split.json")).toBeNull();
+        expect(await preparing.archive.read("split-plan.json")).not.toBeNull();
+      } finally { await preparing.close(); }
       const initial = await PairStudy.open(config, baseline);
       try {
-        await initial.generate(); await initial.label();
+        expect(await initial.archive.read("split.json")).toEqual(initial.split);
+        expect(initial.labels.size).toBe(0);
+        for (const s of initial.samples) {
+          expect(s.split).toBe(initial.split!.testGroups.includes(s.groupId) ? "test" : "train");
+          const pairs = await initial.archive.read(`pairs/${s.sampleId}.json`) as { split: string }[];
+          expect(pairs.every(p => p.split === s.split)).toBe(true);
+        }
+        await initial.label();
         expect(initial.samples).toHaveLength(12);
         expect(initial.split!.testGroups.length).toBeGreaterThan(0);
         const fitted = await initial.fit(false);

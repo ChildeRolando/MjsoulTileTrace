@@ -29,11 +29,23 @@ export function compareFlips(study: Pick<PairStudy, "config" | "labels">, a: Lab
 export async function renderPairReport(study: PairStudy) {
   const started = performance.now();
   const stages = await Promise.all([0, 1, 2, 3].map(n => study.archive.read(`generation/round-${n}.json`)));
+  const proposalCounts: Record<string, Record<string, number>> = {};
+  for (let round = 0; round <= study.config.budget.refinementRounds; round++) {
+    const files = await study.archive.list(`attempts/round-${round}`), counts: Record<string, number> = {};
+    for (let i = 0; i < files.length; i += 128) {
+      const attempts = await Promise.all(files.slice(i, i + 128).map(name => study.archive.read(`attempts/round-${round}/${name}`)));
+      for (const a of attempts as { status: string }[]) counts[a.status] = (counts[a.status] ?? 0) + 1;
+    }
+    proposalCounts[String(round)] = counts;
+  }
   const records = await Promise.all((await study.archive.list("scan-results")).map(n => study.archive.read(`scan-results/${n}`))) as ScanRecord[];
   const latest = (await study.archive.read("fit-final.json") ?? await study.archive.read("fit.json")) as { result: PairFitResult; resultHash: string } | null;
   if (latest && latest.resultHash !== digest(latest.result)) throw new Error("pair_fit_identity_mismatch");
   const rows = study.learningRows().filter(r => latest?.result.evaluated || r.split === "train");
   const strict = study.samples.filter(s => pairObservations(s).pairs.length);
+  const visibleMain = strict.filter(s => study.sources[s.sampleId]!.phase !== "threat" && study.labels.has(s.sampleId) &&
+    (latest?.result.evaluated || s.split === "train"));
+  const finalSides = visibleMain.map(s => pairTargets(s, study.labels.get(s.sampleId)!, study.config.learning.sensitiveGap).summary.side);
   const sourceCounts = Object.fromEntries(["initial", "development", "scan", "refinement", "threat"].map(phase => [phase, study.samples.filter(s => study.sources[s.sampleId]!.phase === phase).length]));
   const failures = Object.fromEntries([...new Set(records.filter(r => r.status !== "ok").map(r => r.reason ?? r.status))].map(k => [k, records.filter(r => (r.reason ?? r.status) === k).length]));
   const initial = stages[0] as { complete: boolean } | null;
@@ -70,10 +82,15 @@ export async function renderPairReport(study: PairStudy) {
     testGroups: study.split?.testGroups.length ?? 0,
     requestedAnchors: study.config.scans.anchorCount, actualAnchors: anchors?.ids.length ?? 0,
     scanFlips: flipCounts("scan"), threatFlips: flipCounts("threat"),
-    failures, nativeCalls: study.calls, remainingMs: study.remainingMs,
+    failures, proposalCounts, nativeCalls: study.calls, remainingMs: study.remainingMs,
     finalEvaluated: latest?.result.evaluated ?? false,
     holdoutLabelsMasked: !latest?.result.evaluated,
     zeroEstimatePairs: rows.filter(r => r.features.valueBothZero === 1).length,
+    pairOutcomeCounts: { efficiency: rows.filter(r => r.y > study.config.learning.sensitiveGap).length,
+      dora: rows.filter(r => r.y < -study.config.learning.sensitiveGap).length,
+      sensitive: rows.filter(r => Math.abs(r.y) <= study.config.learning.sensitiveGap).length,
+      exactZero: rows.filter(r => r.y === 0).length },
+    finalSideCounts: Object.fromEntries(["efficiency", "dora", "both", "third"].map(side => [side, finalSides.filter(s => s === side).length])),
   };
   await study.archive.write("generation-summary.json", summary);
   const nativeConfig = QuestionLabConfigSchema.parse({ schemaVersion: "question-lab-config/v1", name: study.config.name, seed: study.config.seed });
@@ -135,13 +152,17 @@ export async function renderPairReport(study: PairStudy) {
     if (errors.length) threatErrors.set(s.groupId, [...(threatErrors.get(s.groupId) ?? []), errors.reduce((a, b) => a + b, 0) / errors.length]);
   }
   const extensionMae = threatErrors.size ? [...threatErrors.values()].map(v => v.reduce((a, b) => a + b, 0) / v.length).reduce((a, b) => a + b, 0) / threatErrors.size : null;
-  const studySection = `<section id="pair-study"><h2>严格竞争配对 · SVR</h2><p>E：最小向听 → 最大可见有效牌；D：最多保宝 → 最小向听 → 最大可见有效牌。推荐集合有交集时不进入主实验。y=Q(E弃牌)−Q(D弃牌)。</p><pre>${esc(JSON.stringify(summary, null, 2))}</pre><p>缺失估值以标记表达；双方估值为零只说明 helper 没有区分能力。跨向听时有效牌差不是可直接比较的效率优势。敏感区 ±${study.config.learning.sensitiveGap} Q；最终侧翻转要求侧外优势 >${study.config.learning.robustGap} Q，均非概率或因果证明。</p>${slices}<h3>固定分组消融</h3><table><thead><tr><th>特征</th><th>状态</th><th>核</th><th>训练 MAE</th><th>独立 MAE</th><th>独立 RMSE</th><th>独立胜负一致率</th></tr></thead><tbody>${metrics}</tbody></table><p>同源组总权重一致；三种版本共用划分、训练配对与预算。混淆矩阵为原始计数，误差与胜负一致率按来源组加权。最终独立集只在研究冻结后评估。</p>${calibration ? `<svg viewBox="0 0 420 360" aria-label="Q 分差校准"><path d="M45 180h330M210 15v330M60 330L360 30" stroke="#aaa" fill="none"/><g fill="#276d63">${calibration}</g><text x="10" y="355">横轴预测分差，纵轴实际分差，范围 ±${calibrationScale.toFixed(2)} Q；悬停查看分箱</text></svg>` : ""}<pre>${esc(JSON.stringify(latest?.result.models.full?.test ?? { status: "未评估或证据不足" }, null, 2))}</pre><h3>解释与忠实度</h3><p>浅层树拟合训练组模型输出；忠实度用预测差的 MAE 表达。解释贴近 SVR 不代表 SVR 对 Mortal 的拟合良好。</p><pre>${esc(JSON.stringify({ trainingFidelityMae: explanation?.trainingFidelityMae, testFidelityMae: explanation?.testFidelityMae, weights, constantFeatures: explanation?.constantFeatures }, null, 2))}</pre><pre>${esc(explanation?.tree)}</pre><h3>威胁扩展</h3><p>${threats.length} 个合法变体，${threatErrors.size} 个有配对来源组；冻结主模型的来源组加权外推 MAE ${extensionMae?.toFixed(4) ?? "证据不足"}。该扩展不参与主模型调参。</p></section><section><h2>从真实反例出发的合法扫描</h2><p>固定配对翻转与 Mortal 最终选择侧翻转分别统计；时间推进包含新增历史，不能声称其他条件完全相同。只观察到一个胜负方向、没有翻转或预算不足均保留为真实结果。</p>${scanSections || "没有满足条件的训练锚点，证据不足。"}</section>`;
+  const studySection = `<section id="pair-study"><h2>严格竞争配对 · SVR</h2><p>E：最小向听 → 最大可见有效牌；D：最多保宝 → 最小向听 → 最大可见有效牌。推荐集合有交集时不进入主实验。y=Q(E弃牌)−Q(D弃牌)。</p><pre>${esc(JSON.stringify(summary, null, 2))}</pre><p>缺失估值以标记表达；双方估值为零只说明 helper 没有区分能力。跨向听时有效牌差不是可直接比较的效率优势。敏感区 ±${study.config.learning.sensitiveGap} Q；最终侧翻转要求侧外优势 >${study.config.learning.robustGap} Q，均非概率或因果证明。</p>${slices}<h3>固定分组消融</h3><p class="candidate-hint muted">窄屏可横向滚动比较全部特征版本。</p><div class="candidate-table" tabindex="0" role="region" aria-label="配对模型比较表" style="overflow-x:auto"><table style="min-width:680px"><thead><tr><th>特征</th><th>状态</th><th>核</th><th>训练 MAE</th><th>独立 MAE</th><th>独立 RMSE</th><th>独立胜负一致率</th></tr></thead><tbody>${metrics}</tbody></table></div><p>同源组总权重一致；三种版本共用划分、训练配对与预算。混淆矩阵为原始计数，误差与胜负一致率按来源组加权。最终独立集只在研究冻结后评估。</p>${calibration ? `<svg viewBox="0 0 420 360" aria-label="Q 分差校准"><path d="M45 180h330M210 15v330M60 330L360 30" stroke="#aaa" fill="none"/><g fill="#276d63">${calibration}</g><text x="10" y="355">横轴预测分差，纵轴实际分差，范围 ±${calibrationScale.toFixed(2)} Q；悬停查看分箱</text></svg>` : ""}<pre>${esc(JSON.stringify(latest?.result.models.full?.test ?? { status: "未评估或证据不足" }, null, 2))}</pre><h3>解释与忠实度</h3><p>浅层树拟合训练组模型输出；忠实度用预测差的 MAE 表达。解释贴近 SVR 不代表 SVR 对 Mortal 的拟合良好。</p><pre>${esc(JSON.stringify({ trainingFidelityMae: explanation?.trainingFidelityMae, testFidelityMae: explanation?.testFidelityMae, weights, constantFeatures: explanation?.constantFeatures }, null, 2))}</pre><pre>${esc(explanation?.tree)}</pre><h3>威胁扩展</h3><p>${threats.length} 个合法变体，${threatErrors.size} 个有配对来源组；冻结主模型的来源组加权外推 MAE ${extensionMae?.toFixed(4) ?? "证据不足"}。该扩展不参与主模型调参。</p></section><section><h2>从真实反例出发的合法扫描</h2><p>固定配对翻转与 Mortal 最终选择侧翻转分别统计；时间推进包含新增历史，不能声称其他条件完全相同。只观察到一个胜负方向、没有翻转或预算不足均保留为真实结果。</p>${scanSections || "没有满足条件的训练锚点，证据不足。"}</section>`;
   html = html.replace("</header>", `</header>${studySection}`);
   for (const s of study.samples) {
     if (!latest?.result.evaluated && s.split === "test") continue;
     const pairs = pairObservations(s).pairs;
     if (!pairs.length) continue;
     const targets = study.labels.has(s.sampleId) ? pairTargets(s, study.labels.get(s.sampleId)!, study.config.learning.sensitiveGap) : null;
+    const caseStart = html.indexOf(`id="case-${s.sampleId}"`), summaryEnd = html.indexOf("</summary>", caseStart);
+    const sideNames = { efficiency: "效率侧胜出", dora: "保宝侧胜出", both: "两侧并列", third: "第三选择胜出" };
+    if (targets && caseStart >= 0 && summaryEnd >= 0)
+      html = html.slice(0, summaryEnd) + ` · ${sideNames[targets.summary.side]}` + html.slice(summaryEnd);
     const table = pairs.map(p => {
       const a = s.candidates.find(c => c.actionRef === p.eRef)!, b = s.candidates.find(c => c.actionRef === p.dRef)!;
       return `<tr><td>${a.action.kind === "discard" ? tileImage(formatMjaiTile(a.action.tile)) : ""}</td><td>${b.action.kind === "discard" ? tileImage(formatMjaiTile(b.action.tile)) : ""}</td><td>${p.features.deltaU}</td><td>${p.features.deltaS}</td><td>${p.features.deltaD}</td><td>${p.features.valuePairKnown ? `${p.features.deltaV}${p.features.valueBothZero ? "（helper 双零）" : ""}` : "未知"}</td><td>${targets?.targets.find(t => t.pairId === p.pairId)?.y.toFixed(5) ?? "未标注"}</td></tr>`;

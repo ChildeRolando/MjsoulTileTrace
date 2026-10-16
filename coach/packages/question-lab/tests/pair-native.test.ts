@@ -7,6 +7,10 @@ import { constructPairSample } from "../src/pair-native.js";
 import { pairObservations, pairTargets } from "../src/pair-features.js";
 import { scoreLabSample } from "../src/batch.js";
 import { scanCoordinates, scanRequest, verifyScan, threatCoordinates, repairThreatDraw, type Witness } from "../src/pair-scans.js";
+import { previousIndicator } from "../src/pair-scans.js";
+import { pendingDecision } from "../src/projection.js";
+import { formatMjaiTile } from "@riichi-coach/mortal-source";
+import { TILES, tile34 } from "../src/construct.js";
 
 describe.skipIf(process.env.COACH_QUESTION_LAB_NATIVE !== "1")("native pair experiment", () => {
   it("replays the real counterexample and scores all choices, then performs all four legal scan axes", async () => {
@@ -27,6 +31,10 @@ describe.skipIf(process.env.COACH_QUESTION_LAB_NATIVE !== "1")("native pair expe
       expect(label.scores).toHaveLength(base.sample.candidates.length);
       const witness: Witness = { request, result: base.result };
       const coordinates = scanCoordinates(base.sample);
+      const facts = pendingDecision(base.sample.stream).facts;
+      const held = [...facts.concealedTiles, ...(facts.currentDraw ? [facts.currentDraw.tile] : [])].map(t => tile34(formatMjaiTile(t)));
+      const neutralIndicators = TILES.filter((_, i) => !held.includes(i)).map(previousIndicator);
+      expect(coordinates.filter(c => c.axis === "dora").some(c => neutralIndicators.includes(String(c.values.indicator)))).toBe(true);
       for (const axis of ["availability", "dora", "scores", "turn"]) {
         let reached = false;
         const errors: string[] = [];

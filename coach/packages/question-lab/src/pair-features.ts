@@ -68,7 +68,7 @@ export function pairTargets(sample: LabSample, label: LabLabel, sensitiveGap: nu
   const dMax = result.d.length ? Math.max(...result.d.map(c => q(c.actionRef))) : null;
   const eRefs = new Set(result.e.map(c => c.actionRef)), dRefs = new Set(result.d.map(c => c.actionRef));
   const eSupported = label.preferredActionRefs.some(r => eRefs.has(r)), dSupported = label.preferredActionRefs.some(r => dRefs.has(r));
-  const side = eSupported && dSupported ? "both" : eSupported ? "efficiency" : dSupported ? "dora" : "third";
+  const side: "both" | "efficiency" | "dora" | "third" = eSupported && dSupported ? "both" : eSupported ? "efficiency" : dSupported ? "dora" : "third";
   const winningRefs = side === "efficiency" ? eRefs : side === "dora" ? dRefs : new Set<string>();
   const winning = side === "efficiency" ? eMax : side === "dora" ? dMax : null;
   const outside = label.scores.filter(s => !winningRefs.has(s.actionRef));

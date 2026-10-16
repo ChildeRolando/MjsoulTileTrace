@@ -2,7 +2,7 @@ import { LabConstructRequestSchema, PairScanCoordinateSchema, type LabSample, ty
   type LabConstructResult, type PairScanCoordinate, type LabBoardSpec } from "@riichi-coach/contracts";
 import { formatMjaiTile } from "@riichi-coach/mortal-source";
 import { digest } from "./config.js";
-import { TILES, tile34, resolveScene, controlledBoard, constructionRequest } from "./construct.js";
+import { TILES, tile34, resolveScene, constructionRequest } from "./construct.js";
 import { QuestionLabConfigSchema } from "@riichi-coach/contracts";
 import { pendingDecision, observableComponents } from "./projection.js";
 import { pairObservations } from "./pair-features.js";
@@ -86,9 +86,13 @@ export function scanCoordinates(sample: LabSample): PairScanCoordinate[] {
   const tiles = [...f.concealedTiles, ...(f.currentDraw ? [f.currentDraw.tile] : [])].map(formatMjaiTile);
   const ranked = [...TILES].sort((a, b) => tiles.filter(t => tile34(t) === tile34(b)).length - tiles.filter(t => tile34(t) === tile34(a)).length || tile34(a) - tile34(b));
   const indicators = [...new Set([previousIndicator(TILES[a.metrics.tile34!]!), previousIndicator(TILES[b.metrics.tile34!]!),
-    ...ranked.filter(t => tiles.some(h => tile34(h) === tile34(t))).map(previousIndicator),
-    ...ranked.filter(t => !tiles.some(h => tile34(h) === tile34(t))).map(previousIndicator)])]
-    .filter(t => t !== formatMjaiTile(f.doraIndicators[0]!)).slice(0, 8);
+    ...ranked.filter(t => tiles.some(h => tile34(h) === tile34(t))).map(previousIndicator)])]
+    .filter(t => t !== formatMjaiTile(f.doraIndicators[0]!)).slice(0, 7);
+  // Reserve room for a neutral control even when the hand has many tile types.
+  for (const neutral of ranked.filter(t => !tiles.some(h => tile34(h) === tile34(t))).map(previousIndicator)) {
+    if (indicators.length === 8) break;
+    if (neutral !== formatMjaiTile(f.doraIndicators[0]!) && !indicators.includes(neutral)) indicators.push(neutral);
+  }
   for (const indicator of indicators) rows.push(coordinate(sample.sampleId, "dora", { indicator }));
   for (const delta of [-12000, -8000, -4000, -2000, 2000, 4000, 8000, 12000]) rows.push(coordinate(sample.sampleId, "scores", { delta }));
   for (let turns = 1; turns <= 8; turns++) rows.push(coordinate(sample.sampleId, "turn", { turns }));
