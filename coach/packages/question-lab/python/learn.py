@@ -173,7 +173,10 @@ def fit(request):
 
 def main():
     request = json.load(sys.stdin)
-    if request["operation"] == "fit":
+    if request["operation"] == "fit_pairs":
+        from pair_learn import fit_pairs
+        result = fit_pairs(request)
+    elif request["operation"] == "fit":
         result = fit(request)
     elif request["operation"] == "rank":
         scores = []

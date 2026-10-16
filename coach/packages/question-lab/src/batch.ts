@@ -667,55 +667,7 @@ export class LabBatch {
       const results = await Promise.allSettled(
         rows.map(async (sample, i) => {
           if (labels.has(sample.sampleId)) return null;
-          const w = this.workers[i]!,
-            start = performance.now(),
-            d = pendingDecision(sample.stream);
-          const request = projectResearchMortalRuleScoring({
-            stream: sample.stream,
-            decision: d,
-            identity: w.mortal.identity,
-            ruleRequest: sample.ruleRequest,
-            ruleResult: sample.ruleResult,
-          });
-          const response = await w.mortal.scoreRules(request),
-            bound = bindLocalMortalRuleScores({
-              request,
-              response,
-              decision: d,
-            });
-          const best = Math.max(...bound.actions.map((a) => a.qValue)),
-            sorted = bound.actions.map((a) => a.qValue).sort((a, b) => b - a),
-            bestGap = sorted.length > 1 ? best - sorted[1]! : 0;
-          const preferredActionRefs = bound.actions
-            .filter(
-              (a) =>
-                a.qValue === best &&
-                (a.kanSelectionQValue === undefined ||
-                  a.kanSelectionQValue ===
-                    Math.max(
-                      ...bound.actions
-                        .filter((k) => k.kanSelectionQValue !== undefined)
-                        .map((k) => k.kanSelectionQValue!),
-                    )),
-            )
-            .map((a) => a.actionRef);
-          return LabLabelSchema.parse({
-            schemaVersion: "question-lab-label/v1",
-            sampleId: sample.sampleId,
-            request: bound.request,
-            response: bound.response,
-            preferredActionRefs,
-            preferredActionRef: bound.preferred.actionRef,
-            scores: bound.actions.map((a) => ({
-              actionRef: a.actionRef,
-              qValue: a.qValue,
-            })),
-            bestGap,
-            sensitive:
-              sorted.length > 1 && bestGap < this.config.learning.sensitiveGap,
-            otherChoice: bound.preferred.action.kind !== "discard",
-            durationMs: performance.now() - start,
-          });
+          return scoreLabSample(sample, this.workers[i]!, this.config.learning.sensitiveGap);
         }),
       );
       for (const result of results) {
@@ -784,4 +736,55 @@ export class LabBatch {
     await this.archive.write("pipeline-summary.json", summary);
     return summary;
   }
+}
+
+export async function scoreLabSample(sample: LabSample, w: LabWorker, sensitiveGap: number): Promise<LabLabel> {
+  const start = performance.now(),
+    d = pendingDecision(sample.stream);
+  const request = projectResearchMortalRuleScoring({
+    stream: sample.stream,
+    decision: d,
+    identity: w.mortal.identity,
+    ruleRequest: sample.ruleRequest,
+    ruleResult: sample.ruleResult,
+  });
+  const response = await w.mortal.scoreRules(request),
+    bound = bindLocalMortalRuleScores({
+      request,
+      response,
+      decision: d,
+    });
+  const best = Math.max(...bound.actions.map((a) => a.qValue)),
+    sorted = bound.actions.map((a) => a.qValue).sort((a, b) => b - a),
+    bestGap = sorted.length > 1 ? best - sorted[1]! : 0;
+  const preferredActionRefs = bound.actions
+    .filter(
+      (a) =>
+        a.qValue === best &&
+        (a.kanSelectionQValue === undefined ||
+          a.kanSelectionQValue ===
+            Math.max(
+              ...bound.actions
+                .filter((k) => k.kanSelectionQValue !== undefined)
+                .map((k) => k.kanSelectionQValue!),
+            )),
+    )
+    .map((a) => a.actionRef);
+  return LabLabelSchema.parse({
+    schemaVersion: "question-lab-label/v1",
+    sampleId: sample.sampleId,
+    request: bound.request,
+    response: bound.response,
+    preferredActionRefs,
+    preferredActionRef: bound.preferred.actionRef,
+    scores: bound.actions.map((a) => ({
+      actionRef: a.actionRef,
+      qValue: a.qValue,
+    })),
+    bestGap,
+    sensitive:
+      sorted.length > 1 && bestGap < sensitiveGap,
+    otherChoice: bound.preferred.action.kind !== "discard",
+    durationMs: performance.now() - start,
+  });
 }

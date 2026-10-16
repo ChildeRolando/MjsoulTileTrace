@@ -432,6 +432,12 @@ Model/report evidence provider（模型/报告证据来源）
   白名单特征、逐题事实读回重建、冻结分组与测试来源碰撞拒绝。
 - **Executable tests**：`question-lab/tests/construction.test.ts`、`groups.test.ts`、`archive.test.ts`；
   `COACH_QUESTION_LAB_NATIVE=1` 的 `native.test.ts`；独立 Python 的 `test_learn.py`。
+- **配对研究扩展**：v2 严格 E∩D=∅，未知普通弃牌事实失败关闭；E×D 全量配对和四差值
+  只由可见事实确定。扫描继承真实见证，复核声明固定项与实际联动变化；粗扫描完整后封存细化计划。
+  每轮补样使用封存模型；最终测试仅在主研究冻结后运行。`pair-features.test.ts`、
+  contracts 的 `question-lab-pairs.test.ts`、Python `test_pair_learn.py` 保护配对、权重、标签隔离与拟合；
+  原生 `pair-native.test.ts`、`pair-resume.test.ts`、`pair-scan-resume.test.ts` 保护合法扫描、完整 Q、
+  威胁时序、留出遮蔽和恢复不重复推理。旧 v1 冲突／SVM 档案语义不变。
 - **Status**：machine-enforced；真实 native 与 Python 回归需要对应本地受管资源。
 
 ## 维护规则
