@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest";
 import { LAB_FEATURES, PairObservationSchema, PairStudyConfigSchema, type LabSample, type LabLabel } from "@riichi-coach/contracts";
 import { pairObservations, pairTargets, pairWeights } from "../src/pair-features.js";
 import { compareFlips } from "../src/pair-report.js";
+import { pairAcquisition } from "../src/pair-study.js";
 
 function sample(rows: number[][]): LabSample {
   return { sampleId: "a".repeat(64), groupId: "b".repeat(64), split: "train",
@@ -18,6 +19,16 @@ function label(s: LabSample, q: number[]): LabLabel {
   } as unknown as LabLabel;
 }
 describe("strict hypothesis competition and continuous pair labels", () => {
+  it("does not starve exploration when every proposed boundary point is rejected", () => {
+    let exploration = 0;
+    for (let attempt = 0; attempt < 12; attempt++) {
+      if (pairAcquisition(attempt, 0, exploration, 8, true) === "exploration") exploration++;
+    }
+    expect(exploration).toBe(4);
+    expect(pairAcquisition(0, 0, 0, 8, false)).toBe("exploration");
+    expect(pairAcquisition(0, 4, 1, 8, true)).toBe("exploration");
+    expect(pairAcquisition(1, 1, 4, 8, true)).toBe("boundary");
+  });
   it("gives equal total weight to sources and their states irrespective of pair multiplicity", () => {
     const rows = [{ pairId: "1", groupId: "a", sampleId: "x" }, { pairId: "2", groupId: "a", sampleId: "x" },
       { pairId: "3", groupId: "a", sampleId: "y" }, { pairId: "4", groupId: "b", sampleId: "z" }];

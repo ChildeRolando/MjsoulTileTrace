@@ -24,6 +24,11 @@ export type PairSource = { sameShanten?: boolean; phase: "initial" | "developmen
 type Sources = Record<string, PairSource>;
 type Split = { testGroups: string[]; developmentGroups: string[]; initialGroups: string[] };
 type SourceCatalog = { directory: string; manifestHash: string; samplesHash: string; samples: LabSample[] };
+export function pairAcquisition(attempt: number, boundary: number, exploration: number, target: number, hasModel: boolean) {
+  if (!hasModel || boundary >= target / 2) return "exploration";
+  if (exploration >= target / 2) return "boundary";
+  return attempt % 2 === 0 ? "boundary" : "exploration";
+}
 export class PairStudy {
   readonly samples: LabSample[] = [];
   readonly sources: Sources = {};
@@ -246,10 +251,10 @@ export class PairStudy {
                 if (round > 0) {
                   const near = c.rows.filter(x => this.sources[x.sampleId]!.acquisition === "boundary").length;
                   const exploration = c.rows.length - near, model = acquisition?.models.full?.model;
-                  if (model && near < target / 2 && (near <= exploration || exploration >= target / 2)) {
+                  source.acquisition = pairAcquisition(n, near, exploration, target, !!model);
+                  if (model && source.acquisition === "boundary") {
                     accept = info.pairs.some(p => Math.abs(predictPair(model, p.features)) <= this.config.learning.boundaryGap);
-                    source.acquisition = "boundary";
-                  } else source.acquisition = "exploration";
+                  }
                 }
                 if (!accept) status = "outside_predicted_boundary";
                 else status = await this.store(s, request, evaluated.result, source) ? "accepted" : "duplicate";

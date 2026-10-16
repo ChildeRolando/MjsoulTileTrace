@@ -2,7 +2,7 @@ import { digest } from "./config.js";
 import { readFile, writeFile } from "node:fs/promises";
 import { QuestionLabConfigSchema, type PairScanCoordinate } from "@riichi-coach/contracts";
 import { renderReport, tileImage } from "./report.js";
-import { pairObservations, pairTargets, predictPair } from "./pair-features.js";
+import { pairObservations, pairTargets, predictPair, pairWeights } from "./pair-features.js";
 import type { PairStudy } from "./pair-study.js";
 import { formatMjaiTile } from "@riichi-coach/mortal-source";
 import type { PairFitResult, LabSample } from "@riichi-coach/contracts";
@@ -102,11 +102,16 @@ export async function renderPairReport(study: PairStudy) {
   const calibration = calibrationRows.map(r => `<circle cx="${210 + r.predicted * 150 / calibrationScale}" cy="${180 - r.actual * 150 / calibrationScale}" r="5"><title>${r.count} 对；预测 ${r.predicted.toFixed(3)}；实际 ${r.actual.toFixed(3)}</title></circle>`).join("");
   const explanation = latest?.result.models.full?.explanation;
   const weights = explanation?.standardizedWeights?.map((weight, i) => ({ weight, feature: latest!.result.models.full!.model!.features[i]! })).sort((a, b) => Math.abs(b.weight) - Math.abs(a.weight)).slice(0, 16);
-  const slices = [false, true].map(across => {
-    const subset = rows.filter(r => (r.features.deltaS! > 0) === across);
+  const predictions = new Map((latest?.result.evaluated ? latest.result.models.full?.predictions : latest?.result.models.full?.oof)?.map(p => [p.pairId, p.predicted]) ?? []);
+  const slices = [...new Set(rows.map(r => r.features.deltaS!))].sort((a, b) => a - b).map(difference => {
+    const subset = rows.filter(r => r.features.deltaS === difference);
     const groups = new Set(subset.map(r => r.groupId));
     const positive = new Set(subset.filter(r => r.y > study.config.learning.sensitiveGap).map(r => r.groupId)), negative = new Set(subset.filter(r => r.y < -study.config.learning.sensitiveGap).map(r => r.groupId));
-    return `<p>${across ? "跨向听" : "同向听"}：${subset.length} 对、${groups.size} 个来源组；效率正分差 ${positive.size} 组、保宝正分差 ${negative.size} 组。${Math.min(positive.size, negative.size) < 10 ? "双侧证据不足，不能宣称稳定边界。" : "是否稳定仍须结合独立测试和反例。"}</p>`;
+    const measured = subset.filter(r => predictions.has(r.pairId)), weights = pairWeights(measured);
+    const weighted = (squared: boolean) => measured.reduce((sum, r, i) => sum + weights[i]!.weight *
+      (squared ? (predictions.get(r.pairId)! - r.y) ** 2 : Math.abs(predictions.get(r.pairId)! - r.y)), 0) / Math.max(1, measured.length);
+    const error = measured.length ? `${latest?.result.evaluated ? "独立测试" : "训练分组外预测"} ${measured.length} 对，MAE ${weighted(false).toFixed(4)}、RMSE ${Math.sqrt(weighted(true)).toFixed(4)} Q。` : "尚无可评估预测。";
+    return `<p>向听差 ${difference}（${difference === 0 ? "同向听" : "跨向听"}）：${subset.length} 对、${groups.size} 个来源组；效率正分差 ${positive.size} 组、保宝正分差 ${negative.size} 组。${error}${Math.min(positive.size, negative.size) < 10 ? "双侧证据不足，不能宣称稳定边界。" : "是否稳定仍须结合独立测试和反例。"}</p>`;
   }).join("");
   const scanSections = (anchors?.ids ?? []).map(id => {
     const base = study.samples.find(s => s.sampleId === id)!;
@@ -152,7 +157,7 @@ export async function renderPairReport(study: PairStudy) {
     if (errors.length) threatErrors.set(s.groupId, [...(threatErrors.get(s.groupId) ?? []), errors.reduce((a, b) => a + b, 0) / errors.length]);
   }
   const extensionMae = threatErrors.size ? [...threatErrors.values()].map(v => v.reduce((a, b) => a + b, 0) / v.length).reduce((a, b) => a + b, 0) / threatErrors.size : null;
-  const studySection = `<section id="pair-study"><h2>严格竞争配对 · SVR</h2><p>E：最小向听 → 最大可见有效牌；D：最多保宝 → 最小向听 → 最大可见有效牌。推荐集合有交集时不进入主实验。y=Q(E弃牌)−Q(D弃牌)。</p><pre>${esc(JSON.stringify(summary, null, 2))}</pre><p>缺失估值以标记表达；双方估值为零只说明 helper 没有区分能力。跨向听时有效牌差不是可直接比较的效率优势。敏感区 ±${study.config.learning.sensitiveGap} Q；最终侧翻转要求侧外优势 >${study.config.learning.robustGap} Q，均非概率或因果证明。</p>${slices}<h3>固定分组消融</h3><p class="candidate-hint muted">窄屏可横向滚动比较全部特征版本。</p><div class="candidate-table" tabindex="0" role="region" aria-label="配对模型比较表" style="overflow-x:auto"><table style="min-width:680px"><thead><tr><th>特征</th><th>状态</th><th>核</th><th>训练 MAE</th><th>独立 MAE</th><th>独立 RMSE</th><th>独立胜负一致率</th></tr></thead><tbody>${metrics}</tbody></table></div><p>同源组总权重一致；三种版本共用划分、训练配对与预算。混淆矩阵为原始计数，误差与胜负一致率按来源组加权。最终独立集只在研究冻结后评估。</p>${calibration ? `<svg viewBox="0 0 420 360" aria-label="Q 分差校准"><path d="M45 180h330M210 15v330M60 330L360 30" stroke="#aaa" fill="none"/><g fill="#276d63">${calibration}</g><text x="10" y="355">横轴预测分差，纵轴实际分差，范围 ±${calibrationScale.toFixed(2)} Q；悬停查看分箱</text></svg>` : ""}<pre>${esc(JSON.stringify(latest?.result.models.full?.test ?? { status: "未评估或证据不足" }, null, 2))}</pre><h3>解释与忠实度</h3><p>浅层树拟合训练组模型输出；忠实度用预测差的 MAE 表达。解释贴近 SVR 不代表 SVR 对 Mortal 的拟合良好。</p><pre>${esc(JSON.stringify({ trainingFidelityMae: explanation?.trainingFidelityMae, testFidelityMae: explanation?.testFidelityMae, weights, constantFeatures: explanation?.constantFeatures }, null, 2))}</pre><pre>${esc(explanation?.tree)}</pre><h3>威胁扩展</h3><p>${threats.length} 个合法变体，${threatErrors.size} 个有配对来源组；冻结主模型的来源组加权外推 MAE ${extensionMae?.toFixed(4) ?? "证据不足"}。该扩展不参与主模型调参。</p></section><section><h2>从真实反例出发的合法扫描</h2><p>固定配对翻转与 Mortal 最终选择侧翻转分别统计；时间推进包含新增历史，不能声称其他条件完全相同。只观察到一个胜负方向、没有翻转或预算不足均保留为真实结果。</p>${scanSections || "没有满足条件的训练锚点，证据不足。"}</section>`;
+  const studySection = `<section id="pair-study"><h2>严格竞争配对 · SVR</h2><p>E：最小向听 → 最大可见有效牌；D：最多保宝 → 最小向听 → 最大可见有效牌。推荐集合有交集时不进入主实验。y=Q(E弃牌)−Q(D弃牌)。</p><pre>${esc(JSON.stringify(summary, null, 2))}</pre><p>缺失估值以标记表达；双方估值为零只说明 helper 没有区分能力。跨向听时有效牌差不是可直接比较的效率优势。敏感区 ±${study.config.learning.sensitiveGap} Q；最终侧翻转要求侧外优势 >${study.config.learning.robustGap} Q，均非概率或因果证明。</p>${slices}<h3>固定分组消融</h3><p class="candidate-hint muted">窄屏可横向滚动比较全部特征版本。</p><div class="candidate-table" tabindex="0" role="region" aria-label="配对模型比较表" style="overflow-x:auto"><table style="min-width:680px"><thead><tr><th>特征</th><th>状态</th><th>核</th><th>训练 MAE</th><th>独立 MAE</th><th>独立 RMSE</th><th>独立胜负一致率</th></tr></thead><tbody>${metrics}</tbody></table></div><p>同源组总权重一致；三种版本共用划分、训练配对与预算。混淆矩阵为原始计数，行表示真实类别，列表示预测类别，顺序均为保宝／敏感区／效率；误差与胜负一致率按来源组加权。最终独立集只在研究冻结后评估。</p>${calibration ? `<svg viewBox="0 0 420 360" aria-label="Q 分差校准"><path d="M45 180h330M210 15v330M60 330L360 30" stroke="#aaa" fill="none"/><g fill="#276d63">${calibration}</g><text x="10" y="355">横轴预测分差，纵轴实际分差，范围 ±${calibrationScale.toFixed(2)} Q；悬停查看分箱</text></svg>` : ""}<pre>${esc(JSON.stringify(latest?.result.models.full?.test ?? { status: "未评估或证据不足" }, null, 2))}</pre><h3>解释与忠实度</h3><p>浅层树拟合训练组模型输出；忠实度用预测差的 MAE 表达。解释贴近 SVR 不代表 SVR 对 Mortal 的拟合良好。</p><pre>${esc(JSON.stringify({ trainingFidelityMae: explanation?.trainingFidelityMae, testFidelityMae: explanation?.testFidelityMae, weights, constantFeatures: explanation?.constantFeatures }, null, 2))}</pre><pre>${esc(explanation?.tree)}</pre><h3>威胁扩展</h3><p>${threats.length} 个合法变体，${threatErrors.size} 个有配对来源组；冻结主模型的来源组加权外推 MAE ${extensionMae?.toFixed(4) ?? "证据不足"}。该扩展不参与主模型调参。</p></section><section><h2>从真实反例出发的合法扫描</h2><p>固定配对翻转与 Mortal 最终选择侧翻转分别统计；时间推进包含新增历史，不能声称其他条件完全相同。只观察到一个胜负方向、没有翻转或预算不足均保留为真实结果。</p>${scanSections || "没有满足条件的训练锚点，证据不足。"}</section>`;
   html = html.replace("</header>", `</header>${studySection}`);
   for (const s of study.samples) {
     if (!latest?.result.evaluated && s.split === "test") continue;
