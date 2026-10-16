@@ -1,4 +1,4 @@
-import { tabs, compactContent, paginate, roomyLayout } from '/compact-view.mjs';
+import { tabs, compactContent, paginate } from '/compact-view.mjs';
 import { api as request, jobView, labels } from '/client.mjs';
 import { esc, actionText, tileImages, observationView, mortalTable, traceEvent, structured } from '/case-view.mjs';
 import { experimentLabels, sortedTiles } from '/presentation.mjs';
@@ -87,14 +87,14 @@ async function showSnapshot(snapshot) {
     const submission = result.attempt.submission, mortal = run.mortalDetails?.cases.find(c => c.caseOrdinal === snapshot.caseOrdinal);
     target.innerHTML = `<div class="snapshot-meta"><span class="match-badge ${snapshot.scoreStatus === 'matched' ? 'is-match' : 'is-mismatch'}">${esc(verdict(snapshot))}</span><span>${esc(date(snapshot.at))}</span><span>${esc(m.coach.model)} · ${esc(m.coach.reasoningEffort ?? m.coach.providerId)}</span><span>RAG ${esc(m.rag.mode)}</span>${m.controlledFault !== 'none' ? '<span class="tag">受控故障</span>' : ''}</div>
       <div class="snapshot-provenance"><span>实验 ${esc(snapshot.runId.slice(0, 8))} / 案例 ${snapshot.caseOrdinal + 1}</span><span>代码 ${esc(m.codeSha.slice(0, 8))} · ${esc(m.coach.promptVersion)}</span><a href="/results?run=${encodeURIComponent(snapshot.runId)}&case=${snapshot.caseOrdinal}">查看原实验 ↗</a></div>
-      <div class="snapshot-workspace"><section class="snapshot-verdict"><div class="choice-comparison"><article><span>当时模型所选</span><strong>${esc(submission ? actionText(submission.actionRef) : '无有效提交')}</strong><p>${esc(submission?.rationale ?? '本次执行没有有效提交；失败记录保留在下方过程。')}</p></article><article><span>Mortal 一选</span><strong>${mortal ? esc(actionText(mortal.preferredActionRef)) : '原归档未保存 Top 10'}</strong><p>${mortal ? '按当次固定 Mortal 版本评分；不代表专家唯一正确答案。' : '不按当前模型推测历史答案；可到原实验补算展示评分。'}</p></article></div>
+      <div class="snapshot-workspace"><section class="snapshot-overview"><div class="snapshot-verdict"><div class="choice-comparison"><article><span>当时模型所选</span><strong>${esc(submission ? actionText(submission.actionRef) : '无有效提交')}</strong>${submission?.rationale ? `<details class="decision-rationale"><summary>查看模型决策理由</summary><p>${esc(submission.rationale)}</p></details>` : '<p class="field-hint">本次执行没有决策理由；可查看当次过程。</p>'}</article><article><span>Mortal 一选推荐</span><strong>${mortal ? esc(actionText(mortal.preferredActionRef)) : '原归档未保存 Top 10'}</strong><p class="field-hint">${mortal ? '当次固定版本评分 · 非专家唯一正确答案' : '可到原实验补算展示评分。'}</p></article></div>
       ${result.toolFailureCount ? `<p class="snapshot-warning">当次有 ${result.toolFailureCount} 次工具失败，最终提交有效。展开下方过程可查看错误与后续处理。</p>` : ''}
-      </section><section class="snapshot-board">${observation ? observationView(observation) : '<p class="field-hint">这份旧归档未保存当时的牌面，无法还原；下方仅展示原有提交与过程。</p>'}</section>
+      </div><div class="snapshot-board">${observation ? observationView(observation) : '<p class="field-hint">这份旧归档未保存当时的牌面，无法还原；下方仅展示原有提交与过程。</p>'}</div></section>
       <section class="snapshot-scores">${mortalTable(run, snapshot.caseOrdinal, result)}</section>
       <section class="snapshot-process"><p class="field-hint">当次公开摘要与工具过程 · ${result.providerTurnCount} 轮模型 / ${result.toolCallCount} 次工具</p><ol class="trace-list">${result.events.filter(e => e.type !== 'run_started').map((e, i, events) => traceEvent(e, i, snapshot.caseOrdinal, events)).join('')}</ol></section>
       <section class="snapshot-raw">${structured('error-snapshot', '查看完整案例快照 JSON', { runId: snapshot.runId, caseOrdinal: snapshot.caseOrdinal, manifest: m, result, mortalDetails: mortal ?? null })}</section></div>`;
     const workspace=target.querySelector(".snapshot-workspace");
-    tabs(workspace, [["snapshot-verdict","决策对照"],["snapshot-board","案例牌面"],["snapshot-scores","Mortal Top 10"],["snapshot-process","模型与工具过程"],["snapshot-raw","完整快照"]].map(([name,title])=>({title,node:workspace.querySelector("."+name)})), "snapshot-sections", roomyLayout() ? 1 : 0);
+    tabs(workspace, [["snapshot-overview","决策与完整场面"],["snapshot-scores","Mortal Top 10"],["snapshot-process","模型与工具过程"],["snapshot-raw","完整快照"]].map(([name,title])=>({title,node:workspace.querySelector("."+name)})), "snapshot-sections");
     compactContent(target, attemptId(snapshot));
     target.setAttribute('aria-busy', 'false');
   } catch (error) {

@@ -95,17 +95,14 @@ export function compactContent(root, key) {
   for (const [index, ranking] of [...root.querySelectorAll('.mortal-ranking')].entries()) {
     paginate(ranking, [...ranking.querySelectorAll('tbody tr')], () => roomyLayout() ? 10 : 5, `${key}-mortal-${index}`, '个评分');
   }
-  for (const [index, observation] of [...root.querySelectorAll('.observation-summary')].entries()) {
+  for (const observation of root.querySelectorAll('.observation-summary')) {
     const table = observation.querySelector('.public-table'); if (!table) continue;
     const hand = document.createElement('div');
     for (const node of [...observation.childNodes]) if (node !== table) hand.append(node);
     hand.className = 'observation-hand';
-    const context = document.createElement('details'), summary = document.createElement('summary');
-    context.className = 'board-context'; summary.textContent = '四家牌河与副露'; context.append(summary, table);
+    const context = document.createElement('div');
+    context.className = 'board-context'; context.append(table);
     observation.append(hand, context);
-    let wide = roomyLayout(); context.open = wide;
-    responsive(observation, `${key}-board-${index}`, () => { if (wide !== roomyLayout()) { wide = roomyLayout(); context.open = wide; } });
-    paginate(table, [...table.querySelectorAll('.table-player')], () => roomyLayout() ? 4 : 2, `${key}-players-${index}`, '位玩家');
   }
   for (const usage of root.querySelectorAll('.usage-scope')) {
     const detail = document.createElement('details'), summary = document.createElement('summary');
