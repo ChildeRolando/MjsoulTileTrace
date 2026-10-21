@@ -103,7 +103,11 @@ function renderRuns() {
   }).join('')}</tbody></table>`;
 }
 async function refresh() {
-  try { state = await api('/api/state'); render(); $('#sync-status').textContent = `已同步 ${new Date().toLocaleTimeString('zh-CN', { hour12: false })}`;
+  try { const firstLoad = !state; state = await api('/api/state');
+    if (firstLoad && state.job?.experimentType === 'generated') {
+      $('#experiment-type').value = 'generated'; $('#results-type').value = 'generated'; requestedBank = state.job.bankId;
+    }
+    render(); $('#sync-status').textContent = `已同步 ${new Date().toLocaleTimeString('zh-CN', { hour12: false })}`;
     if ($('#result-dialog').open && $('#trace-auto')?.checked) await refreshDetail();
   }
   catch { $('#sync-status').textContent = '本机服务未连接'; message('无法连接控制台服务，正在重试。已有归档不受影响。', true); }
@@ -149,7 +153,7 @@ function renderCatalogCase() {
 $('#catalog-case').addEventListener('change', renderCatalogCase);
 $('#browse-bank').addEventListener('click', async () => {
   try { catalogData = await api(`/api/catalog?type=${$('#experiment-type').value}&bank=${encodeURIComponent($('#generated-bank').value)}`);
-    $('#catalog-title').textContent = `${experimentLabels[$('#experiment-type').value]}题库`;
+    $('#catalog-title').textContent = $('#experiment-type').value === 'generated' ? (generatedBank()?.name ?? '生成题库') : `${experimentLabels[$('#experiment-type').value]}题库`;
     $('#catalog-note').textContent = catalogData.generated ? `${catalogData.cases.length} 道合法合成题 · 种子 ${catalogData.generated.seed} · 开发资料。预览不含 Mortal 答案。` : `${catalogData.cases.length} 道真实决策 · ${catalogData.developmentGames} 个开发牌局。只预览当时可见的信息，不包含 Mortal 答案。`;
     $('#catalog-case').innerHTML = catalogData.cases.map((row, index) => `<option value="${index}">第 ${index + 1} 题 · ${esc(({ E: '东', S: '南', W: '西' })[row.observation.visibleState.roundWind])}${row.observation.visibleState.hand}局 · ${row.observation.candidates.length} 个候选</option>`).join('');
     renderCatalogCase(); $('#catalog-dialog').showModal();
