@@ -442,6 +442,10 @@ Model/report evidence provider（模型/报告证据来源）
   `construction.test.ts` 保护前缀快照不可变及输入修改后失效；`pair-native.test.ts` 拒绝内容自洽
   但生产者身份不符的事实／标签（含缓存命中）。`pair-report-budget.test.ts` 保护报告截止、
   部分报告标记与科学记录保留，不能用缩短验证替代时限控制。
+- **Arena 消费**：生成题库保留 Question Lab 私有归档；浏览器目录只含既有盲测 DTO 和批次统计。
+  目录、样本与源清单分别做内容绑定；评测重新查询原生规则，候选变化失败关闭，不删除非弃牌行动。
+  以 `scripts/arena-question-bank.test.mjs` 的真实 native/Mortal、恢复、身份与可见性回归，
+  `scripts/arena-console.test.mjs` 的单任务/停止/恢复/凭据隔离保护。生产 desktop 不导入 Question Lab。
 - **Status**：machine-enforced；真实 native 与 Python 回归需要对应本地受管资源。
 
 ## 维护规则

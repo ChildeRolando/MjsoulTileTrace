@@ -1,3 +1,4 @@
+import { GENERATED_DATASET, GenerationOptions, listGeneratedBanks, readGeneratedCatalog } from "./arena-question-bank.mjs";
 import { createServer } from 'node:http';
 import { spawn } from 'node:child_process';
 import { readFile, writeFile, readdir, mkdir } from 'node:fs/promises';
@@ -45,7 +46,8 @@ export async function createArenaConsole({ coachRoot = fileURLToPath(new URL('..
   try { config = settings(JSON.parse(await readFile(configPath, 'utf8'))); } catch { /* first launch uses documented defaults */ }
   const publicConfig = () => ({ ...config, keyConfigured: apiKey.length > 0 });
   const publicJob = () => job === null ? null : structuredClone(job);
-  const catalog = async (type = 'legacy') => {
+  const catalog = async (type = 'legacy', bankId) => {
+    if (type === 'generated') { try { return await readGeneratedCatalog(archiveRoot, bankId); } catch { return null; } }
     try {
       const bank = ArenaCaseCatalogSchema.parse(JSON.parse(await readFile(join(archiveRoot, type === 'legacy' ? 'case-catalog.json' : `case-catalog-${type}.json`), 'utf8')));
       return bank.datasetId === (type === 'legacy' ? 'blind-discard-dev-v1' : ARENA_EXPERIMENTS[type]?.datasetId) ? bank : null;
@@ -71,17 +73,19 @@ export async function createArenaConsole({ coachRoot = fileURLToPath(new URL('..
     else { try { process.kill(-child.pid, 'SIGTERM'); } catch { child.kill(); } }
   };
   const runStep = (mode, snapshot, key) => new Promise(resolveStep => {
-    const args = [cliPath, 'run', '--dataset', ARENA_EXPERIMENTS[snapshot.experimentType].datasetId, '--max-cases', String(snapshot.maxCases), '--case-offset', String(snapshot.caseOffset), '--rag', mode === 'fault' ? 'local' : mode,
+    const args = [cliPath, 'run', '--dataset', snapshot.experimentType === 'generated' ? GENERATED_DATASET : ARENA_EXPERIMENTS[snapshot.experimentType].datasetId, '--max-cases', String(snapshot.maxCases), '--case-offset', String(snapshot.caseOffset), '--rag', mode === 'fault' ? 'local' : mode,
       '--provider', snapshot.provider, '--model', snapshot.model, '--reasoning-effort', snapshot.reasoningEffort,
       '--token-warning-threshold', String(snapshot.tokenWarningThreshold), '--max-provider-turns', String(snapshot.maxProviderTurns),
       '--max-tool-calls', String(snapshot.maxToolCalls), '--max-provider-output-tokens', String(snapshot.maxProviderOutputTokens), '--max-run-ms', String(snapshot.maxRunMs)];
+    if (snapshot.bankId) args.push('--bank', snapshot.bankId);
     if (snapshot.provider === 'openai-compatible') args.push('--base-url', snapshot.baseUrl);
     if (mode === 'fault') args.push('--fault', 'first-helper-timeout');
     if (mode === 'mortal-details') args.splice(0, args.length, cliPath, 'mortal-details', snapshot.runId);
     if (mode === 'catalog') args.splice(0, args.length, cliPath, 'catalog');
+    if (mode === 'generate') args.splice(0, args.length, cliPath, 'generate', snapshot.bankId, JSON.stringify(snapshot.generation));
     const step = { mode, status: 'running', startedAt: new Date().toISOString() }; job.steps.push(step);
     let stdout = '', stderr = '', exceeded = false;
-    const owned = spawn(process.execPath, args, { cwd: coachRoot, env: { ...process.env, RIICHI_COACH_API_KEY: key },
+    const owned = spawn(process.execPath, args, { cwd: coachRoot, env: { ...process.env, RIICHI_COACH_API_KEY: key, RIICHI_ARENA_ARCHIVE_ROOT: archiveRoot },
       windowsHide: true, detached: process.platform !== 'win32', stdio: ['ignore', 'pipe', 'pipe'] });
     child = owned;
     owned.stdout.on('data', data => { if (stdout.length + data.length > 1024 * 1024) { exceeded = true; terminate(); } else stdout += data; });
@@ -90,7 +94,7 @@ export async function createArenaConsole({ coachRoot = fileURLToPath(new URL('..
       if (step.status !== 'running') return;
       step.endedAt = new Date().toISOString(); step.exitCode = code;
       step.status = stopping ? 'stopped' : code === 0 && !exceeded ? 'completed' : 'failed';
-      if (step.status === 'completed') { try { step.runId = JSON.parse(stdout).runId; } catch { step.status = 'failed'; } }
+      if (step.status === 'completed') { try { const output = JSON.parse(stdout); step.runId = output.runId; if (mode === 'generate') step.generation = output; } catch { step.status = 'failed'; } }
       if (step.status === 'failed') step.error = stderr.split(/\r?\n/).find(line => /^[a-z][a-z0-9_]+$/.test(line)) ?? 'arena_run_failed';
       child = null; void persistJob(); resolveStep(step.status);
     };
@@ -98,19 +102,28 @@ export async function createArenaConsole({ coachRoot = fileURLToPath(new URL('..
   });
   const start = async (mode, selection = {}) => {
     if (job?.status === 'running' || job?.status === 'stopping') throw fail('已有实验正在运行，请先停止或等待完成。', 409);
-    if (!['compare', 'off', 'local', 'fault', 'catalog', 'mortal-details'].includes(mode)) throw fail('请选择实验模式。');
-    const maintenance = ['catalog', 'mortal-details'].includes(mode);
+    if (!['compare', 'off', 'local', 'fault', 'catalog', 'mortal-details', 'generate'].includes(mode)) throw fail('请选择实验模式。');
+    const maintenance = ['catalog', 'mortal-details', 'generate'].includes(mode);
     if (mode === 'mortal-details' && (!UUID.test(selection.runId ?? '') || !(await runs()).some(r => r.id === selection.runId))) throw fail('找不到该实验。', 404);
-    const experimentType = selection.experimentType ?? 'flat';
-    if (typeof experimentType !== 'string' || !Object.hasOwn(ARENA_EXPERIMENTS, experimentType)) throw fail('请选择平面何切或立体何切。');
+    const experimentType = mode === 'generate' ? 'generated' : selection.experimentType ?? 'flat';
+    if (typeof experimentType !== 'string' || experimentType !== 'generated' && !Object.hasOwn(ARENA_EXPERIMENTS, experimentType)) throw fail('请选择平面何切或立体何切。');
     if (!maintenance && config.provider === 'openai-compatible' && (!config.baseUrl || !apiKey)) throw fail('请先保存 API 地址和密钥。');
     const maxCases = selection.maxCases ?? 10, caseOffset = selection.caseOffset ?? 0;
     if (!Number.isSafeInteger(maxCases) || maxCases < 1 || maxCases > 128 || !Number.isSafeInteger(caseOffset) || caseOffset < 0 || caseOffset > 127) throw fail('请检查题量和起始题号。');
-    const bank = await catalog(experimentType);
+    let bankId = selection.bankId, generation;
+    if (mode === 'generate') {
+      if (bankId) {
+        const previous = (await listGeneratedBanks(archiveRoot)).find(b => b.bankId === bankId);
+        if (!previous || previous.ready) throw fail('只能继续尚未发布的生成批次。');
+        generation = previous.options;
+      } else { bankId = randomUUID(); try { generation = GenerationOptions.parse(selection.generation ?? {}); } catch { throw fail('请检查生成类型、题量、种子和时限。'); } }
+    } else if (!maintenance && experimentType === 'generated' && !UUID.test(bankId ?? '')) throw fail('请选择一个已生成题库。');
+    const bank = await catalog(experimentType, bankId);
+    if (!maintenance && experimentType === 'generated' && !bank) throw fail('该生成题库尚未就绪。');
     if (!maintenance && bank && (caseOffset >= bank.cases.length || caseOffset + maxCases > bank.cases.length)) throw fail('所选范围超出题库，请减少题量或调整起始题号。');
     if (job?.status === 'running' || job?.status === 'stopping') throw fail('已有实验正在运行，请先停止或等待完成。', 409);
-    const snapshot = { ...config, maxCases, caseOffset, experimentType, runId: selection.runId }, key = maintenance ? '' : apiKey;
-    job = { id: randomUUID(), mode, experimentType, status: 'running', startedAt: new Date().toISOString(), steps: [], model: snapshot.model, provider: snapshot.provider, maxCases, caseOffset };
+    const snapshot = { ...config, maxCases, caseOffset, experimentType, runId: selection.runId, bankId, generation }, key = maintenance ? '' : apiKey;
+    job = { id: randomUUID(), mode, experimentType, bankId, generation, status: 'running', startedAt: new Date().toISOString(), steps: [], model: snapshot.model, provider: snapshot.provider, maxCases, caseOffset };
     stopping = false;
     const execute = async () => {
       try {
@@ -149,14 +162,14 @@ export async function createArenaConsole({ coachRoot = fileURLToPath(new URL('..
             developmentGames: typedBank?.developmentGames ?? 0, acceptanceGames: typedBank?.acceptanceGames ?? 0, createdAt: typedBank?.createdAt ?? null };
         }
         return json(response, 200, { config: publicConfig(), job: publicJob(), runs: results,
-          catalogs,
+          catalogs, generatedBanks: await listGeneratedBanks(archiveRoot),
           catalog: bank ? { availableCaseCount: bank.cases.length, developmentGames: bank.developmentGames, acceptanceGames: bank.acceptanceGames, createdAt: bank.createdAt } : null,
           budget: arenaTokenBudget(results.map(run => run.summary), config.tokenWarningThreshold) });
       }
       if (request.method === 'GET' && url.pathname === '/api/catalog') {
         const type = url.searchParams.get('type') ?? 'legacy';
-        if (type !== 'legacy' && !Object.hasOwn(ARENA_EXPERIMENTS, type)) throw fail('题库类型无效。');
-        const bank = await catalog(type); if (!bank) throw fail('该类型题库尚未建立，请先刷新题库。', 404); return json(response, 200, bank);
+        if (type !== 'legacy' && type !== 'generated' && !Object.hasOwn(ARENA_EXPERIMENTS, type)) throw fail('题库类型无效。');
+        const bank = await catalog(type, url.searchParams.get('bank')); if (!bank) throw fail('该类型题库尚未建立，请先刷新题库。', 404); return json(response, 200, bank);
       }
       if (request.method === 'GET' && url.pathname.startsWith('/api/run/')) {
         const id = url.pathname.slice('/api/run/'.length); if (!UUID.test(id)) throw fail('找不到该实验。', 404);

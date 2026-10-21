@@ -35,3 +35,15 @@
 
 /* Shared console typography and surfaces for inspectable runtime configuration. */
 .inspector-tabs{display:flex;flex-wrap:wrap;gap:12px;margin:22px 0}.inspector-tabs a{padding:10px 14px;border:1px solid #d4ded8;border-radius:8px;color:#245842;background:#fff;text-decoration:none}.inspector-section{padding:26px;margin-bottom:20px;scroll-margin-top:24px}.inspector-section pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f3f6f4;border:1px solid #dce5df;border-radius:8px;padding:18px;font-size:13px;line-height:1.7;color:#263b30}.inspector-section details{margin:14px 0}.inspector-section summary{cursor:pointer;padding:12px 0;font-weight:600}.inspector-section p{line-height:1.75;overflow-wrap:anywhere}.inspector-section h3{margin:20px 0 10px}.info-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}.info-grid dt{font-size:13px;color:#64736a}.info-grid dd{margin:8px 0;font-size:18px;font-weight:600;overflow-wrap:anywhere}.dimension-list{display:flex;flex-wrap:wrap;gap:8px}.mortal-ranking{margin:18px 0 26px}.mortal-ranking table{width:100%;border-collapse:collapse;font-size:14px}.mortal-ranking th,.mortal-ranking td{padding:9px 10px;text-align:left;border-bottom:1px solid #e1e8e3}.mortal-ranking th{font-size:12px;color:#52665a}.mortal-ranking .q-value{font-variant-numeric:tabular-nums}.mortal-ranking .model-choice{background:#edf5ee}.mortal-ranking h3{display:flex;align-items:center;gap:12px}.mortal-ranking td:last-child{min-width:110px}.inspector-page .quiet-button{text-decoration:none}@media(max-width:700px){.info-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.inspector-section{padding:18px}.mortal-ranking th,.mortal-ranking td{padding:8px 4px}}
+
+/* Generator extends the existing local experiment controls. */
+.generation-panel{margin-bottom:24px;padding:24px}
+.generation-fields{display:grid;grid-template-columns:minmax(210px,2fr) repeat(3,minmax(110px,1fr)) auto;gap:16px;align-items:end}
+.generation-fields label{min-width:0;margin:0}
+.generation-panel>.field-hint{margin-bottom:0}
+.generation-fields .primary-button{min-height:44px;white-space:nowrap}
+#generated-bank-field{margin-top:16px}
+#generated-bank{width:100%}
+#resume-generation{margin-top:12px}
+@media(max-width:1100px){.generation-fields{grid-template-columns:repeat(2,minmax(0,1fr))}.generation-fields>label:first-child{grid-column:1/-1}}
+@media(max-width:600px){.generation-fields{grid-template-columns:1fr}.generation-fields>label:first-child{grid-column:auto}}

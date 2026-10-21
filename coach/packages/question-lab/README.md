@@ -188,3 +188,29 @@ npm run test:question-lab -- --maxWorkers=1 --no-file-parallelism
 真实 native 测试包含吃碰三类杠、立直、指定副露后的暗手、全候选真实 Mortal 评分、隐藏信息不变性，
 以及中断恢复不重复推理。Python 测试使用已知边界验证拟合、解释和留出标签隔离。
 本次真实批次、失败保留与限制见 [本地验收](../../docs/plans/2026-10-16-question-lab-verification.md)。
+
+## 在 Arena 中生成与评测
+
+从 Coach 工作目录运行 `npm run arena:console`，在“生成题库”设置类型、目标题量（1–128）、
+种子与搜索时限（10–1800 秒）。提供随机平面何切、单家立直加另一家役牌副露、
+牌效率与保留宝牌严格冲突三种预设。冲突准入复用 v2 有序主张及 E∩D=∅；不调用 SVR 或研究补样。
+高级自定义实验继续使用 Question Lab CLI；此入口不是所有研究配置的编辑器。
+
+生成使用两个隔离工作单元、最多 `min(40000, 目标题量 × 200)` 次尝试。
+仅接受完整合法集合全为普通弃牌且至少两个候选的局面。其余记录为筛选排除，不裁剪候选。
+预算耗尽会发布实际部分题量，显示缺额；生成不会调用 Coach 模型，也不会自动启动评测。
+
+在“启动实验 → 生成题库”选择已保存批次，浏览完整公开场面，再设置起始题号和本次题量。
+Off/Local 对照共享冻结题库；Mortal 在评测时对完整合法集合评分，答案不进入题目预览或 Coach 输入。
+生成资料按合成来源组登记，仅为开发资料，不视为独立牌局验收集。
+
+档案位于 `reports/blind-discard-arena/question-banks/<UUID>/`：`request.json` 保存启动配置，
+`lab/` 保存原生见证、可见前缀、事实及逐次尝试，`bank.json` 绑定来源，`catalog.json` 保存无答案预览。
+停止或进程中断后，在未完成批次上点击“继续未完成的生成”；只允许相同代码、配置及生产者身份恢复。
+发布后的题库不可追加。换代码或预算应新建批次，旧资料仍保留。
+依赖与 Question Lab 相同：准备当前原生构造模块、受管 Mortal 与已打包事实引擎；不需要 Python 学习环境。
+
+CLI 等价入口：`node bin/blind-discard-arena.mjs generate <UUID> '<JSON>'`，JSON 字段为
+`preset`（flat/spatial/conflict）、`count`、`seed`、`timeLimitSeconds`。随后运行
+`node bin/blind-discard-arena.mjs run --dataset blind-discard-generated-v1 --bank <UUID> --rag off`。
+源码必须已提交，保持 Arena 原有可追溯运行要求。`RIICHI_ARENA_ARCHIVE_ROOT` 可指定独立归档根。

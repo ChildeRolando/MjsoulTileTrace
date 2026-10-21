@@ -7,7 +7,7 @@ const rate = (n, d) => d ? `${(100 * n / d).toFixed(1)}%` : '—';
 const date = value => new Date(value).toLocaleString('zh-CN', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
 const labels = { running: '运行中', stopping: '正在停止', stopped: '已停止', completed: '执行完成', failed: '执行失败',
   timeout: '超时', provider_error: '模型调用失败', provider_unavailable: '模型不可用', cancelled: '已取消', budget_exhausted: '达到逐题预算',
-  tool_failure: '工具失败', invalid_submission: '提交无效', label_binding_failure: '标签绑定失败', off: 'RAG Off', local: 'Local RAG', fault: '受控故障', compare: 'RAG 对照', catalog: '刷新题库', 'mortal-details': '补算 Mortal 评分' };
+  tool_failure: '工具失败', invalid_submission: '提交无效', label_binding_failure: '标签绑定失败', off: 'RAG Off', local: 'Local RAG', fault: '受控故障', compare: 'RAG 对照', catalog: '刷新题库', generate: '生成题库', 'mortal-details': '补算 Mortal 评分' };
 let state, filter = 'all', pending = false, selectedResult, detailSignature = '', detailCase = 0, catalogData;
 
 async function api(path, data) {
@@ -26,19 +26,38 @@ function tokenText(summary) {
   return total === undefined ? '未知' : `${compact(total)}${usage.status === 'unknown' ? ' + 未知' : ''}`;
 }
 function running() { return ['running', 'stopping'].includes(state?.job?.status); }
-const selectedBank = () => state?.catalogs?.[$('#experiment-type').value];
+const generatedBank = () => state?.generatedBanks?.find(b => b.bankId === $('#generated-bank').value);
+const selectedBank = () => $('#experiment-type').value === 'generated' ? generatedBank() : state?.catalogs?.[$('#experiment-type').value];
+function renderBanks() {
+  const select = $('#generated-bank'), banks = state.generatedBanks ?? [], previous = select.value;
+  const signature = JSON.stringify(banks.map(b => [b.bankId, b.ready, b.availableCaseCount]));
+  if (select.dataset.signature !== signature) {
+    select.innerHTML = banks.length ? banks.map(b => `<option value="${esc(b.bankId)}">${esc(b.name)} · ${b.ready ? `${b.availableCaseCount}/${b.options.count} 题` : '未完成'} · 种子 ${b.options.seed} · ${b.createdAt ? date(b.createdAt) : b.bankId.slice(0, 8)}</option>`).join('') : '<option value="">尚无生成批次</option>';
+    if (banks.some(b => b.bankId === previous)) select.value = previous;
+    select.dataset.signature = signature;
+  }
+  if (requestedBank && banks.some(b => b.bankId === requestedBank)) { select.value = requestedBank; requestedBank = null; $('#batch-start').value = 1; $('#batch-size').value = Math.max(1, Math.min(10, generatedBank()?.availableCaseCount ?? 10)); }
+  $('#generated-bank-field').hidden = $('#experiment-type').value !== 'generated';
+  const bank = generatedBank(), info = bank?.generated;
+  $('#resume-generation').hidden = !bank || bank.ready;
+  $('#generation-summary').textContent = info ? `${info.status === 'complete' ? '目标已完成' : '预算已耗尽'} · ${bank.availableCaseCount}/${info.requested} 题 · ${info.attempts} 次尝试 · ${info.sourceGroups} 个来源组。${Object.entries(info.failures).filter(([key]) => key !== 'accepted').map(([key, count]) => `${generationReason(key)} ${count}`).join('；')}` : bank ? '批次尚未发布，可继续生成；已完成样本保留在本机归档。' : '生成后可在此选择题库。';
+}
+function generationReason(code) { return ({ outside_refinement_selection: '不满足题型或弃牌窗口', over_quota: '超出目标', duplicate: '重复局面', accepted: '纳入', construction_failed: '构造失败' })[code] ?? code; }
+
 function buttons() {
   $('#start').disabled = pending || !state || running() || !selectedBank()?.ready || !selectedBank()?.availableCaseCount; $('#stop').disabled = pending || state?.job?.status !== 'running';
+  for (const id of ['#generate-bank', '#resume-generation', '#generated-bank', '#generation-preset', '#generation-count', '#generation-seed', '#generation-time']) $(id).disabled = pending || !state || running();
   $('#experiment-type').disabled = pending || running();
   $('#refresh-bank').disabled = pending || !state || running(); $('#browse-bank').disabled = !selectedBank()?.ready || !selectedBank()?.availableCaseCount;
   $('#start span:last-child').textContent = pending ? '正在提交…' : running() ? '实验运行中' : '启动实验';
 }
 function render() {
+  renderBanks();
   const { runs, budget, config, job } = state;
   const bank = selectedBank(), resultType = $('#results-type').value;
-  $('#type-hint').textContent = bank?.description ?? '按场面分组，保留完整公开上下文。请刷新题库。';
+  $('#type-hint').textContent = bank?.name ?? bank?.description ?? '按场面分组，保留完整公开上下文。请刷新题库。';
   $('#bank-count').textContent = bank?.ready ? `${bank.availableCaseCount} 道${experimentLabels[$('#experiment-type').value]}` : '题库待建立';
-  $('#batch-hint').textContent = bank?.ready ? `${bank.availableCaseCount} 道真实案例 · ${bank.developmentGames} 个开发牌局 · 非独立验收集。Off / Local 使用该类型相同范围。` : '请先刷新题库；刷新只运行本机规则筛选，不调用模型。';
+  $('#batch-hint').textContent = $('#experiment-type').value === 'generated' ? '合成开发题库；不计为真实完整牌局或独立验收集。Off / Local 使用同一批题。' : bank?.ready ? `${bank.availableCaseCount} 道真实案例 · ${bank.developmentGames} 个开发牌局 · 非独立验收集。Off / Local 使用该类型相同范围。` : '请先刷新题库；刷新只运行本机规则筛选，不调用模型。';
   for (const id of ['#batch-size', '#batch-start']) $(id).max = Math.max(1, bank?.availableCaseCount ?? 128);
   $('#tokens').textContent = compact(budget.knownTotalTokens);
   $('#tokens').title = `${number(budget.knownTotalTokens)} 已报告 tokens`;
@@ -66,13 +85,13 @@ function render() {
   $('#job-badge').textContent = labels[job?.status] ?? '空闲';
   if (job) {
     $('#job-content').className = 'job-steps';
-    $('#job-content').innerHTML = `<h3>${job.mode === "catalog" ? "" : esc(experimentLabels[job.experimentType] ?? "旧版混合题库") + " · "}${esc(labels[job.mode])} <span class="micro">${job.mode === "catalog" ? "本机规则 · 无模型调用" : esc(job.model)}</span></h3><div class="job-time">${date(job.startedAt)} 开始${job.endedAt ? ` · ${date(job.endedAt)} 结束` : ''}</div>${job.steps.map((step, index) => `<div class="job-step"><span class="step-dot" aria-hidden="true">${step.status === 'completed' ? '✓' : index + 1}</span><span>${esc(labels[step.mode])}</span><span class="tag">${esc(labels[step.status])}</span></div>${step.error ? `<p class="job-desc">${esc(friendlyError(step.error))}</p>` : ''}`).join('')}<p class="job-desc">${job.status === 'running' ? (job.mode === 'catalog' ? '正在扫描真实牌谱与合法候选，不调用模型。' : '模型正在取证与决策，逐题结束后写入归档。') : job.status === 'stopping' ? '正在终止本次实验及子进程，请稍候。' : job.status === 'completed' ? (job.mode === 'catalog' ? '题库已更新，可浏览题目或设置本次范围。' : '本次执行结束。有效回答、失败原因和匹配情况见结果详情；执行结束不等于验收通过。') : '保留已有归档，可查看实际结果或调整配置后重新运行。'}</p>`;
+    $('#job-content').innerHTML = `<h3>${['catalog', 'generate'].includes(job.mode) ? "" : esc(experimentLabels[job.experimentType] ?? "旧版混合题库") + " · "}${esc(labels[job.mode])} <span class="micro">${['catalog', 'generate'].includes(job.mode) ? "本机规则 · 无模型调用" : esc(job.model)}</span></h3><div class="job-time">${date(job.startedAt)} 开始${job.endedAt ? ` · ${date(job.endedAt)} 结束` : ''}</div>${job.steps.map((step, index) => `<div class="job-step"><span class="step-dot" aria-hidden="true">${step.status === 'completed' ? '✓' : index + 1}</span><span>${esc(labels[step.mode])}</span><span class="tag">${esc(labels[step.status])}</span></div>${step.error ? `<p class="job-desc">${esc(friendlyError(step.error))}</p>` : ''}`).join('')}<p class="job-desc">${job.status === 'running' ? (job.mode === 'generate' ? '正在构造合法局面并筛选题型；可停止，随后继续同一批次。' : job.mode === 'catalog' ? '正在扫描真实牌谱与合法候选，不调用模型。' : '模型正在取证与决策，逐题结束后写入归档。') : job.status === 'stopping' ? '正在终止本次实验及子进程，请稍候。' : job.status === 'completed' ? (job.mode === 'generate' ? '生成已结束。请选择该批题库查看实际题量与缺额，再开始评测。' : job.mode === 'catalog' ? '题库已更新，可浏览题目或设置本次范围。' : '本次执行结束。有效回答、失败原因和匹配情况见结果详情；执行结束不等于验收通过。') : '保留已有归档，可查看实际结果或调整配置后重新运行。'}</p>`;
   }
   renderRuns(); buttons();
   if (budget.warning) message(`已达到 ${compact(budget.warningThreshold)} Token 报警线。当前已报告 ${number(budget.knownTotalTokens)}，实验不会自动停止。`);
 }
 function friendlyError(code) {
-  return ({ arena_requires_clean_git_worktree: '源码存在未提交改动。请先完成代码提交，再启动可追溯实验。', mcp_connection_failed: 'MCP 工具连接失败，本次未生成完整结果。', arena_pinned_native_receipt_missing_or_ambiguous: '本机规则引擎未就绪，需要检查安装记录。', arena_run_failed: '实验未完成，请检查模型配置及本机运行环境。' })[code] ?? `实验未完成（${code}）`;
+  return ({ arena_generation_resume_identity_mismatch: '当前代码或配置与原生成批次不同。请在原版本继续，或新建一个批次。', archive_identity_mismatch: '原生成批次的引擎版本已变化，请新建一个批次。', lab_native_unavailable_run_build_libriichi_rule_native: '本机题库构造引擎尚未准备好，请按 Question Lab 安装说明准备原生资源。', arena_generated_candidate_mismatch: '当前引擎的合法候选与已保存题库不同，本次评测已停止。', arena_requires_clean_git_worktree: '源码存在未提交改动。请先完成代码提交，再启动可追溯实验。', mcp_connection_failed: 'MCP 工具连接失败，本次未生成完整结果。', arena_pinned_native_receipt_missing_or_ambiguous: '本机规则引擎未就绪，需要检查安装记录。', arena_run_failed: '实验未完成，请检查模型配置及本机运行环境。' })[code] ?? `实验未完成（${code}）`;
 }
 function renderRuns() {
   const rows = state.runs.filter(row => experimentTypeForDataset(row.manifest.dataset.id) === $('#results-type').value)
@@ -115,7 +134,7 @@ $('#start').addEventListener('click', async () => {
   const maxCases = Number($('#batch-size').value), caseOffset = Number($('#batch-start').value) - 1;
   if (selectedBank() && maxCases + caseOffset > selectedBank().availableCaseCount) { message('所选范围超出题库，请减少题量或调整起始题号。', true); return; }
   pending = true; buttons(); message('正在启动实验…');
-  try { await api('/api/start', { mode: $('#experiment-mode').value, experimentType: $('#experiment-type').value, maxCases, caseOffset }); message(`${experimentLabels[$('#experiment-type').value]}已启动：题库第 ${caseOffset + 1}–${caseOffset + maxCases} 题。刷新页面不会重复启动。`); await refresh(); }
+  try { await api('/api/start', { mode: $('#experiment-mode').value, experimentType: $('#experiment-type').value, ...($('#experiment-type').value === 'generated' ? { bankId: $('#generated-bank').value } : {}), maxCases, caseOffset }); message(`${experimentLabels[$('#experiment-type').value]}已启动：题库第 ${caseOffset + 1}–${caseOffset + maxCases} 题。刷新页面不会重复启动。`); await refresh(); }
   catch (error) { message(error.message, true); } finally { pending = false; buttons(); }
 });
 $('#refresh-bank').addEventListener('click', async () => {
@@ -129,13 +148,32 @@ function renderCatalogCase() {
 }
 $('#catalog-case').addEventListener('change', renderCatalogCase);
 $('#browse-bank').addEventListener('click', async () => {
-  try { catalogData = await api(`/api/catalog?type=${$('#experiment-type').value}`);
+  try { catalogData = await api(`/api/catalog?type=${$('#experiment-type').value}&bank=${encodeURIComponent($('#generated-bank').value)}`);
     $('#catalog-title').textContent = `${experimentLabels[$('#experiment-type').value]}题库`;
-    $('#catalog-note').textContent = `${catalogData.cases.length} 道真实决策 · ${catalogData.developmentGames} 个开发牌局。只预览当时可见的信息，不包含 Mortal 答案。`;
+    $('#catalog-note').textContent = catalogData.generated ? `${catalogData.cases.length} 道合法合成题 · 种子 ${catalogData.generated.seed} · 开发资料。预览不含 Mortal 答案。` : `${catalogData.cases.length} 道真实决策 · ${catalogData.developmentGames} 个开发牌局。只预览当时可见的信息，不包含 Mortal 答案。`;
     $('#catalog-case').innerHTML = catalogData.cases.map((row, index) => `<option value="${index}">第 ${index + 1} 题 · ${esc(({ E: '东', S: '南', W: '西' })[row.observation.visibleState.roundWind])}${row.observation.visibleState.hand}局 · ${row.observation.candidates.length} 个候选</option>`).join('');
     renderCatalogCase(); $('#catalog-dialog').showModal();
   } catch (error) { message(error.message, true); }
 });
+async function startGeneration(resume = false) {
+  if (!resume && !$('#generation-form').reportValidity()) return;
+  pending = true; buttons();
+  try {
+    const selection = resume ? { bankId: $('#generated-bank').value } : { generation: {
+      preset: $('#generation-preset').value, count: Number($('#generation-count').value), seed: Number($('#generation-seed').value), timeLimitSeconds: Number($('#generation-time').value) } };
+    const job = await api('/api/start', { mode: 'generate', ...selection });
+    $('#experiment-type').value = 'generated'; $('#results-type').value = 'generated';
+    message('已开始生成。预算耗尽会保留部分题目，不会自动调用 Coach 模型。');
+    await refresh();
+    // The child may not have written its request yet; remember the requested bank for the next poll.
+    requestedBank = job.bankId;
+  } catch (error) { message(error.message, true); }
+  finally { pending = false; buttons(); }
+}
+let requestedBank;
+$('#generation-form').addEventListener('submit', event => { event.preventDefault(); void startGeneration(); });
+$('#resume-generation').addEventListener('click', () => startGeneration(true));
+$('#generated-bank').addEventListener('change', () => { $('#batch-start').value = 1; $('#batch-size').value = Math.max(1, Math.min(10, generatedBank()?.availableCaseCount ?? 10)); render(); });
 $('#experiment-type').addEventListener('change', () => {
   $('#batch-start').value = 1;
   $('#batch-size').value = Math.max(1, Math.min(10, selectedBank()?.availableCaseCount ?? 10));

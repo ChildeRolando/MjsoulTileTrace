@@ -84,3 +84,29 @@ test('idle console shuts down through its same-origin lifecycle hook', async t =
   assert.deepEqual(await response.json(), { status: 'shutting_down' });
   await assert.rejects(() => f.state());
 });
+
+test('generator is a bounded owned job with no API credential requirement, and forwards a frozen resume request', async t => {
+  const f = await fixture(t);
+  await f.post('/api/config', { provider: 'openai-compatible', model: 'unused' });
+  assert.equal((await f.post('/api/start', { mode: 'generate', generation: { count: 129 } })).status, 400);
+  assert.equal((await f.post('/api/start', { mode: 'generate', generation: { preset: 'conflict', count: 2, seed: 4, timeLimitSeconds: 30 } })).status, 202);
+  let args;
+  for (let i = 0; i < 100; i++) { try { args = JSON.parse(await readFile(join(f.root, 'received-args.json'), 'utf8')); break; } catch { await setTimeout(25); } }
+  assert.equal(args[0], 'generate');
+  assert.deepEqual(JSON.parse(args[2]), { preset: 'conflict', count: 2, seed: 4, timeLimitSeconds: 30 });
+  assert.equal((await f.post('/api/start', { mode: 'catalog' })).status, 409);
+  const id = args[1];
+  const bankRoot = join(f.root, 'archives/question-banks', id);
+  await mkdir(bankRoot, { recursive: true });
+  await writeFile(join(bankRoot, 'request.json'), JSON.stringify({ bankId: id, options: JSON.parse(args[2]) }));
+  await f.post('/api/stop', {});
+  for (let i = 0; i < 100 && (await f.state()).job.status !== 'stopped'; i++) await setTimeout(25);
+  assert.equal((await f.state()).generatedBanks[0].ready, false);
+  assert.equal((await f.post('/api/start', { mode: 'off', experimentType: 'generated', bankId: id })).status, 400);
+  assert.equal((await f.post('/api/start', { mode: 'generate', bankId: '../escape' })).status, 400);
+  assert.equal((await f.post('/api/start', { mode: 'generate', bankId: id, generation: { seed: 999 } })).status, 202);
+  assert.equal((await f.state()).job.generation.seed, 4);
+  await f.post('/api/stop', {});
+  for (let i = 0; i < 100 && (await f.state()).job.status !== 'stopped'; i++) await setTimeout(25);
+  assert.equal((await f.state()).job.status, 'stopped');
+});

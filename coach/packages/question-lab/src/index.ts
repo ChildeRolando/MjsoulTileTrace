@@ -9,3 +9,4 @@ export * from "./archive.js";
 export * from "./pair-features.js";
 export * from "./pair-study.js";
 export * from "./pair-scans.js";
+export { nativeReceipt as questionLabNativeReceipt } from "./runtime.js";
