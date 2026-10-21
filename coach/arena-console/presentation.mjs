@@ -8,9 +8,9 @@ export function runMetrics(summary) {
 }
 
 export function experimentTypeForDataset(id) {
-  return id === 'blind-discard-holdout-v1' ? 'holdout' : id === 'blind-discard-flat-v1' ? 'flat' : id === 'blind-discard-spatial-v1' ? 'spatial' : 'legacy';
+  return id === 'blind-discard-generated-v1' ? 'generated' : id === 'blind-discard-holdout-v1' ? 'holdout' : id === 'blind-discard-flat-v1' ? 'flat' : id === 'blind-discard-spatial-v1' ? 'spatial' : 'legacy';
 }
-export const experimentLabels = { flat: '平面何切', spatial: '立体何切', legacy: '旧版混合题库', holdout: '独立牌局验收' };
+export const experimentLabels = { generated: '生成题库', flat: '平面何切', spatial: '立体何切', legacy: '旧版混合题库', holdout: '独立牌局验收' };
 
 export function aggregateMetrics(runs, type) {
   if (type) runs = runs.filter(run => experimentTypeForDataset(run.manifest?.dataset.id) === type);

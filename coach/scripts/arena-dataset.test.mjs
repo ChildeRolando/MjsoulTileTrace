@@ -1,6 +1,21 @@
 const test = process.env.VITEST === 'true' ? (await import('vitest')).test : (await import('node:test')).test;
 import assert from 'node:assert/strict';
-import { parseArgs, selectDatasetBatch, selectExperimentPool, arenaDatasetSource } from '../bin/blind-discard-arena.mjs';
+import { parseArgs, selectDatasetBatch, selectExperimentPool, arenaDatasetSource, selectReplayCase } from '../bin/blind-discard-arena.mjs';
+import { createHash } from 'node:crypto';
+
+test('mistake replay selects the original decision rather than a batch-local offset, rejecting changed candidates', () => {
+  const pool = { selected: [0, 12, 43].map(order => ({ canonicalDecisionOrder: order, candidates: [{ actionRef: 'a' }, { actionRef: 'b' }] })), excluded: [] };
+  const previous = { canonicalDecisionOrder: 43, candidateSetDigest: createHash('sha256').update(JSON.stringify(['a','b'])).digest('hex') };
+  const selected = selectReplayCase(pool, previous);
+  assert.equal(selected.selected[0].canonicalDecisionOrder, 43);
+  assert.equal(selected.excluded.length, 2);
+  assert.throws(() => selectReplayCase(pool, { ...previous, canonicalDecisionOrder: 44 }), /arena_replay_case_changed/);
+  assert.throws(() => selectReplayCase(pool, { ...previous, candidateSetDigest: '0'.repeat(64) }), /arena_replay_case_changed/);
+  const args = ['run', '--dataset', 'blind-discard-smoke-v1', '--rag', 'local', '--replay-run', '00000000-0000-4000-8000-000000000001', '--replay-case', '2'];
+  assert.equal(parseArgs(args).maxCases, 1);
+  assert.equal(parseArgs(args).replayCaseOrdinal, 2);
+  assert.throws(() => parseArgs(args.slice(0,-2)), /arena_replay_reference_invalid/);
+});
 
 test('expanded development batches do not change the frozen three-case smoke command', () => {
   const smoke = parseArgs(['run', '--dataset', 'blind-discard-smoke-v1', '--rag', 'off']);

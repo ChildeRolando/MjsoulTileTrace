@@ -96,6 +96,13 @@ mahjong-soul-source ──► CanonicalEventStreamV2
 Mortal 的虚拟环境。研究档案不写入 ReviewSession，也不借用 actual-action 比较路径。
 完整契约、配置与运行见 [Question Lab](../../packages/question-lab/README.md)。
 
+Arena 本地控制台通过 `bin/arena-question-bank.mjs` 组合公开 Question Lab API 与 Arena API。
+生成任务复用控制台唯一子进程，题库放在 Arena 归档根的 `question-banks/<UUID>/`，
+不新增桌面依赖。只有完整候选均为普通弃牌的待决策窗口进入该实验；评测时重新查询原生规则，
+复核候选集合，再走既有盲测、helper 与 Mortal grader。题库来源显式标为 `question_lab`，
+分组单位为 `synthetic_source_group`，不能充作真实完整牌局或冻结验收集。
+
+
 全知牌山、他家暗手和构造脚本仅保留在私有 witness；canonical 投影显式隐藏他家摸牌与
 起手。题面和学习只消费决策时可见事实；Mortal 标签独立保存。实际暗手同构和同源变体
 按整组留出，补样不得进入冻结的测试来源。原始 helper 估计保留证据哈希；研究启发式
