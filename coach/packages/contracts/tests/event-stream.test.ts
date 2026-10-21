@@ -85,6 +85,13 @@ function baseStream() {
 }
 
 describe("canonical event stream", () => {
+  it("keeps omitted public-archive draw facts unknown and refuses complete settlement", () => {
+    const base = baseStream();
+    const unknownDraw = { type: "round_drawn", eventId: "game:fixture/0/2/0", sourceRecordRef: "record:2", reason: "unknown", tenpaiActors: null };
+    const partial = { ...base, completeness: { ...base.completeness, settlement: "partial" }, events: [...base.events, unknownDraw] };
+    expect(CanonicalEventStreamSchema.parse(partial).events.at(-1)).toEqual(unknownDraw);
+    expect(() => CanonicalEventStreamSchema.parse({ ...partial, completeness: base.completeness })).toThrow("Unknown draw metadata requires partial settlement");
+  });
   it("accepts a strict, versioned four-player stream", () => {
     expect(CanonicalEventStreamSchema.parse(baseStream()).events).toHaveLength(2);
   });

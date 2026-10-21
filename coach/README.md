@@ -16,6 +16,7 @@
 - [规格档案](docs/specs/)
 - [Review Loop 产品接入约定](docs/development/REVIEW_LOOP.md)
 - [实施计划档案](docs/plans/)
+- [公开牌谱批量采集、去重与导出](scripts/replay-corpus/README.md)
 - [交接档案](docs/handoffs/)
 
 This workspace currently contains the evidence-grounded reasoning milestone for

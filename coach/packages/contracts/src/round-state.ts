@@ -187,6 +187,7 @@ const DrawTerminalSchema = z.object({
     "suukaikan",
     "sancha_hou",
     "nagashi_mangan",
+    "unknown",
   ]),
 }).strict();
 export const RoundTerminalV2Schema = z.discriminatedUnion("kind", [
