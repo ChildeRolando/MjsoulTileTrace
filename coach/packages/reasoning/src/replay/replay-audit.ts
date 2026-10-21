@@ -140,7 +140,7 @@ function projectEvent(event: CanonicalGameEvent): AuditedEvent {
         method: event.method,
       };
     case "round_drawn":
-      return { ...base, reason: event.reason };
+      return { ...base, reason: event.reason === "unknown" ? null : event.reason };
   }
 }
 

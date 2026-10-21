@@ -40,12 +40,19 @@
     "typecheck": "tsc --noEmit -p packages/contracts/tsconfig.json && tsc --noEmit -p packages/mahjong-soul-source/tsconfig.json && tsc --noEmit -p packages/tenhou-source/tsconfig.json && tsc --noEmit -p packages/mortal-source/tsconfig.json && tsc --noEmit -p packages/mortal-runtime/tsconfig.json && tsc --noEmit -p packages/reasoning/tsconfig.json && tsc --noEmit -p packages/question-lab/tsconfig.json && tsc --noEmit -p packages/desktop/tsconfig.json",
     "test:electron-mvp-golden": "npm run build && node packages/desktop/tests/electron-mvp-golden-slice.cjs",
     "question-lab": "node packages/question-lab/dist/cli.js",
-    "test:question-lab": "vitest run packages/question-lab/tests packages/contracts/tests/question-lab.test.ts"
+    "test:question-lab": "vitest run packages/question-lab/tests packages/contracts/tests/question-lab.test.ts",
+    "corpus": "node --use-env-proxy bin/replay-corpus.mjs",
+    "test:corpus": "node --test scripts/replay-corpus/corpus.test.mjs",
+    "bench:corpus": "node scripts/replay-corpus/benchmark.mjs"
   },
   "devDependencies": {
     "@types/node": "22.15.30",
+    "hyparquet": "1.31.5",
+    "hyparquet-compressors": "1.1.2",
     "protobufjs": "8.7.2",
+    "tar-stream": "3.2.2",
     "typescript": "5.9.2",
-    "vitest": "3.2.7"
+    "vitest": "3.2.7",
+    "yauzl": "3.4.0"
   }
 }
