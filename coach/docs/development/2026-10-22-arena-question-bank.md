@@ -74,9 +74,9 @@
 - 浏览器检查新版生成页、实验控制台及题面预览，覆盖 1280px 与 648px 宽度；共享牌面 44 张全部加载，四家公开场面均保留。
   这次未重新声称完成 1920×1080 或 1366×768 验收。
 - 纠正后的截图位于 `coach/reports/arena-question-lab-validation/`：
-  `new-generator-desktop.png`、`new-generator-narrow.png`、`new-console-desktop.png`、
+  `new-generator-desktop.png`、`new-generator-desktop-bottom.png`、`new-generator-narrow.png`、`new-console-desktop.png`、
   `new-console-desktop-bottom.png`、`new-preview-desktop.png`、`new-preview-narrow.png`。
-  控制台采用实际视口上下两张截图，避免整页截图异常被误当作页面布局证据。
+  控制台与生成页桌面证据采用实际视口上下两张截图，避免整页截图异常被误当作页面布局证据。
 
 ## 设计文档核对
 
@@ -90,3 +90,12 @@
 - 场面：沿用共享 SVG 牌面和完整四家公开背景，生成题面不显示答案。
 
 既有页面的小字、装饰性英文标签等历史视觉问题不升格为设计规范；本次未获得整体重设计要求，不借文档核对扩大修复范围。
+
+
+## 纠正后闭环结果
+
+- 独立的完整视觉复核结论为 ship，范围为新版基线上的本次接入；生成任务空状态文案修正另经复核为 resolved。
+  此结论不替代后端回归，不复用首版旧基线的审核。
+- 干净合并提交 `1455e0e` 下，从新版生成页实际启动平面预设：种子 20261022，目标 1 题，30 秒时限。
+  批次 `492665ae-ca9b-4e27-aa35-be5c3062be45` 完成 1/1，页面显示完成并链接到控制台预览。
+- 新预览服务为 `http://127.0.0.1:4323/`，继续读取同一工作树的既有生成批次和实验归档。
