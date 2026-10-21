@@ -21,6 +21,7 @@ import { downloadShard, retryAfterMs } from './network.mjs';
 import { mapMjaiRecord } from './canonical.mjs';
 import { orderJobs } from './sources.mjs';
 import { enqueueIndex } from './tenhou.mjs';
+import { main } from '../../bin/replay-corpus.mjs';
 
 const fixture = name => new URL(`../../packages/tenhou-source/tests/fixtures/real-logs/${name}.xml`, import.meta.url);
 const raw = await readFile(fixture('bug1'));
@@ -287,4 +288,64 @@ test('a damaged archive cannot be marked done and path members never extract out
   const entries = [];
   for await (const r of archiveRecords(tarFile)) entries.push(r);
   assert.equal(entries.length, 1); assert.deepEqual(entries[0].raw, raw);
+});
+
+test('retry-failed rewinds a paused job and retains evidence until the record succeeds', async () => {
+  const dir = await temp(), file = join(dir, 'retry.tar'), state = join(dir, 'state');
+  await pack(file, [['bad.xml', Buffer.from('bad')], ['good.xml', raw]]);
+  let store = new CorpusStore(state);
+  await importFile(file, store, { maxRecords: 1 }); store.close();
+  const previousExitCode = process.exitCode;
+  try { await main(['import', '--state-dir', state, '--input', file, '--retry-failed', '--max-records', '1']); }
+  finally { process.exitCode = previousExitCode; }
+  store = new CorpusStore(state);
+  try {
+    assert.equal(store.summary().rejected, 1);
+    assert.equal(store.db.prepare('SELECT cursor FROM jobs').get().cursor, 0);
+    assert.equal(store.summary().games, 0);
+    const goodFile = join(dir, 'good.xml'); await writeFile(goodFile, raw);
+    await importFile(goodFile, store);
+    const goodKey = store.db.prepare("SELECT key FROM jobs WHERE state='done'").get().key;
+    store.failure(goodKey, 0, goodFile, 'previous_mapper_error');
+    store.progress(goodKey, 0, 'paused'); store.retryFailures();
+    assert.equal(store.summary().rejected, 2);
+    assert.equal((await importFile(goodFile, store)).duplicates, 1);
+    assert.equal(store.summary().rejected, 1);
+  } finally { store.close(); }
+});
+
+test('metadata serialization precedes mutations and preserves Parquet 64-bit identifiers', async () => {
+  const store = new CorpusStore(await temp()), record = prepareRecord(raw, 'xml');
+  try {
+    const circular = {}; circular.self = circular;
+    assert.throws(() => store.put({ ...record, metadata: circular }, 'x', 'bad'));
+    assert.equal(store.summary().games, 0);
+    store.put({ ...record, metadata: { game_id: 9007199254740993n, ranks: [1, 2, 3, 4] } }, 'parquet', 'row');
+    assert.equal(store.read(record.id).observations[0].metadata.game_id, '9007199254740993');
+  } finally { store.close(); }
+});
+
+test('a partial 206 segment without manifest size cannot be marked a completed shard', async () => {
+  await withServer((req, res) => { res.writeHead(206, { 'Content-Range': 'bytes 100-199/300', ETag: '"v1"' }); res.end(Buffer.alloc(100)); }, async base => {
+    const store = new CorpusStore(await temp()), url = base + '/partial', key = sha256(url);
+    const folder = join(store.directory, 'downloads'), file = join(folder, `${key.slice(0, 24)}-x.xml`);
+    await mkdir(folder); await writeFile(file + '.part', Buffer.alloc(100));
+    store.db.prepare('INSERT INTO downloads VALUES (?,?,?,?,?)').run(key, file, '"v1"', 100, 0); store.countBytes('archiveBytes', 100);
+    try {
+      await assert.rejects(downloadShard({ url, name: 'x.xml' }, store), /incomplete_resume_range/);
+      assert.equal(store.db.prepare('SELECT complete FROM downloads WHERE key=?').get(key).complete, 0);
+    } finally { store.close(); }
+  });
+});
+
+test('a completed download cannot satisfy a changed manifest checksum', async () => {
+  let requests = 0;
+  await withServer((req, res) => { requests++; res.end(raw); }, async base => {
+    const store = new CorpusStore(await temp()), job = { url: base + '/archive', name: 'game.xml', size: raw.length, sha256: sha256(raw) };
+    try {
+      await downloadShard(job, store);
+      await assert.rejects(downloadShard({ ...job, sha256: sha256('new revision') }, store), /cached_download_manifest_mismatch/);
+      assert.equal(requests, 1);
+    } finally { store.close(); }
+  });
 });

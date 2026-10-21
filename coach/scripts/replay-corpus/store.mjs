@@ -32,6 +32,7 @@ export class CorpusStore {
     this.insertGame = this.db.prepare('INSERT OR IGNORE INTO games VALUES (?,?)');
     this.insertVariant = this.db.prepare('INSERT OR IGNORE INTO variants VALUES (?,?,?,?)');
     this.insertObservation = this.db.prepare('INSERT OR IGNORE INTO observations VALUES (?,?,?,?)');
+    this.clearFailure = this.db.prepare('DELETE FROM failures WHERE job=? AND ordinal=?');
     this.timings = { compressMs: 0, databaseMs: 0, commitMs: 0, checkpointMs: 0, diskCheckMs: 0 };
   }
   begin() { if (!this.pending) { this.db.exec('BEGIN IMMEDIATE'); this.pending = 1; } }
@@ -56,6 +57,9 @@ export class CorpusStore {
   }
   put(record, source, locator) {
     const start = performance.now(), compressionBefore = this.timings.compressMs;
+    // Parquet int64 metadata must retain its precision. Serialize before any
+    // writes so an unsupported metadata value cannot leave an orphan game.
+    const metadata = JSON.stringify(record.metadata, (_key, value) => typeof value === 'bigint' ? value.toString() : value);
     const known = this.findVariant.get(record.rawHash);
     this.begin();
     let inserted = false;
@@ -67,7 +71,7 @@ export class CorpusStore {
       inserted = !!this.insertGame.run(record.id, new Date().toISOString()).changes;
       this.insertVariant.run(record.rawHash, record.id, record.format, data);
     } else if (known.game_id !== record.id) throw new Error('identity_inconsistent');
-    this.insertObservation.run(source, locator, record.rawHash, JSON.stringify(record.metadata));
+    this.insertObservation.run(source, locator, record.rawHash, metadata);
     this.timings.databaseMs += performance.now() - start - (this.timings.compressMs - compressionBefore);
     this.tick();
     return inserted;
@@ -85,6 +89,14 @@ export class CorpusStore {
     this.begin();
     this.db.prepare('INSERT OR REPLACE INTO failures VALUES (?,?,?,?)').run(key, ordinal, locator, String(error).slice(0, 500));
     this.progress(key, ordinal);
+  }
+  retryFailures() {
+    this.begin();
+    this.db.exec(`UPDATE queue SET state='pending',error=NULL WHERE state='failed';
+      UPDATE jobs SET cursor=min(cursor,(SELECT min(ordinal)-1 FROM failures WHERE job=jobs.key)),state='pending',error=NULL
+      WHERE key IN (SELECT job FROM failures);`);
+    // Keep the failure visible until its specific record imports successfully.
+    this.flush();
   }
   read(id, hash) {
     const row = hash ? this.db.prepare('SELECT * FROM variants WHERE game_id=? AND hash=?').get(id, hash)

@@ -36,21 +36,31 @@ export async function downloadShard(job, store, { maxDownloadBytes = 10_000_000_
   await mkdir(folder, { recursive: true });
   const file = join(folder, `${key.slice(0, 24)}-${basename(job.name).replace(/[^\w.-]/g, '_')}`), part = `${file}.part`;
   let row = store.db.prepare('SELECT * FROM downloads WHERE key=?').get(key);
-  if (row?.complete) {
-    const s = await stat(file).catch(() => null);
-    if (s?.size === row.size) return file;
-    throw new Error('completed_download_missing_or_changed');
-  }
-  const update = store.db.prepare('INSERT INTO downloads VALUES (?,?,?,?,?) ON CONFLICT(key) DO UPDATE SET path=excluded.path,etag=excluded.etag,size=excluded.size,complete=excluded.complete');
   const hashFile = async path => {
     const h = createHash('sha256');
     for await (const chunk of createReadStream(path)) { signal?.throwIfAborted(); h.update(chunk); }
     return h.digest('hex');
   };
+  const rememberChecksum = () => {
+    if (job.sha256) store.db.prepare('INSERT OR REPLACE INTO settings VALUES (?,?)').run(`download-sha256:${key}`, job.sha256);
+  };
+  if (row?.complete) {
+    const s = await stat(file).catch(() => null);
+    if (s?.size !== row.size) throw new Error('completed_download_missing_or_changed');
+    if (job.size !== undefined && job.size !== row.size) throw new Error('cached_download_manifest_mismatch');
+    if (job.sha256) {
+      const verified = store.db.prepare('SELECT value FROM settings WHERE key=?').get(`download-sha256:${key}`)?.value;
+      // Legacy cached downloads need one verification, then reuse the receipt.
+      if ((verified ?? await hashFile(file)) !== job.sha256) throw new Error('cached_download_manifest_mismatch');
+      if (!verified) rememberChecksum();
+    }
+    return file;
+  }
+  const update = store.db.prepare('INSERT INTO downloads VALUES (?,?,?,?,?) ON CONFLICT(key) DO UPDATE SET path=excluded.path,etag=excluded.etag,size=excluded.size,complete=excluded.complete');
   // Recovery after a complete body was saved but before its final rename/receipt.
   if (job.sha256 && job.size && (await stat(part).catch(() => null))?.size === job.size) {
     if (await hashFile(part) !== job.sha256) throw new Error('download_checksum_mismatch');
-    await rename(part, file); update.run(key, file, row?.etag ?? null, job.size, 1); return file;
+    await rename(part, file); update.run(key, file, row?.etag ?? null, job.size, 1); rememberChecksum(); return file;
   }
   for (let attempt = 0; attempt <= retries; attempt++) {
     signal?.throwIfAborted();
@@ -61,7 +71,7 @@ export async function downloadShard(job, store, { maxDownloadBytes = 10_000_000_
     if (job.size && store.diskBytes() + job.size - offset + 1_000_000 > store.maxBytes) throw new Error('storage_budget_exhausted');
     const headers = offset && row?.etag ? { Range: `bytes=${offset}-`, 'If-Range': row.etag } : {};
     if (offset && !row?.etag) offset = 0;
-    let handle;
+    let handle, rangeEnd, rangeTotal;
     try {
       const response = await fetchPublic(job.url, { headers, signal: signal ? AbortSignal.any([signal, AbortSignal.timeout(120_000)]) : AbortSignal.timeout(120_000) });
       if ([408, 429].includes(response.status) || response.status >= 500) {
@@ -73,8 +83,9 @@ export async function downloadShard(job, store, { maxDownloadBytes = 10_000_000_
       if (!response.ok) { await response.body?.cancel(); throw new Error(`HTTP_${response.status}`); }
       if (response.status === 206) {
         const range = /^bytes (\d+)-(\d+)\/(\d+)$/.exec(response.headers.get('content-range') ?? '');
-        if (!range || Number(range[1]) !== offset || !offset || (job.size && Number(range[3]) !== job.size)
+        if (!range || Number(range[1]) !== offset || !offset || Number(range[2]) < offset || Number(range[2]) >= Number(range[3]) || (job.size && Number(range[3]) !== job.size)
           || (response.headers.get('etag') && row?.etag && response.headers.get('etag') !== row.etag)) { await response.body.cancel(); throw new Error('invalid_resume_range'); }
+        rangeEnd = Number(range[2]) + 1; rangeTotal = Number(range[3]);
       } else {
         // Range ignored or validator changed: truncate, never append a new body.
         offset = 0;
@@ -97,12 +108,14 @@ export async function downloadShard(job, store, { maxDownloadBytes = 10_000_000_
         offset += chunk.length;
       }
       await handle.close(); handle = null;
+      if (rangeTotal !== undefined && (offset !== rangeEnd || offset !== rangeTotal)) throw new Error('incomplete_resume_range');
       if (job.size && offset !== job.size) throw new Error('download_size_mismatch');
       if (job.sha256) {
         if (await hashFile(part) !== job.sha256) throw new Error('download_checksum_mismatch');
       }
       await rename(part, file);
       update.run(key, file, etag, offset, 1);
+      rememberChecksum();
       return file;
     } catch (error) {
       await handle?.close();

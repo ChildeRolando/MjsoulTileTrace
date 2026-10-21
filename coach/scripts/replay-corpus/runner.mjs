@@ -46,6 +46,7 @@ export async function importFile(file, store, { source = 'local', metadata = {},
           if (store.put(record, source, `${sourceKey ?? resolve(file)}#${entry.name}`)) imported++;
           else duplicates++;
         }
+        store.begin(); store.clearFailure.run(key, entry.ordinal);
         cursor = entry.ordinal; store.progress(key, cursor);
       } catch (e) {
         if (/budget|identity_inconsistent|SQLITE/.test(e.message) || e.code?.startsWith('ERR_SQLITE')) throw e;

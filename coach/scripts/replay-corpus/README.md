@@ -101,6 +101,9 @@ npm run bench:corpus -- E:/PublicData/shard.tar
 node scripts/replay-corpus/scale-benchmark.mjs E:/PublicData/shard.parquet E:/AgentData/Coach/evidence
 ```
 
-24 项专项测试覆盖跨格式/座位去重、赤牌差异、元数据、原始版本、来源合并、归档中断、
+28 项专项测试覆盖跨格式/座位去重、赤牌差异、元数据、原始版本、来源合并、归档中断、
 损坏记录、限额、Range 被忽略、续传、429/永久错误行为和完整 body 的崩溃恢复。
+失败重试覆盖 paused 任务，成功之前保留失败位置；Parquet 64 位元数据按十进制字符串
+保存，不损失精度；没有清单大小的续传仍核对 Content-Range 总长度。
+缓存复用绑定已验证校验值；同 URL 的新清单版本不匹配时明确报错，不能把旧包当成新包。
 实测和完整变更控制记录见 [实施记录](../../docs/plans/2026-10-22-public-replay-corpus.md)。

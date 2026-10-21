@@ -87,7 +87,7 @@ export async function main(argv = process.argv.slice(2)) {
       ...(options['max-records'] ? { maxRecords: number(options['max-records'], 0, true) } : {}),
       live: !!options.live, old: !!options.old, maxLogs: number(options['max-logs'], 1000, true), maxIndex: number(options['max-index'], 10, true) };
     if (options['retry-failed']) {
-      store.db.exec("UPDATE queue SET state='pending',error=NULL WHERE state='failed'; UPDATE jobs SET cursor=-1,state='pending',error=NULL WHERE state IN ('failed','done') AND key IN (SELECT job FROM failures); DELETE FROM failures;");
+      store.retryFailures();
     }
     if (command === 'status') { console.log(JSON.stringify(store.summary(), null, 2)); return; }
     if (command === 'export') {
