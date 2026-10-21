@@ -191,7 +191,7 @@ npm run test:question-lab -- --maxWorkers=1 --no-file-parallelism
 
 ## 在 Arena 中生成与评测
 
-从 Coach 工作目录运行 `npm run arena:console`，在“生成题库”设置类型、目标题量（1–128）、
+从 Coach 工作目录运行 `npm run arena:console`，在独立的“题库生成”页设置类型、目标题量（1–128）、
 种子与搜索时限（10–1800 秒）。提供随机平面何切、单家立直加另一家役牌副露、
 牌效率与保留宝牌严格冲突三种预设。冲突准入复用 v2 有序主张及 E∩D=∅；不调用 SVR 或研究补样。
 高级自定义实验继续使用 Question Lab CLI；此入口不是所有研究配置的编辑器。

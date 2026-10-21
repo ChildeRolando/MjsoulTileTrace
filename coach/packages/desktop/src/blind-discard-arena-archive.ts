@@ -51,6 +51,8 @@ export const ArenaArchiveManifestSchema = z.object({
   runId: z.string().uuid(),
   startedAt: z.string().datetime(),
   codeSha: z.string().regex(/^[0-9a-f]{40}$/),
+  replay: z.object({ kind: z.literal("mistake"), sourceRunId: z.string().uuid(), sourceCaseOrdinal: z.number().int().min(0).max(127),
+    questionId: Sha256Schema }).strict().optional(),
   dataset: z.object({
     id: DatasetIdSchema,
     selection: z.object({ offset: z.number().int().min(0).max(127), poolSize: z.number().int().min(1).max(128) }).strict().optional(),
