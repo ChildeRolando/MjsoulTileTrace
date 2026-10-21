@@ -9,7 +9,7 @@ function bank(){if(isGenerated())return state?.generatedBanks.find(b=>b.bankId==
 function render(){
  const selected=$('#generated-bank').value||params.get('id');
  $('#generated-bank').innerHTML=state.generatedBanks.filter(b=>b.ready).map(b=>`<option value="${b.bankId}">${esc(b.name)} · ${b.availableCaseCount} 题 · ${b.bankId.slice(0,8)}</option>`).join('')||'<option value="">尚无已完成批次</option>';
- if(state.generatedBanks.some(b=>b.ready&&b.bankId===selected))$('#generated-bank').value=selected;
+ if(selected)$('#generated-bank').value=state.generatedBanks.some(b=>b.ready&&b.bankId===selected)?selected:'';
  $('#generated-bank-field').hidden=!isGenerated();
  $('#generated-bank').disabled=pending||['running','stopping'].includes(state.job?.status);
  $('#generation-summary').textContent=isGenerated()&&bank()?`种子 ${bank().options.seed} · 已生成 ${bank()?.availableCaseCount??0}/${bank().options.count} 题 · 仅用于开发评测`:'';
@@ -30,21 +30,22 @@ function render(){
  $('#experiment-mode').querySelector('[value=fault]').disabled=isMistakes();
  if(state.budget.warning)message('已达到 Token 报警线。请查看模型与 API 配置中的预算。',true);
 }
-async function refresh(){try{state=await api('/api/state');render();$('#sync-status').textContent='已同步 '+new Date().toLocaleTimeString('zh-CN');}catch(e){message(e.message,true);}}
+async function refresh(){try{const firstLoad=!state;state=await api('/api/state');if(firstLoad&&!params.has('bank')&&state.job?.experimentType==='generated'&&state.job.bankId){params.set('bank','generated');params.set('id',state.job.bankId);$('#experiment-type').value='generated';}render();$('#sync-status').textContent='已同步 '+new Date().toLocaleTimeString('zh-CN');}catch(e){message(e.message,true);}}
 $('#start').addEventListener('click',async()=>{
  if(!$('#batch-size').reportValidity()||!$('#batch-start').reportValidity())return;
  pending=true;render();
  try{await api('/api/start',{mode:$('#experiment-mode').value,experimentType:$('#experiment-type').value,...(isGenerated()?{bankId:$('#generated-bank').value}:{}),maxCases:Number($('#batch-size').value),caseOffset:Number($('#batch-start').value)-1});message('实验已启动。完成后可在实验结果中查看，错题计数自动更新。');await refresh();}catch(e){message(e.message,true);}finally{pending=false;render();}
 });
 $('#stop').addEventListener('click',async()=>{pending=true;render();try{await api('/api/stop',{});await refresh();}catch(e){message(e.message,true);}finally{pending=false;render();}});
-$('#experiment-type').addEventListener('change',()=>{$('#batch-start').value=1;$('#batch-size').value=Math.max(1,Math.min(10,bank()?.availableCaseCount??10));if(isMistakes()&&$('#experiment-mode').value==='fault')$('#experiment-mode').value='local';render();});
+$('#experiment-type').addEventListener('change',()=>{$('#batch-start').value=1;$('#batch-size').value=Math.max(1,Math.min(10,bank()?.availableCaseCount??10));if(isMistakes()&&$('#experiment-mode').value==='fault')$('#experiment-mode').value='local';render();rememberSelection();});
 $('#experiment-mode').addEventListener('change',()=>{$('#mode-hint').textContent=$('#experiment-mode').value==='compare'?'对同一批案例依次运行 Off / Local。':$('#experiment-mode').value==='fault'?'首次 helper 调用注入超时，保留实际失败记录。':'使用当前模型和预算进行一次实际运行。';});
 $('#refresh-bank').addEventListener('click',async()=>{pending=true;render();try{if(!isMistakes()&&!isGenerated())await api('/api/start',{mode:'catalog'});await refresh();message(isMistakes()?'错题库已更新。':isGenerated()?'生成批次已更新。':'正在更新开发题库。');}catch(e){message(e.message,true);}finally{pending=false;render();}});
 $('#browse-bank').addEventListener('click',async()=>{if(isMistakes()){location.href='/mistakes';return;}try{catalog=await api('/api/catalog?type='+$('#experiment-type').value+'&bank='+encodeURIComponent($('#generated-bank').value));$('#catalog-note').textContent=catalog.generated?`${catalog.cases.length} 道合法合成题 · 种子 ${catalog.generated.seed} · 不含 Mortal 答案。`:'只展示决策时可见的信息，不含 Mortal 答案。';$('#catalog-case').innerHTML=catalog.cases.map((c,i)=>`<option value="${i}">第 ${i+1} 题 · 原局决策 ${c.canonicalDecisionOrder+1}</option>`).join('');$('#catalog-panel').hidden=false;document.body.classList.add('catalog-view');showCase();window.scrollTo(0,0);}catch(e){message(e.message,true);}});
 function showCase(){const row=catalog.cases[Number($('#catalog-case').value)];$('#catalog-preview').innerHTML=observationView(row.observation)+structured('preview','完整盲测输入',row.observation);compactContent($('#catalog-preview'),'catalog-'+row.canonicalDecisionOrder);}
 $('#catalog-case').addEventListener('change',showCase);$('#close-catalog').addEventListener('click',()=>{$('#catalog-panel').hidden=true;document.body.classList.remove('catalog-view');$('#browse-bank').focus();});
-const params=new URLSearchParams(location.search);if(['mistakes','generated'].includes(params.get('bank')))$('#experiment-type').value=params.get('bank');
-$('#generated-bank').addEventListener('change',()=>{$('#batch-start').value=1;$('#batch-size').value=Math.max(1,Math.min(10,bank()?.availableCaseCount??10));render();});
+function rememberSelection(){params.set('bank',$('#experiment-type').value);if(isGenerated())params.set('id',$('#generated-bank').value);else params.delete('id');history.replaceState(null,'','/?'+params);}
+const params=new URLSearchParams(location.search);if(['flat','spatial','mistakes','generated'].includes(params.get('bank')))$('#experiment-type').value=params.get('bank');
+$('#generated-bank').addEventListener('change',()=>{$('#batch-start').value=1;$('#batch-size').value=Math.max(1,Math.min(10,bank()?.availableCaseCount??10));render();rememberSelection();});
 if(params.get('run'))location.replace('/results?'+params);
 document.querySelector('.launch-help').open=roomyLayout();
 document.querySelector('.activity-panel').insertBefore(document.querySelector('.console-recent'), document.querySelector('.activity-footer'));

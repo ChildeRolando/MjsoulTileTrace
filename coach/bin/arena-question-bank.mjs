@@ -87,8 +87,10 @@ export async function generateBank(root, id, raw, codeSha) {
     if (digest(previous) !== digest(request)) throw new Error('arena_generation_resume_identity_mismatch');
   }
   // A published bank is immutable. Repeating a completed request is a read, never inference.
-  try { const catalog = ArenaCaseCatalogSchema.parse(JSON.parse(await readFile(join(directory, 'catalog.json'), 'utf8'))); await loadGeneratedBank(root, id); return catalog; }
+  let published = false;
+  try { await readFile(join(directory, 'catalog.json')); published = true; }
   catch (error) { if (error.code !== 'ENOENT') throw error; }
+  if (published) { const catalog = await readGeneratedCatalog(root, id); await loadGeneratedBank(root, id); return catalog; }
   const batch = await LabBatch.open(config, join(directory, 'lab'));
   let samples, summary, manifest, ruleInputs;
   try {
@@ -119,7 +121,12 @@ export async function generateBank(root, id, raw, codeSha) {
 export async function readGeneratedCatalog(root, id) {
   const bank = ArenaCaseCatalogSchema.parse(JSON.parse(await readFile(join(bankDirectory(root, id), 'catalog.json'), 'utf8')));
   const source = JSON.parse(await readFile(join(bankDirectory(root, id), 'bank.json'), 'utf8'));
-  if (bank.generated?.bankId !== id || source.bankId !== id || bank.caseSetDigest !== digest(source) || digest(bank.cases) !== source.previewSha256)
+  if (bank.generated?.bankId !== id || source.bankId !== id || bank.caseSetDigest !== digest(source) || digest(bank.cases) !== source.previewSha256
+      || bank.fixtureSha256 !== bank.caseSetDigest || bank.sourceRecordHash !== `sha256:${bank.caseSetDigest}`
+      || bank.codeSha !== source.codeSha || bank.createdAt !== source.createdAt
+      || bank.generated.seed !== source.options.seed || bank.generated.requested !== source.options.count
+      || bank.generated.sourceGroups !== source.sourceGroups || bank.generated.name !== names[source.options.preset]
+      || bank.inputCaseCount !== source.sampleIds.length || bank.cases.length !== source.sampleIds.length)
     throw new Error('arena_bank_identity_mismatch');
   return bank;
 }

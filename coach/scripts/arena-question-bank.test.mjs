@@ -49,6 +49,16 @@ if (process.env.COACH_QUESTION_LAB_NATIVE === '1') test('generated banks bind le
       assert.equal((await listGeneratedBanks(root)).find(b => b.bankId === id).ready, true);
       await assert.rejects(() => generateBank(root, id, { ...options, seed: 11 }, 'a'.repeat(40)), /resume_identity_mismatch/);
       if (preset === 'flat') {
+        const catalogPath = join(bankDirectory(root, id), 'catalog.json');
+        const altered = JSON.parse(before); altered.cases[0].observation.visibleState.honba++;
+        await writeFile(catalogPath, JSON.stringify(altered));
+        await assert.rejects(()=>generateBank(root, id, options, 'a'.repeat(40)), /arena_bank_identity_mismatch/);
+        assert.equal((await listGeneratedBanks(root)).find(b=>b.bankId===id).ready, false);
+        altered.cases = JSON.parse(before).cases; altered.generated.seed++;
+        await writeFile(catalogPath, JSON.stringify(altered));
+        await assert.rejects(()=>generateBank(root, id, options, 'a'.repeat(40)), /arena_bank_identity_mismatch/);
+        await writeFile(catalogPath, before);
+
         const repeated = await generateBank(root, randomUUID(), options, 'a'.repeat(40));
         assert.deepEqual((await loadGeneratedBank(root, repeated.generated.bankId)).samples.map(s => s.sampleId), samples.map(s => s.sampleId));
         // Simulate interruption after samples were committed but before the catalog publication.
