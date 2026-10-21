@@ -51,4 +51,4 @@
   后续 UI 修补不改变上述生成、规则或评测后端。
 - 证据保存在本工作树 `coach/reports/arena-question-lab-validation/`（初跑日志、复跑日志、桌面/窄屏/牌面截图）
   与 `coach/reports/blind-discard-arena/`（完整实验档案）。这些是本机验证资料，不提交私有研究见证或运行日志。
-
+- 独立 UI 审查结论为 ship，范围限本次增量；设计核对未发现阻塞问题，保留既有视觉系统。
