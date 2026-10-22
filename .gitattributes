@@ -12,3 +12,8 @@
 /coach/tools/mahjong-facts/go.mod text eol=lf
 /coach/tools/mahjong-facts/go.sum text eol=lf
 /coach/packages/mahjong-soul-source/tests/fixtures/real-record-complete.json -text
+# Preserve executable hashbang parsing in Vite on Windows and study code digests.
+/coach/bin/replay-corpus.mjs text eol=lf
+/coach/bin/scene-pattern-study.mjs text eol=lf
+# Study v1 hashes exact source bytes; preserve frozen LF/CRLF on checkout.
+/coach/scripts/scene-study/*.mjs -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

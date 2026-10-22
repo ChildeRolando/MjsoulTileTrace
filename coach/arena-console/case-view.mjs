@@ -1,4 +1,4 @@
-import { sortedTiles, tileAsset } from '/presentation.mjs';
+import { sortedTiles, tileAsset } from './presentation.mjs';
 const esc = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
 const number = value => new Intl.NumberFormat('en-US').format(value);
 const date = value => new Date(value).toLocaleString('zh-CN', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });

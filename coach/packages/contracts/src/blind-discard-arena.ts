@@ -252,7 +252,7 @@ export const ArenaSubmissionStatusSchema = z.enum([
 export type ArenaSubmissionStatus = z.infer<typeof ArenaSubmissionStatusSchema>;
 
 export const ArenaLabelUnavailableReasonSchema = z.enum([
-  "mortal_unavailable", "mortal_error", "mortal_timeout",
+  "mortal_unavailable", "mortal_error", "mortal_timeout", "not_requested_in_scene_study",
 ]);
 export const ArenaLabelBindingFailureReasonSchema = z.enum([
   "candidate_mismatch", "runtime_identity_mismatch", "protocol_invalid",
@@ -360,7 +360,7 @@ export type ArenaRagMode = z.infer<typeof ArenaRagModeSchema>;
 export const ArenaRagStatusSchema = z.enum(["disabled", "no_hits", "hits"]);
 export type ArenaRagStatus = z.infer<typeof ArenaRagStatusSchema>;
 
-export const ArenaRagTopicSchema = z.enum(["tile-efficiency", "shape-flexibility"]);
+export const ArenaRagTopicSchema = z.enum(["tile-efficiency", "shape-flexibility", "pairs", "chiitoitsu", "yakuhai", "flush", "efficiency", "dora", "waits", "furiten", "riichi-defense", "multi-defense", "open-defense", "reading", "safe-tiles", "push-fold", "endgame", "placement"]);
 export type ArenaRagTopic = z.infer<typeof ArenaRagTopicSchema>;
 
 export const ArenaRagApplicabilitySchema = z.enum([

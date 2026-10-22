@@ -20,7 +20,7 @@ export const ARENA_RAG_LIMITS_V1 = Object.freeze({
   maxQueryLength: 400,
   maxPassagesPerQuery: 5,
   maxPassageChars: 1000,
-  maxCorpusPassages: 20,
+  maxCorpusPassages: 256,
 });
 
 export const ARENA_RAG_RETRIEVER_VERSION = "arena-local-terms/v1";

@@ -37,3 +37,4 @@ export * from "./automatic-comparison.js";
 export * from "./question-lab.js";
 
 export * from "./question-lab-pairs.js";
+export * from "./scene-patterns.js";

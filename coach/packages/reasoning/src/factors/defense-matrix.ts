@@ -71,10 +71,10 @@ function evidenceRefs(
     .map((eventRef) => ({ role, eventRef }));
 }
 
-function deterministicSafety(
+export function deterministicSafety(
   candidateTile: Tile,
   threat: DefenseThreatV1,
-  facts: KnownGameFacts,
+  facts: Pick<KnownGameFacts, "rivers" | "completeness">,
 ): DeterministicSafety {
   if (threat.kind === "user_marked_open") {
     return { status: "not_applicable" };

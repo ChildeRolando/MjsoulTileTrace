@@ -1,0 +1,32 @@
+/* Annotation controls surround the existing Arena board and tile components. */
+.study-review{max-width:1520px;margin:0 auto;padding:18px 24px 40px;background:var(--page);color:var(--ink);font:14px/1.65 var(--sans,system-ui)}
+.study-review>header{display:flex;align-items:center;gap:18px;flex-wrap:wrap;padding:10px 0 16px;border-bottom:1px solid var(--line)}
+.study-review>header>b{font-size:20px;font-weight:650}.study-review>header .primary-button{margin-left:auto}
+#save-status{color:var(--muted);font-size:12px;width:100%}
+.study-navigation{display:flex;gap:12px;align-items:center;flex-wrap:wrap;position:sticky;top:0;z-index:2;background:var(--page);padding:12px 0;border-bottom:1px solid var(--line)}
+.study-navigation label{display:flex;align-items:center;gap:8px}.study-navigation select{width:160px;margin:0;min-height:40px}.study-navigation button{min-width:88px}
+#case-progress{font-size:12px;color:var(--muted);margin-left:auto}
+.review-intro{margin:14px 0;max-width:85ch}.reviewer-field{display:flex;align-items:center;gap:12px;margin:12px 0}.reviewer-field input{width:230px;margin:0}
+.study-review>article{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin-top:16px;scroll-margin-top:84px}
+.study-review>article>h2{font-size:18px;margin:0 0 12px}.study-review .observation-summary>p:first-child{font-size:15px}
+.study-review .public-table{margin-top:14px}.study-review .table-players{grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.study-review .table-player{margin:0;padding:12px}.study-review .table-player h5{line-height:1.5}
+.study-review .river-tile img{width:26px;height:35px}.study-review .player-melds .mahjong-tile{width:26px;height:35px}
+.study-review .mahjong-tile{width:34px}.study-review .public-table h4{font-size:14px;margin-top:8px}
+.study-review table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}.study-review th,.study-review td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
+.study-review th{background:var(--page);font-weight:600}.study-review td:first-child{white-space:nowrap}.study-review td select,.study-review td input{margin:0;font-size:14px}
+.study-review input[type=checkbox]{width:20px;height:20px;min-height:20px;accent-color:var(--brand)}
+.study-review textarea{font:inherit;width:100%;min-height:90px;border:1px solid var(--line);border-radius:6px;padding:10px;margin-top:14px;background:var(--card);color:var(--ink);resize:vertical}
+.study-review .candidate-detail{border-top:1px solid var(--line);margin-top:14px}.table-scroll{overflow-x:auto}.candidate-facts .tile-group{margin:0}.candidate-facts{min-width:750px}
+.study-review .pair{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:22px 0}.study-review .pair section{min-width:0}.study-review .pair h3{font-size:16px;margin-bottom:12px}.study-review .pair p{white-space:pre-wrap;line-height:1.85;margin:10px 0}
+.study-review [data-side]{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:16px 0}.study-review [data-side] select{width:80px;margin:0}.study-review input[data-covered]{max-width:700px}
+.study-review .winner{display:inline-block;width:150px;margin-left:12px}.study-review>details{margin:10px 0}.study-review>details>section{padding:14px 0;border-bottom:1px solid var(--line)}
+.study-review pre{max-height:420px;overflow:auto}.study-review button:disabled{opacity:.5;cursor:default}
+.study-review :focus-visible{outline:2px solid var(--brand);outline-offset:3px}.study-review ::selection{background:var(--brand-soft);color:var(--brand-dark)}
+.study-review input,.study-review textarea{caret-color:var(--brand)}.study-review ::placeholder{color:#63716b}
+.study-review .chapter-picker{margin:0;min-width:230px}.chapter-picker>summary{border:1px solid var(--line);border-radius:6px;padding:8px 10px;max-width:520px;line-height:1.5;font-size:13px}
+.chapter-options{max-height:320px;overflow:auto;border:1px solid var(--line);padding:10px;background:var(--card)}.study-review .chapter-options table{margin:8px 0}.study-review .chapter-options th,.study-review .chapter-options td{padding:7px;font-size:12px}.study-review .chapter-options td:first-child{width:40px}.study-review .chapter-options label{cursor:pointer;white-space:normal}.chapter-options small{display:block;color:var(--muted);font-size:11px;overflow-wrap:anywhere}
+.annotation-reason{display:block;white-space:normal;max-width:30ch;line-height:1.65;font-size:12px;color:var(--muted);font-weight:400;margin-top:6px}.automatic-notice{padding:12px 0;color:var(--ink);border-bottom:1px solid var(--line)}
+@media(max-width:1000px){.study-review .table-players{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){.study-review{padding:12px}.study-review>header>b{font-size:17px}.study-review>article{padding:12px}.study-review .pair{grid-template-columns:1fr}.study-review td,.study-review th{padding:7px 4px}.study-review .table-player{padding:8px}.study-navigation{gap:8px}.study-navigation select{width:120px}.study-navigation button{min-width:70px}#case-progress{width:100%;margin:0}}
+@media(max-width:650px){.study-review>article>table>thead{display:none}.study-review>article>table>tbody>tr:first-child{display:none}.study-review>article>table>tbody>tr{display:grid;grid-template-columns:1fr 70px;padding:10px 0;border-bottom:1px solid var(--line)}.study-review>article>table>tbody>tr>td{border:0;min-width:0}.study-review>article>table>tbody>tr>td:first-child{grid-column:1/-1;font-weight:600}.study-review>article>table>tbody>tr>td:nth-child(2){grid-column:1}.study-review>article>table>tbody>tr>td:nth-child(3){grid-column:1;grid-row:3}.study-review>article>table>tbody>tr>td:last-child{grid-column:2;grid-row:2/4}.study-review>article>table>tbody>tr>td:last-child::before{content:'知识缺口';display:block;font-size:11px;white-space:normal;margin-bottom:8px}.study-review .chapter-picker{min-width:0}.chapter-options{padding:6px}.annotation-reason{max-width:none}}

@@ -15,6 +15,10 @@ import {
   type LlmTokenUsage,
 } from "@riichi-coach/contracts";
 import { z } from "zod";
+import { ScenePatternFactsSchema } from "@riichi-coach/contracts";
+import { matchScenePatterns } from "@riichi-coach/reasoning";
+const SceneStudyContextSchema = z.object({ facts: ScenePatternFactsSchema, enablePatterns: z.boolean() }).strict();
+export const SCENE_STUDY_PROMPT_VERSION = "arena-scene-study/v1";
 import { createArenaScoringCaseInput, scoreArenaBatch } from "./blind-discard-arena-scorer.js";
 import { validateArenaSubmission } from "./blind-discard-arena.js";
 import {
@@ -155,6 +159,7 @@ export const ArenaRunEventSchema = z.discriminatedUnion("type", [
     limits: ArenaRunLimitsSchema,
     toolNames: z.array(z.string().regex(TOOL_NAME)).max(16),
     observation: ArenaBlindObservationSchema.optional(),
+    sceneStudy: SceneStudyContextSchema.optional(),
   }).strict(),
   z.object({
     type: z.literal("provider_turn"),
@@ -505,10 +510,11 @@ export const ARENA_RAG_TOOL_PARAMETERS = {
 export function createArenaRagRunnerTool(input: {
   retriever: ArenaRagRetriever;
   caseRef: string;
+  description?: string;
 }): ArenaRunnerTool {
   return {
     name: "search_knowledge",
-    description: "Search local Chinese teaching summaries about 进张计数 (effective tile counts) or 复合牌形 (overlapping shapes). Use a short Chinese concept query to check a general principle before citing it; this corpus contains no case answers. Off mode returns disabled.",
+    description: input.description ?? "Search local Chinese teaching summaries about 进张计数 (effective tile counts) or 复合牌形 (overlapping shapes). Use a short Chinese concept query to check a general principle before citing it; this corpus contains no case answers. Off mode returns disabled.",
     parameters: ARENA_RAG_TOOL_PARAMETERS,
     parseInput(raw) {
       const parsed = ArenaRagRequestSchema.safeParse(raw);
@@ -557,6 +563,7 @@ function serializeEvent(event: ArenaRunEvent): string {
  */
 export async function runBlindCoachCase(input: {
   observation: ArenaBlindObservation;
+  sceneStudy?: z.infer<typeof SceneStudyContextSchema>;
   grading: {
     binding: ArenaToolBinding;
     reference: ArenaScoringCaseInput["reference"];
@@ -570,6 +577,11 @@ export async function runBlindCoachCase(input: {
   onEvent?: (event: ArenaRunEvent) => void;
 }): Promise<ArenaCoachRunResult> {
   const observation = ArenaBlindObservationSchema.parse(input.observation);
+  const sceneStudy = input.sceneStudy === undefined ? undefined : SceneStudyContextSchema.parse(input.sceneStudy);
+  const promptVersion = sceneStudy ? SCENE_STUDY_PROMPT_VERSION : ARENA_TOOL_CALL_PROMPT_VERSION;
+  const studyRefs = sceneStudy ? [...sceneStudy.facts.evidenceRefs, ...sceneStudy.facts.candidates.flatMap(c=>c.evidenceRefs), ...sceneStudy.facts.opponents.flatMap(o=>o.evidenceRefs), ...(sceneStudy.facts.recentNonGenbutsu??[]).flatMap(x=>x.evidenceRefs)] : [];
+  if(sceneStudy && (sceneStudy.facts.caseRef!==observation.caseRef || sceneStudy.facts.selfActor!==observation.decision.selfActor ||
+    JSON.stringify(sceneStudy.facts.candidates.map(c=>c.actionRef))!==JSON.stringify(observation.candidates.map(c=>c.actionRef)) || studyRefs.some(r=>!ArenaOpaqueReferenceSchema.safeParse(r).success))) throw new Error("arena_scene_study_binding_invalid");
   const limits = resolveRunLimits(input.limits);
   if (input.grading.binding.caseRef !== observation.caseRef ||
       input.grading.binding.candidates.length !== observation.candidates.length ||
@@ -594,6 +606,7 @@ export async function runBlindCoachCase(input: {
   const usages: LlmTokenUsage[] = [];
   const observedRefs = initialCitationRefs(observation);
   const allowedEvidenceRefs = new Set(observedRefs.evidenceRefs);
+  for(const ref of studyRefs) allowedEvidenceRefs.add(ref);
   const allowedSourceRefs = new Set(observedRefs.sourceRefs);
   const runController = new AbortController();
   let abortStatus: "timeout" | "cancelled" | null = null;
@@ -697,10 +710,11 @@ export async function runBlindCoachCase(input: {
     caseRef: observation.caseRef,
     startedAt,
     provider,
-    promptVersion: ARENA_TOOL_CALL_PROMPT_VERSION,
+    promptVersion,
     limits,
     toolNames: [...toolMap.keys()],
     observation,
+    ...(sceneStudy ? { sceneStudy } : {}),
   });
   let finished = false;
   if (eventBudgetExceeded) {
@@ -720,6 +734,11 @@ export async function runBlindCoachCase(input: {
     { role: "system", content: ARENA_TOOL_CALL_PROMPT },
     { role: "user", content: `Blind observation JSON:\n${stableJson(modelObservation)}` },
   ];
+  if(sceneStudy) {
+    messages[0] = {role:"system",content:ARENA_TOOL_CALL_PROMPT.replace("the corpus covers 进张计数 and 复合牌形", "the corpus covers 牌效、对子手、役牌、染手、宝牌、等待、振听、立直与副露防守、多家威胁、押引、终盘与点况")+"\n本次为专家讲解试验。最终rationale请用约400—700字简体中文说明主要问题、候选比较、建议理由与适用限制。完整事实补充不是行动结论。未见枚数不是活牌山枚数。非现物不是确定危险；副露不是确认听牌。可自主检索、改写查询或不采纳模式提示；检索内容是来源观点而不是当前局面事实。引用知识时在对应论述旁写章节标题，并在sourceRefs列出引用标识；不得用来源支持其未讨论的当前局面事实。"};
+    messages.push({role:"user",content:`完整事实补充：\n${stableJson(sceneStudy.facts)}`});
+    if(sceneStudy.enablePatterns) messages.push({role:"user",content:matchScenePatterns(sceneStudy.facts).text});
+  }
 
   const toolDefinitions = [...toolMap.values()].map(providerTool);
   const finalDefinition = () => finalSubmissionTool({ observation, evidenceRefs: allowedEvidenceRefs, sourceRefs: allowedSourceRefs });
@@ -1095,7 +1114,7 @@ export async function runBlindCoachCase(input: {
     endedAt,
     elapsedMs,
     provider,
-    promptVersion: ARENA_TOOL_CALL_PROMPT_VERSION,
+    promptVersion,
     limits,
     providerTurnCount,
     toolCallCount,

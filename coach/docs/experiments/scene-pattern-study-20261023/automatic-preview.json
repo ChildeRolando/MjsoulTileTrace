@@ -1,0 +1,40 @@
+{
+  "version": "scene-auto-preview-delivery/v1",
+  "manifest": {
+    "version": "scene-auto-annotation/v2",
+    "freezeHash": "4deb2620754915fed220a5622aca011ae81ea16c0817a8df624548723e0f2599",
+    "datasetHash": "4bb290ccc07d9c62145bd5801c192e6041323aeb521cb36ee9640284c3df8047",
+    "knowledgeHash": "7892f0e621fb5d1945055061dc7cb6fe9fa597e649153074bb921041024be46f",
+    "model": {
+      "modelName": "gpt-6.1-sol",
+      "reasoningEffort": "high"
+    },
+    "codeHash": "f2c74515641823cea58796e3e2fbe5b23394295b66d23a1d9898d5945faef44e"
+  },
+  "manifestHash": "1247f84f56a5ced34a44d5a099dc363e395e486f660cb65aac3fc9b64514ca15",
+  "draftHash": "769a186d7aee145b11cdccdba928fa214b9ee586bdeb402ffef230f85483997f",
+  "completed": 60,
+  "firstPassFailures": 1,
+  "retriedFailures": [
+    {
+      "caseId": "bea9c46077cee292119d5d1e",
+      "status": "timeout",
+      "usage": "unknown"
+    }
+  ],
+  "currentAttemptUsage": {
+    "attempted": 60,
+    "completed": 60,
+    "failed": [],
+    "knownTokenRuns": 60,
+    "reportedTotalTokens": 1521188,
+    "meanElapsedMs": 61624.63333333333,
+    "humanReviewed": false
+  },
+  "gapCases": 15,
+  "gapItems": 19,
+  "humanReviewed": false,
+  "formalGenerations": 0,
+  "humanBlindReviews": 0,
+  "archive": "E:/AgentData/Coach/scene-pattern-study-20261023"
+}

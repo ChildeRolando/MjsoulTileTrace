@@ -26,6 +26,8 @@
     "test:package-import": "npm run build && node --test smoke/package-import-smoke.mjs",
     "arena": "npm run build && node bin/blind-discard-arena.mjs",
     "arena:console": "npm run build && node bin/blind-discard-arena-console.mjs",
+    "scene-study": "node bin/scene-pattern-study.mjs",
+    "test:scene-study": "vitest run packages/reasoning/tests/scene-patterns.test.ts packages/desktop/tests/scene-study-facts.test.ts packages/desktop/tests/scene-study-runner.test.ts scripts/scene-study --no-file-parallelism",
     "test:arena-archive": "npm run build -w @riichi-coach/desktop && vitest run packages/desktop/tests/blind-discard-arena-archive.test.ts",
     "coach": "npm run build && node bin/riichi-coach.mjs",
     "coach:demo": "npm run coach",
