@@ -47,7 +47,9 @@
     "test:question-lab": "vitest run packages/question-lab/tests packages/contracts/tests/question-lab.test.ts",
     "corpus": "node --use-env-proxy bin/replay-corpus.mjs",
     "test:corpus": "node --test scripts/replay-corpus/corpus.test.mjs",
-    "bench:corpus": "node scripts/replay-corpus/benchmark.mjs"
+    "bench:corpus": "node scripts/replay-corpus/benchmark.mjs",
+    "mortal-ablation": "node bin/arena-mortal-ablation.mjs",
+    "test:mortal-ablation": "vitest run packages/desktop/tests/mortal-ablation-experiment.test.mjs packages/desktop/tests/mortal-ablation-report.test.mjs packages/desktop/tests/blind-discard-arena-scorer.test.ts packages/desktop/tests/blind-discard-arena-runner.test.ts --no-file-parallelism"
   },
   "devDependencies": {
     "@types/node": "22.15.30",

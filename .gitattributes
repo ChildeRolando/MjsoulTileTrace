@@ -20,3 +20,6 @@
 # The independent context-RAG study also hashes its executable scripts.
 /coach/scripts/context-rag/*.mjs text eol=lf
 /coach/bin/arena-context-rag.mjs text eol=lf
+# Keep offline ablation hashes reproducible on Windows checkout.
+/coach/scripts/mortal-ablation/*.mjs text eol=lf
+/coach/bin/arena-mortal-ablation.mjs text eol=lf
