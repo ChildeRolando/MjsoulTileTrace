@@ -62,6 +62,9 @@ npm run mortal-ablation -- run --out DIR --split evaluation
 npm run mortal-ablation -- report --out DIR
 ```
 
+运行过程中可用 `preview --out DIR` 生成完整四家场面的进度快照；未归档组显示待归档，
+不生成提前的组间胜负结论。最终 report 会用全部尝试更新同一阅读入口。
+
 异常退出后先 `recover --out DIR`，它确认原进程不在、保留已开始但未完成的尝试为 interrupted，
 然后再 run；不重复已开始的付费请求。冻结输入或执行代码变动时拒绝续跑，必须开新目录。
 报告代码独立留 hash；更正统计/展示不会修改已冻结模型输入、标签或生成结果。
