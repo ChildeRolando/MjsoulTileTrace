@@ -17,7 +17,9 @@ window.createChapterPicker = (row,cards) => {
       for(const card of cards.filter(c=>c.system===system)) {
         const tr=document.createElement('tr'),checkCell=document.createElement('td'),titleCell=document.createElement('td'),box=document.createElement('input'),label=document.createElement('label'),code=document.createElement('small');
         box.type='checkbox';box.value=card.id;box.id=`chapter-${row.closest('article').dataset.id}-${row.dataset.topic}-${card.id}`;box.checked=selected().has(card.id);box.setAttribute('aria-label',topic+'章节 '+card.title);
-        label.htmlFor=box.id;label.textContent=card.title;code.textContent=`${card.id} · ${card.chapter}`;label.append(code);checkCell.append(box);titleCell.append(label);tr.append(checkCell,titleCell);tr.dataset.search=(card.id+' '+card.title+' '+card.chapter).toLowerCase();body.append(tr);
+        label.htmlFor=box.id;label.textContent=card.title;code.textContent=`${card.id} · ${card.chapter}`;label.append(code);checkCell.append(box);titleCell.append(label);
+        const read=document.createElement('a');read.href='./knowledge.html#'+card.id;read.target='_blank';read.rel='noopener';read.className='chapter-read';read.textContent='查看内容与原文';read.setAttribute('aria-label','查看 '+card.title+' 内容与原文');titleCell.append(read);
+        tr.append(checkCell,titleCell);tr.dataset.search=(card.id+' '+card.title+' '+card.chapter).toLowerCase();body.append(tr);
         box.addEventListener('change',()=>{const ids=selected();box.checked?ids.add(card.id):ids.delete(card.id);value.value=cards.filter(c=>ids.has(c.id)).map(c=>c.id).join(',');refresh();value.dispatchEvent(new Event('input',{bubbles:true}));});
       }
       table.append(body);

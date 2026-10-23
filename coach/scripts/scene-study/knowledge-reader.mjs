@@ -1,0 +1,17 @@
+import {writeFile,readFile} from 'node:fs/promises';
+import {join} from 'node:path';
+
+const esc=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const systems=[['beginners-luck-original-web','Beginner’s Luck · 基础网页版'],['nemata-original-web','现代麻雀技术论 · 旧网页版']];
+
+export async function writeKnowledgeReader(review,knowledge) {
+  const css=await readFile(new URL('./knowledge-reader.css',import.meta.url),'utf8');
+  const index=systems.map(([id,title])=>`<section><h2>${title}</h2>${knowledge.cards.filter(c=>c.source.system===id).map(c=>`<a href="#${esc(c.id)}" data-card-link="${esc(c.id)}" data-search="${esc([c.id,c.title,c.concept,c.source.title,c.source.chapter].join(' ').toLowerCase())}">${esc(c.id)} · ${esc(c.title)}</a>`).join('')}</section>`).join('');
+  const cards=knowledge.cards.map(c=>`<article id="${esc(c.id)}" aria-labelledby="title-${esc(c.id)}"><h1 id="title-${esc(c.id)}">${esc(c.title)}</h1><p class="source-meta">${esc(c.id)} · ${esc(systems.find(([id])=>id===c.source.system)?.[1]??c.source.system)}</p><p><a class="source-link" href="${esc(c.source.url)}" target="_blank" rel="noopener noreferrer">查看日文教材原文（含牌图）</a></p><p class="source-meta">原文标题：${esc(c.source.title)}<br>章节：${esc(c.source.chapter)}</p><h2>中文知识卡</h2><p>${esc(c.concept)}</p><h2>当前卡片的适用条件</h2><p class="editorial-note">以下为整理稿的表述，不等同于教材原文的适用边界；条件过窄的问题待修订。</p><p>${esc(c.conditions)}</p><h2>例外与限制</h2><p>${esc(c.exceptions)}</p><details><summary>查看本轮提供给模型的完整卡片</summary><p class="card-verbatim">${esc(c.content)}</p></details><p class="source-meta">本页为中文整理卡，不是教材全文翻译。原文与牌图请打开上方链接。未确认的牌图例题未纳入卡片；进阶来源为旧网页版，不代表新版书籍。</p></article>`).join('');
+  await writeFile(join(review,'knowledge.html'),`<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Coach · 教材与知识卡</title><style>${css}</style><body><header><strong>教材与知识卡 · 40 张</strong><a href="./knowledge-needs-60.html">返回局面标注</a></header><p class="reader-notice">先对照教材原文，再判断卡片条件。卡片条件过窄或模型未选中章节，不代表教材没有覆盖。</p><div class="reader-layout"><aside aria-label="章节目录"><label for="chapter-search">搜索章节或内容</label><input id="chapter-search" type="search" placeholder="例如：点况、七对子、b01"><p id="search-count" role="status"></p><nav aria-label="知识卡章节">${index}</nav></aside><main>${cards}</main></div><script>
+const links=[...document.querySelectorAll('[data-card-link]')],cards=[...document.querySelectorAll('main>article')];
+function show(){const id=location.hash.slice(1),card=cards.find(c=>c.id===id)||cards[0];cards.forEach(c=>c.hidden=c!==card);links.forEach(a=>{if(a.dataset.cardLink===card.id)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});document.title=card.querySelector('h1').textContent+' · Coach 教材';}
+const search=document.querySelector('#chapter-search');function filter(){const q=search.value.trim().toLowerCase();links.forEach(a=>a.hidden=!a.dataset.search.includes(q));document.querySelector('#search-count').textContent='找到 '+links.filter(a=>!a.hidden).length+' / '+links.length+' 张卡片';for(const group of document.querySelectorAll('nav>section'))group.hidden=![...group.querySelectorAll('a')].some(a=>!a.hidden);}
+search.addEventListener('input',filter);window.addEventListener('hashchange',show);show();filter();
+</script></body></html>`,'utf8');
+}

@@ -3,6 +3,7 @@ import { readFile,writeFile,mkdir,copyFile,readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import { observationView,tileImages } from '../../arena-console/case-view.mjs';
 import { hash } from './common.mjs';
+import { writeKnowledgeReader } from './knowledge-reader.mjs';
 const embed=value=>JSON.stringify(value).replaceAll('<','\\u003c');
 export function graphicalScene(observation) {
   return observationView(observation).replaceAll('src="/tiles/','loading="lazy" src="./assets/tiles/');
@@ -14,6 +15,9 @@ function actionGraphic(encoded) {
 export async function polishReviewPresentation(out) {
   const dataset=JSON.parse(await readFile(join(out,'dataset.json'),'utf8')),review=join(out,'review');
   const knowledge=JSON.parse(await readFile(join(out,'knowledge.json'),'utf8'));
+  await writeKnowledgeReader(review,knowledge);
+  let feedback=null;try{feedback=JSON.parse(await readFile(join(out,'review-feedback.json'),'utf8'));}catch(e){if(e.code!=='ENOENT')throw e;}
+  if(feedback&&(feedback.datasetHash!==hash(dataset)||feedback.knowledgeHash!==hash(knowledge)))throw new Error('study_review_feedback_binding');
   let automatic=null;try{automatic=JSON.parse(await readFile(join(out,'automatic-draft.json'),'utf8'));}catch(e){if(e.code!=='ENOENT')throw e;}
   if(automatic&&(automatic.datasetHash!==hash(dataset)||automatic.knowledgeHash!==hash(knowledge)))throw new Error('study_automatic_draft_binding');
   const css=(await Promise.all(['../../arena-console/style.css','../../arena-console/layout.css','./review.css'].map(p=>readFile(new URL(p,import.meta.url),'utf8')))).join('\n');
@@ -39,7 +43,7 @@ export async function polishReviewPresentation(out) {
       .replace("window.addEventListener('beforeunload',e=>{if(document.querySelector('input,select,textarea')){e.preventDefault();e.returnValue='';}});",'')
       .replace('<script>',`<script>window.reviewStorageKey=${embed('coach-scene-review:'+name+':'+dataset.createdAt)};window.reviewCards=${embed(knowledge.cards.map(c=>({id:c.id,title:c.title,system:c.source.system,chapter:c.source.chapter})))};window.automaticDraft=${embed(name==='knowledge-needs-60'&&automatic?{...automatic,hash:hash(automatic)}:null)};</script><script>`)
       .replace('</html>',`<script>${client}</script></body></html>`);
-    if(name==='knowledge-needs-60')html=html.replace(/<p>请在阅读模式结果[\s\S]*?<\/p>/, '<p class="review-intro">先看完整牌局，再标注必须、可选或不适用的知识主题。必须主题填写可接受章节；教材没有覆盖时勾选知识缺口。请在阅读模型讲解之前完成。</p>');
+    if(name==='knowledge-needs-60')html=html.replace(/<p>请在阅读模式结果[\s\S]*?<\/p>/, '<p class="review-intro">先看完整牌局，再标注知识主题与可接受章节。缺口标记只表示当前卡片待核对，不能据此断定教材未覆盖；请先查看原文。请在阅读模型讲解之前完成。</p>');
     else {
       const goldPage=await readFile(join(review,'knowledge-needs-60.html'),'utf8');
       const library=goldPage.match(/<details><summary>知识卡目录[\s\S]*?<\/details>/)?.[0];
@@ -49,7 +53,11 @@ export async function polishReviewPresentation(out) {
     html=html.replace(/<p>评审姓名：<input id="reviewer"><\/p>/,'<label class="reviewer-field">评审姓名<input id="reviewer" autocomplete="name"></label>');
     html=html.replaceAll('<button onclick="download()">','<button class="primary-button" onclick="download()">');
     html=html.replaceAll('可接受章节(如 b10,a01)','可接受章节（多选）');
+    html=html.replace('<span id="save-status"', '<a class="knowledge-reader-link" href="./knowledge.html" target="_blank" rel="noopener">阅读教材与知识卡</a><span id="save-status"');
+    html=html.replaceAll('<th>知识缺口</th>','<th>卡片缺口<br>（待核对）</th>');
+    if(name==='knowledge-needs-60'&&feedback)html=html.replace('<nav class="study-navigation"','<p class="review-feedback"><strong>审核反馈：</strong>主要问题是知识卡适用条件过窄及模型误判，不能归为教材覆盖不足。原自动标记保留供追溯，逐项修订待完成。</p><nav class="study-navigation"');
     if(name==='knowledge-needs-60'&&automatic)html=html.replace('<nav class="study-navigation"',`<p class="automatic-notice"><strong>自动标注草稿 · gpt-6.1-sol / high</strong> · ${automatic.cases.filter(c=>c.topics.every(t=>t.need!==null)).length}/60 局已生成，尚未人工复核。逐项理由仅供检查，不能作为专家有效性结论。</p><nav class="study-navigation"`);
+    if(feedback)html=html.replace('60/60 局已生成，尚未人工复核。','60/60 局已生成；已收到总体审核，逐项修订待完成。');
     await writeFile(path,html,'utf8');
   }
   return {component:'arena-console/case-view.mjs#observationView',cases:60,blind:48};

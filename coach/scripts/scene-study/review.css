@@ -1,4 +1,5 @@
 /* Annotation controls surround the existing Arena board and tile components. */
+.knowledge-reader-link{font-weight:650;text-underline-offset:3px}.chapter-read{display:inline-block;margin-top:6px;font-size:13px;text-underline-offset:3px}.review-feedback{max-width:90ch;line-height:1.8;padding:12px 0;border-bottom:1px solid var(--line)}
 .study-review{max-width:1520px;margin:0 auto;padding:18px 24px 40px;background:var(--page);color:var(--ink);font:14px/1.65 var(--sans,system-ui)}
 .study-review>header{display:flex;align-items:center;gap:18px;flex-wrap:wrap;padding:10px 0 16px;border-bottom:1px solid var(--line)}
 .study-review>header>b{font-size:20px;font-weight:650}.study-review>header .primary-button{margin-left:auto}
