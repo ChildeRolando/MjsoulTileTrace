@@ -50,3 +50,39 @@ entries; final assembly rechecks their independent audits.
 The independent audit owns visual-reading order
 and semantic review; the producer enforces unique complete source-ID coverage
 and prevents paragraph or image-region groups from crossing unit boundaries.
+
+## HTML supplements
+
+The supplied PDFs and completed drafts remain immutable. HTML supplements use
+`textbook-production-web-sources.py`: original HTML, ordered DOM blocks,
+emphasis/links/table cells, original image bytes and their hashes are retained.
+Modern catalog v2 includes section suffixes, exercise continuations and archives;
+capture is separate from scope acceptance. Existing source files are verified and
+reused. `--source-version v2` explicitly creates new source/main files.
+
+`textbook-production-web.mjs` accepts `--source` and either a Chinese `--reuse`
+map or Japanese `--dictionary`. Chinese body text remains verbatim; exact figures
+reuse independently passed PDF evidence. The immutable map snapshot is bound to
+the candidate. Other figures require explicit model output by source block ID.
+`--reuse-only` refuses paid recognition, `--preflight-only` performs no model
+call, and `--variant` preserves an earlier candidate while creating a new version.
+Existing candidates validate dependencies before returning without a new call.
+The stop file is `processing/web-production/v1/STOP`, checked before dispatch.
+
+`textbook-production-web-dictionary.mjs` identifies only a finite list of new
+single-tile assets, preserving exact URLs, bytes, pixels, red status and rotation.
+Its draft needs independent visual review. It never converts a filename into an
+accepted label. Tile backs retain an unknown face; complex diagrams remain whole
+figures. Red fives are displayed as 0m/0p/0s, with explicit sideways annotations.
+
+`textbook-production-web-present.py` creates a separate display candidate.
+Single-frame GIF/JPEG originals convert to original-size RGBA PNG; ordered inline
+images join with no gap, transparent padding and bottom alignment. Multi-frame
+images are refused. Original bytes remain bound and independent audit compares
+decoded pixels. Display assets are isolated by the parent candidate byte hash.
+
+All new model calls use explicit Sol/high, an isolated temporary directory,
+disabled capabilities and an instruction forbidding any extra tool call.
+Unexpected tool events reject the attempt while preserving its raw evidence.
+New call records distinguish the complete request prompt hash from the semantic
+payload hash and bind the CLI snapshot. Token fields remain null when unknown.
