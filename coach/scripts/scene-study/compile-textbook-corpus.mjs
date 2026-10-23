@@ -27,8 +27,9 @@ export async function compileTextbookCorpus(directory, suppliedDefinitions){
   }
   for(const b of body.blocks.slice(d.from-1,d.to)){
    if(used.has(b.id))throw Error('textbook_duplicate_block');used.add(b.id);
-   if(b.type==='figure')blocks.push({type:'figure',id:b.id,page:b.page,...(b.locator?{locator:b.locator}:{}),figure:await compileFigure(b)});
-   else {const inlineFigures=[];for(const figure of b.inlineFigures??[])inlineFigures.push(await compileFigure(figure));blocks.push({type:b.type,id:b.id,page:b.page,...(b.locator?{locator:b.locator}:{}),...(b.type==='list'?{items:b.items}:{text:b.text}),...(inlineFigures.length?{inlineFigures}:{})});}
+   const tablePosition={...(b.tableCell?{tableCell:b.tableCell}:{}),...(b.tableCaptionFor?{tableCaptionFor:b.tableCaptionFor}:{})};
+   if(b.type==='figure')blocks.push({type:'figure',id:b.id,page:b.page,...(b.locator?{locator:b.locator}:{}),...tablePosition,figure:await compileFigure(b)});
+   else {const inlineFigures=[];for(const figure of b.inlineFigures??[])inlineFigures.push(await compileFigure(figure));blocks.push({type:b.type,id:b.id,page:b.page,...(b.locator?{locator:b.locator}:{}),...tablePosition,...(b.type==='list'?{items:b.items}:{text:b.text}),...(inlineFigures.length?{inlineFigures}:{})});}
   }
   units.push(TextbookUnitSchema.parse({unitId:d.id,chapterId:d.chapterId,title:d.title,chapterTitle:chapter.title,topics:chapter.topics,
    source:{sourceId:source.id,title:source.title,sha256:source.sha256,pages:source.format==='web'?[]:[...new Set(blocks.map(b=>b.page))],...(source.format==='web'?{format:'web',web:{url:source.url,articleId:source.articleId,htmlSha256:source.htmlSha256}}:{})},translationStatus:body.translationStatus,

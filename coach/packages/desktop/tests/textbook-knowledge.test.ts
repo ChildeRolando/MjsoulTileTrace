@@ -8,6 +8,17 @@ import {makeArenaMcpCase} from "./fixtures/arena-mcp-case.js";
 import {fixtureCorpus,writeFixtureCorpus} from "./fixtures/textbook-fixture.js";
 
 describe("complete textbook knowledge",()=>{
+ it("preserves table cells across pagination and refuses missing fragments, blanks or overlapping spans",async()=>{
+  const c=fixtureCorpus(),u=c.units[0]!,url="https://example.org/table";
+  u.source={...u.source,format:"web",pages:[],web:{url,articleId:"table",htmlSha256:u.source.sha256}};c.images=[];
+  const base={tableId:"source-table",rowCount:2,columnCount:2,rowspan:1,colspan:1,header:false,empty:false,fragmentIndex:0,fragmentCount:1};
+  u.blocks=Array.from({length:4},(_,i)=>({type:"p" as const,id:`cell-${i}`,page:null,locator:{url,sourceBlockIds:[`cell-${i}`]},text:i<2?"完整条件。".repeat(400):i===2?"结论":"（原表空白单元格）",tableCell:i<2?{...base,row:0,column:0,rowspan:2,fragmentIndex:i,fragmentCount:2}:{...base,row:i===2?0:1,column:1,empty:i===3}}));
+  c.units[0]=TextbookUnitSchema.parse(u);c.corpusId=textbookCorpusId(c);const port=createTextbookKnowledge(c);let offset:number|null=0;const blocks=[];
+  do{const r=await port.read({unitId:u.unitId,blockOffset:offset});blocks.push(...r.unit.blocks);offset=r.nextBlockOffset;}while(offset!==null);
+  expect(blocks).toEqual(u.blocks);expect(blocks.filter(b=>b.tableCell?.column===0)).toHaveLength(2);
+  for(const missing of [1,3]){const changed=structuredClone(c);changed.units[0]!.blocks.splice(missing,1);changed.corpusId=textbookCorpusId(changed);expect(()=>validateTextbookCorpus(changed)).toThrow(missing===1?"fragment_missing":"blank_slot_missing");}
+  const overlap=structuredClone(c);overlap.units[0]!.blocks[2]!.tableCell!.rowspan=2;overlap.corpusId=textbookCorpusId(overlap);expect(()=>validateTextbookCorpus(overlap)).toThrow("cell_overlap");
+ });
  it("keeps real web locations through catalog, search, full reads and Arena citations alongside PDF sources",async()=>{
   const c=fixtureCorpus(),u=c.units[0]!,url="https://example.org/lesson.html";
   u.source={...u.source,format:"web",pages:[],web:{url,articleId:"lesson",htmlSha256:u.source.sha256}};

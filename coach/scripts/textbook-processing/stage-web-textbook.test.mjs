@@ -28,6 +28,12 @@ it('stages an independently accepted web chapter through the same corpus with re
   expect(blocks.at(-1).figure.transcription.text).toContain('123m456p789s11122z');expect(await readFile(join(dest,'knowledge.html'),'utf8')).toContain('原网页');
   await expect(stageWebTextbook({processingRoot:root,candidatePath:'candidate.json',destination:join(root,'refused'),verify:async()=>({...await verify(),status:'needs-repair'})})).rejects.toThrow('audit_identity');
   await expect(stat(join(root,'refused'))).rejects.toThrow();
+  const special={...await verify(),status:'passed-after-specific-input-adjudication',originalStatus:'failed'};
+  await expect(stageWebTextbook({processingRoot:root,candidatePath:'candidate.json',destination:join(root,'missing-adjudication'),verify:async()=>special})).rejects.toThrow('missing_input_adjudication');
+  for(const name of ['adjudication','original-audit','original-call'])await writeFile(join(root,name+'.json'),'{}');
+  special.inputAdjudication={path:'adjudication.json',sha256:sha('{}'),originalAudit:{path:'original-audit.json',sha256:sha('{}'),status:'failed'},originalCall:{path:'original-call.json',sha256:sha('{}'),callId:'fixture-call'},resolvedIssueIndices:[0,1],approvedAt:'2026-10-24T00:00:00Z'};
+  const accepted=await stageWebTextbook({processingRoot:root,candidatePath:'candidate.json',destination:join(root,'adjudicated'),verify:async()=>special});expect(accepted.auditStatus).toBe(special.status);expect(accepted.originalAuditStatus).toBe('failed');
+  await writeFile(join(root,'original-call.json'),'tampered');await expect(stageWebTextbook({processingRoot:root,candidatePath:'candidate.json',destination:join(root,'tampered-adjudication'),verify:async()=>special})).rejects.toThrow('adjudication_changed');
   await writeFile(join(root,'source.json'),sb+' ');await expect(stageWebTextbook({processingRoot:root,candidatePath:'candidate.json',destination:join(root,'changed'),verify})).rejects.toThrow('source_changed');
  }finally{if(!resolve(root).startsWith(resolve(tmpdir())+sep)||!root.includes('coach-web-stage-'))throw Error('unsafe_cleanup');await rm(root,{recursive:true,force:true});}
 });

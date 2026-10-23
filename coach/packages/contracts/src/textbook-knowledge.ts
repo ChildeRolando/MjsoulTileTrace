@@ -52,11 +52,20 @@ export const TextbookFigureSchema = z.object({
 }).strict().superRefine((figure,ctx) => {
   if((figure.page===null)!==Boolean(figure.locator))ctx.addIssue({code:z.ZodIssueCode.custom,message:"figure requires either a physical PDF page or a web locator"});
 });
+export const TextbookTableCellSchema = z.object({
+  tableId:z.string().min(1).max(500),row:z.number().int().nonnegative(),column:z.number().int().nonnegative(),sourceColumn:z.number().int().nonnegative().optional(),
+  rowspan:z.number().int().min(1).max(500),colspan:z.number().int().min(1).max(100),
+  rowCount:z.number().int().min(1).max(500),columnCount:z.number().int().min(1).max(100),
+  header:z.boolean(),empty:z.boolean(),fragmentIndex:z.number().int().nonnegative(),fragmentCount:z.number().int().positive(),
+}).strict().superRefine((cell,ctx)=>{
+  if(cell.row+cell.rowspan>cell.rowCount||cell.column+cell.colspan>cell.columnCount||cell.fragmentIndex>=cell.fragmentCount)ctx.addIssue({code:z.ZodIssueCode.custom,message:"table cell position or fragment is out of range"});
+});
+const TablePosition={tableCell:TextbookTableCellSchema.optional(),tableCaptionFor:z.string().min(1).max(500).optional()};
 export const TextbookBlockSchema = z.discriminatedUnion("type", [
-  z.object({ type: z.literal("p"), id: TextbookIdSchema, ...SourcePosition, text: z.string().min(1).max(6000), inlineFigures: z.array(TextbookFigureSchema).min(1).max(64).optional() }).strict(),
-  z.object({ type: z.literal("h2"), id: TextbookIdSchema, ...SourcePosition, text: z.string().min(1).max(500) }).strict(),
-  z.object({ type: z.literal("list"), id: TextbookIdSchema, ...SourcePosition, items: z.array(z.string().min(1).max(2000)).min(1).max(20) }).strict(),
-  z.object({ type: z.literal("figure"), id: TextbookIdSchema, ...SourcePosition, figure: TextbookFigureSchema }).strict(),
+  z.object({ type: z.literal("p"), id: TextbookIdSchema, ...SourcePosition, ...TablePosition, text: z.string().min(1).max(6000), inlineFigures: z.array(TextbookFigureSchema).min(1).max(64).optional() }).strict(),
+  z.object({ type: z.literal("h2"), id: TextbookIdSchema, ...SourcePosition, ...TablePosition, text: z.string().min(1).max(500) }).strict(),
+  z.object({ type: z.literal("list"), id: TextbookIdSchema, ...SourcePosition, ...TablePosition, items: z.array(z.string().min(1).max(2000)).min(1).max(20) }).strict(),
+  z.object({ type: z.literal("figure"), id: TextbookIdSchema, ...SourcePosition, ...TablePosition, figure: TextbookFigureSchema }).strict(),
 ]);
 export const TextbookUnitSchema = z.object({
   unitId: TextbookIdSchema, chapterId: TextbookIdSchema, title: z.string().min(1).max(160), chapterTitle: z.string().min(1).max(160),

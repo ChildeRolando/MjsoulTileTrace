@@ -4,6 +4,7 @@ import {createHash} from 'node:crypto';
 import {compileTextbookCorpus} from '../scene-study/compile-textbook-corpus.mjs';
 import {buildTextbookReview} from '../scene-study/textbook-review.mjs';
 import {splitExactText} from './publish-textbooks.mjs';
+import {composeWebTables} from './stage-web-tables.mjs';
 const sha=b=>createHash('sha256').update(b).digest('hex');
 async function contained(root,path){const base=await realpath(root),full=await realpath(resolve(base,path)),rel=relative(base,full);if(isAbsolute(rel)||rel==='..'||rel.startsWith('..'+sep))throw Error('web_stage_path_outside_root');return full;}
 export function compactInlineTiles(text){
@@ -22,11 +23,17 @@ export function composeWebParagraphs(raw,sourceId){
   return [{type:'p',id:`${sourceId}-p${index+1}`,page:null,locator,text,paragraphId:parts[0].paragraphId,...(inlineFigures.length?{inlineFigures,inlineContent}:{}),sourceSegments:parts.flatMap(b=>b.sourceSegments??[])}];
  });
 }
+async function validateInputAdjudication(root,audit){
+ const a=audit.inputAdjudication;
+ if(!a?.path||!a.sha256||a.originalAudit?.status!=='failed'||!a.originalCall?.callId||!a.approvedAt||!a.resolvedIssueIndices?.length)throw Error('web_stage_missing_input_adjudication');
+ for(const artifact of [a,a.originalAudit,a.originalCall])if(!artifact?.path||!/^[a-f0-9]{64}$/.test(artifact.sha256)||sha(await readFile(await contained(root,artifact.path)))!==artifact.sha256)throw Error('web_stage_adjudication_changed');
+}
 /** A chapter preview in a new directory. This never replaces the active library. */
 export async function stageWebTextbook({processingRoot,candidatePath,destination,verify}){
  if(typeof verify!=='function')throw Error('web_stage_requires_independent_gate');
  const path=await contained(processingRoot,candidatePath),audit=await verify(processingRoot,path),bytes=await readFile(path),candidate=JSON.parse(bytes);
- if(audit.status!=='passed'||audit.production?.sha256!==sha(bytes))throw Error('web_stage_audit_identity');
+ if(!['passed','passed-after-specific-input-adjudication'].includes(audit.status)||audit.production?.sha256!==sha(bytes))throw Error('web_stage_audit_identity');
+ if(audit.status==='passed-after-specific-input-adjudication')await validateInputAdjudication(processingRoot,audit);
  if(candidate.schema!=='coach-textbook-web-article-draft/1')throw Error('web_stage_candidate_schema');
  const sourceBytes=await readFile(await contained(processingRoot,candidate.source.sourcePath)),source=JSON.parse(sourceBytes);
  if(sha(sourceBytes)!==candidate.source.sourceSha256||source.html.sha256!==candidate.source.htmlSha256||source.url!==candidate.source.url)throw Error('web_stage_source_changed');
@@ -47,7 +54,7 @@ export async function stageWebTextbook({processingRoot,candidatePath,destination
    rawBlocks.push({type:'figure',id,page:null,locator,src,caption:f.caption,paragraphId:original.paragraphId??sources[0].paragraphId,transcriptionText:f.transcription+(f.unknowns?.length?'\n原图未显示的信息：'+f.unknowns.join('；'):''),sourceAssetBindings:f.sourceAssetBindings,sourceOccurrenceIds:f.sourceOccurrenceIds,presentationAsset:f.presentationAsset,transcriptionProvenance:f.provenance,...(f.presentationAsset?{imageProvenance:{kind:'derived-source-assets',method:'source-order-horizontal-RGBA-bottom-aligned-no-gap',sourceAssetSha256s:f.sourceAssetBindings.map(a=>a.sha256)}}:{})});
   }else throw Error('web_stage_unknown_block');
  }
- const blocks=composeWebParagraphs(rawBlocks,sourceId),title=source.language==='ja'?candidate.body.blocks.find(b=>b.type==='text'&&/^h[1-6]$/.test(byId.get(b.sourceBlockIds[0])?.tag))?.text:source.title;
+ const blocks=composeWebTables(rawBlocks,source,sourceId,composeWebParagraphs),title=source.language==='ja'?candidate.body.blocks.find(b=>b.type==='text'&&/^h[1-6]$/.test(byId.get(b.sourceBlockIds[0])?.tag))?.text:source.title;
  if(!title)throw Error('web_stage_missing_chinese_title');
  const library={schema:'coach-textbook-index/1',status:'chapter-auto-audited',title,policy:{cardRole:'index-only',bodyRole:'complete-source-body-with-chinese-translation',modelExperiments:false,reviewStatus:'pending-user-review'},sources:[{id:sourceId,title,format:'web',language:source.language,url:source.url,articleId:source.articleId,sha256:source.html.sha256,htmlSha256:source.html.sha256,bytes:source.html.bytes,sourceJsonSha256:sha(sourceBytes),sourcePath:candidate.source.sourcePath}],chapters:[{id:chapterId,title,sourceId,startPage:null,bodyStartPage:null,endPage:null,topics:[],indexDescription:'完整原文论证和牌例；索引只定位。',anchors:[],relatedChapterIds:[]}]};
  const bodies={schema:'coach-textbook-bodies/1',language:'zh-CN',modelExperiments:false,chapters:[{chapterId,sourceId,sourceSha256:source.html.sha256,translationStatus:'batch-audited-pending-user-review',translatorNote:source.language==='ja'?'日文原文完整译为中文，句中牌编码按原段落顺序保留。牌列图由原始单牌资产按原序无损组合；所有源资产仍可追溯。自动校对不等于用户审核。':'保留原中文署名和正文。牌图转录如复用已验收 PDF，逐图保留原候选与像素核对出处。自动校对不等于用户审核。',blocks}]};
@@ -57,7 +64,7 @@ export async function stageWebTextbook({processingRoot,candidatePath,destination
  for(const image of images)await copyFile(image.from,join(destination,image.to));
  for(const [name,data] of [['knowledge-index.json',library],['textbook-bodies.json',bodies],['textbook-unit-map.json',definitions]])await writeFile(join(destination,name),JSON.stringify(data,null,2)+'\n');
  const build=await compileTextbookCorpus(destination,definitions);await buildTextbookReview(destination,library);
- const receipt={schema:'coach-textbook-web-stage/1',status:'independently-audited-chapter-preview',candidatePath:path,candidateSha256:sha(bytes),sourceSha256:sha(sourceBytes),auditPath:audit.auditPath,...build,modelCalls:0,activeLibraryChanged:false,humanReview:'pending'};
+ const receipt={schema:'coach-textbook-web-stage/1',status:'independently-audited-chapter-preview',candidatePath:path,candidateSha256:sha(bytes),sourceSha256:sha(sourceBytes),auditPath:audit.auditPath,auditStatus:audit.status,...(audit.inputAdjudication?{inputAdjudication:audit.inputAdjudication,originalAuditStatus:audit.originalStatus,effectiveModelChecks:audit.effectiveModelChecks,originalModelChecks:audit.modelChecks}:{}),...build,modelCalls:0,activeLibraryChanged:false,humanReview:'pending'};
  await writeFile(join(destination,'web-stage-receipt.json'),JSON.stringify(receipt,null,2)+'\n');return receipt;
 }
 

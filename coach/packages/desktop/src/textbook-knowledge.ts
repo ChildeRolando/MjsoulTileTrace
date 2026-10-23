@@ -21,6 +21,34 @@ export type TextbookCorpus = z.infer<typeof TextbookCorpusSchema>;
 export function textbookCorpusId(c: Pick<TextbookCorpus, "bodySha256" | "units" | "images">): string {
   return hash(JSON.stringify({ bodySha256: c.bodySha256, units: c.units, images: c.images }));
 }
+function validateTableGeometry(units: TextbookCorpus["units"]) {
+  type Cell = NonNullable<TextbookCorpus["units"][number]["blocks"][number]["tableCell"]>;
+  const tables=new Map<string,{chapterId:string;rows:number;columns:number;cells:Map<string,{cell:Cell;fragments:number[]}>}>();
+  const captions=new Set<string>();
+  for(const unit of units)for(const block of unit.blocks){
+    if(block.tableCaptionFor)captions.add(block.tableCaptionFor);
+    const cell=block.tableCell;if(!cell)continue;
+    if(unit.source.format!=="web"||block.tableCaptionFor)throw Error("textbook_table_source_binding");
+    let table=tables.get(cell.tableId);
+    if(!table){table={chapterId:unit.chapterId,rows:cell.rowCount,columns:cell.columnCount,cells:new Map()};tables.set(cell.tableId,table);}
+    if(table.chapterId!==unit.chapterId||table.rows!==cell.rowCount||table.columns!==cell.columnCount)throw Error("textbook_table_geometry_changed");
+    const key=`${cell.row}:${cell.column}`,prior=table.cells.get(key);
+    if(prior){if(JSON.stringify({...prior.cell,fragmentIndex:0})!==JSON.stringify({...cell,fragmentIndex:0}))throw Error("textbook_table_fragment_changed");prior.fragments.push(cell.fragmentIndex);}
+    else table.cells.set(key,{cell,fragments:[cell.fragmentIndex]});
+    if(cell.empty&&(block.type!=="p"||block.inlineFigures?.length||cell.fragmentCount!==1))throw Error("textbook_table_empty_cell_changed");
+  }
+  for(const table of tables.values()){
+    const occupied=new Set<string>();
+    for(const {cell,fragments} of table.cells.values()){
+      if(fragments.length!==cell.fragmentCount||fragments.some((n,i)=>n!==i))throw Error("textbook_table_fragment_missing");
+      for(let row=cell.row;row<cell.row+cell.rowspan;row++)for(let column=cell.column;column<cell.column+cell.colspan;column++){
+        const key=`${row}:${column}`;if(occupied.has(key))throw Error("textbook_table_cell_overlap");occupied.add(key);
+      }
+    }
+    if(occupied.size!==table.rows*table.columns)throw Error("textbook_table_blank_slot_missing");
+  }
+  if([...captions].some(id=>!tables.has(id)))throw Error("textbook_table_caption_orphan");
+}
 export function validateTextbookCorpus(raw: unknown): TextbookCorpus {
   const c = TextbookCorpusSchema.parse(raw);
   if (c.corpusId !== textbookCorpusId(c)) throw Error("textbook_corpus_changed");
@@ -44,6 +72,7 @@ export function validateTextbookCorpus(raw: unknown): TextbookCorpus {
     for (const block of u.blocks) if (Buffer.byteLength(JSON.stringify({...u,blocks:[block]})) > TEXTBOOK_LIMITS.maxResultBytes - 1500) throw Error("textbook_block_over_budget");
   }
   if (imageCount !== figures.size) throw Error("textbook_orphan_image");
+  validateTableGeometry(c.units);
   return c;
 }
 // Separate "10巡" / "4饼" just as the printed source's "10 巡" / "4 饼".
