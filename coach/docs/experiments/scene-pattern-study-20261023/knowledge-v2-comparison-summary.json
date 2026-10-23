@@ -1,0 +1,56 @@
+{
+  "kind": "paired_automatic_label_diagnostic_not_accuracy",
+  "cases": 60,
+  "pairedCases": 57,
+  "incompleteCaseIds": [
+    "9744ea638cb27c243864b772",
+    "0d26f91ad875ab9fa1968b42",
+    "7ff112be069c270e4b1b55ba"
+  ],
+  "oldRequiredGapsAll60": 19,
+  "games": 10,
+  "topicDecisions": 912,
+  "oldRequired": 216,
+  "newRequired": 239,
+  "oldRequiredGaps": 17,
+  "newRequiredGaps": 0,
+  "oldGapCases": 13,
+  "newGapCases": 0,
+  "oldGapsNowRequiredWithChapters": 17,
+  "oldGapsNowDowngraded": 0,
+  "changedTopicDecisions": 332,
+  "changedNeedDecisions": 125,
+  "gapCountChangePerCase": {
+    "all": null,
+    "random": null,
+    "challenge": null
+  },
+  "model": {
+    "modelName": "gpt-6.1-sol",
+    "reasoningEffort": "high"
+  },
+  "previousKnowledgeHash": "7892f0e621fb5d1945055061dc7cb6fe9fa597e649153074bb921041024be46f",
+  "knowledgeHash": "71361c15e4954f23a30b35ddc74423d0067d690ebf94515f7983ea35371d8386",
+  "previousDraftHash": "769a186d7aee145b11cdccdba928fa214b9ee586bdeb402ffef230f85483997f",
+  "draftHash": "e1cfd494138e6a6f61a8e67db729a0f9ef8914fd36774e09932d18ea613522b2",
+  "cost": {
+    "before": {
+      "attempts": 61,
+      "failedAttempts": 1,
+      "knownUsageAttempts": 60,
+      "knownTokens": 1521188,
+      "unknownUsageAttempts": 1,
+      "meanAttemptElapsedMs": 62581.901639344265,
+      "meanCompletedElapsedMs": 61624.63333333333
+    },
+    "after": {
+      "attempts": 101,
+      "failedAttempts": 44,
+      "knownUsageAttempts": 70,
+      "knownTokens": 1834524,
+      "unknownUsageAttempts": 31,
+      "meanAttemptElapsedMs": 107793.27722772278,
+      "meanCompletedElapsedMs": 98675.75438596492
+    }
+  }
+}

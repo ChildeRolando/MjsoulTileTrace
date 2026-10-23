@@ -1,0 +1,639 @@
+{
+  "kind": "assistant_source_mapping_review_not_human_gold",
+  "scope": "全部19项旧必须缺口：17项完成复标并核对章节适用，2项因超时未知；不评价所有912项主题判断的准确率。",
+  "datasetHash": "4bb290ccc07d9c62145bd5801c192e6041323aeb521cb36ee9640284c3df8047",
+  "knowledgeHash": "71361c15e4954f23a30b35ddc74423d0067d690ebf94515f7983ea35371d8386",
+  "draftHash": "e1cfd494138e6a6f61a8e67db729a0f9ef8914fd36774e09932d18ea613522b2",
+  "reviewer": "assistant",
+  "humanReviewed": false,
+  "findings": [
+    {
+      "ordinal": 2,
+      "caseId": "bb940961b8d94a67b1da4682",
+      "topic": "safe-tiles",
+      "status": "source_mapping_supported",
+      "before": {
+        "topic": "safe-tiles",
+        "need": "required",
+        "gap": true,
+        "chapters": [],
+        "confidence": "medium",
+        "reason": "需区分对副露者的自身舍牌与未见中；现有现物专卡的适用条件限立直或多家共同安全牌。"
+      },
+      "after": {
+        "topic": "safe-tiles",
+        "need": "required",
+        "gap": false,
+        "chapters": [
+          "b12",
+          "b13"
+        ],
+        "confidence": "high",
+        "reason": "候选4万、6万是北家自身舍牌，可核对对该家的现物依据；其余非现物不能直接称为确定危险。"
+      },
+      "assessment": "核对 b12 原文的现物依据，适用对象包括副露者；同时核对相关牌确在该对手牌河中。章节选择的修正有来源与公开事实支持。",
+      "sources": [
+        {
+          "id": "b12",
+          "url": "http://beginners.biz/mamori/mamori02.html",
+          "htmlSha256": "b8ed39d21f94bebc763b18019dfd4e8a56090a5cd1545895773299769cdbf9e3"
+        },
+        {
+          "id": "b13",
+          "url": "http://beginners.biz/mamori/mamori03.html",
+          "htmlSha256": "2ec4b5b1cebbc3dbfcbdfb2684aa03e9f743c4e6912a57735659cc57ac0449ce"
+        }
+      ]
+    },
+    {
+      "ordinal": 6,
+      "caseId": "4fad59487db9ca2be556e6cc",
+      "topic": "placement",
+      "status": "source_mapping_supported",
+      "before": {
+        "topic": "placement",
+        "need": "required",
+        "gap": true,
+        "chapters": [],
+        "confidence": "medium",
+        "reason": "南二自家第三，仅领先末位庄家1500点，点况影响风险评价；现有专门点况卡均限定南四。"
+      },
+      "after": {
+        "topic": "placement",
+        "need": "required",
+        "gap": false,
+        "chapters": [
+          "a19"
+        ],
+        "confidence": "high",
+        "reason": "南二自家第三，仅领先末位庄家1500点，距第二17500点；顺位风险会影响押引，终局规则仍有未知。"
+      },
+      "assessment": "核对 a19 的全半庄一般原则，末局是重点而非唯一适用局；相关局次、点数与点差可从公开场面复核。具体终局规则仍保持未知。",
+      "sources": [
+        {
+          "id": "a19",
+          "url": "https://yabejp.web.fc2.com/mahjong/tactics/chapter04/section001.html",
+          "htmlSha256": "a19b157e5f53c18c8e6af16ae4d1209ef52b687d2033270a4d6f33c9eca00cb9"
+        }
+      ]
+    },
+    {
+      "ordinal": 10,
+      "caseId": "9744ea638cb27c243864b772",
+      "topic": "pairs",
+      "status": "unassessed_timeout",
+      "before": {
+        "topic": "pairs",
+        "need": "required",
+        "gap": true,
+        "chapters": [],
+        "confidence": "high",
+        "reason": "三组对子涉及拆对与雀头配置，是候选比较核心；现有对子卡侧重七对子、对对和，缺少直接适用的三对子整理卡。"
+      },
+      "after": {
+        "topic": "pairs",
+        "need": null,
+        "gap": false,
+        "chapters": [],
+        "confidence": null,
+        "reason": ""
+      },
+      "assessment": "复标未完成，不用旧版结果、其他模型或人工推测补成新版标注。",
+      "sources": []
+    },
+    {
+      "ordinal": 11,
+      "caseId": "1b18fe75b9e1fc8b7acc2849",
+      "topic": "placement",
+      "status": "source_mapping_supported",
+      "before": {
+        "topic": "placement",
+        "need": "required",
+        "gap": true,
+        "chapters": [],
+        "confidence": "high",
+        "reason": "南三自家5900点居末，距三位12800点，打点与追分目标影响路线说明；现有点况卡仅适用南四。"
+      },
+      "after": {
+        "topic": "placement",
+        "need": "required",
+        "gap": false,
+        "chapters": [
+          "a19"
+        ],
+        "confidence": "medium",
+        "reason": "南三自家5900点居末，与第三相差12800点，路线打点需结合追分目标；终局规则不全。"
+      },
+      "assessment": "核对 a19 的全半庄一般原则，末局是重点而非唯一适用局；相关局次、点数与点差可从公开场面复核。具体终局规则仍保持未知。",
+      "sources": [
+        {
+          "id": "a19",
+          "url": "https://yabejp.web.fc2.com/mahjong/tactics/chapter04/section001.html",
+          "htmlSha256": "a19b157e5f53c18c8e6af16ae4d1209ef52b687d2033270a4d6f33c9eca00cb9"
+        }
+      ]
+    },
+    {
+      "ordinal": 12,
+      "caseId": "f55186c728467de3b045ddce",
+      "topic": "open-defense",
+      "status": "source_mapping_supported",
+      "before": {
+        "topic": "open-defense",
+        "need": "required",
+        "gap": true,
+        "chapters": [],
+        "confidence": "high",
+        "reason": "两家各一次吃牌须纳入终盘风险，但未公开役牌或宝牌；现有副露卡的适用条件不匹配。"
+      },
+      "after": {
+        "topic": "open-defense",
+        "need": "required",
+        "gap": false,
+        "chapters": [
+          "b17",
+          "a13"
+        ],
+        "confidence": "high",
+        "reason": "两家各有一次吃牌，终盘需评估副露潜在威胁，但副露次数不能证明听牌或确定打点。"
+      },
+      "assessment": "核对 b17/a13 对副露威胁的讨论，单次副露也可分析；本局两家各一次副露，标注未把副露升级为确认听牌。",
+      "sources": [
+        {
+          "id": "b17",
+          "url": "http://beginners.biz/mamori/mamori10.html",
+          "htmlSha256": "2ee8233b4f196c0b38a4e4d1ee418abf9272a2d3357fd1f5c8d2f121a4f847ab"
+        },
+        {
+          "id": "a13",
+          "url": "https://yabejp.web.fc2.com/mahjong/tactics/chapter02/section022.html",
+          "htmlSha256": "93e160f26f3197f82c687ba487a7d5dc1db22de15846d2214f34294b879565ab"
+        }
+      ]
+    },
+    {
+      "ordinal": 12,
+      "caseId": "f55186c728467de3b045ddce",
+      "topic": "endgame",
+      "status": "source_mapping_supported",
+      "before": {
+        "topic": "endgame",
+        "need": "required",
+        "gap": true,
+        "chapters": [],
+        "confidence": "high",
+        "reason": "仅余5摸使可推进次数成为核心；a16要求听牌或一向听候选，本局最少二向听，不适用。"
+      },
+      "after": {
+        "topic": "endgame",
+        "need": "required",
+        "gap": false,
+        "chapters": [
+          "a16"
+        ],
+        "confidence": "high",
+        "reason": "牌山仅余5次摸牌，争取流局听牌的可实现性与切牌风险是核心，二向听不能视作已有听牌收益。"
+      },
+      "assessment": "核对 a16 终盘原理及切通即获听牌收益的简化假设；本局剩余五次摸牌、自家至少二向听，新理由明确没有把争取听牌当作已有听牌收益。",
+      "sources": [
+        {
+          "id": "a16",
+          "url": "https://yabejp.web.fc2.com/mahjong/tactics/chapter02/section025.html",
+          "htmlSha256": "b38194e48c6de6071035a8e3c2eedf3371a8bc76edaf6e77e79e20407f9ca28b"
+        }
+      ]
+    },
+    {
+      "ordinal": 12,
+      "caseId": "f55186c728467de3b045ddce",
+      "topic": "placement",
+      "status": "source_mapping_supported",
+      "before": {
+        "topic": "placement",
+        "need": "required",
+        "gap": true,
+        "chapters": [],
+        "confidence": "high",
+        "reason": "南三自家6400点居末位，距第三12800点，影响风险目标；现有点况卡均限定南四。"
+      },
+      "after": {
+        "topic": "placement",
+        "need": "required",
+        "gap": false,
+        "chapters": [
+          "a19"
+        ],
+        "confidence": "medium",
+        "reason": "南三自家6400点居四位，距三位12800点，点差影响风险价值；顺位奖励和延长规则不全。"
+      },
+      "assessment": "核对 a19 的全半庄一般原则，末局是重点而非唯一适用局；相关局次、点数与点差可从公开场面复核。具体终局规则仍保持未知。",
+      "sources": [
+        {
+          "id": "a19",
+          "url": "https://yabejp.web.fc2.com/mahjong/tactics/chapter04/section001.html",
+          "htmlSha256": "a19b157e5f53c18c8e6af16ae4d1209ef52b687d2033270a4d6f33c9eca00cb9"
+        }
+      ]
+    },
+    {
+      "ordinal": 21,
+      "caseId": "9ac11a8027b220f80a4ac421",
+      "topic": "waits",
+      "status": "source_mapping_supported",
+      "before": {
+        "topic": "waits",
+        "need": "required",
+        "gap": true,
+        "chapters": [],
+        "confidence": "high",
+        "reason": "需解释7m与发双碰、未见合计3枚及两端役资格差异；现有等待比较卡要求多个听牌候选，不适用。"
+      },
+      "after": {
+        "topic": "waits",
+        "need": "required",
+        "gap": false,
+        "chapters": [
+          "b05",
+          "a06"
+        ],
+        "confidence": "high",
+        "reason": "形式等待为7m与发，未见分别一枚、两枚；两端役条件不同，三枚未见牌不能都视为同等和牌机会或山中活牌。"
+      },
+      "assessment": "核对 b05/a06 的等待质量与役条件讨论，无需多个听牌候选；同时核对唯一听牌候选的等待集合和未见枚数。",
+      "sources": [
+        {
+          "id": "b05",
+          "url": "http://beginners.biz/pairi/pairi19.html",
+          "htmlSha256": "7891243c72fbe51826eaec2cec753e9e21dae3686379e8151391a09b6d78b47a"
+        },
+        {
+          "id": "a06",
+          "url": "https://yabejp.web.fc2.com/mahjong/tactics/chapter01/section021-06.html",
+          "htmlSha256": "676f4ed9eeb437ab9af3a45167213eee0e854721d50d364e6efea7312173d3d7"
+        }
+      ]
+    },
+    {
+      "ordinal": 21,
+      "caseId": "9ac11a8027b220f80a4ac421",
+      "topic": "placement",
+      "status": "source_mapping_supported",
+      "before": {
+        "topic": "placement",
+        "need": "required",
+        "gap": true,
+        "chapters": [],
+        "confidence": "medium",
+        "reason": "南二自家为领先6000点的亲家，立直者为第二名，风险收益需联系点差；现有点况卡仅适用南四。"
+      },
+      "after": {
+        "topic": "placement",
+        "need": "required",
+        "gap": false,
+        "chapters": [
+          "a19"
+        ],
+        "confidence": "high",
+        "reason": "南二自家为领先亲家，领先立直者6000点，点差影响风险收益；终局及顺位奖励规则不完整，不能推定末局目标。"
+      },
+      "assessment": "核对 a19 的全半庄一般原则，末局是重点而非唯一适用局；相关局次、点数与点差可从公开场面复核。具体终局规则仍保持未知。",
+      "sources": [
+        {
+          "id": "a19",
+          "url": "https://yabejp.web.fc2.com/mahjong/tactics/chapter04/section001.html",
+          "htmlSha256": "a19b157e5f53c18c8e6af16ae4d1209ef52b687d2033270a4d6f33c9eca00cb9"
+        }
+      ]
+    },
+    {
+      "ordinal": 22,
+      "caseId": "ff793ad1b89ea288d90a6d37",
+      "topic": "yakuhai",
+      "status": "source_mapping_supported",
+      "before": {
+        "topic": "yakuhai",
+        "need": "required",
+        "gap": true,
+        "chapters": [],
+        "confidence": "high",
+        "reason": "已碰中，役牌役已确定，是解释副露面子手推进的基础；现有役牌卡针对尚未成刻的对子竞争，不适用。"
+      },
+      "after": {
+        "topic": "yakuhai",
+        "need": "required",
+        "gap": false,
+        "chapters": [
+          "b07",
+          "a03"
+        ],
+        "confidence": "high",
+        "reason": "已碰中提供确定的一番，是解释副露后和牌资格及普通面子手推进的基础。"
+      },
+      "assessment": "核对 b07/a03 从成刻获得役出发的论述；本局相应三元牌已碰成刻，引用一般役价值有依据，不是套用尚未成刻对子鸣牌结论。",
+      "sources": [
+        {
+          "id": "b07",
+          "url": "http://beginners.biz/teyaku/teyaku03.html",
+          "htmlSha256": "144144e87b3f4d2c5cf5a7ec71442a8a5a0bdde82c1668625e360bb73df76085"
+        },
+        {
+          "id": "a03",
+          "url": "https://yabejp.web.fc2.com/mahjong/tactics/chapter01/section029.html",
+          "htmlSha256": "6ca2dc3213a4decae3ba232c15593fe398ff2636e2f2d9f925d8d6a3c6164595"
+        }
+      ]
+    },
+    {
+      "ordinal": 26,
+      "caseId": "14d408719121d98615117ddd",
+      "topic": "waits",
+      "status": "source_mapping_supported",
+      "before": {
+        "topic": "waits",
+        "need": "required",
+        "gap": true,
+        "chapters": [],
+        "confidence": "high",
+        "reason": "唯一零向听候选列出3筒、6筒、中，但只有中成刻提供役；现有等待卡要求多个听牌弃牌候选，不适用。"
+      },
+      "after": {
+        "topic": "waits",
+        "need": "required",
+        "gap": false,
+        "chapters": [
+          "b05",
+          "a06"
+        ],
+        "confidence": "high",
+        "reason": "弃东后的形式等待为三筒、六筒、中；必须区分各等待的役条件，七枚未见并非七枚均可有役和牌。"
+      },
+      "assessment": "核对 b05/a06 的等待质量与役条件讨论，无需多个听牌候选；同时核对唯一听牌候选的等待集合和未见枚数。",
+      "sources": [
+        {
+          "id": "b05",
+          "url": "http://beginners.biz/pairi/pairi19.html",
+          "htmlSha256": "7891243c72fbe51826eaec2cec753e9e21dae3686379e8151391a09b6d78b47a"
+        },
+        {
+          "id": "a06",
+          "url": "https://yabejp.web.fc2.com/mahjong/tactics/chapter01/section021-06.html",
+          "htmlSha256": "676f4ed9eeb437ab9af3a45167213eee0e854721d50d364e6efea7312173d3d7"
+        }
+      ]
+    },
+    {
+      "ordinal": 26,
+      "caseId": "14d408719121d98615117ddd",
+      "topic": "placement",
+      "status": "source_mapping_supported",
+      "before": {
+        "topic": "placement",
+        "need": "required",
+        "gap": true,
+        "chapters": [],
+        "confidence": "medium",
+        "reason": "南三自家为领先12200点的庄家，顺位与连庄价值影响风险解释；现有点况卡仅适用南四。"
+      },
+      "after": {
+        "topic": "placement",
+        "need": "required",
+        "gap": false,
+        "chapters": [
+          "a19"
+        ],
+        "confidence": "high",
+        "reason": "南三自家亲家领跑，领先第二名一万二千二百分，风险收益须纳入顺位；未知规则限制终局目标推算。"
+      },
+      "assessment": "核对 a19 的全半庄一般原则，末局是重点而非唯一适用局；相关局次、点数与点差可从公开场面复核。具体终局规则仍保持未知。",
+      "sources": [
+        {
+          "id": "a19",
+          "url": "https://yabejp.web.fc2.com/mahjong/tactics/chapter04/section001.html",
+          "htmlSha256": "a19b157e5f53c18c8e6af16ae4d1209ef52b687d2033270a4d6f33c9eca00cb9"
+        }
+      ]
+    },
+    {
+      "ordinal": 29,
+      "caseId": "f3f4753a42ede3a0306a40ab",
+      "topic": "dora",
+      "status": "source_mapping_supported",
+      "before": {
+        "topic": "dora",
+        "need": "required",
+        "gap": true,
+        "chapters": [],
+        "confidence": "high",
+        "reason": "普通五万与赤五万候选向听、受入相同却差一张宝牌；现有卡未直接覆盖这种等形等受入比较。"
+      },
+      "after": {
+        "topic": "dora",
+        "need": "required",
+        "gap": false,
+        "chapters": [
+          "a05"
+        ],
+        "confidence": "high",
+        "reason": "普通5万与赤5万候选的向听及受入相同，但保留宝牌数不同，须解释赤牌的打点价值且宝牌不提供役。"
+      },
+      "assessment": "核对 a05 门前宝牌的一般边际价值；本局普通五万与赤五万候选均一向听、十一枚受入，保留宝牌分别为一枚和零枚，不存在必须进张反向变化的前提。",
+      "sources": [
+        {
+          "id": "a05",
+          "url": "https://yabejp.web.fc2.com/mahjong/tactics/chapter01/section039.html",
+          "htmlSha256": "413483db9be91f16d6197e6e7c2cae1365f1dc4ad5201cbbeea14725aa52c9cd"
+        }
+      ]
+    },
+    {
+      "ordinal": 31,
+      "caseId": "1774f9037c23066370f4a9ff",
+      "topic": "placement",
+      "status": "source_mapping_supported",
+      "before": {
+        "topic": "placement",
+        "need": "required",
+        "gap": true,
+        "chapters": [],
+        "confidence": "high",
+        "reason": "南三自家坐庄仅二千九百分，落后第三名一万二千五百分，点况影响速度与收益目标；现有点况卡限南四。"
+      },
+      "after": {
+        "topic": "placement",
+        "need": "required",
+        "gap": false,
+        "chapters": [
+          "a19"
+        ],
+        "confidence": "medium",
+        "reason": "南三自家为亲家且仅2900点，落后第三名12500点，追分与亲番价值需交代；终局规则尚不完整。"
+      },
+      "assessment": "核对 a19 的全半庄一般原则，末局是重点而非唯一适用局；相关局次、点数与点差可从公开场面复核。具体终局规则仍保持未知。",
+      "sources": [
+        {
+          "id": "a19",
+          "url": "https://yabejp.web.fc2.com/mahjong/tactics/chapter04/section001.html",
+          "htmlSha256": "a19b157e5f53c18c8e6af16ae4d1209ef52b687d2033270a4d6f33c9eca00cb9"
+        }
+      ]
+    },
+    {
+      "ordinal": 34,
+      "caseId": "60313a3d2751d964794f014f",
+      "topic": "safe-tiles",
+      "status": "source_mapping_supported",
+      "before": {
+        "topic": "safe-tiles",
+        "need": "required",
+        "gap": true,
+        "chapters": [],
+        "confidence": "medium",
+        "reason": "2p、6p是南家自身舍牌，涉及效率与安全取舍；现有现物专卡的适用条件限定立直或多家共同安牌。"
+      },
+      "after": {
+        "topic": "safe-tiles",
+        "need": "required",
+        "gap": false,
+        "chapters": [
+          "b12"
+        ],
+        "confidence": "high",
+        "reason": "手中二筒、六筒均在南家自身牌河中，其对南家的现物依据与其他候选不同，不能推广为全桌安全。"
+      },
+      "assessment": "核对 b12 原文的现物依据，适用对象包括副露者；同时核对相关牌确在该对手牌河中。章节选择的修正有来源与公开事实支持。",
+      "sources": [
+        {
+          "id": "b12",
+          "url": "http://beginners.biz/mamori/mamori02.html",
+          "htmlSha256": "b8ed39d21f94bebc763b18019dfd4e8a56090a5cd1545895773299769cdbf9e3"
+        }
+      ]
+    },
+    {
+      "ordinal": 35,
+      "caseId": "c622d0e5e5a813966f0d5294",
+      "topic": "placement",
+      "status": "source_mapping_supported",
+      "before": {
+        "topic": "placement",
+        "need": "required",
+        "gap": true,
+        "chapters": [],
+        "confidence": "high",
+        "reason": "南一自家仅5200点，落后第三名13800点，风险收益需结合追分处境；现有点况卡仅适用南四。"
+      },
+      "after": {
+        "topic": "placement",
+        "need": "required",
+        "gap": false,
+        "chapters": [
+          "a19"
+        ],
+        "confidence": "high",
+        "reason": "南一自家5200点居末，落后三位13800点，点差影响风险与收益评价；不能据此认定必须全押。"
+      },
+      "assessment": "核对 a19 的全半庄一般原则，末局是重点而非唯一适用局；相关局次、点数与点差可从公开场面复核。具体终局规则仍保持未知。",
+      "sources": [
+        {
+          "id": "a19",
+          "url": "https://yabejp.web.fc2.com/mahjong/tactics/chapter04/section001.html",
+          "htmlSha256": "a19b157e5f53c18c8e6af16ae4d1209ef52b687d2033270a4d6f33c9eca00cb9"
+        }
+      ]
+    },
+    {
+      "ordinal": 44,
+      "caseId": "a83312ef3a065c73ca0320d8",
+      "topic": "placement",
+      "status": "source_mapping_supported",
+      "before": {
+        "topic": "placement",
+        "need": "required",
+        "gap": true,
+        "chapters": [],
+        "confidence": "medium",
+        "reason": "自家领先第二名5800点，风险价值需要结合领先点况；现有顺位卡仅适用于南四，本局为南二。"
+      },
+      "after": {
+        "topic": "placement",
+        "need": "required",
+        "gap": false,
+        "chapters": [
+          "a19"
+        ],
+        "confidence": "medium",
+        "reason": "南二自家领先第二名5800点，本场、供托及终盘得失影响领先幅度；顺位奖励和延长规则不全。"
+      },
+      "assessment": "核对 a19 的全半庄一般原则，末局是重点而非唯一适用局；相关局次、点数与点差可从公开场面复核。具体终局规则仍保持未知。",
+      "sources": [
+        {
+          "id": "a19",
+          "url": "https://yabejp.web.fc2.com/mahjong/tactics/chapter04/section001.html",
+          "htmlSha256": "a19b157e5f53c18c8e6af16ae4d1209ef52b687d2033270a4d6f33c9eca00cb9"
+        }
+      ]
+    },
+    {
+      "ordinal": 48,
+      "caseId": "7ff112be069c270e4b1b55ba",
+      "topic": "yakuhai",
+      "status": "unassessed_timeout",
+      "before": {
+        "topic": "yakuhai",
+        "need": "required",
+        "gap": true,
+        "chapters": [],
+        "confidence": "high",
+        "reason": "东为场风兼自风，现有东暗刻提供两番，切东会拆掉现成役；现有役牌卡只适用于对子竞争。"
+      },
+      "after": {
+        "topic": "yakuhai",
+        "need": null,
+        "gap": false,
+        "chapters": [],
+        "confidence": null,
+        "reason": ""
+      },
+      "assessment": "复标未完成，不用旧版结果、其他模型或人工推测补成新版标注。",
+      "sources": []
+    },
+    {
+      "ordinal": 54,
+      "caseId": "64141abe47bc2c217ac56e13",
+      "topic": "yakuhai",
+      "status": "source_mapping_supported",
+      "before": {
+        "topic": "yakuhai",
+        "need": "required",
+        "gap": true,
+        "chapters": [],
+        "confidence": "high",
+        "reason": "发刻已提供役，影响孤张白与数牌材料的价值比较；现有役牌专卡针对对子竞争，不适配已成刻情形。"
+      },
+      "after": {
+        "topic": "yakuhai",
+        "need": "required",
+        "gap": false,
+        "chapters": [
+          "b07",
+          "a03"
+        ],
+        "confidence": "high",
+        "reason": "发刻已提供确定的役，影响副露推进条件；孤张白的追加价值应与已有役区分。"
+      },
+      "assessment": "核对 b07/a03 从成刻获得役出发的论述；本局相应三元牌已碰成刻，引用一般役价值有依据，不是套用尚未成刻对子鸣牌结论。",
+      "sources": [
+        {
+          "id": "b07",
+          "url": "http://beginners.biz/teyaku/teyaku03.html",
+          "htmlSha256": "144144e87b3f4d2c5cf5a7ec71442a8a5a0bdde82c1668625e360bb73df76085"
+        },
+        {
+          "id": "a03",
+          "url": "https://yabejp.web.fc2.com/mahjong/tactics/chapter01/section029.html",
+          "htmlSha256": "6ca2dc3213a4decae3ba232c15593fe398ff2636e2f2d9f925d8d6a3c6164595"
+        }
+      ]
+    }
+  ]
+}

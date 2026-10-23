@@ -47,3 +47,9 @@
 目前没有人工知识需求金标准，也没有正式 240 份讲解及 48 局人工盲评。自动标注可用来检查标注流程与知识覆盖，但不能冒充专家评价。因此不能宣称模式有效，也没有基于这些评测局面修改、删除规则或教材。
 
 本轮仍止于离线试验，生产 Coach 未接入。操作命令与统计口径见 `../../specs/2026-10-23-scene-pattern-study.md`；最新状态见本地 `REPORT.md`、`AUTO_ANNOTATION_REPORT.md` 和对应 JSON。
+
+## 知识卡 v2 追加修订
+
+用户要求逐条对照原文修订条件并用同模型复标原 60 局。旧卡、旧结果和本页原始记录不覆盖；独立修订、恢复方式与判读边界见 [KNOWLEDGE_V2.md](KNOWLEDGE_V2.md)。small-to-big 与上下文增强作为后续独立检索试验，见 [AGENTIC_RETRIEVAL_TODO.md](AGENTIC_RETRIEVAL_TODO.md)。
+
+复标结果：57/60 局完成，第 10、39、48 局在两轮补跑后仍超时。成功配对中原 17 项必须缺口均找到章节且未降级；其余 2 项旧缺口未知。结果、成本和限制见 [KNOWLEDGE_V2_RESULTS.md](KNOWLEDGE_V2_RESULTS.md)。

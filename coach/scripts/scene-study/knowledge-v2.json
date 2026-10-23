@@ -1,0 +1,889 @@
+{
+  "version": "coach-scene-knowledge-web/v2",
+  "frozenAt": "2026-10-23T08:36:35.472Z",
+  "versionNotice": "网页版知识集，不代表新版书籍。两套观点分别保存；a16原文公式不等号笔误未复制。",
+  "cards": [
+    {
+      "id": "b01",
+      "title": "进张与改良",
+      "topics": [
+        "efficiency",
+        "waits"
+      ],
+      "concept": "进张是能够降低向听数的牌，改良是向听不变却能增加后续进张的变化。比较候选时先分别统计两类变化，不能把二者相加后当作同一种速度指标。等待的未见枚数可作为比较依据，但其中可能有牌在他家暗手或王牌，不能称为实际山中剩余枚数。",
+      "conditions": "比较任意进度下的直接进张、向听变化或后续改良，说明有效牌统计的意义；不同进度须分别评价，不能把改良与直接进张相加。",
+      "exceptions": "直接进张相同才进一步比较改良是基础思路；役种、打点和防守约束仍可能改变选择。",
+      "content": "概念：进张是能够降低向听数的牌，改良是向听不变却能增加后续进张的变化。比较候选时先分别统计两类变化，不能把二者相加后当作同一种速度指标。等待的未见枚数可作为比较依据，但其中可能有牌在他家暗手或王牌，不能称为实际山中剩余枚数。\n适用条件：比较任意进度下的直接进张、向听变化或后续改良，说明有效牌统计的意义；不同进度须分别评价，不能把改良与直接进张相加。\n例外与限制：直接进张相同才进一步比较改良是基础思路；役种、打点和防守约束仍可能改变选择。\n版本：Beginner’s Luck原始网页。仅整理可独立核对的文字论述；未确认的牌图例题未收录。",
+      "source": {
+        "system": "beginners-luck-original-web",
+        "title": "有効牌と枚数| 無料ネット麻雀戦術書",
+        "url": "http://beginners.biz/pairi/pairi02.html",
+        "chapter": "/pairi/pairi02.html",
+        "htmlSha256": "a3876f9f8e16b2228c0993e76bae93ea0fc16e0a42ac2e28bdfb23574336ed2d"
+      },
+      "tileExamples": [],
+      "imagePolicy": "unverified_examples_excluded",
+      "editorialStatus": "source_conditions_reaudited_not_human_gold"
+    },
+    {
+      "id": "b02",
+      "title": "孤张与进张重叠",
+      "topics": [
+        "efficiency",
+        "yakuhai"
+      ],
+      "concept": "数牌越靠中央，通常越容易组成顺子；字牌不能组成顺子，但役牌成刻后可提供役，所以不能简单视作所有数牌的下位替代。同一手内多个孤张的有效牌可能重叠，评价时要看整体覆盖，不能只把单张的受入枚数相加。场上已见牌也会影响重叠成对的机会。",
+      "conditions": "评价孤张的连接、成对、役价值与全手受入重叠，包括早期整理及接近听牌时的孤张选择；具体排序须结合其他部分。",
+      "exceptions": "需要结合全手的面子候补、役牌剩余枚数和安全用途；单张的通常序列不应覆盖具体手牌条件。",
+      "content": "概念：数牌越靠中央，通常越容易组成顺子；字牌不能组成顺子，但役牌成刻后可提供役，所以不能简单视作所有数牌的下位替代。同一手内多个孤张的有效牌可能重叠，评价时要看整体覆盖，不能只把单张的受入枚数相加。场上已见牌也会影响重叠成对的机会。\n适用条件：评价孤张的连接、成对、役价值与全手受入重叠，包括早期整理及接近听牌时的孤张选择；具体排序须结合其他部分。\n例外与限制：需要结合全手的面子候补、役牌剩余枚数和安全用途；单张的通常序列不应覆盖具体手牌条件。\n版本：Beginner’s Luck原始网页。仅整理可独立核对的文字论述；未确认的牌图例题未收录。",
+      "source": {
+        "system": "beginners-luck-original-web",
+        "title": "浮き牌の理論 | 無料ネット麻雀戦術書",
+        "url": "http://beginners.biz/pairi/pairi03.html",
+        "chapter": "/pairi/pairi03.html",
+        "htmlSha256": "ec9dfc77ac243564a108e7350fe2f7eef03fb5cf806eb8dd218bfd0d1f4fa9e2"
+      },
+      "tileExamples": [],
+      "imagePolicy": "unverified_examples_excluded",
+      "editorialStatus": "source_conditions_reaudited_not_human_gold"
+    },
+    {
+      "id": "b03",
+      "title": "搭子比较的五个因素",
+      "topics": [
+        "efficiency",
+        "waits"
+      ],
+      "concept": "搭子比较包括完成面子的受入、好形变化、手役与宝牌价值、成为等待时的出牌机会，以及可能剩余的牌数。基础牌效先比较受入和改良，尤其要防止把不同搭子的重复受入计算两遍。拆搭子的先后顺序也受下一巡改良和对手威胁影响。",
+      "conditions": "比较搭子的受入、好形变化、打点、出和机会或剩余枚数，包含面子候补取舍；不以候选进张接近为前提。",
+      "exceptions": "两面等形状名称并不能替代实际枚数；宝牌、重叠受入、场上已见牌和安全性可能改变优先级。",
+      "content": "概念：搭子比较包括完成面子的受入、好形变化、手役与宝牌价值、成为等待时的出牌机会，以及可能剩余的牌数。基础牌效先比较受入和改良，尤其要防止把不同搭子的重复受入计算两遍。拆搭子的先后顺序也受下一巡改良和对手威胁影响。\n适用条件：比较搭子的受入、好形变化、打点、出和机会或剩余枚数，包含面子候补取舍；不以候选进张接近为前提。\n例外与限制：两面等形状名称并不能替代实际枚数；宝牌、重叠受入、场上已见牌和安全性可能改变优先级。\n版本：Beginner’s Luck原始网页。仅整理可独立核对的文字论述；未确认的牌图例题未收录。",
+      "source": {
+        "system": "beginners-luck-original-web",
+        "title": "ターツ理論(1) | 無料ネット麻雀戦術書",
+        "url": "http://beginners.biz/pairi/pairi04.html",
+        "chapter": "/pairi/pairi04.html",
+        "htmlSha256": "2d9774bb39852151835d846dc04dfc51d910c4e94c932f6f03b9f2b256cd4cb5"
+      },
+      "tileExamples": [],
+      "imagePolicy": "unverified_examples_excluded",
+      "editorialStatus": "source_conditions_reaudited_not_human_gold"
+    },
+    {
+      "id": "b04",
+      "title": "按进度比较弃牌",
+      "topics": [
+        "efficiency",
+        "pairs"
+      ],
+      "concept": "牌型记忆有助于减少常见错误，但相似形状在其他部分改变后可能不再有相同答案。远离听牌时观察弃牌造成的损失及路线；二向听还要关心形成一向听后的厚度；一向听重点比较听牌受入；听牌后比较和牌机会与等待变化。",
+      "conditions": "在三向听及以前、二向听、一向听或听牌阶段组织弃牌比较，并核对局部形状是否因全手结构而改变价值。",
+      "exceptions": "不同进度的评价重点不同，不能把进张的一两枚差异在所有阶段等量看待；复杂场况仍需加入打点与守备条件。",
+      "content": "概念：牌型记忆有助于减少常见错误，但相似形状在其他部分改变后可能不再有相同答案。远离听牌时观察弃牌造成的损失及路线；二向听还要关心形成一向听后的厚度；一向听重点比较听牌受入；听牌后比较和牌机会与等待变化。\n适用条件：在三向听及以前、二向听、一向听或听牌阶段组织弃牌比较，并核对局部形状是否因全手结构而改变价值。\n例外与限制：不同进度的评价重点不同，不能把进张的一两枚差异在所有阶段等量看待；复杂场况仍需加入打点与守备条件。\n版本：Beginner’s Luck原始网页。仅整理可独立核对的文字论述；未确认的牌图例题未收录。",
+      "source": {
+        "system": "beginners-luck-original-web",
+        "title": "打牌選択の思考法 | 無料ネット麻雀戦術書",
+        "url": "http://beginners.biz/pairi/pairi07.html",
+        "chapter": "/pairi/pairi07.html",
+        "htmlSha256": "6ad606a543aafdac414bd0a959e9ac8b97a96d3f8f07e0f867a513cc39742418"
+      },
+      "tileExamples": [],
+      "imagePolicy": "unverified_examples_excluded",
+      "editorialStatus": "source_conditions_reaudited_not_human_gold"
+    },
+    {
+      "id": "b05",
+      "title": "等待枚数与改良",
+      "topics": [
+        "waits",
+        "efficiency"
+      ],
+      "concept": "听牌可选等待时，先比较实际可见信息下的未见枚数，不能只比较等待牌种数。枚数相近时还要考虑后续好形变化、是否每张等待都有役，以及他家是否容易打出。单骑可能有较多改良，但等待变化的价值必须与立即保持和牌机会一并比较。",
+      "conditions": "自家已听牌或正在评价弃牌后的听牌形，需解释等待枚数、改良、出和机会或片和了；仅有一个听牌候选也可研究其等待质量。",
+      "exceptions": "多面张不一定有更多未见牌；原文部分例子涉及立直与默听，本实验仅用来解释弃牌后的形状差异，不代替行动合法性判断。",
+      "content": "概念：听牌可选等待时，先比较实际可见信息下的未见枚数，不能只比较等待牌种数。枚数相近时还要考虑后续好形变化、是否每张等待都有役，以及他家是否容易打出。单骑可能有较多改良，但等待变化的价值必须与立即保持和牌机会一并比较。\n适用条件：自家已听牌或正在评价弃牌后的听牌形，需解释等待枚数、改良、出和机会或片和了；仅有一个听牌候选也可研究其等待质量。\n例外与限制：多面张不一定有更多未见牌；原文部分例子涉及立直与默听，本实验仅用来解释弃牌后的形状差异，不代替行动合法性判断。\n版本：Beginner’s Luck原始网页。仅整理可独立核对的文字论述；未确认的牌图例题未收录。",
+      "source": {
+        "system": "beginners-luck-original-web",
+        "title": "テンパイ時の牌理  | 無料ネット麻雀戦術書",
+        "url": "http://beginners.biz/pairi/pairi19.html",
+        "chapter": "/pairi/pairi19.html",
+        "htmlSha256": "7891243c72fbe51826eaec2cec753e9e21dae3686379e8151391a09b6d78b47a"
+      },
+      "tileExamples": [],
+      "imagePolicy": "unverified_examples_excluded",
+      "editorialStatus": "source_conditions_reaudited_not_human_gold"
+    },
+    {
+      "id": "b06",
+      "title": "退向听的理由",
+      "topics": [
+        "efficiency",
+        "flush"
+      ],
+      "concept": "退向听不应被理解为普遍的加速手段。原文把多数主动退向听与提高打点、确定可副露的役种、或放弃几乎无牌可和的等待联系起来。向听更少通常更接近和牌，但最终速度还取决于后续受入与能否通过鸣牌推进。",
+      "conditions": "考虑拆掉当前听牌或增加向听数，以换取打点、可副露的役或更可实现的和牌机会；也适用于检验退向听是否值得。",
+      "exceptions": "不能因为退向听后牌形漂亮就认定更快；需要具体说明获得了什么、损失了多少即时机会，并核对巡目是否允许等待变化。",
+      "content": "概念：退向听不应被理解为普遍的加速手段。原文把多数主动退向听与提高打点、确定可副露的役种、或放弃几乎无牌可和的等待联系起来。向听更少通常更接近和牌，但最终速度还取决于后续受入与能否通过鸣牌推进。\n适用条件：考虑拆掉当前听牌或增加向听数，以换取打点、可副露的役或更可实现的和牌机会；也适用于检验退向听是否值得。\n例外与限制：不能因为退向听后牌形漂亮就认定更快；需要具体说明获得了什么、损失了多少即时机会，并核对巡目是否允许等待变化。\n版本：Beginner’s Luck原始网页。仅整理可独立核对的文字论述；未确认的牌图例题未收录。",
+      "source": {
+        "system": "beginners-luck-original-web",
+        "title": "シャンテン戻し | 無料ネット麻雀戦術書",
+        "url": "http://beginners.biz/pairi/pairi20.html",
+        "chapter": "/pairi/pairi20.html",
+        "htmlSha256": "3390e1bff6d24f60a2f26ce4b9f22152f1135fb6f6899e6c0ad917d83635e308"
+      },
+      "tileExamples": [],
+      "imagePolicy": "unverified_examples_excluded",
+      "editorialStatus": "source_conditions_reaudited_not_human_gold"
+    },
+    {
+      "id": "b07",
+      "title": "役牌对子与手役确定性",
+      "topics": [
+        "yakuhai",
+        "efficiency"
+      ],
+      "concept": "役牌成刻只约束少量手牌，却能提供役，并保留副露推进的可能。处理役牌对子时应比较其他路线的确定性，而非只看数牌受入。原文强调确定的役通常优于同打点但尚未确定的役，同时讨论门前手十分顺利或整体过于零散时的例外。",
+      "conditions": "评价役牌孤张、对子或成刻后的役价值，以及保留、拆解役牌对其他路线和副露推进的影响；对子鸣牌结论只用于尚未成刻时。",
+      "exceptions": "役牌对子尚未成刻，不能直接报为已有一番；需要核对场风、自风和场上剩余枚数，本卡不生成吃碰建议。",
+      "content": "概念：役牌成刻只约束少量手牌，却能提供役，并保留副露推进的可能。处理役牌对子时应比较其他路线的确定性，而非只看数牌受入。原文强调确定的役通常优于同打点但尚未确定的役，同时讨论门前手十分顺利或整体过于零散时的例外。\n适用条件：评价役牌孤张、对子或成刻后的役价值，以及保留、拆解役牌对其他路线和副露推进的影响；对子鸣牌结论只用于尚未成刻时。\n例外与限制：役牌对子尚未成刻，不能直接报为已有一番；需要核对场风、自风和场上剩余枚数，本卡不生成吃碰建议。\n版本：Beginner’s Luck原始网页。仅整理可独立核对的文字论述；未确认的牌图例题未收录。",
+      "source": {
+        "system": "beginners-luck-original-web",
+        "title": "役牌 | 無料ネット麻雀戦術書",
+        "url": "http://beginners.biz/teyaku/teyaku03.html",
+        "chapter": "/teyaku/teyaku03.html",
+        "htmlSha256": "144144e87b3f4d2c5cf5a7ec71442a8a5a0bdde82c1668625e360bb73df76085"
+      },
+      "tileExamples": [],
+      "imagePolicy": "unverified_examples_excluded",
+      "editorialStatus": "source_conditions_reaudited_not_human_gold"
+    },
+    {
+      "id": "b08",
+      "title": "断幺路线的价值与限制",
+      "topics": [
+        "efficiency",
+        "yakuhai"
+      ],
+      "concept": "断幺的价值在于可与其他役和宝牌结合，在允许食断的规则下还可以鸣牌推进。选择弃牌时，确定断幺可能使后续可用的推进方式增加，因此不宜只看门前摸牌受入。相反，仍保留幺九牌的候选未必已经能够通过断幺和牌。",
+      "conditions": "考察断幺的可能性、确定性及其与宝牌、其他役或副露速度的配合；不要求一定与役牌竞争，食断相关结论须符合规则。",
+      "exceptions": "必须先核对食断规则以及最终手牌条件；原文涉及赤牌和场况的例子不能变成所有规则下的统一打点承诺。",
+      "content": "概念：断幺的价值在于可与其他役和宝牌结合，在允许食断的规则下还可以鸣牌推进。选择弃牌时，确定断幺可能使后续可用的推进方式增加，因此不宜只看门前摸牌受入。相反，仍保留幺九牌的候选未必已经能够通过断幺和牌。\n适用条件：考察断幺的可能性、确定性及其与宝牌、其他役或副露速度的配合；不要求一定与役牌竞争，食断相关结论须符合规则。\n例外与限制：必须先核对食断规则以及最终手牌条件；原文涉及赤牌和场况的例子不能变成所有规则下的统一打点承诺。\n版本：Beginner’s Luck原始网页。仅整理可独立核对的文字论述；未确认的牌图例题未收录。",
+      "source": {
+        "system": "beginners-luck-original-web",
+        "title": "タンヤオ | 無料ネット麻雀戦術書",
+        "url": "http://beginners.biz/teyaku/teyaku05.html",
+        "chapter": "/teyaku/teyaku05.html",
+        "htmlSha256": "aea5a44b0b52d342ad7220ee327b090613076b6a2971a81be7f106115cc7dd39"
+      },
+      "tileExamples": [],
+      "imagePolicy": "unverified_examples_excluded",
+      "editorialStatus": "source_conditions_reaudited_not_human_gold"
+    },
+    {
+      "id": "b09",
+      "title": "染手材料与其他花色质量",
+      "topics": [
+        "flush",
+        "efficiency"
+      ],
+      "concept": "混一色与清一色可以带来较高打点，但警戒也更明显。基础教材在平场早期的假设下讨论是否染手，强调同色牌数量之外，还需看牌形和其他花色的组合。单凭某色达到固定枚数，不能认定染手优于保留现成面子或良好搭子。",
+      "conditions": "评估染手材料、其他花色组合与普通面子手的取舍，包括尚未定向的手；本节具体牌例以平场早期为主要前提。",
+      "exceptions": "本节具体牌例主要按平场早期的手牌材料讨论，不能推广为所有巡目、点况和威胁下的定向结论；同色数量不能独立决定路线。",
+      "content": "概念：混一色与清一色可以带来较高打点，但警戒也更明显。基础教材在平场早期的假设下讨论是否染手，强调同色牌数量之外，还需看牌形和其他花色的组合。单凭某色达到固定枚数，不能认定染手优于保留现成面子或良好搭子。\n适用条件：评估染手材料、其他花色组合与普通面子手的取舍，包括尚未定向的手；本节具体牌例以平场早期为主要前提。\n例外与限制：本节具体牌例主要按平场早期的手牌材料讨论，不能推广为所有巡目、点况和威胁下的定向结论；同色数量不能独立决定路线。\n版本：Beginner’s Luck原始网页。仅整理可独立核对的文字论述；未确认的牌图例题未收录。",
+      "source": {
+        "system": "beginners-luck-original-web",
+        "title": "染め手(1) | 無料ネット麻雀戦術書",
+        "url": "http://beginners.biz/teyaku/teyaku06.html",
+        "chapter": "/teyaku/teyaku06.html",
+        "htmlSha256": "cf64cf077414570abbca0d71d47a5ee7293f7dfafb9ec87a27a17268e7184f63"
+      },
+      "tileExamples": [],
+      "imagePolicy": "unverified_examples_excluded",
+      "editorialStatus": "source_conditions_reaudited_not_human_gold"
+    },
+    {
+      "id": "b10",
+      "title": "七对子与对对和的分岔",
+      "topics": [
+        "pairs",
+        "chiitoitsu"
+      ],
+      "concept": "对子较多时应比较七对子与对对和。原文反对把已听牌的七对子勉强转成距离更远的对对和；在尚未听牌时，则考虑是否已有暗刻、对子是否容易碰出、役牌与其他役能否提供足够打点，以及巡目是否尚早。",
+      "conditions": "比较七对子与对对和的路线、对子及暗刻的利用价值；七对子路线须保持其合法条件，具体转向判断还要区分对子数量和是否已听牌。",
+      "exceptions": "对子数本身不能决定打法；已在场上见尽的对子难以成刻。涉及碰牌的讨论仅解释路线潜力，本轮仍只比较当前合法弃牌。",
+      "content": "概念：对子较多时应比较七对子与对对和。原文反对把已听牌的七对子勉强转成距离更远的对对和；在尚未听牌时，则考虑是否已有暗刻、对子是否容易碰出、役牌与其他役能否提供足够打点，以及巡目是否尚早。\n适用条件：比较七对子与对对和的路线、对子及暗刻的利用价值；七对子路线须保持其合法条件，具体转向判断还要区分对子数量和是否已听牌。\n例外与限制：对子数本身不能决定打法；已在场上见尽的对子难以成刻。涉及碰牌的讨论仅解释路线潜力，本轮仍只比较当前合法弃牌。\n版本：Beginner’s Luck原始网页。仅整理可独立核对的文字论述；未确认的牌图例题未收录。",
+      "source": {
+        "system": "beginners-luck-original-web",
+        "title": "トイツ手(1) | 無料ネット麻雀戦術書",
+        "url": "http://beginners.biz/teyaku/teyaku09.html",
+        "chapter": "/teyaku/teyaku09.html",
+        "htmlSha256": "40016ca6d7600c787e44c50c38fc67e9c8e045e9dabd67ab5e4299657523bff1"
+      },
+      "tileExamples": [],
+      "imagePolicy": "unverified_examples_excluded",
+      "editorialStatus": "source_conditions_reaudited_not_human_gold"
+    },
+    {
+      "id": "b11",
+      "title": "七对子与面子手及单骑",
+      "topics": [
+        "chiitoitsu",
+        "waits"
+      ],
+      "concept": "基础教材倾向在面子手向听领先时优先面子手，在面子手较苦而七对子更近时保留两条路线。七对子听牌后的单骑不能只按未见枚数评价，还需考虑是否容易出和、宝牌带来的打点，以及等待改善的机会。",
+      "conditions": "研究七对子与面子手是否兼顾，或评价七对子单骑的出和、打点与改良；七对子须合法，不要求同时有多个听牌候选。",
+      "exceptions": "这一节的简化路线建议与进阶教材保留两路的条件分析应分别呈现；字牌或端牌容易打出只是场况判断，不是保证可和。",
+      "content": "概念：基础教材倾向在面子手向听领先时优先面子手，在面子手较苦而七对子更近时保留两条路线。七对子听牌后的单骑不能只按未见枚数评价，还需考虑是否容易出和、宝牌带来的打点，以及等待改善的机会。\n适用条件：研究七对子与面子手是否兼顾，或评价七对子单骑的出和、打点与改良；七对子须合法，不要求同时有多个听牌候选。\n例外与限制：这一节的简化路线建议与进阶教材保留两路的条件分析应分别呈现；字牌或端牌容易打出只是场况判断，不是保证可和。\n版本：Beginner’s Luck原始网页。仅整理可独立核对的文字论述；未确认的牌图例题未收录。",
+      "source": {
+        "system": "beginners-luck-original-web",
+        "title": "トイツ手(2) | 無料ネット麻雀戦術書",
+        "url": "http://beginners.biz/teyaku/teyaku10.html",
+        "chapter": "/teyaku/teyaku10.html",
+        "htmlSha256": "185de6ff56a2e0df9c6492b08a8528e7d0994bdb8266cbc4215872ab8fc0ce96"
+      },
+      "tileExamples": [],
+      "imagePolicy": "unverified_examples_excluded",
+      "editorialStatus": "source_conditions_reaudited_not_human_gold"
+    },
+    {
+      "id": "b12",
+      "title": "现物与安全的适用对象",
+      "topics": [
+        "safe-tiles",
+        "riichi-defense"
+      ],
+      "concept": "现物的依据是振听规则：对手自身舍牌中的牌不能被其荣和；立直后通过的牌还涉及立直后的见逃振听。讲解安全性必须说明是对哪一家、在什么时点成立，不能把对一家安全写成对全桌安全。三家河和弃牌经过的时间都是核对依据。",
+      "conditions": "对任一家说明现物与安全依据，包括副露者自己的舍牌及多家共同安全牌；立直后通过牌的持续安全结论只用于相应立直者。",
+      "exceptions": "筋、壁等推测安全与现物不同；刚通过某家的牌对未立直者未必永久安全。原文的特殊完全安全牌例需要额外条件，不能省略。",
+      "content": "概念：现物的依据是振听规则：对手自身舍牌中的牌不能被其荣和；立直后通过的牌还涉及立直后的见逃振听。讲解安全性必须说明是对哪一家、在什么时点成立，不能把对一家安全写成对全桌安全。三家河和弃牌经过的时间都是核对依据。\n适用条件：对任一家说明现物与安全依据，包括副露者自己的舍牌及多家共同安全牌；立直后通过牌的持续安全结论只用于相应立直者。\n例外与限制：筋、壁等推测安全与现物不同；刚通过某家的牌对未立直者未必永久安全。原文的特殊完全安全牌例需要额外条件，不能省略。\n版本：Beginner’s Luck原始网页。仅整理可独立核对的文字论述；未确认的牌图例题未收录。",
+      "source": {
+        "system": "beginners-luck-original-web",
+        "title": "安全牌 | 無料ネット麻雀戦術書",
+        "url": "http://beginners.biz/mamori/mamori02.html",
+        "chapter": "/mamori/mamori02.html",
+        "htmlSha256": "b8ed39d21f94bebc763b18019dfd4e8a56090a5cd1545895773299769cdbf9e3"
+      },
+      "tileExamples": [],
+      "imagePolicy": "unverified_examples_excluded",
+      "editorialStatus": "source_conditions_reaudited_not_human_gold"
+    },
+    {
+      "id": "b13",
+      "title": "筋只能排除部分等待",
+      "topics": [
+        "safe-tiles",
+        "riichi-defense"
+      ],
+      "concept": "筋的基础是两面等待的对应关系以及振听限制。某张牌在对手河中，会限制同一两面等待另一端的荣和可能，因此筋可辅助防守。但这是针对两面形的推理，不能自动排除嵌张、边张、双碰或单骑等其他等待。",
+      "conditions": "解释筋的两面等待依据、可排除和不能排除的等待，或比较其与现物的安全性；是否还有现物不影响这一原理的适用。",
+      "exceptions": "不能把筋牌称为绝对安全，也不能反过来把无筋牌认定为确定危险；应结合剩余枚数、巡目、宝牌及各家分别判断。",
+      "content": "概念：筋的基础是两面等待的对应关系以及振听限制。某张牌在对手河中，会限制同一两面等待另一端的荣和可能，因此筋可辅助防守。但这是针对两面形的推理，不能自动排除嵌张、边张、双碰或单骑等其他等待。\n适用条件：解释筋的两面等待依据、可排除和不能排除的等待，或比较其与现物的安全性；是否还有现物不影响这一原理的适用。\n例外与限制：不能把筋牌称为绝对安全，也不能反过来把无筋牌认定为确定危险；应结合剩余枚数、巡目、宝牌及各家分别判断。\n版本：Beginner’s Luck原始网页。仅整理可独立核对的文字论述；未确认的牌图例题未收录。",
+      "source": {
+        "system": "beginners-luck-original-web",
+        "title": "スジについて(1) | 無料ネット麻雀戦術書",
+        "url": "http://beginners.biz/mamori/mamori03.html",
+        "chapter": "/mamori/mamori03.html",
+        "htmlSha256": "2ec4b5b1cebbc3dbfcbdfb2684aa03e9f743c4e6912a57735659cc57ac0449ce"
+      },
+      "tileExamples": [],
+      "imagePolicy": "unverified_examples_excluded",
+      "editorialStatus": "source_conditions_reaudited_not_human_gold"
+    },
+    {
+      "id": "b14",
+      "title": "壁与一枚机会",
+      "topics": [
+        "safe-tiles",
+        "reading"
+      ],
+      "concept": "同一种牌全部可见时，可排除需要该牌参与的部分顺子等待；只见三枚时仍有一枚可能在对手手里，称为一枚机会。基础教材特别提醒后者在终盘较不可靠，因为已见牌的形成与对手保留牌的过程并不独立。",
+      "conditions": "利用公开可见枚数研究壁、一枚机会与等待结构，或比较其在不同巡目的可靠性；不要求先耗尽安全牌。",
+      "exceptions": "壁主要约束特定顺子结构，不能普遍排除双碰与单骑；可见计数须避免把被鸣走的舍牌与副露重复计入，也不能把未见牌等同山牌。",
+      "content": "概念：同一种牌全部可见时，可排除需要该牌参与的部分顺子等待；只见三枚时仍有一枚可能在对手手里，称为一枚机会。基础教材特别提醒后者在终盘较不可靠，因为已见牌的形成与对手保留牌的过程并不独立。\n适用条件：利用公开可见枚数研究壁、一枚机会与等待结构，或比较其在不同巡目的可靠性；不要求先耗尽安全牌。\n例外与限制：壁主要约束特定顺子结构，不能普遍排除双碰与单骑；可见计数须避免把被鸣走的舍牌与副露重复计入，也不能把未见牌等同山牌。\n版本：Beginner’s Luck原始网页。仅整理可独立核对的文字论述；未确认的牌图例题未收录。",
+      "source": {
+        "system": "beginners-luck-original-web",
+        "title": "カベ（壁） | 無料ネット麻雀戦術書",
+        "url": "http://beginners.biz/mamori/mamori05.html",
+        "chapter": "/mamori/mamori05.html",
+        "htmlSha256": "4e67dc5118645257f57f0837202f542bd9ab6d7bcdcccb7c69795e1fc4acf9da"
+      },
+      "tileExamples": [],
+      "imagePolicy": "unverified_examples_excluded",
+      "editorialStatus": "source_conditions_reaudited_not_human_gold"
+    },
+    {
+      "id": "b15",
+      "title": "弃和顺序与共同安全牌",
+      "topics": [
+        "safe-tiles",
+        "multi-defense"
+      ],
+      "concept": "完全弃和时，应先使用安全度高的牌，不为保持面子完整而勉强冒险。若当前威胁只有一家且有多个同样安全的选择，可以考虑保留对其他家也安全的牌，以应对随后出现的新威胁。原文把切牌顺序视为防守的重要组成部分。",
+      "conditions": "决定或考虑完全弃和时，评价安全度、拆牌顺序与后续安全牌储备；保留共同安全牌的具体建议须区分当前一家与多家威胁。",
+      "exceptions": "已经面对多家威胁时应先核对当前共同安全性，不能机械地把共同现物留到以后；若仍考虑进攻，评价目标与完全弃和不同。",
+      "content": "概念：完全弃和时，应先使用安全度高的牌，不为保持面子完整而勉强冒险。若当前威胁只有一家且有多个同样安全的选择，可以考虑保留对其他家也安全的牌，以应对随后出现的新威胁。原文把切牌顺序视为防守的重要组成部分。\n适用条件：决定或考虑完全弃和时，评价安全度、拆牌顺序与后续安全牌储备；保留共同安全牌的具体建议须区分当前一家与多家威胁。\n例外与限制：已经面对多家威胁时应先核对当前共同安全性，不能机械地把共同现物留到以后；若仍考虑进攻，评价目标与完全弃和不同。\n版本：Beginner’s Luck原始网页。仅整理可独立核对的文字论述；未确认的牌图例题未收录。",
+      "source": {
+        "system": "beginners-luck-original-web",
+        "title": "ベタオリの手順(1) | 無料ネット麻雀戦術書",
+        "url": "http://beginners.biz/mamori/mamori06.html",
+        "chapter": "/mamori/mamori06.html",
+        "htmlSha256": "b3be2e3d8d4c8fa47339c9ec1aabe63c9a6aefbf84b146ac1492f1510454e9d9"
+      },
+      "tileExamples": [],
+      "imagePolicy": "unverified_examples_excluded",
+      "editorialStatus": "source_conditions_reaudited_not_human_gold"
+    },
+    {
+      "id": "b16",
+      "title": "迂回推进的条件",
+      "topics": [
+        "push-fold",
+        "safe-tiles"
+      ],
+      "concept": "迂回打牌是在暂时不切某些风险牌的情况下保留和牌或听牌机会。可通过拆对子、搭子或暗刻等方式调整，但必须比较这些操作对后续速度和安全牌库存的影响。七对子有时能容纳难以切出的孤张，不过只是保留可能，不能保证最终听牌。",
+      "conditions": "暂缓切出某些风险牌，研究能否仍保留和牌、听牌或七对子机会；应先判断进攻、迂回与弃和各自是否现实。",
+      "exceptions": "迂回不是进攻与弃和之间永远最好的折中；点况可能要求彻底防守或直接争取和牌，拆搭子还要检查第二张牌是否也能安全切出。",
+      "content": "概念：迂回打牌是在暂时不切某些风险牌的情况下保留和牌或听牌机会。可通过拆对子、搭子或暗刻等方式调整，但必须比较这些操作对后续速度和安全牌库存的影响。七对子有时能容纳难以切出的孤张，不过只是保留可能，不能保证最终听牌。\n适用条件：暂缓切出某些风险牌，研究能否仍保留和牌、听牌或七对子机会；应先判断进攻、迂回与弃和各自是否现实。\n例外与限制：迂回不是进攻与弃和之间永远最好的折中；点况可能要求彻底防守或直接争取和牌，拆搭子还要检查第二张牌是否也能安全切出。\n版本：Beginner’s Luck原始网页。仅整理可独立核对的文字论述；未确认的牌图例题未收录。",
+      "source": {
+        "system": "beginners-luck-original-web",
+        "title": "まわし打ち | 無料ネット麻雀戦術書",
+        "url": "http://beginners.biz/mamori/mamori09.html",
+        "chapter": "/mamori/mamori09.html",
+        "htmlSha256": "db95f58895bbe67f319cd5778d7d8dbb408fb688ddd771f96bd8a398186bae5a"
+      },
+      "tileExamples": [],
+      "imagePolicy": "unverified_examples_excluded",
+      "editorialStatus": "source_conditions_reaudited_not_human_gold"
+    },
+    {
+      "id": "b17",
+      "title": "副露威胁的基础观察",
+      "topics": [
+        "open-defense",
+        "reading"
+      ],
+      "concept": "基础教材提醒不要只防立直而忽略副露，建议同时观察副露次数、公开役牌和宝牌，以及疑似染手的同色牌是否开始溢出。它对三副露听牌率的表述较强，属于原网页经验性说法，使用时应与进阶教材的巡目和舍牌条件分别比较。",
+      "conditions": "有对手副露，需要评估其进度、役种和打点线索或决定是否警戒；单次副露也可讨论，副露次数只是观察材料之一。",
+      "exceptions": "副露次数不构成听牌证明；没有可核对的暗手信息时不能断言役种或打点。原文依赖现场神态和出牌速度的线索不适用于本实验数据。",
+      "content": "概念：基础教材提醒不要只防立直而忽略副露，建议同时观察副露次数、公开役牌和宝牌，以及疑似染手的同色牌是否开始溢出。它对三副露听牌率的表述较强，属于原网页经验性说法，使用时应与进阶教材的巡目和舍牌条件分别比较。\n适用条件：有对手副露，需要评估其进度、役种和打点线索或决定是否警戒；单次副露也可讨论，副露次数只是观察材料之一。\n例外与限制：副露次数不构成听牌证明；没有可核对的暗手信息时不能断言役种或打点。原文依赖现场神态和出牌速度的线索不适用于本实验数据。\n版本：Beginner’s Luck原始网页。仅整理可独立核对的文字论述；未确认的牌图例题未收录。",
+      "source": {
+        "system": "beginners-luck-original-web",
+        "title": "食い仕掛けへの守備  | 無料ネット麻雀戦術書",
+        "url": "http://beginners.biz/mamori/mamori10.html",
+        "chapter": "/mamori/mamori10.html",
+        "htmlSha256": "2ee8233b4f196c0b38a4e4d1ee418abf9272a2d3357fd1f5c8d2f121a4f847ab"
+      },
+      "tileExamples": [],
+      "imagePolicy": "unverified_examples_excluded",
+      "editorialStatus": "source_conditions_reaudited_not_human_gold"
+    },
+    {
+      "id": "b18",
+      "title": "押引不能以结果倒推",
+      "topics": [
+        "push-fold",
+        "placement"
+      ],
+      "concept": "押引面对的是看不到的等待、打点与未来摸牌，单次成功和牌或放铳都不能直接证明选择正确与否。原文建议以决策时可见材料建立一致的判断依据，并把规则和长期目标纳入考虑，而非依赖手气、气势或事后输赢。",
+      "conditions": "比较进攻与防守的理由，或解释为何应按决策时材料、规则及长期目标评价选择，而不能用一次输赢证明其正确性。",
+      "exceptions": "教材提出的是判断方法，不是给每个局面一个固定动作；顺位目标与规则不同会改变风险价值，实验中的实际选择与结果不应进入解释输入。",
+      "content": "概念：押引面对的是看不到的等待、打点与未来摸牌，单次成功和牌或放铳都不能直接证明选择正确与否。原文建议以决策时可见材料建立一致的判断依据，并把规则和长期目标纳入考虑，而非依赖手气、气势或事后输赢。\n适用条件：比较进攻与防守的理由，或解释为何应按决策时材料、规则及长期目标评价选择，而不能用一次输赢证明其正确性。\n例外与限制：教材提出的是判断方法，不是给每个局面一个固定动作；顺位目标与规则不同会改变风险价值，实验中的实际选择与结果不应进入解释输入。\n版本：Beginner’s Luck原始网页。仅整理可独立核对的文字论述；未确认的牌图例题未收录。",
+      "source": {
+        "system": "beginners-luck-original-web",
+        "title": "押し引きの鉄則 | 無料ネット麻雀戦術書",
+        "url": "http://beginners.biz/osihiki/osihiki01.html",
+        "chapter": "/osihiki/osihiki01.html",
+        "htmlSha256": "4511b1620db01416b638ed7cee650562d4edcb0782e787648da334e0f042db04"
+      },
+      "tileExamples": [],
+      "imagePolicy": "unverified_examples_excluded",
+      "editorialStatus": "source_conditions_reaudited_not_human_gold"
+    },
+    {
+      "id": "b19",
+      "title": "押引的五类材料",
+      "topics": [
+        "push-fold",
+        "dora"
+      ],
+      "concept": "押引应一起比较自家和牌机会、可实现打点、将切牌的风险、对手可能打点，以及弃和成功的把握。宝牌多可以提高收益，但尚未听牌时仍需经历推进过程。副露公开的役与宝牌通常比门前立直更便于形成打点线索。",
+      "conditions": "面对立直或副露等潜在威胁，综合自家进度、可实现打点、切牌风险、对手打点及弃和把握；自家离听牌较远或无宝牌也适用。",
+      "exceptions": "无现物不等于必须全押，有现物也不等于必须弃和；对手实际暗手和里宝未知，不应把估计打点写成确定值。",
+      "content": "概念：押引应一起比较自家和牌机会、可实现打点、将切牌的风险、对手可能打点，以及弃和成功的把握。宝牌多可以提高收益，但尚未听牌时仍需经历推进过程。副露公开的役与宝牌通常比门前立直更便于形成打点线索。\n适用条件：面对立直或副露等潜在威胁，综合自家进度、可实现打点、切牌风险、对手打点及弃和把握；自家离听牌较远或无宝牌也适用。\n例外与限制：无现物不等于必须全押，有现物也不等于必须弃和；对手实际暗手和里宝未知，不应把估计打点写成确定值。\n版本：Beginner’s Luck原始网页。仅整理可独立核对的文字论述；未确认的牌图例题未收录。",
+      "source": {
+        "system": "beginners-luck-original-web",
+        "title": "判断材料 | 無料ネット麻雀戦術書",
+        "url": "http://beginners.biz/osihiki/osihiki02.html",
+        "chapter": "/osihiki/osihiki02.html",
+        "htmlSha256": "636753999d086968db2b80bb41c502705aeb3b99fe81beec9152e8d821aec917"
+      },
+      "tileExamples": [],
+      "imagePolicy": "unverified_examples_excluded",
+      "editorialStatus": "source_conditions_reaudited_not_human_gold"
+    },
+    {
+      "id": "b20",
+      "title": "基础押引口诀的适用边界",
+      "topics": [
+        "push-fold",
+        "riichi-defense"
+      ],
+      "concept": "基础教材以向听数作为押引的主要支柱，给出听牌较能进攻、一向听慎重、距离更远通常防守的简化思路，并说明进攻收益要到听牌后才有实现机会。原文同时列出打点、牌的风险和弃和成功率，不能只摘取其中一句口诀。",
+      "conditions": "面对立直比较不同向听阶段的进攻收益与连续切牌成本，包括听牌、一向听及更远的手；口诀须连同打点和防守条件解释。",
+      "exceptions": "这是教学简化，不是所有一向听只能押一张的硬规则；进阶教材会进一步区分进张宽度、等待质量、巡目与点况，应保留两种来源的条件。",
+      "content": "概念：基础教材以向听数作为押引的主要支柱，给出听牌较能进攻、一向听慎重、距离更远通常防守的简化思路，并说明进攻收益要到听牌后才有实现机会。原文同时列出打点、牌的风险和弃和成功率，不能只摘取其中一句口诀。\n适用条件：面对立直比较不同向听阶段的进攻收益与连续切牌成本，包括听牌、一向听及更远的手；口诀须连同打点和防守条件解释。\n例外与限制：这是教学简化，不是所有一向听只能押一张的硬规则；进阶教材会进一步区分进张宽度、等待质量、巡目与点况，应保留两种来源的条件。\n版本：Beginner’s Luck原始网页。仅整理可独立核对的文字论述；未确认的牌图例题未收录。",
+      "source": {
+        "system": "beginners-luck-original-web",
+        "title": "押し引きの基準 | 無料ネット麻雀戦術書",
+        "url": "http://beginners.biz/osihiki/osihiki03.html",
+        "chapter": "/osihiki/osihiki03.html",
+        "htmlSha256": "0402145113c94391f4788e30e2950d362fe1aca2e72e7d2f38a725a7feabe819"
+      },
+      "tileExamples": [],
+      "imagePolicy": "unverified_examples_excluded",
+      "editorialStatus": "source_conditions_reaudited_not_human_gold"
+    },
+    {
+      "id": "a01",
+      "title": "七对子与面子手的条件比较",
+      "topics": [
+        "chiitoitsu",
+        "efficiency"
+      ],
+      "concept": "旧网页版认为远离听牌时通常保留面子手和七对子两路；较接近听牌后，再比较各路线向听、下一步变化及拆对损失。若几乎不会转成另一条路线，且专注后能保留更好的单张或等待，提前定向才可能有利。",
+      "conditions": "比较合法七对子与面子手的进度、兼顾或提前定向，包括远离听牌的阶段；原文特定对子数条件只约束对应的提前定向判断。",
+      "exceptions": "能广泛副露且面子候补齐全时，保留七对子可能代价较大；较晚巡目主动退向听更需谨慎。提前定向的对子数与下一步变化条件须一并核对。",
+      "content": "概念：旧网页版认为远离听牌时通常保留面子手和七对子两路；较接近听牌后，再比较各路线向听、下一步变化及拆对损失。若几乎不会转成另一条路线，且专注后能保留更好的单张或等待，提前定向才可能有利。\n适用条件：比较合法七对子与面子手的进度、兼顾或提前定向，包括远离听牌的阶段；原文特定对子数条件只约束对应的提前定向判断。\n例外与限制：能广泛副露且面子候补齐全时，保留七对子可能代价较大；较晚巡目主动退向听更需谨慎。提前定向的对子数与下一步变化条件须一并核对。\n版本：现代麻雀技术论旧网页版，与书版有差异。仅整理可独立核对的文字论述；未确认的牌图例题未收录。",
+      "source": {
+        "system": "nemata-original-web",
+        "title": "現代麻雀技術論 - 牌効率論34．七対子",
+        "url": "https://yabejp.web.fc2.com/mahjong/tactics/chapter01/section034.html",
+        "chapter": "/mahjong/tactics/chapter01/section034.html",
+        "htmlSha256": "1c5531622314c1ee63dee36bc83bd71f448d0f1486c6383546ddcbb1352f16e9"
+      },
+      "tileExamples": [],
+      "imagePolicy": "unverified_examples_excluded",
+      "editorialStatus": "source_conditions_reaudited_not_human_gold"
+    },
+    {
+      "id": "a02",
+      "title": "对子手的速度与可碰性",
+      "topics": [
+        "pairs",
+        "chiitoitsu"
+      ],
+      "concept": "旧网页版比较对对和与七对子时，重视已有刻子、役牌或染手等复合打点、对子是否容易碰出，以及是否有无法成刻的死对子。孤立宝牌、门前其他形状和守备需求也可能使七对子更有吸引力，不能仅按对子数量决定路线。",
+      "conditions": "考虑对对和的可碰性、刻子与复合役价值，或与七对子竞争；已有副露仍可研究对对和，但不能继续声称七对子合法。",
+      "exceptions": "鸣牌推进的速度不能直接等同门前进张；本实验不输出碰牌行动。已经听牌的七对子与尚未听牌的对子手应分开讨论，避免用远期潜力覆盖即时机会。",
+      "content": "概念：旧网页版比较对对和与七对子时，重视已有刻子、役牌或染手等复合打点、对子是否容易碰出，以及是否有无法成刻的死对子。孤立宝牌、门前其他形状和守备需求也可能使七对子更有吸引力，不能仅按对子数量决定路线。\n适用条件：考虑对对和的可碰性、刻子与复合役价值，或与七对子竞争；已有副露仍可研究对对和，但不能继续声称七对子合法。\n例外与限制：鸣牌推进的速度不能直接等同门前进张；本实验不输出碰牌行动。已经听牌的七对子与尚未听牌的对子手应分开讨论，避免用远期潜力覆盖即时机会。\n版本：现代麻雀技术论旧网页版，与书版有差异。仅整理可独立核对的文字论述；未确认的牌图例题未收录。",
+      "source": {
+        "system": "nemata-original-web",
+        "title": "現代麻雀技術論 - 牌効率論33．対々和",
+        "url": "https://yabejp.web.fc2.com/mahjong/tactics/chapter01/section033.html",
+        "chapter": "/mahjong/tactics/chapter01/section033.html",
+        "htmlSha256": "1af5a6b71ada408ca03d432a5c71732408581e615309898044457f079f952c89"
+      },
+      "tileExamples": [],
+      "imagePolicy": "unverified_examples_excluded",
+      "editorialStatus": "source_conditions_reaudited_not_human_gold"
+    },
+    {
+      "id": "a03",
+      "title": "役牌对子为什么有价值",
+      "topics": [
+        "yakuhai",
+        "efficiency"
+      ],
+      "concept": "役牌对子能通过成刻获得役，也能从其他三家鸣入，因此其价值不能只用自摸两枚受入衡量。旧网页版讨论在确定平和、断幺或更高役等条件下拆役牌对子的例外，并提醒役牌后付路线中，需要成刻的役牌对子不能同时当成最终雀头。",
+      "conditions": "研究役牌从孤张、对子到成刻的役价值及路线确定性；对子与雀头、良形的取舍和鸣牌受入近似，仅用于相应对子状态。",
+      "exceptions": "原文把鸣牌机会折算为受入只是解释性近似，不是可保证的摸牌概率；对手是否会打出、已见枚数、门前速度和巡目都应单独核对。",
+      "content": "概念：役牌对子能通过成刻获得役，也能从其他三家鸣入，因此其价值不能只用自摸两枚受入衡量。旧网页版讨论在确定平和、断幺或更高役等条件下拆役牌对子的例外，并提醒役牌后付路线中，需要成刻的役牌对子不能同时当成最终雀头。\n适用条件：研究役牌从孤张、对子到成刻的役价值及路线确定性；对子与雀头、良形的取舍和鸣牌受入近似，仅用于相应对子状态。\n例外与限制：原文把鸣牌机会折算为受入只是解释性近似，不是可保证的摸牌概率；对手是否会打出、已见枚数、门前速度和巡目都应单独核对。\n版本：现代麻雀技术论旧网页版，与书版有差异。仅整理可独立核对的文字论述；未确认的牌图例题未收录。",
+      "source": {
+        "system": "nemata-original-web",
+        "title": "現代麻雀技術論 - 牌効率論29．役牌トイツ",
+        "url": "https://yabejp.web.fc2.com/mahjong/tactics/chapter01/section029.html",
+        "chapter": "/mahjong/tactics/chapter01/section029.html",
+        "htmlSha256": "6ca2dc3213a4decae3ba232c15593fe398ff2636e2f2d9f925d8d6a3c6164595"
+      },
+      "tileExamples": [],
+      "imagePolicy": "unverified_examples_excluded",
+      "editorialStatus": "source_conditions_reaudited_not_human_gold"
+    },
+    {
+      "id": "a04",
+      "title": "染手定向与保留弹性",
+      "topics": [
+        "flush",
+        "efficiency"
+      ],
+      "concept": "旧网页版把染手材料、面子候补数量、其他花色的成面子或强搭子，以及不染也能得到的打点一起比较。相关牌多并不自动意味着应定向；还应观察下一次进张更可能加强染手，还是使普通面子手明显领先，并比较定向后的速度损失。",
+      "conditions": "评估染手可能、兼顾或专攻，包括材料尚少的手；原文同色材料与面子候补等要求是专攻染手的判据，不能作为研究染手的前提。",
+      "exceptions": "原文专攻染手的条件与可以保留染手可能不同。已有足够打点、其他色宝牌或强组合时，追加染手的收益可能较小；不能只据材料枚数定向。",
+      "content": "概念：旧网页版把染手材料、面子候补数量、其他花色的成面子或强搭子，以及不染也能得到的打点一起比较。相关牌多并不自动意味着应定向；还应观察下一次进张更可能加强染手，还是使普通面子手明显领先，并比较定向后的速度损失。\n适用条件：评估染手可能、兼顾或专攻，包括材料尚少的手；原文同色材料与面子候补等要求是专攻染手的判据，不能作为研究染手的前提。\n例外与限制：原文专攻染手的条件与可以保留染手可能不同。已有足够打点、其他色宝牌或强组合时，追加染手的收益可能较小；不能只据材料枚数定向。\n版本：现代麻雀技术论旧网页版，与书版有差异。仅整理可独立核对的文字论述；未确认的牌图例题未收录。",
+      "source": {
+        "system": "nemata-original-web",
+        "title": "現代麻雀技術論 - 牌効率論35．一色手",
+        "url": "https://yabejp.web.fc2.com/mahjong/tactics/chapter01/section035.html",
+        "chapter": "/mahjong/tactics/chapter01/section035.html",
+        "htmlSha256": "2a50fae7790347e8c27c1664e2246d6aa400e4dc4ae71771bce2e38518bb23b7"
+      },
+      "tileExamples": [],
+      "imagePolicy": "unverified_examples_excluded",
+      "editorialStatus": "source_conditions_reaudited_not_human_gold"
+    },
+    {
+      "id": "a05",
+      "title": "门前手保宝与效率",
+      "topics": [
+        "dora",
+        "efficiency"
+      ],
+      "concept": "宝牌能增加打点，但不提供役。旧网页版在其他打点不高的门前手前提下比较宝牌与同类牌形，强调宝牌的边际价值会随已有番数、是否容易纳入手牌以及点况变化。保宝要说明牺牲了哪些受入或良形，而非只看宝牌数量。",
+      "conditions": "门前手比较宝牌、宝牌受入与牌形、打点或点况，即使进张相同也可比较；具体部件排序须符合原文低番、同类部件等前提。",
+      "exceptions": "已经接近满贯、宝牌与目标役不相容、或只需低打点和牌时，保宝价值会下降；原文的局部比较不等于所有场合都应该拆良形留宝牌。",
+      "content": "概念：宝牌能增加打点，但不提供役。旧网页版在其他打点不高的门前手前提下比较宝牌与同类牌形，强调宝牌的边际价值会随已有番数、是否容易纳入手牌以及点况变化。保宝要说明牺牲了哪些受入或良形，而非只看宝牌数量。\n适用条件：门前手比较宝牌、宝牌受入与牌形、打点或点况，即使进张相同也可比较；具体部件排序须符合原文低番、同类部件等前提。\n例外与限制：已经接近满贯、宝牌与目标役不相容、或只需低打点和牌时，保宝价值会下降；原文的局部比较不等于所有场合都应该拆良形留宝牌。\n版本：现代麻雀技术论旧网页版，与书版有差异。仅整理可独立核对的文字论述；未确认的牌图例题未收录。",
+      "source": {
+        "system": "nemata-original-web",
+        "title": "現代麻雀技術論 - 牌効率論39．メンゼン手のドラ",
+        "url": "https://yabejp.web.fc2.com/mahjong/tactics/chapter01/section039.html",
+        "chapter": "/mahjong/tactics/chapter01/section039.html",
+        "htmlSha256": "413483db9be91f16d6197e6e7c2cae1365f1dc4ad5201cbbeea14725aa52c9cd"
+      },
+      "tileExamples": [],
+      "imagePolicy": "unverified_examples_excluded",
+      "editorialStatus": "source_conditions_reaudited_not_human_gold"
+    },
+    {
+      "id": "a06",
+      "title": "等待质量与打点交换",
+      "topics": [
+        "waits",
+        "dora"
+      ],
+      "concept": "旧网页版分别讨论门前立直手与副露手的等待质量和打点交换，指出相同的表面点数增量并不总有相同价值。宝牌单骑可能更难荣和，含高低目的等待还需看打点是否稳定。追求最高打点时必须同时说明和牌机会的损失。",
+      "conditions": "评价听牌形的等待质量、打点稳定性、高低目或换听代价，不以多个听牌弃牌候选为前提；具体点数排序须匹配门前或副露及规则假设。",
+      "exceptions": "原文点数比较带有规则和情境前提，不能脱离条件复制为通用排序。本轮不决定立直行动，最终役、符和合法和牌资格仍由既有引擎确认。",
+      "content": "概念：旧网页版分别讨论门前立直手与副露手的等待质量和打点交换，指出相同的表面点数增量并不总有相同价值。宝牌单骑可能更难荣和，含高低目的等待还需看打点是否稳定。追求最高打点时必须同时说明和牌机会的损失。\n适用条件：评价听牌形的等待质量、打点稳定性、高低目或换听代价，不以多个听牌弃牌候选为前提；具体点数排序须匹配门前或副露及规则假设。\n例外与限制：原文点数比较带有规则和情境前提，不能脱离条件复制为通用排序。本轮不决定立直行动，最终役、符和合法和牌资格仍由既有引擎确认。\n版本：现代麻雀技术论旧网页版，与书版有差异。仅整理可独立核对的文字论述；未确认的牌图例题未收录。",
+      "source": {
+        "system": "nemata-original-web",
+        "title": "現代麻雀技術論 - 牌効率論21-6．待ち受け選択",
+        "url": "https://yabejp.web.fc2.com/mahjong/tactics/chapter01/section021-06.html",
+        "chapter": "/mahjong/tactics/chapter01/section021-06.html",
+        "htmlSha256": "676f4ed9eeb437ab9af3a45167213eee0e854721d50d364e6efea7312173d3d7"
+      },
+      "tileExamples": [],
+      "imagePolicy": "unverified_examples_excluded",
+      "editorialStatus": "source_conditions_reaudited_not_human_gold"
+    },
+    {
+      "id": "a07",
+      "title": "振听搭子与枯竭受入",
+      "topics": [
+        "furiten",
+        "waits"
+      ],
+      "concept": "振听会限制荣和，但含振听搭子不等于最终一定振听：后续拆解或等待选择可能消除这一路线。旧网页版因此区分振听两面与振听愚形，也把场上已见很多有效牌的愚形视作需要重新评价的情况，避免只按形状名称判断。",
+      "conditions": "评价含振听可能的搭子、孤张或复合形，以及因可见牌而枯竭的受入；可在听牌前研究，最终振听状态须另行确认。",
+      "exceptions": "不能把振听写成完全不能和牌，亦不能把尚未确定的临时振听当作已确认。是否可自摸和牌及其他资格应引用引擎事实，不由模式推断。",
+      "content": "概念：振听会限制荣和，但含振听搭子不等于最终一定振听：后续拆解或等待选择可能消除这一路线。旧网页版因此区分振听两面与振听愚形，也把场上已见很多有效牌的愚形视作需要重新评价的情况，避免只按形状名称判断。\n适用条件：评价含振听可能的搭子、孤张或复合形，以及因可见牌而枯竭的受入；可在听牌前研究，最终振听状态须另行确认。\n例外与限制：不能把振听写成完全不能和牌，亦不能把尚未确定的临时振听当作已确认。是否可自摸和牌及其他资格应引用引擎事实，不由模式推断。\n版本：现代麻雀技术论旧网页版，与书版有差异。仅整理可独立核对的文字论述；未确认的牌图例题未收录。",
+      "source": {
+        "system": "nemata-original-web",
+        "title": "現代麻雀技術論 - 牌効率論７．超愚形ターツとフリテンターツ",
+        "url": "https://yabejp.web.fc2.com/mahjong/tactics/chapter01/section007.html",
+        "chapter": "/mahjong/tactics/chapter01/section007.html",
+        "htmlSha256": "118f8730ba788e4b22c44dd0cec333caa7ddbbe13d3367ce60413f1e9dd79476"
+      },
+      "tileExamples": [],
+      "imagePolicy": "unverified_examples_excluded",
+      "editorialStatus": "source_conditions_reaudited_not_human_gold"
+    },
+    {
+      "id": "a08",
+      "title": "弃和时的安全牌顺序",
+      "topics": [
+        "safe-tiles",
+        "riichi-defense"
+      ],
+      "concept": "旧网页版将弃和定义为放弃自家和牌目标、尽量减少放铳，并区分安全度判断与同等安全牌的切出顺序。当前只防一家时，保留对未来其他威胁也安全的牌可能有价值；若仍想听牌，则还需考虑保留进攻形状，目标已不同。",
+      "conditions": "考虑弃和时，对立直或副露者分别评价安全线索、切牌顺序及后续共同安全性；具体危险度数值须满足原文假设。",
+      "exceptions": "原文危险度层级与数值属于该版本的估计，不能当作当前模型校准概率。全桌安全性必须逐家验证，鸣牌帮助他家的后果也受点况限制。",
+      "content": "概念：旧网页版将弃和定义为放弃自家和牌目标、尽量减少放铳，并区分安全度判断与同等安全牌的切出顺序。当前只防一家时，保留对未来其他威胁也安全的牌可能有价值；若仍想听牌，则还需考虑保留进攻形状，目标已不同。\n适用条件：考虑弃和时，对立直或副露者分别评价安全线索、切牌顺序及后续共同安全性；具体危险度数值须满足原文假设。\n例外与限制：原文危险度层级与数值属于该版本的估计，不能当作当前模型校准概率。全桌安全性必须逐家验证，鸣牌帮助他家的后果也受点况限制。\n版本：现代麻雀技术论旧网页版，与书版有差异。仅整理可独立核对的文字论述；未确认的牌图例题未收录。",
+      "source": {
+        "system": "nemata-original-web",
+        "title": "現代麻雀技術論 - 押し引き論13．ベタオリ",
+        "url": "https://yabejp.web.fc2.com/mahjong/tactics/chapter02/section013.html",
+        "chapter": "/mahjong/tactics/chapter02/section013.html",
+        "htmlSha256": "40933b29696cab4512848a033f600ef8bcc64ec8f60b305b2bc86d0d33200cc1"
+      },
+      "tileExamples": [],
+      "imagePolicy": "unverified_examples_excluded",
+      "editorialStatus": "source_conditions_reaudited_not_human_gold"
+    },
+    {
+      "id": "a09",
+      "title": "没有安全牌时如何处理",
+      "topics": [
+        "safe-tiles",
+        "push-fold"
+      ],
+      "concept": "旧网页版区分两类没有安牌的局面：仍有现实进攻机会时，可暂时按自家效率推进并等待新的安全牌；中后期距离听牌很远，或弃和途中安牌耗尽时，则应优先降低放铳可能及可能损失，而不是因为无安牌就改为全押。",
+      "conditions": "缺少可靠安全牌或弃和途中安全牌耗尽时，比较继续推进与降低可能损失；须按原文安全度含义判断，不能只统计共同现物种数。",
+      "exceptions": "原文的无安牌包含安全度判断，非现物中仍可能存在较安全选择；不能把安牌缺乏解释为必须全押，也不能在没有证据时给出具体放铳概率。",
+      "content": "概念：旧网页版区分两类没有安牌的局面：仍有现实进攻机会时，可暂时按自家效率推进并等待新的安全牌；中后期距离听牌很远，或弃和途中安牌耗尽时，则应优先降低放铳可能及可能损失，而不是因为无安牌就改为全押。\n适用条件：缺少可靠安全牌或弃和途中安全牌耗尽时，比较继续推进与降低可能损失；须按原文安全度含义判断，不能只统计共同现物种数。\n例外与限制：原文的无安牌包含安全度判断，非现物中仍可能存在较安全选择；不能把安牌缺乏解释为必须全押，也不能在没有证据时给出具体放铳概率。\n版本：现代麻雀技术论旧网页版，与书版有差异。仅整理可独立核对的文字论述；未确认的牌图例题未收录。",
+      "source": {
+        "system": "nemata-original-web",
+        "title": "現代麻雀技術論 - 押し引き論15．安牌がない場合の対処法",
+        "url": "https://yabejp.web.fc2.com/mahjong/tactics/chapter02/section015.html",
+        "chapter": "/mahjong/tactics/chapter02/section015.html",
+        "htmlSha256": "5e27f7529fc6d2f1d98593c1a3a4f5b7d170178b502cf3789fe2e059904bea81"
+      },
+      "tileExamples": [],
+      "imagePolicy": "unverified_examples_excluded",
+      "editorialStatus": "source_conditions_reaudited_not_human_gold"
+    },
+    {
+      "id": "a10",
+      "title": "两家立直与分别防守",
+      "topics": [
+        "multi-defense",
+        "safe-tiles"
+      ],
+      "concept": "两家立直时，候选对每一家的安全性需要分别检查。旧网页版强调等待质量、共同安牌、两家可能的失点和点况；若没有共同安牌，可以先比较对更不愿放铳的一家可靠安全、同时对另一家风险较小的选择，而非模糊地平均风险。",
+      "conditions": "至少两家对手立直时，分别评价安全性、共同安全牌及自家继续进攻的条件；不要求两家的现物集合一定不同。",
+      "exceptions": "原文模拟有固定危险度和手牌前提，不能照搬成当前候选的概率。对一家现物并不保证对另一家安全；多家立直也不自动意味着任何听牌都应弃和。",
+      "content": "概念：两家立直时，候选对每一家的安全性需要分别检查。旧网页版强调等待质量、共同安牌、两家可能的失点和点况；若没有共同安牌，可以先比较对更不愿放铳的一家可靠安全、同时对另一家风险较小的选择，而非模糊地平均风险。\n适用条件：至少两家对手立直时，分别评价安全性、共同安全牌及自家继续进攻的条件；不要求两家的现物集合一定不同。\n例外与限制：原文模拟有固定危险度和手牌前提，不能照搬成当前候选的概率。对一家现物并不保证对另一家安全；多家立直也不自动意味着任何听牌都应弃和。\n版本：现代麻雀技术论旧网页版，与书版有差异。仅整理可独立核对的文字论述；未确认的牌图例题未收录。",
+      "source": {
+        "system": "nemata-original-web",
+        "title": "現代麻雀技術論 - 押し引き論19．２軒リーチの対応",
+        "url": "https://yabejp.web.fc2.com/mahjong/tactics/chapter02/section019.html",
+        "chapter": "/mahjong/tactics/chapter02/section019.html",
+        "htmlSha256": "c152a94e986d3a459c729cad2a282b728517f5a31fa91835bf96a91172e19ebe"
+      },
+      "tileExamples": [],
+      "imagePolicy": "unverified_examples_excluded",
+      "editorialStatus": "source_conditions_reaudited_not_human_gold"
+    },
+    {
+      "id": "a11",
+      "title": "听牌后的押引条件",
+      "topics": [
+        "push-fold",
+        "waits"
+      ],
+      "concept": "旧网页版的听牌押引分析区分自他亲子、良形愚形、巡目、打点和将切牌的风险，并明确设置赤牌、祝仪、弃和成功等前提。面对先制威胁，和牌机会的重要性上升，单纯用高打点抵消很差的等待并不总是划算。",
+      "conditions": "自家听牌或某弃牌可保持听牌，面对对手立直时评价等待、打点、亲子、巡目与切牌风险；不要求另有安全弃牌候选。",
+      "exceptions": "原文部分表格未计流局罚符和供托收益，也假定特定风险水平；这些条件与当前局面不同时只能引用分析维度，不能宣称表格直接给出最优动作。",
+      "content": "概念：旧网页版的听牌押引分析区分自他亲子、良形愚形、巡目、打点和将切牌的风险，并明确设置赤牌、祝仪、弃和成功等前提。面对先制威胁，和牌机会的重要性上升，单纯用高打点抵消很差的等待并不总是划算。\n适用条件：自家听牌或某弃牌可保持听牌，面对对手立直时评价等待、打点、亲子、巡目与切牌风险；不要求另有安全弃牌候选。\n例外与限制：原文部分表格未计流局罚符和供托收益，也假定特定风险水平；这些条件与当前局面不同时只能引用分析维度，不能宣称表格直接给出最优动作。\n版本：现代麻雀技术论旧网页版，与书版有差异。仅整理可独立核对的文字论述；未确认的牌图例题未收录。",
+      "source": {
+        "system": "nemata-original-web",
+        "title": "現代麻雀技術論 - 押し引き論17．テンパイ時の対応",
+        "url": "https://yabejp.web.fc2.com/mahjong/tactics/chapter02/section017.html",
+        "chapter": "/mahjong/tactics/chapter02/section017.html",
+        "htmlSha256": "6ea10d3788d0bd43be7ebfef4fa89230ada060c654f244e80ba26ff0c62474f6"
+      },
+      "tileExamples": [],
+      "imagePolicy": "unverified_examples_excluded",
+      "editorialStatus": "source_conditions_reaudited_not_human_gold"
+    },
+    {
+      "id": "a12",
+      "title": "一向听的宽度影响押引",
+      "topics": [
+        "push-fold",
+        "efficiency"
+      ],
+      "concept": "同为一向听，下一巡听牌机会可能差别很大。旧网页版把进张宽度、听牌后的好坏形和可副露推进的机会纳入押引，因此不把所有一向听视作同等强度。宽一向听与很窄的七对子一向听，面对先制威胁时通常需要不同分析。",
+      "conditions": "面对立直时评价一向听及更远手的推进机会、听牌后质量与连续切牌成本；原文的一巡概率近似和特定宽度比较须分别核对。",
+      "exceptions": "原文将受入折算为一巡概率是近似，不能把未见枚数当作实际山牌；尚未听牌的高打点仍需经过推进才能兑现，并需考虑接下来可能连续切出的牌。",
+      "content": "概念：同为一向听，下一巡听牌机会可能差别很大。旧网页版把进张宽度、听牌后的好坏形和可副露推进的机会纳入押引，因此不把所有一向听视作同等强度。宽一向听与很窄的七对子一向听，面对先制威胁时通常需要不同分析。\n适用条件：面对立直时评价一向听及更远手的推进机会、听牌后质量与连续切牌成本；原文的一巡概率近似和特定宽度比较须分别核对。\n例外与限制：原文将受入折算为一巡概率是近似，不能把未见枚数当作实际山牌；尚未听牌的高打点仍需经过推进才能兑现，并需考虑接下来可能连续切出的牌。\n版本：现代麻雀技术论旧网页版，与书版有差异。仅整理可独立核对的文字论述；未确认的牌图例题未收录。",
+      "source": {
+        "system": "nemata-original-web",
+        "title": "現代麻雀技術論 - 押し引き論21．１シャンテン時の対応",
+        "url": "https://yabejp.web.fc2.com/mahjong/tactics/chapter02/section021.html",
+        "chapter": "/mahjong/tactics/chapter02/section021.html",
+        "htmlSha256": "6dfd29bd81c71db43b3fa72aca421902a8c98a4a14beb29778e6a19a1b0e5242"
+      },
+      "tileExamples": [],
+      "imagePolicy": "unverified_examples_excluded",
+      "editorialStatus": "source_conditions_reaudited_not_human_gold"
+    },
+    {
+      "id": "a13",
+      "title": "副露与立直威胁的差别",
+      "topics": [
+        "open-defense",
+        "push-fold"
+      ],
+      "concept": "副露与立直不同，听牌通常不确定，但公开部分更容易提供役种和打点线索。旧网页版讨论副露次数、巡目和河对听牌可能性的影响，强调统计值只能作参考；还需结合自家强度与对手公开材料，不能一有副露就自动弃和。",
+      "conditions": "有对手副露时，研究听牌不确定性、可见打点、可能等待和安全信息的时效；单次副露及没有公开役牌、宝牌时也适用。",
+      "exceptions": "原文不同巡目的经验概率不能当作当前对手的真实概率；副露手也可能换听，过去通过的牌未必永久安全。手出与摸切记录缺失时应明确限制。",
+      "content": "概念：副露与立直不同，听牌通常不确定，但公开部分更容易提供役种和打点线索。旧网页版讨论副露次数、巡目和河对听牌可能性的影响，强调统计值只能作参考；还需结合自家强度与对手公开材料，不能一有副露就自动弃和。\n适用条件：有对手副露时，研究听牌不确定性、可见打点、可能等待和安全信息的时效；单次副露及没有公开役牌、宝牌时也适用。\n例外与限制：原文不同巡目的经验概率不能当作当前对手的真实概率；副露手也可能换听，过去通过的牌未必永久安全。手出与摸切记录缺失时应明确限制。\n版本：现代麻雀技术论旧网页版，与书版有差异。仅整理可独立核对的文字论述；未确认的牌图例题未收录。",
+      "source": {
+        "system": "nemata-original-web",
+        "title": "現代麻雀技術論 - 押し引き論22．喰い仕掛けの特徴",
+        "url": "https://yabejp.web.fc2.com/mahjong/tactics/chapter02/section022.html",
+        "chapter": "/mahjong/tactics/chapter02/section022.html",
+        "htmlSha256": "93e160f26f3197f82c687ba487a7d5dc1db22de15846d2214f34294b879565ab"
+      },
+      "tileExamples": [],
+      "imagePolicy": "unverified_examples_excluded",
+      "editorialStatus": "source_conditions_reaudited_not_human_gold"
+    },
+    {
+      "id": "a14",
+      "title": "副露听牌判断与推进迹象",
+      "topics": [
+        "reading",
+        "open-defense"
+      ],
+      "concept": "旧网页版把副露后的中张手出、有利用价值的牌被切出，以及面对其他威胁仍继续推进等作为听牌判断线索。但它也强调精确概率难以确定，自家手牌质量和对手可能打点仍很重要。读牌应把观察事实与由此形成的假设分开陈述。",
+      "conditions": "研究副露后的舍牌、手出及推进行为对听牌判断的意义，或他家面对立直、疑似听牌副露仍推进的迹象；须有对应时点的公开记录。",
+      "exceptions": "非现物本身不能证明该牌危险，也不能证明他家在押牌或已经听牌；需按那次舍牌前的公开信息核对，不能用后来通过的牌反推当时安全性。",
+      "content": "概念：旧网页版把副露后的中张手出、有利用价值的牌被切出，以及面对其他威胁仍继续推进等作为听牌判断线索。但它也强调精确概率难以确定，自家手牌质量和对手可能打点仍很重要。读牌应把观察事实与由此形成的假设分开陈述。\n适用条件：研究副露后的舍牌、手出及推进行为对听牌判断的意义，或他家面对立直、疑似听牌副露仍推进的迹象；须有对应时点的公开记录。\n例外与限制：非现物本身不能证明该牌危险，也不能证明他家在押牌或已经听牌；需按那次舍牌前的公开信息核对，不能用后来通过的牌反推当时安全性。\n版本：现代麻雀技术论旧网页版，与书版有差异。仅整理可独立核对的文字论述；未确认的牌图例题未收录。",
+      "source": {
+        "system": "nemata-original-web",
+        "title": "現代麻雀技術論 - 押し引き論23．喰い仕掛けのテンパイ読み",
+        "url": "https://yabejp.web.fc2.com/mahjong/tactics/chapter02/section023.html",
+        "chapter": "/mahjong/tactics/chapter02/section023.html",
+        "htmlSha256": "9a8716b3b25234fae3ff014f780b0b92b76fd8962baa36577153a25e064f45c7"
+      },
+      "tileExamples": [],
+      "imagePolicy": "unverified_examples_excluded",
+      "editorialStatus": "source_conditions_reaudited_not_human_gold"
+    },
+    {
+      "id": "a15",
+      "title": "按可能役种分析副露",
+      "topics": [
+        "open-defense",
+        "flush"
+      ],
+      "concept": "旧网页版分别讨论断幺、役牌后付、三色、一气、染手与对对和等副露路线。公开副露与舍牌可以缩小某些可能性，却还应主动寻找反例，例如看似断幺的副露可能另有役牌，数牌集中于一色也可能只是普通役牌手的一部分。",
+      "conditions": "根据副露与舍牌研究断幺、役牌后付、三色、一气、染手、对对和等路线及反例；各役种的局部推断须满足相应公开线索。",
+      "exceptions": "只有在役种假设成立时，相关牌的风险讨论才适用；不能从同色副露直接断言混一色听牌，更不能把其他颜色无条件标为安全。",
+      "content": "概念：旧网页版分别讨论断幺、役牌后付、三色、一气、染手与对对和等副露路线。公开副露与舍牌可以缩小某些可能性，却还应主动寻找反例，例如看似断幺的副露可能另有役牌，数牌集中于一色也可能只是普通役牌手的一部分。\n适用条件：根据副露与舍牌研究断幺、役牌后付、三色、一气、染手、对对和等路线及反例；各役种的局部推断须满足相应公开线索。\n例外与限制：只有在役种假设成立时，相关牌的风险讨论才适用；不能从同色副露直接断言混一色听牌，更不能把其他颜色无条件标为安全。\n版本：现代麻雀技术论旧网页版，与书版有差异。仅整理可独立核对的文字论述；未确认的牌图例题未收录。",
+      "source": {
+        "system": "nemata-original-web",
+        "title": "現代麻雀技術論 - 押し引き論24．フーロ手役別対処法",
+        "url": "https://yabejp.web.fc2.com/mahjong/tactics/chapter02/section024.html",
+        "chapter": "/mahjong/tactics/chapter02/section024.html",
+        "htmlSha256": "50f95d03bc62c120424c401bb5e42c74aff912ca52f81eb890b9eb2c012c1d41"
+      },
+      "tileExamples": [],
+      "imagePolicy": "unverified_examples_excluded",
+      "editorialStatus": "source_conditions_reaudited_not_human_gold"
+    },
+    {
+      "id": "a16",
+      "title": "终盘听牌收益与风险",
+      "topics": [
+        "endgame",
+        "push-fold"
+      ],
+      "concept": "接近流局时，可供自摸推进的次数减少，听牌罚符与切出牌的风险可能比手牌最高打点更重要。旧网页版用“切通即确定得到听牌收益”的简化模型讨论押引，并提醒如果之后还要摸牌、继续切牌，条件会更严格。",
+      "conditions": "接近流局时比较争取或维持听牌、继续推进与防守的价值，包括尚远于一向听的手；切通即确定获听牌收益仅是原文简化模型的前提。",
+      "exceptions": "原文公式后的不等号方向存在可核对的笔误，本卡不复制其数值阈值；多家威胁、亲子和点况必须另外分析，一向听不等于已能取得听牌罚符。",
+      "content": "概念：接近流局时，可供自摸推进的次数减少，听牌罚符与切出牌的风险可能比手牌最高打点更重要。旧网页版用“切通即确定得到听牌收益”的简化模型讨论押引，并提醒如果之后还要摸牌、继续切牌，条件会更严格。\n适用条件：接近流局时比较争取或维持听牌、继续推进与防守的价值，包括尚远于一向听的手；切通即确定获听牌收益仅是原文简化模型的前提。\n例外与限制：原文公式后的不等号方向存在可核对的笔误，本卡不复制其数值阈值；多家威胁、亲子和点况必须另外分析，一向听不等于已能取得听牌罚符。\n版本：现代麻雀技术论旧网页版，与书版有差异。仅整理可独立核对的文字论述；未确认的牌图例题未收录。",
+      "source": {
+        "system": "nemata-original-web",
+        "title": "現代麻雀技術論 - 押し引き論25．流局間際の押し引き",
+        "url": "https://yabejp.web.fc2.com/mahjong/tactics/chapter02/section025.html",
+        "chapter": "/mahjong/tactics/chapter02/section025.html",
+        "htmlSha256": "b38194e48c6de6071035a8e3c2eedf3371a8bc76edaf6e77e79e20407f9ca28b"
+      },
+      "tileExamples": [],
+      "imagePolicy": "unverified_examples_excluded",
+      "editorialStatus": "source_conditions_reaudited_not_human_gold"
+    },
+    {
+      "id": "a17",
+      "title": "迂回手段与后续风险",
+      "topics": [
+        "push-fold",
+        "chiitoitsu"
+      ],
+      "concept": "旧网页版把迂回视为在不能立即切出某些牌时调整手牌的手段，包括从复合搭子抽牌、拆对子、拆搭子或暗刻，以及保留七对子可能。评价时要看接下来的弃牌是否仍可通过，而不只评价眼前这一张安全牌。",
+      "conditions": "认为不宜全力进攻时，研究在暂不切某些牌或避免被鸣的约束下能否推进；没有可行迂回路线时也可用于解释为何应弃和。",
+      "exceptions": "拆搭子的两张牌最好都能满足安全要求；拆暗刻通常已接近弃和。保留七对子只是潜在退路，不足以保证听牌或为继续切风险牌提供理由。",
+      "content": "概念：旧网页版把迂回视为在不能立即切出某些牌时调整手牌的手段，包括从复合搭子抽牌、拆对子、拆搭子或暗刻，以及保留七对子可能。评价时要看接下来的弃牌是否仍可通过，而不只评价眼前这一张安全牌。\n适用条件：认为不宜全力进攻时，研究在暂不切某些牌或避免被鸣的约束下能否推进；没有可行迂回路线时也可用于解释为何应弃和。\n例外与限制：拆搭子的两张牌最好都能满足安全要求；拆暗刻通常已接近弃和。保留七对子只是潜在退路，不足以保证听牌或为继续切风险牌提供理由。\n版本：现代麻雀技术论旧网页版，与书版有差异。仅整理可独立核对的文字论述；未确认的牌图例题未收录。",
+      "source": {
+        "system": "nemata-original-web",
+        "title": "現代麻雀技術論 - 押し引き論26．回し打ち･絞りの方法",
+        "url": "https://yabejp.web.fc2.com/mahjong/tactics/chapter02/section026.html",
+        "chapter": "/mahjong/tactics/chapter02/section026.html",
+        "htmlSha256": "88f032ed802669759d2deed691b055e8c6ad6e77be34e8fd1429014315bd0687"
+      },
+      "tileExamples": [],
+      "imagePolicy": "unverified_examples_excluded",
+      "editorialStatus": "source_conditions_reaudited_not_human_gold"
+    },
+    {
+      "id": "a18",
+      "title": "副露手中的宝牌价值",
+      "topics": [
+        "dora",
+        "yakuhai"
+      ],
+      "concept": "副露后失去立直等门前增值途径，能够纳入目标役的宝牌对打点可能更重要。旧网页版强调先判断宝牌能否使用：若与已确定路线不相容，继续保留可能只增加以后切出的风险；若仍有合理转向，则不能过早排除宝牌路线。",
+      "conditions": "自家已经副露，或比较以副露推进为前提的路线时，评价宝牌能否纳入目标役及其边际价值；纯门前路线须使用相应门前知识。",
+      "exceptions": "宝牌不是役，公开宝牌也不等于确认最终打点；保宝收益要与受入损失、安全库存和既有番数比较，不能套用门前手的全部价值来源。",
+      "content": "概念：副露后失去立直等门前增值途径，能够纳入目标役的宝牌对打点可能更重要。旧网页版强调先判断宝牌能否使用：若与已确定路线不相容，继续保留可能只增加以后切出的风险；若仍有合理转向，则不能过早排除宝牌路线。\n适用条件：自家已经副露，或比较以副露推进为前提的路线时，评价宝牌能否纳入目标役及其边际价值；纯门前路线须使用相应门前知识。\n例外与限制：宝牌不是役，公开宝牌也不等于确认最终打点；保宝收益要与受入损失、安全库存和既有番数比较，不能套用门前手的全部价值来源。\n版本：现代麻雀技术论旧网页版，与书版有差异。仅整理可独立核对的文字论述；未确认的牌图例题未收录。",
+      "source": {
+        "system": "nemata-original-web",
+        "title": "現代麻雀技術論 - 牌効率論40．フーロ手のドラ",
+        "url": "https://yabejp.web.fc2.com/mahjong/tactics/chapter01/section040.html",
+        "chapter": "/mahjong/tactics/chapter01/section040.html",
+        "htmlSha256": "6863272900e498d3139c8de424970e1e0284f6df2199dd8bf0f022dc548c70b8"
+      },
+      "tileExamples": [],
+      "imagePolicy": "unverified_examples_excluded",
+      "editorialStatus": "source_conditions_reaudited_not_human_gold"
+    },
+    {
+      "id": "a19",
+      "title": "局收益与最终顺位",
+      "topics": [
+        "placement",
+        "push-fold"
+      ],
+      "concept": "单局点数期望与半庄最终收益不总一致，越接近结束，顺位变化越可能改变打法。旧网页版建议结合顺位奖励规则、点差、供托和本场，比较和牌、放铳、被自摸及横移动后的结果，而非只追求当前手牌最大打点。",
+      "conditions": "半庄任意阶段研究点差、顺位目标、供托本场及规则对局收益的影响；越接近终局越重要，具体目标推算需有足够点数和终局规则。",
+      "exceptions": "规则中的顺位权重、飞人和延长条件不明时不能擅自假设；南四不一定是最后一局，连庄和西入可能改变目标，应清楚区分已知点差与推算。",
+      "content": "概念：单局点数期望与半庄最终收益不总一致，越接近结束，顺位变化越可能改变打法。旧网页版建议结合顺位奖励规则、点差、供托和本场，比较和牌、放铳、被自摸及横移动后的结果，而非只追求当前手牌最大打点。\n适用条件：半庄任意阶段研究点差、顺位目标、供托本场及规则对局收益的影响；越接近终局越重要，具体目标推算需有足够点数和终局规则。\n例外与限制：规则中的顺位权重、飞人和延长条件不明时不能擅自假设；南四不一定是最后一局，连庄和西入可能改变目标，应清楚区分已知点差与推算。\n版本：现代麻雀技术论旧网页版，与书版有差异。仅整理可独立核对的文字论述；未确认的牌图例题未收录。",
+      "source": {
+        "system": "nemata-original-web",
+        "title": "現代麻雀技術論 - 点棒状況判断技術１．点棒状況判断の原則",
+        "url": "https://yabejp.web.fc2.com/mahjong/tactics/chapter04/section001.html",
+        "chapter": "/mahjong/tactics/chapter04/section001.html",
+        "htmlSha256": "a19b157e5f53c18c8e6af16ae4d1209ef52b687d2033270a4d6f33c9eca00cb9"
+      },
+      "tileExamples": [],
+      "imagePolicy": "unverified_examples_excluded",
+      "editorialStatus": "source_conditions_reaudited_not_human_gold"
+    },
+    {
+      "id": "a20",
+      "title": "末局押引与顺位变化",
+      "topics": [
+        "placement",
+        "push-fold"
+      ],
+      "concept": "旧网页版以特定起点、返还点和顺位奖励为例，比较和牌升位与放铳降位的价值，说明末局押引需要同时看和牌、放铳、被自摸、横移动四类结果。相同点差在不同顺位奖励下，承担风险的理由可能不同。",
+      "conditions": "实际末局或按已知规则可能终局时，比较押引对顺位的影响并预先确定目标；具体示例须符合原文起点、返还点和顺位奖励假设。",
+      "exceptions": "原文示例规则不是当前平台规则的默认值；不要把示例中的和放比例或推奨直接移植。点数完整不代表所有终局规则已知，未知项应成为讲解的适用限制。",
+      "content": "概念：旧网页版以特定起点、返还点和顺位奖励为例，比较和牌升位与放铳降位的价值，说明末局押引需要同时看和牌、放铳、被自摸、横移动四类结果。相同点差在不同顺位奖励下，承担风险的理由可能不同。\n适用条件：实际末局或按已知规则可能终局时，比较押引对顺位的影响并预先确定目标；具体示例须符合原文起点、返还点和顺位奖励假设。\n例外与限制：原文示例规则不是当前平台规则的默认值；不要把示例中的和放比例或推奨直接移植。点数完整不代表所有终局规则已知，未知项应成为讲解的适用限制。\n版本：现代麻雀技术论旧网页版，与书版有差异。仅整理可独立核对的文字论述；未确认的牌图例题未收录。",
+      "source": {
+        "system": "nemata-original-web",
+        "title": "現代麻雀技術論 - 点棒状況判断技術９．オーラスの押し引き１",
+        "url": "https://yabejp.web.fc2.com/mahjong/tactics/chapter04/section009.html",
+        "chapter": "/mahjong/tactics/chapter04/section009.html",
+        "htmlSha256": "7a31c62dde252fae5034ef0e50345f594143e96fdae1ec0bc0ada6a984e6224a"
+      },
+      "tileExamples": [],
+      "imagePolicy": "unverified_examples_excluded",
+      "editorialStatus": "source_conditions_reaudited_not_human_gold"
+    }
+  ],
+  "parentKnowledgeHash": "7892f0e621fb5d1945055061dc7cb6fe9fa597e649153074bb921041024be46f",
+  "revisionPolicy": "逐条依据冻结来源的原文文字快照复核；不使用无法核对的牌图；不增加教材未涵盖的主题。模式阈值仅负责关注点提示，不约束知识可检索范围。"
+}

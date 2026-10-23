@@ -41,7 +41,7 @@ export async function polishReviewPresentation(out) {
       .replaceAll("document.querySelectorAll('article')","document.querySelectorAll('article[data-id],article[data-label]')")
       .replaceAll("r.querySelector('[type=checkbox]')","r.querySelector('.knowledge-gap')")
       .replace("window.addEventListener('beforeunload',e=>{if(document.querySelector('input,select,textarea')){e.preventDefault();e.returnValue='';}});",'')
-      .replace('<script>',`<script>window.reviewStorageKey=${embed('coach-scene-review:'+name+':'+dataset.createdAt)};window.reviewCards=${embed(knowledge.cards.map(c=>({id:c.id,title:c.title,system:c.source.system,chapter:c.source.chapter})))};window.automaticDraft=${embed(name==='knowledge-needs-60'&&automatic?{...automatic,hash:hash(automatic)}:null)};</script><script>`)
+      .replace('<script>',`<script>window.reviewStorageKey=${embed('coach-scene-review:'+name+':'+dataset.createdAt+(knowledge.version.endsWith('/v1')?'':':'+hash(knowledge)))};window.reviewCards=${embed(knowledge.cards.map(c=>({id:c.id,title:c.title,system:c.source.system,chapter:c.source.chapter})))};window.automaticDraft=${embed(name==='knowledge-needs-60'&&automatic?{...automatic,hash:hash(automatic)}:null)};</script><script>`)
       .replace('</html>',`<script>${client}</script></body></html>`);
     if(name==='knowledge-needs-60')html=html.replace(/<p>请在阅读模式结果[\s\S]*?<\/p>/, '<p class="review-intro">先看完整牌局，再标注知识主题与可接受章节。缺口标记只表示当前卡片待核对，不能据此断定教材未覆盖；请先查看原文。请在阅读模型讲解之前完成。</p>');
     else {
