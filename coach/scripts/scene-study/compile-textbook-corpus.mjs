@@ -6,6 +6,10 @@ import {TextbookUnitSchema,TEXTBOOK_LIMITS} from '@riichi-coach/contracts';
 import {textbookCorpusId,validateTextbookCorpus} from '@riichi-coach/desktop/textbook-knowledge';
 import {validateLibrary,validateBodies} from './textbook-review.mjs';
 const sha=x=>createHash('sha256').update(x).digest('hex');
+export function textbookFigureMetadata(b,unitId,imageSha256){
+ const transcription=b.hand||b.tableText||b.diagram||b.transcriptionText?{...(b.transcriptionText?{text:b.transcriptionText}:{}),...(b.hand?{hand:b.hand,decision:b.decision,...(b.conditions?{conditions:b.conditions}:{})}:{}),...(b.tableText?{table:b.tableText}:{}),...(b.diagram?{diagram:b.diagram}:{})}:null;
+ return {figureId:b.id,unitId,page:b.page,...(b.locator?{locator:b.locator}:{}),caption:b.caption,imageSha256,...(b.imageProvenance?{imageProvenance:b.imageProvenance}:{}),transcription,requiresImageForFullExample:transcription===null};
+}
 
 export async function compileTextbookCorpus(directory, suppliedDefinitions){
  const root=await realpath(directory),library=validateLibrary(JSON.parse(await readFile(join(root,'knowledge-index.json'),'utf8')));
@@ -22,8 +26,7 @@ export async function compileTextbookCorpus(directory, suppliedDefinitions){
     if(isAbsolute(rel)||rel==='..'||rel.startsWith('..'+sep))throw Error('textbook_image_outside_root');
     const imageBytes=await readFile(full);if(imageBytes.length>TEXTBOOK_LIMITS.maxImageBytes)throw Error('textbook_image_over_budget');const imageSha256=sha(imageBytes);
     images.push({figureId:b.id,path:b.src,sha256:imageSha256});
-    const transcription=b.hand||b.tableText||b.diagram||b.transcriptionText?{...(b.transcriptionText?{text:b.transcriptionText}:{}),...(b.hand?{hand:b.hand,decision:b.decision,...(b.conditions?{conditions:b.conditions}:{})}:{}),...(b.tableText?{table:b.tableText}:{}),...(b.diagram?{diagram:b.diagram}:{})}:null;
-    return {figureId:b.id,unitId:d.id,page:b.page,...(b.locator?{locator:b.locator}:{}),caption:b.caption,imageSha256,...(b.imageProvenance?{imageProvenance:b.imageProvenance}:{}),transcription,requiresImageForFullExample:transcription===null};
+    return textbookFigureMetadata(b,d.id,imageSha256);
   }
   for(const b of body.blocks.slice(d.from-1,d.to)){
    if(used.has(b.id))throw Error('textbook_duplicate_block');used.add(b.id);
