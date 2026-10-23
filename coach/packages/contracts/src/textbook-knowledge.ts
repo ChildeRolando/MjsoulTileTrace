@@ -10,12 +10,34 @@ export const TextbookSearchRequestSchema = z.object({
 }).strict();
 export const TextbookReadRequestSchema = z.object({ unitId: TextbookIdSchema }).strict();
 export const TextbookFigureRequestSchema = z.object({ figureId: TextbookIdSchema }).strict();
+const TileCode = z.string().max(80).regex(/^(?:[0-9]+[mps]|[1-7]+z)*$/);
+function tiles(code: string): string[] {
+  return [...code.matchAll(/([0-9]+)([mpsz])/g)].flatMap(m => [...m[1]!].map(n => (n === "0" ? "5" : n) + m[2]));
+}
+export const TextbookDiagramSchema = z.object({
+  concealed: TileCode, drawn: TileCode.nullable(), doraDisplay: TileCode,
+  hiddenTileCount: z.number().int().min(0).max(13),
+  melds: z.array(z.object({kind:z.enum(["chi","pon"]),tiles:TileCode,calledIndex:z.number().int().min(0).max(2)}).strict()).max(4),
+  notes: z.string().min(1).max(500),
+}).strict().superRefine((d,ctx) => {
+  const fail=(message:string)=>ctx.addIssue({code:z.ZodIssueCode.custom,message});
+  if(d.drawn!==null && tiles(d.drawn).length!==1)fail("drawn must contain exactly one tile");
+  const known=[...tiles(d.concealed),...tiles(d.drawn??""),...d.melds.flatMap(m=>tiles(m.tiles))];
+  if(![13,14].includes(known.length+d.hiddenTileCount))fail("diagram must account for 13 or 14 tiles, excluding dora display");
+  if(d.drawn!==null && known.length+d.hiddenTileCount!==14)fail("drawn-tile example must account for 14 tiles");
+  if([...new Set(known)].some(t=>known.filter(x=>x===t).length>4))fail("more than four copies of a tile");
+  for(const m of d.melds){
+    const t=tiles(m.tiles).sort();
+    if(t.length!==3 || (m.kind==="pon" ? new Set(t).size!==1 : t[0]![1]==="z" || t.some(x=>x[1]!==t[0]![1]) || Number(t[1]![0])!==Number(t[0]![0])+1 || Number(t[2]![0])!==Number(t[0]![0])+2))fail("invalid meld tiles");
+  }
+});
 export const TextbookFigureSchema = z.object({
   figureId: TextbookIdSchema, unitId: TextbookIdSchema, page: z.number().int().positive(),
   caption: z.string().min(1).max(500), imageSha256: Hash,
   transcription: z.object({
     hand: z.string().max(150).optional(), decision: z.string().max(150).optional(), conditions: z.string().max(300).optional(),
     table: z.array(z.tuple([z.string().max(100), z.string().max(1000)])).max(20).optional(),
+    diagram: TextbookDiagramSchema.optional(),
   }).strict().nullable(),
   requiresImageForFullExample: z.boolean(),
 }).strict();

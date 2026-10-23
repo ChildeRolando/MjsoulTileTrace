@@ -1,0 +1,424 @@
+{
+  "schema": "coach-textbook-figure-transcriptions/1",
+  "notation": "m=万，p=饼/筒，s=索，z=字牌；1–7z依次为东南西北白发中，0为赤五。concealed为图示暗手（不含摸牌和副露），drawn为单独摸牌，hiddenTileCount为未知牌背张数。melds按原图从左到右排列，tiles保留组内显示顺序，calledIndex为横置牌的零基序号。doraDisplay逐枚保留ドラ栏，不是宝牌指示牌，也不计入手牌。",
+  "verification": "本次助手逐图视觉转录并对照相邻正文复核；图像SHA256绑定；未运行模型实验，非另行日麻专家审核。",
+  "figures": [
+    {
+      "id": "pairs-route-b6",
+      "path": "assets/79-p114-figure1.png",
+      "sha256": "9e4428d1f904adef48bcf6bce614d7b60886925bd176b34d3741e3deaa4b5dd3",
+      "diagram": {
+        "concealed": "11227p66s556677z",
+        "drawn": null,
+        "doraDisplay": "",
+        "hiddenTileCount": 0,
+        "melds": [],
+        "notes": "图中为13张手牌，6种对子，单张为7p。"
+      }
+    },
+    {
+      "id": "pairs-route-b12",
+      "path": "assets/79-p115-figure1.png",
+      "sha256": "232ff4039b398fb5303d32d0be5f4758f18ee3f97c454627fbf147a19dc97c64",
+      "diagram": {
+        "concealed": "118899m2246s577z",
+        "drawn": null,
+        "doraDisplay": "7p",
+        "hiddenTileCount": 0,
+        "melds": [],
+        "notes": "例2，宝牌为7p；宝牌图不属于手牌。"
+      }
+    },
+    {
+      "id": "pairs-route-b15",
+      "path": "assets/79-p115-figure2.png",
+      "sha256": "d5f48658917985da8eca38076d683e8d2cbb2eb288789047c48a3a4f4b3c8d22",
+      "diagram": {
+        "concealed": "5599m77p3346s544z",
+        "drawn": null,
+        "doraDisplay": "2s",
+        "hiddenTileCount": 0,
+        "melds": [],
+        "notes": "例3，白为5z、北为4z；图中普通五万不是赤五万。"
+      }
+    },
+    {
+      "id": "pairs-route-b17",
+      "path": "assets/79-p115-figure3.png",
+      "sha256": "4d3d535a7e19817ef8689bb48edaa8aed4d7ca1e3a6949d907dc7b347b2ef809",
+      "diagram": {
+        "concealed": "55m77p33s5z",
+        "drawn": null,
+        "doraDisplay": "",
+        "hiddenTileCount": 0,
+        "melds": [
+          {
+            "kind": "pon",
+            "tiles": "444z",
+            "calledIndex": 1
+          },
+          {
+            "kind": "pon",
+            "tiles": "999m",
+            "calledIndex": 0
+          }
+        ],
+        "notes": "例3鸣牌后的示意；图中未重复宝牌栏，前图标明宝牌2s。"
+      }
+    },
+    {
+      "id": "pairs-route-b21",
+      "path": "assets/79-p116-figure1.png",
+      "sha256": "c1b42f28308b3f4cc9624303753edf7b019aaf0fc64ce61b60e8edf71d2e1920",
+      "diagram": {
+        "concealed": "335588m2245s566z",
+        "drawn": null,
+        "doraDisplay": "1s",
+        "hiddenTileCount": 0,
+        "melds": [],
+        "notes": "例4；图中5s中央红色是普通五索图案，不是赤五索。"
+      }
+    },
+    {
+      "id": "pairs-route-b23",
+      "path": "assets/79-p116-figure2.png",
+      "sha256": "6f337818b5fdc77576f5b1de3a06a71bd76158fde1df32004ccacf2da00ec6c6",
+      "diagram": {
+        "concealed": "3388m2245s66z",
+        "drawn": null,
+        "doraDisplay": "",
+        "hiddenTileCount": 0,
+        "melds": [
+          {
+            "kind": "pon",
+            "tiles": "555m",
+            "calledIndex": 2
+          }
+        ],
+        "notes": "例4碰5m并打白后的13张结构；前图宝牌1s，此图未重画。"
+      }
+    },
+    {
+      "id": "pairs-route-b27",
+      "path": "assets/79-p116-figure3.png",
+      "sha256": "2254c91cc1195e1d63cac045d0e805b7e2a1373af661df0d4226df992c1023de",
+      "diagram": {
+        "concealed": "5599m355p334s566z",
+        "drawn": "5m",
+        "doraDisplay": "",
+        "hiddenTileCount": 0,
+        "melds": [],
+        "notes": "例5；ツモ单独画出5m，不能漏计或并入手牌后再重复计数。"
+      }
+    },
+    {
+      "id": "pairs-standard-b6",
+      "path": "assets/79-p117-figure1.png",
+      "sha256": "95279e5f16818fbab8db8c9c4f0d6440efa095721b3748237e844c1d6f45893b",
+      "diagram": {
+        "concealed": "23445788m244p88s",
+        "drawn": "9m",
+        "doraDisplay": "4m",
+        "hiddenTileCount": 0,
+        "melds": [],
+        "notes": "例1；摸9m，宝牌4m。"
+      }
+    },
+    {
+      "id": "pairs-standard-b8",
+      "path": "assets/79-p117-figure2.png",
+      "sha256": "63778f9cf048160ee72e56ed9c37af238922bffc23da9388acbb395640c26fc5",
+      "diagram": {
+        "concealed": "23445788m244p88s",
+        "drawn": "2p",
+        "doraDisplay": "4m",
+        "hiddenTileCount": 0,
+        "melds": [],
+        "notes": "例2；摸2p，宝牌4m。"
+      }
+    },
+    {
+      "id": "pairs-standard-b13",
+      "path": "assets/79-p118-figure1.png",
+      "sha256": "bd3133ab1ac16d3b7068e3d25aed52dc706d7fb917455bc05958590940c8b19d",
+      "diagram": {
+        "concealed": "557m1225578p789s",
+        "drawn": "9s",
+        "doraDisplay": "1s",
+        "hiddenTileCount": 0,
+        "melds": [],
+        "notes": "例3；摸9s，宝牌1s。"
+      }
+    },
+    {
+      "id": "pairs-standard-b16",
+      "path": "assets/79-p118-figure2.png",
+      "sha256": "46c7522efa8a9d4575bd1a0c18f01c1ff6f412a472588a4e6853e54c52e2eed7",
+      "diagram": {
+        "concealed": "33478m234445p78s",
+        "drawn": "8m",
+        "doraDisplay": "4m",
+        "hiddenTileCount": 0,
+        "melds": [],
+        "notes": "例4；摸8m，宝牌4m。"
+      }
+    },
+    {
+      "id": "pairs-standard-b19",
+      "path": "assets/79-p118-figure3.png",
+      "sha256": "446b1eb21766c5de1851e1347870ecee0bb2efe246f6bd8da0854352033ff60f",
+      "diagram": {
+        "concealed": "445m57p445577s66z",
+        "drawn": "5m",
+        "doraDisplay": "",
+        "hiddenTileCount": 0,
+        "melds": [],
+        "notes": "例5；摸5m；本图没有赤牌，后文赤5p是另举的说明，不属于这幅牌图。"
+      }
+    },
+    {
+      "id": "pairs-standard-b26",
+      "path": "assets/79-p119-figure2.png",
+      "sha256": "0d8bf81d246201255751c3446b463c64db9f3976093a6213d89f1b61e2437a39",
+      "diagram": {
+        "concealed": "445m7p445577s366z",
+        "drawn": "5m",
+        "doraDisplay": "",
+        "hiddenTileCount": 0,
+        "melds": [],
+        "notes": "例6；西为3z，摸5m；正文另给7p生牌、西已见1张的比较条件。"
+      }
+    },
+    {
+      "id": "open-hand-defense-b12",
+      "path": "assets/79-p213-figure1.png",
+      "sha256": "d8fbbdee2fba2a96baa1bbe257a092cc8cef448ccf89d00326ed99b253cedecb",
+      "diagram": {
+        "concealed": "",
+        "drawn": null,
+        "doraDisplay": "4z",
+        "hiddenTileCount": 7,
+        "melds": [
+          {
+            "kind": "chi",
+            "tiles": "324p",
+            "calledIndex": 0
+          },
+          {
+            "kind": "chi",
+            "tiles": "345s",
+            "calledIndex": 0
+          }
+        ],
+        "notes": "例1；7张牌背为未知暗手，不是白板。正文设定对手为南家；宝牌北。"
+      }
+    },
+    {
+      "id": "open-hand-defense-b14",
+      "path": "assets/79-p213-figure2.png",
+      "sha256": "ff364b7785aa29cd97f295a585e44be01e1b0cd858e117b4175ebfadb6a1d250",
+      "diagram": {
+        "concealed": "5522444z",
+        "drawn": null,
+        "doraDisplay": "",
+        "hiddenTileCount": 0,
+        "melds": [
+          {
+            "kind": "chi",
+            "tiles": "324p",
+            "calledIndex": 0
+          },
+          {
+            "kind": "chi",
+            "tiles": "345s",
+            "calledIndex": 0
+          }
+        ],
+        "notes": "例1的另一种可能暗手：白白南南北北北。前图宝牌北；这是教材假设例，不是由公开副露推定出的已知暗手。"
+      }
+    },
+    {
+      "id": "open-hand-defense-b16",
+      "path": "assets/79-p213-figure3.png",
+      "sha256": "57159791fa00ab6a6cd2037dd09030e0ea7e45d7550fdf3372b75daad187b971",
+      "diagram": {
+        "concealed": "",
+        "drawn": null,
+        "doraDisplay": "44p",
+        "hiddenTileCount": 7,
+        "melds": [
+          {
+            "kind": "chi",
+            "tiles": "324p",
+            "calledIndex": 0
+          },
+          {
+            "kind": "pon",
+            "tiles": "111z",
+            "calledIndex": 1
+          }
+        ],
+        "notes": "例2；正文设定对手为庄家、双东。原图ドラ栏并列画两枚4p，原样记录；正文说宝牌4p、双东宝牌1，不把重复图标计作暗手或两种宝牌。"
+      }
+    },
+    {
+      "id": "open-hand-defense-b19",
+      "path": "assets/79-p213-figure4.png",
+      "sha256": "a65b0ca04c1315bf8bb94784bf6ab9b6b0a0f4715b5a38cf74431b46b72e2f2c",
+      "diagram": {
+        "concealed": "",
+        "drawn": null,
+        "doraDisplay": "2m",
+        "hiddenTileCount": 4,
+        "melds": [
+          {
+            "kind": "chi",
+            "tiles": "678m",
+            "calledIndex": 0
+          },
+          {
+            "kind": "pon",
+            "tiles": "888m",
+            "calledIndex": 2
+          },
+          {
+            "kind": "chi",
+            "tiles": "312m",
+            "calledIndex": 0
+          }
+        ],
+        "notes": "例3；三组副露按图从左到右为吃678m、碰888m、吃123m；4张暗手未知。"
+      }
+    },
+    {
+      "id": "open-hand-defense-b21",
+      "path": "assets/79-p213-figure5.png",
+      "sha256": "5bd046f14afabd58668d9676b2e76179f674fa4cce1abb3695321ae371c254be",
+      "diagram": {
+        "concealed": "",
+        "drawn": null,
+        "doraDisplay": "9p",
+        "hiddenTileCount": 4,
+        "melds": [
+          {
+            "kind": "pon",
+            "tiles": "222z",
+            "calledIndex": 2
+          },
+          {
+            "kind": "pon",
+            "tiles": "777z",
+            "calledIndex": 1
+          },
+          {
+            "kind": "pon",
+            "tiles": "111p",
+            "calledIndex": 0
+          }
+        ],
+        "notes": "例4；正文指定南场；4张暗手未知。"
+      }
+    },
+    {
+      "id": "open-hand-defense-b25",
+      "path": "assets/79-p214-figure1.png",
+      "sha256": "135b5f9bc2dcdf50d51abd8a95d9b515f8096350cbc4eef5bd9256cfc4b3097a",
+      "diagram": {
+        "concealed": "",
+        "drawn": null,
+        "doraDisplay": "",
+        "hiddenTileCount": 7,
+        "melds": [
+          {
+            "kind": "pon",
+            "tiles": "777z",
+            "calledIndex": 1
+          },
+          {
+            "kind": "pon",
+            "tiles": "555z",
+            "calledIndex": 1
+          }
+        ],
+        "notes": "例5；中与白两组碰；横置白板仍是公开白板，与左侧金色未知牌背不同。"
+      }
+    },
+    {
+      "id": "open-hand-defense-b27",
+      "path": "assets/79-p214-figure2.png",
+      "sha256": "341ebb98256f0c54406d47ba893d544897311a48703feb0778cd851b87787a11",
+      "diagram": {
+        "concealed": "",
+        "drawn": null,
+        "doraDisplay": "",
+        "hiddenTileCount": 4,
+        "melds": [
+          {
+            "kind": "pon",
+            "tiles": "111z",
+            "calledIndex": 0
+          },
+          {
+            "kind": "pon",
+            "tiles": "111s",
+            "calledIndex": 2
+          },
+          {
+            "kind": "pon",
+            "tiles": "666m",
+            "calledIndex": 0
+          }
+        ],
+        "notes": "例6；东、幺鸡、六万三组碰；不把副露例直接标注为已听牌。"
+      }
+    },
+    {
+      "id": "open-hand-defense-b29",
+      "path": "assets/79-p214-figure3.png",
+      "sha256": "14afb96859f77c5e8b99c4991a5bfd6fe0f3a8b8ae989f445ec01913306a03f4",
+      "diagram": {
+        "concealed": "",
+        "drawn": null,
+        "doraDisplay": "2p",
+        "hiddenTileCount": 7,
+        "melds": [
+          {
+            "kind": "pon",
+            "tiles": "999s",
+            "calledIndex": 2
+          },
+          {
+            "kind": "chi",
+            "tiles": "345p",
+            "calledIndex": 0
+          }
+        ],
+        "notes": "例7；7张暗手未知；宝牌2p，不是宝牌指示牌。"
+      }
+    },
+    {
+      "id": "open-hand-defense-b31",
+      "path": "assets/79-p214-figure4.png",
+      "sha256": "bdd41c892ae9efee32f867d31a9d0573b2fe4fcb700eb3ccd7b402237738ef74",
+      "diagram": {
+        "concealed": "789m22p77z",
+        "drawn": null,
+        "doraDisplay": "2p",
+        "hiddenTileCount": 0,
+        "melds": [
+          {
+            "kind": "pon",
+            "tiles": "999s",
+            "calledIndex": 2
+          },
+          {
+            "kind": "chi",
+            "tiles": "345p",
+            "calledIndex": 0
+          }
+        ],
+        "notes": "例7展示的一种可能暗手：789m22p77z；这是教材假设例，不是对手真实暗手。"
+      }
+    }
+  ]
+}

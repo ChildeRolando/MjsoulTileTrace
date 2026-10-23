@@ -53,4 +53,16 @@ describe("complete textbook knowledge",()=>{
   const image=await tools[2]!.execute({figureId:"pairs-b2"},context);expect(tools[2]!.references(image).sourceRefs).toEqual([]);
   await expect(tools[1]!.execute({unitId:"pairs-route"},{...context,caseRef:"wrong-case"})).rejects.toThrow("case_mismatch");
  });
+ it("Arena receives the entire structured example in both parent reads and figure reads",async()=>{
+  const corpus=fixtureCorpus(),figure=corpus.units[0]!.blocks[1]!;
+  if(figure.type!=="figure")throw Error("fixture");
+  const diagram={concealed:"",drawn:null,doraDisplay:"4z",hiddenTileCount:7,melds:[{kind:"chi" as const,tiles:"324p",calledIndex:0},{kind:"chi" as const,tiles:"345s",calledIndex:0}],notes:"未知暗手7张；南家。"};
+  figure.figure.transcription={diagram};figure.figure.requiresImageForFullExample=false;corpus.corpusId=textbookCorpusId(corpus);
+  const c=makeArenaMcpCase(),tools=createArenaTextbookTools({caseRef:c.observation.caseRef,aliases:c.aliases,knowledge:createTextbookKnowledge(corpus)}),context={caseRef:c.observation.caseRef,signal:new AbortController().signal};
+  const read=await tools[1]!.execute({unitId:"pairs-route"},context);
+  expect(read).toMatchObject({result:{unit:{blocks:expect.arrayContaining([expect.objectContaining({figure:expect.objectContaining({transcription:{diagram},requiresImageForFullExample:false})})])}}});
+  const detail=await tools[2]!.execute({figureId:"pairs-b2"},context);
+  expect(detail).toMatchObject({result:{figure:{transcription:{diagram},requiresImageForFullExample:false}}});
+  expect(tools[2]!.references(detail).sourceRefs).toHaveLength(1);expect(tools[2]!.references(detail).evidenceRefs).toEqual([]);
+ });
 });

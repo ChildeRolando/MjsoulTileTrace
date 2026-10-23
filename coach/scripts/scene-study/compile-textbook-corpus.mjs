@@ -23,7 +23,7 @@ export async function compileTextbookCorpus(directory){
     if(isAbsolute(rel)||rel==='..'||rel.startsWith('..'+sep))throw Error('textbook_image_outside_root');
     const imageSha256=sha(await readFile(full));
     images.push({figureId:b.id,path:b.src,sha256:imageSha256});
-    const transcription=b.hand||b.tableText?{...(b.hand?{hand:b.hand,decision:b.decision,...(b.conditions?{conditions:b.conditions}:{})}:{}),...(b.tableText?{table:b.tableText}:{})}:null;
+    const transcription=b.hand||b.tableText||b.diagram?{...(b.hand?{hand:b.hand,decision:b.decision,...(b.conditions?{conditions:b.conditions}:{})}:{}),...(b.tableText?{table:b.tableText}:{}),...(b.diagram?{diagram:b.diagram}:{})}:null;
     blocks.push({type:'figure',id:b.id,page:b.page,figure:{figureId:b.id,unitId:d.id,page:b.page,caption:b.caption,imageSha256,transcription,requiresImageForFullExample:transcription===null}});
    }else blocks.push({type:b.type,id:b.id,page:b.page,...(b.type==='list'?{items:b.items}:{text:b.text})});
   }

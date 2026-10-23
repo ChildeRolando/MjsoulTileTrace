@@ -12,10 +12,10 @@ export function textbookTools(port: TextbookKnowledgePort) {
     {name:"search_textbook",description:"搜索中文教材的相关段落；query 为空可浏览目录，chapterId 可限定章节。结果只是定位预览，不是引用依据。随后用 read_textbook 阅读完整论证，不能把搜索片段当成完整条件。",
       schema:TextbookSearchRequestSchema,parameters:{type:"object",additionalProperties:false,properties:{query:{type:"string",maxLength:400},chapterId:{type:"string",pattern:"^[a-z0-9][a-z0-9-]{0,95}$"},limit:{type:"integer",minimum:1,maximum:5,default:3}},required:["query"]},
       call:(input:unknown,signal?:AbortSignal)=>port.search(TextbookSearchRequestSchema.parse(input),signal)},
-    {name:"read_textbook",description:"读取一个完整论证单元，包括原有结论、理由、适用条件、例外和牌例引用。返回相邻单元 ID，可继续展开。教材观点不等于当前牌局事实；需要原牌图时调用 view_textbook_figure。",
+    {name:"read_textbook",description:"读取完整论证、条件、例外、牌例转录及相邻单元ID。牌编码m/p/s/z=万/饼/索/字，1–7z=东南西北白发中，0=赤五。diagram.concealed不含单列drawn摸牌和melds副露；hiddenTileCount为未知牌背数；副露tiles保留原图顺序，calledIndex是横置牌零基序号；doraDisplay原样记录宝牌栏，不是指示牌或手牌，重复图标不代表加倍宝牌。notes保留图示条件，教材假设暗手不是局面已知事实。可用view_textbook_figure看原图。",
       schema:TextbookReadRequestSchema,parameters:{type:"object",additionalProperties:false,properties:{unitId:{type:"string",pattern:"^[a-z0-9][a-z0-9-]{0,95}$"}},required:["unitId"]},
       call:(input:unknown,signal?:AbortSignal)=>port.read(TextbookReadRequestSchema.parse(input),signal)},
-    {name:"view_textbook_figure",description:"读取已登记的教材牌例原图，并返回已核对的牌编码或表格转录（如有）。仅接受 figureId，不接受文件路径。文字客户端没有收到图片时，不得声称看过原图或补猜缺失牌形。",
+    {name:"view_textbook_figure",description:"读取教材牌例原图及已核对文字转录。diagram 中 m/p/s/z=万/饼/索/字，1–7z=东南西北白发中，0=赤五；concealed不含摸牌/副露，drawn为单独摸牌；hiddenTileCount是未知暗手张数，不得补猜。melds按原图顺序，calledIndex为横置牌零基序号；doraDisplay为宝牌栏原样转录（不是指示牌或手牌，重复图标不代表加倍宝牌）。notes保留原图/正文条件。仅接受figureId。文字客户端可读转录，但不得声称看过未收到的图片。",
       schema:TextbookFigureRequestSchema,parameters:{type:"object",additionalProperties:false,properties:{figureId:{type:"string",pattern:"^[a-z0-9][a-z0-9-]{0,95}$"}},required:["figureId"]},
       call:(input:unknown,signal?:AbortSignal)=>port.figure(TextbookFigureRequestSchema.parse(input),signal)},
   ];

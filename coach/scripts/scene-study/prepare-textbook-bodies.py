@@ -114,6 +114,14 @@ def prepare(source_dir, destination):
         c['sourceSha256'] = next(s['sha256'] for s in library['sources'] if s['id'] == c['sourceId'])
         for i, block in enumerate(c['blocks']):
             block['id'] = c['chapterId'] + '-b' + str(i + 1)
+    transcriptions = json.loads((HERE / 'textbook-figure-transcriptions.json').read_text(encoding='utf-8'))
+    block_by_id = {b['id']: b for c in chapters for b in c['blocks']}
+    for entry in transcriptions['figures']:
+        block = block_by_id[entry['id']]
+        if block['src'] != entry['path'] or digest((destination / block['src']).read_bytes()) != entry['sha256']:
+            raise ValueError('Figure changed: recheck transcription ' + entry['id'])
+        block['diagram'] = entry['diagram']
+        block['requiresImage'] = False
     body = {'schema': 'coach-textbook-bodies/1', 'language': 'zh-CN', 'status': 'pending-user-review', 'modelExperiments': False, 'chapters': chapters}
     (destination / 'textbook-bodies.json').write_text(json.dumps(body, ensure_ascii=False, indent=2), encoding='utf-8')
     receipt = {'sourceDirectory': str(source_dir), 'chapters': len(chapters), 'chineseSourceCoverage': coverage, 'translatedChapter': translated['chapterId'], 'translatedFigures': figures, 'translationSourcePages': [98, 99], 'bodySha256': digest((destination / 'textbook-bodies.json').read_bytes()), 'modelCalls': 0}

@@ -49,7 +49,7 @@ export function validateTextbookCorpus(raw: unknown): TextbookCorpus {
 const normalized = (text: string) => text.normalize("NFKC").replaceAll("筒", "饼").replaceAll("對", "对").replace(/七对(?!子)/g,"七对子").replace(/chiitoitsu/gi,"七对子").replace(/toitoi/gi,"对对和")
   .replace(/([\p{N}A-Za-z])(?=\p{Script=Han})/gu,"$1 ").replace(/(\p{Script=Han})(?=[\p{N}A-Za-z])/gu,"$1 ");
 function blockText(b: TextbookCorpus["units"][number]["blocks"][number]): string {
-  if (b.type === "figure") return [b.figure.caption, b.figure.transcription?.hand, b.figure.transcription?.decision, b.figure.transcription?.conditions, b.figure.transcription?.table?.flat().join(" ")].filter(Boolean).join(" ");
+  if (b.type === "figure") return [b.figure.caption, b.figure.transcription?.hand, b.figure.transcription?.decision, b.figure.transcription?.conditions, b.figure.transcription?.table?.flat().join(" "), b.figure.transcription?.diagram && JSON.stringify(b.figure.transcription.diagram)].filter(Boolean).join(" ");
   return b.type === "list" ? b.items.join("\n") : b.text;
 }
 export function createTextbookKnowledge(raw: unknown): TextbookKnowledgePort {

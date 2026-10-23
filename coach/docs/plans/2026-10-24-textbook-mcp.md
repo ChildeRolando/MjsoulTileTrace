@@ -65,8 +65,20 @@ const tools = createArenaTextbookTools({
 
 原生 MCP 客户端能收到全部 33 幅 PNG。Arena 当前 provider 协议只支持文字，本次没有扩展
 模型多模态协议，也没有把 Base64 伪装成正文。Arena 的所有教材结果明确返回
-`imageDelivery: not-delivered-text-only`。其中 10 个现代麻将牌例有已核对牌编码，1 张等待表
-有文字转录；其余 **22 幅图仍必须使用能看图的 MCP 客户端读取**。文字 Arena 不得据此猜牌。
+`imageDelivery: not-delivered-text-only`。33 幅图表现在均有完整文字表达：10 个现代麻将牌例
+保留已有牌编码，1 张等待表保留文字转录，另外 22 幅图补齐结构化 `diagram`。这 22 幅均由
+本次助手逐图查看原图、再对照编码及相邻正文复核，不冒充另行人工专家审核。
+
+`diagram` 分开记录暗手、单独摸牌、吃碰、横置牌位置、宝牌栏和未知暗手张数。7 幅图中背面
+朝上的暗手保留为未知；两幅展示可能暗手的图明确标注教材假设，不推定对手实际暗手。宝牌栏
+不是宝牌指示牌或手牌；原图重复画出的宝牌图标原样保留并解释，不按重复图标加倍算宝牌。
+普通五索中央红色纹样不编码成赤五。牌编码约定：m/p/s/z=万/饼/索/字，1–7z=东南西北白发中，
+0=赤五；副露数组与组内编码保持原图顺序，`calledIndex` 是横置牌的零基序号。
+
+转录清单保存在 `scripts/scene-study/textbook-figure-transcriptions.json`，每幅绑定原图 SHA256。
+重新提取正文时自动附加；已有正文可运行 `apply-textbook-figure-transcriptions.mjs` 后重新构建索引。
+图像身份改变会拒绝套用旧转录。构建检查张数、重复牌上限与吃碰合法性；这些检查辅助发现录入错误，
+不能代替视觉核对。Arena 的正文读取和牌图工具均返回完整转录，仍不会声称文字模型看过 PNG。
 
 搜索预览不授予可引用的 `sourceRefs`；读取完整单元后才给本次运行的 opaque 引用。
 未转录图片在文字 Arena 单独读取时也不授予图片引用。教材来源只能支持教材主张，不能当作
@@ -88,6 +100,7 @@ const tools = createArenaTextbookTools({
 ```powershell
 npm run test:textbook-mcp
 node scripts/scene-study/verify-textbook-mcp.mjs E:/AgentData/Coach/knowledge/review
+node scripts/scene-study/verify-textbook-diagrams.mjs E:/AgentData/Coach/knowledge/review
 ```
 
 验证包含严格请求、未知 ID/路径拒绝、图片与正文变更拒绝、跨页完整性、取消、引用权限、
@@ -95,6 +108,9 @@ node scripts/scene-study/verify-textbook-mcp.mjs E:/AgentData/Coach/knowledge/re
 不调用外部模型。实际教材验证逐项读取所有单元和原图，并保存中文查询示例。
 8 条手写开发查询只作检索诊断，不是独立检索质量评测，不报告“有效率 100%”。
 本轮模型实验调用和对应 token 消耗均为 0；工具响应记录字节数，不能将字节数冒充 token。
+补齐转录后最大正文响应从 4453 增至 5563 字节（约 +24.9%），低于现有 16 KiB 工具预算；
+未进行真实模型调用，因此没有实测模型 token 增量。`arena-figure-validation.json` 记录真实
+stdio MCP→Arena 适配器逐一读取 33 份转录的结果，无模型调用。
 
 ## Change Control Report
 
@@ -110,6 +126,6 @@ node scripts/scene-study/verify-textbook-mcp.mjs E:/AgentData/Coach/knowledge/re
 - Recoverability：源文/图片变更、越界路径、失配 ID、过长单元在构建或加载时失败；保留完整正文，
   重新构建后重启。没有写教材的 MCP 工具，无远端服务依赖。
 - Verification：最终实测结果见当前教材目录的 `mcp-validation.json`、`mcp-build.json` 和交付记录。
-  desktop 编译、全仓类型检查、架构检查通过（628 文件、3235 导入、0 违规）；MCP 8 项、
-  既有检索/Arena 44 项、场景 89 项、工具调用 provider 3 项测试全部通过。实际 13 单元正文与
-  33 幅 PNG 逐项一致。不声称生产已启用或模型效果已验证。
+  初次 MCP 交付的 144 项回归全部通过。本次转录追加验证见 `mcp-delivery.json`；
+  实际 13 单元正文、33 幅 PNG 和 33 份 Arena 文字牌例逐项一致。
+  不声称生产已启用或模型效果已验证。
