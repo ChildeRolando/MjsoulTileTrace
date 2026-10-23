@@ -1,15 +1,35 @@
 # 两套教材全量加工与检索接入
 
-当前状态：687 页源材料清点完成；Luna 制作校准未通过，Sol 的四个校准页已验收：79 p5、现代 p98 直接通过独立审校，现代 p67 经逐项源图裁决确认模型误审，现代 p166 利用原始成功输出修复中间重连误分类。原审稿、调用和失败记录均保留。全量中文教材尚未完成、没有发布。工程链路已准备，正式库仍为已完成的四章。只有两份 PDF 的全部页、完整段落和全部牌图均通过独立校对，并完成实际章节/论证边界映射后，才能发布全量正文。自动校对不是人工金标准；新增正文仍待用户审核。没有运行局面标注、消融、Mortal 或效果实验。
+当前用户决策（2026-10-24 来源调整）：已制作的 PDF 页和修订稿全部保留并继续独立审校；只补未制作的内容。79 教材优先取 Seventh9 的原中文新浪图文，不重新翻译日文；《现代麻雀技术论》优先取原官网 HTTP 图文。原 PDF 的 687 页清点和校对证据保留，但新全量覆盖按教材章节、完整论证和段落计算，不能把网站篇数或 PDF 页数相互替代。正式可用库仍是现有四章；网页补充尚未发布。
+
+先打通一章“来源抓取→完整正文/牌例加工→独立审校→与已完成内容去重→同一 MCP 阅读”的端到端样例，验收后再批量。没有运行局面标注、消融、Mortal 或效果实验。
+
+首中文网页章已在独立预览目录打通：`processing/integration/web-chapter-preview-v1/knowledge.html`，18 块中文正文、15 幅完整牌例。原 HTML 独立复抽、逐图像素与父 PDF 校对凭据核验通过；真实 MCP 原图验证和 Arena 文字读取通过。两次阅读分别返回 23 块和 10 块，Arena 响应为 14643 和 8820 字节；只有完整连续读取才授予正文引用。当前仅为待人工审阅的一章预览，现用四章和生产默认配置未替换，不能据此声称全量完成。
+
+成本统计范围为“可计量的教材批处理模型调用”，不包含不可取得 token 统计的监督/协作会话。首网页章确定性复用与接入新增 0 次批处理模型调用；已完成父 PDF 的调用成本在原台账中只计一次。
 
 ## 内容与发布边界
 
-- 制作：原指定 `gpt-6-luna / high`，校准未通过；后续实际制作模型按监督决定及调用台账记录。独立批量校对：`gpt-6.1-sol / high`。各调用原始记录、模型标识及实际 token 使用由 production/audit 台账记录。
+- 制作：Luna 校准未通过后，监督决定采用 Sol/high；具体模型和参数以各冻结批次及调用台账为准。独立批量校对使用 `gpt-6.1-sol / high`。原中文正文保留措辞；日文正文逐段完整翻译。全部历史失败、在途完成结果和未知 token 项保留，不把重启/复用算作新调用。
 - 入库是完整中文段落、完整牌例转录与原图，原文来源逐块绑定。知识卡只作主题/章节索引。现用四章 p98–99 的五处已确认牌码错误已经按独立高清复核纠正，原错值保存在修订收据；不能拿旧转录当金标准。
 - 源边界映射已经覆盖 256 章、303 个保守完整父单元、21212 个源块，位于 `processing/integration/chapter-map.json`，不代表译文完成。按实际正文标题划章，书签只提供候选边界；同页可以有两个章节，论证可以跨页。附录、演习、训练方法也纳入完整内容范围。
 - `chapter-map.json` 的单元边界精确到源 PDF block。页内视觉顺序仅用于判定全宽标题上下的章节归属，不用于重排段落、表格或双栏正文；译文语义阅读顺序由制作和独立审校负责。日文标题暂存原文，发布须从已审校且独立成段的对应标题块取得中文名。每个非空文本块、每个图片块都必须且只能归属于一个单元；不得用摘要填补遗漏，不得用“接上段”或“无法辨认”假装完成。
 - 发布先核验 source inventory、PDF/page/candidate/crop 哈希及独立审校结果。最新审校失败或未决内容不能通过旧审校记录入库。
-- 发布前现有四章照常可用。全量发布时用单一完整正文替换四章试点库，不重复保留四章单元来增加检索权重。收据记录前库身份、替代章及来源页覆盖关系。
+- 现有四章和后续通过审校的 PDF 内容保留。最终统一到单一 corpus，按段落/牌例去重，保留每项真正的原来源与译者署名；不得复制相同内容提高检索权重。仅制作完成但未校对通过的草稿保留在加工目录，不能直接入库。
+
+## 网页增量来源与复用
+
+- 79 原中文入口：`http://blog.sina.com.cn/seventh9`，目录 `http://blog.sina.com.cn/s/articlelist_2138617711_0_1.html`。原作 manboo、译者 SeventhTG 等署名按文章实际内容保留。已观察到文字写 osihiki03 而链接 href 为 osihiki01 的冲突，不能仅凭链接或标题判断对应章节。
+- 新浪部分图片实际返回占位灰图，不能入库；有完整原图的 SeventhTG 中文转载可从 Bilibili 补源，合集中的其他教程须排除。首章 `https://www.bilibili.com/read/cv1689340` 对应 PDF 第 9–12 页《听牌和向听》；15 张原 PNG 与已验收 PDF 原资产解码后的尺寸及 RGBA 像素完全一致，复用已审转录；11 个中文段落相等，其余合段、署名和差异完整保留。具体证据在 `processing/integration/bilibili-cv1689340-exact-reuse.json`，不把这一章的对应关系外推至整个合集。
+- 现代原官网优先使用 `http://yabejp.web.fc2.com/mahjong/index.html`、`http://yabejp.web.fc2.com/mahjong/tactics.html` 及实际章节正文；新版书籍内容不能冒充网页版。原 PDF 附录、训练方法、演习与官网目录逐项对照。网站缺失或确实没有干净图文源的剩余内容，保留差异记录并回到现有 PDF 链补齐，不静默删章，也不全部重译。
+- 每篇保存原 URL、原始 HTML 字节/hash、编码、抓取时间、正文定位、原始图片 URL/字节/hash和作者/译者信息。自然 DOM 顺序是网页来源顺序，不套用 PDF 坐标或 687 页门槛。脚本/导航/广告与正文明确区分，不能把旧缓存中的 `[牌图:未标注]` 当完整来源。
+- 中文段落以保留标点的精确文本逐段比对；标题一致只产生候选关系。版本差异、网页新增、网页缺失和仅部分段落完成分别列出。每个复用段落保留已审核候选及来源 hash，避免整章跳过未完成部分。
+- 图片仅在解码后的尺寸和像素完全一致时自动复用已验收转录，文件格式不同不靠文件 SHA 判断相同；不使用模糊相似度自动认牌。网页单牌字典先逐项核对，再确定性转换牌编码与横置方向；整图、图表和不能确定的图片仍独立模型核对。
+- 先共享 `coach-textbook-web-article-source/1` 来源契约及对应候选/校对契约，再实现小型来源适配。复用现有 `catalog/search/read/figure`、有界分页与完整论证引用，保持 Arena 装配方式；网页身份使用真实 URL/段落定位，不能伪造 PDF 页码。不新增通用抓取框架、图谱或检索后端。
+- 日文网页的句内牌图按原 `paragraphId` 与已审中文片段合回完整句子，`p.text` 直接含按原顺序编码的整手/单牌，`inlineFigures` 保留每列图的定位与图像身份。牌列展示图可由原资产按原序无损拼接，明确标为派生图并保留各 occurrence/原资产；不把单牌拆成独立检索块。用户预览在原句位置展示牌列，并安全呈现必要的强调标记。
+- 官网目录数字不是完成范围：现代初始 125 URL 清单漏掉带连字符的 section021/022 子节和 exercise/exhibition 链接。逐项对照原 HTML 的遗漏证据在 `processing/integration/modern-catalog-omissions.json`；研究资料入口及练习续页另查。不能把 125 当作整套教材篇数，也不能把未匹配标题直接判为网站缺章。
+- 冻结与复用证据在 `processing/integration/source-switch-freeze-*`、`pdf-web-reuse-inventory.json`。动态 `current-candidate-selection.json` 只接独立 gate 通过的 PDF 修订；来源切换暂停旧 PDF 全量自动循环后，后续网页范围单独清点。最终发布仍须完整覆盖、独立审校和监督验收。
+- 有限 PDF 队列已完成审校：53 个原页中 52 个可采用（包含 9 个通过修订），第 50 页保留待解决。其修订稿虽然模型通过，但对低清边缘灰痕猜测“!”已被源图监督复核拒绝；`candidate-exclusions.json` 按候选路径和字节 SHA 明确排除，原模型审查结果不改写，改用干净同源网页处理。旧拒稿版本不重复计作当前页面失败。
 
 ## 轻量 MCP 装配
 
@@ -26,15 +46,15 @@ Arena 在同一运行内记录已经读取的论证块；必须覆盖该单元�
 
 章节索引一次聚合，文本分词在加载时建立；不引入图谱、向量库或新服务。图片按需读磁盘，每次检查路径范围、PNG 格式和 SHA，不把全部图像驻留内存。加载目录由宿主固定，模型只能使用登记 ID；没有教材写入 MCP。
 
-## 发布与恢复
+## 既有 PDF 发布与恢复接口
 
 ```powershell
 node scripts/textbook-processing/publish-textbooks.mjs E:/AgentData/Coach/knowledge/processing production/APPROVED_RUN/candidates E:/AgentData/Coach/knowledge/processing/integration/chapter-map.json E:/AgentData/Coach/knowledge/review
 ```
 
-`APPROVED_RUN` 是占位符，只能替换为冻结且全部页审校通过的制作批次，不能指向已拒收的 Luna v4 稿。校准页通过不足以执行该全量命令。
+以上是既有 PDF 全量发布接口，保留用于回归及来源证据，不作为当前网页增量收录命令。`APPROVED_RUN` 是占位符，不能指向已拒收的 Luna v4 稿；网页适配完成前不通过该命令强行发布混合来源。
 
-修订页和已通过校准页可通过第五个位置参数传入候选选择清单：`{ "schema": "coach-textbook-candidate-selection/1", "pages": [{ "sourceId": "nemata-jp", "page": 98, "candidatePath": "production/sol-high/candidates/nemata-jp/page-0098.json", "candidateSha256": "完整候选文件的 SHA-256" }] }`。每页仍重新验证独立审校、源材料和候选字节；不复制修改旧批次 manifest。当前四页清单为 `processing/integration/calibration-candidate-selection.json`，全量制作可复用并排除这四页，避免重复付费。修订页在单独冻结 run 中产生，再通过显式清单选入。
+修订页和已通过校准页可通过第五个位置参数传入候选选择清单：`{ "schema": "coach-textbook-candidate-selection/1", "pages": [{ "sourceId": "nemata-jp", "page": 98, "candidatePath": "production/sol-high/candidates/nemata-jp/page-0098.json", "candidateSha256": "完整候选文件的 SHA-256" }] }`。每页仍重新验证独立审校、源材料和候选字节；不复制修改旧批次 manifest。原四页冻结清单为 `processing/integration/calibration-candidate-selection.json`，已用于 PDF 批次排除重复付费。修订页在单独冻结 run 中产生，再通过显式清单选入。
 
 发布收据区分直接通过、逐项源图裁决和传输分类恢复，保留原 `modelChecks`、裁决证据及原始失败调用身份，不改写成全部模型一次通过。
 
@@ -72,6 +92,6 @@ node scripts/textbook-processing/publish-textbooks.mjs --resume E:/AgentData/Coa
 
 工程检查收据（2026-10-24）：contracts/reasoning/desktop 构建、全 8 包类型检查、架构检查通过（642 文件、3309 imports、0 违反）。定向 MCP 12 项、publisher 7 项、扩展模式 17 项通过；既有 context-rag 44 项、scene-study 102 项通过，共 182 个不同测试。scene-study 首次包含新增 `node:test` 审核测试时发生“No test suite found”，审核代理改为 Vitest 入口后完整重跑通过，未删断言。
 
-剩余集成条件：完成全部 687 页制作/独立审校；译文段落不得跨已映射论证边界，日文标题须有独立已审中文段；所有图例的完整文字、crop 哈希和出处均通过；全量唯一替换后再用真实 MCP 遍历全部目录、父单元和图片，并统计制作与校对的实际 token。当前源覆盖检查和接口测试不冒充这些内容工作已完成。
+剩余集成条件：审校全部已制作 PDF 稿；完成网页来源清单、逐段复用/版本差异及缺章登记；一章端到端样例通过后仅补未完成内容；日文标题须有独立已审中文段，全部牌例、原图和出处可追溯；最终单一 corpus 完成后用真实 MCP 遍历全部目录、父单元和图片。制作与校对按 callId 分阶段统计实际 token，未知不归零。原 687 页覆盖和工程测试不冒充网页正文已完成。
 
 后续局部检查：publisher 的特殊审校状态证据、异批次候选选择及候选篡改拒绝测试已补齐，当前该测试文件 11 项通过；此前 182 项收据仍作为当时检查记录，不表示本轮新增内容已经完成全量校对。

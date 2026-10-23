@@ -1,4 +1,5 @@
 import {describe,it,expect} from "vitest";
+import {TextbookUnitSchema} from "@riichi-coach/contracts";
 import {writeFile} from "node:fs/promises";
 import {join} from "node:path";
 import {createTextbookKnowledge,loadTextbookKnowledge,validateTextbookCorpus,textbookCorpusId} from "../src/textbook-knowledge.js";
@@ -7,6 +8,32 @@ import {makeArenaMcpCase} from "./fixtures/arena-mcp-case.js";
 import {fixtureCorpus,writeFixtureCorpus} from "./fixtures/textbook-fixture.js";
 
 describe("complete textbook knowledge",()=>{
+ it("keeps real web locations through catalog, search, full reads and Arena citations alongside PDF sources",async()=>{
+  const c=fixtureCorpus(),u=c.units[0]!,url="https://example.org/lesson.html";
+  u.source={...u.source,format:"web",pages:[],web:{url,articleId:"lesson",htmlSha256:u.source.sha256}};
+  for(const b of u.blocks){b.page=null;b.locator={url,sourceBlockIds:[`lesson:${b.id}`],domPaths:[`main/${b.id}`]};if(b.type==="figure"){b.figure.page=null;b.figure.locator=b.locator;}}
+  c.units[0]=TextbookUnitSchema.parse(u);c.corpusId=textbookCorpusId(c);const port=createTextbookKnowledge(c);
+  expect((await port.catalog({chapterId:"pairs"})).entries[0]).toMatchObject({pages:[],sourceUrl:url});
+  expect((await port.search({query:"七对子",limit:1})).hits[0]).toMatchObject({pages:[],sourceUrl:url});
+  expect((await port.read({unitId:u.unitId})).unit.blocks[0]).toMatchObject({page:null,locator:{url}});
+  expect((await port.read({unitId:"open-threat"})).unit.source.pages).toEqual([3]);
+  const fixture=makeArenaMcpCase(),tools=createArenaTextbookTools({caseRef:fixture.observation.caseRef,aliases:fixture.aliases,knowledge:port});
+  const result=await tools[1]!.execute({unitId:u.unitId},{caseRef:fixture.observation.caseRef,signal:new AbortController().signal});
+  expect(tools[1]!.references(result).sourceRefs).toHaveLength(1);
+  for(const mutate of [(x:typeof c)=>{x.units[0]!.blocks[0]!.page=1;},(x:typeof c)=>{delete x.units[0]!.blocks[0]!.locator;},(x:typeof c)=>{x.units[0]!.source.web!.htmlSha256="2".repeat(64);}]){
+   const bad=structuredClone(c);mutate(bad);bad.corpusId=textbookCorpusId(bad);expect(()=>validateTextbookCorpus(bad)).toThrow();
+  }
+ });
+ it("indexes a complete sentence with inline figures and still serves each original image identity",async()=>{
+  const c=fixtureCorpus(),u=c.units[0]!,old=u.blocks[1]!;if(old.type!=="figure")throw Error("fixture");const url="https://example.org/inline",locator={url,sourceBlockIds:["p1","i1","p2"]};
+  u.source={...u.source,format:"web",pages:[],web:{url,articleId:"inline",htmlSha256:u.source.sha256}};
+  const figure={...old.figure,page:null,locator:{url,sourceBlockIds:["i1"]},transcription:{text:"34m224778p89s5567z"},requiresImageForFullExample:false,imageProvenance:{kind:"derived-source-assets" as const,method:"source-order",sourceAssetSha256s:[old.figure.imageSha256]}};
+  u.blocks=[{type:"p",id:"inline-paragraph",page:null,locator,text:"例：34m224778p89s5567z；摸入2m后比较进张。",inlineFigures:[figure]}];c.units[0]=TextbookUnitSchema.parse(u);c.corpusId=textbookCorpusId(c);const port=createTextbookKnowledge(c);
+  expect((await port.search({query:"摸入2m进张",limit:1})).hits[0]!.matchedBlockId).toBe("inline-paragraph");
+  expect((await port.read({unitId:u.unitId})).unit.blocks).toHaveLength(1);
+  expect((await port.figure({figureId:figure.figureId})).figure).toMatchObject({imageSha256:old.figure.imageSha256,transcription:{text:"34m224778p89s5567z"},imageProvenance:{kind:"derived-source-assets"}});
+  const bad=structuredClone(c),b=bad.units[0]!.blocks[0]!;if(b.type!=="p")throw Error("fixture");b.inlineFigures![0]!.locator!.sourceBlockIds=["outside-paragraph"];bad.corpusId=textbookCorpusId(bad);expect(()=>validateTextbookCorpus(bad)).toThrow();
+ });
  it("search previews locate a parent, and reading includes cross-page conditions and figure references",async()=>{
   const port=createTextbookKnowledge(fixtureCorpus()),search=await port.search({query:"七对子转对对和",limit:3});
   expect(search.previewOnly).toBe(true);expect(search.hits[0]!.unitId).toBe("pairs-route");
@@ -87,8 +114,13 @@ describe("full textbook navigation",()=>{
   do{const result=await port.search({query:"正文",limit:5,offset});expect(Buffer.byteLength(JSON.stringify(result))).toBeLessThan(15000);searchSeen.push(...result.hits.map(x=>x.unitId));offset=result.nextOffset;}while(offset!==null);
   expect(new Set(searchSeen).size).toBe(20);
  });
- it("preserves a long argument in bounded consecutive reads and withholds citations for skipped blocks",async()=>{
+ it.each(["pdf","web"])("preserves a long %s argument in bounded consecutive reads and withholds citations for skipped blocks",async(format)=>{
   const c=fixtureCorpus(),u=c.units[0]!;c.images=[];c.units=[{...u,previousUnitId:null,nextUnitId:null,blocks:Array.from({length:20},(_,i)=>({type:"p" as const,id:`long-${i}`,page:1,text:`段落${i}：`+"完整条件和例外。".repeat(100)}))}];c.corpusId=textbookCorpusId(c);
+  if(format==="web"){
+   const url="https://example.org/long-argument",web=c.units[0]!;web.source={...web.source,format:"web",pages:[],web:{url,articleId:"long-argument",htmlSha256:web.source.sha256}};
+   for(const b of web.blocks){b.page=null;b.locator={url,sourceBlockIds:[b.id]};}
+   c.units=[TextbookUnitSchema.parse(web),fixtureCorpus().units[1]!];c.corpusId=textbookCorpusId(c);
+  }
   const port=createTextbookKnowledge(c),fixture=makeArenaMcpCase(),tools=createArenaTextbookTools({caseRef:fixture.observation.caseRef,aliases:fixture.aliases,knowledge:port}),tool=tools[1]!,context={caseRef:fixture.observation.caseRef,signal:new AbortController().signal};
   const tail=await tool.execute({unitId:u.unitId,blockOffset:19},context);expect(tool.references(tail).sourceRefs).toEqual([]);
   expect(tail).toMatchObject({result:{completeArgument:false,nextBlockOffset:null}});

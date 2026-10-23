@@ -26,17 +26,18 @@ export function validateTextbookCorpus(raw: unknown): TextbookCorpus {
   if (c.corpusId !== textbookCorpusId(c)) throw Error("textbook_corpus_changed");
   const unitMap = new Map(c.units.map(u => [u.unitId,u]));
   const units = new Set(c.units.map(u => u.unitId)), figures = new Map(c.images.map(i => [i.figureId, i]));
-  const blocks = new Set<string>();
+  const blocks = new Set<string>(), seenFigures = new Set<string>();
   if (units.size !== c.units.length || figures.size !== c.images.length) throw Error("textbook_duplicate_id");
   let imageCount = 0;
   for (const u of c.units) {
     for (const id of [u.previousUnitId, u.nextUnitId]) if (id && unitMap.get(id)?.chapterId!==u.chapterId) throw Error("textbook_neighbor_missing");
     for (const b of u.blocks) {
-      if (blocks.has(b.id) || !u.source.pages.includes(b.page)) throw Error("textbook_block_binding");
+      if (blocks.has(b.id) || (u.source.format!=="web"&&(b.page===null||!u.source.pages.includes(b.page)))) throw Error("textbook_block_binding");
       blocks.add(b.id);
-      if (b.type === "figure") {
+      for(const figure of b.type==="figure"?[b.figure]:b.type==="p"?b.inlineFigures??[]:[]){
         imageCount++;
-        if (b.id !== b.figure.figureId || b.figure.unitId !== u.unitId || b.page !== b.figure.page || figures.get(b.id)?.sha256 !== b.figure.imageSha256) throw Error("textbook_image_binding");
+        if(seenFigures.has(figure.figureId))throw Error("textbook_duplicate_figure");seenFigures.add(figure.figureId);
+        if ((b.type==="figure"&&b.id!==figure.figureId) || figure.unitId !== u.unitId || b.page !== figure.page || figures.get(figure.figureId)?.sha256 !== figure.imageSha256) throw Error("textbook_image_binding");
       }
     }
     // Leave room for the Arena run-local citation envelope; never trim a parent's conditions.
@@ -57,11 +58,11 @@ export function createTextbookKnowledge(raw: unknown): TextbookKnowledgePort {
   const corpus = validateTextbookCorpus(raw);
   const identity = { corpusId: corpus.corpusId, bodySha256: corpus.bodySha256, reviewStatus: corpus.reviewStatus };
   const units = new Map(corpus.units.map(u=>[u.unitId,u]));
-  const figures = new Map(corpus.units.flatMap(u=>u.blocks.flatMap(b=>b.type==="figure"?[[b.id,b.figure] as const]:[])));
-  const chapterMap=new Map<string,{chapterId:string;title:string;sourceId:string;pages:number[]}>();
+  const figures = new Map(corpus.units.flatMap(u=>u.blocks.flatMap(b=>(b.type==="figure"?[b.figure]:b.type==="p"?b.inlineFigures??[]:[]).map(f=>[f.figureId,f] as const))));
+  const chapterMap=new Map<string,{chapterId:string;title:string;sourceId:string;pages:number[];sourceUrl?:string}>();
   const chapterPageSets=new Map<string,Set<number>>();
   for(const u of corpus.units){
-    if(!chapterMap.has(u.chapterId)){chapterMap.set(u.chapterId,{chapterId:u.chapterId,title:u.chapterTitle,sourceId:u.source.sourceId,pages:[]});chapterPageSets.set(u.chapterId,new Set());}
+    if(!chapterMap.has(u.chapterId)){chapterMap.set(u.chapterId,{chapterId:u.chapterId,title:u.chapterTitle,sourceId:u.source.sourceId,pages:[],...(u.source.web?{sourceUrl:u.source.web.url}:{})});chapterPageSets.set(u.chapterId,new Set());}
     const pages=chapterPageSets.get(u.chapterId)!;for(const page of u.source.pages)pages.add(page);
   }
   const chapters=[...chapterMap.values()].map(c=>({...c,pages:[...chapterPageSets.get(c.chapterId)!].sort((a,b)=>a-b)}));
@@ -70,7 +71,7 @@ export function createTextbookKnowledge(raw: unknown): TextbookKnowledgePort {
     async catalog(input,signal){
       signal?.throwIfAborted();const q=TextbookCatalogRequestSchema.parse(input),offset=q.offset??0,limit=q.limit??20;
       if(q.chapterId&&!chapters.some(c=>c.chapterId===q.chapterId))throw Error("textbook_chapter_not_found");
-      const entries=q.chapterId?corpus.units.filter(u=>u.chapterId===q.chapterId).map(u=>({chapterId:u.chapterId,unitId:u.unitId,title:u.title,sourceId:u.source.sourceId,pages:u.source.pages})):chapters;
+      const entries=q.chapterId?corpus.units.filter(u=>u.chapterId===q.chapterId).map(u=>({chapterId:u.chapterId,unitId:u.unitId,title:u.title,sourceId:u.source.sourceId,pages:u.source.pages,...(u.source.web?{sourceUrl:u.source.web.url}:{})})):chapters;
       if(offset>entries.length)throw Error("textbook_cursor_out_of_range");
       const selected:typeof entries=[];
       const response=()=>({kind:"catalog" as const,...identity,scope:q.chapterId?"units":"chapters",total:entries.length,offset,nextOffset:offset+selected.length<entries.length?offset+selected.length:null,entries:selected});
@@ -89,7 +90,7 @@ export function createTextbookKnowledge(raw: unknown): TextbookKnowledgePort {
       const offset=q.offset??0;if(offset>ranked.length)throw Error("textbook_cursor_out_of_range");
       const hits:z.infer<typeof TextbookSearchResultSchema>["hits"]=[];
       const response=()=>({kind:"search" as const,...identity,status:hits.length?"hits":"no_hits",previewOnly:true,totalHits:ranked.length,nextOffset:offset+hits.length<ranked.length?offset+hits.length:null,chapters:[...new Map(hits.map(h=>[h.chapterId,{chapterId:h.chapterId,title:units.get(h.unitId)!.chapterTitle}])).values()],hits});
-      for(const {u,best} of ranked.slice(offset,offset+q.limit)){hits.push({unitId:u.unitId,chapterId:u.chapterId,title:u.title,pages:u.source.pages,matchedBlockId:best.id,excerpt:best.text.slice(0,400)});if(Buffer.byteLength(JSON.stringify(response()))>TEXTBOOK_LIMITS.maxResultBytes-1500){hits.pop();break;}}
+      for(const {u,best} of ranked.slice(offset,offset+q.limit)){hits.push({unitId:u.unitId,chapterId:u.chapterId,title:u.title,pages:u.source.pages,...(u.source.web?{sourceUrl:u.source.web.url}:{}),matchedBlockId:best.id,excerpt:best.text.slice(0,400)});if(Buffer.byteLength(JSON.stringify(response()))>TEXTBOOK_LIMITS.maxResultBytes-1500){hits.pop();break;}}
       if(!hits.length&&offset<ranked.length)throw Error("textbook_search_entry_over_budget");
       return TextbookSearchResultSchema.parse(response());
     },

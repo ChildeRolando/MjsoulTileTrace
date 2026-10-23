@@ -1,0 +1,33 @@
+import {it,expect} from 'vitest';
+import {mkdtemp,writeFile,readFile,rm,stat} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import {join,resolve,sep} from 'node:path';
+import {createHash} from 'node:crypto';
+import {stageWebTextbook,composeWebParagraphs,compactInlineTiles} from './stage-web-textbook.mjs';
+import {loadTextbookKnowledge} from '@riichi-coach/desktop/textbook-knowledge';
+const sha=b=>createHash('sha256').update(b).digest('hex');
+it('restores sentence-internal tile runs and the full fourteen-tile example without losing the drawn-tile label',()=>{
+ const url='https://example.org/lesson',codes='3m 4m 2p 2p 4p 7p 7p 8p 8s 9s 5z 5z 6z 7z';
+ const raw=[{type:'p',id:'b1',text:'**例：**',paragraphId:'p1'},{type:'figure',id:'f1',transcriptionText:codes,paragraphId:'p1'},{type:'p',id:'b2',text:'摸入',paragraphId:'p1'},{type:'figure',id:'f2',transcriptionText:'2m',paragraphId:'p1'},{type:'p',id:'b3',text:'后，应当打出字牌。',paragraphId:'p1'}].map(b=>({...b,page:null,locator:{url,sourceBlockIds:[b.id],domPaths:['main/p[0]']}}));
+ const result=composeWebParagraphs(raw,'sample');expect(result).toHaveLength(1);expect(result[0].text).toBe('**例：** 34m224778p89s5567z 摸入 2m 后，应当打出字牌。');
+ expect(result[0].inlineFigures.map(f=>f.id)).toEqual(['f1','f2']);expect(result[0].locator.sourceBlockIds).toEqual(['b1','f1','b2','f2','b3']);expect(compactInlineTiles('0p 5p 3m 4p')).toBe('05p3m4p');
+});
+it('stages an independently accepted web chapter through the same corpus with real DOM locations and complete Chinese examples',async()=>{
+ const root=await mkdtemp(join(tmpdir(),'coach-web-stage-'));
+ try{
+  const url='https://example.org/chapter',source={sourceId:'source-cn',articleId:'chapter',url,title:'完整中文论证',language:'zh-CN',html:{sha256:'1'.repeat(64),bytes:100},blocks:[{id:'p1',domPath:'main/p[0]'},{id:'i1',domPath:'main/img[0]'}]};
+  const sb=JSON.stringify(source);await writeFile(join(root,'source.json'),sb);
+  const image=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jG1sAAAAASUVORK5CYII=','base64');await writeFile(join(root,'figure.png'),image);
+  const text='完整中文正文：'+ '原作者的条件和判断。'.repeat(300),candidate={schema:'coach-textbook-web-article-draft/1',source:{sourcePath:'source.json',sourceSha256:sha(sb),htmlSha256:source.html.sha256,url},body:{blocks:[{type:'text',sourceBlockIds:['p1'],text},{type:'figure',sourceBlockIds:['i1'],figureId:'f1'}]},figures:[{figureId:'f1',caption:'原牌例',transcription:'完整牌例 123m456p789s11122z；不省略条件。',unknowns:[],sourceAssetBindings:[{path:'figure.png',sha256:sha(image)}]}]};
+  const cb=JSON.stringify(candidate);await writeFile(join(root,'candidate.json'),cb);const dest=join(root,'stage');
+  const verify=async()=>({status:'passed',production:{sha256:sha(cb)},auditPath:'fixture-independent-receipt'});
+  const result=await stageWebTextbook({processingRoot:root,candidatePath:'candidate.json',destination:dest,verify});expect(result.activeLibraryChanged).toBe(false);
+  const loaded=await loadTextbookKnowledge(dest),unitId='source-cn-chapter-argument';let offset=0,blocks=[];
+  do{const r=await loaded.port.read({unitId,blockOffset:offset});blocks.push(...r.unit.blocks);offset=r.nextBlockOffset;}while(offset!==null);
+  expect(blocks.filter(b=>b.type==='p').map(b=>b.text).join('')).toBe(text);expect(blocks.every(b=>b.page===null&&b.locator.url===url)).toBe(true);
+  expect(blocks.at(-1).figure.transcription.text).toContain('123m456p789s11122z');expect(await readFile(join(dest,'knowledge.html'),'utf8')).toContain('原网页');
+  await expect(stageWebTextbook({processingRoot:root,candidatePath:'candidate.json',destination:join(root,'refused'),verify:async()=>({...await verify(),status:'needs-repair'})})).rejects.toThrow('audit_identity');
+  await expect(stat(join(root,'refused'))).rejects.toThrow();
+  await writeFile(join(root,'source.json'),sb+' ');await expect(stageWebTextbook({processingRoot:root,candidatePath:'candidate.json',destination:join(root,'changed'),verify})).rejects.toThrow('source_changed');
+ }finally{if(!resolve(root).startsWith(resolve(tmpdir())+sep)||!root.includes('coach-web-stage-'))throw Error('unsafe_cleanup');await rm(root,{recursive:true,force:true});}
+});
