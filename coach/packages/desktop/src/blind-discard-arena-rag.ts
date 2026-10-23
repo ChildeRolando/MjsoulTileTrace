@@ -81,7 +81,7 @@ export type ArenaRagRetrieverOptions = Readonly<{
   loadCorpus?: () => Promise<unknown>;
 }>;
 
-function tokenize(value: string): readonly string[] {
+export function tokenize(value: string): readonly string[] {
   const tokens = new Set<string>();
   const normalized = value.normalize("NFKC").toLocaleLowerCase("zh-CN");
   for (const match of normalized.matchAll(/[\p{Script=Han}]+|[\p{L}\p{N}]+/gu)) {

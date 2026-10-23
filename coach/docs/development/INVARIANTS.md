@@ -411,6 +411,12 @@ Model/report evidence provider（模型/报告证据来源）
 
 ## INV-013 Blind Discard Arena 标签隔离
 
+2026-10-24 教材 MCP 补充：完整教材单元及原图仍是知识来源，不是局面事实。
+`textbook-knowledge.test.ts` / `textbook-mcp.test.ts` 保护当前库身份、完整读取、登记图像、
+本次运行引用和真实 MCP→Arena 装配。搜索预览不授予引用，文字客户端未收到的图片明确标记；
+这些工具不读取任何牌谱或 Mortal 标签。实现与当前边界见
+[四章教材 MCP](../plans/2026-10-24-textbook-mcp.md)。
+
 - **Statement**：Arena Coach/provider、helper MCP 与 RAG 只能读显式白名单投影的决策时观察和完整合法切牌集合；Coach-visible 的 case、canonical event、evidence/source、MCP/RAG 与诊断引用必须使用 per-run opaque alias，原始 gameId/recordId 及 alias map 不得越过受信边界。Mortal 最终动作可由受信 grader 提前计算并私有封存，只能在 Coach submission 锁定后用于比较；Coach/provider、helper MCP 与 RAG 始终不可访问标签。实战动作及未来事件不得进入盲输入。Arena run 和 grader artifact 不进入生产 ReviewReport/ReviewSession。
 - **Why**：答案可从 case identity、工具结果、排序、路径或生产复盘 artifact 侧漏；混用生产生成/保存 seam 也会改变既有语义。
 - **Owner / boundary**：[Blind Discard Arena spec](../specs/2026-10-09-blind-discard-arena.md)；Arena 的本地 main/CLI 运行路径；生产 generation/persistence 仍由 INV-011/012 与 ADR-0005 拥有。

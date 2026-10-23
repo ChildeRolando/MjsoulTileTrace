@@ -38,3 +38,4 @@ export * from "./question-lab.js";
 
 export * from "./question-lab-pairs.js";
 export * from "./scene-patterns.js";
+export * from "./textbook-knowledge.js";

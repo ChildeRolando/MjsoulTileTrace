@@ -49,7 +49,10 @@
     "test:corpus": "node --test scripts/replay-corpus/corpus.test.mjs",
     "bench:corpus": "node scripts/replay-corpus/benchmark.mjs",
     "mortal-ablation": "node bin/arena-mortal-ablation.mjs",
-    "test:mortal-ablation": "vitest run packages/desktop/tests/mortal-ablation-experiment.test.mjs packages/desktop/tests/mortal-ablation-report.test.mjs packages/desktop/tests/blind-discard-arena-scorer.test.ts packages/desktop/tests/blind-discard-arena-runner.test.ts --no-file-parallelism"
+    "test:mortal-ablation": "vitest run packages/desktop/tests/mortal-ablation-experiment.test.mjs packages/desktop/tests/mortal-ablation-report.test.mjs packages/desktop/tests/blind-discard-arena-scorer.test.ts packages/desktop/tests/blind-discard-arena-runner.test.ts --no-file-parallelism",
+    "textbook:mcp": "node bin/textbook-mcp-server.mjs",
+    "textbook:prepare": "node scripts/scene-study/compile-textbook-corpus.mjs",
+    "test:textbook-mcp": "vitest run packages/desktop/tests/textbook-knowledge.test.ts packages/desktop/tests/textbook-mcp.test.ts --no-file-parallelism"
   },
   "devDependencies": {
     "@types/node": "22.15.30",

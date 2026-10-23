@@ -43,6 +43,18 @@
     "./session-api": {
       "types": "./src/session-api.ts",
       "import": "./dist/session-api.js"
+    },
+    "./textbook-knowledge": {
+      "types": "./src/textbook-knowledge.ts",
+      "import": "./dist/textbook-knowledge.js"
+    },
+    "./textbook-mcp": {
+      "types": "./src/textbook-mcp.ts",
+      "import": "./dist/textbook-mcp.js"
+    },
+    "./arena-textbook-tools": {
+      "types": "./src/arena-textbook-tools.ts",
+      "import": "./dist/arena-textbook-tools.js"
     }
   },
   "main": "./dist/electron-entry.js",
