@@ -1,0 +1,14 @@
+[
+  { "query": "向听不同能否直接比较进张枚数", "acceptable": ["b01", "b04"] },
+  { "query": "三对子还要研究七对子与面子手吗", "acceptable": ["a01", "b11"] },
+  { "query": "只有一次副露能否讨论听牌可能", "acceptable": ["a13", "b17", "a14"] },
+  { "query": "役牌孤张与成刻后的路线确定性", "acceptable": ["a03", "b07"] },
+  { "query": "只有一个听牌候选等待质量如何", "acceptable": ["a06", "b05"] },
+  { "query": "面对两家立直共同安全牌分别评价", "acceptable": ["a10", "b15"] },
+  { "query": "副露手宝牌必须符合目标役", "acceptable": ["a18"] },
+  { "query": "不是南四也要考虑最终顺位点差", "acceptable": ["a19"] },
+  { "query": "safe-tiles", "acceptable": ["b12", "b13", "b14", "b15", "a08", "a09", "a10"] },
+  { "query": "open-defense", "acceptable": ["b17", "a13", "a14", "a15"] },
+  { "query": "未听牌时振听搭子枯竭受入", "acceptable": ["a07"] },
+  { "query": "保留安全牌储备与弃和切牌顺序", "acceptable": ["b15", "a08"] }
+]

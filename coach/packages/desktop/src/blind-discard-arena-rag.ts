@@ -14,6 +14,15 @@ import {
 } from "@riichi-coach/contracts";
 import { z } from "zod";
 import type { ArenaRunAliasVault } from "./blind-discard-arena.js";
+import {
+  ArenaRagComponentsSchema, ARENA_RAG_COMPONENTS_VERSION,
+  splitArenaRagPassage, enrichArenaRagContext, expandArenaRagParent,
+  type ArenaRagComponents, type ArenaRagComponentTrace,
+} from "./blind-discard-arena-rag-components.js";
+export { ArenaRagComponentsSchema, ARENA_RAG_COMPONENTS_VERSION,
+  splitArenaRagPassage, enrichArenaRagContext, expandArenaRagParent,
+  type ArenaRagComponents, type ArenaRagComponentTrace,
+} from "./blind-discard-arena-rag-components.js";
 
 export const ARENA_RAG_LIMITS_V1 = Object.freeze({
   schemaVersion: "blind-discard-arena-rag-limits/v1" as const,
@@ -64,6 +73,10 @@ export type ArenaRagRetrieverOptions = Readonly<{
   mode: "local";
   caseRef: ArenaCaseRef;
   aliases: Pick<ArenaRunAliasVault, "reference">;
+  /** Independently composable; omitted keeps the original retriever and output byte semantics. */
+  components?: ArenaRagComponents;
+  /** Local diagnostics only; never contains game facts or extra model-visible references. */
+  onComponentTrace?: (trace: ArenaRagComponentTrace) => void;
   /** Injection point for tests; production loads the small seed file lazily. */
   loadCorpus?: () => Promise<unknown>;
 }>;
@@ -133,6 +146,10 @@ function loadSeedCorpus(): Promise<unknown> {
 
 export function createArenaRagRetriever(options: ArenaRagRetrieverOptions): ArenaRagRetriever {
   const caseRef = ArenaCaseRefSchema.parse(options.caseRef);
+  const components = ArenaRagComponentsSchema.parse(options.mode === "local" ? options.components ?? {} : {});
+  const retrieverVersion = components.smallToBig || components.contextEnrichment
+    ? `${ARENA_RAG_COMPONENTS_VERSION}/s${Number(components.smallToBig)}e${Number(components.contextEnrichment)}`
+    : ARENA_RAG_RETRIEVER_VERSION;
   let corpusPromise: Promise<SeedCorpus> | null = null;
 
   const getCorpus = async (): Promise<SeedCorpus> => {
@@ -164,27 +181,48 @@ export function createArenaRagRetriever(options: ArenaRagRetrieverOptions): Aren
       const queryTerms = tokenize(request.query);
       const ranked = corpus.passages
         .filter((passage) => filterPassage(passage, request))
-        .map((passage) => ({ passage, score: rankPassage(passage, queryTerms, request) }))
+        .flatMap((passage) => {
+          const context = components.contextEnrichment ? enrichArenaRagContext({ ...passage, corpusVersion: corpus.corpusVersion }) : "";
+          const chunks = components.smallToBig ? splitArenaRagPassage(passage.content)
+            : [{ start: 0, end: passage.content.length, content: passage.content }];
+          return chunks.map(chunk => {
+            const searchContent = context ? `${context}\n${chunk.content}` : chunk.content;
+            return { passage, chunk, context, searchChars: searchContent.length,
+              score: rankPassage({ ...passage, content: searchContent }, queryTerms, request) };
+          });
+        })
         .filter(({ score }) => score.lexicalScore > 0)
         .sort((left, right) =>
           (right.score.lexicalScore + right.score.contextScore) -
             (left.score.lexicalScore + left.score.contextScore) ||
-          (left.passage.id < right.passage.id ? -1 : left.passage.id > right.passage.id ? 1 : 0))
+          (left.passage.id < right.passage.id ? -1 : left.passage.id > right.passage.id ? 1 : left.chunk.start - right.chunk.start));
+      // Best chunk wins; siblings cannot consume the parent's result quota or multiply citations.
+      const seen = new Set<string>();
+      const selected = ranked.filter(({ passage }) => {
+        if (seen.has(passage.id)) return false;
+        seen.add(passage.id);
+        return true;
+      })
         .slice(0, request.limit);
 
-      const passages: ArenaRagPassage[] = ranked.map(({ passage }) => {
+      const passages: ArenaRagPassage[] = selected.map(({ passage, context }) => {
         const sourceRef = options.aliases.reference(`blind-discard-arena-rag/v1\u0000${passage.sourceId}\u0000${passage.id}`);
         return {
           sourceRef: ArenaOpaqueReferenceSchema.parse(sourceRef),
           sourceTitle: passage.sourceTitle,
           documentLocation: passage.documentLocation,
-          content: passage.content,
+          content: expandArenaRagParent(passage.content, context, ARENA_RAG_LIMITS_V1.maxPassageChars),
           applicableWhen: [...passage.applicableWhen] as ArenaRagApplicability[],
           corpusVersion: corpus.corpusVersion,
-          retrieverVersion: ARENA_RAG_RETRIEVER_VERSION,
+          retrieverVersion,
         };
       });
       const sourceRefs = passages.map(({ sourceRef }) => sourceRef);
+      options.onComponentTrace?.({ retrieverVersion, matches: selected.map((hit, i) => ({
+        parentId: hit.passage.id, start: hit.chunk.start, end: hit.chunk.end,
+        searchChars: hit.searchChars, returnedChars: passages[i]!.content.length,
+        contextIncluded: passages[i]!.content !== hit.passage.content,
+      })) });
       return ArenaRagResultSchema.parse({
         schemaVersion: "blind-discard-arena-rag-result/v1",
         caseRef,
@@ -194,7 +232,7 @@ export function createArenaRagRetriever(options: ArenaRagRetrieverOptions): Aren
         sourceRefs,
         retrieval: retrievalMetadata(request, sourceRefs),
         corpusVersion: corpus.corpusVersion,
-        retrieverVersion: ARENA_RAG_RETRIEVER_VERSION,
+        retrieverVersion,
       });
     },
   });

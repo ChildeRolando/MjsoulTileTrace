@@ -27,6 +27,8 @@
     "arena": "npm run build && node bin/blind-discard-arena.mjs",
     "arena:console": "npm run build && node bin/blind-discard-arena-console.mjs",
     "scene-study": "node bin/scene-pattern-study.mjs",
+    "context-rag": "node bin/arena-context-rag.mjs",
+    "test:context-rag": "vitest run packages/desktop/tests/arena-rag-components.test.ts packages/desktop/tests/blind-discard-arena-rag.test.ts packages/desktop/tests/blind-discard-arena-runner.test.ts scripts/context-rag --no-file-parallelism",
     "test:scene-study": "vitest run packages/reasoning/tests/scene-patterns.test.ts packages/desktop/tests/scene-study-facts.test.ts packages/desktop/tests/scene-study-runner.test.ts scripts/scene-study --no-file-parallelism",
     "test:arena-archive": "npm run build -w @riichi-coach/desktop && vitest run packages/desktop/tests/blind-discard-arena-archive.test.ts",
     "coach": "npm run build && node bin/riichi-coach.mjs",

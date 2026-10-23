@@ -1,0 +1,42 @@
+{
+  "reviewer": "Codex assistant",
+  "method": "Unblinded diagnostic spot checks against frozen visible state; not expert scoring, not exhaustive error-rate estimation",
+  "findings": [
+    {
+      "caseId": "4d14f3d66ff4abe8ec499973", "arm": "baseline", "kind": "fact_error", "quote": "当前剩余67巡",
+      "evidence": "facts.remainingDraws=67 is remaining table draws, not 67 player rounds.",
+      "retrievalUsed": true
+    },
+    {
+      "caseId": "a641d905420baadc0e450db4", "arm": "combined", "kind": "fact_error", "quote": "已见22巡",
+      "evidence": "facts.remainingDraws=22 describes remaining table draws, not elapsed turns.",
+      "retrievalUsed": false
+    },
+    {
+      "caseId": "4d14f3d66ff4abe8ec499973", "arm": "combined", "kind": "fact_error", "quote": "尚有67巡",
+      "evidence": "facts.remainingDraws=67 is remaining table draws; it is not 67 player rounds.",
+      "retrievalUsed": true
+    },
+    {
+      "caseId": "88f7b6735243ae3e25ddbea6", "arm": "combined", "kind": "fact_error", "quote": "上家的吃牌亦不能确认其听牌",
+      "evidence": "The only visible meld belongs to actor 1, which is also selfActor=1, not an opponent.",
+      "retrievalUsed": false
+    },
+    {
+      "caseId": "4553495282f1bc96a522cbcf", "arm": "baseline", "kind": "fact_error", "quote": "尚有53次自摸机会",
+      "evidence": "facts.remainingDraws=53 counts draws available to the table, not 53 self draws.",
+      "retrievalUsed": false
+    },
+    {
+      "caseId": "ce8306c88407880db5af144f", "arm": "baseline", "kind": "minor_timing_error", "quote": "东一局首巡",
+      "evidence": "Self actor 1 has already discarded 1m and is now drawing again; this is the second self turn.",
+      "retrievalUsed": false
+    },
+    {
+      "caseId": "1c19b6de7f92cbec43152ad5", "arm": "combined", "kind": "ambiguous_shape_description", "quote": "万子已有234与444可作面子",
+      "evidence": "Concealed manzu are 2m,3m,4m,4m,4m. The two proposed melds overlap a physical 4m, so they cannot both be taken as completed melds simultaneously. Wording needs clarification; not counted as a confirmed dual-meld claim.",
+      "retrievalUsed": true
+    }
+  ],
+  "conclusion": "Neither valid citation identifiers nor retrieval recall establishes factual explanation quality. These examples occur both with and without retrieval. The initial prompts are identical, so unqueried runs' differences cannot be caused by the RAG components. No claim of non-increasing serious errors or expert win rate is supported."
+}

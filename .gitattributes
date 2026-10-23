@@ -17,3 +17,6 @@
 /coach/bin/scene-pattern-study.mjs text eol=lf
 # Study v1 hashes exact source bytes; preserve frozen LF/CRLF on checkout.
 /coach/scripts/scene-study/*.mjs -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+# The independent context-RAG study also hashes its executable scripts.
+/coach/scripts/context-rag/*.mjs text eol=lf
+/coach/bin/arena-context-rag.mjs text eol=lf

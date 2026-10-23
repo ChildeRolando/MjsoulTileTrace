@@ -1,0 +1,41 @@
+{
+  "reviewer": "Codex assistant, visible-state pre-generation diagnostic; not human expert gold",
+  "cases": [
+    { "caseId": "4d14f3d66ff4abe8ec499973", "reason": "南三大幅领先；三对子，七对子三向听优于一般形；孤张取舍。", "required": [
+      { "topic": "efficiency", "chapters": ["b01", "b02", "b04"] },
+      { "topic": "chiitoitsu", "chapters": ["b11", "a01"] },
+      { "topic": "placement", "chapters": ["a19"] }
+    ], "inapplicable": ["a10", "a18", "a20"] },
+    { "caseId": "1c19b6de7f92cbec43152ad5", "reason": "自家西刻已副露，数个一向听候选；他家两副露但未确认听牌。", "required": [
+      { "topic": "efficiency", "chapters": ["b01", "b03", "b04"] },
+      { "topic": "open-defense", "chapters": ["b17", "a13", "a14"] }
+    ], "inapplicable": ["a01", "a05", "a10", "a11", "a20"] },
+    { "caseId": "a641d905420baadc0e450db4", "reason": "南四第二，距首位2400；自家副露一向听且有两宝，面对一家立直与两家副露，1m现物与6m同进度。", "required": [
+      { "topic": "placement", "chapters": ["a19", "a20"] },
+      { "topic": "riichi-defense", "chapters": ["b12", "b15", "a08"] },
+      { "topic": "push-fold", "chapters": ["b19", "b20", "a12"] },
+      { "topic": "open-defense", "chapters": ["b17", "a13", "a14"] }
+    ], "inapplicable": ["a01", "a05", "a10", "a11"] },
+    { "caseId": "b685672c68baf9eb24b172dd", "reason": "门前三对子含中对子，一般形和七对子均三向听；同向听进张与路线比较。", "required": [
+      { "topic": "efficiency", "chapters": ["b01", "b02", "b03", "b04"] },
+      { "topic": "yakuhai", "chapters": ["b07", "a03"] },
+      { "topic": "chiitoitsu", "chapters": ["b10", "b11", "a01"] }
+    ], "inapplicable": ["a10", "a18", "a20"] },
+    { "caseId": "88f7b6735243ae3e25ddbea6", "reason": "吃牌后弃牌，自家白发对子、三宝；已开门不能走七对子，确认役与进张并重。", "required": [
+      { "topic": "efficiency", "chapters": ["b01", "b02", "b03", "b04"] },
+      { "topic": "yakuhai", "chapters": ["b07", "a03"] },
+      { "topic": "dora", "chapters": ["a18"] }
+    ], "inapplicable": ["a01", "a05", "a10", "a20"] },
+    { "caseId": "51357e5a77d34e75582c63ec", "reason": "无公开威胁；白和7p均可维持一向听且进张相同，要比较后续形状与役牌孤张用途。", "required": [
+      { "topic": "efficiency", "chapters": ["b01", "b02", "b03", "b04"] }
+    ], "inapplicable": ["a10", "a11", "a18", "a20"] },
+    { "caseId": "4553495282f1bc96a522cbcf", "reason": "自家东刻已副露，6p和7m维持一向听；不能把退向听后大进张直接视为更快。", "required": [
+      { "topic": "efficiency", "chapters": ["b01", "b02", "b03", "b04"] }
+    ], "inapplicable": ["a01", "a05", "a10", "a11", "a20"] },
+    { "caseId": "ce8306c88407880db5af144f", "reason": "门前早巡，南为自风且是宝牌，另有赤五；比较客风、役牌与孤张，不能因规则未触发忽略保宝。", "required": [
+      { "topic": "efficiency", "chapters": ["b01", "b02", "b03", "b04"] },
+      { "topic": "yakuhai", "chapters": ["b07", "a03"] },
+      { "topic": "dora", "chapters": ["a05"] }
+    ], "inapplicable": ["a10", "a18", "a20"] }
+  ]
+}

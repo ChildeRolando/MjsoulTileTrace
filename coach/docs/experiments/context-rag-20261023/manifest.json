@@ -1,0 +1,970 @@
+{
+  "archive": "E:/AgentData/Coach/context-rag-study-20261023-r1",
+  "failedPilotArchive": "E:/AgentData/Coach/context-rag-study-20261023",
+  "freeze": {
+    "version": "arena-context-rag-study/v1",
+    "frozenAt": "2026-10-23T11:47:08.778Z",
+    "baseCommit": "ff30658eaf9427e03fd00e565f492050f75f1b66",
+    "datasetHash": "26600f1c24cb0c60c72f321dfb4898e3dbcf6d6be23145b1ba382509ad9d9902",
+    "knowledgeHash": "71361c15e4954f23a30b35ddc74423d0067d690ebf94515f7983ea35371d8386",
+    "codeHash": "f634d2e7efa25e9ace0dc6c7a0e658a3473c0984e69bac70b7bbed215cd7d308",
+    "provider": {
+      "providerId": "codex-cli",
+      "modelName": "gpt-6-luna",
+      "reasoningEffort": "max"
+    },
+    "settingsSource": "electron-entry.ts documented default",
+    "assemblies": {
+      "baseline": {
+        "smallToBig": false,
+        "contextEnrichment": false
+      },
+      "combined": {
+        "smallToBig": true,
+        "contextEnrichment": true
+      }
+    },
+    "schedule": [
+      {
+        "caseId": "b685672c68baf9eb24b172dd",
+        "gameId": "rc1_e4da9dc3cfa70a81e4a5402be01626e527911e338efa012bb233214634b84a6a",
+        "split": "evaluation",
+        "arm": "combined"
+      },
+      {
+        "caseId": "a641d905420baadc0e450db4",
+        "gameId": "rc1_d593898b6f730cdf98db52c69268201ba75c51df556f192dc812950d16db19f6",
+        "split": "evaluation",
+        "arm": "baseline"
+      },
+      {
+        "caseId": "1c19b6de7f92cbec43152ad5",
+        "gameId": "rc1_9afa22b072cd40387b3476b271ee6b1cb1c2ecdea3aa49abdb609fa9c54f8087",
+        "split": "evaluation",
+        "arm": "baseline"
+      },
+      {
+        "caseId": "a641d905420baadc0e450db4",
+        "gameId": "rc1_d593898b6f730cdf98db52c69268201ba75c51df556f192dc812950d16db19f6",
+        "split": "evaluation",
+        "arm": "combined"
+      },
+      {
+        "caseId": "88f7b6735243ae3e25ddbea6",
+        "gameId": "rc1_1a023a4ab1c013048c92dd74fe19e674c41b9ae60080b864dbd13277f644c191",
+        "split": "evaluation",
+        "arm": "combined"
+      },
+      {
+        "caseId": "88f7b6735243ae3e25ddbea6",
+        "gameId": "rc1_1a023a4ab1c013048c92dd74fe19e674c41b9ae60080b864dbd13277f644c191",
+        "split": "evaluation",
+        "arm": "baseline"
+      },
+      {
+        "caseId": "ce8306c88407880db5af144f",
+        "gameId": "rc1_6983eb2c0ac818490bd121a52eb9054b681773aff6462e313505db907b6aebab",
+        "split": "evaluation",
+        "arm": "baseline"
+      },
+      {
+        "caseId": "51357e5a77d34e75582c63ec",
+        "gameId": "rc1_2378cd58809a8145af731993e59939735636894b198ba3fd59ec0da54517a239",
+        "split": "evaluation",
+        "arm": "baseline"
+      },
+      {
+        "caseId": "4d14f3d66ff4abe8ec499973",
+        "gameId": "rc1_88841c9201eb057cdbf6755900c2b96dd27b5a7dc647b2f692b4cbf76bb0001b",
+        "split": "evaluation",
+        "arm": "combined"
+      },
+      {
+        "caseId": "4553495282f1bc96a522cbcf",
+        "gameId": "rc1_c41c3ea85af941afafa8f5a3934dceb7352bcb98b310a030720917dc05740e8a",
+        "split": "evaluation",
+        "arm": "combined"
+      },
+      {
+        "caseId": "4553495282f1bc96a522cbcf",
+        "gameId": "rc1_c41c3ea85af941afafa8f5a3934dceb7352bcb98b310a030720917dc05740e8a",
+        "split": "evaluation",
+        "arm": "baseline"
+      },
+      {
+        "caseId": "ce8306c88407880db5af144f",
+        "gameId": "rc1_6983eb2c0ac818490bd121a52eb9054b681773aff6462e313505db907b6aebab",
+        "split": "evaluation",
+        "arm": "combined"
+      },
+      {
+        "caseId": "51357e5a77d34e75582c63ec",
+        "gameId": "rc1_2378cd58809a8145af731993e59939735636894b198ba3fd59ec0da54517a239",
+        "split": "evaluation",
+        "arm": "combined"
+      },
+      {
+        "caseId": "efab44d3c8e21649f3379e21",
+        "gameId": "rc1_22dc95cbfc9b99019538a9695fbf36d7bfea55985cae7cfa348cbb56cd218a12",
+        "split": "pilot",
+        "arm": "baseline"
+      },
+      {
+        "caseId": "b685672c68baf9eb24b172dd",
+        "gameId": "rc1_e4da9dc3cfa70a81e4a5402be01626e527911e338efa012bb233214634b84a6a",
+        "split": "evaluation",
+        "arm": "baseline"
+      },
+      {
+        "caseId": "1c19b6de7f92cbec43152ad5",
+        "gameId": "rc1_9afa22b072cd40387b3476b271ee6b1cb1c2ecdea3aa49abdb609fa9c54f8087",
+        "split": "evaluation",
+        "arm": "combined"
+      },
+      {
+        "caseId": "66e607621bf0128783f1c9ac",
+        "gameId": "rc1_c7439191928ed15c846d91100b49726a3f93b94ef17f89698b35b371c5adf588",
+        "split": "pilot",
+        "arm": "combined"
+      },
+      {
+        "caseId": "4d14f3d66ff4abe8ec499973",
+        "gameId": "rc1_88841c9201eb057cdbf6755900c2b96dd27b5a7dc647b2f692b4cbf76bb0001b",
+        "split": "evaluation",
+        "arm": "baseline"
+      },
+      {
+        "caseId": "66e607621bf0128783f1c9ac",
+        "gameId": "rc1_c7439191928ed15c846d91100b49726a3f93b94ef17f89698b35b371c5adf588",
+        "split": "pilot",
+        "arm": "baseline"
+      },
+      {
+        "caseId": "efab44d3c8e21649f3379e21",
+        "gameId": "rc1_22dc95cbfc9b99019538a9695fbf36d7bfea55985cae7cfa348cbb56cd218a12",
+        "split": "pilot",
+        "arm": "combined"
+      }
+    ],
+    "limits": {
+      "maxProviderTurns": 4,
+      "maxToolCalls": 2,
+      "maxProviderOutputTokens": 32768,
+      "maxRunElapsedMs": 300000
+    },
+    "retrievalBudget": {
+      "calls": 2,
+      "cardsPerCall": 3,
+      "uniqueParents": 6,
+      "maxPassageChars": 1000
+    },
+    "parameters": {
+      "temperature": "adapter_default",
+      "seed": "not_supported",
+      "patterns": false
+    },
+    "retries": 0,
+    "decision": "Engineering pilot, not expert validation: compare paired retrieval coverage, returned source validity, tokens (target ratio <=1.3), elapsed and all failures. Do not tune on evaluation. Assistant needs annotations are diagnostic, not human gold."
+  },
+  "datasetHash": "26600f1c24cb0c60c72f321dfb4898e3dbcf6d6be23145b1ba382509ad9d9902",
+  "samples": [
+    {
+      "id": "66e607621bf0128783f1c9ac",
+      "gameId": "rc1_c7439191928ed15c846d91100b49726a3f93b94ef17f89698b35b371c5adf588",
+      "sourceHash": "30dad9f308915f1c479e85d0fcfc7ca6f59030fd560f15f6a7f76231feceac26",
+      "sourceLocator": "https://huggingface.co/datasets/nikketryhard/tenhou-houou-mjai/resolve/6450bb584cef43ede3b514df48e301a832c6818b/tenhou-houou-2009.tar#tenhou-houou-2009/2009121916gm-00a9-0000-b65d230c.mjai.json.zst",
+      "roundOrdinal": 6,
+      "selfActor": 3,
+      "canonicalDecisionOrder": 77,
+      "split": "pilot"
+    },
+    {
+      "id": "efab44d3c8e21649f3379e21",
+      "gameId": "rc1_22dc95cbfc9b99019538a9695fbf36d7bfea55985cae7cfa348cbb56cd218a12",
+      "sourceHash": "384c6f105737d3015b7d8e3ca795964ec840571bc61001d78cd3f8071a83d30f",
+      "sourceLocator": "https://huggingface.co/datasets/nikketryhard/tenhou-houou-mjai/resolve/6450bb584cef43ede3b514df48e301a832c6818b/tenhou-houou-2009.tar#tenhou-houou-2009/2009091716gm-00a9-0000-2c7f0d31.mjai.json.zst",
+      "roundOrdinal": 11,
+      "selfActor": 2,
+      "canonicalDecisionOrder": 140,
+      "split": "pilot"
+    },
+    {
+      "id": "4d14f3d66ff4abe8ec499973",
+      "gameId": "rc1_88841c9201eb057cdbf6755900c2b96dd27b5a7dc647b2f692b4cbf76bb0001b",
+      "sourceHash": "cceed709d29a706c2dd5b484b60f3737bada523b17ba61e24e9d432ecc2c8ef2",
+      "sourceLocator": "https://huggingface.co/datasets/nikketryhard/tenhou-houou-mjai/resolve/6450bb584cef43ede3b514df48e301a832c6818b/tenhou-houou-2009.tar#tenhou-houou-2009/2009041800gm-00a9-0000-fb2fdf5d.mjai.json.zst",
+      "roundOrdinal": 9,
+      "selfActor": 0,
+      "canonicalDecisionOrder": 92,
+      "split": "evaluation"
+    },
+    {
+      "id": "1c19b6de7f92cbec43152ad5",
+      "gameId": "rc1_9afa22b072cd40387b3476b271ee6b1cb1c2ecdea3aa49abdb609fa9c54f8087",
+      "sourceHash": "2bdbc188a1621834536cfed414623bf709510da24fc7feb868769dcd52d6af4f",
+      "sourceLocator": "https://huggingface.co/datasets/nikketryhard/tenhou-houou-mjai/resolve/6450bb584cef43ede3b514df48e301a832c6818b/tenhou-houou-2009.tar#tenhou-houou-2009/2009070521gm-00a9-0000-fcce0b55.mjai.json.zst",
+      "roundOrdinal": 2,
+      "selfActor": 0,
+      "canonicalDecisionOrder": 30,
+      "split": "evaluation"
+    },
+    {
+      "id": "a641d905420baadc0e450db4",
+      "gameId": "rc1_d593898b6f730cdf98db52c69268201ba75c51df556f192dc812950d16db19f6",
+      "sourceHash": "e9907fa3ba3adfbda40125d6167dea801da6b954376c4b553d8535956a426485",
+      "sourceLocator": "https://huggingface.co/datasets/nikketryhard/tenhou-houou-mjai/resolve/6450bb584cef43ede3b514df48e301a832c6818b/tenhou-houou-2009.tar#tenhou-houou-2009/2009110813gm-00a9-0000-83060f2a.mjai.json.zst",
+      "roundOrdinal": 8,
+      "selfActor": 0,
+      "canonicalDecisionOrder": 113,
+      "split": "evaluation"
+    },
+    {
+      "id": "b685672c68baf9eb24b172dd",
+      "gameId": "rc1_e4da9dc3cfa70a81e4a5402be01626e527911e338efa012bb233214634b84a6a",
+      "sourceHash": "51ec05d2ce722f756e2c3e97372f093b163402fc841009fd8ab3ed5b9285cf30",
+      "sourceLocator": "https://huggingface.co/datasets/nikketryhard/tenhou-houou-mjai/resolve/6450bb584cef43ede3b514df48e301a832c6818b/tenhou-houou-2009.tar#tenhou-houou-2009/2009110816gm-00a9-0000-8c1fbb6d.mjai.json.zst",
+      "roundOrdinal": 3,
+      "selfActor": 0,
+      "canonicalDecisionOrder": 45,
+      "split": "evaluation"
+    },
+    {
+      "id": "88f7b6735243ae3e25ddbea6",
+      "gameId": "rc1_1a023a4ab1c013048c92dd74fe19e674c41b9ae60080b864dbd13277f644c191",
+      "sourceHash": "09f724ad4ea2bb98b83f464b1830b85961c7525a6efa86900629afa5b868f92f",
+      "sourceLocator": "https://huggingface.co/datasets/nikketryhard/tenhou-houou-mjai/resolve/6450bb584cef43ede3b514df48e301a832c6818b/tenhou-houou-2009.tar#tenhou-houou-2009/2009071423gm-00a9-0000-6f18d69b.mjai.json.zst",
+      "roundOrdinal": 0,
+      "selfActor": 1,
+      "canonicalDecisionOrder": 3,
+      "split": "evaluation"
+    },
+    {
+      "id": "51357e5a77d34e75582c63ec",
+      "gameId": "rc1_2378cd58809a8145af731993e59939735636894b198ba3fd59ec0da54517a239",
+      "sourceHash": "185e81942457fdaf452d25e6dacba056dedbe07f932f2db1158ecdb3a32625ee",
+      "sourceLocator": "https://huggingface.co/datasets/nikketryhard/tenhou-houou-mjai/resolve/6450bb584cef43ede3b514df48e301a832c6818b/tenhou-houou-2009.tar#tenhou-houou-2009/2009100523gm-00a9-0000-3ca3cdfb.mjai.json.zst",
+      "roundOrdinal": 3,
+      "selfActor": 0,
+      "canonicalDecisionOrder": 40,
+      "split": "evaluation"
+    },
+    {
+      "id": "4553495282f1bc96a522cbcf",
+      "gameId": "rc1_c41c3ea85af941afafa8f5a3934dceb7352bcb98b310a030720917dc05740e8a",
+      "sourceHash": "1e689c16229f64ff68f626e0e6df90375618f43bf55e01e1623d9717ea740bb4",
+      "sourceLocator": "https://huggingface.co/datasets/nikketryhard/tenhou-houou-mjai/resolve/6450bb584cef43ede3b514df48e301a832c6818b/tenhou-houou-2009.tar#tenhou-houou-2009/2009120823gm-00a9-0000-56e74ddb.mjai.json.zst",
+      "roundOrdinal": 3,
+      "selfActor": 0,
+      "canonicalDecisionOrder": 28,
+      "split": "evaluation"
+    },
+    {
+      "id": "ce8306c88407880db5af144f",
+      "gameId": "rc1_6983eb2c0ac818490bd121a52eb9054b681773aff6462e313505db907b6aebab",
+      "sourceHash": "283e50e63b645e3be0a9a4a69575d603b8b411d613b008cd58371aee46f5594b",
+      "sourceLocator": "https://huggingface.co/datasets/nikketryhard/tenhou-houou-mjai/resolve/6450bb584cef43ede3b514df48e301a832c6818b/tenhou-houou-2009.tar#tenhou-houou-2009/2009122315gm-00a9-0000-8f848081.mjai.json.zst",
+      "roundOrdinal": 0,
+      "selfActor": 1,
+      "canonicalDecisionOrder": 1,
+      "split": "evaluation"
+    }
+  ],
+  "metrics": {
+    "version": "context-rag-report/v1",
+    "freezeHash": "3d4f42653f60810e226252f27211458c945fbb888ac4b18496d343ce02bbc91b",
+    "needsHash": "12c7ea75eea5c585ee105538f1daddd823eaf8a52f3950f0c581d8541358ec3f",
+    "scope": "8 fresh games, one paired generation; assistant pre-generation needs, not expert gold",
+    "arms": {
+      "baseline": {
+        "attempts": 8,
+        "completed": 8,
+        "failures": 0,
+        "diagnosticRequiredRecall": 0.1,
+        "covered": 2,
+        "required": 20,
+        "calls": 4,
+        "noHits": 0,
+        "noQueryRuns": 4,
+        "inapplicableReturned": 0,
+        "returnedCards": 9,
+        "invalidSourceRefs": 0,
+        "meanElapsedMs": 109589.625,
+        "meanReturnedChars": 303.875,
+        "knownTotalTokens": 403506,
+        "unknownUsageRuns": 0
+      },
+      "combined": {
+        "attempts": 8,
+        "completed": 8,
+        "failures": 0,
+        "diagnosticRequiredRecall": 0.35,
+        "covered": 7,
+        "required": 20,
+        "calls": 6,
+        "noHits": 0,
+        "noQueryRuns": 2,
+        "inapplicableReturned": 0,
+        "returnedCards": 15,
+        "invalidSourceRefs": 0,
+        "meanElapsedMs": 119990,
+        "meanReturnedChars": 805.875,
+        "knownTotalTokens": 439271,
+        "unknownUsageRuns": 0
+      }
+    },
+    "rows": [
+      {
+        "caseId": "1c19b6de7f92cbec43152ad5",
+        "gameId": "rc1_9afa22b072cd40387b3476b271ee6b1cb1c2ecdea3aa49abdb609fa9c54f8087",
+        "arm": "baseline",
+        "status": "completed",
+        "cardIds": [],
+        "required": 2,
+        "covered": 0,
+        "recall": 0,
+        "missing": [
+          "efficiency",
+          "open-defense"
+        ],
+        "inapplicable": [],
+        "queries": 0,
+        "noHits": 0,
+        "returnedChars": 0,
+        "invalidSourceRefs": [],
+        "cited": [],
+        "usageStatus": "reported",
+        "tokens": {
+          "inputTokens": 24379,
+          "cachedInputTokens": 0,
+          "outputTokens": 6988,
+          "totalTokens": 31367
+        },
+        "unreportedTurns": 0,
+        "elapsedMs": 82190,
+        "rationaleChars": 359
+      },
+      {
+        "caseId": "1c19b6de7f92cbec43152ad5",
+        "gameId": "rc1_9afa22b072cd40387b3476b271ee6b1cb1c2ecdea3aa49abdb609fa9c54f8087",
+        "arm": "combined",
+        "status": "completed",
+        "cardIds": [
+          "a12",
+          "b01",
+          "b02"
+        ],
+        "required": 2,
+        "covered": 1,
+        "recall": 0.5,
+        "missing": [
+          "open-defense"
+        ],
+        "inapplicable": [],
+        "queries": 1,
+        "noHits": 0,
+        "returnedChars": 1276,
+        "invalidSourceRefs": [],
+        "cited": [
+          "b01"
+        ],
+        "usageStatus": "reported",
+        "tokens": {
+          "inputTokens": 75381,
+          "cachedInputTokens": 24192,
+          "outputTokens": 5624,
+          "totalTokens": 81005
+        },
+        "unreportedTurns": 0,
+        "elapsedMs": 131180,
+        "rationaleChars": 378
+      },
+      {
+        "caseId": "4553495282f1bc96a522cbcf",
+        "gameId": "rc1_c41c3ea85af941afafa8f5a3934dceb7352bcb98b310a030720917dc05740e8a",
+        "arm": "baseline",
+        "status": "completed",
+        "cardIds": [],
+        "required": 1,
+        "covered": 0,
+        "recall": 0,
+        "missing": [
+          "efficiency"
+        ],
+        "inapplicable": [],
+        "queries": 0,
+        "noHits": 0,
+        "returnedChars": 0,
+        "invalidSourceRefs": [],
+        "cited": [],
+        "usageStatus": "reported",
+        "tokens": {
+          "inputTokens": 20779,
+          "cachedInputTokens": 0,
+          "outputTokens": 10803,
+          "totalTokens": 31582
+        },
+        "unreportedTurns": 0,
+        "elapsedMs": 107176,
+        "rationaleChars": 447
+      },
+      {
+        "caseId": "4553495282f1bc96a522cbcf",
+        "gameId": "rc1_c41c3ea85af941afafa8f5a3934dceb7352bcb98b310a030720917dc05740e8a",
+        "arm": "combined",
+        "status": "completed",
+        "cardIds": [
+          "a12",
+          "b02"
+        ],
+        "required": 1,
+        "covered": 1,
+        "recall": 1,
+        "missing": [],
+        "inapplicable": [],
+        "queries": 1,
+        "noHits": 0,
+        "returnedChars": 869,
+        "invalidSourceRefs": [],
+        "cited": [
+          "b02",
+          "a12"
+        ],
+        "usageStatus": "reported",
+        "tokens": {
+          "inputTokens": 64565,
+          "cachedInputTokens": 20608,
+          "outputTokens": 11783,
+          "totalTokens": 76348
+        },
+        "unreportedTurns": 0,
+        "elapsedMs": 143232,
+        "rationaleChars": 401
+      },
+      {
+        "caseId": "4d14f3d66ff4abe8ec499973",
+        "gameId": "rc1_88841c9201eb057cdbf6755900c2b96dd27b5a7dc647b2f692b4cbf76bb0001b",
+        "arm": "baseline",
+        "status": "completed",
+        "cardIds": [
+          "a04",
+          "b03"
+        ],
+        "required": 3,
+        "covered": 0,
+        "recall": 0,
+        "missing": [
+          "efficiency",
+          "chiitoitsu",
+          "placement"
+        ],
+        "inapplicable": [],
+        "queries": 1,
+        "noHits": 0,
+        "returnedChars": 546,
+        "invalidSourceRefs": [],
+        "cited": [
+          "a04",
+          "b03"
+        ],
+        "usageStatus": "reported",
+        "tokens": {
+          "inputTokens": 36947,
+          "cachedInputTokens": 0,
+          "outputTokens": 8412,
+          "totalTokens": 45359
+        },
+        "unreportedTurns": 0,
+        "elapsedMs": 133371,
+        "rationaleChars": 427
+      },
+      {
+        "caseId": "4d14f3d66ff4abe8ec499973",
+        "gameId": "rc1_88841c9201eb057cdbf6755900c2b96dd27b5a7dc647b2f692b4cbf76bb0001b",
+        "arm": "combined",
+        "status": "completed",
+        "cardIds": [
+          "b02",
+          "a04",
+          "a07"
+        ],
+        "required": 3,
+        "covered": 1,
+        "recall": 0.3333333333333333,
+        "missing": [
+          "chiitoitsu",
+          "placement"
+        ],
+        "inapplicable": [],
+        "queries": 1,
+        "noHits": 0,
+        "returnedChars": 1298,
+        "invalidSourceRefs": [],
+        "cited": [
+          "b02"
+        ],
+        "usageStatus": "reported",
+        "tokens": {
+          "inputTokens": 37757,
+          "cachedInputTokens": 0,
+          "outputTokens": 5664,
+          "totalTokens": 43421
+        },
+        "unreportedTurns": 0,
+        "elapsedMs": 100760,
+        "rationaleChars": 486
+      },
+      {
+        "caseId": "51357e5a77d34e75582c63ec",
+        "gameId": "rc1_2378cd58809a8145af731993e59939735636894b198ba3fd59ec0da54517a239",
+        "arm": "baseline",
+        "status": "completed",
+        "cardIds": [
+          "a07",
+          "a05"
+        ],
+        "required": 1,
+        "covered": 0,
+        "recall": 0,
+        "missing": [
+          "efficiency"
+        ],
+        "inapplicable": [],
+        "queries": 1,
+        "noHits": 0,
+        "returnedChars": 550,
+        "invalidSourceRefs": [],
+        "cited": [
+          "a05",
+          "a07"
+        ],
+        "usageStatus": "reported",
+        "tokens": {
+          "inputTokens": 76506,
+          "cachedInputTokens": 24832,
+          "outputTokens": 10510,
+          "totalTokens": 87016
+        },
+        "unreportedTurns": 0,
+        "elapsedMs": 145507,
+        "rationaleChars": 428
+      },
+      {
+        "caseId": "51357e5a77d34e75582c63ec",
+        "gameId": "rc1_2378cd58809a8145af731993e59939735636894b198ba3fd59ec0da54517a239",
+        "arm": "combined",
+        "status": "completed",
+        "cardIds": [
+          "b03",
+          "a01",
+          "a04"
+        ],
+        "required": 1,
+        "covered": 1,
+        "recall": 1,
+        "missing": [],
+        "inapplicable": [],
+        "queries": 1,
+        "noHits": 0,
+        "returnedChars": 1287,
+        "invalidSourceRefs": [],
+        "cited": [
+          "b03"
+        ],
+        "usageStatus": "reported",
+        "tokens": {
+          "inputTokens": 51770,
+          "cachedInputTokens": 0,
+          "outputTokens": 10490,
+          "totalTokens": 62260
+        },
+        "unreportedTurns": 0,
+        "elapsedMs": 150927,
+        "rationaleChars": 403
+      },
+      {
+        "caseId": "88f7b6735243ae3e25ddbea6",
+        "gameId": "rc1_1a023a4ab1c013048c92dd74fe19e674c41b9ae60080b864dbd13277f644c191",
+        "arm": "baseline",
+        "status": "completed",
+        "cardIds": [
+          "b02",
+          "b03"
+        ],
+        "required": 3,
+        "covered": 1,
+        "recall": 0.3333333333333333,
+        "missing": [
+          "yakuhai",
+          "dora"
+        ],
+        "inapplicable": [],
+        "queries": 1,
+        "noHits": 0,
+        "returnedChars": 532,
+        "invalidSourceRefs": [],
+        "cited": [
+          "b02"
+        ],
+        "usageStatus": "reported",
+        "tokens": {
+          "inputTokens": 39141,
+          "cachedInputTokens": 0,
+          "outputTokens": 6172,
+          "totalTokens": 45313
+        },
+        "unreportedTurns": 0,
+        "elapsedMs": 137229,
+        "rationaleChars": 266
+      },
+      {
+        "caseId": "88f7b6735243ae3e25ddbea6",
+        "gameId": "rc1_1a023a4ab1c013048c92dd74fe19e674c41b9ae60080b864dbd13277f644c191",
+        "arm": "combined",
+        "status": "completed",
+        "cardIds": [],
+        "required": 3,
+        "covered": 0,
+        "recall": 0,
+        "missing": [
+          "efficiency",
+          "yakuhai",
+          "dora"
+        ],
+        "inapplicable": [],
+        "queries": 0,
+        "noHits": 0,
+        "returnedChars": 0,
+        "invalidSourceRefs": [],
+        "cited": [],
+        "usageStatus": "reported",
+        "tokens": {
+          "inputTokens": 19018,
+          "cachedInputTokens": 0,
+          "outputTokens": 6627,
+          "totalTokens": 25645
+        },
+        "unreportedTurns": 0,
+        "elapsedMs": 95224,
+        "rationaleChars": 388
+      },
+      {
+        "caseId": "a641d905420baadc0e450db4",
+        "gameId": "rc1_d593898b6f730cdf98db52c69268201ba75c51df556f192dc812950d16db19f6",
+        "arm": "baseline",
+        "status": "completed",
+        "cardIds": [
+          "a12",
+          "b03",
+          "b04"
+        ],
+        "required": 4,
+        "covered": 1,
+        "recall": 0.25,
+        "missing": [
+          "placement",
+          "riichi-defense",
+          "open-defense"
+        ],
+        "inapplicable": [],
+        "queries": 1,
+        "noHits": 0,
+        "returnedChars": 803,
+        "invalidSourceRefs": [],
+        "cited": [
+          "a12"
+        ],
+        "usageStatus": "reported",
+        "tokens": {
+          "inputTokens": 85510,
+          "cachedInputTokens": 27392,
+          "outputTokens": 5506,
+          "totalTokens": 91016
+        },
+        "unreportedTurns": 0,
+        "elapsedMs": 104973,
+        "rationaleChars": 454
+      },
+      {
+        "caseId": "a641d905420baadc0e450db4",
+        "gameId": "rc1_d593898b6f730cdf98db52c69268201ba75c51df556f192dc812950d16db19f6",
+        "arm": "combined",
+        "status": "completed",
+        "cardIds": [],
+        "required": 4,
+        "covered": 0,
+        "recall": 0,
+        "missing": [
+          "placement",
+          "riichi-defense",
+          "push-fold",
+          "open-defense"
+        ],
+        "inapplicable": [],
+        "queries": 0,
+        "noHits": 0,
+        "returnedChars": 0,
+        "invalidSourceRefs": [],
+        "cited": [],
+        "usageStatus": "reported",
+        "tokens": {
+          "inputTokens": 27586,
+          "cachedInputTokens": 0,
+          "outputTokens": 6873,
+          "totalTokens": 34459
+        },
+        "unreportedTurns": 0,
+        "elapsedMs": 83933,
+        "rationaleChars": 350
+      },
+      {
+        "caseId": "b685672c68baf9eb24b172dd",
+        "gameId": "rc1_e4da9dc3cfa70a81e4a5402be01626e527911e338efa012bb233214634b84a6a",
+        "arm": "baseline",
+        "status": "completed",
+        "cardIds": [],
+        "required": 3,
+        "covered": 0,
+        "recall": 0,
+        "missing": [
+          "efficiency",
+          "yakuhai",
+          "chiitoitsu"
+        ],
+        "inapplicable": [],
+        "queries": 0,
+        "noHits": 0,
+        "returnedChars": 0,
+        "invalidSourceRefs": [],
+        "cited": [],
+        "usageStatus": "reported",
+        "tokens": {
+          "inputTokens": 39253,
+          "cachedInputTokens": 18560,
+          "outputTokens": 7839,
+          "totalTokens": 47092
+        },
+        "unreportedTurns": 0,
+        "elapsedMs": 94623,
+        "rationaleChars": 336
+      },
+      {
+        "caseId": "b685672c68baf9eb24b172dd",
+        "gameId": "rc1_e4da9dc3cfa70a81e4a5402be01626e527911e338efa012bb233214634b84a6a",
+        "arm": "combined",
+        "status": "completed",
+        "cardIds": [
+          "b02",
+          "a04"
+        ],
+        "required": 3,
+        "covered": 1,
+        "recall": 0.3333333333333333,
+        "missing": [
+          "yakuhai",
+          "chiitoitsu"
+        ],
+        "inapplicable": [],
+        "queries": 1,
+        "noHits": 0,
+        "returnedChars": 860,
+        "invalidSourceRefs": [],
+        "cited": [
+          "b02"
+        ],
+        "usageStatus": "reported",
+        "tokens": {
+          "inputTokens": 38818,
+          "cachedInputTokens": 0,
+          "outputTokens": 7643,
+          "totalTokens": 46461
+        },
+        "unreportedTurns": 0,
+        "elapsedMs": 123510,
+        "rationaleChars": 415
+      },
+      {
+        "caseId": "ce8306c88407880db5af144f",
+        "gameId": "rc1_6983eb2c0ac818490bd121a52eb9054b681773aff6462e313505db907b6aebab",
+        "arm": "baseline",
+        "status": "completed",
+        "cardIds": [],
+        "required": 3,
+        "covered": 0,
+        "recall": 0,
+        "missing": [
+          "efficiency",
+          "yakuhai",
+          "dora"
+        ],
+        "inapplicable": [],
+        "queries": 0,
+        "noHits": 0,
+        "returnedChars": 0,
+        "invalidSourceRefs": [],
+        "cited": [],
+        "usageStatus": "reported",
+        "tokens": {
+          "inputTokens": 19041,
+          "cachedInputTokens": 0,
+          "outputTokens": 5720,
+          "totalTokens": 24761
+        },
+        "unreportedTurns": 0,
+        "elapsedMs": 71648,
+        "rationaleChars": 399
+      },
+      {
+        "caseId": "ce8306c88407880db5af144f",
+        "gameId": "rc1_6983eb2c0ac818490bd121a52eb9054b681773aff6462e313505db907b6aebab",
+        "arm": "combined",
+        "status": "completed",
+        "cardIds": [
+          "b02",
+          "a03"
+        ],
+        "required": 3,
+        "covered": 2,
+        "recall": 0.6666666666666666,
+        "missing": [
+          "dora"
+        ],
+        "inapplicable": [],
+        "queries": 1,
+        "noHits": 0,
+        "returnedChars": 857,
+        "invalidSourceRefs": [],
+        "cited": [
+          "b02"
+        ],
+        "usageStatus": "reported",
+        "tokens": {
+          "inputTokens": 61094,
+          "cachedInputTokens": 18816,
+          "outputTokens": 8578,
+          "totalTokens": 69672
+        },
+        "unreportedTurns": 0,
+        "elapsedMs": 131154,
+        "rationaleChars": 403
+      }
+    ],
+    "completePairs": 8,
+    "costPairs": 8,
+    "recallDifference": {
+      "estimate": 0.40624999999999994,
+      "low": 0.07291666666666666,
+      "high": 0.7083333333333335,
+      "games": 8
+    },
+    "pairedTokenRatio": {
+      "estimate": 1.0886356088880957,
+      "low": 0.6693448523005415,
+      "high": 1.7941014266874475,
+      "games": 8
+    },
+    "initialRequestChecks": [
+      {
+        "caseId": "4d14f3d66ff4abe8ec499973",
+        "equal": true
+      },
+      {
+        "caseId": "1c19b6de7f92cbec43152ad5",
+        "equal": true
+      },
+      {
+        "caseId": "a641d905420baadc0e450db4",
+        "equal": true
+      },
+      {
+        "caseId": "b685672c68baf9eb24b172dd",
+        "equal": true
+      },
+      {
+        "caseId": "88f7b6735243ae3e25ddbea6",
+        "equal": true
+      },
+      {
+        "caseId": "51357e5a77d34e75582c63ec",
+        "equal": true
+      },
+      {
+        "caseId": "4553495282f1bc96a522cbcf",
+        "equal": true
+      },
+      {
+        "caseId": "ce8306c88407880db5af144f",
+        "equal": true
+      }
+    ],
+    "allAttemptsIncludingDevelopment": {
+      "attempts": 24,
+      "failures": 5,
+      "knownTokens": 944892,
+      "unknownUsageRuns": 5,
+      "priorFailedPilotDirectory": "E:/AgentData/Coach/context-rag-study-20261023"
+    },
+    "limitations": [
+      "No expert blind review: diagnostic recall does not establish final explanation quality.",
+      "8 games and one draw per model/arm; intervals are descriptive, not a broad validity claim.",
+      "Unknown failed-call usage is retained as unknown, never zero.",
+      "Context enrichment uses verified card metadata; expansion is to the full v2 parent card, not unverified raw textbook/image paragraphs."
+    ],
+    "queryReplaySummary": {
+      "baseline": {
+        "sequences": 10,
+        "covered": 9,
+        "required": 24,
+        "returnedChars": 6551
+      },
+      "combined": {
+        "sequences": 10,
+        "covered": 8,
+        "required": 24,
+        "returnedChars": 10238
+      }
+    }
+  },
+  "reportCodeHash": "c559f5046161d57dc45d98ba70ac9d68bb108cbe6eb68963852b0ca25df8544e",
+  "validation": {
+    "checks": [
+      {
+        "name": "index.html",
+        "scripts": 1,
+        "localLinksResolved": 333,
+        "playerPanels": 32
+      },
+      {
+        "name": "knowledge.html",
+        "scripts": 1,
+        "localLinksResolved": 1,
+        "playerPanels": 0
+      }
+    ],
+    "knowledgeCards": 40,
+    "formalRuns": 16,
+    "allFirstRequestsEqual": true,
+    "sourceReferenceChecks": "all valid",
+    "oldFrozenStudiesVerified": true,
+    "tests": {
+      "contextRag": 44,
+      "sceneStudy": 89,
+      "additionalArenaArchive": 10,
+      "additionalProvider": 3,
+      "uniqueTotal": 146
+    },
+    "typecheck": "passed",
+    "architecture": {
+      "packages": 8,
+      "files": 611,
+      "imports": 3121,
+      "violations": 0
+    },
+    "visualVerification": "Static markup/scripts/assets only; no live browser visual verification",
+    "initialFailures": [
+      "One synthetic context test used a term already present in body; corrected fixture query, kept assertion.",
+      "Four pilot attempts failed at terminal grading due to unsupported unavailable reason; preserved in separate archive, usage unknown.",
+      "Preflight .shape access on refined schema failed before provider; replaced with exported enum validation."
+    ],
+    "localResidue": "An extra copied resources/mahjong-facts/mahjong-facts directory is retained locally after automatic cleanup approval rejection; excluded from commit."
+  }
+}
