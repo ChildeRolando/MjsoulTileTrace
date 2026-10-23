@@ -1,56 +1,50 @@
-import { readFile, writeFile, mkdir } from 'node:fs/promises';
-import { join, resolve } from 'node:path';
-import { pathToFileURL } from 'node:url';
-
-const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]));
-
-export function validateLibrary(library) {
-  if (library.schema !== 'coach-textbook-index/1' || library.policy.cardRole !== 'index-only' || library.policy.modelExperiments !== false) throw new Error('textbook_index_policy');
-  const sources = new Map(library.sources.map(s => [s.id, s]));
-  const ids = new Set(library.chapters.map(c => c.id));
-  if (sources.size !== library.sources.length || ids.size !== library.chapters.length) throw new Error('textbook_duplicate_id');
-  for (const source of sources.values()) {
-    if (!/^[a-f0-9]{64}$/.test(source.sha256) || !/^[a-f0-9]{40}$/.test(source.gitBlob) || source.bytes <= 0) throw new Error('textbook_source_identity');
+import {readFile,writeFile,mkdir,access} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+import {join,resolve} from 'node:path';
+import {pathToFileURL} from 'node:url';
+const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+export function validateLibrary(library){
+ if(library.schema!=='coach-textbook-index/1'||library.policy.cardRole!=='index-only'||library.policy.modelExperiments!==false)throw Error('textbook_index_policy');
+ const sources=new Map(library.sources.map(s=>[s.id,s])),ids=new Set(library.chapters.map(c=>c.id));
+ if(sources.size!==library.sources.length||ids.size!==library.chapters.length)throw Error('textbook_duplicate_id');
+ for(const s of sources.values())if(!/^[a-f0-9]{64}$/.test(s.sha256)||!/^[a-f0-9]{40}$/.test(s.gitBlob)||s.bytes<=0)throw Error('textbook_source_identity');
+ for(const c of library.chapters){const s=sources.get(c.sourceId);
+  if(!s||s.format!=='pdf'||!Number.isInteger(c.startPage)||!Number.isInteger(c.endPage)||c.startPage<1||c.endPage>s.pages||c.startPage>c.bodyStartPage||c.bodyStartPage>c.endPage)throw Error('textbook_chapter_boundary');
+  if(['content','concept','conditions','exceptions'].some(k=>Object.hasOwn(c,k)))throw Error('textbook_index_contains_teaching_body');
+  if(c.anchors.some(a=>!Number.isInteger(a.page)||a.page<c.startPage||a.page>c.endPage)||c.relatedChapterIds.some(id=>!ids.has(id)))throw Error('textbook_index_reference');
+ }return library;
+}
+export function validateBodies(library,bodies){
+ if(bodies.schema!=='coach-textbook-bodies/1'||bodies.language!=='zh-CN'||bodies.modelExperiments!==false||bodies.chapters.length!==library.chapters.length)throw Error('textbook_body_policy');
+ const ids=new Set();
+ for(const c of library.chapters){const a=bodies.chapters.filter(b=>b.chapterId===c.id);
+  if(a.length!==1||a[0].sourceId!==c.sourceId||a[0].sourceSha256!==library.sources.find(s=>s.id===c.sourceId).sha256||!a[0].blocks.length)throw Error('textbook_body_source');
+  for(const b of a[0].blocks){if(ids.has(b.id)||b.page<c.bodyStartPage||b.page>c.endPage)throw Error('textbook_block_anchor');ids.add(b.id);
+   if(!['p','h2','list','figure'].includes(b.type))throw Error('textbook_block_type');
+   if(b.type==='figure'&&!/^assets\/[a-z0-9-]+\.png$/.test(b.src))throw Error('textbook_figure_path');
+   if(['p','h2'].includes(b.type)&&!b.text?.trim())throw Error('textbook_empty_body');
+   if(b.type==='list'&&!b.items?.length)throw Error('textbook_empty_list');
   }
-  for (const c of library.chapters) {
-    const s = sources.get(c.sourceId);
-    if (!s || s.language !== 'zh-CN' || s.format !== 'pdf' || !Number.isInteger(c.startPage) || !Number.isInteger(c.endPage) || c.startPage < 1 || c.endPage > s.pages || c.startPage > c.bodyStartPage || c.bodyStartPage > c.endPage) throw new Error('textbook_chapter_boundary');
-    if (['content', 'concept', 'conditions', 'exceptions'].some(k => Object.hasOwn(c, k))) throw new Error('textbook_index_contains_teaching_body');
-    if (c.anchors.some(a => !Number.isInteger(a.page) || a.page < c.startPage || a.page > c.endPage) || c.relatedChapterIds.some(id => !ids.has(id))) throw new Error('textbook_index_reference');
-  }
-  return library;
+ }return bodies;
 }
-
-export async function buildTextbookReview(destination) {
-  const library = validateLibrary(JSON.parse(await readFile(new URL('./textbook-library.json', import.meta.url), 'utf8')));
-  const css = await readFile(new URL('./textbook-review.css', import.meta.url), 'utf8');
-  const script = await readFile(new URL('./textbook-review-client.js', import.meta.url), 'utf8');
-  const links = library.chapters.map(c => `<a href="#${esc(c.id)}" data-chapter="${esc(c.id)}">${esc(c.title)}<small>PDF ${c.startPage}–${c.endPage} 页</small></a>`).join('');
-  const sources = library.sources.map(s => `<section><h3>${esc(s.title)}</h3><p>${esc(s.attribution)}</p><p>${esc(s.sourceNote)}</p><a href="https://github.com/${library.repository}/blob/${library.sourceCommit}/${encodeURIComponent(s.filename)}" target="_blank" rel="noopener noreferrer">查看来源文件</a></section>`).join('');
-  const data = JSON.stringify(library).replaceAll('<', '\\u003c');
-  const html = `<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(library.title)} · Coach</title><style>${css}</style></head>
-<body><header><strong>Coach · 中文教材审阅</strong><span>三章样稿 · 等待你的审核</span></header>
-<div class="reader-layout"><aside><nav aria-label="章节目录">${links}</nav><p class="quiet">目录只负责定位。正文阅读现成中文教材，保留完整论证、牌例与原有措辞。</p><button id="export-review" type="button">导出三章审核意见</button><p id="save-status" class="quiet" role="status"></p></aside>
-<main><h1 id="chapter-title"></h1><p id="chapter-location" class="quiet"></p><p id="chapter-index"></p><p id="chapter-boundary" class="boundary"></p>
-<div class="reading-controls"><button type="button" id="load-source">阅读本章中文教材</button><button type="button" id="cancel-load" hidden>取消加载</button><a id="source-link" target="_blank" rel="noopener noreferrer">打开来源文件</a><label class="local-file">从本机打开同一 PDF<input id="local-pdf" type="file" accept="application/pdf,.pdf"></label></div>
-<p id="reader-status" role="status">点击阅读会从你提供的仓库加载中文 PDF。也可选择已下载的同一文件。</p>
-<div id="page-controls" class="page-controls" hidden><label for="page-picker">教材页码</label><select id="page-picker"></select><a id="open-pdf" target="_blank" rel="noopener">在独立窗口阅读</a></div>
-<div id="page-anchors" class="page-anchors" aria-label="段落位置"></div>
-<div id="document-empty" class="document-empty"><p>教材正文在这里阅读</p><p>页面直接显示原 PDF，不经过摘要、重新翻译或牌图重绘。首次加载约 13.6 MB，三章共用同一文件。</p></div>
-<iframe id="document-frame" title="中文教材原 PDF" hidden></iframe>
-<section class="review"><h2>审核这一章</h2><p id="review-focus"></p><p class="quiet">下列意见评价本章是否适合作为知识正文，不等同于已经逐句核验译文。备注可写明教材页码和牌例。</p>
-<label for="review-choice">结论</label><select id="review-choice"><option value="pending">尚未审核</option><option value="accept">可作为正文</option><option value="revise">需要修订</option><option value="reject">不采用本章</option></select>
-<label for="review-comment">审核意见</label><textarea id="review-comment" rows="4" placeholder="例如：第 115–116 页的条件需要连读；某处译法或牌例需要核对。"></textarea></section>
-<details><summary>材料来源与整理说明</summary><p>知识卡仅保存主题、页码、段落位置和章节关系，不保存改写后的教材结论。三个样稿均使用已有中文译文；本轮未做日文逐句校勘，也未运行模型实验。</p>${sources}</details>
-</main></div><script id="library-data" type="application/json">${data}</script><script>${script}</script></body></html>`;
-  await mkdir(destination, { recursive: true });
-  await writeFile(join(destination, 'knowledge.html'), html, 'utf8');
-  await writeFile(join(destination, 'knowledge-index.json'), JSON.stringify(library, null, 2) + '\n', 'utf8');
-  return { entry: join(destination, 'knowledge.html'), chapters: library.chapters.length, copiedTeachingText: false, modelCalls: 0 };
+function blockHtml(b){
+ const attrs=`id="${esc(b.id)}" data-source-page="${b.page}"`,source=`<a class="paragraph-source" href="#${esc(b.id)}" aria-label="定位本段，教材第 ${b.page} 页">p.${b.page}</a>`;
+ if(b.type==='figure')return `<figure ${attrs}><a href="${esc(b.src)}" target="_blank" rel="noopener" aria-label="放大${esc(b.caption)}"><img src="${esc(b.src)}" loading="lazy" alt="${esc(b.caption)}${b.hand?'；手牌编码 '+esc(b.hand):'；图中摸牌、宝牌和副露标记来自原教材'}"></a><figcaption>${esc(b.caption)} · 点击牌图放大${source}</figcaption>${b.tableText?`<details><summary>表格文字</summary><table><tbody>${b.tableText.map(r=>`<tr><th scope="row">${esc(r[0])}</th><td>${esc(r[1])}</td></tr>`).join('')}</tbody></table></details>`:''}</figure>`;
+ if(b.type==='list')return `<div ${attrs}><ul>${b.items.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>${source}</div>`;
+ if(b.type==='h2')return `<h2 ${attrs}>${esc(b.text)}${source}</h2>`;
+ return `<p ${attrs} ${b.emphasis?'class="source-emphasis"':''}>${esc(b.text)}${source}</p>`;
 }
-
-if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
-  const output = process.argv[2];
-  if (!output) throw new Error('Usage: node scripts/scene-study/textbook-review.mjs OUTPUT_DIRECTORY');
-  console.log(JSON.stringify(await buildTextbookReview(resolve(output))));
+export async function buildTextbookReview(destination){
+ const library=validateLibrary(JSON.parse(await readFile(new URL('./textbook-library.json',import.meta.url),'utf8')));
+ const raw=await readFile(join(destination,'textbook-bodies.json'),'utf8'),bodies=validateBodies(library,JSON.parse(raw));
+ const bodySha256=createHash('sha256').update(raw).digest('hex');
+ for(const c of bodies.chapters)for(const b of c.blocks)if(b.type==='figure')await access(join(destination,b.src));
+ const css=await readFile(new URL('./textbook-review.css',import.meta.url),'utf8'),script=await readFile(new URL('./textbook-review-client.js',import.meta.url),'utf8');
+ const links=library.chapters.map(c=>`<a href="#${esc(c.id)}" data-chapter="${esc(c.id)}">${esc(c.title)}<small>${c.sourceId==='79-cn'?'79 博客 · 中文正文':'现代麻雀技术论 · 全文中译'}</small></a>`).join('');
+ const articles=library.chapters.map(c=>{const b=bodies.chapters.find(b=>b.chapterId===c.id);return `<article id="${esc(c.id)}" data-article="${esc(c.id)}"><h1>${esc(c.title)}</h1><p class="quiet">${esc(library.sources.find(s=>s.id===c.sourceId).title)} · 第 ${c.bodyStartPage}–${c.endPage} 页</p><details class="edition-note"><summary>译文与整理说明</summary><p>${esc(b.translatorNote)}</p></details><div class="chapter-body">${b.blocks.map(blockHtml).join('')}</div><p class="related">继续阅读：${c.relatedChapterIds.map(id=>`<a href="#${id}">${esc(library.chapters.find(x=>x.id===id).title)}</a>`).join(' · ')||'本组样稿的其他章节见目录'}</p></article>`;}).join('');
+ const data=JSON.stringify({...library,bodySha256}).replaceAll('<','\\u003c');
+ const html=`<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>中文教材审阅 · Coach</title><style>${css}</style></head><body><header><strong>Coach · 中文教材审阅</strong><span>四章完整正文 · 待审核</span></header><div class="reader-layout"><aside><nav aria-label="章节目录">${links}</nav><p class="quiet">直接阅读完整中文论证与原牌例。索引只负责定位，不替代教材正文。</p><button id="export-review" type="button">导出审核意见</button><p id="save-status" class="quiet" role="status"></p></aside><main><noscript><p>脚本未启用：下方仍可阅读全部章节，审核意见保存功能不可用。</p></noscript>${articles}<section class="review" id="review-panel" hidden><h2>审核这一章</h2><p id="review-focus"></p><label for="review-choice">结论</label><select id="review-choice"><option value="pending">尚未审核</option><option value="accept">可作为正文</option><option value="revise">需要修订</option><option value="reject">不采用本章</option></select><label for="review-comment">审核意见</label><textarea id="review-comment" rows="5" placeholder="可注明段落旁的页码、牌例和需要修改的译法。"></textarea></section><details><summary>知识库整理方式与来源</summary><p>本页仅使用你提供的本机教材。前三章保留现成中文译文；第四章为本次逐段中译。正文中的判断属于相应教材作者，不把不同教材的主张合成为一条规则。未运行模型实验。</p><p>当前知识库只保留这一份待审正文与索引，不提供旧摘要卡切换。已结束的实验档案不作为本库教材。</p><p><a href="./textbook-bodies.json">完整正文与出处数据</a> · <a href="./knowledge-index.json">章节索引</a></p></details></main></div><script id="library-data" type="application/json">${data}</script><script>${script}</script></body></html>`;
+ await mkdir(destination,{recursive:true});await writeFile(join(destination,'knowledge.html'),html,'utf8');await writeFile(join(destination,'knowledge-index.json'),JSON.stringify(library,null,2)+'\n','utf8');
+ return {entry:join(destination,'knowledge.html'),chapters:library.chapters.length,bodySha256,modelCalls:0};
 }
+if(process.argv[1]&&import.meta.url===pathToFileURL(resolve(process.argv[1])).href){if(!process.argv[2])throw Error('Usage: node scripts/scene-study/textbook-review.mjs OUTPUT_DIRECTORY');console.log(JSON.stringify(await buildTextbookReview(resolve(process.argv[2]))));}
