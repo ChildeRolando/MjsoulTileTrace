@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+// Run with node; also imported by the offline publication tests.
 import { appendFile, mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
 import { createHash, randomUUID } from 'node:crypto';
 import { spawn } from 'node:child_process';
@@ -191,7 +191,7 @@ async function callReviewer({ auditRoot, prompt, schema, images, binding, cliVer
     const output = result.output;
     const unexpectedTool = events.some(e => e.item && !['agent_message','reasoning'].includes(e.item.type));
     const success = auditTransportCompleted(result) && usage !== null && !unexpectedTool;
-    const record = { schema: 'coach-textbook-audit-call/1', callId, ...binding, startedAt, finishedAt: new Date().toISOString(), durationMs:result.durationMs, cliVersion, model: auditModel, reasoningEffort: auditReasoningEffort, parameters: { webSearch: 'disabled', tools: 'disabled', ephemeral: true, ignoreUserConfig: true, ignoreRules: true, sandbox: 'read-only', timeoutMs: 900000 }, promptSha256: sha(prompt), schemaSha256: sha(JSON.stringify(schema)), success, usage, exitCode: result.exitCode, timedOut: result.timedOut, outputOverflow:result.outputOverflow, unexpectedTool, transportDiagnostics:events.filter(e=>e.type==='error'),failure: success ? null : { stderr: result.stderr, eventErrors:events.filter(e=>['turn.failed','error'].includes(e.type)) }, outputSha256: output ? sha(JSON.stringify(output)) : null, structuredOutput:output,rawLastMessage:result.rawLastMessage??null,rawStdout:result.rawStdout??null,events };
+    const record = { schema: 'coach-textbook-audit-call/1', callId, ...binding, startedAt, finishedAt: new Date().toISOString(), durationMs:result.durationMs, cliVersion, model: auditModel, reasoningEffort: auditReasoningEffort, parameters: { webSearch: 'disabled', tools: 'capability-restricted; unexpected-tool-events-rejected', ephemeral: true, ignoreUserConfig: true, ignoreRules: true, sandbox: 'read-only', timeoutMs: 900000 }, promptSha256: sha(prompt), semanticPromptSha256:sha(prompt), requestPrompt:result.requestPrompt??null, requestPromptSha256:result.requestPromptSha256??null, schemaSha256: sha(JSON.stringify(schema)), success, usage, exitCode: result.exitCode, timedOut: result.timedOut, outputOverflow:result.outputOverflow, unexpectedTool, transportDiagnostics:events.filter(e=>e.type==='error'),failure: success ? null : { stderr: result.stderr, eventErrors:events.filter(e=>['turn.failed','error'].includes(e.type)) }, outputSha256: output ? sha(JSON.stringify(output)) : null, structuredOutput:output,rawLastMessage:result.rawLastMessage??null,rawStdout:result.rawStdout??null,events };
     await exclusiveJson(join(auditRoot, 'calls', `${callId}.json`), record);
     await appendFile(join(auditRoot, 'calls.jsonl'), JSON.stringify({ ...record, events: undefined }) + '\n');
     return { output, call: { ...record, events: undefined } };
@@ -388,6 +388,8 @@ export async function verifyAuditForCandidate(processingRoot, candidatePath) {
   const recovered=receipt.transportRecovery?await verifyTransportRecovery(processingRoot,receipt,fullCall):false;
   if ((!fullCall.success||!call.success)&&!recovered)throw Error('audit_model_call_not_completed');
   if (fullCall.outputSha256 !== call.outputSha256 || fullCall.productionSha256 !== candidateSha256 || fullCall.promptSha256 !== sha(reviewPrompt(source,page,candidate,context))) throw Error('audit_call_evidence_changed');
+  if(fullCall.requestPrompt!==undefined&&fullCall.requestPrompt!==null&&sha(fullCall.requestPrompt)!==fullCall.requestPromptSha256)throw Error('audit_actual_request_prompt_changed');
+  if(fullCall.semanticPromptSha256!==undefined&&fullCall.semanticPromptSha256!==fullCall.promptSha256)throw Error('audit_semantic_prompt_binding_changed');
   if(receipt.status==='needs-repair'||!validateReview(receipt.modelReview,page,candidate).passed||!receipt.modelChecks?.passed) {
     const resolution=await latestSourceAdjudication(processingRoot,receipt,candidate,page);
     return {...receipt,status:'passed-after-source-adjudication',...resolution};

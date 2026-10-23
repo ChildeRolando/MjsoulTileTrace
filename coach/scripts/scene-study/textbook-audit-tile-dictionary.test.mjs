@@ -1,0 +1,24 @@
+import {test} from 'vitest';
+import assert from 'node:assert/strict';
+import {validateTileDictionaryReview,resolveFirstTileSourceChecks} from './textbook-audit-tile-dictionary.mjs';
+import {sha} from './textbook-audit.mjs';
+
+test('symmetric white/back faces preserve visible geometry without inventing left/right orientation',()=>{
+ const assets=[{sha256:'white',url:'https://fixture/white',code:'5z',red:false,orientation:'unknown',width:32,height:24},{sha256:'back',url:'https://fixture/back',code:'back',red:false,orientation:'unknown',width:18,height:24}],review={checks:assets.map(a=>({sha256:a.sha256,verdict:'faithful',code:a.code,red:false,orientation:a.width>a.height?'sideways':'upright',evidence:'Clear blank tile or nonrevealing tile back; geometric placement visible.',sourceNotes:[]}))};const r=validateTileDictionaryReview(review,assets);assert.equal(r.passed,true);assert.deepEqual(r.acceptedAssets.map(a=>a.orientation),['sideways','upright']);assert.ok(r.acceptedAssets.every(a=>a.originalProposalOrientation==='unknown'&&a.sourceNotes.length));assert.equal(assets[0].orientation,'unknown');
+ review.checks[1].code='9z';assert.equal(validateTileDictionaryReview(review,assets).passed,false);
+});
+
+test('the five signed source resolutions cannot exempt another asset, altered check, source pixels or unresolved issue',()=>{
+ const ids=['729df3c45afcdd36ca11bb30317fbb3877fad7663ea857e70e01c25b6766f0f9','b3dd465d6b409b704aac6aa188d3f40982e2b03ae772971dbfc973ca90c35fcd','98a9ca43d846454256eec7275db1c180a04c2e21768a481a43f6fd09a249a67a','2536c411fc437664121670cc628118e22fb4d8b089ce45588b87b476c98bbc25','3059ee18f98fbb2f36a914b6f55601e22cf5545c312ccbbad399d1efab6722bd'];
+ const assets=ids.map((id,i)=>({sha256:id,url:'https://fixture/'+i,pixelSha256:'pixels'+i,width:i===2?32:24,height:i===2?24:32,code:i<2?'6s':i===3?'back':'5z',red:false,orientation:i<2?'upright':'unknown'}));
+ const review={checks:assets.map((a,i)=>({sha256:a.sha256,verdict:'needs-repair',code:i<2?'9s':a.code,red:false,orientation:i===2?'sideways':'upright',evidence:'Retained original model result.',sourceNotes:[]}))};
+ const resolutions=assets.map((a,i)=>({sha256:a.sha256,originalCheckSha256:sha(JSON.stringify(review.checks[i])),originalVerdict:'needs-repair',source:{sha256:a.sha256,width:a.width,height:a.height,pixelSha256:a.pixelSha256},accepted:{code:a.code,red:false,orientation:i===2?'sideways':'upright'},kind:i<2?'reviewer-visible-tile-misread':'symmetric-face-geometric-normalization',visibleSuitMarkCount:i<2?{columns:3,rows:2,total:6}:undefined,sourceNote:'Exact source review of this asset only.'}));
+ assert.equal(resolveFirstTileSourceChecks(review,resolutions,assets).acceptedAssets.length,5);assert.equal(review.checks[0].code,'9s');assert.equal(review.checks[0].verdict,'needs-repair');
+ for(const mutate of [r=>r.pop(),r=>r[0].sha256='different',r=>r[0].originalCheckSha256='changed',r=>r[0].source.pixelSha256='changed',r=>r[0].visibleSuitMarkCount={columns:3,rows:3,total:9},r=>r[2].accepted.orientation='sideways-left']){const r=structuredClone(resolutions);mutate(r);assert.throws(()=>resolveFirstTileSourceChecks(review,r,assets));}
+ const uncertain=structuredClone(review);uncertain.checks[0].verdict='uncertain';const altered=structuredClone(resolutions);altered[0].originalVerdict='uncertain';altered[0].originalCheckSha256=sha(JSON.stringify(uncertain.checks[0]));assert.throws(()=>resolveFirstTileSourceChecks(uncertain,altered,assets),/source_or_check_changed/);
+ const extraAsset={sha256:'other',url:'https://fixture/other',code:'1m',red:false,orientation:'upright',width:24,height:32};const extraReview=structuredClone(review);extraReview.checks.push({sha256:'other',verdict:'uncertain',code:'1m',red:false,orientation:'upright',evidence:'Another unresolved issue',sourceNotes:[]});assert.throws(()=>resolveFirstTileSourceChecks(extraReview,resolutions,[...assets,extraAsset]),/other_issue_unresolved/);
+});
+
+test('visible code, red-five flag, direction and unique coverage remain mandatory',()=>{
+ const assets=[{sha256:'five',url:'https://fixture/five',code:'5m',red:true,orientation:'upright',width:24,height:32}],review={checks:[{sha256:'five',verdict:'faithful',code:'5m',red:true,orientation:'upright',evidence:'Red rank-five face.',sourceNotes:[]}]};assert.equal(validateTileDictionaryReview(review,assets).passed,true);review.checks[0].red=false;assert.equal(validateTileDictionaryReview(review,assets).passed,false);review.checks[0].red=true;review.checks[0].verdict='uncertain';assert.equal(validateTileDictionaryReview(review,assets).passed,false);review.checks[0].verdict='faithful';review.checks[0].orientation='sideways-left';assert.equal(validateTileDictionaryReview(review,assets).passed,false);review.checks[0].orientation='upright';review.checks.push({...review.checks[0]});assert.equal(validateTileDictionaryReview(review,assets).passed,false);
+});
