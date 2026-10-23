@@ -108,3 +108,5 @@ export * from "./factors/discard-loss.js";
 export { cloneWithSharedPackageEvidence } from "./analysis/shared-package-evidence.js";
 export * from "./scene-patterns.js";
 export * from "./scene-pattern-facts.js";
+
+export * from "./scene-patterns-extended.js";

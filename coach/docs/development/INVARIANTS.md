@@ -480,3 +480,6 @@ Model/report evidence provider（模型/报告证据来源）
 RCPKG02 只无损压缩存储字节，canonical hash/领域 ID 不变；旧块表示迁移必须原子回滚，
 每块解压有上限。由 package-artifact-storage、review-session-persistence 和 coach-worker
 回归保护；真实大档案响应指标记录于绑定版本的外部回执，不用小 fixture 替代。
+
+全量扩展的分页阅读、同运行完整论证引用授权、图片按需哈希校验与失败封闭发布流程，见
+[全量教材加工与接入](../plans/2026-10-24-full-textbook-processing.md)。发布不能将自动校对通过表述为人工内容审核；现有四章与全量正文不得重复作为两套有效索引。

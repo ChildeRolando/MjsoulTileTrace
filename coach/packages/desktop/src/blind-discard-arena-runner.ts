@@ -18,8 +18,8 @@ import {
 } from "@riichi-coach/contracts";
 import { z } from "zod";
 import { ScenePatternFactsSchema } from "@riichi-coach/contracts";
-import { matchScenePatterns } from "@riichi-coach/reasoning";
-const SceneStudyContextSchema = z.object({ facts: ScenePatternFactsSchema, enablePatterns: z.boolean() }).strict();
+import { matchScenePatterns, matchExtendedScenePatterns } from "@riichi-coach/reasoning";
+const SceneStudyContextSchema = z.object({ facts: ScenePatternFactsSchema, enablePatterns: z.boolean(), enableExtendedPatterns: z.boolean().optional() }).strict();
 export const SCENE_STUDY_PROMPT_VERSION = "arena-scene-study/v2";
 import { createArenaScoringCaseInput, scoreArenaBatch } from "./blind-discard-arena-scorer.js";
 import { validateArenaSubmission } from "./blind-discard-arena.js";
@@ -746,6 +746,7 @@ export async function runBlindCoachCase(input: {
     messages[0] = {role:"system",content:ARENA_TOOL_CALL_PROMPT+"\n本次为专家讲解试验。最终rationale请用约400—700字简体中文说明主要问题、候选比较、建议理由与适用限制。完整事实补充不是行动结论。未见枚数不是活牌山枚数。非现物不是确定危险；副露不是确认听牌。可自主检索、改写查询或不采纳模式提示；检索内容是来源观点而不是当前局面事实。引用知识时在对应论述旁写章节标题，并在sourceRefs列出引用标识；不得用来源支持其未讨论的当前局面事实。"};
     messages.push({role:"user",content:`完整事实补充：\n${stableJson(sceneStudy.facts)}`});
     if(sceneStudy.enablePatterns) messages.push({role:"user",content:matchScenePatterns(sceneStudy.facts).text});
+    if(sceneStudy.enableExtendedPatterns) messages.push({role:"user",content:matchExtendedScenePatterns(sceneStudy.facts,{completeLegalActionRefs:observation.candidates.map(c=>c.actionRef)}).text});
   }
 
   const toolDefinitions = [...toolMap.values()].map(providerTool);

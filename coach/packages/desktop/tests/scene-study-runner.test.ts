@@ -10,4 +10,10 @@ describe('isolated scene study prompt and citation boundary',()=>{
    expect(JSON.stringify(requests[0])).not.toContain('以下是检索关注点');expect(JSON.stringify(requests[1])).toContain('以下是检索关注点');
  });
  it('rejects unaliased references and action-set mismatch before provider access',async()=>{const x=fixture();let calls=0;const invoke=()=>runBlindCoachCase({observation:x.observation,sceneStudy:{facts:x.facts,enablePatterns:true},grading:{binding:x.authorizedCase.binding,reference:{status:'unavailable',reason:'not_requested_in_scene_study'}},tools:[],provider:{descriptor:()=>({providerId:'test',model:'fixed',protocolVersion:'arena-function-call/v1'}),request:async()=>{calls++;return {status:'provider_error'};}}});x.facts.evidenceRefs=['game:CANARY/0/1/0'];await expect(invoke()).rejects.toThrow('arena_scene_study_binding_invalid');expect(calls).toBe(0);});
+ it('extra patterns require explicit assembly and are recorded with the run',async()=>{
+  const x=fixture();x.facts.acceptedRiichiActors=[1];let wire="";
+  const result=await runBlindCoachCase({observation:x.observation,sceneStudy:{facts:x.facts,enablePatterns:false,enableExtendedPatterns:true},grading:{binding:x.authorizedCase.binding,reference:{status:'unavailable',reason:'not_requested_in_scene_study'}},tools:[],provider:{descriptor:()=>({providerId:'test',model:'fixed',protocolVersion:'arena-function-call/v1'}),request:async request=>{wire=JSON.stringify(request);return {status:'provider_error'};}}});
+  expect(wire).toContain('[P21]');expect(wire).not.toContain('以下是检索关注点');expect(JSON.stringify(result.events)).toContain('enableExtendedPatterns');
+ });
+
 });

@@ -2,15 +2,16 @@ import {readFile,writeFile,realpath} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {join,resolve,relative,isAbsolute,sep} from 'node:path';
 import {pathToFileURL} from 'node:url';
-import {TextbookUnitSchema} from '@riichi-coach/contracts';
+import {TextbookUnitSchema,TEXTBOOK_LIMITS} from '@riichi-coach/contracts';
 import {textbookCorpusId,validateTextbookCorpus} from '@riichi-coach/desktop/textbook-knowledge';
 import {validateLibrary,validateBodies} from './textbook-review.mjs';
 const sha=x=>createHash('sha256').update(x).digest('hex');
 
-export async function compileTextbookCorpus(directory){
+export async function compileTextbookCorpus(directory, suppliedDefinitions){
  const root=await realpath(directory),library=validateLibrary(JSON.parse(await readFile(join(root,'knowledge-index.json'),'utf8')));
  const bytes=await readFile(join(root,'textbook-bodies.json')),bodies=validateBodies(library,JSON.parse(bytes));
- const definitions=JSON.parse(await readFile(new URL('./textbook-units.json',import.meta.url),'utf8'));
+ let definitions=suppliedDefinitions;
+ if(!definitions){try{definitions=JSON.parse(await readFile(join(root,'textbook-unit-map.json'),'utf8'));}catch(e){if(e.code!=='ENOENT')throw e;definitions=JSON.parse(await readFile(new URL('./textbook-units.json',import.meta.url),'utf8'));}}
  const units=[],images=[],used=new Set();
  for(const d of definitions){
   const chapter=library.chapters.find(c=>c.id===d.chapterId),body=bodies.chapters.find(c=>c.chapterId===d.chapterId);
@@ -21,9 +22,9 @@ export async function compileTextbookCorpus(directory){
    if(b.type==='figure'){
     const full=await realpath(join(root,b.src)),rel=relative(root,full);
     if(isAbsolute(rel)||rel==='..'||rel.startsWith('..'+sep))throw Error('textbook_image_outside_root');
-    const imageSha256=sha(await readFile(full));
+    const imageBytes=await readFile(full);if(imageBytes.length>TEXTBOOK_LIMITS.maxImageBytes)throw Error('textbook_image_over_budget');const imageSha256=sha(imageBytes);
     images.push({figureId:b.id,path:b.src,sha256:imageSha256});
-    const transcription=b.hand||b.tableText||b.diagram?{...(b.hand?{hand:b.hand,decision:b.decision,...(b.conditions?{conditions:b.conditions}:{})}:{}),...(b.tableText?{table:b.tableText}:{}),...(b.diagram?{diagram:b.diagram}:{})}:null;
+    const transcription=b.hand||b.tableText||b.diagram||b.transcriptionText?{...(b.transcriptionText?{text:b.transcriptionText}:{}),...(b.hand?{hand:b.hand,decision:b.decision,...(b.conditions?{conditions:b.conditions}:{})}:{}),...(b.tableText?{table:b.tableText}:{}),...(b.diagram?{diagram:b.diagram}:{})}:null;
     blocks.push({type:'figure',id:b.id,page:b.page,figure:{figureId:b.id,unitId:d.id,page:b.page,caption:b.caption,imageSha256,transcription,requiresImageForFullExample:transcription===null}});
    }else blocks.push({type:b.type,id:b.id,page:b.page,...(b.type==='list'?{items:b.items}:{text:b.text})});
   }
@@ -32,7 +33,7 @@ export async function compileTextbookCorpus(directory){
    previousUnitId:siblings[at-1]?.id??null,nextUnitId:siblings[at+1]?.id??null,blocks}));
  }
  if(used.size!==bodies.chapters.reduce((n,c)=>n+c.blocks.length,0))throw Error('textbook_unindexed_body');
- const data={schema:'coach-textbook-corpus/1',bodySha256:sha(bytes),reviewStatus:'text-extraction-accepted-content-review-pending',units,images};
+ const data={schema:'coach-textbook-corpus/1',bodySha256:sha(bytes),reviewStatus:library.status==='full-textbook-auto-audited'?'batch-audited-content-review-pending':'text-extraction-accepted-content-review-pending',units,images};
  const corpus=validateTextbookCorpus({...data,corpusId:textbookCorpusId(data)});
  await writeFile(join(root,'textbook-corpus.json'),JSON.stringify(corpus,null,2)+'\n');
  const receipt={chapters:library.chapters.length,units:units.length,blocks:used.size,figures:images.length,corpusId:corpus.corpusId,bodySha256:corpus.bodySha256,maxUnitBytes:Math.max(...units.map(u=>Buffer.byteLength(JSON.stringify(u)))),modelCalls:0};

@@ -14,7 +14,7 @@ describe("textbook MCP over real stdio",()=>{
  it("advertises three read-only tools, returns exact native image bytes, and rejects arbitrary files",async()=>{
   const f=await writeFixtureCorpus(),client=new Client({name:"test",version:"1"});
   try{
-   await client.connect(transport(f.directory));const {tools}=await client.listTools();expect(tools.map(t=>t.name)).toEqual(["search_textbook","read_textbook","view_textbook_figure"]);
+   await client.connect(transport(f.directory));const {tools}=await client.listTools();expect(tools.map(t=>t.name)).toEqual(["search_textbook","read_textbook","view_textbook_figure","catalog_textbook"]);
    expect(tools.every(t=>t.annotations?.readOnlyHint===true)).toBe(true);
    const result=await client.callTool({name:"view_textbook_figure",arguments:{figureId:"pairs-b2"}});
    expect(result.isError).not.toBe(true);expect(result.content).toEqual(expect.arrayContaining([expect.objectContaining({type:"image",data:png.toString("base64"),mimeType:"image/png"})]));

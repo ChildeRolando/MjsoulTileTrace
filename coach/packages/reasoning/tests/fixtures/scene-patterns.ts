@@ -1,0 +1,5 @@
+import {canonicalActionRef,type ScenePatternFacts,type ScenePatternCandidate} from '@riichi-coach/contracts';
+export function patternFixture():ScenePatternFacts {
+  const candidate=(id:'1m'|'2m',tile34:number):ScenePatternCandidate=>({actionRef:canonicalActionRef({kind:'discard',tile:{id,red:false},discardMode:'tedashi'}),tile34,exactPairKinds:[],yakuhaiPairKinds:[],suitCounts:[4,4,4],shanten:3,standardShanten:3,chiitoitsuShanten:4,ukeire:10,dora:0,waits:[],furiten:false,safety:[{actor:1,genbutsu:false},{actor:2,genbutsu:false}],evidenceRefs:['fact']});
+  return {version:'scene-pattern-facts/v1',caseRef:'case',selfActor:0,noMeldOrKan:true,selfDora:0,selfYakuhaiPairKinds:[],selfSuitCounts:[4,4,4],acceptedRiichiActors:[],opponents:[1,2,3].map(actor=>({actor,openMeldCount:0,exposedYakuhai:false,exposedDora:0,openNumericSuits:[],evidenceRefs:['fact']})),recentNonGenbutsu:[],remainingDraws:40,southFourHanchan:false,scoresKnown:true,candidates:[candidate('1m',0),candidate('2m',1)],evidenceRefs:['fact']};
+}

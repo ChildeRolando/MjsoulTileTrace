@@ -40,7 +40,7 @@ describe("complete textbook knowledge",()=>{
   const f=await writeFixtureCorpus();try{
    const k=await loadTextbookKnowledge(f.directory);const original=await k.image("pairs-b2");original[0]=0;
    expect((await k.image("pairs-b2"))[0]).toBe(137);
-   await writeFile(join(f.directory,"assets/example.png"),"corrupt");await expect(loadTextbookKnowledge(f.directory)).rejects.toThrow("image_changed");
+   await writeFile(join(f.directory,"assets/example.png"),"corrupt");await expect(k.image("pairs-b2")).rejects.toThrow("image_changed");await expect((await loadTextbookKnowledge(f.directory)).image("pairs-b2")).rejects.toThrow("image_changed");
    await writeFile(join(f.directory,"textbook-bodies.json"),"new body");await expect(loadTextbookKnowledge(f.directory)).rejects.toThrow("body_changed");
   }finally{await f.cleanup();}
  });
@@ -64,5 +64,38 @@ describe("complete textbook knowledge",()=>{
   const detail=await tools[2]!.execute({figureId:"pairs-b2"},context);
   expect(detail).toMatchObject({result:{figure:{transcription:{diagram},requiresImageForFullExample:false}}});
   expect(tools[2]!.references(detail).sourceRefs).toHaveLength(1);expect(tools[2]!.references(detail).evidenceRefs).toEqual([]);
+ });
+});
+
+
+describe("full textbook navigation",()=>{
+ it("paginates every chapter and unit without dropping chapters from a large corpus",async()=>{
+  const c=fixtureCorpus(),template=c.units[1]!;c.images=[];
+  c.units=Array.from({length:41},(_,i)=>({...template,unitId:`unit-${i}`,chapterId:`chapter-${i}`,previousUnitId:null,nextUnitId:null,blocks:[{type:"p" as const,id:`block-${i}`,page:template.source.pages[0]!,text:`完整正文 ${i}`}]}));c.corpusId=textbookCorpusId(c);
+  const port=createTextbookKnowledge(c),seen:string[]=[];let offset:number|null=0;
+  do{const r=await port.catalog({offset,limit:20});seen.push(...r.entries.map(x=>x.chapterId));offset=r.nextOffset;}while(offset!==null);
+  expect(new Set(seen).size).toBe(41);expect((await port.catalog({chapterId:"chapter-40"})).entries[0]!.unitId).toBe("unit-40");
+  expect((await port.search({query:"完整正文",limit:5})).chapters.length).toBeLessThanOrEqual(5);
+  await expect(port.catalog({offset:42})).rejects.toThrow("cursor");
+ });
+ it("shrinks catalog pages by bytes with a resumable cursor instead of omitting entries",async()=>{
+  const c=fixtureCorpus(),template=c.units[1]!;c.images=[];c.units=Array.from({length:20},(_,i)=>({...template,unitId:`wide-${i}`,chapterId:`wide-chapter-${i}`,previousUnitId:null,nextUnitId:null,source:{...template.source,pages:Array.from({length:800},(_,n)=>n+1)},blocks:[{type:"p" as const,id:`wide-block-${i}`,page:1,text:"正文"}]}));c.corpusId=textbookCorpusId(c);
+  const port=createTextbookKnowledge(c),seen:string[]=[];let offset:number|null=0;
+  do{const result=await port.catalog({offset,limit:20});expect(Buffer.byteLength(JSON.stringify(result))).toBeLessThan(15000);seen.push(...result.entries.map(x=>x.chapterId));offset=result.nextOffset;}while(offset!==null);
+  expect(new Set(seen).size).toBe(20);
+  const searchSeen:string[]=[];offset=0;
+  do{const result=await port.search({query:"正文",limit:5,offset});expect(Buffer.byteLength(JSON.stringify(result))).toBeLessThan(15000);searchSeen.push(...result.hits.map(x=>x.unitId));offset=result.nextOffset;}while(offset!==null);
+  expect(new Set(searchSeen).size).toBe(20);
+ });
+ it("preserves a long argument in bounded consecutive reads and withholds citations for skipped blocks",async()=>{
+  const c=fixtureCorpus(),u=c.units[0]!;c.images=[];c.units=[{...u,previousUnitId:null,nextUnitId:null,blocks:Array.from({length:20},(_,i)=>({type:"p" as const,id:`long-${i}`,page:1,text:`段落${i}：`+"完整条件和例外。".repeat(100)}))}];c.corpusId=textbookCorpusId(c);
+  const port=createTextbookKnowledge(c),fixture=makeArenaMcpCase(),tools=createArenaTextbookTools({caseRef:fixture.observation.caseRef,aliases:fixture.aliases,knowledge:port}),tool=tools[1]!,context={caseRef:fixture.observation.caseRef,signal:new AbortController().signal};
+  const tail=await tool.execute({unitId:u.unitId,blockOffset:19},context);expect(tool.references(tail).sourceRefs).toEqual([]);
+  expect(tail).toMatchObject({result:{completeArgument:false,nextBlockOffset:null}});
+  let offset:number|null=0;const blocks:unknown[]=[];let last:unknown;
+  do{const r=await port.read({unitId:u.unitId,blockOffset:offset});expect(Buffer.byteLength(JSON.stringify(r))).toBeLessThan(15000);expect(r.completeArgument).toBe(false);blocks.push(...r.unit.blocks);last=await tool.execute({unitId:u.unitId,blockOffset:offset},context);offset=r.nextBlockOffset;}while(offset!==null);
+  expect(blocks).toEqual(c.units[0]!.blocks);expect(tool.references(last).sourceRefs).toHaveLength(1);
+  const isolated=createArenaTextbookTools({caseRef:fixture.observation.caseRef,aliases:fixture.aliases,knowledge:port})[1]!;
+  expect(isolated.references(await isolated.execute({unitId:u.unitId,blockOffset:19},context)).sourceRefs).toEqual([]);
  });
 });

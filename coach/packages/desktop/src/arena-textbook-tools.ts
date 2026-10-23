@@ -11,13 +11,21 @@ const Envelope=z.object({caseRef:ArenaCaseRefSchema,sourceRefs:z.array(ArenaOpaq
 export function createArenaTextbookTools(input:{caseRef:string;aliases:Pick<ArenaRunAliasVault,"reference">;knowledge:TextbookKnowledgePort;dispose?:()=>Promise<void>}):ArenaRunnerTool[]{
   const caseRef=ArenaCaseRefSchema.parse(input.caseRef);
   let disposed=false;
+  const readBlocks=new Map<string,Set<number>>();
   return textbookTools(input.knowledge).map(tool=>({
     name:tool.name,description:tool.description+" 当前 Arena 只接收文字，图片未传入模型。只能依据正文和非空 transcription；未转录的牌图不能作为已读事实。",parameters:tool.parameters,
     parseInput:raw=>tool.schema.parse(raw),
     async execute(raw,context){
       if(context.caseRef!==caseRef)throw Error("case_mismatch");context.signal.throwIfAborted();
       const result=TextbookResultSchema.parse(await tool.call(raw,context.signal));
-      const id=result.kind==="read"?result.unit.unitId:result.kind==="figure"&&result.figure.transcription?result.figure.figureId:null;
+      let completeReadId:string|null=null;
+      if(result.kind==="read"){
+        const key=`${result.corpusId}:${result.unit.unitId}`,seen=readBlocks.get(key)??new Set<number>();
+        for(let i=result.blockOffset;i<result.blockOffset+result.unit.blocks.length;i++)seen.add(i);
+        readBlocks.set(key,seen);
+        if(seen.size===result.totalBlocks&&Array.from({length:result.totalBlocks},(_,i)=>i).every(i=>seen.has(i)))completeReadId=result.unit.unitId;
+      }
+      const id=result.kind==="read"?completeReadId:result.kind==="figure"&&result.figure.transcription?result.figure.figureId:null;
       return Envelope.parse({caseRef,result,imageDelivery:"not-delivered-text-only",sourceRefs:id?[input.aliases.reference(`textbook/v1\0${result.corpusId}\0${id}`)]:[]});
     },
     parseOutput(raw){const r=Envelope.parse(raw);if(r.caseRef!==caseRef)throw Error("case_mismatch");return r;},
