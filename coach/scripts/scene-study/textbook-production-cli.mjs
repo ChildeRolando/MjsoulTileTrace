@@ -46,6 +46,13 @@ export function usageEvents(stdout) {
   }
   return { events, usage };
 }
+export function isTextbookTransportDiagnosticItem(event) {
+  const item=event?.item;
+  return item?.type==='error' && Object.keys(item).every(k=>['id','type','message'].includes(k)) && item.message==='Falling back from WebSockets to HTTPS transport. stream disconnected before completion: tls handshake eof';
+}
+export function hasUnexpectedTextbookTool(events,{allowRecoveredTransportDiagnostics=false}={}) {
+  return events.some(e=>e.item&&!['agent_message','reasoning'].includes(e.item.type)&&!(allowRecoveredTransportDiagnostics&&isTextbookTransportDiagnosticItem(e)));
+}
 
 export function parseTextbookCliResult(result, rawLastMessage) {
   const { events, usage } = usageEvents(result.stdout);
@@ -56,7 +63,8 @@ export function parseTextbookCliResult(result, rawLastMessage) {
   // process exit, and valid JSON rather than treating any earlier notice as terminal.
   const completed = events.some(e => e.type === 'turn.completed');
   const lastTurn = events.filter(e => e.type === 'turn.completed' || e.type === 'turn.failed').at(-1);
-  const unexpectedTool = events.some(e => e.item && !['agent_message','reasoning'].includes(e.item.type));
+  const allowRecoveredTransportDiagnostics=result.code===0&&!result.timedOut&&!result.overflow&&completed&&lastTurn?.type==='turn.completed'&&output!==null&&Number.isFinite(usage?.inputTokens)&&Number.isFinite(usage?.outputTokens);
+  const unexpectedTool = hasUnexpectedTextbookTool(events,{allowRecoveredTransportDiagnostics});
   return { output, rawLastMessage, rawStdout: result.stdout, usage, events, terminalEvents,
     unexpectedTool,
     exitCode: result.code, timedOut: result.timedOut, outputOverflow: result.overflow, stderr: result.stderr,

@@ -115,8 +115,8 @@ function imageRows(sourceId, page, owners, padding = 18) {
 function schemaFor(page, regions, japanese) {
   const textIds = page.blocks.filter(b => b.type === 'text').map(b => b.id);
   const flowItems = [];
-  if (textIds.length) flowItems.push({ type: 'object', additionalProperties: false, properties: { kind: { const: 'text' }, sourceBlockIds: { type: 'array', minItems: 1, items: { type: 'string', enum: textIds } }, text: { type: 'string', minLength: 1 } }, required: ['kind','sourceBlockIds','text'] });
-  if (regions.length) flowItems.push({ type: 'object', additionalProperties: false, properties: { kind: { const: 'figure' }, regionId: { type: 'string', enum: regions.map(r => r.regionId) } }, required: ['kind','regionId'] });
+  if (textIds.length) flowItems.push({ type: 'object', additionalProperties: false, properties: { kind: { type:'string',const: 'text' }, sourceBlockIds: { type: 'array', minItems: 1, items: { type: 'string', enum: textIds } }, text: { type: 'string', minLength: 1 } }, required: ['kind','sourceBlockIds','text'] });
+  if (regions.length) flowItems.push({ type: 'object', additionalProperties: false, properties: { kind: { type:'string',const: 'figure' }, regionId: { type: 'string', enum: regions.map(r => r.regionId) } }, required: ['kind','regionId'] });
   const pageFlow = { type: 'array', minItems: (textIds.length || regions.length) ? 1 : 0 };
   if (flowItems.length) pageFlow.items = { anyOf: flowItems };
   else { pageFlow.maxItems=0; pageFlow.items={type:'string'}; }
@@ -144,6 +144,7 @@ if (args.includes('--self-check')) {
   if (textOnly.properties.pageFlow.items.anyOf.length !== 1 || textOnly.properties.pageFlow.items.anyOf[0].properties.sourceBlockIds.items.enum.length !== 1) throw new Error('text_only_schema_invalid');
   if (imageOnly.properties.pageFlow.items.anyOf.length !== 1 || imageOnly.properties.figures.items.properties.regionId.enum.length !== 1) throw new Error('image_only_schema_invalid');
   if (JSON.stringify([empty,textOnly,imageOnly]).includes('uniqueItems') || JSON.stringify([empty,textOnly,imageOnly]).includes('"enum":[]')) throw new Error('unsupported_empty_enum_or_uniqueItems');
+  for(const schema of [empty,textOnly,imageOnly]){const walk=value=>{if(!value||typeof value!=='object')return;if(('const'in value||'enum'in value)&&!value.type)throw Error('enum_or_const_missing_type');for(const child of Object.values(value))walk(child);};walk(schema);}
   let crossUnitRejected=false;try{validateFlow([{kind:'text',sourceBlockIds:['t1','t2'],text:'x'}],['t1','t2'],[],new Map([['t1',{unitId:'u1'}],['t2',{unitId:'u2'}]]),new Set());}catch(e){crossUnitRejected=e.message==='paragraph_crosses_unit_boundary';}
   let mergedTitleRejected=false;try{validateFlow([{kind:'text',sourceBlockIds:['title','t1'],text:'x'}],['title','t1'],[],new Map([['title',{unitId:'u1'}],['t1',{unitId:'u1'}]]),new Set(['title']));}catch(e){mergedTitleRejected=e.message==='title_source_must_be_singleton';}
   if(!crossUnitRejected||!mergedTitleRejected)throw new Error('chapter_boundary_fixture_failed');
