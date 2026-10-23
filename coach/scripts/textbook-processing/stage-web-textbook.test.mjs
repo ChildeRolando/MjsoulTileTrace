@@ -3,9 +3,17 @@ import {mkdtemp,writeFile,readFile,rm,stat} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {join,resolve,sep} from 'node:path';
 import {createHash} from 'node:crypto';
-import {stageWebTextbook,composeWebParagraphs,compactInlineTiles} from './stage-web-textbook.mjs';
+import {stageWebTextbook,composeWebParagraphs,compactInlineTiles,sliceSourceSegments} from './stage-web-textbook.mjs';
+import {renderSourceText} from '../scene-study/textbook-review.mjs';
 import {loadTextbookKnowledge} from '@riichi-coach/desktop/textbook-knowledge';
 const sha=b=>createHash('sha256').update(b).digest('hex');
+it('preserves safe source emphasis through exact text fragments without applying original CSS',()=>{
+ const text='前文。重要结论。后文。',segments=[{text:'前文。',marks:[]},{text:'重要结论。',marks:['span:background:;color:#1db100;:']},{text:'后文。',marks:['span:background:url(javascript:bad);color:red;:']}];
+ const fragments=[sliceSourceSegments(segments,text,0,5),sliceSourceSegments(segments,text,5,text.length)];
+ expect(fragments.flat().map(s=>s.text).join('')).toBe(text);const html=fragments.map(ss=>renderSourceText(ss.map(s=>s.text).join(''),ss)).join('');
+ expect(html).toBe('前文。<strong>重要</strong><strong>结论。</strong>后文。');expect(html).not.toContain('style=');expect(html).not.toContain('javascript');
+ expect(renderSourceText('译文',segments)).toBe('译文');expect(sliceSourceSegments(segments,'译文')).toEqual([]);expect(renderSourceText('<img>',[{text:'<img>',marks:['strong::']}])).toBe('<strong>&lt;img&gt;</strong>');
+});
 it('restores sentence-internal tile runs and the full fourteen-tile example without losing the drawn-tile label',()=>{
  const url='https://example.org/lesson',codes='3m 4m 2p 2p 4p 7p 7p 8p 8s 9s 5z 5z 6z 7z';
  const raw=[{type:'p',id:'b1',text:'**例：**',paragraphId:'p1'},{type:'figure',id:'f1',transcriptionText:codes,paragraphId:'p1'},{type:'p',id:'b2',text:'摸入',paragraphId:'p1'},{type:'figure',id:'f2',transcriptionText:'2m',paragraphId:'p1'},{type:'p',id:'b3',text:'后，应当打出字牌。',paragraphId:'p1'}].map(b=>({...b,page:null,locator:{url,sourceBlockIds:[b.id],domPaths:['main/p[0]']}}));

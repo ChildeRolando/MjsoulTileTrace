@@ -11,14 +11,18 @@ export function compactInlineTiles(text){
  if(!/^(?:[0-9][mpsz])(?:\s+[0-9][mpsz])*$/.test(text))return text;
  const runs=[];for(const tile of text.split(/\s+/)){const last=runs.at(-1);if(last?.suit===tile[1])last.digits+=tile[0];else runs.push({digits:tile[0],suit:tile[1]});}return runs.map(r=>r.digits+r.suit).join('');
 }
+export function sliceSourceSegments(segments,text,start=0,end=text.length){
+ if(!segments?.length||segments.map(s=>s.text).join('')!==text)return [];
+ let offset=0;return segments.flatMap(segment=>{const from=Math.max(start,offset),to=Math.min(end,offset+segment.text.length);offset+=segment.text.length;return from<to?[{...segment,text:segment.text.slice(from-(offset-segment.text.length),to-(offset-segment.text.length))}]:[];});
+}
 export function composeWebParagraphs(raw,sourceId){
  const groups=[];for(const block of raw){const last=groups.at(-1);if(block.paragraphId&&last?.[0].paragraphId===block.paragraphId)last.push(block);else groups.push([block]);}
  return groups.flatMap((parts,index)=>{
   if(parts.length===1)return parts;
-  const inlineFigures=parts.filter(b=>b.type==='figure'),inlineContent=parts.map(b=>b.type==='figure'?{figureId:b.id,text:' '+compactInlineTiles(b.transcriptionText)+' '}:{text:b.text});
+  const inlineFigures=parts.filter(b=>b.type==='figure'),inlineContent=parts.map(b=>b.type==='figure'?{figureId:b.id,text:' '+compactInlineTiles(b.transcriptionText)+' '}:{text:b.text,displaySegments:b.displaySegments??b.sourceSegments});
   if(parts.some(b=>!['p','h2','figure'].includes(b.type)))throw Error('web_stage_paragraph_block_type');
   const text=inlineContent.map(s=>s.text).join(''),locator={url:parts[0].locator.url,sourceBlockIds:[...new Set(parts.flatMap(b=>b.locator.sourceBlockIds))],domPaths:[...new Set(parts.flatMap(b=>b.locator.domPaths))]};
-  if(!inlineFigures.length)return splitExactText(text).map((text,part)=>({type:'p',id:`${sourceId}-p${index+1}-s${part+1}`,page:null,locator,text,paragraphId:parts[0].paragraphId,sourceSegments:parts.flatMap(b=>b.sourceSegments??[])}));
+  if(!inlineFigures.length){let offset=0;const segments=parts.flatMap(b=>b.displaySegments??b.sourceSegments??[]);return splitExactText(text).map((fragment,part)=>{const displaySegments=sliceSourceSegments(segments,text,offset,offset+fragment.length);offset+=fragment.length;return {type:'p',id:`${sourceId}-p${index+1}-s${part+1}`,page:null,locator,text:fragment,paragraphId:parts[0].paragraphId,sourceSegments:parts.flatMap(b=>b.sourceSegments??[]),displaySegments};});}
   // The response budget remains enforced by the corpus validator; never truncate a sentence.
   return [{type:'p',id:`${sourceId}-p${index+1}`,page:null,locator,text,paragraphId:parts[0].paragraphId,...(inlineFigures.length?{inlineFigures,inlineContent}:{}),sourceSegments:parts.flatMap(b=>b.sourceSegments??[])}];
  });
@@ -44,7 +48,7 @@ export async function stageWebTextbook({processingRoot,candidatePath,destination
   const sources=original.sourceBlockIds.map(id=>byId.get(id));if(!sources.length||sources.some(b=>!b))throw Error('web_stage_source_locator');
   const locator={url:source.url,sourceBlockIds:original.sourceBlockIds,domPaths:sources.map(b=>b.domPath)};
   if(original.type==='text'){
-   for(const text of splitExactText(original.text))rawBlocks.push({type:/^h[1-6]$/.test(sources[0].tag)?'h2':'p',id:`${sourceId}-b${rawBlocks.length+1}`,page:null,locator,text,paragraphId:original.paragraphId??sources[0].paragraphId,sourceSegments:original.sourceSegments,tableContext:original.tableContext});
+   let offset=0;for(const text of splitExactText(original.text)){const displaySegments=sliceSourceSegments(original.sourceSegments,original.text,offset,offset+text.length);offset+=text.length;rawBlocks.push({type:/^h[1-6]$/.test(sources[0].tag)?'h2':'p',id:`${sourceId}-b${rawBlocks.length+1}`,page:null,locator,text,paragraphId:original.paragraphId??sources[0].paragraphId,sourceSegments:original.sourceSegments,displaySegments,tableContext:original.tableContext});}
   }else if(original.type==='figure'){
    const f=figures.get(original.figureId);if(!f||!f.transcription?.trim())throw Error('web_stage_incomplete_figure');
    // A whole-image asset is lossless. Multi-asset runs require an explicitly audited presentation asset.

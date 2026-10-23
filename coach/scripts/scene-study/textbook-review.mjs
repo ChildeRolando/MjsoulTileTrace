@@ -4,6 +4,14 @@ import {join,resolve} from 'node:path';
 import {pathToFileURL} from 'node:url';
 const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const emphasis=x=>esc(x).replace(/\*\*([^*\n]+)\*\*/g,'<strong>$1</strong>').replace(/\*([^*\n]+)\*/g,'<em>$1</em>');
+export function renderSourceText(text,segments){
+ if(!segments?.length||segments.map(s=>s.text).join('')!==text)return emphasis(text);
+ return segments.map(s=>{const value=emphasis(s.text),marks=s.marks??[];
+  if(marks.some(m=>/^(?:b|strong):/.test(m)||m==='span:background:;color:#1db100;:'))return `<strong>${value}</strong>`;
+  if(marks.some(m=>/^(?:i|em|u):/.test(m)))return `<em>${value}</em>`;
+  return value;
+ }).join('');
+}
 const webUrl=url=>{try{return ['http:','https:'].includes(new URL(url).protocol);}catch{return false;}};
 export function validateLibrary(library){
  if(library.schema!=='coach-textbook-index/1'||library.policy.cardRole!=='index-only'||library.policy.modelExperiments!==false)throw Error('textbook_index_policy');
@@ -36,8 +44,8 @@ function blockHtml(b){
  const attrs=`id="${esc(b.id)}"${b.page===null?'':` data-source-page="${b.page}"`}`,source=b.locator?`<a class="paragraph-source" href="${esc(b.locator.url)}" target="_blank" rel="noopener" title="${esc((b.locator.domPaths??b.locator.sourceBlockIds).join('；'))}" aria-label="查看本段原网页">原文段落</a>`:`<a class="paragraph-source" href="#${esc(b.id)}" aria-label="定位本段，教材第 ${b.page} 页">p.${b.page}</a>`;
  if(b.type==='figure')return `<figure ${attrs}><a href="${esc(b.src)}" target="_blank" rel="noopener" aria-label="放大${esc(b.caption)}"><img src="${esc(b.src)}" loading="lazy" alt="${esc(b.caption)}${b.hand?'；手牌编码 '+esc(b.hand):'；图中摸牌、宝牌和副露标记来自原教材'}"></a><figcaption>${esc(b.caption)} · 点击牌图放大${source}</figcaption>${b.transcriptionText?`<details open><summary>完整牌例文字与牌编码</summary><p style="white-space:pre-line">${esc(b.transcriptionText)}</p></details>`:''}${b.tableText?`<details><summary>表格文字</summary><table><tbody>${b.tableText.map(r=>`<tr><th scope="row">${esc(r[0])}</th><td>${esc(r[1])}</td></tr>`).join('')}</tbody></table></details>`:''}</figure>`;
  if(b.type==='list')return `<div ${attrs}><ul>${b.items.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>${source}</div>`;
- if(b.type==='h2')return `<h2 ${attrs}>${emphasis(b.text)}${source}</h2>`;
- const text=b.inlineContent?b.inlineContent.map(segment=>{if(!segment.figureId)return emphasis(segment.text);const f=b.inlineFigures.find(f=>f.id===segment.figureId);return `<span class="inline-figure" id="${esc(f.id)}"><a href="${esc(f.src)}" target="_blank" rel="noopener" title="${esc(f.imageProvenance?'原牌图按原顺序无损组合':f.caption)}"><img src="${esc(f.src)}" loading="lazy" alt="${esc(segment.text.trim())}"></a><code>${esc(segment.text.trim())}</code></span>`;}).join(''):emphasis(b.text);
+ if(b.type==='h2')return `<h2 ${attrs}>${renderSourceText(b.text,b.displaySegments??b.sourceSegments)}${source}</h2>`;
+ const text=b.inlineContent?b.inlineContent.map(segment=>{if(!segment.figureId)return renderSourceText(segment.text,segment.displaySegments);const f=b.inlineFigures.find(f=>f.id===segment.figureId);return `<span class="inline-figure" id="${esc(f.id)}"><a href="${esc(f.src)}" target="_blank" rel="noopener" title="${esc(f.imageProvenance?'原牌图按原顺序无损组合':f.caption)}"><img src="${esc(f.src)}" loading="lazy" alt="${esc(segment.text.trim())}"></a><code>${esc(segment.text.trim())}</code></span>`;}).join(''):renderSourceText(b.text,b.displaySegments??b.sourceSegments);
  return `<p ${attrs} ${b.emphasis?'class="source-emphasis"':''}>${text}${source}</p>`;
 }
 export function renderTextbookBlocks(blocks){
