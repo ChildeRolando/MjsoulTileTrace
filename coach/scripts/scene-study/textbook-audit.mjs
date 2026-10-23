@@ -153,7 +153,7 @@ async function verifyProductionBinding(dataRoot,productionRoot,candidate) {
       if(sha(parentBytes)!==revision.parentFileSha256||sha(notes)!==revision.notesSha256||revision.parentFileSha256!==manifest.revision?.parentFileSha256||revision.notesSha256!==manifest.revision?.notesSha256||parent.candidateSha256!==revision.parentCandidateSha256)throw Error('audit_revision_binding');
     } else if(manifest.revision)throw Error('audit_revision_missing');
   }
-  const needsModel=candidate.body.mode==='translated'||candidate.figures.length>0;
+  const needsModel=candidate.body.mode==='translated'||candidate.figures.length>0||Boolean(candidate.provenance.revision);
   if(needsModel) {
     if(candidate.provenance.model!==manifest.model||candidate.provenance.reasoningEffort!==manifest.reasoningEffort)throw Error('audit_production_model_binding');
     const call=candidate.provenance.attempts?.filter(c=>c.success).at(-1);

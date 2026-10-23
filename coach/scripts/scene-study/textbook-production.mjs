@@ -134,6 +134,7 @@ function schemaFor(page, regions, japanese) {
     properties: { pageFlow, figures }, required: ['pageFlow','figures'],
   };
 }
+function pageNeedsModel(page,isJapanese,revision){return isJapanese||page.blocks.some(b=>b.type==='image')||Boolean(revision);}
 
 if (args.includes('--self-check')) {
   const empty = schemaFor({ blocks: [] }, [], false);
@@ -146,6 +147,8 @@ if (args.includes('--self-check')) {
   let crossUnitRejected=false;try{validateFlow([{kind:'text',sourceBlockIds:['t1','t2'],text:'x'}],['t1','t2'],[],new Map([['t1',{unitId:'u1'}],['t2',{unitId:'u2'}]]),new Set());}catch(e){crossUnitRejected=e.message==='paragraph_crosses_unit_boundary';}
   let mergedTitleRejected=false;try{validateFlow([{kind:'text',sourceBlockIds:['title','t1'],text:'x'}],['title','t1'],[],new Map([['title',{unitId:'u1'}],['t1',{unitId:'u1'}]]),new Set(['title']));}catch(e){mergedTitleRejected=e.message==='title_source_must_be_singleton';}
   if(!crossUnitRejected||!mergedTitleRejected)throw new Error('chapter_boundary_fixture_failed');
+  assert.equal(pageNeedsModel({blocks:[{type:'text'}]},false,null),false);
+  assert.equal(pageNeedsModel({blocks:[{type:'text'}]},false,{parentPath:'prior-candidate'}),true);
   const fixtureDir=await mkdtemp(join(tmpdir(),'textbook-production-fixture-'));
   try{
     const result={code:0,timedOut:false,overflow:false,stderr:'',stdout:[{type:'error',message:'Reconnecting 2/5'},{type:'turn.completed',usage:{input_tokens:17,output_tokens:4}}].map(x=>JSON.stringify(x)).join('\n')};
@@ -170,7 +173,7 @@ if (args.includes('--self-check')) {
     let active=0,peak=0;const starts=[];
     await runWorkers([0,1,2,3,4,5],3,async value=>{active++;peak=Math.max(peak,active);starts.push(value);await new Promise(done=>setTimeout(done,20));active--;});
     assert.equal(peak,3);assert.deepEqual(starts,[0,1,2,3,4,5]);
-    console.log(JSON.stringify({ schemaCases:3,noEmptyEnums:true,noUnsupportedUniqueItems:true,crossUnitMergeRejected:true,mergedTitleRejected:true,badJsonRawPreserved:true,reconnectCompletionAccepted:true,unknownUsageByField:true,resumeBindingChecked:true,missingRawDependencyRejected:true,workerPeak:peak }));
+    console.log(JSON.stringify({ schemaCases:3,noEmptyEnums:true,noUnsupportedUniqueItems:true,crossUnitMergeRejected:true,mergedTitleRejected:true,revisionWithoutImagesUsesModel:true,badJsonRawPreserved:true,reconnectCompletionAccepted:true,unknownUsageByField:true,resumeBindingChecked:true,missingRawDependencyRejected:true,workerPeak:peak }));
   }finally{await rm(fixtureDir,{recursive:true,force:true});}
   process.exit(0);
 }
@@ -274,6 +277,7 @@ async function processPage(source, meta) {
     if(!revisionNotesMatch(notes,source,page.page,revisionBinding.parentFileSha256))throw new Error('revision_notes_do_not_match_parent');
     revision={...revisionBinding,parentCandidateSha256:oldDigest,notes};
   }
+  const needsModel=pageNeedsModel(page,isJapanese,revision);
   const owners=new Map();
   for(const b of page.blocks){const o=ownerByBlock.get(`${source.sourceId}:${page.page}:${b.id}`);if(!o)throw new Error(`missing_source_block_owner:${source.sourceId}:${page.page}:${b.id}`);owners.set(b.id,o);}
   for(const b of page.blocks.filter(x=>x.type==='image')){const bytes=await readFile(join(dataRoot,b.asset));if(hash(bytes)!==b.imageSha256)throw new Error(`source_image_hash_mismatch:${source.sourceId}:${page.page}:${b.id}`);}
@@ -309,7 +313,7 @@ async function processPage(source, meta) {
   }
   const textSource=page.blocks.filter(b=>b.type==='text').map(b=>({id:b.id,text:(b.lines??[]).map(l=>l.text).join('')}));
   const figures=[]; let flow=[]; let usage=null; const attempts=[];
-  if(isJapanese||regions.length) {
+  if(needsModel) {
     const schema=schemaFor(page,regions,isJapanese); const prompt=pagePrompt(source,page,pageImage.sha256,regions,contextPages,owners,revision?.notes??null);
     const schemaPath=join(production,'schemas',`page-${source.sourceId}-${String(page.page).padStart(4,'0')}.json`);
     await mkdir(dirname(schemaPath),{recursive:true}); await writeFile(schemaPath,JSON.stringify(schema,null,2)+'\n','utf8');
@@ -350,7 +354,7 @@ async function processPage(source, meta) {
   const imageBlocks=page.blocks.filter(b=>b.type==='image');
   const imageCoverage=regions.flatMap(r=>r.sourceImageBlockIds.map((id,i)=>({blockId:id,imageSha256:r.sourceImageSha256s[i],regionId:r.regionId,chapterId:r.chapterId,unitId:r.unitId,status:'mapped-to-visual-region'})));
   if(imageCoverage.length!==imageBlocks.length||new Set(imageCoverage.map(x=>x.blockId)).size!==imageBlocks.length) throw new Error('image_source_block_coverage_failed');
-  const candidate={schema:schemaVersion,status:'draft',productionStatus:'draft-awaiting-independent-review',manifestSha256:manifestHash,runnerSha256:runnerHash,source:{sourceId:source.sourceId,pdfSha256:source.sha256,page:page.page,pageDataSha256:meta.pageDataSha256},body:{language:'zh-CN',mode:isJapanese?'translated':'verbatim',flowOrder:'model-reading-flow',blocks:flow},figures,imageCoverage,coverage:{textBlockCount:textSource.length,coveredTextBlockCount:new Set(flow.filter(x=>x.type==='text').flatMap(x=>x.sourceBlockIds)).size,imageBlockCount:imageBlocks.length,coveredImageBlockCount:imageCoverage.length,pageImageSha256:pageImage.sha256},provenance:{runId,model:isJapanese||regions.length?model:null,reasoningEffort:isJapanese||regions.length?effort:null,promptVersion,schemaVersion,schemaSha256:isJapanese||regions.length?hash(Buffer.from(JSON.stringify(schemaFor(page,regions,isJapanese)))):null,promptSha256:isJapanese||regions.length?hash(Buffer.from(pagePrompt(source,page,pageImage.sha256,regions,contextPages,owners,revision?.notes??null))):null,contextPages:contextPages.map(x=>({page:x.page,pageDataSha256:x.pageDataSha256})),chapterMapSha256:hash(chapterMapBytes),ownershipSha256:hash(ownershipBytes),revision:revision?{parentPath:revision.parentPath,parentFileSha256:revision.parentFileSha256,parentCandidateSha256:revision.parentCandidateSha256,notesPath:revision.notesPath,notesSha256:revision.notesSha256}:null,flowValidation:'unique-complete-source-ID-set and same-unit paragraph checks; visual order pending independent audit',semanticStatus:'not-reviewed',usage,attempts,renderedPage:{path:renderPath,sha256:pageImage.sha256},renderedRegions:regionImages}};
+  const candidate={schema:schemaVersion,status:'draft',productionStatus:'draft-awaiting-independent-review',manifestSha256:manifestHash,runnerSha256:runnerHash,source:{sourceId:source.sourceId,pdfSha256:source.sha256,page:page.page,pageDataSha256:meta.pageDataSha256},body:{language:'zh-CN',mode:isJapanese?'translated':'verbatim',flowOrder:'model-reading-flow',blocks:flow},figures,imageCoverage,coverage:{textBlockCount:textSource.length,coveredTextBlockCount:new Set(flow.filter(x=>x.type==='text').flatMap(x=>x.sourceBlockIds)).size,imageBlockCount:imageBlocks.length,coveredImageBlockCount:imageCoverage.length,pageImageSha256:pageImage.sha256},provenance:{runId,model:needsModel?model:null,reasoningEffort:needsModel?effort:null,promptVersion,schemaVersion,schemaSha256:needsModel?hash(Buffer.from(JSON.stringify(schemaFor(page,regions,isJapanese)))):null,promptSha256:needsModel?hash(Buffer.from(pagePrompt(source,page,pageImage.sha256,regions,contextPages,owners,revision?.notes??null))):null,contextPages:contextPages.map(x=>({page:x.page,pageDataSha256:x.pageDataSha256})),chapterMapSha256:hash(chapterMapBytes),ownershipSha256:hash(ownershipBytes),revision:revision?{parentPath:revision.parentPath,parentFileSha256:revision.parentFileSha256,parentCandidateSha256:revision.parentCandidateSha256,notesPath:revision.notesPath,notesSha256:revision.notesSha256}:null,flowValidation:'unique-complete-source-ID-set and same-unit paragraph checks; visual order pending independent audit',semanticStatus:'not-reviewed',usage,attempts,renderedPage:{path:renderPath,sha256:pageImage.sha256},renderedRegions:regionImages}};
   candidate.candidateSha256=hash(Buffer.from(JSON.stringify(candidate)));
   const tmp=candidatePath+`.tmp-${process.pid}`; await writeFile(tmp,JSON.stringify(candidate,null,2)+'\n',{flag:'wx'}); await rename(tmp,candidatePath);
   return {skipped:false,sourceId:source.sourceId,page:page.page,candidatePath,textBlocks:textSource.length,imageBlocks:imageBlocks.length,figureRegions:figures.length,usage};

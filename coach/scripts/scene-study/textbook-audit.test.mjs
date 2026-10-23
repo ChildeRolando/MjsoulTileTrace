@@ -73,24 +73,28 @@ test('completed reconnects are diagnostics; the final failed turn remains a fail
   assert.equal(auditTransportCompleted({...r,events:[...r.events,{type:'turn.failed'}]}),false);
 });
 
-async function publicationFixture(root) {
+async function publicationFixture(root,{noImages=false,revision=false}={}) {
   const {source,page,candidate,review}=fixture();
   const put=async(path,value)=>{await mkdir(join(root,path,'..'),{recursive:true});await writeFile(join(root,path),typeof value==='string'||Buffer.isBuffer(value)?value:JSON.stringify(value));};
   source.filename='source.pdf';source.sha256=sha('pdf');page.plainText='通常可以，但对子多时例外。';
-  page.blocks[1].asset='assets/image.png';page.blocks[1].imageSha256=sha('image');
+  if(noImages)page.blocks=page.blocks.filter(b=>b.type==='text');
+  else{page.blocks[1].asset='assets/image.png';page.blocks[1].imageSha256=sha('image');}
   const pageBytes=Buffer.from(JSON.stringify(page)),pageHash=sha(pageBytes),renderHash=sha('render');
   source.pages=[{page:1,pageData:'79-cn/pages/001.json',pageDataSha256:pageHash}];
   const inventory={sourceDirectory:root,sources:[source]},inventoryBytes=Buffer.from(JSON.stringify(inventory));
   const map={inventorySha256:sha(inventoryBytes),chapters:[{id:'chapter',titleSource:{sourceBlockId:'text1'},units:[]}]},mapBytes=Buffer.from(JSON.stringify(map));
   const ownership={chapterMapSha256:sha(mapBytes),blocks:page.blocks.map(b=>({sourceId:source.sourceId,page:1,sourceBlockId:b.id,chapterId:'chapter',unitId:'unit'}))},ownerBytes=Buffer.from(JSON.stringify(ownership));
   const productionRoot=join(root,'production','run'),manifest={schema:'coach-textbook-production-manifest/2',inventorySha256:sha(inventoryBytes),sourceHashes:{'79-cn':source.sha256},model:'gpt-6.1-sol',reasoningEffort:'high',schemaVersion:'coach-textbook-page-draft/3',promptVersion:'fixture-prompt/4',runnerSha256:'runner',chapterMapSha256:sha(mapBytes),ownershipSha256:sha(ownerBytes)};
+  if(revision){const parentBytes=Buffer.from('{"candidateSha256":"parent-internal-digest"}'),notesBytes=Buffer.from('Restore source page footer reading flow.');await put('production/parent/candidate.json',parentBytes);await put('audit/revision-notes.json',notesBytes);manifest.revision={parentPath:join(root,'production/parent/candidate.json'),parentFileSha256:sha(parentBytes),notesPath:join(root,'audit/revision-notes.json'),notesSha256:sha(notesBytes)};}
   manifest.manifestSha256=sha(JSON.stringify(manifest));
   candidate.schema=manifest.schemaVersion;candidate.source.pdfSha256=source.sha256;candidate.source.pageDataSha256=pageHash;candidate.manifestSha256=manifest.manifestSha256;candidate.runnerSha256='runner';
   candidate.body.blocks=[{type:'text',sourceBlockIds:['text1'],chapterId:'chapter',unitId:'unit',titleSource:true,sourceText:page.plainText,text:page.plainText},{type:'figure',figureId:'figure1'}];
-  Object.assign(candidate.figures[0],{chapterId:'chapter',unitId:'unit',sourceImageSha256s:[sha('image')],pageImageSha256:renderHash});candidate.coverage.pageImageSha256=renderHash;
-  candidate.imageCoverage=[{blockId:'image1',imageSha256:sha('image'),regionId:'figure1',chapterId:'chapter',unitId:'unit'}];
+  if(noImages){candidate.figures=[];candidate.body.blocks=candidate.body.blocks.filter(b=>b.type==='text');review.figureChecks=[];review.imageChecks=[];}
+  else Object.assign(candidate.figures[0],{chapterId:'chapter',unitId:'unit',sourceImageSha256s:[sha('image')],pageImageSha256:renderHash});candidate.coverage.pageImageSha256=renderHash;
+  candidate.imageCoverage=noImages?[]:[{blockId:'image1',imageSha256:sha('image'),regionId:'figure1',chapterId:'chapter',unitId:'unit'}];
   const rawText='{"pageFlow":[],"figures":[]}\n',raw={callId:'production-call',rawLastMessage:rawText,parsedOutput:JSON.parse(rawText)},rawBytes=Buffer.from(JSON.stringify(raw));
   candidate.provenance={model:manifest.model,reasoningEffort:'high',schemaVersion:manifest.schemaVersion,promptVersion:manifest.promptVersion,promptSha256:'prompt',schemaSha256:'schema',chapterMapSha256:sha(mapBytes),ownershipSha256:sha(ownerBytes),attempts:[{callId:'production-call',success:true,model:manifest.model,reasoningEffort:'high',sourceId:source.sourceId,page:1,pdfSha256:source.sha256,pageDataSha256:pageHash,rawArtifactPath:'raw-calls/production-call.json',rawArtifactSha256:sha(rawBytes),outputSha256:sha(rawText),schemaSha256:'schema'}]};
+  if(revision)candidate.provenance.revision={...manifest.revision,parentCandidateSha256:'parent-internal-digest'};
   candidate.candidateSha256=sha(JSON.stringify(candidate));
   const candidatePath=join(productionRoot,'candidates/79-cn/page-0001.json');
   await put('source.pdf','pdf');await put('source-inventory.json',inventoryBytes);await put('79-cn/pages/001.json',pageBytes);await put('assets/image.png','image');await put('integration/chapter-map.json',mapBytes);await put('integration/source-block-ownership.json',ownerBytes);await put('production/run/manifest.json',manifest);await put('production/run/renders/79-cn/page-0001.png','render');await put('production/run/raw-calls/production-call.json',rawBytes);await put('production/run/candidates/79-cn/page-0001.json',candidate);
@@ -108,6 +112,12 @@ test('draft3 gate validates exact raw output bytes and frozen chapter ownership'
     await assert.rejects(verifyAuditForCandidate(root,f.candidatePath),/raw_artifact_changed/);
     await f.put('production/run/raw-calls/production-call.json',f.rawBytes);await f.put('integration/source-block-ownership.json',{});
     await assert.rejects(verifyAuditForCandidate(root,f.candidatePath),/ownership_binding/);
+  }finally{await rm(root,{recursive:true,force:true});}
+});
+test('a Chinese image-free revision retains its model call and bound parent evidence',async()=>{
+  const root=await mkdtemp(join(tmpdir(),'textbook-audit-text-revision-'));
+  try{const f=await publicationFixture(root,{noImages:true,revision:true});assert.equal((await verifyAuditForCandidate(root,f.candidatePath)).status,'passed');
+    await f.put('audit/revision-notes.json','changed notes');await assert.rejects(verifyAuditForCandidate(root,f.candidatePath),/revision_binding/);
   }finally{await rm(root,{recursive:true,force:true});}
 });
 
