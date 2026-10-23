@@ -5,6 +5,11 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { deterministicChecks, validateReview, verifyAuditForCandidate, sha, reviewPrompt, summarizeAuditUsage, auditUsageFromEvents, auditTransportCompleted, auditPage, recoverCompletedAudit } from './textbook-audit.mjs';
 
+test('only exact recovered TLS fallback items are diagnostics; tool calls and unknown errors remain rejected',()=>{
+ const diagnostic={type:'item.completed',item:{id:'item_0',type:'error',message:'Falling back from WebSockets to HTTPS transport. stream disconnected before completion: tls handshake eof'}},r={exitCode:0,timedOut:false,outputOverflow:false,output:{checks:[]},events:[diagnostic,{type:'turn.completed',usage:{input_tokens:5,cached_input_tokens:0,output_tokens:2}}]};assert.equal(auditTransportCompleted(r),true);
+ for(const mutate of [x=>x.events[0].item.message='unknown error',x=>x.events[0].item.tool='read_resource',x=>x.events[0].item.type='mcp_tool_call',x=>x.events.push({type:'turn.failed'}),x=>x.events[1].usage={},x=>x.output=null,x=>x.exitCode=1,x=>x.timedOut=true]){const bad=structuredClone(r);mutate(bad);assert.equal(auditTransportCompleted(bad),false);}
+});
+
 function fixture() {
   const source = { sourceId:'79-cn',sha256:'pdf-hash',language:'zh-CN' };
   const page = { page:1,blocks:[{id:'text1',type:'text',lines:[{text:'通常可以，但对子多时例外。'}]},{id:'image1',type:'image',bbox:[0,0,10,10]}] };

@@ -4,7 +4,7 @@ import { createHash, randomUUID } from 'node:crypto';
 import { spawn } from 'node:child_process';
 import { dirname, isAbsolute, join, relative, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { invokeTextbookCodex } from './textbook-production-cli.mjs';
+import { invokeTextbookCodex,hasUnexpectedTextbookTool } from './textbook-production-cli.mjs';
 
 export const sha = bytes => createHash('sha256').update(bytes).digest('hex');
 const repo = resolve(import.meta.dirname, '../..');
@@ -189,7 +189,7 @@ async function callReviewer({ auditRoot, prompt, schema, images, binding, cliVer
     const events = result.events;
     const usage = auditUsageFromEvents(events);
     const output = result.output;
-    const unexpectedTool = events.some(e => e.item && !['agent_message','reasoning'].includes(e.item.type));
+    const unexpectedTool = hasUnexpectedTextbookTool(events,{allowRecoveredTransportDiagnostics:auditTransportCompleted(result)});
     const success = auditTransportCompleted(result) && usage !== null && !unexpectedTool;
     const record = { schema: 'coach-textbook-audit-call/1', callId, ...binding, startedAt, finishedAt: new Date().toISOString(), durationMs:result.durationMs, cliVersion, model: auditModel, reasoningEffort: auditReasoningEffort, parameters: { webSearch: 'disabled', tools: 'capability-restricted; unexpected-tool-events-rejected', ephemeral: true, ignoreUserConfig: true, ignoreRules: true, sandbox: 'read-only', timeoutMs: 900000 }, promptSha256: sha(prompt), semanticPromptSha256:sha(prompt), requestPrompt:result.requestPrompt??null, requestPromptSha256:result.requestPromptSha256??null, schemaSha256: sha(JSON.stringify(schema)), success, usage, exitCode: result.exitCode, timedOut: result.timedOut, outputOverflow:result.outputOverflow, unexpectedTool, transportDiagnostics:events.filter(e=>e.type==='error'),failure: success ? null : { stderr: result.stderr, eventErrors:events.filter(e=>['turn.failed','error'].includes(e.type)) }, outputSha256: output ? sha(JSON.stringify(output)) : null, structuredOutput:output,rawLastMessage:result.rawLastMessage??null,rawStdout:result.rawStdout??null,events };
     await exclusiveJson(join(auditRoot, 'calls', `${callId}.json`), record);
@@ -206,7 +206,8 @@ export function auditUsageFromEvents(events) {
 
 export function auditTransportCompleted(result) {
   const terminal=result.events?.filter(e=>['turn.completed','turn.failed'].includes(e.type)).at(-1);
-  return result.exitCode===0&&!result.timedOut&&!result.outputOverflow&&terminal?.type==='turn.completed'&&result.output!==null&&result.output!==undefined&&!result.events.some(e=>e.item&&!['agent_message','reasoning'].includes(e.item.type));
+  const complete=result.exitCode===0&&!result.timedOut&&!result.outputOverflow&&terminal?.type==='turn.completed'&&result.output!==null&&result.output!==undefined,usage=auditUsageFromEvents(result.events??[]),allowRecoveredTransportDiagnostics=Boolean(complete&&Number.isFinite(usage?.inputTokens)&&Number.isFinite(usage?.outputTokens));
+  return complete&&!hasUnexpectedTextbookTool(result.events??[],{allowRecoveredTransportDiagnostics});
 }
 
 function reviewOutputFromCall(call) {
