@@ -32,12 +32,18 @@ async function validateInputAdjudication(root,audit){
  if(!a?.path||!a.sha256||a.originalAudit?.status!=='failed'||!a.originalCall?.callId||!a.approvedAt||!a.resolvedIssueIndices?.length)throw Error('web_stage_missing_input_adjudication');
  for(const artifact of [a,a.originalAudit,a.originalCall])if(!artifact?.path||!/^[a-f0-9]{64}$/.test(artifact.sha256)||sha(await readFile(await contained(root,artifact.path)))!==artifact.sha256)throw Error('web_stage_adjudication_changed');
 }
+async function validateTransportRecovery(root,audit){
+ const r=audit.transportRecovery;
+ if(!r?.reason||!r.originalCall?.callId||!r.verifier?.combinedSha256)throw Error('web_stage_missing_transport_recovery');
+ for(const a of [r.originalAudit,r.originalCall,r.verifier])if(!a?.path||!/^[a-f0-9]{64}$/.test(a.sha256)||sha(await readFile(await contained(root,a.path)))!==a.sha256)throw Error('web_stage_transport_recovery_changed');
+}
 /** A chapter preview in a new directory. This never replaces the active library. */
 export async function stageWebTextbook({processingRoot,candidatePath,destination,verify}){
  if(typeof verify!=='function')throw Error('web_stage_requires_independent_gate');
  const path=await contained(processingRoot,candidatePath),audit=await verify(processingRoot,path),bytes=await readFile(path),candidate=JSON.parse(bytes);
- if(!['passed','passed-after-specific-input-adjudication'].includes(audit.status)||audit.production?.sha256!==sha(bytes))throw Error('web_stage_audit_identity');
+ if(!['passed','passed-after-specific-input-adjudication','passed-after-transport-recovery'].includes(audit.status)||audit.production?.sha256!==sha(bytes))throw Error('web_stage_audit_identity');
  if(audit.status==='passed-after-specific-input-adjudication')await validateInputAdjudication(processingRoot,audit);
+ if(audit.status==='passed-after-transport-recovery')await validateTransportRecovery(processingRoot,audit);
  if(candidate.schema!=='coach-textbook-web-article-draft/1')throw Error('web_stage_candidate_schema');
  const sourceBytes=await readFile(await contained(processingRoot,candidate.source.sourcePath)),source=JSON.parse(sourceBytes);
  if(sha(sourceBytes)!==candidate.source.sourceSha256||source.html.sha256!==candidate.source.htmlSha256||source.url!==candidate.source.url)throw Error('web_stage_source_changed');
@@ -68,7 +74,7 @@ export async function stageWebTextbook({processingRoot,candidatePath,destination
  for(const image of images)await copyFile(image.from,join(destination,image.to));
  for(const [name,data] of [['knowledge-index.json',library],['textbook-bodies.json',bodies],['textbook-unit-map.json',definitions]])await writeFile(join(destination,name),JSON.stringify(data,null,2)+'\n');
  const build=await compileTextbookCorpus(destination,definitions);await buildTextbookReview(destination,library);
- const receipt={schema:'coach-textbook-web-stage/1',status:'independently-audited-chapter-preview',candidatePath:path,candidateSha256:sha(bytes),sourceSha256:sha(sourceBytes),auditPath:audit.auditPath,auditStatus:audit.status,...(audit.inputAdjudication?{inputAdjudication:audit.inputAdjudication,originalAuditStatus:audit.originalStatus,effectiveModelChecks:audit.effectiveModelChecks,originalModelChecks:audit.modelChecks}:{}),...build,modelCalls:0,activeLibraryChanged:false,humanReview:'pending'};
+ const receipt={schema:'coach-textbook-web-stage/1',status:'independently-audited-chapter-preview',candidatePath:path,candidateSha256:sha(bytes),sourceSha256:sha(sourceBytes),auditPath:audit.auditPath,auditStatus:audit.status,...(audit.inputAdjudication?{inputAdjudication:audit.inputAdjudication,originalAuditStatus:audit.originalStatus,effectiveModelChecks:audit.effectiveModelChecks,originalModelChecks:audit.modelChecks}:{}),...(audit.transportRecovery?{transportRecovery:audit.transportRecovery}:{}),...build,modelCalls:0,activeLibraryChanged:false,humanReview:'pending'};
  await writeFile(join(destination,'web-stage-receipt.json'),JSON.stringify(receipt,null,2)+'\n');return receipt;
 }
 

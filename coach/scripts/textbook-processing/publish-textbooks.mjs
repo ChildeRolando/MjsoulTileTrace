@@ -12,7 +12,7 @@ const parse=async p=>JSON.parse(await readFile(p,'utf8'));
 const key=(sourceId,page,id)=>`${sourceId}:${page}:${id}`;
 async function contained(root,path){const base=await realpath(root),full=await realpath(resolve(base,path)),rel=relative(base,full);if(isAbsolute(rel)||rel==='..'||rel.startsWith('..'+sep))throw Error('publish_path_outside_root');return full;}
 /** Mapping is explicit and exhaustive; PDF bookmarks alone are not an argument boundary. */
-export function mapSourceBlocks(chapterMap,pages){
+export function mapSourceBlocks(chapterMap,pages,requireCompletePageCoverage=true){
  if(chapterMap.schema!=='coach-textbook-chapter-map/1'||!Array.isArray(chapterMap.chapters))throw Error('publish_chapter_map_schema');
  if(chapterMap.blockOrder!==undefined&&chapterMap.blockOrder!=='page-visual-yx')throw Error('publish_unknown_block_order');
  const ownership=new Map(),unitIds=new Set(),chapterIds=new Set();
@@ -25,12 +25,23 @@ export function mapSourceBlocks(chapterMap,pages){
    for(const b of ordered.slice(from,to+1)){if(ownership.has(b.key))throw Error('publish_overlap');ownership.set(b.key,{chapter,unit});}
   }
  }
- for(const p of pages)for(const b of p.page.blocks){if(b.type==='image'||b.type==='text'&&(b.lines??[]).some(l=>l.text.trim()))if(!ownership.has(key(p.sourceId,p.page.page,b.id)))throw Error(`publish_unmapped_source_block:${b.id}`);}
+ if(requireCompletePageCoverage)for(const p of pages)for(const b of p.page.blocks){if(b.type==='image'||b.type==='text'&&(b.lines??[]).some(l=>l.text.trim()))if(!ownership.has(key(p.sourceId,p.page.page,b.id)))throw Error(`publish_unmapped_source_block:${b.id}`);}
  return ownership;
 }
 /** No summary substitution. Long paragraphs are split losslessly for bounded transport. */
 export function splitExactText(text,maxChars=2500){const chunks=[];let remaining=text;while(remaining.length>maxChars){let cut=remaining.lastIndexOf('\n',maxChars);if(cut<maxChars/2)cut=remaining.lastIndexOf('。',maxChars)+1;if(cut<maxChars/2)cut=maxChars;chunks.push(remaining.slice(0,cut));remaining=remaining.slice(cut);}if(remaining)chunks.push(remaining);if(chunks.join('')!==text)throw Error('publish_text_loss');return chunks;}
 function mappedOwner(ownership,sourceId,page,ids){if(!ids?.length)throw Error('publish_missing_source_blocks');const owners=ids.map(id=>ownership.get(key(sourceId,page,id)));if(owners.some(x=>!x)||owners.some(x=>x.unit.id!==owners[0].unit.id))throw Error('publish_paragraph_crosses_argument_boundary');return owners[0];}
+export async function readApprovedPdfPage({processingRoot,candidateRoot,source,item,selected,verify=verifyAuditForCandidate}){
+  const path=await contained(processingRoot,selected?.candidatePath??join(candidateRoot,source.sourceId,`page-${String(item.page).padStart(4,'0')}.json`));
+  if(selected&&sha(await readFile(path))!==selected.candidateSha256)throw Error('publish_selected_candidate_changed');
+  const audit=await verify(processingRoot,path);
+  if(!['passed','passed-after-source-adjudication','passed-after-transport-recovery'].includes(audit.status))throw Error('publish_audit_not_passed');
+  if(audit.status==='passed-after-source-adjudication'&&(!audit.adjudication?.path||!audit.adjudication.sha256))throw Error('publish_missing_adjudication_evidence');
+  if(audit.status==='passed-after-transport-recovery'&&(!audit.transportRecovery?.originalAudit?.sha256||!audit.transportRecovery?.originalCall?.sha256))throw Error('publish_missing_transport_recovery_evidence');
+  const bytes=await readFile(path),candidate=JSON.parse(bytes),pageBytes=await readFile(await contained(processingRoot,item.pageData));
+  if(sha(bytes)!==audit.production.sha256||selected&&sha(bytes)!==selected.candidateSha256||sha(pageBytes)!==item.pageDataSha256||candidate.source.sourceId!==source.sourceId||candidate.source.page!==item.page||candidate.source.pdfSha256!==source.sha256||candidate.source.pageDataSha256!==item.pageDataSha256)throw Error('publish_source_changed');
+  const page=JSON.parse(pageBytes);return {sourceId:source.sourceId,source,candidate,candidatePath:path,page,audit};
+}
 export async function prepareApprovedTextbooks({processingRoot,candidateRoot,chapterMapPath,candidateOverridesPath,verify=verifyAuditForCandidate}){
  const inventory=await parse(join(processingRoot,'source-inventory.json')),pages=[];
  const overrides=new Map();let candidateOverridesSha256=null;
@@ -43,29 +54,26 @@ export async function prepareApprovedTextbooks({processingRoot,candidateRoot,cha
  }
  for(const source of inventory.sources)for(const item of source.pages){
   const selected=overrides.get(`${source.sourceId}:${item.page}`);
-  const path=await contained(processingRoot,selected?.candidatePath??join(candidateRoot,source.sourceId,`page-${String(item.page).padStart(4,'0')}.json`));
-  if(selected&&sha(await readFile(path))!==selected.candidateSha256)throw Error('publish_selected_candidate_changed');
-  const audit=await verify(processingRoot,path);
-  if(!['passed','passed-after-source-adjudication','passed-after-transport-recovery'].includes(audit.status))throw Error('publish_audit_not_passed');
-  if(audit.status==='passed-after-source-adjudication'&&(!audit.adjudication?.path||!audit.adjudication.sha256))throw Error('publish_missing_adjudication_evidence');
-  if(audit.status==='passed-after-transport-recovery'&&(!audit.transportRecovery?.originalAudit?.sha256||!audit.transportRecovery?.originalCall?.sha256))throw Error('publish_missing_transport_recovery_evidence');
-  const bytes=await readFile(path),candidate=JSON.parse(bytes),pageBytes=await readFile(await contained(processingRoot,item.pageData));
-  if(sha(bytes)!==audit.production.sha256||selected&&sha(bytes)!==selected.candidateSha256||sha(pageBytes)!==item.pageDataSha256||candidate.source.sourceId!==source.sourceId||candidate.source.page!==item.page||candidate.source.pdfSha256!==source.sha256||candidate.source.pageDataSha256!==item.pageDataSha256)throw Error('publish_source_changed');
-  const page=JSON.parse(pageBytes);pages.push({sourceId:source.sourceId,source,candidate,candidatePath:path,page,audit});
+  pages.push(await readApprovedPdfPage({processingRoot,candidateRoot,source,item,selected,verify}));
  }
  const chapterMap=await parse(chapterMapPath);
  if(chapterMap.inventorySha256&&chapterMap.inventorySha256!==sha(await readFile(join(processingRoot,'source-inventory.json'))))throw Error('publish_chapter_map_source_changed');
+ return assembleApprovedPdfPages({processingRoot,inventory,chapterMap,pages,candidateOverridesSha256});
+}
+export async function assembleApprovedPdfPages({processingRoot,inventory,chapterMap,pages,candidateOverridesSha256=null,allowOutsideChapters=false}){
  for(const chapter of chapterMap.chapters)for(const entry of [chapter,...chapter.units])if(entry.titleStatus==='source-only-pending-audited-translation'){
   const page=pages.find(p=>p.sourceId===chapter.sourceId&&p.page.page===entry.titleSource.page),block=page?.candidate.body.blocks.find(b=>b.type==='text'&&b.sourceBlockIds.length===1&&b.sourceBlockIds[0]===entry.titleSource.sourceBlockId);
   if(!block?.text.trim()||block.text.trim().length>160)throw Error('publish_unresolved_chinese_title');entry.title=block.text.trim();entry.titleStatus='automatically-audited-chinese-title';
  }
- const ownership=mapSourceBlocks(chapterMap,pages),blocksByUnit=new Map(),images=[],seenIds=new Set();
+ const ownership=mapSourceBlocks(chapterMap,pages,!allowOutsideChapters),blocksByUnit=new Map(),images=[],seenIds=new Set(),coveredSourceBlocks=new Set();
  for(const p of pages){
   const figures=new Map(p.candidate.figures.map(f=>[f.figureId,f])),seenFigures=new Set();
   for(const block of p.candidate.body.blocks){
    if(block.type==='figure'){
     const f=figures.get(block.figureId);if(!f||seenFigures.has(f.figureId))throw Error('publish_figure_reference');seenFigures.add(f.figureId);
+    if(allowOutsideChapters&&f.sourceImageBlockIds.every(id=>!ownership.has(key(p.sourceId,p.page.page,id))))continue;
     const owner=mappedOwner(ownership,p.sourceId,p.page.page,f.sourceImageBlockIds);
+    for(const id of f.sourceImageBlockIds)coveredSourceBlocks.add(key(p.sourceId,p.page.page,id));
     if(!f.transcription?.trim()||f.transcription.length>3500||/无法辨认|无法识别|待补|待核对|若干[万筒饼索]|接上段/.test(f.transcription))throw Error('publish_unresolved_figure');
     const original=await contained(processingRoot,f.croppedImagePath),bytes=await readFile(original);if(sha(bytes)!==f.croppedImageSha256||bytes.subarray(0,8).toString('hex')!=='89504e470d0a1a0a')throw Error('publish_figure_changed');
     TextbookIdSchema.parse(f.figureId);const asset=`assets/full-${f.croppedImageSha256}.png`;
@@ -75,26 +83,21 @@ export async function prepareApprovedTextbooks({processingRoot,candidateRoot,cha
    }else if(block.type==='text'){
     if(!block.text.trim())continue;
     if(/^[（(]?接上段[）)]?$|^待翻译$|^同上$/.test(block.text.trim()))throw Error('publish_placeholder_body');
+    if(allowOutsideChapters&&block.sourceBlockIds.every(id=>!ownership.has(key(p.sourceId,p.page.page,id))))continue;
     const owner=mappedOwner(ownership,p.sourceId,p.page.page,block.sourceBlockIds);
+    for(const id of block.sourceBlockIds)coveredSourceBlocks.add(key(p.sourceId,p.page.page,id));
     const out=splitExactText(block.text).map((text,i)=>({id:`${block.sourceBlockIds[0]}-t${i+1}`,type:'p',page:p.page.page,text,sourceBlockIds:block.sourceBlockIds}));
     blocksByUnit.set(owner.unit.id,[...(blocksByUnit.get(owner.unit.id)??[]),...out]);
    }else throw Error('publish_body_schema');
   }
   if(seenFigures.size!==figures.size)throw Error('publish_unplaced_figure');
  }
+ for(const p of pages)for(const b of p.page.blocks){const id=key(p.sourceId,p.page.page,b.id);if(ownership.has(id)&&(b.type==='image'||b.type==='text'&&(b.lines??[]).some(l=>l.text.trim()))&&!coveredSourceBlocks.has(id))throw Error('publish_unplaced_source_block');}
  for(const blocks of blocksByUnit.values())for(const b of blocks){TextbookIdSchema.parse(b.id);if(seenIds.has(b.id))throw Error('publish_duplicate_block_id');seenIds.add(b.id);}
  for(const c of chapterMap.chapters)for(const u of c.units)if(!blocksByUnit.get(u.id)?.length)throw Error('publish_empty_argument');
  return {inventory,chapterMap,blocksByUnit,images,pages,candidateOverridesSha256,auditNote:'Independently checked; source adjudications and transport recoveries remain distinct in the receipt. User content review remains pending.'};
 }
-/** Fail before changing the live library unless every supplied PDF page is audited and mapped. */
-export async function publishTextbooks(options){
- const root=await realpath(options.reviewRoot);
- try{if((await parse(join(root,'publication-in-progress.json'))).status==='publishing')throw Error('publish_resume_required');}catch(e){if(e.code!=='ENOENT')throw e;}
- const approved=await prepareApprovedTextbooks(options);
- const library=await parse(join(root,'knowledge-index.json')),bodyBytes=await readFile(join(root,'textbook-bodies.json')),bodies=JSON.parse(bodyBytes),priorCorpus=validateTextbookCorpus(await parse(join(root,'textbook-corpus.json')));
- if(sha(bodyBytes)!==priorCorpus.bodySha256)throw Error('publish_existing_body_changed');
- const replacedChapters=library.chapters.map(c=>({chapterId:c.id,sourceId:c.sourceId,startPage:c.bodyStartPage,endPage:c.endPage}));
- library.chapters=[];bodies.chapters=[];
+export function appendApprovedPdfChapters({approved,library,bodies}){
  const definitions=[],seen=new Set();
  for(const c of approved.chapterMap.chapters){
   if(seen.has(c.id))throw Error('publish_chapter_id_collision');seen.add(c.id);
@@ -105,6 +108,18 @@ export async function publishTextbooks(options){
   bodies.chapters.push({chapterId:c.id,sourceId:c.sourceId,sourceSha256:source.sha256,translationStatus:'batch-audited-pending-user-review',translatorNote:sourceAdjudicated?'完整正文与牌例经批量制作及独立校对；模型误审的源图裁决及原审查均保留于发布记录。未运行局面模型实验，用户内容审核待完成。':'完整正文与牌例经批量制作及独立自动校对；未运行局面模型实验。用户内容审核待完成。',blocks});
   let offset=0;for(const u of c.units){const length=approved.blocksByUnit.get(u.id).length;definitions.push({id:u.id,chapterId:c.id,title:u.title,from:offset+1,to:offset+length});offset+=length;}
  }
+ return definitions;
+}
+/** Fail before changing the live library unless every supplied PDF page is audited and mapped. */
+export async function publishTextbooks(options){
+ const root=await realpath(options.reviewRoot);
+ try{if((await parse(join(root,'publication-in-progress.json'))).status==='publishing')throw Error('publish_resume_required');}catch(e){if(e.code!=='ENOENT')throw e;}
+ const approved=await prepareApprovedTextbooks(options);
+ const library=await parse(join(root,'knowledge-index.json')),bodyBytes=await readFile(join(root,'textbook-bodies.json')),bodies=JSON.parse(bodyBytes),priorCorpus=validateTextbookCorpus(await parse(join(root,'textbook-corpus.json')));
+ if(sha(bodyBytes)!==priorCorpus.bodySha256)throw Error('publish_existing_body_changed');
+ const replacedChapters=library.chapters.map(c=>({chapterId:c.id,sourceId:c.sourceId,startPage:c.bodyStartPage,endPage:c.endPage}));
+ library.chapters=[];bodies.chapters=[];
+ const definitions=appendApprovedPdfChapters({approved,library,bodies});
  library.status='full-textbook-auto-audited';validateLibrary(library);validateBodies(library,bodies);
  const stage=await mkdtemp(join(root,'.publish-stage-'));await mkdir(join(stage,'assets'));
  for(const image of approved.images){const bytes=await readFile(image.source);if(sha(bytes)!==image.sha256)throw Error('publish_figure_changed');await writeFile(join(stage,image.path),bytes);}

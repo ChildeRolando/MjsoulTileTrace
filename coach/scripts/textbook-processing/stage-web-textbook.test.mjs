@@ -41,7 +41,12 @@ it('stages an independently accepted web chapter through the same corpus with re
   for(const name of ['adjudication','original-audit','original-call'])await writeFile(join(root,name+'.json'),'{}');
   special.inputAdjudication={path:'adjudication.json',sha256:sha('{}'),originalAudit:{path:'original-audit.json',sha256:sha('{}'),status:'failed'},originalCall:{path:'original-call.json',sha256:sha('{}'),callId:'fixture-call'},resolvedIssueIndices:[0,1],approvedAt:'2026-10-24T00:00:00Z'};
   const accepted=await stageWebTextbook({processingRoot:root,candidatePath:'candidate.json',destination:join(root,'adjudicated'),verify:async()=>special});expect(accepted.auditStatus).toBe(special.status);expect(accepted.originalAuditStatus).toBe('failed');
+  const recovered={...await verify(),status:'passed-after-transport-recovery'};
+  await expect(stageWebTextbook({processingRoot:root,candidatePath:'candidate.json',destination:join(root,'missing-recovery'),verify:async()=>recovered})).rejects.toThrow('missing_transport_recovery');
+  recovered.transportRecovery={reason:'known transport diagnostic, effective review retained',originalAudit:special.inputAdjudication.originalAudit,originalCall:special.inputAdjudication.originalCall,verifier:{path:'adjudication.json',sha256:sha('{}'),combinedSha256:sha('fixture')}};
+  const recoveredStage=await stageWebTextbook({processingRoot:root,candidatePath:'candidate.json',destination:join(root,'recovered'),verify:async()=>recovered});expect(recoveredStage.transportRecovery).toEqual(recovered.transportRecovery);
   await writeFile(join(root,'original-call.json'),'tampered');await expect(stageWebTextbook({processingRoot:root,candidatePath:'candidate.json',destination:join(root,'tampered-adjudication'),verify:async()=>special})).rejects.toThrow('adjudication_changed');
+  await expect(stageWebTextbook({processingRoot:root,candidatePath:'candidate.json',destination:join(root,'tampered-recovery'),verify:async()=>recovered})).rejects.toThrow('transport_recovery_changed');
   await writeFile(join(root,'source.json'),sb+' ');await expect(stageWebTextbook({processingRoot:root,candidatePath:'candidate.json',destination:join(root,'changed'),verify})).rejects.toThrow('source_changed');
  }finally{if(!resolve(root).startsWith(resolve(tmpdir())+sep)||!root.includes('coach-web-stage-'))throw Error('unsafe_cleanup');await rm(root,{recursive:true,force:true});}
 });
