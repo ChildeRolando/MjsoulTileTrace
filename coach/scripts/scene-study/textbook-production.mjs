@@ -5,7 +5,7 @@ import { spawn } from 'node:child_process';
 import { basename, dirname, isAbsolute, join, relative, resolve } from 'node:path';
 import { tmpdir } from 'node:os';
 import assert from 'node:assert/strict';
-import { invokeTextbookCodex, parseTextbookCliResult } from './textbook-production-cli.mjs';
+import { invokeTextbookCodex, parseTextbookCliResult, textbookClosedPrompt } from './textbook-production-cli.mjs';
 
 const repo = resolve(import.meta.dirname, '../..');
 const dataRoot = 'E:\\AgentData\\Coach\\knowledge\\processing';
@@ -153,9 +153,11 @@ if (args.includes('--self-check')) {
   try{
     const result={code:0,timedOut:false,overflow:false,stderr:'',stdout:[{type:'error',message:'Reconnecting 2/5'},{type:'turn.completed',usage:{input_tokens:17,output_tokens:4}}].map(x=>JSON.stringify(x)).join('\n')};
     const broken=parseTextbookCliResult(result,'{broken JSON 原文');
+    broken.requestPrompt=textbookClosedPrompt('fixture semantic 中文');broken.requestPromptSha256=hash(broken.requestPrompt);
     assert.equal(broken.success,false);assert.equal(broken.output,null);assert.equal(broken.usage.cachedInputTokens,null);
     const artifactPath=await saveRawCall(fixtureDir,'fixture-call',broken);
     const artifact=JSON.parse(await readFile(artifactPath,'utf8'));assert.equal(artifact.rawLastMessage,'{broken JSON 原文');assert.equal(artifact.rawStdout,result.stdout);
+    assert.equal(artifact.requestPrompt,textbookClosedPrompt('fixture semantic 中文'));assert.equal(artifact.requestPromptSha256,hash(artifact.requestPrompt));
     assert.equal(parseTextbookCliResult(result,'{"pageFlow":[],"figures":[]}').success,true);
     const usage=summarizeUsage([{usage:broken.usage},{usage:null},{usage:{inputTokens:3,cachedInputTokens:2,outputTokens:null}}]);
     assert.deepEqual(usage.inputTokens,{knownSum:20,unknownCalls:1});assert.deepEqual(usage.cachedInputTokens,{knownSum:2,unknownCalls:2});assert.deepEqual(usage.outputTokens,{knownSum:4,unknownCalls:2});
@@ -216,7 +218,7 @@ function summarizeUsage(records){
 async function runWorkers(work,count,handler){let next=0;await Promise.all(Array.from({length:Math.min(count,work.length)},async()=>{while(true){const i=next++;if(i>=work.length)return;await handler(work[i],i);}}));}
 async function saveRawCall(root,callId,call){
   const rawDir=join(root,'raw-calls');await mkdir(rawDir,{recursive:true});const path=join(rawDir,`${callId}.json`);
-  await writeFile(path,JSON.stringify({callId,rawLastMessage:call.rawLastMessage??null,rawStdout:call.rawStdout??null,parsedOutput:call.output,events:call.events,terminalEvents:call.terminalEvents,stderr:call.stderr,usage:call.usage},null,2)+'\n',{flag:'wx'});return path;
+  await writeFile(path,JSON.stringify({callId,rawLastMessage:call.rawLastMessage??null,rawStdout:call.rawStdout??null,parsedOutput:call.output,events:call.events,terminalEvents:call.terminalEvents,stderr:call.stderr,usage:call.usage,requestPrompt:call.requestPrompt??null,requestPromptSha256:call.requestPromptSha256??null},null,2)+'\n',{flag:'wx'});return path;
 }
 function candidateMatches(candidate,source,meta){
   const cp={...candidate};const digest=cp.candidateSha256;delete cp.candidateSha256;
@@ -331,6 +333,8 @@ async function processPage(source, meta) {
       const rawArtifactSha256=hash(await readFile(rawPath));
       const record={callId,sourceId:source.sourceId,page:page.page,pageDataSha256:meta.pageDataSha256,pdfSha256:source.sha256,attempt,model,reasoningEffort:effort,promptVersion,schemaVersion,runnerSha256:runnerHash,schemaSha256:hash(Buffer.from(JSON.stringify(schema))),cliVersion:'codex-cli 0.162.1',cliArguments:['exec','--model',model,'--config model_reasoning_effort=high','--config web_search=disabled','--ephemeral','--ignore-user-config','--ignore-rules','--sandbox read-only','--strict-config','--skip-git-repo-check','--json','--output-schema <temp>','--output-last-message <temp>','--cd <temp>','-i <full-page>','-i <one-crop-per-region>','--disable <tool-features>','-'],startedAt:call.startedAt,durationMs:call.durationMs,usage:call.usage,transportStatus:call.success?'completed':call.timedOut?'timeout':call.outputOverflow?'output-overflow':'failed',schemaStatus:call.success?'valid':call.terminalEvents?.some(e=>e.code==='invalid_json_schema')?'invalid':'unknown',coverageStatus:call.success?'pending':'not-run',semanticStatus:'not-reviewed',success:failure===null,failure,terminalEvents:call.terminalEvents,stderr:call.stderr.slice(-800),pageImageSha256:pageImage.sha256,regionImageSha256s:regionImages.map(x=>({regionId:x.regionId,sha256:x.sha256})),outputSha256,rawArtifactPath:relative(production,rawPath).replaceAll('\\','/'),cliEventTypes:call.events.map(e=>e.type)};
       record.rawArtifactSha256=rawArtifactSha256;
+      record.requestPromptSha256=call.requestPromptSha256??null;
+      record.semanticPromptSha256=hash(prompt);
       attempts.push(record); await ledger(record);
       if(!failure){modelResult=call.output;usage=call.usage;break;}
     }

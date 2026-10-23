@@ -45,12 +45,14 @@ def capture(url,book):
   network={"httpStatus":r.status_code,"finalUrl":r.url,"contentType":r.headers.get("Content-Type")}
  meta={"requestedUrl":url,**network,"fetchedAt":now(),"encoding":BOOKS[book]["encoding"],"path":rel(path),"sha256":sha(data),"bytes":len(data)}
  save_json(meta_path,meta);return data,meta
-def soup(data,book):
- try:text=data.decode(BOOKS[book]["encoding"],errors="strict")
+def decoded(data,book):
+ encoding=BOOKS[book]["encoding"]
+ try:text=data.decode(encoding,errors="strict")
  except UnicodeDecodeError:
   if book!="modern-yabejp-ja":raise
-  text=data.decode("cp932",errors="strict")
- return BeautifulSoup(text,"lxml")
+  encoding="cp932";text=data.decode(encoding,errors="strict")
+ return text,{"declaredEncoding":BOOKS[book]["encoding"],"effectiveEncoding":encoding,"strict":True,"fallbackReason":"Windows Japanese extension byte invalid in strict Shift_JIS" if encoding=="cp932" else None}
+def soup(data,book):return BeautifulSoup(decoded(data,book)[0],"lxml")
 def catalog(book):
  cfg=BOOKS[book];pending=[cfg["index"]];seen=set();articles={};indices=[]
  if book=="modern-yabejp-ja":pending.append("http://yabejp.web.fc2.com/mahjong/archives.html")
@@ -136,7 +138,7 @@ def article(book,url,version=""):
  base=ROOT/book/"articles"/key;base.mkdir(parents=True,exist_ok=True)
  main_path=base/("main."+version+".html" if version else "main.html")
  main_bytes=str(main).encode("utf-8");main_path.write_bytes(main_bytes)
- blocks=[];paragraphs=[];assets={};ignored=[];links=[]
+ blocks=[];paragraphs=[];assets={};ignored=[];links=[];tables=[]
  def emit_leaf(tag,path,table=None):
   pid=f"{book}:{key}:p{len(paragraphs)+1:04d}";ids=[];pending=[];images=[]
   def add_block(value):
@@ -187,10 +189,17 @@ def article(book,url,version=""):
   children=[c for c in node.children if isinstance(c,Tag)]
   if node.name=="table":
    tid=f"{book}:{key}:table:{path}"
-   for ri,row in enumerate(node.find_all("tr",recursive=True)):
-    if row.find_parent("table") is not node:continue
-    for ci,cell in enumerate(row.find_all(["td","th"],recursive=False)):
-     traverse(cell,f"{path}/row{ri}/cell{ci}",{"tableId":tid,"row":ri,"column":ci,"rowspan":cell.get("rowspan","1"),"colspan":cell.get("colspan","1"),"header":cell.name=="th"})
+   record={"tableId":tid,"domPath":path,"captions":[],"rows":[],"rawText":node.get_text("",strip=False),"sourceBlockIds":[]};tables.append(record);first=len(blocks)
+   for child in node.find_all(["caption","tr"],recursive=True):
+    if child.find_parent("table") is not node:continue
+    if child.name=="caption":
+     start=len(blocks);traverse(child,f"{path}/caption{len(record['captions'])}",{"tableId":tid,"role":"caption"});record["captions"].append({"rawText":child.get_text("",strip=False),"sourceBlockIds":[b["id"] for b in blocks[start:]]});continue
+    ri=len(record["rows"]);row={"row":ri,"cells":[]};record["rows"].append(row)
+    for ci,cell in enumerate(child.find_all(["td","th"],recursive=False)):
+     context={"tableId":tid,"row":ri,"column":ci,"rowspan":cell.get("rowspan","1"),"colspan":cell.get("colspan","1"),"header":cell.name=="th"};start=len(blocks)
+     traverse(cell,f"{path}/row{ri}/cell{ci}",context)
+     row["cells"].append({**context,"tag":cell.name,"rawText":cell.get_text("",strip=False),"sourceBlockIds":[b["id"] for b in blocks[start:]],"empty":not cell.get_text("",strip=False).strip() and not cell.find("img")})
+   record["sourceBlockIds"]=[b["id"] for b in blocks[first:]]
    return
   block_children=[c for c in children if c.name in ["p","div","h1","h2","h3","h4","h5","h6","ul","ol","li","table","section","blockquote"]]
   if block_children:
@@ -213,7 +222,10 @@ def article(book,url,version=""):
   if not any(x["visibleText"]==visible for x in original_links):original_links.append({"visibleText":visible,"href":None,"evidence":"visible-body-text"})
  output={"schema":"coach-textbook-web-article-source/1","sourceId":book,"articleId":key,"url":url,"title":title,"language":BOOKS[book]["language"],"fetchedAt":meta["fetchedAt"],"html":meta,"main":{"selector":BOOKS[book]["selector"],"path":rel(main_path),"sha256":sha(main_bytes)},"blocks":blocks,"paragraphs":paragraphs,"assets":list(assets.values()),"links":links,"originalReferenceLinks":original_links,"ignoredPlaceholders":ignored,"attributionNote":"Original source attribution, translator disclaimers and reference visible text are preserved in the body. Link href and visible URL are recorded separately, never treated as equivalent without review.","status":"captured-not-translated-or-audited"}
  if any(a["status"]!="downloaded" for a in assets.values()):output["status"]="blocked-invalid-or-missing-original-image"
+ output["tables"]=tables;output["decoderEvidence"]=decoded(data,book)[1]
  output["extractorSha256"]=sha(Path(__file__).read_bytes())
+ extractor=ROOT/"extractors"/(output["extractorSha256"]+".py");extractor.parent.mkdir(parents=True,exist_ok=True)
+ if not extractor.exists():extractor.write_bytes(Path(__file__).read_bytes())
  output["sourceSha256"]=sha(json.dumps(output,ensure_ascii=False,separators=(",",":")).encode())
  save_json(existing,output)
  print(json.dumps({"sourceId":book,"articleId":key,"sourcePath":str(existing),"textBlocks":sum(b["type"]=="text" for b in blocks),"imageRuns":sum(b["type"]=="image-run" for b in blocks),"uniqueAssets":len(assets),"failedAssets":sum(a["status"]!="downloaded" for a in assets.values())},ensure_ascii=False),flush=True)
