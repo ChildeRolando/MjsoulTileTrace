@@ -33,7 +33,7 @@ export function validateBodies(library,bodies){
   for(const b of a[0].blocks){if(ids.has(b.id)||(source.format==='web'?b.page!==null||!b.locator?.sourceBlockIds?.length||b.locator.url!==source.url:!Number.isInteger(b.page)||b.page<c.bodyStartPage||b.page>c.endPage))throw Error('textbook_block_anchor');ids.add(b.id);
    if(!['p','h2','list','figure'].includes(b.type))throw Error('textbook_block_type');
    if(b.type==='figure'&&!/^assets\/[a-z0-9-]+\.png$/.test(b.src))throw Error('textbook_figure_path');
-   for(const f of b.inlineFigures??[]){if(ids.has(f.id)||!/^assets\/[a-z0-9-]+\.png$/.test(f.src)||f.page!==null||f.locator?.url!==source.url||f.locator.sourceBlockIds.some(id=>!b.locator.sourceBlockIds.includes(id)))throw Error('textbook_inline_figure_binding');ids.add(f.id);}
+   for(const f of b.inlineFigures??[]){if(ids.has(f.id)||!/^assets\/[a-z0-9-]+\.png$/.test(f.src)||(source.format==='web'?f.page!==null||f.locator?.url!==source.url||!f.locator?.sourceBlockIds?.length||f.locator.sourceBlockIds.some(id=>!b.locator.sourceBlockIds.includes(id)):f.page!==b.page||f.locator!==undefined||!f.sourceBlockIds?.length||f.sourceBlockIds.some(id=>!b.sourceBlockIds?.includes(id))))throw Error('textbook_inline_figure_binding');ids.add(f.id);}
    if(b.inlineContent&&(b.inlineContent.map(s=>s.text).join('')!==b.text||b.inlineContent.filter(s=>s.figureId).some(s=>!b.inlineFigures?.some(f=>f.id===s.figureId))))throw Error('textbook_inline_content_changed');
    if(['p','h2'].includes(b.type)&&!b.text?.trim())throw Error('textbook_empty_body');
    if(b.type==='list'&&!b.items?.length)throw Error('textbook_empty_list');

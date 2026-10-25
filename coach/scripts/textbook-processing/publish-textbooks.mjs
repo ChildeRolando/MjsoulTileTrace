@@ -7,6 +7,8 @@ import {validateTextbookCorpus} from '@riichi-coach/desktop/textbook-knowledge';
 import {verifyAuditForCandidate} from '../scene-study/textbook-audit.mjs';
 import {compileTextbookCorpus} from '../scene-study/compile-textbook-corpus.mjs';
 import {buildTextbookReview,validateLibrary,validateBodies} from '../scene-study/textbook-review.mjs';
+import {applyPdfInlineLayout} from './stage-pdf-inline-layout.mjs';
+import {splitInlineParagraph} from './stage-inline-chunks.mjs';
 const sha=b=>createHash('sha256').update(b).digest('hex');
 const parse=async p=>JSON.parse(await readFile(p,'utf8'));
 const key=(sourceId,page,id)=>`${sourceId}:${page}:${id}`;
@@ -31,11 +33,21 @@ export function mapSourceBlocks(chapterMap,pages,requireCompletePageCoverage=tru
 /** No summary substitution. Long paragraphs are split losslessly for bounded transport. */
 export function splitExactText(text,maxChars=2500){const chunks=[];let remaining=text;while(remaining.length>maxChars){let cut=remaining.lastIndexOf('\n',maxChars);if(cut<maxChars/2)cut=remaining.lastIndexOf('。',maxChars)+1;if(cut<maxChars/2)cut=maxChars;chunks.push(remaining.slice(0,cut));remaining=remaining.slice(cut);}if(remaining)chunks.push(remaining);if(chunks.join('')!==text)throw Error('publish_text_loss');return chunks;}
 function mappedOwner(ownership,sourceId,page,ids){if(!ids?.length)throw Error('publish_missing_source_blocks');const owners=ids.map(id=>ownership.get(key(sourceId,page,id)));if(owners.some(x=>!x)||owners.some(x=>x.unit.id!==owners[0].unit.id))throw Error('publish_paragraph_crosses_argument_boundary');return owners[0];}
-export async function readApprovedPdfPage({processingRoot,candidateRoot,source,item,selected,verify=verifyAuditForCandidate}){
+export async function readApprovedPdfPage({processingRoot,candidateRoot,source,item,selected,verify=verifyAuditForCandidate,verifySourceFlowLayout}){
   const path=await contained(processingRoot,selected?.candidatePath??join(candidateRoot,source.sourceId,`page-${String(item.page).padStart(4,'0')}.json`));
   if(selected&&sha(await readFile(path))!==selected.candidateSha256)throw Error('publish_selected_candidate_changed');
-  const audit=await verify(processingRoot,path);
-  if(!['passed','passed-after-source-adjudication','passed-after-transport-recovery','passed-after-specific-source-correction'].includes(audit.status))throw Error('publish_audit_not_passed');
+  let layout=null,layoutSha256=null,audit;
+  if(selected?.sourceFlowLayout){
+   if(typeof verifySourceFlowLayout!=='function')throw Error('publish_requires_source_flow_gate');
+   const layoutPath=await contained(processingRoot,selected.sourceFlowLayout.path),layoutBytes=await readFile(layoutPath);
+   if(sha(layoutBytes)!==selected.sourceFlowLayout.sha256)throw Error('publish_source_flow_layout_changed');layoutSha256=sha(layoutBytes);
+   audit=await verifySourceFlowLayout(processingRoot,path,layoutPath);const r=audit.sourceFlowRepair;
+   if(audit.status!=='passed-after-source-flow-repair'||audit.passed!==true||audit.effectiveModelChecks?.passed!==true||r?.layout?.sha256!==sha(layoutBytes)||!r.resolvedIssueHashes?.length||!r.originalCalls?.length||audit.calls?.length!==0)throw Error('publish_source_flow_gate_invalid');
+   for(const a of [{path:audit.auditPath,sha256:audit.auditSha256},r.layout,r.parent,r.originalAudit,r.originalProductionRaw,...(r.originalCalls??[])])if(!a?.path||! /^[a-f0-9]{64}$/.test(a.sha256)||sha(await readFile(await contained(processingRoot,a.path)))!==a.sha256)throw Error('publish_source_flow_evidence_changed');
+   for(const a of r.originalCalls){const call=await parse(await contained(processingRoot,a.path));if(!call.callId||!audit.inheritedCalls?.some(c=>c.callId===call.callId))throw Error('publish_source_flow_call_binding');}
+   if(r.parent.sha256!==sha(await readFile(path)))throw Error('publish_source_flow_parent_changed');layout=JSON.parse(layoutBytes);
+  }else audit=await verify(processingRoot,path);
+  if(!['passed','passed-after-source-adjudication','passed-after-transport-recovery','passed-after-specific-source-correction',...(layout?['passed-after-source-flow-repair']:[])].includes(audit.status))throw Error('publish_audit_not_passed');
   if(audit.status==='passed-after-source-adjudication'&&(!audit.adjudication?.path||!audit.adjudication.sha256))throw Error('publish_missing_adjudication_evidence');
   if(audit.status==='passed-after-transport-recovery'&&(!audit.transportRecovery?.originalAudit?.sha256||!audit.transportRecovery?.originalCall?.sha256))throw Error('publish_missing_transport_recovery_evidence');
   if(audit.status==='passed-after-specific-source-correction'){
@@ -46,9 +58,9 @@ export async function readApprovedPdfPage({processingRoot,candidateRoot,source,i
   }
   const bytes=await readFile(path),candidate=JSON.parse(bytes),pageBytes=await readFile(await contained(processingRoot,item.pageData));
   if(sha(bytes)!==audit.production.sha256||selected&&sha(bytes)!==selected.candidateSha256||sha(pageBytes)!==item.pageDataSha256||candidate.source.sourceId!==source.sourceId||candidate.source.page!==item.page||candidate.source.pdfSha256!==source.sha256||candidate.source.pageDataSha256!==item.pageDataSha256)throw Error('publish_source_changed');
-  const page=JSON.parse(pageBytes);return {sourceId:source.sourceId,source,candidate,candidatePath:path,page,audit};
+  const page=JSON.parse(pageBytes);return {sourceId:source.sourceId,source,candidate:layout?applyPdfInlineLayout(candidate,page,layout,layoutSha256):candidate,candidatePath:path,page,audit};
 }
-export async function prepareApprovedTextbooks({processingRoot,candidateRoot,chapterMapPath,candidateOverridesPath,verify=verifyAuditForCandidate}){
+export async function prepareApprovedTextbooks({processingRoot,candidateRoot,chapterMapPath,candidateOverridesPath,verify=verifyAuditForCandidate,verifySourceFlowLayout}){
  const inventory=await parse(join(processingRoot,'source-inventory.json')),pages=[];
  const overrides=new Map();let candidateOverridesSha256=null;
  if(candidateOverridesPath){
@@ -60,7 +72,7 @@ export async function prepareApprovedTextbooks({processingRoot,candidateRoot,cha
  }
  for(const source of inventory.sources)for(const item of source.pages){
   const selected=overrides.get(`${source.sourceId}:${item.page}`);
-  pages.push(await readApprovedPdfPage({processingRoot,candidateRoot,source,item,selected,verify}));
+  pages.push(await readApprovedPdfPage({processingRoot,candidateRoot,source,item,selected,verify,verifySourceFlowLayout}));
  }
  const chapterMap=await parse(chapterMapPath);
  if(chapterMap.inventorySha256&&chapterMap.inventorySha256!==sha(await readFile(join(processingRoot,'source-inventory.json'))))throw Error('publish_chapter_map_source_changed');
@@ -74,25 +86,28 @@ export async function assembleApprovedPdfPages({processingRoot,inventory,chapter
  const ownership=mapSourceBlocks(chapterMap,pages,!allowOutsideChapters),blocksByUnit=new Map(),images=[],seenIds=new Set(),coveredSourceBlocks=new Set();
  for(const p of pages){
   const figures=new Map(p.candidate.figures.map(f=>[f.figureId,f])),seenFigures=new Set();
+  async function makeFigure(figureId){
+   const f=figures.get(figureId);if(!f||seenFigures.has(f.figureId))throw Error('publish_figure_reference');seenFigures.add(f.figureId);
+   if(allowOutsideChapters&&f.sourceImageBlockIds.every(id=>!ownership.has(key(p.sourceId,p.page.page,id))))return null;
+   const owner=mappedOwner(ownership,p.sourceId,p.page.page,f.sourceImageBlockIds);for(const id of f.sourceImageBlockIds)coveredSourceBlocks.add(key(p.sourceId,p.page.page,id));
+   if(!f.transcription?.trim()||f.transcription.length>3500||/无法辨认|无法识别|待补|待核对|若干[万筒饼索]|接上段/.test(f.transcription))throw Error('publish_unresolved_figure');
+   const original=await contained(processingRoot,f.croppedImagePath),bytes=await readFile(original);if(sha(bytes)!==f.croppedImageSha256||bytes.subarray(0,8).toString('hex')!=='89504e470d0a1a0a')throw Error('publish_figure_changed');
+   TextbookIdSchema.parse(f.figureId);const asset=`assets/full-${f.croppedImageSha256}.png`;images.push({source:original,path:asset,sha256:f.croppedImageSha256});
+   return{owner,out:{id:f.figureId,type:'figure',page:p.page.page,src:asset,caption:f.caption||'教材原图',transcriptionText:f.transcription,sourceBlockIds:f.sourceImageBlockIds,...(f.imageProvenance?{imageProvenance:f.imageProvenance}:{})}};
+  }
   for(const block of p.candidate.body.blocks){
    if(block.type==='figure'){
-    const f=figures.get(block.figureId);if(!f||seenFigures.has(f.figureId))throw Error('publish_figure_reference');seenFigures.add(f.figureId);
-    if(allowOutsideChapters&&f.sourceImageBlockIds.every(id=>!ownership.has(key(p.sourceId,p.page.page,id))))continue;
-    const owner=mappedOwner(ownership,p.sourceId,p.page.page,f.sourceImageBlockIds);
-    for(const id of f.sourceImageBlockIds)coveredSourceBlocks.add(key(p.sourceId,p.page.page,id));
-    if(!f.transcription?.trim()||f.transcription.length>3500||/无法辨认|无法识别|待补|待核对|若干[万筒饼索]|接上段/.test(f.transcription))throw Error('publish_unresolved_figure');
-    const original=await contained(processingRoot,f.croppedImagePath),bytes=await readFile(original);if(sha(bytes)!==f.croppedImageSha256||bytes.subarray(0,8).toString('hex')!=='89504e470d0a1a0a')throw Error('publish_figure_changed');
-    TextbookIdSchema.parse(f.figureId);const asset=`assets/full-${f.croppedImageSha256}.png`;
-    images.push({source:original,path:asset,sha256:f.croppedImageSha256});
-    const out={id:f.figureId,type:'figure',page:p.page.page,src:asset,caption:f.caption||'教材原图',transcriptionText:f.transcription,sourceBlockIds:f.sourceImageBlockIds};
+    const figure=await makeFigure(block.figureId);if(!figure)continue;const{owner,out}=figure;
     blocksByUnit.set(owner.unit.id,[...(blocksByUnit.get(owner.unit.id)??[]),out]);
    }else if(block.type==='text'){
+    const inline=[];for(const id of block.inlineFigureIds??[])inline.push(await makeFigure(id));
     if(!block.text.trim())continue;
     if(/^[（(]?接上段[）)]?$|^待翻译$|^同上$/.test(block.text.trim()))throw Error('publish_placeholder_body');
-    if(allowOutsideChapters&&block.sourceBlockIds.every(id=>!ownership.has(key(p.sourceId,p.page.page,id))))continue;
+    if(allowOutsideChapters&&block.sourceBlockIds.every(id=>!ownership.has(key(p.sourceId,p.page.page,id)))){if(inline.some(Boolean))throw Error('publish_inline_cross_argument');continue;}
     const owner=mappedOwner(ownership,p.sourceId,p.page.page,block.sourceBlockIds);
     for(const id of block.sourceBlockIds)coveredSourceBlocks.add(key(p.sourceId,p.page.page,id));
-    const out=splitExactText(block.text).map((text,i)=>({id:`${block.sourceBlockIds[0]}-t${i+1}`,type:'p',page:p.page.page,text,sourceBlockIds:block.sourceBlockIds}));
+    if(inline.some(f=>!f||f.owner.unit.id!==owner.unit.id))throw Error('publish_inline_cross_argument');
+    const out=inline.length?splitInlineParagraph({id:`${block.sourceBlockIds[0]}-inline`,type:'p',page:p.page.page,text:block.text,sourceBlockIds:[...block.sourceBlockIds,...inline.flatMap(f=>f.out.sourceBlockIds)],inlineContent:block.inlineContent,inlineFigures:inline.map(f=>f.out),pdfInlineLayout:block.pdfInlineLayout},owner.unit.id):splitExactText(block.text).map((text,i)=>({id:`${block.sourceBlockIds[0]}-t${i+1}`,type:'p',page:p.page.page,text,sourceBlockIds:block.sourceBlockIds}));
     blocksByUnit.set(owner.unit.id,[...(blocksByUnit.get(owner.unit.id)??[]),...out]);
    }else throw Error('publish_body_schema');
   }
@@ -109,7 +124,7 @@ export function appendApprovedPdfChapters({approved,library,bodies}){
   if(seen.has(c.id))throw Error('publish_chapter_id_collision');seen.add(c.id);
   const blocks=c.units.flatMap(u=>approved.blocksByUnit.get(u.id)),pages=[...new Set(blocks.map(b=>b.page))],source=library.sources.find(s=>s.id===c.sourceId);
   if(!source||source.sha256!==approved.inventory.sources.find(s=>s.sourceId===c.sourceId)?.sha256)throw Error('publish_source_edition_mismatch');
-  const sourceAdjudicated=approved.pages.some(p=>p.sourceId===c.sourceId&&pages.includes(p.page.page)&&['passed-after-source-adjudication','passed-after-specific-source-correction'].includes(p.audit.status));
+  const sourceAdjudicated=approved.pages.some(p=>p.sourceId===c.sourceId&&pages.includes(p.page.page)&&['passed-after-source-adjudication','passed-after-specific-source-correction','passed-after-source-flow-repair'].includes(p.audit.status));
   library.chapters.push({id:c.id,title:c.title,sourceId:c.sourceId,startPage:Math.min(...pages),bodyStartPage:Math.min(...pages),endPage:Math.max(...pages),topics:c.topics??[],anchors:[],relatedChapterIds:[],reviewFocus:sourceAdjudicated?'完整中文论证、牌例和判断力度；包含具体源图复核裁决或修正，原审查与有效验收详见发布记录。用户审核待完成。':'完整中文论证、牌例和判断力度；自动校对已通过，用户审核待完成。'});
   bodies.chapters.push({chapterId:c.id,sourceId:c.sourceId,sourceSha256:source.sha256,translationStatus:'batch-audited-pending-user-review',translatorNote:sourceAdjudicated?'完整正文与牌例经批量制作及独立校对；具体源图裁决或修正、原审查与有效验收分别保留于发布记录。未运行局面模型实验，用户内容审核待完成。':'完整正文与牌例经批量制作及独立自动校对；未运行局面模型实验。用户内容审核待完成。',blocks});
   let offset=0;for(const u of c.units){const length=approved.blocksByUnit.get(u.id).length;definitions.push({id:u.id,chapterId:c.id,title:u.title,from:offset+1,to:offset+length,...(u.contentRole!==undefined?{contentRole:u.contentRole}:{})});offset+=length;}
@@ -131,7 +146,7 @@ export async function publishTextbooks(options){
  for(const image of approved.images){const bytes=await readFile(image.source);if(sha(bytes)!==image.sha256)throw Error('publish_figure_changed');await writeFile(join(stage,image.path),bytes);}
  await writeFile(join(stage,'textbook-bodies.json'),JSON.stringify(bodies,null,2)+'\n');await writeFile(join(stage,'knowledge-index.json'),JSON.stringify(library,null,2)+'\n');
  const build=await compileTextbookCorpus(stage,definitions);await buildTextbookReview(stage,library);
- const receipt={schema:'coach-textbook-full-publication/1',publishedAt:new Date().toISOString(),sourceInventorySha256:sha(await readFile(join(options.processingRoot,'source-inventory.json'))),pages:approved.pages.length,candidateOverridesSha256:approved.candidateOverridesSha256,...build,modelExperiments:0,humanReview:'pending',auditReceipts:approved.pages.map(p=>({sourceId:p.sourceId,page:p.page.page,status:p.audit.status,candidatePath:p.candidatePath,candidateSha256:p.audit.production.sha256,auditPath:p.audit.auditPath,modelChecks:p.audit.modelChecks??null,adjudication:p.audit.adjudication??null,transportRecovery:p.audit.transportRecovery??null,sourceCorrection:p.audit.sourceCorrection??null,effectiveModelChecks:p.audit.effectiveModelChecks??null,calls:p.audit.calls??null,inheritedCalls:p.audit.inheritedCalls??null})),replacesPriorCorpusId:priorCorpus.corpusId,replacedChapters:replacedChapters.map(c=>({...c,coveredByFullSource:true,newChapterIds:library.chapters.filter(n=>n.sourceId===c.sourceId&&n.startPage<=c.endPage&&n.endPage>=c.startPage).map(n=>n.id)})),duplicateLegacyUnitsPublished:false};
+ const receipt={schema:'coach-textbook-full-publication/1',publishedAt:new Date().toISOString(),sourceInventorySha256:sha(await readFile(join(options.processingRoot,'source-inventory.json'))),pages:approved.pages.length,candidateOverridesSha256:approved.candidateOverridesSha256,...build,modelExperiments:0,humanReview:'pending',auditReceipts:approved.pages.map(p=>({sourceId:p.sourceId,page:p.page.page,status:p.audit.status,candidatePath:p.candidatePath,candidateSha256:p.audit.production.sha256,auditPath:p.audit.auditPath,modelChecks:p.audit.modelChecks??null,adjudication:p.audit.adjudication??null,transportRecovery:p.audit.transportRecovery??null,sourceCorrection:p.audit.sourceCorrection??null,sourceFlowRepair:p.audit.sourceFlowRepair??null,originalModelChecks:p.audit.originalModelChecks??p.audit.modelChecks??null,effectiveModelChecks:p.audit.effectiveModelChecks??null,calls:p.audit.calls??null,inheritedCalls:p.audit.inheritedCalls??null})),replacesPriorCorpusId:priorCorpus.corpusId,replacedChapters:replacedChapters.map(c=>({...c,coveredByFullSource:true,newChapterIds:library.chapters.filter(n=>n.sourceId===c.sourceId&&n.startPage<=c.endPage&&n.endPage>=c.startPage).map(n=>n.id)})),duplicateLegacyUnitsPublished:false};
  // Copy content-addressed new assets first; replace manifests only after the complete stage validates.
  for(const image of approved.images)await copyFile(join(stage,image.path),join(root,image.path));
  await writeFile(join(stage,'textbook-unit-map.json'),JSON.stringify(definitions,null,2)+'\n');await writeFile(join(stage,'full-publication.json'),JSON.stringify(receipt,null,2)+'\n');

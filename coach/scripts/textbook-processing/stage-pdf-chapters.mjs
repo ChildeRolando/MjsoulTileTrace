@@ -6,7 +6,7 @@ import {compileTextbookCorpus} from '../scene-study/compile-textbook-corpus.mjs'
 import {buildTextbookReview} from '../scene-study/textbook-review.mjs';
 const hash=b=>createHash('sha256').update(b).digest('hex');
 /** Stage only explicitly selected complete chapters. The real inventory is never narrowed or rewritten. */
-export async function stagePdfChapters({processingRoot,chapterMapPath,candidateSelectionPath,chapterIds,sourceLibraryPath,destination,verify}){
+export async function stagePdfChapters({processingRoot,chapterMapPath,candidateSelectionPath,chapterIds,sourceLibraryPath,destination,verify,verifySourceFlowLayout}){
  const inventoryBytes=await readFile(join(processingRoot,'source-inventory.json')),inventory=JSON.parse(inventoryBytes),mapBytes=await readFile(chapterMapPath),fullMap=JSON.parse(mapBytes),selectionBytes=await readFile(candidateSelectionPath),selection=JSON.parse(selectionBytes);
  if(fullMap.inventorySha256!==hash(inventoryBytes))throw Error('pdf_stage_inventory_changed');
  if(selection.schema!=='coach-textbook-candidate-selection/1'||!Array.isArray(selection.pages))throw Error('pdf_stage_selection_schema');
@@ -15,7 +15,7 @@ export async function stagePdfChapters({processingRoot,chapterMapPath,candidateS
  for(const chapter of chapters){const source=inventory.sources.find(s=>s.sourceId===chapter.sourceId);if(!source||chapter.sourcePdfSha256!==source.sha256||!chapter.units.length)throw Error('pdf_stage_source_edition');for(const unit of chapter.units)for(let page=unit.from.page;page<=unit.to.page;page++){const item=source.pages.find(p=>p.page===page);if(!item)throw Error('pdf_stage_missing_source_page');required.set(source.sourceId+':'+page,{source,item});}}
  const pages=[];for(const {source,item}of required.values()){
   const choices=selection.pages.filter(p=>p.sourceId===source.sourceId&&p.page===item.page);if(choices.length!==1)throw Error('pdf_stage_incomplete_chapter');
-  pages.push(await readApprovedPdfPage({processingRoot,source,item,selected:choices[0],verify}));
+  pages.push(await readApprovedPdfPage({processingRoot,source,item,selected:choices[0],verify,verifySourceFlowLayout}));
  }
  pages.sort((a,b)=>a.sourceId.localeCompare(b.sourceId)||a.page.page-b.page.page);
  const approved=await assembleApprovedPdfPages({processingRoot,inventory,chapterMap,pages,candidateOverridesSha256:hash(selectionBytes),allowOutsideChapters:true});
@@ -26,6 +26,6 @@ export async function stagePdfChapters({processingRoot,chapterMapPath,candidateS
  for(const [name,data]of[['knowledge-index.json',library],['textbook-bodies.json',bodies],['textbook-unit-map.json',definitions]])await writeFile(join(destination,name),JSON.stringify(data,null,2)+'\n');
  const build=await compileTextbookCorpus(destination,definitions);await buildTextbookReview(destination,library);
  const owned=mapSourceBlocks(chapterMap,pages,false),outsideBlocks=pages.flatMap(p=>p.page.blocks.filter(b=>!owned.has(`${p.sourceId}:${p.page.page}:${b.id}`)).map(b=>({sourceId:p.sourceId,page:p.page.page,sourceBlockId:b.id,reason:'neighboring chapter outside explicit complete chapter boundary'})));
- const receipt={schema:'coach-approved-pdf-chapter-stage/1',status:'complete-chapter-subset-not-full-publication',recordedAt:new Date().toISOString(),sourceInventorySha256:hash(inventoryBytes),chapterMapSha256:hash(mapBytes),candidateSelectionSha256:hash(selectionBytes),chapterIds,pages:pages.map(p=>({sourceId:p.sourceId,page:p.page.page,candidatePath:p.candidatePath,candidateSha256:p.audit.production.sha256,auditStatus:p.audit.status,auditPath:p.audit.auditPath,adjudication:p.audit.adjudication,transportRecovery:p.audit.transportRecovery,sourceCorrection:p.audit.sourceCorrection,originalModelChecks:p.audit.modelChecks,effectiveModelChecks:p.audit.effectiveModelChecks,calls:p.audit.calls,inheritedCalls:p.audit.inheritedCalls})),outsideBlocks,...build,activeLibraryChanged:false,modelCalls:0,humanReview:'pending'};
+ const receipt={schema:'coach-approved-pdf-chapter-stage/1',status:'complete-chapter-subset-not-full-publication',recordedAt:new Date().toISOString(),sourceInventorySha256:hash(inventoryBytes),chapterMapSha256:hash(mapBytes),candidateSelectionSha256:hash(selectionBytes),chapterIds,pages:pages.map(p=>({sourceId:p.sourceId,page:p.page.page,candidatePath:p.candidatePath,candidateSha256:p.audit.production.sha256,auditStatus:p.audit.status,auditPath:p.audit.auditPath,adjudication:p.audit.adjudication,transportRecovery:p.audit.transportRecovery,sourceCorrection:p.audit.sourceCorrection,sourceFlowRepair:p.audit.sourceFlowRepair,originalModelChecks:p.audit.originalModelChecks??p.audit.modelChecks,effectiveModelChecks:p.audit.effectiveModelChecks,calls:p.audit.calls,inheritedCalls:p.audit.inheritedCalls})),outsideBlocks,...build,activeLibraryChanged:false,modelCalls:0,humanReview:'pending'};
  await writeFile(join(destination,'pdf-stage-receipt.json'),JSON.stringify(receipt,null,2)+'\n');return receipt;
 }

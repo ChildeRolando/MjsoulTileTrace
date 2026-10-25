@@ -35,6 +35,13 @@ async function publicationFixture(){
  return {root,options,async cleanup(){const rel=relative(resolve(tmpdir()),resolve(root));if(isAbsolute(rel)||!rel.startsWith('coach-textbook-publish-')||rel.includes('..'))throw Error('cleanup_scope');await rm(root,{recursive:true});}};
 }
 describe('publication and interrupted replacement',()=>{
+ it('requires an explicit independent source-flow callback and exact layout bytes',async()=>{
+  const f=await publicationFixture();try{const root=f.options.processingRoot,source=JSON.parse(await readFile(join(root,'source-inventory.json'),'utf8')).sources[0],layoutPath=join(root,'layout.json');await writeFile(layoutPath,'{}');const selected={candidatePath:join(f.options.candidateRoot,'book/page-0001.json'),candidateSha256:sha(await readFile(join(root,f.options.candidateRoot,'book/page-0001.json'))),sourceFlowLayout:{path:layoutPath,sha256:sha('{}')}},options={processingRoot:root,source,item:source.pages[0],selected};
+   await expect(readApprovedPdfPage(options)).rejects.toThrow('requires_source_flow_gate');
+   await expect(readApprovedPdfPage({...options,verifySourceFlowLayout:async()=>({status:'passed',passed:true})})).rejects.toThrow('source_flow_gate_invalid');
+   await writeFile(layoutPath,'changed');await expect(readApprovedPdfPage({...options,verifySourceFlowLayout:async()=>{throw Error('must not call');}})).rejects.toThrow('source_flow_layout_changed');
+  }finally{await f.cleanup();}
+ });
  it('requires immutable specific source correction evidence and preserves the original rejected review',async()=>{
   const f=await publicationFixture();try{
    const root=f.options.processingRoot,inventory=JSON.parse(await readFile(join(root,'source-inventory.json'),'utf8')),source=inventory.sources[0],item=source.pages[0];
