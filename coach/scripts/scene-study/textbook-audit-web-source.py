@@ -61,7 +61,15 @@ def inspect(processing, source_path):
             expected.extend("<image:" + image["occurrenceId"] + ">" for image in block["images"])
 
     ignored = source.get("ignoredPlaceholders", [])
-    check(all(x.get("reason") == "explicit-book-navigation-image" for x in ignored), "unresolved_ignored_image")
+    def amazon_tracking_pixel(url, attrs):
+        parts = urlsplit(url)
+        return (parts.hostname == "www.assoc-amazon.jp" and parts.path == "/e/ir"
+                and str(attrs.get("width", "")) == "1" and str(attrs.get("height", "")) == "1"
+                and attrs.get("alt", "") == "")
+    check(all(x.get("reason") == "explicit-book-navigation-image" or
+              (x.get("reason") == "explicit-amazon-affiliate-tracking-pixel-1x1-empty-alt"
+               and x.get("sourceUrls") and all(amazon_tracking_pixel(u, x.get("attrs", {})) for u in x["sourceUrls"]))
+              for x in ignored), "unresolved_ignored_image")
     def image_urls(node):
         result = []
         parent = node.find_parent("a", href=True)
@@ -92,6 +100,10 @@ def inspect(processing, source_path):
                 urls = image_urls(item)
                 if urls and all(re.search(r"/(back|home|next)\.gif$", urlsplit(u).path) for u in urls):
                     check(any(set(urls) & set(x.get("sourceUrls", [])) for x in ignored), "unrecorded_navigation_image")
+                    continue
+                if urls and all(amazon_tracking_pixel(u, item.attrs) for u in urls):
+                    check(any(x.get("reason") == "explicit-amazon-affiliate-tracking-pixel-1x1-empty-alt"
+                              and set(urls) & set(x.get("sourceUrls", [])) for x in ignored), "unrecorded_tracking_pixel")
                     continue
                 if image_number >= len(occurrences):
                     errors.append("raw_image_not_in_source_coverage")
@@ -124,10 +136,47 @@ def inspect(processing, source_path):
     check(tokens(captured_main) == expected, "main_dom_character_image_coverage_order")
     if raw_main is not None:
         check(tokens(raw_main) == expected, "raw_dom_character_image_coverage_order")
+    table_geometry = None
+    raw_tables, tables = captured_main.find_all("table"), source.get("tables", [])
+    if raw_tables or tables:
+        check(len(raw_tables) == len(tables), "html_table_geometry_coverage")
+        cells_checked, empty_checked = 0, 0
+        for node, table in zip(raw_tables, tables):
+            table_id = table["tableId"]
+            table_blocks = [b for b in blocks if (b.get("tableContext") or {}).get("tableId") == table_id]
+            check(table.get("sourceBlockIds") == [b["id"] for b in table_blocks], "table_block_coverage:" + table_id)
+            check(table.get("rawText") == node.get_text(), "table_raw_text:" + table_id)
+            captions = node.find_all("caption", recursive=False)
+            check(len(captions) == len(table.get("captions", [])), "table_caption_count:" + table_id)
+            for caption, declared in zip(captions, table.get("captions", [])):
+                caption_blocks = [b for b in table_blocks if b["tableContext"].get("role") == "caption"]
+                check(declared["rawText"] == caption.get_text() and declared["sourceBlockIds"] == [b["id"] for b in caption_blocks], "table_caption_binding:" + table_id)
+            rows = [r for r in node.find_all("tr") if r.find_parent("table") is node]
+            check(len(rows) == len(table["rows"]), "table_row_count:" + table_id)
+            for row_index, (row, declared_row) in enumerate(zip(rows, table["rows"])):
+                cells = row.find_all(["td", "th"], recursive=False)
+                check(declared_row["row"] == row_index and len(cells) == len(declared_row["cells"]), "table_cell_count:" + table_id)
+                for column, (cell, declared) in enumerate(zip(cells, declared_row["cells"])):
+                    cells_checked += 1
+                    cell_blocks = [b for b in table_blocks if b["tableContext"].get("row") == row_index and b["tableContext"].get("column") == column]
+                    empty = not compact(cell.get_text()) and cell.find("img") is None
+                    empty_checked += int(empty)
+                    check(declared["row"] == row_index and declared["column"] == column and declared["tag"] == cell.name
+                          and declared["header"] == (cell.name == "th") and declared["rowspan"] == str(cell.get("rowspan", "1"))
+                          and declared["colspan"] == str(cell.get("colspan", "1")) and declared["rawText"] == cell.get_text()
+                          and declared["empty"] == empty and declared["sourceBlockIds"] == [b["id"] for b in cell_blocks], "table_cell_geometry:" + table_id)
+                    check(compact(cell.get_text()) == compact("".join(b.get("text", "") for b in cell_blocks)), "table_cell_text:" + table_id)
+                    actual_images = cell.find_all("img")
+                    declared_images = [i for b in cell_blocks for i in b.get("images", [])]
+                    check(len(actual_images) == len(declared_images) and all(set(image_urls(a)) & set(d["sourceUrls"]) for a, d in zip(actual_images, declared_images)), "table_cell_images:" + table_id)
+        table_geometry = {"tables": len(tables), "cells": cells_checked, "emptyCells": empty_checked,
+                          "method": "independent raw DOM captions, physical cells, exact whitespace and span attributes"}
     result = {"schema": "coach-textbook-web-independent-source-check/1", "passed": not errors, "errors": errors,
             "sourceFileSha256": digest(source_bytes), "rawHtmlSha256": digest(raw), "mainSha256": digest(main_bytes),
             "textBlocks": sum(b["type"] == "text" for b in blocks), "imageRuns": sum(b["type"] == "image-run" for b in blocks),
             "imageOccurrences": len(occurrences), "uniqueAssets": len(assets), "method": "offline independent html.parser character-and-image DOM event comparison", "modelCalls": 0}
+    if table_geometry is not None:
+        result["tableGeometry"] = table_geometry
     if effective_encoding != declared_encoding:
         result["decoderEvidence"] = {"declaredEncoding": declared_encoding, "effectiveEncoding": effective_encoding,
                                      "reason": "Strict Shift_JIS rejects Windows extension bytes; strict CP932 succeeds, without replacement characters."}
