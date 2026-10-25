@@ -1,0 +1,15 @@
+import{it,expect}from'vitest';
+import{applyPdfInlineLayout}from'./stage-pdf-inline-layout.mjs';
+const sha='a'.repeat(64);
+function fixture(){
+ const before={type:'text',sourceBlockIds:['outside'],text:'保留'},text={type:'text',sourceBlockIds:['t'],sourceText:'甲😀乙',text:'甲😀乙',unitId:'u',chapterId:'c'},figure={type:'figure',figureId:'f'},after={type:'text',sourceBlockIds:['end'],text:'结论保持'},candidate={source:{sourceId:'79-cn',page:335},body:{blocks:[before,text,figure,after]},figures:[{figureId:'f',sourceImageBlockIds:['i1','i2']}]},page={page:335,blocks:[{id:'t',type:'text',lines:[{text:'甲😀乙'}]},{id:'i1',type:'image'},{id:'i2',type:'image'}]};
+ const group=(id,image,code)=>({figureGroupId:id,parentFigureId:'f',sourceImageBlockIds:[image],tiles:[{sourceImageBlockId:image,code,asset:{path:image+'.png',sha256:sha}}],text:code,presentationAsset:{path:id+'.png',sha256:sha,width:20,height:30,derived:true}});
+ const layout={schema:'coach-textbook-pdf-inline-layout/1',source:{sourceId:'79-cn',page:335},figureGroups:[group('g1','i1','2m'),group('g2','i2','3m')],paragraphs:[{sourceBlockIds:['t'],originalSourceText:'甲😀乙',text:'甲2m😀3m乙',replacement:{sourceBlockIds:['t'],parentFigureIds:['f'],insertBeforeSourceBlockId:'t',parentBodyIndices:[1,2],parentBodyBlocks:[text,figure]},inlineContent:[{type:'text',text:'甲',sourceFragments:[{sourceBlockId:'t',start:0,end:1}]},{type:'figure',figureGroupId:'g1',text:'2m'},{type:'text',text:'😀',sourceFragments:[{sourceBlockId:'t',start:1,end:2}]},{type:'figure',figureGroupId:'g2',text:'3m'},{type:'text',text:'乙',sourceFragments:[{sourceBlockId:'t',start:2,end:3}]}]}]};return{candidate,page,layout};
+}
+it('preserves exact Chinese codepoints and untouched body while splitting two inline image slots',()=>{
+ const{candidate,page,layout}=fixture(),saved=JSON.stringify(candidate),out=applyPdfInlineLayout(candidate,page,layout,sha);expect(JSON.stringify(candidate)).toBe(saved);expect(out.body.blocks).toHaveLength(3);expect(out.body.blocks[0]).toBe(candidate.body.blocks[0]);expect(out.body.blocks[2]).toBe(candidate.body.blocks[3]);expect(out.body.blocks[1].text).toBe('甲2m😀3m乙');expect(out.body.blocks[1].sourceText).toBe('甲😀乙');expect(out.body.blocks[1].inlineFigureIds).toEqual(['g1','g2']);expect(out.figures.flatMap(f=>f.sourceImageBlockIds)).toEqual(['i1','i2']);
+});
+it('rejects text loss, duplicate images, changed parent, wrong tile codes and translated-offset guesses',()=>{
+ const mutations=[x=>x.layout.paragraphs[0].inlineContent[2].sourceFragments[0].end=3,x=>x.layout.figureGroups[1].sourceImageBlockIds=['i1'],x=>x.layout.paragraphs[0].replacement.parentBodyBlocks[0]={...x.candidate.body.blocks[1],text:'修改'},x=>x.layout.figureGroups[0].text='3m',x=>x.candidate.source.sourceId='nemata-jp',x=>x.layout.paragraphs[0].inlineContent.splice(3,1)];
+ for(const mutate of mutations){const x=fixture();mutate(x);expect(()=>applyPdfInlineLayout(x.candidate,x.page,x.layout,sha)).toThrow();}
+});

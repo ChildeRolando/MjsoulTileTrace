@@ -1,5 +1,5 @@
 import {describe,it,expect} from 'vitest';
-import {mapSourceBlocks,splitExactText} from './publish-textbooks.mjs';
+import {mapSourceBlocks,splitExactText,readApprovedPdfPage} from './publish-textbooks.mjs';
 const page=(n,blocks)=>({sourceId:'book',page:{page:n,blocks}});
 const text=(id)=>({id,type:'text',lines:[{text:'完整正文'}]});
 const map={schema:'coach-textbook-chapter-map/1',chapters:[{id:'c1',title:'第一章',sourceId:'book',topics:[],units:[{id:'u1',title:'跨页论证',from:{page:1,sourceBlockId:'b1'},to:{page:2,sourceBlockId:'b3'}}]},{id:'c2',title:'同页下一章',sourceId:'book',topics:[],units:[{id:'u2',title:'独立论证',from:{page:2,sourceBlockId:'b4'},to:{page:2,sourceBlockId:'b4'}}]}]};
@@ -35,6 +35,19 @@ async function publicationFixture(){
  return {root,options,async cleanup(){const rel=relative(resolve(tmpdir()),resolve(root));if(isAbsolute(rel)||!rel.startsWith('coach-textbook-publish-')||rel.includes('..'))throw Error('cleanup_scope');await rm(root,{recursive:true});}};
 }
 describe('publication and interrupted replacement',()=>{
+ it('requires immutable specific source correction evidence and preserves the original rejected review',async()=>{
+  const f=await publicationFixture();try{
+   const root=f.options.processingRoot,inventory=JSON.parse(await readFile(join(root,'source-inventory.json'),'utf8')),source=inventory.sources[0],item=source.pages[0];
+   const artifact=async(name,data)=>{const bytes=JSON.stringify(data);await writeFile(join(root,name),bytes);return{path:name,sha256:sha(bytes)};};
+   const proof=await artifact('proof.json',{approved:true}),parent=await artifact('parent.json',{body:'unchanged parent archive'}),originalAudit=await artifact('original-audit.json',{status:'needs-repair',modelChecks:{passed:false}}),originalCall=await artifact('original-call.json',{callId:'original-call',usage:{inputTokens:100,outputTokens:20}});
+   const audit={status:'passed-after-specific-source-correction',modelChecks:{passed:false},effectiveModelChecks:{passed:true},calls:[],inheritedCalls:[{callId:'original-call'}],sourceCorrection:{...proof,parent,originalAudit,originalCalls:[originalCall],resolutions:[{field:'legend',fromValue:'square',toValue:'circle'}],approvedBy:'root',approvedAt:'fixture'}};
+   const options={processingRoot:root,candidateRoot:f.options.candidateRoot,source,item,verify:async(...args)=>({...await f.options.verify(...args),...audit})};
+   const page=await readApprovedPdfPage(options);expect(page.audit.modelChecks.passed).toBe(false);expect(page.audit.effectiveModelChecks.passed).toBe(true);expect(page.audit.sourceCorrection).toEqual(audit.sourceCorrection);
+   const receipt=await publishTextbooks({...f.options,verify:options.verify});expect(receipt.auditReceipts[0]).toMatchObject({modelChecks:{passed:false},effectiveModelChecks:{passed:true},sourceCorrection:audit.sourceCorrection,calls:[],inheritedCalls:[{callId:'original-call'}]});
+   await expect(readApprovedPdfPage({...options,verify:async(...args)=>({...await options.verify(...args),sourceCorrection:undefined})})).rejects.toThrow('missing_source_correction');
+   await writeFile(join(root,proof.path),'changed');await expect(readApprovedPdfPage(options)).rejects.toThrow('source_correction_changed');
+  }finally{await f.cleanup();}
+ });
  it('stages a complete PDF chapter without publishing its same-page neighbor or weakening the full-book gate',async()=>{
   const f=await publicationFixture();try{
    const root=f.options.processingRoot,pagePath=join(root,'book/pages/001.json'),page=JSON.parse(await readFile(pagePath,'utf8'));page.blocks.push(text('neighbor'));await writeFile(pagePath,JSON.stringify(page));
