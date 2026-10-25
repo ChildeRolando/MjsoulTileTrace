@@ -30,6 +30,7 @@ const effort = 'high';
 const promptVersion = 'textbook-page-transcription/4';
 const schemaVersion = 'coach-textbook-page-draft/3';
 const maxAttempts = Number(option('--attempts', '2'));
+const modelTimeoutMs=Number(option('--timeout-ms','900000'));if(!Number.isInteger(modelTimeoutMs)||modelTimeoutMs<1000||modelTimeoutMs>900000)throw Error('invalid_pdf_model_timeout_ms');
 if(!Number.isInteger(limit)||limit<0||!Number.isInteger(concurrency)||!Number.isInteger(maxAttempts)||maxAttempts<1||maxAttempts>3)throw new Error('invalid_limit_concurrency_or_attempts');
 const callUsageRecords=[];
 const inventoryBytes = await readFile(join(dataRoot, 'source-inventory.json'));
@@ -179,7 +180,7 @@ if (args.includes('--self-check')) {
     const race={stopped:false},raceResults=[],raceWorkerErrors=[];let raceRejected=0;
     await runWorkers([0,1],1,async value=>{try{const path=join(fixtureDir,'partial-admission.json');await writeFile(path,'{partial');await assertTextbookModelAdmission({admissionPath:path});raceResults.push(value);}catch(e){if(stopForAdmissionError(e,race)){raceRejected++;return;}raceWorkerErrors.push(e);}},async()=>!race.stopped);
     assert.equal(raceRejected,1);assert.equal(race.stopped,true);assert.equal(raceResults.length,0);assert.equal(raceWorkerErrors.length,0);assert.equal(2-raceResults.length,2);
-    console.log(JSON.stringify({ schemaCases:3,noEmptyEnums:true,noUnsupportedUniqueItems:true,crossUnitMergeRejected:true,mergedTitleRejected:true,revisionWithoutImagesUsesModel:true,badJsonRawPreserved:true,reconnectCompletionAccepted:true,unknownUsageByField:true,resumeBindingChecked:true,missingRawDependencyRejected:true,workerPeak:peak,admissionRaceNotDispatched:true }));
+    console.log(JSON.stringify({ schemaCases:3,noEmptyEnums:true,noUnsupportedUniqueItems:true,crossUnitMergeRejected:true,mergedTitleRejected:true,revisionWithoutImagesUsesModel:true,badJsonRawPreserved:true,reconnectCompletionAccepted:true,unknownUsageByField:true,resumeBindingChecked:true,missingRawDependencyRejected:true,workerPeak:peak,admissionRaceNotDispatched:true,modelTimeoutMs }));
   }finally{await rm(fixtureDir,{recursive:true,force:true});}
   process.exit(0);
 }
@@ -224,7 +225,7 @@ function stopForAdmissionError(error,state=dispatchAdmission){if(error?.code!=='
 async function runWorkers(work,count,handler,shouldContinue=async()=>true){let next=0;await Promise.all(Array.from({length:Math.min(count,work.length)},async()=>{while(true){if(!await shouldContinue())return;const i=next++;if(i>=work.length)return;await handler(work[i],i);}}));}
 async function saveRawCall(root,callId,call){
   const rawDir=join(root,'raw-calls');await mkdir(rawDir,{recursive:true});const path=join(rawDir,`${callId}.json`);
-  await writeFile(path,JSON.stringify({callId,rawLastMessage:call.rawLastMessage??null,rawStdout:call.rawStdout??null,parsedOutput:call.output,events:call.events,terminalEvents:call.terminalEvents,stderr:call.stderr,usage:call.usage,requestPrompt:call.requestPrompt??null,requestPromptSha256:call.requestPromptSha256??null,usageLimitReached:call.usageLimitReached??false,admissionStopWriteError:call.admissionStopWriteError??null},null,2)+'\n',{flag:'wx'});return path;
+  await writeFile(path,JSON.stringify({callId,rawLastMessage:call.rawLastMessage??null,rawStdout:call.rawStdout??null,parsedOutput:call.output,events:call.events,terminalEvents:call.terminalEvents,stderr:call.stderr,usage:call.usage,requestPrompt:call.requestPrompt??null,requestPromptSha256:call.requestPromptSha256??null,timeoutMs:call.timeoutMs??null,usageLimitReached:call.usageLimitReached??false,admissionStopWriteError:call.admissionStopWriteError??null},null,2)+'\n',{flag:'wx'});return path;
 }
 function candidateMatches(candidate,source,meta){
   const cp={...candidate};const digest=cp.candidateSha256;delete cp.candidateSha256;
@@ -329,8 +330,9 @@ async function processPage(source, meta) {
     let modelResult;
     for(let attempt=1;attempt<=maxAttempts;attempt++) {
       const callId=randomUUID(); let call;
-      try { call=await invokeTextbookCodex({prompt,schema,model,reasoningEffort:effort,images,timeoutMs:240_000,maxOutputBytes:8*1024*1024,stopFiles:[join(production,'STOP')]}); }
+      try { call=await invokeTextbookCodex({prompt,schema,model,reasoningEffort:effort,images,timeoutMs:modelTimeoutMs,maxOutputBytes:8*1024*1024,stopFiles:[join(production,'STOP')]}); }
       catch(e){if(e.code==='TEXTBOOK_ADMISSION_STOP')throw e;call={success:false,output:null,rawLastMessage:null,rawStdout:null,usage:null,events:[],terminalEvents:[{type:'runner.error',code:e.code??null,message:String(e)}],startedAt:new Date().toISOString(),durationMs:null,exitCode:null,timedOut:false,outputOverflow:false,stderr:String(e)};}
+      call.timeoutMs=modelTimeoutMs;
       callUsageRecords.push({sourceId:source.sourceId,page:page.page,attempt,model,usage:call.usage});
       const failure=call.success?null:call.timedOut?'timeout':call.outputOverflow?'output_limit':`exit_${call.exitCode}:${call.stderr.slice(-800)}`;
       const rawOutput=call.rawLastMessage??'';
@@ -338,7 +340,7 @@ async function processPage(source, meta) {
       const rawPath=await saveRawCall(production,callId,call);
       const rawArtifactSha256=hash(await readFile(rawPath));
       const record={callId,sourceId:source.sourceId,page:page.page,pageDataSha256:meta.pageDataSha256,pdfSha256:source.sha256,attempt,model,reasoningEffort:effort,promptVersion,schemaVersion,runnerSha256:runnerHash,schemaSha256:hash(Buffer.from(JSON.stringify(schema))),cliVersion:'codex-cli 0.162.1',cliArguments:['exec','--model',model,'--config model_reasoning_effort=high','--config web_search=disabled','--ephemeral','--ignore-user-config','--ignore-rules','--sandbox read-only','--strict-config','--skip-git-repo-check','--json','--output-schema <temp>','--output-last-message <temp>','--cd <temp>','-i <full-page>','-i <one-crop-per-region>','--disable <tool-features>','-'],startedAt:call.startedAt,durationMs:call.durationMs,usage:call.usage,transportStatus:call.success?'completed':call.timedOut?'timeout':call.outputOverflow?'output-overflow':'failed',schemaStatus:call.success?'valid':call.terminalEvents?.some(e=>e.code==='invalid_json_schema')?'invalid':'unknown',coverageStatus:call.success?'pending':'not-run',semanticStatus:'not-reviewed',success:failure===null,failure,terminalEvents:call.terminalEvents,stderr:call.stderr.slice(-800),pageImageSha256:pageImage.sha256,regionImageSha256s:regionImages.map(x=>({regionId:x.regionId,sha256:x.sha256})),outputSha256,rawArtifactPath:relative(production,rawPath).replaceAll('\\','/'),cliEventTypes:call.events.map(e=>e.type)};
-      record.rawArtifactSha256=rawArtifactSha256;record.failureClass=call.usageLimitReached?'usage-limit':null;
+      record.rawArtifactSha256=rawArtifactSha256;record.timeoutMs=modelTimeoutMs;record.failureClass=call.usageLimitReached?'usage-limit':null;
       record.requestPromptSha256=call.requestPromptSha256??null;
       record.semanticPromptSha256=hash(prompt);
       attempts.push(record); await ledger(record);
