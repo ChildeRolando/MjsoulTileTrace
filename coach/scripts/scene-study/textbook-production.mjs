@@ -5,7 +5,7 @@ import { spawn } from 'node:child_process';
 import { basename, dirname, isAbsolute, join, relative, resolve } from 'node:path';
 import { tmpdir } from 'node:os';
 import assert from 'node:assert/strict';
-import { invokeTextbookCodex, parseTextbookCliResult, textbookClosedPrompt } from './textbook-production-cli.mjs';
+import { invokeTextbookCodex, parseTextbookCliResult, textbookClosedPrompt, assertTextbookModelAdmission } from './textbook-production-cli.mjs';
 
 const repo = resolve(import.meta.dirname, '../..');
 const dataRoot = 'E:\\AgentData\\Coach\\knowledge\\processing';
@@ -176,7 +176,10 @@ if (args.includes('--self-check')) {
     let active=0,peak=0;const starts=[];
     await runWorkers([0,1,2,3,4,5],3,async value=>{active++;peak=Math.max(peak,active);starts.push(value);await new Promise(done=>setTimeout(done,20));active--;});
     assert.equal(peak,3);assert.deepEqual(starts,[0,1,2,3,4,5]);
-    console.log(JSON.stringify({ schemaCases:3,noEmptyEnums:true,noUnsupportedUniqueItems:true,crossUnitMergeRejected:true,mergedTitleRejected:true,revisionWithoutImagesUsesModel:true,badJsonRawPreserved:true,reconnectCompletionAccepted:true,unknownUsageByField:true,resumeBindingChecked:true,missingRawDependencyRejected:true,workerPeak:peak }));
+    const race={stopped:false},raceResults=[],raceWorkerErrors=[];let raceRejected=0;
+    await runWorkers([0,1],1,async value=>{try{const path=join(fixtureDir,'partial-admission.json');await writeFile(path,'{partial');await assertTextbookModelAdmission({admissionPath:path});raceResults.push(value);}catch(e){if(stopForAdmissionError(e,race)){raceRejected++;return;}raceWorkerErrors.push(e);}},async()=>!race.stopped);
+    assert.equal(raceRejected,1);assert.equal(race.stopped,true);assert.equal(raceResults.length,0);assert.equal(raceWorkerErrors.length,0);assert.equal(2-raceResults.length,2);
+    console.log(JSON.stringify({ schemaCases:3,noEmptyEnums:true,noUnsupportedUniqueItems:true,crossUnitMergeRejected:true,mergedTitleRejected:true,revisionWithoutImagesUsesModel:true,badJsonRawPreserved:true,reconnectCompletionAccepted:true,unknownUsageByField:true,resumeBindingChecked:true,missingRawDependencyRejected:true,workerPeak:peak,admissionRaceNotDispatched:true }));
   }finally{await rm(fixtureDir,{recursive:true,force:true});}
   process.exit(0);
 }
@@ -216,10 +219,12 @@ function summarizeUsage(records){
   const field=key=>{const known=records.filter(x=>Number.isFinite(x.usage?.[key]));return{knownSum:known.length?known.reduce((n,x)=>n+x.usage[key],0):null,unknownCalls:records.length-known.length};};
   return{callCount:records.length,inputTokens:field('inputTokens'),cachedInputTokens:field('cachedInputTokens'),outputTokens:field('outputTokens')};
 }
-async function runWorkers(work,count,handler){let next=0;await Promise.all(Array.from({length:Math.min(count,work.length)},async()=>{while(true){const i=next++;if(i>=work.length)return;await handler(work[i],i);}}));}
+const dispatchAdmission={stopped:false};
+function stopForAdmissionError(error,state=dispatchAdmission){if(error?.code!=='TEXTBOOK_ADMISSION_STOP')return false;state.stopped=true;return true;}
+async function runWorkers(work,count,handler,shouldContinue=async()=>true){let next=0;await Promise.all(Array.from({length:Math.min(count,work.length)},async()=>{while(true){if(!await shouldContinue())return;const i=next++;if(i>=work.length)return;await handler(work[i],i);}}));}
 async function saveRawCall(root,callId,call){
   const rawDir=join(root,'raw-calls');await mkdir(rawDir,{recursive:true});const path=join(rawDir,`${callId}.json`);
-  await writeFile(path,JSON.stringify({callId,rawLastMessage:call.rawLastMessage??null,rawStdout:call.rawStdout??null,parsedOutput:call.output,events:call.events,terminalEvents:call.terminalEvents,stderr:call.stderr,usage:call.usage,requestPrompt:call.requestPrompt??null,requestPromptSha256:call.requestPromptSha256??null},null,2)+'\n',{flag:'wx'});return path;
+  await writeFile(path,JSON.stringify({callId,rawLastMessage:call.rawLastMessage??null,rawStdout:call.rawStdout??null,parsedOutput:call.output,events:call.events,terminalEvents:call.terminalEvents,stderr:call.stderr,usage:call.usage,requestPrompt:call.requestPrompt??null,requestPromptSha256:call.requestPromptSha256??null,usageLimitReached:call.usageLimitReached??false,admissionStopWriteError:call.admissionStopWriteError??null},null,2)+'\n',{flag:'wx'});return path;
 }
 function candidateMatches(candidate,source,meta){
   const cp={...candidate};const digest=cp.candidateSha256;delete cp.candidateSha256;
@@ -324,8 +329,8 @@ async function processPage(source, meta) {
     let modelResult;
     for(let attempt=1;attempt<=maxAttempts;attempt++) {
       const callId=randomUUID(); let call;
-      try { call=await invokeTextbookCodex({prompt,schema,model,reasoningEffort:effort,images,timeoutMs:240_000,maxOutputBytes:8*1024*1024}); }
-      catch(e){call={success:false,output:null,rawLastMessage:null,rawStdout:null,usage:null,events:[],terminalEvents:[{type:'runner.error',code:e.code??null,message:String(e)}],startedAt:new Date().toISOString(),durationMs:null,exitCode:null,timedOut:false,outputOverflow:false,stderr:String(e)};}
+      try { call=await invokeTextbookCodex({prompt,schema,model,reasoningEffort:effort,images,timeoutMs:240_000,maxOutputBytes:8*1024*1024,stopFiles:[join(production,'STOP')]}); }
+      catch(e){if(e.code==='TEXTBOOK_ADMISSION_STOP')throw e;call={success:false,output:null,rawLastMessage:null,rawStdout:null,usage:null,events:[],terminalEvents:[{type:'runner.error',code:e.code??null,message:String(e)}],startedAt:new Date().toISOString(),durationMs:null,exitCode:null,timedOut:false,outputOverflow:false,stderr:String(e)};}
       callUsageRecords.push({sourceId:source.sourceId,page:page.page,attempt,model,usage:call.usage});
       const failure=call.success?null:call.timedOut?'timeout':call.outputOverflow?'output_limit':`exit_${call.exitCode}:${call.stderr.slice(-800)}`;
       const rawOutput=call.rawLastMessage??'';
@@ -333,11 +338,12 @@ async function processPage(source, meta) {
       const rawPath=await saveRawCall(production,callId,call);
       const rawArtifactSha256=hash(await readFile(rawPath));
       const record={callId,sourceId:source.sourceId,page:page.page,pageDataSha256:meta.pageDataSha256,pdfSha256:source.sha256,attempt,model,reasoningEffort:effort,promptVersion,schemaVersion,runnerSha256:runnerHash,schemaSha256:hash(Buffer.from(JSON.stringify(schema))),cliVersion:'codex-cli 0.162.1',cliArguments:['exec','--model',model,'--config model_reasoning_effort=high','--config web_search=disabled','--ephemeral','--ignore-user-config','--ignore-rules','--sandbox read-only','--strict-config','--skip-git-repo-check','--json','--output-schema <temp>','--output-last-message <temp>','--cd <temp>','-i <full-page>','-i <one-crop-per-region>','--disable <tool-features>','-'],startedAt:call.startedAt,durationMs:call.durationMs,usage:call.usage,transportStatus:call.success?'completed':call.timedOut?'timeout':call.outputOverflow?'output-overflow':'failed',schemaStatus:call.success?'valid':call.terminalEvents?.some(e=>e.code==='invalid_json_schema')?'invalid':'unknown',coverageStatus:call.success?'pending':'not-run',semanticStatus:'not-reviewed',success:failure===null,failure,terminalEvents:call.terminalEvents,stderr:call.stderr.slice(-800),pageImageSha256:pageImage.sha256,regionImageSha256s:regionImages.map(x=>({regionId:x.regionId,sha256:x.sha256})),outputSha256,rawArtifactPath:relative(production,rawPath).replaceAll('\\','/'),cliEventTypes:call.events.map(e=>e.type)};
-      record.rawArtifactSha256=rawArtifactSha256;
+      record.rawArtifactSha256=rawArtifactSha256;record.failureClass=call.usageLimitReached?'usage-limit':null;
       record.requestPromptSha256=call.requestPromptSha256??null;
       record.semanticPromptSha256=hash(prompt);
       attempts.push(record); await ledger(record);
       if(!failure){modelResult=call.output;usage=call.usage;break;}
+      if(call.usageLimitReached){dispatchAdmission.stopped=true;break;}
     }
     if(!modelResult) throw new Error(`model_call_failed:${source.sourceId}:${page.page}`);
     const textIds=textSource.map(x=>x.id); validateFlow(modelResult.pageFlow,textIds,regions,owners,titleSourceIds);
@@ -371,7 +377,7 @@ const work=queue.slice(0,limit>0?limit:queue.length); let succeeded=0,skipped=0,
 if (!work.length) throw new Error('empty_production_queue: verify --source and --page (page format: sourceId:number)');
 if(revisionFromPath&&work.length!==1)throw new Error('revision_run_requires_exactly_one_page');
 const results=[];
-await runWorkers(work,concurrency,async({source,page})=>{try{const r=await processPage(source,page);results.push(r);r.skipped?skipped++:succeeded++;console.log(JSON.stringify({completed:succeeded+skipped+failed,total:work.length,...r}));}catch(e){failed++;const message=String(e?.stack??e);results.push({sourceId:source.sourceId,page:page.page,error:message});await appendFile(join(production,'worker-errors.jsonl'),JSON.stringify({sourceId:source.sourceId,page:page.page,pageDataSha256:page.pageDataSha256,failure:message,details:e.details??null,recordedAt:new Date().toISOString()})+'\n','utf8');console.error(JSON.stringify({completed:succeeded+skipped+failed,total:work.length,sourceId:source.sourceId,page:page.page,failure:String(e)}));}});
+await runWorkers(work,concurrency,async({source,page})=>{try{const r=await processPage(source,page);results.push(r);r.skipped?skipped++:succeeded++;console.log(JSON.stringify({completed:succeeded+skipped+failed,total:work.length,...r}));}catch(e){if(stopForAdmissionError(e))return;failed++;const message=String(e?.stack??e);results.push({sourceId:source.sourceId,page:page.page,error:message});await appendFile(join(production,'worker-errors.jsonl'),JSON.stringify({sourceId:source.sourceId,page:page.page,pageDataSha256:page.pageDataSha256,failure:message,details:e.details??null,recordedAt:new Date().toISOString()})+'\n','utf8');console.error(JSON.stringify({completed:succeeded+skipped+failed,total:work.length,sourceId:source.sourceId,page:page.page,failure:String(e)}));}},async()=>{if(dispatchAdmission.stopped)return false;try{await assertTextbookModelAdmission({stopFiles:[join(production,'STOP')]});return true;}catch(e){if(e.code!=='TEXTBOOK_ADMISSION_STOP')throw e;dispatchAdmission.stopped=true;return false;}});
 const usageSummary=summarizeUsage(callUsageRecords);
-await writeFile(join(production,`run-${Date.now()}.json`),JSON.stringify({schema:'coach-textbook-production-run/3',model,reasoningEffort:effort,finishedAt:new Date().toISOString(),requested:work.length,reusedCandidatePages:[...excludedPages],succeeded,skipped,failed,usage:usageSummary,results},null,2)+'\n','utf8');
+await writeFile(join(production,`run-${Date.now()}.json`),JSON.stringify({schema:'coach-textbook-production-run/3',model,reasoningEffort:effort,finishedAt:new Date().toISOString(),requested:work.length,admissionStopped:dispatchAdmission.stopped,notDispatched:work.length-results.length,reusedCandidatePages:[...excludedPages],succeeded,skipped,failed,usage:usageSummary,results},null,2)+'\n','utf8');
 if(failed)process.exitCode=1;
