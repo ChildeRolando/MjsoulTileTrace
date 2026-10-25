@@ -13,11 +13,18 @@ async function verifyOriginalPdfPixels(root,m,visuals){
  const script="import sys,json,fitz\nfrom PIL import Image\nx=json.load(sys.stdin);d=fitz.open(x['pdf'])\nfor v in x['pages']+x['figures']:\n p=d[v['page']-1].get_pixmap(matrix=fitz.Matrix(3,3),clip=fitz.Rect(*v['clip']) if 'clip' in v else None,alpha=False);a=Image.open(v['path']);assert getattr(a,'n_frames',1)==1 and a.size==(p.width,p.height) and a.convert('RGB').tobytes()==p.samples,'legacy_original_pdf_pixel_mismatch'\nprint('verified')";
  await new Promise((done,reject)=>{const p=spawn('python',['-c',script],{shell:false,windowsHide:true,env:{...process.env,PYTHONIOENCODING:'utf-8',PYTHONUTF8:'1'},stdio:['pipe','pipe','pipe']}),err=[];p.stderr.on('data',b=>err.push(b));p.once('error',reject);p.once('close',code=>code?reject(Error(Buffer.concat(err).toString())):done());p.stdin.end(JSON.stringify(payload));});
 }
-export function validateLegacyReview(review,content,pages){
+const printFurniture={
+ 'nemata-jp-p98-b32':'現代麻雀技術論- 牌効率論34．七対子http://yabejp.web.fc2.com/mahjong/tactics/chapter01/section034.html',
+ 'nemata-jp-p99-b27':'現代麻雀技術論- 牌効率論34．七対子http://yabejp.web.fc2.com/mahjong/tactics/chapter01/section034.html',
+ 'nemata-jp-p98-b33':'第 1 頁，共2 頁2014-03-01 23:27',
+ 'nemata-jp-p99-b28':'第 2 頁，共2 頁2014-03-01 23:27'
+};
+function exactPrintFurniture(b){if(b?.type!=='text'||printFurniture[b.id]!==b.lines.map(l=>l.text).join(''))return false;const header=b.id.endsWith('-b32')||b.id.endsWith('-b27');return b.bbox[0]===0&&b.bbox[2]>590&&(header?b.bbox[1]>=0&&b.bbox[3]<12:b.bbox[1]>830&&b.bbox[3]<842);}
+export function validateLegacyReview(review,content,pages,{acceptVerifiedPrintFurniture=false}={}){
  const errors=[],blocks=content.chapter.blocks,figures=blocks.filter(b=>b.type==='figure'),source=pages.flatMap(p=>p.blocks),retained=new Set(blocks.map(b=>b.id));
  for(const [key,ids] of [['blockChecks',blocks.map(b=>b.id)],['figureChecks',figures.map(b=>b.id)],['sourceChecks',source.map(b=>b.id)]]){const a=review[key]??[];if(a.length!==ids.length||new Set(a.map(x=>x.id)).size!==ids.length||ids.some(id=>!a.some(x=>x.id===id)))errors.push('coverage:'+key);}
  for(const c of [...(review.blockChecks??[]),...(review.figureChecks??[])])if(c.verdict!=='faithful')errors.push(c.verdict+':'+c.id);
- for(const c of review.sourceChecks??[]){const b=source.find(b=>b.id===c.id),s=(b?.lines??[]).map(l=>l.text).join('').trim();if(c.disposition==='source-structure-only'){if(b?.type!=='text'||!/^\s*$|^\d+$|^七対子(?:論)?$/.test(s))errors.push('teaching_source_marked_structural:'+c.id);}else if(c.disposition!=='represented'||!c.retainedBlockIds?.length||c.retainedBlockIds.some(id=>!retained.has(id)))errors.push('source_not_represented:'+c.id);}
+ for(const c of review.sourceChecks??[]){const b=source.find(b=>b.id===c.id),s=(b?.lines??[]).map(l=>l.text).join('').trim();if(c.disposition==='source-structure-only'){if((b?.type!=='text'||!/^\s*$|^\d+$|^七対子(?:論)?$/.test(s))&&!(acceptVerifiedPrintFurniture&&exactPrintFurniture(b)))errors.push('teaching_source_marked_structural:'+c.id);}else if(c.disposition!=='represented'||!c.retainedBlockIds?.length||c.retainedBlockIds.some(id=>!retained.has(id)))errors.push('source_not_represented:'+c.id);}
  for(const i of review.issues??[])if(i.severity!=='source-note')errors.push(i.severity+':'+i.targetId);
  if(review.completeRetainedChapterCompared!==true||review.readingFlowCompared!==true)errors.push('incomplete_chapter');return {passed:!errors.length,errors};
 }
@@ -61,4 +68,13 @@ export async function verifyLegacyRetainedChapter(root,manifestPath,visualsPath)
  if(c.success&&(sha(raw.rawLastMessage)!==c.outputSha256||!same(JSON.parse(raw.rawLastMessage),receipt.modelReview)||!same(validateLegacyReview(receipt.modelReview,input.content,input.pages),receipt.modelChecks)))throw Error('legacy_review_output_changed');
  if(receipt.status!==(!c.success?'failed':receipt.modelChecks.passed?'passed':'needs-repair'))throw Error('legacy_review_status_changed');
  if(receipt.status==='passed'&&(!c.success||!receipt.modelChecks.passed))throw Error('legacy_review_not_passed');return {...receipt,auditPath:path,auditSha256:sha(await readFile(path))};
+}
+
+/** The exact four already-bound print headers/footers, not a generic semantic waiver. */
+export async function verifyLegacySourceStructure(root,manifestPath,visualsPath){
+ const prior=await verifyLegacyRetainedChapter(root,manifestPath,visualsPath),input=await prepareLegacyReview(root,manifestPath,visualsPath),expected=Object.keys(printFurniture).map(id=>'teaching_source_marked_structural:'+id).sort(),errors=[...prior.modelChecks.errors].sort(),effective=validateLegacyReview(prior.modelReview,input.content,input.pages,{acceptVerifiedPrintFurniture:true});
+ if(prior.status!=='needs-repair'||!same(errors,expected)||!effective.passed)throw Error('legacy_source_structure_other_issue');
+ const sourceBlocks=input.pages.flatMap(p=>p.blocks.filter(b=>Object.hasOwn(printFurniture,b.id)).map(b=>({id:b.id,page:p.page,text:b.lines.map(l=>l.text).join(''),bbox:b.bbox,sourcePageSha256:input.m.source.pages.find(x=>x.page===p.page).pageData.sha256})));if(sourceBlocks.length!==4||sourceBlocks.some(b=>prior.modelReview.sourceChecks.find(c=>c.id===b.id)?.disposition!=='source-structure-only'))throw Error('legacy_source_structure_not_original_classification');
+ const base={schema:'coach-legacy-textbook-source-structure-audit/1',status:'passed-after-source-structure-verification',input:prior.input,binding:prior.binding,retainedContent:input.m.retainedContent,originalModelReview:prior.modelReview,originalModelChecks:prior.modelChecks,effectiveModelChecks:effective,calls:[],inheritedCalls:prior.calls,sourceStructureVerification:{originalAudit:{path:relative(root,prior.auditPath),sha256:prior.auditSha256},originalCall:prior.originalCall,sourceBlocks,method:'exact-printed-title-source-URL-and-print-timestamp-outside-body; original-bound-source-retained; no-new-model-review; not-human-gold'}};
+ const path=join(root,'audit/legacy',`nemata-chiitoitsu.${manifestSha}.source-structure.json`);let proof;try{proof=JSON.parse(await readFile(path));}catch(e){if(e.code!=='ENOENT')throw e;proof={...base,recordedAt:new Date().toISOString()};await writeFile(path,JSON.stringify(proof,null,2)+'\n',{flag:'wx'});}const {recordedAt,...stored}=proof;if(!recordedAt||!same(stored,base))throw Error('legacy_source_structure_proof_changed');return {...proof,passed:true,auditPath:path,auditSha256:sha(await readFile(path))};
 }
