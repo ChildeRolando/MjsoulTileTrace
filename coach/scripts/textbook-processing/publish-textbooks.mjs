@@ -42,15 +42,17 @@ export async function readApprovedPdfPage({processingRoot,candidateRoot,source,i
    const layoutPath=await contained(processingRoot,selected.sourceFlowLayout.path),layoutBytes=await readFile(layoutPath);
    if(sha(layoutBytes)!==selected.sourceFlowLayout.sha256)throw Error('publish_source_flow_layout_changed');layoutSha256=sha(layoutBytes);
    audit=await verifySourceFlowLayout(processingRoot,path,layoutPath);const r=audit.sourceFlowRepair;
-   if(audit.status!=='passed-after-source-flow-repair'||audit.passed!==true||audit.effectiveModelChecks?.passed!==true||r?.layout?.sha256!==sha(layoutBytes)||!r.resolvedIssueHashes?.length||!r.originalCalls?.length||audit.calls?.length!==0)throw Error('publish_source_flow_gate_invalid');
-   for(const a of [{path:audit.auditPath,sha256:audit.auditSha256},r.layout,r.parent,r.originalAudit,r.originalProductionRaw,...(r.originalCalls??[])])if(!a?.path||! /^[a-f0-9]{64}$/.test(a.sha256)||sha(await readFile(await contained(processingRoot,a.path)))!==a.sha256)throw Error('publish_source_flow_evidence_changed');
+   const combined=audit.status==='passed-after-specific-source-and-flow-repair';
+   const acceptedFlow=combined?audit.sourceCorrection?.requiresAdditionalSourceLayoutGate===true&&r?.checks?.exactSourceTextAndCodepointOffsets===true&&r?.checks?.pixels?.passed===true&&!!r?.sourceFieldCorrectionProof?.sha256:audit.status==='passed-after-source-flow-repair'&&audit.passed===true&&!!r?.resolvedIssueHashes?.length;
+   if(!acceptedFlow||audit.effectiveModelChecks?.passed!==true||r?.layout?.sha256!==sha(layoutBytes)||!r.originalCalls?.length||audit.calls?.length!==0)throw Error('publish_source_flow_gate_invalid');
+   for(const a of [{path:audit.auditPath,sha256:audit.auditSha256},r.layout,r.parent,r.originalAudit,r.originalProductionRaw,...(r.originalCalls??[]),...(combined?[r.sourceFieldCorrectionProof]:[])])if(!a?.path||! /^[a-f0-9]{64}$/.test(a.sha256)||sha(await readFile(await contained(processingRoot,a.path)))!==a.sha256)throw Error('publish_source_flow_evidence_changed');
    for(const a of r.originalCalls){const call=await parse(await contained(processingRoot,a.path));if(!call.callId||!audit.inheritedCalls?.some(c=>c.callId===call.callId))throw Error('publish_source_flow_call_binding');}
    if(r.parent.sha256!==sha(await readFile(path)))throw Error('publish_source_flow_parent_changed');layout=JSON.parse(layoutBytes);
   }else audit=await verify(processingRoot,path);
-  if(!['passed','passed-explicit-source-block-scope','passed-after-source-adjudication','passed-after-transport-recovery','passed-after-specific-source-correction',...(layout?['passed-after-source-flow-repair']:[])].includes(audit.status))throw Error('publish_audit_not_passed');
+  if(!['passed','passed-explicit-source-block-scope','passed-after-source-adjudication','passed-after-transport-recovery','passed-after-specific-source-correction',...(layout?['passed-after-source-flow-repair','passed-after-specific-source-and-flow-repair']:[])].includes(audit.status))throw Error('publish_audit_not_passed');
   if(audit.status==='passed-after-source-adjudication'&&(!audit.adjudication?.path||!audit.adjudication.sha256))throw Error('publish_missing_adjudication_evidence');
   if(audit.status==='passed-after-transport-recovery'&&(!audit.transportRecovery?.originalAudit?.sha256||!audit.transportRecovery?.originalCall?.sha256))throw Error('publish_missing_transport_recovery_evidence');
-  if(audit.status==='passed-after-specific-source-correction'){
+  if(['passed-after-specific-source-correction','passed-after-specific-source-and-flow-repair'].includes(audit.status)){
    const r=audit.sourceCorrection;
    if(!r?.approvedBy||!r.approvedAt||!r.resolutions?.length||!r.originalCalls?.length||audit.calls?.length!==0||audit.effectiveModelChecks?.passed!==true)throw Error('publish_missing_source_correction_evidence');
    for(const artifact of [r,r.parent,r.originalAudit,...r.originalCalls])if(!artifact?.path||! /^[a-f0-9]{64}$/.test(artifact.sha256)||sha(await readFile(await contained(processingRoot,artifact.path)))!==artifact.sha256)throw Error('publish_source_correction_changed');
