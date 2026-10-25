@@ -6,6 +6,7 @@ import {buildTextbookReview} from '../scene-study/textbook-review.mjs';
 import {splitExactText} from './publish-textbooks.mjs';
 import {composeWebTables} from './stage-web-tables.mjs';
 import {splitInlineParagraph} from './stage-inline-chunks.mjs';
+import {applyDefinitionBoundaries} from './stage-definition-boundaries.mjs';
 const sha=b=>createHash('sha256').update(b).digest('hex');
 async function contained(root,path){const base=await realpath(root),full=await realpath(resolve(base,path)),rel=relative(base,full);if(isAbsolute(rel)||rel==='..'||rel.startsWith('..'+sep))throw Error('web_stage_path_outside_root');return full;}
 export function compactInlineTiles(text){
@@ -54,27 +55,44 @@ async function validateSourceCorrection(root,audit){
  if(!r?.approvedBy||!r.approvedAt||!r.resolutions?.length||!r.originalCalls?.length||audit.calls?.length!==0||audit.effectiveModelChecks?.passed!==true||r.originalCalls.some(c=>!audit.inheritedCalls?.some(x=>x.callId===c.callId)))throw Error('web_stage_missing_source_correction');
  for(const a of [r,r.parent,r.originalAudit,...r.originalCalls])if(!a?.path||!/^[a-f0-9]{64}$/.test(a.sha256)||sha(await readFile(await contained(root,a.path)))!==a.sha256)throw Error('web_stage_source_correction_changed');
 }
+async function validateSourceEditorialNote(root,audit,candidate){
+ const r=audit.sourceEditorialNote;
+ if(!r?.approvedBy||!r.approvedAt||!r.originalIssue?.sha256||!r.originalCalls?.length||!r.appendText?.includes('编者校注（非原文）')||audit.calls?.length!==0||audit.effectiveModelChecks?.passed!==true)throw Error('web_stage_missing_source_editorial_note');
+ for(const a of [r,r.manifest,r.originalAudit,...r.originalCalls])if(!a?.path||!/^[a-f0-9]{64}$/.test(a.sha256)||sha(await readFile(await contained(root,a.path)))!==a.sha256)throw Error('web_stage_source_editorial_note_changed');
+ for(const a of r.originalCalls){const call=JSON.parse(await readFile(await contained(root,a.path)));if(!call.callId||!audit.inheritedCalls?.some(x=>x.callId===call.callId))throw Error('web_stage_editorial_parent_call');}
+ const target=candidate.body.blocks.find(b=>b.sourceBlockIds.includes(r.targetSourceBlockId)),placement=candidate.body.blocks.find(b=>b.sourceBlockIds.includes(r.placementSourceBlockId));
+ if(!target||placement?.type!=='text'||target.paragraphId!==r.paragraphId||placement.paragraphId!==r.paragraphId||!placement.text.endsWith(r.appendText)||candidate.body.blocks.filter(b=>b.type==='text'&&b.text.includes(r.appendText)).length!==1)throw Error('web_stage_editorial_note_placement');
+}
 /** A chapter preview in a new directory. This never replaces the active library. */
-export async function stageWebTextbook({processingRoot,candidatePath,destination,verify}){
+export async function stageWebTextbook({processingRoot,candidatePath,destination,verify,definitionSidecarPath,verifyDefinitionSidecar}){
  if(typeof verify!=='function')throw Error('web_stage_requires_independent_gate');
  const path=await contained(processingRoot,candidatePath),audit=await verify(processingRoot,path),bytes=await readFile(path),candidate=JSON.parse(bytes);
- if(!['passed','passed-after-specific-input-adjudication','passed-after-transport-recovery','passed-after-specific-presentation-repair','passed-after-exact-label-translation','passed-after-specific-source-correction'].includes(audit.status)||audit.production?.sha256!==sha(bytes))throw Error('web_stage_audit_identity');
+ if(!['passed','passed-after-specific-input-adjudication','passed-after-transport-recovery','passed-after-specific-presentation-repair','passed-after-exact-label-translation','passed-after-specific-source-correction','passed-after-specific-source-editorial-note'].includes(audit.status)||audit.production?.sha256!==sha(bytes))throw Error('web_stage_audit_identity');
  if(audit.status==='passed-after-specific-input-adjudication')await validateInputAdjudication(processingRoot,audit);
  if(audit.status==='passed-after-transport-recovery')await validateTransportRecovery(processingRoot,audit);
  if(audit.status==='passed-after-specific-presentation-repair')await validatePresentationRepair(processingRoot,audit);
  if(audit.status==='passed-after-exact-label-translation')await validateLabelRepair(processingRoot,audit);
  if(audit.status==='passed-after-specific-source-correction')await validateSourceCorrection(processingRoot,audit);
+ if(audit.status==='passed-after-specific-source-editorial-note')await validateSourceEditorialNote(processingRoot,audit,candidate);
  if(candidate.schema!=='coach-textbook-web-article-draft/1')throw Error('web_stage_candidate_schema');
  const sourceBytes=await readFile(await contained(processingRoot,candidate.source.sourcePath)),source=JSON.parse(sourceBytes);
  if(sha(sourceBytes)!==candidate.source.sourceSha256||source.html.sha256!==candidate.source.htmlSha256||source.url!==candidate.source.url)throw Error('web_stage_source_changed');
+ let presentation=candidate,definitionBoundary;
+ if(definitionSidecarPath){
+  if(typeof verifyDefinitionSidecar!=='function')throw Error('web_stage_requires_definition_gate');
+  const sidecarPath=await contained(processingRoot,definitionSidecarPath),proof=await verifyDefinitionSidecar(processingRoot,path,sidecarPath),sidecarBytes=await readFile(sidecarPath),sidecar=JSON.parse(sidecarBytes);
+  if(proof.passed!==true||proof.sidecarSha256!==sha(sidecarBytes)||proof.candidateSha256!==sha(bytes)||sidecar.candidateSha256!==sha(bytes)||sidecar.sourceSha256!==sha(sourceBytes))throw Error('web_stage_definition_identity');
+  presentation=applyDefinitionBoundaries(candidate,source,sidecar,sha(sidecarBytes));definitionBoundary={path:sidecarPath,sha256:sha(sidecarBytes),proof};
+ }
  const sourceId=`${source.sourceId}-${source.articleId}`.toLowerCase().replace(/[^a-z0-9-]/g,'-'),chapterId=`${sourceId}-chapter`,unitId=`${sourceId}-argument`;
  if(chapterId.length>90)throw Error('web_stage_identity_too_long');
- const byId=new Map(source.blocks.map(b=>[b.id,b])),figures=new Map(candidate.figures.map(f=>[f.figureId,f])),rawBlocks=[],images=[];
- for(const original of candidate.body.blocks){
+ const byId=new Map(source.blocks.map(b=>[b.id,b])),figures=new Map(presentation.figures.map(f=>[f.figureId,f])),rawBlocks=[],images=[];
+ for(const original of presentation.body.blocks){
   const sources=original.sourceBlockIds.map(id=>byId.get(id));if(!sources.length||sources.some(b=>!b))throw Error('web_stage_source_locator');
-  const locator={url:source.url,sourceBlockIds:original.sourceBlockIds,domPaths:sources.map(b=>b.domPath)};
+  const locator={url:source.url,sourceBlockIds:original.sourceBlockIds,domPaths:[...new Set([...sources.map(b=>b.domPath),...(original.definitionDomBoundary?[original.definitionDomBoundary]:[])])]};
   if(original.type==='text'){
-   let offset=0;for(const text of splitExactText(original.text)){const displaySegments=sliceSourceSegments(original.sourceSegments,original.text,offset,offset+text.length);offset+=text.length;rawBlocks.push({type:/^h[1-6]$/.test(sources[0].tag)?'h2':'p',id:`${sourceId}-b${rawBlocks.length+1}`,page:null,locator,text,paragraphId:original.paragraphId??sources[0].paragraphId,sourceSegments:original.sourceSegments,displaySegments,tableContext:original.tableContext});}
+   const alignedSource=original.sourceSegments?.map(s=>s.text).join('')===original.text;
+   let offset=0;for(const text of splitExactText(original.text)){const displaySegments=sliceSourceSegments(original.sourceSegments,original.text,offset,offset+text.length),sourceSegments=alignedSource?displaySegments:offset===0?original.sourceSegments:undefined;offset+=text.length;rawBlocks.push({type:/^h[1-6]$/.test(sources[0].tag)?'h2':'p',id:`${sourceId}-b${rawBlocks.length+1}`,page:null,locator,text,paragraphId:original.paragraphId??sources[0].paragraphId,sourceSegments,displaySegments,tableContext:original.tableContext});}
   }else if(original.type==='figure'){
    const f=figures.get(original.figureId);if(!f||!f.transcription?.trim())throw Error('web_stage_incomplete_figure');
    // A whole-image asset is lossless. Multi-asset runs require an explicitly audited presentation asset.
@@ -94,7 +112,7 @@ export async function stageWebTextbook({processingRoot,candidatePath,destination
  for(const image of images)await copyFile(image.from,join(destination,image.to));
  for(const [name,data] of [['knowledge-index.json',library],['textbook-bodies.json',bodies],['textbook-unit-map.json',definitions]])await writeFile(join(destination,name),JSON.stringify(data,null,2)+'\n');
  const build=await compileTextbookCorpus(destination,definitions);await buildTextbookReview(destination,library);
- const receipt={schema:'coach-textbook-web-stage/1',status:'independently-audited-chapter-preview',candidatePath:path,candidateSha256:sha(bytes),sourceSha256:sha(sourceBytes),auditPath:audit.auditPath,auditStatus:audit.status,...(audit.inputAdjudication?{inputAdjudication:audit.inputAdjudication,originalAuditStatus:audit.originalStatus,effectiveModelChecks:audit.effectiveModelChecks,originalModelChecks:audit.modelChecks}:{}),...(audit.transportRecovery?{transportRecovery:audit.transportRecovery}:{}),...(audit.presentationRepair?{presentationRepair:audit.presentationRepair,originalAuditStatus:audit.originalStatus,originalModelChecks:audit.modelChecks,effectiveModelChecks:audit.effectiveModelChecks,effectiveSemanticCompleteness:audit.effectiveSemanticCompleteness}:{}),...(audit.labelRepair?{labelRepair:audit.labelRepair,calls:audit.calls,inheritedCalls:audit.inheritedCalls,originalModelChecks:audit.modelChecks,effectiveModelChecks:audit.effectiveModelChecks}:{}),...(audit.sourceCorrection?{sourceCorrection:audit.sourceCorrection,calls:audit.calls,inheritedCalls:audit.inheritedCalls,originalModelChecks:audit.modelChecks,effectiveModelChecks:audit.effectiveModelChecks}:{}),...build,modelCalls:0,activeLibraryChanged:false,humanReview:'pending'};
+ const receipt={schema:'coach-textbook-web-stage/1',status:'independently-audited-chapter-preview',candidatePath:path,candidateSha256:sha(bytes),sourceSha256:sha(sourceBytes),auditPath:audit.auditPath,auditStatus:audit.status,...(audit.inputAdjudication?{inputAdjudication:audit.inputAdjudication,originalAuditStatus:audit.originalStatus,effectiveModelChecks:audit.effectiveModelChecks,originalModelChecks:audit.modelChecks}:{}),...(audit.transportRecovery?{transportRecovery:audit.transportRecovery}:{}),...(audit.presentationRepair?{presentationRepair:audit.presentationRepair,originalAuditStatus:audit.originalStatus,originalModelChecks:audit.modelChecks,effectiveModelChecks:audit.effectiveModelChecks,effectiveSemanticCompleteness:audit.effectiveSemanticCompleteness}:{}),...(audit.labelRepair?{labelRepair:audit.labelRepair,calls:audit.calls,inheritedCalls:audit.inheritedCalls,originalModelChecks:audit.modelChecks,effectiveModelChecks:audit.effectiveModelChecks}:{}),...(audit.sourceCorrection?{sourceCorrection:audit.sourceCorrection,calls:audit.calls,inheritedCalls:audit.inheritedCalls,originalModelChecks:audit.modelChecks,effectiveModelChecks:audit.effectiveModelChecks}:{}),...(audit.sourceEditorialNote?{sourceEditorialNote:audit.sourceEditorialNote,calls:audit.calls,inheritedCalls:audit.inheritedCalls,originalModelChecks:audit.modelChecks,effectiveModelChecks:audit.effectiveModelChecks}:{}),...(definitionBoundary?{definitionBoundary}:{}),...build,modelCalls:0,activeLibraryChanged:false,humanReview:'pending'};
  await writeFile(join(destination,'web-stage-receipt.json'),JSON.stringify(receipt,null,2)+'\n');return receipt;
 }
 
