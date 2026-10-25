@@ -1,13 +1,17 @@
 # Textbook draft production
 
-The authorized full run uses the two inventoried PDFs only. It writes to
-`E:\AgentData\Coach\knowledge\processing\production\sol-high-full` and keeps
-every output in draft status until the independent audit passes it.
+Current production uses finite, hash-bound HTML and PDF queues. Completed PDF
+pages and existing formal chapters are preserved and reused. Chinese supplements
+copy the existing Chinese text; modern Japanese supplements use explicit
+Sol/high translation. PDF production fills only enumerated source gaps. The
+historical `production/sol-high-full` run remains stopped and immutable.
 
-Run the production model explicitly with:
+The production limit is two modern workers, one Chinese worker and one PDF
+fallback worker. Every candidate remains a draft until its independent gate
+passes. Offline verification makes no model call:
 
 ```powershell
-node scripts/scene-study/textbook-production.mjs --model gpt-6.1-sol --concurrency 3 --attempts 2 --candidate-overrides E:\AgentData\Coach\knowledge\processing\integration\calibration-candidate-selection.json
+node scripts/scene-study/textbook-production.mjs --self-check
 ```
 
 Use `--source 79-cn --page 79-cn:5 --model gpt-6.1-sol --attempts 1` for one
@@ -86,3 +90,31 @@ disabled capabilities and an instruction forbidding any extra tool call.
 Unexpected tool events reject the attempt while preserving its raw evidence.
 New call records distinguish the complete request prompt hash from the semantic
 payload hash and bind the CLI snapshot. Token fields remain null when unknown.
+
+
+## Complete question batches and isolated repairs
+
+For a large Japanese article, `--batch-plan <plan.json>` binds a complete-unit
+plan and its source/unit-map hashes. Each question and answer, required shared
+premise and complete HTML table stays together. The groups cover every original
+DOM block exactly once; context-only premises are not translated again. Each
+group has its own raw output, ledger entry and immutable checkpoint. Resume
+validates the original prompt, schema, CLI, ledger and raw bytes before reusing a
+completed group. A recorded failure is preserved for explicit handling.
+`--stop-file <processing-relative-path>` also stops between groups after the
+current paid call has drained. Unknown usage fields remain null in the sum.
+
+`--revision-from`, `--revision-notes` and a new `--variant` perform an isolated
+repair: Chinese figures or Japanese text blocks explicitly identified by the
+original independent review. Other prose and figures are copied unchanged.
+Only the target gets new model output and new independent review. Fixed Chinese
+teaching labels can use `textbook-production-web-labels.mjs`; it performs a
+literal, independently checked transformation without another recognition call.
+
+`textbook-production-web-formal.mjs` copies the complete existing formal
+transcription after exact source-image matching. Parent bodies, corpus,
+corrections and original PNGs are frozen by full-file SHA under
+`web-production/v1/formal-parents`. The candidate records the actual inherited
+review level. Publication alone never substitutes for an independent visual
+review. Specific source-order or label corrections retain the original drafts
+and reviews and require evidence bound to the exact new candidate bytes.
