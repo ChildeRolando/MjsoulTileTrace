@@ -20,7 +20,8 @@ if(source.schema!=='coach-textbook-web-article-source/1'||!['zh-CN','ja'].includ
 if(source.status!=='captured-not-translated-or-audited'||source.assets.some(a=>a.status!=='downloaded'))throw Error('web_source_assets_not_complete');
 for(const binding of [source.html,source.main,...source.assets]){if(sha(await readFile(join(webRoot,binding.path)))!==binding.sha256)throw Error('web_source_dependency_changed');}
 const variant=option('--variant','');if(variant&&!/^[a-zA-Z0-9_-]+$/.test(variant))throw Error('invalid_web_variant');
-const revisionFrom=option('--revision-from'),revisionNotes=option('--revision-notes');let revision=null,parentCandidate=null;
+const revisionFrom=option('--revision-from'),revisionNotes=option('--revision-notes'),revisionContextPath=option('--revision-context');let revision=null,parentCandidate=null,supportingSourceContext=[];
+if(revisionContextPath&&!revisionFrom)throw Error('revision_context_requires_targeted_revision');
 if(Boolean(revisionFrom)!==Boolean(revisionNotes))throw Error('web_revision_requires_parent_and_notes');
 if(revisionFrom){
  if(!variant)throw Error('web_revision_requires_new_variant');
@@ -34,6 +35,18 @@ if(revisionFrom){
   if(!textBlockIds.length||textBlockIds.some(id=>!parent.body.blocks.some(b=>b.type==='text'&&b.sourceBlockIds.length===1&&b.sourceBlockIds[0]===id))||parent.body.blocks.some(b=>b.type==='text'&&!textBlockIds.includes(b.sourceBlockIds[0])&&!notes.modelReview.blockChecks.some(c=>c.id===b.sourceBlockIds[0]&&c.verdict==='faithful'))||parent.figures.some(f=>!notes.modelReview.figureChecks.some(c=>c.id===f.figureId&&c.verdict==='faithful')))throw Error('web_revision_is_not_isolated_text_repair');
  }
  revision={parentPath:relative(processing,path).replaceAll('\\','/'),parentSha256:sha(bytes),notesPath:relative(processing,notesPath).replaceAll('\\','/'),notesSha256:sha(notesBytes),figureIds,...(source.language==='ja'?{textBlockIds}:{})};parentCandidate=parent;
+ if(revisionContextPath){
+  if(source.language!=='ja')throw Error('revision_context_requires_japanese_source');
+  const path=dataPath(revisionContextPath),bytes=await readFile(path),context=JSON.parse(bytes);
+  if(context.schema!=='coach-source-grounded-term-review/1'||!Array.isArray(context.primaryEvidence)||!context.primaryEvidence.length)throw Error('revision_context_not_source_grounded');
+  for(const evidence of context.primaryEvidence){
+   const sourceBytes=await readFile(dataPath(evidence.sourcePath)),original=JSON.parse(sourceBytes);
+   if(sha(sourceBytes)!==evidence.sourceFileSha256||original.sourceId!==source.sourceId||original.language!=='ja'||original.url!==evidence.url)throw Error('revision_context_source_changed');
+   for(const binding of [original.html,original.main])if(sha(await readFile(join(webRoot,binding.path)))!==binding.sha256)throw Error('revision_context_original_html_changed');
+   for(const block of evidence.blocks){if(!original.blocks.some(b=>b.type==='text'&&b.id===block.sourceBlockId&&b.text===block.sourceText))throw Error('revision_context_block_changed');supportingSourceContext.push({url:original.url,sourceBlockId:block.sourceBlockId,sourceText:block.sourceText});}
+  }
+  revision.context={path:relative(processing,path).replaceAll('\\','/'),sha256:sha(bytes)};
+ }
 }
 const output=join(runRoot,'candidates',source.sourceId,source.articleId+(variant?'.'+variant:'')+'.json');
 let existingBytes=null;try{existingBytes=await readFile(output);}catch(e){if(e.code!=='ENOENT')throw e;}
@@ -135,8 +148,9 @@ if((japanese&&(!batch||batch.sourceBlockIds.some(id=>source.blocks.find(b=>b.id=
  'For every requested figure ID return kind, complete transcription, unknowns, caption and sourceNotes. Translate ALL visible teaching labels into Simplified Chinese: ツモ=摸入, 切り=切, 変化=变化, でテンパイ=即可听牌, numeric 枚=张. Preserve the location of each label relative to its exact tile code/table cell. No untranslated Japanese instructional label may remain. Mahjong codes use 1-9m/p/s, 1-7z (east/south/west/north/white/green/red); preserve tile order, count, red tiles, sideways tiles, labels, draw/discard arrows, and every chart/table datum. Distinguish 2m/3m,6p/8p,1s. If teaching information cannot be read, name the exact unknown and do not guess. Harmless scan/layout traces belong in sourceNotes; never invent a punctuation mark. Reused verified figures are context only and must not be returned in figures.',
  'Original and nearest-neighbor enlarged views refer to the same original assets, never extra tiles or extra source occurrences. Compare both views carefully; enlargement repeats original RGBA pixels without sharpening, denoising, recoloring or redrawing.',
  revision?.textBlockIds?'This is an isolated translation repair. Return only target text IDs. Independently read the Japanese in its complete associated context; prior review is a locator, not ground truth. Preserve author modality, exact inequality including equality, and Mahjong meanings. All other translated blocks and all figures are reused unchanged outside this request. Prior issues: '+JSON.stringify(JSON.parse(await readFile(dataPath(revision.notesPath))).modelReview.issues):revision?'This is an isolated figure repair. The prior independent review is only a locator and may itself contain errors. Independently reread the original and enlarged images; do not copy suggested labels as ground truth. All unmodified figures and Chinese body are preserved outside this request. Prior issues: '+JSON.stringify(JSON.parse(await readFile(dataPath(revision.notesPath))).modelReview.issues):null,
+ supportingSourceContext.length?'Supporting source context comes from the same author in other captured sections and clarifies terminology only. Translate ONLY the requested target IDs; do not translate or import additional claims from this context.':null,
  batch?'This request contains one complete question/answer or heading group. Context-only blocks provide shared premises: translate ONLY target textIds once; never repeat context-only premises. Keep the whole associated table and answer intact.':null,
- 'Lexical glossary only: シャンテン=向听, フリテン=振听, 面子=面子, ターツ=搭子, トイツ=对子, 一色手=染手, ベタオリ=完全弃和, 押し引き=攻守判断. Do not alter the strategy to fit a glossary.',JSON.stringify({title:source.title,blocks:requestContext,targets:{textIds:ids,figureIds},figureAssets:pendingFigures.map(f=>({sourceBlockId:f.sourceBlockIds[0],assetIds:f.sourceAssetBindings.map(a=>a.assetId)})),attachments:visualInputs.map((a,i)=>({attachment:i+1,assetId:a.assetId,view:a.role,scale:a.scale}))})].filter(Boolean).join('\n\n');
+ 'Lexical glossary only: シャンテン=向听, フリテン=振听, 面子=面子, ターツ=搭子, トイツ=对子, 一色手=染手, ベタオリ=完全弃和, 押し引き=攻守判断. Do not alter the strategy to fit a glossary.',JSON.stringify({title:source.title,blocks:requestContext,...(supportingSourceContext.length?{supportingSourceContext}:{}),targets:{textIds:ids,figureIds},figureAssets:pendingFigures.map(f=>({sourceBlockId:f.sourceBlockIds[0],assetIds:f.sourceAssetBindings.map(a=>a.assetId)})),attachments:visualInputs.map((a,i)=>({attachment:i+1,assetId:a.assetId,view:a.role,scale:a.scale}))})].filter(Boolean).join('\n\n');
  await ensureDispatchAllowed();
  const cliBytes=await readFile(new URL('./textbook-production-cli.mjs',import.meta.url)),cliSha256=sha(cliBytes),cliSnapshot=join(runRoot,'runners',cliSha256+'.cli.mjs');await mkdir(dirname(cliSnapshot),{recursive:true});await writeFile(cliSnapshot,cliBytes);
  const currentBatchBinding=batch?{...batchBinding,sourceSha256:sha(sourceBytes),batchId:batch.batchId}:null,checkpointPath=batch?join(runRoot,'batch-checkpoints',source.sourceId,source.articleId,batchBinding.planSha256,batch.batchId+'.json'):null;
