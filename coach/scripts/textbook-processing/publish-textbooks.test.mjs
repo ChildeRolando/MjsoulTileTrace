@@ -56,6 +56,7 @@ describe('publication and interrupted replacement',()=>{
    await expect(readApprovedPdfPage(options)).rejects.toThrow('requires_source_flow_gate');
    await expect(readApprovedPdfPage({...options,verifySourceFlowLayout:async()=>({status:'passed',passed:true})})).rejects.toThrow('source_flow_gate_invalid');
    await expect(readApprovedPdfPage({...options,verifySourceFlowLayout:async()=>({status:'passed-after-specific-source-and-flow-repair',effectiveModelChecks:{passed:true},sourceCorrection:{requiresAdditionalSourceLayoutGate:true},sourceFlowRepair:{checks:{exactSourceTextAndCodepointOffsets:true,pixels:{passed:true}}}})})).rejects.toThrow('source_flow_gate_invalid');
+   await expect(readApprovedPdfPage({...options,verifySourceFlowLayout:async()=>({status:'passed-after-source-flow-repair',passed:true,effectiveModelChecks:{passed:true},calls:[],sourceFlowRepair:{layout:{sha256:sha('{}')},resolvedIssueHashes:['issue'],originalCalls:[{}],originalProductionRaw:null}})})).rejects.toThrow('deterministic_production_missing');
    await writeFile(layoutPath,'changed');await expect(readApprovedPdfPage({...options,verifySourceFlowLayout:async()=>{throw Error('must not call');}})).rejects.toThrow('source_flow_layout_changed');
   }finally{await f.cleanup();}
  });

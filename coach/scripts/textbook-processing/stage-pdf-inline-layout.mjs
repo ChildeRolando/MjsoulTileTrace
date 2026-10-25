@@ -10,7 +10,7 @@ const parentsOf=g=>g.parentFigureIds??[g.parentFigureId];
 /** Exact source-layout repair only. Independent approval and asset hashes are checked by the caller. */
 export function applyPdfInlineLayout(candidate,page,layout,layoutSha256){
  if(layout.schema!=='coach-textbook-pdf-inline-layout/1'||candidate.source.sourceId!=='79-cn'||layout.source.sourceId!==candidate.source.sourceId||layout.source.page!==candidate.source.page||page.page!==candidate.source.page)throw Error('pdf_inline_source_scope');
- const originals=new Map(page.blocks.map(b=>[b.id,b])),parents=new Map(candidate.figures.map(f=>[f.figureId,f])),groups=new Map(),replacedFigures=new Set(),usedGroups=new Set(),replacements=new Map(),removed=new Set();
+ const originals=new Map(page.blocks.map(b=>[b.id,b])),parents=new Map(candidate.figures.map(f=>[f.figureId,f])),groups=new Map(),replacedFigures=new Set(),usedGroups=new Set(),replacements=new Map(),removed=new Set(),tailIndices=new Set();
  for(const g of layout.figureGroups){
   const parentIds=parentsOf(g);
   if(groups.has(g.figureGroupId)||!parentIds.length||new Set(parentIds).size!==parentIds.length||parentIds.some(id=>!parents.has(id))||!g.tiles?.length)throw Error('pdf_inline_figure_identity');
@@ -46,11 +46,14 @@ export function applyPdfInlineLayout(candidate,page,layout,layoutSha256){
   for(const[id,text]of sourceTexts)if(ends.get(id)!==[...text].length)throw Error('pdf_inline_missing_text');
   assert.equal(inlineContent.map(s=>s.text).join(''),p.text,'pdf inline paragraph text');
   const base=originalBlocks[0];if(originalBlocks.filter(b=>b.type==='text').some(b=>b.unitId!==base.unitId||b.chapterId!==base.chapterId))throw Error('pdf_inline_cross_argument');
-  replacements.set(indices[0],{...base,sourceBlockIds:p.sourceBlockIds,sourceText:fullSource,text:p.text,inlineContent,inlineFigureIds:inlineContent.filter(s=>s.figureId).map(s=>s.figureId),pdfInlineLayout:{sha256:layoutSha256,paragraph:index}});
+  if(p.sourceHeading){const h=p.sourceHeading,original=originals.get(h.sourceBlockId);if(h.level!==2||p.sourceBlockIds.length!==1||h.sourceBlockId!==p.sourceBlockIds[0]||inlineContent.some(s=>s.type==='figure')||p.text.length>160)throw Error('pdf_inline_heading_scope');assert.deepEqual(h.evidence?.bbox,original.bbox,'pdf inline heading source box');assert.deepEqual(h.evidence?.lines,original.lines,'pdf inline heading source lines');}
+  if(p.moveToEnd!==undefined){if(p.moveToEnd!==true||inlineContent.some(s=>s.type==='figure')||p.sourceHeading)throw Error('pdf_inline_footer_move');tailIndices.add(indices[0]);}
+  replacements.set(indices[0],{...base,sourceBlockIds:p.sourceBlockIds,sourceText:fullSource,text:p.text,inlineContent,inlineFigureIds:inlineContent.filter(s=>s.figureId).map(s=>s.figureId),...(p.sourceHeading?{sourceHeading:p.sourceHeading}:{}),pdfInlineLayout:{sha256:layoutSha256,paragraph:index,...(p.moveToEnd?{moveToEnd:true}:{})}});
   for(const n of indices)removed.add(n);
  }
  if(usedGroups.size!==groups.size)throw Error('pdf_inline_unplaced_group');
  const usedParents=new Set(layout.paragraphs.flatMap(p=>p.replacement.parentFigureIds));assert.deepEqual([...usedParents].sort(),[...replacedFigures].sort(),'pdf inline parent coverage');
  const emitted=new Set(),figures=candidate.figures.flatMap(f=>!replacedFigures.has(f.figureId)?[f]:layout.figureGroups.filter(g=>parentsOf(g).includes(f.figureId)&&!emitted.has(g.figureGroupId)).map(g=>{emitted.add(g.figureGroupId);return{figureId:g.figureGroupId,sourceImageBlockIds:g.sourceImageBlockIds,kind:'tiles',caption:'原文句内牌例',transcription:g.transcription??g.text,unknowns:g.unknowns??[],croppedImagePath:g.presentationAsset.path,croppedImageSha256:g.presentationAsset.sha256,presentationAsset:g.presentationAsset,imageProvenance:{kind:'derived-source-assets',method:'source-order-rgba-bottom-aligned-no-gap',sourceAssetSha256s:g.tiles.map(t=>t.asset.sha256)},pdfInlineLayout:{sha256:layoutSha256,parentFigureIds:parentsOf(g)}};}));
- return {...candidate,body:{...candidate.body,blocks:candidate.body.blocks.flatMap((b,i)=>replacements.has(i)?[replacements.get(i)]:removed.has(i)?[]:[b])},figures};
+ const blocks=candidate.body.blocks.flatMap((b,i)=>tailIndices.has(i)?[]:replacements.has(i)?[replacements.get(i)]:removed.has(i)?[]:[b]);for(const i of [...tailIndices].sort((a,b)=>a-b))blocks.push(replacements.get(i));
+ return {...candidate,body:{...candidate.body,blocks},figures};
 }
