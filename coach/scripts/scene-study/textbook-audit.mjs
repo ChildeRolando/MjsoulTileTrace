@@ -1,6 +1,7 @@
 // Run with node; also imported by the offline publication tests.
 import { appendFile, mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
 import { createHash, randomUUID } from 'node:crypto';
+import { isDeepStrictEqual } from 'node:util';
 import { spawn } from 'node:child_process';
 import { dirname, isAbsolute, join, relative, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
@@ -319,6 +320,7 @@ async function latestAuditReceipt(auditRoot,sourceId,page,candidateSha256) {
 export async function auditPage({ dataRoot, auditRoot, source, pageMeta, productionRoot=join(dataRoot,'production','sol-high'), scriptSha256, cliVersion, retryFailed=false, reviewer=callReviewer }) {
   const candidatePath = join(productionRoot,'candidates',source.sourceId,`page-${String(pageMeta.page).padStart(4,'0')}.json`);
   const bytes = await readFile(candidatePath), candidateSha256 = sha(bytes), candidate = JSON.parse(bytes);
+  if(candidate.provenance?.sourceFieldCorrection)return verifySpecificPdfSourceCorrection(dataRoot,candidatePath,true);
   let outputPath = join(auditRoot,'pages',source.sourceId,`page-${String(pageMeta.page).padStart(4,'0')}.${candidateSha256}.${scriptSha256.slice(0,12)}.json`);
   let previous=await latestAuditReceipt(auditRoot,source.sourceId,pageMeta.page,candidateSha256);
   let retryOfAudit=null;
@@ -362,7 +364,7 @@ export async function auditPage({ dataRoot, auditRoot, source, pageMeta, product
 }
 
 /** Publication must bind the latest review to the exact bytes currently being published. */
-export async function verifyAuditForCandidate(processingRoot, candidatePath) {
+async function verifyPdfAuditEvidence(processingRoot, candidatePath) {
   const bytes = await readFile(candidatePath), candidateSha256 = sha(bytes), candidate = JSON.parse(bytes);
   const inventory = JSON.parse(await readFile(join(processingRoot,'source-inventory.json'),'utf8'));
   const source = inventory.sources.find(s => s.sourceId === candidate.source?.sourceId);
@@ -391,12 +393,44 @@ export async function verifyAuditForCandidate(processingRoot, candidatePath) {
   if (fullCall.outputSha256 !== call.outputSha256 || fullCall.productionSha256 !== candidateSha256 || fullCall.promptSha256 !== sha(reviewPrompt(source,page,candidate,context))) throw Error('audit_call_evidence_changed');
   if(fullCall.requestPrompt!==undefined&&fullCall.requestPrompt!==null&&sha(fullCall.requestPrompt)!==fullCall.requestPromptSha256)throw Error('audit_actual_request_prompt_changed');
   if(fullCall.semanticPromptSha256!==undefined&&fullCall.semanticPromptSha256!==fullCall.promptSha256)throw Error('audit_semantic_prompt_binding_changed');
-  if(receipt.status==='needs-repair'||!validateReview(receipt.modelReview,page,candidate).passed||!receipt.modelChecks?.passed) {
-    const resolution=await latestSourceAdjudication(processingRoot,receipt,candidate,page);
-    return {...receipt,status:'passed-after-source-adjudication',...resolution};
-  }
+  return {receipt,candidate,page,source,pageMeta,renderHash,candidateSha256};
+}
+
+export async function verifyAuditForCandidate(processingRoot,candidatePath){
+  const candidate=JSON.parse(await readFile(candidatePath));if(candidate.provenance?.sourceFieldCorrection)return verifySpecificPdfSourceCorrection(processingRoot,candidatePath,false);
+  const evidence=await verifyPdfAuditEvidence(processingRoot,candidatePath),{receipt,page}=evidence;
+  if(receipt.status==='needs-repair'||!validateReview(receipt.modelReview,page,candidate).passed||!receipt.modelChecks?.passed){const resolution=await latestSourceAdjudication(processingRoot,receipt,candidate,page);return {...receipt,status:'passed-after-source-adjudication',...resolution};}
   return receipt;
 }
+
+export function verifySpecificPdfLegendChange(candidate,parent,changes){
+  const n=candidate.provenance?.sourceFieldCorrection;
+  if(candidate.source?.sourceId!=='nemata-jp'||candidate.source?.page!==167||!n||n.newProductionModelCalls!==0||n.changes.length!==1||JSON.stringify(n.changes)!==JSON.stringify(changes))throw Error('audit_specific_source_correction_scope');
+  const change=changes[0],copy=structuredClone(parent),figure=copy.figures.find(f=>f.figureId==='nemata-jp-p167-r1');
+  if(change.figureId!==figure?.figureId||change.field!=='transcription'||change.replaceFrom!=='深绿线方形标记＝被自摸率'||change.replaceTo!=='深绿线圆形标记＝被自摸率'||change.occurrences!==1||figure.transcription!==change.fromValue||change.fromValue.split(change.replaceFrom).length!==2||change.fromValue.replace(change.replaceFrom,change.replaceTo)!==change.toValue)throw Error('audit_specific_legend_not_exact');
+  figure.transcription=change.toValue;copy.provenance.sourceFieldCorrection=n;copy.candidateSha256=candidate.candidateSha256;
+  if(!isDeepStrictEqual(copy,candidate))throw Error('audit_specific_source_correction_other_field_changed');return true;
+}
+
+async function verifySpecificPdfSourceCorrection(root,candidatePath,create){
+  const bytes=await readFile(candidatePath),candidate=JSON.parse(bytes),n=candidate.provenance?.sourceFieldCorrection,approvalPath='audit/specific-source-corrections-20261026.accepted.json',ab=await readFile(boundDataPath(root,approvalPath)),approval=JSON.parse(ab),job=approval.jobs.find(j=>j.kind==='pdf-legend'&&j.candidate.sha256===sha(bytes));
+  if(sha(ab)!=='5d92f934eb070064c2cfd46d7a628b092f5d8cfc8aff881955bae7826e66dc4f'||approval.status!=='accepted'||approval.approvedBy!=='root'||!approval.approvedAt||!job||!n||boundDataPath(root,job.candidate.path)!==resolve(candidatePath))throw Error('audit_specific_source_correction_approval');
+  const proofBytes=await readFile(boundDataPath(root,job.proof.path)),proof=JSON.parse(proofBytes),pb=await readFile(boundDataPath(root,n.parentPath)),parent=JSON.parse(pb),nb=await readFile(boundDataPath(root,n.notesPath)),prior=JSON.parse(nb);
+  if(sha(proofBytes)!==job.proof.sha256||sha(pb)!==n.parentSha256||n.parentSha256!==job.parent.sha256||sha(nb)!==n.notesSha256||n.notesSha256!==job.originalAudit.sha256||boundDataPath(root,n.parentPath)!==boundDataPath(root,job.parent.path)||boundDataPath(root,n.notesPath)!==boundDataPath(root,job.originalAudit.path)||JSON.stringify(proof.sourceFieldCorrection)!==JSON.stringify(n))throw Error('audit_specific_source_correction_parent_changed');
+  const original=await verifyPdfAuditEvidence(root,boundDataPath(root,n.parentPath));if(original.receipt.auditPath!==boundDataPath(root,n.notesPath)||original.receipt.status!=='needs-repair'||JSON.stringify(original.receipt.modelReview)!==JSON.stringify(prior.modelReview)||JSON.stringify(prior.modelChecks)!==JSON.stringify(validateReview(prior.modelReview,original.page,parent)))throw Error('audit_specific_source_correction_original_review');
+  for(const binding of job.originalCalls)if(sha(await readFile(boundDataPath(root,binding.path)))!==binding.sha256)throw Error('audit_specific_source_correction_raw_changed');
+  if(job.originalCalls.length!==1||!job.originalCalls[0].path.endsWith('/'+prior.calls[0].callId+'.json')||sha(await readFile(boundDataPath(root,n.sourceCrop.path)))!==n.sourceCrop.sha256)throw Error('audit_specific_source_correction_source_crop');
+  for(const d of proof.inheritedDependencies){const b=await readFile(boundDataPath(root,d.path));if(sha(b)!==d.sha256||sha(await readFile(boundDataPath(root,d.inheritedFrom)))!==d.sha256)throw Error('audit_specific_source_correction_dependency_changed');}
+  verifySpecificPdfLegendChange(candidate,parent,job.exactChanges);
+  const renderPath=join(dirname(dirname(dirname(candidatePath))),'renders','nemata-jp','page-0167.png'),renderHash=sha(await readFile(renderPath)),checks=deterministicChecks(candidate,original.source,original.page,original.pageMeta.pageDataSha256,renderHash);if(!checks.passed||renderHash!==original.renderHash)throw Error('audit_specific_source_correction_inputs');
+  const effective=structuredClone(prior.modelReview),resolution=job.originalIssues[0],issue=effective.issues[resolution.index],check=effective.figureChecks.find(c=>c.id==='nemata-jp-p167-r1');if(job.originalIssues.length!==1||issue?.severity!=='error'||issue.targetId!=='nemata-jp-p167-r1'||sha(JSON.stringify(issue))!==resolution.sha256||check?.verdict!=='needs-repair')throw Error('audit_specific_source_correction_issue_scope');issue.severity='source-note';check.verdict='faithful';const effectiveChecks=validateReview(effective,original.page,candidate);if(!effectiveChecks.passed)throw Error('audit_specific_source_correction_other_issue');
+  const sourceCorrection={path:approvalPath,sha256:sha(ab),parent:job.parent,originalAudit:job.originalAudit,originalCalls:job.originalCalls,resolutions:job.exactChanges,approvedBy:approval.approvedBy,approvedAt:approval.approvedAt},outputPath=join(root,'audit/pages/nemata-jp',`page-0167.${sha(bytes)}.source-correction.json`);let receipt;
+  try{receipt=JSON.parse(await readFile(outputPath));}catch(e){if(e.code!=='ENOENT'||!create)throw e;receipt={schema:'coach-textbook-page-audit/1',status:'passed-after-specific-source-correction',source:candidate.source,production:{path:resolve(candidatePath),sha256:sha(bytes)},verification:'independent-parent-content-review-plus-root-exact-source-legend-correction-not-new-model-review-not-human-gold',pageImageSha256:renderHash,deterministicChecks:checks,modelReview:prior.modelReview,modelChecks:prior.modelChecks,effectiveModelReview:effective,effectiveModelChecks:effectiveChecks,calls:[],inheritedCalls:prior.calls,sourceCorrection,recordedAt:new Date().toISOString()};await exclusiveJson(outputPath,receipt);}
+  if(receipt.status!=='passed-after-specific-source-correction'||receipt.production.sha256!==sha(bytes)||resolve(receipt.production.path)!==resolve(candidatePath)||JSON.stringify(receipt.source)!==JSON.stringify(candidate.source)||JSON.stringify(receipt.deterministicChecks)!==JSON.stringify(checks)||receipt.pageImageSha256!==renderHash||receipt.calls.length||JSON.stringify(receipt.inheritedCalls)!==JSON.stringify(prior.calls)||JSON.stringify(receipt.modelReview)!==JSON.stringify(prior.modelReview)||JSON.stringify(receipt.modelChecks)!==JSON.stringify(prior.modelChecks)||JSON.stringify(receipt.effectiveModelReview)!==JSON.stringify(effective)||JSON.stringify(receipt.effectiveModelChecks)!==JSON.stringify(effectiveChecks)||JSON.stringify(receipt.sourceCorrection)!==JSON.stringify(sourceCorrection))throw Error('audit_specific_source_correction_receipt_changed');
+  return {...receipt,auditPath:outputPath,auditSha256:sha(await readFile(outputPath))};
+}
+
+export async function acceptSpecificPdfSourceCorrection(processingRoot,candidatePath){return verifySpecificPdfSourceCorrection(processingRoot,resolve(candidatePath),true);}
 
 async function main() {
   const argv = process.argv.slice(2), arg = (key, fallback) => { const i = argv.indexOf(key); return i < 0 ? fallback : argv[i+1]; };

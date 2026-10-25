@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { mkdtemp, mkdir, readFile, writeFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { deterministicChecks, validateReview, verifyAuditForCandidate, sha, reviewPrompt, summarizeAuditUsage, auditUsageFromEvents, auditTransportCompleted, auditPage, recoverCompletedAudit } from './textbook-audit.mjs';
+import { deterministicChecks, validateReview, verifyAuditForCandidate, sha, reviewPrompt, summarizeAuditUsage, auditUsageFromEvents, auditTransportCompleted, auditPage, recoverCompletedAudit, verifySpecificPdfLegendChange } from './textbook-audit.mjs';
 
 test('only exact recovered TLS fallback items are diagnostics; tool calls and unknown errors remain rejected',()=>{
  const diagnostic={type:'item.completed',item:{id:'item_0',type:'error',message:'Falling back from WebSockets to HTTPS transport. stream disconnected before completion: tls handshake eof'}},r={exitCode:0,timedOut:false,outputOverflow:false,output:{checks:[]},events:[diagnostic,{type:'turn.completed',usage:{input_tokens:5,cached_input_tokens:0,output_tokens:2}}]};assert.equal(auditTransportCompleted(r),true);
@@ -176,4 +176,10 @@ test('publication rejects tampered production bytes and a newer failed review',a
     await writeFile(candidatePath,JSON.stringify({...candidate,status:'modified'}));
     await assert.rejects(verifyAuditForCandidate(root,candidatePath),/latest_not_passed/);
   } finally { await rm(root,{recursive:true,force:true}); }
+});
+
+
+test('the exact p167 source legend correction cannot change axes, values, another legend or author prose',()=>{
+ const from='蓝线方形标记＝流局率；深绿线方形标记＝被自摸率；末巡约30%',to=from.replace('深绿线方形标记＝被自摸率','深绿线圆形标记＝被自摸率'),parent={source:{sourceId:'nemata-jp',page:167},body:{blocks:[{text:'完整条件与原文'}]},figures:[{figureId:'nemata-jp-p167-r1',transcription:from}],provenance:{model:'gpt-6.1-sol',modelCalls:1},candidateSha256:'parent'},child=structuredClone(parent),changes=[{figureId:'nemata-jp-p167-r1',field:'transcription',fromValue:from,toValue:to,replaceFrom:'深绿线方形标记＝被自摸率',replaceTo:'深绿线圆形标记＝被自摸率',occurrences:1}];child.provenance.sourceFieldCorrection={changes,newProductionModelCalls:0};child.figures[0].transcription=to;child.candidateSha256='child';assert.equal(verifySpecificPdfLegendChange(child,parent,changes),true);
+ for(const mutate of [c=>c.body.blocks[0].text='改了条件',c=>c.figures[0].transcription=c.figures[0].transcription.replace('30%','40%'),c=>c.figures[0].transcription=c.figures[0].transcription.replace('蓝线方形','蓝线圆形'),c=>c.source.page=168,c=>c.provenance.model='gpt-6-luna']){const bad=structuredClone(child);mutate(bad);assert.throws(()=>verifySpecificPdfLegendChange(bad,parent,changes));}
 });
