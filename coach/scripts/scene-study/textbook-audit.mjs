@@ -6,6 +6,7 @@ import { spawn } from 'node:child_process';
 import { dirname, isAbsolute, join, relative, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { invokeTextbookCodex,hasUnexpectedTextbookTool } from './textbook-production-cli.mjs';
+import {checkPdfInlineSourceLayout,verifyPdfInlineLayoutPixels,resolvePdf335FlowReview} from './textbook-audit-pdf-layout.mjs';
 
 export const sha = bytes => createHash('sha256').update(bytes).digest('hex');
 const repo = resolve(import.meta.dirname, '../..');
@@ -401,6 +402,23 @@ export async function verifyAuditForCandidate(processingRoot,candidatePath){
   const evidence=await verifyPdfAuditEvidence(processingRoot,candidatePath),{receipt,page}=evidence;
   if(receipt.status==='needs-repair'||!validateReview(receipt.modelReview,page,candidate).passed||!receipt.modelChecks?.passed){const resolution=await latestSourceAdjudication(processingRoot,receipt,candidate,page);return {...receipt,status:'passed-after-source-adjudication',...resolution};}
   return receipt;
+}
+
+/** Explicit original-candidate + layout gate. A candidate by itself remains rejected. */
+export async function verifyPdfSourceFlowLayout(root,candidatePath,layoutPath){
+ candidatePath=resolve(candidatePath);layoutPath=resolve(layoutPath);
+ const layoutBytes=await readFile(layoutPath),layout=JSON.parse(layoutBytes);
+ if(sha(layoutBytes)!=='47037dd5f09c8bcefcc034ad9bd1fda68e6c629b47ac237f84b9d6f2b2267571'||boundDataPath(root,layout.parentCandidate.path)!==candidatePath||layout.source.sourceId!=='79-cn'||layout.source.page!==335)throw Error('audit_pdf_source_flow_specific_scope');
+ const original=await verifyPdfAuditEvidence(root,candidatePath),{candidate,page,receipt}=original;
+ if(original.candidateSha256!==layout.parentCandidate.sha256||receipt.status!=='needs-repair'||receipt.auditPath!==boundDataPath(root,layout.parentAudit.path)||sha(await readFile(receipt.auditPath))!==layout.parentAudit.sha256||layout.source.pdfSha256!==original.source.sha256||layout.source.pageData.path!==original.pageMeta.pageData||layout.source.pageData.sha256!==original.pageMeta.pageDataSha256||!isDeepStrictEqual(receipt.modelChecks,validateReview(receipt.modelReview,page,candidate)))throw Error('audit_pdf_source_flow_parent_changed');
+ const productionRaw=await readFile(boundDataPath(root,layout.parentRaw.path)),attempt=candidate.provenance.attempts.find(a=>a.success);
+ if(sha(productionRaw)!==layout.parentRaw.sha256||!attempt||!layout.parentRaw.path.endsWith('/'+attempt.callId+'.json')||JSON.parse(productionRaw).callId!==attempt.callId)throw Error('audit_pdf_source_flow_production_raw_changed');
+ const rawCalls=[];for(const c of receipt.calls){const path='audit/calls/'+c.callId+'.json';rawCalls.push({path,sha256:sha(await readFile(boundDataPath(root,path)))});}
+ const {pixelRows,...checks}=checkPdfInlineSourceLayout(page,candidate,layout),pixels=await verifyPdfInlineLayoutPixels(root,pixelRows),effective=resolvePdf335FlowReview(receipt.modelReview),effectiveChecks=validateReview(effective,page,candidate);if(!effectiveChecks.passed)throw Error('audit_pdf_source_flow_unresolved_issue');
+ const sourceFlowRepair={layout:{path:relative(root,layoutPath).replaceAll('\\','/'),sha256:sha(layoutBytes)},parent:layout.parentCandidate,originalAudit:layout.parentAudit,originalProductionRaw:layout.parentRaw,originalCalls:rawCalls,resolvedIssueHashes:receipt.modelReview.issues.filter(i=>i.severity==='error').map(i=>sha(JSON.stringify(i))),checks:{...checks,pixels},verification:'independent-source-line-offset-and-image-occurrence-layout-check-not-new-model-review-not-human-gold'};
+ const base={schema:'coach-textbook-pdf-source-flow-audit/1',status:'passed-after-source-flow-repair',source:candidate.source,production:{path:candidatePath,sha256:original.candidateSha256},originalModelReview:receipt.modelReview,originalModelChecks:receipt.modelChecks,effectiveModelReview:effective,effectiveModelChecks:effectiveChecks,calls:[],inheritedCalls:receipt.calls,sourceFlowRepair};
+ const proofPath=join(root,'audit/source-flow',`79-cn-p335.${sha(layoutBytes)}.json`);await mkdir(dirname(proofPath),{recursive:true});let proof;try{proof=JSON.parse(await readFile(proofPath));}catch(e){if(e.code!=='ENOENT')throw e;proof={...base,recordedAt:new Date().toISOString()};await exclusiveJson(proofPath,proof);}
+ const {recordedAt,...stored}=proof;if(!recordedAt||!isDeepStrictEqual(stored,base))throw Error('audit_pdf_source_flow_proof_changed');return {...proof,auditPath:proofPath,auditSha256:sha(await readFile(proofPath)),passed:true};
 }
 
 export function verifySpecificPdfLegendChange(candidate,parent,changes){
