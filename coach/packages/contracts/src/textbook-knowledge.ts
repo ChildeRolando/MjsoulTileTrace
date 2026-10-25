@@ -40,7 +40,7 @@ export const TextbookDiagramSchema = z.object({
   }
 });
 export const TextbookFigureSchema = z.object({
-  figureId: TextbookIdSchema, unitId: TextbookIdSchema, ...SourcePosition,
+  figureId: TextbookIdSchema, unitId: TextbookIdSchema, contentRole: z.enum(["instruction", "navigation"]).optional(), ...SourcePosition,
   caption: z.string().min(1).max(500), imageSha256: Hash,
   imageProvenance: z.object({kind:z.literal("derived-source-assets"),method:z.string().min(1).max(160),sourceAssetSha256s:z.array(Hash).min(1).max(100)}).strict().optional(),
   transcription: z.object({
@@ -69,7 +69,7 @@ export const TextbookBlockSchema = z.discriminatedUnion("type", [
 ]);
 export const TextbookUnitSchema = z.object({
   unitId: TextbookIdSchema, chapterId: TextbookIdSchema, title: z.string().min(1).max(160), chapterTitle: z.string().min(1).max(160),
-  topics: z.array(z.string().min(1).max(40)).max(12),
+  topics: z.array(z.string().min(1).max(40)).max(12), contentRole: z.enum(["instruction", "navigation"]).optional(),
   source: z.object({ sourceId: TextbookIdSchema, title: z.string().min(1).max(160), sha256: Hash, pages: z.array(z.number().int().positive()).max(800),
     format: z.enum(["pdf", "web"]).optional(),
     web: z.object({ url: SourceUrl, articleId: z.string().min(1).max(160), htmlSha256: Hash }).strict().optional(),

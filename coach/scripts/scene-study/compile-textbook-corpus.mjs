@@ -6,9 +6,9 @@ import {TextbookUnitSchema,TEXTBOOK_LIMITS} from '@riichi-coach/contracts';
 import {textbookCorpusId,validateTextbookCorpus} from '@riichi-coach/desktop/textbook-knowledge';
 import {validateLibrary,validateBodies} from './textbook-review.mjs';
 const sha=x=>createHash('sha256').update(x).digest('hex');
-export function textbookFigureMetadata(b,unitId,imageSha256){
+export function textbookFigureMetadata(b,unitId,imageSha256,contentRole){
  const transcription=b.hand||b.tableText||b.diagram||b.transcriptionText?{...(b.transcriptionText?{text:b.transcriptionText}:{}),...(b.hand?{hand:b.hand,decision:b.decision,...(b.conditions?{conditions:b.conditions}:{})}:{}),...(b.tableText?{table:b.tableText}:{}),...(b.diagram?{diagram:b.diagram}:{})}:null;
- return {figureId:b.id,unitId,page:b.page,...(b.locator?{locator:b.locator}:{}),caption:b.caption,imageSha256,...(b.imageProvenance?{imageProvenance:b.imageProvenance}:{}),transcription,requiresImageForFullExample:transcription===null};
+ return {figureId:b.id,unitId,...(contentRole?{contentRole}:{}),page:b.page,...(b.locator?{locator:b.locator}:{}),caption:b.caption,imageSha256,...(b.imageProvenance?{imageProvenance:b.imageProvenance}:{}),transcription,requiresImageForFullExample:transcription===null};
 }
 
 export async function compileTextbookCorpus(directory, suppliedDefinitions){
@@ -26,7 +26,7 @@ export async function compileTextbookCorpus(directory, suppliedDefinitions){
     if(isAbsolute(rel)||rel==='..'||rel.startsWith('..'+sep))throw Error('textbook_image_outside_root');
     const imageBytes=await readFile(full);if(imageBytes.length>TEXTBOOK_LIMITS.maxImageBytes)throw Error('textbook_image_over_budget');const imageSha256=sha(imageBytes);
     images.push({figureId:b.id,path:b.src,sha256:imageSha256});
-    return textbookFigureMetadata(b,d.id,imageSha256);
+    return textbookFigureMetadata(b,d.id,imageSha256,d.contentRole);
   }
   for(const b of body.blocks.slice(d.from-1,d.to)){
    if(used.has(b.id))throw Error('textbook_duplicate_block');used.add(b.id);
@@ -34,7 +34,7 @@ export async function compileTextbookCorpus(directory, suppliedDefinitions){
    if(b.type==='figure')blocks.push({type:'figure',id:b.id,page:b.page,...(b.locator?{locator:b.locator}:{}),...tablePosition,figure:await compileFigure(b)});
    else {const inlineFigures=[];for(const figure of b.inlineFigures??[])inlineFigures.push(await compileFigure(figure));blocks.push({type:b.type,id:b.id,page:b.page,...(b.locator?{locator:b.locator}:{}),...tablePosition,...(b.type==='list'?{items:b.items}:{text:b.text}),...(inlineFigures.length?{inlineFigures}:{})});}
   }
-  units.push(TextbookUnitSchema.parse({unitId:d.id,chapterId:d.chapterId,title:d.title,chapterTitle:chapter.title,topics:chapter.topics,
+  units.push(TextbookUnitSchema.parse({unitId:d.id,chapterId:d.chapterId,title:d.title,chapterTitle:chapter.title,topics:chapter.topics,...(d.contentRole?{contentRole:d.contentRole}:{}),
    source:{sourceId:source.id,title:source.title,sha256:source.sha256,pages:source.format==='web'?[]:[...new Set(blocks.map(b=>b.page))],...(source.format==='web'?{format:'web',web:{url:source.url,articleId:source.articleId,htmlSha256:source.htmlSha256}}:{})},translationStatus:body.translationStatus,
    previousUnitId:siblings[at-1]?.id??null,nextUnitId:siblings[at+1]?.id??null,blocks}));
  }

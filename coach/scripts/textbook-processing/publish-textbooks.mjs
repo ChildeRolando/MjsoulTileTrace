@@ -106,7 +106,7 @@ export function appendApprovedPdfChapters({approved,library,bodies}){
   const sourceAdjudicated=approved.pages.some(p=>p.sourceId===c.sourceId&&pages.includes(p.page.page)&&p.audit.status==='passed-after-source-adjudication');
   library.chapters.push({id:c.id,title:c.title,sourceId:c.sourceId,startPage:Math.min(...pages),bodyStartPage:Math.min(...pages),endPage:Math.max(...pages),topics:c.topics??[],anchors:[],relatedChapterIds:[],reviewFocus:sourceAdjudicated?'完整中文论证、牌例和判断力度；包含经独立源图复核裁决的模型误审，详见发布记录。用户审核待完成。':'完整中文论证、牌例和判断力度；自动校对已通过，用户审核待完成。'});
   bodies.chapters.push({chapterId:c.id,sourceId:c.sourceId,sourceSha256:source.sha256,translationStatus:'batch-audited-pending-user-review',translatorNote:sourceAdjudicated?'完整正文与牌例经批量制作及独立校对；模型误审的源图裁决及原审查均保留于发布记录。未运行局面模型实验，用户内容审核待完成。':'完整正文与牌例经批量制作及独立自动校对；未运行局面模型实验。用户内容审核待完成。',blocks});
-  let offset=0;for(const u of c.units){const length=approved.blocksByUnit.get(u.id).length;definitions.push({id:u.id,chapterId:c.id,title:u.title,from:offset+1,to:offset+length});offset+=length;}
+  let offset=0;for(const u of c.units){const length=approved.blocksByUnit.get(u.id).length;definitions.push({id:u.id,chapterId:c.id,title:u.title,from:offset+1,to:offset+length,...(u.contentRole!==undefined?{contentRole:u.contentRole}:{})});offset+=length;}
  }
  return definitions;
 }

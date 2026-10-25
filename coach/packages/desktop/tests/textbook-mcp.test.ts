@@ -2,6 +2,11 @@ import {describe,it,expect} from "vitest";
 import {Client} from "@modelcontextprotocol/sdk/client/index.js";
 import {StdioClientTransport} from "@modelcontextprotocol/sdk/client/stdio.js";
 import {fileURLToPath} from "node:url";
+import {writeFile} from "node:fs/promises";
+import {join} from "node:path";
+import {fixtureCorpus} from "./fixtures/textbook-fixture.js";
+import {textbookCorpusId,validateTextbookCorpus} from "../src/textbook-knowledge.js";
+import {TextbookUnitSchema} from "@riichi-coach/contracts";
 import {TextbookMcpClient} from "../src/textbook-mcp.js";
 import {createArenaTextbookTools} from "../src/arena-textbook-tools.js";
 import {runBlindCoachCase} from "../src/blind-discard-arena-runner.js";
@@ -20,6 +25,19 @@ describe("textbook MCP over real stdio",()=>{
    expect(result.isError).not.toBe(true);expect(result.content).toEqual(expect.arrayContaining([expect.objectContaining({type:"image",data:png.toString("base64"),mimeType:"image/png"})]));
    const bad=await client.callTool({name:"view_textbook_figure",arguments:{figureId:"../../secret"}});expect(bad.isError).toBe(true);
    const injected=await client.callTool({name:"read_textbook",arguments:{unitId:"pairs-route",path:"secret"}});expect(injected.isError).toBe(true);
+  }finally{await client.close();await f.cleanup();}
+ });
+ it("keeps navigation readable and searchable over real MCP without granting a teaching citation via either body or figure",async()=>{
+  const f=await writeFixtureCorpus(),client=new TextbookMcpClient(),c=makeArenaMcpCase(),corpus=fixtureCorpus();
+  corpus.units[0]!.contentRole="navigation";corpus.units[0]!.title="七对子章节目录";
+  const figure=corpus.units[0]!.blocks[1]!;if(figure.type!=="figure")throw Error("fixture");figure.figure.contentRole="navigation";figure.figure.transcription={text:"教材目录的示意图，非教学论证。"};figure.figure.requiresImageForFullExample=false;
+  corpus.units=corpus.units.map(unit=>TextbookUnitSchema.parse(unit));corpus.corpusId=textbookCorpusId(corpus);validateTextbookCorpus(corpus);await writeFile(join(f.directory,"textbook-corpus.json"),JSON.stringify(corpus));
+  try{await client.connect(transport(f.directory));const tools=createArenaTextbookTools({caseRef:c.observation.caseRef,aliases:c.aliases,knowledge:client}),context={caseRef:c.observation.caseRef,signal:new AbortController().signal};
+   const search=tools.find(t=>t.name==="search_textbook")!,read=tools.find(t=>t.name==="read_textbook")!,view=tools.find(t=>t.name==="view_textbook_figure")!;
+   const found=await search.execute({query:"七对子章节目录",limit:2},context);expect(JSON.stringify(found)).toContain("七对子章节目录");
+   const body=await read.execute({unitId:"pairs-route"},context);expect(JSON.stringify(body)).toContain('"contentRole":"navigation"');expect(read.references!(body).sourceRefs).toEqual([]);
+   const image=await view.execute({figureId:"pairs-b2"},context);expect(view.references!(image).sourceRefs).toEqual([]);
+   const instruction=await read.execute({unitId:"open-threat"},context);expect(read.references!(instruction).sourceRefs).toHaveLength(1);
   }finally{await client.close();await f.cleanup();}
  });
  it("assembles actual MCP into Arena search-read-submit, without an external model or Mortal call",async()=>{

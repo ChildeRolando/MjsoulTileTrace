@@ -64,6 +64,7 @@ export function validateTextbookCorpus(raw: unknown): TextbookCorpus {
       blocks.add(b.id);
       for(const figure of b.type==="figure"?[b.figure]:b.type==="p"?b.inlineFigures??[]:[]){
         imageCount++;
+        if((figure.contentRole??"instruction")!==(u.contentRole??"instruction"))throw Error("textbook_figure_content_role_mismatch");
         if(seenFigures.has(figure.figureId))throw Error("textbook_duplicate_figure");seenFigures.add(figure.figureId);
         if ((b.type==="figure"&&b.id!==figure.figureId) || figure.unitId !== u.unitId || b.page !== figure.page || figures.get(figure.figureId)?.sha256 !== figure.imageSha256) throw Error("textbook_image_binding");
       }

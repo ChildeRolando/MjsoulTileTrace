@@ -44,14 +44,26 @@ async function validatePresentationRepair(root,audit){
  const artifacts=[r,r.originalAudit,r.effectivePriorAudit,r.originalCall,r.renderValidation,{path:r.renderValidation.fixturePath,sha256:r.renderValidation.fixtureSha256}];
  for(const a of artifacts)if(!a?.path||!/^[a-f0-9]{64}$/.test(a.sha256)||sha(await readFile(await contained(root,a.path)))!==a.sha256)throw Error('web_stage_presentation_repair_changed');
 }
+async function validateLabelRepair(root,audit){
+ const r=audit.labelRepair,n=r?.proof?.normalization;
+ if(!n?.replacements?.length||!n.figureIds?.length||n.newProductionModelCalls!==0||!r.originalCall?.callId||audit.calls?.length!==0||!audit.inheritedCalls?.some(c=>c.callId===r.originalCall.callId)||audit.effectiveModelChecks?.passed!==true)throw Error('web_stage_missing_label_repair');
+ for(const a of [r.parentAudit,r.originalCall,{path:n.parentPath,sha256:n.parentSha256},{path:n.notesPath,sha256:n.notesSha256}])if(!a?.path||!/^[a-f0-9]{64}$/.test(a.sha256)||sha(await readFile(await contained(root,a.path)))!==a.sha256)throw Error('web_stage_label_repair_changed');
+}
+async function validateSourceCorrection(root,audit){
+ const r=audit.sourceCorrection;
+ if(!r?.approvedBy||!r.approvedAt||!r.resolutions?.length||!r.originalCalls?.length||audit.calls?.length!==0||audit.effectiveModelChecks?.passed!==true||r.originalCalls.some(c=>!audit.inheritedCalls?.some(x=>x.callId===c.callId)))throw Error('web_stage_missing_source_correction');
+ for(const a of [r,r.parent,r.originalAudit,...r.originalCalls])if(!a?.path||!/^[a-f0-9]{64}$/.test(a.sha256)||sha(await readFile(await contained(root,a.path)))!==a.sha256)throw Error('web_stage_source_correction_changed');
+}
 /** A chapter preview in a new directory. This never replaces the active library. */
 export async function stageWebTextbook({processingRoot,candidatePath,destination,verify}){
  if(typeof verify!=='function')throw Error('web_stage_requires_independent_gate');
  const path=await contained(processingRoot,candidatePath),audit=await verify(processingRoot,path),bytes=await readFile(path),candidate=JSON.parse(bytes);
- if(!['passed','passed-after-specific-input-adjudication','passed-after-transport-recovery','passed-after-specific-presentation-repair'].includes(audit.status)||audit.production?.sha256!==sha(bytes))throw Error('web_stage_audit_identity');
+ if(!['passed','passed-after-specific-input-adjudication','passed-after-transport-recovery','passed-after-specific-presentation-repair','passed-after-exact-label-translation','passed-after-specific-source-correction'].includes(audit.status)||audit.production?.sha256!==sha(bytes))throw Error('web_stage_audit_identity');
  if(audit.status==='passed-after-specific-input-adjudication')await validateInputAdjudication(processingRoot,audit);
  if(audit.status==='passed-after-transport-recovery')await validateTransportRecovery(processingRoot,audit);
  if(audit.status==='passed-after-specific-presentation-repair')await validatePresentationRepair(processingRoot,audit);
+ if(audit.status==='passed-after-exact-label-translation')await validateLabelRepair(processingRoot,audit);
+ if(audit.status==='passed-after-specific-source-correction')await validateSourceCorrection(processingRoot,audit);
  if(candidate.schema!=='coach-textbook-web-article-draft/1')throw Error('web_stage_candidate_schema');
  const sourceBytes=await readFile(await contained(processingRoot,candidate.source.sourcePath)),source=JSON.parse(sourceBytes);
  if(sha(sourceBytes)!==candidate.source.sourceSha256||source.html.sha256!==candidate.source.htmlSha256||source.url!==candidate.source.url)throw Error('web_stage_source_changed');
@@ -82,7 +94,7 @@ export async function stageWebTextbook({processingRoot,candidatePath,destination
  for(const image of images)await copyFile(image.from,join(destination,image.to));
  for(const [name,data] of [['knowledge-index.json',library],['textbook-bodies.json',bodies],['textbook-unit-map.json',definitions]])await writeFile(join(destination,name),JSON.stringify(data,null,2)+'\n');
  const build=await compileTextbookCorpus(destination,definitions);await buildTextbookReview(destination,library);
- const receipt={schema:'coach-textbook-web-stage/1',status:'independently-audited-chapter-preview',candidatePath:path,candidateSha256:sha(bytes),sourceSha256:sha(sourceBytes),auditPath:audit.auditPath,auditStatus:audit.status,...(audit.inputAdjudication?{inputAdjudication:audit.inputAdjudication,originalAuditStatus:audit.originalStatus,effectiveModelChecks:audit.effectiveModelChecks,originalModelChecks:audit.modelChecks}:{}),...(audit.transportRecovery?{transportRecovery:audit.transportRecovery}:{}),...(audit.presentationRepair?{presentationRepair:audit.presentationRepair,originalAuditStatus:audit.originalStatus,originalModelChecks:audit.modelChecks,effectiveModelChecks:audit.effectiveModelChecks,effectiveSemanticCompleteness:audit.effectiveSemanticCompleteness}:{}),...build,modelCalls:0,activeLibraryChanged:false,humanReview:'pending'};
+ const receipt={schema:'coach-textbook-web-stage/1',status:'independently-audited-chapter-preview',candidatePath:path,candidateSha256:sha(bytes),sourceSha256:sha(sourceBytes),auditPath:audit.auditPath,auditStatus:audit.status,...(audit.inputAdjudication?{inputAdjudication:audit.inputAdjudication,originalAuditStatus:audit.originalStatus,effectiveModelChecks:audit.effectiveModelChecks,originalModelChecks:audit.modelChecks}:{}),...(audit.transportRecovery?{transportRecovery:audit.transportRecovery}:{}),...(audit.presentationRepair?{presentationRepair:audit.presentationRepair,originalAuditStatus:audit.originalStatus,originalModelChecks:audit.modelChecks,effectiveModelChecks:audit.effectiveModelChecks,effectiveSemanticCompleteness:audit.effectiveSemanticCompleteness}:{}),...(audit.labelRepair?{labelRepair:audit.labelRepair,calls:audit.calls,inheritedCalls:audit.inheritedCalls,originalModelChecks:audit.modelChecks,effectiveModelChecks:audit.effectiveModelChecks}:{}),...(audit.sourceCorrection?{sourceCorrection:audit.sourceCorrection,calls:audit.calls,inheritedCalls:audit.inheritedCalls,originalModelChecks:audit.modelChecks,effectiveModelChecks:audit.effectiveModelChecks}:{}),...build,modelCalls:0,activeLibraryChanged:false,humanReview:'pending'};
  await writeFile(join(destination,'web-stage-receipt.json'),JSON.stringify(receipt,null,2)+'\n');return receipt;
 }
 
