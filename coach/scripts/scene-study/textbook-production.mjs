@@ -19,6 +19,11 @@ const revisionFromPath=option('--revision-from',null);
 const revisionNotesPath=option('--revision-notes',null);
 const candidateOverridesPath=option('--candidate-overrides',null);
 const sourceBlockScopePath=option('--source-block-scope',null);
+const inlineSourceFlow=args.includes('--inline-source-flow');
+const sourceTileEvidencePath=option('--source-tile-evidence',null);
+if(sourceTileEvidencePath&&!inlineSourceFlow)throw Error('source_tile_evidence_requires_inline_flow');
+if(inlineSourceFlow&&revisionFromPath)throw Error('inline_source_flow_is_for_unmade_pages_not_whole_page_revisions');
+const pdfFlow=inlineSourceFlow?await import('./textbook-production-pdf-flow.mjs'):null;
 const model = option('--model', 'gpt-6.1-sol');
 const runId=option('--run-id',model==='gpt-6-luna'?'v4':'sol-high-full');
 if(!/^[a-z0-9][a-z0-9._-]{0,79}$/i.test(runId))throw new Error('invalid_run_id');
@@ -28,9 +33,10 @@ const concurrency = Math.max(1, Math.min(4, Number(option('--concurrency', '3'))
 if (!['gpt-6-luna','gpt-6.1-sol'].includes(model)) throw new Error(`unsupported_model:${model}`);
 const production = join(dataRoot, 'production', runId);
 const effort = 'high';
-const promptVersion = 'textbook-page-transcription/4';
+const promptVersion = inlineSourceFlow?'textbook-page-transcription/5-inline':'textbook-page-transcription/4';
 const schemaVersion = 'coach-textbook-page-draft/3';
-const maxAttempts = Number(option('--attempts', '2'));
+const maxAttempts = Number(option('--attempts', inlineSourceFlow?'1':'2'));
+if(inlineSourceFlow&&maxAttempts!==1)throw Error('inline_source_flow_requires_one_attempt_no_automatic_retry');
 const modelTimeoutMs=Number(option('--timeout-ms','900000'));if(!Number.isInteger(modelTimeoutMs)||modelTimeoutMs<1000||modelTimeoutMs>900000)throw Error('invalid_pdf_model_timeout_ms');
 if(!Number.isInteger(limit)||limit<0||!Number.isInteger(concurrency)||!Number.isInteger(maxAttempts)||maxAttempts<1||maxAttempts>3)throw new Error('invalid_limit_concurrency_or_attempts');
 const callUsageRecords=[];
@@ -46,9 +52,19 @@ if(chapterMap.inventorySha256!==inventoryHash||ownership.chapterMapSha256!==hash
 const ownerByBlock=new Map(ownership.blocks.map(x=>[`${x.sourceId}:${x.page}:${x.sourceBlockId}`,x]));
 const titleSourceIds=new Set(chapterMap.chapters.flatMap(c=>[c.titleSource,...c.units.map(u=>u.titleSource)].filter(Boolean).map(x=>x.sourceBlockId)));
 const runnerFiles = ['textbook-production.mjs','textbook-production-cli.mjs','render-textbook-page.py','render-textbook-region.py'].map(name=>join(repo,'scripts/scene-study',name));
+if(inlineSourceFlow)runnerFiles.push(join(repo,'scripts/scene-study/textbook-production-pdf-flow.mjs'));
 const runnerHash = hash(Buffer.concat(await Promise.all(runnerFiles.map(path=>readFile(path)))));
+const nativeFlowHelperSha256=inlineSourceFlow?hash(await readFile(runnerFiles.at(-1))):null;
 const sources = inventory.sources.filter(s => sourceFilter === null || s.sourceId === sourceFilter);
 function processingPath(value){const path=resolve(dataRoot,value),rel=relative(dataRoot,path);if(!rel||isAbsolute(rel)||rel==='..'||rel.startsWith('../')||rel.startsWith('..\\'))throw Error('source_scope_path_outside_processing');return path;}
+let sourceTileEvidence=null,sourceTileEvidenceBytes=null,verifiedSourceTiles=[];
+if(sourceTileEvidencePath){
+ sourceTileEvidenceBytes=await readFile(processingPath(sourceTileEvidencePath));const evidence=JSON.parse(sourceTileEvidenceBytes);
+ if(evidence.schema!=='coach-exact-source-tile-input-evidence/1'||evidence.status!=='verified-exact-source-assets-only'||!Array.isArray(evidence.acceptedAssets)||!evidence.acceptedAssets.length)throw Error('invalid_source_tile_evidence');
+ for(const binding of [evidence.approval,evidence.pixelReview])if(!binding||hash(await readFile(processingPath(binding.path)))!==binding.sha256)throw Error('source_tile_approval_changed');
+ for(const asset of evidence.acceptedAssets)if(!/^[0-9][mpsz]$/.test(asset.code)||hash(await readFile(processingPath(asset.path)))!==asset.sha256)throw Error('source_tile_asset_changed');
+ sourceTileEvidence={path:relative(dataRoot,join(production,'native-source-flow',hash(sourceTileEvidenceBytes)+'.tile-evidence.json')).replaceAll('\\','/'),sha256:hash(sourceTileEvidenceBytes),approval:evidence.approval,pixelReview:evidence.pixelReview};verifiedSourceTiles=evidence.acceptedAssets;
+}
 let sourceBlockScope=null,sourceBlockScopeBytes=null;
 if(sourceBlockScopePath){
  if(!sourceFilter||!pageFilter||revisionFromPath||candidateOverridesPath||maxAttempts!==1)throw Error('source_scope_requires_one_explicit_page_attempt_and_no_revision_or_override');
@@ -86,12 +102,15 @@ const frozenManifest = {
   revision:revisionBinding,
   candidateOverrides,
   ...(sourceBlockScope?{sourceBlockScope}:{}),
+  ...(inlineSourceFlow?{flowMode:'native-source-inline-slots',nativeFlowHelperSha256}:{}),
+  ...(sourceTileEvidence?{sourceTileEvidence}:{}),
   modelSwitchReason: model === 'gpt-6.1-sol' ? 'gpt-6-luna calibration rejected by root and independent visual audit for repeated visible-tile transcription and translation errors; Luna artifacts retained separately' : null,
 };
 const manifestHash = hash(Buffer.from(JSON.stringify(frozenManifest)));
 const manifestPath = join(production, 'manifest.json');
 if (!args.includes('--self-check')) {
 await mkdir(production, { recursive: true });
+if(sourceTileEvidence){const path=processingPath(sourceTileEvidence.path);await mkdir(dirname(path),{recursive:true});try{await writeFile(path,sourceTileEvidenceBytes,{flag:'wx'});}catch(e){if(e.code!=='EEXIST'||hash(await readFile(path))!==sourceTileEvidence.sha256)throw e;}}
 if(sourceBlockScope){const path=processingPath(sourceBlockScope.path);await mkdir(dirname(path),{recursive:true});try{await writeFile(path,sourceBlockScopeBytes,{flag:'wx'});}catch(e){if(e.code!=='EEXIST'||hash(await readFile(path))!==sourceBlockScope.sha256)throw e;}}
 try {
   const old = JSON.parse(await readFile(manifestPath, 'utf8'));
@@ -200,7 +219,7 @@ if (args.includes('--self-check')) {
   }finally{await rm(fixtureDir,{recursive:true,force:true});}
   process.exit(0);
 }
-function pagePrompt(source, page, pageImageSha, regions, contextPages, owners, revisionNotes) {
+function pagePrompt(source, page, pageImageSha, regions, contextPages, owners, revisionNotes, nativePlan=null) {
   const japanese = source.sourceId === 'nemata-jp';
   const blocks = page.blocks.map(b => b.type === 'text'
     ? { id: b.id, type: 'text', bbox: b.bbox, chapterId:owners.get(b.id)?.chapterId, unitId:owners.get(b.id)?.unitId, role:titleSourceIds.has(b.id)?'titleSource':'content', text: (b.lines ?? []).map(l => l.text).join('') }
@@ -213,7 +232,8 @@ function pagePrompt(source, page, pageImageSha, regions, contextPages, owners, r
     japanese
       ? 'Combine adjacent text block IDs into complete natural paragraphs in pageFlow. Assign every source text block ID exactly once, with no overlap. Never combine blocks from different unitId values. A block marked role=titleSource must be its own text item and never combine with body text. Never return sentence fragments, “continued above/below”, or merely paraphrase a previous block. Translate the complete meaning and preserve author modality; headings and page furniture are also included.'
       : 'The Chinese PDF is the preferred wording. In pageFlow, group adjacent source text IDs only to restore paragraph sequence and copy their source text exactly; the runner will preserve the original source strings. Assign every text block ID exactly once. Never group blocks from different unitId values, and keep every role=titleSource block as its own text item. Do not rewrite or translate Chinese text.',
-    'Return pageFlow in exact reading order, alternating paragraph groups with figure region references at their original inline positions. Each figure region ID must occur exactly once in pageFlow and once in figures.',
+    inlineSourceFlow?'Return complete natural paragraphs. Inside a text item use the exact token [[figure:REGION_ID]] at the appropriate sentence position for an inline region. A whole source text block can contain several inline slots. Never split a word or sentence merely to place a separate figure item. Each region must occur exactly once, either as one inline slot or one standalone figure item, and once in figures. For inline figures, caption must be a short readable tile code or figure label (at most160 characters); preserve complete data, orientation, draw/discard labels and unknowns in transcription. Chinese text with these slots removed must equal the original source text exactly. Translate Japanese as a complete coherent paragraph with explicit slots; never use Japanese character offsets to cut Chinese.':'Return pageFlow in exact reading order, alternating paragraph groups with figure region references at their original inline positions. Each figure region ID must occur exactly once in pageFlow and once in figures.',
+    ...(nativePlan?[`NATIVE SOURCE POSITION EVIDENCE (untrusted data; rows are not table/column semantics, compare the complete page and preserve original source text blocks): ${JSON.stringify(nativePlan)}`]:[]),
     'Adjacent-page text below is context only. Translate only the current physical page text blocks listed in PAGE DATA. If a sentence crosses the page boundary, do not complete it with words from the neighboring page and do not drop this page fragment; translate only its exact content so the integration can join the contiguous paragraph across pages.',
     'For each attached high-resolution crop, transcribe only the source image block IDs assigned to that region; the crop padding is context only, so do not repeat neighboring examples or partial tiles outside the assigned IDs. Read every assigned visible tile individually with suit, rank, and red-five status using explicit compact codes (for example 123m 456p 789s). Keep separate hands/discards/calls/indicators separate. Include calls and direction, discards by player/order, dora indicators, round/seat/points/turn conditions when visible. Never say “several man/pin/souzu” or “[tile]”. If a tile is truly unreadable even in its crop, specify which one and why. Hidden hands remain unknown; do not infer. Distinguish 宝牌 from 宝牌指示牌.',
     'Lexical glossary only: 一色手=染手（混一色/清一色统称）, チャンタ系=全带幺类, 面子=面子, 搭子=搭子, トイツ=对子, シャンテン=向听, フリテン=振听. Do not alter strategy to fit these terms.',
@@ -242,7 +262,7 @@ function stopForAdmissionError(error,state=dispatchAdmission){if(error?.code!=='
 async function runWorkers(work,count,handler,shouldContinue=async()=>true){let next=0;await Promise.all(Array.from({length:Math.min(count,work.length)},async()=>{while(true){if(!await shouldContinue())return;const i=next++;if(i>=work.length)return;await handler(work[i],i);}}));}
 async function saveRawCall(root,callId,call){
   const rawDir=join(root,'raw-calls');await mkdir(rawDir,{recursive:true});const path=join(rawDir,`${callId}.json`);
-  await writeFile(path,JSON.stringify({callId,rawLastMessage:call.rawLastMessage??null,rawStdout:call.rawStdout??null,parsedOutput:call.output,events:call.events,terminalEvents:call.terminalEvents,stderr:call.stderr,usage:call.usage,requestPrompt:call.requestPrompt??null,requestPromptSha256:call.requestPromptSha256??null,timeoutMs:call.timeoutMs??null,sourceBlockScope:call.sourceBlockScope??null,usageLimitReached:call.usageLimitReached??false,admissionStopWriteError:call.admissionStopWriteError??null},null,2)+'\n',{flag:'wx'});return path;
+  await writeFile(path,JSON.stringify({callId,rawLastMessage:call.rawLastMessage??null,rawStdout:call.rawStdout??null,parsedOutput:call.output,events:call.events,terminalEvents:call.terminalEvents,stderr:call.stderr,usage:call.usage,requestPrompt:call.requestPrompt??null,requestPromptSha256:call.requestPromptSha256??null,timeoutMs:call.timeoutMs??null,sourceBlockScope:call.sourceBlockScope??null,nativeSourceFlow:call.nativeSourceFlow??null,usageLimitReached:call.usageLimitReached??false,admissionStopWriteError:call.admissionStopWriteError??null},null,2)+'\n',{flag:'wx'});return path;
 }
 function candidateMatches(candidate,source,meta){
   const cp={...candidate};const digest=cp.candidateSha256;delete cp.candidateSha256;
@@ -303,11 +323,15 @@ async function processPage(source, meta) {
     if(!revisionNotesMatch(notes,source,page.page,revisionBinding.parentFileSha256))throw new Error('revision_notes_do_not_match_parent');
     revision={...revisionBinding,parentCandidateSha256:oldDigest,notes};
   }
-  const needsModel=pageNeedsModel(page,isJapanese,revision);
+  const needsModel=inlineSourceFlow||pageNeedsModel(page,isJapanese,revision);
   const owners=new Map();
   for(const b of page.blocks){const o=ownerByBlock.get(`${source.sourceId}:${page.page}:${b.id}`);if(!o)throw new Error(`missing_source_block_owner:${source.sourceId}:${page.page}:${b.id}`);owners.set(b.id,o);}
   for(const b of page.blocks.filter(x=>x.type==='image')){const bytes=await readFile(join(dataRoot,b.asset));if(hash(bytes)!==b.imageSha256)throw new Error(`source_image_hash_mismatch:${source.sourceId}:${page.page}:${b.id}`);}
-  if(args.includes('--preflight-only')){const regions=imageRows(source.sourceId,page,owners);return{preflight:true,sourceId:source.sourceId,page:page.page,pageDataSha256:meta.pageDataSha256,fullSourceBlockCount:fullPage.blocks.length,sourceBlockScope,textTargetIds:page.blocks.filter(b=>b.type==='text').map(b=>b.id),imageTargetIds:page.blocks.filter(b=>b.type==='image').map(b=>b.id),regionSourceBlockIds:regions.map(r=>r.sourceImageBlockIds),schema:schemaFor(page,regions,isJapanese),modelCalls:0};}
+  const nativePlan=inlineSourceFlow?pdfFlow.nativePdfRegions(source.sourceId,page,owners):null,regions=nativePlan?.regions??imageRows(source.sourceId,page,owners);
+  if(nativePlan&&sourceTileEvidence){nativePlan.sourceTileEvidence=sourceTileEvidence;nativePlan.verifiedSourceImages=page.blocks.filter(b=>b.type==='image'&&b.transform?.[0]>0&&b.transform?.[3]>0&&b.transform[1]===0&&b.transform[2]===0).flatMap(b=>{const tile=verifiedSourceTiles.find(a=>a.sha256===b.imageSha256&&a.width===b.width&&a.height===b.height);return tile?[{sourceImageBlockId:b.id,assetSha256:b.imageSha256,code:tile.code,red:tile.red,orientation:tile.orientation}]:[];});}
+  let nativeSourceFlow=null;
+  if(nativePlan){const bytes=Buffer.from(JSON.stringify({sourceId:source.sourceId,page:page.page,pageDataSha256:meta.pageDataSha256,helperSha256:nativeFlowHelperSha256,...nativePlan},null,2)+'\n'),path=join(production,'native-source-flow',`${source.sourceId}-${page.page}.json`);await mkdir(dirname(path),{recursive:true});try{await writeFile(path,bytes,{flag:'wx'});}catch(e){if(e.code!=='EEXIST'||hash(await readFile(path))!==hash(bytes))throw e;}const helperPath=join(production,'native-source-flow',nativeFlowHelperSha256+'.mjs'),helperBytes=await readFile(runnerFiles.at(-1));try{await writeFile(helperPath,helperBytes,{flag:'wx'});}catch(e){if(e.code!=='EEXIST'||hash(await readFile(helperPath))!==nativeFlowHelperSha256)throw e;}nativeSourceFlow={path:relative(dataRoot,path).replaceAll('\\','/'),sha256:hash(bytes),helperPath:relative(dataRoot,helperPath).replaceAll('\\','/'),helperSha256:nativeFlowHelperSha256};}
+  if(args.includes('--preflight-only'))return{preflight:true,sourceId:source.sourceId,page:page.page,pageDataSha256:meta.pageDataSha256,fullSourceBlockCount:fullPage.blocks.length,sourceBlockScope,nativeSourceFlow,visualOrderWarnings:nativePlan?.visualOrderWarnings??[],textTargetIds:page.blocks.filter(b=>b.type==='text').map(b=>b.id),imageTargetIds:page.blocks.filter(b=>b.type==='image').map(b=>b.id),regionSourceBlockIds:regions.map(r=>r.sourceImageBlockIds),schema:schemaFor(page,regions,isJapanese),modelCalls:0};
   const contextPages=[];
   for(const number of [page.page-1,page.page+1]) {
     const neighbor=source.pages.find(x=>x.page===number); if(!neighbor) continue;
@@ -322,6 +346,7 @@ async function processPage(source, meta) {
   try{priorBytes=await readFile(candidatePath);}catch(e){if(e.code!=='ENOENT')throw e;}
   if(priorBytes){
     const old=JSON.parse(priorBytes.toString('utf8'));
+    if(old.provenance?.flowMode!==(inlineSourceFlow?'native-source-inline-slots':undefined)||JSON.stringify(old.provenance?.nativeSourceFlow??null)!==JSON.stringify(nativeSourceFlow))throw Error('candidate_native_source_flow_binding_changed');
     if(!candidateMatches(old,source,meta))throw new Error(`candidate_identity_or_digest_mismatch:${source.sourceId}:${page.page}`);
     if(!await verifyCandidateRenderHashes(old))throw new Error(`candidate_dependency_hash_mismatch:${source.sourceId}:${page.page}`);
     return {skipped:true,sourceId:source.sourceId,page:page.page};
@@ -330,7 +355,7 @@ async function processPage(source, meta) {
   await mkdir(dirname(renderPath),{recursive:true});
   let rendered=await spawnLocal('python',[join(repo,'scripts/scene-study/render-textbook-page.py'),pdfPath,String(page.page),renderPath]);
   if(rendered.code!==0) throw new Error(`render_failed:${rendered.stderr.slice(-1000)}`);
-  const pageImage=JSON.parse(rendered.stdout.trim()); const regions=imageRows(source.sourceId,page,owners);
+  const pageImage=JSON.parse(rendered.stdout.trim());
   const regionImages=[];
   for(const region of regions) {
     const path=join(production,'renders',source.sourceId,`page-${String(page.page).padStart(4,'0')}-${region.regionId.split('-').at(-1)}.png`);
@@ -341,7 +366,7 @@ async function processPage(source, meta) {
   const textSource=page.blocks.filter(b=>b.type==='text').map(b=>({id:b.id,text:(b.lines??[]).map(l=>l.text).join('')}));
   const figures=[]; let flow=[]; let usage=null; const attempts=[];
   if(needsModel) {
-    const schema=schemaFor(page,regions,isJapanese); const prompt=pagePrompt(source,page,pageImage.sha256,regions,contextPages,owners,revision?.notes??null);
+    const schema=schemaFor(page,regions,isJapanese); const prompt=pagePrompt(source,page,pageImage.sha256,regions,contextPages,owners,revision?.notes??null,nativePlan);
     const schemaPath=join(production,'schemas',`page-${source.sourceId}-${String(page.page).padStart(4,'0')}.json`);
     await mkdir(dirname(schemaPath),{recursive:true}); await writeFile(schemaPath,JSON.stringify(schema,null,2)+'\n','utf8');
     const images=[renderPath,...regionImages.map(x=>x.path)];
@@ -350,7 +375,7 @@ async function processPage(source, meta) {
       const callId=randomUUID(); let call;
       try { call=await invokeTextbookCodex({prompt,schema,model,reasoningEffort:effort,images,timeoutMs:modelTimeoutMs,maxOutputBytes:8*1024*1024,stopFiles:[join(production,'STOP')]}); }
       catch(e){if(e.code==='TEXTBOOK_ADMISSION_STOP')throw e;call={success:false,output:null,rawLastMessage:null,rawStdout:null,usage:null,events:[],terminalEvents:[{type:'runner.error',code:e.code??null,message:String(e)}],startedAt:new Date().toISOString(),durationMs:null,exitCode:null,timedOut:false,outputOverflow:false,stderr:String(e)};}
-      call.timeoutMs=modelTimeoutMs;call.sourceBlockScope=sourceBlockScope;
+      call.timeoutMs=modelTimeoutMs;call.sourceBlockScope=sourceBlockScope;call.nativeSourceFlow=nativeSourceFlow;
       callUsageRecords.push({sourceId:source.sourceId,page:page.page,attempt,model,usage:call.usage});
       const failure=call.success?null:call.timedOut?'timeout':call.outputOverflow?'output_limit':`exit_${call.exitCode}:${call.stderr.slice(-800)}`;
       const rawOutput=call.rawLastMessage??'';
@@ -358,7 +383,7 @@ async function processPage(source, meta) {
       const rawPath=await saveRawCall(production,callId,call);
       const rawArtifactSha256=hash(await readFile(rawPath));
       const record={callId,sourceId:source.sourceId,page:page.page,pageDataSha256:meta.pageDataSha256,pdfSha256:source.sha256,attempt,model,reasoningEffort:effort,promptVersion,schemaVersion,runnerSha256:runnerHash,schemaSha256:hash(Buffer.from(JSON.stringify(schema))),cliVersion:'codex-cli 0.162.1',cliArguments:['exec','--model',model,'--config model_reasoning_effort=high','--config web_search=disabled','--ephemeral','--ignore-user-config','--ignore-rules','--sandbox read-only','--strict-config','--skip-git-repo-check','--json','--output-schema <temp>','--output-last-message <temp>','--cd <temp>','-i <full-page>','-i <one-crop-per-region>','--disable <tool-features>','-'],startedAt:call.startedAt,durationMs:call.durationMs,usage:call.usage,transportStatus:call.success?'completed':call.timedOut?'timeout':call.outputOverflow?'output-overflow':'failed',schemaStatus:call.success?'valid':call.terminalEvents?.some(e=>e.code==='invalid_json_schema')?'invalid':'unknown',coverageStatus:call.success?'pending':'not-run',semanticStatus:'not-reviewed',success:failure===null,failure,terminalEvents:call.terminalEvents,stderr:call.stderr.slice(-800),pageImageSha256:pageImage.sha256,regionImageSha256s:regionImages.map(x=>({regionId:x.regionId,sha256:x.sha256})),outputSha256,rawArtifactPath:relative(production,rawPath).replaceAll('\\','/'),cliEventTypes:call.events.map(e=>e.type)};
-      record.rawArtifactSha256=rawArtifactSha256;record.timeoutMs=modelTimeoutMs;if(sourceBlockScope)record.sourceBlockScope=sourceBlockScope;record.failureClass=call.usageLimitReached?'usage-limit':null;
+      record.rawArtifactSha256=rawArtifactSha256;record.timeoutMs=modelTimeoutMs;if(nativeSourceFlow)record.nativeSourceFlow=nativeSourceFlow;if(sourceBlockScope)record.sourceBlockScope=sourceBlockScope;record.failureClass=call.usageLimitReached?'usage-limit':null;
       record.requestPromptSha256=call.requestPromptSha256??null;
       record.semanticPromptSha256=hash(prompt);
       attempts.push(record); await ledger(record);
@@ -366,7 +391,7 @@ async function processPage(source, meta) {
       if(call.usageLimitReached){dispatchAdmission.stopped=true;break;}
     }
     if(!modelResult) throw new Error(`model_call_failed:${source.sourceId}:${page.page}`);
-    const textIds=textSource.map(x=>x.id); validateFlow(modelResult.pageFlow,textIds,regions,owners,titleSourceIds);
+    const textIds=textSource.map(x=>x.id);let validationFlow=modelResult.pageFlow;if(inlineSourceFlow){pdfFlow.validatePdfInlineRegionCoverage(modelResult.pageFlow,regions);if(!isJapanese)pdfFlow.validateChinesePdfNativeSlots(modelResult.pageFlow,nativePlan);validationFlow=modelResult.pageFlow.flatMap(item=>item.kind==='text'?[item,...[...item.text.matchAll(/\[\[figure:([^\]\r\n]+)\]\]/g)].map(match=>({kind:'figure',regionId:match[1]}))]:[item]);}validateFlow(validationFlow,textIds,regions,owners,titleSourceIds);
     await appendFile(join(production,'coverage-events.jsonl'),JSON.stringify({callIds:attempts.map(x=>x.callId),sourceId:source.sourceId,page:page.page,status:'passed',validatedAt:new Date().toISOString()})+'\n','utf8');
     if(modelResult.figures.length!==regions.length||new Set(modelResult.figures.map(x=>x.regionId)).size!==regions.length||regions.some(r=>!modelResult.figures.some(f=>f.regionId===r.regionId))) throw new Error('figure_transcription_coverage_failed');
     const byRegion=new Map(modelResult.figures.map(f=>[f.regionId,f]));
@@ -376,16 +401,19 @@ async function processPage(source, meta) {
       const overlaps=page.blocks.filter(b=>b.type==='text'&&owners.get(b.id)?.unitId===region.unitId&&b.bbox&&b.bbox[1]<region.bbox[3]&&b.bbox[3]>region.bbox[1]).map(b=>b.id);
       return {figureId:region.regionId,bbox:region.bbox,pageImageSha256:pageImage.sha256,croppedImagePath:relative(dataRoot,img.path).replaceAll('\\','/'),croppedImageSha256:img.sha256,chapterId:region.chapterId,unitId:region.unitId,sourceImageBlockIds:region.sourceImageBlockIds,sourceImageSha256s:region.sourceImageSha256s,inlineWithTextBlockIds:overlaps,kind:f.kind,transcription:f.transcription,unknowns:f.unknowns,caption:f.caption};
     }));
-    flow=modelResult.pageFlow.map(item=>item.kind==='text'
-      ? {type:'text',sourceBlockIds:item.sourceBlockIds,chapterId:owners.get(item.sourceBlockIds[0]).chapterId,unitId:owners.get(item.sourceBlockIds[0]).unitId,titleSource:item.sourceBlockIds.some(id=>titleSourceIds.has(id)),sourceText:item.sourceBlockIds.map(id=>bySourceId.get(id).text).join(''),text:isJapanese?item.text:item.sourceBlockIds.map(id=>bySourceId.get(id).text).join('')}
-      : {type:'figure',figureId:item.regionId});
+    flow=modelResult.pageFlow.map(item=>{
+      if(item.kind==='figure')return{type:'figure',figureId:item.regionId};
+      const owner=owners.get(item.sourceBlockIds[0]),base={type:'text',sourceBlockIds:item.sourceBlockIds,chapterId:owner.chapterId,unitId:owner.unitId,titleSource:item.sourceBlockIds.some(id=>titleSourceIds.has(id)),sourceText:item.sourceBlockIds.map(id=>bySourceId.get(id).text).join(''),text:isJapanese?item.text:item.sourceBlockIds.map(id=>bySourceId.get(id).text).join('')};
+      if(inlineSourceFlow){const parsed=pdfFlow.parsePdfInlineParagraph(item,page,regions,modelResult.figures,{japanese:isJapanese});if(parsed.inlineFigureIds.some(id=>regions.find(r=>r.regionId===id)?.unitId!==owner.unitId))throw Error('pdf_inline_region_crosses_unit');return{...base,...parsed,rawSlotText:item.text};}
+      return base;
+    });
   } else {
     flow=textSource.map(b=>({type:'text',sourceBlockIds:[b.id],chapterId:owners.get(b.id).chapterId,unitId:owners.get(b.id).unitId,titleSource:titleSourceIds.has(b.id),sourceText:b.text,text:b.text}));
   }
   const imageBlocks=page.blocks.filter(b=>b.type==='image');
   const imageCoverage=regions.flatMap(r=>r.sourceImageBlockIds.map((id,i)=>({blockId:id,imageSha256:r.sourceImageSha256s[i],regionId:r.regionId,chapterId:r.chapterId,unitId:r.unitId,status:'mapped-to-visual-region'})));
   if(imageCoverage.length!==imageBlocks.length||new Set(imageCoverage.map(x=>x.blockId)).size!==imageBlocks.length) throw new Error('image_source_block_coverage_failed');
-  const candidate={schema:schemaVersion,status:'draft',productionStatus:'draft-awaiting-independent-review',manifestSha256:manifestHash,runnerSha256:runnerHash,source:{sourceId:source.sourceId,pdfSha256:source.sha256,page:page.page,pageDataSha256:meta.pageDataSha256,...(sourceBlockScope?{blockScope:sourceBlockScope}:{})},body:{language:'zh-CN',mode:isJapanese?'translated':'verbatim',flowOrder:'model-reading-flow',blocks:flow},figures,imageCoverage,coverage:{...(sourceBlockScope?{mode:'explicit-source-block-subset',fullSourceBlockCount:fullPage.blocks.length}:{}),textBlockCount:textSource.length,coveredTextBlockCount:new Set(flow.filter(x=>x.type==='text').flatMap(x=>x.sourceBlockIds)).size,imageBlockCount:imageBlocks.length,coveredImageBlockCount:imageCoverage.length,pageImageSha256:pageImage.sha256},provenance:{runId,model:needsModel?model:null,reasoningEffort:needsModel?effort:null,promptVersion,schemaVersion,schemaSha256:needsModel?hash(Buffer.from(JSON.stringify(schemaFor(page,regions,isJapanese)))):null,promptSha256:needsModel?hash(Buffer.from(pagePrompt(source,page,pageImage.sha256,regions,contextPages,owners,revision?.notes??null))):null,contextPages:contextPages.map(x=>({page:x.page,pageDataSha256:x.pageDataSha256})),chapterMapSha256:hash(chapterMapBytes),ownershipSha256:hash(ownershipBytes),revision:revision?{parentPath:revision.parentPath,parentFileSha256:revision.parentFileSha256,parentCandidateSha256:revision.parentCandidateSha256,notesPath:revision.notesPath,notesSha256:revision.notesSha256}:null,flowValidation:'unique-complete-source-ID-set and same-unit paragraph checks; visual order pending independent audit',semanticStatus:'not-reviewed',usage,attempts,renderedPage:{path:renderPath,sha256:pageImage.sha256},renderedRegions:regionImages}};
+  const candidate={schema:schemaVersion,status:'draft',productionStatus:'draft-awaiting-independent-review',manifestSha256:manifestHash,runnerSha256:runnerHash,source:{sourceId:source.sourceId,pdfSha256:source.sha256,page:page.page,pageDataSha256:meta.pageDataSha256,...(sourceBlockScope?{blockScope:sourceBlockScope}:{})},body:{language:'zh-CN',mode:isJapanese?'translated':'verbatim',flowOrder:inlineSourceFlow?'model-inline-source-regions':'model-reading-flow',blocks:flow},figures,imageCoverage,coverage:{...(sourceBlockScope?{mode:'explicit-source-block-subset',fullSourceBlockCount:fullPage.blocks.length}:{}),textBlockCount:textSource.length,coveredTextBlockCount:new Set(flow.filter(x=>x.type==='text').flatMap(x=>x.sourceBlockIds)).size,imageBlockCount:imageBlocks.length,coveredImageBlockCount:imageCoverage.length,pageImageSha256:pageImage.sha256},provenance:{runId,model:needsModel?model:null,reasoningEffort:needsModel?effort:null,promptVersion,schemaVersion,...(nativeSourceFlow?{flowMode:'native-source-inline-slots',nativeSourceFlow}:{}),schemaSha256:needsModel?hash(Buffer.from(JSON.stringify(schemaFor(page,regions,isJapanese)))):null,promptSha256:needsModel?hash(Buffer.from(pagePrompt(source,page,pageImage.sha256,regions,contextPages,owners,revision?.notes??null,nativePlan))):null,contextPages:contextPages.map(x=>({page:x.page,pageDataSha256:x.pageDataSha256})),chapterMapSha256:hash(chapterMapBytes),ownershipSha256:hash(ownershipBytes),revision:revision?{parentPath:revision.parentPath,parentFileSha256:revision.parentFileSha256,parentCandidateSha256:revision.parentCandidateSha256,notesPath:revision.notesPath,notesSha256:revision.notesSha256}:null,flowValidation:'unique-complete-source-ID-set and same-unit paragraph checks; visual order pending independent audit',semanticStatus:'not-reviewed',usage,attempts,renderedPage:{path:renderPath,sha256:pageImage.sha256},renderedRegions:regionImages}};
   candidate.candidateSha256=hash(Buffer.from(JSON.stringify(candidate)));
   const tmp=candidatePath+`.tmp-${process.pid}`; await writeFile(tmp,JSON.stringify(candidate,null,2)+'\n',{flag:'wx'}); await rename(tmp,candidatePath);
   return {skipped:false,sourceId:source.sourceId,page:page.page,candidatePath,textBlocks:textSource.length,imageBlocks:imageBlocks.length,figureRegions:figures.length,usage};

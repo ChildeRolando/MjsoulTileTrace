@@ -118,3 +118,27 @@ corrections and original PNGs are frozen by full-file SHA under
 review level. Publication alone never substitutes for an independent visual
 review. Specific source-order or label corrections retain the original drafts
 and reviews and require evidence bound to the exact new candidate bytes.
+
+## PDF sentence slots
+
+For an explicitly unmade page, `--inline-source-flow` enables prompt5-inline.
+Native PDF lines and image occurrences provide position evidence; image groups
+stop at real source words and retain continuous wrapped tiles. Rows do not
+establish the semantic order of a table or multiple columns. The complete page
+and any recorded position warnings remain part of the model input.
+
+The existing model schema uses `[[figure:REGION_ID]]` inside a complete paragraph.
+The region caption supplies a short readable code or label; its transcription
+retains all figure data, orientation, draw/discard labels and unknowns. A region
+occurs once, inline or standalone. The draft preserves `rawSlotText`, the original
+`sourceText`, parsed `inlineContent`, and `inlineFigureIds`; the presented `text`
+contains the readable codes. Chinese non-figure text and native slot positions
+must match exactly. Japanese is translated as a whole paragraph, never sliced at
+Japanese source offsets. The explicit provenance flow mode binds the archived
+native plan and helper bytes in the manifest, raw call and candidate. Older
+drafts keep their existing path. Freeze the helper with the other runner files,
+then require the matching independent inline audit gate before publishing.
+This mode permits one attempt only. `--source-tile-evidence <file>` freezes an
+approved exact-asset code input and its approval/pixel-review hashes. Hints apply
+only to matching original image bytes, dimensions and positive upright placement;
+filenames and unseen rotated/red variants do not establish a code.
