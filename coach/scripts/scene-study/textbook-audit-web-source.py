@@ -183,9 +183,120 @@ def inspect(processing, source_path):
     return result
 
 
+def inspect_definition_sidecar(processing, source_path, candidate_path, sidecar_path):
+    from PIL import Image
+    processing = processing.resolve()
+    def read_path(value):
+        path = (processing / value).resolve()
+        assert path.is_relative_to(processing), "definition_path_outside_root"
+        return path
+    source = json.loads(Path(source_path).read_text(encoding="utf-8"))
+    candidate = json.loads(Path(candidate_path).read_text(encoding="utf-8"))
+    sidecar = json.loads(Path(sidecar_path).read_text(encoding="utf-8"))
+    main = BeautifulSoup(read_path("web-sources/v1/" + source["main"]["path"]).read_text(encoding="utf-8"), "html.parser").find()
+    def boundary(item):
+        unit = item.find_parent(["dt", "dd"])
+        if unit is None:
+            return None
+        parts = []
+        while unit is not main:
+            assert isinstance(unit, Tag), "definition_boundary_outside_main"
+            index = 1 + sum(isinstance(s, Tag) and s.name == unit.name for s in unit.previous_siblings)
+            parts.append(unit.name + "[" + str(index) + "]")
+            unit = unit.parent
+        return "main/" + "/".join(reversed(parts))
+    occurrences = [i for b in source["blocks"] for i in b.get("images", [])]
+    stream, image_index = [], 0
+    for node in main.descendants:
+        if isinstance(node, Comment) or any(p.name in ("script", "style", "noscript", "iframe", "object") for p in node.parents if isinstance(p, Tag)):
+            continue
+        if isinstance(node, NavigableString):
+            stream.extend(("text", c, boundary(node)) for c in str(node) if not c.isspace())
+        elif isinstance(node, Tag) and node.name == "img":
+            url = urljoin(source["url"], node.get("src", ""))
+            if re.search(r"/(back|home|next)\.gif$", urlsplit(url).path):
+                continue
+            if urlsplit(url).hostname == "www.assoc-amazon.jp" and urlsplit(url).path == "/e/ir" and node.get("width") == "1" and node.get("height") == "1" and node.get("alt", "") == "":
+                continue
+            assert image_index < len(occurrences) and url in occurrences[image_index]["sourceUrls"], "definition_image_order"
+            stream.append(("image", occurrences[image_index]["occurrenceId"], boundary(node)))
+            image_index += 1
+    assert image_index == len(occurrences), "definition_image_coverage"
+    assert sidecar["schema"] == "coach-textbook-definition-boundary-sidecar/1" and not sidecar.get("heldTextBlocks"), "definition_text_still_held"
+    assert [b["sourceBlockId"] for b in sidecar["blocks"]] == [b["id"] for b in source["blocks"]], "definition_all_blocks_once"
+    assets = {a["assetId"]: a for a in source["assets"]}
+    def labels(tile):
+        code = "牌背（未知牌面）" if tile["code"] == "back" else (tile["code"].replace("5", "0", 1) if tile["red"] else tile["code"])
+        return code + {"upright": "", "sideways": "（横置）", "sideways-left": "（横向左）", "sideways-right": "（横向右）"}[tile["orientation"]]
+    def mark_chars(segments):
+        return [(c, s.get("marks", []), s.get("href")) for s in segments for c in s["text"]]
+    cursor, text_count, group_count, pixel_count, split_rows = 0, 0, 0, 0, []
+    for source_block, row in zip(source["blocks"], sidecar["blocks"]):
+        assert row["type"] == source_block["type"] and row["originalParagraphId"] == source_block["paragraphId"], "definition_block_identity"
+        expected = [("text", c) for c in compact(source_block["text"])] if source_block["type"] == "text" else [("image", i["occurrenceId"]) for i in source_block["images"]]
+        tokens = stream[cursor:cursor + len(expected)]
+        assert [(kind, value) for kind, value, _ in tokens] == expected, "definition_full_character_occurrence_order"
+        cursor += len(expected)
+        partitions = []
+        for _, value, dom in tokens:
+            if not partitions or partitions[-1]["domBoundary"] != dom:
+                partitions.append({"domBoundary": dom, "values": []})
+            partitions[-1]["values"].append(value)
+        target = next(b for b in candidate["body"]["blocks"] if b["sourceBlockIds"] == [source_block["id"]])
+        if source_block["type"] == "text":
+            text_count += 1
+            if len(partitions) <= 1:
+                dom = partitions[0]["domBoundary"] if partitions else None
+                assert row.get("domBoundary") == dom and row.get("definitionUnitId") == (source["articleId"] + ":" + dom if dom else None) and not row.get("groups"), "definition_text_unit"
+            else:
+                groups = row.get("groups", [])
+                assert len(groups) == len(partitions), "definition_cross_text_without_accepted_parts"
+                assert "".join(g["sourceText"] for g in groups) == source_block["text"] and "".join(g["translatedText"] for g in groups) == target["text"], "definition_text_parts_not_exact"
+                assert mark_chars([s for g in groups for s in g["sourceSegments"]]) == mark_chars(source_block["segments"]), "definition_text_marks_changed"
+                for group, part in zip(groups, partitions):
+                    dom = part["domBoundary"]
+                    assert group["domBoundary"] == dom and group["definitionUnitId"] == source["articleId"] + ":" + dom and compact(group["sourceText"]) == "".join(part["values"]), "definition_text_boundary_mismatch"
+                split_rows.append({"sourceBlockId": source_block["id"], "groups": groups})
+            continue
+        figure = next(f for f in candidate["figures"] if f["figureId"] == target["figureId"])
+        assert len(row["groups"]) == len(partitions), "definition_image_group_count"
+        for group, part in zip(row["groups"], partitions):
+            group_count += 1
+            dom, ids = part["domBoundary"], part["values"]
+            assert group["domBoundary"] == dom and group["definitionUnitId"] == (source["articleId"] + ":" + dom if dom else None) and group["sourceOccurrenceIds"] == ids, "definition_image_unit"
+            images = [next(i for i in source_block["images"] if i["occurrenceId"] == occurrence_id) for occurrence_id in ids]
+            bindings = [{"assetId": i["assetId"], "path": "web-sources/v1/" + assets[i["assetId"]]["path"], "sha256": assets[i["assetId"]]["sha256"], "url": assets[i["assetId"]]["url"]} for i in images]
+            tiles = [next(t for t in figure["tiles"] if t["occurrenceId"] == occurrence_id) for occurrence_id in ids]
+            assert group["sourceAssetBindings"] == bindings and group["tiles"] == tiles and group["transcription"] == " ".join(labels(t) for t in tiles), "definition_codes_or_asset_order_changed"
+            originals = []
+            for binding in bindings:
+                path = read_path(binding["path"])
+                assert digest(path.read_bytes()) == binding["sha256"], "definition_original_asset_changed"
+                image = Image.open(path)
+                assert getattr(image, "n_frames", 1) == 1, "definition_animated_original"
+                originals.append(image.convert("RGBA"))
+            expected_image = Image.new("RGBA", (sum(i.width for i in originals), max(i.height for i in originals)), (0, 0, 0, 0))
+            x = 0
+            for image in originals:
+                expected_image.paste(image, (x, expected_image.height - image.height))
+                x += image.width
+            display = group["presentationAsset"]
+            path = read_path(display["path"])
+            assert digest(path.read_bytes()) == display["sha256"], "definition_group_png_changed"
+            actual = Image.open(path)
+            assert getattr(actual, "n_frames", 1) == 1 and actual.size == expected_image.size and actual.size == (display["width"], display["height"]) and actual.convert("RGBA").tobytes() == expected_image.tobytes(), "definition_group_pixels_not_original_order"
+            assert display["derivation"]["sourceAssetBindings"] == bindings and (display["derivation"]["alignment"] == "bottom" or (len(bindings) == 1 and display["derivation"]["alignment"] == "original-size")), "definition_group_derivation_binding"
+            pixel_count += expected_image.width * expected_image.height
+    assert cursor == len(stream), "definition_unmapped_main_content"
+    return {"passed": True, "checks": {"sourceBlocks": len(source["blocks"]), "textBlocks": text_count, "imageOccurrences": len(occurrences), "imageGroups": group_count, "rgbaPixelsCompared": pixel_count, "fullCharacterAndOccurrenceOrder": True, "completeTextUnitBindings": True}, "textSplitRows": split_rows, "modelCalls": 0}
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--processing-root", required=True)
     parser.add_argument("--source", required=True)
+    parser.add_argument("--definition-sidecar")
+    parser.add_argument("--candidate")
     args = parser.parse_args()
-    print(json.dumps(inspect(Path(args.processing_root), args.source), ensure_ascii=False))
+    result = inspect_definition_sidecar(Path(args.processing_root), args.source, args.candidate, args.definition_sidecar) if args.definition_sidecar else inspect(Path(args.processing_root), args.source)
+    print(json.dumps(result, ensure_ascii=False))
