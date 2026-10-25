@@ -14,6 +14,10 @@ const repo = resolve(import.meta.dirname, '../..');
 export const auditModel = 'gpt-6.1-sol';
 export const auditReasoningEffort = 'high';
 
+export async function assertPdfCandidateNotExcluded(root,path,digest){
+ let list;try{list=JSON.parse(await readFile(join(root,'integration/candidate-exclusions.json')));}catch(e){if(e.code==='ENOENT')return;throw e;}if(list.schema!=='coach-textbook-candidate-exclusions/1'||!Array.isArray(list.entries))throw Error('audit_candidate_exclusions_schema');if(list.entries.some(e=>resolve(root,e.candidatePath).toLowerCase()===resolve(path).toLowerCase()&&e.candidateSha256===digest))throw Error('audit_candidate_explicitly_excluded');
+}
+
 export function deterministicChecks(candidate, source, page, pageHash, renderHash) {
   page=scopedPdfPage(candidate,page);
   const errors = [];
@@ -331,6 +335,7 @@ async function latestAuditReceipt(auditRoot,sourceId,page,candidateSha256) {
 export async function auditPage({ dataRoot, auditRoot, source, pageMeta, productionRoot=join(dataRoot,'production','sol-high'), scriptSha256, cliVersion, retryFailed=false, reviewer=callReviewer }) {
   const candidatePath = join(productionRoot,'candidates',source.sourceId,`page-${String(pageMeta.page).padStart(4,'0')}.json`);
   const bytes = await readFile(candidatePath), candidateSha256 = sha(bytes), candidate = JSON.parse(bytes);
+  await assertPdfCandidateNotExcluded(dataRoot,candidatePath,candidateSha256);
   if(candidate.provenance?.sourceFieldCorrection)return verifySpecificPdfSourceCorrection(dataRoot,candidatePath,true);
   let outputPath = join(auditRoot,'pages',source.sourceId,`page-${String(pageMeta.page).padStart(4,'0')}.${candidateSha256}.${scriptSha256.slice(0,12)}.json`);
   let previous=await latestAuditReceipt(auditRoot,source.sourceId,pageMeta.page,candidateSha256);
@@ -409,7 +414,7 @@ async function verifyPdfAuditEvidence(processingRoot, candidatePath) {
 }
 
 export async function verifyAuditForCandidate(processingRoot,candidatePath){
-  const candidate=JSON.parse(await readFile(candidatePath));if(candidate.provenance?.sourceFieldCorrection)return verifySpecificPdfSourceCorrection(processingRoot,candidatePath,false);
+  const candidateBytes=await readFile(candidatePath),candidate=JSON.parse(candidateBytes);await assertPdfCandidateNotExcluded(processingRoot,candidatePath,sha(candidateBytes));if(candidate.provenance?.sourceFieldCorrection)return verifySpecificPdfSourceCorrection(processingRoot,candidatePath,false);
   const evidence=await verifyPdfAuditEvidence(processingRoot,candidatePath),{receipt,page}=evidence;
   if(candidate.source?.blockScope){if(receipt.status!=='passed-explicit-source-block-scope'||!validateReview(receipt.modelReview,page,candidate).passed||!receipt.modelChecks?.passed)throw Error('audit_scoped_review_not_passed');return receipt;}
   if(receipt.status==='needs-repair'||!validateReview(receipt.modelReview,page,candidate).passed||!receipt.modelChecks?.passed){const resolution=await latestSourceAdjudication(processingRoot,receipt,candidate,page);return {...receipt,status:'passed-after-source-adjudication',...resolution};}
@@ -420,8 +425,9 @@ export async function verifyAuditForCandidate(processingRoot,candidatePath){
 export async function verifyPdfSourceFlowLayout(root,candidatePath,layoutPath){
  candidatePath=resolve(candidatePath);layoutPath=resolve(layoutPath);
  const layoutBytes=await readFile(layoutPath),layout=JSON.parse(layoutBytes);
- const knownLayouts={335:'47037dd5f09c8bcefcc034ad9bd1fda68e6c629b47ac237f84b9d6f2b2267571',336:'7161be7c2a7d15733294371a7311238c6decebae4173e4805ca4c0b682faa1bc',338:'8bb86d214e1e14513b5d1ba11d5b3b9b32ab6ecbb00bc52a4f1d3b81f5f70d78',339:'c967368b2a1884804ca5b0c64dbd3ea3e03f6fe438f12840996fe82e00aef070'};
+ const knownLayouts={330:'dd3fc208a49a768e9e63fcbe4f5fe34151992d2a8c738f668647fa17eadee3e4',335:'47037dd5f09c8bcefcc034ad9bd1fda68e6c629b47ac237f84b9d6f2b2267571',336:'7161be7c2a7d15733294371a7311238c6decebae4173e4805ca4c0b682faa1bc',338:'8bb86d214e1e14513b5d1ba11d5b3b9b32ab6ecbb00bc52a4f1d3b81f5f70d78',339:'c967368b2a1884804ca5b0c64dbd3ea3e03f6fe438f12840996fe82e00aef070'};
  if(sha(layoutBytes)!==knownLayouts[layout.source.page]||boundDataPath(root,layout.parentCandidate.path)!==candidatePath||layout.source.sourceId!=='79-cn')throw Error('audit_pdf_source_flow_specific_scope');
+ await assertPdfCandidateNotExcluded(root,candidatePath,layout.parentCandidate.sha256);
  const original=await verifyPdfAuditEvidence(root,candidatePath),{candidate,page,receipt}=original;
  if(original.candidateSha256!==layout.parentCandidate.sha256||receipt.status!=='needs-repair'||receipt.auditPath!==boundDataPath(root,layout.parentAudit.path)||sha(await readFile(receipt.auditPath))!==layout.parentAudit.sha256||layout.source.pdfSha256!==original.source.sha256||layout.source.pageData.path!==original.pageMeta.pageData||layout.source.pageData.sha256!==original.pageMeta.pageDataSha256||!isDeepStrictEqual(receipt.modelChecks,validateReview(receipt.modelReview,page,candidate)))throw Error('audit_pdf_source_flow_parent_changed');
  const productionRaw=await readFile(boundDataPath(root,layout.parentRaw.path)),attempt=candidate.provenance.attempts.find(a=>a.success);
