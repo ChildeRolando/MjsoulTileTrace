@@ -642,7 +642,8 @@ living docs（ROADMAP/README/VERIFICATION）由父票集成阶段按真实实验
      - 本设计对当前快照的只读核对（2026-10-27）：20 张子集卡的 `card.content` 已逐字节包含三者，
        转换后长度 259–287 字符（b03 最短、a04 最长，均 <=1000），故追加分支在该快照上不触发；
        但追加、后置条件与超限拒绝都是设计约束，不因该快照恰好满足而省略。selector 只能读到
-       `ArenaRagPassage.content`；`conditions`/`exceptions` 仅存在于 `research-subset.json` 等于没有交给它；
+       `ArenaRagPassage.content`，而该 content 按本节冻结转换规则与后置条件已逐字节包含 `concept`、`conditions`、`exceptions`，
+       因此适用条件与例外确实随片段交给 selector；研究原始字段仍只读、只保存在 `research-subset.json`，不以原样字段另行旁路传给 selector；
   5. `topics` = 冻结映射：{b01,b02,b03,b05,b07,b09,b10,a01,a03,a04,a05} → `["tile-efficiency"]`；
      {b12,b13,b14,b17,b19,a08,a09,a13,a16} → `["shape-flexibility"]`。这是**研究专用粗分组**，不主张语义等价；
      冻结查询一律不设置 `filter.topics` 或 `context.topic`，因此该映射不改变候选集合与顺序（工单 B 的测试必须断言这一点）；
