@@ -1,6 +1,6 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
-import { canonicalJson, digestOf, sha256Text, studyError } from "./canonical.mjs";
+import { canonicalJson, digestOf, studyError } from "./canonical.mjs";
 import { claimAttempt, settleAttempt } from "./schedule.mjs";
 import {
   SELF_RAG_STUDY_GENERATOR_PROMPT_VERSION,
@@ -194,6 +194,11 @@ function selectorFailureCode(error) {
   return /^[a-z0-9_]+$/u.test(message) ? message : "applicability_gate_error";
 }
 
+/**
+ * Aborts the provider call at the deadline and still awaits it to settle, so a
+ * timed-out turn cannot leave an unobserved call running behind the record.
+ * A provider that ignores the abort keeps this attempt claimed until it returns.
+ */
 async function runWithTimeout({ operation, timeoutMs, externalSignal }) {
   const controller = new AbortController();
   let timedOut = false;
@@ -241,7 +246,7 @@ export async function executeStudyRun(input) {
       gateResult = await input.gate.apply({ output: candidateResult, observation, signal: input.signal ?? new AbortController().signal });
     } catch (error) {
       return failedRecord({ input, observation, candidateResult, startedAt, started, clock,
-        failureCode: selectorFailureCode(error), gateRecord: null });
+        failureCode: selectorFailureCode(error), gateRecord: null, selectorAttempted: true });
     }
     const output = requireObject(gateResult?.output, "gate.output");
     if (output.caseRef !== observation.caseRef) {
@@ -252,7 +257,7 @@ export async function executeStudyRun(input) {
       maybeAssertDelivered(output.passages, candidateResult);
     } catch (error) {
       return failedRecord({ input, observation, candidateResult, startedAt, started, clock,
-        failureCode: "study_delivery_binding_invalid", gateRecord: null, detail: error?.detail });
+        failureCode: "study_delivery_binding_invalid", gateRecord: null, detail: error?.detail, selectorAttempted: true });
     }
     delivered = output.passages;
     gateRecord = {
@@ -260,6 +265,9 @@ export async function executeStudyRun(input) {
       failureCode: gateResult.failureCode ?? null,
       elapsedMs: gateResult.elapsedMs,
       usage: gateResult.usage ?? null,
+      // Measured by the harness at the selector provider boundary; the gate
+      // contract itself does not carry the argument byte count.
+      outputBytes: gateResult.outputBytes ?? null,
       retention: {
         candidateCount: candidateResult.passages.length,
         retainedCount: delivered.length,
@@ -342,7 +350,7 @@ function maybeAssertDelivered(passages, candidateResult) {
   assertDeliveredPassages({ delivered: passages, candidateResult });
 }
 
-function failedRecord({ input, observation, candidateResult, request, delivered, gateRecord, startedAt, started, clock, failureCode, detail, usageParts = [] }) {
+function failedRecord({ input, observation, candidateResult, request, delivered, gateRecord, startedAt, started, clock, failureCode, detail, usageParts = [], selectorAttempted = false }) {
   const finishedAt = new Date(clock()).toISOString();
   const record = {
     schemaVersion: SELF_RAG_STUDY_RUN_VERSION,
@@ -367,7 +375,7 @@ function failedRecord({ input, observation, candidateResult, request, delivered,
     gate: gateRecord ?? null,
     usage: {
       generator: { status: "unknown" },
-      selector: gateRecord === null ? null : reportedUsage(gateRecord.usage),
+      selector: gateRecord !== null ? reportedUsage(gateRecord.usage) : selectorAttempted ? { status: "unknown" } : null,
       combined: { status: "unknown" },
     },
     response: { status: "not_called" },
@@ -453,14 +461,4 @@ export async function runStudyAttempt(input) {
     claimedAt: claim.claimedAt,
   });
   return { record, runFile };
-}
-
-/** Argument bytes as the gate/provider actually produced them. */
-export function selectorOutputBytes(callArguments) {
-  if (typeof callArguments !== "string") throw studyError("study_run_input_invalid", "callArguments");
-  return Buffer.byteLength(callArguments, "utf8");
-}
-
-export function runFileDigest(record) {
-  return sha256Text(canonicalJson(record));
 }

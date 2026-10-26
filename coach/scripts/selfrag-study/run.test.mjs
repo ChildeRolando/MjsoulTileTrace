@@ -151,6 +151,7 @@ test('baseline and selfrag completions record delivery, gate and separated usage
         failureCode: undefined,
         usage: { inputTokens: 50, outputTokens: 10 },
         elapsedMs: 12,
+        outputBytes: 128,
       };
     },
   };
@@ -161,6 +162,7 @@ test('baseline and selfrag completions record delivery, gate and separated usage
   assert.deepEqual(selfrag.delivered.droppedSourceRefs, [candidates.passages[0].sourceRef]);
   assert.equal(selfrag.gate.status, 'applied');
   assert.equal(selfrag.gate.retention.droppedCount, 1);
+  assert.equal(selfrag.gate.outputBytes, 128);
   assert.match(selfrag.gate.receiptDigest, /^[0-9a-f]{64}$/u);
   assert.deepEqual(selfrag.usage.selector, { status: 'reported', tokens: { inputTokens: 50, outputTokens: 10 } });
   assert.deepEqual(selfrag.usage.combined, { status: 'reported', tokens: { inputTokens: 150, outputTokens: 30 } });
@@ -176,6 +178,7 @@ test('a missing, failing, or binding-breaking gate fails the selfrag arm instead
   assert.equal(missing.status, 'failed');
   assert.equal(missing.failureCode, 'applicability_gate_unavailable');
   assert.equal(missingProvider.calls.length, 0);
+  assert.equal(missing.usage.selector, null);
 
   const errorProvider = fakeProvider(() => ready(submissionArguments(observation), usage));
   const failing = await executeStudyRun(baseRun({
@@ -184,6 +187,8 @@ test('a missing, failing, or binding-breaking gate fails the selfrag arm instead
   }));
   assert.equal(failing.failureCode, 'timeout');
   assert.equal(errorProvider.calls.length, 0);
+  // The gate threw after a possible selector call: attempted but unreported.
+  assert.deepEqual(failing.usage.selector, { status: 'unknown' });
 
   const bindingProvider = fakeProvider(() => ready(submissionArguments(observation), usage));
   const binding = await executeStudyRun(baseRun({

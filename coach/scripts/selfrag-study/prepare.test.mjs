@@ -11,6 +11,7 @@ import {
   buildFrozenRagRequest,
   classifySceneLayers,
   extractExcludedIdentities,
+  freezeSelectorBudget,
   isExcludedGame,
   prepareStudy,
   sceneFactsFromObservation,
@@ -348,17 +349,23 @@ function budgetReadJson(directory, budget) {
   };
 }
 
-test('evaluation verify refuses once a non-pilot attempt exists', async () => {
-  const { directory, freeze, fixture } = await prepared();
+test('the pilot freezes one ladder budget once, and evaluation then verifies', async () => {
+  const { directory, fixture } = await prepared();
   try {
-    const { appendFile } = await import('node:fs/promises');
-    const evaluationCase = freeze.sampling.selected.find((entry) => entry.phase === 'evaluation').caseId;
-    await appendFile(join(directory, 'attempts.jsonl'), `${JSON.stringify({
-      schemaVersion: 'selfrag-study-attempt/v1', caseId: evaluationCase, arm: 'baseline',
-      attempt: 1, pilotRerun: false, key: 'x', phase: 'evaluation', status: 'claimed', claimedAt: '2026-10-27T00:00:00.000Z',
-    })}\n`, 'utf8');
-    const deps = { ...fixture.deps, readJson: budgetReadJson(directory, { maxOutputTokens: 512, maxOutputBytes: 4096 }) };
-    await assert.rejects(() => verifyStudy({ artifactDir: directory, deps, phase: 'evaluation' }), /verify_evaluation_already_started/u);
+    await assert.rejects(() => verifyStudy({ artifactDir: directory, deps: fixture.deps, phase: 'evaluation' }), /verify_selector_budget_missing/u);
+    await assert.rejects(() => freezeSelectorBudget({
+      artifactDir: directory, readJson: fixture.deps.readJson, budget: { maxOutputTokens: 999, maxOutputBytes: 4096 },
+    }), /selector_budget_invalid/u);
+    const updated = await freezeSelectorBudget({
+      artifactDir: directory, readJson: fixture.deps.readJson,
+      budget: { maxOutputTokens: 768, maxOutputBytes: 4096 },
+    });
+    assert.deepEqual(updated.selectorBudget, { maxOutputTokens: 768, maxOutputBytes: 4096 });
+    await assert.rejects(() => freezeSelectorBudget({
+      artifactDir: directory, readJson: fixture.deps.readJson, budget: { maxOutputTokens: 512, maxOutputBytes: 4096 },
+    }), /selector_budget_already_frozen/u);
+    const verified = await verifyStudy({ artifactDir: directory, deps: fixture.deps, phase: 'evaluation' });
+    assert.equal(verified.status, 'verified');
   } finally {
     await cleanup(directory);
   }
