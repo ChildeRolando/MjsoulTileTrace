@@ -45,3 +45,11 @@ export function sha256Text(text) {
 export function digestOf(value) {
   return sha256Text(canonicalJson(value));
 }
+
+/** Uniform fail-closed error: the message is the stable machine code. */
+export function studyError(code, detail) {
+  const error = new Error(code);
+  error.code = code;
+  if (detail !== undefined) error.detail = detail;
+  return error;
+}
