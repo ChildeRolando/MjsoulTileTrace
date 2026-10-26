@@ -20,6 +20,10 @@
       "types": "./src/blind-discard-arena-rag.ts",
       "import": "./dist/blind-discard-arena-rag.js"
     },
+    "./blind-discard-arena-rag-applicability": {
+      "types": "./src/blind-discard-arena-rag-applicability.ts",
+      "import": "./dist/blind-discard-arena-rag-applicability.js"
+    },
     "./blind-discard-arena-runner": {
       "types": "./src/blind-discard-arena-runner.ts",
       "import": "./dist/blind-discard-arena-runner.js"
