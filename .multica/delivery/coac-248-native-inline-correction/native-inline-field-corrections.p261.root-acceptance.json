@@ -1,0 +1,67 @@
+{
+  "schema": "coach-native-inline-field-corrections-approval/1",
+  "status": "accepted-exact-native-field-corrections-only",
+  "approvedBy": "root",
+  "approvedAt": "2026-10-27T00:00:00.000Z",
+  "approvalBasis": {
+    "commentId": "01a17a58-0179-7f34-9c66-812db9413a92",
+    "scope": "Only the audit-located, source-backed field change on nemata-jp page 261; original production raw, parent candidate and failed audit retained. No new production call."
+  },
+  "jobs": [
+    {
+      "schema": "coach-native-inline-field-correction-job/1",
+      "sourceId": "nemata-jp",
+      "page": 261,
+      "candidatePath": "production/sol-high-field-repair18-20261027-p261/candidates/nemata-jp/page-0261.json",
+      "candidateSha256": "376c71a39de29653b0ba59c947d777832aa2af3623885cf1f8f451b9f29cf359",
+      "parentPath": "production/sol-high-fallback-inline-20261026/candidates/nemata-jp/page-0261.json",
+      "parentSha256": "b63d2c602ec030eb9c2d5f7852e5119363391f8f9ba24992bbfab42fc847ecd7",
+      "originalAuditPath": "audit/pages/nemata-jp/page-0261.b63d2c602ec030eb9c2d5f7852e5119363391f8f9ba24992bbfab42fc847ecd7.6baa4a7e1404.json",
+      "originalAuditSha256": "9998ff1b450ba2ad24915865b2be6b3ffa22cc92e41868e1049be527dcd4b318",
+      "originalProductionRaw": {
+        "path": "production/sol-high-fallback-inline-20261026/raw-calls/67bf982c-f150-415d-9ab4-3c8abe106f19.json",
+        "sha256": "ae2937133216df4cc36388673712b157c19db69777e61b1f705a9c5b0cf283a1"
+      },
+      "sourcePagePath": "nemata-jp/pages/261.json",
+      "sourcePageDataSha256": "6cdfa8cefcbd8e38f618da86d9adc5ba5796f1c6f40fcb4729c0ceee4a3200a6",
+      "proofPath": "audit/source-corrections/proofs/native-inline-p261.376c71a39de29653b0ba59c947d777832aa2af3623885cf1f8f451b9f29cf359.json",
+      "proofSha256": "da664219380f4d4e757c8353a145609e3cc7947f2d1fb3fa18f4ef6decdc8a33",
+      "changes": [
+        {
+          "target": "paragraph",
+          "sourceBlockIds": [
+            "nemata-jp-p261-b1",
+            "nemata-jp-p261-b2",
+            "nemata-jp-p261-b3",
+            "nemata-jp-p261-b4",
+            "nemata-jp-p261-b5"
+          ],
+          "fromValue": "[[figure:nemata-jp-p261-r1]]与[[figure:nemata-jp-p261-r2]]的差别，在于摸入索子的情况，因为摸入万子、筒子都会形成相同的牌形。只需把它们当作普通孤立牌来比较即可：前者有中间膨起的[[figure:nemata-jp-p261-r3]]，后者则是单独的[[figure:nemata-jp-p261-r4]]，所以前者有利。若打[[figure:nemata-jp-p261-r5]]，摸入[[figure:nemata-jp-p261-r6]]后打[[figure:nemata-jp-p261-r7]]，便能形成进张宽广、还保留567三色同顺可能的一向听。然而，要从这种宽广的一向听中做成三色，必须恰好摸入[[figure:nemata-jp-p261-r8]]或[[figure:nemata-jp-p261-r9]]，因此相当不确定。另一方面，若先打[[figure:nemata-jp-p261-r10]]，摸入[[figure:nemata-jp-p261-r11]]后打[[figure:nemata-jp-p261-r12]]，进张宽度相同，却能确定一杯口。后者有利，自不待言。",
+          "toValue": "[[figure:nemata-jp-p261-r1]]与[[figure:nemata-jp-p261-r2]]的差别，在于摸入索子的情况，因为摸入万子、筒子都会形成相同的牌形。只需把它们当作普通孤立牌来比较即可：前者有中间膨起的[[figure:nemata-jp-p261-r3]]，后者则是单独的[[figure:nemata-jp-p261-r4]]，所以前者有利。若打[[figure:nemata-jp-p261-r5]]，摸入[[figure:nemata-jp-p261-r6]]后打[[figure:nemata-jp-p261-r7]]，便能形成进张宽广、还保留567三色同顺可能的一向听。然而，要从这种宽广的一向听中做成三色，必须恰好摸入[[figure:nemata-jp-p261-r8]]和[[figure:nemata-jp-p261-r9]]，因此相当不确定。另一方面，若先打[[figure:nemata-jp-p261-r10]]，摸入[[figure:nemata-jp-p261-r11]]后打[[figure:nemata-jp-p261-r12]]，进张宽度相同，却能确定一杯口。后者有利，自不待言。",
+          "replacements": [
+            {
+              "from": "必须恰好摸入[[figure:nemata-jp-p261-r8]]或[[figure:nemata-jp-p261-r9]]",
+              "to": "必须恰好摸入[[figure:nemata-jp-p261-r8]]和[[figure:nemata-jp-p261-r9]]",
+              "occurrences": 1
+            }
+          ],
+          "sourceEvidence": "Source page block nemata-jp-p261-b4 reads 「三色は手広い１シャンテンのなかからピンポイントに［5p］･［7p］を引かなければ成立しない」 — the two tiles are joined conjunctively, so both are required, not either one. The example hand after 摸5p also shows 56p waiting on 7p.",
+          "sourceTextEvidence": [
+            {
+              "sourceBlockId": "nemata-jp-p261-b4",
+              "contains": "を引かなければ成立しない"
+            }
+          ],
+          "sourceCrop": {
+            "path": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0261.png",
+            "sha256": "f1e73af94b2c87eada820d89c0fa09ad4c8556bd95a91f1f2d07fa17f20bd750"
+          }
+        }
+      ],
+      "originalReviewErrors": [
+        "needs-repair:nemata-jp-p261-b4",
+        "error:nemata-jp-p261-b4"
+      ]
+    }
+  ]
+}

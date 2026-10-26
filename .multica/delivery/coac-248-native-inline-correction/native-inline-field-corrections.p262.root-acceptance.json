@@ -1,0 +1,66 @@
+{
+  "schema": "coach-native-inline-field-corrections-approval/1",
+  "status": "accepted-exact-native-field-corrections-only",
+  "approvedBy": "root",
+  "approvedAt": "2026-10-27T00:00:00.000Z",
+  "approvalBasis": {
+    "commentId": "01a17a58-0179-7f34-9c66-812db9413a92",
+    "scope": "Only the audit-located, source-backed field change on nemata-jp page 262; original production raw, parent candidate and failed audit retained. No new production call."
+  },
+  "jobs": [
+    {
+      "schema": "coach-native-inline-field-correction-job/1",
+      "sourceId": "nemata-jp",
+      "page": 262,
+      "candidatePath": "production/sol-high-field-repair19-20261027-p262/candidates/nemata-jp/page-0262.json",
+      "candidateSha256": "5c25921e229d285ea1ae30ec2baef23adbd9d7e20ee9740d7ef524809d9daba6",
+      "parentPath": "production/sol-high-fallback-inline-20261026/candidates/nemata-jp/page-0262.json",
+      "parentSha256": "0025a1f80f4ceb7cba97f8c9382b02719701370e75af87a537c0130f3a2c604f",
+      "originalAuditPath": "audit/pages/nemata-jp/page-0262.0025a1f80f4ceb7cba97f8c9382b02719701370e75af87a537c0130f3a2c604f.6baa4a7e1404.json",
+      "originalAuditSha256": "c86b2f9e9086f10205070d68e613385bc278e9728b8986b0cc2cf3d5f2589481",
+      "originalProductionRaw": {
+        "path": "production/sol-high-fallback-inline-20261026/raw-calls/69586b53-55eb-48bb-b337-1a1d603bdf7a.json",
+        "sha256": "f8f9fda28f04206ee279b0acf4b3a8fced5a19ccf2bdae1f8662b69b9bf384b3"
+      },
+      "sourcePagePath": "nemata-jp/pages/262.json",
+      "sourcePageDataSha256": "30347446f28a83ab764f25e0e9d840665edf35e377d0c4ac87150e5604fd698e",
+      "proofPath": "audit/source-corrections/proofs/native-inline-p262.5c25921e229d285ea1ae30ec2baef23adbd9d7e20ee9740d7ef524809d9daba6.json",
+      "proofSha256": "aa16a0bd1b83d81acdc1c9c8e9f2e8b5933a448aee481718940a54c5c996daad",
+      "changes": [
+        {
+          "target": "paragraph",
+          "sourceBlockIds": [
+            "nemata-jp-p262-b16",
+            "nemata-jp-p262-b17",
+            "nemata-jp-p262-b18",
+            "nemata-jp-p262-b19"
+          ],
+          "fromValue": "打[[figure:nemata-jp-p262-r19]]。摸入图中下方的一索可成一气通贯，摸入[[figure:nemata-jp-p262-r20]]可形成三面听，摸入[[figure:nemata-jp-p262-r21]]可出现三色的可能，因此这张[[figure:nemata-jp-p262-r22]]是相当强的孤立牌，应该保留。那么，按拆解3对子的原则，就该打[[figure:nemata-jp-p262-r23]]了。现在点数低于起始点数，当然更要重视打点，但即使是东1局也这样打。或者说，即使是只要和牌就能拿第一的局面，考虑到副露，也还是这样打。",
+          "toValue": "打[[figure:nemata-jp-p262-r19]]。摸入图中下方的一索可成一气通贯，摸入[[figure:nemata-jp-p262-r20]]可形成三面形，摸入[[figure:nemata-jp-p262-r21]]可出现三色的可能，因此这张[[figure:nemata-jp-p262-r22]]是相当强的孤立牌，应该保留。那么，按拆解3对子的原则，就该打[[figure:nemata-jp-p262-r23]]了。现在点数低于起始点数，当然更要重视打点，但即使是东1局也这样打。或者说，即使是只要和牌就能拿第一的局面，考虑到副露，也还是这样打。",
+          "replacements": [
+            {
+              "from": "可形成三面听",
+              "to": "可形成三面形",
+              "occurrences": 1
+            }
+          ],
+          "sourceEvidence": "Source page block nemata-jp-p262-b17 reads 「３ｓ引きで三面」 — the three-sided shape of the suit, with no claim that the whole hand reaches tenpai; the exercise hand is not one tile from tenpai.",
+          "sourceTextEvidence": [
+            {
+              "sourceBlockId": "nemata-jp-p262-b17",
+              "contains": "引きで三面"
+            }
+          ],
+          "sourceCrop": {
+            "path": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0262.png",
+            "sha256": "71d8b7e4cd537db15508a611bb075cb9df112ace3029487b78cff9ff1e595049"
+          }
+        }
+      ],
+      "originalReviewErrors": [
+        "needs-repair:nemata-jp-p262-b17",
+        "error:nemata-jp-p262-b17"
+      ]
+    }
+  ]
+}
