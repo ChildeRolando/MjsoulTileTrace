@@ -13,6 +13,8 @@ const sha=b=>createHash('sha256').update(b).digest('hex'),marker=/\[\[figure:([^
 export const knownNativeInlineCorrections={
  'nemata-jp:309':{path:'audit/source-corrections/native-inline-field-corrections.p309.root-acceptance.json',sha256:'cfd69a864f554b9dd13544ccd8a40d009dc1d3fd857251fb419f67fdac48620e'},
  'nemata-jp:315':{path:'audit/source-corrections/native-inline-field-corrections.p315.root-acceptance.json',sha256:'2804f43bd32fe7ad1a9417893be9e2b1a5a018ce30aa0c0b488c35d7c4ee2ae8'},
+ 'nemata-jp:329':{path:'audit/source-corrections/native-inline-field-corrections.p329.root-acceptance.json',sha256:'d3d33f0beec52652d821d5a1495778ef318a48b04a2a9e56990a1fed66740537'},
+ 'nemata-jp:330':{path:'audit/source-corrections/native-inline-field-corrections.p330.root-acceptance.json',sha256:'4052166a6355296221367a1eec967758d1f1c07a71e438e3856a86c0744fc6e5'},
 };
 
 function bound(root,path){
