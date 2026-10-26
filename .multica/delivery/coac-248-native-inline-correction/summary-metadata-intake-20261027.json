@@ -1,0 +1,75 @@
+{
+  "schema": "coach-coac248-metadata-intake/1",
+  "recordedAt": "2026-10-27T00:00:00.000Z",
+  "ticket": "COAC-248",
+  "triggerWakeup": "01a17a58-e875-757e-8a46-3e209c7cc507",
+  "handoffFrom": "COAC-247",
+  "scope": "Receive by candidate SHA the four metadata pages COAC-247 produced and audited (nemata-jp 1/2/3/317), dedupe them against the existing repair list, and establish what is actually repairable on each. No re-production, no re-audit, no model calls this round.",
+  "intake": {
+    "productionRoot": "production/sol-high-metadata-four-pages-inline-20261026",
+    "model": "gpt-6.1-sol",
+    "reasoningEffort": "high",
+    "auditRuntime": "audit/runtimes/e89dcffe73c9100a12218b79dfba66da3f1bb08d7adaf2b64e87d9eb34619a49",
+    "auditorScriptSha256": "6baa4a7e14041a0ccb80f41ed4ee994428a9cda94b8bd420aeb70f4342c0b6da",
+    "dedupeMethod": "candidateSha256 against the existing objects list",
+    "deduped": 0,
+    "added": 4,
+    "verification": "candidate file SHA-256, audit file SHA-256, audit.production.sha256 binding, audit.status, auditorScriptSha256 and deterministicChecks.passed were each recomputed from disk; all 8 hashes match the handoff exactly.",
+    "pages": [
+      {"page": 1, "candidateSha256": "195ec4e95734120c92d4bc0281512b7cb06d84fda221b68e339f020e06ddd02b", "auditSha256": "9619f5b27ba1b1bb6227184081d72cb599de232741d6f5ea01e7d1daa829ab91", "status": "needs-repair", "textBlocks": 45, "imageBlocks": 22, "figures": 21, "reviewErrors": ["uncertain:nemata-jp-p1-r4"]},
+      {"page": 2, "candidateSha256": "205a9a8ab2dcc7353f5d3ec2df6f6b99339ecbb4ca57c507690b6ff45397e1d6", "auditSha256": "02b5cea0e12ad34ddf670e20cbb6071e395c2587f2d2797e6be303d1af9d442c", "status": "needs-repair", "textBlocks": 52, "imageBlocks": 16, "figures": 16, "reviewErrors": ["uncertain:nemata-jp-p2-r11", "uncertain:nemata-jp-p2-r15"]},
+      {"page": 3, "candidateSha256": "b4c7a236ae6b3854d1c989f7504af4b4271d7172dedef408d1150ac2e1a75a36", "auditSha256": "68037da0805fc3c947b9d3ca0ddc83576ac1ee368a3c91539243266af0f3152f", "status": "needs-repair", "textBlocks": 30, "imageBlocks": 3, "figures": 3, "reviewErrors": ["uncertain:nemata-jp-p3-r1", "uncertain:nemata-jp-p3-r3"]},
+      {"page": 317, "candidateSha256": "e0911ad1e2ee917537c953d1d2e204120fcd3477a67baf1f26eac90f18c9efcf", "auditSha256": "f30bffa04d44573d0ca9fdacd3152d713d061e9503b7c97398e23146eec3f86c", "status": "needs-repair", "textBlocks": 32, "imageBlocks": 26, "figures": 22, "reviewErrors": ["needs-repair:nemata-jp-p317-b5", "uncertain:nemata-jp-p317-r6"]}
+    ]
+  },
+  "resolutionCeiling": {
+    "finding": "Every failing item on all four pages is microprint inside a low-resolution bitmap embedded in the source PDF. The embedded asset size is the ceiling: rendering the page at any DPI adds no information.",
+    "figures": [
+      {"figure": "nemata-jp-p1-r4", "sourceBlock": "nemata-jp-p1-b28", "assetPx": [416, 588], "placedPt": [99.8, 141.1], "approxDpi": 300},
+      {"figure": "nemata-jp-p2-r11", "sourceBlock": "nemata-jp-p2-b51", "assetPx": [306, 444], "placedPt": [73.4, 106.6], "approxDpi": 300},
+      {"figure": "nemata-jp-p2-r15", "sourceBlock": "nemata-jp-p2-b58", "assetPx": [300, 444], "placedPt": [72.0, 106.6], "approxDpi": 300},
+      {"figure": "nemata-jp-p3-r1", "sourceBlock": "nemata-jp-p3-b24", "assetPx": [300, 443], "placedPt": [72.0, 106.3], "approxDpi": 300},
+      {"figure": "nemata-jp-p3-r3", "sourceBlock": "nemata-jp-p3-b28", "assetPx": [272, 444], "placedPt": [65.3, 106.6], "approxDpi": 300},
+      {"figure": "nemata-jp-p317-r6", "sourceBlock": "nemata-jp-p317-b15", "assetPx": [416, 588], "placedPt": [99.8, 141.1], "approxDpi": 300}
+    ],
+    "observedAt8xAnd16x": {
+      "nemata-jp-p1-r4": "The line under 「January」 stays an unreadable teal smear at 16x. Confirmed unreadable.",
+      "nemata-jp-p317-r6": "The two top-right tagline lines are PARTIALLY legible at 8x: 「…ネット麻雀ライフを」 / 「…するマガジン」. Their leading characters remain mushy and are not reliably readable. Recorded as evidence only, not transcribed."
+    },
+    "conclusion": "No local source satisfies the audit's stated repair direction (取得足以辨读该处小字的图像). A genuinely higher-resolution cover has to come from outside this PDF, or the items have to be settled by a root ruling."
+  },
+  "page317RepairProbe": {
+    "script": ".multica/delivery/coac-248-native-inline-correction/scripts/_probe_p317_route.mjs",
+    "route": "frozen native-inline exact-field correction (verifyNativeInlineCorrection from audit/runtimes/native-repair-7076217daf842b13)",
+    "modelCalls": 0,
+    "results": [
+      {"case": "b5-only", "changes": ["block:nemata-jp-p317-b4,nemata-jp-p317-b5"], "outcome": "rejected", "error": "audit_native_inline_correction_unresolved_audit_item"},
+      {"case": "b5+r6", "changes": ["block:nemata-jp-p317-b4,nemata-jp-p317-b5", "nemata-jp-p317-r6.transcription"], "outcome": "passes the deterministic gate; would then require the independent model review"}
+    ],
+    "translationDefect": {
+      "sourceBlock": "nemata-jp-p317-b5",
+      "sourceText": "新現代⿇雀技術論にて発表中の最新版戦術論を暫定公開。",
+      "from": "暂时公开正在《新现代麻将技术论》中发表的最新版战术论。",
+      "to": "以暂定版形式公开正在《新现代麻将技术论》中发表的最新版战术论。",
+      "why": "暫定公開 qualifies the publication mode (provisional edition, matching the following ※暫定版の為 note), not a temporary public window."
+    },
+    "blocker": "The route edits only string fields. A b5-only revision is rejected because the original audit's uncertain:nemata-jp-p317-r6 is unaddressed. Addressing r6 requires editing transcription, but the stale, now-contradictory unknowns entry (an ARRAY) cannot be rewritten through this route — applyReplacements only accepts string fromValue/toValue. So even the counterfactual b5+r6 revision would carry a self-contradictory record."
+  },
+  "disposition": {
+    "nemata-jp:1": "blocked-unresolved-evidence — sole failure is p1-r4 microprint under 「January」, unreadable at the asset ceiling.",
+    "nemata-jp:2": "blocked-unresolved-evidence — p2-r11 / p2-r15 microprint and unreadable tile faces in a 306x444 cover bitmap.",
+    "nemata-jp:3": "blocked-unresolved-evidence — p3-r1 / p3-r3 unreadable microprint in 300x443 / 272x444 bitmaps.",
+    "nemata-jp:317": "blocked-two-fold — real translation defect at b5 that the current route cannot express alone; r6 microprint partially legible but not fully, and the route cannot rewrite the unknowns array."
+  },
+  "decisionsNeeded": [
+    "Page-scoped evidence entry for the cover-microprint pages: authorise an exact-field route that also accepts `unknowns` array changes, so a partial-legibility finding can be recorded without contradiction.",
+    "Or: supply a higher-resolution source for the covers (the PDF's embedded assets are 272-416 px wide, ~300 DPI native).",
+    "Or: confirm these four front-matter pages stay permanently unresolved-evidence and are excluded from the corpus rather than blocked forever."
+  ],
+  "execution": {
+    "productionModelCalls": 0,
+    "reviewModelCalls": 0,
+    "reAudits": 0,
+    "repairListAfter": {"needsRepair": 21, "failedSeparate": 2, "resolvedThisStage": 15, "totalTracked": 38}
+  }
+}
