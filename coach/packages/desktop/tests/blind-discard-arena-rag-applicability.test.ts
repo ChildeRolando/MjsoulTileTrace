@@ -732,6 +732,40 @@ describe("Arena RAG applicability gate", () => {
       limits: { maxOutputTokens: 4097 } })).toThrow("arena_rag_applicability_limit_exceeds_v1_maximum");
   });
 
+  it("counts over-cap token responses toward the run byte budget before degrading", async () => {
+    const observation = observationWith();
+    const result = ragResult({ caseRef: observation.caseRef });
+    const verdicts = verdictsPayload(result, [
+      { sourceRef: REF_1, verdict: "relevant", reason: "片段条件与本手可见事实一致。", premises: [] },
+      { sourceRef: REF_2, verdict: "relevant", reason: "片段条件与本手可见事实一致。", premises: [] },
+      { sourceRef: REF_3, verdict: "relevant", reason: "片段条件与本手可见事实一致。", premises: [] },
+    ]);
+    // Real Luna/high reports (890/921/1300 output tokens) overflow the test cap, but the
+    // arguments were still produced: they must consume the run byte budget so a later
+    // search is skipped instead of spending past the cap and applying its verdict.
+    const overCap: LlmTokenUsage = { inputTokens: 16_769, outputTokens: 2049, totalTokens: 18_818 };
+    const argumentBytes = Buffer.byteLength(JSON.stringify(verdicts), "utf8");
+    const provider = fakeProvider(() => submit(verdicts, overCap));
+    const gate = createArenaRagApplicabilityGate({
+      provider, caseRef: observation.caseRef,
+      limits: { maxOutputBytesPerRun: argumentBytes, maxOutputBytes: 4096 },
+    });
+    const signal = new AbortController().signal;
+
+    const first = await gate.apply({ output: result, observation, signal });
+    expect(first.status).toBe("degraded");
+    expect(first.failureCode).toBe("output_budget_exhausted");
+    expect(first.usage).toEqual(overCap);
+    expect(ArenaRagApplicabilityResultSchema.parse(first.output).sourceRefs).toEqual(result.sourceRefs);
+
+    const second = await gate.apply({ output: result, observation, signal });
+    expect(second.status).toBe("skipped");
+    expect(second.failureCode).toBe("output_budget_exhausted");
+    expect(second.usage).toBeNull();
+    expect(ArenaRagApplicabilityResultSchema.parse(second.output).sourceRefs).toEqual(result.sourceRefs);
+    expect(provider.requests).toHaveLength(1);
+  });
+
   it("fails closed with receipt_too_large instead of truncating an audit receipt", async () => {
     const observation = observationWith();
     const result = ragResult({ caseRef: observation.caseRef });

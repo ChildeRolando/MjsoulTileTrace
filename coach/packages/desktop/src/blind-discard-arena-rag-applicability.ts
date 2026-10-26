@@ -431,6 +431,12 @@ export function createArenaRagApplicabilityGate(input: {
       }
       if (outcome.call.name !== ARENA_RAG_APPLICABILITY_TOOL_NAME) return degrade("invalid_response");
 
+      // Count the bytes a ready response actually produced before any budget
+      // degradation: an over-cap token report must not hide them, or later
+      // searches would keep spending past the run cap and apply their verdict.
+      const argumentBytes = Buffer.byteLength(outcome.call.arguments, "utf8");
+      state.outputBytes += argumentBytes;
+
       // The provider reports completion tokens; the Codex adapter only turns
       // maxOutputTokens into prompt text, so enforce the frozen ceiling here.
       // A missing report stays unknown: it is never zero-filled or assumed safe.
@@ -438,8 +444,6 @@ export function createArenaRagApplicabilityGate(input: {
         return degrade("output_budget_exhausted", usage);
       }
 
-      const argumentBytes = Buffer.byteLength(outcome.call.arguments, "utf8");
-      state.outputBytes += argumentBytes;
       if (argumentBytes > limits.maxOutputBytes || state.outputBytes > limits.maxOutputBytesPerRun) {
         return degrade("output_budget_exhausted", usage);
       }
