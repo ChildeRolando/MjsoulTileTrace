@@ -15,6 +15,8 @@ export const knownNativeInlineCorrections={
  'nemata-jp:315':{path:'audit/source-corrections/native-inline-field-corrections.p315.root-acceptance.json',sha256:'2804f43bd32fe7ad1a9417893be9e2b1a5a018ce30aa0c0b488c35d7c4ee2ae8'},
  'nemata-jp:329':{path:'audit/source-corrections/native-inline-field-corrections.p329.root-acceptance.json',sha256:'d3d33f0beec52652d821d5a1495778ef318a48b04a2a9e56990a1fed66740537'},
  'nemata-jp:330':{path:'audit/source-corrections/native-inline-field-corrections.p330.root-acceptance.json',sha256:'4052166a6355296221367a1eec967758d1f1c07a71e438e3856a86c0744fc6e5'},
+ 'nemata-jp:261':{path:'audit/source-corrections/native-inline-field-corrections.p261.root-acceptance.json',sha256:'6074d74646753bd6dfc0d91cd68945357e6978a22f88cdae4774b95a6a586416'},
+ 'nemata-jp:262':{path:'audit/source-corrections/native-inline-field-corrections.p262.root-acceptance.json',sha256:'dbc8842a9b3c062fbc35d117e826405add463c777f02a9c52dbfa17fec5d9338'},
 };
 
 function bound(root,path){
