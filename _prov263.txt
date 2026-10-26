@@ -1,0 +1,91 @@
+{
+ "runId": "sol-high-fallback-finite-20261024-schemafix",
+ "model": "gpt-6.1-sol",
+ "reasoningEffort": "high",
+ "promptVersion": "textbook-page-transcription/4",
+ "schemaVersion": "coach-textbook-page-draft/3",
+ "schemaSha256": "67143cb6bdc0901aff037522896490fd27084ccee3b93b4ea5c5170856867dfa",
+ "promptSha256": "d08f2a8d3fe485bd471b261d98df6d7b126115e2d7bdb2da7fd41995747dc2c2",
+ "contextPages": [
+  {
+   "page": 262,
+   "pageDataSha256": "e49e031d64f41cdf1b586307ea0c34b728e60c85aabcb95ba9397dfdd9ee4633"
+  },
+  {
+   "page": 264,
+   "pageDataSha256": "d29dd4e5ec4f2c41dcd2b7f2a833d8ac0505331ee22bf5a030a13b9f1f44cced"
+  }
+ ],
+ "chapterMapSha256": "d38bbd1a72defef709f4e2f336b3447e4fc677183b88b7e8d6aa050258017a8e",
+ "ownershipSha256": "dd17f7e88c24afaecef4f500f6d23a5f07cb9c2e1d2bb4f8041f2498aebadf60",
+ "revision": null,
+ "flowValidation": "unique-complete-source-ID-set and same-unit paragraph checks; visual order pending independent audit",
+ "semanticStatus": "not-reviewed",
+ "usage": {
+  "inputTokens": 18977,
+  "cachedInputTokens": 0,
+  "outputTokens": 5174
+ },
+ "attempts": [
+  {
+   "callId": "101ca919-4a5e-48a4-9884-cbfd88457ab5",
+   "sourceId": "79-cn",
+   "page": 263,
+   "pageDataSha256": "47d537836785f9361a214576c12b0d78dff9876016cf307de9213fc488239db6",
+   "pdfSha256": "92969578b06cd5dbcc6970fe02803a78531455ce49b0f347e6869f19c694f482",
+   "attempt": 1,
+   "model": "gpt-6.1-sol",
+   "reasoningEffort": "high",
+   "promptVersion": "textbook-page-transcription/4",
+   "schemaVersion": "coach-textbook-page-draft/3",
+   "runnerSha256": "56dc3937e2f6fc61100de88fc157077500eaa1d04adfbb0df0c45cd652f11af5",
+   "schemaSha256": "67143cb6bdc0901aff037522896490fd27084ccee3b93b4ea5c5170856867dfa",
+   "cliVersion": "codex-cli 0.162.1",
+   "cliArguments": [
+    "exec",
+    "--model",
+    "gpt-6.1-sol",
+    "--config model_reasoning_effort=high",
+    "--config web_search=disabled",
+    "--ephemeral",
+    "--ignore-user-config",
+    "--ignore-rules",
+    "--sandbox read-only",
+    "--strict-config",
+    "--skip-git-repo-check",
+    "--json",
+    "--output-schema <temp>",
+    "--output-last-message <temp>",
+    "--cd <temp>",
+    "-i <full-page>",
+    "-i <one-crop-per-region>",
+    "--disable <tool-features>",
+    "-"
+   ],
+   "startedAt": "2026-10-23T22:32:01.442Z",
+   "durationMs": 144749,
+   "usage": {
+    "inputTokens": 18977,
+    "cachedInputTokens": 0,
+    "outputTokens": 5174
+   },
+   "transportStatus": "completed",
+   "schemaStatus": "valid",
+   "coverageStatus": "pending",
+   "semanticStatus": "not-reviewed",
+   "success": true,
+   "failure": null,
+   "terminalEvents": [],
+   "stderr": "",
+   "pageImageSha256": "fb1f02e2247674e8af7dd020694257e4f32021805436a14bad0256caebe98dff",
+   "regionImageSha256s": [
+    {
+     "regionId": "79-cn-p263-r1",
+     "sha256": "12717fea3e494e1ec070f2075f9481cc6f823d8a152a6a9170fc97eabcb73267"
+    }
+   ],
+   "outputSha256": "35d8391c38b85b5966b501a694d7ec317de3f8bc63ba716a2d7783feeba2b388",
+   "rawArtifactPath": "raw-calls/101c
+
+coverage keys: ['textBlockCount', 'coveredTextBlockCount', 'imageBlockCount', 'coveredImageBlockCount', 'pageImageSha256']
+candidateSha256 5187bc96f0417a0959ae37d548506185915926510a3e4e0d0029bad1efeec382

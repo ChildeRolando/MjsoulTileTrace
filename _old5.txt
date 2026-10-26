@@ -1,0 +1,153 @@
+===== 79-cn p50 flowMode=None mode=verbatim
+ISSUES: [
+ {
+  "severity": "uncertain",
+  "targetId": "79-cn-p50-r2",
+  "sourceEvidence": "源图六张索子最右侧、6s右边可见细小灰色符号；候选亦声明无法确认其具体字符。",
+  "description": "该可见符号尚未完成准确转录，不能判为完全通过。",
+  "suggestedRepair": "复核该符号，确认后按原样补录；未确认前保留不确定标记。"
+ }
+]
+SUMMARY: 正文完整原样保留，三幅牌例的牌张与摸牌转录相符。第二图右侧细小符号仍需复核。
+
+===== 79-cn p217 flowMode=None mode=verbatim
+ISSUES: [
+ {
+  "severity": "error",
+  "targetId": "79-cn-p217-r1",
+  "sourceEvidence": "原图北家舍牌第二行从左至右为六万、八万，即6m、8m。",
+  "description": "候选将北家第二行第一张六万误录为5m。",
+  "suggestedRepair": "将北家舍牌第二行改为“6m 8m”。"
+ },
+ {
+  "severity": "error",
+  "targetId": "79-cn-p217-r1",
+  "sourceEvidence": "东家位于画面右侧，舍牌字头朝左，其自身视角逐行从左至右对应画面每列自下向上。候选明确写成“自上向下”。",
+  "description": "东家两列舍牌均被反向转录，改变了各行的出牌顺序。",
+  "suggestedRepair": "保留先靠中央列、后外侧列的行顺序，每列改为自下向上抄录；第一行应从8p开始、7z结束，第二行从2z开始、4z结束。"
+ },
+ {
+  "severity": "error",
+  "targetId": "79-cn-p217-r1",
+  "sourceEvidence": "原图上方南家可见13张牌背，左方西家可见13张牌背，右方东家可见10张牌背，另有白碰。",
+  "description": "候选仅笼统说明其余三家暗手未知，遗漏了可见牌背数量。",
+  "suggestedRepair": "补录南家13张、西家13张、东家10张暗手牌背；牌种继续标为未知。"
+ },
+ {
+  "severity": "uncertain",
+  "targetId": "79-cn-p217-r1",
+  "sourceEvidence": "中央可见“ドラ”标签及西（3z），本页没有说明该界面显示实际宝牌还是宝牌指示牌。",
+  "description": "候选直接认定西为宝牌，并排除另示指示牌，超出了本页可确认的信息。",
+  "suggestedRepair": "保留“中央‘ドラ’栏显示西（3z）”，将其为实际宝牌还是指示牌标为未知，删除确定性分类。"
+ }
+]
+SUMMARY: 正文全部忠实保留，页面阅读顺序正确；牌例需修正北家舍牌、东家河牌顺序，补全牌背数量，并保留宝牌栏性质的不确定性。
+
+===== 79-cn p263 flowMode=None mode=verbatim
+ISSUES: [
+ {
+  "severity": "error",
+  "targetId": "79-cn-p263-r1",
+  "sourceEvidence": "图中南家河牌可见红中及白板，东家、北家河牌亦可见白板；候选图例却定义“5z=中，7z=白”。",
+  "description": "5z、7z定义颠倒，并使三家河牌的实际编码错误。",
+  "suggestedRepair": "统一使用5z=白、6z=发、7z=中。南家第一列改为1z 7z 5z 4z 9s 1m；北家第一列改为1z 5z 1m 9p 3m 2s；东家第一行改为5z 9p 4z 2m 6z 8m。"
+ },
+ {
+  "severity": "error",
+  "targetId": "79-cn-p263-r1",
+  "sourceEvidence": "中央“ドラ”栏显示直列两根竹节的2s；右下吃牌组横置的是3s，旁边竖置的是2s、4s。",
+  "description": "候选把宝牌指示牌误记为3s，并把吃牌中的横置牌误记为2s，改变了可见牌及鸣牌信息。",
+  "suggestedRepair": "宝牌指示牌改为2s；吃牌组注明画面排列为3s（横置） 2s 4s，所吃的是上家南家的3s。"
+ }
+]
+SUMMARY: 正文全部忠实保留，阅读顺序正确；图例须修正字牌编码、宝牌指示牌及吃牌横置牌。
+
+===== nemata p98 flowMode=None mode=translated
+ISSUES: [
+ {
+  "severity": "error",
+  "targetId": "nemata-jp-p98-b2",
+  "sourceEvidence": "「他の面子手と両方狙える場合の選択が難しい」。",
+  "description": "候选把能够同时兼顾两种路线的情形，改成七对子与同时瞄准其他面子手之间的选择。",
+  "suggestedRepair": "将该完整段落改为：“七对子是麻将基本和牌形‘四面子一雀头’的例外。因此，在七对子与面子手两者都能兼顾时，往往难以选择。”"
+ },
+ {
+  "severity": "error",
+  "targetId": "nemata-jp-p98-b16",
+  "sourceEvidence": "「ただ他の役の可能性を否定するだけの決め打ちは徒に和了率を下げるだけ」。",
+  "description": "“为了追求其他役”是候选添加的动机，原文批评的是仅仅排除其他役可能性的定路线。",
+  "suggestedRepair": "改为：“不过，仅仅排除其他役可能性的定路线，只会徒然降低和牌率。”并接回本段原有后续论证。"
+ },
+ {
+  "severity": "error",
+  "targetId": "nemata-jp-p98-b20",
+  "sourceEvidence": "b20—b23：「喰い仕掛けが利く」「ほぼ何でも仕掛けていく」「鳴ける牌が出れば鳴く」「鳴ける牌が何も出ないうちに」。",
+  "description": "整段将副露、鸣牌缩窄成吃牌，并把实际采取副露的路线改成能吃牌的牌形。",
+  "suggestedRepair": "完整恢复为：“另一方面，决定走面子手路线，是在面子候选已经足够，且有役牌、断幺九等适合副露的役种，几乎凡能副露的牌都会副露，而以面子手为目标时拆对子更有利的情况。由于能鸣的牌出现就会鸣，失去七对子可能性造成损失的，只会是在任何可鸣牌出现之前，若走七对子本来已经能够听牌的情况，因此极少发生。”"
+ },
+ {
+  "severity": "error",
+  "targetId": "nemata-jp-p98-r1",
+  "sourceEvidence": "高清原图依次为114m、3577p、1135589s；箭头后为8s、9s。",
+  "description": "候选漏牌、错认牌种，并错抄舍牌；以暂记未知的方式未能准确承接可见牌面。",
+  "suggestedRepair": "转录为“手牌：114m3577p1135589s；→打8s、9s。”删除将1s暂记为字牌及舍牌不清的说明。"
+ },
+ {
+  "severity": "error",
+  "targetId": "nemata-jp-p98-r2",
+  "sourceEvidence": "b13中「一応３４５の可能性を残して」之后的行内牌是8s、9s，随后为「落とし」。",
+  "description": "候选将8s、9s记成1z、6s，并将明确的拆牌关系标为未知。",
+  "suggestedRepair": "r2改记“拆8s、9s”；b12—b13的完整段落中明确写出“暂且保留345的可能性，拆掉8s、9s”。"
+ },
+ {
+  "severity": "error",
+  "targetId": "nemata-jp-p98-r3",
+  "sourceEvidence": "高清原图两张筒子均为8p，最后三张为3s、6s、6s。",
+  "description": "候选的667p、135s与原图不符。",
+  "suggestedRepair": "改为“手牌：234457889m88p366s；→打8m”。"
+ },
+ {
+  "severity": "error",
+  "targetId": "nemata-jp-p98-r4",
+  "sourceEvidence": "高清原图末五张依次为3s、4s、6s、6s、7s。",
+  "description": "候选把索子错抄为12345s。",
+  "suggestedRepair": "改为“手牌：22577m4455p34667s；→打5m”。"
+ },
+ {
+  "severity": "error",
+  "targetId": "nemata-jp-p98-r5",
+  "sourceEvidence": "b29实际为「……高いが、6m受けの為に七対子１シャンテンを崩すほどではない」。",
+  "description": "行内6m误抄成5m，译文还将这个具体进张条件泛化掉。",
+  "suggestedRepair": "r5改为6m；b29完整译为“虽然还有断幺九，发展成面子手的可能性较高，但还不至于为了6m的进张而破坏七对子一向听。”"
+ },
+ {
+  "severity": "error",
+  "targetId": "nemata-jp-p98-r6",
+  "sourceEvidence": "原句按视觉顺序为「577m が 677m ならシャンテン戻しの打4pか」。",
+  "description": "第二组应为677m，且两组并非无关系的牌组。",
+  "suggestedRepair": "转录明确写出“577m改为677m时，考虑退向听打4p”，删除分隔关系不清的说明。"
+ },
+ {
+  "severity": "error",
+  "targetId": "nemata-jp-p98-b30",
+  "sourceEvidence": "「シャンテン戻しの打……か」，并有行内577m、677m、4p。",
+  "description": "候选遗漏具体替换条件，并将向听数倒退误写成“退回一向听”；原文没有该数值。",
+  "suggestedRepair": "完整译为：“若577m改为677m，或许可考虑退向听打4p。”"
+ },
+ {
+  "severity": "error",
+  "targetId": "nemata-jp-p98-r7",
+  "sourceEvidence": "高清原图依次为335m、7899p、1335579s；箭头后为1s。",
+  "description": "候选错抄筒子、索子，并把幺鸡误认成字牌。",
+  "suggestedRepair": "改为“手牌：335m7899p1335579s；→打1s”。删除字牌暂记说明。"
+ },
+ {
+  "severity": "error",
+  "targetId": "flowCheck",
+  "sourceEvidence": "原页四处“→打”位于各自手牌与舍牌之间；8s、9s嵌在b13中，6m嵌在b29中，577m、677m、4p共同组成b30。",
+  "description": "候选将已含打牌关系的figure之后再放孤立“→打”；行内牌又拆为泛称图示的段落和独立figure，未完整恢复句内条件关系。",
+  "suggestedRepair": "每个主牌例只保留一次与其舍牌绑定的箭头。将8s、9s并入b13，将6m并入b29，将577m改为677m及打4p并入b30，或在紧邻对应图例中完整明确这些句义。保持末尾r7留在本页，不补入下一页说明。"
+ }
+]
+SUMMARY: 已比较完整页图、33个文字块、7个候选图例及13个图片块。全部教学图片均有figure承接，但7个图例均存在转录错误；另有译义、条件及阅读衔接问题，须退回修正。
+

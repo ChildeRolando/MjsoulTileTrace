@@ -1,0 +1,72 @@
+===== p260 needs-repair
+[
+ {
+  "severity": "error",
+  "targetId": "nemata-jp-p260-r5",
+  "sourceEvidence": "b46及局部原图显示7s，位于「のくっつきよりは」之前。",
+  "description": "牌图及正文引用误写为9s，改变了保留役牌宝牌时的比较对象。",
+  "suggestedRepair": "将r5的transcription、caption及b8—b10合并段落中的对应句内引用统一改为7s。"
+ },
+ {
+  "severity": "error",
+  "targetId": "nemata-jp-p260-r21",
+  "sourceEvidence": "问题15原手牌从左至右为455567m 6p 2334557s。",
+  "description": "候选将索子中的4s及两张5s误录为6s及两张8s。",
+  "suggestedRepair": "将r21及正文手牌统一改为455567m 6p 2334557s，保留原始14张排列。"
+ },
+ {
+  "severity": "error",
+  "targetId": "nemata-jp-p260-r26",
+  "sourceEvidence": "b68原图四张弃牌候选依次为2s、3s、5s、7s。",
+  "description": "末张7s误录为9s。",
+  "suggestedRepair": "将图例及b34—b35合并段落的候选牌改为2357s。"
+ },
+ {
+  "severity": "error",
+  "targetId": "nemata-jp-p260-r28",
+  "sourceEvidence": "b70为接在「B型が」之后的7s牌图。",
+  "description": "B型血对应弃牌误写为9s。",
+  "suggestedRepair": "将r28及正文B型血对应引用统一改为7s。"
+ },
+ {
+  "severity": "error",
+  "targetId": "nemata-jp-p260-r33",
+  "sourceEvidence": "b75上行右端为334s，b76下一行左端为557s；两部分连续接在「場合も」与「のリャンカンが残り」之间。",
+  "description": "候选既错录为336s／889s，又将同一跨行牌形错误解释为两个独立牌例。",
+  "suggestedRepair": "将r33转录和caption改为连续牌形334557s，说明仅因原排版换行分成两段；正文改为留下334557s的两嵌形，不使用分隔两个例子的斜线。"
+ }
+]
+summary: 已比较完整页、40个文字块、33个图例及36个图片块。需修正5个图例中的牌码，并恢复末段跨行牌形的连续关系；其余正文论证和判断基本忠实。
+===== p261 needs-repair
+[
+ {
+  "severity": "error",
+  "targetId": "nemata-jp-p261-b4",
+  "sourceEvidence": "原文：“三色は……ピンポイントに［5p］･［7p］を引かなければ成立しない”。本页摸5p后的示例牌形也明确显示筒子为56p。",
+  "description": "候选写成“必须恰好摸入5p或7p”，把做成567三色同顺需要补齐5p和7p的共同条件改成任选其一，削弱了作者说明三色相当不确定的论据。",
+  "suggestedRepair": "将r8与r9之间的“或”改为“和”，表述为“必须恰好摸入5p和7p”，保留两张句内牌图及后续判断。"
+ }
+]
+summary: 已完整比较整页、37个文字块、51个图例及56个图片块。发现1处正文条件误译：5p与7p之间应为“和”，不是“或”；其余内容及牌图转录忠实。
+===== p262 needs-repair
+[
+ {
+  "severity": "error",
+  "targetId": "nemata-jp-p262-b17",
+  "sourceEvidence": "原文为“［3s］引きで三面”，没有写听牌；本题手牌也并非摸入3s即可整手听牌。",
+  "description": "候选“摸入3s可形成三面听”把局部三面形的发展写成整手三面听，改变了手牌进展状态。",
+  "suggestedRepair": "将“可形成三面听”改为“可形成三面形”，保留其他摸牌发展与孤立牌评价。"
+ }
+]
+summary: 已比较完整页图、25个文字块、23个图例及24个图片块。牌图转录与覆盖完整；1处将“三面形”译作“三面听”的表述需要修正。
+===== p309 needs-repair
+[
+ {
+  "severity": "error",
+  "targetId": "nemata-jp-p309-r13",
+  "sourceEvidence": "完整页及r13高清图中，第11张为中央竹节红色、外围竹节深色的普通5s；规则处r2所示赤五索则全部为红色。",
+  "description": "第二例将普通五索误认成赤五索，导致图例及正文手牌引用多出一张赤牌。",
+  "suggestedRepair": "将r13转录、caption及正文内联引用中的224088s统一改为224588s；逐张列表中的0s改为5s，删除“0s为赤五索”，明确仅0p为赤五。完整手牌改为677m 5067p 224588s。"
+ }
+]
+summary: 已完整比较整页、38个文字块、14个候选图例及28个图片块。发现一处牌面误认：第二例普通5s被写成0s，须同步修正图例与正文引用；其余内容及阅读顺序忠实。
