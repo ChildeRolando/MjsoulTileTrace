@@ -1,3 +1,4 @@
+import { Buffer } from "node:buffer";
 import { fileURLToPath } from "node:url";
 import { resolve } from "node:path";
 import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
@@ -9,9 +10,11 @@ import {
   createArenaMcpRunnerTool,
   createArenaRagRunnerTool,
   runBlindCoachCase,
+  type ArenaRunnerApplicabilityGate,
   type ArenaRunnerTool,
   type ArenaRunEvent,
 } from "../src/blind-discard-arena-runner.js";
+import { createArenaRagApplicabilityGate } from "../src/blind-discard-arena-rag-applicability.js";
 import { ArenaProviderRequestSchema, type ArenaProviderMessage, type ArenaProviderRequest, type ArenaToolCallProvider } from "../src/blind-discard-arena-provider.js";
 import { createArenaRagRetriever } from "../src/blind-discard-arena-rag.js";
 import { arenaFixtureCanaries, makeArenaMcpCase } from "./fixtures/arena-mcp-case.js";
@@ -816,4 +819,262 @@ it("passes an 8192 token budget through the runner and provider contract without
     } },
   });
   expect(result.status).toBe("completed");
+});
+
+describe("Blind Discard Arena runner applicability gate", () => {
+  const gatePassages = [
+    {
+      id: "retained", sourceId: "doc-a", sourceTitle: "复合牌形摘要",
+      documentLocation: "Fixture / A", localSourcePath: "test/fixtures/a", attributedReferences: [],
+      rightsBasis: "Synthetic test-only content.", topics: ["tile-efficiency" as const],
+      applicableWhen: ["general-discard-choice" as const],
+      content: "复合牌形：共享牌张不应被当作互不相关的两块。",
+    },
+    {
+      id: "dropped", sourceId: "doc-b", sourceTitle: "复合牌形摘要二",
+      documentLocation: "Fixture / B", localSourcePath: "test/fixtures/b", attributedReferences: [],
+      rightsBasis: "Synthetic test-only content.", topics: ["tile-efficiency" as const],
+      applicableWhen: ["general-discard-choice" as const],
+      content: "复合牌形：副露后的牌形价值需要重新评估。",
+    },
+  ];
+  const corpus = () => ({ corpusVersion: "runner-gate-test/v1", passages: gatePassages });
+  const query = "复合牌形 共享牌张";
+
+  function passageRef(aliases: ReturnType<typeof makeArenaMcpCase>["aliases"], sourceId: string, id: string) {
+    return aliases.reference(`blind-discard-arena-rag/v1\u0000${sourceId}\u0000${id}`);
+  }
+
+  function selectorProvider(input: { dropSecond: boolean }): ArenaToolCallProvider {
+    return {
+      descriptor: () => ({ providerId: "selector-test", model: "selector-model", protocolVersion: "arena-function-call/v1" }),
+      async request(request) {
+        const userMessage = request.messages[1];
+        if (userMessage?.role !== "user") throw new Error("gate_user_message_missing");
+        const payload = JSON.parse(userMessage.content.slice("Applicability input JSON:\n".length)) as {
+          caseRef: string;
+          retrievalDigest: string;
+          facts: { visibleState: { self: { meldRefs: unknown } } };
+          passages: { sourceRef: string }[];
+        };
+        const verdicts = payload.passages.map((passage, index) => index === 1 && input.dropSecond
+          ? {
+            sourceRef: passage.sourceRef, verdict: "irrelevant",
+            reason: "该片段讲的是副露后的牌形价值，与当前门清决策语境不符。",
+            basis: "context-mismatch",
+            premises: [{ kind: "fact", path: "visibleState.self.meldRefs", observedValue: payload.facts.visibleState.self.meldRefs }],
+          }
+          : {
+            sourceRef: passage.sourceRef, verdict: "relevant",
+            reason: "该片段讲的正是当前要比较的复合牌形维度。", premises: [],
+          });
+        const args = JSON.stringify({
+          schemaVersion: "blind-discard-arena-rag-applicability-verdicts/v1",
+          caseRef: payload.caseRef,
+          retrievalDigest: payload.retrievalDigest,
+          verdicts,
+        });
+        return {
+          status: "ready" as const,
+          call: { name: "submit_applicability_verdicts", arguments: args },
+          outputBytes: Buffer.byteLength(args, "utf8"),
+          usage: { inputTokens: 50, outputTokens: 10, totalTokens: 60 },
+        };
+      },
+    };
+  }
+
+  function citingProvider(input: {
+    caseRef: string;
+    actionRefs: readonly ActionRef[];
+    refs: readonly string[];
+    citeDropped: boolean;
+  }): ArenaToolCallProvider {
+    let turn = 0;
+    return {
+      descriptor: () => ({ providerId: "test-provider", model: "gate-loop-test", protocolVersion: "arena-function-call/v1" }),
+      async request(request) {
+        turn += 1;
+        if (turn === 1) return toolCall("search_knowledge", { query, limit: 2 });
+        const toolMessages = request.messages.filter((message) => message.role === "tool");
+        const lastMessage = toolMessages[toolMessages.length - 1];
+        const last = JSON.parse(lastMessage?.role === "tool" ? lastMessage.content : "{}") as {
+          data: { sourceRefs: string[] };
+        };
+        const retained = last.data.sourceRefs;
+        const cite = input.citeDropped
+          ? input.refs.find((ref) => !retained.includes(ref))
+          : retained[0];
+        expect(cite).toBeDefined();
+        return toolCall("submit_decision", {
+          caseRef: input.caseRef,
+          actionRef: input.actionRefs[0],
+          rationale: "该选择依据检索到的复合牌形资料与可见事实。",
+          evidenceRefs: [],
+          sourceRefs: [cite],
+          mainAlternative: { actionRef: input.actionRefs[1], reasonNotChosen: "该候选损失了资料描述的连接形。" },
+          uncertainty: "资料只覆盖牌效维度。",
+        });
+      },
+    };
+  }
+
+  function ragTool(input: {
+    testCase: ReturnType<typeof makeArenaMcpCase>;
+    gate?: ArenaRunnerApplicabilityGate;
+  }): ArenaRunnerTool {
+    const retriever = createArenaRagRetriever({
+      mode: "local",
+      caseRef: input.testCase.observation.caseRef,
+      aliases: input.testCase.aliases,
+      loadCorpus: async () => corpus(),
+    });
+    return createArenaRagRunnerTool({
+      retriever,
+      caseRef: input.testCase.observation.caseRef,
+      ...(input.gate === undefined ? {} : { applicabilityGate: input.gate }),
+    });
+  }
+
+  it("hands only retained passages to the model and records the reflection audit trail", async () => {
+    const testCase = makeArenaMcpCase();
+    const refs = [passageRef(testCase.aliases, "doc-a", "retained"), passageRef(testCase.aliases, "doc-b", "dropped")];
+    const gate = createArenaRagApplicabilityGate({
+      provider: selectorProvider({ dropSecond: true }),
+      caseRef: testCase.observation.caseRef,
+    });
+    const result = await runBlindCoachCase({
+      observation: testCase.observation,
+      grading: { binding: testCase.authorizedCase.binding, reference: { status: "unavailable", reason: "mortal_unavailable" } },
+      provider: citingProvider({
+        caseRef: testCase.observation.caseRef,
+        actionRefs: testCase.observation.candidates.map((candidate) => candidate.actionRef),
+        refs,
+        citeDropped: true,
+      }),
+      tools: [ragTool({ testCase, gate })],
+    });
+
+    expect(result.status).toBe("invalid_submission");
+    expect(result.events.some((event) => event.type === "submission_rejected" && event.reason === "reference_not_observed")).toBe(true);
+
+    const toolResult = result.events.find((event) => event.type === "tool_result" && event.toolName === "search_knowledge");
+    if (toolResult?.type !== "tool_result") throw new Error("missing_tool_result");
+    expect(toolResult.reflection).toMatchObject({
+      gateId: "blind-discard-arena-rag-applicability",
+      gateVersion: "applicability-v1",
+      status: "applied",
+      failureCode: null,
+      candidateCount: 2,
+      retainedCount: 1,
+      droppedCount: 1,
+      usage: { inputTokens: 50, outputTokens: 10, totalTokens: 60 },
+    });
+    expect(toolResult.reflection?.receiptDigest).toMatch(/^[0-9a-f]{64}$/);
+    expect(JSON.stringify(toolResult.result)).not.toContain(refs[1]!);
+
+    const started = result.events.find((event) => event.type === "run_started");
+    if (started?.type !== "run_started") throw new Error("missing_run_started");
+    expect(started.applicability).toMatchObject({
+      gateVersion: "applicability-v1",
+      promptVersion: "arena-rag-applicability-method/v1",
+      selectorProviderId: "selector-test",
+      selectorModel: "selector-model",
+    });
+    expect(result.applicability).toMatchObject({
+      callCount: 1, appliedCount: 1, degradedCount: 0, failedCount: 0, skippedCount: 0,
+      retainedPassageCount: 1, droppedPassageCount: 1,
+      usage: { status: "reported" },
+    });
+  });
+
+  it("keeps every passage and cannot claim success when reflection degrades", async () => {
+    const testCase = makeArenaMcpCase();
+    const refs = [passageRef(testCase.aliases, "doc-a", "retained"), passageRef(testCase.aliases, "doc-b", "dropped")];
+    const gate = createArenaRagApplicabilityGate({
+      provider: {
+        descriptor: () => ({ providerId: "selector-test", model: "selector-model", protocolVersion: "arena-function-call/v1" }),
+        async request() { return { status: "provider_error" as const }; },
+      },
+      caseRef: testCase.observation.caseRef,
+    });
+    const result = await runBlindCoachCase({
+      observation: testCase.observation,
+      grading: { binding: testCase.authorizedCase.binding, reference: { status: "unavailable", reason: "mortal_unavailable" } },
+      provider: citingProvider({
+        caseRef: testCase.observation.caseRef,
+        actionRefs: testCase.observation.candidates.map((candidate) => candidate.actionRef),
+        refs,
+        citeDropped: false,
+      }),
+      tools: [ragTool({ testCase, gate })],
+    });
+
+    expect(result.status).toBe("completed");
+    const toolResult = result.events.find((event) => event.type === "tool_result" && event.toolName === "search_knowledge");
+    if (toolResult?.type !== "tool_result") throw new Error("missing_tool_result");
+    expect(toolResult.reflection).toMatchObject({ status: "degraded", failureCode: "provider_error", retainedCount: 2, droppedCount: 0 });
+    expect(result.applicability).toMatchObject({
+      callCount: 1, appliedCount: 0, degradedCount: 1, usage: { status: "unknown" },
+    });
+    const submission = result.events.find((event) => event.type === "submission_locked");
+    if (submission?.type !== "submission_locked") throw new Error("missing_submission");
+    expect(submission.submission.sourceRefs).toEqual([refs[0]]);
+  });
+
+  it("leaves events and results untouched when no gate is configured", async () => {
+    const testCase = makeArenaMcpCase();
+    const refs = [passageRef(testCase.aliases, "doc-a", "retained"), passageRef(testCase.aliases, "doc-b", "dropped")];
+    const result = await runBlindCoachCase({
+      observation: testCase.observation,
+      grading: { binding: testCase.authorizedCase.binding, reference: { status: "unavailable", reason: "mortal_unavailable" } },
+      provider: citingProvider({
+        caseRef: testCase.observation.caseRef,
+        actionRefs: testCase.observation.candidates.map((candidate) => candidate.actionRef),
+        refs,
+        citeDropped: false,
+      }),
+      tools: [ragTool({ testCase })],
+    });
+
+    expect(result.status).toBe("completed");
+    expect(result.applicability).toBeUndefined();
+    const started = result.events.find((event) => event.type === "run_started");
+    if (started?.type !== "run_started") throw new Error("missing_run_started");
+    expect(started.applicability).toBeUndefined();
+    for (const event of result.events) {
+      if (event.type === "tool_result") expect(event.reflection).toBeUndefined();
+    }
+  });
+
+  it("records an unsettled reflection as an orphan tool failure instead of success", async () => {
+    const testCase = makeArenaMcpCase();
+    const gate: ArenaRunnerApplicabilityGate = {
+      descriptor: {
+        gateId: "blind-discard-arena-rag-applicability",
+        gateVersion: "applicability-v1",
+        promptVersion: "arena-rag-applicability-method/v1",
+      },
+      apply: () => new Promise(() => undefined),
+    };
+    const result = await runBlindCoachCase({
+      observation: testCase.observation,
+      grading: { binding: testCase.authorizedCase.binding, reference: { status: "unavailable", reason: "mortal_unavailable" } },
+      provider: citingProvider({
+        caseRef: testCase.observation.caseRef,
+        actionRefs: testCase.observation.candidates.map((candidate) => candidate.actionRef),
+        refs: [passageRef(testCase.aliases, "doc-a", "retained"), passageRef(testCase.aliases, "doc-b", "dropped")],
+        citeDropped: false,
+      }),
+      limits: { maxRunElapsedMs: 150 },
+      tools: [ragTool({ testCase, gate })],
+    });
+
+    expect(result.status).toBe("tool_failure");
+    const toolResult = result.events.find((event) => event.type === "tool_result" && event.toolName === "search_knowledge");
+    if (toolResult?.type !== "tool_result") throw new Error("missing_tool_result");
+    expect(toolResult).toMatchObject({ status: "error", code: "orphan_call" });
+    expect(toolResult.reflection).toBeUndefined();
+    expect(result.applicability).toMatchObject({ callCount: 1, appliedCount: 0, usage: { status: "unknown" } });
+  });
 });

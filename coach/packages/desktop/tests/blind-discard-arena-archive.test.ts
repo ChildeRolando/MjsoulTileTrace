@@ -1,9 +1,10 @@
 import { describe, expect, it } from "vitest";
 import {
+  ARENA_RAG_APPLICABILITY_LIMITS_V1,
   canonicalActionRef,
   type ArenaCaseRef,
 } from "@riichi-coach/contracts";
-import { ARENA_RUN_LIMITS_V1 } from "../src/blind-discard-arena-runner.js";
+import { ARENA_RUN_LIMITS_V1, ArenaRunEventSchema } from "../src/blind-discard-arena-runner.js";
 import {
   arenaMortalTopTen, visibleArenaMortalDetails,
   ArenaArchiveEventSchema,
@@ -312,4 +313,110 @@ it("rejects overlapping or unbound holdout groups while accepting legacy manifes
   split.groups.acceptance = split.groups.development;
   expect(ArenaArchiveManifestSchema.safeParse(input).success).toBe(false);
   expect(ArenaArchiveManifestSchema.safeParse({ ...input, dataset: { ...input.dataset, split: { ...split, groups: undefined } } }).success).toBe(false);
+});
+
+it("keeps gate fields absent for archives recorded before applicability existed", () => {
+  const legacy = manifest();
+  expect(legacy.rag).not.toHaveProperty("applicability");
+  const summary = summarizeArenaArchive({ manifest: legacy, events: [scanEvent()] });
+  expect(summary).not.toHaveProperty("applicability");
+});
+
+it("aggregates reflection totals separately from the generator usage", () => {
+  const base = manifest();
+  const gated = ArenaArchiveManifestSchema.parse({
+    ...base,
+    rag: {
+      ...base.rag,
+      applicability: {
+        gateVersion: "applicability-v1",
+        promptVersion: "arena-rag-applicability-method/v1",
+        selectorProviderId: "codex-cli",
+        selectorModel: "gpt-6-luna",
+        limits: ARENA_RAG_APPLICABILITY_LIMITS_V1,
+      },
+    },
+  });
+  const gatedRun = {
+    ...result({ caseRef: caseRefs[0], status: "completed", ragHit: true }),
+    applicability: {
+      gateVersion: "applicability-v1",
+      promptVersion: "arena-rag-applicability-method/v1",
+      callCount: 2,
+      appliedCount: 1,
+      degradedCount: 1,
+      failedCount: 0,
+      skippedCount: 0,
+      retainedPassageCount: 3,
+      droppedPassageCount: 1,
+      usage: { status: "reported" as const },
+      elapsedMs: 90,
+    },
+  };
+  const caseRun = ArenaArchiveEventSchema.parse({
+    schemaVersion: "blind-discard-arena-archive-event/v1",
+    type: "case_run",
+    recordedAt: base.startedAt,
+    caseOrdinal: 0,
+    ragMode: "local",
+    result: gatedRun,
+  });
+
+  const summary = summarizeArenaArchive({ manifest: gated, events: [scanEvent(), caseRun] });
+
+  expect(summary.applicability).toEqual({
+    gateVersion: "applicability-v1",
+    promptVersion: "arena-rag-applicability-method/v1",
+    callCount: 2,
+    appliedCount: 1,
+    degradedCount: 1,
+    failedCount: 0,
+    skippedCount: 0,
+    retainedPassageCount: 3,
+    droppedPassageCount: 1,
+    usage: { status: "reported" },
+  });
+  // Generator usage keeps its own meaning; reflection usage is never merged into it.
+  expect(summary.tokenUsage).toEqual({ status: "reported", tokens: { inputTokens: 12, outputTokens: 4, totalTokens: 16 }, providerTurnCount: 2 });
+  expect(summary.evidence.ragHits).toBe(1);
+});
+
+it("accepts the optional reflection and run applicability fields and still fails closed on unknown keys", () => {
+  const reflection = {
+    gateId: "blind-discard-arena-rag-applicability",
+    gateVersion: "applicability-v1",
+    status: "applied" as const,
+    failureCode: null,
+    candidateCount: 2,
+    retainedCount: 1,
+    droppedCount: 1,
+    elapsedMs: 40,
+    usage: { inputTokens: 5, outputTokens: 2, totalTokens: 7 },
+    receiptDigest: "a".repeat(64),
+    receipt: null,
+  };
+  const toolResult = ArenaRunEventSchema.parse({
+    type: "tool_result", ordinal: 1, turn: 1, toolName: "search_knowledge", status: "ok", result: {}, reflection,
+  });
+  expect(toolResult.type === "tool_result" ? toolResult.reflection?.retainedCount : undefined).toBe(1);
+  expect(ArenaRunEventSchema.safeParse({ type: "tool_result", ordinal: 1, turn: 1, toolName: "search_knowledge",
+    status: "ok", result: {}, reflection: { ...reflection, unexpected: true } }).success).toBe(false);
+
+  const started = ArenaRunEventSchema.parse({
+    type: "run_started",
+    caseRef: caseRefs[0],
+    startedAt: "2026-10-15T00:00:00.000Z",
+    provider: { providerId: "codex-cli", model: "gpt-6-luna", protocolVersion: "arena-function-call/v1" },
+    promptVersion: "blind-discard-arena-method/v2",
+    limits: ARENA_RUN_LIMITS_V1,
+    toolNames: ["search_knowledge"],
+    applicability: {
+      gateVersion: "applicability-v1",
+      promptVersion: "arena-rag-applicability-method/v1",
+      selectorProviderId: "codex-cli",
+      selectorModel: "gpt-6-luna",
+      limits: ARENA_RAG_APPLICABILITY_LIMITS_V1,
+    },
+  });
+  expect(started.type === "run_started" ? started.applicability?.selectorModel : undefined).toBe("gpt-6-luna");
 });

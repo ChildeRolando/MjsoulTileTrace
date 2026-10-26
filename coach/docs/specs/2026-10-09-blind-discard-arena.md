@@ -6,6 +6,12 @@
 
 本规格只拥有 Blind Discard Arena 的新增契约。已有生产事实仍以代码、schema、测试及相应权威文档为准；canonical 回放与动作权威、Mortal runtime 身份、Coach production generation seam、依赖方向和 renderer 安全边界分别继续归属现有 owner。工单只引用本文件，不复制本文件内容。
 
+### 2026-10-27：检索后适用性过滤（独立规格）
+
+Arena `search_knowledge` 之后可选的 Self-RAG 式资料适用性过滤不属于本文件：其 selector 契约、
+预算、失败码、opt-in CLI 与归档字段由 [Self-RAG 式资料适用性过滤](2026-10-27-self-rag-applicability.md)
+拥有。本文件继续拥有 Arena 本体与 `ArenaRagRetriever` 检索契约；不开该开关时，行为与本节描述逐字节一致。
+
 ## 1. 目标与边界
 
 ### 2026-10-16：实验类型与公开场面展示
