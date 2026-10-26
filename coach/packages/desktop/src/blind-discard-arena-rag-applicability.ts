@@ -429,8 +429,6 @@ export function createArenaRagApplicabilityGate(input: {
         // The provider reports every abort as cancelled; keep this gate's own timer distinguishable.
         return degrade(code === "cancelled" && abortCause === "timeout" ? "timeout" : code, usage);
       }
-      if (outcome.call.name !== ARENA_RAG_APPLICABILITY_TOOL_NAME) return degrade("invalid_response");
-
       // Count the bytes a ready response actually produced before any budget
       // degradation: an over-cap token report must not hide them, or later
       // searches would keep spending past the run cap and apply their verdict.
@@ -447,6 +445,7 @@ export function createArenaRagApplicabilityGate(input: {
       if (argumentBytes > limits.maxOutputBytes || state.outputBytes > limits.maxOutputBytesPerRun) {
         return degrade("output_budget_exhausted", usage);
       }
+      if (outcome.call.name !== ARENA_RAG_APPLICABILITY_TOOL_NAME) return degrade("invalid_response", usage);
       const parsedArguments = parseJson(outcome.call.arguments);
       const verdictsParse = parsedArguments === null
         ? null

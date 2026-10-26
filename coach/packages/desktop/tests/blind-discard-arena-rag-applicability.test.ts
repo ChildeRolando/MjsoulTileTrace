@@ -814,6 +814,33 @@ describe("Arena RAG applicability gate", () => {
     expect(ArenaRagApplicabilityResultSchema.parse(byteOutcome.output).sourceRefs).toEqual([REF_1, REF_2, REF_3]);
   });
 
+  it("accounts for ready responses with an unexpected tool before rejecting them", async () => {
+    const observation = observationWith();
+    const result = ragResult({ caseRef: observation.caseRef });
+    const payload = verdictsPayload(result, result.sourceRefs.map(sourceRef => ({
+      sourceRef, verdict: "uncertain", reason: "缺少足够的可见适用前提。", premises: [],
+    })));
+    const argumentsJson = JSON.stringify(payload);
+    const provider = fakeProvider(() => ({
+      status: "ready", call: { name: "unexpected_tool", arguments: argumentsJson },
+      outputBytes: Buffer.byteLength(argumentsJson, "utf8"), usage: USAGE,
+    }));
+    const gate = createArenaRagApplicabilityGate({ provider, caseRef: observation.caseRef,
+      limits: { maxOutputBytesPerRun: 2 * Buffer.byteLength(argumentsJson, "utf8") } });
+    for (let i = 0; i < 2; i += 1) {
+      const rejected = await gate.apply({ output: result, observation, signal: new AbortController().signal });
+      expect(rejected.status).toBe("degraded");
+      expect(rejected.failureCode).toBe("invalid_response");
+      expect(rejected.usage).toEqual(USAGE);
+      expect(rejected.output.sourceRefs).toEqual(result.sourceRefs);
+    }
+    const exhausted = await gate.apply({ output: result, observation, signal: new AbortController().signal });
+    expect(exhausted.status).toBe("skipped");
+    expect(exhausted.failureCode).toBe("output_budget_exhausted");
+    expect(exhausted.output.sourceRefs).toEqual(result.sourceRefs);
+    expect(provider.requests).toHaveLength(2);
+  });
+
   it("rejects an oversized reflection request before calling the provider", async () => {
     const observation = observationWith();
     const result = ragResult({ caseRef: observation.caseRef });
