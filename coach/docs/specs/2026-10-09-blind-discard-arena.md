@@ -245,6 +245,8 @@ T1 已使用 fixture 的真实 record bytes、managed native libriichi 规则查
 
 每次运行仍须为 caseRef 生成新的 opaque alias；canonical decision order 与 candidate-set digest 仅用于 fixture 版本回归，不传给 Coach。T5 若更改 fixture、规则/native identity、checkpoint、runtime config 或 selector，必须提升 dataset/case-set version 并重新保存 receipt。以上为单牌局 smoke/dev 集，不构成 holdout acceptance。
 
+内置真实牌谱路径还固定一个精确 native 规则产物：`bin/blind-discard-arena.mjs` 的 `expectedRuleArtifactSha256` 只接受唯一完全匹配的本地 receipt，随后仍由 asset-runtime 校验 receipt/patch/wrapper/native 字节；generated bank 路径不受该 pin 约束。该 pin 与 `packages/mortal-runtime/native/coach-rule-config.patch` 是同一份规则身份：patch 变更后必须把 pin 刷新为用当前 patch 构建的真实 receipt 哈希，不得改写 receipt、patch、历史 golden 或旧归档去凑旧 pin，也不得退化为“自动挑选最新构建”或放宽任何身份校验。2026-10-27 由 `5ff7f712a45c7288f739af7c7e0613567b467ee4ade2c66c0988e18982cdefad`（patch `88e5a02108967a9d7e8adf851fa08349283d52d649f9eb4d4c45bf73967be9d4`）刷新为 `7a50e685591fb5c221b928588eb73b7c50812705f48ea734dd43aad4ec73a911`（patch `5293dc419b30719e592f1b7bc030b1a32961c74de4b375649aa741f10bd705f1`）；上表是当时的历史冻结 receipt，不随本次刷新改写。回归由 `scripts/arena-native-pin.test.mjs`（`COACH_QUESTION_LAB_NATIVE=1`）覆盖：当前 receipt 成功、旧 receipt 与错配 patch 仍被拒绝。
+
 holdout acceptance 至少使用另一个不同的完整 gameId；只能从仓库已有且获准的脱敏真实语料或经授权加入的新记录选择。先按 gameId 固定 dev/acceptance split，再从 accept game 按同一 label-blind 规则取最多 3 个合格 case。若仓库语料不够两个完整且有合格动作的独立牌局，必须报告缺少 holdout 样本，不得把同一牌局按 decision 切分或把模拟数据叫真实验收。case set 无合格项时，T5 必须报告空集及筛题原因。
 
 同一已验收代码 SHA 的实际 demo 至少留下以下可核结果：

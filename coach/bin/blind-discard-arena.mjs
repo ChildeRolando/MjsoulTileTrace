@@ -82,7 +82,7 @@ export function arenaDatasetSource(datasetId) {
 const packageRoot = join(coachRoot, "packages/mortal-runtime");
 const platformManifest = "mortal-582500.windows-x64.json";
 const expectedSourceRecordHash = "sha256:fe547cc2b42f0ea83230feaa0fbbdf9bab7281838a66f051cb7a8609687e1c33";
-const expectedRuleArtifactSha256 = "5ff7f712a45c7288f739af7c7e0613567b467ee4ade2c66c0988e18982cdefad";
+const expectedRuleArtifactSha256 = "7a50e685591fb5c221b928588eb73b7c50812705f48ea734dd43aad4ec73a911";
 const expectedRuntime = {
   runtimeRevision: "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
   checkpointRevision: "7386c9f5c751a3ea75efea99737cef5a5ef950f1",
