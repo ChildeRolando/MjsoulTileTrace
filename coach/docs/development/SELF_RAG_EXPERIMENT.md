@@ -1,7 +1,7 @@
 # Self-RAG 配对实验协议与结果
 
 日期：2026-10-27
-状态：**工具已实现并通过纯函数/夹具验证；正式 20 次模型评估未运行。**
+状态：**工具已实现并通过纯函数/夹具验证（含独立就绪审查的 3 个 P2 修复）；正式 20 次模型评估未运行。**
 
 本文件是该实验**真实结果**的 owner。契约与不变量见
 [冻结规格](../specs/2026-10-27-self-rag-applicability.md)（下称“规格”）；
@@ -18,6 +18,9 @@
 | 原始候选、预判校验、20 次顺序、attempts ledger、重复拒绝 | 已实现并有测试 |
 | 两臂请求除交付片段外逐字节一致；用量分列、逐字段校验且未知不补零 | 已实现并有测试 |
 | 指标计算、通道分解、限制声明、理由判读契约 | 已实现并有测试 |
+| pilot 与 evaluation 质量分离：质量、通道、正负结论与理由判读只读 8 局 evaluation | 已实现并有反例回归（仅 pilot 有剔除 / eval 全保留；pilot 重跑） |
+| 全部尝试成本（pilot + 所有失败 + prejudge + 理由判读）单列 | 已实现并有回归 |
+| 每次 prejudge 调用前 claim、返回/失败后立即落盘（含已知与未知用量） | 已实现并有回归（第 2 次失败、10 次全 useful 停止） |
 | 与工单 A 的真实门控联通 | **未验证**：A 的 `blind-discard-arena-rag-applicability` 尚未合入；harness 用夹具 gate 验证纯函数，`prepare`/`run` 在真实导入失败时以 `applicability_gate_unavailable` 停止 |
 | pilot（2 局）与 evaluation（8 局）真实运行 | **未运行** |
 | 真实质量、token、失败与耗时数字 | **未产生**；本文件不给出任何质量结论 |
@@ -42,15 +45,18 @@ node bin/selfrag-study.mjs report  --artifacts <dir> [--judge-reasons]
 | `research-subset.json` | 20 张研究卡的冻结转换结果（原出处、条件、例外、原文、转换片段、逐字段可见性与哈希） |
 | `exclusions.json` | 三个历史实验的已用牌局身份与来源文件哈希 |
 | `requests.json` / `candidates.json` | 冻结查询与两臂共用的原始候选片段 |
-| `observations/<case>.json` | 每个 case 的盲观察（含 per-case alias vault 结果；仅供 harness，不给判读者之外的人） |
+| `observations/<case>.json` | 每个 case 的盲观察（含 per-case alias vault 结果；仅供 harness 与理由判读的可见上下文投影） |
 | `prejudge/<case>.json` | 独立 AI 预判与 attestation（不是专家真值） |
+| `prejudge-attempts.jsonl` | 追加式 prejudge 调用账本：调用前写 claim，返回/失败后立刻写 settle（真实 usage、elapsed、失败码；未知留 `null`）。`freeze.json` 绑定其摘要 |
 | `schedule.json` | 预声明的 20 次运行顺序 |
 | `attempts.jsonl` | 追加式 attempt 账本（先 claim 后运行；失败/取消/中断不删除） |
 | `runs/<case>/<arm>/<attempt>.json` | 完整请求、原始响应、交付/剔除、gate 回执、用量、耗时、失败码 |
-| `report.json` / `report.md` | 两臂聚合、逐 case 配对、通道分解、用量、失败、限制声明 |
-| `reason-review.json` | `report --judge-reasons` 产生的语义理由独立判读（可选，缺失时报告 `not_run`） |
+| `report.json` / `report.md` | evaluation 两臂聚合与逐 case 配对、通道分解、pilot 链路、全部尝试成本、限制声明 |
+| `reason-review.json` | `report --judge-reasons` 产生的语义理由独立判读（可选；无 evaluation 剔除时为 `not_applicable`，未运行时报告 `not_run`） |
 
 `freeze.json` 最后写入；它的存在表示 prepare 完成。除 `selectorBudget` 外，freeze 不再被修改。
+prepare 失败、被拒绝或 `prejudge_no_irrelevant_instances` 停止时，`prejudge-attempts.jsonl` 已发生的调用仍保留，
+不因没有 `freeze.json` 而消失。
 
 ## 3. 冻结输入摘要
 
@@ -79,6 +85,10 @@ node bin/selfrag-study.mjs report  --artifacts <dir> [--judge-reasons]
 - 预判：独立提示词 `selfrag-study-prejudge/v1`、独立 provider 上下文、不看 selector 输出。
   每个候选片段给出 `useful / irrelevant / uncertain` 与理由；全部预判无 `irrelevant` 时
   `prejudge_no_irrelevant_instances`，两臂开跑前停止。
+  每次 prejudge 调用在发出前写入 `prejudge-attempts.jsonl` 的 claim 行，返回或抛错后立即写 settle 行，
+  记录状态、真实 usage、elapsed 与失败码。适配器把 provider 已报告的失败/无效输出用量一并带回；
+  未报告即 `null`（未知，不当 0）。`freeze.json` 的 `prejudge.attempts` 绑定该账本的摘要与计数，
+  `verify` 对账，事后增删或改写任何一行都会失败。
 
 ## 4. 执行身份与预算
 
@@ -93,12 +103,17 @@ selector 预算在 pilot 后、evaluation 前**一次性**冻结，规则固定�
 evaluation 全程只用该组合。参数字节由 harness 在 selector provider 边界实测（包装 provider 读取
 `ready` 响应的 `call.arguments`），不依赖门控额外导出字段。
 
-## 5. 两臂与指标
+## 5. 两臂、口径与指标
 
 - baseline：交付检索原始片段。
 - selfrag：交付门控保留片段；门控失败/缺失**不会**回退成 baseline，该 attempt 记为失败。
 - 两臂唯一差异是交付片段：同一观测、同一候选、同一冻结查询、同一生成提示词
   （`selfrag-study-generator/v1`）与同一工具 schema；测试断言请求信封逐字节相同。
+- **阶段分离（规格 §9.3）**：pilot 的归属只取 `freeze.sampling.selected` 里预声明的 phase，不信任 run 自带标签。
+  质量、通道分解、正负结论与理由判读只读 8 局 evaluation；只过滤 `caseIds` 不够，通道扫描也必须同样限定，
+  否则 pilot-only 的剔除会被写成实验性语义过滤。pilot 只按“链路状态 + 用量 + 通道观察”单列，标 `qualityComparable: false`。
+- **全部尝试成本**：另出一节汇总 pilot + evaluation + 所有失败/取消/中断的 attempt，以及 prejudge 调用
+  （含失败与未结算 claim）与独立理由判读调用。该节显式标为不可用于质量比较。
 - 报告同时给出：交付中 prejudge=irrelevant 片段数、drop precision、useful drop rate、
   uncertain 保留率、引用越界与引用 irrelevant 次数、过滤通道分解（三种语义 basis、机械特例、
   逐条降级、整批 degraded/failed）、语义理由成立性（独立 AI 判读）、生成器/selector/合计用量
@@ -108,14 +123,36 @@ evaluation 全程只用该组合。参数字节由 harness 在 selector provider
   （因此不会出现 NaN 或被序列化成 `null` 的假总量）。`cachedInputTokens` 仅在合法时保留，且不参与合计。
 - 失败尝试的成本同样只合计“已尝试的调用”：生成器已被调用但未返回用量时（如 `provider_error`），该部分按 `unknown`
   参与合计，selector 的已知值保留在 `reportedPartial`；只要有一次调用未报告用量，合计状态就不得因其余部分已报告而
-  变回完整总量。
+  变回完整总量。prejudge 的失败调用同理：有已知字段就记 partial，完全未知就记 unknown。
+- **语义理由独立判读**：对 evaluation 中每个**实际** `effectiveVerdict=irrelevant` 的片段，用冻结 `sourceRef`
+  绑定 `candidates.json` 中的原完整片段（`content` 已含正文/适用条件/例外，另带 `sourceTitle`、`documentLocation`、
+  `applicableWhen`）与该 case 的冻结盲观察（只投影 `decision`、`visibleState`、`candidates`，不含 tools、隐藏标签、
+  他家暗手或未来信息）。缺失绑定或跨 case 绑定直接失败，不猜。selector 的最终理由、`basis`、`premises` 只作为
+  **不可信声明** 传入；不传 selector 中间过程或回执其余字段。每个条目一次独立新上下文、固定提示词，
+  调用成本单独统计；判读是 AI 判读，不是专家真值。evaluation 确实没有剔除时写 `not_applicable`，不伪造判读结果。
 - 结论规则：semantic 剔除为 0（全部剔除来自机械特例或无法归类）或多数 selfrag 批次降级/失败时，
   结论明确写“本批未能检验语义过滤效果”；不把 token 下降单独当成功；10 局不声称统计显著性。
+  pilot 的剔除与降级不参与该判断。
 
 ## 6. 真实结果
 
 **未运行。** 尚无 pilot、evaluation 或真实模型调用；本文件没有质量、token、失败或耗时数字。
-原因：工单 A 的 selector/gate 实现尚未合入，且正式实验属于父票集成阶段（规格 §9.0/计划 §4）。
+原因：工单 A 的 selector/gate 实现尚未合入（COAC-266 的 PR 未合并），且正式实验的前置门要求
+“A 已正常合并 + 干净精确 HEAD”。本文件不把任何夹具或单元测试数字写成实验结果。
+
+独立就绪审查（`experiment-readiness-review.json`，审查提交 `c5b7bf0`）指出的 3 个 P2 已在本 harness 修复，
+不改变冻结研究协议：pilot 污染质量口径、理由判读缺少原片段/盲观察、prepare 失败丢失已发生成本。
+修复项各有先红后绿回归：
+
+- `pilot drops never enter evaluation quality, channels or the conclusion`、
+  `a rerun pilot attempt is kept in the operational totals and never moves evaluation`、
+  `phase membership comes from the frozen sampling, never from the run label alone`
+- `reason audit entries bind the frozen passage and blind observation, not selector internals`、
+  `the reason audit counts its own cost and says not_applicable when evaluation dropped nothing`
+- `each prejudge call is claimed before it runs and settled immediately on return or failure`、
+  `the all-useful stop keeps all ten incurred prejudge costs`、
+  `a failed prejudge call keeps the usage the adapter managed to observe`、
+  `freeze binds the prejudge attempt ledger and verify refuses ledger drift`
 
 真实运行完成后按以下顺序补齐，不删失败、不改样本：
 
@@ -127,6 +164,7 @@ evaluation 全程只用该组合。参数字节由 harness 在 selector provider
 ## 7. 明确不做
 
 - 不在评估集上调提示词、阈值、语料、查询或预算。
-- 不把 AI 预判或理由判读写成专家真值。
+- 不把 pilot 结果或 pilot-only 剔除写进质量、通道或结论。
+- 不把 AI 预判或理由判读写成专家真值；不替没有剔除的批次伪造理由判读结果。
 - 不把研究语料（40-card v2 的任何部分）发布为产品语料，也不复制进仓库。
 - 不修改 Arena 门控、contracts、desktop/src、Arena CLI 或任何 `package.json`。

@@ -145,6 +145,9 @@ npm run test:package-import
    并用 `createArenaRagRetriever` + 研究 corpus 写出 `candidates.json`（两臂共用同一批原始候选）。
 6. 跑 prejudge（独立提示词/上下文，不看 selector 输出）写 `prejudge/*.json`；若全部预判没有任何
    `irrelevant` → 报告 `prejudge_no_irrelevant_instances` 并在两臂运行前停止。
+   每次调用前在 `prejudge-attempts.jsonl` 写 claim，返回/抛错后立即写 settle（状态、真实 usage、elapsed、失败码；
+   未报告为 `null` 而非 0），因此失败、校验拒绝与全 useful 停止都不会丢失已发生的成本；`freeze.json`
+   （只在全程成功后写入）绑定该账本摘要，`verify` 对账。
 7. 写 `freeze.json`：研究知识文件哈希与子集 digest、排除/场景层/抽样/查询/预判摘要、代码 SHA，
    以及规格 §9.0 的全部执行身份：`codex-cli 0.162.1`、可执行文件 SHA-256 与字节数、`gpt-6-luna`、`high`、
    各提示词版本、语料版本、`selectorBudget` ladder。
@@ -170,8 +173,13 @@ npm run test:package-import
 
 - 产出 `report.json` + `report.md`：逐 case 表、两臂聚合、配对差、token 分解（生成器/selector/合计/未知）、
   失败、真实耗时、drop precision、useful drop rate、uncertain 保留、citation error。
+- 口径分离（规格 §9.3）：pilot/evaluation 归属只取冻结抽样；`cases`、`arms`、`channels`、`conclusion`、
+  `reasonReview` 全部只读 evaluation。pilot 单列链路状态与用量，全部尝试成本（pilot + 失败 + prejudge +
+  理由判读）另节汇总，两节都标 `qualityComparable: false`。
 - 过滤通道分解：机械特例剔除数、三种语义 `basis` 剔除数、`downgradedVerdictCount`、整批 `degraded` 次数。
-- 语义理由独立判读：对全部 `irrelevant` 报告理由成立/不成立/无法判断的计数（判读提示词跑前冻结）。
+- 语义理由独立判读：对 evaluation 每个实际 `irrelevant`，按冻结 `sourceRef` 绑定原完整片段与冻结盲观察，
+  拒绝缺失/跨 case 绑定；selector 理由只作不可信声明，不传中间过程；每条目一次独立新上下文、固定提示词。
+  报告成立/不成立/无法判断计数与判读成本；无 evaluation 剔除时写 `not_applicable`。
 - 固定声明：AI prejudge 不是专家真值；10 局不声称显著性；质量无改善按实报告；
   剔除全部来自机械特例或 selector 大面积降级时，写“本批未能检验语义过滤效果”。
 
