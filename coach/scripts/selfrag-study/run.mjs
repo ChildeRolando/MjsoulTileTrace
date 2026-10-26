@@ -141,6 +141,9 @@ export function armsShareEnvelope(baselineRequest, selfragRequest) {
   return canonicalJson(requestEnvelope(baselineRequest)) === canonicalJson(requestEnvelope(selfragRequest));
 }
 
+/** Usage of a call that was attempted but never reported a count. */
+const UNKNOWN_USAGE = Object.freeze({ status: "unknown" });
+
 /** The token fields the report sums; every one must be a non-negative integer. */
 const USAGE_TOKEN_FIELDS = Object.freeze(["inputTokens", "outputTokens"]);
 
@@ -332,7 +335,11 @@ export async function executeStudyRun(input) {
     cancelled = outcome.cancelled;
   } catch (error) {
     return failedRecord({ input, observation, candidateResult, request, delivered, gateRecord, startedAt, started, clock,
-      failureCode: "provider_error", detail: error?.message, usageParts: gateRecord === null ? [] : [reportedUsage(gateRecord.usage)] });
+      failureCode: "provider_error", detail: error?.message,
+      // The generator call was dispatched but reported no usage, so the attempt
+      // cost is unknown: keep its unknown part in the total instead of letting a
+      // known selector subtotal pass as the complete combined usage.
+      usageParts: gateRecord === null ? [UNKNOWN_USAGE] : [reportedUsage(gateRecord.usage), UNKNOWN_USAGE] });
   }
 
   const finishedAt = new Date(clock()).toISOString();

@@ -251,6 +251,28 @@ test('provider failures are recorded once, never retried, and unknown usage stay
   assert.equal(cancelled.failureCode, 'cancelled');
 });
 
+test('a generator that throws keeps the combined usage unknown while the selector amounts stay partial', async () => {
+  const observation = runObservation();
+  const candidates = candidateResult(observation);
+  const provider = fakeProvider(() => { throw new Error('socket closed after dispatch'); });
+  const record = await executeStudyRun(baseRun({
+    arm: 'selfrag', generatorProvider: provider,
+    gate: { apply: async () => ({ output: candidates, receipt: null, status: 'skipped', usage: { inputTokens: 50, outputTokens: 10 }, elapsedMs: 1 }) },
+  }));
+  assert.equal(record.status, 'failed');
+  assert.equal(record.failureCode, 'provider_error');
+  // The generator was tried once with no reported usage: the attempt cost stays
+  // unknown instead of collapsing into the selector subtotal.
+  assert.equal(provider.calls.length, 1);
+  assert.deepEqual(record.usage.generator, { status: 'unknown' });
+  assert.deepEqual(record.usage.selector, { status: 'reported', tokens: { inputTokens: 50, outputTokens: 10 } });
+  assert.deepEqual(record.usage.combined,
+    { status: 'unknown', reportedPartial: { inputTokens: 50, outputTokens: 10 }, missing: ['inputTokens', 'outputTokens'] });
+  // Nothing serializes a complete total for a run that never reported one.
+  const stored = JSON.parse(JSON.stringify(record.usage));
+  assert.equal('tokens' in stored.combined, false);
+});
+
 test('usage is validated field by field and never summed from missing or illegal counts', async () => {
   const observation = runObservation();
   const cases = [
