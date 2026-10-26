@@ -1,0 +1,173 @@
+{
+  "schema": "coach-native-inline-field-corrections-approval/1",
+  "status": "accepted-exact-native-field-corrections-only",
+  "approvedBy": "root",
+  "approvedAt": "2026-10-27T00:00:00.000Z",
+  "approvalBasis": {
+    "commentId": "01a17a58-0179-7f34-9c66-812db9413a92",
+    "scope": "Only audit-located, source-image-backed field changes on nemata-jp page 330; original production raw, parent candidate and failed audit retained. No new production call."
+  },
+  "jobs": [
+    {
+      "schema": "coach-native-inline-field-correction-job/1",
+      "sourceId": "nemata-jp",
+      "page": 330,
+      "candidatePath": "production/sol-high-field-repair17-20261027-p330/candidates/nemata-jp/page-0330.json",
+      "candidateSha256": "7eaa03dd9e5a276efe07e42d3b84d068364f4f71f355dfcacc9f64e9eb7f199f",
+      "parentPath": "production/sol-high-fallback-inline-20261026/candidates/nemata-jp/page-0330.json",
+      "parentSha256": "859d1d577a7b7406ac3594b3beb9a30415d2acf3c588c09e8a427d1b59d0de8b",
+      "originalAuditPath": "audit/pages/nemata-jp/page-0330.859d1d577a7b7406ac3594b3beb9a30415d2acf3c588c09e8a427d1b59d0de8b.6baa4a7e1404.json",
+      "originalAuditSha256": "00d10cb3cab42775c48e5d871c5a98128f5bb022b550189b7c306b868e626d33",
+      "originalProductionRaw": {
+        "path": "production/sol-high-fallback-inline-20261026/raw-calls/335549a9-3318-4597-b5a8-57bbce1a9091.json",
+        "sha256": "2d713b2e123d4ba2e6da431aa066469378d4163d91d6d34c537ee32de0de4128"
+      },
+      "sourcePagePath": "nemata-jp/pages/330.json",
+      "sourcePageDataSha256": "cff2992d62c7bc51fd7d9c29413d05578854a06f6d9211d6dc2d275f891fcc6a",
+      "proofPath": "audit/source-corrections/proofs/native-inline-p330.7eaa03dd9e5a276efe07e42d3b84d068364f4f71f355dfcacc9f64e9eb7f199f.json",
+      "proofSha256": "6a45b96e90aedb9f69a19e26d5a60d32ff51c3cec0fd9c3d9e5596ef7b0605e9",
+      "changes": [
+        {
+          "target": "figure",
+          "figureId": "nemata-jp-p330-r1",
+          "field": "transcription",
+          "fromValue": "牌形从左至右：125554m，共6张，全部直立；三张5m均为普通五万，非赤五。",
+          "toValue": "牌形从左至右：123334m，共6张，全部直立；三张3m均为普通三万。",
+          "replacements": [
+            {
+              "from": "125554m",
+              "to": "123334m",
+              "occurrences": 1
+            },
+            {
+              "from": "三张5m均为普通五万，非赤五",
+              "to": "三张3m均为普通三万",
+              "occurrences": 1
+            }
+          ],
+          "sourceEvidence": "Bound r1 crop of the original page: the six tiles read 一万 二万 三万 三万 三万 四万 left to right (123334m); there is no 5m in this hand.",
+          "sourceCrop": {
+            "path": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0330-r1.png",
+            "sha256": "e037eb29d33284d8be9de377c70fa2ed078ab4b9e2f06f1a7b748e2a66590f20"
+          }
+        },
+        {
+          "target": "figure",
+          "figureId": "nemata-jp-p330-r1",
+          "field": "caption",
+          "fromValue": "125554m",
+          "toValue": "123334m",
+          "replacements": [
+            {
+              "from": "125554m",
+              "to": "123334m",
+              "occurrences": 1
+            }
+          ],
+          "sourceEvidence": "Bound r1 crop of the original page: the six tiles read 一万 二万 三万 三万 三万 四万 left to right (123334m); there is no 5m in this hand.",
+          "sourceCrop": {
+            "path": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0330-r1.png",
+            "sha256": "e037eb29d33284d8be9de377c70fa2ed078ab4b9e2f06f1a7b748e2a66590f20"
+          }
+        },
+        {
+          "target": "figure",
+          "figureId": "nemata-jp-p330-r4",
+          "field": "transcription",
+          "fromValue": "牌形从左至右：544555m，共6张，全部直立；四张5m均为普通五万，非赤五。",
+          "toValue": "牌形从左至右：344555m，共6张，全部直立；三张5m均为普通五万，非赤五。",
+          "replacements": [
+            {
+              "from": "544555m",
+              "to": "344555m",
+              "occurrences": 1
+            },
+            {
+              "from": "四张5m",
+              "to": "三张5m",
+              "occurrences": 1
+            }
+          ],
+          "sourceEvidence": "Bound r4 crop of the original page: the six tiles read 三万 四万 四万 五万 五万 五万 left to right (344555m); the first tile is 3m, so only three 5m are present.",
+          "sourceCrop": {
+            "path": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0330-r4.png",
+            "sha256": "3f42baa98e214abc54f58f4c0be7ba160c8ac4fb53d8ff3282d44c0abce8b777"
+          }
+        },
+        {
+          "target": "figure",
+          "figureId": "nemata-jp-p330-r4",
+          "field": "caption",
+          "fromValue": "544555m",
+          "toValue": "344555m",
+          "replacements": [
+            {
+              "from": "544555m",
+              "to": "344555m",
+              "occurrences": 1
+            }
+          ],
+          "sourceEvidence": "Bound r4 crop of the original page: the six tiles read 三万 四万 四万 五万 五万 五万 left to right (344555m); the first tile is 3m, so only three 5m are present.",
+          "sourceCrop": {
+            "path": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0330-r4.png",
+            "sha256": "3f42baa98e214abc54f58f4c0be7ba160c8ac4fb53d8ff3282d44c0abce8b777"
+          }
+        },
+        {
+          "target": "figure",
+          "figureId": "nemata-jp-p330-r22",
+          "field": "transcription",
+          "fromValue": "标题内牌形从左至右：554566m，共6张，全部直立；三张5m均为普通五万，非赤五。不包含裁图上缘上一例弃牌的局部。",
+          "toValue": "标题内牌形从左至右：334566m，共6张，全部直立；一张5m为普通五万，非赤五。不包含裁图上缘上一例弃牌的局部。",
+          "replacements": [
+            {
+              "from": "554566m",
+              "to": "334566m",
+              "occurrences": 1
+            },
+            {
+              "from": "三张5m均为普通五万",
+              "to": "一张5m为普通五万",
+              "occurrences": 1
+            }
+          ],
+          "sourceEvidence": "Bound r22 crop of the original page: the six tiles read 三万 三万 四万 五万 六万 六万 left to right (334566m); only one 5m is present.",
+          "sourceCrop": {
+            "path": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0330-r22.png",
+            "sha256": "8af70cd264cc344f47951aa365b71eacdcf99a33501ee93133751248b903207d"
+          }
+        },
+        {
+          "target": "figure",
+          "figureId": "nemata-jp-p330-r22",
+          "field": "caption",
+          "fromValue": "554566m",
+          "toValue": "334566m",
+          "replacements": [
+            {
+              "from": "554566m",
+              "to": "334566m",
+              "occurrences": 1
+            }
+          ],
+          "sourceEvidence": "Bound r22 crop of the original page: the six tiles read 三万 三万 四万 五万 六万 六万 left to right (334566m); only one 5m is present.",
+          "sourceCrop": {
+            "path": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0330-r22.png",
+            "sha256": "8af70cd264cc344f47951aa365b71eacdcf99a33501ee93133751248b903207d"
+          }
+        }
+      ],
+      "originalReviewErrors": [
+        "needs-repair:nemata-jp-p330-b5",
+        "needs-repair:nemata-jp-p330-b8",
+        "needs-repair:nemata-jp-p330-b20",
+        "needs-repair:nemata-jp-p330-r1",
+        "needs-repair:nemata-jp-p330-r4",
+        "needs-repair:nemata-jp-p330-r22",
+        "error:nemata-jp-p330-r1",
+        "error:nemata-jp-p330-r4",
+        "error:nemata-jp-p330-r22"
+      ]
+    }
+  ]
+}

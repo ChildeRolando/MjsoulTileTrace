@@ -1,1142 +1,1211 @@
 {
-  "schema": "coach-unified-repair-list/1",
-  "recordedAt": "2026-10-26T16:39:55.811Z",
-  "denominator": {
-    "originalChapters": 256,
-    "completeOriginalChapters": 186,
-    "incompleteOriginalChapters": 70,
-    "note": "Object list is page/article-level, not chapter count."
-  },
-  "countsBeforeThisStage": {
-    "needsRepair": 24,
-    "failedSeparate": 2,
-    "resolved": 0,
-    "newObjects": 12,
-    "deduped": 1
-  },
-  "countsCurrent": {
-    "needsRepair": 18,
-    "failedSeparate": 2,
-    "resolvedThisStage": 14,
-    "newObjectsStillUnresolved": 13,
-    "oldObjectsStillUnresolved": 5,
-    "totalTracked": 34
-  },
-  "breakdown": {
-    "oldPdfRemaining": 5,
-    "newPdfPages": 5,
-    "web": 7,
-    "protectedSupplement": 1,
-    "failed": 2
-  },
-  "dedupe": [
-    {
-      "objectId": "nemata-jp:page:257",
-      "candidateSha256": "6283c24943ac239fad731dd356b7c2da4097ecb9b48bcd9b652a242a8919ee88",
-      "sources": [
-        "COAC-248 old PDF 12",
-        "COAC-247 new PDF return"
-      ],
-      "resolution": "one object"
-    }
-  ],
-  "objects": [
-    {
-      "objectId": "79-cn:page:50",
-      "kind": "pdf-page",
-      "sourceId": "79-cn",
-      "page": 50,
-      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-full\\candidates\\79-cn\\page-0050.json",
-      "candidateSha256": "6d33c81805e404c9dcacda38075ea644e3d2401cc0205b1a7732ff2a49097dac",
-      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0050.6d33c81805e404c9dcacda38075ea644e3d2401cc0205b1a7732ff2a49097dac.c398d43a97fc.json",
-      "auditStatus": "needs-repair",
-      "issueCount": 1,
-      "reviewErrors": [
-        "uncertain:79-cn-p50-r2",
-        "uncertain:79-cn-p50-r2"
-      ],
-      "currentDisposition": "needs-repair",
-      "origin": "COAC-248 old PDF 12",
-      "newThisStage": false
-    },
-    {
-      "objectId": "79-cn:page:217",
-      "kind": "pdf-page",
-      "sourceId": "79-cn",
-      "page": 217,
-      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\candidates\\79-cn\\page-0217.json",
-      "candidateSha256": "73410520b240c15305d220c0aa472bb0f53392255dd0167b78d8a4627aac0add",
-      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.73410520b240c15305d220c0aa472bb0f53392255dd0167b78d8a4627aac0add.6baa4a7e1404.retry-1792979810396-c29948ed.json",
-      "auditStatus": "needs-repair",
-      "issueCount": 4,
-      "reviewErrors": [
-        "needs-repair:79-cn-p217-r1",
-        "error:79-cn-p217-r1",
-        "error:79-cn-p217-r1",
-        "error:79-cn-p217-r1",
-        "uncertain:79-cn-p217-r1"
-      ],
-      "currentDisposition": "needs-repair",
-      "origin": "COAC-248 old PDF 12",
-      "newThisStage": false
-    },
-    {
-      "objectId": "79-cn:page:263",
-      "kind": "pdf-page",
-      "sourceId": "79-cn",
-      "page": 263,
-      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\candidates\\79-cn\\page-0263.json",
-      "candidateSha256": "7fea090b5ca70f172889164cecd3ba8bd40eed5dc3c0af51a9b354cbed272fcc",
-      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0263.7fea090b5ca70f172889164cecd3ba8bd40eed5dc3c0af51a9b354cbed272fcc.6baa4a7e1404.retry-1792988924985-8ba77355.json",
-      "auditStatus": "needs-repair",
-      "issueCount": 2,
-      "reviewErrors": [
-        "needs-repair:79-cn-p263-r1",
-        "error:79-cn-p263-r1",
-        "error:79-cn-p263-r1"
-      ],
-      "currentDisposition": "needs-repair",
-      "origin": "COAC-248 old PDF 12",
-      "newThisStage": false
-    },
-    {
-      "objectId": "nemata-jp:page:98",
-      "kind": "pdf-page",
-      "sourceId": "nemata-jp",
-      "page": 98,
-      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\v4\\candidates\\nemata-jp\\page-0098.json",
-      "candidateSha256": "59d82a54fe6df29600f8be9b887fdb29e9f1ac62c4c2796661f69ecfe675d71c",
-      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0098.59d82a54fe6df29600f8be9b887fdb29e9f1ac62c4c2796661f69ecfe675d71c.4ed00d884fed.json",
-      "auditStatus": "needs-repair",
-      "issueCount": 12,
-      "reviewErrors": [
-        "visual_reading_flow_not_faithful",
-        "needs-repair:nemata-jp-p98-b2",
-        "needs-repair:nemata-jp-p98-b13",
-        "needs-repair:nemata-jp-p98-b16",
-        "needs-repair:nemata-jp-p98-b20",
-        "needs-repair:nemata-jp-p98-b21",
-        "needs-repair:nemata-jp-p98-b22",
-        "needs-repair:nemata-jp-p98-b23",
-        "needs-repair:nemata-jp-p98-b29",
-        "needs-repair:nemata-jp-p98-b30",
-        "needs-repair:nemata-jp-p98-r1",
-        "needs-repair:nemata-jp-p98-r2",
-        "needs-repair:nemata-jp-p98-r3",
-        "needs-repair:nemata-jp-p98-r4",
-        "needs-repair:nemata-jp-p98-r5",
-        "needs-repair:nemata-jp-p98-r6",
-        "needs-repair:nemata-jp-p98-r7",
-        "error:nemata-jp-p98-b2",
-        "error:nemata-jp-p98-b16",
-        "error:nemata-jp-p98-b20",
-        "error:nemata-jp-p98-r1",
-        "error:nemata-jp-p98-r2",
-        "error:nemata-jp-p98-r3",
-        "error:nemata-jp-p98-r4",
-        "error:nemata-jp-p98-r5",
-        "error:nemata-jp-p98-r6",
-        "error:nemata-jp-p98-b30",
-        "error:nemata-jp-p98-r7",
-        "error:flowCheck"
-      ],
-      "currentDisposition": "needs-repair",
-      "origin": "COAC-248 old PDF 12",
-      "newThisStage": false
-    },
-    {
-      "objectId": "nemata-jp:page:257",
-      "kind": "pdf-page",
-      "sourceId": "nemata-jp",
-      "page": 257,
-      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\candidates\\nemata-jp\\page-0257.json",
-      "candidateSha256": "6283c24943ac239fad731dd356b7c2da4097ecb9b48bcd9b652a242a8919ee88",
-      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0257.6283c24943ac239fad731dd356b7c2da4097ecb9b48bcd9b652a242a8919ee88.6baa4a7e1404.json",
-      "auditStatus": "needs-repair",
-      "issueCount": 1,
-      "reviewErrors": [
-        "uncertain:nemata-jp-p257-r1",
-        "uncertain:nemata-jp-p257-r1"
-      ],
-      "currentDisposition": "needs-repair",
-      "origin": "COAC-248 old PDF 12",
-      "newThisStage": false,
-      "alsoReportedBy": "COAC-247",
-      "dedupeNote": "COAC-247 page 257 candidate SHA 6283c249… equals the old-list candidate; one unresolved object."
-    },
-    {
-      "objectId": "nemata-jp:page:260",
-      "kind": "pdf-page",
-      "sourceId": "nemata-jp",
-      "page": 260,
-      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\candidates\\nemata-jp\\page-0260.json",
-      "candidateSha256": "f9c04f6b68453f9df123cc1c7cf43629ce338af0c40e0bbe843c78f1a09b2958",
-      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0260.f9c04f6b68453f9df123cc1c7cf43629ce338af0c40e0bbe843c78f1a09b2958.6baa4a7e1404.json",
-      "auditStatus": "needs-repair",
-      "issueCount": 5,
-      "issues": [
-        {
-          "severity": "error",
-          "targetId": "nemata-jp-p260-r5",
-          "sourceEvidence": "b46及局部原图显示7s，位于「のくっつきよりは」之前。",
-          "description": "牌图及正文引用误写为9s，改变了保留役牌宝牌时的比较对象。",
-          "suggestedRepair": "将r5的transcription、caption及b8—b10合并段落中的对应句内引用统一改为7s。"
-        },
-        {
-          "severity": "error",
-          "targetId": "nemata-jp-p260-r21",
-          "sourceEvidence": "问题15原手牌从左至右为455567m 6p 2334557s。",
-          "description": "候选将索子中的4s及两张5s误录为6s及两张8s。",
-          "suggestedRepair": "将r21及正文手牌统一改为455567m 6p 2334557s，保留原始14张排列。"
-        },
-        {
-          "severity": "error",
-          "targetId": "nemata-jp-p260-r26",
-          "sourceEvidence": "b68原图四张弃牌候选依次为2s、3s、5s、7s。",
-          "description": "末张7s误录为9s。",
-          "suggestedRepair": "将图例及b34—b35合并段落的候选牌改为2357s。"
-        },
-        {
-          "severity": "error",
-          "targetId": "nemata-jp-p260-r28",
-          "sourceEvidence": "b70为接在「B型が」之后的7s牌图。",
-          "description": "B型血对应弃牌误写为9s。",
-          "suggestedRepair": "将r28及正文B型血对应引用统一改为7s。"
-        },
-        {
-          "severity": "error",
-          "targetId": "nemata-jp-p260-r33",
-          "sourceEvidence": "b75上行右端为334s，b76下一行左端为557s；两部分连续接在「場合も」与「のリャンカンが残り」之间。",
-          "description": "候选既错录为336s／889s，又将同一跨行牌形错误解释为两个独立牌例。",
-          "suggestedRepair": "将r33转录和caption改为连续牌形334557s，说明仅因原排版换行分成两段；正文改为留下334557s的两嵌形，不使用分隔两个例子的斜线。"
-        }
-      ],
-      "currentDisposition": "needs-repair",
-      "origin": "COAC-247 new PDF return",
-      "newThisStage": true
-    },
-    {
-      "objectId": "nemata-jp:page:261",
-      "kind": "pdf-page",
-      "sourceId": "nemata-jp",
-      "page": 261,
-      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\candidates\\nemata-jp\\page-0261.json",
-      "candidateSha256": "b63d2c602ec030eb9c2d5f7852e5119363391f8f9ba24992bbfab42fc847ecd7",
-      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0261.b63d2c602ec030eb9c2d5f7852e5119363391f8f9ba24992bbfab42fc847ecd7.6baa4a7e1404.json",
-      "auditStatus": "needs-repair",
-      "issueCount": 1,
-      "issues": [
-        {
-          "severity": "error",
-          "targetId": "nemata-jp-p261-b4",
-          "sourceEvidence": "原文：“三色は……ピンポイントに［5p］･［7p］を引かなければ成立しない”。本页摸5p后的示例牌形也明确显示筒子为56p。",
-          "description": "候选写成“必须恰好摸入5p或7p”，把做成567三色同顺需要补齐5p和7p的共同条件改成任选其一，削弱了作者说明三色相当不确定的论据。",
-          "suggestedRepair": "将r8与r9之间的“或”改为“和”，表述为“必须恰好摸入5p和7p”，保留两张句内牌图及后续判断。"
-        }
-      ],
-      "currentDisposition": "needs-repair",
-      "origin": "COAC-247 new PDF return",
-      "newThisStage": true
-    },
-    {
-      "objectId": "nemata-jp:page:262",
-      "kind": "pdf-page",
-      "sourceId": "nemata-jp",
-      "page": 262,
-      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\candidates\\nemata-jp\\page-0262.json",
-      "candidateSha256": "0025a1f80f4ceb7cba97f8c9382b02719701370e75af87a537c0130f3a2c604f",
-      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0262.0025a1f80f4ceb7cba97f8c9382b02719701370e75af87a537c0130f3a2c604f.6baa4a7e1404.json",
-      "auditStatus": "needs-repair",
-      "issueCount": 1,
-      "issues": [
-        {
-          "severity": "error",
-          "targetId": "nemata-jp-p262-b17",
-          "sourceEvidence": "原文为“［3s］引きで三面”，没有写听牌；本题手牌也并非摸入3s即可整手听牌。",
-          "description": "候选“摸入3s可形成三面听”把局部三面形的发展写成整手三面听，改变了手牌进展状态。",
-          "suggestedRepair": "将“可形成三面听”改为“可形成三面形”，保留其他摸牌发展与孤立牌评价。"
-        }
-      ],
-      "currentDisposition": "needs-repair",
-      "origin": "COAC-247 new PDF return",
-      "newThisStage": true
-    },
-    {
-      "objectId": "web:archive01-section006",
-      "kind": "web-article",
-      "articleId": "archive01-section006",
-      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\archive01-section006.display.json",
-      "candidateSha256": "04ab76405f88fa1df61d68c2047cf3cb344b8db8644f193c520fee805b83c427",
-      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\archive01-section006.04ab76405f88fa1df61d68c2047cf3cb344b8db8644f193c520fee805b83c427.json",
-      "auditStatus": "needs-repair",
-      "issueCount": 1,
-      "issueTargets": [
-        "modern-yabejp-ja:archive01-section006:b0518:error"
-      ],
-      "currentDisposition": "needs-repair",
-      "origin": "COAC-249 explicit 20",
-      "newThisStage": true
-    },
-    {
-      "objectId": "web:chapter01-section035",
-      "kind": "web-article",
-      "articleId": "chapter01-section035",
-      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter01-section035.display.json",
-      "candidateSha256": "0439c38228989d2f997036eaa0e4a4522cfb40e6c141469b1c83abf66db2c077",
-      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter01-section035.0439c38228989d2f997036eaa0e4a4522cfb40e6c141469b1c83abf66db2c077.json",
-      "auditStatus": "needs-repair",
-      "issueCount": 1,
-      "issueTargets": [
-        "modern-yabejp-ja:chapter01-section035:b0040:uncertain"
-      ],
-      "currentDisposition": "needs-repair",
-      "origin": "COAC-249 explicit 20",
-      "newThisStage": true
-    },
-    {
-      "objectId": "web:chapter06-exercise002-02",
-      "kind": "web-article",
-      "articleId": "chapter06-exercise002-02",
-      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise002-02.display.json",
-      "candidateSha256": "c57c30e4ffddb9ea661295364ee46739438c2c17a4f4c772e5df0b8391c7576b",
-      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter06-exercise002-02.c57c30e4ffddb9ea661295364ee46739438c2c17a4f4c772e5df0b8391c7576b.json",
-      "auditStatus": "needs-repair",
-      "issueCount": 2,
-      "issueTargets": [
-        "modern-yabejp-ja:chapter06-exercise002-02:b0263:error",
-        "modern-yabejp-ja:chapter06-exercise002-02:b0545:error"
-      ],
-      "currentDisposition": "needs-repair",
-      "origin": "COAC-249 explicit 20",
-      "newThisStage": true
-    },
-    {
-      "objectId": "web:chapter03-section009",
-      "kind": "web-article",
-      "articleId": "chapter03-section009",
-      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section009.display.json",
-      "candidateSha256": "abaeede080b3d413e2ead7708a8278ba39dfb2cd21bfebeac5c61726873887c3",
-      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter03-section009.abaeede080b3d413e2ead7708a8278ba39dfb2cd21bfebeac5c61726873887c3.json",
-      "auditStatus": "needs-repair",
-      "issueCount": 3,
-      "issueTargets": [
-        "modern-yabejp-ja:chapter03-section009:b0080:figure:error",
-        "modern-yabejp-ja:chapter03-section009:b0080:figure:uncertain",
-        "modern-yabejp-ja:chapter03-section009:b0081:error"
-      ],
-      "currentDisposition": "needs-repair",
-      "origin": "COAC-249 explicit 20",
-      "newThisStage": true
-    },
-    {
-      "objectId": "web:chapter03-section026",
-      "kind": "web-article",
-      "articleId": "chapter03-section026",
-      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section026.display.json",
-      "candidateSha256": "4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4",
-      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter03-section026.4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4.json",
-      "auditStatus": "needs-repair",
-      "issueCount": 3,
-      "issueTargets": [
-        "modern-yabejp-ja:chapter03-section026:b0017:error",
-        "modern-yabejp-ja:chapter03-section026:b0032:figure:error",
-        "modern-yabejp-ja:chapter03-section026:b0032:figure:uncertain"
-      ],
-      "currentDisposition": "needs-repair",
-      "origin": "COAC-249 explicit 20",
-      "newThisStage": true
-    },
-    {
-      "objectId": "web:chapter04-section005",
-      "kind": "web-article",
-      "articleId": "chapter04-section005",
-      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.display.json",
-      "candidateSha256": "24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408",
-      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section005.24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408.json",
-      "auditStatus": "needs-repair",
-      "issueCount": 2,
-      "issueTargets": [
-        "modern-yabejp-ja:chapter04-section005:b0013:figure:error",
-        "modern-yabejp-ja:chapter04-section005:b0013:figure:error"
-      ],
-      "currentDisposition": "needs-repair",
-      "origin": "COAC-249 explicit 20",
-      "newThisStage": true
-    },
-    {
-      "objectId": "web:chapter04-section012",
-      "kind": "web-article",
-      "articleId": "chapter04-section012",
-      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section012.display.json",
-      "candidateSha256": "2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37",
-      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section012.2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37.json",
-      "auditStatus": "needs-repair",
-      "issueCount": 4,
-      "issueTargets": [
-        "modern-yabejp-ja:chapter04-section012:b0002:error",
-        "modern-yabejp-ja:chapter04-section012:b0004:error",
-        "modern-yabejp-ja:chapter04-section012:b0005:figure:error",
-        "modern-yabejp-ja:chapter04-section012:b0005:figure:uncertain"
-      ],
-      "currentDisposition": "needs-repair",
-      "origin": "COAC-249 explicit 20",
-      "newThisStage": true
-    },
-    {
-      "objectId": "supplement:chapter02-section019",
-      "kind": "protected-supplement",
-      "sourceId": "modern-yabejp-ja",
-      "articleId": "chapter02-section019",
-      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\protected-supplement-coac246\\candidates\\chapter02-section019.json",
-      "candidateSha256": "ffa9f14c36225c4a98d7281ae7fbee1e5ea9608d16b35d117731dc508be192bf",
-      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\protected-supplements\\chapter02-section019.ffa9f14c36225c4a98d7281ae7fbee1e5ea9608d16b35d117731dc508be192bf.json",
-      "auditStatus": "needs-repair",
-      "issueCount": 2,
-      "issues": [
-        {
-          "targetId": "modern-yabejp-ja:chapter02-section019:b0017",
-          "severity": "uncertain",
-          "sourceEvidence": "源上下文提供007.png的资产引用及图7说明文字；候选另列图内标题、七项图例、逐巡近似数值和曲线交叉趋势。当前没有可辨读的源图像。",
-          "description": "图7说明文字翻译正确，但候选的图内转录及数值无法根据所给可见证据核实。不能以候选自身的转录证明其准确，也不能从父稿已通过的状态推定新增转录已获核实。",
-          "suggestedRepair": "依据源图核对标题、图例、数值及趋势；无法核实的新增内容保留为待精确合并项，不作为已核实补充入稿，并保留已通过父稿。"
-        },
-        {
-          "targetId": "modern-yabejp-ja:chapter02-section019:b0019",
-          "severity": "uncertain",
-          "sourceEvidence": "源图说明明确为「双方に対して平均して危険度約1.5%の牌を切る」。候选转录另记图内标题为「不完全弃和（25%）」，并列出七项图例和三组逐巡近似数值；当前没有可辨读的源图像。",
-          "description": "1.5%的说明文字译文正确；图内25%、图例和曲线数据尚无法核实。不能推定25%与1.5%指同一参数，也不能据此认定源图有误或判定为版本差异。",
-          "suggestedRepair": "依据源图核实25%的原文及图表转录；保留说明文字中的1.5%，不自行换算或统一两个数值。未解决的图内含义或版本差异继续待精确合并，不覆盖已通过父稿。"
-        }
-      ],
-      "currentDisposition": "needs-repair",
-      "origin": "COAC-249 protected supplement",
-      "newThisStage": true,
-      "note": "p1 chapter01-section022-03 passed and assembled; p2 remains excluded."
-    },
-    {
-      "objectId": "nemata-jp:page:329",
-      "kind": "pdf-page",
-      "sourceId": "nemata-jp",
-      "page": 329,
-      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\candidates\\nemata-jp\\page-0329.json",
-      "candidateSha256": "c0776e6c314da926e7550460b4534bf60e7547fb30ea0635e4f4b7587bd0b4f4",
-      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0329.c0776e6c314da926e7550460b4534bf60e7547fb30ea0635e4f4b7587bd0b4f4.6baa4a7e1404.json",
-      "auditStatus": "needs-repair",
-      "issueCount": 1,
-      "reviewErrors": [
-        "uncertain:nemata-jp-p329-b22"
-      ],
-      "currentDisposition": "needs-repair",
-      "origin": "COAC-247 new PDF return (inline root)",
-      "newThisStage": true,
-      "note": "Added from bound current candidate SHA; produced once, audit needs-repair."
-    },
-    {
-      "objectId": "nemata-jp:page:330",
-      "kind": "pdf-page",
-      "sourceId": "nemata-jp",
-      "page": 330,
-      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\candidates\\nemata-jp\\page-0330.json",
-      "candidateSha256": "859d1d577a7b7406ac3594b3beb9a30415d2acf3c588c09e8a427d1b59d0de8b",
-      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0330.859d1d577a7b7406ac3594b3beb9a30415d2acf3c588c09e8a427d1b59d0de8b.6baa4a7e1404.json",
-      "auditStatus": "needs-repair",
-      "issueCount": 9,
-      "reviewErrors": [
-        "needs-repair:nemata-jp-p330-b5",
-        "needs-repair:nemata-jp-p330-b8",
-        "needs-repair:nemata-jp-p330-b20",
-        "needs-repair:nemata-jp-p330-r1",
-        "needs-repair:nemata-jp-p330-r4",
-        "needs-repair:nemata-jp-p330-r22",
-        "error:nemata-jp-p330-r1",
-        "error:nemata-jp-p330-r4",
-        "error:nemata-jp-p330-r22"
-      ],
-      "currentDisposition": "needs-repair",
-      "origin": "COAC-247 new PDF return (inline root)",
-      "newThisStage": true,
-      "note": "Added from bound current candidate SHA; produced once, audit needs-repair."
-    }
-  ],
-  "failedSeparate": [
-    {
-      "objectId": "web-failed:chapter06-exercise003",
-      "kind": "web-article-failed",
-      "articleId": "chapter06-exercise003",
-      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.display.json",
-      "candidateSha256": "fcde9f00cb9433bb5dec6a47d688ea7abb0c919c0aa2dac3012fd080d32a5893",
-      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter06-exercise003.fcde9f00cb9433bb5dec6a47d688ea7abb0c919c0aa2dac3012fd080d32a5893.json",
-      "auditStatus": "failed",
-      "currentDisposition": "failed-separate-do-not-retry",
-      "origin": "COAC-249 explicit 20",
-      "newThisStage": true,
-      "originalError": "web_audit_batch_output_assembly (preflight; no model call)",
-      "note": "Not auto-retried; original error/raw preserved.",
-      "attemptsObserved": 3,
-      "callsObserved": 0
-    },
-    {
-      "objectId": "web-failed:chapter06-exercise004",
-      "kind": "web-article-failed",
-      "articleId": "chapter06-exercise004",
-      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise004.display.json",
-      "candidateSha256": "736810e43a8a94084c6d9c7c2d63f91654a50f236ece06753bc75713918319eb",
-      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter06-exercise004.736810e43a8a94084c6d9c7c2d63f91654a50f236ece06753bc75713918319eb.json",
-      "auditStatus": "failed",
-      "currentDisposition": "failed-separate-do-not-retry",
-      "origin": "COAC-249 explicit 20",
-      "newThisStage": true,
-      "originalError": "model review returned no modelReview after 3 calls",
-      "note": "Not auto-retried; original error/raw preserved.",
-      "attemptsObserved": 3,
-      "callsObserved": 3,
-      "finalCallSuccess": false,
-      "finalCallUsage": {
-        "inputTokens": 58576,
-        "cachedInputTokens": 58368,
-        "outputTokens": 10724
-      }
-    }
-  ],
-  "resolvedThisStage": [
-    {
-      "objectId": "79-cn:page:254",
-      "kind": "pdf-page",
-      "sourceId": "79-cn",
-      "page": 254,
-      "parentCandidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\candidates\\79-cn\\page-0254.json",
-      "parentCandidateSha256": "48c996497aa1fcc71a0743bb4e79eeaaa54d222985a2c25da75b54a739933f77",
-      "repairedCandidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair5-20261027-p254\\candidates\\79-cn\\page-0254.json",
-      "repairedCandidateSha256": "b4df282fa7f428f294a67e14f6183f03d38a6c96bfef2241b3dfe455fabddf4a",
-      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0254.b4df282fa7f428f294a67e14f6183f03d38a6c96bfef2241b3dfe455fabddf4a.6baa4a7e1404.json",
-      "auditStatus": "passed",
-      "repairKind": "deterministic-visible-tile-and-dora-field-correction",
-      "modelCallsForRepair": 0,
-      "auditModelCalls": 4,
-      "auditUsage": [
-        {
-          "inputTokens": 20080,
-          "outputTokens": 4838
-        },
-        {
-          "inputTokens": 20055,
-          "outputTokens": 4240
-        },
-        {
-          "inputTokens": 20069,
-          "outputTokens": 7453
-        },
-        {
-          "inputTokens": 20026,
-          "outputTokens": 3298
-        }
-      ],
-      "currentDisposition": "resolved-passed-audit-awaiting-250-handoff",
-      "note": "Original candidate/audit preserved; new production root copy; no page re-production.",
-      "finalAuditCallId": "372acfdd-9d94-4f02-a256-7e2135663535",
-      "finalAuditUsage": {
-        "inputTokens": 20026,
-        "cachedInputTokens": 0,
-        "outputTokens": 3298
-      }
-    },
-    {
-      "objectId": "79-cn:page:153",
-      "kind": "pdf-page",
-      "sourceId": "79-cn",
-      "page": 153,
-      "parentCandidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-finite-20261024-schemafix/candidates/79-cn/page-0153.json",
-      "parentCandidateSha256": "f9aa3064ad6b30f2c59233760ab4fce05870e82ad11abcdc2fbcf528ff9bf508",
-      "repairedCandidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-field-repair7-20261027-p153/candidates/79-cn/page-0153.json",
-      "repairedCandidateSha256": "89371a3d25579b86b220027666c1f85745747b396a6214dfa1f7629cdeb2a2ad",
-      "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/79-cn/page-0153.89371a3d25579b86b220027666c1f85745747b396a6214dfa1f7629cdeb2a2ad.6baa4a7e1404.json",
-      "auditStatus": "passed",
-      "repairKind": "deterministic-honor-tile-encoding-example2-example3",
-      "modelCallsForRepair": 0,
-      "auditModelCalls": 2,
-      "auditUsage": [
-        {
-          "inputTokens": 23791,
-          "outputTokens": 5691
-        },
-        {
-          "inputTokens": 23793,
-          "outputTokens": 1839
-        }
-      ],
-      "finalAuditCallId": "6d3592e5-3bbf-4f10-87fc-42be83d951b1",
-      "finalAuditUsage": {
-        "inputTokens": 23793,
-        "cachedInputTokens": 0,
-        "outputTokens": 1839
-      },
-      "currentDisposition": "resolved-passed-audit-awaiting-250-handoff",
-      "note": "Original candidate/audit preserved; new production root copy; no page re-production."
-    },
-    {
-      "objectId": "nemata-jp:page:310",
-      "kind": "pdf-page",
-      "sourceId": "nemata-jp",
-      "page": 310,
-      "candidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/candidates/nemata-jp/page-0310.json",
-      "candidateSha256": "d605e842bec56aeb408d33815ce7e3847a03a9bd03e0c300d096f82f47590296",
-      "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0310.d605e842bec56aeb408d33815ce7e3847a03a9bd03e0c300d096f82f47590296.6baa4a7e1404.json",
-      "auditStatus": "passed",
-      "repairKind": "new-page-produced-and-independently-passed",
-      "modelCallsForRepair": 0,
-      "auditModelCalls": 1,
-      "finalAuditCallId": "180684f8-15f2-4ef4-a177-a31465eee0cf",
-      "finalAuditUsage": {
-        "inputTokens": 34004,
-        "cachedInputTokens": 0,
-        "outputTokens": 7034
-      },
-      "currentDisposition": "resolved-passed-awaiting-250-handoff",
-      "note": "Produced by COAC-247 single step; audit passed; parent chapter 309-1 still incomplete."
-    },
-    {
-      "objectId": "nemata-jp:page:67",
-      "kind": "pdf-page",
-      "sourceId": "nemata-jp",
-      "page": 67,
-      "parentCandidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high/candidates/nemata-jp/page-0067.json",
-      "parentCandidateSha256": "d631a655a8e04f596ed1407a4ee88028c92fc068fa9a0322ddcfe6d895cfb96b",
-      "repairedCandidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-field-repair8-20261027-p67/candidates/nemata-jp/page-0067.json",
-      "repairedCandidateSha256": "f97f00447f87337d673415ee416aef1a7144b355bf173f0d98307bd2084190f4",
-      "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0067.f97f00447f87337d673415ee416aef1a7144b355bf173f0d98307bd2084190f4.6baa4a7e1404.json",
-      "auditStatus": "passed",
-      "repairKind": "deterministic-3m-correction-body-r2-r3-r4",
-      "modelCallsForRepair": 0,
-      "auditModelCalls": 1,
-      "finalAuditCallId": "260728d0-9d16-41f4-b696-ebeabebff65a",
-      "finalAuditUsage": {
-        "inputTokens": 27920,
-        "cachedInputTokens": 0,
-        "outputTokens": 4568
-      },
-      "currentDisposition": "resolved-integrated-in-preview",
-      "note": "Original candidate/audit preserved; new production root copy; no page re-production.",
-      "previewOutput": "accepted-content-preview-2026-10-26T18-04-20-569Z",
-      "previewCorpusId": "8a858a5dbb39cfad1ac82758076c58b12108fd706f4c8e1bca849abc6fb4f99c",
-      "integratedAt": "2026-10-26T18:06:20.001Z"
-    },
-    {
-      "objectId": "web:chapter01-section021-05",
-      "kind": "web-article",
-      "sourceId": "modern-yabejp-ja",
-      "articleId": "chapter01-section021-05",
-      "parentCandidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter01-section021-05.display.json",
-      "parentCandidateSha256": "42eaabcc8419cf3d6510763a3a4bf549f2ef2cfff264de0378c8d09fd08288c0",
-      "repairedCandidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter01-section021-05.r2.display.json",
-      "repairedCandidateSha256": "277fd0377de7362b7089242ee00058723c442e448e0cd0dbd79eb32c42812f07",
-      "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/modern-yabejp-ja/chapter01-section021-05.277fd0377de7362b7089242ee00058723c442e448e0cd0dbd79eb32c42812f07.json",
-      "auditStatus": "passed",
-      "repairKind": "target-text-b0012-plus-batch-parent-inheritance",
-      "modelCallsForRepair": 1,
-      "auditModelCalls": 1,
-      "finalAuditCallId": "5c288f3b-f2d0-4e59-a7ea-18f10fde2bc2",
-      "finalAuditUsage": {
-        "inputTokens": 14025,
-        "cachedInputTokens": 0,
-        "outputTokens": 357
-      },
-      "batchParent": {
-        "groups": [
-          "chapter01-section021-05-batch-001",
-          "chapter01-section021-05-batch-002"
-        ],
-        "callIds": [
-          "92143b63-2c90-43c5-a949-a131999e8aa9",
-          "7edc8f1d-8edf-4241-af5e-b8f07547929e"
-        ],
-        "planSha256": "ed7042d21d28e487cae33cbdb6dad70e93354d412cb666738b2a05477aec4229"
-      },
-      "currentDisposition": "resolved-passed-audit-awaiting-250-handoff",
-      "note": "Complete batch parent groups verified; only b0012 re-reviewed; all other scope inherited from bound parent group receipts; original parent audit/raw retained."
-    },
-    {
-      "objectId": "nemata-jp:page:311",
-      "kind": "pdf-page",
-      "sourceId": "nemata-jp",
-      "page": 311,
-      "candidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/candidates/nemata-jp/page-0311.json",
-      "candidateSha256": "9eccb98ba1d9112c7e1177b1d43c0a70ebdcf28710508c787850350d5a2db940",
-      "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0311.9eccb98ba1d9112c7e1177b1d43c0a70ebdcf28710508c787850350d5a2db940.6baa4a7e1404.json",
-      "auditStatus": "passed",
-      "repairKind": "new-page-produced-and-independently-passed",
-      "modelCallsForRepair": 0,
-      "auditModelCalls": 1,
-      "finalAuditUsage": {
-        "inputTokens": 32133,
-        "cachedInputTokens": 0,
-        "outputTokens": 6638
-      },
-      "currentDisposition": "resolved-passed-awaiting-250-handoff",
-      "note": "Produced by COAC-247 single step; audit passed; chapter 309-1 incomplete."
-    },
-    {
-      "objectId": "nemata-jp:page:250",
-      "kind": "pdf-page",
-      "sourceId": "nemata-jp",
-      "page": 250,
-      "parentCandidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-15min-20261025/candidates/nemata-jp/page-0250.json",
-      "parentCandidateSha256": "ee38dbe8f6e3a1d1b5402a8bb4c644a33413f8e68a396d7fa1d5b94b4cf38a7a",
-      "repairedCandidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-field-repair10-20261027-p250/candidates/nemata-jp/page-0250.json",
-      "repairedCandidateSha256": "1a3e1c8ce49532298caf98b7fabc00a91fa830a6f8a5e892db8199e457a43786",
-      "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0250.1a3e1c8ce49532298caf98b7fabc00a91fa830a6f8a5e892db8199e457a43786.6baa4a7e1404.json",
-      "auditStatus": "passed",
-      "repairKind": "deterministic-source-typo-preservation-and-editorial-note",
-      "modelCallsForRepair": 0,
-      "auditModelCalls": 1,
-      "finalAuditUsage": {
-        "inputTokens": 47428,
-        "cachedInputTokens": 0,
-        "outputTokens": 6139
-      },
-      "currentDisposition": "resolved-passed-audit-awaiting-250-handoff",
-      "note": "Original candidate/audit preserved; new production root copy; no page re-production."
-    },
-    {
-      "objectId": "nemata-jp:page:312",
-      "kind": "pdf-page",
-      "sourceId": "nemata-jp",
-      "page": 312,
-      "candidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/candidates/nemata-jp/page-0312.json",
-      "candidateSha256": "e06b2007a82872b7ade9811c01fc13aebf85f095fefe23ebe0c36a9c3f8cbc7e",
-      "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0312.e06b2007a82872b7ade9811c01fc13aebf85f095fefe23ebe0c36a9c3f8cbc7e.6baa4a7e1404.json",
-      "auditStatus": "passed",
-      "repairKind": "new-page-produced-and-independently-passed",
-      "modelCallsForRepair": 0,
-      "auditModelCalls": 1,
-      "finalAuditUsage": {
-        "inputTokens": 31849,
-        "cachedInputTokens": 0,
-        "outputTokens": 6122
-      },
-      "currentDisposition": "resolved-passed-awaiting-250-handoff",
-      "note": "Produced by COAC-247 single step; audit passed; chapter 309-1 incomplete."
-    },
-    {
-      "objectId": "nemata-jp:page:256",
-      "kind": "pdf-page",
-      "sourceId": "nemata-jp",
-      "page": 256,
-      "parentCandidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-15min-20261025/candidates/nemata-jp/page-0256.json",
-      "parentCandidateSha256": "094384234714d91e3cd7670e426c2e97c685ecc8881e7df757ccef457801bba2",
-      "repairedCandidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-field-repair11-20261027-p256/candidates/nemata-jp/page-0256.json",
-      "repairedCandidateSha256": "bf9d64107b4b3d425c1ec16aa97baf9178799f8371f1e4879f7fde0f6489c2cf",
-      "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0256.bf9d64107b4b3d425c1ec16aa97baf9178799f8371f1e4879f7fde0f6489c2cf.6baa4a7e1404.json",
-      "auditStatus": "passed",
-      "repairKind": "deterministic-source-duplicate-wording-and-strength",
-      "modelCallsForRepair": 0,
-      "auditModelCalls": 3,
-      "auditUsage": [
-        {
-          "inputTokens": 35596,
-          "outputTokens": 5919
-        },
-        {
-          "inputTokens": 35611,
-          "outputTokens": 5628
-        },
-        {
-          "inputTokens": 35572,
-          "outputTokens": 6252
-        }
-      ],
-      "finalAuditUsage": {
-        "inputTokens": 35572,
-        "cachedInputTokens": 0,
-        "outputTokens": 6252
-      },
-      "currentDisposition": "resolved-passed-audit-awaiting-250-handoff",
-      "note": "Preserved original duplicate wording; removed duplicate editorial notes; fixed 鸣牌 strength; no page re-production."
-    },
-    {
-      "objectId": "nemata-jp:page:313",
-      "kind": "pdf-page",
-      "sourceId": "nemata-jp",
-      "page": 313,
-      "candidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/candidates/nemata-jp/page-0313.json",
-      "candidateSha256": "057be2fc59bf87a8227cc510a4df12a7b5d5f629b4307b8f8f920e9928655ff1",
-      "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0313.057be2fc59bf87a8227cc510a4df12a7b5d5f629b4307b8f8f920e9928655ff1.6baa4a7e1404.json",
-      "auditStatus": "passed",
-      "repairKind": "new-page-produced-and-independently-passed",
-      "modelCallsForRepair": 0,
-      "auditModelCalls": 1,
-      "finalAuditUsage": {
-        "inputTokens": 31622,
-        "cachedInputTokens": 0,
-        "outputTokens": 5237
-      },
-      "currentDisposition": "resolved-passed-awaiting-250-handoff",
-      "note": "Produced by COAC-247 single step; audit passed; chapter 309-1 incomplete."
-    },
-    {
-      "objectId": "nemata-jp:page:254",
-      "kind": "pdf-page",
-      "sourceId": "nemata-jp",
-      "page": 254,
-      "parentCandidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-15min-20261025/candidates/nemata-jp/page-0254.json",
-      "parentCandidateSha256": "b39abd54cf92e49fe3c2ffd3c3a4377c2bd4316173ea6972021a277be0dcc794",
-      "repairedCandidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-field-repair9-20261027-p254nemata/candidates/nemata-jp/page-0254.json",
-      "repairedCandidateSha256": "bdc0dcb315a56712edc68450c22c1b838a315683a5d9f0650395ac5f9c03f690",
-      "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0254.bdc0dcb315a56712edc68450c22c1b838a315683a5d9f0650395ac5f9c03f690.image-binding-revalidated.json",
-      "auditStatus": "passed",
-      "originalAudit": {
-        "path": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0254.bdc0dcb315a56712edc68450c22c1b838a315683a5d9f0650395ac5f9c03f690.6baa4a7e1404.json",
-        "sha256": "c43ad8734dacd2474db7e313be56c54125ce42bde68fa5669e32f53d1ff8d3c4"
-      },
-      "repairKind": "deterministic-mentanpin-terminology-plus-image-binding-revalidation",
-      "modelCallsForRepair": 0,
-      "auditModelCalls": 0,
-      "inheritedAuditCallId": "bd5004ac-a00d-48c6-b52d-7eb1a8b9910b",
-      "currentDisposition": "resolved-passed-audit-awaiting-250-handoff",
-      "note": "Existing independent full-page call revalidated after deterministic binding fix; no new model call; original needs-repair receipt retained."
-    },
-    {
-      "objectId": "nemata-jp:page:253",
-      "kind": "pdf-page",
-      "sourceId": "nemata-jp",
-      "page": 253,
-      "parentCandidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-15min-20261025/candidates/nemata-jp/page-0253.json",
-      "parentCandidateSha256": "c5f91336e295af6da66f58d3682606c7e84db37087389383d4ebbf9c4ea44ddf",
-      "repairedCandidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-field-repair12-20261027-p253/candidates/nemata-jp/page-0253.json",
-      "repairedCandidateSha256": "78b98bcd25a3bec7a6facea85f01973ae17d0735a2f3de418cb39826587b9a6f",
-      "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0253.78b98bcd25a3bec7a6facea85f01973ae17d0735a2f3de418cb39826587b9a6f.6b1b0eb6efaf.json",
-      "auditStatus": "passed",
-      "repairKind": "deterministic-tile-and-flow-corrections",
-      "modelCallsForRepair": 0,
-      "auditModelCalls": 2,
-      "auditUsage": [
-        {
-          "inputTokens": 58784,
-          "outputTokens": 10022
-        },
-        {
-          "inputTokens": 58790,
-          "outputTokens": 11016
-        }
-      ],
-      "finalAuditUsage": {
-        "inputTokens": 58790,
-        "cachedInputTokens": 0,
-        "outputTokens": 11016
-      },
-      "currentDisposition": "resolved-passed-audit-awaiting-250-handoff",
-      "note": "Source image b50/b55 identified as 9m; corrected 6m/5m/8m errors, r7/r8, and flow wording; audit passed."
-    },
-    {
-      "objectId": "nemata-jp:page:309",
-      "kind": "pdf-page",
-      "sourceId": "nemata-jp",
-      "page": 309,
-      "parentCandidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/candidates/nemata-jp/page-0309.json",
-      "parentCandidateSha256": "d323290d8eb056b85a64563702b4d1d1283b3c6eff70cf7ecdb34c9faa84337b",
-      "repairedCandidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-field-repair13-20261027-p309/candidates/nemata-jp/page-0309.json",
-      "repairedCandidateSha256": "83950d4ee8aca893170904d43e8526b7a7ec1990fe6fdd238b7a3d40dfea8272",
-      "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0309.83950d4ee8aca893170904d43e8526b7a7ec1990fe6fdd238b7a3d40dfea8272.7076217daf84.json",
-      "auditSha256": "ff9bfa72b558b62d600698120b19d0aecf179ac931bace3cef906a9bc0621057",
-      "auditStatus": "passed",
-      "repairKind": "root-approved-exact-native-inline-field-correction",
-      "changes": [
-        "r13 transcription: 0s->5s at tile 11, total 224088s->224588s",
-        "r13 caption: 224088s->224588s"
-      ],
-      "modelCallsForRepair": 0,
-      "auditModelCalls": 1,
-      "auditUsage": {
-        "inputTokens": 27879,
-        "cachedInputTokens": 0,
-        "outputTokens": 4695
-      },
-      "note": "Original production raw, parent candidate d323290d and failed audit f31d8400 (store as .6baa4a7e1404.json) retained. New independent review bound to the revision SHA passed."
-    },
-    {
-      "objectId": "nemata-jp:page:315",
-      "kind": "pdf-page",
-      "sourceId": "nemata-jp",
-      "page": 315,
-      "parentCandidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/candidates/nemata-jp/page-0315.json",
-      "parentCandidateSha256": "772be8e40bf596b7bf25e36aa63e8c17022622e2801a73fc79601bf8a34295b0",
-      "repairedCandidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-field-repair15-20261027-p315/candidates/nemata-jp/page-0315.json",
-      "repairedCandidateSha256": "bc2afae254cbb243aa04ba23b73b4a13aa6513d17445c2b895bb7528d43469e3",
-      "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0315.bc2afae254cbb243aa04ba23b73b4a13aa6513d17445c2b895bb7528d43469e3.7076217daf84.json",
-      "auditSha256": "96725bffc7ac5e97777e40f2355eeab26288639ce6c1e029a57aa3a24723c758",
-      "auditStatus": "passed",
-      "repairKind": "root-approved-exact-native-inline-field-correction",
-      "changes": [
-        "r1/r2/r3 arrow positions added (7z+3z; 7p+5z; 9m+7z)",
-        "r17 arrow positions added (2m + broken image)",
-        "r18 2s->3s plus arrow positions (3z+4p)",
-        "r19 arrow position added (8m)",
-        "r26 and b38-b39 paragraph: 久人->ヒサト",
-        "r8/r9 3m->2m transcription+caption (located by the first revision review, source crops confirm 二萬)"
-      ],
-      "modelCallsForRepair": 0,
-      "auditModelCalls": 2,
-      "auditUsage": {
-        "inputTokens": 67464,
-        "cachedInputTokens": 0,
-        "outputTokens": 16702
-      },
-      "preservedRevisions": [
-        {
-          "candidateSha256": "3a0d697f891fedb8087d24b4880308c00f6f62ea79a92b1ba3ecd9d60b96207c",
-          "root": "production/sol-high-field-repair14-20261027-p315",
-          "auditPath": "audit/pages/nemata-jp/page-0315.3a0d697f891fedb8087d24b4880308c00f6f62ea79a92b1ba3ecd9d60b96207c.7076217daf84.json",
-          "status": "needs-repair",
-          "reason": "independent review located r8/r9 = 2m, not 3m"
-        }
-      ],
-      "note": "Original production raw, parent candidate 772be8e4 and failed audit retained; first exact-field revision and its failed review also preserved. Second revision passed a fresh independent review bound to bc2afae2."
-    }
-  ],
-  "handoff": {
-    "p254": {
-      "to": "COAC-250 when parent chapter is complete",
-      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair5-20261027-p254\\candidates\\79-cn\\page-0254.json",
-      "candidateSha256": "b4df282fa7f428f294a67e14f6183f03d38a6c96bfef2241b3dfe455fabddf4a",
-      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0254.b4df282fa7f428f294a67e14f6183f03d38a6c96bfef2241b3dfe455fabddf4a.6baa4a7e1404.json",
-      "auditStatus": "passed"
-    },
-    "webR2": {
-      "to": "COAC-249/250 after audit-entry compatibility",
-      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter01-section021-05.r2.display.json",
-      "candidateSha256": "277fd0377de7362b7089242ee00058723c442e448e0cd0dbd79eb32c42812f07",
-      "status": "produced-awaiting-audit-entry-compat",
-      "blocker": "web_revision_parent_receipt_changed"
-    },
-    "p153": {
-      "to": "COAC-250 when chapter 79-cn-chapter-152-6 is otherwise complete",
-      "candidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-field-repair7-20261027-p153/candidates/79-cn/page-0153.json",
-      "candidateSha256": "89371a3d25579b86b220027666c1f85745747b396a6214dfa1f7629cdeb2a2ad",
-      "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/79-cn/page-0153.89371a3d25579b86b220027666c1f85745747b396a6214dfa1f7629cdeb2a2ad.6baa4a7e1404.json",
-      "auditStatus": "passed"
-    },
-    "p310": {
-      "to": "COAC-250 incremental consumer; only if complete chapter",
-      "candidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/candidates/nemata-jp/page-0310.json",
-      "candidateSha256": "d605e842bec56aeb408d33815ce7e3847a03a9bd03e0c300d096f82f47590296",
-      "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0310.d605e842bec56aeb408d33815ce7e3847a03a9bd03e0c300d096f82f47590296.6baa4a7e1404.json",
-      "auditStatus": "passed",
-      "chapterId": "nemata-jp-chapter-309-1",
-      "completeChapter": false,
-      "missingPages": [
-        311,
-        312,
-        313,
-        314,
-        315,
-        316
-      ],
-      "blockedBy": "page 309 needs-repair"
-    },
-    "p67": {
-      "to": "COAC-250 incremental consumer for existing complete chapter 067-1",
-      "candidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-field-repair8-20261027-p67/candidates/nemata-jp/page-0067.json",
-      "candidateSha256": "f97f00447f87337d673415ee416aef1a7144b355bf173f0d98307bd2084190f4",
-      "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0067.f97f00447f87337d673415ee416aef1a7144b355bf173f0d98307bd2084190f4.6baa4a7e1404.json",
-      "auditStatus": "passed",
-      "chapterId": "nemata-jp-chapter-067-1",
-      "completeChapter": true,
-      "note": "Chapter already in preview; replace page 67 component, preserve page 68 and supplement, no duplicate chapter."
-    },
-    "r2web": {
-      "to": "COAC-250 incremental consumer for complete web chapter",
-      "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter01-section021-05.r2.display.json",
-      "candidateSha256": "277fd0377de7362b7089242ee00058723c442e448e0cd0dbd79eb32c42812f07",
-      "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/modern-yabejp-ja/chapter01-section021-05.277fd0377de7362b7089242ee00058723c442e448e0cd0dbd79eb32c42812f07.json",
-      "auditStatus": "passed",
-      "chapterId": "modern-yabejp-ja-chapter01-section021-05-chapter",
-      "completeChapter": true,
-      "note": "Not present in current preview; stage/integrate as new complete web chapter, preserve parent audit and old candidate."
-    },
-    "p311": {
-      "to": "COAC-250 incremental consumer; only if complete chapter",
-      "candidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/candidates/nemata-jp/page-0311.json",
-      "candidateSha256": "9eccb98ba1d9112c7e1177b1d43c0a70ebdcf28710508c787850350d5a2db940",
-      "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0311.9eccb98ba1d9112c7e1177b1d43c0a70ebdcf28710508c787850350d5a2db940.6baa4a7e1404.json",
-      "auditStatus": "passed",
-      "chapterId": "nemata-jp-chapter-309-1",
-      "completeChapter": false,
-      "missingPages": [
-        312,
-        313,
-        314,
-        315,
-        316
-      ],
-      "blockedBy": "page 309 needs-repair"
-    },
-    "p250": {
-      "to": "COAC-250 when nemata-jp-chapter-250-1 is complete",
-      "candidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-field-repair10-20261027-p250/candidates/nemata-jp/page-0250.json",
-      "candidateSha256": "1a3e1c8ce49532298caf98b7fabc00a91fa830a6f8a5e892db8199e457a43786",
-      "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0250.1a3e1c8ce49532298caf98b7fabc00a91fa830a6f8a5e892db8199e457a43786.6baa4a7e1404.json",
-      "auditStatus": "passed",
-      "chapterId": "nemata-jp-chapter-250-1",
-      "completeChapter": false,
-      "note": "Page passed; parent chapter still incomplete."
-    },
-    "p312": {
-      "to": "COAC-250 incremental consumer; only if complete chapter",
-      "candidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/candidates/nemata-jp/page-0312.json",
-      "candidateSha256": "e06b2007a82872b7ade9811c01fc13aebf85f095fefe23ebe0c36a9c3f8cbc7e",
-      "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0312.e06b2007a82872b7ade9811c01fc13aebf85f095fefe23ebe0c36a9c3f8cbc7e.6baa4a7e1404.json",
-      "auditStatus": "passed",
-      "chapterId": "nemata-jp-chapter-309-1",
-      "completeChapter": false,
-      "missingPages": [
-        313,
-        314,
-        315,
-        316
-      ],
-      "blockedBy": "page 309 needs-repair"
-    },
-    "p256": {
-      "to": "COAC-250 when nemata-jp-chapter-250-1 is complete",
-      "candidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-field-repair11-20261027-p256/candidates/nemata-jp/page-0256.json",
-      "candidateSha256": "bf9d64107b4b3d425c1ec16aa97baf9178799f8371f1e4879f7fde0f6489c2cf",
-      "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0256.bf9d64107b4b3d425c1ec16aa97baf9178799f8371f1e4879f7fde0f6489c2cf.6baa4a7e1404.json",
-      "auditStatus": "passed",
-      "chapterId": "nemata-jp-chapter-250-1",
-      "completeChapter": false,
-      "note": "Source duplicate wording preserved; no editorial note in body."
-    },
-    "p313": {
-      "to": "COAC-250 incremental consumer; only if complete chapter",
-      "candidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/candidates/nemata-jp/page-0313.json",
-      "candidateSha256": "057be2fc59bf87a8227cc510a4df12a7b5d5f629b4307b8f8f920e9928655ff1",
-      "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0313.057be2fc59bf87a8227cc510a4df12a7b5d5f629b4307b8f8f920e9928655ff1.6baa4a7e1404.json",
-      "auditStatus": "passed",
-      "chapterId": "nemata-jp-chapter-309-1",
-      "completeChapter": false,
-      "missingPages": [
-        314,
-        315,
-        316
-      ],
-      "blockedBy": "page 309 needs-repair"
-    },
-    "p254nemata": {
-      "to": "COAC-250 when nemata-jp-chapter-250-1 is complete",
-      "candidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-field-repair9-20261027-p254nemata/candidates/nemata-jp/page-0254.json",
-      "candidateSha256": "bdc0dcb315a56712edc68450c22c1b838a315683a5d9f0650395ac5f9c03f690",
-      "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0254.bdc0dcb315a56712edc68450c22c1b838a315683a5d9f0650395ac5f9c03f690.image-binding-revalidated.json",
-      "auditStatus": "passed",
-      "chapterId": "nemata-jp-chapter-250-1",
-      "completeChapter": false,
-      "note": "Review binding revalidated; original failed receipt retained."
-    },
-    "p253": {
-      "to": "COAC-250 when nemata-jp-chapter-250-1 is complete",
-      "candidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-field-repair12-20261027-p253/candidates/nemata-jp/page-0253.json",
-      "candidateSha256": "78b98bcd25a3bec7a6facea85f01973ae17d0735a2f3de418cb39826587b9a6f",
-      "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0253.78b98bcd25a3bec7a6facea85f01973ae17d0735a2f3de418cb39826587b9a6f.6b1b0eb6efaf.json",
-      "auditStatus": "passed",
-      "chapterId": "nemata-jp-chapter-250-1",
-      "completeChapter": false,
-      "note": "9m/5s/7s and r7/r8 corrected from source images; flow wording fixed."
-    },
-    "chapter309_316": {
-      "to": "COAC-250 when pages 309 and 315 pass",
-      "produced": "309-316 all produced in sol-high-fallback-inline-20261026",
-      "passedPages": [
-        310,
-        311,
-        312,
-        313,
-        314,
-        316
-      ],
-      "blockingPages": [
-        309,
-        315
-      ],
-      "page309": {
-        "reviewErrors": [
-          "needs-repair:nemata-jp-p309-b33",
-          "needs-repair:nemata-jp-p309-r13"
-        ],
-        "blocker": "deterministic correction rejected by native binding; needs an approved correction path"
-      },
-      "page315": {
-        "reviewErrorCount": 18,
-        "detail": "visual_reading_flow_not_faithful plus 15 block/figure needs-repair targets; not a one-field fix"
-      },
-      "note": "Fixing both clears the chapter for 250."
-    },
-    "auditedSinceLastRefresh": [
-      {
-        "objectId": "nemata-jp:page:331",
-        "candidateSha256": "c164202b7e3263639d475e63870f3e71e8177f3858f30d743b423b69a1104c32",
-        "status": "passed",
-        "auditedAt": "2026-10-26T20:52:14.617Z",
-        "note": "produced at 20:50 by the shared maker lane, audited passed; not a repair object"
-      }
-    ]
-  },
-  "policy": "Dedupe by effective candidate file SHA; terminal passed SHAs are not re-dispatched; failed objects are separate and not retried without error analysis.",
-  "latestAddition": {
-    "objectId": "nemata-jp:page:309",
-    "addedAt": "2026-10-26T16:54:02.707Z",
-    "status": "needs-repair",
-    "candidateSha256": "d323290d8eb056b85a64563702b4d1d1283b3c6eff70cf7ecdb34c9faa84337b",
-    "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0309.d323290d8eb056b85a64563702b4d1d1283b3c6eff70cf7ecdb34c9faa84337b.6baa4a7e1404.json",
-    "note": "Produced once; audit needs-repair; repair preserved, no re-production."
-  },
-  "refreshedAt": "2026-10-27T05:55:00.000Z",
-  "byOrigin": {
-    "COAC-248 old PDF 12": 5,
-    "COAC-247 new PDF return": 3,
-    "COAC-249 explicit 20": 7,
-    "COAC-249 protected supplement": 1,
-    "COAC-247 new PDF return (309)": 1,
-    "COAC-247 new PDF return (inline root)": 3
-  },
-  "addedThisRefresh": [],
-  "nativeInlineCorrection": {
-    "route": "root-approved exact native-inline field correction (reuses the 79-cn exact-field pattern)",
-    "codeCommit": "de26cb1 Add bounded native inline field correction audit route",
-    "tests": "scripts/scene-study/textbook-audit-pdf-native-corrections.test.mjs (11 cases: accepted revision, unlisted field, wrong parent SHA, wrong source page SHA, missed audit item, unapproved target, non-unique replacement, raw mismatch, unresolved structural item, missing source evidence) plus real-data rejection runs for pages 309/315",
-    "approvals": [
-      "audit/source-corrections/native-inline-field-corrections.p309.root-acceptance.json",
-      "audit/source-corrections/native-inline-field-corrections.p315.root-acceptance.json"
-    ],
-    "reviewCalls": [
-      {
-        "page": 309,
-        "candidateSha256": "83950d4e...",
-        "result": "passed"
-      },
-      {
-        "page": 315,
-        "candidateSha256": "3a0d697f...",
-        "result": "needs-repair (r8/r9)"
-      },
-      {
-        "page": 315,
-        "candidateSha256": "bc2afae2...",
-        "result": "passed"
-      }
-    ],
-    "runGateway": "no run-gateway calls this stage; the 20:07/20:47 UTC 503s were run gateway (api.commandcode.ai / Cloudflare 1102), not the review gateway; no retry was issued against the same limit.",
-    "chapterHandoff": {
-      "chapterId": "nemata-jp-chapter-309-1",
-      "pages": [
-        309,
-        310,
-        311,
-        312,
-        313,
-        314,
-        315,
-        316
-      ],
-      "consumer": "COAC-250",
-      "status": "complete-all-pages-passed"
-    }
+ "schema": "coach-unified-repair-list/1",
+ "recordedAt": "2026-10-26T16:39:55.811Z",
+ "denominator": {
+  "originalChapters": 256,
+  "completeOriginalChapters": 186,
+  "incompleteOriginalChapters": 70,
+  "note": "Object list is page/article-level, not chapter count."
+ },
+ "countsBeforeThisStage": {
+  "needsRepair": 24,
+  "failedSeparate": 2,
+  "resolved": 0,
+  "newObjects": 12,
+  "deduped": 1
+ },
+ "countsCurrent": {
+  "needsRepair": 17,
+  "failedSeparate": 2,
+  "resolvedThisStage": 15,
+  "newObjectsStillUnresolved": 12,
+  "oldObjectsStillUnresolved": 5,
+  "totalTracked": 34
+ },
+ "breakdown": {
+  "oldPdfRemaining": 5,
+  "newPdfPages": 4,
+  "web": 7,
+  "protectedSupplement": 1,
+  "failed": 2
+ },
+ "dedupe": [
+  {
+   "objectId": "nemata-jp:page:257",
+   "candidateSha256": "6283c24943ac239fad731dd356b7c2da4097ecb9b48bcd9b652a242a8919ee88",
+   "sources": [
+    "COAC-248 old PDF 12",
+    "COAC-247 new PDF return"
+   ],
+   "resolution": "one object"
   }
+ ],
+ "objects": [
+  {
+   "objectId": "79-cn:page:50",
+   "kind": "pdf-page",
+   "sourceId": "79-cn",
+   "page": 50,
+   "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-full\\candidates\\79-cn\\page-0050.json",
+   "candidateSha256": "6d33c81805e404c9dcacda38075ea644e3d2401cc0205b1a7732ff2a49097dac",
+   "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0050.6d33c81805e404c9dcacda38075ea644e3d2401cc0205b1a7732ff2a49097dac.c398d43a97fc.json",
+   "auditStatus": "needs-repair",
+   "issueCount": 1,
+   "reviewErrors": [
+    "uncertain:79-cn-p50-r2",
+    "uncertain:79-cn-p50-r2"
+   ],
+   "currentDisposition": "needs-repair",
+   "origin": "COAC-248 old PDF 12",
+   "newThisStage": false
+  },
+  {
+   "objectId": "79-cn:page:217",
+   "kind": "pdf-page",
+   "sourceId": "79-cn",
+   "page": 217,
+   "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\candidates\\79-cn\\page-0217.json",
+   "candidateSha256": "73410520b240c15305d220c0aa472bb0f53392255dd0167b78d8a4627aac0add",
+   "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.73410520b240c15305d220c0aa472bb0f53392255dd0167b78d8a4627aac0add.6baa4a7e1404.retry-1792979810396-c29948ed.json",
+   "auditStatus": "needs-repair",
+   "issueCount": 4,
+   "reviewErrors": [
+    "needs-repair:79-cn-p217-r1",
+    "error:79-cn-p217-r1",
+    "error:79-cn-p217-r1",
+    "error:79-cn-p217-r1",
+    "uncertain:79-cn-p217-r1"
+   ],
+   "currentDisposition": "needs-repair",
+   "origin": "COAC-248 old PDF 12",
+   "newThisStage": false
+  },
+  {
+   "objectId": "79-cn:page:263",
+   "kind": "pdf-page",
+   "sourceId": "79-cn",
+   "page": 263,
+   "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\candidates\\79-cn\\page-0263.json",
+   "candidateSha256": "7fea090b5ca70f172889164cecd3ba8bd40eed5dc3c0af51a9b354cbed272fcc",
+   "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0263.7fea090b5ca70f172889164cecd3ba8bd40eed5dc3c0af51a9b354cbed272fcc.6baa4a7e1404.retry-1792988924985-8ba77355.json",
+   "auditStatus": "needs-repair",
+   "issueCount": 2,
+   "reviewErrors": [
+    "needs-repair:79-cn-p263-r1",
+    "error:79-cn-p263-r1",
+    "error:79-cn-p263-r1"
+   ],
+   "currentDisposition": "needs-repair",
+   "origin": "COAC-248 old PDF 12",
+   "newThisStage": false
+  },
+  {
+   "objectId": "nemata-jp:page:98",
+   "kind": "pdf-page",
+   "sourceId": "nemata-jp",
+   "page": 98,
+   "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\v4\\candidates\\nemata-jp\\page-0098.json",
+   "candidateSha256": "59d82a54fe6df29600f8be9b887fdb29e9f1ac62c4c2796661f69ecfe675d71c",
+   "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0098.59d82a54fe6df29600f8be9b887fdb29e9f1ac62c4c2796661f69ecfe675d71c.4ed00d884fed.json",
+   "auditStatus": "needs-repair",
+   "issueCount": 12,
+   "reviewErrors": [
+    "visual_reading_flow_not_faithful",
+    "needs-repair:nemata-jp-p98-b2",
+    "needs-repair:nemata-jp-p98-b13",
+    "needs-repair:nemata-jp-p98-b16",
+    "needs-repair:nemata-jp-p98-b20",
+    "needs-repair:nemata-jp-p98-b21",
+    "needs-repair:nemata-jp-p98-b22",
+    "needs-repair:nemata-jp-p98-b23",
+    "needs-repair:nemata-jp-p98-b29",
+    "needs-repair:nemata-jp-p98-b30",
+    "needs-repair:nemata-jp-p98-r1",
+    "needs-repair:nemata-jp-p98-r2",
+    "needs-repair:nemata-jp-p98-r3",
+    "needs-repair:nemata-jp-p98-r4",
+    "needs-repair:nemata-jp-p98-r5",
+    "needs-repair:nemata-jp-p98-r6",
+    "needs-repair:nemata-jp-p98-r7",
+    "error:nemata-jp-p98-b2",
+    "error:nemata-jp-p98-b16",
+    "error:nemata-jp-p98-b20",
+    "error:nemata-jp-p98-r1",
+    "error:nemata-jp-p98-r2",
+    "error:nemata-jp-p98-r3",
+    "error:nemata-jp-p98-r4",
+    "error:nemata-jp-p98-r5",
+    "error:nemata-jp-p98-r6",
+    "error:nemata-jp-p98-b30",
+    "error:nemata-jp-p98-r7",
+    "error:flowCheck"
+   ],
+   "currentDisposition": "needs-repair",
+   "origin": "COAC-248 old PDF 12",
+   "newThisStage": false
+  },
+  {
+   "objectId": "nemata-jp:page:257",
+   "kind": "pdf-page",
+   "sourceId": "nemata-jp",
+   "page": 257,
+   "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\candidates\\nemata-jp\\page-0257.json",
+   "candidateSha256": "6283c24943ac239fad731dd356b7c2da4097ecb9b48bcd9b652a242a8919ee88",
+   "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0257.6283c24943ac239fad731dd356b7c2da4097ecb9b48bcd9b652a242a8919ee88.6baa4a7e1404.json",
+   "auditStatus": "needs-repair",
+   "issueCount": 1,
+   "reviewErrors": [
+    "uncertain:nemata-jp-p257-r1",
+    "uncertain:nemata-jp-p257-r1"
+   ],
+   "currentDisposition": "needs-repair",
+   "origin": "COAC-248 old PDF 12",
+   "newThisStage": false,
+   "alsoReportedBy": "COAC-247",
+   "dedupeNote": "COAC-247 page 257 candidate SHA 6283c249… equals the old-list candidate; one unresolved object."
+  },
+  {
+   "objectId": "nemata-jp:page:260",
+   "kind": "pdf-page",
+   "sourceId": "nemata-jp",
+   "page": 260,
+   "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\candidates\\nemata-jp\\page-0260.json",
+   "candidateSha256": "f9c04f6b68453f9df123cc1c7cf43629ce338af0c40e0bbe843c78f1a09b2958",
+   "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0260.f9c04f6b68453f9df123cc1c7cf43629ce338af0c40e0bbe843c78f1a09b2958.6baa4a7e1404.json",
+   "auditStatus": "needs-repair",
+   "issueCount": 5,
+   "issues": [
+    {
+     "severity": "error",
+     "targetId": "nemata-jp-p260-r5",
+     "sourceEvidence": "b46及局部原图显示7s，位于「のくっつきよりは」之前。",
+     "description": "牌图及正文引用误写为9s，改变了保留役牌宝牌时的比较对象。",
+     "suggestedRepair": "将r5的transcription、caption及b8—b10合并段落中的对应句内引用统一改为7s。"
+    },
+    {
+     "severity": "error",
+     "targetId": "nemata-jp-p260-r21",
+     "sourceEvidence": "问题15原手牌从左至右为455567m 6p 2334557s。",
+     "description": "候选将索子中的4s及两张5s误录为6s及两张8s。",
+     "suggestedRepair": "将r21及正文手牌统一改为455567m 6p 2334557s，保留原始14张排列。"
+    },
+    {
+     "severity": "error",
+     "targetId": "nemata-jp-p260-r26",
+     "sourceEvidence": "b68原图四张弃牌候选依次为2s、3s、5s、7s。",
+     "description": "末张7s误录为9s。",
+     "suggestedRepair": "将图例及b34—b35合并段落的候选牌改为2357s。"
+    },
+    {
+     "severity": "error",
+     "targetId": "nemata-jp-p260-r28",
+     "sourceEvidence": "b70为接在「B型が」之后的7s牌图。",
+     "description": "B型血对应弃牌误写为9s。",
+     "suggestedRepair": "将r28及正文B型血对应引用统一改为7s。"
+    },
+    {
+     "severity": "error",
+     "targetId": "nemata-jp-p260-r33",
+     "sourceEvidence": "b75上行右端为334s，b76下一行左端为557s；两部分连续接在「場合も」与「のリャンカンが残り」之间。",
+     "description": "候选既错录为336s／889s，又将同一跨行牌形错误解释为两个独立牌例。",
+     "suggestedRepair": "将r33转录和caption改为连续牌形334557s，说明仅因原排版换行分成两段；正文改为留下334557s的两嵌形，不使用分隔两个例子的斜线。"
+    }
+   ],
+   "currentDisposition": "needs-repair",
+   "origin": "COAC-247 new PDF return",
+   "newThisStage": true
+  },
+  {
+   "objectId": "nemata-jp:page:261",
+   "kind": "pdf-page",
+   "sourceId": "nemata-jp",
+   "page": 261,
+   "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\candidates\\nemata-jp\\page-0261.json",
+   "candidateSha256": "b63d2c602ec030eb9c2d5f7852e5119363391f8f9ba24992bbfab42fc847ecd7",
+   "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0261.b63d2c602ec030eb9c2d5f7852e5119363391f8f9ba24992bbfab42fc847ecd7.6baa4a7e1404.json",
+   "auditStatus": "needs-repair",
+   "issueCount": 1,
+   "issues": [
+    {
+     "severity": "error",
+     "targetId": "nemata-jp-p261-b4",
+     "sourceEvidence": "原文：“三色は……ピンポイントに［5p］･［7p］を引かなければ成立しない”。本页摸5p后的示例牌形也明确显示筒子为56p。",
+     "description": "候选写成“必须恰好摸入5p或7p”，把做成567三色同顺需要补齐5p和7p的共同条件改成任选其一，削弱了作者说明三色相当不确定的论据。",
+     "suggestedRepair": "将r8与r9之间的“或”改为“和”，表述为“必须恰好摸入5p和7p”，保留两张句内牌图及后续判断。"
+    }
+   ],
+   "currentDisposition": "needs-repair",
+   "origin": "COAC-247 new PDF return",
+   "newThisStage": true
+  },
+  {
+   "objectId": "nemata-jp:page:262",
+   "kind": "pdf-page",
+   "sourceId": "nemata-jp",
+   "page": 262,
+   "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\candidates\\nemata-jp\\page-0262.json",
+   "candidateSha256": "0025a1f80f4ceb7cba97f8c9382b02719701370e75af87a537c0130f3a2c604f",
+   "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0262.0025a1f80f4ceb7cba97f8c9382b02719701370e75af87a537c0130f3a2c604f.6baa4a7e1404.json",
+   "auditStatus": "needs-repair",
+   "issueCount": 1,
+   "issues": [
+    {
+     "severity": "error",
+     "targetId": "nemata-jp-p262-b17",
+     "sourceEvidence": "原文为“［3s］引きで三面”，没有写听牌；本题手牌也并非摸入3s即可整手听牌。",
+     "description": "候选“摸入3s可形成三面听”把局部三面形的发展写成整手三面听，改变了手牌进展状态。",
+     "suggestedRepair": "将“可形成三面听”改为“可形成三面形”，保留其他摸牌发展与孤立牌评价。"
+    }
+   ],
+   "currentDisposition": "needs-repair",
+   "origin": "COAC-247 new PDF return",
+   "newThisStage": true
+  },
+  {
+   "objectId": "web:archive01-section006",
+   "kind": "web-article",
+   "articleId": "archive01-section006",
+   "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\archive01-section006.display.json",
+   "candidateSha256": "04ab76405f88fa1df61d68c2047cf3cb344b8db8644f193c520fee805b83c427",
+   "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\archive01-section006.04ab76405f88fa1df61d68c2047cf3cb344b8db8644f193c520fee805b83c427.json",
+   "auditStatus": "needs-repair",
+   "issueCount": 1,
+   "issueTargets": [
+    "modern-yabejp-ja:archive01-section006:b0518:error"
+   ],
+   "currentDisposition": "needs-repair",
+   "origin": "COAC-249 explicit 20",
+   "newThisStage": true
+  },
+  {
+   "objectId": "web:chapter01-section035",
+   "kind": "web-article",
+   "articleId": "chapter01-section035",
+   "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter01-section035.display.json",
+   "candidateSha256": "0439c38228989d2f997036eaa0e4a4522cfb40e6c141469b1c83abf66db2c077",
+   "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter01-section035.0439c38228989d2f997036eaa0e4a4522cfb40e6c141469b1c83abf66db2c077.json",
+   "auditStatus": "needs-repair",
+   "issueCount": 1,
+   "issueTargets": [
+    "modern-yabejp-ja:chapter01-section035:b0040:uncertain"
+   ],
+   "currentDisposition": "needs-repair",
+   "origin": "COAC-249 explicit 20",
+   "newThisStage": true
+  },
+  {
+   "objectId": "web:chapter06-exercise002-02",
+   "kind": "web-article",
+   "articleId": "chapter06-exercise002-02",
+   "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise002-02.display.json",
+   "candidateSha256": "c57c30e4ffddb9ea661295364ee46739438c2c17a4f4c772e5df0b8391c7576b",
+   "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter06-exercise002-02.c57c30e4ffddb9ea661295364ee46739438c2c17a4f4c772e5df0b8391c7576b.json",
+   "auditStatus": "needs-repair",
+   "issueCount": 2,
+   "issueTargets": [
+    "modern-yabejp-ja:chapter06-exercise002-02:b0263:error",
+    "modern-yabejp-ja:chapter06-exercise002-02:b0545:error"
+   ],
+   "currentDisposition": "needs-repair",
+   "origin": "COAC-249 explicit 20",
+   "newThisStage": true
+  },
+  {
+   "objectId": "web:chapter03-section009",
+   "kind": "web-article",
+   "articleId": "chapter03-section009",
+   "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section009.display.json",
+   "candidateSha256": "abaeede080b3d413e2ead7708a8278ba39dfb2cd21bfebeac5c61726873887c3",
+   "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter03-section009.abaeede080b3d413e2ead7708a8278ba39dfb2cd21bfebeac5c61726873887c3.json",
+   "auditStatus": "needs-repair",
+   "issueCount": 3,
+   "issueTargets": [
+    "modern-yabejp-ja:chapter03-section009:b0080:figure:error",
+    "modern-yabejp-ja:chapter03-section009:b0080:figure:uncertain",
+    "modern-yabejp-ja:chapter03-section009:b0081:error"
+   ],
+   "currentDisposition": "needs-repair",
+   "origin": "COAC-249 explicit 20",
+   "newThisStage": true
+  },
+  {
+   "objectId": "web:chapter03-section026",
+   "kind": "web-article",
+   "articleId": "chapter03-section026",
+   "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section026.display.json",
+   "candidateSha256": "4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4",
+   "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter03-section026.4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4.json",
+   "auditStatus": "needs-repair",
+   "issueCount": 3,
+   "issueTargets": [
+    "modern-yabejp-ja:chapter03-section026:b0017:error",
+    "modern-yabejp-ja:chapter03-section026:b0032:figure:error",
+    "modern-yabejp-ja:chapter03-section026:b0032:figure:uncertain"
+   ],
+   "currentDisposition": "needs-repair",
+   "origin": "COAC-249 explicit 20",
+   "newThisStage": true
+  },
+  {
+   "objectId": "web:chapter04-section005",
+   "kind": "web-article",
+   "articleId": "chapter04-section005",
+   "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.display.json",
+   "candidateSha256": "24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408",
+   "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section005.24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408.json",
+   "auditStatus": "needs-repair",
+   "issueCount": 2,
+   "issueTargets": [
+    "modern-yabejp-ja:chapter04-section005:b0013:figure:error",
+    "modern-yabejp-ja:chapter04-section005:b0013:figure:error"
+   ],
+   "currentDisposition": "needs-repair",
+   "origin": "COAC-249 explicit 20",
+   "newThisStage": true
+  },
+  {
+   "objectId": "web:chapter04-section012",
+   "kind": "web-article",
+   "articleId": "chapter04-section012",
+   "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section012.display.json",
+   "candidateSha256": "2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37",
+   "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section012.2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37.json",
+   "auditStatus": "needs-repair",
+   "issueCount": 4,
+   "issueTargets": [
+    "modern-yabejp-ja:chapter04-section012:b0002:error",
+    "modern-yabejp-ja:chapter04-section012:b0004:error",
+    "modern-yabejp-ja:chapter04-section012:b0005:figure:error",
+    "modern-yabejp-ja:chapter04-section012:b0005:figure:uncertain"
+   ],
+   "currentDisposition": "needs-repair",
+   "origin": "COAC-249 explicit 20",
+   "newThisStage": true
+  },
+  {
+   "objectId": "supplement:chapter02-section019",
+   "kind": "protected-supplement",
+   "sourceId": "modern-yabejp-ja",
+   "articleId": "chapter02-section019",
+   "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\protected-supplement-coac246\\candidates\\chapter02-section019.json",
+   "candidateSha256": "ffa9f14c36225c4a98d7281ae7fbee1e5ea9608d16b35d117731dc508be192bf",
+   "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\protected-supplements\\chapter02-section019.ffa9f14c36225c4a98d7281ae7fbee1e5ea9608d16b35d117731dc508be192bf.json",
+   "auditStatus": "needs-repair",
+   "issueCount": 2,
+   "issues": [
+    {
+     "targetId": "modern-yabejp-ja:chapter02-section019:b0017",
+     "severity": "uncertain",
+     "sourceEvidence": "源上下文提供007.png的资产引用及图7说明文字；候选另列图内标题、七项图例、逐巡近似数值和曲线交叉趋势。当前没有可辨读的源图像。",
+     "description": "图7说明文字翻译正确，但候选的图内转录及数值无法根据所给可见证据核实。不能以候选自身的转录证明其准确，也不能从父稿已通过的状态推定新增转录已获核实。",
+     "suggestedRepair": "依据源图核对标题、图例、数值及趋势；无法核实的新增内容保留为待精确合并项，不作为已核实补充入稿，并保留已通过父稿。"
+    },
+    {
+     "targetId": "modern-yabejp-ja:chapter02-section019:b0019",
+     "severity": "uncertain",
+     "sourceEvidence": "源图说明明确为「双方に対して平均して危険度約1.5%の牌を切る」。候选转录另记图内标题为「不完全弃和（25%）」，并列出七项图例和三组逐巡近似数值；当前没有可辨读的源图像。",
+     "description": "1.5%的说明文字译文正确；图内25%、图例和曲线数据尚无法核实。不能推定25%与1.5%指同一参数，也不能据此认定源图有误或判定为版本差异。",
+     "suggestedRepair": "依据源图核实25%的原文及图表转录；保留说明文字中的1.5%，不自行换算或统一两个数值。未解决的图内含义或版本差异继续待精确合并，不覆盖已通过父稿。"
+    }
+   ],
+   "currentDisposition": "needs-repair",
+   "origin": "COAC-249 protected supplement",
+   "newThisStage": true,
+   "note": "p1 chapter01-section022-03 passed and assembled; p2 remains excluded."
+  },
+  {
+   "objectId": "nemata-jp:page:330",
+   "kind": "pdf-page",
+   "sourceId": "nemata-jp",
+   "page": 330,
+   "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\candidates\\nemata-jp\\page-0330.json",
+   "candidateSha256": "859d1d577a7b7406ac3594b3beb9a30415d2acf3c588c09e8a427d1b59d0de8b",
+   "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0330.859d1d577a7b7406ac3594b3beb9a30415d2acf3c588c09e8a427d1b59d0de8b.6baa4a7e1404.json",
+   "auditStatus": "needs-repair",
+   "issueCount": 2,
+   "reviewErrors": [
+    "visual_reading_flow_not_faithful",
+    "needs-repair:nemata-jp-p330-b10",
+    "needs-repair:nemata-jp-p330-b11",
+    "error:nemata-jp-p330-b10",
+    "error:nemata-jp-p330-b11"
+   ],
+   "currentDisposition": "needs-repair",
+   "origin": "COAC-247 new PDF return (inline root)",
+   "newThisStage": true,
+   "revision1": {
+    "candidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-field-repair17-20261027-p330/candidates/nemata-jp/page-0330.json",
+    "candidateSha256": "7eaa03dd9e5a276efe07e42d3b84d068364f4f71f355dfcacc9f64e9eb7f199f",
+    "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0330.7eaa03dd9e5a276efe07e42d3b84d068364f4f71f355dfcacc9f64e9eb7f199f.7076217daf84.json",
+    "auditStatus": "needs-repair",
+    "reviewErrors": [
+     "visual_reading_flow_not_faithful",
+     "needs-repair:nemata-jp-p330-b10",
+     "needs-repair:nemata-jp-p330-b11",
+     "error:nemata-jp-p330-b10",
+     "error:nemata-jp-p330-b11"
+    ],
+    "reviewCall": {
+     "callId": "d922961d-a755-445d-bcde-3b7f5cb14404",
+     "usage": {
+      "inputTokens": 35696,
+      "cachedInputTokens": 0,
+      "outputTokens": 7446
+     },
+     "result": "needs-repair (structural flow only)"
+    },
+    "resolvedTileErrors": [
+     "nemata-jp-p330-r1 125554m -> 123334m (transcription + caption)",
+     "nemata-jp-p330-r4 544555m -> 344555m (transcription + caption, 四张5m -> 三张5m)",
+     "nemata-jp-p330-r22 554566m -> 334566m (transcription + caption, 三张5m -> 一张5m)"
+    ],
+    "resolvedBlocks": [
+     "nemata-jp-p330-b5",
+     "nemata-jp-p330-b8",
+     "nemata-jp-p330-b20"
+    ],
+    "verifiedByIndependentReview": "The revision review no longer lists any tile-form error; the three corrected figures and their inline blocks are faithful."
+   },
+   "structuralBlocker": {
+    "finding": "The independent review of the corrected page located a reading-order defect in the two pon examples: r6-r14 are overlapping vertical slices of two source rows (r6 244.8-290.4, r7/r8/r9 254.4-301.9/321.4, r10-r13 285.4-336.5, r14 300.5-339.6), so the first example repeats its whole hand across r6/r7 and r9 carries the second example forward past the first example's →打.",
+    "whyTheRouteCannotExpressIt": "Restoring one hand -> pon -> discard per example requires changing the figure region partition (bbox/sourceImageBlockIds) or adding/removing body blocks. The exact-field route requires every unlisted field to equal the preserved production raw and every figure to be referenced exactly once, and rebuilding rawFlow from a restructured body is rejected as audit_native_pdf_raw_flow_changed / audit_native_inline_correction_structural_error.",
+    "optionsNotTaken": "Full-page re-production is excluded by the ticket (不重制整页); no global binding rule was loosened.",
+    "decisionNeeded": "A page-scoped structural entry for page 330 (page-scoped region re-derivation or a page-scoped block arrangement approval), authorised like the previous 309/315 entry."
+   }
+  }
+ ],
+ "failedSeparate": [
+  {
+   "objectId": "web-failed:chapter06-exercise003",
+   "kind": "web-article-failed",
+   "articleId": "chapter06-exercise003",
+   "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.display.json",
+   "candidateSha256": "fcde9f00cb9433bb5dec6a47d688ea7abb0c919c0aa2dac3012fd080d32a5893",
+   "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter06-exercise003.fcde9f00cb9433bb5dec6a47d688ea7abb0c919c0aa2dac3012fd080d32a5893.json",
+   "auditStatus": "failed",
+   "currentDisposition": "failed-separate-do-not-retry",
+   "origin": "COAC-249 explicit 20",
+   "newThisStage": true,
+   "originalError": "web_audit_batch_output_assembly (preflight; no model call)",
+   "note": "Not auto-retried; original error/raw preserved.",
+   "attemptsObserved": 3,
+   "callsObserved": 0,
+   "recoveryInvestigation": {
+    "checkedAt": "2026-10-26T22:52:00.000Z",
+    "result": "Deterministic preflight failure in verifyWebBatchedProductionCalls: the stored batch output does not assemble onto the candidate (translations/figures count, per-block text, or figure provenance.callId/outputSourceBlockId mismatch). No model call was made; the same error reproduced 3 times with 0 calls.",
+    "safeRecovery": "Not an audit retry. Requires re-deriving the assembled output from the stored batch raw (or re-running that article's production batch in the maker lane) before any review."
+   }
+  },
+  {
+   "objectId": "web-failed:chapter06-exercise004",
+   "kind": "web-article-failed",
+   "articleId": "chapter06-exercise004",
+   "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise004.display.json",
+   "candidateSha256": "736810e43a8a94084c6d9c7c2d63f91654a50f236ece06753bc75713918319eb",
+   "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter06-exercise004.736810e43a8a94084c6d9c7c2d63f91654a50f236ece06753bc75713918319eb.json",
+   "auditStatus": "failed",
+   "currentDisposition": "failed-separate-do-not-retry",
+   "origin": "COAC-249 explicit 20",
+   "newThisStage": true,
+   "originalError": "model review returned no modelReview after 3 calls",
+   "note": "Not auto-retried; original error/raw preserved.",
+   "attemptsObserved": 3,
+   "callsObserved": 3,
+   "finalCallSuccess": false,
+   "finalCallUsage": {
+    "inputTokens": 58576,
+    "cachedInputTokens": 58368,
+    "outputTokens": 10724
+   },
+   "recoveryInvestigation": {
+    "checkedAt": "2026-10-26T22:52:00.000Z",
+    "result": "Batches 001 and 002 passed with real reviews; batch-003's call failed (success=false, usage 58576/58368/10724) and its checkpoint is recorded failed, so the article stopped at incomplete_independent_batch_review after 3 attempts.",
+    "safeRecovery": "Re-run only batch-003 as one review call, reusing the passed batch-001/002 receipts; no blind whole-article retry."
+   }
+  }
+ ],
+ "resolvedThisStage": [
+  {
+   "objectId": "79-cn:page:254",
+   "kind": "pdf-page",
+   "sourceId": "79-cn",
+   "page": 254,
+   "parentCandidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\candidates\\79-cn\\page-0254.json",
+   "parentCandidateSha256": "48c996497aa1fcc71a0743bb4e79eeaaa54d222985a2c25da75b54a739933f77",
+   "repairedCandidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair5-20261027-p254\\candidates\\79-cn\\page-0254.json",
+   "repairedCandidateSha256": "b4df282fa7f428f294a67e14f6183f03d38a6c96bfef2241b3dfe455fabddf4a",
+   "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0254.b4df282fa7f428f294a67e14f6183f03d38a6c96bfef2241b3dfe455fabddf4a.6baa4a7e1404.json",
+   "auditStatus": "passed",
+   "repairKind": "deterministic-visible-tile-and-dora-field-correction",
+   "modelCallsForRepair": 0,
+   "auditModelCalls": 4,
+   "auditUsage": [
+    {
+     "inputTokens": 20080,
+     "outputTokens": 4838
+    },
+    {
+     "inputTokens": 20055,
+     "outputTokens": 4240
+    },
+    {
+     "inputTokens": 20069,
+     "outputTokens": 7453
+    },
+    {
+     "inputTokens": 20026,
+     "outputTokens": 3298
+    }
+   ],
+   "currentDisposition": "resolved-passed-audit-awaiting-250-handoff",
+   "note": "Original candidate/audit preserved; new production root copy; no page re-production.",
+   "finalAuditCallId": "372acfdd-9d94-4f02-a256-7e2135663535",
+   "finalAuditUsage": {
+    "inputTokens": 20026,
+    "cachedInputTokens": 0,
+    "outputTokens": 3298
+   }
+  },
+  {
+   "objectId": "79-cn:page:153",
+   "kind": "pdf-page",
+   "sourceId": "79-cn",
+   "page": 153,
+   "parentCandidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-finite-20261024-schemafix/candidates/79-cn/page-0153.json",
+   "parentCandidateSha256": "f9aa3064ad6b30f2c59233760ab4fce05870e82ad11abcdc2fbcf528ff9bf508",
+   "repairedCandidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-field-repair7-20261027-p153/candidates/79-cn/page-0153.json",
+   "repairedCandidateSha256": "89371a3d25579b86b220027666c1f85745747b396a6214dfa1f7629cdeb2a2ad",
+   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/79-cn/page-0153.89371a3d25579b86b220027666c1f85745747b396a6214dfa1f7629cdeb2a2ad.6baa4a7e1404.json",
+   "auditStatus": "passed",
+   "repairKind": "deterministic-honor-tile-encoding-example2-example3",
+   "modelCallsForRepair": 0,
+   "auditModelCalls": 2,
+   "auditUsage": [
+    {
+     "inputTokens": 23791,
+     "outputTokens": 5691
+    },
+    {
+     "inputTokens": 23793,
+     "outputTokens": 1839
+    }
+   ],
+   "finalAuditCallId": "6d3592e5-3bbf-4f10-87fc-42be83d951b1",
+   "finalAuditUsage": {
+    "inputTokens": 23793,
+    "cachedInputTokens": 0,
+    "outputTokens": 1839
+   },
+   "currentDisposition": "resolved-passed-audit-awaiting-250-handoff",
+   "note": "Original candidate/audit preserved; new production root copy; no page re-production."
+  },
+  {
+   "objectId": "nemata-jp:page:310",
+   "kind": "pdf-page",
+   "sourceId": "nemata-jp",
+   "page": 310,
+   "candidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/candidates/nemata-jp/page-0310.json",
+   "candidateSha256": "d605e842bec56aeb408d33815ce7e3847a03a9bd03e0c300d096f82f47590296",
+   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0310.d605e842bec56aeb408d33815ce7e3847a03a9bd03e0c300d096f82f47590296.6baa4a7e1404.json",
+   "auditStatus": "passed",
+   "repairKind": "new-page-produced-and-independently-passed",
+   "modelCallsForRepair": 0,
+   "auditModelCalls": 1,
+   "finalAuditCallId": "180684f8-15f2-4ef4-a177-a31465eee0cf",
+   "finalAuditUsage": {
+    "inputTokens": 34004,
+    "cachedInputTokens": 0,
+    "outputTokens": 7034
+   },
+   "currentDisposition": "resolved-passed-awaiting-250-handoff",
+   "note": "Produced by COAC-247 single step; audit passed; parent chapter 309-1 still incomplete."
+  },
+  {
+   "objectId": "nemata-jp:page:67",
+   "kind": "pdf-page",
+   "sourceId": "nemata-jp",
+   "page": 67,
+   "parentCandidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high/candidates/nemata-jp/page-0067.json",
+   "parentCandidateSha256": "d631a655a8e04f596ed1407a4ee88028c92fc068fa9a0322ddcfe6d895cfb96b",
+   "repairedCandidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-field-repair8-20261027-p67/candidates/nemata-jp/page-0067.json",
+   "repairedCandidateSha256": "f97f00447f87337d673415ee416aef1a7144b355bf173f0d98307bd2084190f4",
+   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0067.f97f00447f87337d673415ee416aef1a7144b355bf173f0d98307bd2084190f4.6baa4a7e1404.json",
+   "auditStatus": "passed",
+   "repairKind": "deterministic-3m-correction-body-r2-r3-r4",
+   "modelCallsForRepair": 0,
+   "auditModelCalls": 1,
+   "finalAuditCallId": "260728d0-9d16-41f4-b696-ebeabebff65a",
+   "finalAuditUsage": {
+    "inputTokens": 27920,
+    "cachedInputTokens": 0,
+    "outputTokens": 4568
+   },
+   "currentDisposition": "resolved-integrated-in-preview",
+   "note": "Original candidate/audit preserved; new production root copy; no page re-production.",
+   "previewOutput": "accepted-content-preview-2026-10-26T18-04-20-569Z",
+   "previewCorpusId": "8a858a5dbb39cfad1ac82758076c58b12108fd706f4c8e1bca849abc6fb4f99c",
+   "integratedAt": "2026-10-26T18:06:20.001Z"
+  },
+  {
+   "objectId": "web:chapter01-section021-05",
+   "kind": "web-article",
+   "sourceId": "modern-yabejp-ja",
+   "articleId": "chapter01-section021-05",
+   "parentCandidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter01-section021-05.display.json",
+   "parentCandidateSha256": "42eaabcc8419cf3d6510763a3a4bf549f2ef2cfff264de0378c8d09fd08288c0",
+   "repairedCandidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter01-section021-05.r2.display.json",
+   "repairedCandidateSha256": "277fd0377de7362b7089242ee00058723c442e448e0cd0dbd79eb32c42812f07",
+   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/modern-yabejp-ja/chapter01-section021-05.277fd0377de7362b7089242ee00058723c442e448e0cd0dbd79eb32c42812f07.json",
+   "auditStatus": "passed",
+   "repairKind": "target-text-b0012-plus-batch-parent-inheritance",
+   "modelCallsForRepair": 1,
+   "auditModelCalls": 1,
+   "finalAuditCallId": "5c288f3b-f2d0-4e59-a7ea-18f10fde2bc2",
+   "finalAuditUsage": {
+    "inputTokens": 14025,
+    "cachedInputTokens": 0,
+    "outputTokens": 357
+   },
+   "batchParent": {
+    "groups": [
+     "chapter01-section021-05-batch-001",
+     "chapter01-section021-05-batch-002"
+    ],
+    "callIds": [
+     "92143b63-2c90-43c5-a949-a131999e8aa9",
+     "7edc8f1d-8edf-4241-af5e-b8f07547929e"
+    ],
+    "planSha256": "ed7042d21d28e487cae33cbdb6dad70e93354d412cb666738b2a05477aec4229"
+   },
+   "currentDisposition": "resolved-passed-audit-awaiting-250-handoff",
+   "note": "Complete batch parent groups verified; only b0012 re-reviewed; all other scope inherited from bound parent group receipts; original parent audit/raw retained."
+  },
+  {
+   "objectId": "nemata-jp:page:311",
+   "kind": "pdf-page",
+   "sourceId": "nemata-jp",
+   "page": 311,
+   "candidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/candidates/nemata-jp/page-0311.json",
+   "candidateSha256": "9eccb98ba1d9112c7e1177b1d43c0a70ebdcf28710508c787850350d5a2db940",
+   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0311.9eccb98ba1d9112c7e1177b1d43c0a70ebdcf28710508c787850350d5a2db940.6baa4a7e1404.json",
+   "auditStatus": "passed",
+   "repairKind": "new-page-produced-and-independently-passed",
+   "modelCallsForRepair": 0,
+   "auditModelCalls": 1,
+   "finalAuditUsage": {
+    "inputTokens": 32133,
+    "cachedInputTokens": 0,
+    "outputTokens": 6638
+   },
+   "currentDisposition": "resolved-passed-awaiting-250-handoff",
+   "note": "Produced by COAC-247 single step; audit passed; chapter 309-1 incomplete."
+  },
+  {
+   "objectId": "nemata-jp:page:250",
+   "kind": "pdf-page",
+   "sourceId": "nemata-jp",
+   "page": 250,
+   "parentCandidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-15min-20261025/candidates/nemata-jp/page-0250.json",
+   "parentCandidateSha256": "ee38dbe8f6e3a1d1b5402a8bb4c644a33413f8e68a396d7fa1d5b94b4cf38a7a",
+   "repairedCandidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-field-repair10-20261027-p250/candidates/nemata-jp/page-0250.json",
+   "repairedCandidateSha256": "1a3e1c8ce49532298caf98b7fabc00a91fa830a6f8a5e892db8199e457a43786",
+   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0250.1a3e1c8ce49532298caf98b7fabc00a91fa830a6f8a5e892db8199e457a43786.6baa4a7e1404.json",
+   "auditStatus": "passed",
+   "repairKind": "deterministic-source-typo-preservation-and-editorial-note",
+   "modelCallsForRepair": 0,
+   "auditModelCalls": 1,
+   "finalAuditUsage": {
+    "inputTokens": 47428,
+    "cachedInputTokens": 0,
+    "outputTokens": 6139
+   },
+   "currentDisposition": "resolved-passed-audit-awaiting-250-handoff",
+   "note": "Original candidate/audit preserved; new production root copy; no page re-production."
+  },
+  {
+   "objectId": "nemata-jp:page:312",
+   "kind": "pdf-page",
+   "sourceId": "nemata-jp",
+   "page": 312,
+   "candidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/candidates/nemata-jp/page-0312.json",
+   "candidateSha256": "e06b2007a82872b7ade9811c01fc13aebf85f095fefe23ebe0c36a9c3f8cbc7e",
+   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0312.e06b2007a82872b7ade9811c01fc13aebf85f095fefe23ebe0c36a9c3f8cbc7e.6baa4a7e1404.json",
+   "auditStatus": "passed",
+   "repairKind": "new-page-produced-and-independently-passed",
+   "modelCallsForRepair": 0,
+   "auditModelCalls": 1,
+   "finalAuditUsage": {
+    "inputTokens": 31849,
+    "cachedInputTokens": 0,
+    "outputTokens": 6122
+   },
+   "currentDisposition": "resolved-passed-awaiting-250-handoff",
+   "note": "Produced by COAC-247 single step; audit passed; chapter 309-1 incomplete."
+  },
+  {
+   "objectId": "nemata-jp:page:256",
+   "kind": "pdf-page",
+   "sourceId": "nemata-jp",
+   "page": 256,
+   "parentCandidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-15min-20261025/candidates/nemata-jp/page-0256.json",
+   "parentCandidateSha256": "094384234714d91e3cd7670e426c2e97c685ecc8881e7df757ccef457801bba2",
+   "repairedCandidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-field-repair11-20261027-p256/candidates/nemata-jp/page-0256.json",
+   "repairedCandidateSha256": "bf9d64107b4b3d425c1ec16aa97baf9178799f8371f1e4879f7fde0f6489c2cf",
+   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0256.bf9d64107b4b3d425c1ec16aa97baf9178799f8371f1e4879f7fde0f6489c2cf.6baa4a7e1404.json",
+   "auditStatus": "passed",
+   "repairKind": "deterministic-source-duplicate-wording-and-strength",
+   "modelCallsForRepair": 0,
+   "auditModelCalls": 3,
+   "auditUsage": [
+    {
+     "inputTokens": 35596,
+     "outputTokens": 5919
+    },
+    {
+     "inputTokens": 35611,
+     "outputTokens": 5628
+    },
+    {
+     "inputTokens": 35572,
+     "outputTokens": 6252
+    }
+   ],
+   "finalAuditUsage": {
+    "inputTokens": 35572,
+    "cachedInputTokens": 0,
+    "outputTokens": 6252
+   },
+   "currentDisposition": "resolved-passed-audit-awaiting-250-handoff",
+   "note": "Preserved original duplicate wording; removed duplicate editorial notes; fixed 鸣牌 strength; no page re-production."
+  },
+  {
+   "objectId": "nemata-jp:page:313",
+   "kind": "pdf-page",
+   "sourceId": "nemata-jp",
+   "page": 313,
+   "candidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/candidates/nemata-jp/page-0313.json",
+   "candidateSha256": "057be2fc59bf87a8227cc510a4df12a7b5d5f629b4307b8f8f920e9928655ff1",
+   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0313.057be2fc59bf87a8227cc510a4df12a7b5d5f629b4307b8f8f920e9928655ff1.6baa4a7e1404.json",
+   "auditStatus": "passed",
+   "repairKind": "new-page-produced-and-independently-passed",
+   "modelCallsForRepair": 0,
+   "auditModelCalls": 1,
+   "finalAuditUsage": {
+    "inputTokens": 31622,
+    "cachedInputTokens": 0,
+    "outputTokens": 5237
+   },
+   "currentDisposition": "resolved-passed-awaiting-250-handoff",
+   "note": "Produced by COAC-247 single step; audit passed; chapter 309-1 incomplete."
+  },
+  {
+   "objectId": "nemata-jp:page:254",
+   "kind": "pdf-page",
+   "sourceId": "nemata-jp",
+   "page": 254,
+   "parentCandidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-15min-20261025/candidates/nemata-jp/page-0254.json",
+   "parentCandidateSha256": "b39abd54cf92e49fe3c2ffd3c3a4377c2bd4316173ea6972021a277be0dcc794",
+   "repairedCandidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-field-repair9-20261027-p254nemata/candidates/nemata-jp/page-0254.json",
+   "repairedCandidateSha256": "bdc0dcb315a56712edc68450c22c1b838a315683a5d9f0650395ac5f9c03f690",
+   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0254.bdc0dcb315a56712edc68450c22c1b838a315683a5d9f0650395ac5f9c03f690.image-binding-revalidated.json",
+   "auditStatus": "passed",
+   "originalAudit": {
+    "path": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0254.bdc0dcb315a56712edc68450c22c1b838a315683a5d9f0650395ac5f9c03f690.6baa4a7e1404.json",
+    "sha256": "c43ad8734dacd2474db7e313be56c54125ce42bde68fa5669e32f53d1ff8d3c4"
+   },
+   "repairKind": "deterministic-mentanpin-terminology-plus-image-binding-revalidation",
+   "modelCallsForRepair": 0,
+   "auditModelCalls": 0,
+   "inheritedAuditCallId": "bd5004ac-a00d-48c6-b52d-7eb1a8b9910b",
+   "currentDisposition": "resolved-passed-audit-awaiting-250-handoff",
+   "note": "Existing independent full-page call revalidated after deterministic binding fix; no new model call; original needs-repair receipt retained."
+  },
+  {
+   "objectId": "nemata-jp:page:253",
+   "kind": "pdf-page",
+   "sourceId": "nemata-jp",
+   "page": 253,
+   "parentCandidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-15min-20261025/candidates/nemata-jp/page-0253.json",
+   "parentCandidateSha256": "c5f91336e295af6da66f58d3682606c7e84db37087389383d4ebbf9c4ea44ddf",
+   "repairedCandidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-field-repair12-20261027-p253/candidates/nemata-jp/page-0253.json",
+   "repairedCandidateSha256": "78b98bcd25a3bec7a6facea85f01973ae17d0735a2f3de418cb39826587b9a6f",
+   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0253.78b98bcd25a3bec7a6facea85f01973ae17d0735a2f3de418cb39826587b9a6f.6b1b0eb6efaf.json",
+   "auditStatus": "passed",
+   "repairKind": "deterministic-tile-and-flow-corrections",
+   "modelCallsForRepair": 0,
+   "auditModelCalls": 2,
+   "auditUsage": [
+    {
+     "inputTokens": 58784,
+     "outputTokens": 10022
+    },
+    {
+     "inputTokens": 58790,
+     "outputTokens": 11016
+    }
+   ],
+   "finalAuditUsage": {
+    "inputTokens": 58790,
+    "cachedInputTokens": 0,
+    "outputTokens": 11016
+   },
+   "currentDisposition": "resolved-passed-audit-awaiting-250-handoff",
+   "note": "Source image b50/b55 identified as 9m; corrected 6m/5m/8m errors, r7/r8, and flow wording; audit passed."
+  },
+  {
+   "objectId": "nemata-jp:page:309",
+   "kind": "pdf-page",
+   "sourceId": "nemata-jp",
+   "page": 309,
+   "parentCandidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/candidates/nemata-jp/page-0309.json",
+   "parentCandidateSha256": "d323290d8eb056b85a64563702b4d1d1283b3c6eff70cf7ecdb34c9faa84337b",
+   "repairedCandidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-field-repair13-20261027-p309/candidates/nemata-jp/page-0309.json",
+   "repairedCandidateSha256": "83950d4ee8aca893170904d43e8526b7a7ec1990fe6fdd238b7a3d40dfea8272",
+   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0309.83950d4ee8aca893170904d43e8526b7a7ec1990fe6fdd238b7a3d40dfea8272.7076217daf84.json",
+   "auditSha256": "ff9bfa72b558b62d600698120b19d0aecf179ac931bace3cef906a9bc0621057",
+   "auditStatus": "passed",
+   "repairKind": "root-approved-exact-native-inline-field-correction",
+   "changes": [
+    "r13 transcription: 0s->5s at tile 11, total 224088s->224588s",
+    "r13 caption: 224088s->224588s"
+   ],
+   "modelCallsForRepair": 0,
+   "auditModelCalls": 1,
+   "auditUsage": {
+    "inputTokens": 27879,
+    "cachedInputTokens": 0,
+    "outputTokens": 4695
+   },
+   "note": "Original production raw, parent candidate d323290d and failed audit f31d8400 (store as .6baa4a7e1404.json) retained. New independent review bound to the revision SHA passed."
+  },
+  {
+   "objectId": "nemata-jp:page:315",
+   "kind": "pdf-page",
+   "sourceId": "nemata-jp",
+   "page": 315,
+   "parentCandidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/candidates/nemata-jp/page-0315.json",
+   "parentCandidateSha256": "772be8e40bf596b7bf25e36aa63e8c17022622e2801a73fc79601bf8a34295b0",
+   "repairedCandidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-field-repair15-20261027-p315/candidates/nemata-jp/page-0315.json",
+   "repairedCandidateSha256": "bc2afae254cbb243aa04ba23b73b4a13aa6513d17445c2b895bb7528d43469e3",
+   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0315.bc2afae254cbb243aa04ba23b73b4a13aa6513d17445c2b895bb7528d43469e3.7076217daf84.json",
+   "auditSha256": "96725bffc7ac5e97777e40f2355eeab26288639ce6c1e029a57aa3a24723c758",
+   "auditStatus": "passed",
+   "repairKind": "root-approved-exact-native-inline-field-correction",
+   "changes": [
+    "r1/r2/r3 arrow positions added (7z+3z; 7p+5z; 9m+7z)",
+    "r17 arrow positions added (2m + broken image)",
+    "r18 2s->3s plus arrow positions (3z+4p)",
+    "r19 arrow position added (8m)",
+    "r26 and b38-b39 paragraph: 久人->ヒサト",
+    "r8/r9 3m->2m transcription+caption (located by the first revision review, source crops confirm 二萬)"
+   ],
+   "modelCallsForRepair": 0,
+   "auditModelCalls": 2,
+   "auditUsage": {
+    "inputTokens": 67464,
+    "cachedInputTokens": 0,
+    "outputTokens": 16702
+   },
+   "preservedRevisions": [
+    {
+     "candidateSha256": "3a0d697f891fedb8087d24b4880308c00f6f62ea79a92b1ba3ecd9d60b96207c",
+     "root": "production/sol-high-field-repair14-20261027-p315",
+     "auditPath": "audit/pages/nemata-jp/page-0315.3a0d697f891fedb8087d24b4880308c00f6f62ea79a92b1ba3ecd9d60b96207c.7076217daf84.json",
+     "status": "needs-repair",
+     "reason": "independent review located r8/r9 = 2m, not 3m"
+    }
+   ],
+   "note": "Original production raw, parent candidate 772be8e4 and failed audit retained; first exact-field revision and its failed review also preserved. Second revision passed a fresh independent review bound to bc2afae2."
+  },
+  {
+   "objectId": "nemata-jp:page:329",
+   "kind": "pdf-page",
+   "sourceId": "nemata-jp",
+   "page": 329,
+   "parentCandidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\candidates\\nemata-jp\\page-0329.json",
+   "parentCandidateSha256": "c0776e6c314da926e7550460b4534bf60e7547fb30ea0635e4f4b7587bd0b4f4",
+   "repairedCandidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-field-repair16-20261027-p329/candidates/nemata-jp/page-0329.json",
+   "repairedCandidateSha256": "a991dd8900f39256c130e38974acc971f5fa798ae5db5cd101fa49e1a7bedcb7",
+   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0329.a991dd8900f39256c130e38974acc971f5fa798ae5db5cd101fa49e1a7bedcb7.7076217daf84.json",
+   "auditStatus": "passed",
+   "repairKind": "declared-field-correction",
+   "changeSummary": [
+    "paragraph nemata-jp-p329-b20..b23: appended separate 校注 marking the interpretive completion of 「速度ではほぼ無し」 as non-original; translation unchanged and original sentence quoted"
+   ],
+   "sourceEvidence": "nemata-jp/pages/329.json block b22 reads 雀頭固定、ターツ固定共に速度ではほぼ無し。 — no comparison object; the audit located the unmarked interpretive completion.",
+   "independentReview": {
+    "callId": "c0cc7615-8eaf-4b34-85b1-ef19e76ce37c",
+    "usage": {
+     "inputTokens": 21454,
+     "cachedInputTokens": 0,
+     "outputTokens": 3962
+    },
+    "result": "passed"
+   },
+   "productionModelCalls": 0
+  }
+ ],
+ "handoff": {
+  "p254": {
+   "to": "COAC-250 when parent chapter is complete",
+   "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair5-20261027-p254\\candidates\\79-cn\\page-0254.json",
+   "candidateSha256": "b4df282fa7f428f294a67e14f6183f03d38a6c96bfef2241b3dfe455fabddf4a",
+   "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0254.b4df282fa7f428f294a67e14f6183f03d38a6c96bfef2241b3dfe455fabddf4a.6baa4a7e1404.json",
+   "auditStatus": "passed"
+  },
+  "webR2": {
+   "to": "COAC-249/250 after audit-entry compatibility",
+   "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter01-section021-05.r2.display.json",
+   "candidateSha256": "277fd0377de7362b7089242ee00058723c442e448e0cd0dbd79eb32c42812f07",
+   "status": "produced-awaiting-audit-entry-compat",
+   "blocker": "web_revision_parent_receipt_changed"
+  },
+  "p153": {
+   "to": "COAC-250 when chapter 79-cn-chapter-152-6 is otherwise complete",
+   "candidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-field-repair7-20261027-p153/candidates/79-cn/page-0153.json",
+   "candidateSha256": "89371a3d25579b86b220027666c1f85745747b396a6214dfa1f7629cdeb2a2ad",
+   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/79-cn/page-0153.89371a3d25579b86b220027666c1f85745747b396a6214dfa1f7629cdeb2a2ad.6baa4a7e1404.json",
+   "auditStatus": "passed"
+  },
+  "p310": {
+   "to": "COAC-250 incremental consumer; only if complete chapter",
+   "candidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/candidates/nemata-jp/page-0310.json",
+   "candidateSha256": "d605e842bec56aeb408d33815ce7e3847a03a9bd03e0c300d096f82f47590296",
+   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0310.d605e842bec56aeb408d33815ce7e3847a03a9bd03e0c300d096f82f47590296.6baa4a7e1404.json",
+   "auditStatus": "passed",
+   "chapterId": "nemata-jp-chapter-309-1",
+   "completeChapter": false,
+   "missingPages": [
+    311,
+    312,
+    313,
+    314,
+    315,
+    316
+   ],
+   "blockedBy": "page 309 needs-repair"
+  },
+  "p67": {
+   "to": "COAC-250 incremental consumer for existing complete chapter 067-1",
+   "candidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-field-repair8-20261027-p67/candidates/nemata-jp/page-0067.json",
+   "candidateSha256": "f97f00447f87337d673415ee416aef1a7144b355bf173f0d98307bd2084190f4",
+   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0067.f97f00447f87337d673415ee416aef1a7144b355bf173f0d98307bd2084190f4.6baa4a7e1404.json",
+   "auditStatus": "passed",
+   "chapterId": "nemata-jp-chapter-067-1",
+   "completeChapter": true,
+   "note": "Chapter already in preview; replace page 67 component, preserve page 68 and supplement, no duplicate chapter."
+  },
+  "r2web": {
+   "to": "COAC-250 incremental consumer for complete web chapter",
+   "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter01-section021-05.r2.display.json",
+   "candidateSha256": "277fd0377de7362b7089242ee00058723c442e448e0cd0dbd79eb32c42812f07",
+   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/modern-yabejp-ja/chapter01-section021-05.277fd0377de7362b7089242ee00058723c442e448e0cd0dbd79eb32c42812f07.json",
+   "auditStatus": "passed",
+   "chapterId": "modern-yabejp-ja-chapter01-section021-05-chapter",
+   "completeChapter": true,
+   "note": "Not present in current preview; stage/integrate as new complete web chapter, preserve parent audit and old candidate."
+  },
+  "p311": {
+   "to": "COAC-250 incremental consumer; only if complete chapter",
+   "candidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/candidates/nemata-jp/page-0311.json",
+   "candidateSha256": "9eccb98ba1d9112c7e1177b1d43c0a70ebdcf28710508c787850350d5a2db940",
+   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0311.9eccb98ba1d9112c7e1177b1d43c0a70ebdcf28710508c787850350d5a2db940.6baa4a7e1404.json",
+   "auditStatus": "passed",
+   "chapterId": "nemata-jp-chapter-309-1",
+   "completeChapter": false,
+   "missingPages": [
+    312,
+    313,
+    314,
+    315,
+    316
+   ],
+   "blockedBy": "page 309 needs-repair"
+  },
+  "p250": {
+   "to": "COAC-250 when nemata-jp-chapter-250-1 is complete",
+   "candidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-field-repair10-20261027-p250/candidates/nemata-jp/page-0250.json",
+   "candidateSha256": "1a3e1c8ce49532298caf98b7fabc00a91fa830a6f8a5e892db8199e457a43786",
+   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0250.1a3e1c8ce49532298caf98b7fabc00a91fa830a6f8a5e892db8199e457a43786.6baa4a7e1404.json",
+   "auditStatus": "passed",
+   "chapterId": "nemata-jp-chapter-250-1",
+   "completeChapter": false,
+   "note": "Page passed; parent chapter still incomplete."
+  },
+  "p312": {
+   "to": "COAC-250 incremental consumer; only if complete chapter",
+   "candidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/candidates/nemata-jp/page-0312.json",
+   "candidateSha256": "e06b2007a82872b7ade9811c01fc13aebf85f095fefe23ebe0c36a9c3f8cbc7e",
+   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0312.e06b2007a82872b7ade9811c01fc13aebf85f095fefe23ebe0c36a9c3f8cbc7e.6baa4a7e1404.json",
+   "auditStatus": "passed",
+   "chapterId": "nemata-jp-chapter-309-1",
+   "completeChapter": false,
+   "missingPages": [
+    313,
+    314,
+    315,
+    316
+   ],
+   "blockedBy": "page 309 needs-repair"
+  },
+  "p256": {
+   "to": "COAC-250 when nemata-jp-chapter-250-1 is complete",
+   "candidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-field-repair11-20261027-p256/candidates/nemata-jp/page-0256.json",
+   "candidateSha256": "bf9d64107b4b3d425c1ec16aa97baf9178799f8371f1e4879f7fde0f6489c2cf",
+   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0256.bf9d64107b4b3d425c1ec16aa97baf9178799f8371f1e4879f7fde0f6489c2cf.6baa4a7e1404.json",
+   "auditStatus": "passed",
+   "chapterId": "nemata-jp-chapter-250-1",
+   "completeChapter": false,
+   "note": "Source duplicate wording preserved; no editorial note in body."
+  },
+  "p313": {
+   "to": "COAC-250 incremental consumer; only if complete chapter",
+   "candidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/candidates/nemata-jp/page-0313.json",
+   "candidateSha256": "057be2fc59bf87a8227cc510a4df12a7b5d5f629b4307b8f8f920e9928655ff1",
+   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0313.057be2fc59bf87a8227cc510a4df12a7b5d5f629b4307b8f8f920e9928655ff1.6baa4a7e1404.json",
+   "auditStatus": "passed",
+   "chapterId": "nemata-jp-chapter-309-1",
+   "completeChapter": false,
+   "missingPages": [
+    314,
+    315,
+    316
+   ],
+   "blockedBy": "page 309 needs-repair"
+  },
+  "p254nemata": {
+   "to": "COAC-250 when nemata-jp-chapter-250-1 is complete",
+   "candidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-field-repair9-20261027-p254nemata/candidates/nemata-jp/page-0254.json",
+   "candidateSha256": "bdc0dcb315a56712edc68450c22c1b838a315683a5d9f0650395ac5f9c03f690",
+   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0254.bdc0dcb315a56712edc68450c22c1b838a315683a5d9f0650395ac5f9c03f690.image-binding-revalidated.json",
+   "auditStatus": "passed",
+   "chapterId": "nemata-jp-chapter-250-1",
+   "completeChapter": false,
+   "note": "Review binding revalidated; original failed receipt retained."
+  },
+  "p253": {
+   "to": "COAC-250 when nemata-jp-chapter-250-1 is complete",
+   "candidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-field-repair12-20261027-p253/candidates/nemata-jp/page-0253.json",
+   "candidateSha256": "78b98bcd25a3bec7a6facea85f01973ae17d0735a2f3de418cb39826587b9a6f",
+   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0253.78b98bcd25a3bec7a6facea85f01973ae17d0735a2f3de418cb39826587b9a6f.6b1b0eb6efaf.json",
+   "auditStatus": "passed",
+   "chapterId": "nemata-jp-chapter-250-1",
+   "completeChapter": false,
+   "note": "9m/5s/7s and r7/r8 corrected from source images; flow wording fixed."
+  },
+  "chapter309_316": {
+   "to": "COAC-250 when pages 309 and 315 pass",
+   "produced": "309-316 all produced in sol-high-fallback-inline-20261026",
+   "passedPages": [
+    310,
+    311,
+    312,
+    313,
+    314,
+    316
+   ],
+   "blockingPages": [
+    309,
+    315
+   ],
+   "page309": {
+    "reviewErrors": [
+     "needs-repair:nemata-jp-p309-b33",
+     "needs-repair:nemata-jp-p309-r13"
+    ],
+    "blocker": "deterministic correction rejected by native binding; needs an approved correction path"
+   },
+   "page315": {
+    "reviewErrorCount": 18,
+    "detail": "visual_reading_flow_not_faithful plus 15 block/figure needs-repair targets; not a one-field fix"
+   },
+   "note": "Fixing both clears the chapter for 250."
+  },
+  "auditedSinceLastRefresh": [
+   {
+    "objectId": "nemata-jp:page:331",
+    "candidateSha256": "c164202b7e3263639d475e63870f3e71e8177f3858f30d743b423b69a1104c32",
+    "status": "passed",
+    "auditedAt": "2026-10-26T20:52:14.617Z",
+    "note": "produced at 20:50 by the shared maker lane, audited passed; not a repair object"
+   }
+  ]
+ },
+ "policy": "Dedupe by effective candidate file SHA; terminal passed SHAs are not re-dispatched; failed objects are separate and not retried without error analysis.",
+ "latestAddition": {
+  "objectId": "nemata-jp:page:309",
+  "addedAt": "2026-10-26T16:54:02.707Z",
+  "status": "needs-repair",
+  "candidateSha256": "d323290d8eb056b85a64563702b4d1d1283b3c6eff70cf7ecdb34c9faa84337b",
+  "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0309.d323290d8eb056b85a64563702b4d1d1283b3c6eff70cf7ecdb34c9faa84337b.6baa4a7e1404.json",
+  "note": "Produced once; audit needs-repair; repair preserved, no re-production."
+ },
+ "refreshedAt": "2026-10-27T07:05:00.000Z",
+ "byOrigin": {
+  "COAC-248 old PDF 12": 5,
+  "COAC-247 new PDF return": 3,
+  "COAC-249 explicit 20": 7,
+  "COAC-249 protected supplement": 1,
+  "COAC-247 new PDF return (309)": 1,
+  "COAC-247 new PDF return (inline root)": 3
+ },
+ "addedThisRefresh": [],
+ "nativeInlineCorrection": {
+  "route": "root-approved exact native-inline field correction (reuses the 79-cn exact-field pattern)",
+  "codeCommit": "de26cb1 Add bounded native inline field correction audit route",
+  "tests": "scripts/scene-study/textbook-audit-pdf-native-corrections.test.mjs (11 cases: accepted revision, unlisted field, wrong parent SHA, wrong source page SHA, missed audit item, unapproved target, non-unique replacement, raw mismatch, unresolved structural item, missing source evidence) plus real-data rejection runs for pages 309/315",
+  "approvals": [
+   "audit/source-corrections/native-inline-field-corrections.p309.root-acceptance.json",
+   "audit/source-corrections/native-inline-field-corrections.p315.root-acceptance.json",
+   "audit/source-corrections/native-inline-field-corrections.p329.root-acceptance.json",
+   "audit/source-corrections/native-inline-field-corrections.p330.root-acceptance.json"
+  ],
+  "reviewCalls": [
+   {
+    "page": 309,
+    "candidateSha256": "83950d4e...",
+    "result": "passed"
+   },
+   {
+    "page": 315,
+    "candidateSha256": "3a0d697f...",
+    "result": "needs-repair (r8/r9)"
+   },
+   {
+    "page": 315,
+    "candidateSha256": "bc2afae2...",
+    "result": "passed"
+   },
+   {
+    "page": 329,
+    "candidateSha256": "a991dd8900f39256c130e38974acc971f5fa798ae5db5cd101fa49e1a7bedcb7",
+    "result": "passed"
+   },
+   {
+    "page": 330,
+    "candidateSha256": "7eaa03dd9e5a276efe07e42d3b84d068364f4f71f355dfcacc9f64e9eb7f199f",
+    "result": "needs-repair (structural flow, tile corrections accepted)"
+   }
+  ],
+  "runGateway": "no run-gateway calls this stage; the 20:07/20:47 UTC 503s were run gateway (api.commandcode.ai / Cloudflare 1102), not the review gateway; no retry was issued against the same limit.",
+  "chapterHandoff": {
+   "chapterId": "nemata-jp-chapter-309-1",
+   "pages": [
+    309,
+    310,
+    311,
+    312,
+    313,
+    314,
+    315,
+    316
+   ],
+   "consumer": "COAC-250",
+   "status": "complete-all-pages-passed"
+  },
+  "structuralBlocked": {
+   "page": 330,
+   "reason": "overlapping slice partition of the two pon example rows; needs a page-scoped structural decision"
+  }
+ }
 }

@@ -1,0 +1,65 @@
+{
+  "schema": "coach-native-inline-field-corrections-approval/1",
+  "status": "accepted-exact-native-field-corrections-only",
+  "approvedBy": "root",
+  "approvedAt": "2026-10-27T00:00:00.000Z",
+  "approvalBasis": {
+    "commentId": "01a17a58-0179-7f34-9c66-812db9413a92",
+    "scope": "Only audit-located, source-image-backed field changes on nemata-jp page 329; original production raw, parent candidate and failed audit retained. No new production call."
+  },
+  "jobs": [
+    {
+      "schema": "coach-native-inline-field-correction-job/1",
+      "sourceId": "nemata-jp",
+      "page": 329,
+      "candidatePath": "production/sol-high-field-repair16-20261027-p329/candidates/nemata-jp/page-0329.json",
+      "candidateSha256": "a991dd8900f39256c130e38974acc971f5fa798ae5db5cd101fa49e1a7bedcb7",
+      "parentPath": "production/sol-high-fallback-inline-20261026/candidates/nemata-jp/page-0329.json",
+      "parentSha256": "c0776e6c314da926e7550460b4534bf60e7547fb30ea0635e4f4b7587bd0b4f4",
+      "originalAuditPath": "audit/pages/nemata-jp/page-0329.c0776e6c314da926e7550460b4534bf60e7547fb30ea0635e4f4b7587bd0b4f4.6baa4a7e1404.json",
+      "originalAuditSha256": "0e038a21d8026b8b07fbf646163ad94de2d35f41cad40ca4b2cd8c9c9bf39c65",
+      "originalProductionRaw": {
+        "path": "production/sol-high-fallback-inline-20261026/raw-calls/c673d867-60f6-4cb4-860d-af35cb4c9515.json",
+        "sha256": "52e54eb863ed520968fbc5f203b639f624f2fb8b5f466bf268c134c919750a59"
+      },
+      "sourcePagePath": "nemata-jp/pages/329.json",
+      "sourcePageDataSha256": "dc9a6a5700299882f68e322133862a47ff080c6acd59f2d63824efad83864f9e",
+      "proofPath": "audit/source-corrections/proofs/native-inline-p329.a991dd8900f39256c130e38974acc971f5fa798ae5db5cd101fa49e1a7bedcb7.json",
+      "proofSha256": "e922ea8e11ede09204917117dcc109cf60e81fc38eeb089ad9467c1ee54ff93f",
+      "changes": [
+        {
+          "target": "paragraph",
+          "sourceBlockIds": [
+            "nemata-jp-p329-b20",
+            "nemata-jp-p329-b21",
+            "nemata-jp-p329-b22",
+            "nemata-jp-p329-b23"
+          ],
+          "fromValue": "• 愚形×1、良形×2：将愚形复合搭子固定为雀头。\n• 良形×3：固定为雀头与固定为搭子，在速度上几乎没有差别。因此，从打点考虑，能看到平和可能性的手牌就固定为搭子；否则，着眼于三暗刻或对子手，认为固定为雀头较好。",
+          "toValue": "• 愚形×1、良形×2：将愚形复合搭子固定为雀头。\n• 良形×3：固定为雀头与固定为搭子，在速度上几乎没有差别。因此，从打点考虑，能看到平和可能性的手牌就固定为搭子；否则，着眼于三暗刻或对子手，认为固定为雀头较好。\n\n（校注，非原文：原文此句作「雀頭固定、ターツ固定共に速度ではほぼ無し。」，疑脱一「差」字；译文「几乎没有差别」的比较对象系据上下文补足，并非原文明文。）",
+          "replacements": [
+            {
+              "from": "认为固定为雀头较好。",
+              "to": "认为固定为雀头较好。\n\n（校注，非原文：原文此句作「雀頭固定、ターツ固定共に速度ではほぼ無し。」，疑脱一「差」字；译文「几乎没有差别」的比较对象系据上下文补足，并非原文明文。）",
+              "occurrences": 1
+            }
+          ],
+          "sourceEvidence": "Source page block nemata-jp-p329-b22 reads 雀頭固定、ターツ固定共に速度ではほぼ無し。 — no comparison object (差) appears in the original sentence; the translation supplies it from context.",
+          "sourceTextEvidence": [
+            {
+              "sourceBlockId": "nemata-jp-p329-b22",
+              "contains": "雀頭固定、ターツ固定共に速度ではほぼ無し。"
+            }
+          ],
+          "sourceCrop": {
+            "path": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0329.png",
+            "sha256": "ea8d8a3e094a616654aaab0cbf7c2f3d88458f4d623240e1cc709fb21f1dbcde"
+          }
+        }
+      ],
+      "originalReviewErrors": [
+        "uncertain:nemata-jp-p329-b22"
+      ]
+    }
+  ]
+}

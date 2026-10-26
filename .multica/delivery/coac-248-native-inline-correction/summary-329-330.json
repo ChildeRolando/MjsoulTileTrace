@@ -1,0 +1,109 @@
+{
+  "schema": "coach-coac248-native-inline-delivery/1",
+  "recordedAt": "2026-10-26T23:10:00.000Z",
+  "ticket": "COAC-248",
+  "parentTicket": "COAC-244",
+  "stage": "329-330",
+  "triggerComment": "01a17a58-0179-7f34-9c66-812db9413a92",
+  "previousStageSummary": ".multica/delivery/coac-248-native-inline-correction/summary.json (pages 309/315)",
+  "scope": "Continue the approved constrained point-fix route on the next two pages of nemata-jp chapter 328-334: page 329 (audit-located unmarked interpretive completion) and page 330 (three misread tile forms). No full-page reproduction, no new production model call, no loosening of the global binding rules.",
+  "code": {
+    "repo": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach (branch codex/mortal-rag-ablation)",
+    "commit": "4358b7c Register native inline correction approvals for nemata-jp pages 329 and 330",
+    "patch": "native-inline-approvals-p329-p330.patch",
+    "change": "Two page-scoped entries added to knownNativeInlineCorrections, pinning the exact approval-file SHA for page 329 and page 330. No verification logic changed."
+  },
+  "tests": {
+    "suites": [
+      "textbook-audit-pdf-native-corrections.test.mjs",
+      "textbook-audit-pdf-native.test.mjs",
+      "textbook-audit.test.mjs",
+      "textbook-audit-pdf-source-corrections.test.mjs"
+    ],
+    "result": "52 passed / 52",
+    "realDataRejections": [
+      "329/330 unlisted figure field change -> audit_native_pdf_raw_figure_changed",
+      "329/330 unlisted paragraph edit -> audit_native_pdf_raw_flow_changed",
+      "329/330 wrong parent candidate SHA -> audit_native_inline_correction_parent_changed",
+      "330 reverted approved field -> audit_native_pdf_raw_figure_changed"
+    ]
+  },
+  "pages": {
+    "329": {
+      "status": "passed",
+      "parentCandidateSha256": "c0776e6c314da926e7550460b4534bf60e7547fb30ea0635e4f4b7587bd0b4f4",
+      "revisionCandidateSha256": "a991dd8900f39256c130e38974acc971f5fa798ae5db5cd101fa49e1a7bedcb7",
+      "revisionRoot": "production/sol-high-field-repair16-20261027-p329",
+      "approval": "native-inline-field-corrections.p329.root-acceptance.json",
+      "approvalSha256": "d3d33f0beec52652d821d5a1495778ef318a48b04a2a9e56990a1fed66740537",
+      "proofSha256": "e922ea8e11ede09204917117dcc109cf60e81fc38eeb089ad9467c1ee54ff93f",
+      "receipt": "receipt-p329.passed.json",
+      "receiptSha256": "f10caac365f78c27db5419d2192631ae1d63c29adc7f9188ff56a42c69cad455",
+      "reviewCall": {"callId": "c0cc7615-8eaf-4b34-85b1-ef19e76ce37c", "usage": {"inputTokens": 21454, "cachedInputTokens": 0, "outputTokens": 3962}, "result": "passed"},
+      "changes": [
+        "paragraph nemata-jp-p329-b20..b23: appended a separate 校注 that quotes the original 「雀頭固定、ターツ固定共に速度ではほぼ無し。」, records the suspected dropped 差, and marks the translated comparison as context-filled rather than original wording. The translation and the argument are unchanged; the note follows the complete argument."
+      ],
+      "productionModelCalls": 0
+    },
+    "330": {
+      "status": "needs-repair (structural, not tile forms)",
+      "parentCandidateSha256": "859d1d577a7b7406ac3594b3beb9a30415d2acf3c588c09e8a427d1b59d0de8b",
+      "revisionCandidateSha256": "7eaa03dd9e5a276efe07e42d3b84d068364f4f71f355dfcacc9f64e9eb7f199f",
+      "revisionRoot": "production/sol-high-field-repair17-20261027-p330",
+      "approval": "native-inline-field-corrections.p330.root-acceptance.json",
+      "approvalSha256": "4052166a6355296221367a1eec967758d1f1c07a71e438e3856a86c0744fc6e5",
+      "proofSha256": "6a45b96e90aedb9f69a19e26d5a60d32ff51c3cec0fd9c3d9e5596ef7b0605e9",
+      "receipt": "receipt-p330.rev1-needs-repair.json",
+      "receiptSha256": "05692993d1fddceb01b016a45df6e2df0d46da0494ea54f04547aac396517a43",
+      "reviewCall": {"callId": "d922961d-a755-445d-bcde-3b7f5cb14404", "usage": {"inputTokens": 35696, "cachedInputTokens": 0, "outputTokens": 7446}, "result": "needs-repair (structural flow only)"},
+      "resolvedByThisRevision": [
+        "r1 transcription+caption 125554m -> 123334m (three 3m, not three 5m)",
+        "r4 transcription+caption 544555m -> 344555m (first tile 3m; three 5m, not four)",
+        "r22 transcription+caption 554566m -> 334566m (only one 5m)",
+        "inline blocks b5, b8, b20 follow the corrected captions"
+      ],
+      "remainingFinding": {
+        "errors": ["visual_reading_flow_not_faithful", "needs-repair:nemata-jp-p330-b10", "needs-repair:nemata-jp-p330-b11", "error:nemata-jp-p330-b10", "error:nemata-jp-p330-b11"],
+        "detail": "The two pon examples are sliced into overlapping vertical bands (r6 244.8-290.4, r7/r8 254.4-301.9, r9 254.4-321.4 spanning both rows, r10-r13 285.4-336.5, r14 300.5-339.6). The first example therefore repeats its whole hand across r6/r7 and r9 carries the second example past the first example's →打.",
+        "whyNotFixedHere": "Repairing it means changing the figure region partition (bbox/sourceImageBlockIds) or adding/removing body blocks. The exact-field route requires every unlisted field to equal the preserved production raw, every figure to be referenced exactly once, and a body rebuild fails as audit_native_pdf_raw_flow_changed / audit_native_inline_correction_structural_error. Page re-production is excluded by the ticket.",
+        "decisionNeeded": "A page-scoped structural entry for page 330, authorised the same way as the 309/315 field entry."
+      },
+      "productionModelCalls": 0
+    }
+  },
+  "chapter": {
+    "chapterId": "nemata-jp-chapter-328-1",
+    "pages": [328, 329, 330, 331, 332, 333, 334],
+    "status": "329 now passed; 330 still needs-repair, so the chapter is NOT handed to COAC-250 yet",
+    "handoff": null
+  },
+  "repairList": {
+    "path": "audit/unified-repair-list-20261027.json",
+    "before": {"needsRepair": 18, "resolvedThisStage": 14},
+    "after": {"needsRepair": 17, "resolvedThisStage": 15},
+    "resolvedThisRound": ["nemata-jp:page:329"],
+    "remainingBreakdown": {
+      "oldPdf": ["79-cn:50", "79-cn:217", "79-cn:263", "nemata-jp:98", "nemata-jp:257"],
+      "newPdf": ["nemata-jp:260", "nemata-jp:261", "nemata-jp:262", "nemata-jp:330 (structural)"],
+      "web": 7,
+      "protectedSupplement": 1
+    }
+  },
+  "failedInvestigation": {
+    "web-failed:chapter06-exercise003": {
+      "original": "web_audit_batch_output_assembly thrown by verifyWebBatchedProductionCalls during preflight; 0 model calls; identical on 3 attempts.",
+      "meaning": "The stored batch output does not assemble onto the candidate (translation/figure coverage, per-block text, or figure provenance.callId/outputSourceBlockId). Not a review failure.",
+      "safeRecovery": "Re-derive the assembled output from the stored batch raw, or re-run that article's production batch in the maker lane, before any review. An audit retry alone cannot succeed."
+    },
+    "web-failed:chapter06-exercise004": {
+      "original": "Batches 001 and 002 passed; batch-003 (6 units) call failed (success=false, usage 58576/58368/10724), so incomplete_independent_batch_review after 3 attempts.",
+      "meaning": "Only one batch is missing; the two passed batch receipts are intact.",
+      "safeRecovery": "Re-run batch-003 as a single review call against the same candidate SHA, reusing the passed batch-001/002 receipts."
+    },
+    "executedThisRound": false
+  },
+  "gateways": {
+    "reviewGateway": "2 calls, both completed normally (329 passed; 330 needs-repair on structure). No 503s, no duplicate dispatch.",
+    "runGateway": "No run-gateway calls this stage."
+  }
+}
