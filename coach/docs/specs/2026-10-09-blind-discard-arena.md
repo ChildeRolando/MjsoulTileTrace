@@ -6,6 +6,12 @@
 
 本规格只拥有 Blind Discard Arena 的新增契约。已有生产事实仍以代码、schema、测试及相应权威文档为准；canonical 回放与动作权威、Mortal runtime 身份、Coach production generation seam、依赖方向和 renderer 安全边界分别继续归属现有 owner。工单只引用本文件，不复制本文件内容。
 
+### 2026-10-27：检索后适用性过滤（独立规格）
+
+Arena `search_knowledge` 之后可选的 Self-RAG 式资料适用性过滤不属于本文件：其 selector 契约、
+预算、失败码、opt-in CLI 与归档字段由 [Self-RAG 式资料适用性过滤](2026-10-27-self-rag-applicability.md)
+拥有。本文件继续拥有 Arena 本体与 `ArenaRagRetriever` 检索契约；不开该开关时，行为与本节描述逐字节一致。
+
 ## 1. 目标与边界
 
 ### 2026-10-16：实验类型与公开场面展示
@@ -238,6 +244,8 @@ T1 已使用 fixture 的真实 record bytes、managed native libriichi 规则查
 | Mortal reference runtime | Mortal revision `0cff2b52982be5b1163aa9a62fb01f03ce91e0d2`；checkpoint revision `7386c9f5c751a3ea75efea99737cef5a5ef950f1`；checkpoint file SHA-256 `738e0d6e3c0ce9671629554ad39abd147d2ffbac676e80b194c83f2acc0fea20`；runtime config SHA-256 `1c4d2711033cbc897602655907548ba47876b356723a52efc7ab05a30f6a35df`；三道 label 均经候选全集 binding 验证 |
 
 每次运行仍须为 caseRef 生成新的 opaque alias；canonical decision order 与 candidate-set digest 仅用于 fixture 版本回归，不传给 Coach。T5 若更改 fixture、规则/native identity、checkpoint、runtime config 或 selector，必须提升 dataset/case-set version 并重新保存 receipt。以上为单牌局 smoke/dev 集，不构成 holdout acceptance。
+
+内置真实牌谱路径还固定一个精确 native 规则产物：`bin/blind-discard-arena.mjs` 的 `expectedRuleArtifactSha256` 只接受唯一完全匹配的本地 receipt，随后仍由 asset-runtime 校验 receipt/patch/wrapper/native 字节；generated bank 路径不受该 pin 约束。该 pin 与 `packages/mortal-runtime/native/coach-rule-config.patch` 是同一份规则身份：patch 变更后必须把 pin 刷新为用当前 patch 构建的真实 receipt 哈希，不得改写 receipt、patch、历史 golden 或旧归档去凑旧 pin，也不得退化为“自动挑选最新构建”或放宽任何身份校验。2026-10-27 由 `5ff7f712a45c7288f739af7c7e0613567b467ee4ade2c66c0988e18982cdefad`（patch `88e5a02108967a9d7e8adf851fa08349283d52d649f9eb4d4c45bf73967be9d4`）刷新为 `7a50e685591fb5c221b928588eb73b7c50812705f48ea734dd43aad4ec73a911`（patch `5293dc419b30719e592f1b7bc030b1a32961c74de4b375649aa741f10bd705f1`）；上表是当时的历史冻结 receipt，不随本次刷新改写。回归由 `scripts/arena-native-pin.test.mjs`（`COACH_QUESTION_LAB_NATIVE=1`）覆盖：当前 receipt 成功、旧 receipt 与错配 patch 仍被拒绝。
 
 holdout acceptance 至少使用另一个不同的完整 gameId；只能从仓库已有且获准的脱敏真实语料或经授权加入的新记录选择。先按 gameId 固定 dev/acceptance split，再从 accept game 按同一 label-blind 规则取最多 3 个合格 case。若仓库语料不够两个完整且有合格动作的独立牌局，必须报告缺少 holdout 样本，不得把同一牌局按 decision 切分或把模拟数据叫真实验收。case set 无合格项时，T5 必须报告空集及筛题原因。
 

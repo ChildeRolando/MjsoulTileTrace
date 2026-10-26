@@ -2,6 +2,7 @@ import { z } from "zod";
 import {
   ArenaBatchScoreSchema,
   ArenaBlindObservationSchema,
+  ArenaRagApplicabilityLimitsSchema,
   ArenaFailureCountsSchema,
   ArenaRagModeSchema,
   ArenaRateSchema,
@@ -102,6 +103,14 @@ export const ArenaArchiveManifestSchema = z.object({
     mode: ArenaRagModeSchema,
     corpusVersion: z.string().min(1).max(100).nullable(),
     retrieverVersion: z.string().min(1).max(100),
+    /** Written only when the applicability gate is opted in (spec §4.8). */
+    applicability: z.object({
+      gateVersion: z.string().min(1).max(40),
+      promptVersion: z.string().min(1).max(80),
+      selectorProviderId: z.string().min(1).max(80),
+      selectorModel: z.string().min(1).max(200),
+      limits: ArenaRagApplicabilityLimitsSchema,
+    }).strict().optional(),
   }).strict(),
   controlledFault: z.enum(["none", "first-helper-timeout"]),
   budget: z.object({
@@ -237,6 +246,19 @@ export const ArenaArchiveSummarySchema = z.object({
   toolCallCount: z.number().int().nonnegative(),
   toolFailureCount: z.number().int().nonnegative(),
   tokenUsage: TokenTotalsSchema,
+  /** Present only for runs archived with the applicability gate enabled. */
+  applicability: z.object({
+    gateVersion: z.string().min(1).max(40).nullable(),
+    promptVersion: z.string().min(1).max(80).nullable(),
+    callCount: z.number().int().nonnegative(),
+    appliedCount: z.number().int().nonnegative(),
+    degradedCount: z.number().int().nonnegative(),
+    failedCount: z.number().int().nonnegative(),
+    skippedCount: z.number().int().nonnegative(),
+    retainedPassageCount: z.number().int().nonnegative(),
+    droppedPassageCount: z.number().int().nonnegative(),
+    usage: z.object({ status: z.enum(["reported", "unknown"]) }).strict(),
+  }).strict().optional(),
 }).strict();
 export type ArenaArchiveSummary = z.infer<typeof ArenaArchiveSummarySchema>;
 
@@ -345,6 +367,10 @@ export function summarizeArenaArchive(input: {
   let ragQueries = 0;
   let ragHits = 0;
   let ragDisabled = 0;
+  const applicabilityTotals = {
+    callCount: 0, appliedCount: 0, degradedCount: 0, failedCount: 0, skippedCount: 0,
+    retainedPassageCount: 0, droppedPassageCount: 0, unknownUsageRunCount: 0,
+  };
 
   for (const event of runs) {
     if (event.type !== "case_run") continue;
@@ -373,8 +399,21 @@ export function summarizeArenaArchive(input: {
       if (runEvent.type === "tool_call" && runEvent.toolName === "search_knowledge") ragQueries += 1;
       if (runEvent.type === "tool_result" && runEvent.toolName === "search_knowledge" && runEvent.status === "ok") {
         const resultData = runEvent.result as { status?: unknown } | undefined;
-        if (resultData?.status === "hits") ragHits += 1;
+        // `filtered`/`degraded` belong to the applicability result shape and still mean the search hit.
+        if (resultData?.status === "hits" || resultData?.status === "filtered" || resultData?.status === "degraded") ragHits += 1;
         if (resultData?.status === "disabled") ragDisabled += 1;
+      }
+    }
+    if (result.applicability !== undefined) {
+      applicabilityTotals.callCount += result.applicability.callCount;
+      applicabilityTotals.appliedCount += result.applicability.appliedCount;
+      applicabilityTotals.degradedCount += result.applicability.degradedCount;
+      applicabilityTotals.failedCount += result.applicability.failedCount;
+      applicabilityTotals.skippedCount += result.applicability.skippedCount;
+      applicabilityTotals.retainedPassageCount += result.applicability.retainedPassageCount;
+      applicabilityTotals.droppedPassageCount += result.applicability.droppedPassageCount;
+      if (result.applicability.callCount > 0 && result.applicability.usage.status !== "reported") {
+        applicabilityTotals.unknownUsageRunCount += 1;
       }
     }
     if (result.providerUsage.status === "reported") {
@@ -436,6 +475,23 @@ export function summarizeArenaArchive(input: {
     toolCallCount,
     toolFailureCount,
     tokenUsage,
+    ...(manifest.rag.applicability === undefined ? {} : {
+      applicability: {
+        gateVersion: manifest.rag.applicability.gateVersion,
+        promptVersion: manifest.rag.applicability.promptVersion,
+        callCount: applicabilityTotals.callCount,
+        appliedCount: applicabilityTotals.appliedCount,
+        degradedCount: applicabilityTotals.degradedCount,
+        failedCount: applicabilityTotals.failedCount,
+        skippedCount: applicabilityTotals.skippedCount,
+        retainedPassageCount: applicabilityTotals.retainedPassageCount,
+        droppedPassageCount: applicabilityTotals.droppedPassageCount,
+        usage: {
+          status: applicabilityTotals.callCount > 0 && applicabilityTotals.unknownUsageRunCount === 0
+            ? "reported" : "unknown",
+        },
+      },
+    }),
   });
 }
 

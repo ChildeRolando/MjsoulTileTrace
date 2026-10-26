@@ -8,9 +8,12 @@ import { fileURLToPath } from "node:url";
 import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
 import { arenaQuestionId } from "./arena-mistakes.mjs";
 import {
+  ARENA_RAG_APPLICABILITY_GATE_VERSION,
+  ARENA_RAG_APPLICABILITY_PROMPT_VERSION,
   LibriichiRuleResponseSchema,
   OpenAiCoachProviderConfigSchema,
   libriichiRuleCanonicalJson,
+  resolveArenaRagApplicabilityLimits,
 } from "@riichi-coach/contracts";
 import {
   loadMahjongSoulProtocolBundle,
@@ -44,6 +47,7 @@ import {
 import { projectArenaLocalMortalRuleScoring } from "@riichi-coach/desktop/blind-discard-arena-scorer";
 import { ArenaMcpClient } from "@riichi-coach/desktop/blind-discard-arena-mcp";
 import { createArenaRagRetriever, ARENA_RAG_RETRIEVER_VERSION } from "@riichi-coach/desktop/blind-discard-arena-rag";
+import { createArenaRagApplicabilityGate } from "@riichi-coach/desktop/blind-discard-arena-rag-applicability";
 import { ARENA_TOOL_CALL_PROMPT_VERSION } from "@riichi-coach/desktop/blind-discard-arena-provider";
 import { createArenaToolCallProvider } from "@riichi-coach/desktop/llm-provider/service";
 import {
@@ -78,7 +82,7 @@ export function arenaDatasetSource(datasetId) {
 const packageRoot = join(coachRoot, "packages/mortal-runtime");
 const platformManifest = "mortal-582500.windows-x64.json";
 const expectedSourceRecordHash = "sha256:fe547cc2b42f0ea83230feaa0fbbdf9bab7281838a66f051cb7a8609687e1c33";
-const expectedRuleArtifactSha256 = "5ff7f712a45c7288f739af7c7e0613567b467ee4ade2c66c0988e18982cdefad";
+const expectedRuleArtifactSha256 = "7a50e685591fb5c221b928588eb73b7c50812705f48ea734dd43aad4ec73a911";
 const expectedRuntime = {
   runtimeRevision: "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
   checkpointRevision: "7386c9f5c751a3ea75efea99737cef5a5ef950f1",
@@ -99,6 +103,7 @@ function usage() {
     "  node bin/blind-discard-arena.mjs generate <bank-uuid> <options-json>",
     "  npm run arena -- run --dataset blind-discard-generated-v1 --bank <bank-uuid> --rag off",
     "  npm run arena -- run --dataset blind-discard-smoke-v1 --rag local [options]",
+    "  npm run arena -- run --dataset blind-discard-smoke-v1 --rag local --rag-applicability applicability-v1 [options]",
     "  npm run arena -- inspect <runId>",
     "  npm run arena -- mortal-details <runId>  rebuild post-run Q scores without model calls",
     "  npm run arena -- catalog         build the label-free development question catalog (no model calls)",
@@ -121,6 +126,7 @@ function usage() {
     "  --max-tool-calls <1..16>          default 2",
     "  --max-run-ms <1..300000>          default 120000",
     "  --fault first-helper-timeout      controlled helper timeout path",
+    "  --rag-applicability applicability-v1  opt-in post-retrieval applicability gate (requires --rag local)",
     "",
     "Credentials are read only from RIICHI_COACH_API_KEY and are never written to the archive.",
   ].join("\n");
@@ -147,7 +153,7 @@ export function parseArgs(argv) {
     if (!key?.startsWith("--")) throw new Error("arena_option_invalid");
     const value = rest[index + 1];
     if (value === undefined || value.startsWith("--")) throw new Error("arena_option_value_missing");
-    if (["--bank", "--dataset", "--rag", "--base-url", "--model", "--fault", "--provider", "--reasoning-effort", "--replay-run"].includes(key)) {
+    if (["--bank", "--dataset", "--rag", "--rag-applicability", "--base-url", "--model", "--fault", "--provider", "--reasoning-effort", "--replay-run"].includes(key)) {
       if (options[key] !== undefined) throw new Error("arena_option_duplicate");
       options[key] = value;
       index += 1;
@@ -164,6 +170,13 @@ export function parseArgs(argv) {
   const datasetId = options["--dataset"];
   if (!DatasetIdSchema.safeParse(datasetId).success || !["off", "local"].includes(options["--rag"])) {
     throw new Error("arena_dataset_or_rag_invalid");
+  }
+  const ragApplicabilityOption = options["--rag-applicability"];
+  if (ragApplicabilityOption !== undefined && ragApplicabilityOption !== ARENA_RAG_APPLICABILITY_GATE_VERSION) {
+    throw new Error("arena_rag_applicability_invalid");
+  }
+  if (ragApplicabilityOption !== undefined && options["--rag"] !== "local") {
+    throw new Error("arena_rag_applicability_requires_local");
   }
   const replayRunId = options["--replay-run"], replayCaseOrdinal = options["--replay-case"];
   if (replayRunId !== undefined ? !/^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/.test(replayRunId) || !Number.isInteger(replayCaseOrdinal) || replayCaseOrdinal < 0 || replayCaseOrdinal > 127 : replayCaseOrdinal !== undefined) throw new Error("arena_replay_reference_invalid");
@@ -206,6 +219,7 @@ export function parseArgs(argv) {
     command,
     datasetId, maxCases, caseOffset, bankId, replayRunId, replayCaseOrdinal,
     ragMode: options["--rag"],
+    ragApplicability: ragApplicabilityOption ?? null,
     fault: options["--fault"] ?? "none",
     budget,
     tokenWarningThreshold,
@@ -586,6 +600,15 @@ async function runCommand(options) {
         mode: options.ragMode,
         corpusVersion: ragCorpusVersion,
         retrieverVersion: options.ragMode === "local" ? ARENA_RAG_RETRIEVER_VERSION : "disabled",
+        ...(options.ragApplicability === null ? {} : {
+          applicability: {
+            gateVersion: ARENA_RAG_APPLICABILITY_GATE_VERSION,
+            promptVersion: ARENA_RAG_APPLICABILITY_PROMPT_VERSION,
+            selectorProviderId: descriptor.providerId,
+            selectorModel: descriptor.model,
+            limits: resolveArenaRagApplicabilityLimits(),
+          },
+        }),
       },
       controlledFault: options.fault,
       budget: { maxCases: options.maxCases, limits, selectionSeed: null, tokenWarningThreshold: options.tokenWarningThreshold },
@@ -632,7 +655,15 @@ async function runCommand(options) {
           tools.push(await createArenaMcpRunnerTool({ client: mcp.client, caseRef: observation.caseRef }));
         }
         const retriever = createArenaRagRetriever({ mode: options.ragMode, caseRef: observation.caseRef, aliases });
-        tools.push(createArenaRagRunnerTool({ retriever, caseRef: observation.caseRef }));
+        // One gate per case: its call/output budgets are case-local (spec §4.7).
+        const applicabilityGate = options.ragApplicability === null
+          ? undefined
+          : createArenaRagApplicabilityGate({ provider: descriptorProvider, caseRef: observation.caseRef });
+        tools.push(createArenaRagRunnerTool({
+          retriever,
+          caseRef: observation.caseRef,
+          ...(applicabilityGate === undefined ? {} : { applicabilityGate }),
+        }));
         const result = await runBlindCoachCase({
           observation,
           grading: { binding, reference },
