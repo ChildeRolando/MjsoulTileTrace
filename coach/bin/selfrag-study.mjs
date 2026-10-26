@@ -48,7 +48,6 @@ import {
   SELF_RAG_STUDY_PREJUDGE_PROMPT,
   SELF_RAG_STUDY_REASON_REVIEW_PROMPT_VERSION,
   SELF_RAG_STUDY_SELF_ACTOR,
-  buildResearchArenaCorpus,
   classifySceneLayers,
   freezeSelectorBudget,
   loadStudyExclusions,
@@ -57,16 +56,16 @@ import {
   sceneFactsFromSnapshot,
   verifyStudy,
 } from "../scripts/selfrag-study/prepare.mjs";
-import { loadResearchSubset } from "../scripts/selfrag-study/knowledge.mjs";
+import { buildResearchArenaCorpus, loadResearchSubset } from "../scripts/selfrag-study/knowledge.mjs";
 import { readAttempts } from "../scripts/selfrag-study/schedule.mjs";
 import { runStudyAttempt, selectSelectorBudget } from "../scripts/selfrag-study/run.mjs";
 import {
   SELF_RAG_STUDY_REASON_AUDIT_ATTESTATION,
-  buildReasonAuditRequests,
   buildReasonEntries,
   computeStudyReport,
   deriveStudyPhases,
   renderStudyReportMarkdown,
+  runReasonAudit,
   validateReasonReview,
 } from "../scripts/selfrag-study/report.mjs";
 
@@ -576,54 +575,14 @@ async function judgeReasons(artifactDir, entries) {
   }
 
   const provider = createProvider();
-  const verdicts = [];
-  const calls = [];
-  let failure = null;
   // One fresh provider context per audited reason, fixed prompt, and only the
-  // frozen source plus the frozen blind observation.
-  for (const { index, request } of buildReasonAuditRequests({ entries })) {
-    const started = Date.now();
-    try {
-      const result = await withTimeout((signal) => provider.request(request, signal), CALL_TIMEOUT_MS);
-      if (result.status !== "ready") {
-        const error = studyError("reason_review_provider_failed", result.status);
-        error.usage = result.usage ?? null;
-        throw error;
-      }
-      let parsed;
-      try {
-        parsed = JSON.parse(result.call.arguments);
-      } catch {
-        const error = studyError("reason_review_invalid", "json");
-        error.usage = result.usage ?? null;
-        throw error;
-      }
-      validateReasonReview({ entries: [entries[index]], verdicts: parsed.verdicts });
-      verdicts.push({ ...parsed.verdicts[0], index });
-      calls.push({
-        index,
-        caseId: entries[index].caseId,
-        sourceRef: entries[index].sourceRef,
-        status: "completed",
-        usage: result.usage ?? null,
-        elapsedMs: Date.now() - started,
-      });
-    } catch (error) {
-      const code = typeof error?.message === "string" && /^[a-z0-9_]+$/u.test(error.message)
-        ? error.message : "reason_review_failed";
-      calls.push({
-        index,
-        caseId: entries[index].caseId,
-        sourceRef: entries[index].sourceRef,
-        status: "failed",
-        failureCode: code,
-        usage: error?.usage ?? null,
-        elapsedMs: Date.now() - started,
-      });
-      failure = error;
-      break;
-    }
-  }
+  // frozen source plus the frozen blind observation. Every call, including a
+  // returned answer whose verdicts are rejected, stays in `calls` with its
+  // real usage, so known paid tokens are never lost as unknown.
+  const { verdicts, calls, failure } = await runReasonAudit({
+    entries,
+    auditCall: (request) => withTimeout((signal) => provider.request(request, signal), CALL_TIMEOUT_MS),
+  });
 
   const counts = failure === null ? validateReasonReview({ entries, verdicts }) : null;
   const artifact = {

@@ -472,3 +472,54 @@ test('freeze binds the prejudge attempt ledger and verify refuses ledger drift',
     await cleanup(directory);
   }
 });
+
+test('a returned but invalid prejudge is settled as failed, keeping its reported usage', async () => {
+  await withTempDir(async (directory) => {
+    const fixture = fixtureStudyDeps();
+    const ledgerPath = join(directory, 'prejudge-attempts.jsonl');
+    let calls = 0;
+    const deps = {
+      ...fixture.deps,
+      prejudge: async ({ caseId, passages }) => {
+        calls += 1;
+        if (calls === 2) {
+          // The provider answered and was paid, but the verdicts cover one ref
+          // twice: that answer was never a usable judgement.
+          return {
+            verdicts: [
+              { sourceRef: passages[0].sourceRef, verdict: 'irrelevant', reason: 'fixture reason 0' },
+              { sourceRef: passages[0].sourceRef, verdict: 'useful', reason: 'fixture reason 1' },
+            ],
+            usage: { inputTokens: 10, outputTokens: 5 },
+            elapsedMs: 6,
+          };
+        }
+        return {
+          verdicts: passages.map((passage, index) => ({
+            sourceRef: passage.sourceRef,
+            verdict: index === 0 ? 'irrelevant' : 'uncertain',
+            reason: `fixture reason ${index}`,
+          })),
+          judge: { providerId: 'codex-cli', model: 'gpt-6-luna' },
+          usage: { inputTokens: 10, outputTokens: 5 },
+          elapsedMs: 7,
+        };
+      },
+    };
+    await assert.rejects(() => prepareStudy({ artifactDir: directory, seed: FIXTURE_SEED, deps }), /prejudge_invalid/u);
+
+    const ledger = await readPrejudgeAttempts(ledgerPath);
+    assert.equal(calls, 2);
+    assert.equal(ledger.filter((entry) => entry.status === 'claimed').length, 2);
+    const completed = ledger.filter((entry) => entry.status === 'completed');
+    assert.equal(completed.length, 1);
+    assert.equal(completed[0].caseId, 'study-case-01');
+    const failed = ledger.filter((entry) => entry.status === 'failed');
+    assert.equal(failed.length, 1, 'one claim is settled exactly once');
+    assert.equal(failed[0].failureCode, 'prejudge_invalid');
+    // The rejected answer was still paid for: its real usage is kept, not cleared.
+    assert.deepEqual(failed[0].usage, { inputTokens: 10, outputTokens: 5 });
+    assert.equal(failed[0].elapsedMs, 6);
+    assert.equal(ledger.filter((entry) => entry.caseId === 'study-case-02' && entry.status === 'completed').length, 0);
+  });
+});

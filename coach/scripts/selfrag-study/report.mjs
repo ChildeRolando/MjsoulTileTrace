@@ -344,9 +344,24 @@ export function buildReasonEntries(input) {
         .find((candidatePassage) => candidatePassage.sourceRef === verdict.sourceRef);
       if (passage === undefined) throw studyError("reason_review_binding_missing", key);
       const stored = observations[run.caseId];
-      const observation = stored?.observation ?? stored;
+      const wrapped = stored !== null && typeof stored === "object" && !Array.isArray(stored)
+        && stored.observation !== undefined;
+      const observation = wrapped ? stored.observation : stored;
       if (observation === null || typeof observation !== "object" || Array.isArray(observation)) {
         throw studyError("reason_review_binding_missing", `${run.caseId}:observation`);
+      }
+      // The lookup key is a filename, not evidence. The frozen wrapper and the
+      // observation's own caseRef must both name this run's case, so a judge
+      // can never be asked about another case's decision under this claim.
+      if (wrapped && typeof stored.caseId === "string" && stored.caseId !== run.caseId) {
+        throw studyError("reason_review_cross_case", `${run.caseId}:observation.caseId`);
+      }
+      const frozenCaseRef = requireObject(candidates[run.caseId], `candidates.${run.caseId}`).result?.caseRef;
+      if (typeof observation.caseRef !== "string" || observation.caseRef.length === 0) {
+        throw studyError("reason_review_binding_missing", `${run.caseId}:observation.caseRef`);
+      }
+      if (observation.caseRef !== frozenCaseRef) {
+        throw studyError("reason_review_cross_case", `${run.caseId}:observation.caseRef`);
       }
       requireObject(observation.visibleState, `${run.caseId}:observation.visibleState`);
       requireObject(observation.decision, `${run.caseId}:observation.decision`);
@@ -469,6 +484,84 @@ export function buildReasonReviewRequest({ entries }) {
 export function buildReasonAuditRequests({ entries }) {
   if (!Array.isArray(entries) || entries.length === 0) throw studyError("reason_review_invalid", "entries");
   return entries.map((entry, index) => ({ index, request: buildReasonReviewRequest({ entries: [entry] }) }));
+}
+
+function reasonFailureCode(error) {
+  return typeof error?.message === "string" && /^[a-z0-9_]+$/u.test(error.message)
+    ? error.message
+    : "reason_review_failed";
+}
+
+/**
+ * Interprets one returned audit answer. A provider answer is paid for even when
+ * its verdicts are rejected, so the error carries the returned usage for the
+ * failed-call record instead of discarding known tokens as unknown.
+ */
+export function interpretReasonAuditResult({ entries, index, result }) {
+  const entry = entries?.[index];
+  if (entry === undefined) throw studyError("reason_review_invalid", "index");
+  if (result?.status !== "ready") {
+    const error = studyError("reason_review_provider_failed", result?.status);
+    error.usage = result?.usage ?? null;
+    throw error;
+  }
+  const usage = result.usage ?? null;
+  let parsed;
+  try {
+    parsed = JSON.parse(result.call?.arguments);
+  } catch {
+    const error = studyError("reason_review_invalid", "json");
+    error.usage = usage;
+    throw error;
+  }
+  try {
+    validateReasonReview({ entries: [entry], verdicts: parsed?.verdicts });
+  } catch (error) {
+    error.usage = error?.usage ?? usage;
+    throw error;
+  }
+  return { ...parsed.verdicts[0], index };
+}
+
+/**
+ * Runs the independent reason audit: one fresh context per entry, no retry, and
+ * every call recorded with its real status, elapsed time and usage. `auditCall`
+ * owns the provider and its timeout so this stays deterministic and testable;
+ * it must return the provider result unchanged.
+ */
+export async function runReasonAudit({ entries, auditCall, clock = () => Date.now() }) {
+  if (!Array.isArray(entries)) throw studyError("reason_review_invalid", "entries");
+  const verdicts = [];
+  const calls = [];
+  let failure = null;
+  for (const { index, request } of buildReasonAuditRequests({ entries })) {
+    const started = clock();
+    try {
+      const result = await auditCall(request, index);
+      verdicts.push(interpretReasonAuditResult({ entries, index, result }));
+      calls.push({
+        index,
+        caseId: entries[index].caseId,
+        sourceRef: entries[index].sourceRef,
+        status: "completed",
+        usage: result?.usage ?? null,
+        elapsedMs: Math.max(0, clock() - started),
+      });
+    } catch (error) {
+      calls.push({
+        index,
+        caseId: entries[index].caseId,
+        sourceRef: entries[index].sourceRef,
+        status: "failed",
+        failureCode: reasonFailureCode(error),
+        usage: error?.usage ?? null,
+        elapsedMs: Math.max(0, clock() - started),
+      });
+      failure = error;
+      break;
+    }
+  }
+  return { verdicts, calls, failure };
 }
 
 function summarizeCalls(calls) {

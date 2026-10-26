@@ -683,8 +683,10 @@ async function prepareWithCorpus(input) {
 
     const candidateRefs = result.sourceRefs;
     let prejudged;
+    let counts;
     if (candidateRefs.length === 0) {
       prejudged = { verdicts: [], usage: null, elapsedMs: 0, judge: null };
+      counts = validatePrejudgeVerdicts({ candidateRefs, verdicts: prejudged.verdicts });
     } else {
       const claim = await claimPrejudgeAttempt({
         path: ledgerPath, caseId: selected.caseId, candidateCount: candidateRefs.length,
@@ -692,6 +694,10 @@ async function prepareWithCorpus(input) {
       const started = Date.now();
       try {
         prejudged = await deps.prejudge({ caseId: selected.caseId, observation, passages: result.passages });
+        // Validation belongs to the call, before it is settled: a returned
+        // judgement with invalid coverage was paid for but is not a completed
+        // call, so the ledger records it as failed with its real usage.
+        counts = validatePrejudgeVerdicts({ candidateRefs, verdicts: prejudged.verdicts });
       } catch (error) {
         // A failed call stays in the ledger with whatever usage the adapter
         // could observe: unknown is recorded as unknown, never as zero.
@@ -699,8 +705,10 @@ async function prepareWithCorpus(input) {
           path: ledgerPath,
           claim,
           status: "failed",
-          usage: error?.usage ?? null,
-          elapsedMs: Number.isFinite(error?.elapsedMs) ? error.elapsedMs : Date.now() - started,
+          usage: error?.usage ?? prejudged?.usage ?? null,
+          elapsedMs: Number.isFinite(error?.elapsedMs)
+            ? error.elapsedMs
+            : Number.isFinite(prejudged?.elapsedMs) ? prejudged.elapsedMs : Date.now() - started,
           failureCode: typeof error?.message === "string" && /^[a-z0-9_]+$/u.test(error.message)
             ? error.message : "prejudge_failed",
         });
@@ -714,7 +722,6 @@ async function prepareWithCorpus(input) {
         elapsedMs: Number.isFinite(prejudged?.elapsedMs) ? prejudged.elapsedMs : Date.now() - started,
       });
     }
-    const counts = validatePrejudgeVerdicts({ candidateRefs, verdicts: prejudged.verdicts });
     for (const key of Object.keys(counts)) verdictCounts[key] += counts[key];
     prejudgeArtifacts.push({
       caseId: selected.caseId,

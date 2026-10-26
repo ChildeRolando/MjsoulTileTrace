@@ -167,6 +167,9 @@ npm run test:package-import
 
 - 两臂唯一差异是交付片段；其余请求逐字节一致。
 - selfrag 臂调用 `createArenaRagApplicabilityGate`，记录 receipt、usage、耗时。
+- 门控 `status="failed"`（如 `receipt_too_large`）在构建生成请求前终止该 attempt：保留回执与 selector
+  实际用量，生成器记 `not_called`，不写 `completed`、不回退 baseline。`status="degraded"` 的合法 fallback
+  按规格 §5 第 4 条继续并显式记降级。
 - 每次运行落 `runs/<caseId>/<arm>/<attempt>.json`：完整请求、响应、usage、耗时、失败码；不重试、不删失败。
 
 ### 2.5 `coach/scripts/selfrag-study/report.mjs`
@@ -178,8 +181,10 @@ npm run test:package-import
   理由判读）另节汇总，两节都标 `qualityComparable: false`。
 - 过滤通道分解：机械特例剔除数、三种语义 `basis` 剔除数、`downgradedVerdictCount`、整批 `degraded` 次数。
 - 语义理由独立判读：对 evaluation 每个实际 `irrelevant`，按冻结 `sourceRef` 绑定原完整片段与冻结盲观察，
-  拒绝缺失/跨 case 绑定；selector 理由只作不可信声明，不传中间过程；每条目一次独立新上下文、固定提示词。
-  报告成立/不成立/无法判断计数与判读成本；无 evaluation 剔除时写 `not_applicable`。
+  拒绝缺失/跨 case 绑定；观测身份同时核对 wrapper `caseId` 与 `observation.caseRef`（必须等于冻结候选/当前
+  case），不能只信文件名。selector 理由只作不可信声明，不传中间过程；每条目一次独立新上下文、固定提示词。
+  判读循环（`runReasonAudit`）记录每次调用的真实状态、usage、耗时与失败码；返回但校验不通过时保留已报告
+  usage/elapsed，不当作未发生。报告成立/不成立/无法判断计数与判读成本；无 evaluation 剔除时写 `not_applicable`。
 - 固定声明：AI prejudge 不是专家真值；10 局不声称显著性；质量无改善按实报告；
   剔除全部来自机械特例或 selector 大面积降级时，写“本批未能检验语义过滤效果”。
 
@@ -187,6 +192,8 @@ npm run test:package-import
 
 - 子命令 `prepare / verify / run / report`；`verify` 在开跑前核对干净 HEAD、冻结摘要、provider 可执行版本
   （精确 `codex-cli 0.162.1`）与可执行文件 SHA-256；任一项不符即停止。
+- 入口只从 harness 模块导入真实存在的命名导出；`entry.test.mjs` 逐条静态核对，避免链接期失败让整条
+  真实链路无法开始。
 
 ### 2.7 工单 B 的完成门
 

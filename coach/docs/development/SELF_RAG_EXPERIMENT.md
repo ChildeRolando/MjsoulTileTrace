@@ -1,7 +1,7 @@
 # Self-RAG 配对实验协议与结果
 
 日期：2026-10-27
-状态：**工具已实现并通过纯函数/夹具验证（含独立就绪审查的 3 个 P2 修复）；正式 20 次模型评估未运行。**
+状态：**工具已实现并通过纯函数/夹具验证（含两轮独立就绪审查的全部修复）；正式 20 次模型评估未运行。**
 
 本文件是该实验**真实结果**的 owner。契约与不变量见
 [冻结规格](../specs/2026-10-27-self-rag-applicability.md)（下称“规格”）；
@@ -21,6 +21,11 @@
 | pilot 与 evaluation 质量分离：质量、通道、正负结论与理由判读只读 8 局 evaluation | 已实现并有反例回归（仅 pilot 有剔除 / eval 全保留；pilot 重跑） |
 | 全部尝试成本（pilot + 所有失败 + prejudge + 理由判读）单列 | 已实现并有回归 |
 | 每次 prejudge 调用前 claim、返回/失败后立即落盘（含已知与未知用量） | 已实现并有回归（第 2 次失败、10 次全 useful 停止） |
+| 返回但校验不通过的预判按失败结算（不记 completed），保留已报告 usage/elapsed | 已实现并有回归（重复 `sourceRef` → `prejudge_invalid`） |
+| 理由判读的观察身份绑定：wrapper `caseId` 与 `observation.caseRef` 必须等于冻结候选/当前 case | 已实现并有回归（跨 case 与缺失均拒绝） |
+| 理由判读返回但校验失败时，失败调用保留已报告 usage/elapsed 与失败码 | 已实现并有回归，判读循环本身由 `runReasonAudit` 承载 |
+| 门控返回 `status=failed` 时在生成前终止该 attempt（不回退 baseline，不写 completed） | 已实现并有回归；`degraded` 仍按规格 §5 第 4 条继续 |
+| CLI 入口可加载（`bin/selfrag-study.mjs` 的本地命名导入必须真实存在） | 已修复：`buildResearchArenaCorpus` 现从 `knowledge.mjs` 导入；`entry.test.mjs` 逐条核对 |
 | 与工单 A 的真实门控联通 | **未验证**：A 的 `blind-discard-arena-rag-applicability` 尚未合入；harness 用夹具 gate 验证纯函数，`prepare`/`run` 在真实导入失败时以 `applicability_gate_unavailable` 停止 |
 | pilot（2 局）与 evaluation（8 局）真实运行 | **未运行** |
 | 真实质量、token、失败与耗时数字 | **未产生**；本文件不给出任何质量结论 |
@@ -107,6 +112,10 @@ evaluation 全程只用该组合。参数字节由 harness 在 selector provider
 
 - baseline：交付检索原始片段。
 - selfrag：交付门控保留片段；门控失败/缺失**不会**回退成 baseline，该 attempt 记为失败。
+  具体地：门控返回 `status="failed"`（如 `receipt_too_large`）时，harness 先保存 gate 回执与 selector
+  实际 usage，再在构建生成请求之前把该 attempt 记为 `failed`（原 `failureCode` 保留，generator 记
+  `not_called`，合计用量只含真实发生的 selector 成本，不捏造生成器成本）。`status="degraded"` 的合法
+  fallback 按规格 §5 第 4 条继续生成，并显式记录降级与失败码——不把两者一刀切。
 - 两臂唯一差异是交付片段：同一观测、同一候选、同一冻结查询、同一生成提示词
   （`selfrag-study-generator/v1`）与同一工具 schema；测试断言请求信封逐字节相同。
 - **阶段分离（规格 §9.3）**：pilot 的归属只取 `freeze.sampling.selected` 里预声明的 phase，不信任 run 自带标签。
@@ -114,6 +123,8 @@ evaluation 全程只用该组合。参数字节由 harness 在 selector provider
   否则 pilot-only 的剔除会被写成实验性语义过滤。pilot 只按“链路状态 + 用量 + 通道观察”单列，标 `qualityComparable: false`。
 - **全部尝试成本**：另出一节汇总 pilot + evaluation + 所有失败/取消/中断的 attempt，以及 prejudge 调用
   （含失败与未结算 claim）与独立理由判读调用。该节显式标为不可用于质量比较。
+  返回后校验失败同样计入：预判返回但覆盖非法时只结算一次 `failed`（带 `prejudge_invalid` 与已报告用量），
+  理由判读返回但校验不通过时保留已报告 usage/elapsed 与失败码；无调用时不产生任何成本。
 - 报告同时给出：交付中 prejudge=irrelevant 片段数、drop precision、useful drop rate、
   uncertain 保留率、引用越界与引用 irrelevant 次数、过滤通道分解（三种语义 basis、机械特例、
   逐条降级、整批 degraded/failed）、语义理由成立性（独立 AI 判读）、生成器/selector/合计用量
@@ -127,7 +138,8 @@ evaluation 全程只用该组合。参数字节由 harness 在 selector provider
 - **语义理由独立判读**：对 evaluation 中每个**实际** `effectiveVerdict=irrelevant` 的片段，用冻结 `sourceRef`
   绑定 `candidates.json` 中的原完整片段（`content` 已含正文/适用条件/例外，另带 `sourceTitle`、`documentLocation`、
   `applicableWhen`）与该 case 的冻结盲观察（只投影 `decision`、`visibleState`、`candidates`，不含 tools、隐藏标签、
-  他家暗手或未来信息）。缺失绑定或跨 case 绑定直接失败，不猜。selector 的最终理由、`basis`、`premises` 只作为
+  他家暗手或未来信息）。绑定不是只看文件名：观测 wrapper 的 `caseId`（存在时）与 `observation.caseRef`
+  都必须等于当前 run 与冻结候选的 `caseRef`；缺失或跨 case 直接失败，不猜。selector 的最终理由、`basis`、`premises` 只作为
   **不可信声明** 传入；不传 selector 中间过程或回执其余字段。每个条目一次独立新上下文、固定提示词，
   调用成本单独统计；判读是 AI 判读，不是专家真值。evaluation 确实没有剔除时写 `not_applicable`，不伪造判读结果。
 - 结论规则：semantic 剔除为 0（全部剔除来自机械特例或无法归类）或多数 selfrag 批次降级/失败时，
@@ -153,6 +165,25 @@ evaluation 全程只用该组合。参数字节由 harness 在 selector provider
   `the all-useful stop keeps all ten incurred prejudge costs`、
   `a failed prejudge call keeps the usage the adapter managed to observe`、
   `freeze binds the prejudge attempt ledger and verify refuses ledger drift`
+
+第二轮就绪复核（`experiment-readiness-fixed-review.json`，复核提交 `4a85e43`）确认上述三项已修复，并留下
+3 项必须在正式评估前完成的修复，现已在同分支完成（不改变冻结研究协议）：
+
+- 门控返回 `status=failed` 仍调用生成器并写 `completed`：现于生成前终止，保留回执与 selector 用量，
+  生成器记 `not_called`；`degraded` 仍继续。回归：`a returned failed gate is terminal: the generator is not
+  called and only its real selector cost is kept`、`a degraded gate still proceeds to the generator and
+  records the downgrade`。
+- 理由判读未校验观测身份：现绑定 wrapper `caseId` 与 `observation.caseRef`。回归：
+  `a reason audit refuses an observation that belongs to another case`。
+- 返回后校验失败的失真记账：预判校验移入结算前，失败只结算一次并保留用量；理由判读由
+  `runReasonAudit` 记录每次调用的真实状态/用量/耗时。回归：
+  `a returned but invalid prejudge is settled as failed, keeping its reported usage`、
+  `the reason audit keeps the returned usage of a rejected judgement as a failed call`、
+  `the reason audit stops at the first failure and keeps the earlier calls`。
+
+同时修复一个更早的实现阻断：`bin/selfrag-study.mjs` 从 `prepare.mjs` 导入了实际由 `knowledge.mjs` 导出的
+`buildResearchArenaCorpus`，导致 CLI 在链接阶段即失败（`--help` 也不可用），真实链路根本无法开始。现改为从
+`knowledge.mjs` 导入，并新增 `entry.test.mjs` 逐条核对 CLI 对 harness 模块的命名导入，先红后绿。
 
 真实运行完成后按以下顺序补齐，不删失败、不改样本：
 

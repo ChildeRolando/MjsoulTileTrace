@@ -8,6 +8,7 @@ import {
   computeStudyReport,
   deriveStudyPhases,
   renderStudyReportMarkdown,
+  runReasonAudit,
   validateReasonReview,
 } from './report.mjs';
 import { fixtureObservation, opaqueRef } from './fixtures/study.mjs';
@@ -542,4 +543,119 @@ test('the reason audit counts its own cost and says not_applicable when evaluati
   assert.equal(none.reasonReview.counts, null);
   assert.match(renderStudyReportMarkdown(none), /不适用/u);
   assert.equal(renderStudyReportMarkdown(none).includes('成立 | 不成立'), false);
+});
+
+test('a reason audit refuses an observation that belongs to another case', () => {
+  const input = evaluationAndPilotInput();
+  const evalRefs = input.candidatesByCase[CASE_1].result.sourceRefs;
+  const runs = [runRecord({
+    caseId: CASE_1, arm: 'selfrag', deliveredRefs: [evalRefs[1]], candidateRefs: evalRefs,
+    submissionRefs: [evalRefs[1]], gate: reasonGate(evalRefs, { droppedIndex: 0 }),
+  })];
+  const build = (observationsByCase) => buildReasonEntries({
+    runs, candidatesByCase: input.candidatesByCase, observationsByCase, evaluationCaseIds: [CASE_1, CASE_2],
+  });
+  const ownObservation = input.observationsByCase[CASE_1].observation;
+  const otherObservation = input.observationsByCase[CASE_2].observation;
+
+  // The frozen wrapper names the same case: accepted.
+  const accepted = build({ [CASE_1]: { caseId: CASE_1, observation: ownObservation } });
+  assert.equal(accepted.length, 1);
+  assert.equal(accepted[0].caseId, CASE_1);
+
+  // Another case's wrapper under this file's key is refused...
+  assert.throws(() => build({ [CASE_1]: { caseId: CASE_2, observation: ownObservation } }), /reason_review_cross_case/u);
+  // ...and so is another case's observation body, whose frozen caseRef decides.
+  assert.throws(() => build({ [CASE_1]: { observation: otherObservation } }), /reason_review_cross_case/u);
+  assert.throws(() => build({ [CASE_1]: { caseId: CASE_2, observation: otherObservation } }), /reason_review_cross_case/u);
+  // A missing caseRef cannot be bound by the lookup key alone.
+  const missingRef = { ...ownObservation };
+  delete missingRef.caseRef;
+  assert.throws(() => build({ [CASE_1]: { observation: missingRef } }), /reason_review_binding_missing/u);
+});
+
+test('the reason audit keeps the returned usage of a rejected judgement as a failed call', async () => {
+  const entries = [{
+    caseId: CASE_1,
+    sourceRef: 'r1',
+    claim: {
+      verdict: 'irrelevant', reason: '该片段要求门清，但自手已有副露。',
+      basis: 'declared-condition-not-met', premises: [{ kind: 'fact', path: 'visibleState.self.meldRefs', observedValue: [] }],
+    },
+    source: { sourceTitle: '来源 0', documentLocation: '', content: '片段 0', applicableWhen: ['general-discard-choice'] },
+    visibleContext: { decision: { selfActor: 0, windowKind: 'self_turn' }, visibleState: { remainingDraws: 60 }, candidates: [] },
+  }];
+  const answer = (verdicts, usage = { inputTokens: 7, outputTokens: 3 }) => ({
+    status: 'ready', usage, call: { name: 'submit_reason_audit', arguments: JSON.stringify({ verdicts }) },
+  });
+
+  // The judge answered and was paid, but its coverage is invalid: the call
+  // stays a failure and keeps the tokens it really consumed.
+  const rejected = await runReasonAudit({
+    entries,
+    auditCall: async () => answer([
+      { index: 0, verdict: 'supported', reason: '条件冲突可核对。' },
+      { index: 0, verdict: 'supported', reason: '条件冲突可核对。' },
+    ]),
+  });
+  assert.equal(rejected.verdicts.length, 0);
+  assert.equal(rejected.calls.length, 1);
+  assert.equal(rejected.calls[0].status, 'failed');
+  assert.equal(rejected.calls[0].failureCode, 'reason_review_invalid');
+  assert.deepEqual(rejected.calls[0].usage, { inputTokens: 7, outputTokens: 3 });
+  assert.equal(rejected.failure.message, 'reason_review_invalid');
+
+  const report = computeStudyReport({ ...fixtureInput(), reasonReview: { status: 'failed', calls: rejected.calls } });
+  assert.equal(report.reasonReview.status, 'failed');
+  assert.deepEqual(report.reasonReview.usage, {
+    reportedCalls: 1, partialCalls: 0, unknownCalls: 0, tokens: { inputTokens: 7, outputTokens: 3 },
+  });
+
+  // A provider that returns nothing usable is also a paid failure.
+  const providerFailed = await runReasonAudit({
+    entries,
+    auditCall: async () => ({ status: 'timeout', usage: { inputTokens: 4, outputTokens: 0 } }),
+  });
+  assert.equal(providerFailed.calls[0].status, 'failed');
+  assert.equal(providerFailed.calls[0].failureCode, 'reason_review_provider_failed');
+  assert.deepEqual(providerFailed.calls[0].usage, { inputTokens: 4, outputTokens: 0 });
+
+  // A valid answer is the only thing recorded as completed, with its usage.
+  const accepted = await runReasonAudit({
+    entries,
+    auditCall: async () => answer([{ index: 0, verdict: 'supported', reason: '条件冲突可核对。' }]),
+  });
+  assert.deepEqual(accepted.verdicts, [{ index: 0, verdict: 'supported', reason: '条件冲突可核对。' }]);
+  assert.equal(accepted.calls[0].status, 'completed');
+  assert.deepEqual(accepted.calls[0].usage, { inputTokens: 7, outputTokens: 3 });
+  assert.equal(accepted.failure, null);
+});
+
+test('the reason audit stops at the first failure and keeps the earlier calls', async () => {
+  const entries = [CASE_1, CASE_2].map((caseId, index) => ({
+    caseId,
+    sourceRef: `r${index + 1}`,
+    claim: { verdict: 'irrelevant', reason: '该片段要求门清，但自手已有副露。', basis: 'declared-condition-not-met', premises: [] },
+    source: { sourceTitle: `来源 ${index}`, documentLocation: '', content: `片段 ${index}`, applicableWhen: [] },
+    visibleContext: { decision: { selfActor: 0, windowKind: 'self_turn' }, visibleState: { remainingDraws: 60 }, candidates: [] },
+  }));
+  let calls = 0;
+  const audit = await runReasonAudit({
+    entries,
+    auditCall: async () => {
+      calls += 1;
+      if (calls === 2) throw new Error('reason_review_provider_failed');
+      return {
+        status: 'ready', usage: { inputTokens: 5, outputTokens: 2 },
+        call: { name: 'submit_reason_audit', arguments: JSON.stringify({ verdicts: [{ index: 0, verdict: 'undetermined', reason: '材料不足。' }] }) },
+      };
+    },
+  });
+  assert.equal(calls, 2);
+  assert.equal(audit.calls.length, 2);
+  assert.equal(audit.calls[0].status, 'completed');
+  assert.equal(audit.calls[1].status, 'failed');
+  assert.equal(audit.calls[1].failureCode, 'reason_review_provider_failed');
+  assert.deepEqual(audit.calls[1].usage, null);
+  assert.equal(audit.failure.message, 'reason_review_provider_failed');
 });
