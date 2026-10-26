@@ -106,6 +106,9 @@ evaluation 全程只用该组合。参数字节由 harness 在 selector provider
 - 用量逐字段校验：只有 `inputTokens` 与 `outputTokens` 都是非负整数时才计为“已报告”；字段缺失、负数、非整数
   或非数值时，整条用量按 `unknown` 计数并保留 `reportedPartial` 中的合法字段，非法值不进入任何数值累计
   （因此不会出现 NaN 或被序列化成 `null` 的假总量）。`cachedInputTokens` 仅在合法时保留，且不参与合计。
+- 失败尝试的成本同样只合计“已尝试的调用”：生成器已被调用但未返回用量时（如 `provider_error`），该部分按 `unknown`
+  参与合计，selector 的已知值保留在 `reportedPartial`；只要有一次调用未报告用量，合计状态就不得因其余部分已报告而
+  变回完整总量。
 - 结论规则：semantic 剔除为 0（全部剔除来自机械特例或无法归类）或多数 selfrag 批次降级/失败时，
   结论明确写“本批未能检验语义过滤效果”；不把 token 下降单独当成功；10 局不声称统计显著性。
 
