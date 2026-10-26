@@ -99,7 +99,7 @@ npm run check:architecture
 npm run test:package-import
 ```
 
-真实 smoke（需 §2.1 版本前置通过）：干净提交上
+真实 smoke（补齐 §2.2 未实测项：失败/超时路径；已实测项复核 CLI 版本与可执行文件哈希）：干净提交上
 `node bin/blind-discard-arena.mjs run --dataset blind-discard-smoke-v1 --max-cases 1 --rag local --rag-applicability applicability-v1 --provider codex-cli --model gpt-6-luna --reasoning-effort high`，
 回读 archive 的 `manifest.rag.applicability`、`events.jsonl` 的 `tool_result.reflection`、`summary.applicability`。
 未通过时在 PR 里如实写 BLOCKED 与原因，不以单元测试冒充真实链路。
@@ -122,7 +122,8 @@ npm run test:package-import
 4. 冻结 `requests.json`（固定查询规则生成的 `ArenaRagRequest`）。
 5. 调用 `createArenaRagRetriever` 得到每 case 的原始片段，跑 prejudge（独立提示词/上下文），写
    `prejudge/*.json`。
-6. 写 `freeze.json`：corpus 文件哈希、排除/抽样/查询/预判摘要、代码 SHA、provider/model/effort、语料与提示词版本。
+6. 写 `freeze.json`：corpus 文件哈希、排除/抽样/查询/预判摘要、代码 SHA，以及规格 §9.0 的完整执行身份：
+   `codex-cli 0.162.1`、可执行文件 SHA-256 与字节数、`gpt-6-luna`、`high`、各提示词版本、语料版本。
 7. 最小化复用：只移植 CLI 里必要的 pinned runtime bootstrap，不整段复制 `blind-discard-arena.mjs`。
 
 测试：排除集、抽样确定性、单决策规则、冻结摘要、prejudge 不读 gate 输出。
@@ -146,7 +147,8 @@ npm run test:package-import
 
 ### 2.6 `coach/bin/selfrag-study.mjs`
 
-- 子命令 `prepare / verify / run / report`；`verify` 在开跑前核对干净 HEAD、冻结摘要与 provider 可执行版本。
+- 子命令 `prepare / verify / run / report`；`verify` 在开跑前核对干净 HEAD、冻结摘要、provider 可执行版本
+  （精确 `codex-cli 0.162.1`）与可执行文件 SHA-256；任一项不符即停止。
 
 ### 2.7 B 的完成门
 
@@ -169,7 +171,8 @@ harness 测试不联网、不调用模型；真实 20 次运行属于父票集�
 ## 4. 父票集成阶段的实验执行清单
 
 1. 固定已合入候选 SHA（干净工作树）。
-2. 跑 §2.1 的 Codex 0.162.1 协议验证；不通过则 BLOCKED 并停止，不改断言。
+2. 复核 §2.2 的 0.162.1 兼容证据（版本、哈希、已实测面）；补跑未实测的失败/超时路径；不通过则 BLOCKED 并停止，
+   不改整盘断言、不放宽解析。
 3. `prepare` → `verify` → `run`（20 次）→ `report`。
 4. 把真实数字写入 `coach/docs/development/SELF_RAG_EXPERIMENT.md`，失败与限制原样保留。
 5. 按结果更新 ROADMAP/README 状态；门控保持 opt-in，不修改生产默认。

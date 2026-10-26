@@ -35,20 +35,52 @@
 | 工具预算 | `ARENA_RUN_LIMITS_V1.maxToolCallDurationMs = 10_000`，`withToolTimeout` 包住 `tool.execute` | 反思**不能**塞进 `execute`；否则一次 30–60s 的模型调用会被 10s 计时器判成 `tool_timeout` |
 | 引用授予 | runner 在 `tool.parseOutput` / `tool.references` 之后才对 `allowedSourceRefs.add` | 反思必须发生在 `references` 之前，才能真实改变可引用集合 |
 | provider 协议 | `blind-discard-arena-provider.ts`：`ArenaToolCallProvider.request(request, signal)`，`arena-function-call/v1` | 反思复用同一公开接口，不新增 provider 抽象 |
-| Codex 适配 | `llm-provider/codex-cli.ts`：`createCodexArenaToolCallProvider` → `runCodexStructuredTurn` → `port.findExecutable()` | 见 §2.1 版本前置 |
+| Codex 适配 | `llm-provider/codex-cli.ts`：`createCodexArenaToolCallProvider` → `runCodexStructuredTurn` → `port.findExecutable()` | 见 §2.1–§2.2 |
 | 归档 | `blind-discard-arena-archive.ts`：manifest / events / summary 三个 strict schema | 新增字段一律 optional，历史归档必须继续可读 |
 
-### 2.1 Codex 版本前置（实测，不是删除断言）
+### 2.1 Arena 与整盘版本门的边界（按源代码调用链）
 
-- 适配器当前的版本断言 `SUPPORTED_CLI_VERSION = "0.155.1"` 位于 `codexExecutableAvailability`，只被
-  `getCodexCoachAvailability` 与整盘 `createCodexCoachProvider.complete` 使用。
-- Arena 工具调用适配器 `createCodexArenaToolCallProvider` **不调用**该断言；它只要求 `findExecutable()` 返回原生路径。
-- 本机该路径上的可执行文件只读探测结果：`codex-cli 0.162.1`（`--version` exit 0）。没有找到可用的完整 0.155.1 CLI。
-- 因此：Arena 路径今天不被版本断言挡住，但也**尚未针对 0.162.1 验证过**协议行为。
-- **不修改、不删除、不放宽**该断言。真实实验的前置条件写进接受条件：Arena 适配器必须在 0.162.1 上通过
-  bounded 协议验证（结构化输出、NDJSON 事件、取消与子进程清理、120s 单轮上限、失败返回的用量仍计入），
-  或在独立核实后显式绑定一个可用兼容版本。未通过时实验如实 BLOCKED，不以“删掉断言”冒充已验证。
-- 本切片不新增 `codexCommand` 选项；原生路径是唯一受支持的可执行来源。
+- `SUPPORTED_CLI_VERSION = "0.155.1"` 只出现在 `codexExecutableAvailability`，其调用者是
+  `getCodexCoachAvailability` 与整盘 `createCodexCoachProvider.complete`。它是**整盘 Coach 可用性/生成**的版本门。
+- Arena 的真实调用链是 `coach/bin/blind-discard-arena.mjs:runCommand` →
+  `createCodexArenaToolCallProvider` → `runCodexStructuredTurn` → `codex exec`。它只要求
+  `port.findExecutable()` 返回原生可执行文件，**不读取** `SUPPORTED_CLI_VERSION`；因此该断言不约束 Arena，
+  也不能据此声称“当前 Arena 必然拒绝 0.162.1”。
+- 范围决定：本切片**不修改、不删除、不放宽**该整盘断言，也不声称整盘复盘在 0.162.1 上可用；
+  改该门属于整盘可用性 owner 的独立决定，不在本切片内。
+- 本切片只对 Arena 实际经过的 schema、tool result、usage、取消路径做 0.162.1 兼容验证（§2.2），
+  并把实验实际使用的模型与版本显式冻结（§9.0）。没有实测的路径不得假设通过。
+
+### 2.2 Arena 0.162.1 兼容验证（2026-10-27 实做）
+
+方法：按适配器 `nativeCodexPath()` 的解析规则定位原生可执行文件，按 `requestArgs()` 的完整参数、
+`safeEnvironment()` 的受限环境、临时 cwd 与 `--output-schema` 文件启动真实的 `codex exec` 做有界探测
+（每次一个短回合），并对源码逐项核对。探测只为协议兼容，不是对照实验，不产生评估样本。
+
+实测身份：
+
+- `codex-cli 0.162.1`（`--version` exit 0）。
+- 可执行文件：`%APPDATA%/npm/node_modules/@openai/codex/node_modules/@openai/codex-win32-x64/vendor/x86_64-pc-windows-msvc/bin/codex.exe`，
+  大小 333479728 字节，SHA-256 `dd13bdb162a184fa04039488b234a8258ef9b76f84e926c505d5742b19249a6a`。
+- 登录：`login status` 为 `Logged in using ChatGPT`（只读状态，不读取凭据）。
+
+| 面 | 对应代码 | 0.162.1 实测 | 结论 |
+|---|---|---|---|
+| CLI 参数与 schema 注入 | `requestArgs()`：`exec --json --output-schema … --strict-config --ephemeral --ignore-user-config --sandbox read-only --skip-git-repo-check --config model_reasoning_effort=… --config web_search=disabled --disable <34 项>` | 全部接受，exit 0；0.155.1 校验过的禁用特性目录在 0.162.1 下仍可用 | 通过 |
+| Arena 结构化 schema | `createCodexArenaToolCallProvider` 组装的 `{call: anyOf[…], decisionSummary}`，strict 工具参数为嵌套对象 | `anyOf` + 嵌套 strict object + enum + minLength/maxLength 被接受；最终 `agent_message` 是适配器可 `JSON.parse` 并由 zod strict 解析的单个对象，strict 参数为对象而非字符串 | 通过 |
+| 事件流 | `parseEvent`：`thread.started` / `turn.started` / `item.{started,updated,completed}`（仅 `agent_message`、`reasoning`）/ `turn.completed` / `turn.failed` / `Reconnecting…` 型 `error` | 观测到 `thread.started → turn.started → item.completed(agent_message) → turn.completed`，无新增事件类型；未知事件/条目仍按现有逻辑 fail closed | 通过（未知类型仍失败关闭，不静默放行） |
+| usage | `parseUsage` 读 `turn.completed.usage.{input_tokens,cached_input_tokens,output_tokens}` | 三项均存在（探测示例 9688/0/19）；新增的 `cache_write_input_tokens`、`reasoning_output_tokens` 不参与计算也不导致失败；缺失时不补零 | 通过 |
+| 取消 | `onAbort → failAndKill → child.kill()`，`KILL_GRACE_MS=1000`；provider 在 `signal.aborted` 后返回 `cancelled` | turn 进行中 abort：子进程 16ms 内关闭（SIGTERM），远小于 1s 宽限；无残留进程 | 通过 |
+| 超时 | 默认 `timeoutMs=120_000`；`timedOut → kill → failure("timeout")` | 探测未触发 120s 超时；代码路径未变。真实超时须由 A 的冒烟观察 | 未实测 |
+| 失败与失败用量 | `turn.failed`/`error` 的 usage、`cli_process_failed`、`invalid_model_response` | 未人为制造服务端失败；错误路径与失败用量归集未在 0.162.1 上观测 | 未实测，列入 A 的冒烟 |
+| stderr | `onStderr` 只计字节上限，不解析内容 | 0.162.1 会把 `failed to refresh available models: request timed out` 一类本机日志写到 stderr | 无影响（设计不解析 stderr） |
+
+规则：
+
+- 探测使用 `model_reasoning_effort=low` 只为压缩墙钟；参数面与协议形状不随 effort 变化。实验仍冻结 `high`（§9.0）。
+- “未实测”项不能写成已验证。A 的真实 smoke 必须覆盖失败/超时路径并把观测写进 PR；若 0.162.1 在这些路径
+  给出未预期事件，按 fail closed 处理并如实标 BLOCKED，既不改整盘断言，也不放宽解析。
+- 版本或可执行文件哈希变化（npm 升级、换机）使本节证据失效：实验 `verify` 必须在新环境重跑本节探测并重新冻结。
 
 ## 3. 目标与非目标
 
@@ -387,7 +419,7 @@ living docs（ROADMAP/README/VERIFICATION）由父票集成阶段按真实实验
 - 命令：`npm run typecheck`、`npm run build`、`npx vitest run`（Arena 相关文件先 focused，再全量）、
   `npm run check:architecture`、`npm run test:package-import`。
 - 真实链路 smoke：在干净提交上用内置数据集跑 1 个 case（`--rag local --rag-applicability applicability-v1`），
-  必须留下 archive/manifest/events 与真实 provider 用量；若 §2.1 的 0.162.1 协议验证未通过，此项标 BLOCKED，
+  必须留下 archive/manifest/events 与真实 provider 用量；若 §2.2 的兼容验证（含失败/超时路径）未通过，此项标 BLOCKED，
   不得以单测代替。
 
 ### B（实验接受条件）
@@ -398,6 +430,27 @@ living docs（ROADMAP/README/VERIFICATION）由父票集成阶段按真实实验
 - `verify` 子命令在开跑前核对：干净 HEAD、冻结 SHA、语料/排除/查询/预判摘要、provider 可执行路径与版本。
 
 ## 9. 冻结的小规模真实对照实验
+
+### 9.0 冻结的执行身份（模型与版本）
+
+在任何模型调用之前写入 `freeze.json`，并由 `verify` 逐项核对；不一致即停止，不“先跑跑看”：
+
+| 项 | 冻结值 |
+|---|---|
+| provider | `codex-cli` 原生可执行路径（唯一来源；不新增 `codexCommand` 选项） |
+| CLI 版本 | `codex-cli 0.162.1`（`--version` 精确匹配；来源见 §2.2） |
+| 可执行文件 | 原生路径 + SHA-256 `dd13bdb162a184fa04039488b234a8258ef9b76f84e926c505d5742b19249a6a` + 字节数 333479728 |
+| 模型 | `gpt-6-luna`（selector、两臂生成器、prejudge 使用同一模型；不允许按臂换模型） |
+| 推理强度 | `high` |
+| 提示词版本 | selector `arena-rag-applicability-method/v1`；生成器 `selfrag-study-generator/v1`；prejudge 独立版本常量 |
+| 门控版本 | `applicability-v1` |
+| 代码 | 固定候选 SHA（干净工作树） |
+| 语料 | `blind-discard-arena-seeds/v1`（内容哈希见 `freeze.json`） |
+| 每 case 调用次数 | baseline：1 次生成；selfrag：1 次反思 + 1 次生成；prejudge 在开跑前单独冻结，不计入运行 |
+
+- 模型、effort、CLI 版本或可执行文件哈希任一变化都必须重新冻结并写进报告；不只在文字里口头说明。
+- 同一 provider 的生成存在服务端非确定性；本实验只声明“除过滤步骤外请求逐字节一致”，不声称可复现同一输出。
+- 整盘 Coach 生成路径不在本实验内，其 0.155.1 门与本表无关（§2.1）。
 
 ### 9.1 数据
 
@@ -471,7 +524,7 @@ living docs（ROADMAP/README/VERIFICATION）由父票集成阶段按真实实验
 - 整盘复盘接入 RAG 或适用性过滤。
 - 训练、微调、critic 联合训练。
 - 把 40-card v2 或任何 mutable partial textbook 预览发布为产品语料。
-- 修改 Codex 版本断言或绕过可用性检查。
+- 修改整盘 Codex 版本断言、为其放宽/绕过可用性检查，或声称整盘路径已在 0.162.1 验证。
 - console/Electron 暴露新开关；生产默认流程变更。
 - 把自动判别或 AI judge 写成专家真值。
 
@@ -480,4 +533,11 @@ living docs（ROADMAP/README/VERIFICATION）由父票集成阶段按真实实验
 - 设计基线代码：`coach/bin/blind-discard-arena.mjs`、`coach/packages/desktop/src/blind-discard-arena-{rag,runner,provider,archive}.ts`、
   `coach/packages/contracts/src/blind-discard-arena.ts`、`coach/packages/desktop/src/llm-provider/{service,codex-cli}.ts`（2026-10-27 核对）。
 - 调查线索（只作线索，已逐项核对代码）：`D:/Code/review-loop-sandbox/artifacts/production-self-rag-20261027/selfrag-inventory.json`。
-- 本机 Codex 版本：只读 `--version` 探测 `codex-cli 0.162.1`。
+- 本机 Codex 版本：只读 `--version` 探测 `codex-cli 0.162.1`；可执行文件 SHA-256 与大小见 §2.2。
+- 2026-10-27 用户更正（本设计采用）：`0.155.1` 版本常量只在整盘 Coach availability/complete 生效；Arena 的
+  `runCodexStructuredTurn`/service/bin 直接执行、不经过该门。以源代码调用链为准，不据该门声称 Arena 拒绝 0.162.1；
+  原 inventory 的这处说法由线索文件所有者自行更正，本规格不引用其为结论。
+- 0.162.1 兼容探测：2026-10-27 以适配器同款参数做三次有界真实调用（简单 schema、Arena 组合 schema、取消），
+  结果与未覆盖项见 §2.2；探测不构成对照实验，也不进入评估样本。
+- 生产 Review Loop 读回：`C:/Users/Roland/.multica/review-loop-v2/config.json`（`review.engine=multi`、
+  `review.mode=priority`、`release_sha=f26ef56b…`、GPT-Web 共享容量 1）与 `state/review-queue/pr-67.json`。

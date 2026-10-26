@@ -8,8 +8,8 @@
 `C:/Users/Roland/.multica/review-loop-v2/config.json`，以及工具证据
 `production-activation.json`（2026-10-26T19:02:22Z，`status=ACTIVATED`，
 release `f26ef56b6c2a3c40b5a48bef98080b2318c51ec7`，前一版本
-`0b25ae3f519a47bf4e66a4bbf28b79b546b4d504`）。配置、凭据、私有 ledger 与 state
-目录仍只在私有工具目录，不进入本仓库。
+`0b25ae3f519a47bf4e66a4bbf28b79b546b4d504`，**保留为回滚点**；切换前的运行状态与账本一并保留）。
+配置、凭据、私有 ledger 与 state 目录仍只在私有工具目录，不进入本仓库。
 
 ### 运行时
 
