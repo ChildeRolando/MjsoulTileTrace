@@ -359,11 +359,11 @@ test('the pilot freezes one ladder budget once, and evaluation then verifies', a
     }), /selector_budget_invalid/u);
     const updated = await freezeSelectorBudget({
       artifactDir: directory, readJson: fixture.deps.readJson,
-      budget: { maxOutputTokens: 768, maxOutputBytes: 4096 },
+      budget: { maxOutputTokens: 2048, maxOutputBytes: 4096 },
     });
-    assert.deepEqual(updated.selectorBudget, { maxOutputTokens: 768, maxOutputBytes: 4096 });
+    assert.deepEqual(updated.selectorBudget, { maxOutputTokens: 2048, maxOutputBytes: 4096 });
     await assert.rejects(() => freezeSelectorBudget({
-      artifactDir: directory, readJson: fixture.deps.readJson, budget: { maxOutputTokens: 512, maxOutputBytes: 4096 },
+      artifactDir: directory, readJson: fixture.deps.readJson, budget: { maxOutputTokens: 1024, maxOutputBytes: 4096 },
     }), /selector_budget_already_frozen/u);
     const verified = await verifyStudy({ artifactDir: directory, deps: fixture.deps, phase: 'evaluation' });
     assert.equal(verified.status, 'verified');

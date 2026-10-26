@@ -418,6 +418,13 @@ test('the selector budget is picked once from pilot observations, never from eva
   assert.throws(() => selectSelectorBudget({ ladder, observations: [{ outputTokens: -1, outputBytes: 1 }] }), /selector_budget_observation_invalid/u);
 });
 
+test('the declared default ladder accommodates observed high-effort pilot costs and still stops above4096', () => {
+  assert.deepEqual(selectSelectorBudget({ observations: [{ outputTokens: 921, outputBytes: 900 }, { outputTokens: 1300, outputBytes: 5000 }] }),
+    { maxOutputTokens: 2048, maxOutputBytes: 8192, observedMax: { outputTokens: 1300, outputBytes: 5000 } });
+  assert.equal(selectSelectorBudget({ observations: [{ outputTokens: 3500, outputBytes: 7000 }] }).maxOutputTokens, 4096);
+  assert.throws(() => selectSelectorBudget({ observations: [{ outputTokens: 4097, outputBytes: 100 }] }), /selector_budget_ladder_exhausted/u);
+});
+
 test('a returned failed gate is terminal: the generator is not called and only its real selector cost is kept', async () => {
   const observation = runObservation();
   const candidates = candidateResult(observation);

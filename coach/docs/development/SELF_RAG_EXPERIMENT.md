@@ -103,8 +103,11 @@ prepare 失败、被拒绝或 `prejudge_no_irrelevant_instances` 停止时，`pr
 
 selector 预算在 pilot 后、evaluation 前**一次性**冻结，规则固定为：取 pilot 全部成功 selfrag 运行中
 `turn.completed.usage.output_tokens` 与实际 `submit_applicability_verdicts` 参数字节的最大值，
-从预声明 ladder（token `[512,768,1024]`、字节 `[4096,8192]`）各取最小可容纳档位；
+从预声明 ladder（token `[1024,2048,4096]`、字节 `[4096,8192]`）各取最小可容纳档位；
 无可用观测则 `selector_budget_unobservable`，超出 ladder 则 `selector_budget_ladder_exhausted`。
+该 token profile 在任何正式 prepare/pilot/evaluation 调用前，于 2026-10-27 根据开发期真实
+921/1300 输出 token 修订；gate 默认上限同步为 2048。旧 512 上限的失败记录保留，
+明确 512/890 的超限回归仍须降级；新上限照常严格执行，不按评估结果调整。
 evaluation 全程只用该组合。参数字节由 harness 在 selector provider 边界实测（包装 provider 读取
 `ready` 响应的 `call.arguments`），不依赖门控额外导出字段。
 

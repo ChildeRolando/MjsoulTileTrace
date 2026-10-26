@@ -67,7 +67,7 @@ export const SELF_RAG_STUDY_EXECUTION_IDENTITY = Object.freeze({
 
 /** §4.7 pilot-calibration ladder; one combination is frozen after the pilot. */
 export const SELF_RAG_STUDY_SELECTOR_BUDGET_LADDER = Object.freeze({
-  maxOutputTokens: Object.freeze([512, 768, 1024]),
+  maxOutputTokens: Object.freeze([1024, 2048, 4096]),
   maxOutputBytes: Object.freeze([4096, 8192]),
 });
 
