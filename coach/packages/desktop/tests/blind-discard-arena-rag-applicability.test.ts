@@ -676,6 +676,7 @@ describe("Arena RAG applicability gate", () => {
 
     const outcome = await createArenaRagApplicabilityGate({
       provider: fakeProvider(() => submit(verdicts, overCap)), caseRef: observation.caseRef,
+      limits: { maxOutputTokens: 512 },
     }).apply({ output: result, observation, signal: new AbortController().signal });
 
     expect(outcome.status).toBe("degraded");
@@ -692,7 +693,7 @@ describe("Arena RAG applicability gate", () => {
     // Exactly at the cap still applies; the cap is not an off-by-one rejection.
     const atCap = await createArenaRagApplicabilityGate({
       provider: fakeProvider(() => submit(verdicts, { inputTokens: 16_769, outputTokens: 512, totalTokens: 17_281 })),
-      caseRef: observation.caseRef,
+      caseRef: observation.caseRef, limits: { maxOutputTokens: 512 },
     }).apply({ output: result, observation, signal: new AbortController().signal });
     expect(atCap.status).toBe("applied");
     expect(ArenaRagApplicabilityResultSchema.parse(atCap.output).sourceRefs).toEqual([REF_1, REF_2]);
@@ -703,6 +704,32 @@ describe("Arena RAG applicability gate", () => {
       limits: { maxOutputTokens: 1024 },
     }).apply({ output: result, observation, signal: new AbortController().signal });
     expect(raised.status).toBe("applied");
+  });
+
+  it("enforces the pre-evaluation 2048 default and the 4096 experiment ceiling", async () => {
+    const observation = observationWith();
+    const result = ragResult({ caseRef: observation.caseRef });
+    const verdicts = verdictsPayload(result, [
+      { sourceRef: REF_1, verdict: "relevant", reason: "片段与当前可见条件相符。", premises: [] },
+      { sourceRef: REF_2, verdict: "uncertain", reason: "缺少足够的适用前提。", premises: [] },
+      { sourceRef: REF_3, verdict: "uncertain", reason: "缺少足够的适用前提。", premises: [] },
+    ]);
+    for (const outputTokens of [2048, 2049]) {
+      const usage = { inputTokens: 120, outputTokens, totalTokens: 120 + outputTokens };
+      const provider = fakeProvider(() => submit(verdicts, usage));
+      const outcome = await createArenaRagApplicabilityGate({ provider, caseRef: observation.caseRef })
+        .apply({ output: result, observation, signal: new AbortController().signal });
+      expect(provider.requests[0]?.maxOutputTokens).toBe(2048);
+      expect(outcome.status).toBe(outputTokens === 2048 ? "applied" : "degraded");
+      expect(outcome.failureCode).toBe(outputTokens === 2048 ? null : "output_budget_exhausted");
+      expect(outcome.usage).toEqual(usage);
+      expect(outcome.output.sourceRefs).toEqual(result.sourceRefs);
+    }
+    const provider = fakeProvider(() => submit(verdicts));
+    expect(() => createArenaRagApplicabilityGate({ provider, caseRef: observation.caseRef,
+      limits: { maxOutputTokens: 4096 } })).not.toThrow();
+    expect(() => createArenaRagApplicabilityGate({ provider, caseRef: observation.caseRef,
+      limits: { maxOutputTokens: 4097 } })).toThrow("arena_rag_applicability_limit_exceeds_v1_maximum");
   });
 
   it("fails closed with receipt_too_large instead of truncating an audit receipt", async () => {

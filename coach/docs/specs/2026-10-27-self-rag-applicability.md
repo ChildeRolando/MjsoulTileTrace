@@ -359,7 +359,7 @@ type ArenaRunnerApplicabilityGate = Readonly<{
 | `maxCallsPerCase` | 4 | 8 且 ≤ `maxToolCalls` | 每 case 最多反思次数 |
 | `maxCallDurationMs` | 45 000 | 90 000 | 单次反思墙钟上限 |
 | `maxInputBytes` | 48 KiB | 64 KiB | 反思请求输入 |
-| `maxOutputTokens` | 512 | 1024 | 反思输出 token |
+| `maxOutputTokens` | 2048 | 4096 | 反思输出 token |
 | `maxOutputBytes` | 4 KiB | 16 KiB | 单次反思输出字节 |
 | `maxOutputBytesPerRun` | 16 KiB | 64 KiB | 单 case 反思输出累计 |
 | `maxReceiptBytes` | 8 KiB | 16 KiB | 回执字节 |
@@ -382,7 +382,7 @@ type ArenaRunnerApplicabilityGate = Readonly<{
 
 ```text
 SELF_RAG_STUDY_SELECTOR_BUDGET_LADDER = {
-  maxOutputTokens: [512, 768, 1024],
+  maxOutputTokens: [1024, 2048, 4096],
   maxOutputBytes:  [4096, 8192],
 }
 ```
@@ -391,6 +391,14 @@ pilot 开跑前先把该 ladder 写入 `freeze.json`；pilot 结束后、evaluat
 （`turn.completed.usage.output_tokens` / `reasoning_output_tokens` 与工具参数实际字节）从 ladder 选**一个**
 组合写入 `freeze.json.selectorBudget`。evaluation 全程只用该组合，不得按 evaluation 结果再改。
 ladder 之外的取值需要新的冻结协议，不能临场决定。
+
+**2026-10-27 评估前预算修订**：在正式 prepare/pilot/evaluation 尚未开始时，开发期真实
+CLI 的两次反思分别报告 921 和 1300 输出 tokens；旧 512 上限按修复后的严格检查正确降级。
+因此将未发布 gate 的默认值改为 2048、硬上限改为 4096，pilot 的预声明 ladder 同步为上表。
+模型、effort、查询、语料、抽样 seed 与顺序不变；evaluation 之前仍只允许一次预算冻结。
+原 512/890 违规 applied 以及 512/921、512/1300 正确 degraded 的历史记录原样保留；
+显式 512/890 回归仍须拒绝应用，2048/2049 与 4096/4097 的边界也由测试保护。
+这项修订依据开发期成本，不依据正式 evaluation 的过滤结果；超过新上限仍然降级或停止。
 
 ### 4.8 事件、结果与归档
 
