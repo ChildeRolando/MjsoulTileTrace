@@ -191,7 +191,7 @@ retrieverVersion, passages: [{sourceRef, sourceTitle, documentLocation, content,
 
 | 层 | 负责 | 明确不负责 |
 |---|---|---|
-| selector 模型 | 依据本手可见事实与片段自带的 `conditions`/`exceptions`，判断片段是否适用于当前决策语境，给出 `relevant / uncertain / irrelevant` 与理由 | 不得引入未见事实；不得输出候选外片段 |
+| selector 模型 | 依据本手可见事实与片段 `content` 中逐字节携带的 `concept`/`conditions`/`exceptions`（研究语料由 §9.1.2 规则 4 的后置条件保证；它只能读到 `ArenaRagPassage.content`），判断片段是否适用于当前决策语境，给出 `relevant / uncertain / irrelevant` 与理由 | 不得引入未见事实；不得输出候选外片段 |
 | 程序（工单 A 的 gate） | 严格校验结构、身份、候选覆盖、引用与事实绑定、预算；执行下文唯一一个可机械判定的特例 | **不证明语义理由成立**，也不因“语义无法机械证明”而降级有具体可见前提的 `irrelevant` |
 | 独立评估（§9.1 prejudge 与 §9.4 理由抽查） | 在与 selector 输出隔离、正式跑前冻结的判读中检查语义理由是否成立 | 不是专家真值，不能替代程序校验 |
 
@@ -623,21 +623,38 @@ living docs（ROADMAP/README/VERIFICATION）由父票集成阶段按真实实验
   a01、a03、a04、a05、a08、a09、a13、a16。覆盖：进张/牌形（b01,b02,b03,b05,a05）、手牌型分岔（b10,a01）、
   役牌与打点（b07,a03）、门清→染手（b09,a04）、现物/筋/壁（b12,b13,b14,a08）、
   无安全牌与副露威胁（b17,a09,a13）、押引材料与终盘（b19,a16）。
-- 转换规则（冻结；`SELF_RAG_STUDY_CORPUS_CONVERSION_VERSION = "scene-kb-v2->arena-rag/v1"`）：
+- 转换规则（冻结；`SELF_RAG_STUDY_CORPUS_CONVERSION_VERSION = "scene-kb-v2->arena-rag/v2"`）：
   1. `sourceTitle` = `card.title + " / " + card.source.title`（<=160；超限即该卡不合格，不截断）；
   2. `documentLocation` = `card.source.chapter`；`localSourcePath` = `<knowledge.json 绝对路径>#cards/<id>`（<=300）；
   3. `sourceId` = `scene-kb-v2.<id>`；`attributedReferences` = `[card.source.url]`；
-  4. `content` = `card.content` **原文逐字节**（<=1000；超限即不合格，不截断、不改写、不重新摘要）；
+  4. `content` = `researchPassageContent(card)`。这是**研究卡 → Arena 片段的冻结映射**，目标是让 selector
+     实际看到决定适用性的完整概念、适用条件与例外，同时不改写原文：
+     - 基线 = `card.content` **原文逐字节**；不截断、不改写、不重新摘要、不拼接多张卡；
+     - 依次检查 `card.concept`、`card.conditions`、`card.exceptions` 是否为 `card.content` 的逐字节子串；
+       缺失者按固定顺序追加带标签的原文块：`\n【概念】<concept>`、`\n【适用条件】<conditions>`、
+       `\n【例外与限制】<exceptions>`。只追加缺失字段，已内嵌的文本不重复复制；追加属转换动作，
+       卡片本身仍不得编辑（规则 8）；
+     - 结果长度必须 `<= ARENA_RAG_LIMITS_V1.maxPassageChars`（1000 字符）：超限即该卡不合格
+       （`research_corpus_invalid`），不截断、不省略字段、不降级、不换卡；
+     - **后置条件（硬约束，不依赖快照巧合）**：每个 `convertedPassage.content` 必须逐字节包含该卡的
+       `concept`、`conditions`、`exceptions`；`prepare` 与工单 B 的测试都必须断言，断言失败即
+       `research_corpus_invalid` 停止；
+     - 本设计对当前快照的只读核对（2026-10-27）：20 张子集卡的 `card.content` 已逐字节包含三者，
+       转换后长度 259–287 字符（b03 最短、a04 最长，均 <=1000），故追加分支在该快照上不触发；
+       但追加、后置条件与超限拒绝都是设计约束，不因该快照恰好满足而省略。selector 只能读到
+       `ArenaRagPassage.content`；`conditions`/`exceptions` 仅存在于 `research-subset.json` 等于没有交给它；
   5. `topics` = 冻结映射：{b01,b02,b03,b05,b07,b09,b10,a01,a03,a04,a05} → `["tile-efficiency"]`；
      {b12,b13,b14,b17,b19,a08,a09,a13,a16} → `["shape-flexibility"]`。这是**研究专用粗分组**，不主张语义等价；
      冻结查询一律不设置 `filter.topics` 或 `context.topic`，因此该映射不改变候选集合与顺序（工单 B 的测试必须断言这一点）；
   6. `applicableWhen` = `["general-discard-choice"]`，另对 {b01,b05,b14} 追加 `complete-visibility-only`
      （这三张的 `conditions`/`content` 明确依赖完整可见牌信息）；
   7. `rightsBasis` = 固定短句：研究用只读概括，保留原出处；不发布、不作产品语料；
-  8. 不得编辑 `concept`/`conditions`/`exceptions`/`content`，不得合并卡片。任一卡校验失败即
-     `research_corpus_invalid` 停止，不替换、不降级。
+  8. 不得编辑 `concept`/`conditions`/`exceptions`/`content`，不得合并卡片。任一卡校验失败（含规则 4 的
+     长度与后置条件）即 `research_corpus_invalid` 停止，不替换、不降级。
 - 冻结产物：`research-subset.json` 逐卡保存
-  `{id, source{system,title,url,chapter,htmlSha256}, conditions, exceptions, content, contentSha256, convertedPassage, conversionRuleVersion}`，
+  `{id, source{system,title,url,chapter,htmlSha256}, concept, conditions, exceptions, content, contentSha256, convertedPassage, convertedContentSha256, contentFieldVisibility{concept,conditions,exceptions}, conversionRuleVersion}`：
+  `content`/`contentSha256` 是原始卡片值与其哈希，`convertedPassage`/`convertedContentSha256` 是交给 selector 的
+  片段与其 `content` 哈希，`contentFieldVisibility` 是规则 4 后置条件的逐字段实测结果（必须全为 `true`）。
   并计算整体 `researchSubsetDigest`；`freeze.json` 记录知识文件 SHA-256、子集 digest、转换规则版本与 20 张卡 id 列表。
 - 复用：只按所需小范围移植旧 `scene-study` 的 knowledge 读取 / `arenaCorpus` 思路（未合入分支，见 §12 线索）；
   不整段复制旧 harness，不沿用其硬编码样本、base commit 或 provider 默认值。
@@ -731,7 +748,9 @@ living docs（ROADMAP/README/VERIFICATION）由父票集成阶段按真实实验
 - 研究语料：`E:/AgentData/Coach/scene-pattern-study-20261023-kb-v2/knowledge.json`（`coach-scene-knowledge-web/v2`，
   40 张卡，87 933 字节，SHA-256 `73375324682d30e3dbc43a921b340e6af330cae3587bd5c9ba0801ae1be19dab`）
   与同目录 `freeze.json`（SHA-256 `5d7271bc9b1869802e5669db5d8a8bf174e26dc57a4bd944597e71365fa49ace`）；
-  2026-10-27 只读核对：40 张卡、字段 `concept/conditions/exceptions/content/source` 齐全。只作研究输入，不发布。
+  2026-10-27 只读核对：40 张卡、字段 `concept/conditions/exceptions/content/source` 齐全；20 张子集卡的
+  `content` 逐字节包含各自 `concept`/`conditions`/`exceptions`（§9.1.2 规则 4 的后置条件据此实测，但不依赖它成立）。
+  只作研究输入，不发布。
 - 未合入旧研究代码线索（只作复用线索，须按本规格重写，不沿用旧 freeze/resume）：
   `E:/AgentWorkspaces/Coach/arena-context-rag/coach/scripts/scene-study/{knowledge,prepare,study}.mjs`、
   `bin/scene-pattern-study.mjs`。

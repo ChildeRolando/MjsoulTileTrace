@@ -119,15 +119,20 @@ npm run test:package-import
 - `corpus.mjs`：`node:sqlite` `DatabaseSync(file, { readOnly: true })`；只读取 `games` / `variants` / `observations`。
   导出候选牌局与 `gameHash`；任何写操作都不存在。测试用临时只读夹具，断言不会创建 WAL 文件。
 - `knowledge.mjs`（新）：只读打开研究 `knowledge.json`，按规格 §9.1.2 的 allow-list 读取每张卡的
-  `source`/`conditions`/`exceptions`/`content`，导出 `researchSubsetDigest` 与 20 张冻结子集的转换结果。
+  `source`/`concept`/`conditions`/`exceptions`/`content`，导出 `researchSubsetDigest` 与 20 张冻结子集的转换结果。
+  实现 §9.1.2 规则 4 的 `researchPassageContent(card)` 冻结映射：基线为 `card.content` 原文逐字节，
+  缺失的 `concept`/`conditions`/`exceptions` 按固定顺序以带标签原文块追加；已内嵌的不重复。
+  转换后长度超 `ARENA_RAG_LIMITS_V1.maxPassageChars` 即拒绝该卡（不截断）。导出前对每个转换片段断言
+  `content` 逐字节包含该卡三者（后置条件），任一失败抛 `research_corpus_invalid`。
   不得写回、不得复制进仓库；任一卡字段超限或缺失即抛 `research_corpus_invalid`。
 
 ### 2.2 `coach/scripts/selfrag-study/prepare.mjs`
 
 1. 只读读取研究语料 `E:/AgentData/Coach/scene-pattern-study-20261023-kb-v2/knowledge.json`：
    校验文件 SHA-256、`coach-scene-knowledge-web/v2`、40 张卡；按规格 §9.1.2 的转换规则生成 20 张冻结子集，
-   写 `research-subset.json`（逐卡原出处/适用条件/例外/完整摘要/内容哈希）与 `researchSubsetDigest`；
-   任一卡超限或校验失败 → `research_corpus_invalid` 停止，不截断、不替换。
+   写 `research-subset.json`（逐卡原出处/适用条件/例外/完整摘要/原始与转换内容哈希/`contentFieldVisibility` 断言结果）
+   与 `researchSubsetDigest`；任一卡超限、后置条件不成立或校验失败 → `research_corpus_invalid` 停止，
+   不截断、不替换、不省略字段。
 2. 读取三个历史实验目录，提取已用牌局身份；构建 `exclusions.json`（含来源与摘要）。
    身份无法恢复的牌局标为不合格并计数。
 3. 场景层抽样（规格 §9.1.1）：按预声明槽位 `pilot:[SL1,SL3]`、`evaluation:[SL2,SL4,SL5,SL1,SL2,SL3,SL4,SL5]`
@@ -146,7 +151,8 @@ npm run test:package-import
 8. 最小化复用：只移植 CLI 里必要的 pinned runtime bootstrap，不整段复制 `blind-discard-arena.mjs`；
    旧 `scene-study` 代码只作线索，不沿用其硬编码样本或 base commit。
 
-测试：研究语料哈希/转换/超限拒绝、`topics` 映射不改变候选集、场景层抽样与无匹配停止、排除集、
+测试：研究语料哈希/转换/超限拒绝、转换片段可见性（合成一张 `content` 不含 `conditions` 的卡，断言追加后
+含全部 `concept`/`conditions`/`exceptions`；再合成超 1000 字符的卡，断言拒绝而不是截断）、`topics` 映射不改变候选集、场景层抽样与无匹配停止、排除集、
 确定性抽样、单决策规则、冻结摘要、prejudge 不读 gate 输出。
 
 ### 2.3 `coach/scripts/selfrag-study/schedule.mjs`
