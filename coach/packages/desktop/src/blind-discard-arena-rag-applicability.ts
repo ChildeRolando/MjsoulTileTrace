@@ -431,6 +431,13 @@ export function createArenaRagApplicabilityGate(input: {
       }
       if (outcome.call.name !== ARENA_RAG_APPLICABILITY_TOOL_NAME) return degrade("invalid_response");
 
+      // The provider reports completion tokens; the Codex adapter only turns
+      // maxOutputTokens into prompt text, so enforce the frozen ceiling here.
+      // A missing report stays unknown: it is never zero-filled or assumed safe.
+      if (usage?.outputTokens !== undefined && usage.outputTokens > limits.maxOutputTokens) {
+        return degrade("output_budget_exhausted", usage);
+      }
+
       const argumentBytes = Buffer.byteLength(outcome.call.arguments, "utf8");
       state.outputBytes += argumentBytes;
       if (argumentBytes > limits.maxOutputBytes || state.outputBytes > limits.maxOutputBytesPerRun) {

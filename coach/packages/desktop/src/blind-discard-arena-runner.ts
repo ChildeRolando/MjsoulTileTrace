@@ -512,12 +512,15 @@ function sha256Hex(value: string): string {
 
 type ArenaGateApplication =
   | Readonly<{ kind: "settled"; value: Awaited<ReturnType<ArenaRunnerApplicabilityGate["apply"]>> }>
-  | Readonly<{ kind: "aborted" }>
+  /** The run aborted, but the call still settled inside the grace: keep its real outcome. */
+  | Readonly<{ kind: "aborted"; value: Awaited<ReturnType<ArenaRunnerApplicabilityGate["apply"]>> }>
   | Readonly<{ kind: "orphan" }>;
 
 /**
  * Runs one reflection through the gate. A run abort is reported only after the
  * call settles (bounded grace); a call that never settles is an orphan, never a success.
+ * A late outcome is still returned so its real call/usage/elapsed is recorded even
+ * though the case keeps its cancelled/timeout terminal state.
  */
 async function awaitApplicabilityGate(input: {
   gate: ArenaRunnerApplicabilityGate;
@@ -549,7 +552,7 @@ async function awaitApplicabilityGate(input: {
     }),
   ]);
   if (timer !== undefined) clearTimeout(timer);
-  if (late.kind === "settled") return { kind: "aborted" };
+  if (late.kind === "settled") return { kind: "aborted", value: late.value };
   operation.catch(() => undefined);
   return { kind: "orphan" };
 }
@@ -1185,7 +1188,12 @@ export async function runBlindCoachCase(input: {
             applicabilityTotals.callCount += 1;
             throw new ArenaToolExecutionError("orphan_call", true);
           }
-          if (application.kind === "aborted") throw new ArenaRunAbort(abortStatus ?? "cancelled");
+          if (application.kind === "aborted") {
+            // The call really happened and settled: record it before the abort
+            // unwinds, but never hand its output to the generator.
+            reflection = reflectApplicability({ gate, value: application.value, totals: applicabilityTotals });
+            throw new ArenaRunAbort(abortStatus ?? "cancelled");
+          }
           reflection = reflectApplicability({ gate, value: application.value, totals: applicabilityTotals });
           // The replacement output must pass the tool's own strict parser again.
           toolResult = tool.parseOutput(application.value.output);
@@ -1218,6 +1226,9 @@ export async function runBlindCoachCase(input: {
             toolName: call.name,
             status: "error",
             code: interrupted === "timeout" ? "run_timeout" : "run_cancelled",
+            // A reflection that settled during the grace is real audit data even
+            // though the case still ends cancelled/timeout.
+            ...(reflection === undefined ? {} : { reflection }),
           });
           finished = true;
           break;

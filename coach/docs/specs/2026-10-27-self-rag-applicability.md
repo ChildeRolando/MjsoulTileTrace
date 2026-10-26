@@ -371,6 +371,9 @@ type ArenaRunnerApplicabilityGate = Readonly<{
 
 - `maxOutputBytes` 度量解析后的 `submit_applicability_verdicts` 参数 JSON 的 UTF-8 字节；
 - `maxOutputTokens` 是 provider 的 completion 上限；两者不得互相推算；
+- 程序在应用 verdict 前按 provider 报告的 `output_tokens` 执行 `maxOutputTokens`：超限以 `output_budget_exhausted`
+  降级、保留全部原片段并保留真实 usage（真实 smoke 的 890>512 记录即属此类）；provider 未报告时保持 unknown/null，
+  不补零、也不据参数字节反推 token；
 - provider 若把推理 token 计入 `output_tokens`（见 §2.2 usage 面），报告另列 `reasoning_output_tokens`（如提供），
   但不把它计入 `maxOutputBytes`；
 - 因输出预算导致的截断、降级或全保留必须计入报告，不能算作 selector 成功。
@@ -423,7 +426,9 @@ receipt_too_large | call_budget_exhausted | output_budget_exhausted | input_too_
 ## 5. 运行时行为
 
 1. **可取消**：门控拿到的是 run 级 AbortSignal 派生信号，并叠加自己的 `maxCallDurationMs` 计时器。
-   run 超时/调用方取消 → 反思立即 abort → 该 case 按既有 `timeout`/`cancelled` 收尾。
+   run 超时/调用方取消 → 反思立即 abort → 该 case 按既有 `timeout`/`cancelled` 收尾。abort 后在宽限期内
+   settle 的调用仍是真实调用：计入 `callCount`，记录真实 `elapsedMs`、回执与已报告 usage（未报告保持 unknown/null），
+   但不得把其输出或片段交给生成器。
 2. **不遗留隐藏调用**：单次反思预算到期时，runner 必须 await provider 调用 settle（上限为 run 剩余预算）。
    provider 在 run 剩余预算内仍未 settle → 该 case 终态 `tool_failure`（`orphan_call`），如实记录，不当作成功。
 3. **不重试**：反思失败不自动重试，与 Arena 现有“不重试整题”一致。

@@ -3,7 +3,7 @@ import { fileURLToPath } from "node:url";
 import { resolve } from "node:path";
 import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
 import { describe, expect, it, vi } from "vitest";
-import { type ActionRef, type ArenaCoachSubmission } from "@riichi-coach/contracts";
+import { type ActionRef, type ArenaCoachSubmission, type LlmTokenUsage } from "@riichi-coach/contracts";
 import { ArenaMcpClient, type ArenaMcpAuthorizedCase } from "../src/blind-discard-arena-mcp.js";
 import {
   ARENA_RUN_LIMITS_V1,
@@ -15,7 +15,7 @@ import {
   type ArenaRunEvent,
 } from "../src/blind-discard-arena-runner.js";
 import { createArenaRagApplicabilityGate } from "../src/blind-discard-arena-rag-applicability.js";
-import { ArenaProviderRequestSchema, type ArenaProviderMessage, type ArenaProviderRequest, type ArenaToolCallProvider } from "../src/blind-discard-arena-provider.js";
+import { ArenaProviderRequestSchema, type ArenaProviderMessage, type ArenaProviderRequest, type ArenaToolCallProvider, type ArenaToolCallProviderResult } from "../src/blind-discard-arena-provider.js";
 import { createArenaRagRetriever } from "../src/blind-discard-arena-rag.js";
 import { arenaFixtureCanaries, makeArenaMcpCase } from "./fixtures/arena-mcp-case.js";
 
@@ -884,6 +884,34 @@ describe("Blind Discard Arena runner applicability gate", () => {
     };
   }
 
+  /**
+   * Bounded selector that only answers once the run signal aborts, optionally
+   * after a short delay, so the runner must keep a late-settling outcome.
+   */
+  function settlingSelector(input: {
+    usage?: LlmTokenUsage;
+    settleDelayMs: number;
+    onFirstRequest?: () => void;
+  }): ArenaToolCallProvider {
+    return {
+      descriptor: () => ({ providerId: "selector-test", model: "selector-model", protocolVersion: "arena-function-call/v1" }),
+      async request(_request: ArenaProviderRequest, signal: AbortSignal) {
+        return await new Promise<ArenaToolCallProviderResult>((resolve) => {
+          const settle = () => resolve({
+            status: "cancelled" as const,
+            ...(input.usage === undefined ? {} : { usage: input.usage }),
+          });
+          if (signal.aborted) { queueMicrotask(settle); return; }
+          signal.addEventListener("abort", () => {
+            if (input.settleDelayMs === 0) settle();
+            else setTimeout(settle, input.settleDelayMs);
+          }, { once: true });
+          input.onFirstRequest?.();
+        });
+      },
+    };
+  }
+
   function citingProvider(input: {
     caseRef: string;
     actionRefs: readonly ActionRef[];
@@ -1076,5 +1104,72 @@ describe("Blind Discard Arena runner applicability gate", () => {
     expect(toolResult).toMatchObject({ status: "error", code: "orphan_call" });
     expect(toolResult.reflection).toBeUndefined();
     expect(result.applicability).toMatchObject({ callCount: 1, appliedCount: 0, usage: { status: "unknown" } });
+  });
+
+  it.each([
+    {
+      label: "caller cancellation with reported usage",
+      terminal: "cancelled" as const, code: "run_cancelled" as const, settleDelayMs: 5,
+      usage: { inputTokens: 100, outputTokens: 10, totalTokens: 110 } as LlmTokenUsage,
+    },
+    {
+      label: "caller cancellation without reported usage",
+      terminal: "cancelled" as const, code: "run_cancelled" as const, settleDelayMs: 5,
+      usage: undefined,
+    },
+    {
+      label: "run timeout with reported usage",
+      terminal: "timeout" as const, code: "run_timeout" as const, settleDelayMs: 0,
+      usage: { inputTokens: 100, outputTokens: 10, totalTokens: 110 } as LlmTokenUsage,
+    },
+    {
+      label: "run timeout without reported usage",
+      terminal: "timeout" as const, code: "run_timeout" as const, settleDelayMs: 0,
+      usage: undefined,
+    },
+  ])("records a reflection that settles after $label, without delivering it to the model", async (variant) => {
+    const testCase = makeArenaMcpCase();
+    const refs = [passageRef(testCase.aliases, "doc-a", "retained"), passageRef(testCase.aliases, "doc-b", "dropped")];
+    const controller = new AbortController();
+    const gate = createArenaRagApplicabilityGate({
+      provider: settlingSelector({
+        ...(variant.usage === undefined ? {} : { usage: variant.usage }),
+        settleDelayMs: variant.settleDelayMs,
+        // Cancel only once the selector is actually in flight.
+        ...(variant.terminal === "cancelled" ? { onFirstRequest: () => controller.abort() } : {}),
+      }),
+      caseRef: testCase.observation.caseRef,
+    });
+    const result = await runBlindCoachCase({
+      observation: testCase.observation,
+      grading: { binding: testCase.authorizedCase.binding, reference: { status: "unavailable", reason: "mortal_unavailable" } },
+      provider: citingProvider({
+        caseRef: testCase.observation.caseRef,
+        actionRefs: testCase.observation.candidates.map((candidate) => candidate.actionRef),
+        refs,
+        citeDropped: false,
+      }),
+      ...(variant.terminal === "timeout" ? { limits: { maxRunElapsedMs: 150 } } : { signal: controller.signal }),
+      tools: [ragTool({ testCase, gate })],
+    });
+
+    expect(result.status).toBe(variant.terminal);
+    const toolResult = result.events.find((event) => event.type === "tool_result" && event.toolName === "search_knowledge");
+    if (toolResult?.type !== "tool_result") throw new Error("missing_tool_result");
+    // The aborted tool call still records the real selector call and its usage,
+    // but the generator never receives a tool result or the reflected passages.
+    expect(toolResult).toMatchObject({ status: "error", code: variant.code });
+    expect(toolResult.result).toBeUndefined();
+    expect(toolResult.reflection).toMatchObject({
+      status: "degraded", failureCode: "cancelled",
+      candidateCount: 2, retainedCount: 2, droppedCount: 0,
+      usage: variant.usage ?? null,
+    });
+    expect(result.applicability).toMatchObject({
+      callCount: 1, appliedCount: 0, degradedCount: 1, failedCount: 0, skippedCount: 0,
+      usage: { status: variant.usage === undefined ? "unknown" : "reported" },
+    });
+    const lastEvent = result.events[result.events.length - 1];
+    expect(lastEvent?.type).toBe("run_terminal");
   });
 });

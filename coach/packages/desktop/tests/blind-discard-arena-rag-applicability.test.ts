@@ -659,6 +659,52 @@ describe("Arena RAG applicability gate", () => {
     expect(ArenaRagApplicabilityReceiptSchema.parse(unknown.receipt).usage).toBeNull();
   });
 
+  it("enforces the frozen completion-token cap on the provider's reported output tokens", async () => {
+    const observation = observationWith();
+    const result = ragResult({ caseRef: observation.caseRef });
+    const verdicts = verdictsPayload(result, [
+      { sourceRef: REF_1, verdict: "relevant", reason: "片段条件与本手可见事实一致。", premises: [] },
+      { sourceRef: REF_2, verdict: "uncertain", reason: "需要更多可见牌河信息才能确定是否共享牌张。", premises: [] },
+      {
+        sourceRef: REF_3, verdict: "irrelevant", reason: "该片段声明需要完全可见性，但本手不满足其门清前提。",
+        basis: "declared-condition-not-met", premises: [factPremise(observation)],
+      },
+    ]);
+    // Real over-budget selector report from arena-archive-recovery-1f2c689: the
+    // argument JSON was small, so only the reported completion tokens prove the overflow.
+    const overCap: LlmTokenUsage = { inputTokens: 16_769, outputTokens: 890, totalTokens: 17_659 };
+
+    const outcome = await createArenaRagApplicabilityGate({
+      provider: fakeProvider(() => submit(verdicts, overCap)), caseRef: observation.caseRef,
+    }).apply({ output: result, observation, signal: new AbortController().signal });
+
+    expect(outcome.status).toBe("degraded");
+    expect(outcome.failureCode).toBe("output_budget_exhausted");
+    expect(outcome.usage).toEqual(overCap);
+    expect(ArenaRagApplicabilityReceiptSchema.parse(outcome.receipt)).toMatchObject({
+      status: "degraded", failureCode: "output_budget_exhausted",
+      candidateCount: 3, retainedCount: 3, droppedCount: 0, usage: overCap,
+    });
+    const gated = ArenaRagApplicabilityResultSchema.parse(outcome.output);
+    expect(gated.sourceRefs).toEqual([REF_1, REF_2, REF_3]);
+    expect(gated.gate.reflectionStatus).toBe("degraded");
+
+    // Exactly at the cap still applies; the cap is not an off-by-one rejection.
+    const atCap = await createArenaRagApplicabilityGate({
+      provider: fakeProvider(() => submit(verdicts, { inputTokens: 16_769, outputTokens: 512, totalTokens: 17_281 })),
+      caseRef: observation.caseRef,
+    }).apply({ output: result, observation, signal: new AbortController().signal });
+    expect(atCap.status).toBe("applied");
+    expect(ArenaRagApplicabilityResultSchema.parse(atCap.output).sourceRefs).toEqual([REF_1, REF_2]);
+
+    // Only a test/experiment profile may raise the cap; the same report is then applied.
+    const raised = await createArenaRagApplicabilityGate({
+      provider: fakeProvider(() => submit(verdicts, overCap)), caseRef: observation.caseRef,
+      limits: { maxOutputTokens: 1024 },
+    }).apply({ output: result, observation, signal: new AbortController().signal });
+    expect(raised.status).toBe("applied");
+  });
+
   it("fails closed with receipt_too_large instead of truncating an audit receipt", async () => {
     const observation = observationWith();
     const result = ragResult({ caseRef: observation.caseRef });
