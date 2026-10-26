@@ -7,6 +7,7 @@ import { dirname, isAbsolute, join, relative, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { invokeTextbookCodex,hasUnexpectedTextbookTool } from './textbook-production-cli.mjs';
 import {nativePdfFlowMode,checkNativePdfInlineContent,verifyNativePdfEvidence} from './textbook-audit-pdf-native.mjs';
+import {loadNativeInlineCorrection} from './textbook-audit-pdf-native-corrections.mjs';
 import {verifyExactThreeTileCandidate,threeTileCodes} from './textbook-audit-pdf-source-corrections.mjs';
 import {scopedPdfPage,verifyPdfScopeBinding} from './textbook-audit-pdf-scope.mjs';
 import {checkPdfInlineSourceLayout,verifyPdfInlineLayoutPixels,resolveKnownPdfFlowReview} from './textbook-audit-pdf-layout.mjs';
@@ -157,7 +158,7 @@ async function neighboringSourceContext(dataRoot,source,pageNumber) {
   return Object.keys(context).length?context:null;
 }
 
-async function verifyProductionBinding(dataRoot,productionRoot,candidate) {
+async function verifyProductionBinding(dataRoot,productionRoot,candidate,candidateSha256=null) {
   if(!['coach-textbook-page-draft/2','coach-textbook-page-draft/3'].includes(candidate.schema))return;
   const manifest=JSON.parse(await readFile(join(productionRoot,'manifest.json'),'utf8'));
   const cp={...manifest};delete cp.manifestSha256;delete cp.createdAt;
@@ -198,7 +199,7 @@ async function verifyProductionBinding(dataRoot,productionRoot,candidate) {
       const rawPath=boundDataPath(productionRoot,call.rawArtifactPath),rawBytes=await readFile(rawPath),raw=JSON.parse(rawBytes);
       if(sha(rawBytes)!==call.rawArtifactSha256||raw.callId!==call.callId||typeof raw.rawLastMessage!=='string'||sha(raw.rawLastMessage)!==call.outputSha256||JSON.stringify(JSON.parse(raw.rawLastMessage))!==JSON.stringify(raw.parsedOutput)||call.schemaSha256!==candidate.provenance.schemaSha256)throw Error('audit_production_raw_artifact_changed');
       if(scopeProof&&(JSON.stringify(call.sourceBlockScope)!==JSON.stringify(candidate.source.blockScope)||JSON.stringify(raw.sourceBlockScope)!==JSON.stringify(candidate.source.blockScope)))throw Error('audit_scope_production_call_changed');
-      if(native){const src=inventory.sources.find(s=>s.sourceId===candidate.source.sourceId),meta=src?.pages.find(p=>p.page===candidate.source.page);if(!meta)throw Error('audit_native_pdf_unknown_page');await verifyNativePdfEvidence(dataRoot,candidate,manifest,call,raw,JSON.parse(await readFile(join(dataRoot,meta.pageData))));}
+      if(native){const src=inventory.sources.find(s=>s.sourceId===candidate.source.sourceId),meta=src?.pages.find(p=>p.page===candidate.source.page);if(!meta)throw Error('audit_native_pdf_unknown_page');await verifyNativePdfEvidence(dataRoot,candidate,manifest,call,raw,JSON.parse(await readFile(join(dataRoot,meta.pageData))),candidateSha256);}
       return scopeProof;
     }
     const outputPath=resolve(productionRoot,call.outputPath??'');
@@ -372,7 +373,8 @@ export async function auditPage({ dataRoot, auditRoot, source, pageMeta, product
   const candidatePath = join(productionRoot,'candidates',source.sourceId,`page-${String(pageMeta.page).padStart(4,'0')}.json`);
   const bytes = await readFile(candidatePath), candidateSha256 = sha(bytes), candidate = JSON.parse(bytes);
   await assertPdfCandidateNotExcluded(dataRoot,candidatePath,candidateSha256);
-  if(candidate.provenance?.sourceFieldCorrection)return candidate.source.sourceId==='79-cn'?verifyThreeTileSourceCorrection(dataRoot,candidatePath,null):verifySpecificPdfSourceCorrection(dataRoot,candidatePath,true);
+  if(candidate.provenance?.sourceFieldCorrection&&candidate.source.sourceId==='79-cn')return verifyThreeTileSourceCorrection(dataRoot,candidatePath,null);
+  if(candidate.provenance?.sourceFieldCorrection&&candidate.provenance.flowMode!==nativePdfFlowMode)return verifySpecificPdfSourceCorrection(dataRoot,candidatePath,true);
   let outputPath = join(auditRoot,'pages',source.sourceId,`page-${String(pageMeta.page).padStart(4,'0')}.${candidateSha256}.${scriptSha256.slice(0,12)}.json`);
   let previous=await latestAuditReceipt(auditRoot,source.sourceId,pageMeta.page,candidateSha256);
   let retryOfAudit=null;
@@ -385,7 +387,7 @@ export async function auditPage({ dataRoot, auditRoot, source, pageMeta, product
   const checks = deterministicChecks(candidate,source,page,pageMeta.pageDataSha256,renderHash);
   for (const f of candidate.figures ?? []) if (f.croppedImagePath && sha(await readFile(join(dataRoot,f.croppedImagePath))) !== f.croppedImageSha256) checks.errors.push(`cropped_image_changed:${f.figureId}`);
   for (const b of page.blocks.filter(b=>b.type==='image')) if (sha(await readFile(join(dataRoot,b.asset))) !== b.imageSha256) checks.errors.push(`source_image_asset_changed:${b.id}`);
-  let sourceBlockScope=null;try{sourceBlockScope=await verifyProductionBinding(dataRoot,productionRoot,candidate);}catch(e){checks.errors.push(String(e));}
+  let sourceBlockScope=null;try{sourceBlockScope=await verifyProductionBinding(dataRoot,productionRoot,candidate,candidateSha256);}catch(e){checks.errors.push(String(e));}
   checks.passed = checks.errors.length===0;
   const context=await neighboringSourceContext(dataRoot,source,page.page);
   if(previous) {
@@ -394,7 +396,8 @@ export async function auditPage({ dataRoot, auditRoot, source, pageMeta, product
     if(previous.status==='needs-repair')try{return {...await verifyAuditForCandidate(dataRoot,candidatePath),skipped:true};}catch(e){if(!/audit_checks_not_passed|audit_adjudication/.test(String(e)))throw e;}
     return {...previous,skipped:true};
   }
-  const result = { schema: 'coach-textbook-page-audit/1', status: 'needs-repair', source: candidate.source, production: { path: candidatePath, sha256: candidateSha256 }, auditorScriptSha256: scriptSha256, verification: 'independent-model-automatic-review-not-user-human-gold-standard', pageImageSha256: renderHash, deterministicChecks: checks, modelReview: null, modelChecks: null,...(sourceBlockScope?{sourceBlockScope}:{}), calls: [], retryOfAudit, recordedAt: new Date().toISOString() };
+  const sourceCorrection=checks.passed&&candidate.provenance?.sourceFieldCorrection?(await loadNativeInlineCorrection(dataRoot,candidate,candidateSha256)).correctionProof:null;
+  const result = { schema: 'coach-textbook-page-audit/1', status: 'needs-repair', source: candidate.source, production: { path: candidatePath, sha256: candidateSha256 }, auditorScriptSha256: scriptSha256, verification: sourceCorrection?'independent-model-review-of-root-approved-exact-field-revision; original production raw, parent candidate and failed audit preserved':'independent-model-automatic-review-not-user-human-gold-standard', pageImageSha256: renderHash, deterministicChecks: checks, modelReview: null, modelChecks: null,...(sourceBlockScope?{sourceBlockScope}:{}),...(sourceCorrection?{sourceCorrection}:{}), calls: [], retryOfAudit, recordedAt: new Date().toISOString() };
   // A structurally damaged candidate is returned immediately; no costly semantic call can make it pass.
   if (checks.passed) {
     result.neighboringContext=context;
@@ -431,11 +434,12 @@ async function verifyPdfAuditEvidence(processingRoot, candidatePath) {
   const renderHash = sha(await readFile(renderPath));
   for (const b of page.blocks.filter(b=>b.type==='image' && b.asset)) if (sha(await readFile(join(processingRoot,b.asset))) !== b.imageSha256) throw Error('audit_source_image_changed');
   for (const f of candidate.figures ?? []) if (f.croppedImagePath && sha(await readFile(join(processingRoot,f.croppedImagePath))) !== f.croppedImageSha256) throw Error('audit_crop_image_changed');
-  const sourceBlockScope=await verifyProductionBinding(processingRoot,productionRoot,candidate);
+  const sourceBlockScope=await verifyProductionBinding(processingRoot,productionRoot,candidate,candidateSha256);
   const receipt=await latestAuditReceipt(join(processingRoot,'audit'),source.sourceId,page.page,candidateSha256);
   if (!receipt || receipt.schema !== 'coach-textbook-page-audit/1' || !['passed','passed-after-transport-recovery','passed-explicit-source-block-scope','needs-repair'].includes(receipt.status)) throw Error('audit_latest_not_passed');
   if (receipt.production?.sha256 !== candidateSha256 || receipt.source?.sourceId !== source.sourceId || receipt.source?.pdfSha256 !== source.sha256 || receipt.source?.page !== page.page || receipt.source?.pageDataSha256 !== pageMeta.pageDataSha256 || receipt.pageImageSha256 !== renderHash) throw Error('audit_receipt_binding_changed');
   if (!deterministicChecks(candidate,source,page,pageMeta.pageDataSha256,renderHash).passed || !receipt.deterministicChecks?.passed || !receipt.modelReview) throw Error('audit_checks_not_passed');
+  if(candidate.provenance?.sourceFieldCorrection){const {correctionProof}=await loadNativeInlineCorrection(processingRoot,candidate,candidateSha256);if(!isDeepStrictEqual(receipt.sourceCorrection,correctionProof))throw Error('audit_native_inline_correction_receipt_binding');}else if(receipt.sourceCorrection)throw Error('audit_native_inline_correction_receipt_binding');
   const call = receipt.calls?.at(-1);
   if (!call || call.model !== auditModel || call.reasoningEffort !== auditReasoningEffort || !call.usage || call.productionSha256 !== candidateSha256 || call.pageImageSha256 !== renderHash || call.outputSha256 !== sha(JSON.stringify(receipt.modelReview))) throw Error('audit_model_call_binding_invalid');
   const fullCall = JSON.parse(await readFile(join(processingRoot,'audit','calls',`${call.callId}.json`),'utf8'));
@@ -450,7 +454,8 @@ async function verifyPdfAuditEvidence(processingRoot, candidatePath) {
 }
 
 export async function verifyAuditForCandidate(processingRoot,candidatePath){
-  const candidateBytes=await readFile(candidatePath),candidate=JSON.parse(candidateBytes);await assertPdfCandidateNotExcluded(processingRoot,candidatePath,sha(candidateBytes));if(candidate.provenance?.sourceFieldCorrection)return candidate.source.sourceId==='79-cn'?verifyThreeTileSourceCorrection(processingRoot,candidatePath,null):verifySpecificPdfSourceCorrection(processingRoot,candidatePath,false);
+  const candidateBytes=await readFile(candidatePath),candidate=JSON.parse(candidateBytes);await assertPdfCandidateNotExcluded(processingRoot,candidatePath,sha(candidateBytes));if(candidate.provenance?.sourceFieldCorrection&&candidate.source.sourceId==='79-cn')return verifyThreeTileSourceCorrection(processingRoot,candidatePath,null);
+  if(candidate.provenance?.sourceFieldCorrection&&candidate.provenance.flowMode!==nativePdfFlowMode)return verifySpecificPdfSourceCorrection(processingRoot,candidatePath,false);
   const evidence=await verifyPdfAuditEvidence(processingRoot,candidatePath),{receipt,page}=evidence;
   if(candidate.source?.blockScope){if(receipt.status!=='passed-explicit-source-block-scope'||!validateReview(receipt.modelReview,page,candidate).passed||!receipt.modelChecks?.passed)throw Error('audit_scoped_review_not_passed');return receipt;}
   if(receipt.status==='needs-repair'||!validateReview(receipt.modelReview,page,candidate).passed||!receipt.modelChecks?.passed){const resolution=await latestSourceAdjudication(processingRoot,receipt,candidate,page);return {...receipt,status:'passed-after-source-adjudication',...resolution};}

@@ -4,6 +4,7 @@ import {createHash} from 'node:crypto';
 import {isDeepStrictEqual as same} from 'node:util';
 import {threeTileCodes} from './textbook-audit-pdf-source-corrections.mjs';
 import {scopedPdfPage} from './textbook-audit-pdf-scope.mjs';
+import {loadNativeInlineCorrection} from './textbook-audit-pdf-native-corrections.mjs';
 const sha=b=>createHash('sha256').update(b).digest('hex'),marker=/\[\[figure:([^\]\r\n]+)\]\]/g;
 export const nativePdfFlowMode='native-source-inline-slots';
 export function checkNativePdfInlineContent(candidate,page,plan=null,raw=null){
@@ -25,9 +26,11 @@ export function checkNativePdfInlineContent(candidate,page,plan=null,raw=null){
  }
  return {textBlocks:source.size,imageOccurrences:page.blocks.filter(b=>b.type==='image').length,figures:figures.size,allFigureReferencesExactlyOnce:true,exactOriginalTextFragments:candidate.body.mode==='verbatim',rawCompiledContentBound:Boolean(raw),nativeSourceLinesBound:Boolean(plan)};
 }
-export async function verifyNativePdfEvidence(root,candidate,manifest,call,raw,page){
+export async function verifyNativePdfEvidence(root,candidate,manifest,call,raw,page,candidateSha256=null){
  const n=candidate.provenance.nativeSourceFlow;if(manifest.flowMode!==nativePdfFlowMode||candidate.provenance.promptVersion!=='textbook-page-transcription/5-inline'||!n||!same(n,call.nativeSourceFlow)||!same(n,raw.nativeSourceFlow)||n.helperSha256!==manifest.nativeFlowHelperSha256)throw Error('audit_native_pdf_provenance_binding');
  const load=async(p,digest)=>{const path=resolve(root,p),rel=relative(resolve(root),path);if(!rel||isAbsolute(rel)||rel==='..'||rel.startsWith('..'+String.fromCharCode(92))||rel.startsWith('../'))throw Error('audit_native_pdf_path_outside_processing');const bytes=await readFile(path);if(sha(bytes)!==digest)throw Error('audit_native_pdf_bound_file_changed');return bytes;},plan=JSON.parse(await load(n.path,n.sha256));await load(n.helperPath,n.helperSha256);if(plan.helperSha256!==n.helperSha256)throw Error('audit_native_pdf_helper_binding');
  if(plan.sourceTileEvidence){const b=plan.sourceTileEvidence;if(b.sha256!=='1de71585b62e49095a5d99bd372ec9a98350e1981ca74e5cd61db6f06658bba6')throw Error('audit_native_pdf_unknown_tile_evidence');const e=JSON.parse(await load(b.path,b.sha256));if(e.schema!=='coach-exact-source-tile-input-evidence/1'||e.status!=='verified-exact-source-assets-only'||!same(e.approval,b.approval)||!same(e.pixelReview,b.pixelReview)||e.approval.sha256!=='3a084fbfdda818ca3b099b8da759776e30512b81d62466e96ec2af14022470f7'||e.pixelReview.sha256!=='93565188a4755f59480279358675c9d0cab894c21c99126116e2adf8c3a5a891'||e.acceptedAssets.length!==3)throw Error('audit_native_pdf_tile_approval_binding');await load(e.approval.path,e.approval.sha256);await load(e.pixelReview.path,e.pixelReview.sha256);for(const a of e.acceptedAssets){if(threeTileCodes.get(a.sha256)!==a.code||a.red!==false||a.orientation!=='upright')throw Error('audit_native_pdf_tile_code_not_confirmed');await load(a.path,a.sha256);}const expected=scopedPdfPage(candidate,page).blocks.filter(x=>x.type==='image'&&x.transform?.[0]>0&&x.transform?.[3]>0&&x.transform[1]===0&&x.transform[2]===0).flatMap(x=>{const a=e.acceptedAssets.find(a=>a.sha256===x.imageSha256&&a.width===x.width&&a.height===x.height);return a?[{sourceImageBlockId:x.id,assetSha256:x.imageSha256,code:a.code,red:a.red,orientation:a.orientation}]:[];});if(!same(expected,plan.verifiedSourceImages))throw Error('audit_native_pdf_verified_tile_occurrences_changed');}else if(plan.verifiedSourceImages?.length)throw Error('audit_native_pdf_unbound_tile_claim');
- return checkNativePdfInlineContent(candidate,scopedPdfPage(candidate,page),plan,raw.parsedOutput);
+ let rawParsed=raw.parsedOutput;
+ if(candidate.provenance?.sourceFieldCorrection){const correction=await loadNativeInlineCorrection(root,candidate,candidateSha256);if(!same(correction.originalRaw.parsedOutput,raw.parsedOutput))throw Error('audit_native_inline_correction_original_raw_changed');rawParsed=correction.correctedRaw;}
+ return checkNativePdfInlineContent(candidate,scopedPdfPage(candidate,page),plan,rawParsed);
 }
