@@ -87,6 +87,14 @@ export function reviewSchema(page, candidate) {
     summary: str,
   }) };
 }
+export function imageFigureBinding({figure,block,pageImageSha256}){
+ if(!figure||!block)return {exact:false,contains:false,valid:false};
+ const exact=Array.isArray(figure.sourceImageBlockIds)&&figure.sourceImageBlockIds.includes(block.id);
+ if(exact){const at=figure.sourceImageBlockIds.indexOf(block.id);if(block.imageSha256&&(!Array.isArray(figure.sourceImageSha256s)||figure.sourceImageSha256s[at]!==block.imageSha256))return {exact:true,contains:false,valid:false};return {exact:true,contains:false,valid:true};}
+ const f=figure.bbox,b=block.bbox,contains=Array.isArray(f)&&f.length===4&&Array.isArray(b)&&b.length===4&&f[0]<=b[0]&&f[1]<=b[1]&&f[2]>=b[2]&&f[3]>=b[3];
+ if(!contains||!pageImageSha256||figure.pageImageSha256!==pageImageSha256)return {exact:false,contains,valid:false};
+ return {exact:false,contains:true,valid:true};
+}
 export function validateReview(review, page, candidate) {
   page=scopedPdfPage(candidate,page);
   const errors = [];
@@ -104,7 +112,11 @@ export function validateReview(review, page, candidate) {
   for (const v of review.imageChecks ?? []) {
     if(candidate.source?.blockScope&&v.disposition!=='represented')errors.push('scope_instructional_image_not_represented');
     if (!['represented','non-instructional'].includes(v.disposition)) errors.push(`${v.disposition}:${v.id}`);
-    if (v.disposition === 'represented' && (!v.figureIds?.length || v.figureIds.some(id => !figures.has(id) || !candidate.figures.find(f => f.figureId === id).sourceImageBlockIds.includes(v.id)))) errors.push(`review_image_figure_binding:${v.id}`);
+    if (v.disposition === 'represented') {
+      const block=page.blocks.find(b=>b.id===v.id),items=(v.figureIds??[]).map(id=>candidate.figures.find(f=>f.figureId===id));
+      const bindings=items.map(figure=>imageFigureBinding({figure,block,pageImageSha256:candidate.coverage?.pageImageSha256}));
+      if(!v.figureIds?.length||items.some(f=>!f)||!bindings.some(x=>x.exact)||bindings.some(x=>!x.valid)) errors.push(`review_image_figure_binding:${v.id}`);
+    }
   }
   for (const issue of review.issues ?? []) if (issue.severity !== 'source-note') errors.push(`${issue.severity}:${issue.targetId}`);
   return { passed: errors.length === 0, errors };
