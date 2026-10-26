@@ -424,7 +424,11 @@ export function createArenaRagApplicabilityGate(input: {
       }
 
       const usage = outcome.usage ?? null;
-      if (outcome.status !== "ready") return degrade(providerStatusFailureCode(outcome.status), usage);
+      if (outcome.status !== "ready") {
+        const code = providerStatusFailureCode(outcome.status);
+        // The provider reports every abort as cancelled; keep this gate's own timer distinguishable.
+        return degrade(code === "cancelled" && abortCause === "timeout" ? "timeout" : code, usage);
+      }
       if (outcome.call.name !== ARENA_RAG_APPLICABILITY_TOOL_NAME) return degrade("invalid_response");
 
       const argumentBytes = Buffer.byteLength(outcome.call.arguments, "utf8");

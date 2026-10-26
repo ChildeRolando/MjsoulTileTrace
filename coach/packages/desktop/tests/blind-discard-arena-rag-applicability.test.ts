@@ -137,14 +137,17 @@ function offResult(caseRef: string): ArenaRagResult {
 type FakeProvider = ArenaToolCallProvider & { readonly requests: ArenaProviderRequest[] };
 
 function fakeProvider(
-  respond: (request: ArenaProviderRequest) => ArenaToolCallProviderResult | Promise<ArenaToolCallProviderResult>,
+  respond: (
+    request: ArenaProviderRequest,
+    signal: AbortSignal,
+  ) => ArenaToolCallProviderResult | Promise<ArenaToolCallProviderResult>,
 ): FakeProvider {
   const requests: ArenaProviderRequest[] = [];
   return {
     descriptor: () => ({ providerId: "selector-test", model: "selector-model", protocolVersion: "arena-function-call/v1" as const }),
-    async request(request) {
+    async request(request, signal) {
       requests.push(request);
-      return await respond(request);
+      return await respond(request, signal);
     },
     requests,
   };
@@ -718,19 +721,29 @@ describe("Arena RAG applicability gate", () => {
     expect(provider.requests).toHaveLength(0);
   });
 
-  it("cancels the reflection when the run signal aborts", async () => {
+  it("keeps a run cancellation distinct from its own call timeout", async () => {
     const observation = observationWith();
     const result = ragResult({ caseRef: observation.caseRef });
-    const controller = new AbortController();
-    const provider = fakeProvider(() => {
-      controller.abort();
-      return { status: "cancelled" } satisfies ArenaToolCallProviderResult;
-    });
+    const waitsForAbort = () => fakeProvider((_request, signal) => new Promise<ArenaToolCallProviderResult>((resolve) => {
+      if (signal.aborted) { resolve({ status: "cancelled" }); return; }
+      signal.addEventListener("abort", () => resolve({ status: "cancelled" }), { once: true });
+    }));
 
-    const outcome = await createArenaRagApplicabilityGate({ provider, caseRef: observation.caseRef })
+    const controller = new AbortController();
+    const cancelled = createArenaRagApplicabilityGate({ provider: waitsForAbort(), caseRef: observation.caseRef })
       .apply({ output: result, observation, signal: controller.signal });
-    expect(outcome.status).toBe("degraded");
-    expect(outcome.failureCode).toBe("cancelled");
+    controller.abort();
+    const cancelledOutcome = await cancelled;
+    expect(cancelledOutcome.status).toBe("degraded");
+    expect(cancelledOutcome.failureCode).toBe("cancelled");
+    expect(ArenaRagApplicabilityResultSchema.parse(cancelledOutcome.output).sourceRefs).toEqual([REF_1, REF_2, REF_3]);
+
+    const timedOut = await createArenaRagApplicabilityGate({
+      provider: waitsForAbort(), caseRef: observation.caseRef, limits: { maxCallDurationMs: 20 },
+    }).apply({ output: result, observation, signal: new AbortController().signal });
+    // The provider reports every abort as `cancelled`; this gate's own timer stays `timeout`.
+    expect(timedOut.status).toBe("degraded");
+    expect(timedOut.failureCode).toBe("timeout");
   });
 
   it("freezes the prompt version and its non-removable clauses", async () => {
