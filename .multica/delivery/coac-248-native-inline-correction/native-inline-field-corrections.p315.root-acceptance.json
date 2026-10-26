@@ -1,0 +1,567 @@
+{
+  "schema": "coach-native-inline-field-corrections-approval/1",
+  "status": "accepted-exact-native-field-corrections-only",
+  "approvedBy": "root",
+  "approvedAt": "2026-10-27T00:00:00.000Z",
+  "approvalBasis": {
+    "commentId": "01a17a1e-02a4-7b5a-a407-036b305d25fe",
+    "scope": "Only audit-located, source-image-backed field changes on nemata-jp pages 309 and 315; original production raw, parent candidate and failed audit retained. No new production call."
+  },
+  "jobs": [
+    {
+      "schema": "coach-native-inline-field-correction-job/1",
+      "sourceId": "nemata-jp",
+      "page": 315,
+      "candidatePath": "production/sol-high-field-repair14-20261027-p315/candidates/nemata-jp/page-0315.json",
+      "candidateSha256": "3a0d697f891fedb8087d24b4880308c00f6f62ea79a92b1ba3ecd9d60b96207c",
+      "parentPath": "production/sol-high-fallback-inline-20261026/candidates/nemata-jp/page-0315.json",
+      "parentSha256": "772be8e40bf596b7bf25e36aa63e8c17022622e2801a73fc79601bf8a34295b0",
+      "originalAuditPath": "audit/pages/nemata-jp/page-0315.772be8e40bf596b7bf25e36aa63e8c17022622e2801a73fc79601bf8a34295b0.6baa4a7e1404.json",
+      "originalAuditSha256": "42b10b9b73631d3799222faa47109a54695b4c87175c85645f20941d47013d20",
+      "originalProductionRaw": {
+        "path": "production/sol-high-fallback-inline-20261026/raw-calls/80540b94-6d04-44e1-830e-30a388be2bf6.json",
+        "sha256": "5707ce1f75796b25377abee0d0312935c34421a68551731089f5b8f29fa28a3f"
+      },
+      "sourcePagePath": "nemata-jp/pages/315.json",
+      "sourcePageDataSha256": "f4e9bf667b0bc8bfe1c618669aea96bf7428add1789cc09a7f03e15f7d64d386",
+      "proofPath": "audit/source-corrections/proofs/native-inline-p315.3a0d697f891fedb8087d24b4880308c00f6f62ea79a92b1ba3ecd9d60b96207c.json",
+      "proofSha256": "918dc10816650d5bd24b89313938512edc3ce1711974ad4d0c0c618d02e92732",
+      "changes": [
+        {
+          "target": "figure",
+          "figureId": "nemata-jp-p315-r1",
+          "field": "transcription",
+          "fromValue": "东家弃牌，从左至右依次为1m 3z 9s 9p 7z 3z，右侧间隔后为8p。全部竖向显示。字牌代码：3z=西，7z=中。",
+          "toValue": "东家弃牌，从左至右依次为1m 3z 9s 9p 7z 3z，右侧间隔后为8p。全部竖向显示。字牌代码：3z=西，7z=中。第五张7z（中）与第六张3z（西）下方各有一个向下箭头。",
+          "replacements": [
+            {
+              "from": "7z=中。",
+              "to": "7z=中。第五张7z（中）与第六张3z（西）下方各有一个向下箭头。",
+              "occurrences": 1
+            }
+          ],
+          "sourceEvidence": "Source page render: downward arrows sit under the 5th tile 7z and the 6th tile 3z of the east row.",
+          "sourceCrop": {
+            "path": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0315-r1.png",
+            "sha256": "46f9b38c3bea6fce129c8075dffbe7f42b277f99100ad6eed1f974e749b6c575"
+          }
+        },
+        {
+          "target": "figure",
+          "figureId": "nemata-jp-p315-r2",
+          "field": "transcription",
+          "fromValue": "南家弃牌，从左至右依次为9m 4z 6m 7p 5z 8m。全部竖向显示。4z=北，5z=白；白色空白牌面是白板。",
+          "toValue": "南家弃牌，从左至右依次为9m 4z 6m 7p 5z 8m。全部竖向显示。4z=北，5z=白；白色空白牌面是白板。第四张7p与第五张5z（白板）下方各有一个向下箭头。",
+          "replacements": [
+            {
+              "from": "白色空白牌面是白板。",
+              "to": "白色空白牌面是白板。第四张7p与第五张5z（白板）下方各有一个向下箭头。",
+              "occurrences": 1
+            }
+          ],
+          "sourceEvidence": "Source page render: downward arrows sit under the 4th tile 7p and the 5th tile 5z.",
+          "sourceCrop": {
+            "path": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0315-r2.png",
+            "sha256": "3cb8772dcb493c644723a5fe325954012636b03633d191413621765a7644a53b"
+          }
+        },
+        {
+          "target": "figure",
+          "figureId": "nemata-jp-p315-r3",
+          "field": "transcription",
+          "fromValue": "西家弃牌，从左至右依次为9s 2z 1p 9m 2p 7z。全部竖向显示。2z=南，7z=中。",
+          "toValue": "西家弃牌，从左至右依次为9s 2z 1p 9m 2p 7z。全部竖向显示。2z=南，7z=中。第四张9m与第六张7z（中）下方各有一个向下箭头。",
+          "replacements": [
+            {
+              "from": "2z=南，7z=中。",
+              "to": "2z=南，7z=中。第四张9m与第六张7z（中）下方各有一个向下箭头。",
+              "occurrences": 1
+            }
+          ],
+          "sourceEvidence": "Source page render: downward arrows sit under the 4th tile 9m and the 6th tile 7z.",
+          "sourceCrop": {
+            "path": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0315-r3.png",
+            "sha256": "1b26c7a49e83074612e9f999546015c2982d32489383aaf9f20ab844ee677420"
+          }
+        },
+        {
+          "target": "figure",
+          "figureId": "nemata-jp-p315-r17",
+          "field": "transcription",
+          "fromValue": "东家同一排弃牌的中部、下部图像切片：第1张1s的中部和下部、第2张2z（南）与第3张1p的中部和下部、第4张7z（中）与第5张2m的中部和下部。它们属于牌序1s 2z 1p 7z 2m的同一排竖向牌面，并非额外五张弃牌。其后显示一个横向的破损图片图标，无法读取原图内容。",
+          "toValue": "东家同一排弃牌的中部、下部图像切片：第1张1s的中部和下部、第2张2z（南）与第3张1p的中部和下部、第4张7z（中）与第5张2m的中部和下部。它们属于牌序1s 2z 1p 7z 2m的同一排竖向牌面，并非额外五张弃牌。其后显示一个横向的破损图片图标，无法读取原图内容。第五张2m及右侧破损图片下方各有一个向下箭头。",
+          "replacements": [
+            {
+              "from": "无法读取原图内容。",
+              "to": "无法读取原图内容。第五张2m及右侧破损图片下方各有一个向下箭头。",
+              "occurrences": 1
+            }
+          ],
+          "sourceEvidence": "Source page render: downward arrows sit under the 5th tile 2m and under the broken-image icon to its right.",
+          "sourceCrop": {
+            "path": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0315-r17.png",
+            "sha256": "739578e63d0e308af89edfd391732a173ce220854f6c3cbd97f2bdb7e60bf137"
+          }
+        },
+        {
+          "target": "figure",
+          "figureId": "nemata-jp-p315-r18",
+          "field": "transcription",
+          "fromValue": "南家弃牌，从左至右依次为9p 3z 4p 6s 2s，右侧间隔后为1p。全部竖向显示。3z=西。",
+          "toValue": "南家弃牌，从左至右依次为9p 3z 4p 6s 3s，右侧间隔后为1p。全部竖向显示。3z=西。第二张3z（西）与第三张4p下方各有一个向下箭头。",
+          "replacements": [
+            {
+              "from": "6s 2s",
+              "to": "6s 3s",
+              "occurrences": 1
+            },
+            {
+              "from": "3z=西。",
+              "to": "3z=西。第二张3z（西）与第三张4p下方各有一个向下箭头。",
+              "occurrences": 1
+            }
+          ],
+          "sourceEvidence": "Source page render at 2x: the 5th visible tile is three upright sou bars (3s), not an eight-bar 2s; arrows sit under the 2nd tile 3z and the 3rd tile 4p.",
+          "sourceCrop": {
+            "path": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0315-r18.png",
+            "sha256": "7d44f66da36d2cd2b4188a3da4d10d31fc0b401475201064b2071ac2cae58400"
+          }
+        },
+        {
+          "target": "figure",
+          "figureId": "nemata-jp-p315-r18",
+          "field": "caption",
+          "fromValue": "南家弃牌：9p 西 4p 6s 2s；1p",
+          "toValue": "南家弃牌：9p 西 4p 6s 3s；1p",
+          "replacements": [
+            {
+              "from": "6s 2s",
+              "to": "6s 3s",
+              "occurrences": 1
+            }
+          ],
+          "sourceEvidence": "Same bound r18 crop: the 5th visible tile is 3s.",
+          "sourceCrop": {
+            "path": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0315-r18.png",
+            "sha256": "7d44f66da36d2cd2b4188a3da4d10d31fc0b401475201064b2071ac2cae58400"
+          }
+        },
+        {
+          "target": "figure",
+          "figureId": "nemata-jp-p315-r19",
+          "field": "transcription",
+          "fromValue": "西家弃牌，从左至右依次为1m 1m 5z 8m 8p，右侧间隔后为1s。全部竖向显示。5z=白，空白牌面为白板。",
+          "toValue": "西家弃牌，从左至右依次为1m 1m 5z 8m 8p，右侧间隔后为1s。全部竖向显示。5z=白，空白牌面为白板。第四张8m下方有一个向下箭头。",
+          "replacements": [
+            {
+              "from": "空白牌面为白板。",
+              "to": "空白牌面为白板。第四张8m下方有一个向下箭头。",
+              "occurrences": 1
+            }
+          ],
+          "sourceEvidence": "Source page render: one downward arrow sits under the 4th tile 8m of the west row.",
+          "sourceCrop": {
+            "path": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0315-r19.png",
+            "sha256": "c95c56cb71ab16f1e39f2a681a8164c09dfd890ee8444869fb7beaec0d1b283e"
+          }
+        },
+        {
+          "target": "figure",
+          "figureId": "nemata-jp-p315-r26",
+          "field": "transcription",
+          "fromValue": "正文中提到久人可能选择的牌：6p（六筒），竖向显示。",
+          "toValue": "正文中提到ヒサト可能选择的牌：6p（六筒），竖向显示。",
+          "replacements": [
+            {
+              "from": "久人",
+              "to": "ヒサト",
+              "occurrences": 1
+            }
+          ],
+          "sourceEvidence": "Source text block nemata-jp-p315-b39 reads 回答者がヒサトなら; ヒサト is katakana in the original, so the name is kept as-is.",
+          "sourceCrop": {
+            "path": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0315-r26.png",
+            "sha256": "c49c0f4571f7889c331915636d475889ba9384a3c7738824fb0bed9fd7193f80"
+          },
+          "sourceTextEvidence": [
+            {
+              "sourceBlockId": "nemata-jp-p315-b39",
+              "contains": "ヒサト"
+            }
+          ]
+        },
+        {
+          "target": "paragraph",
+          "sourceBlockIds": [
+            "nemata-jp-p315-b38",
+            "nemata-jp-p315-b39"
+          ],
+          "fromValue": "正这么想着，居然终于和职业牌手的答案一致了（不过，本来就没几个像样的选项，一致率自然也会提高）。嗯，回答者如果是久人，那大概就会选[[figure:nemata-jp-p315-r26]]吧。不过，换作我，不仅[[figure:nemata-jp-p315-r27]]会鸣，鸣后成为只有一边能和牌的形状，也会鸣。已经先",
+          "toValue": "正这么想着，居然终于和职业牌手的答案一致了（不过，本来就没几个像样的选项，一致率自然也会提高）。嗯，回答者如果是ヒサト，那大概就会选[[figure:nemata-jp-p315-r26]]吧。不过，换作我，不仅[[figure:nemata-jp-p315-r27]]会鸣，鸣后成为只有一边能和牌的形状，也会鸣。已经先",
+          "replacements": [
+            {
+              "from": "久人",
+              "to": "ヒサト",
+              "occurrences": 1
+            }
+          ],
+          "sourceEvidence": "Source text block nemata-jp-p315-b39 reads 回答者がヒサトなら; the original name is katakana, so 久人 is replaced by ヒサト without inventing a kanji name.",
+          "sourceCrop": {
+            "path": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0315-r26.png",
+            "sha256": "c49c0f4571f7889c331915636d475889ba9384a3c7738824fb0bed9fd7193f80"
+          },
+          "sourceTextEvidence": [
+            {
+              "sourceBlockId": "nemata-jp-p315-b39",
+              "contains": "ヒサト"
+            }
+          ]
+        }
+      ],
+      "originalReviewErrors": [
+        "visual_reading_flow_not_faithful",
+        "needs-repair:nemata-jp-p315-b4",
+        "needs-repair:nemata-jp-p315-b7",
+        "needs-repair:nemata-jp-p315-b10",
+        "needs-repair:nemata-jp-p315-b29",
+        "needs-repair:nemata-jp-p315-b31",
+        "needs-repair:nemata-jp-p315-b32",
+        "needs-repair:nemata-jp-p315-b39",
+        "needs-repair:nemata-jp-p315-r1",
+        "needs-repair:nemata-jp-p315-r2",
+        "needs-repair:nemata-jp-p315-r3",
+        "needs-repair:nemata-jp-p315-r17",
+        "needs-repair:nemata-jp-p315-r18",
+        "needs-repair:nemata-jp-p315-r19",
+        "needs-repair:nemata-jp-p315-r26",
+        "error:nemata-jp-p315-r18",
+        "error:flowCheck",
+        "error:nemata-jp-p315-b39"
+      ]
+    },
+    {
+      "schema": "coach-native-inline-field-correction-job/1",
+      "sourceId": "nemata-jp",
+      "page": 315,
+      "candidatePath": "production/sol-high-field-repair15-20261027-p315/candidates/nemata-jp/page-0315.json",
+      "candidateSha256": "bc2afae254cbb243aa04ba23b73b4a13aa6513d17445c2b895bb7528d43469e3",
+      "parentPath": "production/sol-high-fallback-inline-20261026/candidates/nemata-jp/page-0315.json",
+      "parentSha256": "772be8e40bf596b7bf25e36aa63e8c17022622e2801a73fc79601bf8a34295b0",
+      "originalAuditPath": "audit/pages/nemata-jp/page-0315.772be8e40bf596b7bf25e36aa63e8c17022622e2801a73fc79601bf8a34295b0.6baa4a7e1404.json",
+      "originalAuditSha256": "42b10b9b73631d3799222faa47109a54695b4c87175c85645f20941d47013d20",
+      "originalProductionRaw": {
+        "path": "production/sol-high-fallback-inline-20261026/raw-calls/80540b94-6d04-44e1-830e-30a388be2bf6.json",
+        "sha256": "5707ce1f75796b25377abee0d0312935c34421a68551731089f5b8f29fa28a3f"
+      },
+      "sourcePagePath": "nemata-jp/pages/315.json",
+      "sourcePageDataSha256": "f4e9bf667b0bc8bfe1c618669aea96bf7428add1789cc09a7f03e15f7d64d386",
+      "proofPath": "audit/source-corrections/proofs/native-inline-p315.bc2afae254cbb243aa04ba23b73b4a13aa6513d17445c2b895bb7528d43469e3.json",
+      "proofSha256": "d651240d45b0b40487dc4d7ff69408c241d46bc1e5f71cf62ee654917d0e08c1",
+      "changes": [
+        {
+          "target": "figure",
+          "figureId": "nemata-jp-p315-r1",
+          "field": "transcription",
+          "fromValue": "东家弃牌，从左至右依次为1m 3z 9s 9p 7z 3z，右侧间隔后为8p。全部竖向显示。字牌代码：3z=西，7z=中。",
+          "toValue": "东家弃牌，从左至右依次为1m 3z 9s 9p 7z 3z，右侧间隔后为8p。全部竖向显示。字牌代码：3z=西，7z=中。第五张7z（中）与第六张3z（西）下方各有一个向下箭头。",
+          "replacements": [
+            {
+              "from": "7z=中。",
+              "to": "7z=中。第五张7z（中）与第六张3z（西）下方各有一个向下箭头。",
+              "occurrences": 1
+            }
+          ],
+          "sourceEvidence": "Source page render: downward arrows sit under the 5th tile 7z and the 6th tile 3z of the east row.",
+          "sourceCrop": {
+            "path": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0315-r1.png",
+            "sha256": "46f9b38c3bea6fce129c8075dffbe7f42b277f99100ad6eed1f974e749b6c575"
+          }
+        },
+        {
+          "target": "figure",
+          "figureId": "nemata-jp-p315-r2",
+          "field": "transcription",
+          "fromValue": "南家弃牌，从左至右依次为9m 4z 6m 7p 5z 8m。全部竖向显示。4z=北，5z=白；白色空白牌面是白板。",
+          "toValue": "南家弃牌，从左至右依次为9m 4z 6m 7p 5z 8m。全部竖向显示。4z=北，5z=白；白色空白牌面是白板。第四张7p与第五张5z（白板）下方各有一个向下箭头。",
+          "replacements": [
+            {
+              "from": "白色空白牌面是白板。",
+              "to": "白色空白牌面是白板。第四张7p与第五张5z（白板）下方各有一个向下箭头。",
+              "occurrences": 1
+            }
+          ],
+          "sourceEvidence": "Source page render: downward arrows sit under the 4th tile 7p and the 5th tile 5z.",
+          "sourceCrop": {
+            "path": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0315-r2.png",
+            "sha256": "3cb8772dcb493c644723a5fe325954012636b03633d191413621765a7644a53b"
+          }
+        },
+        {
+          "target": "figure",
+          "figureId": "nemata-jp-p315-r3",
+          "field": "transcription",
+          "fromValue": "西家弃牌，从左至右依次为9s 2z 1p 9m 2p 7z。全部竖向显示。2z=南，7z=中。",
+          "toValue": "西家弃牌，从左至右依次为9s 2z 1p 9m 2p 7z。全部竖向显示。2z=南，7z=中。第四张9m与第六张7z（中）下方各有一个向下箭头。",
+          "replacements": [
+            {
+              "from": "2z=南，7z=中。",
+              "to": "2z=南，7z=中。第四张9m与第六张7z（中）下方各有一个向下箭头。",
+              "occurrences": 1
+            }
+          ],
+          "sourceEvidence": "Source page render: downward arrows sit under the 4th tile 9m and the 6th tile 7z.",
+          "sourceCrop": {
+            "path": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0315-r3.png",
+            "sha256": "1b26c7a49e83074612e9f999546015c2982d32489383aaf9f20ab844ee677420"
+          }
+        },
+        {
+          "target": "figure",
+          "figureId": "nemata-jp-p315-r17",
+          "field": "transcription",
+          "fromValue": "东家同一排弃牌的中部、下部图像切片：第1张1s的中部和下部、第2张2z（南）与第3张1p的中部和下部、第4张7z（中）与第5张2m的中部和下部。它们属于牌序1s 2z 1p 7z 2m的同一排竖向牌面，并非额外五张弃牌。其后显示一个横向的破损图片图标，无法读取原图内容。",
+          "toValue": "东家同一排弃牌的中部、下部图像切片：第1张1s的中部和下部、第2张2z（南）与第3张1p的中部和下部、第4张7z（中）与第5张2m的中部和下部。它们属于牌序1s 2z 1p 7z 2m的同一排竖向牌面，并非额外五张弃牌。其后显示一个横向的破损图片图标，无法读取原图内容。第五张2m及右侧破损图片下方各有一个向下箭头。",
+          "replacements": [
+            {
+              "from": "无法读取原图内容。",
+              "to": "无法读取原图内容。第五张2m及右侧破损图片下方各有一个向下箭头。",
+              "occurrences": 1
+            }
+          ],
+          "sourceEvidence": "Source page render: downward arrows sit under the 5th tile 2m and under the broken-image icon to its right.",
+          "sourceCrop": {
+            "path": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0315-r17.png",
+            "sha256": "739578e63d0e308af89edfd391732a173ce220854f6c3cbd97f2bdb7e60bf137"
+          }
+        },
+        {
+          "target": "figure",
+          "figureId": "nemata-jp-p315-r18",
+          "field": "transcription",
+          "fromValue": "南家弃牌，从左至右依次为9p 3z 4p 6s 2s，右侧间隔后为1p。全部竖向显示。3z=西。",
+          "toValue": "南家弃牌，从左至右依次为9p 3z 4p 6s 3s，右侧间隔后为1p。全部竖向显示。3z=西。第二张3z（西）与第三张4p下方各有一个向下箭头。",
+          "replacements": [
+            {
+              "from": "6s 2s",
+              "to": "6s 3s",
+              "occurrences": 1
+            },
+            {
+              "from": "3z=西。",
+              "to": "3z=西。第二张3z（西）与第三张4p下方各有一个向下箭头。",
+              "occurrences": 1
+            }
+          ],
+          "sourceEvidence": "Source page render at 2x: the 5th visible tile is three upright sou bars (3s), not an eight-bar 2s; arrows sit under the 2nd tile 3z and the 3rd tile 4p.",
+          "sourceCrop": {
+            "path": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0315-r18.png",
+            "sha256": "7d44f66da36d2cd2b4188a3da4d10d31fc0b401475201064b2071ac2cae58400"
+          }
+        },
+        {
+          "target": "figure",
+          "figureId": "nemata-jp-p315-r18",
+          "field": "caption",
+          "fromValue": "南家弃牌：9p 西 4p 6s 2s；1p",
+          "toValue": "南家弃牌：9p 西 4p 6s 3s；1p",
+          "replacements": [
+            {
+              "from": "6s 2s",
+              "to": "6s 3s",
+              "occurrences": 1
+            }
+          ],
+          "sourceEvidence": "Same bound r18 crop: the 5th visible tile is 3s.",
+          "sourceCrop": {
+            "path": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0315-r18.png",
+            "sha256": "7d44f66da36d2cd2b4188a3da4d10d31fc0b401475201064b2071ac2cae58400"
+          }
+        },
+        {
+          "target": "figure",
+          "figureId": "nemata-jp-p315-r19",
+          "field": "transcription",
+          "fromValue": "西家弃牌，从左至右依次为1m 1m 5z 8m 8p，右侧间隔后为1s。全部竖向显示。5z=白，空白牌面为白板。",
+          "toValue": "西家弃牌，从左至右依次为1m 1m 5z 8m 8p，右侧间隔后为1s。全部竖向显示。5z=白，空白牌面为白板。第四张8m下方有一个向下箭头。",
+          "replacements": [
+            {
+              "from": "空白牌面为白板。",
+              "to": "空白牌面为白板。第四张8m下方有一个向下箭头。",
+              "occurrences": 1
+            }
+          ],
+          "sourceEvidence": "Source page render: one downward arrow sits under the 4th tile 8m of the west row.",
+          "sourceCrop": {
+            "path": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0315-r19.png",
+            "sha256": "c95c56cb71ab16f1e39f2a681a8164c09dfd890ee8444869fb7beaec0d1b283e"
+          }
+        },
+        {
+          "target": "figure",
+          "figureId": "nemata-jp-p315-r26",
+          "field": "transcription",
+          "fromValue": "正文中提到久人可能选择的牌：6p（六筒），竖向显示。",
+          "toValue": "正文中提到ヒサト可能选择的牌：6p（六筒），竖向显示。",
+          "replacements": [
+            {
+              "from": "久人",
+              "to": "ヒサト",
+              "occurrences": 1
+            }
+          ],
+          "sourceEvidence": "Source text block nemata-jp-p315-b39 reads 回答者がヒサトなら; ヒサト is katakana in the original, so the name is kept as-is.",
+          "sourceCrop": {
+            "path": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0315-r26.png",
+            "sha256": "c49c0f4571f7889c331915636d475889ba9384a3c7738824fb0bed9fd7193f80"
+          },
+          "sourceTextEvidence": [
+            {
+              "sourceBlockId": "nemata-jp-p315-b39",
+              "contains": "ヒサト"
+            }
+          ]
+        },
+        {
+          "target": "paragraph",
+          "sourceBlockIds": [
+            "nemata-jp-p315-b38",
+            "nemata-jp-p315-b39"
+          ],
+          "fromValue": "正这么想着，居然终于和职业牌手的答案一致了（不过，本来就没几个像样的选项，一致率自然也会提高）。嗯，回答者如果是久人，那大概就会选[[figure:nemata-jp-p315-r26]]吧。不过，换作我，不仅[[figure:nemata-jp-p315-r27]]会鸣，鸣后成为只有一边能和牌的形状，也会鸣。已经先",
+          "toValue": "正这么想着，居然终于和职业牌手的答案一致了（不过，本来就没几个像样的选项，一致率自然也会提高）。嗯，回答者如果是ヒサト，那大概就会选[[figure:nemata-jp-p315-r26]]吧。不过，换作我，不仅[[figure:nemata-jp-p315-r27]]会鸣，鸣后成为只有一边能和牌的形状，也会鸣。已经先",
+          "replacements": [
+            {
+              "from": "久人",
+              "to": "ヒサト",
+              "occurrences": 1
+            }
+          ],
+          "sourceEvidence": "Source text block nemata-jp-p315-b39 reads 回答者がヒサトなら; the original name is katakana, so 久人 is replaced by ヒサト without inventing a kanji name.",
+          "sourceCrop": {
+            "path": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0315-r26.png",
+            "sha256": "c49c0f4571f7889c331915636d475889ba9384a3c7738824fb0bed9fd7193f80"
+          },
+          "sourceTextEvidence": [
+            {
+              "sourceBlockId": "nemata-jp-p315-b39",
+              "contains": "ヒサト"
+            }
+          ]
+        },
+        {
+          "target": "figure",
+          "figureId": "nemata-jp-p315-r8",
+          "field": "transcription",
+          "fromValue": "正文中标为已见一张的牌：3m（三万），竖向显示。",
+          "toValue": "正文中标为已见一张的牌：2m（二万），竖向显示。",
+          "replacements": [
+            {
+              "from": "3m（三万）",
+              "to": "2m（二万）",
+              "occurrences": 1
+            }
+          ],
+          "sourceEvidence": "Source page render and the bound r8 crop show the 二萬 (2m) tile, not 三万; the first 3x review in audit/pages/nemata-jp/page-0315.3a0d697f891fedb8087d24b4880308c00f6f62ea79a92b1ba3ecd9d60b96207c.7076217daf84.json located this defect.",
+          "sourceCrop": {
+            "path": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0315-r8.png",
+            "sha256": "65d4945fd4cc3cbd80081a3482476f400e0e375ec646a8bc63ae03a191d12d48"
+          }
+        },
+        {
+          "target": "figure",
+          "figureId": "nemata-jp-p315-r8",
+          "field": "caption",
+          "fromValue": "3m",
+          "toValue": "2m",
+          "replacements": [
+            {
+              "from": "3m",
+              "to": "2m",
+              "occurrences": 1
+            }
+          ],
+          "sourceEvidence": "Same bound r8 crop: the inline tile is 2m (二萬).",
+          "sourceCrop": {
+            "path": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0315-r8.png",
+            "sha256": "65d4945fd4cc3cbd80081a3482476f400e0e375ec646a8bc63ae03a191d12d48"
+          }
+        },
+        {
+          "target": "figure",
+          "figureId": "nemata-jp-p315-r9",
+          "field": "transcription",
+          "fromValue": "正文中说明先打的牌：3m（三万），竖向显示。",
+          "toValue": "正文中说明先打的牌：2m（二万），竖向显示。",
+          "replacements": [
+            {
+              "from": "3m（三万）",
+              "to": "2m（二万）",
+              "occurrences": 1
+            }
+          ],
+          "sourceEvidence": "Source page render and the bound r9 crop show the 二萬 (2m) tile, not 三万; the first 3x review in audit/pages/nemata-jp/page-0315.3a0d697f891fedb8087d24b4880308c00f6f62ea79a92b1ba3ecd9d60b96207c.7076217daf84.json located this defect.",
+          "sourceCrop": {
+            "path": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0315-r9.png",
+            "sha256": "e4d10c94623045a20baa6956e2ed9708fa40a248d21335751ca2220a190675ba"
+          }
+        },
+        {
+          "target": "figure",
+          "figureId": "nemata-jp-p315-r9",
+          "field": "caption",
+          "fromValue": "3m",
+          "toValue": "2m",
+          "replacements": [
+            {
+              "from": "3m",
+              "to": "2m",
+              "occurrences": 1
+            }
+          ],
+          "sourceEvidence": "Same bound r9 crop: the inline tile is 2m (二萬).",
+          "sourceCrop": {
+            "path": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0315-r9.png",
+            "sha256": "e4d10c94623045a20baa6956e2ed9708fa40a248d21335751ca2220a190675ba"
+          }
+        }
+      ],
+      "originalReviewErrors": [
+        "visual_reading_flow_not_faithful",
+        "needs-repair:nemata-jp-p315-b4",
+        "needs-repair:nemata-jp-p315-b7",
+        "needs-repair:nemata-jp-p315-b10",
+        "needs-repair:nemata-jp-p315-b29",
+        "needs-repair:nemata-jp-p315-b31",
+        "needs-repair:nemata-jp-p315-b32",
+        "needs-repair:nemata-jp-p315-b39",
+        "needs-repair:nemata-jp-p315-r1",
+        "needs-repair:nemata-jp-p315-r2",
+        "needs-repair:nemata-jp-p315-r3",
+        "needs-repair:nemata-jp-p315-r17",
+        "needs-repair:nemata-jp-p315-r18",
+        "needs-repair:nemata-jp-p315-r19",
+        "needs-repair:nemata-jp-p315-r26",
+        "error:nemata-jp-p315-r18",
+        "error:flowCheck",
+        "error:nemata-jp-p315-b39"
+      ],
+      "supplementalAudits": [
+        {
+          "path": "audit/pages/nemata-jp/page-0315.3a0d697f891fedb8087d24b4880308c00f6f62ea79a92b1ba3ecd9d60b96207c.7076217daf84.json",
+          "sha256": "c77a1c5aa5f2cbcf37509547a9e1db0b9b59ac775ea70263141b21d85548c4df",
+          "productionSha256": "3a0d697f891fedb8087d24b4880308c00f6f62ea79a92b1ba3ecd9d60b96207c",
+          "status": "needs-repair",
+          "errors": [
+            "needs-repair:nemata-jp-p315-b17",
+            "needs-repair:nemata-jp-p315-b18",
+            "needs-repair:nemata-jp-p315-r8",
+            "needs-repair:nemata-jp-p315-r9",
+            "error:nemata-jp-p315-r8",
+            "error:nemata-jp-p315-r9"
+          ],
+          "note": "Independent review of the first exact-field revision located two further source-backed tile errors (r8/r9 = 2m, not 3m); the earlier review had recorded the opposite as a source-note."
+        }
+      ]
+    }
+  ]
+}

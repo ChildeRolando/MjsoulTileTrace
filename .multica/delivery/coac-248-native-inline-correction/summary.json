@@ -1,0 +1,136 @@
+{
+  "schema": "coach-coac248-native-inline-delivery/1",
+  "recordedAt": "2026-10-27T06:10:00.000Z",
+  "ticket": "COAC-248",
+  "parentTicket": "COAC-244",
+  "scope": "Constrained point-fix entry for native inline PDF pages, applied to nemata-jp pages 309 and 315; no full-page reproduction, no self-issued approval of unlocated changes.",
+  "mechanism": {
+    "pattern": "Reuses the 79-cn exact-field correction pattern: page-scoped root acceptance + preserved production raw + parent candidate + failed audit + independent review of the revision SHA.",
+    "codeCommit": "de26cb1 Add bounded native inline field correction audit route",
+    "codeRepo": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach (branch codex/mortal-rag-ablation)",
+    "patch": "native-inline-correction.patch",
+    "patchSha256": "a5f6cab7f9a60022dba56925d5607cbc6f95a5e62156bed2d4c740c61815f64f",
+    "newModule": "scripts/scene-study/textbook-audit-pdf-native-corrections.mjs",
+    "changedModules": [
+      "scripts/scene-study/textbook-audit-pdf-native.mjs",
+      "scripts/scene-study/textbook-audit.mjs"
+    ],
+    "invariants": [
+      "Every unlisted field of the revision must still equal the preserved production raw parsedOutput byte-for-byte.",
+      "Original production raw, parent candidate and failed audit are never modified; their SHAs are re-verified on every audit and every publication check.",
+      "Each approved change must be derivable from the raw value by unique exact replacements and must carry a bound source crop plus optional source text-block evidence.",
+      "Every failing item of the parent review must be addressed by at least one approved change, and no approved change may be unrelated to a failing item.",
+      "A fresh independent model review of the revision candidate is required; the old review is retained only as history and never counts as the pass for the new bytes.",
+      "Supplemental reviews of earlier revisions can add located defects only when their receipt SHA, revision SHA and change subset are bound and preserved."
+    ]
+  },
+  "tests": {
+    "frame": "vitest",
+    "newTestFile": "scripts/scene-study/textbook-audit-pdf-native-corrections.test.mjs",
+    "newCases": 11,
+    "suitesRun": [
+      "textbook-audit-pdf-native-corrections.test.mjs",
+      "textbook-audit-pdf-native.test.mjs",
+      "textbook-audit.test.mjs",
+      "textbook-audit-pdf-source-corrections.test.mjs"
+    ],
+    "result": "52 passed / 52",
+    "rejectionCases": [
+      "unlisted field change -> audit_native_pdf_raw_figure_changed",
+      "wrong parent candidate SHA -> audit_native_inline_correction_provenance",
+      "wrong source page SHA -> audit_native_inline_correction_provenance",
+      "missed failing audit item -> audit_native_inline_correction_unresolved_audit_item (unit) and compiled/raw mismatch (real data)",
+      "non-unique replacement -> audit_native_inline_correction_replacement_not_unique",
+      "fromValue differing from raw -> audit_native_inline_correction_raw_field_mismatch",
+      "change without source crop -> audit_native_inline_correction_source_evidence",
+      "structural failing item a field diff cannot resolve -> audit_native_inline_correction_structural_error"
+    ],
+    "realDataChecks": "The same rejection set was re-run against the real 309 and 315 approval/proof/raw objects; all tampered variants were rejected."
+  },
+  "pages": {
+    "309": {
+      "parentCandidateSha256": "d323290d8eb056b85a64563702b4d1d1283b3c6eff70cf7ecdb34c9faa84337b",
+      "revisionCandidateSha256": "83950d4ee8aca893170904d43e8526b7a7ec1990fe6fdd238b7a3d40dfea8272",
+      "revisionRoot": "production/sol-high-field-repair13-20261027-p309",
+      "approval": "native-inline-field-corrections.p309.root-acceptance.json",
+      "approvalSha256": "cfd69a864f554b9dd13544ccd8a40d009dc1d3fd857251fb419f67fdac48620e",
+      "receipt": "receipt-p309.passed.json",
+      "receiptSha256": "ff9bfa72b558b62d600698120b19d0aecf179ac931bace3cef906a9bc0621057",
+      "status": "passed",
+      "changes": [
+        "r13 transcription: tile 11 0s -> 5s, total 224088s -> 224588s",
+        "r13 caption: 224088s -> 224588s"
+      ],
+      "reviewCalls": [
+        {
+          "callId": "1391b1ef-f74a-4180-9e74-b3ba27e130a2",
+          "usage": {"inputTokens": 27879, "cachedInputTokens": 0, "outputTokens": 4695}
+        }
+      ]
+    },
+    "315": {
+      "parentCandidateSha256": "772be8e40bf596b7bf25e36aa63e8c17022622e2801a73fc79601bf8a34295b0",
+      "revisionCandidateSha256": "bc2afae254cbb243aa04ba23b73b4a13aa6513d17445c2b895bb7528d43469e3",
+      "revisionRoot": "production/sol-high-field-repair15-20261027-p315",
+      "approval": "native-inline-field-corrections.p315.root-acceptance.json",
+      "approvalSha256": "2804f43bd32fe7ad1a9417893be9e2b1a5a018ce30aa0c0b488c35d7c4ee2ae8",
+      "receipt": "receipt-p315.passed.json",
+      "receiptSha256": "96725bffc7ac5e97777e40f2355eeab26288639ce6c1e029a57aa3a24723c758",
+      "status": "passed",
+      "changes": [
+        "r1/r2/r3 transcription: arrow positions under 7z+3z, 7p+5z, 9m+7z",
+        "r17 transcription: arrows under 2m and the broken-image icon",
+        "r18 transcription+caption: 2s -> 3s and arrows under 3z+4p",
+        "r19 transcription: arrow under 8m",
+        "r26 transcription and b38-b39 paragraph: 久人 -> ヒサト (original is katakana)",
+        "r8/r9 transcription+caption: 3m -> 2m, located by the independent review of revision 1 and confirmed on the source crops"
+      ],
+      "preservedRevision1": {
+        "candidateSha256": "3a0d697f891fedb8087d24b4880308c00f6f62ea79a92b1ba3ecd9d60b96207c",
+        "root": "production/sol-high-field-repair14-20261027-p315",
+        "receipt": "receipt-p315.rev1-needs-repair.json",
+        "status": "needs-repair",
+        "locatedDefects": ["r8 3m -> 2m", "r9 3m -> 2m"],
+        "note": "The first independent review of the exact-field revision found two further source-backed tile errors; the earlier review had recorded the opposite as a source-note."
+      },
+      "reviewCalls": [
+        {
+          "callId": "rev1",
+          "usage": {"inputTokens": 33731, "cachedInputTokens": 0, "outputTokens": 8407},
+          "result": "needs-repair (r8/r9)"
+        },
+        {
+          "callId": "6c9274cf-eacb-4b84-845f-2a67aadd3e21",
+          "usage": {"inputTokens": 33733, "cachedInputTokens": 0, "outputTokens": 8295},
+          "result": "passed"
+        }
+      ]
+    }
+  },
+  "gateways": {
+    "runGateway": "No run-gateway calls were made in this stage. The 20:07:29 and 20:47:33 UTC terminations were run-gateway 503s (api.commandcode.ai / Cloudflare 1102), not the review gateway; no retry was issued against the same limit.",
+    "reviewGateway": "Three review calls completed normally this stage (309 passed; 315 revision 1 needs-repair; 315 revision 2 passed). No 503s, no duplicate dispatches."
+  },
+  "chapterHandoff": {
+    "chapterId": "nemata-jp-chapter-309-1",
+    "pages": [309, 310, 311, 312, 313, 314, 315, 316],
+    "status": "complete-all-pages-passed",
+    "consumer": "COAC-250",
+    "handoffPath": "E:/AgentData/Coach/knowledge/processing/integration/coac248-chapter-309-316-handoff-20261027.json",
+    "verification": "Every page re-verified through verifyAuditForCandidate; all eight returned passed with a model review bound to the current candidate SHA."
+  },
+  "repairList": {
+    "path": "E:/AgentData/Coach/knowledge/processing/audit/unified-repair-list-20261027.json",
+    "before": {"needsRepair": 20, "failedSeparate": 2, "resolvedThisStage": 12},
+    "after": {"needsRepair": 18, "failedSeparate": 2, "resolvedThisStage": 14},
+    "resolvedThisRefresh": ["nemata-jp:page:309", "nemata-jp:page:315"],
+    "remainingNeedsRepair": 18,
+    "remainingBreakdown": {
+      "oldPdf": [79, 50, 217, 263, 98, 257].slice(1),
+      "newPdf": ["nemata-jp:260", "nemata-jp:261", "nemata-jp:262", "nemata-jp:329", "nemata-jp:330"],
+      "web": 7,
+      "protectedSupplement": 1
+    },
+    "failedSeparate": ["web-failed:chapter06-exercise003", "web-failed:chapter06-exercise004"]
+  }
+}
