@@ -16,7 +16,7 @@
 | 场景层定义、槽位抽样、单决策冻结、排除集 | 已实现并有纯函数测试 |
 | 冻结查询（不设置 `filter.topics` / `context.topic`） | 已实现并有测试 |
 | 原始候选、预判校验、20 次顺序、attempts ledger、重复拒绝 | 已实现并有测试 |
-| 两臂请求除交付片段外逐字节一致；用量分列且未知不补零 | 已实现并有测试 |
+| 两臂请求除交付片段外逐字节一致；用量分列、逐字段校验且未知不补零 | 已实现并有测试 |
 | 指标计算、通道分解、限制声明、理由判读契约 | 已实现并有测试 |
 | 与工单 A 的真实门控联通 | **未验证**：A 的 `blind-discard-arena-rag-applicability` 尚未合入；harness 用夹具 gate 验证纯函数，`prepare`/`run` 在真实导入失败时以 `applicability_gate_unavailable` 停止 |
 | pilot（2 局）与 evaluation（8 局）真实运行 | **未运行** |
@@ -103,6 +103,9 @@ evaluation 全程只用该组合。参数字节由 harness 在 selector provider
   uncertain 保留率、引用越界与引用 irrelevant 次数、过滤通道分解（三种语义 basis、机械特例、
   逐条降级、整批 degraded/failed）、语义理由成立性（独立 AI 判读）、生成器/selector/合计用量
   （prejudge 准备、生成器、selector、合计与全部尝试成本分别计数；未知与部分报告不补零）、失败码与真实墙钟、逐 case 配对差。
+- 用量逐字段校验：只有 `inputTokens` 与 `outputTokens` 都是非负整数时才计为“已报告”；字段缺失、负数、非整数
+  或非数值时，整条用量按 `unknown` 计数并保留 `reportedPartial` 中的合法字段，非法值不进入任何数值累计
+  （因此不会出现 NaN 或被序列化成 `null` 的假总量）。`cachedInputTokens` 仅在合法时保留，且不参与合计。
 - 结论规则：semantic 剔除为 0（全部剔除来自机械特例或无法归类）或多数 selfrag 批次降级/失败时，
   结论明确写“本批未能检验语义过滤效果”；不把 token 下降单独当成功；10 局不声称统计显著性。
 
