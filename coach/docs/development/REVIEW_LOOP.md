@@ -2,7 +2,71 @@
 
 本页说明 Coach 产品与本地交付工具的边界。工具源码、测试和发布由独立本地工具仓维护。
 
-## 当前交付方式（2026-10-15）
+## 当前接入（2026-10-27 生产读回）
+
+本节只记录边界与分工，不复制工具实现。事实来源：生产配置
+`C:/Users/Roland/.multica/review-loop-v2/config.json`，以及工具证据
+`production-activation.json`（2026-10-26T19:02:22Z，`status=ACTIVATED`，
+release `f26ef56b6c2a3c40b5a48bef98080b2318c51ec7`，前一版本
+`0b25ae3f519a47bf4e66a4bbf28b79b546b4d504`，**保留为回滚点**；切换前的运行状态与账本一并保留）。
+配置、凭据、私有 ledger 与 state 目录仍只在私有工具目录，不进入本仓库。
+
+### 运行时
+
+- `review.enabled=true`、`delivery.enabled=true`；二者与顶层 `enabled` 不是同一开关。
+- 顶层 `enabled=false` 继续表示**旧 Controller Autopilot 暂停**：固定版本部署前工具会断言它为
+  `false`，`maintenance` 也把 `legacy_controller_enabled` 读作它的值。它不是自动评审的关闭信号，
+  也不能据此推断评审未启用。
+- `auto_merge` 与 `delivery` 均为 squash；状态检查上下文仍是 `Review Loop v2`。
+
+### Reviewer 池（multi / priority）
+
+- `review.engine=multi`、`review.mode=priority`：按 `review.reviewers` 的顺序，最高优先级的可用
+  reviewer 独自决定本轮；该 reviewer 饱和时顺延到下一位；全部饱和时本轮等待容量，不把排队伪装成执行。
+- 当前池为两位：`gptweb`（GPT-Web 独立评审）与 `local`（本地独立评审），各自 `max_concurrency=1`。
+- `capacity_key` 表达共享执行资源，不只按 agent 计数。`gptweb` 共用 `gptweb-browser` 容量，
+  `capacity_resources.gptweb-browser.max_concurrency=1`，状态来自本机网页桥的鉴权
+  `/v1/status`。**GPT-Web 全局并发为 1**：复制 agent 或改显示名都不会增加真实浏览器页容量。
+- 网页桥忙碌时适配器 `reject_if_busy`，不隐藏排队；已超等待预算但真实 run 仍活跃的评审继续占用
+  资源并接收本轮迟到结果。
+
+### 独立工作树并行执行
+
+- 项目资源使用 `execution_mode=worktree`：**同一个现有 Ticket 编码执行器**（`fixer_id=ba77da89-8574-4dea-8fc2-24e841fc2754`，
+  现有并发 6）可同时对多个已拆工单执行，每个工单在平台分配的独立分支与工作树里，代码负责人不争用原始 checkout。
+- 不新增队长、成员或小队抽象：并行度来自同一执行器的并发与工作树隔离，不来自新的团队对象；也没有第二套队列、
+  第二套消息通道或新的流程工单。
+
+### GPT-Web 上下文预取与结果写入
+
+- 可信本机适配器在首次网页提示前**一次性**预取评审上下文：入口/配置/工作区来自运行时配置，agent/run 来自环境
+  （`MULTICA_AGENT_ID`/`MULTICA_TASK_ID`）；调用使用字面参数数组与 `shell=false`，校验 stage、issue、
+  repository、PR 号、head、worktree 与结果路径的自洽及包含关系通过后才注入（超时 10s、上限 256 KiB，
+  任何无效输出都拒绝注入）。
+- 网页只读指定源码路径，结论通过 `CodexPro.write` 写到授权结果根下的相对路径；会话文本只作留档，不能替代
+  缺失的结果文件。**不在网页工具里执行私有控制程序**，适配器也不在本地合成评审结论；预取失败后该 run 永久
+  拒答后续提示（fail closed），不回落成“猜一个结果”。
+
+### 结果文件与授权目录
+
+- **结果文件是唯一评审事实源**。Reviewer 读取工具入口给出的固定候选、worktree 与结果路径，只把
+  结论写入 `context` 给出的 `result_path`；GPT-Web 通过 `codexpro write` 写入固定授权根下的相对
+  结果路径，会话文本仅作留档。缺少文件就保留待处理，不从文字补造文件；结果里的 `head_sha` 必须
+  与本轮候选相等。
+- 授权结果根由 `review.result_root` 与 `review.result_workspace_root` 共同决定，当前为
+  `E:/文档/日麻教学/production-review-results`（工作区根 `E:/文档/日麻教学`），按 PR 分子目录。
+  这是**授权写入/读取根的变化**，不是把私有 state、凭据或 ledger 公开：`state_dir` 仍在
+  `C:/Users/Roland/.multica/review-loop-v2/state`，配置与凭据仍在私有目录。
+- 中台消费结果：PASS 发布检查、正常合并并在确认 merged 后关票；CHANGES_REQUIRED 回到同票编码
+  执行器修复新 head 复审；BLOCKED 如实保留。Reviewer 不执行平台状态、GitHub 写或合并。
+
+### 与历史记录的关系
+
+下面的 2026-10-15 说明是**当时**的接入记录（单 reviewer、`engine=multica`、旧结果路径与旧
+prompt 协议）。它保留原始含义，便于理解旧 PR 与旧验收，但不描述当前行为；后续工具发布也不
+追溯改写旧记录。日常评审入口仍是 `review-queue.mjs register`，交付入口仍是 `delivery.mjs`。
+
+## 历史接入说明（2026-10-15，已不代表当前接入）
 
 本次工具改造和验证由Codex完成；日常自动评审仍在Multica的Reviewer run中执行。编码结束直接交Reviewer，通过后合并关同一业务票，阻断直接回本票编码执行器，不经过Controller、不新增流程工单。Codex评审是明确启用的备用入口。轻量程序通过GitHub / Multica CLI交接及交付，不是Multica GPT MCP；旧Controller Autopilot保持暂停。
 
