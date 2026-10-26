@@ -1,4 +1,5 @@
 import { digestOf, studyError } from "./canonical.mjs";
+import { reportedUsage } from "./run.mjs";
 
 /**
  * Paired report for the frozen study (spec §9.4).
@@ -37,19 +38,37 @@ function emptyUsage() {
   return { reportedRuns: 0, unknownRuns: 0, partialRuns: 0, tokens: { inputTokens: 0, outputTokens: 0 } };
 }
 
+const USAGE_TOKEN_FIELDS = Object.freeze(["inputTokens", "outputTokens"]);
+
+function isTokenCount(value) {
+  return Number.isInteger(value) && value >= 0;
+}
+
+/**
+ * Reads a stored usage status without trusting its label: a run that claims
+ * `reported` but lacks a valid count is downgraded to partial, so no illegal
+ * or missing value is ever added into an arm total.
+ */
+function storedUsageTokens(usage) {
+  const tokens = usage.tokens ?? usage.reportedPartial;
+  return USAGE_TOKEN_FIELDS.filter((field) => isTokenCount(tokens?.[field]));
+}
+
 function addUsage(target, usage) {
   if (usage === null || usage === undefined) return target;
-  if (usage.status === "reported") {
-    target.reportedRuns += 1;
-    target.tokens.inputTokens += usage.tokens.inputTokens;
-    target.tokens.outputTokens += usage.tokens.outputTokens;
-  } else if (usage.status === "unknown" && usage.reportedPartial !== undefined) {
-    target.partialRuns += 1;
-    target.tokens.inputTokens += usage.reportedPartial.inputTokens;
-    target.tokens.outputTokens += usage.reportedPartial.outputTokens;
-  } else {
+  if (typeof usage !== "object" || Array.isArray(usage)) {
     target.unknownRuns += 1;
+    return target;
   }
+  const known = storedUsageTokens(usage);
+  if (known.length === 0) {
+    target.unknownRuns += 1;
+    return target;
+  }
+  const tokens = usage.tokens ?? usage.reportedPartial;
+  if (usage.status === "reported" && known.length === USAGE_TOKEN_FIELDS.length) target.reportedRuns += 1;
+  else target.partialRuns += 1;
+  for (const field of known) target.tokens[field] += tokens[field];
   return target;
 }
 
@@ -333,10 +352,9 @@ export function computeStudyReport(input) {
   // before any generator or selector call.
   const preparation = { caseCount: caseIds.length, prejudge: emptyUsage() };
   for (const caseId of caseIds) {
-    const usage = prejudge[caseId]?.usage;
-    addUsage(preparation.prejudge, usage === undefined || usage === null
-      ? { status: "unknown" }
-      : { status: "reported", tokens: { inputTokens: usage.inputTokens, outputTokens: usage.outputTokens } });
+    // The prejudge artifact carries the raw judge usage; validate it here so an
+    // unreported or illegal count is counted as unknown rather than summed.
+    addUsage(preparation.prejudge, reportedUsage(prejudge[caseId]?.usage));
   }
 
   const reasonReview = input.reasonReview === undefined || input.reasonReview === null
@@ -363,6 +381,8 @@ export function computeStudyReport(input) {
 
 function pairedTokens(selfragUsage, baselineUsage) {
   if (selfragUsage?.status !== "reported" || baselineUsage?.status !== "reported") return null;
+  const complete = (usage) => USAGE_TOKEN_FIELDS.every((field) => isTokenCount(usage?.tokens?.[field]));
+  if (!complete(selfragUsage) || !complete(baselineUsage)) return null;
   return {
     inputTokens: selfragUsage.tokens.inputTokens - baselineUsage.tokens.inputTokens,
     outputTokens: selfragUsage.tokens.outputTokens - baselineUsage.tokens.outputTokens,

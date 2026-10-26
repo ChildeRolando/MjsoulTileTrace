@@ -502,7 +502,7 @@ async function commandRun(options) {
       const observationsForBudget = runs
         .filter((run) => run.arm === "selfrag" && casePhase.get(run.caseId) === "pilot" && run.status === "completed")
         .flatMap((run) => (run.gate !== null && run.gate !== undefined && Number.isInteger(run.gate.outputBytes) &&
-          run.usage?.selector?.status === "reported"
+          run.usage?.selector?.status === "reported" && Number.isInteger(run.usage.selector.tokens?.outputTokens)
           ? [{ outputTokens: run.usage.selector.tokens.outputTokens, outputBytes: run.gate.outputBytes }]
           : []));
       const budget = selectSelectorBudget({ observations: observationsForBudget });

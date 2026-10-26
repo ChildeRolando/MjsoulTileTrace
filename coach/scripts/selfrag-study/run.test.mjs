@@ -251,6 +251,59 @@ test('provider failures are recorded once, never retried, and unknown usage stay
   assert.equal(cancelled.failureCode, 'cancelled');
 });
 
+test('usage is validated field by field and never summed from missing or illegal counts', async () => {
+  const observation = runObservation();
+  const cases = [
+    ['missing output', { inputTokens: 12 },
+      { status: 'unknown', reportedPartial: { inputTokens: 12 }, missing: ['outputTokens'] }],
+    ['missing input', { outputTokens: 3 },
+      { status: 'unknown', reportedPartial: { outputTokens: 3 }, missing: ['inputTokens'] }],
+    ['negative', { inputTokens: -1, outputTokens: 5 },
+      { status: 'unknown', reportedPartial: { outputTokens: 5 }, missing: ['inputTokens'] }],
+    ['fractional', { inputTokens: 1.5, outputTokens: 5 },
+      { status: 'unknown', reportedPartial: { outputTokens: 5 }, missing: ['inputTokens'] }],
+    ['non-numeric', { inputTokens: '12', outputTokens: 5 },
+      { status: 'unknown', reportedPartial: { outputTokens: 5 }, missing: ['inputTokens'] }],
+    ['nothing valid', { inputTokens: null, outputTokens: -2 },
+      { status: 'unknown', missing: ['inputTokens', 'outputTokens'] }],
+    ['zero is a real count', { inputTokens: 0, outputTokens: 0 },
+      { status: 'reported', tokens: { inputTokens: 0, outputTokens: 0 } }],
+  ];
+  for (const [label, providerUsage, expected] of cases) {
+    const provider = fakeProvider(() => ready(submissionArguments(observation), providerUsage));
+    const record = await executeStudyRun(baseRun({ generatorProvider: provider }));
+    assert.deepEqual(record.usage.generator, expected, label);
+    assert.deepEqual(record.usage.combined, expected, label);
+    // Nothing serializes into a fake `null` total.
+    const stored = JSON.parse(JSON.stringify(record.usage));
+    for (const scope of ['generator', 'combined']) {
+      const tokens = stored[scope].tokens ?? stored[scope].reportedPartial ?? {};
+      for (const value of Object.values(tokens)) assert.equal(Number.isInteger(value), true, `${label}/${scope}`);
+    }
+  }
+
+  // A cached count is kept only when valid; it feeds no summed total.
+  const cached = fakeProvider(() => ready(submissionArguments(observation), { inputTokens: 10, cachedInputTokens: 4, outputTokens: 2 }));
+  assert.deepEqual((await executeStudyRun(baseRun({ generatorProvider: cached }))).usage.generator,
+    { status: 'reported', tokens: { inputTokens: 10, outputTokens: 2, cachedInputTokens: 4 } });
+  const badCache = fakeProvider(() => ready(submissionArguments(observation), { inputTokens: 10, cachedInputTokens: -4, outputTokens: 2 }));
+  assert.deepEqual((await executeStudyRun(baseRun({ generatorProvider: badCache }))).usage.generator,
+    { status: 'reported', tokens: { inputTokens: 10, outputTokens: 2 } });
+
+  // A partial selector keeps the generator's amounts but reports no complete total.
+  const candidates = candidateResult(observation);
+  const partialGate = {
+    apply: async () => ({ output: candidates, receipt: null, status: 'skipped', usage: { inputTokens: 7 }, elapsedMs: 1 }),
+  };
+  const selfrag = await executeStudyRun(baseRun({
+    arm: 'selfrag', gate: partialGate,
+    generatorProvider: fakeProvider(() => ready(submissionArguments(observation), { inputTokens: 100, outputTokens: 20 })),
+  }));
+  assert.deepEqual(selfrag.usage.selector, { status: 'unknown', reportedPartial: { inputTokens: 7 }, missing: ['outputTokens'] });
+  assert.deepEqual(selfrag.usage.combined,
+    { status: 'unknown', reportedPartial: { inputTokens: 107, outputTokens: 20 }, missing: ['outputTokens'] });
+});
+
 test('submission binding is checked locally and recorded as a failure without retry', async () => {
   const observation = runObservation();
   const candidates = candidateResult(observation);

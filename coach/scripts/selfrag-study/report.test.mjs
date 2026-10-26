@@ -132,6 +132,55 @@ test('the paired report computes every required metric without hiding unknown us
   assert.match(markdown, /selector/u);
 });
 
+test('stored usage is validated field by field instead of summed into NaN', () => {
+  const input = fixtureInput();
+  // A run that reports only one field keeps that amount and no complete total.
+  input.runs[0].usage = {
+    generator: { status: 'unknown', reportedPartial: { inputTokens: 12 }, missing: ['outputTokens'] },
+    selector: null,
+    combined: { status: 'unknown', reportedPartial: { inputTokens: 12 }, missing: ['outputTokens'] },
+  };
+  // A label alone cannot make an incomplete or illegal total count as reported.
+  input.runs[2].usage = {
+    generator: { status: 'reported', tokens: { inputTokens: 7 } },
+    selector: null,
+    combined: { status: 'reported', tokens: { inputTokens: 7, outputTokens: '20' } },
+  };
+  const report = computeStudyReport(input);
+  assert.deepEqual(report.arms.baseline.usage.generator,
+    { reportedRuns: 0, unknownRuns: 0, partialRuns: 2, tokens: { inputTokens: 19, outputTokens: 0 } });
+  assert.deepEqual(report.arms.baseline.usage.combined,
+    { reportedRuns: 0, unknownRuns: 0, partialRuns: 2, tokens: { inputTokens: 19, outputTokens: 0 } });
+  // A paired token delta needs both arms complete; otherwise it stays unstated.
+  assert.equal(report.cases[0].delta.generatorTokens, null);
+
+  const serialized = JSON.parse(JSON.stringify(report));
+  for (const arm of ['baseline', 'selfrag']) {
+    for (const scope of ['generator', 'selector', 'combined']) {
+      for (const value of Object.values(serialized.arms[arm].usage[scope].tokens)) {
+        assert.equal(Number.isInteger(value), true, `${arm}/${scope}`);
+      }
+    }
+  }
+  assert.match(report.digest, /^[0-9a-f]{64}$/u);
+  assert.equal(renderStudyReportMarkdown(report).includes('NaN'), false);
+});
+
+test('prejudge usage with missing or illegal fields counts as partial, never zero-filled', () => {
+  const input = fixtureInput();
+  input.prejudgeByCase[CASE_1].usage = { inputTokens: 5 };
+  input.prejudgeByCase[CASE_2].usage = { inputTokens: -1, outputTokens: 2 };
+  const partial = computeStudyReport(input);
+  assert.deepEqual(partial.preparation.prejudge,
+    { reportedRuns: 0, unknownRuns: 0, partialRuns: 2, tokens: { inputTokens: 5, outputTokens: 2 } });
+
+  input.prejudgeByCase[CASE_1].usage = { inputTokens: 5, outputTokens: 3 };
+  input.prejudgeByCase[CASE_2].usage = { inputTokens: 7, outputTokens: 1 };
+  const reported = computeStudyReport(input);
+  assert.deepEqual(reported.preparation.prejudge,
+    { reportedRuns: 2, unknownRuns: 0, partialRuns: 0, tokens: { inputTokens: 12, outputTokens: 4 } });
+});
+
 test('a batch whose drops are all mechanical is declared unable to test semantic filtering', () => {
   const input = fixtureInput();
   const selfrag = input.runs.find((run) => run.caseId === CASE_1 && run.arm === 'selfrag');

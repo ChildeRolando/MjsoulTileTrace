@@ -141,26 +141,65 @@ export function armsShareEnvelope(baselineRequest, selfragRequest) {
   return canonicalJson(requestEnvelope(baselineRequest)) === canonicalJson(requestEnvelope(selfragRequest));
 }
 
-function reportedUsage(usage) {
-  if (usage === undefined || usage === null) return { status: "unknown" };
-  return { status: "reported", tokens: {
-    inputTokens: usage.inputTokens,
-    ...(usage.cachedInputTokens === undefined ? {} : { cachedInputTokens: usage.cachedInputTokens }),
-    outputTokens: usage.outputTokens,
-  } };
+/** The token fields the report sums; every one must be a non-negative integer. */
+const USAGE_TOKEN_FIELDS = Object.freeze(["inputTokens", "outputTokens"]);
+
+function isTokenCount(value) {
+  return Number.isInteger(value) && value >= 0;
 }
 
+/**
+ * Normalizes one provider usage object field by field.
+ *
+ * Only a usage whose summed fields are all valid non-negative integers is
+ * `reported`. A partially valid object keeps its reported fields under
+ * `reportedPartial` but its status stays `unknown`, so a missing or illegal
+ * count is never added as 0 and never reaches a numeric total. `cachedInputTokens`
+ * is preserved only when valid; it feeds no summed total, so an illegal value
+ * is dropped rather than allowed to poison one.
+ */
+export function reportedUsage(usage) {
+  if (usage === null || typeof usage !== "object" || Array.isArray(usage)) return { status: "unknown" };
+  const tokens = {};
+  const missing = [];
+  for (const field of USAGE_TOKEN_FIELDS) {
+    if (isTokenCount(usage[field])) tokens[field] = usage[field];
+    else missing.push(field);
+  }
+  if (missing.length === 0) {
+    if (isTokenCount(usage.cachedInputTokens)) tokens.cachedInputTokens = usage.cachedInputTokens;
+    return { status: "reported", tokens };
+  }
+  if (Object.keys(tokens).length === 0) return { status: "unknown", missing };
+  return { status: "unknown", reportedPartial: tokens, missing };
+}
+
+/**
+ * Sums usage parts; the total is complete only when every part reports every
+ * summed field. Otherwise the known amounts are kept as a partial and the
+ * complete total stays unknown.
+ */
 function combineUsage(parts) {
-  const reported = parts.filter((part) => part.status === "reported");
-  if (reported.length === 0) return { status: "unknown" };
-  if (reported.length !== parts.length) return { status: "unknown", reportedPartial: reported.reduce((total, part) => ({
-    inputTokens: total.inputTokens + part.tokens.inputTokens,
-    outputTokens: total.outputTokens + part.tokens.outputTokens,
-  }), { inputTokens: 0, outputTokens: 0 }) };
-  return { status: "reported", tokens: reported.reduce((total, part) => ({
-    inputTokens: total.inputTokens + part.tokens.inputTokens,
-    outputTokens: total.outputTokens + part.tokens.outputTokens,
-  }), { inputTokens: 0, outputTokens: 0 }) };
+  if (parts.length === 0) return { status: "unknown" };
+  const totals = {};
+  const missing = [];
+  for (const field of USAGE_TOKEN_FIELDS) {
+    const known = parts
+      .map((part) => {
+        const tokens = part.status === "reported" ? part.tokens : part.reportedPartial;
+        return isTokenCount(tokens?.[field]) ? tokens[field] : undefined;
+      })
+      .filter((value) => value !== undefined);
+    if (known.length === 0) {
+      missing.push(field);
+      continue;
+    }
+    totals[field] = known.reduce((total, value) => total + value, 0);
+    if (known.length !== parts.length) missing.push(field);
+  }
+  if (Object.keys(totals).length === 0) return { status: "unknown" };
+  if (missing.length === 0) return { status: "reported", tokens: totals };
+  return { status: "unknown", reportedPartial: totals, missing };
 }
 
 function parseSubmission({ call, observation }) {
