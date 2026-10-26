@@ -53,6 +53,7 @@ import {
   freezeSelectorBudget,
   loadStudyExclusions,
   prepareStudy,
+  readPrejudgeAttempts,
   sceneFactsFromSnapshot,
   verifyStudy,
 } from "../scripts/selfrag-study/prepare.mjs";
@@ -60,10 +61,13 @@ import { loadResearchSubset } from "../scripts/selfrag-study/knowledge.mjs";
 import { readAttempts } from "../scripts/selfrag-study/schedule.mjs";
 import { runStudyAttempt, selectSelectorBudget } from "../scripts/selfrag-study/run.mjs";
 import {
+  SELF_RAG_STUDY_REASON_AUDIT_ATTESTATION,
+  buildReasonAuditRequests,
+  buildReasonEntries,
   computeStudyReport,
+  deriveStudyPhases,
   renderStudyReportMarkdown,
   validateReasonReview,
-  buildReasonReviewRequest,
 } from "../scripts/selfrag-study/report.mjs";
 
 const coachRoot = resolve(fileURLToPath(new URL("..", import.meta.url)));
@@ -264,15 +268,24 @@ function createStudyDeps(options) {
       const provider = createProvider();
       const request = prejudgeRequest(observation, passages);
       const started = Date.now();
+      // Every failure below is re-thrown with whatever the provider reported,
+      // so the append-only prejudge ledger keeps the paid cost of a call that
+      // never produced a usable judgement.
+      const failed = (code, detail, usage) => {
+        const error = studyError(code, detail);
+        error.usage = usage ?? null;
+        error.elapsedMs = Date.now() - started;
+        return error;
+      };
       const result = await withTimeout((signal) => provider.request(request, signal), CALL_TIMEOUT_MS);
-      if (result.status !== "ready") throw studyError("prejudge_provider_failed", result.status);
+      if (result.status !== "ready") throw failed("prejudge_provider_failed", result.status, result.usage);
       let parsed;
       try {
         parsed = JSON.parse(result.call.arguments);
       } catch {
-        throw studyError("prejudge_invalid", "json");
+        throw failed("prejudge_invalid", "json", result.usage);
       }
-      if (parsed?.caseId !== observation.caseRef) throw studyError("prejudge_invalid", "caseRef");
+      if (parsed?.caseId !== observation.caseRef) throw failed("prejudge_invalid", "caseRef", result.usage);
       return { verdicts: parsed.verdicts, usage: result.usage ?? null, elapsedMs: Date.now() - started, judge: provider.descriptor() };
     },
   };
@@ -516,63 +529,127 @@ async function commandRun(options) {
   if (result.failed.length > 0) process.exitCode = 1;
 }
 
-async function collectReasonEntries(artifactDir) {
+const REASON_REVIEW_ARTIFACT_VERSION = "selfrag-study-reason-review-artifact/v1";
+
+/**
+ * Binds every evaluation drop to its frozen original passage and frozen blind
+ * observation. The selector's reason travels as an untrusted claim; missing or
+ * cross-case bindings are refused by `buildReasonEntries`.
+ */
+async function collectReasonEntries(artifactDir, evaluationCaseIds) {
   const runs = await readRuns(artifactDir);
-  const entries = [];
-  for (const run of runs) {
-    if (run.arm !== "selfrag" || run.status !== "completed") continue;
-    const verdicts = run.gate?.receipt?.verdicts;
-    if (!Array.isArray(verdicts)) continue;
-    for (const verdict of verdicts) {
-      if (verdict.effectiveVerdict !== "irrelevant") continue;
-      entries.push({
-        caseId: run.caseId,
-        sourceRef: verdict.sourceRef,
-        verdict: verdict.verdict,
-        reason: verdict.reason,
-        basis: verdict.basis,
-        premises: verdict.premises,
-      });
+  const candidates = await readJson(join(artifactDir, SELF_RAG_STUDY_ARTIFACTS.candidates));
+  const candidatesByCase = Object.fromEntries(candidates.cases.map((entry) => [entry.caseId, { result: entry.result }]));
+  const observationsByCase = {};
+  for (const caseId of evaluationCaseIds) {
+    try {
+      observationsByCase[caseId] = await readJson(join(artifactDir, SELF_RAG_STUDY_ARTIFACTS.observations, `${caseId}.json`));
+    } catch (error) {
+      // Only an absent observation is tolerated here; a corrupt one still
+      // fails loudly in the reader.
+      if (error?.code !== "ENOENT") throw error;
     }
   }
-  return entries;
+  return buildReasonEntries({ runs, candidatesByCase, observationsByCase, evaluationCaseIds });
 }
 
-async function judgeReasons(artifactDir) {
-  const entries = await collectReasonEntries(artifactDir);
-  if (entries.length === 0) throw studyError("reason_review_no_entries");
-  const provider = createProvider();
-  const request = buildReasonReviewRequest({ entries });
-  const started = Date.now();
-  const result = await withTimeout((signal) => provider.request(request, signal), CALL_TIMEOUT_MS);
-  if (result.status !== "ready") throw studyError("reason_review_provider_failed", result.status);
-  let parsed;
-  try {
-    parsed = JSON.parse(result.call.arguments);
-  } catch {
-    throw studyError("reason_review_invalid", "json");
+async function judgeReasons(artifactDir, entries) {
+  const artifactPath = join(artifactDir, SELF_RAG_STUDY_ARTIFACTS.reasonReview);
+  const createdAt = new Date().toISOString();
+  if (entries.length === 0) {
+    // Evaluation dropped nothing: say so instead of inventing a judgement.
+    const artifact = {
+      schemaVersion: REASON_REVIEW_ARTIFACT_VERSION,
+      promptVersion: SELF_RAG_STUDY_REASON_REVIEW_PROMPT_VERSION,
+      attestation: SELF_RAG_STUDY_REASON_AUDIT_ATTESTATION,
+      status: "not_applicable",
+      createdAt,
+      reason: "evaluation_no_irrelevant_drop",
+      entries: [],
+      verdicts: [],
+      counts: null,
+      calls: [],
+      digest: digestOf({ status: "not_applicable", entries: [], verdicts: [] }),
+    };
+    await writeJsonExclusive(artifactPath, artifact);
+    return { status: "not_applicable", counts: null, calls: [] };
   }
-  const counts = validateReasonReview({ entries, verdicts: parsed.verdicts });
+
+  const provider = createProvider();
+  const verdicts = [];
+  const calls = [];
+  let failure = null;
+  // One fresh provider context per audited reason, fixed prompt, and only the
+  // frozen source plus the frozen blind observation.
+  for (const { index, request } of buildReasonAuditRequests({ entries })) {
+    const started = Date.now();
+    try {
+      const result = await withTimeout((signal) => provider.request(request, signal), CALL_TIMEOUT_MS);
+      if (result.status !== "ready") {
+        const error = studyError("reason_review_provider_failed", result.status);
+        error.usage = result.usage ?? null;
+        throw error;
+      }
+      let parsed;
+      try {
+        parsed = JSON.parse(result.call.arguments);
+      } catch {
+        const error = studyError("reason_review_invalid", "json");
+        error.usage = result.usage ?? null;
+        throw error;
+      }
+      validateReasonReview({ entries: [entries[index]], verdicts: parsed.verdicts });
+      verdicts.push({ ...parsed.verdicts[0], index });
+      calls.push({
+        index,
+        caseId: entries[index].caseId,
+        sourceRef: entries[index].sourceRef,
+        status: "completed",
+        usage: result.usage ?? null,
+        elapsedMs: Date.now() - started,
+      });
+    } catch (error) {
+      const code = typeof error?.message === "string" && /^[a-z0-9_]+$/u.test(error.message)
+        ? error.message : "reason_review_failed";
+      calls.push({
+        index,
+        caseId: entries[index].caseId,
+        sourceRef: entries[index].sourceRef,
+        status: "failed",
+        failureCode: code,
+        usage: error?.usage ?? null,
+        elapsedMs: Date.now() - started,
+      });
+      failure = error;
+      break;
+    }
+  }
+
+  const counts = failure === null ? validateReasonReview({ entries, verdicts }) : null;
   const artifact = {
-    schemaVersion: "selfrag-study-reason-review/v1",
+    schemaVersion: REASON_REVIEW_ARTIFACT_VERSION,
     promptVersion: SELF_RAG_STUDY_REASON_REVIEW_PROMPT_VERSION,
-    attestation: "ai_judgement_not_expert_gold",
-    createdAt: new Date().toISOString(),
+    attestation: SELF_RAG_STUDY_REASON_AUDIT_ATTESTATION,
+    status: failure === null ? "run" : "failed",
+    createdAt,
     judge: provider.descriptor(),
-    usage: result.usage ?? null,
-    elapsedMs: Date.now() - started,
     entries,
-    verdicts: parsed.verdicts,
+    verdicts,
     counts,
-    digest: digestOf({ entries, verdicts: parsed.verdicts }),
+    calls,
+    digest: digestOf({ entries, verdicts }),
   };
-  await writeJsonExclusive(join(artifactDir, SELF_RAG_STUDY_ARTIFACTS.reasonReview), artifact);
-  return artifact;
+  // Written even for an incomplete audit: those calls really were paid for.
+  await writeJsonExclusive(artifactPath, artifact);
+  if (failure !== null) throw failure;
+  return { status: "run", counts, calls };
 }
 
 async function commandReport(options) {
   const artifactDir = resolve(options["--artifacts"]);
   const freeze = await readJson(join(artifactDir, SELF_RAG_STUDY_ARTIFACTS.freeze));
+  // Quality is evaluation-only; phase membership is frozen before any call.
+  const phases = deriveStudyPhases({ sampling: freeze.sampling });
   const candidates = await readJson(join(artifactDir, SELF_RAG_STUDY_ARTIFACTS.candidates));
   const candidatesByCase = Object.fromEntries(candidates.cases.map((entry) => [entry.caseId, { result: entry.result }]));
   const prejudgeByCase = {};
@@ -581,21 +658,25 @@ async function commandReport(options) {
   }
   const runs = await readRuns(artifactDir);
   const attempts = await readAttempts(join(artifactDir, SELF_RAG_STUDY_ARTIFACTS.attempts));
+  const prejudgeAttempts = await readPrejudgeAttempts(join(artifactDir, SELF_RAG_STUDY_ARTIFACTS.prejudgeAttempts));
 
   let reasonReview = null;
   if (options["--judge-reasons"] === true) {
-    reasonReview = await judgeReasons(artifactDir);
+    reasonReview = await judgeReasons(artifactDir, await collectReasonEntries(artifactDir, phases.evaluationCaseIds));
   } else if (typeof options["--reason-review"] === "string") {
     const stored = await readJson(resolve(options["--reason-review"]));
-    reasonReview = { counts: stored.counts };
+    reasonReview = { status: stored.status ?? "run", counts: stored.counts ?? null, calls: stored.calls ?? [] };
   }
 
   const report = computeStudyReport({
-    caseIds: freeze.caseIds,
+    caseIds: phases.evaluationCaseIds,
+    pilotCaseIds: phases.pilotCaseIds,
+    allCaseIds: freeze.caseIds,
     candidatesByCase,
     prejudgeByCase,
     runs,
     attempts,
+    prejudgeAttempts,
     createdAt: new Date().toISOString(),
     reasonReview,
   });

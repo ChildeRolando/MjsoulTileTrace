@@ -1,4 +1,4 @@
-import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
+import { appendFile, mkdir, readFile, rename, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { canonicalJson, digestOf, sha256Text, studyError } from "./canonical.mjs";
 import {
@@ -21,7 +21,7 @@ export const SELF_RAG_STUDY_SAMPLING_VERSION = "scene-layer-hash-slots/v1";
 export const SELF_RAG_STUDY_QUERY_RULE_VERSION = "selfrag-study-query/v1";
 export const SELF_RAG_STUDY_PREJUDGE_PROMPT_VERSION = "selfrag-study-prejudge/v1";
 export const SELF_RAG_STUDY_GENERATOR_PROMPT_VERSION = "selfrag-study-generator/v1";
-export const SELF_RAG_STUDY_REASON_REVIEW_PROMPT_VERSION = "selfrag-study-reason-review/v1";
+export const SELF_RAG_STUDY_REASON_REVIEW_PROMPT_VERSION = "selfrag-study-reason-review/v2";
 export const SELF_RAG_STUDY_FREEZE_VERSION = "selfrag-study-freeze/v1";
 export const SELF_RAG_STUDY_RESEARCH_SUBSET_VERSION = "selfrag-study-research-subset/v1";
 export const SELF_RAG_STUDY_EXCLUSIONS_VERSION = "selfrag-study-exclusions/v1";
@@ -29,6 +29,7 @@ export const SELF_RAG_STUDY_REQUESTS_VERSION = "selfrag-study-requests/v1";
 export const SELF_RAG_STUDY_CANDIDATES_VERSION = "selfrag-study-candidates/v1";
 export const SELF_RAG_STUDY_OBSERVATION_VERSION = "selfrag-study-observation/v1";
 export const SELF_RAG_STUDY_PREJUDGE_VERSION = "selfrag-study-prejudge/v1";
+export const SELF_RAG_STUDY_PREJUDGE_ATTEMPT_VERSION = "selfrag-study-prejudge-attempt/v1";
 export const SELF_RAG_STUDY_PREJUDGE_ATTESTATION = "ai_judgement_not_expert_gold";
 
 /**
@@ -81,6 +82,7 @@ export const SELF_RAG_STUDY_ARTIFACTS = Object.freeze({
   runs: "runs",
   reasonReview: "reason-review.json",
   prejudge: "prejudge",
+  prejudgeAttempts: "prejudge-attempts.jsonl",
   attempts: "attempts.jsonl",
 });
 
@@ -469,6 +471,110 @@ function defaultReadJson() {
   return async (path) => JSON.parse(await readFile(path, "utf8"));
 }
 
+/**
+ * Append-only ledger for the paid prejudge calls (spec §9.1.3, §9.3).
+ *
+ * The claim line is written before the provider request and the settle line
+ * immediately after it returns or throws, so a failure, a coverage rejection
+ * or the `prejudge_no_irrelevant_instances` stop can never erase usage that was
+ * already paid for. `usage` is the raw reported amount; `null` means the
+ * provider reported nothing, which stays unknown rather than becoming zero.
+ */
+export async function readPrejudgeAttempts(path, readFileImpl = readFile) {
+  if (typeof path !== "string" || path.length === 0) throw studyError("study_input_invalid", "path");
+  let text;
+  try {
+    text = await readFileImpl(path, "utf8");
+  } catch (error) {
+    if (error?.code === "ENOENT") return [];
+    throw error;
+  }
+  const records = [];
+  for (const [index, line] of text.split("\n").entries()) {
+    if (line.trim().length === 0) continue;
+    let record;
+    try {
+      record = JSON.parse(line);
+    } catch {
+      throw studyError("study_prejudge_attempt_ledger_corrupt", `line:${index + 1}`);
+    }
+    if (record?.schemaVersion !== SELF_RAG_STUDY_PREJUDGE_ATTEMPT_VERSION) {
+      throw studyError("study_prejudge_attempt_ledger_corrupt", `line:${index + 1}`);
+    }
+    records.push(record);
+  }
+  return records;
+}
+
+async function appendPrejudgeAttempt(path, record) {
+  await mkdir(dirname(path), { recursive: true });
+  await appendFile(path, `${JSON.stringify(record)}\n`, { encoding: "utf8", mode: 0o600 });
+}
+
+/** Persists the intent before any provider request is made. */
+export async function claimPrejudgeAttempt(input) {
+  const path = input.path;
+  if (typeof path !== "string" || path.length === 0) throw studyError("study_input_invalid", "path");
+  if (typeof input.caseId !== "string" || input.caseId.length === 0) throw studyError("study_input_invalid", "caseId");
+  const existing = await readPrejudgeAttempts(path, input.readFile);
+  const attempt = existing.filter((record) => record.caseId === input.caseId).length + 1;
+  const claim = {
+    schemaVersion: SELF_RAG_STUDY_PREJUDGE_ATTEMPT_VERSION,
+    callId: `${input.caseId}#${attempt}`,
+    caseId: input.caseId,
+    attempt,
+    kind: "prejudge",
+    promptVersion: input.promptVersion ?? SELF_RAG_STUDY_PREJUDGE_PROMPT_VERSION,
+    candidateCount: Number.isInteger(input.candidateCount) ? input.candidateCount : null,
+    status: "claimed",
+    claimedAt: input.claimedAt ?? new Date().toISOString(),
+  };
+  await appendPrejudgeAttempt(path, claim);
+  return claim;
+}
+
+function sanitizeAttemptUsage(usage) {
+  if (usage === null || typeof usage !== "object" || Array.isArray(usage)) return null;
+  const tokens = {};
+  for (const field of ["inputTokens", "outputTokens"]) {
+    if (Number.isInteger(usage[field]) && usage[field] >= 0) tokens[field] = usage[field];
+  }
+  return Object.keys(tokens).length === 0 ? null : tokens;
+}
+
+/** Persists the real outcome of a claimed call, success or not. */
+export async function settlePrejudgeAttempt(input) {
+  const path = input.path;
+  if (typeof path !== "string" || path.length === 0) throw studyError("study_input_invalid", "path");
+  const claim = requireObject(input.claim, "claim");
+  if (input.status !== "completed" && input.status !== "failed") {
+    throw studyError("study_input_invalid", `status:${String(input.status)}`);
+  }
+  const record = {
+    ...claim,
+    status: input.status,
+    settledAt: input.settledAt ?? new Date().toISOString(),
+    elapsedMs: Number.isFinite(input.elapsedMs) ? input.elapsedMs : null,
+    usage: sanitizeAttemptUsage(input.usage ?? null),
+    ...(input.failureCode === undefined ? {} : { failureCode: input.failureCode }),
+    ...(input.verdictCounts === undefined ? {} : { verdictCounts: input.verdictCounts }),
+  };
+  await appendPrejudgeAttempt(path, record);
+  return record;
+}
+
+/** Counts and digest the ledger for the freeze; a claim without settle is not success. */
+export function summarizePrejudgeAttemptRecords(records) {
+  const list = Array.isArray(records) ? records : [];
+  return {
+    digest: digestOf(list),
+    records: list.length,
+    claimed: list.filter((record) => record?.status === "claimed").length,
+    completed: list.filter((record) => record?.status === "completed").length,
+    failed: list.filter((record) => record?.status === "failed").length,
+  };
+}
+
 async function listAllGames(corpus) {
   const games = [];
   const pageSize = 5000;
@@ -536,6 +642,7 @@ export async function prepareStudy(input) {
 
 async function prepareWithCorpus(input) {
   const { artifactDir, createdAt, seed, research, exclusions, corpus, deps, writeJson, codeSha } = input;
+  const ledgerPath = join(artifactDir, SELF_RAG_STUDY_ARTIFACTS.prejudgeAttempts);
   const games = await listAllGames(corpus);
 
   const plan = slotPlan();
@@ -575,9 +682,38 @@ async function prepareWithCorpus(input) {
     candidates.push({ caseId: selected.caseId, request, result });
 
     const candidateRefs = result.sourceRefs;
-    const prejudged = candidateRefs.length === 0
-      ? { verdicts: [], usage: null, elapsedMs: 0, judge: null }
-      : await deps.prejudge({ caseId: selected.caseId, observation, passages: result.passages });
+    let prejudged;
+    if (candidateRefs.length === 0) {
+      prejudged = { verdicts: [], usage: null, elapsedMs: 0, judge: null };
+    } else {
+      const claim = await claimPrejudgeAttempt({
+        path: ledgerPath, caseId: selected.caseId, candidateCount: candidateRefs.length,
+      });
+      const started = Date.now();
+      try {
+        prejudged = await deps.prejudge({ caseId: selected.caseId, observation, passages: result.passages });
+      } catch (error) {
+        // A failed call stays in the ledger with whatever usage the adapter
+        // could observe: unknown is recorded as unknown, never as zero.
+        await settlePrejudgeAttempt({
+          path: ledgerPath,
+          claim,
+          status: "failed",
+          usage: error?.usage ?? null,
+          elapsedMs: Number.isFinite(error?.elapsedMs) ? error.elapsedMs : Date.now() - started,
+          failureCode: typeof error?.message === "string" && /^[a-z0-9_]+$/u.test(error.message)
+            ? error.message : "prejudge_failed",
+        });
+        throw error;
+      }
+      await settlePrejudgeAttempt({
+        path: ledgerPath,
+        claim,
+        status: "completed",
+        usage: prejudged?.usage ?? null,
+        elapsedMs: Number.isFinite(prejudged?.elapsedMs) ? prejudged.elapsedMs : Date.now() - started,
+      });
+    }
     const counts = validatePrejudgeVerdicts({ candidateRefs, verdicts: prejudged.verdicts });
     for (const key of Object.keys(counts)) verdictCounts[key] += counts[key];
     prejudgeArtifacts.push({
@@ -675,6 +811,7 @@ async function prepareWithCorpus(input) {
       attestation: SELF_RAG_STUDY_PREJUDGE_ATTESTATION,
       verdictCounts,
       caseCount: prejudgeArtifacts.length,
+      attempts: summarizePrejudgeAttemptRecords(await readPrejudgeAttempts(ledgerPath)),
     },
     schedule: { digest: schedule.digest, rows: schedule.rows.length },
     executionIdentity: providerIdentity,
@@ -819,6 +956,18 @@ export async function verifyStudy(input) {
   if (verdictCounts.irrelevant === 0) throw studyError("verify_prejudge_no_irrelevant_instances");
   if (canonicalJson(verdictCounts) !== canonicalJson(freeze.prejudge?.verdictCounts)) {
     throw studyError("verify_prejudge_mismatch", "verdictCounts");
+  }
+  // The per-call ledger is part of the frozen evidence: editing, deleting or
+  // appending a call after the fact invalidates the preparation.
+  if (freeze.prejudge?.attempts !== undefined) {
+    const attemptRecords = await readPrejudgeAttempts(join(artifactDir, SELF_RAG_STUDY_ARTIFACTS.prejudgeAttempts));
+    const attemptSummary = summarizePrejudgeAttemptRecords(attemptRecords);
+    if (attemptSummary.digest !== freeze.prejudge.attempts.digest ||
+        attemptSummary.completed !== freeze.prejudge.attempts.completed ||
+        attemptSummary.failed !== freeze.prejudge.attempts.failed ||
+        attemptSummary.claimed !== freeze.prejudge.attempts.claimed) {
+      throw studyError("verify_prejudge_mismatch", "attempts");
+    }
   }
 
   const schedule = await readJson(join(artifactDir, SELF_RAG_STUDY_ARTIFACTS.schedule));

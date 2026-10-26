@@ -14,6 +14,7 @@ import {
   freezeSelectorBudget,
   isExcludedGame,
   prepareStudy,
+  readPrejudgeAttempts,
   sceneFactsFromObservation,
   sceneFactsFromSnapshot,
   selectStudyGames,
@@ -365,6 +366,107 @@ test('the pilot freezes one ladder budget once, and evaluation then verifies', a
       artifactDir: directory, readJson: fixture.deps.readJson, budget: { maxOutputTokens: 512, maxOutputBytes: 4096 },
     }), /selector_budget_already_frozen/u);
     const verified = await verifyStudy({ artifactDir: directory, deps: fixture.deps, phase: 'evaluation' });
+    assert.equal(verified.status, 'verified');
+  } finally {
+    await cleanup(directory);
+  }
+});
+
+test('each prejudge call is claimed before it runs and settled immediately on return or failure', async () => {
+  await withTempDir(async (directory) => {
+    const fixture = fixtureStudyDeps();
+    const ledgerPath = join(directory, 'prejudge-attempts.jsonl');
+    let calls = 0;
+    const deps = {
+      ...fixture.deps,
+      prejudge: async ({ caseId, passages }) => {
+        calls += 1;
+        const ledger = await readPrejudgeAttempts(ledgerPath);
+        const claims = ledger.filter((entry) => entry.status === 'claimed' && entry.caseId === caseId);
+        assert.equal(claims.length, 1, `claim persisted before call ${calls}`);
+        if (calls === 2) throw new Error('synthetic_prejudge_failure');
+        return {
+          verdicts: passages.map((passage, index) => ({
+            sourceRef: passage.sourceRef,
+            verdict: index === 0 ? 'irrelevant' : 'uncertain',
+            reason: `fixture reason ${index}`,
+          })),
+          judge: { providerId: 'codex-cli', model: 'gpt-6-luna' },
+          usage: { inputTokens: 10, outputTokens: 5 },
+          elapsedMs: 7,
+        };
+      },
+    };
+    await assert.rejects(() => prepareStudy({ artifactDir: directory, seed: FIXTURE_SEED, deps }), /synthetic_prejudge_failure/u);
+    const ledger = await readPrejudgeAttempts(ledgerPath);
+    assert.equal(calls, 2);
+    assert.equal(ledger.length, 4);
+    const completed = ledger.filter((entry) => entry.status === 'completed');
+    const failed = ledger.filter((entry) => entry.status === 'failed');
+    assert.equal(completed.length, 1);
+    assert.deepEqual(completed[0].usage, { inputTokens: 10, outputTokens: 5 });
+    assert.equal(completed[0].elapsedMs, 7);
+    assert.equal(failed.length, 1);
+    assert.equal(failed[0].failureCode, 'synthetic_prejudge_failure');
+    // The failed call reports no usage: unknown, never zero.
+    assert.equal(failed[0].usage, null);
+    await assert.rejects(() => readFile(join(directory, 'freeze.json'), 'utf8'), { code: 'ENOENT' });
+  });
+});
+
+test('the all-useful stop keeps all ten incurred prejudge costs', async () => {
+  await withTempDir(async (directory) => {
+    await assert.rejects(() => prepareStudy({
+      artifactDir: directory, seed: FIXTURE_SEED, deps: fixtureStudyDeps({ verdict: () => 'useful' }).deps,
+    }), /prejudge_no_irrelevant_instances/u);
+    const ledger = await readPrejudgeAttempts(join(directory, 'prejudge-attempts.jsonl'));
+    const completed = ledger.filter((entry) => entry.status === 'completed');
+    assert.equal(completed.length, 10);
+    assert.equal(completed.reduce((total, entry) => total + entry.usage.inputTokens, 0), 100);
+    assert.equal(completed.reduce((total, entry) => total + entry.usage.outputTokens, 0), 50);
+    assert.equal(ledger.filter((entry) => entry.status === 'claimed').length, 10);
+  });
+});
+
+test('a failed prejudge call keeps the usage the adapter managed to observe', async () => {
+  await withTempDir(async (directory) => {
+    const fixture = fixtureStudyDeps();
+    const deps = {
+      ...fixture.deps,
+      prejudge: async () => {
+        const error = new Error('prejudge_provider_failed');
+        error.usage = { inputTokens: 7, outputTokens: 3 };
+        error.elapsedMs = 11;
+        throw error;
+      },
+    };
+    await assert.rejects(() => prepareStudy({ artifactDir: directory, seed: FIXTURE_SEED, deps }), /prejudge_provider_failed/u);
+    const ledger = await readPrejudgeAttempts(join(directory, 'prejudge-attempts.jsonl'));
+    const failed = ledger.filter((entry) => entry.status === 'failed');
+    assert.equal(failed.length, 1);
+    assert.deepEqual(failed[0].usage, { inputTokens: 7, outputTokens: 3 });
+    assert.equal(failed[0].elapsedMs, 11);
+  });
+});
+
+test('freeze binds the prejudge attempt ledger and verify refuses ledger drift', async () => {
+  const { directory, freeze, fixture } = await prepared();
+  try {
+    assert.equal(freeze.prejudge.attempts.claimed, 10);
+    assert.equal(freeze.prejudge.attempts.completed, 10);
+    assert.equal(freeze.prejudge.attempts.failed, 0);
+    assert.match(freeze.prejudge.attempts.digest, /^[0-9a-f]{64}$/u);
+
+    const path = join(directory, 'prejudge-attempts.jsonl');
+    const original = await readFile(path, 'utf8');
+    await writeFile(path, `${original}${JSON.stringify({
+      schemaVersion: 'selfrag-study-prejudge-attempt/v1',
+      callId: 'study-case-01#2', caseId: 'study-case-01', status: 'claimed',
+    })}\n`, 'utf8');
+    await assert.rejects(() => verifyStudy({ artifactDir: directory, deps: fixture.deps, phase: 'pilot' }),
+      /verify_prejudge_mismatch/u);
+    await writeFile(path, original, 'utf8');
+    const verified = await verifyStudy({ artifactDir: directory, deps: fixture.deps, phase: 'pilot' });
     assert.equal(verified.status, 'verified');
   } finally {
     await cleanup(directory);
