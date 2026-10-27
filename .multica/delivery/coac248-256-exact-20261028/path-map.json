@@ -1,0 +1,24 @@
+{
+  "files": [
+    {
+      "originalPath": "web-production/v1/candidates/79-bilibili-cn/cv1785770.r1.display.json",
+      "deliveryPath": "evidence/parent.json",
+      "sha256": "56ea08c0868e87628f61a777a35c40a9a8372bddfcca23a7daef6be3a3bdafe2"
+    },
+    {
+      "originalPath": "web-sources/v1/79-bilibili-cn/articles/cv1785770/source.json",
+      "deliveryPath": "evidence/source.json",
+      "sha256": "53bbca13df84b169a751041b20f080d244b21684ce896128e5ad8f07b0cd4b23"
+    },
+    {
+      "originalPath": "audit/web/articles/79-bilibili-cn/cv1785770.56ea08c0868e87628f61a777a35c40a9a8372bddfcca23a7daef6be3a3bdafe2.json",
+      "deliveryPath": "evidence/audit.json",
+      "sha256": "8341055fc9fec8aacf5c8dd6344cb5af99cfc6998f76105f7dc7d8e13a9a4b21"
+    },
+    {
+      "originalPath": "audit/calls/6bf6cb0d-1123-45f8-a4b0-975dd270b4c0.json",
+      "deliveryPath": "evidence/review-raw.json",
+      "sha256": "6ed8519078198ecb6310bf2ed36dc5aaddff786ea5b79a82afdf555146ffcf1c"
+    }
+  ]
+}

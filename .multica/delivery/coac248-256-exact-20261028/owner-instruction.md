@@ -1,0 +1,9 @@
+COAC-248按用户01a17f8d-38c9-7cf9-ad2c-01bddd851470核过256-18明确8s修订点。本交接只请现有244 owner零模型补最小准入/冻结入口，不新建消费者，不派模型、不动别章。原授权上限1maker+1靶点/两unknown教学影响独审，总2，当前0calls、0失败void；预算完整保留。
+
+根E:/AgentData/Coach/knowledge/processing。读integration/coac248-256-exact-repair-preflight-20261028/handoff244.json，SHA b7b0229c032f16cab18db698b0db92995dc55fbca175d244ef265ef5ce5cb9e7；旁边preflight.json、teaching-context.json、run.mjs和evidence四份原字节副本，path-map见248交付。完整canonical79-cn-chapter-256-18/cv1785770，父r1.display SHA56ea08c0868e87628f61a777a35c40a9a8372bddfcca23a7daef6be3a3bdafe2、源53bbca13…、原审8341055f…与raw6ed85190…实算及rawLastMessage/modelReview一致。原图1f763b6f…500×500，下方手牌第12张bbox[368,459,391,489)，仅7s与9s间占位补8s并删unknowns[0]，另两河unknown字符串、正文、顺序、其它3图、caption/sourceNotes全部保留。不沿用p257旧主控其它像素断言。
+
+具体阻断：已验production-schema-v2冻结manifest a5cff9c38466a76030b5269ac4367f07695fa3ddb43fb4cbf374069fa852125c 的textbook-audit-web.mjs:186 verifyWebRevisionContent，要求父审除source-note外全是error。此真实父审同一b0016同时有error和uncertain（两河未知），因此web_revision_notes_scope，制作从未派发。原审uncertain不允许过滤/改severity，更不能派完后补假证明。9项输出越界拒绝、28冻结文件、38受保护输入、最新preview/register/真实passed排除、共享check-chapter未认领均已核；目前未claim/未占slot/未建新run/无新候选。
+
+请在现有owner做只对本source/parent/audit/figure/字段白名单的最小合法准入，允许8s明确error修订同时原样携带两unknown和原uncertain至唯一后续影响独审；不因此整章pass、不改普通unknown语义门禁，不放宽其它章。也可确认真实已有合法确定性derived字段路径能承载本独立8s证据而省maker，但必须真实parent/diff/外部独审绑定，不伪造production/raw。复核针对性独审契约能把完整42块有序教学正文和两保留unknown送入一次独立call，避免重复222图目标退化全章或丢邻文顺序；仅判8s修订及两unknown对作者论证的影响，不重读全页所有牌。源注附件编号原source-note保留。
+
+完成零模型回归后返回精确可执行runtime/manifest/准入调用到COAC-248原线程01a17f8d-38c9-7cf9-ad2c-01bddd851470，继续同一次已授权预算；本owner修合同不得消费这2call。248制作和249独审仍先实时三源排除、STOP、原子claim，不自动retry，不新增批。若存在真正不可装配语义缺口，精确列出，不要求用户重贴已给信息。

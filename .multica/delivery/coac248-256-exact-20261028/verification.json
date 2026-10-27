@@ -1,0 +1,54 @@
+{
+  "recordedAt": "2026-10-27T22:56:25.823Z",
+  "newModelCalls": 0,
+  "dispatchRefusedBeforeRunOrClaim": true,
+  "parentAndSourceAndRuntimeAndRawUnchanged": true,
+  "protectedFiles": 38,
+  "articleLedgerUnchanged": true,
+  "priorArticleCallIds": [
+    "d59465bb-7539-4e37-850f-08a0bacea007",
+    "62f11e87-87a0-412c-bc76-452af479ef49",
+    "8edb9889-e306-4695-8b5a-1bc1dc8cf37e"
+  ],
+  "negativeChecks": [
+    {
+      "name": "extra-text",
+      "rejected": true
+    },
+    {
+      "name": "missing-figure",
+      "rejected": true
+    },
+    {
+      "name": "duplicate-figure",
+      "rejected": true
+    },
+    {
+      "name": "empty-transcription",
+      "rejected": true
+    },
+    {
+      "name": "other-tile-change",
+      "rejected": true
+    },
+    {
+      "name": "extra-unknown-removal",
+      "rejected": true
+    },
+    {
+      "name": "duplicate-unknown",
+      "rejected": true
+    },
+    {
+      "name": "caption-change",
+      "rejected": true
+    },
+    {
+      "name": "sourceNote-change",
+      "rejected": true
+    }
+  ],
+  "stdout": "",
+  "stderr": "node:internal/modules/run_main:107\r\n    triggerUncaughtException(\r\n    ^\r\n\r\nAssertionError [ERR_ASSERTION]: No dispatch until existing owner verifies and freezes a legal exact-target admission preserving the two uncertain entries.\r\n+ actual - expected\r\n\r\n+ {\r\n+   code: 'web_revision_notes_scope',\r\n+   stack: 'Error: web_revision_notes_scope\\n' +\r\n+     '    at verifyWebRevisionContent (file:///E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac244-vision-production-schema-v2-20261028/textbook-audit-web.mjs:186:386)\\n' +\r\n+     '    at file:///C:/Users/Roland/multica_workspaces_desktop-api.multica.ai/coach-rolan-2123e9a3b805/coac-248-f877538b9015/worktree/.multica/delivery/coac248-256-exact-20261028/run.mjs:58:104\\n' +\r\n+     '    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)'\r\n+ }\r\n- null\r\n\r\n    at file:///C:/Users/Roland/multica_workspaces_desktop-api.multica.ai/coach-rolan-2123e9a3b805/coac-248-f877538b9015/worktree/.multica/delivery/coac248-256-exact-20261028/run.mjs:117:8 {\r\n  generatedMessage: false,\r\n  code: 'ERR_ASSERTION',\r\n  actual: {\r\n    code: 'web_revision_notes_scope',\r\n    stack: 'Error: web_revision_notes_scope\\n' +\r\n      '    at verifyWebRevisionContent (file:///E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac244-vision-production-schema-v2-20261028/textbook-audit-web.mjs:186:386)\\n' +\r\n      '    at file:///C:/Users/Roland/multica_workspaces_desktop-api.multica.ai/coach-rolan-2123e9a3b805/coac-248-f877538b9015/worktree/.multica/delivery/coac248-256-exact-20261028/run.mjs:58:104\\n' +\r\n      '    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)'\r\n  },\r\n  expected: null,\r\n  operator: 'strictEqual',\r\n  diff: 'simple'\r\n}\r\n\r\nNode.js v24.15.0\r\n",
+  "exitCode": 1
+}

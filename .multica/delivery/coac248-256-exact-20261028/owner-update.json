@@ -1,0 +1,21 @@
+{
+  "recordedAt": "2026-10-27T22:55:32.282292+00:00",
+  "disposition": "authorized-exact8s-preflight-blocked-by-parent-uncertain-admission",
+  "handoff": "integration/coac248-256-exact-repair-preflight-20261028/handoff244.json",
+  "handoffSha256": "b7b0229c032f16cab18db698b0db92995dc55fbca175d244ef265ef5ce5cb9e7",
+  "newCalls": 0,
+  "remainingBudget": {
+    "production": 1,
+    "independentTargetImpactAudit": 1,
+    "retry": 0
+  },
+  "candidateUnchanged": "56ea08c0868e87628f61a777a35c40a9a8372bddfcca23a7daef6be3a3bdafe2",
+  "targetFigure": "79-bilibili-cn:cv1785770:b0016:figure",
+  "remainingRiverUnknowns": [
+    "上方弃牌第二行最右一张，即1p右侧的万子：数字无法可靠辨认。",
+    "右方弃牌靠中央一列最上方一张：可辨为索子，数字无法可靠辨认。"
+  ],
+  "impactAssessment": "Not yet independently assessed; do not infer non-core from controller viewing.",
+  "sourceNotes": "Original attachment-number source-note remains; no change authorized.",
+  "nextOwner": "COAC-244 exact admission / verified runtime; then COAC-248 production and COAC-249 independent target-impact audit."
+}
