@@ -1,0 +1,449 @@
+{
+  "schema": "coach-textbook-web-article-audit/1",
+  "status": "needs-repair",
+  "recordedAt": "2026-10-27T15:25:29.963Z",
+  "source": {
+    "sourceId": "79-bilibili-cn",
+    "articleId": "cv1775262",
+    "url": "https://www.bilibili.com/read/cv1775262",
+    "title": "【日本麻雀讲座译文】防守14—立直的读牌（一）",
+    "language": "zh-CN",
+    "fetchedAt": "2026-10-23T20:31:50.303666+00:00",
+    "sourcePath": "web-sources/v1/79-bilibili-cn/articles/cv1775262/source.json",
+    "sourceSha256": "361ae397c03f0ea2cd58a178341da860a83b6e39ff1ed0baeee6294e13361031",
+    "htmlSha256": "00ba55b262d15739f0f6cf28b92e56751ff0ea9e38aed7e8e2349de8edfa7ae1",
+    "mainSha256": "8311e4033b07646c4a91acfbe1bea660d805802ccbb204c11a5423ce6a810706"
+  },
+  "production": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1775262.r1.display.json",
+    "sha256": "f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6"
+  },
+  "verification": "automatic-independent-review-not-user-human-gold-standard",
+  "deterministicChecks": {
+    "passed": true,
+    "errors": [],
+    "textBlocks": 13,
+    "imageRuns": 10,
+    "imageOccurrences": 10,
+    "figures": 10
+  },
+  "independentSource": {
+    "schema": "coach-textbook-web-independent-source-check/1",
+    "passed": true,
+    "errors": [],
+    "sourceFileSha256": "361ae397c03f0ea2cd58a178341da860a83b6e39ff1ed0baeee6294e13361031",
+    "rawHtmlSha256": "00ba55b262d15739f0f6cf28b92e56751ff0ea9e38aed7e8e2349de8edfa7ae1",
+    "mainSha256": "8311e4033b07646c4a91acfbe1bea660d805802ccbb204c11a5423ce6a810706",
+    "textBlocks": 13,
+    "imageRuns": 10,
+    "imageOccurrences": 10,
+    "uniqueAssets": 10,
+    "method": "offline independent html.parser character-and-image DOM event comparison",
+    "modelCalls": 0
+  },
+  "semanticCompleteness": {
+    "complete": false,
+    "evidence": "全文中文、署名、原文地址、强调、判断条件及例外均保留，所有教学图片均有表达；但例5原图第6张为1万，候选两处写成2m，牌码错误阻断通过。"
+  },
+  "modelChecks": {
+    "passed": false,
+    "errors": [
+      "needs-repair:79-bilibili-cn:cv1775262:b0018",
+      "needs-repair:79-bilibili-cn:cv1775262:b0018:figure",
+      "semantic_information_missing",
+      "error:79-bilibili-cn:cv1775262:b0018:figure"
+    ]
+  },
+  "modelReview": {
+    "blockChecks": [
+      {
+        "id": "79-bilibili-cn:cv1775262:b0001",
+        "verdict": "faithful",
+        "evidence": "“免责声明：”完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1775262:b0002",
+        "verdict": "faithful",
+        "evidence": "著作权声明、译者SeventhTG（XD）及转载署名要求逐字保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1775262:b0003",
+        "verdict": "faithful",
+        "evidence": "原文地址、标题及不能读出具体听牌的判断完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1775262:b0004",
+        "verdict": "faithful",
+        "evidence": "例1及假设A对应已核原图；牌序、横置牌和未知摸入牌均有表达。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1775262:b0005",
+        "verdict": "faithful",
+        "evidence": "14万与69索的摸入、听牌关系，入目说明及B至D不能否定的条件均原样保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1775262:b0006",
+        "verdict": "faithful",
+        "evidence": "假设B、C、D依原顺序表达，各列13张牌对应已核原图。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1775262:b0007",
+        "verdict": "faithful",
+        "evidence": "危险度与安全度、总结、五的里筋及统计尚未知的限定完整保留，强调一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1775262:b0008",
+        "verdict": "faithful",
+        "evidence": "例2的舍牌顺序、横置5索及三处箭头对应已核原图。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1775262:b0009",
+        "verdict": "faithful",
+        "evidence": "早切5饼、已切9饼及14饼危险度较高的论述原样保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1775262:b0010",
+        "verdict": "faithful",
+        "evidence": "例2实际手牌13张逐张列出，与已核原图及14饼听牌语义对应。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1775262:b0011",
+        "verdict": "faithful",
+        "evidence": "早巡切5与立直时切5的区别、57与455等可能形、总结及间四间的质疑注释全部保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1775262:b0012",
+        "verdict": "faithful",
+        "evidence": "间四间表的三列、四种情况及危险牌完整表达，对应已核原图。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1775262:b0013",
+        "verdict": "faithful",
+        "evidence": "相差5的定义、早巡切掉的强调及34和67的条件原样保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1775262:b0014",
+        "verdict": "faithful",
+        "evidence": "例3的11张舍牌、横置8索及三处箭头对应已核原图。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1775262:b0015",
+        "verdict": "faithful",
+        "evidence": "之后摸切、第七巡7万、已切2万、36万本线及饼索缺少判断材料均完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1775262:b0016",
+        "verdict": "faithful",
+        "evidence": "例3实际手牌与例4舍牌按上下顺序表达，牌序、横置及箭头对应已核原图。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1775262:b0017",
+        "verdict": "faithful",
+        "evidence": "58索的判断、终盘6饼不能推出25饼危险的例外、346饼论证及下一节引入均保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1775262:b0018",
+        "verdict": "needs-repair",
+        "evidence": "附图例5第6张为一万，候选将其写成2m，并在箭头说明中重复该错误。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1775262:b0019",
+        "verdict": "faithful",
+        "evidence": "之后摸切、拆23饼两面搭子及应警惕14饼的判断原样保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1775262:b0020",
+        "verdict": "faithful",
+        "evidence": "假设A、B各13张手牌和右侧单列牌完整表达，B的赤5饼明确标注，对应已核原图。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1775262:b0021",
+        "verdict": "faithful",
+        "evidence": "避免二度进张、146饼听牌可能性、总结及从外向内拆嵌张的条件全部保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1775262:b0022",
+        "verdict": "faithful",
+        "evidence": "例6的九张舍牌、白板、横置3万及三处箭头对应已核原图。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1775262:b0023",
+        "verdict": "faithful",
+        "evidence": "25万判断、13万拆搭、间隔5索和东、334万推论、条件不齐或远离立直时的例外及待续均原样保留。"
+      }
+    ],
+    "figureChecks": [
+      {
+        "id": "79-bilibili-cn:cv1775262:b0004:figure",
+        "verdict": "faithful",
+        "evidence": "复用已核原图：例1八张舍牌及第8张9饼横置、假设A十三张手牌完整列出；牌背保持未知。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1775262:b0006:figure",
+        "verdict": "faithful",
+        "evidence": "复用已核原图：假设B、C、D标签和三组十三张牌完整，保留多种可能听牌形的教学意义。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1775262:b0008:figure",
+        "verdict": "faithful",
+        "evidence": "复用已核原图：早巡第4张5饼、第2张9饼及立直横置5索与正文对应，三处箭头保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1775262:b0010:figure",
+        "verdict": "faithful",
+        "evidence": "复用已核原图：11345万、23饼、223344索共十三张，与正文14饼听牌对应。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1775262:b0012:figure",
+        "verdict": "faithful",
+        "evidence": "复用已核原图：条件1、条件2、危险牌三列齐全；3与8对应47、4与9对应58、6与1对应25、7与2对应36，早巡条件未遗漏。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1775262:b0014:figure",
+        "verdict": "faithful",
+        "evidence": "复用已核原图：例3标签、第6张2万、第7张7万、第8张2万及横置8索完整，符合正文第七巡及36万判断。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1775262:b0016:figure",
+        "verdict": "faithful",
+        "evidence": "复用已核原图：例3实际手牌与例4舍牌分层清楚；例4的4索、9索及终盘横置6饼与正文条件对应。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1775262:b0018:figure",
+        "verdict": "needs-repair",
+        "evidence": "原图及放大图可见牌序为南、西、发、8万、5万、1万、北、3饼、横置2饼。候选第6张误写2m；两支箭头实际对应第6张1m及第7张4z。例5标签、其余牌序、横置及无赤牌描述相符。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1775262:b0020:figure",
+        "verdict": "faithful",
+        "evidence": "复用已核原图：假设A、B标签、各十三张连续牌及右侧9索和5索完整；B中的赤5饼明确保留，与二度进张论述对应。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1775262:b0022:figure",
+        "verdict": "faithful",
+        "evidence": "复用已核原图：例6中1万、5索、东、横置3万的先后关系完整，支持正文拆13万且中间隔牌的条件。"
+      }
+    ],
+    "imageChecks": [
+      {
+        "id": "79-bilibili-cn:cv1775262:i00001",
+        "disposition": "represented",
+        "evidence": "以例1及假设A图表达，复用已核原图，未补猜牌背。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1775262:i00002",
+        "disposition": "represented",
+        "evidence": "以假设B、C、D三组完整手牌表达，复用已核原图。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1775262:i00003",
+        "disposition": "represented",
+        "evidence": "以例2舍牌及箭头表达，复用已核原图。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1775262:i00004",
+        "disposition": "represented",
+        "evidence": "以例2十三张实际手牌表达，复用已核原图。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1775262:i00005",
+        "disposition": "represented",
+        "evidence": "以三列四行条件表表达，复用已核原图。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1775262:i00006",
+        "disposition": "represented",
+        "evidence": "以例3完整舍牌及箭头表达，复用已核原图。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1775262:i00007",
+        "disposition": "represented",
+        "evidence": "以例3实际手牌与例4舍牌表达，复用已核原图。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1775262:i00008",
+        "disposition": "represented",
+        "evidence": "例5图已表达且有原图及放大图证据，但第6张一万误录为二万，须修正。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1775262:i00009",
+        "disposition": "represented",
+        "evidence": "以假设A、B手牌及右侧单列牌表达，复用已核原图并标注赤牌。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1775262:i00010",
+        "disposition": "represented",
+        "evidence": "以例6完整舍牌及箭头表达，复用已核原图并明确白板。"
+      }
+    ],
+    "domOrder": {
+      "faithful": true,
+      "evidence": "23个正文块依b0001至b0023自然顺序一一对应，10次图片出现均在原段落位置，未见重排、重复或遗漏。"
+    },
+    "semanticCompleteness": {
+      "complete": false,
+      "evidence": "全文中文、署名、原文地址、强调、判断条件及例外均保留，所有教学图片均有表达；但例5原图第6张为1万，候选两处写成2m，牌码错误阻断通过。"
+    },
+    "issues": [
+      {
+        "severity": "error",
+        "targetId": "79-bilibili-cn:cv1775262:b0018:figure",
+        "sourceEvidence": "附件1及附件2中，例5第5张5万之后、第7张北之前的第6张牌为一万；第一支向下箭头位于该一万上方。",
+        "description": "候选牌序将第6张一万误录为2m，箭头说明亦将该牌重复标为2m。",
+        "suggestedRepair": "将牌序中的第6张2m改为1m，并将箭头说明中的“第6张2m”改为“第6张1m”。修正后牌序为2z 3z 6z 8m 5m 1m 4z 3p 2p，第9张2p横置。"
+      }
+    ],
+    "completeArticleCompared": true,
+    "summary": "已逐项核对全文23块、10幅图及10次图片出现。正文和顺序忠实；例5第6张一万误录为二万，修正前不通过。"
+  },
+  "calls": [
+    {
+      "callId": "f64f0d4f-8833-475e-96dd-a9c5f80e2ba9",
+      "scope": "textbook-web-article-audit",
+      "sourceId": "79-bilibili-cn",
+      "articleId": "cv1775262",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "success": true,
+      "usage": {
+        "inputTokens": 29804,
+        "cachedInputTokens": 0,
+        "outputTokens": 4024
+      },
+      "promptSha256": "51b1445290f983211005dfaef302e3afd481235d0c1249963fadc901478d4993",
+      "semanticPromptSha256": "d2e1b32cda7400343c9dd8781a4e6387d792a2a72e3851d243025be8404fb681",
+      "schemaSha256": "d839f4c471aa04ad1d8023e11c2b85327a20d418e945027db289c1a50ea58190",
+      "outputSha256": "7dfb72d7706cf3798accb6700717968f8fd68ed61cd204386dbdf24fd40fa673",
+      "requestPromptBytes": 61170,
+      "semanticPromptBytes": 60688,
+      "binding": {
+        "productionSha256": "f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6",
+        "sourceFileSha256": "361ae397c03f0ea2cd58a178341da860a83b6e39ff1ed0baeee6294e13361031",
+        "auditorSnapshotSha256": "cc22ef78d8bc532ece4d5b23e0449d46ff7d4fe28eb05511fc205d95db10fde2",
+        "semanticProjectionSha256": "a716c9e9648309439c930422172aef02e4ad9f7cb1ff48c77217865764b34f10",
+        "semanticProjectionVersion": 2,
+        "verifiedAssetIds": [
+          "79-bilibili-cn:4ff806d68ab98feab4e37046",
+          "79-bilibili-cn:999daad6f550e9d0bfcd8cc0",
+          "79-bilibili-cn:f6e6f1345fa33b2bd93fc140",
+          "79-bilibili-cn:ac1227cfc248f158cf13a4f5",
+          "79-bilibili-cn:ae83195091b81bec79b1bfdf",
+          "79-bilibili-cn:c9579005445a78fd7b453000",
+          "79-bilibili-cn:822cd7d9d2e330d06ecac5a3",
+          "79-bilibili-cn:e37c65845d580365c4b6672c",
+          "79-bilibili-cn:4caa022d0d4e924f4e7db15b"
+        ],
+        "originalImageAssetIds": [
+          "79-bilibili-cn:c9aa4cb8776452b777c28214"
+        ],
+        "supplementalInputs": [
+          {
+            "assetId": "79-bilibili-cn:c9aa4cb8776452b777c28214",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.png",
+            "sourceSha256": "d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.x4.png",
+            "sha256": "98f2495dfb2b67f1e57c6639f533e9630c5ce46a35e89fbc55248e60f2136126",
+            "role": "nearest-neighbor-enlargement",
+            "scale": 4,
+            "resampling": "nearest",
+            "width": 1216,
+            "height": 296
+          }
+        ]
+      },
+      "recordedAt": "2026-10-27T15:26:57.844Z"
+    }
+  ],
+  "exactReuse": null,
+  "auditor": {
+    "path": "audit/web/auditors/37e1be6ba9eaa3cab379ff621f0e4a737e9f0cc92c36a2448d9db2c242f4fe17.json",
+    "sha256": "cc22ef78d8bc532ece4d5b23e0449d46ff7d4fe28eb05511fc205d95db10fde2",
+    "combinedSha256": "37e1be6ba9eaa3cab379ff621f0e4a737e9f0cc92c36a2448d9db2c242f4fe17"
+  },
+  "presentation": {
+    "parent": {
+      "path": "web-production/v1/candidates/79-bilibili-cn/cv1775262.r1.json",
+      "sha256": "9ac44dcd61b8228464689b9d7754ff1fc49ebd4d6d9337da4d3d2c33540a9623",
+      "reason": "Lossless display bindings inherited from bound parent; model output and all body/figure semantic content unchanged"
+    },
+    "pixels": {
+      "passed": true,
+      "figures": 10,
+      "method": "independent no-gap no-padding RGBA bottom-aligned concatenation, every pixel"
+    }
+  },
+  "productionCall": {
+    "callId": "20d7f5e0-2640-4b87-bde1-e6505d839822",
+    "rawArtifactPath": "raw-calls/20d7f5e0-2640-4b87-bde1-e6505d839822.json",
+    "rawArtifactSha256": "29f20bf007f3fed7ab1cf0ed1e6dd21b3d8c2d4dfccea5cf1187095bd759a579",
+    "revision": {
+      "revision": {
+        "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1775262.display.json",
+        "parentSha256": "b6f7651df3189cc705e2c1c5f15715b3788352e27368fb6d21efa998b9461ee4",
+        "notesPath": "audit/web/articles/79-bilibili-cn/cv1775262.b6f7651df3189cc705e2c1c5f15715b3788352e27368fb6d21efa998b9461ee4.json",
+        "notesSha256": "7fc9a1172bf463691aa08b8ebf3d69e788d7ec1ff5e9e526b498b2c5b53a8199",
+        "figureIds": [
+          "79-bilibili-cn:cv1775262:b0018:figure"
+        ]
+      },
+      "parentAudit": {
+        "path": "audit/web/articles/79-bilibili-cn/cv1775262.b6f7651df3189cc705e2c1c5f15715b3788352e27368fb6d21efa998b9461ee4.json",
+        "sha256": "7fc9a1172bf463691aa08b8ebf3d69e788d7ec1ff5e9e526b498b2c5b53a8199",
+        "originalStatus": "needs-repair"
+      },
+      "parentCall": {
+        "callId": "3e9688bc-151a-4a97-9ee7-672f12a89d16",
+        "path": "audit/calls/3e9688bc-151a-4a97-9ee7-672f12a89d16.json",
+        "sha256": "5635cbfe6c655574e757b2c0eea080bf730f35f4ded38c12bae9e4e6e8b4cf5e"
+      },
+      "inheritedAssetIds": [
+        "79-bilibili-cn:4ff806d68ab98feab4e37046",
+        "79-bilibili-cn:999daad6f550e9d0bfcd8cc0",
+        "79-bilibili-cn:f6e6f1345fa33b2bd93fc140",
+        "79-bilibili-cn:ac1227cfc248f158cf13a4f5",
+        "79-bilibili-cn:ae83195091b81bec79b1bfdf",
+        "79-bilibili-cn:c9579005445a78fd7b453000",
+        "79-bilibili-cn:822cd7d9d2e330d06ecac5a3",
+        "79-bilibili-cn:e37c65845d580365c4b6672c",
+        "79-bilibili-cn:4caa022d0d4e924f4e7db15b"
+      ]
+    },
+    "visualInputs": {
+      "inputs": [
+        {
+          "assetId": "79-bilibili-cn:c9aa4cb8776452b777c28214",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.png",
+          "sourceSha256": "d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-sources/v1/79-bilibili-cn/assets/d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.png",
+          "sha256": "d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf",
+          "role": "original",
+          "scale": 1,
+          "resampling": "none",
+          "width": 304,
+          "height": 74
+        },
+        {
+          "assetId": "79-bilibili-cn:c9aa4cb8776452b777c28214",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.png",
+          "sourceSha256": "d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.x4.png",
+          "sha256": "98f2495dfb2b67f1e57c6639f533e9630c5ce46a35e89fbc55248e60f2136126",
+          "role": "nearest-neighbor-enlargement",
+          "scale": 4,
+          "resampling": "nearest",
+          "width": 1216,
+          "height": 296
+        }
+      ],
+      "pixels": {
+        "passed": true,
+        "inputs": 2
+      }
+    }
+  },
+  "verifiedAssets": null,
+  "method": "independent-sol-high-full-article-review"
+}

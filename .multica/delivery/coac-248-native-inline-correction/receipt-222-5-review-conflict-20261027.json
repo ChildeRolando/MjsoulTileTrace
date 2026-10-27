@@ -1,0 +1,85 @@
+{
+  "schema": "coach-repair-independent-feedback-intake/1",
+  "recordedAt": "2026-10-27T15:53:38.717651+00:00",
+  "issue": "COAC-248",
+  "wakeupId": "01a17dfd-6271-7d0e-902a-79d2b578b7d6",
+  "chapterId": "79-cn-chapter-222-5",
+  "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1775262.r1.display.json",
+  "candidateSha256": "f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6",
+  "auditPath": "audit/web/articles/79-bilibili-cn/cv1775262.f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6.json",
+  "auditSha256": "403417eaef97305d99506bc9d0a2ec39d4128cfedd0a609ecb470f22a4b252ec",
+  "auditStatus": "needs-repair",
+  "auditCallId": "f64f0d4f-8833-475e-96dd-a9c5f80e2ba9",
+  "priorAuditUsage": {
+    "inputTokens": 29804,
+    "cachedInputTokens": 0,
+    "outputTokens": 4024
+  },
+  "priorIndependentAuditCalls": 1,
+  "reviewCoverage": {
+    "blocks": 23,
+    "figures": 10,
+    "imageOccurrences": 10
+  },
+  "reviewConflict": {
+    "target": "79-bilibili-cn:cv1775262:b0018:figure",
+    "reviewerReading": "1m at sixth position and first arrow",
+    "candidateReading": "2m at sixth position and first arrow",
+    "coordinatorObservation": "Direct inspection of the bound original PNG and x4 nearest-neighbor view appears to show 2m, conflicting with the independent receipt. This observation does not override needs-repair.",
+    "sourcePath": "web-sources/v1/79-bilibili-cn/assets/d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.png",
+    "sourceSha256": "d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf",
+    "disposition": "Return exact original receipt plus the reading conflict to COAC-248/owner. No automatic reversal to 1m, no new production or model review, no self-granted passed."
+  },
+  "originalIndependentIssues": [
+    {
+      "severity": "error",
+      "targetId": "79-bilibili-cn:cv1775262:b0018:figure",
+      "sourceEvidence": "附件1及附件2中，例5第5张5万之后、第7张北之前的第6张牌为一万；第一支向下箭头位于该一万上方。",
+      "description": "候选牌序将第6张一万误录为2m，箭头说明亦将该牌重复标为2m。",
+      "suggestedRepair": "将牌序中的第6张2m改为1m，并将箭头说明中的“第6张2m”改为“第6张1m”。修正后牌序为2z 3z 6z 8m 5m 1m 4z 3p 2p，第9张2p横置。"
+    }
+  ],
+  "owner": "COAC-244 existing stage adjudication",
+  "disposition": "terminal-needs-repair-source-reading-conflict-awaiting-owner",
+  "integrationAllowed": false,
+  "automaticRepairAllowed": false,
+  "independentAuditBudgetRemaining": 0,
+  "retryBudget": 0,
+  "newModelCalls": {
+    "production": 0,
+    "audit": 0,
+    "failed": 0,
+    "void": 0
+  },
+  "historicalProductionFailure": {
+    "schema": "coach-textbook-production-transport-recovery/1",
+    "classification": "exact-websocket-https-tls-fallback-item-after-completed-turn",
+    "originalLedgerRecord": {
+      "path": "web-production/v1/recoveries/20d7f5e0-2640-4b87-bde1-e6505d839822.original-ledger.json",
+      "sha256": "e50fdbed3507769aa27d11d909cddb46597fa5c6c906cb1a951f6b976cb86671"
+    },
+    "rawArtifact": {
+      "path": "web-production/v1/raw-calls/20d7f5e0-2640-4b87-bde1-e6505d839822.json",
+      "sha256": "29f20bf007f3fed7ab1cf0ed1e6dd21b3d8c2d4dfccea5cf1187095bd759a579"
+    },
+    "classifierHelper": {
+      "path": "web-production/v1/runners/ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a.cli.mjs",
+      "sha256": "ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a"
+    },
+    "diagnostic": "Falling back from WebSockets to HTTPS transport. workspace routing discovery timed out",
+    "recoveredAt": "2026-10-27T14:57:16.892Z",
+    "newModelCalls": 0
+  },
+  "historicalFailureCount": 1,
+  "historicalZeroCallRecoveries": 1,
+  "handoff": {
+    "path": "integration\\coac249-reviewed-a222-246-20261027.json",
+    "sha256": "ec16dd22ae1ce0975f8a1326fde586a850f50434161ad6ee9823a51e22e225c2"
+  },
+  "preservedBatch": {
+    "256-18": "already handed to249; untouched by this intake",
+    "276-4": "already failed without candidate; no retry",
+    "246-3": "same handoff passed, already handed to250; no new review"
+  },
+  "newProductionBatch": false
+}

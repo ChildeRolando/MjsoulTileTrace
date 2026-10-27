@@ -1,0 +1,40 @@
+{
+  "recordedAt": "2026-10-27T15:53:38.717651+00:00",
+  "passed": true,
+  "protectedArtifacts": {
+    "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1775262.r1.display.json": "f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1775262.f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6.json": "403417eaef97305d99506bc9d0a2ec39d4128cfedd0a609ecb470f22a4b252ec",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1775262\\source.json": "361ae397c03f0ea2cd58a178341da860a83b6e39ff1ed0baeee6294e13361031",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1785741.r1.display.json": "fc0027a140fb57b07aa1436c5c2bf26785942bd4bc8d88cf546f4f1362492d45",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1785741.fc0027a140fb57b07aa1436c5c2bf26785942bd4bc8d88cf546f4f1362492d45.json": "8fdd6033843b94c2669084bcb939e45cfe72837081408d512b398835db3206f3",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1785741\\source.json": "ec4a726459f21d98599722ba4ccb5d8a95a5e96473a7a91be9f6cc88c8250c51",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.png": "d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\recoveries\\20d7f5e0-2640-4b87-bde1-e6505d839822.original-ledger.json": "e50fdbed3507769aa27d11d909cddb46597fa5c6c906cb1a951f6b976cb86671",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\raw-calls\\20d7f5e0-2640-4b87-bde1-e6505d839822.json": "29f20bf007f3fed7ab1cf0ed1e6dd21b3d8c2d4dfccea5cf1187095bd759a579",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runners\\ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a.cli.mjs": "ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\f64f0d4f-8833-475e-96dd-a9c5f80e2ba9.json": "a38f4973d1a3a896fbe48d9e808a37c143c775f6094fab913aca699c58b11c61",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\a5dfb42d-4f79-49ec-8a15-024768f8e6f4.json": "1c1358fc5ea7a97d452b6ece1be2e259efec5a4c10db40352e7aa80e3a1a8b5a"
+  },
+  "newModelCalls": 0,
+  "remainingRows": 31,
+  "counts": {
+    "parent-evidence-or-adjudication": 20,
+    "B-owned-excluded": 2,
+    "source-recapture-or-pdf": 5,
+    "A-terminal-review-source-reading-conflict-owner-adjudication": 1,
+    "A-revision-handed-to-249-or-current-batch": 1,
+    "A-current-batch-failed-no-output-no-retry": 1,
+    "existing-scope-check-now-passes-no-production-authorization": 1
+  },
+  "countsStoredInventory": {
+    "needsRepair": 40,
+    "awaitingIndependentReview": 2,
+    "decisionHold": 1,
+    "resolvedTotal": 20,
+    "totalTracked": 63,
+    "failedSeparateHistoryRecords": 1,
+    "scope": "Stored objects only, not a fresh whole-book remainder. Unrelated rows are inherited without refreshing their current external audit state; no new passed status inferred."
+  },
+  "productionFailureHistoryPreserved": true,
+  "batch256RowUnchanged": true
+}
