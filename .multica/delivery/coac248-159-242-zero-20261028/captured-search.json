@@ -1,0 +1,82 @@
+{
+  "schema": "coac248-captured-source-image-search/1",
+  "scope": {
+    "E:\\AgentData\\Coach\\knowledge\\processing\\assets": 6879,
+    "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets": 512,
+    "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-sina-cn\\assets": 1,
+    "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets": 149
+  },
+  "method": "Read captured PDF/web original asset headers; for same-aspect assets at least original dimensions, compare nearest-neighbor64x64 RGB samples. Similarity is only a discovery filter, not proof of source identity, clarity, or tile rank. No search thumbnail is saved or supplied as new evidence.",
+  "capturedAssetFiles": 7541,
+  "eligible": {
+    "159": 4,
+    "242": 15
+  },
+  "errors": [],
+  "nearMatches": {
+    "159": [
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\c66cab7e77b66ac9a8955ef8ebe0955fc34d096729700c975062e629032c702e.png",
+        "sha256": "c66cab7e77b66ac9a8955ef8ebe0955fc34d096729700c975062e629032c702e",
+        "nativeSize": [
+          495,
+          529
+        ],
+        "comparisonSampleMAE": 0.0,
+        "exactRGBA": true
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\e0a1029661b1825a3f6f8ff08b261a30eefee2825b934bad8f2ec8431d49d952.png",
+        "sha256": "e0a1029661b1825a3f6f8ff08b261a30eefee2825b934bad8f2ec8431d49d952",
+        "nativeSize": [
+          495,
+          529
+        ],
+        "comparisonSampleMAE": 0.0,
+        "exactRGBA": true
+      }
+    ],
+    "242": [
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\fe9214ed1d4cb16f1a0d857c1f08093f5038203abc349f1b89f1ce054c734618.jpg",
+        "sha256": "fe9214ed1d4cb16f1a0d857c1f08093f5038203abc349f1b89f1ce054c734618",
+        "nativeSize": [
+          501,
+          501
+        ],
+        "comparisonSampleMAE": 0.0,
+        "exactRGBA": true
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\ccb19a3ffc0409921b0058f11860a34560d8c970d79f4b07033059012ea19452.png",
+        "sha256": "ccb19a3ffc0409921b0058f11860a34560d8c970d79f4b07033059012ea19452",
+        "nativeSize": [
+          501,
+          501
+        ],
+        "comparisonSampleMAE": 2.4147136211395264,
+        "exactRGBA": false
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\2e1922c12278d34420f83670d380962821a6ab55a328925892ee308db069e8a3.jpg",
+        "sha256": "2e1922c12278d34420f83670d380962821a6ab55a328925892ee308db069e8a3",
+        "nativeSize": [
+          501,
+          501
+        ],
+        "comparisonSampleMAE": 8.5390625,
+        "exactRGBA": false,
+        "rejectedAsSameSource": {
+          "sourceArticle": "cv1793434",
+          "sourceBlockId": "79-bilibili-cn:cv1793434:b0014",
+          "url": "https://i0.hdslb.com/bfs/article/60b198e39c618de56221c865809a890b531b8d99.jpg",
+          "reason": "Different captured source asset and example. Shared board layout/similarity alone is not source identity. Never borrow its tile code as the answer here."
+        }
+      }
+    ]
+  },
+  "noNetwork": true,
+  "noModel": true,
+  "noOCR": true,
+  "candidateModified": false
+}

@@ -1383,12 +1383,153 @@
     160,
     161
    ],
-   "currentDisposition": "needs-repair",
+   "currentDisposition": "single-public-tile-source-packet-verified-no-model-budget",
    "origin": "COAC-246 coverage verification 2026-10-27",
    "newThisStage": true,
    "auditRecordedAt": "2026-10-25T17:28:11.881Z",
    "auditSourceStale": false,
-   "diskShaVerified": true
+   "diskShaVerified": true,
+   "pointPacketIntake20261028": {
+    "canonical": "79-cn-chapter-159-9",
+    "candidate": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1751292.display.json",
+     "sha256": "5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373",
+     "bytes": 46828
+    },
+    "source": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1751292\\source.json",
+     "sha256": "a007bfceffd854f07ce1780474a74cff32b0c7837b39c822c5392df5bd681cf7",
+     "bytes": 28679
+    },
+    "audit": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1751292.5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373.retry-1792949291881-6f049dc8.json",
+     "sha256": "16eb1144b0cef9c86968ee30932ec0d10f73bca926ad0cf7610788fccb8eb3ed",
+     "bytes": 25432
+    },
+    "targetFigureId": "79-bilibili-cn:cv1751292:b0013:figure",
+    "location": "上方牌河按画面从左到右第4张；原朝向保持，不旋转，不读出点数",
+    "bbox": [
+     298,
+     126,
+     324,
+     161
+    ],
+    "neighborBBox": [
+     218,
+     120,
+     330,
+     168
+    ],
+    "nativeSize": [
+     495,
+     529
+    ],
+    "oldCalls": [
+     "5477ed1b-a10d-45ed-ae56-c6acaeb39464"
+    ],
+    "sameShaHistory": [
+     {
+      "binding": {
+       "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1751292.5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373.json",
+       "sha256": "483e045b3bbb1d15d8250ca11d819120f6add84c346e6c73aed4286466ded203",
+       "bytes": 17679
+      },
+      "status": "failed",
+      "calls": [
+       "5494b430-f86c-45c8-a595-54d97404a066"
+      ]
+     },
+     {
+      "binding": {
+       "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1751292.5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373.retry-1792949291881-6f049dc8.json",
+       "sha256": "16eb1144b0cef9c86968ee30932ec0d10f73bca926ad0cf7610788fccb8eb3ed",
+       "bytes": 25432
+      },
+      "status": "needs-repair",
+      "calls": [
+       "5477ed1b-a10d-45ed-ae56-c6acaeb39464"
+      ]
+     }
+    ],
+    "originalImageInOldAudit": true,
+    "onlyBlockingIssue": {
+     "severity": "uncertain",
+     "targetId": "79-bilibili-cn:cv1751292:b0013:figure",
+     "sourceEvidence": "附图5、10中，上方牌河从左到右第4张为朝向上方玩家的万子牌；候选transcription及unknowns均注明其数字无法可靠确认。",
+     "description": "该未知涉及牌河中的实际牌码，不能视为非教学边缘残痕。当前无法完成该图逐牌校对，须阻断语义完整性通过。",
+     "suggestedRepair": "核清该万子牌点数后补入transcription，并同步更新unknowns；无法可靠确认时保留未知和阻断状态，不猜补牌码。"
+    },
+    "currentUnknowns": [
+     "上方牌河按画面从左到右第4张：可辨为万子牌，数字无法可靠确认。"
+    ],
+    "currentTranscription": "中央场况：南4局1本场；立直棒0根。\n中央座风标签位置：下方为东（1z），左方为北（4z），上方为西（3z），右方为南（2z）；各标签朝向对应玩家。\n中央下部标签：宝牌；标签右侧牌：8p。\n四家数值：上方玩家右下侧为+2100；左方玩家右上侧为+5800；下方玩家左上侧为+5400；右方玩家左下侧为△12300。\n下方手牌从左到右：1m 3m 5m 5m 6m 7m 2p 4p 6p 3s 7s 2z 2z。\n上方、左方、右方手牌各为13张牌背，分别横向、纵向、纵向排列。\n上方牌河按画面从左到右：5z 8s 3z ［万子牌，数字无法确认］；四张牌均朝向上方玩家，相对下方手牌旋转180度。\n左方牌河按画面从上到下：1z 4z 1m 1m；四张牌均横置，朝向左方玩家。\n右方牌河按画面从上到下：4z 5z 7z 1z；四张牌均横置，朝向右方玩家。\n下方牌河从左到右：9p 3z 1z 6s。",
+    "currentCaption": "例4：南4局1本场的四家牌桌、数值、牌河与下方手牌。",
+    "reusableFaithfulBodyChecks": 13,
+    "reusableFaithfulFigureChecks": 4,
+    "pixelChecks": [
+     {
+      "role": "target",
+      "bbox": [
+       298,
+       126,
+       324,
+       161
+      ],
+      "cropExact": true,
+      "nearest4EveryPixelExact": true
+     },
+     {
+      "role": "neighbors",
+      "bbox": [
+       218,
+       120,
+       330,
+       168
+      ],
+      "cropExact": true,
+      "nearest4EveryPixelExact": true
+     }
+    ],
+    "alternateCapturedPDF": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\c66cab7e77b66ac9a8955ef8ebe0955fc34d096729700c975062e629032c702e.png",
+     "sha256": "c66cab7e77b66ac9a8955ef8ebe0955fc34d096729700c975062e629032c702e",
+     "sourcePage": 161,
+     "sourceBlockId": "79-cn-p161-b10",
+     "chapterId": "79-cn-chapter-159-9",
+     "nativeSize": [
+      495,
+      529
+     ],
+     "sameRGBA": true,
+     "originalRGBMeanAbsoluteDifference": 0.0,
+     "targetRGBMeanAbsoluteDifference": 0.0,
+     "higherNativeResolution": false,
+     "improvedReadabilityConfirmed": false,
+     "handling": "Exact same pixels; no extra source detail."
+    },
+    "provenClearerSourceFound": false,
+    "nextAction": {
+     "authorizedNewModelCalls": 0,
+     "newConsumers": 0,
+     "candidateEdits": 0,
+     "proposedOnly": {
+      "calls": 1,
+      "model": "gpt-6.1-terra",
+      "reasoningEffort": "max",
+      "type": "independent-point-and-teaching-impact",
+      "scope": "Only this coordinate plus complete original target-example prose: read if possible and independently assess whether retaining its explicit unknown prevents faithful teaching/argument. Do not label non-core merely because it is unknown or out-of-hand.",
+      "failedVoidCount": true,
+      "retry": 0,
+      "requiresNewAuthorization": true
+     },
+     "conditionalIfReadableAndCandidateMustChange": "Separately authorize legal maker1+independent audit1; retain original raw. Not authorized by this packet.",
+     "conditionalIfUnreadable": "Independent bound teaching-impact decision required before any limited-unknown acceptance; controller cannot label the public tile non-core."
+    },
+    "status": "needs-repair",
+    "integrationAllowed": false,
+    "tileRankReadAttempted": false
+   },
+   "nextAction": "Existing244 owner: proposed1 independent terra/max point+teaching-impact call, zero makers; not authorized now. Keep unknown and needs-repair. No blind full review or controller exemption."
   },
   {
    "objectId": "web-chapter:79-cn-chapter-162-3",
@@ -2382,12 +2523,142 @@
     244,
     245
    ],
-   "currentDisposition": "needs-repair",
+   "currentDisposition": "single-public-tile-source-packet-verified-no-model-budget",
    "origin": "COAC-246 coverage verification 2026-10-27",
    "newThisStage": true,
    "auditRecordedAt": "2026-10-25T22:49:01.138Z",
    "auditSourceStale": false,
-   "diskShaVerified": true
+   "diskShaVerified": true,
+   "pointPacketIntake20261028": {
+    "canonical": "79-cn-chapter-242-3",
+    "candidate": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1780438.display.json",
+     "sha256": "62987619296c7f7ef775b41967e69f84802a17c08146df9ffd436f51f84b19aa",
+     "bytes": 58219
+    },
+    "source": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1780438\\source.json",
+     "sha256": "3cac4b7103309b092edada33aa8f698b606aa283ae1ce18f8ce9ba9e8428f6e0",
+     "bytes": 45228
+    },
+    "audit": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1780438.62987619296c7f7ef775b41967e69f84802a17c08146df9ffd436f51f84b19aa.json",
+     "sha256": "332731f14ba75be91479bdefe77bb1a0026fe31d600b693d73d0e62db8ba8515",
+     "bytes": 34077
+    },
+    "targetFigureId": "79-bilibili-cn:cv1780438:b0014:figure",
+    "location": "上方牌河靠中央一行屏幕最左侧；原朝向保持，不读出点数",
+    "bbox": [
+     177,
+     144,
+     202,
+     177
+    ],
+    "neighborBBox": [
+     172,
+     108,
+     319,
+     181
+    ],
+    "nativeSize": [
+     501,
+     501
+    ],
+    "oldCalls": [
+     "770655dc-b68f-4ced-8433-92bc0854431f"
+    ],
+    "sameShaHistory": [
+     {
+      "binding": {
+       "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1780438.62987619296c7f7ef775b41967e69f84802a17c08146df9ffd436f51f84b19aa.json",
+       "sha256": "332731f14ba75be91479bdefe77bb1a0026fe31d600b693d73d0e62db8ba8515",
+       "bytes": 34077
+      },
+      "status": "needs-repair",
+      "calls": [
+       "770655dc-b68f-4ced-8433-92bc0854431f"
+      ]
+     }
+    ],
+    "originalImageInOldAudit": true,
+    "onlyBlockingIssue": {
+     "severity": "uncertain",
+     "targetId": "79-bilibili-cn:cv1780438:b0014:figure",
+     "sourceEvidence": "附图1及放大图6的上方牌河靠中央一行最左端为一张万子；候选转录为“?m 7p 1z 7z 2z 1p”，并在unknowns中注明该万子点数无法可靠辨认。",
+     "description": "该次牌面出现尚无确定点数，?m是未完成的牌码，无法满足逐牌完整转录要求。",
+     "suggestedRepair": "依据已附原图确认该张万子的点数，替换?m并同步修订unknowns；未能确定前保留不确定状态并阻断通过，不猜填牌码。"
+    },
+    "currentUnknowns": [
+     "上方牌河靠近中央一行的屏幕最左侧万子牌：无法可靠辨认具体点数，转录为?m。"
+    ],
+    "currentTranscription": "场况：南2局0本场。中央立直棒计数：0根；“宝牌”标签右侧为9p。\n座位与点数：屏幕下方北家31600；右方东家41400；上方南家13200；左方西家13800。\n下方手牌，从左到右：2m 3m 4m 4m 1p 2p 3p 4p 5p 6p 7p 6s 6s。上方、右方各有13张背面朝外的暗牌，左方有10张。\n左家副露位于屏幕左下：6z 6z 6z。从屏幕上至下，第一张竖放，第二、三张横放；第一张相对于另外两张横置。\n下方牌河：第一行从左到右为1s 3z 9s 5z 6z 8m；第二行位于第一行左端下方，从左到右为2z 4z。\n上方牌河：靠近中央的一行，从屏幕左到右为?m 7p 1z 7z 2z 1p；其上方、对齐右端的两张，从屏幕左到右为4z 1z。?m为点数未能可靠辨认的万子牌。\n右方牌河：内列从屏幕上到下为9s 2p 3m 5z 1p 3z；外列对齐内列下端，从上到下为1m 1z 7z。\n左方牌河：内列从屏幕上到下为1m 9m 9s 2s 5z 7z；外列对齐内列上端，从上到下为8s 3p 3m。\n各家牌河牌面分别朝向各自玩家。",
+    "currentCaption": "例1：南2局0本场，北家31600点的牌局画面。",
+    "reusableFaithfulBodyChecks": 52,
+    "reusableFaithfulFigureChecks": 4,
+    "pixelChecks": [
+     {
+      "role": "target",
+      "bbox": [
+       177,
+       144,
+       202,
+       177
+      ],
+      "cropExact": true,
+      "nearest4EveryPixelExact": true
+     },
+     {
+      "role": "neighbors",
+      "bbox": [
+       172,
+       108,
+       319,
+       181
+      ],
+      "cropExact": true,
+      "nearest4EveryPixelExact": true
+     }
+    ],
+    "alternateCapturedPDF": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\ccb19a3ffc0409921b0058f11860a34560d8c970d79f4b07033059012ea19452.png",
+     "sha256": "ccb19a3ffc0409921b0058f11860a34560d8c970d79f4b07033059012ea19452",
+     "sourcePage": 242,
+     "sourceBlockId": "79-cn-p242-b11",
+     "chapterId": "79-cn-chapter-242-3",
+     "nativeSize": [
+      501,
+      501
+     ],
+     "sameRGBA": false,
+     "originalRGBMeanAbsoluteDifference": 2.402940034866333,
+     "targetRGBMeanAbsoluteDifference": 8.51878833770752,
+     "higherNativeResolution": false,
+     "improvedReadabilityConfirmed": false,
+     "handling": "Same-page, same-native-size PDF alternative. Preserve as an alternate input inventory; different pixels/PNG format do not prove better clarity or a tile reading. Do not replace the bound web original."
+    },
+    "provenClearerSourceFound": false,
+    "nextAction": {
+     "authorizedNewModelCalls": 0,
+     "newConsumers": 0,
+     "candidateEdits": 0,
+     "proposedOnly": {
+      "calls": 1,
+      "model": "gpt-6.1-terra",
+      "reasoningEffort": "max",
+      "type": "independent-point-and-teaching-impact",
+      "scope": "Only this coordinate plus complete original target-example prose: read if possible and independently assess whether retaining its explicit unknown prevents faithful teaching/argument. Do not label non-core merely because it is unknown or out-of-hand.",
+      "failedVoidCount": true,
+      "retry": 0,
+      "requiresNewAuthorization": true
+     },
+     "conditionalIfReadableAndCandidateMustChange": "Separately authorize legal maker1+independent audit1; retain original raw. Not authorized by this packet.",
+     "conditionalIfUnreadable": "Independent bound teaching-impact decision required before any limited-unknown acceptance; controller cannot label the public tile non-core."
+    },
+    "status": "needs-repair",
+    "integrationAllowed": false,
+    "tileRankReadAttempted": false
+   },
+   "nextAction": "Existing244 owner: proposed1 independent terra/max point+teaching-impact call, zero makers; not authorized now. Keep unknown and needs-repair. No blind full review or controller exemption."
   },
   {
    "objectId": "web-chapter:79-cn-chapter-246-3",
