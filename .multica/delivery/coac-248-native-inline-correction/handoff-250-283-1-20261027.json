@@ -1,0 +1,111 @@
+{
+  "schema": "coac250-incremental-staging-receipt/1",
+  "recordedAt": "2026-10-27T09:55:00.000Z",
+  "modelCalls": 0,
+  "productionCalls": 0,
+  "from_": "COAC-248",
+  "to": "COAC-250",
+  "before": {
+    "pointer": "accepted-content-preview-2026-10-27T07-16-27-706Z",
+    "chapters": 207,
+    "units": 215,
+    "selectedWeb": 178,
+    "pendingWeb": 45,
+    "corpusId": "472db63a58434c11bbbb542d082e66d780300d4527a14fbca9ca4f113ced52d5",
+    "note": "read from integration/accepted-content-preview-2026-10-27T07-16-27-706Z/accepted-preview-receipt.json in this round; it is still the newest accepted preview",
+    "receiptPath": "integration/accepted-content-preview-2026-10-27T07-16-27-706Z/accepted-preview-receipt.json",
+    "receiptSha256": "4502ebc09774251a12c3d251ad14327a9016dfb7177075b619333051fed10b4b"
+  },
+  "chapters": [
+    {
+      "chapterId": "nemata-jp-chapter-283-1",
+      "articleId": "chapter06-exercise003",
+      "sourcePath": "web-sources/v1/modern-yabejp-ja/articles/chapter06-exercise003/source.v3.json",
+      "sourceSha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de",
+      "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter06-exercise003.rev1.json",
+      "parentSha256": "dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899",
+      "parentAuditPath": "audit/web/articles/modern-yabejp-ja/chapter06-exercise003.dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899.json",
+      "parentAuditSha256": "749e242c54019cb6b855a03e6df4fe465bed86e1cf50d7869be548a3b0144d40",
+      "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter06-exercise003.rev2.json",
+      "candidateSha256": "849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3",
+      "candidateAuditPath": "audit/web/articles/modern-yabejp-ja/chapter06-exercise003.849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3.json",
+      "candidateAuditSha256": "21d909b832c28e62a76f453863ed24d8fc8738adbb54b36bfd8117b9395d5aea",
+      "candidateAuditStatus": "needs-repair",
+      "effectiveStatus": "passed-after-independent-resolution",
+      "aggregationPath": ".multica/delivery/coac-248-native-inline-correction/aggregation-283-1-20261027.json",
+      "aggregationSha256": "587457c41da5d080c75dc712ae0d9a8c08717d119bfdcb66e1dba8a07317fbeb",
+      "resolutionRecords": {
+        "tablePosition": {
+          "003": {
+            "path": "audit/web/adjudications/group-revision-283-1/table-context-recheck-003-20261027.rev2.json",
+            "sha256": "3b080b33ee94708ed7d7ca958c182da30512d4345a53cd2ed216c06dfef5f895"
+          },
+          "005": {
+            "path": "audit/web/adjudications/group-revision-283-1/table-context-recheck-005-20261027.rev2.json",
+            "sha256": "fa5e75a7208ab9965bcd288b382cdd60b82e0f6e9313a1e2719d3e56cd60b6c3"
+          },
+          "006": {
+            "path": "audit/web/adjudications/group-revision-283-1/table-context-recheck-006-20261027.rev2.json",
+            "sha256": "45dd54ede79fa73c6f280dc1ec4b5f30553914b8f6937f8b2b9ad1dd16360a0f"
+          },
+          "008": {
+            "path": "audit/web/adjudications/group-revision-283-1/table-context-recheck-008-20261027.rev2.json",
+            "sha256": "5f7be676bdc4d43205e90b5a5d1cab0140ebb5c40217d4ce8174b95c45bb567c"
+          }
+        },
+        "cornerWinds": {
+          "path": "audit/web/adjudications/group-revision-283-1/b0785-corner-winds-adjudication-20261027.json",
+          "sha256": "502ad01947e240dd5667578fb5f3de2d129558dc52cba1df6b6a2863b0a4ed30"
+        },
+        "b0099": {
+          "path": "audit/web/adjudications/group-revision-283-1/b0099-limited-review-20261027.json",
+          "sha256": "3f5b3291426e1992371742dea8fd881f1840df27a771d34703dce06ac305609f"
+        },
+        "revisedGroups": {
+          "002": {
+            "path": "audit/web/batches/849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3/554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421/chapter06-exercise003-batch-002.json",
+            "sha256": "5e8c6b0693d238954fc85cd03a915d9bbda79064ac54782abbfaf775ffe10010"
+          },
+          "004": {
+            "path": "audit/web/batches/849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3/554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421/chapter06-exercise003-batch-004.json",
+            "sha256": "cd6d170cd6c69beb83766837524bd32fa2ed15930acf05fa5a58404fc094de36"
+          },
+          "007": {
+            "path": "audit/web/batches/849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3/554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421/chapter06-exercise003-batch-007.json",
+            "sha256": "9fa518acb13dbdfac78129917d547b1ad38a7e54c53cd8938a83de66c0b9af85"
+          },
+          "009": {
+            "path": "audit/web/batches/849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3/554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421/chapter06-exercise003-batch-009.json",
+            "sha256": "50a4862f7d2262d3ac34e1136b1f874e5f342142133dec25e0c5e57abd5cafc7"
+          },
+          "011": {
+            "path": "audit/web/batches/849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3/554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421/chapter06-exercise003-batch-011.json",
+            "sha256": "e421e72910758142e74ef24a3a7a3340ec1de0c04c600f32c260122ba0f5bbab"
+          }
+        }
+      },
+      "evidenceChain": [
+        "6 table-position findings re-decided faithful across 94 blocks and 66 figures by four bounded group rechecks (projectionVersion 3)",
+        "b0785:figure corner winds re-decided candidate-faithful by one bounded visual adjudication",
+        "b0099 external-situation unknown re-decided faithful-preserved and not teaching-affecting by one bounded review",
+        "b0947 river-tile unknowns preserved and accepted by the passed batch-009 revised group review",
+        "dom_order traced to batch-001 context continuity and re-derived from the b0099 re-decision; semantic completeness is a hardcoded route flag"
+      ],
+      "notStagedUntil": "COAC-250 decides; the original audit receipt stays needs-repair and must not be edited",
+      "note": "the chapter is handed with its effective aggregation, not with a rewritten receipt; every original false verdict is preserved in the receipt and listed in the aggregation"
+    }
+  ],
+  "verification": {
+    "deterministicChecks": {
+      "passed": true,
+      "errors": [],
+      "textBlocks": 671,
+      "imageRuns": 524,
+      "imageOccurrences": 1477,
+      "figures": 524
+    },
+    "independentSource": true,
+    "originalFalseKeptSeparate": true,
+    "noReceiptRewritten": true
+  }
+}

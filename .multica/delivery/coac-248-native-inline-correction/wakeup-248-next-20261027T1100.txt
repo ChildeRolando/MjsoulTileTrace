@@ -1,0 +1,16 @@
+继续 COAC-248 主线。先读本票最新评论、`.multica/delivery/coac-248-native-inline-correction/round-20261027T0955.json`、`unified-repair-list-20261027.json`。
+
+上轮（09:25–09:55Z）结果，模型调用 5 次（4 有效 + 1 作废）：
+- 283-1 b0099 限定独立审校 passed（1 次审校、0 制作，调用前零调用预检）：引用忠实、unknown 忠实保留、不影响本题教学；记录 `audit/web/adjudications/group-revision-283-1/b0099-limited-review-20261027.json`。
+- 283-1 章级聚合已做（0 调用）：`aggregation-283-1-20261027.json` 把旧回执的 174 条 modelChecks 全部映射到独立复核记录（94 表格块 + 66 表格图 + 6 表格项 → 4 份限定复核；b0785 块/图/项 → 方位裁决；b0947 块 + i01158 → 009 修订组复审 passed；b0099 → 本轮）。dom_order 追到 batch-001 上下文连续性并由 b0099 裁决重新导出；semantic_information_missing 是 `mergeGroupRevisionReviews` 硬编码 false 的路线常量。旧回执保持 needs-repair 未改写，effectiveStatus 另列。已写 `handoff-250-283-1-20261027.json` 供 250 自行判断是否 staging。
+- 201-1 passed（制作 1 / 审校 1）：b0041「より優先する単騎待ち」原译「更优先选择的单骑听牌」缺比较标记，改为「单骑的优先度低于所选的单骑听牌」；其余 27 块不变。候选 d63f3a89…，审校 6034b9a1… passed。已交 250：`integration/coac250-incremental-201-1-20261027.json`。
+- 199-1 已产出 rev1（候选 3d93eb86…，b0006/b0009 两处一向听修正），但其唯一一次审校调用被判 failed/void：运行期把 transport 诊断条目（"Falling back from WebSockets to HTTPS transport. request timed out"）当作 unexpected item 拒绝，模型其实已返回完整目标文本审阅（两项皆 faithful、无 issue）。该调用已计费计额度，**未自动重试**，等 owner 裁决。
+
+本轮任务：
+1. 若 owner 已就 199-1 审校重试给出裁决：授权则用 `scripts/_audit_web_rev_retry.mjs`（`retryFailed: true`，保留失败回执并记 retryOfAudit）只重试 1 次；未授权则不动。
+2. 236-1、215-4 仍等 owner 就入口给裁决，不要自行派调用。
+3. 继续其余小 web 章：027-1、060-1、089-1、127-1、142-1、347-1 等，每章 1 制作 + 1 审校，前台 1–2 章有限批次。制作走 `textbook-production-web.mjs --revision-from <父 .display.json> --revision-notes <父 needs-repair 回执> --variant rev1 --dictionary … --verified-assets …`；先 `--preflight-only` 零调用预检，再真跑。审校用 `scripts/_audit_web_rev.mjs`（runtime `e89dcffe…`）。新 run 目录冻结 runner 用 `4a5ce8ab…`（与 174-1/187-1/198-1/199-1/201-1 同字节）。
+4. 每次模型调用前做零调用预检：投影/上下文/绑定真实嵌入、检查实际账本额度与在途调用；不得自动追加重试；void/failed 与有效调用分列、用量照记。
+5. 不碰 root 刚分出去的普通 web 并行线，不写共享代码/清单；双槽未验证前仍只用现有单一制作锁。
+6. 若 250 已合入 174-1/187-1/198-1/201-1，只记录 pointer/corpusId 与 chapter id，不重复交接。
+7. 轮末更新清单与本轮记录，一条评论，正常提交，并更新下批唤醒。
