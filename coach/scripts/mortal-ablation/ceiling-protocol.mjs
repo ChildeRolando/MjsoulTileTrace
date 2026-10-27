@@ -1,10 +1,10 @@
 import { appendFileSync, closeSync, existsSync, fsyncSync, mkdirSync, openSync, readFileSync, writeSync } from 'node:fs';
-import { readFile, readdir, writeFile, mkdir,link,unlink } from 'node:fs/promises';
+import { readFile, readdir, writeFile, mkdir,link,unlink,rename } from 'node:fs/promises';
 import { randomUUID } from 'node:crypto';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { hash, read, save, ordered, exists } from '../scene-study/common.mjs';
-export { hash, read, save, ordered, exists };
+import { hash, read, ordered, exists } from '../scene-study/common.mjs';
+export { hash, read, ordered, exists };
 export const ROOT=resolve(fileURLToPath(new URL('../..',import.meta.url)));
 export const VERSION='mortal-scene-ceiling/v1';
 export const SEED='coach-ceiling-20261028-v1';
@@ -16,6 +16,19 @@ export const DEFAULT_SNAPSHOT='E:/AgentData/Coach/knowledge/processing/integrati
 export const DEFAULT_DATABASE='E:/AgentData/Coach/public-replays-20261022/corpus.sqlite';
 export const DEFAULT_OUT='E:/AgentData/Coach/scene-pattern-ceiling-20261028';
 export const mean=xs=>xs.length?xs.reduce((a,b)=>a+b,0)/xs.length:null;
+
+export async function save(path,value,{renameFile=rename,delay=ms=>new Promise(r=>setTimeout(r,ms))}={}){
+  await mkdir(dirname(path),{recursive:true});const text=JSON.stringify(value,null,2)+'\n',temporary=path+'.pending-'+process.pid+'-'+randomUUID();
+  await writeFile(temporary,text,{flag:'wx'});
+  for(let attempt=0;attempt<6;attempt++){
+    try{await renameFile(temporary,path);return;}
+    catch(e){
+      if(await readFile(path,'utf8').then(s=>s===text,()=>false)){await unlink(temporary);return;}
+      if(!['EPERM','EACCES','EBUSY'].includes(e.code)||attempt===5)throw e;
+      await delay(100*2**attempt);
+    }
+  }
+}
 
 export async function writeOnce(path,value) {
   const text=JSON.stringify(value,null,2)+'\n';await mkdir(dirname(path),{recursive:true});

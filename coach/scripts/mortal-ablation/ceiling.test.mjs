@@ -1,8 +1,8 @@
 import { describe, it, expect } from 'vitest';
-import { mkdtemp, readFile, writeFile } from 'node:fs/promises';
+import { mkdtemp, readFile, writeFile,rename } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { BudgetLedger, BUDGETS, assertDataset, chooseVersion,writeOnce } from './ceiling-protocol.mjs';
+import { BudgetLedger, BUDGETS, assertDataset, chooseVersion,writeOnce,save } from './ceiling-protocol.mjs';
 import { indexTextbook, retrieveTextbook } from './ceiling-textbook.mjs';
 import { pairedDifference, summarizeRows, decide } from './ceiling-report.mjs';
 import { decisionRequest,runDecision } from './ceiling-run.mjs';
@@ -10,6 +10,11 @@ import { hash,read } from './ceiling-protocol.mjs';
 import { assertStudySource,selfWindows } from './ceiling-prepare.mjs';
 
 describe('ceiling research boundaries', () => {
+  it('retries a Windows file-occupancy failure without dropping or weakening the checkpoint',async()=>{
+    const dir=await mkdtemp(join(tmpdir(),'ceiling-checkpoint-')),path=join(dir,'state.json');await writeFile(path,JSON.stringify({cases:1}));let attempts=0;
+    await save(path,{cases:2},{renameFile:async(...args)=>{if(++attempts<3)throw Object.assign(Error('occupied'),{code:'EPERM'});return rename(...args);},delay:async()=>{}});
+    expect(attempts).toBe(3);expect(await read(path)).toEqual({cases:2});
+  });
   it('keeps the same game-level West exclusion after lazy snapshot optimization',()=>{
     expect(()=>assertStudySource({completeness:{scores:'complete'},events:[{type:'round_started',roundWind:'E'},{type:'round_started',roundWind:'W'}]})).toThrow(/unsupported_round_wind/);
     expect(()=>assertStudySource({completeness:{scores:'partial'},events:[]})).toThrow(/incomplete/);
