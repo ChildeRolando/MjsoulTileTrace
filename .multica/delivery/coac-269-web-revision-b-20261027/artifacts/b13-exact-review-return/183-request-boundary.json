@@ -1,0 +1,128 @@
+{
+  "recordedAt": "2026-10-27T19:40:14.696Z",
+  "prompt": "独立校对指定修订译文。只审targetTextIds贡献及所附完整段落上下文，所有其它正文和全部图片已按原独立审稿逐字段绑定继承。保留词义、范围、判断力度、条件、例外和句中牌语义，避免重译/重复邻段。严禁工具/资源/网络；只按schema返回，completeTargetScopeCompared只指本次目标范围。\n{\"schema\":\"coach-textbook-target-text-semantic-projection/1\",\"source\":{\"url\":\"http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section003.html\",\"title\":\"字牌待ち読み\",\"language\":\"ja\",\"blocks\":[{\"id\":\"modern-yabejp-ja:chapter03-section003:b0016\",\"type\":\"text\",\"tag\":\"p\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section003:p0007\",\"text\":\"ただ、それでも７%の確率であるから、自分が２シャンテン以下等のアガリに遠い牌姿から安易に切るべきではない。（手を崩すことになるが２枚持ち客風やスジ１･９牌を優先して切るべき。）役牌でロンされた場合の平均放銃点は数牌でロンされた場合より高くなるので尚更である。\",\"segments\":[{\"text\":\"ただ、それでも７%の確率であるから、自分が２シャンテン以下等のアガリに遠い牌姿から安易に切るべきではない。（手を崩すことになるが２枚持ち客風やスジ１･９牌を優先して切るべき。）役牌でロンされた場合の平均放銃点は数牌でロンされた場合より高くなるので尚更である。\",\"marks\":[],\"href\":null}],\"tableContext\":null},{\"id\":\"modern-yabejp-ja:chapter03-section003:b0017\",\"type\":\"text\",\"tag\":\"p\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section003:p0008\",\"text\":\"見えている枚数が同じでも、切られている枚数が多いほうが放銃率が低い。（他家が自分から見て）見えていない牌を優先する為。１枚目が切れた時点でポンされることが多い（結果的に１枚切れの字牌リーチが少なくなる）のも理由として挙げられる。\",\"segments\":[{\"text\":\"見えている枚数が同じでも、\",\"marks\":[],\"href\":null},{\"text\":\"切られている枚数が多いほうが放銃率が低い\",\"marks\":[\"em::\"],\"href\":null},{\"text\":\"。（他家が自分から見て）見えていない牌を優先する為。１枚目が切れた時点でポンされることが多い（結果的に１枚切れの字牌リーチが少なくなる）のも理由として挙げられる。\",\"marks\":[],\"href\":null}],\"tableContext\":null},{\"id\":\"modern-yabejp-ja:chapter03-section003:b0018\",\"type\":\"text\",\"tag\":\"p\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section003:p0009\",\"text\":\"１枚切れ１枚見えの字牌は役牌の方が客風より放銃率が低い。役牌の方が１枚目が切れた時点でポンされることが多いことと、単騎選択の場合に客風単騎の方が出アガリが狙いやすいという打ち手の意志が働く為か。\",\"segments\":[{\"text\":\"１枚切れ１枚見えの字牌は役牌の方が客風より放銃率が低い\",\"marks\":[\"em::\"],\"href\":null},{\"text\":\"。役牌の方が１枚目が切れた時点でポンされることが多いことと、単騎選択の場合に客風単騎の方が出アガリが狙いやすいという打ち手の意志が働く為か。\",\"marks\":[],\"href\":null}],\"tableContext\":null},{\"id\":\"modern-yabejp-ja:chapter03-section003:b0019\",\"type\":\"text\",\"tag\":\"p\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section003:p0010\",\"text\":\"次回からは、特定の牌姿や待ちの形を想定できるケースとその読み方について取り上げていく。  \",\"segments\":[{\"text\":\"次回からは、特定の牌姿や待ちの形を想定できるケースとその読み方について取り上げていく。 \",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null}],\"tableContext\":null}],\"tables\":[]},\"candidate\":{\"title\":\"字牌待牌判断\",\"blocks\":[{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section003:b0016\"],\"paragraphId\":\"modern-yabejp-ja:chapter03-section003:p0007\",\"text\":\"不过，即便如此，放铳概率仍有7%，所以当自己的牌形处于两向听以下等离和牌较远的状态时，不应轻易打出。（虽然会拆散手牌，但应优先打出持有2张的客风牌或筋上的1、9牌。）用役牌放铳时的平均放铳点数高于用数牌放铳时，因此更应如此。\",\"sourceSegments\":[{\"text\":\"ただ、それでも７%の確率であるから、自分が２シャンテン以下等のアガリに遠い牌姿から安易に切るべきではない。（手を崩すことになるが２枚持ち客風やスジ１･９牌を優先して切るべき。）役牌でロンされた場合の平均放銃点は数牌でロンされた場合より高くなるので尚更である。\",\"marks\":[],\"href\":null}],\"tableContext\":null},{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section003:b0017\"],\"paragraphId\":\"modern-yabejp-ja:chapter03-section003:p0008\",\"text\":\"即使能看到的张数相同，*已被打出的张数越多，放铳率就越低*。这是因为其他玩家会优先选择从其自身视角看来尚未见到的牌。此外，第一张被打出时往往就会被碰走（结果使听已打出1张的字牌的立直减少），这也是原因之一。\",\"sourceSegments\":[{\"text\":\"見えている枚数が同じでも、\",\"marks\":[],\"href\":null},{\"text\":\"切られている枚数が多いほうが放銃率が低い\",\"marks\":[\"em::\"],\"href\":null},{\"text\":\"。（他家が自分から見て）見えていない牌を優先する為。１枚目が切れた時点でポンされることが多い（結果的に１枚切れの字牌リーチが少なくなる）のも理由として挙げられる。\",\"marks\":[],\"href\":null}],\"tableContext\":null},{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section003:b0018\"],\"paragraphId\":\"modern-yabejp-ja:chapter03-section003:p0009\",\"text\":\"*对于已打出1张、能看到1张的字牌，役牌的放铳率比客风牌低*。这或许是因为役牌更常在第一张被打出时就被碰走，以及在选择单骑待牌时，牌手会考虑到单骑客风牌更容易荣和。\\n\\n【校注（非原文）：前文数据中，已打出1张且持有0张时，役牌与客风牌的放铳率均为4%；已打出1张且持有1张时，役牌为2%、客风牌为3%。原文“见1张”是否包含已打出的1张，或指另持有1张，尚未确认；此处保留原文条件，不将其改为“持有1张”。】\",\"sourceSegments\":[{\"text\":\"１枚切れ１枚見えの字牌は役牌の方が客風より放銃率が低い\",\"marks\":[\"em::\"],\"href\":null},{\"text\":\"。役牌の方が１枚目が切れた時点でポンされることが多いことと、単騎選択の場合に客風単騎の方が出アガリが狙いやすいという打ち手の意志が働く為か。\",\"marks\":[],\"href\":null}],\"tableContext\":null},{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section003:b0019\"],\"paragraphId\":\"modern-yabejp-ja:chapter03-section003:p0010\",\"text\":\"从下次开始，将介绍能够推测出特定牌形或待牌形状的情况，以及相应的判断方法。\",\"sourceSegments\":[{\"text\":\"次回からは、特定の牌姿や待ちの形を想定できるケースとその読み方について取り上げていく。 \",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null}],\"tableContext\":null}],\"figures\":[]},\"visualEvidence\":{\"verifiedExactAssetIds\":[],\"attachedOriginalImages\":[]},\"targetTextIds\":[\"modern-yabejp-ja:chapter03-section003:b0018\"],\"coverage\":\"Entire unchanged article and all images inherit a bound independent parent review; only these explicitly rejected text contributions are newly reviewed with their complete paragraph and adjacent source context.\"}",
+  "schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "blockChecks": {
+        "type": "array",
+        "minItems": 1,
+        "maxItems": 1,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "string",
+              "enum": [
+                "modern-yabejp-ja:chapter03-section003:b0018"
+              ]
+            },
+            "verdict": {
+              "enum": [
+                "faithful",
+                "needs-repair",
+                "uncertain"
+              ]
+            },
+            "evidence": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "verdict",
+            "evidence"
+          ]
+        }
+      },
+      "contextContinuity": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "faithful": {
+            "type": "boolean"
+          },
+          "evidence": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "faithful",
+          "evidence"
+        ]
+      },
+      "semanticCompleteness": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "complete": {
+            "type": "boolean"
+          },
+          "evidence": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "complete",
+          "evidence"
+        ]
+      },
+      "issues": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "severity": {
+              "enum": [
+                "error",
+                "uncertain",
+                "source-note"
+              ]
+            },
+            "targetId": {
+              "type": "string"
+            },
+            "sourceEvidence": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "suggestedRepair": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "severity",
+            "targetId",
+            "sourceEvidence",
+            "description",
+            "suggestedRepair"
+          ]
+        }
+      },
+      "completeTargetScopeCompared": {
+        "type": "boolean"
+      },
+      "summary": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "blockChecks",
+      "contextContinuity",
+      "semanticCompleteness",
+      "issues",
+      "completeTargetScopeCompared",
+      "summary"
+    ]
+  },
+  "model": "gpt-6.1-sol",
+  "reasoningEffort": "high",
+  "images": [],
+  "timeoutMs": 900000,
+  "projectionSha256": "a894ee9db3a34efd3b28c34c4cb76d9781efb94151703a7fea58b32a43795fab"
+}

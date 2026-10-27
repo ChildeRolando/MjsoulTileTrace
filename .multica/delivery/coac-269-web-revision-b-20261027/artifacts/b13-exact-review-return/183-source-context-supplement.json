@@ -1,0 +1,156 @@
+{
+  "schema": "coac249-183-data-context-location/1",
+  "modelCalls": 0,
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter03-section003\\source.v2.json",
+    "sha256": "cb73d3a88d017081031a4de4961ae1a431c7ea24a384eed91865ac70a94b3cf3",
+    "bytes": 20727
+  },
+  "originalSourceIndependentVerification": {
+    "schema": "coach-textbook-web-independent-source-check/1",
+    "passed": true,
+    "errors": [],
+    "sourceFileSha256": "cb73d3a88d017081031a4de4961ae1a431c7ea24a384eed91865ac70a94b3cf3",
+    "rawHtmlSha256": "4c29cc66535ae4d7780f94d668afd72bc6b2be4c009586bc8f770de36d3084f5",
+    "mainSha256": "c774533f02e291d52a8a7c79068c5d125eedcda5c433d3441a76cd01d424dc96",
+    "textBlocks": 19,
+    "imageRuns": 0,
+    "imageOccurrences": 0,
+    "uniqueAssets": 0,
+    "method": "offline independent html.parser character-and-image DOM event comparison",
+    "modelCalls": 0
+  },
+  "defaultReviewProjectionIds": [
+    "modern-yabejp-ja:chapter03-section003:b0016",
+    "modern-yabejp-ja:chapter03-section003:b0017",
+    "modern-yabejp-ja:chapter03-section003:b0018",
+    "modern-yabejp-ja:chapter03-section003:b0019"
+  ],
+  "sourceExcerpts": [
+    {
+      "id": "modern-yabejp-ja:chapter03-section003:b0003",
+      "paragraphId": "modern-yabejp-ja:chapter03-section003:p0003",
+      "tag": "p",
+      "domPath": "main/p[7]",
+      "tableContext": null,
+      "type": "text",
+      "text": "以下のデータは、９〜14巡目の他家リーチに字牌で当たる確率を場合分け（役牌か客風か、自分から見て何枚見えていて、そのうち切れているものと自分が持っているのとがそれぞれ何枚か）して調べたものです。（『GAME JAPAN 2008年 3月号",
+      "segments": [
+        {
+          "text": "以下のデータは、９〜14巡目の他家リーチに字牌で当たる確率を場合分け（役牌か客風か、自分から見て何枚見えていて、そのうち切れているものと自分が持っているのとがそれぞれ何枚か）して調べたものです。（『",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "GAME JAPAN 2008年 3月号",
+          "marks": [],
+          "href": "http://www.amazon.co.jp/gp/product/B0012RQMXY?ie=UTF8&tag=yabe0b-22&linkCode=as2&camp=247&creative=1211&creativeASIN=B0012RQMXY"
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section003:b0007",
+      "paragraphId": "modern-yabejp-ja:chapter03-section003:p0004",
+      "tag": "p",
+      "domPath": "main/p[9]",
+      "tableContext": null,
+      "type": "text",
+      "text": " １枚切れ０枚持ち役牌　４%",
+      "segments": [
+        {
+          "text": " １枚切れ０枚持ち役牌　４%",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section003:b0008",
+      "paragraphId": "modern-yabejp-ja:chapter03-section003:p0004",
+      "tag": "p",
+      "domPath": "main/p[9]",
+      "tableContext": null,
+      "type": "text",
+      "text": " １枚切れ０枚持ち客風　４%",
+      "segments": [
+        {
+          "text": " １枚切れ０枚持ち客風　４%",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section003:b0011",
+      "paragraphId": "modern-yabejp-ja:chapter03-section003:p0004",
+      "tag": "p",
+      "domPath": "main/p[9]",
+      "tableContext": null,
+      "type": "text",
+      "text": " １枚切れ１枚持ち客風　３%",
+      "segments": [
+        {
+          "text": " １枚切れ１枚持ち客風　３%",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section003:b0012",
+      "paragraphId": "modern-yabejp-ja:chapter03-section003:p0004",
+      "tag": "p",
+      "domPath": "main/p[9]",
+      "tableContext": null,
+      "type": "text",
+      "text": " １枚切れ１枚持ち役牌　２%",
+      "segments": [
+        {
+          "text": " １枚切れ１枚持ち役牌　２%",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section003:b0018",
+      "paragraphId": "modern-yabejp-ja:chapter03-section003:p0009",
+      "tag": "p",
+      "domPath": "main/p[19]",
+      "tableContext": null,
+      "type": "text",
+      "text": "１枚切れ１枚見えの字牌は役牌の方が客風より放銃率が低い。役牌の方が１枚目が切れた時点でポンされることが多いことと、単騎選択の場合に客風単騎の方が出アガリが狙いやすいという打ち手の意志が働く為か。",
+      "segments": [
+        {
+          "text": "１枚切れ１枚見えの字牌は役牌の方が客風より放銃率が低い",
+          "marks": [
+            "em::"
+          ],
+          "href": null
+        },
+        {
+          "text": "。役牌の方が１枚目が切れた時点でポンされることが多いことと、単騎選択の場合に客風単騎の方が出アガリが狙いやすいという打ち手の意志が働く為か。",
+          "marks": [],
+          "href": null
+        }
+      ]
+    }
+  ],
+  "missingStatisticsInOriginalReview": [
+    "modern-yabejp-ja:chapter03-section003:b0007",
+    "modern-yabejp-ja:chapter03-section003:b0008",
+    "modern-yabejp-ja:chapter03-section003:b0011",
+    "modern-yabejp-ja:chapter03-section003:b0012"
+  ],
+  "result": "The bound original source contains the statistical rows cited by the editorial note. The frozen adjacent-context projection omitted those rows. This is source/context evidence, not a new semantic review or a pass. The source wording １枚切れ１枚見え remains ambiguous and is not resolved by locating the rows.",
+  "auditChanged": false,
+  "candidateChanged": false,
+  "html": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\html\\5fac7cdb5368b9cabc2812db\\source.html",
+    "sha256": "4c29cc66535ae4d7780f94d668afd72bc6b2be4c009586bc8f770de36d3084f5"
+  },
+  "main": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter03-section003\\main.v2.html",
+    "sha256": "c774533f02e291d52a8a7c79068c5d125eedcda5c433d3441a76cd01d424dc96"
+  }
+}

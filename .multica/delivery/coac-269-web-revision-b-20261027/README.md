@@ -3,6 +3,12 @@
 Ticket-local evidence bundle for the Multica ticket `COAC-269` (line B of the parallel editing split
 authorised 2026-10-27T09:23Z). Shared code, the unified register, selection and pointers were not modified.
 
+Current state after the 2026-10-28 COAC-249 return: **blocked**. Both exact 183/236 display
+candidates received one real first independent review and remain `needs-repair / uncertain`.
+Their authorized batch has used **6/6 local calls, remaining 0**. No new production/review or
+integration is authorized by the return. See Batch 13 below for the authoritative remaining items
+and full six-call accounting; earlier pending statements are historical observations.
+
 ## Scope
 
 - Line A (COAC-248) kept its in-flight and reserved chapters: 198/187/199/201, 215-4, 236, 283, PDF/metadata.
@@ -936,3 +942,68 @@ COAC-269 continues `in_progress` while the independent first reviews and any val
 pending. Evidence is in `artifacts/b12-exact-183236/`; `collect-evidence.py` only reads model/data
 artifacts and writes receipt copies and accounting. The existing draft PR carries the evidence and
 does not replace textbook review or qualify this issue for automatic closure.
+
+## Batch 13: record terminal 183/236 independent review return, 2026-10-28
+
+This run adds **zero model calls**. It consumes the existing COAC-249 handoff
+`integration/coac249-reviewed-exact-183236-20261028.json`, SHA256
+`5f18539ffe7bdda16cbceb5306797209a98fbf1ed711b2da39fd8b966f6ebee5`.
+Both final display candidates have real independent target-text reviews, with both `modelChecks`
+and `effectiveModelChecks` false. Neither is eligible for COAC-250 or a passed-chapter count.
+The original parent `uncertain`, new `uncertain`, candidates, notes and all raw outputs stay unchanged.
+
+| canonical / target | display SHA | audit SHA | independent call | result |
+| --- | --- | --- | --- | --- |
+| nemata-jp-chapter-183-1 / b0018 | 973bbc3eb85dedaed18a5b11903b8002b8dffcade1e6d3a3f7bb25cd1684d45a | 2cd72bb8ba1482b8b529a864ab3b927303f565e419ccb174a27dda10fd8217e2 | 018687de-2b4f-4af5-b82f-f4934c12f974 | needs-repair / uncertain |
+| nemata-jp-chapter-236-1 / b0003 | 6193212639b7c8abb42adf64b69759a5d00effc67c1f20d2c9ae681ded121a28 | d2c9dfe09838a15c845ae3bab8f698729bd99a22878bbb23af1f268849948aeb | 7a1363b3-906b-4155-9643-2a3924d3dfd1 | needs-repair / uncertain |
+
+The remaining list for this batch is:
+
+| canonical / target | precise remaining blocker | next evidence needed; no new call authorized |
+| --- | --- | --- |
+| nemata-jp-chapter-183-1 / b0018 | Author text was judged faithful and complete. The review could not verify the editorial statistics because its actual projection included only b0016-b0019. The original “１枚切れ１枚見え” counting condition also remains unresolved. | Preserve the numbers and the uncertain review. Any future review needs separately authorized budget and the actual source/hash-bound b0007/b0008/b0011/b0012 statistical rows in its request; locating those rows alone is not semantic acceptance or a resolution of the counting ambiguity. |
+| nemata-jp-chapter-236-1 / b0003 | Other claims, conditions, modality and exceptions were judged faithful/complete; “巡目が僅か” still does not settle early/elapsed versus remaining turns. | Keep the neutral author text and explicit non-author note. Obtain source-authoritative clarification before any separately authorized change/review; do not choose either timing reading or downgrade the uncertain issue. |
+
+The 183 supplement is
+`integration/coac249-183-source-context-supplement-20261028.json`, SHA256
+`62c6215bffe24c3b1e8fa202c4c593032bd7d68db949c0f2dd490fd320ad3313`.
+Its source `source.v2.json` SHA remains
+`cb73d3a88d017081031a4de4961ae1a431c7ea24a384eed91865ac70a94b3cf3`.
+Directly checking the bound source confirms b0007/b0008 contain `１枚切れ０枚持ち` role/guest
+wind tiles at 4%/4%, and b0011/b0012 contain `１枚切れ１枚持ち` guest/role tiles at 3%/2%.
+The raw first-review projection really omits all four rows. This establishes a review-context
+visibility gap, **not an established numerical error**. Do not mechanically delete source-supported
+numbers, upgrade to passed without review, alter old raw, or change severity to error/source-note.
+
+Both independent calls used `gpt-6.1-sol/high`, empty image payloads and
+`independent-target-text-review-plus-unchanged-parent-audit` from the unchanged 244 exact runtime.
+The 18 dependencies and manifest remain SHA-bound. New audit raw SHA256 values are respectively
+`60a24e84b6dc00b39f79281fae0b7fd1a120b1ade8f175c5985c0b348452e272` and
+`8c08adf2edcc9391b697b78ba61922ee3ffb69aa715194f7df9abcd588d28039`.
+
+| stage / chapter | call ID | input / output tokens | duration ms | outcome |
+| --- | --- | --- | --- | --- |
+| original production / 183 | 629d37ab-fdc9-462f-a29a-061ae3293fb0 | 12788 / 349 | 36780 | whitelist rejected |
+| original production / 236 | abef6c4b-02ff-416f-b61d-1fe821402f1a | 13723 / 634 | 30842 | whitelist rejected |
+| authorized new production / 183 | cf82e6c3-ca38-4f6e-98bc-5c81fb4a3428 | 14867 / 225 | 20887 | exact output; review uncertain |
+| authorized new production / 236 | 62c5c6f7-d54c-45c1-92af-da36349b1f80 | 15104 / 330 | 57082 | exact output; review uncertain |
+| first independent audit / 183 | 018687de-2b4f-4af5-b82f-f4934c12f974 | 13075 / 1153 | 39055 | needs-repair / uncertain |
+| first independent audit / 236 | 7a1363b3-906b-4155-9643-2a3924d3dfd1 | 14300 / 1289 | 44055 | needs-repair / uncertain |
+
+The six distinct local call records consume the entire authorization: **6/6, remaining 0**,
+including failed/void outcomes. Audit-only usage is 27,375 input / 2,442 output; whole-batch known
+usage is **83,857 input / 3,980 output / zero cached input**. Executor automatic retries remain zero.
+Actual upstream execution count and monetary cost are unknown. No 234 or other chapter was dispatched,
+no new consumer/wakeup was created, and formal active and shared selection/register are unchanged.
+The one-shot return wakeup is already disabled after firing; it requires no recurring continuation.
+
+`artifacts/b13-exact-review-return/verify-return.mjs` verifies existing evidence without a dispatch
+path: handoff/supplement and 42 immutable references; exact raw/request/schema/projection/output and
+candidate bindings; transport/usage; one audit ledger entry per display SHA; frozen checks retaining
+uncertain; unchanged non-target blocks; and the six-call budget. It stores byte-exact copies of both
+raw reviews/audits, handoff and supplement, plus the terminal result and remaining list. The original
+review worktree request-boundary files were reclaimed; their exact bytes were recovered from existing
+COAC-249 commit `722b23e` and match the original bound SHA. No request or review was reconstructed.
+
+The ticket is **blocked**, with the finite batch exhausted and semantic/source ambiguities unresolved.
+The existing draft PR is evidence delivery, not textbook approval or permission to close the issue.

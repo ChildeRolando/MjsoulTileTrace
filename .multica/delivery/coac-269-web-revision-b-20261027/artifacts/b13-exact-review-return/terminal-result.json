@@ -1,0 +1,399 @@
+{
+  "schema": "coac269-terminal-exact-text-batch/1",
+  "at": "2026-10-27T19:49:44.098Z",
+  "modelCallsThisRun": 0,
+  "status": "blocked",
+  "outcome": "both-first-independent-reviews-needs-repair-uncertain",
+  "receivedHandoff": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-reviewed-exact-183236-20261028.json",
+    "sha256": "5f18539ffe7bdda16cbceb5306797209a98fbf1ed711b2da39fd8b966f6ebee5"
+  },
+  "sourceContextSupplement": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-183-source-context-supplement-20261028.json",
+    "sha256": "62c6215bffe24c3b1e8fa202c4c593032bd7d68db949c0f2dd490fd320ad3313"
+  },
+  "chapters": [
+    {
+      "chapterId": "nemata-jp-chapter-183-1",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section003.coac244exactv2.display.json",
+        "sha256": "973bbc3eb85dedaed18a5b11903b8002b8dffcade1e6d3a3f7bb25cd1684d45a"
+      },
+      "audit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter03-section003.973bbc3eb85dedaed18a5b11903b8002b8dffcade1e6d3a3f7bb25cd1684d45a.json",
+        "sha256": "2cd72bb8ba1482b8b529a864ab3b927303f565e419ccb174a27dda10fd8217e2"
+      },
+      "raw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\018687de-2b4f-4af5-b82f-f4934c12f974.json",
+        "sha256": "60a24e84b6dc00b39f79281fae0b7fd1a120b1ade8f175c5985c0b348452e272"
+      },
+      "status": "needs-repair",
+      "verdict": "uncertain",
+      "callId": "018687de-2b4f-4af5-b82f-f4934c12f974",
+      "modelChecks": {
+        "passed": false,
+        "errors": [
+          "target_text_not_faithful",
+          "target_text_issue"
+        ]
+      },
+      "effectiveModelChecks": {
+        "passed": false,
+        "errors": [
+          "uncertain:modern-yabejp-ja:chapter03-section003:b0018",
+          "semantic_information_missing",
+          "uncertain:modern-yabejp-ja:chapter03-section003:b0018"
+        ]
+      },
+      "newCallsThisRun": 0,
+      "boundaryEvidenceSource": "722b23e:.multica/delivery/coac249-text-183236-20261028/chapter-183/request-boundary.json",
+      "projectionSourceIds": [
+        "modern-yabejp-ja:chapter03-section003:b0016",
+        "modern-yabejp-ja:chapter03-section003:b0017",
+        "modern-yabejp-ja:chapter03-section003:b0018",
+        "modern-yabejp-ja:chapter03-section003:b0019"
+      ]
+    },
+    {
+      "chapterId": "nemata-jp-chapter-236-1",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section015.coac244exactv2.display.json",
+        "sha256": "6193212639b7c8abb42adf64b69759a5d00effc67c1f20d2c9ae681ded121a28"
+      },
+      "audit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section015.6193212639b7c8abb42adf64b69759a5d00effc67c1f20d2c9ae681ded121a28.json",
+        "sha256": "d2c9dfe09838a15c845ae3bab8f698729bd99a22878bbb23af1f268849948aeb"
+      },
+      "raw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\7a1363b3-906b-4155-9643-2a3924d3dfd1.json",
+        "sha256": "8c08adf2edcc9391b697b78ba61922ee3ffb69aa715194f7df9abcd588d28039"
+      },
+      "status": "needs-repair",
+      "verdict": "uncertain",
+      "callId": "7a1363b3-906b-4155-9643-2a3924d3dfd1",
+      "modelChecks": {
+        "passed": false,
+        "errors": [
+          "target_text_not_faithful",
+          "target_text_issue"
+        ]
+      },
+      "effectiveModelChecks": {
+        "passed": false,
+        "errors": [
+          "uncertain:modern-yabejp-ja:chapter04-section015:b0003",
+          "semantic_information_missing",
+          "uncertain:modern-yabejp-ja:chapter04-section015:b0003"
+        ]
+      },
+      "newCallsThisRun": 0,
+      "boundaryEvidenceSource": "722b23e:.multica/delivery/coac249-text-183236-20261028/chapter-236/request-boundary.json",
+      "projectionSourceIds": [
+        "modern-yabejp-ja:chapter04-section015:b0001",
+        "modern-yabejp-ja:chapter04-section015:b0002",
+        "modern-yabejp-ja:chapter04-section015:b0003",
+        "modern-yabejp-ja:chapter04-section015:b0004"
+      ]
+    }
+  ],
+  "actualLocalCallRecords": 6,
+  "maximumLocalCalls": 6,
+  "remainingAllowance": 0,
+  "automaticRetry": 0,
+  "newlyPassedChapters": 0,
+  "integrationHandoffs": 0,
+  "usage": {
+    "inputTokens": 83857,
+    "cachedInputTokens": 0,
+    "outputTokens": 3980
+  },
+  "calls": [
+    {
+      "callId": "629d37ab-fdc9-462f-a29a-061ae3293fb0",
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter03-section003",
+      "sourceSha256": "cb73d3a88d017081031a4de4961ae1a431c7ea24a384eed91865ac70a94b3cf3",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "timeoutMs": 900000,
+      "startedAt": "2026-10-27T19:04:49.299Z",
+      "durationMs": 36780,
+      "usage": {
+        "inputTokens": 12788,
+        "cachedInputTokens": 0,
+        "outputTokens": 349
+      },
+      "success": true,
+      "failureClass": null,
+      "transportStatus": "completed",
+      "rawArtifactPath": "raw-calls/629d37ab-fdc9-462f-a29a-061ae3293fb0.json",
+      "rawArtifactSha256": "5f670a646df34c06f90b6a732286b71fbfe3f53b00af7bbae4e4be97b2a4afc0",
+      "outputSha256": "21f78ef5165540f7621c84ba45db23bca72c17d0d9435eb1441912b632adfdfd",
+      "schemaSha256": "a23444d085e54a2583743c9af62f9bd3a5fe7733c60a5ddb48ca32358828ea72",
+      "promptSha256": "a42fe9f1ff994b0baa0cc0400d053a1e1eccb10b70023ed787c742a918b97fb4",
+      "semanticPromptSha256": "4b1600884f5198989b43f9ebc6b564016fd710013fc5994a95e64af03f30803c",
+      "cliSnapshot": {
+        "path": "web-production/v1/runners/773b63a2b7e1cd525f45278f2565487b5916b8775d935c7af7001195b1403860.cli.mjs",
+        "sha256": "773b63a2b7e1cd525f45278f2565487b5916b8775d935c7af7001195b1403860"
+      },
+      "targets": {
+        "textIds": [
+          "modern-yabejp-ja:chapter03-section003:b0018"
+        ],
+        "figureIds": []
+      },
+      "terminalEvents": [],
+      "visualInputs": [],
+      "revision": {
+        "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section003.display.json",
+        "parentSha256": "889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02",
+        "notesPath": "audit/web/articles/modern-yabejp-ja/chapter03-section003.889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02.json",
+        "notesSha256": "c66a9bab86228f8f865d1f74b1c2d033de57f133892f87e2205480a09628373a",
+        "figureIds": [],
+        "textBlockIds": [
+          "modern-yabejp-ja:chapter03-section003:b0018"
+        ]
+      }
+    },
+    {
+      "callId": "abef6c4b-02ff-416f-b61d-1fe821402f1a",
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter04-section015",
+      "sourceSha256": "bece7c97b81c5ba283582cd1568404e8fb490ed1d5484267e6e7915785d1d93c",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "timeoutMs": 900000,
+      "startedAt": "2026-10-27T19:05:55.602Z",
+      "durationMs": 30842,
+      "usage": {
+        "inputTokens": 13723,
+        "cachedInputTokens": 0,
+        "outputTokens": 634
+      },
+      "success": true,
+      "failureClass": null,
+      "transportStatus": "completed",
+      "rawArtifactPath": "raw-calls/abef6c4b-02ff-416f-b61d-1fe821402f1a.json",
+      "rawArtifactSha256": "58bee87c7a86989752659c20d5364dd823469362d0bc8aa928d6ec2de559d4ad",
+      "outputSha256": "ec03b96adbb3611b920b15383ddb1ceac8191b609e8433e12e08e33d4ece1bdf",
+      "schemaSha256": "9a083702d93e5fa8734f8707a98b26c06b40877db36d88771b1a1d143d4499d7",
+      "promptSha256": "a19c090abe908562865401c6c556f122e775836897a9abcc4ccf0d122e87fb69",
+      "semanticPromptSha256": "28716ae81ccf6b0b20c67e144a0ff3937067b9afb03d01de30c0cbde20b19c1a",
+      "cliSnapshot": {
+        "path": "web-production/v1/runners/773b63a2b7e1cd525f45278f2565487b5916b8775d935c7af7001195b1403860.cli.mjs",
+        "sha256": "773b63a2b7e1cd525f45278f2565487b5916b8775d935c7af7001195b1403860"
+      },
+      "targets": {
+        "textIds": [
+          "modern-yabejp-ja:chapter04-section015:b0003"
+        ],
+        "figureIds": []
+      },
+      "terminalEvents": [],
+      "visualInputs": [],
+      "revision": {
+        "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section015.display.json",
+        "parentSha256": "51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0",
+        "notesPath": "audit/web/articles/modern-yabejp-ja/chapter04-section015.51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0.json",
+        "notesSha256": "bf1af08a08d0be94dbe71415fa4bd808d1831cc8d6cc6b08f7672f5c0357daa9",
+        "figureIds": [],
+        "textBlockIds": [
+          "modern-yabejp-ja:chapter04-section015:b0003"
+        ]
+      }
+    },
+    {
+      "callId": "cf82e6c3-ca38-4f6e-98bc-5c81fb4a3428",
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter03-section003",
+      "sourceSha256": "cb73d3a88d017081031a4de4961ae1a431c7ea24a384eed91865ac70a94b3cf3",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "timeoutMs": 900000,
+      "startedAt": "2026-10-27T19:32:22.378Z",
+      "durationMs": 20887,
+      "usage": {
+        "inputTokens": 14867,
+        "cachedInputTokens": 0,
+        "outputTokens": 225
+      },
+      "success": true,
+      "failureClass": null,
+      "transportStatus": "completed",
+      "rawArtifactPath": "raw-calls/cf82e6c3-ca38-4f6e-98bc-5c81fb4a3428.json",
+      "rawArtifactSha256": "cd24521e4068feabaa3f34717d5aa73f5d2b7d3081f87083ecdf2b91fea63a4d",
+      "outputSha256": "41cf5e3e2e30bdd664b82a4560a3641708eaefda50c50848e719087e74613aad",
+      "schemaSha256": "f7938a681fd19f7da1c60202eaa825389063f00ed2d8be909d4b8f46536223a1",
+      "promptSha256": "0f2a3e1ea151179d9c6578a2af7e648e754e6ba82a43468718ac77eb7c3a65bd",
+      "semanticPromptSha256": "95b2c86c8f53d740456f27211f086188a5deef90ddaa88998152f45099dcf970",
+      "cliSnapshot": {
+        "path": "web-production/v1/runners/773b63a2b7e1cd525f45278f2565487b5916b8775d935c7af7001195b1403860.cli.mjs",
+        "sha256": "773b63a2b7e1cd525f45278f2565487b5916b8775d935c7af7001195b1403860"
+      },
+      "targets": {
+        "textIds": [
+          "modern-yabejp-ja:chapter03-section003:b0018"
+        ],
+        "figureIds": []
+      },
+      "terminalEvents": [],
+      "exactTextContract": {
+        "schema": "coac244-exact-text-request/1",
+        "contractFileSha256": "fc968c117a50d80011ded6822d138b174a119025a6675fef3780dd01d8240904",
+        "chapterId": "nemata-jp-chapter-183-1",
+        "targetId": "modern-yabejp-ja:chapter03-section003:b0018",
+        "parentSha256": "889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02",
+        "expectedTextSha256": "c7b633e49127283005012d7c13c9b7b78a306521559086c206dce1cbea22cab7"
+      },
+      "visualInputs": [],
+      "revision": {
+        "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section003.display.json",
+        "parentSha256": "889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02",
+        "notesPath": "audit/web/articles/modern-yabejp-ja/chapter03-section003.889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02.json",
+        "notesSha256": "c66a9bab86228f8f865d1f74b1c2d033de57f133892f87e2205480a09628373a",
+        "figureIds": [],
+        "textBlockIds": [
+          "modern-yabejp-ja:chapter03-section003:b0018"
+        ]
+      }
+    },
+    {
+      "callId": "62c5c6f7-d54c-45c1-92af-da36349b1f80",
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter04-section015",
+      "sourceSha256": "bece7c97b81c5ba283582cd1568404e8fb490ed1d5484267e6e7915785d1d93c",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "timeoutMs": 900000,
+      "startedAt": "2026-10-27T19:33:39.049Z",
+      "durationMs": 57082,
+      "usage": {
+        "inputTokens": 15104,
+        "cachedInputTokens": 0,
+        "outputTokens": 330
+      },
+      "success": true,
+      "failureClass": null,
+      "transportStatus": "completed",
+      "rawArtifactPath": "raw-calls/62c5c6f7-d54c-45c1-92af-da36349b1f80.json",
+      "rawArtifactSha256": "09c698725d4d8edfcd024d78ebffc60befcee005233561ba19a1acd8df6bbf8b",
+      "outputSha256": "f7cc66aeaccee13c11fd9d15608a986de4ce0dd4910db3248873608ba5920789",
+      "schemaSha256": "1e5ed29f32ef9f5d845a91275ab151454e672be64d9e3d014fff99d80b358a81",
+      "promptSha256": "de1849c737d5d93e210e3e884795bc41abeaf766afdb6002910e6bdf6ffc5654",
+      "semanticPromptSha256": "948fd0265c5d495b816e559062b1bf7a6e43f1b728ee6c1803291468e258bb1d",
+      "cliSnapshot": {
+        "path": "web-production/v1/runners/773b63a2b7e1cd525f45278f2565487b5916b8775d935c7af7001195b1403860.cli.mjs",
+        "sha256": "773b63a2b7e1cd525f45278f2565487b5916b8775d935c7af7001195b1403860"
+      },
+      "targets": {
+        "textIds": [
+          "modern-yabejp-ja:chapter04-section015:b0003"
+        ],
+        "figureIds": []
+      },
+      "terminalEvents": [],
+      "exactTextContract": {
+        "schema": "coac244-exact-text-request/1",
+        "contractFileSha256": "fc968c117a50d80011ded6822d138b174a119025a6675fef3780dd01d8240904",
+        "chapterId": "nemata-jp-chapter-236-1",
+        "targetId": "modern-yabejp-ja:chapter04-section015:b0003",
+        "parentSha256": "51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0",
+        "expectedTextSha256": "0743a15766616aa637af0b8fbda7398f0bef1d421a0eb9e873f778a7844192a6"
+      },
+      "visualInputs": [],
+      "revision": {
+        "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section015.display.json",
+        "parentSha256": "51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0",
+        "notesPath": "audit/web/articles/modern-yabejp-ja/chapter04-section015.51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0.json",
+        "notesSha256": "bf1af08a08d0be94dbe71415fa4bd808d1831cc8d6cc6b08f7672f5c0357daa9",
+        "figureIds": [],
+        "textBlockIds": [
+          "modern-yabejp-ja:chapter04-section015:b0003"
+        ]
+      }
+    },
+    {
+      "callId": "018687de-2b4f-4af5-b82f-f4934c12f974",
+      "scope": "textbook-web-target-text-audit",
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter03-section003",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "success": true,
+      "usage": {
+        "inputTokens": 13075,
+        "cachedInputTokens": 0,
+        "outputTokens": 1153
+      },
+      "promptSha256": "81db79f42af235cff58f5ef3bad6433473850504ca342a86c181e151d7eace38",
+      "semanticPromptSha256": "a94759f78349617297b5f53001e8b4ce541fc76c0fea28fe6fb12b5b4cc0b0a4",
+      "schemaSha256": "f6f24dea2912a83ebd01c4cdfc23c6ceeed3eab4ca4ee8afc5e44b8eb57cd6b3",
+      "outputSha256": "bc5fbf4fcaa02492ac7899cd5c405bf382de495f4fc02fee748fb8aa0e0f2ef2",
+      "requestPromptBytes": 8329,
+      "semanticPromptBytes": 7847,
+      "binding": {
+        "productionSha256": "973bbc3eb85dedaed18a5b11903b8002b8dffcade1e6d3a3f7bb25cd1684d45a",
+        "sourceFileSha256": "cb73d3a88d017081031a4de4961ae1a431c7ea24a384eed91865ac70a94b3cf3",
+        "auditorSnapshotSha256": "3ad167e8e9fb1c324b22046c2eec39148418fd676d3334ce062f067e9f752ce3",
+        "semanticProjectionSha256": "a894ee9db3a34efd3b28c34c4cb76d9781efb94151703a7fea58b32a43795fab",
+        "semanticProjectionVersion": 2,
+        "targetTextIds": [
+          "modern-yabejp-ja:chapter03-section003:b0018"
+        ],
+        "verifiedAssetIds": [],
+        "originalImageAssetIds": []
+      },
+      "recordedAt": "2026-10-27T19:40:53.756Z"
+    },
+    {
+      "callId": "7a1363b3-906b-4155-9643-2a3924d3dfd1",
+      "scope": "textbook-web-target-text-audit",
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter04-section015",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "success": true,
+      "usage": {
+        "inputTokens": 14300,
+        "cachedInputTokens": 0,
+        "outputTokens": 1289
+      },
+      "promptSha256": "a227b30864c8fcbc8c6460d6510ecbadc86caf98dfcf217a2b9bbcbebdb10c71",
+      "semanticPromptSha256": "f00c3615c276cb1adbe4076fde4b071d7e4bd431095ddcfadbf092a23a8dfd67",
+      "schemaSha256": "4fa336d9a183d40646d21fa61ea5cfac39ad62d864c9e8d8dc54f1143f795349",
+      "outputSha256": "4d6f9366ea07cc71ac56ae00cd232d8bce058ee097506b9e80f7c3d0f00fe3c1",
+      "requestPromptBytes": 13635,
+      "semanticPromptBytes": 13153,
+      "binding": {
+        "productionSha256": "6193212639b7c8abb42adf64b69759a5d00effc67c1f20d2c9ae681ded121a28",
+        "sourceFileSha256": "bece7c97b81c5ba283582cd1568404e8fb490ed1d5484267e6e7915785d1d93c",
+        "auditorSnapshotSha256": "3ad167e8e9fb1c324b22046c2eec39148418fd676d3334ce062f067e9f752ce3",
+        "semanticProjectionSha256": "90bf8148ea52d180daf0ea7322bd47541b87fe034f923b59df9310386c606fb4",
+        "semanticProjectionVersion": 2,
+        "targetTextIds": [
+          "modern-yabejp-ja:chapter04-section015:b0003"
+        ],
+        "verifiedAssetIds": [],
+        "originalImageAssetIds": []
+      },
+      "recordedAt": "2026-10-27T19:41:49.345Z"
+    }
+  ],
+  "remaining": [
+    {
+      "chapterId": "nemata-jp-chapter-183-1",
+      "targetId": "modern-yabejp-ja:chapter03-section003:b0018",
+      "blocker": "Independent review lacks b0007/b0008/b0011/b0012 statistics; all four exist in the bound source. The original １枚切れ１枚見え counting meaning remains unresolved.",
+      "nextStep": "Preserve numbers and original uncertain. Any future independent review needs an explicitly authorized new call and source/hash-bound statistics in its actual review projection; locating rows alone is not semantic approval."
+    },
+    {
+      "chapterId": "nemata-jp-chapter-236-1",
+      "targetId": "modern-yabejp-ja:chapter04-section015:b0003",
+      "blocker": "巡目が僅か does not settle elapsed/early versus remaining turns; disclosing the ambiguity is not resolving teaching timing.",
+      "nextStep": "Preserve neutral text and non-author note. Obtain source-authoritative clarification before a separately authorized change or review; do not choose either reading."
+    }
+  ],
+  "monetaryCost": null,
+  "upstreamRequestCount": null,
+  "inputsUnchanged": true
+}

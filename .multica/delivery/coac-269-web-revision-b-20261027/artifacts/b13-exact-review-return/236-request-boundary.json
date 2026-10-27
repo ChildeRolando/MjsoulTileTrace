@@ -1,0 +1,128 @@
+{
+  "recordedAt": "2026-10-27T19:41:05.285Z",
+  "prompt": "独立校对指定修订译文。只审targetTextIds贡献及所附完整段落上下文，所有其它正文和全部图片已按原独立审稿逐字段绑定继承。保留词义、范围、判断力度、条件、例外和句中牌语义，避免重译/重复邻段。严禁工具/资源/网络；只按schema返回，completeTargetScopeCompared只指本次目标范围。\n{\"schema\":\"coach-textbook-target-text-semantic-projection/1\",\"source\":{\"url\":\"http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section015.html\",\"title\":\"飛び寸前の局面\",\"language\":\"ja\",\"blocks\":[{\"id\":\"modern-yabejp-ja:chapter04-section015:b0001\",\"type\":\"text\",\"tag\":\"h2\",\"paragraphId\":\"modern-yabejp-ja:chapter04-section015:p0001\",\"text\":\"飛び寸前の局面\",\"segments\":[{\"text\":\"飛び寸前の局面\",\"marks\":[],\"href\":null}],\"tableContext\":null},{\"id\":\"modern-yabejp-ja:chapter04-section015:b0002\",\"type\":\"text\",\"tag\":\"p\",\"paragraphId\":\"modern-yabejp-ja:chapter04-section015:p0002\",\"text\":\"オーラス以外でも、持ち点がマイナス（０点終了のルールもある）になった人が出たらトビで半荘が終了します。その為、誰かが飛んで終了の可能性が十分に考えられる場合は、オーラスと同じような感覚で手作り、押し引きを行う場面が出てきます。ツモられても自分がトビ終了であったり、他家が飛んだうえに捲くられて終了という状況であれば、振った場合に更に順位が低下する、自分の和了の目がほぼなく流局に賭ける方がまだチャンスがあるというのでもなければ攻めるべきです。ダマでもツモるかラス目から出ればトビ終了で、リーチして和了した場合と順位が変わらず、リーチするとラス目がオリるというのであればダマが有効です。ラス目からあがると飛ばして確和了になるがどうすべきか等の、トビ寸前の他家がいる場合の対処についてもこれまで述べてきた点棒状況判断の考えが参考になると思います。\",\"segments\":[{\"text\":\"オーラス以外でも、持ち点がマイナス（０点終了のルールもある）になった人が出たらトビで半荘が終了します。その為、誰かが飛んで終了の可能性が十分に考えられる場合は、オーラスと同じような感覚で手作り、押し引きを行う場面が出てきます。ツモられても自分がトビ終了であったり、他家が飛んだうえに捲くられて終了という状況であれば、振った場合に更に順位が低下する、自分の和了の目がほぼなく流局に賭ける方がまだチャンスがあるというのでもなければ攻めるべきです。ダマでもツモるかラス目から出ればトビ終了で、リーチして和了した場合と順位が変わらず、リーチするとラス目がオリるというのであればダマが有効です。ラス目からあがると飛ばして確和了になるがどうすべきか等の、トビ寸前の他家がいる場合の対処についてもこれまで述べてきた点棒状況判断の考えが参考になると思います。\",\"marks\":[],\"href\":null}],\"tableContext\":null},{\"id\":\"modern-yabejp-ja:chapter04-section015:b0003\",\"type\":\"text\",\"tag\":\"p\",\"paragraphId\":\"modern-yabejp-ja:chapter04-section015:p0003\",\"text\":\"麻雀は何点リードしていても半荘が終わるまでは逆転される可能性が残っています。逆に言えば、終了した時点でトップが100%確定するので、飛ばしてトップ終了の可能性があるというのは案外大きなメリットなのです。特に、順位が低下するリスクが少ない場合や、まだ東場の早い段階であれば積極的にトビ終了を目指すのも有効です。例えば跳満ツモでラス目が飛ぶ上にトップを逆転して終了というのであれば、ダマ満貫の手は例え巡目が僅かでもリーチするべきですし、順位低下のリスクが小さければトップ以外からは見逃しで構いません。自分がトップ目であれば通常オリる機会が増えますが、ラスから出れば終了の手をテンパイしていればリーチ相手にトップ目からでも押すことも増えます。（もちろんこの場合は脇から出た場合に見逃しはしない。）\",\"segments\":[{\"text\":\"麻雀は何点リードしていても半荘が終わるまでは逆転される可能性が残っています。逆に言えば、終了した時点でトップが100%確定するので、飛ばしてトップ終了の可能性があるというのは案外大きなメリットなのです。特に、順位が低下するリスクが少ない場合や、まだ東場の早い段階であれば積極的にトビ終了を目指すのも有効です。例えば跳満ツモでラス目が飛ぶ上にトップを逆転して終了というのであれば、ダマ満貫の手は例え巡目が僅かでもリーチするべきですし、順位低下のリスクが小さければトップ以外からは見逃しで構いません。自分がトップ目であれば通常オリる機会が増えますが、ラスから出れば終了の手をテンパイしていればリーチ相手にトップ目からでも押すことも増えます。（もちろんこの場合は脇から出た場合に見逃しはしない。）\",\"marks\":[],\"href\":null}],\"tableContext\":null},{\"id\":\"modern-yabejp-ja:chapter04-section015:b0004\",\"type\":\"text\",\"tag\":\"p\",\"paragraphId\":\"modern-yabejp-ja:chapter04-section015:p0004\",\"text\":\"トビとは逆に天井（トップ目が55,000点以上や60,000点以上のように一定以上の点数になったら半荘終了というもの）が存在するルールもあります。これもこれまで述べてきたような点棒状況判断の考えを参考に対処していけば良いでしょう。（和了すれば天井がほぼ確定する他家のリーチに振らなければほぼ２位であるならオリる等。）\",\"segments\":[{\"text\":\"トビとは逆に天井（トップ目が55,000点以上や60,000点以上のように一定以上の点数になったら半荘終了というもの）が存在するルールもあります。これもこれまで述べてきたような点棒状況判断の考えを参考に対処していけば良いでしょう。（和了すれば天井がほぼ確定する他家のリーチに振らなければほぼ２位であるならオリる等。）\",\"marks\":[],\"href\":null}],\"tableContext\":null}],\"tables\":[]},\"candidate\":{\"title\":\"即将被击飞的局面\",\"blocks\":[{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter04-section015:b0001\"],\"paragraphId\":\"modern-yabejp-ja:chapter04-section015:p0001\",\"text\":\"即将被击飞的局面\",\"sourceSegments\":[{\"text\":\"飛び寸前の局面\",\"marks\":[],\"href\":null}],\"tableContext\":null},{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter04-section015:b0002\"],\"paragraphId\":\"modern-yabejp-ja:chapter04-section015:p0002\",\"text\":\"即使不是最后一局，只要有人持有的点数变为负数（也有０点就结束的规则），就会因击飞而结束半庄。因此，如果完全有可能因某人被击飞而结束半庄，就会出现需要像最后一局那样进行做牌和攻守判断的场面。如果别人自摸也会使自己被击飞而结束，或是其他玩家被击飞、自己同时被反超而结束，那么，除非放铳会使自己的名次进一步下降，或是自己几乎没有和牌的机会、赌流局反而还有些机会，否则就应进攻。如果默听时，只要自摸或由末位玩家放铳，就会因击飞而结束，自己的名次与立直后和牌时相同，而立直又会让末位玩家弃和，那么默听就很有效。对于有其他玩家即将被击飞时该如何应对，例如从末位玩家处和牌会将其击飞、以此次和牌确定最终结果，此时该怎么办等，我认为此前谈到的点数状况判断思路也能作为参考。\",\"sourceSegments\":[{\"text\":\"オーラス以外でも、持ち点がマイナス（０点終了のルールもある）になった人が出たらトビで半荘が終了します。その為、誰かが飛んで終了の可能性が十分に考えられる場合は、オーラスと同じような感覚で手作り、押し引きを行う場面が出てきます。ツモられても自分がトビ終了であったり、他家が飛んだうえに捲くられて終了という状況であれば、振った場合に更に順位が低下する、自分の和了の目がほぼなく流局に賭ける方がまだチャンスがあるというのでもなければ攻めるべきです。ダマでもツモるかラス目から出ればトビ終了で、リーチして和了した場合と順位が変わらず、リーチするとラス目がオリるというのであればダマが有効です。ラス目からあがると飛ばして確和了になるがどうすべきか等の、トビ寸前の他家がいる場合の対処についてもこれまで述べてきた点棒状況判断の考えが参考になると思います。\",\"marks\":[],\"href\":null}],\"tableContext\":null},{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter04-section015:b0003\"],\"paragraphId\":\"modern-yabejp-ja:chapter04-section015:p0003\",\"text\":\"麻将中，无论领先多少点，只要半庄尚未结束，就仍有被逆转的可能。反过来说，结束时第一名就会100%确定，因此，有机会击飞他人、以第一名结束，其实是个相当大的优势。尤其是在名次下降的风险较小，或还处于东场较早阶段时，积极争取通过击飞结束半庄也是有效的。例如，如果跳满自摸就能使末位玩家被击飞，同时反超第一名并结束半庄，那么默听满贯的牌，即使巡数很少，也应当立直；如果名次下降的风险较小，对第一名以外的玩家打出的和牌张，选择放过也无妨。如果自己处于第一名，通常会有更多弃和的机会，但若已经听牌，且只要末位玩家放铳就能结束半庄，那么即便自己处于第一名，面对立直时继续进攻的情况也会增多。（当然，这种情况下，若由其他玩家打出和牌张，也不会放过。）\\n\\n【校注（非原文）：原文“巡目が僅か”未明确指已进行的巡数还是剩余巡数，此处不补入“剩余”；该时机条件仍未确认。】\",\"sourceSegments\":[{\"text\":\"麻雀は何点リードしていても半荘が終わるまでは逆転される可能性が残っています。逆に言えば、終了した時点でトップが100%確定するので、飛ばしてトップ終了の可能性があるというのは案外大きなメリットなのです。特に、順位が低下するリスクが少ない場合や、まだ東場の早い段階であれば積極的にトビ終了を目指すのも有効です。例えば跳満ツモでラス目が飛ぶ上にトップを逆転して終了というのであれば、ダマ満貫の手は例え巡目が僅かでもリーチするべきですし、順位低下のリスクが小さければトップ以外からは見逃しで構いません。自分がトップ目であれば通常オリる機会が増えますが、ラスから出れば終了の手をテンパイしていればリーチ相手にトップ目からでも押すことも増えます。（もちろんこの場合は脇から出た場合に見逃しはしない。）\",\"marks\":[],\"href\":null}],\"tableContext\":null},{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter04-section015:b0004\"],\"paragraphId\":\"modern-yabejp-ja:chapter04-section015:p0004\",\"text\":\"与击飞相反，也有设有封顶点数的规则（即第一名达到55,000点以上或60,000点以上等规定点数时，半庄便结束）。对此，也可以参考此前谈到的点数状况判断思路来应对。（例如，其他玩家立直后，只要和牌就几乎肯定会达到封顶点数，而自己只要不放铳给他，就几乎能确定获得第２名，那么便弃和等。）\",\"sourceSegments\":[{\"text\":\"トビとは逆に天井（トップ目が55,000点以上や60,000点以上のように一定以上の点数になったら半荘終了というもの）が存在するルールもあります。これもこれまで述べてきたような点棒状況判断の考えを参考に対処していけば良いでしょう。（和了すれば天井がほぼ確定する他家のリーチに振らなければほぼ２位であるならオリる等。）\",\"marks\":[],\"href\":null}],\"tableContext\":null}],\"figures\":[]},\"visualEvidence\":{\"verifiedExactAssetIds\":[],\"attachedOriginalImages\":[]},\"targetTextIds\":[\"modern-yabejp-ja:chapter04-section015:b0003\"],\"coverage\":\"Entire unchanged article and all images inherit a bound independent parent review; only these explicitly rejected text contributions are newly reviewed with their complete paragraph and adjacent source context.\"}",
+  "schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "blockChecks": {
+        "type": "array",
+        "minItems": 1,
+        "maxItems": 1,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "string",
+              "enum": [
+                "modern-yabejp-ja:chapter04-section015:b0003"
+              ]
+            },
+            "verdict": {
+              "enum": [
+                "faithful",
+                "needs-repair",
+                "uncertain"
+              ]
+            },
+            "evidence": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "verdict",
+            "evidence"
+          ]
+        }
+      },
+      "contextContinuity": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "faithful": {
+            "type": "boolean"
+          },
+          "evidence": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "faithful",
+          "evidence"
+        ]
+      },
+      "semanticCompleteness": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "complete": {
+            "type": "boolean"
+          },
+          "evidence": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "complete",
+          "evidence"
+        ]
+      },
+      "issues": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "severity": {
+              "enum": [
+                "error",
+                "uncertain",
+                "source-note"
+              ]
+            },
+            "targetId": {
+              "type": "string"
+            },
+            "sourceEvidence": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "suggestedRepair": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "severity",
+            "targetId",
+            "sourceEvidence",
+            "description",
+            "suggestedRepair"
+          ]
+        }
+      },
+      "completeTargetScopeCompared": {
+        "type": "boolean"
+      },
+      "summary": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "blockChecks",
+      "contextContinuity",
+      "semanticCompleteness",
+      "issues",
+      "completeTargetScopeCompared",
+      "summary"
+    ]
+  },
+  "model": "gpt-6.1-sol",
+  "reasoningEffort": "high",
+  "images": [],
+  "timeoutMs": 900000,
+  "projectionSha256": "90bf8148ea52d180daf0ea7322bd47541b87fe034f923b59df9310386c606fb4"
+}
