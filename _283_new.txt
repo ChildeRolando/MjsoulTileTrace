@@ -1,0 +1,21 @@
+== chapter06-exercise003-batch-009 needs-repair ==
+[error] modern-yabejp-ja:chapter06-exercise003:b0947:figure
+  候选记录了高亮牌，却没有明确转写本题询问是否碰2s。仅有“问题60的牌局画面”不足以完整呈现题目。
+  -> 在图注或转写中补入：“是否碰上家刚切出的2s？”并明确高亮2s是此次鸣牌判断的对象。
+[uncertain] modern-yabejp-ja:chapter06-exercise003:b0947:figure
+  这两处是实际弃牌，不是隐手或装饰。当前转写尚未满足完整读取牌河的要求，本次不能确认其精确牌种。
+  -> 完成两张风牌的定向辨认并替换占位符；在确认前保留unknowns，不得猜填或将完整牌河标为已通过。
+[error] modern-yabejp-ja:chapter06-exercise003:b0962
+  メンタンピン是立直、断幺九、平和三者结合的术语。候选串列为“立直、断幺九、平和或345三色同顺”，组合关系不明确。
+  -> 改为：“也有立直＋断幺九＋平和或345三色同顺的可能，因此不预先锁定染手。染手只考虑清一色就足够了。”
+[error] modern-yabejp-ja:chapter06-exercise003:b1017
+  “三元牌役种”容易泛指普通役牌，未清楚表达此处小三元／大三元方向对保留发的意义。
+  -> 改为：“搭子过多，又有三元役（小三元／大三元）的可能，所以保留发，宝牌为……”
+[source-note] modern-yabejp-ja:chapter06-exercise003:b0947:figure
+  骰子点数未获可靠确认，黑色遮挡或裁切也已如实说明。它们不改变本题是否碰2s的教学论证。
+  -> 保留说明；无需据此推测隐藏内容或单独阻断战术结论。
+== chapter06-exercise003-batch-010 passed ==
+== chapter06-exercise003-batch-011 needs-repair ==
+[error] modern-yabejp-ja:chapter06-exercise003:b1181
+  候选连读为“宝牌［3m］即使不是，也应……”，未形成明确的中文让步条件句。
+  -> 将b1179改为“即使”，保留b1180的3m牌图，将b1181改为“不是宝牌，也应优先于其他对子保留双两面形。”

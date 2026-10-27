@@ -1,0 +1,21 @@
+[
+  {
+    "author_id": "19bc279c-5832-46ce-b738-9f11c08fddc5",
+    "author_type": "member",
+    "content": "继续编校，不在197-1完成处停下。先纠正清单：303-1已被249真实续审passed（98af2203…），且250已合入cb3c0400预览；不能再写failed未重试。使用最新统一register-20261027b及真实回执同步，283-1仍单独处理。优先对已有父审的其他web章做有限1–2项定点revision+独审，原目标是完成全部，轮末安排下一批而不是等root逐条提醒。\n三个具体阻塞：131-1若证实该asset仅affiliate tracking pixel而非教材图，允许按来源证据标为非内容资产并保留清单/原HTML，不请求追踪地址、不豁免真正牌图；116-1不能伪造父审，允许以现有制作raw/候选+模型前确定性拒绝证据建立专用首次修正链，仅修b0016后进行真实完整首审，其他块不重制；283-1若identical转录已在d43a772e原batch raw，可按真实SHA从原始输出重新装配纠正dangling callId，禁止编造调用或重复生成，后续独审。仅最小适配，manifest/旧证据全保留。若这些仍耗时，先并行推进不阻塞的其他章，不让全清单停住。",
+    "created_at": "2026-10-27T02:59:10Z",
+    "id": "01a17b4c-27bd-777d-a12d-83f7f2fd4845",
+    "revision": 1,
+    "type": "comment"
+  },
+  {
+    "author_id": "b144c077-cadd-4749-a53d-4b9cb98191b8",
+    "author_type": "agent",
+    "content": "清单先按真实回执纠正，再继续推进；**303-1 不再写 failed**。工单保持 `in_progress`。\n\n## 清单纠正\n\n- **303-1**：249 的续审回执 `…chapter06-exercise004.736810e4….retry-1793067200166-6d2dc122.json` 为 **passed**（02:13:20Z，候选 `736810e4…`，4 组批次审），250 已在 02:48:58Z 合入预览。它已从 `failedSeparate` 移入 `correctedHistorical`，原错误只作历史保留。\n- 本轮以 `integration/coac250-unified-chapter-register-20261027b.json`（实算 `0294cb22…`）为章级真相，与 `unified-repair-list-20261027.json` 逐项对齐。\n- **283-1 仍单列**，但性质已变：不是\"失败不重试\"，是装配坏了（见下）。\n\n## 131-1 → passed\n\n源门禁不是真阻断：候选绑定的是 `source.v2.json`（`a463edd2…`），34/34 资产已下载，独立源核 0 错误。失败的只有 v1 抓取里的 `assoc-amazon.jp/e/ir`——v2 已把它记进 `ignoredPlaceholders`，理由 `explicit-amazon-affiliate-tracking-pixel-1x1-empty-alt`（1×1、空 alt），源选择记录也写明这是\"tracking-only source revision\"。按来源证据标为非内容资产，原 HTML 与清单原样保留：**没有请求追踪地址，没有豁免任何牌图，没有改全局门禁**。\n\n只改 b0123（「七対子のロス」不再译成\"失去七对子的可能性\"），候选 `20e84a64…`，目标文本独审 `311372d6` **passed**；父稿、父审、raw 全部原样。\n\n## 116-1 → passed（专用首次修正链，无伪造父审）\n\n父候选 `6f251511…` 没有任何审校回执，全篇审在确定性门禁就拒（`web_translation_placeholder:b0016`，0 模型调用）。按你的授权建立专用首次修正链：\n\n- 证据 `audit/source-corrections/web-first-revision/chapter01-section041.deterministic-rejection.json`（`4d7d156f…`）绑定父候选 SHA、其**真实生产调用** `13adea8d…`（从 raw 验起）与可复算的拒绝项；审计侧会自己重算这条拒绝，不采信文件声称。\n- 新运行时 `audit/runtimes/web-first-revision-20261027` 把 `firstRevision` 当作\"**没有父审**\"：跳过继承路径，改验父稿真实生产调用与展示链，然后做**完整首次审校**（不是 target-text 继承）。\n- 只重译 b0016；其余 46 个正文块、29 个图元逐字节不动。最终候选 `6d5fd5ae…`，完整首审 `b5e586b7` **passed**（37,266/9,199）。\n- 中间三轮都留档：rev1 模型给出同义简写仍被门禁拒；rev2 重复邻项被弃；另有 1 次传输失败（`a4cac35d`，workspace routing 超时，无输出）raw 保留。共 3 次制作调用才收口，不是一次撞对。\n\n## 283-1：装配已按原始输出重装，独审 2/11 组\n\n- 根因：`b0785` 的 `provenance.callId` 指向 `8b122484…`，整个数据根没有这个调用；字节实际来自 `d43a772e…` 的批次 raw（transcription/unknowns/caption 逐字一致）。\n- 用一行 runner 修正（resumed checkpoint 时图元绑 `record.callId`）重跑，11 个 batch checkpoint 全部 resume，**0 次新调用**，候选 `dea1ba24…`；装配校验 `all-complete-unit-production-calls-verified` 通过。没有编造调用，没有重新生成。\n- 批量独审已出 2 组回执，都还 **needs-repair**，是真问题：\n  - `batch-002` **b0168 error**：候选「（由于摸入宝牌」直接接四索图，读成\"摸入宝牌四索\"，丢掉了\"摸入的真正宝牌是北\"这一独立条件。\n  - `batch-001` **b0099 uncertain**：组内看不到第 8 题的完整场况，属分组上下文限制，不是已确认漏译。\n- 每组约 5 分钟，剩余 9 组放到下一批续跑（检查点在，续跑不重复已完成组），等问题集齐再一次性定点修，避免反复作废检查点。\n\n## 成本与本轮结果\n\n制作 4 次（131-1 一次；116-1 三次），审校 3 次（131-1、116-1、283-1 两组），另 1 次传输失败无输出。清单 needs-repair **57 → 55**；131-1、116-1 待交 250。\n\n## 下一批\n\n已建 wakeup（`01a17b72…`，约 12 分钟后自动起跑），不等逐条提醒：① 续跑 283-1 批量独审；② 汇总后定点修 b0168、给 b0099 定性；③ 另挑 1–2 个已有父审的 web 章（211-1 优先，其次 027-1/173-1/198-1 等 3 项章）。183-1 仍按校注口径 hold，p317 b5 仍按原授权。",
+    "created_at": "2026-10-27T03:42:23Z",
+    "id": "01a17b73-b5e3-7d41-be33-83a748f09593",
+    "parent_id": "01a17b4c-27bd-777d-a12d-83f7f2fd4845",
+    "revision": 1,
+    "type": "comment"
+  }
+]

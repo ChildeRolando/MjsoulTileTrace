@@ -1,0 +1,185 @@
+{
+ "groups": [
+  {
+   "batchId": "chapter06-exercise003-batch-001",
+   "status": "needs-repair",
+   "usage": {
+    "inputTokens": 59015,
+    "cachedInputTokens": 0,
+    "outputTokens": 13564
+   },
+   "callId": "7a9473ef-c442-4bad-b7cf-979697c88c47",
+   "issues": [
+    {
+     "severity": "uncertain",
+     "targetId": "modern-yabejp-ja:chapter06-exercise003:b0099",
+     "description": "外链及相关文字翻译忠实，但实际场况未在本组展开。无法从已提供的内联牌面确认一索、二索的可见张数、完整副露组合及各家具体点数，因此第8题完整教学场况的核验受阻；这不是已确认的候选漏译。",
+     "suggestedRepair": "补充该引用场况的原始图或完整文字转录后复核；在补齐前明确标注场况核验未完成，不推定牌河、副露组合、点数或他家隐手。"
+    }
+   ]
+  },
+  {
+   "batchId": "chapter06-exercise003-batch-002",
+   "status": "needs-repair",
+   "usage": {
+    "inputTokens": 62054,
+    "cachedInputTokens": 0,
+    "outputTokens": 14166
+   },
+   "callId": "505b780c-d772-40fc-b063-cba607468bdb",
+   "issues": [
+    {
+     "severity": "error",
+     "targetId": "modern-yabejp-ja:chapter06-exercise003:b0168",
+     "description": "候选“（由于摸入宝牌”直接接四索图，构成“摸入宝牌四索”，错误地把四索认作宝牌，并丢失摸入真正宝牌北这一独立条件。",
+     "suggestedRepair": "将b0168改为“摸到后再改为③即可，（由于摸入宝牌或”，保留后续四索图和比较顺序，使括号表达摸入宝牌或四索时，切五索优于切七索。"
+    }
+   ]
+  },
+  {
+   "batchId": "chapter06-exercise003-batch-003",
+   "status": "needs-repair",
+   "usage": {
+    "inputTokens": 69640,
+    "cachedInputTokens": 0,
+    "outputTokens": 14946
+   },
+   "callId": "66d46676-95ad-473b-ad9b-b6e1d53afe62",
+   "issues": [
+    {
+     "severity": "error",
+     "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]",
+     "description": "b0266、b0267、b0269、b0270、b0272、b0273、b0275、b0276的牌面正确，但其候选figure块均遗漏表格定位，且无替代表格行列结构。单纯保留线性顺序不足以完整保留原表格位。",
+     "suggestedRepair": "为上述八个figure块恢复源tableContext中的tableId、row、column、rowspan、colspan和header，或提供包含这些格位及原空格的完整表格结构。"
+    },
+    {
+     "severity": "error",
+     "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[189]/table[21]",
+     "description": "b0292、b0293、b0295、b0296、b0298、b0299、b0301、b0302均遗漏表格定位。尤其3s未保留第1行第2列定位，导致其与上方↓的明确对齐关系缺失。",
+     "suggestedRepair": "恢复八个牌图块的完整tableContext，或重建原表格；确保↓位于第0行第2列并与东家第二张弃牌3s对齐。"
+    },
+    {
+     "severity": "error",
+     "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[209]/table[21]",
+     "description": "b0325—b0327、b0329—b0331、b0333—b0335、b0337—b0339的十二个牌图块均遗漏原表格定位，候选无完整表格结构承载座位与三列弃牌关系。",
+     "suggestedRepair": "恢复十二个figure块的完整tableContext，或提供忠实保留四家、三列弃牌、空格及跨度的完整表格结构。"
+    }
+   ]
+  },
+  {
+   "batchId": "chapter06-exercise003-batch-004",
+   "status": "needs-repair",
+   "usage": {
+    "inputTokens": 64116,
+    "cachedInputTokens": 63744,
+    "outputTokens": 13020
+   },
+   "callId": "a9d29705-1e2e-4274-9725-7002e4226bf7",
+   "issues": [
+    {
+     "severity": "error",
+     "targetId": "modern-yabejp-ja:chapter06-exercise003:b0396",
+     "description": "「裏目」描述选择后摸到不利牌的情形，不表示此前选择属于失算。译文「失算的」误加了判断失误的含义。",
+     "suggestedRepair": "将本块改为「选择进张宽的④。即使出现不利的」，接原有五索图及下一块「进张，也能争取三色。」。"
+    }
+   ]
+  },
+  {
+   "batchId": "chapter06-exercise003-batch-005",
+   "status": "needs-repair",
+   "usage": {
+    "inputTokens": 65926,
+    "cachedInputTokens": 0,
+    "outputTokens": 14103
+   },
+   "callId": "41594bdf-dc8e-4efc-8642-4a4619b32d2b",
+   "issues": [
+    {
+     "severity": "error",
+     "targetId": "modern-yabejp-ja:chapter06-exercise003:b0502",
+     "description": "候选保留了表题、座次和箭头文本的tableContext，但23个牌河figure块及其figure记录均无表格格位。牌面编码虽然正确，仍不能完整表达各牌所在单元格及其与上方箭头的对应关系。",
+     "suggestedRepair": "为b0507—b0512、b0516—b0521、b0526—b0530、b0536—b0541的候选figure块恢复源tableContext，包括同一tableId、对应row/column、rowspan=1、colspan=1、header=false；完整保留8×7表格的空格，尤其西家第6张弃牌位置为空，并保持箭头与牌面的列对齐。"
+    }
+   ]
+  },
+  {
+   "batchId": "chapter06-exercise003-batch-006",
+   "status": "needs-repair",
+   "usage": {
+    "inputTokens": 62578,
+    "cachedInputTokens": 0,
+    "outputTokens": 12081
+   },
+   "callId": "948c4b49-3c1a-4ad0-8c17-a4e6adc06d6c",
+   "issues": [
+    {
+     "severity": "error",
+     "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+     "description": "候选保留表题和表头的tableContext，但27个舍牌figure块均缺少tableContext，也没有候选表格结构。牌面及线性顺序正确，仍未保留要求核对的表格格位与空格关系。",
+     "suggestedRepair": "为b0627—b0633、b0635—b0641、b0643—b0649、b0651—b0656恢复各自源tableContext，并提供或重建源8行9列表格，保留空行、列7空格、北家末格为空及所有单格跨度。"
+    }
+   ]
+  },
+  {
+   "batchId": "chapter06-exercise003-batch-007",
+   "status": "needs-repair",
+   "usage": {
+    "inputTokens": 63908,
+    "cachedInputTokens": 0,
+    "outputTokens": 14961
+   },
+   "callId": "a0c26db6-40aa-4a14-8d23-1ad7c597956d",
+   "issues": [
+    {
+     "severity": "error",
+     "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+     "description": "下方13张手牌中的4s、6s被依次错录为6s、7s。正确牌形切8s后听嵌7s；候选牌形会改变这一教学前提。",
+     "suggestedRepair": "将下方手牌完整改为1m 2m 3m 5m 5m 7m 8m 9m 3s 4s 6s 8s 8s；分开的摸入牌仍为5s。"
+    },
+    {
+     "severity": "error",
+     "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+     "description": "候选将其他三家的隐手统称为牌墙，遗漏了隐手未知这一局面信息。",
+     "suggestedRepair": "区分三家背面或侧面朝向观者的隐手与中央牌墙，明确三家隐手牌面未知，不推定具体牌码。"
+    },
+    {
+     "severity": "uncertain",
+     "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+     "description": "这三张属于公开河牌，并非源隐手；可能影响可见张数与等待判断，不能以完整转录通过。",
+     "suggestedRepair": "逐张确认这三张河牌并同步更新transcription及unknowns；确认前保留阻断状态，不臆填牌码。"
+    },
+    {
+     "severity": "source-note",
+     "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+     "description": "遮挡、裁切及骰子辨读限制应如实保留；不得由另外两张东牌反推被遮挡牌面。",
+     "suggestedRepair": "保留对应源图限制说明及未知标记；骰子未确认点数时继续注明未知。"
+    }
+   ]
+  },
+  {
+   "batchId": "chapter06-exercise003-batch-008",
+   "status": "not-run",
+   "issues": []
+  },
+  {
+   "batchId": "chapter06-exercise003-batch-009",
+   "status": "not-run",
+   "issues": []
+  },
+  {
+   "batchId": "chapter06-exercise003-batch-010",
+   "status": "not-run",
+   "issues": []
+  },
+  {
+   "batchId": "chapter06-exercise003-batch-011",
+   "status": "not-run",
+   "issues": []
+  }
+ ],
+ "done": 7,
+ "total": 11,
+ "needsRepair": 7,
+ "passed": 0,
+ "issueCount": 12
+}

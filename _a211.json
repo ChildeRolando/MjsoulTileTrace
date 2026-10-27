@@ -1,0 +1,78 @@
+{
+ "issues": [
+  {
+   "severity": "error",
+   "targetId": "modern-yabejp-ja:chapter03-section024:b0039",
+   "sourceEvidence": "第二个em范围为“七対子等の単騎選択の場合は１枚切れ字牌を選ぶ”。",
+   "description": "候选仅强调“选择已现1张的字牌”，未将“七对子等的单骑选择”这一适用条件纳入强调，未完整保留原文强调范围。",
+   "suggestedRepair": "将末句相应部分改为“但*在七对子等的单骑选择中，选择已现1张的字牌*应该更好。”，使条件与选择建议共同受到强调。"
+  }
+ ],
+ "production": {
+  "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section024.display.json",
+  "sha256": "692318b73842236f227a8a60a303c6286f106f229a68288842d0644cada1a38c"
+ },
+ "source": {
+  "sourceId": "modern-yabejp-ja",
+  "articleId": "chapter03-section024",
+  "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section024.html",
+  "title": "反射読み",
+  "language": "ja",
+  "fetchedAt": "2026-10-23T20:49:02.381339+00:00",
+  "sourcePath": "web-sources/v1/modern-yabejp-ja/articles/chapter03-section024/source.json",
+  "sourceSha256": "dd48007d553888bed502a78d5439905cb5b4f9a8d746c67b0f9e28f6b8cb2329",
+  "htmlSha256": "e0bde1eb2f3dcb92baf1a11227b22db2d554c5af41906c3728efc4abdf33275e",
+  "mainSha256": "645aa632dea6142461359fe34e1f31a79dd0ea97103951d97456d77bdfccf790"
+ },
+ "calls": [
+  {
+   "callId": "18047294-3341-411e-b53e-1b4eb37614b3",
+   "scope": "textbook-web-article-audit",
+   "sourceId": "modern-yabejp-ja",
+   "articleId": "chapter03-section024",
+   "model": "gpt-6.1-sol",
+   "reasoningEffort": "high",
+   "success": true,
+   "usage": {
+    "inputTokens": 25123,
+    "cachedInputTokens": 0,
+    "outputTokens": 7033
+   },
+   "promptSha256": "4ce571ce5e17b6775fcb58da24ba8c74f9d828d1894e3a0a1217e9ee11fa039a",
+   "semanticPromptSha256": "327b9ee452f7f2e9311aaee75ea7135d489ff87d251ede20eb11b9d5ab136904",
+   "schemaSha256": "c2dbd80c9b693d9e453e3d6f93c201f22faea5f64b4704efff745ffc92f1c861",
+   "outputSha256": "81b8ca0b01a75c7d622e48267c9ad77509d765f4b4517bd7da8a4af3636224d1",
+   "requestPromptBytes": 45850,
+   "semanticPromptBytes": 45368,
+   "binding": {
+    "productionSha256": "692318b73842236f227a8a60a303c6286f106f229a68288842d0644cada1a38c",
+    "sourceFileSha256": "dd48007d553888bed502a78d5439905cb5b4f9a8d746c67b0f9e28f6b8cb2329",
+    "auditorSnapshotSha256": "ec038e42ee0e6ad708712bc1d4c958388c25423f1dcfeda822a94c2b35471dd2",
+    "semanticProjectionSha256": "8b756ef92905fc2482c707fa9207f93ab7d1313fba1c430e385c1c1186da0ed1",
+    "semanticProjectionVersion": 2,
+    "verifiedAssetIds": [
+     "modern-yabejp-ja:e11b4a7fa60544eb721099fb",
+     "modern-yabejp-ja:cf903c27e3d6d79024397f25",
+     "modern-yabejp-ja:fa4ca8dbce129a7a05fc2fa8",
+     "modern-yabejp-ja:b07a932f05c190748a79505f",
+     "modern-yabejp-ja:3e03d661064b04283aeea2c5",
+     "modern-yabejp-ja:f5980e09ae04d921ed066df7",
+     "modern-yabejp-ja:31607e0c4823773206eee230",
+     "modern-yabejp-ja:8ff914ae9a3c43ed9fe2cd71",
+     "modern-yabejp-ja:c26e34d916cc6500e3469d7d",
+     "modern-yabejp-ja:113916eafff92e1ddd5d5360",
+     "modern-yabejp-ja:91f021916047e51111e56542",
+     "modern-yabejp-ja:59887c6a14f55b27663151a1",
+     "modern-yabejp-ja:4131b7ca6d3b46f3e009f207",
+     "modern-yabejp-ja:cd5d183cae88a0cb2d844d20"
+    ],
+    "originalImageAssetIds": []
+   },
+   "recordedAt": "2026-10-26T04:48:56.704Z"
+  }
+ ],
+ "semantic": {
+  "complete": true,
+  "evidence": "源文的读山局限、两条概率判断、两个数牌示例、字牌期望值及役牌成对例外、七对子单骑建议和上家舍牌先后比较均完整译出。26次牌图均有对应；源未提供表格、正文链接、署名或作者引用。b0039仅有强调范围不完整，条件文字本身未遗漏。"
+ }
+}
