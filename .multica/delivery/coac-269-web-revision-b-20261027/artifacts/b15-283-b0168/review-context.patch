@@ -1,0 +1,15 @@
+--- production-frozen/textbook-audit-web.mjs
++++ review-frozen/textbook-audit-web.mjs
+@@ -469,7 +469,11 @@
+  const selected=new Set([...group.sourceBlockIds,...(group.contextSourceBlockIds??[])]),own=new Set(group.sourceBlockIds);
+  const textIds=(revision.textBlockIds??[]).filter(id=>own.has(id)),figureIds=(revision.figureIds??[]).filter(id=>own.has(id.replace(/:figure$/,'')));
+  const selectedBlocks=source.blocks.filter(b=>selected.has(b.id)),groupAssetIds=new Set(selectedBlocks.flatMap(b=>b.images??[]).map(i=>i.assetId));
+- const s={...source,blocks:selectedBlocks,assets:source.assets.filter(a=>groupAssetIds.has(a.assetId)&&!knownAssetIds.includes(a.assetId)),tables:(source.tables??[]).filter(t=>t.sourceBlockIds.some(id=>selected.has(id)))};
++ // Q12 b0168-only context: attach the unchanged original North-dora and 4s images.
++ const q12Exact=source.sourceId==='modern-yabejp-ja'&&source.articleId==='chapter06-exercise003'&&candidate.source.sourceSha256==='8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de'&&revision.parentSha256==='dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899'&&revision.notesSha256==='749e242c54019cb6b855a03e6df4fe465bed86e1cf50d7869be548a3b0144d40'&&group.batchId==='chapter06-exercise003-batch-002'&&JSON.stringify(revision.textBlockIds)===JSON.stringify(['modern-yabejp-ja:chapter06-exercise003:b0168'])&&(revision.figureIds??[]).length===0;
++ const contextAssets=new Set(q12Exact?selectedBlocks.filter(b=>['modern-yabejp-ja:chapter06-exercise003:b0153','modern-yabejp-ja:chapter06-exercise003:b0169'].includes(b.id)).flatMap(b=>b.images??[]).map(i=>i.assetId):[]);
++ if(q12Exact&&contextAssets.size!==2)throw Error('b0168_original_image_context_missing');
++ const s={...source,blocks:selectedBlocks,assets:source.assets.filter(a=>groupAssetIds.has(a.assetId)&&(!knownAssetIds.includes(a.assetId)||contextAssets.has(a.assetId))),tables:(source.tables??[]).filter(t=>t.sourceBlockIds.some(id=>selected.has(id)))};
+  const c={...candidate,body:{...candidate.body,blocks:candidate.body.blocks.filter(b=>selected.has(b.sourceBlockIds[0]))},figures:candidate.figures.filter(f=>selected.has(f.sourceBlockIds[0]))};
+  const projection=webSemanticProjection(s,c,[],[],true,3);
+  projection.schema='coach-complete-unit-group-revision-projection/1';

@@ -1,0 +1,6 @@
+{
+  "passed": false,
+  "modelCalls": 0,
+  "error": "Error: web_group_revision_deferred_difference_set",
+  "stack": "Error: web_group_revision_deferred_difference_set\n    at verifyGroupRevisionIssueScope (file:///E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac244-vision-terra-max-v1-20261027/textbook-audit-web.mjs:442:150)\n    at verifyWebGroupRevisionInheritance (file:///E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac244-vision-terra-max-v1-20261027/textbook-audit-web.mjs:568:2)\n    at async file:///C:/Users/Roland/multica_workspaces_desktop-api.multica.ai/coach-rolan-2123e9a3b805/coac-269-d0d45c55900f/worktree/[eval1]:3:222"
+}

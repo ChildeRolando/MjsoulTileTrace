@@ -1,0 +1,20 @@
+--- 244-vision/textbook-audit-web.mjs
++++ production-frozen/textbook-audit-web.mjs
+@@ -430,7 +430,7 @@
+  if(new Set([...texts,...(revision.figureIds??[])]).size!==texts.length+(revision.figureIds??[]).length)throw Error('web_group_revision_duplicate_target');
+  if(targetBlocks.some(id=>!blockGroup.has(id)||!revised.has(blockGroup.get(id))))throw Error('web_group_revision_target_outside_group');
+  for(const gid of revised)if(!targetBlocks.some(id=>blockGroup.get(id)===gid))throw Error('web_group_revision_group_without_targets');
+- const deferred=new Map((gr.deferred??[]).map(d=>[d.batchId+'|'+d.targetId+'|'+d.severity,d]));
++ const deferred=new Map((gr.deferred??[]).map(d=>[d.batchId+'|'+d.targetId+'|'+d.severity+'|'+d.issueSha256,d]));
+  const inside=[],outside=[];
+  for(const record of notes.batchReviews??[])for(const issue of record.modelReview?.issues??[]){
+   if(issue.severity==='source-note')continue;
+@@ -439,7 +439,7 @@
+  }
+  const expectedDeferred=[...outside,...inside.filter(r=>r.severity==='uncertain')];
+  if((gr.deferred??[]).length!==expectedDeferred.length)throw Error('web_group_revision_deferred_not_exact');
+- for(const row of expectedDeferred){const d=deferred.get(row.batchId+'|'+row.targetId+'|'+row.severity);if(!d||d.issueSha256!==row.issueSha256)throw Error('web_group_revision_deferred_difference_set');}
++ for(const row of expectedDeferred){const d=deferred.get(row.batchId+'|'+row.targetId+'|'+row.severity+'|'+row.issueSha256);if(!d||d.issueSha256!==row.issueSha256)throw Error('web_group_revision_deferred_difference_set');}
+  const paragraphOf=id=>parent.body.blocks.find(b=>b.sourceBlockIds?.[0]===id)?.paragraphId;
+  for(const row of inside){
+   const declaredTarget=(revision.textBlockIds??[]).includes(row.targetId)||(revision.figureIds??[]).includes(row.targetId);

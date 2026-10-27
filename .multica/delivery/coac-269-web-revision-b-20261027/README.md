@@ -3,13 +3,17 @@
 Ticket-local evidence bundle for the Multica ticket `COAC-269` (line B of the parallel editing split
 authorised 2026-10-27T09:23Z). Shared code, the unified register, selection and pointers were not modified.
 
-Current state after the latest 2026-10-28 COAC-249 return: **blocked**. The unchanged 183 display
-has a real, explicitly authorized full-context target-text re-review **passed**, and is already
-handed to COAC-250; this owner does not claim integration acceptance. The 236 display keeps its
-original `needs-repair / uncertain` receipt, with a new zero-call source/fidelity diagnosis.
-The revised authorization has used **7/7 local calls, remaining 0**. This receipt-only run adds
-zero calls and no dispatch. See Batch 14 for current findings; earlier outcomes and budgets are
-historical observations and remain preserved.
+Current state after the new 2026-10-28 b0168 authorization: **in_progress, target audit pending**.
+283's sole b0168 candidate is genuinely produced; exactly one `或` was inserted after `摸入宝牌`.
+All other 1194 blocks and 524 figure objects retain their parent content and order. The new
+two-call allowance has used **1 production / 0 audit**, with **1 first target audit reserved to
+COAC-249**, no retries. The full chapter remains unaccepted; six tables, Q8 and all other findings
+stay with their existing owners. See Batch 15 for its separate allowance and exact evidence.
+
+Earlier 183/236 outcomes remain unchanged: 183's full-context target-text re-review **passed**
+and was handed to COAC-250, without claiming integration acceptance here. 236 retains its original
+`needs-repair / uncertain` and source/fidelity diagnosis. That older allowance used **7/7 local
+calls, remaining 0** (Batch 14); it is not available to the b0168 work.
 
 ## Scope
 
@@ -1073,3 +1077,57 @@ preserves the old reviews, checks 236's unchanged text/receipt and totals the se
 It has no model dispatch path. This run does not repeat production, alter source/raw/frozen files,
 create a consumer/wakeup, touch 234/other chapters, change shared registers or switch formal active.
 The existing PR remains an evidence draft; this ticket and the whole-book goal are not complete.
+
+## Batch 15 — 283 Q12 b0168 only, production complete / first audit pending
+
+Authorization `01a17f08-ea29-7998-9b93-505223235e4e` permits one production and one independent
+first target audit, with failed/void calls counted and zero automatic retries. It excludes Q8,
+the six tables and all other targets. The 244 evidence at commit `4376e441…` binds the complete
+Q12 Japanese/Chinese context and the North-dora / 4s originals. Source, parent and old audit were
+rehashed before dispatch; their raw files and all older failed calls remain unchanged.
+
+| item | actual result |
+| --- | --- |
+| candidate | `chapter06-exercise003.coac269b0168r1.json`, SHA `b2417de19a50ec85609f75a4e07f07e002cf636785e1427948c06000a0967c2f` |
+| only change | b0168 `摸到后再改为③即可，（由于摸入宝牌` → `摸到后再改为③即可，（由于摸入宝牌或` |
+| preserved content | Other 1194 blocks, all 524 figure objects and flow order; no presentation conversion or manual candidate repair |
+| real production | `ae79bc97-e5d0-426c-9845-4c5a1bd17135`, `gpt-6.1-sol/high`, actual images `[]` |
+| raw | SHA `fd023633f265c3936839308224de763755bb3085675464c600ded6038bc74091`; actual prompt/schema equals the zero-call request boundary |
+| usage / duration | 40,273 input / 0 cached input / 77 output; 12,913 ms |
+| allowance | Production 1, independent audit 0 here; only 1 first audit remains for COAC-249; 0 retries; cost and upstream execution count unknown |
+| handoff | `integration/coac269-283-b0168-handoff-249-20261028.json`, SHA `6010b8f24a800ca43699e0a631e301290fcd246db0e0a15774ced8c3f9dd2a4a` |
+| queued existing owner | COAC-249 one-shot wakeup `01a17f12-b8fa-7851-a6ff-882447fa3922`; no extra consumer or duplicate assignment |
+
+The frozen production entry uses the official 244 vision CLI unchanged. Its only production
+extension is a bound exact-text request/schema and output guard, which rejects missing `或`,
+punctuation changes, extra blocks or figures before writing a candidate. The original deferred
+finding verifier used only batch/target/severity as a key; two distinct old errors on b0785 collide.
+The scoped snapshot also includes the original issue SHA in that key. Both errors remain, along
+with all 16 non-target deferred findings. Regression cases show omitted, modified and duplicate
+deferred findings still reject. No severity or semantic acceptance rule was changed.
+
+Production snapshot `coac269-283-b0168-exact-v1-20261028` manifest SHA is
+`b1adb8d85258c8518f1f4df731debe48c20b180241fce8e9f56d7592433d55f4`.
+It was not changed after dispatch. The separate **review-only** snapshot
+`coac269-283-b0168-review-v1-20261028` manifest SHA is
+`80aa8e8b361d01515d73e6728c4e63d32613ea0a3198ae7e09c21414efde4a3c`.
+It retains the two original Q12 image attachments despite their unchanged-parent inheritance,
+only for this exact source/parent/audit/group/target binding. The zero-call constructed request
+contains all 45 Q12 source/Chinese blocks, only b0168 as a text target and no figure targets.
+All other inputs use the prior scope behavior. CLI/model routing remains byte-identical to 244's
+verified vision snapshot: that future two-image request must actually use **terra/max**.
+This is prepared configuration, not evidence of a completed independent call.
+
+`artifacts/b15-283-b0168/` contains the exact diff, raw, frozen manifests, narrow patches,
+request boundaries, inheritance proof, slot/claim release receipts and 249 delivery record.
+Actual checks run: `node preflight.mjs` (14 zero-call cases) and `node check-production.mjs`
+(passed: exact single change, immutable inputs/manifests, production/raw/ledger validation,
+full Q12 context, two image hashes, routing and isolation of the context exception).
+`python run-production.py` completed once with exit 0; its atomic dispatch marker prevents reruns.
+The early construction and old-entry rejections were zero-call checks, preserved separately.
+
+COAC-249 must verify the actual request/response, including terra/max arguments and both images,
+under its existing guard before returning a first target checkpoint. Passed batch010's 113 blocks
+are inherited. Even if b0168 passes, the chapter stays `needs-repair` while unrelated original
+findings remain; the exact checkpoint goes to the existing 244/250 aggregation. PR review is
+separate from this textbook audit. No whole-chapter or integration acceptance is claimed.

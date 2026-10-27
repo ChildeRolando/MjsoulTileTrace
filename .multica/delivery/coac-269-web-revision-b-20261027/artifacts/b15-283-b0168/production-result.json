@@ -1,0 +1,306 @@
+{
+  "chapterId": "nemata-jp-chapter-283-1",
+  "targetId": "modern-yabejp-ja:chapter06-exercise003:b0168",
+  "calls": [
+    {
+      "callId": "ae79bc97-e5d0-426c-9845-4c5a1bd17135",
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter06-exercise003",
+      "sourceSha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "requestExecution": {
+        "schema": "coach-textbook-cli-request/1",
+        "policy": "coac244-vision-terra-max-v1-20261027",
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high",
+        "callerRequested": {
+          "model": "gpt-6.1-sol",
+          "reasoningEffort": "high"
+        },
+        "args": [
+          "exec",
+          "--model",
+          "gpt-6.1-sol",
+          "--config",
+          "model_reasoning_effort=\"high\"",
+          "--config",
+          "web_search=\"disabled\"",
+          "--ephemeral",
+          "--ignore-user-config",
+          "--ignore-rules",
+          "--sandbox",
+          "read-only",
+          "--strict-config",
+          "--skip-git-repo-check",
+          "--json",
+          "--output-schema",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-rT8sI8\\output.schema.json",
+          "--output-last-message",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-rT8sI8\\final.json",
+          "--cd",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-rT8sI8",
+          "--disable",
+          "apps",
+          "--disable",
+          "auth_elicitation",
+          "--disable",
+          "browser_use",
+          "--disable",
+          "browser_use_external",
+          "--disable",
+          "browser_use_full_cdp_access",
+          "--disable",
+          "computer_use",
+          "--disable",
+          "fast_mode",
+          "--disable",
+          "goals",
+          "--disable",
+          "guardian_approval",
+          "--disable",
+          "hooks",
+          "--disable",
+          "image_generation",
+          "--disable",
+          "in_app_browser",
+          "--disable",
+          "in_app_chat",
+          "--disable",
+          "in_app_dictation",
+          "--disable",
+          "in_app_local_automation",
+          "--disable",
+          "in_app_updates",
+          "--disable",
+          "memories",
+          "--disable",
+          "mentions_v2",
+          "--disable",
+          "multi_agent",
+          "--disable",
+          "plugin_sharing",
+          "--disable",
+          "plugins",
+          "--disable",
+          "remote_plugin",
+          "--disable",
+          "shell_snapshot",
+          "--disable",
+          "shell_tool",
+          "--disable",
+          "skill_mcp_dependency_install",
+          "--disable",
+          "skill_search",
+          "--disable",
+          "sleep_tool",
+          "--disable",
+          "tool_call_mcp_elicitation",
+          "--disable",
+          "tool_suggest",
+          "--disable",
+          "unbounded_connection_retries",
+          "--disable",
+          "unified_exec",
+          "--disable",
+          "unified_exec_tty",
+          "--disable",
+          "view_image",
+          "--disable",
+          "workspace_dependencies",
+          "-"
+        ],
+        "images": [],
+        "remoteBackend": "unverified; request arguments and returned events only"
+      },
+      "timeoutMs": 900000,
+      "startedAt": "2026-10-27T20:29:57.040Z",
+      "durationMs": 12913,
+      "usage": {
+        "inputTokens": 40273,
+        "cachedInputTokens": 0,
+        "outputTokens": 77
+      },
+      "success": true,
+      "failureClass": null,
+      "transportStatus": "completed",
+      "rawArtifactPath": "raw-calls/ae79bc97-e5d0-426c-9845-4c5a1bd17135.json",
+      "rawArtifactSha256": "fd023633f265c3936839308224de763755bb3085675464c600ded6038bc74091",
+      "outputSha256": "b483d28fa2df657a2f8141705b084e176edae8daccccda6f30b115b47271f4d6",
+      "schemaSha256": "c6d94051f5c13cc745ef18579f32a54aeab0f156931eb0273ac39d29a1ed9d66",
+      "promptSha256": "2d461e1425f2b7a3f855dc4e9f1626a4c77f8c6cae1d5eb67981df42b13ca62f",
+      "semanticPromptSha256": "47336d805714247e7567a3feffdeadb83a712c29a3fa92ec28f4562caee42ed7",
+      "cliSnapshot": {
+        "path": "web-production/v1/runners/403eb168fb725aa990792089eb7d6e29d55903fcf9e22d2cfce253fd675a3d01.cli.mjs",
+        "sha256": "403eb168fb725aa990792089eb7d6e29d55903fcf9e22d2cfce253fd675a3d01"
+      },
+      "targets": {
+        "textIds": [
+          "modern-yabejp-ja:chapter06-exercise003:b0168"
+        ],
+        "figureIds": []
+      },
+      "terminalEvents": [],
+      "visualInputs": [],
+      "batchId": "chapter06-exercise003-batch-002",
+      "batchBinding": {
+        "planPath": "web-production/v1/batch-plans/554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421.json",
+        "planSha256": "554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421",
+        "unitMap": {
+          "path": "web-production/v1/batch-plans/3a37034f9f4db9474e37a94cfc02bc001e68e37ba1c1e74ab86ecf78897cc228.units.json",
+          "sha256": "3a37034f9f4db9474e37a94cfc02bc001e68e37ba1c1e74ab86ecf78897cc228"
+        },
+        "helper": {
+          "path": "web-production/v1/runners/b290104bc833b8013aa5e15e619a40eb8c67824a9f02280afa185432ccb0caeb.batches.mjs",
+          "sha256": "b290104bc833b8013aa5e15e619a40eb8c67824a9f02280afa185432ccb0caeb"
+        },
+        "sourceSha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de",
+        "batchId": "chapter06-exercise003-batch-002",
+        "revision": "group-targeted",
+        "revisionTargetsSha256": "3a04f4fd499dbce58deecb98df606facac05df50354a7a45565ddde6281b4c53"
+      },
+      "revision": {
+        "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter06-exercise003.rev1.json",
+        "parentSha256": "dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899",
+        "notesPath": "audit/web/articles/modern-yabejp-ja/chapter06-exercise003.dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899.json",
+        "notesSha256": "749e242c54019cb6b855a03e6df4fe465bed86e1cf50d7869be548a3b0144d40",
+        "figureIds": [],
+        "textBlockIds": [
+          "modern-yabejp-ja:chapter06-exercise003:b0168"
+        ],
+        "groupRevision": {
+          "groups": [
+            "chapter06-exercise003-batch-002"
+          ],
+          "deferred": [
+            {
+              "batchId": "chapter06-exercise003-batch-001",
+              "targetId": "modern-yabejp-ja:chapter06-exercise003:b0099",
+              "severity": "uncertain",
+              "issueSha256": "ebc185ca1cdb9cbc960fa244aebb327c614eff2de9a32a2fdb4d40e005b8ffa3",
+              "reason": "outside b0168-only authorization; retained unchanged"
+            },
+            {
+              "batchId": "chapter06-exercise003-batch-003",
+              "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]",
+              "severity": "error",
+              "issueSha256": "436b899a4562361e876abd0136d9f0c088c05b492e22fcea94b73467389a3886",
+              "reason": "outside b0168-only authorization; retained unchanged"
+            },
+            {
+              "batchId": "chapter06-exercise003-batch-003",
+              "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[189]/table[21]",
+              "severity": "error",
+              "issueSha256": "e64b38ad0f1b35a0ac42e77cf1ef7ffad33588f0a918885a180bed0798c7328d",
+              "reason": "outside b0168-only authorization; retained unchanged"
+            },
+            {
+              "batchId": "chapter06-exercise003-batch-003",
+              "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[209]/table[21]",
+              "severity": "error",
+              "issueSha256": "c0e2e07e9a0ec7f3e18a2eaac002025b3f3a82b50d42dfc335892dd0dc5bd880",
+              "reason": "outside b0168-only authorization; retained unchanged"
+            },
+            {
+              "batchId": "chapter06-exercise003-batch-004",
+              "targetId": "modern-yabejp-ja:chapter06-exercise003:b0396",
+              "severity": "error",
+              "issueSha256": "c31ac57262de40b3b035f3ad062b6e050c86743e2fcf567011600a655baeacf6",
+              "reason": "outside b0168-only authorization; retained unchanged"
+            },
+            {
+              "batchId": "chapter06-exercise003-batch-005",
+              "targetId": "modern-yabejp-ja:chapter06-exercise003:b0502",
+              "severity": "error",
+              "issueSha256": "ef68b9277f648ef0096cf407ca8857af8c420ba28d2032aab215eea2540061e4",
+              "reason": "outside b0168-only authorization; retained unchanged"
+            },
+            {
+              "batchId": "chapter06-exercise003-batch-006",
+              "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+              "severity": "error",
+              "issueSha256": "99d6ea21d837d54dd3d9520de49feb7ef6c39a722257fac5088c2951738354cf",
+              "reason": "outside b0168-only authorization; retained unchanged"
+            },
+            {
+              "batchId": "chapter06-exercise003-batch-007",
+              "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+              "severity": "error",
+              "issueSha256": "feed6d512d4fec8d15f46265c3473629c7553adb1adeff4fece490eadfac4acb",
+              "reason": "outside b0168-only authorization; retained unchanged"
+            },
+            {
+              "batchId": "chapter06-exercise003-batch-007",
+              "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+              "severity": "error",
+              "issueSha256": "20d6f61af624a83fef7882e3fd9da39449b16b4c92edff67f3fd9134fe66d085",
+              "reason": "outside b0168-only authorization; retained unchanged"
+            },
+            {
+              "batchId": "chapter06-exercise003-batch-007",
+              "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+              "severity": "uncertain",
+              "issueSha256": "d3c5278fc47e6d40b97380a3386e039632af2ad3b4eb806f7113e3ef708de019",
+              "reason": "outside b0168-only authorization; retained unchanged"
+            },
+            {
+              "batchId": "chapter06-exercise003-batch-008",
+              "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[505]/table[23]",
+              "severity": "error",
+              "issueSha256": "6eefa362aa4eff0b8a6c01124327671789207b6fc7fa45d8a7f6a08f74953c54",
+              "reason": "outside b0168-only authorization; retained unchanged"
+            },
+            {
+              "batchId": "chapter06-exercise003-batch-009",
+              "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+              "severity": "error",
+              "issueSha256": "e6be649aaee9e4da2c0e399415841c68d7923ce7f186151584a2b7c346d2ae89",
+              "reason": "outside b0168-only authorization; retained unchanged"
+            },
+            {
+              "batchId": "chapter06-exercise003-batch-009",
+              "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+              "severity": "uncertain",
+              "issueSha256": "6cd3acb48f43e89ddeb0fb6401683764e4be22e446d99b8e8d47171339b8c21c",
+              "reason": "outside b0168-only authorization; retained unchanged"
+            },
+            {
+              "batchId": "chapter06-exercise003-batch-009",
+              "targetId": "modern-yabejp-ja:chapter06-exercise003:b0962",
+              "severity": "error",
+              "issueSha256": "1d779179f2e8f5fdee2c3b4ec9f6998e5016876e0714ccd447aab3c8f9260eab",
+              "reason": "outside b0168-only authorization; retained unchanged"
+            },
+            {
+              "batchId": "chapter06-exercise003-batch-009",
+              "targetId": "modern-yabejp-ja:chapter06-exercise003:b1017",
+              "severity": "error",
+              "issueSha256": "6073a735d8306cdca382542f31cdb1359d2af7c8d8a7ff93caf8dfc5c496dc3d",
+              "reason": "outside b0168-only authorization; retained unchanged"
+            },
+            {
+              "batchId": "chapter06-exercise003-batch-011",
+              "targetId": "modern-yabejp-ja:chapter06-exercise003:b1181",
+              "severity": "error",
+              "issueSha256": "a9f6001a46e729e44587190fbffd36f7e9cd9b0762f898cbf9f27517c4df6b8f",
+              "reason": "outside b0168-only authorization; retained unchanged"
+            }
+          ]
+        },
+        "targets": {
+          "path": "web-production/v1/runs/coac269-283-b0168-20261028/revision-targets.json",
+          "sha256": "3a04f4fd499dbce58deecb98df606facac05df50354a7a45565ddde6281b4c53"
+        }
+      }
+    }
+  ],
+  "newProductionCalls": 1,
+  "newAuditCalls": 0,
+  "automaticRetry": 0,
+  "monetaryCost": null,
+  "upstreamRequestCount": null,
+  "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac269b0168r1.json",
+  "candidateSha256": "b2417de19a50ec85609f75a4e07f07e002cf636785e1427948c06000a0967c2f",
+  "exitCode": 0,
+  "notIndependentPass": true
+}
