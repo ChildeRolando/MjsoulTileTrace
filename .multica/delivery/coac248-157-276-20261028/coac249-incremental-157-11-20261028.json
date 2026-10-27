@@ -1,0 +1,75 @@
+{
+  "schema": "coac248-incremental-independent-review-handoff/1",
+  "recordedAt": "2026-10-27T17:46:36.082Z",
+  "from": "COAC-248",
+  "to": "COAC-249",
+  "targets": [
+    {
+      "kind": "complete-web-candidate",
+      "chapterId": "79-cn-chapter-157-11",
+      "articleId": "cv1751276",
+      "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1751276.r1.display.json",
+      "sourceId": "79-bilibili-cn",
+      "sourceSha256": "797e9393790395bf88d680cfda77c27a406744455d487aad334110d2b5712ccc",
+      "sha256": "1807377cc8f71afec95718f5050584a596690efac5658042cf75563f3d69dadc",
+      "parentSha256": "30679ab106ecb7f8df1d30aeea265878e0488c2aa3c09e04fed58629114549de",
+      "parentAuditSha256": "59fb75343e72036d123cbd546d50ffc462f20800e340f9015af769e0de6f4f15",
+      "category": "coac248-line-a-targeted-figure-revision",
+      "targets": [
+        "79-bilibili-cn:cv1751276:b0005:figure",
+        "79-bilibili-cn:cv1751276:b0007:figure",
+        "79-bilibili-cn:cv1751276:b0009:figure",
+        "79-bilibili-cn:cv1751276:b0011:figure",
+        "79-bilibili-cn:cv1751276:b0013:figure"
+      ]
+    }
+  ],
+  "auditConfig": {
+    "path": "audit/explicit-targets-coac248-157-11-r1-20261028.json",
+    "sha256": "6312b1799d1e6c3f9a1b57bb420733abc95347f4a49543cf5b0790f87cd5dc6c"
+  },
+  "evidence": {
+    "path": "web-production/v1/runs/coac248-web-157-11-r1-20261028/production-evidence.json",
+    "sha256": "79786750e6e5a17206899bbb6ea0005648a128dc3120f6c2903b512559354039"
+  },
+  "parent": {
+    "path": "web-production/v1/candidates/79-bilibili-cn/cv1751276.display.json",
+    "sha256": "30679ab106ecb7f8df1d30aeea265878e0488c2aa3c09e04fed58629114549de",
+    "auditPath": "audit/web/articles/79-bilibili-cn/cv1751276.30679ab106ecb7f8df1d30aeea265878e0488c2aa3c09e04fed58629114549de.retry-1792948857228-d69c915c.json",
+    "auditSha256": "59fb75343e72036d123cbd546d50ffc462f20800e340f9015af769e0de6f4f15"
+  },
+  "rawCandidate": {
+    "path": "web-production/v1/candidates/79-bilibili-cn/cv1751276.r1.json",
+    "sha256": "09163eb94cbb2fd91ca277305041378823589a0a3f2e9fb7f112edf0dc6d6157",
+    "role": "unpresented intermediate of same production call; do not separately review or integrate"
+  },
+  "transportRecovery": null,
+  "limits": {
+    "firstIndependentFullArticleReview": 1,
+    "retry": 0,
+    "failedVoidCount": true
+  },
+  "instructions": "New image review paused until COAC-244 verified gpt-6.1-terra/max snapshot and manifest; never silently use sol/high. 独立核完整原文/原图/新稿；父审仅定位。完整from/to含目标caption/sourceNotes，非目标全部字节保留，lossless display逐像素机械验过。只审display交付SHA，不为未展示中间稿另派；passed交250，退回反馈248，不自动重试。B线162/234、p217/p257、已交090-6不属本件。",
+  "semanticAcceptance": null,
+  "requiredIndependentReviewModel": {
+    "model": "gpt-6.1-terra",
+    "reasoningEffort": "max",
+    "snapshotOwner": "COAC-244",
+    "state": "awaiting-owner-verified-snapshot",
+    "silentFallbackAllowed": false
+  },
+  "additionalReviewFocus": {
+    "targetFigureIds": [
+      "79-bilibili-cn:cv1751276:b0005:figure",
+      "79-bilibili-cn:cv1751276:b0007:figure",
+      "79-bilibili-cn:cv1751276:b0009:figure",
+      "79-bilibili-cn:cv1751276:b0011:figure",
+      "79-bilibili-cn:cv1751276:b0013:figure"
+    ],
+    "tileDiff": "Exactly five4s to6s in declared hand positions. Review full target figures against supplied original images.",
+    "captionsAndSubtitles": "All five captions changed. b0007/b0009 now label concealed hand and explicitly describe sideways tile rotation. Full from/to in production evidence.",
+    "sourceNotes": "All five remain empty arrays; no note deleted or added.",
+    "nonTargetFigures": "Both complete non-target figure objects unchanged; body11 text blocks and full flow order unchanged.",
+    "productionConfiguration": "Existing in-flight call940cf63b used gpt-6.1-sol/high; started17:44:39.429Z, duration70255ms; owner visual-model change was discovered after dispatch. No relabeling or repeated production."
+  }
+}

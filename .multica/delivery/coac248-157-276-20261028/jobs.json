@@ -1,0 +1,30 @@
+{
+  "157-11": {
+    "chapter": "79-cn-chapter-157-11",
+    "article": "cv1751276",
+    "sha": "30679ab106ecb7f8df1d30aeea265878e0488c2aa3c09e04fed58629114549de",
+    "calls": [
+      "e5848e7f-7ba8-4756-9ad0-4ef57c576987"
+    ],
+    "notes": "audit/web/articles/79-bilibili-cn/cv1751276.30679ab106ecb7f8df1d30aeea265878e0488c2aa3c09e04fed58629114549de.retry-1792948857228-d69c915c.json",
+    "readings": [
+      "Current GPT coordinator viewed all five bound x4 PNGs in this run. All targeted tiles show two columns of three bamboo: b0005 hand8, b0007 hand7, b0009 hand5, b0011 hand8 and b0013 hand8 are6s. Not inherited from prior controller claims. Parent audit has actual7 originalImageAssetIds and completed raw."
+    ],
+    "variant": "r1"
+  },
+  "276-4": {
+    "chapter": "79-cn-chapter-276-4",
+    "article": "cv1793434",
+    "sha": "34cd6f77ec400bacdfaf0e51c20d700e0add78523583949392f7a056f148e3af",
+    "calls": [
+      "a6c7d0e3-668c-4fce-b260-1dfcf167a68c",
+      "bb90022e-1fda-4eb3-8f71-779df2bdd169",
+      "2375640c-3a8d-45e7-9601-4b810fe87e80"
+    ],
+    "notes": "audit/web/articles/79-bilibili-cn/cv1793434.34cd6f77ec400bacdfaf0e51c20d700e0add78523583949392f7a056f148e3af.json",
+    "readings": [
+      "Current GPT coordinator viewed bound x2 source: upper discard row fourth tile is inverted9m. Old2375640c raw has turn.failed, no completed turn, null output/message/usage; cannot recover. One new production retry explicitly authorized by current trigger."
+    ],
+    "variant": "r2"
+  }
+}

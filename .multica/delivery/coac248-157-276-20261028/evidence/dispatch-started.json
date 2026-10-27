@@ -1,0 +1,170 @@
+{
+  "at": "2026-10-27T17:44:39.026123+00:00",
+  "jointExclusion": {
+    "at": "2026-10-27T17:44:38.974995+00:00",
+    "activePreview": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T17-40-18-145Z",
+    "pointerSha256": "eae3fda47c93041f144fd2fc952604ac6a201d40657e68135dfa804ed4c414ca",
+    "registerSha256": "774071c28ea36f2b461b8eec5392f205f650a3c52c4a33a89b47debc113d4dcf",
+    "registerRow": {
+      "chapterId": "79-cn-chapter-157-11",
+      "originalChapterId": "79-cn-chapter-157-11",
+      "sourceId": "79-cn",
+      "title": "鸣牌11—后付（1）",
+      "units": 1,
+      "ownedSourceBlocks": 29,
+      "adjudicationGroup": "confirmed-produced-not-covered",
+      "covered": false,
+      "coverageRoute": null,
+      "approvedWebCorrespondence": {
+        "articleId": "cv1751276",
+        "webSourceId": "79-bilibili-cn",
+        "tier": "body",
+        "evidencePath": "integration/chinese-source-body-correspondence.json",
+        "substitutionAllowed": true,
+        "bodyEquivalenceConfirmed": true,
+        "articleInPreview": false
+      },
+      "existingCandidate": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1751276.display.json",
+        "sha256": "30679ab106ecb7f8df1d30aeea265878e0488c2aa3c09e04fed58629114549de",
+        "bodyBlocks": 18,
+        "sourceSha256": "797e9393790395bf88d680cfda77c27a406744455d487aad334110d2b5712ccc",
+        "currentSourceSha256": "797e9393790395bf88d680cfda77c27a406744455d487aad334110d2b5712ccc",
+        "sourceBoundCurrent": true,
+        "auditStatus": "needs-repair",
+        "auditPath": "audit/web/articles/79-bilibili-cn/cv1751276.30679ab106ecb7f8df1d30aeea265878e0488c2aa3c09e04fed58629114549de.retry-1792948857228-d69c915c.json",
+        "auditRecordedAt": "2026-10-25T17:20:57.228Z",
+        "deterministicPassed": true,
+        "semanticComplete": false
+      },
+      "pdfRoute": {
+        "pagesTotal": 3,
+        "pagesWithCandidate": 0,
+        "pagesWithPassedCandidate": 0,
+        "missingPassedPages": [
+          157,
+          158,
+          159
+        ],
+        "pagesDetail": [
+          {
+            "page": 157,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 20
+          },
+          {
+            "page": 158,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 12
+          },
+          {
+            "page": 159,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 16
+          }
+        ]
+      },
+      "gaps": {
+        "ownedSourceBlocks": 29,
+        "missingProductionBlocks": 0,
+        "producedBlocks": 29,
+        "acceptedBlocks": 0,
+        "acceptanceGapBlocks": 29,
+        "acceptanceGapPages": [
+          157,
+          158,
+          159
+        ],
+        "pagesWithoutCandidate": [],
+        "pagesWithoutPassedCandidate": [
+          157,
+          158,
+          159
+        ]
+      },
+      "verdict": "produced-needs-repair",
+      "coac246": {
+        "action": "repair",
+        "auditStatus": "needs-repair",
+        "candidateSha256": "30679ab106ecb7f8df1d30aeea265878e0488c2aa3c09e04fed58629114549de",
+        "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1751276.display.json",
+        "repairErrors": 16,
+        "units": 1,
+        "blocks": 29
+      }
+    },
+    "selectedWeb": [],
+    "selectedPdf": [],
+    "boundPassedReceipts": [],
+    "priorCallIds": [
+      "e5848e7f-7ba8-4756-9ad0-4ef57c576987"
+    ],
+    "existingCandidates": [
+      "cv1751276.display.json",
+      "cv1751276.json"
+    ]
+  },
+  "slot": {
+    "ok": true,
+    "action": "acquire",
+    "slot": "E:\\AgentData\\Coach\\knowledge\\processing\\parallel\\slots\\maker-A.json",
+    "record": {
+      "schema": "coach-textbook-maker-slot/1",
+      "slot": "maker-A",
+      "lane": "A",
+      "owner": "COAC-248 Mika",
+      "pid": 67040,
+      "claimedAt": "2026-10-27T17:44:38.915Z",
+      "heartbeatAt": "2026-10-27T17:44:38.915Z",
+      "ttlMinutes": 20
+    }
+  },
+  "stopFiles": {
+    "STOP": false,
+    "web-production/v1/STOP": false,
+    "model-admission-stop.json": false
+  },
+  "chapter": {
+    "ok": true,
+    "action": "check-chapter",
+    "chapter": "79-cn-chapter-157-11",
+    "held": true,
+    "bySelf": true,
+    "record": {
+      "schema": "coach-textbook-chapter-claim/1",
+      "chapterId": "79-cn-chapter-157-11",
+      "candidateSha256": "30679ab106ecb7f8df1d30aeea265878e0488c2aa3c09e04fed58629114549de",
+      "lane": "A",
+      "owner": "COAC-248 Mika",
+      "slot": null,
+      "claimedAt": "2026-10-27T17:44:38.865Z"
+    }
+  },
+  "argv": [
+    "E:/IDE/NodeJS/node.exe",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac248-web-157-11-r1-20261028\\frozen-runner\\textbook-production-web.mjs",
+    "--source",
+    "web-sources/v1/79-bilibili-cn/articles/cv1751276/source.json",
+    "--revision-from",
+    "web-production/v1/candidates/79-bilibili-cn/cv1751276.display.json",
+    "--revision-notes",
+    "audit/web/articles/79-bilibili-cn/cv1751276.30679ab106ecb7f8df1d30aeea265878e0488c2aa3c09e04fed58629114549de.retry-1792948857228-d69c915c.json",
+    "--reuse",
+    "web-production/v1/reuse-maps/244e6ce061f0c52f553480c5ef8250c84eeaaa0a5d6608123750b56e1581a904.json",
+    "--variant",
+    "r1",
+    "--stop-file",
+    "STOP",
+    "--timeout-ms",
+    "900000"
+  ]
+}

@@ -1,0 +1,156 @@
+{
+  "schema": "coac248-bounded-figure-preflight/1",
+  "at": "2026-10-27T17:44:38.763106+00:00",
+  "chapter": "79-cn-chapter-157-11",
+  "article": "cv1751276",
+  "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1751276.display.json",
+  "parentSha256": "30679ab106ecb7f8df1d30aeea265878e0488c2aa3c09e04fed58629114549de",
+  "parentAuditPath": "audit/web/articles/79-bilibili-cn/cv1751276.30679ab106ecb7f8df1d30aeea265878e0488c2aa3c09e04fed58629114549de.retry-1792948857228-d69c915c.json",
+  "parentAuditSha256": "59fb75343e72036d123cbd546d50ffc462f20800e340f9015af769e0de6f4f15",
+  "sourcePath": "web-sources/v1/79-bilibili-cn/articles/cv1751276/source.json",
+  "sourceSha256": "797e9393790395bf88d680cfda77c27a406744455d487aad334110d2b5712ccc",
+  "targets": [
+    "79-bilibili-cn:cv1751276:b0005:figure",
+    "79-bilibili-cn:cv1751276:b0007:figure",
+    "79-bilibili-cn:cv1751276:b0009:figure",
+    "79-bilibili-cn:cv1751276:b0011:figure",
+    "79-bilibili-cn:cv1751276:b0013:figure"
+  ],
+  "parentRaw": [
+    {
+      "callId": "e5848e7f-7ba8-4756-9ad0-4ef57c576987",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\raw-calls\\e5848e7f-7ba8-4756-9ad0-4ef57c576987.json",
+      "sha256": "e662bd519a4694296c47064e79596b159741147985a3db8136da3981faa95a08"
+    }
+  ],
+  "sourceReadings": [
+    "Current GPT coordinator viewed all five bound x4 PNGs in this run. All targeted tiles show two columns of three bamboo: b0005 hand8, b0007 hand7, b0009 hand5, b0011 hand8 and b0013 hand8 are6s. Not inherited from prior controller claims. Parent audit has actual7 originalImageAssetIds and completed raw."
+  ],
+  "inspectedAssets": [
+    {
+      "figureId": "79-bilibili-cn:cv1751276:b0005:figure",
+      "sourceBinding": {
+        "assetId": "79-bilibili-cn:c02ded1ef79bde3ff0bfbf68",
+        "path": "web-sources/v1/79-bilibili-cn/assets/e92e6087d49744690943048bc34d8320e78cc8113865767420007920c267711b.png",
+        "sha256": "e92e6087d49744690943048bc34d8320e78cc8113865767420007920c267711b",
+        "url": "https://i0.hdslb.com/bfs/article/9ae297aa5262ee43aff7ff6b4b5d04f8619e2ba7.png"
+      },
+      "inspectedZoom": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/e92e6087d49744690943048bc34d8320e78cc8113865767420007920c267711b.x4.png",
+      "zoomSha256": "f9445f40132759a801abf1e794533da227f635dd00b75fb4b67af75a543cbbd1"
+    },
+    {
+      "figureId": "79-bilibili-cn:cv1751276:b0007:figure",
+      "sourceBinding": {
+        "assetId": "79-bilibili-cn:7087188b7130455f0c26ef2f",
+        "path": "web-sources/v1/79-bilibili-cn/assets/2646f88102f2261097f98d5da21820c1d51d9ef331feffda746c0e29881cbd5b.png",
+        "sha256": "2646f88102f2261097f98d5da21820c1d51d9ef331feffda746c0e29881cbd5b",
+        "url": "https://i0.hdslb.com/bfs/article/24b476c81f47fa66d1b0c55c6f6ec5acdca7a9de.png"
+      },
+      "inspectedZoom": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/2646f88102f2261097f98d5da21820c1d51d9ef331feffda746c0e29881cbd5b.x4.png",
+      "zoomSha256": "cefb9b8a934a5259d8ffc7dd8d3e8e54b5e90c1d1b5bec2a60442744db151e95"
+    },
+    {
+      "figureId": "79-bilibili-cn:cv1751276:b0009:figure",
+      "sourceBinding": {
+        "assetId": "79-bilibili-cn:b1a450102f4274a7f2cd43dc",
+        "path": "web-sources/v1/79-bilibili-cn/assets/885adeefbaa457fa67014cb6a36a08938aca7b75fa9226dc106ac5a231e5cfe2.png",
+        "sha256": "885adeefbaa457fa67014cb6a36a08938aca7b75fa9226dc106ac5a231e5cfe2",
+        "url": "https://i0.hdslb.com/bfs/article/1ff1d81a79ffa3059710df7376605533c12cc19b.png"
+      },
+      "inspectedZoom": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/885adeefbaa457fa67014cb6a36a08938aca7b75fa9226dc106ac5a231e5cfe2.x4.png",
+      "zoomSha256": "7f2f18d5a2d2e30979213e3d2611d912d4c9b4120f2b30ba478bec0a4e505b4c"
+    },
+    {
+      "figureId": "79-bilibili-cn:cv1751276:b0011:figure",
+      "sourceBinding": {
+        "assetId": "79-bilibili-cn:45dbb01f6fe94197e15b2588",
+        "path": "web-sources/v1/79-bilibili-cn/assets/52934939c05078b749f6a7fda16e62ce8a50ee2d8d0d9b786c719736a27c89fb.png",
+        "sha256": "52934939c05078b749f6a7fda16e62ce8a50ee2d8d0d9b786c719736a27c89fb",
+        "url": "https://i0.hdslb.com/bfs/article/cba6e64030caf0a58952bd912d5a07760cec8c9d.png"
+      },
+      "inspectedZoom": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/52934939c05078b749f6a7fda16e62ce8a50ee2d8d0d9b786c719736a27c89fb.x4.png",
+      "zoomSha256": "4a76997ed5bfbed4020e729551a089a88e5f3fac1282f3c9f2dbd7376ef9b0e3"
+    },
+    {
+      "figureId": "79-bilibili-cn:cv1751276:b0013:figure",
+      "sourceBinding": {
+        "assetId": "79-bilibili-cn:41679100f7610dc6f729c231",
+        "path": "web-sources/v1/79-bilibili-cn/assets/fa77cc00b99926da7f6dc8a626a1dec41b4a83bcf19376fe9692d4ed502c9156.png",
+        "sha256": "fa77cc00b99926da7f6dc8a626a1dec41b4a83bcf19376fe9692d4ed502c9156",
+        "url": "https://i0.hdslb.com/bfs/article/2264b37451679f220fb9a5a1cb706c625566f1b7.png"
+      },
+      "inspectedZoom": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/fa77cc00b99926da7f6dc8a626a1dec41b4a83bcf19376fe9692d4ed502c9156.x4.png",
+      "zoomSha256": "8c72954a0d14117fb292a5100c6bad0f07cd8f4c09f3cf9cf1df79a7ced4d96d"
+    }
+  ],
+  "entryPreflight": {
+    "preflightPassed": true,
+    "sourceId": "79-bilibili-cn",
+    "articleId": "cv1751276",
+    "sourceBlocks": 18,
+    "textBlocks": 11,
+    "figureRuns": 7,
+    "pendingFigureRuns": 5,
+    "imageOccurrences": 7,
+    "modelCalls": 0
+  },
+  "modelCalls": 0,
+  "frozenFiles": [
+    {
+      "name": "textbook-audit-legacy.mjs",
+      "sha256": "9afa0866101889722bd6c34379370b69b28f72542f3ed8060975fb76860f33e1"
+    },
+    {
+      "name": "textbook-audit-pdf-layout.mjs",
+      "sha256": "d2cf0816da02eed3b745e213d1f39544e24fa61a1bcdac9bdaac27da46164c34"
+    },
+    {
+      "name": "textbook-audit-pdf-native.mjs",
+      "sha256": "51043b3eb214e3525784528838fd9aed7adef16994fd297220e5cc96af4544dc"
+    },
+    {
+      "name": "textbook-audit-pdf-scope.mjs",
+      "sha256": "4ed349d6db48eb4f5a8ff3893b6530050142aa6c7869efb2b3422539a7735239"
+    },
+    {
+      "name": "textbook-audit-pdf-source-corrections.mjs",
+      "sha256": "b775bde390bf71b12bb3c14c6092f6ef89d888ce857ce39d6b8b142fcf7715cb"
+    },
+    {
+      "name": "textbook-audit-tile-dictionary.mjs",
+      "sha256": "89f0c97421f5537f62cb8169f3f41ee6710a71dda3c137bf38e10d76bec2090b"
+    },
+    {
+      "name": "textbook-audit-web-batches.mjs",
+      "sha256": "9173fe4247ecc7fb77f07e996d6fb7746ec760b1c3c3224b5546d09946b861b9"
+    },
+    {
+      "name": "textbook-audit-web-source.py",
+      "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221"
+    },
+    {
+      "name": "textbook-audit-web.mjs",
+      "sha256": "a585d2fc9858c2f894355146d8a0b779e53b1a405021fec573613786a186ea75"
+    },
+    {
+      "name": "textbook-audit.mjs",
+      "sha256": "ba0dad26648fbe132731486eddf16c0c97a07b311c739ca8f74f4e6e34b8b4a1"
+    },
+    {
+      "name": "textbook-production-cli.mjs",
+      "sha256": "ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a"
+    },
+    {
+      "name": "textbook-production-web-batches.mjs",
+      "sha256": "b290104bc833b8013aa5e15e619a40eb8c67824a9f02280afa185432ccb0caeb"
+    },
+    {
+      "name": "textbook-production-web-visual.py",
+      "sha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528"
+    },
+    {
+      "name": "textbook-production-web.mjs",
+      "sha256": "f31c255e0654af7c88f240067b886cc92f6de5aa9242eeca12292b52eee3945c"
+    }
+  ]
+}

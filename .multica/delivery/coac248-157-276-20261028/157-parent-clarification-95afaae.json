@@ -1,0 +1,59 @@
+{
+  "passed": true,
+  "proof": {
+    "revision": {
+      "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1751276.display.json",
+      "parentSha256": "30679ab106ecb7f8df1d30aeea265878e0488c2aa3c09e04fed58629114549de",
+      "notesPath": "audit/web/articles/79-bilibili-cn/cv1751276.30679ab106ecb7f8df1d30aeea265878e0488c2aa3c09e04fed58629114549de.retry-1792948857228-d69c915c.json",
+      "notesSha256": "59fb75343e72036d123cbd546d50ffc462f20800e340f9015af769e0de6f4f15",
+      "figureIds": [
+        "79-bilibili-cn:cv1751276:b0005:figure",
+        "79-bilibili-cn:cv1751276:b0007:figure",
+        "79-bilibili-cn:cv1751276:b0009:figure",
+        "79-bilibili-cn:cv1751276:b0011:figure",
+        "79-bilibili-cn:cv1751276:b0013:figure"
+      ]
+    },
+    "parentAudit": {
+      "path": "audit/web/articles/79-bilibili-cn/cv1751276.30679ab106ecb7f8df1d30aeea265878e0488c2aa3c09e04fed58629114549de.retry-1792948857228-d69c915c.json",
+      "sha256": "59fb75343e72036d123cbd546d50ffc462f20800e340f9015af769e0de6f4f15",
+      "originalStatus": "needs-repair"
+    },
+    "parentCall": {
+      "callId": "f2da64e8-a655-471b-9984-1b2983ab7fce",
+      "path": "audit/calls/f2da64e8-a655-471b-9984-1b2983ab7fce.json",
+      "sha256": "1825ea05de80b680f194872a7ba82b7fc91bc04b0fe8cde1075aee6a37249d21"
+    },
+    "inheritedAssetIds": [
+      "79-bilibili-cn:f3abe87245ce74e1639bd28a",
+      "79-bilibili-cn:b5b14a7973778694a501c2ca"
+    ]
+  },
+  "chapterId": "79-cn-chapter-157-11",
+  "parentAuditPath": "audit/web/articles/79-bilibili-cn/cv1751276.30679ab106ecb7f8df1d30aeea265878e0488c2aa3c09e04fed58629114549de.retry-1792948857228-d69c915c.json",
+  "parentAuditSha256": "59fb75343e72036d123cbd546d50ffc462f20800e340f9015af769e0de6f4f15",
+  "callId": "f2da64e8-a655-471b-9984-1b2983ab7fce",
+  "originalImageAssetIds": [
+    "79-bilibili-cn:c02ded1ef79bde3ff0bfbf68",
+    "79-bilibili-cn:7087188b7130455f0c26ef2f",
+    "79-bilibili-cn:b1a450102f4274a7f2cd43dc",
+    "79-bilibili-cn:45dbb01f6fe94197e15b2588",
+    "79-bilibili-cn:41679100f7610dc6f729c231",
+    "79-bilibili-cn:f3abe87245ce74e1639bd28a",
+    "79-bilibili-cn:b5b14a7973778694a501c2ca"
+  ],
+  "verifiedAssetIds": [],
+  "rawTerminalEvents": [
+    {
+      "type": "turn.completed",
+      "usage": {
+        "input_tokens": 26349,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 5657,
+        "reasoning_output_tokens": 2492
+      }
+    }
+  ],
+  "qualification": "Existing parent independent audit and actual input binding, not a new visual adjudication. Parent assertions must not be replaced by unsupported producer visual claims. No 157 production dispatched."
+}

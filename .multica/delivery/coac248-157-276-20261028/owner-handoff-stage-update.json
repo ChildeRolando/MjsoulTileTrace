@@ -1,0 +1,22 @@
+{
+  "path": "integration\\coac248-repair-handoff-20261027.json",
+  "sha256": "9703574f670f95c880a84e571edd87316978c64ac8bb5a9f8f440148dda62be9",
+  "previousSha256": "5830f703f652e06e7548c7b5a573f4283cbe6d74bf55ecc6a7b668a291462210",
+  "addedItem": {
+    "kind": "finite-stage157276",
+    "recordedAt": "2026-10-27T17:48:25.011959+00:00",
+    "chapterId": "79-cn-chapter-157-11",
+    "candidateSha256": "1807377cc8f71afec95718f5050584a596690efac5658042cf75563f3d69dadc",
+    "handoff249": "integration/coac249-incremental-157-11-20261028.json",
+    "status": "ready-pending-independent-terra-max-runtime",
+    "modelCalls": {
+      "newProduction": 1,
+      "newAudit": 0
+    },
+    "remainingStageCalls": 3,
+    "276": "Explicit retry authorized but not dispatched; waiting244 verified Terra/max snapshot; historical failed2375640c raw/unknown usage preserved.",
+    "ownerInstruction": "01a17e76-a0e3-7cdc-a555-5f856576e671",
+    "evidence": "web-production/v1/runs/coac248-web-157-11-r1-20261028/production-evidence.json"
+  },
+  "otherItemsPreserved": true
+}
