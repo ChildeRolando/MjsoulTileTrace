@@ -1,0 +1,70 @@
+{
+  "passed": true,
+  "tests": [
+    {
+      "name": "wrong-canonical",
+      "rejected": true
+    },
+    {
+      "name": "missing-unknown",
+      "rejected": true
+    },
+    {
+      "name": "guessed-river-tile",
+      "rejected": true
+    },
+    {
+      "name": "wrong-hand-tile",
+      "rejected": true
+    },
+    {
+      "name": "other-body-change",
+      "rejected": true
+    },
+    {
+      "name": "other-figure-change",
+      "rejected": true
+    },
+    {
+      "name": "changed-source-note",
+      "rejected": true
+    },
+    {
+      "name": "missing-independent-limit",
+      "rejected": true
+    },
+    {
+      "name": "uncertain-erased",
+      "rejected": true
+    },
+    {
+      "name": "material-unknown",
+      "rejected": true
+    },
+    {
+      "name": "wrong-placement",
+      "rejected": true
+    },
+    {
+      "name": "fake-whole-chapter-proof",
+      "rejected": true
+    },
+    {
+      "name": "wrong-candidate-sha",
+      "rejected": true
+    },
+    {
+      "name": "missing-actual-note",
+      "rejected": true
+    },
+    {
+      "name": "moved-actual-note",
+      "rejected": true
+    },
+    {
+      "name": "mutated-author-condition",
+      "rejected": true
+    }
+  ],
+  "models": 0
+}

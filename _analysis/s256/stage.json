@@ -1,0 +1,39 @@
+{
+  "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-exact256-display-20261028/stage",
+  "schema": "coach-textbook-web-stage/1",
+  "status": "independently-audited-chapter-preview",
+  "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1785770.r2.display.json",
+  "candidateSha256": "0877ccd8c34fed1b2728eec6c8dd912559e852d653b5fedda8f5b6e4469aa0bd",
+  "sourceSha256": "53bbca13df84b169a751041b20f080d244b21684ce896128e5ad8f07b0cd4b23",
+  "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/supplements/coac249-256-impact-20261028/receipt.json",
+  "auditStatus": "admitted-exact256-limited-author-display",
+  "limitedUnknownFidelity": null,
+  "imageDerivations": [],
+  "chapters": 1,
+  "units": 1,
+  "blocks": 48,
+  "figures": 4,
+  "corpusId": "a3fbe3daa626a862ef19613da3997b890bb5908e74787b2b80653340aad71af0",
+  "bodySha256": "d5e64742c8609c24e2738864c4e0cae80b14b4c0ee8db66db5fff150f09e84e4",
+  "maxUnitBytes": 20927,
+  "modelCalls": 0,
+  "activeLibraryChanged": false,
+  "humanReview": "pending",
+  "canonical": "79-cn-chapter-256-18",
+  "standardWholeArticlePassed": false,
+  "originalModelChecks": {
+    "passed": false,
+    "errors": [
+      "needs-repair:79-bilibili-cn:cv1785770:b0016",
+      "needs-repair:79-bilibili-cn:cv1785770:b0016:figure",
+      "semantic_information_missing",
+      "error:79-bilibili-cn:cv1785770:b0016:figure",
+      "uncertain:79-bilibili-cn:cv1785770:b0016:figure"
+    ]
+  },
+  "displayLimits": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-exact256-display-20261028/stage/display-limits.json",
+    "sha256": "15d37ab867eac2fad16c9ba9ceaa4bc4698df81769dd3c3f0ca64b1b53a1f7ac"
+  },
+  "newModelCalls": 0
+}
