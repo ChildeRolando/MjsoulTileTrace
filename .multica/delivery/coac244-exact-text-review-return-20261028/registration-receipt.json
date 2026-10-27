@@ -1,0 +1,416 @@
+{
+  "schema": "coac244-record-exact-text-review-return/1",
+  "recordedAt": "2026-10-27T19:53:58.152924+00:00",
+  "handoff": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-reviewed-exact-183236-20261028.json",
+    "sha256": "5f18539ffe7bdda16cbceb5306797209a98fbf1ed711b2da39fd8b966f6ebee5"
+  },
+  "sourceContextSupplement": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-183-source-context-supplement-20261028.json",
+    "sha256": "62c6215bffe24c3b1e8fa202c4c593032bd7d68db949c0f2dd490fd320ad3313"
+  },
+  "rows": [
+    {
+      "chapterId": "nemata-jp-chapter-183-1",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section003.coac244exactv2.display.json",
+        "sha256": "973bbc3eb85dedaed18a5b11903b8002b8dffcade1e6d3a3f7bb25cd1684d45a"
+      },
+      "audit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter03-section003.973bbc3eb85dedaed18a5b11903b8002b8dffcade1e6d3a3f7bb25cd1684d45a.json",
+        "sha256": "2cd72bb8ba1482b8b529a864ab3b927303f565e419ccb174a27dda10fd8217e2"
+      },
+      "raw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\018687de-2b4f-4af5-b82f-f4934c12f974.json",
+        "sha256": "60a24e84b6dc00b39f79281fae0b7fd1a120b1ade8f175c5985c0b348452e272"
+      },
+      "status": "needs-repair",
+      "verdict": "uncertain",
+      "callId": "018687de-2b4f-4af5-b82f-f4934c12f974",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "images": [],
+      "usage": {
+        "inputTokens": 13075,
+        "cachedInputTokens": 0,
+        "outputTokens": 1153
+      },
+      "durationMs": 39055,
+      "modelReview": {
+        "blockChecks": [
+          {
+            "id": "modern-yabejp-ja:chapter03-section003:b0018",
+            "verdict": "uncertain",
+            "evidence": "译文保留了“一张已打出、一张可见”的条件、役牌放铳率较低的比较、两项推测原因及“或许”的判断力度。附加校注中的具体统计值未见于本次提供的源文，无法独立核实。"
+          }
+        ],
+        "contextContinuity": {
+          "faithful": true,
+          "evidence": "目标正文承接前段对字牌放铳率的解释，未重复邻段；新增校注已明确标为非原文。"
+        },
+        "semanticCompleteness": {
+          "complete": true,
+          "evidence": "目标原文的条件、比较关系、碰牌原因、客风单骑更易荣和的选择意图及推测语气均已覆盖。"
+        },
+        "issues": [
+          {
+            "severity": "uncertain",
+            "targetId": "modern-yabejp-ja:chapter03-section003:b0018",
+            "sourceEvidence": "原文为“１枚切れ１枚見え”；本次所附源文未提供校注引用的统计表。",
+            "description": "校注列出的4%、4%、2%、3%及其对应条件缺少本次可核对的源文依据；这不构成已证实的误译，但使新增校注无法完全确认。",
+            "suggestedRepair": "依据已绑定的前文数据核实校注中的数值和条件；若无法核实，删去具体统计值，保留对原文条件歧义的说明。"
+          }
+        ],
+        "completeTargetScopeCompared": true,
+        "summary": "目标正文语义忠实、完整；新增校注引用的数据尚待核实。"
+      },
+      "modelChecks": {
+        "passed": false,
+        "errors": [
+          "target_text_not_faithful",
+          "target_text_issue"
+        ]
+      },
+      "effectiveModelChecks": {
+        "passed": false,
+        "errors": [
+          "uncertain:modern-yabejp-ja:chapter03-section003:b0018",
+          "semantic_information_missing",
+          "uncertain:modern-yabejp-ja:chapter03-section003:b0018"
+        ]
+      },
+      "handoff": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-reviewed-exact-183236-20261028.json",
+        "sha256": "5f18539ffe7bdda16cbceb5306797209a98fbf1ed711b2da39fd8b966f6ebee5"
+      },
+      "remainingBatchAllowance": 0,
+      "fullChapterPassed": false,
+      "integrationAllowed": false,
+      "sourceContextSupplement": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-183-source-context-supplement-20261028.json",
+        "sha256": "62c6215bffe24c3b1e8fa202c4c593032bd7d68db949c0f2dd490fd320ad3313"
+      },
+      "blocker": "target-review-context-omits-bound-source-statistics; original one-visible-tile counting ambiguity remains",
+      "nextAction": "保留现候选/原uncertain和有原源依据的统计数字。补证已定位b0003/b0007/b0008/b0011/b0012，现审仅见b0016–b0019；未来若另获授权，仅补齐原源上下文作定点审查，原“１枚切れ１枚見え”口径仍须澄清。当前预算0，不自动再审/制作、不零调用升pass。",
+      "sourceStatistics": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section003:b0007",
+          "paragraphId": "modern-yabejp-ja:chapter03-section003:p0004",
+          "tag": "p",
+          "domPath": "main/p[9]",
+          "tableContext": null,
+          "type": "text",
+          "text": " １枚切れ０枚持ち役牌　４%",
+          "segments": [
+            {
+              "text": " １枚切れ０枚持ち役牌　４%",
+              "marks": [],
+              "href": null
+            }
+          ]
+        },
+        {
+          "id": "modern-yabejp-ja:chapter03-section003:b0008",
+          "paragraphId": "modern-yabejp-ja:chapter03-section003:p0004",
+          "tag": "p",
+          "domPath": "main/p[9]",
+          "tableContext": null,
+          "type": "text",
+          "text": " １枚切れ０枚持ち客風　４%",
+          "segments": [
+            {
+              "text": " １枚切れ０枚持ち客風　４%",
+              "marks": [],
+              "href": null
+            }
+          ]
+        },
+        {
+          "id": "modern-yabejp-ja:chapter03-section003:b0011",
+          "paragraphId": "modern-yabejp-ja:chapter03-section003:p0004",
+          "tag": "p",
+          "domPath": "main/p[9]",
+          "tableContext": null,
+          "type": "text",
+          "text": " １枚切れ１枚持ち客風　３%",
+          "segments": [
+            {
+              "text": " １枚切れ１枚持ち客風　３%",
+              "marks": [],
+              "href": null
+            }
+          ]
+        },
+        {
+          "id": "modern-yabejp-ja:chapter03-section003:b0012",
+          "paragraphId": "modern-yabejp-ja:chapter03-section003:p0004",
+          "tag": "p",
+          "domPath": "main/p[9]",
+          "tableContext": null,
+          "type": "text",
+          "text": " １枚切れ１枚持ち役牌　２%",
+          "segments": [
+            {
+              "text": " １枚切れ１枚持ち役牌　２%",
+              "marks": [],
+              "href": null
+            }
+          ]
+        }
+      ],
+      "actualReviewProjectionIds": [
+        "modern-yabejp-ja:chapter03-section003:b0016",
+        "modern-yabejp-ja:chapter03-section003:b0017",
+        "modern-yabejp-ja:chapter03-section003:b0018",
+        "modern-yabejp-ja:chapter03-section003:b0019"
+      ],
+      "rawPromptContainsStatisticSourceIds": {
+        "modern-yabejp-ja:chapter03-section003:b0007": false,
+        "modern-yabejp-ja:chapter03-section003:b0008": false,
+        "modern-yabejp-ja:chapter03-section003:b0011": false,
+        "modern-yabejp-ja:chapter03-section003:b0012": false
+      }
+    },
+    {
+      "chapterId": "nemata-jp-chapter-236-1",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section015.coac244exactv2.display.json",
+        "sha256": "6193212639b7c8abb42adf64b69759a5d00effc67c1f20d2c9ae681ded121a28"
+      },
+      "audit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section015.6193212639b7c8abb42adf64b69759a5d00effc67c1f20d2c9ae681ded121a28.json",
+        "sha256": "d2c9dfe09838a15c845ae3bab8f698729bd99a22878bbb23af1f268849948aeb"
+      },
+      "raw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\7a1363b3-906b-4155-9643-2a3924d3dfd1.json",
+        "sha256": "8c08adf2edcc9391b697b78ba61922ee3ffb69aa715194f7df9abcd588d28039"
+      },
+      "status": "needs-repair",
+      "verdict": "uncertain",
+      "callId": "7a1363b3-906b-4155-9643-2a3924d3dfd1",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "images": [],
+      "usage": {
+        "inputTokens": 14300,
+        "cachedInputTokens": 0,
+        "outputTokens": 1289
+      },
+      "durationMs": 44055,
+      "modelReview": {
+        "blockChecks": [
+          {
+            "id": "modern-yabejp-ja:chapter04-section015:b0003",
+            "verdict": "uncertain",
+            "evidence": "击飞锁定第一名的优势、适用条件、跳满自摸的例子、见逃条件及第一名面对立直仍可进攻的例外均已保留。“巡目が僅か”的时机指向仍存在疑义，校注明确披露了这一点。"
+          }
+        ],
+        "contextContinuity": {
+          "faithful": true,
+          "evidence": "承接前段按点数状况判断攻守的论述，未重复邻段内容；括号中的不见逃说明也保留在相应情境内。"
+        },
+        "semanticCompleteness": {
+          "complete": true,
+          "evidence": "目标段落的论点、条件、判断力度与例外均有对应译文；时机条件已呈现，但其具体含义尚不能确认。"
+        },
+        "issues": [
+          {
+            "severity": "uncertain",
+            "targetId": "modern-yabejp-ja:chapter04-section015:b0003",
+            "sourceEvidence": "ダマ満貫の手は例え巡目が僅かでもリーチするべき",
+            "description": "“巡目が僅か”未明示是否指剩余巡数。上下文支持考虑剩余巡数的读法，但不足以排除字面上的早巡读法；“即使巡数很少”也保留了这种歧义。现有校注披露了疑点，不能据此确认时机条件已准确落实。",
+            "suggestedRepair": "暂保留明确标为非原文的校注；确认原意后，再分别改为“即使剩余巡数很少”或“即使尚在早巡”，并相应更新校注。"
+          }
+        ],
+        "completeTargetScopeCompared": true,
+        "summary": "已比较本次全部目标范围。其余语义忠实完整，唯一未决项是“巡目が僅か”的时机含义。"
+      },
+      "modelChecks": {
+        "passed": false,
+        "errors": [
+          "target_text_not_faithful",
+          "target_text_issue"
+        ]
+      },
+      "effectiveModelChecks": {
+        "passed": false,
+        "errors": [
+          "uncertain:modern-yabejp-ja:chapter04-section015:b0003",
+          "semantic_information_missing",
+          "uncertain:modern-yabejp-ja:chapter04-section015:b0003"
+        ]
+      },
+      "handoff": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-reviewed-exact-183236-20261028.json",
+        "sha256": "5f18539ffe7bdda16cbceb5306797209a98fbf1ed711b2da39fd8b966f6ebee5"
+      },
+      "remainingBatchAllowance": 0,
+      "fullChapterPassed": false,
+      "integrationAllowed": false,
+      "sourceContextSupplement": null,
+      "blocker": "original turn-timing interpretation remains unconfirmed despite neutral translation and explicit non-author note",
+      "nextAction": "保留中性正文和非原文校注；先获得同源明确时机证据或用户对早巡/剩余巡数的判读，再决定最小定点核查。校注披露疑点不等于证实教学时机；预算0，不自动再制/再审。"
+    }
+  ],
+  "budget": {
+    "authorizationCommentId": "01a17ed7-c04d-71e7-82eb-57aed9c7b3e1",
+    "oldRejectedProductionCalls": [
+      "629d37ab-fdc9-462f-a29a-061ae3293fb0",
+      "abef6c4b-02ff-416f-b61d-1fe821402f1a"
+    ],
+    "newProductionCalls": [
+      "cf82e6c3-ca38-4f6e-98bc-5c81fb4a3428",
+      "62c5c6f7-d54c-45c1-92af-da36349b1f80"
+    ],
+    "firstIndependentAuditCalls": [
+      "018687de-2b4f-4af5-b82f-f4934c12f974",
+      "7a1363b3-906b-4155-9643-2a3924d3dfd1"
+    ],
+    "used": 6,
+    "maximum": 6,
+    "remaining": 0,
+    "automaticRetry": 0,
+    "newModelCallsThisRun": 0
+  },
+  "proofs": [
+    {
+      "chapterId": "nemata-jp-chapter-183-1",
+      "callId": "018687de-2b4f-4af5-b82f-f4934c12f974",
+      "source": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter03-section003\\source.v2.json",
+        "sha256": "cb73d3a88d017081031a4de4961ae1a431c7ea24a384eed91865ac70a94b3cf3"
+      },
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section003.coac244exactv2.display.json",
+        "sha256": "973bbc3eb85dedaed18a5b11903b8002b8dffcade1e6d3a3f7bb25cd1684d45a"
+      },
+      "audit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter03-section003.973bbc3eb85dedaed18a5b11903b8002b8dffcade1e6d3a3f7bb25cd1684d45a.json",
+        "sha256": "2cd72bb8ba1482b8b529a864ab3b927303f565e419ccb174a27dda10fd8217e2"
+      },
+      "raw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\018687de-2b4f-4af5-b82f-f4934c12f974.json",
+        "sha256": "60a24e84b6dc00b39f79281fae0b7fd1a120b1ade8f175c5985c0b348452e272"
+      },
+      "newSemanticReviewPerformedHere": false
+    },
+    {
+      "chapterId": "nemata-jp-chapter-236-1",
+      "callId": "7a1363b3-906b-4155-9643-2a3924d3dfd1",
+      "source": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter04-section015\\source.json",
+        "sha256": "bece7c97b81c5ba283582cd1568404e8fb490ed1d5484267e6e7915785d1d93c"
+      },
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section015.coac244exactv2.display.json",
+        "sha256": "6193212639b7c8abb42adf64b69759a5d00effc67c1f20d2c9ae681ded121a28"
+      },
+      "audit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section015.6193212639b7c8abb42adf64b69759a5d00effc67c1f20d2c9ae681ded121a28.json",
+        "sha256": "d2c9dfe09838a15c845ae3bab8f698729bd99a22878bbb23af1f268849948aeb"
+      },
+      "raw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\7a1363b3-906b-4155-9643-2a3924d3dfd1.json",
+        "sha256": "8c08adf2edcc9391b697b78ba61922ee3ffb69aa715194f7df9abcd588d28039"
+      },
+      "newSemanticReviewPerformedHere": false
+    }
+  ],
+  "protectedRuntimeFiles": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\bounded-runtime-manifest.json",
+      "sha256": "fdac719dc8237db59f7a2abd6cd2bdac44f895a03519abe67cf408242e392548"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\exact-text-contract.mjs",
+      "sha256": "2f082bd1d85c99cfb4a59e51a14b3d9a55e5dfc3a75154f534aabe90ee93e1b2"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\exact-text-contracts.json",
+      "sha256": "fc968c117a50d80011ded6822d138b174a119025a6675fef3780dd01d8240904"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\inline-japanese-revision.mjs",
+      "sha256": "69a9a0db3fccc07bf85c6720606fefb60bac54c689e2402f96bfe018a358e6a6"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-audit-legacy.mjs",
+      "sha256": "9afa0866101889722bd6c34379370b69b28f72542f3ed8060975fb76860f33e1"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-audit-pdf-layout.mjs",
+      "sha256": "d2cf0816da02eed3b745e213d1f39544e24fa61a1bcdac9bdaac27da46164c34"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-audit-pdf-native.mjs",
+      "sha256": "51043b3eb214e3525784528838fd9aed7adef16994fd297220e5cc96af4544dc"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-audit-pdf-scope.mjs",
+      "sha256": "4ed349d6db48eb4f5a8ff3893b6530050142aa6c7869efb2b3422539a7735239"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-audit-pdf-source-corrections.mjs",
+      "sha256": "b775bde390bf71b12bb3c14c6092f6ef89d888ce857ce39d6b8b142fcf7715cb"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-audit-tile-dictionary.mjs",
+      "sha256": "89f0c97421f5537f62cb8169f3f41ee6710a71dda3c137bf38e10d76bec2090b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-audit-web-batches.mjs",
+      "sha256": "9173fe4247ecc7fb77f07e996d6fb7746ec760b1c3c3224b5546d09946b861b9"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-audit-web-source.py",
+      "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-audit-web.mjs",
+      "sha256": "920c6b775430958d0b93cdf5ee31e15e474a23f9aba33422dbe36f8da01c0062"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-audit.mjs",
+      "sha256": "ba0dad26648fbe132731486eddf16c0c97a07b311c739ca8f74f4e6e34b8b4a1"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-production-cli.mjs",
+      "sha256": "773b63a2b7e1cd525f45278f2565487b5916b8775d935c7af7001195b1403860"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-production-web-present.py",
+      "sha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-production-web-visual.py",
+      "sha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-production-web.mjs",
+      "sha256": "495b9aedb65d91248a85c6c4911d01dce3783c85a623e8ce876351c199a73ee3"
+    }
+  ],
+  "oldFailedRaw": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\raw-calls\\629d37ab-fdc9-462f-a29a-061ae3293fb0.json",
+      "sha256": "5f670a646df34c06f90b6a732286b71fbfe3f53b00af7bbae4e4be97b2a4afc0"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\raw-calls\\abef6c4b-02ff-416f-b61d-1fe821402f1a.json",
+      "sha256": "58bee87c7a86989752659c20d5364dd823469362d0bc8aa928d6ec2de559d4ad"
+    }
+  ],
+  "passedAdded": 0,
+  "integrationHandoffMade": false,
+  "candidateOrRawOrAuditChanged": false,
+  "updatedRemainingRegisters": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-uncovered-chapter-continuation-register-20261027b.json",
+      "sha256": "7c18635dab7c12f23e709d0b3c929206a70276eda6e7f3fdf4e7b1a152a1be68"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-remaining26-closure-register-20261028.json",
+      "sha256": "71381787287a64b8615ed8baba66b5dc2629a565ccb770a43ff5d6ee012bd31e"
+    }
+  ]
+}

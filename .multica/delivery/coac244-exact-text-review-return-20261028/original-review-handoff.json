@@ -1,0 +1,284 @@
+{
+  "schema": "coac249-exact-two-text-review-return/1",
+  "recordedAt": "2026-10-27T19:43:07.008490+00:00",
+  "to": [
+    "COAC-269",
+    "COAC-244"
+  ],
+  "chapters": [
+    {
+      "chapterId": "nemata-jp-chapter-183-1",
+      "status": "needs-repair",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section003.coac244exactv2.display.json",
+        "sha256": "973bbc3eb85dedaed18a5b11903b8002b8dffcade1e6d3a3f7bb25cd1684d45a"
+      },
+      "audit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter03-section003.973bbc3eb85dedaed18a5b11903b8002b8dffcade1e6d3a3f7bb25cd1684d45a.json",
+        "sha256": "2cd72bb8ba1482b8b529a864ab3b927303f565e419ccb174a27dda10fd8217e2"
+      },
+      "raw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\018687de-2b4f-4af5-b82f-f4934c12f974.json",
+        "sha256": "60a24e84b6dc00b39f79281fae0b7fd1a120b1ade8f175c5985c0b348452e272"
+      },
+      "calls": [
+        {
+          "callId": "018687de-2b4f-4af5-b82f-f4934c12f974",
+          "scope": "textbook-web-target-text-audit",
+          "sourceId": "modern-yabejp-ja",
+          "articleId": "chapter03-section003",
+          "model": "gpt-6.1-sol",
+          "reasoningEffort": "high",
+          "success": true,
+          "usage": {
+            "inputTokens": 13075,
+            "cachedInputTokens": 0,
+            "outputTokens": 1153
+          },
+          "promptSha256": "81db79f42af235cff58f5ef3bad6433473850504ca342a86c181e151d7eace38",
+          "semanticPromptSha256": "a94759f78349617297b5f53001e8b4ce541fc76c0fea28fe6fb12b5b4cc0b0a4",
+          "schemaSha256": "f6f24dea2912a83ebd01c4cdfc23c6ceeed3eab4ca4ee8afc5e44b8eb57cd6b3",
+          "outputSha256": "bc5fbf4fcaa02492ac7899cd5c405bf382de495f4fc02fee748fb8aa0e0f2ef2",
+          "requestPromptBytes": 8329,
+          "semanticPromptBytes": 7847,
+          "binding": {
+            "productionSha256": "973bbc3eb85dedaed18a5b11903b8002b8dffcade1e6d3a3f7bb25cd1684d45a",
+            "sourceFileSha256": "cb73d3a88d017081031a4de4961ae1a431c7ea24a384eed91865ac70a94b3cf3",
+            "auditorSnapshotSha256": "3ad167e8e9fb1c324b22046c2eec39148418fd676d3334ce062f067e9f752ce3",
+            "semanticProjectionSha256": "a894ee9db3a34efd3b28c34c4cb76d9781efb94151703a7fea58b32a43795fab",
+            "semanticProjectionVersion": 2,
+            "targetTextIds": [
+              "modern-yabejp-ja:chapter03-section003:b0018"
+            ],
+            "verifiedAssetIds": [],
+            "originalImageAssetIds": []
+          },
+          "recordedAt": "2026-10-27T19:40:53.756Z"
+        }
+      ],
+      "modelReview": {
+        "blockChecks": [
+          {
+            "id": "modern-yabejp-ja:chapter03-section003:b0018",
+            "verdict": "uncertain",
+            "evidence": "译文保留了“一张已打出、一张可见”的条件、役牌放铳率较低的比较、两项推测原因及“或许”的判断力度。附加校注中的具体统计值未见于本次提供的源文，无法独立核实。"
+          }
+        ],
+        "contextContinuity": {
+          "faithful": true,
+          "evidence": "目标正文承接前段对字牌放铳率的解释，未重复邻段；新增校注已明确标为非原文。"
+        },
+        "semanticCompleteness": {
+          "complete": true,
+          "evidence": "目标原文的条件、比较关系、碰牌原因、客风单骑更易荣和的选择意图及推测语气均已覆盖。"
+        },
+        "issues": [
+          {
+            "severity": "uncertain",
+            "targetId": "modern-yabejp-ja:chapter03-section003:b0018",
+            "sourceEvidence": "原文为“１枚切れ１枚見え”；本次所附源文未提供校注引用的统计表。",
+            "description": "校注列出的4%、4%、2%、3%及其对应条件缺少本次可核对的源文依据；这不构成已证实的误译，但使新增校注无法完全确认。",
+            "suggestedRepair": "依据已绑定的前文数据核实校注中的数值和条件；若无法核实，删去具体统计值，保留对原文条件歧义的说明。"
+          }
+        ],
+        "completeTargetScopeCompared": true,
+        "summary": "目标正文语义忠实、完整；新增校注引用的数据尚待核实。"
+      },
+      "modelChecks": {
+        "passed": false,
+        "errors": [
+          "target_text_not_faithful",
+          "target_text_issue"
+        ]
+      },
+      "effectiveModelChecks": {
+        "passed": false,
+        "errors": [
+          "uncertain:modern-yabejp-ja:chapter03-section003:b0018",
+          "semantic_information_missing",
+          "uncertain:modern-yabejp-ja:chapter03-section003:b0018"
+        ]
+      },
+      "verification": null,
+      "protectedInputsUnchanged": true,
+      "newCalls": 1,
+      "retry": 0,
+      "images": [],
+      "fee": null,
+      "upstreamExecutionCount": null,
+      "durationMs": 39055,
+      "startedAt": "2026-10-27T19:40:14.698Z",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "execution": {
+        "boundary": {
+          "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-d7b947cfdb76\\worktree\\.multica\\delivery\\coac249-text-183236-20261028\\chapter-183\\request-boundary.json",
+          "sha256": "fe567af327f4af1ef70db55534e739dd632383739ecfb049bdfa46900ba5b5b1"
+        },
+        "processPid": 63872,
+        "commandLine": "C:\\Users\\Roland\\AppData\\Roaming\\npm\\node_modules\\@openai\\codex\\node_modules\\@openai\\codex-win32-x64\\vendor\\x86_64-pc-windows-msvc\\bin\\codex.exe exec --model gpt-6.1-sol --config \"model_reasoning_effort=\\\"high\\\"\" --config \"web_search=\\\"disabled\\\"\" --ephemeral --ignore-user-config --ignore-rules --sandbox read-only --strict-config --skip-git-repo-check --json --output-schema C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-sBT7sd\\output.schema.json --output-last-message C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-sBT7sd\\final.json --cd C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-sBT7sd --disable apps --disable auth_elicitation --disable browser_use --disable browser_use_external --disable browser_use_full_cdp_access --disable computer_use --disable fast_mode --disable goals --disable guardian_approval --disable hooks --disable image_generation --disable in_app_browser --disable in_app_chat --disable in_app_dictation --disable in_app_local_automation --disable in_app_updates --disable memories --disable mentions_v2 --disable multi_agent --disable plugin_sharing --disable plugins --disable remote_plugin --disable shell_snapshot --disable shell_tool --disable skill_mcp_dependency_install --disable skill_search --disable sleep_tool --disable tool_call_mcp_elicitation --disable tool_suggest --disable unbounded_connection_retries --disable unified_exec --disable unified_exec_tty --disable view_image --disable workspace_dependencies -"
+      },
+      "threadIds": [
+        "01a17ee0-a83f-7120-bd23-27959d8e7b79"
+      ],
+      "parentUncertainPreserved": true,
+      "runtimeManifest": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\exact-runtime-manifest.json",
+        "sha256": "0b75f6f6bb31d38344077753d402716b01d83cbbd57709720b753963408ef684"
+      },
+      "upstreamRequestCount": null,
+      "monetaryCost": null
+    },
+    {
+      "chapterId": "nemata-jp-chapter-236-1",
+      "status": "needs-repair",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section015.coac244exactv2.display.json",
+        "sha256": "6193212639b7c8abb42adf64b69759a5d00effc67c1f20d2c9ae681ded121a28"
+      },
+      "audit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section015.6193212639b7c8abb42adf64b69759a5d00effc67c1f20d2c9ae681ded121a28.json",
+        "sha256": "d2c9dfe09838a15c845ae3bab8f698729bd99a22878bbb23af1f268849948aeb"
+      },
+      "raw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\7a1363b3-906b-4155-9643-2a3924d3dfd1.json",
+        "sha256": "8c08adf2edcc9391b697b78ba61922ee3ffb69aa715194f7df9abcd588d28039"
+      },
+      "calls": [
+        {
+          "callId": "7a1363b3-906b-4155-9643-2a3924d3dfd1",
+          "scope": "textbook-web-target-text-audit",
+          "sourceId": "modern-yabejp-ja",
+          "articleId": "chapter04-section015",
+          "model": "gpt-6.1-sol",
+          "reasoningEffort": "high",
+          "success": true,
+          "usage": {
+            "inputTokens": 14300,
+            "cachedInputTokens": 0,
+            "outputTokens": 1289
+          },
+          "promptSha256": "a227b30864c8fcbc8c6460d6510ecbadc86caf98dfcf217a2b9bbcbebdb10c71",
+          "semanticPromptSha256": "f00c3615c276cb1adbe4076fde4b071d7e4bd431095ddcfadbf092a23a8dfd67",
+          "schemaSha256": "4fa336d9a183d40646d21fa61ea5cfac39ad62d864c9e8d8dc54f1143f795349",
+          "outputSha256": "4d6f9366ea07cc71ac56ae00cd232d8bce058ee097506b9e80f7c3d0f00fe3c1",
+          "requestPromptBytes": 13635,
+          "semanticPromptBytes": 13153,
+          "binding": {
+            "productionSha256": "6193212639b7c8abb42adf64b69759a5d00effc67c1f20d2c9ae681ded121a28",
+            "sourceFileSha256": "bece7c97b81c5ba283582cd1568404e8fb490ed1d5484267e6e7915785d1d93c",
+            "auditorSnapshotSha256": "3ad167e8e9fb1c324b22046c2eec39148418fd676d3334ce062f067e9f752ce3",
+            "semanticProjectionSha256": "90bf8148ea52d180daf0ea7322bd47541b87fe034f923b59df9310386c606fb4",
+            "semanticProjectionVersion": 2,
+            "targetTextIds": [
+              "modern-yabejp-ja:chapter04-section015:b0003"
+            ],
+            "verifiedAssetIds": [],
+            "originalImageAssetIds": []
+          },
+          "recordedAt": "2026-10-27T19:41:49.345Z"
+        }
+      ],
+      "modelReview": {
+        "blockChecks": [
+          {
+            "id": "modern-yabejp-ja:chapter04-section015:b0003",
+            "verdict": "uncertain",
+            "evidence": "击飞锁定第一名的优势、适用条件、跳满自摸的例子、见逃条件及第一名面对立直仍可进攻的例外均已保留。“巡目が僅か”的时机指向仍存在疑义，校注明确披露了这一点。"
+          }
+        ],
+        "contextContinuity": {
+          "faithful": true,
+          "evidence": "承接前段按点数状况判断攻守的论述，未重复邻段内容；括号中的不见逃说明也保留在相应情境内。"
+        },
+        "semanticCompleteness": {
+          "complete": true,
+          "evidence": "目标段落的论点、条件、判断力度与例外均有对应译文；时机条件已呈现，但其具体含义尚不能确认。"
+        },
+        "issues": [
+          {
+            "severity": "uncertain",
+            "targetId": "modern-yabejp-ja:chapter04-section015:b0003",
+            "sourceEvidence": "ダマ満貫の手は例え巡目が僅かでもリーチするべき",
+            "description": "“巡目が僅か”未明示是否指剩余巡数。上下文支持考虑剩余巡数的读法，但不足以排除字面上的早巡读法；“即使巡数很少”也保留了这种歧义。现有校注披露了疑点，不能据此确认时机条件已准确落实。",
+            "suggestedRepair": "暂保留明确标为非原文的校注；确认原意后，再分别改为“即使剩余巡数很少”或“即使尚在早巡”，并相应更新校注。"
+          }
+        ],
+        "completeTargetScopeCompared": true,
+        "summary": "已比较本次全部目标范围。其余语义忠实完整，唯一未决项是“巡目が僅か”的时机含义。"
+      },
+      "modelChecks": {
+        "passed": false,
+        "errors": [
+          "target_text_not_faithful",
+          "target_text_issue"
+        ]
+      },
+      "effectiveModelChecks": {
+        "passed": false,
+        "errors": [
+          "uncertain:modern-yabejp-ja:chapter04-section015:b0003",
+          "semantic_information_missing",
+          "uncertain:modern-yabejp-ja:chapter04-section015:b0003"
+        ]
+      },
+      "verification": null,
+      "protectedInputsUnchanged": true,
+      "newCalls": 1,
+      "retry": 0,
+      "images": [],
+      "fee": null,
+      "upstreamExecutionCount": null,
+      "durationMs": 44055,
+      "startedAt": "2026-10-27T19:41:05.287Z",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "execution": {
+        "boundary": {
+          "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-d7b947cfdb76\\worktree\\.multica\\delivery\\coac249-text-183236-20261028\\chapter-236\\request-boundary.json",
+          "sha256": "28666f89d1d27c3a93692b1d3c0c3ccafea4a6ce7187584ce45ccdc99ccae1f1"
+        },
+        "processPid": 51976,
+        "commandLine": "C:\\Users\\Roland\\AppData\\Roaming\\npm\\node_modules\\@openai\\codex\\node_modules\\@openai\\codex-win32-x64\\vendor\\x86_64-pc-windows-msvc\\bin\\codex.exe exec --model gpt-6.1-sol --config \"model_reasoning_effort=\\\"high\\\"\" --config \"web_search=\\\"disabled\\\"\" --ephemeral --ignore-user-config --ignore-rules --sandbox read-only --strict-config --skip-git-repo-check --json --output-schema C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-gtcStH\\output.schema.json --output-last-message C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-gtcStH\\final.json --cd C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-gtcStH --disable apps --disable auth_elicitation --disable browser_use --disable browser_use_external --disable browser_use_full_cdp_access --disable computer_use --disable fast_mode --disable goals --disable guardian_approval --disable hooks --disable image_generation --disable in_app_browser --disable in_app_chat --disable in_app_dictation --disable in_app_local_automation --disable in_app_updates --disable memories --disable mentions_v2 --disable multi_agent --disable plugin_sharing --disable plugins --disable remote_plugin --disable shell_snapshot --disable shell_tool --disable skill_mcp_dependency_install --disable skill_search --disable sleep_tool --disable tool_call_mcp_elicitation --disable tool_suggest --disable unbounded_connection_retries --disable unified_exec --disable unified_exec_tty --disable view_image --disable workspace_dependencies -"
+      },
+      "threadIds": [
+        "01a17ee1-6dce-7d23-bbc9-5993ec98c43c"
+      ],
+      "parentUncertainPreserved": true,
+      "runtimeManifest": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\exact-runtime-manifest.json",
+        "sha256": "0b75f6f6bb31d38344077753d402716b01d83cbbd57709720b753963408ef684"
+      },
+      "upstreamRequestCount": null,
+      "monetaryCost": null
+    }
+  ],
+  "sourceContextSupplement": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-183-source-context-supplement-20261028.json",
+    "sha256": "62c6215bffe24c3b1e8fa202c4c593032bd7d68db949c0f2dd490fd320ad3313"
+  },
+  "newAuditCalls": 2,
+  "newProductionCalls": 0,
+  "retry": 0,
+  "newExecutionFailures": 0,
+  "newNeedsRepair": 2,
+  "passed": 0,
+  "lifetimeBatchCalls": 6,
+  "batchMaximum": 6,
+  "oldInvalidProductionCalls": 2,
+  "validNewProductionCalls": 2,
+  "remainingAuditOrProductionAllowance": 0,
+  "newAuditUsage": {
+    "inputTokens": 27375,
+    "cachedInputTokens": 0,
+    "outputTokens": 2442
+  },
+  "runtimeManifest": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\exact-runtime-manifest.json",
+    "sha256": "0b75f6f6bb31d38344077753d402716b01d83cbbd57709720b753963408ef684",
+    "files": 18
+  },
+  "instructions": "Preserve original needs-repair/uncertain receipts, raw, parent severity and candidate bytes. No new production, automatic review retry or severity change. 183 has a review-context gap with bound source statistics located; source ambiguity is still unresolved. 236 has unresolved timing meaning. Record exact remaining scope in the existing owner. No pass to250 or formal active switch.",
+  "upstreamRequestCount": null,
+  "monetaryCost": null
+}

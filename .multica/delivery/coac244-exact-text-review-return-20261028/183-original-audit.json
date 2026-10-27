@@ -1,0 +1,326 @@
+{
+  "schema": "coach-textbook-web-article-audit/1",
+  "status": "needs-repair",
+  "recordedAt": "2026-10-27T19:40:13.789Z",
+  "source": {
+    "sourceId": "modern-yabejp-ja",
+    "articleId": "chapter03-section003",
+    "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section003.html",
+    "title": "字牌待ち読み",
+    "language": "ja",
+    "fetchedAt": "2026-10-23T20:48:44.666375+00:00",
+    "sourcePath": "web-sources/v1/modern-yabejp-ja/articles/chapter03-section003/source.v2.json",
+    "sourceSha256": "cb73d3a88d017081031a4de4961ae1a431c7ea24a384eed91865ac70a94b3cf3",
+    "htmlSha256": "4c29cc66535ae4d7780f94d668afd72bc6b2be4c009586bc8f770de36d3084f5",
+    "mainSha256": "c774533f02e291d52a8a7c79068c5d125eedcda5c433d3441a76cd01d424dc96"
+  },
+  "production": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section003.coac244exactv2.display.json",
+    "sha256": "973bbc3eb85dedaed18a5b11903b8002b8dffcade1e6d3a3f7bb25cd1684d45a"
+  },
+  "verification": "automatic-independent-review-not-user-human-gold-standard",
+  "deterministicChecks": {
+    "passed": true,
+    "errors": [],
+    "textBlocks": 19,
+    "imageRuns": 0,
+    "imageOccurrences": 0,
+    "figures": 0
+  },
+  "independentSource": {
+    "schema": "coach-textbook-web-independent-source-check/1",
+    "passed": true,
+    "errors": [],
+    "sourceFileSha256": "cb73d3a88d017081031a4de4961ae1a431c7ea24a384eed91865ac70a94b3cf3",
+    "rawHtmlSha256": "4c29cc66535ae4d7780f94d668afd72bc6b2be4c009586bc8f770de36d3084f5",
+    "mainSha256": "c774533f02e291d52a8a7c79068c5d125eedcda5c433d3441a76cd01d424dc96",
+    "textBlocks": 19,
+    "imageRuns": 0,
+    "imageOccurrences": 0,
+    "uniqueAssets": 0,
+    "method": "offline independent html.parser character-and-image DOM event comparison",
+    "modelCalls": 0
+  },
+  "semanticCompleteness": {
+    "complete": false,
+    "evidence": "Bound independent full parent review plus new independent target-text review; all unrequested prose, figures, marks and DOM locations are unchanged."
+  },
+  "modelChecks": {
+    "passed": false,
+    "errors": [
+      "target_text_not_faithful",
+      "target_text_issue"
+    ]
+  },
+  "modelReview": {
+    "blockChecks": [
+      {
+        "id": "modern-yabejp-ja:chapter03-section003:b0018",
+        "verdict": "uncertain",
+        "evidence": "译文保留了“一张已打出、一张可见”的条件、役牌放铳率较低的比较、两项推测原因及“或许”的判断力度。附加校注中的具体统计值未见于本次提供的源文，无法独立核实。"
+      }
+    ],
+    "contextContinuity": {
+      "faithful": true,
+      "evidence": "目标正文承接前段对字牌放铳率的解释，未重复邻段；新增校注已明确标为非原文。"
+    },
+    "semanticCompleteness": {
+      "complete": true,
+      "evidence": "目标原文的条件、比较关系、碰牌原因、客风单骑更易荣和的选择意图及推测语气均已覆盖。"
+    },
+    "issues": [
+      {
+        "severity": "uncertain",
+        "targetId": "modern-yabejp-ja:chapter03-section003:b0018",
+        "sourceEvidence": "原文为“１枚切れ１枚見え”；本次所附源文未提供校注引用的统计表。",
+        "description": "校注列出的4%、4%、2%、3%及其对应条件缺少本次可核对的源文依据；这不构成已证实的误译，但使新增校注无法完全确认。",
+        "suggestedRepair": "依据已绑定的前文数据核实校注中的数值和条件；若无法核实，删去具体统计值，保留对原文条件歧义的说明。"
+      }
+    ],
+    "completeTargetScopeCompared": true,
+    "summary": "目标正文语义忠实、完整；新增校注引用的数据尚待核实。"
+  },
+  "calls": [
+    {
+      "callId": "018687de-2b4f-4af5-b82f-f4934c12f974",
+      "scope": "textbook-web-target-text-audit",
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter03-section003",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "success": true,
+      "usage": {
+        "inputTokens": 13075,
+        "cachedInputTokens": 0,
+        "outputTokens": 1153
+      },
+      "promptSha256": "81db79f42af235cff58f5ef3bad6433473850504ca342a86c181e151d7eace38",
+      "semanticPromptSha256": "a94759f78349617297b5f53001e8b4ce541fc76c0fea28fe6fb12b5b4cc0b0a4",
+      "schemaSha256": "f6f24dea2912a83ebd01c4cdfc23c6ceeed3eab4ca4ee8afc5e44b8eb57cd6b3",
+      "outputSha256": "bc5fbf4fcaa02492ac7899cd5c405bf382de495f4fc02fee748fb8aa0e0f2ef2",
+      "requestPromptBytes": 8329,
+      "semanticPromptBytes": 7847,
+      "binding": {
+        "productionSha256": "973bbc3eb85dedaed18a5b11903b8002b8dffcade1e6d3a3f7bb25cd1684d45a",
+        "sourceFileSha256": "cb73d3a88d017081031a4de4961ae1a431c7ea24a384eed91865ac70a94b3cf3",
+        "auditorSnapshotSha256": "3ad167e8e9fb1c324b22046c2eec39148418fd676d3334ce062f067e9f752ce3",
+        "semanticProjectionSha256": "a894ee9db3a34efd3b28c34c4cb76d9781efb94151703a7fea58b32a43795fab",
+        "semanticProjectionVersion": 2,
+        "targetTextIds": [
+          "modern-yabejp-ja:chapter03-section003:b0018"
+        ],
+        "verifiedAssetIds": [],
+        "originalImageAssetIds": []
+      },
+      "recordedAt": "2026-10-27T19:40:53.756Z"
+    }
+  ],
+  "exactReuse": null,
+  "auditor": {
+    "path": "audit/web/auditors/9c73ba7e1d07cced5609e6844f8bf5c2bacc191fe138d2d93e98915eb7d95b1a.json",
+    "sha256": "3ad167e8e9fb1c324b22046c2eec39148418fd676d3334ce062f067e9f752ce3",
+    "combinedSha256": "9c73ba7e1d07cced5609e6844f8bf5c2bacc191fe138d2d93e98915eb7d95b1a"
+  },
+  "presentation": {
+    "parent": {
+      "path": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section003.coac244exactv2.json",
+      "sha256": "d1050bb0d666393e063cf3381e8faf767292db4f101189e3abe9eefdd06c14c8",
+      "reason": "Lossless display images only; translations and source figure sequences unchanged"
+    },
+    "pixels": {
+      "passed": true,
+      "figures": 0,
+      "method": "independent no-gap no-padding RGBA bottom-aligned concatenation, every pixel"
+    }
+  },
+  "productionCall": {
+    "callId": "cf82e6c3-ca38-4f6e-98bc-5c81fb4a3428",
+    "rawArtifactPath": "raw-calls/cf82e6c3-ca38-4f6e-98bc-5c81fb4a3428.json",
+    "rawArtifactSha256": "cd24521e4068feabaa3f34717d5aa73f5d2b7d3081f87083ecdf2b91fea63a4d",
+    "revision": {
+      "revision": {
+        "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section003.display.json",
+        "parentSha256": "889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02",
+        "notesPath": "audit/web/articles/modern-yabejp-ja/chapter03-section003.889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02.json",
+        "notesSha256": "c66a9bab86228f8f865d1f74b1c2d033de57f133892f87e2205480a09628373a",
+        "figureIds": [],
+        "textBlockIds": [
+          "modern-yabejp-ja:chapter03-section003:b0018"
+        ]
+      },
+      "parentAudit": {
+        "path": "audit/web/articles/modern-yabejp-ja/chapter03-section003.889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02.json",
+        "sha256": "c66a9bab86228f8f865d1f74b1c2d033de57f133892f87e2205480a09628373a",
+        "originalStatus": "needs-repair"
+      },
+      "parentCall": {
+        "callId": "c5ef58b2-a6ca-4053-acac-9e30ff7bd6f2",
+        "path": "audit/calls/c5ef58b2-a6ca-4053-acac-9e30ff7bd6f2.json",
+        "sha256": "efa6ec95a76092e3ef26cdbb9496b141af05c9f33f73f4bd685077cb31ebdede"
+      },
+      "inheritedAssetIds": []
+    }
+  },
+  "verifiedAssets": null,
+  "method": "independent-target-text-review-plus-unchanged-parent-audit",
+  "effectiveModelReview": {
+    "blockChecks": [
+      {
+        "id": "modern-yabejp-ja:chapter03-section003:b0001",
+        "verdict": "faithful",
+        "evidence": "标题完整表达对字牌待牌的判断。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section003:b0002",
+        "verdict": "faithful",
+        "evidence": "保留数未通过筋的方法以数牌待牌为前提，以及对字牌待牌可能性的提问。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section003:b0003",
+        "verdict": "faithful",
+        "evidence": "保留第9～14巡、他家立直、字牌放铳概率及各分类条件；刊物链接完整。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section003:b0004",
+        "verdict": "faithful",
+        "evidence": "与上一块连读，完整保留とつげき東北署名、文章名称及参考说明。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section003:b0005",
+        "verdict": "faithful",
+        "evidence": "已打出0张、持有1张、役牌、7%均一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section003:b0006",
+        "verdict": "faithful",
+        "evidence": "已打出0张、持有1张、客风牌、5%均一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section003:b0007",
+        "verdict": "faithful",
+        "evidence": "已打出1张、持有0张、役牌、4%均一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section003:b0008",
+        "verdict": "faithful",
+        "evidence": "已打出1张、持有0张、客风牌、4%均一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section003:b0009",
+        "verdict": "faithful",
+        "evidence": "已打出0张、持有2张、役牌、4%均一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section003:b0010",
+        "verdict": "faithful",
+        "evidence": "已打出0张、持有2张、客风牌、3%均一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section003:b0011",
+        "verdict": "faithful",
+        "evidence": "已打出1张、持有1张、客风牌、3%均一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section003:b0012",
+        "verdict": "faithful",
+        "evidence": "已打出1张、持有1张、役牌、2%均一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section003:b0013",
+        "verdict": "faithful",
+        "evidence": "保留已打出2张、字牌、严格低于1%的条件及引用链接。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section003:b0014",
+        "verdict": "faithful",
+        "evidence": "完整引出从数据中可以读出的结论。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section003:b0015",
+        "verdict": "faithful",
+        "evidence": "保留第9巡以后、至少5～6条筋、未通过12条及通过6条、排除4/5/6、1/12≒8.3%的粗略估算、7%的比较与强调结论。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section003:b0016",
+        "verdict": "faithful",
+        "evidence": "保留7%风险、两向听以下等远离和牌的限定、拆手优先打客风对子或筋1/9的建议，以及役牌放铳平均损失较高的理由。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section003:b0017",
+        "verdict": "faithful",
+        "evidence": "保留总可见数相同的前提、已打出数较多则风险较低的强调，以及选牌和第一张被碰造成相关立直减少的解释。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section003:b0018",
+        "verdict": "uncertain",
+        "evidence": "译文保留了“一张已打出、一张可见”的条件、役牌放铳率较低的比较、两项推测原因及“或许”的判断力度。附加校注中的具体统计值未见于本次提供的源文，无法独立核实。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section003:b0019",
+        "verdict": "faithful",
+        "evidence": "保留从下次起介绍可推测特定牌形、待牌形状的情况及其判断方法。"
+      }
+    ],
+    "figureChecks": [],
+    "imageChecks": [],
+    "domOrder": {
+      "faithful": true,
+      "evidence": "19个候选块与源块逐项同序；p0003引用和p0004九项概率数据连读完整，无重复或遗漏。"
+    },
+    "semanticCompleteness": {
+      "complete": false,
+      "evidence": "Bound independent full parent review plus new independent target-text review; all unrequested prose, figures, marks and DOM locations are unchanged."
+    },
+    "issues": [
+      {
+        "severity": "uncertain",
+        "targetId": "modern-yabejp-ja:chapter03-section003:b0018",
+        "sourceEvidence": "原文为“１枚切れ１枚見え”；本次所附源文未提供校注引用的统计表。",
+        "description": "校注列出的4%、4%、2%、3%及其对应条件缺少本次可核对的源文依据；这不构成已证实的误译，但使新增校注无法完全确认。",
+        "suggestedRepair": "依据已绑定的前文数据核实校注中的数值和条件；若无法核实，删去具体统计值，保留对原文条件歧义的说明。"
+      }
+    ],
+    "completeArticleCompared": true,
+    "summary": "全文已逐块核对，翻译覆盖完整，无图像待审；b0018的源文数量条件与概率数据存在歧义，需澄清后通过。"
+  },
+  "effectiveModelChecks": {
+    "passed": false,
+    "errors": [
+      "uncertain:modern-yabejp-ja:chapter03-section003:b0018",
+      "semantic_information_missing",
+      "uncertain:modern-yabejp-ja:chapter03-section003:b0018"
+    ]
+  },
+  "inheritedCalls": [
+    {
+      "callId": "c5ef58b2-a6ca-4053-acac-9e30ff7bd6f2",
+      "scope": "textbook-web-article-audit",
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter03-section003",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "success": true,
+      "usage": {
+        "inputTokens": 17430,
+        "cachedInputTokens": 0,
+        "outputTokens": 3257
+      },
+      "promptSha256": "901fd3e5eb346645bbc6daffb6009db571a60ee8042f6a9bab20d8248bfd2ee0",
+      "semanticPromptSha256": "00b80b23bff3333cf301bd34715bb16840d393636458edbdc1ec741046e9cae6",
+      "schemaSha256": "16739869656f0cbfe496b5713e2c909a1059e9c34b9e037dfc87812a9c3508a9",
+      "outputSha256": "3d67f394612bc477c3ba311d79c757dea507ab81dc99ee536e033154fd668859",
+      "requestPromptBytes": 22664,
+      "semanticPromptBytes": 22182,
+      "binding": {
+        "productionSha256": "889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02",
+        "sourceFileSha256": "cb73d3a88d017081031a4de4961ae1a431c7ea24a384eed91865ac70a94b3cf3",
+        "auditorSnapshotSha256": "ec038e42ee0e6ad708712bc1d4c958388c25423f1dcfeda822a94c2b35471dd2",
+        "semanticProjectionSha256": "bc4b6e135eb143c0f18df010544332363539ef10fa734040629e9b79a7786dce",
+        "semanticProjectionVersion": 2,
+        "verifiedAssetIds": [],
+        "originalImageAssetIds": []
+      },
+      "recordedAt": "2026-10-26T01:56:40.687Z"
+    }
+  ]
+}

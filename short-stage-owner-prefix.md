@@ -1,3 +1,13 @@
+## 2026-10-28 183/236首次独审收回：两章uncertain，6/6已用尽（本登记0调用）
+
+249真实交接5f18539ffe7bdda16cbceb5306797209a98fbf1ed711b2da39fd8b966f6ebee5已按完整源/候选/审/raw与调用ledger核验并登记，无通过章、不交250。最新唯一display：nemata-jp-chapter-183-1 973bbc3eb85dedaed18a5b11903b8002b8dffcade1e6d3a3f7bb25cd1684d45a，首审018687de-2b4f-4af5-b82f-f4934c12f974；nemata-jp-chapter-236-1 6193212639b7c8abb42adf64b69759a5d00effc67c1f20d2c9ae681ded121a28，首审7a1363b3-906b-4155-9643-2a3924d3dfd1。两者needs-repair/uncertain，modelChecks/effectiveModelChecks均false，等级不改。
+
+183正文已判忠实完整；统计数字4%/4%/3%/2%确在绑定source.v2的b0007/b0008/b0011/b0012，已附原HTML/main/SHA和b0003统计口径。新审投影仅b0016–b0019，缺统计行，是可见上下文缺口，不是已证明数字错，不能机械删数字。原“１枚切れ１枚見え”口径仍未明，补证不自动消除uncertain。下一步只记录应纳入的已有源块与待澄清口径；本交接不授权任何补审或制作。
+
+236中性正文和非原文校注保持；其它条件/例外已判忠实，“巡目が僅か”仍未明确已进行巡数/剩余巡数。校注披露不能据此确认教学时机，不自行选读法；先补同源语义证据或用户判读。
+
+批次授权01a17ed7-c04d-71e7-82eb-57aed9c7b3e1：原2失败制作+新2制作+本2首次独审=6/6，剩0，0retry，旧失败raw保留，不把余额重复使用。两次独审均sol/high、images=[]：183 13075in/0cache/1153out，39.055秒；236 14300in/0cache/1289out，44.055秒。完整登记 integration/coac244-recorded-exact-183236-review-20261028.json；既有两个剩余register仅扩展对应行latestIndependentTextReview，不改coverage/原回执/正式active。本次一次性wakeup已fire_count1且disabled，无重复唤醒。不得派234或其它章。
+
 ## 2026-10-28 222制作schema兼容已零模型修复
 
 原制作b702fbf7-dbe4-4533-9a55-aa0912a334f3完整raw终态为服务端invalid_json_schema，param=text.format.schema，exit1、无turn.completed/最终消息/parsedOutput/usage，本地非超时/截断；前置重连不改变最终分类，无法0调用恢复。原失败和额度1保留，不能把157含图独审首件当制作已验活。
