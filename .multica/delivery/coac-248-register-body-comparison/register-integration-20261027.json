@@ -1,0 +1,3986 @@
+{
+ "schema": "coac248-register-integration/1",
+ "recordedAt": "2026-10-27T02:53:34.719Z",
+ "modelCalls": 0,
+ "productionCalls": 0,
+ "register": {
+  "path": "integration/coac250-unified-chapter-register-20261027.json",
+  "sha256": "e5a6bf89959b8a6867e6e53f55d240f1e0787facc0dded09c79b775fb10de1e6",
+  "counts": {
+   "originalChapters": 256,
+   "originalUnits": 303,
+   "originalSourceBlocks": 21212,
+   "displayChapters": 194,
+   "displayUnits": 202,
+   "displayBlocks": 5084,
+   "displayFigures": 3653,
+   "effectiveCoveredOriginalChapters": 194,
+   "effectiveUncoveredOriginalChapters": 62,
+   "uncoveredProduced": 62,
+   "trulyUnproduced": 0,
+   "register80": 80,
+   "register80Groups": {
+    "confirmed-produced-not-covered": 56,
+    "reclassified-covered": 17,
+    "legacy-covered": 1,
+    "additional-uncovered-not-in-246": 6
+   },
+   "verdicts": {
+    "covered-effective": 194,
+    "produced-needs-repair": 56,
+    "produced-passed-not-staged": 2,
+    "produced-pdf-passed-not-staged": 1,
+    "produced-unreviewed": 2,
+    "produced-audit-failed": 1
+   }
+  },
+  "corrections": [
+   {
+    "id": "register-classification",
+    "detail": "原 80 章中 17 章在既定替代契约下已被当前预览有效覆盖（获准网页对应 + 已选候选审校 passed），应从“未覆盖/真未制作”移出；098-1 仍按 legacy 保留章覆盖。"
+   },
+   {
+    "id": "truly-unproduced-zero",
+    "detail": "逐 ID 核对候选后，80 章中 0 章为“真未制作”：56 章（246 组）+ 6 章（246 未覆盖到的 needsRepair 组）均有现存候选或已通过 PDF 页。"
+   },
+   {
+    "id": "coac246-130-1",
+    "detail": "246 记录为 audit-retry/failed；2026-10-27T01:43:49Z 已有 passed 回执（候选 021f93bc…，源 337b6f3f…，源绑定一致），应改判为 passed-not-staged。"
+   },
+   {
+    "id": "coac246-source-stale",
+    "detail": "246 对 131-1、183-1、303-1 标记 auditSourceStale=true；本轮重算候选/回执/source selection 三处源 SHA 一致（a463edd2…、cb73d3a8…、567beb70…），未复现过期。其未通过来自语义/模型结论（needs-repair/failed），不是源过期。"
+   },
+   {
+    "id": "preview-preserved",
+    "detail": "当前预览 194 展示章/202 units/5084 blocks/3653 figures 未改动；本轮 0 模型调用、0 生产调用、未推进 pointer、未写 selection。"
+   }
+  ],
+  "adopted": "chapter-level truth for this ticket; the earlier 80-chapter / 63-unproduced figures are superseded and kept only as history"
+ },
+ "existingList": {
+  "path": ".multica/delivery/coac-248-native-inline-correction/unified-repair-list-20261027.json",
+  "refreshedAt": "2026-10-27T02:56:00.000Z",
+  "counts": {
+   "needsRepair": 57,
+   "decisionHold": 1,
+   "failedSeparate": 2,
+   "resolvedThisStage": 5,
+   "totalTracked": 63
+  },
+  "objects": 63
+ },
+ "registerUnpassed": 62,
+ "matchedByExistingObject": 59,
+ "untracked": {
+  "repair": 0,
+  "staging": 3,
+  "failed": 0,
+  "records": [
+   {
+    "chapterId": "79-cn-chapter-104-5",
+    "registerVerdict": "produced-passed-not-staged",
+    "adjudicationGroup": "confirmed-produced-not-covered",
+    "title": "手役5—断幺",
+    "ownedSourceBlocks": 22,
+    "approvedWebCorrespondence": {
+     "articleId": "cv1726202",
+     "webSourceId": "79-bilibili-cn",
+     "tier": "body",
+     "evidencePath": "integration/chinese-source-body-correspondence.json",
+     "substitutionAllowed": true,
+     "bodyEquivalenceConfirmed": true,
+     "articleInPreview": false
+    },
+    "candidate": {
+     "path": "web-production/v1/candidates/79-bilibili-cn/cv1726202.processing-note-v1.display.json",
+     "sha256FromDisk": "8a3b546c6c01390e479b940ed5077f4ddbbf32afd3ac73a29c67619037ca865d",
+     "sha256InRegister": "8a3b546c6c01390e479b940ed5077f4ddbbf32afd3ac73a29c67619037ca865d",
+     "sha256Match": true,
+     "auditPath": "audit/web/articles/79-bilibili-cn/cv1726202.8a3b546c6c01390e479b940ed5077f4ddbbf32afd3ac73a29c67619037ca865d.json",
+     "auditSha256FromDisk": "8d4a3fcd7b316b4c846af2f40b682da85da4d1055ff5b2ac382366aed29a432a",
+     "auditStatus": "passed-after-specific-source-correction",
+     "sourceBoundCurrent": true
+    },
+    "pdfRoute": {
+     "pagesTotal": 3,
+     "missingPassedPages": [
+      104,
+      105
+     ]
+    },
+    "gaps": {
+     "ownedSourceBlocks": 22,
+     "missingProductionBlocks": 0,
+     "producedBlocks": 22,
+     "acceptedBlocks": 22,
+     "acceptanceGapBlocks": 0,
+     "acceptanceGapPages": [],
+     "pagesWithoutCandidate": [],
+     "pagesWithoutPassedCandidate": [
+      104,
+      105
+     ]
+    },
+    "bodyComparison": null,
+    "category": "staging-not-repair"
+   },
+   {
+    "chapterId": "79-cn-chapter-260-18",
+    "registerVerdict": "produced-pdf-passed-not-staged",
+    "adjudicationGroup": "additional-uncovered-not-in-246",
+    "title": "状况判断9—ALL LAST 的战术（三）",
+    "ownedSourceBlocks": 71,
+    "approvedWebCorrespondence": null,
+    "candidate": null,
+    "pdfRoute": {
+     "pagesTotal": 6,
+     "missingPassedPages": []
+    },
+    "gaps": {
+     "ownedSourceBlocks": 71,
+     "missingProductionBlocks": 0,
+     "producedBlocks": 71,
+     "acceptedBlocks": 71,
+     "acceptanceGapBlocks": 0,
+     "acceptanceGapPages": [],
+     "pagesWithoutCandidate": [],
+     "pagesWithoutPassedCandidate": []
+    },
+    "bodyComparison": null,
+    "category": "staging-not-repair"
+   },
+   {
+    "chapterId": "nemata-jp-chapter-130-1",
+    "registerVerdict": "produced-passed-not-staged",
+    "adjudicationGroup": "confirmed-produced-not-covered",
+    "title": "２面子余剰牌形か完全形の選択２",
+    "ownedSourceBlocks": 54,
+    "approvedWebCorrespondence": {
+     "articleId": "chapter01-section048",
+     "webSourceId": "modern-yabejp-ja",
+     "tier": "url-header",
+     "evidencePath": "integration/modern-pdf-url-coverage.json",
+     "substitutionAllowed": true,
+     "bodyEquivalenceConfirmed": false,
+     "articleInPreview": false
+    },
+    "candidate": {
+     "path": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section048.display.json",
+     "sha256FromDisk": "021f93bca1d7475429800bb3bde8df5dd984a8f0198b0e296a2e98f6bcaeb59e",
+     "sha256InRegister": "021f93bca1d7475429800bb3bde8df5dd984a8f0198b0e296a2e98f6bcaeb59e",
+     "sha256Match": true,
+     "auditPath": "audit/web/articles/modern-yabejp-ja/chapter01-section048.021f93bca1d7475429800bb3bde8df5dd984a8f0198b0e296a2e98f6bcaeb59e.retry-1793065429871-11cfa362.json",
+     "auditSha256FromDisk": "8c36ced2488d251e27c66a9414326cfc93d83079e9fc33a41aff5460af478337",
+     "auditStatus": "passed",
+     "sourceBoundCurrent": true
+    },
+    "pdfRoute": {
+     "pagesTotal": 1,
+     "missingPassedPages": [
+      130
+     ]
+    },
+    "gaps": {
+     "ownedSourceBlocks": 54,
+     "missingProductionBlocks": 0,
+     "producedBlocks": 54,
+     "acceptedBlocks": 54,
+     "acceptanceGapBlocks": 0,
+     "acceptanceGapPages": [],
+     "pagesWithoutCandidate": [],
+     "pagesWithoutPassedCandidate": [
+      130
+     ]
+    },
+    "bodyComparison": {
+     "status": null,
+     "exactBodyMatch": true,
+     "missingSentences": 0,
+     "webOnlySentences": 0,
+     "pdfFigureBlocks": 27,
+     "webFigures": 27,
+     "verdict": "body-identical"
+    },
+    "category": "staging-not-repair"
+   }
+  ]
+ },
+ "matchedRecords": [
+  {
+   "chapterId": "79-cn-chapter-081-8",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "牌效率17—一向听的牌理（五）",
+   "ownedSourceBlocks": 31,
+   "approvedWebCorrespondence": {
+    "articleId": "cv1721475",
+    "webSourceId": "79-bilibili-cn",
+    "tier": "body",
+    "evidencePath": "integration/chinese-source-body-correspondence.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": true,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/79-bilibili-cn/cv1721475.display.json",
+    "sha256FromDisk": "50b62ce5b808d89f5f6231e8a88ed7ce546731211bb73684642d54d700d11853",
+    "sha256InRegister": "50b62ce5b808d89f5f6231e8a88ed7ce546731211bb73684642d54d700d11853",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/79-bilibili-cn/cv1721475.50b62ce5b808d89f5f6231e8a88ed7ce546731211bb73684642d54d700d11853.json",
+    "auditSha256FromDisk": "c5513deefd2d8863fdfed92bbd725fb934199174a0556a9c18e6774b143aea86",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 4,
+    "missingPassedPages": [
+     81,
+     82,
+     83,
+     84
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 31,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 31,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 31,
+    "acceptanceGapPages": [
+     81,
+     82,
+     83,
+     84
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     81,
+     82,
+     83,
+     84
+    ]
+   },
+   "bodyComparison": null,
+   "listObjects": [
+    "web-chapter:79-cn-chapter-081-8"
+   ],
+   "matchedBy": [
+    "chapterId"
+   ]
+  },
+  {
+   "chapterId": "79-cn-chapter-090-6",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "牌效率20—向听倒退",
+   "ownedSourceBlocks": 28,
+   "approvedWebCorrespondence": {
+    "articleId": "cv1721510",
+    "webSourceId": "79-bilibili-cn",
+    "tier": "body",
+    "evidencePath": "integration/chinese-source-body-correspondence.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": true,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/79-bilibili-cn/cv1721510.display.json",
+    "sha256FromDisk": "4cb573da8c93c6764aaccb68db5b5dad2fcec66ab3486b39e93696f23745149f",
+    "sha256InRegister": "4cb573da8c93c6764aaccb68db5b5dad2fcec66ab3486b39e93696f23745149f",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/79-bilibili-cn/cv1721510.4cb573da8c93c6764aaccb68db5b5dad2fcec66ab3486b39e93696f23745149f.retry-1792942848957-13e1430c.json",
+    "auditSha256FromDisk": "341cb06d35830aeff64c7c620ba71742c959d910d03b2d6d0e2d5037fe96d5db",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 4,
+    "missingPassedPages": [
+     91,
+     92,
+     93
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 28,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 28,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 28,
+    "acceptanceGapPages": [
+     91,
+     92,
+     93
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     91,
+     92,
+     93
+    ]
+   },
+   "bodyComparison": null,
+   "listObjects": [
+    "web-chapter:79-cn-chapter-090-6"
+   ],
+   "matchedBy": [
+    "chapterId"
+   ]
+  },
+  {
+   "chapterId": "79-cn-chapter-109-4",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "手役7—染手（二）",
+   "ownedSourceBlocks": 25,
+   "approvedWebCorrespondence": {
+    "articleId": "cv1729038",
+    "webSourceId": "79-bilibili-cn",
+    "tier": "body",
+    "evidencePath": "integration/chinese-source-body-correspondence.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": true,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/79-bilibili-cn/cv1729038.display.json",
+    "sha256FromDisk": "ba8f4468945fda73ed357ba1ec879fdcf2a1db5770fa490ee085e7af4fa00e22",
+    "sha256InRegister": "ba8f4468945fda73ed357ba1ec879fdcf2a1db5770fa490ee085e7af4fa00e22",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/79-bilibili-cn/cv1729038.ba8f4468945fda73ed357ba1ec879fdcf2a1db5770fa490ee085e7af4fa00e22.retry-1792943789870-ade1138e.json",
+    "auditSha256FromDisk": "254405ec0e5e50e057a662509f8ac087e4d1ed84c0e60b40e185182585130eda",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 3,
+    "missingPassedPages": [
+     110,
+     111
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 25,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 25,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 25,
+    "acceptanceGapPages": [
+     110,
+     111
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     110,
+     111
+    ]
+   },
+   "bodyComparison": null,
+   "listObjects": [
+    "web-chapter:79-cn-chapter-109-4"
+   ],
+   "matchedBy": [
+    "chapterId"
+   ]
+  },
+  {
+   "chapterId": "79-cn-chapter-128-14",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "宝牌与赤牌5—宝牌和手役的选择",
+   "ownedSourceBlocks": 30,
+   "approvedWebCorrespondence": {
+    "articleId": "cv1734739",
+    "webSourceId": "79-bilibili-cn",
+    "tier": "body",
+    "evidencePath": "integration/chinese-source-body-correspondence.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": true,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/79-bilibili-cn/cv1734739.display.json",
+    "sha256FromDisk": "2aec7345fda18914b17cab6d01703d1a5e0fb5bee27eb056e62453f4f24887ec",
+    "sha256InRegister": "2aec7345fda18914b17cab6d01703d1a5e0fb5bee27eb056e62453f4f24887ec",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/79-bilibili-cn/cv1734739.2aec7345fda18914b17cab6d01703d1a5e0fb5bee27eb056e62453f4f24887ec.retry-1792944840664-30f5eb57.json",
+    "auditSha256FromDisk": "24ebc92c728006d8a4283c3f2bcf46790b4876bb094d6363d05decf8578b1f59",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 4,
+    "missingPassedPages": [
+     128,
+     129,
+     130,
+     131
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 30,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 30,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 30,
+    "acceptanceGapPages": [
+     128,
+     129,
+     130,
+     131
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     128,
+     129,
+     130,
+     131
+    ]
+   },
+   "bodyComparison": null,
+   "listObjects": [
+    "web-chapter:79-cn-chapter-128-14"
+   ],
+   "matchedBy": [
+    "chapterId"
+   ]
+  },
+  {
+   "chapterId": "79-cn-chapter-145-4",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "鸣牌6—杠（二）",
+   "ownedSourceBlocks": 18,
+   "approvedWebCorrespondence": {
+    "articleId": "cv1744266",
+    "webSourceId": "79-bilibili-cn",
+    "tier": "body",
+    "evidencePath": "integration/chinese-source-body-correspondence.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": true,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/79-bilibili-cn/cv1744266.display.json",
+    "sha256FromDisk": "7557da593c6cdee11ca01853639150f50e39cbc9dc94bd51f0461d65d18ad92a",
+    "sha256InRegister": "7557da593c6cdee11ca01853639150f50e39cbc9dc94bd51f0461d65d18ad92a",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/79-bilibili-cn/cv1744266.7557da593c6cdee11ca01853639150f50e39cbc9dc94bd51f0461d65d18ad92a.retry-1792948017171-19a0c0ed.json",
+    "auditSha256FromDisk": "b349c80320f24c247e9e3b33f6b0e6dc3aba1970401340656e6b7fd91fc6103d",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 3,
+    "missingPassedPages": [
+     145,
+     146
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 18,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 18,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 18,
+    "acceptanceGapPages": [
+     145,
+     146
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     145,
+     146
+    ]
+   },
+   "bodyComparison": null,
+   "listObjects": [
+    "web-chapter:79-cn-chapter-145-4"
+   ],
+   "matchedBy": [
+    "chapterId"
+   ]
+  },
+  {
+   "chapterId": "79-cn-chapter-155-4",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "鸣牌10—混一色",
+   "ownedSourceBlocks": 36,
+   "approvedWebCorrespondence": {
+    "articleId": "cv1751265",
+    "webSourceId": "79-bilibili-cn",
+    "tier": "body",
+    "evidencePath": "integration/chinese-source-body-correspondence.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": true,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/79-bilibili-cn/cv1751265.display.json",
+    "sha256FromDisk": "20f4b2fcb544f458312f2c5bb11ab90096d5198c42c19400f73534b287402f4f",
+    "sha256InRegister": "20f4b2fcb544f458312f2c5bb11ab90096d5198c42c19400f73534b287402f4f",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/79-bilibili-cn/cv1751265.20f4b2fcb544f458312f2c5bb11ab90096d5198c42c19400f73534b287402f4f.retry-1792948405214-96b97389.json",
+    "auditSha256FromDisk": "190621efba617c7b101ecd4f9d21fcb1d7af2280b362669413235140e8c96627",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 3,
+    "missingPassedPages": [
+     156,
+     157
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 36,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 36,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 36,
+    "acceptanceGapPages": [
+     156,
+     157
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     156,
+     157
+    ]
+   },
+   "bodyComparison": null,
+   "listObjects": [
+    "web-chapter:79-cn-chapter-155-4"
+   ],
+   "matchedBy": [
+    "chapterId"
+   ]
+  },
+  {
+   "chapterId": "79-cn-chapter-157-11",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "鸣牌11—后付（1）",
+   "ownedSourceBlocks": 29,
+   "approvedWebCorrespondence": {
+    "articleId": "cv1751276",
+    "webSourceId": "79-bilibili-cn",
+    "tier": "body",
+    "evidencePath": "integration/chinese-source-body-correspondence.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": true,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/79-bilibili-cn/cv1751276.display.json",
+    "sha256FromDisk": "30679ab106ecb7f8df1d30aeea265878e0488c2aa3c09e04fed58629114549de",
+    "sha256InRegister": "30679ab106ecb7f8df1d30aeea265878e0488c2aa3c09e04fed58629114549de",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/79-bilibili-cn/cv1751276.30679ab106ecb7f8df1d30aeea265878e0488c2aa3c09e04fed58629114549de.retry-1792948857228-d69c915c.json",
+    "auditSha256FromDisk": "59fb75343e72036d123cbd546d50ffc462f20800e340f9015af769e0de6f4f15",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 3,
+    "missingPassedPages": [
+     157,
+     158,
+     159
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 29,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 29,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 29,
+    "acceptanceGapPages": [
+     157,
+     158,
+     159
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     157,
+     158,
+     159
+    ]
+   },
+   "bodyComparison": null,
+   "listObjects": [
+    "web-chapter:79-cn-chapter-157-11"
+   ],
+   "matchedBy": [
+    "chapterId"
+   ]
+  },
+  {
+   "chapterId": "79-cn-chapter-159-9",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "鸣牌12—后付（2）",
+   "ownedSourceBlocks": 40,
+   "approvedWebCorrespondence": {
+    "articleId": "cv1751292",
+    "webSourceId": "79-bilibili-cn",
+    "tier": "body",
+    "evidencePath": "integration/chinese-source-body-correspondence.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": true,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/79-bilibili-cn/cv1751292.display.json",
+    "sha256FromDisk": "5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373",
+    "sha256InRegister": "5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/79-bilibili-cn/cv1751292.5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373.retry-1792949291881-6f049dc8.json",
+    "auditSha256FromDisk": "16eb1144b0cef9c86968ee30932ec0d10f73bca926ad0cf7610788fccb8eb3ed",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 3,
+    "missingPassedPages": [
+     159,
+     160,
+     161
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 40,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 40,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 40,
+    "acceptanceGapPages": [
+     159,
+     160,
+     161
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     159,
+     160,
+     161
+    ]
+   },
+   "bodyComparison": null,
+   "listObjects": [
+    "web-chapter:79-cn-chapter-159-9"
+   ],
+   "matchedBy": [
+    "chapterId"
+   ]
+  },
+  {
+   "chapterId": "79-cn-chapter-162-3",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "鸣牌13—鸣牌的技巧（1）",
+   "ownedSourceBlocks": 49,
+   "approvedWebCorrespondence": {
+    "articleId": "cv1751316",
+    "webSourceId": "79-bilibili-cn",
+    "tier": "body",
+    "evidencePath": "integration/chinese-source-body-correspondence.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": true,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/79-bilibili-cn/cv1751316.display.json",
+    "sha256FromDisk": "1f33f5838fc635cb78306f848198cd30a03ab403ee53ee61eb3e7effe1a99b52",
+    "sha256InRegister": "1f33f5838fc635cb78306f848198cd30a03ab403ee53ee61eb3e7effe1a99b52",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/79-bilibili-cn/cv1751316.1f33f5838fc635cb78306f848198cd30a03ab403ee53ee61eb3e7effe1a99b52.retry-1792951224780-a2783f95.json",
+    "auditSha256FromDisk": "2f9124ce76bc264fd98a420f85eb0ee891ede0db56f61bd8c28be5c8954805ec",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 4,
+    "missingPassedPages": [
+     162,
+     163,
+     164,
+     165
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 49,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 49,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 49,
+    "acceptanceGapPages": [
+     162,
+     163,
+     164,
+     165
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     162,
+     163,
+     164,
+     165
+    ]
+   },
+   "bodyComparison": null,
+   "listObjects": [
+    "web-chapter:79-cn-chapter-162-3"
+   ],
+   "matchedBy": [
+    "chapterId"
+   ]
+  },
+  {
+   "chapterId": "79-cn-chapter-167-4",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "鸣牌15—鸣牌的技巧（3）",
+   "ownedSourceBlocks": 13,
+   "approvedWebCorrespondence": {
+    "articleId": "cv1754620",
+    "webSourceId": "79-bilibili-cn",
+    "tier": "body",
+    "evidencePath": "integration/chinese-source-body-correspondence.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": true,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/79-bilibili-cn/cv1754620.display.json",
+    "sha256FromDisk": "7279ba3604f55bb2fe84a8210b4d7f222f8391b284e8603f6cff4d79e6f30737",
+    "sha256InRegister": "7279ba3604f55bb2fe84a8210b4d7f222f8391b284e8603f6cff4d79e6f30737",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/79-bilibili-cn/cv1754620.7279ba3604f55bb2fe84a8210b4d7f222f8391b284e8603f6cff4d79e6f30737.json",
+    "auditSha256FromDisk": "8c52da176b472a79f63b7cce50f29ce66710718beea7631b1cf3b0a2a9910c73",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 3,
+    "missingPassedPages": [
+     167,
+     168,
+     169
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 13,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 13,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 13,
+    "acceptanceGapPages": [
+     167,
+     168,
+     169
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     167,
+     168,
+     169
+    ]
+   },
+   "bodyComparison": null,
+   "listObjects": [
+    "web-chapter:79-cn-chapter-167-4"
+   ],
+   "matchedBy": [
+    "chapterId"
+   ]
+  },
+  {
+   "chapterId": "79-cn-chapter-182-5",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "立直6—立直理论（2）",
+   "ownedSourceBlocks": 23,
+   "approvedWebCorrespondence": {
+    "articleId": "cv1760573",
+    "webSourceId": "79-bilibili-cn",
+    "tier": "body",
+    "evidencePath": "integration/chinese-source-body-correspondence.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": true,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/79-bilibili-cn/cv1760573.display.json",
+    "sha256FromDisk": "d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270",
+    "sha256InRegister": "d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/79-bilibili-cn/cv1760573.d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270.json",
+    "auditSha256FromDisk": "8c955cf37bd627bd495e19c38c4a1056f59e4eaa938ce4e7768c0aa07157cff8",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 2,
+    "missingPassedPages": [
+     182,
+     183
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 23,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 23,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 23,
+    "acceptanceGapPages": [
+     182,
+     183
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     182,
+     183
+    ]
+   },
+   "bodyComparison": null,
+   "listObjects": [
+    "web-chapter:79-cn-chapter-182-5"
+   ],
+   "matchedBy": [
+    "chapterId"
+   ]
+  },
+  {
+   "chapterId": "79-cn-chapter-193-4",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "防守3—筋（1）",
+   "ownedSourceBlocks": 18,
+   "approvedWebCorrespondence": {
+    "articleId": "cv1765377",
+    "webSourceId": "79-bilibili-cn",
+    "tier": "body",
+    "evidencePath": "integration/chinese-source-body-correspondence.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": true,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/79-bilibili-cn/cv1765377.display.json",
+    "sha256FromDisk": "e08cf7cfef4777643809971a71347c587ffe14534873d7cac2be65be42885e5e",
+    "sha256InRegister": "e08cf7cfef4777643809971a71347c587ffe14534873d7cac2be65be42885e5e",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/79-bilibili-cn/cv1765377.e08cf7cfef4777643809971a71347c587ffe14534873d7cac2be65be42885e5e.json",
+    "auditSha256FromDisk": "ecddf372db56b1fbce0133a7ab824deb673f9d56868b5e02ef028c4fccf8c6e9",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 4,
+    "missingPassedPages": [
+     194,
+     195
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 18,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 18,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 18,
+    "acceptanceGapPages": [
+     194,
+     195
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     194,
+     195
+    ]
+   },
+   "bodyComparison": null,
+   "listObjects": [
+    "web-chapter:79-cn-chapter-193-4"
+   ],
+   "matchedBy": [
+    "chapterId"
+   ]
+  },
+  {
+   "chapterId": "79-cn-chapter-201-6",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "防守6—弃和的切牌顺序（1）",
+   "ownedSourceBlocks": 16,
+   "approvedWebCorrespondence": {
+    "articleId": "cv1770179",
+    "webSourceId": "79-bilibili-cn",
+    "tier": "body",
+    "evidencePath": "integration/chinese-source-body-correspondence.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": true,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/79-bilibili-cn/cv1770179.display.json",
+    "sha256FromDisk": "52cf8e02d3418e6587acd964a6b784bc51badc1d4a0d15c3229da24822eb89d8",
+    "sha256InRegister": "52cf8e02d3418e6587acd964a6b784bc51badc1d4a0d15c3229da24822eb89d8",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/79-bilibili-cn/cv1770179.52cf8e02d3418e6587acd964a6b784bc51badc1d4a0d15c3229da24822eb89d8.json",
+    "auditSha256FromDisk": "0d15827cbe532a21534b80263177db5768484007d240c6d7a6af4c24aaf24911",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 3,
+    "missingPassedPages": [
+     201,
+     202,
+     203
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 16,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 16,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 16,
+    "acceptanceGapPages": [
+     201,
+     202,
+     203
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     201,
+     202,
+     203
+    ]
+   },
+   "bodyComparison": null,
+   "listObjects": [
+    "web-chapter:79-cn-chapter-201-6"
+   ],
+   "matchedBy": [
+    "chapterId"
+   ]
+  },
+  {
+   "chapterId": "79-cn-chapter-205-5",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "防守8—弃和的切牌顺序（3）",
+   "ownedSourceBlocks": 15,
+   "approvedWebCorrespondence": {
+    "articleId": "cv1770234",
+    "webSourceId": "79-bilibili-cn",
+    "tier": "body",
+    "evidencePath": "integration/chinese-source-body-correspondence.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": true,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/79-bilibili-cn/cv1770234.display.json",
+    "sha256FromDisk": "181e5da06710e24009128eb6254071ec141983ca34b9a0448b1cd36f61b0d3b6",
+    "sha256InRegister": "181e5da06710e24009128eb6254071ec141983ca34b9a0448b1cd36f61b0d3b6",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/79-bilibili-cn/cv1770234.181e5da06710e24009128eb6254071ec141983ca34b9a0448b1cd36f61b0d3b6.json",
+    "auditSha256FromDisk": "6e42e3767953de3f6e4b7173392ad36292c4f8dce0c29e4922d9f629c0534711",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 4,
+    "missingPassedPages": [
+     205,
+     206,
+     207,
+     208
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 15,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 15,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 15,
+    "acceptanceGapPages": [
+     205,
+     206,
+     207,
+     208
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     205,
+     206,
+     207,
+     208
+    ]
+   },
+   "bodyComparison": null,
+   "listObjects": [
+    "web-chapter:79-cn-chapter-205-5"
+   ],
+   "matchedBy": [
+    "chapterId"
+   ]
+  },
+  {
+   "chapterId": "79-cn-chapter-208-4",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "防守9—兜牌",
+   "ownedSourceBlocks": 17,
+   "approvedWebCorrespondence": {
+    "articleId": "cv1770245",
+    "webSourceId": "79-bilibili-cn",
+    "tier": "body",
+    "evidencePath": "integration/chinese-source-body-correspondence.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": true,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/79-bilibili-cn/cv1770245.display.json",
+    "sha256FromDisk": "0fc086828eb0fb2784e45d60e4a0585af477877c71b2b82630747a87755f6e97",
+    "sha256InRegister": "0fc086828eb0fb2784e45d60e4a0585af477877c71b2b82630747a87755f6e97",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/79-bilibili-cn/cv1770245.0fc086828eb0fb2784e45d60e4a0585af477877c71b2b82630747a87755f6e97.json",
+    "auditSha256FromDisk": "c3ed21f44410017abe1d203a87a0a7a470ec11f0b83e035c43f76016b91236fd",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 4,
+    "missingPassedPages": [
+     208,
+     209,
+     210,
+     211
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 17,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 17,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 17,
+    "acceptanceGapPages": [
+     208,
+     209,
+     210,
+     211
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     208,
+     209,
+     210,
+     211
+    ]
+   },
+   "bodyComparison": null,
+   "listObjects": [
+    "web-chapter:79-cn-chapter-208-4"
+   ],
+   "matchedBy": [
+    "chapterId"
+   ]
+  },
+  {
+   "chapterId": "79-cn-chapter-215-4",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "additional-uncovered-not-in-246",
+   "title": "防守11—扣牌（1）",
+   "ownedSourceBlocks": 10,
+   "approvedWebCorrespondence": null,
+   "candidate": null,
+   "pdfRoute": {
+    "pagesTotal": 3,
+    "missingPassedPages": [
+     217
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 10,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 10,
+    "acceptedBlocks": 10,
+    "acceptanceGapBlocks": 8,
+    "acceptanceGapPages": [
+     217
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     217
+    ]
+   },
+   "bodyComparison": null,
+   "listObjects": [
+    "79-cn:page:217"
+   ],
+   "matchedBy": [
+    "pdfPage"
+   ]
+  },
+  {
+   "chapterId": "79-cn-chapter-217-4",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "additional-uncovered-not-in-246",
+   "title": "防守12—扣牌（2）",
+   "ownedSourceBlocks": 22,
+   "approvedWebCorrespondence": {
+    "articleId": "cv1775174",
+    "webSourceId": "79-bilibili-cn",
+    "tier": "body",
+    "evidencePath": "integration/chinese-source-body-correspondence.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": true,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/79-bilibili-cn/cv1775174.display.json",
+    "sha256FromDisk": "4e9e896794fce70fbcbfed0b223c6cfd2e7c643c7713556e5d096ab7a7df8de0",
+    "sha256InRegister": "4e9e896794fce70fbcbfed0b223c6cfd2e7c643c7713556e5d096ab7a7df8de0",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/79-bilibili-cn/cv1775174.4e9e896794fce70fbcbfed0b223c6cfd2e7c643c7713556e5d096ab7a7df8de0.json",
+    "auditSha256FromDisk": "2d0def8a9082f134c9496862251cecceb96d6560948a9153557499b46e524213",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 4,
+    "missingPassedPages": [
+     217,
+     218,
+     219,
+     220
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 22,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 22,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 22,
+    "acceptanceGapPages": [
+     217,
+     218,
+     219,
+     220
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     217,
+     218,
+     219,
+     220
+    ]
+   },
+   "bodyComparison": null,
+   "listObjects": [
+    "79-cn:page:217"
+   ],
+   "matchedBy": [
+    "pdfPage"
+   ]
+  },
+  {
+   "chapterId": "79-cn-chapter-222-5",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "防守14—立直的读牌（一）",
+   "ownedSourceBlocks": 36,
+   "approvedWebCorrespondence": {
+    "articleId": "cv1775262",
+    "webSourceId": "79-bilibili-cn",
+    "tier": "body",
+    "evidencePath": "integration/chinese-source-body-correspondence.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": true,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/79-bilibili-cn/cv1775262.display.json",
+    "sha256FromDisk": "b6f7651df3189cc705e2c1c5f15715b3788352e27368fb6d21efa998b9461ee4",
+    "sha256InRegister": "b6f7651df3189cc705e2c1c5f15715b3788352e27368fb6d21efa998b9461ee4",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/79-bilibili-cn/cv1775262.b6f7651df3189cc705e2c1c5f15715b3788352e27368fb6d21efa998b9461ee4.json",
+    "auditSha256FromDisk": "7fc9a1172bf463691aa08b8ebf3d69e788d7ec1ff5e9e526b498b2c5b53a8199",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 5,
+    "missingPassedPages": [
+     222,
+     223,
+     224,
+     225,
+     226
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 36,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 36,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 36,
+    "acceptanceGapPages": [
+     222,
+     223,
+     224,
+     225,
+     226
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     222,
+     223,
+     224,
+     225,
+     226
+    ]
+   },
+   "bodyComparison": null,
+   "listObjects": [
+    "web-chapter:79-cn-chapter-222-5"
+   ],
+   "matchedBy": [
+    "chapterId"
+   ]
+  },
+  {
+   "chapterId": "79-cn-chapter-234-12",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "状况判断2—要有顺位意识",
+   "ownedSourceBlocks": 11,
+   "approvedWebCorrespondence": {
+    "articleId": "cv1780400",
+    "webSourceId": "79-bilibili-cn",
+    "tier": "body",
+    "evidencePath": "integration/chinese-source-body-correspondence.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": true,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/79-bilibili-cn/cv1780400.display.json",
+    "sha256FromDisk": "e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110",
+    "sha256InRegister": "e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/79-bilibili-cn/cv1780400.e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110.json",
+    "auditSha256FromDisk": "87d822baddef33cd01535f7b5b0fd000c8a23d2adc5382170f85af3945f7ac60",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 2,
+    "missingPassedPages": [
+     234,
+     235
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 11,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 11,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 11,
+    "acceptanceGapPages": [
+     234,
+     235
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     234,
+     235
+    ]
+   },
+   "bodyComparison": null,
+   "listObjects": [
+    "web-chapter:79-cn-chapter-234-12"
+   ],
+   "matchedBy": [
+    "chapterId"
+   ]
+  },
+  {
+   "chapterId": "79-cn-chapter-242-3",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "状况判断5—状况与做牌（3）",
+   "ownedSourceBlocks": 61,
+   "approvedWebCorrespondence": {
+    "articleId": "cv1780438",
+    "webSourceId": "79-bilibili-cn",
+    "tier": "body",
+    "evidencePath": "integration/chinese-source-body-correspondence.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": true,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/79-bilibili-cn/cv1780438.display.json",
+    "sha256FromDisk": "62987619296c7f7ef775b41967e69f84802a17c08146df9ffd436f51f84b19aa",
+    "sha256InRegister": "62987619296c7f7ef775b41967e69f84802a17c08146df9ffd436f51f84b19aa",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/79-bilibili-cn/cv1780438.62987619296c7f7ef775b41967e69f84802a17c08146df9ffd436f51f84b19aa.json",
+    "auditSha256FromDisk": "332731f14ba75be91479bdefe77bb1a0026fe31d600b693d73d0e62db8ba8515",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 4,
+    "missingPassedPages": [
+     242,
+     243,
+     244,
+     245
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 61,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 61,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 61,
+    "acceptanceGapPages": [
+     242,
+     243,
+     244,
+     245
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     242,
+     243,
+     244,
+     245
+    ]
+   },
+   "bodyComparison": null,
+   "listObjects": [
+    "web-chapter:79-cn-chapter-242-3"
+   ],
+   "matchedBy": [
+    "chapterId"
+   ]
+  },
+  {
+   "chapterId": "79-cn-chapter-246-3",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "状况判断6—状况与立直判断",
+   "ownedSourceBlocks": 89,
+   "approvedWebCorrespondence": {
+    "articleId": "cv1785741",
+    "webSourceId": "79-bilibili-cn",
+    "tier": "body",
+    "evidencePath": "integration/chinese-source-body-correspondence.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": true,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/79-bilibili-cn/cv1785741.display.json",
+    "sha256FromDisk": "06e2d0cb25f84b26ce76053acc7e7165f8b43664b280e7675bc44bda38b6a713",
+    "sha256InRegister": "06e2d0cb25f84b26ce76053acc7e7165f8b43664b280e7675bc44bda38b6a713",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/79-bilibili-cn/cv1785741.06e2d0cb25f84b26ce76053acc7e7165f8b43664b280e7675bc44bda38b6a713.json",
+    "auditSha256FromDisk": "147664fd484518e73bb5d750e5ee1da4b1b373317816dd1e23b0a032d3259e72",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 5,
+    "missingPassedPages": [
+     246,
+     247,
+     248,
+     249,
+     250
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 89,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 89,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 89,
+    "acceptanceGapPages": [
+     246,
+     247,
+     248,
+     249,
+     250
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     246,
+     247,
+     248,
+     249,
+     250
+    ]
+   },
+   "bodyComparison": null,
+   "listObjects": [
+    "web-chapter:79-cn-chapter-246-3"
+   ],
+   "matchedBy": [
+    "chapterId"
+   ]
+  },
+  {
+   "chapterId": "79-cn-chapter-256-18",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "状况判断8—ALL LAST 的战术（二）",
+   "ownedSourceBlocks": 62,
+   "approvedWebCorrespondence": {
+    "articleId": "cv1785770",
+    "webSourceId": "79-bilibili-cn",
+    "tier": "body",
+    "evidencePath": "integration/chinese-source-body-correspondence.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": true,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/79-bilibili-cn/cv1785770.display.json",
+    "sha256FromDisk": "84f27b9562fc5341a15ff938abf2db84a2ba0ba25cd30241e84996101500df69",
+    "sha256InRegister": "84f27b9562fc5341a15ff938abf2db84a2ba0ba25cd30241e84996101500df69",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/79-bilibili-cn/cv1785770.84f27b9562fc5341a15ff938abf2db84a2ba0ba25cd30241e84996101500df69.json",
+    "auditSha256FromDisk": "fa8e60a40557c01c5cc5d88805cbbbfcb94a04b09bbad3773ca5656e9237fa58",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 5,
+    "missingPassedPages": [
+     257,
+     258,
+     259
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 62,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 62,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 62,
+    "acceptanceGapPages": [
+     257,
+     258,
+     259
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     257,
+     258,
+     259
+    ]
+   },
+   "bodyComparison": null,
+   "listObjects": [
+    "web-chapter:79-cn-chapter-256-18"
+   ],
+   "matchedBy": [
+    "chapterId"
+   ]
+  },
+  {
+   "chapterId": "79-cn-chapter-276-4",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "攻守判断3—攻守判断的标准",
+   "ownedSourceBlocks": 64,
+   "approvedWebCorrespondence": {
+    "articleId": "cv1793434",
+    "webSourceId": "79-bilibili-cn",
+    "tier": "body",
+    "evidencePath": "integration/chinese-source-body-correspondence.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": true,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/79-bilibili-cn/cv1793434.display.json",
+    "sha256FromDisk": "34cd6f77ec400bacdfaf0e51c20d700e0add78523583949392f7a056f148e3af",
+    "sha256InRegister": "34cd6f77ec400bacdfaf0e51c20d700e0add78523583949392f7a056f148e3af",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/79-bilibili-cn/cv1793434.34cd6f77ec400bacdfaf0e51c20d700e0add78523583949392f7a056f148e3af.json",
+    "auditSha256FromDisk": "8c7e8145f051809f5ad3d80eb4c8e7c4b9d669739c200fbec98e4f26307a9370",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 4,
+    "missingPassedPages": [
+     276,
+     277,
+     278,
+     279
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 64,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 64,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 64,
+    "acceptanceGapPages": [
+     276,
+     277,
+     278,
+     279
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     276,
+     277,
+     278,
+     279
+    ]
+   },
+   "bodyComparison": null,
+   "listObjects": [
+    "web-chapter:79-cn-chapter-276-4"
+   ],
+   "matchedBy": [
+    "chapterId"
+   ]
+  },
+  {
+   "chapterId": "79-cn-chapter-311-18",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "第三节 攻守判断的基准",
+   "ownedSourceBlocks": 339,
+   "approvedWebCorrespondence": {
+    "articleId": "cv1815400",
+    "webSourceId": "79-bilibili-cn",
+    "tier": "body",
+    "evidencePath": "integration/chinese-source-body-correspondence.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": true,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/79-bilibili-cn/cv1815400.display.json",
+    "sha256FromDisk": "5d74d3836050c55996dee84fc35c6df4b82228c79674e9ff93065eb7aee20d97",
+    "sha256InRegister": "5d74d3836050c55996dee84fc35c6df4b82228c79674e9ff93065eb7aee20d97",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/79-bilibili-cn/cv1815400.5d74d3836050c55996dee84fc35c6df4b82228c79674e9ff93065eb7aee20d97.json",
+    "auditSha256FromDisk": "12f0f3a74c5261077907d0d9218bacf1177173c64a1e2c1ceeff9eed6729e77a",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 19,
+    "missingPassedPages": [
+     311,
+     312,
+     313,
+     314,
+     315,
+     316,
+     317,
+     318,
+     319,
+     320,
+     321,
+     322,
+     323,
+     324,
+     325,
+     326,
+     327,
+     328,
+     329
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 339,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 339,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 339,
+    "acceptanceGapPages": [
+     311,
+     312,
+     313,
+     314,
+     315,
+     316,
+     317,
+     318,
+     319,
+     320,
+     321,
+     322,
+     323,
+     324,
+     325,
+     326,
+     327,
+     328,
+     329
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     311,
+     312,
+     313,
+     314,
+     315,
+     316,
+     317,
+     318,
+     319,
+     320,
+     321,
+     322,
+     323,
+     324,
+     325,
+     326,
+     327,
+     328,
+     329
+    ]
+   },
+   "bodyComparison": null,
+   "listObjects": [
+    "web-chapter:79-cn-chapter-311-18"
+   ],
+   "matchedBy": [
+    "chapterId"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-001-64",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "additional-uncovered-not-in-246",
+   "title": "封面、目录与网页说明",
+   "ownedSourceBlocks": 168,
+   "approvedWebCorrespondence": null,
+   "candidate": null,
+   "pdfRoute": {
+    "pagesTotal": 3,
+    "missingPassedPages": [
+     1,
+     2,
+     3
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 168,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 168,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 168,
+    "acceptanceGapPages": [
+     1,
+     2,
+     3
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     1,
+     2,
+     3
+    ]
+   },
+   "bodyComparison": {
+    "status": "no-web-candidate",
+    "missingSentences": 0,
+    "webOnlySentences": 0,
+    "pdfFigureBlocks": 41,
+    "verdict": "no-web-candidate"
+   },
+   "listObjects": [
+    "nemata-jp:page:1",
+    "nemata-jp:page:2",
+    "nemata-jp:page:3"
+   ],
+   "matchedBy": [
+    "pdfPage",
+    "pdfPage",
+    "pdfPage"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-027-1",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "外カンチャンターツ",
+   "ownedSourceBlocks": 141,
+   "approvedWebCorrespondence": {
+    "articleId": "chapter01-section010",
+    "webSourceId": "modern-yabejp-ja",
+    "tier": "url-header",
+    "evidencePath": "integration/modern-pdf-url-coverage.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": false,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section010.display.json",
+    "sha256FromDisk": "7ebd1f9736018ab21e85e0a91d2517e1c738fa56a9d4ca060c360bf9c21a566b",
+    "sha256InRegister": "7ebd1f9736018ab21e85e0a91d2517e1c738fa56a9d4ca060c360bf9c21a566b",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/modern-yabejp-ja/chapter01-section010.7ebd1f9736018ab21e85e0a91d2517e1c738fa56a9d4ca060c360bf9c21a566b.json",
+    "auditSha256FromDisk": "57d283a67ea10b4ba1ec399700a8c31fc849d625ca001bb03f5dac41ac8dd6f4",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 2,
+    "missingPassedPages": [
+     27,
+     28
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 141,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 141,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 141,
+    "acceptanceGapPages": [
+     27,
+     28
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     27,
+     28
+    ]
+   },
+   "bodyComparison": {
+    "status": null,
+    "exactBodyMatch": true,
+    "missingSentences": 0,
+    "webOnlySentences": 0,
+    "pdfFigureBlocks": 101,
+    "webFigures": 77,
+    "verdict": "body-identical"
+   },
+   "listObjects": [
+    "web-chapter:nemata-jp-chapter-027-1"
+   ],
+   "matchedBy": [
+    "chapterId"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-060-1",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "待ち受け選択",
+   "ownedSourceBlocks": 148,
+   "approvedWebCorrespondence": {
+    "articleId": "chapter01-section021-06",
+    "webSourceId": "modern-yabejp-ja",
+    "tier": "url-header",
+    "evidencePath": "integration/modern-pdf-url-coverage.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": false,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section021-06.display.json",
+    "sha256FromDisk": "ff1f57ff633d050ec1edff51301a3e4a4e3f68d690774a7a8c60893f4300f828",
+    "sha256InRegister": "ff1f57ff633d050ec1edff51301a3e4a4e3f68d690774a7a8c60893f4300f828",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/modern-yabejp-ja/chapter01-section021-06.ff1f57ff633d050ec1edff51301a3e4a4e3f68d690774a7a8c60893f4300f828.json",
+    "auditSha256FromDisk": "f13f9da62cd633bf21c036ba4439b913e987b5334a4660e465ad80f0772d0cf7",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 4,
+    "missingPassedPages": [
+     60,
+     61,
+     62,
+     63
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 148,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 148,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 148,
+    "acceptanceGapPages": [
+     60,
+     61,
+     62,
+     63
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     60,
+     61,
+     62,
+     63
+    ]
+   },
+   "bodyComparison": {
+    "status": null,
+    "exactBodyMatch": false,
+    "missingSentences": 27,
+    "webOnlySentences": 1,
+    "pdfFigureBlocks": 68,
+    "webFigures": 50,
+    "verdict": "body-diff-page-boundary"
+   },
+   "listObjects": [
+    "web-chapter:nemata-jp-chapter-060-1"
+   ],
+   "matchedBy": [
+    "chapterId"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-089-1",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "三色同順",
+   "ownedSourceBlocks": 153,
+   "approvedWebCorrespondence": {
+    "articleId": "chapter01-section031",
+    "webSourceId": "modern-yabejp-ja",
+    "tier": "url-header",
+    "evidencePath": "integration/modern-pdf-url-coverage.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": false,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section031.display.json",
+    "sha256FromDisk": "9fa0255f1dbe5bdf38e94d0e6c447c09d4a97d689611f41fd1676af27fd89ffb",
+    "sha256InRegister": "9fa0255f1dbe5bdf38e94d0e6c447c09d4a97d689611f41fd1676af27fd89ffb",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/modern-yabejp-ja/chapter01-section031.9fa0255f1dbe5bdf38e94d0e6c447c09d4a97d689611f41fd1676af27fd89ffb.retry-1792951706280-1a9d74d2.json",
+    "auditSha256FromDisk": "38463b0c66018574d1cca6a52a4c667346b70864ad5bcf2e84454f759e2fdba9",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 3,
+    "missingPassedPages": [
+     89,
+     90,
+     91
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 153,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 153,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 153,
+    "acceptanceGapPages": [
+     89,
+     90,
+     91
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     89,
+     90,
+     91
+    ]
+   },
+   "bodyComparison": {
+    "status": null,
+    "exactBodyMatch": true,
+    "missingSentences": 0,
+    "webOnlySentences": 0,
+    "pdfFigureBlocks": 75,
+    "webFigures": 75,
+    "verdict": "body-identical"
+   },
+   "listObjects": [
+    "web-chapter:nemata-jp-chapter-089-1"
+   ],
+   "matchedBy": [
+    "chapterId"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-100-1",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "一色手（混一色･清一色）",
+   "ownedSourceBlocks": 369,
+   "approvedWebCorrespondence": {
+    "articleId": "chapter01-section035",
+    "webSourceId": "modern-yabejp-ja",
+    "tier": "url-header",
+    "evidencePath": "integration/modern-pdf-url-coverage.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": false,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section035.display.json",
+    "sha256FromDisk": "0439c38228989d2f997036eaa0e4a4522cfb40e6c141469b1c83abf66db2c077",
+    "sha256InRegister": "0439c38228989d2f997036eaa0e4a4522cfb40e6c141469b1c83abf66db2c077",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/modern-yabejp-ja/chapter01-section035.0439c38228989d2f997036eaa0e4a4522cfb40e6c141469b1c83abf66db2c077.json",
+    "auditSha256FromDisk": "51a7871f3be891b712baa492b6a190e0b6b28f9931f4670f505f32842e1d7e9a",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 8,
+    "missingPassedPages": [
+     100,
+     101,
+     102,
+     103,
+     104,
+     105,
+     106,
+     107
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 369,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 369,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 369,
+    "acceptanceGapPages": [
+     100,
+     101,
+     102,
+     103,
+     104,
+     105,
+     106,
+     107
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     100,
+     101,
+     102,
+     103,
+     104,
+     105,
+     106,
+     107
+    ]
+   },
+   "bodyComparison": {
+    "status": null,
+    "exactBodyMatch": true,
+    "missingSentences": 0,
+    "webOnlySentences": 0,
+    "pdfFigureBlocks": 136,
+    "webFigures": 128,
+    "verdict": "body-identical"
+   },
+   "listObjects": [
+    "web:chapter01-section035"
+   ],
+   "matchedBy": [
+    "candidateSha256"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-116-1",
+   "registerVerdict": "produced-unreviewed",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "後々付け",
+   "ownedSourceBlocks": 70,
+   "approvedWebCorrespondence": {
+    "articleId": "chapter01-section041",
+    "webSourceId": "modern-yabejp-ja",
+    "tier": "url-header",
+    "evidencePath": "integration/modern-pdf-url-coverage.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": false,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section041.display.json",
+    "sha256FromDisk": "6f251511ec5d8b18a4c5cce3ef41bd4a92f8b3edff1b1dee112e2f3a2bba8035",
+    "sha256InRegister": "6f251511ec5d8b18a4c5cce3ef41bd4a92f8b3edff1b1dee112e2f3a2bba8035",
+    "sha256Match": true,
+    "auditPath": null,
+    "auditSha256FromDisk": null,
+    "auditStatus": null,
+    "sourceBoundCurrent": null
+   },
+   "pdfRoute": {
+    "pagesTotal": 2,
+    "missingPassedPages": [
+     116,
+     117
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 70,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 70,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 70,
+    "acceptanceGapPages": [
+     116,
+     117
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     116,
+     117
+    ]
+   },
+   "bodyComparison": {
+    "status": null,
+    "exactBodyMatch": true,
+    "missingSentences": 0,
+    "webOnlySentences": 0,
+    "pdfFigureBlocks": 29,
+    "webFigures": 29,
+    "verdict": "body-identical"
+   },
+   "listObjects": [
+    "web-chapter:nemata-jp-chapter-116-1"
+   ],
+   "matchedBy": [
+    "chapterId"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-127-1",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "２面子余剰牌形か完全形の選択１",
+   "ownedSourceBlocks": 153,
+   "approvedWebCorrespondence": {
+    "articleId": "chapter01-section047",
+    "webSourceId": "modern-yabejp-ja",
+    "tier": "url-header",
+    "evidencePath": "integration/modern-pdf-url-coverage.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": false,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section047.display.json",
+    "sha256FromDisk": "0dcafc25b6ad5686171ab4a90472ee7fdc69a651ed9be98c8a5a411646e551dc",
+    "sha256InRegister": "0dcafc25b6ad5686171ab4a90472ee7fdc69a651ed9be98c8a5a411646e551dc",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/modern-yabejp-ja/chapter01-section047.0dcafc25b6ad5686171ab4a90472ee7fdc69a651ed9be98c8a5a411646e551dc.retry-1792965844463-86544923.json",
+    "auditSha256FromDisk": "3d5a7175621388527f9a3af6158cb21eb8bb83338acdcf2d0d214a8d691aad5a",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 3,
+    "missingPassedPages": [
+     127,
+     128,
+     129
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 153,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 153,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 153,
+    "acceptanceGapPages": [
+     127,
+     128,
+     129
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     127,
+     128,
+     129
+    ]
+   },
+   "bodyComparison": {
+    "status": null,
+    "exactBodyMatch": true,
+    "missingSentences": 0,
+    "webOnlySentences": 0,
+    "pdfFigureBlocks": 75,
+    "webFigures": 72,
+    "verdict": "body-identical"
+   },
+   "listObjects": [
+    "web-chapter:nemata-jp-chapter-127-1"
+   ],
+   "matchedBy": [
+    "chapterId"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-131-1",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "２面子余剰牌形か完全形の選択３",
+   "ownedSourceBlocks": 168,
+   "approvedWebCorrespondence": {
+    "articleId": "chapter01-section049",
+    "webSourceId": "modern-yabejp-ja",
+    "tier": "url-header",
+    "evidencePath": "integration/modern-pdf-url-coverage.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": false,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section049.display.json",
+    "sha256FromDisk": "470217d79cd1acd28f234a1e691d4d950ae99d0c0463e6bd0211561c95de28ac",
+    "sha256InRegister": "470217d79cd1acd28f234a1e691d4d950ae99d0c0463e6bd0211561c95de28ac",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/modern-yabejp-ja/chapter01-section049.470217d79cd1acd28f234a1e691d4d950ae99d0c0463e6bd0211561c95de28ac.json",
+    "auditSha256FromDisk": "8875bb9c2dec37ce1ca1dcc36edc24d7a04ec489ffe604d9dd610e04b77ba552",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 3,
+    "missingPassedPages": [
+     131,
+     132,
+     133
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 168,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 168,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 168,
+    "acceptanceGapPages": [
+     131,
+     132,
+     133
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     131,
+     132,
+     133
+    ]
+   },
+   "bodyComparison": {
+    "status": null,
+    "exactBodyMatch": true,
+    "missingSentences": 0,
+    "webOnlySentences": 0,
+    "pdfFigureBlocks": 79,
+    "webFigures": 70,
+    "verdict": "body-identical"
+   },
+   "listObjects": [
+    "web-chapter:nemata-jp-chapter-131-1"
+   ],
+   "matchedBy": [
+    "chapterId"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-142-1",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "くっつき形",
+   "ownedSourceBlocks": 159,
+   "approvedWebCorrespondence": {
+    "articleId": "chapter01-section054",
+    "webSourceId": "modern-yabejp-ja",
+    "tier": "url-header",
+    "evidencePath": "integration/modern-pdf-url-coverage.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": false,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section054.display.json",
+    "sha256FromDisk": "264116a9f0d98a22e3d5ae6218adf35a677aecc154c6f4bbad4982240c11b04e",
+    "sha256InRegister": "264116a9f0d98a22e3d5ae6218adf35a677aecc154c6f4bbad4982240c11b04e",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/modern-yabejp-ja/chapter01-section054.264116a9f0d98a22e3d5ae6218adf35a677aecc154c6f4bbad4982240c11b04e.retry-1792969500839-d3667291.json",
+    "auditSha256FromDisk": "78ffbdda38185f4ae14f4caeae0a4e9ac015998658f831714e0bf856cd2a6872",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 3,
+    "missingPassedPages": [
+     142,
+     143,
+     144
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 159,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 159,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 159,
+    "acceptanceGapPages": [
+     142,
+     143,
+     144
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     142,
+     143,
+     144
+    ]
+   },
+   "bodyComparison": {
+    "status": null,
+    "exactBodyMatch": true,
+    "missingSentences": 0,
+    "webOnlySentences": 0,
+    "pdfFigureBlocks": 85,
+    "webFigures": 84,
+    "verdict": "body-identical"
+   },
+   "listObjects": [
+    "web-chapter:nemata-jp-chapter-142-1"
+   ],
+   "matchedBy": [
+    "chapterId"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-173-1",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "喰い仕掛けのテンパイ読み",
+   "ownedSourceBlocks": 22,
+   "approvedWebCorrespondence": {
+    "articleId": "chapter02-section023",
+    "webSourceId": "modern-yabejp-ja",
+    "tier": "url-header",
+    "evidencePath": "integration/modern-pdf-url-coverage.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": false,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/modern-yabejp-ja/chapter02-section023.display.json",
+    "sha256FromDisk": "a1c2a38bd361b38fad47680a4ebcf2fed77b0d933f47fb400e5f7b7259b22ef5",
+    "sha256InRegister": "a1c2a38bd361b38fad47680a4ebcf2fed77b0d933f47fb400e5f7b7259b22ef5",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/modern-yabejp-ja/chapter02-section023.a1c2a38bd361b38fad47680a4ebcf2fed77b0d933f47fb400e5f7b7259b22ef5.retry-1792975494558-0e383e0d.json",
+    "auditSha256FromDisk": "beda2be1ab3db4611bca0e55c5c1ae6f11697f08c9775873ccf3519b4856ef46",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 1,
+    "missingPassedPages": [
+     173
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 22,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 22,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 22,
+    "acceptanceGapPages": [
+     173
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     173
+    ]
+   },
+   "bodyComparison": {
+    "status": null,
+    "exactBodyMatch": true,
+    "missingSentences": 0,
+    "webOnlySentences": 0,
+    "pdfFigureBlocks": 0,
+    "webFigures": 0,
+    "verdict": "body-identical"
+   },
+   "listObjects": [
+    "web-chapter:nemata-jp-chapter-173-1"
+   ],
+   "matchedBy": [
+    "chapterId"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-174-1",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "フーロ手役別対処法",
+   "ownedSourceBlocks": 89,
+   "approvedWebCorrespondence": {
+    "articleId": "chapter02-section024",
+    "webSourceId": "modern-yabejp-ja",
+    "tier": "url-header",
+    "evidencePath": "integration/modern-pdf-url-coverage.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": false,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/modern-yabejp-ja/chapter02-section024.display.json",
+    "sha256FromDisk": "0af14db9257c169c8dd0884fac2668d1d222b53b31bd00d319e9f02950cfb659",
+    "sha256InRegister": "0af14db9257c169c8dd0884fac2668d1d222b53b31bd00d319e9f02950cfb659",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/modern-yabejp-ja/chapter02-section024.0af14db9257c169c8dd0884fac2668d1d222b53b31bd00d319e9f02950cfb659.retry-1792976734826-6b625934.json",
+    "auditSha256FromDisk": "678e5c8d03559643b5fbbc2ba7b09fb542d5cc6f57b2ce16ef50b2a19cd197d2",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 2,
+    "missingPassedPages": [
+     174,
+     175
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 89,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 89,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 89,
+    "acceptanceGapPages": [
+     174,
+     175
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     174,
+     175
+    ]
+   },
+   "bodyComparison": {
+    "status": null,
+    "exactBodyMatch": true,
+    "missingSentences": 0,
+    "webOnlySentences": 0,
+    "pdfFigureBlocks": 24,
+    "webFigures": 8,
+    "verdict": "body-identical"
+   },
+   "listObjects": [
+    "web-chapter:nemata-jp-chapter-174-1"
+   ],
+   "matchedBy": [
+    "chapterId"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-183-1",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "字牌待ち読み",
+   "ownedSourceBlocks": 34,
+   "approvedWebCorrespondence": {
+    "articleId": "chapter03-section003",
+    "webSourceId": "modern-yabejp-ja",
+    "tier": "url-header",
+    "evidencePath": "integration/modern-pdf-url-coverage.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": false,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section003.display.json",
+    "sha256FromDisk": "889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02",
+    "sha256InRegister": "889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/modern-yabejp-ja/chapter03-section003.889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02.json",
+    "auditSha256FromDisk": "c66a9bab86228f8f865d1f74b1c2d033de57f133892f87e2205480a09628373a",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 1,
+    "missingPassedPages": [
+     183
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 34,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 34,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 34,
+    "acceptanceGapPages": [
+     183
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     183
+    ]
+   },
+   "bodyComparison": {
+    "status": null,
+    "exactBodyMatch": true,
+    "missingSentences": 0,
+    "webOnlySentences": 0,
+    "pdfFigureBlocks": 0,
+    "webFigures": 0,
+    "verdict": "body-identical"
+   },
+   "listObjects": [
+    "web-chapter:nemata-jp-chapter-183-1"
+   ],
+   "matchedBy": [
+    "chapterId"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-187-1",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "逆切り１",
+   "ownedSourceBlocks": 92,
+   "approvedWebCorrespondence": {
+    "articleId": "chapter03-section006",
+    "webSourceId": "modern-yabejp-ja",
+    "tier": "url-header",
+    "evidencePath": "integration/modern-pdf-url-coverage.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": false,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section006.display.json",
+    "sha256FromDisk": "a09441ee2d656618bcf2ed97e573e4524d62ba5b3c94fbcc7ec714aeb77a4d73",
+    "sha256InRegister": "a09441ee2d656618bcf2ed97e573e4524d62ba5b3c94fbcc7ec714aeb77a4d73",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/modern-yabejp-ja/chapter03-section006.a09441ee2d656618bcf2ed97e573e4524d62ba5b3c94fbcc7ec714aeb77a4d73.retry-1792980856137-13934817.json",
+    "auditSha256FromDisk": "02b455cc98418b076cc876d98cc3bfdb07be270efca1ec8e5c298c892acdd3d7",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 2,
+    "missingPassedPages": [
+     187,
+     188
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 92,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 92,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 92,
+    "acceptanceGapPages": [
+     187,
+     188
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     187,
+     188
+    ]
+   },
+   "bodyComparison": {
+    "status": null,
+    "exactBodyMatch": true,
+    "missingSentences": 0,
+    "webOnlySentences": 0,
+    "pdfFigureBlocks": 49,
+    "webFigures": 48,
+    "verdict": "body-identical"
+   },
+   "listObjects": [
+    "web-chapter:nemata-jp-chapter-187-1"
+   ],
+   "matchedBy": [
+    "chapterId"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-193-1",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "ドラ切り",
+   "ownedSourceBlocks": 82,
+   "approvedWebCorrespondence": {
+    "articleId": "chapter03-section009",
+    "webSourceId": "modern-yabejp-ja",
+    "tier": "url-header",
+    "evidencePath": "integration/modern-pdf-url-coverage.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": false,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section009.display.json",
+    "sha256FromDisk": "abaeede080b3d413e2ead7708a8278ba39dfb2cd21bfebeac5c61726873887c3",
+    "sha256InRegister": "abaeede080b3d413e2ead7708a8278ba39dfb2cd21bfebeac5c61726873887c3",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/modern-yabejp-ja/chapter03-section009.abaeede080b3d413e2ead7708a8278ba39dfb2cd21bfebeac5c61726873887c3.json",
+    "auditSha256FromDisk": "8ce0cde5d4eb0d8a8538b6751cd8a3b35b3fa8d3a20d7929fea6d7548bb09ce0",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 2,
+    "missingPassedPages": [
+     193,
+     194
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 82,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 82,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 82,
+    "acceptanceGapPages": [
+     193,
+     194
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     193,
+     194
+    ]
+   },
+   "bodyComparison": {
+    "status": null,
+    "exactBodyMatch": true,
+    "missingSentences": 0,
+    "webOnlySentences": 0,
+    "pdfFigureBlocks": 42,
+    "webFigures": 41,
+    "verdict": "body-identical"
+   },
+   "listObjects": [
+    "web:chapter03-section009"
+   ],
+   "matchedBy": [
+    "candidateSha256"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-197-1",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "ターツ落とし２",
+   "ownedSourceBlocks": 60,
+   "approvedWebCorrespondence": {
+    "articleId": "chapter03-section011",
+    "webSourceId": "modern-yabejp-ja",
+    "tier": "url-header",
+    "evidencePath": "integration/modern-pdf-url-coverage.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": false,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section011.display.json",
+    "sha256FromDisk": "f5b699f060d476958c88f4a8f45fe1e7f87037f89eb0a226ac51aa1c1f4bcf49",
+    "sha256InRegister": "f5b699f060d476958c88f4a8f45fe1e7f87037f89eb0a226ac51aa1c1f4bcf49",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/modern-yabejp-ja/chapter03-section011.f5b699f060d476958c88f4a8f45fe1e7f87037f89eb0a226ac51aa1c1f4bcf49.retry-1793066575642-39f02f00.json",
+    "auditSha256FromDisk": "29e55b459de6e921ba702b9eb993f20881131a0865cf226cf5b39c6280bf2269",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 1,
+    "missingPassedPages": [
+     197
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 60,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 60,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 60,
+    "acceptanceGapPages": [
+     197
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     197
+    ]
+   },
+   "bodyComparison": {
+    "status": null,
+    "exactBodyMatch": true,
+    "missingSentences": 0,
+    "webOnlySentences": 0,
+    "pdfFigureBlocks": 41,
+    "webFigures": 41,
+    "verdict": "body-identical"
+   },
+   "listObjects": [
+    "web-chapter:nemata-jp-chapter-197-1"
+   ],
+   "matchedBy": [
+    "chapterId"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-198-1",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "ターツ落とし３",
+   "ownedSourceBlocks": 70,
+   "approvedWebCorrespondence": {
+    "articleId": "chapter03-section012",
+    "webSourceId": "modern-yabejp-ja",
+    "tier": "url-header",
+    "evidencePath": "integration/modern-pdf-url-coverage.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": false,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section012.display.json",
+    "sha256FromDisk": "62d901f6a2c5b8fb6c4512693cf2c90ad6ed931a9e812449cad5ec3125d5d1f6",
+    "sha256InRegister": "62d901f6a2c5b8fb6c4512693cf2c90ad6ed931a9e812449cad5ec3125d5d1f6",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/modern-yabejp-ja/chapter03-section012.62d901f6a2c5b8fb6c4512693cf2c90ad6ed931a9e812449cad5ec3125d5d1f6.retry-1792983526139-9a68195f.json",
+    "auditSha256FromDisk": "69dc54916a0913ae0c3976130a0ce44f8896187b1a9f05a8a6416d2b47d59ec4",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 1,
+    "missingPassedPages": [
+     198
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 70,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 70,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 70,
+    "acceptanceGapPages": [
+     198
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     198
+    ]
+   },
+   "bodyComparison": {
+    "status": null,
+    "exactBodyMatch": true,
+    "missingSentences": 0,
+    "webOnlySentences": 0,
+    "pdfFigureBlocks": 36,
+    "webFigures": 36,
+    "verdict": "body-identical"
+   },
+   "listObjects": [
+    "web-chapter:nemata-jp-chapter-198-1"
+   ],
+   "matchedBy": [
+    "chapterId"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-199-1",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "トイツ落とし１",
+   "ownedSourceBlocks": 39,
+   "approvedWebCorrespondence": {
+    "articleId": "chapter03-section013",
+    "webSourceId": "modern-yabejp-ja",
+    "tier": "url-header",
+    "evidencePath": "integration/modern-pdf-url-coverage.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": false,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section013.display.json",
+    "sha256FromDisk": "37849d97bb734d560b1d8099e8fa97760f6d62cbe6147030bfc7012458654292",
+    "sha256InRegister": "37849d97bb734d560b1d8099e8fa97760f6d62cbe6147030bfc7012458654292",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/modern-yabejp-ja/chapter03-section013.37849d97bb734d560b1d8099e8fa97760f6d62cbe6147030bfc7012458654292.retry-1792984608856-ca1856a7.json",
+    "auditSha256FromDisk": "3856483c70366c5ba7a225ca80042f4b54072da96b8acfc9f906a78c41fd6f49",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 1,
+    "missingPassedPages": [
+     199
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 39,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 39,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 39,
+    "acceptanceGapPages": [
+     199
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     199
+    ]
+   },
+   "bodyComparison": {
+    "status": null,
+    "exactBodyMatch": true,
+    "missingSentences": 0,
+    "webOnlySentences": 0,
+    "pdfFigureBlocks": 17,
+    "webFigures": 14,
+    "verdict": "body-identical"
+   },
+   "listObjects": [
+    "web-chapter:nemata-jp-chapter-199-1"
+   ],
+   "matchedBy": [
+    "chapterId"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-201-1",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "手役読み１",
+   "ownedSourceBlocks": 71,
+   "approvedWebCorrespondence": {
+    "articleId": "chapter03-section015",
+    "webSourceId": "modern-yabejp-ja",
+    "tier": "url-header",
+    "evidencePath": "integration/modern-pdf-url-coverage.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": false,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section015.display.json",
+    "sha256FromDisk": "41c7c1bfc78a528fb4a1991f44613efd7dd7a9ec5089aaa859054badcdfb2bbf",
+    "sha256InRegister": "41c7c1bfc78a528fb4a1991f44613efd7dd7a9ec5089aaa859054badcdfb2bbf",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/modern-yabejp-ja/chapter03-section015.41c7c1bfc78a528fb4a1991f44613efd7dd7a9ec5089aaa859054badcdfb2bbf.retry-1792985735460-f21e7f4e.json",
+    "auditSha256FromDisk": "77f02f9acceb64517962360e11f536152c36517b73848dcd3a99da8b98cdbeea",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 1,
+    "missingPassedPages": [
+     201
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 71,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 71,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 71,
+    "acceptanceGapPages": [
+     201
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     201
+    ]
+   },
+   "bodyComparison": {
+    "status": null,
+    "exactBodyMatch": true,
+    "missingSentences": 0,
+    "webOnlySentences": 0,
+    "pdfFigureBlocks": 35,
+    "webFigures": 19,
+    "verdict": "body-identical"
+   },
+   "listObjects": [
+    "web-chapter:nemata-jp-chapter-201-1"
+   ],
+   "matchedBy": [
+    "chapterId"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-211-1",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "反射読み",
+   "ownedSourceBlocks": 46,
+   "approvedWebCorrespondence": {
+    "articleId": "chapter03-section024",
+    "webSourceId": "modern-yabejp-ja",
+    "tier": "url-header",
+    "evidencePath": "integration/modern-pdf-url-coverage.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": false,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section024.display.json",
+    "sha256FromDisk": "692318b73842236f227a8a60a303c6286f106f229a68288842d0644cada1a38c",
+    "sha256InRegister": "692318b73842236f227a8a60a303c6286f106f229a68288842d0644cada1a38c",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/modern-yabejp-ja/chapter03-section024.692318b73842236f227a8a60a303c6286f106f229a68288842d0644cada1a38c.retry-1792989999048-fe8fc2f0.json",
+    "auditSha256FromDisk": "8ced42b7f8145c352ed28ca0ac0dfec8e00fe5b2153c0c516053960066d983ee",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 1,
+    "missingPassedPages": [
+     211
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 46,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 46,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 46,
+    "acceptanceGapPages": [
+     211
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     211
+    ]
+   },
+   "bodyComparison": {
+    "status": null,
+    "exactBodyMatch": true,
+    "missingSentences": 0,
+    "webOnlySentences": 0,
+    "pdfFigureBlocks": 22,
+    "webFigures": 20,
+    "verdict": "body-identical"
+   },
+   "listObjects": [
+    "web-chapter:nemata-jp-chapter-211-1"
+   ],
+   "matchedBy": [
+    "chapterId"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-213-1",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "逆切り３",
+   "ownedSourceBlocks": 51,
+   "approvedWebCorrespondence": {
+    "articleId": "chapter03-section026",
+    "webSourceId": "modern-yabejp-ja",
+    "tier": "url-header",
+    "evidencePath": "integration/modern-pdf-url-coverage.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": false,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section026.display.json",
+    "sha256FromDisk": "4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4",
+    "sha256InRegister": "4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/modern-yabejp-ja/chapter03-section026.4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4.json",
+    "auditSha256FromDisk": "a62d14aee33507486cff8ba945d3174fad43fa2423245fe56acef5f16b45eedc",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 3,
+    "missingPassedPages": [
+     213,
+     214,
+     215
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 51,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 51,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 51,
+    "acceptanceGapPages": [
+     213,
+     214,
+     215
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     213,
+     214,
+     215
+    ]
+   },
+   "bodyComparison": {
+    "status": null,
+    "exactBodyMatch": false,
+    "missingSentences": 18,
+    "webOnlySentences": 0,
+    "pdfFigureBlocks": 24,
+    "webFigures": 24,
+    "verdict": "body-diff-page-boundary"
+   },
+   "listObjects": [
+    "web:chapter03-section026"
+   ],
+   "matchedBy": [
+    "candidateSha256"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-215-4",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "ラグ読み",
+   "ownedSourceBlocks": 29,
+   "approvedWebCorrespondence": {
+    "articleId": "chapter03-section027",
+    "webSourceId": "modern-yabejp-ja",
+    "tier": "url-header",
+    "evidencePath": "integration/modern-pdf-url-coverage.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": false,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section027.display.json",
+    "sha256FromDisk": "17f902a2c809d3af8206983f5d1bb40c36b76005176a3959a5e891bb6371677d",
+    "sha256InRegister": "17f902a2c809d3af8206983f5d1bb40c36b76005176a3959a5e891bb6371677d",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/modern-yabejp-ja/chapter03-section027.17f902a2c809d3af8206983f5d1bb40c36b76005176a3959a5e891bb6371677d.retry-1792990272154-1c6bf052.json",
+    "auditSha256FromDisk": "76944225accd8c0457355e395a5d46cd46400521fdaaafd0140e46ebe679b602",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 1,
+    "missingPassedPages": [
+     215
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 29,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 29,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 29,
+    "acceptanceGapPages": [
+     215
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     215
+    ]
+   },
+   "bodyComparison": {
+    "status": null,
+    "exactBodyMatch": true,
+    "missingSentences": 0,
+    "webOnlySentences": 0,
+    "pdfFigureBlocks": 0,
+    "webFigures": 0,
+    "verdict": "body-identical"
+   },
+   "listObjects": [
+    "web-chapter:nemata-jp-chapter-215-4"
+   ],
+   "matchedBy": [
+    "chapterId"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-222-1",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "オーラスの心得と戦い方",
+   "ownedSourceBlocks": 47,
+   "approvedWebCorrespondence": {
+    "articleId": "chapter04-section004",
+    "webSourceId": "modern-yabejp-ja",
+    "tier": "url-header",
+    "evidencePath": "integration/modern-pdf-url-coverage.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": false,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section004.display.json",
+    "sha256FromDisk": "0422143bd4f14e151ddcabd4b12e7fcda84937ef5acd4ab3e0335d8d56f4f4d2",
+    "sha256InRegister": "0422143bd4f14e151ddcabd4b12e7fcda84937ef5acd4ab3e0335d8d56f4f4d2",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/modern-yabejp-ja/chapter04-section004.0422143bd4f14e151ddcabd4b12e7fcda84937ef5acd4ab3e0335d8d56f4f4d2.retry-1792992204029-f963202a.json",
+    "auditSha256FromDisk": "3c50dae18765b8040c686fcd2f716730f50d079e2d313a35d061f1a06c467f58",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 2,
+    "missingPassedPages": [
+     222,
+     223
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 47,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 47,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 47,
+    "acceptanceGapPages": [
+     222,
+     223
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     222,
+     223
+    ]
+   },
+   "bodyComparison": {
+    "status": null,
+    "exactBodyMatch": true,
+    "missingSentences": 0,
+    "webOnlySentences": 0,
+    "pdfFigureBlocks": 0,
+    "webFigures": 0,
+    "verdict": "body-identical"
+   },
+   "listObjects": [
+    "web-chapter:nemata-jp-chapter-222-1"
+   ],
+   "matchedBy": [
+    "chapterId"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-224-1",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "オーラスの見逃し判断",
+   "ownedSourceBlocks": 51,
+   "approvedWebCorrespondence": {
+    "articleId": "chapter04-section005",
+    "webSourceId": "modern-yabejp-ja",
+    "tier": "url-header",
+    "evidencePath": "integration/modern-pdf-url-coverage.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": false,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section005.display.json",
+    "sha256FromDisk": "24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408",
+    "sha256InRegister": "24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/modern-yabejp-ja/chapter04-section005.24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408.json",
+    "auditSha256FromDisk": "112ca259dd236a649e3fbbac885c5056452a262a1ecb47735faba6bf9049a3b2",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 2,
+    "missingPassedPages": [
+     224,
+     225
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 51,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 51,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 51,
+    "acceptanceGapPages": [
+     224,
+     225
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     224,
+     225
+    ]
+   },
+   "bodyComparison": {
+    "status": null,
+    "exactBodyMatch": true,
+    "missingSentences": 0,
+    "webOnlySentences": 0,
+    "pdfFigureBlocks": 0,
+    "webFigures": 1,
+    "verdict": "body-identical"
+   },
+   "listObjects": [
+    "web:chapter04-section005"
+   ],
+   "matchedBy": [
+    "candidateSha256"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-227-1",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "速攻の局面",
+   "ownedSourceBlocks": 24,
+   "approvedWebCorrespondence": {
+    "articleId": "chapter04-section007",
+    "webSourceId": "modern-yabejp-ja",
+    "tier": "url-header",
+    "evidencePath": "integration/modern-pdf-url-coverage.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": false,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section007.display.json",
+    "sha256FromDisk": "b496daf315d5278e20aa81e233c156fad909add5efd97438acbbace5c6902740",
+    "sha256InRegister": "b496daf315d5278e20aa81e233c156fad909add5efd97438acbbace5c6902740",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/modern-yabejp-ja/chapter04-section007.b496daf315d5278e20aa81e233c156fad909add5efd97438acbbace5c6902740.retry-1792992301748-11647458.json",
+    "auditSha256FromDisk": "594ec4dfe289633fc3e0734a10241cbf924b64a4b4a2ce5b763e324a61ca1c9a",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 1,
+    "missingPassedPages": [
+     227
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 24,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 24,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 24,
+    "acceptanceGapPages": [
+     227
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     227
+    ]
+   },
+   "bodyComparison": {
+    "status": null,
+    "exactBodyMatch": true,
+    "missingSentences": 0,
+    "webOnlySentences": 0,
+    "pdfFigureBlocks": 0,
+    "webFigures": 0,
+    "verdict": "body-identical"
+   },
+   "listObjects": [
+    "web-chapter:nemata-jp-chapter-227-1"
+   ],
+   "matchedBy": [
+    "chapterId"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-232-1",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "満貫和了技術",
+   "ownedSourceBlocks": 44,
+   "approvedWebCorrespondence": {
+    "articleId": "chapter04-section012",
+    "webSourceId": "modern-yabejp-ja",
+    "tier": "url-header",
+    "evidencePath": "integration/modern-pdf-url-coverage.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": false,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section012.display.json",
+    "sha256FromDisk": "2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37",
+    "sha256InRegister": "2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/modern-yabejp-ja/chapter04-section012.2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37.json",
+    "auditSha256FromDisk": "24293aa4da6b71079ed47600d45229e972e1f8b1256a9dcc573af827c05514f6",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 2,
+    "missingPassedPages": [
+     232,
+     233
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 44,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 44,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 44,
+    "acceptanceGapPages": [
+     232,
+     233
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     232,
+     233
+    ]
+   },
+   "bodyComparison": {
+    "status": null,
+    "exactBodyMatch": true,
+    "missingSentences": 0,
+    "webOnlySentences": 0,
+    "pdfFigureBlocks": 3,
+    "webFigures": 3,
+    "verdict": "body-identical"
+   },
+   "listObjects": [
+    "web:chapter04-section012"
+   ],
+   "matchedBy": [
+    "candidateSha256"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-236-1",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "飛び寸前の局面",
+   "ownedSourceBlocks": 23,
+   "approvedWebCorrespondence": {
+    "articleId": "chapter04-section015",
+    "webSourceId": "modern-yabejp-ja",
+    "tier": "url-header",
+    "evidencePath": "integration/modern-pdf-url-coverage.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": false,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section015.display.json",
+    "sha256FromDisk": "51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0",
+    "sha256InRegister": "51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/modern-yabejp-ja/chapter04-section015.51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0.json",
+    "auditSha256FromDisk": "bf1af08a08d0be94dbe71415fa4bd808d1831cc8d6cc6b08f7672f5c0357daa9",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 1,
+    "missingPassedPages": [
+     236
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 23,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 23,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 23,
+    "acceptanceGapPages": [
+     236
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     236
+    ]
+   },
+   "bodyComparison": {
+    "status": null,
+    "exactBodyMatch": true,
+    "missingSentences": 0,
+    "webOnlySentences": 0,
+    "pdfFigureBlocks": 0,
+    "webFigures": 0,
+    "verdict": "body-identical"
+   },
+   "listObjects": [
+    "web-chapter:nemata-jp-chapter-236-1"
+   ],
+   "matchedBy": [
+    "chapterId"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-237-1",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "供託と積み棒の対応",
+   "ownedSourceBlocks": 14,
+   "approvedWebCorrespondence": {
+    "articleId": "chapter04-section016",
+    "webSourceId": "modern-yabejp-ja",
+    "tier": "url-header",
+    "evidencePath": "integration/modern-pdf-url-coverage.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": false,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section016.display.json",
+    "sha256FromDisk": "5c4048adf1b398f2a202dbdd0a1485cdaa539ad2ad4fd80e053dd0f2db17a959",
+    "sha256InRegister": "5c4048adf1b398f2a202dbdd0a1485cdaa539ad2ad4fd80e053dd0f2db17a959",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/modern-yabejp-ja/chapter04-section016.5c4048adf1b398f2a202dbdd0a1485cdaa539ad2ad4fd80e053dd0f2db17a959.json",
+    "auditSha256FromDisk": "26e737619dfca6c940aeac348645802e2feebb240a6d38a2d917e4ef5b1fc41c",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 1,
+    "missingPassedPages": [
+     237
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 14,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 14,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 14,
+    "acceptanceGapPages": [
+     237
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     237
+    ]
+   },
+   "bodyComparison": {
+    "status": null,
+    "exactBodyMatch": true,
+    "missingSentences": 0,
+    "webOnlySentences": 0,
+    "pdfFigureBlocks": 0,
+    "webFigures": 0,
+    "verdict": "body-identical"
+   },
+   "listObjects": [
+    "web-chapter:nemata-jp-chapter-237-1"
+   ],
+   "matchedBy": [
+    "chapterId"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-246-1",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "何切る議論法",
+   "ownedSourceBlocks": 176,
+   "approvedWebCorrespondence": {
+    "articleId": "chapter06-section002",
+    "webSourceId": "modern-yabejp-ja",
+    "tier": "url-header",
+    "evidencePath": "integration/modern-pdf-url-coverage.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": false,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/modern-yabejp-ja/chapter06-section002.display.json",
+    "sha256FromDisk": "eb4caf1b93fc906a5a7286419009256337e9f886ce82123091931c8c5e5c4fc4",
+    "sha256InRegister": "eb4caf1b93fc906a5a7286419009256337e9f886ce82123091931c8c5e5c4fc4",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/modern-yabejp-ja/chapter06-section002.eb4caf1b93fc906a5a7286419009256337e9f886ce82123091931c8c5e5c4fc4.json",
+    "auditSha256FromDisk": "53f38a52975a3a4545ff4c405f981127e706aaef104fe1b173505d84a4d22dab",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 4,
+    "missingPassedPages": [
+     246,
+     247,
+     248,
+     249
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 176,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 176,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 176,
+    "acceptanceGapPages": [
+     246,
+     247,
+     248,
+     249
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     246,
+     247,
+     248,
+     249
+    ]
+   },
+   "bodyComparison": {
+    "status": null,
+    "exactBodyMatch": true,
+    "missingSentences": 0,
+    "webOnlySentences": 0,
+    "pdfFigureBlocks": 15,
+    "webFigures": 10,
+    "verdict": "body-identical"
+   },
+   "listObjects": [
+    "web-chapter:nemata-jp-chapter-246-1"
+   ],
+   "matchedBy": [
+    "chapterId"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-250-1",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "additional-uncovered-not-in-246",
+   "title": "「ネマー日記」ブログ問題",
+   "ownedSourceBlocks": 945,
+   "approvedWebCorrespondence": {
+    "articleId": "chapter06-exercise001",
+    "webSourceId": "modern-yabejp-ja",
+    "tier": "url-header",
+    "evidencePath": "integration/modern-pdf-url-coverage.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": false,
+    "articleInPreview": false
+   },
+   "candidate": null,
+   "pdfRoute": {
+    "pagesTotal": 13,
+    "missingPassedPages": [
+     257,
+     261
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 945,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 945,
+    "acceptedBlocks": 837,
+    "acceptanceGapBlocks": 108,
+    "acceptanceGapPages": [
+     257,
+     261
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     257,
+     261
+    ]
+   },
+   "bodyComparison": {
+    "status": "no-web-candidate",
+    "missingSentences": 0,
+    "webOnlySentences": 0,
+    "pdfFigureBlocks": 479,
+    "verdict": "no-web-candidate"
+   },
+   "listObjects": [
+    "nemata-jp:page:257",
+    "nemata-jp:page:261"
+   ],
+   "matchedBy": [
+    "pdfPage",
+    "pdfPage"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-273-1",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "「デジタル何切る？」サイト問題２",
+   "ownedSourceBlocks": 637,
+   "approvedWebCorrespondence": {
+    "articleId": "chapter06-exercise002-02",
+    "webSourceId": "modern-yabejp-ja",
+    "tier": "url-header",
+    "evidencePath": "integration/modern-pdf-url-coverage.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": false,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/modern-yabejp-ja/chapter06-exercise002-02.display.json",
+    "sha256FromDisk": "c57c30e4ffddb9ea661295364ee46739438c2c17a4f4c772e5df0b8391c7576b",
+    "sha256InRegister": "c57c30e4ffddb9ea661295364ee46739438c2c17a4f4c772e5df0b8391c7576b",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/modern-yabejp-ja/chapter06-exercise002-02.c57c30e4ffddb9ea661295364ee46739438c2c17a4f4c772e5df0b8391c7576b.json",
+    "auditSha256FromDisk": "3aa7dc1d73dbcf0caa710ca8a46799f69178435113c289ab53a8c4f44d9dd270",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 10,
+    "missingPassedPages": [
+     273,
+     274,
+     275,
+     276,
+     277,
+     278,
+     279,
+     280,
+     281,
+     282
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 637,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 637,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 637,
+    "acceptanceGapPages": [
+     273,
+     274,
+     275,
+     276,
+     277,
+     278,
+     279,
+     280,
+     281,
+     282
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     273,
+     274,
+     275,
+     276,
+     277,
+     278,
+     279,
+     280,
+     281,
+     282
+    ]
+   },
+   "bodyComparison": {
+    "status": null,
+    "exactBodyMatch": true,
+    "missingSentences": 0,
+    "webOnlySentences": 0,
+    "pdfFigureBlocks": 292,
+    "webFigures": 292,
+    "verdict": "body-identical"
+   },
+   "listObjects": [
+    "web:chapter06-exercise002-02"
+   ],
+   "matchedBy": [
+    "candidateSha256"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-283-1",
+   "registerVerdict": "produced-unreviewed",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "「鴉〃の麻雀解説」サイト問題",
+   "ownedSourceBlocks": 1124,
+   "approvedWebCorrespondence": {
+    "articleId": "chapter06-exercise003",
+    "webSourceId": "modern-yabejp-ja",
+    "tier": "url-header",
+    "evidencePath": "integration/modern-pdf-url-coverage.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": false,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/modern-yabejp-ja/chapter06-exercise003.display.json",
+    "sha256FromDisk": "fcde9f00cb9433bb5dec6a47d688ea7abb0c919c0aa2dac3012fd080d32a5893",
+    "sha256InRegister": "fcde9f00cb9433bb5dec6a47d688ea7abb0c919c0aa2dac3012fd080d32a5893",
+    "sha256Match": true,
+    "auditPath": null,
+    "auditSha256FromDisk": null,
+    "auditStatus": null,
+    "sourceBoundCurrent": null
+   },
+   "pdfRoute": {
+    "pagesTotal": 20,
+    "missingPassedPages": [
+     283,
+     284,
+     285,
+     286,
+     287,
+     288,
+     289,
+     290,
+     291,
+     292,
+     293,
+     294,
+     295,
+     296,
+     297,
+     298,
+     299,
+     300,
+     301,
+     302
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 1124,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 1124,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 1124,
+    "acceptanceGapPages": [
+     283,
+     284,
+     285,
+     286,
+     287,
+     288,
+     289,
+     290,
+     291,
+     292,
+     293,
+     294,
+     295,
+     296,
+     297,
+     298,
+     299,
+     300,
+     301,
+     302
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     283,
+     284,
+     285,
+     286,
+     287,
+     288,
+     289,
+     290,
+     291,
+     292,
+     293,
+     294,
+     295,
+     296,
+     297,
+     298,
+     299,
+     300,
+     301,
+     302
+    ]
+   },
+   "bodyComparison": {
+    "status": null,
+    "exactBodyMatch": true,
+    "missingSentences": 0,
+    "webOnlySentences": 0,
+    "pdfFigureBlocks": 500,
+    "webFigures": 524,
+    "verdict": "body-identical"
+   },
+   "listObjects": [
+    "web-failed:chapter06-exercise003"
+   ],
+   "matchedBy": [
+    "failedSeparate"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-303-1",
+   "registerVerdict": "produced-audit-failed",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "「MJ4麻雀力判定」サイト問題",
+   "ownedSourceBlocks": 316,
+   "approvedWebCorrespondence": {
+    "articleId": "chapter06-exercise004",
+    "webSourceId": "modern-yabejp-ja",
+    "tier": "url-header",
+    "evidencePath": "integration/modern-pdf-url-coverage.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": false,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/modern-yabejp-ja/chapter06-exercise004.display.json",
+    "sha256FromDisk": "736810e43a8a94084c6d9c7c2d63f91654a50f236ece06753bc75713918319eb",
+    "sha256InRegister": "736810e43a8a94084c6d9c7c2d63f91654a50f236ece06753bc75713918319eb",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/modern-yabejp-ja/chapter06-exercise004.736810e43a8a94084c6d9c7c2d63f91654a50f236ece06753bc75713918319eb.json",
+    "auditSha256FromDisk": "44cae6cb6ef61191de08d30077be9b9532d3b73c73fda73ddb7bfaf432f7b6b7",
+    "auditStatus": "failed",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 6,
+    "missingPassedPages": [
+     303,
+     304,
+     305,
+     306,
+     307,
+     308
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 316,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 316,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 316,
+    "acceptanceGapPages": [
+     303,
+     304,
+     305,
+     306,
+     307,
+     308
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     303,
+     304,
+     305,
+     306,
+     307,
+     308
+    ]
+   },
+   "bodyComparison": {
+    "status": null,
+    "exactBodyMatch": true,
+    "missingSentences": 0,
+    "webOnlySentences": 0,
+    "pdfFigureBlocks": 134,
+    "webFigures": 133,
+    "verdict": "body-identical"
+   },
+   "listObjects": [
+    "web-failed:chapter06-exercise004"
+   ],
+   "matchedBy": [
+    "failedSeparate"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-317-51",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "additional-uncovered-not-in-246",
+   "title": "研究资料目录与说明",
+   "ownedSourceBlocks": 58,
+   "approvedWebCorrespondence": null,
+   "candidate": null,
+   "pdfRoute": {
+    "pagesTotal": 1,
+    "missingPassedPages": [
+     317
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 58,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 58,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 58,
+    "acceptanceGapPages": [
+     317
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     317
+    ]
+   },
+   "bodyComparison": {
+    "status": "no-web-candidate",
+    "missingSentences": 0,
+    "webOnlySentences": 0,
+    "pdfFigureBlocks": 26,
+    "verdict": "no-web-candidate"
+   },
+   "listObjects": [
+    "nemata-jp:page:317"
+   ],
+   "matchedBy": [
+    "pdfPage"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-338-1",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "６　孤立牌の理論",
+   "ownedSourceBlocks": 572,
+   "approvedWebCorrespondence": {
+    "articleId": "archive01-section006",
+    "webSourceId": "modern-yabejp-ja",
+    "tier": "url-header",
+    "evidencePath": "integration/modern-pdf-url-coverage.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": false,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/modern-yabejp-ja/archive01-section006.display.json",
+    "sha256FromDisk": "04ab76405f88fa1df61d68c2047cf3cb344b8db8644f193c520fee805b83c427",
+    "sha256InRegister": "04ab76405f88fa1df61d68c2047cf3cb344b8db8644f193c520fee805b83c427",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/modern-yabejp-ja/archive01-section006.04ab76405f88fa1df61d68c2047cf3cb344b8db8644f193c520fee805b83c427.json",
+    "auditSha256FromDisk": "6d41a520affd04f57c515e02d37ef58746e88794149f385d701a9814c0be5597",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 7,
+    "missingPassedPages": [
+     338,
+     339,
+     340,
+     341,
+     342,
+     343,
+     344
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 572,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 572,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 572,
+    "acceptanceGapPages": [
+     338,
+     339,
+     340,
+     341,
+     342,
+     343,
+     344
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     338,
+     339,
+     340,
+     341,
+     342,
+     343,
+     344
+    ]
+   },
+   "bodyComparison": {
+    "status": null,
+    "exactBodyMatch": true,
+    "missingSentences": 0,
+    "webOnlySentences": 0,
+    "pdfFigureBlocks": 346,
+    "webFigures": 260,
+    "verdict": "body-identical"
+   },
+   "listObjects": [
+    "web:archive01-section006"
+   ],
+   "matchedBy": [
+    "candidateSha256"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-347-1",
+   "registerVerdict": "produced-needs-repair",
+   "adjudicationGroup": "confirmed-produced-not-covered",
+   "title": "８　面子の理論",
+   "ownedSourceBlocks": 58,
+   "approvedWebCorrespondence": {
+    "articleId": "archive01-section008",
+    "webSourceId": "modern-yabejp-ja",
+    "tier": "url-header",
+    "evidencePath": "integration/modern-pdf-url-coverage.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": false,
+    "articleInPreview": false
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/modern-yabejp-ja/archive01-section008.r1.display.json",
+    "sha256FromDisk": "5051732a44803c58f82b528b6ac8ccc9657c560a28fa869b97a68241004f4cd7",
+    "sha256InRegister": "5051732a44803c58f82b528b6ac8ccc9657c560a28fa869b97a68241004f4cd7",
+    "sha256Match": true,
+    "auditPath": "audit/web/articles/modern-yabejp-ja/archive01-section008.5051732a44803c58f82b528b6ac8ccc9657c560a28fa869b97a68241004f4cd7.json",
+    "auditSha256FromDisk": "039d5c84c20db7ff0521efb682ce45cb0bfb754a1582ff5d8bf131e653db6aec",
+    "auditStatus": "needs-repair",
+    "sourceBoundCurrent": true
+   },
+   "pdfRoute": {
+    "pagesTotal": 1,
+    "missingPassedPages": [
+     347
+    ]
+   },
+   "gaps": {
+    "ownedSourceBlocks": 58,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 58,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 58,
+    "acceptanceGapPages": [
+     347
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+     347
+    ]
+   },
+   "bodyComparison": {
+    "status": null,
+    "exactBodyMatch": true,
+    "missingSentences": 0,
+    "webOnlySentences": 0,
+    "pdfFigureBlocks": 31,
+    "webFigures": 27,
+    "verdict": "body-identical"
+   },
+   "listObjects": [
+    "web-chapter:nemata-jp-chapter-347-1"
+   ],
+   "matchedBy": [
+    "chapterId"
+   ]
+  }
+ ],
+ "dedupe": {
+  "sharedCandidateSha": [],
+  "uniqueNewCandidateSha": 2,
+  "newRecordsWithCandidate": 2
+ }
+}

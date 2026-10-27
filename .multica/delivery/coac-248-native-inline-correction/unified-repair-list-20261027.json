@@ -16,18 +16,91 @@
   "totalTracked": 38
  },
  "countsCurrent": {
-  "needsRepair": 55,
+  "needsRepair": 57,
+  "decisionHold": 1,
   "failedSeparate": 2,
-  "resolvedThisStage": 4,
-  "totalTracked": 61
+  "resolvedThisStage": 1,
+  "totalTracked": 63,
+  "resolvedTotal": 5
  },
  "breakdown": {
   "oldPdfRemaining": 3,
   "newPdfPages": 0,
-  "web": 47,
+  "web": 49,
   "protectedSupplement": 1,
   "failed": 2,
-  "metadataFrontMatter": 4
+  "metadataFrontMatter": 4,
+  "statusDetail": {
+   "needsRepairOpen": [
+    "79-cn:page:217",
+    "nemata-jp:page:98",
+    "nemata-jp:page:257",
+    "web:archive01-section006",
+    "web:chapter01-section035",
+    "web:chapter06-exercise002-02",
+    "web:chapter03-section009",
+    "web:chapter03-section026",
+    "web:chapter04-section005",
+    "web:chapter04-section012",
+    "supplement:chapter02-section019",
+    "nemata-jp:page:1",
+    "nemata-jp:page:2",
+    "nemata-jp:page:3",
+    "nemata-jp:page:317",
+    "web-chapter:79-cn-chapter-081-8",
+    "web-chapter:79-cn-chapter-090-6",
+    "web-chapter:79-cn-chapter-109-4",
+    "web-chapter:79-cn-chapter-128-14",
+    "web-chapter:79-cn-chapter-145-4",
+    "web-chapter:79-cn-chapter-155-4",
+    "web-chapter:79-cn-chapter-157-11",
+    "web-chapter:79-cn-chapter-159-9",
+    "web-chapter:79-cn-chapter-162-3",
+    "web-chapter:79-cn-chapter-167-4",
+    "web-chapter:79-cn-chapter-182-5",
+    "web-chapter:79-cn-chapter-193-4",
+    "web-chapter:79-cn-chapter-201-6",
+    "web-chapter:79-cn-chapter-205-5",
+    "web-chapter:79-cn-chapter-208-4",
+    "web-chapter:79-cn-chapter-222-5",
+    "web-chapter:79-cn-chapter-234-12",
+    "web-chapter:79-cn-chapter-242-3",
+    "web-chapter:79-cn-chapter-246-3",
+    "web-chapter:79-cn-chapter-256-18",
+    "web-chapter:79-cn-chapter-276-4",
+    "web-chapter:79-cn-chapter-311-18",
+    "web-chapter:nemata-jp-chapter-027-1",
+    "web-chapter:nemata-jp-chapter-060-1",
+    "web-chapter:nemata-jp-chapter-089-1",
+    "web-chapter:nemata-jp-chapter-127-1",
+    "web-chapter:nemata-jp-chapter-142-1",
+    "web-chapter:nemata-jp-chapter-173-1",
+    "web-chapter:nemata-jp-chapter-174-1",
+    "web-chapter:nemata-jp-chapter-187-1",
+    "web-chapter:nemata-jp-chapter-198-1",
+    "web-chapter:nemata-jp-chapter-199-1",
+    "web-chapter:nemata-jp-chapter-201-1",
+    "web-chapter:nemata-jp-chapter-211-1",
+    "web-chapter:nemata-jp-chapter-215-4",
+    "web-chapter:nemata-jp-chapter-222-1",
+    "web-chapter:nemata-jp-chapter-227-1",
+    "web-chapter:nemata-jp-chapter-236-1",
+    "web-chapter:nemata-jp-chapter-246-1",
+    "web-chapter:nemata-jp-chapter-347-1",
+    "web-chapter:nemata-jp-chapter-116-1",
+    "web-chapter:nemata-jp-chapter-131-1"
+   ],
+   "decisionHold": [
+    "web-chapter:nemata-jp-chapter-183-1"
+   ],
+   "resolved": [
+    "79-cn:page:50",
+    "79-cn:page:263",
+    "nemata-jp:page:261",
+    "web-chapter:nemata-jp-chapter-237-1",
+    "web-chapter:nemata-jp-chapter-197-1"
+   ]
+  }
  },
  "dedupe": [
   {
@@ -1790,6 +1863,167 @@
    "auditRecordedAt": "2026-10-23T22:42:27.308Z",
    "auditSourceStale": false,
    "diskShaVerified": true
+  },
+  {
+   "objectId": "web-chapter:nemata-jp-chapter-116-1",
+   "kind": "web-article",
+   "chapterId": "nemata-jp-chapter-116-1",
+   "sourceId": "modern-yabejp-ja",
+   "articleId": "chapter01-section041",
+   "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter01-section041.display.json",
+   "candidateSha256": "6f251511ec5d8b18a4c5cce3ef41bd4a92f8b3edff1b1dee112e2f3a2bba8035",
+   "auditPath": null,
+   "auditStatus": "no-receipt",
+   "issueCount": 1,
+   "unitCount": 1,
+   "pdfPages": [
+    116,
+    117
+   ],
+   "currentDisposition": "blocked-deterministic-gate",
+   "origin": "COAC-250 unified chapter register 2026-10-27",
+   "newThisStage": true,
+   "diskShaVerified": true,
+   "bodyComparison": {
+    "verdict": "body-identical",
+    "evidence": "the candidate's bound source text is identical to the nemata-jp PDF pages 116-117 text after edition-typography normalisation"
+   },
+   "blocker": {
+    "kind": "web_translation_placeholder",
+    "targetId": "modern-yabejp-ja:chapter01-section041:b0016",
+    "observedAt": "2026-10-27T02:49:44Z",
+    "detail": "the full-article audit refuses at the deterministic gate because b0016 still carries the translation placeholder for the repeated-text marker; no model call was made. The isolated revision route needs a needs-repair parent receipt, which cannot be created while the gate refuses, so the next step is a root-accepted correction entry for this one block, not a model retry."
+   }
+  },
+  {
+   "objectId": "web-chapter:nemata-jp-chapter-131-1",
+   "kind": "web-article",
+   "chapterId": "nemata-jp-chapter-131-1",
+   "sourceId": "modern-yabejp-ja",
+   "articleId": "chapter01-section049",
+   "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter01-section049.display.json",
+   "candidateSha256": "470217d79cd1acd28f234a1e691d4d950ae99d0c0463e6bd0211561c95de28ac",
+   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/modern-yabejp-ja/chapter01-section049.470217d79cd1acd28f234a1e691d4d950ae99d0c0463e6bd0211561c95de28ac.json",
+   "auditStatus": "needs-repair",
+   "issueCount": 1,
+   "unitCount": 1,
+   "pdfPages": [
+    131,
+    132,
+    133
+   ],
+   "currentDisposition": "blocked-source-gate",
+   "origin": "COAC-250 unified chapter register 2026-10-27",
+   "newThisStage": true,
+   "diskShaVerified": true,
+   "auditSourceStale": false,
+   "bodyComparison": {
+    "verdict": "body-identical",
+    "evidence": "bound source text equals the nemata-jp PDF pages 131-133 text; the source SHA recomputed from disk matches the register and the receipt"
+   },
+   "issue": {
+    "targetId": "modern-yabejp-ja:chapter01-section049:b0123",
+    "detail": "「七対子のロス」 was translated as 「失去七对子的可能性」, which overstates the loss: cutting one 6s breaks one pair but does not remove the seven-pairs route."
+   },
+   "blocker": {
+    "kind": "web_source_assets_not_complete",
+    "observedAt": "2026-10-27T02:46:00Z",
+    "detail": "the capture for chapter01-section049 is marked blocked-invalid-or-missing-original-image with 1 failed asset of 35 — modern-yabejp-ja:d2581cf81efbb0a5ec3d5bd4, an Amazon affiliate tracking pixel (assoc-amazon.jp/e/ir). The revision runner refuses the source at its asset gate. Not bypassed: a global source gate is not local to this repair."
+   }
+  },
+  {
+   "objectId": "web-chapter:nemata-jp-chapter-183-1",
+   "kind": "web-article",
+   "chapterId": "nemata-jp-chapter-183-1",
+   "sourceId": "modern-yabejp-ja",
+   "articleId": "chapter03-section003",
+   "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter03-section003.display.json",
+   "candidateSha256": "889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02",
+   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/modern-yabejp-ja/chapter03-section003.889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02.json",
+   "auditStatus": "needs-repair",
+   "issueCount": 1,
+   "unitCount": 1,
+   "pdfPages": [
+    183
+   ],
+   "currentDisposition": "decision-hold",
+   "origin": "COAC-250 unified chapter register 2026-10-27",
+   "newThisStage": true,
+   "diskShaVerified": true,
+   "bodyComparison": {
+    "verdict": "body-identical",
+    "evidence": "bound source text equals the nemata-jp PDF page 183 text"
+   },
+   "issue": {
+    "targetId": "modern-yabejp-ja:chapter03-section003:b0018",
+    "detail": "uncertain: the source sentence carries a quantity ambiguity"
+   },
+   "hold": "Earlier instruction stands: keep the author's 「１枚切れ１枚見え」 exactly, do not rewrite it to 持ち and do not insert an in-body note until the annotation wording is agreed. The source gate for this article is also blocked by the same kind of affiliate tracking pixel, so no revision route is open.",
+   "modelCalls": 0
+  },
+  {
+   "objectId": "web-chapter:nemata-jp-chapter-197-1",
+   "kind": "web-article",
+   "chapterId": "nemata-jp-chapter-197-1",
+   "sourceId": "modern-yabejp-ja",
+   "articleId": "chapter03-section011",
+   "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter03-section011.rev1.json",
+   "candidateSha256": "6ad44173945b9347cd8dd7c44640fa3341bf8e83109695e4cd8aacc6d3d98b21",
+   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/modern-yabejp-ja/chapter03-section011.6ad44173945b9347cd8dd7c44640fa3341bf8e83109695e4cd8aacc6d3d98b21.json",
+   "auditStatus": "passed",
+   "issueCount": 0,
+   "unitCount": 1,
+   "pdfPages": [
+    197
+   ],
+   "currentDisposition": "resolved-passed-audit-awaiting-250-handoff",
+   "origin": "COAC-250 unified chapter register 2026-10-27",
+   "newThisStage": true,
+   "diskShaVerified": true,
+   "auditSourceStale": false,
+   "parentCandidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter03-section011.display.json",
+   "parentCandidateSha256": "f5b699f060d476958c88f4a8f45fe1e7f87037f89eb0a226ac51aa1c1f4bcf49",
+   "parentAuditPath": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/modern-yabejp-ja/chapter03-section011.f5b699f060d476958c88f4a8f45fe1e7f87037f89eb0a226ac51aa1c1f4bcf49.retry-1793066575642-39f02f00.json",
+   "auditSha256": "407481634d84b5a861a7e31058f8d58de664872d2c61bbfe3827ad91e4079727",
+   "bodyComparison": {
+    "verdict": "body-identical",
+    "evidence": "bound source text equals the nemata-jp PDF page 197 text; the audit evidence also records 85 body blocks, 41 figures and 65 image occurrences compared"
+   },
+   "resolution": {
+    "kind": "isolated-target-text-revision",
+    "scope": "only block modern-yabejp-ja:chapter03-section011:b0010; all other text blocks and all 41 figures unchanged",
+    "issue": "the source 「の場合に限って」 marks the exception as applying only to those two cases; the parent translation dropped the restriction",
+    "change": "）的情况下，还有涉及役种、单骑听牌以外的例外。那就是， → ）这两种情况下，才存在除役种因素、单骑听牌之外的例外。那就是，",
+    "producer": {
+     "callId": "efa3c170-f343-4d1f-bd39-25e1ebbfd4d2",
+     "route": "textbook-production-web.mjs --revision-from/--revision-notes",
+     "usage": {
+      "inputTokens": 14297,
+      "outputTokens": 329
+     },
+     "targets": {
+      "textIds": [
+       "modern-yabejp-ja:chapter03-section011:b0010"
+      ],
+      "figureIds": []
+     }
+    },
+    "audit": {
+     "callId": "d6772b8c-6680-4ddb-a441-bd5263174738",
+     "scope": "textbook-web-target-text-audit",
+     "usage": {
+      "inputTokens": 20654,
+      "outputTokens": 385
+     },
+     "method": "independent-target-text-review-plus-unchanged-parent-audit",
+     "inheritedParentCallIds": [
+      "4ac4c202-182e-4d3e-9b4a-ae03d529b566"
+     ]
+    },
+    "parentPreserved": "parent candidate, parent raw and the parent needs-repair receipt are untouched",
+    "chapterComplete": true,
+    "chapterNote": "nemata-jp-chapter-197-1 is one unit; the article now passes, so the chapter has no remaining repair object."
+   }
   }
  ],
  "failedSeparate": [
@@ -2568,14 +2802,14 @@
  },
  "policy": "Dedupe by effective candidate file SHA; terminal passed SHAs are not re-dispatched; failed objects are separate and not retried without error analysis.",
  "latestAddition": {
-  "objectId": "nemata-jp:page:309",
-  "addedAt": "2026-10-26T16:54:02.707Z",
-  "status": "needs-repair",
-  "candidateSha256": "d323290d8eb056b85a64563702b4d1d1283b3c6eff70cf7ecdb34c9faa84337b",
-  "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0309.d323290d8eb056b85a64563702b4d1d1283b3c6eff70cf7ecdb34c9faa84337b.6baa4a7e1404.json",
-  "note": "Produced once; audit needs-repair; repair preserved, no re-production."
+  "objectId": "web-chapter:nemata-jp-chapter-197-1",
+  "addedAt": "2026-10-27T02:56:00.000Z",
+  "status": "passed",
+  "candidateSha256": "6ad44173945b9347cd8dd7c44640fa3341bf8e83109695e4cd8aacc6d3d98b21",
+  "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/modern-yabejp-ja/chapter03-section011.6ad44173945b9347cd8dd7c44640fa3341bf8e83109695e4cd8aacc6d3d98b21.json",
+  "note": "Isolated revision from the 249/250 register set; parent receipt, parent candidate and raw preserved."
  },
- "refreshedAt": "2026-10-27T02:32:00.000Z",
+ "refreshedAt": "2026-10-27T02:56:00.000Z",
  "byOrigin": {
   "COAC-248 old PDF 12": 5,
   "COAC-247 new PDF return": 3,
@@ -2837,14 +3071,13 @@
   "bodyTextImpact": "none of the missing microprint is cited by any paragraph on those pages"
  },
  "latestRound": {
-  "at": "2026-10-27T02:32:00.000Z",
+  "at": "2026-10-27T02:56:00.000Z",
   "objects": [
-   "web-chapter:nemata-jp-chapter-237-1"
+   "web-chapter:nemata-jp-chapter-197-1"
   ],
   "productionModelCalls": 1,
   "auditModelCalls": 1,
-  "runtime": "audit/runtimes/e89dcffe73c9100a12218b79dfba66da3f1bb08d7adaf2b64e87d9eb34619a49",
-  "note": "First web chapter out of the COAC-246 repair set completed: isolated target-text revision plus target-text audit; parent full-article audit inherited."
+  "note": "Register integrated (COAC-250 unified register e5a6bf89), body comparison run with zero model calls, one isolated target-text repair passed (197-1); two chapters blocked by the source asset gate, one by the deterministic placeholder gate."
  },
  "relatedNonRepair": {
   "note": "COAC-246 chapters that are not 248 repair objects; their actions belong to 249 (audit) and 250 (staging/selection).",
@@ -2883,22 +3116,6 @@
     ]
    },
    {
-    "chapterId": "nemata-jp-chapter-116-1",
-    "action": "audit-first",
-    "sourceId": "modern-yabejp-ja",
-    "articleId": "chapter01-section041",
-    "candidateSha256": "6f251511ec5d8b18a4c5cce3ef41bd4a92f8b3edff1b1dee112e2f3a2bba8035",
-    "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter01-section041.display.json",
-    "auditStatus": "no-receipt",
-    "auditSourceStale": false,
-    "units": 1,
-    "blocks": 70,
-    "pdfPages": [
-     116,
-     117
-    ]
-   },
-   {
     "chapterId": "nemata-jp-chapter-130-1",
     "action": "audit-retry",
     "sourceId": "modern-yabejp-ja",
@@ -2911,53 +3128,6 @@
     "blocks": 54,
     "pdfPages": [
      130
-    ]
-   },
-   {
-    "chapterId": "nemata-jp-chapter-131-1",
-    "action": "audit-rebind",
-    "sourceId": "modern-yabejp-ja",
-    "articleId": "chapter01-section049",
-    "candidateSha256": "470217d79cd1acd28f234a1e691d4d950ae99d0c0463e6bd0211561c95de28ac",
-    "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter01-section049.display.json",
-    "auditStatus": "needs-repair",
-    "auditSourceStale": true,
-    "units": 1,
-    "blocks": 168,
-    "pdfPages": [
-     131,
-     132,
-     133
-    ]
-   },
-   {
-    "chapterId": "nemata-jp-chapter-183-1",
-    "action": "audit-rebind",
-    "sourceId": "modern-yabejp-ja",
-    "articleId": "chapter03-section003",
-    "candidateSha256": "889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02",
-    "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter03-section003.display.json",
-    "auditStatus": "needs-repair",
-    "auditSourceStale": true,
-    "units": 1,
-    "blocks": 34,
-    "pdfPages": [
-     183
-    ]
-   },
-   {
-    "chapterId": "nemata-jp-chapter-197-1",
-    "action": "audit-retry",
-    "sourceId": "modern-yabejp-ja",
-    "articleId": "chapter03-section011",
-    "candidateSha256": "f5b699f060d476958c88f4a8f45fe1e7f87037f89eb0a226ac51aa1c1f4bcf49",
-    "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter03-section011.display.json",
-    "auditStatus": "failed",
-    "auditSourceStale": false,
-    "units": 1,
-    "blocks": 60,
-    "pdfPages": [
-     197
     ]
    },
    {
@@ -3017,6 +3187,11 @@
     ],
     "alreadyTrackedAs": "web-failed:chapter06-exercise004",
     "note": "COAC-246 action label differs from the COAC-248 failed-separate record; the object is one and the same, and it is not retried without error analysis."
+   },
+   {
+    "chapterId": "nemata-jp-chapter-260-18",
+    "action": "staging-fix",
+    "note": "PDF route passed; only selection/staging remains for COAC-250"
    }
   ]
  },
@@ -3041,5 +3216,83 @@
   "nonRepairLeakedIntoRepairObjects": [],
   "failedOverlap": [],
   "conclusion": "All 48 repair chapters are single objects in the list, their candidate SHAs equal both the COAC-246 transfer and the bytes on disk, the 7 deduplicated web objects share one SHA each, the 9 non-repair chapters are outside the repair objects, and no repair object is one of the 2 failed items."
+ },
+ "registerIntegration": {
+  "registerPath": "integration/coac250-unified-chapter-register-20261027.json",
+  "registerSha256": "e5a6bf89959b8a6867e6e53f55d240f1e0787facc0dded09c79b775fb10de1e6",
+  "adoptedAt": "2026-10-27T02:56:00.000Z",
+  "registerCounts": {
+   "originalChapters": 256,
+   "originalUnits": 303,
+   "originalSourceBlocks": 21212,
+   "displayChapters": 194,
+   "displayUnits": 202,
+   "displayBlocks": 5084,
+   "displayFigures": 3653,
+   "effectiveCoveredOriginalChapters": 194,
+   "effectiveUncoveredOriginalChapters": 62,
+   "uncoveredProduced": 62,
+   "trulyUnproduced": 0,
+   "register80": 80,
+   "register80Groups": {
+    "confirmed-produced-not-covered": 56,
+    "reclassified-covered": 17,
+    "legacy-covered": 1,
+    "additional-uncovered-not-in-246": 6
+   },
+   "verdicts": {
+    "covered-effective": 194,
+    "produced-needs-repair": 56,
+    "produced-passed-not-staged": 2,
+    "produced-pdf-passed-not-staged": 1,
+    "produced-unreviewed": 2,
+    "produced-audit-failed": 1
+   }
+  },
+  "superseded": "the earlier 80-chapter / 63-unproduced figures; kept only as history",
+  "registerUnpassedRows": 62,
+  "matchedExistingObjects": 53,
+  "untrackedRepair": 5,
+  "staging": 3,
+  "failed": 1,
+  "sharedCandidateSha": [],
+  "dedupeBasis": "object identity (web-chapter:<chapterId> or <sourceId>:page:<n>) first, then effective candidate SHA; 0 chapters missed, 0 chapters double-counted",
+  "note": "Matched before this round: 53. This round appended the four untracked repair objects (116-1, 131-1, 183-1, 197-1); 283-1 and 303-1 stay on the failed-separate list and are matched by candidate SHA. After the append all 62 unpassed register rows resolve exactly once.",
+  "coverageAfterThisRound": {
+   "registerUnpassedRows": 62,
+   "resolvedToObjects": 59,
+   "stagingOnly": 3,
+   "untrackedRepair": 0,
+   "sharedCandidateSha": 0,
+   "chaptersMissed": 0,
+   "chaptersDoubleCounted": 0
+  }
+ },
+ "bodyComparison": {
+  "recordedAt": "2026-10-27T02:56:00.000Z",
+  "modelCalls": 0,
+  "nemataJp": {
+   "chapters": {
+    "chapters": 48,
+    "bodyIdentical": 40,
+    "pageBoundary": 3,
+    "formattingOnly": 1,
+    "realGap": 0,
+    "noWebCandidate": 4
+   },
+   "path": ".multica/delivery/coac-248-register-body-comparison/body-comparison-final.json"
+  },
+  "chinese": {
+   "chapters": {
+    "chapters": 26,
+    "bodyIdentical": 0,
+    "mappedElsewhere": 0,
+    "realGap": 24,
+    "noWebCandidate": 2
+   },
+   "path": ".multica/delivery/coac-248-register-body-comparison/body-comparison-cn.json",
+   "caveat": "The Chinese register page ranges run past chapter boundaries (running heads and the next chapter title sit on the last page of a range), so this zero-model comparison cannot separate a mapping gap from a boundary artefact. It is recorded as evidence only; the governing Chinese substitution evidence stays integration/chinese-source-body-correspondence.json, which already carries bodyEquivalenceConfirmed=true per article->chapter mapping."
+  },
+  "conclusion": "Among the 44 Japanese chapters that have a web candidate, 40 bind exactly the print page body, 3 differ only because the last page of the register page range opens the next chapter (the differing sentences are present in another web article), and 1 differs only by list numbering. 4 further Japanese chapters have no web candidate and can only be covered by the print route. No print sentence of any web-covered Japanese chapter is absent from the web corpus."
  }
 }

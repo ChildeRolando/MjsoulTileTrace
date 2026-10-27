@@ -1,0 +1,1554 @@
+{
+ "schema": "coac248-register-body-comparison/2",
+ "recordedAt": "2026-10-27T02:40:45.714Z",
+ "modelCalls": 0,
+ "method": "normalised sentence-level LCS of the web candidate bound sourceText against the original nemata-jp PDF page text layer (page furniture stripped)",
+ "chapters": 48,
+ "exact": 13,
+ "noWebCandidate": 4,
+ "withMissingPrintContent": 31,
+ "absentSentencesTotal": 222,
+ "results": [
+  {
+   "chapterId": "nemata-jp-chapter-001-64",
+   "verdict": "produced-needs-repair",
+   "status": "no-web-candidate",
+   "pages": [
+    1,
+    2,
+    3
+   ],
+   "pdfChars": 3241,
+   "pdfFigureBlocks": 41
+  },
+  {
+   "chapterId": "nemata-jp-chapter-027-1",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    27,
+    28
+   ],
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section010.display.json",
+   "candidateSha256": "7ebd1f9736018ab21e85e0a91d2517e1c738fa56a9d4ca060c360bf9c21a566b",
+   "auditStatus": "needs-repair",
+   "sourceBoundCurrent": true,
+   "pdfSentences": 28,
+   "webSentences": 28,
+   "pdfChars": 751,
+   "webSourceChars": 751,
+   "webBlocks": 160,
+   "webFigures": 77,
+   "pdfFigureBlocks": 101,
+   "exactBodyMatch": true,
+   "missingFromWeb": [],
+   "webOnly": []
+  },
+  {
+   "chapterId": "nemata-jp-chapter-047-1",
+   "verdict": "covered-effective",
+   "pages": [
+    47,
+    48,
+    49
+   ],
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section020.source-note-v2.display.json",
+   "candidateSha256": "28f1afe58b1facfb19a03e78d42afe18a13d95868883e2611c4cc93a3763bf22",
+   "auditStatus": "passed-after-specific-source-editorial-note",
+   "sourceBoundCurrent": true,
+   "pdfSentences": 14,
+   "webSentences": 14,
+   "pdfChars": 1063,
+   "webSourceChars": 1015,
+   "webBlocks": 169,
+   "webFigures": 90,
+   "pdfFigureBlocks": 77,
+   "exactBodyMatch": false,
+   "missingFromWeb": [
+    "）（純正九蓮宝燈）多メンチャンの待ちの見抜き方無気力無関心（仮）「新・多面張理論(http://ameblo.jp/010101/entry-10514689527.html)」に画期的な方法を考案された方がいらっしゃいますので是非ご参考に。"
+   ],
+   "webOnly": [
+    "）（純正九蓮宝燈）多メンチャンの待ちの見抜き方無気力無関心（仮）「新・多面張理論」に画期的な方法を考案された方がいらっしゃいますので是非ご参考に。"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-060-1",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    60,
+    61,
+    62,
+    63
+   ],
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section021-06.display.json",
+   "candidateSha256": "ff1f57ff633d050ec1edff51301a3e4a4e3f68d690774a7a8c60893f4300f828",
+   "auditStatus": "needs-repair",
+   "sourceBoundCurrent": true,
+   "pdfSentences": 59,
+   "webSentences": 33,
+   "pdfChars": 3091,
+   "webSourceChars": 2016,
+   "webBlocks": 129,
+   "webFigures": 50,
+   "pdfFigureBlocks": 68,
+   "exactBodyMatch": false,
+   "missingFromWeb": [
+    "から１枚切ってリーチなら－待ちより、端に近い－待ちに受けます。",
+    "東場東家→ドラ０～１はシャボでリーチ→ドラ２以上はリャンメンリーチ（がドラならシャボでリーチ）→ドラ０は打リーチ→ドラ１は微妙だがの出易さで打リーチ→ドラ２以上は打リーチ→ドラ０の場合は微妙、片割れが字牌等の和了し易い待ちや、打点が必要な場合ならツモり三暗でリーチ、他はリャンメンリーチ→ドラ１以上はリャンメンリーチ枚数は同じ場合で、和了率と打点どちらかを選択するケース１枚切れ→シャボに受けると安目があるがシャボでリーチドラは客風→ドラ単騎リーチ→がなら単騎リーチ→ドラの場合は単騎リーチとダマどちらが良いか微妙→ドラでなら単騎ダマ若干有利→単騎リーチ→他にドラがあれば単騎リーチ（一方が２枚切れであれば２枚切れの方を切ってリーチ。",
+    "）枚数が少ないほうに受けたほうが和了率が上回るケース→まだ相手のヤオ九牌整理が終わらない段階（３巡目程度）であれば単騎リーチ（掴めば出る牌で尚且つ相手の手の内に残っている可能性が高い牌で待てば和了率は極めて高くなるので）→以降は－リーチ安目高目（安目で上がると満貫未満）がある場合や、愚形に受けたほうが打点が高くなる場合でダマ（後者は愚形に受けてダマ）にする場合特に状況がなければ（オーラス高目or愚形ダマなら確定捲くり手になる一方、リーチして安目上がりorリャンメンリーチなら裏１でも捲くれない等）このケースはほとんど存在しません。",
+    "ドラ→切ってダマ（がドラでなければ打リーチも有力）ドラ→切ってダマ（ドラが無ければ打リーチ）これまでの牌効率は、基本的にメンゼンリーチを目指す場合についてのものであった。",
+    "今回からは仕掛けた場合、あるいは仕掛けることが前提の場合の牌効率について。",
+    "フーロ牌理毎回メンゼンでテンパイすれば麻雀簡単なのですが、そうは問屋が卸しません。",
+    "のような完全シャンテン形でさえ、テンパイまでに平均６～７巡もかかるのです。",
+    "メンゼンでテンパイするというのはそれだけで運がいいことなのです。",
+    "ですから、仕掛けが効くことは非常に重要です。",
+    "仕掛けて和了するには役をつけて１ハン縛りを解消する必要があります。",
+    "よって、手役を考慮した牌効率論もここで述べます。",
+    "鳴いても役になる手役が確定することで、３シャンテン以前→２シャンテン→１シャンテン→テンパイというテンパイまでのステップ全段階で、鳴けることによってステップの成功率が増加します。",
+    "前にも申しましたように、テンパイに近づくにつれ有効牌が減って成功率が減っていくので、難しい方の成功率を高めるほうが最終的な和了率が高まるのです。",
+    "よって、序盤でテンパイに遠い段階であれば、単純な受け入れやシャンテン数より手役の芽を重視するケースが増えるのです。",
+    "（同様の理由で、以後のテンパイまでの進みやすさやテンパイになった時のあがり易さの為に良形になり易さを重視することも）手作りは高打点を狙うためだけの技術ではありません。",
+    "寧ろ１ハン縛りを解消して和了率を高めるための技術として有効なのです。",
+    "では、仕掛け（手役）を考慮した場合、メンゼン限定時と牌効率は具体的にどう変わるのでしょうか。",
+    "多くの場合は同じですが、違ってくるケースを挙げてみます。",
+    "孤立役牌の価値が高まります。",
+    "大抵の場合は役に絡まない１･９牌、メンゼンでの和了が厳しく孤立役牌が複数あるケースでは役に絡まない愚形ターツや３～７の中張牌より優先されることもあります。",
+    "例：→打役牌かクイタン、稀に七対子。",
+    "役牌の重なりを期待して孤立役牌を残すくらいですから、役牌は基本１鳴きです。",
+    "役を確定させる鳴きは急所を鳴くのと同等です。",
+    "鳴かないのはメンゼンでも十分早い上に高打点が見込める時か、どうしてもメンゼンで高い手に仕上げないといけない場合くらいです。",
+    "○○トイツと称されるダンゴターツの優先度が高まります。",
+    "ポンもチーもできるからです。",
+    "例：→打また、仕掛けが効く分、愚形ターツを浮き牌より優先するケースも増えます。",
+    "仕掛けることが前提の手は、手役絡みの愚形ターツを強いターツとして固定して他を補強することになります。",
+    "メンゼン限定の牌効率では、愚形を愚形のまま固定することは滅多にないことです。",
+    "例：→打"
+   ],
+   "webOnly": [
+    "から１枚切ってリーチなら−待ちより、端に近い−待ちに受けます。",
+    "東場東家→ドラ０〜１はシャボでリーチ→ドラ２以上はリャンメンリーチ（がドラならシャボでリーチ）→ドラ０は打リーチ→ドラ１は微妙だがの出易さで打リーチ→ドラ２以上は打リーチ→ドラ０の場合は微妙、片割れが字牌等の和了し易い待ちや、打点が必要な場合ならツモり三暗でリーチ、他はリャンメンリーチ→ドラ１以上はリャンメンリーチ枚数は同じ場合で、和了率と打点どちらかを選択するケース１枚切れ→シャボに受けると安目があるがシャボでリーチドラは客風→ドラ単騎リーチ→がなら単騎リーチ→ドラの場合は単騎リーチとダマどちらが良いか微妙→ドラでなら単騎ダマ若干有利→単騎リーチ→他にドラがあれば単騎リーチ（一方が２枚切れであれば２枚切れの方を切ってリーチ。",
+    "）枚数が少ないほうに受けたほうが和了率が上回るケース→まだ相手のヤオ九牌整理が終わらない段階（３巡目程度）であれば単騎リーチ（掴めば出る牌で尚且つ相手の手の内に残っている可能性が高い牌で待てば和了率は極めて高くなるので）→以降は−リーチ安目高目（安目で上がると満貫未満）がある場合や、愚形に受けたほうが打点が高くなる場合でダマ（後者は愚形に受けてダマ）にする場合特に状況がなければ（オーラス高目or愚形ダマなら確定捲くり手になる一方、リーチして安目上がりorリャンメンリーチなら裏１でも捲くれない等）このケースはほとんど存在しません。",
+    "ドラ→切ってダマ（がドラでなければ打リーチも有力）ドラ→切ってダマ（ドラが無ければ打リーチ）"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-083-1",
+   "verdict": "covered-effective",
+   "pages": [
+    83,
+    84,
+    85,
+    86
+   ],
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section029.display.json",
+   "candidateSha256": "c6bab02a7ce3e8b901576242632d74ce4a2bfe81d195df9d0951c91c7e2fac7e",
+   "auditStatus": "passed",
+   "sourceBoundCurrent": true,
+   "pdfSentences": 59,
+   "webSentences": 59,
+   "pdfChars": 2997,
+   "webSourceChars": 2739,
+   "webBlocks": 198,
+   "webFigures": 84,
+   "pdfFigureBlocks": 102,
+   "exactBodyMatch": false,
+   "missingFromWeb": [
+    "テンパイする牌を鳴くべきかどうかは、テンパイから手変わりを待つかどうかと同様の考えを用いることができます（『科学する麻雀(http://www.amazon.co.jp/gp/product/4061497650?ie=UTF8&tag=yabe0b-22&linkCode=as2&camp=247&creative=1211&creativeASIN=4061497650)』参照）。",
+    "ドラチー上家が打『科学する麻雀(http://www.amazon.co.jp/gp/product/4061497650?ie=UTF8&tag=yabe0b-22&linkCode=as2&camp=247&creative=1211&creativeASIN=4061497650)』では、が出た場合チーテンに取るべきという記述がされていましたがどうでしょうか。",
+    "）仕掛け易さをどの程度と見積もるかによりますが、８種～10種程度の手変わりがあると考えられます。"
+   ],
+   "webOnly": [
+    "テンパイする牌を鳴くべきかどうかは、テンパイから手変わりを待つかどうかと同様の考えを用いることができます（『科学する麻雀』参照）。",
+    "ドラチー上家が打『科学する麻雀』では、が出た場合チーテンに取るべきという記述がされていましたがどうでしょうか。",
+    "）仕掛け易さをどの程度と見積もるかによりますが、８種〜10種程度の手変わりがあると考えられます。"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-089-1",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    89,
+    90,
+    91
+   ],
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section031.display.json",
+   "candidateSha256": "9fa0255f1dbe5bdf38e94d0e6c447c09d4a97d689611f41fd1676af27fd89ffb",
+   "auditStatus": "needs-repair",
+   "sourceBoundCurrent": true,
+   "pdfSentences": 59,
+   "webSentences": 59,
+   "pdfChars": 2244,
+   "webSourceChars": 2244,
+   "webBlocks": 159,
+   "webFigures": 75,
+   "pdfFigureBlocks": 75,
+   "exactBodyMatch": true,
+   "missingFromWeb": [],
+   "webOnly": []
+  },
+  {
+   "chapterId": "nemata-jp-chapter-098-1",
+   "verdict": "covered-effective",
+   "status": "no-web-candidate",
+   "pages": [
+    98,
+    99
+   ],
+   "pdfChars": 1626,
+   "pdfFigureBlocks": 54
+  },
+  {
+   "chapterId": "nemata-jp-chapter-100-1",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    100,
+    101,
+    102,
+    103,
+    104,
+    105,
+    106,
+    107
+   ],
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section035.display.json",
+   "candidateSha256": "0439c38228989d2f997036eaa0e4a4522cfb40e6c141469b1c83abf66db2c077",
+   "auditStatus": "needs-repair",
+   "sourceBoundCurrent": true,
+   "pdfSentences": 128,
+   "webSentences": 128,
+   "pdfChars": 5422,
+   "webSourceChars": 5177,
+   "webBlocks": 311,
+   "webFigures": 128,
+   "pdfFigureBlocks": 136,
+   "exactBodyMatch": false,
+   "missingFromWeb": [
+    "役牌トイツが２組（もしくは役牌トイツ１組＋生きている字牌２～３種）あったり、ドラが染め色や字牌であれば容易に満貫クラスの手になるので尚積極的に染める方が良くなる。",
+    "多メンチャンを素早く見抜く方法については牌効率論２０(section020.html)で紹介したサイト無気力無関心（仮）「多面張理論（メンチンの革命編）(http://ameblo.jp/010101/entry-10035459441.html)」の内容を参照されたい。",
+    "チルノさんのmixi日記「幽雅に咲かせ、無理染めの桜Ａその１(http://mixi.jp/view_diary.pl?id=556249627&owner_id=2250922)」より染めの苦手な私がヒラバ染めと通常手のボーダーを探してみる。",
+    "チルノさんのmixi日記「幽雅に咲かせ、無理染めの桜Ａその２(http://mixi.jp/view_diary.pl?id=557272294&owner_id=2250922)」よりＡ役牌トイツ２以上のその２トイトイかトイツしかない他の色で染めたほうがいいんじゃないの。",
+    "「氷室さんのmixi日記(http://mixi.jp/view_diary.pl?id=782291733&owner_id=2435866)」より１、染め色や字牌がドラの時ホンイツは急激に強くなる。",
+    "染めれば３９００～８０００が簡単に狙えるからだ。",
+    "最悪リーチを入れられても１～２枚切れ字牌などの安全牌で凌げる事も多い。",
+    "）２、門前で手を進めてもクソ待ち１３００～２６００濃厚だが染めれば２０００～５２００行けるかもしれない時いわゆるクソ手での無理染め。",
+    "ただし、伸びが悪い時は役牌を重ねて１,000～2,000点など、染め切らずの和了でも全然悪くない。",
+    "）３、役役（もしくは役１＋生きてる字牌２～３種）ある時ホンイツ、トイトイ、ドラなどで３９００～８０００狙うべき。",
+    "４、なんとしても３９００～欲しいが、手牌がクソオーラスでたまにあるが、相当強引にでも染めに持ってった方が良い。"
+   ],
+   "webOnly": [
+    "役牌トイツが２組（もしくは役牌トイツ１組＋生きている字牌２〜３種）あったり、ドラが染め色や字牌であれば容易に満貫クラスの手になるので尚積極的に染める方が良くなる。",
+    "多メンチャンを素早く見抜く方法については牌効率論２０で紹介したサイト無気力無関心（仮）「多面張理論（メンチンの革命編）」の内容を参照されたい。",
+    "チルノさんのmixi日記「幽雅に咲かせ、無理染めの桜Ａその１」より染めの苦手な私がヒラバ染めと通常手のボーダーを探してみる。",
+    "チルノさんのmixi日記「幽雅に咲かせ、無理染めの桜Ａその２」よりＡ役牌トイツ２以上のその２トイトイかトイツしかない他の色で染めたほうがいいんじゃないの。",
+    "「氷室さんのmixi日記」より１、染め色や字牌がドラの時ホンイツは急激に強くなる。",
+    "染めれば３９００〜８０００が簡単に狙えるからだ。",
+    "最悪リーチを入れられても１〜２枚切れ字牌などの安全牌で凌げる事も多い。",
+    "）２、門前で手を進めてもクソ待ち１３００〜２６００濃厚だが染めれば２０００〜５２００行けるかもしれない時いわゆるクソ手での無理染め。",
+    "ただし、伸びが悪い時は役牌を重ねて１,000〜2,000点など、染め切らずの和了でも全然悪くない。",
+    "）３、役役（もしくは役１＋生きてる字牌２〜３種）ある時ホンイツ、トイトイ、ドラなどで３９００〜８０００狙うべき。",
+    "４、なんとしても３９００〜欲しいが、手牌がクソオーラスでたまにあるが、相当強引にでも染めに持ってった方が良い。"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-108-1",
+   "verdict": "covered-effective",
+   "pages": [
+    108,
+    109
+   ],
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section036.display.json",
+   "candidateSha256": "5b48676483f6dd2a3a4f4238cbcdf3a3985d9cf2d1c191c2d112b61782628c7b",
+   "auditStatus": "passed",
+   "sourceBoundCurrent": true,
+   "pdfSentences": 28,
+   "webSentences": 28,
+   "pdfChars": 1416,
+   "webSourceChars": 1335,
+   "webBlocks": 85,
+   "webFigures": 38,
+   "pdfFigureBlocks": 39,
+   "exactBodyMatch": false,
+   "missingFromWeb": [
+    "ドラが無く役牌がトイツ以上の手をホンイツまで伸ばせば3,900～5,200点が見込めるが、チャンタをつけても2,000～2,600点にしかならずこの差は大きい。",
+    "イッツーとどちらを狙うかの分岐点になった場合の判断については牌効率論32(section032.html)で述べた三色とイッツーとの選択と同様の考えを用いれば良い。",
+    "例題はMahjongWalker「ザ・ベストクエスチョン百十八回目(http://www.mahjong.or.jp/km_column/k04072.htm)」を参照。",
+    "配牌ドラは客風→打か牌効率論23(section023.html)でも挙げた牌姿。"
+   ],
+   "webOnly": [
+    "ドラが無く役牌がトイツ以上の手をホンイツまで伸ばせば3,900〜5,200点が見込めるが、チャンタをつけても2,000〜2,600点にしかならずこの差は大きい。",
+    "イッツーとどちらを狙うかの分岐点になった場合の判断については牌効率論32で述べた三色とイッツーとの選択と同様の考えを用いれば良い。",
+    "例題はMahjongWalker「ザ・ベストクエスチョン百十八回目」を参照。",
+    "配牌ドラは客風→打か牌効率論23でも挙げた牌姿。"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-111-1",
+   "verdict": "covered-effective",
+   "pages": [
+    111
+   ],
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section038.display.json",
+   "candidateSha256": "4a2f038899b91e8fd03c0c0f1d2d7b4fe58f7888d3ba78db52c04748131de96b",
+   "auditStatus": "passed",
+   "sourceBoundCurrent": true,
+   "pdfSentences": 20,
+   "webSentences": 24,
+   "pdfChars": 1036,
+   "webSourceChars": 1190,
+   "webBlocks": 14,
+   "webFigures": 3,
+   "pdfFigureBlocks": 3,
+   "exactBodyMatch": false,
+   "missingFromWeb": [
+    "他家に鳴かれたり和了されずに流局すれば確定するだけのヤオ九牌が確保できれば、切り出すヤオ九"
+   ],
+   "webOnly": [
+    "他家に鳴かれたり和了されずに流局すれば確定するだけのヤオ九牌が確保できれば、切り出すヤオ九牌がテンパイしている他家に危険であってもまず狙うほうが良い。",
+    "満貫でリャンメンテンパイならほぼ勝負できるし、流局で確定するならリャンメンテンパイより和了できる可能性は高いからである。",
+    "終盤流し満貫を狙っている他家がいれば鳴いて阻止することも忘れないようにしたい。",
+    "（逆に、自分が狙う場合は鳴かれやすい牌から切る。",
+    "）"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-111-25",
+   "verdict": "covered-effective",
+   "pages": [
+    111,
+    112
+   ],
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section038.display.json",
+   "candidateSha256": "4a2f038899b91e8fd03c0c0f1d2d7b4fe58f7888d3ba78db52c04748131de96b",
+   "auditStatus": "passed",
+   "sourceBoundCurrent": true,
+   "pdfSentences": 24,
+   "webSentences": 24,
+   "pdfChars": 1190,
+   "webSourceChars": 1190,
+   "webBlocks": 14,
+   "webFigures": 3,
+   "pdfFigureBlocks": 3,
+   "exactBodyMatch": true,
+   "missingFromWeb": [],
+   "webOnly": []
+  },
+  {
+   "chapterId": "nemata-jp-chapter-116-1",
+   "verdict": "produced-unreviewed",
+   "pages": [
+    116,
+    117
+   ],
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section041.display.json",
+   "candidateSha256": "6f251511ec5d8b18a4c5cce3ef41bd4a92f8b3edff1b1dee112e2f3a2bba8035",
+   "auditStatus": null,
+   "sourceBoundCurrent": null,
+   "pdfSentences": 20,
+   "webSentences": 20,
+   "pdfChars": 1017,
+   "webSourceChars": 1017,
+   "webBlocks": 76,
+   "webFigures": 29,
+   "pdfFigureBlocks": 29,
+   "exactBodyMatch": false,
+   "missingFromWeb": [
+    "手役の可能性については、３～４種以上見えることが後々付けをするうえでの目安になる。"
+   ],
+   "webOnly": [
+    "手役の可能性については、３〜４種以上見えることが後々付けをするうえでの目安になる。"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-127-1",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    127,
+    128,
+    129
+   ],
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section047.display.json",
+   "candidateSha256": "0dcafc25b6ad5686171ab4a90472ee7fdc69a651ed9be98c8a5a411646e551dc",
+   "auditStatus": "needs-repair",
+   "sourceBoundCurrent": true,
+   "pdfSentences": 46,
+   "webSentences": 46,
+   "pdfChars": 2178,
+   "webSourceChars": 2161,
+   "webBlocks": 162,
+   "webFigures": 72,
+   "pdfFigureBlocks": 75,
+   "exactBodyMatch": false,
+   "missingFromWeb": [
+    "（これはタンヤオの項(section026.html)で述べた通り。",
+    "(２)を(１)にする（あるいは２シャンテン戻しをする）条件愚形ターツ先引きでリャンメンテンパイ、愚形受け４枚減の場合４連形、中膨れ、頭１つの場合のリャンメントイツ形、手役ドラ絡み３～７牌（ドラそのものやターツ化すると役確定や打点大幅上昇が見込める牌なら３～７でなくても）があれば(１)にする。",
+    "普通の孤立３～７は愚形安手リーチを打ちたくないのであれば(１)。",
+    "２枚減（３トイツ形）であれば孤立３～７牌でも(１)。"
+   ],
+   "webOnly": [
+    "（これはタンヤオの項で述べた通り。",
+    "(２)を(１)にする（あるいは２シャンテン戻しをする）条件愚形ターツ先引きでリャンメンテンパイ、愚形受け４枚減の場合４連形、中膨れ、頭１つの場合のリャンメントイツ形、手役ドラ絡み３〜７牌（ドラそのものやターツ化すると役確定や打点大幅上昇が見込める牌なら３〜７でなくても）があれば(１)にする。",
+    "普通の孤立３〜７は愚形安手リーチを打ちたくないのであれば(１)。",
+    "２枚減（３トイツ形）であれば孤立３〜７牌でも(１)。"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-130-1",
+   "verdict": "produced-passed-not-staged",
+   "pages": [
+    130
+   ],
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section048.display.json",
+   "candidateSha256": "021f93bca1d7475429800bb3bde8df5dd984a8f0198b0e296a2e98f6bcaeb59e",
+   "auditStatus": "passed",
+   "sourceBoundCurrent": true,
+   "pdfSentences": 20,
+   "webSentences": 20,
+   "pdfChars": 742,
+   "webSourceChars": 742,
+   "webBlocks": 57,
+   "webFigures": 27,
+   "pdfFigureBlocks": 27,
+   "exactBodyMatch": false,
+   "missingFromWeb": [
+    "→打打点２倍～３倍になる変化３種（）は大きい。",
+    "一方、打点２倍～になる打点変化がある場合はより少ない変化でも(１)にすることが多い。",
+    "最速で進めると1,300～2,600点程度の手が確定で3,900～8,000点になるような変化は強い。",
+    "一方、最速で進めても3,900点～が見込めるようなら手変わりが相対的に弱くなるので多くの場合最速が有利となる。"
+   ],
+   "webOnly": [
+    "→打打点２倍〜３倍になる変化３種（）は大きい。",
+    "一方、打点２倍〜になる打点変化がある場合はより少ない変化でも(１)にすることが多い。",
+    "最速で進めると1,300〜2,600点程度の手が確定で3,900〜8,000点になるような変化は強い。",
+    "一方、最速で進めても3,900点〜が見込めるようなら手変わりが相対的に弱くなるので多くの場合最速が有利となる。"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-131-1",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    131,
+    132,
+    133
+   ],
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section049.display.json",
+   "candidateSha256": "470217d79cd1acd28f234a1e691d4d950ae99d0c0463e6bd0211561c95de28ac",
+   "auditStatus": "needs-repair",
+   "sourceBoundCurrent": true,
+   "pdfSentences": 41,
+   "webSentences": 41,
+   "pdfChars": 2416,
+   "webSourceChars": 2176,
+   "webBlocks": 166,
+   "webFigures": 70,
+   "pdfFigureBlocks": 79,
+   "exactBodyMatch": false,
+   "missingFromWeb": [
+    "ドラが孤立３～７牌ドラを切って2,600点未満の手なら４連形より上、5,200点以上の手なら下、中間なら同程度のものとして、牌効率論47(section047.html)，48(section048.html)の判断基準に沿って選択する。",
+    "ドラが孤立２･８牌ドラを切っても5,200点～が見込めるようならドラ切りで良い。",
+    "安手の場合はチルノさんのmixi日記「２ターツ型イーシャン時の２８ドラの決め(http://mixi.jp/view_diary.pl?id=552372175&owner_id=2250922)」を以下参照。",
+    "（任意の巡目で役牌を切った場合に他家に鳴かれる確率は『科学する麻雀(http://www.amazon.co.jp/gp/product/4061497650?ie=UTF8&tag=yabe0b-22&linkCode=as2&camp=247&creative=1211&creativeASIN=4061497650)』参照。",
+    "喰い仕掛けの場合（役牌を１つ鳴いていて他の役は見えず、ドラを切ると1,000～2,000点の手を想定）ドラが重なった場合の打点上昇は大きいが、１枚だけだとそこまででもない。",
+    "牌効率論40(section040.html)でも述べたが、ドラを使い切るつもりなら早い段階でドラを使いやすいような手組みに持っていきたい。"
+   ],
+   "webOnly": [
+    "ドラが孤立３〜７牌ドラを切って2,600点未満の手なら４連形より上、5,200点以上の手なら下、中間なら同程度のものとして、牌効率論47，48の判断基準に沿って選択する。",
+    "ドラが孤立２･８牌ドラを切っても5,200点〜が見込めるようならドラ切りで良い。",
+    "安手の場合はチルノさんのmixi日記「２ターツ型イーシャン時の２８ドラの決め」を以下参照。",
+    "（任意の巡目で役牌を切った場合に他家に鳴かれる確率は『科学する麻雀』参照。",
+    "喰い仕掛けの場合（役牌を１つ鳴いていて他の役は見えず、ドラを切ると1,000〜2,000点の手を想定）ドラが重なった場合の打点上昇は大きいが、１枚だけだとそこまででもない。",
+    "牌効率論40でも述べたが、ドラを使い切るつもりなら早い段階でドラを使いやすいような手組みに持っていきたい。"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-142-1",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    142,
+    143,
+    144
+   ],
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section054.display.json",
+   "candidateSha256": "264116a9f0d98a22e3d5ae6218adf35a677aecc154c6f4bbad4982240c11b04e",
+   "auditStatus": "needs-repair",
+   "sourceBoundCurrent": true,
+   "pdfSentences": 47,
+   "webSentences": 47,
+   "pdfChars": 1967,
+   "webSourceChars": 1900,
+   "webBlocks": 185,
+   "webFigures": 84,
+   "pdfFigureBlocks": 85,
+   "exactBodyMatch": false,
+   "missingFromWeb": [
+    "）連続形の強さは、牌効率論16(section016.html)で述べたとおり、＞＞＞より弱い連続形に手をかけるのが正着です。",
+    "(http://www.ma-jan.or.jp/jan-up/nanikiru0807q.php)」ドラ→打引きでもリャンメンテンパイになる。"
+   ],
+   "webOnly": [
+    "）連続形の強さは、牌効率論16で述べたとおり、＞＞＞より弱い連続形に手をかけるのが正着です。",
+    "」ドラ→打引きでもリャンメンテンパイになる。"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-173-1",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    173
+   ],
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter02-section023.display.json",
+   "candidateSha256": "a1c2a38bd361b38fad47680a4ebcf2fed77b0d933f47fb400e5f7b7259b22ef5",
+   "auditStatus": "needs-repair",
+   "sourceBoundCurrent": true,
+   "pdfSentences": 16,
+   "webSentences": 16,
+   "pdfChars": 865,
+   "webSourceChars": 865,
+   "webBlocks": 5,
+   "webFigures": 0,
+   "pdfFigureBlocks": 0,
+   "exactBodyMatch": true,
+   "missingFromWeb": [],
+   "webOnly": []
+  },
+  {
+   "chapterId": "nemata-jp-chapter-174-1",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    174,
+    175
+   ],
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter02-section024.display.json",
+   "candidateSha256": "0af14db9257c169c8dd0884fac2668d1d222b53b31bd00d319e9f02950cfb659",
+   "auditStatus": "needs-repair",
+   "sourceBoundCurrent": true,
+   "pdfSentences": 39,
+   "webSentences": 39,
+   "pdfChars": 2049,
+   "webSourceChars": 1964,
+   "webBlocks": 45,
+   "webFigures": 8,
+   "pdfFigureBlocks": 24,
+   "exactBodyMatch": false,
+   "missingFromWeb": [
+    "基本的にどの手役狙いであっても、押し引き論22(section022.html)，23(section023.html)で述べた内容が当てはまります。",
+    "役牌バックが濃厚な他家に絞るかどうか、役牌バックが他家から明白になる仕掛けをすべきかどうかについては押し引き論１(section001.html)，２(section002.html)の内容を参照下さい。",
+    "押し引き論23(section023.html)で述べたように、利用価値が高い牌が切られたらテンパイしている可能性が高いことから、仕掛けている他家から染めている同色の牌が手出しで出てきたらテンパイの可能性が高いです。"
+   ],
+   "webOnly": [
+    "基本的にどの手役狙いであっても、押し引き論22，23で述べた内容が当てはまります。",
+    "役牌バックが濃厚な他家に絞るかどうか、役牌バックが他家から明白になる仕掛けをすべきかどうかについては押し引き論１，２の内容を参照下さい。",
+    "押し引き論23で述べたように、利用価値が高い牌が切られたらテンパイしている可能性が高いことから、仕掛けている他家から染めている同色の牌が手出しで出てきたらテンパイの可能性が高いです。"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-183-1",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    183
+   ],
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section003.display.json",
+   "candidateSha256": "889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02",
+   "auditStatus": "needs-repair",
+   "sourceBoundCurrent": true,
+   "pdfSentences": 17,
+   "webSentences": 17,
+   "pdfChars": 1047,
+   "webSourceChars": 888,
+   "webBlocks": 19,
+   "webFigures": 0,
+   "pdfFigureBlocks": 0,
+   "exactBodyMatch": false,
+   "missingFromWeb": [
+    "以下のデータは、９～14巡目の他家リーチに字牌で当たる確率を場合分け（役牌か客風か、自分から見て何枚見えていて、そのうち切れているものと自分が持っているのとがそれぞれ何枚か）して調べたものです。",
+    "（『GAMEJAPAN2008年3月号(http://www.amazon.co.jp/gp/product/B0012RQMXY?ie=UTF8&tag=yabe0b-22&linkCode=as2&camp=247&creative=1211&creativeASIN=B0012RQMXY)「とつげき東北麻雀戦術論考」』参照。",
+    "）０枚切れ１枚持ち役牌７%０枚切れ１枚持ち客風５%１枚切れ０枚持ち役牌４%１枚切れ０枚持ち客風４%０枚切れ２枚持ち役牌４%０枚切れ２枚持ち客風３%１枚切れ１枚持ち客風３%１枚切れ１枚持ち役牌２%２枚切れ字牌１%未満（押し引き論13(../chapter02/section013.html)より）このデータから読み取れることについて通常９巡目以降のリーチであれば、通っているスジが少なくとも５～６本ある。"
+   ],
+   "webOnly": [
+    "以下のデータは、９〜14巡目の他家リーチに字牌で当たる確率を場合分け（役牌か客風か、自分から見て何枚見えていて、そのうち切れているものと自分が持っているのとがそれぞれ何枚か）して調べたものです。",
+    "（『GAMEJAPAN2008年3月号「とつげき東北麻雀戦術論考」』参照。",
+    "）０枚切れ１枚持ち役牌７%０枚切れ１枚持ち客風５%１枚切れ０枚持ち役牌４%１枚切れ０枚持ち客風４%０枚切れ２枚持ち役牌４%０枚切れ２枚持ち客風３%１枚切れ１枚持ち客風３%１枚切れ１枚持ち役牌２%２枚切れ字牌１%未満（押し引き論13より）このデータから読み取れることについて通常９巡目以降のリーチであれば、通っているスジが少なくとも５〜６本ある。"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-187-1",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    187,
+    188
+   ],
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section006.display.json",
+   "candidateSha256": "a09441ee2d656618bcf2ed97e573e4524d62ba5b3c94fbcc7ec714aeb77a4d73",
+   "auditStatus": "needs-repair",
+   "sourceBoundCurrent": true,
+   "pdfSentences": 24,
+   "webSentences": 24,
+   "pdfChars": 1458,
+   "webSourceChars": 1458,
+   "webBlocks": 104,
+   "webFigures": 48,
+   "pdfFigureBlocks": 49,
+   "exactBodyMatch": true,
+   "missingFromWeb": [],
+   "webOnly": []
+  },
+  {
+   "chapterId": "nemata-jp-chapter-193-1",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    193,
+    194
+   ],
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section009.display.json",
+   "candidateSha256": "abaeede080b3d413e2ead7708a8278ba39dfb2cd21bfebeac5c61726873887c3",
+   "auditStatus": "needs-repair",
+   "sourceBoundCurrent": true,
+   "pdfSentences": 27,
+   "webSentences": 27,
+   "pdfChars": 1381,
+   "webSourceChars": 1381,
+   "webBlocks": 97,
+   "webFigures": 41,
+   "pdfFigureBlocks": 42,
+   "exactBodyMatch": false,
+   "missingFromWeb": [
+    "ドラがであれば－リャンメン、･のシャボ、ペン、カン･が否定される程度ですが、ドラがであればペン、･シャボ、－･－リャンメン以外の～牌がほぼ通ることになるように、ドラが真ん中に近いほど強い情報になります。",
+    "ドラが端に近い牌であればくっつき枚数重視でドラを切ることも多いが、ドラが３～７の中張牌であれば特に低くなる。",
+    "上のような河でリーチが入った場合、入り目でなければまず待ちは－かと何かのシャボであることが読めます。"
+   ],
+   "webOnly": [
+    "ドラがであれば−リャンメン、･のシャボ、ペン、カン･が否定される程度ですが、ドラがであればペン、･シャボ、−･−リャンメン以外の〜牌がほぼ通ることになるように、ドラが真ん中に近いほど強い情報になります。",
+    "ドラが端に近い牌であればくっつき枚数重視でドラを切ることも多いが、ドラが３〜７の中張牌であれば特に低くなる。",
+    "上のような河でリーチが入った場合、入り目でなければまず待ちは−かと何かのシャボであることが読めます。"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-197-1",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    197
+   ],
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section011.display.json",
+   "candidateSha256": "f5b699f060d476958c88f4a8f45fe1e7f87037f89eb0a226ac51aa1c1f4bcf49",
+   "auditStatus": "needs-repair",
+   "sourceBoundCurrent": true,
+   "pdfSentences": 13,
+   "webSentences": 13,
+   "pdfChars": 661,
+   "webSourceChars": 644,
+   "webBlocks": 85,
+   "webFigures": 41,
+   "pdfFigureBlocks": 41,
+   "exactBodyMatch": false,
+   "missingFromWeb": [
+    "ターツ落とし２前回(section010.html)、カンチャンを内側から切ってきた場合はリャンメン待ちが濃厚と書きましたが、→（→）の場合に限って、手役絡み、単騎待ち以外の例外があります。"
+   ],
+   "webOnly": [
+    "ターツ落とし２前回、カンチャンを内側から切ってきた場合はリャンメン待ちが濃厚と書きましたが、→（→）の場合に限って、手役絡み、単騎待ち以外の例外があります。"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-198-1",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    198
+   ],
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section012.display.json",
+   "candidateSha256": "62d901f6a2c5b8fb6c4512693cf2c90ad6ed931a9e812449cad5ec3125d5d1f6",
+   "auditStatus": "needs-repair",
+   "sourceBoundCurrent": true,
+   "pdfSentences": 24,
+   "webSentences": 24,
+   "pdfChars": 1235,
+   "webSourceChars": 1235,
+   "webBlocks": 82,
+   "webFigures": 36,
+   "pdfFigureBlocks": 36,
+   "exactBodyMatch": false,
+   "missingFromWeb": [
+    "故に－、－待ちが本命となります。",
+    "（のような複合形から切った場合は異なります（この場合は－）が、と持っている可能性はやと持っているのより明らかに低いのですからレアケースになります。",
+    "ペンチャン落しの場合は、牌効率論門前編３にあるようにターツオーバーの場合は孤立３～７牌を残すのが普通ですので、任意の数牌が３～７の場合は読みとして有効ではありません。",
+    "更に、→の切り順のように、ドラの方から先に切り出している場合は、絡みのリャンメンでが通っているので－が本命です。",
+    "逆に、ドラはなるだけ使いたい牌なのですから、からを切ることは珍しくなく、→と切っていても－待ちは否定できません。"
+   ],
+   "webOnly": [
+    "故に−、−待ちが本命となります。",
+    "（のような複合形から切った場合は異なります（この場合は−）が、と持っている可能性はやと持っているのより明らかに低いのですからレアケースになります。",
+    "ペンチャン落しの場合は、牌効率論門前編３にあるようにターツオーバーの場合は孤立３〜７牌を残すのが普通ですので、任意の数牌が３〜７の場合は読みとして有効ではありません。",
+    "更に、→の切り順のように、ドラの方から先に切り出している場合は、絡みのリャンメンでが通っているので−が本命です。",
+    "逆に、ドラはなるだけ使いたい牌なのですから、からを切ることは珍しくなく、→と切っていても−待ちは否定できません。"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-199-1",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    199
+   ],
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section013.display.json",
+   "candidateSha256": "37849d97bb734d560b1d8099e8fa97760f6d62cbe6147030bfc7012458654292",
+   "auditStatus": "needs-repair",
+   "sourceBoundCurrent": true,
+   "pdfSentences": 12,
+   "webSentences": 12,
+   "pdfChars": 650,
+   "webSourceChars": 650,
+   "webBlocks": 37,
+   "webFigures": 14,
+   "pdfFigureBlocks": 17,
+   "exactBodyMatch": false,
+   "missingFromWeb": [
+    "やからを落とすことは通常あり得ないので、－待ち、－待ちになっていることは考えづらくなります（他の待ちでも当たらないはほぼ安牌）。"
+   ],
+   "webOnly": [
+    "やからを落とすことは通常あり得ないので、−待ち、−待ちになっていることは考えづらくなります（他の待ちでも当たらないはほぼ安牌）。"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-201-1",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    201
+   ],
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section015.display.json",
+   "candidateSha256": "41c7c1bfc78a528fb4a1991f44613efd7dd7a9ec5089aaa859054badcdfb2bbf",
+   "auditStatus": "needs-repair",
+   "sourceBoundCurrent": true,
+   "pdfSentences": 22,
+   "webSentences": 22,
+   "pdfChars": 1441,
+   "webSourceChars": 1297,
+   "webBlocks": 47,
+   "webFigures": 19,
+   "pdfFigureBlocks": 35,
+   "exactBodyMatch": false,
+   "missingFromWeb": [
+    "それについては押し引き論24(../chapter02/section024.html)の内容を参照下さい。",
+    "捨て牌に４･５･６牌が多い「怪しい捨て牌」であれば変則手狙いであることも確かに増えますが、これだけでは押し引き論13(../chapter02/section013.html)で挙げたように牌の危険度の序列自体は変わりません。",
+    "出典：「第1回ロン2カップ第2回戦(http://gyao.yahoo.co.jp/player/00593/v06695/v0669500000000520018/)」２回戦南１局ドラ佐々木プロの捨て牌リーチ（いずれも手出し）のリャンメンターツよりを後まで残していることがポイントです。",
+    "が数牌であれば、読みの技術論12(section012.html)から、宣言牌の数牌の周辺が本線と考えられますが、アンコのヘッドレス形で無い限り、手なりで進めた手であることは考えられません。"
+   ],
+   "webOnly": [
+    "それについては押し引き論24の内容を参照下さい。",
+    "捨て牌に４･５･６牌が多い「怪しい捨て牌」であれば変則手狙いであることも確かに増えますが、これだけでは押し引き論13で挙げたように牌の危険度の序列自体は変わりません。",
+    "出典：「第1回ロン2カップ第2回戦」２回戦南１局ドラ佐々木プロの捨て牌リーチ（いずれも手出し）のリャンメンターツよりを後まで残していることがポイントです。",
+    "が数牌であれば、読みの技術論12から、宣言牌の数牌の周辺が本線と考えられますが、アンコのヘッドレス形で無い限り、手なりで進めた手であることは考えられません。"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-211-1",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    211
+   ],
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section024.display.json",
+   "candidateSha256": "692318b73842236f227a8a60a303c6286f106f229a68288842d0644cada1a38c",
+   "auditStatus": "needs-repair",
+   "sourceBoundCurrent": true,
+   "pdfSentences": 16,
+   "webSentences": 16,
+   "pdfChars": 767,
+   "webSourceChars": 767,
+   "webBlocks": 48,
+   "webFigures": 20,
+   "pdfFigureBlocks": 22,
+   "exactBodyMatch": true,
+   "missingFromWeb": [],
+   "webOnly": []
+  },
+  {
+   "chapterId": "nemata-jp-chapter-213-1",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    213,
+    214,
+    215
+   ],
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section026.display.json",
+   "candidateSha256": "4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4",
+   "auditStatus": "needs-repair",
+   "sourceBoundCurrent": true,
+   "pdfSentences": 29,
+   "webSentences": 11,
+   "pdfChars": 1866,
+   "webSourceChars": 586,
+   "webBlocks": 53,
+   "webFigures": 24,
+   "pdfFigureBlocks": 24,
+   "exactBodyMatch": false,
+   "missingFromWeb": [
+    "逆切り３読みの技術論６(section006.html)，７(section007.html)辺りの補足になります。",
+    "面子構成しやすい牌→面子構成しにくい牌の順で手出しで切られている場合は強い情報になりやすいということは６(section006.html)，７(section007.html)で挙げました。",
+    "このことは６(section006.html)，７(section007.html)で取り上げた例以外にも活用できる場面が多くあります。",
+    "から引いての打なら－が本線（実際に相手の待ちは－であった）になるし、そうでない場合でも対面がを１枚以上持っていることが濃厚。",
+    "読みの技術論１(section001.html)で挙げたカテゴリに含まれない読みもあります。",
+    "１(section001.html)で述べたように戦績に特に差がつくものはそこまでありませんが押さえておくに越した事はありません。",
+    "ラグ読みネット麻雀で牌が切られたときにラグがかかる（一時停止する）と、それはその牌を誰かが鳴くことができることを意味します。",
+    "４枚目の字牌等絶対に鳴けない牌が出てもランダムで止まるところもありますが、誰かが鳴ける場合にラグがかかった場合は鳴ける打ち手が鳴くかどうかを選択するまで止まった状態になりますから、ラグのかかる長さでランダムかどうか見抜くことは可能です。",
+    "特に長めのラグがかかった場合はまず誰かが鳴けるものとみて間違いないでしょう。",
+    "ラグによって手牌構成が読まれる可能性がある以上、基本的に鳴く牌が無い場合は「鳴き無し」にしておくべきです。",
+    "（但し、シャンテン数の変わらない鳴きなどの見落としがちな鳴きも多いので、本当に鳴く牌が無いのかは慎重に確認すべきです。",
+    "）ラグにはポン（カン）ができる為に起こる場合とチーができる場合がありますが、情報として用い易いのは、ポン（カン）があるのでラグがかかったことが判る場合です。",
+    "チーできるパターンは何通りも考えられますが、この場合はトイツか刻子（既に１枚見えていればトイツ確定）で持たれていることが確定し、情報としての強さも上だからです。",
+    "ポン（カン）ラグであることが確定する場合字牌にラグがかかる上家が切った牌にラグがかかる牌を切った他家の下家がその牌をチーできないことが明白な場合（既にリーチしていたり、染め手確定の仕掛けで染め色以外の牌が切られた時等）また、チーができない三人麻雀であれば必ずポン（カン）ラグであるということになります。",
+    "ポンラグがかかった牌と同種の牌を、役牌や七対子狙いで重なりに期待していた場合は、既に重なる可能性が無くなったわけですからすぐに切るべきです。",
+    "ラグがかかった牌を待つ愚形ターツも、既に山に良くても１枚しか残っていないことが判りますので、これも優先的に切ることになります。",
+    "ポンラグをかけた他家がラグをかけた牌と同じ牌を切ってリーチしてきたのであれば、入り目でなければその牌のソバテンが濃厚（刻子からの切り出しの可能性がないなら尚更）となります。",
+    "ポンラグがかかった牌の外側はいわばワンチャンスということになります。",
+    "更に１枚見えればノーチャンスなので他家のテンパイに対し安全度が高いことが言えます。",
+    "他にも役に立つケースはいくつかありそうです。",
+    "読み自体はあくまで不確定なものですが、一定の条件下では、合理的な判断によって精度の高い読みをすることも可能な場合もあります。",
+    "どのような形式の読みにしろ、効果的な読みができるのであればできるだけ見逃さないようにしたいものです。"
+   ],
+   "webOnly": [
+    "逆切り３読みの技術論６，７辺りの補足になります。",
+    "面子構成しやすい牌→面子構成しにくい牌の順で手出しで切られている場合は強い情報になりやすいということは６，７で挙げました。",
+    "このことは６，７で取り上げた例以外にも活用できる場面が多くあります。",
+    "から引いての打なら−が本線（実際に相手の待ちは−であった）になるし、そうでない場合でも対面がを１枚以上持っていることが濃厚。"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-215-4",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    215
+   ],
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section027.display.json",
+   "candidateSha256": "17f902a2c809d3af8206983f5d1bb40c36b76005176a3959a5e891bb6371677d",
+   "auditStatus": "needs-repair",
+   "sourceBoundCurrent": true,
+   "pdfSentences": 18,
+   "webSentences": 18,
+   "pdfChars": 1178,
+   "webSourceChars": 1144,
+   "webBlocks": 13,
+   "webFigures": 0,
+   "pdfFigureBlocks": 0,
+   "exactBodyMatch": false,
+   "missingFromWeb": [
+    "読みの技術論１(section001.html)で挙げたカテゴリに含まれない読みもあります。",
+    "１(section001.html)で述べたように戦績に特に差がつくものはそこまでありませんが押さえておくに越した事はありません。"
+   ],
+   "webOnly": [
+    "読みの技術論１で挙げたカテゴリに含まれない読みもあります。",
+    "１で述べたように戦績に特に差がつくものはそこまでありませんが押さえておくに越した事はありません。"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-222-1",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    222,
+    223
+   ],
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section004.display.json",
+   "candidateSha256": "0422143bd4f14e151ddcabd4b12e7fcda84937ef5acd4ab3e0335d8d56f4f4d2",
+   "auditStatus": "needs-repair",
+   "sourceBoundCurrent": true,
+   "pdfSentences": 36,
+   "webSentences": 36,
+   "pdfChars": 1603,
+   "webSourceChars": 1603,
+   "webBlocks": 21,
+   "webFigures": 0,
+   "pdfFigureBlocks": 0,
+   "exactBodyMatch": false,
+   "missingFromWeb": [
+    "25,000点の30,000点返し、ウマ10－30ルールの場合、オーラスで順位を１つ上げることに20,000点分の価値があるのです。",
+    "（1,000－2,000点ツモか2,600点直撃で捲くれる場合は、リャンメンのリーチのみより役牌と何かのシャボに受けてリーチすべき、500－1,000点ツモか2,600点出上がりで捲くれる場合も同様。"
+   ],
+   "webOnly": [
+    "25,000点の30,000点返し、ウマ10−30ルールの場合、オーラスで順位を１つ上げることに20,000点分の価値があるのです。",
+    "（1,000−2,000点ツモか2,600点直撃で捲くれる場合は、リャンメンのリーチのみより役牌と何かのシャボに受けてリーチすべき、500−1,000点ツモか2,600点出上がりで捲くれる場合も同様。"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-224-1",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    224,
+    225
+   ],
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section005.display.json",
+   "candidateSha256": "24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408",
+   "auditStatus": "needs-repair",
+   "sourceBoundCurrent": true,
+   "pdfSentences": 32,
+   "webSentences": 32,
+   "pdfChars": 1963,
+   "webSourceChars": 1851,
+   "webBlocks": 15,
+   "webFigures": 1,
+   "pdfFigureBlocks": 0,
+   "exactBodyMatch": false,
+   "missingFromWeb": [
+    "オーラスの見逃し判断前回(section004.html)、捲くり手を作る場合には多少偶発的要素に頼るくらいでよいということを述べました。",
+    "かじゃ研「ツモ率論(http://ameblo.jp/kazyake/entry-10076130541.html)」「麻雀電卓ツモ確率(http://kazyaken.web.fc2.com/mj/tumoritu.html)」ただ、これは最後までツモれた場合の計算なので、実戦では途中で誰かが和了するケースを考慮せねばなりませんから、見逃しが有利になるのは、(1-他家が和了する確率)×(ツモ列に残っている確率)>(裏ドラ率)の場合です。"
+   ],
+   "webOnly": [
+    "オーラスの見逃し判断前回、捲くり手を作る場合には多少偶発的要素に頼るくらいでよいということを述べました。",
+    "かじゃ研「ツモ率論」「麻雀電卓ツモ確率」ただ、これは最後までツモれた場合の計算なので、実戦では途中で誰かが和了するケースを考慮せねばなりませんから、見逃しが有利になるのは、(1-他家が和了する確率)×(ツモ列に残っている確率)>(裏ドラ率)の場合です。"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-227-1",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    227
+   ],
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section007.display.json",
+   "candidateSha256": "b496daf315d5278e20aa81e233c156fad909add5efd97438acbbace5c6902740",
+   "auditStatus": "needs-repair",
+   "sourceBoundCurrent": true,
+   "pdfSentences": 11,
+   "webSentences": 11,
+   "pdfChars": 933,
+   "webSourceChars": 916,
+   "webBlocks": 10,
+   "webFigures": 0,
+   "pdfFigureBlocks": 0,
+   "exactBodyMatch": false,
+   "missingFromWeb": [
+    "）点棒状況判断技術４(section004.html)で述べたように、確実に捲くれる手でなくても偶発的事象によって捲くれることもありますし、それ以前に上位との点差より下位との点差の方が小さければ、逆転するケースより逆転されるケースの方が多くなります。",
+    "一般的な25,000点持ち30,000点返しウマ１－３のルール（順位点４５５－１５－３５）のルールでも、順位率が30%-20%-20%-30%（平均順位2.5）の打ち手と、26%-26%-24%-24%（平均順位2.46）の打ち手との収支が等しくなるのです。"
+   ],
+   "webOnly": [
+    "）点棒状況判断技術４で述べたように、確実に捲くれる手でなくても偶発的事象によって捲くれることもありますし、それ以前に上位との点差より下位との点差の方が小さければ、逆転するケースより逆転されるケースの方が多くなります。",
+    "一般的な25,000点持ち30,000点返しウマ１−３のルール（順位点４５５−１５−３５）のルールでも、順位率が30%-20%-20%-30%（平均順位2.5）の打ち手と、26%-26%-24%-24%（平均順位2.46）の打ち手との収支が等しくなるのです。"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-232-1",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    232,
+    233
+   ],
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section012.display.json",
+   "candidateSha256": "2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37",
+   "auditStatus": "needs-repair",
+   "sourceBoundCurrent": true,
+   "pdfSentences": 27,
+   "webSentences": 27,
+   "pdfChars": 1571,
+   "webSourceChars": 1510,
+   "webBlocks": 14,
+   "webFigures": 3,
+   "pdfFigureBlocks": 3,
+   "exactBodyMatch": false,
+   "missingFromWeb": [
+    "平均で四回に一回はオーラスでトップですし、トップと僅差の二位や、判断技術７(section007.html)でも述べたような確和了でも構わないようなケースでも用いることになるので非常に頻度が高く、且つ成功（和了）する確率も高いからです。",
+    "また、同サイトの「何切る掲示板(http://mahjong.xrea.jp/mahjong/mahjong.cgi)」でもオーラス、ラス前の手作り、押し引き判断の勉強になる問題が数多く投稿されています。",
+    "尚、東風荘の順位点は、１位３２位１３位－１４位－３に相当します。"
+   ],
+   "webOnly": [
+    "平均で四回に一回はオーラスでトップですし、トップと僅差の二位や、判断技術７でも述べたような確和了でも構わないようなケースでも用いることになるので非常に頻度が高く、且つ成功（和了）する確率も高いからです。",
+    "また、同サイトの「何切る掲示板」でもオーラス、ラス前の手作り、押し引き判断の勉強になる問題が数多く投稿されています。",
+    "尚、東風荘の順位点は、１位３２位１３位−１４位−３に相当します。"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-236-1",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    236
+   ],
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section015.display.json",
+   "candidateSha256": "51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0",
+   "auditStatus": "needs-repair",
+   "sourceBoundCurrent": true,
+   "pdfSentences": 15,
+   "webSentences": 15,
+   "pdfChars": 881,
+   "webSourceChars": 881,
+   "webBlocks": 4,
+   "webFigures": 0,
+   "pdfFigureBlocks": 0,
+   "exactBodyMatch": true,
+   "missingFromWeb": [],
+   "webOnly": []
+  },
+  {
+   "chapterId": "nemata-jp-chapter-237-1",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    237
+   ],
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section016.display.json",
+   "candidateSha256": "5c4048adf1b398f2a202dbdd0a1485cdaa539ad2ad4fd80e053dd0f2db17a959",
+   "auditStatus": "needs-repair",
+   "sourceBoundCurrent": true,
+   "pdfSentences": 8,
+   "webSentences": 8,
+   "pdfChars": 501,
+   "webSourceChars": 501,
+   "webBlocks": 4,
+   "webFigures": 0,
+   "pdfFigureBlocks": 0,
+   "exactBodyMatch": true,
+   "missingFromWeb": [],
+   "webOnly": []
+  },
+  {
+   "chapterId": "nemata-jp-chapter-246-1",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    246,
+    247,
+    248,
+    249
+   ],
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter06-section002.display.json",
+   "candidateSha256": "eb4caf1b93fc906a5a7286419009256337e9f886ce82123091931c8c5e5c4fc4",
+   "auditStatus": "needs-repair",
+   "sourceBoundCurrent": true,
+   "pdfSentences": 116,
+   "webSentences": 116,
+   "pdfChars": 5344,
+   "webSourceChars": 5007,
+   "webBlocks": 96,
+   "webFigures": 10,
+   "pdfFigureBlocks": 15,
+   "exactBodyMatch": false,
+   "missingFromWeb": [
+    "）参考文献：麻雀荘メンバー語録version２．０「麻雀の話(http://blog.livedoor.jp/aladdinchance1000/archives/64970206.html)」いつからだろうか・・・・僕は麻雀の話がとても嫌いになっていたんだ。",
+    "▲△○◎※※」お互いに譲らず、そりゃあ～もう延々と話してんのですよなんか――段々その会話がね「いや！",
+    "）問題に設定されていないルールや状況については、前回(section001.html)書きましたように適宜設定して回答すれば良いです。",
+    "私は「何切る掲示板(http://mahjong.xrea.jp/mahjong/mahjong.cgi)」くらいしか知りません。",
+    "参考文献：asahi.com2008年5月5日「人間の頭脳、ついに敗れる…将棋ソフト、アマ名人下す(http://www.asahi.com/science/update/0505/TKY200805050175.html)」千葉県木更津市で５日開かれた「第１８回世界コンピュータ将棋選手権」（コンピュータ将棋協会主催）のエキシビションマッチで、朝日アマ名人の加藤幸男（ゆきお）さん（２６）とアマ名人の清水上徹（しみずがみ・とおる）さん（２８）というアマチュアトップ２人が将棋ソフトと対戦し、ともに敗れた。",
+    "３～５日に４０チームが参加して開かれ、「激指（げきさし）」が３年ぶりに優勝、「棚瀬将棋」が準優勝した。",
+    "参考文献：名言と愚行に関するウィキ「押しつけ(http://toturev.sakura.ne.jp/totutohoku/index.php?%B2%A1%A4%B7%A4%C4%A4%B1)」Revin†自分の思想や意見に、相手を従わせること。",
+    "(http://mixi.jp/view_bbs.pl?id=31002550&comment_count=56&comm_id=152653)」↑に典型的な人がいますが、そういう相手に対し、「押し付けは良くない」「正解は一つではない」等の発言に終わってしまう人が多いことは残念でなりません。"
+   ],
+   "webOnly": [
+    "）参考文献：麻雀荘メンバー語録version２．０「麻雀の話」いつからだろうか・・・・僕は麻雀の話がとても嫌いになっていたんだ。",
+    "▲△○◎※※」お互いに譲らず、そりゃあ〜もう延々と話してんのですよなんか――段々その会話がね「いや！",
+    "）問題に設定されていないルールや状況については、前回書きましたように適宜設定して回答すれば良いです。",
+    "私は「何切る掲示板」くらいしか知りません。",
+    "参考文献：asahi.com2008年5月5日「人間の頭脳、ついに敗れる…将棋ソフト、アマ名人下す」千葉県木更津市で５日開かれた「第１８回世界コンピュータ将棋選手権」（コンピュータ将棋協会主催）のエキシビションマッチで、朝日アマ名人の加藤幸男（ゆきお）さん（２６）とアマ名人の清水上徹（しみずがみ・とおる）さん（２８）というアマチュアトップ２人が将棋ソフトと対戦し、ともに敗れた。",
+    "３〜５日に４０チームが参加して開かれ、「激指（げきさし）」が３年ぶりに優勝、「棚瀬将棋」が準優勝した。",
+    "参考文献：名言と愚行に関するウィキ「押しつけ」Revin†自分の思想や意見に、相手を従わせること。",
+    "」↑に典型的な人がいますが、そういう相手に対し、「押し付けは良くない」「正解は一つではない」等の発言に終わってしまう人が多いことは残念でなりません。"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-250-1",
+   "verdict": "produced-needs-repair",
+   "status": "no-web-candidate",
+   "pages": [
+    250,
+    251,
+    252,
+    253,
+    254,
+    255,
+    256,
+    257,
+    258,
+    259,
+    260,
+    261,
+    262
+   ],
+   "pdfChars": 14889,
+   "pdfFigureBlocks": 479
+  },
+  {
+   "chapterId": "nemata-jp-chapter-263-1",
+   "verdict": "covered-effective",
+   "pages": [
+    263,
+    264,
+    265,
+    266,
+    267,
+    268,
+    269,
+    270,
+    271,
+    272
+   ],
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter06-exercise002-01.display.json",
+   "candidateSha256": "cfe1207ed44c4b3fc36efc1b8096fa76e2dfc4132a14b6f94ed4f4de70ab359d",
+   "auditStatus": "passed",
+   "sourceBoundCurrent": true,
+   "pdfSentences": 67,
+   "webSentences": 67,
+   "pdfChars": 2760,
+   "webSourceChars": 2599,
+   "webBlocks": 599,
+   "webFigures": 248,
+   "pdfFigureBlocks": 248,
+   "exactBodyMatch": false,
+   "missingFromWeb": [
+    "」サイト問題１問題１～52(exercise002-01.html)｜問題a-1～a-52(exercise002-02.html)問題出典：鬼ヅモ同好会(http://www.geocities.co.jp/Playtown-Dice/5086/index.html)「デジタル何切る？",
+    "(http://www.geocities.co.jp/Playtown-Dice/5086/nanikiru.html)」出題者：デジタルの申し子「長村大」ルールはアリアリ赤無し。"
+   ],
+   "webOnly": [
+    "」サイト問題１問題１～52｜問題a-1～a-52問題出典：鬼ヅモ同好会「デジタル何切る？",
+    "」出題者：デジタルの申し子「長村大」ルールはアリアリ赤無し。"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-273-1",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    273,
+    274,
+    275,
+    276,
+    277,
+    278,
+    279,
+    280,
+    281,
+    282
+   ],
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter06-exercise002-02.display.json",
+   "candidateSha256": "c57c30e4ffddb9ea661295364ee46739438c2c17a4f4c772e5df0b8391c7576b",
+   "auditStatus": "needs-repair",
+   "sourceBoundCurrent": true,
+   "pdfSentences": 71,
+   "webSentences": 71,
+   "pdfChars": 2982,
+   "webSourceChars": 2821,
+   "webBlocks": 692,
+   "webFigures": 292,
+   "pdfFigureBlocks": 292,
+   "exactBodyMatch": false,
+   "missingFromWeb": [
+    "」サイト問題２問題１～52(exercise002-01.html)｜問題a-1～a-52(exercise002-02.html)問題出典：鬼ヅモ同好会(http://www.geocities.co.jp/Playtown-Dice/5086/index.html)「デジタル何切る？",
+    "(http://www.geocities.co.jp/Playtown-Dice/5086/nanikiru.html)」出題者：問題a-1～a-5・・・東大式麻雀「井出洋介」問題a-6～a-52・・・メンチンのバビイ「馬場裕一」ルールはアリアリ赤無し。"
+   ],
+   "webOnly": [
+    "」サイト問題２問題１～52｜問題a-1～a-52問題出典：鬼ヅモ同好会「デジタル何切る？",
+    "」出題者：問題a-1～a-5・・・東大式麻雀「井出洋介」問題a-6～a-52・・・メンチンのバビイ「馬場裕一」ルールはアリアリ赤無し。"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-283-1",
+   "verdict": "produced-unreviewed",
+   "pages": [
+    283,
+    284,
+    285,
+    286,
+    287,
+    288,
+    289,
+    290,
+    291,
+    292,
+    293,
+    294,
+    295,
+    296,
+    297,
+    298,
+    299,
+    300,
+    301,
+    302
+   ],
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter06-exercise003.display.json",
+   "candidateSha256": "fcde9f00cb9433bb5dec6a47d688ea7abb0c919c0aa2dac3012fd080d32a5893",
+   "auditStatus": null,
+   "sourceBoundCurrent": null,
+   "pdfSentences": 156,
+   "webSentences": 156,
+   "pdfChars": 10885,
+   "webSourceChars": 6878,
+   "webBlocks": 1195,
+   "webFigures": 524,
+   "pdfFigureBlocks": 500,
+   "exactBodyMatch": false,
+   "missingFromWeb": [
+    "「鴉〃の麻雀解説」サイト問題問題出典：「鴉〃の麻雀解説(http://mjkarasu.sessya.net/index.html)」特に断りがない部分は、以下のルールと状況を適用。",
+    "【問題１】(http://mjkarasu.sessya.net/nanikiru1.html)東１局南家８巡目ドラツモ【解答と解説】打ダマもちろん引き変化の為だけにドラを切って打点は落とさない。",
+    "【問題2】(http://mjkarasu.sessya.net/nanikiru2.html)東１局南家ドラツモ【解答と解説】打リーチ打として手変わりも28枚あるので微妙だが、打点が増えるのはだけなので。",
+    "【問題3】(http://mjkarasu.sessya.net/nanikiru3.html)東１局東家配牌時ドラ【解答と解説】打ほぼ仕掛けてホンイツかトイトイ。",
+    "）【問題4】(http://mjkarasu.sessya.net/nanikiru4.html)東１局南家２巡目平場ドラツモ【解答と解説】打リーチ良形2,600点テンパイ＞＞＞＞＞＞＞チンイツ２シャンテン。",
+    "【問題5】(http://mjkarasu.sessya.net/nanikiru5.html)東１局南家３巡目ドラツモ【解答と解説】打七対子の１シャンテンに取りつつ面子手の可能性を残す。",
+    "【問題6】(http://mjkarasu.sessya.net/nanikiru6.html)(http://mjkarasu.sessya.net/nanikiru5.html)東１局東家５巡目ドラツモ【解答と解説】打36枚も手変わりがあり仕掛けてもいいので流石にテンパイ取らず。",
+    "【問題7】(http://mjkarasu.sessya.net/nanikiru7.html)東１局南家３巡目ドラツモ【解答と解説】打リーチ【問題8】(http://mjkarasu.sessya.net/nanikiru8.html)(http://mjkarasu.sessya.net/nanikiru7.html)東３局１本場北家ツモ場況↓日本プロ麻雀連盟(http://www.ma-jan.or.jp/index.php)「2007年03月の『何を切る？",
+    "』(http://www.ma-jan.or.jp/jan-up/nanikiru0703q.php)」点差的にも西家だけが離され、あとは拮抗している点差である。",
+    "【問題9】(http://mjkarasu.sessya.net/nanikiru9.html)東１局西家３巡目ドラツモ【解答と解説】打リーチ【問題10】(http://mjkarasu.sessya.net/nanikiru10.html)(http://mjkarasu.sessya.net/nanikiru9.html)東１局南家配牌時ドラツモ※東家の第一打は、鳴きは一切入ってません。",
+    "(http://mjkarasu.sessya.net/nanikiru10.html)【問題11】(http://mjkarasu.sessya.net/nanikiru11.html)東１局２巡目ドラツモ【解答と解説】打牌効率論４５(../chapter01/section045.html)参照。",
+    "【問題12】(http://mjkarasu.sessya.net/nanikiru12.html)東１局東家２巡目ドラツモ【解答と解説】打選択肢が広くどれも比較しにくい長所短所がある難問。",
+    "【問題13】(http://mjkarasu.sessya.net/nanikiru13.html)東１局東家配牌時ドラツモ【解答と解説】打ダブルリーチドラ単騎は流石にほぼツモ専になるとみる。",
+    "和了率の計算に関しては「麻雀電卓(http://kazyaken.web.fc2.com/mj/tumoritu.html)」を用いた（２人から出アガリが期待できる３枚待ちはツモ専９待ちに相当）。",
+    "【問題14】(http://mjkarasu.sessya.net/nanikiru14.html)東２局東家５巡目ドラツモ【解答と解説】打ダマダマで倍満確定（どちらでもイーペーがつく）の形に気づけるかどうかの問題。",
+    "【問題15】(http://mjkarasu.sessya.net/nanikiru15.html)東１局西家３巡目ドラツモ(http://mjkarasu.sessya.net/nanikiru12.html)【解答と解説】打リャンメン確定の①に受けるよりない。",
+    "【問題16】(http://mjkarasu.sessya.net/nanikiru16.html)東１局南家３巡目ドラツモ【解答と解説】打三色は不確定かつマンズが四メンチャンなので②に受ける。",
+    "【問題17】(http://mjkarasu.sessya.net/nanikiru17.html)東１局東家３巡目ドラ捨て牌東家南家西家北家【解答と解説】打１シャンテンには受ける。",
+    "【問題18】(http://mjkarasu.sessya.net/nanikiru18.html)東１局東家３巡目ドラツモ捨て牌↓東家南家西家北家【解答と解説】打チャンタ狙いは不確定かつ狭い、素直に③に受ける。",
+    "【問題19】(http://mjkarasu.sessya.net/nanikiru19.html)東１局東家ドラツモ【解答と解説】打牌効率論31(../chapter01/section031.html)参照。",
+    "【問題20】(http://mjkarasu.sessya.net/nanikiru20.html)東１局東家４巡目ドラツモ捨て牌東家南家西家北家【解答と解説】打確定イッツーで問題ない。",
+    "【問題21】(http://mjkarasu.sessya.net/nanikiru21.html)東１局西家５巡目ドラツモ【解答と解説】打リーチ【問題22】(http://mjkarasu.sessya.net/nanikiru22.html)東２局南家５巡目ドラツモ【解答と解説】打だとタンヤオがほぼ消えるので流石に②に受ける。",
+    "【問題23】(http://mjkarasu.sessya.net/nanikiru23.html)東１局西家２巡目ドラツモ【解答と解説】打三色を残しつつターツオーバー形を嫌う。",
+    "【問題24】(http://mjkarasu.sessya.net/nanikiru24.html)東１局東家４巡目ドラツモ【解答と解説】打手広い④に受ける。",
+    "【問題25】(http://mjkarasu.sessya.net/nanikiru25.html)東１局０本場南家１巡目ドラツモ【解答と解説】打ここを落として･重なりのホンイツを狙った方が良い。",
+    "【問題26】(http://mjkarasu.sessya.net/nanikiru26.html)東１局東家６巡目ドラツモ【解答と解説】打打点も手広さでもはっきりこれ。",
+    "【問題27】(http://mjkarasu.sessya.net/nanikiru27.html)東１局南家４巡目ドラツモ【解答と解説】打打点上昇の手変わりも豊富なので単騎の仮テンには取らない。",
+    "【問題28】(http://mjkarasu.sessya.net/nanikiru28.html)東場西家４巡目ドラツモ【解答と解説】打ドラを切ると最高でもメンピン止まりなら（実践編【問題52】(exercise002-01.html)との違い）。",
+    "【問題29】(http://mjkarasu.sessya.net/nanikiru29.html)東１局西家５巡目ドラツモ【解答と解説】打リーチ【問題30】(http://mjkarasu.sessya.net/nanikiru30.html)東１局０本場東家５巡目ドラツモ【解答と解説】打ドラなのでイッツー確定形にとる。",
+    "【問題31】(http://mjkarasu.sessya.net/nanikiru31.html)東１局０本場東家４巡目ドラツモ【解答と解説】打リーチ４巡目ならダマ満貫でもリーチ。",
+    "【問題32】(http://mjkarasu.sessya.net/nanikiru32.html)東１局０本場東家５巡目ドラツモ【解答と解説】打リーチ待ちが端にかかる方が良い。",
+    "【問題33】(http://mjkarasu.sessya.net/nanikiru33.html)東２局西家６巡目ドラツモ南家→北家2,600点放銃で迎えた。",
+    "【問題34】(http://mjkarasu.sessya.net/nanikiru34.html)東１局西家５巡目ドラツモ【解答と解説】打③に受ける。",
+    "【問題35】(http://mjkarasu.sessya.net/nanikiru35.html)東１局西家４巡目ドラツモ【解答と解説】打愚形含みで三色不確定、マンズが伸びれば強い③になる。",
+    "【問題36】(http://mjkarasu.sessya.net/nanikiru36.html)東１局０本場東家４巡目ドラツモ【解答と解説】打②に受ける。",
+    "【問題37】(http://mjkarasu.sessya.net/nanikiru37.html)東１局０本場東家ドラツモ【解答と解説】打ターツオーバーかつ二度受けかつイッツー不確定、明らかにここが不要。",
+    "【問題38】(http://mjkarasu.sessya.net/nanikiru38.html)東１局０本場西家５巡目ドラツモ【解答と解説】打牌効率論31(../chapter01/section031.html)参照。",
+    "【問題39】(http://mjkarasu.sessya.net/nanikiru39.html)※赤アリ･一発･裏ドラ･カンドラ･カン裏あり。",
+    "【問題40】(http://mjkarasu.sessya.net/nanikiru40.html)東１局０本場西家５巡目ドラツモ【解答と解説】打ターツオーバーなので孤立ドラは残す。",
+    "【問題41】(http://mjkarasu.sessya.net/nanikiru41.html)東１局０本場南家５巡目ドラツモ【解答と解説】打流石に純チャン三色を崩してまでは染めない。",
+    "【問題42】(http://mjkarasu.sessya.net/nanikiru42.html)東１局西家６巡目ドラツモ【解答と解説】打リーチ実践編【問題a-12】(exercise001-02.html)と同じ。",
+    "【問題43】(http://mjkarasu.sessya.net/nanikiru43.html)東２局東家４巡目ドラツモ【解答と解説】打ダマ打としても問題27ほど変化が多くなく、ドラなので。",
+    "【問題44】(http://mjkarasu.sessya.net/nanikiru44.html)東１局０本場東家５巡目ドラツモ【解答と解説】打ソーズのペンカンチャンは残す。",
+    "【問題45】(http://mjkarasu.sessya.net/nanikiru45.html)東１局西家５巡目ドラツモ【解答と解説】打単純なターツ選択。",
+    "【問題46】(http://mjkarasu.sessya.net/nanikiru46.html)東１局０本場西家５巡目ドラツモ【解答と解説】打ピンズを伸ばしてもほとんど良形にならないので②に受ける。",
+    "【問題47】(http://mjkarasu.sessya.net/nanikiru47.html)東１局東家６巡目ドラツモ※１枚切れ。",
+    "【問題48】(http://mjkarasu.sessya.net/nanikiru48.html)【解答と解説】打リーチ手変わりがそこまで多くなく、良形になっても打点が下がるのであれば手変わりとして微妙。",
+    "【問題49】(http://mjkarasu.sessya.net/nanikiru49.html)東２局北家５巡目ドラ東家25,000南家25,000西家19,800北家30,200ツモ【解答と解説】打ドラ切りでも打点十分なので手広く。",
+    "【問題50】(http://mjkarasu.sessya.net/nanikiru50.html)東３局東家５巡目ドラ東家31,500南家28,500西家36,700北家23,300※30,000点持ちツモ捨て牌東家南家西家北家【解答と解説】打ターツオーバーは嫌って４５６、５６７三色をみる。",
+    "【問題51】(http://mjkarasu.sessya.net/nanikiru51.html)東１局０本場５巡目ドラツモ【解答と解説】打②に受ける。",
+    "【問題52】(http://mjkarasu.sessya.net/nanikiru52.html)東１局０本場東家５巡目ドラ①ツモ②ツモ【解答と解説】共に打スジ被りの孤立牌を両方残してまで２シャンテンに戻さない。",
+    "【問題53】(http://mjkarasu.sessya.net/nanikiru53.html)東１局０本場南家５巡目ドラツモ【解答と解説】打明らかに不要。",
+    "【問題54】(http://mjkarasu.sessya.net/nanikiru54.html)東１局０本場西家４巡目ドラツモ【解答と解説】打愚形テンパイの４枚受けよりは４連形を残して①に受ける。",
+    "【問題55】(http://mjkarasu.sessya.net/nanikiru55.html)東１局０本場東家５巡目ドラツモ【解答と解説】打良形確定なら七対子より面子手の１シャンテン優先。",
+    "【問題56】(http://mjkarasu.sessya.net/nanikiru56.html)東１局０本場東家５巡目ドラツモ【解答と解説】打リーチ問題48と同じ。",
+    "【問題57】(http://mjkarasu.sessya.net/nanikiru57.html)東１局０本場東家５巡目ドラツモ【解答と解説】打愚形でも確定イッツーなら③に受ける。",
+    "【問題58】(http://mjkarasu.sessya.net/nanikiru58.html)東１局０本場西家５巡目ドラツモ【解答と解説】打にフォローがあるので２シャンテンに戻す。",
+    "【問題59】(http://mjkarasu.sessya.net/nanikiru59.html)東１局０本場西家６巡目ドラツモ【解答と解説】打良形2,600点よりは愚形5,200～8,000点。",
+    "【問題60】(http://mjkarasu.sessya.net/nanikiru60.html)※半荘戦、10－30、アリアリ、赤５牌３枚【解答と解説】スルースルーしてもテンパイに取れる牌を鳴く権利は残り、現時点でリャンメン＋リャンメン･カンチャンのシャンテンで十分広いので大して早くならない。",
+    "【問題61】(http://mjkarasu.sessya.net/nanikiru61.html)東１局０本場東家ドラツモ【解答と解説】打かメンタンピンや３４５三色もあるので一色手に決め打たない。",
+    "【問題62】(http://mjkarasu.sessya.net/nanikiru62.html)東１局０本場東家３巡目ドラツモ【解答と解説】打手広い②に受ける。",
+    "【問題63】(http://mjkarasu.sessya.net/nanikiru63.html)東１局０本場東家５巡目ドラツモ【解答と解説】打縦引きでも２３４三色が残るので②に受ける。",
+    "【問題64】(http://mjkarasu.sessya.net/nanikriu64.html)東１局０本場東家６巡目ドラツモ【解答と解説】打ダマ直接の手変わりは･･･のみだが、現状役無しドラ無しなので打点上昇のメリットが大きく、･ツモからの四暗変化も面白いのでテンパイ取りダマとする。",
+    "【問題65】(http://mjkarasu.sessya.net/nanikiru65.html)東１局０本場西家３巡目ドラツモ【解答と解説】打ターツオーバーで三元役の可能性があるので発は残す、ドラで、ホンイツ、トイトイがあるので打よりはっきり打点面で有利で、和了率は大差ないのでここを払う。",
+    "【問題66】(http://mjkarasu.sessya.net/nanikiru66.html)東１局０本場西家３巡目ドラツモ【解答と解説】打受けの為だけに２シャンテンからドラは切らない。",
+    "【問題67】(http://mjkarasu.sessya.net/nanikiru67.html)東１局０本場南家５巡目ドラツモ【解答と解説】打６７８三色とポンテンを両方残す。",
+    "【問題68】(http://mjkarasu.sessya.net/nanikiru68.html)東１局０本場南家５巡目ドラツモ【解答と解説】打中膨れ×２で、ピンフや三色絡みで大物手が見込めるのでシャンテン戻し。",
+    "【問題69】(http://mjkarasu.sessya.net/nanikiru69.html)東１局０本場南家５巡目ドラツモ【解答と解説】打リーチ【問題70】(http://mjkarasu.sessya.net/nanikiru70.html)東１局０本場東家４巡目ドラツモ【解答と解説】打打との比較は微妙。",
+    "【問題71】(http://mjkarasu.sessya.net/nanikiru71.html)東１局０本場南家６巡目ドラツモ【解答と解説】打ほぼチャンタで喰い仕掛けていくのでドラがでもこれ。",
+    "【問題72】(http://mjkarasu.sessya.net/nanikiru72.html)東１局０本場南家６巡目ドラツモ【解答と解説】打③に受けた方が打点面でも有利なら迷わない。",
+    "【問題73】(http://mjkarasu.sessya.net/nanikiru73.html)東１局０本場西家ドラツモ【解答と解説】打リーチ手変わりが少ないのでやむなし。",
+    "【問題74】(http://mjkarasu.sessya.net/nanikiru74.html)東２局南家５巡目ドラ東家25,000点南家28,900点西家21,100点北家25,000点ツモ【解答と解説】打１シャンテンには取る。",
+    "【問題75】(http://mjkarasu.sessya.net/nanikiru75.html)東１局０本場南家５巡目ドラツモ【解答と解説】打③に受ける。",
+    "【問題76】(http://mjkarasu.sessya.net/nanikiru76.html)東１局西家５巡目ドラツモ【解答と解説】打実践編【問題a-41】(exercise001-02.html)と同じ。",
+    "【問題77】(http://mjkarasu.sessya.net/nanikiru77.html)東１局０本場南家８巡目ドラツモ【解答と解説】打④に受ける。",
+    "【問題78】(http://mjkarasu.sessya.net/nanikiru78.html)東３局北家６巡目ドラ東家28,900点南家23,400点西家26,600点北家21,100点ツモ【解答と解説】打ドラでなくてもダブルリャンメンは他のトイツより優先して残す。",
+    "【問題79】(http://mjkarasu.sessya.net/nanikiru79.html)【解答と解説】打１シャンテンには取る。"
+   ],
+   "webOnly": [
+    "「鴉〃の麻雀解説」サイト問題問題出典：「鴉〃の麻雀解説」特に断りがない部分は、以下のルールと状況を適用。",
+    "【問題１】東１局南家８巡目ドラツモ【解答と解説】打ダマもちろん引き変化の為だけにドラを切って打点は落とさない。",
+    "【問題2】東１局南家ドラツモ【解答と解説】打リーチ打として手変わりも28枚あるので微妙だが、打点が増えるのはだけなので。",
+    "【問題3】東１局東家配牌時ドラ【解答と解説】打ほぼ仕掛けてホンイツかトイトイ。",
+    "）【問題4】東１局南家２巡目平場ドラツモ【解答と解説】打リーチ良形2,600点テンパイ＞＞＞＞＞＞＞チンイツ２シャンテン。",
+    "【問題5】東１局南家３巡目ドラツモ【解答と解説】打七対子の１シャンテンに取りつつ面子手の可能性を残す。",
+    "【問題6】東１局東家５巡目ドラツモ【解答と解説】打36枚も手変わりがあり仕掛けてもいいので流石にテンパイ取らず。",
+    "【問題7】東１局南家３巡目ドラツモ【解答と解説】打リーチ【問題8】東３局１本場北家ツモ場況↓日本プロ麻雀連盟「2007年03月の『何を切る？",
+    "』」点差的にも西家だけが離され、あとは拮抗している点差である。",
+    "【問題9】東１局西家３巡目ドラツモ【解答と解説】打リーチ【問題10】東１局南家配牌時ドラツモ※東家の第一打は、鳴きは一切入ってません。",
+    "【問題11】東１局２巡目ドラツモ【解答と解説】打牌効率論４５参照。",
+    "【問題12】東１局東家２巡目ドラツモ【解答と解説】打選択肢が広くどれも比較しにくい長所短所がある難問。",
+    "【問題13】東１局東家配牌時ドラツモ【解答と解説】打ダブルリーチドラ単騎は流石にほぼツモ専になるとみる。",
+    "和了率の計算に関しては「麻雀電卓」を用いた（２人から出アガリが期待できる３枚待ちはツモ専９待ちに相当）。",
+    "【問題14】東２局東家５巡目ドラツモ【解答と解説】打ダマダマで倍満確定（どちらでもイーペーがつく）の形に気づけるかどうかの問題。",
+    "【問題15】東１局西家３巡目ドラツモ【解答と解説】打リャンメン確定の①に受けるよりない。",
+    "【問題16】東１局南家３巡目ドラツモ【解答と解説】打三色は不確定かつマンズが四メンチャンなので②に受ける。",
+    "【問題17】東１局東家３巡目ドラ捨て牌東家南家西家北家【解答と解説】打１シャンテンには受ける。",
+    "【問題18】東１局東家３巡目ドラツモ捨て牌↓東家南家西家北家【解答と解説】打チャンタ狙いは不確定かつ狭い、素直に③に受ける。",
+    "【問題19】東１局東家ドラツモ【解答と解説】打牌効率論31参照。",
+    "【問題20】東１局東家４巡目ドラツモ捨て牌東家南家西家北家【解答と解説】打確定イッツーで問題ない。",
+    "【問題21】東１局西家５巡目ドラツモ【解答と解説】打リーチ【問題22】東２局南家５巡目ドラツモ【解答と解説】打だとタンヤオがほぼ消えるので流石に②に受ける。",
+    "【問題23】東１局西家２巡目ドラツモ【解答と解説】打三色を残しつつターツオーバー形を嫌う。",
+    "【問題24】東１局東家４巡目ドラツモ【解答と解説】打手広い④に受ける。",
+    "【問題25】東１局０本場南家１巡目ドラツモ【解答と解説】打ここを落として･重なりのホンイツを狙った方が良い。",
+    "【問題26】東１局東家６巡目ドラツモ【解答と解説】打打点も手広さでもはっきりこれ。",
+    "【問題27】東１局南家４巡目ドラツモ【解答と解説】打打点上昇の手変わりも豊富なので単騎の仮テンには取らない。",
+    "【問題28】東場西家４巡目ドラツモ【解答と解説】打ドラを切ると最高でもメンピン止まりなら（実践編【問題52】との違い）。",
+    "【問題29】東１局西家５巡目ドラツモ【解答と解説】打リーチ【問題30】東１局０本場東家５巡目ドラツモ【解答と解説】打ドラなのでイッツー確定形にとる。",
+    "【問題31】東１局０本場東家４巡目ドラツモ【解答と解説】打リーチ４巡目ならダマ満貫でもリーチ。",
+    "【問題32】東１局０本場東家５巡目ドラツモ【解答と解説】打リーチ待ちが端にかかる方が良い。",
+    "【問題33】東２局西家６巡目ドラツモ南家→北家2,600点放銃で迎えた。",
+    "【問題34】東１局西家５巡目ドラツモ【解答と解説】打③に受ける。",
+    "【問題35】東１局西家４巡目ドラツモ【解答と解説】打愚形含みで三色不確定、マンズが伸びれば強い③になる。",
+    "【問題36】東１局０本場東家４巡目ドラツモ【解答と解説】打②に受ける。",
+    "【問題37】東１局０本場東家ドラツモ【解答と解説】打ターツオーバーかつ二度受けかつイッツー不確定、明らかにここが不要。",
+    "【問題38】東１局０本場西家５巡目ドラツモ【解答と解説】打牌効率論31参照。",
+    "【問題39】※赤アリ･一発･裏ドラ･カンドラ･カン裏あり。",
+    "【問題40】東１局０本場西家５巡目ドラツモ【解答と解説】打ターツオーバーなので孤立ドラは残す。",
+    "【問題41】東１局０本場南家５巡目ドラツモ【解答と解説】打流石に純チャン三色を崩してまでは染めない。",
+    "【問題42】東１局西家６巡目ドラツモ【解答と解説】打リーチ実践編【問題a-12】と同じ。",
+    "【問題43】東２局東家４巡目ドラツモ【解答と解説】打ダマ打としても問題27ほど変化が多くなく、ドラなので。",
+    "【問題44】東１局０本場東家５巡目ドラツモ【解答と解説】打ソーズのペンカンチャンは残す。",
+    "【問題45】東１局西家５巡目ドラツモ【解答と解説】打単純なターツ選択。",
+    "【問題46】東１局０本場西家５巡目ドラツモ【解答と解説】打ピンズを伸ばしてもほとんど良形にならないので②に受ける。",
+    "【問題47】東１局東家６巡目ドラツモ※１枚切れ。",
+    "【問題48】【解答と解説】打リーチ手変わりがそこまで多くなく、良形になっても打点が下がるのであれば手変わりとして微妙。",
+    "【問題49】東２局北家５巡目ドラ東家25,000南家25,000西家19,800北家30,200ツモ【解答と解説】打ドラ切りでも打点十分なので手広く。",
+    "【問題50】東３局東家５巡目ドラ東家31,500南家28,500西家36,700北家23,300※30,000点持ちツモ捨て牌東家南家西家北家【解答と解説】打ターツオーバーは嫌って４５６、５６７三色をみる。",
+    "【問題51】東１局０本場５巡目ドラツモ【解答と解説】打②に受ける。",
+    "【問題52】東１局０本場東家５巡目ドラ①ツモ②ツモ【解答と解説】共に打スジ被りの孤立牌を両方残してまで２シャンテンに戻さない。",
+    "【問題53】東１局０本場南家５巡目ドラツモ【解答と解説】打明らかに不要。",
+    "【問題54】東１局０本場西家４巡目ドラツモ【解答と解説】打愚形テンパイの４枚受けよりは４連形を残して①に受ける。",
+    "【問題55】東１局０本場東家５巡目ドラツモ【解答と解説】打良形確定なら七対子より面子手の１シャンテン優先。",
+    "【問題56】東１局０本場東家５巡目ドラツモ【解答と解説】打リーチ問題48と同じ。",
+    "【問題57】東１局０本場東家５巡目ドラツモ【解答と解説】打愚形でも確定イッツーなら③に受ける。",
+    "【問題58】東１局０本場西家５巡目ドラツモ【解答と解説】打にフォローがあるので２シャンテンに戻す。",
+    "【問題59】東１局０本場西家６巡目ドラツモ【解答と解説】打良形2,600点よりは愚形5,200～8,000点。",
+    "【問題60】※半荘戦、10－30、アリアリ、赤５牌３枚【解答と解説】スルースルーしてもテンパイに取れる牌を鳴く権利は残り、現時点でリャンメン＋リャンメン･カンチャンのシャンテンで十分広いので大して早くならない。",
+    "【問題61】東１局０本場東家ドラツモ【解答と解説】打かメンタンピンや３４５三色もあるので一色手に決め打たない。",
+    "【問題62】東１局０本場東家３巡目ドラツモ【解答と解説】打手広い②に受ける。",
+    "【問題63】東１局０本場東家５巡目ドラツモ【解答と解説】打縦引きでも２３４三色が残るので②に受ける。",
+    "【問題64】東１局０本場東家６巡目ドラツモ【解答と解説】打ダマ直接の手変わりは･･･のみだが、現状役無しドラ無しなので打点上昇のメリットが大きく、･ツモからの四暗変化も面白いのでテンパイ取りダマとする。",
+    "【問題65】東１局０本場西家３巡目ドラツモ【解答と解説】打ターツオーバーで三元役の可能性があるので発は残す、ドラで、ホンイツ、トイトイがあるので打よりはっきり打点面で有利で、和了率は大差ないのでここを払う。",
+    "【問題66】東１局０本場西家３巡目ドラツモ【解答と解説】打受けの為だけに２シャンテンからドラは切らない。",
+    "【問題67】東１局０本場南家５巡目ドラツモ【解答と解説】打６７８三色とポンテンを両方残す。",
+    "【問題68】東１局０本場南家５巡目ドラツモ【解答と解説】打中膨れ×２で、ピンフや三色絡みで大物手が見込めるのでシャンテン戻し。",
+    "【問題69】東１局０本場南家５巡目ドラツモ【解答と解説】打リーチ【問題70】東１局０本場東家４巡目ドラツモ【解答と解説】打打との比較は微妙。",
+    "【問題71】東１局０本場南家６巡目ドラツモ【解答と解説】打ほぼチャンタで喰い仕掛けていくのでドラがでもこれ。",
+    "【問題72】東１局０本場南家６巡目ドラツモ【解答と解説】打③に受けた方が打点面でも有利なら迷わない。",
+    "【問題73】東１局０本場西家ドラツモ【解答と解説】打リーチ手変わりが少ないのでやむなし。",
+    "【問題74】東２局南家５巡目ドラ東家25,000点南家28,900点西家21,100点北家25,000点ツモ【解答と解説】打１シャンテンには取る。",
+    "【問題75】東１局０本場南家５巡目ドラツモ【解答と解説】打③に受ける。",
+    "【問題76】東１局西家５巡目ドラツモ【解答と解説】打実践編【問題a-41】と同じ。",
+    "【問題77】東１局０本場南家８巡目ドラツモ【解答と解説】打④に受ける。",
+    "【問題78】東３局北家６巡目ドラ東家28,900点南家23,400点西家26,600点北家21,100点ツモ【解答と解説】打ドラでなくてもダブルリャンメンは他のトイツより優先して残す。",
+    "【問題79】【解答と解説】打１シャンテンには取る。"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-303-1",
+   "verdict": "produced-audit-failed",
+   "pages": [
+    303,
+    304,
+    305,
+    306,
+    307,
+    308
+   ],
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter06-exercise004.display.json",
+   "candidateSha256": "736810e43a8a94084c6d9c7c2d63f91654a50f236ece06753bc75713918319eb",
+   "auditStatus": "failed",
+   "sourceBoundCurrent": true,
+   "pdfSentences": 54,
+   "webSentences": 54,
+   "pdfChars": 3211,
+   "webSourceChars": 2885,
+   "webBlocks": 345,
+   "webFigures": 133,
+   "pdfFigureBlocks": 134,
+   "exactBodyMatch": false,
+   "missingFromWeb": [
+    "「MJ4麻雀力判定」サイト問題セガネットワーク対戦麻雀MJ4公式ブログMJ4×Ameba「AmebaCUP」への道「MJ4麻雀力判定(http://ameblo.jp/sega-mj4/)」より問題検討。",
+    "ルールセガネットワーク対戦麻雀MJ4(http://www.sega-mj.com/mj4/index.html)「採用ルール(http://www.sega-mj.com/mj4/rule.html)」より東風戦20,000点スタートの25,000点返しウマは、1位は+20、2位は+10、3位は-10、4位は-20親のアガリで連荘クイタン、後付けあり八連荘あり裏ドラ、カンドラ、カン裏ドラあり赤ドラあり（マンズ、ソウズ、ピンズ共に１枚ずつ）30符四翻は満貫（切り上げ満貫）大車輪はピンズの２～８のみ第１回【問題1】東１局北家５巡目ドラ持ち点20,000点ツモ【解答と解説】打イッツーより受け入れ最大にした時に残る三暗刻狙い。",
+    "（『超・入門科学する麻雀(http://www.amazon.co.jp/gp/product/4862480993?ie=UTF8&tag=yabe0b-22&linkCode=as2&camp=247&creative=1211&creativeASIN=4862480993)』の第一問に類似。",
+    "引きがロスにならないので内側のから切る（－待ちが読まれ易くなるというデメリットはあるが、ここから－待ちになる可能性はそう多くなく、そもそもドラがなので読まれにくくしたところでほとんど出易くはならない）が、微々たる差なので打でも問題ない。",
+    "ドラそば孤立牌より中膨れ優先（牌効率論39(../chapter01/section039.html)より、今回はラス前で浮いているので尚更速度重視の中膨れ残しが勝る）。",
+    "プロの解説阿賀寿直オフィシャルブログ「漢のＭＪ(http://ameblo.jp/hisanao-aga/entrylist.html)」プロの解説はこちら。",
+    "やっぱり突っ込みどころ満載なのですが突っ込むと何切る問題解法論(section001.html)で書いてきたこととほとんど同じことを繰り返すことになるのでもうしません。"
+   ],
+   "webOnly": [
+    "「MJ4麻雀力判定」サイト問題セガネットワーク対戦麻雀MJ4公式ブログMJ4×Ameba「AmebaCUP」への道「MJ4麻雀力判定」より問題検討。",
+    "ルールセガネットワーク対戦麻雀MJ4「採用ルール」より東風戦20,000点スタートの25,000点返しウマは、1位は+20、2位は+10、3位は-10、4位は-20親のアガリで連荘クイタン、後付けあり八連荘あり裏ドラ、カンドラ、カン裏ドラあり赤ドラあり（マンズ、ソウズ、ピンズ共に１枚ずつ）30符四翻は満貫（切り上げ満貫）大車輪はピンズの２〜８のみ第１回【問題1】東１局北家５巡目ドラ持ち点20,000点ツモ【解答と解説】打イッツーより受け入れ最大にした時に残る三暗刻狙い。",
+    "（『超・入門科学する麻雀』の第一問に類似。",
+    "引きがロスにならないので内側のから切る（−待ちが読まれ易くなるというデメリットはあるが、ここから−待ちになる可能性はそう多くなく、そもそもドラがなので読まれにくくしたところでほとんど出易くはならない）が、微々たる差なので打でも問題ない。",
+    "ドラそば孤立牌より中膨れ優先（牌効率論39より、今回はラス前で浮いているので尚更速度重視の中膨れ残しが勝る）。",
+    "プロの解説阿賀寿直オフィシャルブログ「漢のＭＪ」プロの解説はこちら。",
+    "やっぱり突っ込みどころ満載なのですが突っ込むと何切る問題解法論で書いてきたこととほとんど同じことを繰り返すことになるのでもうしません。"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-317-51",
+   "verdict": "produced-needs-repair",
+   "status": "no-web-candidate",
+   "pages": [
+    317
+   ],
+   "pdfChars": 551,
+   "pdfFigureBlocks": 26
+  },
+  {
+   "chapterId": "nemata-jp-chapter-318-1",
+   "verdict": "covered-effective",
+   "pages": [
+    318
+   ],
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/archive01-section001.display.json",
+   "candidateSha256": "b271014cc940f8afa3d6d7447cb03d310af437e94ad862b7204f9943340e0343",
+   "auditStatus": "passed",
+   "sourceBoundCurrent": true,
+   "pdfSentences": 11,
+   "webSentences": 11,
+   "pdfChars": 679,
+   "webSourceChars": 679,
+   "webBlocks": 22,
+   "webFigures": 0,
+   "pdfFigureBlocks": 0,
+   "exactBodyMatch": true,
+   "missingFromWeb": [],
+   "webOnly": []
+  },
+  {
+   "chapterId": "nemata-jp-chapter-319-1",
+   "verdict": "covered-effective",
+   "pages": [
+    319,
+    320,
+    321,
+    322,
+    323
+   ],
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/archive01-section002.r1.display.json",
+   "candidateSha256": "60bce80dd897b9cc4315b9175f4a2f84070c71d2e3a1782bdcae1063cd7de8a1",
+   "auditStatus": "passed",
+   "sourceBoundCurrent": true,
+   "pdfSentences": 92,
+   "webSentences": 92,
+   "pdfChars": 4811,
+   "webSourceChars": 4811,
+   "webBlocks": 148,
+   "webFigures": 27,
+   "pdfFigureBlocks": 27,
+   "exactBodyMatch": true,
+   "missingFromWeb": [],
+   "webOnly": []
+  },
+  {
+   "chapterId": "nemata-jp-chapter-324-1",
+   "verdict": "covered-effective",
+   "pages": [
+    324,
+    325,
+    326,
+    327
+   ],
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/archive01-section003.display.json",
+   "candidateSha256": "edf193c933039b03e05be5c4b6f6c6266590a8aae5099dd31255ce8ea2a13e83",
+   "auditStatus": "passed",
+   "sourceBoundCurrent": true,
+   "pdfSentences": 50,
+   "webSentences": 50,
+   "pdfChars": 2303,
+   "webSourceChars": 2285,
+   "webBlocks": 146,
+   "webFigures": 83,
+   "pdfFigureBlocks": 44,
+   "exactBodyMatch": false,
+   "missingFromWeb": [
+    "リャンメン（リャンメントイツ）変化は、３～７トイツ１つにつき２種８枚、２･８トイツ１つにつき１種４枚、１･９字トイツは無し（字牌以外は２種８枚の愚形複合ターツの変化有り）。",
+    "他の形でカンチャンとトイツを比較する場合も同じ）1.変化にフォローがある2.変化した時にフォローができる3.ここで、ターツ同士の距離が遠いとフォローも弱くなり、距離が等しいならリャンメンの方が愚形よりフォローが弱いという法則がみてとれる。",
+    "外カンチャン受けにフォローがある1.変化にフォローがある2.変化した時にフォローがある3.内カンチャン受けにフォローがある1.変化にフォローがある2.リャンメン受けにフォローがある（打としても受けが残る）（が雀頭、打）1."
+   ],
+   "webOnly": [
+    "リャンメン（リャンメントイツ）変化は、３〜７トイツ１つにつき２種８枚、２･８トイツ１つにつき１種４枚、１･９字トイツは無し（字牌以外は２種８枚の愚形複合ターツの変化有り）。",
+    "他の形でカンチャンとトイツを比較する場合も同じ）変化にフォローがある変化した時にフォローができるここで、ターツ同士の距離が遠いとフォローも弱くなり、距離が等しいならリャンメンの方が愚形よりフォローが弱いという法則がみてとれる。",
+    "外カンチャン受けにフォローがある変化にフォローがある変化した時にフォローがある内カンチャン受けにフォローがある変化にフォローがあるリャンメン受けにフォローがある（打としても受けが残る）（が雀頭、打）"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-335-1",
+   "verdict": "covered-effective",
+   "pages": [
+    335,
+    336,
+    337
+   ],
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/archive01-section005.source-note-v2.display.json",
+   "candidateSha256": "d666725a21e7f2c340238312ea16599073dba062de81fe95d4441bdd3bb26724",
+   "auditStatus": "passed-after-specific-source-editorial-note",
+   "sourceBoundCurrent": true,
+   "pdfSentences": 51,
+   "webSentences": 51,
+   "pdfChars": 2317,
+   "webSourceChars": 2317,
+   "webBlocks": 121,
+   "webFigures": 45,
+   "pdfFigureBlocks": 45,
+   "exactBodyMatch": true,
+   "missingFromWeb": [],
+   "webOnly": []
+  },
+  {
+   "chapterId": "nemata-jp-chapter-338-1",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    338,
+    339,
+    340,
+    341,
+    342,
+    343,
+    344
+   ],
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/archive01-section006.display.json",
+   "candidateSha256": "04ab76405f88fa1df61d68c2047cf3cb344b8db8644f193c520fee805b83c427",
+   "auditStatus": "needs-repair",
+   "sourceBoundCurrent": true,
+   "pdfSentences": 109,
+   "webSentences": 109,
+   "pdfChars": 6150,
+   "webSourceChars": 6150,
+   "webBlocks": 588,
+   "webFigures": 260,
+   "pdfFigureBlocks": 346,
+   "exactBodyMatch": false,
+   "missingFromWeb": [
+    "トイツ数≧３で、面子手のシャンテン数が七対子のそれ以下の手なら、比較（１）で述べたようなリャンメン固定や２･８牌以下の牌を切る雀頭固定をして孤立３～７牌を残す。",
+    "トイツ数＝２の場合は孤立３～７程度は切る。",
+    "面子候補過多の場合（他に愚形ターツが残っている場合）ペンチャン＜孤立３～７牌愚形ターツ＜４連形、中膨れターツを落としてもシャンテン数が落ちないので、より良形に変化しやすいように良形変化の豊富な孤立牌を残す。"
+   ],
+   "webOnly": [
+    "トイツ数≧３で、面子手のシャンテン数が七対子のそれ以下の手なら、比較（１）で述べたようなリャンメン固定や２･８牌以下の牌を切る雀頭固定をして孤立３〜７牌を残す。",
+    "トイツ数＝２の場合は孤立３〜７程度は切る。",
+    "面子候補過多の場合（他に愚形ターツが残っている場合）ペンチャン＜孤立３〜７牌愚形ターツ＜４連形、中膨れターツを落としてもシャンテン数が落ちないので、より良形に変化しやすいように良形変化の豊富な孤立牌を残す。"
+   ]
+  },
+  {
+   "chapterId": "nemata-jp-chapter-345-1",
+   "verdict": "covered-effective",
+   "pages": [
+    345,
+    346
+   ],
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/archive01-section007.display.json",
+   "candidateSha256": "cc886f021db1a29fa9d62916b9ce6ea1498e9aabe4844f105864181e4db60205",
+   "auditStatus": "passed",
+   "sourceBoundCurrent": true,
+   "pdfSentences": 18,
+   "webSentences": 18,
+   "pdfChars": 763,
+   "webSourceChars": 763,
+   "webBlocks": 148,
+   "webFigures": 84,
+   "pdfFigureBlocks": 71,
+   "exactBodyMatch": true,
+   "missingFromWeb": [],
+   "webOnly": []
+  },
+  {
+   "chapterId": "nemata-jp-chapter-347-1",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    347
+   ],
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/archive01-section008.r1.display.json",
+   "candidateSha256": "5051732a44803c58f82b528b6ac8ccc9657c560a28fa869b97a68241004f4cd7",
+   "auditStatus": "needs-repair",
+   "sourceBoundCurrent": true,
+   "pdfSentences": 13,
+   "webSentences": 13,
+   "pdfChars": 739,
+   "webSourceChars": 739,
+   "webBlocks": 66,
+   "webFigures": 27,
+   "pdfFigureBlocks": 31,
+   "exactBodyMatch": true,
+   "missingFromWeb": [],
+   "webOnly": []
+  }
+ ]
+}

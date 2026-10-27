@@ -1,0 +1,748 @@
+{
+ "schema": "coac248-body-comparison-cn/1",
+ "recordedAt": "2026-10-27T02:50:44.890Z",
+ "modelCalls": 0,
+ "method": "sentence-level LCS of the Chinese web article text against the 79-cn PDF page text layer (headers/rules stripped)",
+ "corpusArticles": 81,
+ "counts": {
+  "chapters": 26,
+  "bodyIdentical": 0,
+  "mappedElsewhere": 0,
+  "realGap": 24,
+  "noWebCandidate": 2
+ },
+ "chapters": [
+  {
+   "chapterId": "79-cn-chapter-081-8",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    81,
+    82,
+    83,
+    84
+   ],
+   "candidatePath": "web-production/v1/candidates/79-bilibili-cn/cv1721475.display.json",
+   "pdfChars": 905,
+   "webChars": 1149,
+   "exactBodyMatch": false,
+   "missingSentences": 14,
+   "webOnlySentences": 7,
+   "notInAnyWebArticle": [
+    "牌效率17-一向听的牌理(五)一向听的牌理(五)：本次继续讨论无雀头形。",
+    "牌效率18-一向听的牌理(六)一向听的牌理(六)：靠张的一向听有着：1.进张数非常广。"
+   ],
+   "elsewhereArticles": [
+    "cv1716187",
+    "cv1721475",
+    "cv1721490"
+   ],
+   "bodyVerdict": "body-gap-real"
+  },
+  {
+   "chapterId": "79-cn-chapter-090-6",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    90,
+    91,
+    92,
+    93
+   ],
+   "candidatePath": "web-production/v1/candidates/79-bilibili-cn/cv1721510.display.json",
+   "pdfChars": 826,
+   "webChars": 1673,
+   "exactBodyMatch": false,
+   "missingSentences": 12,
+   "webOnlySentences": 10,
+   "notInAnyWebArticle": [
+    "这里选择边张立直确实是不怎么费事儿的想法。",
+    "这种牌完全可以选择单骑默听，等手牌变化到两面听牌以上时再立直。",
+    "特别是有中张牌的暗刻与相邻的顺子的时候，手牌的变化是非常的多。",
+    "例5的情况，摸到都能够有好形立直。",
+    "不急着立直的价值是很充分的。",
+    "牌效率20-向听倒退向听倒退：先要说结论的话，向听倒退最终能让牌形成快速和牌的形的情况是不多的。",
+    "1.不选择听牌靠张一向听进张数很广，但是形成愚形的牌也多，这个在上次已经说过了。",
+    "2.两向听倒退这也是一个想要做断幺+平和而向听倒退的例子。",
+    "3.序盘向听倒退最常见的就是做混一色的例子了。"
+   ],
+   "elsewhereArticles": [
+    "cv1721510"
+   ],
+   "bodyVerdict": "body-gap-real"
+  },
+  {
+   "chapterId": "79-cn-chapter-104-5",
+   "verdict": "produced-passed-not-staged",
+   "pages": [
+    104,
+    105,
+    106
+   ],
+   "candidatePath": "web-production/v1/candidates/79-bilibili-cn/cv1726202.processing-note-v1.display.json",
+   "pdfChars": 699,
+   "webChars": 1382,
+   "exactBodyMatch": false,
+   "missingSentences": 13,
+   "webOnlySentences": 9,
+   "notInAnyWebArticle": [
+    "手役5-断幺断幺：断幺最大的好处就是鸣牌之后也能和牌，这个我们应该尽量利用。",
+    "1.向着断幺打牌断幺不仅容易作成，也是可以与其他役复合的方便的役。",
+    "2.确定断幺上图的状态我们叫做“面子超载”，到底切什么是正确的呢？",
+    "3.考虑鸣牌这个手牌摸切2索是进张最广的，但是实战中我会切掉6万。",
+    "手役6-染手(一)染手(一)：染手系，特别是混一色是非常重要的役。",
+    "不仅容易作，而且门清3翻，鸣牌之后也有2翻。",
+    "能够有这么优秀的点数面的役还真没有了。",
+    "虽然容易被对手警戒，但还是需要积极地去作。",
+    "牌的材料好的话，可以从配牌之后就开始作。",
+    "本回讲从手牌来看是否要去作，手牌以外的要素还有：·场况·巡目·所持点这一回就暂时假设是点数并没有太大变化的东场序盘(即平场)仅仅从手牌来判断。"
+   ],
+   "elsewhereArticles": [
+    "cv1726181",
+    "cv1726202"
+   ],
+   "bodyVerdict": "body-gap-real"
+  },
+  {
+   "chapterId": "79-cn-chapter-109-4",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    109,
+    110,
+    111
+   ],
+   "candidatePath": "web-production/v1/candidates/79-bilibili-cn/cv1729038.display.json",
+   "pdfChars": 640,
+   "webChars": 1459,
+   "exactBodyMatch": false,
+   "missingSentences": 8,
+   "webOnlySentences": 9,
+   "notInAnyWebArticle": [
+    "“这个牌不和也没关系”，拥有这份淡定也是非常重要的。",
+    "理论、总结：很痛苦的混一色要重视防守没有见到和牌希望之前不要轻易鸣牌。",
+    "手役7-染手(二)染手(二)：染手最重要的技术其实是“鸣牌”，这个我留到第五章再说。",
+    "1.过渡打牌例1在已经碰了中的情况下选择切牌，理论上还是切6万。",
+    "2.先打迷彩战术是比较老的战术了。",
+    "3.让形变强同种花色的牌集在一起时，形就会变得很复杂。"
+   ],
+   "elsewhereArticles": [
+    "cv1729038"
+   ],
+   "bodyVerdict": "body-gap-real"
+  },
+  {
+   "chapterId": "79-cn-chapter-128-14",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    128,
+    129,
+    130,
+    131
+   ],
+   "candidatePath": "web-production/v1/candidates/79-bilibili-cn/cv1734739.display.json",
+   "pdfChars": 1195,
+   "webChars": 1911,
+   "exactBodyMatch": false,
+   "missingSentences": 19,
+   "webOnlySentences": 10,
+   "notInAnyWebArticle": [
+    "宝牌与赤牌5-宝牌和手役的选择宝牌和手役的选择：很多时候，宝牌和手役放弃那一边都不行。",
+    "听牌时的选择基本的就是选择听牌最多的这个牌切掉2索立直才是正确的。",
+    "一向听的时候这里面子超载，自然选择切掉搭子。",
+    "序盘的选择序盘的话，留下宝牌和手役两方的可能性很多时候能形成好型。",
+    "宝牌与赤牌6-赤牌麻将的基本赤牌麻将的基本：最近街头巷尾的雀庄几乎都使用了赤牌。",
+    "比起手役，应该更加重视进张的宽度由于宝牌的增多，所以不做手役也可以和出大牌。"
+   ],
+   "elsewhereArticles": [
+    "cv1734724",
+    "cv1734739",
+    "cv1734748"
+   ],
+   "bodyVerdict": "body-gap-real"
+  },
+  {
+   "chapterId": "79-cn-chapter-145-4",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    145,
+    146,
+    147
+   ],
+   "candidatePath": "web-production/v1/candidates/79-bilibili-cn/cv1744266.display.json",
+   "pdfChars": 845,
+   "webChars": 1982,
+   "exactBodyMatch": false,
+   "missingSentences": 13,
+   "webOnlySentences": 11,
+   "notInAnyWebArticle": [
+    "鸣牌6-杠(二)1.手牌烂的一比那怕还是在序盘，上面这样的手牌也不应该杠。",
+    "2.使自己听牌变差的时候下例是就算听牌也不应该杠的代表。",
+    "3.使手牌进张减少的时候好形的一向听，虽然杠也没什么关系但是例3的情况有些不一样。",
+    "4.有人立直的时候他家立直的时候，不管手牌好坏，基本不要去杠。",
+    "6.门清的大明杠杠！",
+    "鸣牌7-鸣牌与向听数鸣牌与向听数：通过向听数，我们可以很容易地了解我们的手牌距离和牌还有多远，这是非常重要的一个概念。",
+    "这里我们来说说向听数与鸣牌是否妥当的关系。",
+    "不改变向听数的鸣牌由于鸣牌会放弃一次摸牌机会。",
+    "鸣牌却没有让手牌前进是不行的。",
+    "这样的手牌，碰3万或者4万向听数不会改变，手牌没有前进。"
+   ],
+   "elsewhereArticles": [
+    "cv1744243",
+    "cv1744266"
+   ],
+   "bodyVerdict": "body-gap-real"
+  },
+  {
+   "chapterId": "79-cn-chapter-155-4",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    155,
+    156,
+    157
+   ],
+   "candidatePath": "web-production/v1/candidates/79-bilibili-cn/cv1751265.display.json",
+   "pdfChars": 812,
+   "webChars": 1588,
+   "exactBodyMatch": false,
+   "missingSentences": 9,
+   "webOnlySentences": 9,
+   "notInAnyWebArticle": [
+    "这个手牌打点已经很不错了，减少自己的听牌数去做对对就有点过了。",
+    "有3900点的牌就应该以和牌优先，大家要把这个记在心中。",
+    "鸣牌10-混一色混一色：混一色是凑齐同一种数牌和字牌就可以简单达成的手役，在初学者中有着很高的人气。",
+    "不应鸣牌的手牌即使鸣牌，混一色也有2翻。",
+    "应该鸣的牌，应该放过的牌混一色鸣牌的要点是和手牌分不开的。",
+    "鸣牌11-后付(1)后付1：假如你拿到图1的手牌。"
+   ],
+   "elsewhereArticles": [
+    "cv1751265"
+   ],
+   "bodyVerdict": "body-gap-real"
+  },
+  {
+   "chapterId": "79-cn-chapter-157-11",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    157,
+    158,
+    159
+   ],
+   "candidatePath": "web-production/v1/candidates/79-bilibili-cn/cv1751276.display.json",
+   "pdfChars": 861,
+   "webChars": 937,
+   "exactBodyMatch": false,
+   "missingSentences": 7,
+   "webOnlySentences": 5,
+   "notInAnyWebArticle": [
+    "鸣牌11-后付(1)后付1：假如你拿到图1的手牌。",
+    "鸣牌12-后付(2)后付2：前一回主要说了有2~3张宝牌的时候，即使是后付也应该积极的鸣牌。"
+   ],
+   "elsewhereArticles": [
+    "cv1751265",
+    "cv1751276",
+    "cv1751292"
+   ],
+   "bodyVerdict": "body-gap-real"
+  },
+  {
+   "chapterId": "79-cn-chapter-159-9",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    159,
+    160,
+    161
+   ],
+   "candidatePath": "web-production/v1/candidates/79-bilibili-cn/cv1751292.display.json",
+   "pdfChars": 850,
+   "webChars": 1331,
+   "exactBodyMatch": false,
+   "missingSentences": 14,
+   "webOnlySentences": 7,
+   "notInAnyWebArticle": [
+    "鸣牌12-后付(2)后付2：前一回主要说了有2~3张宝牌的时候，即使是后付也应该积极的鸣牌。",
+    "急需的牌出现的时候比如这样的手牌，上家打出了7索。",
+    "二手准备的后付仅靠役牌的手牌是不好鸣牌的。",
+    "无论如何都想和牌的胜负关键在南场，常常会面对无论点数多少都想和牌的情况。"
+   ],
+   "elsewhereArticles": [
+    "cv1751276"
+   ],
+   "bodyVerdict": "body-gap-real"
+  },
+  {
+   "chapterId": "79-cn-chapter-162-3",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    162,
+    163,
+    164,
+    165
+   ],
+   "candidatePath": "web-production/v1/candidates/79-bilibili-cn/cv1751316.display.json",
+   "pdfChars": 1367,
+   "webChars": 1689,
+   "exactBodyMatch": false,
+   "missingSentences": 16,
+   "webOnlySentences": 8,
+   "notInAnyWebArticle": [
+    "鸣牌13-鸣牌的技巧(1)鸣牌的技巧1：实战中有用的鸣牌技巧我分为3次来介绍。",
+    "双重面子的处理这是利用连续的对子形成两组面子的技巧。",
+    "鸣牌14-鸣牌的技巧(2)鸣牌的技巧2：这次来介绍针对食断的高度技巧。"
+   ],
+   "elsewhereArticles": [
+    "cv1751316",
+    "cv1754612"
+   ],
+   "bodyVerdict": "body-gap-real"
+  },
+  {
+   "chapterId": "79-cn-chapter-167-4",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    167,
+    168,
+    169
+   ],
+   "candidatePath": "web-production/v1/candidates/79-bilibili-cn/cv1754620.display.json",
+   "pdfChars": 862,
+   "webChars": 1610,
+   "exactBodyMatch": false,
+   "missingSentences": 8,
+   "webOnlySentences": 8,
+   "notInAnyWebArticle": [
+    "鸣牌15-鸣牌的技巧(3)鸣牌的技巧3：在鸣牌技巧的最后，来讲讲不以自己和牌为目的，而是阻止对手和牌为目的的一些鸣牌。",
+    "破一发立直之后有人鸣牌的话，就会消除其一发的权利。",
+    "干涉碰吃和碰同时发生的时候，基本是以碰优先。",
+    "转移海底、消除海底自摸海底(这一局最后一张可以摸的山牌)的话会有一翻，终盘要是有人立直的话，能够消除海底的时候还是尽量消除。",
+    "不以和牌为目标的杠想杠就杠是初学者的做法，了解杠的隐藏作用可以获得很多好处。"
+   ],
+   "elsewhereArticles": [
+    "cv1754612"
+   ],
+   "bodyVerdict": "body-gap-real"
+  },
+  {
+   "chapterId": "79-cn-chapter-182-5",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    182,
+    183
+   ],
+   "candidatePath": "web-production/v1/candidates/79-bilibili-cn/cv1760573.display.json",
+   "pdfChars": 651,
+   "webChars": 1140,
+   "exactBodyMatch": false,
+   "missingSentences": 11,
+   "webOnlySentences": 6,
+   "notInAnyWebArticle": [
+    "立直6-立直理论(2)立直理论2：かけるは内、のばすは外(太专业了==，没想好怎么翻)比如124索这样的形，摸到5索，从两面的角度考虑切掉1索是理所当然的打法。",
+    "暗刻优先这样的牌切2饼和3饼都可以立直。",
+    "情报要少以前流行的迷彩战术(给捨牌中设下陷阱)受到了压倒性的否定。"
+   ],
+   "elsewhereArticles": [
+    "cv1760558"
+   ],
+   "bodyVerdict": "body-gap-real"
+  },
+  {
+   "chapterId": "79-cn-chapter-193-4",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    193,
+    194,
+    195,
+    196
+   ],
+   "candidatePath": "web-production/v1/candidates/79-bilibili-cn/cv1765377.display.json",
+   "pdfChars": 1066,
+   "webChars": 1434,
+   "exactBodyMatch": false,
+   "missingSentences": 23,
+   "webOnlySentences": 11,
+   "notInAnyWebArticle": [
+    "上家刚刚切过的牌。",
+    "(也是3家现物)没有国士无双听牌时，第四张字牌。",
+    "完全的NOCHANCE。",
+    "后面会进入“壁”的说明。",
+    "上图的例子的安全牌已经很充分了。",
+    "想要避免放铳的话还是很容易的。",
+    "但是，安全牌不是什么时候都有的。",
+    "因此，“筋”和“壁”就比较重要了。",
+    "防守3-筋(1)筋1：有人立直的时候，最应该警戒的就要是两面听牌了。",
+    "-----6个基本筋我们来看看实际的两面听牌吧。",
+    "-----3条筋看了上面的六组听牌，我们可以发现，1-4与4-7、2-5与5-8、3-6与6-9之间有相连的地方。",
+    "1-4-7(一四七)2-5-8(两五八)3-6-9(三六九)6个筋分为3条大筋是非常重要的。",
+    "-----根据筋我们能知道什么(1)自己切过自己所听的牌即会振听，不能荣和。",
+    "防守4-筋(2)筋2：我们来进一步说明麻将中非常重要的概念--筋。",
+    "-----远筋(半筋)？",
+    "这是经常出现(貌似是吧)在新手中的一个误解。",
+    "比如：这个立直切掉了6万，所以39万就是筋只要不是两面听牌，还多少是安全的。",
+    "但是，8索通过了并不代表25索就是安全的。",
+    "这个“半筋”，经常看到有人切，其实是不靠谱的。",
+    "但是，与8索同一组筋的5索和无筋的5饼相比，危险度还是有差距的。",
+    "因为5饼有可能是34饼或者67饼形的听牌，5索已经排除了67索的听牌形，至少比5饼靠谱。",
+    "下面列出可靠筋的显示表，请确认清楚。"
+   ],
+   "elsewhereArticles": [
+    "cv1765377"
+   ],
+   "bodyVerdict": "body-gap-real"
+  },
+  {
+   "chapterId": "79-cn-chapter-201-6",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    201,
+    202,
+    203
+   ],
+   "candidatePath": "web-production/v1/candidates/79-bilibili-cn/cv1770179.display.json",
+   "pdfChars": 801,
+   "webChars": 1030,
+   "exactBodyMatch": false,
+   "missingSentences": 17,
+   "webOnlySentences": 8,
+   "notInAnyWebArticle": [
+    "防守6-弃和的切牌顺序(1)弃和的切牌顺序(1)：弃和有着明确的切牌顺序，所以弃和要按照切牌顺序。",
+    "弃和的基本思路从安全度高地牌开始切。",
+    "现物的优先度如果有多张现物的话，切牌也还是有顺序的。",
+    "这里手牌很烂，这个时候和亲家对日的话就好像日本向美国挑起战争一样愚蠢。",
+    "防守7-弃和的切牌顺序(2)弃和的切牌顺序(2)：弃和没有安全牌的时候，就应该从危险度低得牌开始切。",
+    "-----1.地狱听牌-----仅次于安全牌安全的牌就是只有一种听牌形式的牌了。"
+   ],
+   "elsewhereArticles": [
+    "cv1765417",
+    "cv1770179",
+    "cv1770189"
+   ],
+   "bodyVerdict": "body-gap-real"
+  },
+  {
+   "chapterId": "79-cn-chapter-205-5",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    205,
+    206,
+    207,
+    208
+   ],
+   "candidatePath": "web-production/v1/candidates/79-bilibili-cn/cv1770234.display.json",
+   "pdfChars": 970,
+   "webChars": 1041,
+   "exactBodyMatch": false,
+   "missingSentences": 13,
+   "webOnlySentences": 6,
+   "notInAnyWebArticle": [
+    "<手段2.切即使铳了点数也不高的牌>切幺九牌不会附带断幺；情况再怎么糟糕也不能切宝牌周边的牌。",
+    "<手段3：拆对子、拆暗刻>面对无筋的切牌，拆掉手中的对子或者暗刻要安全一些用一次胜负的赌博换来接下来几巡的安全这貌似也太苦逼了……防守8-弃和的切牌顺序(3)弃和的切牌顺序(3)：",
+    "防守9-兜牌兜牌：兜牌即一边扣住危险牌，一边向着和牌或者是听牌前进的打法。",
+    "拆对子这是兜牌的常用手段，通过一次的话，第二次也能通过。"
+   ],
+   "elsewhereArticles": [
+    "cv1770234",
+    "cv1770245",
+    "cv1780420",
+    "cv1780438",
+    "cv1785770",
+    "cv1793434"
+   ],
+   "bodyVerdict": "body-gap-real"
+  },
+  {
+   "chapterId": "79-cn-chapter-208-4",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    208,
+    209,
+    210,
+    211
+   ],
+   "candidatePath": "web-production/v1/candidates/79-bilibili-cn/cv1770245.display.json",
+   "pdfChars": 920,
+   "webChars": 1836,
+   "exactBodyMatch": false,
+   "missingSentences": 11,
+   "webOnlySentences": 9,
+   "notInAnyWebArticle": [
+    "防守9-兜牌兜牌：兜牌即一边扣住危险牌，一边向着和牌或者是听牌前进的打法。",
+    "拆对子这是兜牌的常用手段，通过一次的话，第二次也能通过。",
+    "拆搭子我们再来看具体的例子吧。",
+    "拆暗刻-----拆掉3张安全牌的暗刻时，也还是可以让手牌有所进展的。",
+    "七对子这是一个缺少确实性的方法，大家有没有面对立直弃和的时候，不知什么时候手牌居然七对子听牌了呢？",
+    "兜牌需要注意的地方兜牌是应该在“能兜牌”的情况下使用的。",
+    "防守10-副露的防守"
+   ],
+   "elsewhereArticles": [
+    "cv1770234"
+   ],
+   "bodyVerdict": "body-gap-real"
+  },
+  {
+   "chapterId": "79-cn-chapter-215-4",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    215,
+    216,
+    217
+   ],
+   "status": "no-web-candidate",
+   "pdfChars": 975
+  },
+  {
+   "chapterId": "79-cn-chapter-217-4",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    217,
+    218,
+    219,
+    220
+   ],
+   "candidatePath": "web-production/v1/candidates/79-bilibili-cn/cv1775174.display.json",
+   "pdfChars": 956,
+   "webChars": 1343,
+   "exactBodyMatch": false,
+   "missingSentences": 16,
+   "webOnlySentences": 7,
+   "notInAnyWebArticle": [
+    "只有被碰了之后非常危险的牌(比如宝牌等)才会去扣牌。",
+    "1~4并不是需要全部满足，但是如果两个都满足不了，还是不要扣牌了。",
+    "下一回就来看看具体的“扣牌”。",
+    "防守12-扣牌(2)扣牌2：我们来看看扣牌的具体例子。",
+    "-----下家染手扣牌很多时候都是在下家染手时进行的。",
+    "-----后付的字牌亲家用两面进行了副露，这个时候摸到了东。",
+    "-----攻守兼备的扣牌要是纯粹的何切问题，这里从牌效率以及摸到4索可以走断幺来考虑切1饼是绝对的答案。",
+    "防守13-不放铳的打法不放铳的打法：这一节我在介绍一些能够提高防守能力的打法。",
+    "-----留下安全牌(留安)-----这是一个重要的技术。"
+   ],
+   "elsewhereArticles": [
+    "cv1775245"
+   ],
+   "bodyVerdict": "body-gap-real"
+  },
+  {
+   "chapterId": "79-cn-chapter-222-5",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    222,
+    223,
+    224,
+    225,
+    226
+   ],
+   "candidatePath": "web-production/v1/candidates/79-bilibili-cn/cv1775262.display.json",
+   "pdfChars": 2007,
+   "webChars": 2673,
+   "exactBodyMatch": false,
+   "missingSentences": 14,
+   "webOnlySentences": 9,
+   "notInAnyWebArticle": [
+    "防守14-立直的读牌(一)立直的读牌1：虽说是立直的读牌，并不是传说中读出对手听什么牌的高难度技术。",
+    "-----五的里筋-----有关里筋其他很多网站有许多记述，这里就不再详细说明了。",
+    ")间四间读作“aidayonken”,有以下四种情况。",
+    "被拆掉的两面搭子的里筋这是由“二度进张不利”的牌理反过来推导的逻辑。",
+    "拆掉嵌张搭子的立直的跨筋这种情况的条件比较复杂，但也是危险度非常高的情况。"
+   ],
+   "elsewhereArticles": [
+    "cv1775245",
+    "cv1775262"
+   ],
+   "bodyVerdict": "body-gap-real"
+  },
+  {
+   "chapterId": "79-cn-chapter-234-12",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    234,
+    235
+   ],
+   "candidatePath": "web-production/v1/candidates/79-bilibili-cn/cv1780400.display.json",
+   "pdfChars": 663,
+   "webChars": 795,
+   "exactBodyMatch": false,
+   "missingSentences": 5,
+   "webOnlySentences": 4,
+   "notInAnyWebArticle": [
+    "状况判断2-要有顺位意识要有顺位意识：为什么点棒状况很重要呢？"
+   ],
+   "elsewhereArticles": [
+    "cv1780378"
+   ],
+   "bodyVerdict": "body-gap-real"
+  },
+  {
+   "chapterId": "79-cn-chapter-242-3",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    242,
+    243,
+    244,
+    245
+   ],
+   "candidatePath": "web-production/v1/candidates/79-bilibili-cn/cv1780438.display.json",
+   "pdfChars": 762,
+   "webChars": 1553,
+   "exactBodyMatch": false,
+   "missingSentences": 7,
+   "webOnlySentences": 11,
+   "notInAnyWebArticle": [
+    "状况判断5-状况与做牌(3)这一节来试试结合点棒状况进行做牌。",
+    "提高打点-虽说要提高打点，但是老是过于勉强地去做手役，和上位的差距会越来越大。",
+    "1.门清立直2.用宝牌3.混一色4.这三个就是提高打点的核心了例1：想要高打点，立直是最近的一条路。",
+    "提高速度这种牌切掉2饼进入平和一向听是比较通俗的打法。"
+   ],
+   "elsewhereArticles": [
+    "cv1780438"
+   ],
+   "bodyVerdict": "body-gap-real"
+  },
+  {
+   "chapterId": "79-cn-chapter-246-3",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    246,
+    247,
+    248,
+    249,
+    250
+   ],
+   "candidatePath": "web-production/v1/candidates/79-bilibili-cn/cv1785741.display.json",
+   "pdfChars": 896,
+   "webChars": 1729,
+   "exactBodyMatch": false,
+   "missingSentences": 6,
+   "webOnlySentences": 8,
+   "notInAnyWebArticle": [
+    "状况判断6-状况与立直判断第六章已经讲过，听牌的话几乎都应该立直。",
+    "翻山的宝字牌单骑假如自己有例1这样的七对子听牌的手牌当然是选择听宝牌比较好，不过假设现在上家刚刚打过中，这种情况下，保持1~2巡的默听是比较优秀的战术。",
+    "立直的现物例2比如这样的状况默听1、4万，要是摸到上家的危险牌就龟缩的战术比较不错。",
+    "南场的立直判断到了南场，点数状况变得很重要。"
+   ],
+   "elsewhereArticles": [
+    "cv1785741"
+   ],
+   "bodyVerdict": "body-gap-real"
+  },
+  {
+   "chapterId": "79-cn-chapter-256-18",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    256,
+    257,
+    258,
+    259,
+    260
+   ],
+   "candidatePath": "web-production/v1/candidates/79-bilibili-cn/cv1785770.display.json",
+   "pdfChars": 1169,
+   "webChars": 1356,
+   "exactBodyMatch": false,
+   "missingSentences": 13,
+   "webOnlySentences": 7,
+   "notInAnyWebArticle": [
+    "AL和TOP点差4400点，1000/2000自摸或者3900点的直击能够逆转。",
+    "也就是要坐3900点的牌，说直白点就是白、宝牌2。",
+    "这样的话，1索就是急需的牌呀，4家都很重视的AL，就算是役牌后付也很难被阻止了。",
+    "下家已经副露了，时间已经不多。",
+    "荣和3900也许还不足以逆转，但是也不能小看摸到赤牌或者对家扔出立直棒这种偶然的因素。",
+    "我觉得这里果断地吃是比较好的。",
+    "状况判断8-ALLLAST的战术(二)这一节讲AL的立直判断。",
+    "状况判断9-ALLLAST的战术(三)在这一节举几个例子，介绍一下在AL的一些特殊战略和状况判断。",
+    "也不会有与例子完全一样的状况，重要的是要知道这些思考的方法。",
+    "不听牌的应用例子"
+   ],
+   "elsewhereArticles": [
+    "cv1785770"
+   ],
+   "bodyVerdict": "body-gap-real"
+  },
+  {
+   "chapterId": "79-cn-chapter-260-18",
+   "verdict": "produced-pdf-passed-not-staged",
+   "pages": [
+    260,
+    261,
+    262,
+    263,
+    264,
+    265
+   ],
+   "status": "no-web-candidate",
+   "pdfChars": 1043
+  },
+  {
+   "chapterId": "79-cn-chapter-276-4",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    276,
+    277,
+    278,
+    279
+   ],
+   "candidatePath": "web-production/v1/candidates/79-bilibili-cn/cv1793434.display.json",
+   "pdfChars": 928,
+   "webChars": 1302,
+   "exactBodyMatch": false,
+   "missingSentences": 3,
+   "webOnlySentences": 6,
+   "notInAnyWebArticle": [
+    "攻守判断3-攻守判断的标准那么，前一节我列举了攻守判断的要素我们来看看实际的几个是应该攻，还是应该守的例子。"
+   ],
+   "elsewhereArticles": [
+    "cv1793434"
+   ],
+   "bodyVerdict": "body-gap-real"
+  },
+  {
+   "chapterId": "79-cn-chapter-311-18",
+   "verdict": "produced-needs-repair",
+   "pages": [
+    311,
+    312,
+    313,
+    314,
+    315,
+    316,
+    317,
+    318,
+    319,
+    320,
+    321,
+    322,
+    323,
+    324,
+    325,
+    326,
+    327,
+    328,
+    329
+   ],
+   "candidatePath": "web-production/v1/candidates/79-bilibili-cn/cv1815400.display.json",
+   "pdfChars": 9430,
+   "webChars": 10532,
+   "exactBodyMatch": false,
+   "missingSentences": 36,
+   "webOnlySentences": 30,
+   "notInAnyWebArticle": [
+    "手牌W：DORA：以上的标准对于碰听3900点，门清满贯打点的手牌也是适用的。",
+    "先前的手牌Y，如果是DORA的话(手牌Y)，那么在第6巡以前不用着急听牌，第10巡~第12巡之后速速听牌才是比较有利的。",
+    "待续……第三节攻守判断的基准胜败的分歧点攻守判断的基准攻守判断是最重要的那么终于到了重头戏内容了。",
+    "总结：在自己听牌以前是非常不利的到底应该如何判断有利还是不利呢？",
+    "如果D<0则应该弃和。",
+    "即使自己是NOMI的手牌(两面听牌)，加上对手的立直棒，和牌的收入是2000点。",
+    "总结：如果学会了标准的判断你就变强了不少良形听牌时面对对手的立直可以进攻的打点这一节，我们不再以打点为目标，我们根据计算的结果来判断一下面对对手的立直能够进攻需要在什么样的巡目。",
+    "手牌A：手牌A的听牌进张为这4种牌，一巡能够听牌的概率大约是10%。",
+    "手牌B：我们再来考虑一些条件更好的情况吧。",
+    "表2：切，巡目，对手的举动与自己失点的指标为了便于大家参考，我给出一个有关扣牌的统计数据。",
+    "手牌C：DORA：手牌D：DORA:序盘~中盘的时候，亲家立直了。",
+    "是无筋的危险牌，而是安全牌。",
+    "答案是应该切掉。",
+    "是安全牌，而是无筋的危险牌。",
+    "答案是应该切掉。",
+    "先切或者默听，摸到危险牌的话就缩卵，这在战术上是可行的。"
+   ],
+   "elsewhereArticles": [
+    "cv1806391",
+    "cv1815400"
+   ],
+   "bodyVerdict": "body-gap-real"
+  }
+ ]
+}
