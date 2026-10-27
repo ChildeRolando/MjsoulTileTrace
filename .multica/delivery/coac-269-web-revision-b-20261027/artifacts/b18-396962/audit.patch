@@ -1,0 +1,48 @@
+--- textbook-audit-web.mjs
++++ 396962/textbook-audit-web.mjs
+@@ -9 +9 @@
+-import {verifyWebBatchedProductionCalls,readVerifiedAuditBatchPlan,batchAuditScope,sumAuditBatchUsage} from './textbook-audit-web-batches.mjs';
++import {verifyWebBatchedProductionCalls,readVerifiedAuditBatchPlan as readVerifiedOriginalAuditBatchPlan,batchAuditScope,sumAuditBatchUsage} from './textbook-audit-web-batches.mjs';
+@@ -422,0 +423 @@
++ if(notes.production?.sha256===continuationParent)return continuationIssueScope(notes,revision);
+@@ -474 +475,2 @@
+- const contextAssets=new Set(q12Exact?selectedBlocks.filter(b=>['modern-yabejp-ja:chapter06-exercise003:b0153','modern-yabejp-ja:chapter06-exercise003:b0169'].includes(b.id)).flatMap(b=>b.images??[]).map(i=>i.assetId):[]);
++ const continuationImages=continuationScope(revision)?({"chapter06-exercise003-batch-004":["modern-yabejp-ja:66f4fc88f899af0258244da2","modern-yabejp-ja:e55f2661c108fb3854242c3f","modern-yabejp-ja:47f82ab50e8c424dc7c0cd42","modern-yabejp-ja:67422e7f1a2aaedf226710e6","modern-yabejp-ja:25a799fb49374029201271a6","modern-yabejp-ja:86934245281c06c2cec288f1","modern-yabejp-ja:1fb8aead333bdac6123885c6","modern-yabejp-ja:51df8a5007948f0751d3d34b","modern-yabejp-ja:accdd2038d23f16c33ec76f9","modern-yabejp-ja:c2e1bc47e16951c65ef2acaa","modern-yabejp-ja:ac29a8b21c23ff38fc7d51a9","modern-yabejp-ja:d6c739855bf27cf6d6fd7edc","modern-yabejp-ja:3e03d661064b04283aeea2c5"],"chapter06-exercise003-batch-009":["modern-yabejp-ja:4b9b5b49b46fc7c263ec64ba","modern-yabejp-ja:e55f2661c108fb3854242c3f","modern-yabejp-ja:113916eafff92e1ddd5d5360","modern-yabejp-ja:137d504c6d5d4ca4ea9af8d7","modern-yabejp-ja:86934245281c06c2cec288f1","modern-yabejp-ja:1fb8aead333bdac6123885c6","modern-yabejp-ja:efde650fe35a084958cfb03f","modern-yabejp-ja:283d95909f085c408e33545e","modern-yabejp-ja:c2e1bc47e16951c65ef2acaa","modern-yabejp-ja:3a5e7c4383417daa5bbe3036","modern-yabejp-ja:6699bf75ba7f1eba39a76bd0","modern-yabejp-ja:3226b6f2ab0bfc8693018476"]})[group.batchId]??[]:[];
++ const contextAssets=new Set(continuationImages.length?continuationImages:q12Exact?selectedBlocks.filter(b=>['modern-yabejp-ja:chapter06-exercise003:b0153','modern-yabejp-ja:chapter06-exercise003:b0169'].includes(b.id)).flatMap(b=>b.images??[]).map(i=>i.assetId):[]);
+@@ -552 +554 @@
+- receipt.inheritedBatchReviews=parentNotes.batchReviews.filter(x=>!r.groupRevision.groups.includes(x.group.batchId)).map(x=>({group:x.group,status:x.status,checkpoint:x.checkpoint,parentReceiptPath:r.notesPath,parentReceiptSha256:r.notesSha256}));
++ receipt.inheritedBatchReviews=[...parentNotes.batchReviews,...(continuationScope(r)?parentNotes.inheritedBatchReviews??[]:[])].filter(x=>!r.groupRevision.groups.includes(x.group.batchId)).map(x=>({group:x.group,status:x.status,checkpoint:x.checkpoint,parentReceiptPath:r.notesPath,parentReceiptSha256:r.notesSha256}));
+@@ -565,0 +568,11 @@
++ if(r.parentSha256===continuationParent){
++  if(!continuationScope(r)||r.notesSha256!==continuationNotes||notes.status!=='needs-repair'||!same(notes.deterministicChecks,checks)||!same(notes.independentSource,independentSource)||!same(notes.source,parent.source))throw Error('continuation_parent_binding');
++  const validated=await verifyGroupRevisionAudit(root,bound(root,r.parentPath));
++  if(validated.auditSha256!==continuationNotes)throw Error('continuation_parent_review');
++  const production=await verifyWebProductionCall(root,parent),presentation=await verifyWebPresentations(root,parent);
++  if(!same(production,notes.productionCall)||!same(presentation,notes.presentation??null))throw Error('continuation_parent_production');
++  verifyGroupRevisionContent(candidate,parent,notes);continuationIssueScope(notes,r);
++  const {groups}=await readVerifiedAuditBatchPlan(root,parent);
++  const inheritedAssetIds=[...new Set(parent.figures.flatMap(f=>f.sourceAssetBindings.map(a=>a.assetId)))];
++  return {revision:r,parentAudit:{path:r.notesPath,sha256:r.notesSha256,originalStatus:notes.status},batchParent:{method:'exact-verified-group-revision-parent',groups:groups.map(g=>g.batchId),parentSha256:r.parentSha256,parentAuditSha256:validated.auditSha256},inheritedAssetIds,groups,revisedGroups:groups.filter(g=>r.groupRevision.groups.includes(g.batchId))};
++ }
+@@ -624,0 +638,21 @@
++
++// Fixed COAC-269 continuation; no new authorization for other parents or targets.
++const continuationParent="b2417de19a50ec85609f75a4e07f07e002cf636785e1427948c06000a0967c2f",continuationNotes="d7c8b54d6b4bef37a4c6c0a97b88831a551ce4be8eb938fe51823a9ea1e401df",continuationTargets=["modern-yabejp-ja:chapter06-exercise003:b0396","modern-yabejp-ja:chapter06-exercise003:b0962"],continuationGroups=["chapter06-exercise003-batch-004","chapter06-exercise003-batch-009"],continuationIssueGroups={"ebc185ca1cdb9cbc960fa244aebb327c614eff2de9a32a2fdb4d40e005b8ffa3":"chapter06-exercise003-batch-001","01dde9804888dc311fbe9ebfc3ca747dcc7463fe945752d2b530b34663c4cbd6":"chapter06-exercise003-batch-002","436b899a4562361e876abd0136d9f0c088c05b492e22fcea94b73467389a3886":"chapter06-exercise003-batch-003","e64b38ad0f1b35a0ac42e77cf1ef7ffad33588f0a918885a180bed0798c7328d":"chapter06-exercise003-batch-003","c0e2e07e9a0ec7f3e18a2eaac002025b3f3a82b50d42dfc335892dd0dc5bd880":"chapter06-exercise003-batch-003","c31ac57262de40b3b035f3ad062b6e050c86743e2fcf567011600a655baeacf6":"chapter06-exercise003-batch-004","ef68b9277f648ef0096cf407ca8857af8c420ba28d2032aab215eea2540061e4":"chapter06-exercise003-batch-005","99d6ea21d837d54dd3d9520de49feb7ef6c39a722257fac5088c2951738354cf":"chapter06-exercise003-batch-006","feed6d512d4fec8d15f46265c3473629c7553adb1adeff4fece490eadfac4acb":"chapter06-exercise003-batch-007","20d6f61af624a83fef7882e3fd9da39449b16b4c92edff67f3fd9134fe66d085":"chapter06-exercise003-batch-007","d3c5278fc47e6d40b97380a3386e039632af2ad3b4eb806f7113e3ef708de019":"chapter06-exercise003-batch-007","44d8dcbb0b947b5bcaa97f4ac9587c0ab9c1519d7e30c13af91a96eb82522b80":"chapter06-exercise003-batch-007","6eefa362aa4eff0b8a6c01124327671789207b6fc7fa45d8a7f6a08f74953c54":"chapter06-exercise003-batch-008","e6be649aaee9e4da2c0e399415841c68d7923ce7f186151584a2b7c346d2ae89":"chapter06-exercise003-batch-009","6cd3acb48f43e89ddeb0fb6401683764e4be22e446d99b8e8d47171339b8c21c":"chapter06-exercise003-batch-009","1d779179f2e8f5fdee2c3b4ec9f6998e5016876e0714ccd447aab3c8f9260eab":"chapter06-exercise003-batch-009","6073a735d8306cdca382542f31cdb1359d2af7c8d8a7ff93caf8dfc5c496dc3d":"chapter06-exercise003-batch-009","0b64e1ce9aae098f34994eaefe07f7676d1f399accb2a295da8d5794b8fe211e":"chapter06-exercise003-batch-009","a9f6001a46e729e44587190fbffd36f7e9cd9b0762f898cbf9f27517c4df6b8f":"chapter06-exercise003-batch-011"};
++function continuationScope(r){return r?.parentSha256===continuationParent&&r.notesSha256===continuationNotes&&same(r.textBlockIds,continuationTargets)&&same(r.figureIds,[])&&same(r.groupRevision?.groups,continuationGroups);}
++function continuationIssueScope(notes,revision){
++ if(!continuationScope(revision))throw Error('continuation_exact_scope');
++ const issues=notes.modelReview.issues.filter(i=>i.severity!=='source-note'),deferred=revision.groupRevision.deferred;
++ const expected=issues.filter(i=>!continuationTargets.includes(i.targetId)).map(i=>({batchId:continuationIssueGroups[sha(JSON.stringify(i))],targetId:i.targetId,severity:i.severity,issueSha256:sha(JSON.stringify(i))}));
++ if(continuationTargets.some(id=>!issues.some(i=>i.targetId===id&&i.severity==='error'))||expected.some(i=>!i.batchId)||!Array.isArray(deferred)||deferred.length!==expected.length||new Set(deferred.map(d=>d.issueSha256)).size!==expected.length||expected.some(i=>!deferred.some(d=>['batchId','targetId','severity','issueSha256'].every(k=>d[k]===i[k]))))throw Error('continuation_deferred_findings');
++ return true;
++}
++
++async function readVerifiedAuditBatchPlan(root,candidate){
++ if(candidate.candidateSha256==='ee3fc67ae880c68bb2c318acd807bad72bbffa53f72b4128e299cc6bdd466873'&&candidate.provenance.revision?.parentSha256==='dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899'){
++  const bytes=await readFile(bound(root,candidate.provenance.revision.parentPath));
++  if(sha(bytes)!==candidate.provenance.revision.parentSha256)throw Error('continuation_original_plan_parent');
++  const original=JSON.parse(bytes);if(!same(original.provenance.batches,candidate.provenance.batches))throw Error('continuation_original_plan_changed');
++  return readVerifiedOriginalAuditBatchPlan(root,original);
++ }
++ return readVerifiedOriginalAuditBatchPlan(root,candidate);
++}

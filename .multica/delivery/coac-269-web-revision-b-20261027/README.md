@@ -3,15 +3,16 @@
 Ticket-local evidence bundle for the Multica ticket `COAC-269` (line B of the parallel editing split
 authorised 2026-10-27T09:23Z). Shared code, the unified register, selection and pointers were not modified.
 
-Current state after the 2026-10-28 COAC-249 b0168 return: **target passed; whole chapter still
-needs-repair / unaccepted**. Exactly one `或` was inserted after `摸入宝牌`; the other 1194 blocks
-and 524 figures retain their parent content and order. The independent first target checkpoint
-passed with the two original Q12 images actually supplied to terra/max. The separate allowance
-is now **1 production + 1 audit = 2/2, remaining 0, retry 0**. This return-registration run adds
-zero model calls. The ticket remains in_progress while the existing 244/250 owners aggregate
-the scoped evidence; no new dispatch was created here. See Batch 17 for the current result.
-Q8 and other non-target findings remain; six-table evidence belongs to its separate candidate
-and branch and must not be overwritten with this full candidate.
+Current state: **b0396/b0962 produced in one candidate; first target audits pending with249**.
+Candidate `00074d1c…09cbe2` extends the actual `b2417de1…967c2f` parent. Only the two exact
+texts changed; other1193 blocks,524 figures,tableContext and b0168 retain their parent content
+and order. The separate allowance has used **2 production /0 audit here, maximum4, two first
+audits reserved, retry0**. See Batch18 for its SHA, real calls and handoff.
+
+b0168's earlier independent pass remains valid and its separate **2/2** allowance is exhausted
+(Batch17). Six-table and Q8 accepted supplements are inherited by unchanged scope hashes with
+their original limits, without re-review. The whole chapter remains needs-repair/unaccepted;
+the ticket remains in_progress. No full-candidate branch override or formal active change occurred.
 
 Earlier 183/236 outcomes remain unchanged: 183's full-context target-text re-review **passed**
 and was handed to COAC-250, without claiming integration acceptance here. 236 retains its original
@@ -1235,3 +1236,65 @@ no duplicate wakeup or consumer was created. Do not integrate this needs-repair 
 1195 blocks, reuse the exhausted allowance or change active. The received one-shot 269 wakeup
 was already disabled after firing. Prior 183/236/234 records and the Windows path repair remain
 unchanged. The whole ticket and book are not complete; textbook review is separate from PR review.
+
+## Batch18 — exact b0396/b0962 production on the b0168 candidate chain
+
+Authorization `01a17f45-77b4-7734-91bc-d2fbcc796af6` permits two text targets, each at most one
+production and one first independent target audit, maximum4 new calls, failed/void included,
+zero retry. Packets from244 commit `3e036cc` were SHA-checked. The real parent is `b2417de1…`,
+with aggregate `d7c8b54d…` and its actual passed b0168 checkpoint. This does not fork the old parent.
+
+New candidate `chapter06-exercise003.coac269t396962r1.json` SHA:
+`00074d1c55051aa61e463d466a3ae43c2e4c5a9967c3aa291996656d2e09cbe2`.
+
+| target | exact produced change | retained context |
+| --- | --- | --- |
+| b0396 | `选择进张宽的④。即使是失算的` → `选择进张宽的④。即使出现不利的` | Complete Q24,13 original PNGs; 5s/三色 and adjacent source/translation/image sequence unchanged |
+| b0962 | Two enumeration `、` characters between 立直/断幺九/平和 become fullwidth `＋` | Complete Q61,12 original PNGs; combination, alternative345三色 and both 染手 judgments unchanged |
+
+The existing producer/verifier requires one real raw per revised group. Groups004/009 ran
+sequentially within **one candidate**; a single call cannot legally substitute for two group raw
+records. No extra calls were made to use up the allowance.
+
+| production call | actual model/effort/images | input/cached/output | duration | raw SHA |
+| --- | --- | --- | --- | --- |
+| `c62e2ea9-2a46-4312-bb4d-8840d5c267e3` | terra/max/13 | 54291/0/160 | 26586ms | `8fe5f41c5617129a61eaafad08d0d10bd54ff22c49b9a13191351993073fe801` |
+| `afb88d4f-143c-4fcc-a2be-204d577d7019` | terra/max/12 | 55801/0/243 | 33498ms | `8ee9cb6cdddcffa902d12df62cf53e8f7ff1cbd9dfe7fe4e53a8060d82c9ff21` |
+
+Total **110092 input/0 cached/403 output**,60084ms summed call duration. Production used2,
+audit0 here, only two first target audits remain. Both calls completed;0retry/0failed/0void.
+Fees, upstream execution count and remote weights are unknown. Maker-B and claim released normally.
+
+Runtime `coac269-283-396962-v1-20261028` manifest SHA:
+`f3823e2c50caf5248bc7757eb07c4b3cb363b5b4606505458e44817d7d3f47d3`.
+CLI is byte-identical to244's verified vision-production-schema-v2; provider/credentials/gateway
+unchanged. Actual prompt/schema use only the exact per-target contract, with no generic retranslation
+or Markdown instruction. Output is checked before assignment, full candidate whitelist before writing,
+and frozen dependency/source/parent/audit/image SHA plus STOP before each dispatch.
+
+The old group entry rejects an incremental parent and non-target errors in a revised group. The
+minimal continuation is bound only to this exact parent/audit and two IDs/groups. It validates the
+real parent production/raw and b0168 independent checkpoint, follows the original eleven-group
+chain and verified plan, and defers every other original issue by SHA. No fabricated full-parent
+receipt or severity change. Other scopes keep their old rejection. Future review inherits nine
+unchanged groups, including b0168 and batch010's113 passed blocks;14 original non-target issues
+remain in the raw deferred list. Separately accepted table/Q8 proofs retain their bindings and limits.
+
+`node preflight.mjs` passed **32 zero-call checks**: old-entry refusal, real full parent chain,
+missing/modified/duplicate deferred refusal, wrong parent/foreign targets, stale text, punctuation,
+Markdown, extra output, non-target text/figure/order/tableContext changes, and both actual schema-v2
+request constructions with13/12 images. Early plan-loader and reused request-output-folder errors
+were fixed before dispatch with0model calls. `python run.py` ran once,exit0. `node selfcheck.mjs`
+passed actual raw/ledger/request/output bindings, two changed/1193 unchanged blocks, all524 figures,
+b0168 preservation, review-request construction, table scope identity and Q8 receipt/raw/limits
+inheritance. Source, old candidate/raw/audit and old frozen files were not rewritten.
+
+Handoff `integration/coac269-283-396962-handoff-249-20261028.json` SHA:
+`de65ecb2fb34c5213514e438796ae60f01a489232c53e5667cbcac2a119f7262`.
+Shared run-directory request boundaries avoid ephemeral worktree dependencies. Wakeup
+`01a17f51-13e0-730c-82ba-507b742ae1b8` queues the existing249 consumer only. It must deduplicate
+same-SHA raw/ledger/checkpoints, use its existing guard, and spend at most one first audit per group,
+terra/max with actual13/12 originals. Only b0396/b0962 are targets, no figure targets. After collection,
+same-runtime `verifyGroupRevisionAudit` validates target checkpoints and merge. Whole-chapter
+needs-repair refusal is preserved, not a transport failure/retry reason. Results go to269 and
+existing244/250 per-target aggregation. No independent pass or whole-chapter acceptance is claimed.

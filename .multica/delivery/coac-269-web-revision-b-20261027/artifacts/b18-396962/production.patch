@@ -1,0 +1,28 @@
+--- textbook-production-web.mjs
++++ 396962/textbook-production-web.mjs
+@@ -1,0 +2,2 @@
++import {exactRequest,validateExact,validateCandidate,assertFrozen} from './exact-request.mjs';
++import {verifyWebRevisionInheritance} from './textbook-audit-web.mjs';
+@@ -19 +21 @@
+-async function ensureDispatchAllowed(){for(const path of [join(runRoot,'STOP'),...(option('--stop-file')?[dataPath(option('--stop-file'))]:[])])if(await readFile(path).then(()=>true,e=>{if(e.code==='ENOENT')return false;throw e;}))throw Error('web_dispatch_stopped');}
++async function ensureDispatchAllowed(){await assertFrozen(option('--runtime-sha'));for(const path of [join(runRoot,'STOP'),...(option('--stop-file')?[dataPath(option('--stop-file'))]:[])])if(await readFile(path).then(()=>true,e=>{if(e.code==='ENOENT')return false;throw e;}))throw Error('web_dispatch_stopped');}
+@@ -142 +144 @@
+-const attempts=[];let usage=null;
++const requests=[];const attempts=[];let usage=null;
+@@ -158 +160 @@
+- const schema=webProductionSchema({textIds:ids,figureIds});
++ let schema=webProductionSchema({textIds:ids,figureIds});
+@@ -163 +165 @@
+- const prompt=[japanese?'Translate this complete Japanese textbook article into faithful Simplified Chinese. Preserve every argument, condition, exception, numerical expression, author modality and uncertainty. Do not summarize or strengthen claims.':'Preserve the existing Chinese article verbatim. Return translations:[] and transcribe only the explicitly requested original figure runs using all attached source images in their original order. Do not rewrite Chinese prose.',
++ let prompt=[japanese?'Translate this complete Japanese textbook article into faithful Simplified Chinese. Preserve every argument, condition, exception, numerical expression, author modality and uncertainty. Do not summarize or strengthen claims.':'Preserve the existing Chinese article verbatim. Return translations:[] and transcribe only the explicitly requested original figure runs using all attached source images in their original order. Do not rewrite Chinese prose.',
+@@ -171 +173,2 @@
+- if(option('--request-only')){const work=dataPath(option('--request-only'));await mkdir(work,{recursive:false});const request=await prepareTextbookCliRequest({prompt,schema,model:'gpt-6.1-sol',reasoningEffort:'high',images:visualInputs.map(a=>dataPath(a.path)),work});console.log(JSON.stringify({request,modelCalls:0,offlineConstructionOnly:true}));process.exit(0);}
++ const exact=exactRequest({ids,figureIds,revision,batch});prompt=exact.prompt;schema=exact.schema;visualInputs=exact.visualInputs;
++ if(option('--request-only')){const work=join(dataPath(option('--request-only')),batch.batchId);await mkdir(work,{recursive:true});const request=await prepareTextbookCliRequest({prompt,schema,model:'gpt-6.1-sol',reasoningEffort:'high',images:visualInputs.map(a=>dataPath(a.path)),work});requests.push({batchId:batch.batchId,prompt,schema,request,visualInputs});continue;}
+@@ -188,0 +192 @@
++ validateExact(call.output,ids);
+@@ -195,0 +200 @@
++if(option('--request-only')){console.log(JSON.stringify({requests,modelCalls:0}));process.exit(0);}
+@@ -204,0 +210,2 @@
++validateCandidate(candidate,parentCandidate);
++await verifyWebRevisionInheritance(processing,candidate);

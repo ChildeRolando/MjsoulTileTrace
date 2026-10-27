@@ -1,0 +1,114 @@
+{
+  "schema": "coach-web-group-revision-targets/1",
+  "parentSha256": "b2417de19a50ec85609f75a4e07f07e002cf636785e1427948c06000a0967c2f",
+  "sourceSha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de",
+  "groups": [
+    "chapter06-exercise003-batch-004",
+    "chapter06-exercise003-batch-009"
+  ],
+  "textBlockIds": [
+    "modern-yabejp-ja:chapter06-exercise003:b0396",
+    "modern-yabejp-ja:chapter06-exercise003:b0962"
+  ],
+  "figureIds": [],
+  "deferred": [
+    {
+      "batchId": "chapter06-exercise003-batch-001",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0099",
+      "severity": "uncertain",
+      "issueSha256": "ebc185ca1cdb9cbc960fa244aebb327c614eff2de9a32a2fdb4d40e005b8ffa3",
+      "reason": "outside the two exact authorized text targets; original finding retained"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-003",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]",
+      "severity": "error",
+      "issueSha256": "436b899a4562361e876abd0136d9f0c088c05b492e22fcea94b73467389a3886",
+      "reason": "outside the two exact authorized text targets; original finding retained"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-003",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[189]/table[21]",
+      "severity": "error",
+      "issueSha256": "e64b38ad0f1b35a0ac42e77cf1ef7ffad33588f0a918885a180bed0798c7328d",
+      "reason": "outside the two exact authorized text targets; original finding retained"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-003",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[209]/table[21]",
+      "severity": "error",
+      "issueSha256": "c0e2e07e9a0ec7f3e18a2eaac002025b3f3a82b50d42dfc335892dd0dc5bd880",
+      "reason": "outside the two exact authorized text targets; original finding retained"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-005",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0502",
+      "severity": "error",
+      "issueSha256": "ef68b9277f648ef0096cf407ca8857af8c420ba28d2032aab215eea2540061e4",
+      "reason": "outside the two exact authorized text targets; original finding retained"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-006",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+      "severity": "error",
+      "issueSha256": "99d6ea21d837d54dd3d9520de49feb7ef6c39a722257fac5088c2951738354cf",
+      "reason": "outside the two exact authorized text targets; original finding retained"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-007",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+      "severity": "error",
+      "issueSha256": "feed6d512d4fec8d15f46265c3473629c7553adb1adeff4fece490eadfac4acb",
+      "reason": "outside the two exact authorized text targets; original finding retained"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-007",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+      "severity": "error",
+      "issueSha256": "20d6f61af624a83fef7882e3fd9da39449b16b4c92edff67f3fd9134fe66d085",
+      "reason": "outside the two exact authorized text targets; original finding retained"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-007",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+      "severity": "uncertain",
+      "issueSha256": "d3c5278fc47e6d40b97380a3386e039632af2ad3b4eb806f7113e3ef708de019",
+      "reason": "outside the two exact authorized text targets; original finding retained"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-008",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[505]/table[23]",
+      "severity": "error",
+      "issueSha256": "6eefa362aa4eff0b8a6c01124327671789207b6fc7fa45d8a7f6a08f74953c54",
+      "reason": "outside the two exact authorized text targets; original finding retained"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-009",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+      "severity": "error",
+      "issueSha256": "e6be649aaee9e4da2c0e399415841c68d7923ce7f186151584a2b7c346d2ae89",
+      "reason": "outside the two exact authorized text targets; original finding retained"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-009",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+      "severity": "uncertain",
+      "issueSha256": "6cd3acb48f43e89ddeb0fb6401683764e4be22e446d99b8e8d47171339b8c21c",
+      "reason": "outside the two exact authorized text targets; original finding retained"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-009",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b1017",
+      "severity": "error",
+      "issueSha256": "6073a735d8306cdca382542f31cdb1359d2af7c8d8a7ff93caf8dfc5c496dc3d",
+      "reason": "outside the two exact authorized text targets; original finding retained"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-011",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b1181",
+      "severity": "error",
+      "issueSha256": "a9f6001a46e729e44587190fbffd36f7e9cd9b0762f898cbf9f27517c4df6b8f",
+      "reason": "outside the two exact authorized text targets; original finding retained"
+    }
+  ]
+}

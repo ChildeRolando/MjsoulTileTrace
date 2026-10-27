@@ -1,0 +1,15 @@
+269交现有249消费者：283下一两文字靶点已真实制作成同一候选，只消费原授权剩余两次首次目标独审，不另开消费者、不新制作、不挪额度。授权在269评论01a17f45-77b4-7734-91bc-d2fbcc796af6。
+
+根E:/AgentData/Coach/knowledge/processing。唯一交接integration/coac269-283-396962-handoff-249-20261028.json，SHA256 de65ecb2fb34c5213514e438796ae60f01a489232c53e5667cbcac2a119f7262。canonical nemata-jp-chapter-283-1；候选web-production/v1/candidates/modern-yabejp-ja/chapter06-exercise003.coac269t396962r1.json，SHA00074d1c55051aa61e463d466a3ae43c2e4c5a9967c3aa291996656d2e09cbe2。父是b2417de1，非旧dea1分叉。仅b0396『选择进张宽的④。即使出现不利的』和b0962『也有立直＋断幺九＋平和或345三色同顺的可能，因此不预先锁定染手。染手只考虑清一色就足够了。』发生精确替换；非靶1193块、524图、tableContext、b0168原修订与顺序保持。未手修候选/raw。
+
+冻结runtime audit/runtimes/coac269-283-396962-v1-20261028，runtime-manifest SHA f3823e2c50caf5248bc7757eb07c4b3cb363b5b4606505458e44817d7d3f47d3。每个文件摘要先重算，再import同目录textbook-audit-web.mjs。CLI逐字节继承244最新vision-production-schema-v2，实际有图必须terra/max，不改provider/凭据/网关/门禁，不回落。32项零调用入口/白名单/继承破坏拒绝已过；真实producer请求不再含通用重译/Markdown主指令，schema与输出guard限制精确expected，派前逐文件验冻结。两组必须各有真实raw，现有验真合同不能以一条伪组raw覆盖两组，故本次合法2制作、同1candidate，不为额度造调用。
+
+真实制作两次均terra/max：c62e2ea9-2a46-4312-bb4d-8840d5c267e3，13原PNG，54291in/0cache/160out、26586ms；afb88d4f-143c-4fcc-a2be-204d577d7019，12原PNG，55801in/0cache/243out、33498ms。真实raw/ledger/CLI请求参数/响应及SHA在交接。maker-B与claim正常释放。合计制作2/总4，首审在此0，仅余两组各1次首次独审；failed/void计、0retry。费用/远端权重/上游执行总数未知。
+
+先读当前票、已有同SHA全部ledger/raw/checkpoint/dispatch/guard，在途或终态不重复。用原audit guard、STOP/admission。标准入口auditWebCandidate，retryFailed=false；只groups004/b0396和009/b0962，每组唯一textId、figureIds=[]，原图13/12。review-requests.json在共享run目录、SHA绑定于handoff.reviewBoundary，不依赖私有工作树。实际reviewer prompt/schema须逐字段与该边界一致，图片只允许Windows分隔符别名且字节/SHA/顺序一致，入transport使用发布的images字符串；通过同一schema-v2 CLI实际解析terra/max。完整Q24/Q61、5s/三色条件与组合关系都在绑定上下文；其它组内上下文只继承，不新增审校范围。
+
+入口仅对此精确父b2417de1/原审d7c8b54d/两靶点允许继承已真实验真的增量父审；回溯到完整11组原始首审并验原生产/raw/当前b0168独审。其它同组error逐原issueSHA延后，14条原非靶问题不抹、不改severity；原scope/原runtime不改。新审中实际inheritedBatchReviews应为9组（包括b0168已pass组002及batch010113块），每个新checkpoint独立保留。六表与Q8的补证按handoff.inheritedEvidence核未改scope hash和原限制继承，不复审、不主控升级整章passed。
+
+两目标首次独审按实际checkpoint/预算收齐，任一失败保留raw并停止，不重派failed/void。全部目标即使passed，aggregate仍needs-repair；标准入口末尾通用verifyAuditForWebCandidate因此可能抛web_audit_not_passed_or_inputs_changed。此时不要误算运输失败或retry：收集已写标准审/checkpoint/raw，用同冻结模块verifyGroupRevisionAudit验原绑定/父链/合并结果，分别报告target与whole状态；原通用拒绝也保留。不伪造新passed收据、不改门禁。
+
+真实结果回269原授权线程，并交现有244/250逐目标阻断账，附各call/usage/耗时/审与raw SHA。禁止将本全稿覆盖其它分支、把needs-repair整章合库或切active。不重审六表/Q8/b0168/1195块，不派其它章。

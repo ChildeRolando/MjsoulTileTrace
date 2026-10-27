@@ -1,0 +1,329 @@
+{
+  "at": "2026-10-27T21:38:55.559740+00:00",
+  "chapterId": "nemata-jp-chapter-283-1",
+  "sourceId": "modern-yabejp-ja",
+  "articleId": "chapter06-exercise003",
+  "registerSha256": "af6085badf9466c74babe7d51698e2b5a33d3af27b8db51162a1a69a0943b65f",
+  "previewSha256": "eebea3ac861b606e01f0617b57d3a5cf8279287ff01a95e53616c95bd13fe90a",
+  "registerRow": {
+    "chapterId": "nemata-jp-chapter-283-1",
+    "originalChapterId": "nemata-jp-chapter-283-1",
+    "sourceId": "nemata-jp",
+    "title": "「鴉〃の麻雀解説」サイト問題",
+    "units": 1,
+    "ownedSourceBlocks": 1124,
+    "adjudicationGroup": "confirmed-produced-not-covered",
+    "covered": false,
+    "coverageRoute": null,
+    "approvedWebCorrespondence": {
+      "articleId": "chapter06-exercise003",
+      "webSourceId": "modern-yabejp-ja",
+      "tier": "url-header",
+      "evidencePath": "integration/modern-pdf-url-coverage.json",
+      "substitutionAllowed": true,
+      "bodyEquivalenceConfirmed": false,
+      "articleInPreview": false
+    },
+    "existingCandidate": {
+      "path": "web-production/v1/candidates/modern-yabejp-ja/chapter06-exercise003.rev1.json",
+      "sha256": "dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899",
+      "bodyBlocks": 1195,
+      "sourceSha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de",
+      "currentSourceSha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de",
+      "sourceBoundCurrent": true,
+      "auditStatus": "needs-repair",
+      "auditPath": "audit/web/articles/modern-yabejp-ja/chapter06-exercise003.dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899.json",
+      "auditRecordedAt": "2026-10-27T04:39:45.647Z",
+      "deterministicPassed": true,
+      "semanticComplete": false,
+      "repairErrors": 389,
+      "revision": null
+    },
+    "pdfRoute": {
+      "pagesTotal": 20,
+      "pagesWithCandidate": 0,
+      "pagesWithPassedCandidate": 0,
+      "missingPassedPages": [
+        283,
+        284,
+        285,
+        286,
+        287,
+        288,
+        289,
+        290,
+        291,
+        292,
+        293,
+        294,
+        295,
+        296,
+        297,
+        298,
+        299,
+        300,
+        301,
+        302
+      ],
+      "pagesDetail": [
+        {
+          "page": 283,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 48
+        },
+        {
+          "page": 284,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 54
+        },
+        {
+          "page": 285,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 58
+        },
+        {
+          "page": 286,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 76
+        },
+        {
+          "page": 287,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 62
+        },
+        {
+          "page": 288,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 59
+        },
+        {
+          "page": 289,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 66
+        },
+        {
+          "page": 290,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 61
+        },
+        {
+          "page": 291,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 73
+        },
+        {
+          "page": 292,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 78
+        },
+        {
+          "page": 293,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 64
+        },
+        {
+          "page": 294,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 30
+        },
+        {
+          "page": 295,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 27
+        },
+        {
+          "page": 296,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 68
+        },
+        {
+          "page": 297,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 58
+        },
+        {
+          "page": 298,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 24
+        },
+        {
+          "page": 299,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 65
+        },
+        {
+          "page": 300,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 65
+        },
+        {
+          "page": 301,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 58
+        },
+        {
+          "page": 302,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 30
+        }
+      ]
+    },
+    "gaps": {
+      "ownedSourceBlocks": 1124,
+      "missingProductionBlocks": 0,
+      "producedBlocks": 1124,
+      "acceptedBlocks": 0,
+      "acceptanceGapBlocks": 1124,
+      "acceptanceGapPages": [
+        283,
+        284,
+        285,
+        286,
+        287,
+        288,
+        289,
+        290,
+        291,
+        292,
+        293,
+        294,
+        295,
+        296,
+        297,
+        298,
+        299,
+        300,
+        301,
+        302
+      ],
+      "pagesWithoutCandidate": [],
+      "pagesWithoutPassedCandidate": [
+        283,
+        284,
+        285,
+        286,
+        287,
+        288,
+        289,
+        290,
+        291,
+        292,
+        293,
+        294,
+        295,
+        296,
+        297,
+        298,
+        299,
+        300,
+        301,
+        302
+      ]
+    },
+    "verdict": "produced-needs-repair",
+    "coac246": {
+      "action": "audit-first",
+      "auditStatus": "no-receipt",
+      "candidateSha256": "fcde9f00cb9433bb5dec6a47d688ea7abb0c919c0aa2dac3012fd080d32a5893",
+      "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter06-exercise003.display.json",
+      "repairErrors": 0,
+      "units": 1,
+      "blocks": 1124
+    }
+  },
+  "selectedWeb": [],
+  "selectedPdf": [],
+  "boundPassedAlternatives": [],
+  "claim": {
+    "ok": true,
+    "action": "check-chapter",
+    "chapter": "nemata-jp-chapter-283-1",
+    "held": false
+  },
+  "existingCandidateNames": [
+    "chapter06-exercise003.coac269b0168r1.json",
+    "chapter06-exercise003.display.json",
+    "chapter06-exercise003.rev1.json",
+    "chapter06-exercise003.rev2.json"
+  ],
+  "priorCallIds": [
+    "edde72bb-7987-46a8-b362-498d0d749868",
+    "26d38123-094b-44a5-88d7-53d608b87960",
+    "db32f7fc-73ab-4d74-8919-87afb9e60863",
+    "a9e7c7a3-a0af-4f37-841d-34c2df4e097a",
+    "5966a551-45d4-4351-a554-8f2a0d1e6426",
+    "4b534fa9-8c63-428f-abb6-5f9b932d7242",
+    "d43a772e-04c1-4b41-8218-e5b5aaf89759",
+    "8d3c1107-28c5-466d-aaa3-9a1a9ec4e344",
+    "3bef5439-b6f8-46f9-a143-08a0e3072492",
+    "f0c50fbe-dad3-4f19-a861-a3286297f4f2",
+    "3cf40820-e956-463d-abb3-c7a5fb494c11",
+    "d5f1d601-b903-4b65-996f-da116c797bdf",
+    "bde14ceb-9a49-4592-b7aa-d0cfb64edc40",
+    "60ef6955-a6a3-4023-9853-01cd4da13bc2",
+    "9f557ee3-0c5e-4b7e-9f17-013466f46aa3",
+    "fafc75a7-a3fb-4db5-b899-aa4ae346fa0c",
+    "7d06f4c7-bcec-40db-bfcd-4091b6716707",
+    "ae79bc97-e5d0-426c-9845-4c5a1bd17135"
+  ]
+}
