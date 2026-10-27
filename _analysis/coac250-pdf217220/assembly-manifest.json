@@ -1,0 +1,1163 @@
+{
+  "schema": "coac247-pdf217220-assembly-manifest/1",
+  "recordedAt": "2026-10-27T21:34:52.395272+00:00",
+  "authorization": "01a17f40-6763-7798-962f-3cb57c087f11",
+  "chapterId": "79-cn-chapter-217-4",
+  "ownership": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\source-block-ownership.json",
+    "sha256": "dd17f7e88c24afaecef4f500f6d23a5f07cb9c2e1d2bb4f8041f2498aebadf60"
+  },
+  "chapterMap": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\chapter-map.json",
+    "sha256": "d38bbd1a72defef709f4e2f336b3447e4fc677183b88b7e8d6aa050258017a8e"
+  },
+  "pages": [
+    {
+      "page": 217,
+      "source": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\79-cn\\pages\\217.json",
+        "sha256": "f8de2eddd4ba2939ae40796ffd8d1d1f971d49474dede72d108e61809ef1d6f8"
+      },
+      "pdfSha256": "92969578b06cd5dbcc6970fe02803a78531455ce49b0f347e6869f19c694f482",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\page-0217.rev6.json",
+        "sha256": "a3b8eaf8576355b0d4737cd57e1bb49a1db1ceb3a5943ff992630aed9da5cd54"
+      },
+      "sourceBlockOwnership": [
+        {
+          "sourceId": "79-cn",
+          "page": 217,
+          "sourceBlockId": "79-cn-p217-b1",
+          "chapterId": "79-cn-chapter-215-4",
+          "unitId": "79-cn-chapter-215-4-unit-1"
+        },
+        {
+          "sourceId": "79-cn",
+          "page": 217,
+          "sourceBlockId": "79-cn-p217-b3",
+          "chapterId": "79-cn-chapter-215-4",
+          "unitId": "79-cn-chapter-215-4-unit-1"
+        },
+        {
+          "sourceId": "79-cn",
+          "page": 217,
+          "sourceBlockId": "79-cn-p217-b4",
+          "chapterId": "79-cn-chapter-217-4",
+          "unitId": "79-cn-chapter-217-4-unit-1"
+        },
+        {
+          "sourceId": "79-cn",
+          "page": 217,
+          "sourceBlockId": "79-cn-p217-b5",
+          "chapterId": "79-cn-chapter-217-4",
+          "unitId": "79-cn-chapter-217-4-unit-1"
+        },
+        {
+          "sourceId": "79-cn",
+          "page": 217,
+          "sourceBlockId": "79-cn-p217-b8",
+          "chapterId": "79-cn-chapter-217-4",
+          "unitId": "79-cn-chapter-217-4-unit-1"
+        },
+        {
+          "sourceId": "79-cn",
+          "page": 217,
+          "sourceBlockId": "79-cn-p217-b6",
+          "chapterId": "79-cn-chapter-217-4",
+          "unitId": "79-cn-chapter-217-4-unit-1"
+        },
+        {
+          "sourceId": "79-cn",
+          "page": 217,
+          "sourceBlockId": "79-cn-p217-b7",
+          "chapterId": "79-cn-chapter-217-4",
+          "unitId": "79-cn-chapter-217-4-unit-1"
+        },
+        {
+          "sourceId": "79-cn",
+          "page": 217,
+          "sourceBlockId": "79-cn-p217-b2",
+          "chapterId": "79-cn-chapter-217-4",
+          "unitId": "79-cn-chapter-217-4-unit-1"
+        }
+      ],
+      "chapterSourceBlockIds": [
+        "79-cn-p217-b4",
+        "79-cn-p217-b5",
+        "79-cn-p217-b8",
+        "79-cn-p217-b6",
+        "79-cn-p217-b7",
+        "79-cn-p217-b2"
+      ],
+      "excludedOtherChapterBlocks": [
+        {
+          "sourceId": "79-cn",
+          "page": 217,
+          "sourceBlockId": "79-cn-p217-b1",
+          "chapterId": "79-cn-chapter-215-4",
+          "unitId": "79-cn-chapter-215-4-unit-1"
+        },
+        {
+          "sourceId": "79-cn",
+          "page": 217,
+          "sourceBlockId": "79-cn-p217-b3",
+          "chapterId": "79-cn-chapter-215-4",
+          "unitId": "79-cn-chapter-215-4-unit-1"
+        }
+      ],
+      "fullPhysicalPageSourceBlocks": 8,
+      "chapterSourceBlocks": 6,
+      "status": "limited-paired-supplement-accepted-not-full-page-pass",
+      "audit": {
+        "fullPagePassed": false,
+        "independentReceipts": [],
+        "limitedProof": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-p217-limited-evidence-intake-20261028.json",
+          "sha256": "0e54db4df67954e24e339a20ab5c7db1bdd0d92b23b5edee4a0355259279a6e2"
+        },
+        "consistencyProof": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-p217-evidence-consistency-20261028.json",
+          "sha256": "7c3777799cc164f7d46d7872d4e415c10e4357d194ee481c9cffc4b08d87474b"
+        },
+        "recognitionOrImpactReauditRequired": false
+      },
+      "production": {
+        "mode": "retained-original-parent-and-raw-chain",
+        "parent": {
+          "path": "integration/coac248-p217-admitted-20261028/evidence/parent/page-0217.json",
+          "sha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777",
+          "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair26-20261027-p217e\\candidates\\79-cn\\page-0217.json"
+        },
+        "evidence": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028.json",
+          "sha256": "f4b7983a77deb15932119c2a30f3806bf29e18f0910c1004d40e4c27417e124e"
+        },
+        "newCallsThisTurn": 0
+      },
+      "sourceImages": [
+        {
+          "sourceBlockId": "79-cn-p217-b8",
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978.png",
+          "sha256": "64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978"
+        }
+      ],
+      "chapterBlockEvidence": [
+        {
+          "sourceBlockId": "79-cn-p217-b4",
+          "type": "text",
+          "status": "retained-not-new-full-pass"
+        },
+        {
+          "sourceBlockId": "79-cn-p217-b5",
+          "type": "text",
+          "status": "retained-not-new-full-pass"
+        },
+        {
+          "sourceBlockId": "79-cn-p217-b8",
+          "type": "image",
+          "status": "paired-limited-proof"
+        },
+        {
+          "sourceBlockId": "79-cn-p217-b6",
+          "type": "text",
+          "status": "retained-not-new-full-pass"
+        },
+        {
+          "sourceBlockId": "79-cn-p217-b7",
+          "type": "text",
+          "status": "retained-not-new-full-pass"
+        },
+        {
+          "sourceBlockId": "79-cn-p217-b2",
+          "type": "text",
+          "status": "retained-not-new-full-pass"
+        }
+      ]
+    },
+    {
+      "page": 218,
+      "source": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\79-cn\\pages\\218.json",
+        "sha256": "83d1909e9e92a9622c46c9ba0ea46efca12bef60cb27ec5b35d72fcbd8f92abd"
+      },
+      "pdfSha256": "92969578b06cd5dbcc6970fe02803a78531455ce49b0f347e6869f19c694f482",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\candidates\\79-cn\\page-0218.json",
+        "sha256": "9ff64a457dec1368924a4f431d3a8d89278151d339bb74a07df1d749f882c8e6"
+      },
+      "sourceBlockOwnership": [
+        {
+          "sourceId": "79-cn",
+          "page": 218,
+          "sourceBlockId": "79-cn-p218-b1",
+          "chapterId": "79-cn-chapter-217-4",
+          "unitId": "79-cn-chapter-217-4-unit-1"
+        },
+        {
+          "sourceId": "79-cn",
+          "page": 218,
+          "sourceBlockId": "79-cn-p218-b3",
+          "chapterId": "79-cn-chapter-217-4",
+          "unitId": "79-cn-chapter-217-4-unit-1"
+        },
+        {
+          "sourceId": "79-cn",
+          "page": 218,
+          "sourceBlockId": "79-cn-p218-b5",
+          "chapterId": "79-cn-chapter-217-4",
+          "unitId": "79-cn-chapter-217-4-unit-1"
+        },
+        {
+          "sourceId": "79-cn",
+          "page": 218,
+          "sourceBlockId": "79-cn-p218-b4",
+          "chapterId": "79-cn-chapter-217-4",
+          "unitId": "79-cn-chapter-217-4-unit-1"
+        },
+        {
+          "sourceId": "79-cn",
+          "page": 218,
+          "sourceBlockId": "79-cn-p218-b2",
+          "chapterId": "79-cn-chapter-217-4",
+          "unitId": "79-cn-chapter-217-4-unit-1"
+        }
+      ],
+      "chapterSourceBlockIds": [
+        "79-cn-p218-b1",
+        "79-cn-p218-b3",
+        "79-cn-p218-b5",
+        "79-cn-p218-b4",
+        "79-cn-p218-b2"
+      ],
+      "excludedOtherChapterBlocks": [],
+      "fullPhysicalPageSourceBlocks": 5,
+      "chapterSourceBlocks": 5,
+      "status": "unreviewed-first-review-reserved",
+      "audit": {
+        "fullPagePassed": false,
+        "independentReceipts": [],
+        "verification": null,
+        "maximumFirstReviewCalls": 1,
+        "retry": 0
+      },
+      "production": {
+        "mode": "new-complete-page-candidate",
+        "parent": null,
+        "raw": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\raw-calls\\8f62e4bc-859f-4b0d-bc64-d21231a95d5e.json",
+          "sha256": "63f1312e36fc85b3944b33a3db10441ed7587f540237328ae0970c87f56321d8",
+          "callId": "8f62e4bc-859f-4b0d-bc64-d21231a95d5e"
+        },
+        "call": {
+          "model": "gpt-6.1-terra",
+          "reasoningEffort": "max",
+          "usage": {
+            "inputTokens": 21023,
+            "cachedInputTokens": 0,
+            "outputTokens": 19609
+          },
+          "requestExecution": {
+            "schema": "coach-textbook-cli-request/1",
+            "policy": "coac244-vision-production-schema-v2-20261028",
+            "model": "gpt-6.1-terra",
+            "reasoningEffort": "max",
+            "callerRequested": {
+              "model": "gpt-6.1-terra",
+              "reasoningEffort": "max"
+            },
+            "args": [
+              "exec",
+              "--model",
+              "gpt-6.1-terra",
+              "--config",
+              "model_reasoning_effort=\"max\"",
+              "--config",
+              "web_search=\"disabled\"",
+              "--ephemeral",
+              "--ignore-user-config",
+              "--ignore-rules",
+              "--sandbox",
+              "read-only",
+              "--strict-config",
+              "--skip-git-repo-check",
+              "--json",
+              "--output-schema",
+              "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-jbkQZk\\output.schema.json",
+              "--output-last-message",
+              "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-jbkQZk\\final.json",
+              "--cd",
+              "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-jbkQZk",
+              "-i",
+              "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\renders\\79-cn\\page-0218.png",
+              "-i",
+              "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\renders\\79-cn\\page-0218-r1.png",
+              "--disable",
+              "apps",
+              "--disable",
+              "auth_elicitation",
+              "--disable",
+              "browser_use",
+              "--disable",
+              "browser_use_external",
+              "--disable",
+              "browser_use_full_cdp_access",
+              "--disable",
+              "computer_use",
+              "--disable",
+              "fast_mode",
+              "--disable",
+              "goals",
+              "--disable",
+              "guardian_approval",
+              "--disable",
+              "hooks",
+              "--disable",
+              "image_generation",
+              "--disable",
+              "in_app_browser",
+              "--disable",
+              "in_app_chat",
+              "--disable",
+              "in_app_dictation",
+              "--disable",
+              "in_app_local_automation",
+              "--disable",
+              "in_app_updates",
+              "--disable",
+              "memories",
+              "--disable",
+              "mentions_v2",
+              "--disable",
+              "multi_agent",
+              "--disable",
+              "plugin_sharing",
+              "--disable",
+              "plugins",
+              "--disable",
+              "remote_plugin",
+              "--disable",
+              "shell_snapshot",
+              "--disable",
+              "shell_tool",
+              "--disable",
+              "skill_mcp_dependency_install",
+              "--disable",
+              "skill_search",
+              "--disable",
+              "sleep_tool",
+              "--disable",
+              "tool_call_mcp_elicitation",
+              "--disable",
+              "tool_suggest",
+              "--disable",
+              "unbounded_connection_retries",
+              "--disable",
+              "unified_exec",
+              "--disable",
+              "unified_exec_tty",
+              "--disable",
+              "view_image",
+              "--disable",
+              "workspace_dependencies",
+              "-"
+            ],
+            "images": [
+              {
+                "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\renders\\79-cn\\page-0218.png",
+                "sha256": "3e75b5d3b1b2ec946172d69419c5ef8a19acc2d61aa4a39daf844fb3ffc10efb",
+                "bytes": 260194
+              },
+              {
+                "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\renders\\79-cn\\page-0218-r1.png",
+                "sha256": "f0129fbfa6a40d950650da302f380ad8d640433c3295ce1d434bf0dcafbaab78",
+                "bytes": 88859
+              }
+            ],
+            "remoteBackend": "unverified; request arguments and returned events only"
+          }
+        },
+        "preflight": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\handoff-218.json",
+          "sha256": "2ed26bc5c2c1137f76edd34b94e51474bd87c20a3e22a4a95d4e21a8e0fc84bf"
+        },
+        "newCallsThisTurn": 0
+      },
+      "sourceImages": [
+        {
+          "sourceBlockId": "79-cn-p218-b5",
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\ba8ea48f2506c224d0272995ac4cc9e6fdfc4686c9b0dc88b11445b88eff19fe.png",
+          "sha256": "ba8ea48f2506c224d0272995ac4cc9e6fdfc4686c9b0dc88b11445b88eff19fe"
+        }
+      ],
+      "chapterBlockEvidence": [
+        {
+          "sourceBlockId": "79-cn-p218-b1",
+          "type": "text",
+          "status": "unreviewed-first-review-reserved"
+        },
+        {
+          "sourceBlockId": "79-cn-p218-b3",
+          "type": "text",
+          "status": "unreviewed-first-review-reserved"
+        },
+        {
+          "sourceBlockId": "79-cn-p218-b5",
+          "type": "image",
+          "status": "unreviewed-first-review-reserved"
+        },
+        {
+          "sourceBlockId": "79-cn-p218-b4",
+          "type": "text",
+          "status": "unreviewed-first-review-reserved"
+        },
+        {
+          "sourceBlockId": "79-cn-p218-b2",
+          "type": "text",
+          "status": "unreviewed-first-review-reserved"
+        }
+      ]
+    },
+    {
+      "page": 219,
+      "source": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\79-cn\\pages\\219.json",
+        "sha256": "27ae7567c1ba544cf5b5bdbf3a75abeb95e650c84ba9ce2114b2143340d99a28"
+      },
+      "pdfSha256": "92969578b06cd5dbcc6970fe02803a78531455ce49b0f347e6869f19c694f482",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\candidates\\79-cn\\page-0219.json",
+        "sha256": "4ed396279c5eff45b5c9d399f7950394ac1c36b0cc638b22f67d0f30fb03ff54"
+      },
+      "sourceBlockOwnership": [
+        {
+          "sourceId": "79-cn",
+          "page": 219,
+          "sourceBlockId": "79-cn-p219-b1",
+          "chapterId": "79-cn-chapter-217-4",
+          "unitId": "79-cn-chapter-217-4-unit-1"
+        },
+        {
+          "sourceId": "79-cn",
+          "page": 219,
+          "sourceBlockId": "79-cn-p219-b3",
+          "chapterId": "79-cn-chapter-217-4",
+          "unitId": "79-cn-chapter-217-4-unit-1"
+        },
+        {
+          "sourceId": "79-cn",
+          "page": 219,
+          "sourceBlockId": "79-cn-p219-b8",
+          "chapterId": "79-cn-chapter-217-4",
+          "unitId": "79-cn-chapter-217-4-unit-1"
+        },
+        {
+          "sourceId": "79-cn",
+          "page": 219,
+          "sourceBlockId": "79-cn-p219-b4",
+          "chapterId": "79-cn-chapter-217-4",
+          "unitId": "79-cn-chapter-217-4-unit-1"
+        },
+        {
+          "sourceId": "79-cn",
+          "page": 219,
+          "sourceBlockId": "79-cn-p219-b5",
+          "chapterId": "79-cn-chapter-217-4",
+          "unitId": "79-cn-chapter-217-4-unit-1"
+        },
+        {
+          "sourceId": "79-cn",
+          "page": 219,
+          "sourceBlockId": "79-cn-p219-b9",
+          "chapterId": "79-cn-chapter-217-4",
+          "unitId": "79-cn-chapter-217-4-unit-1"
+        },
+        {
+          "sourceId": "79-cn",
+          "page": 219,
+          "sourceBlockId": "79-cn-p219-b6",
+          "chapterId": "79-cn-chapter-217-4",
+          "unitId": "79-cn-chapter-217-4-unit-1"
+        },
+        {
+          "sourceId": "79-cn",
+          "page": 219,
+          "sourceBlockId": "79-cn-p219-b7",
+          "chapterId": "79-cn-chapter-217-4",
+          "unitId": "79-cn-chapter-217-4-unit-1"
+        },
+        {
+          "sourceId": "79-cn",
+          "page": 219,
+          "sourceBlockId": "79-cn-p219-b2",
+          "chapterId": "79-cn-chapter-217-4",
+          "unitId": "79-cn-chapter-217-4-unit-1"
+        }
+      ],
+      "chapterSourceBlockIds": [
+        "79-cn-p219-b1",
+        "79-cn-p219-b3",
+        "79-cn-p219-b8",
+        "79-cn-p219-b4",
+        "79-cn-p219-b5",
+        "79-cn-p219-b9",
+        "79-cn-p219-b6",
+        "79-cn-p219-b7",
+        "79-cn-p219-b2"
+      ],
+      "excludedOtherChapterBlocks": [],
+      "fullPhysicalPageSourceBlocks": 9,
+      "chapterSourceBlocks": 9,
+      "status": "unreviewed-first-review-reserved",
+      "audit": {
+        "fullPagePassed": false,
+        "independentReceipts": [],
+        "verification": null,
+        "maximumFirstReviewCalls": 1,
+        "retry": 0
+      },
+      "production": {
+        "mode": "new-complete-page-candidate",
+        "parent": null,
+        "raw": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\raw-calls\\717d547b-6aac-4e2a-8ef2-cccbbdcfdd07.json",
+          "sha256": "eb9c196deb5be95e2ffe0cddc654550ee6941d9387859389374f69c486ba3c55",
+          "callId": "717d547b-6aac-4e2a-8ef2-cccbbdcfdd07"
+        },
+        "call": {
+          "model": "gpt-6.1-terra",
+          "reasoningEffort": "max",
+          "usage": {
+            "inputTokens": 22618,
+            "cachedInputTokens": 0,
+            "outputTokens": 21732
+          },
+          "requestExecution": {
+            "schema": "coach-textbook-cli-request/1",
+            "policy": "coac244-vision-production-schema-v2-20261028",
+            "model": "gpt-6.1-terra",
+            "reasoningEffort": "max",
+            "callerRequested": {
+              "model": "gpt-6.1-terra",
+              "reasoningEffort": "max"
+            },
+            "args": [
+              "exec",
+              "--model",
+              "gpt-6.1-terra",
+              "--config",
+              "model_reasoning_effort=\"max\"",
+              "--config",
+              "web_search=\"disabled\"",
+              "--ephemeral",
+              "--ignore-user-config",
+              "--ignore-rules",
+              "--sandbox",
+              "read-only",
+              "--strict-config",
+              "--skip-git-repo-check",
+              "--json",
+              "--output-schema",
+              "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-mdKHrD\\output.schema.json",
+              "--output-last-message",
+              "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-mdKHrD\\final.json",
+              "--cd",
+              "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-mdKHrD",
+              "-i",
+              "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\renders\\79-cn\\page-0219.png",
+              "-i",
+              "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\renders\\79-cn\\page-0219-r1.png",
+              "-i",
+              "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\renders\\79-cn\\page-0219-r2.png",
+              "--disable",
+              "apps",
+              "--disable",
+              "auth_elicitation",
+              "--disable",
+              "browser_use",
+              "--disable",
+              "browser_use_external",
+              "--disable",
+              "browser_use_full_cdp_access",
+              "--disable",
+              "computer_use",
+              "--disable",
+              "fast_mode",
+              "--disable",
+              "goals",
+              "--disable",
+              "guardian_approval",
+              "--disable",
+              "hooks",
+              "--disable",
+              "image_generation",
+              "--disable",
+              "in_app_browser",
+              "--disable",
+              "in_app_chat",
+              "--disable",
+              "in_app_dictation",
+              "--disable",
+              "in_app_local_automation",
+              "--disable",
+              "in_app_updates",
+              "--disable",
+              "memories",
+              "--disable",
+              "mentions_v2",
+              "--disable",
+              "multi_agent",
+              "--disable",
+              "plugin_sharing",
+              "--disable",
+              "plugins",
+              "--disable",
+              "remote_plugin",
+              "--disable",
+              "shell_snapshot",
+              "--disable",
+              "shell_tool",
+              "--disable",
+              "skill_mcp_dependency_install",
+              "--disable",
+              "skill_search",
+              "--disable",
+              "sleep_tool",
+              "--disable",
+              "tool_call_mcp_elicitation",
+              "--disable",
+              "tool_suggest",
+              "--disable",
+              "unbounded_connection_retries",
+              "--disable",
+              "unified_exec",
+              "--disable",
+              "unified_exec_tty",
+              "--disable",
+              "view_image",
+              "--disable",
+              "workspace_dependencies",
+              "-"
+            ],
+            "images": [
+              {
+                "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\renders\\79-cn\\page-0219.png",
+                "sha256": "0a8f6a2e212c99e98fdd5cb45748c9294671a803e0bcd2ffc03e661dbcc9818c",
+                "bytes": 247975
+              },
+              {
+                "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\renders\\79-cn\\page-0219-r1.png",
+                "sha256": "dc78f87215c714a4cfa31d52b3210cab5085470f8c3d39fcd2b983d94fac9ca5",
+                "bytes": 37886
+              },
+              {
+                "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\renders\\79-cn\\page-0219-r2.png",
+                "sha256": "2cfbf465981738d76e953e8af2c3b08a186b5adaffcd9548b71fd1f3a7e7650c",
+                "bytes": 80354
+              }
+            ],
+            "remoteBackend": "unverified; request arguments and returned events only"
+          }
+        },
+        "preflight": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\handoff-219.json",
+          "sha256": "b1716fd8512c6e487aee6e24dee73ae89397b1ccb880268c2861af7a3aa2848f"
+        },
+        "newCallsThisTurn": 0
+      },
+      "sourceImages": [
+        {
+          "sourceBlockId": "79-cn-p219-b8",
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\bb1b953ba60612717c91165fac2fa3f3480400275422582347c83b27d835f98e.png",
+          "sha256": "bb1b953ba60612717c91165fac2fa3f3480400275422582347c83b27d835f98e"
+        },
+        {
+          "sourceBlockId": "79-cn-p219-b9",
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\e5a78b89436107a1281cea19f3224752f20e09c4106b883054909c03168a7dbf.png",
+          "sha256": "e5a78b89436107a1281cea19f3224752f20e09c4106b883054909c03168a7dbf"
+        }
+      ],
+      "chapterBlockEvidence": [
+        {
+          "sourceBlockId": "79-cn-p219-b1",
+          "type": "text",
+          "status": "unreviewed-first-review-reserved"
+        },
+        {
+          "sourceBlockId": "79-cn-p219-b3",
+          "type": "text",
+          "status": "unreviewed-first-review-reserved"
+        },
+        {
+          "sourceBlockId": "79-cn-p219-b8",
+          "type": "image",
+          "status": "unreviewed-first-review-reserved"
+        },
+        {
+          "sourceBlockId": "79-cn-p219-b4",
+          "type": "text",
+          "status": "unreviewed-first-review-reserved"
+        },
+        {
+          "sourceBlockId": "79-cn-p219-b5",
+          "type": "text",
+          "status": "unreviewed-first-review-reserved"
+        },
+        {
+          "sourceBlockId": "79-cn-p219-b9",
+          "type": "image",
+          "status": "unreviewed-first-review-reserved"
+        },
+        {
+          "sourceBlockId": "79-cn-p219-b6",
+          "type": "text",
+          "status": "unreviewed-first-review-reserved"
+        },
+        {
+          "sourceBlockId": "79-cn-p219-b7",
+          "type": "text",
+          "status": "unreviewed-first-review-reserved"
+        },
+        {
+          "sourceBlockId": "79-cn-p219-b2",
+          "type": "text",
+          "status": "unreviewed-first-review-reserved"
+        }
+      ]
+    },
+    {
+      "page": 220,
+      "source": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\79-cn\\pages\\220.json",
+        "sha256": "3df3b2ec7e9503cfe2916d831fcfee8773e3f9bc71c610705268dd2f56ea5450"
+      },
+      "pdfSha256": "92969578b06cd5dbcc6970fe02803a78531455ce49b0f347e6869f19c694f482",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf220-terra-20261028\\candidates\\79-cn\\page-0220.json",
+        "sha256": "49df5a1cdba1d14e8feaf19a2ce1ae41cfc690c0cfeb047e6e290e032ca2ceeb"
+      },
+      "sourceBlockOwnership": [
+        {
+          "sourceId": "79-cn",
+          "page": 220,
+          "sourceBlockId": "79-cn-p220-b1",
+          "chapterId": "79-cn-chapter-217-4",
+          "unitId": "79-cn-chapter-217-4-unit-1"
+        },
+        {
+          "sourceId": "79-cn",
+          "page": 220,
+          "sourceBlockId": "79-cn-p220-b3",
+          "chapterId": "79-cn-chapter-217-4",
+          "unitId": "79-cn-chapter-217-4-unit-1"
+        },
+        {
+          "sourceId": "79-cn",
+          "page": 220,
+          "sourceBlockId": "79-cn-p220-b4",
+          "chapterId": "79-cn-chapter-220-4",
+          "unitId": "79-cn-chapter-220-4-unit-1"
+        },
+        {
+          "sourceId": "79-cn",
+          "page": 220,
+          "sourceBlockId": "79-cn-p220-b5",
+          "chapterId": "79-cn-chapter-220-4",
+          "unitId": "79-cn-chapter-220-4-unit-1"
+        },
+        {
+          "sourceId": "79-cn",
+          "page": 220,
+          "sourceBlockId": "79-cn-p220-b6",
+          "chapterId": "79-cn-chapter-220-4",
+          "unitId": "79-cn-chapter-220-4-unit-1"
+        },
+        {
+          "sourceId": "79-cn",
+          "page": 220,
+          "sourceBlockId": "79-cn-p220-b9",
+          "chapterId": "79-cn-chapter-220-4",
+          "unitId": "79-cn-chapter-220-4-unit-1"
+        },
+        {
+          "sourceId": "79-cn",
+          "page": 220,
+          "sourceBlockId": "79-cn-p220-b7",
+          "chapterId": "79-cn-chapter-220-4",
+          "unitId": "79-cn-chapter-220-4-unit-1"
+        },
+        {
+          "sourceId": "79-cn",
+          "page": 220,
+          "sourceBlockId": "79-cn-p220-b10",
+          "chapterId": "79-cn-chapter-220-4",
+          "unitId": "79-cn-chapter-220-4-unit-1"
+        },
+        {
+          "sourceId": "79-cn",
+          "page": 220,
+          "sourceBlockId": "79-cn-p220-b8",
+          "chapterId": "79-cn-chapter-220-4",
+          "unitId": "79-cn-chapter-220-4-unit-1"
+        },
+        {
+          "sourceId": "79-cn",
+          "page": 220,
+          "sourceBlockId": "79-cn-p220-b2",
+          "chapterId": "79-cn-chapter-220-4",
+          "unitId": "79-cn-chapter-220-4-unit-1"
+        }
+      ],
+      "chapterSourceBlockIds": [
+        "79-cn-p220-b1",
+        "79-cn-p220-b3"
+      ],
+      "excludedOtherChapterBlocks": [
+        {
+          "sourceId": "79-cn",
+          "page": 220,
+          "sourceBlockId": "79-cn-p220-b4",
+          "chapterId": "79-cn-chapter-220-4",
+          "unitId": "79-cn-chapter-220-4-unit-1"
+        },
+        {
+          "sourceId": "79-cn",
+          "page": 220,
+          "sourceBlockId": "79-cn-p220-b5",
+          "chapterId": "79-cn-chapter-220-4",
+          "unitId": "79-cn-chapter-220-4-unit-1"
+        },
+        {
+          "sourceId": "79-cn",
+          "page": 220,
+          "sourceBlockId": "79-cn-p220-b6",
+          "chapterId": "79-cn-chapter-220-4",
+          "unitId": "79-cn-chapter-220-4-unit-1"
+        },
+        {
+          "sourceId": "79-cn",
+          "page": 220,
+          "sourceBlockId": "79-cn-p220-b9",
+          "chapterId": "79-cn-chapter-220-4",
+          "unitId": "79-cn-chapter-220-4-unit-1"
+        },
+        {
+          "sourceId": "79-cn",
+          "page": 220,
+          "sourceBlockId": "79-cn-p220-b7",
+          "chapterId": "79-cn-chapter-220-4",
+          "unitId": "79-cn-chapter-220-4-unit-1"
+        },
+        {
+          "sourceId": "79-cn",
+          "page": 220,
+          "sourceBlockId": "79-cn-p220-b10",
+          "chapterId": "79-cn-chapter-220-4",
+          "unitId": "79-cn-chapter-220-4-unit-1"
+        },
+        {
+          "sourceId": "79-cn",
+          "page": 220,
+          "sourceBlockId": "79-cn-p220-b8",
+          "chapterId": "79-cn-chapter-220-4",
+          "unitId": "79-cn-chapter-220-4-unit-1"
+        },
+        {
+          "sourceId": "79-cn",
+          "page": 220,
+          "sourceBlockId": "79-cn-p220-b2",
+          "chapterId": "79-cn-chapter-220-4",
+          "unitId": "79-cn-chapter-220-4-unit-1"
+        }
+      ],
+      "fullPhysicalPageSourceBlocks": 10,
+      "chapterSourceBlocks": 2,
+      "status": "unreviewed-first-review-reserved",
+      "audit": {
+        "fullPagePassed": false,
+        "independentReceipts": [],
+        "verification": null,
+        "maximumFirstReviewCalls": 1,
+        "retry": 0
+      },
+      "production": {
+        "mode": "new-complete-page-candidate",
+        "parent": null,
+        "raw": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf220-terra-20261028\\raw-calls\\2383d47a-bb25-4be0-9bd9-f70d92415fad.json",
+          "sha256": "50f5d455696cb74b2eec4a2cf3c06aa96456acc32c3d6395a8f009bbe04c2842",
+          "callId": "2383d47a-bb25-4be0-9bd9-f70d92415fad"
+        },
+        "call": {
+          "model": "gpt-6.1-terra",
+          "reasoningEffort": "max",
+          "usage": {
+            "inputTokens": 22355,
+            "cachedInputTokens": 0,
+            "outputTokens": 5324
+          },
+          "requestExecution": {
+            "schema": "coach-textbook-cli-request/1",
+            "policy": "coac244-vision-production-schema-v2-20261028",
+            "model": "gpt-6.1-terra",
+            "reasoningEffort": "max",
+            "callerRequested": {
+              "model": "gpt-6.1-terra",
+              "reasoningEffort": "max"
+            },
+            "args": [
+              "exec",
+              "--model",
+              "gpt-6.1-terra",
+              "--config",
+              "model_reasoning_effort=\"max\"",
+              "--config",
+              "web_search=\"disabled\"",
+              "--ephemeral",
+              "--ignore-user-config",
+              "--ignore-rules",
+              "--sandbox",
+              "read-only",
+              "--strict-config",
+              "--skip-git-repo-check",
+              "--json",
+              "--output-schema",
+              "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-wJ8h6Q\\output.schema.json",
+              "--output-last-message",
+              "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-wJ8h6Q\\final.json",
+              "--cd",
+              "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-wJ8h6Q",
+              "-i",
+              "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf220-terra-20261028\\renders\\79-cn\\page-0220.png",
+              "-i",
+              "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf220-terra-20261028\\renders\\79-cn\\page-0220-r1.png",
+              "-i",
+              "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf220-terra-20261028\\renders\\79-cn\\page-0220-r2.png",
+              "--disable",
+              "apps",
+              "--disable",
+              "auth_elicitation",
+              "--disable",
+              "browser_use",
+              "--disable",
+              "browser_use_external",
+              "--disable",
+              "browser_use_full_cdp_access",
+              "--disable",
+              "computer_use",
+              "--disable",
+              "fast_mode",
+              "--disable",
+              "goals",
+              "--disable",
+              "guardian_approval",
+              "--disable",
+              "hooks",
+              "--disable",
+              "image_generation",
+              "--disable",
+              "in_app_browser",
+              "--disable",
+              "in_app_chat",
+              "--disable",
+              "in_app_dictation",
+              "--disable",
+              "in_app_local_automation",
+              "--disable",
+              "in_app_updates",
+              "--disable",
+              "memories",
+              "--disable",
+              "mentions_v2",
+              "--disable",
+              "multi_agent",
+              "--disable",
+              "plugin_sharing",
+              "--disable",
+              "plugins",
+              "--disable",
+              "remote_plugin",
+              "--disable",
+              "shell_snapshot",
+              "--disable",
+              "shell_tool",
+              "--disable",
+              "skill_mcp_dependency_install",
+              "--disable",
+              "skill_search",
+              "--disable",
+              "sleep_tool",
+              "--disable",
+              "tool_call_mcp_elicitation",
+              "--disable",
+              "tool_suggest",
+              "--disable",
+              "unbounded_connection_retries",
+              "--disable",
+              "unified_exec",
+              "--disable",
+              "unified_exec_tty",
+              "--disable",
+              "view_image",
+              "--disable",
+              "workspace_dependencies",
+              "-"
+            ],
+            "images": [
+              {
+                "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf220-terra-20261028\\renders\\79-cn\\page-0220.png",
+                "sha256": "243a28953d91a6771cb2b8570b3be43590c856d16b7be4a0b43faaf2baf0a9a7",
+                "bytes": 238568
+              },
+              {
+                "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf220-terra-20261028\\renders\\79-cn\\page-0220-r1.png",
+                "sha256": "3d8e698263ec8c60f761ac20ed52b7023042d3ebc7e9257b356e46060acb8d52",
+                "bytes": 42633
+              },
+              {
+                "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf220-terra-20261028\\renders\\79-cn\\page-0220-r2.png",
+                "sha256": "7fe26042a73ca3e816607fe30b87c309bb9e2cabdd049894e274a132ea23baf5",
+                "bytes": 441886
+              }
+            ],
+            "remoteBackend": "unverified; request arguments and returned events only"
+          }
+        },
+        "preflight": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf220-terra-20261028\\handoff-220.json",
+          "sha256": "2cd070bab13d6b4bd74e727f7414ab06484a8a8e32211b475ed8237503e94c50"
+        },
+        "newCallsThisTurn": 1
+      },
+      "sourceImages": [
+        {
+          "sourceBlockId": "79-cn-p220-b9",
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\9b565b9f97e588d68d3f4be73629a449b2a2366e41fe320875f0ae828f2a700c.png",
+          "sha256": "9b565b9f97e588d68d3f4be73629a449b2a2366e41fe320875f0ae828f2a700c"
+        },
+        {
+          "sourceBlockId": "79-cn-p220-b10",
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\37fc0d4278f1e52bbaca957bb4e26cde50c15c094781287f154dd94336d2df16.png",
+          "sha256": "37fc0d4278f1e52bbaca957bb4e26cde50c15c094781287f154dd94336d2df16"
+        }
+      ],
+      "chapterBlockEvidence": [
+        {
+          "sourceBlockId": "79-cn-p220-b1",
+          "type": "text",
+          "status": "unreviewed-first-review-reserved"
+        },
+        {
+          "sourceBlockId": "79-cn-p220-b3",
+          "type": "text",
+          "status": "unreviewed-first-review-reserved"
+        }
+      ]
+    }
+  ],
+  "chapterSourceBlockIdsInCanonicalOwnershipOrder": [
+    "79-cn-p217-b4",
+    "79-cn-p217-b5",
+    "79-cn-p217-b8",
+    "79-cn-p217-b6",
+    "79-cn-p217-b7",
+    "79-cn-p217-b2",
+    "79-cn-p218-b1",
+    "79-cn-p218-b3",
+    "79-cn-p218-b5",
+    "79-cn-p218-b4",
+    "79-cn-p218-b2",
+    "79-cn-p219-b1",
+    "79-cn-p219-b3",
+    "79-cn-p219-b8",
+    "79-cn-p219-b4",
+    "79-cn-p219-b5",
+    "79-cn-p219-b9",
+    "79-cn-p219-b6",
+    "79-cn-p219-b7",
+    "79-cn-p219-b2",
+    "79-cn-p220-b1",
+    "79-cn-p220-b3"
+  ],
+  "uniqueChapterSourceBlocks": 22,
+  "sourcePartitionPassed": true,
+  "allPhysicalPagesHaveCompleteCandidates": true,
+  "wholeChapterPassed": false,
+  "previewEligible": false,
+  "pairedLimitedSupplement": {
+    "candidate": {
+      "path": "integration/coac248-p217-admitted-20261028/page-0217.rev6.json",
+      "sha256": "a3b8eaf8576355b0d4737cd57e1bb49a1db1ceb3a5943ff992630aed9da5cd54"
+    },
+    "projection": {
+      "path": "integration/coac248-p217-admitted-20261028/assembled-display.json",
+      "sha256": "982fda3554c0ec35425390968204fa4a9d6a5bf99afa15d8c3f02d9b3ba0d65e"
+    },
+    "figureId": "79-cn-p217-r1",
+    "sourceBlockId": "79-cn-p217-b8",
+    "sourceImage": {
+      "path": "integration/coac248-p217-admitted-20261028/evidence/image/64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978.png",
+      "sha256": "64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978",
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978.png"
+    },
+    "admission": {
+      "path": "audit/source-corrections/native-inline-field-corrections.p217.root-acceptance.json",
+      "sha256": "5fc316e8150c927e0c49bfb49b120a348040ee6c7707847984d585b8023cf8f7"
+    },
+    "consistencyProof": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-p217-evidence-consistency-20261028.json",
+      "sha256": "7c3777799cc164f7d46d7872d4e415c10e4357d194ee481c9cffc4b08d87474b"
+    },
+    "runtime": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\runtime-manifest.json",
+      "sha256": "e039ca388aefec50a88ee33f84f2d5fc41d70a82014282c701ba89652ba8eae9",
+      "files": 5
+    },
+    "requiredAnnotation": {
+      "sourceBlockId": "79-cn-p218-b3",
+      "afterCharacterOffset": 165,
+      "authorText": false,
+      "text": "【审校注（非原文）：图中北家舍牌第二行第一张及西家舍牌第二行第二张均为万子，数字未辨清。西家该数字不影响本段亲家染索、南场领先、无役愚形一向听、留两家切过的9饼、拆8万对子扣索及争取亲家未听下庄的六项论证；北家第一张的未知不妨碍总体扣牌说明。两处未知限制精确牌谱复原，不能据此确定相关万子的精确可见张数、余张、进张和安全度。原文“现在亲家应该还没有听牌吧”为推测，扣索是战术意图，不证明对手暗手、实际结局、打法绝对安全或最优。】"
+    },
+    "consumptionPolicy": "Consume the exact figure and mandatory non-author annotation together through the pinned exact correction gate. Neither alone is eligible. No whole-page/chapter passed claim.",
+    "unknownCount": 2,
+    "northSecond": "9m unchanged",
+    "recognitionTodoRequired": false,
+    "westImpactReviewRequired": false,
+    "limitedEvidenceAccepted": true,
+    "pageOrChapterPassed": false,
+    "anchorAuthorTextSha256": "beeb85a21f8aacfa2e61fc1094110985b04a081acd87876a48522fac7ee61a51"
+  },
+  "protected215": {
+    "coverage": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-215-coverage-20261028.json",
+      "sha256": "73e262d182c242720db40f67380cabdb16679b071a21942fdf712efce4f4b1fd"
+    },
+    "excludedPage217BlockIds": [
+      "79-cn-p217-b1",
+      "79-cn-p217-b3"
+    ],
+    "modified": false
+  },
+  "protected217BindingsVerified": 86,
+  "budget": {
+    "thisTurnMaximumProduction": 1,
+    "thisTurnProductionCalls": 1,
+    "thisTurnAuditCalls": 0,
+    "thisTurnReservedFirstReview220": 1,
+    "thisTurnMaximumTotal": 2,
+    "retainedFirstReview218": 1,
+    "retainedFirstReview219": 1,
+    "retry": 0,
+    "oldProduction218219Repeated": false
+  },
+  "assemblyOwner": "COAC-250",
+  "reviewOwner": "COAC-249",
+  "assemblyRules": [
+    "Use exactly the22 chapter-owned source blocks once; keep all10 page220 blocks in the source candidate, but select onlyb1/b3 for217-4.",
+    "Use corrected217 figure and the exact non-author annotation after218-b3 character165 together. Do not alter author text or fold this note into it.",
+    "Reuse same-SHA passed receipts; retain uncertain/needs-repair/pending states per page. All candidates existing is not a chapter pass.",
+    "Only250 may update shared selection/register/pointer. Complete chapter assembly and actual MCP/Arena readback remain required."
+  ],
+  "newModelCallsByThisManifest": 0,
+  "formalActiveChanged": false
+}
