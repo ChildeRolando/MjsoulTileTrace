@@ -3,11 +3,12 @@
 Ticket-local evidence bundle for the Multica ticket `COAC-269` (line B of the parallel editing split
 authorised 2026-10-27T09:23Z). Shared code, the unified register, selection and pointers were not modified.
 
-Current state: **b0396/b0962 produced in one candidate; first target audits pending with249**.
+Current state: **b0396/b0962 both passed their real first independent target audits with249**.
 Candidate `00074d1c…09cbe2` extends the actual `b2417de1…967c2f` parent. Only the two exact
 texts changed; other1193 blocks,524 figures,tableContext and b0168 retain their parent content
-and order. The separate allowance has used **2 production /0 audit here, maximum4, two first
-audits reserved, retry0**. See Batch18 for its SHA, real calls and handoff.
+and order. The separate allowance has used **2 production +2 independent first audits =4/4,
+remaining0, failed/void0, retry0**. This return registered evidence with **0 new model calls**.
+See Batch18 for production and Batch19 for the independent results and effective remaining view.
 
 b0168's earlier independent pass remains valid and its separate **2/2** allowance is exhausted
 (Batch17). Six-table and Q8 accepted supplements are inherited by unchanged scope hashes with
@@ -1298,3 +1299,47 @@ terra/max with actual13/12 originals. Only b0396/b0962 are targets, no figure ta
 same-runtime `verifyGroupRevisionAudit` validates target checkpoints and merge. Whole-chapter
 needs-repair refusal is preserved, not a transport failure/retry reason. Results go to269 and
 existing244/250 per-target aggregation. No independent pass or whole-chapter acceptance is claimed.
+
+## Batch19 — register b0396/b0962 independent target passes (zero new calls)
+
+Both real first target checkpoints on candidate
+`00074d1c55051aa61e463d466a3ae43c2e4c5a9967c3aa291996656d2e09cbe2` passed.
+The aggregate audit remains **needs-repair**, SHA
+`81313304a429d04c4895798824756d0be0b23d0c03dc0ab6e7f4aa77aa1699f8`.
+No production, review, image reading or integration consumer was dispatched in this return.
+
+| target | first independent call | actual configuration | input/cache/output | ms | checkpoint SHA |
+| --- | --- | --- | --- | --- | --- |
+| b0396/group004 | c500112c-2e65-418d-bda9-8948ea4d6e16 | gpt-6.1-terra/max,13 original PNG | 53785/0/1236 | 19486 | e0bce7ea57114babe0e0adfe650f659f98b491d6fd69ecd7d982cb2113d8b726 |
+| b0962/group009 | 1ca0aa10-d2d0-489c-8f89-ca667e4cba4f | gpt-6.1-terra/max,12 original PNG | 55104/0/2182 | 33026 | 882344e39af1888d3367ebb5154642cb09e5f9f20cd1a0cc6d8fa8fe721762f0 |
+
+Both original reviews say faithful, complete target scope compared, context faithful, issues empty.
+Actual transport prompt/schema match Batch18's published requests; actual argv/model/effort and
+all image paths/SHA/bytes/order are verified, with session events and successful CLI results retained.
+`verifyGroupRevisionAudit` verifies the checkpoints, raw calls, parent chain and aggregate.
+`verifyAuditForWebCandidate` still rejects `web_audit_not_passed_or_inputs_changed`; that expected
+whole-chapter refusal is not a transport failure or reason to retry. No audit or raw was rewritten.
+
+`artifacts/b19-return/capture.py` captured96 immutable files with full path/SHA mapping and short
+filenames. `node artifacts/b19-return/verify-return.mjs` passed391 hash checks, including before/after
+source/parent/raw/runtime checks and all32 frozen files. It independently checks the exact two text
+changes,1193 unchanged blocks,524 unchanged figure objects,9 inherited groups and batch010's113
+passed blocks. Six-table137 blocks/94 figures, Q8's21 blocks/7 figures and mandatory unknown limits,
+and b0168's passed scope remain unchanged, bound by249's explicit scope inheritance proof.
+
+The ticket-local `effective-remaining.json` applies only these two checkpoints to the pinned250
+register (SHA `d4026baa2839fde5692aaae971ec2194dba4bb29797ec10d2f4a1d7c379abe9c`).
+Every other issue row, original issue SHA/severity and its supplement evidence is preserved.
+Of19 original findings,10 are resolved by existing evidence,7 blocking findings remain across
+`b0785:figure`(3), `b0947:figure`(2), `b1017`(1), `b1181`(1), plus2 unchanged source-notes.
+The aggregate's14 non-target blocking raw findings remain present;7 already have accepted separate
+supplements. This is an effective view, not a mutation of250's shared register or whole-chapter pass.
+
+Full batch ledger in `verification.json`: maker2 + independent first review2 = **4/4**, remaining0,
+failed/void0, retry0;218981 input/0 cached/3821 output tokens,112596ms summed call durations.
+Money, remote weights and upstream actual execution count are unknown. Original guard release
+and existing244/250 dispatch receipts are captured. Existing wakeups
+`01a17f62-5724-7cf6-96ae-788556431ef6` and `01a17f62-5acb-74e2-a8a4-93f2565325cd`
+own downstream aggregation; no duplicate wakeup was created. Other chapters and branch scopes
+were untouched, including159/242 and PDF218–220. The ticket remains in_progress; no full-chapter
+integration or active-pointer change was made.

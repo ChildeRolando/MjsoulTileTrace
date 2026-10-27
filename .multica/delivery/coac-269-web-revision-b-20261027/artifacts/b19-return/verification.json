@@ -1,0 +1,149 @@
+{
+  "passed": true,
+  "newModelCalls": 0,
+  "hashChecks": 391,
+  "frozenFiles": 32,
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac269t396962r1.json",
+    "sha256": "00074d1c55051aa61e463d466a3ae43c2e4c5a9967c3aa291996656d2e09cbe2"
+  },
+  "targets": [
+    {
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0396",
+      "status": "passed",
+      "checkpoint": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\00074d1c55051aa61e463d466a3ae43c2e4c5a9967c3aa291996656d2e09cbe2\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-004.json",
+        "sha256": "e0bce7ea57114babe0e0adfe650f659f98b491d6fd69ecd7d982cb2113d8b726"
+      },
+      "raw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\c500112c-2e65-418d-bda9-8948ea4d6e16.json",
+        "sha256": "f381604197b33c1c60b53423c8f0f571d13efb6a11c1a52ddd2d635958d9fbfc"
+      }
+    },
+    {
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0962",
+      "status": "passed",
+      "checkpoint": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\00074d1c55051aa61e463d466a3ae43c2e4c5a9967c3aa291996656d2e09cbe2\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-009.json",
+        "sha256": "882344e39af1888d3367ebb5154642cb09e5f9f20cd1a0cc6d8fa8fe721762f0"
+      },
+      "raw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\1ca0aa10-d2d0-489c-8f89-ca667e4cba4f.json",
+        "sha256": "a38891d3866cbd2decb70c8f0ab3fb219cbc332617f5369198eb3f80e36340cc"
+      }
+    }
+  ],
+  "chapterStatus": "needs-repair",
+  "chapterAccepted": false,
+  "verifiers": {
+    "scoped": "verifyGroupRevisionAudit: verified",
+    "whole": "web_audit_not_passed_or_inputs_changed (expected)"
+  },
+  "unchanged": {
+    "blocks": 1193,
+    "figures": 524,
+    "inheritedGroups": 9,
+    "batch010Blocks": 113,
+    "tableBlocks": 137,
+    "tableFigures": 94,
+    "Q8Blocks": 21,
+    "Q8Figures": 7,
+    "b0168": true
+  },
+  "calls": [
+    {
+      "kind": "production",
+      "callId": "afb88d4f-143c-4fcc-a2be-204d577d7019",
+      "model": "gpt-6.1-terra",
+      "effort": "max",
+      "images": 12,
+      "usage": {
+        "inputTokens": 55801,
+        "cachedInputTokens": 0,
+        "outputTokens": 243
+      },
+      "durationMs": 33498,
+      "rawSha256": "8ee9cb6cdddcffa902d12df62cf53e8f7ff1cbd9dfe7fe4e53a8060d82c9ff21"
+    },
+    {
+      "kind": "production",
+      "callId": "c62e2ea9-2a46-4312-bb4d-8840d5c267e3",
+      "model": "gpt-6.1-terra",
+      "effort": "max",
+      "images": 13,
+      "usage": {
+        "inputTokens": 54291,
+        "cachedInputTokens": 0,
+        "outputTokens": 160
+      },
+      "durationMs": 26586,
+      "rawSha256": "8fe5f41c5617129a61eaafad08d0d10bd54ff22c49b9a13191351993073fe801"
+    },
+    {
+      "kind": "independent-first-target-review",
+      "callId": "c500112c-2e65-418d-bda9-8948ea4d6e16",
+      "model": "gpt-6.1-terra",
+      "effort": "max",
+      "images": 13,
+      "usage": {
+        "inputTokens": 53785,
+        "cachedInputTokens": 0,
+        "outputTokens": 1236
+      },
+      "durationMs": 19486,
+      "rawSha256": "f381604197b33c1c60b53423c8f0f571d13efb6a11c1a52ddd2d635958d9fbfc",
+      "checkpoint": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\00074d1c55051aa61e463d466a3ae43c2e4c5a9967c3aa291996656d2e09cbe2\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-004.json",
+        "sha256": "e0bce7ea57114babe0e0adfe650f659f98b491d6fd69ecd7d982cb2113d8b726"
+      },
+      "status": "passed"
+    },
+    {
+      "kind": "independent-first-target-review",
+      "callId": "1ca0aa10-d2d0-489c-8f89-ca667e4cba4f",
+      "model": "gpt-6.1-terra",
+      "effort": "max",
+      "images": 12,
+      "usage": {
+        "inputTokens": 55104,
+        "cachedInputTokens": 0,
+        "outputTokens": 2182
+      },
+      "durationMs": 33026,
+      "rawSha256": "a38891d3866cbd2decb70c8f0ab3fb219cbc332617f5369198eb3f80e36340cc",
+      "checkpoint": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\00074d1c55051aa61e463d466a3ae43c2e4c5a9967c3aa291996656d2e09cbe2\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-009.json",
+        "sha256": "882344e39af1888d3367ebb5154642cb09e5f9f20cd1a0cc6d8fa8fe721762f0"
+      },
+      "status": "passed"
+    }
+  ],
+  "totals": {
+    "calls": 4,
+    "max": 4,
+    "remaining": 0,
+    "production": 2,
+    "independentFirstReviews": 2,
+    "failedOrVoid": 0,
+    "retry": 0,
+    "inputTokens": 218981,
+    "cachedInputTokens": 0,
+    "outputTokens": 3821,
+    "durationMs": 112596,
+    "fee": null,
+    "upstreamExecutions": null,
+    "remoteWeights": "unknown"
+  },
+  "existingAggregation": {
+    "COAC244": "01a17f62-5724-7cf6-96ae-788556431ef6",
+    "COAC250": "01a17f62-5acb-74e2-a8a4-93f2565325cd",
+    "newDispatchHere": false
+  },
+  "remaining": {
+    "originalIssues": 19,
+    "resolved": 10,
+    "remainingBlocking": 7,
+    "sourceNotes": 2,
+    "rawNonTargetBlockingPreserved": 14
+  }
+}

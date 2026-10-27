@@ -1,0 +1,6 @@
+{
+  "ProcessId": 71104,
+  "ParentProcessId": 39464,
+  "Name": "python.exe",
+  "CommandLine": "python -c \"import json,sys,re\nfrom bs4 import BeautifulSoup\nfrom urllib.parse import urljoin,urlsplit\ns=json.load(sys.stdin);main=open(sys.argv[1],encoding='utf-8').read();out=[]\nfor image in BeautifulSoup(main,'html.parser').find_all('img'):\n if re.search(r'/(back|home|next)\\.gif$',urlsplit(urljoin(s['url'],image.get('src',''))).path):\n  parent=image.find_parent('a',href=True)\n  assert parent is not None,'navigation_link_missing'\n  out.append({'visibleText':parent.get_text('',strip=True),'href':urljoin(s['url'],parent['href'])})\nassert len(out)==3 and out==s['links'] and all(x['visibleText']=='' for x in out),'navigation_is_not_only_excluded_image_links'\nprint(json.dumps({'passed':True,'links':out}))\" E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter01-section001\\main.html"
+}

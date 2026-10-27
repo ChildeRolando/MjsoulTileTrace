@@ -1,0 +1,81 @@
+{
+  "b0168": {
+    "handoff": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-b0168-reviewed-target-20261028.json",
+      "sha256": "3e718558ce87ec9476d1965defc9d3d81d1c5b98644ca5f1d44e95cc218db98c"
+    },
+    "targetBlockUnchanged": true
+  },
+  "sixTables": {
+    "supplement": {
+      "schema": "coac244-283-table-reuse-verified/1",
+      "passed": true,
+      "scope": "66 previous geometry target figures and6 tables only; other28 table figures inherited independently",
+      "candidateSha256": "b2417de19a50ec85609f75a4e07f07e002cf636785e1427948c06000a0967c2f",
+      "supplementSha256": "e4c53883946db51d87c318da05035187cb442a968436bae8ab8834017d8fdf3c",
+      "chapterAccepted": false,
+      "newModelCalls": 0
+    },
+    "candidateScopeBlocks": 137,
+    "allScopeObjectsUnchanged": true,
+    "notNewWholeChapterPass": true
+  },
+  "Q8": {
+    "register": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-283-effective-issues-with-q8-20261028.json",
+      "sha256": "d4026baa2839fde5692aaae971ec2194dba4bb29797ec10d2f4a1d7c379abe9c"
+    },
+    "evidence": {
+      "registration": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-q8-target-evidence-intake-20261028.json",
+      "receipt": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-q8-source-20261028\\receipt.json",
+        "sha256": "267e223aa0eae3e5659e69d15c9f84a58e1002331bac7ae12151e7b689d9cfbf"
+      },
+      "raw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\a5187359-48f0-48b6-9527-210a251efae4.json",
+        "sha256": "4ce48a9d6721425f9dd53a9abf17204ca02f6d74f35108fe00e00547640d4437"
+      },
+      "mandatoryLimits": {
+        "notFullMeldTranscription": true,
+        "unknownEastMeldOtherTwoManzuDigits": true,
+        "otherUnknownDiscardsAndTsumogiriMarkers": true,
+        "htmlAndJpegDifferentArchiveCaptureDates": true,
+        "linkedCommentary2sSafetyConflict": true,
+        "noExactSafetyOrHiddenHandInference": true
+      },
+      "fieldsStillUnknown": [
+        {
+          "value": "东家吃牌中除8m外的两张万子的具体数字",
+          "status": "unknown",
+          "evidence": "可辨万字，但数码不足以可靠辨认。",
+          "coordinates": "原JPEG x=[454,491), y=[31,69)",
+          "teachingImpact": "无法完整转写顺子；不影响1s和2s的副露计数。"
+        },
+        {
+          "value": "东、西牌河中各一张筒子的点数，以及东家第二列一张多根索子的点数",
+          "status": "unknown",
+          "evidence": "原始像素不能可靠数清图案；4倍最近邻不产生新细节。",
+          "coordinates": "原JPEG东家 x=[329,365), y=[168,187)及x=[365,401), y=[206,225)；西家 x=[131,168), y=[187,206)",
+          "teachingImpact": "不能用这些牌确定具体安全牌；已辨类别和图案不增加1s或2s。"
+        },
+        {
+          "value": "西家一张万子的数字及若干弃牌的明暗标识",
+          "status": "unknown",
+          "evidence": "数字或灰度不足以可靠判定；各弃牌条目已注明明暗unknown。",
+          "coordinates": "原JPEG西家数字unknown：x=[131,168), y=[225,245)；其余明暗范围见各座位牌河条目。",
+          "teachingImpact": "不能完整还原这些牌的手出、摸切信息。"
+        },
+        {
+          "value": "链接解说中2s对上家是否为现物",
+          "status": "source-conflict",
+          "evidence": "同一解说先称2s可能打中“カミチャ”，后又称2s是“カミチャ、トイメンの現物”。JPEG中的两张2s弃牌位于东家和南家，未在西家现存牌河见到2s。解说与JPEG可能并非同一版本，不能据此选择其中一句作为确定事实。",
+          "coordinates": "原JPEG东家 x=[329,365), y=[225,245)；南家 x=[274,301), y=[96,121)；西家牌河 x=[94,168), y=[149,264)",
+          "teachingImpact": "不能依该解说断定对上家的安全性；Q8教材的“1s、2s薄”仍有独立图像计数支持。"
+        }
+      ],
+      "candidateScopeObjectsExact": true
+    },
+    "scopeObjectsUnchanged": true,
+    "mandatoryLimitsInherited": true
+  }
+}

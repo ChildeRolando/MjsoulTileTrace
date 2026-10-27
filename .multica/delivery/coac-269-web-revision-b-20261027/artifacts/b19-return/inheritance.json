@@ -1,0 +1,412 @@
+{
+  "schema": "coac249-283-exact-cross-sha-scope-inheritance/1",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac269t396962r1.json",
+    "sha256": "00074d1c55051aa61e463d466a3ae43c2e4c5a9967c3aa291996656d2e09cbe2"
+  },
+  "parent": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac269b0168r1.json",
+    "sha256": "b2417de19a50ec85609f75a4e07f07e002cf636785e1427948c06000a0967c2f"
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter06-exercise003\\source.v3.json",
+    "sha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de",
+    "bytes": 1998292
+  },
+  "newModelCalls": 0,
+  "standardWholeArticlePassed": false,
+  "sixTables": {
+    "oldTableVerified": {
+      "schema": "coac244-283-table-reuse-verified/1",
+      "passed": true,
+      "scope": "66 previous geometry target figures and6 tables only; other28 table figures inherited independently",
+      "candidateSha256": "b2417de19a50ec85609f75a4e07f07e002cf636785e1427948c06000a0967c2f",
+      "supplementSha256": "e4c53883946db51d87c318da05035187cb442a968436bae8ab8834017d8fdf3c",
+      "chapterAccepted": false,
+      "newModelCalls": 0
+    },
+    "blocks": 137,
+    "figures": 94,
+    "exactObjects": true,
+    "presentationAndOriginalOrderInherited": true,
+    "supplement": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-convergence-20261028\\table-reuse-supplement.json",
+      "sha256": "e4c53883946db51d87c318da05035187cb442a968436bae8ab8834017d8fdf3c"
+    }
+  },
+  "Q8": {
+    "blocks": 21,
+    "figures": 7,
+    "exactObjects": true,
+    "receipt": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-q8-source-20261028\\receipt.json",
+      "sha256": "267e223aa0eae3e5659e69d15c9f84a58e1002331bac7ae12151e7b689d9cfbf"
+    },
+    "raw": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\a5187359-48f0-48b6-9527-210a251efae4.json",
+      "sha256": "4ce48a9d6721425f9dd53a9abf17204ca02f6d74f35108fe00e00547640d4437"
+    },
+    "mandatoryLimits": {
+      "notFullMeldTranscription": true,
+      "unknownEastMeldOtherTwoManzuDigits": true,
+      "otherUnknownDiscardsAndTsumogiriMarkers": true,
+      "htmlAndJpegDifferentArchiveCaptureDates": true,
+      "linkedCommentary2sSafetyConflict": true,
+      "noExactSafetyOrHiddenHandInference": true
+    },
+    "fieldsStillUnknown": [
+      {
+        "value": "东家吃牌中除8m外的两张万子的具体数字",
+        "status": "unknown",
+        "evidence": "可辨万字，但数码不足以可靠辨认。",
+        "coordinates": "原JPEG x=[454,491), y=[31,69)",
+        "teachingImpact": "无法完整转写顺子；不影响1s和2s的副露计数。"
+      },
+      {
+        "value": "东、西牌河中各一张筒子的点数，以及东家第二列一张多根索子的点数",
+        "status": "unknown",
+        "evidence": "原始像素不能可靠数清图案；4倍最近邻不产生新细节。",
+        "coordinates": "原JPEG东家 x=[329,365), y=[168,187)及x=[365,401), y=[206,225)；西家 x=[131,168), y=[187,206)",
+        "teachingImpact": "不能用这些牌确定具体安全牌；已辨类别和图案不增加1s或2s。"
+      },
+      {
+        "value": "西家一张万子的数字及若干弃牌的明暗标识",
+        "status": "unknown",
+        "evidence": "数字或灰度不足以可靠判定；各弃牌条目已注明明暗unknown。",
+        "coordinates": "原JPEG西家数字unknown：x=[131,168), y=[225,245)；其余明暗范围见各座位牌河条目。",
+        "teachingImpact": "不能完整还原这些牌的手出、摸切信息。"
+      },
+      {
+        "value": "链接解说中2s对上家是否为现物",
+        "status": "source-conflict",
+        "evidence": "同一解说先称2s可能打中“カミチャ”，后又称2s是“カミチャ、トイメンの現物”。JPEG中的两张2s弃牌位于东家和南家，未在西家现存牌河见到2s。解说与JPEG可能并非同一版本，不能据此选择其中一句作为确定事实。",
+        "coordinates": "原JPEG东家 x=[329,365), y=[225,245)；南家 x=[274,301), y=[96,121)；西家牌河 x=[94,168), y=[149,264)",
+        "teachingImpact": "不能依该解说断定对上家的安全性；Q8教材的“1s、2s薄”仍有独立图像计数支持。"
+      }
+    ]
+  },
+  "b0168": {
+    "unchanged": true,
+    "handoff": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-b0168-reviewed-target-20261028.json",
+      "sha256": "3e718558ce87ec9476d1965defc9d3d81d1c5b98644ca5f1d44e95cc218db98c"
+    },
+    "targetStatus": "passed"
+  },
+  "inheritedBatchReviews": 9,
+  "batch010": {
+    "group": {
+      "batchId": "chapter06-exercise003-batch-010",
+      "unitIds": [
+        "modern-yabejp-ja-chapter06-exercise003-u67",
+        "modern-yabejp-ja-chapter06-exercise003-u68",
+        "modern-yabejp-ja-chapter06-exercise003-u69",
+        "modern-yabejp-ja-chapter06-exercise003-u70",
+        "modern-yabejp-ja-chapter06-exercise003-u71",
+        "modern-yabejp-ja-chapter06-exercise003-u72",
+        "modern-yabejp-ja-chapter06-exercise003-u73",
+        "modern-yabejp-ja-chapter06-exercise003-u74",
+        "modern-yabejp-ja-chapter06-exercise003-u75"
+      ],
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter06-exercise003:b1022",
+        "modern-yabejp-ja:chapter06-exercise003:b1023",
+        "modern-yabejp-ja:chapter06-exercise003:b1024",
+        "modern-yabejp-ja:chapter06-exercise003:b1025",
+        "modern-yabejp-ja:chapter06-exercise003:b1026",
+        "modern-yabejp-ja:chapter06-exercise003:b1027",
+        "modern-yabejp-ja:chapter06-exercise003:b1028",
+        "modern-yabejp-ja:chapter06-exercise003:b1029",
+        "modern-yabejp-ja:chapter06-exercise003:b1030",
+        "modern-yabejp-ja:chapter06-exercise003:b1031",
+        "modern-yabejp-ja:chapter06-exercise003:b1032",
+        "modern-yabejp-ja:chapter06-exercise003:b1033",
+        "modern-yabejp-ja:chapter06-exercise003:b1034",
+        "modern-yabejp-ja:chapter06-exercise003:b1035",
+        "modern-yabejp-ja:chapter06-exercise003:b1036",
+        "modern-yabejp-ja:chapter06-exercise003:b1037",
+        "modern-yabejp-ja:chapter06-exercise003:b1038",
+        "modern-yabejp-ja:chapter06-exercise003:b1039",
+        "modern-yabejp-ja:chapter06-exercise003:b1040",
+        "modern-yabejp-ja:chapter06-exercise003:b1041",
+        "modern-yabejp-ja:chapter06-exercise003:b1042",
+        "modern-yabejp-ja:chapter06-exercise003:b1043",
+        "modern-yabejp-ja:chapter06-exercise003:b1044",
+        "modern-yabejp-ja:chapter06-exercise003:b1045",
+        "modern-yabejp-ja:chapter06-exercise003:b1046",
+        "modern-yabejp-ja:chapter06-exercise003:b1047",
+        "modern-yabejp-ja:chapter06-exercise003:b1048",
+        "modern-yabejp-ja:chapter06-exercise003:b1049",
+        "modern-yabejp-ja:chapter06-exercise003:b1050",
+        "modern-yabejp-ja:chapter06-exercise003:b1051",
+        "modern-yabejp-ja:chapter06-exercise003:b1052",
+        "modern-yabejp-ja:chapter06-exercise003:b1053",
+        "modern-yabejp-ja:chapter06-exercise003:b1054",
+        "modern-yabejp-ja:chapter06-exercise003:b1055",
+        "modern-yabejp-ja:chapter06-exercise003:b1056",
+        "modern-yabejp-ja:chapter06-exercise003:b1057",
+        "modern-yabejp-ja:chapter06-exercise003:b1058",
+        "modern-yabejp-ja:chapter06-exercise003:b1059",
+        "modern-yabejp-ja:chapter06-exercise003:b1060",
+        "modern-yabejp-ja:chapter06-exercise003:b1061",
+        "modern-yabejp-ja:chapter06-exercise003:b1062",
+        "modern-yabejp-ja:chapter06-exercise003:b1063",
+        "modern-yabejp-ja:chapter06-exercise003:b1064",
+        "modern-yabejp-ja:chapter06-exercise003:b1065",
+        "modern-yabejp-ja:chapter06-exercise003:b1066",
+        "modern-yabejp-ja:chapter06-exercise003:b1067",
+        "modern-yabejp-ja:chapter06-exercise003:b1068",
+        "modern-yabejp-ja:chapter06-exercise003:b1069",
+        "modern-yabejp-ja:chapter06-exercise003:b1070",
+        "modern-yabejp-ja:chapter06-exercise003:b1071",
+        "modern-yabejp-ja:chapter06-exercise003:b1072",
+        "modern-yabejp-ja:chapter06-exercise003:b1073",
+        "modern-yabejp-ja:chapter06-exercise003:b1074",
+        "modern-yabejp-ja:chapter06-exercise003:b1075",
+        "modern-yabejp-ja:chapter06-exercise003:b1076",
+        "modern-yabejp-ja:chapter06-exercise003:b1077",
+        "modern-yabejp-ja:chapter06-exercise003:b1078",
+        "modern-yabejp-ja:chapter06-exercise003:b1079",
+        "modern-yabejp-ja:chapter06-exercise003:b1080",
+        "modern-yabejp-ja:chapter06-exercise003:b1081",
+        "modern-yabejp-ja:chapter06-exercise003:b1082",
+        "modern-yabejp-ja:chapter06-exercise003:b1083",
+        "modern-yabejp-ja:chapter06-exercise003:b1084",
+        "modern-yabejp-ja:chapter06-exercise003:b1085",
+        "modern-yabejp-ja:chapter06-exercise003:b1086",
+        "modern-yabejp-ja:chapter06-exercise003:b1087",
+        "modern-yabejp-ja:chapter06-exercise003:b1088",
+        "modern-yabejp-ja:chapter06-exercise003:b1089",
+        "modern-yabejp-ja:chapter06-exercise003:b1090",
+        "modern-yabejp-ja:chapter06-exercise003:b1091",
+        "modern-yabejp-ja:chapter06-exercise003:b1092",
+        "modern-yabejp-ja:chapter06-exercise003:b1093",
+        "modern-yabejp-ja:chapter06-exercise003:b1094",
+        "modern-yabejp-ja:chapter06-exercise003:b1095",
+        "modern-yabejp-ja:chapter06-exercise003:b1096",
+        "modern-yabejp-ja:chapter06-exercise003:b1097",
+        "modern-yabejp-ja:chapter06-exercise003:b1098",
+        "modern-yabejp-ja:chapter06-exercise003:b1099",
+        "modern-yabejp-ja:chapter06-exercise003:b1100",
+        "modern-yabejp-ja:chapter06-exercise003:b1101",
+        "modern-yabejp-ja:chapter06-exercise003:b1102",
+        "modern-yabejp-ja:chapter06-exercise003:b1103",
+        "modern-yabejp-ja:chapter06-exercise003:b1104",
+        "modern-yabejp-ja:chapter06-exercise003:b1105",
+        "modern-yabejp-ja:chapter06-exercise003:b1106",
+        "modern-yabejp-ja:chapter06-exercise003:b1107",
+        "modern-yabejp-ja:chapter06-exercise003:b1108",
+        "modern-yabejp-ja:chapter06-exercise003:b1109",
+        "modern-yabejp-ja:chapter06-exercise003:b1110",
+        "modern-yabejp-ja:chapter06-exercise003:b1111",
+        "modern-yabejp-ja:chapter06-exercise003:b1112",
+        "modern-yabejp-ja:chapter06-exercise003:b1113",
+        "modern-yabejp-ja:chapter06-exercise003:b1114",
+        "modern-yabejp-ja:chapter06-exercise003:b1115",
+        "modern-yabejp-ja:chapter06-exercise003:b1116",
+        "modern-yabejp-ja:chapter06-exercise003:b1117",
+        "modern-yabejp-ja:chapter06-exercise003:b1118",
+        "modern-yabejp-ja:chapter06-exercise003:b1119",
+        "modern-yabejp-ja:chapter06-exercise003:b1120",
+        "modern-yabejp-ja:chapter06-exercise003:b1121",
+        "modern-yabejp-ja:chapter06-exercise003:b1122",
+        "modern-yabejp-ja:chapter06-exercise003:b1123",
+        "modern-yabejp-ja:chapter06-exercise003:b1124",
+        "modern-yabejp-ja:chapter06-exercise003:b1125",
+        "modern-yabejp-ja:chapter06-exercise003:b1126",
+        "modern-yabejp-ja:chapter06-exercise003:b1127",
+        "modern-yabejp-ja:chapter06-exercise003:b1128",
+        "modern-yabejp-ja:chapter06-exercise003:b1129",
+        "modern-yabejp-ja:chapter06-exercise003:b1130",
+        "modern-yabejp-ja:chapter06-exercise003:b1131",
+        "modern-yabejp-ja:chapter06-exercise003:b1132",
+        "modern-yabejp-ja:chapter06-exercise003:b1133",
+        "modern-yabejp-ja:chapter06-exercise003:b1134"
+      ],
+      "contextSourceBlockIds": [
+        "modern-yabejp-ja:chapter06-exercise003:b0001",
+        "modern-yabejp-ja:chapter06-exercise003:b0002",
+        "modern-yabejp-ja:chapter06-exercise003:b0003",
+        "modern-yabejp-ja:chapter06-exercise003:b0004",
+        "modern-yabejp-ja:chapter06-exercise003:b0005",
+        "modern-yabejp-ja:chapter06-exercise003:b0006",
+        "modern-yabejp-ja:chapter06-exercise003:b0007",
+        "modern-yabejp-ja:chapter06-exercise003:b0008",
+        "modern-yabejp-ja:chapter06-exercise003:b0009"
+      ],
+      "sourceCharacters": 674,
+      "imageOccurrences": 156,
+      "sourceBlocks": 113,
+      "completeQuestionAnswers": true,
+      "completeHtmlTables": true,
+      "largeIntactCluster": false
+    },
+    "status": "passed",
+    "checkpoint": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-010.json",
+      "sha256": "0f7ba48598f4f46d5d0bc1de613a288633346559ee3ce089d6f0accb699646aa"
+    },
+    "parentReceiptPath": "audit/web/articles/modern-yabejp-ja/chapter06-exercise003.b2417de19a50ec85609f75a4e07f07e002cf636785e1427948c06000a0967c2f.json",
+    "parentReceiptSha256": "d7c8b54d6b4bef37a4c6c0a97b88831a551ce4be8eb938fe51823a9ea1e401df"
+  },
+  "deferredOriginalIssues": [
+    {
+      "batchId": "chapter06-exercise003-batch-001",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0099",
+      "severity": "uncertain",
+      "issueSha256": "ebc185ca1cdb9cbc960fa244aebb327c614eff2de9a32a2fdb4d40e005b8ffa3",
+      "reason": "outside the two exact authorized text targets; original finding retained"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-003",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]",
+      "severity": "error",
+      "issueSha256": "436b899a4562361e876abd0136d9f0c088c05b492e22fcea94b73467389a3886",
+      "reason": "outside the two exact authorized text targets; original finding retained"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-003",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[189]/table[21]",
+      "severity": "error",
+      "issueSha256": "e64b38ad0f1b35a0ac42e77cf1ef7ffad33588f0a918885a180bed0798c7328d",
+      "reason": "outside the two exact authorized text targets; original finding retained"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-003",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[209]/table[21]",
+      "severity": "error",
+      "issueSha256": "c0e2e07e9a0ec7f3e18a2eaac002025b3f3a82b50d42dfc335892dd0dc5bd880",
+      "reason": "outside the two exact authorized text targets; original finding retained"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-005",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0502",
+      "severity": "error",
+      "issueSha256": "ef68b9277f648ef0096cf407ca8857af8c420ba28d2032aab215eea2540061e4",
+      "reason": "outside the two exact authorized text targets; original finding retained"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-006",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+      "severity": "error",
+      "issueSha256": "99d6ea21d837d54dd3d9520de49feb7ef6c39a722257fac5088c2951738354cf",
+      "reason": "outside the two exact authorized text targets; original finding retained"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-007",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+      "severity": "error",
+      "issueSha256": "feed6d512d4fec8d15f46265c3473629c7553adb1adeff4fece490eadfac4acb",
+      "reason": "outside the two exact authorized text targets; original finding retained"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-007",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+      "severity": "error",
+      "issueSha256": "20d6f61af624a83fef7882e3fd9da39449b16b4c92edff67f3fd9134fe66d085",
+      "reason": "outside the two exact authorized text targets; original finding retained"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-007",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+      "severity": "uncertain",
+      "issueSha256": "d3c5278fc47e6d40b97380a3386e039632af2ad3b4eb806f7113e3ef708de019",
+      "reason": "outside the two exact authorized text targets; original finding retained"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-008",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[505]/table[23]",
+      "severity": "error",
+      "issueSha256": "6eefa362aa4eff0b8a6c01124327671789207b6fc7fa45d8a7f6a08f74953c54",
+      "reason": "outside the two exact authorized text targets; original finding retained"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-009",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+      "severity": "error",
+      "issueSha256": "e6be649aaee9e4da2c0e399415841c68d7923ce7f186151584a2b7c346d2ae89",
+      "reason": "outside the two exact authorized text targets; original finding retained"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-009",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+      "severity": "uncertain",
+      "issueSha256": "6cd3acb48f43e89ddeb0fb6401683764e4be22e446d99b8e8d47171339b8c21c",
+      "reason": "outside the two exact authorized text targets; original finding retained"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-009",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b1017",
+      "severity": "error",
+      "issueSha256": "6073a735d8306cdca382542f31cdb1359d2af7c8d8a7ff93caf8dfc5c496dc3d",
+      "reason": "outside the two exact authorized text targets; original finding retained"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-011",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b1181",
+      "severity": "error",
+      "issueSha256": "a9f6001a46e729e44587190fbffd36f7e9cd9b0762f898cbf9f27517c4df6b8f",
+      "reason": "outside the two exact authorized text targets; original finding retained"
+    }
+  ],
+  "actualImageArgumentsVerified": [
+    13,
+    12
+  ],
+  "refs": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac269t396962r1.json",
+      "sha256": "00074d1c55051aa61e463d466a3ae43c2e4c5a9967c3aa291996656d2e09cbe2"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac269b0168r1.json",
+      "sha256": "b2417de19a50ec85609f75a4e07f07e002cf636785e1427948c06000a0967c2f"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac269-283-396962-20261028\\inherited-evidence.json",
+      "sha256": "53d07dc9dfa2e6fdd5ac67f6399ec19983b357f18e3b555b2a1e351850141784"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-convergence-20261028\\table-reuse-supplement.json",
+      "sha256": "e4c53883946db51d87c318da05035187cb442a968436bae8ab8834017d8fdf3c"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-convergence-20261028\\verify-supplement.mjs",
+      "sha256": "7f46b9145573d24015a0090dfbba70cd6443af131ff348de8696016e394d52d6"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-283-tables-20261028\\request.json",
+      "sha256": "902105a564d34980e3723e6d602a4ba297517d4be6e9c1af05f0e8997594f4ac",
+      "promptSha256": "d49f233af2a5ea0c564f2b2472b1bcf8768c92d23504034302a9c4559a16d30d"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-q8-source-20261028\\receipt.json",
+      "sha256": "267e223aa0eae3e5659e69d15c9f84a58e1002331bac7ae12151e7b689d9cfbf"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\a5187359-48f0-48b6-9527-210a251efae4.json",
+      "sha256": "4ce48a9d6721425f9dd53a9abf17204ca02f6d74f35108fe00e00547640d4437"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-b0168-reviewed-target-20261028.json",
+      "sha256": "3e718558ce87ec9476d1965defc9d3d81d1c5b98644ca5f1d44e95cc218db98c"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter06-exercise003.00074d1c55051aa61e463d466a3ae43c2e4c5a9967c3aa291996656d2e09cbe2.json",
+      "sha256": "81313304a429d04c4895798824756d0be0b23d0c03dc0ab6e7f4aa77aa1699f8"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-010.json",
+      "sha256": "0f7ba48598f4f46d5d0bc1de613a288633346559ee3ce089d6f0accb699646aa"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\c500112c-2e65-418d-bda9-8948ea4d6e16.json",
+      "sha256": "f381604197b33c1c60b53423c8f0f571d13efb6a11c1a52ddd2d635958d9fbfc"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\1ca0aa10-d2d0-489c-8f89-ca667e4cba4f.json",
+      "sha256": "a38891d3866cbd2decb70c8f0ab3fb219cbc332617f5369198eb3f80e36340cc"
+    }
+  ],
+  "recordedAt": "2026-10-27T22:00:10.696Z"
+}
