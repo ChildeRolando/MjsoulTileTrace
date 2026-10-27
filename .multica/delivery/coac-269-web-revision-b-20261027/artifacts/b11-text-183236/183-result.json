@@ -1,0 +1,74 @@
+{
+  "chapterId": "nemata-jp-chapter-183-1",
+  "authorizationCommentId": "01a17eba-f0e3-71c8-9f5f-5fc8853ec674",
+  "at": "2026-10-27T19:05:44.052810+00:00",
+  "calls": [
+    {
+      "callId": "629d37ab-fdc9-462f-a29a-061ae3293fb0",
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter03-section003",
+      "sourceSha256": "cb73d3a88d017081031a4de4961ae1a431c7ea24a384eed91865ac70a94b3cf3",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "timeoutMs": 900000,
+      "startedAt": "2026-10-27T19:04:49.299Z",
+      "durationMs": 36780,
+      "usage": {
+        "inputTokens": 12788,
+        "cachedInputTokens": 0,
+        "outputTokens": 349
+      },
+      "success": true,
+      "failureClass": null,
+      "transportStatus": "completed",
+      "rawArtifactPath": "raw-calls/629d37ab-fdc9-462f-a29a-061ae3293fb0.json",
+      "rawArtifactSha256": "5f670a646df34c06f90b6a732286b71fbfe3f53b00af7bbae4e4be97b2a4afc0",
+      "outputSha256": "21f78ef5165540f7621c84ba45db23bca72c17d0d9435eb1441912b632adfdfd",
+      "schemaSha256": "a23444d085e54a2583743c9af62f9bd3a5fe7733c60a5ddb48ca32358828ea72",
+      "promptSha256": "a42fe9f1ff994b0baa0cc0400d053a1e1eccb10b70023ed787c742a918b97fb4",
+      "semanticPromptSha256": "4b1600884f5198989b43f9ebc6b564016fd710013fc5994a95e64af03f30803c",
+      "cliSnapshot": {
+        "path": "web-production/v1/runners/773b63a2b7e1cd525f45278f2565487b5916b8775d935c7af7001195b1403860.cli.mjs",
+        "sha256": "773b63a2b7e1cd525f45278f2565487b5916b8775d935c7af7001195b1403860"
+      },
+      "targets": {
+        "textIds": [
+          "modern-yabejp-ja:chapter03-section003:b0018"
+        ],
+        "figureIds": []
+      },
+      "terminalEvents": [],
+      "visualInputs": [],
+      "revision": {
+        "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section003.display.json",
+        "parentSha256": "889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02",
+        "notesPath": "audit/web/articles/modern-yabejp-ja/chapter03-section003.889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02.json",
+        "notesSha256": "c66a9bab86228f8f865d1f74b1c2d033de57f133892f87e2205480a09628373a",
+        "figureIds": [],
+        "textBlockIds": [
+          "modern-yabejp-ja:chapter03-section003:b0018"
+        ]
+      }
+    }
+  ],
+  "localProductionCalls": 1,
+  "localAuditCalls": 0,
+  "executorRetries": 0,
+  "upstreamRequestCount": null,
+  "monetaryCost": null,
+  "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section003.coac244closure183.json",
+  "whitelistPassed": false,
+  "auditReady": false,
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\raw-calls\\629d37ab-fdc9-462f-a29a-061ae3293fb0.json",
+    "sha256": "5f670a646df34c06f90b6a732286b71fbfe3f53b00af7bbae4e4be97b2a4afc0"
+  },
+  "transportEvents": [],
+  "threadIds": [
+    "01a17ec0-39e9-78d1-807c-6adde9a70531"
+  ],
+  "candidateSha256": "ca6e867649ca33f8e28c6e06329cf687e3ca18eaddc93325c684e3282994c003",
+  "targetBefore": "*对于已打出1张、能看到1张的字牌，役牌的放铳率比客风牌低*。这或许是因为役牌更常在第一张被打出时就被碰走，以及在选择单骑待牌时，牌手会考虑到单骑客风牌更容易荣和。",
+  "targetAfter": "*对于已打出1张、可见1张的字牌，役牌的放铳率低于客风牌*。这或许是因为役牌更常在第一张被打出时就被碰走，以及在选择单骑待牌时，牌手会考虑到单骑客风牌更容易荣和。",
+  "outcome": "failed-whitelist-no-retry-no-audit"
+}

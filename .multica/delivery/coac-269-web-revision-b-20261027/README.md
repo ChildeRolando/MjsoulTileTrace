@@ -807,3 +807,58 @@ No new batch/wakeup/retry is scheduled on COAC-269. Further integration and actu
 readback of 162 remain COAC-250's responsibility; neither this evidence nor a code PR is that receipt.
 
 Monetary cost is unknown: the available call records expose tokens and elapsed time, not a bill.
+
+## Batch 11: bounded 183/236 text production, 2026-10-28
+
+Authorized by comment `01a17eba-f0e3-71c8-9f5f-5fc8853ec674`, this batch used only the
+COAC-244 snapshot `coac244-text-uncertain-183236-v1-20261028`, manifest SHA256
+`fdac719dc8237db59f7a2abd6cd2bdac44f895a03519abe67cf408242e392548`.
+All 16 runtime files match commit `394b830d7cd76ac3c97f480e93a54b14913501f4` byte for byte.
+The original source/parent/audit SHA bindings, complete real parent chains, two fresh zero-call
+preflights and all 18 parent/scope/uncertain regressions passed. The original audit severity
+remains `uncertain`; a new uncertain review would still block acceptance.
+
+Both authorized single production calls completed, but **neither output meets the exact text
+whitelist**. These are production-scope rejections, not independent semantic audit verdicts:
+
+- `nemata-jp-chapter-183-1/b0018`, bound to `source.v2.json`: the model changed
+  `能看到1张` to `可见1张` and `比客风牌低` to `低于客风牌`, and added no ambiguity note.
+  This violates the append-only requirement. Candidate SHA256
+  `ca6e867649ca33f8e28c6e06329cf687e3ca18eaddc93325c684e3282994c003` is retained and withheld.
+- `nemata-jp-chapter-236-1/b0003`: the model removed `剩余`, but also changed
+  `结束时` to `一旦结束，` and `相当大的优势` to `意外不小的优势`, and added no timing note.
+  This violates the single-phrase removal plus appended-note requirement. Candidate SHA256
+  `52f0caa9dc57c3d4cd3fc64e1c194a3eccc3e5f7a0ede6456301eee218c17062` is retained and withheld.
+
+The unchanged frozen production prompt asks for isolated retranslation and treats previous issues
+as locators; it does not transmit the new append-only/exact-prefix whitelist. This is a request-scope
+gap for the COAC-244 owner to address before any separately authorized future production. This
+batch did not alter the snapshot, notes, sources, original raw, model/provider, or candidate output.
+No independent audit, COAC-249 handoff, integration, display conversion or retry was performed.
+The package explicitly forbids spending the audit allowance on an output that violates its whitelist.
+
+| chapter / scope | call ID | start UTC | duration ms | input / output tokens | result |
+| --- | --- | --- | --- | --- | --- |
+| 183 production | 629d37ab-fdc9-462f-a29a-061ae3293fb0 | 2026-10-27 19:04:49.299 | 36780 | 12788 / 349 | completed; whitelist rejected |
+| 236 production | abef6c4b-02ff-416f-b61d-1fe821402f1a | 2026-10-27 19:05:55.602 | 30842 | 13723 / 634 | completed; whitelist rejected |
+
+Both real requests were pure text, `gpt-6.1-sol/high`, with empty image payloads. There are two
+new local call records and zero new audits, out of the authorized maximum four; the two unused
+audit allowances cannot be reassigned to production retries. Known usage totals 26,511 input /
+983 output tokens, zero cached input. No reconnect events were observed; 183 stderr records a
+model-list refresh timeout before a successfully completed turn. Actual upstream request count,
+remote backend weights and monetary cost remain unknown. The calls ran sequentially.
+
+The existing 183 claim belonged to this same Ticket executor and exact parent SHA; active-run
+inspection confirmed no other COAC-269 run. It was resumed without deleting a lock. Both chapter
+claims and maker-B were normally released. A post-call evidence collector initially encountered an
+unrelated ledger row without `sourceId`; only read-only collection was rerun after correcting its
+filter. Neither production was repeated.
+
+Evidence is in `artifacts/b11-text-183236/`, including the original intake, frozen manifest, fresh
+18-case parent proof, source/parent/raw checks, exact diffs, genuine candidate/raw copies, dispatch
+and release receipts, and complete call accounting. Original processing receipts are under
+`web-production/v1/runs/coac269-text-183236-20261028/`.
+COAC-269 remains blocked: no newly acceptable candidate exists, production allowances are spent,
+and the unchanged 244 request needs the exact output constraints before any future authorized call.
+Old 162 pass, 234 timeout, other accepted chapters and formal active remain untouched.

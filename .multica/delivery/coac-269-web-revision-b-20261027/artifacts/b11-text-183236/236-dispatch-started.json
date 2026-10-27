@@ -1,0 +1,144 @@
+{
+  "at": "2026-10-27T19:05:55.549073+00:00",
+  "authorizationCommentId": "01a17eba-f0e3-71c8-9f5f-5fc8853ec674",
+  "args": [
+    "E:/IDE/NodeJS/node.exe",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-uncertain-183236-v1-20261028\\textbook-production-web.mjs",
+    "--source",
+    "web-sources/v1/modern-yabejp-ja/articles/chapter04-section015/source.json",
+    "--revision-from",
+    "web-production/v1/candidates/modern-yabejp-ja/chapter04-section015.display.json",
+    "--revision-notes",
+    "audit/web/articles/modern-yabejp-ja/chapter04-section015.51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0.json",
+    "--dictionary",
+    "web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json",
+    "--variant",
+    "coac244closure236"
+  ],
+  "maxProductionCalls": 1,
+  "executorRetries": 0,
+  "slot": {
+    "ok": true,
+    "action": "acquire",
+    "slot": "E:\\AgentData\\Coach\\knowledge\\processing\\parallel\\slots\\maker-B.json",
+    "record": {
+      "schema": "coach-textbook-maker-slot/1",
+      "slot": "maker-B",
+      "lane": "B",
+      "owner": "COAC-269 Ticket executor",
+      "pid": 70860,
+      "claimedAt": "2026-10-27T19:05:55.242Z",
+      "heartbeatAt": "2026-10-27T19:05:55.242Z",
+      "ttlMinutes": 20
+    }
+  },
+  "jointExclusion": {
+    "at": "2026-10-27T19:05:55.541714+00:00",
+    "chapterId": "nemata-jp-chapter-236-1",
+    "sourceId": "modern-yabejp-ja",
+    "articleId": "chapter04-section015",
+    "registerSha256": "a3f67db91a66a8f19a76871d10b694da269d5e9476bd957775ae27d78b48da66",
+    "previewSha256": "18252fe986a3219b3ca59c21809bc806adaf98d311007c9a0116e8de4b7312f5",
+    "registerRow": {
+      "chapterId": "nemata-jp-chapter-236-1",
+      "originalChapterId": "nemata-jp-chapter-236-1",
+      "sourceId": "nemata-jp",
+      "title": "飛び寸前の局面",
+      "units": 1,
+      "ownedSourceBlocks": 23,
+      "adjudicationGroup": "confirmed-produced-not-covered",
+      "covered": false,
+      "coverageRoute": null,
+      "approvedWebCorrespondence": {
+        "articleId": "chapter04-section015",
+        "webSourceId": "modern-yabejp-ja",
+        "tier": "url-header",
+        "evidencePath": "integration/modern-pdf-url-coverage.json",
+        "substitutionAllowed": true,
+        "bodyEquivalenceConfirmed": false,
+        "articleInPreview": false
+      },
+      "existingCandidate": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section015.display.json",
+        "sha256": "51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0",
+        "bodyBlocks": 4,
+        "sourceSha256": "bece7c97b81c5ba283582cd1568404e8fb490ed1d5484267e6e7915785d1d93c",
+        "currentSourceSha256": "bece7c97b81c5ba283582cd1568404e8fb490ed1d5484267e6e7915785d1d93c",
+        "sourceBoundCurrent": true,
+        "auditStatus": "needs-repair",
+        "auditPath": "audit/web/articles/modern-yabejp-ja/chapter04-section015.51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0.json",
+        "auditRecordedAt": "2026-10-25T16:04:02.974Z",
+        "deterministicPassed": true,
+        "semanticComplete": false
+      },
+      "pdfRoute": {
+        "pagesTotal": 1,
+        "pagesWithCandidate": 0,
+        "pagesWithPassedCandidate": 0,
+        "missingPassedPages": [
+          236
+        ],
+        "pagesDetail": [
+          {
+            "page": 236,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 23
+          }
+        ]
+      },
+      "gaps": {
+        "ownedSourceBlocks": 23,
+        "missingProductionBlocks": 0,
+        "producedBlocks": 23,
+        "acceptedBlocks": 0,
+        "acceptanceGapBlocks": 23,
+        "acceptanceGapPages": [
+          236
+        ],
+        "pagesWithoutCandidate": [],
+        "pagesWithoutPassedCandidate": [
+          236
+        ]
+      },
+      "verdict": "produced-needs-repair",
+      "coac246": {
+        "action": "repair",
+        "auditStatus": "needs-repair",
+        "candidateSha256": "51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0",
+        "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter04-section015.display.json",
+        "repairErrors": 3,
+        "units": 1,
+        "blocks": 23
+      }
+    },
+    "selectedWeb": [],
+    "selectedPdf": [],
+    "boundPassedAlternatives": [],
+    "claim": {
+      "ok": true,
+      "action": "check-chapter",
+      "chapter": "nemata-jp-chapter-236-1",
+      "held": true,
+      "bySelf": true,
+      "record": {
+        "schema": "coach-textbook-chapter-claim/1",
+        "chapterId": "nemata-jp-chapter-236-1",
+        "candidateSha256": "51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0",
+        "lane": "B",
+        "owner": "COAC-269 Ticket executor",
+        "slot": null,
+        "claimedAt": "2026-10-27T19:05:55.189Z"
+      }
+    },
+    "existingCandidateNames": [
+      "chapter04-section015.display.json"
+    ],
+    "priorCallIds": [
+      "33524f52-a6fb-4af4-b247-7d9be9cd0b8c",
+      "af6736b8-f6b8-4b9a-a4ba-d0eac0860487"
+    ]
+  }
+}

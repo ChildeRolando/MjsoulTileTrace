@@ -1,0 +1,74 @@
+{
+  "chapterId": "nemata-jp-chapter-236-1",
+  "authorizationCommentId": "01a17eba-f0e3-71c8-9f5f-5fc8853ec674",
+  "at": "2026-10-27T19:06:26.480477+00:00",
+  "calls": [
+    {
+      "callId": "abef6c4b-02ff-416f-b61d-1fe821402f1a",
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter04-section015",
+      "sourceSha256": "bece7c97b81c5ba283582cd1568404e8fb490ed1d5484267e6e7915785d1d93c",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "timeoutMs": 900000,
+      "startedAt": "2026-10-27T19:05:55.602Z",
+      "durationMs": 30842,
+      "usage": {
+        "inputTokens": 13723,
+        "cachedInputTokens": 0,
+        "outputTokens": 634
+      },
+      "success": true,
+      "failureClass": null,
+      "transportStatus": "completed",
+      "rawArtifactPath": "raw-calls/abef6c4b-02ff-416f-b61d-1fe821402f1a.json",
+      "rawArtifactSha256": "58bee87c7a86989752659c20d5364dd823469362d0bc8aa928d6ec2de559d4ad",
+      "outputSha256": "ec03b96adbb3611b920b15383ddb1ceac8191b609e8433e12e08e33d4ece1bdf",
+      "schemaSha256": "9a083702d93e5fa8734f8707a98b26c06b40877db36d88771b1a1d143d4499d7",
+      "promptSha256": "a19c090abe908562865401c6c556f122e775836897a9abcc4ccf0d122e87fb69",
+      "semanticPromptSha256": "28716ae81ccf6b0b20c67e144a0ff3937067b9afb03d01de30c0cbde20b19c1a",
+      "cliSnapshot": {
+        "path": "web-production/v1/runners/773b63a2b7e1cd525f45278f2565487b5916b8775d935c7af7001195b1403860.cli.mjs",
+        "sha256": "773b63a2b7e1cd525f45278f2565487b5916b8775d935c7af7001195b1403860"
+      },
+      "targets": {
+        "textIds": [
+          "modern-yabejp-ja:chapter04-section015:b0003"
+        ],
+        "figureIds": []
+      },
+      "terminalEvents": [],
+      "visualInputs": [],
+      "revision": {
+        "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section015.display.json",
+        "parentSha256": "51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0",
+        "notesPath": "audit/web/articles/modern-yabejp-ja/chapter04-section015.51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0.json",
+        "notesSha256": "bf1af08a08d0be94dbe71415fa4bd808d1831cc8d6cc6b08f7672f5c0357daa9",
+        "figureIds": [],
+        "textBlockIds": [
+          "modern-yabejp-ja:chapter04-section015:b0003"
+        ]
+      }
+    }
+  ],
+  "localProductionCalls": 1,
+  "localAuditCalls": 0,
+  "executorRetries": 0,
+  "upstreamRequestCount": null,
+  "monetaryCost": null,
+  "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section015.coac244closure236.json",
+  "whitelistPassed": false,
+  "auditReady": false,
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\raw-calls\\abef6c4b-02ff-416f-b61d-1fe821402f1a.json",
+    "sha256": "58bee87c7a86989752659c20d5364dd823469362d0bc8aa928d6ec2de559d4ad"
+  },
+  "transportEvents": [],
+  "threadIds": [
+    "01a17ec1-3ce2-7231-99d8-4e4b8ee2ef84"
+  ],
+  "candidateSha256": "52f0caa9dc57c3d4cd3fc64e1c194a3eccc3e5f7a0ede6456301eee218c17062",
+  "targetBefore": "麻将中，无论领先多少点，只要半庄尚未结束，就仍有被逆转的可能。反过来说，结束时第一名就会100%确定，因此，有机会击飞他人、以第一名结束，其实是个相当大的优势。尤其是在名次下降的风险较小，或还处于东场较早阶段时，积极争取通过击飞结束半庄也是有效的。例如，如果跳满自摸就能使末位玩家被击飞，同时反超第一名并结束半庄，那么默听满贯的牌，即使剩余巡数很少，也应当立直；如果名次下降的风险较小，对第一名以外的玩家打出的和牌张，选择放过也无妨。如果自己处于第一名，通常会有更多弃和的机会，但若已经听牌，且只要末位玩家放铳就能结束半庄，那么即便自己处于第一名，面对立直时继续进攻的情况也会增多。（当然，这种情况下，若由其他玩家打出和牌张，也不会放过。）",
+  "targetAfter": "麻将中，无论领先多少点，只要半庄尚未结束，就仍有被逆转的可能。反过来说，一旦结束，第一名就会100%确定，因此，有机会击飞他人、以第一名结束，其实是个意外不小的优势。尤其是在名次下降的风险较小，或还处于东场较早阶段时，积极争取通过击飞结束半庄也是有效的。例如，如果跳满自摸就能使末位玩家被击飞，同时反超第一名并结束半庄，那么默听满贯的牌，即使巡数很少，也应当立直；如果名次下降的风险较小，对第一名以外的玩家打出的和牌张，选择放过也无妨。如果自己处于第一名，通常会有更多弃和的机会，但若已经听牌，且只要末位玩家放铳就能结束半庄，那么即便自己处于第一名，面对立直时继续进攻的情况也会增多。（当然，这种情况下，若由其他玩家打出和牌张，也不会放过。）",
+  "outcome": "failed-whitelist-no-retry-no-audit"
+}

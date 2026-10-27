@@ -1,0 +1,214 @@
+{
+  "at": "2026-10-27T19:05:55.150660+00:00",
+  "authorizationCommentId": "01a17eba-f0e3-71c8-9f5f-5fc8853ec674",
+  "frozenChecks": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-uncertain-183236-v1-20261028\\bounded-runtime-manifest.json",
+      "sha256": "fdac719dc8237db59f7a2abd6cd2bdac44f895a03519abe67cf408242e392548"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-uncertain-183236-v1-20261028\\inline-japanese-revision.mjs",
+      "sha256": "69a9a0db3fccc07bf85c6720606fefb60bac54c689e2402f96bfe018a358e6a6"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-uncertain-183236-v1-20261028\\textbook-audit-legacy.mjs",
+      "sha256": "9afa0866101889722bd6c34379370b69b28f72542f3ed8060975fb76860f33e1"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-uncertain-183236-v1-20261028\\textbook-audit-pdf-layout.mjs",
+      "sha256": "d2cf0816da02eed3b745e213d1f39544e24fa61a1bcdac9bdaac27da46164c34"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-uncertain-183236-v1-20261028\\textbook-audit-pdf-native.mjs",
+      "sha256": "51043b3eb214e3525784528838fd9aed7adef16994fd297220e5cc96af4544dc"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-uncertain-183236-v1-20261028\\textbook-audit-pdf-scope.mjs",
+      "sha256": "4ed349d6db48eb4f5a8ff3893b6530050142aa6c7869efb2b3422539a7735239"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-uncertain-183236-v1-20261028\\textbook-audit-pdf-source-corrections.mjs",
+      "sha256": "b775bde390bf71b12bb3c14c6092f6ef89d888ce857ce39d6b8b142fcf7715cb"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-uncertain-183236-v1-20261028\\textbook-audit-tile-dictionary.mjs",
+      "sha256": "89f0c97421f5537f62cb8169f3f41ee6710a71dda3c137bf38e10d76bec2090b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-uncertain-183236-v1-20261028\\textbook-audit-web-batches.mjs",
+      "sha256": "9173fe4247ecc7fb77f07e996d6fb7746ec760b1c3c3224b5546d09946b861b9"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-uncertain-183236-v1-20261028\\textbook-audit-web-source.py",
+      "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-uncertain-183236-v1-20261028\\textbook-audit-web.mjs",
+      "sha256": "920c6b775430958d0b93cdf5ee31e15e474a23f9aba33422dbe36f8da01c0062"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-uncertain-183236-v1-20261028\\textbook-audit.mjs",
+      "sha256": "ba0dad26648fbe132731486eddf16c0c97a07b311c739ca8f74f4e6e34b8b4a1"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-uncertain-183236-v1-20261028\\textbook-production-cli.mjs",
+      "sha256": "773b63a2b7e1cd525f45278f2565487b5916b8775d935c7af7001195b1403860"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-uncertain-183236-v1-20261028\\textbook-production-web-present.py",
+      "sha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-uncertain-183236-v1-20261028\\textbook-production-web-visual.py",
+      "sha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-uncertain-183236-v1-20261028\\textbook-production-web.mjs",
+      "sha256": "1dd367f57ab5ec127152136141d343efa836486b01ddde8aff7c7cb3046ef57e"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter04-section015\\source.json",
+      "sha256": "bece7c97b81c5ba283582cd1568404e8fb490ed1d5484267e6e7915785d1d93c",
+      "bytes": 10906
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section015.display.json",
+      "sha256": "51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0",
+      "bytes": 13799
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section015.51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0.json",
+      "sha256": "bf1af08a08d0be94dbe71415fa4bd808d1831cc8d6cc6b08f7672f5c0357daa9",
+      "bytes": 10725
+    },
+    {
+      "path": "web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json",
+      "sha256": "c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\raw-calls\\af6736b8-f6b8-4b9a-a4ba-d0eac0860487.json",
+      "sha256": "0eb0f57189e1dd98e7384f2ecfddb38618e65fd3fd60d4fb7f49e1ae409eca31"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\03f3dc72-6119-4ef8-a813-5cc9685e9f82.json",
+      "sha256": "4a0c5223ef7fea12502e2217981a21ce49c2c583befd739060b78588b0619288"
+    }
+  ],
+  "jointExclusion": {
+    "at": "2026-10-27T19:05:55.085120+00:00",
+    "chapterId": "nemata-jp-chapter-236-1",
+    "sourceId": "modern-yabejp-ja",
+    "articleId": "chapter04-section015",
+    "registerSha256": "a3f67db91a66a8f19a76871d10b694da269d5e9476bd957775ae27d78b48da66",
+    "previewSha256": "18252fe986a3219b3ca59c21809bc806adaf98d311007c9a0116e8de4b7312f5",
+    "registerRow": {
+      "chapterId": "nemata-jp-chapter-236-1",
+      "originalChapterId": "nemata-jp-chapter-236-1",
+      "sourceId": "nemata-jp",
+      "title": "飛び寸前の局面",
+      "units": 1,
+      "ownedSourceBlocks": 23,
+      "adjudicationGroup": "confirmed-produced-not-covered",
+      "covered": false,
+      "coverageRoute": null,
+      "approvedWebCorrespondence": {
+        "articleId": "chapter04-section015",
+        "webSourceId": "modern-yabejp-ja",
+        "tier": "url-header",
+        "evidencePath": "integration/modern-pdf-url-coverage.json",
+        "substitutionAllowed": true,
+        "bodyEquivalenceConfirmed": false,
+        "articleInPreview": false
+      },
+      "existingCandidate": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section015.display.json",
+        "sha256": "51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0",
+        "bodyBlocks": 4,
+        "sourceSha256": "bece7c97b81c5ba283582cd1568404e8fb490ed1d5484267e6e7915785d1d93c",
+        "currentSourceSha256": "bece7c97b81c5ba283582cd1568404e8fb490ed1d5484267e6e7915785d1d93c",
+        "sourceBoundCurrent": true,
+        "auditStatus": "needs-repair",
+        "auditPath": "audit/web/articles/modern-yabejp-ja/chapter04-section015.51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0.json",
+        "auditRecordedAt": "2026-10-25T16:04:02.974Z",
+        "deterministicPassed": true,
+        "semanticComplete": false
+      },
+      "pdfRoute": {
+        "pagesTotal": 1,
+        "pagesWithCandidate": 0,
+        "pagesWithPassedCandidate": 0,
+        "missingPassedPages": [
+          236
+        ],
+        "pagesDetail": [
+          {
+            "page": 236,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 23
+          }
+        ]
+      },
+      "gaps": {
+        "ownedSourceBlocks": 23,
+        "missingProductionBlocks": 0,
+        "producedBlocks": 23,
+        "acceptedBlocks": 0,
+        "acceptanceGapBlocks": 23,
+        "acceptanceGapPages": [
+          236
+        ],
+        "pagesWithoutCandidate": [],
+        "pagesWithoutPassedCandidate": [
+          236
+        ]
+      },
+      "verdict": "produced-needs-repair",
+      "coac246": {
+        "action": "repair",
+        "auditStatus": "needs-repair",
+        "candidateSha256": "51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0",
+        "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter04-section015.display.json",
+        "repairErrors": 3,
+        "units": 1,
+        "blocks": 23
+      }
+    },
+    "selectedWeb": [],
+    "selectedPdf": [],
+    "boundPassedAlternatives": [],
+    "claim": {
+      "ok": true,
+      "action": "check-chapter",
+      "chapter": "nemata-jp-chapter-236-1",
+      "held": false
+    },
+    "existingCandidateNames": [
+      "chapter04-section015.display.json"
+    ],
+    "priorCallIds": [
+      "33524f52-a6fb-4af4-b247-7d9be9cd0b8c",
+      "af6736b8-f6b8-4b9a-a4ba-d0eac0860487"
+    ]
+  },
+  "args": [
+    "E:/IDE/NodeJS/node.exe",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-uncertain-183236-v1-20261028\\textbook-production-web.mjs",
+    "--source",
+    "web-sources/v1/modern-yabejp-ja/articles/chapter04-section015/source.json",
+    "--revision-from",
+    "web-production/v1/candidates/modern-yabejp-ja/chapter04-section015.display.json",
+    "--revision-notes",
+    "audit/web/articles/modern-yabejp-ja/chapter04-section015.51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0.json",
+    "--dictionary",
+    "web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json",
+    "--variant",
+    "coac244closure236"
+  ],
+  "modelCalls": 0,
+  "exitCode": 0,
+  "stdout": "{\"preflightPassed\":true,\"sourceId\":\"modern-yabejp-ja\",\"articleId\":\"chapter04-section015\",\"sourceBlocks\":4,\"textBlocks\":4,\"figureRuns\":0,\"pendingFigureRuns\":0,\"imageOccurrences\":0,\"modelCalls\":0}\n",
+  "stderr": ""
+}
