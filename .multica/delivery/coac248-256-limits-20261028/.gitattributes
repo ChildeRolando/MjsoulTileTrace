@@ -1,4 +1,5 @@
 *.json -text whitespace=cr-at-eol
 *.py text eol=lf
 *.mjs text eol=lf
+*.html -text
 evidence/** -text whitespace=cr-at-eol
