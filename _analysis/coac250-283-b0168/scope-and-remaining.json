@@ -1,0 +1,157 @@
+{
+  "chapterId": "nemata-jp-chapter-283-1",
+  "targetId": "modern-yabejp-ja:chapter06-exercise003:b0168",
+  "acceptedCandidateSha256": "b2417de19a50ec85609f75a4e07f07e002cf636785e1427948c06000a0967c2f",
+  "targetStatus": "passed",
+  "targetOnly": true,
+  "wholeChapterStatus": "needs-repair",
+  "chapterAccepted": false,
+  "onlyPermittedDiff": {
+    "before": "摸到后再改为③即可，（由于摸入宝牌",
+    "after": "摸到后再改为③即可，（由于摸入宝牌或"
+  },
+  "unchangedBlocks": 1194,
+  "unchangedFigures": 524,
+  "deferredOriginalIssues": [
+    {
+      "batchId": "chapter06-exercise003-batch-001",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0099",
+      "severity": "uncertain",
+      "issueSha256": "ebc185ca1cdb9cbc960fa244aebb327c614eff2de9a32a2fdb4d40e005b8ffa3",
+      "reason": "outside b0168-only authorization; retained unchanged"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-003",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]",
+      "severity": "error",
+      "issueSha256": "436b899a4562361e876abd0136d9f0c088c05b492e22fcea94b73467389a3886",
+      "reason": "outside b0168-only authorization; retained unchanged"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-003",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[189]/table[21]",
+      "severity": "error",
+      "issueSha256": "e64b38ad0f1b35a0ac42e77cf1ef7ffad33588f0a918885a180bed0798c7328d",
+      "reason": "outside b0168-only authorization; retained unchanged"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-003",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[209]/table[21]",
+      "severity": "error",
+      "issueSha256": "c0e2e07e9a0ec7f3e18a2eaac002025b3f3a82b50d42dfc335892dd0dc5bd880",
+      "reason": "outside b0168-only authorization; retained unchanged"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-004",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0396",
+      "severity": "error",
+      "issueSha256": "c31ac57262de40b3b035f3ad062b6e050c86743e2fcf567011600a655baeacf6",
+      "reason": "outside b0168-only authorization; retained unchanged"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-005",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0502",
+      "severity": "error",
+      "issueSha256": "ef68b9277f648ef0096cf407ca8857af8c420ba28d2032aab215eea2540061e4",
+      "reason": "outside b0168-only authorization; retained unchanged"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-006",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+      "severity": "error",
+      "issueSha256": "99d6ea21d837d54dd3d9520de49feb7ef6c39a722257fac5088c2951738354cf",
+      "reason": "outside b0168-only authorization; retained unchanged"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-007",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+      "severity": "error",
+      "issueSha256": "feed6d512d4fec8d15f46265c3473629c7553adb1adeff4fece490eadfac4acb",
+      "reason": "outside b0168-only authorization; retained unchanged"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-007",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+      "severity": "error",
+      "issueSha256": "20d6f61af624a83fef7882e3fd9da39449b16b4c92edff67f3fd9134fe66d085",
+      "reason": "outside b0168-only authorization; retained unchanged"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-007",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+      "severity": "uncertain",
+      "issueSha256": "d3c5278fc47e6d40b97380a3386e039632af2ad3b4eb806f7113e3ef708de019",
+      "reason": "outside b0168-only authorization; retained unchanged"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-008",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[505]/table[23]",
+      "severity": "error",
+      "issueSha256": "6eefa362aa4eff0b8a6c01124327671789207b6fc7fa45d8a7f6a08f74953c54",
+      "reason": "outside b0168-only authorization; retained unchanged"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-009",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+      "severity": "error",
+      "issueSha256": "e6be649aaee9e4da2c0e399415841c68d7923ce7f186151584a2b7c346d2ae89",
+      "reason": "outside b0168-only authorization; retained unchanged"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-009",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+      "severity": "uncertain",
+      "issueSha256": "6cd3acb48f43e89ddeb0fb6401683764e4be22e446d99b8e8d47171339b8c21c",
+      "reason": "outside b0168-only authorization; retained unchanged"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-009",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0962",
+      "severity": "error",
+      "issueSha256": "1d779179f2e8f5fdee2c3b4ec9f6998e5016876e0714ccd447aab3c8f9260eab",
+      "reason": "outside b0168-only authorization; retained unchanged"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-009",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b1017",
+      "severity": "error",
+      "issueSha256": "6073a735d8306cdca382542f31cdb1359d2af7c8d8a7ff93caf8dfc5c496dc3d",
+      "reason": "outside b0168-only authorization; retained unchanged"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-011",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b1181",
+      "severity": "error",
+      "issueSha256": "a9f6001a46e729e44587190fbffd36f7e9cd9b0762f898cbf9f27517c4df6b8f",
+      "reason": "outside b0168-only authorization; retained unchanged"
+    }
+  ],
+  "inheritedBatch010": {
+    "status": "passed",
+    "blocks": 113,
+    "checkpoint": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-010.json",
+      "sha256": "0f7ba48598f4f46d5d0bc1de613a288633346559ee3ce089d6f0accb699646aa"
+    }
+  },
+  "separateTableBranch": {
+    "registration": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-283-six-table-evidence-intake-20261028.json",
+    "candidate": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.rev1.json",
+      "sha256": "dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899",
+      "bytes": 2169759
+    },
+    "receipt": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-283-tables-20261028\\receipt.json",
+      "sha256": "68f0a463533b01b57b242daaa9d42124e8e5a527f889350a64fad03aec86809b"
+    },
+    "raw": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\f5141a65-3fce-47c3-8a94-a0a9a2c9a528.json",
+      "sha256": "f8b6039206d68c70cfeb27d244d2dce557ab3f11d6f70ff44b2160359b2e0864"
+    },
+    "status": "registered-target-tables-only",
+    "mergedIntoThisCandidate": false,
+    "existingEvidenceRetained": true
+  },
+  "remainingAction": "Existing chapter owner reconciles exact checkpoint evidence and separately bound table supplement; no complete chapter acceptance or new model/production authorization. Keep deferred parent findings and branch identities intact."
+}
