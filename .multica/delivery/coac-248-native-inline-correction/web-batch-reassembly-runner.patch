@@ -1,0 +1,11 @@
+--- web-production/v1/runs/modern-complete-batches-v2/timeout-recovery-runner-20261026/textbook-production-web.mjs	2026-10-26 04:40:44.664593700 +0800
++++ web-production/v1/runs/modern-batch-reassembly-20261027/frozen-runner/textbook-production-web.mjs	2026-10-27 11:11:16.191859400 +0800
+@@ -161,7 +161,7 @@
+  const translated=call.output.translations;if(!Array.isArray(translated)||translated.length!==ids.length||new Set(translated.map(t=>t.sourceBlockId)).size!==ids.length||ids.some(id=>!translated.some(t=>t.sourceBlockId===id)))throw Error('web_translation_block_coverage_failed_raw_preserved');
+  const byId=new Map(translated.map(t=>[t.sourceBlockId,t.text]));for(const b of textBlocks)b.text=byId.get(b.sourceBlockIds[0]);
+  const outputs=call.output.figures;if(!Array.isArray(outputs)||outputs.length!==figureIds.length||new Set(outputs.map(f=>f.sourceBlockId)).size!==figureIds.length||figureIds.some(id=>!outputs.some(f=>f.sourceBlockId===id)))throw Error('web_figure_block_coverage_failed_raw_preserved');
+- for(const figure of pendingFigures){const item=outputs.find(f=>f.sourceBlockId===figure.sourceBlockIds[0]);for(const k of ['kind','transcription','unknowns','caption','sourceNotes'])figure[k]=item[k];figure.provenance={method:'model-transcription',callId,outputSourceBlockId:figure.sourceBlockIds[0]};}
++ for(const figure of pendingFigures){const item=outputs.find(f=>f.sourceBlockId===figure.sourceBlockIds[0]);for(const k of ['kind','transcription','unknowns','caption','sourceNotes'])figure[k]=item[k];figure.provenance={method:'model-transcription',callId:record.callId,outputSourceBlockId:figure.sourceBlockIds[0]};}
+ }
+ }
+ if(batchPlan)usage=batchHelpers.summarizeWebBatchUsage(attempts).usage;

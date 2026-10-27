@@ -1,0 +1,260 @@
+{
+  "schema": "coac-248-round-record/1",
+  "recordedAt": "2026-10-27T03:45:00Z",
+  "round": "2026-10-27T03:00-03:45Z",
+  "register": {
+    "path": "integration/coac250-unified-chapter-register-20261027b.json",
+    "sha256": "0294cb22e36ee7ffa076e8c3795528542b2c84e4224690729dc6004d14926588",
+    "recordedAt": "2026-10-27T02:48:58.033Z",
+    "status": "current chapter-level truth; supersedes the 20261027 register (e5a6bf89) only in the 130-1/303-1 staging rows"
+  },
+  "listCorrections": [
+    {
+      "objectId": "nemata-jp-chapter-303-1",
+      "correction": "was carried as a separate failed object; COAC-249's real retry review passed and COAC-250 staged it into the accepted preview at 02:48:58Z, so it is no longer written as failed or not retried",
+      "receiptPath": "audit/web/articles/modern-yabejp-ja/chapter06-exercise004.736810e43a8a94084c6d9c7c2d63f91654a50f236ece06753bc75713918319eb.retry-1793067200166-6d2dc122.json",
+      "receiptStatus": "passed",
+      "receiptRecordedAt": "2026-10-27T02:13:20.167Z",
+      "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter06-exercise004.display.json",
+      "candidateSha256": "736810e43a8a94084c6d9c7c2d63f91654a50f236ece06753bc75713918319eb",
+      "candidateGroupReviews": 4,
+      "stagedIntoPreview": true
+    },
+    {
+      "objectId": "nemata-jp-chapter-283-1",
+      "correction": "kept separate, but no longer 'failed, do not retry': the failure was a dangling figure provenance callId, reassembled deterministically from the stored batch outputs",
+      "route": "deterministic batch reassembly"
+    }
+  ],
+  "resolved": [
+    {
+      "objectId": "web-chapter:nemata-jp-chapter-131-1",
+      "chapterId": "nemata-jp-chapter-131-1",
+      "kind": "web-article",
+      "articleId": "chapter01-section049",
+      "parentCandidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section049.display.json",
+      "parentCandidateSha256": "470217d79cd1acd28f234a1e691d4d950ae99d0c0463e6bd0211561c95de28ac",
+      "parentAuditPath": "audit/web/articles/modern-yabejp-ja/chapter01-section049.470217d79cd1acd28f234a1e691d4d950ae99d0c0463e6bd0211561c95de28ac.json",
+      "repairedCandidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section049.rev1.json",
+      "repairedCandidateSha256": "20e84a64d9ea6526ceea7395131bf96825133244b84d41c9ef0bd0f94799be33",
+      "auditPath": "audit/web/articles/modern-yabejp-ja/chapter01-section049.20e84a64d9ea6526ceea7395131bf96825133244b84d41c9ef0bd0f94799be33.json",
+      "auditSha256": "c01d42255cc5e9ad4d1be4fd26ecca9a887e022b26b04220d5b1a7392b976c50",
+      "auditStatus": "passed",
+      "auditMethod": "independent-target-text-review-plus-unchanged-parent-audit",
+      "changed": {
+        "blockId": "modern-yabejp-ja:chapter01-section049:b0123",
+        "from": "。（因为有断幺九，所以失去七对子的可能性也不太令人介意。）",
+        "to": "。（因为有断幺九，所以七对子方面的损失也不太令人介意。）"
+      },
+      "productionCall": {
+        "callId": "1acba577-b79c-4181-8abb-7c2016774368",
+        "usage": {
+          "inputTokens": 11747,
+          "cachedInputTokens": 0,
+          "outputTokens": 125
+        }
+      },
+      "auditCall": {
+        "callId": "311372d6-137b-4d01-8792-6e976d157b4b",
+        "usage": {
+          "inputTokens": 13087,
+          "cachedInputTokens": 0,
+          "outputTokens": 311
+        }
+      },
+      "sourceGate": {
+        "resolution": "not a blocker on the bound source; the failed asset belongs to the superseded v1 capture",
+        "boundSourcePath": "web-sources/v1/modern-yabejp-ja/articles/chapter01-section049/source.v2.json",
+        "boundSourceSha256": "a463edd2bf6d41428d46be506a60cf27615b2bd7c698b16dd39ced7ee30968bd",
+        "assets": "34/34 downloaded",
+        "status": "captured-not-translated-or-audited",
+        "independentSourceCheck": "passed, 0 errors, 34 unique assets, 96 text blocks, 70 image runs",
+        "selectionRecord": "integration/modern-current-source-selection.json picks source.v2.json with reason 'explicit preserved tracking-only source revision'",
+        "nonContentAsset": {
+          "assetId": "modern-yabejp-ja:d2581cf81efbb0a5ec3d5bd4",
+          "url": "http://www.assoc-amazon.jp/e/ir?t=yabe0b-22&l=as2&o=9&a=4061497650",
+          "classification": "explicit-amazon-affiliate-tracking-pixel-1x1-empty-alt",
+          "evidence": "v2 records it in ignoredPlaceholders with 1x1 width/height and empty alt; the independent source checker accepts exactly that record and refuses any other missing image",
+          "originalHtmlPreserved": true
+        },
+        "notExempted": "no tracking address was requested, no tile image was exempted, and the global source gate was not changed"
+      }
+    },
+    {
+      "objectId": "web-chapter:nemata-jp-chapter-116-1",
+      "chapterId": "nemata-jp-chapter-116-1",
+      "kind": "web-article",
+      "articleId": "chapter01-section041",
+      "parentCandidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section041.display.json",
+      "parentCandidateSha256": "6f251511ec5d8b18a4c5cce3ef41bd4a92f8b3edff1b1dee112e2f3a2bba8035",
+      "parentAudit": null,
+      "repairedCandidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section041.rev3.json",
+      "repairedCandidateSha256": "6d5fd5aef0b8e6a1cb926b89a485488e7669ad98119201a1fe5ef5a2a86e9e46",
+      "auditPath": "audit/web/articles/modern-yabejp-ja/chapter01-section041.6d5fd5aef0b8e6a1cb926b89a485488e7669ad98119201a1fe5ef5a2a86e9e46.json",
+      "auditSha256": "c159f335c2e28759dfed271bd8631d1c8e7d20fa3d269b3247e12798e3b7d1ad",
+      "auditStatus": "passed",
+      "auditMethod": "independent-sol-high-full-article-review",
+      "auditCall": {
+        "callId": "b5e586b7-cece-4dae-a9f1-d0b804d29dfb",
+        "usage": {
+          "inputTokens": 37266,
+          "cachedInputTokens": 0,
+          "outputTokens": 9199
+        }
+      },
+      "firstRevisionChain": {
+        "evidencePath": "audit/source-corrections/web-first-revision/chapter01-section041.deterministic-rejection.json",
+        "evidenceSha256": "4d7d156ffb5e63a29b00257f7e4678b38cd81aefa20a4c2800fe96092f531a7c",
+        "rejection": "web_translation_placeholder:modern-yabejp-ja:chapter01-section041:b0016, reproduced by the auditor from the parent bytes with 0 model calls",
+        "parentProductionCall": "13adea8d-c673-4bb6-9d03-c11e5665099c (verified from the stored raw; not a fabricated audit)",
+        "noParentAuditClaim": true,
+        "runtime": "audit/runtimes/web-first-revision-20261027 (textbook-audit-web.mjs sha 5f15bea7a84e858372e245332c25f21e345905a9d22f70d144446e2b57d99885)",
+        "runner": "web-production/v1/runs/modern-first-revision-116-1/frozen-runner/textbook-production-web.mjs sha c14728654b0b547046003b0a16975f702721f67c805d5bd3642b425a7ef4ddb2",
+        "scope": "only b0016 was re-translated; the other 46 text blocks and all 29 figures are byte-identical to the parent and were reviewed by the real first full audit",
+        "auditScopeChange": "the auditor treats provenance.revision.firstRevision as 'no parent review exists': it verifies the parent's stored production call and presentation instead, and runs a complete first review instead of a target-text review"
+      },
+      "attempts": [
+        {
+          "callId": "a4cac35d-d51d-4dbf-a83b-a746d9a999ee",
+          "outcome": "transport failure (workspace routing discovery timed out); raw preserved, no output",
+          "usage": null
+        },
+        {
+          "candidate": "rev1",
+          "sha256": "c5dda3d6d4c953b04c66d57675db7b393f8e4ec266126fb5b50c02c322a84cc5",
+          "callId": "dc3d8773-59d6-4f68-af17-5f3ec67a1270",
+          "usage": {
+            "inputTokens": 11821,
+            "cachedInputTokens": 0,
+            "outputTokens": 79
+          },
+          "outcome": "the model returned the identical faithful shorthand; the gate still refuses it, so this is not the passing candidate"
+        },
+        {
+          "candidate": "rev2",
+          "sha256": "359df5f88051ce4116281728e7a0dbb58adbd1387796967839e234f8067179a7",
+          "callId": "75181f81-e898-4c89-91fc-548180f57a90",
+          "usage": {
+            "inputTokens": 11861,
+            "cachedInputTokens": 0,
+            "outputTokens": 252
+          },
+          "outcome": "restated the neighbouring item's note; rejected as duplication before audit"
+        },
+        {
+          "candidate": "rev3",
+          "sha256": "6d5fd5aef0b8e6a1cb926b89a485488e7669ad98119201a1fe5ef5a2a86e9e46",
+          "callId": "08824341-671f-47e0-8b11-148bfd6fd698",
+          "usage": {
+            "inputTokens": 11879,
+            "cachedInputTokens": 0,
+            "outputTokens": 273
+          },
+          "outcome": "passed the full first independent audit"
+        }
+      ],
+      "changed": {
+        "blockId": "modern-yabejp-ja:chapter01-section041:b0016",
+        "sourceText": "イッツー（同上）",
+        "from": "*一气通贯（同上）*",
+        "to": "*一气通贯，所需步数与前项相同*"
+      }
+    },
+    {
+      "objectId": "web-failed:chapter06-exercise003",
+      "chapterId": "nemata-jp-chapter-283-1",
+      "kind": "web-article-reassembly",
+      "articleId": "chapter06-exercise003",
+      "parentCandidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter06-exercise003.display.json",
+      "parentCandidateSha256": "fcde9f00cb9433bb5dec6a47d688ea7abb0c919c0aa2dac3012fd080d32a5893",
+      "reassembledCandidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter06-exercise003.rev1.json",
+      "reassembledCandidateSha256": "dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899",
+      "internalCandidateSha256": "da8973f02969e0ed080159fd83c6fc5c28c3f507706c402b4bca5ac2d6e81fd8",
+      "repair": {
+        "figure": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+        "field": "provenance.callId",
+        "from": "8b122484-82db-4a79-a3e3-4202d0f72ade (no raw call exists anywhere in the data root)",
+        "to": "d43a772e-04c1-4b41-8218-e5b5aaf89759",
+        "evidence": "the d43a772e batch raw's parsedOutput figure for b0785 is byte-identical to the candidate's transcription, unknowns and caption; no call was invented and nothing was regenerated"
+      },
+      "method": "one-line frozen-runner correction (a resumed batch checkpoint binds record.callId to figure provenance) plus a deterministic re-run that resumed all 11 stored batch checkpoints",
+      "runner": {
+        "path": "web-production/v1/runs/modern-batch-reassembly-20261027/frozen-runner/textbook-production-web.mjs",
+        "sha256": "2f4e9fb0027548d40b11abc062b3fa0cd856571344bd672e55398475a9a86216",
+        "patch": "figure.provenance.callId -> record.callId"
+      },
+      "newModelCalls": 0,
+      "assemblyVerification": "verifyWebProductionCall -> all-complete-unit-production-calls-verified with visual inputs, 0 model calls",
+      "audit": {
+        "status": "in-progress-batch-audit",
+        "groupsTotal": 11,
+        "groupsReviewed": 2,
+        "groupReceipts": [
+          {
+            "batchId": "chapter06-exercise003-batch-001",
+            "callId": "7a9473ef-c442-4bad-b7cf-979697c88c47",
+            "status": "needs-repair",
+            "usage": {
+              "inputTokens": 59015,
+              "cachedInputTokens": 0,
+              "outputTokens": 13564
+            },
+            "issues": [
+              {
+                "severity": "uncertain",
+                "targetId": "modern-yabejp-ja:chapter06-exercise003:b0099",
+                "detail": "the external-link text is faithful; the complete board for question 8 is not determinable inside this group, which is not a confirmed omission"
+              }
+            ]
+          },
+          {
+            "batchId": "chapter06-exercise003-batch-002",
+            "callId": "505b780c-d772-40fc-b063-cba607468bdb",
+            "status": "needs-repair",
+            "usage": {
+              "inputTokens": 62054,
+              "cachedInputTokens": 0,
+              "outputTokens": 14166
+            },
+            "issues": [
+              {
+                "severity": "error",
+                "targetId": "modern-yabejp-ja:chapter06-exercise003:b0168",
+                "detail": "the candidate's 「（由于摸入宝牌」 runs straight into the 4s figure, reading as 「摸入宝牌四索」 and dropping the separate condition that the drawn dora is north"
+              }
+            ]
+          }
+        ],
+        "suspendedBecause": "each group review takes about five minutes; the remaining nine groups lead the next batch and resume from the stored checkpoints with no repeated call"
+      }
+    }
+  ],
+  "realModelCallsThisRound": {
+    "production": 4,
+    "productionDetail": "131-1 one; 116-1 rev1, rev2 and rev3 three; one transport failure (a4cac35d) produced no output and is not a generated candidate",
+    "audit": 3,
+    "auditDetail": "131-1 target-text one; 116-1 full-first one; 283-1 group reviews two",
+    "total": 7
+  },
+  "listCounts": {
+    "needsRepairBefore": 57,
+    "needsRepairAfter": 55,
+    "resolvedThisRound": [
+      "nemata-jp-chapter-131-1",
+      "nemata-jp-chapter-116-1"
+    ],
+    "passedAwaiting250": [
+      "nemata-jp-chapter-131-1 (chapter01-section049 rev1)",
+      "nemata-jp-chapter-116-1 (chapter01-section041 rev3)"
+    ],
+    "stillSeparate": [
+      "nemata-jp-chapter-283-1 (assembly fixed, batch audit 2/11)"
+    ]
+  },
+  "nextBatch": [
+    "finish the 283-1 batch audit (9 groups, resumable, 0 repeated calls)",
+    "targeted revision for b0168 and a bounded disposition for b0099 once the whole issue set is known",
+    "one or two further web chapters that already have a parent audit: 211-1 (2 issues), and 027-1 / 127-1 / 142-1 / 173-1 / 174-1 / 187-1 / 198-1 / 201-1 / 215-4 / 227-1 / 236-1 / 246-1 / 347-1 (3 issues each)",
+    "183-1 stays on the annotation decision hold; no body note is inserted before the wording is agreed"
+  ]
+}
