@@ -1,0 +1,13 @@
+继续 COAC-248 主线。先读本票最新评论、`.multica/delivery/coac-248-native-inline-correction/round-20261027T0530.json`、`unified-repair-list-20261027.json`、以及 `integration/coac250-incremental-211-1-173-1-20261027.json`。
+
+上轮（05:15–05:35Z）结果：
+- 227-1 passed：chapter04-section007 b0007「確和了」改为「通过和牌锁定当前名次」，候选 4e1c6ed3…，独审 353f10e8 passed（制作 f47c585e、审校各 1 次）。
+- 246-1 passed：chapter06-section002 b0070「３０秒以内」改为「不足30秒」，候选 bbf15bbd…，独审 6e90283c passed（制作 24994d5d）。
+- 211-1/173-1 已交 250：250 的 live run 已在 `coac250-5th-batch-preconsume-20261027.json` 中把 211-1、173-1、116-1 三项全部 allPassed 核过，无需再次唤醒。
+- 283-1 未新增任何制作/审校调用；6 项 tableContext 投影缺口已做零调用限定复核（`audit/web/adjudications/table-context-projection/chapter06-exercise003.table-context-limited-recheck-20261027.json`，94 个 figure 块全部与源相等），结论未改判。
+
+本轮任务：
+1. 从剩余 needs-repair 的 web 章里选 1–2 个已有父审、可用现行 revision 的，做定点 revision + 独立审校（优先小章：174-1、187-1、198-1、199-1、201-1、215-4、222-1；236-1 的单项是 uncertain，需先确认入口是否支持，不可绕过门禁）。
+2. 283-1 继续零调用；若用户在票内已裁决两条解锁路径，按裁决执行并保留旧 raw/回执/checkpoint，不重审 batch-010 通过组；未裁决则只推进其他章。
+3. 不重审已通过组、不修改旧 raw、不新增豁免；每轮前台有限批次，轮末再建下一批唤醒。
+4. 检查 250 是否已把 211-1/173-1 实际合入预览；若已合入，记录 pointer/corpusId 与 chapter id，不重复交接。

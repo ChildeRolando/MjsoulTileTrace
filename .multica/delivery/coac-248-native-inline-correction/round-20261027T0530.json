@@ -1,0 +1,78 @@
+{
+  "schema": "coac-248-round-record/1",
+  "recordedAt": "2026-10-27T05:34:05.914488+00:00",
+  "round": "2026-10-27T05:15-05:35Z",
+  "receipts": [
+    {
+      "chapterId": "nemata-jp-chapter-227-1",
+      "candidateSha256": "4e1c6ed36bef34ff0a9848ba8915f46b0422a9f71b611775f5ee7981292590d6",
+      "auditSha256": "b3b209a31ea5c0a78ae4dad7300959322472b5fae9f8d79fb17481849b225696"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-246-1",
+      "candidateSha256": "bbf15bbd1390a0b7ce729d5205a65dad72e0f24cb6c2fe1f9789aaaea26e1904",
+      "auditSha256": "8e573eb3a4500da4ff55dc6e5788616830cdbf61a1857fad7e3991f80f7dcd3b"
+    }
+  ],
+  "modelCalls": {
+    "production": 2,
+    "audit": 2,
+    "productionUsage": [
+      {
+        "inputTokens": 13194,
+        "cachedInputTokens": 0,
+        "outputTokens": 482
+      },
+      {
+        "inputTokens": 13144,
+        "cachedInputTokens": 0,
+        "outputTokens": 274
+      }
+    ],
+    "auditUsage": [
+      {
+        "inputTokens": 13681,
+        "cachedInputTokens": 0,
+        "outputTokens": 795
+      },
+      {
+        "inputTokens": 13768,
+        "cachedInputTokens": 0,
+        "outputTokens": 314
+      }
+    ],
+    "retries": 0,
+    "transportFailures": 0
+  },
+  "handoff250": {
+    "path": "integration/coac250-incremental-211-1-173-1-20261027.json",
+    "sha256": "24dd00a6b5994e382fada2074563971f417a5d60adadbdbac3504faf07309b32",
+    "chapters": [
+      "nemata-jp-chapter-211-1",
+      "nemata-jp-chapter-173-1"
+    ],
+    "delivery": "the rolling COAC-250 consumer run started by the owner handoff comment was still active, so the receipt was written for it and no second wakeup was fired"
+  },
+  "tableContextLimitedRecheck": {
+    "path": "audit/web/adjudications/table-context-projection/chapter06-exercise003.table-context-limited-recheck-20261027.json",
+    "sha256": "7a629aa3ef6a9d972808259ce45f97eb79f314033ea08062c438f92f9d3bee39",
+    "modelCalls": 0,
+    "totals": {
+      "findings": 6,
+      "figureBlocks": 94,
+      "candidateEqualSource": 94,
+      "candidateDifferent": 0
+    },
+    "verdictsUnchanged": true
+  },
+  "list": {
+    "path": ".multica/delivery/coac-248-native-inline-correction/unified-repair-list-20261027.json",
+    "sha256": "d2c95958b17f6a4c0547a544509de0336d0c6efea592b55666e6edc3c4b5ccee"
+  },
+  "stillOpen": {
+    "needsRepair": 53,
+    "decisionHold": 1,
+    "failedSeparate": 1,
+    "note": "two web chapters left the open set this round; 283-1 stays open with no new production or audit call"
+  }
+}

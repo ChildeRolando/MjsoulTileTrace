@@ -1,0 +1,64 @@
+{
+  "schema": "coac-248-web-revision-receipt/1",
+  "status": "passed",
+  "chapterId": "nemata-jp-chapter-227-1",
+  "articleId": "chapter04-section007",
+  "source": {
+    "path": "web-sources/v1/modern-yabejp-ja/articles/chapter04-section007/source.json",
+    "sha256": "c4357e17bac3e079bffc1f39f53c6d190a4d4597f1ecde07275d29fba5e53d5b"
+  },
+  "parent": {
+    "path": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section007.display.json",
+    "sha256": "b496daf315d5278e20aa81e233c156fad909add5efd97438acbbace5c6902740",
+    "auditPath": "audit/web/articles/modern-yabejp-ja/chapter04-section007.b496daf315d5278e20aa81e233c156fad909add5efd97438acbbace5c6902740.retry-1792992301748-11647458.json",
+    "auditSha256": "594ec4dfe289633fc3e0734a10241cbf924b64a4b4a2ce5b763e324a61ca1c9a",
+    "auditStatus": "needs-repair"
+  },
+  "candidate": {
+    "path": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section007.rev1.json",
+    "sha256": "4e1c6ed36bef34ff0a9848ba8915f46b0422a9f71b611775f5ee7981292590d6"
+  },
+  "audit": {
+    "path": "audit/web/articles/modern-yabejp-ja/chapter04-section007.4e1c6ed36bef34ff0a9848ba8915f46b0422a9f71b611775f5ee7981292590d6.json",
+    "sha256": "b3b209a31ea5c0a78ae4dad7300959322472b5fae9f8d79fb17481849b225696",
+    "status": "passed",
+    "method": "independent-target-text-review-plus-unchanged-parent-audit",
+    "recordedAt": "2026-10-27T05:24:25.519Z"
+  },
+  "change": {
+    "target": "modern-yabejp-ja:chapter04-section007:b0007",
+    "from_": "因此，选择确保和牌在名次期望值上更有利的情况，时常会出现。",
+    "to": "因此，选择通过和牌锁定当前名次，在名次期望值上更有利的情况也时常出现。",
+    "why": "確和了 is a win that locks the current placement (二確/三確 style), not a promise that a win will happen; 确保和牌 inverted the term",
+    "sourceEvidence": "source block b0007: 「確和了をした方が順位期待値上有利になるケースはしばしば現れます。」"
+  },
+  "unchanged": "the other 9 text blocks byte-identical; no figure runs in this article",
+  "presentation": "the revision candidate carries no presentationAsset; the display parent still serves the images",
+  "calls": {
+    "production": {
+      "callId": "f47c585e-cfc6-4450-a14b-f1bc95e13107",
+      "usage": {
+        "inputTokens": 13194,
+        "cachedInputTokens": 0,
+        "outputTokens": 482
+      }
+    },
+    "audit": {
+      "callId": "353f10e8-ecdf-4825-88d7-a3a4da715f83",
+      "usage": {
+        "inputTokens": 13681,
+        "cachedInputTokens": 0,
+        "outputTokens": 795
+      }
+    }
+  },
+  "modelChecks": {
+    "passed": true,
+    "errors": []
+  },
+  "effectiveModelChecks": {
+    "passed": true,
+    "errors": []
+  },
+  "verify": "ledger-level: candidate digest, receipt binding, parent/notes/source SHAs recomputed from disk in this round"
+}

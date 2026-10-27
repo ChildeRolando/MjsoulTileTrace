@@ -1,0 +1,64 @@
+{
+  "schema": "coac250-incremental-staging-receipt/1",
+  "recordedAt": "2026-10-27T05:20:41.010374+00:00",
+  "modelCalls": 0,
+  "productionCalls": 0,
+  "from_": "COAC-248",
+  "to": "COAC-250",
+  "before": {
+    "pointer": "accepted-content-preview-2026-10-27T04-01-46-235Z",
+    "chapters": 201,
+    "units": 209,
+    "selectedWeb": 172,
+    "pendingWeb": 51
+  },
+  "chapters": [
+    {
+      "chapterId": "nemata-jp-chapter-211-1",
+      "articleId": "chapter03-section024",
+      "sourcePath": "web-sources/v1/modern-yabejp-ja/articles/chapter03-section024/source.json",
+      "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section024.display.json",
+      "parentSha256": "692318b73842236f227a8a60a303c6286f106f229a68288842d0644cada1a38c",
+      "parentAuditPath": "audit/web/articles/modern-yabejp-ja/chapter03-section024.692318b73842236f227a8a60a303c6286f106f229a68288842d0644cada1a38c.retry-1792989999048-fe8fc2f0.json",
+      "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section024.rev1.json",
+      "candidateSha256": "643cc5850bc62f76e02c5efca69466cefb8f995a48f05dfc41f12829ec196eba",
+      "auditPath": "audit/web/articles/modern-yabejp-ja/chapter03-section024.643cc5850bc62f76e02c5efca69466cefb8f995a48f05dfc41f12829ec196eba.json",
+      "auditSha256": "e52ca57e40973e50dca0420b40e665dd50b4e784983b78d6f3c7b00f06563073",
+      "previewChapterId": "modern-yabejp-ja-chapter03-section024-chapter",
+      "productionCallId": "df49cf06-a2d7-43a8-8500-170fa2059cb4",
+      "auditCallId": "d3e42423-e17c-4f2e-a8bf-a7e9a42b516a",
+      "changed": "modern-yabejp-ja:chapter03-section024:b0039 (emphasis span restored over the source emphasis clause); other 27 text blocks and all 20 figures are byte-identical",
+      "sourceSha256": "dd48007d553888bed502a78d5439905cb5b4f9a8d746c67b0f9e28f6b8cb2329",
+      "parentAuditSha256": "8ced42b7f8145c352ed28ca0ac0dfec8e00fe5b2153c0c516053960066d983ee",
+      "auditStatus": "passed",
+      "auditMethod": "independent target-text review on the revision candidate; unchanged parent blocks and figures carry the parent receipt",
+      "dedupe": "absent from accepted-content-preview-2026-10-27T04-01-46-235Z; both still listed in pendingWeb as web_audit_not_passed_or_inputs_changed"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-173-1",
+      "articleId": "chapter02-section023",
+      "sourcePath": "web-sources/v1/modern-yabejp-ja/articles/chapter02-section023/source.json",
+      "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter02-section023.display.json",
+      "parentSha256": "a1c2a38bd361b38fad47680a4ebcf2fed77b0d933f47fb400e5f7b7259b22ef5",
+      "parentAuditPath": "audit/web/articles/modern-yabejp-ja/chapter02-section023.a1c2a38bd361b38fad47680a4ebcf2fed77b0d933f47fb400e5f7b7259b22ef5.retry-1792975494558-0e383e0d.json",
+      "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter02-section023.rev1.json",
+      "candidateSha256": "098459b6cfb390423774251152486801538839a95d5b39c10a0a5fe133b69cd3",
+      "auditPath": "audit/web/articles/modern-yabejp-ja/chapter02-section023.098459b6cfb390423774251152486801538839a95d5b39c10a0a5fe133b69cd3.retry-1793074518139-c3b705f3.json",
+      "auditSha256": "28f117371b0fcd08f8fb696e33c81c3fd8be2ff693f369b39e70d2ed1b869678",
+      "previewChapterId": "modern-yabejp-ja-chapter02-section023-chapter",
+      "productionCallId": "84523d8a-1626-4b62-b99e-50995f0370e3",
+      "auditCallId": "8f4cc075-9d2a-44b1-99f4-7b8ac5154557",
+      "changed": "modern-yabejp-ja:chapter02-section023:b0004 (シャンテン read as 一向听); other 4 blocks unchanged",
+      "sourceSha256": "8efe3de13959b6dd7cae70eabc8608efe67bb5544d3729a9991d7082b2d2a2bb",
+      "parentAuditSha256": "beda2be1ab3db4611bca0e55c5c1ae6f11697f08c9775873ccf3519b4856ef46",
+      "auditStatus": "passed",
+      "auditMethod": "independent target-text review on the revision candidate; unchanged parent blocks and figures carry the parent receipt",
+      "dedupe": "absent from accepted-content-preview-2026-10-27T04-01-46-235Z; both still listed in pendingWeb as web_audit_not_passed_or_inputs_changed"
+    }
+  ],
+  "consume": "stage both chapters against their own candidate/audit/source SHAs; the presentation chain still resolves through the parent display candidate because the revision candidate differs only in its target text blocks",
+  "notes": {
+    "modelCallsThisReceipt": 0,
+    "preservation": "parent candidate, parent receipt, revision receipt and every raw call untouched; the two revision candidates are the only new files"
+  }
+}
